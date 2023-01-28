@@ -149,7 +149,7 @@ c.execute("""CREATE TABLE dpd (
 
 dpd = pd.read_csv("../csvs/dpd-full.csv", sep="\t", dtype="str")
 dpd.fillna("", inplace=True)
-dpd.to_sql('dpd', conn, if_exists='append', index=True, index_label="ID")
+dpd.to_sql('dpd', conn, if_exists='append', index=False)
 
 c.execute("""ALTER TABLE dpd RENAME COLUMN "ID" TO id""")
 c.execute("""ALTER TABLE dpd RENAME COLUMN "Pāli1" TO pali1""")

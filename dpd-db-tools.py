@@ -1,17 +1,31 @@
 import sqlite3
+import re
 
 
 class DpdDbTools:
-	def __init__(self, location):
-		self.conn = sqlite3.connect(location)
+	def __init__(self, db_file):
+		self.conn = sqlite3.connect(db_file)
 		self.c = self.conn.cursor()
 
-	def fetch_all(self):
+	def fetch_pali(self):
 		self.c.execute("""SELECT * FROM dpd LEFT JOIN roots ON dpd.root = roots.root""")
 		self.fetchall = self.c.fetchall()
 		return self.fetchall
 
-	class RowData:
+	def fetch_roots(self):
+		self.c.execute("""SELECT * FROM roots""")
+		self.fetchall = self.c.fetchall()
+		return self.fetchall
+
+	def update_root_count(self):
+		self.c.execute(
+			"UPDATE roots SET root_counter = (SELECT COUNT(*) FROM dpd WHERE root = roots.root)")
+		self.conn.commit()
+
+	def close(self):
+		self.conn.close()
+
+	class PaliRow:
 		def __init__(self, row):
 			self.id = row[0]
 			self.pali1 = row[1]
@@ -86,10 +100,57 @@ class DpdDbTools:
 			self.note = row[70]
 			self.matrix_test = row[71]
 
-db_location = "./dpd.db"
-db = DpdDbTools(db_location)
-fetchall = db.fetch_all()
 
-for data_row in fetchall:
-	w = db.RowData(data_row)
-	print(f"{w.id} {w.pali1}")
+	class RootRow:
+		def __init__(self, row):
+			self.root_counter = row[0]
+			self.root = row[1]
+			self.root_clean = re.sub(" \\d.*$", "", self.root)
+			self.root_in_comps = row[2]
+			self.root_has_verb = row[3]
+			self.root_group = row[4]
+			self.root_sign = row[5]
+			self.root_base = row[6]
+			self.root_meaning = row[7]
+			self.sanskrit_root = row[8]
+			self.sanskrit__root_meaning = row[9]
+			self.sanskrit__root_class = row[10]
+			self.root_example = row[11]
+			self.dhatupatha_num = row[12]
+			self.dhatupatha_root = row[13]
+			self.dhatupatha_pali = row[14]
+			self.dhatupatha_english = row[15]
+			self.dhatumanjusa_num = row[16]
+			self.dhatumanjusa_root = row[17]
+			self.dhatumanjusa_pali = row[18]
+			self.dhatumanjusa_english = row[19]
+			self.dhatumala_root = row[20]
+			self.dhatumala_pali = row[21]
+			self.dhatumala_english = row[22]
+			self.panini_root = row[23]
+			self.panini_sanskrit = row[24]
+			self.panini_english = row[25]
+			self.note = row[26]
+			self.matrix_test = row[26]
+	
+
+
+
+if __name__ == "__main__":
+	db = DpdDbTools("./dpd.db")
+	dpd_db = db.fetch_pali()
+	roots_db = db.fetch_roots()
+
+	for row in dpd_db:
+		p = db.PaliRow(row)
+		print(f"{p.id} {p.pali1}")
+	
+	for row in roots_db:
+		r = db.RootRow(row)
+		if r.root_counter != 0:
+			print(f"""{r.root_clean} {r.root_group} ({r.root_meaning})\n{r.sanskrit_root} {r.sanskrit__root_class} ({r.sanskrit__root_meaning})\n{r.dhatumala_root} {r.dhatumala_pali} {r.dhatumala_english}\n""")
+
+	db.update_root_count()
+
+	db.close()
+
