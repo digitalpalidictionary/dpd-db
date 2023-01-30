@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "dpd"}]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 
 sqlalchemy = "^2.0.0"
 sqlalchemy-utils = "^0.39.0"

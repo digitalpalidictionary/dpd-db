@@ -14,6 +14,7 @@ def _csv_row_to_root(x: Dict[str, str]) -> PaliRoot:
     # Ignored columns:
     # 'Count'
     # 'Fin'
+    # 'Base'
     # 'Padaūpasiddhi'
     # 'PrPāli'
     # 'PrEnglish'
@@ -30,12 +31,11 @@ def _csv_row_to_root(x: Dict[str, str]) -> PaliRoot:
     x = {k:_to_empty(v) for (k,v) in x.items()}
 
     return PaliRoot(
-        root =                  x['Root']                          if x['Root'] != "" else None,
+        root =                         x['Root']                          if x['Root'] != "" else None,
         root_in_comps =         x['In Comps']                      if x['In Comps'] != "" else None,
         root_has_verb =         x['V']                             if x['V'] != "" else None,
         root_group =        int(x['Group'])                        if x['Group'] != "" else None,
         root_sign =             x['Sign']                          if x['Sign'] != "" else None,
-        root_base =             x['Base']                          if x['Base'] != "" else None,
         root_meaning =          x['Meaning']                       if x['Meaning'] != "" else None,
         sanskrit_root =         x['Sk Root']                       if x['Sk Root'] != "" else None,
         sanskrit_root_meaning = x['Sk Root Mn']                    if x['Sk Root Mn'] != "" else None,
@@ -71,6 +71,7 @@ def _csv_row_to_pali_word(x: Dict[str, str]) -> PaliWord:
     # 'Root Meaning'
 
     return PaliWord(
+        id =                    x['ID']                                       if x['ID'] != "" else None,
         pali_1 =                x['Pāli1']                                 if x['Pāli1'] != "" else None,
         pali_2 =                x['Pāli2']                                 if x['Pāli2'] != "" else None,
         pos =                   x['POS']                                   if x['POS'] != "" else None,
@@ -86,7 +87,7 @@ def _csv_row_to_pali_word(x: Dict[str, str]) -> PaliWord:
         sanskrit =              x['Sanskrit']                              if x['Sanskrit'] != "" else None,
         root_key =              x['Pāli Root']                             if x['Pāli Root'] != "" else None,
         root_sign =             x['Sgn']                                   if x['Sgn'] != "" else None,
-        base =                  x['Base']                                  if x['Base'] != "" else None,
+        root_base =                  x['Base']                                  if x['Base'] != "" else None,
         family_root =           x['Family']                                if x['Family'] != "" else None,
         family_word =           x['Word Family']                           if x['Word Family'] != "" else None,
         family_compound =       x['Family2']                               if x['Family2'] != "" else None,
@@ -134,7 +135,7 @@ def add_pali_roots(db_session: Session, csv_path: Path):
 
     try:
         for i in items:
-            print(f"PaliRoot: {i.root}")
+            # print(f"PaliRoot: {i.root}")
 
             # Check if item is a duplicate.
             res = db_session.query(PaliRoot).filter_by(root = i.root).first()
@@ -162,10 +163,10 @@ def add_pali_words(db_session: Session, csv_path: Path):
 
     try:
         for i in items:
-            print(f"PaliWord: {i.pali_1}")
+            # print(f"PaliWord: {i.pali1}")
 
             # Check if item is a duplicate.
-            res = db_session.query(PaliWord).filter_by(pali_1 = i.pali_1).first()
+            res = db_session.query(PaliWord).filter_by(pali1 = i.pali1).first()
             if res:
                 print(f"WARN: Duplicate found, skipping!\nAlready in DB:\n{res}\nConflicts with:\n{i}")
                 continue
@@ -179,8 +180,8 @@ def add_pali_words(db_session: Session, csv_path: Path):
 
 def main():
     dpd_db_path = Path("dpd.sqlite3")
-    roots_csv_path = Path("roots.csv")
-    dpd_full_path = Path("dpd-full.csv")
+    roots_csv_path = Path("../csvs/roots.csv")
+    dpd_full_path = Path("../csvs/dpd-full.csv")
 
     if dpd_db_path.exists():
         dpd_db_path.unlink()

@@ -1,3 +1,4 @@
+import re
 from typing import List
 from typing import Optional
 
@@ -13,19 +14,15 @@ class PaliRoot(Base):
     __tablename__ = "pali_roots"
 
     root: Mapped[str] = mapped_column(primary_key=True)
-
-    # root_counter: Mapped[Optional[int]]
-
     root_in_comps:         Mapped[Optional[str]]
     root_has_verb:         Mapped[Optional[str]]
     root_group:            Mapped[Optional[int]]
     root_sign:             Mapped[Optional[str]]
-    root_base:             Mapped[Optional[str]]
     root_meaning:          Mapped[Optional[str]]
     sanskrit_root:         Mapped[Optional[str]]
     sanskrit_root_meaning: Mapped[Optional[str]]
     sanskrit_root_class:   Mapped[Optional[str]]
-    root_example:          Mapped[Optional[str]]
+    root_example:   Mapped[Optional[str]]
     dhatupatha_num:        Mapped[Optional[str]]
     dhatupatha_root:       Mapped[Optional[str]]
     dhatupatha_pali:       Mapped[Optional[str]]
@@ -64,10 +61,9 @@ class PaliWord(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
 
     pali_1: Mapped[str] = mapped_column(unique=True)
-
     pali_2:                Mapped[Optional[str]]
-    pos:                   Mapped[Optional[str]]
-    grammar:               Mapped[Optional[str]]
+    pos:                   Mapped[str]
+    grammar:               Mapped[str]
     derived_from:          Mapped[Optional[str]]
     neg:                   Mapped[Optional[str]]
     verb:                  Mapped[Optional[str]]
@@ -75,13 +71,16 @@ class PaliWord(Base):
     plus_case:             Mapped[Optional[str]]
 
     meaning_1:             Mapped[Optional[str]]
-    meaning_2:             Mapped[Optional[str]]
     meaning_lit:           Mapped[Optional[str]]
+    meaning_2:             Mapped[Optional[str]]
 
     non_ia:                Mapped[Optional[str]]
     sanskrit:              Mapped[Optional[str]]
+    
+    root_key:               Mapped[Optional[str]] = mapped_column(ForeignKey("pali_roots.root"))
     root_sign:             Mapped[Optional[str]]
-    base:                  Mapped[Optional[str]]
+    root_base:                  Mapped[Optional[str]]
+    
     family_root:           Mapped[Optional[str]]
     family_word:           Mapped[Optional[str]]
     family_compound:       Mapped[Optional[str]]
@@ -109,19 +108,19 @@ class PaliWord(Base):
     cognate:               Mapped[Optional[str]]
     category:              Mapped[Optional[str]]
     link:                  Mapped[Optional[str]]
-    stem:                  Mapped[Optional[str]]
+    
+    stem:                  Mapped[str]
     pattern:               Mapped[Optional[str]]
+
+    inflections:               Mapped[Optional[str]]
+    inflections_sinhala:               Mapped[Optional[str]]
+    inflections_devanagari:               Mapped[Optional[str]]
+    inflections_thai:               Mapped[Optional[str]]
 
     created_at: Mapped[Optional[DateTime]] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[Optional[DateTime]] = mapped_column(DateTime(timezone=True), onupdate=func.now())
 
-    root_key: Mapped[Optional[str]] = mapped_column(ForeignKey("pali_roots.root"))
-
     pali_root: Mapped[PaliRoot] = relationship(back_populates="pali_words", uselist=False)
 
     def __repr__(self) -> str:
-        return f"""
-PaliWord(
-    pali_1 = {self.pali_1},
-    meaning_1 = {self.meaning_1},
-...etc.)""".strip()
+        return f"""PaliWord: {self.id} {self.pali1} {self.pos} {self.meaning1}"""
