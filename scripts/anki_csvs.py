@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
+import csv
 import re
+from typing import List
 from pathlib import Path
 from dpd.models import PaliWord, PaliRoot
 from dpd.db_helpers import create_db_if_not_exists, get_db_session
@@ -9,122 +11,153 @@ dpd_db_path = Path("dpd.sqlite3")
 db_session = get_db_session(dpd_db_path)
 dpd_db = db_session.query(PaliWord).all()
 
-def anki_row(i, output_file):
-	a1 = i.id
-	a2 = i.pali_1
-	a3 = i.pali_2
+def anki_row(i: PaliWord) -> List[str]:
+    anki_fields = []
 
-	if i.sutta_1 != None and i.sutta_2 != None:
-		a4 = "√√"
-	elif i.sutta_1 != None and i.sutta_2 == None:
-		a4 = "√"
-	else:
-		a4= ""
+    anki_fields.extend([
+        i.id,
+        i.pali_1,
+        i.pali_2,
+    ])
 
-	a5 = i.pos
-	a6 = i.grammar
-	a7 = i.derived_from
-	a8 = i.neg
-	a9 = i.verb
-	a10 = i.trans
-	a11 = i.plus_case
-	a12 = i.meaning_1
-	a13 = i.meaning_lit
-	a14 = i.non_ia
-	a15 = i.sanskrit
+    if i.sutta_1 != None and i.sutta_2 != None:
+        sign = "√√"
+    elif i.sutta_1 != None and i.sutta_2 == None:
+        sign = "√"
+    else:
+        sign = ""
 
-	if i.root != None:
-		a16 = i.root.sanskrit_root
-		a17 = i.root.sanskrit_root_meaning
-		a18 = i.root.sanskrit_root_class
+    anki_fields.append(sign)
 
-		a19 = re.sub(" \\d*$", "", i.root_key)
-		a20 = i.root.root_in_comps
-		a21 = i.root.root_has_verb
-		a22 = i.root.root_group
-		a23 = i.root_sign
-		a24 = i.root.root_meaning
-		a25 = i.root_base
-	
-	else:
-		a16 = ""
-		a17 = ""
-		a18 = ""
-		a19 = ""
-		a20 = ""
-		a21 = ""
-		a22 = ""
-		a23 = ""
-		a24 = ""
-		a25 = ""
-	
-	a26 = i.family_root
-	a27 = i.family_word
-	a28 = i.family_compound
-	a29 = i.construction
-	a30 = i.derivative
-	a31 = i.suffix
-	a32 = i.phonetic
-	a33 = i.compound_type
-	a34 = i.compound_construction
-	a35 = i.non_root_in_comps
-	a36 = i.source_1
-	a37 = i.sutta_1
-	a38 = i.example_1
-	a39 = i.source_2
-	a40 = i.sutta_2
-	a41 = i.example_2
-	a42 = i.antonym
-	a43 = i.synonym
-	a44 = i.variant
-	a45 = i.commentary
-	a46 = i.notes
-	a47 = i.cognate
-	a48 = i.category
-	a49 = i.link
-	a50 = i.stem
-	a51 = i.pattern
-	a52 = i.meaning_2
+    anki_fields.extend([
+        i.pos,
+        i.grammar,
+        i.derived_from,
+        i.neg,
+        i.verb,
+        i.trans,
+        i.plus_case,
+        i.meaning_1,
+        i.meaning_lit,
+        i.non_ia,
+        i.sanskrit,
+    ])
 
-	row = (f"{a1}\t{a2}\t{a3}\t{a4}\t{a5}\t{a6}\t{a7}\t{a8}\t{a9}\t{a10}\t{a11}\t{a12}\t{a13}\t{a14}\t{a15}\t{a16}\t{a17}\t{a18}\t{a19}\t{a20}\t{a21}\t{a22}\t{a23}\t{a24}\t{a25}\t{a26}\t{a27}\t{a28}\t{a29}\t{a30}\t{a31}\t{a32}\t{a33}\t{a34}\t{a35}\t{a36}\t{a37}\t{a38}\t{a39}\t{a40}\t{a41}\t{a42}\t{a43}\t{a44}\t{a45}\t{a46}\t{a47}\t{a48}\t{a49}\t{a50}\t{a51}\t{a52}\n")
-	row = remove_none(row)
-	output_file.write(row)
+    if i.pali_root != None:
+        anki_fields.extend([
+            i.pali_root.sanskrit_root,
+            i.pali_root.sanskrit_root_meaning,
+            i.pali_root.sanskrit_root_class,
+            re.sub(r' \d*$', '', str(i.root_key)),
+            i.pali_root.root_in_comps,
+            i.pali_root.root_has_verb,
+            i.pali_root.root_group,
+            i.root_sign,
+            i.pali_root.root_meaning,
+            i.pali_root.root_base,
+        ])
 
+    else:
+        anki_fields.extend([
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+        ])
+
+    anki_fields.extend([
+        i.family_root,
+        i.family_word,
+        i.family_compound,
+        i.construction,
+        i.derivative,
+        i.suffix,
+        i.phonetic,
+        i.compound_type,
+        i.compound_construction,
+        i.non_root_in_comps,
+        i.source_1,
+        i.sutta_1,
+        i.example_1,
+        i.source_2,
+        i.sutta_2,
+        i.example_2,
+        i.antonym,
+        i.synonym,
+        i.variant,
+        i.commentary,
+        i.notes,
+        i.cognate,
+        i.category,
+        i.link,
+        i.stem,
+        i.pattern,
+        i.meaning_2,
+    ])
+
+    return none_to_empty(anki_fields)
 
 def vocab():
-	output_file = open("csvs4anki/vocab.csv", "w")
-	for i in dpd_db:
-		if i.meaning_1 != None and i.example_1 != None:
-			anki_row(i, output_file)
-	output_file.close()	
+    # rows = []
+    # for i in dpd_db:
+    #     if i.meaning1 != None and i.example_1 != None:
+    #         rows.append(anki_row(i))
 
+    # The above loop can be written as:
+
+    def _is_needed(i: PaliWord):
+        return (i.meaning_1 != None and i.example_1 != None)
+
+    # Using a list comprehension
+    rows = [anki_row(i) for i in dpd_db if _is_needed(i)]
+
+    # Using map(filter())
+    # rows = list(map(anki_row, filter(_is_needed, dpd_db)))
+
+    with open("csvs4anki/vocab.csv", "w", newline='', encoding='utf-8') as f:
+        writer = csv.writer(f, delimiter='\t')
+        writer.writerows(rows)
 
 def commentary():
-	output_file = open("csvs4anki/commentary.csv", "w")
-	for i in dpd_db:
-		if i.meaning_1 != None and i.example_1 == None:
-			anki_row(i, output_file)
-	output_file.close()
+    rows = []
+    for i in dpd_db:
+        if i.meaning_1 != None and i.example_1 == None:
+            rows.append(anki_row(i))
 
+    with open("csvs4anki/commentary.csv", "w", newline='', encoding='utf-8') as f:
+        writer = csv.writer(f, delimiter='\t')
+        writer.writerows(rows)
 
 def pass1():
-	output_file = open("csvs4anki/pass1.csv", "w")
-	for i in dpd_db:
-		if i.meaning1 == None:
-			if i.category != None:
-				if "pass1" in i.category:
-					anki_row(i, output_file)
-	output_file.close()
+    output_file = open("csvs4anki/pass1.csv", "w")
+
+    rows = []
+    for i in dpd_db:
+        if i.meaning_1 == None and i.category != None and "pass1" in i.category:
+            rows.append(anki_row(i))
+
+    output_file.close()
 
 
-def remove_none(text):
-	text = re.sub("None", "", text)
-	return text
+def none_to_empty(values: List):
+    def _to_empty(x):
+        if x is None:
+            return ""
+        else:
+            return x
+
+    return list(map(_to_empty, values))
 
 def main():
-	vocab()
-	commentary()
-	pass1()
+    vocab()
+    commentary()
+    pass1()
 
 if __name__ == "__main__":
     main()
