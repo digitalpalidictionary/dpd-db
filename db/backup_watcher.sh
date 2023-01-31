@@ -9,7 +9,7 @@
 # https://askubuntu.com/questions/819265/command-to-monitor-file-changes-within-a-directory-and-execute-command
 
 PWD=$(pwd)
-BACKUPS_DIR=../dpd-backups/
+BACKUPS_DIR=backups
 
 # Create git-versioned backup dir if it doesn't exist.
 init_folder() {
@@ -34,7 +34,7 @@ create_backup() {
 init_folder
 
 # Create an initial version before changes.
-for file in ./*.sqlite3
+for file in ./*.db
 do
     create_backup "$file"
 done

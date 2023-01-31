@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy_utils import database_exists, create_database
 
-from dpd.models import Base
+from db.models import Base
 
 def create_db_if_not_exists(db_path: Path):
     engine = create_engine(f"sqlite+pysqlite:///{db_path}", echo=False)

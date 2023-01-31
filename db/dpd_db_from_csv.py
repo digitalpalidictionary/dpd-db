@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.10
 
 import sys
 import csv
@@ -7,8 +7,8 @@ from pathlib import Path
 
 from sqlalchemy.orm import Session
 
-from dpd.models import PaliWord, PaliRoot
-from dpd.db_helpers import create_db_if_not_exists, get_db_session
+from db.models import PaliWord, PaliRoot
+from db.db_helpers import create_db_if_not_exists, get_db_session
 
 def _csv_row_to_root(x: Dict[str, str]) -> PaliRoot:
     # Ignored columns:
@@ -21,14 +21,14 @@ def _csv_row_to_root(x: Dict[str, str]) -> PaliRoot:
     # 'blanks'
     # 'same/diff'
 
-    # Replace '-' value with empty string.
-    def _to_empty(s: str) -> str:
-        if s.strip() == "-":
-            return ""
-        else:
-            return s
+    # # Replace '-' value with empty string.
+    # def _to_empty(s: str) -> str:
+    #     if s.strip() == "-":
+    #         return ""
+    #     else:
+    #         return s
 
-    x = {k:_to_empty(v) for (k,v) in x.items()}
+    # x = {k:_to_empty(v) for (k,v) in x.items()}
 
     return PaliRoot(
         root =                         x['Root']                          if x['Root'] != "" else None,
@@ -45,7 +45,7 @@ def _csv_row_to_root(x: Dict[str, str]) -> PaliRoot:
         dhatupatha_root =       x['DpRoot']                        if x['DpRoot'] != "" else None,
         dhatupatha_pali =       x['DpPāli']                        if x['DpPāli'] != "" else None,
         dhatupatha_english =    x['DpEnglish']                     if x['DpEnglish'] != "" else None,
-        dhatumanjusa_num =  int(x['Kaccāyana Dhātu Mañjūsā'])      if x['Kaccāyana Dhātu Mañjūsā'] != "" else None,
+        dhatumanjusa_num =  (x['Kaccāyana Dhātu Mañjūsā'])      if x['Kaccāyana Dhātu Mañjūsā'] != "" else None,
         dhatumanjusa_root =     x['DmRoot']                        if x['DmRoot'] != "" else None,
         dhatumanjusa_pali =     x['DmPāli']                        if x['DmPāli'] != "" else None,
         dhatumanjusa_english =  x['DmEnglish']                     if x['DmEnglish'] != "" else None,
@@ -179,7 +179,7 @@ def add_pali_words(db_session: Session, csv_path: Path):
         print(f"ERROR: Adding to db failed:\n{e}")
 
 def main():
-    dpd_db_path = Path("dpd.sqlite3")
+    dpd_db_path = Path("dpd.db")
     roots_csv_path = Path("../csvs/roots.csv")
     dpd_full_path = Path("../csvs/dpd-full.csv")
 

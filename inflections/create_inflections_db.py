@@ -7,7 +7,7 @@ import pandas as pd
 import sys
 import re
 
-conn = sqlite3.connect('inflections/inflection_tables.sqlite3')
+conn = sqlite3.connect('inflections.db')
 c = conn.cursor()
 
 

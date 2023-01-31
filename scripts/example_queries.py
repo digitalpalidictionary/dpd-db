@@ -10,8 +10,8 @@ from sqlalchemy.orm import Session
 from sqlalchemy.sql import null
 from sqlalchemy.sql.elements import and_
 
-from dpd.models import PaliWord, PaliRoot
-from dpd.db_helpers import create_db_if_not_exists, get_db_session
+from db.models import PaliWord, PaliRoot
+from db.db_helpers import create_db_if_not_exists, get_db_session
 
 def add_roots(db_session: Session):
     items: List[PaliRoot] = []

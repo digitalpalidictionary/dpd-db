@@ -5,7 +5,7 @@ import sqlite3
 
 from typing import Tuple, List
 
-conn = sqlite3.connect('inflections/inflection_tables.sqlite3')
+conn = sqlite3.connect('inflections.db')
 cursor = conn.cursor()
 
 

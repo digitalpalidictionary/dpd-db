@@ -14,45 +14,40 @@ class PaliRoot(Base):
     __tablename__ = "pali_roots"
 
     root: Mapped[str] = mapped_column(primary_key=True)
-    root_in_comps:         Mapped[Optional[str]]
-    root_has_verb:         Mapped[Optional[str]]
-    root_group:            Mapped[Optional[int]]
-    root_sign:             Mapped[Optional[str]]
-    root_meaning:          Mapped[Optional[str]]
-    sanskrit_root:         Mapped[Optional[str]]
+    root_in_comps: Mapped[Optional[str]]
+    root_has_verb: Mapped[Optional[str]]
+    root_group: Mapped[Optional[int]]
+    root_sign: Mapped[Optional[str]]
+    root_meaning: Mapped[Optional[str]]
+    sanskrit_root: Mapped[Optional[str]]
     sanskrit_root_meaning: Mapped[Optional[str]]
-    sanskrit_root_class:   Mapped[Optional[str]]
-    root_example:   Mapped[Optional[str]]
-    dhatupatha_num:        Mapped[Optional[str]]
-    dhatupatha_root:       Mapped[Optional[str]]
-    dhatupatha_pali:       Mapped[Optional[str]]
-    dhatupatha_english:    Mapped[Optional[str]]
-    dhatumanjusa_num:      Mapped[Optional[int]]
-    dhatumanjusa_root:     Mapped[Optional[str]]
-    dhatumanjusa_pali:     Mapped[Optional[str]]
-    dhatumanjusa_english:  Mapped[Optional[str]]
-    dhatumala_root:        Mapped[Optional[str]]
-    dhatumala_pali:        Mapped[Optional[str]]
-    dhatumala_english:     Mapped[Optional[str]]
-    panini_root:           Mapped[Optional[str]]
-    panini_sanskrit:       Mapped[Optional[str]]
-    panini_english:        Mapped[Optional[str]]
-    note:                  Mapped[Optional[str]]
-    matrix_test:           Mapped[Optional[str]]
+    sanskrit_root_class: Mapped[Optional[str]]
+    root_example: Mapped[Optional[str]]
+    dhatupatha_num: Mapped[Optional[str]]
+    dhatupatha_root: Mapped[Optional[str]] 
+    dhatupatha_pali: Mapped[Optional[str]] 
+    dhatupatha_english: Mapped[Optional[str]] 
+    dhatumanjusa_num: Mapped[Optional[int]] 
+    dhatumanjusa_root: Mapped[Optional[str]] 
+    dhatumanjusa_pali: Mapped[Optional[str]] 
+    dhatumanjusa_english: Mapped[Optional[str]]
+    dhatumala_root: Mapped[Optional[str]]
+    dhatumala_pali: Mapped[Optional[str]]
+    dhatumala_english: Mapped[Optional[str]]
+    panini_root: Mapped[Optional[str]]
+    panini_sanskrit: Mapped[Optional[str]]
+    panini_english: Mapped[Optional[str]]
+    note: Mapped[Optional[str]]
+    matrix_test: Mapped[Optional[str]]
 
     created_at: Mapped[Optional[DateTime]] = mapped_column(DateTime(timezone=True), server_default=func.now())
-    updated_at: Mapped[Optional[DateTime]] = mapped_column(DateTime(timezone=True), onupdate=func.now())
+    updated_at: Mapped[Optional[DateTime]] = mapped_column(
+        DateTime(timezone=True), onupdate=func.now())
 
     pali_words: Mapped[List["PaliWord"]] = relationship(back_populates="pali_root")
 
     def __repr__(self) -> str:
-        return f"""
-PaliRoot(
-    root = {self.root},
-    root_in_comps = {self.root_in_comps},
-    root_base = {self.root_base},
-    root_meaning = {self.root_meaning},
-...etc.)""".strip()
+        return f"""{self.root} {self.root_group} {self.root_sign} ({self.root_meaning})""".strip()
 
 
 class PaliWord(Base):
@@ -123,4 +118,4 @@ class PaliWord(Base):
     pali_root: Mapped[PaliRoot] = relationship(back_populates="pali_words", uselist=False)
 
     def __repr__(self) -> str:
-        return f"""PaliWord: {self.id} {self.pali1} {self.pos} {self.meaning1}"""
+        return f"""PaliWord: {self.id} {self.pali_1} {self.pos} {self.meaning_1}"""

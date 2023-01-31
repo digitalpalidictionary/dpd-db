@@ -2,14 +2,20 @@
 
 import csv
 import re
+import pandas as pd
+
+from tqdm import tqdm
 from typing import List
 from pathlib import Path
-from dpd.models import PaliWord, PaliRoot
-from dpd.db_helpers import create_db_if_not_exists, get_db_session
+from tools.sorter import sort_key
 
-dpd_db_path = Path("dpd.sqlite3")
+from db.models import PaliWord, PaliRoot
+from db.db_helpers import create_db_if_not_exists, get_db_session
+
+dpd_db_path = Path("dpd.db")
 db_session = get_db_session(dpd_db_path)
 dpd_db = db_session.query(PaliWord).all()
+roots_db = db_session.query(PaliRoot).all()
 
 def anki_row(i: PaliWord) -> List[str]:
     anki_fields = []
@@ -54,7 +60,7 @@ def anki_row(i: PaliWord) -> List[str]:
             i.pali_root.root_group,
             i.root_sign,
             i.pali_root.root_meaning,
-            i.pali_root.root_base,
+            i.root_base,
         ])
 
     else:
@@ -103,46 +109,135 @@ def anki_row(i: PaliWord) -> List[str]:
 
     return none_to_empty(anki_fields)
 
+
 def vocab():
-    # rows = []
-    # for i in dpd_db:
-    #     if i.meaning1 != None and i.example_1 != None:
-    #         rows.append(anki_row(i))
-
-    # The above loop can be written as:
-
+ 
     def _is_needed(i: PaliWord):
         return (i.meaning_1 != None and i.example_1 != None)
 
-    # Using a list comprehension
     rows = [anki_row(i) for i in dpd_db if _is_needed(i)]
 
-    # Using map(filter())
-    # rows = list(map(anki_row, filter(_is_needed, dpd_db)))
-
-    with open("csvs4anki/vocab.csv", "w", newline='', encoding='utf-8') as f:
+    with open("csvs/vocab.csv", "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerows(rows)
 
 def commentary():
+    print("making commentary csv")
     rows = []
-    for i in dpd_db:
+
+    for i in tqdm(dpd_db):
         if i.meaning_1 != None and i.example_1 == None:
             rows.append(anki_row(i))
 
-    with open("csvs4anki/commentary.csv", "w", newline='', encoding='utf-8') as f:
+    with open("csvs/commentary.csv", "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerows(rows)
 
 def pass1():
-    output_file = open("csvs4anki/pass1.csv", "w")
+    print("making pass1 csv")
+    output_file = open("csvs/pass1.csv", "w")
 
     rows = []
-    for i in dpd_db:
+    for i in tqdm(dpd_db):
         if i.meaning_1 == None and i.category != None and "pass1" in i.category:
             rows.append(anki_row(i))
 
     output_file.close()
+
+
+def full_db():
+    print("making dpd-full csv")
+    rows = []
+    header = ['ID', 'Pāli1', 'Pāli2', 'Fin', 'POS', 'Grammar', 'Derived from', 'Neg', 'Verb', 'Trans', 'Case', 
+    'Meaning IN CONTEXT', 'Literal Meaning', 'Non IA', 'Sanskrit', 
+    'Sk Root', 'Sk Root Mn', 'Cl', 'Pāli Root', 'Root In Comps', 'V', 'Grp', 'Sgn', 'Root Meaning', 'Base', 
+    'Family', 'Word Family', 'Family2', 'Construction', 'Derivative', 'Suffix', 'Phonetic Changes', 
+    'Compound', 'Compound Construction', 'Non-Root In Comps', 'Source1', 'Sutta1', 'Example1', 
+    'Source 2', 'Sutta2', 'Example 2', 'Antonyms', 'Synonyms – different word', 'Variant – same constr or diff reading', 
+    'Commentary', 'Notes', 'Cognate', 'Category', 'Link', 'Stem', 'Pattern', 'Buddhadatta']
+    rows.append(header)
+    
+    for i in tqdm(dpd_db):
+        rows.append(anki_row(i))
+
+    with open("csvs/dpd-full.csv", "w", newline='', encoding='utf-8') as f:
+        writer = csv.writer(f, delimiter='\t')
+        writer.writerows(rows)
+    
+    dpd_df = pd.read_csv("csvs/dpd-full.csv", sep="\t", dtype=str)
+    dpd_df.sort_values(by=["Pāli1"], inplace=True, ignore_index=True, key=lambda x: x.map(sort_key))
+    dpd_df.to_csv("csvs/dpd-full.csv", sep="\t", index=False, quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
+
+def roots():
+
+    print("making roots list")
+    roots_list = []
+    for i in tqdm(roots_db):
+        roots_list += [i.root]
+
+    print("making roots count dictionary")
+    root_count_dict = {}
+    for root in tqdm(roots_list):
+        count = db_session.query(PaliWord).filter(PaliWord.root_key == root).count()
+        root_count_dict[root] = count
+
+    print("making roots.csv")
+    rows = []
+    roots_header = ["Fin", "Count", "Root", "In Comps", "V", "Group", "Sign", "Base", "Meaning", "Sk Root", "Sk Root Mn", "Cl", "Example", "Dhātupātha", "DpRoot", "DpPāli", "DpEnglish", "Kaccāyana Dhātu Mañjūsā", "DmRoot", "DmPāli", "DmEnglish", "Saddanītippakaraṇaṃ Dhātumālā", "SnPāli", "SnEnglish", "Pāṇinīya Dhātupāṭha", "PdSanskrit", "PdEnglish", "Note", "Padaūpasiddhi", "PrPāli", "PrEnglish", "blanks", "same/diff", "matrix test"]
+    rows.append(roots_header)
+
+    for i in tqdm(roots_db):
+        rows.append(root_row(i, root_count_dict))
+
+    with open("csvs/roots.csv", "w", newline='', encoding='utf-8') as f:
+        writer = csv.writer(f, delimiter="\t")
+        writer.writerows(rows)
+    
+    dpd_df = pd.read_csv("csvs/roots.csv", sep="\t", dtype=str)
+    dpd_df.sort_values(by=["Root"], inplace=True, ignore_index=True, key=lambda x: x.map(sort_key))
+    dpd_df.to_csv("csvs/roots.csv", sep="\t", index=False, quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
+
+def root_row(i: PaliRoot, root_count_dict: dict) -> List[str]:
+    root_fields = []
+
+    root_fields.extend([
+        "",
+        root_count_dict[i.root],
+        i.root,
+        i.root_in_comps,
+        i.root_has_verb,
+        i.root_group,
+        i.root_sign,
+        "", #base
+        i.root_meaning,
+        i.sanskrit_root,
+        i.sanskrit_root_meaning,
+        i.sanskrit_root_class,
+        i.root_example,
+        i.dhatupatha_num,
+        i.dhatupatha_root,
+        i.dhatupatha_pali,
+        i.dhatupatha_english,
+        i.dhatumanjusa_num,
+        i.dhatumanjusa_root,
+        i.dhatumanjusa_pali,
+        i.dhatumanjusa_english,
+        i.dhatumala_root,
+        i.dhatumala_pali,
+        i.dhatumala_english,
+        i.panini_root,
+        i.panini_sanskrit,
+        i.panini_root,
+        i.note,
+        "", #rupasiddhi
+        "",
+        "", 
+        "", # blanks
+        "",  # same/diff
+        i.matrix_test
+    ])
+
+    return none_to_empty(root_fields)
 
 
 def none_to_empty(values: List):
@@ -158,6 +253,8 @@ def main():
     vocab()
     commentary()
     pass1()
+    full_db()
+    roots()
 
 if __name__ == "__main__":
     main()
