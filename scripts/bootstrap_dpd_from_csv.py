@@ -166,7 +166,7 @@ def add_pali_words(db_session: Session, csv_path: Path):
             # print(f"PaliWord: {i.pali1}")
 
             # Check if item is a duplicate.
-            res = db_session.query(PaliWord).filter_by(pali1 = i.pali1).first()
+            res = db_session.query(PaliWord).filter_by(pali_1 = i.pali_1).first()
             if res:
                 print(f"WARN: Duplicate found, skipping!\nAlready in DB:\n{res}\nConflicts with:\n{i}")
                 continue

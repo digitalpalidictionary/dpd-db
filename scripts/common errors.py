@@ -3,7 +3,6 @@
 
 import re
 import pickle
-# import pandas
 
 from pathlib import Path
 from dpd.models import PaliWord, PaliRoot
@@ -85,6 +84,11 @@ def main():
     family_root_missing()
     problem_patterns()
     wrong_pos()
+    # test for pos ≠ pattern
+    # <br> in family 2
+    # missing abbreviations in help file
+    # test_for_errors_in_sandhi_manual_correct
+
 
 if __name__ == "__main__":
     main()
