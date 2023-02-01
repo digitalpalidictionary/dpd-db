@@ -1,4 +1,3 @@
-import re
 from typing import List
 from typing import Optional
 
@@ -14,31 +13,31 @@ class PaliRoot(Base):
     __tablename__ = "pali_roots"
 
     root: Mapped[str] = mapped_column(primary_key=True)
-    root_in_comps: Mapped[Optional[str]]
-    root_has_verb: Mapped[Optional[str]]
-    root_group: Mapped[Optional[int]]
-    root_sign: Mapped[Optional[str]]
-    root_meaning: Mapped[Optional[str]]
-    sanskrit_root: Mapped[Optional[str]]
-    sanskrit_root_meaning: Mapped[Optional[str]]
-    sanskrit_root_class: Mapped[Optional[str]]
-    root_example: Mapped[Optional[str]]
-    dhatupatha_num: Mapped[Optional[str]]
-    dhatupatha_root: Mapped[Optional[str]] 
-    dhatupatha_pali: Mapped[Optional[str]] 
-    dhatupatha_english: Mapped[Optional[str]] 
-    dhatumanjusa_num: Mapped[Optional[int]] 
-    dhatumanjusa_root: Mapped[Optional[str]] 
-    dhatumanjusa_pali: Mapped[Optional[str]] 
-    dhatumanjusa_english: Mapped[Optional[str]]
-    dhatumala_root: Mapped[Optional[str]]
-    dhatumala_pali: Mapped[Optional[str]]
-    dhatumala_english: Mapped[Optional[str]]
-    panini_root: Mapped[Optional[str]]
-    panini_sanskrit: Mapped[Optional[str]]
-    panini_english: Mapped[Optional[str]]
-    note: Mapped[Optional[str]]
-    matrix_test: Mapped[Optional[str]]
+    root_in_comps: Mapped[Optional[str]] = mapped_column(default='')
+    root_has_verb: Mapped[Optional[str]] = mapped_column(default='')
+    root_group: Mapped[Optional[int]] = mapped_column(default=0)
+    root_sign: Mapped[Optional[str]] = mapped_column(default='')
+    root_meaning: Mapped[Optional[str]] = mapped_column(default='')
+    sanskrit_root: Mapped[Optional[str]] = mapped_column(default='')
+    sanskrit_root_meaning: Mapped[Optional[str]] = mapped_column(default='')
+    sanskrit_root_class: Mapped[Optional[str]] = mapped_column(default='')
+    root_example: Mapped[Optional[str]] = mapped_column(default='')
+    dhatupatha_num: Mapped[Optional[str]] = mapped_column(default='')
+    dhatupatha_root: Mapped[Optional[str]] = mapped_column(default='')
+    dhatupatha_pali: Mapped[Optional[str]] = mapped_column(default='')
+    dhatupatha_english: Mapped[Optional[str]] = mapped_column(default='')
+    dhatumanjusa_num: Mapped[Optional[int]] = mapped_column(default=0)
+    dhatumanjusa_root: Mapped[Optional[str]] = mapped_column(default='')
+    dhatumanjusa_pali: Mapped[Optional[str]] = mapped_column(default='')
+    dhatumanjusa_english: Mapped[Optional[str]] = mapped_column(default='')
+    dhatumala_root: Mapped[Optional[str]] = mapped_column(default='')
+    dhatumala_pali: Mapped[Optional[str]] = mapped_column(default='')
+    dhatumala_english: Mapped[Optional[str]] = mapped_column(default='')
+    panini_root: Mapped[Optional[str]] = mapped_column(default='')
+    panini_sanskrit: Mapped[Optional[str]] = mapped_column(default='')
+    panini_english: Mapped[Optional[str]] = mapped_column(default='')
+    note: Mapped[Optional[str]] = mapped_column(default='')
+    matrix_test: Mapped[Optional[str]] = mapped_column(default='')
 
     created_at: Mapped[Optional[DateTime]] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[Optional[DateTime]] = mapped_column(
