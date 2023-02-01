@@ -12,6 +12,7 @@ python = "^3.10"
 sqlalchemy = "^2.0.0"
 sqlalchemy-utils = "^0.39.0"
 pysimplegui = "^4.60.4"
+tqdm = "^4.64.1"
 
 [build-system]
 requires = ["poetry-core"]

@@ -4,6 +4,8 @@
 *.log
 log.txt
 tmp/
+*xxx*
+xxx delete/*
 
 __pycache__/
 .pytest_cache
@@ -56,4 +58,6 @@ tags
 
 .DS_Store
 .idea
-inflections/xxx*
+
+
+

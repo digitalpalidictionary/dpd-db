@@ -32,3 +32,5 @@ def sort_key(word):
 
     pāli_alphabet_string = '-'.join(pāli_alphabet)
     return [pāli_alphabet_string.find('-' + x + '-') for x in wordVe]
+
+# key=lambda x: x.map(sort_key)

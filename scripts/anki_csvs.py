@@ -17,25 +17,25 @@ db_session = get_db_session(dpd_db_path)
 dpd_db = db_session.query(PaliWord).all()
 roots_db = db_session.query(PaliRoot).all()
 
-def anki_row(i: PaliWord) -> List[str]:
-    anki_fields = []
+def pali_row(i: PaliWord, output = "anki") -> List[str]:
+    fields = []
 
-    anki_fields.extend([
+    fields.extend([
         i.id,
         i.pali_1,
         i.pali_2,
     ])
 
-    if i.sutta_1 != None and i.sutta_2 != None:
+    if i.sutta_1 != "" and i.sutta_2 != "":
         sign = "√√"
-    elif i.sutta_1 != None and i.sutta_2 == None:
+    elif i.sutta_1 != "" and i.sutta_2 == "":
         sign = "√"
     else:
         sign = ""
 
-    anki_fields.append(sign)
+    fields.append(sign)
 
-    anki_fields.extend([
+    fields.extend([
         i.pos,
         i.grammar,
         i.derived_from,
@@ -50,12 +50,31 @@ def anki_row(i: PaliWord) -> List[str]:
     ])
 
     if i.pali_root != None:
-        anki_fields.extend([
+        if output == "dpd":
+            root_key = i.root_key
+            if i.pali_root.root_in_comps == "":
+                root_in_comps = "0"  
+            else:
+                root_in_comps = i.pali_root.root_in_comps
+            
+            if i.pali_root.sanskrit_root_meaning == "":
+                sanskrit_root_meaning = "0"
+            else:
+                sanskrit_root_meaning = i.pali_root.sanskrit_root_meaning
+
+        else:
+            root_key = re.sub(r" \d*$", "", str(i.root_key))
+            root_in_comps = i.pali_root.root_in_comps
+            sanskrit_root_meaning = i.pali_root.sanskrit_root_meaning
+
+
+
+        fields.extend([
             i.pali_root.sanskrit_root,
             i.pali_root.sanskrit_root_meaning,
             i.pali_root.sanskrit_root_class,
-            re.sub(r' \d*$', '', str(i.root_key)),
-            i.pali_root.root_in_comps,
+            root_key,
+            root_in_comps,
             i.pali_root.root_has_verb,
             i.pali_root.root_group,
             i.root_sign,
@@ -64,7 +83,7 @@ def anki_row(i: PaliWord) -> List[str]:
         ])
 
     else:
-        anki_fields.extend([
+        fields.extend([
             "",
             "",
             "",
@@ -77,7 +96,7 @@ def anki_row(i: PaliWord) -> List[str]:
             "",
         ])
 
-    anki_fields.extend([
+    fields.extend([
         i.family_root,
         i.family_word,
         i.family_compound,
@@ -107,15 +126,15 @@ def anki_row(i: PaliWord) -> List[str]:
         i.meaning_2,
     ])
 
-    return none_to_empty(anki_fields)
+    return none_to_empty(fields)
 
 
 def vocab():
  
     def _is_needed(i: PaliWord):
-        return (i.meaning_1 != None and i.example_1 != None)
+        return (i.meaning_1 != "" and i.example_1 != "")
 
-    rows = [anki_row(i) for i in dpd_db if _is_needed(i)]
+    rows = [pali_row(i) for i in dpd_db if _is_needed(i)]
 
     with open("csvs/vocab.csv", "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
@@ -126,8 +145,8 @@ def commentary():
     rows = []
 
     for i in tqdm(dpd_db):
-        if i.meaning_1 != None and i.example_1 == None:
-            rows.append(anki_row(i))
+        if i.meaning_1 != "" and i.example_1 == "":
+            rows.append(pali_row(i))
 
     with open("csvs/commentary.csv", "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
@@ -139,8 +158,8 @@ def pass1():
 
     rows = []
     for i in tqdm(dpd_db):
-        if i.meaning_1 == None and i.category != None and "pass1" in i.category:
-            rows.append(anki_row(i))
+        if i.meaning_1 == "" and i.category != "" and "pass1" in i.category:
+            rows.append(pali_row(i))
 
     output_file.close()
 
@@ -158,7 +177,7 @@ def full_db():
     rows.append(header)
     
     for i in tqdm(dpd_db):
-        rows.append(anki_row(i))
+        rows.append(pali_row(i, output="dpd"))
 
     with open("csvs/dpd-full.csv", "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
@@ -227,7 +246,7 @@ def root_row(i: PaliRoot, root_count_dict: dict) -> List[str]:
         i.dhatumala_english,
         i.panini_root,
         i.panini_sanskrit,
-        i.panini_root,
+        i.panini_english,
         i.note,
         "", #rupasiddhi
         "",

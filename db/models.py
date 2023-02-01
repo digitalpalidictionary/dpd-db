@@ -55,61 +55,62 @@ class PaliWord(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
 
     pali_1: Mapped[str] = mapped_column(unique=True)
-    pali_2:                Mapped[Optional[str]]
-    pos:                   Mapped[str]
-    grammar:               Mapped[str]
-    derived_from:          Mapped[Optional[str]]
-    neg:                   Mapped[Optional[str]]
-    verb:                  Mapped[Optional[str]]
-    trans:                 Mapped[Optional[str]]
-    plus_case:             Mapped[Optional[str]]
+    pali_2: Mapped[Optional[str]] = mapped_column(default='')
+    pos: Mapped[str] = mapped_column(default='')
+    grammar: Mapped[str] = mapped_column(default='')
+    derived_from: Mapped[Optional[str]] = mapped_column(default='')
+    neg: Mapped[Optional[str]] = mapped_column(default='')
+    verb: Mapped[Optional[str]] = mapped_column(default='')
+    trans:  Mapped[Optional[str]] = mapped_column(default='')
+    plus_case:  Mapped[Optional[str]] = mapped_column(default='')
 
-    meaning_1:             Mapped[Optional[str]]
-    meaning_lit:           Mapped[Optional[str]]
-    meaning_2:             Mapped[Optional[str]]
+    meaning_1: Mapped[Optional[str]] = mapped_column(default='')
+    meaning_lit: Mapped[Optional[str]] = mapped_column(default='')
+    meaning_2: Mapped[Optional[str]] = mapped_column(default='')
 
-    non_ia:                Mapped[Optional[str]]
-    sanskrit:              Mapped[Optional[str]]
+    non_ia: Mapped[Optional[str]] = mapped_column(default='')
+    sanskrit: Mapped[Optional[str]] = mapped_column(default='')
     
-    root_key:               Mapped[Optional[str]] = mapped_column(ForeignKey("pali_roots.root"))
-    root_sign:             Mapped[Optional[str]]
-    root_base:                  Mapped[Optional[str]]
+    root_key: Mapped[Optional[str]] = mapped_column(ForeignKey("pali_roots.root"))
+    root_sign: Mapped[Optional[str]] = mapped_column(default='')
+    root_base: Mapped[Optional[str]] = mapped_column(default='')
     
-    family_root:           Mapped[Optional[str]]
-    family_word:           Mapped[Optional[str]]
-    family_compound:       Mapped[Optional[str]]
-    construction:          Mapped[Optional[str]]
-    derivative:            Mapped[Optional[str]]
-    suffix:                Mapped[Optional[str]]
-    phonetic:              Mapped[Optional[str]]
-    compound_type:         Mapped[Optional[str]]
-    compound_construction: Mapped[Optional[str]]
-    non_root_in_comps:     Mapped[Optional[str]]
+    family_root: Mapped[Optional[str]] = mapped_column(default='')
+    family_word: Mapped[Optional[str]] = mapped_column(default='')
+    family_compound: Mapped[Optional[str]] = mapped_column(default='')
+    construction:  Mapped[Optional[str]] = mapped_column(default='')
+    derivative: Mapped[Optional[str]] = mapped_column(default='')
+    suffix: Mapped[Optional[str]] = mapped_column(default='')
+    phonetic: Mapped[Optional[str]] = mapped_column(default='')
+    compound_type: Mapped[Optional[str]] = mapped_column(default='')
+    compound_construction: Mapped[Optional[str]] = mapped_column(default='')
+    non_root_in_comps: Mapped[Optional[str]] = mapped_column(default='')
 
-    source_1:              Mapped[Optional[str]]
-    sutta_1:               Mapped[Optional[str]]
-    example_1:             Mapped[Optional[str]]
+    source_1: Mapped[Optional[str]] = mapped_column(default='')
+    sutta_1: Mapped[Optional[str]] = mapped_column(default='')
+    example_1: Mapped[Optional[str]] = mapped_column(default='')
 
-    source_2:              Mapped[Optional[str]]
-    sutta_2:               Mapped[Optional[str]]
-    example_2:             Mapped[Optional[str]]
+    source_2: Mapped[Optional[str]] = mapped_column(default='')
+    sutta_2: Mapped[Optional[str]] = mapped_column(default='')
+    example_2: Mapped[Optional[str]] = mapped_column(default='')
 
-    antonym:               Mapped[Optional[str]]
-    synonym:               Mapped[Optional[str]]
-    variant:               Mapped[Optional[str]]
-    commentary:            Mapped[Optional[str]]
-    notes:                 Mapped[Optional[str]]
-    cognate:               Mapped[Optional[str]]
-    category:              Mapped[Optional[str]]
-    link:                  Mapped[Optional[str]]
+    antonym: Mapped[Optional[str]] = mapped_column(default='')
+    synonym: Mapped[Optional[str]] = mapped_column(default='')
+    variant: Mapped[Optional[str]] = mapped_column(default='')
+    commentary: Mapped[Optional[str]] = mapped_column(default='')
+    notes: Mapped[Optional[str]] = mapped_column(default='')
+    cognate: Mapped[Optional[str]] = mapped_column(default='')
+    category: Mapped[Optional[str]] = mapped_column(default='')
+    link: Mapped[Optional[str]] = mapped_column(default='')
     
-    stem:                  Mapped[str]
-    pattern:               Mapped[Optional[str]]
+    stem: Mapped[str] = mapped_column(default='')
+    pattern: Mapped[Optional[str]] = mapped_column(default='')
 
-    inflections:               Mapped[Optional[str]]
-    inflections_sinhala:               Mapped[Optional[str]]
-    inflections_devanagari:               Mapped[Optional[str]]
-    inflections_thai:               Mapped[Optional[str]]
+    inflection_table: Mapped[Optional[str]] = mapped_column(default='')
+    inflections: Mapped[Optional[str]] = mapped_column(default='')
+    inflections_sinhala: Mapped[Optional[str]] = mapped_column(default='')
+    inflections_devanagari: Mapped[Optional[str]] = mapped_column(default='')
+    inflections_thai: Mapped[Optional[str]] = mapped_column(default='')
 
     created_at: Mapped[Optional[DateTime]] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[Optional[DateTime]] = mapped_column(DateTime(timezone=True), onupdate=func.now())
@@ -118,3 +119,43 @@ class PaliWord(Base):
 
     def __repr__(self) -> str:
         return f"""PaliWord: {self.id} {self.pali_1} {self.pos} {self.meaning_1}"""
+
+
+class FamilyWord(Base):
+    __tablename__ = "family_word"
+
+    family_word: Mapped[str] = mapped_column(primary_key=True)
+    data: Mapped[Optional[str]] = mapped_column(default='')
+
+    def __repr__(self) -> str:
+        return f"""FamilyWord: {self.family_word} {self.data}"""
+
+
+class FamilyCompound(Base):
+    __tablename__ = "family_compound"
+
+    family_compound: Mapped[str] = mapped_column(primary_key=True)
+    data: Mapped[Optional[str]] = mapped_column(default='')
+
+    def __repr__(self) -> str:
+        return f"""FamilyCompound: {self.family_compound} {self.data}"""
+
+
+class FamilyRoot(Base):
+    __tablename__ = "family_root"
+
+    family_root: Mapped[str] = mapped_column(primary_key=True)
+    data: Mapped[Optional[str]] = mapped_column(default='')
+
+    def __repr__(self) -> str:
+        return f"""FamilyRoot: {self.family_root} {self.data}"""
+
+
+class FamilySet(Base):
+    __tablename__ = "family_set"
+
+    family_set: Mapped[str] = mapped_column(primary_key=True)
+    data: Mapped[Optional[str]] = mapped_column(default='')
+
+    def __repr__(self) -> str:
+        return f"""FamilySet: {self.family_set} {self.data}"""

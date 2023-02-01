@@ -2,6 +2,8 @@
 
 import sys
 import csv
+import tqdm
+
 from typing import Dict, List
 from pathlib import Path
 
@@ -133,8 +135,9 @@ def add_pali_roots(db_session: Session, csv_path: Path):
 
     items: List[PaliRoot] = list(map(_csv_row_to_root, filter(_is_count_not_zero_or_empty, rows)))
 
+    print("checking for dupes")
     try:
-        for i in items:
+        for i in tqdm(items):
             # print(f"PaliRoot: {i.root}")
 
             # Check if item is a duplicate.
@@ -161,8 +164,9 @@ def add_pali_words(db_session: Session, csv_path: Path):
 
     items: List[PaliWord] = list(map(_csv_row_to_pali_word, rows))
 
+    print("checking for dupes")
     try:
-        for i in items:
+        for i in tqdm(items):
             # print(f"PaliWord: {i.pali1}")
 
             # Check if item is a duplicate.
