@@ -6,6 +6,9 @@ log.txt
 tmp/
 *xxx*
 xxx delete/*
+share/*
+dpd.db-journal
+inflections/tests/inflection_pattern_dict
 
 __pycache__/
 .pytest_cache
@@ -58,6 +61,8 @@ tags
 
 .DS_Store
 .idea
+
+
 
 
 
