@@ -53,7 +53,7 @@ class PaliWord(Base):
     __tablename__ = "pali_words"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-
+    user_id: Mapped[int] = mapped_column(unique=True)
     pali_1: Mapped[str] = mapped_column(unique=True)
     pali_2: Mapped[Optional[str]] = mapped_column(default='')
     pos: Mapped[str] = mapped_column(default='')

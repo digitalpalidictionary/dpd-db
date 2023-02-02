@@ -73,7 +73,7 @@ def _csv_row_to_pali_word(x: Dict[str, str]) -> PaliWord:
     # 'Root Meaning'
 
     return PaliWord(
-        id =                    x['ID']                                       if x['ID'] != "" else None,
+        user_id =                    x['ID']                                       if x['ID'] != "" else None,
         pali_1 =                x['Pāli1']                                 if x['Pāli1'] != "" else None,
         pali_2 =                x['Pāli2']                                 if x['Pāli2'] != "" else None,
         pos =                   x['POS']                                   if x['POS'] != "" else None,
