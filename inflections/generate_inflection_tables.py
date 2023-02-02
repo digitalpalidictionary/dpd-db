@@ -14,6 +14,8 @@ from db.models import PaliWord, PaliRoot
 from typing import Tuple, List, Dict
 from pathlib import Path
 
+regenerate_all: bool = False
+
 conn = sqlite3.connect('inflections.db')
 cursor = conn.cursor()
 tables = cursor.execute(
@@ -26,7 +28,7 @@ dpd_db = db_session.query(PaliWord).all()
 inflection_tables_dict: dict = {}
 changed_patterns: list = []
 changed_headwords: list = []
-regenerate_all: bool = True
+
 
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # how is all_tipitaka_words getting generated?
@@ -46,13 +48,15 @@ def test_inflection_table_changed():
         new_table_name = table[0]
         new_table_data = cursor.execute(f"SELECT * FROM '{new_table_name}'").fetchall()
         if new_table_name not in old_tables:
-            print(f"\t{new_table_name} [red]added")
+            if regenerate_all != True:
+                print(f"\t{new_table_name} [red]added")
             changed_patterns.append(new_table_name)
 
         try:
             old_table_data: List(Tuple) = old_tables[new_table_name]
             if old_table_data != new_table_data:
-                print(f"\t{new_table_name} [red]changed")
+                if regenerate_all != True:
+                    print(f"\t{new_table_name} [red]changed")
                 changed_patterns.append(new_table_name)
         except:
             pass
@@ -65,10 +69,11 @@ def test_inflection_table_changed():
         try:
             new_table_data = cursor.execute(f"SELECT * FROM '{old_table_name}'").fetchall()
         except:
-            print(f"\t{old_table_name} [red]deleted")
+            if regenerate_all != True:
+                print(f"\t{old_table_name} [red]deleted")
             changed_patterns.append(old_table_name)
 
-    # find changed "like"
+    # index
 
     if "_index" in changed_patterns:
         changed_patterns.remove('_index')
@@ -93,14 +98,16 @@ def test_inflection_table_changed():
 
         for pattern in new_index_dict:
             if pattern not in old_index_dict:
-                print(f"\t{pattern} [red]index added")
+                if regenerate_all != True:
+                    print(f"\t{pattern} [red]index added")
                 changed_patterns.append(pattern)
 
         # find deleted patterns
 
         for pattern in old_index_dict:
             if pattern not in new_index_dict:
-                print(f"\t{pattern} [red]index deleted")
+                if regenerate_all != True:
+                    print(f"\t{pattern} [red]index deleted")
                 changed_patterns.append(pattern)
 
         # find changed "like"
@@ -108,11 +115,13 @@ def test_inflection_table_changed():
         for pattern in new_index_dict:
             try:
                 if new_index_dict[pattern] != old_index_dict[pattern]:
-                    print(f"\t{pattern} [red]like changed")
+                    if regenerate_all != True:
+                        print(f"\t{pattern} [red]like changed")
                     changed_patterns.append(pattern)
             except:
                 # find missing patterns
-                print(f"\t{pattern} [red]like added")
+                if regenerate_all != True:
+                    print(f"\t{pattern} [red]like added")
                 changed_patterns.append(pattern)
 
     
@@ -139,7 +148,8 @@ def test_missing_pattern() -> None:
 
     for i in dpd_db:
         if i.pattern == "" and i.stem != "-":
-            print(f"\t{i.pali_1} {i.pos} [red]has a missing pattern")
+            if regenerate_all != True:
+                print(f"\t{i.pali_1} {i.pos} [red]has a missing pattern")
             new_pattern = input(f"\twhat is the new pattern? ")
             i.pattern = new_pattern
     db_session.commit()
@@ -156,7 +166,8 @@ def test_wrong_pattern() -> None:
         PaliWord.pattern.notin_(tables_list)).filter(
             PaliWord.pattern != "").all()
     for i in wrong_pattern_db:
-        print(f"\t{i.pali_1} {i.pos} [red]has the wrong pattern")
+        if regenerate_all != True:
+            print(f"\t{i.pali_1} {i.pos} [red]has the wrong pattern")
 
         new_pattern = ""
         while new_pattern not in tables_list:
@@ -176,27 +187,31 @@ def test_changes_in_stem_pattern_etc() -> None:
     # the follow block is slow, how to make it faster? 
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    for i in dpd_db:
+    for i in tqdm(dpd_db):
         
         # testing for chnanged stem pattern
 
         try:
             if i.stem != old_headword_stem_pattern_dict[i.pali_1]["stem"]:
-                print(f"\t{i.pali_1} [red] stem changed")
+                if regenerate_all != True:
+                    print(f"\t{i.pali_1} [red] stem changed")
                 changed_headwords.append(i.pali_1)
 
             if i.pattern != old_headword_stem_pattern_dict[i.pali_1]["pattern"]:
-                print(f"\t{i.pali_1} [red] pattern changed")
+                if regenerate_all != True:
+                    print(f"\t{i.pali_1} [red] pattern changed")
                 changed_headwords.append(i.pali_1)
 
         except:
-            print(f"\t{i.pali_1} [red] headword missing")
+            if regenerate_all != True:
+                print(f"\t{i.pali_1} [red] headword missing")
             changed_headwords.append(i.pali_1)
         
         # testing for missing stem
 
         if i.stem == "":
-            print(f"\t{i.pali_1} [red] stem missing[white]", end=" ")
+            if regenerate_all != True:
+                print(f"\t{i.pali_1} [red] stem missing[white]", end=" ")
 
             changed_headwords.append(i.pali_1)
             new_stem = input(f"\t{i.pali_1} {i.pos} what's the correct stem? ")
@@ -205,7 +220,8 @@ def test_changes_in_stem_pattern_etc() -> None:
         # testing for missing pattern
         
         if i.pattern == "" and i.stem != "-":
-            print(f"\t{i.pali_1} [red] pattern missing[white]", end=" ")
+            if regenerate_all != True:
+                print(f"\t{i.pali_1} [red] pattern missing[white]", end=" ")
             changed_headwords.append(i.pali_1)
             new_pattern = input(f"\t{i.pali_1} {i.pos} what's the correct pattern? ")
             i.stem = new_pattern
@@ -213,14 +229,15 @@ def test_changes_in_stem_pattern_etc() -> None:
         # testing for missing inflection tables
 
         if i.inflection_table == "" and i.stem != "-":
-            print(f"\t{i.pali_1} [red] inflection table missing")
+            if regenerate_all != True:
+                print(f"\t{i.pali_1} [red] inflection table missing")
             changed_headwords.append(i.pali_1)
 
-    
         # testing for missing inflection lists
 
         if i.inflections == "" and i.stem != "-":
-            print(f"\t{i.pali_1} [red] inflction list missing")
+            if regenerate_all != True:
+                print(f"\t{i.pali_1} [red] inflction list missing")
             changed_headwords.append(i.pali_1)
     
     db_session.commit()
@@ -343,15 +360,16 @@ def main():
             if i.id % 500 == 0:
                 html_table_save_dict[i.pali_1] = html_table
 
+    print("[blue] saving html tables and changes")
     for headword in html_table_save_dict:
         with open(f"xxx delete/html tables/{headword}.html", "w") as f:
             f.write(html_table_save_dict[headword])
 
     with open("share/changed_headwords", "wb") as f:
-        piclke.dump(changed_headwords, f)
+        pickle.dump(changed_headwords, f)
 
     with open("share/changed_patterns", "wb") as f:
-        piclke.dump(changed_patterns, f)
+        pickle.dump(changed_patterns, f)
 
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     # find all unused patterns
