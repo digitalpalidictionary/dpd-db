@@ -7,10 +7,9 @@ import json
 import pickle
 
 from rich import print
-from sorter import sort_key
 from tqdm import tqdm
 from db.db_helpers import get_db_session
-from db.models import PaliWord, PaliRoot
+from db.models import PaliWord
 from typing import Tuple, List, Dict
 from pathlib import Path
 
@@ -37,8 +36,9 @@ changed_headwords: list = []
 with open("share/all_tipitaka_words", "rb") as f:
     all_tipitaka_words: set = pickle.load(f)
 
+
 def test_inflection_table_changed():
-    print(f"[green]testing for changed inflection patterns")
+    print("[green]testing for changed inflection patterns")
 
     with open("share/inflection_pattern_dict", "rb") as f:
         old_tables: dict = pickle.load(f)
@@ -46,7 +46,8 @@ def test_inflection_table_changed():
     # find added and changed patterns
     for table in tables:
         new_table_name = table[0]
-        new_table_data = cursor.execute(f"SELECT * FROM '{new_table_name}'").fetchall()
+        new_table_data = cursor.execute(
+            f"SELECT * FROM '{new_table_name}'").fetchall()
         if new_table_name not in old_tables:
             # if regenerate_all != True:
             #     print(f"\t{new_table_name} [red]added")
@@ -58,8 +59,8 @@ def test_inflection_table_changed():
                 # if regenerate_all != True:
                 #     print(f"\t{new_table_name} [red]changed")
                 changed_patterns.append(new_table_name)
-        except:
-            pass
+        except ValueError as e:
+            print(f"[red]{e}")
             # print(f"\t{new_table_name} [red]added")
             # changed_patterns.append(new_table_name)
 
@@ -67,8 +68,9 @@ def test_inflection_table_changed():
 
     for old_table_name, old_table_data in old_tables.items():
         try:
-            new_table_data = cursor.execute(f"SELECT * FROM '{old_table_name}'").fetchall()
-        except:
+            new_table_data = cursor.execute(
+                f"SELECT * FROM '{old_table_name}'").fetchall()
+        except Exception:
             # if regenerate_all != True:
             #     print(f"\t{old_table_name} [red]deleted")
             changed_patterns.append(old_table_name)
@@ -77,23 +79,23 @@ def test_inflection_table_changed():
 
     if "_index" in changed_patterns:
         changed_patterns.remove('_index')
-        
+
         # make useable dictionaries
         old_index_dict: dict = {}
         for i in range(len(old_tables["_index"])):
             pattern = old_tables["_index"][i][0]
             like = old_tables["_index"][i][1]
             old_index_dict[pattern] = like
-        
+
         new_index_dict: dict = {}
         new_index: List[Tuple] = cursor.execute(
-            f"SELECT * FROM '_index'").fetchall()
-    
+            "SELECT * FROM '_index'").fetchall()
+
         for i in range(len(new_index)):
             pattern = new_index[i][0]
             like = new_index[i][1]
             new_index_dict[pattern] = like
-        
+
         # find added patterns
 
         for pattern in new_index_dict:
@@ -118,13 +120,13 @@ def test_inflection_table_changed():
                     # if regenerate_all != True:
                     #     print(f"\t{pattern} [red]like changed")
                     changed_patterns.append(pattern)
-            except:
+            except Exception as e:
+                print(f"[red]{e}")
                 # find missing patterns
                 # if regenerate_all != True:
                 #     print(f"\t{pattern} [red]like added")
                 changed_patterns.append(pattern)
 
-    
     def save_pickle() -> None:
         inflection_pattern_dict = {}
         tables = cursor.execute(
@@ -136,7 +138,7 @@ def test_inflection_table_changed():
             table_data = cursor.fetchall()
             for row in table_data:
                 inflection_pattern_dict[table_name] = table_data
-    
+
         with open("share/inflection_pattern_dict", "wb") as f:
             pickle.dump(inflection_pattern_dict, f)
 
@@ -150,7 +152,7 @@ def test_missing_pattern() -> None:
         if i.pattern == "" and i.stem != "-":
             # if regenerate_all != True:
             #     print(f"\t{i.pali_1} {i.pos} [red]has a missing pattern")
-            new_pattern = input(f"\twhat is the new pattern? ")
+            new_pattern = input("\twhat is the new pattern? ")
             i.pattern = new_pattern
     db_session.commit()
 
@@ -161,7 +163,7 @@ def test_wrong_pattern() -> None:
     tables_list = []
     for i in tables:
         tables_list += [i[0]]
-    
+
     wrong_pattern_db = db_session.query(PaliWord).filter(
         PaliWord.pattern.notin_(tables_list)).filter(
             PaliWord.pattern != "").all()
@@ -171,42 +173,42 @@ def test_wrong_pattern() -> None:
 
         new_pattern = ""
         while new_pattern not in tables_list:
-            new_pattern = input(f"\twhat is the new pattern? ")
+            new_pattern = input("\twhat is the new pattern? ")
             i.pattern = new_pattern
 
     db_session.commit()
 
 
 def test_changes_in_stem_pattern_etc() -> None:
-    print("[green]testing for changes in stem and pattern, missing inflection tables and inflection lists")
+    print("[green]testing for changes in stem and pattern, etc")
 
     with open("share/headword_stem_pattern_dict", "rb") as f:
-        old_headword_stem_pattern_dict: dict = pickle.load(f)
+        old_headwords_dict: dict = pickle.load(f)
 
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    # the follow block is slow, how to make it faster? 
+    # the follow block is slow, how to make it faster?
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     for i in tqdm(dpd_db):
-        
+
         # testing for chnanged stem pattern
 
         try:
-            if i.stem != old_headword_stem_pattern_dict[i.pali_1]["stem"]:
+            if i.stem != old_headwords_dict[i.pali_1]["stem"]:
                 # if regenerate_all != True:
                 #     # print(f"\t{i.pali_1} [red] stem changed")
                 changed_headwords.append(i.pali_1)
 
-            if i.pattern != old_headword_stem_pattern_dict[i.pali_1]["pattern"]:
+            if i.pattern != old_headwords_dict[i.pali_1]["pattern"]:
                 # if regenerate_all != True:
                 #     print(f"\t{i.pali_1} [red] pattern changed")
                 changed_headwords.append(i.pali_1)
 
-        except:
+        except Exception:
             # if regenerate_all != True:
             #     print(f"\t{i.pali_1} [red] headword missing")
             changed_headwords.append(i.pali_1)
-        
+
         # testing for missing stem
 
         if i.stem == "":
@@ -218,14 +220,15 @@ def test_changes_in_stem_pattern_etc() -> None:
             i.stem = new_stem
 
         # testing for missing pattern
-        
+
         if i.pattern == "" and i.stem != "-":
             # if regenerate_all != True:
             #     print(f"\t{i.pali_1} [red] pattern missing[white]", end=" ")
             changed_headwords.append(i.pali_1)
-            new_pattern = input(f"\t{i.pali_1} {i.pos} what's the correct pattern? ")
+            new_pattern = input(
+                f"\t{i.pali_1} {i.pos} what's the correct pattern? ")
             i.stem = new_pattern
-        
+
         # testing for missing inflection tables
 
         if i.inflection_table == "" and i.stem != "-":
@@ -239,18 +242,18 @@ def test_changes_in_stem_pattern_etc() -> None:
             # if regenerate_all != True:
             #     print(f"\t{i.pali_1} [red] inflction list missing")
             changed_headwords.append(i.pali_1)
-    
-    db_session.commit()
 
+    db_session.commit()
 
     def save_pickle() -> None:
         headword_stem_pattern_dict: Dict[Dict[str]] = {}
         for i in dpd_db:
-            headword_stem_pattern_dict[i.pali_1] = {"stem": i.stem, "pattern": i.pattern}
+            headword_stem_pattern_dict[i.pali_1] = {
+                "stem": i.stem, "pattern": i.pattern}
 
         with open("share/headword_stem_pattern_dict", "wb") as f:
             pickle.dump(headword_stem_pattern_dict, f)
-    
+
     save_pickle()
 
 
@@ -261,7 +264,8 @@ def test_changes() -> None:
     test_changes_in_stem_pattern_etc()
 
 
-def generate_inflection_table(stem: str, pattern: str, rows: Tuple) -> List[str]:
+def generate_inflection_table(
+        stem: str, pattern: str, rows: Tuple) -> List[str]:
 
     inflections_list: list = []
     html_table: str = "<table class='inflection'>"
@@ -281,7 +285,7 @@ def generate_inflection_table(stem: str, pattern: str, rows: Tuple) -> List[str]
             cell_data: Tuple = column[1]
             if row_number == 0:
                 if column_number == 0:
-                    html_table += f"<th></th>"
+                    html_table += "<th></th>"
                 if column_number % 2 == 1:
                     html_table += f"<th>{cell_data}</th>"
             elif row_number > 0:
@@ -289,7 +293,7 @@ def generate_inflection_table(stem: str, pattern: str, rows: Tuple) -> List[str]
                     html_table += f"<th>{cell_data}</th>"
                 elif column_number % 2 == 1 and column_number > 0:
                     title: str = row_data[column_number+1]
-                    inflections: lst = cell_data.split("\n")
+                    inflections: list = cell_data.split("\n")
 
                     for inflection in inflections:
                         if inflection == "":
@@ -299,13 +303,16 @@ def generate_inflection_table(stem: str, pattern: str, rows: Tuple) -> List[str]
                             if word_clean in all_tipitaka_words:
                                 word = f"{stem}<b>{inflection}</b>"
                             else:
-                                word = f"<span style='color: gray;'>{stem}<b>{inflection}</b></span>"
+                                word = "<span style='color: gray;'>\
+                                    {stem}<b>{inflection}</b></span>"
 
                             if len(inflections) == 1:
-                                html_table += f"<td title='{title}'>{word}</td>"
+                                html_table += f"<td title='{title}'>{word}\
+                                    </td>"
                             else:
                                 if inflection == inflections[0]:
-                                    html_table += f"<td title='{title}'>{word}<br>"
+                                    html_table += f"<td title='{title}'>{word}\
+                                        <br>"
                                 elif inflection != inflections[-1]:
                                     html_table += f"{word}<br>"
                                 else:
@@ -328,13 +335,14 @@ def main():
 
         test1 = i.pali_1 in changed_headwords
         test2 = i.pattern in changed_patterns
-        test3 = regenerate_all == True
+        test3 = regenerate_all is True
 
         if test1 or test2 or test3:
 
             if i.pattern != "":
-                table_rows: List[Tuple] = cursor.execute(f"SELECT * FROM '{i.pattern}'").fetchall()
-                
+                table_rows: List[Tuple] = cursor.execute(
+                    f"SELECT * FROM '{i.pattern}'").fetchall()
+
                 html_table, inflections_list = generate_inflection_table(
                     i.stem, i.pattern, table_rows)
 
@@ -345,18 +353,21 @@ def main():
                 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
                 i.inflections = json.dumps(
-                    inflections_list, ensure_ascii=False)
-                
+                    inflections_list,
+                    ensure_ascii=False)
+
                 i.inflection_table = html_table
 
                 inflection_tables_dict[i.pali_1] = {
-                    "stem": i.stem, "pattern": i.pattern, "html_table": html_table}
-            
+                    "stem": i.stem,
+                    "pattern": i.pattern,
+                    "html_table": html_table}
+
             else:
                 pali_1_clean: str = re.sub(r" \d.*$", "", i.pali_1)
                 i.inflections = json.dumps(
                     list([pali_1_clean]), ensure_ascii=False)
-        
+
             if i.id % 500 == 0:
                 html_table_save_dict[i.pali_1] = html_table
 
@@ -379,6 +390,6 @@ def main():
     db_session.close()
     conn.close()
 
+
 if __name__ == "__main__":
     main()
-

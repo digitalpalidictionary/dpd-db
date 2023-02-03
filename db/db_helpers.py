@@ -8,11 +8,13 @@ from sqlalchemy_utils import database_exists, create_database
 
 from db.models import Base
 
+
 def create_db_if_not_exists(db_path: Path):
     engine = create_engine(f"sqlite+pysqlite:///{db_path}", echo=False)
     if not database_exists(engine.url):
         create_database(engine.url)
         Base.metadata.create_all(bind=engine)
+
 
 def get_db_session(db_path: Path) -> Session:
     if not os.path.isfile(db_path):

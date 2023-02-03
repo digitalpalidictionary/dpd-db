@@ -9,6 +9,7 @@ from sqlalchemy.orm import Mapped, DeclarativeBase, mapped_column, relationship
 class Base(DeclarativeBase):
     pass
 
+
 class PaliRoot(Base):
     __tablename__ = "pali_roots"
 
@@ -39,14 +40,17 @@ class PaliRoot(Base):
     note: Mapped[Optional[str]] = mapped_column(default='')
     matrix_test: Mapped[Optional[str]] = mapped_column(default='')
 
-    created_at: Mapped[Optional[DateTime]] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    created_at: Mapped[Optional[DateTime]] = mapped_column(
+        DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[Optional[DateTime]] = mapped_column(
         DateTime(timezone=True), onupdate=func.now())
 
-    pali_words: Mapped[List["PaliWord"]] = relationship(back_populates="pali_root")
+    pali_words: Mapped[List["PaliWord"]] = relationship(
+        back_populates="pali_root")
 
     def __repr__(self) -> str:
-        return f"""{self.root} {self.root_group} {self.root_sign} ({self.root_meaning})""".strip()
+        return f"""{self.root} {self.root_group} {self.root_sign} (
+            {self.root_meaning})""".strip()
 
 
 class PaliWord(Base):
@@ -70,11 +74,12 @@ class PaliWord(Base):
 
     non_ia: Mapped[Optional[str]] = mapped_column(default='')
     sanskrit: Mapped[Optional[str]] = mapped_column(default='')
-    
-    root_key: Mapped[Optional[str]] = mapped_column(ForeignKey("pali_roots.root"))
+
+    root_key: Mapped[Optional[str]] = mapped_column(
+        ForeignKey("pali_roots.root"))
     root_sign: Mapped[Optional[str]] = mapped_column(default='')
     root_base: Mapped[Optional[str]] = mapped_column(default='')
-    
+
     family_root: Mapped[Optional[str]] = mapped_column(default='')
     family_word: Mapped[Optional[str]] = mapped_column(default='')
     family_compound: Mapped[Optional[str]] = mapped_column(default='')
@@ -102,7 +107,7 @@ class PaliWord(Base):
     cognate: Mapped[Optional[str]] = mapped_column(default='')
     category: Mapped[Optional[str]] = mapped_column(default='')
     link: Mapped[Optional[str]] = mapped_column(default='')
-    
+
     stem: Mapped[str] = mapped_column(default='')
     pattern: Mapped[Optional[str]] = mapped_column(default='')
 
@@ -112,13 +117,17 @@ class PaliWord(Base):
     inflections_devanagari: Mapped[Optional[str]] = mapped_column(default='')
     inflections_thai: Mapped[Optional[str]] = mapped_column(default='')
 
-    created_at: Mapped[Optional[DateTime]] = mapped_column(DateTime(timezone=True), server_default=func.now())
-    updated_at: Mapped[Optional[DateTime]] = mapped_column(DateTime(timezone=True), onupdate=func.now())
+    created_at: Mapped[Optional[DateTime]] = mapped_column(
+        DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[Optional[DateTime]] = mapped_column(
+        DateTime(timezone=True), onupdate=func.now())
 
-    pali_root: Mapped[PaliRoot] = relationship(back_populates="pali_words", uselist=False)
+    pali_root: Mapped[PaliRoot] = relationship(
+        back_populates="pali_words", uselist=False)
 
     def __repr__(self) -> str:
-        return f"""PaliWord: {self.id} {self.pali_1} {self.pos} {self.meaning_1}"""
+        return f"""PaliWord: {self.id} {self.pali_1} {self.pos} {
+            self.meaning_1}"""
 
 
 class FamilyWord(Base):

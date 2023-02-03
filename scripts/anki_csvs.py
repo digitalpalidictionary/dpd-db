@@ -11,14 +11,15 @@ from pathlib import Path
 from tools.sorter import sort_key
 
 from db.models import PaliWord, PaliRoot
-from db.db_helpers import create_db_if_not_exists, get_db_session
+from db.db_helpers import get_db_session
 
 dpd_db_path = Path("dpd.db")
 db_session = get_db_session(dpd_db_path)
 dpd_db = db_session.query(PaliWord).all()
 roots_db = db_session.query(PaliRoot).all()
 
-def pali_row(i: PaliWord, output = "anki") -> List[str]:
+
+def pali_row(i: PaliWord, output="anki") -> List[str]:
     fields = []
 
     fields.extend([
@@ -50,14 +51,14 @@ def pali_row(i: PaliWord, output = "anki") -> List[str]:
         i.sanskrit,
     ])
 
-    if i.pali_root != None:
+    if i.pali_root is not None:
         if output == "dpd":
             root_key = i.root_key
             if i.pali_root.root_in_comps == "":
-                root_in_comps = "0"  
+                root_in_comps = "0"
             else:
                 root_in_comps = i.pali_root.root_in_comps
-            
+
             if i.pali_root.sanskrit_root_meaning == "":
                 sanskrit_root_meaning = "0"
             else:
@@ -68,11 +69,9 @@ def pali_row(i: PaliWord, output = "anki") -> List[str]:
             root_in_comps = i.pali_root.root_in_comps
             sanskrit_root_meaning = i.pali_root.sanskrit_root_meaning
 
-
-
         fields.extend([
             i.pali_root.sanskrit_root,
-            i.pali_root.sanskrit_root_meaning,
+            sanskrit_root_meaning,
             i.pali_root.sanskrit_root_class,
             root_key,
             root_in_comps,
@@ -131,7 +130,7 @@ def pali_row(i: PaliWord, output = "anki") -> List[str]:
 
 
 def vocab():
- 
+
     def _is_needed(i: PaliWord):
         return (i.meaning_1 != "" and i.example_1 != "")
 
@@ -140,6 +139,7 @@ def vocab():
     with open("csvs/vocab.csv", "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerows(rows)
+
 
 def commentary():
     print("making commentary csv")
@@ -152,6 +152,7 @@ def commentary():
     with open("csvs/commentary.csv", "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerows(rows)
+
 
 def pass1():
     print("making pass1 csv")
@@ -168,25 +169,37 @@ def pass1():
 def full_db():
     print("making dpd-full csv")
     rows = []
-    header = ['ID', 'Pāli1', 'Pāli2', 'Fin', 'POS', 'Grammar', 'Derived from', 'Neg', 'Verb', 'Trans', 'Case', 
-    'Meaning IN CONTEXT', 'Literal Meaning', 'Non IA', 'Sanskrit', 
-    'Sk Root', 'Sk Root Mn', 'Cl', 'Pāli Root', 'Root In Comps', 'V', 'Grp', 'Sgn', 'Root Meaning', 'Base', 
-    'Family', 'Word Family', 'Family2', 'Construction', 'Derivative', 'Suffix', 'Phonetic Changes', 
-    'Compound', 'Compound Construction', 'Non-Root In Comps', 'Source1', 'Sutta1', 'Example1', 
-    'Source 2', 'Sutta2', 'Example 2', 'Antonyms', 'Synonyms – different word', 'Variant – same constr or diff reading', 
-    'Commentary', 'Notes', 'Cognate', 'Category', 'Link', 'Stem', 'Pattern', 'Buddhadatta']
+    header = ['ID', 'Pāli1', 'Pāli2', 'Fin', 'POS', 'Grammar', 'Derived from',
+                    'Neg', 'Verb', 'Trans', 'Case', 'Meaning IN CONTEXT',
+                    'Literal Meaning', 'Non IA', 'Sanskrit', 'Sk Root',
+                    'Sk Root Mn', 'Cl', 'Pāli Root', 'Root In Comps', 'V',
+                    'Grp', 'Sgn', 'Root Meaning', 'Base', 'Family',
+                    'Word Family', 'Family2', 'Construction', 'Derivative',
+                    'Suffix', 'Phonetic Changes', 'Compound',
+                    'Compound Construction', 'Non-Root In Comps', 'Source1',
+                    'Sutta1', 'Example1', 'Source 2', 'Sutta2', 'Example 2',
+                    'Antonyms', 'Synonyms – different word',
+                    'Variant – same constr or diff reading',  'Commentary',
+                    'Notes', 'Cognate', 'Category', 'Link', 'Stem', 'Pattern',
+                    'Buddhadatta']
+
     rows.append(header)
-    
+
     for i in tqdm(dpd_db):
         rows.append(pali_row(i, output="dpd"))
 
     with open("csvs/dpd-full.csv", "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerows(rows)
-    
+
     dpd_df = pd.read_csv("csvs/dpd-full.csv", sep="\t", dtype=str)
-    dpd_df.sort_values(by=["Pāli1"], inplace=True, ignore_index=True, key=lambda x: x.map(sort_key))
-    dpd_df.to_csv("csvs/dpd-full.csv", sep="\t", index=False, quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
+    dpd_df.sort_values(
+        by=["Pāli1"], inplace=True, ignore_index=True,
+        key=lambda x: x.map(sort_key))
+    dpd_df.to_csv(
+        "csvs/dpd-full.csv", sep="\t", index=False,
+        quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
+
 
 def roots():
 
@@ -198,12 +211,22 @@ def roots():
     print("making roots count dictionary")
     root_count_dict = {}
     for root in tqdm(roots_list):
-        count = db_session.query(PaliWord).filter(PaliWord.root_key == root).count()
+        count = db_session.query(PaliWord).filter(
+            PaliWord.root_key == root).count()
         root_count_dict[root] = count
 
     print("making roots.csv")
     rows = []
-    roots_header = ["Fin", "Count", "Root", "In Comps", "V", "Group", "Sign", "Base", "Meaning", "Sk Root", "Sk Root Mn", "Cl", "Example", "Dhātupātha", "DpRoot", "DpPāli", "DpEnglish", "Kaccāyana Dhātu Mañjūsā", "DmRoot", "DmPāli", "DmEnglish", "Saddanītippakaraṇaṃ Dhātumālā", "SnPāli", "SnEnglish", "Pāṇinīya Dhātupāṭha", "PdSanskrit", "PdEnglish", "Note", "Padaūpasiddhi", "PrPāli", "PrEnglish", "blanks", "same/diff", "matrix test"]
+    roots_header = [
+        "Fin", "Count", "Root", "In Comps", "V", "Group", "Sign",
+        "Base", "Meaning", "Sk Root", "Sk Root Mn", "Cl", "Example",
+        "Dhātupātha", "DpRoot", "DpPāli", "DpEnglish",
+        "Kaccāyana Dhātu Mañjūsā", "DmRoot", "DmPāli", "DmEnglish",
+        "Saddanītippakaraṇaṃ Dhātumālā", "SnPāli", "SnEnglish",
+        "Pāṇinīya Dhātupāṭha", "PdSanskrit", "PdEnglish", "Note",
+        "Padaūpasiddhi", "PrPāli", "PrEnglish", "blanks", "same/diff",
+        "matrix test"]
+
     rows.append(roots_header)
 
     for i in tqdm(roots_db):
@@ -212,10 +235,15 @@ def roots():
     with open("csvs/roots.csv", "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter="\t")
         writer.writerows(rows)
-    
+
     dpd_df = pd.read_csv("csvs/roots.csv", sep="\t", dtype=str)
-    dpd_df.sort_values(by=["Root"], inplace=True, ignore_index=True, key=lambda x: x.map(sort_key))
-    dpd_df.to_csv("csvs/roots.csv", sep="\t", index=False, quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
+    dpd_df.sort_values(
+        by=["Root"], inplace=True, ignore_index=True,
+        key=lambda x: x.map(sort_key))
+    dpd_df.to_csv(
+        "csvs/roots.csv", sep="\t", index=False,
+        quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
+
 
 def root_row(i: PaliRoot, root_count_dict: dict) -> List[str]:
     root_fields = []
@@ -228,7 +256,7 @@ def root_row(i: PaliRoot, root_count_dict: dict) -> List[str]:
         i.root_has_verb,
         i.root_group,
         i.root_sign,
-        "", #base
+        "",     # base
         i.root_meaning,
         i.sanskrit_root,
         i.sanskrit_root_meaning,
@@ -249,11 +277,11 @@ def root_row(i: PaliRoot, root_count_dict: dict) -> List[str]:
         i.panini_sanskrit,
         i.panini_english,
         i.note,
-        "", #rupasiddhi
+        "",     # rupasiddhi
         "",
-        "", 
-        "", # blanks
-        "",  # same/diff
+        "",
+        "",     # blanks
+        "",     # same/diff
         i.matrix_test
     ])
 
@@ -269,12 +297,14 @@ def none_to_empty(values: List):
 
     return list(map(_to_empty, values))
 
+
 def main():
     vocab()
     commentary()
     pass1()
     full_db()
     roots()
+
 
 if __name__ == "__main__":
     main()
