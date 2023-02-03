@@ -1,4 +1,5 @@
 #!/usr/bin/env python3.10
+# coding: utf-8
 
 import csv
 import re
@@ -21,7 +22,7 @@ def pali_row(i: PaliWord, output = "anki") -> List[str]:
     fields = []
 
     fields.extend([
-        i.id,
+        i.user_id,
         i.pali_1,
         i.pali_2,
     ])

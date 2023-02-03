@@ -121,7 +121,7 @@ def _csv_row_to_pali_word(x: Dict[str, str]) -> PaliWord:
 
 
 def add_pali_roots(db_session: Session, csv_path: Path):
-    print("[blue]add_pali_roots")
+    print("[green]add_pali_roots")
 
     rows = []
     with open(csv_path, 'r') as f:
@@ -135,7 +135,7 @@ def add_pali_roots(db_session: Session, csv_path: Path):
 
     items: List[PaliRoot] = list(map(_csv_row_to_root, filter(_is_count_not_zero_or_empty, rows)))
 
-    print("[blue]checking for dupes and adding")
+    print("[green]checking for dupes and adding")
     try:
         for i in items:
 
@@ -153,7 +153,7 @@ def add_pali_roots(db_session: Session, csv_path: Path):
         print(f"[red]ERROR: Adding to db failed:\n{e}")
 
 def add_pali_words(db_session: Session, csv_path: Path):
-    print("[blue]add_pali_words")
+    print("[green]add_pali_words")
 
     rows = []
     with open(csv_path, 'r') as f:
@@ -163,7 +163,7 @@ def add_pali_words(db_session: Session, csv_path: Path):
     
     items: List[PaliWord] = list(map(_csv_row_to_pali_word, rows))
 
-    print("[blue]checking for dupes and adding")
+    print("[green]checking for dupes and adding")
     try:
         for i in items:
             # Check if item is a duplicate.

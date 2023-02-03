@@ -9,7 +9,7 @@ import pickle
 from rich import print
 from sorter import sort_key
 from tqdm import tqdm
-from db.db_helpers import create_db_if_not_exists, get_db_session
+from db.db_helpers import get_db_session
 from db.models import PaliWord, PaliRoot
 from typing import Tuple, List, Dict
 from pathlib import Path
@@ -38,9 +38,9 @@ with open("share/all_tipitaka_words", "rb") as f:
     all_tipitaka_words: set = pickle.load(f)
 
 def test_inflection_table_changed():
-    print(f"[blue]testing for changed inflection patterns")
+    print(f"[green]testing for changed inflection patterns")
 
-    with open("inflections/tests/inflection_pattern_dict", "rb") as f:
+    with open("share/inflection_pattern_dict", "rb") as f:
         old_tables: dict = pickle.load(f)
 
     # find added and changed patterns
@@ -48,15 +48,15 @@ def test_inflection_table_changed():
         new_table_name = table[0]
         new_table_data = cursor.execute(f"SELECT * FROM '{new_table_name}'").fetchall()
         if new_table_name not in old_tables:
-            if regenerate_all != True:
-                print(f"\t{new_table_name} [red]added")
+            # if regenerate_all != True:
+            #     print(f"\t{new_table_name} [red]added")
             changed_patterns.append(new_table_name)
 
         try:
             old_table_data: List(Tuple) = old_tables[new_table_name]
             if old_table_data != new_table_data:
-                if regenerate_all != True:
-                    print(f"\t{new_table_name} [red]changed")
+                # if regenerate_all != True:
+                #     print(f"\t{new_table_name} [red]changed")
                 changed_patterns.append(new_table_name)
         except:
             pass
@@ -69,8 +69,8 @@ def test_inflection_table_changed():
         try:
             new_table_data = cursor.execute(f"SELECT * FROM '{old_table_name}'").fetchall()
         except:
-            if regenerate_all != True:
-                print(f"\t{old_table_name} [red]deleted")
+            # if regenerate_all != True:
+            #     print(f"\t{old_table_name} [red]deleted")
             changed_patterns.append(old_table_name)
 
     # index
@@ -98,16 +98,16 @@ def test_inflection_table_changed():
 
         for pattern in new_index_dict:
             if pattern not in old_index_dict:
-                if regenerate_all != True:
-                    print(f"\t{pattern} [red]index added")
+                # if regenerate_all != True:
+                #     print(f"\t{pattern} [red]index added")
                 changed_patterns.append(pattern)
 
         # find deleted patterns
 
         for pattern in old_index_dict:
             if pattern not in new_index_dict:
-                if regenerate_all != True:
-                    print(f"\t{pattern} [red]index deleted")
+                # if regenerate_all != True:
+                #     print(f"\t{pattern} [red]index deleted")
                 changed_patterns.append(pattern)
 
         # find changed "like"
@@ -115,13 +115,13 @@ def test_inflection_table_changed():
         for pattern in new_index_dict:
             try:
                 if new_index_dict[pattern] != old_index_dict[pattern]:
-                    if regenerate_all != True:
-                        print(f"\t{pattern} [red]like changed")
+                    # if regenerate_all != True:
+                    #     print(f"\t{pattern} [red]like changed")
                     changed_patterns.append(pattern)
             except:
                 # find missing patterns
-                if regenerate_all != True:
-                    print(f"\t{pattern} [red]like added")
+                # if regenerate_all != True:
+                #     print(f"\t{pattern} [red]like added")
                 changed_patterns.append(pattern)
 
     
@@ -137,26 +137,26 @@ def test_inflection_table_changed():
             for row in table_data:
                 inflection_pattern_dict[table_name] = table_data
     
-        with open("inflections/tests/inflection_pattern_dict", "wb") as f:
+        with open("share/inflection_pattern_dict", "wb") as f:
             pickle.dump(inflection_pattern_dict, f)
 
     save_pickle()
 
 
 def test_missing_pattern() -> None:
-    print("[blue]testing for missing patterns")
+    print("[green]testing for missing patterns")
 
     for i in dpd_db:
         if i.pattern == "" and i.stem != "-":
-            if regenerate_all != True:
-                print(f"\t{i.pali_1} {i.pos} [red]has a missing pattern")
+            # if regenerate_all != True:
+            #     print(f"\t{i.pali_1} {i.pos} [red]has a missing pattern")
             new_pattern = input(f"\twhat is the new pattern? ")
             i.pattern = new_pattern
     db_session.commit()
 
 
 def test_wrong_pattern() -> None:
-    print("[blue]testing for wrong patterns")
+    print("[green]testing for wrong patterns")
 
     tables_list = []
     for i in tables:
@@ -166,8 +166,8 @@ def test_wrong_pattern() -> None:
         PaliWord.pattern.notin_(tables_list)).filter(
             PaliWord.pattern != "").all()
     for i in wrong_pattern_db:
-        if regenerate_all != True:
-            print(f"\t{i.pali_1} {i.pos} [red]has the wrong pattern")
+        # if regenerate_all != True:
+        #     print(f"\t{i.pali_1} {i.pos} [red]has the wrong pattern")
 
         new_pattern = ""
         while new_pattern not in tables_list:
@@ -178,7 +178,7 @@ def test_wrong_pattern() -> None:
 
 
 def test_changes_in_stem_pattern_etc() -> None:
-    print("[blue]testing for changes in stem and pattern, missing inflection tables and inflection lists")
+    print("[green]testing for changes in stem and pattern, missing inflection tables and inflection lists")
 
     with open("share/headword_stem_pattern_dict", "rb") as f:
         old_headword_stem_pattern_dict: dict = pickle.load(f)
@@ -193,25 +193,25 @@ def test_changes_in_stem_pattern_etc() -> None:
 
         try:
             if i.stem != old_headword_stem_pattern_dict[i.pali_1]["stem"]:
-                if regenerate_all != True:
-                    print(f"\t{i.pali_1} [red] stem changed")
+                # if regenerate_all != True:
+                #     # print(f"\t{i.pali_1} [red] stem changed")
                 changed_headwords.append(i.pali_1)
 
             if i.pattern != old_headword_stem_pattern_dict[i.pali_1]["pattern"]:
-                if regenerate_all != True:
-                    print(f"\t{i.pali_1} [red] pattern changed")
+                # if regenerate_all != True:
+                #     print(f"\t{i.pali_1} [red] pattern changed")
                 changed_headwords.append(i.pali_1)
 
         except:
-            if regenerate_all != True:
-                print(f"\t{i.pali_1} [red] headword missing")
+            # if regenerate_all != True:
+            #     print(f"\t{i.pali_1} [red] headword missing")
             changed_headwords.append(i.pali_1)
         
         # testing for missing stem
 
         if i.stem == "":
-            if regenerate_all != True:
-                print(f"\t{i.pali_1} [red] stem missing[white]", end=" ")
+            # if regenerate_all != True:
+            #     print(f"\t{i.pali_1} [red] stem missing[white]", end=" ")
 
             changed_headwords.append(i.pali_1)
             new_stem = input(f"\t{i.pali_1} {i.pos} what's the correct stem? ")
@@ -220,8 +220,8 @@ def test_changes_in_stem_pattern_etc() -> None:
         # testing for missing pattern
         
         if i.pattern == "" and i.stem != "-":
-            if regenerate_all != True:
-                print(f"\t{i.pali_1} [red] pattern missing[white]", end=" ")
+            # if regenerate_all != True:
+            #     print(f"\t{i.pali_1} [red] pattern missing[white]", end=" ")
             changed_headwords.append(i.pali_1)
             new_pattern = input(f"\t{i.pali_1} {i.pos} what's the correct pattern? ")
             i.stem = new_pattern
@@ -229,15 +229,15 @@ def test_changes_in_stem_pattern_etc() -> None:
         # testing for missing inflection tables
 
         if i.inflection_table == "" and i.stem != "-":
-            if regenerate_all != True:
-                print(f"\t{i.pali_1} [red] inflection table missing")
+            # if regenerate_all != True:
+            #     print(f"\t{i.pali_1} [red] inflection table missing")
             changed_headwords.append(i.pali_1)
 
         # testing for missing inflection lists
 
         if i.inflections == "" and i.stem != "-":
-            if regenerate_all != True:
-                print(f"\t{i.pali_1} [red] inflction list missing")
+            # if regenerate_all != True:
+            #     print(f"\t{i.pali_1} [red] inflction list missing")
             changed_headwords.append(i.pali_1)
     
     db_session.commit()
@@ -323,7 +323,7 @@ def main():
 
     html_table_save_dict: dict = {}
 
-    print("[blue]generating html tables and inflection lists")
+    print("[green]generating html tables and inflection lists")
     for i in tqdm(dpd_db):
 
         test1 = i.pali_1 in changed_headwords
@@ -360,7 +360,7 @@ def main():
             if i.id % 500 == 0:
                 html_table_save_dict[i.pali_1] = html_table
 
-    print("[blue] saving html tables and changes")
+    print("[green] saving html tables and changes")
     for headword in html_table_save_dict:
         with open(f"xxx delete/html tables/{headword}.html", "w") as f:
             f.write(html_table_save_dict[headword])

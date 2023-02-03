@@ -1,21 +1,22 @@
-# !/usr/bin/env python3
+# !/usr/bin/env python3.10
 # coding: utf-8
 
 import re
 import pickle
 
+from rich import print
 from pathlib import Path
-from dpd.models import PaliWord, PaliRoot
-from dpd.db_helpers import get_db_session
+from db.models import PaliWord, PaliRoot
+from db.db_helpers import get_db_session
 
-dpd_db_path = Path("dpd.sqlite3")
+dpd_db_path = Path("dpd.db")
 db_session = get_db_session(dpd_db_path)
 
 pos_list = ['abbrev', 'abs', 'adj', 'aor', 'card', 'cond', 'cs', 'fem', 'fut', 'ger', 'idiom', 'imp', 'imperf', 'ind', 'inf', 'letter', 'masc', 'nt', 'opt', 'ordin', 'perf', 'pp', 'pr', 'prefix', 'pron', 'prp', 'ptp', 'root', 'sandhi', 'suffix', 'var', 've']
 
 
 def family_root_contains_plus():
-    print(f"family root contains plus")
+    print(f"[green]family root contains plus")
 
     filtered_db = db_session.query(PaliWord).filter(PaliWord.family_root.contains("+")).all()
 
@@ -25,7 +26,7 @@ def family_root_contains_plus():
 
 
 def family_compound_contains_plus():
-    print(f"family compound contains plus")
+    print(f"[green]family compound contains plus")
     filtered_db = db_session.query(PaliWord).filter(
         PaliWord.family_compound.contains("+")).all()
 
@@ -35,50 +36,51 @@ def family_compound_contains_plus():
 
 
 def family_root_missing():
-    print(f"family root missing")
+    print(f"[green]family root missing")
     filtered_db = db_session.query(PaliWord).filter(
-        PaliWord.family_root == None,
-        PaliWord.root_key != None
+        PaliWord.family_root == "",
+        PaliWord.root_key != ""
     ).all()
 
     if len(filtered_db) > 0:
-        print(f"family_root missing ")
+        print(f"[green]family_root missing ")
         for i in filtered_db:
-            print(f"\t{i}")
+            print(f"[red]\t{i}")
             input()
             family_root_missing()
 
 
 def problem_patterns():
-    print(f"problem patterns")
+    print(f"[green]problem patterns")
     with open("../inflection generator/output/inflection tables dict", "rb") as p:
         inflection_tables_dict = pickle.load(p)
     patterns = inflection_tables_dict.keys()
 
     filtered_db = db_session.query(PaliWord).filter(
-        PaliWord.pattern != None,
+        PaliWord.pattern != "",
         PaliWord.pattern.notin_(patterns)
         ).all()
 
     if len(filtered_db) > 0:
         for i in filtered_db:
-            print(f"\t{i.id} {i.pali_1} {i.pattern}")
+            print(f"[red]\t{i.id} {i.pali_1} {i.pattern}")
         input()
         problem_patterns()
 
 
 def wrong_pos():
-    print(f"wrong pos")
+    print(f"[green]wrong pos")
 
     filtered_db = db_session.query(PaliWord).filter(PaliWord.pos.notin_(pos_list)).all()
     if len(filtered_db) > 0:
         for i in filtered_db:
-            print(f"\t{i.id} {i.pali_1} {i.pos}")
+            print(f"[red]\t{i.id} {i.pali_1} {i.pos}")
         input()
         wrong_pos()
 
 
 def main():
+    print("[yellow] testing for common errors")
     family_root_contains_plus()
     family_compound_contains_plus()
     family_root_missing()
