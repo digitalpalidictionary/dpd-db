@@ -111,12 +111,6 @@ class PaliWord(Base):
     stem: Mapped[str] = mapped_column(default='')
     pattern: Mapped[Optional[str]] = mapped_column(default='')
 
-    inflection_table: Mapped[Optional[str]] = mapped_column(default='')
-    inflections: Mapped[Optional[str]] = mapped_column(default='')
-    inflections_sinhala: Mapped[Optional[str]] = mapped_column(default='')
-    inflections_devanagari: Mapped[Optional[str]] = mapped_column(default='')
-    inflections_thai: Mapped[Optional[str]] = mapped_column(default='')
-
     created_at: Mapped[Optional[DateTime]] = mapped_column(
         DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[Optional[DateTime]] = mapped_column(
@@ -130,41 +124,25 @@ class PaliWord(Base):
             self.meaning_1}"""
 
 
-class FamilyWord(Base):
-    __tablename__ = "family_word"
+class InflectionTables(Base):
+    __tablename__ = "derived_inflections"
 
-    family_word: Mapped[str] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    pattern: Mapped[str] = mapped_column(unique=True)
+    like: Mapped[Optional[str]] = mapped_column(default='')
     data: Mapped[Optional[str]] = mapped_column(default='')
 
     def __repr__(self) -> str:
-        return f"""FamilyWord: {self.family_word} {self.data}"""
+        return f"inflection_tablesl: {self.pattern} {self.like} {self.data}"
 
 
-class FamilyCompound(Base):
-    __tablename__ = "family_compound"
+class DerivedInflections(Base):
+    __tablename__ = "derived_inflections"
 
-    family_compound: Mapped[str] = mapped_column(primary_key=True)
-    data: Mapped[Optional[str]] = mapped_column(default='')
-
-    def __repr__(self) -> str:
-        return f"""FamilyCompound: {self.family_compound} {self.data}"""
-
-
-class FamilyRoot(Base):
-    __tablename__ = "family_root"
-
-    family_root: Mapped[str] = mapped_column(primary_key=True)
-    data: Mapped[Optional[str]] = mapped_column(default='')
-
-    def __repr__(self) -> str:
-        return f"""FamilyRoot: {self.family_root} {self.data}"""
-
-
-class FamilySet(Base):
-    __tablename__ = "family_set"
-
-    family_set: Mapped[str] = mapped_column(primary_key=True)
-    data: Mapped[Optional[str]] = mapped_column(default='')
-
-    def __repr__(self) -> str:
-        return f"""FamilySet: {self.family_set} {self.data}"""
+    id: Mapped[int] = mapped_column(primary_key=True)
+    pali_1: Mapped[str] = mapped_column(unique=True)
+    inflections: Mapped[Optional[str]] = mapped_column(default='')
+    sinhala: Mapped[Optional[str]] = mapped_column(default='')
+    devanagari: Mapped[Optional[str]] = mapped_column(default='')
+    thai: Mapped[Optional[str]] = mapped_column(default='')
+    html_table: Mapped[Optional[str]] = mapped_column(default='')

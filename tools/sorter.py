@@ -1,3 +1,6 @@
+from typing import List
+
+
 def sort_key(word):
 
     pāli_alphabet = [
@@ -34,3 +37,10 @@ def sort_key(word):
     return [pāli_alphabet_string.find('-' + x + '-') for x in wordVe]
 
 # key=lambda x: x.map(sort_key)
+
+
+def pali_list_sorter(list: List):
+    pali_alphabet = "√aāiīuūeokgṅcjñṭḍṇtdnpbmyrlsvhḷṃ1234567890 "
+    list = sorted(
+        list, key=lambda x: [pali_alphabet.index(c) for c in x])
+    return list
