@@ -58,10 +58,10 @@ def family_root_missing():
 def problem_patterns():
     print("[green]problem patterns")
     with open(
-            "../inflection generator/output/inflection tables dict",
+            "../inflection generator/output/InflectionTemplatess dict",
             "rb") as p:
-        inflection_tables_dict = pickle.load(p)
-    patterns = inflection_tables_dict.keys()
+        inflection_templates_dict = pickle.load(p)
+    patterns = inflection_templates_dict.keys()
 
     filtered_db = db_session.query(PaliWord).filter(
         PaliWord.pattern != "",

@@ -124,8 +124,8 @@ class PaliWord(Base):
             self.meaning_1}"""
 
 
-class InflectionTables(Base):
-    __tablename__ = "derived_inflections"
+class InflectionTemplates(Base):
+    __tablename__ = "inflection_templates"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     pattern: Mapped[str] = mapped_column(unique=True)
@@ -133,7 +133,7 @@ class InflectionTables(Base):
     data: Mapped[Optional[str]] = mapped_column(default='')
 
     def __repr__(self) -> str:
-        return f"inflection_tablesl: {self.pattern} {self.like} {self.data}"
+        return f"inflection_templates: {self.pattern} {self.like} {self.data}"
 
 
 class DerivedInflections(Base):

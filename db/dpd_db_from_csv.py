@@ -6,11 +6,11 @@ import csv
 from rich import print
 from typing import Dict, List
 from pathlib import Path
-
 from sqlalchemy.orm import Session
 
 from db.models import PaliWord, PaliRoot
 from db.db_helpers import create_db_if_not_exists, get_db_session
+from tools.timeis import tic, toc
 
 
 def _csv_row_to_root(x: Dict[str, str]) -> PaliRoot:
@@ -114,7 +114,7 @@ def _csv_row_to_pali_word(x: Dict[str, str]) -> PaliWord:
 
 
 def add_pali_roots(db_session: Session, csv_path: Path):
-    print("[green]add_pali_roots")
+    print("[green]processing pali roots")
 
     rows = []
     with open(csv_path, 'r') as f:
@@ -129,7 +129,7 @@ def add_pali_roots(db_session: Session, csv_path: Path):
     items: List[PaliRoot] = list(map(
         _csv_row_to_root, filter(_is_count_not_zero_or_empty, rows)))
 
-    print("[green]checking for dupes and adding")
+    print("[green]adding to db")
     try:
         for i in items:
 
@@ -150,7 +150,7 @@ def add_pali_roots(db_session: Session, csv_path: Path):
 
 
 def add_pali_words(db_session: Session, csv_path: Path):
-    print("[green]add_pali_words")
+    print("[green]processing pali words")
 
     rows = []
     with open(csv_path, 'r') as f:
@@ -160,7 +160,7 @@ def add_pali_words(db_session: Session, csv_path: Path):
 
     items: List[PaliWord] = list(map(_csv_row_to_pali_word, rows))
 
-    print("[green]checking for dupes and adding")
+    print("[green]adding to db")
     try:
         for i in items:
             # Check if item is a duplicate.
@@ -180,6 +180,7 @@ def add_pali_words(db_session: Session, csv_path: Path):
 
 
 def main():
+    tic()
     print("[yellow]convert dpd.csv to dpd.db")
     dpd_db_path = Path("dpd.db")
     roots_csv_path = Path("../csvs/roots.csv")
@@ -201,6 +202,7 @@ def main():
     add_pali_words(db_session, dpd_full_path)
 
     db_session.close()
+    toc()
 
 
 if __name__ == "__main__":

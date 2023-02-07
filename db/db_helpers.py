@@ -23,6 +23,7 @@ def get_db_session(db_path: Path) -> Session:
 
     try:
         db_eng = create_engine(f"sqlite+pysqlite:///{db_path}", echo=False)
+        db_conn = db_eng.connect()
         Session = sessionmaker(db_eng)
         Session.configure(bind=db_eng)
         db_sess = Session()
