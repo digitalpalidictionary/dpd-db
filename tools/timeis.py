@@ -1,6 +1,5 @@
+import time
 from datetime import datetime
-from timeit import default_timer as timer
-from datetime import timedelta
 
 
 blue = "\033[38;5;33m"  # blue
@@ -44,14 +43,13 @@ def toc():
 
 
 def bip():
-    global bipx
-    bipx = timer()
+    global start_time
+    start_time = time.time()
 
 
 def bop():
-    bopx = timer()
-    bipbop = timedelta(seconds=bopx-bipx)
-    return bipbop
+    elapsed_time = time.time() - start_time
+    return f"{elapsed_time:.2f}"
 
 
 def today():

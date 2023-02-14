@@ -1,6 +1,5 @@
 *.db
 *.sqlite3
-*.csv
 *.log
 log.txt
 tmp/
@@ -9,6 +8,10 @@ xxx delete/*
 share/*
 dpd.db-journal
 inflections/tests/inflection_pattern_dict
+sandhi/!old sandhi-splitter.py
+sandhi/assets/*
+sandhi/output/*
+
 
 __pycache__/
 .pytest_cache
@@ -61,8 +64,6 @@ tags
 
 .DS_Store
 .idea
-
-
 
 
 
