@@ -7,17 +7,14 @@ import pickle
 from json import loads
 from rich import print
 
+from zip_for_cloud import zip_for_cloud
 from db.models import PaliWord, DerivedInflections
 from db.db_helpers import get_db_session
 from helpers import ResourcePaths, get_resource_paths
 from tools.clean_machine import clean_machine
 from tools.pali_text_files import cst_texts, sc_texts, bjt_texts
 from tools.timeis import tic, toc
-
-tic()
-pth: ResourcePaths = get_resource_paths()
-db_session = get_db_session(pth["dpd_db_path"])
-
+from books_to_include import include
 
 # prepare all the necessary parts for local and cloud
 
@@ -323,31 +320,6 @@ def make_neg_inflections_set(sandhi_exceptions_set):
     return neg_inflections_set
 
 
-def make_all_inflections_nfl_nll(all_inflections_set):
-    """all inflections with no first letter, no last, no first three, no last three"""
-
-    print("[green]making all inflections nfl & nll", end=" ")
-
-    all_inflections_nofirst = set()
-    all_inflections_nolast = set()
-    all_inflections_first3 = set()
-    all_inflections_last3 = set()
-
-    for inflection in all_inflections_set:
-        # no first letter
-        all_inflections_nofirst.add(inflection[1:])
-        # no last letter
-        all_inflections_nolast.add(inflection[:-1])
-        # leave first 3 letters
-        all_inflections_first3.add(inflection[:3])
-        # leave last 3 letters
-        all_inflections_last3.add(inflection[-3:])
-
-    print(f"[white]{len(all_inflections_nofirst):,}")
-
-    return all_inflections_nofirst, all_inflections_nolast, all_inflections_first3, all_inflections_last3
-
-
 def copy_sandhi_related_dir():
     print("[green]copying sandhi related dir", end=" ")
     try:
@@ -362,79 +334,17 @@ def copy_sandhi_related_dir():
     print("[white]ok")
 
 
-def import_sandhi_rules():
-    print("[green]importing sandhi rules", end=" ")
-
-    sandhi_rules_df = pd.read_csv(
-        pth["sandhi_rules_path"], sep="\t", dtype=str)
-    sandhi_rules_df.fillna("", inplace=True)
-    print(f"[white]{len(sandhi_rules_df):,}")
-    sandhi_rules = sandhi_rules_df.to_dict('index')
-
-    print("[green]testing sandhi rules for dupes", end=" ")
-    dupes = sandhi_rules_df[sandhi_rules_df.duplicated(
-        ["chA", "chB", "ch1", "ch2"], keep=False)]
-
-    if len(dupes) != 0:
-        print("\n[red]! duplicates found! please remove them and try again")
-        print(f"\n[red]{dupes}")
-        input("\n[white] press enter to continue")
-        import_sandhi_rules()
-    else:
-        print("[white]ok")
-
-    print("[green]testing sandhi rules for spaces", end=" ")
-
-    if (
-        sandhi_rules_df["chA"].str.contains(" ").any() or
-        sandhi_rules_df["chB"].str.contains(" ").any() or
-        sandhi_rules_df["ch1"].str.contains(" ").any() or
-        sandhi_rules_df["ch2"].str.contains(" ").any()
-    ):
-        print("\n[red]! spaces found! please remove them and try again")
-        input("[white]press enter to continue ")
-        import_sandhi_rules()
-
-    else:
-        print("[white]ok")
-
-    return sandhi_rules
-
-
-def make_shortlist_set():
-
-    print("[green]making shortlist set", end=" ")
-
-    shortlist_df = pd.read_csv(
-        pth["shortlist_path"], dtype=str, header=None, sep="\t")
-    shortlist_df.fillna("", inplace=True)
-
-    shortlist_set = set(shortlist_df[0].tolist())
-    print(f"[white]{len(shortlist_set)}")
-
-    return shortlist_set
-
-
 def main():
+    tic()
     print("[yellow]setting up for sandhi splitting")
 
-    copy_sandhi_related_dir()
+    global pth
+    pth = get_resource_paths()
 
-    include = [
-        # "vin1", "vin2", "vin3", "vin4", "vin5",
-        "dn1", "dn2", "dn3",
-        # "mn1", "mn2", "mn3",
-        # "sn1", "sn2", "sn3", "sn4", "sn5",
-        # "an1", "an2", "an3", "an4", "an5",
-        # "an6", "an7", "an8", "an9", "an10", "an11",
-        # "kn",
-        # "vina",
-        # "dna",
-        # "mna",
-        # "sna",
-        # "ana",
-        # "kna"
-        ]
+    global db_session
+    db_session = get_db_session(pth["dpd_db_path"])
+
+    copy_sandhi_related_dir()
 
     cst_text_set = make_cst_text_set(include)
     sc_text_set = make_sc_text_set(include)
@@ -456,7 +366,7 @@ def main():
     neg_inflections_set = make_neg_inflections_set(sandhi_exceptions_set)
 
     def make_unmatched_set():
-        print("[green]making unmatched set", end=" ")
+        print("[green]making text set", end=" ")
 
         text_set = cst_text_set | sc_text_set
         # text_set = text_set | bjt_text_set
@@ -466,6 +376,11 @@ def main():
         text_set = text_set - variant_readings_set
         text_set = text_set - abbreviations_set
         text_set = text_set - manual_corrections_set
+        text_set.remove("")
+
+        print(f"[white]{len(text_set):,}")
+
+        print("[green]making unmatched set", end=" ")
 
         unmatched_set = text_set - all_inflections_set
         unmatched_set = unmatched_set - sandhi_exceptions_set
@@ -520,7 +435,10 @@ def main():
 
         print("[white]ok")
 
-    make_matches_dict()
+    def make_zip_for_cloud():
+        zip_for_cloud()
+
+    make_zip_for_cloud()
 
     toc()
 

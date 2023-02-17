@@ -55,6 +55,8 @@ def get_resource_paths() -> ResourcePaths:
             "sandhi/sandhi_related/sandhi exceptions.csv"),
         sandhi_rules_path=Path(
             "sandhi/sandhi_related/sandhi rules.csv"),
+        sandhi_css_path=Path(
+            "sandhi/sandhi_related/sandhi.css"),
 
         # assets
         unmatched_set_path=Path(
@@ -69,9 +71,19 @@ def get_resource_paths() -> ResourcePaths:
             "sandhi/assets/matches_dict"),
 
         # output
-        process_path=Path("sandhi/output/process.csv"),
-        matches_path=Path("sandhi/output/matches.csv"),
-        matches_sorted=Path("sandhi/output/matches_sorted.csv"),
+        process_path=Path(
+            "sandhi/output/process.csv"),
+        matches_path=Path(
+            "sandhi/output/matches.csv"),
+        matches_sorted=Path(
+            "sandhi/output/matches_sorted.csv"),
+        sandhi_dict_path=Path(
+            "sandhi/output/sandhi_dict"),
+        sandhi_dict_df_path=Path(
+            "sandhi/output/sandhi_dict_df.csv"),
+        zip_path=Path(
+            "sandhi/output/padavibhāga.zip"),
+
 
     )
 

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3.10
 
+import numpy as np
 import pandas as pd
 import os
 import warnings
@@ -10,10 +11,9 @@ import re
 import time
 
 from rich import print
-from tools.timeis import tic, toc
+from tools.timeis import tic, toc, bip, bop
 from helpers import ResourcePaths, get_resource_paths
 from tools.clean_machine import clean_machine
-from timeis import timeis, blue, green, yellow, line, white, red, tic, toc
 from pathlib import Path
 from difflib import SequenceMatcher
 from simsapa.app.stardict import export_words_as_stardict_zip, ifo_from_opts, DictEntry
@@ -25,171 +25,211 @@ pth = get_resource_paths()
 
 def process_matches():
 
-    print(f"[green]combining matches df's", end=" ")
+    print("[green]processing macthes")
 
+    bip()
+    print("\treading csv", end=" ")
     matches_df = pd.read_csv(pth["matches_path"], dtype=str, sep="\t")
     matches_df = matches_df.fillna("")
+    print(bop())
 
-    # add splitcount and lettercount and count
-
+    bip()
+    print("\tadding splitcount", end=" ")
     matches_df["splitcount"] = matches_df['split'].str.count(r' \+ ')
+    print(bop())
+
+    bip()
+    print("\tadding lettercount", end=" ")
     matches_df["lettercount"] = matches_df['split'].str.count('.')
+    print(bop())
+
+    bip()
+    print("\tadding word count", end=" ")
     matches_df['count'] = matches_df.groupby('word')['word'].transform('size')
+    print(bop())
 
-    # add difference ratio
+    # bip()
+    # print("\tadd difference ratio", end=" ")
+    # for row in range(len(matches_df)):
+    #     original = matches_df.iloc[row, 0]
+    #     split = matches_df.iloc[row, 1]
+    #     split = split.replace(" + ", "")
+    #     matches_df.loc[row, 'ratio'] = SequenceMatcher(
+    #         None, original, split).ratio()
+    # print(bop())
 
-    for row in range(len(matches_df)):
-        original = matches_df.iloc[row, 0]
-        split = matches_df.iloc[row, 1]
+    def calculate_ratio(original, split):
         split = split.replace(" + ", "")
-        matches_df.loc[row, 'ratio'] = SequenceMatcher(
-            None, original, split).ratio()
+        return SequenceMatcher(None, original, split).ratio()
 
+    bip()
+    print("\tadd difference ratio", end=" ")
+    matches_df['ratio'] = np.vectorize(
+        calculate_ratio)(matches_df['split'], matches_df['split'])
+    print(bop())
+
+    bip()
+    print("\tsorting df values", end=" ")
     matches_df.sort_values(
         by=["splitcount","ratio", "lettercount"],
+        # by=["splitcount", "lettercount"],
         axis=0,
         ascending=[True, False, True],
+        # ascending=[True, True],
         inplace=True,
         ignore_index=True
     )
+    print(bop())
 
+    bip()
+    print("\tdrop duplicates", end=" ")
     matches_df.drop_duplicates(
         subset=['word', 'split'],
         keep='first',
         inplace=True,
         ignore_index=True
     )
+    print(bop())
 
+    bip()
+    print("\tsaving to matches_sorted.csv", end=" ")
     matches_df.to_csv(pth["matches_sorted"], sep="\t", index=None)
+    print(bop())
 
-    print("[white]ok")
-
-# def make_sandhi_dict(neg_inflections_set):
-
-#     print(f"[green]making sandhi dict")
-#     sandhi_dict = {}
-#     sandhi_dict_clean = {}
-
-#     with open("sandhi/sandhi.css", "r") as f:
-#         sandhi_css = f.read()
-
-#     matches_df_length = len(matches_df)
-
-#     for row in range(matches_df_length):  # matches_df_length
-#         word = matches_df.loc[row, 'word']
-
-#         if row % 1000 == 0:
-#             print(f"[white]{row}/{matches_df_length} {word}")
-
-#         if word not in sandhi_dict.keys():
-
-#             filter = matches_df['word'] == word
-#             word_df = matches_df[filter]
-#             word_df.reset_index(drop=True, inplace=True)
-
-#             length = len(word_df)
-#             if len(word_df) > 5:
-#                 length = 5
-
-#             html_string = ""
-#             html_string_clean = ""
-#             html_string += sandhi_css
-#             html_string += f"<body><div class='sandhi'><p class='sandhi'>"
-
-#             for rowx in range(length):
-#                 word = word_df.loc[rowx, 'word']
-#                 split = word_df.loc[rowx, 'split']
-#                 split = re.sub("-", " + ", split)
-#                 split_words = split.split(" + ")
-#                 rulez = str(word_df.loc[rowx, 'rules'])
-#                 rulez = re.sub(" ", "", rulez)
-#                 ratio = word_df.loc[rowx, 'ratio']
-
-#                 # exclude negatives prefixed with a-
-#                 # include double negatives
-
-#                 neg_count = 0
-#                 add = True
-
-#                 for split_word in split_words:
-#                     if split_word in neg_inflections_set:
-#                         neg_count += 1
-#                         if re.findall(f"(>| ){split_word[1:]}(<| )", html_string):
-#                             add = False
-
-#                 if add == True or \
-#                         neg_count > 1:
-#                     html_string += f"{split} <span class='sandhi'> ({rulez}) ({ratio: .4f})</span>"
-#                     html_string_clean += split
-
-#                     if rowx != length-1:
-#                         html_string += f"<br>"
-#                         html_string_clean += f"<br>"
-#                     else:
-#                         html_string += f"</p></div></body>"
-
-#             sandhi_dict.update({word: html_string})
-#             sandhi_dict_clean.update({word: html_string_clean})
-
-#     with open("output/sandhi dict", "wb") as pf:
-#         pickle.dump(sandhi_dict_clean, pf)
-
-#     sandhi_dict_df = pd.DataFrame(sandhi_dict.items())
-#     sandhi_dict_df.rename({0: "word", 1: "split"},
-#                           axis='columns', inplace=True)
-#     sandhi_dict_df.to_csv(
-#         "output/sandhi/sandhi_dict_df.csv", index=None, sep="\t")
+    return matches_df
 
 
-# def make_golden_dict():
+def make_sandhi_dict(neg_inflections_set, matches_df):
 
-#     print(f"[green]generating goldendict", end=" ")
+    print("[green]making sandhi dict")
+    sandhi_dict = {}
+    sandhi_dict_clean = {}
 
-#     df = pd.read_csv("output/sandhi/sandhi_dict_df.csv", sep="\t", dtype=str)
-#     df = df.fillna("")
-#     df.insert(2, "definition_plain", "")
-#     df.insert(3, "synonyms", "")
-#     df.rename({"word": "word", "split": "definition_html"},
-#               axis='columns', inplace=True)
+    with open(pth["sandhi_css_path"], "r") as f:
+        sandhi_css = f.read()
 
-#     df.to_json("output/sandhi/matches.json",
-#                force_ascii=False, orient="records", indent=5)
+    matches_df_length = len(matches_df)
 
-#     zip_path = Path("./output/sandhi/padavibhāga.zip")
+    for row in range(matches_df_length):  # matches_df_length
+        word = matches_df.loc[row, 'word']
 
-#     with open("output/sandhi/matches.json", "r") as gd_data:
-#         data_read = json.load(gd_data)
+        if row % 1000 == 0:
+            print(f"\t{row:,} / {matches_df_length:,}\t{word}")
 
-#     def item_to_word(x):
-#         return DictEntry(
-#             word=x["word"],
-#             definition_html=x["definition_html"],
-#             definition_plain=x["definition_plain"],
-#             synonyms=x["synonyms"],)
+        if word not in sandhi_dict.keys():
 
-#     words = list(map(item_to_word, data_read))
+            filtered = matches_df['word'] == word
+            word_df = matches_df[filtered]
+            word_df.reset_index(drop=True, inplace=True)
 
-#     ifo = ifo_from_opts(
-#         {"bookname": "padavibhāga",
-#             "author": "Bodhirasa",
-#             "description": "",
-#             "website": "", }
-#     )
+            word_df_length = len(word_df)
+            if len(word_df) > 5:
+                word_df_length = 5
 
-#     export_words_as_stardict_zip(words, ifo, zip_path)
+            html_string = ""
+            html_string_clean = ""
+            html_string += sandhi_css
+            html_string += "<body><div class='sandhi'><p class='sandhi'>"
 
-#     print(f"[white]ok")
+            for rowx in range(word_df_length):
+                word = word_df.loc[rowx, 'word']
+                split = word_df.loc[rowx, 'split']
+                split_words = split.split(" + ")
+                rulez = str(word_df.loc[rowx, 'rules'])
+                rulez = re.sub(" ", "", rulez)
+                ratio = word_df.loc[rowx, 'ratio']
+                # ratio = 0
+
+                # exclude negatives prefixed with a-
+                # include double negatives
+
+                neg_count = 0
+                add = True
+
+                for split_word in split_words:
+                    if split_word in neg_inflections_set:
+                        neg_count += 1
+                        if re.findall(f"(>){split_word[1:]}(<)", html_string):
+                            add = False
+
+                if add is True or \
+                        neg_count > 1:
+                    html_string += f"{split} <span class='sandhi'> ({rulez}) ({ratio: .4f})</span>"
+                    html_string_clean += split
+
+                    if rowx != word_df_length-1:
+                        html_string += "<br>"
+                        html_string_clean += "<br>"
+                    else:
+                        html_string += "</p></div></body>"
+
+            sandhi_dict.update({word: html_string})
+            sandhi_dict_clean.update({word: html_string_clean})
+
+    with open(pth["sandhi_dict_path"], "wb") as f:
+        pickle.dump(sandhi_dict_clean, f)
+
+    sandhi_dict_df = pd.DataFrame(sandhi_dict.items())
+    sandhi_dict_df.rename(
+        {0: "word", 1: "split"},
+        axis='columns',
+        inplace=True
+        )
+    sandhi_dict_df.to_csv(
+        pth["sandhi_dict_df_path"],
+        index=None,
+        sep="\t"
+        )
 
 
-# def unzip_and_copy():
+def make_golden_dict():
 
-#     print(f"[green]unipping and copying goldendict", end=" ")
+    print(f"[green]generating goldendict", end=" ")
 
-#     os.popen(
-#         'unzip -o "output/sandhi/padavibhāga" -d "/home/bhikkhu/Documents/Golden Dict"')
+    df = pd.read_csv(pth["sandhi_dict_df_path"], sep="\t", dtype=str)
+    df = df.fillna("")
+    df.insert(2, "definition_plain", "")
+    df.insert(3, "synonyms", "")
+    df.rename({"word": "word", "split": "definition_html"},
+              axis='columns', inplace=True)
 
-#     print(f"[white]ok")
-#     print(f"[green]{line}")
+    df.to_json("sandhi/output/matches.json",
+               force_ascii=False, orient="records", indent=5)
+
+    zip_path = pth["zip_path"]
+
+    with open("sandhi/output/matches.json", "r") as gd_data:
+        data_read = json.load(gd_data)
+
+    def item_to_word(x):
+        return DictEntry(
+            word=x["word"],
+            definition_html=x["definition_html"],
+            definition_plain=x["definition_plain"],
+            synonyms=x["synonyms"],)
+
+    words = list(map(item_to_word, data_read))
+
+    ifo = ifo_from_opts(
+        {"bookname": "padavibhāga",
+            "author": "Bodhirasa",
+            "description": "",
+            "website": "", }
+    )
+
+    export_words_as_stardict_zip(words, ifo, zip_path)
+
+    print(f"[white]ok")
+
+
+def unzip_and_copy():
+
+    print(f"[green]unipping and copying goldendict", end=" ")
+
+    os.popen(
+        'unzip -o "sandhi/output/padavibhāga" -d "/home/bhikkhu/Documents/Golden Dict"')
+
+    print(f"[white]ok")
 
 
 # def value_counts():
@@ -356,15 +396,20 @@ def process_matches():
 
 def main():
     tic()
-    print("[yellow]postprocessing sandhi splits")
-    process_matches()
-    # make_sandhi_dict(neg_inflections_set)
-    # make_golden_dict()
-    # unzip_and_copy()
+    print("[yellow]post-processing sandhi-splitter")
+
+    with open(pth["neg_inflections_set_path"], "rb") as f:
+        neg_inflections_set = pickle.load(f)
+
+    matches_df = process_matches()
+    make_sandhi_dict(neg_inflections_set, matches_df)
+    make_golden_dict()
+    unzip_and_copy()
     # value_counts()
     # word_counts()
     # test_me()
     toc()
+
 
 if __name__ == "__main__":
     main()

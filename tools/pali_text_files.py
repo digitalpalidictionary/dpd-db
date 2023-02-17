@@ -88,7 +88,7 @@ cst_texts = {
         "s0404a.att.xml.txt"
     ],
 
-    "kna":[
+    "kna": [
         "s0501a.att.xml.txt",
         "s0502a.att.xml.txt",
         "s0503a.att.xml.txt",
