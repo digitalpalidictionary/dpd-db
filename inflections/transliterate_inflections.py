@@ -30,10 +30,6 @@ with open("share/changed_patterns", "rb") as f:
 
 translit_dict: Dict = {}
 
-# !!!!!!!!!!!!!!!!!!!!!!!!!
-# add sandhi dict too
-# !!!!!!!!!!!!!!!!!!!!!!!!!
-
 
 def main():
     tic()

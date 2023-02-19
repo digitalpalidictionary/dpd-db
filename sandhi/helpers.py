@@ -29,7 +29,7 @@ class ResourcePaths(TypedDict):
 
 def get_resource_paths() -> ResourcePaths:
 
-    paths = ResourcePaths(
+    pth = ResourcePaths(
         # db
         dpd_db_path=Path("dpd.db"),
 
@@ -69,6 +69,8 @@ def get_resource_paths() -> ResourcePaths:
             "sandhi/assets/neg_inflections_set"),
         matches_dict_path=Path(
             "sandhi/assets/matches_dict"),
+        matches_do_path=Path(
+            "sandhi/output_do/matches.csv"),
 
         # output
         process_path=Path(
@@ -82,17 +84,40 @@ def get_resource_paths() -> ResourcePaths:
         sandhi_dict_df_path=Path(
             "sandhi/output/sandhi_dict_df.csv"),
         zip_path=Path(
-            "sandhi/output/padavibhāga.zip"),
+            "sandhi/output/zip/padavibhāga.zip"),
+        rule_counts_path=Path("sandhi/output/rule_counts/rule_counts.csv"),
 
+        # translit
+        sandhi_to_translit_path=Path("share/sandhi_to_translit.json"),
+        sandhi_from_translit_path=Path("share/sandhi_from_translit.json"),
 
+        # letters
+        letters=Path("sandhi/output/letters/letters.csv"),
+        letters1=Path("sandhi/output/letters/letters1.csv"),
+        letters2=Path("sandhi/output/letters/letters2.csv"),
+        letters3=Path("sandhi/output/letters/letters3.csv"),
+        letters4=Path("sandhi/output/letters/letters4.csv"),
+        letters5=Path("sandhi/output/letters/letters5.csv"),
+        letters6=Path("sandhi/output/letters/letters6.csv"),
+        letters7=Path("sandhi/output/letters/letters7.csv"),
+        letters8=Path("sandhi/output/letters/letters8.csv"),
+        letters9=Path("sandhi/output/letters/letters9.csv"),
+        letters10=Path("sandhi/output/letters/letters10plus.csv"),
+
+        # dirs
+        output_dir=Path("sandhi/output/"),
+        rule_counts_dir=Path("sandhi/output/rule_counts/"),
+        zip_dir=Path("sandhi/output/zip/"),
+        letters_dir=Path("sandhi/output/letters/")
     )
 
-    # ensure write dirs exist
-    # for d in [rsc['output_dir'],
-    #           rsc['output_html_dir'],
-    #           rsc['output_root_html_dir'],
-    #           rsc['output_share_dir'],
-    #           rsc['error_log_dir']]:
-    #     d.mkdir(parents=True, exist_ok=True)
+    # ensure dirs exist
+    for d in [
+        pth["output_dir"],
+        pth["rule_counts_dir"],
+        pth["zip_dir"],
+        pth["letters_dir"]
+    ]:
+        d.mkdir(parents=True, exist_ok=True)
 
-    return paths
+    return pth

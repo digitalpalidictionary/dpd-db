@@ -7,7 +7,6 @@ import pickle
 from json import loads
 from rich import print
 
-from zip_for_cloud import zip_for_cloud
 from db.models import PaliWord, DerivedInflections
 from db.db_helpers import get_db_session
 from helpers import ResourcePaths, get_resource_paths
@@ -434,11 +433,6 @@ def main():
                     f.write("\n")
 
         print("[white]ok")
-
-    def make_zip_for_cloud():
-        zip_for_cloud()
-
-    make_zip_for_cloud()
 
     toc()
 

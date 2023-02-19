@@ -11,7 +11,11 @@ inflections/tests/inflection_pattern_dict
 sandhi/!old sandhi-splitter.py
 sandhi/assets/*
 sandhi/output/*
-
+sandhi.zip
+output.zip
+csvs/commentary.csv
+csvs/dpd-full.csv
+csvs/vocab.csv
 
 __pycache__/
 .pytest_cache
@@ -67,5 +71,5 @@ tags
 
 
 
-sandhi.zip
-output.zip
+
+

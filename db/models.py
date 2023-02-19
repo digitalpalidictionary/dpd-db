@@ -146,3 +146,16 @@ class DerivedInflections(Base):
     devanagari: Mapped[Optional[str]] = mapped_column(default='')
     thai: Mapped[Optional[str]] = mapped_column(default='')
     html_table: Mapped[Optional[str]] = mapped_column(default='')
+
+
+class Sandhi(Base):
+    __tablename__ = "sandhi"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    sandhi: Mapped[str] = mapped_column(unique=True)
+    split: Mapped[str] = mapped_column(default='')
+    sinhala: Mapped[Optional[str]] = mapped_column(default='')
+    devanagari: Mapped[Optional[str]] = mapped_column(default='')
+    thai: Mapped[Optional[str]] = mapped_column(default='')
+
+    def __repr__(self) -> str:
+        return f"sandhi: {self.id} {self.sandhi} {self.split}"
