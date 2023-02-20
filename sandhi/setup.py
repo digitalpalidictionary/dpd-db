@@ -103,7 +103,7 @@ def make_spelling_mistakes_set():
     dupes_df = sp_mistakes_df[filtered]
     dupes_list = dupes_df[0].to_list()
     if dupes_list != []:
-        print(f"[red]! dupes found {dupes_list}")
+        print(f"[bright_red]! dupes found {dupes_list}")
 
     print("[green]making spelling corrections set", end=" ")
     spelling_corrections_set = set(sp_mistakes_df[1].tolist())
@@ -151,7 +151,7 @@ def make_variant_readings_set():
     dupes_df = variant_reading_df[filter]
     dupes_list = dupes_df[0].to_list()
     if dupes_list != []:
-        print(f"[red]! dupes found {dupes_list}")
+        print(f"[bright_red]! dupes found {dupes_list}")
 
     print("[green]making variant corrections set", end=" ")
     variant_corrections_set = set(variant_reading_df[1].tolist())
@@ -220,9 +220,9 @@ def make_manual_corrections_set():
 
     for word in manual_corrections_list:
         if not re.findall("\\+", word):
-            print(f"[red]! no plus sign {word}")
+            print(f"[bright_red]! no plus sign {word}")
         if re.findall("(\\S\\+|\\+\\S)", word):
-            print(f"[red]! needs space {word}")
+            print(f"[bright_red]! needs space {word}")
 
     manual_corrections_dict = {}
 
@@ -324,7 +324,7 @@ def copy_sandhi_related_dir():
     try:
         shutil.rmtree(pth["sandhi_related_dest_dir"])
     except Exception as e:
-        print(f"[red]{e}")
+        print(f"[bright_red]{e}")
 
     shutil.copytree(pth[
         "sandhi_related_source_dir"],
@@ -335,7 +335,7 @@ def copy_sandhi_related_dir():
 
 def main():
     tic()
-    print("[yellow]setting up for sandhi splitting")
+    print("[bright_yellow]setting up for sandhi splitting")
 
     global pth
     pth = get_resource_paths()

@@ -4,11 +4,12 @@ import re
 
 from rich import print
 
+from root_matrix import generate_root_matrix
 from db.db_helpers import get_db_session
 from db.models import PaliRoot, PaliWord, FamilyRoot
 from tools.timeis import tic, toc
 from tools.superscripter import superscripter_uni
-from root_matrix import generate_root_matrix
+from tools.make_meaning import make_meaning
 
 
 def setup():
@@ -74,12 +75,7 @@ def generate_root_subfamily_html_and_extract_bases():
 
             # generate html
 
-            if i.meaning_1 == "":
-                meaning = i.meaning_2
-            else:
-                meaning = i.meaning_1
-            if i.meaning_lit != "":
-                meaning += f"; lit. {i.meaning_lit}"
+            meaning = make_meaning(i)
 
             html_string += f"<tr><th>{superscripter_uni(i.pali_1)}</th>"
             html_string += f"<td><b>{i.pos}</b></td>"

@@ -246,7 +246,7 @@ def letter_counts(df):
 
 def main():
     tic()
-    print("[yellow]post-processing sandhi-splitter")
+    print("[bright_yellow]post-processing sandhi-splitter")
 
     global pth
     pth = get_resource_paths()

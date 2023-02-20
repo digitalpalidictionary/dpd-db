@@ -33,7 +33,7 @@ translit_dict: Dict = {}
 
 def main():
     tic()
-    print("[yellow]transliterating inflections")
+    print("[bright_yellow]transliterating inflections")
 
     # aksharamukha works much faster with large text files than smaller lists
     # inflections_to_transliterate_string contains the inflections,
@@ -128,7 +128,7 @@ def main():
             "node", "inflections/transliterate inflections.mjs"])
         print(f"[green]{output}")
     except Exception as e:
-        print(f"[red]{e}")
+        print(f"[bright_red]{e}")
 
     # re-import path nirvana transliterations
 

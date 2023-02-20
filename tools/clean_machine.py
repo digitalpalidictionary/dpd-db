@@ -68,10 +68,10 @@ def clean_machine(text):
     errors = set([c for c in text if c not in allowed_characters])
 
     if len(errors) != 0:
-        print(f"[red]errors:{errors}", end=" ")
+        print(f"[bright_red]errors:{errors}", end=" ")
         unicode_errors = [ord(error) for error in errors]
         for error in unicode_errors:
-            print("[red]", end="")
+            print("[bright_red]", end="")
             print("\\u{:04x}".format(error), end=" ")
 
     return text

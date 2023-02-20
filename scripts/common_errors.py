@@ -50,7 +50,7 @@ def family_root_missing():
     if len(filtered_db) > 0:
         print("[green]family_root missing ")
         for i in filtered_db:
-            print(f"[red]\t{i}")
+            print(f"[bright_red]\t{i}")
             input()
             family_root_missing()
 
@@ -70,7 +70,7 @@ def problem_patterns():
 
     if len(filtered_db) > 0:
         for i in filtered_db:
-            print(f"[red]\t{i.id} {i.pali_1} {i.pattern}")
+            print(f"[bright_red]\t{i.id} {i.pali_1} {i.pattern}")
         input()
         problem_patterns()
 
@@ -82,13 +82,13 @@ def wrong_pos():
         PaliWord.pos.notin_(pos_list)).all()
     if len(filtered_db) > 0:
         for i in filtered_db:
-            print(f"[red]\t{i.id} {i.pali_1} {i.pos}")
+            print(f"[bright_red]\t{i.id} {i.pali_1} {i.pos}")
         input()
         wrong_pos()
 
 
 def main():
-    print("[yellow] testing for common errors")
+    print("[bright_yellow] testing for common errors")
     family_root_contains_plus()
     family_compound_contains_plus()
     family_root_missing()

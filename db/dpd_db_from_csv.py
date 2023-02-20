@@ -136,7 +136,7 @@ def add_pali_roots(db_session: Session, csv_path: Path):
             # Check if item is a duplicate.
             res = db_session.query(PaliRoot).filter_by(root=i.root).first()
             if res:
-                print(f"[red]Duplicate found, skipping!\n\
+                print(f"[bright_red]Duplicate found, skipping!\n\
                     Already in DB:\n{res}\nConflicts with:\n{i}")
 
                 continue
@@ -146,7 +146,7 @@ def add_pali_roots(db_session: Session, csv_path: Path):
         db_session.commit()
 
     except Exception as e:
-        print(f"[red]ERROR: Adding to db failed:\n{e}")
+        print(f"[bright_red]ERROR: Adding to db failed:\n{e}")
 
 
 def add_pali_words(db_session: Session, csv_path: Path):
@@ -167,7 +167,7 @@ def add_pali_words(db_session: Session, csv_path: Path):
             # res = db_session.query(
             # PaliWord).filter_by(pali_1 = i.pali_1).first()
             # if res:
-            #     print(f"[red]Duplicate found, skipping!\n
+            #     print(f"[bright_red]Duplicate found, skipping!\n
             #           Already in DB:\n{res}\nConflicts with:\n{i}")
             #     continue
 
@@ -176,12 +176,12 @@ def add_pali_words(db_session: Session, csv_path: Path):
         db_session.commit()
 
     except Exception as e:
-        print(f"[red]ERROR: Adding to db failed:\n{e}")
+        print(f"[bright_red]ERROR: Adding to db failed:\n{e}")
 
 
 def main():
     tic()
-    print("[yellow]convert dpd.csv to dpd.db")
+    print("[bright_yellow]convert dpd.csv to dpd.db")
     dpd_db_path = Path("dpd.db")
     roots_csv_path = Path("../csvs/roots.csv")
     dpd_full_path = Path("../csvs/dpd-full.csv")
@@ -193,7 +193,7 @@ def main():
 
     for p in [roots_csv_path, dpd_full_path]:
         if not p.exists():
-            print(f"[red]File does not exist: {p}")
+            print(f"[bright_red]File does not exist: {p}")
             sys.exit(1)
 
     db_session = get_db_session(dpd_db_path)

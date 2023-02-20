@@ -1066,7 +1066,7 @@ def recursive_removal(w):
 def main():
     tic()
 
-    print("[yellow]sandhi splitter")
+    print("[bright_yellow]sandhi splitter")
 
     profiler_on = False
 

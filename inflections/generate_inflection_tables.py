@@ -236,7 +236,7 @@ def generate_inflection_table(
 
 def main():
     tic()
-    print("[yellow]generate inflection lists and html tables")
+    print("[bright_yellow]generate inflection lists and html tables")
 
     test_changes()
 

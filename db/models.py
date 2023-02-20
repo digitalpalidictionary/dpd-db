@@ -49,7 +49,7 @@ class PaliRoot(Base):
         back_populates="pali_root")
 
     def __repr__(self) -> str:
-        return f"""{self.root} {self.root_group} {self.root_sign} ({self.root_meaning})""".strip()
+        return f"""PaliRoot: {self.root} {self.root_group} {self.root_sign} ({self.root_meaning})""".strip()
 
 
 class PaliWord(Base):
@@ -132,7 +132,7 @@ class InflectionTemplates(Base):
     data: Mapped[Optional[str]] = mapped_column(default='')
 
     def __repr__(self) -> str:
-        return f"inflection_templates: {self.pattern} {self.like} {self.data}"
+        return f"InflectionTemplates: {self.pattern} {self.like} {self.data}"
 
 
 class DerivedInflections(Base):
@@ -146,6 +146,9 @@ class DerivedInflections(Base):
     thai: Mapped[Optional[str]] = mapped_column(default='')
     html_table: Mapped[Optional[str]] = mapped_column(default='')
 
+    def __repr__(self) -> str:
+        return f"DerivedInflections: {self.id} {self.pali_1} {self.inflections}"
+
 
 class Sandhi(Base):
     __tablename__ = "sandhi"
@@ -157,7 +160,7 @@ class Sandhi(Base):
     thai: Mapped[Optional[str]] = mapped_column(default='')
 
     def __repr__(self) -> str:
-        return f"sandhi: {self.id} {self.sandhi} {self.split}"
+        return f"Sandhi: {self.id} {self.sandhi} {self.split}"
 
 
 class FamilyRoot(Base):
@@ -165,7 +168,7 @@ class FamilyRoot(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     root_family: Mapped[str] = mapped_column(unique=True)
     html: Mapped[str] = mapped_column(default='')
-    count: Mapped[Optional[int]] = mapped_column(default=0)
+    count: Mapped[int] = mapped_column(default=0)
 
     def __repr__(self) -> str:
         return f"FamilyRoot: {self.id} {self.root_family} {self.count}"
@@ -176,7 +179,7 @@ class FamilyCompound(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     compound_family: Mapped[str] = mapped_column(unique=True)
     html: Mapped[str] = mapped_column(default='')
-    count: Mapped[Optional[int]] = mapped_column(default=0)
+    count: Mapped[int] = mapped_column(default=0)
 
     def __repr__(self) -> str:
         return f"FamilyCompound: {self.id} {self.compound_family} {self.count}"
@@ -187,7 +190,7 @@ class FamilyWord(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     word_family: Mapped[str] = mapped_column(unique=True)
     html: Mapped[str] = mapped_column(default='')
-    count: Mapped[Optional[int]] = mapped_column(default=0)
+    count: Mapped[int] = mapped_column(default=0)
 
     def __repr__(self) -> str:
         return f"FamilyWord: {self.id} {self.word_family} {self.count}"
@@ -198,7 +201,19 @@ class FamilySet(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     set: Mapped[str] = mapped_column(unique=True)
     html: Mapped[str] = mapped_column(default='')
-    count: Mapped[Optional[int]] = mapped_column(default=0)
+    count: Mapped[int] = mapped_column(default=0)
 
     def __repr__(self) -> str:
         return f"FamilySet: {self.id} {self.set} {self.count}"
+
+
+class FrequencyMaps(Base):
+    __tablename__ = "frequency_maps"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    pali_1: Mapped[str] = mapped_column(unique=True)
+    data: Mapped[str] = mapped_column(default='')
+    html: Mapped[str] = mapped_column(default="")
+    count: Mapped[int] = mapped_column(default=0)
+
+    def __repr__(self) -> str:
+        return f"FrequencyMaps: {self.id} {self.pali_1} {self.html}"

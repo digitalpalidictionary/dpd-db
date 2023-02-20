@@ -106,7 +106,7 @@ def transliterate_sandhi():
             "node", "sandhi/transliterate_sandhi.mjs"])
         print(f"    {output}")
     except Exception as e:
-        print(f"[red]{e}")
+        print(f"[bright_red]{e}")
 
     # re-import path nirvana transliterations
 
