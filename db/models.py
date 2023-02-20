@@ -49,8 +49,7 @@ class PaliRoot(Base):
         back_populates="pali_root")
 
     def __repr__(self) -> str:
-        return f"""{self.root} {self.root_group} {self.root_sign} (
-            {self.root_meaning})""".strip()
+        return f"""{self.root} {self.root_group} {self.root_sign} ({self.root_meaning})""".strip()
 
 
 class PaliWord(Base):
@@ -159,3 +158,47 @@ class Sandhi(Base):
 
     def __repr__(self) -> str:
         return f"sandhi: {self.id} {self.sandhi} {self.split}"
+
+
+class FamilyRoot(Base):
+    __tablename__ = "family_root"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    root_family: Mapped[str] = mapped_column(unique=True)
+    html: Mapped[str] = mapped_column(default='')
+    count: Mapped[Optional[int]] = mapped_column(default=0)
+
+    def __repr__(self) -> str:
+        return f"FamilyRoot: {self.id} {self.root_family} {self.count}"
+
+
+class FamilyCompound(Base):
+    __tablename__ = "family_compound"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    compound_family: Mapped[str] = mapped_column(unique=True)
+    html: Mapped[str] = mapped_column(default='')
+    count: Mapped[Optional[int]] = mapped_column(default=0)
+
+    def __repr__(self) -> str:
+        return f"FamilyCompound: {self.id} {self.compound_family} {self.count}"
+
+
+class FamilyWord(Base):
+    __tablename__ = "family_word"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    word_family: Mapped[str] = mapped_column(unique=True)
+    html: Mapped[str] = mapped_column(default='')
+    count: Mapped[Optional[int]] = mapped_column(default=0)
+
+    def __repr__(self) -> str:
+        return f"FamilyWord: {self.id} {self.word_family} {self.count}"
+
+
+class FamilySet(Base):
+    __tablename__ = "family_set"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    set: Mapped[str] = mapped_column(unique=True)
+    html: Mapped[str] = mapped_column(default='')
+    count: Mapped[Optional[int]] = mapped_column(default=0)
+
+    def __repr__(self) -> str:
+        return f"FamilySet: {self.id} {self.set} {self.count}"
