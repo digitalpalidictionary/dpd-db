@@ -1,5 +1,7 @@
 #!/usr/bin/env python3.10
 
+# sandhi paths
+
 from typing import TypedDict
 from pathlib import Path
 

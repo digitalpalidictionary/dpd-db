@@ -15,6 +15,7 @@ def clean_machine(text):
         ",", " ").replace(
         ";", " ").replace(
         ":", " ").replace(
+        "'", "").replace(
         "‘", "").replace(
         "’", "").replace(
         "`", "").replace(
@@ -39,6 +40,7 @@ def clean_machine(text):
         "{", " ").replace(
         "}", " ").replace(
         "/", " ").replace(
+        "\\", " ").replace(
         "<", " ").replace(
         ">", " ").replace(
         "^", " ").replace(
@@ -61,9 +63,8 @@ def clean_machine(text):
         "\u0306", ""
         )
 
-    text = re.sub("^ ", "", text)
-    text = re.sub("^ ", "", text)
-    text = re.sub("^ ", "", text)
+    text = re.sub("^ *", "", text)
+    text = re.sub(" $", "", text)
 
     errors = set([c for c in text if c not in allowed_characters])
 

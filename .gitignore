@@ -16,6 +16,7 @@ output.zip
 csvs/commentary.csv
 csvs/dpd-full.csv
 csvs/vocab.csv
+frequency/output/*
 
 __pycache__/
 .pytest_cache
@@ -68,6 +69,7 @@ tags
 
 .DS_Store
 .idea
+
 
 
 
