@@ -248,6 +248,11 @@ def main():
     tic()
     print("[bright_yellow]post-processing sandhi-splitter")
 
+    if add_do is True:
+        print("[green]add digital ocean [orange]true")
+    else:
+        print("[green]add digital ocean [orange]false")
+
     global pth
     pth = get_resource_paths()
 

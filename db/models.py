@@ -135,8 +135,8 @@ class InflectionTemplates(Base):
         return f"InflectionTemplates: {self.pattern} {self.like} {self.data}"
 
 
-class DerivedInflections(Base):
-    __tablename__ = "derived_inflections"
+class DerivedData(Base):
+    __tablename__ = "derived_data"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     pali_1: Mapped[str] = mapped_column(unique=True)
@@ -145,9 +145,11 @@ class DerivedInflections(Base):
     devanagari: Mapped[Optional[str]] = mapped_column(default='')
     thai: Mapped[Optional[str]] = mapped_column(default='')
     html_table: Mapped[Optional[str]] = mapped_column(default='')
+    freq_data: Mapped[Optional[str]] = mapped_column(default='')
+    freq_html: Mapped[Optional[str]] = mapped_column(default='')
 
     def __repr__(self) -> str:
-        return f"DerivedInflections: {self.id} {self.pali_1} {self.inflections}"
+        return f"DerivedData: {self.id} {self.pali_1} {self.inflections}"
 
 
 class Sandhi(Base):
@@ -205,15 +207,3 @@ class FamilySet(Base):
 
     def __repr__(self) -> str:
         return f"FamilySet: {self.id} {self.set} {self.count}"
-
-
-class FrequencyMaps(Base):
-    __tablename__ = "frequency_maps"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    pali_1: Mapped[str] = mapped_column(unique=True)
-    data: Mapped[str] = mapped_column(default='')
-    html: Mapped[str] = mapped_column(default="")
-    count: Mapped[int] = mapped_column(default=0)
-
-    def __repr__(self) -> str:
-        return f"FrequencyMaps: {self.id} {self.pali_1} {self.html}"

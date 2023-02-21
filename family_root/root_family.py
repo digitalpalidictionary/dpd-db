@@ -49,7 +49,7 @@ def generate_root_subfamily_html_and_extract_bases():
 
         if counter % 500 == 0:
             print(
-                f"  {counter:>6,} / {len(root_family_list):<6,}  {subfamily}")
+                f"{counter:>9,} / {len(root_family_list):<9,} {subfamily}")
 
         # !!!!!!!!!!!!! pali alphabetical order !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -124,7 +124,7 @@ def generate_root_info_html():
 
         if counter % 100 == 0:
             print(
-                f"   {counter:>5,} / {len(roots_db):<5,}   {i.root}")
+                f"{counter:>9,} / {len(roots_db):<9,} {i.root}")
 
         root_clean = re.sub(" \\d*$", "", i.root)
         root_group_pali = root_grouper(i.root_group)

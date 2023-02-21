@@ -54,7 +54,7 @@ def main():
         compound_family = x[1]
 
         if counter % 500 == 0:
-            print(f"  {counter:>5,} / {length:<5,}   {compound_family}")
+            print(f"{counter:>9,} / {length:<9,} {compound_family}")
 
         compound_family_db = db_session.query(PaliWord).filter(
             PaliWord.family_compound.contains(compound_family),

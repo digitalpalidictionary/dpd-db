@@ -24,7 +24,7 @@ def generate_root_matrix(db_session):
         # root_clean = re.sub(" \\d.*$", "", i.root_key)
 
         if enum % 10000 == 0:
-            print(f"  {enum:>6,} / {len(dpd_db):<6,}  {headword}")
+            print(f"{enum:>9,} / {len(dpd_db):<9,} {headword}")
 
         if i.root_key != "":
             if i.root_key not in root_matrix:

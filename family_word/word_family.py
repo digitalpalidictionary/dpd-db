@@ -49,7 +49,7 @@ def main():
         word_family = x[1]
 
         if counter % 100 == 0:
-            print(f"  {counter:>5,} / {length:<5,}   {word_family}")
+            print(f"{counter:>9,} / {length:<9,} {word_family}")
 
         # !!!!!!!!!!!!!!!!!!!!!! pali alphabetical order !!!!!!!!!!!!!!!!!!
 

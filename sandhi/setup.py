@@ -7,7 +7,7 @@ import pickle
 from json import loads
 from rich import print
 
-from db.models import PaliWord, DerivedInflections
+from db.models import PaliWord, DerivedData
 from db.db_helpers import get_db_session
 from helpers import ResourcePaths, get_resource_paths
 from tools.clean_machine import clean_machine
@@ -266,8 +266,8 @@ def make_all_inflections_set(sandhi_exceptions_set):
 
     all_headwords = [i.pali_1 for i in no_exceptions]
 
-    all_inflections_db = db_session.query(DerivedInflections).filter(
-        DerivedInflections.pali_1.in_(all_headwords)).all()
+    all_inflections_db = db_session.query(DerivedData).filter(
+        DerivedData.pali_1.in_(all_headwords)).all()
 
     for i in all_inflections_db:
         inflections = loads(i.inflections)
@@ -300,8 +300,8 @@ def make_neg_inflections_set(sandhi_exceptions_set):
 
     neg_headwords = [i.pali_1 for i in neg_headwords_db]
 
-    neg_inflections_db = db_session.query(DerivedInflections).filter(
-        DerivedInflections.pali_1.in_(neg_headwords)).all()
+    neg_inflections_db = db_session.query(DerivedData).filter(
+        DerivedData.pali_1.in_(neg_headwords)).all()
 
     for i in neg_inflections_db:
         inflections = loads(i.inflections)

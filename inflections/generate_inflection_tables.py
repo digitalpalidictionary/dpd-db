@@ -11,7 +11,7 @@ from typing import List, Dict
 from pathlib import Path
 
 from db.db_helpers import get_db_session
-from db.models import PaliWord, InflectionTemplates, DerivedInflections
+from db.models import PaliWord, InflectionTemplates, DerivedData
 from tools.timeis import tic, toc
 
 regenerate_all: bool = True
@@ -20,7 +20,7 @@ dpd_db_path = Path("dpd.db")
 db_session = get_db_session(dpd_db_path)
 dpd_db = db_session.query(PaliWord).all()
 
-changed_patterns: list = []
+changed_templates: list = []
 changed_headwords: list = []
 
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -40,14 +40,14 @@ def test_inflection_template_changed():
         old_templates = []
     new_templates = db_session.query(InflectionTemplates).all()
 
-    print("[green]testing for changed patterns")
+    print("[green]testing for changed templates")
     for new_template in new_templates:
         for old_template in old_templates:
             if new_template.pattern == old_template.pattern:
                 if new_template.data != old_template.data:
-                    changed_patterns.append(new_template.pattern)
-    if changed_patterns != []:
-        print(f"	[red]{changed_patterns}")
+                    changed_templates.append(new_template.pattern)
+    if changed_templates != []:
+        print(f"	[red]{changed_templates}")
 
     print("[green]testing for added patterns")
     old_patterns: set = {table.pattern for table in old_templates}
@@ -58,7 +58,7 @@ def test_inflection_template_changed():
 
     if added_patterns != []:
         print(f"\t[red]{added_patterns}")
-        changed_patterns.extend(added_patterns)
+        changed_templates.extend(added_patterns)
 
     print("[green]testing for deleted patterns")
     deleted_patterns = [
@@ -74,7 +74,7 @@ def test_inflection_template_changed():
 
     if changed_like != []:
         print(f"\t[red]{changed_like}")
-        changed_patterns.extend(changed_like)
+        changed_templates.extend(changed_like)
 
     def save_pickle() -> None:
         tables = db_session.query(InflectionTemplates).all()
@@ -159,7 +159,7 @@ def test_changes_in_stem_pattern() -> None:
 def test_missing_inflection_list_html() -> None:
     print("[green]testing for missing inflection list and html tables")
 
-    derived_db = db_session.query(DerivedInflections).all()
+    derived_db = db_session.query(DerivedData).all()
     for i in derived_db:
         if i.inflections == "":
             print(f"\t[red]{i.pali_1}")
@@ -245,7 +245,7 @@ def main():
     for i in track(dpd_db, description=""):
 
         test1 = i.pali_1 in changed_headwords
-        test2 = i.pattern in changed_patterns
+        test2 = i.pattern in changed_templates
         test3 = regenerate_all is True
 
         if test1 or test2 or test3:
@@ -258,11 +258,11 @@ def main():
             # pattern == "" then no table, just add clean headword
 
             if regenerate_all is True:
-                db_session.execute(DerivedInflections.__table__.delete())
+                db_session.execute(DerivedData.__table__.delete())
 
             else:
-                exists = db_session.query(DerivedInflections).filter(
-                    DerivedInflections.pali_1 == i.pali_1).first()
+                exists = db_session.query(DerivedData).filter(
+                    DerivedData.pali_1 == i.pali_1).first()
 
                 if exists is not None:
                     db_session.delete(exists)
@@ -275,7 +275,7 @@ def main():
                 html, inflections_list = generate_inflection_table(
                     i.stem, i.pattern, t.like, table_data)
 
-                derived_inflections = DerivedInflections(
+                derived_data = DerivedData(
                     pali_1=i.pali_1,
                     inflections=json.dumps(
                         inflections_list, ensure_ascii=False),
@@ -283,7 +283,7 @@ def main():
                 )
 
                 if "!" in i.stem:
-                    derived_inflections = DerivedInflections(
+                    derived_data = DerivedData(
                         pali_1=i.pali_1,
                         inflections=json.dumps(
                             (list([pali_1_clean])), ensure_ascii=False),
@@ -291,12 +291,12 @@ def main():
                     )
 
             elif i.pattern == "":
-                derived_inflections = DerivedInflections(
+                derived_data = DerivedData(
                     pali_1=i.pali_1,
                     inflections=json.dumps(
                         (list([pali_1_clean])), ensure_ascii=False))
 
-            add_to_db.append(derived_inflections)
+            add_to_db.append(derived_data)
 
     db_session.commit()
 
@@ -308,8 +308,8 @@ def main():
     with open("share/changed_headwords", "wb") as f:
         pickle.dump(changed_headwords, f)
 
-    with open("share/changed_patterns", "wb") as f:
-        pickle.dump(changed_patterns, f)
+    with open("share/changed_templates", "wb") as f:
+        pickle.dump(changed_templates, f)
 
     # # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     # # find all unused patterns

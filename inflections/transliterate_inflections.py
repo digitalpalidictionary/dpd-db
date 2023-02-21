@@ -12,7 +12,7 @@ from aksharamukha import transliterate
 from subprocess import check_output
 
 from db.db_helpers import get_db_session
-from db.models import PaliWord, DerivedInflections
+from db.models import PaliWord, DerivedData
 from tools.timeis import tic, toc
 
 regenerate_all = True
@@ -20,13 +20,13 @@ regenerate_all = True
 dpd_db_path = Path("dpd.db")
 db_session = get_db_session(dpd_db_path)
 dpd_db = db_session.query(PaliWord).all()
-derived_db = db_session.query(DerivedInflections).all()
+derived_db = db_session.query(DerivedData).all()
 
 with open("share/changed_headwords", "rb") as f:
     changed_headwords: list = pickle.load(f)
 
-with open("share/changed_patterns", "rb") as f:
-    changed_patterns: list = pickle.load(f)
+with open("share/changed_templates", "rb") as f:
+    changed_templates: list = pickle.load(f)
 
 translit_dict: Dict = {}
 
@@ -46,13 +46,13 @@ def main():
     counter: int = 0
 
     for i in track(dpd_db, description=""):
-        test1 = i.pattern in changed_patterns
+        test1 = i.pattern in changed_templates
         test2 = i.pali_1 in changed_headwords
         test3 = regenerate_all
 
         if test1 or test2 or test3:
-            find = db_session.query(DerivedInflections).filter(
-                    DerivedInflections.pali_1 == i.pali_1).first()
+            find = db_session.query(DerivedData).filter(
+                    DerivedData.pali_1 == i.pali_1).first()
             if not find:
                 print(f"\t[red]{i.pali_1} not found")
             inflections: list = json.loads(find.inflections)
