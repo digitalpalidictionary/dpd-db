@@ -1,15 +1,13 @@
 
 import pandas as pd
-import os
 import pickle
 import re
 import json
-import csv
 
 from rich import print
 from io import StringIO
-
 from sqlalchemy import update
+
 from helpers import ResourcePaths, get_paths
 from db.db_helpers import get_db_session
 from db.models import PaliWord, DerivedData
@@ -21,7 +19,7 @@ def main():
     print("[bright_yellow]mapmaker")
 
     global regenerate
-    regenerate = True
+    regenerate = False
 
     print(f"[green]regenerate all [white]{regenerate}")
 
@@ -34,9 +32,8 @@ def main():
     test_map_same()
     test_inflection_template_changed()
     test_changed_headwords()
-    # test_data_file_missing()
-    # test_data_file_zero()
-    # test_html_file_missing()
+    idioms_list = test_data_file_missing()
+    test_html_file_missing(idioms_list)
     dicts = make_dfs_and_dicts()
     wc_data, dpd_db = make_data_dict(dicts)
     generates_html_files(wc_data, dpd_db)
@@ -60,9 +57,9 @@ def test_map_same():
         map_same = new_map.equals(old_map)
 
         if map_same is False:
-            print("[red]changed")
+            print("[bright_red]changed")
         else:
-            print("[white]same")
+            print("[white]ok")
 
     except FileNotFoundError as e:
         print(f"[red]{e}")
@@ -82,10 +79,9 @@ def test_inflection_template_changed():
             changed_templates = pickle.load(f)
 
             if changed_templates == []:
-                print("[white]none")
+                print("[white]ok")
             else:
-                for pattern in changed_templates:
-                    print(f"[bright_red]{pattern}", end=" ")
+                print(f"[bright_red]{len(changed_templates)}", end=" ")
 
     except FileNotFoundError as e:
         print(f"[red]{e}")
@@ -100,61 +96,61 @@ def test_changed_headwords():
         with open(pth.changed_headwords_path, "rb") as f:
             changed_headwords = pickle.load(f)
         if changed_headwords == []:
-            print("[white] none")
+            print("[white] ok")
         else:
-            for pattern in changed_headwords:
-                print(f"[bright_red]{pattern}", end=" ")
+            print(f"[bright_red]{len(changed_headwords)}")
 
     except FileNotFoundError as e:
         print(f"[bright_red]{e}")
         changed_templates == []
 
 
-# def test_data_file_missing():
-#     print("[green]test if data file is missing")
+def test_data_file_missing():
+    print("[green]test if data file is missing", end=" ")
 
-#     global data_file_missing
-#     data_file_missing = []
-#     # for row in range(dpd_df_length):
-#     #     headword = dpd_df.loc[row, "Pāli1"]
-#     #     pos = dpd_df.loc[row, "POS"]
-#     #     if not os.path.isfile(f"output/data/{headword}.csv") and pos != "idiom":
-#     #         data_file_missing.append(headword)
-#     #         print(f"{row}/{dpd_df_length}\t{headword}")
-#     missing_data = db_session.query(
-#         DerivedData.pali_1
-#         ).filter(DerivedData.freq_data == "").all()
+    idioms_db = db_session.query(
+        PaliWord.pali_1, PaliWord.pos
+    ).filter(
+        PaliWord.pos == "idiom"
+    ).all()
 
-#     for i in missing_data:
-#         print(f"[bright_red]{i[0]}")
+    idioms_list = [i.pali_1 for i in idioms_db]
 
+    missing_data_db = db_session.query(
+        DerivedData.pali_1, DerivedData.freq_data
+        ).filter(
+            DerivedData.freq_data == "",
+            DerivedData.pali_1.notin_(idioms_list)
+        ).all()
 
-# def test_data_file_zero():
-#     print("[green]test if data file is 0 kb")
+    global data_file_missing
+    data_file_missing = [i.pali_1 for i in missing_data_db]
 
-#     global data_file_zero
-#     data_file_zero = []
-#     for row in range(dpd_df_length):
-#         headword = dpd_df.loc[row, "Pāli1"]
-#         pos = dpd_df.loc[row, "POS"]
-#         if headword not in data_file_missing and pos != "idiom":
-#             if os.path. getsize(f"output/data/{headword}.csv") == 0:
-#                 data_file_zero.append(headword)
-#                 print(f"{row}/{dpd_df_length}\t{headword}")
+    if len(data_file_missing) > 0:
+        print(f"[bright_red]{len(data_file_missing)}")
+    else:
+        print("ok")
+
+    return idioms_list
 
 
-# def test_html_file_missing():
-#     print("[green]test if html file is missing")
+def test_html_file_missing(idioms_list):
+    print("[green]test if html file is missing", end=" ")
 
-#     global html_file_missing
-#     html_file_missing = []
-#     for row in range(dpd_df_length):
-#         headword = dpd_df.loc[row, "Pāli1"]
-#         pos = dpd_df.loc[row, "POS"]
-#         if pos != "idiom":
-#             if not os.path.isfile(f"output/html/{headword}.html"):
-#                 html_file_missing.append(headword)
-#                 print(f"{row}/{dpd_df_length}\t{headword}")
+    missing_html_db = db_session.query(
+        DerivedData.pali_1, DerivedData.freq_html
+    ).filter(
+        DerivedData.freq_html == "",
+        DerivedData.pali_1.notin_(idioms_list)
+    ).all()
+
+    global html_file_missing
+    html_file_missing = [i.pali_1 for i in missing_html_db]
+
+    if len(html_file_missing) > 0:
+        print(f"[bright_red]{len(html_file_missing)}")
+    else:
+        print("ok")
 
 
 def make_dfs_and_dicts():
@@ -373,13 +369,15 @@ def make_data_dict(dicts):
             (map_same is False or
                 i.pattern in changed_templates or
                 i.pali_1 in changed_headwords or
+                i.pali_1 in data_file_missing or
+                i.pali_1 in html_file_missing or
                 regenerate is True):
 
             if regenerate is True:
                 if counter % 5000 == 0:
                     print(f"{counter:>9,} / {db_length:<9,} {i.pali_1}")
             else:
-                if counter < 50 or counter % 1000 == 0:
+                if counter % 500 == 0:
                     print(f"{counter:>9,} / {db_length:<9,} {i.pali_1}")
 
             # output_file = open(f"output/data/{headword}.csv", "w")
@@ -480,12 +478,13 @@ def generates_html_files(wc_data, dpd_db):
     for x in enumerate(dpd_db):
         counter = x[0]
         i = x[1]
-        pali_clean = re.sub(r" \d.*$", "", i.pali_1)
 
         if i.pos != "idiom" and \
             (map_same is False or
                 i.pattern in changed_templates or
                 i.pali_1 in changed_headwords or
+                i.pali_1 in data_file_missing or
+                i.pali_1 in html_file_missing or
                 regenerate is True):
 
             try:
@@ -500,7 +499,7 @@ def generates_html_files(wc_data, dpd_db):
                 if counter % 5000 == 0:
                     print(f"{counter:>9,} / {length:<9,} {i.pali_1}")
             else:
-                if counter < 50 or counter % 100 == 0:
+                if counter % 500 == 0:
                     print(f"{counter:>9,} / {length:<9,} {i.pali_1}")
 
             value_max = data[1].max()
@@ -700,16 +699,18 @@ def generates_html_files(wc_data, dpd_db):
             freq_map.fillna(0, inplace=True)
             
             map_html = ""
+            # pali_clean = re.sub(r" \d.*$", "", i.pali_1)
+
             if value_max > 0:
 
                 if i.pos in indeclinables or re.match(r"^!", i.stem):
-                    map_html += f"""<p class="heading">Exact matches of the word <b>{pali_clean}</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
+                    map_html += f"""<p class="heading">Exact matches of the word <b>{i.pali_1}</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
                     
                 elif i.pos in conjugations:
-                    map_html += f"""<p class="heading">Exact matches of <b>{pali_clean} and its conjugations</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
+                    map_html += f"""<p class="heading">Exact matches of <b>{i.pali_1} and its conjugations</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
                 
                 elif i.pos in declensions:
-                    map_html += f"""<p class="heading">Exact matches of <b>{pali_clean} and its declensions</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
+                    map_html += f"""<p class="heading">Exact matches of <b>{i.pali_1} and its declensions</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
 
                 # map_html += f"""<style>{css}</style>"""
                 
@@ -743,7 +744,7 @@ def generates_html_files(wc_data, dpd_db):
                     map_html)       
 
             else:
-                map_html += f"""<p class="heading">There are no exact matches of <b>{pali_clean} or it's inflections</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
+                map_html += f"""<p class="heading">There are no exact matches of <b>{i.pali_1} or it's inflections</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
                 pass
 
             with open(f"frequency/output/html/{i.pali_1}.html", "w") as f:
@@ -757,31 +758,31 @@ def generates_html_files(wc_data, dpd_db):
     print(len(add_to_db))
 
 
-def make_map_data_json():
-    """compile data files for json export to other apps"""
-    print(f"[green]compiling data files to json")
+# def make_map_data_json():
+#     """compile data files for json export to other apps"""
+#     print(f"[green]compiling data files to json")
     
-    file_dir = "output/data/"
-    data_dict = {}
-    counter = 0
+#     file_dir = "output/data/"
+#     data_dict = {}
+#     counter = 0
     
-    for root, dirs, files in os.walk(file_dir, topdown=True):
-        files_len = len(files)
-        for file_name in files:
-            file_name_clean = file_name.replace(".csv", "")
+#     for root, dirs, files in os.walk(file_dir, topdown=True):
+#         files_len = len(files)
+#         for file_name in files:
+#             file_name_clean = file_name.replace(".csv", "")
 
-            if counter %5000 ==0:
-                print(f"{white}{counter}/{files_len}\t{file_name_clean}")
+#             if counter %5000 ==0:
+#                 print(f"{white}{counter}/{files_len}\t{file_name_clean}")
             
-            with open(f"{file_dir}{file_name}") as infile:
-                reader = csv.reader(infile)
-                data_dict[file_name_clean] = {rows[0]: int(rows[1]) for rows in reader}
+#             with open(f"{file_dir}{file_name}") as infile:
+#                 reader = csv.reader(infile)
+#                 data_dict[file_name_clean] = {rows[0]: int(rows[1]) for rows in reader}
 
-            counter += 1
+#             counter += 1
 
-    data_json = json.dumps(data_dict, ensure_ascii=False, indent=4)
-    with open("../dpd-app/data/frequency-data.json", "w") as f:
-        f.write(data_json)
+#     data_json = json.dumps(data_dict, ensure_ascii=False, indent=4)
+#     with open("../dpd-app/data/frequency-data.json", "w") as f:
+#         f.write(data_json)
 
 
 if __name__ == "__main__":

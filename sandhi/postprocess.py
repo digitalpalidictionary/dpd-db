@@ -11,7 +11,7 @@ from helpers import get_resource_paths
 from difflib import SequenceMatcher
 from pathlib import Path
 
-from simsapa.app.stardict import export_words_as_stardict_zip, ifo_from_opts
+from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from db.db_helpers import get_db_session
 from db.models import Sandhi
 from transliterate_sandhi import transliterate_sandhi
@@ -135,7 +135,7 @@ def add_to_dpd_db(top_five_dict):
     db_session.commit()
     db_session.close()
 
-    print(f"[white]{len(add_to_db)}")
+    print(f"{len(add_to_db)}")
 
 
 def make_golden_dict(top_five_dict):
@@ -174,7 +174,7 @@ def make_golden_dict(top_five_dict):
     ifo = ifo_from_opts(
         {"bookname": "padavibhāga",
             "author": "Bodhirasa",
-            "description": "",
+            "description": "testing new sandhi-splitting code",
             "website": "", }
     )
 
