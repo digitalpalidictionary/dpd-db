@@ -1,3 +1,5 @@
+import re
+
 from typing import List
 from typing import Optional
 
@@ -117,6 +119,18 @@ class PaliWord(Base):
 
     pali_root: Mapped[PaliRoot] = relationship(
         back_populates="pali_words", uselist=False)
+
+    @property
+    def pali_1_(self) -> str:
+        return self.pali_1.replace(" ", "_").replace(".", "_")
+
+    @property
+    def pali_clean(self) -> str:
+        return re.sub(r" \d.*$", "", self.pali_1)
+
+    @property
+    def root_clean(self) -> str:
+        return re.sub(r" \d.*$", "", self.root_key)
 
     def __repr__(self) -> str:
         return f"""PaliWord: {self.id} {self.pali_1} {self.pos} {

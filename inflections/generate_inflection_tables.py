@@ -231,6 +231,9 @@ def generate_inflection_table(
                             if word_clean not in inflections_list:
                                 inflections_list.append(word_clean)
 
+        html += "</tr>"
+    html += "</table>"
+
     return html, inflections_list
 
 
@@ -279,7 +282,7 @@ def main():
                     pali_1=i.pali_1,
                     inflections=json.dumps(
                         inflections_list, ensure_ascii=False),
-                    html_table=json.dumps(html, ensure_ascii=False)
+                    html_table=html
                 )
 
                 if "!" in i.stem:
@@ -287,7 +290,7 @@ def main():
                         pali_1=i.pali_1,
                         inflections=json.dumps(
                             (list([pali_1_clean])), ensure_ascii=False),
-                        html_table=json.dumps(html, ensure_ascii=False)
+                        html_table=html,
                     )
 
             elif i.pattern == "":

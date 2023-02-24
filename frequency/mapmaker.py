@@ -1,3 +1,4 @@
+#!/usr/bin/env python3.10
 
 import pandas as pd
 import pickle
@@ -499,7 +500,7 @@ def generates_html_files(wc_data, dpd_db):
                 if counter % 5000 == 0:
                     print(f"{counter:>9,} / {length:<9,} {i.pali_1}")
             else:
-                if counter % 500 == 0:
+                if counter % 5000 == 0:
                     print(f"{counter:>9,} / {length:<9,} {i.pali_1}")
 
             value_max = data[1].max()

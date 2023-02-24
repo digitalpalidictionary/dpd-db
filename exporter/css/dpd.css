@@ -86,13 +86,13 @@ table.table1 b {
     font-weight: 700;
 }
 
-table.dataframe {
+table.inflection {
     width: 100%;
     padding: 0 0 5px 0px;
 }
 
-table.dataframe td,
-table.dataframe th {
+table.inflection td,
+table.inflection th {
     border: 1px solid gray;
     border-radius: 5px;
     line-height: 150%;
@@ -101,7 +101,7 @@ table.dataframe th {
     vertical-align: middle;
 }
 
-table.dataframe th {
+table.inflection th {
     border: 1px solid #00A4CC;
     color: #00A4CC;
     font-weight: 700;
