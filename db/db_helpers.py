@@ -7,6 +7,7 @@ from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy_utils import database_exists, create_database
 
 from db.models import Base
+# from tools.pali_sort_key import pali_sort_key
 
 
 def create_db_if_not_exists(db_path: Path):
@@ -24,6 +25,7 @@ def get_db_session(db_path: Path) -> Session:
     try:
         db_eng = create_engine(f"sqlite+pysqlite:///{db_path}", echo=False)
         db_conn = db_eng.connect()
+
         Session = sessionmaker(db_eng)
         Session.configure(bind=db_eng)
         db_sess = Session()

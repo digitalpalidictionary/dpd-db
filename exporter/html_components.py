@@ -21,6 +21,8 @@ from helpers import CF_SET
 from helpers import EXCLUDE_FROM_SETS
 from helpers import EXCLUDE_FROM_FREQ
 
+from tools.pali_sort_key import pali_sort_key
+
 TODAY = date.today()
 PTH = get_paths()
 
@@ -504,6 +506,8 @@ def render_root_buttons_templ(r: PaliRoot, DB_SESSION):
             FamilyRoot.root_family != "matrix",
         )
 
+    frs = sorted(frs, key=lambda x: pali_sort_key(x.root_family))
+
     return str(
         root_buttons_templ.render(
             r=r,
@@ -552,6 +556,8 @@ def render_root_families_templ(r: PaliRoot, DB_SESSION):
             FamilyRoot.root_family != "info",
             FamilyRoot.root_family != "matrix",
         ).all()
+
+    frs = sorted(frs, key=lambda x: pali_sort_key(x.root_family))
 
     return str(
         root_families_templ.render(

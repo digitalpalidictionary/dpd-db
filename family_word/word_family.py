@@ -11,6 +11,7 @@ from pathlib import Path
 from tools.timeis import tic, toc
 from tools.superscripter import superscripter_uni
 from tools.make_meaning import make_meaning
+from tools.pali_sort_key import pali_sort_key
 from db.db_helpers import get_db_session
 from db.models import PaliWord, FamilyWord
 
@@ -46,14 +47,12 @@ def main():
 
     for counter, word_family in enumerate(word_families_set):
 
-        if counter % 100 == 0:
-            print(f"{counter:>9,} / {length:<9,} {word_family}")
-
-        # !!!!!!!!!!!!!!!!!!!!!! pali alphabetical order !!!!!!!!!!!!!!!!!!
-
         word_family_db = db_session.query(PaliWord).filter(
             PaliWord.family_word.regexp_match(fr"\b{word_family}$")
             ).order_by(PaliWord.pali_1).all()
+
+        word_family_db = sorted(
+            word_family_db, key=lambda x: pali_sort_key(x.pali_1))
 
         if len(word_family_db) == 1:
             error_list += word_family
@@ -77,8 +76,10 @@ def main():
 
         add_to_db.append(wf)
 
-        with open(f"xxx delete/word_family/{word_family}.html", "w") as f:
-            f.write(html_string)
+        if counter % 100 == 0:
+            print(f"{counter:>10,} / {length:<10,} {word_family}")
+            with open(f"xxx delete/word_family/{word_family}.html", "w") as f:
+                f.write(html_string)
 
     if len(error_list) > 0:
         print("[bright_red]ERROR: only 1 word in family:", end=" ")

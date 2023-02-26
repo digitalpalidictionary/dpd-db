@@ -10,6 +10,7 @@ from db.models import PaliRoot, PaliWord, FamilyRoot
 from tools.timeis import tic, toc
 from tools.superscripter import superscripter_uni
 from tools.make_meaning import make_meaning
+from tools.pali_sort_key import pali_sort_key
 
 
 def setup():
@@ -28,9 +29,13 @@ def setup():
     dpd_db = db_session.query(PaliWord).filter(
         PaliWord.family_root != "").order_by(
         PaliWord.root_key).all()
+    dpd_db = sorted(
+        dpd_db, key=lambda x: pali_sort_key(x.pali_1))
 
     global roots_db
     roots_db = db_session.query(PaliRoot).all()
+    roots_db = sorted(
+        roots_db, key=lambda x: pali_sort_key(x.root))
 
     global bases_dict
     bases_dict = {}
@@ -44,16 +49,13 @@ def generate_root_subfamily_html_and_extract_bases():
 
     for counter, (root_key, subfamily) in enumerate(root_family_list):
 
-        if counter % 500 == 0:
-            print(
-                f"{counter:>9,} / {len(root_family_list):<9,} {subfamily}")
-
-        # !!!!!!!!!!!!! pali alphabetical order !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
         subfamily_db = db_session.query(PaliWord).filter(
             PaliWord.family_root == subfamily,
             PaliWord.root_key == root_key
             ).all()
+
+        subfamily_db = sorted(
+            subfamily_db, key=lambda x: pali_sort_key(x.pali_1))
 
         html_string = "<table class='table1'>"
 
@@ -88,8 +90,11 @@ def generate_root_subfamily_html_and_extract_bases():
 
         add_to_db.append(root_family)
 
-        with open(f"xxx delete/root_subfamily/{root_key}.html", "w") as f:
-            f.write(html_string)
+        if counter % 500 == 0:
+            print(f"{counter:>10,} / {len(root_family_list):<10,} {subfamily}")
+            with open(
+                    f"xxx delete/root_subfamily/{i.family_root}.html", "w") as f:
+                f.write(html_string)
 
     db_session.execute(FamilyRoot.__table__.delete())
     db_session.add_all(add_to_db)
@@ -118,14 +123,9 @@ def generate_root_info_html():
 
     for counter, i in enumerate(roots_db):
 
-        if counter % 100 == 0:
-            print(
-                f"{counter:>9,} / {len(roots_db):<9,} {i.root}")
-
         root_clean = re.sub(" \\d*$", "", i.root)
         root_group_pali = root_grouper(i.root_group)
         try:
-            # !!!!!!!!!!!!!!!!!!!!!!!!!!!! pali alphabetical order !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             bases = ", ".join(sorted(bases_dict[i.root], key=len))
         except KeyError:
             bases = "-"
@@ -205,6 +205,12 @@ def generate_root_info_html():
         )
 
         add_to_db.append(root_info)
+
+        if counter % 100 == 0:
+            print(
+                f"{counter:>10,} / {len(roots_db):<10,} {i.root}")
+            with open(f"xxx delete/root_info/{i.root}.html", "w") as f:
+                f.write(html_string)
 
     db_session.add_all(add_to_db)
     db_session.commit()

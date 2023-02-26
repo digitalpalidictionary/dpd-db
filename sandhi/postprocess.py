@@ -101,9 +101,7 @@ def make_top_five_dict(matches_df):
         if word not in top_five_dict:
             top_five_dict[word] = []
 
-    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    # it's fast but it's not catching the splitcount
-    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    # !!! it's fast but it's not catching the splitcount
 
         if len(top_five_dict[word]) < 5:
             top_five_dict[word].append(split)
@@ -140,9 +138,7 @@ def add_to_dpd_db(top_five_dict):
 
 def make_golden_dict(top_five_dict):
 
-    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    # make goldendict from db using inflections
-    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    # !!! make goldendict from db using inflections
 
     print("[green]generating goldendict", end=" ")
 

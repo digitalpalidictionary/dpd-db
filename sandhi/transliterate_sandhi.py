@@ -14,9 +14,7 @@ from db.models import Sandhi
 from tools.timeis import tic, toc
 from helpers import get_resource_paths
 
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# only add new sandhi, leave the old ones alone
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# !!! # only add new sandhi, leave the old ones alone
 
 
 def transliterate_sandhi():

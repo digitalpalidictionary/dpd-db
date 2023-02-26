@@ -53,7 +53,7 @@ def generate_dpd_html(DB_SESSION, PTH):
 
     bip()
     for counter, (i, dd, fr, fw) in enumerate(dpd_db):
-        
+
         html: str = ""
         html += render_header_tmpl(dpd_css, button_js)
         html += "<body>"

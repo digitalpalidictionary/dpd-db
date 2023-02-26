@@ -139,9 +139,7 @@ def main():
         print(f"{len(new_inflections)}")
 
     counter: int = 0
-    # !!!!!!!!!!!!!!!!!!!!!!!
-    # can delete these
-    # !!!!!!!!!!!!!!!!!!!!!!!
+    # !!! can delete these
 
     sinhala_count: int = 0
     devanagari_count = 0

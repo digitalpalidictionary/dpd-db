@@ -8,6 +8,7 @@ from pathlib import Path
 from tools.timeis import tic, toc
 from tools.superscripter import superscripter_uni
 from tools.make_meaning import make_meaning
+from tools.pali_sort_key import pali_sort_key
 from db.db_helpers import get_db_session
 from db.models import PaliWord, FamilyCompound
 
@@ -49,12 +50,7 @@ def main():
     add_to_db = []
     length = len(compound_families_set)
 
-    # !!!!!!!!!!!!!!!!!!!!!! pali alphabetical order !!!!!!!!!!!!!!!!!!
-
     for counter, compound_family in enumerate(compound_families_set):
-
-        if counter % 500 == 0:
-            print(f"{counter:>9,} / {length:<9,} {compound_family}")
 
         compound_family_db = db_session.query(
             PaliWord
@@ -65,18 +61,14 @@ def main():
                 PaliWord.pali_1
             ).all()
 
+        compound_family_db = sorted(
+            compound_family_db, key=lambda x: pali_sort_key(x.pali_1))
+
         html_list = ["<table class='table1'>"]
 
         for i in compound_family_db:
             count = 0
 
-            # test1 comp in grammar
-            # test2 comp family in the string
-            # test3 length of p1 without a number is less than 30
-
-            # test1 = (
-            #     re.findall(r"\bcomp\b", i.grammar) != [] or
-            #     i.pali_clean in compound_families_clean_set)
             test2 = compound_family in i.family_compound.split(" ")
             test3 = len(re.sub(r" \d.*$", "", i.pali_1)) < 30
 
@@ -99,9 +91,11 @@ def main():
 
         add_to_db.append(cf)
 
-        with open(
-                f"xxx delete/compound_family/{compound_family}.html", "w") as f:
-            f.write(html_string)
+        if counter % 500 == 0:
+            print(f"{counter:>10,} / {length:<10,} {compound_family}")
+            with open(
+                    f"xxx delete/compound_family/{compound_family}.html", "w") as f:
+                f.write(html_string)
 
     print("[green]adding to db", end=" ")
     db_session.execute(FamilyCompound.__table__.delete())

@@ -23,9 +23,7 @@ dpd_db = db_session.query(PaliWord).all()
 changed_templates: list = []
 changed_headwords: list = []
 
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# how is all_tipitaka_words getting generated?
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# !!! how is all_tipitaka_words getting generated?
 
 with open("share/all_tipitaka_words", "rb") as f:
     all_tipitaka_words: set = pickle.load(f)
@@ -314,9 +312,7 @@ def main():
     with open("share/changed_templates", "wb") as f:
         pickle.dump(changed_templates, f)
 
-    # # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    # # find all unused patterns
-    # # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    # # !!! # find all unused patterns
 
     db_session.commit()
     db_session.close()

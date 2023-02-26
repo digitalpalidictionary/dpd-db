@@ -20,9 +20,6 @@ def generate_root_matrix(db_session):
         headword = i.pali_1
         # root_clean = re.sub(" \\d.*$", "", i.root_key)
 
-        if enum % 10000 == 0:
-            print(f"{enum:>9,} / {len(dpd_db):<9,} {headword}")
-
         if i.root_key != "":
             if i.root_key not in root_matrix:
                 root_matrix[i.root_key] = {
@@ -1399,8 +1396,10 @@ def generate_root_matrix(db_session):
         
         add_to_db.append(root_mx)
 
-        with open(f"xxx delete/root_matrix/{root_key}.html", "w") as words:
-            words.write(html)
+        if enum % 10000 == 0:
+            print(f"{enum:>10,} / {len(dpd_db):<10,} {headword}")
+            with open(f"xxx delete/root_matrix/{root_key}.html", "w") as words:
+                words.write(html)
 
     db_session.add_all(add_to_db)
     db_session.commit()

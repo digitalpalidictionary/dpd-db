@@ -21,9 +21,9 @@ def make_tipitaka_dict():
     print("[green]making master dict", end=" ")
     tipitaka_dict = {}
 
-    # !!!!!!!!!!!!!!!!!!!!!!!!!!!! is it possible !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    # !!!!!!!!!!!!!!!!!!!!!!!!! to combine this with !!!!!!!!!!!!!!!!!!!!!!
-    # !!!!!!!!!!!!!!!!! the list of text for sandhi splitting? !!!!!!!!!!!!!
+    # !!! is it possible
+    # !!! to combine this with
+    # !!! the list of text for sandhi splitting?
 
     # vinaya
 
@@ -387,8 +387,8 @@ def make_raw_text_csv(tipitaka_dict):
                 "w") as f:
             f.write(text_clean)
 
-        # !!!!!! make one function for all these raw and csv saves !!!!!!!!
-        # !!!!!!!!!!!!!! text, df, raw_text_path word_count_path !!!!!!!!!!!!!!!!
+        # !!! make one function for all these raw and csv saves
+        # !!! text, df, raw_text_path word_count_path
 
         word_count_df = make_word_count_df(text_clean)
         word_count_df.to_csv(

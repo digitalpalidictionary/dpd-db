@@ -12,6 +12,7 @@ from html_components import render_root_matrix_templ
 from html_components import render_root_families_templ
 from db.models import PaliRoot, FamilyRoot
 from tools.timeis import bip, bop
+from tools.pali_sort_key import pali_sort_key
 
 
 def generate_root_html(DB_SESSION, PTH):
@@ -55,7 +56,7 @@ def generate_root_html(DB_SESSION, PTH):
         synonyms.add(re.sub("√", "", r.root))
         synonyms.add(re.sub("√", "", r.root_clean))
 
-        # !!!!!!!!!!!!!!!!!! need list of subfamilies easily accessable as a list !!!!!
+        # !!! need list of subfamilies easily accessable as a list
 
         frs = DB_SESSION.query(
             FamilyRoot

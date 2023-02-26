@@ -8,6 +8,7 @@ from pathlib import Path
 from tools.timeis import tic, toc
 from tools.superscripter import superscripter_uni
 from tools.make_meaning import make_meaning
+from tools.pali_sort_key import pali_sort_key
 from db.db_helpers import get_db_session
 from db.models import PaliWord, FamilySet
 
@@ -19,9 +20,13 @@ def main():
     db_session = get_db_session(db_path)
 
     sets_db = db_session.query(
-        PaliWord.family_set).filter(
-            PaliWord.family_set != "").order_by(
-                PaliWord.pali_1).all()
+        PaliWord.family_set
+        ).filter(
+            PaliWord.family_set != "",
+            PaliWord.meaning_1 != ""
+        ).order_by(
+            PaliWord.pali_1
+        ).all()
 
     print("[green]extracting set names", end=" ")
 
@@ -47,26 +52,30 @@ def main():
     length = len(sets_set)
     errors_list = []
 
-    # !!!!!!!!!!!!!!!!!!!!!! pali alphabetical order !!!!!!!!!!!!!!!!!!
-    # !!!!!!!!!!!!!!!! or custom alphabetical order !!!!!!!!!!!!!!!!
+    # !!! or custom alphabetical order
 
     for counter, set_name in enumerate(sets_set):
 
-        if counter % 25 == 0:
-            print(f"{counter:>9,} / {length:<9,} {set_name}")
+        sets_db = db_session.query(
+            PaliWord
+            ).filter(
+                PaliWord.family_set.contains(set_name),
+                PaliWord.meaning_1 != ""
+            ).order_by(
+                PaliWord.pali_1
+            ).all()
 
-        sets_db = db_session.query(PaliWord).filter(
-            PaliWord.family_set.contains(set_name)).order_by(
-            PaliWord.pali_1).all()
+        sets_db = sorted(sets_db, key=lambda x: pali_sort_key(x.pali_1))
 
         html_list = ["<table class='table1'>"]
         count = 0
 
         for i in sets_db:
 
-            test = set_name in i.family_set.split("; ")
+            test1 = set_name in i.family_set.split("; ")
+            test2 = i.meaning_1 != ""
 
-            if test:
+            if test1 & test2:
                 count += 1
                 meaning = make_meaning(i)
 
@@ -85,9 +94,11 @@ def main():
 
         add_to_db.append(st)
 
-        with open(
-                f"xxx delete/sets/{set_name}.html", "w") as f:
-            f.write(html_string)
+        if counter % 25 == 0:
+            print(f"{counter:>10,} / {length:<10,} {set_name}")
+            with open(
+                    f"xxx delete/sets/{set_name}.html", "w") as f:
+                f.write(html_string)
 
         if count < 3:
             errors_list += [set_name]

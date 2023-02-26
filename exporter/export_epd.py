@@ -8,6 +8,7 @@ from html_components import render_header_tmpl
 from helpers import ResourcePaths
 from db.models import PaliWord, PaliRoot
 from tools.timeis import bip, bop
+from tools.pali_sort_key import pali_sort_key
 
 
 def generate_epd_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
@@ -16,6 +17,7 @@ def generate_epd_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
     print("[green]generating epd html")
 
     dpd_db: list = DB_SESSION.query(PaliWord).all()
+    dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.pali_1))
     dpd_db_length = len(dpd_db)
 
     roots_db: list = DB_SESSION.query(PaliRoot).all()
@@ -67,7 +69,7 @@ def generate_epd_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
                         {meaning: f"<b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"})
 
         if counter % 10000 == 0:
-            print(f"{counter:>10,} / {dpd_db_length:<10,} {i.pali_1:<20} {bop():>10}")
+            print(f"{counter:>10,} / {dpd_db_length:<10,} {i.pali_1[:20]:<20} {bop():>10}")
             bip()
 
     print("[green]adding roots to epd")

@@ -62,7 +62,7 @@ def golden_dict_gen(data_list: list) -> None:
 
     export_words_as_stardict_zip(data_list, ifo, zip_path)
 
-    print(f"{bop():>30}")
+    print(f"{bop():>29}")
 
 
 def unzip_and_copy() -> None:
@@ -73,7 +73,7 @@ def unzip_and_copy() -> None:
     popen(
         f'unzip -o {PTH.zip_path} -d "/home/bhikkhu/Documents/Golden Dict"')
 
-    print(f"{bop():>24}")
+    print(f"{bop():>23}")
 
 
 if __name__ == "__main__":

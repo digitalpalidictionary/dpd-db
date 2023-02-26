@@ -374,10 +374,10 @@ def make_data_dict(dicts):
 
             if regenerate is True:
                 if counter % 10000 == 0:
-                    print(f"{counter:>9,} / {db_length:<9,} {i.pali_1}")
+                    print(f"{counter:>10,} / {db_length:<10,} {i.pali_1}")
             else:
                 if counter % 5000 == 0:
-                    print(f"{counter:>9,} / {db_length:<9,} {i.pali_1}")
+                    print(f"{counter:>10,} / {db_length:<10,} {i.pali_1}")
 
             # output_file = open(f"output/data/{headword}.csv", "w")
             try:
@@ -494,10 +494,10 @@ def generates_html_files(wc_data, dpd_db):
 
             if regenerate is True:
                 if counter % 10000 == 0:
-                    print(f"{counter:>9,} / {length:<9,} {i.pali_1}")
+                    print(f"{counter:>10,} / {length:<10,} {i.pali_1}")
             else:
                 if counter % 5000 == 0:
-                    print(f"{counter:>9,} / {length:<9,} {i.pali_1}")
+                    print(f"{counter:>10,} / {length:<10,} {i.pali_1}")
 
             value_max = data[1].max()
             value_min = data[1].min()
