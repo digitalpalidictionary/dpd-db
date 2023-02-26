@@ -362,9 +362,7 @@ def make_data_dict(dicts):
     wc_data = {}
     add_to_db = []
 
-    for x in enumerate(dpd_db):
-        counter = x[0]
-        i = x[1]
+    for counter, i in enumerate(dpd_db):
 
         if i.pos != "idiom" and \
             (map_same is False or
@@ -375,10 +373,10 @@ def make_data_dict(dicts):
                 regenerate is True):
 
             if regenerate is True:
-                if counter % 5000 == 0:
+                if counter % 10000 == 0:
                     print(f"{counter:>9,} / {db_length:<9,} {i.pali_1}")
             else:
-                if counter % 500 == 0:
+                if counter % 5000 == 0:
                     print(f"{counter:>9,} / {db_length:<9,} {i.pali_1}")
 
             # output_file = open(f"output/data/{headword}.csv", "w")
@@ -476,9 +474,7 @@ def generates_html_files(wc_data, dpd_db):
     length = len(dpd_db)
     add_to_db = []
 
-    for x in enumerate(dpd_db):
-        counter = x[0]
-        i = x[1]
+    for counter, i in enumerate(dpd_db):
 
         if i.pos != "idiom" and \
             (map_same is False or
@@ -497,7 +493,7 @@ def generates_html_files(wc_data, dpd_db):
                 print(f"[bright_red]data not found for [red]{i.pali_1}")
 
             if regenerate is True:
-                if counter % 5000 == 0:
+                if counter % 10000 == 0:
                     print(f"{counter:>9,} / {length:<9,} {i.pali_1}")
             else:
                 if counter % 5000 == 0:

@@ -119,7 +119,7 @@ def pali_row(i: PaliWord, output="anki") -> List[str]:
         i.commentary,
         i.notes,
         i.cognate,
-        i.category,
+        i.family_set,
         i.link,
         i.stem,
         i.pattern,
@@ -160,7 +160,7 @@ def pass1():
 
     rows = []
     for i in tqdm(dpd_db):
-        if i.meaning_1 == "" and i.category != "" and "pass1" in i.category:
+        if i.meaning_1 == "" and i.family_set != "" and "pass1" in i.family_set:
             rows.append(pali_row(i))
 
     output_file.close()

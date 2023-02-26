@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+    ],
+    "settings": {
+        "timeline.pageSize": 1000,
+        "git.timeline.showUncommitted": false,
+        "timeline.pageOnScroll": true
+    }
+}

@@ -1,0 +1,119 @@
+p.root_heading {
+    margin: 3px 0px 7px 0px;
+}
+
+p.root_heading b {
+    font-weight: 700;
+}
+
+table.root_table {
+    border: 1px solid transparent;
+    border-collapse: collapse;
+}
+
+table.root_table td,
+table.root_table th {
+    border: 0px solid transparent;
+    border-collapse: collapse;
+    line-height: 150%;
+    text-align: left;
+    padding: 0px 5px 0px 0px;
+    vertical-align: top;
+}
+
+table.root_table th {
+    color: #AB3C00;
+    font-weight: 700;
+    /* white-space: nowrap; */
+    white-space: normal;
+}
+
+table.root_table b {
+    font-weight: 700;
+}
+
+p.root_family {
+    margin: 0px 0px 5px 0px;
+}
+
+p.root_family b {
+    color: #AB3C00;
+    font-weight: 700;
+}
+
+p.root_family b2 {
+    font-weight: 700;
+}
+
+div.root_content {
+    border: 2px solid #AB3C00;
+    border-radius: 5px;
+    line-height: 150%;
+    padding: 1px 5px 3px 5px;
+    overflow: auto;
+    text-align: left;
+}
+
+a.button.root {
+    background-color: #F95700;
+}
+
+a.button.root:hover {
+    background-color: #AB3C00;
+    color: white;
+    user-select: none;
+}
+
+a.button.root.active {
+    background-color: #AB3C00;
+    color: white;
+}
+
+.rootlink {
+    border-radius: 5px;
+    color: #AB3C00;
+    font-weight: 700;
+}
+
+.rootlink:hover {
+    border-radius: 5px;
+    color: #F95700;
+    font-weight: 700;
+}
+
+table.root_matrix {
+    width: 100%;
+}
+
+table.root_matrix th,
+table.root_matrix td {
+    border-radius: 5px;
+    line-height: 150%;
+    vertical-align: top;
+    padding: 2px 3px;
+    overflow: auto;
+}
+
+table.root_matrix th {
+    border: 1px solid #AB3C00;
+    color: #F95700;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+}
+
+table.root_matrix td {
+    border: 1px solid gray;
+    text-align: left;
+}
+
+table.root_matrix td b {
+    color: #AB3C00;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+span.colour {
+    color: #AB3C00;
+    font-weight: 700;
+}

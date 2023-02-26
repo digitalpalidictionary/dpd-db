@@ -1,82 +1,79 @@
 #!/usr/bin/env python3.10
 
+from os import popen
 from rich import print
 
+from sqlalchemy.orm import Session
+
+from export_dpd import generate_dpd_html
+from export_roots import generate_root_html
+from export_epd import generate_epd_html
+from export_sandhi import generate_sandhi_html
+from export_help import generate_help_html
+
 from helpers import get_paths, ResourcePaths
-from html_components import render_header_tmpl
-from html_components import render_dpd_defintion_templ
-from html_components import render_button_box_templ
-from html_components import render_grammar_templ
-from html_components import render_example_templ
-from html_components import render_inflection_templ
-from html_components import render_family_root_templ
 
 from db.db_helpers import get_db_session
-from db.models import PaliWord, DerivedData, FamilyRoot
 from tools.timeis import tic, toc, bip, bop
-from tools.dprint import dprint
+from tools.stardict_nu import export_words_as_stardict_zip, ifo_from_opts
 
 tic()
 PTH: ResourcePaths = get_paths()
-DB_SESSION = get_db_session("dpd.db")
-ERROR_LOG = open(PTH.error_log_path, "w")
+DB_SESSION: Session = get_db_session("dpd.db")
 
 
 def main():
     print("[bright_yellow]exporting dpd")
-    generate_dpd_html()
+    dpd_data_list: list = generate_dpd_html(DB_SESSION, PTH)
+    root_data_list: list = generate_root_html(DB_SESSION, PTH)
+    sandhi_data_list: list = generate_sandhi_html(DB_SESSION, PTH)
+    epd_data_list: list = generate_epd_html(DB_SESSION, PTH)
+    help_data_list: list = generate_help_html(DB_SESSION, PTH)
 
-    ERROR_LOG.close()
+    combined_data_list: list = (
+        dpd_data_list +
+        root_data_list +
+        sandhi_data_list +
+        epd_data_list +
+        help_data_list
+    )
+
+    golden_dict_gen(combined_data_list)
+    unzip_and_copy()
+
     DB_SESSION.close()
     toc()
 
 
-def generate_dpd_html():
-    print("[green]generating dpd html")
+def golden_dict_gen(data_list: list) -> None:
+    """generate goldedict zip"""
+    bip()
 
-    dpd_db = DB_SESSION.query(
-        PaliWord, DerivedData, FamilyRoot
-    ).outerjoin(
-        DerivedData,
-        PaliWord.pali_1 == DerivedData.pali_1
-    ).outerjoin(
-        FamilyRoot,
-        PaliWord.root_key + " " + PaliWord.family_root == FamilyRoot.root_family
-    ).all()
+    print("[green]generating goldendict zip", end=" ")
 
-    # dpd_db = DB_SESSION.query(PaliWord).all()
-    dpd_length = len(dpd_db)
+    zip_path = PTH.zip_path
 
-    with open(PTH.dpd_css_path) as f:
-        dpd_css = f.read()
+    ifo = ifo_from_opts(
+        {"bookname": "DPDv2",
+            "author": "Bodhirasa",
+            "description": "",
+            "website": "https://digitalpalidictionary.github.io/", }
+    )
 
-    with open(PTH.buttons_js_path) as f:
-        button_js = f.read()
+    export_words_as_stardict_zip(data_list, ifo, zip_path)
+
+    print(f"{bop():>30}")
+
+
+def unzip_and_copy() -> None:
+    """unzip and copy to goldendict folder"""
 
     bip()
-    for counter, (i, dd, fr) in enumerate(dpd_db):
-        html: str = ""
+    print("[green]unipping and copying goldendict", end=" ")
+    popen(
+        f'unzip -o {PTH.zip_path} -d "/home/bhikkhu/Documents/Golden Dict"')
 
-        html += render_header_tmpl(dpd_css, button_js)
-        html += "<body>"
-        html += render_dpd_defintion_templ(i)
-        html += render_button_box_templ(i)
-        html += render_grammar_templ(i)
-        html += render_example_templ(i)
-        html += render_inflection_templ(i, dd)
-        html += render_family_root_templ(i, fr)
-
-        # word fam
-        # compound fam
-        # freqency
-        # feedback
-        html += "</body></html>"
-
-        if counter % 5000 == 0 or counter % dpd_length == 0:
-            with open(f"xxx delete/exporter_html/{i.pali_1}.html", "w") as f:
-                f.write(html)
-            print(f"{counter:>9,} / {dpd_length:9<,} {i.pali_1:<20} {bop():>9}")
-            bip()
+    print(f"{bop():>24}")
 
 
 if __name__ == "__main__":

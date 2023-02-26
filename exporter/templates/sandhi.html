@@ -1,0 +1,10 @@
+<div class='sandhi'>
+    <p>
+        % for split in splits:
+        ${split}
+        % if not loop.last:
+        <br>
+        % endif
+        % endfor
+    </p>
+</div>

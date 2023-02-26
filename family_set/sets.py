@@ -19,8 +19,8 @@ def main():
     db_session = get_db_session(db_path)
 
     sets_db = db_session.query(
-        PaliWord.category).filter(
-            PaliWord.category != "").order_by(
+        PaliWord.family_set).filter(
+            PaliWord.family_set != "").order_by(
                 PaliWord.pali_1).all()
 
     print("[green]extracting set names", end=" ")
@@ -50,23 +50,21 @@ def main():
     # !!!!!!!!!!!!!!!!!!!!!! pali alphabetical order !!!!!!!!!!!!!!!!!!
     # !!!!!!!!!!!!!!!! or custom alphabetical order !!!!!!!!!!!!!!!!
 
-    for x in enumerate(sets_set):
-        counter = x[0]
-        set_name = x[1]
+    for counter, set_name in enumerate(sets_set):
 
         if counter % 25 == 0:
             print(f"{counter:>9,} / {length:<9,} {set_name}")
 
         sets_db = db_session.query(PaliWord).filter(
-            PaliWord.category.contains(set_name)).order_by(
+            PaliWord.family_set.contains(set_name)).order_by(
             PaliWord.pali_1).all()
 
-        html_list = ["<table class='table_family'>"]
+        html_list = ["<table class='table1'>"]
         count = 0
 
         for i in sets_db:
 
-            test = set_name in i.category.split("; ")
+            test = set_name in i.family_set.split("; ")
 
             if test:
                 count += 1

@@ -50,8 +50,20 @@ class PaliRoot(Base):
     pali_words: Mapped[List["PaliWord"]] = relationship(
         back_populates="pali_root")
 
+    @property
+    def root_clean(self) -> str:
+        return re.sub(r" \d.*$", "", self.root)
+
+    @property
+    def root_(self) -> str:
+        return self.root.replace(" ", "_")
+
+    @property
+    def root_link(self) -> str:
+        return self.root.replace(" ", "%20")
+
     def __repr__(self) -> str:
-        return f"""PaliRoot: {self.root} {self.root_group} {self.root_sign} ({self.root_meaning})""".strip()
+        return f"""PaliRoot: {self.root} {self.root_group} {self.root_sign} ({self.root_meaning})"""
 
 
 class PaliWord(Base):
@@ -84,6 +96,8 @@ class PaliWord(Base):
     family_root: Mapped[Optional[str]] = mapped_column(default='')
     family_word: Mapped[Optional[str]] = mapped_column(default='')
     family_compound: Mapped[Optional[str]] = mapped_column(default='')
+    family_set: Mapped[Optional[str]] = mapped_column(default='')
+
     construction:  Mapped[Optional[str]] = mapped_column(default='')
     derivative: Mapped[Optional[str]] = mapped_column(default='')
     suffix: Mapped[Optional[str]] = mapped_column(default='')
@@ -106,8 +120,8 @@ class PaliWord(Base):
     commentary: Mapped[Optional[str]] = mapped_column(default='')
     notes: Mapped[Optional[str]] = mapped_column(default='')
     cognate: Mapped[Optional[str]] = mapped_column(default='')
-    category: Mapped[Optional[str]] = mapped_column(default='')
     link: Mapped[Optional[str]] = mapped_column(default='')
+    origin: Mapped[Optional[str]] = mapped_column(default='')
 
     stem: Mapped[str] = mapped_column(default='')
     pattern: Mapped[Optional[str]] = mapped_column(default='')
@@ -131,6 +145,13 @@ class PaliWord(Base):
     @property
     def root_clean(self) -> str:
         return re.sub(r" \d.*$", "", self.root_key)
+
+    @property
+    def family_compound_list(self) -> list:
+        if self.family_compound:
+            return self.family_compound.split(" ")
+        else:
+            return []
 
     def __repr__(self) -> str:
         return f"""PaliWord: {self.id} {self.pali_1} {self.pos} {
@@ -182,12 +203,21 @@ class Sandhi(Base):
 class FamilyRoot(Base):
     __tablename__ = "family_root"
     id: Mapped[int] = mapped_column(primary_key=True)
-    root_family: Mapped[str] = mapped_column(unique=True)
+    root_id: Mapped[str] = mapped_column(default='')
+    root_family: Mapped[str] = mapped_column(default='')
     html: Mapped[str] = mapped_column(default='')
     count: Mapped[int] = mapped_column(default=0)
 
+    @property
+    def root_family_link(self) -> str:
+        return self.root_family.replace(" ", "%20")
+
+    @property
+    def root_family_(self) -> str:
+        return self.root_family.replace(" ", "_")
+
     def __repr__(self) -> str:
-        return f"FamilyRoot: {self.id} {self.root_family} {self.count}"
+        return f"FamilyRoot: {self.id} {self.root_id} {self.root_family} {self.count}"
 
 
 class FamilyCompound(Base):

@@ -1,12 +1,9 @@
 #!/usr/bin/env python3.10
 
 import re
-import json
 
 from rich import print
-from datetime import date
 from pathlib import Path
-
 
 from tools.timeis import tic, toc
 from tools.superscripter import superscripter_uni
@@ -22,18 +19,23 @@ def main():
     db_session = get_db_session(db_path)
 
     compound_family_db = db_session.query(
-        PaliWord.family_compound).filter(
+        PaliWord.family_compound
+        ).filter(
             PaliWord.family_compound != "",
-            PaliWord.meaning_1 != "").order_by(
+            PaliWord.meaning_1 != ""
+        ).order_by(
                 PaliWord.pali_1
-            ).all()
+        ).all()
 
     print("[green]extracting compound families", end=" ")
     compound_families_set: set = set()
+    compound_families_clean_set: set = set()
     for row in compound_family_db:
         words = row[0].split(" ")
         for word in words:
             compound_families_set.add(word)
+            word_clean = re.sub(r" \d.*$", "", word)
+            compound_families_clean_set.add(word_clean)
 
     print(len(compound_families_set))
 
@@ -49,35 +51,36 @@ def main():
 
     # !!!!!!!!!!!!!!!!!!!!!! pali alphabetical order !!!!!!!!!!!!!!!!!!
 
-    for x in enumerate(compound_families_set):
-        counter = x[0]
-        compound_family = x[1]
+    for counter, compound_family in enumerate(compound_families_set):
 
         if counter % 500 == 0:
             print(f"{counter:>9,} / {length:<9,} {compound_family}")
 
-        compound_family_db = db_session.query(PaliWord).filter(
-            PaliWord.family_compound.contains(compound_family),
-            PaliWord.meaning_1 != "").order_by(
-            PaliWord.pali_1).all()
+        compound_family_db = db_session.query(
+            PaliWord
+            ).filter(
+                PaliWord.family_compound.contains(compound_family),
+                PaliWord.meaning_1 != ""
+            ).order_by(
+                PaliWord.pali_1
+            ).all()
 
-        html_list = ["<table class='table_family'>"]
+        html_list = ["<table class='table1'>"]
 
         for i in compound_family_db:
             count = 0
 
             # test1 comp in grammar
             # test2 comp family in the string
-            # test3 no root
-            # test4 length of p1 without a number is less than 30
+            # test3 length of p1 without a number is less than 30
 
-            test1 = re.findall(
-                r"\bcomp\b", i.grammar) != []
+            # test1 = (
+            #     re.findall(r"\bcomp\b", i.grammar) != [] or
+            #     i.pali_clean in compound_families_clean_set)
             test2 = compound_family in i.family_compound.split(" ")
-            test3 = i.root_key == ""
-            test4 = len(re.sub(r" \d.*$", "", i.pali_1)) < 30
+            test3 = len(re.sub(r" \d.*$", "", i.pali_1)) < 30
 
-            if test1 & test2 & test3 & test4:
+            if test2 & test3:
                 count += 1
                 meaning = make_meaning(i)
 

@@ -15,10 +15,7 @@ def generate_root_matrix(db_session):
 
     dpd_db = db_session.query(PaliWord).all()
 
-    for x in enumerate(dpd_db):
-        enum = x[0]
-
-        i = x[1]
+    for enum, i in enumerate(dpd_db):
 
         headword = i.pali_1
         # root_clean = re.sub(" \\d.*$", "", i.root_key)
@@ -1380,7 +1377,7 @@ def generate_root_matrix(db_session):
 
                     if cflag == True:
                         html += f"<tr><th colspan='2'>{category}</th></tr>"
-                        html += f"<td><b>{i.pos}<b></td><td>"
+                        html += f"<tr><td><b>{i.pos}</b></td><td>"
                         cflag = False
 
                     elif cflag == False:
@@ -1395,7 +1392,8 @@ def generate_root_matrix(db_session):
         html += f"</table>"
 
         root_mx = FamilyRoot(
-            root_family=f"{root_key} matrix",
+            root_id=root_key,
+            root_family="matrix",
             html=html,
             count=total_count)
         

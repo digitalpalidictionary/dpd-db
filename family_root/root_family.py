@@ -42,10 +42,7 @@ def generate_root_subfamily_html_and_extract_bases():
 
     add_to_db = []
 
-    for x in enumerate(root_family_list):
-        counter = x[0]
-        root_key = x[1][0]
-        subfamily = x[1][1]
+    for counter, (root_key, subfamily) in enumerate(root_family_list):
 
         if counter % 500 == 0:
             print(
@@ -58,7 +55,7 @@ def generate_root_subfamily_html_and_extract_bases():
             PaliWord.root_key == root_key
             ).all()
 
-        html_string = "<table class='table_family'>"
+        html_string = "<table class='table1'>"
 
         for i in subfamily_db:
 
@@ -84,7 +81,8 @@ def generate_root_subfamily_html_and_extract_bases():
         html_string += "</table>"
 
         root_family = FamilyRoot(
-            root_family=f"{root_key} {subfamily}",
+            root_id=root_key,
+            root_family=subfamily,
             html=html_string,
             count=len(subfamily_db))
 
@@ -118,9 +116,7 @@ def generate_root_info_html():
 
     add_to_db = []
 
-    for x in enumerate(roots_db):
-        counter = x[0]
-        i = x[1]
+    for counter, i in enumerate(roots_db):
 
         if counter % 100 == 0:
             print(
@@ -135,7 +131,7 @@ def generate_root_info_html():
             bases = "-"
 
         html_string = ""
-        html_string += "<table><tbody>"
+        html_string += "<table class='root_info'><tbody>"
         html_string += f"<tr><th>Pāḷi Root:</th><td>{root_clean}"
         html_string += f"<sup>{i.root_has_verb}</sup>"
         html_string += f"{i.root_group} {root_group_pali} + {i.root_sign}"
@@ -202,7 +198,8 @@ def generate_root_info_html():
             PaliWord.root_key == i.root).count()
 
         root_info = FamilyRoot(
-            root_family=f"{i.root} info",
+            root_id=i.root,
+            root_family="info",
             html=html_string,
             count=count
         )

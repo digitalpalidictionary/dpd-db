@@ -1,0 +1,62 @@
+h3 {
+    font-size: 130%;
+    margin-top: 10px;
+    margin-bottom: 1px;
+}
+
+body {
+    font-family: "Noto Sans", "DejaVu Serif", "Verajja Serif";
+}
+
+p {
+    line-height: 150%;
+    margin: 0px;
+    vertical-align: middle;
+}
+
+div.helpv {
+    border: 2px solid #0ab33d;
+    border-radius: 5px;
+    line-height: 150%;
+    overflow: auto;
+    padding: 3px 5px;
+    text-align: left;
+}
+
+span.colour{color:#00A4CC}
+
+span.g1,
+span.g2,
+span.g3,
+span.gray {
+    color: gray
+}
+
+table {
+    margin: 0 0 5px 0;
+}
+
+table.helpv {
+    border: 0px solid transparent;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table.helpv td,
+table.helpv th {
+    border: 0px solid transparent;
+    border-collapse: collapse;
+    line-height: 150%;
+    padding: 0px 5px 0px 0px;
+    text-align: left;
+    vertical-align: top;
+}
+
+table.helpv th {
+    color: #0ab33d;
+    font-weight: 700;
+}
+
+table.helpv b {
+    font-weight: 700;
+}

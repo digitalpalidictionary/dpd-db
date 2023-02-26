@@ -105,7 +105,7 @@ def _csv_row_to_pali_word(x: Dict[str, str]) -> PaliWord:
         commentary=x['Commentary'],
         notes=x['Notes'],
         cognate=x['Cognate'],
-        category=x['Category'],
+        family_set=x['Category'],
         link=x['Link'],
         stem=x['Stem'],
         pattern=x['Pattern'],

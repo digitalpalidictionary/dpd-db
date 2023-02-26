@@ -44,9 +44,7 @@ def main():
     length = len(word_families_set)
     error_list = []
 
-    for x in enumerate(word_families_set):
-        counter = x[0]
-        word_family = x[1]
+    for counter, word_family in enumerate(word_families_set):
 
         if counter % 100 == 0:
             print(f"{counter:>9,} / {length:<9,} {word_family}")
@@ -60,7 +58,7 @@ def main():
         if len(word_family_db) == 1:
             error_list += word_family
 
-        html_string = "<table class='table_family'>"
+        html_string = "<table class='table1'>"
 
         for i in word_family_db:
             meaning = make_meaning(i)
