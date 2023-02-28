@@ -75,7 +75,10 @@ def generate_dpd_html(DB_SESSION, PTH):
         html = minify(
             html,
             minify_js=True,
-            remove_processing_instructions=True,
+            minify_css=True,
+            minify_html=True,
+            keep_closing_tags=True,
+            remove_processing_instructions=True
         )
 
         synonyms: list = loads(dd.inflections)

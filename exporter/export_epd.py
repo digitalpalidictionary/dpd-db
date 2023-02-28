@@ -103,7 +103,10 @@ def generate_epd_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
         html = minify(
             html_string,
             minify_js=True,
-            remove_processing_instructions=True,
+            minify_css=True,
+            minify_html=True,
+            keep_closing_tags=True,
+            remove_processing_instructions=True
         )
 
         epd_data_list += [{

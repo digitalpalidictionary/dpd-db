@@ -6,7 +6,11 @@
 % endif
 
 % for counter, f in enumerate(fc):
-    <p class="heading underlined ${'' if counter == 0 else 'overlined'}">
+    % if counter == 0 and " " not in i.family_compound:
+    <p class="heading underlined">
+    % else:
+    <p class="heading underlined overlined">
+    % endif
         compounds which contains <b>${f.compound_family}</b>
     </p>
     ${f.html}
