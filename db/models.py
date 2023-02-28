@@ -7,6 +7,10 @@ from sqlalchemy import ForeignKey, DateTime
 from sqlalchemy.sql import func
 from sqlalchemy.orm import Mapped, DeclarativeBase, mapped_column, relationship
 
+# from db.db_helpers import get_db_session
+
+# db_session = get_db_session("dpd.db")
+
 
 class Base(DeclarativeBase):
     pass
@@ -61,6 +65,14 @@ class PaliRoot(Base):
     @property
     def root_link(self) -> str:
         return self.root.replace(" ", "%20")
+
+    @property
+    def root_count(self) -> int:
+        return self.db_session.query(
+            PaliWord
+            ).filter(
+                PaliWord.root_key == self.root
+            ).count()
 
     def __repr__(self) -> str:
         return f"""PaliRoot: {self.root} {self.root_group} {self.root_sign} ({self.root_meaning})"""

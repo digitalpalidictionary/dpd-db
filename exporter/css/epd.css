@@ -14,12 +14,12 @@ p {
     vertical-align: middle;
 }
 b.epd {
-    color:#845fc0;
+    color:#8B008B;
     font-weight: 700;
 }
 
 div.epd {
-    border: 2px solid #845fc0;
+    border: 2px solid #8B008B;
     border-radius: 5px;
     line-height: 150%;
     overflow: auto;

@@ -14,7 +14,7 @@ p {
     vertical-align: middle;
 }
 
-div.helpv {
+div.help {
     border: 2px solid #0ab33d;
     border-radius: 5px;
     line-height: 150%;
@@ -33,14 +33,14 @@ table {
     margin: 0 0 5px 0;
 }
 
-table.helpv {
+table.help {
     border: 0px solid transparent;
     border-collapse: collapse;
     width: 100%;
 }
 
-table.helpv td,
-table.helpv th {
+table.help td,
+table.help th {
     border: 0px solid transparent;
     border-collapse: collapse;
     line-height: 150%;
@@ -49,11 +49,11 @@ table.helpv th {
     vertical-align: top;
 }
 
-table.helpv th {
+table.help th {
     color: #0ab33d;
     font-weight: 700;
 }
 
-table.helpv b {
+table.help b {
     font-weight: 700;
 }

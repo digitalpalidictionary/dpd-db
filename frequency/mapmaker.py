@@ -702,13 +702,13 @@ def generates_html_files(wc_data, dpd_db):
             if value_max > 0:
 
                 if i.pos in indeclinables or re.match(r"^!", i.stem):
-                    map_html += f"""<p class="heading underlined">Exact matches of the word <b>{superscripter_uni(i.pali_)}</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
+                    map_html += f"""<p class="heading underlined">Exact matches of the word <b>{superscripter_uni(i.pali_1)}</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
                     
                 elif i.pos in conjugations:
-                    map_html += f"""<p class="heading underlined">Exact matches of <b>{superscripter_uni(i.pali_)} and its conjugations</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
+                    map_html += f"""<p class="heading underlined">Exact matches of <b>{superscripter_uni(i.pali_1)} and its conjugations</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
                 
                 elif i.pos in declensions:
-                    map_html += f"""<p class="heading underlined">Exact matches of <b>{superscripter_uni(i.pali_)} and its declensions</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
+                    map_html += f"""<p class="heading underlined">Exact matches of <b>{superscripter_uni(i.pali_1)} and its declensions</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
 
                 # map_html += f"""<style>{css}</style>"""
                 
@@ -742,7 +742,7 @@ def generates_html_files(wc_data, dpd_db):
                     map_html)       
 
             else:
-                map_html += f"""<p class="heading">There are no exact matches of <b>{superscripter_uni(i.pali_)} or it's inflections</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
+                map_html += f"""<p class="heading">There are no exact matches of <b>{superscripter_uni(i.pali_1)} or it's inflections</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
                 pass
 
             with open(f"frequency/output/html/{i.pali_1}.html", "w") as f:

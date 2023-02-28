@@ -4,6 +4,7 @@ import markdown
 from pathlib import Path
 from rich import print
 from typing import List, Dict
+from minify_html import minify
 
 from html_components import render_header_tmpl
 from html_components import render_abbrev_templ
@@ -48,9 +49,8 @@ def generate_help_html(DB_SESSION, PTH: Path) -> list:
 
     with open(PTH.help_css_path) as f:
         css = f.read()
-        js = ""
 
-    header = render_header_tmpl(css, js)
+    header = render_header_tmpl(css=css, js="")
     help_data_list: List[dict] = []
 
     help_data_list = add_abbrev_html(PTH, header, help_data_list)
@@ -87,6 +87,12 @@ def add_abbrev_html(PTH: Path, header: str, help_data_list: list) -> list:
         html += render_abbrev_templ(i)
         html += "</body></html>"
 
+        html = minify(
+            html,
+            minify_js=True,
+            remove_processing_instructions=True,
+        )
+
         help_data_list += [{
             "word": i.abbrev,
             "definition_html": html,
@@ -122,6 +128,12 @@ def add_help_html(PTH: Path, header: str, help_data_list: list) -> list:
         html += render_help_templ(i)
         html += "</body></html>"
 
+        html = minify(
+            html,
+            minify_js=True,
+            remove_processing_instructions=True,
+        )
+
         help_data_list += [{
             "word": i.help,
             "definition_html": html,
@@ -148,6 +160,12 @@ def add_bibliographhy(PTH: Path, header: str, help_data_list: list) -> list:
     html += "<div class='help'>"
     html += markdown.markdown(md)
     html += "</div></body></html>"
+
+    html = minify(
+        html,
+        minify_js=True,
+        remove_processing_instructions=True,
+    )
 
     synonyms = ["dpd bibliography", "bibliography", "bib"]
 
@@ -177,6 +195,12 @@ def add_thanks(PTH: Path, header: str, help_data_list: list) -> list:
     html += "<div class='help'>"
     html += markdown.markdown(md)
     html += "</div></body></html>"
+
+    html = minify(
+        html,
+        minify_js=True,
+        remove_processing_instructions=True,
+    )
 
     synonyms = ["dpd thanks", "thankyou", "thanks", "anumodana"]
 

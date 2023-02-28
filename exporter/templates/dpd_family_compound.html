@@ -4,8 +4,9 @@
         compound families: <b>${i.family_compound}</b>
     </p>
 % endif
-% for f in fc:
-    <p class="heading underlined">
+
+% for counter, f in enumerate(fc):
+    <p class="heading underlined ${'' if counter == 0 else 'overlined'}">
         compounds which contains <b>${f.compound_family}</b>
     </p>
     ${f.html}

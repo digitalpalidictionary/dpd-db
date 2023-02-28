@@ -58,7 +58,7 @@ def get_resource_paths() -> ResourcePaths:
         sandhi_rules_path=Path(
             "sandhi/sandhi_related/sandhi rules.csv"),
         sandhi_css_path=Path(
-            "sandhi/sandhi_related/sandhi.css"),
+            "exporter/css/sandhi.css"),
 
         # assets
         unmatched_set_path=Path(

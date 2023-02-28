@@ -17,6 +17,12 @@ from helpers import get_resource_paths
 # !!! # only add new sandhi, leave the old ones alone
 
 
+def main():
+    tic()
+    transliterate_sandhi()
+    toc()
+
+
 def transliterate_sandhi():
     print("[green]transliterating sandhi")
 
@@ -36,13 +42,12 @@ def transliterate_sandhi():
     sandhi_for_json_dict: dict = {}
     counter: int = 0
 
-    for i in sandhi_db:
+    for counter, i in enumerate(sandhi_db):
 
         sandhi: str = i.sandhi
         sandhi_index_dict[counter] = i.sandhi
         sandhi_for_json_dict[i.sandhi] = {"sandhi": sandhi}
         sandhi_to_transliterate_string += f"{sandhi}\n"
-        counter += 1
 
     # saving json for path nirvana transliterator
 
@@ -52,16 +57,16 @@ def transliterate_sandhi():
 
     # transliterating with aksharamukha
 
-    print("    transliterating sinhala with aksharamukha")
+    print("transliterating sinhala with aksharamukha")
     sinhala: str = transliterate.process(
         "IASTPali", "Sinhala", sandhi_to_transliterate_string,
         post_options=['SinhalaPali'])
 
-    print("    transliterating devanagari with aksharamukha")
+    print("transliterating devanagari with aksharamukha")
     devanagari: str = transliterate.process(
         "IASTPali", "Devanagari", sandhi_to_transliterate_string)
 
-    print("    transliterating thai with aksharamukha")
+    print("transliterating thai with aksharamukha")
     thai: str = transliterate.process(
         "IASTPali", "Thai", sandhi_to_transliterate_string)
 
@@ -69,7 +74,7 @@ def transliterate_sandhi():
     devanagari_lines: list = devanagari.split("\n")
     thai_lines: list = thai.split("\n")
 
-    print("    making sandhi dictionary")
+    print("making sandhi dictionary")
 
     counter: int = 0
     for line in sinhala_lines[:-1]:
@@ -97,18 +102,18 @@ def transliterate_sandhi():
     # path nirvana transliteration using node.js
     # pali-script.mjs produces different orthography from akshramusha
 
-    print("    running path nirvana node.js transliteration", end=" ")
+    print("running path nirvana node.js transliteration", end=" ")
 
     try:
         output = check_output([
             "node", "sandhi/transliterate_sandhi.mjs"])
-        print(f"    {output}")
+        print(f"{output}")
     except Exception as e:
         print(f"[bright_red]{e}")
 
     # re-import path nirvana transliterations
 
-    print("    importing path nirvana translit", end=" ")
+    print("importing path nirvana translit", end=" ")
 
     with open(pth["sandhi_from_translit_path"], "r") as f:
         node_translit: dict = json.load(f)
@@ -129,27 +134,25 @@ def transliterate_sandhi():
 
     # write back into database
 
-    print("    writing to db")
+    print("writing to db")
 
     for i in sandhi_db:
         if i.sandhi in sandhi_translit_dict:
 
             i.sinhala = json.dumps(
-                list(sandhi_translit_dict[i.sandhi]["sinhala"]), ensure_ascii=False)
+                list(sandhi_translit_dict[i.sandhi]["sinhala"]),
+                ensure_ascii=False)
+
             i.devanagari = json.dumps(
                 list(sandhi_translit_dict[i.sandhi]["devanagari"]),
                 ensure_ascii=False)
+
             i.thai = json.dumps(
-                list(sandhi_translit_dict[i.sandhi]["thai"]), ensure_ascii=False)
+                list(sandhi_translit_dict[i.sandhi]["thai"]),
+                ensure_ascii=False)
 
     db_session.commit()
     db_session.close()
-
-
-def main():
-    tic()
-    transliterate_sandhi()
-    toc()
 
 
 if __name__ == "__main__":

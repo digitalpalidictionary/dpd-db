@@ -1,3 +1,5 @@
+
+from minify_html import minify
 from json import loads
 from rich import print
 from typing import List
@@ -69,6 +71,12 @@ def generate_dpd_html(DB_SESSION, PTH):
         html += render_frequency_templ(i, dd)
         html += render_feedback_templ(i)
         html += "</body></html>"
+
+        html = minify(
+            html,
+            minify_js=True,
+            remove_processing_instructions=True,
+        )
 
         synonyms: list = loads(dd.inflections)
         synonyms = add_nigahitas(synonyms)

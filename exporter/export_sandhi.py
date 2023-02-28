@@ -4,6 +4,7 @@ from json import loads
 from rich import print
 from sqlalchemy.orm import Session
 from typing import List
+from minify_html import minify
 
 from helpers import add_nigahitas
 from html_components import render_header_tmpl
@@ -30,19 +31,26 @@ def generate_sandhi_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
     with open(PTH.sandhi_css_path) as f:
         sandhi_css = f.read()
 
+    header = render_header_tmpl(css=sandhi_css, js="")
+
     bip()
     for counter, i in enumerate(sandhi_db):
 
         splits = loads(i.split)
 
         if i.sandhi not in clean_headwords_set:
-            html = render_header_tmpl(sandhi_css, js="")
+            html = header
             html += "<body>"
             html += render_sandhi_templ(splits)
             html += "</body></html>"
 
-            synonyms = add_nigahitas([i.sandhi])
+            html = minify(
+                html,
+                minify_js=True,
+                remove_processing_instructions=True,
+            )
 
+            synonyms = add_nigahitas([i.sandhi])
             synonyms += loads(i.sinhala)
             synonyms += loads(i.devanagari)
             synonyms += loads(i.thai)

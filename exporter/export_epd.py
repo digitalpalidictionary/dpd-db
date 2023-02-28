@@ -1,5 +1,6 @@
 import re
 
+from minify_html import minify
 from typing import List
 from sqlalchemy.orm import Session
 from rich import print
@@ -98,6 +99,12 @@ def generate_epd_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
         html_string += "<body>"
         html_string += f"<div class ='epd'><p>{html}</p></div>"
         html_string += "</body></html>"
+
+        html = minify(
+            html_string,
+            minify_js=True,
+            remove_processing_instructions=True,
+        )
 
         epd_data_list += [{
             "word": word,

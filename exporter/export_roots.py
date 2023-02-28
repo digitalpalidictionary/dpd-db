@@ -2,6 +2,7 @@ import re
 
 from rich import print
 from sqlalchemy import and_
+from minify_html import minify
 
 from helpers import add_nigahitas
 from html_components import render_header_tmpl
@@ -50,6 +51,12 @@ def generate_root_html(DB_SESSION, PTH):
         html += render_root_matrix_templ(r, DB_SESSION)
         html += render_root_families_templ(r, DB_SESSION)
         html += "</body></html>"
+
+        html = minify(
+            html,
+            minify_js=True,
+            remove_processing_instructions=True,
+        )
 
         synonyms: set = set()
         synonyms.add(r.root_clean)

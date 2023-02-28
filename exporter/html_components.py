@@ -269,10 +269,14 @@ def render_button_box_templ(i: PaliWord) -> str:
         compound_family_button = ""
 
     # set_family_button
-    set_list: list = _set_list_gen(i)
-    if len(set_list) > 0:
-        set_family_button = button_html.format(
-            target=f"set_family_{i.pali_1_}", name="set")
+    if (i.meaning_1 != "" and
+            i.family_set != ""):
+        set_list: list = _set_list_gen(i)
+        if len(set_list) > 0:
+            set_family_button = button_html.format(
+                target=f"set_family_{i.pali_1_}", name="set")
+        else:
+            set_family_button = ""
     else:
         set_family_button = ""
 
@@ -542,10 +546,17 @@ def render_root_matrix_templ(r: PaliRoot, DB_SESSION):
         FamilyRoot.root_family == "matrix",
     ).first()
 
+    count = DB_SESSION.query(
+        PaliWord
+    ).filter(
+        PaliWord.root_key == r.root
+    ).count()
+
     return str(
         root_matrix_templ.render(
             r=r,
             fr=fr,
+            count=count,
             today=TODAY
         )
     )

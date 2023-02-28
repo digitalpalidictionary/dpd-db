@@ -20,6 +20,7 @@ aksharamukha = "^2.1.2"
 python-idzip = "^0.3.9"
 mako = "^1.2.4"
 markdown = "^3.4.1"
+minify-html = "^0.10.8"
 
 [build-system]
 requires = ["poetry-core"]

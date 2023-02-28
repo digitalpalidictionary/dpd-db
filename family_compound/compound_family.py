@@ -68,7 +68,6 @@ def main():
 
         cf_count = 0
         for i in compound_family_db:
-            
 
             test2 = compound_family in i.family_compound.split(" ")
             test3 = len(re.sub(r" \d.*$", "", i.pali_1)) < 30

@@ -33,6 +33,10 @@ p.heading {
     border-bottom: 1px solid #00A4CC;
 }
 
+.overlined {
+    border-top: 1px solid #00A4CC;
+}
+
 p.heading b {
     font-weight: 700;
 }
@@ -96,7 +100,6 @@ table.inflection th {
 
 span.gray {
     color: gray;
-    font-style: italic;
 }
 
 table.family td,

@@ -30,7 +30,7 @@ p.heading {
 }
 
 .underlined {
-    border-bottom: 1px solid #00A4CC;
+    border-bottom: 1px solid #AB3C00;
 }
 
 p.heading b {
@@ -39,7 +39,7 @@ p.heading b {
 
 p.footer {
     padding: 5px 0px;
-    border-top: 1px solid #00A4CC;
+    border-top: 1px solid #AB3C00;
 }
 
 table {
@@ -60,7 +60,7 @@ table.root_info th {
 table.root_info th {
     color: #AB3C00;
     font-weight: 700;
-    white-space: nowrap;
+    white-space: normal;
 }
 
 table.root_info b {
@@ -69,7 +69,6 @@ table.root_info b {
 
 span.gray {
     color: gray;
-    font-style: italic;
 }
 
 table.family td,

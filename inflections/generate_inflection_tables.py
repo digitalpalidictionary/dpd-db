@@ -6,7 +6,6 @@ import json
 import pickle
 
 from rich import print
-from rich.progress import track
 from typing import List, Dict
 from pathlib import Path
 
@@ -16,6 +15,7 @@ from db.models import PaliWord, InflectionTemplates, DerivedData
 from tools.timeis import tic, toc
 from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
+from tools.superscripter import superscripter_uni
 
 regenerate_all: bool = True
 
@@ -40,7 +40,7 @@ def main():
 
     print("[green]generating html tables and lists")
     add_to_db = []
-    for i in track(dpd_db, description=""):
+    for i in dpd_db:
 
         test1 = i.pali_1 in changed_headwords
         test2 = i.pattern in changed_templates
@@ -267,7 +267,7 @@ def generate_inflection_table(
 
     # heading
     html: str = "<p class='heading'>"
-    html += f"<b>{i.pali_1}</b> is <b>{i.pattern}</b> "
+    html += f"<b>{superscripter_uni(i.pali_1)}</b> is <b>{i.pattern}</b> "
     if i.pos in CONJUGATIONS:
         html += "conjugation "
     elif i.pos in DECLENSIONS:

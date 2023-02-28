@@ -5,7 +5,6 @@ import json
 import pickle
 
 from rich import print
-from rich.progress import track
 from typing import Dict
 from pathlib import Path
 from aksharamukha import transliterate
@@ -45,7 +44,7 @@ def main():
     inflections_for_json_dict: dict = {}
     counter: int = 0
 
-    for i in track(dpd_db, description=""):
+    for counter, i in enumerate(dpd_db):
         test1 = i.pattern in changed_templates
         test2 = i.pali_1 in changed_headwords
         test3 = regenerate_all
@@ -63,7 +62,6 @@ def main():
             for inflection in inflections:
                 inflections_to_transliterate_string += f"{inflection},"
             inflections_to_transliterate_string += "\n"
-            counter += 1
 
     # saving json for path nirvana transliterator
 
