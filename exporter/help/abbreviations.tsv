@@ -5,10 +5,10 @@ abbrev	meaning	pāli	example	explanation
 *	vuddhi or vowel strengthening takes place	vuḍḍhi	√bhū + <b>*</b>e > bhāve	
 ×	root has no verbs which are derived from it			
 >	indicates morphological change occurs	āpajjate	√ñā + nā <b>></b> jānā	
-~	how complete is a word's information?<br><span class='g1'>✓</span> word data is complete with contextual meaning, grammar, sutta example and other relevant information<br><span class='g2'>~</span> word data is partially complete with a meaning in context but minimal other information<br><span class='g3'>✗</span> word data is still under construction			
+~	how complete is a word's information?<br><span class='gray'>✓</span> word data is complete with contextual meaning, grammar, sutta example and other relevant information<br><span class='g2'>~</span> word data is partially complete with a meaning in context but minimal other information<br><span class='g3'>✗</span> word data is still under construction			
 √	root symbol	dhātu	<b>√</b>bhū 1 a (to be)	A root is the irreducible core meaning of a word, stripped of all affixes
-✓	how complete is a word's information?<br><span class='g1'>✓</span> word data is complete with contextual meaning, grammar, sutta example and other relevant information<br><span class='g2'>~</span> word data is partially complete with a meaning in context but minimal other information<br><span class='g3'>✗</span> word data is still under construction			
-✗	how complete is a word's information?<br><span class='g1'>✓</span> word data is complete with contextual meaning, grammar, sutta example and other relevant information<br><span class='g2'>~</span> word data is partially complete with a meaning in context but minimal other information<br><span class='g3'>✗</span> word data is still under construction			
+✓	how complete is a word's information?<br><span class='gray'>✓</span> word data is complete with contextual meaning, grammar, sutta example and other relevant information<br><span class='g2'>~</span> word data is partially complete with a meaning in context but minimal other information<br><span class='g3'>✗</span> word data is still under construction			
+✗	how complete is a word's information?<br><span class='gray'>✓</span> word data is complete with contextual meaning, grammar, sutta example and other relevant information<br><span class='g2'>~</span> word data is partially complete with a meaning in context but minimal other information<br><span class='g3'>✗</span> word data is still under construction			
 1st	first person	uttama; uttamapurisa	mayaṃ - pron <b>1st</b> nom sg of ahaṃ	I; we
 2nd	second person	majjhima; majjhimapurisa	ehi - verb imp <b>2nd</b> sg from eti	you; you all
 3	declined in all three gender			

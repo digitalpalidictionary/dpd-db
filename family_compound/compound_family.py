@@ -64,16 +64,17 @@ def main():
         compound_family_db = sorted(
             compound_family_db, key=lambda x: pali_sort_key(x.pali_1))
 
-        html_list = ["<table class='table1'>"]
+        html_list = ["<table class='family'>"]
 
+        cf_count = 0
         for i in compound_family_db:
-            count = 0
+            
 
             test2 = compound_family in i.family_compound.split(" ")
             test3 = len(re.sub(r" \d.*$", "", i.pali_1)) < 30
 
             if test2 & test3:
-                count += 1
+                cf_count += 1
                 meaning = make_meaning(i)
 
                 html_list += [f"<tr><th>{superscripter_uni(i.pali_1)}</th>"]
@@ -86,7 +87,7 @@ def main():
         cf = FamilyCompound(
             compound_family=compound_family,
             html=html_string,
-            count=count
+            count=cf_count
         )
 
         add_to_db.append(cf)

@@ -67,7 +67,7 @@ def main():
 
         sets_db = sorted(sets_db, key=lambda x: pali_sort_key(x.pali_1))
 
-        html_list = ["<table class='table1'>"]
+        html_list = ["<table class='family'>"]
         count = 0
 
         for i in sets_db:

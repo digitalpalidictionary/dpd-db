@@ -57,7 +57,7 @@ def main():
         if len(word_family_db) == 1:
             error_list += word_family
 
-        html_string = "<table class='table1'>"
+        html_string = "<table class='family'>"
 
         for i in word_family_db:
             meaning = make_meaning(i)

@@ -12,7 +12,10 @@ from pathlib import Path
 
 from db.db_helpers import get_db_session
 from db.models import PaliWord, InflectionTemplates, DerivedData
+
 from tools.timeis import tic, toc
+from tools.pos import CONJUGATIONS
+from tools.pos import DECLENSIONS
 
 regenerate_all: bool = True
 
@@ -27,6 +30,90 @@ changed_headwords: list = []
 
 with open("share/all_tipitaka_words", "rb") as f:
     all_tipitaka_words: set = pickle.load(f)
+
+
+def main():
+    tic()
+    print("[bright_yellow]generate inflection lists and html tables")
+
+    test_changes()
+
+    print("[green]generating html tables and lists")
+    add_to_db = []
+    for i in track(dpd_db, description=""):
+
+        test1 = i.pali_1 in changed_headwords
+        test2 = i.pattern in changed_templates
+        test3 = regenerate_all is True
+
+        if test1 or test2 or test3:
+
+            # regenerate is true then delete the whole table
+            # regenerate is false then just delete the row
+            # pattern != "" then add html table and list
+            # stem contains "!" then add table and clean headword
+            # pattern == "" then no table, just add clean headword
+
+            if regenerate_all is True:
+                db_session.execute(DerivedData.__table__.delete())
+
+            else:
+                exists = db_session.query(DerivedData).filter(
+                    DerivedData.pali_1 == i.pali_1).first()
+
+                if exists is not None:
+                    db_session.delete(exists)
+
+            if i.pattern != "":
+                t = db_session.query(InflectionTemplates).filter(
+                    InflectionTemplates.pattern == i.pattern).first()
+                table_data = json.loads(t.data)
+
+                html, inflections_list = generate_inflection_table(
+                    i, t, table_data)
+
+                derived_data = DerivedData(
+                    pali_1=i.pali_1,
+                    inflections=json.dumps(
+                        inflections_list, ensure_ascii=False),
+                    html_table=html
+                )
+
+                if "!" in i.stem:
+                    derived_data = DerivedData(
+                        pali_1=i.pali_1,
+                        inflections=json.dumps(
+                            (list([i.pali_clean])), ensure_ascii=False),
+                        html_table=html,
+                    )
+
+            elif i.pattern == "":
+                derived_data = DerivedData(
+                    pali_1=i.pali_1,
+                    inflections=json.dumps(
+                        (list([i.pali_clean])), ensure_ascii=False))
+
+            add_to_db.append(derived_data)
+
+    db_session.commit()
+
+    print("[green]adding to db")
+
+    for row in add_to_db:
+        db_session.add(row)
+
+    with open("share/changed_headwords", "wb") as f:
+        pickle.dump(changed_headwords, f)
+
+    with open("share/changed_templates", "wb") as f:
+        pickle.dump(changed_templates, f)
+
+    # # !!! # find all unused patterns
+
+    db_session.commit()
+    db_session.close()
+    toc()
+
 
 
 def test_inflection_template_changed():
@@ -174,11 +261,28 @@ def test_changes() -> None:
 
 
 def generate_inflection_table(
-        stem: str, pattern: str, like: str, table_data: List):
+        i: PaliWord, t: InflectionTemplates, table_data: List):
 
     inflections_list: list = []
-    html: str = "<table class='inflection'>"
-    stem = re.sub(r"\!|\*", "", stem)
+
+    # heading
+    html: str = "<p class='heading'>"
+    html += f"<b>{i.pali_1}</b> is <b>{i.pattern}</b> "
+    if i.pos in CONJUGATIONS:
+        html += "conjugation "
+    elif i.pos in DECLENSIONS:
+        html += "declension "
+    if t.like != "irreg":
+        html += f"like <b>{t.like}</b>"
+    else:
+        if i.pos in CONJUGATIONS:
+            html += "irregular conjugation"
+        if i.pos in DECLENSIONS:
+            html += "irregular declension"
+    html += "</p>"
+
+    html += "<table class='inflection'>"
+    stem = re.sub(r"\!|\*", "", i.stem)
 
     # data is a nest of lists
     # list[] table
@@ -215,7 +319,7 @@ def generate_inflection_table(
                             if word_clean in all_tipitaka_words:
                                 word = f"{stem}<b>{inflection}</b>"
                             else:
-                                word = f"<span style='color: gray;'>{stem}<b>{inflection}</b></span>"
+                                word = f"<span class='gray'>{stem}<b>{inflection}</b></span>"
 
                             if len(cell_data) == 1:
                                 html += f"<td title='{title}'>{word}</td>"
@@ -233,90 +337,6 @@ def generate_inflection_table(
     html += "</table>"
 
     return html, inflections_list
-
-
-def main():
-    tic()
-    print("[bright_yellow]generate inflection lists and html tables")
-
-    test_changes()
-
-    print("[green]generating html tables and lists")
-    add_to_db = []
-    for i in track(dpd_db, description=""):
-
-        test1 = i.pali_1 in changed_headwords
-        test2 = i.pattern in changed_templates
-        test3 = regenerate_all is True
-
-        if test1 or test2 or test3:
-            pali_1_clean: str = re.sub(r" \d.*$", "", i.pali_1)
-
-            # regenerate is true then delete the whole table
-            # regenerate is false then just delete the row
-            # pattern != "" then add html table and list
-            # stem contains "!" then add table and clean headword
-            # pattern == "" then no table, just add clean headword
-
-            if regenerate_all is True:
-                db_session.execute(DerivedData.__table__.delete())
-
-            else:
-                exists = db_session.query(DerivedData).filter(
-                    DerivedData.pali_1 == i.pali_1).first()
-
-                if exists is not None:
-                    db_session.delete(exists)
-
-            if i.pattern != "":
-                t = db_session.query(InflectionTemplates).filter(
-                    InflectionTemplates.pattern == i.pattern).first()
-                table_data = json.loads(t.data)
-
-                html, inflections_list = generate_inflection_table(
-                    i.stem, i.pattern, t.like, table_data)
-
-                derived_data = DerivedData(
-                    pali_1=i.pali_1,
-                    inflections=json.dumps(
-                        inflections_list, ensure_ascii=False),
-                    html_table=html
-                )
-
-                if "!" in i.stem:
-                    derived_data = DerivedData(
-                        pali_1=i.pali_1,
-                        inflections=json.dumps(
-                            (list([pali_1_clean])), ensure_ascii=False),
-                        html_table=html,
-                    )
-
-            elif i.pattern == "":
-                derived_data = DerivedData(
-                    pali_1=i.pali_1,
-                    inflections=json.dumps(
-                        (list([pali_1_clean])), ensure_ascii=False))
-
-            add_to_db.append(derived_data)
-
-    db_session.commit()
-
-    print("[green]adding to db")
-
-    for row in add_to_db:
-        db_session.add(row)
-
-    with open("share/changed_headwords", "wb") as f:
-        pickle.dump(changed_headwords, f)
-
-    with open("share/changed_templates", "wb") as f:
-        pickle.dump(changed_templates, f)
-
-    # # !!! # find all unused patterns
-
-    db_session.commit()
-    db_session.close()
-    toc()
 
 
 if __name__ == "__main__":

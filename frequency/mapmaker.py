@@ -13,6 +13,7 @@ from helpers import ResourcePaths, get_paths
 from db.db_helpers import get_db_session
 from db.models import PaliWord, DerivedData
 from tools.timeis import tic, toc
+from tools.superscripter import superscripter_uni
 
 
 def main():
@@ -701,13 +702,13 @@ def generates_html_files(wc_data, dpd_db):
             if value_max > 0:
 
                 if i.pos in indeclinables or re.match(r"^!", i.stem):
-                    map_html += f"""<p class="heading">Exact matches of the word <b>{i.pali_1}</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
+                    map_html += f"""<p class="heading underlined">Exact matches of the word <b>{superscripter_uni(i.pali_)}</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
                     
                 elif i.pos in conjugations:
-                    map_html += f"""<p class="heading">Exact matches of <b>{i.pali_1} and its conjugations</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
+                    map_html += f"""<p class="heading underlined">Exact matches of <b>{superscripter_uni(i.pali_)} and its conjugations</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
                 
                 elif i.pos in declensions:
-                    map_html += f"""<p class="heading">Exact matches of <b>{i.pali_1} and its declensions</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
+                    map_html += f"""<p class="heading underlined">Exact matches of <b>{superscripter_uni(i.pali_)} and its declensions</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
 
                 # map_html += f"""<style>{css}</style>"""
                 
@@ -723,25 +724,25 @@ def generates_html_files(wc_data, dpd_db):
                 # add lines
 
                 map_html = re.sub(r"""<tr>
-        <th>Sutta Dīgha Nikāya</th>""", 
+    <th>Sutta Dīgha Nikāya</th>""",
         """<tr class="line">
-        <th>Sutta Dīgha Nikāya</th>""",
+    <th>Sutta Dīgha Nikāya</th>""",
                     map_html)
                 
                 map_html = re.sub(r"""<tr>
-        <th>Abhidhamma Dhammasaṅgaṇī</th>""", 
+    <th>Abhidhamma Dhammasaṅgaṇī</th>""", 
                     """<tr class="line">
-        <th>Abhidhamma Dhammasaṅgaṇī</th>""",
+    <th>Abhidhamma Dhammasaṅgaṇī</th>""",
                     map_html)
 
                 map_html = re.sub(r"""<tr>
-        <th>Aññā Abhidhamma</th>""",
+    <th>Aññā Abhidhamma</th>""",
                     """<tr class="line">
-        <th>Aññā Abhidhamma</th>""",
+    <th>Aññā Abhidhamma</th>""",
                     map_html)       
 
             else:
-                map_html += f"""<p class="heading">There are no exact matches of <b>{i.pali_1} or it's inflections</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
+                map_html += f"""<p class="heading">There are no exact matches of <b>{superscripter_uni(i.pali_)} or it's inflections</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
                 pass
 
             with open(f"frequency/output/html/{i.pali_1}.html", "w") as f:

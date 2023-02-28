@@ -151,7 +151,7 @@ class PaliWord(Base):
         if self.family_compound:
             return self.family_compound.split(" ")
         else:
-            return []
+            return [self.family_compound]
 
     def __repr__(self) -> str:
         return f"""PaliWord: {self.id} {self.pali_1} {self.pos} {

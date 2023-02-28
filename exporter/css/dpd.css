@@ -5,85 +5,72 @@ h3 {
 }
 
 body {
-    font-family: "Noto Sans", "DejaVu Serif", "Verajja Serif";
+    font-family: "Garamond", "DejaVu Serif", "Noto Sans", "Verajja Serif";
+}
+
+div.content {
+    border: 2px solid #00A4CC;
+    border-radius: 7px;
+    line-height: 150%;
+    overflow: auto;
+    padding: 3px 5px;
+    text-align: left;
 }
 
 p {
     line-height: 150%;
-    margin: 0px;
+    margin: 3px 5px;
     vertical-align: middle;
     text-align: left;
 }
 
 p.heading {
-    margin: 3px 0px 7px 0px;
+    margin: 3px 5px;
+    padding: 2px 4px;
+}
+
+.underlined {
+    border-bottom: 1px solid #00A4CC;
 }
 
 p.heading b {
     font-weight: 700;
+}
+
+p.footer {
+    padding: 5px 0px;
+    border-top: 1px solid #00A4CC;
+}
+
+table {
+    margin: 3px 5px;
+}
+
+table.grammar {
+    border: 0px solid transparent;
+    border-collapse: collapse;
+}
+
+table.grammar td,
+table.grammar th {
+    text-align: left;
+    vertical-align: top;
+}
+
+table.grammar th {
     color: #00A4CC;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+table.grammar b {
+    font-weight: 700;
 }
 
 p.sutta {
     color: #00A4CC;
     font-style: italic;
     padding: 0px 0px 7px 0px;
-}
-
-p.family {
-    margin: 0px 0px 7px 0px;
-}
-
-p.family b {
-    color: #00A4CC;
-    font-weight: 700;
-}
-
-p.family b2 {
-    font-weight: 700;
-}
-
-table {
-    margin: 0 0 5px 0;
-}
-
-table.table1 {
-    border: 0px solid transparent;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-table.table1 td, table.table1 th {
-        border: 0px solid transparent;
-        border-collapse: collapse;
-        line-height: 150%;
-        padding: 0px 5px 0px 0px;
-        text-align: left;
-        vertical-align: top;
-}
-
-table.table1 th {
-    color: #00A4CC;
-    font-weight: 700;
-    /* white-space: nowrap; */
-}
-
-table.table1 th.cfpali {
-    white-space: normal;
-    min-width: 34ch;
-}
-
-table.table1 td.cfpos {
-    font-weight: 700;
-    white-space: normal;
-}
-
-table.table1 td.cfeng {
-    white-space: normal;
-}
-
-table.table1 b {
-    font-weight: 700;
 }
 
 table.inflection {
@@ -94,10 +81,10 @@ table.inflection {
 table.inflection td,
 table.inflection th {
     border: 1px solid gray;
-    border-radius: 5px;
+    border-radius: 7px;
     line-height: 150%;
     text-align: center;
-    padding:2px 3px;
+    padding: 2px 3px;
     vertical-align: middle;
 }
 
@@ -105,33 +92,31 @@ table.inflection th {
     border: 1px solid #00A4CC;
     color: #00A4CC;
     font-weight: 700;
-    /* white-space: nowrap; */
 }
 
-span.g1 {
-    color: gray
+span.gray {
+    color: gray;
+    font-style: italic;
 }
 
-span.g2, span.gray {
-    color: gray
+table.family td,
+table.family th {
+    text-align: left;
+    vertical-align: top;
 }
 
-span.g3 {
-    color: gray
+table.family th {
+    color: #00A4CC;
+    font-weight: 700;
+    white-space: nowrap;
 }
 
+table.family b {
+    font-weight: 700;
+}
 
 input {
     display: none;
-}
-
-div.content {
-    border: 2px solid #00A4CC;
-    border-radius: 5px;
-    line-height: 150%;
-    overflow: auto;
-    padding: 3px 5px;
-    text-align: left;
 }
 
 a.button {
@@ -142,16 +127,22 @@ a.button {
     color: #000;
     cursor: pointer;
     display: inline-block;
-    font-size: 80%;
+    font-size: 85%;
     font-weight: 400;
-    margin: 1px 1px 2px 0px;
-    padding: 2px 5px;
+    margin: 2px 0px 5px 0px;
+    padding: 3px 5px;
     user-select: none;
 }
 
 a.button.close {
     float: right;
     margin: 10px;
+}
+
+a.button.active {
+    background-color: #00A4CC;
+    color: black;
+    user-select: none;
 }
 
 a.button:hover {
@@ -161,7 +152,6 @@ a.button:hover {
 }
 
 .link {
-    border-radius: 5px;
     color: #00A4CC;
     font-weight: 700;
 }
@@ -170,15 +160,9 @@ a.button:hover {
     display: none;
 }
 
-a.button.active {
-    background-color: #00A4CC;
-    color: white;
-    user-select: none;
-}
-
-span.colour {
-    color: #00A4CC;
-    font-weight: 700;
+table.freq th,
+table.freq td {
+    vertical-align: middle;
 }
 
 table.freq thead th {
@@ -187,11 +171,6 @@ table.freq thead th {
 
 table.freq tbody th {
     text-align: left;
-}
-
-table.freq th,
-td {
-    vertical-align: middle;
 }
 
 table.freq td {
@@ -270,6 +249,6 @@ td.gr10 {
     color: #fff;
 }
 
-tr.line th {
+table.freq tr.line th {
     border-top: 1px solid #00A4CC;
 }

@@ -3,6 +3,7 @@ import re
 from rich import print
 from mako.template import Template
 from datetime import date
+from sqlalchemy import or_
 
 from db.models import PaliWord
 from db.models import PaliRoot
@@ -14,13 +15,13 @@ from db.models import FamilySet
 from db.models import Sandhi
 
 from helpers import get_paths
-from helpers import CONJUGATIONS
-from helpers import DECLENSIONS
-from helpers import INDECLINEABLES
 from helpers import CF_SET
 from helpers import EXCLUDE_FROM_SETS
 from helpers import EXCLUDE_FROM_FREQ
 
+from tools.pos import CONJUGATIONS
+from tools.pos import DECLENSIONS
+from tools.pos import INDECLINEABLES
 from tools.pali_sort_key import pali_sort_key
 
 TODAY = date.today()
@@ -99,11 +100,11 @@ def render_dpd_defintion_templ(i: PaliWord) -> str:
     # complete
     if i.meaning_1 != "":
         if i.source_1 != "":
-            complete = " <span class='g1'>✓</span>"
+            complete = " <span class='gray'>✓</span>"
         else:
-            complete = " <span class='g2'>~</span>"
+            complete = " <span class='gray'>~</span>"
     else:
-        complete = " <span class='g3'>✗</span>"
+        complete = " <span class='gray'>✗</span>"
 
     return str(
         dpd_definition_templ.render(
@@ -240,14 +241,14 @@ def render_button_box_templ(i: PaliWord) -> str:
     # root_family_button
     if i.family_root != "":
         root_family_button = button_html.format(
-            target=f"root_family_{i.pali_1_}", name="root_family")
+            target=f"root_family_{i.pali_1_}", name="root family")
     else:
         root_family_button = ""
 
     # word_family_button
     if i.family_word != "":
         word_family_button = button_html.format(
-            target=f"word_family_{i.pali_1_}", name="word_family")
+            target=f"word_family_{i.pali_1_}", name="word family")
     else:
         word_family_button = ""
 
@@ -258,12 +259,12 @@ def render_button_box_templ(i: PaliWord) -> str:
 
         if " " not in i.family_compound:
             compound_family_button = button_html.format(
-                target=f"compound_family_{i.pali_1_}", name="compound_family")
-        
+                target=f"compound_family_{i.pali_1_}", name="compound family")
+
         else:
             compound_family_button = button_html.format(
-                target=f"compound_family_{i.pali_1_}", name="compound_familes")
-    
+                target=f"compound_family_{i.pali_1_}", name="compound familes")
+
     else:
         compound_family_button = ""
 
@@ -271,7 +272,7 @@ def render_button_box_templ(i: PaliWord) -> str:
     set_list: list = _set_list_gen(i)
     if len(set_list) > 0:
         set_family_button = button_html.format(
-            target=f"set_family_{i.pali_1_}", name="set_family")
+            target=f"set_family_{i.pali_1_}", name="set")
     else:
         set_family_button = ""
 
@@ -406,7 +407,10 @@ def render_family_compound_templ(i: PaliWord, DB_SESSION) -> str:
         fc = DB_SESSION.query(
             FamilyCompound
         ).filter(
-            FamilyCompound.compound_family.in_(i.family_compound_list)
+            or_(
+                FamilyCompound.compound_family.in_(i.family_compound_list),
+                FamilyCompound.compound_family == i.pali_clean
+            )
         ).all()
 
         return str(
@@ -523,6 +527,7 @@ def render_root_info_templ(r: PaliRoot, info: PaliRoot):
         root_info_templ.render(
             r=r,
             info=info,
+            today=TODAY
         )
     )
 

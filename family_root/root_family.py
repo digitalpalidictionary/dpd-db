@@ -23,7 +23,7 @@ def setup():
             PaliWord.root_key, PaliWord.family_root).all()
 
     global root_family_list
-    root_family_list = [(i.root_key, i.family_root) for i in root_family_db]
+    root_family_list = [(i.root_key, i.family_root, i.pali_root.root_meaning) for i in root_family_db]
 
     global dpd_db
     dpd_db = db_session.query(PaliWord).filter(
@@ -47,7 +47,7 @@ def generate_root_subfamily_html_and_extract_bases():
 
     add_to_db = []
 
-    for counter, (root_key, subfamily) in enumerate(root_family_list):
+    for counter, (root_key, subfamily, root_meaning) in enumerate(root_family_list):
 
         subfamily_db = db_session.query(PaliWord).filter(
             PaliWord.family_root == subfamily,
@@ -57,7 +57,14 @@ def generate_root_subfamily_html_and_extract_bases():
         subfamily_db = sorted(
             subfamily_db, key=lambda x: pali_sort_key(x.pali_1))
 
-        html_string = "<table class='table1'>"
+        html_string = "<p class='heading underlined'>"
+        if len(subfamily_db) == 1:
+            html_string += f"<b>{len(subfamily_db)}</b> word belongs to the root family "
+        else:
+            html_string += f"<b>{len(subfamily_db)}</b> words belong to the root family "
+        html_string += f"<b>{subfamily}</b> ({root_meaning})</p>"
+
+        html_string += "<table class='family'>"
 
         for i in subfamily_db:
 
@@ -176,16 +183,16 @@ def generate_root_info_html():
 
         # Sanskrit
         html_string += "<tr><th>Sanskrit Root:</th>"
-        html_string += f"<td style = 'color:gray'>{i.sanskrit_root} "
+        html_string += f"<td><span class='gray'>{i.sanskrit_root} "
         html_string += f"{i.sanskrit_root_class} "
-        html_string += f"({i.sanskrit_root_meaning})</td></tr>"
+        html_string += f"({i.sanskrit_root_meaning})</span></td></tr>"
 
         # Pāṇinīya Dhātupāṭha
         if i.panini_root != "-":
             html_string += "<tr><th>Pāṇinīya Dhātupāṭha:</th>"
-            html_string += "<td style = 'color:gray'>"
+            html_string += "<td><span class='gray'>"
             html_string += f"{i.panini_root} <i>{i.panini_sanskrit}</i> "
-            html_string += f"({i.panini_english})</td></tr>"
+            html_string += f"({i.panini_english})</span></td></tr>"
         else:
             html_string += "<tr><th>Pāṇinīya Dhātupāṭha:</th><td>-</td></tr>"
 

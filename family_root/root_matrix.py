@@ -1349,21 +1349,20 @@ def generate_root_matrix(db_session):
                     counter += 1
 
             else:
-                print(f"  [bright_red]ERROR: {headword}[white]")
+                print(f"[bright_red]ERROR: {headword}[white]")
             
             total_counter += 1
 
-    print(f"  roots added: {counter:,} / {total_counter:,}")
+    print(f"[green]roots added: {counter:,} / {total_counter:,}")
     
     # generate html
 
-    print(f"  generating html and adding to db")
+    print(f"[green]generating html and adding to db")
 
     add_to_db = []
 
     for root_key, data1 in root_matrix.items():
-        html = ""
-        html += f"<table class='root_matrix'>"
+        html = f"<table class='root_matrix'>"
         total_count = 0
 
         for category, data2 in data1.items():

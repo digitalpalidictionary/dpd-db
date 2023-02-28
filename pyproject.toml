@@ -19,6 +19,7 @@ openpyxl = "^3.1.0"
 aksharamukha = "^2.1.2"
 python-idzip = "^0.3.9"
 mako = "^1.2.4"
+markdown = "^3.4.1"
 
 [build-system]
 requires = ["poetry-core"]

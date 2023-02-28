@@ -523,6 +523,21 @@ setuptools = "*"
 test = ["hypothesis", "pytest", "readme-renderer"]
 
 [[package]]
+name = "markdown"
+version = "3.4.1"
+description = "Python implementation of Markdown."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "Markdown-3.4.1-py3-none-any.whl", hash = "sha256:08fb8465cffd03d10b9dd34a5c3fea908e20391a2a90b88d66362cb05beed186"},
+    {file = "Markdown-3.4.1.tar.gz", hash = "sha256:3b809086bb6efad416156e00a0da66fe47618a5d6918dd688f53f40c8e4cfeff"},
+]
+
+[package.extras]
+testing = ["coverage", "pyyaml"]
+
+[[package]]
 name = "markdown-it-py"
 version = "2.1.0"
 description = "Python port of markdown-it. Markdown parsing, done right!"
@@ -1323,4 +1338,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "188a93fee303184697da98dd6f5ebd5f1883ef7f0ddaa56fa64773ee012bc410"
+content-hash = "85163db6cc7efe2003791594ecda2d98ee62a7788c00be0de54f2f62e86ea879"
