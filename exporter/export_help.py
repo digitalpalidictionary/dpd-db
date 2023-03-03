@@ -87,14 +87,13 @@ def add_abbrev_html(PTH: Path, header: str, help_data_list: list) -> list:
         html += render_abbrev_templ(i)
         html += "</body></html>"
 
-        html = minify(
-            html,
-            minify_js=True,
-            minify_css=True,
-            minify_html=True,
-            keep_closing_tags=True,
-            remove_processing_instructions=True
-        )
+        # html = minify(
+        #     html,
+        #     minify_js=True,
+        #     minify_css=True,
+        #     keep_closing_tags=True,
+        #     remove_processing_instructions=True
+        # )
 
         help_data_list += [{
             "word": i.abbrev,
@@ -131,14 +130,13 @@ def add_help_html(PTH: Path, header: str, help_data_list: list) -> list:
         html += render_help_templ(i)
         html += "</body></html>"
 
-        html = minify(
-            html,
-            minify_js=True,
-            minify_css=True,
-            minify_html=True,
-            keep_closing_tags=True,
-            remove_processing_instructions=True
-        )
+        # html = minify(
+        #     html,
+        #     minify_js=True,
+        #     minify_css=True,
+        #     keep_closing_tags=True,
+        #     remove_processing_instructions=True
+        # )
 
         help_data_list += [{
             "word": i.help,
@@ -167,14 +165,13 @@ def add_bibliographhy(PTH: Path, header: str, help_data_list: list) -> list:
     html += markdown.markdown(md)
     html += "</div></body></html>"
 
-    html = minify(
-        html,
-        minify_js=True,
-        minify_css=True,
-        minify_html=True,
-        keep_closing_tags=True,
-        remove_processing_instructions=True
-    )
+    # html = minify(
+    #     html,
+    #     minify_js=True,
+    #     minify_css=True,
+    #     keep_closing_tags=True,
+    #     remove_processing_instructions=True
+    # )
 
     synonyms = ["dpd bibliography", "bibliography", "bib"]
 

@@ -72,14 +72,13 @@ def generate_dpd_html(DB_SESSION, PTH):
         html += render_feedback_templ(i)
         html += "</body></html>"
 
-        html = minify(
-            html,
-            minify_js=True,
-            minify_css=True,
-            minify_html=True,
-            keep_closing_tags=True,
-            remove_processing_instructions=True
-        )
+        # html = minify(
+        #     html,
+        #     minify_js=True,
+        #     minify_css=True,
+        #     keep_closing_tags=True,
+        #     remove_processing_instructions=True
+        # )
 
         synonyms: list = loads(dd.inflections)
         synonyms = add_nigahitas(synonyms)

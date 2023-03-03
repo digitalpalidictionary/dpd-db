@@ -3,13 +3,18 @@ import re
 from typing import List
 from typing import Optional
 
-from sqlalchemy import ForeignKey, DateTime
+from sqlalchemy import DateTime
+from sqlalchemy import ForeignKey
 from sqlalchemy.sql import func
-from sqlalchemy.orm import Mapped, DeclarativeBase, mapped_column, relationship
+from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import Mapped
+from sqlalchemy.orm import mapped_column
+from sqlalchemy.orm import relationship
 
-# from db.db_helpers import get_db_session
+from db.get_db_session import get_db_session
+from tools.pali_sort_key import pali_sort_key
 
-# db_session = get_db_session("dpd.db")
+db_session = get_db_session("dpd.db")
 
 
 class Base(DeclarativeBase):
@@ -68,11 +73,24 @@ class PaliRoot(Base):
 
     @property
     def root_count(self) -> int:
-        return self.db_session.query(
+        return db_session.query(
             PaliWord
             ).filter(
                 PaliWord.root_key == self.root
             ).count()
+
+    @property
+    def root_family_list(self) -> list:
+        results = db_session.query(
+            PaliWord
+        ).filter(
+            PaliWord.root_key == self.root
+        ).group_by(
+            PaliWord.family_root
+        ).all()
+        family_list = [i.family_root for i in results]
+        family_list = sorted(family_list, key=pali_sort_key)
+        return family_list
 
     def __repr__(self) -> str:
         return f"""PaliRoot: {self.root} {self.root_group} {self.root_sign} ({self.root_meaning})"""
@@ -82,7 +100,8 @@ class PaliWord(Base):
     __tablename__ = "pali_words"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    user_id: Mapped[int] = mapped_column(unique=True)
+    user_id: Mapped[int] = mapped_column(
+        unique=True)
     pali_1: Mapped[str] = mapped_column(unique=True)
     pali_2: Mapped[Optional[str]] = mapped_column(default='')
     pos: Mapped[str] = mapped_column(default='')
@@ -164,6 +183,23 @@ class PaliWord(Base):
             return self.family_compound.split(" ")
         else:
             return [self.family_compound]
+
+    @property
+    def root_count(self) -> int:
+        return db_session.query(
+            PaliWord.id
+        ).filter(
+            PaliWord.root_key == self.root_key
+        ).count()
+
+    @property
+    def pos_list(self) -> list:
+        pos_db = db_session.query(
+            PaliWord.pos
+        ).group_by(
+            PaliWord.pos
+        ).all()
+        return sorted([i.pos for i in pos_db])
 
     def __repr__(self) -> str:
         return f"""PaliWord: {self.id} {self.pali_1} {self.pos} {

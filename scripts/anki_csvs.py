@@ -11,7 +11,7 @@ from pathlib import Path
 from tools.sorter import sort_key
 
 from db.models import PaliWord, PaliRoot
-from db.db_helpers import get_db_session
+from db.get_db_session import get_db_session
 
 dpd_db_path = Path("dpd.db")
 db_session = get_db_session(dpd_db_path)

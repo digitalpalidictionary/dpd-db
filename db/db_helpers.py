@@ -1,13 +1,9 @@
-import os
-import sys
 from pathlib import Path
-
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, Session
-from sqlalchemy_utils import database_exists, create_database
-
+from sqlalchemy import inspect
+from sqlalchemy_utils import database_exists
+from sqlalchemy_utils import create_database
 from db.models import Base
-# from tools.pali_sort_key import pali_sort_key
 
 
 def create_db_if_not_exists(db_path: Path):
@@ -17,21 +13,9 @@ def create_db_if_not_exists(db_path: Path):
         Base.metadata.create_all(bind=engine)
 
 
-def get_db_session(db_path: Path) -> Session:
-    if not os.path.isfile(db_path):
-        print(f"Database file doesn't exist: {db_path}")
-        sys.exit(1)
+def print_column_names(tables_name):
 
-    try:
-        db_eng = create_engine(f"sqlite+pysqlite:///{db_path}", echo=False)
-        db_conn = db_eng.connect()
-
-        Session = sessionmaker(db_eng)
-        Session.configure(bind=db_eng)
-        db_sess = Session()
-
-    except Exception as e:
-        print(f"Can't connect to database: {e}")
-        sys.exit(1)
-
-    return db_sess
+    inspector = inspect(tables_name)
+    column_names = [column.name for column in inspector.columns]
+    for counter, column_name in enumerate(column_names):
+        print(f"{counter}.{column_name}")

@@ -10,7 +10,7 @@ from pathlib import Path
 from aksharamukha import transliterate
 from subprocess import check_output
 
-from db.db_helpers import get_db_session
+from db.get_db_session import get_db_session
 from db.models import PaliWord, DerivedData
 from tools.timeis import tic, toc
 

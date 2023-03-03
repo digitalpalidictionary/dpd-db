@@ -5,7 +5,7 @@ import re
 from rich import print
 
 from root_matrix import generate_root_matrix
-from db.db_helpers import get_db_session
+from db.get_db_session import get_db_session
 from db.models import PaliRoot, PaliWord, FamilyRoot
 from tools.timeis import tic, toc
 from tools.superscripter import superscripter_uni

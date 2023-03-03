@@ -13,7 +13,7 @@ from export_help import generate_help_html
 
 from helpers import get_paths, ResourcePaths
 
-from db.db_helpers import get_db_session
+from db.get_db_session import get_db_session
 from tools.timeis import tic, toc, bip, bop
 from tools.stardict_nu import export_words_as_stardict_zip, ifo_from_opts
 

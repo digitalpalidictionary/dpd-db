@@ -100,14 +100,13 @@ def generate_epd_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
         html_string += f"<div class ='epd'><p>{html}</p></div>"
         html_string += "</body></html>"
 
-        html = minify(
-            html_string,
-            minify_js=True,
-            minify_css=True,
-            minify_html=True,
-            keep_closing_tags=True,
-            remove_processing_instructions=True
-        )
+        # html = minify(
+        #     html_string,
+        #     minify_js=True,
+        #     minify_css=True,
+        #     keep_closing_tags=True,
+        #     remove_processing_instructions=True
+        # )
 
         epd_data_list += [{
             "word": word,

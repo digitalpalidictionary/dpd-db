@@ -9,7 +9,7 @@ from tools.timeis import tic, toc
 from tools.superscripter import superscripter_uni
 from tools.make_meaning import make_meaning
 from tools.pali_sort_key import pali_sort_key
-from db.db_helpers import get_db_session
+from db.get_db_session import get_db_session
 from db.models import PaliWord, FamilyCompound
 
 

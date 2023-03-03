@@ -12,7 +12,7 @@ from difflib import SequenceMatcher
 from pathlib import Path
 
 from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
-from db.db_helpers import get_db_session
+from db.get_db_session import get_db_session
 from db.models import Sandhi
 from transliterate_sandhi import transliterate_sandhi
 from tools.timeis import tic, toc

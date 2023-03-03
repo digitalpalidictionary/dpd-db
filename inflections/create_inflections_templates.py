@@ -9,7 +9,7 @@ from typing import List
 from pathlib import Path
 from rich import print
 
-from db.db_helpers import get_db_session
+from db.get_db_session import get_db_session
 from db.models import InflectionTemplates
 from tools.sorter import pali_list_sorter
 from tools.timeis import tic, toc

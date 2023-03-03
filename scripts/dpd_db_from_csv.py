@@ -9,7 +9,8 @@ from pathlib import Path
 from sqlalchemy.orm import Session
 
 from db.models import PaliWord, PaliRoot
-from db.db_helpers import create_db_if_not_exists, get_db_session
+from db.db_helpers import create_db_if_not_exists
+from db.get_db_session import get_db_session
 from tools.timeis import tic, toc
 
 

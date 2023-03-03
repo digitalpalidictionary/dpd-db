@@ -11,7 +11,13 @@
     % else:
     <p class="heading underlined overlined">
     % endif
-        compounds which contains <b>${f.compound_family}</b>
+    % if f.count == 0:
+        <b>ERROR!!! ${f.count}</b> compounds contain <b>${f.compound_family}</b>: Sort it out!!!
+    % elfi f.count == 1:
+        </b>${f.count}</b> compound contains <b>${f.compound_family}</b>
+    %else:
+        <b>${f.count}</b> compounds contain <b>${f.compound_family}</b>
+    % endif
     </p>
     ${f.html}
 % endfor

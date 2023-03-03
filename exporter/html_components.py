@@ -546,17 +546,10 @@ def render_root_matrix_templ(r: PaliRoot, DB_SESSION):
         FamilyRoot.root_family == "matrix",
     ).first()
 
-    count = DB_SESSION.query(
-        PaliWord
-    ).filter(
-        PaliWord.root_key == r.root
-    ).count()
-
     return str(
         root_matrix_templ.render(
             r=r,
             fr=fr,
-            count=count,
             today=TODAY
         )
     )

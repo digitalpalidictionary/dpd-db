@@ -44,14 +44,13 @@ def generate_sandhi_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
             html += render_sandhi_templ(splits)
             html += "</body></html>"
 
-            html = minify(
-                html,
-                minify_js=True,
-                minify_css=True,
-                minify_html=True,
-                keep_closing_tags=True,
-                remove_processing_instructions=True
-            )
+            # html = minify(
+            #     html,
+            #     minify_js=True,
+            #     minify_css=True,
+            #     keep_closing_tags=True,
+            #     remove_processing_instructions=True
+            # )
 
             synonyms = add_nigahitas([i.sandhi])
             synonyms += loads(i.sinhala)

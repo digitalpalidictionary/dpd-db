@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from db.db_helpers import get_db_session
+from db.get_db_session import get_db_session
 from db.models import PaliWord
 
 EXCLUDE_FROM_SETS: set = {

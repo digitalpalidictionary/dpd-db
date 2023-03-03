@@ -8,7 +8,7 @@ from json import loads
 from rich import print
 
 from db.models import PaliWord, DerivedData
-from db.db_helpers import get_db_session
+from db.get_db_session import get_db_session
 from helpers import ResourcePaths, get_resource_paths
 from tools.clean_machine import clean_machine
 from tools.pali_text_files import cst_texts, sc_texts, bjt_texts

@@ -7,7 +7,7 @@ import pickle
 from rich import print
 from pathlib import Path
 from db.models import PaliWord
-from db.db_helpers import get_db_session
+from db.get_db_session import get_db_session
 
 dpd_db_path = Path("dpd.db")
 db_session = get_db_session(dpd_db_path)
