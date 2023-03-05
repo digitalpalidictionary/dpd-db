@@ -18,4 +18,4 @@ def print_column_names(tables_name):
     inspector = inspect(tables_name)
     column_names = [column.name for column in inspector.columns]
     for counter, column_name in enumerate(column_names):
-        print(f"{counter}.{column_name}")
+        print(f"{counter}. {column_name}")

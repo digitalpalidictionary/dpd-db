@@ -17,6 +17,8 @@ csvs/commentary.csv
 csvs/dpd-full.csv
 csvs/vocab.csv
 frequency/output/*
+exporter/share/dpdv2.zip
+gui/icons/*
 
 __pycache__/
 .pytest_cache
@@ -75,4 +77,4 @@ tags
 
 
 
-exporter/share/dpdv2.zip
+
