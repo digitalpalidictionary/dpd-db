@@ -1,12 +1,20 @@
 #!/usr/bin/env python3.10
 import PySimpleGUI as sg
+import re
 
 from rich import print
+
 from window_layout import window_layout
 from db_helpers import add_word_to_db
 from db_helpers import update_word_in_db
 from db_helpers import get_next_ids
 from db_helpers import dpd_values_list
+from db_helpers import get_family_root_values
+from db_helpers import get_root_sign_values
+from db_helpers import get_root_base_values
+from db_helpers import get_synonyms
+from db_helpers import get_sanskrit
+
 
 from functions.copy_word_from_db import copy_word_from_db
 from functions.open_in_goldendict import open_in_goldendict
@@ -21,16 +29,28 @@ from functions.add_variant_reading import add_variant_reading
 from functions.add_variant_reading import open_variant_readings
 from functions.open_inflection_tables import open_inflection_tables
 
+from tools.pos import DECLENSIONS, VERBS
 # sg.main_sdk_help()
 
 
 def main():
     window = window_layout()
 
-    while True:
-        # sys.stdout = window['message_display']
+    pali_2_flag = True
+    grammar_flag = True
+    derived_from_flag = True
+    family_root_flag = True
+    root_sign_flag = True
+    root_base_flag = True
+    construction_flag = True
+    suffix_flag = True
+    compound_construction_flag = True
+    synoyms_flag = True
+    sanskrit_flag = True
 
+    while True:
         event, values = window.read()
+        
         if event:
             print(f"{event=}")
             print(f"{values=}")
@@ -100,6 +120,136 @@ def main():
 
         # add word events
 
+        if event == "pali_2":
+            if pali_2_flag:
+                window["pali_2"].update(f"{values['pali_1']}")
+                pali_2_flag = False
+
+        if event == "grammar":
+            if grammar_flag:
+                if values["pos"] in VERBS:
+                    window["grammar"].update(f"{values['pos']} of ")
+                else:
+                    window["grammar"].update(f"{values['pos']}, ")
+                grammar_flag = False
+
+        # comp in grammar
+        # sections = [
+        #     "pali_1", "pali_2", "pos", "grammar", "neg", "plus_case",
+        #     "meaning_1", "family_compound", "construction",
+        #     "compound_type", "compound_construction", "antonym",
+        #     "synonym", "variant", "commentary"]
+
+        # root_sections = [
+        #     "verb", "root_key", "family_root", "root_sign"]
+
+        # if re.findall(r"\bcomp\b", values["grammar"]) != []:
+        #     for section in root_sections:
+        #         window[f"{section}"].update(visible=False)
+
+        # else:
+        #     for section in root_sections:
+        #         window[f"{section}"].update(visible=True)
+
+            # for section in sections:
+            #     if "Input" in str(type[window[f"{section}"]]):
+            #         window[f"{section}"].update(background_color="black")
+            #         window[f"{section}"].Widget.configure(
+            #             highlightcolor='black', highlightthickness=2)
+
+        if event == "derived_from":
+            if derived_from_flag:
+                if " of " in values["grammar"] or " from " in values["grammar"]:
+                    derived_from = re.sub(
+                        ".+( of | from )(.+)(,|$)", r"\2", values["grammar"])
+                    window["derived_from"].update(derived_from)
+                    derived_from_flag = False
+
+        if event == "family_root" and values["root_key"] != "":
+            if family_root_flag:
+                root_key = values["root_key"]
+                FAMILY_ROOT_VALUES = get_family_root_values(root_key)
+                window["family_root"].update(values=FAMILY_ROOT_VALUES)
+                family_root_flag = False
+
+        if event == "root_sign":
+            if root_sign_flag:
+                root_key = values["root_key"]
+                ROOT_SIGN_VALUES = get_root_sign_values(root_key)
+                window["root_sign"].update(values=ROOT_SIGN_VALUES)
+                root_sign_flag = False
+
+        if event == "root_base":
+            if root_base_flag:
+                root_key = values["root_key"]
+                ROOT_BASE_VALUES = get_root_base_values(root_key)
+                window["root_base"].update(values=ROOT_BASE_VALUES)
+                root_base_flag = False
+
+        if event == "construction":
+            if construction_flag:
+                family = values["family_root"].replace(" ", " + ")
+                neg = ""
+                if values["neg"] != "":
+                    neg = "neg"
+                if values["root_base"] != "":
+                    # remove (end brackets)
+                    base = re.sub(r" \(.+\)$", "", values["root_base"])
+                    # remove front
+                    base = re.sub("^.+> ", "", base)
+                    family = re.sub("√.+", base, family)
+
+                family = re.sub("√", "", family)
+                window["construction"].update(f"{neg}{family} + ")
+                construction_flag = False
+
+        if event == "derivative":
+            print("hello")
+            "ptp" in values["grammar"]
+            if "ptp" in values["grammar"]:
+                window["derivative"].update("kicca")
+
+        if event == "suffix":
+            if suffix_flag and values["pos"] in DECLENSIONS:
+                suffix = re.sub(r".+ \+ ", "", values["construction"])
+                window["suffix"].update(suffix)
+                suffix_flag = False
+
+        if event == "compound_construction":
+            if compound_construction_flag:
+                window["compound_construction"].update(values["construction"])
+                compound_construction_flag = False
+
+        if event == "bold_1_button":
+            example_1_bold = re.sub(
+                values["bold_1"],
+                f"<b>{values['bold_1']}</b>",
+                values["example_1"])
+            window["example_1"].update(example_1_bold)
+            window["bold_1"].update("")
+
+        if event == "bold_2_button":
+            example_2_bold = re.sub(
+                values["bold_2"],
+                f"<b>{values['bold_2']}</b>",
+                values["example_2"])
+            window["example_2"].update(example_2_bold)
+            window["bold_2"].update("")
+
+        if event == "synonym":
+            if synoyms_flag:
+                synoyms = get_synonyms(values["pos"], values["meaning_1"])
+                window["synonym"].update(synoyms)
+                synoyms_flag = False
+
+        if event == "sanskrit":
+            if sanskrit_flag and re.findall(r"\bcomp\b", values["grammar"]) != []:
+                sanskrit = get_sanskrit(values["construction"])
+                window["sanskrit"].update(sanskrit)
+                sanskrit_flag = False
+
+        # add word buttons
+
         if event == "Copy" or event == "word_to_copy_enter":
             values, window = copy_word_from_db(sg, values, window)
 
@@ -112,6 +262,18 @@ def main():
             window["id"].update(id)
             window["user_id"].update(user_id)
             window["origin"].update("pass1")
+
+            pali_2_flag = True
+            grammar_flag = True
+            derived_from_flag = True
+            family_root_flag = True
+            root_sign_flag = True
+            root_base_flag = True
+            construction_flag = True
+            suffix_flag = True
+            compound_construction_flag = True
+            synoyms_flag = True
+            sanskrit_flag = True
 
         if event == "add_word_to_db":
             add_word_to_db(window, values)
@@ -164,3 +326,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# !!! pin keeps an element in place when it gets hidden and shown again !!!
