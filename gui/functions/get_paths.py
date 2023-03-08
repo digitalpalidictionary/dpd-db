@@ -4,9 +4,13 @@ from pathlib import Path
 
 @dataclass()
 class ResourcePaths():
-    sandhi_ok_path: Path
+    # dirs
     cst_texts_dir: Path
     sc_texts_dir: Path
+    cst_xml_dir: Path
+    cst_xml_roman_dir: Path
+    # paths
+    sandhi_ok_path: Path
     spelling_mistakes_path: Path
     variant_path: Path
     sandhi_rules_path: Path
@@ -19,12 +23,21 @@ class ResourcePaths():
 def get_paths() -> ResourcePaths:
 
     pth = ResourcePaths(
-        sandhi_ok_path=Path(
-            "sandhi/sandhi_related/sandhi_ok.csv"),
+        # dirs
         cst_texts_dir=Path(
             "../Cst4/txt"),
         sc_texts_dir=Path(
             "../Tipitaka-Pali-Projector/tipitaka_projector_data/pali/"),
+        cst_xml_dir=Path(
+            "../Cst4/Xml"),
+        cst_xml_roman_dir=Path(
+            "../Cst4/xml roman"),
+
+
+        # paths
+        sandhi_ok_path=Path(
+            "sandhi/sandhi_related/sandhi_ok.csv"),
+
         spelling_mistakes_path=Path(
             "sandhi/sandhi_related/spelling mistakes.csv"),
         variant_path=Path(

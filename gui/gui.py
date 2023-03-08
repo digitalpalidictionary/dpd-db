@@ -28,6 +28,7 @@ from functions.add_spelling_mistake import open_spelling_mistakes
 from functions.add_variant_reading import add_variant_reading
 from functions.add_variant_reading import open_variant_readings
 from functions.open_inflection_tables import open_inflection_tables
+from functions.find_sutta_example import find_sutta_example
 
 from tools.pos import DECLENSIONS, VERBS
 # sg.main_sdk_help()
@@ -47,6 +48,8 @@ def main():
     compound_construction_flag = True
     synoyms_flag = True
     sanskrit_flag = True
+    example_1_flag = True
+
 
     while True:
         event, values = window.read()
@@ -220,6 +223,14 @@ def main():
                 window["compound_construction"].update(values["construction"])
                 compound_construction_flag = False
 
+        if (event == "example_1" and example_1_flag) or \
+                event == "another_eg_1":
+            sutta_sentences = find_sutta_example(sg, values)
+            window["source_1"].update(sutta_sentences["source_1"])
+            window["sutta_1"].update(sutta_sentences["sutta_1"])
+            window["example_1"].update(sutta_sentences["example_1"])
+            example_1_flag = False
+
         if event == "bold_1_button":
             example_1_bold = re.sub(
                 values["bold_1"],
@@ -274,6 +285,7 @@ def main():
             compound_construction_flag = True
             synoyms_flag = True
             sanskrit_flag = True
+            example_1_flag = True
 
         if event == "add_word_to_db":
             add_word_to_db(window, values)

@@ -185,12 +185,15 @@ def make_tab_add_word(sg):
         ],
         [
             sg.Text("example_1", size=(15, 4)),
-            sg.Multiline(key="example_1", size=(50, 4), no_scrollbar=True)
+            sg.Multiline(
+                key="example_1", size=(50, 4), no_scrollbar=True,
+                enable_events=True)
         ],
         [
             sg.Text("", size=(15, 1)),
             sg.Input(key="bold_1", size=(20, 1)),
-            sg.Button("Bold", key="bold_1_button")
+            sg.Button("Bold", key="bold_1_button"),
+            sg.Button("Another Eg", key="another_eg_1"),
         ],
         [
             sg.Text("source_2", size=(15, 1)),
