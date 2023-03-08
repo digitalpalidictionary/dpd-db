@@ -19,7 +19,7 @@ csvs/vocab.csv
 frequency/output/*
 exporter/share/dpdv2.zip
 gui/icons/*
-grammar_dict/output/
+grammar_dict/output/html
 exporter/share/
 
 __pycache__/
