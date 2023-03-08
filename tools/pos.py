@@ -23,3 +23,7 @@ VERBS = [
     "abs", "aor", "cond", "fut", "ger", "imp", "imperf", "inf", "opt", "perf",
     "pp", "pr", "prp", "ptp"
 ]
+
+NOUNS = ["fem", "masc", "nt", ]
+
+

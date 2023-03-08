@@ -19,7 +19,7 @@ from html_components import render_family_compound_templ
 from html_components import render_family_sets_templ
 from html_components import render_frequency_templ
 from html_components import render_feedback_templ
-from helpers import add_nigahitas
+from tools.add_niggahitas import add_niggahitas
 from tools.timeis import bip, bop
 
 
@@ -81,7 +81,7 @@ def generate_dpd_html(DB_SESSION, PTH):
         # )
 
         synonyms: list = loads(dd.inflections)
-        synonyms = add_nigahitas(synonyms)
+        synonyms = add_niggahitas(synonyms)
         synonyms += loads(dd.sinhala)
         synonyms += loads(dd.devanagari)
         synonyms += loads(dd.thai)

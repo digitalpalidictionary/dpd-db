@@ -4,7 +4,7 @@ from rich import print
 from sqlalchemy import and_
 from minify_html import minify
 
-from helpers import add_nigahitas
+from tools.add_niggahitas import add_niggahitas
 from html_components import render_header_tmpl
 from html_components import render_root_definition_templ
 from html_components import render_root_buttons_templ
@@ -79,7 +79,7 @@ def generate_root_html(DB_SESSION, PTH):
             synonyms.add(fr.root_family)
             synonyms.add(re.sub("√", "", fr.root_family))
 
-        synonyms = add_nigahitas(list(synonyms))
+        synonyms = add_niggahitas(list(synonyms))
 
         root_data_list += [{
             "word": r.root,

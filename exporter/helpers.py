@@ -182,12 +182,3 @@ def cf_set_gen():
 
 
 CF_SET: set = cf_set_gen()
-
-
-def add_nigahitas(synonyms: list) -> list:
-    """add various types of nigahitas to synonyms"""
-    for synonym in synonyms:
-        if "ṃ" in synonym:
-            synonyms += [synonym.replace("ṃ", "ṁ")]
-            synonyms += [synonym.replace("ṃ", "ŋ")]
-    return synonyms

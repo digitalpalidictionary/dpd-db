@@ -19,6 +19,8 @@ csvs/vocab.csv
 frequency/output/*
 exporter/share/dpdv2.zip
 gui/icons/*
+grammar_dict/output/
+exporter/share/
 
 __pycache__/
 .pytest_cache
@@ -71,10 +73,4 @@ tags
 
 .DS_Store
 .idea
-
-
-
-
-
-
 

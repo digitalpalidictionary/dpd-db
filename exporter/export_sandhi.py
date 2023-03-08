@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from typing import List
 from minify_html import minify
 
-from helpers import add_nigahitas
+from tools.add_niggahitas import add_niggahitas
 from html_components import render_header_tmpl
 from html_components import render_sandhi_templ
 from helpers import ResourcePaths
@@ -52,7 +52,7 @@ def generate_sandhi_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
             #     remove_processing_instructions=True
             # )
 
-            synonyms = add_nigahitas([i.sandhi])
+            synonyms = add_niggahitas([i.sandhi])
             synonyms += loads(i.sinhala)
             synonyms += loads(i.devanagari)
             synonyms += loads(i.thai)
