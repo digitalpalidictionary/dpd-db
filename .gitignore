@@ -21,6 +21,7 @@ exporter/share/dpdv2.zip
 gui/icons/*
 grammar_dict/output/html
 exporter/share/
+definitions/definitions.csv
 
 __pycache__/
 .pytest_cache
@@ -73,4 +74,5 @@ tags
 
 .DS_Store
 .idea
+
 

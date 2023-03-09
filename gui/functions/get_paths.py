@@ -18,6 +18,7 @@ class ResourcePaths():
     spelling_corrections_path: Path
     variant_readings_path: Path
     inflection_templates_path: Path
+    defintions_csv_path: Path
 
 
 def get_paths() -> ResourcePaths:
@@ -37,7 +38,6 @@ def get_paths() -> ResourcePaths:
         # paths
         sandhi_ok_path=Path(
             "sandhi/sandhi_related/sandhi_ok.csv"),
-
         spelling_mistakes_path=Path(
             "sandhi/sandhi_related/spelling mistakes.csv"),
         variant_path=Path(
@@ -52,5 +52,8 @@ def get_paths() -> ResourcePaths:
             "sandhi/sandhi_related/variant readings.csv"),
         inflection_templates_path=Path(
             "inflections/inflection templates.xlsx"),
+        defintions_csv_path=Path(
+            "definitions/definitions.csv"),
+
     )
     return pth

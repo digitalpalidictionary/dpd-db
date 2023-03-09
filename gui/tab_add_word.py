@@ -33,7 +33,7 @@ def make_tab_add_word(sg):
             sg.Input(key="pali_1", size=(50, 1))
         ],
         [
-            sg.Text("pali_2", size=(15, 1)),
+            sg.Text("pali_2 >", size=(15, 1)),
             sg.Input(key="pali_2", size=(50, 1), enable_events=True)
         ],
         [
@@ -41,11 +41,11 @@ def make_tab_add_word(sg):
             sg.Combo(POS, key="pos", size=(7, 1), enable_events=True),
         ],
         [
-            sg.Text("grammar", size=(15, 1)),
+            sg.Text("grammar >", size=(15, 1)),
             sg.Input(key="grammar", size=(50, 1), enable_events=True)
         ],
         [
-            sg.Text("derived_from", size=(15, 1)),
+            sg.Text("derived_from >", size=(15, 1)),
             sg.Input(key="derived_from", size=(50, 1), enable_events=True)
         ],
         [
@@ -78,14 +78,14 @@ def make_tab_add_word(sg):
             sg.Text("root_key", key="root_key_label", size=(15, 1)),
             sg.Combo(ROOT_VALUES, key="root_key", size=(8, 1)),
 
-            sg.Text("family root", key="family_root_label"),
+            sg.Text("family root >", key="family_root_label"),
             sg.Combo(
-                values=[], key="family_root", size=(28, 1),
+                values=[], key="family_root", size=(27, 1),
                 enable_events=True,
                 enable_per_char_events=True),
         ],
         [
-            sg.Text("root_sign", size=(15, 1)),
+            sg.Text("root_sign >", size=(15, 1)),
             sg.Combo(
                 values=[],
                 key="root_sign",
@@ -109,7 +109,7 @@ def make_tab_add_word(sg):
             sg.Input(key="family_compound", size=(50, 1))
         ],
         [
-            sg.Text("construction", size=(15, 1)),
+            sg.Text("construction >", size=(15, 1)),
             sg.Input(
                 key="construction", size=(50, 1),
                 enable_events=True)
@@ -120,8 +120,8 @@ def make_tab_add_word(sg):
                 values=DERIVATIVE_VALUES, key="derivative", size=(10, 1),
                 enable_per_char_events=True),
 
-            sg.Text("suffix"),
-            sg.Input(key="suffix", size=(32, 1), enable_events=True),
+            sg.Text("suffix >"),
+            sg.Input(key="suffix", size=(31, 1), enable_events=True),
         ],
         [
             sg.Text("phonetic", size=(15, 1)),
@@ -134,7 +134,7 @@ def make_tab_add_word(sg):
                 size=(49, 1)),
         ],
         [
-            sg.Text("compound_construction", size=(15, 1)),
+            sg.Text("compound_construction >", size=(15, 1)),
             sg.Input(
                 key="compound_construction", size=(50, 1),
                 enable_events=True),
@@ -144,7 +144,7 @@ def make_tab_add_word(sg):
             sg.Input(key="antonym", size=(50, 1))
         ],
         [
-            sg.Text("synonym", size=(15, 1)),
+            sg.Text("synonym >", size=(15, 1)),
             sg.Input(key="synonym", size=(50, 1), enable_events=True)
         ],
         [
@@ -152,8 +152,15 @@ def make_tab_add_word(sg):
             sg.Input(key="variant", size=(50, 1), enable_events=True)
         ],
         [
-            sg.Text("commentary", size=(15, 4)),
-            sg.Multiline(key="commentary", size=(50, 4), no_scrollbar=True)
+            sg.Text("commentary", size=(15, 5)),
+            sg.Multiline(
+                key="commentary", size=(50, 5), no_scrollbar=True)
+        ],
+        [
+            sg.Text("search for", size=(15, 1)),
+            sg.Input("", key="search_for", size=(20, 1)),
+            sg.Input("", key="contains", size=(20, 1)),
+            sg.Button("Search", key="defintions_search_button")
         ],
         [
             sg.Text("notes", size=(15, 1)),
@@ -164,7 +171,7 @@ def make_tab_add_word(sg):
             sg.Input(key="non_ia", size=(50, 41))
         ],
         [
-            sg.Text("sanskrit", size=(15, 1)),
+            sg.Text("sanskrit >", size=(15, 1)),
             sg.Input(key="sanskrit", size=(50, 1), enable_events=True)
         ],
         [
@@ -176,15 +183,15 @@ def make_tab_add_word(sg):
             sg.Input(key="link", size=(50, 1))
         ],
         [
-            sg.Text("source_1", size=(15, 1)),
-            sg.Input(key="source_1", size=(50, 1)),
+            sg.Text("source_1 >", size=(15, 1)),
+            sg.Input(key="source_1", size=(50, 1), enable_events=True),
         ],
         [
-            sg.Text("sutta_1", size=(15, 1)),
-            sg.Input(key="sutta_1", size=(50, 1)),
+            sg.Text("sutta_1 >", size=(15, 1)),
+            sg.Input(key="sutta_1", size=(50, 1), enable_events=True),
         ],
         [
-            sg.Text("example_1", size=(15, 4)),
+            sg.Text("example_1 >", size=(15, 4)),
             sg.Multiline(
                 key="example_1", size=(50, 4), no_scrollbar=True,
                 enable_events=True)
@@ -210,7 +217,8 @@ def make_tab_add_word(sg):
         [
             sg.Text("", size=(15, 1)),
             sg.Input(key="bold_2", size=(20, 1)),
-            sg.Button("Bold", key="bold_2_button")
+            sg.Button("Bold", key="bold_2_button"),
+            sg.Button("Another Eg", key="another_eg_2"),
         ],
         [
             sg.Text("family_set", size=(15, 1)),
@@ -243,11 +251,6 @@ def make_tab_add_word(sg):
                 vertical_scroll_only=True,
                 expand_y=True,
                 size=(None, 900)
-            ),
-            sg.Column(
-                helper_layout,
-                expand_y=True,
-
             ),
         ],
         [

@@ -75,30 +75,47 @@ def find_sutta_example(sg, values: dict) -> str:
                         "sutta_1": sutta_1,
                         "example_1": sentence}]
 
+    # print(sutta_sentences)
+
+    sentences_list = [sentence['example_1'] for sentence in sutta_sentences]
+
     layout = [[
-            sg.Text("Select a sentence:")
-        ],
-        *[[sg.Radio(sentence, "sentence", key=f"{i}")]
-          for i, sentence in enumerate(sutta_sentences)],
-        [sg.Button("OK")]
-    ]
+        sg.Radio(
+            "", "sentence", key=f"{i}", text_color="lightblue",
+            pad=((0, 10), 5)),
+        sg.Multiline(
+            sentences_list[i],
+            wrap_lines=True,
+            auto_size_text=True,
+            size=(100, 2),
+            text_color="lightgray",
+            no_scrollbar=True,
+            )]
+        for i in range(len(sentences_list))]
 
-    popup_window = sg.Window("Select a sentence", layout)
-    event, values = popup_window.read()
-    popup_window.close()
+    layout.append([sg.Button("OK")])
 
+    window = sg.Window(
+        "Sutta Examples",
+        layout,
+        resizable=True,
+        location=(400, 200))
+
+    event, values = window.read()
+    window.close()
+
+    number = 0
     for value in values:
-        if value:
+        if values[value] is True:
             number = int(value)
-            # print(number)
 
     return sutta_sentences[number]
 
 
 def clean_example(text):
     text = text.replace("‘", "")
-    text = text.replace(" – ‘", ", ")
+    text = text.replace(" – ", ", ")
     text = text.replace("’", "")
     text = text.replace("…pe॰…", " ... ")
-
+    text = text.replace(";", ",")
     return text

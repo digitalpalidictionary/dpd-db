@@ -1,6 +1,7 @@
 #!/usr/bin/env python3.10
 import PySimpleGUI as sg
 import re
+import pandas as pd
 
 from rich import print
 
@@ -15,7 +16,7 @@ from db_helpers import get_root_base_values
 from db_helpers import get_synonyms
 from db_helpers import get_sanskrit
 
-
+from functions.get_paths import get_paths
 from functions.copy_word_from_db import copy_word_from_db
 from functions.open_in_goldendict import open_in_goldendict
 from functions.sandhi_ok import sandhi_ok
@@ -29,12 +30,15 @@ from functions.add_variant_reading import add_variant_reading
 from functions.add_variant_reading import open_variant_readings
 from functions.open_inflection_tables import open_inflection_tables
 from functions.find_sutta_example import find_sutta_example
+from functions.find_commentary_defintions import find_commentary_defintions
 
 from tools.pos import DECLENSIONS, VERBS
 # sg.main_sdk_help()
 
 
 def main():
+    pth = get_paths()
+    definitions_df = pd.read_csv(pth.defintions_csv_path, sep="\t")
     window = window_layout()
 
     pali_2_flag = True
@@ -47,13 +51,13 @@ def main():
     suffix_flag = True
     compound_construction_flag = True
     synoyms_flag = True
+    commentary_flag = True
     sanskrit_flag = True
     example_1_flag = True
 
-
     while True:
         event, values = window.read()
-        
+
         if event:
             print(f"{event=}")
             print(f"{values=}")
@@ -104,6 +108,8 @@ def main():
             else:
                 window["tab_add_word"].select()
                 window["pali_1"].update(values["word_to_add"][0])
+                window["search_for"].update(values["word_to_add"][0])
+                window["bold_1"].update(values["word_to_add"][0])
                 window["messages"].update("adding word", text_color="white")
 
         # fix sandhi
@@ -194,7 +200,7 @@ def main():
                 family = values["family_root"].replace(" ", " + ")
                 neg = ""
                 if values["neg"] != "":
-                    neg = "neg"
+                    neg = "na + "
                 if values["root_base"] != "":
                     # remove (end brackets)
                     base = re.sub(r" \(.+\)$", "", values["root_base"])
@@ -223,8 +229,10 @@ def main():
                 window["compound_construction"].update(values["construction"])
                 compound_construction_flag = False
 
-        if (event == "example_1" and example_1_flag) or \
-                event == "another_eg_1":
+        if ((event == "example_1" and example_1_flag) or
+            (event == "source_1" and example_1_flag) or
+            (event == "sutta_1" and example_1_flag) or
+                event == "another_eg_1"):
             sutta_sentences = find_sutta_example(sg, values)
             window["source_1"].update(sutta_sentences["source_1"])
             window["sutta_1"].update(sutta_sentences["sutta_1"])
@@ -247,11 +255,28 @@ def main():
             window["example_2"].update(example_2_bold)
             window["bold_2"].update("")
 
+        if event == "another_eg_2":
+            sutta_sentences = find_sutta_example(sg, values)
+            window["source_2"].update(sutta_sentences["source_1"])
+            window["sutta_2"].update(sutta_sentences["sutta_1"])
+            window["example_2"].update(sutta_sentences["example_1"])
+            example_1_flag = False
+
         if event == "synonym":
             if synoyms_flag:
                 synoyms = get_synonyms(values["pos"], values["meaning_1"])
                 window["synonym"].update(synoyms)
                 synoyms_flag = False
+
+        if event == "defintions_search_button":
+            commentary_defintions = find_commentary_defintions(
+                sg, values, definitions_df)
+            if commentary_defintions:
+                commentary = ""
+                for c in commentary_defintions:
+                    commentary += f"({c['ref_code']}) {c['commentary']}\n"
+                commentary = commentary.rstrip("\n")
+                window["commentary"].update(commentary)
 
         if event == "sanskrit":
             if sanskrit_flag and re.findall(r"\bcomp\b", values["grammar"]) != []:
@@ -284,6 +309,7 @@ def main():
             suffix_flag = True
             compound_construction_flag = True
             synoyms_flag = True
+            commentary_flag = True
             sanskrit_flag = True
             example_1_flag = True
 

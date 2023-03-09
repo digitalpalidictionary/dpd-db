@@ -1,5 +1,5 @@
 source /home/bhikkhu/.cache/pypoetry/virtualenvs/dpd-db-iMAcpDya-py3.10/bin/activate
-# scripts/dpd_db_from_csv.py
+scripts/dpd_db_from_csv.py
 scripts/remove_familyword_prefixes.py
 inflections/create_inflections_templates.py
 inflections/generate_inflection_tables.py

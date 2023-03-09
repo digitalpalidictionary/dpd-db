@@ -10,7 +10,7 @@ def window_layout():
     sg.theme('DarkGrey10')
     sg.set_options(
         font=("Noto Sans", 16),
-        input_text_color="#faebd7",
+        input_text_color="darkgray",
         text_color="#00bfff",
         window_location=(0, 0)
     )
@@ -27,7 +27,7 @@ def window_layout():
         ]],
         key="tabgroup",
         enable_events=True,
-        size=(1080, 950)
+        size=(1280, 950)
     )
 
     layout = [
@@ -40,7 +40,7 @@ def window_layout():
         'Add new words',
         layout,
         resizable=True,
-        size=(1080, 1080),
+        size=(1280, 1080),
         finalize=True,
         )
 
