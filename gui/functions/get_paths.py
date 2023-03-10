@@ -19,6 +19,7 @@ class ResourcePaths():
     variant_readings_path: Path
     inflection_templates_path: Path
     defintions_csv_path: Path
+    internal_tests_path: Path
 
 
 def get_paths() -> ResourcePaths:
@@ -33,7 +34,6 @@ def get_paths() -> ResourcePaths:
             "../Cst4/Xml"),
         cst_xml_roman_dir=Path(
             "../Cst4/xml roman"),
-
 
         # paths
         sandhi_ok_path=Path(
@@ -54,6 +54,8 @@ def get_paths() -> ResourcePaths:
             "inflections/inflection templates.xlsx"),
         defintions_csv_path=Path(
             "definitions/definitions.csv"),
+        internal_tests_path=Path(
+            "tests/internal_tests.tsv"),
 
     )
     return pth

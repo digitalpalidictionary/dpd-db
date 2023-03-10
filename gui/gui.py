@@ -31,6 +31,9 @@ from functions.add_variant_reading import open_variant_readings
 from functions.open_inflection_tables import open_inflection_tables
 from functions.find_sutta_example import find_sutta_example
 from functions.find_commentary_defintions import find_commentary_defintions
+from functions.run_internal_tests import run_internal_tests
+from functions.open_internal_tests import open_internal_tests
+from functions.clear_errors import clear_errors
 
 from tools.pos import DECLENSIONS, VERBS
 # sg.main_sdk_help()
@@ -38,7 +41,7 @@ from tools.pos import DECLENSIONS, VERBS
 
 def main():
     pth = get_paths()
-    definitions_df = pd.read_csv(pth.defintions_csv_path, sep="\t")
+    # definitions_df = pd.read_csv(pth.defintions_csv_path, sep="\t")
     window = window_layout()
 
     pali_2_flag = True
@@ -290,6 +293,7 @@ def main():
             values, window = copy_word_from_db(sg, values, window)
 
         if event == "Clear":
+            clear_errors(window)
             for value in values:
                 if value in dpd_values_list:
                     window[value].update("")
@@ -312,6 +316,11 @@ def main():
             commentary_flag = True
             sanskrit_flag = True
             example_1_flag = True
+
+        if event == "test_internal":
+            clear_errors(window)
+            run_internal_tests(sg, window, values)
+            # open_internal_tests()
 
         if event == "add_word_to_db":
             add_word_to_db(window, values)
@@ -367,3 +376,4 @@ if __name__ == "__main__":
 
 
 # !!! pin keeps an element in place when it gets hidden and shown again !!!
+

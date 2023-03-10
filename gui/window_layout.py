@@ -27,7 +27,7 @@ def window_layout():
         ]],
         key="tabgroup",
         enable_events=True,
-        size=(1280, 950)
+        size=(None, None)
     )
 
     layout = [
