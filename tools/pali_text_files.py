@@ -52,6 +52,22 @@ cst_texts = {
     "kn19": ["s0519m.mul.xml.txt"],
     "kn20": ["s0520m.nrf.xml.txt"],
 
+    "abh1": ["abh01m.mul.xml.txt"],
+    "abh2": ["abh02m.mul.xml.txt"],
+    "abh3": ["abh03m1.mul.xml.txt"],
+    "abh4": ["abh03m2.mul.xml.txt"],
+    "abh5": ["abh03m3.mul.xml.txt",],
+    "abh6": [
+        "abh03m4.mul.xml.txt",
+        "abh03m5.mul.xml.txt",
+        "abh03m6.mul.xml.txt"],
+    "abh7": [
+        "abh03m7.mul.xml.txt",
+        "abh03m8.mul.xml.txt",
+        "abh03m9.mul.xml.txt",
+        "abh03m10.mul.xml.txt",
+        "abh03m11.mul.xml.txt",],
+
     "vina": [
         "vin01a.att.xml.txt",
         "vin02a1.att.xml.txt",
@@ -112,6 +128,17 @@ cst_texts = {
         "s0516a.att.xml.txt",
         "s0517a.att.xml.txt",
         "s0519a.att.xml.txt",
+    ],
+
+    "abha": [
+        "abh01a.att.xml.txt",
+        "abh02a.att.xml.txt",
+        "abh03a.att.xml.txt",
+        "abh03a1.att.xml.txt",
+        "abh03a2.att.xml.txt",
+        "abh03a3.att.xml.txt",
+        "abh03a4.att.xml.txt",
+        "abh03a5.att.xml.txt",
     ]
 }
 
@@ -148,16 +175,42 @@ sc_texts = {
     "an10": ["51100a.js"],
     "an11": ["51110a.js"],
 
-    "kn": [
-        "61080a.js",
-        "61090a.js"],
+    "kn1": [],
+    "kn2": [],
+    "kn3": [],
+    "kn4": [],
+    "kn5": [],
+    "kn6": [],
+    "kn7": [],
+    "kn8": ["61080a.js"],
+    "kn9": ["61090a.js"],
+    "kn10": [],
+    "kn11": [],
+    "kn12": [],
+    "kn13": [],
+    "kn14": [],
+    "kn15": [],
+    "kn16": [],
+    "kn17": [],
+    "kn18": [],
+    "kn19": [],
+    "kn20": [],
+
+    "abh1": [],
+    "abh2": [],
+    "abh3": [],
+    "abh4": [],
+    "abh5": [],
+    "abh6": [],
+    "abh7": [],
 
     "vina": [],
     "dna": [],
     "mna": [],
     "sna": [],
     "ana": [],
-    "kna": []
+    "kna": [],
+    "abha": [],
 
 }
 

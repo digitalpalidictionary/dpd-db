@@ -18,14 +18,14 @@ from transliterate_sandhi import transliterate_sandhi
 from tools.timeis import tic, toc
 
 
-add_do = True
+add_do = False
 
 
 def process_matches(neg_inflections_set):
 
     print("[green]processing macthes")
 
-    print("    reading csvs")
+    print("reading csvs")
     matches_df = pd.read_csv(pth["matches_path"], dtype=str, sep="\t")
 
     if add_do is True:
@@ -34,24 +34,24 @@ def process_matches(neg_inflections_set):
 
     matches_df = matches_df.fillna("")
 
-    print("    adding splitcount")
+    print("adding splitcount")
     matches_df["splitcount"] = matches_df['split'].str.count(r' \+ ')
 
-    print("    adding lettercount")
+    print("adding lettercount")
     matches_df["lettercount"] = matches_df['split'].str.count('.')
 
-    print("    adding word count")
+    print("adding word count")
     matches_df['count'] = matches_df.groupby('word')['word'].transform('size')
 
     def calculate_ratio(original, split):
         split = split.replace(" + ", "")
         return SequenceMatcher(None, original, split).ratio()
 
-    print("    adding difference ratio")
+    print("adding difference ratio")
     matches_df['ratio'] = np.vectorize(
         calculate_ratio)(matches_df['split'], matches_df['split'])
 
-    print("    adding neg_count")
+    print("adding neg_count")
 
     def neg_counter(row):
         neg_count = 0
@@ -65,16 +65,16 @@ def process_matches(neg_inflections_set):
 
     matches_df['neg_count'] = matches_df.apply(neg_counter, axis=1)
 
-    print("    sorting df values")
+    print("sorting df values")
     matches_df.sort_values(
-        by=["splitcount", "neg_count", "ratio", "lettercount"],
+        by=["splitcount", "lettercount", "ratio", "neg_count"],
         axis=0,
         ascending=[True, True, False, True],
         inplace=True,
         ignore_index=True
     )
 
-    print("    dropping duplicates")
+    print("dropping duplicates")
     matches_df.drop_duplicates(
         subset=['word', 'split'],
         keep='first',
@@ -82,7 +82,7 @@ def process_matches(neg_inflections_set):
         ignore_index=True
     )
 
-    print("    saving to matches_sorted.csv")
+    print("saving to matches_sorted.csv")
     matches_df.to_csv(pth["matches_sorted"], sep="\t", index=None)
 
     return matches_df
@@ -91,27 +91,29 @@ def process_matches(neg_inflections_set):
 def make_top_five_dict(matches_df):
     print("[green]making top five dict", end=" ")
     top_five_dict = {}
-    matches = matches_df[['word', 'split', 'splitcount']].values.tolist()
 
-    for i, match in enumerate(matches):
-        word = match[0]
-        split = match[1]
-        splitcount = match[2]
+    for index, i in matches_df.iterrows():
 
-        if word not in top_five_dict:
-            top_five_dict[word] = []
+        extra_letters = i.splitcount*3
+        total_length = i.lettercount - extra_letters
+        if total_length >= len(i.word):
 
-    # !!! it's fast but it's not catching the splitcount
+            if i.word not in top_five_dict:
+                top_five_dict[i.word] = {
+                    "splits": [i.split],
+                    "splitcount": i.splitcount}
+            else:
+                if len(top_five_dict[i.word]["splits"]) < 5:
+                    if i.splitcount <= top_five_dict[i.word]["splitcount"]:
+                        top_five_dict[i.word]["splits"].append(i.split)
 
-        if len(top_five_dict[word]) < 5:
-            top_five_dict[word].append(split)
-        else:
-            prev_splitcount = matches[i - 1][2]
-            if splitcount == prev_splitcount:
-                top_five_dict[word][-1] = split
+    # print(top_five_dict["ārammaṇamūlakasappāyakārīsuttā"])
+
+    # remove the splitcount
+    for key, value in top_five_dict.items():
+        top_five_dict[key] = value["splits"]
 
     print(len(top_five_dict))
-
     return top_five_dict
 
 

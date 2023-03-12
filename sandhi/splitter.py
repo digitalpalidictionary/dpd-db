@@ -21,17 +21,9 @@ class Word:
     def __init__(self, word: str):
         Word.count_value += 1
         self.count = Word.count_value
-        self.comm: str = "start"
-        self.init: str = word
-        self.front: str = ""
         self.word: str = word
-        self.back: str = ""
-        self.rfront: List = []
-        self.rback: List = []
         self.tried: List = set()
         self.matches = set()
-        self.path: List = ["start"]
-        self.recursions = 0
 
     @property
     def comp(self):
@@ -42,6 +34,156 @@ class Word:
         word_copy.__dict__.update(self.__dict__)
         word_copy.count = Word.count_value
         return word_copy
+
+
+class dotdict(dict):
+    """dot.notation access to dictionary attributes"""
+    __getattr__ = dict.get
+    __setattr__ = dict.__setitem__
+    __delattr__ = dict.__delitem__
+
+
+def comp(d):
+    return f"{d.front}{d.word}{d.back}"
+
+
+def main():
+    tic()
+
+    print("[bright_yellow]sandhi splitter")
+
+    profiler_on = False
+
+    if profiler_on is True:
+        profiler = cProfile.Profile()
+        profiler.enable()
+
+    # make globally accessable vaiables
+    setup()
+
+    time_dict = {}
+    global unmatched_len_init
+    unmatched_len_init = len(unmatched_set)
+
+    print(f"[green]splitting sandhi [white]{unmatched_len_init:,}")
+
+    for counter, word in enumerate(unmatched_set.copy()):
+        bip()
+        global w
+        w = Word(word)
+        matches_dict[word] = []
+
+        # d is a diciotnary of data accessed using dot notation
+        d: dict = {
+            "count": counter,
+            "comm": "start",
+            "init": word,
+            "front": "",
+            "word": word,
+            "back": "",
+            "rules_front": "",
+            "rules_back": "",
+            "tried": set(),
+            "matches": set(),
+            "path": "start",
+            "processes": 0
+        }
+        d = dotdict(d)
+
+        # debug
+        # if d.init != "tapantamādiccamivantalikkheti":
+        #     continue
+        # if d.count > 1000:
+        #     break
+
+        if d.count % 1000 == 0:
+            print(
+                f"{d.count:>10,} / {unmatched_len_init:<10,}{d.word}")
+
+        # two word sandhi
+        d = two_word_sandhi(d)
+
+        if matches_dict[word] != []:
+            w.matches.add(comp(d))
+            d.matches.add(comp(d))
+            unmatched_set.discard(word)
+            time_dict[word] = bop()
+
+        else:
+            # three word sandhi
+            d = three_word_sandhi(d)
+
+            if matches_dict[word] != []:
+                w.matches.add(comp(d))
+                d.matches.add(comp(d))
+                unmatched_set.discard(word)
+                time_dict[word] = bop()
+
+        # recursive removal
+        if w.matches == set():
+            recursive_removal(d)
+            time_dict[word] = bop()
+
+    summary()
+
+    # save matches
+    with open(pth["matches_path"], "w") as f:
+        for word, data in matches_dict.items():
+            for item in data:
+                f.write(f"{word}\t")
+                for column in item:
+                    f.write(f"{column}\t")
+                f.write("\n")
+
+    # save timer_dict
+    df = pd.DataFrame.from_dict(time_dict, orient="index")
+    df = df.sort_values(by=0, ascending=False)
+    df.to_csv("sandhi/output/timer.csv", sep="\t")
+
+    if profiler_on:
+        profiler.disable()
+        profiler.dump_stats('profiler.prof')
+        yes_no = input("open profiler? (y/n) ")
+        if yes_no == "y":
+            popen("tuna profiler.prof")
+
+    toc()
+
+
+def setup():
+    print("[green]importing assets")
+    global pth
+    pth = get_resource_paths()
+
+    global rules
+    rules = import_sandhi_rules()
+
+    global shortlist_set
+    shortlist_set = make_shortlist_set()
+
+    global unmatched_set
+    with open(pth["unmatched_set_path"], "rb") as f:
+        unmatched_set = pickle.load(f)
+
+    global all_inflections_set
+    with open(pth["all_inflections_set_path"], "rb") as f:
+        all_inflections_set = pickle.load(f)
+
+    global all_inflections_nofirst
+    global all_inflections_nolast
+    global all_inflections_first3
+    global all_inflections_last3
+
+    all_inflections_nofirst,\
+        all_inflections_nolast,\
+        all_inflections_first3,\
+        all_inflections_last3\
+        = make_all_inflections_nfl_nll(
+            all_inflections_set)
+
+    global matches_dict
+    with open(pth["matches_dict_path"], "rb") as f:
+        matches_dict = pickle.load(f)
 
 
 def import_sandhi_rules():
@@ -122,265 +264,190 @@ def make_all_inflections_nfl_nll(all_inflections_set):
     return all_inflections_nofirst, all_inflections_nolast, all_inflections_first3, all_inflections_last3
 
 
-def setup():
-    print("[green]importing assets")
-    global pth
-    pth = get_resource_paths()
+def remove_neg(d):
+    "finds neg in front and 1. finds match 2. recurses 3. passes through"
+    d_orig = dotdict(d)
 
-    global rules
-    rules = import_sandhi_rules()
+    if comp(d) not in w.matches and len(d.word) > 2:
+        d.path += " > neg"
 
-    global shortlist_set
-    shortlist_set = make_shortlist_set()
-
-    global unmatched_set
-    with open(pth["unmatched_set_path"], "rb") as f:
-        unmatched_set = pickle.load(f)
-
-    global all_inflections_set
-    with open(pth["all_inflections_set_path"], "rb") as f:
-        all_inflections_set = pickle.load(f)
-
-    global all_inflections_nofirst
-    global all_inflections_nolast
-    global all_inflections_first3
-    global all_inflections_last3
-
-    all_inflections_nofirst,\
-        all_inflections_nolast,\
-        all_inflections_first3,\
-        all_inflections_last3\
-        = make_all_inflections_nfl_nll(
-            all_inflections_set)
-
-    global matches_dict
-    with open(pth["matches_dict_path"], "rb") as f:
-        matches_dict = pickle.load(f)
-
-
-def remove_neg(w):
-
-    if w.comp not in w.matches and len(w.word) > 2:
-
-        front_orig = copy(w.front)
-        word_orig = copy(w.word)
-        back_orig = copy(w.back)
-        rfront_orig = copy(w.rfront)
-        rback_orig = copy(w.rback)
-
-        if w.word.startswith("a"):
-            if w.word[1] == w.word[2]:
-                w.front = f"na + {w.front}"
-                w.word = w.word[2:]
-                w.comm = "na"
-                w.rfront += ["na"]
+        if d.word.startswith("a"):
+            if d.word[1] == d.word[2]:
+                d.front = f"na + {d.front}"
+                d.word = d.word[2:]
+                d.rules_front = "na,"
             else:
-                w.front = f"na + {w.front}"
-                w.word = w.word[1:]
-                w.comm = "na"
-                w.rfront += ["na"]
+                d.front = f"na + {d.front}"
+                d.word = d.word[1:]
+                d.rules_front = "na,"
 
-        elif w.word.startswith("an"):
-            w.front = f"na + {w.front}"
-            w.word = w.word[2:]
-            w.comm = "na"
-            w.rfront += ["na"]
+        elif d.word.startswith("an"):
+            d.front = f"na + {d.front}"
+            d.word = d.word[2:]
+            d.rules_front = "na,"
 
-        elif w.word.startswith("na"):
-            if w.word[1] == w.word[2]:
-                w.front = f"na + {w.front}"
-                w.word = w.word[3:]
-                w.comm = "na"
-                w.rfront += ["na"]
+        elif d.word.startswith("na"):
+            if d.word[1] == d.word[2]:
+                d.front = f"na + {d.front}"
+                d.word = d.word[3:]
+                d.rules_front = "na,"
             else:
-                w.front = f"na + {w.front}"
-                w.word = w.word[2:]
-                w.comm = "na"
-                w.rfront += ["na"]
+                d.front = f"na + {d.front}"
+                d.word = d.word[2:]
+                d.rules_front = "na,"
 
-        elif w.word.startswith("nā"):
-            w.front = f"na + {w.front}"
-            w.word = f"a{w.word[2:]}"
-            w.comm = "na"
-            w.rfront += ["na"]
+        elif d.word.startswith("nā"):
+            d.front = f"na + {d.front}"
+            d.word = f"a{d.word[2:]}"
+            d.rules_front = "na,"
 
-        if w.word in all_inflections_set:
-            w.comm == f"match! = {w.comp}"
+        if d.word in all_inflections_set:
+            d.comm == f"match! = {comp(d)}"
 
-            if w.comp not in w.matches:
-                matches_dict[w.init] += [(
-                    w.comp, "xword-na", "na")]
-                w.matches.add(w.comp)
-                unmatched_set.discard(w.init)
-
-        else:
-            w.comm = "recursing na"
-            w.path += ["na"]
-            recursive_removal(w)
-
-        w.front = front_orig
-        w.word = word_orig
-        w.back = back_orig
-        w.rfront = rfront_orig
-        w.rback = rback_orig
-
-    return w
-
-
-def remove_sa(w):
-
-    if w.comp not in w.matches and len(w.word) >= 4:
-
-        front_orig = copy(w.front)
-        word_orig = copy(w.word)
-        back_orig = copy(w.back)
-        rfront_orig = copy(w.rfront)
-        rback_orig = copy(w.rback)
-
-        if w.word[2] == w.word[3]:
-            w.front = f"sa + {w.front}"
-            w.word = w.word[3:]
-            w.comm = "sa"
-            w.rfront += ["sa"]
+            if comp(d) not in w.matches:
+                matches_dict[d.init] += [(
+                    comp(d), "xword-na", "na", d.path)]
+                w.matches.add(comp(d))
+                d.matches.add(comp(d))
+                unmatched_set.discard(d.init)
 
         else:
-            w.front = f"sa + {w.front}"
-            w.word = w.word[2:]
-            w.comm = "sa"
-            w.rfront += ["sa"]
+            d.comm = "recursing from na"
+            recursive_removal(d)
 
-        if w.word in all_inflections_set:
+        d = dotdict(d_orig)
 
-            if w.comp not in w.matches:
-                matches_dict[w.init] += [
-                    (w.comp, "xword-sa", "sa")]
-                w.matches.add(w.comp)
-                unmatched_set.discard(w.init)
-
-        else:
-            w.comm = "recursing sa"
-            w.path += ["sa"]
-            recursive_removal(w)
-
-        w.front = front_orig
-        w.word = word_orig
-        w.back = back_orig
-        w.rfront = rfront_orig
-        w.rback = rback_orig
-
-    return w
+    return d_orig
 
 
-def remove_su(w):
+def remove_sa(d):
+    """find sa in front and 1. match 2. recurse 3. pass through"""
+    d_orig = dotdict(d)
 
-    if w.comp not in w.matches and len(w.word) >= 4:
+    if comp(d) not in w.matches and len(d.word) >= 4:
+        d.path += " > sa"
 
-        front_orig = copy(w.front)
-        word_orig = copy(w.word)
-        back_orig = copy(w.back)
-        rfront_orig = copy(w.rfront)
-        rback_orig = copy(w.rback)
-
-        if w.word[2] == w.word[3]:
-            w.front = f"su + {w.front}"
-            w.word = w.word[3:]
-            w.comm = "su"
-            w.rfront += ["su"]
+        if d.word[2] == d.word[3]:
+            d.front = f"sa + {d.front}"
+            d.word = d.word[3:]
+            d.rules_front = "sa,"
 
         else:
-            w.front = f"su + {w.front}"
-            w.word = w.word[2:]
-            w.comm = "su"
-            w.rfront += ["su"]
+            d.front = f"sa + {d.front}"
+            d.word = d.word[2:]
+            d.rules_front = "sa,"
 
-        if w.word in all_inflections_set:
+        if d.word in all_inflections_set:
+            d.comm = "sa"
 
-            if w.comp not in w.matches:
-                matches_dict[w.init] += [
-                    (w.comp, "xword-su", "su")]
-                w.matches.add(w.comp)
-                unmatched_set.discard(w.init)
-
-        else:
-            w.comm = "recursing su"
-            w.path += ["su"]
-            recursive_removal(w)
-
-        w.front = front_orig
-        w.word = word_orig
-        w.back = back_orig
-        w.rfront = rfront_orig
-        w.rback = rback_orig
-
-    return w
-
-
-def remove_dur(w):
-
-    if w.comp not in w.matches and len(w.word) >= 4:
-
-        front_orig = copy(w.front)
-        word_orig = copy(w.word)
-        back_orig = copy(w.back)
-        rfront_orig = copy(w.rfront)
-        rback_orig = copy(w.rback)
-
-        if w.word[2] == w.word[3]:
-            w.front = f"dur + {w.front}"
-            w.word = w.word[3:]
-            w.comm = "dur"
-            w.rfront += ["dur"]
+            if comp(d) not in w.matches:
+                matches_dict[d.init] += [
+                    (comp(d), "xword-sa", "sa", d.path)]
+                w.matches.add(comp(d))
+                d.matches.add(comp(d))
+                unmatched_set.discard(d.init)
 
         else:
-            w.front = f"dur + {w.front}"
-            w.word = w.word[2:]
-            w.comm = "dur"
-            w.rfront += ["dur"]
+            d.comm = "recursing sa"
+            recursive_removal(d)
 
-        if w.word in all_inflections_set:
+        d = dotdict(d_orig)
 
-            if w.comp not in w.matches:
-                matches_dict[w.init] += [
-                    (w.comp, "xword-dur", "dur")]
-                w.matches.add(w.comp)
-                unmatched_set.discard(w.init)
+    return d_orig
+
+
+def remove_su(d):
+    """find su in front and 1. match 2. recurse 3. pass through"""
+    d_orig = dotdict(d)
+
+    if comp(d) not in w.matches and len(d.word) >= 4:
+        d.path += " > su"
+
+        if d.word[2] == d.word[3]:
+            d.front = f"su + {d.front}"
+            d.word = d.word[3:]
+            d.rules_front = "su,"
 
         else:
-            w.comm = "recursing dur"
-            w.path += ["dur"]
-            recursive_removal(w)
+            d.front = f"su + {d.front}"
+            d.word = d.word[2:]
+            d.rules_front += "su,"
 
-        w.front = front_orig
-        w.word = word_orig
-        w.back = back_orig
-        w.rfront = rfront_orig
-        w.rback = rback_orig
+        if d.word in all_inflections_set:
+            d.comm = "su"
 
-    return w
+            if comp(d) not in w.matches:
+                matches_dict[d.init] += [
+                    (comp(d), "xword-su", "su", d.path)]
+                w.matches.add(comp(d))
+                d.matches.add(comp(d))
+                unmatched_set.discard(d.init)
+
+        else:
+            d.comm = "recursing su"
+            recursive_removal(d)
+
+        d = dotdict(d_orig)
+
+    return d_orig
 
 
-def remove_apievaiti(w):
+def remove_dur(d):
+    """find du(r) in front and 1. match 2. recurse 3. pass through"""
+    d_orig = dotdict(d)
 
-    if w.comp not in w.matches:
+    if comp(d) not in w.matches and len(d.word) >= 4:
+        d.path += " > dur"
 
-        front_orig = copy(w.front)
-        word_orig = copy(w.word)
-        back_orig = copy(w.back)
-        rfront_orig = copy(w.rfront)
-        rback_orig = copy(w.rback)        # path_orig = copy(w.path)
+        if d.word[2] == d.word[3]:
+            d.front = f"dur + {d.front}"
+            d.word = d.word[3:]
+            d.rules_front = "dur,"
+
+        else:
+            d.front = f"dur + {d.front}"
+            d.word = d.word[2:]
+            d.rules_front = "dur,"
+
+        if d.word in all_inflections_set:
+            d.comm = "dur"
+
+            if comp(d) not in w.matches:
+                matches_dict[d.init] += [
+                    (comp(d), "xword-dur", "dur", d.path)]
+                w.matches.add(comp(d))
+                d.matches.add(comp(d))
+                unmatched_set.discard(d.init)
+
+        else:
+            d.comm = "recursing dur"
+            recursive_removal(d)
+
+        d = dotdict(d_orig)
+
+    return d_orig
+
+
+def remove_apievaiti(d):
+    """find api eva or iti using sandhi rules then
+    1. match 2. recurse 3. pass through"""
+
+    d_orig = dotdict(d)
+
+    if comp(d) not in w.matches:
 
         try:
-            if w.word[-3] in vowels:
-                wordA = w.word[:-3]
-                wordB = w.word[-3:]
+            if d.word[-3] in vowels:
+                wordA = d.word[:-3]
+                wordB = d.word[-3:]
 
             else:
-                wordA = w.word[:-2]
-                wordB = w.word[-2:]
+                wordA = d.word[:-2]
+                wordB = d.word[-2:]
 
         except Exception:
-            wordA = w.word[:-2]
-            wordB = w.word[-2:]
+            wordA = d.word[:-2]
+            wordB = d.word[-2:]
 
         for rule in rules:
             chA = rules[rule]["chA"]
@@ -400,147 +467,136 @@ def remove_apievaiti(w):
                 word2 = ch2 + wordB[1:]
 
                 if word2 in ["api", "eva", "iti"]:
-                    w.word = w.word.replace(wordB, "")
-                    w.word = w.word.replace(wordA, word1)
-                    w.back = f" + {word2}{back_orig}"
-                    w.comm = "apievaiti"
-                    w.rback = [rule+2] + rback_orig
+                    d.word = d.word.replace(wordB, "")
+                    d.word = d.word.replace(wordA, word1)
+                    d.back = f" + {word2}{d.back}"
+                    d.comm = "apievaiti"
+                    d.rules_back = f"{rule+2},{d.rules_back}"
+                    d.path += " > apievaiti"
 
-                    if w.word in all_inflections_set:
-                        w.comm == f"match! = {w.comp}"
+                    if d.word in all_inflections_set:
+                        d.comm == f"match! = {comp(d)}"
 
-                        if w.comp not in w.matches:
-                            matches_dict[w.init] += [
-                                (w.comp, "xword-pi", "apievaiti")]
-                            w.matches.add(w.comp)
-                            unmatched_set.discard(w.init)
+                        if comp(d) not in w.matches:
+                            matches_dict[d.init] += [
+                                (comp(d), "xword-pi", "apievaiti", d.path)]
+                            w.matches.add(comp(d))
+                            d.matches.add(comp(d))
+                            unmatched_set.discard(d.init)
 
                     else:
-                        w.path += ["apievaiti"]
-                        recursive_removal(w)
+                        recursive_removal(d)
 
-        w.front = front_orig
-        w.word = word_orig
-        w.back = back_orig
-        w.rfront = rfront_orig
-        w.rback = rback_orig
+                    d = dotdict(d_orig)
 
-    return w
+    return d_orig
 
 
-def remove_lwff_clean(w):
+def remove_lwff_clean(d):
+    """find a list of longest clean words from the front then 
+    1. match 2. redcurse or pass through"""
 
-    if w.comp not in w.matches:
+    d_orig = dotdict(d)
 
-        front_orig = copy(w.front)
-        word_orig = copy(w.word)
-        back_orig = copy(w.back)
-        rfront_orig = copy(w.rfront)
-        rback_orig = copy(w.rback)
+    if comp(d) not in w.matches:
 
         lwff_clean_list = []
 
-        for i in range(len(w.word)):
-            if w.word[:-i] in all_inflections_set:
-                lwff_clean_list.append(w.word[:-i])
+        for i in range(len(d.word)):
+            if d.word[:-i] in all_inflections_set:
+                lwff_clean_list.append(d.word[:-i])
+
+        # if lwff_clean_list:
+        #     print(len(min(lwff_clean_list, key=len)))
 
         for lwff_clean in lwff_clean_list:
 
-            if len(lwff_clean) > 0:
+            if len(lwff_clean) > 1:
+                d.path += " > lwff_clean"
+                d.word = re.sub(f"^{lwff_clean}", "", d.word, count=1)
+                d.front = f"{d.front}{lwff_clean} + "
+                d.comm = f"lwff_clean [yellow]{lwff_clean}"
+                d.rules_front += "0,"
 
-                w.word = word_orig.replace(lwff_clean, "")
-                w.front = f"{front_orig}{lwff_clean} + "
-                w.comm = f"lwff_clean [yellow]{lwff_clean}"
-                w.rfront = rfront_orig + [0]
+                if d.word in all_inflections_set:
 
-                if w.word in all_inflections_set:
-
-                    if w.comp not in w.matches:
-                        matches_dict[w.init] += [
-                            (w.comp, "xword-lwff", f"{comp_rules(w)}")]
-                        w.matches.add(w.comp)
-                        unmatched_set.discard(w.init)
+                    if comp(d) not in w.matches:
+                        matches_dict[d.init] += [
+                            (comp(d), "xword-lwff", f"{comp_rules(d)}", d.path)]
+                        w.matches.add(comp(d))
+                        unmatched_set.discard(d.init)
 
                 else:
-                    w.comm = f"recursing lwff_clean [yellow]{w.comp}"
-                    w.rfront = rfront_orig
-                    w.path += ["lwff_clean"]
-                    recursive_removal(w)
+                    d.comm = f"recursing lwff_clean [yellow]{comp(d)}"
+                    recursive_removal(d)
 
-        w.front = front_orig
-        w.word = word_orig
-        w.back = back_orig
-        w.rfront = rfront_orig
-        w.rback = rback_orig
+                d = dotdict(d_orig)
 
-    return w
+    return d_orig
 
 
-def remove_lwfb_clean(w):
+def remove_lwfb_clean(d):
+    """find list of longest words from the back then
+    1. match 2. recurse 3. pass through"""
 
-    if w.comp not in w.matches:
+    d_orig = dotdict(d)
 
-        front_orig = copy(w.front)
-        word_orig = copy(w.word)
-        back_orig = copy(w.back)
-        rfront_orig = copy(w.rfront)
-        rback_orig = copy(w.rback)
+    if comp(d) not in w.matches:
 
         lwfb_clean_list = []
 
-        for i in range(len(w.word)):
-            if w.word[i:] in all_inflections_set:
-                lwfb_clean_list.append(w.word[i:])
+        for i in range(len(d.word)):
+            if d.word[i:] in all_inflections_set:
+                lwfb_clean_list.append(d.word[i:])
+
+        # if lwfb_clean_list:
+        #     print(len(min(lwfb_clean_list, key=len)))
 
         for lwfb_clean in lwfb_clean_list:
 
-            if len(lwfb_clean) > 0:
+            if len(lwfb_clean) > 1:
+                d.path += " > lwfb_clean"
+                d.word = re.sub(f"{lwfb_clean}$", "", d.word, count=1)
+                d.back = f" + {lwfb_clean}{d.back}"
+                d.comm = f"lwfb_clean [yellow]{lwfb_clean}"
+                d.rules_back = f"0,{d.rules_back}"
 
-                w.word = word_orig.replace(lwfb_clean, "")
-                w.back = f" + {lwfb_clean}{back_orig}"
-                w.comm = f"lwfb_clean [yellow]{lwfb_clean}"
-                w.rback = [0] + rback_orig
-
-                if w.word in all_inflections_set:
-                    if w.comp not in w.matches:
-                        matches_dict[w.init] += [
-                            (w.comp, "xword-lwfb", f"{comp_rules(w)}")]
-                        w.matches.add(w.comp)
-                        unmatched_set.discard(w.init)
+                if d.word in all_inflections_set:
+                    if comp(d) not in w.matches:
+                        matches_dict[d.init] += [
+                            (comp(d), "xword-lwfb", f"{comp_rules(d)}", d.path)]
+                        w.matches.add(comp(d))
+                        d.matches.add(comp(d))
+                        unmatched_set.discard(d.init)
 
                 else:
-                    w.comm = f"recursing lfwb_clean [yellow]{w.comp}"
-                    w.rback = rback_orig
-                    w.path += ["lwfb_clean"]
-                    recursive_removal(w)
+                    d.comm = f"recursing lfwb_clean [yellow]{comp(d)}"
+                    recursive_removal(d)
 
-        w.front = front_orig
-        w.word = word_orig
-        w.back = back_orig
-        w.rfront = rfront_orig
-        w.rback = rback_orig
+                d = dotdict(d_orig)
 
-    return w
+    return d_orig
 
 
-def remove_lwff_fuzzy(w):
+def remove_lwff_fuzzy(d):
+    """find list of longest fuzzy words from the front then
+    1. match 2. recurse 3. pass through"""
 
-    if w.comp not in w.matches:
+    d_orig = dotdict(d)
+
+    if comp(d) not in d.matches:
 
         lwff_fuzzy_list = []
 
-        if len(w.word) >= 1:
-            for i in range(len(w.word)):
-                fuzzy_word = w.word[:-i]
+        if len(d.word) >= 1:
+            for i in range(len(d.word)):
+                fuzzy_word = d.word[:-i]
 
                 if fuzzy_word in all_inflections_nolast:
                     lwff_fuzzy_list.append(fuzzy_word)
 
-        front_orig = copy(w.front)
-        word_orig = copy(w.word)
-        back_orig = copy(w.back)
-        rfront_orig = copy(w.rfront)
-        rback_orig = copy(w.rback)
+        # if lwff_fuzzy_list:
+        #     print(len(min(lwff_fuzzy_list, key=len)))
 
         for lwff_fuzzy in lwff_fuzzy_list:
 
@@ -548,12 +604,12 @@ def remove_lwff_fuzzy(w):
 
                 try:
                     if (lwff_fuzzy[-1]) in vowels:
-                        wordA_fuzzy = (lwff_fuzzy[:-1])
+                        wordA_fuzzy = lwff_fuzzy[:-1]
                     else:
-                        wordA_fuzzy = (lwff_fuzzy)
+                        wordA_fuzzy = lwff_fuzzy
                 except Exception:
-                    wordA_fuzzy = (lwff_fuzzy)
-                wordB_fuzzy = re.sub(f"^{wordA_fuzzy}", "", w.word)
+                    wordA_fuzzy = lwff_fuzzy
+                wordB_fuzzy = re.sub(f"^{wordA_fuzzy}", "", d.word, count=1)
 
                 try:
                     wordA_lastletter = wordA_fuzzy[-1]
@@ -576,66 +632,67 @@ def remove_lwff_fuzzy(w):
                         word2 = ch2 + wordB_fuzzy[1:]
 
                         if word1 in all_inflections_set:
+                            d.path += " > lwff_fuzzy"
+                            d.word = re.sub(f"^{wordA_fuzzy}", "", d.word, count=1)
+                            d.word = re.sub(f"^{wordB_fuzzy}", word2, d.word, count=1)
+                            d.front = f"{d.front}{word1} + "
+                            d.comm = f"lwff_fuzzy [yellow]{word1} + {word2}"
+                            d.rules_front += f"{rule+2},"
 
-                            w.word = re.sub(f"^{wordA_fuzzy}", "", w.word)
-                            w.word = re.sub(f"^{wordB_fuzzy}", word2, w.word)
-                            w.front = f"{front_orig}{word1} + "
-                            w.comm = f"lwff_fuzzy [yellow]{word1} + {word2}"
-                            w.rfront = rfront_orig + [rule+2]
-
-                            if w.word in all_inflections_set:
-                                if w.comp not in w.matches:
-                                    matches_dict[w.init] += [
-                                        (w.comp, "xword-fff", f"{comp_rules(w)}")]
-                                    w.matches.add(w.comp)
-                                    unmatched_set.discard(w.init)
+                            if d.word in all_inflections_set:
+                                if comp(d) not in w.matches:
+                                    matches_dict[d.init] += [
+                                        (comp(d), "xword-fff", f"{comp_rules(d)}", d.path)]
+                                    w.matches.add(comp(d))
+                                    d.matches.add(comp(d))
+                                    unmatched_set.discard(d.init)
 
                             else:
-                                w.comm = f"recursing lwff_fuzzy [yellow]{w.comp}"
-                                w.rfront = rfront_orig
-                                w.path += ["lwff_fuzzy"]
-                                recursive_removal(w)
+                                d.comm = f"recursing lwff_fuzzy [yellow]{comp(d)}"
+                                d.path += "> lwff_fuzzy"
+                                recursive_removal(d)
 
-        w.front = front_orig
-        w.word = word_orig
-        w.back = back_orig
-        w.rfront = rfront_orig
-        w.rback = rback_orig
+                            d = dotdict(d_orig)
 
-    return w
+    return d_orig
 
 
-def remove_lwfb_fuzzy(w):
-    "find fuzzy list of longest words fuzzy from the back and recurse"
+def remove_lwfb_fuzzy(d):
+    """find fuzzy list of longest words fuzzy from the back then
+    1. match 2. recurse 3. pass through"""
 
-    if w.comp not in w.matches:
+    d_orig = dotdict(d)
 
-        front_orig = copy(w.front)
-        word_orig = copy(w.word)
-        back_orig = copy(w.back)
-        rfront_orig = copy(w.rfront)
-        rback_orig = copy(w.rback)
+    if comp(d) not in w.matches:
 
         lwfb_fuzzy_list = []
 
-        if len(w.word) >= 1:
-            for i in range(len(w.word)):
-                fuzzy_word = w.word[i:]
+        if len(d.word) >= 1:
+            for i in range(len(d.word)):
+                fuzzy_word = d.word[i:]
 
                 if fuzzy_word in all_inflections_nofirst:
                     lwfb_fuzzy_list.append(fuzzy_word)
 
-        front_orig = copy(w.front)
-        word_orig = copy(w.word)
-        back_orig = copy(w.back)
-        rfront_orig = copy(w.rfront)
-        rback_orig = copy(w.rback)
+        # if lwfb_fuzzy_list:
+        #     print(len(min(lwfb_fuzzy_list, key=len)))
 
         for lwfb_fuzzy in lwfb_fuzzy_list:
 
             if len(lwfb_fuzzy) >= 1:
-                wordA_fuzzy = re.sub(f"{lwfb_fuzzy}$", "", w.word)
-                wordB_fuzzy = (lwfb_fuzzy)
+                wordA_fuzzy = re.sub(f"{lwfb_fuzzy}$", "", d.word, count=1)
+                wordB_fuzzy = lwfb_fuzzy
+
+                # !!! the problem is fuzzy words starting with a consonsant
+                # and the previous word ending with a vowel wont be recognised by rules
+                # which all start with a consonant followed by a vowel
+
+                try:
+                    if wordB_fuzzy[0] not in vowels:
+                        wordB_fuzzy = wordA_fuzzy[-1] + wordB_fuzzy
+                        wordA_fuzzy = wordA_fuzzy[:-1]
+                except Exception:
+                    pass
 
                 try:
                     wordA_lastletter = wordA_fuzzy[-1]
@@ -658,49 +715,47 @@ def remove_lwfb_fuzzy(w):
                         word2 = ch2 + wordB_fuzzy[1:]
 
                         if word2 in all_inflections_set:
+                            d.path += " > lwfb_fuzzy"
+                            d.word = re.sub(
+                                f"{wordB_fuzzy}$", "", d.word, count=1)
+                            d.word = re.sub(
+                                f"{wordA_fuzzy}$", word1, d.word, count=1)
+                            # d.back = re.sub(
+                            #     f"{wordB_fuzzy}$", word2, d.back, count=1)
+                            d.back = f" + {word2}{d.back}"
+                            d.comm = f"lwfb_fuzzy [yellow]{word1} + {word2}"
+                            d.rules_back = f"{rule+2},{d.rules_back}"
 
-                            w.word = re.sub(f"{wordB_fuzzy}$", "", w.word)
-                            w.word = re.sub(f"{wordA_fuzzy}$", word1, w.word)
-                            w.back = f" + {word2}{back_orig}"
-                            w.comm = f"lwfb_fuzzy [yellow]{word1} + {word2}"
-                            w.rback = [rule+2] + rback_orig
-
-                            if w.word in all_inflections_set:
-                                if w.comp not in w.matches:
-                                    matches_dict[w.init] += [
-                                        (w.comp, "xword-fbf", f"{comp_rules(w)}")]
-                                    w.matches.add(w.comp)
-                                    unmatched_set.discard(w.init)
+                            if d.word in all_inflections_set:
+                                if comp(d) not in w.matches:
+                                    matches_dict[d.init] += [
+                                        (comp(d), "xword-fbf", f"{comp_rules(d)}", d.path)]
+                                    w.matches.add(comp(d))
+                                    d.matches.add(comp(d))
+                                    unmatched_set.discard(d.init)
 
                             else:
-                                w.comm = f"recursing lwfb_fuzzy [yellow]{w.comp}"
-                                w.rback = rback_orig
-                                w.path += ["lwfb_fuzzy"]
-                                recursive_removal(w)
+                                d.comm = f"recursing lwfb_fuzzy [yellow]{comp(d)}"
+                                recursive_removal(d)
 
-        w.front = front_orig
-        w.word = word_orig
-        w.back = back_orig
-        w.rfront = rfront_orig
-        w.rback = rback_orig
+                            d = dotdict(d_orig)
 
-    return w
+    return d_orig
 
 
-def two_word_sandhi(w):
+def two_word_sandhi(d):
+    """split into two words and then
+    1. match or 2. pass through
+    """
 
-    if w.comp not in w.matches:
+    d_orig = dotdict(d)
 
-        comm_orig = copy(w.comm)
-        front_orig = copy(w.front)
-        word_orig = copy(w.word)
-        back_orig = copy(w.back)
-        rfront_orig = copy(w.rfront)
-        rback_orig = copy(w.rback)
+    if comp(d) not in w.matches:
 
-        for x in range(0, len(w.word)-1):
-            wordA = w.word[:-x-1]
-            wordB = w.word[-1-x:]
+        for x in range(0, len(d.word)-1):
+
+            wordA = d.word[:-x-1]
+            wordB = d.word[-1-x:]
             try:
                 wordA_lastletter = wordA[len(wordA)-1]
             except Exception:
@@ -711,17 +766,23 @@ def two_word_sandhi(w):
 
             if (wordA in all_inflections_set and
                     wordB in all_inflections_set):
-                w.front = f"{front_orig}{wordA} + "
-                w.word = wordB
-                w.comm = "two word sandhi"
-                w.rfront = rfront_orig + [0]
+                d.front = f"{d.front}{wordA} + "
+                d.word = wordB
+                d.rules_front += "0,"
+                d.path += " > 2.1"
+                if d.comm == "start":
+                    d.comm = "start2.1"
+                else:
+                    d.comm = "x2.1"
 
-                if w.comp not in w.matches:
-                    matches_dict[w.init] += [
-                        (f"{w.front}{wordB}{w.back}", "xword-2.1", "0")]
-                    w.matches.add(w.comp)
-                    unmatched_set.discard(w.init)
-                    w.path += ["two_word"]
+                if comp(d) not in d.matches:
+                    matches_dict[d.init] += [
+                        (f"{d.front}{wordB}{d.back}", d.comm, comp_rules(d), d.path)]
+                    w.matches.add(comp(d))
+                    d.matches.add(comp(d))
+                    unmatched_set.discard(d.init)
+
+                d = dotdict(d_orig)
 
             # bla* *lah
 
@@ -738,48 +799,44 @@ def two_word_sandhi(w):
 
                     if (word1 in all_inflections_set and
                             word2 in all_inflections_set):
-                        w.front = f"{front_orig}{word1} + "
-                        w.word = word2
-                        w.comm = "two word sandhi 2.2"
-                        w.rfront = rfront_orig + [rule+2]
+                        d.front = f"{d.front}{word1} + "
+                        d.word = word2
+                        d.rules_front += f"{rule+2},"
+                        d.path += " > 2.2"
+                        if d.comm == "start":
+                            d.comm = "start2.2"
+                        else:
+                            d.comm = "x2.2"
 
-                        if w.comp not in w.matches:
-                            matches_dict[w.init] += [
-                                (w.comp, "xword-2.2",  f"{comp_rules(w)}")]
-                            w.matches.add(w.comp)
-                            unmatched_set.discard(w.init)
-                            w.path += ["two_word"]
+                        if comp(d) not in w.matches:
+                            matches_dict[d.init] += [
+                                (comp(d), d.comm, f"{comp_rules(d)}", d.path)]
+                            w.matches.add(comp(d))
+                            d.matches.add(comp(d))
+                            unmatched_set.discard(d.init)
 
-        w.comm = comm_orig
-        w.front = front_orig
-        w.word = word_orig
-        w.back = back_orig
-        w.rfront = rfront_orig
-        w.rback = rback_orig
+                    d = dotdict(d_orig)
 
-    return w
+    return d_orig
 
 
-def three_word_sandhi(w):
+def three_word_sandhi(d):
+    """split into three words then
+    1. match or 2. pass through"""
+    d_orig = dotdict(d)
 
-    if w.comp not in w.matches:
+    if comp(d) not in w.matches:
 
-        comm_orig = copy(w.comm)
-        front_orig = copy(w.front)
-        word_orig = copy(w.word)
-        back_orig = copy(w.back)
-        rfront_orig = copy(w.rfront)
-        rback_orig = copy(w.rback)
+        for x in range(0, len(d.word)-1):
 
-        for x in range(0, len(w.word)-1):
-            wordA = w.word[:-x-1]
+            wordA = d.word[:-x-1]
             try:
                 wordA_lastletter = wordA[len(wordA)-1]
             except Exception:
                 wordA_lastletter = ""
 
-            for y in range(0, len(w.word[-1-x:])-1):
-                wordB = w.word[-1-x:-y-1]
+            for y in range(0, len(d.word[-1-x:])-1):
+                wordB = d.word[-1-x:-y-1]
                 try:
                     wordB_firstletter = wordB[0]
                 except Exception:
@@ -789,7 +846,7 @@ def three_word_sandhi(w):
                 except Exception:
                     wordB_lastletter = ""
 
-                wordC = w.word[-1-y:]
+                wordC = d.word[-1-y:]
                 wordC_firstletter = wordC[0]
 
                 # blah blah blah
@@ -798,19 +855,27 @@ def three_word_sandhi(w):
                     wordB in all_inflections_set and
                         wordC in all_inflections_set):
 
-                    w.front = f"{front_orig}{wordA} + "
-                    w.word = wordB
-                    w.back = f" + {wordC}{back_orig}"
+                    d.front = f"{d.front}{wordA} + "
+                    d.word = wordB
+                    d.back = f" + {wordC}{d.back}"
+                    d.rules_front += "0,"
+                    d.rules_back = f"0,{d.rules_back}"
+                    d.path += " > 3.1"
+                    if d.comm == "start":
+                        d.comm = "start3.1"
+                    else:
+                        d.comm = "x3.1"
 
-                    if w.comp not in w.matches:
-                        matches_dict[w.init] += [
-                            (w.comp, "three word", "0,0")]
-                        w.matches.add(w.comp)
-                        unmatched_set.discard(w.init)
-                        w.path += ["three_word"]
+                    if comp(d) not in w.matches:
+                        matches_dict[d.init] += [
+                            (comp(d), d.comm, "0,0", d.path)]
+                        w.matches.add(comp(d))
+                        d.matches.add(comp(d))
+                        unmatched_set.discard(d.init)
+
+                    d = dotdict(d_orig)
 
                 # blah bla* *lah
-
                 if wordA in all_inflections_set:
 
                     for rule in rules:
@@ -828,18 +893,25 @@ def three_word_sandhi(w):
                                 word2 in all_inflections_set and
                                     word3 in all_inflections_set):
 
-                                w.front = f"{front_orig}{wordA} + "
-                                w.word = word2
-                                w.back = f" + {word3}{back_orig}"
-                                w.rfront += [0]
-                                w.rback += [rule+2]
+                                d.front = f"{d.front}{wordA} + "
+                                d.word = word2
+                                d.back = f" + {word3}{d.back}"
+                                d.rules_front += f"0,"
+                                d.rules_back = f"{rule+2},{d.rules_back}"
+                                d.path += " > 3.2"
+                                if d.comm == "start":
+                                    d.comm = "start3.2"
+                                else:
+                                    d.comm = "x3.2"
 
-                                if w.comp not in w.matches:
-                                    matches_dict[w.init] += [
-                                        (w.comp, "three word", f"{comp_rules(w)}")]
-                                    w.matches.add(w.comp)
-                                    unmatched_set.discard(w.init)
-                                    w.path += ["three_word"]
+                                if comp(d) not in w.matches:
+                                    matches_dict[d.init] += [
+                                        (comp(d), d.comm, f"{comp_rules(d)}", d.path)]
+                                    w.matches.add(comp(d))
+                                    d.matches.add(comp(d))
+                                    unmatched_set.discard(d.init)
+
+                                d = dotdict(d_orig)
 
                 # bla* *lah blah
 
@@ -860,18 +932,25 @@ def three_word_sandhi(w):
                                 word2 in all_inflections_set and
                                     wordC in all_inflections_set):
 
-                                w.front = f"{front_orig}{word1} + "
-                                w.word = word2
-                                w.back = f" + {wordC}{back_orig}"
-                                w.rfront = rfront_orig + [rule+2]
-                                w.rback = [0] + rback_orig
+                                d.front = f"{d.front}{word1} + "
+                                d.word = word2
+                                d.back = f" + {wordC}{d.back}"
+                                d.rules_front += f"{rule+2},"
+                                d.rules_back = f"0,{d.rules_back}"
+                                d.path += " > 3.3"
+                                if d.comm == "start":
+                                    d.comm = "start3.3"
+                                else:
+                                    d.comm = "x3.3"
 
-                                if w.comp not in w.matches:
-                                    matches_dict[w.init] += [
-                                        (w.comp, "three word", f"{comp_rules(w)}")]
-                                    w.matches.add(w.comp)
-                                    unmatched_set.discard(w.init)
-                                    w.path += ["three_word"]
+                                if comp(d) not in w.matches:
+                                    matches_dict[d.init] += [
+                                        (comp(d), d.comm, f"{comp_rules(d)}", d.path)]
+                                    w.matches.add(comp(d))
+                                    d.matches.add(comp(d))
+                                    unmatched_set.discard(d.init)
+
+                                d = dotdict(d_orig)
 
                 # bla* *la* *lah
 
@@ -901,59 +980,47 @@ def three_word_sandhi(w):
                                         word2 in all_inflections_set and
                                         word3 in all_inflections_set):
 
-                                    w.front = f"{front_orig}{word1} + "
-                                    w.word = word2
-                                    w.back = f" + {word3}{back_orig}"
-                                    w.rfront = rfront_orig + [rulex+2]
-                                    w.rback = [ruley+2] + rback_orig
+                                    d.front = f"{d.front}{word1} + "
+                                    d.word = word2
+                                    d.back = f" + {word3}{d.back}"
+                                    d.rules_front += f"{rulex+2},"
+                                    d.rules_back = f"{ruley+2},{d.rules_back}"
+                                    d.path += " > 3.4"
+                                    if d.comm == "start":
+                                        d.comm = "start3.4"
+                                    else:
+                                        d.comm = "x3.4"
 
-                                    if w.comp not in w.matches:
-                                        matches_dict[w.init] += [
-                                            (w.comp, "three word", f"{comp_rules(w)}")]
-                                        w.matches.add(w.comp)
-                                        unmatched_set.discard(w.init)
-                                        w.path += ["three_word"]
+                                    if comp(d) not in w.matches:
+                                        matches_dict[d.init] += [
+                                            (comp(d), d.comm, f"{comp_rules(d)}", d.path)]
+                                        w.matches.add(comp(d))
+                                        d.matches.add(comp(d))
+                                        unmatched_set.discard(d.init)
 
-        w.comm = comm_orig
-        w.front = front_orig
-        w.word = word_orig
-        w.back = back_orig
-        w.rfront = rfront_orig
-        w.rback = rback_orig
+                                    d = dotdict(d_orig)
 
-    return w
-
-
-def comp_rules(w):
-    rules_list = w.rfront + w.rback
-    rules_string = ""
-
-    for rule in rules_list:
-        rules_string += f"{rule},"
-    return rules_string
+    return d_orig
 
 
-def comp_path(w):
-    path_string = ""
-    for p in w.path:
-        path_string += f"{p} > "
-    return path_string
+def comp_rules(d):
+    return f"{d.rules_front}{d.rules_back}"
 
 
-def dprint(w):
-    print(f"count:\t{w.count}")
-    print(f"comm:\t{w.comm}")
-    print(f"init:\t'{w.init}'")
-    print(f"front:\t[blue]'{w.front}'")
-    print(f"word:\t[blue]'{w.word}'")
-    print(f"back:\t[blue]'{w.back}'")
-    print(f"comp:\t[yellow]{w.comp}")
-    print(f"rfront:\t{w.rfront}")
-    print(f"rback:\t{w.rback}")
-    print(f"tried:\t{w.tried}")
-    print(f"matches:\t{w.matches}")
-    print(f"path:\t{w.path}")
-    print(f"recursions:\t{w.recursions}")
+def dprint(d):
+    print(f"count:\t{d.count}")
+    print(f"comm:\t{d.comm}")
+    print(f"init:\t'{d.init}'")
+    print(f"front:\t[blue]'{d.front}'")
+    print(f"word:\t[blue]'{d.word}'")
+    print(f"back:\t[blue]'{d.back}'")
+    print(f"comp:\t[yellow]{comp(d)}")
+    print(f"rules_front:\t{d.rules_front}")
+    print(f"rules_back:\t{d.rules_back}")
+    # print(f"tried:\t{d.tried}")
+    print(f"matches:\t{d.matches}")
+    print(f"path:\t{d.path}")
+    print(f"processes:\t{d.processes}")
     print()
 
 
@@ -981,167 +1048,74 @@ def summary():
 
     match_average = match_count / word_count
 
-    print(f"[green]match count:\t{match_count}")
+    print(f"[green]match count:\t{match_count:,}")
     print(f"[green]match average:\t{match_average:.4f}")
 
 
-def recursive_removal(w):
+def recursive_removal(d):
 
-    w.recursions += 1
+    d.processes += 1
 
-    if w.recursions < 15:
+    if d.processes < 15:
 
         # add to matches
 
-        if w.comp not in w.tried:
-            w.tried.add(w.comp)
+        if comp(d) not in w.tried:
+            w.tried.add(comp(d))
+            d.tried.add(comp(d))
 
-            if w.word in all_inflections_set:
-                if w.comp not in w.matches:
-                    matches_dict[w.init] += [
-                        (w.comp, f"xword{w.comm}", f"{comp_rules(w)}")]
-                    w.matches.add(w.comp)
-                    unmatched_set.discard(w.init)
+            if d.word in all_inflections_set:
+                if comp(d) not in w.matches:
+                    matches_dict[d.init] += [
+                        (comp(d), f"xword{d.comm}", f"{comp_rules(d)}", d.path)]
+                    w.matches.add(comp(d))
+                    d.matches.add(comp(d))
+                    unmatched_set.discard(d.init)
 
             else:
                 # recursion
 
-                if w.recursions == 1:
+                if d.processes == 1:
 
                     # negatives
-                    if w.word.startswith(("a", "na", "an", "nā")):
-                        na = w.copy_class()
-                        w = remove_neg(na)
+                    if d.word.startswith(("a", "na", "an", "nā")):
+                        d = remove_neg(d)
 
                     # sa
-                    elif w.word.startswith("sa"):
-                        sa = w.copy_class()
-                        w = remove_sa(sa)
+                    elif d.word.startswith("sa"):
+                        d = remove_sa(d)
 
                     # su
-                    elif w.word.startswith("su"):
-                        su = w.copy_class()
-                        w = remove_su(su)
+                    elif d.word.startswith("su"):
+                        d = remove_su(d)
 
                     # dur
-                    elif w.word.startswith("du"):
-                        dur = w.copy_class()
-                        w = remove_dur(dur)
+                    elif d.word.startswith("du"):
+                        d = remove_dur(d)
 
                 # api eva iti
-                if re.findall("(pi|va|ti)$", w.word) != []:
-                    pi = w.copy_class()
-                    w = remove_apievaiti(pi)
+                if re.findall("(pi|va|ti)$", d.word) != []:
+                    d = remove_apievaiti(d)
 
                 # two word sandhi
-                if w.comm != "start":
-                    w2 = w.copy_class()
-                    w2.comm = "two word sandhi"
-                    w = two_word_sandhi(w2)
+                if d.comm != "start":
+                    d = two_word_sandhi(d)
 
-                    if not w2.matches:
-
+                    if not d.matches:
                         # three word sandhi
-                        w3 = w.copy_class()
-                        w3.comm = "three word sandhi"
-                        w = three_word_sandhi(w3)
+                        d = three_word_sandhi(d)
 
                     # ffc = lwff clean
-                    ffc = w.copy_class()
-                    w = remove_lwff_clean(ffc)
+                    d = remove_lwff_clean(d)
 
                     # fbc = lwfb_clean
-                    fbc = w.copy_class()
-                    w = remove_lwfb_clean(fbc)
+                    d = remove_lwfb_clean(d)
 
                     # fff = lwff fuzzy
-                    fff = w.copy_class()
-                    w = remove_lwff_fuzzy(fff)
+                    d = remove_lwff_fuzzy(d)
 
                     # fbf = lwfb fuzzy
-                    fbf = w.copy_class()
-                    w = remove_lwfb_fuzzy(fbf)
-
-
-def main():
-    tic()
-
-    print("[bright_yellow]sandhi splitter")
-
-    profiler_on = False
-
-    if profiler_on is True:
-        profiler = cProfile.Profile()
-        profiler.enable()
-
-    # make globally accessable vaiables
-    setup()
-
-    time_dict = {}
-    global unmatched_len_init
-    unmatched_len_init = len(unmatched_set)
-
-    print(f"[green]splitting sandhi [white]{unmatched_len_init:,}")
-
-    for word in unmatched_set.copy():
-        bip()
-        w = Word(word)
-        matches_dict[w.init] = []
-
-        if w.count % 1000 == 0:
-            print(
-                f"\t{w.count:,} / {unmatched_len_init:,}\t{w.word}")
-
-        # two word sandhi
-        w2 = w.copy_class()
-        w2.comm = "two word sandhi"
-        w = two_word_sandhi(w2)
-
-        if matches_dict[word] != []:
-            w.matches.add(w.comp)
-            unmatched_set.discard(word)
-            time_dict[word] = bop()
-
-        else:
-            # three word sandhi
-            w3 = w.copy_class()
-            w3.comm = "three word sandhi"
-            w = three_word_sandhi(w3)
-
-            if matches_dict[word] != []:
-                w.matches.add(w.comp)
-                unmatched_set.discard(word)
-                time_dict[word] = bop()
-
-        # recursive removal
-        if w.matches == set():
-            recursive_removal(w)
-            time_dict[word] = bop()
-
-    summary()
-
-    # save matches
-    with open(pth["matches_path"], "w") as f:
-        for word, data in matches_dict.items():
-            for item in data:
-                f.write(f"{word}\t")
-                for column in item:
-                    f.write(f"{column}\t")
-                f.write("\n")
-
-    # save timer_dict
-    df = pd.DataFrame.from_dict(time_dict, orient="index")
-    df = df.sort_values(by=0, ascending=False)
-    df.to_csv("sandhi/output/timer.csv", sep="\t")
-
-    if profiler_on:
-        profiler.disable()
-        profiler.dump_stats('profiler.prof')
-        yes_no = input("open profiler? (y/n) ")
-        if yes_no == "y":
-            popen("tuna profiler.prof")
-
-    toc()
+                    d = remove_lwfb_fuzzy(d)
 
 
 if __name__ == "__main__":
@@ -1179,3 +1153,7 @@ if __name__ == "__main__":
 # = 5.387516355 hours
 
 # include neg count in post process
+
+# kusalākusalasāvajjānavajjasevitabbāsevitabbahīna
+# lots of results have lettercoutn less than the word iteself!
+

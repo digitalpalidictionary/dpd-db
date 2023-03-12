@@ -129,10 +129,10 @@ def make_spelling_mistakes_set():
 
         if mistake in spelling_mistakes_dict:
             spelling_mistakes_dict[mistake] += [
-                (f"incorrect spelling of <i>{correction}</i>", "spelling", "sp")]
+                (f"incorrect spelling of <i>{correction}</i>", "spelling", "sp", "-")]
         else:
             spelling_mistakes_dict[mistake] = [
-                (f"incorrect spelling of <i>{correction}</i>", "spelling", "sp")]
+                (f"incorrect spelling of <i>{correction}</i>", "spelling", "sp", "-")]
 
     return spelling_mistakes_set, spelling_corrections_set, spelling_mistakes_dict
 
@@ -177,10 +177,10 @@ def make_variant_readings_set():
 
         if variant in variant_dict:
             variant_dict[variant] += [
-                (f"variant reading of <i>{correction}</i>", "variant", "var")]
+                (f"variant reading of <i>{correction}</i>", "variant", "var", "-")]
         else:
             variant_dict[variant] = [
-                (f"variant reading of <i>{correction}</i>", "variant", "var")
+                (f"variant reading of <i>{correction}</i>", "variant", "var", "-")
             ]
 
     return variant_readings_set, variant_corrections_set, variant_dict
@@ -232,10 +232,10 @@ def make_manual_corrections_set():
 
         if sandhi in manual_corrections_dict:
             manual_corrections_dict[sandhi] += [
-                (split, "manual", "m")]
+                (split, "manual", "m", "-")]
         else:
             manual_corrections_dict[sandhi] = [
-                (split, "manual", "m")]
+                (split, "manual", "m", "-")]
 
     return manual_corrections_set, manual_corrections_dict
 
@@ -413,7 +413,7 @@ def main():
         print("[green]saving matches_dict", end=" ")
         matches_dict = {}
         matches_dict["word"] = [
-            ("split", "process", "rules")]
+            ("split", "process", "rules", "path")]
         matches_dict.update(spelling_mistakes_dict)
         matches_dict.update(variant_dict)
         matches_dict.update(manual_corrections_dict)
@@ -424,15 +424,17 @@ def main():
         # df = pd.DataFrame.from_dict(matches_dict, orient="index")
         # df.to_csv("sandhi/output/xxx matches_dict.csv", sep="\t")
 
-        with open("sandhi/output/xxx matches_dict.csv", "w") as f:
-            for word, data in matches_dict.items():
-                for item in data:
-                    f.write(f"{word}\t")
-                    for column in item:
-                        f.write(f"{column}\t")
-                    f.write("\n")
+        # with open("sandhi/output/xxx matches_dict.csv", "w") as f:
+        #     for word, data in matches_dict.items():
+        #         for item in data:
+        #             f.write(f"{word}\t")
+        #             for column in item:
+        #                 f.write(f"{column}\t")
+        #             f.write("\n")
 
         print("[white]ok")
+
+    make_matches_dict()
 
     toc()
 
