@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.10
+#!/usr/bin/env python3.11
 import shutil
 import re
 import pandas as pd
@@ -9,7 +9,7 @@ from rich import print
 
 from db.models import PaliWord, DerivedData
 from db.get_db_session import get_db_session
-from helpers import ResourcePaths, get_resource_paths
+from helpers import get_resource_paths
 from tools.clean_machine import clean_machine
 from tools.pali_text_files import cst_texts, sc_texts, bjt_texts
 from tools.timeis import tic, toc

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.10
+#!/usr/bin/env python3.11
 
 import pickle
 import re
@@ -8,11 +8,39 @@ import cProfile
 from rich import print
 from typing import List
 from os import popen
-from copy import copy
 
 from tools.pali_alphabet import vowels
 from tools.timeis import tic, toc, bip, bop
-from helpers import ResourcePaths, get_resource_paths
+from helpers import get_resource_paths
+
+# two -----> three -----> four ----->----\
+#                                                         |
+#  /----<----------------------------------<----/
+# |
+#  \----->--------> recurse <------------<----------<--------------\
+#                          |                                                           |
+#                          |----->----------> na sa su dur ------>-----|
+#                          |----->----------> two word ---------->-----|
+#                          |----->----------> front clean -------->-----|
+#                          |----->----------> back clean -------->-----|
+#                          |----->----------> front fuzzy -------->-----|
+#                          \----->----------> back fuzzzy ------->----/
+
+# global dampers
+global clean_list_max_length
+global fuzzy_list_max_length
+global clean_word_min_length
+global fuzzy_word_min_length
+global max_matches
+global max_recursions
+global profiler_on
+clean_list_max_length = 2
+fuzzy_list_max_length = 4
+clean_word_min_length = 2
+fuzzy_word_min_length = 1
+max_matches = 20
+max_recursions = 15
+profiler_on = False
 
 
 class Word:
@@ -52,8 +80,6 @@ def main():
 
     print("[bright_yellow]sandhi splitter")
 
-    profiler_on = False
-
     if profiler_on is True:
         profiler = cProfile.Profile()
         profiler.enable()
@@ -91,7 +117,7 @@ def main():
         d = dotdict(d)
 
         # debug
-        # if d.init != "tapantamādiccamivantalikkheti":
+        # if d.init != "evaṃsampadamevetaṃ":
         #     continue
         # if d.count > 1000:
         #     break
@@ -103,42 +129,25 @@ def main():
         # two word sandhi
         d = two_word_sandhi(d)
 
-        if matches_dict[word] != []:
-            w.matches.add(comp(d))
-            d.matches.add(comp(d))
-            unmatched_set.discard(word)
-            time_dict[word] = bop()
-
-        else:
-            # three word sandhi
+        # three word sandhi
+        if matches_dict[word] == []:
             d = three_word_sandhi(d)
 
-            if matches_dict[word] != []:
-                w.matches.add(comp(d))
-                d.matches.add(comp(d))
-                unmatched_set.discard(word)
-                time_dict[word] = bop()
+        # # four word sandhi
+        # if matches_dict[word] == []:
+        #     d = four_word_sandhi(d)
 
         # recursive removal
-        if w.matches == set():
+        if matches_dict[word] == []:
             recursive_removal(d)
-            time_dict[word] = bop()
+
+        time_dict[word] = bop()
 
     summary()
+    save_matches()
+    save_timer_dict(time_dict)
 
-    # save matches
-    with open(pth["matches_path"], "w") as f:
-        for word, data in matches_dict.items():
-            for item in data:
-                f.write(f"{word}\t")
-                for column in item:
-                    f.write(f"{column}\t")
-                f.write("\n")
-
-    # save timer_dict
-    df = pd.DataFrame.from_dict(time_dict, orient="index")
-    df = df.sort_values(by=0, ascending=False)
-    df.to_csv("sandhi/output/timer.csv", sep="\t")
+    toc()
 
     if profiler_on:
         profiler.disable()
@@ -147,7 +156,21 @@ def main():
         if yes_no == "y":
             popen("tuna profiler.prof")
 
-    toc()
+
+def save_matches():
+    with open(pth["matches_path"], "w") as f:
+        for word, data in matches_dict.items():
+            for item in data:
+                f.write(f"{word}\t")
+                for column in item:
+                    f.write(f"{column}\t")
+                f.write("\n")
+
+
+def save_timer_dict(time_dict):
+    df = pd.DataFrame.from_dict(time_dict, orient="index")
+    df = df.sort_values(by=0, ascending=False)
+    df.to_csv("sandhi/output/timer.csv", sep="\t")
 
 
 def setup():
@@ -171,14 +194,9 @@ def setup():
 
     global all_inflections_nofirst
     global all_inflections_nolast
-    global all_inflections_first3
-    global all_inflections_last3
 
-    all_inflections_nofirst,\
-        all_inflections_nolast,\
-        all_inflections_first3,\
-        all_inflections_last3\
-        = make_all_inflections_nfl_nll(
+    (all_inflections_nofirst,
+        all_inflections_nolast) = make_all_inflections_nfl_nll(
             all_inflections_set)
 
     global matches_dict
@@ -240,32 +258,99 @@ def make_shortlist_set():
 
 
 def make_all_inflections_nfl_nll(all_inflections_set):
-    """all inflections with no first letter, no last, no first three, no last three"""
+    """all inflections with no first letter, no last letter"""
 
     print("[green]making all inflections nfl & nll", end=" ")
 
     all_inflections_nofirst = set()
     all_inflections_nolast = set()
-    all_inflections_first3 = set()
-    all_inflections_last3 = set()
 
     for inflection in all_inflections_set:
         # no first letter
         all_inflections_nofirst.add(inflection[1:])
         # no last letter
         all_inflections_nolast.add(inflection[:-1])
-        # leave first 3 letters
-        all_inflections_first3.add(inflection[:3])
-        # leave last 3 letters
-        all_inflections_last3.add(inflection[-3:])
 
     print(f"[white]{len(all_inflections_nofirst):,}")
 
-    return all_inflections_nofirst, all_inflections_nolast, all_inflections_first3, all_inflections_last3
+    return all_inflections_nofirst, all_inflections_nolast
+
+
+def recursive_removal(d):
+
+    d.processes += 1
+
+    # global dampers
+    if d.processes < max_recursions and len(w.matches) < max_matches:
+
+        # add to matches
+
+        if comp(d) not in w.tried:
+            w.tried.add(comp(d))
+            d.tried.add(comp(d))
+
+            if d.word in all_inflections_set:
+                if comp(d) not in w.matches:
+                    matches_dict[d.init] += [
+                        (comp(d), f"xword{d.comm}", f"{comp_rules(d)}", d.path)]
+                    w.matches.add(comp(d))
+                    d.matches.add(comp(d))
+                    unmatched_set.discard(d.init)
+
+            else:
+                # recursion
+
+                if d.processes == 1:
+
+                    # negatives
+                    if d.word.startswith(("a", "na", "an", "nā")):
+                        d = remove_neg(d)
+
+                    # sa
+                    elif d.word.startswith("sa"):
+                        d = remove_sa(d)
+
+                    # su
+                    elif d.word.startswith("su"):
+                        d = remove_su(d)
+
+                    # dur
+                    elif d.word.startswith("du"):
+                        d = remove_dur(d)
+
+                # api eva iti
+                if re.findall("(pi|va|ti)$", d.word) != []:
+                    d = remove_apievaiti(d)
+
+                # two word sandhi
+                if d.comm != "start":
+                    d = two_word_sandhi(d)
+
+                    # # three word sandhi
+                    # if not d.matches:
+                    #     d = three_word_sandhi(d)
+
+                # ffc = lwff clean
+                d = remove_lwff_clean(d)
+
+                # fbc = lwfb_clean
+                d = remove_lwfb_clean(d)
+
+                # fff = lwff fuzzy
+                d = remove_lwff_fuzzy(d)
+
+                # fbf = lwfb fuzzy
+                d = remove_lwfb_fuzzy(d)
+
+                # # four word sandhi
+                # if not w.matches:
+                #     d = four_word_sandhi(d)
 
 
 def remove_neg(d):
-    "finds neg in front and 1. finds match 2. recurses 3. passes through"
+    """finds neg in front then
+    1. finds match 2. recurses 3. passes through"""
+
     d_orig = dotdict(d)
 
     if comp(d) not in w.matches and len(d.word) > 2:
@@ -321,10 +406,12 @@ def remove_neg(d):
 
 
 def remove_sa(d):
-    """find sa in front and 1. match 2. recurse 3. pass through"""
+    """find sa in front then
+    1. match 2. recurse or 3. pass through"""
+
     d_orig = dotdict(d)
 
-    if comp(d) not in w.matches and len(d.word) >= 4:
+    if comp(d) not in w.matches and len(d.word) > 3:
         d.path += " > sa"
 
         if d.word[2] == d.word[3]:
@@ -357,10 +444,12 @@ def remove_sa(d):
 
 
 def remove_su(d):
-    """find su in front and 1. match 2. recurse 3. pass through"""
+    """find su in front then
+    1. match 2. recurse or 3. pass through"""
+
     d_orig = dotdict(d)
 
-    if comp(d) not in w.matches and len(d.word) >= 4:
+    if comp(d) not in w.matches and len(d.word) > 3:
         d.path += " > su"
 
         if d.word[2] == d.word[3]:
@@ -393,10 +482,12 @@ def remove_su(d):
 
 
 def remove_dur(d):
-    """find du(r) in front and 1. match 2. recurse 3. pass through"""
+    """find du(r) in front then
+    1. match 2. recurse or 3. pass through"""
+
     d_orig = dotdict(d)
 
-    if comp(d) not in w.matches and len(d.word) >= 4:
+    if comp(d) not in w.matches and len(d.word) > 3:
         d.path += " > dur"
 
         if d.word[2] == d.word[3]:
@@ -430,7 +521,7 @@ def remove_dur(d):
 
 def remove_apievaiti(d):
     """find api eva or iti using sandhi rules then
-    1. match 2. recurse 3. pass through"""
+    1. match 2. recurse or 3. pass through"""
 
     d_orig = dotdict(d)
 
@@ -493,8 +584,8 @@ def remove_apievaiti(d):
 
 
 def remove_lwff_clean(d):
-    """find a list of longest clean words from the front then 
-    1. match 2. redcurse or pass through"""
+    """make a list of the longest clean words from the front then
+    1. match 2. redcurse or 3. pass through"""
 
     d_orig = dotdict(d)
 
@@ -506,13 +597,12 @@ def remove_lwff_clean(d):
             if d.word[:-i] in all_inflections_set:
                 lwff_clean_list.append(d.word[:-i])
 
-        # if lwff_clean_list:
-        #     print(len(min(lwff_clean_list, key=len)))
+        lwff_clean_list = lwff_clean_list[:clean_list_max_length]
 
         for lwff_clean in lwff_clean_list:
 
-            if len(lwff_clean) > 1:
-                d.path += " > lwff_clean"
+            if len(lwff_clean) >= clean_word_min_length:
+                d.path += " > front_clean"
                 d.word = re.sub(f"^{lwff_clean}", "", d.word, count=1)
                 d.front = f"{d.front}{lwff_clean} + "
                 d.comm = f"lwff_clean [yellow]{lwff_clean}"
@@ -536,8 +626,8 @@ def remove_lwff_clean(d):
 
 
 def remove_lwfb_clean(d):
-    """find list of longest words from the back then
-    1. match 2. recurse 3. pass through"""
+    """make list of the longest clean words from the back then
+    1. match 2. recurse or 3. pass through"""
 
     d_orig = dotdict(d)
 
@@ -549,13 +639,12 @@ def remove_lwfb_clean(d):
             if d.word[i:] in all_inflections_set:
                 lwfb_clean_list.append(d.word[i:])
 
-        # if lwfb_clean_list:
-        #     print(len(min(lwfb_clean_list, key=len)))
+        lwfb_clean_list = lwfb_clean_list[:clean_list_max_length]
 
         for lwfb_clean in lwfb_clean_list:
 
-            if len(lwfb_clean) > 1:
-                d.path += " > lwfb_clean"
+            if len(lwfb_clean) >= clean_word_min_length:
+                d.path += " > back_clean"
                 d.word = re.sub(f"{lwfb_clean}$", "", d.word, count=1)
                 d.back = f" + {lwfb_clean}{d.back}"
                 d.comm = f"lwfb_clean [yellow]{lwfb_clean}"
@@ -579,8 +668,8 @@ def remove_lwfb_clean(d):
 
 
 def remove_lwff_fuzzy(d):
-    """find list of longest fuzzy words from the front then
-    1. match 2. recurse 3. pass through"""
+    """make a list of the longest fuzzy words from the front then
+    1. match 2. recurse or 3. pass through"""
 
     d_orig = dotdict(d)
 
@@ -588,27 +677,21 @@ def remove_lwff_fuzzy(d):
 
         lwff_fuzzy_list = []
 
-        if len(d.word) >= 1:
+        if len(d.word) >= fuzzy_word_min_length:
             for i in range(len(d.word)):
                 fuzzy_word = d.word[:-i]
 
-                if fuzzy_word in all_inflections_nolast:
+                if (fuzzy_word in all_inflections_nolast or
+                        fuzzy_word in all_inflections_set):
                     lwff_fuzzy_list.append(fuzzy_word)
 
-        # if lwff_fuzzy_list:
-        #     print(len(min(lwff_fuzzy_list, key=len)))
+        lwff_fuzzy_list = lwff_fuzzy_list[:fuzzy_list_max_length]
 
         for lwff_fuzzy in lwff_fuzzy_list:
 
-            if len(lwff_fuzzy) >= 1:
+            if len(lwff_fuzzy) >= fuzzy_word_min_length:
 
-                try:
-                    if (lwff_fuzzy[-1]) in vowels:
-                        wordA_fuzzy = lwff_fuzzy[:-1]
-                    else:
-                        wordA_fuzzy = lwff_fuzzy
-                except Exception:
-                    wordA_fuzzy = lwff_fuzzy
+                wordA_fuzzy = lwff_fuzzy
                 wordB_fuzzy = re.sub(f"^{wordA_fuzzy}", "", d.word, count=1)
 
                 try:
@@ -632,9 +715,11 @@ def remove_lwff_fuzzy(d):
                         word2 = ch2 + wordB_fuzzy[1:]
 
                         if word1 in all_inflections_set:
-                            d.path += " > lwff_fuzzy"
-                            d.word = re.sub(f"^{wordA_fuzzy}", "", d.word, count=1)
-                            d.word = re.sub(f"^{wordB_fuzzy}", word2, d.word, count=1)
+                            d.path += " > front_fuzzy"
+                            d.word = re.sub(
+                                f"^{wordA_fuzzy}", "", d.word, count=1)
+                            d.word = re.sub(
+                                f"^{wordB_fuzzy}", word2, d.word, count=1)
                             d.front = f"{d.front}{word1} + "
                             d.comm = f"lwff_fuzzy [yellow]{word1} + {word2}"
                             d.rules_front += f"{rule+2},"
@@ -649,7 +734,6 @@ def remove_lwff_fuzzy(d):
 
                             else:
                                 d.comm = f"recursing lwff_fuzzy [yellow]{comp(d)}"
-                                d.path += "> lwff_fuzzy"
                                 recursive_removal(d)
 
                             d = dotdict(d_orig)
@@ -658,8 +742,8 @@ def remove_lwff_fuzzy(d):
 
 
 def remove_lwfb_fuzzy(d):
-    """find fuzzy list of longest words fuzzy from the back then
-    1. match 2. recurse 3. pass through"""
+    """make a list of the longest fuzzy words from the back then
+    1. match 2. recurse or 3. pass through"""
 
     d_orig = dotdict(d)
 
@@ -667,32 +751,21 @@ def remove_lwfb_fuzzy(d):
 
         lwfb_fuzzy_list = []
 
-        if len(d.word) >= 1:
+        if len(d.word) > 0:
             for i in range(len(d.word)):
                 fuzzy_word = d.word[i:]
 
-                if fuzzy_word in all_inflections_nofirst:
+                if (fuzzy_word in all_inflections_nofirst or
+                        fuzzy_word in all_inflections_set):
                     lwfb_fuzzy_list.append(fuzzy_word)
 
-        # if lwfb_fuzzy_list:
-        #     print(len(min(lwfb_fuzzy_list, key=len)))
+        lwfb_fuzzy_list = lwfb_fuzzy_list[:fuzzy_list_max_length]
 
         for lwfb_fuzzy in lwfb_fuzzy_list:
 
-            if len(lwfb_fuzzy) >= 1:
+            if len(lwfb_fuzzy) >= fuzzy_word_min_length:
                 wordA_fuzzy = re.sub(f"{lwfb_fuzzy}$", "", d.word, count=1)
                 wordB_fuzzy = lwfb_fuzzy
-
-                # !!! the problem is fuzzy words starting with a consonsant
-                # and the previous word ending with a vowel wont be recognised by rules
-                # which all start with a consonant followed by a vowel
-
-                try:
-                    if wordB_fuzzy[0] not in vowels:
-                        wordB_fuzzy = wordA_fuzzy[-1] + wordB_fuzzy
-                        wordA_fuzzy = wordA_fuzzy[:-1]
-                except Exception:
-                    pass
 
                 try:
                     wordA_lastletter = wordA_fuzzy[-1]
@@ -715,7 +788,7 @@ def remove_lwfb_fuzzy(d):
                         word2 = ch2 + wordB_fuzzy[1:]
 
                         if word2 in all_inflections_set:
-                            d.path += " > lwfb_fuzzy"
+                            d.path += " > back_fuzzy"
                             d.word = re.sub(
                                 f"{wordB_fuzzy}$", "", d.word, count=1)
                             d.word = re.sub(
@@ -744,9 +817,8 @@ def remove_lwfb_fuzzy(d):
 
 
 def two_word_sandhi(d):
-    """split into two words and then
-    1. match or 2. pass through
-    """
+    """split into two words, apply sandhi rules then
+    1. match or 2. pass through"""
 
     d_orig = dotdict(d)
 
@@ -821,8 +893,9 @@ def two_word_sandhi(d):
 
 
 def three_word_sandhi(d):
-    """split into three words then
+    """split into three words, apply sandhi rules then
     1. match or 2. pass through"""
+
     d_orig = dotdict(d)
 
     if comp(d) not in w.matches:
@@ -896,7 +969,7 @@ def three_word_sandhi(d):
                                 d.front = f"{d.front}{wordA} + "
                                 d.word = word2
                                 d.back = f" + {word3}{d.back}"
-                                d.rules_front += f"0,"
+                                d.rules_front += "0,"
                                 d.rules_back = f"{rule+2},{d.rules_back}"
                                 d.path += " > 3.2"
                                 if d.comm == "start":
@@ -1003,6 +1076,93 @@ def three_word_sandhi(d):
     return d_orig
 
 
+def four_word_sandhi(d):
+
+    """split into four words, apply sandhi rules, then
+    1. match or 2. pass through"""
+
+    d_orig = dotdict(d)
+
+    if comp(d) not in w.matches:
+
+        for x in range(0, len(d.word)-1):
+            wordA = d.word[:-x-1]
+            wordA_lastletter = wordA[len(wordA)-1]
+
+            for y in range(0, len(d.word[-1-x:])-1):
+                wordB = d.word[-1-x:-y-1]
+                wordB_firstletter = wordB[0]
+                wordB_lastletter = wordB[len(wordB)-1]
+                wordC = d.word[-1-y:]
+                wordC_firstletter = wordC[0]
+
+                for z in range(0, len(d.word[-1-y:])-1):
+                    wordC = d.word[-1-y:-z-1]
+                    wordC_firstletter = wordC[0]
+                    wordC_lastletter = wordC[len(wordC)-1]
+                    wordD = d.word[-1-z:]
+                    wordD_firstletter = wordD[0]
+
+                    # bla* *la* *la* *lah
+
+                    for rulex in rules:
+                        chAx = rules[rulex]["chA"]
+                        chBx = rules[rulex]["chB"]
+                        ch1x = rules[rulex]["ch1"]
+                        ch2x = rules[rulex]["ch2"]
+
+                        if (wordA_lastletter == chAx and
+                                wordB_firstletter == chBx):
+                            word1 = wordA[:-1] + ch1x
+                            word2 = ch2x + wordB[1:]
+
+                            for ruley in rules:
+                                chAy = rules[ruley]["chA"]
+                                chBy = rules[ruley]["chB"]
+                                ch1y = rules[ruley]["ch1"]
+                                ch2y = rules[ruley]["ch2"]
+
+                                if wordB_lastletter == chAy and \
+                                        wordC_firstletter == chBy:
+                                    word2 = (ch2x + wordB[1:])[:-1] + ch1y
+                                    word3 = ch2y + wordC[1:]
+
+                                    for rulez in rules:
+                                        chAz = rules[rulez]["chA"]
+                                        chBz = rules[rulez]["chB"]
+                                        ch1z = rules[rulez]["ch1"]
+                                        ch2z = rules[rulez]["ch2"]
+
+                                        if (wordC_lastletter == chAz and
+                                                wordD_firstletter == chBz):
+                                            word3 = (
+                                                ch2y + wordC[1:])[:-1] + ch1z
+                                            word4 = ch2z + wordD[1:]
+
+                                            if (word1 in all_inflections_set and
+                                                word2 in all_inflections_set and
+                                                word3 in all_inflections_set and
+                                                    word4 in all_inflections_set):
+                                                d.front = f"{d.front}{word1} + {word2} + "
+                                                d.word = word3
+                                                d.back = f" + {word4}{d.back}"
+                                                d.rules_front += f"{rulex+2},{ruley+2}"
+                                                d.rules_back = f"{rulez+2},{d.rules_back}"
+                                                d.path += " > 4"
+                                                d.comm = "x4"
+
+                                                if comp(d) not in w.matches:
+                                                    matches_dict[d.init] += [
+                                                        (comp(d), d.comm, f"{comp_rules(d)}", d.path)]
+                                                    w.matches.add(comp(d))
+                                                    d.matches.add(comp(d))
+                                                    unmatched_set.discard(d.init)
+
+                                                d = dotdict(d_orig)
+
+    return d_orig
+
+
 def comp_rules(d):
     return f"{d.rules_front}{d.rules_back}"
 
@@ -1018,7 +1178,7 @@ def dprint(d):
     print(f"rules_front:\t{d.rules_front}")
     print(f"rules_back:\t{d.rules_back}")
     # print(f"tried:\t{d.tried}")
-    print(f"matches:\t{d.matches}")
+    # print(f"matches:\t{d.matches}")
     print(f"path:\t{d.path}")
     print(f"processes:\t{d.processes}")
     print()
@@ -1050,72 +1210,6 @@ def summary():
 
     print(f"[green]match count:\t{match_count:,}")
     print(f"[green]match average:\t{match_average:.4f}")
-
-
-def recursive_removal(d):
-
-    d.processes += 1
-
-    if d.processes < 15:
-
-        # add to matches
-
-        if comp(d) not in w.tried:
-            w.tried.add(comp(d))
-            d.tried.add(comp(d))
-
-            if d.word in all_inflections_set:
-                if comp(d) not in w.matches:
-                    matches_dict[d.init] += [
-                        (comp(d), f"xword{d.comm}", f"{comp_rules(d)}", d.path)]
-                    w.matches.add(comp(d))
-                    d.matches.add(comp(d))
-                    unmatched_set.discard(d.init)
-
-            else:
-                # recursion
-
-                if d.processes == 1:
-
-                    # negatives
-                    if d.word.startswith(("a", "na", "an", "nā")):
-                        d = remove_neg(d)
-
-                    # sa
-                    elif d.word.startswith("sa"):
-                        d = remove_sa(d)
-
-                    # su
-                    elif d.word.startswith("su"):
-                        d = remove_su(d)
-
-                    # dur
-                    elif d.word.startswith("du"):
-                        d = remove_dur(d)
-
-                # api eva iti
-                if re.findall("(pi|va|ti)$", d.word) != []:
-                    d = remove_apievaiti(d)
-
-                # two word sandhi
-                if d.comm != "start":
-                    d = two_word_sandhi(d)
-
-                    if not d.matches:
-                        # three word sandhi
-                        d = three_word_sandhi(d)
-
-                    # ffc = lwff clean
-                    d = remove_lwff_clean(d)
-
-                    # fbc = lwfb_clean
-                    d = remove_lwfb_clean(d)
-
-                    # fff = lwff fuzzy
-                    d = remove_lwff_fuzzy(d)
-
-                    # fbf = lwfb fuzzy
-                    d = remove_lwfb_fuzzy(d)
 
 
 if __name__ == "__main__":
@@ -1156,4 +1250,3 @@ if __name__ == "__main__":
 
 # kusalākusalasāvajjānavajjasevitabbāsevitabbahīna
 # lots of results have lettercoutn less than the word iteself!
-

@@ -1,7 +1,9 @@
 open terminal
 ssh root@ipaddress
-apt get update?
-apt get install?
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt update 
+sudo apt install python3.11
+sudo apt upgrade
 
 apt install python3-pip
 pip install gdown
@@ -18,14 +20,14 @@ pip install poetry
 poetry install
 poetry shell
 export PYTHONPATH=$PYTHONPATH:sandhi/tools
-nohup python3.10 sandhi/splitter.py &
-nohup python3.10 sandhi/postprocess.py &
-
+nohup python3.11 sandhi/splitter.py &
+# .... wait ....
+tail -n 10 nohup.out
+# nohup python3.11 sandhi/postprocess.py &
 zip -r do_output.zip sandhi/output/
 
 # in local terminal
 scp root@ipaddress:/root/dpd/do_output.zip do_output.zip
 
-# tail -n 10 nohup.out
 # ps aux | grep python
 # tail -f /proc/3245/fd/1

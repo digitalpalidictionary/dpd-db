@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.10
+#!/usr/bin/env python3.11
 
 import numpy as np
 import pandas as pd
@@ -18,7 +18,7 @@ from transliterate_sandhi import transliterate_sandhi
 from tools.timeis import tic, toc
 
 
-add_do = False
+add_do = True
 
 
 def process_matches(neg_inflections_set):
@@ -29,7 +29,8 @@ def process_matches(neg_inflections_set):
     matches_df = pd.read_csv(pth["matches_path"], dtype=str, sep="\t")
 
     if add_do is True:
-        matches_do_df = pd.read_csv(pth["matches_do_path"], dtype=str, sep="\t")
+        matches_do_df = pd.read_csv(
+            pth["matches_do_path"], dtype=str, sep="\t")
         matches_df = pd.concat([matches_df, matches_do_df], ignore_index=True)
 
     matches_df = matches_df.fillna("")
@@ -57,7 +58,8 @@ def process_matches(neg_inflections_set):
         neg_count = 0
         if " + " in row["split"]:
             word_list = row["split"].split(" + ")
-            word_list.remove(word_list[0])   # doesn't matter if the first word is negative
+            # doesn't matter if the first word is negative
+            word_list.remove(word_list[0])
             for word in word_list:
                 if word in neg_inflections_set:
                     neg_count += 1
