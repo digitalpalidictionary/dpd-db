@@ -1,4 +1,4 @@
-#!/usr/bin/env python_3.10
+#!/usr/bin/env python_3.11
 
 import csv
 from helpers import InternalTestRow
