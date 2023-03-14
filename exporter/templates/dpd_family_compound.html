@@ -13,10 +13,10 @@
     % endif
     % if f.count == 0:
         <b>ERROR!!! ${f.count}</b> compounds contain <b>${f.compound_family}</b>: Sort it out!!!
-    % elfi f.count == 1:
-        </b>${f.count}</b> compound contains <b>${f.compound_family}</b>
-    %else:
-        <b>${f.count}</b> compounds contain <b>${f.compound_family}</b>
+    % elif f.count == 1:
+        </b>${f.count}</b> compound which contains <b>${f.compound_family}</b>
+    % else:
+        <b>${f.count}</b> compounds which contain <b>${f.compound_family}</b>
     % endif
     </p>
     ${f.html}

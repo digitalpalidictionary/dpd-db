@@ -724,21 +724,21 @@ def generates_html_files(wc_data, dpd_db):
                 # add lines
 
                 map_html = re.sub(r"""<tr>
-    <th>Sutta Dīgha Nikāya</th>""",
+      <th>Sutta Dīgha Nikāya</th>""",
         """<tr class="line">
-    <th>Sutta Dīgha Nikāya</th>""",
+      <th>Sutta Dīgha Nikāya</th>""",
                     map_html)
                 
                 map_html = re.sub(r"""<tr>
-    <th>Abhidhamma Dhammasaṅgaṇī</th>""", 
+      <th>Abhidhamma Dhammasaṅgaṇī</th>""",
                     """<tr class="line">
-    <th>Abhidhamma Dhammasaṅgaṇī</th>""",
+      <th>Abhidhamma Dhammasaṅgaṇī</th>""",
                     map_html)
 
                 map_html = re.sub(r"""<tr>
-    <th>Aññā Abhidhamma</th>""",
+      <th>Aññā Abhidhamma</th>""",
                     """<tr class="line">
-    <th>Aññā Abhidhamma</th>""",
+      <th>Aññā Abhidhamma</th>""",
                     map_html)       
 
             else:

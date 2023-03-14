@@ -1,32 +1,35 @@
 *.db
-*.sqlite3
 *.log
-log.txt
-tmp/
+*.sqlite3
 *xxx*
-xxx delete/*
-share/*
-dpd.db-journal
-inflections/tests/inflection_pattern_dict
-sandhi/!old sandhi-splitter.py
-sandhi/assets/*
-sandhi/output/*
-sandhi.zip
-output.zip
 csvs/commentary.csv
 csvs/dpd-full.csv
 csvs/vocab.csv
-frequency/output/*
-exporter/share/dpdv2.zip
-gui/icons/*
-grammar_dict/output/html
-exporter/share/
 definitions/definitions.csv
 do_output.zip
+dpd.db-journal
+exporter/share/
+exporter/share/dpdv2.zip
+frequency/output/*
+grammar_dict/output/html
+gui/icons/*
+inflections/tests/inflection_pattern_dict
+log.txt
+output.zip
+resources/Tipitaka-Pali-Projector/*
+sandhi.zip
+sandhi/!old sandhi-splitter.py
+sandhi/assets/*
+sandhi/output_do/*
+sandhi/output/*
+share/*
+tmp/
+xxx delete/*
 
 __pycache__/
 .pytest_cache
 .coverage
 .vscode/
 
-sandhi/output_do/*
+.venv
+

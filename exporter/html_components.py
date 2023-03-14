@@ -1,6 +1,5 @@
 import re
 
-from rich import print
 from mako.template import Template
 from datetime import date
 from sqlalchemy import or_
@@ -12,7 +11,6 @@ from db.models import FamilyRoot
 from db.models import FamilyWord
 from db.models import FamilyCompound
 from db.models import FamilySet
-from db.models import Sandhi
 
 from helpers import get_paths
 from helpers import CF_SET
@@ -416,6 +414,9 @@ def render_family_compound_templ(i: PaliWord, DB_SESSION) -> str:
                 FamilyCompound.compound_family == i.pali_clean
             )
         ).all()
+
+        word_order = [i.pali_clean] + i.family_compound_list
+        fc = sorted(fc, key=lambda x: word_order.index(x.compound_family))
 
         return str(
             family_compound_templ.render(

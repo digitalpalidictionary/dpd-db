@@ -5,7 +5,7 @@ h3 {
 }
 
 body {
-    font-family: "Garamond", "DejaVu Serif", "Noto Sans", "Verajja Serif";
+    font-family: "DejaVu Serif", "Noto Sans", "Verajja Serif";
 }
 
 div.content {
@@ -14,19 +14,20 @@ div.content {
     line-height: 150%;
     overflow: auto;
     padding: 3px 5px;
+    margin: 0px 0px;
     text-align: left;
 }
 
 p {
     line-height: 150%;
-    margin: 3px 5px;
+    margin: 0px 0px;
     vertical-align: middle;
     text-align: left;
 }
 
 p.heading {
-    margin: 3px 5px;
-    padding: 2px 4px;
+    margin: 0px 0px;
+    padding: 2px 0px;
 }
 
 .underlined {
@@ -47,12 +48,11 @@ p.footer {
 }
 
 table {
-    margin: 3px 5px;
+    margin: 3px 0px;
 }
 
 table.grammar {
-    border: 0px solid transparent;
-    border-collapse: collapse;
+    border: none;
 }
 
 table.grammar td,
@@ -122,17 +122,21 @@ input {
     display: none;
 }
 
+div.button-box {
+    font-size: 0px;
+}
+
 a.button {
+    font-size: 11px;
     text-decoration: none;
     background-color: #65DBFF;
     border-radius: 7px;
-    box-shadow: 0 4px 4px -2px #888888;
+    box-shadow: 2px 3px 3px -2px #888888;
     color: #000;
     cursor: pointer;
     display: inline-block;
-    font-size: 85%;
     font-weight: 400;
-    margin: 2px 0px 5px 0px;
+    margin: 2px 2px 5px 0px;
     padding: 3px 5px;
     user-select: none;
 }

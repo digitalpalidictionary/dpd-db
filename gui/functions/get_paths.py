@@ -27,13 +27,13 @@ def get_paths() -> ResourcePaths:
     pth = ResourcePaths(
         # dirs
         cst_texts_dir=Path(
-            "../Cst4/txt"),
+            "resources/Cst4/txt"),
         sc_texts_dir=Path(
-            "../Tipitaka-Pali-Projector/tipitaka_projector_data/pali/"),
+            "resources/Tipitaka-Pali-Projector/tipitaka_projector_data/pali/"),
         cst_xml_dir=Path(
-            "../Cst4/Xml"),
+            "resources/Cst4/Xml"),
         cst_xml_roman_dir=Path(
-            "../Cst4/xml roman"),
+            "resources/Cst4/xml roman"),
 
         # paths
         sandhi_ok_path=Path(

@@ -13,18 +13,16 @@ from tools.pali_alphabet import vowels
 from tools.timeis import tic, toc, bip, bop
 from helpers import get_resource_paths
 
-# two -----> three -----> four ----->----\
-#                                                         |
-#  /----<----------------------------------<----/
-# |
-#  \----->--------> recurse <------------<----------<--------------\
-#                          |                                                           |
-#                          |----->----------> na sa su dur ------>-----|
-#                          |----->----------> two word ---------->-----|
-#                          |----->----------> front clean -------->-----|
-#                          |----->----------> back clean -------->-----|
-#                          |----->----------> front fuzzy -------->-----|
-#                          \----->----------> back fuzzzy ------->----/
+# two -----> three ------->--- \
+#                                        |
+#                                   recurse <------------<----------<---------------\
+#                                        |                                                       |
+#                                        |----->----------> na sa su dur ------>-----|
+#                                        |----->----------> two word ---------->------|
+#                                        |----->----------> front clean -------->------|
+#                                        |----->----------> back clean -------->------|
+#                                        |----->----------> front fuzzy -------->------|
+#                                        \----->----------> back fuzzzy ------->-----/
 
 # global dampers
 global clean_list_max_length
@@ -130,15 +128,15 @@ def main():
         d = two_word_sandhi(d)
 
         # three word sandhi
-        if matches_dict[word] == []:
+        if not w.matches :
             d = three_word_sandhi(d)
 
         # # four word sandhi
-        # if matches_dict[word] == []:
+        # if not w.matches :
         #     d = four_word_sandhi(d)
 
         # recursive removal
-        if matches_dict[word] == []:
+        if not w.matches :
             recursive_removal(d)
 
         time_dict[word] = bop()
@@ -326,25 +324,21 @@ def recursive_removal(d):
                 if d.comm != "start":
                     d = two_word_sandhi(d)
 
-                    # # three word sandhi
-                    # if not d.matches:
-                    #     d = three_word_sandhi(d)
-
                 # ffc = lwff clean
                 d = remove_lwff_clean(d)
-
-                # fbc = lwfb_clean
-                d = remove_lwfb_clean(d)
 
                 # fff = lwff fuzzy
                 d = remove_lwff_fuzzy(d)
 
-                # fbf = lwfb fuzzy
-                d = remove_lwfb_fuzzy(d)
+                if not w.matches:
 
-                # # four word sandhi
-                # if not w.matches:
-                #     d = four_word_sandhi(d)
+                    # fbc = lwfb_clean
+                    d = remove_lwfb_clean(d)
+
+                    # fbf = lwfb fuzzy
+                    d = remove_lwfb_fuzzy(d)
+                
+
 
 
 def remove_neg(d):

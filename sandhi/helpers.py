@@ -36,9 +36,9 @@ def get_resource_paths() -> ResourcePaths:
         dpd_db_path=Path("dpd.db"),
 
         # pali texts
-        cst_text_path=Path("../Cst4/txt/"),
+        cst_text_path=Path("resources/Cst4/txt/"),
         sc_path=Path(
-            "../Tipitaka-Pali-Projector/tipitaka_projector_data/pali/"),
+            "resources/Tipitaka-Pali-Projector/tipitaka_projector_data/pali/"),
         bjt_text_path=Path(
             "../../../../git/tipitaka.lk/public/static/text roman/"),
 

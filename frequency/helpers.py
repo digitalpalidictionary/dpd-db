@@ -30,9 +30,9 @@ def get_paths() -> ResourcePaths:
     # corpus counter
     pth = ResourcePaths(
         cst_txt_dir=Path(
-            "../Cst4/txt"),
+            "resources/Cst4/txt"),
         cst_xml_dir=Path(
-            "../Cst4/Xml"),
+            "resources/Cst4/Xml"),
         raw_text_dir=Path(
             "frequency/output/raw_text/"),
         word_count_dir=Path(

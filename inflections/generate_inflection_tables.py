@@ -115,7 +115,6 @@ def main():
     toc()
 
 
-
 def test_inflection_template_changed():
 
     try:
@@ -268,17 +267,18 @@ def generate_inflection_table(
     # heading
     html: str = "<p class='heading'>"
     html += f"<b>{superscripter_uni(i.pali_1)}</b> is <b>{i.pattern}</b> "
-    if i.pos in CONJUGATIONS:
-        html += "conjugation "
-    elif i.pos in DECLENSIONS:
-        html += "declension "
     if t.like != "irreg":
-        html += f"like <b>{t.like}</b>"
+        if i.pos in CONJUGATIONS:
+            html += "conjugation "
+        elif i.pos in DECLENSIONS:
+            html += "declension "
+        html += f"(like <b>{t.like})</b>"
     else:
         if i.pos in CONJUGATIONS:
-            html += "irregular conjugation"
+            html += "conjugation "
         if i.pos in DECLENSIONS:
-            html += "irregular declension"
+            html += "declension "
+        html += "irregular"
     html += "</p>"
 
     html += "<table class='inflection'>"
@@ -309,7 +309,7 @@ def generate_inflection_table(
                 if column_number == 0:
                     html += f"<th>{cell_data[0]}</th>"
                 elif column_number % 2 == 1 and column_number > 0:
-                    title: str = [row_data[column_number+1]][0][0]
+                    title: str = [row_data[column_number + 1]][0][0]
 
                     for inflection in cell_data:
                         if inflection == "":

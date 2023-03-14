@@ -1,4 +1,5 @@
-source .venv/bin/activate
+set -e
+test -e dpd.db || touch dpd.db
 scripts/dpd_db_from_csv.py
 scripts/remove_familyword_prefixes.py
 inflections/create_inflections_templates.py
@@ -15,4 +16,3 @@ frequency/mapmaker.py
 # exporter/exporter.py
 # scripts/common_errors.py
 # scripts/anki_csvs.py
-deactivate
