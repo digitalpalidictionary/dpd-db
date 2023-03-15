@@ -5,44 +5,42 @@ h3 {
 }
 
 body {
-    font-family: "DejaVu Serif", "Noto Sans", "Verajja Serif";
+    font-family: "Noto Sans", "DejaVu Serif", "Verajja Serif";
+}
+
+div.help {
+    border: 2px solid #0ab33d;
+    border-radius: 7px;
+    line-height: 150%;
+    margin: 0px 0px;
+    overflow: auto;
+    padding: 3px 5px;
+    text-align: left;
 }
 
 p {
     line-height: 150%;
     margin: 0px;
     vertical-align: middle;
-}
-
-div.help {
-    border: 2px solid #0ab33d;
-    border-radius: 5px;
-    line-height: 150%;
-    overflow: auto;
-    padding: 3px 5px;
     text-align: left;
 }
 
-span.colour{color:#00A4CC}
 
 span.gray {
     color: gray
 }
 
 table {
-    margin: 0 0 5px 0;
+    margin: 3px 0px;
 }
 
 table.help {
-    border: 0px solid transparent;
-    border-collapse: collapse;
+    border: none;
     width: 100%;
 }
 
 table.help td,
 table.help th {
-    border: 0px solid transparent;
-    border-collapse: collapse;
     line-height: 150%;
     padding: 0px 5px 0px 0px;
     text-align: left;

@@ -21,6 +21,7 @@ from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.pos import INDECLINEABLES
 from tools.pali_sort_key import pali_sort_key
+from tools.superscripter import superscripter_uni
 
 TODAY = date.today()
 PTH = get_paths()
@@ -406,17 +407,24 @@ def render_family_compound_templ(i: PaliWord, DB_SESSION) -> str:
         (i.family_compound != "" or
             i.pali_clean in CF_SET)):
 
-        fc = DB_SESSION.query(
-            FamilyCompound
-        ).filter(
-            or_(
+        if i.family_compound != "":
+            fc = DB_SESSION.query(
+                FamilyCompound
+            ).filter(
                 FamilyCompound.compound_family.in_(i.family_compound_list),
-                FamilyCompound.compound_family == i.pali_clean
-            )
-        ).all()
+                    # FamilyCompound.compound_family == i.pali_clean
+            ).all()
 
-        word_order = [i.pali_clean] + i.family_compound_list
-        fc = sorted(fc, key=lambda x: word_order.index(x.compound_family))
+            # sort by order of the  family compound list
+            word_order = i.family_compound_list
+            fc = sorted(fc, key=lambda x: word_order.index(x.compound_family))
+        
+        else:
+            fc = DB_SESSION.query(
+                FamilyCompound
+            ).filter(
+                FamilyCompound.compound_family == i.pali_clean
+            ).all()
 
         return str(
             family_compound_templ.render(

@@ -5,24 +5,28 @@ h3 {
 }
 
 body {
-    font-family: "DejaVu Serif", "Noto Sans", "Verajja Serif";
+    font-family: "Noto Sans", "DejaVu Serif", "Verajja Serif";
+}
+
+div.epd {
+    border: 2px solid #8B008B;
+    border-radius: 7px;
+    line-height: 150%;
+    margin: 0px 0px;
+    overflow: auto;
+    padding: 3px 7px;
+    text-align: left;
 }
 
 p {
     line-height: 150%;
     margin: 0px;
     vertical-align: middle;
+    text-align: left;
 }
+
 b.epd {
     color:#8B008B;
     font-weight: 700;
 }
 
-div.epd {
-    border: 2px solid #8B008B;
-    border-radius: 5px;
-    line-height: 150%;
-    overflow: auto;
-    padding: 3px 5px;
-    text-align: left;
-}

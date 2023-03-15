@@ -17,7 +17,7 @@ from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.superscripter import superscripter_uni
 
-regenerate_all: bool = True
+regenerate_all: bool = False
 
 dpd_db_path = Path("dpd.db")
 db_session = get_db_session(dpd_db_path)
@@ -262,7 +262,7 @@ def test_changes() -> None:
 def generate_inflection_table(
         i: PaliWord, t: InflectionTemplates, table_data: List):
 
-    inflections_list: list = []
+    inflections_list: list = [i.pali_clean]
 
     # heading
     html: str = "<p class='heading'>"
@@ -278,7 +278,7 @@ def generate_inflection_table(
             html += "conjugation "
         if i.pos in DECLENSIONS:
             html += "declension "
-        html += "irregular"
+        html += "(irregular)"
     html += "</p>"
 
     html += "<table class='inflection'>"

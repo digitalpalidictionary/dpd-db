@@ -3,6 +3,7 @@ import PySimpleGUI as sg
 import re
 import pandas as pd
 
+
 from rich import print
 
 from window_layout import window_layout
@@ -34,6 +35,8 @@ from functions.find_commentary_defintions import find_commentary_defintions
 from functions.run_internal_tests import run_internal_tests
 from functions.open_internal_tests import open_internal_tests
 from functions.clear_errors import clear_errors
+from functions.add_stem_pattern import add_stem_pattern
+# from functions.check_spelling import check_spelling
 
 from tools.pos import DECLENSIONS, VERBS
 # sg.main_sdk_help()
@@ -57,6 +60,7 @@ def main():
     commentary_flag = True
     sanskrit_flag = True
     example_1_flag = True
+    stem_flag = True
 
     while True:
         event, values = window.read()
@@ -169,6 +173,7 @@ def main():
             #         window[f"{section}"].Widget.configure(
             #             highlightcolor='black', highlightthickness=2)
 
+
         if event == "derived_from":
             if derived_from_flag:
                 if " of " in values["grammar"] or " from " in values["grammar"]:
@@ -176,6 +181,10 @@ def main():
                         ".+( of | from )(.+)(,|$)", r"\2", values["grammar"])
                     window["derived_from"].update(derived_from)
                     derived_from_flag = False
+        
+        if event == "meaning_1":
+            field = "meaning_1_error"
+            # check_spelling(field, values, window)
 
         if event == "family_root" and values["root_key"] != "":
             if family_root_flag:
@@ -286,6 +295,11 @@ def main():
                 sanskrit = get_sanskrit(values["construction"])
                 window["sanskrit"].update(sanskrit)
                 sanskrit_flag = False
+        
+        if event == "stem":
+            if stem_flag:
+                add_stem_pattern(values, window)
+                stem_flag = False
 
         # add word buttons
 
@@ -316,6 +330,7 @@ def main():
             commentary_flag = True
             sanskrit_flag = True
             example_1_flag = True
+            stem_flag = True
 
         if event == "test_internal":
             clear_errors(window)

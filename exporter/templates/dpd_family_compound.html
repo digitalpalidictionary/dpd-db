@@ -1,7 +1,11 @@
+<%!
+    from tools.superscripter import superscripter_uni
+%>
+
 <div id="compound_family_${i.pali_1_}" class="content hidden">
 % if " " in i.family_compound:
     <p class="heading">
-        compound families: <b>${i.family_compound}</b>
+        compound families: <b>${superscripter_uni(i.family_compound)}</b>
     </p>
 % endif
 
@@ -12,11 +16,11 @@
     <p class="heading underlined overlined">
     % endif
     % if f.count == 0:
-        <b>ERROR!!! ${f.count}</b> compounds contain <b>${f.compound_family}</b>: Sort it out!!!
+        <b>ERROR!!! ${f.count}</b> compounds contain <b>${superscripter_uni(f.compound_family)}</b>: Sort it out!!!
     % elif f.count == 1:
-        </b>${f.count}</b> compound which contains <b>${f.compound_family}</b>
+        </b>${f.count}</b> compound which contains <b>${superscripter_uni(f.compound_family)}</b>
     % else:
-        <b>${f.count}</b> compounds which contain <b>${f.compound_family}</b>
+        <b>${f.count}</b> compounds which contain <b>${superscripter_uni(f.compound_family)}</b>
     % endif
     </p>
     ${f.html}

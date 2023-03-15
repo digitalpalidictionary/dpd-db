@@ -108,6 +108,7 @@ def _csv_row_to_pali_word(x: Dict[str, str]) -> PaliWord:
         cognate=x['Cognate'],
         family_set=x['Category'],
         link=x['Link'],
+        origin=x['Origin'],
         stem=x['Stem'],
         pattern=x['Pattern'],
         meaning_2=x['Buddhadatta'],
@@ -121,6 +122,8 @@ def add_pali_roots(db_session: Session, csv_path: Path):
     with open(csv_path, 'r') as f:
         reader = csv.DictReader(f, delimiter='\t')
         for row in reader:
+            for key, value in row.items():
+                row[key] = value.replace("<br>", "\n")
             rows.append(row)
 
     def _is_count_not_zero_or_empty(x: Dict[str, str]) -> bool:
@@ -157,6 +160,8 @@ def add_pali_words(db_session: Session, csv_path: Path):
     with open(csv_path, 'r') as f:
         reader = csv.DictReader(f, delimiter='\t')
         for row in reader:
+            for key, value in row.items():
+                row[key] = value.replace("<br>", "\n")
             rows.append(row)
 
     items: List[PaliWord] = list(map(_csv_row_to_pali_word, rows))

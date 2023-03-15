@@ -42,6 +42,11 @@ def generate_root_html(DB_SESSION, PTH):
 
     bip()
     for counter, (r, info) in enumerate(roots_db):
+        
+        # replace \n with html line break
+        r.panini_root = r.panini_root.replace("\n", "<br>")
+        r.panini_sanskrit = r.panini_sanskrit.replace("\n", "<br>")
+        r.panini_english = r.panini_english.replace("\n", "<br>")
 
         html = header
         html += "<body>"

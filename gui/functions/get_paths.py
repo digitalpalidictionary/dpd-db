@@ -51,7 +51,7 @@ def get_paths() -> ResourcePaths:
         variant_readings_path=Path(
             "sandhi/sandhi_related/variant readings.csv"),
         inflection_templates_path=Path(
-            "inflections/inflection templates.xlsx"),
+            "inflections/inflection_templates.xlsx"),
         defintions_csv_path=Path(
             "definitions/definitions.csv"),
         internal_tests_path=Path(

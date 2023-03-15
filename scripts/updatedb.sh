@@ -1,10 +1,6 @@
 set -e
-# test -e dpd.db || touch dpd.db
-# scripts/dpd_db_from_csv.py
-# scripts/remove_familyword_prefixes.py
-# inflections/create_inflections_templates.py
-# inflections/generate_inflection_tables.py
-# inflections/transliterate_inflections.py
+inflections/generate_inflection_tables.py
+inflections/transliterate_inflections.py
 sandhi/setup.py
 sandhi/splitter.py
 sandhi/postprocess.py

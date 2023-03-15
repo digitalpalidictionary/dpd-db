@@ -296,7 +296,7 @@ class MDictWriter(object):
 		#  e.record_null: encoded version of the record, null-terminated
 		#
 		# Also sets self._total_record_len to the total length of all record fields.
-		def mdict_cmp(item1, item2):
+		def mdict_cmp(item1, item2, prevent_link_to_link=True, sort_definitions=False):
 			# sort following mdict standard
 
 			key1 = item1[0].lower()
@@ -322,6 +322,38 @@ class MDictWriter(object):
 				return -1
 			elif key1 < key2:
 				return 1
+
+			# dpd: link to link bug prevention (08.03.2023)
+			if prevent_link_to_link or sort_definitions:
+				#if key1 & key2 are equal: compare the values
+				#if value 1&2 are links to another definition: dont change order
+				value1 = item1[1].lower()
+				value2 = item2[1].lower()
+				if value1.startswith("@@@link=") and value2.startswith("@@@link="):
+					if sort_definitions:
+						value1 = locale.strxfrm(value1)
+						value2 = locale.strxfrm(value2)
+						if value1 > value2:
+							return 1
+						if value1 < value2:
+							return -1
+					return 0
+				#if value1 is link, but value2 is not: link->lower pos
+				if value1.startswith("@@@link="):
+					return 1
+				#if value2 is link, but value1 is not: link->lower pos
+				if value2.startswith("@@@link="):
+					return -1
+				#disabled by default: sorting definitions is probably not neccessary..
+				if sort_definitions:
+					#if value1&2 are both normal definitions, only compare the fist 50 characters 
+					# (otherwise its probably some long html where the difference could just be some css)
+					value1 = value1[:50]
+					value2 = value2[:50]
+					if value1 > value2:
+						return 1
+					if value1 < value2:
+						return -1
 			return 0
 
 		pattern = '[%s ]+' % string.punctuation

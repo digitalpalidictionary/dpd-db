@@ -40,6 +40,6 @@ do
 done
 
 # Start watcher.
-inotifywait -m --event modify --format '%w' ./*.sqlite3 | while read -r file ; do
+inotifywait -m --event modify --format '%w' ./*.db | while read -r file ; do
     create_backup "$file"
 done

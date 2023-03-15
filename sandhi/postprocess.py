@@ -18,7 +18,7 @@ from transliterate_sandhi import transliterate_sandhi
 from tools.timeis import tic, toc
 
 
-add_do = True
+add_do = False
 
 
 def process_matches(neg_inflections_set):

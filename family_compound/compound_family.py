@@ -31,6 +31,7 @@ def main():
     print("[green]extracting compound families", end=" ")
     compound_families_set: set = set()
     compound_families_clean_set: set = set()
+    
     for row in compound_family_db:
         words = row[0].split(" ")
         for word in words:
@@ -68,11 +69,14 @@ def main():
 
         cf_count = 0
         for i in compound_family_db:
-
+            
+            test1a = re.findall(r"\bcomp\b", i.grammar) != []
+            test1b = "sandhi" in i.pos
+            test1c = "idiom" in i.pos
             test2 = compound_family in i.family_compound.split(" ")
             test3 = len(re.sub(r" \d.*$", "", i.pali_1)) < 30
 
-            if test2 & test3:
+            if (test1a or test1b or test1c) and test2 and test3:
                 cf_count += 1
                 meaning = make_meaning(i)
 
@@ -83,13 +87,15 @@ def main():
         html_list += ["""</table>"""]
         html_string = "".join(html_list)
 
-        cf = FamilyCompound(
-            compound_family=compound_family,
-            html=html_string,
-            count=cf_count
-        )
+        if cf_count > 0:
 
-        add_to_db.append(cf)
+            cf = FamilyCompound(
+                compound_family=compound_family,
+                html=html_string,
+                count=cf_count
+            )
+
+            add_to_db.append(cf)
 
         if counter % 500 == 0:
             print(f"{counter:>10,} / {length:<10,} {compound_family}")

@@ -26,6 +26,14 @@ from tools.timeis import bip, bop
 def generate_dpd_html(DB_SESSION, PTH):
     print("[green]generating dpd html")
 
+    with open(PTH.dpd_css_path) as f:
+        dpd_css = f.read()
+
+    with open(PTH.buttons_js_path) as f:
+        button_js = f.read()
+
+    dpd_data_list: List[dict] = []
+
     dpd_db = (
         DB_SESSION.query(
             PaliWord, DerivedData, FamilyRoot, FamilyWord
@@ -45,16 +53,21 @@ def generate_dpd_html(DB_SESSION, PTH):
 
     dpd_length = len(dpd_db)
 
-    with open(PTH.dpd_css_path) as f:
-        dpd_css = f.read()
-
-    with open(PTH.buttons_js_path) as f:
-        button_js = f.read()
-
-    dpd_data_list: List[dict] = []
-
     bip()
     for counter, (i, dd, fr, fw) in enumerate(dpd_db):
+
+        # replace \n with html line break
+        i.meaning_1 = i.meaning_1.replace("\n", "<br>")
+        i.sanskrit = i.sanskrit.replace("\n", "<br>")
+        i.phonetic = i.phonetic.replace("\n", "<br>")
+        i.compound_construction = i.compound_construction.replace("\n", "<br>")
+        i.commentary = i.commentary.replace("\n", "<br>")
+        i.link = i.link.replace("\n", "<br>")
+        i.sutta_1 = i.sutta_1.replace("\n", "<br>")
+        i.sutta_2 = i.sutta_2.replace("\n", "<br>")
+        i.example_1 = i.example_1.replace("\n", "<br>")
+        i.example_2 = i.example_2.replace("\n", "<br>")
+        i.construction = i.construction.replace("\n", "<br>")
 
         html: str = ""
         html += render_header_tmpl(dpd_css, button_js)
@@ -74,7 +87,9 @@ def generate_dpd_html(DB_SESSION, PTH):
 
         # html = minify(
         #     html,
-        #     minify_js=True,
+        #     do_not_minify_doctype=True,
+        #     ensure_spec_compliant_unquoted_attribute_values=True,
+        #     keep_spaces_between_attributes=True,
         #     minify_css=True,
         #     keep_closing_tags=True,
         #     remove_processing_instructions=True

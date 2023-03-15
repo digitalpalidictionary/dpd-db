@@ -3,7 +3,7 @@ from rich import print
 from sqlalchemy import desc, or_
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord, PaliRoot
+from db.models import PaliWord, PaliRoot, InflectionTemplates
 # from db.db_helpers import print_column_names
 from tools.pali_sort_key import pali_sort_key
 
@@ -380,3 +380,26 @@ def get_sanskrit(construction: str) -> str:
 
 
 # print(get_sanskrit("sāvaka + saṅgha + ika"))
+
+def get_patterns():
+    results = db_session.query(
+        InflectionTemplates.pattern
+    ).all()
+    inflection_patterns = sorted([v[0] for v in results])
+    return inflection_patterns
+
+# print(get_patterns())
+
+def get_family_set_values():
+    results = db_session.query(
+        PaliWord.family_set
+    ).all()
+    
+    family_sets = []
+    for r in results:
+        sets = r.family_set.split("; ")
+        family_sets += [set for set in sets]
+    return sorted(set(family_sets))
+
+
+# print(get_family_set_values())
