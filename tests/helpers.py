@@ -1,3 +1,6 @@
+import json
+
+
 class InternalTestRow():
     def __init__(
         self, test_name,
@@ -31,7 +34,10 @@ class InternalTestRow():
         self.search_string_6 = search_string_6
         self.error_column = error_column
         self.error_message = error_message
-        self.exceptions = set(exceptions.split(", "))
+        try:
+            self.exceptions = json.loads(exceptions)
+        except (json.JSONDecodeError, TypeError):
+            self.exceptions = []
         self.iterations = iterations
 
     def __repr__(self) -> str:

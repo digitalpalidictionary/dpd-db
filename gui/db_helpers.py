@@ -1,13 +1,17 @@
 import re
+
 from rich import print
 from sqlalchemy import desc, or_
+from json import loads
+
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord, PaliRoot, InflectionTemplates
-# from db.db_helpers import print_column_names
+from db.models import DerivedData
+from db.db_helpers import print_column_names
 from tools.pali_sort_key import pali_sort_key
 
-# print_column_names(PaliWord)
+print_column_names(PaliWord)
 
 db_session = get_db_session("dpd.db")
 
@@ -89,7 +93,7 @@ def print_pos_list() -> list:
     return print(pos_list, end=" ")
 
 
-def get_next_ids():
+def get_next_ids(window):
     # get next id
     last_id = db_session.query(PaliWord.id).order_by(
         desc(PaliWord.id)).first()[0]
@@ -100,34 +104,17 @@ def get_next_ids():
         desc(PaliWord.user_id)).first()[0]
     next_user_id = last_user_id+1
 
-    return next_id, next_user_id
+    window["id"].update(next_id)
+    window["user_id"].update(next_user_id)
 
 
 def values_to_pali_word(values):
-    return PaliWord(
-        id=values["id"],
-        user_id=int(values["user_id"]),
-        pali_1=values["pali_1"],
-        pali_2=values["pali_2"],
-        pos=values["pos"],
-        grammar=values["grammar"],
-        neg=values["neg"],
-        plus_case=values["plus_case"],
-        meaning_1=values["meaning_1"],
-        meaning_lit=values["meaning_lit"],
-        family_compound=values["family_compound"],
-        family_set=values["family_set"],
-        construction=values["construction"],
-        compound_type=values["compound_type"],
-        compound_construction=values["compound_construction"],
-        antonym=values["antonym"],
-        synonym=values["synonym"],
-        variant=values["variant"],
-        commentary=values["commentary"],
-        stem=values["stem"],
-        pattern=values["pattern"],
-        origin=values["origin"]
-    )
+    word_to_add = PaliWord()
+    for attr in word_to_add.__table__.columns.keys():
+        if attr in values:
+            setattr(word_to_add, attr, values[attr])
+    print(word_to_add)
+    return word_to_add
 
 
 def add_word_to_db(window, values: dict) -> None:
@@ -143,17 +130,20 @@ def add_word_to_db(window, values: dict) -> None:
         window["messages"].update(
             f"""'{values['pali_1']}' already in db. Use Update instead""",
             text_color="red")
+        return False
 
     else:
         try:
             db_session.add(word_to_add)
             db_session.commit()
             window["messages"].update(
-                f"""'"'{values['pali_1']}' added to db""",
+                f"'{values['pali_1']}' added to db",
                 text_color="white")
+            return True
         except Exception as e:
             window["messages"].update(
                 f"{str(e)}", text_color="red")
+            return False
 
 
 def update_word_in_db(window, values: dict) -> None:
@@ -162,47 +152,78 @@ def update_word_in_db(window, values: dict) -> None:
     word = db_session.query(
         PaliWord
         ).filter(
-            PaliWord.pali_1 == values["pali_1"]
+            PaliWord.id == values["id"]
         ).first()
 
     if not word:
         window["messages"].update(
-            f"""'{values['pali_1']}' not in db. Use Update instead""",
+            f"""'{values['pali_1']}' not in db. Use Add to db instead""",
             text_color="red")
+        return False
 
     else:
-        word.id = int(values["id"])
-        word.user_id = int(values["user_id"])
-        word.pali_1 = values["pali_1"]
-        word.pali_2 = values["pali_2"]
-        word.pos = values["pos"]
-        word.grammar = values["grammar"]
-        word.neg = values["neg"]
-        word.plus_case = values["plus_case"]
-        word.meaning_1 = values["meaning_1"]
-        word.meaning_lit = values["meaning_lit"]
-        word.family_compound = values["family_compound"]
-        word.family_set = values["family_set"]
-        word.construction = values["construction"]
-        word.compound_type = values["compound_type"]
-        word.compound_construction = values["compound_construction"]
-        word.antonym = values["antonym"]
-        word.synonym = values["synonym"]
-        word.variant = values["variant"]
-        word.commentary = values["commentary"]
-        word.stem = values["stem"]
-        word.pattern = values["pattern"]
-        word.origin = values["origin"]
+        for key in values:
+            if key in dpd_values_list:
+                setattr(word, key, values[key])
 
         try:
             db_session.commit()
             window["messages"].update(
-                f"""'"'{values['pali_1']}' updated in db""",
+                f"'{values['pali_1']}' updated in db",
                 text_color="white")
+            return True
 
         except Exception as e:
             window["messages"].update(
                 f"{str(e)}", text_color="red")
+            return False
+
+
+def edit_word_in_db(values, window):
+    pali_word = db_session.query(
+        PaliWord
+    ).filter(
+        PaliWord.pali_1 == values["word_to_copy"]
+    ).first()
+
+    if pali_word is None:
+        window["messages"].update(
+            f"{values['word_to_copy']}' not found in db", text_color="red"
+        ),
+
+    else:
+        attrs = pali_word.__dict__
+        for key in attrs.keys():
+            if key in values:
+                window[key].update(attrs[key])
+        window["messages"].update(
+            f"editing '{values['word_to_copy']}'", text_color="white")
+
+
+def copy_word_from_db(values, window):
+    pali_word = db_session.query(
+        PaliWord
+    ).filter(
+        PaliWord.pali_1 == values["word_to_copy"]
+    ).first()
+
+    if pali_word is None:
+        window["messages"].update(
+            "{values['word_to_copy']}' not found in db", text_color="red"
+        ),
+
+    else:
+        exceptions = [
+            "id", "user_id", "pali_1", "pali_2", "origin", "source_1", "sutta_1", "example_1",
+            "source_2", "sutta_2", "example_2", "commentary"
+        ]
+        attrs = pali_word.__dict__
+        for key in attrs.keys():
+            if key in values:
+                if key not in exceptions:
+                    window[key].update(attrs[key])
+        window["messages"].update(
+            f"copied '{values['word_to_copy']}'", text_color="white")
 
 
 def get_verb_values():
@@ -390,11 +411,12 @@ def get_patterns():
 
 # print(get_patterns())
 
+
 def get_family_set_values():
     results = db_session.query(
         PaliWord.family_set
     ).all()
-    
+
     family_sets = []
     for r in results:
         sets = r.family_set.split("; ")
@@ -403,3 +425,17 @@ def get_family_set_values():
 
 
 # print(get_family_set_values())
+
+
+def make_all_inflections_set():
+
+    inflections_db = db_session.query(
+        DerivedData.inflections
+    ).all()
+
+    all_inflections_set = set()
+    for i in inflections_db:
+        all_inflections_set.update(loads(i.inflections))
+
+    print(f"all_inflections_set: {len(all_inflections_set)}")
+    return all_inflections_set

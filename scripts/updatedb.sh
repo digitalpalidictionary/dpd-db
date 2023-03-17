@@ -1,9 +1,9 @@
 set -e
 inflections/generate_inflection_tables.py
 inflections/transliterate_inflections.py
-sandhi/setup.py
-sandhi/splitter.py
-sandhi/postprocess.py
+# sandhi/setup.py
+# sandhi/splitter.py
+# sandhi/postprocess.py
 family_root/root_family.py
 family_word/word_family.py
 family_compound/compound_family.py

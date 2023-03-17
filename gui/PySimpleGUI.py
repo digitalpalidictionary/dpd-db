@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-version = __version__ = "4.61.0.158 Unreleased"
+version = __version__ = "4.61.0.166 Unreleased"
 
 _change_log = """
     Changelog since 4.60.0 released to PyPI on 8-May-2022
@@ -383,6 +383,23 @@ _change_log = """
         Added the _optional_window_data function that is used to help with local PySimpleGUI testing of release candidates. Not meant to be used by end-users.
     4.61.0.158
         Checked checkbox activeforeground to be the same as the text so mouseover doesn't change color
+    4.61.0.159
+        New Global Settings feature - Window watermarking. Can be forced on temporarily by settings watermark=True in your Window creation
+    4.61.0.160
+        Fix "Bold" crash from watermarking feature
+    4.61.0.161
+        New set_options to control user-defined watermarks
+    4.61.0.162
+        Addition of new parms to Combo.update - text color, background color.  Also font now applied correctly to dropdown list
+    4.61.0.163
+        Checkbox - added highlight thickness parm to control how thick the focus ring is. Defaults to 1 still but now changable
+    4.61.0.164
+        Input element - fixed problem where the input 'cursor' (the I-beam) was being set to the THEME'S color, not the color indicated by the individual element
+    4.61.0.165
+        Multiline & Spin - Applied same fix for input "cursor" (I-Beam) color that was added to the Input element.
+        Added new method - set_ibeam_color to Input, Multiline and Spin elements.  Combo is a ttk element so it's not available using this call yet
+    4.61.0.166
+        New Udemy coupon
     """
 
 __version__ = version.split()[0]  # For PEP 396 and PEP 345
@@ -2505,6 +2522,28 @@ class Input(Element):
 
 
 
+    def set_ibeam_color(self, ibeam_color=None):
+        """
+        Sets the color of the I-Beam that is used to "insert" characters. This is oftens called a "Cursor" by
+        many users.  To keep from being confused with tkinter's definition of cursor (the mouse pointer), the term
+        ibeam is used in this case.
+        :param ibeam_color: color to set the "I-Beam" used to indicate where characters will be inserted
+        :type ibeam_color:  (str)
+        """
+
+        if not self._widget_was_created():
+            return
+        if ibeam_color is not None:
+            try:
+                self.Widget.config(insertbackground=ibeam_color)
+            except Exception as e:
+                _error_popup_with_traceback('Error setting I-Beam color in set_ibeam_color',
+                           'The element has a key:', self.Key,
+                            'The color passed in was:', ibeam_color)
+
+
+
+
     def get(self):
         """
         Read and return the current value of the input element. Must call `Window.Read` or `Window.Finalize` prior
@@ -2618,7 +2657,7 @@ class Combo(Element):
         super().__init__(ELEM_TYPE_INPUT_COMBO, size=sz, auto_size_text=auto_size_text, background_color=bg,
                          text_color=fg, key=key, pad=pad, tooltip=tooltip, font=font or DEFAULT_FONT, visible=visible, metadata=metadata)
 
-    def update(self, value=None, values=None, set_to_index=None, disabled=None, readonly=None, font=None, visible=None, size=(None, None), select=None):
+    def update(self, value=None, values=None, set_to_index=None, disabled=None, readonly=None, font=None, visible=None, size=(None, None), select=None, text_color=None, background_color=None):
         """
         Changes some of the settings for the Combo Element. Must call `Window.Read` or `Window.Finalize` prior.
         Note that the state can be in 3 states only.... enabled, disabled, readonly even
@@ -2631,25 +2670,30 @@ class Combo(Element):
         function "pin" to ensure your element is "pinned" to that location in your layout so that it returns there
         when made visible.
 
-        :param value:        change which value is current selected based on new list of previous list of choices
-        :type value:         (Any)
-        :param values:       change list of choices
-        :type values:        List[Any]
-        :param set_to_index: change selection to a particular choice starting with index = 0
-        :type set_to_index:  (int)
-        :param disabled:     disable or enable state of the element
-        :type disabled:      (bool)
-        :param readonly:     if True make element readonly (user cannot change any choices). Enables the element if either choice are made.
-        :type readonly:      (bool)
-        :param font:         specifies the font family, size, etc. Tuple or Single string format 'name size styles'. Styles: italic * roman bold normal underline overstrike
-        :type font:          (str or (str, int[, str]) or None)
-        :param visible:      control visibility of element
-        :type visible:       (bool)
-        :param size:         width, height. Width = characters-wide, height = NOTE it's the number of entries to show in the list
-        :type size:          (int, int)
-        :param select:       if True, then the text will be selected, if False then selection will be cleared
-        :type select:        (bool)
+        :param value:            change which value is current selected based on new list of previous list of choices
+        :type value:             (Any)
+        :param values:           change list of choices
+        :type values:            List[Any]
+        :param set_to_index:     change selection to a particular choice starting with index = 0
+        :type set_to_index:      (int)
+        :param disabled:         disable or enable state of the element
+        :type disabled:          (bool)
+        :param readonly:         if True make element readonly (user cannot change any choices). Enables the element if either choice are made.
+        :type readonly:          (bool)
+        :param font:             specifies the font family, size, etc. Tuple or Single string format 'name size styles'. Styles: italic * roman bold normal underline overstrike
+        :type font:              (str or (str, int[, str]) or None)
+        :param visible:          control visibility of element
+        :type visible:           (bool)
+        :param size:             width, height. Width = characters-wide, height = NOTE it's the number of entries to show in the list
+        :type size:              (int, int)
+        :param select:           if True, then the text will be selected, if False then selection will be cleared
+        :type select:            (bool)
+        :param background_color: color of background
+        :type background_color:  (str)
+        :param text_color:       color of the text
+        :type text_color:        (str)
         """
+
         if size != (None, None):
             if isinstance(size, int):
                 size = (size, 1)
@@ -2714,8 +2758,44 @@ class Combo(Element):
         elif disabled is False and self.Readonly is False:
                 self.TKCombo['state'] = 'enable'
         self.Disabled = disabled if disabled is not None else self.Disabled
+
+        combostyle = self.ttk_style
+        style_name = self.ttk_style_name
+        if text_color is not None:
+            combostyle.configure(style_name, foreground=text_color)
+            combostyle.configure(style_name, selectbackground=text_color)
+            combostyle.configure(style_name, insertcolor=text_color)
+            combostyle.map(style_name, fieldforeground=[('readonly', text_color)])
+            self.TextColor = text_color
+        if background_color is not None:
+            combostyle.configure(style_name, selectforeground=background_color)
+            combostyle.map(style_name, fieldbackground=[('readonly', background_color)])
+            combostyle.configure(style_name, fieldbackground=background_color)
+            self.BackgroundColor = background_color
+
+        if self.Readonly is True:
+            if text_color not in (None, COLOR_SYSTEM_DEFAULT):
+                combostyle.configure(style_name, selectforeground=text_color)
+            if background_color not in (None, COLOR_SYSTEM_DEFAULT):
+                combostyle.configure(style_name, selectbackground=background_color)
+
+
         if font is not None:
+            self.Font = font
             self.TKCombo.configure(font=font)
+            self._dropdown_newfont = tkinter.font.Font(font=font)
+            self.ParentRowFrame.option_add("*TCombobox*Listbox*Font", self._dropdown_newfont)
+
+
+        # make tcl call to deal with colors for the drop-down formatting
+        try:
+            if self.BackgroundColor not in (None, COLOR_SYSTEM_DEFAULT) and \
+                self.TextColor not in (None, COLOR_SYSTEM_DEFAULT):
+                self.Widget.tk.eval(
+            '[ttk::combobox::PopdownWindow {}].f.l configure -foreground {} -background {} -selectforeground {} -selectbackground {} -font {}'.format(self.Widget, self.TextColor, self.BackgroundColor, self.BackgroundColor, self.TextColor, self._dropdown_newfont))
+        except Exception as e:
+            pass    # going to let this one slide
+
         if visible is False:
             self._pack_forget_save_settings()
             # self.TKCombo.pack_forget()
@@ -2728,6 +2808,7 @@ class Combo(Element):
            self.TKCombo.select_range(0, tk.END)
         elif select is False:
            self.TKCombo.select_clear()
+
 
     def get(self):
         """
@@ -3373,54 +3454,57 @@ class Checkbox(Element):
     """
 
     def __init__(self, text, default=False, size=(None, None), s=(None, None), auto_size_text=None, font=None, background_color=None,
-                 text_color=None, checkbox_color=None, change_submits=False, enable_events=False, disabled=False, key=None, k=None, pad=None, p=None, tooltip=None,
+                 text_color=None, checkbox_color=None, highlight_thickness=1, change_submits=False, enable_events=False, disabled=False, key=None, k=None, pad=None, p=None, tooltip=None,
                  right_click_menu=None, expand_x=False, expand_y=False, visible=True, metadata=None):
         """
-        :param text:             Text to display next to checkbox
-        :type text:              (str)
-        :param default:          Set to True if you want this checkbox initially checked
-        :type default:           (bool)
-        :param size:             (w, h) w=characters-wide, h=rows-high. If an int instead of a tuple is supplied, then height is auto-set to 1
-        :type size:              (int, int)  | (None, None) | int
-        :param s:                Same as size parameter.  It's an alias. If EITHER of them are set, then the one that's set will be used. If BOTH are set, size will be used
-        :type s:                 (int, int)  | (None, None) | int
-        :param auto_size_text:   if True will size the element to match the length of the text
-        :type auto_size_text:    (bool)
-        :param font:             specifies the  font family, size, etc. Tuple or Single string format 'name size styles'. Styles: italic * roman bold normal underline overstrike
-        :type font:              (str or (str, int[, str]) or None)
-        :param background_color: color of background
-        :type background_color:  (str)
-        :param text_color:       color of the text
-        :type text_color:        (str)
-        :param checkbox_color:   color of background of the box that has the check mark in it. The checkmark is the same color as the text
-        :type checkbox_color:    (str)
-        :param change_submits:   DO NOT USE. Only listed for backwards compat - Use enable_events instead
-        :type change_submits:    (bool)
-        :param enable_events:    Turns on the element specific events. Checkbox events happen when an item changes
-        :type enable_events:     (bool)
-        :param disabled:         set disable state
-        :type disabled:          (bool)
-        :param key:              Used with window.find_element and with return values to uniquely identify this element
-        :type key:               str | int | tuple | object
-        :param k:                Same as the Key. You can use either k or key. Which ever is set will be used.
-        :type k:                 str | int | tuple | object
-        :param pad:              Amount of padding to put around element in pixels (left/right, top/bottom) or ((left, right), (top, bottom)) or an int. If an int, then it's converted into a tuple (int, int)
-        :type pad:               (int, int) or ((int, int),(int,int)) or (int,(int,int)) or  ((int, int),int) | int
-        :param p:                Same as pad parameter.  It's an alias. If EITHER of them are set, then the one that's set will be used. If BOTH are set, pad will be used
-        :type p:                 (int, int) or ((int, int),(int,int)) or (int,(int,int)) or  ((int, int),int) | int
-        :param tooltip:          text, that will appear when mouse hovers over the element
-        :type tooltip:           (str)
-        :param right_click_menu: A list of lists of Menu items to show when this element is right clicked. See user docs for exact format.
-        :type right_click_menu:  List[List[ List[str] | str ]]
-        :param expand_x:         If True the element will automatically expand in the X direction to fill available space
-        :type expand_x:          (bool)
-        :param expand_y:         If True the element will automatically expand in the Y direction to fill available space
-        :type expand_y:          (bool)
-        :param visible:          set visibility state of the element
-        :type visible:           (bool)
-        :param metadata:         User metadata that can be set to ANYTHING
-        :type metadata:          (Any)
+        :param text:                Text to display next to checkbox
+        :type text:                 (str)
+        :param default:             Set to True if you want this checkbox initially checked
+        :type default:              (bool)
+        :param size:                (w, h) w=characters-wide, h=rows-high. If an int instead of a tuple is supplied, then height is auto-set to 1
+        :type size:                 (int, int)  | (None, None) | int
+        :param s:                   Same as size parameter.  It's an alias. If EITHER of them are set, then the one that's set will be used. If BOTH are set, size will be used
+        :type s:                    (int, int)  | (None, None) | int
+        :param auto_size_text:      if True will size the element to match the length of the text
+        :type auto_size_text:       (bool)
+        :param font:                specifies the  font family, size, etc. Tuple or Single string format 'name size styles'. Styles: italic * roman bold normal underline overstrike
+        :type font:                 (str or (str, int[, str]) or None)
+        :param background_color:    color of background
+        :type background_color:     (str)
+        :param text_color:          color of the text
+        :type text_color:           (str)
+        :param checkbox_color:      color of background of the box that has the check mark in it. The checkmark is the same color as the text
+        :type checkbox_color:       (str)
+        :param highlight_thickness: thickness of border around checkbox when gets focus
+        :type highlight_thickness:  (int)
+        :param change_submits:      DO NOT USE. Only listed for backwards compat - Use enable_events instead
+        :type change_submits:       (bool)
+        :param enable_events:       Turns on the element specific events. Checkbox events happen when an item changes
+        :type enable_events:        (bool)
+        :param disabled:            set disable state
+        :type disabled:             (bool)
+        :param key:                 Used with window.find_element and with return values to uniquely identify this element
+        :type key:                  str | int | tuple | object
+        :param k:                   Same as the Key. You can use either k or key. Which ever is set will be used.
+        :type k:                    str | int | tuple | object
+        :param pad:                 Amount of padding to put around element in pixels (left/right, top/bottom) or ((left, right), (top, bottom)) or an int. If an int, then it's converted into a tuple (int, int)
+        :type pad:                  (int, int) or ((int, int),(int,int)) or (int,(int,int)) or  ((int, int),int) | int
+        :param p:                   Same as pad parameter.  It's an alias. If EITHER of them are set, then the one that's set will be used. If BOTH are set, pad will be used
+        :type p:                    (int, int) or ((int, int),(int,int)) or (int,(int,int)) or  ((int, int),int) | int
+        :param tooltip:             text, that will appear when mouse hovers over the element
+        :type tooltip:              (str)
+        :param right_click_menu:    A list of lists of Menu items to show when this element is right clicked. See user docs for exact format.
+        :type right_click_menu:     List[List[ List[str] | str ]]
+        :param expand_x:            If True the element will automatically expand in the X direction to fill available space
+        :type expand_x:             (bool)
+        :param expand_y:            If True the element will automatically expand in the Y direction to fill available space
+        :type expand_y:             (bool)
+        :param visible:             set visibility state of the element
+        :type visible:              (bool)
+        :param metadata:            User metadata that can be set to ANYTHING
+        :type metadata:             (Any)
         """
+
 
 
         self.Text = text
@@ -3430,6 +3514,7 @@ class Checkbox(Element):
         self.Disabled = disabled
         self.TextColor = text_color if text_color else theme_text_color()
         self.RightClickMenu = right_click_menu
+        self.highlight_thickness = highlight_thickness
 
         # ---- compute color of circle background ---
         if checkbox_color is None:
@@ -3729,6 +3814,30 @@ class Spin(Element):
         # if self.ParentForm.CurrentlyRunningMainloop:
         #     Window._window_that_exited = self.ParentForm
         #     self.ParentForm.TKroot.quit()  # kick the users out of the mainloop
+
+
+
+
+    def set_ibeam_color(self, ibeam_color=None):
+        """
+        Sets the color of the I-Beam that is used to "insert" characters. This is oftens called a "Cursor" by
+        many users.  To keep from being confused with tkinter's definition of cursor (the mouse pointer), the term
+        ibeam is used in this case.
+        :param ibeam_color: color to set the "I-Beam" used to indicate where characters will be inserted
+        :type ibeam_color:  (str)
+        """
+
+        if not self._widget_was_created():
+            return
+        if ibeam_color is not None:
+            try:
+                self.Widget.config(insertbackground=ibeam_color)
+            except Exception as e:
+                _error_popup_with_traceback('Error setting I-Beam color in set_ibeam_color',
+                           'The element has a key:', self.Key,
+                            'The color passed in was:', ibeam_color)
+
+
 
     def get(self):
         """
@@ -4171,6 +4280,31 @@ class Multiline(Element):
         # except:
         #     pass
         return
+
+
+
+
+
+    def set_ibeam_color(self, ibeam_color=None):
+        """
+        Sets the color of the I-Beam that is used to "insert" characters. This is oftens called a "Cursor" by
+        many users.  To keep from being confused with tkinter's definition of cursor (the mouse pointer), the term
+        ibeam is used in this case.
+        :param ibeam_color: color to set the "I-Beam" used to indicate where characters will be inserted
+        :type ibeam_color:  (str)
+        """
+
+        if not self._widget_was_created():
+            return
+        if ibeam_color is not None:
+            try:
+                self.Widget.config(insertbackground=ibeam_color)
+            except Exception as e:
+                _error_popup_with_traceback('Error setting I-Beam color in set_ibeam_color',
+                           'The element has a key:', self.Key,
+                            'The color passed in was:', ibeam_color)
+
+
 
     def __del__(self):
         """
@@ -10019,6 +10153,10 @@ class Window:
     _rerouted_stderr_stack = []             # type: List[Tuple[Window, Element]]
     _original_stdout = None
     _original_stderr = None
+    _watermark = None
+    _watermark_temp_forced = False
+    _watermark_user_text = ''
+
     def __init__(self, title, layout=None, default_element_size=None,
                  default_button_element_size=(None, None),
                  auto_size_text=None, auto_size_buttons=None, location=(None, None), relative_location=(None, None), size=(None, None),
@@ -10033,7 +10171,7 @@ class Window:
                  finalize=False, element_justification='left', ttk_theme=None, use_ttk_buttons=None, modal=False, enable_close_attempted_event=False, enable_window_config_events=False,
                  titlebar_background_color=None, titlebar_text_color=None, titlebar_font=None, titlebar_icon=None,
                  use_custom_titlebar=None, scaling=None,
-                 sbar_trough_color=None, sbar_background_color=None, sbar_arrow_color=None, sbar_width=None, sbar_arrow_width=None, sbar_frame_color=None, sbar_relief=None,
+                 sbar_trough_color=None, sbar_background_color=None, sbar_arrow_color=None, sbar_width=None, sbar_arrow_width=None, sbar_frame_color=None, sbar_relief=None, watermark=None,
                  metadata=None):
         """
         :param title:                                The title that will be displayed in the Titlebar and on the Taskbar
@@ -10156,6 +10294,8 @@ class Window:
         :type sbar_frame_color:                      (str)
         :param sbar_relief:                          Scrollbar relief that will be used for the "thumb" of the scrollbar (the thing you grab that slides). Should be a constant that is defined at starting with "RELIEF_" - RELIEF_RAISED, RELIEF_SUNKEN, RELIEF_FLAT, RELIEF_RIDGE, RELIEF_GROOVE, RELIEF_SOLID
         :type sbar_relief:                           (str)
+        :param watermark:                            If True, then turns on watermarking temporarily for ALL windows created from this point forward. See global settings doc for more info
+        :type watermark:                             bool
         :param metadata:                             User metadata that can be set to ANYTHING
         :type metadata:                              (Any)
         """
@@ -10293,6 +10433,14 @@ class Window:
         if self.use_custom_titlebar:
             self.Margins = (0, 0)
             self.NoTitleBar = True
+
+        if watermark is True:
+            Window._watermark_temp_forced = True
+            _global_settings_get_watermark_info()
+        elif watermark is False:
+            Window._watermark = None
+            Window._watermark_temp_forced = False
+
 
         self.ttk_part_overrides = TTKPartOverrides(sbar_trough_color=sbar_trough_color, sbar_background_color=sbar_background_color, sbar_arrow_color=sbar_arrow_color, sbar_width=sbar_width, sbar_arrow_width=sbar_arrow_width, sbar_frame_color=sbar_frame_color, sbar_relief=sbar_relief)
 
@@ -10453,8 +10601,10 @@ class Window:
                            'This item will be stripped from your layout')
                 continue
             self.add_row(*row)
-        if _optional_window_data(self) is not None:
-            self.add_row(_optional_window_data(self))
+        # if _optional_window_data(self) is not None:
+        #     self.add_row(_optional_window_data(self))
+        if Window._watermark is not None:
+            self.add_row(Window._watermark(self))
 
 
 
@@ -16516,8 +16666,10 @@ def PackFormIntoFrame(form, containing_frame, toplevel_form):
 
                 if element.BackgroundColor not in (None, COLOR_SYSTEM_DEFAULT):
                     element.TKEntry.configure(background=element.BackgroundColor, selectforeground=element.BackgroundColor)
+
                 if text_color not in (None, COLOR_SYSTEM_DEFAULT):
                     element.TKEntry.configure(fg=text_color, selectbackground=text_color)
+                    element.TKEntry.config(insertbackground=text_color)
                 if element.selected_background_color not in (None, COLOR_SYSTEM_DEFAULT):
                     element.TKEntry.configure(selectbackground=element.selected_background_color)
                 if element.selected_text_color not in (None, COLOR_SYSTEM_DEFAULT):
@@ -16546,8 +16698,6 @@ def PackFormIntoFrame(form, containing_frame, toplevel_form):
                 if element.Tooltip is not None:
                     element.TooltipObject = ToolTip(element.TKEntry, text=element.Tooltip, timeout=DEFAULT_TOOLTIP_TIME)
                 _add_right_click_menu_and_grab(element)
-                if theme_input_text_color() not in (COLOR_SYSTEM_DEFAULT, None):
-                    element.Widget.config(insertbackground=theme_input_text_color())
 
                 # row_should_expand = True
 
@@ -16599,8 +16749,8 @@ def PackFormIntoFrame(form, containing_frame, toplevel_form):
                                                 "Parent Window's Title: {}".format(toplevel_form.Title))
 
                 # Strange code that is needed to set the font for the drop-down list
-                element._newfont = tkinter.font.Font(font=font)
-                tk_row_frame.option_add("*TCombobox*Listbox*Font", element._newfont)
+                element._dropdown_newfont = tkinter.font.Font(font=font)
+                tk_row_frame.option_add("*TCombobox*Listbox*Font", element._dropdown_newfont)
 
                 element.TKCombo = element.Widget = ttk.Combobox(tk_row_frame, width=width, textvariable=element.TKStringVar, font=font, style=style_name)
 
@@ -16824,6 +16974,7 @@ def PackFormIntoFrame(form, containing_frame, toplevel_form):
                 element.TKText.config(highlightthickness=0)
                 if text_color is not None and text_color != COLOR_SYSTEM_DEFAULT:
                     element.TKText.configure(fg=text_color, selectbackground=text_color)
+                    element.TKText.config(insertbackground=text_color)
                 if element.BackgroundColor is not None and element.BackgroundColor != COLOR_SYSTEM_DEFAULT:
                     element.TKText.configure(background=element.BackgroundColor, selectforeground=element.BackgroundColor)
                 if element.selected_background_color not in (None, COLOR_SYSTEM_DEFAULT):
@@ -16866,7 +17017,6 @@ def PackFormIntoFrame(form, containing_frame, toplevel_form):
                     element.TKText.focus_set()
 
 
-
                 if element.Disabled is True:
                     element.TKText['state'] = 'disabled'
                 if element.Tooltip is not None:
@@ -16876,8 +17026,6 @@ def PackFormIntoFrame(form, containing_frame, toplevel_form):
                     cprint_set_output_destination(toplevel_form, element.Key)
 
                 _add_right_click_menu_and_grab(element)
-                if theme_input_text_color() not in (COLOR_SYSTEM_DEFAULT, None):
-                    element.Widget.config(insertbackground=theme_input_text_color())
 
                 if element.reroute_stdout:
                     element.reroute_stdout_to_here()
@@ -16909,7 +17057,7 @@ def PackFormIntoFrame(form, containing_frame, toplevel_form):
                     element.TKCheckbutton.configure(fg=text_color)
                     element.TKCheckbutton.configure(activeforeground=element.TextColor)
 
-                element.Widget.configure(highlightthickness=1)
+                element.Widget.configure(highlightthickness=element.highlight_thickness)
                 if element.BackgroundColor != COLOR_SYSTEM_DEFAULT:
                     element.TKCheckbutton.config(highlightbackground=element.BackgroundColor)
                 if element.TextColor != COLOR_SYSTEM_DEFAULT:
@@ -17017,6 +17165,9 @@ def PackFormIntoFrame(form, containing_frame, toplevel_form):
                 if element.BackgroundColor is not None and element.BackgroundColor != COLOR_SYSTEM_DEFAULT:
                     element.TKSpinBox.configure(background=element.BackgroundColor)
                     element.TKSpinBox.configure(buttonbackground=element.BackgroundColor)
+                if text_color  not in (None, COLOR_SYSTEM_DEFAULT):
+                    element.TKSpinBox.configure(fg=text_color)
+                    element.TKSpinBox.config(insertbackground=text_color)
                 element.Widget.config(highlightthickness=0)
                 if element.wrap is True:
                     element.Widget.configure(wrap=True)
@@ -17025,8 +17176,6 @@ def PackFormIntoFrame(form, containing_frame, toplevel_form):
                 if element.visible is False:
                     element._pack_forget_save_settings()
                     # element.TKSpinBox.pack_forget()
-                if text_color is not None and text_color != COLOR_SYSTEM_DEFAULT:
-                    element.TKSpinBox.configure(fg=text_color)
                 if element.ChangeSubmits:
                     element.TKSpinBox.configure(command=element._SpinboxSelectHandler)
                     # element.TKSpinBox.bind('<ButtonRelease-1>', element._SpinChangedHandler)
@@ -17040,8 +17189,6 @@ def PackFormIntoFrame(form, containing_frame, toplevel_form):
                     element.TooltipObject = ToolTip(element.TKSpinBox, text=element.Tooltip, timeout=DEFAULT_TOOLTIP_TIME)
                 if element.BindReturnKey:
                     element.TKSpinBox.bind('<Return>', element._SpinboxSelectHandler)
-                if theme_input_text_color() not in (COLOR_SYSTEM_DEFAULT, None):
-                    element.Widget.config(insertbackground=theme_input_text_color())
                 _add_right_click_menu_and_grab(element)
                 # -------------------------  IMAGE placement element  ------------------------- #
             elif element_type == ELEM_TYPE_IMAGE:
@@ -18995,7 +19142,7 @@ def set_options(icon=None, button_color=None, element_size=(None, None), button_
                 enable_mac_notitlebar_patch=None, use_custom_titlebar=None, titlebar_background_color=None, titlebar_text_color=None, titlebar_font=None,
                 titlebar_icon=None, user_settings_path=None, pysimplegui_settings_path=None, pysimplegui_settings_filename=None, keep_on_top=None, dpi_awareness=None, scaling=None, disable_modal_windows=None, force_modal_windows=None, tooltip_offset=(None, None),
                 sbar_trough_color=None, sbar_background_color=None, sbar_arrow_color=None, sbar_width=None, sbar_arrow_width=None, sbar_frame_color=None, sbar_relief=None, alpha_channel=None,
-                hide_window_when_creating=None, use_button_shortcuts=None):
+                hide_window_when_creating=None, use_button_shortcuts=None, watermark_text=None):
     """
     :param icon:                            Can be either a filename or Base64 value. For Windows if filename, it MUST be ICO format. For Linux, must NOT be ICO. Most portable is to use a Base64 of a PNG file. This works universally across all OS's
     :type icon:                             bytes | str
@@ -19129,6 +19276,8 @@ def set_options(icon=None, button_color=None, element_size=(None, None), button_
     :type hide_window_when_creating:        (bool)
     :param use_button_shortcuts:            If True then Shortcut Char will be used with Buttons
     :type use_button_shortcuts:             (bool)
+    :param watermark_text:                  Set the text that will be used if a window is watermarked
+    :type watermark_text:                   (str)
     :return:                                None
     :rtype:                                 None
     """
@@ -19406,6 +19555,10 @@ def set_options(icon=None, button_color=None, element_size=(None, None), button_
 
     if use_button_shortcuts is not None:
         DEFAULT_USE_BUTTON_SHORTCUTS = use_button_shortcuts
+
+    if watermark_text is not None:
+        Window._watermark_user_text = watermark_text
+
     return True
 
 
@@ -25472,6 +25625,25 @@ def _global_settings_get_ttk_scrollbar_info():
     DEFAULT_TTK_THEME = pysimplegui_user_settings.get('-ttk theme-', DEFAULT_TTK_THEME)
 
 
+def _global_settings_get_watermark_info():
+    if not pysimplegui_user_settings.get('-watermark-', False) and not Window._watermark_temp_forced:
+        Window._watermark = None
+        return
+    forced =  Window._watermark_temp_forced
+    prefix_text = pysimplegui_user_settings.get('-watermark text-', '')
+    ver_text = ' ' + version if pysimplegui_user_settings.get('-watermark ver-', False if not forced else True) or forced else ''
+    framework_ver_text = ' ' + framework_version  if pysimplegui_user_settings.get('-watermark framework ver-', False if not forced else True) or forced else ''
+    watermark_font = pysimplegui_user_settings.get('-watermark font-', '_ 9 bold')
+    # background_color = pysimplegui_user_settings.get('-watermark bg color-', 'window.BackgroundColor')
+    user_text = pysimplegui_user_settings.get('-watermark user text-', '')
+    if user_text:
+        text = str(user_text)
+    else:
+        text = prefix_text + ver_text + framework_ver_text
+    Window._watermark = lambda window: Text(text, font=watermark_font, background_color= window.BackgroundColor)
+
+
+
 def main_global_get_screen_snapshot_symcode():
     pysimplegui_user_settings = UserSettings(filename=DEFAULT_USER_SETTINGS_PYSIMPLEGUI_FILENAME, path=DEFAULT_USER_SETTINGS_PYSIMPLEGUI_PATH)
 
@@ -25608,8 +25780,18 @@ def main_global_pysimplegui_settings():
     theme_tab = Tab('Theme',
               [[T('Leave blank for "official" PySimpleGUI default theme: {}'.format(OFFICIAL_PYSIMPLEGUI_THEME))],
               [T('Default Theme For All Programs:'),
-               Combo([''] + theme_list(), settings.get('-theme-', None), readonly=True, k='-THEME-', tooltip=tooltip_theme), Checkbox('Always use custom Titlebar', default=pysimplegui_user_settings.get('-custom titlebar-',False), k='-CUSTOM TITLEBAR-')]],
-                        font='_ 16', expand_x=True)
+               Combo([''] + theme_list(), settings.get('-theme-', None), readonly=True, k='-THEME-', tooltip=tooltip_theme), Checkbox('Always use custom Titlebar', default=pysimplegui_user_settings.get('-custom titlebar-',False), k='-CUSTOM TITLEBAR-')],
+               [Frame('Window Watermarking',
+                       [[Checkbox('Enable Window Watermarking', pysimplegui_user_settings.get('-watermark-', False), k='-WATERMARK-')],
+                       [T('Prefix Text String:'), Input(pysimplegui_user_settings.get('-watermark text-', ''), k='-WATERMARK TEXT-')],
+                       [Checkbox('PySimpleGUI Version', pysimplegui_user_settings.get('-watermark ver-', False), k='-WATERMARK VER-')],
+                       [Checkbox('Framework Version',pysimplegui_user_settings.get('-watermark framework ver-', False), k='-WATERMARK FRAMEWORK VER-')],
+                       [T('Font:'), Input(pysimplegui_user_settings.get('-watermark font-', '_ 9 bold'), k='-WATERMARK FONT-')],
+                       # [T('Background Color:'), Input(pysimplegui_user_settings.get('-watermark bg color-', 'window.BackgroundColor'), k='-WATERMARK BG COLOR-')],
+                        ],
+                font='_ 16', expand_x=True)]])
+
+
 
     # ------------------------- Security Tab -------------------------
     security_tab = Tab('Security',
@@ -25641,6 +25823,12 @@ def main_global_pysimplegui_settings():
             pysimplegui_user_settings.set('-python command-', values['-PYTHON COMMAND-'])
             pysimplegui_user_settings.set('-custom titlebar-', values['-CUSTOM TITLEBAR-'])
             pysimplegui_user_settings.set('-theme-', new_theme)
+            pysimplegui_user_settings.set('-watermark-', values['-WATERMARK-'])
+            pysimplegui_user_settings.set('-watermark text-', values['-WATERMARK TEXT-'])
+            pysimplegui_user_settings.set('-watermark ver-', values['-WATERMARK VER-'])
+            pysimplegui_user_settings.set('-watermark framework ver-', values['-WATERMARK FRAMEWORK VER-'])
+            pysimplegui_user_settings.set('-watermark font-', values['-WATERMARK FONT-'])
+            # pysimplegui_user_settings.set('-watermark bg color-', values['-WATERMARK BG COLOR-'])
 
             # TTK SETTINGS
             pysimplegui_user_settings.set('-ttk theme-', values['-TTK THEME-'])
@@ -25671,6 +25859,7 @@ def main_global_pysimplegui_settings():
             theme(new_theme)
 
             _global_settings_get_ttk_scrollbar_info()
+            _global_settings_get_watermark_info()
 
             window.close()
             return True
@@ -26189,7 +26378,7 @@ def main():
         elif event == 'Get Text':
             popup_scrolled('Returned:', popup_get_text('Enter some text', keep_on_top=True))
         elif event.startswith('-UDEMY-'):
-                webbrowser.open_new_tab(r'https://www.udemy.com/course/pysimplegui/?couponCode=07860559FF2298EF51E7')
+                webbrowser.open_new_tab(r'https://www.udemy.com/course/pysimplegui/?couponCode=A2E4F6B1B75EC3D90133')
         elif event.startswith('-SPONSOR-'):
             if webbrowser_available:
                 webbrowser.open_new_tab(r'https://www.paypal.me/pythongui')
@@ -26197,7 +26386,7 @@ def main():
             if webbrowser_available:
                 webbrowser.open_new_tab(r'https://www.buymeacoffee.com/PySimpleGUI')
         elif event in  ('-EMOJI-HEARTS-', '-HEART-', '-PYTHON HEARTS-'):
-            popup_scrolled("Oh look!  It's a Udemy discount coupon!", '07860559FF2298EF51E7',
+            popup_scrolled("Oh look!  It's a Udemy discount coupon!", 'A2E4F6B1B75EC3D90133',
                            'A personal message from Mike -- thank you so very much for supporting PySimpleGUI!', title='Udemy Coupon', image=EMOJI_BASE64_MIKE, keep_on_top=True)
 
         elif event == 'Themes':
@@ -26329,6 +26518,9 @@ theme(theme_global())
 # ------------------------ Read the ttk scrollbar info ------------------------
 _global_settings_get_ttk_scrollbar_info()
 
+# ------------------------ Read the window watermark info ------------------------
+_global_settings_get_watermark_info()
+
 # See if running on Trinket. If Trinket, then use custom titlebars since Trinket doesn't supply any
 if running_trinket():
     USE_CUSTOM_TITLEBAR = True
@@ -26364,4 +26556,4 @@ if __name__ == '__main__':
         exit(0)
     main()
     exit(0)
-#0d0ea93fb64af026d84d2013aa9668fa13acac5b5c3d26ea2b2210e0a6e41099998caabd813b486f52a22cf3bccc2b436ccb5bc40cd7f20304fe2445708fefaeb36f6438c79adf18db1c0a1ea942010adb37c97a5671f68ed639991d2df6396a2d76c81e8c91fdd42d54c61548253f9e34f991f0f4dcae66bd06eb370f2985d0ee8b7cf7768776bae229e860c019357a4fc8aaa956c93ab7b9d2b871e01a30f8485c04a35bb8a86798ba8f47d33f7afb8c2008a7687200feacb10835a9259620215d7ae19e87a45bcc7cc5c2ceda2419a137deeeb321cb227cfa5d3b5deca3fb2c06aeb98a0379cf61a4a52240129b091724cfc9c0693045a59d9707c0554f797eb6cf921849fd72bf2ff11c2e8ecf347c8b5bb89210a8b099d82ba614ad18b986f35ebea96a921bc9d667fa9c71e0e166451b9d7a45fe8fec665f7dd261354188bc0cc820dfd479da7aaf151934c72918b1dcec66ba8fee0790b495623f32f489a2c3430824186b7910cd91cc398202399ff9787d7cd1f5ad9bf58fbfe0ff79914f09c34a462a1d9d01ad17dc58d16e97a513130228fb3b8cc33eca70ae1b8aa69c1b1ae8b85f8bf2f0c412a40fdc94c5ec4469bc4a650141c50cc3ab3cf356dfc08b9062fd5bdac2e9d24240a3545549c1a9e3e17da862d5d1a85dea10556fecf62b1229cdfcfc10486435b41b519ca8a8ce3bbdbb52b7154fc34184539b73
+#8191dd5d8352d3c13f89bde32cdd01d664da2f4cabeff579ec281e413131545b6aafe489020f8f73c96477dbdf9e86e0013c01759cae8c5837d9d7ea44c7fc75f9af3fb5bce6270b0254f6f6f2d966abc5257991792b3d83880d7690a85e8f4b59e4051b0ff2f7ac1a5fa27d5630c2365d70398b22cda91c1a988c4f19379c4575afb6f6c86e873e0bcda2ed4fc65879a8c4c7a297437742b1ac070de6d04019ffc5e350d6030ce97965d0414ef48ea670ba21bb359319f1c8be7e6da2ff46c727ea82f54eb30d3a74728b5aa20e1412b6812750cfb8cb6122b3e720f0a2c0106d7ddb0eba9313ed763aa3f404221e0d4ffe9bb324a56ebb410e5cd6f45f6b985db5c39369d1fe201fc2ee7c9e8017e8eb7a9e08edafa15ad8a89f6214b75b8e183e2dde4c67350975999d7f74572f0f17d422a9ca430c928f80e2ffee4dd376ce916999b7a263b39783ddf54242b1341e70240c6875832525d87100c9a733d09969465e38226d80ead49508692eb9851eaa4fba26ca5069cb2c6ee88647c79683860d9b12fa598a1d452015d80295a1b59236c38f8fb42edf1aa897db653f8c20ce79836641cc64c1e5975b8400edc98854ab5c26de57241ce8b89979173b84f9cf3e5dd455a63721545001b06af63a8b11ed7889a4e53af7a1527bbd3e14ae6e6a16eb569c79d7213d52e7f276f1a59423fb3a519adc122b73128196aec80a

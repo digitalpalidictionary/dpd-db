@@ -1,5 +1,4 @@
 from db_helpers import get_next_ids
-from tools.pos import POS
 from db_helpers import get_verb_values
 from db_helpers import get_case_values
 from db_helpers import get_root_key_values
@@ -7,8 +6,9 @@ from db_helpers import get_family_word_values
 from db_helpers import get_family_set_values
 from db_helpers import get_compound_type_values
 from db_helpers import get_patterns
+from tools.pos import POS
 
-
+SHOW_FIE_VALUES = ["root", "compound", "neither"]
 VERB_VALUES = get_verb_values()
 TRANS_VALUES = ["", "trans", "intrans", "ditrans"]
 NEG_VALUES = ["", "neg", "neg x2"]
@@ -20,9 +20,13 @@ DERIVATIVE_VALUES = ["", "kicca", "kita", "taddhita"]
 COMPOUND_TYPE_VALUES = get_compound_type_values()
 PATTERN_VALUES = get_patterns()
 
+
+
 # database field tooltips
 id_tooltip = "A unique id.\nNot manually adjustable."
 user_id_tooltip = "A unique user id.\nNot manually adjustable."
+show_fields_tooltip = "What type of word is it? \
+This determines what fields need to be added"
 pali_1_tooltip = "Nouns and partitiplces: vocative singular.\n\
 Verbs: 3rd person singular unless irrgular."
 pali_2_tooltip = "Nominative singular of masc and neuter nouns."
@@ -36,6 +40,7 @@ trans_tooltip = "Transitivity of verbs and active participles.\n\
 Leave blank for other parts of speech."
 plus_case_tooltip = "What case does a related syntactically related word take?"
 meaning_1_tooltip = "Primary meanings, seperated by ';'"
+add_spelling_tooltip = "Add a word to the user dictionary."
 meaning_lit_tooltip = "Literal meaning of the prefix and suffix.\n\
 Leave empty for long compounds."
 meaning_2_tooltip = "Meaning from another dictionary."
@@ -57,12 +62,13 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg)."
 family_root_tooltip = "Prefix(es) and root seperated by a space."
 family_word_tooltip = "Family of the word if not derived from a root."
 family_compound_tooltip = "Family compounds, seperated by space."
-construction_tooltip = "Show all phonetic change."
+construction_tooltip = "Construciton of the word, showing all phonetic change."
 derivative_tooltip = ""
 suffix_tooltip = ""
 phonetic_tooltip = ""
 compound_type_tooltip = ""
 compound_construction_tooltip = ""
+bold_cc_tooltip = ""
 non_root_in_comps_tooltip = ""
 source_1_tooltip = ""
 sutta_1_tooltip = ""
@@ -93,13 +99,36 @@ another_eg_2_tooltip = ""
 
 def make_tab_add_word(sg):
 
-    id, user_id = get_next_ids()
-
     add_word_layout = [
+        [
+            sg.Text("show fields", size=(15, 1)),
+            sg.Radio(
+                "all", "group1",
+                key="show_fields_all",
+                enable_events=True,
+                tooltip=show_fields_tooltip),
+            sg.Radio(
+                "root", "group1",
+                key="show_fields_root",
+                enable_events=True,
+                tooltip=show_fields_tooltip),
+            sg.Radio(
+                "compound", "group1",
+                key="show_fields_compound",
+                enable_events=True,
+                tooltip=show_fields_tooltip),
+            sg.Radio(
+                "neither", "group1",
+                key="show_fields_neither",
+                enable_events=True,
+                tooltip=show_fields_tooltip),
+            sg.Text(
+                "", key="show_fields_error", size=(50, 1), text_color="red")
+        ],
         [
             sg.Text("id", size=(15, 1, )),
             sg.Input(
-                f"{id}", key="id", size=(20, 1),
+                "", key="id", size=(20, 1),
                 readonly=True,
                 disabled_readonly_background_color="black",
                 disabled_readonly_text_color="darkgray",
@@ -107,7 +136,7 @@ def make_tab_add_word(sg):
 
             sg.Text("user_id"),
             sg.Input(
-                f"{user_id}", key="user_id", size=(21, 1),
+                "", key="user_id", size=(21, 1),
                 readonly=True,
                 disabled_readonly_background_color="black",
                 disabled_readonly_text_color="darkgray",
@@ -133,6 +162,7 @@ def make_tab_add_word(sg):
             sg.Text("pos", size=(15, 1)),
             sg.Combo(
                 POS, key="pos", size=(7, 1), enable_events=True,
+                text_color=None, background_color=None,
                 tooltip=pos_tooltip),
             sg.Text(
                 "", key="pos_error", size=(50, 1), text_color="red")
@@ -156,29 +186,35 @@ def make_tab_add_word(sg):
 
         ],
         [
-            sg.Text("verb", size=(15, 1)),
-            sg.Combo(
-                VERB_VALUES, key="verb", size=(13, 1),
-                tooltip=verb_tooltip),
-
-            sg.Text("trans"),
-            sg.Combo(
-                TRANS_VALUES, key="trans", size=(7, 1),
-                tooltip=trans_tooltip),
-            sg.Text(
-                "", key="verb_error", size=(50, 1), text_color="red")
-        ],
-        [
             sg.Text("neg", size=(15, 1)),
             sg.Combo(
-                NEG_VALUES, key="neg", size=(7, 1), tooltip=neg_tooltip),
-
-            sg.Text("case "),
+                    NEG_VALUES, key="neg", size=(7, 1), tooltip=neg_tooltip),
+            sg.Text("", key="neg_error", size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("verb", size=(15, 1)),
+            sg.pin(
+                sg.Combo(
+                    VERB_VALUES, key="verb", size=(13, 1),
+                    tooltip=verb_tooltip)),
+            sg.Text("", key="verb_error", size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("trans", size=(15, 1)),
+            sg.pin(
+                sg.Combo(
+                    TRANS_VALUES, key="trans", size=(7, 1),
+                    tooltip=trans_tooltip)),
+            sg.Text(
+                    "", key="trans_error", size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("case", size=(15, 1)),
             sg.Combo(
                 CASE_VALUES, key="plus_case", size=(20, 1),
                 tooltip=plus_case_tooltip),
             sg.Text(
-                "", key="neg_error", size=(50, 1), text_color="red")
+                "", key="case_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("meaning_1", size=(15, 2)),
@@ -189,79 +225,109 @@ def make_tab_add_word(sg):
                 "", key="meaning_1_error", size=(50, 1), text_color="red")
         ],
         [
+            sg.Text("add_spelling", size=(15, 1)),
+            sg.Input(
+                key="add_spelling", size=(25, 1), tooltip=add_spelling_tooltip),
+            sg.Button("Add", key="add_spelling_button"),
+            sg.Button("Edit", key="edit_spelling_button"),
+            sg.Text(
+                "", key="add_spelling_error", size=(50, 1), text_color="red")
+        ],
+        [
             sg.Text("meaning_lit", size=(15, 1)),
             sg.Input(
                 key="meaning_lit", size=(50, 1),
-                tooltip=meaning_lit_tooltip),
+                enable_events=True, tooltip=meaning_lit_tooltip),
             sg.Text(
-                "", key="meaing_lit_error", size=(50, 1), text_color="red")
+                "", key="meaning_lit_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("meaning_2", size=(15, 1)),
-            sg.Input(key="meaning_2", size=(50, 1), tooltip=meaning_2_tooltip),
+            sg.pin(
+                sg.Input(
+                    key="meaning_2", size=(50, 1),
+                    enable_events=True, tooltip=meaning_2_tooltip),
+            ),
             sg.Text(
                 "", key="meaning_2_error", size=(50, 1), text_color="red")
         ],
         [
-            sg.Text("root_key", key="root_key_label", size=(15, 1)),
-            sg.Combo(
-                ROOT_VALUES, key="root_key", size=(8, 1),
-                tooltip=root_key_tooltip),
-
-            sg.Text("family root*", key="family_root_label"),
-            sg.Combo(
-                values=[], key="family_root", size=(27, 1),
-                enable_events=True,
-                enable_per_char_events=True,
-                tooltip=family_root_tooltip),
+            sg.Text("root_key", size=(15, 1)),
+            sg.pin(
+                sg.Combo(
+                    ROOT_VALUES, key="root_key",
+                    size=(8, 1), tooltip=root_key_tooltip)),
             sg.Text(
                 "", key="root_key_error", size=(50, 1), text_color="red")
         ],
         [
+            sg.Text("family_root*", size=(15, 1)),
+            sg.pin(
+                sg.Combo(
+                    values=[], key="family_root", size=(27, 1),
+                    enable_events=True,
+                    enable_per_char_events=True,
+                    tooltip=family_root_tooltip)),
+            sg.Text(
+                "", key="family_root_error", size=(50, 1), text_color="red")
+        ],
+        [
             sg.Text("root_sign*", size=(15, 1)),
-            sg.Combo(
-                values=[],
-                key="root_sign",
-                size=(10, 1),
-                enable_events=True,
-                enable_per_char_events=True,
-                tooltip=root_sign_tooltip),
-
-            sg.Text("root_base  "),
-            sg.Combo(
-                values=[],
-                key="root_base", size=(26, 1),
-                enable_per_char_events=True,
-                tooltip=root_base_tooltip),
+            sg.pin(
+                sg.Combo(
+                    values=[],
+                    key="root_sign",
+                    size=(10, 1),
+                    enable_events=True,
+                    enable_per_char_events=True,
+                    tooltip=root_sign_tooltip)),
             sg.Text(
                 "", key="root_sign_error",
                 size=(50, 1), text_color="red")
         ],
         [
+            sg.Text("root_base", size=(15, 1)),
+            sg.pin(
+                sg.Combo(
+                    values=[],
+                    key="root_base", size=(26, 1),
+                    enable_per_char_events=True,
+                    tooltip=root_base_tooltip)
+            ),
+            sg.Text(
+                "", key="root_base_error",
+                size=(50, 1), text_color="red")
+        ],
+        [
             sg.Text("family_word", size=(15, 1)),
-            sg.Combo(
-                FAMILY_WORD_VALUES,
-                key="family_word",
-                size=(49, 1),
-                tooltip=family_word_tooltip),
+            sg.pin(
+                sg.Combo(
+                    FAMILY_WORD_VALUES,
+                    key="family_word",
+                    size=(49, 1),
+                    tooltip=family_word_tooltip),
+            ),
             sg.Text(
                 "", key="family_word_error",
                 size=(50, 1), text_color="red")
         ],
         [
-            sg.Text("family_compound", size=(15, 1)),
-            sg.Input(
-                key="family_compound", size=(50, 1),
-                tooltip=family_compound_tooltip),
+            sg.Text("family_compound*", size=(15, 1)),
+            sg.pin(
+                sg.Input(
+                    key="family_compound", size=(50, 1),
+                    enable_events=True,
+                    tooltip=family_compound_tooltip)),
             sg.Text(
                 "", key="family_compound_error",
                 size=(50, 1), text_color="red")
         ],
         [
-            sg.Text("construction*", size=(15, 1)),
-            sg.Input(
+            sg.Text("construction*", size=(15, 2)),
+            sg.Multiline(
                 key="construction",
-                size=(50, 1),
+                no_scrollbar=True,
+                size=(50, 2),
                 enable_events=True,
                 tooltip=construction_tooltip),
             sg.Text(
@@ -270,17 +336,25 @@ def make_tab_add_word(sg):
         ],
         [
             sg.Text("derivative", size=(15, 1)),
-            sg.Combo(
-                values=DERIVATIVE_VALUES, key="derivative", size=(10, 1),
-                enable_per_char_events=True,
-                tooltip=derivative_tooltip),
-
-            sg.Text("suffix*"),
-            sg.Input(
-                key="suffix", size=(31, 1), enable_events=True,
-                tooltip=suffix_tooltip),
+            sg.pin(
+                sg.Combo(
+                    values=DERIVATIVE_VALUES, key="derivative", size=(10, 1),
+                    enable_per_char_events=True,
+                    tooltip=derivative_tooltip)),
             sg.Text(
                 "", key="derivative_error",
+                size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("suffix*", size=(15, 1)),
+            sg.pin(
+                sg.Input(
+                    key="suffix",
+                    enable_events=True,
+                    size=(31, 1),
+                    tooltip=suffix_tooltip)),
+            sg.Text(
+                "", key="suffix_error",
                 size=(50, 1), text_color="red")
         ],
         [
@@ -294,22 +368,38 @@ def make_tab_add_word(sg):
         ],
         [
             sg.Text("compound_type", size=(15, 1)),
-            sg.Combo(
-                COMPOUND_TYPE_VALUES, key="compound_type",
-                size=(49, 1),
-                tooltip=compound_type_tooltip),
+            sg.pin(
+                 sg.Combo(
+                    COMPOUND_TYPE_VALUES, key="compound_type",
+                    size=(49, 1), tooltip=compound_type_tooltip)),
             sg.Text(
                 "", key="compound_type_error",
                 size=(50, 1), text_color="red")
         ],
         [
             sg.Text("compound_construction*", size=(15, 1)),
-            sg.Input(
-                key="compound_construction", size=(50, 1),
-                enable_events=True,
-                tooltip=compound_construction_tooltip),
+            sg.pin(
+                sg.Input(
+                    key="compound_construction", size=(50, 1),
+                    enable_events=True,
+                    tooltip=compound_construction_tooltip)),
             sg.Text(
                 "", key="compound_construction_error",
+                size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("", size=(15, 1)),
+            sg.Input(key="bold_cc", size=(20, 1), tooltip=bold_cc_tooltip),
+            sg.Button("Bold", key="bold_cc_button"),
+        ],
+        [
+            sg.Text("non_root_in_comps", size=(15, 1)),
+            sg.pin(
+                sg.Input(
+                    key="non_root_in_comps", size=(50, 1),
+                    tooltip=non_root_in_comps_tooltip)),
+            sg.Text(
+                "", key="non_root_in_comps_error",
                 size=(50, 1), text_color="red")
         ],
         [
@@ -353,6 +443,8 @@ def make_tab_add_word(sg):
                 "", key="contains", size=(20, 1),
                 tooltip=contains_tooltip),
             sg.Button("Search", key="defintions_search_button"),
+            sg.Text(
+                "", key="search_for_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("notes", size=(15, 1)),
@@ -363,7 +455,9 @@ def make_tab_add_word(sg):
         ],
         [
             sg.Text("non_ia", size=(15, 1)),
-            sg.Input(key="non_ia", size=(50, 41), tooltip=non_ia_tooltip),
+            sg.pin(
+                sg.Input(key="non_ia", size=(50, 41), tooltip=non_ia_tooltip),
+            ),
             sg.Text(
                 "", key="non_ia_error", size=(50, 1), text_color="red")
         ],
@@ -418,43 +512,52 @@ def make_tab_add_word(sg):
             sg.Button(
                 "Another Eg", key="another_eg_1",
                 tooltip=another_eg_1_tooltip),
+            sg.Text("", key="bold_1_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("source_2", size=(15, 1)),
-            sg.Input(key="source_2", size=(50, 1), tooltip=source_2_tooltip),
+            sg.pin(
+                sg.Input(
+                    key="source_2", size=(50, 1), tooltip=source_2_tooltip)),
             sg.Text(
                 "", key="source_2_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("sutta_2", size=(15, 1)),
-            sg.Input(
-                key="sutta_2", size=(50, 1), tooltip=sutta_2_tooltip),
+            sg.pin(
+                sg.Input(
+                    key="sutta_2", size=(50, 1), tooltip=sutta_2_tooltip)),
             sg.Text(
                 "", key="sutta_2_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("example_2", size=(15, 4)),
-            sg.Multiline(
-                key="example_2", size=(50, 4), no_scrollbar=True,
-                tooltip=example_2_tooltip),
+            sg.pin(
+                sg.Multiline(
+                    key="example_2", size=(50, 4), no_scrollbar=True,
+                    tooltip=example_2_tooltip)),
             sg.Text(
                 "", key="example_2_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("", size=(15, 1)),
-            sg.Input(key="bold_2", size=(20, 1), tooltip=bold_2_tooltip),
-            sg.Button("Bold", key="bold_2_button"),
-            sg.Button(
-                "Another Eg", key="another_eg_2",
-                tooltip=another_eg_2_tooltip),
+            sg.pin(
+                 sg.Input(key="bold_2", size=(20, 1), tooltip=bold_2_tooltip)),
+            sg.pin(
+                sg.Button("Bold", key="bold_2_button")),
+            sg.pin(
+                sg.Button(
+                    "Another Eg", key="another_eg_2",
+                    tooltip=another_eg_2_tooltip)),
+            sg.Text("", key="bold_2_error", size=(50, 1), text_color="red")
+
         ],
         [
             sg.Text("family set*", size=(15, 1)),
             sg.Combo(
                 FAMILY_SET_VALUES, key="family_set",
-                size=(50, 1), tooltip=family_set_tooltip),
-            sg.Text(
-                "", key="family_set_error", size=(50, 1), text_color="red")
+                size=(49, 1), tooltip=family_set_tooltip),
+            sg.Text("", key="family_set_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("stem pattern*", size=(15, 1)),
@@ -481,9 +584,11 @@ def make_tab_add_word(sg):
                 vertical_scroll_only=True,
                 expand_y=True,
                 expand_x=True,
-                size=(None, 900),
-                # pad=((0, 100), (0, 0))
+                size=(None, 850),
             ),
+        ],
+        [
+            sg.HSep(),
         ],
         [
             sg.Button("Copy"),
@@ -492,12 +597,19 @@ def make_tab_add_word(sg):
                 size=(15, 1),
                 enable_events=True,
             ),
-            sg.Button("Clear"),
+            sg.Button("Edit", key="edit_button"),
             sg.Button("Test", key="test_internal"),
-            sg.Button("Add to db", key="add_word_db"),
-            sg.Button("Update", key="update_word"),
+            sg.Button("Add to db", key="add_word_to_db"),
+            sg.Button("Update", key="update_word")
+        ],
+        [
             sg.Button("Debug"),
-            sg.Button("Close")
+            sg.Button("Stash", key="stash"),
+            sg.Button("Unstash", key="unstash"),
+            sg.Button("Summary", key="summary"),
+            sg.Button("Open tests", key="open_tests"),
+            sg.Button("Clear"),
+            sg.Button("Close"),
         ]
     ]
 

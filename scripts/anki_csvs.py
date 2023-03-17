@@ -298,12 +298,16 @@ def none_to_empty(values: List):
     return list(map(_to_empty, values))
 
 
-def main():
+def export_anki_csvs():
     vocab()
     commentary()
     pass1()
     full_db()
     roots()
+
+
+def main():
+    export_anki_csvs()
 
 
 if __name__ == "__main__":

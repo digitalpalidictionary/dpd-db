@@ -46,4 +46,13 @@ def window_layout():
 
     window['word_to_copy'].bind("<Return>", "_enter")
     window['book_to_add'].bind("<Return>", "_enter")
+
+    window['meaning_1'].bind('<Tab>', '_tab', propagate=False)
+    window['construction'].bind('<Tab>', '_tab', propagate=False)
+    window['phonetic'].bind('<Tab>', '_tab', propagate=False)
+    window['commentary'].bind('<Tab>', '_tab', propagate=False)
+    window['example_1'].bind('<Tab>', '_tab', propagate=False)
+    window['example_2'].bind('<Tab>', '_tab', propagate=False)
+
+
     return window
