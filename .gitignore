@@ -1,6 +1,14 @@
+__pycache__/
+.pytest_cache
+.coverage
+.vscode/
+
+.venv
+
 *.db
 *.log
 *.sqlite3
+*~lock.*
 *xxx*
 csvs/commentary.csv
 csvs/dpd-full.csv
@@ -24,12 +32,3 @@ sandhi/output_do/*
 sandhi/output/*
 share/*
 tmp/
-xxx delete/*
-
-__pycache__/
-.pytest_cache
-.coverage
-.vscode/
-
-.venv
-

@@ -1,4 +1,4 @@
-from db_helpers import get_next_ids
+# from db_helpers import get_next_ids
 from db_helpers import get_verb_values
 from db_helpers import get_case_values
 from db_helpers import get_root_key_values
@@ -8,7 +8,6 @@ from db_helpers import get_compound_type_values
 from db_helpers import get_patterns
 from tools.pos import POS
 
-SHOW_FIE_VALUES = ["root", "compound", "neither"]
 VERB_VALUES = get_verb_values()
 TRANS_VALUES = ["", "trans", "intrans", "ditrans"]
 NEG_VALUES = ["", "neg", "neg x2"]
@@ -19,8 +18,6 @@ FAMILY_SET_VALUES = get_family_set_values()
 DERIVATIVE_VALUES = ["", "kicca", "kita", "taddhita"]
 COMPOUND_TYPE_VALUES = get_compound_type_values()
 PATTERN_VALUES = get_patterns()
-
-
 
 # database field tooltips
 id_tooltip = "A unique id.\nNot manually adjustable."
@@ -118,8 +115,8 @@ def make_tab_add_word(sg):
                 enable_events=True,
                 tooltip=show_fields_tooltip),
             sg.Radio(
-                "neither", "group1",
-                key="show_fields_neither",
+                "word", "group1",
+                key="show_fields_word",
                 enable_events=True,
                 tooltip=show_fields_tooltip),
             sg.Text(
@@ -227,9 +224,11 @@ def make_tab_add_word(sg):
         [
             sg.Text("add_spelling", size=(15, 1)),
             sg.Input(
-                key="add_spelling", size=(25, 1), tooltip=add_spelling_tooltip),
+                key="add_spelling", size=(25, 1),
+                enable_events=True, tooltip=add_spelling_tooltip),
             sg.Button("Add", key="add_spelling_button"),
             sg.Button("Edit", key="edit_spelling_button"),
+            sg.Button("Check", key="check_spelling_button"),
             sg.Text(
                 "", key="add_spelling_error", size=(50, 1), text_color="red")
         ],
@@ -256,7 +255,7 @@ def make_tab_add_word(sg):
             sg.pin(
                 sg.Combo(
                     ROOT_VALUES, key="root_key",
-                    size=(8, 1), tooltip=root_key_tooltip)),
+                    size=(10, 1), tooltip=root_key_tooltip)),
             sg.Text(
                 "", key="root_key_error", size=(50, 1), text_color="red")
         ],
@@ -264,7 +263,7 @@ def make_tab_add_word(sg):
             sg.Text("family_root*", size=(15, 1)),
             sg.pin(
                 sg.Combo(
-                    values=[], key="family_root", size=(27, 1),
+                    values=[], key="family_root", size=(10, 1),
                     enable_events=True,
                     enable_per_char_events=True,
                     tooltip=family_root_tooltip)),
@@ -290,7 +289,7 @@ def make_tab_add_word(sg):
             sg.pin(
                 sg.Combo(
                     values=[],
-                    key="root_base", size=(26, 1),
+                    key="root_base", size=(10, 1),
                     enable_per_char_events=True,
                     tooltip=root_base_tooltip)
             ),
@@ -438,7 +437,7 @@ def make_tab_add_word(sg):
             sg.Text("search for", size=(15, 1)),
             sg.Input(
                 "", key="search_for", size=(20, 1),
-                tooltip=search_for_tooltip),
+                enable_events=True, tooltip=search_for_tooltip),
             sg.Input(
                 "", key="contains", size=(20, 1),
                 tooltip=contains_tooltip),

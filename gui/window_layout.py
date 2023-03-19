@@ -44,9 +44,13 @@ def window_layout():
         finalize=True,
         )
 
+    # bind enter key for quick search
     window['word_to_copy'].bind("<Return>", "_enter")
     window['book_to_add'].bind("<Return>", "_enter")
+    window['search_for'].bind("<Return>", "_enter")
+    window['contains'].bind("<Return>", "_enter")
 
+    # bind tab keys to jump to next field in multiline elements
     window['meaning_1'].bind('<Tab>', '_tab', propagate=False)
     window['construction'].bind('<Tab>', '_tab', propagate=False)
     window['phonetic'].bind('<Tab>', '_tab', propagate=False)

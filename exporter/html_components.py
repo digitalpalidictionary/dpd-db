@@ -418,7 +418,7 @@ def render_family_compound_templ(i: PaliWord, DB_SESSION) -> str:
             # sort by order of the  family compound list
             word_order = i.family_compound_list
             fc = sorted(fc, key=lambda x: word_order.index(x.compound_family))
-        
+
         else:
             fc = DB_SESSION.query(
                 FamilyCompound

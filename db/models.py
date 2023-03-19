@@ -175,7 +175,10 @@ class PaliWord(Base):
 
     @property
     def root_clean(self) -> str:
-        return re.sub(r" \d.*$", "", self.root_key)
+        try:
+            return re.sub(r" \d.*$", "", self.root_key)
+        except Exception as e:
+            print(f"{self.pali_1}: {e}")
 
     @property
     def family_compound_list(self) -> list:

@@ -13,10 +13,12 @@ from bs4 import BeautifulSoup
 from nltk import sent_tokenize, word_tokenize
 
 from db_helpers import make_all_inflections_set
+from db_helpers import get_family_compound_values
 from tests.helpers import InternalTestRow
 from tools.clean_machine import clean_machine
 from tools.pali_text_files import cst_texts, sc_texts
 from tools.pos import INDECLINEABLES
+
 
 @dataclass()
 class ResourcePaths():
@@ -212,7 +214,6 @@ def open_variant_readings():
         ["code", pth.variant_readings_path])
 
 
-
 def add_stem_pattern(values, window):
     pos = values["pos"]
     grammar = values["grammar"]
@@ -287,6 +288,9 @@ def add_stem_pattern(values, window):
         if pali_1_clean.endswith("ū"):
             window["stem"].update(pali_1_clean[:-1])
             window["pattern"].update("ū fem")
+        if pali_1_clean.endswith("mātar"):
+            window["stem"].update(pali_1_clean[:-5])
+            window["pattern"].update("mātar fem")
 
     elif pos == "nt":
         if pali_1_clean.endswith("a"):
@@ -393,6 +397,7 @@ def add_stem_pattern(values, window):
         window["pattern"].update("")
 
 # !!! add all the plural forms !!!
+
 
 spell = SpellChecker()
 spell.word_frequency.load_text_file(str(pth.user_dict_path))
@@ -577,6 +582,8 @@ def find_sutta_example(sg, values: dict) -> str:
 
     word_to_add = values["word_to_add"][0]
     ps = soup.find_all("p")
+    source_1 = ""
+    sutta_1 = ""
 
     sutta_sentences = []
     for p in ps:
@@ -592,7 +599,7 @@ def find_sutta_example(sg, values: dict) -> str:
 
         text = clean_example(p.text)
 
-        if word_to_add in text:
+        if word_to_add is not None and word_to_add in text:
             sentences = sent_tokenize(text)
             for i, sentence in enumerate(sentences):
                 if word_to_add in sentence:
@@ -638,7 +645,10 @@ def find_sutta_example(sg, values: dict) -> str:
         if values[value] is True:
             number = int(value)
 
-    return sutta_sentences[number]
+    if sutta_sentences != []:
+        return sutta_sentences[number]
+    else:
+        return None
 
 
 def clean_example(text):
@@ -648,7 +658,6 @@ def clean_example(text):
     text = text.replace("…pe॰…", " ... ")
     text = text.replace(";", ",")
     return text
-
 
 
 def make_words_to_add_list(window, book: str) -> list:
@@ -662,7 +671,7 @@ def make_words_to_add_list(window, book: str) -> list:
     text_set = text_set - set(sp_mistakes_list)
     text_set = text_set - set(variant_list)
     text_set = text_set - all_inflections_set
-    text_list = sorted(text_set, key=text_list.index)
+    text_list = sorted(text_set, key=lambda x: text_list.index(x))
     print(f"words_to_add: {len(text_list)}")
 
     return text_list
@@ -776,6 +785,13 @@ def test_integirty_of_tests(internal_tests_list):
 
 def internal_tests(internal_tests_list, values, window, flags, sg):
 
+    # remove all spaces front and back, and doublespaces
+    for value in values:
+        if type(values[value]) == str:
+            values[value] = re.sub(" +", " ", values[value])
+            values[value] = values[value].strip()
+            window[value].update(values[value])
+
     for counter, i in enumerate(internal_tests_list):
 
         # try:
@@ -826,13 +842,17 @@ def internal_tests(internal_tests_list, values, window, flags, sg):
             if i.error_column != "":
                 window[f"{i.error_column}_error"].update(
                     f"{counter+2}. {i.error_message}")
+
             window["messages"].update(
                 f"{message} - failed!", text_color="red")
-            print(f"[red]{message} - failed!")
+
             exception_popup = sg.popup_get_text(
-                f"{message}\nAdd exception? Or cancel to edit.",
+                f"{message}\nClick Ok to add exception or Cancel to edit.",
                 default_text=values["pali_1"],
-                location=(200, 200))
+                location=(200, 200),
+                text_color="white"
+                )
+
             if exception_popup is None:
                 return flags
                 break
@@ -862,6 +882,7 @@ def sandhi_ok(window, word,):
 
 class Flags:
     def __init__(self):
+        self.show_fields = True
         self.pali_2 = True
         self.grammar = True
         self.derived_from = True
@@ -881,6 +902,7 @@ class Flags:
 
 
 def reset_flags(flags):
+    flags.show_fields = True
     flags.pali_2 = True
     flags.grammar = True
     flags.derived_from = True
@@ -946,3 +968,30 @@ def display_summary(values, window, sg):
             break
     window.close()
     return event
+
+
+family_compound_values = get_family_compound_values()
+
+
+def test_family_compound(values, window):
+    family_compounds = values["family_compound"].split()
+    error_string = ""
+    for family_compound in family_compounds:
+        if family_compound not in family_compound_values:
+            error_string += f"{family_compound} "
+
+    window["family_compound_error"].update(
+        error_string, text_color="red")
+
+
+def remove_word_to_add(values, window, words_to_add_list):
+    try:
+        words_to_add_list = [
+            word for word in words_to_add_list
+            if word not in values["word_to_add"]
+        ]
+        window["word_to_add"].update(words_to_add_list)
+    except UnboundLocalError as e:
+        window["messages"].update(e, text_color="red")
+
+    return words_to_add_list

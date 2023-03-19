@@ -8,10 +8,10 @@ from json import loads
 from db.get_db_session import get_db_session
 from db.models import PaliWord, PaliRoot, InflectionTemplates
 from db.models import DerivedData
-from db.db_helpers import print_column_names
+# from db.db_helpers import print_column_names
 from tools.pali_sort_key import pali_sort_key
 
-print_column_names(PaliWord)
+# print_column_names(PaliWord)
 
 db_session = get_db_session("dpd.db")
 
@@ -209,14 +209,16 @@ def copy_word_from_db(values, window):
 
     if pali_word is None:
         window["messages"].update(
-            "{values['word_to_copy']}' not found in db", text_color="red"
+            f"{values['word_to_copy']}' not found in db", text_color="red"
         ),
 
     else:
         exceptions = [
-            "id", "user_id", "pali_1", "pali_2", "origin", "source_1", "sutta_1", "example_1",
-            "source_2", "sutta_2", "example_2", "commentary"
+            "id", "user_id", "pali_1", "pali_2", "origin", "source_1",
+            "sutta_1", "example_1", "source_2", "sutta_2", "example_2",
+            "commentary", "meaning_2"
         ]
+
         attrs = pali_word.__dict__
         for key in attrs.keys():
             if key in values:
@@ -268,7 +270,8 @@ def get_family_root_values(root_key):
     ).filter(
         PaliRoot.root == root_key
     ).first()
-    family_root_values = results.root_family_list
+    if results is not None:
+        family_root_values = results.root_family_list
     return family_root_values
 
 
@@ -314,6 +317,20 @@ def get_family_word_values():
 
 
 # print(get_family_word_values())
+
+
+def get_family_compound_values():
+    results = db_session.query(PaliWord).all()
+    family_compound_values = []
+    for i in results:
+        family_compound_values.extend(i.family_compound_list)
+
+    family_compound_values = sorted(
+        set(family_compound_values), key=pali_sort_key)
+    return family_compound_values
+
+
+# print(get_family_compound_values())
 
 
 def get_derivative_values():

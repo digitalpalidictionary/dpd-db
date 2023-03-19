@@ -25,6 +25,7 @@ pip = "^23.0.1"
 pyspellchecker = "^0.7.1"
 beautifulsoup4 = "^4.11.2"
 nltk = "^3.8.1"
+pyperclip = "^1.8.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"

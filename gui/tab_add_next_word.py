@@ -64,6 +64,15 @@ def make_tab_add_next_word(sg):
                 pad=((100, 0), (0, 0))
             ),
         ],
+        [
+            sg.Button(
+                "remove word from list",
+                key="remove_word",
+                size=(50, 1),
+                enable_events=True,
+                pad=((100, 0), (0, 0))
+            ),
+        ],
     ]
 
     return tab_add_next_word
