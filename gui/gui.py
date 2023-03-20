@@ -18,6 +18,7 @@ from db_helpers import get_synonyms
 from db_helpers import get_sanskrit
 from db_helpers import copy_word_from_db
 from db_helpers import edit_word_in_db
+from db_helpers import get_pali_clean_list
 from functions import get_paths
 from functions import open_in_goldendict
 from functions import sandhi_ok
@@ -44,6 +45,10 @@ from functions import Flags, reset_flags
 from functions import display_summary
 from functions import test_family_compound
 from functions import remove_word_to_add
+from functions import add_to_word_to_add
+from functions import save_gui_state
+from functions import load_gui_state
+from functions import test_construction
 
 from tools.pos import DECLENSIONS, VERBS
 from scripts.backup_to_tsv import backup_db_to_tsvs
@@ -54,17 +59,29 @@ def main():
     pth = get_paths()
     # !!! this is slow !!!
     definitions_df = pd.read_csv(pth.defintions_csv_path, sep="\t")
+    pali_clean_list: list = get_pali_clean_list()
     window = window_layout()
     flags = Flags()
     get_next_ids(window)
-    words_to_add_list = []
+
+    # load the previously saved state of the gui
+    try:
+        saved_values, words_to_add_list = load_gui_state()
+        for key, value in saved_values.items():
+            window[key].update(value)
+        window["word_to_add"].update(words_to_add_list)
+        window["words_to_add_length"].update(len(words_to_add_list))
+    except FileNotFoundError as e:
+        window["messages"].update(
+            f"save_state not found. {e}", text_color="red")
+        words_to_add_list = []
 
     while True:
         event, values = window.read()
 
         if event:
-            print(f"{event=}")
-            print(f"{values=}")
+            print(f"{event}")
+            print(f"{values}")
 
         # tabs jumps to next field in multiline
         if event == "meaning_1_tab":
@@ -86,6 +103,7 @@ def main():
                 window, values["book_to_add"])
 
             if words_to_add_list != []:
+                values["word_to_add"] = [words_to_add_list[0]]
                 window["word_to_add"].update(words_to_add_list)
                 window["words_to_add_length"].update(len(words_to_add_list))
                 print(values)
@@ -103,6 +121,7 @@ def main():
             if values["word_to_add"] != []:
                 open_in_goldendict(values["word_to_add"][0])
                 pyperclip.copy(values["word_to_add"][0])
+                print(window["word_to_add"].get_list_values())
 
         # sandhi ok
 
@@ -114,8 +133,11 @@ def main():
                 words_to_add_list = remove_word_to_add(
                     values, window, words_to_add_list)
                 sandhi_ok(window, values["word_to_add"][0])
+
                 if values["word_to_add"][0] in words_to_add_list:
                     words_to_add_list.remove(values["word_to_add"][0])
+
+                values["word_to_add"] = [words_to_add_list[0]]
                 window["word_to_add"].update(words_to_add_list)
                 window["words_to_add_length"].update(len(words_to_add_list))
                 open_in_goldendict(words_to_add_list[0])
@@ -128,6 +150,7 @@ def main():
             else:
                 words_to_add_list = remove_word_to_add(
                     values, window, words_to_add_list)
+                window["words_to_add_length"].update(len(words_to_add_list))
                 window["tab_add_word"].select()
                 window["pali_1"].update(values["word_to_add"][0])
                 window["search_for"].update(values["word_to_add"][0])
@@ -143,6 +166,7 @@ def main():
             else:
                 words_to_add_list = remove_word_to_add(
                     values, window, words_to_add_list)
+                window["words_to_add_length"].update(len(words_to_add_list))
                 window["tab_fix_sandhi"].select()
                 window["example"].update(values["word_to_add"][0])
                 window["sandhi_to_correct"].update(values["word_to_add"][0])
@@ -155,6 +179,7 @@ def main():
         if event == "remove_word":
             words_to_add_list = remove_word_to_add(
                 values, window, words_to_add_list)
+            window["words_to_add_length"].update(len(words_to_add_list))
 
         # add word events
 
@@ -174,14 +199,13 @@ def main():
             if flags.show_fields:
                 if re.findall(r"\bcomp\b", values["grammar"]) != []:
                     event = "show_fields_compound"
-                else:
-                    event = "show_fields_root"
 
         if event == "derived_from":
             if flags.derived_from:
                 if " of " in values["grammar"] or " from " in values["grammar"]:
                     derived_from = re.sub(
                         ".+( of | from )(.+)(,|$)", r"\2", values["grammar"])
+                    derived_from = re.sub("^na ", "", derived_from)
                     window["derived_from"].update(derived_from)
                     flags.derived_from = False
 
@@ -246,6 +270,7 @@ def main():
 
         if event == "construction":
             if flags.construction and values["construction"] == "":
+                # build a construction from root family and base
                 if values["root_key"] != "":
                     family = values["family_root"].replace(" ", " + ")
                     neg = ""
@@ -259,10 +284,22 @@ def main():
                         family = re.sub("√.+", base, family)
                     window["construction"].update(f"{neg}{family} + ")
 
-                elif "comp" in values["grammar"]:
+                # if compound update with pali_1
+                elif re.findall(r"\bcomp\b", values["grammar"]) != []:
                     window["construction"].update(values["pali_1"])
 
                 flags.construction = False
+
+            # test construciton for missing headwords
+            if values["root_key"] == "":
+                test_construction(values, window, pali_clean_list)
+
+        if (event == "add_construction_enter" or
+                event == "add_construction_button"):
+            words_to_add_list = add_to_word_to_add(
+                values, window, words_to_add_list)
+            window["word_to_add"].update(words_to_add_list)
+            window["words_to_add_length"].update(len(words_to_add_list))
 
         if event == "derivative":
             print("hello")
@@ -326,15 +363,15 @@ def main():
             if sutta_sentences is not None:
 
                 try:
-                    window["source_1"].update(sutta_sentences["source_1"])
-                    window["sutta_1"].update(sutta_sentences["sutta_1"])
-                    window["example_1"].update(sutta_sentences["example_1"])
+                    window["source_1"].update(sutta_sentences["source"])
+                    window["sutta_1"].update(sutta_sentences["sutta"])
+                    window["example_1"].update(sutta_sentences["example"])
                 except KeyError as e:
                     window["messages"].update(e, text_color="red")
 
             flags.example_1 = False
 
-        if event == "bold_1_button":
+        if event == "bold_1_button" or event == "bold_1_enter":
             example_1_bold = re.sub(
                 values["bold_1"],
                 f"<b>{values['bold_1']}</b>",
@@ -344,17 +381,32 @@ def main():
 
         if event == "another_eg_2":
             if values["book_to_add"] == "":
-                window["source_2_error"].update(
-                    "no book to add", text_color="red")
-            elif values["word_to_add"] == []:
-                window["source_2_error"].update(
-                    "no word to add", text_color="red")
-            else:
-                sutta_sentences = find_sutta_example(sg, values)
-                window["source_2"].update(sutta_sentences["source_1"])
-                window["sutta_2"].update(sutta_sentences["sutta_1"])
-                window["example_2"].update(sutta_sentences["example_1"])
-                flags.example_1 = False
+                book_to_add = sg.popup_get_text(
+                    "Which book?", title=None,
+                    location=(400, 400))
+                values["book_to_add"] = book_to_add
+                window["book_to_add"].update(book_to_add)
+
+            if values["word_to_add"] == []:
+                word_to_add = sg.popup_get_text(
+                    "What word?", default_text=values["pali_1"],
+                    title=None,
+                    location=(400, 400))
+                values["word_to_add"] = [word_to_add]
+                window["word_to_add"].update([word_to_add])
+
+            sutta_sentences = find_sutta_example(sg, values)
+
+            if sutta_sentences is not None:
+
+                try:
+                    window["source_2"].update(sutta_sentences["source"])
+                    window["sutta_2"].update(sutta_sentences["sutta"])
+                    window["example_2"].update(sutta_sentences["example"])
+                except KeyError as e:
+                    window["messages"].update(e, text_color="red")
+
+            flags.example_2 = False
 
         if event == "bold_2_button":
             example_2_bold = re.sub(
@@ -436,6 +488,7 @@ def main():
                         get_next_ids(window)
                         reset_flags(flags)
                         remove_word_to_add(values, window, words_to_add_list)
+                        window["words_to_add_length"].update(len(words_to_add_list))
 
         if event == "update_word":
             if flags.tested is False:
@@ -450,18 +503,20 @@ def main():
                         get_next_ids(window)
                         reset_flags(flags)
                         remove_word_to_add(values, window, words_to_add_list)
-
+                        window["words_to_add_length"].update(len(words_to_add_list))
 
         if event == "Debug":
             print(f"{values}")
 
         if event == sg.WIN_CLOSED:
+            save_gui_state(values, words_to_add_list)
             break
 
         if event == "Close":
             window["messages"].update(
                 "backing up db to csvs", text_color="white")
             backup_db_to_tsvs()
+            save_gui_state(values, words_to_add_list)
             # export_anki_csvs()
             break
 
@@ -502,6 +557,7 @@ def main():
                 window[value].update(visible=True)
                 window["bold_cc_button"].update(visible=True)
                 window["bold_2_button"].update(visible=True)
+                window["another_eg_2"].update(visible=True)
                 flags.show_fields = False
 
         if event == "show_fields_root":

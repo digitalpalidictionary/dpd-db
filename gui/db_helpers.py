@@ -456,3 +456,8 @@ def make_all_inflections_set():
 
     print(f"all_inflections_set: {len(all_inflections_set)}")
     return all_inflections_set
+
+
+def get_pali_clean_list():
+    results = db_session.query(PaliWord).all()
+    return [i.pali_clean for i in results]

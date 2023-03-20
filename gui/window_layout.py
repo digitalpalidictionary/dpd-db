@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import PySimpleGUI as sg
-from db_helpers import get_next_ids
 from tab_add_next_word import make_tab_add_next_word
 from tab_add_word import make_tab_add_word
 from tab_fix_sandhi import make_tab_fix_sandhi
@@ -31,7 +30,7 @@ def window_layout():
     )
 
     layout = [
-        [tab_group], 
+        [tab_group],
         [sg.Text(
             "svāgataṃ", key="messages", text_color="white", font=(None, 12))]
     ]
@@ -49,6 +48,8 @@ def window_layout():
     window['book_to_add'].bind("<Return>", "_enter")
     window['search_for'].bind("<Return>", "_enter")
     window['contains'].bind("<Return>", "_enter")
+    window['bold_1'].bind("<Return>", "_enter")
+    window['add_construction'].bind("<Return>", "_enter")
 
     # bind tab keys to jump to next field in multiline elements
     window['meaning_1'].bind('<Tab>', '_tab', propagate=False)
@@ -57,6 +58,5 @@ def window_layout():
     window['commentary'].bind('<Tab>', '_tab', propagate=False)
     window['example_1'].bind('<Tab>', '_tab', propagate=False)
     window['example_2'].bind('<Tab>', '_tab', propagate=False)
-
 
     return window

@@ -60,6 +60,7 @@ family_root_tooltip = "Prefix(es) and root seperated by a space."
 family_word_tooltip = "Family of the word if not derived from a root."
 family_compound_tooltip = "Family compounds, seperated by space."
 construction_tooltip = "Construciton of the word, showing all phonetic change."
+add_construction_tooltip = "Add this word to the words to add list."
 derivative_tooltip = ""
 suffix_tooltip = ""
 phonetic_tooltip = ""
@@ -126,17 +127,13 @@ def make_tab_add_word(sg):
             sg.Text("id", size=(15, 1, )),
             sg.Input(
                 "", key="id", size=(20, 1),
-                readonly=True,
-                disabled_readonly_background_color="black",
-                disabled_readonly_text_color="darkgray",
+                background_color="black",
                 tooltip=id_tooltip),
 
             sg.Text("user_id"),
             sg.Input(
                 "", key="user_id", size=(21, 1),
-                readonly=True,
-                disabled_readonly_background_color="black",
-                disabled_readonly_text_color="darkgray",
+                background_color="black",
                 tooltip=user_id_tooltip),
             sg.Text(
                 "", key="id_error", size=(50, 1), text_color="red")
@@ -332,6 +329,18 @@ def make_tab_add_word(sg):
             sg.Text(
                 "", key="construction_error",
                 size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("", size=(15, 1)),
+            sg.pin(
+                 sg.Input(
+                    key="add_construction", size=(20, 1),
+                    tooltip=add_construction_tooltip)),
+            sg.pin(
+                sg.Button("Add", key="add_construction_button")),
+            sg.Text(
+                "", key="add_construction_error", size=(50, 1),
+                text_color="red")
         ],
         [
             sg.Text("derivative", size=(15, 1)),
@@ -549,7 +558,6 @@ def make_tab_add_word(sg):
                     "Another Eg", key="another_eg_2",
                     tooltip=another_eg_2_tooltip)),
             sg.Text("", key="bold_2_error", size=(50, 1), text_color="red")
-
         ],
         [
             sg.Text("family set*", size=(15, 1)),

@@ -89,6 +89,7 @@ def main():
 
             elif i.pattern == "":
                 derived_data = DerivedData(
+                    id=i.id,
                     pali_1=i.pali_1,
                     inflections=json.dumps(
                         (list([i.pali_clean])), ensure_ascii=False))

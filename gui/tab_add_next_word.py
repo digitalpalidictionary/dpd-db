@@ -17,7 +17,8 @@ def make_tab_add_next_word(sg):
         ],
         [
             sg.Listbox(
-                values=[], key="word_to_add",
+                values=[],
+                key="word_to_add",
                 size=(51, 1), pad=((100, 0), (0, 0)),
                 enable_events=True
                 ),

@@ -343,8 +343,6 @@ def main():
     global db_session
     db_session = get_db_session(pth["dpd_db_path"])
 
-    copy_sandhi_related_dir()
-
     cst_text_set = make_cst_text_set(include)
     sc_text_set = make_sc_text_set(include)
     # bjt_text_set = make_bjt_text_set(include)

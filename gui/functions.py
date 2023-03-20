@@ -2,6 +2,7 @@ import re
 import csv
 import subprocess
 import textwrap
+import pickle
 
 from json import dumps
 from spellchecker import SpellChecker
@@ -40,6 +41,7 @@ class ResourcePaths():
     internal_tests_path: Path
     stash_path: Path
     user_dict_path: Path
+    save_state_path: Path
 
 
 def get_paths() -> ResourcePaths:
@@ -79,7 +81,9 @@ def get_paths() -> ResourcePaths:
         stash_path=Path(
             "gui/stash/stash"),
         user_dict_path=Path(
-            "tools/user_dictionary.txt"
+            "tools/user_dictionary.txt"),
+        save_state_path=Path(
+            "gui/stash/gui_state"
         )
     )
     return pth
@@ -582,38 +586,81 @@ def find_sutta_example(sg, values: dict) -> str:
 
     word_to_add = values["word_to_add"][0]
     ps = soup.find_all("p")
-    source_1 = ""
-    sutta_1 = ""
+    source = ""
+    sutta = ""
 
     sutta_sentences = []
     for p in ps:
 
         if p["rend"] == "subhead":
-            source_1 = values["book_to_add"].upper()
+            source = values["book_to_add"].upper()
             # add space to digtis
-            source_1 = re.sub(r"(?<=[A-Za-z])(?=\d)", " ", source_1)
+            source = re.sub(r"(?<=[A-Za-z])(?=\d)", " ", source)
             sutta_number = p.next_sibling.next_sibling["n"]
-            source_1 = f"{source_1}.{sutta_number}"
+            source = f"{source}.{sutta_number}"
             # remove the digits and the dot in sutta name
-            sutta_1 = re.sub(r"\d*\. ", "", p.text)
+            sutta = re.sub(r"\d*\. ", "", p.text)
 
         text = clean_example(p.text)
 
         if word_to_add is not None and word_to_add in text:
-            sentences = sent_tokenize(text)
-            for i, sentence in enumerate(sentences):
-                if word_to_add in sentence:
-                    prev_sentence = sentences[i - 1] if i > 0 else ""
-                    next_sentence = sentences[i +
-                                              1] if i < len(sentences)-1 else ""
-                    sutta_sentences += [{
-                        "source_1": source_1,
-                        "sutta_1": sutta_1,
-                        "example_1": f"{prev_sentence} {sentence} {next_sentence}"}]
 
-    # print(sutta_sentences)
+            # compile gathas line by line
+            if "gatha" in p["rend"]:
+                example = ""
 
-    sentences_list = [sentence["example_1"] for sentence in sutta_sentences]
+                while True:
+                    if p.text == "\n":
+                        p = p.previous_sibling
+                    elif p["rend"] == "gatha1":
+                        break
+                    elif p["rend"] == "gatha2":
+                        p = p.previous_sibling
+                    elif p["rend"] == "gatha3":
+                        p = p.previous_sibling
+                    elif p["rend"] == "gathalast":
+                        p = p.previous_sibling
+
+                text = clean_gatha(p.text)
+                text = text.replace(".", ",\n")
+                example += text
+
+                while True:
+                    p = p.next_sibling
+                    if p.text == "\n":
+                        pass
+                    elif p["rend"] == "gatha2":
+                        text = clean_gatha(p.text)
+                        text = text.replace(".", ",")
+                        example += text
+                    elif p["rend"] == "gatha3":
+                        text = clean_gatha(p.text)
+                        text = text.replace(".", ",")
+                        example += text
+                    elif p["rend"] == "gathalast":
+                        text = clean_gatha(p.text)
+                        example += text
+                        break
+
+                sutta_sentences += [{
+                    "source": source,
+                    "sutta": sutta,
+                    "example": example}]
+
+            # or compile sentences
+            else:
+                sentences = sent_tokenize(text)
+                for i, sentence in enumerate(sentences):
+                    if word_to_add in sentence:
+                        prev_sentence = sentences[i - 1] if i > 0 else ""
+                        next_sentence = sentences[i +
+                                                1] if i < len(sentences)-1 else ""
+                        sutta_sentences += [{
+                            "source": source,
+                            "sutta": sutta,
+                            "example": f"{prev_sentence} {sentence} {next_sentence}"}]
+
+    sentences_list = [sentence["example"] for sentence in sutta_sentences]
 
     layout = [[
         sg.Radio(
@@ -652,12 +699,37 @@ def find_sutta_example(sg, values: dict) -> str:
 
 
 def clean_example(text):
+    text = text.lower()
     text = text.replace("‘", "")
     text = text.replace(" – ", ", ")
     text = text.replace("’", "")
     text = text.replace("…pe॰…", " ... ")
     text = text.replace(";", ",")
+    text = text.replace("  ", " ")
+    text = text.replace("..", ".")
     return text
+
+
+def clean_gatha(text):
+    text = clean_example(text)
+    text = text.replace(", ", ",\n")
+    text = text.strip()
+    return text
+
+
+def find_gathalast(p, example):
+
+    while p["rend"] != "gathalast":
+        p = p.next_sibling
+        if p.text == "\n":
+            pass
+        elif p["rend"] == "gatha2":
+            example += p.text
+        elif p["rend"] == "gatha3":
+            example += p.text
+        elif p["rend"] == "gathalast":
+            example += p.text
+        p = p.next_sibling
 
 
 def make_words_to_add_list(window, book: str) -> list:
@@ -995,3 +1067,35 @@ def remove_word_to_add(values, window, words_to_add_list):
         window["messages"].update(e, text_color="red")
 
     return words_to_add_list
+
+
+def add_to_word_to_add(values, window, words_to_add_list):
+    if values["add_construction"]:
+        words_to_add_list.insert(1, values["add_construction"])
+
+    return words_to_add_list
+
+
+def save_gui_state(values, words_to_add_list):
+    save_state: tuple = (values, words_to_add_list)
+    print(f"[green]saving gui state, values:{len(values)}, words_to_add_list: {len(words_to_add_list)}")
+    with open(pth.save_state_path, "wb") as f:
+        pickle.dump(save_state, f)
+
+
+def load_gui_state():
+    with open(pth.save_state_path, "rb") as f:
+        save_state = pickle.load(f)
+    values = save_state[0]
+    words_to_add_list = save_state[1]
+    print(f"[green]loading gui state, values:{len(values)}, words_to_add_list: {len(words_to_add_list)}")
+    return values, words_to_add_list
+
+
+def test_construction(values, window, pali_clean_list):
+    construction_list = values["construction"].split(" + ")
+    error_string = ""
+    for c in construction_list:
+        if c not in pali_clean_list:
+            error_string += f"{c} "
+    window["construction_error"].update(error_string, text_color="red")
