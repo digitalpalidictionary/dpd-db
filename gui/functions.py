@@ -555,8 +555,11 @@ def transliterate_xml(xml):
     return xml
 
 
-def find_sutta_example(sg, values: dict) -> str:
-    filename = cst_texts[values["book_to_add"]][0].replace(".txt", "")
+def find_sutta_example(sg, window, values: dict) -> str:
+    try:
+        filename = cst_texts[values["book_to_add"]][0].replace(".txt", "")
+    except KeyError as e:
+        window["messages"].update(e, text_color="red")
 
     with open(
             pth.cst_xml_dir.joinpath(filename), "r", encoding="UTF-16") as f:
@@ -1071,7 +1074,11 @@ def remove_word_to_add(values, window, words_to_add_list):
 
 def add_to_word_to_add(values, window, words_to_add_list):
     if values["add_construction"]:
-        words_to_add_list.insert(1, values["add_construction"])
+        words_to_add_list.insert(0, values["add_construction"])
+        window["add_construction"].update("")
+        window["messages"].update(
+            f"{values['add_construction']} added to words to add list",
+            text_color="white")
 
     return words_to_add_list
 

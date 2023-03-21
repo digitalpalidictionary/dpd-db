@@ -196,10 +196,6 @@ def main():
                     window["grammar"].update(f"{values['pos']}, ")
                 flags.grammar = False
 
-            if flags.show_fields:
-                if re.findall(r"\bcomp\b", values["grammar"]) != []:
-                    event = "show_fields_compound"
-
         if event == "derived_from":
             if flags.derived_from:
                 if " of " in values["grammar"] or " from " in values["grammar"]:
@@ -208,6 +204,15 @@ def main():
                     derived_from = re.sub("^na ", "", derived_from)
                     window["derived_from"].update(derived_from)
                     flags.derived_from = False
+
+            # hide irrelevant fields
+            if flags.show_fields:
+                if re.findall(r"\bcomp\b", values["grammar"]) != []:
+                    event = "show_fields_compound"
+                    flags.show_fields = True
+                else:
+                    event = "show_fields_root"
+                    flags.show_fields = True
 
         if event == "add_spelling":
             field = "meaning_1"
@@ -352,13 +357,13 @@ def main():
 
             if values["word_to_add"] == []:
                 word_to_add = sg.popup_get_text(
-                    "What word?", default_text=values["pali_1"],
+                    "What word?", default_text=values["pali_1"][:-1],
                     title=None,
                     location=(400, 400))
                 values["word_to_add"] = [word_to_add]
                 window["word_to_add"].update([word_to_add])
 
-            sutta_sentences = find_sutta_example(sg, values)
+            sutta_sentences = find_sutta_example(sg, window, values)
 
             if sutta_sentences is not None:
 

@@ -140,9 +140,10 @@ def add_word_to_db(window, values: dict) -> None:
                 f"'{values['pali_1']}' added to db",
                 text_color="white")
             return True
+
         except Exception as e:
-            window["messages"].update(
-                f"{str(e)}", text_color="red")
+            window["messages"].update(f"{str(e)}", text_color="red")
+            db_session.rollback()
             return False
 
 
@@ -176,6 +177,7 @@ def update_word_in_db(window, values: dict) -> None:
         except Exception as e:
             window["messages"].update(
                 f"{str(e)}", text_color="red")
+            db_session.rollback()
             return False
 
 

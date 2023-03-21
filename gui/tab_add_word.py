@@ -173,7 +173,8 @@ def make_tab_add_word(sg):
         [
             sg.Text("derived_from*", size=(15, 1)),
             sg.Input(
-                key="derived_from", size=(50, 1), enable_events=True,
+                key="derived_from", size=(50, 1),
+                enable_events=True,
                 tooltip=derived_from_tooltip),
             sg.Text(
                 "", key="derived_from_error", size=(50, 1), text_color="red")
@@ -506,9 +507,9 @@ def make_tab_add_word(sg):
                 "", key="sutta_1_error", size=(50, 1), text_color="red")
         ],
         [
-            sg.Text("example_1*", size=(15, 4)),
+            sg.Text("example_1*", size=(15, 5)),
             sg.Multiline(
-                key="example_1", size=(50, 4), no_scrollbar=True,
+                key="example_1", size=(50, 5), no_scrollbar=True,
                 enable_events=True, tooltip=example_1_tooltip),
             sg.Text(
                 "", key="example_1_error", size=(50, 1), text_color="red")
@@ -539,10 +540,10 @@ def make_tab_add_word(sg):
                 "", key="sutta_2_error", size=(50, 1), text_color="red")
         ],
         [
-            sg.Text("example_2", size=(15, 4)),
+            sg.Text("example_2", size=(15, 5)),
             sg.pin(
                 sg.Multiline(
-                    key="example_2", size=(50, 4), no_scrollbar=True,
+                    key="example_2", size=(50, 5), no_scrollbar=True,
                     tooltip=example_2_tooltip)),
             sg.Text(
                 "", key="example_2_error", size=(50, 1), text_color="red")
