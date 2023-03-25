@@ -413,7 +413,7 @@ def get_sanskrit(construction: str) -> str:
                     if constr_split != constr_splits[-1]:
                         sanskrit += f"{i.sanskrit} + "
                     else:
-                        sanskrit += f"{i.sanskrit}"
+                        sanskrit += f"{i.sanskrit} "
                     already_added += [i.sanskrit]
 
     return sanskrit

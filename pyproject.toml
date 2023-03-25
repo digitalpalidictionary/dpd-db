@@ -26,10 +26,14 @@ pyspellchecker = "^0.7.1"
 beautifulsoup4 = "^4.11.2"
 nltk = "^3.8.1"
 pyperclip = "^1.8.2"
+css-html-js-minify = "^2.5.5"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"
 flake8 = "^6.0.0"
+bandit = "^1.7.5"
+pylint = "^2.17.0"
+pylama = "^8.4.1"
 
 [build-system]
 requires = ["poetry-core"]

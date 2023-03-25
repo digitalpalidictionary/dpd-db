@@ -128,13 +128,18 @@ def make_spelling_mistakes_set():
         correction = sp_mistakes_df.loc[row, 1]
 
         if mistake in spelling_mistakes_dict:
-            spelling_mistakes_dict[mistake] += [
-                (f"incorrect spelling of <i>{correction}</i>", "spelling", "sp", "-")]
+            spelling_mistakes_dict[mistake] += [(
+                f"incorrect spelling of <i>{correction}</i>",
+                "spelling", "sp", "-")]
         else:
-            spelling_mistakes_dict[mistake] = [
-                (f"incorrect spelling of <i>{correction}</i>", "spelling", "sp", "-")]
+            spelling_mistakes_dict[mistake] = [(
+                f"incorrect spelling of <i>{correction}</i>",
+                "spelling", "sp", "-")]
 
-    return spelling_mistakes_set, spelling_corrections_set, spelling_mistakes_dict
+    return (
+        spelling_mistakes_set,
+        spelling_corrections_set,
+        spelling_mistakes_dict)
 
 
 def make_variant_readings_set():
@@ -176,11 +181,13 @@ def make_variant_readings_set():
         correction = variant_reading_df.loc[row, 1]
 
         if variant in variant_dict:
-            variant_dict[variant] += [
-                (f"variant reading of <i>{correction}</i>", "variant", "var", "-")]
+            variant_dict[variant] += [(
+                f"variant reading of <i>{correction}</i>",
+                "variant", "var", "-")]
         else:
-            variant_dict[variant] = [
-                (f"variant reading of <i>{correction}</i>", "variant", "var", "-")
+            variant_dict[variant] = [(
+                f"variant reading of <i>{correction}</i>",
+                "variant", "var", "-")
             ]
 
     return variant_readings_set, variant_corrections_set, variant_dict
@@ -275,10 +282,8 @@ def make_all_inflections_set(sandhi_exceptions_set):
 
     all_inflections_set = all_inflections_set - sandhi_exceptions_set
 
-    try:
+    if "" in all_inflections_set:
         all_inflections_set.remove("")
-    except Exception:
-        pass
 
     print(f"[white]{len(all_inflections_set):,}")
 
@@ -309,10 +314,8 @@ def make_neg_inflections_set(sandhi_exceptions_set):
 
     neg_inflections_set = neg_inflections_set - sandhi_exceptions_set
 
-    try:
+    if "" in neg_inflections_set:
         neg_inflections_set.remove("")
-    except Exception:
-        pass
 
     print(f"[white]{len(neg_inflections_set):,}")
 
@@ -373,7 +376,8 @@ def main():
         text_set = text_set - variant_readings_set
         text_set = text_set - abbreviations_set
         text_set = text_set - manual_corrections_set
-        text_set.remove("")
+        if "" in text_set:
+            text_set.remove("")
 
         print(f"[white]{len(text_set):,}")
 

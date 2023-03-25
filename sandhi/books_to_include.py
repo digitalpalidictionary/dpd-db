@@ -1,6 +1,6 @@
 include = [
     "vin1", "vin2",
-    # "vin3", "vin4", "vin5",
+    "vin3", "vin4", "vin5",
     "dn1", "dn2", "dn3",
     "mn1", "mn2", "mn3",
     "sn1", "sn2", "sn3", "sn4", "sn5",

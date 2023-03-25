@@ -51,7 +51,7 @@ from functions import load_gui_state
 from functions import test_construction
 
 from tools.pos import DECLENSIONS, VERBS
-from scripts.backup_to_tsv import backup_db_to_tsvs
+from db.db_to_tsv import backup_db_to_tsvs
 # from scripts.anki_csvs import export_anki_csvs
 
 
@@ -377,12 +377,17 @@ def main():
             flags.example_1 = False
 
         if event == "bold_1_button" or event == "bold_1_enter":
+            # bold
             example_1_bold = re.sub(
                 values["bold_1"],
                 f"<b>{values['bold_1']}</b>",
                 values["example_1"])
             window["example_1"].update(example_1_bold)
             window["bold_1"].update("")
+
+        if event == "example_1_lower":
+            values["example_1"] = values["example_1"].lower()
+            window["example_1"].update(values["example_1"])
 
         if event == "another_eg_2":
             if values["book_to_add"] == "":
@@ -400,7 +405,7 @@ def main():
                 values["word_to_add"] = [word_to_add]
                 window["word_to_add"].update([word_to_add])
 
-            sutta_sentences = find_sutta_example(sg, values)
+            sutta_sentences = find_sutta_example(sg, window, values)
 
             if sutta_sentences is not None:
 
@@ -414,12 +419,17 @@ def main():
             flags.example_2 = False
 
         if event == "bold_2_button":
+            # bold
             example_2_bold = re.sub(
                 values["bold_2"],
                 f"<b>{values['bold_2']}</b>",
                 values["example_2"])
             window["example_2"].update(example_2_bold)
             window["bold_2"].update("")
+
+        if event == "example_2_lower":
+            values["example_2"] = values["example_2"].lower()
+            window["example_2"].update(values["example_2"])
 
         if event == "synonym":
             if flags.synoyms:

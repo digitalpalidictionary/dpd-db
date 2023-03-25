@@ -31,6 +31,9 @@ def generate_sandhi_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
     with open(PTH.sandhi_css_path) as f:
         sandhi_css = f.read()
 
+    from css_html_js_minify import css_minify
+    sandhi_css = css_minify(sandhi_css)
+
     header = render_header_tmpl(css=sandhi_css, js="")
 
     bip()
@@ -41,16 +44,10 @@ def generate_sandhi_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
         if i.sandhi not in clean_headwords_set:
             html = header
             html += "<body>"
-            html += render_sandhi_templ(splits)
+            html += render_sandhi_templ(i, splits)
             html += "</body></html>"
 
-            # html = minify(
-            #     html,
-            #     minify_js=True,
-            #     minify_css=True,
-            #     keep_closing_tags=True,
-            #     remove_processing_instructions=True
-            # )
+            html = minify(html)
 
             synonyms = add_niggahitas([i.sandhi])
             synonyms += loads(i.sinhala)
@@ -64,7 +61,7 @@ def generate_sandhi_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
                 "synonyms": synonyms
             }]
 
-            if counter % 25000 == 0:
+            if counter % 5000 == 0:
                 with open(f"xxx delete/exporter_sandhi/{i.sandhi}.html", "w") as f:
                     f.write(html)
                 print(

@@ -16,6 +16,7 @@ class ResourcePaths():
     # directories
     templates_dir: Path
     zip_dir: Path
+    output_dir: Path
     # css
     dpd_css_path: Path
     roots_css_path: Path
@@ -39,6 +40,7 @@ class ResourcePaths():
     feedback_templ_path: Path
     # output
     zip_path: Path
+    mdict_mdx_path: Path
     # root templates
     root_definition_templ_path: Path
     root_button_templ_path: Path
@@ -55,6 +57,11 @@ class ResourcePaths():
     help_tsv_path: Path
     bibliography_path: Path
     thanks_path: Path
+    # tpr
+    tpr_sql_file_path: Path
+    tpr_download_list_path: Path
+    tpr_release_path: Path
+    tpr_beta_path: Path
 
 
 def get_paths() -> ResourcePaths:
@@ -64,8 +71,9 @@ def get_paths() -> ResourcePaths:
         templates_dir=Path(
             "exporter/templates"),
         zip_dir=Path(
-            "exporter/share"
-        ),
+            "exporter/share"),
+        output_dir=Path(
+            "exporter/output"),
 
         # css
         dpd_css_path=Path(
@@ -112,6 +120,8 @@ def get_paths() -> ResourcePaths:
         # output
         zip_path=Path(
             "exporter/share/dpdv2.zip"),
+        mdict_mdx_path=Path(
+            "exporter/share/dpd-mdict.mdx"),
 
         # root tempaltes
         root_definition_templ_path=Path(
@@ -143,12 +153,23 @@ def get_paths() -> ResourcePaths:
         bibliography_path=Path(
             "../digitalpalidictionary-website-source/src/bibliography.md"),
         thanks_path=Path(
-            "../digitalpalidictionary-website-source/src/thanks.md")
+            "../digitalpalidictionary-website-source/src/thanks.md"),
+
+        # tpr
+        tpr_sql_file_path=Path(
+            "exporter/output/dpd.sql"),
+        tpr_download_list_path=Path(
+            "resources/tpr_downloads/download_source_files/download_list.json"),
+        tpr_release_path=Path(
+            "resources/tpr_downloads/download_source_files/dictionaries/dpd.zip"),
+        tpr_beta_path=Path(
+            "resources/tpr_downloads/download_source_files/dictionaries/dpd_beta.zip"),
+
         )
 
     # ensure dirs exist
     for d in [
-        pth.zip_dir,
+        pth.zip_dir, pth.output_dir
     ]:
         d.mkdir(parents=True, exist_ok=True)
 
@@ -182,3 +203,15 @@ def cf_set_gen():
 
 
 CF_SET: set = cf_set_gen()
+
+
+def make_roots_count_dict(DB_SESSION):
+    roots_db = DB_SESSION.query(PaliWord).all()
+    roots_count_dict = {}
+    for i in roots_db:
+        if i.root_key in roots_count_dict:
+            roots_count_dict[i.root_key] += 1
+        else:
+            roots_count_dict[i.root_key] = 1
+
+    return roots_count_dict

@@ -17,25 +17,20 @@ from tools.timeis import tic, toc
 tic()
 print("[bright_yellow]create infection templates")
 
-dpd_db_path = Path("dpd.db")
-db_session = get_db_session(dpd_db_path)
-
+db_session = get_db_session("dpd.db")
 db_session.query(InflectionTemplates).delete()
+inflection_templates_path = Path("inflections/inflection_templates.xlsx")
 
+# create index 
 inflection_template_index_df = pd.read_excel(
-    "../inflection generator/declensions & conjugations.xlsx",
-    sheet_name="index", dtype=str)
-
+    inflection_templates_path, sheet_name="index", dtype=str)
 inflection_template_index_df.fillna("", inplace=True)
-
 inflection_template_index_length = len(inflection_template_index_df)
 
+# create templates
 inflection_template_df = pd.read_excel(
-    "../inflection generator/declensions & conjugations.xlsx",
-    sheet_name="declensions", dtype=str)
-
+    inflection_templates_path, sheet_name="declensions", dtype=str)
 inflection_template_df = inflection_template_df.shift(periods=2)
-
 inflection_template_df.columns = [
     "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
     "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
@@ -47,9 +42,9 @@ inflection_template_df.columns = [
     "CI", "CJ", "CK", "CL", "CM", "CN", "CO", "CP", "CQ", "CR", "CS", "CT",
     "CU", "CV", "CW", "CX", "CY", "CZ", "DA", "DB", "DC", "DD", "DE", "DF",
     "DG", "DH", "DI", "DJ", "DK"]
-
 inflection_template_df.fillna("", inplace=True)
 
+# 
 templates: List[InflectionTemplates] = []
 
 for row in range(inflection_template_index_length):
@@ -87,7 +82,10 @@ for row in range(inflection_template_index_length):
     )
 
     search = db_session.query(
-        InflectionTemplates).filter(InflectionTemplates.pattern == t.pattern).all()
+        InflectionTemplates
+        ).filter(
+            InflectionTemplates.pattern == t.pattern
+        ).all()
 
     if len(search) == 0:
         db_session.add(t)

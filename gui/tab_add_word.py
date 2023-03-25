@@ -521,6 +521,7 @@ def make_tab_add_word(sg):
             sg.Button(
                 "Another Eg", key="another_eg_1",
                 tooltip=another_eg_1_tooltip),
+            sg.Button("Lower", key="example_1_lower"),
             sg.Text("", key="bold_1_error", size=(50, 1), text_color="red")
         ],
         [
@@ -558,6 +559,7 @@ def make_tab_add_word(sg):
                 sg.Button(
                     "Another Eg", key="another_eg_2",
                     tooltip=another_eg_2_tooltip)),
+            sg.Button("Lower", key="example_2_lower"),
             sg.Text("", key="bold_2_error", size=(50, 1), text_color="red")
         ],
         [

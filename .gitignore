@@ -33,3 +33,6 @@ sandhi/output/*
 share/*
 tmp/
 csvs/*
+exporter/output/dpd.sql
+gui/stash/gui_state
+gui/stash/stash

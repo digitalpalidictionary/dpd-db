@@ -50,6 +50,9 @@ def generate_help_html(DB_SESSION, PTH: Path) -> list:
     with open(PTH.help_css_path) as f:
         css = f.read()
 
+    from css_html_js_minify import css_minify
+    css = css_minify(css)
+
     header = render_header_tmpl(css=css, js="")
     help_data_list: List[dict] = []
 
@@ -87,13 +90,7 @@ def add_abbrev_html(PTH: Path, header: str, help_data_list: list) -> list:
         html += render_abbrev_templ(i)
         html += "</body></html>"
 
-        # html = minify(
-        #     html,
-        #     minify_js=True,
-        #     minify_css=True,
-        #     keep_closing_tags=True,
-        #     remove_processing_instructions=True
-        # )
+        html = minify(html)
 
         help_data_list += [{
             "word": i.abbrev,
@@ -130,13 +127,7 @@ def add_help_html(PTH: Path, header: str, help_data_list: list) -> list:
         html += render_help_templ(i)
         html += "</body></html>"
 
-        # html = minify(
-        #     html,
-        #     minify_js=True,
-        #     minify_css=True,
-        #     keep_closing_tags=True,
-        #     remove_processing_instructions=True
-        # )
+        html = minify(html)
 
         help_data_list += [{
             "word": i.help,
@@ -165,13 +156,7 @@ def add_bibliographhy(PTH: Path, header: str, help_data_list: list) -> list:
     html += markdown.markdown(md)
     html += "</div></body></html>"
 
-    # html = minify(
-    #     html,
-    #     minify_js=True,
-    #     minify_css=True,
-    #     keep_closing_tags=True,
-    #     remove_processing_instructions=True
-    # )
+    html = minify(html)
 
     synonyms = ["dpd bibliography", "bibliography", "bib"]
 
@@ -202,11 +187,7 @@ def add_thanks(PTH: Path, header: str, help_data_list: list) -> list:
     html += markdown.markdown(md)
     html += "</div></body></html>"
 
-    html = minify(
-        html,
-        minify_js=True,
-        remove_processing_instructions=True,
-    )
+    html = minify(html)
 
     synonyms = ["dpd thanks", "thankyou", "thanks", "anumodana"]
 

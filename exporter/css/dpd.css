@@ -105,6 +105,12 @@ span.gray {
     color: gray;
 }
 
+a.jump {
+    color:#00A4CC;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 table.family td,
 table.family th {
     text-align: left;
@@ -115,6 +121,10 @@ table.family th {
     color: #00A4CC;
     font-weight: 700;
     white-space: nowrap;
+}
+
+table.family td {
+    padding-right: 7px;
 }
 
 table.family b {
@@ -145,6 +155,8 @@ a.button {
     text-decoration: none;
     user-select: none;
 }
+
+
 
 a.button.close {
     float: right;

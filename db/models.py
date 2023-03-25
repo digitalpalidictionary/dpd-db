@@ -21,6 +21,17 @@ class Base(DeclarativeBase):
     pass
 
 
+class InflectionTemplates(Base):
+    __tablename__ = "inflection_templates"
+
+    pattern: Mapped[str] = mapped_column(primary_key=True)
+    like: Mapped[Optional[str]] = mapped_column(default='')
+    data: Mapped[Optional[str]] = mapped_column(default='')
+
+    def __repr__(self) -> str:
+        return f"InflectionTemplates: {self.pattern} {self.like} {self.data}"
+
+
 class PaliRoot(Base):
     __tablename__ = "pali_roots"
 
@@ -50,18 +61,24 @@ class PaliRoot(Base):
     panini_english: Mapped[Optional[str]] = mapped_column(default='')
     note: Mapped[Optional[str]] = mapped_column(default='')
     matrix_test: Mapped[Optional[str]] = mapped_column(default='')
+    root_info: Mapped[Optional[str]] = mapped_column(default='')
+    root_matrix: Mapped[Optional[str]] = mapped_column(default='')
 
     created_at: Mapped[Optional[DateTime]] = mapped_column(
         DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[Optional[DateTime]] = mapped_column(
         DateTime(timezone=True), onupdate=func.now())
 
-    pali_words: Mapped[List["PaliWord"]] = relationship(
-        back_populates="pali_root")
+    pw: Mapped[List["PaliWord"]] = relationship(
+        back_populates="rt")
 
     @property
     def root_clean(self) -> str:
         return re.sub(r" \d.*$", "", self.root)
+
+    @property
+    def root_no_sign(self) -> str:
+        return re.sub(r"\d| |√", "", self.root)
 
     @property
     def root_(self) -> str:
@@ -155,19 +172,29 @@ class PaliWord(Base):
     origin: Mapped[Optional[str]] = mapped_column(default='')
 
     stem: Mapped[str] = mapped_column(default='')
-    pattern: Mapped[Optional[str]] = mapped_column(default='')
+    pattern: Mapped[Optional[str]] = mapped_column(
+        ForeignKey("inflection_templates.pattern"), default='')
 
     created_at: Mapped[Optional[DateTime]] = mapped_column(
         DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[Optional[DateTime]] = mapped_column(
         DateTime(timezone=True), onupdate=func.now())
 
-    pali_root: Mapped[PaliRoot] = relationship(
-        back_populates="pali_words", uselist=False)
+    rt: Mapped[PaliRoot] = relationship(
+        # back_populates="pali_words",
+        uselist=False)
+
+    dd = relationship("DerivedData", uselist=False)
+
+    it: Mapped[InflectionTemplates] = relationship()
 
     @property
     def pali_1_(self) -> str:
         return self.pali_1.replace(" ", "_").replace(".", "_")
+
+    @property
+    def pali_link(self) -> str:
+        return self.pali_1.replace(" ", "%20")
 
     @property
     def pali_clean(self) -> str:
@@ -186,6 +213,13 @@ class PaliWord(Base):
             return self.family_compound.split(" ")
         else:
             return [self.family_compound]
+
+    @property
+    def family_set_list(self) -> list:
+        if self.family_set:
+            return self.family_set.split("; ")
+        else:
+            return [self.family_set]
 
     @property
     def root_count(self) -> int:
@@ -209,22 +243,10 @@ class PaliWord(Base):
             self.meaning_1}"""
 
 
-class InflectionTemplates(Base):
-    __tablename__ = "inflection_templates"
-
-    id: Mapped[int] = mapped_column(primary_key=True)
-    pattern: Mapped[str] = mapped_column(unique=True)
-    like: Mapped[Optional[str]] = mapped_column(default='')
-    data: Mapped[Optional[str]] = mapped_column(default='')
-
-    def __repr__(self) -> str:
-        return f"InflectionTemplates: {self.pattern} {self.like} {self.data}"
-
-
 class DerivedData(Base):
     __tablename__ = "derived_data"
 
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(ForeignKey('pali_words.id'), primary_key=True)
     pali_1: Mapped[str] = mapped_column(unique=True)
     inflections: Mapped[Optional[str]] = mapped_column(default='')
     sinhala: Mapped[Optional[str]] = mapped_column(default='')

@@ -1,25 +1,31 @@
 #!/usr/bin/env python3.11
 # coding: utf-8
 
+
+"""Transliterate all words with \
+1. changed stem & pattern or \
+2. changed inflection template \
+into Sinhala, Devanagari and Thai, and write back into db."""
+
+
 import json
 import pickle
 
-from rich import print
 from typing import Dict
 from pathlib import Path
-from aksharamukha import transliterate
 from subprocess import check_output
+from aksharamukha import transliterate
+from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord, DerivedData
+from db.models import PaliWord
 from tools.timeis import tic, toc
 
-regenerate_all = True
+REGENERATE_ALL = False
 
 dpd_db_path = Path("dpd.db")
 db_session = get_db_session(dpd_db_path)
 dpd_db = db_session.query(PaliWord).all()
-derived_db = db_session.query(DerivedData).all()
 
 with open("share/changed_headwords", "rb") as f:
     changed_headwords: list = pickle.load(f)
@@ -31,6 +37,8 @@ translit_dict: Dict = {}
 
 
 def main():
+    """It's the main function."""
+
     tic()
     print("[bright_yellow]transliterating inflections")
 
@@ -47,20 +55,20 @@ def main():
     for counter, i in enumerate(dpd_db):
         test1 = i.pattern in changed_templates
         test2 = i.pali_1 in changed_headwords
-        test3 = regenerate_all
+        test3 = REGENERATE_ALL
 
         if test1 or test2 or test3:
-            find = db_session.query(DerivedData).filter(
-                    DerivedData.pali_1 == i.pali_1).first()
-            if not find:
-                print(f"\t[red]{i.pali_1} not found")
-            inflections: list = json.loads(find.inflections)
+            inflections: list = json.loads(i.dd.inflections)
             inflections_index_dict[counter] = i.pali_1
             inflections_for_json_dict[i.pali_1] = {"inflections": inflections}
 
             # inflections_to_transliterate_string += (f"{i.pali_1}\t")
             for inflection in inflections:
                 inflections_to_transliterate_string += f"{inflection},"
+            inflections_to_transliterate_string += "\n"
+
+        else:
+            inflections_index_dict[counter] = i.pali_1
             inflections_to_transliterate_string += "\n"
 
     # saving json for path nirvana transliterator
@@ -90,31 +98,28 @@ def main():
 
     print("[green]making inflections dictionary")
 
-    counter: int = 0
-    for line in sinhala_lines[:-1]:
-        headword: str = inflections_index_dict[counter]
-        sinhala_inflections_set: set = set(line.split(","))
-        sinhala_inflections_set.remove('')
-        translit_dict[headword] = {
-            "sinhala": sinhala_inflections_set,
-            "devanagari": set(), "thai": set()}
-        counter += 1
+    for counter, line in enumerate(sinhala_lines[:-1]):
+        if line:
+            headword: str = inflections_index_dict[counter]
+            sinhala_inflections_set: set = set(line.split(","))
+            sinhala_inflections_set.remove('')
+            translit_dict[headword] = {
+                "sinhala": sinhala_inflections_set,
+                "devanagari": set(), "thai": set()}
 
-    counter: int = 0
-    for line in devanagari_lines[:-1]:
-        headword: str = inflections_index_dict[counter]
-        devanagari_inflections_set: set = set(line.split(","))
-        devanagari_inflections_set.remove('')
-        translit_dict[headword]["devanagari"] = devanagari_inflections_set
-        counter += 1
+    for counter, line in enumerate(devanagari_lines[:-1]):
+        if line:
+            headword: str = inflections_index_dict[counter]
+            devanagari_inflections_set: set = set(line.split(","))
+            devanagari_inflections_set.remove('')
+            translit_dict[headword]["devanagari"] = devanagari_inflections_set
 
-    counter: int = 0
-    for line in thai_lines[:-1]:
-        headword: str = inflections_index_dict[counter]
-        thai_inflections_set: set = set(line.split(","))
-        thai_inflections_set.remove('')
-        translit_dict[headword]["thai"] = thai_inflections_set
-        counter += 1
+    for counter, line in enumerate(thai_lines[:-1]):
+        if line:
+            headword: str = inflections_index_dict[counter]
+            thai_inflections_set: set = set(line.split(","))
+            thai_inflections_set.remove('')
+            translit_dict[headword]["thai"] = thai_inflections_set
 
     # path nirvana transliteration using node.js
     # pali-script.mjs produces different orthography from akshramusha
@@ -136,44 +141,30 @@ def main():
         new_inflections: dict = json.load(f)
         print(f"{len(new_inflections)}")
 
-    counter: int = 0
-    # !!! can delete these
+    for headword, values in new_inflections.items():
+        if values["sinhala"]:
 
-    sinhala_count: int = 0
-    devanagari_count = 0
-    thai_count: int = 0
+            translit_dict[headword]["sinhala"].update(
+                set(new_inflections[headword]["sinhala"]))
 
-    for headword in new_inflections:
-        translit_dict[headword]["sinhala"].update(
-            set(new_inflections[headword]["sinhala"]))
-        sinhala_count += 1
+            translit_dict[headword]["devanagari"].update(
+                set(new_inflections[headword]["devanagari"]))
 
-        translit_dict[headword]["devanagari"].update(
-            set(new_inflections[headword]["devanagari"]))
-        devanagari_count += 1
-
-        translit_dict[headword]["thai"].update(
-            set(new_inflections[headword]["thai"]))
-        thai_count += 1
-        counter += 1
-
-    print(f"[green]sinhala: {sinhala_count}")
-    print(f"[green]devanagari: {devanagari_count}")
-    print(f"[green]thai: {thai_count}")
+            translit_dict[headword]["thai"].update(
+                set(new_inflections[headword]["thai"]))
 
     # write back into database
-
     print("[green]writing to db")
 
-    for i in derived_db:
+    for i in dpd_db:
         if i.pali_1 in translit_dict:
 
-            i.sinhala = json.dumps(
+            i.dd.sinhala = json.dumps(
                 list(translit_dict[i.pali_1]["sinhala"]), ensure_ascii=False)
-            i.devanagari = json.dumps(
+            i.dd.devanagari = json.dumps(
                 list(translit_dict[i.pali_1]["devanagari"]),
                 ensure_ascii=False)
-            i.thai = json.dumps(
+            i.dd.thai = json.dumps(
                 list(translit_dict[i.pali_1]["thai"]), ensure_ascii=False)
 
     db_session.commit()

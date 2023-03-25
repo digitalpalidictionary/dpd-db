@@ -1,24 +1,25 @@
 #!/usr/bin/env python3.11
 
-import numpy as np
-import pandas as pd
 import os
 import pickle
 import json
 
+import numpy as np
+import pandas as pd
+
 from rich import print
-from helpers import get_resource_paths
 from difflib import SequenceMatcher
 from pathlib import Path
 
-from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
+from helpers import get_resource_paths
 from db.get_db_session import get_db_session
 from db.models import Sandhi
 from transliterate_sandhi import transliterate_sandhi
+from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.timeis import tic, toc
 
 
-add_do = False
+ADD_DO = False
 
 
 def process_matches(neg_inflections_set):
@@ -28,7 +29,7 @@ def process_matches(neg_inflections_set):
     print("reading csvs")
     matches_df = pd.read_csv(pth["matches_path"], dtype=str, sep="\t")
 
-    if add_do is True:
+    if ADD_DO is True:
         matches_do_df = pd.read_csv(
             pth["matches_do_path"], dtype=str, sep="\t")
         matches_df = pd.concat([matches_df, matches_do_df], ignore_index=True)
@@ -193,7 +194,7 @@ def unzip_and_copy():
     print("[white]ok")
 
 
-def rule_counts(matches_df):
+def make_rule_counts(matches_df):
     print("[green]saving rule counts", end=" ")
 
     rules_list = matches_df[['rules']].values.tolist()
@@ -248,7 +249,7 @@ def main():
     tic()
     print("[bright_yellow]post-processing sandhi-splitter")
 
-    if add_do is True:
+    if ADD_DO is True:
         print("[green]add digital ocean [orange]true")
     else:
         print("[green]add digital ocean [orange]false")
@@ -267,7 +268,7 @@ def main():
     top_five_dict = make_top_five_dict(matches_df)
     add_to_dpd_db(top_five_dict)
     transliterate_sandhi()
-    rule_counts(matches_df)
+    make_rule_counts(matches_df)
     letter_counts(matches_df)
     make_golden_dict(top_five_dict)
     unzip_and_copy()

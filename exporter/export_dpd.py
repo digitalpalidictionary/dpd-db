@@ -29,6 +29,9 @@ def generate_dpd_html(DB_SESSION, PTH):
     with open(PTH.dpd_css_path) as f:
         dpd_css = f.read()
 
+    from css_html_js_minify import css_minify
+    dpd_css = css_minify(dpd_css)
+
     with open(PTH.buttons_js_path) as f:
         button_js = f.read()
 
@@ -85,15 +88,7 @@ def generate_dpd_html(DB_SESSION, PTH):
         html += render_feedback_templ(i)
         html += "</body></html>"
 
-        # html = minify(
-        #     html,
-        #     do_not_minify_doctype=True,
-        #     ensure_spec_compliant_unquoted_attribute_values=True,
-        #     keep_spaces_between_attributes=True,
-        #     minify_css=True,
-        #     keep_closing_tags=True,
-        #     remove_processing_instructions=True
-        # )
+        html = minify(html)
 
         synonyms: list = loads(dd.inflections)
         synonyms = add_niggahitas(synonyms)

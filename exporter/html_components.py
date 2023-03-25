@@ -11,6 +11,7 @@ from db.models import FamilyRoot
 from db.models import FamilyWord
 from db.models import FamilyCompound
 from db.models import FamilySet
+from db.models import Sandhi
 
 from helpers import get_paths
 from helpers import CF_SET
@@ -21,7 +22,6 @@ from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.pos import INDECLINEABLES
 from tools.pali_sort_key import pali_sort_key
-from tools.superscripter import superscripter_uni
 
 TODAY = date.today()
 PTH = get_paths()
@@ -498,10 +498,10 @@ def render_feedback_templ(i: PaliWord) -> str:
     )
 
 
-def render_root_definition_templ(r: PaliRoot, info: PaliRoot):
+def render_root_definition_templ(r: PaliRoot, roots_count_dict):
     """render html of main root info"""
 
-    count = info.count
+    count = roots_count_dict[r.root]
 
     return str(
         root_definition_templ.render(
@@ -519,8 +519,6 @@ def render_root_buttons_templ(r: PaliRoot, DB_SESSION):
         FamilyRoot
         ).filter(
             FamilyRoot.root_id == r.root,
-            FamilyRoot.root_family != "info",
-            FamilyRoot.root_family != "matrix",
         )
 
     frs = sorted(frs, key=lambda x: pali_sort_key(x.root_family))
@@ -533,32 +531,25 @@ def render_root_buttons_templ(r: PaliRoot, DB_SESSION):
     )
 
 
-def render_root_info_templ(r: PaliRoot, info: PaliRoot):
+def render_root_info_templ(r: PaliRoot):
     """render html of root grammatical info"""
 
     return str(
         root_info_templ.render(
             r=r,
-            info=info,
             today=TODAY
         )
     )
 
 
-def render_root_matrix_templ(r: PaliRoot, DB_SESSION):
+def render_root_matrix_templ(r: PaliRoot, roots_count_dict):
     """render html of root matrix"""
-
-    fr = DB_SESSION.query(
-        FamilyRoot
-    ).filter(
-        FamilyRoot.root_id == r.root,
-        FamilyRoot.root_family == "matrix",
-    ).first()
+    count = roots_count_dict[r.root]
 
     return str(
         root_matrix_templ.render(
             r=r,
-            fr=fr,
+            count=count,
             today=TODAY
         )
     )
@@ -586,9 +577,10 @@ def render_root_families_templ(r: PaliRoot, DB_SESSION):
     )
 
 
-def render_sandhi_templ(splits: list) -> str:
+def render_sandhi_templ(i, splits: list) -> str:
     return str(
         sandhi_templ.render(
+            i=i,
             splits=splits,
             today=TODAY
         )

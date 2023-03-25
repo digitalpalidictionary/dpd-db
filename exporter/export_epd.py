@@ -29,6 +29,10 @@ def generate_epd_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
 
     with open(PTH.epd_css_path) as f:
         epd_css: str = f.read()
+
+    from css_html_js_minify import css_minify
+    epd_css = css_minify(epd_css)
+
     header = render_header_tmpl(epd_css, js="")
 
     bip()
@@ -100,13 +104,7 @@ def generate_epd_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
         html_string += f"<div class ='epd'><p>{html}</p></div>"
         html_string += "</body></html>"
 
-        # html = minify(
-        #     html_string,
-        #     minify_js=True,
-        #     minify_css=True,
-        #     keep_closing_tags=True,
-        #     remove_processing_instructions=True
-        # )
+        html_string = minify(html_string)
 
         epd_data_list += [{
             "word": word,

@@ -5,6 +5,7 @@ set -e
 # inflections/create_inflections_templates.py
 # inflections/generate_inflection_tables.py
 # inflections/transliterate_inflections.py
+# inflections/inflections_to_headwords.py
 sandhi/setup.py
 sandhi/splitter.py
 sandhi/postprocess.py

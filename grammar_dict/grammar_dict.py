@@ -27,7 +27,7 @@ def main():
     """generating a grammar dictionary which shows
     all grammatical possibilities of every inflection"""
 
-    print("[bright_yellow]grammar dicitonary")
+    print("[bright_yellow]grammar dictionary")
 
     pth = get_paths()
 
@@ -67,7 +67,7 @@ def main():
 
     # tipitaka word set
     with open(pth.tipitaka_words_path) as f:
-        reader = csv.reader(f)
+        reader = csv.reader(f, delimiter="\t")
         tipitaka_word_set = set([row[0] for row in reader])
         print(f"[green]all tipitaka words{len(tipitaka_word_set):>22,}")
 
@@ -85,6 +85,7 @@ def main():
 
     # all words set
     all_words_set = tipitaka_word_set | sandhi_split_set
+
     print(f"[green]all words{len(all_words_set):>31,}")
 
     print(f"[green]generating grammar dictionary")
@@ -223,7 +224,7 @@ def make_data_lists(grammar_dict_html):
             "synonyms": synonyms
         }]
 
-        md_data_list = [{
+        md_data_list += [{
             "word": k,
             "definition_html": f"<h3>{k}</h3>{v}",
             "definition_plain": "",

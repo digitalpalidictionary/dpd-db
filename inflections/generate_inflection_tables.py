@@ -33,6 +33,7 @@ with open("share/all_tipitaka_words", "rb") as f:
 
 
 def main():
+    """main program"""
     tic()
     print("[bright_yellow]generate inflection lists and html tables")
 
@@ -65,14 +66,10 @@ def main():
                     db_session.delete(exists)
 
             if i.pattern != "":
-                t = db_session.query(InflectionTemplates).filter(
-                    InflectionTemplates.pattern == i.pattern).first()
-                table_data = json.loads(t.data)
-
-                html, inflections_list = generate_inflection_table(
-                    i, t, table_data)
+                html, inflections_list = generate_inflection_table(i)
 
                 derived_data = DerivedData(
+                    id=i.id,
                     pali_1=i.pali_1,
                     inflections=json.dumps(
                         inflections_list, ensure_ascii=False),
@@ -81,6 +78,7 @@ def main():
 
                 if "!" in i.stem:
                     derived_data = DerivedData(
+                        id=i.id,
                         pali_1=i.pali_1,
                         inflections=json.dumps(
                             (list([i.pali_clean])), ensure_ascii=False),
@@ -109,7 +107,7 @@ def main():
     with open("share/changed_templates", "wb") as f:
         pickle.dump(changed_templates, f)
 
-    # # !!! # find all unused patterns
+    # # !!! find all unused patterns !!!
 
     db_session.commit()
     db_session.close()
@@ -117,6 +115,7 @@ def main():
 
 
 def test_inflection_template_changed():
+    """test if the inflection template has changes since the last run"""
 
     try:
         with open("share/inflection_templates", "rb") as f:
@@ -131,7 +130,7 @@ def test_inflection_template_changed():
             if new_template.pattern == old_template.pattern:
                 if new_template.data != old_template.data:
                     changed_templates.append(new_template.pattern)
-    if changed_templates != []:
+    if changed_templates:
         print(f"	[red]{changed_templates}")
 
     print("[green]testing for added patterns")
@@ -170,6 +169,7 @@ def test_inflection_template_changed():
 
 
 def test_missing_stem() -> None:
+    """test for missing stem in db"""
     print("[green]testing for missing stem")
 
     for i in dpd_db:
@@ -182,6 +182,7 @@ def test_missing_stem() -> None:
 
 
 def test_missing_pattern() -> None:
+    """test for missing pattern in db"""
     print("[green]testing for missing pattern")
 
     for i in dpd_db:
@@ -193,6 +194,7 @@ def test_missing_pattern() -> None:
 
 
 def test_wrong_pattern() -> None:
+    """test if pattern exists in inflection templates"""
     print("[green]testing for wrong patterns")
 
     tables = db_session.query(InflectionTemplates).all()
@@ -214,6 +216,7 @@ def test_wrong_pattern() -> None:
 
 
 def test_changes_in_stem_pattern() -> None:
+    """test for changes in stem and pattern since last run"""
     print("[green]testing for changes in stem and pattern")
 
     with open("share/headword_stem_pattern_dict", "rb") as f:
@@ -224,8 +227,8 @@ def test_changes_in_stem_pattern() -> None:
         new_dict[i.pali_1] = {
             "stem": i.stem, "pattern": i.pattern}
 
-    for headword in new_dict:
-        if new_dict[headword] != old_dict.get(headword, None):
+    for headword, value in new_dict.items():
+        if value != old_dict.get(headword, None):
             print(f"\t[red]{headword}")
             changed_headwords.append(headword)
 
@@ -242,6 +245,7 @@ def test_changes_in_stem_pattern() -> None:
 
 
 def test_missing_inflection_list_html() -> None:
+    """test for missing inflections in derived_data table"""
     print("[green]testing for missing inflection list and html tables")
 
     derived_db = db_session.query(DerivedData).all()
@@ -252,6 +256,7 @@ def test_missing_inflection_list_html() -> None:
 
 
 def test_changes() -> None:
+    """run all the tests"""
     test_inflection_template_changed()
     test_missing_stem()
     test_missing_pattern()
@@ -260,20 +265,21 @@ def test_changes() -> None:
     test_missing_inflection_list_html()
 
 
-def generate_inflection_table(
-        i: PaliWord, t: InflectionTemplates, table_data: List):
+def generate_inflection_table(i: PaliWord):
+    """generate the inflection table based on stem + pattern and template"""
 
+    table_data = json.loads(i.it.data)
     inflections_list: list = [i.pali_clean]
 
     # heading
     html: str = "<p class='heading'>"
     html += f"<b>{superscripter_uni(i.pali_1)}</b> is <b>{i.pattern}</b> "
-    if t.like != "irreg":
+    if i.it.like != "irreg":
         if i.pos in CONJUGATIONS:
             html += "conjugation "
         elif i.pos in DECLENSIONS:
             html += "declension "
-        html += f"(like <b>{t.like})</b>"
+        html += f"(like <b>{i.it.like})</b>"
     else:
         if i.pos in CONJUGATIONS:
             html += "conjugation "

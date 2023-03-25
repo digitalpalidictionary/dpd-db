@@ -16,7 +16,7 @@ from tools.timeis import bip, bop
 from tools.pali_sort_key import pali_sort_key
 
 
-def generate_root_html(DB_SESSION, PTH):
+def generate_root_html(DB_SESSION, PTH, roots_count_dict):
     """compile html componenents for each pali root"""
 
     print("[green]generating roots html")
@@ -25,24 +25,20 @@ def generate_root_html(DB_SESSION, PTH):
 
     with open(PTH.roots_css_path) as f:
         roots_css = f.read()
+
+    from css_html_js_minify import css_minify
+    roots_css = css_minify(roots_css)
+
     with open(PTH.buttons_js_path) as f:
         buttons_js = f.read()
     header = render_header_tmpl(css=roots_css, js=buttons_js)
 
-    roots_db = DB_SESSION.query(
-        PaliRoot, FamilyRoot
-    ).outerjoin(
-        FamilyRoot,
-        and_(
-            FamilyRoot.root_id == PaliRoot.root,
-            FamilyRoot.root_family == "info"
-        )
-    ).all()
+    roots_db = DB_SESSION.query(PaliRoot).all()
     root_db_length = len(roots_db)
 
     bip()
-    for counter, (r, info) in enumerate(roots_db):
-        
+    for counter, r in enumerate(roots_db):
+
         # replace \n with html line break
         r.panini_root = r.panini_root.replace("\n", "<br>")
         r.panini_sanskrit = r.panini_sanskrit.replace("\n", "<br>")
@@ -50,27 +46,19 @@ def generate_root_html(DB_SESSION, PTH):
 
         html = header
         html += "<body>"
-        html += render_root_definition_templ(r, info)
+        html += render_root_definition_templ(r, roots_count_dict)
         html += render_root_buttons_templ(r, DB_SESSION)
-        html += render_root_info_templ(r, info)
-        html += render_root_matrix_templ(r, DB_SESSION)
+        html += render_root_info_templ(r)
+        html += render_root_matrix_templ(r, roots_count_dict)
         html += render_root_families_templ(r, DB_SESSION)
         html += "</body></html>"
 
-        # html = minify(
-        #     html,
-        #     minify_js=True,
-        #     minify_css=True,
-        #     keep_closing_tags=True,
-        #     remove_processing_instructions=True
-        # )
+        html = minify(html)
 
         synonyms: set = set()
         synonyms.add(r.root_clean)
         synonyms.add(re.sub("√", "", r.root))
         synonyms.add(re.sub("√", "", r.root_clean))
-
-        # !!! need list of subfamilies easily accessable as a list
 
         frs = DB_SESSION.query(
             FamilyRoot
