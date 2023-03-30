@@ -1,11 +1,11 @@
-# from db_helpers import get_next_ids
-from db_helpers import get_verb_values
-from db_helpers import get_case_values
-from db_helpers import get_root_key_values
-from db_helpers import get_family_word_values
-from db_helpers import get_family_set_values
-from db_helpers import get_compound_type_values
-from db_helpers import get_patterns
+# from functions_db import get_next_ids
+from functions_db import get_verb_values
+from functions_db import get_case_values
+from functions_db import get_root_key_values
+from functions_db import get_family_word_values
+from functions_db import get_family_set_values
+from functions_db import get_compound_type_values
+from functions_db import get_patterns
 from tools.pos import POS
 
 VERB_VALUES = get_verb_values()
@@ -253,7 +253,8 @@ def make_tab_add_word(sg):
             sg.pin(
                 sg.Combo(
                     ROOT_VALUES, key="root_key",
-                    size=(10, 1), tooltip=root_key_tooltip)),
+                    size=(10, 1), tooltip=root_key_tooltip,
+                    auto_size_text=False)),
             sg.Text(
                 "", key="root_key_error", size=(50, 1), text_color="red")
         ],
@@ -264,6 +265,7 @@ def make_tab_add_word(sg):
                     values=[], key="family_root", size=(10, 1),
                     enable_events=True,
                     enable_per_char_events=True,
+                    auto_size_text=False,
                     tooltip=family_root_tooltip)),
             sg.Text(
                 "", key="family_root_error", size=(50, 1), text_color="red")
@@ -277,6 +279,7 @@ def make_tab_add_word(sg):
                     size=(10, 1),
                     enable_events=True,
                     enable_per_char_events=True,
+                    auto_size_text=False,
                     tooltip=root_sign_tooltip)),
             sg.Text(
                 "", key="root_sign_error",
@@ -289,6 +292,7 @@ def make_tab_add_word(sg):
                     values=[],
                     key="root_base", size=(10, 1),
                     enable_per_char_events=True,
+                    auto_size_text=False,
                     tooltip=root_base_tooltip)
             ),
             sg.Text(
@@ -509,7 +513,7 @@ def make_tab_add_word(sg):
         [
             sg.Text("example_1*", size=(15, 5)),
             sg.Multiline(
-                key="example_1", size=(50, 5), no_scrollbar=True,
+                key="example_1", size=(49, 5),
                 enable_events=True, tooltip=example_1_tooltip),
             sg.Text(
                 "", key="example_1_error", size=(50, 1), text_color="red")
@@ -544,7 +548,7 @@ def make_tab_add_word(sg):
             sg.Text("example_2", size=(15, 5)),
             sg.pin(
                 sg.Multiline(
-                    key="example_2", size=(50, 5), no_scrollbar=True,
+                    key="example_2", size=(49, 5),
                     tooltip=example_2_tooltip)),
             sg.Text(
                 "", key="example_2_error", size=(50, 1), text_color="red")
@@ -610,7 +614,8 @@ def make_tab_add_word(sg):
             sg.Button("Edit", key="edit_button"),
             sg.Button("Test", key="test_internal"),
             sg.Button("Add to db", key="add_word_to_db"),
-            sg.Button("Update", key="update_word")
+            sg.Button("Update", key="update_word"),
+            sg.Button("Save", key="save_state"),
         ],
         [
             sg.Button("Debug"),

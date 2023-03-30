@@ -60,7 +60,7 @@ def main():
 
             else:
                 exists = db_session.query(DerivedData).filter(
-                    DerivedData.pali_1 == i.pali_1).first()
+                    DerivedData.id == i.id).first()
 
                 if exists is not None:
                     db_session.delete(exists)
@@ -255,6 +255,21 @@ def test_missing_inflection_list_html() -> None:
             changed_headwords.append(i.pali_1)
 
 
+def test_missing_id() -> None:
+    """test for missing ids and wring headwords in derived_data table"""
+    print("[green]testing for missing id's wrong headwords")
+
+    dpd_db = db_session.query(PaliWord).all()
+    for i in dpd_db:
+        if i.dd is None:
+            print(f"\t[red]{i.pali_1}")
+            changed_headwords.append(i.pali_1)
+
+        elif i.pali_1 != i.dd.pali_1:
+            print(f"\t[red]{i.pali_1}")
+            changed_headwords.append(i.pali_1)
+
+
 def test_changes() -> None:
     """run all the tests"""
     test_inflection_template_changed()
@@ -263,6 +278,7 @@ def test_changes() -> None:
     test_wrong_pattern()
     test_changes_in_stem_pattern()
     test_missing_inflection_list_html()
+    test_missing_id()
 
 
 def generate_inflection_table(i: PaliWord):

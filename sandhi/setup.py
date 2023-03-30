@@ -20,7 +20,7 @@ from books_to_include import include
 
 def make_cst_text_set(include):
 
-    print("[green]making cst text set", end=" ")
+    print(f"[green]{'making cst text set':<35}", end="")
 
     cst_texts_list = []
 
@@ -37,13 +37,13 @@ def make_cst_text_set(include):
     cst_text_string = clean_machine(cst_text_string)
     cst_text_set = set(cst_text_string.split())
 
-    print(f"[white]{len(cst_text_set):,}")
+    print(f"[white]{len(cst_text_set):>10,}")
     return cst_text_set
 
 
 def make_sc_text_set(include):
 
-    print("[green]making sutta central text set", end=" ")
+    print(f"[green]{'making sutta central text set':<35}", end="")
 
     sc_texts_list = []
     for i in include:
@@ -63,13 +63,13 @@ def make_sc_text_set(include):
     text_string = clean_machine(text_string)
     sc_text_set = set(text_string.split())
 
-    print(f"[white]{len(sc_text_set):,}")
+    print(f"[white]{len(sc_text_set):>10,}")
     return sc_text_set
 
 
 def make_bjt_text_set(include):
 
-    print("[green]making buddhajayanti text set", end=" ")
+    print(f"[green]{'making buddhajayanti text set':<35}", end="")
 
     bjt_texts_list = []
     for i in include:
@@ -85,19 +85,19 @@ def make_bjt_text_set(include):
     bjt_text_string = clean_machine(bjt_text_string)
     bjt_text_set = set(bjt_text_string.split())
 
-    print(f"[white]{len(bjt_text_set):,}")
+    print(f"[white]{len(bjt_text_set):>10,}")
     return bjt_text_set
 
 
 def make_spelling_mistakes_set():
-    print("[green]making spelling mistakes set", end=" ")
+    print(f"[green]{'making spelling mistakes set':<35}", end="")
 
     sp_mistakes_df = pd.read_csv(
         pth["sp_mistakes_path"], dtype=str, header=None, sep="\t")
     sp_mistakes_df.fillna("", inplace=True)
 
     spelling_mistakes_set = set(sp_mistakes_df[0].tolist())
-    print(f"[white]{len(spelling_mistakes_set):,}")
+    print(f"[white]{len(spelling_mistakes_set):>10,}")
 
     filtered = sp_mistakes_df[0] == sp_mistakes_df[1]
     dupes_df = sp_mistakes_df[filtered]
@@ -105,7 +105,7 @@ def make_spelling_mistakes_set():
     if dupes_list != []:
         print(f"[bright_red]! dupes found {dupes_list}")
 
-    print("[green]making spelling corrections set", end=" ")
+    print(f"[green]{'making spelling corrections set':<35}", end="")
     spelling_corrections_set = set(sp_mistakes_df[1].tolist())
     remove_me = set()
     add_me = set()
@@ -119,7 +119,7 @@ def make_spelling_mistakes_set():
 
     spelling_corrections_set = spelling_corrections_set - remove_me
     spelling_corrections_set = spelling_corrections_set | add_me
-    print(f"[white]{len(spelling_corrections_set):,}")
+    print(f"[white]{len(spelling_corrections_set):>10,}")
 
     spelling_mistakes_dict = {}
 
@@ -143,14 +143,14 @@ def make_spelling_mistakes_set():
 
 
 def make_variant_readings_set():
-    print("[green]making variant readings set", end=" ")
+    print(f"[green]{'making variant readings set':<35}", end="")
 
     variant_reading_df = pd.read_csv(
         pth["variant_readings_path"], dtype=str, header=None, sep="\t")
     variant_reading_df.fillna("", inplace=True)
 
     variant_readings_set = set(variant_reading_df[0].tolist())
-    print(f"[white]{len(variant_readings_set):,}")
+    print(f"[white]{len(variant_readings_set):>10,}")
 
     filter = variant_reading_df[0] == variant_reading_df[1]
     dupes_df = variant_reading_df[filter]
@@ -158,7 +158,7 @@ def make_variant_readings_set():
     if dupes_list != []:
         print(f"[bright_red]! dupes found {dupes_list}")
 
-    print("[green]making variant corrections set", end=" ")
+    print(f"[green]{'making variant corrections set':<35}", end="")
     variant_corrections_set = set(variant_reading_df[1].tolist())
     remove_me = set()
     add_me = set()
@@ -172,7 +172,7 @@ def make_variant_readings_set():
 
     variant_corrections_set = variant_corrections_set - remove_me
     variant_corrections_set = variant_corrections_set | add_me
-    print(f"[white]{len(variant_corrections_set):,}")
+    print(f"[white]{len(variant_corrections_set):>10,}")
 
     variant_dict = {}
 
@@ -195,7 +195,7 @@ def make_variant_readings_set():
 
 def make_abbreviations_set():
 
-    print("[green]making abbreviations set", end=" ")
+    print(f"[green]{'making abbreviations set':<35}", end="")
 
     abbreviations_set = set()
 
@@ -207,21 +207,21 @@ def make_abbreviations_set():
         pali_1_clean = re.sub(r" \d.*", "", i.pali_1)
         abbreviations_set.add(pali_1_clean)
 
-    print(f"[white]{len(abbreviations_set):,}")
+    print(f"[white]{len(abbreviations_set):>10,}")
 
     return abbreviations_set
 
 
 def make_manual_corrections_set():
 
-    print("[green]making manual corrections set", end=" ")
+    print(f"[green]{'making manual corrections set':<35}", end="")
 
     manual_corrections_df = pd.read_csv(
         pth["manual_corrections_path"], dtype=str, header=None, sep="\t")
     manual_corrections_df.fillna("", inplace=True)
 
     manual_corrections_set = set(manual_corrections_df[0].tolist())
-    print(f"[white]{len(manual_corrections_set):,}")
+    print(f"[white]{len(manual_corrections_set):>10,}")
 
     manual_corrections_list = manual_corrections_df[1].tolist()
 
@@ -248,19 +248,19 @@ def make_manual_corrections_set():
 
 
 def make_exceptions_set():
-    print("[green]making exceptions set", end=" ")
+    print(f"[green]{'making exceptions set':<35}", end="")
 
     sandhi_exceptions_df = pd.read_csv(
         pth["sandhi_exceptions_path"], header=None)
     sandhi_exceptions_set = set(sandhi_exceptions_df[0].tolist())
 
-    print(f"[white]{len(sandhi_exceptions_set)}")
+    print(f"[white]{len(sandhi_exceptions_set):>10,}")
 
     return sandhi_exceptions_set
 
 
 def make_all_inflections_set(sandhi_exceptions_set):
-    print("[green]making all inflections set", end=" ")
+    print(f"[green]{'making all inflections set':<35}", end="")
     all_inflections_set = set()
 
     exceptions_list = set(
@@ -285,13 +285,13 @@ def make_all_inflections_set(sandhi_exceptions_set):
     if "" in all_inflections_set:
         all_inflections_set.remove("")
 
-    print(f"[white]{len(all_inflections_set):,}")
+    print(f"[white]{len(all_inflections_set):>10,}")
 
     return all_inflections_set
 
 
 def make_neg_inflections_set(sandhi_exceptions_set):
-    print("[green]making neg inflections set", end=" ")
+    print(f"[green]{'making neg inflections set':<35}", end="")
     neg_inflections_set = set()
 
     exceptions_list = set(
@@ -317,13 +317,13 @@ def make_neg_inflections_set(sandhi_exceptions_set):
     if "" in neg_inflections_set:
         neg_inflections_set.remove("")
 
-    print(f"[white]{len(neg_inflections_set):,}")
+    print(f"[white]{len(neg_inflections_set):>10,}")
 
     return neg_inflections_set
 
 
 def copy_sandhi_related_dir():
-    print("[green]copying sandhi related dir", end=" ")
+    print(f"[green]{'copying sandhi related dir':<35}", end="")
     try:
         shutil.rmtree(pth["sandhi_related_dest_dir"])
     except Exception as e:
@@ -333,7 +333,7 @@ def copy_sandhi_related_dir():
         "sandhi_related_source_dir"],
         pth["sandhi_related_dest_dir"])
 
-    print("[white]ok")
+    print(f"[white]{'ok':>10}")
 
 
 def main():
@@ -366,7 +366,7 @@ def main():
     neg_inflections_set = make_neg_inflections_set(sandhi_exceptions_set)
 
     def make_unmatched_set():
-        print("[green]making text set", end=" ")
+        print(f"[green]{'making text set':<35}", end="")
 
         text_set = cst_text_set | sc_text_set
         # text_set = text_set | bjt_text_set
@@ -379,21 +379,21 @@ def main():
         if "" in text_set:
             text_set.remove("")
 
-        print(f"[white]{len(text_set):,}")
+        print(f"[white]{len(text_set):>10,}")
 
-        print("[green]making unmatched set", end=" ")
+        print(f"[green]{'making unmatched set':<35}", end="")
 
         unmatched_set = text_set - all_inflections_set
         unmatched_set = unmatched_set - sandhi_exceptions_set
 
-        print(f"[white]{len(unmatched_set):,}")
+        print(f"[white]{len(unmatched_set):>10,}")
 
         return text_set, unmatched_set
 
     text_set, unmatched_set = make_unmatched_set()
 
     def save_assets():
-        print("[green]saving assets", end=" ")
+        print(f"[green]{'saving assets':<35}", end="")
 
         with open(pth["unmatched_set_path"], "wb") as f:
             pickle.dump(unmatched_set, f)
@@ -407,12 +407,12 @@ def main():
         with open(pth["neg_inflections_set_path"], "wb") as f:
             pickle.dump(neg_inflections_set, f)
 
-        print("[white]ok")
+        print(f"[white]{'ok':>10}")
 
     save_assets()
 
     def make_matches_dict():
-        print("[green]saving matches_dict", end=" ")
+        print(f"[green]{'saving matches_dict':<35}", end="")
         matches_dict = {}
         matches_dict["word"] = [
             ("split", "process", "rules", "path")]
@@ -423,18 +423,7 @@ def main():
         with open(pth["matches_dict_path"], "wb") as f:
             pickle.dump(matches_dict, f)
 
-        # df = pd.DataFrame.from_dict(matches_dict, orient="index")
-        # df.to_csv("sandhi/output/xxx matches_dict.csv", sep="\t")
-
-        # with open("sandhi/output/xxx matches_dict.csv", "w") as f:
-        #     for word, data in matches_dict.items():
-        #         for item in data:
-        #             f.write(f"{word}\t")
-        #             for column in item:
-        #                 f.write(f"{column}\t")
-        #             f.write("\n")
-
-        print("[white]ok")
+        print(f"[white]{'ok':>10}")
 
     make_matches_dict()
 

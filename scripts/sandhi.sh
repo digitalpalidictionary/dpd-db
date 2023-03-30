@@ -10,9 +10,8 @@ pip install gdown
 apt install zip
 apt-get install unzip
 
-mkdir dpd
-cd dpd
-gdown 1kp3TH1Bt5EJGODBjF3-eEB30hV9mo_HO
+gdown 1j62n1EBn1K_EbjaJEoOghmX4eVC75pVS
+https://drive.google.com/file/d/1j62n1EBn1K_EbjaJEoOghmX4eVC75pVS/view?usp=share_link
 unzip sandhi.zip
 rm sandhi.zip
 mkdir sandhi/output
@@ -25,7 +24,6 @@ nohup python3.11 sandhi/splitter.py &
 tail -n 10 nohup.out
 # nohup python3.11 sandhi/postprocess.py &
 zip -r do_output.zip sandhi/output/
-
 # in local terminal
 scp root@ipaddress:/root/dpd/do_output.zip do_output.zip
 

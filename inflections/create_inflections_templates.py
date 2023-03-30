@@ -15,7 +15,7 @@ from tools.sorter import pali_list_sorter
 from tools.timeis import tic, toc
 
 tic()
-print("[bright_yellow]create infection templates")
+print("[bright_yellow]create inflection templates")
 
 db_session = get_db_session("dpd.db")
 db_session.query(InflectionTemplates).delete()

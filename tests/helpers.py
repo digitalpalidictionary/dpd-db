@@ -11,7 +11,10 @@ class InternalTestRow():
         search_column_5, search_sign_5, search_string_5,
         search_column_6, search_sign_6, search_string_6,
         error_column, error_message,
-            exceptions, iterations):
+        exceptions, iterations,
+        display_1, display_2,
+        display_3
+    ):
 
         self.test_name = test_name
         self.search_column_1 = search_column_1
@@ -34,6 +37,10 @@ class InternalTestRow():
         self.search_string_6 = search_string_6
         self.error_column = error_column
         self.error_message = error_message
+        self.display_1 = display_1
+        self.display_2 = display_2
+        self.display_3 = display_3
+
         try:
             self.exceptions = json.loads(exceptions)
         except (json.JSONDecodeError, TypeError):

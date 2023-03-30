@@ -1,5 +1,5 @@
 set -e
-db/db_from_tsv.py
+# db/db_from_tsv.py
 inflections/create_inflections_templates.py
 inflections/generate_inflection_tables.py
 inflections/transliterate_inflections.py
@@ -15,5 +15,6 @@ frequency/mapmaker.py
 exporter/exporter.py
 exporter/tpr_exporter.py
 scripts/anki_csvs.py
+db/db_to_tsv.py
 # scripts/common_errors.py
 

@@ -1,3 +1,4 @@
 pass1 has root	Meaning IN CONTEXT	is empty	-	Category	contains	pass1	Pāli Root	is not empty	-										Pāli1	POS	Buddhadatta		5
 pass1 no root	Meaning IN CONTEXT	is empty	-	Category	contains	pass1	Pāli Root	is empty	-										Pāli1	POS	Buddhadatta		5
 caus 0 -  *e *aya no caus base, or wrong sign	meaning_1	is not empty	-	root_sign	contains	(\*e|\*aya)	root_base	does not contain	caus												"[""saṃyuje"", ""saṅgāmesi"", ""dukkhita 1"", ""samodhānetabba""]"	10	
+ind no type	meaning_1	is not empty	-	pos	equals	ind	grammar	does not contain	\b(adv|excl|emph|interr|prep|onom)\b												pali_1	pos	meaning_1	[]	10

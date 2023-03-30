@@ -1,5 +1,4 @@
 #!/usr/bin/env python3.11
-# coding: utf-8
 
 import csv
 import re
@@ -51,34 +50,34 @@ def pali_row(i: PaliWord, output="anki") -> List[str]:
         i.sanskrit,
     ])
 
-    if i.pali_root is not None:
+    if i.rt is not None:
         if output == "dpd":
             root_key = i.root_key
-            if i.pali_root.root_in_comps == "":
+            if i.rt.root_in_comps == "":
                 root_in_comps = "0"
             else:
-                root_in_comps = i.pali_root.root_in_comps
+                root_in_comps = i.rt.root_in_comps
 
-            if i.pali_root.sanskrit_root_meaning == "":
+            if i.rt.sanskrit_root_meaning == "":
                 sanskrit_root_meaning = "0"
             else:
-                sanskrit_root_meaning = i.pali_root.sanskrit_root_meaning
+                sanskrit_root_meaning = i.rt.sanskrit_root_meaning
 
         else:
             root_key = re.sub(r" \d*$", "", str(i.root_key))
-            root_in_comps = i.pali_root.root_in_comps
-            sanskrit_root_meaning = i.pali_root.sanskrit_root_meaning
+            root_in_comps = i.rt.root_in_comps
+            sanskrit_root_meaning = i.rt.sanskrit_root_meaning
 
         fields.extend([
-            i.pali_root.sanskrit_root,
+            i.rt.sanskrit_root,
             sanskrit_root_meaning,
-            i.pali_root.sanskrit_root_class,
+            i.rt.sanskrit_root_class,
             root_key,
             root_in_comps,
-            i.pali_root.root_has_verb,
-            i.pali_root.root_group,
+            i.rt.root_has_verb,
+            i.rt.root_group,
             i.root_sign,
-            i.pali_root.root_meaning,
+            i.rt.root_meaning,
             i.root_base,
         ])
 

@@ -8,17 +8,17 @@ import pyperclip
 from rich import print
 
 from window_layout import window_layout
-from db_helpers import add_word_to_db
-from db_helpers import update_word_in_db
-from db_helpers import get_next_ids
-from db_helpers import get_family_root_values
-from db_helpers import get_root_sign_values
-from db_helpers import get_root_base_values
-from db_helpers import get_synonyms
-from db_helpers import get_sanskrit
-from db_helpers import copy_word_from_db
-from db_helpers import edit_word_in_db
-from db_helpers import get_pali_clean_list
+from functions_db import add_word_to_db
+from functions_db import update_word_in_db
+from functions_db import get_next_ids
+from functions_db import get_family_root_values
+from functions_db import get_root_sign_values
+from functions_db import get_root_base_values
+from functions_db import get_synonyms
+from functions_db import get_sanskrit
+from functions_db import copy_word_from_db
+from functions_db import edit_word_in_db
+from functions_db import get_pali_clean_list
 from functions import get_paths
 from functions import open_in_goldendict
 from functions import sandhi_ok
@@ -33,8 +33,6 @@ from functions import open_variant_readings
 from functions import open_inflection_tables
 from functions import find_sutta_example
 from functions import find_commentary_defintions
-from functions import run_internal_tests
-from functions import open_internal_tests
 from functions import check_spelling
 from functions import add_spelling
 from functions import edit_spelling
@@ -49,6 +47,9 @@ from functions import add_to_word_to_add
 from functions import save_gui_state
 from functions import load_gui_state
 from functions import test_construction
+from functions_tests import individual_internal_tests
+from functions_tests import open_internal_tests
+from functions_tests import db_internal_tests
 
 from tools.pos import DECLENSIONS, VERBS
 from db.db_to_tsv import backup_db_to_tsvs
@@ -467,12 +468,14 @@ def main():
         if event == "Copy" or event == "word_to_copy_enter":
             if values["word_to_copy"] != "":
                 copy_word_from_db(values, window)
+                window["word_to_copy"].update("")
             else:
                 window["messages"].update("No word to copy!", text_color="red")
 
         if event == "edit_button":
             if values["word_to_copy"] != "":
                 edit_word_in_db(values, window)
+                window["word_to_copy"].update("")
             else:
                 window["messages"].update("No word to edit!", text_color="red")
 
@@ -485,7 +488,7 @@ def main():
 
         if event == "test_internal":
             clear_errors(window)
-            flags.tested = run_internal_tests(sg, window, values, flags)
+            flags = individual_internal_tests(sg, window, values, flags)
 
         if event == "open_tests":
             open_internal_tests()
@@ -522,6 +525,9 @@ def main():
 
         if event == "Debug":
             print(f"{values}")
+
+        if event == "save_state":
+            save_gui_state(values, words_to_add_list)
 
         if event == sg.WIN_CLOSED:
             save_gui_state(values, words_to_add_list)
@@ -637,6 +643,15 @@ def main():
 
         if event == "summary":
             display_summary(values, window, sg)
+
+        if event == "test_db_internal":
+            db_internal_tests(sg, window, flags)
+
+        if event == "test_next":
+            flags.test_next = True
+
+        if event == "test_edit":
+            open_internal_tests()
 
     window.close()
 

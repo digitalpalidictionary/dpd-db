@@ -1,9 +1,12 @@
+#!/usr/bin/env python3.11
+
 from rich import print
 # from sqlalchemy import inspect
 import csv
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord, PaliRoot
+from tools.timeis import tic, toc
 
 
 def backup_db_to_tsvs():
@@ -11,10 +14,9 @@ def backup_db_to_tsvs():
     print("[green]getting db session")
     db_session = get_db_session("dpd.db")
 
-    print("[green]querying PaliWord")
+    print("[green]writing PaliWord")
     db = db_session.query(PaliWord).all()
 
-    print("[green]writing PaliWord rows")
     with open("backups/PaliWord.tsv", 'w', newline='') as tsvfile:
         csvwriter = csv.writer(
             tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL)
@@ -22,10 +24,9 @@ def backup_db_to_tsvs():
         [csvwriter.writerow([getattr(curr, column.name)
                             for column in PaliWord.__mapper__.columns]) for curr in db]
 
-    print("[green]querying PaliRoot")
+    print("[green]writing PaliRoot")
     db = db_session.query(PaliRoot).all()
 
-    print("[green]writing PaliRoot rows")
     with open("backups/PaliRoot.tsv", 'w', newline='') as tsvfile:
         csvwriter = csv.writer(
             tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL)
@@ -36,7 +37,9 @@ def backup_db_to_tsvs():
 
 
 def main():
+    tic()
     backup_db_to_tsvs()
+    toc()
 
 
 if __name__ == "__main__":

@@ -4,7 +4,6 @@ import subprocess
 import textwrap
 import pickle
 
-from json import dumps
 from spellchecker import SpellChecker
 from pathlib import Path
 from dataclasses import dataclass
@@ -13,9 +12,8 @@ from rich import print
 from bs4 import BeautifulSoup
 from nltk import sent_tokenize, word_tokenize
 
-from db_helpers import make_all_inflections_set
-from db_helpers import get_family_compound_values
-from tests.helpers import InternalTestRow
+from functions_db import make_all_inflections_set
+from functions_db import get_family_compound_values
 from tools.clean_machine import clean_machine
 from tools.pali_text_files import cst_texts, sc_texts
 from tools.pos import INDECLINEABLES
@@ -272,6 +270,12 @@ def add_stem_pattern(values, window):
         if pali_1_clean.endswith("ant"):
             window["stem"].update(pali_1_clean[:-3])
             window["pattern"].update("ant masc")
+        if pali_1_clean.endswith("ā"):
+            window["stem"].update(pali_1_clean[:-1])
+            window["pattern"].update("a masc pl")
+        if pali_1_clean.endswith("as"):
+            window["stem"].update(pali_1_clean[:-2])
+            window["pattern"].update("as masc")
 
     elif pos == "fem":
         if pali_1_clean.endswith("ā"):
@@ -438,7 +442,7 @@ def clear_errors(window):
 
 
 def clear_values(values, window):
-    from db_helpers import dpd_values_list
+    from functions_db import dpd_values_list
     for value in values:
         if value in dpd_values_list:
             window[value].update("")
@@ -656,8 +660,7 @@ def find_sutta_example(sg, window, values: dict) -> str:
                 for i, sentence in enumerate(sentences):
                     if word_to_add in sentence:
                         prev_sentence = sentences[i - 1] if i > 0 else ""
-                        next_sentence = sentences[i +
-                                                1] if i < len(sentences)-1 else ""
+                        next_sentence = sentences[i + 1] if i < len(sentences)-1 else ""
                         sutta_sentences += [{
                             "source": source,
                             "sutta": sutta,
@@ -821,133 +824,6 @@ def open_inflection_tables():
         ["libreoffice", pth.inflection_templates_path])
 
 
-def open_internal_tests():
-    subprocess.Popen(
-        ["libreoffice", pth.internal_tests_path])
-
-
-def run_internal_tests(sg, window, values, flags):
-    flags.tested = False
-    internal_tests_list = make_internal_tests_list()
-    test_integirty_of_tests(internal_tests_list)
-    flags = internal_tests(
-        internal_tests_list, values, window, flags, sg)
-    return flags
-
-
-def make_internal_tests_list():
-    with open(pth.internal_tests_path, newline="") as csvfile:
-        reader = csv.DictReader(csvfile, delimiter="\t")
-        internal_tests_list = [InternalTestRow(**row) for row in reader]
-    return internal_tests_list
-
-
-def write_internal_tests_list(internal_tests_list):
-    with open(pth.internal_tests_path, 'w', newline="") as csvfile:
-        fieldnames = internal_tests_list[0].__dict__.keys()
-        writer = csv.DictWriter(csvfile, delimiter="\t", fieldnames=fieldnames)
-        writer.writeheader()
-        for row in internal_tests_list:
-            row_dict = row.__dict__
-            row_dict['exceptions'] = dumps(
-                list(row.exceptions), ensure_ascii=False)
-            writer.writerow(row_dict)
-
-
-def test_integirty_of_tests(internal_tests_list):
-    pass
-
-
-def internal_tests(internal_tests_list, values, window, flags, sg):
-
-    # remove all spaces front and back, and doublespaces
-    for value in values:
-        if type(values[value]) == str:
-            values[value] = re.sub(" +", " ", values[value])
-            values[value] = values[value].strip()
-            window[value].update(values[value])
-
-    for counter, i in enumerate(internal_tests_list):
-
-        # try:
-        if i.exceptions != {""}:
-            if values["pali_1"] in i.exceptions:
-                print(f"[red]{counter}. {i.exceptions}")
-                continue
-
-        search_criteria = [
-            (i.search_column_1, i.search_sign_1, i.search_string_1),
-            (i.search_column_2, i.search_sign_2, i.search_string_2),
-            (i.search_column_3, i.search_sign_3, i.search_string_3),
-            (i.search_column_4, i.search_sign_4, i.search_string_4),
-            (i.search_column_5, i.search_sign_5, i.search_string_5),
-            (i.search_column_6, i.search_sign_6, i.search_string_6)]
-
-        test_results = {}
-
-        for x, criterion in enumerate(search_criteria, start=1):
-            if criterion[1] == "":
-                test_results[f"test{x}"] = True
-            elif criterion[1] == "equals":
-                test_results[f"test{x}"] = values[criterion[0]] == criterion[2]
-            elif criterion[1] == "does not equal":
-                test_results[f"test{x}"] = values[criterion[0]] != criterion[2]
-            elif criterion[1] == "contains":
-                test_results[f"test{x}"] = re.findall(
-                    criterion[2], values[criterion[0]]) != []
-            elif criterion[1] == "does not contain":
-                test_results[f"test{x}"] = re.findall(
-                    criterion[2], values[criterion[0]]) == []
-            elif criterion[1] == "contains word":
-                test_results[f"test{x}"] = re.findall(
-                    fr"\b{criterion[2]}\b", values[criterion[0]]) != []
-            elif criterion[1] == "does not contain word":
-                test_results[f"test{x}"] = re.findall(
-                    fr"\b{criterion[2]}\b", values[criterion[0]]) == []
-            elif criterion[1] == "is empty":
-                test_results[f"test{x}"] = values[criterion[0]] == ""
-            elif criterion[1] == "is not empty":
-                test_results[f"test{x}"] = values[criterion[0]] != ""
-            else:
-                print(f"[red]search_{x} error")
-
-        message = f"{counter+2}. {i.test_name}"
-
-        if all(test_results.values()):
-            if i.error_column != "":
-                window[f"{i.error_column}_error"].update(
-                    f"{counter+2}. {i.error_message}")
-
-            window["messages"].update(
-                f"{message} - failed!", text_color="red")
-
-            exception_popup = sg.popup_get_text(
-                f"{message}\nClick Ok to add exception or Cancel to edit.",
-                default_text=values["pali_1"],
-                location=(200, 200),
-                text_color="white"
-                )
-
-            if exception_popup is None:
-                return flags
-                break
-            else:
-                internal_tests_list[counter].exceptions.append(values['pali_1'])
-                write_internal_tests_list(internal_tests_list)
-
-        else:
-            window["messages"].update(
-                f"{message} - passed!", text_color="white")
-            print(f"{message} - passed!")
-
-    else:
-        window["messages"].update(
-            "all tests passed!", text_color="white")
-        print("exit test")
-        flags.tested = True
-        return flags
-
-
 def sandhi_ok(window, word,):
     with open(pth.sandhi_ok_path, "a", newline="") as csvfile:
         writer = csv.writer(csvfile)
@@ -974,6 +850,7 @@ class Flags:
         self.example_1 = True
         self.stem = True
         self.tested = False
+        self.test_next = False
 
 
 def reset_flags(flags):
@@ -994,10 +871,11 @@ def reset_flags(flags):
     flags.example_1 = True
     flags.stem = True
     flags.tested = False
+    flags.test_next = False
 
 
 def display_summary(values, window, sg):
-    from db_helpers import dpd_values_list
+    from functions_db import dpd_values_list
     summary = []
     for value in values:
         if value in dpd_values_list:

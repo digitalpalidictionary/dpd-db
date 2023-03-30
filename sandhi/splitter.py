@@ -122,10 +122,6 @@ def main():
         # if d.count > 1000:
         #     break
 
-        if d.count % 1000 == 0:
-            print(
-                f"{d.count:>10,} / {unmatched_len_init:<10,}{d.word}")
-
         # two word sandhi
         d = two_word_sandhi(d)
 
@@ -143,10 +139,31 @@ def main():
 
         time_dict[word] = bop()
 
-    summary()
-    save_matches()
-    save_timer_dict(time_dict)
+        if d.count % 1000 == 0:
+            print(
+                f"{d.count:>10,} / {unmatched_len_init:<10,}{d.word}")
 
+            def save_matches():
+
+                with open(pth["matches_path"], "a") as f:
+                    for word, data in matches_dict.items():
+                        for item in data:
+                            f.write(f"{word}\t")
+                            for column in item:
+                                f.write(f"{column}\t")
+                            f.write("\n")
+
+            save_matches()
+
+            def save_timer_dict(time_dict):
+                df = pd.DataFrame.from_dict(time_dict, orient="index")
+                df = df.sort_values(by=0, ascending=False)
+                df.to_csv(
+                    "sandhi/output/timer.csv", mode="a", header=None, sep="\t")
+
+            save_timer_dict(time_dict)
+
+    summary()
     toc()
 
     if profiler_on:
@@ -155,22 +172,6 @@ def main():
         yes_no = input("open profiler? (y/n) ")
         if yes_no == "y":
             popen("tuna profiler.prof")
-
-
-def save_matches():
-    with open(pth["matches_path"], "w") as f:
-        for word, data in matches_dict.items():
-            for item in data:
-                f.write(f"{word}\t")
-                for column in item:
-                    f.write(f"{column}\t")
-                f.write("\n")
-
-
-def save_timer_dict(time_dict):
-    df = pd.DataFrame.from_dict(time_dict, orient="index")
-    df = df.sort_values(by=0, ascending=False)
-    df.to_csv("sandhi/output/timer.csv", sep="\t")
 
 
 def setup():
@@ -202,6 +203,15 @@ def setup():
     global matches_dict
     with open(pth["matches_dict_path"], "rb") as f:
         matches_dict = pickle.load(f)
+
+    # initalise matches.csv
+    with open(pth["matches_path"], "w") as f:
+        f.write("")
+
+    # initalise timer dict
+    with open("sandhi/output/timer.csv", "w") as f:
+        f.write("")
+
 
 
 def import_sandhi_rules():
@@ -1224,37 +1234,12 @@ if __name__ == "__main__":
     main()
 
 
-# two word three word sandhi use comment when writing to dict
-# in lwff lwffb, don't use the whole lists
-# fix rules
 # add ttā and its inflections to all inflections
-# think of some sanity tests
-
-# csv > tsv
-
 # iṭṭhārammaṇānubhavanārahe iṭṭhārammaṇa + anu + bhavanā
 # dakkhiṇadisābhāgo   dakkhiṇadisābhi + āgo
-
-# why are some words taking so long?
-# too many clean and fuzzy words getting recursed
-
 # guṇavaṇṇābhāvena
-# must show negative
-
 # khayasundarābhirūpaabbhanumodanādīsu
-
 # dibbacakkhuñāṇavipassanāñāṇamaggañāṇaphalañāṇapaccavekkhaṇañāṇānametaṃ
-# end etaṃ is getting lost!
-
-# only add words to matches that aren't already there.
-
-# unmatched:      2627 / 51972    5.05%
-# matched:        49345 / 51972   94.95%
-# ----------------------------------------
-# 0:48:24.987711
-# = 5.387516355 hours
+# kusalākusalasāvajjānavajjasevitabbāsevitabbahīna
 
 # include neg count in post process
-
-# kusalākusalasāvajjānavajjasevitabbāsevitabbahīna
-# lots of results have lettercoutn less than the word iteself!

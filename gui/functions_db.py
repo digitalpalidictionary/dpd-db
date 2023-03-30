@@ -6,7 +6,9 @@ from json import loads
 
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord, PaliRoot, InflectionTemplates
+from db.models import PaliWord
+from db.models import PaliRoot
+from db.models import InflectionTemplates
 from db.models import DerivedData
 # from db.db_helpers import print_column_names
 from tools.pali_sort_key import pali_sort_key
