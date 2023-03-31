@@ -32,10 +32,12 @@ p.heading {
 
 .underlined {
     border-bottom: 1px solid #00A4CC;
+    margin-bottom: 5px;
 }
 
 .overlined {
     border-top: 1px solid #00A4CC;
+    margin-top: 5px;
 }
 
 p.heading b {

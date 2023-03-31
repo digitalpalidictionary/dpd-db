@@ -1,8 +1,9 @@
 import re
 
 from rich import print
-from sqlalchemy import and_
+# from sqlalchemy import and_
 from minify_html import minify
+from css_html_js_minify import css_minify, js_minify
 
 from tools.add_niggahitas import add_niggahitas
 from html_components import render_header_tmpl
@@ -13,7 +14,7 @@ from html_components import render_root_matrix_templ
 from html_components import render_root_families_templ
 from db.models import PaliRoot, FamilyRoot
 from tools.timeis import bip, bop
-from tools.pali_sort_key import pali_sort_key
+# from tools.pali_sort_key import pali_sort_key
 
 
 def generate_root_html(DB_SESSION, PTH, roots_count_dict):
@@ -25,12 +26,12 @@ def generate_root_html(DB_SESSION, PTH, roots_count_dict):
 
     with open(PTH.roots_css_path) as f:
         roots_css = f.read()
-
-    from css_html_js_minify import css_minify
     roots_css = css_minify(roots_css)
 
     with open(PTH.buttons_js_path) as f:
         buttons_js = f.read()
+    buttons_js = js_minify(buttons_js)
+
     header = render_header_tmpl(css=roots_css, js=buttons_js)
 
     roots_db = DB_SESSION.query(PaliRoot).all()

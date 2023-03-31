@@ -270,8 +270,8 @@ def render_button_box_templ(i: PaliWord) -> str:
     # set_family_button
     if (i.meaning_1 != "" and
             i.family_set != ""):
-        set_list: list = _set_list_gen(i)
-        if len(set_list) > 0:
+
+        if len(i.family_set_list) > 0:
             set_family_button = button_html.format(
                 target=f"set_family_{i.pali_1_}", name="set")
         else:
@@ -442,15 +442,18 @@ def render_family_sets_templ(i: PaliWord, DB_SESSION) -> str:
 
     if (i.meaning_1 != "" and
             i.family_set != ""):
-        set_list: list = _set_list_gen(i)
 
-        if len(set_list) > 0:
+        if len(i.family_set_list) > 0:
 
             fs = DB_SESSION.query(
                 FamilySet
             ).filter(
-                FamilySet.set.in_(set_list)
+                FamilySet.set.in_(i.family_set_list)
             ).all()
+
+            # sort by order of the  family set list
+            word_order = i.family_set_list
+            fs = sorted(fs, key=lambda x: word_order.index(x.set))
 
             return str(
                 family_set_templ.render(
@@ -463,12 +466,6 @@ def render_family_sets_templ(i: PaliWord, DB_SESSION) -> str:
             return ""
     else:
         return ""
-
-
-def _set_list_gen(i: PaliWord) -> list:
-    """exlcude unnecessary sets"""
-    return [set for set in i.family_set.split("; ")
-            if set and set not in EXCLUDE_FROM_SETS]
 
 
 def render_frequency_templ(i: PaliWord, dd: DerivedData) -> str:

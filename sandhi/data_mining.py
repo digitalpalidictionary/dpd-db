@@ -5,11 +5,14 @@ from pathlib import Path
 import re
 
 do_unmatched_path = Path("sandhi/output_do/unmatched.csv")
-do_unmatched_groups_path = Path("sandhi/output/mining/unmatched_groups.csv")
+do_unmatched_groups_path = Path("sandhi/output/mining/unmatched_groups.tsv")
 do_unmatched_groups_path.parent.mkdir(parents=True, exist_ok=True)
 
 do_matches_path = Path("sandhi/output_do/matches.csv")
-do_matches_pairs_path = Path("sandhi/output/mining/matches_pairs.csv")
+do_matches_pairs_path = Path("sandhi/output/mining/matches_pairs.tsv")
+
+tipitaka_word_freq = Path("frequency/output/word_count/tipitaka.csv")
+umatched_freq_path = Path("sandhi/output/mining/umatched_freq.tsv")
 
 
 def mine_unmatched():
@@ -33,14 +36,11 @@ def mine_unmatched():
         groups.items(), key=lambda x: len(x[1]), reverse=True)
 
     with open(do_unmatched_groups_path, "w", newline="") as f:
-        writer = csv.writer(f)
+        writer = csv.writer(f, delimiter="\t")
         writer.writerow(['Count', 'Group', 'Words'])
         for group, words in sorted_groups:
             if len(words) > 10:
                 writer.writerow([len(words), group, ', '.join(words)])
-
-
-# mine_unmatched()
 
 
 def mine_matches():
@@ -55,10 +55,41 @@ def mine_matches():
             word_pairs[pair] += 1
 
     with open(do_matches_pairs_path, "w", newline="") as f:
-        writer = csv.writer(f)
-        writer.writerow(['Count', 'Group', 'Words'])
+        writer = csv.writer(f, delimiter="\t")
+        writer.writerow(['count', 'pair'])
         for pair, count in word_pairs.most_common():
             writer.writerow([count, pair])
 
 
+def unmatched_frequency():
+    tipitaka_freq: dict = {}
+    with open(tipitaka_word_freq) as f:
+        reader = csv.reader(f, delimiter="\t")
+        for row in reader:
+            tipitaka_freq[row[0]] = int(row[1])
+
+    with open(do_unmatched_path)as f:
+        reader = csv.reader(f)
+        do_unmatched: list = [row[0] for row in reader]
+
+    unmatched_freq: dict = {}
+    for word in do_unmatched:
+        try:
+            unmatched_freq[word] = tipitaka_freq[word]
+        except:
+            pass
+            # print(f"{word} doesnt exist")
+
+    unmatched_freq_sorted = [(k, v) for k, v in sorted(
+        unmatched_freq.items(), key=lambda item: item[1], reverse=True)]
+
+    with open(umatched_freq_path, "w", newline="") as f:
+        writer = csv.writer(f, delimiter="\t")
+        writer.writerow(["unmatched_word", "count"])
+        for i in unmatched_freq_sorted:
+            writer.writerow([i[0], i[1]])
+
+
+mine_unmatched()
 mine_matches()
+unmatched_frequency()

@@ -1,10 +1,9 @@
-import re
 
 from json import loads
 from rich import print
 from sqlalchemy.orm import Session
-from typing import List
 from minify_html import minify
+from css_html_js_minify import css_minify
 
 from tools.add_niggahitas import add_niggahitas
 from html_components import render_header_tmpl
@@ -20,7 +19,6 @@ def generate_sandhi_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
     print("[green]generating sandhi html")
 
     dpd_db: list = DB_SESSION.query(PaliWord).all()
-    dpd_db_length = len(dpd_db)
 
     sandhi_db = DB_SESSION.query(Sandhi).all()
     sandhi_db_length: int = len(sandhi_db)
@@ -30,8 +28,6 @@ def generate_sandhi_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
 
     with open(PTH.sandhi_css_path) as f:
         sandhi_css = f.read()
-
-    from css_html_js_minify import css_minify
     sandhi_css = css_minify(sandhi_css)
 
     header = render_header_tmpl(css=sandhi_css, js="")

@@ -21,7 +21,7 @@ def main():
     print("[bright_yellow]mapmaker")
 
     global regenerate
-    regenerate = False
+    regenerate = True
 
     print(f"[green]regenerate all [white]{regenerate}")
 
@@ -439,7 +439,7 @@ def colourme(value, hi, low):
     html = ""
 
     if value == group0:
-        html = "<td class='gr0'>⠀</td>"
+        html = "<td class='gr0'></td>"
     elif value > group0 and value <= group1:
         html = f"<td class='gr1'>{value}</td>"
     elif value > group1 and value <= group2:

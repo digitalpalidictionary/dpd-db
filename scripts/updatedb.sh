@@ -1,5 +1,4 @@
 set -e
-# db/db_from_tsv.py
 inflections/create_inflections_templates.py
 inflections/generate_inflection_tables.py
 inflections/transliterate_inflections.py
@@ -7,6 +6,7 @@ inflections/inflections_to_headwords.py
 sandhi/setup.py
 sandhi/splitter.py
 sandhi/postprocess.py
+sandhi/data_mining.py
 families/root_family.py
 families/word_family.py
 families/compound_family.py

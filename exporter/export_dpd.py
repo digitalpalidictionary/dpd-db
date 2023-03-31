@@ -4,6 +4,7 @@ from json import loads
 from rich import print
 from typing import List
 from sqlalchemy import and_
+from css_html_js_minify import css_minify, js_minify
 
 from db.models import PaliWord, DerivedData
 from db.models import FamilyRoot, FamilyWord
@@ -29,11 +30,11 @@ def generate_dpd_html(DB_SESSION, PTH):
     with open(PTH.dpd_css_path) as f:
         dpd_css = f.read()
 
-    from css_html_js_minify import css_minify
     dpd_css = css_minify(dpd_css)
 
     with open(PTH.buttons_js_path) as f:
         button_js = f.read()
+    button_js = js_minify(button_js)
 
     dpd_data_list: List[dict] = []
 
@@ -95,6 +96,7 @@ def generate_dpd_html(DB_SESSION, PTH):
         synonyms += loads(dd.sinhala)
         synonyms += loads(dd.devanagari)
         synonyms += loads(dd.thai)
+        synonyms += i.family_set_list
 
         dpd_data_list += [{
             "word": i.pali_1,

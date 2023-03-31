@@ -5,6 +5,7 @@ from pathlib import Path
 from rich import print
 from typing import List, Dict
 from minify_html import minify
+from css_html_js_minify import css_minify
 
 from html_components import render_header_tmpl
 from html_components import render_abbrev_templ
@@ -49,8 +50,6 @@ def generate_help_html(DB_SESSION, PTH: Path) -> list:
 
     with open(PTH.help_css_path) as f:
         css = f.read()
-
-    from css_html_js_minify import css_minify
     css = css_minify(css)
 
     header = render_header_tmpl(css=css, js="")

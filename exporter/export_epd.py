@@ -1,9 +1,9 @@
 import re
-
 from minify_html import minify
 from typing import List
 from sqlalchemy.orm import Session
 from rich import print
+from css_html_js_minify import css_minify
 
 from html_components import render_header_tmpl
 from helpers import ResourcePaths
@@ -30,7 +30,6 @@ def generate_epd_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
     with open(PTH.epd_css_path) as f:
         epd_css: str = f.read()
 
-    from css_html_js_minify import css_minify
     epd_css = css_minify(epd_css)
 
     header = render_header_tmpl(epd_css, js="")

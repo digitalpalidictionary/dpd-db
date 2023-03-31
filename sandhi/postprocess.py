@@ -10,6 +10,7 @@ import pandas as pd
 from rich import print
 from difflib import SequenceMatcher
 from pathlib import Path
+from css_html_js_minify import css_minify
 
 from helpers import get_resource_paths
 from db.get_db_session import get_db_session
@@ -19,7 +20,7 @@ from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.timeis import tic, toc
 
 
-ADD_DO = False
+ADD_DO = True
 
 
 def process_matches(neg_inflections_set):
@@ -97,18 +98,15 @@ def make_top_five_dict(matches_df):
 
     for index, i in matches_df.iterrows():
 
-        extra_letters = i.splitcount*3
-        total_length = i.lettercount - extra_letters
-        if total_length >= len(i.word):
 
-            if i.word not in top_five_dict:
-                top_five_dict[i.word] = {
-                    "splits": [i.split],
-                    "splitcount": i.splitcount}
-            else:
-                if len(top_five_dict[i.word]["splits"]) < 5:
-                    if i.splitcount <= top_five_dict[i.word]["splitcount"]:
-                        top_five_dict[i.word]["splits"].append(i.split)
+        if i.word not in top_five_dict:
+            top_five_dict[i.word] = {
+                "splits": [i.split],
+                "splitcount": i.splitcount}
+        else:
+            if len(top_five_dict[i.word]["splits"]) < 5:
+                if i.splitcount <= top_five_dict[i.word]["splitcount"]:
+                    top_five_dict[i.word]["splits"].append(i.split)
 
     # print(top_five_dict["ārammaṇamūlakasappāyakārīsuttā"])
 
@@ -147,8 +145,10 @@ def make_golden_dict(top_five_dict):
 
     print("[green]generating goldendict", end=" ")
 
-    with open(pth["sandhi_css_path"], "r") as f:
-        sandhi_css = f.read()
+    # with open(PTH.sandhi_css_path) as f:
+    #     sandhi_css = f.read()
+    # sandhi_css = css_minify(sandhi_css)
+    sandhi_css = ""
 
     sandhi_data_list = []
     for word, split_list in top_five_dict.items():
