@@ -12,7 +12,10 @@ do_matches_path = Path("sandhi/output_do/matches.csv")
 do_matches_pairs_path = Path("sandhi/output/mining/matches_pairs.tsv")
 
 tipitaka_word_freq = Path("frequency/output/word_count/tipitaka.csv")
-umatched_freq_path = Path("sandhi/output/mining/umatched_freq.tsv")
+tipitaka_umatched_freq_path = Path("sandhi/output/mining/umatched_freq_tipitaka.tsv")
+
+ebts_word_freq = Path("frequency/output/word_count/ebts.csv")
+ebts_umatched_freq_path = Path("sandhi/output/mining/umatched_freq_ebts.tsv")
 
 
 def mine_unmatched():
@@ -61,7 +64,7 @@ def mine_matches():
             writer.writerow([count, pair])
 
 
-def unmatched_frequency():
+def tipitaka_unmatched_frequency():
     tipitaka_freq: dict = {}
     with open(tipitaka_word_freq) as f:
         reader = csv.reader(f, delimiter="\t")
@@ -72,24 +75,54 @@ def unmatched_frequency():
         reader = csv.reader(f)
         do_unmatched: list = [row[0] for row in reader]
 
-    unmatched_freq: dict = {}
+    tipitaka_unmatched_freq: dict = {}
     for word in do_unmatched:
         try:
-            unmatched_freq[word] = tipitaka_freq[word]
+            tipitaka_unmatched_freq[word] = tipitaka_freq[word]
         except:
             pass
             # print(f"{word} doesnt exist")
 
-    unmatched_freq_sorted = [(k, v) for k, v in sorted(
-        unmatched_freq.items(), key=lambda item: item[1], reverse=True)]
+    tipitaka_unmatched_freq_sorted = [(k, v) for k, v in sorted(
+        tipitaka_unmatched_freq.items(), key=lambda item: item[1], reverse=True)]
 
-    with open(umatched_freq_path, "w", newline="") as f:
+    with open(tipitaka_umatched_freq_path, "w", newline="") as f:
         writer = csv.writer(f, delimiter="\t")
         writer.writerow(["unmatched_word", "count"])
-        for i in unmatched_freq_sorted:
+        for i in tipitaka_unmatched_freq_sorted:
+            writer.writerow([i[0], i[1]])
+
+
+def ebts_unmatched_frequency():
+    ebts_freq: dict = {}
+    with open(ebts_word_freq) as f:
+        reader = csv.reader(f, delimiter="\t")
+        for row in reader:
+            ebts_freq[row[0]] = int(row[1])
+
+    with open(do_unmatched_path)as f:
+        reader = csv.reader(f)
+        do_unmatched: list = [row[0] for row in reader]
+
+    ebts_unmatched_freq: dict = {}
+    for word in do_unmatched:
+        try:
+            ebts_unmatched_freq[word] = ebts_freq[word]
+        except:
+            pass
+            # print(f"{word} doesnt exist")
+
+    ebts_unmatched_freq_sorted = [(k, v) for k, v in sorted(
+        ebts_unmatched_freq.items(), key=lambda item: item[1], reverse=True)]
+
+    with open(ebts_umatched_freq_path, "w", newline="") as f:
+        writer = csv.writer(f, delimiter="\t")
+        writer.writerow(["unmatched_word", "count"])
+        for i in ebts_unmatched_freq_sorted:
             writer.writerow([i[0], i[1]])
 
 
 mine_unmatched()
 mine_matches()
-unmatched_frequency()
+tipitaka_unmatched_frequency()
+ebts_unmatched_frequency()

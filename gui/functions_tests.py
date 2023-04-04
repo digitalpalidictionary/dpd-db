@@ -333,7 +333,6 @@ def db_internal_tests(sg, window, flags):
             window["display_2"].update(t.display_2)
             window["display_3"].update(t.display_3)
             window["error_column"].update(t.error_column)
-            window["error_message"].update(t.error_message)
             window["iterations"].update(t.iterations)
             window["exceptions"].update(values=t.exceptions)
             window["test_results_redux"].update(len(fail_list_redux))
@@ -455,7 +454,6 @@ def update_tests(internal_tests_list, count, values):
     internal_tests_list[count].search_string_6 = values["search_string_6"]
 
     internal_tests_list[count].error_column = values["error_column"]
-    internal_tests_list[count].error_message = values["error_message"]
     internal_tests_list[count].exceptions = values["exceptions"]
     internal_tests_list[count].iterations = values["iterations"]
 
@@ -488,7 +486,6 @@ def make_new_test_row(v):
         search_sign_6=v["search_sign_6"],
         search_string_6=v["search_string_6"],
         error_column=v["error_column"],
-        error_message=v["error_message"],
         display_1=v["display_1"],
         display_2=v["display_2"],
         display_3=v["display_3"],
@@ -513,7 +510,7 @@ def clear_tests(window):
         "search_string_1", "search_string_2", "search_string_3",
         "search_string_4", "search_string_5", "search_string_6",
         "display_1", "display_2", "display_3",
-        "error_column", "error_message",
+        "error_column",
         "iterations", "exceptions",
         "test_results_redux", "test_results_total",
         "test_results", "test_add_exception", "test_db_query"]

@@ -87,7 +87,7 @@ def generate_tpr_data():
                 html_string += f""", {i.trans}"""
 
             if i.plus_case != "":
-                html_string += f""", ({i.plus_case})"""
+                html_string += f""", {i.plus_case}"""
 
             html_string += """</td></tr>"""
             html_string += """<tr><th valign="top">Meaning</th>"""

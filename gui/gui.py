@@ -19,6 +19,7 @@ from functions_db import get_sanskrit
 from functions_db import copy_word_from_db
 from functions_db import edit_word_in_db
 from functions_db import get_pali_clean_list
+from functions_db import delete_word
 from functions import get_paths
 from functions import open_in_goldendict
 from functions import sandhi_ok
@@ -242,7 +243,9 @@ def main():
         if event == "edit_spelling_button":
             edit_spelling()
 
-        if event == "family_root" and values["root_key"] != "":
+        if (event == "family_root" and
+            values["family_root"] == ""
+                and values["root_key"] != ""):
             if flags.family_root:
                 root_key = values["root_key"]
                 try:
@@ -253,19 +256,49 @@ def main():
                     window["messages"].update(
                         f"not a root. {e}", text_color="red")
 
-        if event == "root_sign":
+        if event == "get_family_root":
+            if values["root_key"] != "":
+                root_key = values["root_key"]
+                FAMILY_ROOT_VALUES = get_family_root_values(root_key)
+                window["family_root"].update(values=FAMILY_ROOT_VALUES)
+                flags.family_root = False
+            else:
+                window["messages"].update(
+                    "no root_key selected", text_color="red")
+
+        if event == "root_sign" and values["root_sign"] == "":
             if flags.root_sign:
                 root_key = values["root_key"]
                 ROOT_SIGN_VALUES = get_root_sign_values(root_key)
                 window["root_sign"].update(values=ROOT_SIGN_VALUES)
                 flags.root_sign = False
 
-        if event == "root_base":
+        if event == "get_root_sign":
+            if values["root_key"] != "":
+                root_key = values["root_key"]
+                ROOT_SIGN_VALUES = get_root_sign_values(root_key)
+                window["root_sign"].update(values=ROOT_SIGN_VALUES)
+                flags.root_sign = False
+            else:
+                window["messages"].update(
+                    "no root_key selected", text_color="red")
+
+        if event == "root_base" and values["root_base"] == "":
             if flags.root_base:
                 root_key = values["root_key"]
                 ROOT_BASE_VALUES = get_root_base_values(root_key)
                 window["root_base"].update(values=ROOT_BASE_VALUES)
                 flags.root_base = False
+
+        if event == "get_root_base":
+            if values["root_key"] != "":
+                root_key = values["root_key"]
+                ROOT_BASE_VALUES = get_root_base_values(root_key)
+                window["root_base"].update(values=ROOT_BASE_VALUES)
+                flags.root_base = False
+            else:
+                window["messages"].update(
+                    "no root_key selected", text_color="red")
 
         if event == "family_compound":
             if flags.family_compound and values["family_compound"] == "":
@@ -443,8 +476,13 @@ def main():
                 window["search_for"].update(values["pali_1"])
 
         if event == "search_for_enter" or event == "defintions_search_button":
-            commentary_defintions = find_commentary_defintions(
-                sg, values, definitions_df)
+            try:
+                commentary_defintions = find_commentary_defintions(
+                    sg, values, definitions_df)
+            except NameError as e:
+                window["messages"].update(
+                    f"turn on the definitions db! {e}", text_color="red")
+
             if commentary_defintions:
                 commentary = ""
                 for c in commentary_defintions:
@@ -521,13 +559,31 @@ def main():
                         get_next_ids(window)
                         reset_flags(flags)
                         remove_word_to_add(values, window, words_to_add_list)
-                        window["words_to_add_length"].update(len(words_to_add_list))
+                        window["words_to_add_length"].update(
+                            len(words_to_add_list))
 
         if event == "Debug":
             print(f"{values}")
 
         if event == "save_state":
             save_gui_state(values, words_to_add_list)
+
+        if event == "delete_button":
+            row_id = values['id']
+            pali_1 = values['pali_1']
+            yes_no = sg.popup_yes_no(
+                f"Are you sure you want to delete {row_id} {pali_1}?",
+                location=(400, 400),
+                modal=True)
+            if yes_no == "Yes":
+                success = delete_word(values, window)
+                if success:
+                    clear_errors(window)
+                    clear_values(values, window)
+                    get_next_ids(window)
+                    reset_flags(flags)
+                    window["messages"].update(
+                        f"{row_id} '{pali_1}' deleted", text_color="white")
 
         if event == sg.WIN_CLOSED:
             save_gui_state(values, words_to_add_list)
@@ -576,9 +632,13 @@ def main():
         if event == "show_fields_all":
             for value in values:
                 window[value].update(visible=True)
+                window["get_family_root"].update(visible=True)
+                window["get_root_base"].update(visible=True)
+                window["get_root_sign"].update(visible=True)
                 window["bold_cc_button"].update(visible=True)
                 window["bold_2_button"].update(visible=True)
                 window["another_eg_2"].update(visible=True)
+                window["example_2_lower"].update(visible=True)
                 flags.show_fields = False
 
         if event == "show_fields_root":
@@ -594,14 +654,19 @@ def main():
                 window[value].update(visible=True)
             for value in hide_list:
                 window[value].update(visible=False)
+            window["get_family_root"].update(visible=True)
+            window["get_root_base"].update(visible=True)
+            window["get_root_sign"].update(visible=True)
             flags.show_fields = False
 
         if event == "show_fields_compound":
             hide_list = [
                 "verb", "trans", "meaning_2", "root_key", "family_root",
-                "root_sign",  "root_base", "family_word", "derivative",
+                "get_family_root", "root_sign",  "get_root_sign", "root_base",
+                "get_root_base", "family_word", "derivative",
                 "suffix", "non_root_in_comps", "non_ia", "source_2", "sutta_2",
-                "example_2", "bold_2", "bold_2_button", "another_eg_2",
+                "example_2", "bold_2", "bold_2_button", "example_2_lower",
+                "another_eg_2",
                 ]
             for value in values:
                 window[value].update(visible=True)
@@ -613,12 +678,16 @@ def main():
 
         if event == "show_fields_word":
             hide_list = [
-                "verb", "trans", "meaning_2", "root_key", "family_root",
-                "root_sign",  "root_base", "family_compound",
-                "compound_type", "compound_construction", "bold_cc",
-                "bold_cc_button",
-                "non_root_in_comps", "source_2", "sutta_2",
-                "example_2", "bold_2", "bold_2_button", "another_eg_2",
+                "verb", "trans", "meaning_2", "root_key",
+                "family_root", "get_family_root",
+                "root_sign",  "get_root_sign",
+                "root_base", "get_root_base",
+                "family_compound",
+                "compound_type", "compound_construction",
+                "bold_cc", "bold_cc_button",
+                "non_root_in_comps",
+                "source_2", "sutta_2", "example_2",
+                "bold_2", "bold_2_button",  "example_2_lower", "another_eg_2",
                 ]
             for value in values:
                 window[value].update(visible=True)

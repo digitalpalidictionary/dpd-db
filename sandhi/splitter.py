@@ -15,16 +15,18 @@ from helpers import get_resource_paths
 
 # two word sandhi
 #     ↓
+#     ↓
 #  three word sandhi
 #     ↓
-# recurse <------------<----------<-------------
-#     ↓                                                  ↑	
-#      >----------> na sa su dur ------>------↑
-#      >----------> two word ---------->------↑
-#      >----------> front clean -------->------↑
-#      >----------> back clean -------->------↑
-#      >----------> front fuzzy -------->------↑
-#      >----------> back fuzzzy ------->-----↑
+#     ↓
+# recursive function < -------- < ---------- <
+#     ↓                                      ↑
+#     > -------- > na sa su dur ----- > -----↑
+#     > -------- > two word --------- > -----↑
+#     > -------- > front clean ------ > -----↑
+#     > -------- > back clean ------- > -----↑
+#     > -------- > front fuzzy ------ > -----↑
+#     > -------- > back fuzzzy ------ > -----↑
 
 # global dampers
 global clean_list_max_length
@@ -75,105 +77,6 @@ def comp(d):
     return f"{d.front}{d.word}{d.back}"
 
 
-def main():
-    tic()
-
-    print("[bright_yellow]sandhi splitter")
-
-    if profiler_on is True:
-        profiler = cProfile.Profile()
-        profiler.enable()
-
-    # make globally accessable vaiables
-    setup()
-
-    time_dict = {}
-    global unmatched_len_init
-    unmatched_len_init = len(unmatched_set)
-
-    print(f"[green]splitting sandhi [white]{unmatched_len_init:,}")
-
-    for counter, word in enumerate(unmatched_set.copy()):
-        bip()
-        global w
-        w = Word(word)
-        matches_dict[word] = []
-
-        # d is a diciotnary of data accessed using dot notation
-        d: dict = {
-            "count": counter,
-            "comm": "start",
-            "init": word,
-            "front": "",
-            "word": word,
-            "back": "",
-            "rules_front": "",
-            "rules_back": "",
-            "tried": set(),
-            "matches": set(),
-            "path": "start",
-            "processes": 0
-        }
-        d = dotdict(d)
-
-        # debug
-        # if d.init != "evaṃsampadamevetaṃ":
-        #     continue
-        # if d.count > 1000:
-        #     break
-
-        # two word sandhi
-        d = two_word_sandhi(d)
-
-        # three word sandhi
-        if not w.matches:
-            d = three_word_sandhi(d)
-
-        # # four word sandhi
-        # if not w.matches :
-        #     d = four_word_sandhi(d)
-
-        # recursive removal
-        if not w.matches:
-            recursive_removal(d)
-
-        time_dict[word] = bop()
-
-        if d.count % 1000 == 0:
-            print(
-                f"{d.count:>10,} / {unmatched_len_init:<10,}{d.word}")
-
-            def save_matches():
-
-                with open(pth["matches_path"], "a") as f:
-                    for word, data in matches_dict.items():
-                        for item in data:
-                            f.write(f"{word}\t")
-                            for column in item:
-                                f.write(f"{column}\t")
-                            f.write("\n")
-
-            save_matches()
-
-            def save_timer_dict(time_dict):
-                df = pd.DataFrame.from_dict(time_dict, orient="index")
-                df = df.sort_values(by=0, ascending=False)
-                df.to_csv(
-                    "sandhi/output/timer.csv", mode="a", header=None, sep="\t")
-
-            save_timer_dict(time_dict)
-
-    summary()
-    toc()
-
-    if profiler_on:
-        profiler.disable()
-        profiler.dump_stats('profiler.prof')
-        yes_no = input("open profiler? (y/n) ")
-        if yes_no == "y":
-            popen("tuna profiler.prof")
-
-
 def setup():
     print("[green]importing assets")
     global pth
@@ -200,10 +103,6 @@ def setup():
         all_inflections_nolast) = make_all_inflections_nfl_nll(
             all_inflections_set)
 
-    global matches_dict
-    with open(pth["matches_dict_path"], "rb") as f:
-        matches_dict = pickle.load(f)
-
     # initalise matches.csv
     with open(pth["matches_path"], "w") as f:
         f.write("")
@@ -211,7 +110,6 @@ def setup():
     # initalise timer dict
     with open("sandhi/output/timer.csv", "w") as f:
         f.write("")
-
 
 
 def import_sandhi_rules():
@@ -284,6 +182,113 @@ def make_all_inflections_nfl_nll(all_inflections_set):
     print(f"[white]{len(all_inflections_nofirst):,}")
 
     return all_inflections_nofirst, all_inflections_nolast
+
+
+def main():
+    tic()
+
+    print("[bright_yellow]sandhi splitter")
+
+    if profiler_on is True:
+        profiler = cProfile.Profile()
+        profiler.enable()
+
+    # make globally accessable vaiables
+    setup()
+
+    global matches_dict
+    with open(pth["matches_dict_path"], "rb") as f:
+        matches_dict = pickle.load(f)
+
+    time_dict = {}
+    global unmatched_len_init
+    unmatched_len_init = len(unmatched_set)
+
+    print(f"[green]splitting sandhi [white]{unmatched_len_init:,}")
+
+    for counter, word in enumerate(unmatched_set.copy()):
+        bip()
+        global w
+        w = Word(word)
+        matches_dict[word] = []
+
+        # d is a dictionary of data accessed using dot notation
+        d: dict = {
+            "count": counter,
+            "comm": "start",
+            "init": word,
+            "front": "",
+            "word": word,
+            "back": "",
+            "rules_front": "",
+            "rules_back": "",
+            "tried": set(),
+            "matches": set(),
+            "path": "start",
+            "processes": 0
+        }
+        d = dotdict(d)
+
+        # debug
+        # if d.init != "evaṃsampadamevetaṃ":
+        #     continue
+        # if d.count > 1000:
+        #     break
+
+        # two word sandhi
+        d = two_word_sandhi(d)
+
+        # three word sandhi
+        if not w.matches:
+            d = three_word_sandhi(d)
+
+        # # four word sandhi
+        # if not w.matches :
+        #     d = four_word_sandhi(d)
+
+        # recursive removal
+        if not w.matches:
+            recursive_removal(d)
+
+        time_dict[word] = bop()
+
+        if d.count % 1000 == 0:
+            print(
+                f"{d.count:>10,} / {unmatched_len_init:<10,}{d.word}")
+
+            def save_matches():
+
+                with open(pth["matches_path"], "a") as f:
+                    for word, data in matches_dict.items():
+                        for item in data:
+                            f.write(f"{word}\t")
+                            for column in item:
+                                f.write(f"{column}\t")
+                            f.write("\n")
+
+            save_matches()
+            matches_dict = {}
+
+            def save_timer_dict(time_dict):
+                df = pd.DataFrame.from_dict(time_dict, orient="index")
+                df = df.sort_values(by=0, ascending=False)
+                df.to_csv(
+                    "sandhi/output/timer.csv", mode="a", header=None, sep="\t")
+
+            save_timer_dict(time_dict)
+            time_dict = {}
+
+    save_matches()
+    save_timer_dict(time_dict)
+    summary()
+    toc()
+
+    if profiler_on:
+        profiler.disable()
+        profiler.dump_stats('profiler.prof')
+        yes_no = input("open profiler? (y/n) ")
+        if yes_no == "y":
+            popen("tuna profiler.prof")
 
 
 def recursive_removal(d):
@@ -590,7 +595,7 @@ def remove_apievaiti(d):
 
 def remove_lwff_clean(d):
     """make a list of the longest clean words from the front then
-    1. match 2. redcurse or 3. pass through"""
+    1. match 2. recurse or 3. pass through"""
 
     d_orig = dotdict(d)
 
@@ -1235,11 +1240,10 @@ if __name__ == "__main__":
 
 
 # add ttā and its inflections to all inflections
-# iṭṭhārammaṇānubhavanārahe iṭṭhārammaṇa + anu + bhavanā
-# dakkhiṇadisābhāgo   dakkhiṇadisābhi + āgo
-# guṇavaṇṇābhāvena
-# khayasundarābhirūpaabbhanumodanādīsu
-# dibbacakkhuñāṇavipassanāñāṇamaggañāṇaphalañāṇapaccavekkhaṇañāṇānametaṃ
-# kusalākusalasāvajjānavajjasevitabbāsevitabbahīna
+# Pathavīkasiṇasamāpattintiādi
+# dūteyyapahinagamanānuyogapabhedaṃ
+# bhāvanārāmāriyavaṃsaṃ
+# sahassanayapaṭimaṇḍitaṃ
+
 
 # include neg count in post process

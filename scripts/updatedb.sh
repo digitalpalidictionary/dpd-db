@@ -6,7 +6,7 @@ inflections/inflections_to_headwords.py
 sandhi/setup.py
 sandhi/splitter.py
 sandhi/postprocess.py
-sandhi/data_mining.py
+grammar_dict/grammar_dict.py
 families/root_family.py
 families/word_family.py
 families/compound_family.py

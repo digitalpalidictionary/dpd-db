@@ -96,18 +96,34 @@ def print_pos_list() -> list:
 
 
 def get_next_ids(window):
-    # get next id
-    last_id = db_session.query(PaliWord.id).order_by(
-        desc(PaliWord.id)).first()[0]
-    next_id = last_id+1
 
-    # get next user id
-    last_user_id = db_session.query(PaliWord.user_id).order_by(
-        desc(PaliWord.user_id)).first()[0]
-    next_user_id = last_user_id+1
+    used_ids = db_session.query(PaliWord.id).order_by(PaliWord.id).all()
+    used_uids = db_session.query(PaliWord.user_id).order_by(PaliWord.user_id).all()
+
+    def find_missing_or_next_id():
+        counter = 1
+        for used_id in used_ids:
+            if counter != int(used_id.id):
+                return counter
+            else:
+                counter += 1
+        return counter
+
+    def find_missing_or_next_user_id():
+        counter = 1
+        for uid in used_uids:
+            if counter != int(uid.user_id):
+                return counter
+            else:
+                counter += 1
+        return counter
+
+    next_id = find_missing_or_next_id()
+    next_uid = find_missing_or_next_user_id()
+    print(next_id, next_uid)
 
     window["id"].update(next_id)
-    window["user_id"].update(next_user_id)
+    window["user_id"].update(next_uid)
 
 
 def values_to_pali_word(values):
@@ -465,3 +481,14 @@ def make_all_inflections_set():
 def get_pali_clean_list():
     results = db_session.query(PaliWord).all()
     return [i.pali_clean for i in results]
+
+
+def delete_word(values, window):
+    try:
+        row_id = values["id"]
+        db_session.query(PaliWord).filter(row_id == PaliWord.id).delete()
+        db_session.commit()
+        return True
+    except Exception as e:
+        window["messages"].update(e, text_color="red")
+        return False

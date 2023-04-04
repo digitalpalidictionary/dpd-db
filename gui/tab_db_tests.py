@@ -72,9 +72,8 @@ def make_tab_db_tests(sg):
         [
             sg.Text("error col msg", size=(15, 1), justification="right"),
             sg.Input("", key="error_column", size=(20, 1)),
-            sg.Input("", key="error_message", size=(20, 1)),
             sg.Combo(
-                [], key="exceptions", size=(29, 1), auto_size_text=False),
+                [], key="exceptions", size=(20, 1), auto_size_text=False),
         ],
         [
             sg.Text("", size=(15, 1)),

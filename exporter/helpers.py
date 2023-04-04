@@ -62,6 +62,9 @@ class ResourcePaths():
     tpr_download_list_path: Path
     tpr_release_path: Path
     tpr_beta_path: Path
+    # icon
+    icon_path: Path
+    icon_bmp_path: Path
 
 
 def get_paths() -> ResourcePaths:
@@ -119,7 +122,7 @@ def get_paths() -> ResourcePaths:
 
         # output
         zip_path=Path(
-            "exporter/share/dpdv2.zip"),
+            "exporter/share/dpd.zip"),
         mdict_mdx_path=Path(
             "exporter/share/dpd-mdict.mdx"),
 
@@ -164,6 +167,12 @@ def get_paths() -> ResourcePaths:
             "resources/tpr_downloads/download_source_files/dictionaries/dpd.zip"),
         tpr_beta_path=Path(
             "resources/tpr_downloads/download_source_files/dictionaries/dpd_beta.zip"),
+
+        # icon
+        icon_path=Path(
+            "icon/favicon.ico"),
+        icon_bmp_path=Path(
+            "icon/dpd.bmp"),
 
         )
 

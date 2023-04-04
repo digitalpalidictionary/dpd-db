@@ -12,7 +12,9 @@ def window_layout():
         font=("Noto Sans", 16),
         input_text_color="darkgray",
         text_color="#00bfff",
-        window_location=(0, 0)
+        window_location=(0, 0),
+        element_padding=(0, 3),
+        margins=(0, 0),
     )
 
     tab_add_next_word = make_tab_add_next_word(sg)

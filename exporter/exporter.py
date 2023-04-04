@@ -1,8 +1,8 @@
 #!/usr/bin/env python3.11
+import zipfile
 
 from os import popen
 from rich import print
-
 from sqlalchemy.orm import Session
 
 from export_dpd import generate_dpd_html
@@ -57,16 +57,20 @@ def export_to_goldendict(data_list: list) -> None:
 
     print("[green]generating goldendict zip", end=" ")
 
-    zip_path = PTH.zip_path
-
     ifo = ifo_from_opts(
-        {"bookname": "DPDv2",
+        {"bookname": "DPD",
             "author": "Bodhirasa",
             "description": "",
             "website": "https://digitalpalidictionary.github.io/", }
     )
 
-    export_words_as_stardict_zip(data_list, ifo, zip_path)
+    export_words_as_stardict_zip(data_list, ifo, PTH.zip_path, PTH.icon_path)
+
+    # add bmp icon for android
+    with zipfile.ZipFile(PTH.zip_path, 'a') as zipf:
+        source_path = PTH.icon_bmp_path
+        destination = 'dpd/android.bmp'
+        zipf.write(source_path, destination)
 
     print(f"{bop():>29}")
 
@@ -76,8 +80,11 @@ def goldendict_unzip_and_copy() -> None:
 
     bip()
     print("[green]unipping and copying goldendict", end=" ")
-    popen(
-        f'unzip -o {PTH.zip_path} -d "/home/bhikkhu/Documents/Golden Dict"')
+    try:
+        popen(
+            f'unzip -o {PTH.zip_path} -d "/home/bhikkhu/Documents/Golden Dict"')
+    except Exception as e:
+        print(f"[red]{e}")
 
     print(f"{bop():>23}")
 

@@ -259,7 +259,7 @@ def add_stem_pattern(values, window):
             window["stem"].update(pali_1_clean[:-1])
             window["pattern"].update("u masc")
         if pali_1_clean.endswith("ar"):
-            window["stem"].update(pali_1_clean[:-1])
+            window["stem"].update(pali_1_clean[:-2])
             window["pattern"].update("ar masc")
         if pali_1_clean.endswith("as"):
             window["stem"].update(pali_1_clean[:-1])
@@ -446,6 +446,9 @@ def clear_values(values, window):
     for value in values:
         if value in dpd_values_list:
             window[value].update("")
+    window["family_root"].update(values=[])
+    window["root_sign"].update(values=[])
+    window["root_base"].update(values=[])
     window["origin"].update("pass1")
 
 
@@ -603,7 +606,10 @@ def find_sutta_example(sg, window, values: dict) -> str:
             source = values["book_to_add"].upper()
             # add space to digtis
             source = re.sub(r"(?<=[A-Za-z])(?=\d)", " ", source)
-            sutta_number = p.next_sibling.next_sibling["n"]
+            try:
+                sutta_number = p.next_sibling.next_sibling["n"]
+            except KeyError as e:
+                window["messages"].update(e, text_color="red")
             source = f"{source}.{sutta_number}"
             # remove the digits and the dot in sutta name
             sutta = re.sub(r"\d*\. ", "", p.text)

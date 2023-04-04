@@ -224,9 +224,9 @@ def make_tab_add_word(sg):
             sg.Input(
                 key="add_spelling", size=(25, 1),
                 enable_events=True, tooltip=add_spelling_tooltip),
-            sg.Button("Add", key="add_spelling_button"),
-            sg.Button("Edit", key="edit_spelling_button"),
-            sg.Button("Check", key="check_spelling_button"),
+            sg.Button("Add", key="add_spelling_button", font=(None, 13)),
+            sg.Button("Edit", key="edit_spelling_button", font=(None, 13)),
+            sg.Button("Check", key="check_spelling_button", font=(None, 13)),
             sg.Text(
                 "", key="add_spelling_error", size=(50, 1), text_color="red")
         ],
@@ -253,7 +253,7 @@ def make_tab_add_word(sg):
             sg.pin(
                 sg.Combo(
                     ROOT_VALUES, key="root_key",
-                    size=(10, 1), tooltip=root_key_tooltip,
+                    size=(49, 1), tooltip=root_key_tooltip,
                     auto_size_text=False)),
             sg.Text(
                 "", key="root_key_error", size=(50, 1), text_color="red")
@@ -262,11 +262,18 @@ def make_tab_add_word(sg):
             sg.Text("family_root*", size=(15, 1)),
             sg.pin(
                 sg.Combo(
-                    values=[], key="family_root", size=(10, 1),
+                    values=[], key="family_root",
+                    size=(40, 1),
                     enable_events=True,
                     enable_per_char_events=True,
                     auto_size_text=False,
                     tooltip=family_root_tooltip)),
+            sg.pin(
+                sg.Button(
+                    "Get",
+                    size=(5, 1),
+                    font=(None, 13),
+                    key="get_family_root")),
             sg.Text(
                 "", key="family_root_error", size=(50, 1), text_color="red")
         ],
@@ -276,11 +283,17 @@ def make_tab_add_word(sg):
                 sg.Combo(
                     values=[],
                     key="root_sign",
-                    size=(10, 1),
+                    size=(40, 1),
                     enable_events=True,
                     enable_per_char_events=True,
                     auto_size_text=False,
                     tooltip=root_sign_tooltip)),
+            sg.pin(
+                sg.Button(
+                    "Get",
+                    size=(5, 1),
+                    font=(None, 13),
+                    key="get_root_sign")),
             sg.Text(
                 "", key="root_sign_error",
                 size=(50, 1), text_color="red")
@@ -290,11 +303,17 @@ def make_tab_add_word(sg):
             sg.pin(
                 sg.Combo(
                     values=[],
-                    key="root_base", size=(10, 1),
+                    key="root_base",
+                    size=(40, 1),
                     enable_per_char_events=True,
                     auto_size_text=False,
-                    tooltip=root_base_tooltip)
-            ),
+                    tooltip=root_base_tooltip)),
+            sg.pin(
+                sg.Button(
+                    "Get",
+                    size=(5, 1),
+                    font=(None, 13),
+                    key="get_root_base")),
             sg.Text(
                 "", key="root_base_error",
                 size=(50, 1), text_color="red")
@@ -342,7 +361,8 @@ def make_tab_add_word(sg):
                     key="add_construction", size=(20, 1),
                     tooltip=add_construction_tooltip)),
             sg.pin(
-                sg.Button("Add", key="add_construction_button")),
+                sg.Button(
+                    "Add", key="add_construction_button", font=(None, 13))),
             sg.Text(
                 "", key="add_construction_error", size=(50, 1),
                 text_color="red")
@@ -403,7 +423,7 @@ def make_tab_add_word(sg):
         [
             sg.Text("", size=(15, 1)),
             sg.Input(key="bold_cc", size=(20, 1), tooltip=bold_cc_tooltip),
-            sg.Button("Bold", key="bold_cc_button"),
+            sg.Button("Bold", key="bold_cc_button", font=(None, 13)),
         ],
         [
             sg.Text("non_root_in_comps", size=(15, 1)),
@@ -455,7 +475,8 @@ def make_tab_add_word(sg):
             sg.Input(
                 "", key="contains", size=(20, 1),
                 tooltip=contains_tooltip),
-            sg.Button("Search", key="defintions_search_button"),
+            sg.Button(
+                "Search", key="defintions_search_button", font=(None, 13)),
             sg.Text(
                 "", key="search_for_error", size=(50, 1), text_color="red")
         ],
@@ -521,11 +542,13 @@ def make_tab_add_word(sg):
         [
             sg.Text("", size=(15, 1)),
             sg.Input(key="bold_1", size=(20, 1), tooltip=bold_1_tooltip),
-            sg.Button("Bold", key="bold_1_button"),
+            sg.Button("Bold", key="bold_1_button", font=(None, 13)),
             sg.Button(
-                "Another Eg", key="another_eg_1",
-                tooltip=another_eg_1_tooltip),
-            sg.Button("Lower", key="example_1_lower"),
+                "Another Eg",
+                key="another_eg_1",
+                tooltip=another_eg_1_tooltip,
+                font=(None, 13)),
+            sg.Button("Lower", key="example_1_lower", font=(None, 13)),
             sg.Text("", key="bold_1_error", size=(50, 1), text_color="red")
         ],
         [
@@ -558,12 +581,14 @@ def make_tab_add_word(sg):
             sg.pin(
                  sg.Input(key="bold_2", size=(20, 1), tooltip=bold_2_tooltip)),
             sg.pin(
-                sg.Button("Bold", key="bold_2_button")),
+                sg.Button("Bold", key="bold_2_button", font=(None, 13))),
             sg.pin(
                 sg.Button(
-                    "Another Eg", key="another_eg_2",
+                    "Another Eg", key="another_eg_2", font=(None, 13),
                     tooltip=another_eg_2_tooltip)),
-            sg.Button("Lower", key="example_2_lower"),
+            sg.pin(
+                sg.Button("Lower", key="example_2_lower", font=(None, 13))
+            ),
             sg.Text("", key="bold_2_error", size=(50, 1), text_color="red")
         ],
         [
@@ -616,6 +641,7 @@ def make_tab_add_word(sg):
             sg.Button("Add to db", key="add_word_to_db"),
             sg.Button("Update", key="update_word"),
             sg.Button("Save", key="save_state"),
+            sg.Button("Delete", key="delete_button"),
         ],
         [
             sg.Button("Debug"),

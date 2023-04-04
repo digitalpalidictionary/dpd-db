@@ -10,8 +10,7 @@ class InternalTestRow():
         search_column_4, search_sign_4, search_string_4,
         search_column_5, search_sign_5, search_string_5,
         search_column_6, search_sign_6, search_string_6,
-        error_column, error_message,
-        exceptions, iterations,
+        error_column, exceptions, iterations,
         display_1, display_2,
         display_3
     ):
@@ -36,7 +35,6 @@ class InternalTestRow():
         self.search_sign_6 = search_sign_6
         self.search_string_6 = search_string_6
         self.error_column = error_column
-        self.error_message = error_message
         self.display_1 = display_1
         self.display_2 = display_2
         self.display_3 = display_3

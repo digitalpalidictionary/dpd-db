@@ -25,7 +25,7 @@ ADD_DO = True
 
 def process_matches(neg_inflections_set):
 
-    print("[green]processing macthes")
+    print("[green]processing matches")
 
     print("reading csvs")
     matches_df = pd.read_csv(pth["matches_path"], dtype=str, sep="\t")

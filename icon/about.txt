@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Yanone Kaffeesatz
+- Font Author: Copyright 2010 The Yanone Kaffeesatz Project Authors (https://github.com/alexeiva/yanone-kaffeesatz)
+- Font Source: http://fonts.gstatic.com/s/yanonekaffeesatz/v18/3y9I6aknfjLm_3lMKjiMgmUUYBs04aUXNxt9gW2LIftoxNWpcGuLCnXkVA.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))

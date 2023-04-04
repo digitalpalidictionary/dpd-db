@@ -21,7 +21,7 @@ def main():
     print("[bright_yellow]mapmaker")
 
     global regenerate
-    regenerate = True
+    regenerate = False
 
     print(f"[green]regenerate all [white]{regenerate}")
 
