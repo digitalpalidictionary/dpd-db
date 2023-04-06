@@ -229,7 +229,7 @@ def generate_tpr_data():
             next_root_clean = ""
 
         if r.root_clean == next_root_clean:
-            html_string += "<br>"
+            html_string += " <br>"
             new_root = False
         else:
             html_string += """</p></div>"""
@@ -255,7 +255,7 @@ def generate_tpr_data():
             for split in splits:
                 html_string += split.replace("<i>", "").replace("</i>", "")
                 if split != splits[-1]:
-                    html_string += "<br>"
+                    html_string += " <br>"
                 else:
                     html_string += "</div></p>"
                     tpr_data_list += [{

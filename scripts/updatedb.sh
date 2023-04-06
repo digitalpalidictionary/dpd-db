@@ -16,5 +16,6 @@ exporter/exporter.py
 exporter/tpr_exporter.py
 scripts/anki_csvs.py
 db/db_to_tsv.py
+scripts/summary.py
 # scripts/common_errors.py
 
