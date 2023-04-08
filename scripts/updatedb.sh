@@ -12,10 +12,10 @@ families/word_family.py
 families/compound_family.py
 families/sets.py
 frequency/mapmaker.py
+db/db_to_tsv.py
 exporter/exporter.py
 exporter/tpr_exporter.py
 scripts/anki_csvs.py
-db/db_to_tsv.py
 scripts/summary.py
 # scripts/common_errors.py
 

@@ -230,7 +230,7 @@ def main():
         d = dotdict(d)
 
         # debug
-        # if d.init != "evaṃsampadamevetaṃ":
+        # if d.init != "aniccabhāvāpattidosadassanatthaṃ":
         #     continue
         # if d.count > 1000:
         #     break
@@ -256,30 +256,18 @@ def main():
             print(
                 f"{d.count:>10,} / {unmatched_len_init:<10,}{d.word}")
 
-            def save_matches():
-
-                with open(pth["matches_path"], "a") as f:
-                    for word, data in matches_dict.items():
-                        for item in data:
-                            f.write(f"{word}\t")
-                            for column in item:
-                                f.write(f"{column}\t")
-                            f.write("\n")
-
-            save_matches()
-            matches_dict = {}
-
-            def save_timer_dict(time_dict):
-                df = pd.DataFrame.from_dict(time_dict, orient="index")
-                df = df.sort_values(by=0, ascending=False)
-                df.to_csv(
-                    "sandhi/output/timer.csv", mode="a", header=None, sep="\t")
-
+            save_matches(matches_dict)
             save_timer_dict(time_dict)
+            matches_dict = {}
             time_dict = {}
 
-    save_matches()
-    save_timer_dict(time_dict)
+    save_matches(matches_dict)
+
+    try:
+        save_timer_dict(time_dict)
+    except KeyError as e:
+        print(f"[red] {e}")
+
     summary()
     toc()
 
@@ -289,6 +277,24 @@ def main():
         yes_no = input("open profiler? (y/n) ")
         if yes_no == "y":
             popen("tuna profiler.prof")
+
+
+def save_matches(matches_dict):
+
+    with open(pth["matches_path"], "a") as f:
+        for word, data in matches_dict.items():
+            for item in data:
+                f.write(f"{word}\t")
+                for column in item:
+                    f.write(f"{column}\t")
+                f.write("\n")
+
+
+def save_timer_dict(time_dict):
+    df = pd.DataFrame.from_dict(time_dict, orient="index")
+    df = df.sort_values(by=0, ascending=False)
+    df.to_csv(
+        "sandhi/output/timer.csv", mode="a", header=None, sep="\t")
 
 
 def recursive_removal(d):

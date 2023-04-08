@@ -158,5 +158,5 @@ if __name__ == "__main__":
     print(line6)
     print("- 100% dictionary recognition up to and including ")
     print()
-    print(new_words_string)
+    print(f"new words include: {new_words_string}")
     toc()

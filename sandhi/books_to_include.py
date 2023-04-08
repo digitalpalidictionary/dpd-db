@@ -6,8 +6,8 @@ include = [
     "sn1", "sn2", "sn3", "sn4", "sn5",
 
     "an1", "an2", "an3", "an4", "an5",
-    "an6", "an7",
-    # "an8", "an9", "an10", "an11",
+    "an6", "an7", "an8",
+    "an9", "an10", "an11",
 
     # "kn1", "kn2", "kn3", "kn4", "kn5",
     # "kn6", "kn7", "kn8", "kn9", "kn10",
