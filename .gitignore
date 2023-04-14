@@ -36,3 +36,4 @@ sandhi/output/*
 share/*
 tmp/
 grammar_dict/output/grammar_dict_pickle
+sandhi/time_delta.ods

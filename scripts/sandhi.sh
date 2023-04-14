@@ -14,7 +14,6 @@ gdown 1j62n1EBn1K_EbjaJEoOghmX4eVC75pVS
 https://drive.google.com/file/d/1j62n1EBn1K_EbjaJEoOghmX4eVC75pVS/view?usp=share_link
 unzip sandhi.zip
 rm sandhi.zip
-mkdir sandhi/output
 pip install poetry
 poetry install
 poetry shell

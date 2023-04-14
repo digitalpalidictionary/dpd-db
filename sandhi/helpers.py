@@ -76,18 +76,21 @@ def get_resource_paths() -> ResourcePaths:
 
         # output
         process_path=Path(
-            "sandhi/output/process.csv"),
+            "sandhi/output/process.tsv"),
         matches_path=Path(
-            "sandhi/output/matches.csv"),
+            "sandhi/output/matches.tsv"),
+        unmatched_path=Path(
+            "sandhi/output/unmatched.tsv"),
         matches_sorted=Path(
-            "sandhi/output/matches_sorted.csv"),
+            "sandhi/output/matches_sorted.tsv"),
         sandhi_dict_path=Path(
             "sandhi/output/sandhi_dict"),
         sandhi_dict_df_path=Path(
-            "sandhi/output/sandhi_dict_df.csv"),
+            "sandhi/output/sandhi_dict_df.tsv"),
         zip_path=Path(
             "sandhi/output/zip/padavibhāga.zip"),
-        rule_counts_path=Path("sandhi/output/rule_counts/rule_counts.csv"),
+        rule_counts_path=Path(
+            "sandhi/output/rule_counts/rule_counts.tsv"),
 
         # translit
         sandhi_to_translit_path=Path("share/sandhi_to_translit.json"),

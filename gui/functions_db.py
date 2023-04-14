@@ -292,7 +292,9 @@ def get_family_root_values(root_key):
     ).first()
     if results is not None:
         family_root_values = results.root_family_list
-    return family_root_values
+        return family_root_values
+    else:
+        return []
 
 
 # get_family_root_values("√kar")

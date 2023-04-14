@@ -11,12 +11,13 @@ from db.models import PaliWord, PaliRoot, Sandhi, DerivedData
 from tools.pali_sort_key import pali_sort_key
 from tools.timeis import tic, toc
 
-
+tic()
 db_session = get_db_session("dpd.db")
 dpd_db = db_session.query(PaliWord).all()
 roots_db = db_session.query(PaliRoot).all()
 sandhi_db = db_session.query(Sandhi).all()
 derived_db = db_session.query(DerivedData).all()
+last_count = 71839
 
 
 def dpd_size():
@@ -65,7 +66,7 @@ def dpd_size():
 
 
 def new_words():
-    db = db_session.query(PaliWord).filter(PaliWord.id > 71509).all()
+    db = db_session.query(PaliWord).filter(PaliWord.id > last_count).all()
 
     new_words = [i.pali_1 for i in db]
     new_words = sorted(new_words, key=pali_sort_key)
@@ -141,7 +142,6 @@ def root_data():
 
 
 if __name__ == "__main__":
-    tic()
     print("[bright_yellow]summary")
     line1, line5, root_families = dpd_size()
     line2 = root_size(root_families)

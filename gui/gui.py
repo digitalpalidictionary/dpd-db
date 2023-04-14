@@ -139,10 +139,14 @@ def main():
                 if values["word_to_add"][0] in words_to_add_list:
                     words_to_add_list.remove(values["word_to_add"][0])
 
-                values["word_to_add"] = [words_to_add_list[0]]
-                window["word_to_add"].update(words_to_add_list)
-                window["words_to_add_length"].update(len(words_to_add_list))
-                open_in_goldendict(words_to_add_list[0])
+                try:
+                    values["word_to_add"] = [words_to_add_list[0]]
+                    window["word_to_add"].update(words_to_add_list)
+                    window["words_to_add_length"].update(len(words_to_add_list))
+                    open_in_goldendict(words_to_add_list[0])
+                except IndexError:
+                    window["messages"].update(
+                        "no more words to add", text_color="red")
 
         # add word
 

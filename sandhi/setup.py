@@ -376,6 +376,7 @@ def main():
         text_set = text_set - variant_readings_set
         text_set = text_set - abbreviations_set
         text_set = text_set - manual_corrections_set
+        text_set.update(["tā", "ttā"])
         if "" in text_set:
             text_set.remove("")
 

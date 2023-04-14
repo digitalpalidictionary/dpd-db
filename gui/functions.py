@@ -291,7 +291,7 @@ def add_stem_pattern(values, window):
             window["stem"].update(pali_1_clean[:-1])
             window["pattern"].update("u fem")
         if pali_1_clean.endswith("ar"):
-            window["stem"].update(pali_1_clean[:-1])
+            window["stem"].update(pali_1_clean[:-2])
             window["pattern"].update("ar fem")
         if pali_1_clean.endswith("ū"):
             window["stem"].update(pali_1_clean[:-1])
@@ -757,6 +757,10 @@ def make_words_to_add_list(window, book: str) -> list:
     text_set = text_set - all_inflections_set
     text_list = sorted(text_set, key=lambda x: text_list.index(x))
     print(f"words_to_add: {len(text_list)}")
+
+    with open("xxx delete/text_list.tsv", "w") as f:
+        for word in text_list:
+            f.write(f"{word}\n")
 
     return text_list
 

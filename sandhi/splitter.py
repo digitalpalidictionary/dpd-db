@@ -246,9 +246,25 @@ def main():
         # if not w.matches :
         #     d = four_word_sandhi(d)
 
-        # recursive removal
+        # # recursive removal
         if not w.matches:
             recursive_removal(d)
+
+        # a na an nā
+        if d.word.startswith(("a", "na", "an", "nā")):
+            d = remove_neg(d)
+
+        # sa
+        elif d.word.startswith("sa"):
+            d = remove_sa(d)
+
+        # su
+        elif d.word.startswith("su"):
+            d = remove_su(d)
+
+        # dur
+        elif d.word.startswith("du"):
+            d = remove_dur(d)
 
         time_dict[word] = bop()
 
@@ -322,9 +338,31 @@ def recursive_removal(d):
             else:
                 # recursion
 
+                # two word sandhi
+                if d.comm != "start":
+                    d = two_word_sandhi(d)
+
+                # ffc = lwff clean
+                d = remove_lwff_clean(d)
+
+                # fff = lwff fuzzy
+                d = remove_lwff_fuzzy(d)
+
+                # api eva iti
+                if re.findall("(pi|va|ti)$", d.word) != []:
+                    d = remove_apievaiti(d)
+
+                if not w.matches:
+
+                    # fbc = lwfb_clean
+                    d = remove_lwfb_clean(d)
+
+                    # fbf = lwfb fuzzy
+                    d = remove_lwfb_fuzzy(d)
+
                 if d.processes == 1:
 
-                    # negatives
+                    # a na an nā
                     if d.word.startswith(("a", "na", "an", "nā")):
                         d = remove_neg(d)
 
@@ -340,27 +378,8 @@ def recursive_removal(d):
                     elif d.word.startswith("du"):
                         d = remove_dur(d)
 
-                # api eva iti
-                if re.findall("(pi|va|ti)$", d.word) != []:
-                    d = remove_apievaiti(d)
 
-                # two word sandhi
-                if d.comm != "start":
-                    d = two_word_sandhi(d)
 
-                # ffc = lwff clean
-                d = remove_lwff_clean(d)
-
-                # fff = lwff fuzzy
-                d = remove_lwff_fuzzy(d)
-
-                if not w.matches:
-
-                    # fbc = lwfb_clean
-                    d = remove_lwfb_clean(d)
-
-                    # fbf = lwfb fuzzy
-                    d = remove_lwfb_fuzzy(d)
 
 
 def remove_neg(d):
@@ -1215,7 +1234,9 @@ def dprint(d):
 
 def summary():
 
-    with open("sandhi/output/unmatched.csv", "w") as f:
+    print("[green]writing unmatched set")
+
+    with open(pth["unmatched_path"], "w") as f:
         for item in unmatched_set:
             f.write(f"{item}\n")
 
@@ -1250,6 +1271,11 @@ if __name__ == "__main__":
 # dūteyyapahinagamanānuyogapabhedaṃ
 # bhāvanārāmāriyavaṃsaṃ
 # sahassanayapaṭimaṇḍitaṃ
-
+# suttantabhājanīyaabhidhammabhājanīyapañhapucchakanayānaṃ
+# anuttaradakkhiṇeyyatāuttamapūjanīyanamassanīyabhāvapūjananamassanakiriyāya
+# dukkhānupassanāvisesoyeva
+# sammāsambuddhantyādimāha
+# hetudukavissajjanasadisaṃ
+# tippakārāpi
 
 # include neg count in post process

@@ -141,8 +141,10 @@ class PaliWord(Base):
     root_sign: Mapped[Optional[str]] = mapped_column(default='')
     root_base: Mapped[Optional[str]] = mapped_column(default='')
 
-    family_root: Mapped[Optional[str]] = mapped_column(default='')
-    family_word: Mapped[Optional[str]] = mapped_column(default='')
+    family_root: Mapped[Optional[str]] = mapped_column(
+        ForeignKey("family_root.root_family"), default='')
+    family_word: Mapped[Optional[str]] = mapped_column(
+        ForeignKey("family_word.word_family"), default='')
     family_compound: Mapped[Optional[str]] = mapped_column(default='')
     family_set: Mapped[Optional[str]] = mapped_column(default='')
 
@@ -180,11 +182,17 @@ class PaliWord(Base):
     updated_at: Mapped[Optional[DateTime]] = mapped_column(
         DateTime(timezone=True), onupdate=func.now())
 
-    rt: Mapped[PaliRoot] = relationship(
-        # back_populates="pali_words",
-        uselist=False)
+    rt: Mapped[PaliRoot] = relationship(uselist=False)
+
+    # fr: relationship("FamilyRoot", uselist=False)
+
+    # fw: relationship("FamilyWord", uselist=False)
 
     dd = relationship("DerivedData", uselist=False)
+
+    sbs = relationship("SBS", uselist=False)
+
+    ru = relationship("Russian", uselist=False)
 
     it: Mapped[InflectionTemplates] = relationship()
 
@@ -324,3 +332,48 @@ class FamilySet(Base):
 
     def __repr__(self) -> str:
         return f"FamilySet: {self.id} {self.set} {self.count}"
+
+
+class SBS(Base):
+    __tablename__ = "sbs"
+
+    id: Mapped[int] = mapped_column(ForeignKey('pali_words.id'), primary_key=True)
+    sbs_class_anki: Mapped[Optional[int]] = mapped_column(default=0)
+    sbs_class: Mapped[Optional[int]] = mapped_column(default=0)
+    sbs_meaning: Mapped[Optional[str]] = mapped_column(default='')
+    sbs_notes: Mapped[Optional[str]] = mapped_column(default='')
+    sbs_chant_pali_1: Mapped[Optional[str]] = mapped_column(default='')
+    sbs_chant_eng_1: Mapped[Optional[str]] = mapped_column(default='')
+    sbs_chapter_1: Mapped[Optional[str]] = mapped_column(default='')
+    sbs_chant_pali_2: Mapped[Optional[str]] = mapped_column(default='')
+    sbs_chant_eng_2: Mapped[Optional[str]] = mapped_column(default='')
+    sbs_chapter_2: Mapped[Optional[str]] = mapped_column(default='')
+    sbs_source_3: Mapped[Optional[str]] = mapped_column(default='')
+    sbs_sutta_3: Mapped[Optional[str]] = mapped_column(default='')
+    sbs_example_3: Mapped[Optional[str]] = mapped_column(default='')
+    sbs_chant_pali_3: Mapped[Optional[str]] = mapped_column(default='')
+    sbs_chant_eng_3: Mapped[Optional[str]] = mapped_column(default='')
+    sbs_chapter_3: Mapped[Optional[str]] = mapped_column(default='')
+    sbs_source_4: Mapped[Optional[str]] = mapped_column(default='')
+    sbs_sutta_4: Mapped[Optional[str]] = mapped_column(default='')
+    sbs_example_4: Mapped[Optional[str]] = mapped_column(default='')
+    sbs_chant_pali_4: Mapped[Optional[str]] = mapped_column(default='')
+    sbs_chapter_4: Mapped[Optional[str]] = mapped_column(default='')
+    sbs_index: Mapped[Optional[int]] = mapped_column(default=0)
+    sbs_category: Mapped[Optional[str]] = mapped_column(default='')
+    sbs_audio: Mapped[Optional[str]] = mapped_column(default='')
+
+    def __repr__(self) -> str:
+        return f"SBS: {self.id} {self.sbs_class_anki} {self.sbs_class}"
+
+
+class Russian(Base):
+    __tablename__ = "russian"
+
+    id: Mapped[int] = mapped_column(ForeignKey('pali_words.id'), primary_key=True)
+    ru_meaning: Mapped[str] = mapped_column(default="")
+    ru_meaning_lit: Mapped[Optional[str]] = mapped_column(default="")
+    ru_notes: Mapped[Optional[str]] = mapped_column(default='')
+
+    def __repr__(self) -> str:
+        return f"Russian: {self.id} {self.ru_meaning} {self.ru_meaning_lit}"

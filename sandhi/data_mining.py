@@ -4,11 +4,11 @@ import csv
 from pathlib import Path
 import re
 
-do_unmatched_path = Path("sandhi/output_do/unmatched.csv")
+do_unmatched_path = Path("sandhi/output_do/unmatched.tsv")
 do_unmatched_groups_path = Path("sandhi/output/mining/unmatched_groups.tsv")
 do_unmatched_groups_path.parent.mkdir(parents=True, exist_ok=True)
 
-do_matches_path = Path("sandhi/output_do/matches.csv")
+do_matches_path = Path("sandhi/output_do/matches.tsv")
 do_matches_pairs_path = Path("sandhi/output/mining/matches_pairs.tsv")
 
 tipitaka_word_freq = Path("frequency/output/word_count/tipitaka.csv")
