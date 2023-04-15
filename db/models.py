@@ -255,7 +255,7 @@ class DerivedData(Base):
     __tablename__ = "derived_data"
 
     id: Mapped[int] = mapped_column(ForeignKey('pali_words.id'), primary_key=True)
-    pali_1: Mapped[str] = mapped_column(unique=True)
+    # pali_1: Mapped[str] = mapped_column(unique=True)
     inflections: Mapped[Optional[str]] = mapped_column(default='')
     sinhala: Mapped[Optional[str]] = mapped_column(default='')
     devanagari: Mapped[Optional[str]] = mapped_column(default='')
@@ -265,7 +265,7 @@ class DerivedData(Base):
     freq_html: Mapped[Optional[str]] = mapped_column(default='')
 
     def __repr__(self) -> str:
-        return f"DerivedData: {self.id} {self.pali_1} {self.inflections}"
+        return f"DerivedData: {self.id} {PaliWord.pali_1} {self.inflections}"
 
 
 class Sandhi(Base):
@@ -338,8 +338,8 @@ class SBS(Base):
     __tablename__ = "sbs"
 
     id: Mapped[int] = mapped_column(ForeignKey('pali_words.id'), primary_key=True)
-    sbs_class_anki: Mapped[Optional[int]] = mapped_column(default=0)
-    sbs_class: Mapped[Optional[int]] = mapped_column(default=0)
+    sbs_class_anki: Mapped[Optional[int]] = mapped_column(default='')
+    sbs_class: Mapped[Optional[int]] = mapped_column(default='')
     sbs_meaning: Mapped[Optional[str]] = mapped_column(default='')
     sbs_notes: Mapped[Optional[str]] = mapped_column(default='')
     sbs_chant_pali_1: Mapped[Optional[str]] = mapped_column(default='')
@@ -358,13 +358,14 @@ class SBS(Base):
     sbs_sutta_4: Mapped[Optional[str]] = mapped_column(default='')
     sbs_example_4: Mapped[Optional[str]] = mapped_column(default='')
     sbs_chant_pali_4: Mapped[Optional[str]] = mapped_column(default='')
+    sbs_chant_eng_4: Mapped[Optional[str]] = mapped_column(default='')
     sbs_chapter_4: Mapped[Optional[str]] = mapped_column(default='')
-    sbs_index: Mapped[Optional[int]] = mapped_column(default=0)
+    sbs_index: Mapped[Optional[int]] = mapped_column(default='')
     sbs_category: Mapped[Optional[str]] = mapped_column(default='')
     sbs_audio: Mapped[Optional[str]] = mapped_column(default='')
 
     def __repr__(self) -> str:
-        return f"SBS: {self.id} {self.sbs_class_anki} {self.sbs_class}"
+        return f"SBS: {self.id} {PaliWord.pali_1} {self.sbs_class_anki} {self.sbs_class}"
 
 
 class Russian(Base):
@@ -376,4 +377,4 @@ class Russian(Base):
     ru_notes: Mapped[Optional[str]] = mapped_column(default='')
 
     def __repr__(self) -> str:
-        return f"Russian: {self.id} {self.ru_meaning} {self.ru_meaning_lit}"
+        return f"Russian: {self.id} {PaliWord.pali_1} {self.ru_meaning}"

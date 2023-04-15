@@ -17,7 +17,7 @@ from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.superscripter import superscripter_uni
 
-regenerate_all: bool = False
+regenerate_all: bool = True
 
 dpd_db_path = Path("dpd.db")
 db_session = get_db_session(dpd_db_path)
@@ -37,7 +37,8 @@ def main():
     tic()
     print("[bright_yellow]generate inflection lists and html tables")
 
-    test_changes()
+    if regenerate_all is not True:
+        test_changes()
 
     print("[green]generating html tables and lists")
     add_to_db = []
@@ -70,7 +71,7 @@ def main():
 
                 derived_data = DerivedData(
                     id=i.id,
-                    pali_1=i.pali_1,
+                    # pali_1=i.pali_1,
                     inflections=json.dumps(
                         inflections_list, ensure_ascii=False),
                     html_table=html
@@ -79,7 +80,7 @@ def main():
                 if "!" in i.stem:
                     derived_data = DerivedData(
                         id=i.id,
-                        pali_1=i.pali_1,
+                        # pali_1=i.pali_1,
                         inflections=json.dumps(
                             (list([i.pali_clean])), ensure_ascii=False),
                         html_table=html,
@@ -88,7 +89,7 @@ def main():
             elif i.pattern == "":
                 derived_data = DerivedData(
                     id=i.id,
-                    pali_1=i.pali_1,
+                    # pali_1=i.pali_1,
                     inflections=json.dumps(
                         (list([i.pali_clean])), ensure_ascii=False))
 
@@ -256,8 +257,8 @@ def test_missing_inflection_list_html() -> None:
 
 
 def test_missing_id() -> None:
-    """test for missing ids and wring headwords in derived_data table"""
-    print("[green]testing for missing id's wrong headwords")
+    """test for missing ids and wrong headwords in derived_data table"""
+    print("[green]testing for missing id's")
 
     dpd_db = db_session.query(PaliWord).all()
     for i in dpd_db:
@@ -265,9 +266,9 @@ def test_missing_id() -> None:
             print(f"\t[red]{i.pali_1}")
             changed_headwords.append(i.pali_1)
 
-        elif i.pali_1 != i.dd.pali_1:
-            print(f"\t[red]{i.pali_1}")
-            changed_headwords.append(i.pali_1)
+        # elif i.pali_1 != i.dd.pali_1:
+        #     print(f"\t[red]{i.pali_1}")
+        #     changed_headwords.append(i.pali_1)
 
 
 def test_changes() -> None:

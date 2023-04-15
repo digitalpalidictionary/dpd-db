@@ -47,16 +47,16 @@ def get_resource_paths() -> ResourcePaths:
             "../inflection generator/sandhi"),
         sandhi_related_dest_dir=Path("sandhi/sandhi_related"),
         sp_mistakes_path=Path(
-            "sandhi/sandhi_related/spelling mistakes.csv"),
+            "sandhi/sandhi_related/spelling_mistakes.tsv"),
         variant_readings_path=Path(
-            "sandhi/sandhi_related/variant readings.csv"),
+            "sandhi/sandhi_related/variant_readings.tsv"),
         manual_corrections_path=Path(
-            "sandhi/sandhi_related/manual corrections.csv"),
-        shortlist_path=Path("sandhi/sandhi_related/shortlist.csv"),
+            "sandhi/sandhi_related/manual_corrections.tsv"),
+        shortlist_path=Path("sandhi/sandhi_related/shortlist.tsv"),
         sandhi_exceptions_path=Path(
-            "sandhi/sandhi_related/sandhi exceptions.csv"),
+            "sandhi/sandhi_related/sandhi_exceptions.tsv"),
         sandhi_rules_path=Path(
-            "sandhi/sandhi_related/sandhi rules.csv"),
+            "sandhi/sandhi_related/sandhi_rules.tsv"),
         sandhi_css_path=Path(
             "exporter/css/sandhi.css"),
 
@@ -72,7 +72,7 @@ def get_resource_paths() -> ResourcePaths:
         matches_dict_path=Path(
             "sandhi/assets/matches_dict"),
         matches_do_path=Path(
-            "sandhi/output_do/matches.csv"),
+            "sandhi/output_do/matches.tsv"),
 
         # output
         process_path=Path(
@@ -97,17 +97,17 @@ def get_resource_paths() -> ResourcePaths:
         sandhi_from_translit_path=Path("share/sandhi_from_translit.json"),
 
         # letters
-        letters=Path("sandhi/output/letters/letters.csv"),
-        letters1=Path("sandhi/output/letters/letters1.csv"),
-        letters2=Path("sandhi/output/letters/letters2.csv"),
-        letters3=Path("sandhi/output/letters/letters3.csv"),
-        letters4=Path("sandhi/output/letters/letters4.csv"),
-        letters5=Path("sandhi/output/letters/letters5.csv"),
-        letters6=Path("sandhi/output/letters/letters6.csv"),
-        letters7=Path("sandhi/output/letters/letters7.csv"),
-        letters8=Path("sandhi/output/letters/letters8.csv"),
-        letters9=Path("sandhi/output/letters/letters9.csv"),
-        letters10=Path("sandhi/output/letters/letters10plus.csv"),
+        letters=Path("sandhi/output/letters/letters.tsv"),
+        letters1=Path("sandhi/output/letters/letters1.tsv"),
+        letters2=Path("sandhi/output/letters/letters2.tsv"),
+        letters3=Path("sandhi/output/letters/letters3.tsv"),
+        letters4=Path("sandhi/output/letters/letters4.tsv"),
+        letters5=Path("sandhi/output/letters/letters5.tsv"),
+        letters6=Path("sandhi/output/letters/letters6.tsv"),
+        letters7=Path("sandhi/output/letters/letters7.tsv"),
+        letters8=Path("sandhi/output/letters/letters8.tsv"),
+        letters9=Path("sandhi/output/letters/letters9.tsv"),
+        letters10=Path("sandhi/output/letters/letters10plus.tsv"),
 
         # dirs
         output_dir=Path("sandhi/output/"),

@@ -43,7 +43,7 @@ def generate_dpd_html(DB_SESSION, PTH):
             PaliWord, DerivedData, FamilyRoot, FamilyWord
         ).outerjoin(
             DerivedData,
-            PaliWord.pali_1 == DerivedData.pali_1
+            PaliWord.id == DerivedData.id
         ).outerjoin(
             FamilyRoot,
             and_(
@@ -97,6 +97,7 @@ def generate_dpd_html(DB_SESSION, PTH):
         synonyms += loads(dd.devanagari)
         synonyms += loads(dd.thai)
         synonyms += i.family_set_list
+        synonyms += i.id
 
         dpd_data_list += [{
             "word": i.pali_1,

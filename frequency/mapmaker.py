@@ -111,22 +111,22 @@ def test_data_file_missing():
     print("[green]test if data file is missing", end=" ")
 
     idioms_db = db_session.query(
-        PaliWord.pali_1, PaliWord.pos
+        PaliWord.id, PaliWord.pos
     ).filter(
         PaliWord.pos == "idiom"
     ).all()
 
-    idioms_list = [i.pali_1 for i in idioms_db]
+    idioms_list = [i.id for i in idioms_db]
 
     missing_data_db = db_session.query(
-        DerivedData.pali_1, DerivedData.freq_data
+        DerivedData.id, DerivedData.freq_data
         ).filter(
             DerivedData.freq_data == "",
-            DerivedData.pali_1.notin_(idioms_list)
+            DerivedData.id.notin_(idioms_list)
         ).all()
 
     global data_file_missing
-    data_file_missing = [i.pali_1 for i in missing_data_db]
+    data_file_missing = [i.id for i in missing_data_db]
 
     if len(data_file_missing) > 0:
         print(f"[bright_red]{len(data_file_missing)}")
@@ -140,14 +140,14 @@ def test_html_file_missing(idioms_list):
     print("[green]test if html file is missing", end=" ")
 
     missing_html_db = db_session.query(
-        DerivedData.pali_1, DerivedData.freq_html
+        DerivedData.id, DerivedData.freq_html
     ).filter(
         DerivedData.freq_html == "",
-        DerivedData.pali_1.notin_(idioms_list)
+        DerivedData.id.notin_(idioms_list)
     ).all()
 
     global html_file_missing
-    html_file_missing = [i.pali_1 for i in missing_html_db]
+    html_file_missing = [i.id for i in missing_html_db]
 
     if len(html_file_missing) > 0:
         print(f"[bright_red]{len(html_file_missing)}")
@@ -369,8 +369,8 @@ def make_data_dict(dicts):
             (map_same is False or
                 i.pattern in changed_templates or
                 i.pali_1 in changed_headwords or
-                i.pali_1 in data_file_missing or
-                i.pali_1 in html_file_missing or
+                i.id in data_file_missing or
+                i.id in html_file_missing or
                 regenerate is True):
 
             if regenerate is True:
@@ -385,7 +385,7 @@ def make_data_dict(dicts):
                 word = db_session.query(
                     DerivedData.inflections
                     ).filter(
-                        DerivedData.pali_1 == i.pali_1
+                        DerivedData.id == i.id
                         ).first()
 
                 inflections = json.loads(word.inflections)
@@ -481,8 +481,8 @@ def generates_html_files(wc_data, dpd_db):
             (map_same is False or
                 i.pattern in changed_templates or
                 i.pali_1 in changed_headwords or
-                i.pali_1 in data_file_missing or
-                i.pali_1 in html_file_missing or
+                i.id in data_file_missing or
+                i.id in html_file_missing or
                 regenerate is True):
 
             try:

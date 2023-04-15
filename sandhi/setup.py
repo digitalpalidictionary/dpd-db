@@ -271,10 +271,10 @@ def make_all_inflections_set(sandhi_exceptions_set):
     no_exceptions = db_session.query(PaliWord).filter(
         PaliWord.pos.notin_(exceptions_list)).all()
 
-    all_headwords = [i.pali_1 for i in no_exceptions]
+    all_headwords = [i.id for i in no_exceptions]
 
     all_inflections_db = db_session.query(DerivedData).filter(
-        DerivedData.pali_1.in_(all_headwords)).all()
+        DerivedData.id.in_(all_headwords)).all()
 
     for i in all_inflections_db:
         inflections = loads(i.inflections)
@@ -303,10 +303,10 @@ def make_neg_inflections_set(sandhi_exceptions_set):
         PaliWord.pos.notin_(exceptions_list)).filter(
         PaliWord.neg == "neg").all()
 
-    neg_headwords = [i.pali_1 for i in neg_headwords_db]
+    neg_headwords = [i.id for i in neg_headwords_db]
 
     neg_inflections_db = db_session.query(DerivedData).filter(
-        DerivedData.pali_1.in_(neg_headwords)).all()
+        DerivedData.id.in_(neg_headwords)).all()
 
     for i in neg_inflections_db:
         inflections = loads(i.inflections)

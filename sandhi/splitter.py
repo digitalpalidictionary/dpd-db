@@ -108,7 +108,7 @@ def setup():
         f.write("")
 
     # initalise timer dict
-    with open("sandhi/output/timer.csv", "w") as f:
+    with open("sandhi/output/timer.tsv", "w") as f:
         f.write("")
 
 
@@ -310,7 +310,7 @@ def save_timer_dict(time_dict):
     df = pd.DataFrame.from_dict(time_dict, orient="index")
     df = df.sort_values(by=0, ascending=False)
     df.to_csv(
-        "sandhi/output/timer.csv", mode="a", header=None, sep="\t")
+        "sandhi/output/timer.tsv", mode="a", header=None, sep="\t")
 
 
 def recursive_removal(d):

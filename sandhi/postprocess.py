@@ -27,7 +27,7 @@ def process_matches(neg_inflections_set):
 
     print("[green]processing matches")
 
-    print("reading csvs")
+    print("reading tsvs")
     matches_df = pd.read_csv(pth["matches_path"], dtype=str, sep="\t")
 
     if ADD_DO is True:
@@ -86,7 +86,7 @@ def process_matches(neg_inflections_set):
         ignore_index=True
     )
 
-    print("saving to matches_sorted.csv")
+    print("saving to matches_sorted.tsv")
     matches_df.to_csv(pth["matches_sorted"], sep="\t", index=None)
 
     return matches_df
