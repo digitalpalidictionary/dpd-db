@@ -2,7 +2,6 @@
 import csv
 import sys
 
-import datetime
 from pathlib import Path
 from rich import print
 
@@ -31,7 +30,6 @@ def restore_db_from_tsvs():
             sys.exit(1)
 
     db_session = get_db_session(dpd_db_path)
-    datetime_format = "%Y-%m-%d %H:%M:%S"
 
     print("[green]loading PaliWord rows")
     with open(pali_word_path, 'r', newline='') as tsvfile:
@@ -42,12 +40,6 @@ def restore_db_from_tsvs():
             for col_name, value in zip(columns, row):
                 if col_name not in ("created_at", "updated_at"):
                     data[col_name] = value
-                # else:
-                #     if value != "":
-                #         value = datetime.datetime.strptime(value, datetime_format)
-                #         data[col_name] = value
-                #     else:
-                #         data[col_name] = value
 
             db_session.add(PaliWord(**data))
 
@@ -60,14 +52,10 @@ def restore_db_from_tsvs():
         for row in csvreader:
             data = {}
             for col_name, value in zip(columns, row):
-                if col_name not in ("created_at", "updated_at"):
+                if col_name not in (
+                    "created_at", "updated_at",
+                        "root_info", "root_matrix"):
                     data[col_name] = value
-                # else:
-                #     if value != "":
-                #         value = datetime.strptime(value, datetime_format)
-                #         data[col_name] = value
-                #     else:
-                #         data[col_name] = value
 
             db_session.add(PaliRoot(**data))
 

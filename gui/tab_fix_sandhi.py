@@ -68,6 +68,14 @@ def make_tab_fix_sandhi(sg):
             sg.Button("Add", key="add_variant_reading"),
             sg.Button("Open", key="open_variant_readings")
         ],
+        [
+            sg.Text("sandhi ok: ", size=(25, 1)),
+            sg.Button("Open", key="open_sandhi_ok")
+        ],
+        [
+            sg.Text("sandhi exceptions: ", size=(25, 1)),
+            sg.Button("Open", key="open_sandhi_exceptions")
+        ],
     ]
 
     return tab_fix_sandhi

@@ -3,19 +3,45 @@
 import csv
 import re
 import pandas as pd
+from rich import print
 
-from tqdm import tqdm
 from typing import List
 from pathlib import Path
 from tools.sorter import sort_key
+from tools.timeis import tic, toc
 
 from db.models import PaliWord, PaliRoot
 from db.get_db_session import get_db_session
 
-dpd_db_path = Path("dpd.db")
-db_session = get_db_session(dpd_db_path)
-dpd_db = db_session.query(PaliWord).all()
-roots_db = db_session.query(PaliRoot).all()
+
+def main():
+    tic()
+    print("[bright_yellow]exporting anki csv")
+
+    dpd_db_path = Path("dpd.db")
+    db_session = get_db_session(dpd_db_path)
+    dpd_db = db_session.query(PaliWord).all()
+    roots_db = db_session.query(PaliRoot).all()
+
+    vocab(dpd_db)
+    commentary(dpd_db)
+    pass1(dpd_db)
+    full_db(dpd_db)
+    roots(db_session, roots_db)
+
+    toc()
+
+
+def vocab(dpd_db):
+
+    def _is_needed(i: PaliWord):
+        return (i.meaning_1 != "" and i.example_1 != "")
+
+    rows = [pali_row(i) for i in dpd_db if _is_needed(i)]
+
+    with open("csvs/vocab.csv", "w", newline='', encoding='utf-8') as f:
+        writer = csv.writer(f, delimiter='\t')
+        writer.writerows(rows)
 
 
 def pali_row(i: PaliWord, output="anki") -> List[str]:
@@ -128,23 +154,11 @@ def pali_row(i: PaliWord, output="anki") -> List[str]:
     return none_to_empty(fields)
 
 
-def vocab():
-
-    def _is_needed(i: PaliWord):
-        return (i.meaning_1 != "" and i.example_1 != "")
-
-    rows = [pali_row(i) for i in dpd_db if _is_needed(i)]
-
-    with open("csvs/vocab.csv", "w", newline='', encoding='utf-8') as f:
-        writer = csv.writer(f, delimiter='\t')
-        writer.writerows(rows)
-
-
-def commentary():
-    print("making commentary csv")
+def commentary(dpd_db):
+    print("[green]making commentary csv")
     rows = []
 
-    for i in tqdm(dpd_db):
+    for i in dpd_db:
         if i.meaning_1 != "" and i.example_1 == "":
             rows.append(pali_row(i))
 
@@ -153,20 +167,20 @@ def commentary():
         writer.writerows(rows)
 
 
-def pass1():
-    print("making pass1 csv")
+def pass1(dpd_db):
+    print("[green]making pass1 csv")
     output_file = open("csvs/pass1.csv", "w")
 
     rows = []
-    for i in tqdm(dpd_db):
+    for i in dpd_db:
         if i.meaning_1 == "" and i.family_set != "" and "pass1" in i.family_set:
             rows.append(pali_row(i))
 
     output_file.close()
 
 
-def full_db():
-    print("making dpd-full csv")
+def full_db(dpd_db):
+    print("[green]making dpd-full csv")
     rows = []
     header = ['ID', 'Pāli1', 'Pāli2', 'Fin', 'POS', 'Grammar', 'Derived from',
                     'Neg', 'Verb', 'Trans', 'Case', 'Meaning IN CONTEXT',
@@ -184,7 +198,7 @@ def full_db():
 
     rows.append(header)
 
-    for i in tqdm(dpd_db):
+    for i in dpd_db:
         rows.append(pali_row(i, output="dpd"))
 
     with open("csvs/dpd-full.csv", "w", newline='', encoding='utf-8') as f:
@@ -200,21 +214,21 @@ def full_db():
         quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
 
 
-def roots():
+def roots(db_session, roots_db):
 
-    print("making roots list")
+    print("[green]making roots list")
     roots_list = []
-    for i in tqdm(roots_db):
+    for i in roots_db:
         roots_list += [i.root]
 
-    print("making roots count dictionary")
+    print("[green]making roots count dictionary")
     root_count_dict = {}
-    for root in tqdm(roots_list):
+    for root in roots_list:
         count = db_session.query(PaliWord).filter(
             PaliWord.root_key == root).count()
         root_count_dict[root] = count
 
-    print("making roots.csv")
+    print("[green]making roots.csv")
     rows = []
     roots_header = [
         "Fin", "Count", "Root", "In Comps", "V", "Group", "Sign",
@@ -228,7 +242,7 @@ def roots():
 
     rows.append(roots_header)
 
-    for i in tqdm(roots_db):
+    for i in roots_db:
         rows.append(root_row(i, root_count_dict))
 
     with open("csvs/roots.csv", "w", newline='', encoding='utf-8') as f:
@@ -295,18 +309,6 @@ def none_to_empty(values: List):
             return x
 
     return list(map(_to_empty, values))
-
-
-def export_anki_csvs():
-    vocab()
-    commentary()
-    pass1()
-    full_db()
-    roots()
-
-
-def main():
-    export_anki_csvs()
 
 
 if __name__ == "__main__":

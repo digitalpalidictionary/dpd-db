@@ -473,10 +473,12 @@ def make_tab_add_word(sg):
                 "", key="search_for", size=(20, 1),
                 enable_events=True, tooltip=search_for_tooltip),
             sg.Input(
-                "", key="contains", size=(20, 1),
+                "", key="contains", size=(17, 1),
                 tooltip=contains_tooltip),
             sg.Button(
                 "Search", key="defintions_search_button", font=(None, 13)),
+            sg.Button(
+                "Clean", key="commentary_clean", font=(None, 13)),
             sg.Text(
                 "", key="search_for_error", size=(50, 1), text_color="red")
         ],
@@ -549,6 +551,7 @@ def make_tab_add_word(sg):
                 tooltip=another_eg_1_tooltip,
                 font=(None, 13)),
             sg.Button("Lower", key="example_1_lower", font=(None, 13)),
+            sg.Button("Clean", key="example_1_clean", font=(None, 13)),
             sg.Text("", key="bold_1_error", size=(50, 1), text_color="red")
         ],
         [
@@ -587,8 +590,9 @@ def make_tab_add_word(sg):
                     "Another Eg", key="another_eg_2", font=(None, 13),
                     tooltip=another_eg_2_tooltip)),
             sg.pin(
-                sg.Button("Lower", key="example_2_lower", font=(None, 13))
-            ),
+                sg.Button("Lower", key="example_2_lower", font=(None, 13))),
+            sg.pin(
+                sg.Button("Clean", key="example_2_clean", font=(None, 13))),
             sg.Text("", key="bold_2_error", size=(50, 1), text_color="red")
         ],
         [

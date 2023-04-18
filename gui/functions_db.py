@@ -12,6 +12,7 @@ from db.models import InflectionTemplates
 from db.models import DerivedData
 # from db.db_helpers import print_column_names
 from tools.pali_sort_key import pali_sort_key
+from tools.pali_alphabet import pali_alphabet
 
 # print_column_names(PaliWord)
 
@@ -494,3 +495,65 @@ def delete_word(values, window):
     except Exception as e:
         window["messages"].update(e, text_color="red")
         return False
+
+
+def mine_db_for_sandhi() -> dict[str, str]:
+    """Find all sandhi words split with '."""
+
+    db = db_session.query(PaliWord).all()
+    sandhi_dict = {}
+    word_list = []
+
+    def replace_split(string) -> list:
+        string = string.replace("<b>", "")
+        string = string.replace("</b>", "")
+        string = string.replace("<i>", "")
+        string = string.replace("</i>", "")
+
+        string = string.replace(".", " ")
+        string = string.replace(",", " ")
+        string = string.replace(";", " ")
+        string = string.replace("!", " ")
+        string = string.replace("?", " ")
+        string = string.replace("/", " ")
+        string = string.replace("-", " ")
+        string = string.replace("{", " ")
+        string = string.replace("}", " ")
+        string = string.replace("(", " ")
+        string = string.replace(")", " ")
+        string = string.replace(":", " ")
+        string = string.replace("\n", " ")
+        list = string.split(" ")
+        return list
+
+    for i in db:
+        if "'" in i.example_1:
+            word_list += replace_split(i.example_1)
+        if "'" in i.example_2:
+            word_list += replace_split(i.example_2)
+        if "'" in i.commentary:
+            word_list += replace_split(i.commentary)
+
+    for word in word_list:
+        if "'" in word:
+            word_clean = word.replace("'", "")
+            sandhi_dict[word_clean] = word
+
+    error_list = []
+    for key, value in sandhi_dict.items():
+        for x in key:
+            if x not in pali_alphabet:
+                error_list += x
+                print(key, value)
+        if value.startswith("'"):
+            print(key, value)
+    if error_list != []:
+
+        print("[red]SANDHI ERRORS IN EG1,2,COMM:", end=" ")
+        print([x for x in error_list], end=" ")
+
+    with open("xxx delete/sandhi_dict.tsv", "w") as f:
+        for key, value in sandhi_dict.items():
+            f.write(f"{key}\t{value}\n")
+
+    return sandhi_dict

@@ -20,6 +20,7 @@ from functions_db import copy_word_from_db
 from functions_db import edit_word_in_db
 from functions_db import get_pali_clean_list
 from functions_db import delete_word
+from functions_db import mine_db_for_sandhi
 from functions import get_paths
 from functions import open_in_goldendict
 from functions import sandhi_ok
@@ -31,6 +32,8 @@ from functions import add_spelling_mistake
 from functions import open_spelling_mistakes
 from functions import add_variant_reading
 from functions import open_variant_readings
+from functions import open_sandhi_exceptions
+from functions import open_sandhi_ok
 from functions import open_inflection_tables
 from functions import find_sutta_example
 from functions import find_commentary_defintions
@@ -48,19 +51,20 @@ from functions import add_to_word_to_add
 from functions import save_gui_state
 from functions import load_gui_state
 from functions import test_construction
+from functions import replace_sandhi
 from functions_tests import individual_internal_tests
 from functions_tests import open_internal_tests
 from functions_tests import db_internal_tests
 
 from tools.pos import DECLENSIONS, VERBS
-from db.db_to_tsv import backup_db_to_tsvs
-# from scripts.anki_csvs import export_anki_csvs
+from db.db_to_tsv import db_to_tsv
 
 
 def main():
     pth = get_paths()
     # !!! this is slow !!!
     definitions_df = pd.read_csv(pth.defintions_csv_path, sep="\t")
+    sandhi_dict = mine_db_for_sandhi()
     pali_clean_list: list = get_pali_clean_list()
     window = window_layout()
     flags = Flags()
@@ -427,6 +431,21 @@ def main():
             values["example_1"] = values["example_1"].lower()
             window["example_1"].update(values["example_1"])
 
+        if event == "example_1_clean":
+            string = values["example_1"]
+            field = "example_1"
+            replace_sandhi(string, field, sandhi_dict, window)
+
+        if event == "example_2_clean":
+            string = values["example_2"]
+            field = "example_2"
+            replace_sandhi(string, field, sandhi_dict, window)
+
+        if event == "commentary_clean":
+            string = values["commentary"]
+            field = "commentary"
+            replace_sandhi(string, field, sandhi_dict, window)
+
         if event == "another_eg_2":
             if values["book_to_add"] == "":
                 book_to_add = sg.popup_get_text(
@@ -596,9 +615,8 @@ def main():
         if event == "Close":
             window["messages"].update(
                 "backing up db to csvs", text_color="white")
-            backup_db_to_tsvs()
+            db_to_tsv()
             save_gui_state(values, words_to_add_list)
-            # export_anki_csvs()
             break
 
         # fix sandhi events
@@ -630,6 +648,12 @@ def main():
 
         if event == "open_variant_readings":
             open_variant_readings()
+
+        if event == "open_sandhi_ok":
+            open_sandhi_ok()
+
+        if event == "open_sandhi_exceptions":
+            open_sandhi_exceptions()
 
         # hide fields logic
 

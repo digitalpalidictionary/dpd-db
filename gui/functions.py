@@ -28,6 +28,7 @@ class ResourcePaths():
     cst_xml_roman_dir: Path
     # paths
     sandhi_ok_path: Path
+    sandhi_exceptions_path: Path
     spelling_mistakes_path: Path
     variant_path: Path
     sandhi_rules_path: Path
@@ -58,18 +59,20 @@ def get_paths() -> ResourcePaths:
         # paths
         sandhi_ok_path=Path(
             "sandhi/sandhi_related/sandhi_ok.csv"),
+        sandhi_exceptions_path=Path(
+            "sandhi/sandhi_related/sandhi_exceptions.tsv"),
         spelling_mistakes_path=Path(
-            "sandhi/sandhi_related/spelling mistakes.csv"),
+            "sandhi/sandhi_related/spelling_mistakes.tsv"),
         variant_path=Path(
-            "sandhi/sandhi_related/variant readings.csv"),
+            "sandhi/sandhi_related/variant_readings.tsv"),
         sandhi_rules_path=Path(
-            "sandhi/sandhi_related/sandhi rules.csv"),
+            "sandhi/sandhi_related/sandhi_rules.tsv"),
         sandhi_corrections_path=Path(
-            "sandhi/sandhi_related/manual corrections.csv"),
+            "sandhi/sandhi_related/manual_corrections.tsv"),
         spelling_corrections_path=Path(
-            "sandhi/sandhi_related/spelling mistakes.csv"),
+            "sandhi/sandhi_related/spelling_mistakes.tsv"),
         variant_readings_path=Path(
-            "sandhi/sandhi_related/variant readings.csv"),
+            "sandhi/sandhi_related/variant_readings.tsv"),
         inflection_templates_path=Path(
             "inflections/inflection_templates.xlsx"),
         defintions_csv_path=Path(
@@ -214,6 +217,16 @@ def add_variant_reading(window, values: dict) -> None:
 def open_variant_readings():
     subprocess.Popen(
         ["code", pth.variant_readings_path])
+
+
+def open_sandhi_ok():
+    subprocess.Popen(
+        ["code", pth.sandhi_ok_path])
+
+
+def open_sandhi_exceptions():
+    subprocess.Popen(
+        ["code", pth.sandhi_exceptions_path])
 
 
 def add_stem_pattern(values, window):
@@ -994,3 +1007,18 @@ def test_construction(values, window, pali_clean_list):
         if c not in pali_clean_list:
             error_string += f"{c} "
     window["construction_error"].update(error_string, text_color="red")
+
+
+def replace_sandhi(string, field, sandhi_dict, window):
+
+    string = string.replace("</b>ti", "</b>'ti")
+    string = re.sub(r"\[[^]]*\]", "", string)
+    string = re.sub(" +", " ", string)
+    string = string.strip()
+
+    border = r"(^| |\.|,|;|!|$)"
+    for key, value in sandhi_dict.items():
+        string = re.sub(
+            f"({border}){key}({border})", f"\\1{value}\\2", string)
+
+    window[field].update(string)
