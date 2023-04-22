@@ -11,7 +11,8 @@ from db.models import PaliWord, DerivedData
 from db.get_db_session import get_db_session
 from helpers import get_resource_paths
 from tools.clean_machine import clean_machine
-from tools.pali_text_files import cst_texts, sc_texts, bjt_texts
+from tools.pali_text_files import cst_texts, bjt_texts
+from tools.sutta_central_text_set import make_sc_text_set
 from tools.timeis import tic, toc
 from books_to_include import include
 
@@ -39,32 +40,6 @@ def make_cst_text_set(include):
 
     print(f"[white]{len(cst_text_set):>10,}")
     return cst_text_set
-
-
-def make_sc_text_set(include):
-
-    print(f"[green]{'making sutta central text set':<35}", end="")
-
-    sc_texts_list = []
-    for i in include:
-        if sc_texts[i]:
-            sc_texts_list += sc_texts[i]
-
-    text_string = ""
-
-    for sc_text in sc_texts_list:
-        with open(pth["sc_path"].joinpath(sc_text), "r") as f:
-            text_string += f.read()
-
-    text_string = re.sub("var P_HTM.+", "", text_string)
-    text_string = re.sub(r"""P_HTM\[\d+\]="\*""", "", text_string)
-    text_string = re.sub(r"""\*\*.+;""", "", text_string)
-    text_string = text_string.lower()
-    text_string = clean_machine(text_string)
-    sc_text_set = set(text_string.split())
-
-    print(f"[white]{len(sc_text_set):>10,}")
-    return sc_text_set
 
 
 def make_bjt_text_set(include):

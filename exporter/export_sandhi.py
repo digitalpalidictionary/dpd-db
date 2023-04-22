@@ -62,5 +62,6 @@ def generate_sandhi_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
                     f.write(html)
                 print(
                     f"{counter:>10} / {sandhi_db_length:<10,} {i.sandhi[:20]:<20} {bop():>10}")
+                bip()
 
     return sandhi_data_list

@@ -21,7 +21,7 @@ from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.timeis import tic, toc
 
-REGENERATE_ALL = True
+REGENERATE_ALL = False
 
 dpd_db_path = Path("dpd.db")
 db_session = get_db_session(dpd_db_path)

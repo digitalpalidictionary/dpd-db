@@ -21,6 +21,7 @@ from functions_db import edit_word_in_db
 from functions_db import get_pali_clean_list
 from functions_db import delete_word
 from functions_db import mine_db_for_sandhi
+from functions_db import get_root_info
 from functions import get_paths
 from functions import open_in_goldendict
 from functions import sandhi_ok
@@ -250,6 +251,10 @@ def main():
 
         if event == "edit_spelling_button":
             edit_spelling()
+
+        if event == "family_root":
+            root_info = get_root_info(values["root_key"])
+            window["root_info"].update(root_info)
 
         if (event == "family_root" and
             values["family_root"] == ""
@@ -553,6 +558,9 @@ def main():
 
         if event == "open_tests":
             open_internal_tests()
+
+        if event == "update_sandhi":
+            sandhi_dict = mine_db_for_sandhi()
 
         if event == "add_word_to_db":
             if flags.tested is False:

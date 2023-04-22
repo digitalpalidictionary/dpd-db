@@ -253,8 +253,11 @@ def make_tab_add_word(sg):
             sg.pin(
                 sg.Combo(
                     ROOT_VALUES, key="root_key",
-                    size=(49, 1), tooltip=root_key_tooltip,
+                    size=(10, 1), tooltip=root_key_tooltip,
                     auto_size_text=False)),
+            sg.Text(
+                "", key="root_info", text_color="white",
+                pad=(10, 0)),
             sg.Text(
                 "", key="root_key_error", size=(50, 1), text_color="red")
         ],
@@ -605,14 +608,13 @@ def make_tab_add_word(sg):
         [
             sg.Text("stem pattern*", size=(15, 1)),
             sg.Input(
-                key="stem", size=(20, 1), justification="r",
+                key="stem", size=(30, 1), justification="r",
                 enable_events=True, tooltip=stem_tooltip),
-
             sg.Combo(
                 PATTERN_VALUES, key="pattern",
-                size=(17, 1), tooltip=pattern_tooltip),
+                size=(12, 1), tooltip=pattern_tooltip),
             sg.Input(
-                "pass1", key="origin", size=(10, 1),
+                "pass1", key="origin", size=(6, 1),
                 tooltip=origin_tooltip),
             sg.Text(
                 "", key="stem_error", size=(50, 1), text_color="red")
@@ -653,6 +655,7 @@ def make_tab_add_word(sg):
             sg.Button("Unstash", key="unstash"),
             sg.Button("Summary", key="summary"),
             sg.Button("Open tests", key="open_tests"),
+            sg.Button("Update Sandhi", key="update_sandhi"),
             sg.Button("Clear"),
             sg.Button("Close"),
         ]

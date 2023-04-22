@@ -37,6 +37,9 @@ def process_matches(neg_inflections_set):
 
     matches_df = matches_df.fillna("")
 
+    print("adding manual")
+    matches_df["manual"] = matches_df['process'].str.count("spelling|variant|manual")
+
     print("adding splitcount")
     matches_df["splitcount"] = matches_df['split'].str.count(r' \+ ')
 
@@ -71,9 +74,9 @@ def process_matches(neg_inflections_set):
 
     print("sorting df values")
     matches_df.sort_values(
-        by=["splitcount", "lettercount", "ratio", "neg_count"],
+        by=["manual", "splitcount", "lettercount", "ratio", "neg_count"],
         axis=0,
-        ascending=[True, True, False, True],
+        ascending=[False, True, True, False, True],
         inplace=True,
         ignore_index=True
     )

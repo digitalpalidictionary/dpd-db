@@ -97,7 +97,7 @@ def generate_dpd_html(DB_SESSION, PTH):
         synonyms += loads(dd.devanagari)
         synonyms += loads(dd.thai)
         synonyms += i.family_set_list
-        synonyms += i.id
+        synonyms += [str(i.id)]
 
         dpd_data_list += [{
             "word": i.pali_1,

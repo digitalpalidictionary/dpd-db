@@ -264,6 +264,10 @@ class DerivedData(Base):
     freq_data: Mapped[Optional[str]] = mapped_column(default='')
     freq_html: Mapped[Optional[str]] = mapped_column(default='')
 
+    @property
+    def inflections_list(self) -> list:
+        return self.inflections.split(",")
+
     def __repr__(self) -> str:
         return f"DerivedData: {self.id} {PaliWord.pali_1} {self.inflections}"
 

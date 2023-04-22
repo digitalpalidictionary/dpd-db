@@ -63,13 +63,16 @@ def run_external_tests():
     results_list.append(root_sign_x_base_mismatch(searches))
     results_list.append(root_base_x_construction_mismatch(searches))
     results_list.append(wrong_prefix_in_family_root(searches))
+    results_list.append(variant_equals_pali_1(searches))
+    results_list.append(antonym_equals_pali_1(searches))
+    results_list.append(synonym_equals_pali_1(searches))
 
     for name, result, count, solution in results_list:
         print(f"[green]{name.replace('_', ' ')} [{count}]")
         if count > 0:
             print(f"solution: {solution}")
             print(result)
-            print()
+        print()
 
 
 def make_searches(db_session) -> Dict[str, list]:
@@ -86,8 +89,8 @@ def make_searches(db_session) -> Dict[str, list]:
     compound_families = db_session.query(FamilyCompound).all()
     searches["compound_families"] = compound_families
 
-    deriveddata = db_session.query(DerivedData).all()
-    searches["derived_data"] = deriveddata
+    # deriveddata = db_session.query(DerivedData).all()
+    # searches["derived_data"] = deriveddata
 
     return searches
 
@@ -96,7 +99,7 @@ def regex_results(results: list) -> str:
     """Take a list of results and return a regex search string or None"""
 
     if results != []:
-        results = results[:10]
+        results = results[:20]
         regex_string = r"/\b("
         for result in results:
             if result == results[0]:
@@ -634,10 +637,65 @@ def wrong_prefix_in_family_root(searches: dict) -> tuple:
 
     return name, results, length, solution
 
+
+def variant_equals_pali_1(searches: dict) -> tuple:
+    """Test if variant equals pali_1"""
+
+    results = []
+    for i in searches["paliword"]:
+        variants = i.variant.split(", ")
+        for variant in variants:
+            if variant == i.pali_clean:
+                results += [i.pali_1]
+
+    length = len(results)
+    results = regex_results(results)
+    name = "variant_equals_pali_1"
+    solution = "add correct variant"
+
+    return name, results, length, solution
+
+
+def antonym_equals_pali_1(searches: dict) -> tuple:
+    """Test if antonym equals pali_1"""
+
+    results = []
+    for i in searches["paliword"]:
+        antonyms = i.antonym.split(", ")
+        for antonym in antonyms:
+            if antonym == i.pali_clean:
+                results += [i.pali_1]
+
+    length = len(results)
+    results = regex_results(results)
+    name = "antonym_equals_pali_1"
+    solution = "add correct antonym"
+
+    return name, results, length, solution
+
+
+def synonym_equals_pali_1(searches: dict) -> tuple:
+    """Test if synonym equals pali_1"""
+
+    results = []
+    for i in searches["paliword"]:
+        synonyms = i.synonym.split(", ")
+        for synonym in synonyms:
+            if synonym == i.pali_clean:
+                results += [i.pali_1]
+
+    length = len(results)
+    results = regex_results(results)
+    name = "synonym_equals_pali_1"
+    solution = "add correct synonym"
+
+    return name, results, length, solution
+
+
 # next 
 # find_fem_abstr_comps
 
-# not included from old tests
+# --- not included from old tests ---
 # test_words_construction_are_headwords
 # test_headword_in_inflections
 # run_test_formulas
@@ -651,7 +709,7 @@ def wrong_prefix_in_family_root(searches: dict) -> tuple:
 # family2_no_meaning
 # words_in_family2_not_in_dpd
 
-# db improvements in old tests
+# --- db improvements in old tests --- 
 # add_commentary_definitions
 # find_variants_and_synonyms
 # find_word_families

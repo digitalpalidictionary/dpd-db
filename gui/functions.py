@@ -17,6 +17,9 @@ from functions_db import get_family_compound_values
 from tools.clean_machine import clean_machine
 from tools.pali_text_files import cst_texts, sc_texts
 from tools.pos import INDECLINEABLES
+from tools.pali_alphabet import pali_alphabet
+from tools.sutta_central_text_set import make_sc_text_set
+
 
 
 @dataclass()
@@ -463,6 +466,7 @@ def clear_values(values, window):
     window["root_sign"].update(values=[])
     window["root_base"].update(values=[])
     window["origin"].update("pass1")
+    window["root_info"].update("")
 
 
 def find_commentary_defintions(sg, values, definitions_df):
@@ -759,6 +763,8 @@ def find_gathalast(p, example):
 
 def make_words_to_add_list(window, book: str) -> list:
     text_list = make_text_list(window, pth, book)
+    sc_text_set = make_sc_text_set([book])
+    text_list.extend(sc_text_set)
     sp_mistakes_list = make_sp_mistakes_list(pth)
     variant_list = make_variant_list(pth)
     sandhi_ok_list = make_sandhi_ok_list(pth)
@@ -786,18 +792,6 @@ def make_text_list(window, pth: ResourcePaths, book: str) -> list:
             filepath = pth.cst_texts_dir.joinpath(b)
             with open(filepath) as f:
                 text_read = f.read()
-                text_clean = clean_machine(text_read)
-                text_list += text_clean.split()
-
-        for b in sc_texts[book]:
-            filepath = pth.sc_texts_dir.joinpath(b)
-            with open(filepath) as f:
-                text_read = f.read()
-                text_read = re.sub("var P_HTM.+", "", text_read)
-                text_read = re.sub("""P_HTM\\[\\d+\\]="\\*""", "", text_read)
-                text_read = re.sub("""\\*\\*.+;""", "", text_read)
-                text_read = re.sub("\n", " ", text_read)
-                text_read = text_read.lower()
                 text_clean = clean_machine(text_read)
                 text_list += text_clean.split()
 
@@ -1010,15 +1004,21 @@ def test_construction(values, window, pali_clean_list):
 
 
 def replace_sandhi(string, field, sandhi_dict, window):
+    global pali_alphabet
+    pali_alphabet = "".join(pali_alphabet)
+    splits = re.split(f"([^{pali_alphabet}])", string)
+
+    for i in range(len(splits)):
+        word = splits[i]
+        if word in sandhi_dict:
+            splits[i] = sandhi_dict[word]
+
+    string = "".join(splits)
 
     string = string.replace("</b>ti", "</b>'ti")
+    string = string.replace("</b>nti", "n</b>'ti")
     string = re.sub(r"\[[^]]*\]", "", string)
     string = re.sub(" +", " ", string)
     string = string.strip()
-
-    border = r"(^| |\.|,|;|!|$)"
-    for key, value in sandhi_dict.items():
-        string = re.sub(
-            f"({border}){key}({border})", f"\\1{value}\\2", string)
 
     window[field].update(string)

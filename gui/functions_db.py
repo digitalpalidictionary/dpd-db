@@ -557,3 +557,16 @@ def mine_db_for_sandhi() -> dict[str, str]:
             f.write(f"{key}\t{value}\n")
 
     return sandhi_dict
+
+
+def get_root_info(root_key):
+    r = db_session.query(
+        PaliRoot).filter(
+            PaliRoot.root == root_key
+        ).first()
+
+    root_info = f"{r.root_clean} {r.root_group} {r.root_sign} ({r.root_meaning})"
+    return root_info
+
+
+# print(get_root_info("√kar"))

@@ -11,6 +11,7 @@ def clean_machine(text):
     text = re.sub(r"\n", r" \n", text)
 
     text = text.replace(
+        "ṁ", "ṃ").replace(
         ".", " ").replace(
         ",", " ").replace(
         ";", " ").replace(
@@ -28,6 +29,7 @@ def clean_machine(text):
         "+", "").replace(
         "*", "").replace(
         "=", "").replace(
+        "~", "").replace(
         "﻿", "").replace(
         "§", " ").replace(
         "‡", " ").replace(
@@ -54,6 +56,7 @@ def clean_machine(text):
         "॰", "").replace(
         "ï", "i").replace(
         "ü", "u").replace(
+        "ạ", "a").replace(    
         '̥', "").replace(
         "'̆'", "").replace(
         "ใ", "").replace(

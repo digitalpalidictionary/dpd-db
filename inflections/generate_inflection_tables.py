@@ -17,7 +17,7 @@ from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.superscripter import superscripter_uni
 
-regenerate_all: bool = True
+regenerate_all: bool = False
 
 dpd_db_path = Path("dpd.db")
 db_session = get_db_session(dpd_db_path)
@@ -265,10 +265,6 @@ def test_missing_id() -> None:
         if i.dd is None:
             print(f"\t[red]{i.pali_1}")
             changed_headwords.append(i.pali_1)
-
-        # elif i.pali_1 != i.dd.pali_1:
-        #     print(f"\t[red]{i.pali_1}")
-        #     changed_headwords.append(i.pali_1)
 
 
 def test_changes() -> None:
