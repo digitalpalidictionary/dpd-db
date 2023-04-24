@@ -17,6 +17,7 @@ from functions import ResourcePaths, get_paths
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tests.helpers import InternalTestRow
+from tools.pali_sort_key import pali_sort_key
 
 pth: ResourcePaths = get_paths()
 
@@ -276,6 +277,7 @@ def db_internal_tests(sg, window, flags):
     window.refresh()
 
     dpd_db, internal_tests_list = db_internal_tests_setup()
+    internal_tests_list = clean_exceptions(dpd_db, internal_tests_list)
     integrity = test_the_tests(internal_tests_list, window)
     if integrity is False:
         return
@@ -518,3 +520,29 @@ def clear_tests(window):
     for test_field in test_fields:
         window[test_field].update("")
     window.refresh()
+
+
+def clean_exceptions(dpd_db, internal_tests_list):
+    """Remove exceptions which are not headwords and
+    sort exceptions in pali alphabetical order."""
+
+    all_headwords: set = set([i.pali_1 for i in dpd_db])
+
+    for t in internal_tests_list:
+        exceptions = t.exceptions
+        for exception in exceptions:
+            if exception not in all_headwords:
+                exceptions.remove(exception)
+        exceptions_sorted = sorted(exceptions, key=pali_sort_key)
+        if exceptions != exceptions_sorted:
+            print(exceptions)
+            print(exceptions_sorted)
+            print()
+        t.exceptions = exceptions_sorted
+
+    return internal_tests_list
+
+    # write_internal_tests_list(internal_tests_list)
+
+
+# clean_exceptions()

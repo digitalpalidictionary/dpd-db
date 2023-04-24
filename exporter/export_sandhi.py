@@ -13,7 +13,10 @@ from db.models import PaliWord, Sandhi
 from tools.timeis import bip, bop
 
 
-def generate_sandhi_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
+def generate_sandhi_html(
+    DB_SESSION: Session,
+        PTH: ResourcePaths,
+        SANDHI_CONTRACTIONS: dict) -> list:
     """generate html for sandhi split compounds"""
 
     print("[green]generating sandhi html")
@@ -49,6 +52,9 @@ def generate_sandhi_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
             synonyms += loads(i.sinhala)
             synonyms += loads(i.devanagari)
             synonyms += loads(i.thai)
+            if i.sandhi in SANDHI_CONTRACTIONS:
+                contractions = SANDHI_CONTRACTIONS[i.sandhi]["contractions"]
+                synonyms.extend(contractions)
 
             sandhi_data_list += [{
                 "word": i.sandhi,

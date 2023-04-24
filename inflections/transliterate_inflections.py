@@ -18,7 +18,7 @@ from aksharamukha import transliterate
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import PaliWord, DerivedData
 from tools.timeis import tic, toc
 
 REGENERATE_ALL = False
@@ -26,6 +26,10 @@ REGENERATE_ALL = False
 dpd_db_path = Path("dpd.db")
 db_session = get_db_session(dpd_db_path)
 dpd_db = db_session.query(PaliWord).all()
+dd1 = db_session.query(DerivedData).first()
+
+if dd1.sinhala == "":
+    REGENERATE_ALL = True
 
 with open("share/changed_headwords", "rb") as f:
     changed_headwords: list = pickle.load(f)

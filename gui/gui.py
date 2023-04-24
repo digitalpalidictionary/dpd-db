@@ -20,7 +20,6 @@ from functions_db import copy_word_from_db
 from functions_db import edit_word_in_db
 from functions_db import get_pali_clean_list
 from functions_db import delete_word
-from functions_db import mine_db_for_sandhi
 from functions_db import get_root_info
 from functions import get_paths
 from functions import open_in_goldendict
@@ -57,15 +56,20 @@ from functions_tests import individual_internal_tests
 from functions_tests import open_internal_tests
 from functions_tests import db_internal_tests
 
-from tools.pos import DECLENSIONS, VERBS
+from db.get_db_session import get_db_session
 from db.db_to_tsv import db_to_tsv
+
+from tools.pos import DECLENSIONS, VERBS
+from tools.pos import POS
+from tools.sandhi_contraction import make_sandhi_contraction_dict
 
 
 def main():
+    db_session = get_db_session("dpd.db")
     pth = get_paths()
     # !!! this is slow !!!
     definitions_df = pd.read_csv(pth.defintions_csv_path, sep="\t")
-    sandhi_dict = mine_db_for_sandhi()
+    sandhi_dict = make_sandhi_contraction_dict(db_session)
     pali_clean_list: list = get_pali_clean_list()
     window = window_layout()
     flags = Flags()
@@ -199,6 +203,12 @@ def main():
                 window["pali_2"].update(f"{values['pali_1']}")
                 flags.pali_2 = False
 
+        # test pos
+        if event == "grammar":
+            if values["pos"] not in POS:
+                window["pos_error"].update(
+                    f"'{values['pos']}' not a valid pos", text_color="red")
+
         if event == "grammar":
             if flags.grammar and values["grammar"] == "":
                 if values["pos"] in VERBS:
@@ -225,6 +235,7 @@ def main():
                     event = "show_fields_root"
                     flags.show_fields = True
 
+        # movement in this field triggers a spellcheck
         if event == "add_spelling":
             field = "meaning_1"
             error_field = "meaning_1_error"
@@ -553,14 +564,28 @@ def main():
             window["messages"].update("")
 
         if event == "test_internal":
+
             clear_errors(window)
             flags = individual_internal_tests(sg, window, values, flags)
+
+            # spell checks
+            field = "meaning_1"
+            error_field = "meaning_1_error"
+            check_spelling(field, error_field, values, window)
+
+            field = "meaning_lit"
+            error_field = "meaning_lit_error"
+            check_spelling(field, error_field, values, window)
+
+            field = "meaning_2"
+            error_field = "meaning_2_error"
+            check_spelling(field, error_field, values, window)
 
         if event == "open_tests":
             open_internal_tests()
 
         if event == "update_sandhi":
-            sandhi_dict = mine_db_for_sandhi()
+            sandhi_dict = make_sandhi_contraction_dict(db_session)
 
         if event == "add_word_to_db":
             if flags.tested is False:
@@ -617,7 +642,7 @@ def main():
                         f"{row_id} '{pali_1}' deleted", text_color="white")
 
         if event == sg.WIN_CLOSED:
-            save_gui_state(values, words_to_add_list)
+            # save_gui_state(values, words_to_add_list)
             break
 
         if event == "Close":

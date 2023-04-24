@@ -18,20 +18,23 @@ from db.get_db_session import get_db_session
 from tools.timeis import tic, toc, bip, bop
 from tools.stardict_nu import export_words_as_stardict_zip, ifo_from_opts
 from mdict_exporter import export_to_mdict
+from tools.sandhi_contraction import make_sandhi_contraction_dict
 
 tic()
 PTH: ResourcePaths = get_paths()
 DB_SESSION: Session = get_db_session("dpd.db")
+SANDHI_CONTRACTIONS: dict = make_sandhi_contraction_dict(DB_SESSION)
 
 
 def main():
     print("[bright_yellow]exporting dpd")
     roots_count_dict = make_roots_count_dict(DB_SESSION)
-
-    dpd_data_list: list = generate_dpd_html(DB_SESSION, PTH)
+    dpd_data_list: list = generate_dpd_html(
+        DB_SESSION, PTH, SANDHI_CONTRACTIONS)
     root_data_list: list = generate_root_html(
         DB_SESSION, PTH, roots_count_dict)
-    sandhi_data_list: list = generate_sandhi_html(DB_SESSION, PTH)
+    sandhi_data_list: list = generate_sandhi_html(
+        DB_SESSION, PTH, SANDHI_CONTRACTIONS)
     epd_data_list: list = generate_epd_html(DB_SESSION, PTH)
     help_data_list: list = generate_help_html(DB_SESSION, PTH)
 

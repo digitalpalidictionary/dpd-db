@@ -24,7 +24,7 @@ from tools.add_niggahitas import add_niggahitas
 from tools.timeis import bip, bop
 
 
-def generate_dpd_html(DB_SESSION, PTH):
+def generate_dpd_html(DB_SESSION, PTH, SANDHI_CONTRACTIONS):
     print("[green]generating dpd html")
 
     with open(PTH.dpd_css_path) as f:
@@ -98,6 +98,9 @@ def generate_dpd_html(DB_SESSION, PTH):
         synonyms += loads(dd.thai)
         synonyms += i.family_set_list
         synonyms += [str(i.id)]
+        if i.pali_clean in SANDHI_CONTRACTIONS:
+            contractions = SANDHI_CONTRACTIONS[i.pali_clean]["contractions"]
+            synonyms.extend(contractions)
 
         dpd_data_list += [{
             "word": i.pali_1,

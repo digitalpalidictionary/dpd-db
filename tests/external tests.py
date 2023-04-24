@@ -18,6 +18,8 @@ from db.models import DerivedData
 from tools.pali_sort_key import pali_sort_key
 from tools.timeis import tic, toc
 from tools.pali_alphabet import consonants
+from tools.sandhi_contraction import make_sandhi_contraction_dict
+from tools.clean_machine import clean_machine
 
 # generic tests that return tuples of results
 # that can be printed or displayed in gui
@@ -66,6 +68,9 @@ def run_external_tests():
     results_list.append(variant_equals_pali_1(searches))
     results_list.append(antonym_equals_pali_1(searches))
     results_list.append(synonym_equals_pali_1(searches))
+    results_list.append(sandhi_contraction_errors(db_session))
+    results_list.append(duplicate_phrases(searches))
+    results_list.append(duplicate_words(searches))
 
     for name, result, count, solution in results_list:
         print(f"[green]{name.replace('_', ' ')} [{count}]")
@@ -136,7 +141,7 @@ def family_compound_no_number(searches: dict) -> tuple:
     results = regex_results(results)
     name = "family_compound_no_number"
     solution = "add a number to family_compound with multiple meanings"
-    
+
     return name, results, length, solution
 
 
@@ -688,6 +693,89 @@ def synonym_equals_pali_1(searches: dict) -> tuple:
     results = regex_results(results)
     name = "synonym_equals_pali_1"
     solution = "add correct synonym"
+
+    return name, results, length, solution
+
+
+def sandhi_contraction_errors(db_session) -> tuple:
+    """Test if there are errors in in sandhi apostropes.
+    e.g. aham'pi / ahamp'i, n'eva / ne'va"""
+
+    sandhi_contractions = make_sandhi_contraction_dict(db_session)
+    results = ""
+    exceptions = [
+        "maññeti",
+        "āyataggaṃ",
+    ]
+
+    counter = 0
+
+    for key, values in sandhi_contractions.items():
+        contractions = values["contractions"]
+
+        if len(contractions) > 1 and key not in exceptions:
+            results += f"{counter}. {key}: \n"
+
+            for contraction in contractions:
+                results += f"{contraction}\n"
+
+            ids = values["ids"]
+            results += f"/^({'|'.join(ids)})$/\n"
+            results += "\n"
+            counter += 1
+
+    length = counter
+    name = "sandhi_contraction_errors"
+    solution = "edit 's in db"
+
+    return name, results, length, solution
+
+
+def duplicate_phrases(searches: dict) -> tuple:
+    """Test for duplcate phrases in meaning_1."""
+
+    exceptions = [
+        "jāta 1", "jhāyati 1", "patati 1", "paresaṃ 2", "vussati"]
+
+    results = []
+    for i in searches["paliword"]:
+        if i.pali_1 not in exceptions:
+            meaning_1 = re.sub(r"^\(.*\)| \(.*\)", "", i.meaning_1)
+            meanings_list = meaning_1.split("; ")
+            meanings_set = set(meanings_list)
+            if len(meanings_list) != len(meanings_set):
+                results += [i.pali_1]
+
+    length = len(results)
+    results = regex_results(results)
+    name = "duplicate_phrases"
+    solution = "delete dupes in meaning_1"
+
+    return name, results, length, solution
+
+
+def duplicate_words(searches: dict) -> tuple:
+    """Test for consecutive duplcate words in meaning_1."""
+
+    exceptions = ["000", '"', "blah"]
+
+    results = []
+    for i in searches["paliword"]:
+        if i.pali_1 not in exceptions:
+            words = i.meaning_1.split()
+            if len(words) > 1:
+                for x in range(len(words) - 1):
+                    if words[x] == words[x+1]:
+                        if words[x] not in exceptions:
+                            results += [i.pali_1]
+                if words and words[-1] == words[-2]:
+                    if words[x] not in exceptions:
+                        results += [i.pali_1]
+
+    length = len(results)
+    results = regex_results(results)
+    name = "duplicate_words"
+    solution = "delete dupes in meaning_1"
 
     return name, results, length, solution
 

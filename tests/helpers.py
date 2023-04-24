@@ -46,4 +46,4 @@ class InternalTestRow():
         self.iterations = iterations
 
     def __repr__(self) -> str:
-        return f"InternalTestRow: {self.test_name} {self.show_error_message}"
+        return f"InternalTestRow: {self.test_name}"

@@ -1011,8 +1011,7 @@ def replace_sandhi(string, field, sandhi_dict, window):
     for i in range(len(splits)):
         word = splits[i]
         if word in sandhi_dict:
-            splits[i] = sandhi_dict[word]
-
+            splits[i] = "//".join(sandhi_dict[word]["contractions"])
     string = "".join(splits)
 
     string = string.replace("</b>ti", "</b>'ti")
