@@ -12,7 +12,7 @@ from rich import print
 
 from tools.timeis import tic, toc, bip, bop
 from db.get_db_session import get_db_session
-from db.models import PaliRoot, Sandhi, PaliWord
+from db.models import PaliRoot, Sandhi, PaliWord, DerivedData
 from tools.pali_sort_key import pali_sort_key
 
 
@@ -33,11 +33,12 @@ def inflection_to_headwords():
     print(f"[green]{message:<30}", end="")
 
     db_session = get_db_session("dpd.db")
-    db = db_session.query(PaliWord).all()
+    dpd_db = db_session.query(PaliWord).all()
+    dd_db = db_session.query(DerivedData).all()
     i2h_dict = {}
 
-    for counter, i in enumerate(db):
-        inflections = json.loads(i.dd.inflections)
+    for counter, (i, dd) in enumerate(zip(dpd_db, dd_db)):
+        inflections = json.loads(dd.inflections)
         for inflection in inflections:
             if inflection in all_tipitaka_words:
                 if inflection not in i2h_dict:
@@ -45,7 +46,7 @@ def inflection_to_headwords():
                 else:
                     i2h_dict[inflection].add(i.pali_1)
 
-    print(f"{len(db):>10,}{bop():>10}")
+    print(f"{len(dpd_db):>10,}{bop():>10}")
 
     # add roots
     bip()

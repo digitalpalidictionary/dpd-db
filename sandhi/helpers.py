@@ -36,7 +36,8 @@ def get_resource_paths() -> ResourcePaths:
         dpd_db_path=Path("dpd.db"),
 
         # pali texts
-        cst_text_path=Path("resources/Cst4/txt/"),
+        cst_text_path=Path(
+            "resources/tipitaka-xml/roman_txt/"),
         sc_path=Path(
             "resources/Tipitaka-Pali-Projector/tipitaka_projector_data/pali/"),
         bjt_text_path=Path(
@@ -121,7 +122,8 @@ def get_resource_paths() -> ResourcePaths:
         pth["output_dir"],
         pth["rule_counts_dir"],
         pth["zip_dir"],
-        pth["letters_dir"]
+        pth["letters_dir"],
+        pth["cst_text_path"],
     ]:
         d.mkdir(parents=True, exist_ok=True)
 

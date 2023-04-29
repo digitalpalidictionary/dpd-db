@@ -1,3 +1,4 @@
+"""Convert VRI Chaṭṭha Saṅgāyana Devanagari xml to Roman txt."""
 import os
 
 from bs4 import BeautifulSoup
@@ -8,15 +9,15 @@ from helpers import get_paths
 
 
 def main():
-
+    """Run it."""
     print("[bright_yellow]convert cst4 xml to txt")
     pth = get_paths()
 
     for filename in sorted(os.listdir(pth.cst_xml_dir)):
-        print(f"    {filename}")
+        if "xml" in filename and "toc" not in filename:
+            print(f"[green]{filename:<40}", end="")
 
-        try:
-            if ".xml" in filename:
+            try:
                 with open(
                         pth.cst_xml_dir.joinpath(filename), 'r',
                         encoding="UTF-16") as f:
@@ -34,15 +35,17 @@ def main():
                         "autodetect", "IASTPali", text_extract)
 
                     with open(
-                            pth.cst_txt_dir.joinpath(filename).joinpath(".txt"),
-                            "w") as f:
+                            pth.cst_txt_dir.joinpath(filename).with_suffix(
+                                ".txt"), "w") as f:
                         f.write(text_translit)
 
-            else:
-                print("[red]not .xml file: skipped")
+                    print("ok")
 
-        except Exception:
-            print(f"[bright_red]ERROR: {filename} failed!")
+            except Exception:
+                print(f"[bright_red]ERROR: {filename} failed!")
+
+        # else:
+        #     print("[red]not .xml file: skipped")
 
 
 if __name__ == "__main__":

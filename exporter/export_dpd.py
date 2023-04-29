@@ -93,14 +93,15 @@ def generate_dpd_html(DB_SESSION, PTH, SANDHI_CONTRACTIONS):
 
         synonyms: list = loads(dd.inflections)
         synonyms = add_niggahitas(synonyms)
+        for synonym in synonyms:
+            if synonym in SANDHI_CONTRACTIONS:
+                contractions = SANDHI_CONTRACTIONS[synonym]["contractions"]
+                synonyms.extend(contractions)
         synonyms += loads(dd.sinhala)
         synonyms += loads(dd.devanagari)
         synonyms += loads(dd.thai)
         synonyms += i.family_set_list
         synonyms += [str(i.id)]
-        if i.pali_clean in SANDHI_CONTRACTIONS:
-            contractions = SANDHI_CONTRACTIONS[i.pali_clean]["contractions"]
-            synonyms.extend(contractions)
 
         dpd_data_list += [{
             "word": i.pali_1,

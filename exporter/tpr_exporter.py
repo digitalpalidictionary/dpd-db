@@ -39,11 +39,11 @@ def generate_tpr_data():
 
     dpd_db = DB_SESSION.query(PaliWord).all()
     dpd_length = len(dpd_db)
-    all_headwords_clean = []
+    all_headwords_clean: set = set()
     tpr_data_list = []
 
     for counter, i in enumerate(dpd_db):
-        all_headwords_clean.append(i.pali_clean)
+        all_headwords_clean.update(i.pali_clean)
 
         if counter % 5000 == 0 or counter % dpd_length == 0:
             print(f"{counter:>10,} / {dpd_length:<10,}{i.pali_1:<10}")
@@ -253,7 +253,10 @@ def generate_tpr_data():
             html_string = "<div><p>"
             splits = json.loads(i.split)
             for split in splits:
-                html_string += split.replace("<i>", "").replace("</i>", "")
+                if "<i>" in split:
+                    html_string += split.replace("<i>", "").replace("</i>", "")
+                else:
+                    html_string += split
                 if split != splits[-1]:
                     html_string += " <br>"
                 else:

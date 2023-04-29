@@ -138,7 +138,7 @@ def _summarize_constr(i: PaliWord) -> str:
     else:
         if i.root_base == "":
             # remove line2
-            constr = re.sub("<br>.+$", "", i.construction)
+            constr = re.sub(r"<br>.+$", "", i.construction)
             # remove [insertions]
             constr = re.sub(r" \[.+\] \+", "", constr)
             # remove phonetic changes
@@ -155,7 +155,7 @@ def _summarize_constr(i: PaliWord) -> str:
             base_clean = re.sub(" \\(.+\\)$", "", i.root_base)
             base_clean = re.sub("(.+ )(.+?$)", "\\2", base_clean)
             family_plus = re.sub(" ", " + ", i.family_root)
-            constr_oneline = re.sub("<br>.+", "", i.construction)
+            constr_oneline = re.sub(r"<br>.+", "", i.construction)
             constr_trunc = re.sub(" > .[^ ]+", "", constr_oneline)
             constr_trunc = re.sub(f".*{base_clean}", "", constr_trunc)
 

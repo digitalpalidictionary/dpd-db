@@ -110,7 +110,7 @@ def make_root_header(rf_dict, rf):
         header += "<b>1</b> word belongs to the root family "
     else:
         header += f"<b>{rf_dict[rf]['count']}</b> words belong to the root family "
-        header += f"<b>{family_root}</b> ({rf_dict[rf]['meaning']})</p>"
+    header += f"<b>{family_root}</b> ({rf_dict[rf]['meaning']})</p>"
     return header
 
 

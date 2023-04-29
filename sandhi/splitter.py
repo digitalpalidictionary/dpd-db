@@ -36,6 +36,7 @@ global fuzzy_word_min_length
 global max_matches
 global max_recursions
 global profiler_on
+global max_word_length
 clean_list_max_length = 2
 fuzzy_list_max_length = 4
 clean_word_min_length = 2
@@ -43,6 +44,108 @@ fuzzy_word_min_length = 1
 max_matches = 20
 max_recursions = 15
 profiler_on = False
+max_word_length = 100
+
+problem_children = [
+    "ahirikānottappakodhūpanāhamakkhapaḷāsaissāmacchariyamāyāsāṭheyyathambhasārambhamānātimānamadapamādataṇhāavijjā",
+    "paṭisandhibhavaṅgāvajjanadassanasavanaghāyanasāyanaphusanasampaṭicchanasantīraṇavoṭṭhabbanajavanatadārammaṇacutivasena",
+    "issāmacchariyamāyāsāṭheyyathambhasārambhamānātimānamadapamādataṇhāvijjātividhākusalamūladuccarita",
+    "khuddakapāṭhadhammapadaudānaitivuttakasuttanipātavimānavatthupetavatthutheragāthātherīgāthājātakaniddesapaṭisambhidāapadānabuddhavaṃsacariyāpiṭakavasena",
+    "āpattānāpattigarukalahukasatekicchaatekicchavuṭṭhānadesanāniggahapaṭikammaosāraṇanissāraṇapaṭisāraṇakusalā",
+    "uddhaccādithinamiddhādidiṭṭhimānādisesanīvaraṇādiassaddhiyādimāyāsātheyyādisaṃkilesadhammānaṃ",
+    "satthaggahaṇachedanalekhanavedhanasalluddharaṇavaṇadhovanasosanabhesajjānulimpanavamanavirecanānuvāsanakiriyamanusikkhitvā",
+    "macchariyamāyāsāṭheyyathambhasārambhamānātimānamadapamādataṇhāavijjātividhākusalamūladuccarita",
+    "dukkhavedanādukkhavatthudukkhārammaṇadukkhapaccayadukkhapaccayaṭṭhānādīsu",
+    "bhāvasaddhammābhiyogaanavajjavijjāṭṭhānādiparicayaparipakkindriyatākilesadūrībhāvaappassuta",
+    "padabhāṇadhammakathāsarabhaññapañhāpucchanapañhāvisajjanarajanapacanacīvarasibbanadhovanādīni",
+    "acinteyyāparimeyyavipuloḷāravimalanirupamanirūpakkilesaguṇanicayanidhānabhūtassa",
+    "sakasamayasamayantaragahanajjhogāhaṇasamatthapaññāveyyatti",
+    "hatthiassarathadhanutharusippaāthabbaṇakhīlanavasīkaraṇasosāpanamantāgadappayogādibhedaṃ",
+    "aṅgapaccaṅgasithilībhāvaindriyavikāravirūpatāyobbanavināsabalūpaghātasatimativippavāsaparaparibhavādianekapaccayaṃ",
+    "pattidānaabbhanumodanadhammassavanadesanādiṭṭhijukammādīnampi",
+    "rattajambunadasuvaṇṇaudakappasādakamaṇiratanasuvisuddhamuttāratanadhotapavāḷādivāṇijūpamādayopettha",
+    "cāpabhedacāpāropanaggahaṇamuṭṭhippaṭipīḷanaaṅgulivināmanapādaṭhapanasaraggahaṇasannahanaākaḍḍhanasandhāraṇalakkhaniyamanakhipane",
+    "nahetunādhipatinapurejātanapacchājātanāsevananakammanavipākanajhānanamagganavippayuttavasena",
+    "sīhabyagghadīpiacchataracchayakkharakkhasacaṇḍagoṇacaṇḍakukkurapabhinnamadacaṇḍahatthighoraāsīvisaasanivicakkasusānaraṇabhūmijalitaaṅgārakāsuādayo",
+    "sakalasarīravippakiṇṇapuññappabhāvanibbattāsītānubyañjanapaṭimaṇḍitadvattiṃsamahāpurisalakkhaṇasassirīkatāya",
+    "dutavilambitakhalitānukaḍḍhananippīḷanukkuṭikakuṭilākulatādidosarahitavilāsitarājahaṃsavasabhavāraṇamigarājagamanaṃ",
+    "kuraracakoravāraṇamayūraparabhatajīvañjīvakacelāvakabhiṅkārakaravīkamattavihaṅgagaṇasatatasampaghuṭṭhe",
+    "kuraracakoravāraṇamayūraparabhatajīvañjīvakacelāvakābhiṅkārakaravīkamattavihaṅgagaṇasatatasampaghuṭṭhe",
+    "dvattiṃsākārakammaṭṭhānabhāvanānuyogamanuyuñjitukāmena",
+    "ārammaṇānantarasamanantarūpanissayapurejātapacchājātakammāsevanāhārajhānanatthivigatā",
+    "sahajātaaññamaññanissayapurejātapacchājātavipākaāhāraindriyajhānamaggasampayuttavippayuttaatthiavigatapaccayoti",
+    "sambahulasuttantarathagehamuṭṭhivīṇāsenārukkhadāruyantanaḷakalāpibherijaccandhapaṅguḷanāvāmanussūpamāhi",
+    "saṃyojanakilesamicchattalokadhammamacchariyavipallāsaganthaagatiāsavaoghayoganīvaraṇaparāmāsaupādānaanusayamalaakusalakammapathacittuppādasaṅkhātānaṃ",
+    "abhisaddahanavohārakālapaññattichedanavikappanalesasamantabhāvaāyukappamahākappādīsu",
+    "yathāliṅgayathāyuttayathāvihitayathāppakārayaṃṭhānapattayaṃdhammasamannāgatavasena",
+    "bhikkhanasīlatābhikkhanadhammatābhikkhanesādhukāritādiguṇayogasiddhena",
+    "sunīlakasupītakasulohitakasuodātakaparisuddhanīlakaparisuddhapītakaparisuddhalohitakaparisuddhaodātakavaseneva",
+    "cāpabhedacāpāropanaggahaṇamuṭṭhippaṭipīḷanaaṅgulivināmanapādaṭhapanasaraggahaṇasannahanaākaḍḍhana",
+    "vaṇṇapiṭakaaṅgulimālapiṭakaraṭṭhapālagaajataāḷavakagajjitaguḷhamaggaguḷhavessantaraguḷhavinayavedallapiṭakāni",
+    "sāṭheyyathambhasārambhamānātimānamadapamādataṇhāavijjātividhākusalamūladuccaritasaṃkilesavisama",
+    "sukhavedanāsukhamūlasukhārammaṇasukhahetusukhapaccayaṭṭhānaabyābajjhanibbānādīsu",
+    "nandopanandadamanasamatthavejayantakampanasamatthāpissa",
+    "māyāsāṭheyyathambhasārambhamānātimānamadapamādatividhākusalamūladuccarita",
+    "akusalādīnavapaccavekkhaṇaapāyādīnavapaccavekkhaṇakusaladhammūpatthambhana",
+    "parivajjanapaññavantapuggalasevanagambhīrañāṇacariyapaccavekkhaṇatadadhimuttatā",
+    "rattajambunadasuvaṇṇaudakappasādakamaṇiratanasuvisuddhamuttaratanapavāḷādivāṇijūpamādayopettha",
+    "āsavavippayuttasāsavasaṃyojanavippayuttasaṃyojaniyaganthavippayuttaganthaniyanīvaraṇavippayuttanīvaraṇiyaparāmāsavippayuttaparāmaṭṭhakilesavippayuttasaṅkilesikapariyāpannasauttaradukāta",
+    "sakasamayasamayantaragahanajjhogāhaṇasamatthenāti",
+    "aṭṭhamicchattanavataṇhāmūlakadasākusalakammapathadvāsaṭṭhidiṭṭhigataaṭṭhasatataṇhāvicaritappabhesabbadaratha",
+    "vīmaṃsiddhipādapaññindriyapaññābaladhammavicayasambojjhaṅgāni",
+    "asokabakulakuyyakapunnāgacampakajātikaṇavīrakaṇikārakundanavamālikamallikādīnaṃ",
+    "saddaphassarūparasagandhasaṇṭhānabandhabhedasukhumaparaaparāghātappabhācchāyojjākatamāni",
+    "sunettamahāgovindavidhurasarabhaṅgamahosadhasutasomanimirājaayogharakumāraka",
+    "dhammānulomāditikādipaṭiccavārādipaccayānulomādihetumūlakādippakārehi",
+    "siriparavijayānantayasatribhavanādityādhipatipaṇḍitamahādhammarājādhirājāti",
+    "hatthiassarathadhanutharusippaāthabbaṇakhilanavasīkaraṇasosāpanamantāgadappayogādibhedaṃ",
+    "vivekajapītisukhasamādhijapītisukhaappītijakāyasukhasatipārisuddhijaupekkhāsukhappattiyo",
+    "bharatasatthavuttaaṭṭhuttarasatakaraṇanipphannathirahatthapariyatthakādināmako",
+    "taṇhādiṭṭhikappanāparikappitaattasubhasukhasassatādipakatiādidhuvādijīvādikāyādikā",
+    "giraggasamajjacittāgārasaṅghāniitthālaṅkāragandhavaṇṇakavāsitapiññākappabhedā",
+    "rājovādatikkhindriyacatuparivattananandopanandakulumpasuttamaggakathādidhammañca",
+    "māyāsāṭheyyamānātimānamadapamādapāpicchatāpāpamittatāahirikānottappādivasena",
+    "tevīsatikāmāvacaravipākaāvajjanadvayaekavīsatikusalasattākusalaheṭṭhimaphalattayavasena",
+    "vaṇṇāvaṇṇayācanaāyācanapucchanapaṭipucchanaācikkhaṇānusāsanaakkosanavasena",
+    "ratanattayappaṇāmapakaraṇābhidhānābhidheyyakaraṇappakārapayojananimittakattuparimāṇādīni",
+    "bhamukukkhepasīsakampanahatthalaṅghanapāṇippahāraaṅguliphoṭanagīvunnāmanaukkāsanādianekappakāraṃ",
+    "rūpāyatanakāraṇapamāṇaguṇapasaṃsājātarūpapuḷinakkharādīsu",
+    "pāṇābhipātādinnādānamusāvādapesuññapharusasamphappalāpabyāpādavasena",
+    "lokiyalokuttaralokiyalokuttarasattādhiṭṭhānadhammādhiṭṭhānasattadhammādhiṭṭhānañāṇañeyya",
+    "uddhaccādithinamiddhādidiṭṭhimānādisesanīvaraṇādiassaddhiyādimāyāsāṭheyyādisaṃkilesadhammānaṃ",
+    "caturāsavoghayogakāyaganthaagatitaṇhuppādupādānasattaviññāṇaṭṭhitiapariññādivasena",
+    "appicchāsantuṭṭhasallekhapavivekaasaṃsaggavīriyārambhasubharatādiguṇasalilavikkhālitakilesamalatāya",
+    "catubbidhajjhānavihārādhiṭṭhānasukhabhāgiyadhammaappamaññāsammappadhānaiddhipādādivasena",
+    "athevamabhigatāmitasiddhisampadāpādanekacaturaparamiṭṭhadevatā",
+    "vīṇāmudiṅgapaṇavasammatāḷasaṅkhavaṃsavetāḷaparivānivallakīpabhutikā",
+    "kāmataṇhādirūpataṇhādiattānudiṭṭhādisassatagāhādikāyaduccaritādi",
+    "viracayitukāmobhimatasiddhinimittamattanodhigatasaddhammadevatānussaraṇaṃ",
+    "nānāvidhavicittasālasalalacampakāsokarukkhānāgarukkhādīhi",
+    "apariññātadhammabyākaraṇanibandhanamusāvādādibhayaparijigucchanakāro",
+    "aññamaññanissayūpanissayapurejātapacchājātāsevanakammavipākāhārindriya",
+    "sahajātapurejātapacchājātāhārindriyabhūtatāya",
+    "susikkhitasippācariyasuvicāritajambunadābharaṇasadisesu",
+    "caturāsavoghayogaganthaagatitaṇhuppādupādānasattaviññāṇaṭṭhitiapariññādivasena",
+    "kasiṇanimittābhibhavanakabhāvanānimittanānattatoti",
+    "sāhatthikanissaggikaāṇattikathāvaraiddhimayavijjāmayānaṃ",
+    "yaṭṭhiādhārakapaṇṇādhārakapacchikapiṭṭhaghaṭakakavāṭakādibhājanamukhaudukkhalādīnipi",
+    "karacaraṇavadanavepathugattathambhahadayakampanasukkhoṭṭhatālukaṇṭhehi",
+    "saṃsāracakkanivattisaddhammacakkappavattisassatādimicchāvādanirākaraṇaṃ",
+    "gambhīrādivācatotievamādiatthappaṭipādanassānurūpattā",
+    "rūpabhāvasādhanasadisayuttivirodhikathanañca",
+    "revatābhipaṇḍitadhajasāsanavaṃsamahādhammarājagurūti",
+    "parabyasanatāsapattidesakālātyudayāvāpayānamattena",
+    "aloṇabhojanadabbhasayanamantaparijappanādikāyavacīpayogaṃ",
+    "rājavaṃsāgataparittanidānāgatasāsanappaveṇiyāgatavasena",
+    "diṭṭhārammaṇasutārammaṇamutārammaṇadiṭṭhasutamutārammaṇadiṭṭha",
+    "asokabakulakuyyakapunnāgacampakajātikaravīrakaṇikārakundanavamālikamallikādīnaṃ",
+    "vassūpagamanakathinatthārakaraṇaṭṭhānattā",
+    "taruṇacandavilāsavināsanasabhāvasamannāgatanakhapantisobhāhi",
+    "dānasīlabhāvanāpacāyanaveyyāvaccapattidānapattānumodanadhammassavanadhammadesanā",
+    "amajjavamañjarīdharapahaṭṭhapupphaphusitaggānekapādapagaṇavitate",
+    "lokiyamahājanasaṃkappitasattābhāvappakāsako",
+    "acarītyādinayappavattanavavidhaāghātavatthupadaṭṭhānatāya",
+]
 
 
 class Word:
@@ -207,75 +310,77 @@ def main():
     print(f"[green]splitting sandhi [white]{unmatched_len_init:,}")
 
     for counter, word in enumerate(unmatched_set.copy()):
-        bip()
-        global w
-        w = Word(word)
-        matches_dict[word] = []
+        if len(word) <= max_word_length and word not in problem_children:
 
-        # d is a dictionary of data accessed using dot notation
-        d: dict = {
-            "count": counter,
-            "comm": "start",
-            "init": word,
-            "front": "",
-            "word": word,
-            "back": "",
-            "rules_front": "",
-            "rules_back": "",
-            "tried": set(),
-            "matches": set(),
-            "path": "start",
-            "processes": 0
-        }
-        d = dotdict(d)
+            bip()
+            global w
+            w = Word(word)
+            matches_dict[word] = []
 
-        # debug
-        # if d.init != "aniccabhāvāpattidosadassanatthaṃ":
-        #     continue
-        # if d.count > 1000:
-        #     break
+            # d is a dictionary of data accessed using dot notation
+            d: dict = {
+                "count": counter,
+                "comm": "start",
+                "init": word,
+                "front": "",
+                "word": word,
+                "back": "",
+                "rules_front": "",
+                "rules_back": "",
+                "tried": set(),
+                "matches": set(),
+                "path": "start",
+                "processes": 0
+            }
+            d = dotdict(d)
 
-        # two word sandhi
-        d = two_word_sandhi(d)
+            # debug
+            # if d.init != "aniccabhāvāpattidosadassanatthaṃ":
+            #     continue
+            # if d.count > 1000:
+            #     break
 
-        # three word sandhi
-        if not w.matches:
-            d = three_word_sandhi(d)
+            # two word sandhi
+            d = two_word_sandhi(d)
 
-        # # four word sandhi
-        # if not w.matches :
-        #     d = four_word_sandhi(d)
+            # three word sandhi
+            if not w.matches:
+                d = three_word_sandhi(d)
 
-        # # recursive removal
-        if not w.matches:
-            recursive_removal(d)
+            # # four word sandhi
+            # if not w.matches :
+            #     d = four_word_sandhi(d)
 
-        # a na an nā
-        if d.word.startswith(("a", "na", "an", "nā")):
-            d = remove_neg(d)
+            # # recursive removal
+            if not w.matches:
+                recursive_removal(d)
 
-        # sa
-        elif d.word.startswith("sa"):
-            d = remove_sa(d)
+            # a na an nā
+            if d.word.startswith(("a", "na", "an", "nā")):
+                d = remove_neg(d)
 
-        # su
-        elif d.word.startswith("su"):
-            d = remove_su(d)
+            # sa
+            elif d.word.startswith("sa"):
+                d = remove_sa(d)
 
-        # dur
-        elif d.word.startswith("du"):
-            d = remove_dur(d)
+            # su
+            elif d.word.startswith("su"):
+                d = remove_su(d)
 
-        time_dict[word] = bop()
+            # dur
+            elif d.word.startswith("du"):
+                d = remove_dur(d)
 
-        if d.count % 1000 == 0:
-            print(
-                f"{d.count:>10,} / {unmatched_len_init:<10,}{d.word}")
+            time_dict[word] = bop()
 
-            save_matches(matches_dict)
-            save_timer_dict(time_dict)
-            matches_dict = {}
-            time_dict = {}
+            if d.count % 1000 == 0:
+                print(
+                    f"{d.count:>10,} / {unmatched_len_init:<10,}{d.word}")
+
+                save_matches(matches_dict)
+                save_timer_dict(time_dict)
+                matches_dict = {}
+                time_dict = {}
 
     save_matches(matches_dict)
 

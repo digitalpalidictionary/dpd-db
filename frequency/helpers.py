@@ -30,9 +30,9 @@ def get_paths() -> ResourcePaths:
     # corpus counter
     pth = ResourcePaths(
         cst_txt_dir=Path(
-            "resources/Cst4/txt"),
+            "resources/tipitaka-xml/roman_txt/"),
         cst_xml_dir=Path(
-            "resources/Cst4/Xml"),
+            "resources/tipitaka-xml/deva master/"),
         raw_text_dir=Path(
             "frequency/output/raw_text/"),
         word_count_dir=Path(
@@ -57,6 +57,7 @@ def get_paths() -> ResourcePaths:
 
     # ensure dirs exist
     for d in [
+        pth.cst_txt_dir,
         pth.raw_text_dir,
         pth.word_count_dir,
         pth.tests_dir,

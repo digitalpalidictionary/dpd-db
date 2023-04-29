@@ -1,4 +1,8 @@
 set -e
+# setup cst texts
+frequency/cst4_xml_to_txt.py
+frequency/corpus_counter.py
+# build dpd
 test -e dpd.db || touch dpd.db
 db/db_from_tsv.py
 scripts/sbs_russian_from_tsv.py

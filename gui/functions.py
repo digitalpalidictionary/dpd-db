@@ -50,14 +50,14 @@ def get_paths() -> ResourcePaths:
 
     pth = ResourcePaths(
         # dirs
-        cst_texts_dir=Path(
-            "resources/Cst4/txt"),
         sc_texts_dir=Path(
             "resources/Tipitaka-Pali-Projector/tipitaka_projector_data/pali/"),
         cst_xml_dir=Path(
-            "resources/Cst4/Xml"),
+            "resources/tipitaka-xml/deva master"),
         cst_xml_roman_dir=Path(
-            "resources/Cst4/xml roman"),
+            "resources/tipitaka-xml/roman_xml"),
+        cst_texts_dir=Path(
+            "resources/tipitaka-xml/roman_txt"),
 
         # paths
         sandhi_ok_path=Path(
@@ -90,6 +90,13 @@ def get_paths() -> ResourcePaths:
             "gui/stash/gui_state"
         )
     )
+
+    # ensure dirs exist
+    for d in [
+        pth.cst_texts_dir,
+        pth.cst_xml_roman_dir,
+    ]:
+        d.mkdir(parents=True, exist_ok=True)
     return pth
 
 
@@ -581,7 +588,7 @@ def transliterate_xml(xml):
 
 def find_sutta_example(sg, window, values: dict) -> str:
     try:
-        filename = cst_texts[values["book_to_add"]][0].replace(".txt", "")
+        filename = cst_texts[values["book_to_add"]][0].replace(".txt", ".xml")
     except KeyError as e:
         window["messages"].update(e, text_color="red")
 
@@ -617,17 +624,31 @@ def find_sutta_example(sg, window, values: dict) -> str:
     sutta = ""
 
     sutta_sentences = []
+    sutta_counter = 0
     for p in ps:
 
         if p["rend"] == "subhead":
+            if "suttaṃ" in p.text:
+                sutta_counter += 1
             source = values["book_to_add"].upper()
+            book = re.sub(r"\d", "", source)
             # add space to digtis
             source = re.sub(r"(?<=[A-Za-z])(?=\d)", " ", source)
             try:
                 sutta_number = p.next_sibling.next_sibling["n"]
             except KeyError as e:
                 window["messages"].update(e, text_color="red")
-            source = f"{source}.{sutta_number}"
+
+            # choose which method to number suttas according to book
+            if values["book_to_add"].startswith("mn1"):
+                source = f"{book} {sutta_counter}"
+            elif values["book_to_add"].startswith("mn2"):
+                source = f"{book} {sutta_counter+50}"
+            elif values["book_to_add"].startswith("mn3"):
+                source = f"{book} {sutta_counter+100}"
+            elif values["book_to_add"].startswith("an"):
+                source = f"{source}.{sutta_number}"
+
             # remove the digits and the dot in sutta name
             sutta = re.sub(r"\d*\. ", "", p.text)
 
@@ -1014,10 +1035,11 @@ def replace_sandhi(string, field, sandhi_dict, window):
             splits[i] = "//".join(sandhi_dict[word]["contractions"])
     string = "".join(splits)
 
-    string = string.replace("</b>ti", "</b>'ti")
-    string = string.replace("</b>nti", "n</b>'ti")
-    string = re.sub(r"\[[^]]*\]", "", string)
-    string = re.sub(" +", " ", string)
+    string = string.replace("</b>ti", "</b>'ti")    # fix bold 'ti
+    string = string.replace("</b>nti", "n</b>'ti")  # fix bold 'ti
+    string = re.sub(r"\[[^]]*\]", "", string)   # remove [...]
+    string = re.sub(" +", " ", string)  # remove double spaces
+    string = re.sub(r"^\d*\. ", "", string)  # remove digits in front
     string = string.strip()
 
     window[field].update(string)

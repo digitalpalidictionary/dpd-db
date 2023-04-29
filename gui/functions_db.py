@@ -1,20 +1,15 @@
 import re
 
 from rich import print
-from sqlalchemy import desc, or_
+from sqlalchemy import or_
 from json import loads
-
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from db.models import PaliRoot
 from db.models import InflectionTemplates
 from db.models import DerivedData
-# from db.db_helpers import print_column_names
 from tools.pali_sort_key import pali_sort_key
-from tools.pali_alphabet import pali_alphabet
-
-# print_column_names(PaliWord)
 
 db_session = get_db_session("dpd.db")
 
@@ -335,7 +330,7 @@ def get_family_word_values():
     ).group_by(
         PaliWord.family_word
     ).all()
-    family_word_values = sorted([v[0] for v in results])
+    family_word_values = sorted([v[0] for v in results if v[0] is not None])
     return family_word_values
 
 
@@ -503,8 +498,11 @@ def get_root_info(root_key):
             PaliRoot.root == root_key
         ).first()
 
-    root_info = f"{r.root_clean} {r.root_group} {r.root_sign} ({r.root_meaning})"
-    return root_info
+    try:
+        root_info = f"{r.root_clean} {r.root_group} {r.root_sign} ({r.root_meaning})"
+        return root_info
+    except AttributeError as e:
+        print(e)
 
 
 # print(get_root_info("√kar"))
