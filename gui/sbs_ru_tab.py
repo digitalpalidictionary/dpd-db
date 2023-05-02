@@ -570,7 +570,7 @@ def read_csv_file(file_path):
         rows = [tuple(row) for row in reader]
         return rows
 
-    index_rows = read_csv_file("xxx delete/sbs-index.csv")
+    index_rows = read_csv_file("sbs-index.csv")
     for row in index_rows:
         print(f"{row[0]}. {row[1]}")
 
