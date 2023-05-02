@@ -37,5 +37,3 @@ share/*
 tmp/
 grammar_dict/output/grammar_dict_pickle
 sandhi/time_delta.ods
-
-resources/Tipitaka-Pali-Projector
