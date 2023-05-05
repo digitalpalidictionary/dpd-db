@@ -70,7 +70,8 @@ def _csv_row_to_russian(x: Dict[str, str], id) -> Russian:
 
     return Russian(
         id=id,
-        ru_meaning=x['Meaning in native language'],
+        ru_meaning=x['ru_meaning'],
+        ru_meaning_lit=x['ru_meaning_lit']
     )
 
 
@@ -110,31 +111,31 @@ def _csv_row_to_sbs(x: Dict[str, str], id) -> SBS:
 
     return SBS(
         id=id,
-        sbs_class_anki=x["ex"],
-        sbs_class=x["class"],
-        sbs_meaning=x["Meaning in SBS-PER"],
-        # sbs_notes=x["Notes SBS"],
-        sbs_chant_pali_1=x["Pali chant 1"],
-        sbs_chant_eng_1=x["English chant 1"],
-        sbs_chapter_1=x["Chapter 1"],
-        sbs_chant_pali_2=x["Pali chant 2"],
-        sbs_chant_eng_2=x["English chant 2"],
-        sbs_chapter_2=x["Chapter 2"],
-        sbs_source_3=x["Source3"],
-        sbs_sutta_3=x["Sutta3"],
-        sbs_example_3=x["Example3"],
-        sbs_chant_pali_3=x["Pali chant 3"],
-        sbs_chant_eng_3=x["English chant 3"],
-        sbs_chapter_3=x["Chapter 3"],
-        sbs_source_4=x["Source4"],
-        sbs_sutta_4=x["Sutta4"],
-        sbs_example_4=x["Example4"],
-        sbs_chant_pali_4=x["Pali chant 4"],
-        sbs_chant_eng_4=x["English chant 4"],
-        sbs_chapter_4=x["Chapter 4"],
-        sbs_index=x["Index"],
-        sbs_category=x["Test"],
-        sbs_audio=x["audio"],
+        sbs_class_anki=x["sbs_class_anki"],
+        sbs_class=x["sbs_class"],
+        sbs_meaning=x["sbs_meaning"],
+        sbs_notes=x["sbs_notes"],
+        sbs_chant_pali_1=x["sbs_chant_pali_1"],
+        sbs_chant_eng_1=x["sbs_chant_eng_1"],
+        sbs_chapter_1=x["sbs_chapter_1"],
+        sbs_chant_pali_2=x["sbs_chant_pali_2"],
+        sbs_chant_eng_2=x["sbs_chant_eng_2"],
+        sbs_chapter_2=x["sbs_chapter_2"],
+        sbs_source_3=x["sbs_source_3"],
+        sbs_sutta_3=x["sbs_sutta_3"],
+        sbs_example_3=x["sbs_example_3"],
+        sbs_chant_pali_3=x["sbs_chant_pali_3"],
+        sbs_chant_eng_3=x["sbs_chant_eng_3"],
+        sbs_chapter_3=x["sbs_chapter_3"],
+        sbs_source_4=x["sbs_source_"],
+        sbs_sutta_4=x["sbs_sutta_4"],
+        sbs_example_4=x["sbs_example_4"],
+        sbs_chant_pali_4=x["sbs_chant_pali_4"],
+        sbs_chant_eng_4=x["sbs_chant_eng_4"],
+        sbs_chapter_4=x["sbs_chapter_4"],
+        sbs_index=x["sbs_index"],
+        sbs_category=x["sbs_category"],
+        sbs_audio=x["sbs_audio"],
     )
 
 
