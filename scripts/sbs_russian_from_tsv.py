@@ -71,7 +71,8 @@ def _csv_row_to_russian(x: Dict[str, str], id) -> Russian:
     return Russian(
         id=id,
         ru_meaning=x['ru_meaning'],
-        ru_meaning_lit=x['ru_meaning_lit']
+        ru_meaning_lit=x['ru_meaning_lit'],
+        ru_notes=x["ru_notes"],
     )
 
 
