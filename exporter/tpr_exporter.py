@@ -132,7 +132,7 @@ def generate_tpr_data():
                 comp_constr_no_formatting = re.sub(
                     "<b>|<\\/b>|<i>|<\\/i>", "", i.compound_construction)
                 comp_constr_no_formatting = re.sub(
-                    "\n", ", ", i.compound_construction)
+                    "\n", ", ", comp_constr_no_formatting)
                 html_string += """<tr><th valign="top">Compound</th>"""
                 html_string += f"""<td>{ i.compound_type} """
                 html_string += f"""({comp_constr_no_formatting})</td></tr>"""

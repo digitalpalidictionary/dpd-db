@@ -17,7 +17,7 @@ from tools.timeis import bip, bop
 # from tools.pali_sort_key import pali_sort_key
 
 
-def generate_root_html(DB_SESSION, PTH, roots_count_dict):
+def generate_root_html(DB_SESSION, PTH, roots_count_dict, size_dict):
     """compile html componenents for each pali root"""
 
     print("[green]generating roots html")
@@ -37,7 +37,15 @@ def generate_root_html(DB_SESSION, PTH, roots_count_dict):
     roots_db = DB_SESSION.query(PaliRoot).all()
     root_db_length = len(roots_db)
 
+    size_dict["root_definition"] = 0
+    size_dict["root_buttons"] = 0
+    size_dict["root_info"] = 0
+    size_dict["root_matrix"] = 0
+    size_dict["root_families"] = 0
+    size_dict["root_synonyms"] = 0
+
     bip()
+
     for counter, r in enumerate(roots_db):
 
         # replace \n with html line break
@@ -47,11 +55,27 @@ def generate_root_html(DB_SESSION, PTH, roots_count_dict):
 
         html = header
         html += "<body>"
-        html += render_root_definition_templ(r, roots_count_dict)
-        html += render_root_buttons_templ(r, DB_SESSION)
-        html += render_root_info_templ(r)
-        html += render_root_matrix_templ(r, roots_count_dict)
-        html += render_root_families_templ(r, DB_SESSION)
+
+        definition = render_root_definition_templ(r, roots_count_dict)
+        html += definition
+        size_dict["root_definition"] += len(definition)
+
+        root_buttons = render_root_buttons_templ(r, DB_SESSION)
+        html += root_buttons
+        size_dict["root_buttons"] += len(root_buttons)
+
+        root_info = render_root_info_templ(r)
+        html += root_info
+        size_dict["root_info"] += len(root_info)
+
+        root_matrix = render_root_matrix_templ(r, roots_count_dict)
+        html += root_matrix
+        size_dict["root_matrix"] += len(root_matrix)
+
+        root_families = render_root_families_templ(r, DB_SESSION)
+        html += root_families
+        size_dict["root_families"] += len(root_families)
+
         html += "</body></html>"
 
         html = minify(html)
@@ -74,6 +98,7 @@ def generate_root_html(DB_SESSION, PTH, roots_count_dict):
             synonyms.add(re.sub("√", "", fr.root_family))
 
         synonyms = add_niggahitas(list(synonyms))
+        size_dict["root_synonyms"] += len(str(synonyms))
 
         root_data_list += [{
             "word": r.root,
@@ -88,4 +113,4 @@ def generate_root_html(DB_SESSION, PTH, roots_count_dict):
             print(f"{counter:>10,} / {root_db_length:<10,} {r.root:<20} {bop():>10}")
             bip()
 
-    return root_data_list
+    return root_data_list, size_dict

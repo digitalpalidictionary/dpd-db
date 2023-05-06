@@ -26,8 +26,8 @@ from writemdict import MDictWriter
 
 def main():
     tic()
-    """generating a grammar dictionary which shows
-    all grammatical possibilities of every inflection"""
+    """Generating a grammar dictionary which shows
+    all grammatical possibilities of every inflection."""
 
     print("[bright_yellow]grammar dictionary")
 
@@ -128,9 +128,11 @@ def main():
                     grammar_dict_html[i.pali_clean] += html_line
 
         elif i.stem == "!":
+            # !!! this must get added
             pass
 
         elif i.pali_1 == "":
+            # !!! this must get added
             pass
 
         # generate all inflections

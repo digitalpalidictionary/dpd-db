@@ -22,6 +22,8 @@ from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.pos import INDECLINEABLES
 from tools.pali_sort_key import pali_sort_key
+from tools.meaning_construction import make_meaning
+from tools.meaning_construction import summarize_constr
 
 TODAY = date.today()
 PTH = get_paths()
@@ -92,9 +94,9 @@ def render_dpd_defintion_templ(i: PaliWord) -> str:
     if i.plus_case != "":
         plus_case: str = f" ({i.plus_case}) "
 
-    meaning = f" {_make_meaning(i)}"
+    meaning = f" <b>{make_meaning(i)}</b>"
 
-    summary = _summarize_constr(i)
+    summary = f" [{summarize_constr(i)}]"
 
     # complete
     if i.meaning_1 != "":
@@ -114,82 +116,6 @@ def render_dpd_defintion_templ(i: PaliWord) -> str:
             complete=complete
         )
     )
-
-
-def _make_meaning(i: PaliWord) -> str:
-    """compile meaning_1 and literal meaning
-    or return meaning_2"""
-
-    if i.meaning_1 != "":
-        meaning: str = f"<b>{i.meaning_1}</b>"
-        if i.meaning_lit != "":
-            meaning += f"; lit. {i.meaning_lit}"
-        return meaning
-    else:
-        return f"<b>{i.meaning_2}</b>"
-
-
-def _summarize_constr(i: PaliWord) -> str:
-    """create a summary of the word's construction"""
-
-    if i.construction == "" or i.meaning_1 == "":
-        return ""
-
-    else:
-        if i.root_base == "":
-            # remove line2
-            constr = re.sub(r"<br>.+$", "", i.construction)
-            # remove [insertions]
-            constr = re.sub(r" \[.+\] \+", "", constr)
-            # remove phonetic changes
-            constr = re.sub("> .[^ ]*? ", "", constr)
-            # remove phonetic changes at end
-            constr = re.sub(" > .[^ ]*?$", "", constr)
-
-            if constr != "":
-                return fr" [{constr}]"
-            else:
-                return ""
-
-        if i.root_base != "" and i.pos != "fut":
-            base_clean = re.sub(" \\(.+\\)$", "", i.root_base)
-            base_clean = re.sub("(.+ )(.+?$)", "\\2", base_clean)
-            family_plus = re.sub(" ", " + ", i.family_root)
-            constr_oneline = re.sub(r"<br>.+", "", i.construction)
-            constr_trunc = re.sub(" > .[^ ]+", "", constr_oneline)
-            constr_trunc = re.sub(f".*{base_clean}", "", constr_trunc)
-
-            if re.match("^na ", i.construction):
-                constr_na = re.sub("^(na )(.+)$", "\\1+ ", i.construction)
-                constr_trunc = re.sub(r"na > a|a > an|a > ana", "", constr_trunc)
-            else:
-                constr_na = ""
-
-            constr_reconstr = f"{constr_na}{family_plus} + {i.root_sign}{constr_trunc}"
-            return fr" [{constr_reconstr}]"
-
-        if i.root_base != "" and i.pos == "fut":
-            # remove > base and end brackets
-            base = re.sub(" > .+ \\(.+\\)$", "", i.root_base)
-            # remove root
-            base = re.sub("√.[^ ]* \\+ ", "", base)
-            # family prefix
-            family_prefix = re.sub(" ", " + ", i.family_root)
-            # remove phonetic changes
-            constr_trunc = re.sub(" > .[^ ]+", "", i.construction)
-            # only keep ending
-            constr_trunc = re.sub(r"(.+)( \+ .*$)", "\\2", constr_trunc)
-
-            if re.match("^na ", i.construction):
-                constr_na = re.sub(
-                    "^(na )(.+)$", "\\1+ ", i.construction)
-                constr_trunc = re.sub(
-                    r"na > a|a > an|a > ana", "", constr_trunc)
-            else:
-                constr_na = ""
-
-            constr_reconstr = f"{constr_na}{family_prefix} + {base}{constr_trunc}"
-            return fr" [{constr_reconstr}]"
 
 
 def render_button_box_templ(i: PaliWord) -> str:
@@ -322,7 +248,7 @@ def render_grammar_templ(i: PaliWord) -> str:
         if i.plus_case != "":
             grammar += f" ({i.plus_case})"
 
-        meaning = f"{_make_meaning(i)}"
+        meaning = f"<b>{make_meaning(i)}</b>"
 
         return str(
             grammar_templ.render(

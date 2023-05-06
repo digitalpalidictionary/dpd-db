@@ -18,7 +18,7 @@ from tools.clean_machine import clean_machine
 from tools.pali_text_files import cst_texts, sc_texts
 from tools.pos import INDECLINEABLES
 from tools.pali_alphabet import pali_alphabet
-from tools.sutta_central_text_set import make_sc_text_set
+from tools.make_cst_sc_text_sets import make_sc_text_set
 
 
 

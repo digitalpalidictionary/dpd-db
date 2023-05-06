@@ -11,22 +11,28 @@ from html_components import render_sandhi_templ
 from helpers import ResourcePaths
 from db.models import PaliWord, Sandhi
 from tools.timeis import bip, bop
+from tools.make_cst_sc_text_sets import make_cst_text_set
+from tools.make_cst_sc_text_sets import make_sc_text_set
 
 
 def generate_sandhi_html(
     DB_SESSION: Session,
         PTH: ResourcePaths,
-        SANDHI_CONTRACTIONS: dict) -> list:
-    """generate html for sandhi split compounds"""
+        SANDHI_CONTRACTIONS: dict,
+        size_dict) -> list:
+    """Generate html for sandhi split compounds."""
 
     print("[green]generating sandhi html")
 
-    dpd_db: list = DB_SESSION.query(PaliWord).all()
+    # reduce the books to limit number of sandhi incluced in dpd
+    reduced_text_set: set = make_reduced_text_set(DB_SESSION)
 
+    dpd_db: list = DB_SESSION.query(PaliWord).all()
     sandhi_db = DB_SESSION.query(Sandhi).all()
     sandhi_db_length: int = len(sandhi_db)
     sandhi_data_list: list = []
 
+    # don't include words already in dpd
     clean_headwords_set: set = set([i.pali_clean for i in dpd_db])
 
     with open(PTH.sandhi_css_path) as f:
@@ -35,15 +41,27 @@ def generate_sandhi_html(
 
     header = render_header_tmpl(css=sandhi_css, js="")
 
+    size_dict["sandhi_header"] = 0
+    size_dict["sandhi_sandhi"] = 0
+    size_dict["sandhi_synonyms"] = 0
+
     bip()
     for counter, i in enumerate(sandhi_db):
 
         splits = loads(i.split)
 
-        if i.sandhi not in clean_headwords_set:
+        if (i.sandhi not in clean_headwords_set and
+                i.sandhi in reduced_text_set):
+
             html = header
+            size_dict["sandhi_header"] += len(header)
+
             html += "<body>"
-            html += render_sandhi_templ(i, splits)
+
+            sandhi = render_sandhi_templ(i, splits)
+            html += sandhi
+            size_dict["sandhi_sandhi"] += len(sandhi)
+
             html += "</body></html>"
 
             html = minify(html)
@@ -55,6 +73,8 @@ def generate_sandhi_html(
             if i.sandhi in SANDHI_CONTRACTIONS:
                 contractions = SANDHI_CONTRACTIONS[i.sandhi]["contractions"]
                 synonyms.extend(contractions)
+
+            size_dict["sandhi_synonyms"] += len(str(synonyms))
 
             sandhi_data_list += [{
                 "word": i.sandhi,
@@ -70,4 +90,32 @@ def generate_sandhi_html(
                     f"{counter:>10,} / {sandhi_db_length:<10,} {i.sandhi[:20]:<20} {bop():>10}")
                 bip()
 
-    return sandhi_data_list
+    return sandhi_data_list, size_dict
+
+
+def make_reduced_text_set(DB_SESSION):
+    """Make a set of words by book to limit what gets included in sandhi."""
+
+    books_to_include = [
+        "vin1", "vin2", "vin3", "vin4", "vin5",
+        "dn1", "dn2", "dn3",
+        "mn1", "mn2", "mn3",
+        "sn1", "sn2", "sn3", "sn4", "sn5",
+        "an1", "an2", "an3", "an4", "an5",
+        "an6", "an7", "an8", "an9", "an10", "an11",
+        "kn1", "kn2", "kn3", "kn4", "kn5",
+        "kn6", "kn7", "kn8", "kn9", "kn10",
+        "kn11", "kn12", "kn13", "kn14", "kn15",
+        "kn16", "kn17", "kn18", "kn19", "kn20",
+        "abh1", "abh2", "abh3", "abh4", "abh5", "abh6", "abh7",
+        "vina", "dna", "mna", "sna", "ana", "kna", "abha",
+        # "vint", "dnt", "mnt", "snt", "ant", "knt", "abht",
+        "vism",
+        # "anna",
+    ]
+
+    cst_text_set: set = make_cst_text_set(books_to_include)
+    sc_text_set: set = make_sc_text_set(books_to_include)
+
+    text_set: set = cst_text_set | sc_text_set
+    return text_set

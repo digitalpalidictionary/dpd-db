@@ -274,11 +274,16 @@ def add_to_db(cpd, dpd_length):
         for counter, i in enumerate(cpd):
             i.pali_1.replace("ṁ", "ṃ")
             i.stem.replace("ṁ", "ṃ")
-
             user_id = dpd_length+counter+1
+            if "; lit" in i.meaning_2:
+                meaning_lit = re.sub(r"(.+; lit\. )(.+)", r"\2", i.meaning_2)
+            else:
+                meaning_lit = ""
+
             if i.stem:
                 cpd_data = PaliWord(
                     pali_1=i.pali_1,
+                    pali_2=i.pali_1,
                     user_id=user_id,
                     pos=i.pos,
                     grammar=i.grammar,
@@ -286,6 +291,8 @@ def add_to_db(cpd, dpd_length):
                     verb=i.verb,
                     trans=i.trans,
                     plus_case=i.plus_case,
+                    meaning_2=i.meaning_2,
+                    meaning_lit=meaning_lit,
                     sanskrit=i.sanskrit,
                     root_key=i.root_key,
                     family_root=i.family_root,
@@ -295,7 +302,6 @@ def add_to_db(cpd, dpd_length):
                     origin="cpd",
                     stem=i.stem,
                     pattern=i.pattern,
-                    meaning_2=i.meaning_2,
                 )
                 add_to_db.append(cpd_data)
 

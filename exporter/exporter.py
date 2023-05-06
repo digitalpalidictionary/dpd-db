@@ -1,5 +1,6 @@
 #!/usr/bin/env python3.11
 import zipfile
+import csv
 
 from os import popen
 from rich import print
@@ -28,15 +29,17 @@ SANDHI_CONTRACTIONS: dict = make_sandhi_contraction_dict(DB_SESSION)
 
 def main():
     print("[bright_yellow]exporting dpd")
+    size_dict = {}
+
     roots_count_dict = make_roots_count_dict(DB_SESSION)
-    dpd_data_list: list = generate_dpd_html(
-        DB_SESSION, PTH, SANDHI_CONTRACTIONS)
-    root_data_list: list = generate_root_html(
-        DB_SESSION, PTH, roots_count_dict)
-    sandhi_data_list: list = generate_sandhi_html(
-        DB_SESSION, PTH, SANDHI_CONTRACTIONS)
-    epd_data_list: list = generate_epd_html(DB_SESSION, PTH)
-    help_data_list: list = generate_help_html(DB_SESSION, PTH)
+    dpd_data_list, size_dict = generate_dpd_html(
+        DB_SESSION, PTH, SANDHI_CONTRACTIONS, size_dict)
+    root_data_list, size_dict = generate_root_html(
+        DB_SESSION, PTH, roots_count_dict, size_dict)
+    sandhi_data_list, size_dict = generate_sandhi_html(
+        DB_SESSION, PTH, SANDHI_CONTRACTIONS, size_dict)
+    epd_data_list, size_dict = generate_epd_html(DB_SESSION, PTH, size_dict)
+    help_data_list, size_dict = generate_help_html(DB_SESSION, PTH, size_dict)
 
     combined_data_list: list = (
         dpd_data_list +
@@ -46,6 +49,7 @@ def main():
         help_data_list
     )
 
+    write_size_dict(size_dict)
     export_to_goldendict(combined_data_list)
     goldendict_unzip_and_copy()
     export_to_mdict(combined_data_list, PTH)
@@ -88,6 +92,19 @@ def goldendict_unzip_and_copy() -> None:
             f'unzip -o {PTH.zip_path} -d "/home/bhikkhu/Documents/Golden Dict"')
     except Exception as e:
         print(f"[red]{e}")
+
+    print(f"{bop():>23}")
+
+
+def write_size_dict(size_dict):
+    bip()
+    print("[green]writing size_dict", end=" ")
+    filename = "xxx delete/size_dict.tsv"
+
+    with open(filename, "w", newline="") as csvfile:
+        writer = csv.writer(csvfile, delimiter='\t')
+        for key, value in size_dict.items():
+            writer.writerow([key, value])
 
     print(f"{bop():>23}")
 

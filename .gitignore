@@ -20,6 +20,7 @@ dpd.db-journal
 exporter/output/dpd.sql
 exporter/share/
 frequency/output/*
+grammar_dict/output/grammar_dict_pickle
 grammar_dict/output/html
 gui/icons/*
 gui/stash/gui_state
@@ -33,8 +34,8 @@ sandhi/!old sandhi-splitter.py
 sandhi/assets/*
 sandhi/output_do/*
 sandhi/output/*
-share/*
-tmp/
-grammar_dict/output/grammar_dict_pickle
 sandhi/time_delta.ods
-
+share/*
+the_buddhas_words/output/dpd_ebts.json
+the_buddhas_words/output/i2h.json
+tmp/

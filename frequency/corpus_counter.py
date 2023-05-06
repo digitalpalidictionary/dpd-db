@@ -184,7 +184,6 @@ def make_tipitaka_dict():
     tipitaka_dict["abhidhamma_ṭīkā"] = abhidhamma_ṭīkā
 
     # aññā
-
     aññā_visuddhimagga = ["e0101n.mul.txt", "e0102n.mul.txt"]
     aññā_visuddhimagga_ṭīkā = ["e0103n.att.txt", "e0104n.att.txt", "e0105n.nrf.txt"]
     aññā_leḍī = ["e0201n.nrf.txt", "e0301n.nrf.txt", "e0401n.nrf.txt", "e0501n.nrf.txt"]

@@ -12,7 +12,7 @@ from tools.timeis import bip, bop
 from tools.pali_sort_key import pali_sort_key
 
 
-def generate_epd_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
+def generate_epd_html(DB_SESSION: Session, PTH: ResourcePaths, size_dict) -> list:
     """generate html for english to pali dicitonary"""
 
     print("[green]generating epd html")
@@ -62,15 +62,22 @@ def generate_epd_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
 
             for meaning in meanings_list:
                 if meaning in epd.keys() and i.plus_case == "":
-                    epd[meaning] = f"{epd[meaning]}<br><b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.meaning_1}"
+                    epd_string = f"{epd[meaning]}<br><b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.meaning_1}"
+                    epd[meaning] = epd_string
+
                 if meaning in epd.keys() and i.plus_case != "":
-                    epd[meaning] = f"{epd[meaning]}<br><b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
+                    epd_string = f"{epd[meaning]}<br><b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
+                    epd[meaning] = epd_string
+
                 if meaning not in epd.keys() and i.plus_case == "":
+                    epd_string = f"<b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.meaning_1}"
                     epd.update(
-                        {meaning: f"<b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.meaning_1}"})
+                        {meaning: epd_string})
+
                 if meaning not in epd.keys() and i.plus_case != "":
+                    epd_string = f"<b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
                     epd.update(
-                        {meaning: f"<b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"})
+                        {meaning: epd_string})
 
         if counter % 10000 == 0:
             print(f"{counter:>10,} / {dpd_db_length:<10,} {i.pali_1[:20]:<20} {bop():>10}")
@@ -84,10 +91,13 @@ def generate_epd_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
 
         for root_meaning in root_meanings_list:
             if root_meaning in epd.keys():
-                epd[root_meaning] = f"{epd[root_meaning]}<br><b class = 'epd'>{i.root}</b> root. {i.root_meaning}"
+                epd_string = f"{epd[root_meaning]}<br><b class = 'epd'>{i.root}</b> root. {i.root_meaning}"
+                epd[root_meaning] = epd_string
+
             if root_meaning not in epd.keys():
+                epd_string = f"<b class = 'epd'>{i.root}</b> root. {i.root_meaning}"
                 epd.update(
-                    {root_meaning: f"<b class = 'epd'>{i.root}</b> root. {i.root_meaning}"})
+                    {root_meaning: epd_string})
 
         if counter % 250 == 0:
             print(f"{counter:>10,} / {roots_db_length:<10,} {i.root:<20} {bop():>10}")
@@ -96,24 +106,29 @@ def generate_epd_html(DB_SESSION: Session, PTH: ResourcePaths) -> list:
     print("[green]compiling epd html")
 
     epd_data_list: List[dict] = []
+    size_dict["epd_header"] = 0
+    size_dict["epd"] = 0
 
-    for counter, (word, html) in enumerate(epd.items()):
-        html_string = header
-        html_string += "<body>"
-        html_string += f"<div class ='epd'><p>{html}</p></div>"
-        html_string += "</body></html>"
+    for counter, (word, html_string) in enumerate(epd.items()):
+        html = header
+        size_dict["epd_header"] += len(header)
 
-        html_string = minify(html_string)
+        html += "<body>"
+        html += f"<div class ='epd'><p>{html_string}</p></div>"
+        html += "</body></html>"
+        size_dict["epd"] += len(html) - len(header)
+
+        html = minify(html)
 
         epd_data_list += [{
             "word": word,
-            "definition_html": html_string,
+            "definition_html": html,
             "definition_plain": "",
             "synonyms": ""
         }]
 
         if counter % 5000 == 0:
             with open(f"xxx delete/exporter_epd/{word}.html", "w") as f:
-                f.write(html_string)
+                f.write(html)
 
-    return epd_data_list
+    return epd_data_list, size_dict

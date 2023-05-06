@@ -1,67 +1,126 @@
 #!/usr/bin/env python3.11
-import shutil
-import re
+import os
 import pandas as pd
 import pickle
+import re
+import shutil
+import zipfile
 
-from json import loads
+from pathlib import Path
 from rich import print
+from json import loads
 
 from db.models import PaliWord, DerivedData
 from db.get_db_session import get_db_session
 from helpers import get_resource_paths
-from tools.clean_machine import clean_machine
 from tools.pali_text_files import cst_texts, bjt_texts
-from tools.sutta_central_text_set import make_sc_text_set
+from tools.make_cst_sc_text_sets import make_cst_text_set, make_sc_text_set
 from tools.timeis import tic, toc
-from books_to_include import include
+from books_to_include import include_for_cloud
 
 # prepare all the necessary parts for local and cloud
 
 
-def make_cst_text_set(include):
+def main():
+    tic()
+    print("[bright_yellow]setting up for sandhi splitting on cloud")
+
+    global pth
+    pth = get_resource_paths()
+
+    global db_session
+    db_session = get_db_session(pth["dpd_db_path"])
 
     print(f"[green]{'making cst text set':<35}", end="")
-
-    cst_texts_list = []
-
-    for i in include:
-        if cst_texts[i]:
-            cst_texts_list += cst_texts[i]
-
-    cst_text_string = ""
-
-    for text in cst_texts_list:
-        with open(pth['cst_text_path'].joinpath(text), "r") as f:
-            cst_text_string += f.read()
-
-    cst_text_string = clean_machine(cst_text_string)
-    cst_text_set = set(cst_text_string.split())
-
+    cst_text_set = make_cst_text_set(include_for_cloud)
     print(f"[white]{len(cst_text_set):>10,}")
-    return cst_text_set
 
+    print(f"[green]{'making sc text set':<35}", end="")
+    sc_text_set = make_sc_text_set(include_for_cloud)
+    print(f"[white]{len(sc_text_set):>10,}")
 
-def make_bjt_text_set(include):
+    # bjt_text_set = make_bjt_text_set(include)
+    spelling_mistakes_set,\
+        spelling_corrections_set,\
+        spelling_mistakes_dict\
+        = make_spelling_mistakes_set()
+    variant_readings_set, \
+        variant_corrections_set, \
+        variant_dict\
+        = make_variant_readings_set()
+    abbreviations_set = make_abbreviations_set()
+    manual_corrections_set,\
+        manual_corrections_dict \
+        = make_manual_corrections_set()
+    sandhi_exceptions_set = make_exceptions_set()
+    all_inflections_set = make_all_inflections_set(sandhi_exceptions_set)
+    neg_inflections_set = make_neg_inflections_set(sandhi_exceptions_set)
 
-    print(f"[green]{'making buddhajayanti text set':<35}", end="")
+    def make_unmatched_set():
+        print(f"[green]{'making text set':<35}", end="")
 
-    bjt_texts_list = []
-    for i in include:
-        if bjt_texts[i]:
-            bjt_texts_list += bjt_texts[i]
+        text_set = cst_text_set | sc_text_set
+        # text_set = text_set | bjt_text_set
+        text_set = text_set | spelling_corrections_set
+        text_set = text_set | variant_corrections_set
+        text_set = text_set - spelling_mistakes_set
+        text_set = text_set - variant_readings_set
+        text_set = text_set - abbreviations_set
+        text_set = text_set - manual_corrections_set
+        text_set.update(["tā", "ttā"])
+        if "" in text_set:
+            text_set.remove("")
 
-    bjt_text_string = ""
+        print(f"[white]{len(text_set):>10,}")
 
-    for bjt_text in bjt_texts_list:
-        with open(pth["bjt_text_path"].joinpath(bjt_text), "r") as f:
-            bjt_text_string += f.read()
+        print(f"[green]{'making unmatched set':<35}", end="")
 
-    bjt_text_string = clean_machine(bjt_text_string)
-    bjt_text_set = set(bjt_text_string.split())
+        unmatched_set = text_set - all_inflections_set
+        unmatched_set = unmatched_set - sandhi_exceptions_set
 
-    print(f"[white]{len(bjt_text_set):>10,}")
-    return bjt_text_set
+        print(f"[white]{len(unmatched_set):>10,}")
+
+        return text_set, unmatched_set
+
+    text_set, unmatched_set = make_unmatched_set()
+
+    def save_assets():
+        print(f"[green]{'saving assets':<35}", end="")
+
+        with open(pth["unmatched_set_path"], "wb") as f:
+            pickle.dump(unmatched_set, f)
+
+        with open(pth["all_inflections_set_path"], "wb") as f:
+            pickle.dump(all_inflections_set, f)
+
+        with open(pth["text_set_path"], "wb") as f:
+            pickle.dump(text_set, f)
+
+        with open(pth["neg_inflections_set_path"], "wb") as f:
+            pickle.dump(neg_inflections_set, f)
+
+        print(f"[white]{'ok':>10}")
+
+    save_assets()
+
+    def make_matches_dict():
+        print(f"[green]{'saving matches_dict':<35}", end="")
+        matches_dict = {}
+        matches_dict["word"] = [
+            ("split", "process", "rules", "path")]
+        matches_dict.update(spelling_mistakes_dict)
+        matches_dict.update(variant_dict)
+        matches_dict.update(manual_corrections_dict)
+
+        with open(pth["matches_dict_path"], "wb") as f:
+            pickle.dump(matches_dict, f)
+
+        print(f"[white]{'ok':>10}")
+
+    make_matches_dict()
+    zip_for_cloud()
+    move_zip()
+    toc()
 
 
 def make_spelling_mistakes_set():
@@ -297,113 +356,49 @@ def make_neg_inflections_set(sandhi_exceptions_set):
     return neg_inflections_set
 
 
-def copy_sandhi_related_dir():
-    print(f"[green]{'copying sandhi related dir':<35}", end="")
-    try:
-        shutil.rmtree(pth["sandhi_related_dest_dir"])
-    except Exception as e:
-        print(f"[bright_red]{e}")
+def zip_for_cloud():
+    print(f"[green]{'zipping for cloud':<35}", end="")
 
-    shutil.copytree(pth[
-        "sandhi_related_source_dir"],
-        pth["sandhi_related_dest_dir"])
+    include = [
+        "poetry.lock",
+        "poetry.toml",
+        "pyproject.toml",
+        "README.md",
+        "db",
+        "sandhi/assets",
+        "sandhi/sandhi_related",
+        "sandhi/books_to_include.py",
+        "sandhi/helpers.py",
+        "sandhi/sandhi_postprocess.py",
+        "sandhi/sandhi_setup.py",
+        "sandhi/sandhi_splitter.py",
+        "sandhi/sandhi.sh",
+        "tools"
+    ]
+
+    zip_path = Path("./")
+    zipfile_name = Path("sandhi.zip")
+
+    def zipdir(path, ziph, include):
+        for root, dirs, files in os.walk(path):
+            for file in files:
+                if not any(
+                        os.path.relpath(
+                            os.path.join(root, file), path).startswith(i) for i in include):
+                    continue
+                ziph.write(os.path.join(root, file))
+
+    with zipfile.ZipFile(zipfile_name, "w", zipfile.ZIP_DEFLATED) as zipf:
+        zipdir(zip_path, zipf, include)
 
     print(f"[white]{'ok':>10}")
 
 
-def main():
-    tic()
-    print("[bright_yellow]setting up for sandhi splitting")
+def move_zip():
+    print(f"[green]{'moving zip':<35}", end="")
+    shutil.move("sandhi.zip", "sandhi/sandhi.zip")
+    print(f"[white]{'ok':>10}")
 
-    global pth
-    pth = get_resource_paths()
-
-    global db_session
-    db_session = get_db_session(pth["dpd_db_path"])
-
-    cst_text_set = make_cst_text_set(include)
-    sc_text_set = make_sc_text_set(include)
-    # bjt_text_set = make_bjt_text_set(include)
-    spelling_mistakes_set,\
-        spelling_corrections_set,\
-        spelling_mistakes_dict\
-        = make_spelling_mistakes_set()
-    variant_readings_set, \
-        variant_corrections_set, \
-        variant_dict\
-        = make_variant_readings_set()
-    abbreviations_set = make_abbreviations_set()
-    manual_corrections_set,\
-        manual_corrections_dict \
-        = make_manual_corrections_set()
-    sandhi_exceptions_set = make_exceptions_set()
-    all_inflections_set = make_all_inflections_set(sandhi_exceptions_set)
-    neg_inflections_set = make_neg_inflections_set(sandhi_exceptions_set)
-
-    def make_unmatched_set():
-        print(f"[green]{'making text set':<35}", end="")
-
-        text_set = cst_text_set | sc_text_set
-        # text_set = text_set | bjt_text_set
-        text_set = text_set | spelling_corrections_set
-        text_set = text_set | variant_corrections_set
-        text_set = text_set - spelling_mistakes_set
-        text_set = text_set - variant_readings_set
-        text_set = text_set - abbreviations_set
-        text_set = text_set - manual_corrections_set
-        text_set.update(["tā", "ttā"])
-        if "" in text_set:
-            text_set.remove("")
-
-        print(f"[white]{len(text_set):>10,}")
-
-        print(f"[green]{'making unmatched set':<35}", end="")
-
-        unmatched_set = text_set - all_inflections_set
-        unmatched_set = unmatched_set - sandhi_exceptions_set
-
-        print(f"[white]{len(unmatched_set):>10,}")
-
-        return text_set, unmatched_set
-
-    text_set, unmatched_set = make_unmatched_set()
-
-    def save_assets():
-        print(f"[green]{'saving assets':<35}", end="")
-
-        with open(pth["unmatched_set_path"], "wb") as f:
-            pickle.dump(unmatched_set, f)
-
-        with open(pth["all_inflections_set_path"], "wb") as f:
-            pickle.dump(all_inflections_set, f)
-
-        with open(pth["text_set_path"], "wb") as f:
-            pickle.dump(text_set, f)
-
-        with open(pth["neg_inflections_set_path"], "wb") as f:
-            pickle.dump(neg_inflections_set, f)
-
-        print(f"[white]{'ok':>10}")
-
-    save_assets()
-
-    def make_matches_dict():
-        print(f"[green]{'saving matches_dict':<35}", end="")
-        matches_dict = {}
-        matches_dict["word"] = [
-            ("split", "process", "rules", "path")]
-        matches_dict.update(spelling_mistakes_dict)
-        matches_dict.update(variant_dict)
-        matches_dict.update(manual_corrections_dict)
-
-        with open(pth["matches_dict_path"], "wb") as f:
-            pickle.dump(matches_dict, f)
-
-        print(f"[white]{'ok':>10}")
-
-    make_matches_dict()
-
-    toc()
 
 
 if __name__ == "__main__":

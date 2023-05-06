@@ -14,6 +14,6 @@ families/word_family.py
 families/compound_family.py
 families/sets.py
 frequency/mapmaker.py
-sandhi/setup.py
-sandhi/splitter.py
-sandhi/postprocess.py
+sandhi/sandhi_setup.py
+sandhi/sandhi_splitter.py
+sandhi/sandhi_postprocess.py

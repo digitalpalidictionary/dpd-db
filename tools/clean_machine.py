@@ -2,16 +2,18 @@ import re
 from rich import print
 
 
-def clean_machine(text):
-    allowed_characters = "aāiīuūeokgṅcjñṭḍṇtdnpbmyrlsvhḷṃ\n xfśṣǣæwqḥṛ"
+def clean_machine(text: str, niggahita="ṃ") -> str:
+    allowed_characters = "aāiīuūeokgṅcjñṭḍṇtdnpbmyrlsvhḷṃṁ\n xfśṣǣæwqḥṛ"
 
     text = text.lower()
     text = re.sub(r"\d", "", text)
     text = re.sub(r"\t", "", text)
     text = re.sub(r"\n", r" \n", text)
 
+    if niggahita == "ṃ":
+        text = text.replace("ṁ", "ṃ")
+
     text = text.replace(
-        "ṁ", "ṃ").replace(
         ".", " ").replace(
         ",", " ").replace(
         ";", " ").replace(

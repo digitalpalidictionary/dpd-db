@@ -134,11 +134,6 @@ cst_texts = {
         "abh01a.att.txt",
         "abh02a.att.txt",
         "abh03a.att.txt",
-        "abh03a1.att.txt",
-        "abh03a2.att.txt",
-        "abh03a3.att.txt",
-        "abh03a4.att.txt",
-        "abh03a5.att.txt",
     ],
 
     "vint": [
@@ -197,18 +192,8 @@ cst_texts = {
         "abh01t.tik.txt",
         "abh02t.tik.txt",
         "abh03t.tik.txt",
-        "abh03t1.tik.txt",
-        "abh03t2.tik.txt",
-        "abh03t3.tik.txt",
-        "abh03t4.tik.txt",
-        "abh03t5.tik.txt",
         "abh04t.nrf.txt",
         "abh05t.nrf.txt",
-        "abh05t1.nrf.txt",
-        "abh05t2.nrf.txt",
-        "abh05t3.nrf.txt",
-        "abh05t4.nrf.txt",
-        "abh05t5.nrf.txt",
         "abh06t.nrf.txt",
         "abh07t.nrf.txt",
         "abh08t.nrf.txt",
@@ -6273,9 +6258,8 @@ sc_texts = {
         "ja518_root-pli-ms.json", 
         "ja519_root-pli-ms.json", 
         "ja520_root-pli-ms.json", 
-    ],
-
-    "kn15": [
+        
+        # book 2
         "ja521_root-pli-ms.json", 
         "ja522_root-pli-ms.json", 
         "ja523_root-pli-ms.json", 
@@ -6305,7 +6289,7 @@ sc_texts = {
         "ja547_root-pli-ms.json", 
     ],
 
-    "kn16": [
+    "kn15": [
         "mnd1_root-pli-ms.json", 
         "mnd2_root-pli-ms.json", 
         "mnd3_root-pli-ms.json", 
@@ -6324,7 +6308,7 @@ sc_texts = {
         "mnd16_root-pli-ms.json", 
     ],
 
-    "kn17": [
+    "kn16": [
         "cnd1_root-pli-ms.json", 
         "cnd2_root-pli-ms.json", 
         "cnd3_root-pli-ms.json", 
@@ -6350,7 +6334,7 @@ sc_texts = {
         "cnd23_root-pli-ms.json", 
     ],
 
-    "kn18": [
+    "kn17": [
         "ps1.0_root-pli-ms.json", 
         "ps1.1_root-pli-ms.json", 
         "ps1.2_root-pli-ms.json", 
@@ -6384,7 +6368,7 @@ sc_texts = {
         "ps3.10_root-pli-ms.json", 
     ],
 
-    "kn19": [
+    "kn18": [
         "mil1_root-pli-ms.json", 
         "mil2_root-pli-ms.json", 
         "mil3.1.1_root-pli-ms.json", 
@@ -6635,7 +6619,7 @@ sc_texts = {
         "mil8_root-pli-ms.json", 
     ],
 
-    "kn20": [
+    "kn19": [
         "ne1_root-pli-ms.json", 
         "ne2_root-pli-ms.json", 
         "ne3_root-pli-ms.json", 
@@ -6675,7 +6659,7 @@ sc_texts = {
         "ne37_root-pli-ms.json", 
     ],
 
-    "kn21": [
+    "kn20": [
         "pe1_root-pli-ms.json", 
         "pe2_root-pli-ms.json", 
         "pe3_root-pli-ms.json", 

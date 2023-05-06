@@ -39,7 +39,7 @@ class Help:
         return f"Help: {self.help} {self.meaning}  ..."
 
 
-def generate_help_html(DB_SESSION, PTH: Path) -> list:
+def generate_help_html(DB_SESSION, PTH: Path, size_dict) -> list:
     """genrating html of all help files used in the dictionary"""
     print("[green]generating help html")
 
@@ -52,15 +52,28 @@ def generate_help_html(DB_SESSION, PTH: Path) -> list:
         css = f.read()
     css = css_minify(css)
 
+    size_dict["help"] = 0
+
     header = render_header_tmpl(css=css, js="")
     help_data_list: List[dict] = []
 
-    help_data_list = add_abbrev_html(PTH, header, help_data_list)
-    help_data_list = add_help_html(PTH, header, help_data_list)
-    help_data_list = add_bibliographhy(PTH, header, help_data_list)
-    help_data_list = add_thanks(PTH, header, help_data_list)
+    abbrev = add_abbrev_html(PTH, header, help_data_list)
+    help_data_list = abbrev
+    size_dict["help"] += len(str(abbrev))
 
-    return help_data_list
+    help_html = add_help_html(PTH, header, help_data_list)
+    help_data_list = help_html
+    size_dict["help"] += len(str(help_html))
+
+    bibliography = add_bibliographhy(PTH, header, help_data_list)
+    help_data_list = bibliography
+    size_dict["help"] += len(str(bibliography))
+
+    thanks = add_thanks(PTH, header, help_data_list)
+    help_data_list = thanks
+    size_dict["help"] += len(str(thanks))
+
+    return help_data_list, size_dict
 
 
 def add_abbrev_html(PTH: Path, header: str, help_data_list: list) -> list:
@@ -166,7 +179,7 @@ def add_bibliographhy(PTH: Path, header: str, help_data_list: list) -> list:
         "synonyms": synonyms
     }]
 
-    with open(f"xxx delete/exporter_help/bibliography.html", "w") as f:
+    with open("xxx delete/exporter_help/bibliography.html", "w") as f:
         f.write(html)
 
     print(f"{bop():>35}")

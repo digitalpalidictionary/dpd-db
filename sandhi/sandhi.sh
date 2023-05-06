@@ -10,12 +10,12 @@ apt install python3-pip
 pip install gdown
 apt install zip
 
-unzip sandhi.zip
+unzip -o sandhi.zip
 rm sandhi.zip
 pip install poetry
 poetry install
 # poetry shell
 export PYTHONPATH=$PYTHONPATH:sandhi/tools
-nohup poetry run python3.11 sandhi/splitter.py &
+nohup poetry run python3.11 sandhi/sandhi_splitter.py &
 cat nohup.out
-# zip -j -r do_output.zip sandhi/output/
+# zip -j -r do_output.zip sandhi/output/ && zip do_output nohup.out

@@ -25,6 +25,7 @@ def remove_space_in_family_word():
     # print(add_to_db)
     db_session.execute(update(PaliWord), add_to_db)
     db_session.commit()
+    db_session.close()
 
 
 def main():

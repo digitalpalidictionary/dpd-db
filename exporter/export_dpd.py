@@ -24,7 +24,7 @@ from tools.add_niggahitas import add_niggahitas
 from tools.timeis import bip, bop
 
 
-def generate_dpd_html(DB_SESSION, PTH, SANDHI_CONTRACTIONS):
+def generate_dpd_html(DB_SESSION, PTH, SANDHI_CONTRACTIONS, size_dict):
     print("[green]generating dpd html")
 
     with open(PTH.dpd_css_path) as f:
@@ -56,6 +56,19 @@ def generate_dpd_html(DB_SESSION, PTH, SANDHI_CONTRACTIONS):
     )
 
     dpd_length = len(dpd_db)
+    size_dict["dpd_header"] = 0
+    size_dict["dpd_summary"] = 0
+    size_dict["dpd_button_box"] = 0
+    size_dict["dpd_grammar"] = 0
+    size_dict["dpd_example"] = 0
+    size_dict["dpd_inflection_table"] = 0
+    size_dict["dpd_family_root"] = 0
+    size_dict["dpd_family_word"] = 0
+    size_dict["dpd_family_compound"] = 0
+    size_dict["dpd_family_sets"] = 0
+    size_dict["dpd_frequency"] = 0
+    size_dict["dpd_feedback"] = 0
+    size_dict["dpd_synonyms"] = 0
 
     bip()
     for counter, (i, dd, fr, fw) in enumerate(dpd_db):
@@ -74,21 +87,57 @@ def generate_dpd_html(DB_SESSION, PTH, SANDHI_CONTRACTIONS):
         i.construction = i.construction.replace("\n", "<br>")
 
         html: str = ""
-        html += render_header_tmpl(dpd_css, button_js)
-        html += "<body>"
-        html += render_dpd_defintion_templ(i)
-        html += render_button_box_templ(i)
-        html += render_grammar_templ(i)
-        html += render_example_templ(i)
-        html += render_inflection_templ(i, dd)
-        html += render_family_root_templ(i, fr)
-        html += render_family_word_templ(i, fw)
-        html += render_family_compound_templ(i, DB_SESSION)
-        html += render_family_sets_templ(i, DB_SESSION)
-        html += render_frequency_templ(i, dd)
-        html += render_feedback_templ(i)
-        html += "</body></html>"
+        header = render_header_tmpl(dpd_css, button_js)
+        html += header
+        size_dict["dpd_header"] += len(header)
 
+        html += "<body>"
+
+        summary = render_dpd_defintion_templ(i)
+        html += summary
+        size_dict["dpd_summary"] += len(summary)
+
+        button_box = render_button_box_templ(i)
+        html += button_box
+        size_dict["dpd_button_box"] += len(button_box)
+
+        grammar = render_grammar_templ(i)
+        html += grammar
+        size_dict["dpd_grammar"] += len(grammar)
+
+        example = render_example_templ(i)
+        html += example
+        size_dict["dpd_example"] += len(example)
+
+        inflection_table = render_inflection_templ(i, dd)
+        html += inflection_table
+        size_dict["dpd_inflection_table"] += len(inflection_table)
+
+        family_root = render_family_root_templ(i, fr)
+        html += family_root
+        size_dict["dpd_family_root"] += len(family_root)
+
+        family_word = render_family_word_templ(i, fw)
+        html += family_word
+        size_dict["dpd_family_word"] += len(family_word)
+
+        family_compound = render_family_compound_templ(i, DB_SESSION)
+        html += family_compound
+        size_dict["dpd_family_compound"] += len(family_compound)
+
+        family_sets = render_family_sets_templ(i, DB_SESSION)
+        html += family_sets
+        size_dict["dpd_family_sets"] += len(family_sets)
+
+        frequency = render_frequency_templ(i, dd)
+        html += frequency
+        size_dict["dpd_frequency"] += len(frequency)
+
+        feedback = render_feedback_templ(i)
+        html += feedback
+        size_dict["dpd_feedback"] += len(feedback)
+
+        html += "</body></html>"
         html = minify(html)
 
         synonyms: list = loads(dd.inflections)
@@ -102,6 +151,7 @@ def generate_dpd_html(DB_SESSION, PTH, SANDHI_CONTRACTIONS):
         synonyms += loads(dd.thai)
         synonyms += i.family_set_list
         synonyms += [str(i.id)]
+        size_dict["dpd_synonyms"] += len(str(synonyms))
 
         dpd_data_list += [{
             "word": i.pali_1,
@@ -116,4 +166,4 @@ def generate_dpd_html(DB_SESSION, PTH, SANDHI_CONTRACTIONS):
             print(f"{counter:>10,} / {dpd_length:<10,} {i.pali_1:<20} {bop():>10}")
             bip()
 
-    return dpd_data_list
+    return dpd_data_list, size_dict

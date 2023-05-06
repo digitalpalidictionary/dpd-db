@@ -60,6 +60,7 @@ def restore_db_from_tsvs():
             db_session.add(PaliRoot(**data))
 
     db_session.commit()
+    db_session.close()
     print("[bright_green]database restored successfully")
     toc()
 
