@@ -2,6 +2,7 @@
 
 import csv
 from helpers import InternalTestRow
+from tools.paths import ProjectPaths as PTH
 
 column_names: dict = {
     "": "",
@@ -77,7 +78,7 @@ for t in internal_tests_list:
     t.search_column_6 = column_names[t.search_column_6]
     t.exceptions = ", ".join(t.exceptions)
 
-with open("tests/internal_tests.tsv", mode="w", newline="") as csvfile:
+with open(PTH.internal_tests_path, mode="w", newline="") as csvfile:
     fieldnames = internal_tests_list[0].__dict__.keys()
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter="\t")
     writer.writeheader()

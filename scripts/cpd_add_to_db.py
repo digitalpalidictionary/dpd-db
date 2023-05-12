@@ -37,7 +37,8 @@ def main():
     test_8(cpd, infl_pattern)
     test_9(cpd)
     test_10(cpd)
-    test_11(cpd, headwords_clean)
+    test_11(cpd)
+    test_12(cpd, headwords_clean)
     cpd = add_grammar(cpd)
     add_to_db(cpd, dpd_length)
 
@@ -231,16 +232,33 @@ def test_10(cpd):
         print("OK")
 
 
-def test_11(cpd, headwords_clean):
+def test_11(cpd):
+    """Missing stem."""
+    test_11 = []
+    cpd = iter(cpd)
+    for i in cpd:
+        if not i.stem:
+            if next(cpd).stem:
+                test_11 += [i.pali_1]
+    print(f"[green]{'test 11: missing stem':<40}", end="")
+    if test_11:
+        print()
+        print(f"[red]{regex_results(test_11)}")
+    else:
+        print("OK")
+
+
+def test_12(cpd, headwords_clean):
     """Headwords not in dpd."""
     headwords_clean = set(headwords_clean)
-    test_11 = []
+    test_12 = []
     for i in cpd:
         pali_clean = re.sub(r" /d.*$", "", i.pali_1)
         if pali_clean not in headwords_clean:
-            test_11 += [i.pali_1]
-    print(f"[green]{'test 11: headwords not in dpd':<40}", end="")
-    print(f"{len(test_11):,}")
+            test_12 += [i.pali_1]
+    print(f"[green]{'test 12: headwords not in dpd':<40}", end="")
+    print(f"{len(test_12):,}")
+
 
 
 def add_grammar(cpd):

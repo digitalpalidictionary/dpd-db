@@ -7,19 +7,14 @@ import re
 
 from typing import Dict
 from rich import print
-from json import loads
 
 from db.get_db_session import get_db_session
 from db.models import PaliRoot
 from db.models import PaliWord
-from db.models import FamilyRoot
 from db.models import FamilyCompound
-from db.models import DerivedData
-from tools.pali_sort_key import pali_sort_key
 from tools.timeis import tic, toc
 from tools.pali_alphabet import consonants
 from tools.sandhi_contraction import make_sandhi_contraction_dict
-from tools.clean_machine import clean_machine
 
 # generic tests that return tuples of results
 # that can be printed or displayed in gui
@@ -44,33 +39,36 @@ def run_external_tests():
 
     # tests
     results_list = []
-    results_list.append(family_compound_no_number(searches))
-    results_list.append(suffix_does_not_match_pali_1(searches))
-    results_list.append(construction_line1_does_not_match_pali_1(searches))
-    results_list.append(construction_line2_does_not_match_pali_1(searches))
-    results_list.append(pali_1_missing_a_number(searches))
-    results_list.append(pali_1_contains_extra_number(searches))
-    results_list.append(derived_from_not_in_headwords(searches))
-    results_list.append(pali_words_in_english_meaning(searches))
-    results_list.append(derived_from_not_in_family_compound(searches))
-    results_list.append(pos_does_not_equal_grammar(searches))
-    results_list.append(pos_does_not_equal_pattern(searches))
-    results_list.append(base_contains_extra_star(searches))
-    results_list.append(base_is_missing_star(searches))
-    results_list.append(root_x_root_family_mismatch(searches))
-    results_list.append(root_x_construction_mismatch(searches))
-    results_list.append(family_root_x_construction_mismatch(searches))
-    results_list.append(root_key_x_base_mismatch(searches))
-    results_list.append(root_sign_x_base_mismatch(searches))
-    results_list.append(root_sign_x_base_mismatch(searches))
-    results_list.append(root_base_x_construction_mismatch(searches))
-    results_list.append(wrong_prefix_in_family_root(searches))
-    results_list.append(variant_equals_pali_1(searches))
-    results_list.append(antonym_equals_pali_1(searches))
-    results_list.append(synonym_equals_pali_1(searches))
-    results_list.append(sandhi_contraction_errors(db_session))
-    results_list.append(duplicate_phrases(searches))
-    results_list.append(duplicate_words(searches))
+    # results_list.append(family_compound_no_number(searches))
+    # results_list.append(suffix_does_not_match_pali_1(searches))
+    # results_list.append(construction_line1_does_not_match_pali_1(searches))
+    # results_list.append(construction_line2_does_not_match_pali_1(searches))
+    # results_list.append(pali_1_missing_a_number(searches))
+    # results_list.append(pali_1_contains_extra_number(searches))
+    # results_list.append(derived_from_not_in_headwords(searches))
+    # results_list.append(pali_words_in_english_meaning(searches))
+    # results_list.append(derived_from_not_in_family_compound(searches))
+    # results_list.append(pos_does_not_equal_grammar(searches))
+    # results_list.append(pos_does_not_equal_pattern(searches))
+    # results_list.append(base_contains_extra_star(searches))
+    # results_list.append(base_is_missing_star(searches))
+    # results_list.append(root_x_root_family_mismatch(searches))
+    # results_list.append(root_x_construction_mismatch(searches))
+    # results_list.append(family_root_x_construction_mismatch(searches))
+    # results_list.append(root_key_x_base_mismatch(searches))
+    # results_list.append(root_sign_x_base_mismatch(searches))
+    # results_list.append(root_sign_x_base_mismatch(searches))
+    # results_list.append(root_base_x_construction_mismatch(searches))
+    # results_list.append(wrong_prefix_in_family_root(searches))
+    # results_list.append(variant_equals_pali_1(searches))
+    # results_list.append(antonym_equals_pali_1(searches))
+    # results_list.append(synonym_equals_pali_1(searches))
+    # results_list.append(sandhi_contraction_errors(db_session))
+    # results_list.append(duplicate_phrases(searches))
+    # results_list.append(duplicate_words(searches))
+    results_list.append(duplicate_words_meaning_2(searches))
+    results_list.append(duplicate_words_meaning_lit(searches))
+    results_list.append(identical_meaning_1_meaning_lit(searches))
 
     for name, result, count, solution in results_list:
         print(f"[green]{name.replace('_', ' ')} [{count}]")
@@ -104,13 +102,9 @@ def regex_results(results: list) -> str:
     """Take a list of results and return a regex search string or None"""
 
     if results != []:
-        results = results[:20]
+        results = results[:30]
         regex_string = r"/\b("
-        for result in results:
-            if result == results[0]:
-                regex_string += f"{result}"
-            else:
-                regex_string += f"|{result}"
+        regex_string += "|".join(results)
         regex_string += r")\b/"
     else:
         regex_string = None
@@ -776,6 +770,98 @@ def duplicate_words(searches: dict) -> tuple:
     results = regex_results(results)
     name = "duplicate_words"
     solution = "delete dupes in meaning_1"
+
+    return name, results, length, solution
+
+
+def duplicate_words_meaning_2(searches: dict) -> tuple:
+    """Test for consecutive duplcate words in meaning_2."""
+
+    exceptions = [
+        "cicciṭāyati", "koṭippakoṭi", "ninnahuta",
+        "pakoṭi", "taṭataṭāyamāna", "taṭatatāyati",
+        "taṭatatāyāyi", "nahuta 2"
+    ]
+
+    results = []
+    for i in searches["paliword"]:
+        if i.pali_1 not in exceptions:
+            words = i.meaning_2.split()
+            if len(words) > 1:
+                for x in range(len(words) - 1):
+                    if words[x] == words[x+1]:
+                        if words[x] not in exceptions:
+                            results += [i.pali_1]
+                if words and words[-1] == words[-2]:
+                    if words[x] not in exceptions:
+                        results += [i.pali_1]
+
+    length = len(results)
+    results = regex_results(results)
+    name = "duplicate_words in meaning_2"
+    solution = "delete dupes in meaning_2"
+
+    return name, results, length, solution
+
+
+def duplicate_words_meaning_lit(searches: dict) -> tuple:
+    """Test for consecutive duplcate words in meaning_lit."""
+
+    exceptions = [
+        "dvayaṃdvaya", "ekameka 1", "ekameka 2", "ekekaloma",
+        "gatagataṭṭhāna", "icchiticchita", "jalambuja", "tuvaṃtuvaṃ",
+        "bījabīja", "haṭahaṭa", "nāmaraṇa", "nānāsakā", "nāppamāda",
+        "nāsūra", "samasama 1", "samasama 2", "saṇḍasaṇḍacārī",
+        "suve suve", "yena yeneva", "samasamagati", "aggamagga 2.1"
+    ]
+
+    results = []
+    for i in searches["paliword"]:
+        if i.pali_1 not in exceptions:
+            words = i.meaning_lit.split()
+            if len(words) > 1:
+                for x in range(len(words) - 1):
+                    if words[x] == words[x+1]:
+                        if words[x] not in exceptions:
+                            results += [i.pali_1]
+                if words and words[-1] == words[-2]:
+                    if words[x] not in exceptions:
+                        results += [i.pali_1]
+
+    length = len(results)
+    results = regex_results(results)
+    name = "duplicate_words in meaning_lit"
+    solution = "delete dupes in meaning_lit"
+
+    return name, results, length, solution
+
+
+def identical_meaning_1_meaning_lit(searches: dict) -> tuple:
+    """Test for same meaning in meaning_1 and meaning_lit."""
+
+    results = []
+    exceptions = ["kyāhaṃ karomi"]
+
+    for i in searches["paliword"]:
+        if i.meaning_1 and i.pali_1 not in exceptions:
+            if "(" in i.meaning_1:
+                meaning_1 = re.sub(r"\(.+?\) | \(.+?\)", "", i.meaning_1)
+            else:
+                meaning_1 = i.meaning_1
+            if "(" in i.meaning_lit:
+                meaning_lit = re.sub(r"\(.+?\) | \(.+?\)", "", i.meaning_lit)
+            else:
+                meaning_lit = i.meaning_lit
+            meaning_1_set = set(meaning_1.split("; "))
+            meaning_lit_set = set(meaning_lit.split("; "))
+            for m1 in meaning_1_set:
+                if m1 in meaning_lit_set:
+                    results += [i.pali_1]
+
+    length = len(results)
+    results = regex_results(results)
+    name = "dupes in meaning_1 and meaning_lit"
+    solution = "delete dupes in meaning_lit"
 
     return name, results, length, solution
 

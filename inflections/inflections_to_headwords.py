@@ -14,16 +14,16 @@ from tools.timeis import tic, toc, bip, bop
 from db.get_db_session import get_db_session
 from db.models import PaliRoot, Sandhi, PaliWord, DerivedData
 from tools.pali_sort_key import pali_sort_key
+from tools.paths import ProjectPaths as PTH
 
 
 def inflection_to_headwords():
     tic()
     print("[bright_yellow]inflection to headwords dict")
-
     bip()
     message = "all tipitaka words set"
     print(f"[green]{message:<30}", end="")
-    with open("frequency/output/word_count/tipitaka.csv") as f:
+    with open(PTH.tipitaka_word_count_path) as f:
         reader = csv.reader(f, delimiter="\t")
         all_tipitaka_words: set = set([row[0] for row in reader])
     print(f"{len(all_tipitaka_words):>10,}{bop():>10}")
@@ -38,7 +38,7 @@ def inflection_to_headwords():
     i2h_dict = {}
 
     for counter, (i, dd) in enumerate(zip(dpd_db, dd_db)):
-        inflections = json.loads(dd.inflections)
+        inflections = dd.inflections_list
         for inflection in inflections:
             if inflection in all_tipitaka_words:
                 if inflection not in i2h_dict:
@@ -83,7 +83,7 @@ def inflection_to_headwords():
     bip()
     message = "saving to tsv"
     print(f"[green]{message:<30}", end="")
-    with open("share/inflection_to_headwords_dict.tsv", "w") as f:
+    with open(PTH.inflection_to_headwords_dict_path, "w") as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerow(["inflection", "headwords"])
         for k, v in i2h_dict.items():

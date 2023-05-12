@@ -12,17 +12,16 @@ from export_epd import generate_epd_html
 from export_sandhi import generate_sandhi_html
 from export_help import generate_help_html
 
-from helpers import get_paths, ResourcePaths
 from helpers import make_roots_count_dict
+from mdict_exporter import export_to_mdict
 
 from db.get_db_session import get_db_session
 from tools.timeis import tic, toc, bip, bop
 from tools.stardict_nu import export_words_as_stardict_zip, ifo_from_opts
-from mdict_exporter import export_to_mdict
 from tools.sandhi_contraction import make_sandhi_contraction_dict
+from tools.paths import ProjectPaths as PTH
 
 tic()
-PTH: ResourcePaths = get_paths()
 DB_SESSION: Session = get_db_session("dpd.db")
 SANDHI_CONTRACTIONS: dict = make_sandhi_contraction_dict(DB_SESSION)
 

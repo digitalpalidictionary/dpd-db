@@ -21,7 +21,7 @@ from functions_db import edit_word_in_db
 from functions_db import get_pali_clean_list
 from functions_db import delete_word
 from functions_db import get_root_info
-from functions import get_paths
+
 from functions import open_in_goldendict
 from functions import sandhi_ok
 from functions import make_words_to_add_list
@@ -62,13 +62,13 @@ from db.db_to_tsv import db_to_tsv
 from tools.pos import DECLENSIONS, VERBS
 from tools.pos import POS
 from tools.sandhi_contraction import make_sandhi_contraction_dict
+from tools.paths import ProjectPaths as PTH
 
 
 def main():
     db_session = get_db_session("dpd.db")
-    pth = get_paths()
     # !!! this is slow !!!
-    definitions_df = pd.read_csv(pth.defintions_csv_path, sep="\t")
+    definitions_df = pd.read_csv(PTH.defintions_csv_path, sep="\t")
     sandhi_dict = make_sandhi_contraction_dict(db_session)
     pali_clean_list: list = get_pali_clean_list()
     window = window_layout()
@@ -92,7 +92,7 @@ def main():
 
         if event:
             print(f"{event}")
-            print(f"{values}")
+            # print(f"{values}")
 
         # tabs jumps to next field in multiline
         if event == "meaning_1_tab":
@@ -757,13 +757,13 @@ def main():
             flags.show_fields = False
 
         if event == "stash":
-            with open(pth.stash_path, "wb") as f:
+            with open(PTH.stash_path, "wb") as f:
                 pickle.dump(values, f)
             window["messages"].update(
                 f"{values['pali_1']} stashed", text_color="white")
 
         if event == "unstash":
-            with open(pth.stash_path, "rb") as f:
+            with open(PTH.stash_path, "rb") as f:
                 unstash = pickle.load(f)
                 for key, value in unstash.items():
                     window[key].update(value)

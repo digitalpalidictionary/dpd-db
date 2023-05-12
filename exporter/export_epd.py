@@ -6,13 +6,13 @@ from rich import print
 from css_html_js_minify import css_minify
 
 from html_components import render_header_tmpl
-from helpers import ResourcePaths
 from db.models import PaliWord, PaliRoot
 from tools.timeis import bip, bop
 from tools.pali_sort_key import pali_sort_key
+from tools.paths import ProjectPaths
 
 
-def generate_epd_html(DB_SESSION: Session, PTH: ResourcePaths, size_dict) -> list:
+def generate_epd_html(DB_SESSION: Session, PTH: ProjectPaths, size_dict) -> list:
     """generate html for english to pali dicitonary"""
 
     print("[green]generating epd html")

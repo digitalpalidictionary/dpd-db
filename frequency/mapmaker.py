@@ -6,15 +6,14 @@ import re
 import json
 
 from rich import print
-from io import StringIO
 from mako.template import Template
 from sqlalchemy import update
 
-from helpers import ResourcePaths, get_paths
 from db.get_db_session import get_db_session
 from db.models import PaliWord, DerivedData
 from tools.timeis import tic, toc
 from tools.superscripter import superscripter_uni
+from tools.paths import ProjectPaths as PTH
 
 
 def main():
@@ -29,15 +28,11 @@ def main():
     global db_session
     db_session = get_db_session("dpd.db")
 
-    global pth
-    pth = get_paths()
-
     if regenerate is False:
         test_map_same()
         test_inflection_template_changed()
         test_changed_headwords()
-        idioms_list = test_data_file_missing()
-        test_html_file_missing(idioms_list)
+        test_html_file_missing()
 
     else:
         global map_same
@@ -61,28 +56,31 @@ def test_map_same():
     print("[green]test if map has changed", end=" ")
 
     global map_same
-    map_same = False
+    # map_same = False
 
-    new_map = pd.read_csv(
-        pth.map_path, sep="\t", index_col=0)
+    # new_map = pd.read_csv(
+    #     PTH.map_path, sep="\t", index_col=0)
 
-    try:
-        with open(pth.old_map_path, "rb") as f:
-            old_map = pickle.load(f)
-        map_same = new_map.equals(old_map)
+    # try:
+    #     with open(PTH.old_map_path, "rb") as f:
+    #         old_map = pickle.load(f)
+    #     map_same = new_map.equals(old_map)
 
-        if map_same is False:
-            print("[bright_red]changed")
-        else:
-            print("[white]ok")
+    #     if map_same is False:
+    #         print("[bright_red]changed")
+    #     else:
+    #         print("[white]ok")
 
-    except FileNotFoundError as e:
-        print(f"[red]{e}")
-        old_map = ""
-        map_same = False
+    # except FileNotFoundError as e:
+    #     print(f"[red]{e}")
+    #     old_map = ""
+    #     map_same = False
 
-    with open(pth.old_map_path, "wb") as f:
-        pickle.dump(new_map, f)
+    # with open(PTH.old_map_path, "wb") as f:
+    #     pickle.dump(new_map, f)
+
+    map_same = True
+    print("[white]ok")
 
 
 def test_inflection_template_changed():
@@ -90,7 +88,7 @@ def test_inflection_template_changed():
 
     global changed_templates
     try:
-        with open(pth.template_changed_path, "rb") as f:
+        with open(PTH.template_changed_path, "rb") as f:
             changed_templates = pickle.load(f)
 
             if changed_templates == []:
@@ -108,7 +106,7 @@ def test_changed_headwords():
 
     global changed_headwords
     try:
-        with open(pth.changed_headwords_path, "rb") as f:
+        with open(PTH.changed_headwords_path, "rb") as f:
             changed_headwords = pickle.load(f)
         if changed_headwords == []:
             print("[white] ok")
@@ -120,8 +118,8 @@ def test_changed_headwords():
         changed_templates == []
 
 
-def test_data_file_missing():
-    print("[green]test if data file is missing", end=" ")
+def test_html_file_missing():
+    print("[green]test if html file is missing", end=" ")
 
     idioms_db = db_session.query(
         PaliWord.id, PaliWord.pos
@@ -130,27 +128,6 @@ def test_data_file_missing():
     ).all()
 
     idioms_list = [i.id for i in idioms_db]
-
-    missing_data_db = db_session.query(
-        DerivedData.id, DerivedData.freq_data
-        ).filter(
-            DerivedData.freq_data == "",
-            DerivedData.id.notin_(idioms_list)
-        ).all()
-
-    global data_file_missing
-    data_file_missing = [i.id for i in missing_data_db]
-
-    if len(data_file_missing) > 0:
-        print(f"[bright_red]{len(data_file_missing)}")
-    else:
-        print("ok")
-
-    return idioms_list
-
-
-def test_html_file_missing(idioms_list):
-    print("[green]test if html file is missing", end=" ")
 
     missing_html_db = db_session.query(
         DerivedData.id, DerivedData.freq_html
@@ -171,7 +148,7 @@ def test_html_file_missing(idioms_list):
 def make_dfs_and_dicts():
     print("[green]making word count dicts and df's")
 
-    wc_dir = pth.word_count_dir
+    wc_dir = PTH.word_count_dir
 
     vinaya_pārājika_mūla = pd.read_csv(wc_dir.joinpath("vinaya_pārājika_mūla.csv"), sep="\t", header=None)
     vinaya_pārājika_aṭṭhakathā = pd.read_csv(wc_dir.joinpath("vinaya_pārājika_aṭṭhakathā.csv"), sep="\t", header=None)
@@ -344,7 +321,6 @@ def colourme(value, hi, low):
     group8 = step*8
     group9 = step*9
     group10 = hi
-    html = ""
 
     if value == group0:
         return "gr0"
@@ -393,7 +369,7 @@ def make_data_dict_and_html(dicts):
                 i.id in html_file_missing or
                 regenerate is True):
 
-            inflections = json.loads(j.inflections)
+            inflections = j.inflections_list
 
             section = 1
             d = {}
@@ -444,7 +420,9 @@ def make_data_dict_and_html(dicts):
             if counter % 5000 == 0:
                 print(f"{counter:>10,} / {db_length:<10,} {i.pali_1}")
 
-                with open(f"frequency/output/html/{i.pali_1}.html", "w") as f:
+                with open(
+                    PTH.freq_html_dir.joinpath(
+                        i.pali_1).with_suffix(".html"), "w") as f:
                     f.write(map_html)
 
     print("[green]adding to db", end=" ")

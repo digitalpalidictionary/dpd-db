@@ -16,7 +16,6 @@ from tools.timeis import tic, toc
 def main():
     tic()
     print("[bright_yellow]add dps.tsv to db")
-    dpd_db_path = Path("dpd.db")
     dps_tsv_path = Path("csvs/dps.tsv")
 
     for p in [dps_tsv_path]:
@@ -24,7 +23,7 @@ def main():
             print(f"[bright_red]File does not exist: {p}")
             sys.exit(1)
 
-    db_session = get_db_session(dpd_db_path)
+    db_session = get_db_session("dpd.db")
 
     db_session.execute(Russian.__table__.delete())
     add_dps_russian(db_session, dps_tsv_path)

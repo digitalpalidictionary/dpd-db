@@ -1,23 +1,22 @@
-
-from json import loads
 from rich import print
 from sqlalchemy.orm import Session
 from minify_html import minify
 from css_html_js_minify import css_minify
 
-from tools.add_niggahitas import add_niggahitas
 from html_components import render_header_tmpl
 from html_components import render_sandhi_templ
-from helpers import ResourcePaths
+
 from db.models import PaliWord, Sandhi
+from tools.niggahitas import add_niggahitas
 from tools.timeis import bip, bop
-from tools.make_cst_sc_text_sets import make_cst_text_set
-from tools.make_cst_sc_text_sets import make_sc_text_set
+from tools.cst_sc_text_sets import make_cst_text_set
+from tools.cst_sc_text_sets import make_sc_text_set
+from tools.paths import ProjectPaths
 
 
 def generate_sandhi_html(
     DB_SESSION: Session,
-        PTH: ResourcePaths,
+        PTH: ProjectPaths,
         SANDHI_CONTRACTIONS: dict,
         size_dict) -> list:
     """Generate html for sandhi split compounds."""
@@ -48,7 +47,7 @@ def generate_sandhi_html(
     bip()
     for counter, i in enumerate(sandhi_db):
 
-        splits = loads(i.split)
+        splits = i.split_list
 
         if (i.sandhi not in clean_headwords_set and
                 i.sandhi in reduced_text_set):
@@ -67,9 +66,9 @@ def generate_sandhi_html(
             html = minify(html)
 
             synonyms = add_niggahitas([i.sandhi])
-            synonyms += loads(i.sinhala)
-            synonyms += loads(i.devanagari)
-            synonyms += loads(i.thai)
+            synonyms += i.sinhala_list
+            synonyms += i.devanagari_list
+            synonyms += i.thai_list
             if i.sandhi in SANDHI_CONTRACTIONS:
                 contractions = SANDHI_CONTRACTIONS[i.sandhi]["contractions"]
                 synonyms.extend(contractions)

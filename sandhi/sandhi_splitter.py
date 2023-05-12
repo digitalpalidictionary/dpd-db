@@ -11,7 +11,7 @@ from os import popen
 
 from tools.pali_alphabet import vowels
 from tools.timeis import tic, toc, bip, bop
-from helpers import get_resource_paths
+from tools.paths import ProjectPaths as PTH
 
 # two word sandhi
 #     ↓
@@ -182,8 +182,6 @@ def comp(d):
 
 def setup():
     print("[green]importing assets")
-    global pth
-    pth = get_resource_paths()
 
     global rules
     rules = import_sandhi_rules()
@@ -192,11 +190,11 @@ def setup():
     shortlist_set = make_shortlist_set()
 
     global unmatched_set
-    with open(pth["unmatched_set_path"], "rb") as f:
+    with open(PTH.unmatched_set_path, "rb") as f:
         unmatched_set = pickle.load(f)
 
     global all_inflections_set
-    with open(pth["all_inflections_set_path"], "rb") as f:
+    with open(PTH.all_inflections_set_path, "rb") as f:
         all_inflections_set = pickle.load(f)
 
     global all_inflections_nofirst
@@ -207,11 +205,11 @@ def setup():
             all_inflections_set)
 
     # initalise matches.csv
-    with open(pth["matches_path"], "w") as f:
+    with open(PTH.matches_path, "w") as f:
         f.write("")
 
     # initalise timer dict
-    with open("sandhi/output/timer.tsv", "w") as f:
+    with open(PTH.sandhi_timer_path, "w") as f:
         f.write("")
 
 
@@ -219,7 +217,7 @@ def import_sandhi_rules():
     print("[green]importing sandhi rules", end=" ")
 
     sandhi_rules_df = pd.read_csv(
-        pth["sandhi_rules_path"], sep="\t", dtype=str)
+        PTH.sandhi_rules_path, sep="\t", dtype=str)
     sandhi_rules_df.fillna("", inplace=True)
     print(f"[white]{len(sandhi_rules_df):,}")
     sandhi_rules = sandhi_rules_df.to_dict('index')
@@ -259,7 +257,7 @@ def make_shortlist_set():
     print("[green]making shortlist set", end=" ")
 
     shortlist_df = pd.read_csv(
-        pth["shortlist_path"], dtype=str, header=None, sep="\t")
+        PTH.shortlist_path, dtype=str, header=None, sep="\t")
     shortlist_df.fillna("", inplace=True)
 
     shortlist_set = set(shortlist_df[0].tolist())
@@ -300,7 +298,7 @@ def main():
     setup()
 
     global matches_dict
-    with open(pth["matches_dict_path"], "rb") as f:
+    with open(PTH.matches_dict_path, "rb") as f:
         matches_dict = pickle.load(f)
 
     time_dict = {}
@@ -402,7 +400,7 @@ def main():
 
 def save_matches(matches_dict):
 
-    with open(pth["matches_path"], "a") as f:
+    with open(PTH.matches_path, "a") as f:
         for word, data in matches_dict.items():
             for item in data:
                 f.write(f"{word}\t")
@@ -415,7 +413,7 @@ def save_timer_dict(time_dict):
     df = pd.DataFrame.from_dict(time_dict, orient="index")
     df = df.sort_values(by=0, ascending=False)
     df.to_csv(
-        "sandhi/output/timer.tsv", mode="a", header=None, sep="\t")
+        PTH.sandhi_timer_path, mode="a", header=None, sep="\t")
 
 
 def recursive_removal(d):
@@ -1341,7 +1339,7 @@ def summary():
 
     print("[green]writing unmatched set")
 
-    with open(pth["unmatched_path"], "w") as f:
+    with open(PTH.unmatched_path, "w") as f:
         for item in unmatched_set:
             f.write(f"{item}\n")
 
@@ -1384,3 +1382,6 @@ if __name__ == "__main__":
 # tippakārāpi
 
 # include neg count in post process
+
+# gosaddantassāvādesaṃ > sa + go + danta + assāvā + esaṃ
+# !!! why sa first?

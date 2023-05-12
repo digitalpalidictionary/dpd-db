@@ -3,7 +3,6 @@
 """A summary of dictionary updates to accompany
 the dictionary release. """
 
-from json import loads
 from rich import print
 
 from db.get_db_session import get_db_session
@@ -109,7 +108,7 @@ def inflection_size():
     all_inflection_set = set()
 
     for i in derived_db:
-        inflections = loads(i.inflections)
+        inflections = i.inflections_list
         total_inflections += len(inflections)
         all_inflection_set.update(inflections)
 

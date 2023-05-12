@@ -20,21 +20,22 @@ from rich import print
 from db.get_db_session import get_db_session
 from db.models import PaliWord, DerivedData
 from tools.timeis import tic, toc
+from tools.paths import ProjectPaths as PTH
+
 
 REGENERATE_ALL = False
 
-dpd_db_path = Path("dpd.db")
-db_session = get_db_session(dpd_db_path)
+db_session = get_db_session("dpd.db")
 dpd_db = db_session.query(PaliWord).all()
 dd1 = db_session.query(DerivedData).first()
 
 if dd1.sinhala == "":
     REGENERATE_ALL = True
 
-with open("share/changed_headwords", "rb") as f:
+with open(PTH.changed_headwords_path, "rb") as f:
     changed_headwords: list = pickle.load(f)
 
-with open("share/changed_templates", "rb") as f:
+with open(PTH.template_changed_path, "rb") as f:
     changed_templates: list = pickle.load(f)
 
 translit_dict: Dict = {}
@@ -62,7 +63,7 @@ def main():
         test3 = REGENERATE_ALL
 
         if test1 or test2 or test3:
-            inflections: list = json.loads(i.dd.inflections)
+            inflections: list = i.dd.inflections_list
             inflections_index_dict[counter] = i.pali_1
             inflections_for_json_dict[i.pali_1] = {"inflections": inflections}
 
@@ -77,7 +78,7 @@ def main():
 
     # saving json for path nirvana transliterator
 
-    with open("share/inflections_to_translit.json", "w") as f:
+    with open(PTH.inflections_to_translit_json_path, "w") as f:
         f.write(json.dumps(
             inflections_for_json_dict, ensure_ascii=False, indent=4))
 
@@ -141,7 +142,7 @@ def main():
 
     print("[green]importing path nirvana inflections", end=" ")
 
-    with open("share/inflections_from_translit.json", "r") as f:
+    with open(PTH.inflections_from_translit_json_path, "r") as f:
         new_inflections: dict = json.load(f)
         print(f"{len(new_inflections)}")
 
@@ -163,13 +164,12 @@ def main():
     for i in dpd_db:
         if i.pali_1 in translit_dict:
 
-            i.dd.sinhala = json.dumps(
-                list(translit_dict[i.pali_1]["sinhala"]), ensure_ascii=False)
-            i.dd.devanagari = json.dumps(
-                list(translit_dict[i.pali_1]["devanagari"]),
-                ensure_ascii=False)
-            i.dd.thai = json.dumps(
-                list(translit_dict[i.pali_1]["thai"]), ensure_ascii=False)
+            i.dd.sinhala = ",".join(
+                list(translit_dict[i.pali_1]["sinhala"]))
+            i.dd.devanagari = ",".join(
+                list(translit_dict[i.pali_1]["devanagari"]))
+            i.dd.thai = ",".join(
+                list(translit_dict[i.pali_1]["thai"]))
 
     db_session.commit()
     db_session.close()

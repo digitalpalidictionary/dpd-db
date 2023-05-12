@@ -5,13 +5,14 @@ import csv
 
 from rich import print
 from typing import Dict, List
-from pathlib import Path
 from sqlalchemy.orm import Session
+from pathlib import Path
 
 from db.models import PaliWord, PaliRoot
 from db.db_helpers import create_db_if_not_exists
 from db.get_db_session import get_db_session
 from tools.timeis import tic, toc
+from tools.paths import ProjectPaths as PTH
 
 
 def _csv_row_to_root(x: Dict[str, str]) -> PaliRoot:
@@ -169,14 +170,6 @@ def add_pali_words(db_session: Session, csv_path: Path):
     print("[green]adding to db")
     try:
         for i in items:
-            # Check if item is a duplicate.
-            # res = db_session.query(
-            # PaliWord).filter_by(pali_1 = i.pali_1).first()
-            # if res:
-            #     print(f"[bright_red]Duplicate found, skipping!\n
-            #           Already in DB:\n{res}\nConflicts with:\n{i}")
-            #     continue
-
             db_session.add(i)
 
         db_session.commit()
@@ -187,25 +180,23 @@ def add_pali_words(db_session: Session, csv_path: Path):
 
 def main():
     tic()
+
     print("[bright_yellow]convert dpd.csv to dpd.db")
-    dpd_db_path = Path("dpd.db")
-    roots_csv_path = Path("../csvs/roots.csv")
-    dpd_full_path = Path("../csvs/dpd-full.csv")
 
-    if dpd_db_path.exists():
-        dpd_db_path.unlink()
+    if PTH.dpd_db_path.exists():
+        PTH.dpd_db_path.unlink()
 
-    create_db_if_not_exists(dpd_db_path)
+    create_db_if_not_exists(PTH.dpd_db_path)
 
-    for p in [roots_csv_path, dpd_full_path]:
+    for p in [PTH.old_roots_csv_path, PTH.dpd_full_path]:
         if not p.exists():
             print(f"[bright_red]File does not exist: {p}")
             sys.exit(1)
 
-    db_session = get_db_session(dpd_db_path)
+    db_session = get_db_session(PTH.dpd_db_path)
 
-    add_pali_roots(db_session, roots_csv_path)
-    add_pali_words(db_session, dpd_full_path)
+    add_pali_roots(db_session, PTH.old_roots_csv_path)
+    add_pali_words(db_session, PTH.dpd_full_path)
 
     db_session.close()
     toc()

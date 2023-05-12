@@ -8,15 +8,15 @@ import zipfile
 
 from pathlib import Path
 from rich import print
-from json import loads
+
+from books_to_include import include_for_cloud
 
 from db.models import PaliWord, DerivedData
 from db.get_db_session import get_db_session
-from helpers import get_resource_paths
-from tools.pali_text_files import cst_texts, bjt_texts
-from tools.make_cst_sc_text_sets import make_cst_text_set, make_sc_text_set
+from tools.cst_sc_text_sets import make_cst_text_set
+from tools.cst_sc_text_sets import make_sc_text_set
 from tools.timeis import tic, toc
-from books_to_include import include_for_cloud
+from tools.paths import ProjectPaths as PTH
 
 # prepare all the necessary parts for local and cloud
 
@@ -25,11 +25,8 @@ def main():
     tic()
     print("[bright_yellow]setting up for sandhi splitting on cloud")
 
-    global pth
-    pth = get_resource_paths()
-
     global db_session
-    db_session = get_db_session(pth["dpd_db_path"])
+    db_session = get_db_session("dpd.db")
 
     print(f"[green]{'making cst text set':<35}", end="")
     cst_text_set = make_cst_text_set(include_for_cloud)
@@ -87,16 +84,16 @@ def main():
     def save_assets():
         print(f"[green]{'saving assets':<35}", end="")
 
-        with open(pth["unmatched_set_path"], "wb") as f:
+        with open(PTH.unmatched_set_path, "wb") as f:
             pickle.dump(unmatched_set, f)
 
-        with open(pth["all_inflections_set_path"], "wb") as f:
+        with open(PTH.all_inflections_set_path, "wb") as f:
             pickle.dump(all_inflections_set, f)
 
-        with open(pth["text_set_path"], "wb") as f:
+        with open(PTH.text_set_path, "wb") as f:
             pickle.dump(text_set, f)
 
-        with open(pth["neg_inflections_set_path"], "wb") as f:
+        with open(PTH.neg_inflections_set_path, "wb") as f:
             pickle.dump(neg_inflections_set, f)
 
         print(f"[white]{'ok':>10}")
@@ -112,7 +109,7 @@ def main():
         matches_dict.update(variant_dict)
         matches_dict.update(manual_corrections_dict)
 
-        with open(pth["matches_dict_path"], "wb") as f:
+        with open(PTH.matches_dict_path, "wb") as f:
             pickle.dump(matches_dict, f)
 
         print(f"[white]{'ok':>10}")
@@ -127,7 +124,7 @@ def make_spelling_mistakes_set():
     print(f"[green]{'making spelling mistakes set':<35}", end="")
 
     sp_mistakes_df = pd.read_csv(
-        pth["sp_mistakes_path"], dtype=str, header=None, sep="\t")
+        PTH.spelling_mistakes_path, dtype=str, header=None, sep="\t")
     sp_mistakes_df.fillna("", inplace=True)
 
     spelling_mistakes_set = set(sp_mistakes_df[0].tolist())
@@ -180,7 +177,7 @@ def make_variant_readings_set():
     print(f"[green]{'making variant readings set':<35}", end="")
 
     variant_reading_df = pd.read_csv(
-        pth["variant_readings_path"], dtype=str, header=None, sep="\t")
+        PTH.variant_readings_path, dtype=str, header=None, sep="\t")
     variant_reading_df.fillna("", inplace=True)
 
     variant_readings_set = set(variant_reading_df[0].tolist())
@@ -251,7 +248,7 @@ def make_manual_corrections_set():
     print(f"[green]{'making manual corrections set':<35}", end="")
 
     manual_corrections_df = pd.read_csv(
-        pth["manual_corrections_path"], dtype=str, header=None, sep="\t")
+        PTH.manual_corrections_path, dtype=str, header=None, sep="\t")
     manual_corrections_df.fillna("", inplace=True)
 
     manual_corrections_set = set(manual_corrections_df[0].tolist())
@@ -285,7 +282,7 @@ def make_exceptions_set():
     print(f"[green]{'making exceptions set':<35}", end="")
 
     sandhi_exceptions_df = pd.read_csv(
-        pth["sandhi_exceptions_path"], header=None)
+        PTH.sandhi_exceptions_path, header=None)
     sandhi_exceptions_set = set(sandhi_exceptions_df[0].tolist())
 
     print(f"[white]{len(sandhi_exceptions_set):>10,}")
@@ -297,10 +294,10 @@ def make_all_inflections_set(sandhi_exceptions_set):
     print(f"[green]{'making all inflections set':<35}", end="")
     all_inflections_set = set()
 
-    exceptions_list = set(
-        ["abbrev", "cs", "idiom", "letter", "prefix", "root", "sandhi",
-            "sandhix", "suffix", "ve"]
-    )
+    exceptions_list = set([
+        "abbrev", "idiom", "sandhi",
+        # "cs", "letter", "prefix", "root", "suffix" "ve",
+        ])
 
     no_exceptions = db_session.query(PaliWord).filter(
         PaliWord.pos.notin_(exceptions_list)).all()
@@ -311,7 +308,7 @@ def make_all_inflections_set(sandhi_exceptions_set):
         DerivedData.id.in_(all_headwords)).all()
 
     for i in all_inflections_db:
-        inflections = loads(i.inflections)
+        inflections = i.inflections_list
         all_inflections_set.update(inflections)
 
     all_inflections_set = all_inflections_set - sandhi_exceptions_set
@@ -328,10 +325,10 @@ def make_neg_inflections_set(sandhi_exceptions_set):
     print(f"[green]{'making neg inflections set':<35}", end="")
     neg_inflections_set = set()
 
-    exceptions_list = set(
-        ["abbrev", "cs", "idiom", "letter", "prefix", "root", "sandhi",
-            "sandhix", "suffix", "ve"]
-    )
+    exceptions_list = set([
+        "abbrev", "idiom", "sandhi",
+        # "cs", "letter", "prefix", "root", "suffix" "ve",
+        ])
 
     neg_headwords_db = db_session.query(PaliWord).filter(
         PaliWord.pos.notin_(exceptions_list)).filter(
@@ -343,7 +340,7 @@ def make_neg_inflections_set(sandhi_exceptions_set):
         DerivedData.id.in_(neg_headwords)).all()
 
     for i in neg_inflections_db:
-        inflections = loads(i.inflections)
+        inflections = i.inflections_list
         neg_inflections_set.update(inflections)
 
     neg_inflections_set = neg_inflections_set - sandhi_exceptions_set

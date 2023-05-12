@@ -17,6 +17,7 @@ csvs/vocab.csv
 definitions/definitions.csv
 do_output.zip
 dpd.db-journal
+ebook/output/dpd_ebook.zip.zip
 exporter/output/dpd.sql
 exporter/share/
 frequency/output/*
@@ -36,6 +37,8 @@ sandhi/output_do/*
 sandhi/output/*
 sandhi/time_delta.ods
 share/*
-the_buddhas_words/output/dpd_ebts.json
-the_buddhas_words/output/i2h.json
+tbw/output/dpd_ebts.json
+tbw/output/i2h.json
 tmp/
+ebook/output/Text
+tbw/output/

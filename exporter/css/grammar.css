@@ -1,0 +1,37 @@
+h3 {
+    font-size: 130%;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+body {
+    font-family: "Noto Sans", "DejaVu Serif", "Verajja Serif";
+}
+
+div.grammar_dict {
+    border: 2px solid #468b7c;
+    border-collapse: collapse;
+    border-radius: 5px;
+    line-height: 150%;
+    overflow: auto;
+    text-align: left;
+}
+
+table.grammar_dict {
+    border: 2px solid transparent;
+    border-right: 1px #468b7c;
+    border-collapse: collapse;
+    border-radius: 5px;
+    line-height: 150%;
+    overflow: auto;
+    margin: 0px;
+    text-align: center;
+    vertical-align: center;
+    /* white-space: nowrap; */
+}
+
+table.grammar_dict td {
+    padding: 2px 5px;
+    border: 1px solid #468b7c;
+    border-collapse: collapse;
+}

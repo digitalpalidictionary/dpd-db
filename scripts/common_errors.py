@@ -4,12 +4,10 @@ import re
 import pickle
 
 from rich import print
-from pathlib import Path
 from db.models import PaliWord
 from db.get_db_session import get_db_session
 
-dpd_db_path = Path("dpd.db")
-db_session = get_db_session(dpd_db_path)
+db_session = get_db_session("dpd.db")
 
 pos_list = [
     'abbrev', 'abs', 'adj', 'aor', 'card', 'cond', 'cs', 'fem', 'fut', 'ger',

@@ -141,12 +141,13 @@ class PaliWord(Base):
     root_sign: Mapped[Optional[str]] = mapped_column(default='')
     root_base: Mapped[Optional[str]] = mapped_column(default='')
 
-    family_root: Mapped[Optional[str]] = mapped_column(
-        ForeignKey("family_root.root_family"), default='')
+    family_root: Mapped[Optional[str]] = mapped_column(default='')
+        # ForeignKey("family_root.root_family"))
     family_word: Mapped[Optional[str]] = mapped_column(
-        ForeignKey("family_word.word_family"), default='')
+        ForeignKey("family_word.word_family"))
     family_compound: Mapped[Optional[str]] = mapped_column(default='')
-    family_set: Mapped[Optional[str]] = mapped_column(default='')
+    family_set: Mapped[Optional[str]] = mapped_column(
+        ForeignKey("family_set.set"))
 
     construction:  Mapped[Optional[str]] = mapped_column(default='')
     derivative: Mapped[Optional[str]] = mapped_column(default='')
@@ -183,10 +184,6 @@ class PaliWord(Base):
         DateTime(timezone=True), onupdate=func.now())
 
     rt: Mapped[PaliRoot] = relationship(uselist=False)
-
-    # fr: relationship("FamilyRoot", uselist=False)
-
-    # fw: relationship("FamilyWord", uselist=False)
 
     dd = relationship("DerivedData", uselist=False)
 
@@ -254,19 +251,31 @@ class PaliWord(Base):
 class DerivedData(Base):
     __tablename__ = "derived_data"
 
-    id: Mapped[int] = mapped_column(ForeignKey('pali_words.id'), primary_key=True)
+    id: Mapped[int] = mapped_column(
+        ForeignKey('pali_words.id'), primary_key=True)
     # pali_1: Mapped[str] = mapped_column(unique=True)
     inflections: Mapped[Optional[str]] = mapped_column(default='')
     sinhala: Mapped[Optional[str]] = mapped_column(default='')
     devanagari: Mapped[Optional[str]] = mapped_column(default='')
     thai: Mapped[Optional[str]] = mapped_column(default='')
     html_table: Mapped[Optional[str]] = mapped_column(default='')
-    freq_data: Mapped[Optional[str]] = mapped_column(default='')
     freq_html: Mapped[Optional[str]] = mapped_column(default='')
 
     @property
     def inflections_list(self) -> list:
         return self.inflections.split(",")
+
+    @property
+    def sinhala_list(self) -> list:
+        return self.sinhala.split(",")
+
+    @property
+    def devanagari_list(self) -> list:
+        return self.devanagari.split(",")
+
+    @property
+    def thai_list(self) -> list:
+        return self.thai.split(",")
 
     def __repr__(self) -> str:
         return f"DerivedData: {self.id} {PaliWord.pali_1} {self.inflections}"
@@ -280,6 +289,22 @@ class Sandhi(Base):
     sinhala: Mapped[Optional[str]] = mapped_column(default='')
     devanagari: Mapped[Optional[str]] = mapped_column(default='')
     thai: Mapped[Optional[str]] = mapped_column(default='')
+
+    @property
+    def split_list(self) -> list:
+        return self.split.split(",")
+
+    @property
+    def sinhala_list(self) -> list:
+        return self.sinhala.split(",")
+
+    @property
+    def devanagari_list(self) -> list:
+        return self.devanagari.split(",")
+
+    @property
+    def thai_list(self) -> list:
+        return self.thai.split(",")
 
     def __repr__(self) -> str:
         return f"Sandhi: {self.id} {self.sandhi} {self.split}"
@@ -318,8 +343,7 @@ class FamilyCompound(Base):
 
 class FamilyWord(Base):
     __tablename__ = "family_word"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    word_family: Mapped[str] = mapped_column(unique=True)
+    word_family: Mapped[str] = mapped_column(primary_key=True)
     html: Mapped[str] = mapped_column(default='')
     count: Mapped[int] = mapped_column(default=0)
 
@@ -329,8 +353,7 @@ class FamilyWord(Base):
 
 class FamilySet(Base):
     __tablename__ = "family_set"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    set: Mapped[str] = mapped_column(unique=True)
+    set: Mapped[str] = mapped_column(primary_key=True)
     html: Mapped[str] = mapped_column(default='')
     count: Mapped[int] = mapped_column(default=0)
 

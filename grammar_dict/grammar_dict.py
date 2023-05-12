@@ -1,23 +1,23 @@
 #!/usr/bin/env python3.11
 
 import csv
-import re
-import pandas as pd
 import pickle
 import sys
 
-from rich import print
-from json import loads
-from typing import List
-from os import popen
 from functools import reduce
+from json import loads
+from mako.template import Template
+from os import popen
+from rich import print
+from typing import List
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord, Sandhi, InflectionTemplates
-from get_paths import get_paths
+
+from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
+from tools.paths import ProjectPaths as PTH
 from tools.timeis import tic, toc
-from tools.add_niggahitas import add_niggahitas
 from tools.stardict_nu import export_words_as_stardict_zip, ifo_from_opts
 
 sys.path.insert(1, 'tools/writemdict')
@@ -30,8 +30,6 @@ def main():
     all grammatical possibilities of every inflection."""
 
     print("[bright_yellow]grammar dictionary")
-
-    pth = get_paths()
 
     # import changed_headwords
     # import inflection tables
@@ -68,7 +66,7 @@ def main():
             i.pos = "interr"
 
     # tipitaka word set
-    with open(pth.tipitaka_words_path) as f:
+    with open(PTH.tipitaka_word_count_path) as f:
         reader = csv.reader(f, delimiter="\t")
         tipitaka_word_set = set([row[0] for row in reader])
         print(f"[green]all tipitaka words{len(tipitaka_word_set):>22,}")
@@ -77,7 +75,7 @@ def main():
     sandhi_db = db_session.query(Sandhi).all()
     sandhi_split_set = set()
     for i in sandhi_db:
-        sandhi_constrs = loads(i.split)
+        sandhi_constrs = i.split_list
         for sandhi_constr in sandhi_constrs:
             if ("variant" not in sandhi_constr and
                     "spelling" not in sandhi_constr):
@@ -97,8 +95,15 @@ def main():
     # grammar_dict structure {inflection: "html"}
     grammar_dict_html = {}
 
-    with open(pth.html_header_path) as f:
-        html_header = f.read()
+    with open(PTH.grammar_css_path) as f:
+        grammar_css = f.read()
+
+    header_tmpl = Template(filename=str(
+        PTH.header_grammar_dict_templ_path))
+
+    html_header = str(header_tmpl.render(css=grammar_css))
+
+    html_header += "<body><div class='grammar_dict'><table class='grammar_dict'>"
 
     for counter, i in enumerate(db):
         # words with ! in stem must get inflection table but no synonsyms
@@ -199,18 +204,18 @@ def main():
 
     print(f"[green]saving grammar_dict pickle{len(grammar_dict):>14,}")
 
-    with open(pth.grammar_dict_pickle_path, "wb") as f:
+    with open(PTH.grammar_dict_pickle_path, "wb") as f:
         pickle.dump(grammar_dict, f)
 
     # print(f"[green]saving html{len(grammar_dict):>29,}")
     # for k, v in grammar_dict_html.items():
-    #     filepath = pth.output_html_dir.joinpath(k).with_suffix(".html")
+    #     filepath = PTH.grammar_dict_output_html_dir.joinpath(k).with_suffix(".html")
     #     with open(filepath, "w") as f:
     #         f.write(v)
 
     gd_data_list, md_data_list = make_data_lists(grammar_dict_html)
-    make_golden_dict(pth, gd_data_list)
-    make_mdict(pth, md_data_list)
+    make_golden_dict(PTH, gd_data_list)
+    make_mdict(PTH, md_data_list)
     toc()
 
 
@@ -238,10 +243,10 @@ def make_data_lists(grammar_dict_html):
     return gd_data_list, md_data_list
 
 
-def make_golden_dict(pth, gd_data_list):
+def make_golden_dict(PTH, gd_data_list):
     print(f"[green]making goldendict")
 
-    zip_path = pth.goldedict_zip_path
+    zip_path = PTH.grammar_dict_zip_path
 
     ifo = ifo_from_opts({
         "bookname": "DPD Grammar",
@@ -254,10 +259,10 @@ def make_golden_dict(pth, gd_data_list):
 
     print("[green]unipping and copying goldendict")
     popen(
-        f'unzip -o {pth.goldedict_zip_path} -d "/home/bhikkhu/Documents/Golden Dict"')
+        f'unzip -o {PTH.grammar_dict_zip_path} -d "/home/bhikkhu/Documents/Golden Dict"')
 
 
-def make_mdict(pth, md_data_list):
+def make_mdict(PTH, md_data_list):
     print("[green]making mdict")
 
     def synonyms(all_items, item):
@@ -277,7 +282,7 @@ def make_mdict(pth, md_data_list):
     mdict_data = reduce(synonyms, md_data_list, [])
     writer = MDictWriter(
         mdict_data, title=ifo['bookname'], description=f"<p>by {ifo['author']} </p> <p>For more infortmation, please visit <a href=\"{ifo['website']}\">{ifo['description']}</a></p>")
-    outfile = open(pth.mdict_output_path, 'wb')
+    outfile = open(PTH.grammar_dict_mdict_path, 'wb')
     writer.write(outfile)
     outfile.close()
 

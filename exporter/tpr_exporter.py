@@ -12,15 +12,14 @@ from sqlalchemy.orm import Session
 from rich import print
 
 from html_components import render_dpd_defintion_templ
-from helpers import get_paths, ResourcePaths
 from db.get_db_session import get_db_session
 from db.models import PaliWord, PaliRoot, Sandhi
 from tools.pali_sort_key import pali_sort_key
 from tools.timeis import tic, toc
+from tools.paths import ProjectPaths as PTH
 
 
 TODAY = date.today()
-PTH: ResourcePaths = get_paths()
 DB_SESSION: Session = get_db_session("dpd.db")
 
 
@@ -251,7 +250,7 @@ def generate_tpr_data():
 
         if i.sandhi not in all_headwords_clean:
             html_string = "<div><p>"
-            splits = json.loads(i.split)
+            splits = i.split_list
             for split in splits:
                 if "<i>" in split:
                     html_string += split.replace("<i>", "").replace("</i>", "")
@@ -266,7 +265,7 @@ def generate_tpr_data():
                         "definition": html_string,
                         "book_id": 11}]
 
-        if counter % 5000 == 0:
+        if counter % 50000 == 0:
             print(f"{counter:>10,} / {len(sandhi_db):<10,}{i.sandhi:<10}")
 
     return tpr_data_list
@@ -277,7 +276,7 @@ def copy_to_sqlite_db(tpr_data_list):
 
     # data frames
     tpr_df = pd.DataFrame(tpr_data_list)
-    i2h_df = pd.read_csv("share/inflection_to_headwords_dict.tsv", sep="\t")
+    i2h_df = pd.read_csv(PTH.inflection_to_headwords_dict_path, sep="\t")
 
     try:
         conn = sqlite3.connect(
@@ -336,7 +335,7 @@ def tpr_updater(tpr_df, i2h_df):
         definition = tpr_df.iloc[row, 1]
         definition = definition.replace("'", "''")
         book_id = tpr_df.iloc[row, 2]
-        if row % 5000 == 0:
+        if row % 50000 == 0:
             print(f"{row:>10,} / {len(tpr_df):<10,}{word:<10}")
         sql_string += f"""INSERT INTO "dpd" ("word","definition","book_id")\
  VALUES ('{word}', '{definition}', {book_id});\n"""

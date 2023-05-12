@@ -5,17 +5,16 @@ import pandas as pd
 import os
 
 from rich import print
-from helpers import get_paths
 from tools.clean_machine import clean_machine
 from tools.pali_text_files import ebts
+from tools.paths import ProjectPaths as PTH
 # nltk.download('punkt')
 
 
 def main():
     """Do the job."""
     print("[bright_yellow]generating text lists")
-    global pth
-    pth = get_paths()
+    global PTH
     make_tipitaka_dict()
 
 
@@ -274,7 +273,7 @@ def sanity_tests(tipitaka_dict, list_of_sections):
     print(f"list_of_sections {len(list_of_sections)}")
 
     all_files = []
-    for root, dirs, files in os.walk(pth.cst_txt_dir, topdown=False):
+    for root, dirs, files in os.walk(PTH.cst_txt_dir, topdown=False):
         for file in files:
             all_files.append(file)
 
@@ -318,7 +317,7 @@ def make_raw_text_csv(tipitaka_dict):
         text_clean = ""
 
         for t in texts:
-            f = open(pth.cst_txt_dir.joinpath(t))
+            f = open(PTH.cst_txt_dir.joinpath(t))
             file_read = f.read()
             text_clean += f"{clean_machine(file_read)}\n\n"
 
@@ -328,7 +327,7 @@ def make_raw_text_csv(tipitaka_dict):
         full_text += text_clean
 
         with open(
-                pth.raw_text_dir.joinpath(section).with_suffix(".txt"),
+                PTH.raw_text_dir.joinpath(section).with_suffix(".txt"),
                 "w") as f:
             f.write(text_clean)
 
@@ -337,7 +336,7 @@ def make_raw_text_csv(tipitaka_dict):
 
         word_count_df = make_word_count_df(text_clean)
         word_count_df.to_csv(
-            pth.word_count_dir.joinpath(section).with_suffix(".csv"),
+            PTH.word_count_dir.joinpath(section).with_suffix(".csv"),
             sep="\t", index=None, header=None)
 
     save_ebt_raw_text_and_csv(ebt_text)
@@ -356,12 +355,12 @@ def save_tipitaka_raw_text_and_csv(full_text):
     """Save full tipitaka frequency, all files in one."""
     print("[green]saving tipiṭaka csv")
 
-    with open(pth.tipitaka_raw_text_path, "w") as f:
+    with open(PTH.tipitaka_raw_text_path, "w") as f:
         f.write(full_text)
 
     full_text_df = make_word_count_df(full_text)
     full_text_df.to_csv(
-        pth.tipitaka_word_count_path,
+        PTH.tipitaka_word_count_path,
         sep="\t", index=None, header=None)
 
 
@@ -370,12 +369,12 @@ def save_ebt_raw_text_and_csv(ebt_text):
     print("[green]saving ebts csv")
 
     with open(
-            pth.ebt_raw_text_path, "w") as f:
+            PTH.ebt_raw_text_path, "w") as f:
         f.write(ebt_text)
 
     ebt_text_df = make_word_count_df(ebt_text)
     ebt_text_df.to_csv(
-        pth.ebt_word_count_path,
+        PTH.ebt_word_count_path,
         sep="\t", index=None, header=None)
 
 

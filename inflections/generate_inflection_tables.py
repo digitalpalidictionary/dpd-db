@@ -7,7 +7,6 @@ import pickle
 
 from rich import print
 from typing import List, Dict
-from pathlib import Path
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord, InflectionTemplates, DerivedData
@@ -16,11 +15,11 @@ from tools.timeis import tic, toc
 from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.superscripter import superscripter_uni
+from tools.paths import ProjectPaths as PTH
 
 regenerate_all: bool = False
 
-dpd_db_path = Path("dpd.db")
-db_session = get_db_session(dpd_db_path)
+db_session = get_db_session("dpd.db")
 dpd_db = db_session.query(PaliWord).all()
 
 changed_templates: list = []
@@ -28,7 +27,7 @@ changed_headwords: list = []
 
 # !!! how is all_tipitaka_words getting generated?
 
-with open("share/all_tipitaka_words", "rb") as f:
+with open(PTH.all_tipitaka_words_path, "rb") as f:
     all_tipitaka_words: set = pickle.load(f)
 
 
@@ -72,8 +71,7 @@ def main():
                 derived_data = DerivedData(
                     id=i.id,
                     # pali_1=i.pali_1,
-                    inflections=json.dumps(
-                        inflections_list, ensure_ascii=False),
+                    inflections=",".join(inflections_list),
                     html_table=html
                 )
 
@@ -81,17 +79,15 @@ def main():
                     derived_data = DerivedData(
                         id=i.id,
                         # pali_1=i.pali_1,
-                        inflections=json.dumps(
-                            (list([i.pali_clean])), ensure_ascii=False),
+                        inflections=i.pali_clean,
                         html_table=html,
                     )
 
             elif i.pattern == "":
                 derived_data = DerivedData(
                     id=i.id,
-                    # pali_1=i.pali_1,
-                    inflections=json.dumps(
-                        (list([i.pali_clean])), ensure_ascii=False))
+                    inflections=i.pali_clean
+                )
 
             add_to_db.append(derived_data)
 
@@ -102,10 +98,10 @@ def main():
     for row in add_to_db:
         db_session.add(row)
 
-    with open("share/changed_headwords", "wb") as f:
+    with open(PTH.changed_headwords_path, "wb") as f:
         pickle.dump(changed_headwords, f)
 
-    with open("share/changed_templates", "wb") as f:
+    with open(PTH.template_changed_path, "wb") as f:
         pickle.dump(changed_templates, f)
 
     # # !!! find all unused patterns !!!
@@ -119,7 +115,7 @@ def test_inflection_template_changed():
     """test if the inflection template has changes since the last run"""
 
     try:
-        with open("share/inflection_templates", "rb") as f:
+        with open(PTH.inflection_templates_pickle_path, "rb") as f:
             old_templates: InflectionTemplates() = pickle.load(f)
     except Exception:
         old_templates = []
@@ -163,7 +159,7 @@ def test_inflection_template_changed():
 
     def save_pickle() -> None:
         tables = db_session.query(InflectionTemplates).all()
-        with open("share/inflection_templates", "wb") as f:
+        with open(PTH.inflection_templates_pickle_path, "wb") as f:
             pickle.dump(tables, f)
 
     save_pickle()
@@ -220,7 +216,7 @@ def test_changes_in_stem_pattern() -> None:
     """test for changes in stem and pattern since last run"""
     print("[green]testing for changes in stem and pattern")
 
-    with open("share/headword_stem_pattern_dict", "rb") as f:
+    with open(PTH.headword_stem_pattern_dict_path, "rb") as f:
         old_dict: dict = pickle.load(f)
 
     new_dict: Dict[Dict[str]] = {}
@@ -239,7 +235,7 @@ def test_changes_in_stem_pattern() -> None:
             headword_stem_pattern_dict[i.pali_1] = {
                 "stem": i.stem, "pattern": i.pattern}
 
-        with open("share/headword_stem_pattern_dict", "wb") as f:
+        with open(PTH.headword_stem_pattern_dict_path, "wb") as f:
             pickle.dump(headword_stem_pattern_dict, f)
 
     save_pickle()

@@ -81,7 +81,7 @@ def add_abbrev_html(PTH: Path, header: str, help_data_list: list) -> list:
     print("adding abbreviations", end=" ")
 
     rows = []
-    with open(PTH.abbrev_tsv_path) as f:
+    with open(PTH.abbreviations_tsv_path) as f:
         reader = csv.DictReader(f, delimiter="\t")
         for row in reader:
             rows.append(row)
@@ -157,7 +157,7 @@ def add_help_html(PTH: Path, header: str, help_data_list: list) -> list:
 
 def add_bibliographhy(PTH: Path, header: str, help_data_list: list) -> list:
 
-    print(f"adding bibliography", end=" ")
+    print("adding bibliography", end=" ")
 
     with open(PTH.bibliography_path) as f:
         md = f.read()
@@ -188,7 +188,7 @@ def add_bibliographhy(PTH: Path, header: str, help_data_list: list) -> list:
 
 def add_thanks(PTH: Path, header: str, help_data_list: list) -> list:
 
-    print(f"adding thanks", end=" ")
+    print("adding thanks", end=" ")
 
     with open(PTH.thanks_path) as f:
         md = f.read()
@@ -210,7 +210,7 @@ def add_thanks(PTH: Path, header: str, help_data_list: list) -> list:
         "synonyms": synonyms
     }]
 
-    with open(f"xxx delete/exporter_help/thanks.html", "w") as f:
+    with open("xxx delete/exporter_help/thanks.html", "w") as f:
         f.write(html)
 
     print(f"{bop():>41}")

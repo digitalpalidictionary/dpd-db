@@ -1,74 +1,26 @@
 #!/usr/bin/env python3.11
-import shutil
 import re
 import pandas as pd
 import pickle
 
-from json import loads
 from rich import print
 
 from db.models import PaliWord, DerivedData
 from db.get_db_session import get_db_session
-from helpers import get_resource_paths
-from tools.clean_machine import clean_machine
-from tools.pali_text_files import cst_texts, bjt_texts
-from tools.make_cst_sc_text_sets import make_sc_text_set
+from tools.cst_sc_text_sets import make_sc_text_set
+from tools.cst_sc_text_sets import make_cst_text_set
 from tools.timeis import tic, toc
 from books_to_include import include
+from tools.paths import ProjectPaths as PTH
 
 # prepare all the necessary parts for local and cloud
-
-
-def make_cst_text_set(include):
-
-    print(f"[green]{'making cst text set':<35}", end="")
-
-    cst_texts_list = []
-
-    for i in include:
-        if cst_texts[i]:
-            cst_texts_list += cst_texts[i]
-
-    cst_text_string = ""
-
-    for text in cst_texts_list:
-        with open(pth['cst_text_path'].joinpath(text), "r") as f:
-            cst_text_string += f.read()
-
-    cst_text_string = clean_machine(cst_text_string)
-    cst_text_set = set(cst_text_string.split())
-
-    print(f"[white]{len(cst_text_set):>10,}")
-    return cst_text_set
-
-
-def make_bjt_text_set(include):
-
-    print(f"[green]{'making buddhajayanti text set':<35}", end="")
-
-    bjt_texts_list = []
-    for i in include:
-        if bjt_texts[i]:
-            bjt_texts_list += bjt_texts[i]
-
-    bjt_text_string = ""
-
-    for bjt_text in bjt_texts_list:
-        with open(pth["bjt_text_path"].joinpath(bjt_text), "r") as f:
-            bjt_text_string += f.read()
-
-    bjt_text_string = clean_machine(bjt_text_string)
-    bjt_text_set = set(bjt_text_string.split())
-
-    print(f"[white]{len(bjt_text_set):>10,}")
-    return bjt_text_set
 
 
 def make_spelling_mistakes_set():
     print(f"[green]{'making spelling mistakes set':<35}", end="")
 
     sp_mistakes_df = pd.read_csv(
-        pth["sp_mistakes_path"], dtype=str, header=None, sep="\t")
+        PTH.spelling_mistakes_path, dtype=str, header=None, sep="\t")
     sp_mistakes_df.fillna("", inplace=True)
 
     spelling_mistakes_set = set(sp_mistakes_df[0].tolist())
@@ -121,7 +73,7 @@ def make_variant_readings_set():
     print(f"[green]{'making variant readings set':<35}", end="")
 
     variant_reading_df = pd.read_csv(
-        pth["variant_readings_path"], dtype=str, header=None, sep="\t")
+        PTH.variant_readings_path, dtype=str, header=None, sep="\t")
     variant_reading_df.fillna("", inplace=True)
 
     variant_readings_set = set(variant_reading_df[0].tolist())
@@ -192,7 +144,7 @@ def make_manual_corrections_set():
     print(f"[green]{'making manual corrections set':<35}", end="")
 
     manual_corrections_df = pd.read_csv(
-        pth["manual_corrections_path"], dtype=str, header=None, sep="\t")
+        PTH.manual_corrections_path, dtype=str, header=None, sep="\t")
     manual_corrections_df.fillna("", inplace=True)
 
     manual_corrections_set = set(manual_corrections_df[0].tolist())
@@ -226,7 +178,7 @@ def make_exceptions_set():
     print(f"[green]{'making exceptions set':<35}", end="")
 
     sandhi_exceptions_df = pd.read_csv(
-        pth["sandhi_exceptions_path"], header=None)
+        PTH.sandhi_exceptions_path, header=None)
     sandhi_exceptions_set = set(sandhi_exceptions_df[0].tolist())
 
     print(f"[white]{len(sandhi_exceptions_set):>10,}")
@@ -240,7 +192,7 @@ def make_all_inflections_set(sandhi_exceptions_set):
 
     exceptions_list = set(
         ["abbrev", "cs", "idiom", "letter", "prefix", "root", "sandhi",
-            "sandhix", "suffix", "ve"]
+            "suffix", "ve"]
     )
 
     no_exceptions = db_session.query(PaliWord).filter(
@@ -252,7 +204,7 @@ def make_all_inflections_set(sandhi_exceptions_set):
         DerivedData.id.in_(all_headwords)).all()
 
     for i in all_inflections_db:
-        inflections = loads(i.inflections)
+        inflections = i.inflections_list
         all_inflections_set.update(inflections)
 
     all_inflections_set = all_inflections_set - sandhi_exceptions_set
@@ -271,7 +223,7 @@ def make_neg_inflections_set(sandhi_exceptions_set):
 
     exceptions_list = set(
         ["abbrev", "cs", "idiom", "letter", "prefix", "root", "sandhi",
-            "sandhix", "suffix", "ve"]
+            "suffix", "ve"]
     )
 
     neg_headwords_db = db_session.query(PaliWord).filter(
@@ -284,7 +236,7 @@ def make_neg_inflections_set(sandhi_exceptions_set):
         DerivedData.id.in_(neg_headwords)).all()
 
     for i in neg_inflections_db:
-        inflections = loads(i.inflections)
+        inflections = i.inflections_list
         neg_inflections_set.update(inflections)
 
     neg_inflections_set = neg_inflections_set - sandhi_exceptions_set
@@ -297,29 +249,12 @@ def make_neg_inflections_set(sandhi_exceptions_set):
     return neg_inflections_set
 
 
-def copy_sandhi_related_dir():
-    print(f"[green]{'copying sandhi related dir':<35}", end="")
-    try:
-        shutil.rmtree(pth["sandhi_related_dest_dir"])
-    except Exception as e:
-        print(f"[bright_red]{e}")
-
-    shutil.copytree(pth[
-        "sandhi_related_source_dir"],
-        pth["sandhi_related_dest_dir"])
-
-    print(f"[white]{'ok':>10}")
-
-
 def main():
     tic()
     print("[bright_yellow]setting up for sandhi splitting")
 
-    global pth
-    pth = get_resource_paths()
-
     global db_session
-    db_session = get_db_session(pth["dpd_db_path"])
+    db_session = get_db_session(PTH.dpd_db_path)
 
     cst_text_set = make_cst_text_set(include)
     sc_text_set = make_sc_text_set(include)
@@ -371,16 +306,16 @@ def main():
     def save_assets():
         print(f"[green]{'saving assets':<35}", end="")
 
-        with open(pth["unmatched_set_path"], "wb") as f:
+        with open(PTH.unmatched_set_path, "wb") as f:
             pickle.dump(unmatched_set, f)
 
-        with open(pth["all_inflections_set_path"], "wb") as f:
+        with open(PTH.all_inflections_set_path, "wb") as f:
             pickle.dump(all_inflections_set, f)
 
-        with open(pth["text_set_path"], "wb") as f:
+        with open(PTH.text_set_path, "wb") as f:
             pickle.dump(text_set, f)
 
-        with open(pth["neg_inflections_set_path"], "wb") as f:
+        with open(PTH.neg_inflections_set_path, "wb") as f:
             pickle.dump(neg_inflections_set, f)
 
         print(f"[white]{'ok':>10}")
@@ -396,7 +331,7 @@ def main():
         matches_dict.update(variant_dict)
         matches_dict.update(manual_corrections_dict)
 
-        with open(pth["matches_dict_path"], "wb") as f:
+        with open(PTH.matches_dict_path, "wb") as f:
             pickle.dump(matches_dict, f)
 
         print(f"[white]{'ok':>10}")

@@ -5,7 +5,7 @@ from rich import print
 from minify_html import minify
 from css_html_js_minify import css_minify, js_minify
 
-from tools.add_niggahitas import add_niggahitas
+from tools.niggahitas import add_niggahitas
 from html_components import render_header_tmpl
 from html_components import render_root_definition_templ
 from html_components import render_root_buttons_templ

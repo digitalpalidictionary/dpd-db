@@ -8,13 +8,14 @@ from db.models import Abbreviations
 from sqlalchemy.orm import Session
 from pathlib import Path
 from typing import Dict, List
-from tools.timeis import tic, toc, bip, bop
+from tools.timeis import tic, toc
+from tools.paths import ProjectPaths as PTH
 
 
 def main():
     tic()
     db_session = get_db_session("dpd.db")
-    csv_path = "../exporter/assets/abbreviations.tsv"
+    csv_path = PTH.abbreviations_tsv_path
     add_abbreviations(db_session, csv_path)
     toc()
 

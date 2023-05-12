@@ -2,7 +2,6 @@ import re
 
 from rich import print
 from sqlalchemy import or_
-from json import loads
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord
@@ -454,8 +453,9 @@ def get_family_set_values():
 
     family_sets = []
     for r in results:
-        sets = r.family_set.split("; ")
-        family_sets += [set for set in sets]
+        if r.family_set is not None:
+            sets = r.family_set.split("; ")
+            family_sets += [set for set in sets]
     return sorted(set(family_sets))
 
 
@@ -464,13 +464,11 @@ def get_family_set_values():
 
 def make_all_inflections_set():
 
-    inflections_db = db_session.query(
-        DerivedData.inflections
-    ).all()
+    inflections_db = db_session.query(DerivedData).all()
 
     all_inflections_set = set()
     for i in inflections_db:
-        all_inflections_set.update(loads(i.inflections))
+        all_inflections_set.update(i.inflections_list)
 
     print(f"all_inflections_set: {len(all_inflections_set)}")
     return all_inflections_set

@@ -1,6 +1,5 @@
 
 from minify_html import minify
-from json import loads
 from rich import print
 from typing import List
 from sqlalchemy import and_
@@ -20,7 +19,7 @@ from html_components import render_family_compound_templ
 from html_components import render_family_sets_templ
 from html_components import render_frequency_templ
 from html_components import render_feedback_templ
-from tools.add_niggahitas import add_niggahitas
+from tools.niggahitas import add_niggahitas
 from tools.timeis import bip, bop
 
 
@@ -84,7 +83,6 @@ def generate_dpd_html(DB_SESSION, PTH, SANDHI_CONTRACTIONS, size_dict):
         i.sutta_2 = i.sutta_2.replace("\n", "<br>")
         i.example_1 = i.example_1.replace("\n", "<br>")
         i.example_2 = i.example_2.replace("\n", "<br>")
-        i.construction = i.construction.replace("\n", "<br>")
 
         html: str = ""
         header = render_header_tmpl(dpd_css, button_js)
@@ -140,15 +138,15 @@ def generate_dpd_html(DB_SESSION, PTH, SANDHI_CONTRACTIONS, size_dict):
         html += "</body></html>"
         html = minify(html)
 
-        synonyms: list = loads(dd.inflections)
+        synonyms: list = dd.inflections_list
         synonyms = add_niggahitas(synonyms)
         for synonym in synonyms:
             if synonym in SANDHI_CONTRACTIONS:
                 contractions = SANDHI_CONTRACTIONS[synonym]["contractions"]
                 synonyms.extend(contractions)
-        synonyms += loads(dd.sinhala)
-        synonyms += loads(dd.devanagari)
-        synonyms += loads(dd.thai)
+        synonyms += dd.sinhala_list
+        synonyms += dd.devanagari_list
+        synonyms += dd.thai_list
         synonyms += i.family_set_list
         synonyms += [str(i.id)]
         size_dict["dpd_synonyms"] += len(str(synonyms))

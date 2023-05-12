@@ -7,6 +7,7 @@ from sqlalchemy.orm import sessionmaker, Session
 
 
 def get_db_session(db_path: Path) -> Session:
+    """Get the db session."""
     if not os.path.isfile(db_path):
         print(f"Database file doesn't exist: {db_path}")
         sys.exit(1)

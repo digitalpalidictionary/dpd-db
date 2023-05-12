@@ -5,8 +5,6 @@ import textwrap
 import pickle
 
 from spellchecker import SpellChecker
-from pathlib import Path
-from dataclasses import dataclass
 from aksharamukha import transliterate
 from rich import print
 from bs4 import BeautifulSoup
@@ -18,89 +16,8 @@ from tools.clean_machine import clean_machine
 from tools.pali_text_files import cst_texts, sc_texts
 from tools.pos import INDECLINEABLES
 from tools.pali_alphabet import pali_alphabet
-from tools.make_cst_sc_text_sets import make_sc_text_set
-
-
-
-@dataclass()
-class ResourcePaths():
-    # dirs
-    cst_texts_dir: Path
-    sc_texts_dir: Path
-    cst_xml_dir: Path
-    cst_xml_roman_dir: Path
-    # paths
-    sandhi_ok_path: Path
-    sandhi_exceptions_path: Path
-    spelling_mistakes_path: Path
-    variant_path: Path
-    sandhi_rules_path: Path
-    sandhi_corrections_path: Path
-    spelling_corrections_path: Path
-    variant_readings_path: Path
-    inflection_templates_path: Path
-    defintions_csv_path: Path
-    internal_tests_path: Path
-    stash_path: Path
-    user_dict_path: Path
-    save_state_path: Path
-
-
-def get_paths() -> ResourcePaths:
-
-    pth = ResourcePaths(
-        # dirs
-        sc_texts_dir=Path(
-            "resources/Tipitaka-Pali-Projector/tipitaka_projector_data/pali/"),
-        cst_xml_dir=Path(
-            "resources/tipitaka-xml/deva master"),
-        cst_xml_roman_dir=Path(
-            "resources/tipitaka-xml/roman_xml"),
-        cst_texts_dir=Path(
-            "resources/tipitaka-xml/roman_txt"),
-
-        # paths
-        sandhi_ok_path=Path(
-            "sandhi/sandhi_related/sandhi_ok.csv"),
-        sandhi_exceptions_path=Path(
-            "sandhi/sandhi_related/sandhi_exceptions.tsv"),
-        spelling_mistakes_path=Path(
-            "sandhi/sandhi_related/spelling_mistakes.tsv"),
-        variant_path=Path(
-            "sandhi/sandhi_related/variant_readings.tsv"),
-        sandhi_rules_path=Path(
-            "sandhi/sandhi_related/sandhi_rules.tsv"),
-        sandhi_corrections_path=Path(
-            "sandhi/sandhi_related/manual_corrections.tsv"),
-        spelling_corrections_path=Path(
-            "sandhi/sandhi_related/spelling_mistakes.tsv"),
-        variant_readings_path=Path(
-            "sandhi/sandhi_related/variant_readings.tsv"),
-        inflection_templates_path=Path(
-            "inflections/inflection_templates.xlsx"),
-        defintions_csv_path=Path(
-            "definitions/definitions.csv"),
-        internal_tests_path=Path(
-            "tests/internal_tests.tsv"),
-        stash_path=Path(
-            "gui/stash/stash"),
-        user_dict_path=Path(
-            "tools/user_dictionary.txt"),
-        save_state_path=Path(
-            "gui/stash/gui_state"
-        )
-    )
-
-    # ensure dirs exist
-    for d in [
-        pth.cst_texts_dir,
-        pth.cst_xml_roman_dir,
-    ]:
-        d.mkdir(parents=True, exist_ok=True)
-    return pth
-
-
-pth = get_paths()
+from tools.cst_sc_text_sets import make_sc_text_set
+from tools.paths import ProjectPaths as PTH
 
 
 def add_sandhi_correction(window, values: dict) -> None:
@@ -118,7 +35,7 @@ def add_sandhi_correction(window, values: dict) -> None:
     else:
 
         with open(
-                pth.sandhi_corrections_path, mode="a", newline="") as file:
+                PTH.manual_corrections_path, mode="a", newline="") as file:
             writer = csv.writer(file, delimiter="\t")
             writer.writerow([sandhi_to_correct, sandhi_correction])
             window["messages"].update(
@@ -130,7 +47,7 @@ def add_sandhi_correction(window, values: dict) -> None:
 
 def open_sandhi_corrections():
     subprocess.Popen(
-        ["code", pth.sandhi_corrections_path])
+        ["code", PTH.manual_corrections_path])
 
 
 def add_sandhi_rule(window, values: dict) -> None:
@@ -151,7 +68,7 @@ def add_sandhi_rule(window, values: dict) -> None:
 
     else:
 
-        with open(pth.sandhi_rules_path, "r") as f:
+        with open(PTH.sandhi_rules_path, "r") as f:
             reader = csv.reader(f, delimiter="\t")
 
             for row in reader:
@@ -162,7 +79,7 @@ def add_sandhi_rule(window, values: dict) -> None:
                     break
             else:
                 with open(
-                        pth.sandhi_rules_path, mode="a", newline="") as file:
+                        PTH.sandhi_rules_path, mode="a", newline="") as file:
                     writer = csv.writer(file, delimiter="\t")
                     writer.writerow([chA, chB, ch1, ch2, example, usage])
                     window["messages"].update(
@@ -177,7 +94,7 @@ def add_sandhi_rule(window, values: dict) -> None:
 
 def open_sandhi_rules():
     subprocess.Popen(
-        ["code", pth.sandhi_rules_path])
+        ["code", PTH.sandhi_rules_path])
 
 
 def add_spelling_mistake(window, values: dict) -> None:
@@ -191,7 +108,7 @@ def add_spelling_mistake(window, values: dict) -> None:
     else:
 
         with open(
-                pth.spelling_corrections_path, mode="a", newline="") as file:
+                PTH.spelling_corrections_path, mode="a", newline="") as file:
             writer = csv.writer(file, delimiter="\t")
             writer.writerow([spelling_mistake, spelling_correction])
             window["messages"].update(
@@ -202,7 +119,7 @@ def add_spelling_mistake(window, values: dict) -> None:
 
 def open_spelling_mistakes():
     subprocess.Popen(
-        ["code", pth.spelling_corrections_path])
+        ["code", PTH.spelling_corrections_path])
 
 
 def add_variant_reading(window, values: dict) -> None:
@@ -215,7 +132,7 @@ def add_variant_reading(window, values: dict) -> None:
 
     else:
         with open(
-                pth.variant_readings_path, mode="a", newline="") as file:
+                PTH.variant_readings_path, mode="a", newline="") as file:
             writer = csv.writer(file, delimiter="\t")
             writer.writerow([variant_reading, main_reading])
             window["messages"].update(
@@ -226,17 +143,17 @@ def add_variant_reading(window, values: dict) -> None:
 
 def open_variant_readings():
     subprocess.Popen(
-        ["code", pth.variant_readings_path])
+        ["code", PTH.variant_readings_path])
 
 
 def open_sandhi_ok():
     subprocess.Popen(
-        ["code", pth.sandhi_ok_path])
+        ["code", PTH.sandhi_ok_path])
 
 
 def open_sandhi_exceptions():
     subprocess.Popen(
-        ["code", pth.sandhi_exceptions_path])
+        ["code", PTH.sandhi_exceptions_path])
 
 
 def add_stem_pattern(values, window):
@@ -431,7 +348,7 @@ def add_stem_pattern(values, window):
 
 
 spell = SpellChecker()
-spell.word_frequency.load_text_file(str(pth.user_dict_path))
+spell.word_frequency.load_text_file(str(PTH.user_dict_path))
 
 
 def check_spelling(field, error_field, values, window):
@@ -447,13 +364,13 @@ def check_spelling(field, error_field, values, window):
 
 
 def add_spelling(word):
-    with open(pth.user_dict_path, "a") as f:
+    with open(PTH.user_dict_path, "a") as f:
         f.write(f"{word}\n")
 
 
 def edit_spelling():
     subprocess.Popen(
-        ["code", pth.user_dict_path])
+        ["code", PTH.user_dict_path])
 
 
 def clear_errors(window):
@@ -593,13 +510,13 @@ def find_sutta_example(sg, window, values: dict) -> str:
         window["messages"].update(e, text_color="red")
 
     with open(
-            pth.cst_xml_dir.joinpath(filename), "r", encoding="UTF-16") as f:
+            PTH.cst_xml_dir.joinpath(filename), "r", encoding="UTF-16") as f:
         xml = f.read()
     xml = transliterate_xml(xml)
 
-    with open(pth.cst_xml_roman_dir.joinpath(filename), "w") as w:
+    with open(PTH.cst_xml_roman_dir.joinpath(filename), "w") as w:
         w.write(xml)
-    print(pth.cst_xml_roman_dir.joinpath(filename))
+    print(PTH.cst_xml_roman_dir.joinpath(filename))
 
     soup = BeautifulSoup(xml, "xml")
 
@@ -651,6 +568,10 @@ def find_sutta_example(sg, window, values: dict) -> str:
 
             # remove the digits and the dot in sutta name
             sutta = re.sub(r"\d*\. ", "", p.text)
+
+        # # for kn1
+        elif p["rend"] == "chapter":
+            pass
 
         text = clean_example(p.text)
 
@@ -783,12 +704,12 @@ def find_gathalast(p, example):
 
 
 def make_words_to_add_list(window, book: str) -> list:
-    text_list = make_text_list(window, pth, book)
+    text_list = make_text_list(window, PTH, book)
     sc_text_set = make_sc_text_set([book])
     text_list.extend(sc_text_set)
-    sp_mistakes_list = make_sp_mistakes_list(pth)
-    variant_list = make_variant_list(pth)
-    sandhi_ok_list = make_sandhi_ok_list(pth)
+    sp_mistakes_list = make_sp_mistakes_list(PTH)
+    variant_list = make_variant_list(PTH)
+    sandhi_ok_list = make_sandhi_ok_list(PTH)
     all_inflections_set = make_all_inflections_set()
 
     text_set = set(text_list) - set(sandhi_ok_list)
@@ -805,12 +726,12 @@ def make_words_to_add_list(window, book: str) -> list:
     return text_list
 
 
-def make_text_list(window, pth: ResourcePaths, book: str) -> list:
+def make_text_list(window, PTH, book: str) -> list:
     text_list = []
 
     if book in cst_texts and book in sc_texts:
         for b in cst_texts[book]:
-            filepath = pth.cst_texts_dir.joinpath(b)
+            filepath = PTH.cst_txt_dir.joinpath(b)
             with open(filepath) as f:
                 text_read = f.read()
                 text_clean = clean_machine(text_read)
@@ -824,9 +745,9 @@ def make_text_list(window, pth: ResourcePaths, book: str) -> list:
     return text_list
 
 
-def make_sp_mistakes_list(pth):
+def make_sp_mistakes_list(PTH):
 
-    with open(pth.spelling_mistakes_path) as f:
+    with open(PTH.spelling_mistakes_path) as f:
         reader = csv.reader(f, delimiter="\t")
         sp_mistakes_list = [row[0] for row in reader]
 
@@ -834,8 +755,8 @@ def make_sp_mistakes_list(pth):
     return sp_mistakes_list
 
 
-def make_variant_list(pth):
-    with open(pth.variant_path) as f:
+def make_variant_list(PTH):
+    with open(PTH.variant_path) as f:
         reader = csv.reader(f, delimiter="\t")
         variant_list = [row[0] for row in reader]
 
@@ -843,8 +764,8 @@ def make_variant_list(pth):
     return variant_list
 
 
-def make_sandhi_ok_list(pth):
-    with open(pth.sandhi_ok_path) as f:
+def make_sandhi_ok_list(PTH):
+    with open(PTH.sandhi_ok_path) as f:
         reader = csv.reader(f, delimiter="\t")
         sandhi_ok_list = [row[0] for row in reader]
 
@@ -859,11 +780,11 @@ def open_in_goldendict(word: str) -> None:
 
 def open_inflection_tables():
     subprocess.Popen(
-        ["libreoffice", pth.inflection_templates_path])
+        ["libreoffice", PTH.inflection_templates_path])
 
 
 def sandhi_ok(window, word,):
-    with open(pth.sandhi_ok_path, "a", newline="") as csvfile:
+    with open(PTH.sandhi_ok_path, "a", newline="") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow([word])
     window["messages"].update(f"{word} added", text_color="white")
@@ -1002,12 +923,12 @@ def add_to_word_to_add(values, window, words_to_add_list):
 def save_gui_state(values, words_to_add_list):
     save_state: tuple = (values, words_to_add_list)
     print(f"[green]saving gui state, values:{len(values)}, words_to_add_list: {len(words_to_add_list)}")
-    with open(pth.save_state_path, "wb") as f:
+    with open(PTH.save_state_path, "wb") as f:
         pickle.dump(save_state, f)
 
 
 def load_gui_state():
-    with open(pth.save_state_path, "rb") as f:
+    with open(PTH.save_state_path, "rb") as f:
         save_state = pickle.load(f)
     values = save_state[0]
     words_to_add_list = save_state[1]

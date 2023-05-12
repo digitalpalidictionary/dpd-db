@@ -1,48 +1,76 @@
-def pali_sort_key(word):
-    pāli_alphabet = [
-        " ", "√",
-        "a", "ā", "i", "ī", "u", "ū", "e", "o",
-        "k", "kh", "g", "gh", "ṅ",
-        "c", "ch", "j", "jh", "ñ",
-        "ṭ", "ṭh", "ḍ", "ḍh", "ṇ",
-        "t", "th", "d", "dh", "n",
-        "p", "ph", "b", "bh", "m",
-        "y", "r", "l", "v", "s", "h", "ḷ", "ṃ",
-        "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "."
-    ]
-    try:
-        dl = [i for i in pāli_alphabet if len(i) > 1]
-        for i in dl:
-            word = word.replace(i, '/{}'.format(i))
-        wordVe = []
-        k = -3
-        for j in range(len(word)):
-            if word[j] == '/':
-                k = j
-                wordVe.append(word[j + 1:j + 3])
-            if j > k + 2:
-                wordVe.append(word[j])
-        word = wordVe
+import re
 
-        def get_index(char):
-            try:
-                return pāli_alphabet.index(char)
-            except ValueError:
-                return -1
-        
-        return [get_index(x) for x in word]
-    
-    except Exception as e:
-        print(e)
+letter_to_number = {
+        "√": "00",
+        "a": "01",
+        "ā": "02",
+        "i": "03",
+        "ī": "04",
+        "u": "05",
+        "ū": "06",
+        "e": "07",
+        "o": "08",
+        "k": "09",
+        "kh": "10",
+        "g": "11",
+        "gh": "12",
+        "ṅ": "13",
+        "c": "14",
+        "ch": "15",
+        "j": "16",
+        "jh": "17",
+        "ñ": "18",
+        "ṭ": "19",
+        "ṭh": "20",
+        "ḍ": "21",
+        "ḍh": "22",
+        "ṇ": "23",
+        "t": "24",
+        "th": "25",
+        "d": "26",
+        "dh": "27",
+        "n": "28",
+        "p": "29",
+        "ph": "30",
+        "b": "31",
+        "bh": "32",
+        "m": "33",
+        "y": "34",
+        "r": "35",
+        "l": "36",
+        "v": "37",
+        "s": "38",
+        "h": "39",
+        "ḷ": "40",
+        "ṃ": "41"
+    }
 
 
-"""
-sort a query:
-results = session.query(Sandhi).all()
-sorted_results = sorted(results, key=lambda x: pali_sort_key(x.sandhi))
-"""
+def pali_list_sorter(words: list) -> list:
+    """Sort a list of words in Pāḷi alphabetical order.
+    Usage:
+    pali_list_sorter(list_of_pali_words)"""
 
-"""
-sort a list:
-list = sorted(list, key=pali_sort_key)
-"""
+    pattern = "|".join(key for key in letter_to_number.keys())
+
+    def replace(match):
+        return letter_to_number[match.group(0)]
+
+    sorted_words = sorted(
+        words, key=lambda word: re.sub(pattern, replace, word))
+
+    return sorted_words
+
+
+def pali_sort_key(word: str) -> str:
+    """A key for sorting in Pāḷi alphabetical order."
+    Usage:
+    list = sorted(list, key=pali_sort_key)
+    db = sorted(db, key=lambda x: pali_sort_key(x.pali_1))"""
+
+    pattern = '|'.join(re.escape(key) for key in letter_to_number.keys())
+
+    def replace(match):
+        return letter_to_number[match.group(0)]
+
+    return re.sub(pattern, replace, word)

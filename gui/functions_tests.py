@@ -13,20 +13,18 @@ from json import dumps, loads
 from typing import List, Tuple
 from rich import print
 
-from functions import ResourcePaths, get_paths
+from tools.paths import ProjectPaths as PTH
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tests.helpers import InternalTestRow
 from tools.pali_sort_key import pali_sort_key
-
-pth: ResourcePaths = get_paths()
 
 # 1. individual internal tests
 
 
 def open_internal_tests():
     subprocess.Popen(
-        ["libreoffice", pth.internal_tests_path])
+        ["libreoffice", PTH.internal_tests_path])
 
 
 def individual_internal_tests(sg, window, values, flags):
@@ -39,14 +37,14 @@ def individual_internal_tests(sg, window, values, flags):
 
 
 def make_internal_tests_list():
-    with open(pth.internal_tests_path, newline="") as csvfile:
+    with open(PTH.internal_tests_path, newline="") as csvfile:
         reader = csv.DictReader(csvfile, delimiter="\t")
         internal_tests_list = [InternalTestRow(**row) for row in reader]
     return internal_tests_list
 
 
 def write_internal_tests_list(internal_tests_list):
-    with open(pth.internal_tests_path, 'w', newline="") as csvfile:
+    with open(PTH.internal_tests_path, 'w', newline="") as csvfile:
         fieldnames = internal_tests_list[0].__dict__.keys()
         writer = csv.DictWriter(csvfile, delimiter="\t", fieldnames=fieldnames)
         writer.writeheader()

@@ -12,7 +12,7 @@ from subprocess import check_output
 from db.get_db_session import get_db_session
 from db.models import Sandhi
 from tools.timeis import tic, toc
-from helpers import get_resource_paths
+from tools.paths import ProjectPaths as PTH
 
 # !!! # only add new sandhi, leave the old ones alone
 
@@ -26,11 +26,9 @@ def main():
 def transliterate_sandhi():
     print("[green]transliterating sandhi")
 
-    dpd_db_path = Path("dpd.db")
-    db_session = get_db_session(dpd_db_path)
+    db_session = get_db_session("dpd.db")
     sandhi_db = db_session.query(Sandhi).all()
     sandhi_translit_dict: Dict = {}
-    pth = get_resource_paths()
 
     # aksharamukha works much faster with large text files than smaller lists
     # sandhi_to_transliterate_string contains the words to translit,
@@ -51,7 +49,7 @@ def transliterate_sandhi():
 
     # saving json for path nirvana transliterator
 
-    with open(pth["sandhi_to_translit_path"], "w") as f:
+    with open(PTH.sandhi_to_translit_path, "w") as f:
         f.write(json.dumps(
             sandhi_for_json_dict, ensure_ascii=False, indent=4))
 
@@ -115,7 +113,7 @@ def transliterate_sandhi():
 
     print("importing path nirvana translit", end=" ")
 
-    with open(pth["sandhi_from_translit_path"], "r") as f:
+    with open(PTH.sandhi_from_translit_path, "r") as f:
         node_translit: dict = json.load(f)
         print(f"{len(node_translit)}")
 
@@ -139,17 +137,14 @@ def transliterate_sandhi():
     for i in sandhi_db:
         if i.sandhi in sandhi_translit_dict:
 
-            i.sinhala = json.dumps(
-                list(sandhi_translit_dict[i.sandhi]["sinhala"]),
-                ensure_ascii=False)
+            i.sinhala = ",".join(
+                list(sandhi_translit_dict[i.sandhi]["sinhala"]))
 
-            i.devanagari = json.dumps(
-                list(sandhi_translit_dict[i.sandhi]["devanagari"]),
-                ensure_ascii=False)
+            i.devanagari = ",".join(
+                list(sandhi_translit_dict[i.sandhi]["devanagari"]))
 
-            i.thai = json.dumps(
-                list(sandhi_translit_dict[i.sandhi]["thai"]),
-                ensure_ascii=False)
+            i.thai = ",".join(
+                list(sandhi_translit_dict[i.sandhi]["thai"]))
 
     db_session.commit()
     db_session.close()

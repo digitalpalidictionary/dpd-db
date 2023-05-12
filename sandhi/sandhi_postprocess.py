@@ -9,30 +9,59 @@ import pandas as pd
 
 from rich import print
 from difflib import SequenceMatcher
-from pathlib import Path
 from css_html_js_minify import css_minify
 
-from helpers import get_resource_paths
+
+from dpr_breakup import make_dpr_breakup_dict
+
 from db.get_db_session import get_db_session
 from db.models import Sandhi
-from transliterate_sandhi import transliterate_sandhi
+
 from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.timeis import tic, toc
-
+from tools.paths import ProjectPaths as PTH
 
 ADD_DO = True
 
 
-def process_matches(neg_inflections_set):
+def main():
+    tic()
+    print("[bright_yellow]post-processing sandhi-splitter")
+
+    if ADD_DO is True:
+        print("[green]add digital ocean [orange]true")
+    else:
+        print("[green]add digital ocean [orange]false")
+
+    global db_session
+    db_session = get_db_session("dpd.db")
+
+    with open(PTH.neg_inflections_set_path, "rb") as f:
+        neg_inflections_set = pickle.load(f)
+
+    matches_df = process_matches(PTH, neg_inflections_set)
+    top_five_dict = make_top_five_dict(matches_df)
+    add_to_dpd_db(top_five_dict)
+    transliterate_sandhi()
+    make_rule_counts(PTH, matches_df)
+    letter_counts(PTH, matches_df)
+
+    dpr_breakup_dict = make_dpr_breakup_dict(PTH)
+    make_golden_dict(PTH, top_five_dict, dpr_breakup_dict)
+    unzip_and_copy(PTH)
+    toc()
+
+
+def process_matches(PTH, neg_inflections_set):
 
     print("[green]processing matches")
 
     print("reading tsvs")
-    matches_df = pd.read_csv(pth["matches_path"], dtype=str, sep="\t")
+    matches_df = pd.read_csv(PTH.matches_path, dtype=str, sep="\t")
 
     if ADD_DO is True:
         matches_do_df = pd.read_csv(
-            pth["matches_do_path"], dtype=str, sep="\t")
+            PTH.matches_do_path, dtype=str, sep="\t")
         matches_df = pd.concat([matches_df, matches_do_df], ignore_index=True)
 
     matches_df = matches_df.fillna("")
@@ -90,7 +119,7 @@ def process_matches(neg_inflections_set):
     )
 
     print("saving to matches_sorted.tsv")
-    matches_df.to_csv(pth["matches_sorted"], sep="\t", index=None)
+    matches_df.to_csv(PTH.matches_sorted, sep="\t", index=None)
 
     return matches_df
 
@@ -100,7 +129,6 @@ def make_top_five_dict(matches_df):
     top_five_dict = {}
 
     for index, i in matches_df.iterrows():
-
 
         if i.word not in top_five_dict:
             top_five_dict[i.word] = {
@@ -131,7 +159,7 @@ def add_to_dpd_db(top_five_dict):
     for word, splits in top_five_dict.items():
         sandhi_split = Sandhi(
             sandhi=word,
-            split=json.dumps(splits, ensure_ascii=False, indent=0)
+            split=",".join(splits)
         )
         add_to_db.append(sandhi_split)
 
@@ -142,16 +170,15 @@ def add_to_dpd_db(top_five_dict):
     print(f"{len(add_to_db)}")
 
 
-def make_golden_dict(top_five_dict):
+def make_golden_dict(PTH, top_five_dict, dpr_breakup_dict):
 
     # !!! make goldendict from db using inflections
 
     print("[green]generating goldendict", end=" ")
 
-    # with open(PTH.sandhi_css_path) as f:
-    #     sandhi_css = f.read()
-    # sandhi_css = css_minify(sandhi_css)
-    sandhi_css = ""
+    with open(PTH.sandhi_css_path) as f:
+        sandhi_css = f.read()
+    sandhi_css = css_minify(sandhi_css)
 
     sandhi_data_list = []
     for word, split_list in top_five_dict.items():
@@ -164,7 +191,12 @@ def make_golden_dict(top_five_dict):
             if split != split_list[-1]:
                 html_string += "<br>"
             else:
-                html_string += "</p></div></body>"
+                html_string += "</p></div>"
+
+        if word in dpr_breakup_dict:
+            html_string += dpr_breakup_dict[word]
+
+        html_string += "</body>"
 
         sandhi_data_list += [{
             "word": word,
@@ -173,31 +205,43 @@ def make_golden_dict(top_five_dict):
             "synonyms": ""
         }]
 
-    zip_path = pth["zip_path"]
+    for word, breakup in dpr_breakup_dict.items():
+        if word not in top_five_dict:
+            html_string = sandhi_css
+            html_string += f"<body>{breakup}</body>"
 
-    ifo = ifo_from_opts(
-        {"bookname": "padavibhāga",
-            "author": "Bodhirasa",
-            "description": "testing new sandhi-splitting code",
-            "website": "", }
-    )
+        sandhi_data_list += [{
+            "word": word,
+            "definition_html": html_string,
+            "definition_plain": "",
+            "synonyms": ""
+        }]
+
+    zip_path = PTH.sandhi_zip_path
+
+    ifo = ifo_from_opts({
+        "bookname": "DPD Splitter",
+        "author": "Bodhirasa",
+        "description": "DPD Splitter + DPR Analysis",
+        "website": "https://digitalpalidictionary.github.io/"
+        })
 
     export_words_as_stardict_zip(sandhi_data_list, ifo, zip_path)
 
     print("[white]ok")
 
 
-def unzip_and_copy():
+def unzip_and_copy(PTH):
 
     print("[green]unipping and copying goldendict", end=" ")
 
     os.popen(
-        f'unzip -o {pth["zip_path"]} -d "/home/bhikkhu/Documents/Golden Dict"')
+        f'unzip -o {PTH.sandhi_zip_path} -d "/home/bhikkhu/Documents/Golden Dict"')
 
     print("[white]ok")
 
 
-def make_rule_counts(matches_df):
+def make_rule_counts(PTH, matches_df):
     print("[green]saving rule counts", end=" ")
 
     rules_list = matches_df[['rules']].values.tolist()
@@ -212,12 +256,12 @@ def make_rule_counts(matches_df):
 
     df = pd.DataFrame.from_dict(rule_counts, orient="index", columns=["count"])
     counts_df = df.value_counts()
-    counts_df.to_csv(pth["rule_counts_path"], sep="\t")
+    counts_df.to_csv(PTH.rule_counts_path, sep="\t")
 
     print("[white]ok")
 
 
-def letter_counts(df):
+def letter_counts(PTH, df):
     print("[green]saving letter counts", end=" ")
     df.drop_duplicates(subset=['word', 'split'],
                        keep='first', inplace=True, ignore_index=True)
@@ -243,39 +287,10 @@ def letter_counts(df):
     for i in range(1, 11):
         letters_df = pd.DataFrame(letters[i])
         letters_counts_sorted = letters_df.value_counts()
-        letters_counts_sorted.to_csv(pth[f"letters{i}"], sep="\t", header=None)
+        letters_path = getattr(PTH, f"letters{i}")
+        letters_counts_sorted.to_csv(letters_path, sep="\t", header=None)
 
     print("[white]ok")
-
-
-def main():
-    tic()
-    print("[bright_yellow]post-processing sandhi-splitter")
-
-    if ADD_DO is True:
-        print("[green]add digital ocean [orange]true")
-    else:
-        print("[green]add digital ocean [orange]false")
-
-    global pth
-    pth = get_resource_paths()
-
-    global db_session
-    dpd_db_path = Path("dpd.db")
-    db_session = get_db_session(dpd_db_path)
-
-    with open(pth["neg_inflections_set_path"], "rb") as f:
-        neg_inflections_set = pickle.load(f)
-
-    matches_df = process_matches(neg_inflections_set)
-    top_five_dict = make_top_five_dict(matches_df)
-    add_to_dpd_db(top_five_dict)
-    transliterate_sandhi()
-    make_rule_counts(matches_df)
-    letter_counts(matches_df)
-    make_golden_dict(top_five_dict)
-    unzip_and_copy()
-    toc()
 
 
 if __name__ == "__main__":

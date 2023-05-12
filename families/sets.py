@@ -1,14 +1,12 @@
 #!/usr/bin/env python3.11
 
 from rich import print
-from pathlib import Path
-
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord, FamilySet
 from tools.timeis import tic, toc
 from tools.superscripter import superscripter_uni
-from tools.make_meaning import make_meaning
+from tools.meaning_construction import make_meaning
 from tools.pali_sort_key import pali_sort_key
 from tools.degree_of_completion import degree_of_completion as doc
 
@@ -16,8 +14,7 @@ from tools.degree_of_completion import degree_of_completion as doc
 def main():
     tic()
     print("[bright_yellow]sets generator")
-    db_path = Path("dpd.db")
-    db_session = get_db_session(db_path)
+    db_session = get_db_session("dpd.db")
 
     sets_db = db_session.query(
         PaliWord).filter(PaliWord.family_set != "").all()

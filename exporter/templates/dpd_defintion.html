@@ -1,3 +1,11 @@
 <div class='content'>
-    <p>${pos}${plus_case}${meaning}${summary|n}${complete}</p>
+    <p>${pos}. 
+    % if plus_case:
+        (${plus_case}) 
+    % endif
+    ${meaning} 
+    % if summary:
+        [${summary|n}] 
+    % endif
+    ${complete}</p>
 </div>

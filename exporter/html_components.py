@@ -13,20 +13,20 @@ from db.models import FamilyCompound
 from db.models import FamilySet
 from db.models import Sandhi
 
-from helpers import get_paths
 from helpers import CF_SET
 from helpers import EXCLUDE_FROM_SETS
 from helpers import EXCLUDE_FROM_FREQ
 
+from tools.paths import ProjectPaths as PTH
 from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.pos import INDECLINEABLES
 from tools.pali_sort_key import pali_sort_key
-from tools.meaning_construction import make_meaning
+from tools.meaning_construction import make_meaning_html
 from tools.meaning_construction import summarize_constr
+from tools.meaning_construction import degree_of_completion
 
 TODAY = date.today()
-PTH = get_paths()
 
 header_tmpl = Template(
     filename=str(PTH.header_templ_path))
@@ -87,25 +87,16 @@ def render_dpd_defintion_templ(i: PaliWord) -> str:
     5. degree of completition"""
 
     # pos
-    pos: str = f"{i.pos}."
+    pos: str = i.pos
 
     # plus_case
     plus_case: str = ""
     if i.plus_case != "":
-        plus_case: str = f" ({i.plus_case}) "
+        plus_case: str = i.plus_case
 
-    meaning = f" <b>{make_meaning(i)}</b>"
-
-    summary = f" [{summarize_constr(i)}]"
-
-    # complete
-    if i.meaning_1 != "":
-        if i.source_1 != "":
-            complete = " <span class='gray'>✓</span>"
-        else:
-            complete = " <span class='gray'>~</span>"
-    else:
-        complete = " <span class='gray'>✗</span>"
+    meaning = make_meaning_html(i)
+    summary = summarize_constr(i)
+    complete = degree_of_completion(i)
 
     return str(
         dpd_definition_templ.render(
@@ -113,9 +104,7 @@ def render_dpd_defintion_templ(i: PaliWord) -> str:
             plus_case=plus_case,
             meaning=meaning,
             summary=summary,
-            complete=complete
-        )
-    )
+            complete=complete))
 
 
 def render_button_box_templ(i: PaliWord) -> str:
@@ -125,8 +114,7 @@ def render_button_box_templ(i: PaliWord) -> str:
         '<a class="button" '
         'href="javascript:void(0);" '
         'onclick="button_click(this)" '
-        'data-target="{target}">{name}</a>'
-    )
+        'data-target="{target}">{name}</a>')
 
     # grammar_button
     if i.meaning_1 != "":
@@ -228,15 +216,14 @@ def render_button_box_templ(i: PaliWord) -> str:
             compound_family_button=compound_family_button,
             set_family_button=set_family_button,
             frequency_button=frequency_button,
-            feedback_button=feedback_button
-        )
-    )
+            feedback_button=feedback_button))
 
 
 def render_grammar_templ(i: PaliWord) -> str:
     """html table of grammatical information"""
 
     if i.meaning_1 != "":
+        i.construction = i.construction.replace("\n", "<br>")
 
         grammar = i.grammar
         if i.neg != "":
@@ -248,16 +235,14 @@ def render_grammar_templ(i: PaliWord) -> str:
         if i.plus_case != "":
             grammar += f" ({i.plus_case})"
 
-        meaning = f"<b>{make_meaning(i)}</b>"
+        meaning = f"<b>{make_meaning_html(i)}</b>"
 
         return str(
             grammar_templ.render(
                 i=i,
                 grammar=grammar,
                 meaning=meaning,
-                today=TODAY,
-            )
-        )
+                today=TODAY))
 
     else:
         return ""
@@ -270,9 +255,7 @@ def render_example_templ(i: PaliWord) -> str:
         return str(
             example_templ.render(
                 i=i,
-                today=TODAY
-            )
-        )
+                today=TODAY))
     else:
         return ""
 
@@ -287,9 +270,7 @@ def render_inflection_templ(i: PaliWord, dd: DerivedData) -> str:
                 table=dd.html_table,
                 today=TODAY,
                 declensions=DECLENSIONS,
-                conjugations=CONJUGATIONS,
-            )
-        )
+                conjugations=CONJUGATIONS))
     else:
         return ""
 
@@ -304,9 +285,7 @@ def render_family_root_templ(i: PaliWord, fr: FamilyRoot) -> str:
                 family_root_templ.render(
                     i=i,
                     fr=fr,
-                    today=TODAY,
-                )
-            )
+                    today=TODAY))
     else:
         return ""
 
@@ -319,9 +298,7 @@ def render_family_word_templ(i: PaliWord, fw: FamilyWord) -> str:
             family_word_templ.render(
                 i=i,
                 fw=fw,
-                today=TODAY,
-            )
-        )
+                today=TODAY))
     else:
         return ""
 
@@ -356,9 +333,7 @@ def render_family_compound_templ(i: PaliWord, DB_SESSION) -> str:
             family_compound_templ.render(
                 i=i,
                 fc=fc,
-                today=TODAY,
-            )
-        )
+                today=TODAY))
     else:
         return ""
 
@@ -385,9 +360,7 @@ def render_family_sets_templ(i: PaliWord, DB_SESSION) -> str:
                 family_set_templ.render(
                     i=i,
                     fs=fs,
-                    today=TODAY,
-                )
-            )
+                    today=TODAY))
         else:
             return ""
     else:
@@ -403,9 +376,7 @@ def render_frequency_templ(i: PaliWord, dd: DerivedData) -> str:
             frequency_templ.render(
                 i=i,
                 dd=dd,
-                today=TODAY,
-            )
-        )
+                today=TODAY))
     else:
         return ""
 
@@ -416,9 +387,7 @@ def render_feedback_templ(i: PaliWord) -> str:
     return str(
         feedback_templ.render(
             i=i,
-            today=TODAY,
-        )
-    )
+            today=TODAY))
 
 
 def render_root_definition_templ(r: PaliRoot, roots_count_dict):
@@ -430,9 +399,7 @@ def render_root_definition_templ(r: PaliRoot, roots_count_dict):
         root_definition_templ.render(
             r=r,
             count=count,
-            today=TODAY,
-        )
-    )
+            today=TODAY))
 
 
 def render_root_buttons_templ(r: PaliRoot, DB_SESSION):
@@ -441,17 +408,14 @@ def render_root_buttons_templ(r: PaliRoot, DB_SESSION):
     frs = DB_SESSION.query(
         FamilyRoot
         ).filter(
-            FamilyRoot.root_id == r.root,
-        )
+            FamilyRoot.root_id == r.root)
 
     frs = sorted(frs, key=lambda x: pali_sort_key(x.root_family))
 
     return str(
         root_buttons_templ.render(
             r=r,
-            frs=frs,
-        )
-    )
+            frs=frs))
 
 
 def render_root_info_templ(r: PaliRoot):
@@ -460,9 +424,7 @@ def render_root_info_templ(r: PaliRoot):
     return str(
         root_info_templ.render(
             r=r,
-            today=TODAY
-        )
-    )
+            today=TODAY))
 
 
 def render_root_matrix_templ(r: PaliRoot, roots_count_dict):
@@ -473,9 +435,7 @@ def render_root_matrix_templ(r: PaliRoot, roots_count_dict):
         root_matrix_templ.render(
             r=r,
             count=count,
-            today=TODAY
-        )
-    )
+            today=TODAY))
 
 
 def render_root_families_templ(r: PaliRoot, DB_SESSION):
@@ -495,9 +455,7 @@ def render_root_families_templ(r: PaliRoot, DB_SESSION):
         root_families_templ.render(
             r=r,
             frs=frs,
-            today=TODAY
-        )
-    )
+            today=TODAY))
 
 
 def render_sandhi_templ(i, splits: list) -> str:
@@ -505,24 +463,18 @@ def render_sandhi_templ(i, splits: list) -> str:
         sandhi_templ.render(
             i=i,
             splits=splits,
-            today=TODAY
-        )
-    )
+            today=TODAY))
 
 
 def render_abbrev_templ(i) -> str:
     """render html of abbreviations"""
     return str(
         abbrev_templ.render(
-            i=i,
-        )
-    )
+            i=i))
 
 
 def render_help_templ(i) -> str:
     """render html of help"""
     return str(
         help_templ.render(
-            i=i,
-        )
-    )
+            i=i))

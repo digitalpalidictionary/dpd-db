@@ -4,9 +4,6 @@ from db.get_db_session import get_db_session
 # if you want to access any table, import its Class here, other options are PaliRoot, Sandhi, families etc.
 from db.models import PaliWord
 
-# this is for loading lists which are stored as json obejcts
-from json import loads
-
 # this connects to the db, use it once to access the db
 db_session = get_db_session("dpd.db")
 
@@ -43,9 +40,8 @@ for i in search_results:
             # now you can access the root table using i.rt.root column names
             print(f"{'ROOT':<15}{i.rt.root_clean} {i.rt.root_group} {i.root_sign} ({i.rt.root_meaning})")
 
-        # this loads the inflections list which is stored as json object in the DerivedData table
-        # this will change in future
-        inflections = loads(i.dd.inflections)
+        # this imports the inflections list which is stored as csv list in the DerivedData table
+        inflections = i.dd.inflections_list
 
         # this loops through the inflections and prints them out
         print(f"{'INFLECTIONS:':<15}", end="")
