@@ -386,7 +386,7 @@ def main():
                 window["compound_construction"].update(values["construction"])
                 flags.compound_construction = False
 
-        if event == "bold_cc_button":
+        if event == "bold_cc_button" or event == "bold_cc_enter":
             cc_bold = re.sub(
                 values["bold_cc"],
                 f"<b>{values['bold_cc']}</b>",
@@ -448,19 +448,20 @@ def main():
             window["example_1"].update(values["example_1"])
 
         if event == "example_1_clean":
-            string = values["example_1"]
-            field = "example_1"
-            replace_sandhi(string, field, sandhi_dict, window)
+            replace_sandhi(
+                values["example_1"], "example_1", sandhi_dict, window)
+            replace_sandhi(
+                values["bold_1"], "bold_1", sandhi_dict, window)
 
         if event == "example_2_clean":
-            string = values["example_2"]
-            field = "example_2"
-            replace_sandhi(string, field, sandhi_dict, window)
+            replace_sandhi(
+                values["example_2"], "example_2", sandhi_dict, window)
+            replace_sandhi(
+                values["bold_2"], "bold_2", sandhi_dict, window)
 
         if event == "commentary_clean":
-            string = values["commentary"]
-            field = "commentary"
-            replace_sandhi(string, field, sandhi_dict, window)
+            replace_sandhi(
+                values["commentary"], "commentary", sandhi_dict, window)
 
         if event == "another_eg_2":
             if values["book_to_add"] == "":
@@ -491,7 +492,7 @@ def main():
 
             flags.example_2 = False
 
-        if event == "bold_2_button":
+        if event == "bold_2_button" or event == "bold_2_enter":
             # bold
             example_2_bold = re.sub(
                 values["bold_2"],

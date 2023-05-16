@@ -18,6 +18,7 @@ from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths as PTH
 from tools.timeis import tic, toc
+from tools.sandhi_words import make_words_in_sandhi_set
 from tools.stardict_nu import export_words_as_stardict_zip, ifo_from_opts
 
 sys.path.insert(1, 'tools/writemdict')
@@ -71,29 +72,23 @@ def main():
         tipitaka_word_set = set([row[0] for row in reader])
         print(f"[green]all tipitaka words{len(tipitaka_word_set):>22,}")
 
-    # sandhi words set
-    sandhi_db = db_session.query(Sandhi).all()
-    sandhi_split_set = set()
-    for i in sandhi_db:
-        sandhi_constrs = i.split_list
-        for sandhi_constr in sandhi_constrs:
-            if ("variant" not in sandhi_constr and
-                    "spelling" not in sandhi_constr):
-                for s in sandhi_constr.split(" + "):
-                    sandhi_split_set.add(s)
-    print(f"[green]all sandhi words{len(sandhi_split_set):>24,}")
+    sandhi_db = db_session.query(Sandhi).all() 
+    words_in_sandhi_set = make_words_in_sandhi_set(sandhi_db)
+    print(f"[green]all sandhi words{len(words_in_sandhi_set):>24,}")
 
     # all words set
-    all_words_set = tipitaka_word_set | sandhi_split_set
+    all_words_set = tipitaka_word_set | words_in_sandhi_set
 
     print(f"[green]all words{len(all_words_set):>31,}")
 
-    print(f"[green]generating grammar dictionary")
+    print("[green]generating grammar dictionary")
 
     # grammar_dict structure {inflection: [(headword, pos, grammar)]}
     grammar_dict = {}
-    # grammar_dict structure {inflection: "html"}
+    
+    # grammar_dict_html structure {inflection: "html"}
     grammar_dict_html = {}
+    grammar_dict_table = {}
 
     with open(PTH.grammar_css_path) as f:
         grammar_css = f.read()
@@ -104,6 +99,7 @@ def main():
     html_header = str(header_tmpl.render(css=grammar_css))
 
     html_header += "<body><div class='grammar_dict'><table class='grammar_dict'>"
+    html_table_header = "<div class='dpd_grammar'><table class='dpd_grammar'>"
 
     for counter, i in enumerate(db):
         # words with ! in stem must get inflection table but no synonsyms
@@ -128,9 +124,11 @@ def main():
             # grammar_dict_html update
             if i.pali_clean not in grammar_dict_html:
                 grammar_dict_html[i.pali_clean] = f"{html_header}{html_line}"
+                grammar_dict_table[i.pali_clean] = f"{html_table_header}{html_line}"
             else:
                 if html_line not in grammar_dict_html[i.pali_clean]:
                     grammar_dict_html[i.pali_clean] += html_line
+                    grammar_dict_table[i.pali_clean] += html_line
 
         elif i.stem == "!":
             # !!! this must get added
@@ -175,12 +173,12 @@ def main():
                                 if inflected_word in all_words_set:
 
                                     data_line = (i.pali_1, i.pos, grammar)
-                                    html_line = f"<tr>\
-                                        <td><b>{i.pos}</b></td>\
-                                        <td>{grammar}</td>\
-                                        <td>of</td>\
-                                        <td>{i.pali_clean}</td>\
-                                        </tr>"
+                                    html_line = "<tr>"
+                                    html_line += f"<td><b>{i.pos}</b></td>"
+                                    html_line += f"<td>{grammar}</td>"
+                                    html_line += "<td>of</td>"
+                                    html_line += f"<td>{i.pali_clean}</td>"
+                                    html_line += "</tr>"
 
                                     # grammar_dict update
                                     if inflected_word not in grammar_dict:
@@ -192,9 +190,11 @@ def main():
                                     # grammar_dict_html update
                                     if inflected_word not in grammar_dict_html:
                                         grammar_dict_html[inflected_word] = f"{html_header}{html_line}"
+                                        grammar_dict_table[inflected_word] = f"{html_table_header}{html_line}"
                                     else:
                                         if html_line not in grammar_dict_html[inflected_word]:
                                             grammar_dict_html[inflected_word] += html_line
+                                            grammar_dict_table[inflected_word] += html_line
 
         if counter % 5000 == 0:
             print(f"{counter:>10,} / {len(db):<10,}{i.pali_1[:17]:>17}")
@@ -202,16 +202,20 @@ def main():
     for item in grammar_dict_html:
         grammar_dict_html[item] += "</table></div></body></html>"
 
-    print(f"[green]saving grammar_dict pickle{len(grammar_dict):>14,}")
+    for item in grammar_dict_table:
+        grammar_dict_table[item] += "</table></div>"
 
+    print(f"[green]saving grammar_dict pickle{len(grammar_dict):>14,}")
+    # save pickle file
     with open(PTH.grammar_dict_pickle_path, "wb") as f:
         pickle.dump(grammar_dict, f)
 
-    # print(f"[green]saving html{len(grammar_dict):>29,}")
-    # for k, v in grammar_dict_html.items():
-    #     filepath = PTH.grammar_dict_output_html_dir.joinpath(k).with_suffix(".html")
-    #     with open(filepath, "w") as f:
-    #         f.write(v)
+    # save tsv of inflection and table
+    print(f"[green]saving grammar_dict tsv{len(grammar_dict_table):>14,}")
+    with open(PTH.grammar_dict_tsv_path, "w") as f:
+        f.write("inflection\thtml\n")
+        for inflection, table in grammar_dict_table.items():
+            f.write(f"{inflection}\t{table}\n")
 
     gd_data_list, md_data_list = make_data_lists(grammar_dict_html)
     make_golden_dict(PTH, gd_data_list)

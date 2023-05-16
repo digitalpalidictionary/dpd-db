@@ -12,10 +12,13 @@ from rich import print
 
 from tools.clean_machine import clean_machine
 from tools.pali_text_files import sc_texts, cst_texts, bjt_texts
+from tools.pali_text_files import mula_books, all_books
 from tools.paths import ProjectPaths as PTH
 
 
-def make_cst_text_set(books: list, niggahita="ṃ") -> set:
+def make_cst_text_set(books: list, niggahita="ṃ", return_list=False) -> set:
+    """Make a list of words in CST texts from a list of books.
+    Return a list or a set."""
 
     cst_texts_list = []
 
@@ -23,20 +26,23 @@ def make_cst_text_set(books: list, niggahita="ṃ") -> set:
         if cst_texts[i]:
             cst_texts_list += cst_texts[i]
 
-    cst_text_set = set()
+    words_list: list = []
 
     for book in cst_texts_list:
         with open(PTH.cst_txt_dir.joinpath(book), "r") as f:
             text_string = f.read()
             text_string = clean_machine(text_string, niggahita=niggahita)
-            text_set = text_string.split()
-            cst_text_set.update(text_set)
+            words_list.extend(text_string.split())
 
-    return cst_text_set
+    if return_list is True:
+        return words_list
+    else:
+        return set(words_list)
 
 
-def make_sc_text_set(books: list, niggahita="ṃ") -> set:
-    """Make a set of words in Sutta Central texts based on a list of books."""
+def make_sc_text_set(books: list, niggahita="ṃ", return_list=False) -> set:
+    """Make a list of words in Sutta Central texts from a list of books.
+    Return a list or a set."""
 
     # make a list of file names of included books
     sc_texts_list: list = []
@@ -48,7 +54,7 @@ def make_sc_text_set(books: list, niggahita="ṃ") -> set:
             print(f"[red]book does not exist: {e}")
             return set()
 
-    sc_text_set: set = set()
+    words_list: list = []
 
     for root, dirs, files in sorted(os.walk(PTH.sc_dir)):
         for file in files:
@@ -58,9 +64,12 @@ def make_sc_text_set(books: list, niggahita="ṃ") -> set:
                     sc_text_dict: dict = json.load(f)
                     for title, text in sc_text_dict.items():
                         clean_text = clean_machine(text, niggahita=niggahita)
-                        sc_text_set.update(clean_text.split())
+                        words_list.extend(clean_text.split())
 
-    return sc_text_set
+    if return_list is True:
+        return words_list
+    else:
+        return set(words_list)
 
 
 def make_bjt_text_set(include):
@@ -83,3 +92,21 @@ def make_bjt_text_set(include):
 
     print(f"[white]{len(bjt_text_set):>10,}")
     return bjt_text_set
+
+
+def make_mula_words_set():
+    """Returns a set of all words in cst & sc mūla texts.
+    Usage: mula_word_set = make_mula_words_set()"""
+    cst_word_set = make_cst_text_set(mula_books)
+    sc_word_set = make_sc_text_set(mula_books)
+    mula_word_set = cst_word_set | sc_word_set
+    return mula_word_set
+
+
+def make_all_words_set():
+    """Returns a set of all words in cst & sc texts.
+    Usage: all_words_set = make_all_words_set()"""
+    cst_word_set = make_cst_text_set(all_books)
+    sc_word_set = make_sc_text_set(all_books)
+    all_words_set = cst_word_set | sc_word_set
+    return all_words_set

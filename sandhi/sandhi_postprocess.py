@@ -1,18 +1,13 @@
 #!/usr/bin/env python3.11
 
-import os
 import pickle
-import json
-
 import numpy as np
 import pandas as pd
 
 from rich import print
 from difflib import SequenceMatcher
-from css_html_js_minify import css_minify
 
-
-from dpr_breakup import make_dpr_breakup_dict
+from transliterate_sandhi import transliterate_sandhi
 
 from db.get_db_session import get_db_session
 from db.models import Sandhi
@@ -45,10 +40,6 @@ def main():
     transliterate_sandhi()
     make_rule_counts(PTH, matches_df)
     letter_counts(PTH, matches_df)
-
-    dpr_breakup_dict = make_dpr_breakup_dict(PTH)
-    make_golden_dict(PTH, top_five_dict, dpr_breakup_dict)
-    unzip_and_copy(PTH)
     toc()
 
 
@@ -168,77 +159,6 @@ def add_to_dpd_db(top_five_dict):
     db_session.close()
 
     print(f"{len(add_to_db)}")
-
-
-def make_golden_dict(PTH, top_five_dict, dpr_breakup_dict):
-
-    # !!! make goldendict from db using inflections
-
-    print("[green]generating goldendict", end=" ")
-
-    with open(PTH.sandhi_css_path) as f:
-        sandhi_css = f.read()
-    sandhi_css = css_minify(sandhi_css)
-
-    sandhi_data_list = []
-    for word, split_list in top_five_dict.items():
-        html_string = sandhi_css
-        html_string += "<body><div class='sandhi'><p class='sandhi'>"
-
-        for split in split_list:
-            html_string += split
-
-            if split != split_list[-1]:
-                html_string += "<br>"
-            else:
-                html_string += "</p></div>"
-
-        if word in dpr_breakup_dict:
-            html_string += dpr_breakup_dict[word]
-
-        html_string += "</body>"
-
-        sandhi_data_list += [{
-            "word": word,
-            "definition_html": html_string,
-            "definition_plain": "",
-            "synonyms": ""
-        }]
-
-    for word, breakup in dpr_breakup_dict.items():
-        if word not in top_five_dict:
-            html_string = sandhi_css
-            html_string += f"<body>{breakup}</body>"
-
-        sandhi_data_list += [{
-            "word": word,
-            "definition_html": html_string,
-            "definition_plain": "",
-            "synonyms": ""
-        }]
-
-    zip_path = PTH.sandhi_zip_path
-
-    ifo = ifo_from_opts({
-        "bookname": "DPD Splitter",
-        "author": "Bodhirasa",
-        "description": "DPD Splitter + DPR Analysis",
-        "website": "https://digitalpalidictionary.github.io/"
-        })
-
-    export_words_as_stardict_zip(sandhi_data_list, ifo, zip_path)
-
-    print("[white]ok")
-
-
-def unzip_and_copy(PTH):
-
-    print("[green]unipping and copying goldendict", end=" ")
-
-    os.popen(
-        f'unzip -o {PTH.sandhi_zip_path} -d "/home/bhikkhu/Documents/Golden Dict"')
-
-    print("[white]ok")
 
 
 def make_rule_counts(PTH, matches_df):

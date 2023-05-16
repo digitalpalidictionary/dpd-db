@@ -39,6 +39,7 @@ def main():
         DB_SESSION, PTH, SANDHI_CONTRACTIONS, size_dict)
     epd_data_list, size_dict = generate_epd_html(DB_SESSION, PTH, size_dict)
     help_data_list, size_dict = generate_help_html(DB_SESSION, PTH, size_dict)
+    DB_SESSION.close()
 
     combined_data_list: list = (
         dpd_data_list +
@@ -52,8 +53,6 @@ def main():
     export_to_goldendict(combined_data_list)
     goldendict_unzip_and_copy()
     export_to_mdict(combined_data_list, PTH)
-
-    DB_SESSION.close()
     toc()
 
 

@@ -26,9 +26,9 @@ class ProjectPaths():
     ebook_output_text_dir = Path("ebook/output/Text")
 
     # /ebook/templates
-    ebook_header_templ_path = Path("ebook/templates/ebook_header.html")
     ebook_letter_templ_path = Path("ebook/templates/ebook_letter.html")
     ebook_entry_templ_path = Path("ebook/templates/ebook_entry.html")
+    ebook_sandhi_templ_path = Path("ebook/templates/ebook_sandhi_entry.html")
 
     # /exporter/css
     dpd_css_path: Path = Path("exporter/css/dpd.css")
@@ -132,6 +132,7 @@ class ProjectPaths():
     grammar_dict_output_html_dir: Path = Path("grammar_dict/output/html")
     grammar_dict_pickle_path: Path = Path(
         "grammar_dict/output/grammar_dict_pickle")
+    grammar_dict_tsv_path = Path("grammar_dict/output/grammar_dict.tsv")
 
     # /gui/stash
     stash_path: Path = Path("gui/stash/stash")

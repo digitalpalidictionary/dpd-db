@@ -53,7 +53,9 @@ def window_layout():
     window['book_to_add'].bind("<Return>", "_enter")
     window['search_for'].bind("<Return>", "_enter")
     window['contains'].bind("<Return>", "_enter")
+    window['bold_cc'].bind("<Return>", "_enter")
     window['bold_1'].bind("<Return>", "_enter")
+    window['bold_2'].bind("<Return>", "_enter")
     window['add_construction'].bind("<Return>", "_enter")
 
     # bind tab keys to jump to next field in multiline elements

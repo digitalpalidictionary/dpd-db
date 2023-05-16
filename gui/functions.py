@@ -16,6 +16,7 @@ from tools.clean_machine import clean_machine
 from tools.pali_text_files import cst_texts, sc_texts
 from tools.pos import INDECLINEABLES
 from tools.pali_alphabet import pali_alphabet
+from tools.cst_sc_text_sets import make_cst_text_set
 from tools.cst_sc_text_sets import make_sc_text_set
 from tools.paths import ProjectPaths as PTH
 
@@ -569,9 +570,32 @@ def find_sutta_example(sg, window, values: dict) -> str:
             # remove the digits and the dot in sutta name
             sutta = re.sub(r"\d*\. ", "", p.text)
 
-        # # for kn1
-        elif p["rend"] == "chapter":
-            pass
+        # kn1
+        if values["book_to_add"] == "kn1":
+            book = "KHP"
+            chapter_text = None
+            if not chapter_text:
+                chapter_div = p.find_parent("div", {"type": "chapter"})
+                if chapter_div:
+                    chapter_text = chapter_div.find("head").get_text()
+                    pattern = r"^(\d+)\.\s+(.*)$"
+                    match = re.match(pattern, chapter_text)
+                    source = f"{book}{match.group(1)}"
+                    sutta = match.group(2)
+
+        # kn2
+        elif values["book_to_add"] == "kn2":
+            book = "DHP"
+            if p.has_attr("rend") and p["rend"] == "hangnum":
+                # Find the previous "head" tag with "rend" attribute containing "chapter"
+                chapter_head = p.find_previous("head", attrs={"rend": "chapter"})
+                if chapter_head is not None:
+                    chapter_text = chapter_head.string.strip()
+                    pattern = r"^(\d+)\.\s+(.*)$"
+                    match = re.match(pattern, chapter_text)
+                    if match:
+                        source = f"{book}{match.group(1)}"
+                        sutta = match.group(2)
 
         text = clean_example(p.text)
 
@@ -704,19 +728,21 @@ def find_gathalast(p, example):
 
 
 def make_words_to_add_list(window, book: str) -> list:
-    text_list = make_text_list(window, PTH, book)
-    sc_text_set = make_sc_text_set([book])
-    text_list.extend(sc_text_set)
+    cst_text_list = make_cst_text_set([book], return_list=True)
+    sc_text_list = make_sc_text_set([book], return_list=True)
+    original_text_list = cst_text_list + sc_text_list
+
     sp_mistakes_list = make_sp_mistakes_list(PTH)
     variant_list = make_variant_list(PTH)
     sandhi_ok_list = make_sandhi_ok_list(PTH)
     all_inflections_set = make_all_inflections_set()
 
-    text_set = set(text_list) - set(sandhi_ok_list)
+    text_set = set(cst_text_list) | set(sc_text_list)
+    text_set = text_set - set(sandhi_ok_list)
     text_set = text_set - set(sp_mistakes_list)
     text_set = text_set - set(variant_list)
     text_set = text_set - all_inflections_set
-    text_list = sorted(text_set, key=lambda x: text_list.index(x))
+    text_list = sorted(text_set, key=lambda x: original_text_list.index(x))
     print(f"words_to_add: {len(text_list)}")
 
     with open("xxx delete/text_list.tsv", "w") as f:
@@ -726,23 +752,23 @@ def make_words_to_add_list(window, book: str) -> list:
     return text_list
 
 
-def make_text_list(window, PTH, book: str) -> list:
-    text_list = []
+# def make_text_list(window, PTH, book: str) -> list:
+#     text_list = []
 
-    if book in cst_texts and book in sc_texts:
-        for b in cst_texts[book]:
-            filepath = PTH.cst_txt_dir.joinpath(b)
-            with open(filepath) as f:
-                text_read = f.read()
-                text_clean = clean_machine(text_read)
-                text_list += text_clean.split()
+#     if book in cst_texts and book in sc_texts:
+#         for b in cst_texts[book]:
+#             filepath = PTH.cst_txt_dir.joinpath(b)
+#             with open(filepath) as f:
+#                 text_read = f.read()
+#                 text_clean = clean_machine(text_read)
+#                 text_list += text_clean.split()
 
-    else:
-        window["messages"].update(
-            f"{book} not found", text_color="red")
+#     else:
+#         window["messages"].update(
+#             f"{book} not found", text_color="red")
 
-    print(f"text list: {len(text_list)}")
-    return text_list
+#     print(f"text list: {len(text_list)}")
+#     return text_list
 
 
 def make_sp_mistakes_list(PTH):
@@ -945,7 +971,7 @@ def test_construction(values, window, pali_clean_list):
     window["construction_error"].update(error_string, text_color="red")
 
 
-def replace_sandhi(string, field, sandhi_dict, window):
+def replace_sandhi(string, field: str, sandhi_dict: dict, window) -> None:
     global pali_alphabet
     pali_alphabet = "".join(pali_alphabet)
     splits = re.split(f"([^{pali_alphabet}])", string)

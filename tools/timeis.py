@@ -50,7 +50,7 @@ def bip():
 def bop():
     elapsed_time = time.time() - start_time
     # return f"{elapsed_time:.2f}"
-    return elapsed_time
+    return round(elapsed_time, 3)
 
 
 def today():

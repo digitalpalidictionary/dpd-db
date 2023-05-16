@@ -137,17 +137,17 @@ class PaliWord(Base):
     sanskrit: Mapped[Optional[str]] = mapped_column(default='')
 
     root_key: Mapped[Optional[str]] = mapped_column(
-        ForeignKey("pali_roots.root"))
+        ForeignKey("pali_roots.root"), default='')
     root_sign: Mapped[Optional[str]] = mapped_column(default='')
     root_base: Mapped[Optional[str]] = mapped_column(default='')
 
     family_root: Mapped[Optional[str]] = mapped_column(default='')
         # ForeignKey("family_root.root_family"))
     family_word: Mapped[Optional[str]] = mapped_column(
-        ForeignKey("family_word.word_family"))
+        ForeignKey("family_word.word_family"), default='')
     family_compound: Mapped[Optional[str]] = mapped_column(default='')
     family_set: Mapped[Optional[str]] = mapped_column(
-        ForeignKey("family_set.set"))
+        ForeignKey("family_set.set"), default='')
 
     construction:  Mapped[Optional[str]] = mapped_column(default='')
     derivative: Mapped[Optional[str]] = mapped_column(default='')

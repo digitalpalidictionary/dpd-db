@@ -29,7 +29,7 @@ gui/stash/stash
 inflections/tests/inflection_pattern_dict
 log.txt
 output.zip
-resources/Tipitaka-Pali-Projector/*
+resources/Tipitaka-Pali-Projector/
 sandhi.zip
 sandhi/!old sandhi-splitter.py
 sandhi/assets/*
@@ -42,3 +42,5 @@ tbw/output/i2h.json
 tmp/
 ebook/output/Text
 tbw/output/
+ebook/output/dpd_data.zip
+grammar_dict/output/grammar_dict.tsv

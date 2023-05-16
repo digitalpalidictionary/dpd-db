@@ -38,12 +38,10 @@ def main():
         global map_same
         global changed_templates
         global changed_headwords
-        global data_file_missing
         global html_file_missing
         map_same = True
         changed_templates = []
         changed_headwords = []
-        data_file_missing = []
         html_file_missing = []
 
     dicts = make_dfs_and_dicts()
@@ -365,7 +363,6 @@ def make_data_dict_and_html(dicts):
             (map_same is False or
                 i.pattern in changed_templates or
                 i.pali_1 in changed_headwords or
-                i.id in data_file_missing or
                 i.id in html_file_missing or
                 regenerate is True):
 
