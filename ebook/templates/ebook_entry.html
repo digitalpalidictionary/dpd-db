@@ -8,6 +8,12 @@
             </idx:infl>
         </idx:orth>
         <p class="body-space">${summary}</p>
+        % if grammar_table:
+            ${grammar_table}
+        % endif
+        % if examples:
+            ${examples}
+        % endif
     </idx:short>
 </idx:entry>
-<hr />
+<hr/>

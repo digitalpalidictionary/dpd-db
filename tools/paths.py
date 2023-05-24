@@ -12,7 +12,8 @@ class ProjectPaths():
         "definitions/definitions.csv")
 
     # /csvs
-    vocab_csv_path: Path = Path("csvs/dpd-full.csv")
+    vocab_csv_path: Path = Path("csvs/vocab.csv")
+    dpd_full_path: Path = Path("csvs/dpd-full.csv")
     commentary_csv_path: Path = Path("csvs/commentary.csv")
     pass1_csv_path: Path = Path("csvs/pass1.csv")
     roots_csv_path: Path = Path("csvs/roots.csv")
@@ -21,14 +22,31 @@ class ProjectPaths():
     pali_word_path: Path = Path("backups/PaliWord.tsv")
     pali_root_path: Path = Path("backups/PaliRoot.tsv")
 
+    # ebook
+    epub_dir: Path = Path("ebook/epub/")
+    kindlegen_path: Path = Path("ebook/kindlegen")
+
+    # ebook/epub
+    epub_text_dir: Path = Path("ebook/epub/OEBPS/Text")
+    epub_content_opf_path: Path = Path(
+        "ebook/ebook/epub/OEBPS/content.opf")
+
     # /ebook/output
     ebook_output_dir = Path("ebook/output/")
-    ebook_output_text_dir = Path("ebook/output/Text")
+    dpd_epub_path: Path = Path("ebook/output/dpd-kindle.epub")
+    dpd_mobi_path: Path = Path("ebook/output/dpd-kindle.mobi")
 
     # /ebook/templates
-    ebook_letter_templ_path = Path("ebook/templates/ebook_letter.html")
-    ebook_entry_templ_path = Path("ebook/templates/ebook_entry.html")
-    ebook_sandhi_templ_path = Path("ebook/templates/ebook_sandhi_entry.html")
+    ebook_letter_templ_path: Path = Path(
+        "ebook/templates/ebook_letter.html")
+    ebook_entry_templ_path: Path = Path(
+        "ebook/templates/ebook_entry.html")
+    ebook_sandhi_templ_path: Path = Path(
+        "ebook/templates/ebook_sandhi_entry.html")
+    ebook_grammar_templ_path: Path = Path(
+        "ebook/templates/ebook_grammar.html")
+    ebook_example_templ_path: Path = Path(
+        "ebook/templates/ebook_example.html")
 
     # /exporter/css
     dpd_css_path: Path = Path("exporter/css/dpd.css")
@@ -52,6 +70,7 @@ class ProjectPaths():
     grammar_dict_zip_path: Path = Path("exporter/share/dpd-grammar.zip")
     grammar_dict_mdict_path: Path = Path(
         "exporter/share/dpd-grammar-mdict.mdx")
+    dpd_kindle_path: Path = Path("exporter/share/dpd-kindle.mobi")
 
     # /exporter/templates
     templates_dir: Path = Path("exporter/templates")
@@ -269,7 +288,7 @@ class ProjectPaths():
     thanks_path: Path = Path(
         "../digitalpalidictionary-website-source/src/thanks.md")
     old_roots_csv_path: Path = Path("../csvs/roots.csv")
-    dpd_full_path: Path = Path("../csvs/dpd-full.csv")
+    old_dpd_full_path: Path = Path("../csvs/dpd-full.csv")
     bjt_text_path: Path = Path(
         "../../../../git/tipitaka.lk/public/static/text roman/")
 

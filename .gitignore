@@ -44,3 +44,5 @@ ebook/output/Text
 tbw/output/
 ebook/output/dpd_data.zip
 grammar_dict/output/grammar_dict.tsv
+ebook/output/
+ebook/xavier_epub/

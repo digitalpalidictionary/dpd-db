@@ -17,7 +17,12 @@
 </head>
 
 <body>
-    <h1 class="heading1">${letter}</h1>
+    % if letter == "a":
+        <h1 class="heading1">Pāḷi-English</h1>
+        <h2 class="heading2" id="toc_id_a">a</h2>
+    % else:
+        <h2 class="heading2">${letter}</h2>
+    % endif
     <mbp:frameset>
         ${entries}
     </mbp:frameset>

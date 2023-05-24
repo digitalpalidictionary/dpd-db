@@ -1,5 +1,10 @@
+import os
+import shutil
+import subprocess
+
 from mako.template import Template
 from rich import print
+from zipfile import ZipFile, ZIP_DEFLATED
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord, Sandhi
@@ -25,10 +30,13 @@ ebook_sandhi_templ = Template(
     filename=str(PTH.ebook_sandhi_templ_path))
 ebook_letter_tmpl = Template(
     filename=str(PTH.ebook_letter_templ_path))
+ebook_grammar_templ = Template(
+    filename=str(PTH.ebook_grammar_templ_path))
+ebook_example_templ = Template(
+    filename=str(PTH.ebook_example_templ_path))
 
 
-def main():
-    tic()
+def render_xhtml():
     print("[bright_yellow]rendering dpd for ebook")
 
     print(f"[green]{'querying dpd db':<40}", end="")
@@ -122,18 +130,22 @@ def main():
     total = 0
 
     for counter, (letter, entries) in enumerate(letter_dict.items()):
+        ascii_letter = letter\
+            .replace("ā", "a").replace("ī", "i").replace("ū", "u")\
+            .replace("ṅ", "n").replace("ṇ", "n")\
+            .replace("ṭ", "t").replace("ḍ", "d").replace("ñ", "n")\
+            .replace("ḷ", "l").replace("ṃ", "m")
         total += len(entries)
         entries = "".join(entries)
         xhtml = render_ebook_letter_tmpl(letter, entries)
-        output_path = PTH.ebook_output_text_dir.joinpath(
-            f"{counter}. {letter}.xhtml")
+        output_path = PTH.epub_text_dir.joinpath(
+            f"{counter}_{ascii_letter}.xhtml")
 
         with open(output_path, "w") as f:
             f.write(xhtml)
 
     print(f"{total:>10,} : {'included':<10}")
     print(f"{len(excluded):>10,} : {'excluded':<10}")
-    toc()
 
 # -----------------------------------------------------------------------------------------
 # functions to create the various templates
@@ -156,12 +168,64 @@ def render_ebook_entry(counter: int, i: PaliWord, inflections: set) -> str:
     if "&" in summary:
         summary = summary.replace("&", "and")
 
+    grammar_table = render_grammar_templ(i)
+    if "&" in grammar_table:
+        grammar_table = grammar_table.replace("&", "and")
+
+    examples = render_example_templ(i)
+
     return str(ebook_entry_templ.render(
             counter=counter,
             pali_1=i.pali_1,
             pali_clean=i.pali_clean,
             inflections=inflections,
-            summary=summary))
+            summary=summary,
+            grammar_table=grammar_table,
+            examples=examples))
+
+
+def render_grammar_templ(i: PaliWord) -> str:
+    """html table of grammatical information"""
+
+    if i.meaning_1 != "":
+        i.construction = i.construction.replace("\n", "<br/>")
+        i.phonetic = i.phonetic.replace("\n", "<br/>")
+
+        grammar = i.grammar
+        if i.neg != "":
+            grammar += f", {i.neg}"
+        if i.verb != "":
+            grammar += f", {i.verb}"
+        if i.trans != "":
+            grammar += f", {i.trans}"
+        if i.plus_case != "":
+            grammar += f" ({i.plus_case})"
+
+        meaning = f"{make_meaning_html(i)}"
+
+        return str(
+            ebook_grammar_templ.render(
+                i=i,
+                grammar=grammar,
+                meaning=meaning,))
+
+    else:
+        return ""
+
+
+def render_example_templ(i: PaliWord) -> str:
+    """render sutta examples html"""
+    i.example_1 = i.example_1.replace("\n", "<br/>")
+    i.example_2 = i.example_2.replace("\n", "<br/>")
+    i.sutta_1 = i.sutta_1.replace("\n", "<br/>")
+    i.sutta_2 = i.sutta_2.replace("\n", "<br/>")
+
+    if i.meaning_1 and i.example_1:
+        return str(
+            ebook_example_templ.render(
+                i=i))
+    else:
+        return ""
 
 
 def render_sandhi_entry(counter: int, i: Sandhi) -> str:
@@ -184,5 +248,39 @@ def render_ebook_letter_tmpl(letter: str, entries: str) -> str:
             entries=entries))
 
 
+def zip_epub():
+    """Zip up the epub dir and name it dpd-kindle.epub."""
+    print(f"[green]zipping up epub")
+    with ZipFile(PTH.dpd_epub_path, "w", ZIP_DEFLATED) as zipf:
+        for root, _, files in os.walk(PTH.epub_dir):
+            for file in files:
+                file_path = os.path.join(root, file)
+                zipf.write(file_path, os.path.relpath(file_path, PTH.epub_dir))
+
+
+def make_mobi():
+    """Run kindlegen to convert epub to mobi."""
+    print("[green]converting epub to mobi")
+
+    process = subprocess.Popen(
+        [str(PTH.kindlegen_path), str(PTH.dpd_epub_path)],
+        stdout=subprocess.PIPE, text=True)
+
+    for line in process.stdout:
+        print(line, end='')
+    process.wait()
+
+
+def copy_mobi():
+    """Copy the mobi to the exporter/share dir."""
+    print("[green]copying mobi to exporter/share")
+    shutil.copy2(PTH.dpd_mobi_path, PTH.dpd_kindle_path)
+
+
 if __name__ == "__main__":
-    main()
+    tic()
+    render_xhtml()
+    zip_epub()
+    make_mobi()
+    copy_mobi()
+    toc()
