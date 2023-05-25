@@ -1,7 +1,9 @@
+import csv
 import os
 import shutil
 import subprocess
 
+from datetime import datetime
 from mako.template import Template
 from rich import print
 from zipfile import ZipFile, ZIP_DEFLATED
@@ -10,14 +12,14 @@ from db.get_db_session import get_db_session
 from db.models import PaliWord, Sandhi
 from db.models import DerivedData
 
+from tools.cst_sc_text_sets import make_cst_text_set
+from tools.cst_sc_text_sets import make_sc_text_set
+from tools.diacritics_cleaner import diacritics_cleaner
+from tools.first_letter import find_first_letter
 from tools.meaning_construction import make_meaning_html
 from tools.meaning_construction import summarize_constr
 from tools.meaning_construction import degree_of_completion
-
-from tools.cst_sc_text_sets import make_cst_text_set
-from tools.cst_sc_text_sets import make_sc_text_set
 from tools.pali_alphabet import pali_alphabet
-from tools.first_letter import find_first_letter
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths as PTH
 from tools.sandhi_words import make_words_in_sandhi_set
@@ -34,6 +36,10 @@ ebook_grammar_templ = Template(
     filename=str(PTH.ebook_grammar_templ_path))
 ebook_example_templ = Template(
     filename=str(PTH.ebook_example_templ_path))
+ebook_abbreviation_entry_templ = Template(
+    filename=str(PTH.ebook_abbrev_entry_templ_path))
+ebook_title_page_templ = Template(
+    filename=str(PTH.ebook_title_page_templ_path))
 
 
 def render_xhtml():
@@ -99,14 +105,14 @@ def render_xhtml():
     # add all words which have inflections in all_words_set
     print("[green]creating entries")
     excluded = []
-    word_counter = 1
+    id_counter = 1
     for counter, i in enumerate(dpd_db):
         inflections: set = dd_dict[i.id]
         if bool(inflections & all_words_set):
             first_letter = find_first_letter(i.pali_1)
-            entry = render_ebook_entry(word_counter, i, inflections)
+            entry = render_ebook_entry(id_counter, i, inflections)
             letter_dict[first_letter] += [entry]
-            word_counter += 1
+            id_counter += 1
         else:
             excluded += [i.pali_1]
 
@@ -118,23 +124,19 @@ def render_xhtml():
     for counter, i in enumerate(sandhi_db):
         if bool(set(i.sandhi) & all_words_set):
             first_letter = find_first_letter(i.sandhi)
-            entry = render_sandhi_entry(word_counter, i)
+            entry = render_sandhi_entry(id_counter, i)
             letter_dict[first_letter] += [entry]
-            word_counter += 1
+            id_counter += 1
 
         if counter % 5000 == 0:
             print(f"{counter:>10,} / {len(sandhi_db):<10,} {i.sandhi}")
 
     # save to a single file for each letter of the alphabet
-    print("[green]saving entries")
+    print("[green]saving entries xhtml")
     total = 0
 
     for counter, (letter, entries) in enumerate(letter_dict.items()):
-        ascii_letter = letter\
-            .replace("ā", "a").replace("ī", "i").replace("ū", "u")\
-            .replace("ṅ", "n").replace("ṇ", "n")\
-            .replace("ṭ", "t").replace("ḍ", "d").replace("ñ", "n")\
-            .replace("ḷ", "l").replace("ṃ", "m")
+        ascii_letter = diacritics_cleaner(letter)
         total += len(entries)
         entries = "".join(entries)
         xhtml = render_ebook_letter_tmpl(letter, entries)
@@ -146,6 +148,8 @@ def render_xhtml():
 
     print(f"{total:>10,} : {'included':<10}")
     print(f"{len(excluded):>10,} : {'excluded':<10}")
+
+    return id_counter+1
 
 # -----------------------------------------------------------------------------------------
 # functions to create the various templates
@@ -248,9 +252,63 @@ def render_ebook_letter_tmpl(letter: str, entries: str) -> str:
             entries=entries))
 
 
+def save_abbreviations_xhtml_page(id_counter):
+    """Render xhtml of all DPD abbreviaitons and save as a page."""
+    print(f"[green]{'saving abbreviations xhtml':<40}", end="")
+    abbreviations_list = []
+
+    with open(
+        PTH.abbreviations_tsv_path, "r",
+            newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f, delimiter="\t")
+
+        for row in reader:
+            abbreviations_list.append(row)
+
+    abbreviation_entries = []
+    for i in abbreviations_list:
+        abbreviation_entries += [
+            render_abbreviation_entry(id_counter, i)]
+        id_counter += 1
+
+    entries = "".join(abbreviation_entries)
+    entries = entries.replace(" > ", " &gt; ")
+    xhtml = render_ebook_letter_tmpl("Abbreviations", entries)
+
+    with open(PTH.epub_abbreviations_path, "w") as f:
+        f.write(xhtml)
+
+    print(f"{len(abbreviations_list):>10,}")
+
+
+def render_abbreviation_entry(counter: int, i: dict) -> str:
+    """Render a single abbreviations entry."""
+
+    return str(ebook_abbreviation_entry_templ.render(
+            counter=counter,
+            i=i))
+
+
+def save_title_page_xhtml():
+    """Save date and time in title page xhtml."""
+    print(f"[green]{'saving titlepage xhtml':<40}", end="")
+    current_datetime = datetime.now()
+    date = current_datetime.strftime("%Y-%m-%d")
+    time = current_datetime.strftime("%H:%M")
+
+    xhtml = str(ebook_title_page_templ.render(
+            date=date,
+            time=time))
+
+    with open(PTH.epub_titlepage_path, "w") as f:
+        f.write(xhtml)
+
+    print(f"{'OK':>10}")
+
+
 def zip_epub():
     """Zip up the epub dir and name it dpd-kindle.epub."""
-    print(f"[green]zipping up epub")
+    print("[green]zipping up epub")
     with ZipFile(PTH.dpd_epub_path, "w", ZIP_DEFLATED) as zipf:
         for root, _, files in os.walk(PTH.epub_dir):
             for file in files:
@@ -279,7 +337,9 @@ def copy_mobi():
 
 if __name__ == "__main__":
     tic()
-    render_xhtml()
+    id_counter = render_xhtml()
+    save_abbreviations_xhtml_page(id_counter)
+    save_title_page_xhtml()
     zip_epub()
     make_mobi()
     copy_mobi()

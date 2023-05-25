@@ -30,6 +30,10 @@ class ProjectPaths():
     epub_text_dir: Path = Path("ebook/epub/OEBPS/Text")
     epub_content_opf_path: Path = Path(
         "ebook/ebook/epub/OEBPS/content.opf")
+    epub_abbreviations_path: Path = Path(
+        "ebook/epub/OEBPS/Text/abbreviations.xhtml")
+    epub_titlepage_path: Path = Path(
+        "ebook/epub/OEBPS/Text/titlepage.xhtml")
 
     # /ebook/output
     ebook_output_dir = Path("ebook/output/")
@@ -47,6 +51,10 @@ class ProjectPaths():
         "ebook/templates/ebook_grammar.html")
     ebook_example_templ_path: Path = Path(
         "ebook/templates/ebook_example.html")
+    ebook_abbrev_entry_templ_path: Path = Path(
+        "ebook/templates/ebook_abbreviation_entry.html")
+    ebook_title_page_templ_path: Path = Path(
+        "ebook/templates/ebook_titlepage.html")
 
     # /exporter/css
     dpd_css_path: Path = Path("exporter/css/dpd.css")
@@ -55,13 +63,15 @@ class ProjectPaths():
     epd_css_path: Path = Path("exporter/css/epd.css")
     help_css_path: Path = Path("exporter/css/help.css")
     grammar_css_path = Path("exporter/css/grammar.css")
+    variant_spelling_css_path = Path("exporter/css/variant_spelling.css")
+
+    # /exporter/help
+    abbreviations_tsv_path: Path = Path(
+        "exporter/help/abbreviations.tsv")
+    help_tsv_path: Path = Path("exporter/help/help.tsv")
 
     # /exporter/javascript
     buttons_js_path: Path = Path("exporter/javascript/buttons.js")
-
-    # /exporter/output
-    exporter_output_dir: Path = Path("exporter/output")
-    tpr_sql_file_path: Path = Path("exporter/output/dpd.sql")
 
     # /exporter/share
     zip_dir: Path = Path("exporter/share")
@@ -95,6 +105,10 @@ class ProjectPaths():
         "exporter/templates/dpd_frequency.html")
     feedback_templ_path: Path = Path(
         "exporter/templates/dpd_feedback.html")
+    variant_templ_path: Path = Path(
+        "exporter/templates/dpd_variant_reading.html")
+    spelling_templ_path: Path = Path(
+        "exporter/templates/dpd_spelling_mistake.html")
 
     # # root templates
     root_definition_templ_path: Path = Path(
@@ -123,10 +137,12 @@ class ProjectPaths():
     header_grammar_dict_templ_path: Path = Path(
         "exporter/templates/header_grammar_dict.html")
 
-    # /exporter/help
-    abbreviations_tsv_path: Path = Path(
-        "exporter/help/abbreviations.tsv")
-    help_tsv_path: Path = Path("exporter/help/help.tsv")
+    # /exporter/tpr
+    tpr_dir: Path = Path("exporter/tpr")
+    tpr_sql_file_path: Path = Path("exporter/tpr/dpd.sql")
+    tpr_dpd_tsv_path: Path = Path("exporter/tpr/dpd.tsv")
+    tpr_i2h_tsv_path: Path = Path("exporter/tpr/i2h.tsv")
+    tpr_splitter_tsv_path: Path = Path("exporter/tpr/splitter.tsv")
 
     # /frequency/output
     raw_text_dir: Path = Path("frequency/output/raw_text/")
@@ -244,14 +260,10 @@ class ProjectPaths():
         "sandhi/sandhi_related/sandhi_exceptions.tsv")
     spelling_mistakes_path: Path = Path(
         "sandhi/sandhi_related/spelling_mistakes.tsv")
-    variant_path: Path = Path("sandhi/sandhi_related/variant_readings.tsv")
+    variant_readings_path: Path = Path("sandhi/sandhi_related/variant_readings.tsv")
     sandhi_rules_path: Path = Path("sandhi/sandhi_related/sandhi_rules.tsv")
     manual_corrections_path: Path = Path(
         "sandhi/sandhi_related/manual_corrections.tsv")
-    spelling_corrections_path: Path = Path(
-        "sandhi/sandhi_related/spelling_mistakes.tsv")
-    variant_readings_path: Path = Path(
-        "sandhi/sandhi_related/variant_readings.tsv")
     shortlist_path: Path = Path("sandhi/sandhi_related/shortlist.tsv")
 
     # /share
@@ -263,8 +275,8 @@ class ProjectPaths():
     inflection_templates_pickle_path: Path = Path("share/inflection_templates")
     headword_stem_pattern_dict_path: Path = Path(
         "share/headword_stem_pattern_dict")
-    inflection_to_headwords_dict_path: Path = Path(
-        "share/inflection_to_headwords_dict.tsv")
+    # inflection_to_headwords_dict_path: Path = Path(
+    #     "share/inflection_to_headwords_dict.tsv")
     inflections_to_translit_json_path: Path = Path(
         "share/inflections_to_translit.json")
     inflections_from_translit_json_path: Path = Path(
@@ -296,7 +308,7 @@ class ProjectPaths():
     def create_dirs(cls):
         for d in [
             cls.zip_dir,
-            cls.exporter_output_dir,
+            cls.tpr_dir,
             cls.ebook_output_dir,
             cls.grammar_dict_output_dir,
             cls.grammar_dict_output_html_dir,

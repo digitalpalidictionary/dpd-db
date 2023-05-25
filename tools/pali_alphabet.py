@@ -1,5 +1,5 @@
 pali_alphabet = [
-    "a", "ā", "i", "ī", "u", "ū", "o", "e",
+    "a", "ā", "i", "ī", "u", "ū", "e", "o",
     "k", "kh", "g", "gh", "ṅ",
     "c", "ch", "j", "jh", "ñ",
     "ṭ", "ṭh", "ḍ", "ḍh", "ṇ",
@@ -10,7 +10,7 @@ pali_alphabet = [
 
 
 vowels = [
-    "a", "ā", "i", "ī", "u", "ū", "o", "e"
+    "a", "ā", "i", "ī", "u", "ū", "e", "o"
     ]
 
 consonants = [
@@ -19,7 +19,7 @@ consonants = [
     "ṭ", "ṭh", "ḍ", "ḍh", "ṇ",
     "t", "th", "d", "dh", "n",
     "p", "ph", "b", "bh", "m",
-    "y", "r", "l", "s", "v", "h", "ṃ"
+    "y", "r", "l", "s", "v", "h", "ḷ", "ṃ"
     ]
 
 unaspirated = [
@@ -75,5 +75,7 @@ niggahita = [
     "ṃ"
     ]
 
-alphabet = (vowels + gutterals + palatals +
-            retroflexes + dentals + labials + semi_vowels + niggahita)
+alphabet = (
+    vowels +
+    gutterals + palatals + retroflexes + dentals + labials +
+    semi_vowels + niggahita)

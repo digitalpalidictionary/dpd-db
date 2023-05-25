@@ -35,8 +35,8 @@
     <item id="x3_i.xhtml" href="Text/3_i.xhtml" media-type="application/xhtml+xml"/>
     <item id="x4_u.xhtml" href="Text/4_u.xhtml" media-type="application/xhtml+xml"/>
     <item id="x5_u.xhtml" href="Text/5_u.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x6_o.xhtml" href="Text/6_o.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x7_e.xhtml" href="Text/7_e.xhtml" media-type="application/xhtml+xml"/>
+    <item id="x6_e.xhtml" href="Text/6_e.xhtml" media-type="application/xhtml+xml"/>
+    <item id="x7_o.xhtml" href="Text/7_o.xhtml" media-type="application/xhtml+xml"/>
     <item id="x8_k.xhtml" href="Text/8_k.xhtml" media-type="application/xhtml+xml"/>
     <item id="x9_kh.xhtml" href="Text/9_kh.xhtml" media-type="application/xhtml+xml"/>
     <item id="x10_g.xhtml" href="Text/10_g.xhtml" media-type="application/xhtml+xml"/>
@@ -83,8 +83,8 @@
     <itemref idref="x3_i.xhtml"/>
     <itemref idref="x4_u.xhtml"/>
     <itemref idref="x5_u.xhtml"/>
-    <itemref idref="x6_o.xhtml"/>
-    <itemref idref="x7_e.xhtml"/>
+    <itemref idref="x6_e.xhtml"/>
+    <itemref idref="x7_o.xhtml"/>
     <itemref idref="x8_k.xhtml"/>
     <itemref idref="x9_kh.xhtml"/>
     <itemref idref="x10_g.xhtml"/>
