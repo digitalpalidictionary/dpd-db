@@ -97,7 +97,7 @@ def goldendict_unzip_and_copy() -> None:
 def write_size_dict(size_dict):
     bip()
     print("[green]writing size_dict", end=" ")
-    filename = "xxx delete/size_dict.tsv"
+    filename = PTH.temp_dir.joinpath("size_dict.tsv")
 
     with open(filename, "w", newline="") as csvfile:
         writer = csv.writer(csvfile, delimiter='\t')

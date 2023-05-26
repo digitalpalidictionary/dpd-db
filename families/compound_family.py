@@ -107,10 +107,6 @@ def add_cf_to_db(db_session, cf_dict):
             count=len(cf_dict[cf]["headwords"]))
         add_to_db.append(cf_data)
 
-        if counter % 1000 == 0:
-            with open(f"xxx delete/compound_family/{cf}.html", "w") as f:
-                f.write(cf_dict[cf]["html"])
-
     db_session.execute(FamilyCompound.__table__.delete())
     db_session.add_all(add_to_db)
     db_session.commit()

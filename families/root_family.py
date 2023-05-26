@@ -131,12 +131,6 @@ def add_rf_to_db(db_session, rf_dict):
 
         add_to_db.append(root_family)
 
-        if counter % 500 == 0:
-            # print(f"{counter:>10,} / {len(rf_dict):<10,} {rf}")
-            with open(
-                    f"xxx delete/root_subfamily/{rf}.html", "w") as f:
-                f.write(rf_dict[rf]["html"])
-
     db_session.execute(FamilyRoot.__table__.delete())
     db_session.add_all(add_to_db)
     db_session.commit()

@@ -2,6 +2,7 @@ from typing import Dict
 from rich import print
 from db.models import PaliWord
 from tools.pali_alphabet import pali_alphabet
+from tools.paths import ProjectPaths as PTH
 
 
 def make_sandhi_contraction_dict(db_session) -> Dict[[str, set], [str, list]]:
@@ -94,7 +95,8 @@ if __name__ == "__main__":
         "āyataggaṃ",
     ]
 
-    with open("xxx delete/sandhi_contraction.tsv", "w") as f:
+    filepath = PTH.temp_dir.joinpath("sandhi_contraction.tsv")
+    with open(filepath, "w") as f:
         for key, values in sandhi_contractions.items():
             contractions = values["contractions"]
 
@@ -110,10 +112,3 @@ if __name__ == "__main__":
                 counter += 1
 
         print(counter)
-
-
-# !!! put in 4 places !!!
-# 1. dpd exporter synonyms √
-# 2. sandhi exporter synonyms √
-# 3. external tests 
-# 4. gui eg1 eg2 and commentary √

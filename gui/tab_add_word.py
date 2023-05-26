@@ -43,16 +43,9 @@ Leave empty for long compounds."
 meaning_2_tooltip = "Meaning from another dictionary."
 non_ia_tooltip = "Cognate of the word in non Indo-Aryan languages?"
 sanskrit_tooltip = "Cogante of the word in Sanskrit."
-xxx_sanskrit_root_tooltip = ""
-xxx_sanskrit_root_meaning_tooltip = ""
-xxx_sanskrit_root_class_tooltip = ""
 root_key_tooltip = "Select a value from the dropdown list."
-xxx_root_in_comps_tooltip = ""
-xxx_root_has_verb_tooltip = ""
-xxx_root_group_tooltip = ""
 root_sign_tooltip = "Sign of the verb.\n\
 Inlclude '*' for causatives and group 8 verbs."
-xxx_root_meaning_tooltip = ""
 root_base_tooltip = "Root + sign = Base. (caus, pass, etc.)\n\
 If irregular, show phonetic development, e.g.\n\
 kar + *āpe  > kārāpe > karāpe (caus, irreg)."

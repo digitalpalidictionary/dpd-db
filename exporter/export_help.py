@@ -148,9 +148,6 @@ def add_help_html(PTH: Path, header: str, help_data_list: list) -> list:
             "synonyms": ""
         }]
 
-    with open(f"xxx delete/exporter_help/{i.help}.html", "w") as f:
-        f.write(html)
-
     print(f"{bop():>43}")
     return help_data_list
 
@@ -179,9 +176,6 @@ def add_bibliographhy(PTH: Path, header: str, help_data_list: list) -> list:
         "synonyms": synonyms
     }]
 
-    with open("xxx delete/exporter_help/bibliography.html", "w") as f:
-        f.write(html)
-
     print(f"{bop():>35}")
     return help_data_list
 
@@ -209,9 +203,6 @@ def add_thanks(PTH: Path, header: str, help_data_list: list) -> list:
         "definition_plain": "",
         "synonyms": synonyms
     }]
-
-    with open("xxx delete/exporter_help/thanks.html", "w") as f:
-        f.write(html)
 
     print(f"{bop():>41}")
     return help_data_list

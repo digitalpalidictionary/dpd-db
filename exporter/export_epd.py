@@ -127,8 +127,4 @@ def generate_epd_html(DB_SESSION: Session, PTH: ProjectPaths, size_dict) -> list
             "synonyms": ""
         }]
 
-        if counter % 5000 == 0:
-            with open(f"xxx delete/exporter_epd/{word}.html", "w") as f:
-                f.write(html)
-
     return epd_data_list, size_dict

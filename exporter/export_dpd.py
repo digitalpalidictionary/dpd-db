@@ -159,9 +159,8 @@ def generate_dpd_html(DB_SESSION, PTH, SANDHI_CONTRACTIONS, size_dict):
         }]
 
         if counter % 10000 == 0:
-            with open(f"xxx delete/exporter_dpd/{i.pali_1}.html", "w") as f:
-                f.write(html)
-            print(f"{counter:>10,} / {dpd_length:<10,} {i.pali_1:<20} {bop():>10}")
+            print(
+                f"{counter:>10,} / {dpd_length:<10,} {i.pali_1:<20} {bop():>10}")
             bip()
 
     return dpd_data_list, size_dict

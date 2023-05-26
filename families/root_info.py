@@ -84,8 +84,6 @@ def generate_root_info_html(db_session, roots_db, bases_dict):
         if counter % 100 == 0:
             print(
                 f"{counter:>10,} / {len(roots_db):<10,} {i.root}")
-            with open(f"xxx delete/root_info/{i.root}.html", "w") as f:
-                f.write(html_string)
 
     db_session.commit()
 

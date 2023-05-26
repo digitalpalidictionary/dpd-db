@@ -752,10 +752,6 @@ def make_words_to_add_list(window, book: str) -> list:
     text_list = sorted(text_set, key=lambda x: original_text_list.index(x))
     print(f"words_to_add: {len(text_list)}")
 
-    with open("xxx delete/text_list.tsv", "w") as f:
-        for word in text_list:
-            f.write(f"{word}\n")
-
     return text_list
 
 

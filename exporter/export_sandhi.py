@@ -84,8 +84,6 @@ def generate_sandhi_html(
             }]
 
             if counter % 5000 == 0:
-                with open(f"xxx delete/exporter_sandhi/{i.sandhi}.html", "w") as f:
-                    f.write(html)
                 print(
                     f"{counter:>10,} / {sandhi_db_length:<10,} {i.sandhi[:20]:<20} {bop():>10}")
                 bip()

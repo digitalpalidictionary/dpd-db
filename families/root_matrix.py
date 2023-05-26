@@ -1388,11 +1388,6 @@ def generate_root_matrix(db_session):
 
         html_dict[root_key] = html
 
-        if counter % 100 == 0:
-            # print(f"{counter:>10,} / {len(root_matrix):<10,} {root_key}")
-            with open(f"xxx delete/root_matrix/{root_key}.html", "w") as words:
-                words.write(html)
-
     # add back into db
     print("[green]adding to db", end= " ")
     roots_db = db_session.query(PaliRoot).all()

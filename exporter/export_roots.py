@@ -108,8 +108,6 @@ def generate_root_html(DB_SESSION, PTH, roots_count_dict, size_dict):
         }]
 
         if counter % 100 == 0:
-            with open(f"xxx delete/exporter_roots/{r.root}.html", "w") as f:
-                f.write(html)
             print(f"{counter:>10,} / {root_db_length:<10,} {r.root:<20} {bop():>10}")
             bip()
 

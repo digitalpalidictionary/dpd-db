@@ -101,10 +101,6 @@ def add_sf_to_db(db_session, sets_dict):
 
         add_to_db.append(sf_data)
 
-        if counter % 1000 == 0:
-            with open(f"xxx delete/sets/{sf}.html", "w") as f:
-                f.write(sets_dict[sf]["html"])
-
         if count < 3:
             errors_list += [sf]
 

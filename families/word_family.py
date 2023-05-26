@@ -99,10 +99,6 @@ def add_wf_to_db(db_session, wf_dict):
             count=len(wf_dict[wf]["headwords"]))
         add_to_db.append(wf_data)
 
-        if counter % 100 == 0:
-            with open(f"xxx delete/word_family/{wf}.html", "w") as f:
-                f.write(wf_dict[wf]["html"])
-
     db_session.execute(FamilyWord.__table__.delete())
     db_session.add_all(add_to_db)
     db_session.commit()

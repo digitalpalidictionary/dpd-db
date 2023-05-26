@@ -287,6 +287,8 @@ class ProjectPaths():
     i2h_json_path: Path = Path("tbw/output/i2h.json")
     dpd_ebts_json_path: Path = Path("tbw/output/dpd_ebts.json")
 
+    # temp
+    temp_dir: Path = Path("temp/")
 
     # /tests
     internal_tests_path: Path = Path("tests/internal_tests.tsv")
@@ -318,6 +320,7 @@ class ProjectPaths():
             cls.freq_html_dir,
             cls.word_count_dir,
             cls.tests_dir,
+            cls.temp_dir,
             cls.sandhi_output_dir,
             cls.rule_counts_dir,
             cls.sandhi_zip_dir,
