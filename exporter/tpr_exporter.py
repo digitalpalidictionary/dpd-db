@@ -1,22 +1,26 @@
 #!/usr/bin/env python3.11
 
+import csv
+import json
 import os
+import pandas as pd
 import re
 import sqlite3
-import pandas as pd
-import json
+
 
 from datetime import date
-from zipfile import ZipFile, ZIP_DEFLATED
-from sqlalchemy.orm import Session
 from rich import print
+from sqlalchemy.orm import Session
+from typing import List
+from zipfile import ZipFile, ZIP_DEFLATED
 
-from html_components import render_dpd_defintion_templ
+
 from db.get_db_session import get_db_session
 from db.models import PaliWord, PaliRoot, Sandhi
+from html_components import render_dpd_defintion_templ
 from tools.pali_sort_key import pali_sort_key
-from tools.timeis import tic, toc
 from tools.paths import ProjectPaths as PTH
+from tools.timeis import tic, toc
 
 
 TODAY = date.today()
@@ -26,23 +30,36 @@ DB_SESSION: Session = get_db_session("dpd.db")
 def main():
     tic()
     print("[bright_yellow]generate tpr data")
-    tpr_data_list = generate_tpr_data()
-    tpr_df, i2h_df = copy_to_sqlite_db(tpr_data_list)
-    tpr_updater(tpr_df, i2h_df)
-    copy_zip_to_trp_downloads()
+
+    dpd_db = DB_SESSION.query(PaliWord).all()
+    all_headwords_clean = make_clean_headwords_set(dpd_db)
+    tpr_data_list = generate_tpr_data(dpd_db, all_headwords_clean)
+    sandhi_data_list = generate_sandhi_data(all_headwords_clean)
+    write_tsvs(tpr_data_list, sandhi_data_list)
+    # tpr_df, i2h_df = copy_to_sqlite_db(tpr_data_list)
+    # tpr_updater(tpr_df, i2h_df)
+    # copy_zip_to_tpr_downloads()
     toc()
 
 
-def generate_tpr_data():
-    print("[green]compiling pali word data")
-
-    dpd_db = DB_SESSION.query(PaliWord).all()
-    dpd_length = len(dpd_db)
+def make_clean_headwords_set(dpd_db: List[PaliWord]) -> set:
+    """A set of clean headwords in the dictionary."""
+    print("[green]making set of clean headwords", end="")
     all_headwords_clean: set = set()
+    for counter, i in enumerate(dpd_db):
+        all_headwords_clean.add(i.pali_clean)
+
+    print(f"{len(all_headwords_clean):>10,}")
+
+    return all_headwords_clean
+
+
+def generate_tpr_data(dpd_db, all_headwords_clean):
+    print("[green]compiling pali word data")
+    dpd_length = len(dpd_db)
     tpr_data_list = []
 
     for counter, i in enumerate(dpd_db):
-        all_headwords_clean.update(i.pali_clean)
 
         if counter % 5000 == 0 or counter % dpd_length == 0:
             print(f"{counter:>10,} / {dpd_length:<10,}{i.pali_1:<10}")
@@ -241,34 +258,47 @@ def generate_tpr_data():
             html_string = ""
             new_root = True
 
+    return tpr_data_list
+
+
+def generate_sandhi_data(all_headwords_clean):
     # sandhi splitter
     print("[green]compiling sandhi data")
 
     sandhi_db = DB_SESSION.query(Sandhi).all()
+    sandhi_data_list = []
 
     for counter, i in enumerate(sandhi_db):
 
         if i.sandhi not in all_headwords_clean:
-            html_string = "<div><p>"
-            splits = i.split_list
-            for split in splits:
-                if "<i>" in split:
-                    html_string += split.replace("<i>", "").replace("</i>", "")
-                else:
-                    html_string += split
-                if split != splits[-1]:
-                    html_string += " <br>"
-                else:
-                    html_string += "</div></p>"
-                    tpr_data_list += [{
-                        "word": i.sandhi,
-                        "definition": html_string,
-                        "book_id": 11}]
+            if "variant" not in i.split and "spelling" not in i.split:
+                sandhi_data_list += [{
+                    "sandhi": i.sandhi,
+                    "splits": i.split}]
 
         if counter % 50000 == 0:
             print(f"{counter:>10,} / {len(sandhi_db):<10,}{i.sandhi:<10}")
 
-    return tpr_data_list
+    return sandhi_data_list
+
+
+def write_tsvs(tpr_data_list, sandhi_data_list):
+    """Write TSV files of dpd, i2h and sandhi splitter."""
+    print("[green]writing tsv files")
+
+    # write dpd_tsv
+    with open(PTH.tpr_dpd_tsv_path, "w") as f:
+        f.write("word\tdefinition\tbook_id\n")
+        for i in tpr_data_list:
+            f.write(f"{i['word']}\t{i['definition']}\t{i['book_id']}\n")
+
+    # write splitter tsv
+    field_names = ["sandhi", "splits"]
+    with open(
+            PTH.tpr_splitter_tsv_path, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=field_names, delimiter="\t")
+        writer.writeheader()
+        writer.writerows(sandhi_data_list)
 
 
 def copy_to_sqlite_db(tpr_data_list):
@@ -276,7 +306,7 @@ def copy_to_sqlite_db(tpr_data_list):
 
     # data frames
     tpr_df = pd.DataFrame(tpr_data_list)
-    i2h_df = pd.read_csv(PTH.inflection_to_headwords_dict_path, sep="\t")
+    i2h_df = pd.read_csv(PTH.tpr_i2h_tsv_path, sep="\t")
 
     try:
         conn = sqlite3.connect(
@@ -298,13 +328,13 @@ def copy_to_sqlite_db(tpr_data_list):
             conn, if_exists='append', index=False)
         print("[white]ok")
 
+        conn.close()
+
+        return tpr_df, i2h_df
+
     except Exception as e:
         print("[red] an error occurred copying to db")
         print(f"[red]{e}")
-
-    conn.close()
-
-    return tpr_df, i2h_df
 
 
 def tpr_updater(tpr_df, i2h_df):
@@ -346,7 +376,7 @@ def tpr_updater(tpr_df, i2h_df):
         f.write(sql_string)
 
 
-def copy_zip_to_trp_downloads():
+def copy_zip_to_tpr_downloads():
     print("upating tpr_downlaods")
 
     with open(PTH.tpr_download_list_path) as f:

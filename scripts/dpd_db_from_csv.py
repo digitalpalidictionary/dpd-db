@@ -188,7 +188,7 @@ def main():
 
     create_db_if_not_exists(PTH.dpd_db_path)
 
-    for p in [PTH.old_roots_csv_path, PTH.dpd_full_path]:
+    for p in [PTH.old_roots_csv_path, PTH.old_dpd_full_path]:
         if not p.exists():
             print(f"[bright_red]File does not exist: {p}")
             sys.exit(1)
@@ -196,7 +196,7 @@ def main():
     db_session = get_db_session(PTH.dpd_db_path)
 
     add_pali_roots(db_session, PTH.old_roots_csv_path)
-    add_pali_words(db_session, PTH.dpd_full_path)
+    add_pali_words(db_session, PTH.old_dpd_full_path)
 
     db_session.close()
     toc()

@@ -15,26 +15,25 @@ from db.get_db_session import get_db_session
 from tools.paths import ProjectPaths as PTH
 from tools.timeis import tic, toc
 from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
-from tools.cst_sc_text_sets import make_mula_words_set
-
-
+# from tools.cst_sc_text_sets import make_mula_words_set
 # !!! minify
+
 
 def main():
     tic()
     print("[bright_yellow]making dpd splitter goldendict mdict")
-    mula_word_set = make_mula_words_set()
-    sandhi_dict = make_sandhi_dict(mula_word_set)
+    # mula_word_set = make_mula_words_set()
+    sandhi_dict = make_sandhi_dict()
     dpr_breakup_dict = make_dpr_breakup_dict(PTH)
     make_golden_dict(PTH, sandhi_dict, dpr_breakup_dict)
     unzip_and_copy(PTH)
     toc()
 
 
-def make_sandhi_dict(mula_word_set):
+def make_sandhi_dict():
     """Make a python dict of sandhi words and splits,
-    exluding words in the mula_word_set,
-    i.e. only aṭṭḥakathā, ṭīkā and aññā words are included."""
+    # exluding words in the mula_word_set,
+    # i.e. only aṭṭḥakathā, ṭīkā and aññā words are included."""
 
     print(f"[green]{'making sandhi dict':<40}", end="")
     db_session = get_db_session("dpd.db")
@@ -42,8 +41,8 @@ def make_sandhi_dict(mula_word_set):
 
     sandhi_dict = {}
     for i in sandhi_db:
-        if i.sandhi not in mula_word_set:
-            sandhi_dict[i.sandhi] = i.split_list
+        # if i.sandhi not in mula_word_set:
+        sandhi_dict[i.sandhi] = i.split_list
     print(f"{len(sandhi_dict):>10,}")
     return sandhi_dict
 
@@ -107,21 +106,22 @@ def make_golden_dict(PTH, sandhi_dict, dpr_breakup_dict):
             "definition_plain": "",
             "synonyms": ""
         }]
-    
+
     # include words
-    # for word, breakup in dpr_breakup_dict.items():
-    #     if word not in sandhi_dict:
-    #         html_string = sandhi_header
-    #         html_string += f"<body>{breakup}</body>"
+    for word, breakup in dpr_breakup_dict.items():
+        if word not in sandhi_dict:
+            if "-" in word:
+                html_string = sandhi_header
+                html_string += f"<body>{breakup}</body>"
 
-    #         html_string = minify(html_string)
+                html_string = minify(html_string)
 
-    #         sandhi_data_list += [{
-    #             "word": word,
-    #             "definition_html": html_string,
-    #             "definition_plain": "",
-    #             "synonyms": ""
-    #         }]
+                sandhi_data_list += [{
+                    "word": word,
+                    "definition_html": html_string,
+                    "definition_plain": "",
+                    "synonyms": ""
+                }]
 
     zip_path = PTH.sandhi_zip_path
 

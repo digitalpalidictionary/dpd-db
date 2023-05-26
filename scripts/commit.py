@@ -5,7 +5,7 @@ from datetime import datetime
 today = datetime.today()
 date = datetime.date(today)
 
-repo = Repo("backups/")
+repo = Repo("backup_tsv/")
 index = repo.index
 index.add(["PaliRoot.tsv", "PaliWord.tsv"])
 author = Actor("bdhrs", "bodhirasa@gmail.com")

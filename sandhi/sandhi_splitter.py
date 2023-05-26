@@ -1380,6 +1380,7 @@ if __name__ == "__main__":
 # sammāsambuddhantyādimāha
 # hetudukavissajjanasadisaṃ
 # tippakārāpi
+# vimissanavasena why na?
 
 # include neg count in post process
 

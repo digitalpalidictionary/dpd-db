@@ -37,18 +37,13 @@ def main():
     print(f"[white]{len(sc_text_set):>10,}")
 
     # bjt_text_set = make_bjt_text_set(include)
-    spelling_mistakes_set,\
-        spelling_corrections_set,\
-        spelling_mistakes_dict\
-        = make_spelling_mistakes_set()
-    variant_readings_set, \
-        variant_corrections_set, \
-        variant_dict\
-        = make_variant_readings_set()
+    (spelling_mistakes_set,
+        spelling_corrections_set) = make_spelling_mistakes_set()
+    (variant_readings_set,
+        variant_corrections_set) = make_variant_readings_set()
     abbreviations_set = make_abbreviations_set()
-    manual_corrections_set,\
-        manual_corrections_dict \
-        = make_manual_corrections_set()
+    (manual_corrections_set,
+        manual_corrections_dict) = make_manual_corrections_set()
     sandhi_exceptions_set = make_exceptions_set()
     all_inflections_set = make_all_inflections_set(sandhi_exceptions_set)
     neg_inflections_set = make_neg_inflections_set(sandhi_exceptions_set)
@@ -105,8 +100,6 @@ def main():
         matches_dict = {}
         matches_dict["word"] = [
             ("split", "process", "rules", "path")]
-        matches_dict.update(spelling_mistakes_dict)
-        matches_dict.update(variant_dict)
         matches_dict.update(manual_corrections_dict)
 
         with open(PTH.matches_dict_path, "wb") as f:
@@ -152,25 +145,9 @@ def make_spelling_mistakes_set():
     spelling_corrections_set = spelling_corrections_set | add_me
     print(f"[white]{len(spelling_corrections_set):>10,}")
 
-    spelling_mistakes_dict = {}
-
-    for row in range(len(sp_mistakes_df)):
-        mistake = sp_mistakes_df.loc[row, 0]
-        correction = sp_mistakes_df.loc[row, 1]
-
-        if mistake in spelling_mistakes_dict:
-            spelling_mistakes_dict[mistake] += [(
-                f"incorrect spelling of <i>{correction}</i>",
-                "spelling", "sp", "-")]
-        else:
-            spelling_mistakes_dict[mistake] = [(
-                f"incorrect spelling of <i>{correction}</i>",
-                "spelling", "sp", "-")]
-
     return (
         spelling_mistakes_set,
-        spelling_corrections_set,
-        spelling_mistakes_dict)
+        spelling_corrections_set)
 
 
 def make_variant_readings_set():
@@ -205,23 +182,7 @@ def make_variant_readings_set():
     variant_corrections_set = variant_corrections_set | add_me
     print(f"[white]{len(variant_corrections_set):>10,}")
 
-    variant_dict = {}
-
-    for row in range(len(variant_reading_df)):
-        variant = variant_reading_df.loc[row, 0]
-        correction = variant_reading_df.loc[row, 1]
-
-        if variant in variant_dict:
-            variant_dict[variant] += [(
-                f"variant reading of <i>{correction}</i>",
-                "variant", "var", "-")]
-        else:
-            variant_dict[variant] = [(
-                f"variant reading of <i>{correction}</i>",
-                "variant", "var", "-")
-            ]
-
-    return variant_readings_set, variant_corrections_set, variant_dict
+    return variant_readings_set, variant_corrections_set
 
 
 def make_abbreviations_set():

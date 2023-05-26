@@ -18,9 +18,9 @@ class ProjectPaths():
     pass1_csv_path: Path = Path("csvs/pass1.csv")
     roots_csv_path: Path = Path("csvs/roots.csv")
 
-    # /backups
-    pali_word_path: Path = Path("backups/PaliWord.tsv")
-    pali_root_path: Path = Path("backups/PaliRoot.tsv")
+    # /backup_tsv
+    pali_word_path: Path = Path("backup_tsv/PaliWord.tsv")
+    pali_root_path: Path = Path("backup_tsv/PaliRoot.tsv")
 
     # ebook
     epub_dir: Path = Path("ebook/epub/")

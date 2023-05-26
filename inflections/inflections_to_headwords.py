@@ -64,30 +64,31 @@ def inflection_to_headwords():
 
     print(f"{len(roots_db):>10,}{bop():>10}")
 
-    # add sandhi
-    bip()
-    message = "adding sandhi"
-    print(f"[green]{message:<30}", end="")
-    sandhi_db = db_session.query(Sandhi).all()
+    # # add sandhi
+    # bip()
+    # message = "adding sandhi"
+    # print(f"[green]{message:<30}", end="")
+    # sandhi_db = db_session.query(Sandhi).all()
 
-    for i in sandhi_db:
+    # for i in sandhi_db:
 
-        # add clean roots
-        if i.sandhi not in i2h_dict:
-            i2h_dict[i.sandhi] = {i.sandhi}
-        else:
-            i2h_dict[i.sandhi].add(i.sandhi)
+    #     # add clean roots
+    #     if i.sandhi not in i2h_dict:
+    #         i2h_dict[i.sandhi] = {i.sandhi}
+    #     else:
+    #         i2h_dict[i.sandhi].add(i.sandhi)
 
-    print(f"{len(sandhi_db):>10,}{bop():>10}")
+    # print(f"{len(sandhi_db):>10,}{bop():>10}")
 
     bip()
     message = "saving to tsv"
     print(f"[green]{message:<30}", end="")
-    with open(PTH.inflection_to_headwords_dict_path, "w") as f:
+    with open(PTH.tpr_i2h_tsv_path, "w") as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerow(["inflection", "headwords"])
         for k, v in i2h_dict.items():
             v = sorted(v, key=pali_sort_key)
+            v = ",".join(v)
             writer.writerow([k, v])
     print(f"{len(i2h_dict):>10,}{bop():>10}")
 

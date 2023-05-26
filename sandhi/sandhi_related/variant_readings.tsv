@@ -1,3 +1,4 @@
+variant	main
 celapattikaṃ	celapaṭikaṃ
 savibhattesu	saṃvibhattesu
 oramattha	oramiya
@@ -369,7 +370,6 @@ kussumbhe	kusobbhe
 kusumbhe	kusobbhe
 suvaṇṇajātarūpakāvasissanti	suvaṇṇasikatāvasissanti
 sasaṅkhāraniggayhavāritavato	sasaṅkhāraniggayhavāritagato
-sasaṅkhāraniggayhavārivāvato	sasaṅkhāraniggayhavāritagato
 tittisambhavaṃ	tittimajjhagā
 goyogamilakkhasmiṃ	goyogapilakkhasmiṃ
 yāvatajjhāvinītā	yāvatāvinītā
@@ -385,7 +385,6 @@ dhopeyya	dhoveyya
 kammasaccāyī	kammasaccāyaṃ
 nupalimpati	nupalippati
 nupalimpāmi	nupalippāmi
-vādapathābhivattinaṃ	vādapathātivattaṃ
 asaddhāya	assaddhiye
 paṭisseneti	paṭiseneti
 phāsattaṃ	phāsukaṃ
@@ -474,10 +473,9 @@ kālagataṃ	kālābhataṃ
 moliyasīvako	moḷiyasīvako
 moḷisīvako	moḷiyasīvako
 nicchādeti	nipphoṭeti
-kuddarājāno	kuḍḍarājāno
+kuddarājāno	kuḍḍarājāno, khuddarājāno
 atīradassaniyā	atīradakkhiṇiyā
 kāmasaṃyojanātitā	kāmasaṃyojanātigā
-kuddarājāno	khuddarājāno
 āpātaṃ	āpāthaṃ
 vimutañca	vippamuttaṃ
 pheggunassa	phaggunassa
@@ -646,3 +644,13 @@ attamattanā	attanā
 sandāmaṃ	sandānaṃ
 nirāsakaṃ	nirāsāsaṃ
 ṭhārasa	soḷasa
+huhuṅkajātiko	huṃhuṅkajātiko
+nihuhuṅko	nihuṃhuṅko
+simbaliguhāyaṃ	pippaliguhāyaṃ
+khuddaputtañhi	khuddaputtāmhi
+adhipātitvā	adhipatitvā
+ucchaditvā	ucchadditvāna
+paṭibandharupo	paṭibandhacitto
+piyarūpassātagadhitāse	piyarūpassādagadhitāse
+kolīyadhītaraṃ	koliyadhītaraṃ
+divādivasseyeva	divā divassa

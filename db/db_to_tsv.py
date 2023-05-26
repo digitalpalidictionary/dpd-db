@@ -81,7 +81,7 @@ def backup_paliroots(db_session, PTH):
 def git_commit():
     today = datetime.today()
     date = datetime.date(today)
-    repo = Repo("backups/")
+    repo = Repo("backup_tsv/")
     index = repo.index
     index.add(["PaliRoot.tsv", "PaliWord.tsv"])
     index.commit(f"update {date}")

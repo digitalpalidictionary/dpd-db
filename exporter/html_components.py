@@ -1,8 +1,5 @@
-import re
-
 from mako.template import Template
 from datetime import date
-from sqlalchemy import or_
 
 from db.models import PaliWord
 from db.models import PaliRoot
@@ -11,20 +8,18 @@ from db.models import FamilyRoot
 from db.models import FamilyWord
 from db.models import FamilyCompound
 from db.models import FamilySet
-from db.models import Sandhi
 
 from helpers import CF_SET
-from helpers import EXCLUDE_FROM_SETS
 from helpers import EXCLUDE_FROM_FREQ
 
+from tools.meaning_construction import make_meaning_html
+from tools.meaning_construction import summarize_constr
+from tools.meaning_construction import degree_of_completion
+from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths as PTH
 from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.pos import INDECLINEABLES
-from tools.pali_sort_key import pali_sort_key
-from tools.meaning_construction import make_meaning_html
-from tools.meaning_construction import summarize_constr
-from tools.meaning_construction import degree_of_completion
 
 TODAY = date.today()
 

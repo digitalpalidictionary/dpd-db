@@ -201,11 +201,11 @@ def full_db(dpd_db):
     for i in dpd_db:
         rows.append(pali_row(i, output="dpd"))
 
-    with open(PTH.vocab_csv_path, "w", newline='', encoding='utf-8') as f:
+    with open(PTH.dpd_full_path, "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerows(rows)
 
-    dpd_df = pd.read_csv(PTH.vocab_csv_path, sep="\t", dtype=str)
+    dpd_df = pd.read_csv(PTH.dpd_full_path, sep="\t", dtype=str)
     dpd_df.sort_values(
         by=["Pāli1"], inplace=True, ignore_index=True,
         key=lambda x: x.map(sort_key))

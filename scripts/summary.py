@@ -16,7 +16,7 @@ dpd_db = db_session.query(PaliWord).all()
 roots_db = db_session.query(PaliRoot).all()
 sandhi_db = db_session.query(Sandhi).all()
 derived_db = db_session.query(DerivedData).all()
-last_count = 71839
+last_count = 73800
 
 
 def dpd_size():

@@ -9,7 +9,8 @@ from sqlalchemy.orm import Session
 from export_dpd import generate_dpd_html
 from export_roots import generate_root_html
 from export_epd import generate_epd_html
-from export_sandhi import generate_sandhi_html
+# from export_sandhi import generate_sandhi_html
+from export_variant_spelling import generate_variant_spelling_html
 from export_help import generate_help_html
 
 from helpers import make_roots_count_dict
@@ -35,8 +36,7 @@ def main():
         DB_SESSION, PTH, SANDHI_CONTRACTIONS, size_dict)
     root_data_list, size_dict = generate_root_html(
         DB_SESSION, PTH, roots_count_dict, size_dict)
-    sandhi_data_list, size_dict = generate_sandhi_html(
-        DB_SESSION, PTH, SANDHI_CONTRACTIONS, size_dict)
+    variant_spelling_data_list, size_dict = generate_variant_spelling_html(PTH, size_dict)
     epd_data_list, size_dict = generate_epd_html(DB_SESSION, PTH, size_dict)
     help_data_list, size_dict = generate_help_html(DB_SESSION, PTH, size_dict)
     DB_SESSION.close()
@@ -44,7 +44,7 @@ def main():
     combined_data_list: list = (
         dpd_data_list +
         root_data_list +
-        sandhi_data_list +
+        variant_spelling_data_list +
         epd_data_list +
         help_data_list
     )

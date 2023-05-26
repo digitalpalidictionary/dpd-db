@@ -1,21 +1,21 @@
 abbrev	meaning	pāli	example	explanation
+3	declined in all three gender			
 ･	root has verbs which are derived from it			
 ()	letters deleted from construction		√dhā > <b>(</b>da<b>)</b>h + ita > hita	
 []	letters added to construction		pari + <b>[</b>y<b>]</b> + √i > āy + *a > pariyāya	
 *	vuddhi or vowel strengthening takes place	vuḍḍhi	√bhū + <b>*</b>e > bhāve	
 ×	root has no verbs which are derived from it			
 >	indicates morphological change occurs	āpajjate	√ñā + nā <b>></b> jānā	
-~	how complete is a word's information?<br><span class='gray'>✓</span> word data is complete with contextual meaning, grammar, sutta example and other relevant information<br><span class='g2'>~</span> word data is partially complete with a meaning in context but minimal other information<br><span class='g3'>✗</span> word data is still under construction			
+~	how complete is a word's information?<br/><span class='gray'>✓</span> word data is complete with contextual meaning, grammar, sutta example and other relevant information<br/><span class='gray'>~</span> word data is partially complete with a meaning in context but minimal other information<br/><span class='gray'>✗</span> word data is still under construction			
 √	root symbol	dhātu	<b>√</b>bhū 1 a (to be)	A root is the irreducible core meaning of a word, stripped of all affixes
-✓	how complete is a word's information?<br><span class='gray'>✓</span> word data is complete with contextual meaning, grammar, sutta example and other relevant information<br><span class='g2'>~</span> word data is partially complete with a meaning in context but minimal other information<br><span class='g3'>✗</span> word data is still under construction			
-✗	how complete is a word's information?<br><span class='gray'>✓</span> word data is complete with contextual meaning, grammar, sutta example and other relevant information<br><span class='g2'>~</span> word data is partially complete with a meaning in context but minimal other information<br><span class='g3'>✗</span> word data is still under construction			
+✓	how complete is a word's information?<br/><span class='gray'>✓</span> word data is complete with contextual meaning, grammar, sutta example and other relevant information<br/><span class='gray'>~</span> word data is partially complete with a meaning in context but minimal other information<br/><span class='gray'>✗</span> word data is still under construction			
+✗	how complete is a word's information?<br/><span class='gray'>✓</span> word data is complete with contextual meaning, grammar, sutta example and other relevant information<br/><span class='gray'>~</span> word data is partially complete with a meaning in context but minimal other information<br/><span class='gray'>✗</span> word data is still under construction			
 1st	first person	uttama; uttamapurisa	mayaṃ - pron <b>1st</b> nom sg of ahaṃ	I; we
 2nd	second person	majjhima; majjhimapurisa	ehi - verb imp <b>2nd</b> sg from eti	you; you all
-3	declined in all three gender			
 3rd	third person	paṭhama; paṭhamapurisa	hontu - verb imp <b>3rd</b> pl from hoti	he; they
 abbrev	abbreviation			
-ABD	Abhidhāna Dictionary			"The Pāḷi Myanmar Abhidhān is the largest Pāḷi dictionary in the world, currently more than 23 volumes in size and including every word in the Mūla and Commentaries. There is currently a project underway to translate the dictionary into English.<br><a class=""link"" href=""https://github.com/bksubhuti/Tipitaka-Pali-Projector"">inside TPP</a>"
-abl	ablative case	pañcamī, apādanavacana, avadhi, apādāna, nissakka	tato - pron, <b>abl</b> sg of ta	generally showing separation (from, away from)<br>(e.g. from that)
+ABD	Abhidhāna Dictionary			"The Pāḷi Myanmar Abhidhān is the largest Pāḷi dictionary in the world, currently more than 23 volumes in size and including every word in the Mūla and Commentaries. There is currently a project underway to translate the dictionary into English.<br/><a class=""link"" href=""https://github.com/bksubhuti/Tipitaka-Pali-Projector"">inside TPP</a>"
+abl	ablative case	pañcamī, apādanavacana, avadhi, apādāna, nissakka	tato - pron, <b>abl</b> sg of ta	generally showing separation (from, away from)<br/>(e.g. from that)
 abs	absolutive verb	avyaya, pubbakicca	upasaṅkamitvā; katvā	A verb, often a combination of having + past participle, expressing completed action (e.g. having approached; having made)
 abstr	abstract noun		abyāpāda - masc <b>abstr</b>	A concept or idea not associated with any specific instance or any concrete thing (e.g. friendliness)
 acc	accusative case	dutiyā, upayogavacana, kammavacana	maṃ - pron, 1st <b>acc</b> sg	the object of the sentence (e.g. me)
@@ -61,7 +61,7 @@ CPa	Cariyāpiṭaka Aṭṭhakathā, Paramatthadīpanī
 CPD	Critical Pāli Dictionary			"<a class=""link"" href=""https://cpd.uni-koeln.de"">web-link</a>"
 cs	conjugational sign			
 CST	Chaṭṭha Saṅgāyana Tipiṭaka, Sixth Council Version of the texts encoded by the Vipassana Research Institute			
-dat	dative case	catutthī, sampadānavacana	hitāya - noun, nt <b>dat</b> sg of hita	showing the object or person to or for whom something is given or done. (to; for)<br>(e.g. for the benefit)
+dat	dative case	catutthī, sampadānavacana	hitāya - noun, nt <b>dat</b> sg of hita	showing the object or person to or for whom something is given or done. (to; for)<br/>(e.g. for the benefit)
 deno	denominative verb			
 derog	derogatory			
 desid	desiderative verb	tumicchattha		
@@ -84,7 +84,7 @@ EV	Elder's Verses by K.R.Norman
 excl	exclamation		aho; abbhutaṃ; ambho	Expressing spontaneous feelings, reactions or make the sentences stronger. Sometimes used to attract attention. (e.g. oh no! most certainly! wonderful! hey!)
 fem	feminine noun	itthī; itthiliṅga	āpatti; vedanā; bhikkhunī	
 fut	future tense	bhavissantī; anāgatakāla	bhavissati; gamissati; assasissati	A verb tense that expresses actions or states in the future
-gen	genitive case	chaṭṭhī, sāmivacana, sambandha	me - pron, 1st <b>gen</b> sg of ahaṃ	showing possession (of 's)<br>(e.g. my, mine)
+gen	genitive case	chaṭṭhī, sāmivacana, sambandha	me - pron, 1st <b>gen</b> sg of ahaṃ	showing possession (of 's)<br/>(e.g. my, mine)
 gen abs	genitive absolute construction		me sato; tassa jānato passato	When a noun or a pronoun in the genitive case is used with a participle in the same case as itself, the construction is called genitive absolute. It can be translated as when, while, since, or as. Sometimes it also has the meaning of since, although, even if, despite, in spite of, notwithstanding.
 ger	gerund. a verb, often ending in -ing, expressing ongoing action	avyaya; bhāvapada	upasampajja; pahāya; ādāya	A verb (or verbal adjective), often ending in -ing, expressing ongoing action (eg. doing; making; going).
 gram	grammatical term, technical term		padasandhi	
@@ -95,7 +95,7 @@ impers	impersonal	bhāva	paṭibhāti; kappati	Not relating to or responsive to 
 in comps	in compounds. word is only found in compounds words		anupassī; paṭisaṃvedī	Usually acts as part of a compoun
 ind	indeclinable word	nipāta; avyaya	api; pana; atha	It does not have declensions or conjugations.
 inf	infinitive verb	tumanta; avyaya	kātuṃ; pahātuṃ; carituṃ	The uninflected form of the verb. It most commonly expresses a purpose.
-instr	instrumental case	tatiyā, karaṇavacana	mayā - pron 1st <b>instr</b> sg of ahaṃ	shows the object or person with or by whom something is performed. (by, with or through)<br>(e.g. by me, with me)
+instr	instrumental case	tatiyā, karaṇavacana	mayā - pron 1st <b>instr</b> sg of ahaṃ	shows the object or person with or by whom something is performed. (by, with or through)<br/>(e.g. by me, with me)
 intens	intensive verb		caṅkamati; jaṅgamati	Also called Frequentative Verbs, express the frequent repetition or the intensification of the action denoted by the simple root.
 interr	interrogative pronoun	pucchāsabhāva	kiṃ; kissa; kittaka	Has the nature of asking a question. (who? how? perhaps? how many?)
 intrans	intransitive verb	akammaka; akammagāhī	hoti; ujjhāyati; vijjati	A verb (or verb construction) that does not take an object in the accusative case. sometimes they take what appears to be an object in another case. (e.g. there is; is conducive to)
@@ -110,10 +110,10 @@ KP	Khuddaka Pāṭha			Books 1 of the Khuddaka Nikāya; lit. small passage
 KPa	Khuddakapāṭha Aṭṭhakathā			
 KV	Kathāvatthupāḷi			
 KVa	Kaṅkhāvitaraṇīaṭṭhakathā			Commentary to the Pāṭimokkha, Vinayapiṭaka, compiled by Ven. Buddhaghosa
-KVt	Kaṅkhāvitaraṇī Purāṇaṭīkā & Kaṅkhāvitaraṇī Abhinavaṭīkā, Vinaya sub-commentary			
+KVt	Kaṅkhāvitaraṇī Purāṇaṭīkā and Kaṅkhāvitaraṇī Abhinavaṭīkā, Vinaya sub-commentary			
 LDA	The Law of Dependent Arising by Kaṭukurunde Ñāṇananda			
 lit	literal meaning			Limited to the explicit meaning of a word or parts from which the word has been constructed.
-loc	locative case	sattamī, bhummavacana, okāsa, ādhāra	amhesu - pron, 1st <b>loc</b> pl of ahaṃ	showing place (in, on, at, among)<br>(e.g. in us; among us)
+loc	locative case	sattamī, bhummavacana, okāsa, ādhāra	amhesu - pron, 1st <b>loc</b> pl of ahaṃ	showing place (in, on, at, among)<br/>(e.g. in us; among us)
 loc abs	locative absolute construction		asante hārake; atthaṅgate sūriye	When a noun or a pronoun in the locative case is used with a participle in the same case as itself, the construction is called locative absolute. It can be translated as when, while, since, or as.
 masc	masculine noun	puma; pulliṅga	bhikkhu; dhamma; loka	
 matr	matronymic		sāriputta; mantāṇiputta; vedehiputta	Pointing on the origin of the name. Very often name derived from the name of the mother or a maternal ancestor (e.g. son of Sāri; son of Mantāṇī; son of Vedehi)
@@ -124,6 +124,7 @@ MNa	Majjhimā Nikāya Aṭṭhakathā, Papañcasūdanī			Commentary on the Majj
 MNt	Majjhima Nikāya Ṭīkā			
 MOGG	Moggallāna Byākaraṇaṃ			
 MW	Monier-Williams Sanskrit-English Dictionary			"<a class=""link"" href=""https://www.sanskrit-lexicon.uni-koeln.de/scans/MW72Scan/2020/web/index.php"">web-link</a>"
+NDB	The Numerical Discourses of the Buddha: A Complete Translation of the Anguttara Nikaya by Bhikkhu Bodhi			
 neg	negative	avya sadda	na	express negation or opposite meaning
 neut	neuter noun			
 NIDD1	Mahāniddesa			Book 16 of the Khuddaka Nikāya; canonical commentary on the Aṭṭhakavagga of the Sutta Nipāta; lit. great detailed analysis
@@ -202,7 +203,7 @@ VINt	Vinaya Piṭaka Ṭīkā, Sāratthadīpanīṭīkā
 VISM	Visuddhimagga			Path of purification; commentarial treatise by Ven. Buddhaghosa
 VISMa	Visuddhimagga Aṭṭhakathā			Commentary to Visuddhimagga 
 VMVt	Vimativinodanī Tīkā, Vinaya sub-commentary			
-voc	vocative case	āmantaṇavacana, ālapanavacana, sambodhana	āvuso - ind, <b>voc</b> sg & pl	Addressing form
+voc	vocative case	āmantaṇavacana, ālapanavacana, sambodhana	āvuso - ind, <b>voc</b> sg and pl	Addressing form
 VSa	Vinayasaṅgaha Aṭṭhakathā, Vinaya sub-commentary			
 VV	Vimānavatthu			Book 6 of the Khuddaka Nikāya; story about Celestial Abodes
 VVa	Vimānavatthu Aṭṭhakathā, Paramatthadīpanī			
@@ -211,4 +212,3 @@ VVUt	Vinayavinicchaya Uttaravinicchayo, Vinaya sub-commentary
 wrt	with regard to			
 x	no gender		pañca - card, <b>x</b> pl	Word does not have any specific gender
 YAM	Yamakapāḷi			
-NDB	The Numerical Discourses of the Buddha: A Complete Translation of the Anguttara Nikaya by Bhikkhu Bodhi			

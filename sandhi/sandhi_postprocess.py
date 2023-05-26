@@ -1,20 +1,18 @@
 #!/usr/bin/env python3.11
 
-import pickle
 import numpy as np
 import pandas as pd
+import pickle
 
-from rich import print
 from difflib import SequenceMatcher
+from rich import print
 
 from transliterate_sandhi import transliterate_sandhi
 
 from db.get_db_session import get_db_session
 from db.models import Sandhi
-
-from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
-from tools.timeis import tic, toc
 from tools.paths import ProjectPaths as PTH
+from tools.timeis import tic, toc
 
 ADD_DO = True
 
@@ -58,7 +56,7 @@ def process_matches(PTH, neg_inflections_set):
     matches_df = matches_df.fillna("")
 
     print("adding manual")
-    matches_df["manual"] = matches_df['process'].str.count("spelling|variant|manual")
+    matches_df["manual"] = matches_df['process'].str.count("manual")
 
     print("adding splitcount")
     matches_df["splitcount"] = matches_df['split'].str.count(r' \+ ')

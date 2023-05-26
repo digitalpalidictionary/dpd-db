@@ -109,7 +109,7 @@ def add_spelling_mistake(window, values: dict) -> None:
     else:
 
         with open(
-                PTH.spelling_corrections_path, mode="a", newline="") as file:
+                PTH.spelling_mistakes_path, mode="a", newline="") as file:
             writer = csv.writer(file, delimiter="\t")
             writer.writerow([spelling_mistake, spelling_correction])
             window["messages"].update(
@@ -120,7 +120,7 @@ def add_spelling_mistake(window, values: dict) -> None:
 
 def open_spelling_mistakes():
     subprocess.Popen(
-        ["code", PTH.spelling_corrections_path])
+        ["code", PTH.spelling_mistakes_path])
 
 
 def add_variant_reading(window, values: dict) -> None:
@@ -543,6 +543,7 @@ def find_sutta_example(sg, window, values: dict) -> str:
 
     sutta_sentences = []
     sutta_counter = 0
+    udana_counter = 0
     for p in ps:
 
         if p["rend"] == "subhead":
@@ -596,6 +597,12 @@ def find_sutta_example(sg, window, values: dict) -> str:
                     if match:
                         source = f"{book}{match.group(1)}"
                         sutta = match.group(2)
+
+        elif values["book_to_add"] == "kn3":
+            book = "UD"
+            if p["rend"] == "subhead":
+                udana_counter += 1
+                source = f"{book}{udana_counter}"
 
         text = clean_example(p.text)
 
@@ -782,7 +789,7 @@ def make_sp_mistakes_list(PTH):
 
 
 def make_variant_list(PTH):
-    with open(PTH.variant_path) as f:
+    with open(PTH.variant_readings_path) as f:
         reader = csv.reader(f, delimiter="\t")
         variant_list = [row[0] for row in reader]
 
@@ -984,9 +991,10 @@ def replace_sandhi(string, field: str, sandhi_dict: dict, window) -> None:
 
     string = string.replace("</b>ti", "</b>'ti")    # fix bold 'ti
     string = string.replace("</b>nti", "n</b>'ti")  # fix bold 'ti
+    string = string.replace(",</b>", "</b>,")  # fix bold comma
     string = re.sub(r"\[[^]]*\]", "", string)   # remove [...]
     string = re.sub(" +", " ", string)  # remove double spaces
     string = re.sub(r"^\d*\. ", "", string)  # remove digits in front
-    string = string.strip()
+    string = string.strip()  # remove spaces front n back
 
     window[field].update(string)
