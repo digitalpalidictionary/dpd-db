@@ -11,7 +11,7 @@ from subprocess import check_output
 
 from db.get_db_session import get_db_session
 from db.models import Sandhi
-from tools.timeis import tic, toc
+from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths as PTH
 
 # !!! # only add new sandhi, leave the old ones alone

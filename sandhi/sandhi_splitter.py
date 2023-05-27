@@ -10,7 +10,7 @@ from typing import List
 from os import popen
 
 from tools.pali_alphabet import vowels
-from tools.timeis import tic, toc, bip, bop
+from tools.tic_toc import tic, toc, bip, bop
 from tools.paths import ProjectPaths as PTH
 
 # two word sandhi

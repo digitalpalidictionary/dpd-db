@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 
 from db.models import Russian, SBS, PaliWord
 from db.get_db_session import get_db_session
-from tools.timeis import tic, toc
+from tools.tic_toc import tic, toc
 
 
 def main():

@@ -12,7 +12,7 @@ from transliterate_sandhi import transliterate_sandhi
 from db.get_db_session import get_db_session
 from db.models import Sandhi
 from tools.paths import ProjectPaths as PTH
-from tools.timeis import tic, toc
+from tools.tic_toc import tic, toc
 
 ADD_DO = True
 

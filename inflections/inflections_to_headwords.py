@@ -10,7 +10,7 @@ import csv
 from rich import print
 
 
-from tools.timeis import tic, toc, bip, bop
+from tools.tic_toc import tic, toc, bip, bop
 from db.get_db_session import get_db_session
 from db.models import PaliRoot, Sandhi, PaliWord, DerivedData
 from tools.pali_sort_key import pali_sort_key

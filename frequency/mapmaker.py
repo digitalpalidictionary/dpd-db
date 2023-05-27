@@ -11,7 +11,7 @@ from sqlalchemy import update
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord, DerivedData
-from tools.timeis import tic, toc
+from tools.tic_toc import tic, toc
 from tools.superscripter import superscripter_uni
 from tools.paths import ProjectPaths as PTH
 
@@ -29,17 +29,14 @@ def main():
     db_session = get_db_session("dpd.db")
 
     if regenerate is False:
-        test_map_same()
         test_inflection_template_changed()
         test_changed_headwords()
         test_html_file_missing()
 
     else:
-        global map_same
         global changed_templates
         global changed_headwords
         global html_file_missing
-        map_same = True
         changed_templates = []
         changed_headwords = []
         html_file_missing = []
@@ -48,37 +45,6 @@ def main():
     make_data_dict_and_html(dicts)
     db_session.close()
     toc()
-
-
-def test_map_same():
-    print("[green]test if map has changed", end=" ")
-
-    global map_same
-    # map_same = False
-
-    # new_map = pd.read_csv(
-    #     PTH.map_path, sep="\t", index_col=0)
-
-    # try:
-    #     with open(PTH.old_map_path, "rb") as f:
-    #         old_map = pickle.load(f)
-    #     map_same = new_map.equals(old_map)
-
-    #     if map_same is False:
-    #         print("[bright_red]changed")
-    #     else:
-    #         print("[white]ok")
-
-    # except FileNotFoundError as e:
-    #     print(f"[red]{e}")
-    #     old_map = ""
-    #     map_same = False
-
-    # with open(PTH.old_map_path, "wb") as f:
-    #     pickle.dump(new_map, f)
-
-    map_same = True
-    print("[white]ok")
 
 
 def test_inflection_template_changed():
@@ -360,8 +326,7 @@ def make_data_dict_and_html(dicts):
     for counter, (i, j) in enumerate(zip(dpd_db, dd_db)):
 
         if i.pos != "idiom" and \
-            (map_same is False or
-                i.pattern in changed_templates or
+            (i.pattern in changed_templates or
                 i.pali_1 in changed_headwords or
                 i.id in html_file_missing or
                 regenerate is True):

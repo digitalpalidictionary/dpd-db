@@ -13,7 +13,7 @@ from html_components import render_root_info_templ
 from html_components import render_root_matrix_templ
 from html_components import render_root_families_templ
 from db.models import PaliRoot, FamilyRoot
-from tools.timeis import bip, bop
+from tools.tic_toc import bip, bop
 # from tools.pali_sort_key import pali_sort_key
 
 

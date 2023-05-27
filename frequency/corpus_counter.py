@@ -175,7 +175,7 @@ def make_tipitaka_dict():
     tipitaka_dict["abhidhamma_aṭṭhakathā"] = abhidhamma_aṭṭhakathā
 
     # abhidhamma ṭīkā
-    
+
     abhidhamma_ṭīkā = [
         "abh01t.tik.txt", "abh02t.tik.txt", "abh03t.tik.txt",
         "abh04t.nrf.txt", "abh05t.nrf.txt", "abh06t.nrf.txt",

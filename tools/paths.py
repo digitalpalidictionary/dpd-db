@@ -145,6 +145,7 @@ class ProjectPaths():
     tpr_splitter_tsv_path: Path = Path("exporter/tpr/splitter.tsv")
 
     # /frequency/output
+    frequency_output_dir: Path = Path("frequency/output/")
     raw_text_dir: Path = Path("frequency/output/raw_text/")
     freq_html_dir: Path = Path("frequency/output/html/")
     word_count_dir: Path = Path(
@@ -157,10 +158,6 @@ class ProjectPaths():
         "frequency/output/raw_text/ebts.txt")
     ebt_word_count_path: Path = Path(
         "frequency/output/word_count/ebts.csv")
-
-    # /frequency/tests
-    tests_dir: Path = Path("frequency/tests/")
-    old_map_path: Path = Path("frequency/tests/old_map")
 
     # /grammar_dict/output
     grammar_dict_output_dir: Path = Path("grammar_dict/output")
@@ -214,6 +211,7 @@ class ProjectPaths():
 
     # /sandhi/output
     sandhi_output_dir: Path = Path("sandhi/output/")
+    sandhi_output_do_dir: Path = Path("sandhi/output_do/")
     matches_do_path: Path = Path(
         "sandhi/output_do/matches.tsv")
     process_path: Path = Path(
@@ -283,6 +281,7 @@ class ProjectPaths():
         "share/inflections_from_translit.json")
 
     # /tbw
+    tbw_output_dir: Path = Path("tbw/output/")
     nṅ_tsv_path: Path = Path("tbw/output/nṅ.tsv")
     i2h_json_path: Path = Path("tbw/output/i2h.json")
     dpd_ebts_json_path: Path = Path("tbw/output/dpd_ebts.json")
@@ -312,6 +311,7 @@ class ProjectPaths():
             cls.zip_dir,
             cls.tpr_dir,
             cls.ebook_output_dir,
+            cls.frequency_output_dir,
             cls.grammar_dict_output_dir,
             cls.grammar_dict_output_html_dir,
             cls.cst_txt_dir,
@@ -319,9 +319,10 @@ class ProjectPaths():
             cls.raw_text_dir,
             cls.freq_html_dir,
             cls.word_count_dir,
-            cls.tests_dir,
+            cls.tbw_output_dir,
             cls.temp_dir,
             cls.sandhi_output_dir,
+            cls.sandhi_output_do_dir,
             cls.rule_counts_dir,
             cls.sandhi_zip_dir,
             cls.letters_dir,

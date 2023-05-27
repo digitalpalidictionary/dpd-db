@@ -11,7 +11,7 @@ from html_components import render_header_tmpl
 from html_components import render_abbrev_templ
 from html_components import render_help_templ
 
-from tools.timeis import bip, bop
+from tools.tic_toc import bip, bop
 
 
 class Abbreviation:

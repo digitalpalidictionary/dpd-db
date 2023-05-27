@@ -13,7 +13,7 @@ from db.models import Sandhi
 from db.get_db_session import get_db_session
 
 from tools.paths import ProjectPaths as PTH
-from tools.timeis import tic, toc
+from tools.tic_toc import tic, toc
 from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 # from tools.cst_sc_text_sets import make_mula_words_set
 # !!! minify

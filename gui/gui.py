@@ -57,7 +57,7 @@ from functions_tests import open_internal_tests
 from functions_tests import db_internal_tests
 
 from db.get_db_session import get_db_session
-from db.db_to_tsv import db_to_tsv
+from scripts.db_to_tsv import db_to_tsv
 
 from tools.pos import DECLENSIONS, VERBS
 from tools.pos import POS
@@ -68,7 +68,10 @@ from tools.paths import ProjectPaths as PTH
 def main():
     db_session = get_db_session("dpd.db")
     # !!! this is slow !!!
-    definitions_df = pd.read_csv(PTH.defintions_csv_path, sep="\t")
+    try:
+        definitions_df = pd.read_csv(PTH.defintions_csv_path, sep="\t")
+    except Exception:
+        definitions_df = pd.DataFrame()
     sandhi_dict = make_sandhi_contraction_dict(db_session)
     pali_clean_list: list = get_pali_clean_list()
     window = window_layout()

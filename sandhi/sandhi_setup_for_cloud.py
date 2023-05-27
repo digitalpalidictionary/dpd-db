@@ -15,7 +15,7 @@ from db.models import PaliWord, DerivedData
 from db.get_db_session import get_db_session
 from tools.cst_sc_text_sets import make_cst_text_set
 from tools.cst_sc_text_sets import make_sc_text_set
-from tools.timeis import tic, toc
+from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths as PTH
 
 # prepare all the necessary parts for local and cloud

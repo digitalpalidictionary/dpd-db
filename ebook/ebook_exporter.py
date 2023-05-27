@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import csv
 import os
 import shutil
@@ -23,7 +25,7 @@ from tools.pali_alphabet import pali_alphabet
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths as PTH
 from tools.sandhi_words import make_words_in_sandhi_set
-from tools.timeis import tic, toc
+from tools.tic_toc import tic, toc
 
 
 ebook_entry_templ = Template(

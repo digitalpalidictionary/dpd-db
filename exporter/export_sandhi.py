@@ -8,7 +8,7 @@ from html_components import render_sandhi_templ
 
 from db.models import PaliWord, Sandhi
 from tools.niggahitas import add_niggahitas
-from tools.timeis import bip, bop
+from tools.tic_toc import bip, bop
 from tools.cst_sc_text_sets import make_mula_words_set
 from tools.paths import ProjectPaths
 

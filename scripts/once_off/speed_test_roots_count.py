@@ -1,6 +1,6 @@
 from db.get_db_session import get_db_session
 from db.models import PaliRoot, PaliWord
-from tools.timeis import bip, bop
+from tools.tic_toc import bip, bop
 from rich import print
 
 db_session = get_db_session("dpd.db")

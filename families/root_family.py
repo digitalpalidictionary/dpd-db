@@ -12,11 +12,11 @@ from root_matrix import generate_root_matrix
 from root_info import generate_root_info_html
 from db.get_db_session import get_db_session
 from db.models import PaliRoot, PaliWord, FamilyRoot
-from tools.timeis import tic, toc
+from tools.tic_toc import tic, toc
 from tools.superscripter import superscripter_uni
 from tools.meaning_construction import make_meaning
 from tools.pali_sort_key import pali_sort_key
-from tools.degree_of_completion import degree_of_completion
+from tools.meaning_construction import degree_of_completion
 
 
 def main():

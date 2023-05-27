@@ -19,7 +19,7 @@ from rich import print
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord, DerivedData
-from tools.timeis import tic, toc
+from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths as PTH
 
 

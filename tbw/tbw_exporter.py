@@ -7,7 +7,7 @@ from rich import print
 from db.get_db_session import get_db_session
 from db.models import PaliWord, Sandhi, DerivedData
 from tools.pali_sort_key import pali_sort_key
-from tools.timeis import tic, toc
+from tools.tic_toc import tic, toc
 from tools.cst_sc_text_sets import make_sc_text_set
 from tools.meaning_construction import make_meaning_html
 from tools.meaning_construction import summarize_constr

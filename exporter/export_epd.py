@@ -7,7 +7,7 @@ from css_html_js_minify import css_minify
 
 from html_components import render_header_tmpl
 from db.models import PaliWord, PaliRoot
-from tools.timeis import bip, bop
+from tools.tic_toc import bip, bop
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 

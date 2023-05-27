@@ -11,7 +11,7 @@ from typing import List, Dict
 from db.get_db_session import get_db_session
 from db.models import PaliWord, InflectionTemplates, DerivedData
 
-from tools.timeis import tic, toc
+from tools.tic_toc import tic, toc
 from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.superscripter import superscripter_uni

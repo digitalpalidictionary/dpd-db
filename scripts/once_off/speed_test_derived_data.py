@@ -4,7 +4,7 @@ from rich import print
 
 from db.db_helpers import get_db_session
 from db.models import PaliWord, DerivedData, FamilyRoot
-from tools.timeis import bip, bop
+from tools.tic_toc import bip, bop
 
 DB_SESSION = get_db_session("dpd.db")
 

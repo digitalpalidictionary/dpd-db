@@ -6,7 +6,7 @@ from tools.paths import ProjectPaths as PTH
 
 
 def make_sandhi_contraction_dict(db_session) -> Dict[[str, set], [str, list]]:
-    """Find all sandhi words split with ' in db and return a list."""
+    """Return a list of all sandhi words in db that are split with '."""
 
     db = db_session.query(PaliWord).all()
     sandhi_contraction: dict = {}

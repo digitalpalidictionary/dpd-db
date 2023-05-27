@@ -6,7 +6,7 @@ from functools import reduce
 from rich import print
 from pathlib import Path
 from typing import List, Dict
-from tools.timeis import bip, bop
+from tools.tic_toc import bip, bop
 sys.path.insert(1, 'tools/writemdict')
 from writemdict import MDictWriter
 

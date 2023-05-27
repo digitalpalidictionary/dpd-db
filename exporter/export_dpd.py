@@ -20,7 +20,7 @@ from html_components import render_family_sets_templ
 from html_components import render_frequency_templ
 from html_components import render_feedback_templ
 from tools.niggahitas import add_niggahitas
-from tools.timeis import bip, bop
+from tools.tic_toc import bip, bop
 
 
 def generate_dpd_html(DB_SESSION, PTH, SANDHI_CONTRACTIONS, size_dict):

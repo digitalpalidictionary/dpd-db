@@ -11,8 +11,8 @@ from rich import print
 
 from db.get_db_session import get_db_session
 from db.models import InflectionTemplates
-from tools.sorter import pali_list_sorter
-from tools.timeis import tic, toc
+from tools.pali_sort_key import pali_list_sorter
+from tools.tic_toc import tic, toc
 
 tic()
 print("[bright_yellow]create inflection templates")

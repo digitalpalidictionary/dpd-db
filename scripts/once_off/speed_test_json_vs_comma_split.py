@@ -4,7 +4,7 @@ import json
 from rich import print
 from db.models import PaliWord, DerivedData
 from db.get_db_session import get_db_session
-from tools.timeis import bip, bop
+from tools.tic_toc import bip, bop
 
 db_session = get_db_session("dpd.db")
 

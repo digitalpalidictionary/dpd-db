@@ -12,7 +12,7 @@ from db.get_db_session import get_db_session
 from db.models import PaliRoot
 from db.models import PaliWord
 from db.models import FamilyCompound
-from tools.timeis import tic, toc
+from tools.tic_toc import tic, toc
 from tools.pali_alphabet import consonants
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 
@@ -812,7 +812,8 @@ def duplicate_words_meaning_lit(searches: dict) -> tuple:
         "gatagataṭṭhāna", "icchiticchita", "jalambuja", "tuvaṃtuvaṃ",
         "bījabīja", "haṭahaṭa", "nāmaraṇa", "nānāsakā", "nāppamāda",
         "nāsūra", "samasama 1", "samasama 2", "saṇḍasaṇḍacārī",
-        "suve suve", "yena yeneva", "samasamagati", "aggamagga 2.1"
+        "suve suve", "yena yeneva", "samasamagati", "aggamagga 2.1",
+        "antarantarā 1"
     ]
 
     results = []

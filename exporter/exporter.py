@@ -17,8 +17,8 @@ from helpers import make_roots_count_dict
 from mdict_exporter import export_to_mdict
 
 from db.get_db_session import get_db_session
-from tools.timeis import tic, toc, bip, bop
-from tools.stardict_nu import export_words_as_stardict_zip, ifo_from_opts
+from tools.tic_toc import tic, toc, bip, bop
+from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.paths import ProjectPaths as PTH
 

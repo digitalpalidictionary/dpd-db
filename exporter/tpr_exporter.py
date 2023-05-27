@@ -20,7 +20,7 @@ from db.models import PaliWord, PaliRoot, Sandhi
 from html_components import render_dpd_defintion_templ
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths as PTH
-from tools.timeis import tic, toc
+from tools.tic_toc import tic, toc
 
 
 TODAY = date.today()

@@ -10,8 +10,8 @@ from typing import List
 from db.models import PaliWord, PaliRoot
 from db.get_db_session import get_db_session
 
-from tools.sorter import sort_key
-from tools.timeis import tic, toc
+from tools.pali_sort_key import pali_sort_key
+from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths as PTH
 
 
@@ -208,7 +208,7 @@ def full_db(dpd_db):
     dpd_df = pd.read_csv(PTH.dpd_full_path, sep="\t", dtype=str)
     dpd_df.sort_values(
         by=["Pāli1"], inplace=True, ignore_index=True,
-        key=lambda x: x.map(sort_key))
+        key=lambda x: x.map(pali_sort_key))
     dpd_df.to_csv(
         PTH.dpd_full_path, sep="\t", index=False,
         quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
@@ -252,7 +252,7 @@ def roots(db_session, roots_db):
     dpd_df = pd.read_csv(PTH.roots_csv_path, sep="\t", dtype=str)
     dpd_df.sort_values(
         by=["Root"], inplace=True, ignore_index=True,
-        key=lambda x: x.map(sort_key))
+        key=lambda x: x.map(pali_sort_key))
     dpd_df.to_csv(
         PTH.roots_csv_path, sep="\t", index=False,
         quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
