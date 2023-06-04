@@ -1,6 +1,7 @@
 # open terminal
 # ssh root@ipaddress
-# apt-get install unzip
+# bash sandhi.sh
+apt-get install unzip
 sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt update 
 sudo apt install python3.11
@@ -17,5 +18,5 @@ poetry install
 # poetry shell
 export PYTHONPATH=$PYTHONPATH:sandhi/tools
 nohup poetry run python3.11 sandhi/sandhi_splitter.py &
-cat nohup.out
+# cat nohup.out
 # zip -j -r do_output.zip sandhi/output/ && zip do_output nohup.out

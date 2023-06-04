@@ -42,6 +42,9 @@ ebook_abbreviation_entry_templ = Template(
     filename=str(PTH.ebook_abbrev_entry_templ_path))
 ebook_title_page_templ = Template(
     filename=str(PTH.ebook_title_page_templ_path))
+ebook_content_opf_templ = Template(
+    filename=str(PTH.ebook_content_opf_templ_path)
+)
 
 
 def render_xhtml():
@@ -98,25 +101,27 @@ def render_xhtml():
         dd_counter += len(inflection_set)
     print(f"{dd_counter:>10,}")
 
+    # add one clean inflection without diacritics
+    for i in dpd_db:
+        no_diacritics = diacritics_cleaner(i.pali_clean)
+        dd_dict[i.id].add(no_diacritics)
+
     # a dicitonary for entries of each letter of the alphabet
     print(f"[green]{'initialising letter dict':<40}")
     letter_dict: dict = {}
     for letter in pali_alphabet:
         letter_dict[letter] = []
 
-    # add all words which have inflections in all_words_set
+    # add all words
     print("[green]creating entries")
     excluded = []
     id_counter = 1
     for counter, i in enumerate(dpd_db):
         inflections: set = dd_dict[i.id]
-        if bool(inflections & all_words_set):
-            first_letter = find_first_letter(i.pali_1)
-            entry = render_ebook_entry(id_counter, i, inflections)
-            letter_dict[first_letter] += [entry]
-            id_counter += 1
-        else:
-            excluded += [i.pali_1]
+        first_letter = find_first_letter(i.pali_1)
+        entry = render_ebook_entry(id_counter, i, inflections)
+        letter_dict[first_letter] += [entry]
+        id_counter += 1
 
         if counter % 5000 == 0:
             print(f"{counter:>10,} / {len(dpd_db):<10,} {i.pali_1}")
@@ -134,7 +139,7 @@ def render_xhtml():
             print(f"{counter:>10,} / {len(sandhi_db):<10,} {i.sandhi}")
 
     # save to a single file for each letter of the alphabet
-    print("[green]saving entries xhtml")
+    print(f"[green]{'saving entries xhtml':<40}", end="")
     total = 0
 
     for counter, (letter, entries) in enumerate(letter_dict.items()):
@@ -148,8 +153,7 @@ def render_xhtml():
         with open(output_path, "w") as f:
             f.write(xhtml)
 
-    print(f"{total:>10,} : {'included':<10}")
-    print(f"{len(excluded):>10,} : {'excluded':<10}")
+    print(f"{total:>10,}")
 
     return id_counter+1
 
@@ -256,7 +260,7 @@ def render_ebook_letter_tmpl(letter: str, entries: str) -> str:
 
 def save_abbreviations_xhtml_page(id_counter):
     """Render xhtml of all DPD abbreviaitons and save as a page."""
-    print(f"[green]{'saving abbreviations xhtml':<40}", end="")
+    print(f"[green]{'saving abbrev xhtml':<40}", end="")
     abbreviations_list = []
 
     with open(
@@ -304,6 +308,23 @@ def save_title_page_xhtml():
 
     with open(PTH.epub_titlepage_path, "w") as f:
         f.write(xhtml)
+
+    print(f"{'OK':>10}")
+
+    save_content_opf_xhtml(current_datetime)
+
+
+def save_content_opf_xhtml(current_datetime):
+    """Save date and time in content.opf."""
+    print(f"[green]{'saving content.opf':<40}", end="")
+
+    date_time_zulu = current_datetime.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    content = str(ebook_content_opf_templ.render(
+            date_time_zulu=date_time_zulu))
+
+    with open(PTH.epub_content_opf_path, "w") as f:
+        f.write(content)
 
     print(f"{'OK':>10}")
 

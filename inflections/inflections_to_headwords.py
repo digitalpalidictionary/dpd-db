@@ -1,46 +1,63 @@
 #!/usr/bin/env python3
-#coding: utf-8
 
-import pickle
-import json
-import re
-import pandas as pd
 import csv
 
 from rich import print
 
-
 from tools.tic_toc import tic, toc, bip, bop
 from db.get_db_session import get_db_session
-from db.models import PaliRoot, Sandhi, PaliWord, DerivedData
+from db.models import PaliRoot, PaliWord, DerivedData, Sandhi
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths as PTH
+from tools.sandhi_words import make_words_in_sandhi_set
+from tools.headwords_clean_set import make_clean_headwords_set
 
 
 def inflection_to_headwords():
     tic()
     print("[bright_yellow]inflection to headwords dict")
+
     bip()
-    message = "all tipitaka words set"
-    print(f"[green]{message:<30}", end="")
+    print(f"[green]{'querying db':<30}", end="")
+    db_session = get_db_session("dpd.db")
+    dpd_db = db_session.query(PaliWord).all()
+    dd_db = db_session.query(DerivedData).all()
+    sandhi_db = db_session.query(Sandhi).all()
+    print(f"{len(dpd_db):>10,}{bop():>10}")
+
+    bip()
+    print(f"[green]{'all tipitaka words set':<30}", end="")
     with open(PTH.tipitaka_word_count_path) as f:
         reader = csv.reader(f, delimiter="\t")
         all_tipitaka_words: set = set([row[0] for row in reader])
     print(f"{len(all_tipitaka_words):>10,}{bop():>10}")
 
     bip()
+    print(f"[green]{'all words in sandhi set':<30}", end="")
+    words_in_sandhi_set: set = make_words_in_sandhi_set(sandhi_db)
+    print(f"{len(words_in_sandhi_set):>10,}{bop():>10}")
+
+    bip()
+    print(f"[green]{'clean headwords set':<30}", end="")
+    clean_headwords_set: set = make_clean_headwords_set(dpd_db)
+    print(f"{len(clean_headwords_set):>10,}{bop():>10}")
+
+    bip()
+    print(f"[green]{'all words set':<30}", end="")
+    all_words_set: set = all_tipitaka_words | words_in_sandhi_set
+    all_words_set.update(clean_headwords_set)
+    print(f"{len(all_words_set):>10,}{bop():>10}")
+
+    bip()
     message = "adding pali words"
     print(f"[green]{message:<30}", end="")
 
-    db_session = get_db_session("dpd.db")
-    dpd_db = db_session.query(PaliWord).all()
-    dd_db = db_session.query(DerivedData).all()
     i2h_dict = {}
 
     for counter, (i, dd) in enumerate(zip(dpd_db, dd_db)):
         inflections = dd.inflections_list
         for inflection in inflections:
-            if inflection in all_tipitaka_words:
+            if inflection in all_words_set:
                 if inflection not in i2h_dict:
                     i2h_dict[inflection] = {i.pali_1}
                 else:
@@ -62,23 +79,13 @@ def inflection_to_headwords():
         else:
             i2h_dict[r.root_clean].add(r.root_clean)
 
+        # add roots no sign
+        if r.root_no_sign not in i2h_dict:
+            i2h_dict[r.root_no_sign] = {r.root_clean}
+        else:
+            i2h_dict[r.root_no_sign].add(r.root_clean)
+
     print(f"{len(roots_db):>10,}{bop():>10}")
-
-    # # add sandhi
-    # bip()
-    # message = "adding sandhi"
-    # print(f"[green]{message:<30}", end="")
-    # sandhi_db = db_session.query(Sandhi).all()
-
-    # for i in sandhi_db:
-
-    #     # add clean roots
-    #     if i.sandhi not in i2h_dict:
-    #         i2h_dict[i.sandhi] = {i.sandhi}
-    #     else:
-    #         i2h_dict[i.sandhi].add(i.sandhi)
-
-    # print(f"{len(sandhi_db):>10,}{bop():>10}")
 
     bip()
     message = "saving to tsv"

@@ -71,13 +71,21 @@ def summarize_constr(i: PaliWord) -> str:
             constr_trunc = re.sub(" > .[^ ]+", "", constr_oneline)
             constr_trunc = re.sub(f".*{base_clean}", "", constr_trunc)
 
+            # look for na in front
             if re.match("^na ", i.construction):
-                constr_na = re.sub("^(na )(.+)$", "\\1+ ", constr_oneline)
+                constr_prefix = re.sub("^(na )(.+)$", "\\1+ ", constr_oneline)
                 constr_trunc = re.sub(r"na > a|a > an|a > ana", "", constr_trunc)
+            # look for other prefixes in front
+            elif re.match("^sa ", i.construction):
+                constr_prefix = "sa + "
+            elif re.match("^a ", i.construction):
+                constr_prefix = "a + "
+            elif re.match("^ku ", i.construction):
+                constr_prefix = "ku + "
             else:
-                constr_na = ""
+                constr_prefix = ""
 
-            constr_reconstr = f"{constr_na}{family_plus} + {i.root_sign}{constr_trunc}"
+            constr_reconstr = f"{constr_prefix}{family_plus} + {i.root_sign}{constr_trunc}"
             return constr_reconstr
 
         elif i.root_base != "" and i.pos == "fut":
@@ -93,22 +101,22 @@ def summarize_constr(i: PaliWord) -> str:
             constr_trunc = re.sub(r"(.+)( \+ .*$)", "\\2", constr_trunc)
 
             if re.match("^na ", i.construction):
-                constr_na = re.sub(
+                constr_prefix = re.sub(
                     "^(na )(.+)$", "\\1+ ", i.construction)
                 constr_trunc = re.sub(
                     r"na > a|a > an|a > ana", "", constr_trunc)
             else:
-                constr_na = ""
+                constr_prefix = ""
 
-            constr_reconstr = f"{constr_na}{family_prefix} + {base}{constr_trunc}"
+            constr_reconstr = f"{constr_prefix}{family_prefix} + {base}{constr_trunc}"
             return constr_reconstr
 
 
 def degree_of_completion(i):
     if i.meaning_1:
         if i.source_1:
-            return "<span class='gray'>✓</span>"
+            return """<span class="gray">✓</span>"""
         else:
-            return "<span class='gray'>~</span>"
+            return """<span class="gray">~</span>"""
     else:
-        return "<span class='gray'>✗</span>"
+        return """<span class="gray">✗</span>"""

@@ -29,7 +29,7 @@ class ProjectPaths():
     # ebook/epub
     epub_text_dir: Path = Path("ebook/epub/OEBPS/Text")
     epub_content_opf_path: Path = Path(
-        "ebook/ebook/epub/OEBPS/content.opf")
+        "ebook/epub/OEBPS/content.opf")
     epub_abbreviations_path: Path = Path(
         "ebook/epub/OEBPS/Text/abbreviations.xhtml")
     epub_titlepage_path: Path = Path(
@@ -55,6 +55,8 @@ class ProjectPaths():
         "ebook/templates/ebook_abbreviation_entry.html")
     ebook_title_page_templ_path: Path = Path(
         "ebook/templates/ebook_titlepage.html")
+    ebook_content_opf_templ_path: Path = Path(
+        "ebook/templates/ebook_content_opf.html")
 
     # /exporter/css
     dpd_css_path: Path = Path("exporter/css/dpd.css")
@@ -81,6 +83,9 @@ class ProjectPaths():
     grammar_dict_mdict_path: Path = Path(
         "exporter/share/dpd-grammar-mdict.mdx")
     dpd_kindle_path: Path = Path("exporter/share/dpd-kindle.mobi")
+    deconstructor_zip_path: Path = Path("exporter/share/dpd-deconstructor.zip")
+    deconstructor_mdict_mdx_path: Path = Path(
+        "exporter/share/dpd-deconstructor-mdict.mdx")
 
     # /exporter/templates
     templates_dir: Path = Path("exporter/templates")
@@ -132,8 +137,8 @@ class ProjectPaths():
     help_templ_path: Path = Path(
         "exporter/templates/help_help.html")
 
-    header_sandhi_splitter_templ_path: Path = Path(
-        "exporter/templates/header_sandhi_splitter.html")
+    header_deconstructor_templ_path: Path = Path(
+        "exporter/templates/header_deconstructor.html")
     header_grammar_dict_templ_path: Path = Path(
         "exporter/templates/header_grammar_dict.html")
 
@@ -142,7 +147,7 @@ class ProjectPaths():
     tpr_sql_file_path: Path = Path("exporter/tpr/dpd.sql")
     tpr_dpd_tsv_path: Path = Path("exporter/tpr/dpd.tsv")
     tpr_i2h_tsv_path: Path = Path("exporter/tpr/i2h.tsv")
-    tpr_splitter_tsv_path: Path = Path("exporter/tpr/splitter.tsv")
+    tpr_deconstructor_tsv_path: Path = Path("exporter/tpr/deconstructor.tsv")
 
     # /frequency/output
     frequency_output_dir: Path = Path("frequency/output/")
@@ -227,8 +232,6 @@ class ProjectPaths():
     sandhi_dict_df_path: Path = Path(
         "sandhi/output/sandhi_dict_df.tsv")
     sandhi_timer_path: Path = Path("sandhi/output/timer.tsv")
-    sandhi_zip_path: Path = Path(
-        "sandhi/output/zip/dpd-splitter.zip")
     rule_counts_path: Path = Path(
         "sandhi/output/rule_counts/rule_counts.tsv")
 
@@ -248,9 +251,6 @@ class ProjectPaths():
     letters8: Path = Path("sandhi/output/letters/letters8.tsv")
     letters9: Path = Path("sandhi/output/letters/letters9.tsv")
     letters10: Path = Path("sandhi/output/letters/letters10plus.tsv")
-
-    # /sandhi/output/zip
-    sandhi_zip_dir: Path = Path("sandhi/output/zip/")
 
     # /sandhi/sandhi_related/
     sandhi_ok_path: Path = Path("sandhi/sandhi_related/sandhi_ok.csv")
@@ -273,8 +273,6 @@ class ProjectPaths():
     inflection_templates_pickle_path: Path = Path("share/inflection_templates")
     headword_stem_pattern_dict_path: Path = Path(
         "share/headword_stem_pattern_dict")
-    # inflection_to_headwords_dict_path: Path = Path(
-    #     "share/inflection_to_headwords_dict.tsv")
     inflections_to_translit_json_path: Path = Path(
         "share/inflections_to_translit.json")
     inflections_from_translit_json_path: Path = Path(
@@ -285,6 +283,7 @@ class ProjectPaths():
     nṅ_tsv_path: Path = Path("tbw/output/nṅ.tsv")
     i2h_json_path: Path = Path("tbw/output/i2h.json")
     dpd_ebts_json_path: Path = Path("tbw/output/dpd_ebts.json")
+    sandhi_json_path: Path = Path("tbw/output/sandhi.json")
 
     # temp
     temp_dir: Path = Path("temp/")
@@ -324,7 +323,6 @@ class ProjectPaths():
             cls.sandhi_output_dir,
             cls.sandhi_output_do_dir,
             cls.rule_counts_dir,
-            cls.sandhi_zip_dir,
             cls.letters_dir,
         ]:
             d.mkdir(parents=True, exist_ok=True)

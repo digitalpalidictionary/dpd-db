@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<package version="3.0" unique-identifier="BookId" xmlns="http://www.idpf.org/2007/opf">
+<package version="3.0" unique-identifier="BookId" xml:lang="en" xmlns="http://www.idpf.org/2007/opf">
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
     <dc:language>en</dc:language>
 	<x-metadata>
@@ -13,23 +13,30 @@
     <dc:creator id="create1">Bodhirasa Bhikkhu</dc:creator>
     <meta refines="#create1" property="file-as">Bodhirasa</meta>
     <meta refines="#create1" property="role" scheme="marc:relators">aut</meta>
-    <dc:rights>CC BY-NC 4.0</dc:rights>
-    <meta property="dcterms:modified">2023-05-22T16:18:35Z</meta>
+    <dc:rights>CC BY-NC-SA 4.0</dc:rights>
+    <meta property="dcterms:modified">2023-06-03T00:31:46Z</meta>
     <dc:identifier id="BookId">urn:uuid:c2f8321b-cb69-43a4-a2e7-fc7f15646099</dc:identifier>
     <meta name="Sigil version" content="1.9.30"/>
     <meta name="cover" content="cover.jpg"/>
+    <meta property="schema:accessibilitySummary">This publication conforms to WCAG 2.0 AA.</meta>
+    <meta property="schema:accessMode">textual</meta>
+    <meta property="schema:accessMode">visual</meta>
+    <meta property="schema:accessModeSufficient">textual</meta>
+    <meta property="schema:accessibilityFeature">structuralNavigation</meta>
+    <meta property="schema:accessibilityHazard">none</meta>
   </metadata>
   <manifest>
-    <item id="x0_a.xhtml" href="Text/0_a.xhtml" media-type="application/xhtml+xml"/>
-    <item id="sgc-nav.css" href="Styles/sgc-nav.css" media-type="text/css"/>
-    <item id="nav.xhtml" href="Text/nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+    <item id="abbreviations.xhtml" href="Text/abbreviations.xhtml" media-type="application/xhtml+xml"/>
+    <item id="cover.jpg" href="Images/cover.jpg" media-type="image/jpeg" properties="cover-image"/>
     <item id="cover.xhtml" href="Text/cover.xhtml" media-type="application/xhtml+xml" properties="svg"/>
     <item id="dpd_kindle.css" href="Styles/dpd_kindle.css" media-type="text/css"/>
-    <item id="titlepage.xhtml" href="Text/titlepage.xhtml" media-type="application/xhtml+xml"/>
-    <item id="imprint.xhtml" href="Text/imprint.xhtml" media-type="application/xhtml+xml"/>
-    <item id="sgc-toc.css" href="Styles/sgc-toc.css" media-type="text/css"/>
     <item id="dpdlogo.png" href="Images/dpdlogo.png" media-type="image/png"/>
-    <item id="abbreviations.xhtml" href="Text/abbreviations.xhtml" media-type="application/xhtml+xml"/>
+    <item id="imprint.xhtml" href="Text/imprint.xhtml" media-type="application/xhtml+xml"/>
+    <item id="nav.xhtml" href="Text/nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+    <item id="sgc-nav.css" href="Styles/sgc-nav.css" media-type="text/css"/>
+    <item id="sgc-toc.css" href="Styles/sgc-toc.css" media-type="text/css"/>
+    <item id="titlepage.xhtml" href="Text/titlepage.xhtml" media-type="application/xhtml+xml"/>
+    <item id="x0_a.xhtml" href="Text/0_a.xhtml" media-type="application/xhtml+xml"/>
     <item id="x1_a.xhtml" href="Text/1_a.xhtml" media-type="application/xhtml+xml"/>
     <item id="x2_i.xhtml" href="Text/2_i.xhtml" media-type="application/xhtml+xml"/>
     <item id="x3_i.xhtml" href="Text/3_i.xhtml" media-type="application/xhtml+xml"/>
@@ -66,11 +73,10 @@
     <item id="x34_r.xhtml" href="Text/34_r.xhtml" media-type="application/xhtml+xml"/>
     <item id="x35_l.xhtml" href="Text/35_l.xhtml" media-type="application/xhtml+xml"/>
     <item id="x36_s.xhtml" href="Text/36_s.xhtml" media-type="application/xhtml+xml"/>
+    <item id="x37_v.xhtml" href="Text/37_v.xhtml" media-type="application/xhtml+xml"/>
     <item id="x38_h.xhtml" href="Text/38_h.xhtml" media-type="application/xhtml+xml"/>
     <item id="x39_l.xhtml" href="Text/39_l.xhtml" media-type="application/xhtml+xml"/>
     <item id="x40_m.xhtml" href="Text/40_m.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x37_v.xhtml" href="Text/37_v.xhtml" media-type="application/xhtml+xml"/>
-    <item id="cover.jpg" href="Images/cover.jpg" media-type="image/jpeg" properties="cover-image"/>
   </manifest>
   <spine>
     <itemref idref="cover.xhtml"/>

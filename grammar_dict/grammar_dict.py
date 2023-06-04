@@ -55,7 +55,7 @@ def main():
             i.pos = "noun"
         if i.pos in verbs:
             i.pos = "verb"
-        if "adv" in i.grammar:
+        if "adv" in i.grammar and i.pos != "sandhi":
             i.pos = "adv"
         if "excl" in i.grammar:
             i.pos = "excl"

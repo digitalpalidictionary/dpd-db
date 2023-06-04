@@ -57,9 +57,7 @@ root_matrix_templ = Template(
     filename=str(PTH.root_matrix_templ_path))
 root_families_templ = Template(
     filename=str(PTH.root_families_templ_path))
-sandhi_templ = Template(
-    filename=str(PTH.sandhi_templ_path)
-)
+
 epd_templ = Template(
     filename=str(PTH.epd_templ_path))
 abbrev_templ = Template(
@@ -450,14 +448,6 @@ def render_root_families_templ(r: PaliRoot, DB_SESSION):
         root_families_templ.render(
             r=r,
             frs=frs,
-            today=TODAY))
-
-
-def render_sandhi_templ(i, splits: list) -> str:
-    return str(
-        sandhi_templ.render(
-            i=i,
-            splits=splits,
             today=TODAY))
 
 

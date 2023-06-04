@@ -6,7 +6,6 @@ inflections/transliterate_inflections.py
 sandhi/sandhi_setup.py
 sandhi/sandhi_splitter.py
 sandhi/sandhi_postprocess.py
-sandhi/dpd_splitter.py
 
 inflections/inflections_to_headwords.py
 grammar_dict/grammar_dict.py
@@ -19,8 +18,8 @@ families/sets.py
 frequency/mapmaker.py
 
 exporter/exporter.py
-
 exporter/tpr_exporter.py
+exporter/deconstructor_exporter.py
 
 ebook/ebook_exporter.py
 

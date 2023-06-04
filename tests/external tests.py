@@ -39,33 +39,33 @@ def run_external_tests():
 
     # tests
     results_list = []
-    # results_list.append(family_compound_no_number(searches))
-    # results_list.append(suffix_does_not_match_pali_1(searches))
-    # results_list.append(construction_line1_does_not_match_pali_1(searches))
-    # results_list.append(construction_line2_does_not_match_pali_1(searches))
-    # results_list.append(pali_1_missing_a_number(searches))
-    # results_list.append(pali_1_contains_extra_number(searches))
-    # results_list.append(derived_from_not_in_headwords(searches))
-    # results_list.append(pali_words_in_english_meaning(searches))
-    # results_list.append(derived_from_not_in_family_compound(searches))
-    # results_list.append(pos_does_not_equal_grammar(searches))
-    # results_list.append(pos_does_not_equal_pattern(searches))
-    # results_list.append(base_contains_extra_star(searches))
-    # results_list.append(base_is_missing_star(searches))
-    # results_list.append(root_x_root_family_mismatch(searches))
-    # results_list.append(root_x_construction_mismatch(searches))
-    # results_list.append(family_root_x_construction_mismatch(searches))
-    # results_list.append(root_key_x_base_mismatch(searches))
-    # results_list.append(root_sign_x_base_mismatch(searches))
-    # results_list.append(root_sign_x_base_mismatch(searches))
-    # results_list.append(root_base_x_construction_mismatch(searches))
-    # results_list.append(wrong_prefix_in_family_root(searches))
-    # results_list.append(variant_equals_pali_1(searches))
-    # results_list.append(antonym_equals_pali_1(searches))
-    # results_list.append(synonym_equals_pali_1(searches))
-    # results_list.append(sandhi_contraction_errors(db_session))
-    # results_list.append(duplicate_phrases(searches))
-    # results_list.append(duplicate_words(searches))
+    results_list.append(family_compound_no_number(searches))
+    results_list.append(suffix_does_not_match_pali_1(searches))
+    results_list.append(construction_line1_does_not_match_pali_1(searches))
+    results_list.append(construction_line2_does_not_match_pali_1(searches))
+    results_list.append(pali_1_missing_a_number(searches))
+    results_list.append(pali_1_contains_extra_number(searches))
+    results_list.append(derived_from_not_in_headwords(searches))
+    results_list.append(pali_words_in_english_meaning(searches))
+    results_list.append(derived_from_not_in_family_compound(searches))
+    results_list.append(pos_does_not_equal_grammar(searches))
+    results_list.append(pos_does_not_equal_pattern(searches))
+    results_list.append(base_contains_extra_star(searches))
+    results_list.append(base_is_missing_star(searches))
+    results_list.append(root_x_root_family_mismatch(searches))
+    results_list.append(root_x_construction_mismatch(searches))
+    results_list.append(family_root_x_construction_mismatch(searches))
+    results_list.append(root_key_x_base_mismatch(searches))
+    results_list.append(root_sign_x_base_mismatch(searches))
+    results_list.append(root_sign_x_base_mismatch(searches))
+    results_list.append(root_base_x_construction_mismatch(searches))
+    results_list.append(wrong_prefix_in_family_root(searches))
+    results_list.append(variant_equals_pali_1(searches))
+    results_list.append(antonym_equals_pali_1(searches))
+    results_list.append(synonym_equals_pali_1(searches))
+    results_list.append(sandhi_contraction_errors(db_session))
+    results_list.append(duplicate_phrases(searches))
+    results_list.append(duplicate_words(searches))
     results_list.append(duplicate_words_meaning_2(searches))
     results_list.append(duplicate_words_meaning_lit(searches))
     results_list.append(identical_meaning_1_meaning_lit(searches))
@@ -813,7 +813,8 @@ def duplicate_words_meaning_lit(searches: dict) -> tuple:
         "bījabīja", "haṭahaṭa", "nāmaraṇa", "nānāsakā", "nāppamāda",
         "nāsūra", "samasama 1", "samasama 2", "saṇḍasaṇḍacārī",
         "suve suve", "yena yeneva", "samasamagati", "aggamagga 2.1",
-        "antarantarā 1"
+        "antarantarā 1", "huṃhuṅkajātika", "huṃhuṅka", "huṃhuṅka",
+        "nihuṃhuṅka", "nihuṃhuṅka"
     ]
 
     results = []

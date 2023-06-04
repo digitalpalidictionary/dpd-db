@@ -255,9 +255,11 @@ def make_all_inflections_set(sandhi_exceptions_set):
     print(f"[green]{'making all inflections set':<35}", end="")
     all_inflections_set = set()
 
+    # this is different to normal sandhi-splitting
     exceptions_list = set([
         "abbrev", "idiom", "sandhi",
-        # "cs", "letter", "prefix", "root", "suffix" "ve",
+        "prefix", "root", "suffix",
+        "cs", "letter", "ve",
         ])
 
     no_exceptions = db_session.query(PaliWord).filter(
@@ -286,9 +288,11 @@ def make_neg_inflections_set(sandhi_exceptions_set):
     print(f"[green]{'making neg inflections set':<35}", end="")
     neg_inflections_set = set()
 
+    # this is different to normal sandhi-splitting
     exceptions_list = set([
         "abbrev", "idiom", "sandhi",
-        # "cs", "letter", "prefix", "root", "suffix" "ve",
+        "prefix", "root", "suffix",
+        "cs", "letter", "ve",
         ])
 
     neg_headwords_db = db_session.query(PaliWord).filter(

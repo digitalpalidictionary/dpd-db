@@ -11,7 +11,7 @@ sys.path.insert(1, 'tools/writemdict')
 from writemdict import MDictWriter
 
 
-def synonyms(all_items, item):
+def mdict_synonyms(all_items, item):
     all_items.append((item['word'], item['definition_html']))
     for word in item['synonyms']:
         if word != item['word']:
@@ -32,7 +32,7 @@ def export_to_mdict(data_list: List[Dict], PTH: Path) -> None:
 
     bip()
     print("[white]reducing synonyms", end=" ")
-    dpd_data = reduce(synonyms, data_list, [])
+    dpd_data = reduce(mdict_synonyms, data_list, [])
     del data_list
     print(bop())
 
@@ -41,8 +41,9 @@ def export_to_mdict(data_list: List[Dict], PTH: Path) -> None:
     description = """<p>Digital Pāḷi Dictionary by Bodhirasa</p>
 <p>For more infortmation, please visit
 <a href=\"https://digitalpalidictionary.github.io\">
-Digital Pāḷi Dictionary</a></p>"""
+the Digital Pāḷi Dictionary website</a></p>"""
 
+    bip()
     writer = MDictWriter(
         dpd_data,
         title="Digital Pāḷi Dictionary",

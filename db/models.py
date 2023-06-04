@@ -63,6 +63,8 @@ class PaliRoot(Base):
     matrix_test: Mapped[Optional[str]] = mapped_column(default='')
     root_info: Mapped[Optional[str]] = mapped_column(default='')
     root_matrix: Mapped[Optional[str]] = mapped_column(default='')
+    # ru_root_meaning: Mapped[Optional[str]] = mapped_column(default='')
+    # ru_sk_root_meaning: Mapped[Optional[str]] = mapped_column(default='')
 
     created_at: Mapped[Optional[DateTime]] = mapped_column(
         DateTime(timezone=True), server_default=func.now())

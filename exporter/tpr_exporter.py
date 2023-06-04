@@ -7,13 +7,10 @@ import pandas as pd
 import re
 import sqlite3
 
-
 from datetime import date
 from rich import print
 from sqlalchemy.orm import Session
-from typing import List
 from zipfile import ZipFile, ZIP_DEFLATED
-
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord, PaliRoot, Sandhi
@@ -21,6 +18,8 @@ from html_components import render_dpd_defintion_templ
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths as PTH
 from tools.tic_toc import tic, toc
+from tools.headwords_clean_set import make_clean_headwords_set
+from tools.uposatha_day import uposatha_today
 
 
 TODAY = date.today()
@@ -36,22 +35,11 @@ def main():
     tpr_data_list = generate_tpr_data(dpd_db, all_headwords_clean)
     sandhi_data_list = generate_sandhi_data(all_headwords_clean)
     write_tsvs(tpr_data_list, sandhi_data_list)
-    # tpr_df, i2h_df = copy_to_sqlite_db(tpr_data_list)
-    # tpr_updater(tpr_df, i2h_df)
-    # copy_zip_to_tpr_downloads()
+    tpr_df, i2h_df, sandhi_df = copy_to_sqlite_db(
+        tpr_data_list, sandhi_data_list)
+    tpr_updater(tpr_df, i2h_df, sandhi_df)
+    copy_zip_to_tpr_downloads()
     toc()
-
-
-def make_clean_headwords_set(dpd_db: List[PaliWord]) -> set:
-    """A set of clean headwords in the dictionary."""
-    print("[green]making set of clean headwords", end="")
-    all_headwords_clean: set = set()
-    for counter, i in enumerate(dpd_db):
-        all_headwords_clean.add(i.pali_clean)
-
-    print(f"{len(all_headwords_clean):>10,}")
-
-    return all_headwords_clean
 
 
 def generate_tpr_data(dpd_db, all_headwords_clean):
@@ -107,10 +95,10 @@ def generate_tpr_data(dpd_db, all_headwords_clean):
 
             html_string += """</td></tr>"""
             html_string += """<tr><th valign="top">Meaning</th>"""
-            html_string += f"""<td><b>{i.meaning_1}</b>."""
+            html_string += f"""<td><b>{i.meaning_1}</b>"""
 
             if i.meaning_lit != "":
-                html_string += f"""lit. {i.meaning_lit}"""
+                html_string += f"""; lit. {i.meaning_lit}"""
             html_string += """</td></tr>"""
 
             if i.root_key != "":
@@ -129,29 +117,26 @@ def generate_tpr_data(dpd_db, all_headwords_clean):
 
             if i.construction != "":
                 # <br/> is causing an extra line, replace with div
-                construction_no_br = re.sub(
-                    "(\n)(.+)", "<div>\\2</div>", i.construction)
+                construction_br = i.construction.replace("\n", "<br>")
                 html_string += """<tr><th valign="top">Construction</th>"""
-                html_string += f"""<td>{construction_no_br}</td></tr>"""
+                html_string += f"""<td>{construction_br}</td></tr>"""
 
             if i.derivative != "":
                 html_string += """<tr><th valign="top">Derivative</th>"""
                 html_string += f"""<td>{i.derivative} ({i.suffix})</td></tr>"""
 
             if i.phonetic != "":
-                phonetic = re.sub("\n", ", ", i.phonetic)
+                phonetic = re.sub("\n", "<br>", i.phonetic)
                 html_string += """<tr><th valign="top">Phonetic</th>"""
                 html_string += f"""<td>{phonetic}</td></tr>"""
 
             if i.compound_type != "" and re.findall(
                     r"\d", i.compound_type) == []:
-                comp_constr_no_formatting = re.sub(
-                    "<b>|<\\/b>|<i>|<\\/i>", "", i.compound_construction)
-                comp_constr_no_formatting = re.sub(
-                    "\n", ", ", comp_constr_no_formatting)
+                comp_constr_br = re.sub(
+                    "\n", "<br>", i.compound_construction)
                 html_string += """<tr><th valign="top">Compound</th>"""
                 html_string += f"""<td>{ i.compound_type} """
-                html_string += f"""({comp_constr_no_formatting})</td></tr>"""
+                html_string += f"""({comp_constr_br})</td></tr>"""
 
             if i.antonym != "":
                 html_string += """<tr><th valign="top">Antonym</th>"""
@@ -167,21 +152,12 @@ def generate_tpr_data(dpd_db, all_headwords_clean):
 
             if i.commentary != "":
                 commentary_no_formatting = re.sub(
-                    r"<b>|<\/b>|<i>|<\/i>", "", i.commentary)
-                commentary_no_formatting = re.sub(
-                    "<br>", " ", commentary_no_formatting)
-                commentary_no_formatting = re.sub(
-                    "\n", " ", commentary_no_formatting)
+                    "\n", "<br>", i.commentary)
                 html_string += """<tr><th valign="top">Commentary</th>"""
                 html_string += f"""<td>{commentary_no_formatting}</td></tr>"""
 
             if i.notes != "":
-                notes_no_formatting = re.sub(
-                    "<b>|<\\/b>|<i>|<\\/i>", "", i.notes)
-                notes_no_formatting = re.sub(
-                    "<br\\/>", ". ", notes_no_formatting)
-                notes_no_formatting = re.sub(
-                    "\n", ". ", notes_no_formatting)
+                notes_no_formatting = i.notes.replace("\n", "<br>")
                 html_string += """<tr><th valign="top">Notes</th>"""
                 html_string += f"""<td>{notes_no_formatting}</td></tr>"""
 
@@ -190,11 +166,10 @@ def generate_tpr_data(dpd_db, all_headwords_clean):
                 html_string += f"""<td>{i.cognate}</td></tr>"""
 
             if i.link != "":
-                link_no_br = re.sub("<br\\/>", " ", i.link)
-                link_no_br = re.sub("\n.+", "", link_no_br)
+                link_br = i.link.replace("\n", "<br>")
                 html_string += """<tr><th valign="top">Link</th>"""
-                html_string += f"""<td><a href="{link_no_br}">"""
-                html_string += f"""{link_no_br}</a></td></tr>"""
+                html_string += f"""<td><a href="{link_br}">"""
+                html_string += f"""{link_br}</a></td></tr>"""
 
             if i.non_ia != "":
                 html_string += """<tr><th valign="top">Non IA</th>"""
@@ -262,7 +237,7 @@ def generate_tpr_data(dpd_db, all_headwords_clean):
 
 
 def generate_sandhi_data(all_headwords_clean):
-    # sandhi splitter
+    # deconstructor
     print("[green]compiling sandhi data")
 
     sandhi_db = DB_SESSION.query(Sandhi).all()
@@ -273,8 +248,8 @@ def generate_sandhi_data(all_headwords_clean):
         if i.sandhi not in all_headwords_clean:
             if "variant" not in i.split and "spelling" not in i.split:
                 sandhi_data_list += [{
-                    "sandhi": i.sandhi,
-                    "splits": i.split}]
+                    "word": i.sandhi,
+                    "breakup": i.split}]
 
         if counter % 50000 == 0:
             print(f"{counter:>10,} / {len(sandhi_db):<10,}{i.sandhi:<10}")
@@ -283,7 +258,7 @@ def generate_sandhi_data(all_headwords_clean):
 
 
 def write_tsvs(tpr_data_list, sandhi_data_list):
-    """Write TSV files of dpd, i2h and sandhi splitter."""
+    """Write TSV files of dpd, i2h and deconstructor."""
     print("[green]writing tsv files")
 
     # write dpd_tsv
@@ -292,25 +267,26 @@ def write_tsvs(tpr_data_list, sandhi_data_list):
         for i in tpr_data_list:
             f.write(f"{i['word']}\t{i['definition']}\t{i['book_id']}\n")
 
-    # write splitter tsv
-    field_names = ["sandhi", "splits"]
+    # write deconstructor tsv
+    field_names = ["word", "breakup"]
     with open(
-            PTH.tpr_splitter_tsv_path, "w", newline="", encoding="utf-8") as f:
+            PTH.tpr_deconstructor_tsv_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=field_names, delimiter="\t")
         writer.writeheader()
         writer.writerows(sandhi_data_list)
 
 
-def copy_to_sqlite_db(tpr_data_list):
+def copy_to_sqlite_db(tpr_data_list, sandhi_data_list):
     print("[green]copying data_list to tpr db", end=" ")
 
     # data frames
     tpr_df = pd.DataFrame(tpr_data_list)
     i2h_df = pd.read_csv(PTH.tpr_i2h_tsv_path, sep="\t")
+    sandhi_df = pd.DataFrame(sandhi_data_list)
 
     try:
         conn = sqlite3.connect(
-            '../../../../.local/share/tipitaka_pali_reader/tipitaka_pali.db')
+            '../../../../.local/share/com.paauk.tipitaka_pali_reader/tipitaka_pali.db')
         c = conn.cursor()
 
         # dpd table
@@ -322,28 +298,36 @@ def copy_to_sqlite_db(tpr_data_list):
         c.execute("DROP TABLE if exists dpd_inflections_to_headwords")
         c.execute(
             "CREATE TABLE dpd_inflections_to_headwords (inflection, headwords)")
-
         i2h_df.to_sql(
             'dpd_inflections_to_headwords',
+            conn, if_exists='append', index=False)
+
+        # dpd_word_split
+        c.execute("DROP TABLE if exists dpd_word_split")
+        c.execute(
+            "CREATE TABLE dpd_word_split (word, breakup)")
+        sandhi_df.to_sql(
+            'dpd_word_split',
             conn, if_exists='append', index=False)
         print("[white]ok")
 
         conn.close()
 
-        return tpr_df, i2h_df
+        return tpr_df, i2h_df, sandhi_df
 
     except Exception as e:
         print("[red] an error occurred copying to db")
         print(f"[red]{e}")
 
 
-def tpr_updater(tpr_df, i2h_df):
+def tpr_updater(tpr_df, i2h_df, sandhi_df):
     print("[green]making tpr sql updater")
 
     sql_string = ""
     sql_string += "BEGIN TRANSACTION;\n"
-    sql_string += "DELETE FROM dpd_inflections_to_headwords;\n"
     sql_string += "DELETE FROM dpd;\n"
+    sql_string += "DELETE FROM dpd_inflections_to_headwords;\n"
+    sql_string += "DELETE FROM dpd_word_split;\n"
     sql_string += "COMMIT;\n"
     sql_string += "BEGIN TRANSACTION;\n"
 
@@ -370,6 +354,16 @@ def tpr_updater(tpr_df, i2h_df):
         sql_string += f"""INSERT INTO "dpd" ("word","definition","book_id")\
  VALUES ('{word}', '{definition}', {book_id});\n"""
 
+    print("writing deconstructor")
+
+    for row in range(len(sandhi_df)):
+        word = sandhi_df.iloc[row, 0]
+        breakup = sandhi_df.iloc[row, 1]
+        if row % 50000 == 0:
+            print(f"{row:>10,} / {len(sandhi_df):<10,}{word:<10}")
+        sql_string += f"""INSERT INTO "dpd_word_split" ("word","breakup")\
+ VALUES ('{word}', '{breakup}');\n"""
+
     sql_string += "COMMIT;\n"
 
     with open(PTH.tpr_sql_file_path, "w") as f:
@@ -387,23 +381,7 @@ def copy_zip_to_tpr_downloads():
     month_str = TODAY.strftime("%B")
     year = TODAY.year
 
-    uposathas = [
-        date(2023, 1, 6),
-        date(2023, 2, 5),
-        date(2023, 3, 6),
-        date(2023, 4, 5),
-        date(2023, 5, 4),
-        date(2023, 6, 3),
-        date(2023, 7, 2),
-        date(2023, 8, 1),
-        date(2023, 8, 31),
-        date(2023, 9, 29),
-        date(2023, 10, 29),
-        date(2023, 11, 27),
-        date(2023, 12, 27),
-        ]
-
-    if TODAY in uposathas:
+    if uposatha_today():
         version = "release"
     else:
         version = "beta"
@@ -454,7 +432,7 @@ def copy_zip_to_tpr_downloads():
             "size": f"{filesize} MB"
         }
 
-        download_list[11] = dpd_beta_info
+        download_list[12] = dpd_beta_info
 
     with open(PTH.tpr_download_list_path, "w") as f:
         f.write(json.dumps(download_list, indent=4))

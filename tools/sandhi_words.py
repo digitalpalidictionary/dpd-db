@@ -17,8 +17,6 @@ def make_words_in_sandhi_set(sandhi_db: List[Sandhi]) -> set:
     for i in sandhi_db:
         sandhi_splits = i.split_list
         for sandhi_split in sandhi_splits:
-            if ("variant" not in sandhi_split and
-                    "spelling" not in sandhi_split):
-                for word in sandhi_split.split(" + "):
-                    words_in_sandhi_set.add(word)
+            for word in sandhi_split.split(" + "):
+                words_in_sandhi_set.add(word)
     return words_in_sandhi_set

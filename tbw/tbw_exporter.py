@@ -47,36 +47,27 @@ def main():
 
     # -------------------------------------------------------------------------------
 
-    """Make an inflections to headwords dicitonary."""
-
-    print(f"[green]{'making inflections to headwords dict':<40}")
-
-    print(f"{'adding sandhi and splits':<40}", end="")
+    print(f"[green]{'making sandhi splits set':<40}", end="")
 
     # inflections to headwords dict
-    i2h: dict = {}
     sandhi_splits_set: set = set()
     matched = set()
 
     for i in sandhi_db:
         if i.sandhi in tbw_word_set:
             matched.add(i.sandhi)
-
-            test1 = "spelling" not in i.split
-            test2 = "variant" not in i.split
-            if test1 & test2:
-                splits = i.split_list
-                for split in splits:
-                    sandhi_splits_set.update(split.split(" + "))
-
-            if i.sandhi not in i2h:
-                i2h[i.sandhi] = [i.sandhi]
-            else:
-                i2h[i.sandhi] += [i.sandhi]
+            splits = i.split_list
+            for split in splits:
+                sandhi_splits_set.update(split.split(" + "))
 
     print(f"{len(sandhi_splits_set):,}")
 
-    print(f"{'adding inflections':<40}", end="")
+    # -------------------------------------------------------------------------------
+
+    """Make an inflections to headwords dicitonary."""
+    print(f"[green]{'making inflections to headwords dict':<40}", end="")
+
+    i2h: dict = {}
 
     for counter, (i, dd) in enumerate(zip(dpd_db, dd_db)):
         assert i.id == dd.id
@@ -96,6 +87,8 @@ def main():
 
     print(f"{len(i2h):,}")
 
+    # -------------------------------------------------------------------------------
+
     # add words with "n" instead of "ṅ"
     # this problem is unique to tbw website
 
@@ -107,10 +100,10 @@ def main():
         if "ṅ" in inflection:
             inflection_n = inflection.replace("ṅ", "n")
             nṅdict[inflection_n] = inflection
-            if inflection_n not in i2h:
-                i2h[inflection_n] = headwords
-            else:
-                i2h[inflection_n] += headwords
+            # if inflection_n not in i2h:
+            #     i2h[inflection_n] = headwords
+            # else:
+            #     i2h[inflection_n] += headwords
 
     print(f"{len(nṅdict):,}")
 
@@ -118,6 +111,8 @@ def main():
         f.write("n\tṅ\n")
         for n, ṅ in nṅdict.items():
             f.write(f"{n}\t{ṅ}\n")
+
+    # -------------------------------------------------------------------------------
 
     unmatched = tbw_word_set - matched
     print(f"[green]{'unmatched':<40}{len(unmatched):,}")
@@ -148,24 +143,30 @@ def main():
             dpd_dict[i.pali_1] = string
 
     dpd_dict = dict(sorted(dpd_dict.items(), key=lambda x: pali_sort_key(x[0])))
+    print(f"{len(dpd_dict):,}")
+
+    # -------------------------------------------------------------------------------
+
+    print(f"[green]{'writing dpd_ebts.json':<40}", end="")
+    with open(PTH.dpd_ebts_json_path, "w") as f:
+        json.dump(dpd_dict, f, ensure_ascii=False, indent=0)
+        print("OK")
 
     # -------------------------------------------------------------------------------
 
     sandhi_dict = {}
 
     for i in sandhi_db:
-        if i.sandhi not in dpd_dict and i.sandhi in headwords_set:
+        if i.sandhi not in dpd_dict and i.sandhi in tbw_word_set:
             splits = i.split_list
-            string = "\n".join(splits)
+            string = "<br>".join(splits)
             sandhi_dict[i.sandhi] = string
 
     sandhi_dict = dict(sorted(sandhi_dict.items(), key=lambda x: pali_sort_key(x[0])))
-    dpd_dict.update(sandhi_dict)
-    print(f"{len(dpd_dict):,}")
 
-    print(f"[green]{'writing dpd_ebts.json':<40}", end="")
-    with open(PTH.dpd_ebts_json_path, "w") as f:
-        json.dump(dpd_dict, f, ensure_ascii=False, indent=0)
+    print(f"[green]{'writing sandhi.json':<40}", end="")
+    with open(PTH.sandhi_json_path, "w") as f:
+        json.dump(sandhi_dict, f, ensure_ascii=False, indent=0)
         print("OK")
 
     # -------------------------------------------------------------------------------

@@ -1,34 +1,31 @@
 # Digital Pāḷi Database
 
-## Install
-
-This script converts from the old .ods layout into sqlite db, and then starts building tables of derived data.
-
-1. Download the dpd and roots csvs
-2. Download this repo
-3. Adjust the paths [here](https://github.com/digitalpalidictionary/dpd-db/blob/3af6916069dd948adc2e6340cd86ca7c7c769bd0/scripts/dpd_db_from_csv.py#L187)
-4. Download Tipitaka-Pali-Projector and place it in the `resources` folder.
-5. `poetry install`, `poetry shell`
-6. `bash scripts/makedb.sh`
-
-## Info
-`PaliWord` and `PaliRoots` tables are the heart of the db, everything else gets derived from those.  
-They have a relationship `PaliWord.paliroot` `.root` `.root_meaning` etc. to access any root information.  
-There are also lots of `@properties` in the model to create useful derived information.  
-  
-`DerivedData` is lists of inflections in multiple languages and the html inflection tables.  
-`FamilyCompound` is html tables of all the compound words which contain a specific word.  
-`FamilyRoot` is html table of all the words with the same prefix and root.  
-`FamilySet` is html tables of all the words which belong to the same set, e.g. names of monks.  
-`FamilyWord` is html tables of all the words which are derived from a word without a root.  
-`InflectionTemplates` are the templates from which all the inflection tables are derived.  
-`Sandhi` is all the sandhi compound which have been split by code.  
-
-## Structure of the code
-
 There are four parts to the code:
-
-1. Create the database and build up the derived data.
+1. Create the database and build up the tables of derived data.
 2. Add new words, edit and update the db with a GUI. 
 3. Run data integrity tests on the db.
-4. Compile all the parts and export into dictionary formats like GoldenDict and MDict.  
+4. Compile all the parts and export into various dictionary formats.  
+
+## Building the DB
+1. Download this repo
+2. Download https://github.com/VipassanaTech/tipitaka-xml into the `/resources` folder
+3. `poetry install`
+4. `poetry run bash bash/initial_setup_run_once.sh`
+5. `poetry run bash bash/build_db.sh`
+
+That should create an SQLite database `./dpd.db` which can be accessed by [DB Browser](https://sqlitebrowser.org/),  [DBeaver](https://dbeaver.io/), through [SQLAlechmy](https://www.sqlalchemy.org/) or your preferred method. 
+
+For practical examples on how to access any information in the db with SQLAlchemy, see `scripts/db_search_example.py`.
+
+## About the database
+- `PaliWord` and `PaliRoots` tables are the heart of the db, everything else gets derived from those.  
+- They have a relationship `PaliWord.rt.` to access any root information. For example, `PaliWord.rt.root_meaning`
+- There are also lots of `@properties` in `db/models.py` to access useful derived information.  
+- `DerivedData` table is lists of inflections of every word in multiple scripts, as well as html inflection tables.
+- `FamilyCompound` table is html of all the compound words which contain a specific word.  
+- `FamilyRoot` table is html of all the words with the same prefix and root.  
+- `FamilySet` table is html of all the words which belong to the same set, e.g. names of monks.  
+- `FamilyWord` table is html of all the words which are derived from a common word without a root.  
+- `InflectionTemplates` table are the templates from which all the inflection tables are derived.  
+- `Sandhi` table is all the deconstructed compounds which have been split by code.  
+
