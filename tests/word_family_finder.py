@@ -1,0 +1,198 @@
+#!/usr/bin/env python3.11
+import re
+import pickle
+from rich import print
+from rich.prompt import Prompt
+
+from db.get_db_session import get_db_session
+from db.models import PaliWord
+from tools.meaning_construction import make_meaning
+from tools.paths import ProjectPaths as PTH
+
+
+def main():
+    print("[bright_yellow]finding word families")
+    db_session = get_db_session("dpd.db")
+    # dpd_db = db_session.query(PaliWord).all()
+    # word_family_dict = build_word_family_dict(dpd_db)
+    # word_order = order_word_family_dict(word_family_dict)
+    # find_in_family_compound(db_session,make_word_family_set(db_session) word_family_dict, word_order)
+    word_family_set  = make_word_family_set(db_session)
+
+
+
+def build_word_family_dict(dpd_db):
+    """build a dict of family_compound with
+    1. no comp in gramnar
+    2. no root
+    {family_compound: [headword1, headword2, etc]}"""
+
+    print("[green]building word_family_dict")
+    word_family_dict: dict = {}
+
+    for i in dpd_db:
+        if (
+            not i.family_word and
+            i.family_compound and
+            not re.findall(r"\bcomp\b", i.grammar) and
+            not i.root_key and
+            "idiom" not in i.pos and
+            "sandhi" not in i.pos
+                ):
+            for cf in i.family_compound_list:
+                if cf not in word_family_dict:
+                    word_family_dict[cf] = [i.pali_1]
+                else:
+                    word_family_dict[cf] += [i.pali_1]
+
+    # # remove single entries
+    # for i in word_family_dict.copy():
+    #     if len(word_family_dict[i]) == 1:
+    #         del word_family_dict[i]
+
+    return word_family_dict
+
+
+def order_word_family_dict(word_family_dict):
+    """Sort the word_family_dict by number of items."""
+    print("[green]sorting word_family_dict")
+
+    word_order = sorted(
+        word_family_dict,
+        key=lambda k: len(word_family_dict[k]), reverse=True)
+
+    return word_order
+
+
+def find_in_family_compound(db_session, word_family_dict, word_order):
+    """Test if word is compound or word_family and add info to db. """
+
+    processed_words = []
+    break_flag = False
+    exceptions_list = open_exceptions_list()
+
+    for word in word_order:
+        if break_flag:
+            break
+
+        print()
+        print("[cyan](c)ompound")
+        print("[cyan](w)ord_family")
+        print("[cyan](a)dd word_family")
+        print("[cyan](e)xception")
+        print("[cyan](r)oot")
+        print("[cyan](p)ass")
+        print("[cyan](s)kip word")
+        print("[cyan](b)reak")
+
+        print(f"{word}: {[x for x in word_family_dict[word]]} {len(word_family_dict)}")
+        print(f"/^({'|'.join(word_family_dict[word])})$/")
+        for x in word_family_dict[word]:
+            if x not in processed_words:
+                headword = db_session.query(
+                        PaliWord).filter(PaliWord.pali_1 == x).first()
+                if headword.pali_1 not in exceptions_list:
+                    meaning = make_meaning(headword)
+                    query = Prompt.ask(f"{x}: [green]{headword.pos}. [light_green]{meaning} ")
+                    if query == "c":
+                        headword.grammar += ", comp"
+                        processed_words += [x]
+                    elif query == "w":
+                        headword.family_word = word
+                    elif query == "a":
+                        enter_wf = Prompt.ask("[red]what is the word family? ")
+                        headword.family_word = enter_wf
+                    elif query == "e":
+                        exceptions_list += [headword.pali_1]
+                    elif query == "r":
+                        enter_root = Prompt.ask("[red]what is the root? ")
+                        headword.root_key = enter_root
+                    elif query == "p":
+                        continue
+                    elif query == "s":
+                        break
+                    elif query == "b":
+                        break_flag = True
+                        break
+                    else:
+                        print("[red]not a valid option")
+            db_session.commit()
+            save_exceptions_list(exceptions_list)
+        del word_family_dict[word]
+
+    db_session.close()
+
+
+def open_exceptions_list():
+    """Load pickle of exceptions."""
+    try:
+        with open(PTH.wf_exceptions_list, "rb") as f:
+            exceptions_list = pickle.load(f)
+            print("[green]exceptions file loaded", end=" ")
+            print(exceptions_list)
+            return exceptions_list
+    except FileNotFoundError:
+        print("[red]exceptions file not found")
+        return []
+
+
+def save_exceptions_list(exceptions_list):
+    """Save pickle of exceptions."""
+    with open(PTH.wf_exceptions_list, "wb") as f:
+        pickle.dump(exceptions_list, f)
+    print("[green]exceptions file saved")
+
+
+def make_word_family_set(db_session):
+    """Make a set of all family words without numbers."""
+    print("[green]making word family set", end=" ")
+
+    word_family_set = set()
+
+    wf_db = db_session.query(PaliWord).all()
+
+    for i in wf_db:
+        try:
+            word_family_set.add(re.sub(r"\d", "", i.family_word))
+        except TypeError:
+            print(i.pali_1)
+
+    print(len(word_family_set))
+
+    return word_family_set
+
+
+def find_in_construction(word_family_set):
+    """Find family_words in construction."""
+
+    exceptions = [
+        "adhi",
+        "ati",
+        "anu",
+        "pa",
+        "saṃ",
+        "ka",
+        "vi",
+        "pati",
+        "ta",
+        "ya",
+        "upa",
+        "ti",
+        "ava",
+        "na",
+        "ku",
+        "kasāya",
+        "dhanvana",
+        "dhanu",
+        "soṇita",
+        "sa",
+        "soṇa",
+        "ā",
+        "saṅkha",
+        "ud",
+    ]
+
+
+
+if __name__ == "__main__":
+    main()

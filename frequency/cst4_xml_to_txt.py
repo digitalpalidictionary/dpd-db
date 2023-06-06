@@ -1,4 +1,7 @@
+#!/usr/bin/env python3
+
 """Convert VRI Chaṭṭha Saṅgāyana Devanagari xml to Roman txt."""
+
 import os
 
 from bs4 import BeautifulSoup

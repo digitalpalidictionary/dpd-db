@@ -710,6 +710,8 @@ def clean_example(text):
     text = text.replace("  ", " ")
     text = text.replace("..", ".")
     text = text.replace(" ,", ",")
+    # remove ". dutyaṃ." etc
+    text = re.sub(r"\..+\.", ".", text)
     return text
 
 

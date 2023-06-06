@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """Creates a word frequency file for every book in VRI Chaṭṭha Saṅgāyana Tipiṭaka."""
 
 import nltk

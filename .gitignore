@@ -25,3 +25,4 @@ share/
 tbw/output/
 temp/
 tmp/
+tests/word_family_exceptions
