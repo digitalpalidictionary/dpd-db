@@ -10,7 +10,7 @@ from rich import print
 from tools.clean_machine import clean_machine
 from tools.pali_text_files import ebts
 from tools.paths import ProjectPaths as PTH
-# nltk.download('punkt')
+nltk.download('punkt')
 
 
 def main():

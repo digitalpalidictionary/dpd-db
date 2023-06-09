@@ -291,6 +291,7 @@ class ProjectPaths():
     # /tests
     internal_tests_path: Path = Path("tests/internal_tests.tsv")
     wf_exceptions_list: Path = Path("tests/word_family_exceptions")
+    syn_var_exceptions_path: Path = Path("tests/syn_var_exceptions")
 
     # tools
     user_dict_path: Path = Path("tools/user_dictionary.txt")

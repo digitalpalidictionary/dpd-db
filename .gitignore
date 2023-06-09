@@ -26,3 +26,4 @@ tbw/output/
 temp/
 tmp/
 tests/word_family_exceptions
+tests/syn_var_exceptions

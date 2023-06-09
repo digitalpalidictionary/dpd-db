@@ -13,12 +13,17 @@ from tools.paths import ProjectPaths as PTH
 def main():
     print("[bright_yellow]finding word families")
     db_session = get_db_session("dpd.db")
-    # dpd_db = db_session.query(PaliWord).all()
-    # word_family_dict = build_word_family_dict(dpd_db)
-    # word_order = order_word_family_dict(word_family_dict)
-    # find_in_family_compound(db_session,make_word_family_set(db_session) word_family_dict, word_order)
-    word_family_set  = make_word_family_set(db_session)
+    dpd_db = db_session.query(PaliWord).all()
 
+    word_family_dict = build_word_family_dict(dpd_db)
+    word_order = order_word_family_dict(word_family_dict)
+    word_family_set = make_word_family_set(db_session)
+
+    find_in_family_compound(db_session, word_family_dict, word_order)
+    find_in_construction(dpd_db, word_family_set)
+    find_in_pali_1(dpd_db, word_family_set)
+
+    db_session.close()
 
 
 def build_word_family_dict(dpd_db):
@@ -66,6 +71,7 @@ def order_word_family_dict(word_family_dict):
 
 def find_in_family_compound(db_session, word_family_dict, word_order):
     """Test if word is compound or word_family and add info to db. """
+    print("[green]finding word families in family_compound")
 
     processed_words = []
     break_flag = False
@@ -117,10 +123,8 @@ def find_in_family_compound(db_session, word_family_dict, word_order):
                     else:
                         print("[red]not a valid option")
             db_session.commit()
-            save_exceptions_list(exceptions_list)
+        save_exceptions_list(exceptions_list)
         del word_family_dict[word]
-
-    db_session.close()
 
 
 def open_exceptions_list():
@@ -157,13 +161,22 @@ def make_word_family_set(db_session):
         except TypeError:
             print(i.pali_1)
 
+    exceptions = [
+        "", "ka", "na", "a", "vi"
+    ]
+
+    for e in exceptions:
+        if e in word_family_set:
+            word_family_set.remove(e)
+
     print(len(word_family_set))
 
     return word_family_set
 
 
-def find_in_construction(word_family_set):
+def find_in_construction(dpd_db, word_family_set):
     """Find family_words in construction."""
+    print("[green]finding word families in construction")
 
     exceptions = [
         "adhi",
@@ -190,8 +203,86 @@ def find_in_construction(word_family_set):
         "ā",
         "saṅkha",
         "ud",
+        "upa",
+        "khāraka 2",
+        "kururu",
+        "no 1.1",
+        "saṅkasāyati",
+        "avadāniya",
+        "upacāla",
+        "sahali"
     ]
 
+    # find all headwords where
+    # 1. not compound
+    # 2. word familiy is in construction
+    # 3. root is empty
+
+    for counter, wf in enumerate(word_family_set):
+        wf_list = []
+        for i in dpd_db:
+            if (
+                not re.findall(r"\bcomp\b", i.grammar) and
+                not re.findall(r"\bdeno", i.grammar) and
+                not re.findall("sandhi", i.pos) and
+                not re.findall("idiom", i.pos) and
+                not re.findall("prefix", i.pos) and
+                re.findall(fr"\b{wf}\b", i.construction) and
+                i.family_word == "" and
+                    i.root_key == ""):
+                wf_list += [i.pali_1]
+            for e in exceptions:
+                if e in wf_list:
+                    wf_list.remove(e)
+
+        if len(wf_list) > 0:
+            print(f"{counter}. {wf}: {wf_list}")
+            print(fr"/\b{wf}\b|^({'|'.join(wf_list)})$/")
+            input()
+
+        if counter % 100 == 0:
+            print(f"{counter}. {wf}: {wf_list}")
+
+
+def find_in_pali_1(dpd_db, word_family_set):
+    """Find clean headwords which match family_word."""
+    print("[green]finding word families in pali_1")
+
+    wf_dict = {}
+    exceptions = [
+        "addha 1.1",
+        "assa 2.1",
+        "assa 5.1",
+        "āma 1.1",
+        "ibha 1",
+        "ela 2",
+        "kora 1",
+        "khīla 2.1",
+        "pati 3.4",
+        "sa 6.1",
+        "sata 3.1",
+        "sattu 1.1",
+        "samma 2",
+        "sāla 2.1"
+    ]
+
+    pos_exceptions = ["abbrev", "prefix", "suffix", "cs", "ve", "sandhi"]
+
+    for i in dpd_db:
+        if (i.pali_clean in word_family_set and
+                i.pali_1 not in exceptions and
+                not i.family_word and
+                not i.root_key and
+                i.pos not in pos_exceptions):
+            if i.pali_clean not in wf_dict:
+                wf_dict[i.pali_clean] = [i.pali_1]
+            else:
+                wf_dict[i.pali_clean] += [i.pali_1]
+
+    for counter, wf in enumerate(wf_dict):
+        print(f"{counter+1} / {len(wf_dict)}\t{wf}")
+        print(fr"/\b{wf}\b|^({'|'.join(wf_dict[wf])})$/")
+        input()
 
 
 if __name__ == "__main__":

@@ -14,7 +14,7 @@
     <meta refines="#create1" property="file-as">Bodhirasa</meta>
     <meta refines="#create1" property="role" scheme="marc:relators">aut</meta>
     <dc:rights>CC BY-NC-SA 4.0</dc:rights>
-    <meta property="dcterms:modified">2023-06-03T00:31:46Z</meta>
+    <meta property="dcterms:modified">2023-06-07T07:45:42Z</meta>
     <dc:identifier id="BookId">urn:uuid:c2f8321b-cb69-43a4-a2e7-fc7f15646099</dc:identifier>
     <meta name="Sigil version" content="1.9.30"/>
     <meta name="cover" content="cover.jpg"/>

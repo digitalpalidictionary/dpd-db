@@ -245,6 +245,20 @@ class PaliWord(Base):
         ).all()
         return sorted([i.pos for i in pos_db])
 
+    @property
+    def synonym_list(self) -> list:
+        if self.synonym:
+            return self.synonym.split(", ")
+        else:
+            return [self.synonym]
+
+    @property
+    def variant_list(self) -> list:
+        if self.variant:
+            return self.variant.split(", ")
+        else:
+            return [self.variant]
+
     def __repr__(self) -> str:
         return f"""PaliWord: {self.id} {self.pali_1} {self.pos} {
             self.meaning_1}"""

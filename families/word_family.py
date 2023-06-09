@@ -14,7 +14,6 @@ from db.models import PaliWord, FamilyWord
 
 
 def main():
-    """Runtime."""
     tic()
 
     print("[bright_yellow]word families generator")

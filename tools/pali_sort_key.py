@@ -51,15 +51,19 @@ def pali_list_sorter(words: list) -> list:
     Usage:
     pali_list_sorter(list_of_pali_words)"""
 
-    pattern = "|".join(key for key in letter_to_number.keys())
+    if words is None:
+        return []
 
-    def replace(match):
-        return letter_to_number[match.group(0)]
+    else:
+        pattern = "|".join(key for key in letter_to_number.keys())
 
-    sorted_words = sorted(
-        words, key=lambda word: re.sub(pattern, replace, word))
+        def replace(match):
+            return letter_to_number[match.group(0)]
 
-    return sorted_words
+        sorted_words = sorted(
+            words, key=lambda word: re.sub(pattern, replace, word))
+
+        return sorted_words
 
 
 def pali_sort_key(word: str) -> str:

@@ -13,9 +13,6 @@ sandhi/sandhi_splitter.py
 sandhi/sandhi_postprocess.py
 sandhi/dpd_splitter.py
 
-inflections/inflections_to_headwords.py
-grammar_dict/grammar_dict.py
-
 families/root_family.py
 families/word_family.py
 families/compound_family.py
