@@ -48,7 +48,7 @@ def add_dps_russian(db_session: Session, csv_path: Path):
 
     for r in rows:
         id_search = db_session.query(PaliWord.id).filter(
-            PaliWord.user_id == r["ID"]).first()
+            PaliWord.user_id == r["id"]).first()
 
         if id_search is not None:
             id = id_search[0]
@@ -90,7 +90,7 @@ def add_dps_sbs(db_session: Session, csv_path: Path):
 
     for r in rows:
         id_search = db_session.query(PaliWord.id).filter(
-            PaliWord.user_id == r["ID"]).first()
+            PaliWord.user_id == r["id"]).first()
 
         if id_search is not None:
             id = id_search[0]
@@ -127,7 +127,7 @@ def _csv_row_to_sbs(x: Dict[str, str], id) -> SBS:
         sbs_chant_pali_3=x["sbs_chant_pali_3"],
         sbs_chant_eng_3=x["sbs_chant_eng_3"],
         sbs_chapter_3=x["sbs_chapter_3"],
-        sbs_source_4=x["sbs_source_"],
+        sbs_source_4=x["sbs_source_4"],
         sbs_sutta_4=x["sbs_sutta_4"],
         sbs_example_4=x["sbs_example_4"],
         sbs_chant_pali_4=x["sbs_chant_pali_4"],
