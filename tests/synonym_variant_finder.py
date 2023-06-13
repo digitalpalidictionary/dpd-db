@@ -65,6 +65,7 @@ def find_identical_meanings(dpd_db, exceptions):
                 pos_meaning = f"[{i.pos}] {meaning}"
 
             if (
+                i.pos != "pron" and
                 meaning and
                 pos_meaning not in exceptions and
                 # no cases in grammar
@@ -204,12 +205,21 @@ def find_single_meanings(dpd_db, exceptions):
 
                 pos_meaning = f"{i.pos}:{meaning}"
 
-                if pos_meaning not in exceptions:
-
+                if (
+                    i.pos != "pron" and
+                    pos_meaning not in exceptions and
+                    # no cases in grammar
+                    not re.findall(
+                        r"\b(nom|acc|instr|dat|abl|gen|loc|voc|3rd|2nd|1st|reflx)\b", i.grammar)
+                ):
                     if pos_meaning not in single_meanings_dict:
                         single_meanings_dict[pos_meaning] = set([i.pali_1])
                     else:
-                        single_meanings_dict[pos_meaning].add(i.pali_1)
+                        # dont include same headword with different numbers
+                        if not re.findall(
+                            fr"{i.pali_clean} \d.*",
+                                ", ".join(single_meanings_dict[pos_meaning])):
+                            single_meanings_dict[pos_meaning].add(i.pali_1)
 
     # remove meanings with single words
     for (k, v) in (single_meanings_dict.copy().items()):
