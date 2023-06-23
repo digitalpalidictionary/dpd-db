@@ -17,6 +17,7 @@ id,pali_1,construction
 10352,asekkha 1,na + √sikkh + a
 12101,avamaṅgala 1,ava + √maṅg + ala
 12438,avīci 2,na + vīci
+1352,ācāragocara,ācāra + gocara
 4696,āmavasesa,āma + avasesa
 13015,āyuda,āyu + da
 12701,āvisati 1,ā + visa + ti
@@ -36,7 +37,7 @@ id,pali_1,construction
 21746,ekūnatiṃsatima,eka + ūna + tiṃsati + ma
 26267,kad,ku > kad
 26727,kalyāṇī 2,kalyāṇa + ī
-26858,kāmasukhallikānuyoga,kāmasukha + allika + anuyoga
+26858,kāmasukhallikānuyoga,kāmasukha + [l] + ika + anuyoga
 27916,kāsikosalā,kāsi + kosala + ā
 26197,kā 1.1,ku > kā
 29543,kilesavatthu,kilesa + vatthu
@@ -109,6 +110,7 @@ id,pali_1,construction
 32616,majjhimapaṭipadā,majjhima + paṭipadā
 32242,mahaṇṇava,mahā + aṇṇava
 32265,mahāpajāpati,mahā + pajāpatī
+34021,migāramātā,migāra + mātā
 33970,micchatta 2,micchā + tta
 34657,muṭṭhasacca,muṭṭha + sacca
 34564,muninda,muni + inda
