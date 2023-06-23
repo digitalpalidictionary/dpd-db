@@ -88,9 +88,9 @@ def find_identical_meanings(dpd_db, exceptions):
 
 def clean_meaning(text):
     """Return text having removed
-    1. all brackets and their contents
-    2. proceeding or following spaces
-    3. commentary meaning."""
+    1. commentary meaning,
+    2. all brackets and their contents including
+        proceeding or following spaces."""
     text = re.sub(r"\(comm\).*$", "", text)
     text = re.sub(r" \(.*?\) | \(.*?\)|\(.*?\) ", "", text)
     return text

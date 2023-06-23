@@ -210,7 +210,12 @@ def find_in_construction(dpd_db, word_family_set):
         "saṅkasāyati",
         "avadāniya",
         "upacāla",
-        "sahali"
+        "sahali",
+        "ussukkāpetvā",
+        "upāti",
+        "hisi",
+        "hiti",
+        
     ]
 
     # find all headwords where

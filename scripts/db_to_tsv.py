@@ -18,7 +18,7 @@ def db_to_tsv():
     db_session = get_db_session("dpd.db")
     backup_paliwords(db_session, PTH)
     backup_paliroots(db_session, PTH)
-    git_commit()
+    # git_commit()
     db_session.close()
     toc()
 

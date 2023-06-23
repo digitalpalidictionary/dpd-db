@@ -544,6 +544,8 @@ def find_sutta_example(sg, window, values: dict) -> str:
     sutta_sentences = []
     sutta_counter = 0
     udana_counter = 0
+    itivuttaka_counter = 0
+    snp_counter = 0
     for p in ps:
 
         if p["rend"] == "subhead":
@@ -603,6 +605,18 @@ def find_sutta_example(sg, window, values: dict) -> str:
             if p["rend"] == "subhead":
                 udana_counter += 1
                 source = f"{book}{udana_counter}"
+
+        elif values["book_to_add"] == "kn4":
+            book = "ITI"
+            if p["rend"] == "subhead":
+                itivuttaka_counter += 1
+                source = f"{book}{itivuttaka_counter}"
+
+        elif values["book_to_add"] == "kn5":
+            book = "SNP"
+            if p["rend"] == "subhead":
+                snp_counter += 1
+                source = f"{book}{snp_counter}"
 
         text = clean_example(p.text)
 

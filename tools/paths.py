@@ -7,9 +7,9 @@ class ProjectPaths():
     # ./ dpd_db
     dpd_db_path: Path = Path("dpd.db")
 
-    # /definitions/
-    defintions_csv_path: Path = Path(
-        "definitions/definitions.csv")
+    # /backup_tsv
+    pali_word_path: Path = Path("backup_tsv/PaliWord.tsv")
+    pali_root_path: Path = Path("backup_tsv/PaliRoot.tsv")
 
     # /csvs
     vocab_csv_path: Path = Path("csvs/vocab.csv")
@@ -18,9 +18,12 @@ class ProjectPaths():
     pass1_csv_path: Path = Path("csvs/pass1.csv")
     roots_csv_path: Path = Path("csvs/roots.csv")
 
-    # /backup_tsv
-    pali_word_path: Path = Path("backup_tsv/PaliWord.tsv")
-    pali_root_path: Path = Path("backup_tsv/PaliRoot.tsv")
+    # /definitions/
+    defintions_csv_path: Path = Path(
+        "definitions/definitions.csv")
+
+    # dps
+    dps_merge_dir: Path = Path("dps/to-merge/")
 
     # ebook
     epub_dir: Path = Path("ebook/epub/")

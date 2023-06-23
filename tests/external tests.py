@@ -102,7 +102,7 @@ def regex_results(results: list) -> str:
     """Take a list of results and return a regex search string or None"""
 
     if results != []:
-        results = results[:30]
+        results = results[:100]
         regex_string = r"/\b("
         regex_string += "|".join(results)
         regex_string += r")\b/"
@@ -121,10 +121,11 @@ def family_compound_no_number(searches: dict) -> tuple:
     results = []
 
     for i in searches["paliword"]:
-        for fc in i.family_compound.split(" "):
+        for fc in i.family_compound_list:
             if re.findall(r"\d", fc):
                 fc = re.sub(r"\d", "", fc)
-                compound_family_numbered.add(fc)
+                if fc != "":
+                    compound_family_numbered.add(fc)
 
     for i in searches["paliword"]:
         for fc in i.family_compound.split(" "):
@@ -814,7 +815,7 @@ def duplicate_words_meaning_lit(searches: dict) -> tuple:
         "nāsūra", "samasama 1", "samasama 2", "saṇḍasaṇḍacārī",
         "suve suve", "yena yeneva", "samasamagati", "aggamagga 2.1",
         "antarantarā 1", "huṃhuṅkajātika", "huṃhuṅka", "huṃhuṅka",
-        "nihuṃhuṅka", "nihuṃhuṅka"
+        "nihuṃhuṅka", "nihuṃhuṅka", "sabhāvatta"
     ]
 
     results = []

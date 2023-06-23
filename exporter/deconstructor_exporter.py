@@ -32,7 +32,7 @@ TODAY = date.today()
 
 def main():
     tic()
-    print("[bright_yellow]making dpd deconstructor goldendict mdict")
+    print("[bright_yellow]making dpd deconstructor for goldendict & mdict")
     sandhi_data_list = make_sandhi_data_list()
     make_golden_dict(PTH, sandhi_data_list)
     unzip_and_copy(PTH)

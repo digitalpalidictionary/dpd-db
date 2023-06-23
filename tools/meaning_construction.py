@@ -52,7 +52,7 @@ def summarize_constr(i: PaliWord) -> str:
             # remove line2
             constr = re.sub(r"\n.+$", "", i.construction)
             # remove [insertions]
-            constr = re.sub(r" \[.+\] \+", "", constr)
+            constr = re.sub(r"^\[.*\] \+| \[.*\] \+", "", constr)
             # remove phonetic changes
             constr = re.sub("> .[^ ]*? ", "", constr)
             # remove phonetic changes at end
