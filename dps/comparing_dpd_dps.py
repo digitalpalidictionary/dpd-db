@@ -20,10 +20,13 @@ with open(csv_file) as f, \
         open('to-merge/commentary.csv', 'w') as commentary, \
         open('to-merge/example_1.csv', 'w') as example_1, \
         open('to-merge/example_2.csv', 'w') as example_2, \
+        open('to-merge/source_1.csv', 'w') as source_1, \
+        open('to-merge/sutta_1.csv', 'w') as sutta_1, \
+        open('to-merge/source_2.csv', 'w') as source_2, \
+        open('to-merge/sutta_2.csv', 'w') as sutta_2, \
         open('to-merge/notes.csv', 'w') as notes:
     dict_reader = csv.DictReader(f, delimiter='\t')
-    out_files = [plus_case, meaning_1, meaning_lit, root_pali, root_base,
-                 construction, derivative, suffix, phonetic, compound_type, compound_construction, sanskrit, variant, commentary, example_1, example_2, notes]
+    out_files = [plus_case, meaning_1, meaning_lit, root_pali, root_base, construction, derivative, suffix, phonetic, compound_type, compound_construction, sanskrit, variant, commentary, example_1, example_2, source_1, sutta_1, source_2, sutta_2, notes]
     dict_writers = {}
     for file in out_files:
         name = basename(file.name)[:-4]
