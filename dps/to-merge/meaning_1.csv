@@ -70,6 +70,7 @@ id,pali_1,meaning_1,meaning_lit
 8318,apaññatta 1,(of a rule) not formulated; not prescribed; not decreed; not declared,
 8618,apaṭisevanta,not using; not making use (of),not associating
 8306,apaṇṇakaṃ,surely; certainly,free from leaves
+73079,apatta 2,not reached; not attained; not accomplished,
 8702,apayanta,going away; retreating,
 8447,aparihāniya,not connected with loss; not deteriorating; not decreasing; (principle) of non-decline,
 8669,apāṭuka,not open; sly; insidious;,
@@ -129,7 +130,6 @@ id,pali_1,meaning_1,meaning_lit
 3333,ājīvikāpakata,making a livelihood; earning for live,
 10828,ātāpeti 2,heats,
 1709,ādānapaṭinissagga,abandoning attachment; relinquishing (all what is) grasping,
-5812,āneñja 2,immovable; imperturbable; unperturbed,
 8156,āpajjita,engaged (in),
 8649,āpattibahula,who is full of offences; who is in the habit of offending,
 8650,āpattibhaya,danger of offense; fear of offence,
@@ -194,6 +194,7 @@ id,pali_1,meaning_1,meaning_lit
 21746,ekūnatiṃsatima,twenty-ninth (29th),one less than thirtieth
 21738,ekūnasata,ninety-nine (99),one less than hundred
 21951,etha tumhe,come you all! you all should go,
+21984,eva 3,even; too; as well,
 21294,ehi tvaṃ,come you! come!,
 21776,eḷakalomāni,rams' wool; goats' fleece,
 38757,okkami,occurred; happened; befallen,descended
@@ -270,7 +271,6 @@ id,pali_1,meaning_1,meaning_lit
 16795,chandarāgavinodana,removal of interest and passion; dispelling desire and lust,
 16796,chandāraha,entitled to give consent by proxy; is fit give agreement,
 16615,chabbīsati,twenty-six (26),
-16925,chavālāta,fire brand from a pyre,
 16995,chidda 3,fault; defect,cut
 17078,chuḍḍha,thrown away; discarded,
 25565,jarudapāna,old well; abandoned well,
@@ -634,7 +634,6 @@ id,pali_1,meaning_1,meaning_lit
 50902,sāmaṇaka,worthy of a monk; monk-like,
 51625,sāmīcipaṭipanna,going the right way; following the proper course,gone along the correct way
 54678,sārīradhātu,body relic,
-55345,sāvaṭṭa,with maelstroms; containing whirlpools,
 55390,sāvudha,having weapon; equipped with a weapon,
 55939,sikkhassu,you must train yourself; let you study by yourself,
 56186,siṅghāṭakena siṅghāṭakaṃ,from square to square,

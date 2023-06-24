@@ -54,6 +54,7 @@ id,pali_1,source_1
 8318,apaññatta 1,AN 7.23
 8306,apaṇṇakaṃ,TH 251
 8631,apattamānasa,MN 107
+73079,apatta 2,MN 107
 8702,apayanta,Trad
 8447,aparihāniya,AN 7.23
 8047,apādaka 2,AN 4.67
@@ -104,7 +105,6 @@ id,pali_1,source_1
 1352,ācāragocara,AN 5.114
 10828,ātāpeti 2,MN 101
 1729,ādara,Thai
-5812,āneñja 2,VIBH 6.1
 8156,āpajjita,AN 10.176
 4537,āmakadhañña,MN 51
 4696,āmavasesa,AN 5.207
@@ -232,7 +232,6 @@ id,pali_1,source_1
 16767,chandaka,VIN 3.3.6
 16796,chandāraha,PAT PK
 16615,chabbīsati,Sri Lanka
-16925,chavālāta,SN 22.80
 16995,chidda 3,AN 7.50
 17078,chuḍḍha,DHP 41
 16949,checchati 2,DHP 350
@@ -272,7 +271,6 @@ id,pali_1,source_1
 59628,tettiṃsati,Sri Lanka
 59605,terasama,Sri Lanka
 59868,theragāthā,Thai
-17983,daṇḍaparāyaṇa,AN 3.36
 18219,dasasahassilokadhātu,SN 56.11
 18218,dasasahassī,SN 56.11
 18322,dassu,DN 5.4
@@ -324,6 +322,7 @@ id,pali_1,source_1
 36471,nibbatteti,NIDD1 2
 36378,nibbāhāpetvā,VIN 1.1.1
 36515,nibbhaya,MJG
+38249,niyāma 1,SN 25.1
 37740,nirodhagāmī,SN 12.2
 37899,nissaggiyapācittiya,VIN PAT NP 1
 37942,nissarati,SN 22.28
@@ -363,7 +362,6 @@ id,pali_1,source_1
 39467,pabhāva,Thai
 46171,payirupāsanta,MN 70
 42236,parāmasati 2,DN 1.6
-42403,parāyaṇa 3,AN 3.36
 42869,parikittana,Thai
 42879,parikkhā,AN 7.67
 42596,pariccajitvā,TH 257
@@ -565,7 +563,6 @@ id,pali_1,source_1
 51625,sāmīcipaṭipanna,SN 11.3
 55433,sāyanhasamaya,AN 3.71
 54490,sārada 2,DHP 149
-55345,sāvaṭṭa,SN 35.228
 55390,sāvudha,Trad
 55795,siddhi 2,Sri Lanka
 56204,siniddha 3,TH 257

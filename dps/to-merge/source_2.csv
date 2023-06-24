@@ -104,6 +104,7 @@ id,pali_1,source_2
 7174,anupādinna,DS 1
 7893,anuyuñjati 1,MN 139
 7894,anuyuñjati 2,DHP 026
+7576,anusārī 4,MN 107
 7672,anussaritar,AN 7.67
 7693,anussāvesi,SN 56.11
 6714,anu 2,VIN PAT PC 73
@@ -300,7 +301,6 @@ id,pali_1,source_2
 60853,ubbandhitvā,VVa 1.3.5
 60944,ubhatobhāga,MN 70
 60989,ubhayattha 2,SN 12.22
-63652,uras,MN 36
 63668,urunda,DN 21.3
 63737,ussahati 1.1,MN 95
 63732,ussāha,AN 8.74
@@ -322,6 +322,7 @@ id,pali_1,source_2
 36705,nidāna 3,SN 1.13
 21901,etamatthaṃ 1,MN 18
 21921,etasmā 1,SN 22.85
+21830,esāhaṃ,MN 107
 22132,evarūpī,MN 107
 22093,evaṃsamācāra,SN 35.247
 22000,evaṃ sante,MN 152
@@ -347,6 +348,7 @@ id,pali_1,source_2
 28006,kaṭāha 1,MN 10.8
 28361,kaṭuka 2,THI 73
 28116,kaṭhalā 2,SN 55.21
+28206,kaṭhina 1,VIN PAT NP 2
 27405,kaṇṭakaṭṭhāna,TH 257
 27238,kaṇha 1,DHP 087
 28090,katatta,PAT PK
@@ -396,6 +398,7 @@ id,pali_1,source_2
 27730,kārāpetvā 2,VIN 1.1.1
 27762,kāretabba 2,VIN PAT PC 73
 26490,kālamakāsi,VIN 1.1.3
+26412,kāla 2.1,MN 107
 27853,kāsa 1.1,SN 22.93
 29455,kikī 1,DN-a 1.2
 29735,kiñci 2,SNP 13
@@ -505,6 +508,7 @@ id,pali_1,source_2
 16627,chada 1,MN 91
 16919,chava 3,SN 22.80
 16602,cha bāhirāni āyatanāni,MN 137
+16869,chāta,THI 73
 16937,chāyā 1,DHP 002
 16994,chidda 2,AN 9.11
 17045,chinna 5,SNP 53
@@ -641,6 +645,7 @@ id,pali_1,source_2
 19404,dhuta 1,NIDD 1.3
 70994,dhūta 1,VIN 1.2.10
 34782,naccagīta,MN 51
+35636,nappakāsati,SNP 56
 35640,nappamajjati 2,DHP 259
 35233,namas,Thai
 36127,nayidaṃ,AN 4.25
@@ -652,6 +657,7 @@ id,pali_1,source_2
 34818,nāda,SN 47.12
 35391,nānatta 1,MN 54.2
 35292,nānābāhā,SN 12.63
+35289,nānā 2,SN 1.32
 34741,nābhi 2,AN 4.67
 35728,nāsā 1,MN 62
 37197,nikkhanta 1,VIN 4.1.49
@@ -708,7 +714,6 @@ id,pali_1,source_2
 44885,paṭikaroti 1,MN 140
 44886,paṭikaroti 2,AN 4.244
 44909,paṭikkamati 2,AN 4.67
-44673,paṭicchanna 1,VIN PAT PC 44
 44658,paṭicchādanattha,MN 2.4
 45097,paṭiñña 1,SN 35.241
 44570,paṭibaddha 2,DHP 218
@@ -761,6 +766,7 @@ id,pali_1,source_2
 42403,parāyaṇa 3,AN 5.57
 42831,parikappa 1,TH 257
 42705,pariggahita 1,SNPa
+42587,paricca,AN 5.23
 42588,pariccāga 1,Sri Lanka
 43092,pariññeyya 2,MN 1
 43025,pariṇāyaka 2,AN 7.23
@@ -980,6 +986,7 @@ id,pali_1,source_2
 69371,yācitaka 2,NIDD1 1
 69480,yāma 1,MN 107
 69915,yāvant,SN 15.1
+70190,yuñjati 2,TH 262
 70202,yutta 1,AN 4.49
 69984,yenaññataro,SN 35.245
 69999,yeva,Trad
@@ -1041,7 +1048,6 @@ id,pali_1,source_2
 50370,sakkhi 1.3,TH 257
 49893,sagga 1.1,SN 42.6
 53808,saṅku,SN 35.235
-53749,saṅkhitta 1,Thai
 53302,saṅgaṇikā,AN 8.30
 53262,saṅgahita 1,PAT PK
 53369,saṅghapariṇāyaka,AN 7.23
@@ -1078,6 +1084,7 @@ id,pali_1,source_2
 54067,santāna 1,Trad
 54073,santāpa 1,NIDD1 2
 54225,santi 3,VIN 2.5.1.2
+54253,santo 1,SN 1.32
 53171,sandhi 1,SNPa 1.4
 53173,sandhi 3,DHP 097
 53943,sannicita 1,AN 7.67
@@ -1292,6 +1299,7 @@ id,pali_1,source_2
 24143,hatthigavassavaḷava,MN 51
 23901,haraṇa 1,AN 9.11
 23945,harita 1.2,VIN PAT PC 19
+23946,harita 1.3,VIN 2.5.2.9
 23804,haliddā,SN 22.100
 23980,hasa,VIN PAT PC 60
 23993,hasanta,AN 7.50
