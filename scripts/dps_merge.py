@@ -27,19 +27,19 @@ def main():
         # "commentary",
         # "compound_construction",
         # "compound_type",
-        "construction",
-        "derivative",
-        "example_1",
-        "example_2",
-        "meaning_1",
-        "meaning_lit",
-        "notes",
-        "phonetic",
-        "plus_case",
-        "root_base",
+        # "construction",
+        # "derivative",
+        # "example_1",
+        # "example_2",
+        # "meaning_1",
+        # "meaning_lit",
+        # "notes",
+        # "phonetic",
+        # "plus_case",
+        # "root_base",
         # "root_pali",
-        "sanskrit",
-        "suffix",
+        # "sanskrit",
+        # "suffix",
         "variant",
     ]
     break_flag = False
@@ -78,30 +78,34 @@ def main():
             column_value_old = getattr(i, column)
 
             if (
-                not column_value_old and
                 i.user_id in dict and
-                i.user_id not in exceptions_dict[column]
+                i.user_id not in exceptions_dict[column] and
+                not column_value_old
             ):
                 column_value_new = dict[i.user_id].replace("<br/>", "\n")
-                print()
-                print(f"{i.pali_1} [green]({column})")
-                print(f"[white]old: [green]{column_value_old}")
-                print(f"[white]new: [cyan]{column_value_new}")
+                if column_value_old != column_value_new:
+                    print()
+                    print(f"{i.pali_1} [green]({column})")
+                    print(f"[violet]{i.meaning_1}")
+                    print(f"[white]old: [green]{column_value_old}")
+                    print(f"[white]new: [cyan]{column_value_new}")
 
-                question = "(r)eplace (p)ass (e)xception (b)reak"
-                choice = Prompt.ask(question)
+                    question = "(a)dd / replace (p)ass (e)xception (b)reak"
+                    choice = Prompt.ask(question)
 
-                if choice == "r":
-                    setattr(i, column, column_value_new)
-                    db_session.commit()
-                    pyperclip.copy(f"/^{i.pali_1}$/")
+                    if choice == "a":
 
-                if choice == "e":
-                    exceptions_dict[column] += [i.user_id]
+                        setattr(i, column, column_value_new)
+                        # setattr(i, "origin", "dps")
+                        pyperclip.copy(f"/^{i.pali_1}$/")
+                        db_session.commit()
 
-                if choice == "b":
-                    break_flag = True
-                    break
+                    if choice == "e":
+                        exceptions_dict[column] += [i.user_id]
+
+                    if choice == "b":
+                        break_flag = True
+                        break
 
     print()
     print("[green]saving exceptions_dict")
