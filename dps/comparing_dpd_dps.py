@@ -3,16 +3,20 @@ from os.path import basename
 
 csv_file = 'dps-dpd-ex.csv'
 
+# extra:
+
+# open('to-merge/plus_case.csv', 'w') as plus_case, \
+# open('to-merge/derivative.csv', 'w') as derivative, \
+# open('to-merge/suffix.csv', 'w') as suffix, \
+# open('to-merge/phonetic.csv', 'w') as phonetic, \
+
+
 with open(csv_file) as f, \
-        open('to-merge/plus_case.csv', 'w') as plus_case, \
         open('to-merge/meaning_1.csv', 'w') as meaning_1, \
         open('to-merge/meaning_lit.csv', 'w') as meaning_lit, \
         open('to-merge/root_pali.csv', 'w') as root_pali, \
         open('to-merge/root_base.csv', 'w') as root_base, \
         open('to-merge/construction.csv', 'w') as construction, \
-        open('to-merge/derivative.csv', 'w') as derivative, \
-        open('to-merge/suffix.csv', 'w') as suffix, \
-        open('to-merge/phonetic.csv', 'w') as phonetic, \
         open('to-merge/compound_type.csv', 'w') as compound_type, \
         open('to-merge/compound_construction.csv', 'w') as compound_construction, \
         open('to-merge/sanskrit.csv', 'w') as sanskrit, \
@@ -26,7 +30,7 @@ with open(csv_file) as f, \
         open('to-merge/sutta_2.csv', 'w') as sutta_2, \
         open('to-merge/notes.csv', 'w') as notes:
     dict_reader = csv.DictReader(f, delimiter='\t')
-    out_files = [plus_case, meaning_1, meaning_lit, root_pali, root_base, construction, derivative, suffix, phonetic, compound_type, compound_construction, sanskrit, variant, commentary, example_1, example_2, source_1, sutta_1, source_2, sutta_2, notes]
+    out_files = [meaning_1, meaning_lit, root_pali, root_base, construction, compound_type, compound_construction, sanskrit, variant, commentary, example_1, example_2, source_1, sutta_1, source_2, sutta_2, notes]
     dict_writers = {}
     for file in out_files:
         name = basename(file.name)[:-4]

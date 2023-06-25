@@ -1,66 +1,106 @@
 id,pali_1,source_1
 3635,akaṃsu 1,MN 81
+3693,akāraka,NIDD1 2
 3718,akārita,MN 65
 3719,akāritapubba,MN 65
 3597,akālapuppha,DN 16.27
+3871,akiccha,AN 7.67
 2727,aggadhammasamāhita,AN 5.32
 2725,aggadhamma 1,AN 5.32
+2881,aghamūla,NIDD1 2
 5904,aṅgulimāla,MN 86
 1411,acc,DN 16.36
 1524,acchati 2,TH 257
+1545,acchindanta,NIDD1 2
+3344,ajjatā,SNPa 1.4
+3339,ajjadagge,SNPa 1.4
 3356,ajjh,MN 51
 3357,ajjha,SNP 13
 3541,ajjhūpagata,AN 10.48
 3491,ajjhogāḷha,SNPa
 6162,añjanamakkhita,TH 251
 6166,añjanī 1,TH 251
+6245,aññamaññassa,SN 48.42
 6240,aññamaññābhigijjhanti,SN 1.28
+6272,aññārādhanā,MN 70
+11711,aṭṭhatiṃsati,Sri Lanka
 11641,aṭṭhapadakata,TH 251
+11738,aṭṭhavīsati,Sri Lanka
 11786,aṭṭhimiñjā,DN 22.5
 11748,aṭṭhena,SNa 35.228
 5929,aṇha,SN 12.63
 10809,atandī,Trad
+10803,atāṇa,NIDD1 2
+11247,atiuṇhaṃ,DN 31.11
+11111,atipāto,DN 31.11
 11066,atimatta,Trad
+11192,atisītaṃ,DN 31.11
 11215,atītasatthuka 2,DN 16.21
+11211,atītānāgate,SN 42.11
+11415,attanudiṭṭhi,SNP 70
 11448,attasammāpaṇidhi,SNP 16
 11564,atthaladdha,AN 3.156
 70963,attha 4.2,MN 19
 11758,atthibhāva,SNa 35.70
+10880,athaddha,SN 7.15
+1778,addakkhu,AN 4.49
 1854,addhaniya,DN 16.21
+1846,addhānaṃ āpādeti,SN 35.127
+2105,adhikuṭṭana,NIDD1 1
 2043,adhigameyya,Trad
+2010,adhiccāpattika,MN 65
 2221,adhiṭṭhahati 2,AN 7.61
-2245,adhiṭṭheyya,KHP 9
+2231,adhiṭṭhānapāramī,Sri Lanka
+2226,adhiṭṭhāna 3,Sri Lanka
 2185,adhipati 2,DS 1
+1998,adhibandha,MN 129
+2128,adhimuccanta,NIDD1 2
 2132,adhimucchita,TH 257
 2286,adhivattati 1,AN 4.31
 2351,adhuva,NIDD1 2
+5539,anattani,AN 4.49
 5571,anatthasañhita,SN 56.11
 5263,anantara 2,DSa
+5386,anāpattibahula,MN 65
+5379,anāpanna,AN 4.244
+6026,anikīḷitāvī,SN 35.127
+6844,anudahana,NIDD1 1
+6889,anudhāvita,TH 257
 7157,anupādāniya,Abhi Dhs 1
-7192,anupāhana 1,TH 257
 7412,anuppadinna,KHP 7
+7408,anuppādenta,SNa 35.228
 6779,anubodhaka,Thai
 6803,anubyañjanaso 2,SN 35.235
+6804,anubyañjanassādagathita,SN 35.235
 7086,anumodanā 1,Thai
+7486,anurakkhamāna,DN-a 1.2
 7640,anusikkhati 2,MIL 2.3.11
 7647,anusocati,SN 1.10
 7699,anussāviyamāna,VIN PAT NID
 6425,anokamāgamma,DHP 087
 6403,anodhi 2,AN 6.104
+6492,antagaṇṭhi,VIN 4.8.206
+6593,antarāyeva,AN 4.45
 6197,annā,MN 107
+7957,anventa,TH 257
 8172,apakassa 2,SN 16.3
 8038,apaciyati,DN 16.27
 8131,apajaha,AN 5.58
 8318,apaññatta 1,AN 7.23
+8618,apaṭisevanta,MN 2.4
 8306,apaṇṇakaṃ,TH 251
 8631,apattamānasa,MN 107
 73079,apatta 2,MN 107
 8702,apayanta,Trad
 8447,aparihāniya,AN 7.23
+8669,apāṭuka,TH 257
 8047,apādaka 2,AN 4.67
 8348,apāra 2,DHP 385
+9247,aputhujjanasevita,DHP 272
 8749,apetaviññāṇa,DHP 041
+9065,appaṭikūlasaññī,MN 152
 9042,appaṭigha 1,DS 1
+9156,appāya,AN 8.54
 61,abbahe,SNP 22
 1320,abyositatta,TH 251
 537,abhikkantadassāvī,SNP 70
@@ -79,53 +119,85 @@ id,pali_1,source_1
 4655,amatadhātu,MN 64
 4629,amara 2,NIDD2 2.8
 4761,ambilagga,SN 47.8
+12862,ayamahamasmi,SN 22.47
+12855,ayaṃ tattha samayo,VIN PAT NP 6
+13007,ayosalākā,SN 35.235
+9475,araṇī,MN 36
 9769,arūpāvacara,VIBH 6.1
 4339,alattaka,TH 251
 4340,alattakakata,TH 251
+4416,alippamāna,AN 5.196
+4365,aleṇa,NIDD1 2
 10132,asaṅkiliṭṭha,DS 1
 10143,asaṅkuppa,MN 131
 10144,asaññā,Abhi Vibh 6.1
+10184,asantaṃ,MN 10.11
 10178,asanta 1.2,SN 1.32
+9950,asamapekkhita,SNa 35.228
 9981,asaṃkilesika,Abhi Dhs 1
 9976,asaṃhira,MN 131
+10760,asukha,MN 10.9
 10739,asuci 4,VIN 1.2.1
 10734,asubhataddasa,AN 4.49
 10352,asekkha 1,DS 1
+10368,asesita,JA 351
+10609,assapuṭa 1,AN 4.244
+10610,assapuṭa 2,AN 4.244
 10682,assayuja 1,Sri Lanka
+10654,assasitvā,AN 8.73
 70961,assasissati,MN 118
 12126,avaṅkata,SN 12.22
 11901,avacara 2,VIBH 6.1
+11911,avacchidda,AN 9.11
+12322,avatthāsi,VIN 1.1.3
 73785,avatthukata,MN 140
 12101,avamaṅgala 1,MJG
 12587,avikkhitta,Thai
+12454,avigata,AN 4.184
+12439,avicikicchā,AN 10.76
+12505,avijjādhātu,SN 22.47
 12438,avīci 2,DN 26.9
 12730,avītikkama,NIDD1 2
+12373,avekkhassu,SNP 70
+3119,ahirīka,TH 257
 3149,ahorattamatandita,MN 131
 2542,āgā,SNP 47
 1352,ācāragocara,AN 5.114
+3333,ājīvikāpakata,SN 22.80
 10828,ātāpeti 2,MN 101
 1729,ādara,Thai
 8156,āpajjita,AN 10.176
+8649,āpattibahula,MN 65
+8650,āpattibhaya,AN 4.244
 4537,āmakadhañña,MN 51
+4544,āmakamatta,MN 122
 4696,āmavasesa,AN 5.207
 13015,āyuda,AN 5.37
+9512,āraññikaṅga,VIN 6.1.1.4.2
 9277,ārabhituṃ,SN 12.22
+9440,ārambhati 1.1,SN 6.14
 9457,ārammaṇa 5,DS 1
 9297,ārādhanā 3,MN 70
 9407,ārāma 2,MN 2.4
+4361,ālayasamugghāta,VIN 1.2.1
 4390,ālimpesi,VIN 1.1.3
 4465,āloketi,SN 9.3
 10068,āsanapaññāpana,PAT PK
 9814,āsabhī,SN 47.12
 9822,āsādana 1,VIN PAT PC 36
+9909,āsāḷhā,Sri Lanka
 10371,āsevana,Abhi-A Dh.s
 12008,āvajjana 2,UDa 1.10
 12701,āvisati 1,TH 257
 12422,āvi ceva raho ca,MN 48 (simpl)
+2996,āhāranettippabhava,ITI 43
 24506,iccāyasmā,SNP 58
 24551,icchita 1,DHPa 1.2.1
+24977,iti attho,UDa 1.10
 25092,itthikā,VIN 1.1.1
+25087,itthidhana,VIN 1.1.1
 25104,itthindriya,VIBH 5.1
+24562,idaṃ tasmiṃ,VIN PAT PC 65
 24975,īti,Trad
 61037,uccāresi 1,VIN 1.1.3
 61820,ujupaṭipanna,SN 11.3
@@ -134,14 +206,19 @@ id,pali_1,source_1
 64114,utuparissayavinodana,MN 2.4
 70893,uttara 11,DN 23.20
 64080,uttiṇa,MN 81
+61213,udakarāsi,SN 35.228
 61544,udita,Trad
+61566,udumbarakhādika,AN 8.54
+61357,uddassetabba,MN 82
 61407,uddhaggika,AN 4.61
 61412,uddhaṃ adho tiriyaṃ,KHP 9
 62198,undūra,VIN 1.4.2.4
 62588,upakappati,KHP 7
-63248,upaṭṭhapetvāna,TH 257
+63228,upaṭṭhapenta,NIDD1 2
 62411,upadesa,Trad
+62455,upadhiviveka,MN 64
 62756,upanandhi,VIN 2.5.5.7
+62793,upanibandhitvā,VIN 4.8.206
 62851,upanissaya,DSa
 62901,upapāramī,Sri Lanka
 62284,upabhuñjaka 1,Trad
@@ -150,6 +227,7 @@ id,pali_1,source_1
 63024,upasamana,MJG
 63046,upasamika,Thai
 63288,upavajja 2,AN 4.244
+63286,upavadiyamāna,NIDD1 2
 62546,upahāra,MN 140
 62692,upāli 2,AN 1.228
 63528,uppajjituṃ,UDa 1.10
@@ -157,24 +235,38 @@ id,pali_1,source_1
 60946,ubhatobhāgavimutta,MN 70
 62110,ummihati,VIN 1.4.2.4
 63742,ussāhetvā,MN 70
+63798,ussoḷhi,AN 8.74
 61715,uhadati,VIN 1.4.2.4
+62078,ūmimaya,SNa 35.228
+21628,ekatiṃsati,Sri Lanka
+21568,ekaputtaka,SN 12.63
 70918,eka 7,SNP 7
+21604,ekāsanikaṅga,MIL 5.4.2
 21733,ekūnacattāḷīsati,Sri Lanka
 21745,ekūnatiṃsati,Sri Lanka
 21746,ekūnatiṃsatima,Sri Lanka
 21738,ekūnasata,Sri Lanka
 21749,ekūnavīsati,Sri Lanka
 71001,ete 2,SN 22.79
+21951,etha tumhe,AN 3.66
 21853,esanta,SNP 37
 22029,evamayaṃ,AN 6.62
 22017,evamārocesi,MN 31
 21294,ehi tvaṃ,MN 107
+21776,eḷakalomāni,VIN PAT NP 12
 38757,okkami,DN 27.3
+38928,oṇojeti,VIN 1.4.3.10
+38926,oṇojesi,VIN 4.1.13
 38553,odhi,MN 137
+39109,osaramāna,SNa 35.228
 39076,osādeti,VIN 1.1.1
 38817,oḷāra,SN 56.11
+26344,kakacūpama,MN 21
+26261,kacci nu kho,AN 10.48
 28367,kaṭukagga,SN 47.8
 70377,katamanussaranta,KHP 7
+28243,katīhi,SN 1.6
+26215,kabaliṅkāra,SN 12.63
 71820,kabaḷī,SN 12.12
 27668,karaṇa 5,PAT PK
 27793,karitvā 1,UD 45
@@ -186,56 +278,93 @@ id,pali_1,source_1
 27982,kātabba 1,SN 56.11
 26858,kāmasukhallikānuyoga,SN 56.11
 26873,kāmāvacara 1,VIBH 6.1
+28439,kāyadaḷhibahula,VIN 1.2.8
+28512,kāyasakkhi,MN 70
 28526,kāyasañcetanā,VIBH 6.1
 28562,kāyaviveka,NIDD1 2
+27651,kārakatā,NIDD1 2
+27685,kāraṇaṃ karoti,MN 65
+27684,kāraṇaṃ kāriyamāna,MN 65
+27802,kāriyamāna,MN 65
+27824,kāruka,TH 257
+26479,kālaṃ karonta,AN 8.74
 26609,kālika 2,NIDD1 1
 27916,kāsikosalā,AN 10.29
 26529,kāḷapakkha,Sri Lanka
 29543,kilesavatthu,TH 257
+29584,kiṃ kārapaṭissāvi,SN 22.85
+30391,kukkuṭasampātika,DN 26.9
 30334,kujjhi,SN 21.9
 30581,kumbhūpama,DHP 040
+30471,kulitthī,AN 5.58
 30824,kūṭadanta,DN 5.2
 30041,koṇḍañña 1,SN 56.11
+30959,kyassu,SN 7.15
 28743,khagga 1,SN 35.87
 28745,khagga 3,SNP 3
 28947,khaṇika,VIN PAT SA 5
 28873,khaṇḍa 3,AN 7.50
+28975,khantipāramī,Sri Lanka
+29012,kharassara,AN 4.244
+28820,khalupacchābhattika,NIDD1.3
+28821,khalupacchābhattikaṅga,NIDD1.3
 29402,khuramuṇḍa,AN 4.244
 71031,khemaka 2,SN 22.89
+29419,khvetaṃ,VIN 1.2.1
 22565,gaṇakamoggallāna,MN 108
 22193,gada 2.2,Trad
+22660,gandhappaṭisaṃvedī,SN 35.70
+22663,gandharāga,SN 35.70
+22664,gandharāgappaṭisaṃvedī,SN 35.70
+22539,gamissase,TH 206
+22508,gambhīranema,AN 7.67
 22872,garukātabba 1,SN 6.2
 22341,gahita 2,SN 47.12
 22996,gāyanta,AN 7.50
 22400,gāḷhabandhanaṃ bandhati,AN 4.244
+23335,gila,SN 17.2
+23336,gilabaḷisa,SN 17.2
+23288,gihibhoga,SN 22.80
 23759,guttadvāratā,AN 8.79
 23764,guttika,MIL 2.3.12
 15638,cakka 3,Trad
+15726,cakkhusamudda,SN 35.228
 16369,catuttiṃsati,Sri Lanka
 16113,catuddasa,VIN PAT NID
 16179,catumadhura,DNa 1.2.18
 16264,caturāsītisahassa,MJG
 16382,catuvīsati,Sri Lanka
+16067,cattālīsati,MN 4
+16057,cattāḷisā,Sri Lanka
 15774,camarī,DN-a 1.2
+15985,carato,ITI 111
 15612,cāgasampadā,AN 4.61
 16114,cātuddasa 1,PAT PK
 16186,cātumahārājika 2,AN 10.29
+16024,cārittaṃ āpajjita,AN 10.176
 17340,cittatā 1.1,AN 10.76
+17359,cittaviveka,NIDD1 2
 17239,citta 2.6,Sri Lanka
+17376,cittiṃ katvāna,TH 257
 70981,citra 1.3,TH 251
 17627,cuṇṇaka,TH 251
 17630,cuṇṇakamakkhita,TH 251
 17524,cuddasama,Sri Lanka
 17564,cūḷapanthaka,UD 50
 16520,cetayita,MIL 2.3.11
+17488,corābhinīta,SN 22.80
 17475,coḷa 2,SN 1.49
+16891,chaṭṭhama,Sri Lanka
+16655,chaḍḍayitvāna,TH 257
 16767,chandaka,VIN 3.3.6
+16771,chandanidāna,SN 42.11
 16796,chandāraha,PAT PK
 16615,chabbīsati,Sri Lanka
 16995,chidda 3,AN 7.50
 17078,chuḍḍha,DHP 41
 16949,checchati 2,DHP 350
 25752,jayanta 1,MJG
+25565,jarudapāna,SN 16.3
 25273,jalla,SN 54.9
 25725,javana 3,UDa 1.10
 26012,jitavā,Trad
@@ -246,157 +375,247 @@ id,pali_1,source_1
 25788,jeta,Thai
 26159,jotipāla,DN 19.7
 26163,jotirasa,DHPa 1.2.1
+35353,ñāṇamattāya,MN 10
 35842,ñātidhamma,KHP 7
 36110,ñāyapaṭipanna,SN 11.3
 60618,ṭṭha,SN 1.47
 59810,ṭhapeti 5,MNa 11
+59728,ṭhānaṃ vijjati,MN 8
+59796,ṭhāpaye,AN 4.42
 58775,taññeva,Thai
 59065,taṭa 1,Thai
 59301,tatrābhiratimicchati,DHP 088
+59140,tathattāya,AN 3.66
+59083,tathābhūtaṃ,MN 4
 59127,tathāsamāhita,SN 46.3
 58360,tadatthaṃ,Thai
+58547,tamañña,ANa 3.68
 59436,tayo 2,ITI 76
+58535,taṃ kiṃ maññatha,SN 47.20
 59386,tāvakālika,NIDD1 1
 59393,tāvatakena,DN 10.2
 60176,tikoṭiparisuddha,VIN 4.6.178
 60497,tittakagga,SN 47.8
 60337,tiparivaṭṭa,SN 56.11
 60374,tiracchānakathika,VIN 1.2.8
+60382,tiracchānayonika,NIDD1 2
 60423,tirokaraṇī,VIN 4.8.206
+60186,tilakāhata,AN 3.36
 60192,tilakkhaṇa 1,Thai
 60573,tividhaṃ,Trad
+60312,tīṇi duccaritāni,DN 33.6
 60388,tīraṇa,NIDD1 2
+60393,tīrayitvā,NIDD2 2.8
 60397,tīreti 1,NIDD1 2
+60704,tumhaṃ 1,DN 1.1
 60705,tumhaṃ 2,DHPa 1.2.1
+60666,tulayitvā,MN 70
+59461,tecīvarikaṅga,NIDD1.3
 59628,tettiṃsati,Sri Lanka
+59570,tena tena,TH 257
 59605,terasama,Sri Lanka
+59644,tevīsati,Sri Lanka
+59688,thāmagata,NIDD1 2
 59868,theragāthā,Thai
+59999,thokika,DHP 310
+17761,dakāra,SNPa 1.4
+18004,dandhaṃ,DHP 116
 18219,dasasahassilokadhātu,SN 56.11
 18218,dasasahassī,SN 56.11
 18322,dassu,DN 5.4
+18323,dassukhīla,DN 5.4
+17853,daḷhī,VIN 1.2.8
+17926,dānapāramī,Sri Lanka
 17923,dānamaya,VIBH 6.1
 17914,dāna 1.2,MN 82
+17869,dāma 1,SN 35.232
 18381,dāvaggi,Trad
 17722,dāha 2,Thai
 19764,diṭṭhippatta,MN 70
 19727,diṭṭhibyasana,VIBH 4.1.1
 19557,dina,Trad
 19590,dipādaka,AN 4.67
+19599,dīpana 1,Thai
 20206,dukkhanirodhagāminīpaṭipadā,SN 56.11
 20234,dukkhappatta,MJG
 20191,dukkhamaddasā,AN 4.49
 20077,duggāha,Trad
 20356,dunnimitta,MJG
+20408,duppūrana,SNa 35.228
 20325,dumapphala,TH 251
 20539,dussupina,Trad
 21043,duvidhena,Abhi Vibh 6.1
+20433,dūraṃ,TH 206
 18498,devabhūta,AN 5.32
 18563,devānubhāva,SN 56.11
 18425,dehanissita,DHPa 1.1.1
 19953,dovacassatā,AN 10.76
 21129,dvattiṃsā,MN 91
 21064,dvādasākāra,SN 56.11
+21199,dvevīsati,Sri Lanka
 18793,dhammakkhandha,MJG
 18765,dhammagārava 2,Thai
 18703,dhammacakkappavattana,Thai
 18704,dhammacakkappavattanasutta,Thai
+18886,dhammappaṭisaṃvedī,SN 35.70
 18905,dhammaratana,MJG
+18893,dhammarāgappaṭisaṃvedī,SN 35.70
 19157,dharamāna,Thai
 19229,dhātumattaka,Trad
 19256,dhāva,Trad
+19303,dhītucitta,SN 35.127
+19305,dhītumattī,SN 35.127
 19410,dhutaṅga,NIDD 1.3
+35072,nakhacchedana,SN 35.235
 34932,nagaraguttika,MIL 2.3.12
 34862,nadita,SN 47.12
 35488,nandirāgasahagata,SN 56.11
 71045,nanvāgameti,MN 131
+34774,nabhivadati,SN 35.88
 35199,namakāra,Thai
 35255,namati 2,Thai
+35241,namassanīya,VIN-a 1
 36084,naya 3,UDa 1.10
 36064,navavidha,PAT PK
 35734,nāsana,SN 6.2
+35764,nāsīsati,AN 4.45
 37070,nijjīva 2,Trad
 36726,nidassita,KHP 7
 36741,niddārāmatā,AN 8.79
 36807,niddukkha 1,Thai
 37579,nippesika,MN 117
+36371,nibandhissaṃ,TH 206
 36471,nibbatteti,NIDD1 2
 36378,nibbāhāpetvā,VIN 1.1.1
 36515,nibbhaya,MJG
+37325,nimaṃsa,MN 10.8
 38249,niyāma 1,SN 25.1
 37740,nirodhagāmī,SN 12.2
 37899,nissaggiyapācittiya,VIN PAT NP 1
 37942,nissarati,SN 22.28
 38000,nissoka,MJG
 38196,nivedeti,Thai
+36964,nihacca 2,SN 7.15
+37289,nīlapītādibheda,SNa 35.70
 36149,nekatika 2,TH 257
+36162,nekkhammapāramī,Sri Lanka
 36141,negama 2,VIN 4.8.202
 36246,netti 4,ITI 43
+36241,netthāra,MN 65
+36242,netthāraṃ vattati,MN 65
 36198,nerayika 2,NIDD1 2
+36211,nesajjikaṅga,NIDD1.3
+36300,nevattānaṃ,SN 35.234
 36267,nevasaññanāsaññā,Abhi Vibh 6.1
+40590,pakaroti,AN 8.1
 40661,pakiṇṇaka 1,Thai
+40669,pakiritvā,AN 4.244
 40767,pakkhiya 1,AN 6.17
+40325,paggharaṇī,MN 39
+39982,pacīyati,SN 35.95
 39784,pacchābāhaṃ,AN 4.244
+39798,pacchāliyaṃ khipati,AN 5.58
+40491,pajaheyyātha,AN 3.66
+40530,pajīvanta,TH 257
 41407,pañcatiṃsati,Sri Lanka
 41408,pañcatiṃsatima,Sri Lanka
 41268,pañcadasa,Sri Lanka
+41262,pañcabhi,SN 1.6
+41326,pañcamahāpariccāgā,Sri Lanka
 41433,pañcavīsati,Sri Lanka
 41729,paññapeti 3,MN 31
+41704,paññāpanāya,SN 22.57
+41705,paññāpāramī,Sri Lanka
+41843,paññāya mattaso,MN 70
 44893,paṭikata,AN 2.33
 45091,paṭinivatti,VVa 1.3.5
+44988,paṭilābhato,MN 137
 45336,paṭisandhi 3,Sri Lanka
 45261,paṭisallānārāmatthaṃ,MN 2.4
 45318,paṭisaṃvidita 3,SNa 35.70
+45424,paṭissatimattāya,MN 10
 44791,paṭihaṅkhāmi,MN 2.4
 44490,paṭhavī,DHP 041
 41188,paṇāma,Thai
 41198,paṇāmenta,VIN 4.1.49
 41569,paṇīdhi,AN 3.156
 41457,paṇḍaka 2,VIN PAT PK
+41754,paṇṇarasama,Sri Lanka
+44951,patikoṭeti,MN 19
+45503,patiṭṭhiyati,NIDD1 2
 45679,pattakamma,AN 4.61
+45701,pattapiṇḍika,MIL 5.4.2
+45702,pattapiṇḍikaṅga,MIL 5.4.2
 45793,pattidāna,Thai
 40047,padāla,Thai
 40211,paditta 1,SN 22.80
 40276,paduṭṭha 2,AN 10.176
 71056,panidaṃ,SN 56.11
+41566,panidhekacca,MN 105
 71059,panūdati,SN 2.8
+39336,pabāḷha 1,SN 22.80
 39467,pabhāva,Thai
 46171,payirupāsanta,MN 70
+42230,paramasacca,MN 70
+42312,parānudayatā,NIDD2 2.8
+42313,parānudayatāpaṭisaṃyutta,NIDD2 2.8
 42236,parāmasati 2,DN 1.6
 42869,parikittana,Thai
 42879,parikkhā,AN 7.67
 42596,pariccajitvā,TH 257
 42808,parijjhāyanā,Abhi Vibh 4.1.1
 42670,paridīpaka,Thai
+42666,paridhāya,AN 4.244
 43070,pariniṭṭhita,PAT PK
 43045,parinibbānika,Thai
+43033,parinetvā,AN 4.244
+43146,paripatitvā,VIN 1.1.3
 42428,paribāhira,TH 257
+42468,paribhañjana,NIDD1 1
 42944,parimaddana 2,AN 7.50
 43544,pariy,MN 119
+43587,pariyāpuṇassu,AN 10.44
+43697,pariyuṭṭhi,VVa
+43668,pariyogāya,MN 70
 43523,parivīmaṃsamāpajjanta,SN 46.3
 42742,parihāpeti,SN 12.22
+40932,palitta,SNP 40
 43972,passasitvā,AN 8.73
 71064,passasissati,MN 118
 43992,passita,DN 23.10
 45944,pavattana 2,Thai
 45942,pavattamāna 2,Trad
+46002,pavayha,MN 65
 46050,pavicaranta,SN 46.3
+40412,pahātuṃ,AN 10.76
+41108,paṃsukūlikaṅga,VIN 6.1.1.4.2
 40567,pāka 2,Thai
 44118,pāṭha 1,SNPa 1.4
 44119,pāṭha 2,Thai
+41582,pāṇinā,SN 35.88
+40067,pādamūla,Sri Lanka
+42028,pāpika,MN 21
 42019,pāpesi 2,Thai
 46163,pāyeti,MIL 2.3.11
 42326,pārāpariyattheragāthā 3,Thai
+43217,pāripūrī,MN 10.14
 45844,pāvacana 2,DN 16.21
 46924,piṭakattaya,MJG
+46805,piṇḍapātikaṅga,VIN 6.1.1.4.2
+46938,pitari,SN 7.15
+46863,pipāsavinaya,VIN 1.2.1
 47925,puṭaṃsa,AN 4.190
 47918,puṭa 2,AN 4.190
 47611,puṇṇaka,SNP 58
 47632,puṇṇamī,Sri Lanka
 48022,puttamaṃsa,SN 12.63
+47952,puthujjanasukha,MN 139
 47276,pubbabhāga 3,Thai
+47807,purimā koṭi,AN 10.61
 47905,purisindriya,VIBH 5.1
 47759,pūrāpetvā,VIN 1.1.1
 47795,pūreti 1,DHPa 1.2.1
+46250,pemamattaka,MN 65
 46297,pessaka,MN 98
 71155,poṭṭhapāda 2,VISM 2.20
 46349,phagguṇa,Sri Lanka
@@ -407,11 +626,16 @@ id,pali_1,source_1
 46640,phusituṃ,TH 257
 46642,phusitvā 2,MN 70
 46646,phussa 2.1,Sri Lanka
+46597,phoṭṭhabbappaṭisaṃvedī,SN 35.70
+46598,phoṭṭhabbarāga,SN 35.70
+46599,phoṭṭhabbarāgappaṭisaṃvedī,SN 35.70
 13603,bara,Thai
 13446,balappatta,MJG
 13168,bahigata,AN 7.61
 13161,bahiddha,Abhi Dhs 1
+13354,bahusādhāraṇa,NIDD1 1
 13624,bāvīsati,VIBH 5.1
+13520,bāḷisika,SN 17.2
 15003,bimbohana,SN 20.8
 15327,buddhāna,DHP 183
 15335,buddhānubhāva,Trad
@@ -420,18 +644,26 @@ id,pali_1,source_1
 70976,byākarissati,AN 6.61
 70758,brahmasama,SNP 31
 13743,bhagavati,Thai
+13763,bhaginicitta,SN 35.127
+13765,bhaginimattī,SN 35.127
 13876,bhaṇanta 2,DHP 264
 13879,bhaṇāpetvāna,Thai
 13873,bhaṇāmase,Thai
 13903,bhaṇḍati,TH 257
 14372,bhayaṭṭa,SN 22.80
+14371,bhayato,SN 12.66
 14351,bhayānaka,SN 56.42
+14045,bhasmapuṭa 1,AN 4.244
+14046,bhasmapuṭa 2,AN 4.244
+14223,bhavantaṃ,VIN 1.0
+14227,bhavanto,DN 23.5
 14251,bhavasāta,NIDD1 2
 13775,bhāgya,Thai
 14369,bhāyati 2,DHP 129
 13982,bhārasutta,Thai
 14185,bhāvanāmaya,VIBH 6.1
 14493,bhikkhugaṇanā,PAT PK
+14507,bhikkhunisaṅgha,VIN 3.3.6
 14582,bhiṅkāra,VIN 4.1.13
 14586,bhinnaka 1,Thai
 14740,bhujaga,Trad
@@ -442,6 +674,7 @@ id,pali_1,source_1
 33179,maññati 1,AN 7.23
 33022,maṇḍapeyya,SN 12.22
 33637,mattā 2,TH 257
+33680,mattika,VIN 1.1.1
 31882,madhuragga 2,SN 47.8
 32935,manasikaritvā,MN 107
 32788,mamaccayena,DN 16.36
@@ -457,38 +690,64 @@ id,pali_1,source_1
 32483,mahāya,AN 8.54
 31917,māgasira,Sri Lanka
 31996,māgha 2,Sri Lanka
+33594,mātaraṃ,DHP 294
 71041,mātāpitūpaṭṭhāna,SNP 16
+33700,mātucitta,SN 35.127
+33726,mātumattī,SN 35.127
 33326,mānusiya,SNP 13
+33756,māyaṃ vidaṃseti,SN 22.95
 33750,māyākārantevāsī,SN 22.95
+33424,mārāmisa,NIDD1 2
 32732,mālavant,Trad
 31732,mā ahosi,SN 22.59
 71039,mā pamādattha,MN 19
 33970,micchatta 2,DS 1
+34058,mīḷhapabbata,AN 5.196
 34308,mucci 2,Thai
 34657,muṭṭhasacca,AN 10.76
 34564,muninda,Trad
 34582,musala 2,VIN 1.1.3
 33871,mettacittena,AN 5.198
+33880,mettāpāramī,Sri Lanka
+34251,momūha,SN 35.235
+34278,mosalla,AN 4.244
 69576,yaṅkiñci,SN 22.59
 69764,yathāpaññatta,AN 7.23
+69800,yathāsanthatikaṅga,NIDD1.3
 71821,yānī 2,AN 11.15
 69945,yāyaṃ 2,SN 56.11
 69999,yeva,KHP 9
 70013,yobbañña,NIDD1 2
 48387,rakkhasa,TH 257
+48395,rakkhetha,DHP 36
 48367,rajopatha,MN 27
 48338,rajjana,UDa 1.10
 48665,raṭṭhapāla,MN 82
 48667,raṭṭhapālattheragāthā,Thai
 48576,ratanattaya,VIN-a 1
+48622,rathikāya rathikaṃ,AN 4.244
 48428,ramaṇīya 2,DHP 099
+48516,rasapathavī,DN 27.3
+48520,rasappaṭisaṃvedī,SN 35.70
+48521,rasarāga,SN 35.70
+48523,rasarāgappaṭisaṃvedī,SN 35.70
 48712,ravi 2.1,Sri Lanka
+48170,rājā,DHP 329
+48180,rājābhinīta,SN 22.80
+48372,rājūhi,Sri Lanka
 48066,rādha,SN 22.7
+48913,rukkhamūlikaṅga,MIL 5.4.2
 48932,rumhaniya,MN 70
 48992,rūpakkhandha,DN 33.8
+49027,rūpappaṭisaṃvedī,SN 35.70
+48996,rūpamaya,SN 35.228
+49032,rūparāgappaṭisaṃvedī,SN 35.70
+48942,rūpā,SN 35.95
 49086,rūpāvacara,VIBH 6.1
 49129,rūpūpādānakkhandha,MN 44
 48796,rohitassa,AN 4.45
+31006,lābhasakkārasilokapaṭisaṃyutta,NIDD2 2.8
+31015,lābhena lābhaṃ nijigiṃsanatā,MN 117
 31170,lālappa,Abhi Vibh 4.1.1
 31171,lālappanā,Abhi Vibh 4.1.1
 31172,lālappitatta,Abhi Vibh 4.1.1
@@ -496,6 +755,7 @@ id,pali_1,source_1
 31542,lokapāla,Trad
 31524,lokāmisādhimutta,MN 105
 31628,lomaṃ pāteti,MN 65
+55266,saūmi,SN 35.228
 50331,sakkatvā,MJG
 49866,sagāha 2,SN 35.228
 49910,saggasaṃvattanika,AN 4.61
@@ -508,6 +768,7 @@ id,pali_1,source_1
 53359,saṅghakaraṇīya,AN 7.23
 53438,saṅghuposatha,PAT PK
 49585,sacittapariyodapanā,DHP 183
+49530,saccapāramī,Sri Lanka
 53490,sañjagghati,AN 7.50
 53505,sañjaneti,NIDD1 2
 53848,saññākkhandha,DN 33.8
@@ -516,6 +777,7 @@ id,pali_1,source_1
 54032,saññoga,VIN 1.2.1
 54943,satipārisuddhi,DN 22.18
 55108,sattati,UD 78
+55111,sattatiṃsati,Sri Lanka
 55063,sattannaṃ 1,AN 4.67
 54989,sattabojjhaṅgā,MN 118
 55081,sattarasa 1,Sri Lanka
@@ -523,50 +785,78 @@ id,pali_1,source_1
 55151,satthaka 1,AN 8.74
 49594,sad,MN 27
 49849,sadosa 2.1,SNa 35.228
+49653,saddappaṭisaṃvedī,SN 35.70
+49655,saddarāga,SN 35.70
+49656,saddarāgappaṭisaṃvedī,SN 35.70
 49708,saddhammamaññāya,SN 1.31
+49695,saddhājāta,MN 70
 49690,saddhādeyya,DN 2.14
 49722,saddhāpabbajita,SN 12.22
 49733,saddhāvimutta,MN 70
 49763,sadhamma,Thai
 53474,sanidassana,DS 1
 54088,santappati 2.1,JA 351
+54110,santaruttaraparamaṃ,VIN PAT NP 7
+54062,santaṃ,MN 10.11
 54246,santīraṇa,UDa 1.10
+54146,santesu,SN 5.10
+53962,sannipata,VIN PAT PK
 53968,sannipātabahula,AN 7.23
+54334,sapattavatā,MN 122
+54294,sapadānacārika,NIDD1.3
+54296,sapadānacārikaṅga,NIDD1.3
+54309,saparidaṇḍā,AN 10.176
 49380,sabbatthamaparājita,SNP 16
 49295,sabbapāpa,DHP 183
+49261,sabbampidaṃ,DHPa 2.1
+49400,sabbe,DHP 130
 49451,sabhāva 2,UDa 1.10
 50916,samanantara 1,DSa
 51118,samanupassamāna,SN 22.47
 50632,samācare,KHP 9
 50776,samādiyi,VIN 6.1.1.4.2
+52579,samuddati,SNa 35.228
+52568,samuddana,SNa 35.228
 51559,sametta,Thai
 52028,samosaṭa,SNa 35.228
+52024,samosaranta,SNa 35.228
 52118,sampakampi,SN 56.11
 52225,sampaṭicchana 1,UDa 1.10
 52279,sampayutta,DS 1
+52124,sampalimaṭṭha,SN 35.235
 52262,sampavedhi,SN 56.11
+52263,sampavedhī,AN 7.67
+52068,sampādi,DN 21.3
 52063,sampādetuṃ,SN 12.22
 51396,sambāhana,AN 7.50
+51431,sambhañjana,NIDD1 1
 51945,sammoditvā,Thai
 54556,saraṇamāgamma,DHP 192
 54676,sarīrabheda,TH 251
 54671,sarīra 2,MN 10.8
 49944,sahajāta,DSa
+51714,saṃkī,NIDD1 2
+52455,saṃsīda,SN 35.241
 52744,saṃvacchara 1,Sri Lanka
 53487,sāṇipasibbaka,VIN 1.1.1
 53468,sāṇi 1,VIN 1.1.1
 55152,sātthaka 1,MNa 1.1.10
 49605,sādaraṃ,Thai
+53466,sāni,DHP 240
 54326,sāpateyya,MN 129
 54340,sāpekkha,AN 7.23
 50902,sāmaṇaka,VIN 5.12.2
 51625,sāmīcipaṭipanna,SN 11.3
 55433,sāyanhasamaya,AN 3.71
 54490,sārada 2,DHP 149
+54678,sārīradhātu,Sri Lanka
 55390,sāvudha,Trad
+55939,sikkhassu,AN 10.44
+56186,siṅghāṭakena siṅghāṭakaṃ,AN 4.244
 55795,siddhi 2,Sri Lanka
 56204,siniddha 3,TH 257
 56237,sirasā,Thai
+56017,sīlapāramī,Sri Lanka
 55984,sīlabyasana,VIBH 4.1.1
 56008,sīlamaya,VIBH 6.1
 56289,sīsacchejja,AN 4.244
@@ -574,12 +864,17 @@ id,pali_1,source_1
 57097,sugatappavedita,Thai
 56938,sucira,Thai
 57132,sujā 1.1,SN 7.9
+57570,suññaka,SN 35.238
 57576,suññatāpaṭisaṃyutta,SN 20.7
 56975,sudaṭṭha,Trad
 56961,sudāruṇa,Trad
 57527,sunikhāta,AN 7.67
+57633,supaṭipanna,SN 22.57
+57634,supaṭippassaddha,MN 36
 57639,supatiṭṭhita 1,KHP 7
 57592,supabhāta,AN 3.156
+57739,supūjita,SN 7.15
+56815,subhaddaka,SN 35.88
 57411,sulabhati,Trad
 57947,susuddha,Thai
 57946,susu 2,SN 35.247
@@ -590,11 +885,16 @@ id,pali_1,source_1
 56508,sokanāsana,SN 6.2
 56521,sokasalla,VIBH 4.1.1
 56582,soṇa 3,AN 2.9
+56741,sotta,SN 35.235
+56664,sosānikaṅga,MIL 5.4.2
 56767,sovaggika,AN 4.61
 64934,vaṅka 1,AN 3.36
+64220,vacanīyamevāyasmā,VIN PAT SA 12
 64314,vacīsañcetanā,VIBH 6.1
+64589,vajjavant,SN 22.80
 64591,vajjetabba,VIN PAT PK
 64876,vañcanika,TH 257
+65606,vaṭṭupaccheda,VIN 1.2.1
 64382,vaḍḍhaka,MJG
 64410,vaḍḍhi 3,AN 6.45
 65489,vattanta,MN 70
@@ -602,11 +902,15 @@ id,pali_1,source_1
 65576,vatthuttaya,Thai
 65556,vatthu 8,NIDD1 2
 64352,vadaññutā,AN 10.76
+64437,vadeyya,MN 148
+64448,vadhati,SN 35.238
 64898,vandayata,Thai
+65111,varataraṃ,DHPa 1.5.11
 65198,vasana 2.1,SNPa
 65287,vasitvā,Sri Lanka
 65231,vasena 1,PAT PK
 65358,vassūpagata,VIN 4.3.113
+65621,vavatthāpenta,SNa 35.70
 64504,vaha 2,KHP 7
 64192,vācana,Trad
 64188,vācākamma,AN 3.156
@@ -615,24 +919,34 @@ id,pali_1,source_1
 66526,vigatamiddha,KHP 9
 66326,vicikicchita,SNP 13
 67577,viññāṇakkhandha,DN 33.8
+67634,viññāpanī,DHP 408
+68591,vitakkavaḍḍhana,NIDD2 2.8
+66399,videssanā,VIN 1.2.6
+66425,vidhāvita,TH 257
 66434,vidhinā,Trad
 66431,vidhi 1,Thai
 67519,vinimocayanta,Thai
 67554,vinivijjhana,NIDD1 1
 67469,vineyya 3,Thai
+67761,vipariṇamanta,NIDD1 2
 67725,vipākī,TH 195
 67909,vippayutta 1,DSa
 67874,vippariṇāmadhamma,TH 251
+67863,vippalapa,DN 23.5
 67864,vippalāpa,VIBH 4.1.1
+66204,vibhāvayitvā,NIDD2 2.8
 66228,vibhūta 2,NIDD2 2.8
+68941,viyākaṃsu,SNP 63
 71134,viraha 4,UDa 1.10
 73794,virāganirodha,DN 22.17
 67987,virāgūpasama,AN 5.32
 68066,viriya,Thai
+68078,viriyapāramī,Sri Lanka
 68091,viriyavant,Trad
 68145,virūparūpena,TH 251
 67168,vilokana,Sri Lanka
 67174,viloketvā,Sri Lanka
+68266,visaññoga,VIN 1.2.1
 68385,visiṭṭha,NIDD1 2
 68537,visūka 2,MN 2.2
 68343,visesādhigama,AN 7.24
@@ -640,15 +954,23 @@ id,pali_1,source_1
 68810,vivajjati,Trad
 68932,vividha 2,SN 3.11
 66602,vihanti,TH 251
+68644,vītasoka,UD 78
 67232,vīmaṃsī,SNP 49
 68299,vīsativassa 1,VIN PAT PC 65
+69168,vuttaṃ hoti,SNPa 1.4
 69139,vūpasammati 2,MN 65
 66079,veṭhita 2,VIN PAT SK 66
 65753,vedanākkhandha,DN 33.8
 66014,verika 1,Trad
+66016,verinesu,DHP 197
 66025,vesākha,Sri Lanka
+68973,vocarita,MN 70
+69079,voṭṭhabbana,UDa 1.10
+68995,vodiṭṭha,MN 70
+69046,voropetukāma,SN 22.85
 24394,hirikopīnapaṭicchādanatthaṃ,MN 2.4
 24324,hiṃsā,DHP 390
+24375,hīnohamasmī,SN 22.49
 24479,hurā huraṃ 1,DHP 334
 24279,hetuka,DS 1
 71016,homa 2.2,DN 16.39

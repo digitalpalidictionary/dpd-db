@@ -8,6 +8,7 @@ id,pali_1,sutta_2
 3768,akāsiṃ 1,āpattibhayasuttaṃ
 3769,akāsiṃ 2,dvedhāvitakkasuttaṃ
 3765,akāsi 1,tirokuṭṭasuttaṃ
+3871,akiccha,pārāpariya-thera-gāthā
 3919,akiriya,niruttipathasuttaṃ
 4102,akubbato,pāpavaggo
 4163,akusalavitakka,piṇḍolyasuttaṃ
@@ -27,6 +28,7 @@ id,pali_1,sutta_2
 1467,accayo accagamā,dhātuvibhaṅgasuttaṃ
 1524,acchati 2,duṭṭhadosa sikkhāpada
 6159,añjana 2,raṭṭhapālattheragāthā
+6245,aññamaññassa,karaṇīya mettasuttaṃ
 6200,añña 2,brahmanimantanikasuttaṃ
 6318,aññātāvindriya,abhidhammabhājanīyaṃ
 6317,aññātāvī 2.1,abhidhammabhājanīyaṃ
@@ -110,6 +112,7 @@ id,pali_1,sutta_2
 6464,anottāpī,sallekhasuttaṃ
 6436,anoma 1,duṭṭhaṭṭhakasuttaniddeso
 5699,andha 1,indriyabhāvanāsuttaṃ
+6197,annā,tatiya nibbāna paṭisaṃyuttasuttaṃ
 7953,anvāya 1,sappurisasuttaṃ
 4931,an 2,santuṭṭhasuttaṃ
 71825,apararatta,soppasuttaṃ
@@ -169,6 +172,7 @@ id,pali_1,sutta_2
 10178,asanta 1.2,sañjīva jātakaṃ
 10010,asampajañña,tayodhammasuttaṃ
 10400,asika,ukkhittāsikasuttaṃ
+10760,asukha,ariy'aṭṭhaṅgika-magga
 10714,asubha 1,saññāsuttaṃ
 10588,assamapada,kuddāla jātakavaṇṇanā
 10682,assayuja 1,rūpasattakasammasanakathāvaṇṇanā
@@ -183,6 +187,7 @@ id,pali_1,sutta_2
 12315,avatthāraka,tiṇavatthārakaṃ
 12238,avasitta,cūḷasaccakasuttaṃ
 12245,avassaṃ,pesakāradhītāvatthu
+12454,avigata,paṭṭhāna-mātikā-pāṭho
 12608,avinayavādī,cundasuttaṃ
 12653,avipariṇāma,gomayapiṇḍasuttaṃ
 12771,avūpakaṭṭha,mahāsaccakasuttaṃ
@@ -214,6 +219,7 @@ id,pali_1,sutta_2
 12924,āyatana 3,saḷāyatanavibhaṅgasuttaṃ
 12857,āyāma 1.1,channasuttaṃ
 9381,ārakā 1,mahāsaccakasuttaṃ
+9512,āraññikaṅga,duṭṭhaṭṭhakasuttaṃniddeso
 9433,ārambha 1.1,saṃkhittasuttaṃ
 9457,ārammaṇa 5,upavāṇasandiṭṭhikasuttaṃ vaṇṇanā
 9295,ārādhanā 1,buddha-vassa-sajjhāyanā
@@ -221,6 +227,7 @@ id,pali_1,sutta_2
 9661,ārogyamada,abhiṇha-paccavekkhitabba-ṭhāna-suttaṃ
 9670,āroha 1,kandarakasuttaṃ
 4459,ālokasaññā,pacalāyamānasuttaṃ
+9909,āsāḷhā,Calendar
 11983,āvahati 1,dhammikattheragāthā
 12569,āvikaroti 2,cundasuttaṃ<br/>uragavaggo 5
 12397,āvesana 1,ghaṭikārasuttaṃ
@@ -235,6 +242,7 @@ id,pali_1,sutta_2
 25092,itthikā,kulasuttaṃ
 24558,ida,poṭṭhapādasuttaṃ
 24587,idappaccayā,avijjāsuttaṃ
+24562,idaṃ tasmiṃ,mohana sikkhāpada
 24666,idhūpapanno,upakkilesasuttaṃ
 24720,imasmiṃ 2,bhayasuttaṃ
 24743,imināpetaṃ,koṭṭhikasuttaṃ
@@ -258,10 +266,12 @@ id,pali_1,sutta_2
 61372,uddesa 3,kuṭikāra sikkhāpada
 61375,uddesa 6,kaṇṭaka sikkhāpada
 61420,uddhambhāgiya,saṅgītisuttaṃ
+61412,uddhaṃ adho tiriyaṃ,cūḷāssapurasuttaṃ
 62588,upakappati,tirokuṭṭasuttaṃ
 62619,upakkamati 1,dutiya maraṇassatisuttaṃ
 63210,upaṭṭhāna 1,maṅgalasuttaṃ<br/>cūḷavaggo 4
 62400,upaḍḍha 1,paṭhama maraṇassatisuttaṃ
+62455,upadhiviveka,guhaṭṭhakasuttaniddeso
 62888,upapajjamāna,nibbedhikasuttaṃ
 71113,upapajjeyya,asibandhakaputtasuttaṃ
 62910,upaparikkhitabba,attadīpasuttaṃ
@@ -322,6 +332,7 @@ id,pali_1,sutta_2
 27298,kaṅkala,potaliyasuttaṃ
 26228,kacca,sakkaccapaṭiggahaṇa sikkhāpada
 26230,kaccāna,kaccānagottasuttaṃ
+26261,kacci nu kho,dasadhammā pabbajita-abhiṇha-paccavekkhaṇā
 26244,kacchamāna,dukkathāsuttaṃ
 28003,kaṭaggaha,bālapaṇḍitasuttaṃ
 27994,kaṭacchu,pārāpariyattheragāthā
@@ -508,6 +519,7 @@ id,pali_1,sutta_2
 35912,ñātivitakka,hemaka māṇava pucchā niddeso
 60618,ṭṭha,anuruddha mahāvitakkasuttaṃ
 59815,ṭhapetvā 3,tiṇavatthārakaṃ
+59728,ṭhānaṃ vijjati,girimānandasuttaṃ
 59744,ṭhānāṭhāna 2,kathāvatthusuttaṃvaṇṇanā
 59766,ṭhāniya 1,paññāsuttaṃ
 59948,ṭhita 3,dhammayuttika-pubbakicca
@@ -526,6 +538,7 @@ id,pali_1,sutta_2
 58602,tammaya,māgaṇḍiyasuttaṃ<br/>aṭṭhakavaggo 9
 59013,tasmiṃ 2,sunakkhattasuttaṃ
 59043,tassapi,sunakkhattasuttaṃ
+58535,taṃ kiṃ maññatha,anatta-lakkhaṇa sutta
 58537,taṃ kutettha labbhā,mahāparinibbānasuttaṃ
 58388,tādisikā,kuladūsaka sikkhāpada
 58521,tāḷī,cakkasuttaṃ
@@ -537,7 +550,9 @@ id,pali_1,sutta_2
 60104,tibbasārāga,piṇḍolyasuttaṃ
 60357,tiracchāna 1,methunadhamma sikkhāpada
 60415,tiro,upakkilesasuttaṃ
+60312,tīṇi duccaritāni,avijjāsuttaṃ
 60124,tīhamata,devadūtasuttaṃ
+60705,tumhaṃ 2,brahmajālasuttaṃ
 60702,tumhākaṃ 3,natumhākaṃsuttaṃ
 60707,tumhe 2,tajjanīya kammaṃ
 60670,tuleti,kīṭāgirisuttaṃ
@@ -588,6 +603,7 @@ id,pali_1,sutta_2
 20424,durāgata,sabbāsavasuttaṃ
 20463,durutta 1,sabbāsavasuttaṃ
 20553,dūteyya,kandarakasuttaṃ
+20433,dūraṃ,cittavaggo
 18640,deyya 1,sāmaññaphalasuttaṃ
 18435,desanā 1,araṇavibhaṅgasuttaṃ
 18474,desita 2,saṅghuposatha pubbakaraṇādi vidhi
@@ -705,6 +721,7 @@ id,pali_1,sutta_2
 40029,padahitvā 1,buddha-vassa-sajjhāyanā
 39997,pada 12,gadrabhasuttaṃ
 40207,padīpujjalana,dhammayuttika-pubbakicca
+41566,panidhekacca,saṃkhittasuttaṃ
 41748,pannarasa 2,ānāpānassatisuttaṃ
 41902,papā 1,vanaropasuttaṃ
 39378,pabbajitomhi,raṭṭhapālattheragāthā
@@ -735,6 +752,7 @@ id,pali_1,sutta_2
 43180,paripuṇṇa 2,paṭhama samuddasuttaṃ vaṇṇanā
 42537,paribhuñjitabba,sīhasenāpativatthu
 42521,paribhojanīya,dhammayuttika-pubbakicca
+43544,pariy,paṭhamasāraṇīyasuttaṃ
 43606,pariyāya 2,nibbedhikasuttaṃ
 43608,pariyāya 4,pārāpariyattheragāthā
 43628,pariyesanā,pheṇapiṇḍūpamasuttaṃ
@@ -756,16 +774,19 @@ id,pali_1,sutta_2
 43934,passa 1.1,pacalāyamānasuttaṃ
 43965,passāsa,ānāpānassatisuttaṃ
 43988,passeyya 1,alagaddūpamasuttaṃ
+46002,pavayha,mahāsuññatasuttaṃ
 46037,pavesetar,nagaropamasuttaṃ
 40402,pahata,cundasuttaṃ
 40359,pahānasaññā,saññāsuttaṃ
 40439,pahita 1,saṃkhittasuttaṃ
+41108,paṃsukūlikaṅga,duṭṭhaṭṭhakasuttaṃniddeso
 39323,pa 2.1,ānāpānassatisuttaṃ
 40617,pākata 1,piṇḍolyasuttaṃ
 40644,pākatindriya,piṇḍolyasuttaṃ
 44870,pāṭikaṅkhī,bhayabheravasuttaṃ
 45115,pāṭipada 1,indriyabhāvanāsuttaṃ
 41180,pāṇaka 1,chappāṇakopamasuttaṃ
+41582,pāṇinā,pāpavaggo
 44017,pāta 2,sabbāsavasuttaṃ
 44107,pāteti 1,āsīvisopamasuttaṃ
 44109,pāteti 3,bhaddālisuttaṃ
@@ -773,8 +794,10 @@ id,pali_1,sutta_2
 41945,pāpamittatā,tayodhammasuttaṃ
 42057,pāpuṇāti 1,mahāmālukyasuttaṃ
 42130,pāragavesī 1,raṭṭhapālattheragāthā
+43217,pāripūrī,ariy'aṭṭhaṅgika-magga
 40863,pāleti,cariyasuttaṃ
 45912,pāvārika 1,bhikkhunīvibhaṅgo
+46805,piṇḍapātikaṅga,duṭṭhaṭṭhakasuttaṃniddeso
 46803,piṇḍapātika 1,kosiyavaggo
 46954,pithīyati,lokavaggo
 47057,piya 5,piyavaggo
@@ -845,6 +868,7 @@ id,pali_1,sutta_2
 14190,bhāvanānuyogamanuyutta,soppasuttaṃ
 14324,bhāvitindriya,indriyabhāvanāsuttaṃ
 14285,bhāventa,guhaṭṭhakasuttaniddeso
+14586,bhinnaka 1,khujjuttarā-sāmāvatīvatthu
 14612,bhīruttāṇa,abhayasuttaṃ
 14606,bhīru 2,abhayasuttaṃ
 14748,bhujissa 2,mahāassapurasuttaṃ
@@ -949,6 +973,7 @@ id,pali_1,sutta_2
 48139,rahas 2,ādhipateyyasuttaṃ
 48127,rāgavirāga,sukkavissaṭṭhi sikkhāpada
 48266,rājañña,pāyāsisuttaṃ
+48170,rājā,raṭṭhapāla-thera-gāthā
 48421,rāmaṇeyyaka 1,rāmaṇeyyakasuttaṃ
 48543,rāsi,paṭhama samuddasuttaṃ
 48162,rāhula,rāhulovādasuttaṃ
@@ -1035,6 +1060,7 @@ id,pali_1,sutta_2
 49249,sabbamaññita,samugghātasāruppasuttaṃ
 49241,sabbaloke anabhiratasaññā,girimānandasuttaṃ
 49423,sabbupādānapariññā,sabbupādānapariññāsuttaṃ
+49400,sabbe,dhamma-gārava
 49435,sabhāga,dhammayuttika-pubbakicca
 49437,sabhāgāpatti,saṅghuposatha pubbakaraṇādi vidhi
 49431,sabhā 1,paṇḍitavaggo
@@ -1090,6 +1116,7 @@ id,pali_1,sutta_2
 54886,sātarūpa,sammasasuttaṃ
 49843,sādiyati 2,methunasuttaṃ
 49775,sādhāraṇa,kosambiyasuttaṃ
+53466,sāni,"potaliyasuttaṃ, kāmādīnavakathā"
 50808,sāmaggī 2,dhammayuttika-pubbakicca
 51019,sāmaññagata,kosambiyasuttaṃ
 51048,sāmaññattha,piṇḍolyasuttaṃ
@@ -1100,6 +1127,7 @@ id,pali_1,sutta_2
 54505,sāragavesī,pheṇapiṇḍūpamasuttaṃ
 50598,sālohita,pāyāsisuttaṃ
 54742,sāsana 1,ratanasuttaṃ<br/>cūḷavaggo 1
+55939,sikkhassu,anupubba-sikkhā
 56326,sita 1.1,ujjhānasaññisuttaṃ
 56257,siriṃsapa 1,ahirājasuttaṃ
 56271,siro 1,dhammaṭṭhavaggo
@@ -1112,6 +1140,7 @@ id,pali_1,sutta_2
 57490,suṇātu,ratanasuttaṃ<br/>cūḷavaggo 1
 58007,sutta 1.3,mohana sikkhāpada
 57480,sunakkhatta 2,sunakkhattasuttaṃ
+57633,supaṭipanna,buddha-dhamma-saṅgha-guṇā
 57708,suppaṭippassaddha,mahāsaccakasuttaṃ
 57692,suppahīna,mahāsaccakasuttaṃ
 56837,subharatā,saṃkhittasuttaṃ
@@ -1148,6 +1177,7 @@ id,pali_1,sutta_2
 65586,vattī 2.1,mahāparinibbānasuttaṃ
 65550,vatthu 2,kuṭikāra sikkhāpada
 65554,vatthu 6,mettāsuttaṃ
+64437,vadeyya,cattāro mahāpadesā
 64448,vadhati,karuṇābhāvanākathā
 65020,vanta 1,sunakkhattasuttaṃ
 65638,vayadhamma,mahāsatipaṭṭhānasuttaṃ
