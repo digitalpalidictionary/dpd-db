@@ -14,6 +14,7 @@ class ProjectPaths():
     # /csvs
     vocab_csv_path: Path = Path("csvs/vocab.csv")
     dpd_full_path: Path = Path("csvs/dpd-full.csv")
+    dpd_dps_full_path: Path = Path("csvs/dpd-dps-full.csv")
     commentary_csv_path: Path = Path("csvs/commentary.csv")
     pass1_csv_path: Path = Path("csvs/pass1.csv")
     roots_csv_path: Path = Path("csvs/roots.csv")
