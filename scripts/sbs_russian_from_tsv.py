@@ -16,7 +16,7 @@ from tools.tic_toc import tic, toc
 def main():
     tic()
     print("[bright_yellow]add dps.tsv to db")
-    dps_tsv_path = Path("csvs/dps.tsv")
+    dps_tsv_path = Path("dps/dps.tsv")
 
     for p in [dps_tsv_path]:
         if not p.exists():
