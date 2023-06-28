@@ -192,7 +192,7 @@ class ProjectPaths():
 
     # /resources/tipitaka-xml
     cst_txt_dir: Path = Path("resources/tipitaka-xml/roman_txt/")
-    cst_xml_dir: Path = Path("resources/tipitaka-xml/deva master/")
+    cst_xml_dir: Path = Path("resources/tipitaka-xml/deva/")
     cst_xml_roman_dir: Path = Path("resources/tipitaka-xml/roman_xml/")
 
     # /resources/sutta_central
