@@ -14,6 +14,7 @@ class ProjectPaths():
     # /csvs
     vocab_csv_path: Path = Path("csvs/vocab.csv")
     dpd_full_path: Path = Path("csvs/dpd-full.csv")
+    dpd_dps_full_path: Path = Path("csvs/dpd-dps-full.csv")
     commentary_csv_path: Path = Path("csvs/commentary.csv")
     pass1_csv_path: Path = Path("csvs/pass1.csv")
     roots_csv_path: Path = Path("csvs/roots.csv")
@@ -191,7 +192,7 @@ class ProjectPaths():
 
     # /resources/tipitaka-xml
     cst_txt_dir: Path = Path("resources/tipitaka-xml/roman_txt/")
-    cst_xml_dir: Path = Path("resources/tipitaka-xml/deva master/")
+    cst_xml_dir: Path = Path("resources/tipitaka-xml/deva/")
     cst_xml_roman_dir: Path = Path("resources/tipitaka-xml/roman_xml/")
 
     # /resources/sutta_central
