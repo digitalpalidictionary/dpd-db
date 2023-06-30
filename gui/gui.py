@@ -398,16 +398,26 @@ def main():
             window["bold_cc"].update("")
 
         if (
-            (event == "example_1"
+            (
+                event == "example_1"
                 and flags.example_1 and
-                values["example_1"] == "") or
-            (event == "source_1" and
+                values["example_1"] == "" and
+                values["pali_1"]
+            ) or
+            (
+                event == "source_1" and
                 flags.example_1 and
-                values["example_1"] == "") or
-            (event == "sutta_1" and
+                values["example_1"] == "" and
+                values["pali_1"]
+            ) or
+            (
+                event == "sutta_1" and
                 flags.example_1 and
-                values["example_1"] == "") or
-                event == "another_eg_1"):
+                values["example_1"] == "" and
+                values["pali_1"]
+            ) or
+            event == "another_eg_1"
+        ):
 
             if values["book_to_add"] == "":
                 book_to_add = sg.popup_get_text(

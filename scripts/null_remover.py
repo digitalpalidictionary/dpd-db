@@ -16,7 +16,7 @@ for row in db:
             if column != "updated_at":
                 # if column == "family_word":
                 print(f"{row.id} {column:<40}{data}")
-#                 row.root_key = ""
+#                 row.family_word = ""
 
 # db_session.commit()
 # db_session.close()

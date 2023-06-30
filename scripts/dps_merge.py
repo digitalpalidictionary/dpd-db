@@ -29,7 +29,7 @@ def main():
         # "compound_type",
         # "construction",
         # "derivative",
-        # "example_1",
+        "example_1",
         # "example_2",
         # "meaning_1",
         # "meaning_lit",
@@ -39,8 +39,12 @@ def main():
         # "root_base",
         # "root_pali",
         # "sanskrit",
+        # "source_1",
+        # "source_2",
         # "suffix",
-        "variant",
+        # "sutta_1",
+        # "sutta_2",
+        # "variant",
     ]
     break_flag = False
 
@@ -94,11 +98,11 @@ def main():
                     choice = Prompt.ask(question)
 
                     if choice == "a":
-
+                    # if True:
                         setattr(i, column, column_value_new)
-                        # setattr(i, "origin", "dps")
+                        setattr(i, "origin", "dps")
                         pyperclip.copy(f"/^{i.pali_1}$/")
-                        db_session.commit()
+                        # db_session.commit()
 
                     if choice == "e":
                         exceptions_dict[column] += [i.user_id]
@@ -107,6 +111,7 @@ def main():
                         break_flag = True
                         break
 
+    db_session.commit()
     print()
     print("[green]saving exceptions_dict")
     try:

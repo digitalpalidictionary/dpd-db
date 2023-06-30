@@ -4,6 +4,7 @@
     rows in the db. """
 
 import re
+import pyperclip
 
 from typing import Dict
 from rich import print
@@ -69,12 +70,15 @@ def run_external_tests():
     results_list.append(duplicate_words_meaning_2(searches))
     results_list.append(duplicate_words_meaning_lit(searches))
     results_list.append(identical_meaning_1_meaning_lit(searches))
+    results_list.append(synonym_equals_variant(searches))
 
     for name, result, count, solution in results_list:
         print(f"[green]{name.replace('_', ' ')} [{count}]")
         if count > 0:
             print(f"solution: {solution}")
-            print(result)
+            print(result, end=" ")
+            pyperclip.copy(result)
+            input()
         print()
 
 
@@ -688,6 +692,25 @@ def synonym_equals_pali_1(searches: dict) -> tuple:
     results = regex_results(results)
     name = "synonym_equals_pali_1"
     solution = "add correct synonym"
+
+    return name, results, length, solution
+
+
+def synonym_equals_variant(searches: dict) -> tuple:
+    """Test if synonym equals variant"""
+
+    results = []
+    for i in searches["paliword"]:
+        if i.synonym and i.variant:
+            synonyms = i.synonym.split(", ")
+            for synonym in synonyms:
+                if synonym in i.variant_list:
+                    results += [i.pali_1]
+
+    length = len(results)
+    results = regex_results(results)
+    name = "synonym_equals_variants"
+    solution = "delete from synonym or variant"
 
     return name, results, length, solution
 

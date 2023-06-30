@@ -9,10 +9,13 @@ from typing import List
 
 from db.models import PaliWord, PaliRoot
 from db.get_db_session import get_db_session
-
+from datetime import datetime
 from tools.pali_sort_key import pali_sort_key
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths as PTH
+
+current_datetime = datetime.now()
+date = str(current_datetime.strftime("%d"))
 
 
 def main():
@@ -125,30 +128,32 @@ def pali_row(i: PaliWord, output="anki") -> List[str]:
         i.family_root,
         i.family_word,
         i.family_compound,
-        i.construction,
+        i.construction.replace("\n", "<br>"),
         i.derivative,
         i.suffix,
-        i.phonetic,
+        i.phonetic.replace("\n", "<br>"),
         i.compound_type,
         i.compound_construction,
         i.non_root_in_comps,
-        i.source_1,
-        i.sutta_1,
-        i.example_1,
-        i.source_2,
-        i.sutta_2,
-        i.example_2,
+        i.source_1.replace("\n", "<br>"),
+        i.sutta_1.replace("\n", "<br>"),
+        i.example_1.replace("\n", "<br>"),
+        i.source_2.replace("\n", "<br>"),
+        i.sutta_2.replace("\n", "<br>"),
+        i.example_2.replace("\n", "<br>"),
         i.antonym,
         i.synonym,
         i.variant,
-        i.commentary,
-        i.notes,
+        i.commentary.replace("\n", "<br>"),
+        i.notes.replace("\n", "<br>"),
         i.cognate,
         i.family_set,
-        i.link,
+        i.link.replace("\n", "<br>"),
         i.stem,
         i.pattern,
         i.meaning_2,
+        i.origin,
+        date
     ])
 
     return none_to_empty(fields)
@@ -194,7 +199,7 @@ def full_db(dpd_db):
                     'Antonyms', 'Synonyms – different word',
                     'Variant – same constr or diff reading',  'Commentary',
                     'Notes', 'Cognate', 'Category', 'Link', 'Stem', 'Pattern',
-                    'Buddhadatta']
+                    'Buddhadatta', 'Origin', 'Test']
 
     rows.append(header)
 

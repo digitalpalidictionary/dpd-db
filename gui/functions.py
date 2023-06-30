@@ -588,7 +588,7 @@ def find_sutta_example(sg, window, values: dict) -> str:
 
         # kn2
         elif values["book_to_add"] == "kn2":
-            book = "DHP"
+            book = "DHP "
             if p.has_attr("rend") and p["rend"] == "hangnum":
                 # Find the previous "head" tag with "rend" attribute containing "chapter"
                 chapter_head = p.find_previous("head", attrs={"rend": "chapter"})
@@ -604,19 +604,19 @@ def find_sutta_example(sg, window, values: dict) -> str:
             book = "UD"
             if p["rend"] == "subhead":
                 udana_counter += 1
-                source = f"{book}{udana_counter}"
+                source = f"{book} {udana_counter}"
 
         elif values["book_to_add"] == "kn4":
             book = "ITI"
             if p["rend"] == "subhead":
                 itivuttaka_counter += 1
-                source = f"{book}{itivuttaka_counter}"
+                source = f"{book} {itivuttaka_counter}"
 
         elif values["book_to_add"] == "kn5":
             book = "SNP"
             if p["rend"] == "subhead":
                 snp_counter += 1
-                source = f"{book}{snp_counter}"
+                source = f"{book} {snp_counter}"
 
         text = clean_example(p.text)
 

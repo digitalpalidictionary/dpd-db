@@ -74,6 +74,20 @@ def make_tab_add_next_word(sg):
                 pad=((100, 0), (0, 0))
             ),
         ],
+        [
+            sg.Text(
+                """kp 1, dhp 2, ud 3, iti 4, snp 5, vv 6, pv 7, th 8, thi 9, apa 10, api 11""",
+                size=(50, 1),
+                pad=((100, 0), (0, 0))
+            )
+        ],
+        [
+            sg.Text(
+                """bv 12, cp 13, ja 14, mnd 15, cnd 16, ps 17, mil 18, ne 19, pe 20""",
+                size=(50, 1),
+                pad=((100, 0), (0, 0))
+            )
+        ]
     ]
 
     return tab_add_next_word

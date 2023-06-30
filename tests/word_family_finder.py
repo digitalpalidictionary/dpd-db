@@ -1,6 +1,8 @@
 #!/usr/bin/env python3.11
 import re
 import pickle
+import pyperclip
+
 from rich import print
 from rich.prompt import Prompt
 
@@ -215,7 +217,6 @@ def find_in_construction(dpd_db, word_family_set):
         "upāti",
         "hisi",
         "hiti",
-        
     ]
 
     # find all headwords where
@@ -242,7 +243,9 @@ def find_in_construction(dpd_db, word_family_set):
 
         if len(wf_list) > 0:
             print(f"{counter}. {wf}: {wf_list}")
-            print(fr"/\b{wf}\b|^({'|'.join(wf_list)})$/")
+            regex = fr"/\b{wf}\b|^({'|'.join(wf_list)})$/"
+            print(regex)
+            pyperclip.copy(regex)
             input()
 
         if counter % 100 == 0:
@@ -286,7 +289,9 @@ def find_in_pali_1(dpd_db, word_family_set):
 
     for counter, wf in enumerate(wf_dict):
         print(f"{counter+1} / {len(wf_dict)}\t{wf}")
-        print(fr"/\b{wf}\b|^({'|'.join(wf_dict[wf])})$/")
+        regex = fr"/\b{wf}\b|^({'|'.join(wf_dict[wf])})$/"
+        print(regex)
+        pyperclip.copy(regex)
         input()
 
 

@@ -432,10 +432,10 @@ def copy_zip_to_tpr_downloads():
             "size": f"{filesize} MB"
         }
 
-        download_list[12] = dpd_beta_info
+        download_list[14] = dpd_beta_info
 
     with open(PTH.tpr_download_list_path, "w") as f:
-        f.write(json.dumps(download_list, indent=4))
+        f.write(json.dumps(download_list, indent=4, ensure_ascii=False))
 
 
 if __name__ == "__main__":
