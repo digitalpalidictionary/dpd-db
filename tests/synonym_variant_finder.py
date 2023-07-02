@@ -66,6 +66,7 @@ def find_identical_meanings(dpd_db, exceptions):
 
             if (
                 i.pos != "pron" and
+                i.pos != "sandhi" and
                 meaning and
                 pos_meaning not in exceptions and
                 # no cases in grammar
@@ -207,6 +208,7 @@ def find_single_meanings(dpd_db, exceptions):
 
                 if (
                     i.pos != "pron" and
+                    i.pos != "sandhi" and
                     pos_meaning not in exceptions and
                     # no cases in grammar
                     not re.findall(
