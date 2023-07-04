@@ -11,6 +11,9 @@ class ProjectPaths():
     pali_word_path: Path = Path("backup_tsv/PaliWord.tsv")
     pali_root_path: Path = Path("backup_tsv/PaliRoot.tsv")
 
+    # corrections
+    corrections_tsv_path = Path("gui/corrections.tsv")
+
     # /csvs
     vocab_csv_path: Path = Path("csvs/vocab.csv")
     dpd_full_path: Path = Path("csvs/dpd-full.csv")
