@@ -156,53 +156,61 @@ def add_bibliographhy(PTH: Path, header: str, help_data_list: list) -> list:
 
     print("adding bibliography", end=" ")
 
-    with open(PTH.bibliography_path) as f:
-        md = f.read()
+    try: 
+        with open(PTH.bibliography_path) as f:
+            md = f.read()
 
-    html = header
-    html += "<body>"
-    html += "<div class='help'>"
-    html += markdown.markdown(md)
-    html += "</div></body></html>"
+        html = header
+        html += "<body>"
+        html += "<div class='help'>"
+        html += markdown.markdown(md)
+        html += "</div></body></html>"
 
-    html = minify(html)
+        html = minify(html)
 
-    synonyms = ["dpd bibliography", "bibliography", "bib"]
+        synonyms = ["dpd bibliography", "bibliography", "bib"]
 
-    help_data_list += [{
-        "word": "bibliography",
-        "definition_html": html,
-        "definition_plain": "",
-        "synonyms": synonyms
-    }]
+        help_data_list += [{
+            "word": "bibliography",
+            "definition_html": html,
+            "definition_plain": "",
+            "synonyms": synonyms
+        }]
 
-    print(f"{bop():>35}")
-    return help_data_list
+        print(f"{bop():>35}")
+        return help_data_list
+
+    except FileNotFoundError as e:
+        print(f"[red]bibliography file not found. {e}")
 
 
 def add_thanks(PTH: Path, header: str, help_data_list: list) -> list:
 
-    print("adding thanks", end=" ")
+    try:
+        print("adding thanks", end=" ")
 
-    with open(PTH.thanks_path) as f:
-        md = f.read()
+        with open(PTH.thanks_path) as f:
+            md = f.read()
 
-    html = header
-    html += "<body>"
-    html += "<div class='help'>"
-    html += markdown.markdown(md)
-    html += "</div></body></html>"
+        html = header
+        html += "<body>"
+        html += "<div class='help'>"
+        html += markdown.markdown(md)
+        html += "</div></body></html>"
 
-    html = minify(html)
+        html = minify(html)
 
-    synonyms = ["dpd thanks", "thankyou", "thanks", "anumodana"]
+        synonyms = ["dpd thanks", "thankyou", "thanks", "anumodana"]
 
-    help_data_list += [{
-        "word": "thanks",
-        "definition_html": html,
-        "definition_plain": "",
-        "synonyms": synonyms
-    }]
+        help_data_list += [{
+            "word": "thanks",
+            "definition_html": html,
+            "definition_plain": "",
+            "synonyms": synonyms
+        }]
 
-    print(f"{bop():>41}")
-    return help_data_list
+        print(f"{bop():>41}")
+        return help_data_list
+
+    except FileNotFoundError as e:
+        print(f"[red]thanks file not found. {e}")
