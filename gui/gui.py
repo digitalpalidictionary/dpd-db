@@ -328,7 +328,11 @@ def main():
                     "no root_key selected", text_color="red")
 
         if event == "family_compound":
-            if flags.family_compound and values["family_compound"] == "":
+            if (
+                flags.family_compound and
+                not values["family_compound"] and
+                not root_key
+            ):
                 window["family_compound"].update(values["pali_1"])
                 flags.family_compound = False
             else:
