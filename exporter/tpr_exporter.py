@@ -414,7 +414,7 @@ def copy_zip_to_tpr_downloads():
             "size": f"{filesize} MB"
         }
 
-        download_list[2] = dpd_info
+        download_list[5] = dpd_info
 
     if version == "beta":
         print("[green]upating beta version")
