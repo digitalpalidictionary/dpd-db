@@ -330,8 +330,8 @@ def main():
         if event == "family_compound":
             if (
                 flags.family_compound and
-                not values["family_compound"] and
-                not root_key
+                values["family_compound"] == "" and
+                values["root_key"] == ""
             ):
                 window["family_compound"].update(values["pali_1"])
                 flags.family_compound = False
@@ -387,11 +387,19 @@ def main():
                 flags.suffix = False
 
         if event == "compound_construction":
-            if (values["compound_type"] != "" and
-                    flags.compound_construction and
-                    values["compound_construction"] == ""):
-                window["compound_construction"].update(values["construction"])
-                flags.compound_construction = False
+            if (
+                values["compound_type"] != "" and
+                flags.compound_construction and
+                values["compound_construction"] == ""
+            ):
+                if values["root_key"]:
+                    window["compound_construction"].update(
+                        values["pali_1"])
+                    flags.compound_construction = False
+                else:
+                    window["compound_construction"].update(
+                        values["construction"])
+                    flags.compound_construction = False
 
         if event == "bold_cc_button" or event == "bold_cc_enter":
             cc_bold = re.sub(
