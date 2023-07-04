@@ -111,8 +111,8 @@ def make_window(column_names):
         ],
         [
             sg.Text("", size=(15, 1)),
-            sg.Text(
-                "", key="id_info", size=(100, 1),
+            sg.Multiline(
+                "", key="id_info", size=(100, 1), disabled=True,
                 pad=((0, 100), (0, 0)))
         ],
         [
