@@ -182,6 +182,7 @@ def add_bibliographhy(PTH: Path, header: str, help_data_list: list) -> list:
 
     except FileNotFoundError as e:
         print(f"[red]bibliography file not found. {e}")
+        return []
 
 
 def add_thanks(PTH: Path, header: str, help_data_list: list) -> list:
@@ -214,3 +215,4 @@ def add_thanks(PTH: Path, header: str, help_data_list: list) -> list:
 
     except FileNotFoundError as e:
         print(f"[red]thanks file not found. {e}")
+        return []
