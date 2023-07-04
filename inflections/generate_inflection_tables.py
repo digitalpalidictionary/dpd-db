@@ -216,8 +216,11 @@ def test_changes_in_stem_pattern() -> None:
     """test for changes in stem and pattern since last run"""
     print("[green]testing for changes in stem and pattern")
 
-    with open(PTH.headword_stem_pattern_dict_path, "rb") as f:
-        old_dict: dict = pickle.load(f)
+    try:
+        with open(PTH.headword_stem_pattern_dict_path, "rb") as f:
+            old_dict: dict = pickle.load(f)
+    except FileNotFoundError:
+        old_dict = {}
 
     new_dict: Dict[Dict[str]] = {}
     for i in dpd_db:
