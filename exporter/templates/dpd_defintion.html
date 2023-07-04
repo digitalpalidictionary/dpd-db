@@ -1,11 +1,14 @@
 <div class='content'>
-    <p>${pos}. 
-    % if plus_case:
-        (${plus_case}) 
-    % endif
-    ${meaning} 
-    % if summary:
-        [${summary}] 
-    % endif
-    ${complete}</p>
+    <p>
+        ${pos}. 
+        % if plus_case:
+            (${plus_case}) 
+        % endif
+        ${meaning} 
+        % if summary:
+            [${summary}] 
+        % endif
+        ${complete} 
+        <span class="gray">${i.id}</span>
+    </p>
 </div>

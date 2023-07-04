@@ -93,6 +93,7 @@ def render_dpd_defintion_templ(i: PaliWord) -> str:
 
     return str(
         dpd_definition_templ.render(
+            i=i,
             pos=pos,
             plus_case=plus_case,
             meaning=meaning,
