@@ -26,6 +26,7 @@ def main():
     db_session = get_db_session("dpd.db")
 
     db_session.execute(Russian.__table__.delete())
+    db_session.execute(SBS.__table__.delete())
     add_dps_russian(db_session, dps_tsv_path)
     add_dps_sbs(db_session, dps_tsv_path)
 
