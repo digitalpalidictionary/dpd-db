@@ -11,26 +11,22 @@ into Sinhala, Devanagari and Thai, and write back into db."""
 import json
 import pickle
 
-from typing import Dict
-from pathlib import Path
-from subprocess import check_output
 from aksharamukha import transliterate
 from rich import print
+from subprocess import check_output
+from typing import Dict
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord, DerivedData
+
+from tools.configger import config_test, config_update
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths as PTH
 
 
-REGENERATE_ALL = False
-
 db_session = get_db_session("dpd.db")
 dpd_db = db_session.query(PaliWord).all()
 dd1 = db_session.query(DerivedData).first()
-
-if dd1.sinhala == "":
-    REGENERATE_ALL = True
 
 with open(PTH.changed_headwords_path, "rb") as f:
     changed_headwords: list = pickle.load(f)
@@ -47,6 +43,14 @@ def main():
     tic()
     print("[bright_yellow]transliterating inflections")
 
+    # check config
+    if config_test("regenerate", "transliterations", "yes"):
+        regenerate_all: bool = True
+    else:
+        regenerate_all: bool = False
+
+    print(f"[green]regenerate all [white]{regenerate_all}")
+
     # aksharamukha works much faster with large text files than smaller lists
     # inflections_to_transliterate_string contains the inflections,
     # and inflections_index_dict contains the line numbers
@@ -60,7 +64,7 @@ def main():
     for counter, i in enumerate(dpd_db):
         test1 = i.pattern in changed_templates
         test2 = i.pali_1 in changed_headwords
-        test3 = REGENERATE_ALL
+        test3 = regenerate_all
 
         if test1 or test2 or test3:
             inflections: list = i.dd.inflections_list
@@ -173,6 +177,10 @@ def main():
 
     db_session.commit()
     db_session.close()
+
+    # config update
+    config_update("regenerate", "transliterations", "no")
+
     toc()
 
 

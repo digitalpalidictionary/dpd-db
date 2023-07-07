@@ -11,6 +11,8 @@ from sqlalchemy import update
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord, DerivedData
+
+from tools.configger import config_test, config_update
 from tools.tic_toc import tic, toc
 from tools.superscripter import superscripter_uni
 from tools.paths import ProjectPaths as PTH
@@ -20,15 +22,18 @@ def main():
     tic()
     print("[bright_yellow]mapmaker")
 
-    global regenerate
-    regenerate = False
+    # check config
+    if config_test("regenerate", "freq_maps", "yes"):
+        regenerate_all: bool = True
+    else:
+        regenerate_all: bool = False
 
-    print(f"[green]regenerate all [white]{regenerate}")
+    print(f"[green]regenerate_all [white]{regenerate_all}")
 
     global db_session
     db_session = get_db_session("dpd.db")
 
-    if regenerate is False:
+    if regenerate_all is False:
         test_inflection_template_changed()
         test_changed_headwords()
         test_html_file_missing()
@@ -42,8 +47,12 @@ def main():
         html_file_missing = []
 
     dicts = make_dfs_and_dicts()
-    make_data_dict_and_html(dicts)
+    make_data_dict_and_html(dicts, regenerate_all)
     db_session.close()
+
+    # config update
+    config_update("regenerate", "freq_maps", "no")
+
     toc()
 
 
@@ -310,7 +319,7 @@ def colourme(value, hi, low):
         return "gr10"
 
 
-def make_data_dict_and_html(dicts):
+def make_data_dict_and_html(dicts, regenerate_all):
 
     print("[green]compiling data csvs and html")
 
@@ -329,7 +338,7 @@ def make_data_dict_and_html(dicts):
             (i.pattern in changed_templates or
                 i.pali_1 in changed_headwords or
                 i.id in html_file_missing or
-                regenerate is True):
+                regenerate_all is True):
 
             inflections = j.inflections_list
 

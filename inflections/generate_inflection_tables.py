@@ -11,13 +11,13 @@ from typing import List, Dict
 from db.get_db_session import get_db_session
 from db.models import PaliWord, InflectionTemplates, DerivedData
 
+from tools.configger import config_test, config_update
 from tools.tic_toc import tic, toc
 from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.superscripter import superscripter_uni
 from tools.paths import ProjectPaths as PTH
 
-regenerate_all: bool = False
 
 db_session = get_db_session("dpd.db")
 dpd_db = db_session.query(PaliWord).all()
@@ -35,6 +35,12 @@ def main():
     """main program"""
     tic()
     print("[bright_yellow]generate inflection lists and html tables")
+
+    # check config
+    if config_test("regenerate", "transliterations", "yes"):
+        regenerate_all: bool = True
+    else:
+        regenerate_all: bool = False
 
     if regenerate_all is not True:
         test_changes()
@@ -105,6 +111,9 @@ def main():
         pickle.dump(changed_templates, f)
 
     # # !!! find all unused patterns !!!
+
+    # config update
+    config_update("regenerate", "inflections", "no")
 
     db_session.commit()
     db_session.close()
