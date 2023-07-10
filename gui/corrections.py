@@ -11,6 +11,25 @@ from tools.meaning_construction import summarize_constr
 from tools.paths import ProjectPaths as PTH
 
 
+def count_combo_size(values: list) -> tuple:
+    width = max(map(len, values))
+    return (width, 0)
+
+
+def _field1_key_action(
+        window: sg.Window,
+        values: dict,
+        field_values: list) -> None:
+    combo = window["field1"]
+    if values["field1"] != "":
+        search = values["field1"]
+        new_field_values = [x for x in field_values if search in x]
+        print(f"New values of field1: {', '.join(new_field_values)}")
+        combo.update(value=search, values=new_field_values, size=count_combo_size(field_values))
+    else:
+        combo.update(values=field_values)
+
+
 def main():
 
     db_session = get_db_session("dpd.db")
@@ -27,7 +46,10 @@ def main():
             summary = make_summary(db)
             window["id_info"].update(summary)
 
-        if event == "field1":
+        elif event == "field1_key":
+            _field1_key_action(window, values, column_names)
+
+        elif event == "field1":
             window["value1_old"].update(
                 getattr(db, values["field1"]))
             window["value1_new"].update(
@@ -51,41 +73,41 @@ def main():
                 window["value3_old"].update(
                     getattr(db, "example_2"))
 
-        if event == "field2":
+        elif event == "field2":
             window["value2_old"].update(
                 getattr(db, values["field2"]))
             window["value2_new"].update(
                 getattr(db, values["field2"]))
 
-        if event == "field3":
+        elif event == "field3":
             window["value3_old"].update(
                 getattr(db, values["field3"]))
             window["value3_new"].update(
                 getattr(db, values["field3"]))
 
-        if event == "clear1":
+        elif event == "clear1":  # FIXME Drop values
             for value in values:
                 if "1" in value:
                     window[value].update("")
 
-        if event == "clear2":
+        elif event == "clear2":
             for value in values:
                 if "2" in value:
                     window[value].update("")
 
-        if event == "clear3":
+        elif event == "clear3":
             for value in values:
                 if "3" in value:
                     window[value].update("")
 
-        if event == "clear_all":
+        elif event == "clear_all":
             clear_all(values, window)
 
-        if event == "submit":
+        elif event == "submit":
             save_corections_tsv(values, PTH)
             clear_all(values, window)
 
-        if event == sg.WIN_CLOSED:
+        elif event == sg.WIN_CLOSED:
             break
 
     window.close()
@@ -118,7 +140,7 @@ def make_window(column_names):
         [
             sg.Text("field1", size=(15, 1)),
             sg.Combo(
-                column_names, key="field1", enable_events=True),
+                column_names, key="field1", enable_events=True, size=count_combo_size(column_names)),
             sg.Button(
                 "Clear", key="clear1", font=(None, 13))
         ],
@@ -222,9 +244,11 @@ def make_window(column_names):
         resizable=True,
         finalize=True,
         )
+    window.maximize()  # FIXME Delete
 
     window['id'].bind("<Return>", "_enter")
     window['field1'].bind("<Return>", "_enter")
+    window['field1'].bind("<Key>", "_key")
     window['field2'].bind("<Return>", "_enter")
     window['field3'].bind("<Return>", "_enter")
 
