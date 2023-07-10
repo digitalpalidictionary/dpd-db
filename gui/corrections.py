@@ -16,6 +16,12 @@ def count_combo_size(values: list) -> tuple:
     return (width, 0)
 
 
+def _reset_field1(window, field_values: list) -> None:
+    combo = window["field1"]
+    size = count_combo_size(field_values)
+    combo.update(values=field_values, size=size)
+
+
 def _field1_key_action(
         window: sg.Window,
         values: dict,
@@ -25,9 +31,13 @@ def _field1_key_action(
         search = values["field1"]
         new_field_values = [x for x in field_values if search in x]
         print(f"New values of field1: {', '.join(new_field_values)}")
-        combo.update(value=search, values=new_field_values, size=count_combo_size(field_values))
+        size = count_combo_size(field_values)
+        combo.update(
+            value=search,
+            values=new_field_values,
+            size=size)
     else:
-        combo.update(values=field_values)
+        _reset_field1(window, field_values)
 
 
 def main():
@@ -85,7 +95,8 @@ def main():
             window["value3_new"].update(
                 getattr(db, values["field3"]))
 
-        elif event == "clear1":  # FIXME Drop values
+        elif event == "clear1":
+            _reset_field1(window, column_names)
             for value in values:
                 if "1" in value:
                     window[value].update("")
@@ -140,7 +151,10 @@ def make_window(column_names):
         [
             sg.Text("field1", size=(15, 1)),
             sg.Combo(
-                column_names, key="field1", enable_events=True, size=count_combo_size(column_names)),
+                column_names,
+                key="field1",
+                enable_events=True,
+                size=count_combo_size(column_names)),
             sg.Button(
                 "Clear", key="clear1", font=(None, 13))
         ],
@@ -250,7 +264,9 @@ def make_window(column_names):
     window['field1'].bind("<Return>", "_enter")
     window['field1'].bind("<Key>", "_key")
     window['field2'].bind("<Return>", "_enter")
+    window['field2'].bind("<Key>", "_key")
     window['field3'].bind("<Return>", "_enter")
+    window['field3'].bind("<Key>", "_key")
 
     return window
 
@@ -270,8 +286,7 @@ def make_summary(db):
     return f"{word}: {pos}. {meaning} [{construction}]"
 
 
-def save_corections_tsv(values, PTH):
-
+def save_corections_tsv(values, pth):
     headings = [
         "id",
         "field1", "value1_new", "comment1",
@@ -279,18 +294,19 @@ def save_corections_tsv(values, PTH):
         "field3", "value3_new", "comment3"
     ]
 
-    if not PTH.corrections_tsv_path.exists():
-        with open(PTH.corrections_tsv_path, "w", newline="") as file:
+    if not pth.corrections_tsv_path.exists():
+        with open(pth.corrections_tsv_path, "w", newline="") as file:
             writer = csv.writer(file, delimiter="\t")
             writer.writerow(headings)
 
-    with open(PTH.corrections_tsv_path, "a") as file:
+    with open(pth.corrections_tsv_path, "a") as file:
         writer = csv.writer(file, delimiter="\t")
         new_row = [str(values[heading]) for heading in headings]
         writer.writerow(new_row)
 
 
 def clear_all(values, window):
+    _reset_field1()
     for value in values:
         if "tab" not in value:
             window[value].update("")
