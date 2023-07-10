@@ -46,6 +46,8 @@ def add_dps_russian(db_session: Session, csv_path: Path):
             rows.append(row)
 
     items: List[Russian] = []
+    unmatched_ids: List[str] = []  # Store unmatched IDs
+
 
     for r in rows:
         id_search = db_session.query(PaliWord.id).filter(
@@ -54,6 +56,9 @@ def add_dps_russian(db_session: Session, csv_path: Path):
         if id_search is not None:
             id = id_search[0]
             items += [_csv_row_to_russian(r, id)]
+
+        else:
+            unmatched_ids.append(r["id"])  # Add unmatched ID to the list
 
     print("[green]adding russian to db")
     try:
@@ -65,6 +70,9 @@ def add_dps_russian(db_session: Session, csv_path: Path):
     except Exception as e:
         print(f"[bright_red]ERROR: Adding to db failed:\n{e}")
 
+        # Print unmatched IDs
+    if unmatched_ids:
+        print(f"[red]IDs not matching the database: {unmatched_ids}")
 
 def _csv_row_to_russian(x: Dict[str, str], id) -> Russian:
 
@@ -88,6 +96,8 @@ def add_dps_sbs(db_session: Session, csv_path: Path):
             rows.append(row)
 
     items: List[SBS] = []
+    unmatched_ids: List[str] = []  # Store unmatched IDs
+
 
     for r in rows:
         id_search = db_session.query(PaliWord.id).filter(
@@ -96,6 +106,9 @@ def add_dps_sbs(db_session: Session, csv_path: Path):
         if id_search is not None:
             id = id_search[0]
             items += [_csv_row_to_sbs(r, id)]
+        else:
+            unmatched_ids.append(r["id"])  # Add unmatched ID to the list
+
 
     print("[green]adding sbs to db")
     try:
@@ -106,6 +119,10 @@ def add_dps_sbs(db_session: Session, csv_path: Path):
 
     except Exception as e:
         print(f"[bright_red]ERROR: Adding to db failed:\n{e}")
+
+        # Print unmatched IDs
+    if unmatched_ids:
+        print(f"[red]IDs not matching the database: {unmatched_ids}")
 
 
 def _csv_row_to_sbs(x: Dict[str, str], id) -> SBS:
