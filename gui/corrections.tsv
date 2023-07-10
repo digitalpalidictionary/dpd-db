@@ -4,3 +4,8 @@ id	field1	value1	comment1	field2	value2	comment2	field3	value3	comment3	approved
 22032	construction	ka > ki + disa	same comment from Ven Siha						
 71824	source_2		same as 1	sutta_2		same as 1	example_2		same as 1
 71825	source_2		same as 1	sutta_2		same as 1	example_2		same as 1
+39683	source_2	MN 2.7	since in SNP 42 variant with metrically lengthened ā	sutta_2	sabbāsavasuttaṃ		example_2	bhikkhu paṭisaṅkhā yoniso uppannaṃ kāmavitakkaṃ n'ādhivāseti <b>pajahati</b> vinodeti byantīkaroti anabhāvaṃ gameti.	
+71989	pali_1	udumbarakhādikaṃ	add from variant reading BD says it is acc. as adv. of manner. SCPN 	example_1	sac'āyaṃ, byagghapajja, kulaputto appāyo samāno uḷāraṃ jīvikaṃ kappeti, tassa bhavanti vattāro, <b>udumbarakhādikaṃ</b> c'āyaṃ kulaputto bhoge khādatī'ti.				
+50807	pali_1	maññatī 1	add poetic version from māgaṇḍiyasutta SNP 47						
+58284	compound_type	kammadhāraya > bahubbīhi							
+70233	compound_type	dutiyā tappuirsa		compound_construction	vedaṃ + gū				
