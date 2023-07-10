@@ -11,40 +11,47 @@ from tools.meaning_construction import summarize_constr
 from tools.paths import ProjectPaths as PTH
 
 
+def get_column_names():
+    inspector = inspect(PaliWord)
+    column_names = [column.name for column in inspector.columns]
+    column_names = sorted(column_names)
+    return column_names
+
+
 def count_combo_size(values: list) -> tuple:
     width = max(map(len, values))
     return (width, 0)
 
 
-def _reset_field1(window, field_values: list) -> None:
-    combo = window["field1"]
-    size = count_combo_size(field_values)
-    combo.update(values=field_values, size=size)
+COLUMN_NAMES = get_column_names()
+FIELD_COMBO_SIZE = count_combo_size(COLUMN_NAMES)
 
 
-def _field1_key_action(
-        window: sg.Window,
-        values: dict,
-        field_values: list) -> None:
-    combo = window["field1"]
-    if values["field1"] != "":
-        search = values["field1"]
-        new_field_values = [x for x in field_values if search in x]
-        print(f"New values of field1: {', '.join(new_field_values)}")
-        size = count_combo_size(field_values)
+def _reset_field_combo(window: sg.Window, field_key: str) -> None:
+    combo = window[field_key]
+    combo.update(values=COLUMN_NAMES, size=FIELD_COMBO_SIZE)
+
+
+def _field_combo_key_action(
+        window: sg.Window, values: dict, field_key: str) -> None:
+    combo = window[field_key]
+    if values[field_key] != "":
+        search = values[field_key]
+        new_field_values = [x for x in COLUMN_NAMES if search in x]
+        print(f"New values of {field_key}: {', '.join(new_field_values)}")
+        size = count_combo_size(COLUMN_NAMES)
         combo.update(
             value=search,
             values=new_field_values,
             size=size)
     else:
-        _reset_field1(window, field_values)
+        _reset_field_combo(window, field_key)
 
 
 def main():
 
     db_session = get_db_session("dpd.db")
-    column_names = get_column_names()
-    window = make_window(column_names)
+    window = make_window()
 
     while True:
         event, values = window.read()
@@ -55,9 +62,6 @@ def main():
                 PaliWord.id == values["id"]).first()
             summary = make_summary(db)
             window["id_info"].update(summary)
-
-        elif event == "field1_key":
-            _field1_key_action(window, values, column_names)
 
         elif event == "field1":
             window["value1_old"].update(
@@ -96,17 +100,19 @@ def main():
                 getattr(db, values["field3"]))
 
         elif event == "clear1":
-            _reset_field1(window, column_names)
+            _reset_field_combo(window, "field1")
             for value in values:
                 if "1" in value:
                     window[value].update("")
 
         elif event == "clear2":
+            _reset_field_combo(window, "field2")
             for value in values:
                 if "2" in value:
                     window[value].update("")
 
         elif event == "clear3":
+            _reset_field_combo(window, "field3")
             for value in values:
                 if "3" in value:
                     window[value].update("")
@@ -118,13 +124,16 @@ def main():
             save_corections_tsv(values, PTH)
             clear_all(values, window)
 
+        elif event and event.endswith("_key") and event.startswith("field"):
+            _field_combo_key_action(window, values, event.rstrip("_key"))
+
         elif event == sg.WIN_CLOSED:
             break
 
     window.close()
 
 
-def make_window(column_names):
+def make_window():
     sg.theme('DarkGrey10')
     sg.set_options(
         font=("Noto Sans", 16),
@@ -151,10 +160,10 @@ def make_window(column_names):
         [
             sg.Text("field1", size=(15, 1)),
             sg.Combo(
-                column_names,
+                COLUMN_NAMES,
                 key="field1",
                 enable_events=True,
-                size=count_combo_size(column_names)),
+                size=FIELD_COMBO_SIZE),
             sg.Button(
                 "Clear", key="clear1", font=(None, 13))
         ],
@@ -176,10 +185,11 @@ def make_window(column_names):
         [
             sg.Text("field2", size=(15, 1)),
             sg.Combo(
-                column_names, key="field2",
-                enable_events=True),
-            sg.Button(
-                "Clear", key="clear2", font=(None, 13))
+                COLUMN_NAMES,
+                key="field2",
+                enable_events=True,
+                size=FIELD_COMBO_SIZE),
+            sg.Button("Clear", key="clear2", font=(None, 13))
         ],
         [
             sg.Text("value2", size=(15, 1)),
@@ -199,8 +209,10 @@ def make_window(column_names):
         [
             sg.Text("field3", size=(15, 1)),
             sg.Combo(
-                column_names, key="field3",
-                enable_events=True),
+                COLUMN_NAMES,
+                key="field3",
+                enable_events=True,
+                size=FIELD_COMBO_SIZE),
             sg.Button(
                 "Clear", key="clear1", font=(None, 13)),
             sg.Text("", size=(22, 1)),
@@ -258,7 +270,6 @@ def make_window(column_names):
         resizable=True,
         finalize=True,
         )
-    window.maximize()  # FIXME Delete
 
     window['id'].bind("<Return>", "_enter")
     window['field1'].bind("<Return>", "_enter")
@@ -269,13 +280,6 @@ def make_window(column_names):
     window['field3'].bind("<Key>", "_key")
 
     return window
-
-
-def get_column_names():
-    inspector = inspect(PaliWord)
-    column_names = [column.name for column in inspector.columns]
-    column_names = sorted(column_names)
-    return column_names
 
 
 def make_summary(db):
@@ -306,7 +310,8 @@ def save_corections_tsv(values, pth):
 
 
 def clear_all(values, window):
-    _reset_field1()
+    for k in ["field1", "field2", "field3"]:
+        _reset_field_combo(window, k)
     for value in values:
         if "tab" not in value:
             window[value].update("")
