@@ -25,6 +25,16 @@ def count_combo_size(values: list) -> tuple:
 
 COLUMN_NAMES = get_column_names()
 FIELD_COMBO_SIZE = count_combo_size(COLUMN_NAMES)
+ENABLE_LIST = \
+    [f'field{i}' for i in range(1, 4)] + \
+    [f'clear{i}' for i in range(1, 4)] + \
+    ['submit', 'clear_all']
+
+print(ENABLE_LIST)
+
+def _set_state(window: sg.Window, enabled=True) -> None:
+    for i in ENABLE_LIST:
+        window[i].update(disabled=not enabled)
 
 
 def _reset_field_combo(window: sg.Window, field_key: str) -> None:
@@ -43,7 +53,7 @@ def _field_combo_key_action(
         combo.update(
             value=search,
             values=new_field_values,
-            size=size)
+            size=size,)
     else:
         _reset_field_combo(window, field_key)
 
@@ -52,22 +62,24 @@ def main():
 
     db_session = get_db_session("dpd.db")
     window = make_window()
+    db = None
+    _set_state(window, enabled=False)
 
     while True:
         event, values = window.read()
         print(event, values)
 
         if event == "id_enter":
-            db = db_session.query(PaliWord).filter(
-                PaliWord.id == values["id"]).first()
+            db = db_session.query(PaliWord)\
+                .filter(PaliWord.id == values["id"]).first()
             summary = make_summary(db)
             window["id_info"].update(summary)
+            _set_state(window, enabled=True)
 
         elif event == "field1":
-            window["value1_old"].update(
-                getattr(db, values["field1"]))
-            window["value1_new"].update(
-                getattr(db, values["field1"]))
+            val = getattr(db, values["field1"])
+            window["value1_old"].update(val)
+            window["value1_new"].update(val)
 
             if values["field1"] == "source_1":
                 print("!")
@@ -139,7 +151,8 @@ def make_window():
         font=("Noto Sans", 16),
         input_text_color="darkgray",
         text_color="#00bfff",
-        # window_location=(500, 300),
+        window_location=(0, 0),
+        #window_location=(None, None),
         element_padding=(0, 3),
         margins=(0, 0),
     )
@@ -233,16 +246,14 @@ def make_window():
         ],
         [
             sg.Text("", size=(15, 1)),
-            sg.Button(
-                "Submit Correction", key="submit", size=(101, 1)),
+            sg.Button("Submit Correction", key="submit", size=(101, 1)),
         ],
     ]
 
     add_corrections_tab = [
         [
             sg.Text("", size=(15, 1)),
-            sg.Button(
-                "", key="approved", size=(103, 1)),
+            sg.Button("", key="approved", size=(103, 1)),
         ]
     ]
 
@@ -269,7 +280,7 @@ def make_window():
         layout,
         resizable=True,
         finalize=True,
-        )
+    )
 
     window['id'].bind("<Return>", "_enter")
     window['field1'].bind("<Return>", "_enter")
