@@ -1,6 +1,4 @@
 set -e
-tools/configger.py
-
 inflections/create_inflections_templates.py
 inflections/generate_inflection_tables.py
 inflections/transliterate_inflections.py

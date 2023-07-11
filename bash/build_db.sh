@@ -1,6 +1,8 @@
 set -e
 # build dpd.db
 test -e dpd.db || touch dpd.db
+tools/configger.py
+
 scripts/db_from_tsv.py
 scripts/sbs_russian_from_tsv.py
 

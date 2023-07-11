@@ -70,11 +70,17 @@ def pali_sort_key(word: str) -> str:
     """A key for sorting in Pāḷi alphabetical order."
     Usage:
     list = sorted(list, key=pali_sort_key)
-    db = sorted(db, key=lambda x: pali_sort_key(x.pali_1))"""
+    db = sorted(db, key=lambda x: pali_sort_key(x.pali_1))
+    df.sort_values(
+        by="pali_1", inplace=True, ignore_index=True,
+        key=lambda x: x.map(pali_sort_key))"""
 
     pattern = '|'.join(re.escape(key) for key in letter_to_number.keys())
 
     def replace(match):
         return letter_to_number[match.group(0)]
 
-    return re.sub(pattern, replace, word)
+    if isinstance(word, int):
+        return word
+    else:
+        return re.sub(pattern, replace, word)
