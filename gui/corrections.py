@@ -30,7 +30,6 @@ ENABLE_LIST = \
     [f'clear{i}' for i in range(1, 4)] + \
     ['submit', 'clear_all']
 
-print(ENABLE_LIST)
 
 def _set_state(window: sg.Window, enabled=True) -> None:
     for i in ENABLE_LIST:
@@ -54,8 +53,17 @@ def _field_combo_key_action(
             value=search,
             values=new_field_values,
             size=size,)
+        if new_field_values:
+            combo.set_tooltip('\n'.join(new_field_values))
+            _combo_width, combo_height = combo.get_size()
+            tooltip = combo.TooltipObject
+            tooltip.y += 1.5 * combo_height
+            tooltip.showtip()
+        else:
+            combo.set_tooltip(None)
     else:
         _reset_field_combo(window, field_key)
+        combo.set_tooltip(None)
 
 
 def main():
@@ -148,6 +156,10 @@ def main():
             func = getattr(combo.widget, 'event_generate')
             if func:
                 func('<Down>')
+
+        elif event.endswith("_key_down") and event.startswith("field"):
+            combo = window[event.rstrip("_key_down")]
+            combo.set_tooltip(None)
 
     window.close()
 
@@ -289,12 +301,11 @@ def make_window():
     )
 
     window['id'].bind("<Return>", "_enter")
-    window['field1'].bind("<Return>", "_enter")
-    window['field1'].bind("<Key>", "_key")
-    window['field2'].bind("<Return>", "_enter")
-    window['field2'].bind("<Key>", "_key")
-    window['field3'].bind("<Return>", "_enter")
-    window['field3'].bind("<Key>", "_key")
+    for i in range(1, 4):
+        field = f'field{i}'
+        window[field].bind("<Return>", "_enter")
+        window[field].bind("<Key>", "_key")
+        window[field].bind("<Key-Down>", "_key_down")
 
     return window
 
