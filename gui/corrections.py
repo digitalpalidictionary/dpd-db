@@ -69,7 +69,10 @@ def main():
         event, values = window.read()
         print(event, values)
 
-        if event == "id_enter":
+        if event == sg.WIN_CLOSED:
+            break
+
+        elif event == "id_enter":
             db = db_session.query(PaliWord)\
                 .filter(PaliWord.id == values["id"]).first()
             summary = make_summary(db)
@@ -136,11 +139,15 @@ def main():
             save_corections_tsv(values, PTH)
             clear_all(values, window)
 
-        elif event and event.endswith("_key") and event.startswith("field"):
+        elif event.endswith("_key") and event.startswith("field"):
             _field_combo_key_action(window, values, event.rstrip("_key"))
 
-        elif event == sg.WIN_CLOSED:
-            break
+        elif event.endswith("_enter") and event.startswith("field"):
+            combo = window[event.rstrip("_enter")]
+            # Using Tkinter event
+            func = getattr(combo.widget, 'event_generate')
+            if func:
+                func('<Down>')
 
     window.close()
 
