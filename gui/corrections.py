@@ -226,8 +226,7 @@ def make_window():
                 key="field3",
                 enable_events=True,
                 size=FIELD_COMBO_SIZE),
-            sg.Button(
-                "Clear", key="clear1", font=(None, 13)),
+            sg.Button("Clear", key="clear3", font=(None, 13)),
             sg.Text("", size=(22, 1)),
             sg.Input(key="bold", size=(30, 1)),
             sg.Button("Bold", key="bold_button", font=(None, 13)),
