@@ -19,7 +19,7 @@ def get_column_names():
 
 
 def count_combo_size(values: list) -> tuple:
-    width = max(map(len, values))
+    width = max(map(len, values)) + 1
     return (width, 0)
 
 
