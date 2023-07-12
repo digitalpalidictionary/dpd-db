@@ -11,27 +11,91 @@ from tools.meaning_construction import summarize_constr
 from tools.paths import ProjectPaths as PTH
 
 
+def get_column_names():
+    inspector = inspect(PaliWord)
+    column_names = [column.name for column in inspector.columns]
+    column_names = sorted(column_names)
+    return column_names
+
+
+def count_combo_size(values: list) -> tuple:
+    width = max(map(len, values)) + 1
+    return (width, 0)
+
+
+COLUMN_NAMES = get_column_names()
+FIELD_COMBO_SIZE = count_combo_size(COLUMN_NAMES)
+ENABLE_LIST = \
+    [f"field{i}" for i in range(1, 4)] + \
+    [f"clear{i}" for i in range(1, 4)] + \
+    ["submit", "clear_all"]
+
+
+def _set_state(window: sg.Window, enabled=True) -> None:
+    for i in ENABLE_LIST:
+        window[i].update(disabled=not enabled)
+
+
+def _reset_field_combo(window: sg.Window, field_key: str) -> None:
+    combo = window[field_key]
+    combo.update(values=COLUMN_NAMES, size=FIELD_COMBO_SIZE)
+
+
+def _field_combo_key_action(
+        window: sg.Window, values: dict, field_key: str) -> None:
+    combo = window[field_key]
+    if values[field_key] != "":
+        search = values[field_key]
+        new_field_values = [x for x in COLUMN_NAMES if search in x]
+        print(f"New values of {field_key}: {', '.join(new_field_values)}")
+        size = count_combo_size(COLUMN_NAMES)
+        combo.update(
+            value=search,
+            values=new_field_values,
+            size=size,)
+        if new_field_values:
+            combo.set_tooltip("\n".join(new_field_values))
+            _combo_width, combo_height = combo.get_size()
+            tooltip = combo.TooltipObject
+            tooltip.y += 1.5 * combo_height
+            tooltip.showtip()
+        else:
+            combo.set_tooltip(None)
+    else:
+        _reset_field_combo(window, field_key)
+        combo.set_tooltip(None)
+
+
 def main():
 
     db_session = get_db_session("dpd.db")
-    column_names = get_column_names()
-    window = make_window(column_names)
+    window = make_window()
+    db = None
+    _set_state(window, enabled=False)
 
     while True:
         event, values = window.read()
         print(event, values)
 
-        if event == "id_enter":
-            db = db_session.query(PaliWord).filter(
-                PaliWord.id == values["id"]).first()
-            summary = make_summary(db)
-            window["id_info"].update(summary)
+        if event == sg.WIN_CLOSED:
+            break
 
-        if event == "field1":
-            window["value1_old"].update(
-                getattr(db, values["field1"]))
-            window["value1_new"].update(
-                getattr(db, values["field1"]))
+        if event == "id_enter":
+            id_val = values["id"]
+            db = db_session.query(PaliWord)\
+                .filter(PaliWord.id == id_val).first()
+            if db:
+                summary = make_summary(db)
+                window["id_info"].update(summary)
+                _set_state(window, enabled=True)
+            else:
+                _set_state(window, enabled=False)
+                sg.popup_error(f"No entry whith id {id_val}")
+
+        elif event == "field1":
+            val = getattr(db, values["field1"])
+            window["value1_old"].update(val)
+            window["value1_new"].update(val)
 
             if values["field1"] == "source_1":
                 print("!")
@@ -51,53 +115,68 @@ def main():
                 window["value3_old"].update(
                     getattr(db, "example_2"))
 
-        if event == "field2":
+        elif event == "field2":
             window["value2_old"].update(
                 getattr(db, values["field2"]))
             window["value2_new"].update(
                 getattr(db, values["field2"]))
 
-        if event == "field3":
+        elif event == "field3":
             window["value3_old"].update(
                 getattr(db, values["field3"]))
             window["value3_new"].update(
                 getattr(db, values["field3"]))
 
-        if event == "clear1":
+        elif event == "clear1":
+            _reset_field_combo(window, "field1")
             for value in values:
                 if "1" in value:
                     window[value].update("")
 
-        if event == "clear2":
+        elif event == "clear2":
+            _reset_field_combo(window, "field2")
             for value in values:
                 if "2" in value:
                     window[value].update("")
 
-        if event == "clear3":
+        elif event == "clear3":
+            _reset_field_combo(window, "field3")
             for value in values:
                 if "3" in value:
                     window[value].update("")
 
-        if event == "clear_all":
+        elif event == "clear_all":
             clear_all(values, window)
 
-        if event == "submit":
+        elif event == "submit":
             save_corections_tsv(values, PTH)
             clear_all(values, window)
 
-        if event == sg.WIN_CLOSED:
-            break
+        elif event.endswith("_key") and event.startswith("field"):
+            _field_combo_key_action(window, values, event.rstrip("_key"))
+
+        elif event.endswith("_enter") and event.startswith("field"):
+            combo = window[event.rstrip("_enter")]
+            # Using Tkinter event
+            func = getattr(combo.widget, "event_generate")
+            if func:
+                func("<Down>")
+
+        elif event.endswith("_key_down") and event.startswith("field"):
+            combo = window[event.rstrip("_key_down")]
+            combo.set_tooltip(None)
 
     window.close()
 
 
-def make_window(column_names):
-    sg.theme('DarkGrey10')
+def make_window():
+    sg.theme("DarkGrey10")
     sg.set_options(
         font=("Noto Sans", 16),
         input_text_color="darkgray",
         text_color="#00bfff",
-        # window_location=(500, 300),
+        # window_location=(0, 0),
+        window_location=(None, None),  # Default behavior
         element_padding=(0, 3),
         margins=(0, 0),
     )
@@ -118,7 +197,10 @@ def make_window(column_names):
         [
             sg.Text("field1", size=(15, 1)),
             sg.Combo(
-                column_names, key="field1", enable_events=True),
+                COLUMN_NAMES,
+                key="field1",
+                enable_events=True,
+                size=FIELD_COMBO_SIZE),
             sg.Button(
                 "Clear", key="clear1", font=(None, 13))
         ],
@@ -140,10 +222,11 @@ def make_window(column_names):
         [
             sg.Text("field2", size=(15, 1)),
             sg.Combo(
-                column_names, key="field2",
-                enable_events=True),
-            sg.Button(
-                "Clear", key="clear2", font=(None, 13))
+                COLUMN_NAMES,
+                key="field2",
+                enable_events=True,
+                size=FIELD_COMBO_SIZE),
+            sg.Button("Clear", key="clear2", font=(None, 13))
         ],
         [
             sg.Text("value2", size=(15, 1)),
@@ -163,10 +246,11 @@ def make_window(column_names):
         [
             sg.Text("field3", size=(15, 1)),
             sg.Combo(
-                column_names, key="field3",
-                enable_events=True),
-            sg.Button(
-                "Clear", key="clear1", font=(None, 13)),
+                COLUMN_NAMES,
+                key="field3",
+                enable_events=True,
+                size=FIELD_COMBO_SIZE),
+            sg.Button("Clear", key="clear3", font=(None, 13)),
             sg.Text("", size=(22, 1)),
             sg.Input(key="bold", size=(30, 1)),
             sg.Button("Bold", key="bold_button", font=(None, 13)),
@@ -185,16 +269,14 @@ def make_window(column_names):
         ],
         [
             sg.Text("", size=(15, 1)),
-            sg.Button(
-                "Submit Correction", key="submit", size=(101, 1)),
+            sg.Button("Submit Correction", key="submit", size=(101, 1)),
         ],
     ]
 
     add_corrections_tab = [
         [
             sg.Text("", size=(15, 1)),
-            sg.Button(
-                "", key="approved", size=(103, 1)),
+            sg.Button("", key="approved", size=(103, 1)),
         ]
     ]
 
@@ -217,25 +299,20 @@ def make_window(column_names):
     ]
 
     window = sg.Window(
-        'Corrections',
+        "Corrections",
         layout,
         resizable=True,
         finalize=True,
-        )
+    )
 
-    window['id'].bind("<Return>", "_enter")
-    window['field1'].bind("<Return>", "_enter")
-    window['field2'].bind("<Return>", "_enter")
-    window['field3'].bind("<Return>", "_enter")
+    window["id"].bind("<Return>", "_enter")
+    for i in range(1, 4):
+        field = f"field{i}"
+        window[field].bind("<Return>", "_enter")
+        window[field].bind("<Key>", "_key")
+        window[field].bind("<Key-Down>", "_key_down")
 
     return window
-
-
-def get_column_names():
-    inspector = inspect(PaliWord)
-    column_names = [column.name for column in inspector.columns]
-    column_names = sorted(column_names)
-    return column_names
 
 
 def make_summary(db):
@@ -246,8 +323,7 @@ def make_summary(db):
     return f"{word}: {pos}. {meaning} [{construction}]"
 
 
-def save_corections_tsv(values, PTH):
-
+def save_corections_tsv(values, pth):
     headings = [
         "id",
         "field1", "value1_new", "comment1",
@@ -255,18 +331,20 @@ def save_corections_tsv(values, PTH):
         "field3", "value3_new", "comment3"
     ]
 
-    if not PTH.corrections_tsv_path.exists():
-        with open(PTH.corrections_tsv_path, "w", newline="") as file:
+    if not pth.corrections_tsv_path.exists():
+        with open(pth.corrections_tsv_path, "w", newline="") as file:
             writer = csv.writer(file, delimiter="\t")
             writer.writerow(headings)
 
-    with open(PTH.corrections_tsv_path, "a") as file:
+    with open(pth.corrections_tsv_path, "a") as file:
         writer = csv.writer(file, delimiter="\t")
         new_row = [str(values[heading]) for heading in headings]
         writer.writerow(new_row)
 
 
 def clear_all(values, window):
+    for k in ["field1", "field2", "field3"]:
+        _reset_field_combo(window, k)
     for value in values:
         if "tab" not in value:
             window[value].update("")
