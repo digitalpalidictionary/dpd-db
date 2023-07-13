@@ -3,12 +3,19 @@ import csv
 import PySimpleGUI as sg
 from sqlalchemy import inspect
 
+from completion_combo import CompletionCombo
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 
 from tools.meaning_construction import make_meaning
 from tools.meaning_construction import summarize_constr
 from tools.paths import ProjectPaths as PTH
+
+
+ENABLE_LIST = \
+    [f"field{i}" for i in range(1, 4)] + \
+    [f"clear{i}" for i in range(1, 4)] + \
+    ["submit", "clear_all"]
 
 
 def get_column_names():
@@ -18,52 +25,9 @@ def get_column_names():
     return column_names
 
 
-def count_combo_size(values: list) -> tuple:
-    width = max(map(len, values)) + 1
-    return (width, 0)
-
-
-COLUMN_NAMES = get_column_names()
-FIELD_COMBO_SIZE = count_combo_size(COLUMN_NAMES)
-ENABLE_LIST = \
-    [f"field{i}" for i in range(1, 4)] + \
-    [f"clear{i}" for i in range(1, 4)] + \
-    ["submit", "clear_all"]
-
-
 def _set_state(window: sg.Window, enabled=True) -> None:
     for i in ENABLE_LIST:
         window[i].update(disabled=not enabled)
-
-
-def _reset_field_combo(window: sg.Window, field_key: str) -> None:
-    combo = window[field_key]
-    combo.update(values=COLUMN_NAMES, size=FIELD_COMBO_SIZE)
-
-
-def _field_combo_key_action(
-        window: sg.Window, values: dict, field_key: str) -> None:
-    combo = window[field_key]
-    if values[field_key] != "":
-        search = values[field_key]
-        new_field_values = [x for x in COLUMN_NAMES if search in x]
-        print(f"New values of {field_key}: {', '.join(new_field_values)}")
-        size = count_combo_size(COLUMN_NAMES)
-        combo.update(
-            value=search,
-            values=new_field_values,
-            size=size,)
-        if new_field_values:
-            combo.set_tooltip("\n".join(new_field_values))
-            _combo_width, combo_height = combo.get_size()
-            tooltip = combo.TooltipObject
-            tooltip.y += 1.5 * combo_height
-            tooltip.showtip()
-        else:
-            combo.set_tooltip(None)
-    else:
-        _reset_field_combo(window, field_key)
-        combo.set_tooltip(None)
 
 
 def main():
@@ -127,24 +91,6 @@ def main():
             window["value3_new"].update(
                 getattr(db, values["field3"]))
 
-        elif event == "clear1":
-            _reset_field_combo(window, "field1")
-            for value in values:
-                if "1" in value:
-                    window[value].update("")
-
-        elif event == "clear2":
-            _reset_field_combo(window, "field2")
-            for value in values:
-                if "2" in value:
-                    window[value].update("")
-
-        elif event == "clear3":
-            _reset_field_combo(window, "field3")
-            for value in values:
-                if "3" in value:
-                    window[value].update("")
-
         elif event == "clear_all":
             clear_all(values, window)
 
@@ -152,15 +98,19 @@ def main():
             save_corections_tsv(values, PTH)
             clear_all(values, window)
 
+        elif event.startswith("clear") and event[5:].isdigit():
+            index = event.lstrip("clear")
+            window["field" + index].reset()
+            for value in values:
+                if index in value:
+                    window[value].update("")
+
         elif event.endswith("_key") and event.startswith("field"):
-            _field_combo_key_action(window, values, event.rstrip("_key"))
+            window[event.rstrip("_key")].complete()
 
         elif event.endswith("_enter") and event.startswith("field"):
             combo = window[event.rstrip("_enter")]
-            # Using Tkinter event
-            func = getattr(combo.widget, "event_generate")
-            if func:
-                func("<Down>")
+            combo.drop_down()
 
         elif event.endswith("_key_down") and event.startswith("field"):
             combo = window[event.rstrip("_key_down")]
@@ -170,6 +120,7 @@ def main():
 
 
 def make_window():
+    column_names = get_column_names()
     sg.theme("DarkGrey10")
     sg.set_options(
         font=("Noto Sans", 16),
@@ -196,11 +147,10 @@ def make_window():
         ],
         [
             sg.Text("field1", size=(15, 1)),
-            sg.Combo(
-                COLUMN_NAMES,
+            CompletionCombo(
+                column_names,
                 key="field1",
-                enable_events=True,
-                size=FIELD_COMBO_SIZE),
+                enable_events=True),
             sg.Button(
                 "Clear", key="clear1", font=(None, 13))
         ],
@@ -221,11 +171,10 @@ def make_window():
         ],
         [
             sg.Text("field2", size=(15, 1)),
-            sg.Combo(
-                COLUMN_NAMES,
+            CompletionCombo(
+                column_names,
                 key="field2",
-                enable_events=True,
-                size=FIELD_COMBO_SIZE),
+                enable_events=True),
             sg.Button("Clear", key="clear2", font=(None, 13))
         ],
         [
@@ -245,11 +194,10 @@ def make_window():
         ],
         [
             sg.Text("field3", size=(15, 1)),
-            sg.Combo(
-                COLUMN_NAMES,
+            CompletionCombo(
+                column_names,
                 key="field3",
-                enable_events=True,
-                size=FIELD_COMBO_SIZE),
+                enable_events=True),
             sg.Button("Clear", key="clear3", font=(None, 13)),
             sg.Text("", size=(22, 1)),
             sg.Input(key="bold", size=(30, 1)),
@@ -344,7 +292,7 @@ def save_corections_tsv(values, pth):
 
 def clear_all(values, window):
     for k in ["field1", "field2", "field3"]:
-        _reset_field_combo(window, k)
+        window[k].reset()
     for value in values:
         if "tab" not in value:
             window[value].update("")
