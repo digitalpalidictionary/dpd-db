@@ -26,6 +26,7 @@ from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths as PTH
 from tools.sandhi_words import make_words_in_sandhi_set
 from tools.tic_toc import tic, toc
+from tools.tsv_read_write import read_tsv_dict
 
 
 ebook_entry_templ = Template(
@@ -263,13 +264,8 @@ def save_abbreviations_xhtml_page(id_counter):
     print(f"[green]{'saving abbrev xhtml':<40}", end="")
     abbreviations_list = []
 
-    with open(
-        PTH.abbreviations_tsv_path, "r",
-            newline="", encoding="utf-8") as f:
-        reader = csv.DictReader(f, delimiter="\t")
-
-        for row in reader:
-            abbreviations_list.append(row)
+    file_path = PTH.abbreviations_tsv_path
+    abbreviations_list = read_tsv_dict(file_path)
 
     abbreviation_entries = []
     for i in abbreviations_list:

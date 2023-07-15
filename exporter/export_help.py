@@ -1,17 +1,28 @@
 import csv
 import markdown
+import markdownify
+import html2text
+import subprocess
 
+from css_html_js_minify import css_minify
+from mako.template import Template
+from minify_html import minify
 from pathlib import Path
 from rich import print
 from typing import List, Dict
-from minify_html import minify
-from css_html_js_minify import css_minify
 
-from html_components import render_header_tmpl
-from html_components import render_abbrev_templ
-from html_components import render_help_templ
+from export_dpd import render_header_tmpl
 
+from tools.paths import ProjectPaths as PTH
 from tools.tic_toc import bip, bop
+from tools.tsv_read_write import read_tsv_dict
+from tools.tsv_read_write import read_tsv_dot_dict
+
+
+abbrev_templ = Template(
+    filename=str(PTH.abbrev_templ_path))
+help_templ = Template(
+    filename=str(PTH.help_templ_path))
 
 
 class Abbreviation:
@@ -80,11 +91,16 @@ def add_abbrev_html(PTH: Path, header: str, help_data_list: list) -> list:
     bip()
     print("adding abbreviations", end=" ")
 
-    rows = []
+    file_path = PTH.abbreviations_tsv_path
+    rows = read_tsv_dict(file_path)
+
+    rows2 = []
     with open(PTH.abbreviations_tsv_path) as f:
         reader = csv.DictReader(f, delimiter="\t")
         for row in reader:
-            rows.append(row)
+            rows2.append(row)
+
+    assert rows == rows2
 
     def _csv_row_to_abbreviations(x: Dict[str, str]) -> Abbreviation:
         return Abbreviation(
@@ -119,11 +135,16 @@ def add_help_html(PTH: Path, header: str, help_data_list: list) -> list:
     bip()
     print("adding help", end=" ")
 
-    rows = []
+    file_path = PTH.help_tsv_path
+    rows = read_tsv_dict(file_path)
+
+    rows2 = []
     with open(PTH.help_tsv_path) as f:
         reader = csv.DictReader(f, delimiter="\t")
         for row in reader:
-            rows.append(row)
+            rows2.append(row)
+
+    assert rows == rows2
 
     def _csv_row_to_help(x: Dict[str, str]) -> Help:
         return Help(
@@ -156,33 +177,54 @@ def add_bibliographhy(PTH: Path, header: str, help_data_list: list) -> list:
 
     print("adding bibliography", end=" ")
 
-    try: 
-        with open(PTH.bibliography_path) as f:
-            md = f.read()
+    file_path = PTH.bibliography_tsv_path
+    bibliography_dict = read_tsv_dot_dict(file_path)
 
-        html = header
-        html += "<body>"
-        html += "<div class='help'>"
-        html += markdown.markdown(md)
-        html += "</div></body></html>"
+    html = header
+    html += "<body>"
+    html += "<div class='help'>"
+    html += "<h2>Bibliography</h1>"
 
-        html = minify(html)
+    for i in bibliography_dict:
+        if i.category:
+            html += "</ul>"
+            html += f"<h3>{i.category}</h3>"
+            html += "<ul>"
+        if i.surname:
+            html += f"<li><b>{i.surname}</b>"
+        if i.firstname:
+            html += f", {i.firstname}"
+        if i.year:
+            html += f", {i.year}"
+        if i.title:
+            html += f". <i>{i.title}</i>"
+        if i.city and i.publisher:
+            html += f", {i.city}: {i.publisher}"
+        if not i.city and i.publisher:
+            html += f", {i.publisher}"
+        if i.site:
+            html += f", accessed through <a href='{i.site}'  target='_blank'>{i.site}</a>"
+        html += " "
 
-        synonyms = ["dpd bibliography", "bibliography", "bib"]
+    html += "</div></body></html>"
+    html = minify(html)
 
-        help_data_list += [{
-            "word": "bibliography",
-            "definition_html": html,
-            "definition_plain": "",
-            "synonyms": synonyms
-        }]
+    synonyms = ["dpd bibliography", "bibliography", "bib"]
 
-        print(f"{bop():>35}")
-        return help_data_list
+    help_data_list += [{
+        "word": "bibliography",
+        "definition_html": html,
+        "definition_plain": "",
+        "synonyms": synonyms
+    }]
 
-    except FileNotFoundError as e:
-        print(f"[red]bibliography file not found. {e}")
-        return []
+    # save markdown for website
+    md = html2text.html2text(html)
+    with open(PTH.bibliography_md_path, "w") as file:
+        file.write(md)
+
+    print(f"{bop():>35}")
+    return help_data_list
 
 
 def add_thanks(PTH: Path, header: str, help_data_list: list) -> list:
@@ -216,3 +258,17 @@ def add_thanks(PTH: Path, header: str, help_data_list: list) -> list:
     except FileNotFoundError as e:
         print(f"[red]thanks file not found. {e}")
         return []
+
+
+def render_abbrev_templ(i) -> str:
+    """render html of abbreviations"""
+    return str(
+        abbrev_templ.render(
+            i=i))
+
+
+def render_help_templ(i) -> str:
+    """render html of help"""
+    return str(
+        help_templ.render(
+            i=i))

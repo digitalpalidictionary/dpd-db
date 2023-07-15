@@ -14,7 +14,7 @@ from zipfile import ZipFile, ZIP_DEFLATED
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord, PaliRoot, Sandhi
-from html_components import render_dpd_defintion_templ
+from export_dpd import render_dpd_defintion_templ
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths as PTH
 from tools.tic_toc import tic, toc

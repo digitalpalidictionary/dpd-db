@@ -32,9 +32,6 @@ def main():
 
     print("[bright_yellow]grammar dictionary")
 
-    # import changed_headwords
-    # import inflection tables
-
     # make headwords list
     db_session = get_db_session("dpd.db")
 
@@ -85,7 +82,7 @@ def main():
 
     # grammar_dict structure {inflection: [(headword, pos, grammar)]}
     grammar_dict = {}
-    
+
     # grammar_dict_html structure {inflection: "html"}
     grammar_dict_html = {}
     grammar_dict_table = {}

@@ -8,6 +8,7 @@ from typing import Dict, List
 
 from db.models import PaliWord, InflectionTemplates
 from db.get_db_session import get_db_session
+from tools.tsv_read_write import read_tsv_dot_dict
 
 
 class dotdict(dict):
@@ -26,7 +27,7 @@ def main():
 
     (headwords, headwords_clean, pos, roots, root_fam,
         word_fam, infl_pattern, dpd_length) = get_db_lists()
-    cpd: List[Dict[str, str]] = read_cpd_csv(cpd_path)
+    cpd: List[Dict[str, str]] = read_tsv_dot_dict(cpd_path)
     test_1(cpd, headwords)
     test_2(cpd, pos)
     test_3(cpd, roots)
@@ -56,16 +57,6 @@ def get_db_lists():
     inflection_temp = db_session.query(InflectionTemplates).all()
     infl_pattern = [i.pattern for i in inflection_temp]
     return headwords, headwords_clean, pos, roots, root_fam, word_fam, infl_pattern, dpd_length
-
-
-def read_cpd_csv(cpd_path):
-    rows = []
-    with open(cpd_path, 'r') as f:
-        reader = csv.DictReader(f, delimiter='\t')
-        for row in reader:
-            row = dotdict(row)
-            rows.append(row)
-    return rows
 
 
 def regex_results(list):

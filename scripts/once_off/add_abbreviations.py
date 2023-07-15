@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Dict, List
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths as PTH
+from tools.tsv_read_write import read_tsv_dict
 
 
 def main():
@@ -25,11 +26,8 @@ def add_abbreviations(db_session: Session, csv_path: Path):
 
     print("[green]processing abbreviations csv", end=" ")
 
-    rows = []
-    with open(csv_path, 'r') as f:
-        reader = csv.DictReader(f, delimiter='\t')
-        for row in reader:
-            rows.append(row)
+    file_path = csv_path
+    rows = read_tsv_dict(file_path)
 
     items: List[Abbreviations] = list(map(_csv_row_to_abbrev, rows))
 

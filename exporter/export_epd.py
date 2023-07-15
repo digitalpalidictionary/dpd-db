@@ -1,18 +1,25 @@
 import re
-from minify_html import minify
-from typing import List
-from sqlalchemy.orm import Session
-from rich import print
-from css_html_js_minify import css_minify
 
-from html_components import render_header_tmpl
+from css_html_js_minify import css_minify
+from mako.template import Template
+from minify_html import minify
+from rich import print
+from sqlalchemy.orm import Session
+from typing import List
+
+from export_dpd import render_header_tmpl
+
 from db.models import PaliWord, PaliRoot
 from tools.tic_toc import bip, bop
 from tools.pali_sort_key import pali_sort_key
-from tools.paths import ProjectPaths
+from tools.paths import ProjectPaths as PTH
 
 
-def generate_epd_html(DB_SESSION: Session, PTH: ProjectPaths, size_dict) -> list:
+epd_templ = Template(
+    filename=str(PTH.epd_templ_path))
+
+
+def generate_epd_html(DB_SESSION: Session, PTH, size_dict) -> list:
     """generate html for english to pali dicitonary"""
 
     print("[green]generating epd html")

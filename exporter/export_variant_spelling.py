@@ -5,7 +5,7 @@ from mako.template import Template
 from minify_html import minify
 from rich import print
 
-from html_components import render_header_tmpl
+from export_dpd import render_header_tmpl
 
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths

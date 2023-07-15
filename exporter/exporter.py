@@ -1,6 +1,7 @@
 #!/usr/bin/env python3.11
 import zipfile
 import csv
+import pickle
 
 from os import popen
 from rich import print
@@ -9,7 +10,6 @@ from sqlalchemy.orm import Session
 from export_dpd import generate_dpd_html
 from export_roots import generate_root_html
 from export_epd import generate_epd_html
-# from export_sandhi import generate_sandhi_html
 from export_variant_spelling import generate_variant_spelling_html
 from export_help import generate_help_html
 
@@ -49,6 +49,7 @@ def main():
         help_data_list
     )
 
+    write_limited_datalist(combined_data_list)
     write_size_dict(size_dict)
     export_to_goldendict(combined_data_list)
     goldendict_unzip_and_copy()
@@ -105,6 +106,16 @@ def write_size_dict(size_dict):
             writer.writerow([key, value])
 
     print(f"{bop():>23}")
+
+
+def write_limited_datalist(combined_data_list):
+    """A limited dataset for troubleshooting purposes"""
+
+    limited_data_list = [
+        item for item in combined_data_list if item["word"].startswith("ab")]
+
+    with open("temp/limited_data_list", "wb") as file:
+        pickle.dump(limited_data_list, file)
 
 
 if __name__ == "__main__":

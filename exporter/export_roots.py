@@ -1,20 +1,32 @@
 import re
 
-from rich import print
-# from sqlalchemy import and_
-from minify_html import minify
 from css_html_js_minify import css_minify, js_minify
+from datetime import date
+from mako.template import Template
+from minify_html import minify
+from rich import print
 
-from tools.niggahitas import add_niggahitas
-from html_components import render_header_tmpl
-from html_components import render_root_definition_templ
-from html_components import render_root_buttons_templ
-from html_components import render_root_info_templ
-from html_components import render_root_matrix_templ
-from html_components import render_root_families_templ
+from export_dpd import render_header_tmpl
+
 from db.models import PaliRoot, FamilyRoot
+from tools.niggahitas import add_niggahitas
+from tools.pali_sort_key import pali_sort_key
+from tools.paths import ProjectPaths as PTH
 from tools.tic_toc import bip, bop
-# from tools.pali_sort_key import pali_sort_key
+
+
+TODAY = date.today()
+
+root_definition_templ = Template(
+    filename=str(PTH.root_definition_templ_path))
+root_buttons_templ = Template(
+    filename=str(PTH.root_button_templ_path))
+root_info_templ = Template(
+    filename=str(PTH.root_info_templ_path))
+root_matrix_templ = Template(
+    filename=str(PTH.root_matrix_templ_path))
+root_families_templ = Template(
+    filename=str(PTH.root_families_templ_path))
 
 
 def generate_root_html(DB_SESSION, PTH, roots_count_dict, size_dict):
@@ -108,7 +120,76 @@ def generate_root_html(DB_SESSION, PTH, roots_count_dict, size_dict):
         }]
 
         if counter % 100 == 0:
-            print(f"{counter:>10,} / {root_db_length:<10,} {r.root:<20} {bop():>10}")
+            print(
+                f"{counter:>10,} / {root_db_length:<10,}{r.root:<20} {bop():>10}")
             bip()
 
     return root_data_list, size_dict
+
+
+def render_root_definition_templ(r: PaliRoot, roots_count_dict):
+    """render html of main root info"""
+
+    count = roots_count_dict[r.root]
+
+    return str(
+        root_definition_templ.render(
+            r=r,
+            count=count,
+            today=TODAY))
+
+
+def render_root_buttons_templ(r: PaliRoot, DB_SESSION):
+    """render html of root buttons"""
+
+    frs = DB_SESSION.query(
+        FamilyRoot
+        ).filter(
+            FamilyRoot.root_id == r.root)
+
+    frs = sorted(frs, key=lambda x: pali_sort_key(x.root_family))
+
+    return str(
+        root_buttons_templ.render(
+            r=r,
+            frs=frs))
+
+
+def render_root_info_templ(r: PaliRoot):
+    """render html of root grammatical info"""
+
+    return str(
+        root_info_templ.render(
+            r=r,
+            today=TODAY))
+
+
+def render_root_matrix_templ(r: PaliRoot, roots_count_dict):
+    """render html of root matrix"""
+    count = roots_count_dict[r.root]
+
+    return str(
+        root_matrix_templ.render(
+            r=r,
+            count=count,
+            today=TODAY))
+
+
+def render_root_families_templ(r: PaliRoot, DB_SESSION):
+    """render html of root families"""
+
+    frs = DB_SESSION.query(
+        FamilyRoot
+        ).filter(
+            FamilyRoot.root_id == r.root,
+            FamilyRoot.root_family != "info",
+            FamilyRoot.root_family != "matrix",
+        ).all()
+
+    frs = sorted(frs, key=lambda x: pali_sort_key(x.root_family))
+
+    return str(
+        root_families_templ.render(
+            r=r,
+            frs=frs,
+            today=TODAY))
