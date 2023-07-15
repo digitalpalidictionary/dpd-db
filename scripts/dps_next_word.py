@@ -14,17 +14,17 @@ def main():
     dpd_db = db_session.query(PaliWord).all()
 
     counter = 0
-    dps_list = []
+    dps_set = set()
     for i in dpd_db:
         if (
             not i.meaning_1 and
             i.origin == "dps"
         ):
-            dps_list += [i.pali_1]
+            dps_set.update([i.pali_1])
             counter += 1
 
     done = 0
-    for word in dps_list:
+    for word in dps_set:
         print(f"{counter-done}. {word}", end=" ")
         pyperclip.copy(word)
         done += 1

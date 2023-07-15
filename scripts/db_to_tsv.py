@@ -1,10 +1,8 @@
 #!/usr/bin/env python3.11
 
 from git import Repo
-# from git import Actor
 from datetime import datetime
 from rich import print
-# from sqlalchemy import inspect
 import csv
 
 from db.get_db_session import get_db_session

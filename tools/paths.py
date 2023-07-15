@@ -78,6 +78,7 @@ class ProjectPaths():
     abbreviations_tsv_path: Path = Path(
         "exporter/help/abbreviations.tsv")
     help_tsv_path: Path = Path("exporter/help/help.tsv")
+    bibliography_tsv_path: Path = Path("exporter/help/bibliography.tsv")
 
     # /exporter/javascript
     buttons_js_path: Path = Path("exporter/javascript/buttons.js")
@@ -304,7 +305,7 @@ class ProjectPaths():
     user_dict_path: Path = Path("tools/user_dictionary.txt")
 
     # .. external
-    bibliography_path: Path = Path(
+    bibliography_md_path: Path = Path(
         "../digitalpalidictionary-website-source/src/bibliography.md")
     thanks_path: Path = Path(
         "../digitalpalidictionary-website-source/src/thanks.md")

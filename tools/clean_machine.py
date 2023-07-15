@@ -3,7 +3,7 @@ from rich import print
 
 
 def clean_machine(text: str, niggahita="ṃ") -> str:
-    allowed_characters = "aāiīuūeokgṅcjñṭḍṇtdnpbmyrlsvhḷṃṁ\n xfśṣǣæwqḥṛ"
+    allowed_characters = "aāiīuūeokgṅcjñṭḍṇtdnpbmyrlsvhḷṃṁ\n xfśṣǣæwqḥṛz"
 
     text = text.lower()
     text = re.sub(r"\d", "", text)

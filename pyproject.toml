@@ -27,6 +27,7 @@ beautifulsoup4 = "^4.11.2"
 nltk = "^3.8.1"
 pyperclip = "^1.8.2"
 css-html-js-minify = "^2.5.5"
+html2text = "^2020.1.16"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"

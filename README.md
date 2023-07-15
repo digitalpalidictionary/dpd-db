@@ -16,7 +16,7 @@ There are four parts to the code:
 
 That should create an SQLite database `./dpd.db` which can be accessed by [DB Browser](https://sqlitebrowser.org/),  [DBeaver](https://dbeaver.io/), through [SQLAlechmy](https://www.sqlalchemy.org/) or your preferred method. 
 
-For practical examples on how to access any information in the db with SQLAlchemy, see `scripts/db_search_example.py`.
+For a quick tutorial on how to access any information in the db with SQLAlchemy, see `scripts/db_search_example.py`.
 
 ## About the database
 - `PaliWord` and `PaliRoots` tables are the heart of the db, everything else gets derived from those.  
