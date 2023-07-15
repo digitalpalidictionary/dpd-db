@@ -106,11 +106,11 @@ def main():
                     window[value].update("")
 
         elif event.endswith("_key") and event.startswith("field"):
-            window[event.rstrip("_key")].complete()
+            window[event.rstrip("_key")].filter()
 
         elif event.endswith("_enter") and event.startswith("field"):
             combo = window[event.rstrip("_enter")]
-            combo.drop_down()
+            combo.complete()
 
         elif event.endswith("_key_down") and event.startswith("field"):
             combo = window[event.rstrip("_key_down")]

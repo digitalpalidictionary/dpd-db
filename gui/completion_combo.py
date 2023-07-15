@@ -23,6 +23,9 @@ class CompletionCombo(PySimpleGUI.Combo):
         kwargs['size'] = self.__size
         super().__init__(values, *args, **kwargs)
 
+    def _hide_tooltip(self) -> None:
+        self.set_tooltip(None)
+
     # TODO
     def __bind(self) -> None:
         ...
@@ -40,7 +43,7 @@ class CompletionCombo(PySimpleGUI.Combo):
 
     # TODO Save filtered list for next filtration, drop on deleting chars
     # TODO Bind documentation
-    def complete(self) -> None:
+    def filter(self) -> None:
         """ Filter values with current value
         """
         value = self.get()
@@ -61,10 +64,10 @@ class CompletionCombo(PySimpleGUI.Combo):
                 tooltip.y += 1.5 * combo_height
                 tooltip.showtip()
             else:
-                self.set_tooltip(None)
+                self._hide_tooltip()
         else:
             self.reset()
-            self.set_tooltip(None)
+            self._hide_tooltip()
 
     # TODO Bind documentation
     def drop_down(self) -> None:
@@ -76,3 +79,10 @@ class CompletionCombo(PySimpleGUI.Combo):
         func = getattr(self.widget, "event_generate")
         if func:
             func("<Down>")
+
+    # TODO Bind documentation
+    def complete(self) -> None:
+        """ Complete word with first entry of the list
+        """
+        self.update(set_to_index=0)
+        self._hide_tooltip()
