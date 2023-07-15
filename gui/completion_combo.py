@@ -1,6 +1,63 @@
 """ Usage example:
 
-TODO
+```
+import PySimpleGUI
+from gui.completion_combo import CompletionCombo
+
+layout = [
+    [
+        CompletionCombo(
+            [
+                'Kusalā dhammā',
+                'Akusalā dhammā',
+                'Abyākatā dhammā'
+            ],
+            enable_events=True,
+            key='combo1'),
+        CompletionCombo(
+            [
+                'Sukhāya vedanāya sampayuttā dhammā',
+                'Dukkhāya vedanāya sampayuttā dhammā',
+                'Adukkham-asukhāya vedanāya sampayuttā dhammā',
+            ],
+            enable_events=True,
+            key='combo2'),
+        CompletionCombo(
+            [
+                'Vipākā dhammā',
+                'Vipākadhammadhammā dhammā',
+                'Nevavipākanavipākadhammadhammā dhammā',
+            ],
+            enable_events=True,
+            key='combo3'),
+    ]
+]
+
+window = PySimpleGUI.Window('CompletionCombo example', layout, finalize=True)
+
+for i in range(1, 4):
+    combo = window[f'combo{i}']
+    combo.bind('<Return>', '-enter')
+    combo.bind('<Key>', '-key')
+    combo.bind('<FocusOut>', '-focus_out')
+
+# Mainloop
+while True:
+    event, values = window.read()
+    if event == PySimpleGUI.WIN_CLOSED:
+        break
+    elif event.endswith('-key') and event.startswith('combo'):
+        combo = window[event.rstrip('-key')]
+        combo.filter()
+    elif event.endswith('-enter') and event.startswith('combo'):
+        combo = window[event.rstrip('-enter')]
+        combo.complete()
+    elif event.endswith('-focus_out') and event.startswith('combo'):
+        combo = window[event.rstrip('-focus_out')]
+        combo.hide_tooltip()
+
+window.close()
+```
 """
 
 import logging
@@ -35,15 +92,16 @@ class CompletionCombo(PySimpleGUI.Combo):
         super().__init__(values, *args, **kwargs)
 
     def hide_tooltip(self) -> None:
+        """ Hide the floating list of values
+        """
         self.set_tooltip(self.__initial_tooltip)
         self.TooltipObject.hidetip()
 
     def reset(self) -> None:
-        """ Reset variants to initial state
+        """ Reset values to initial state
         """
         self.update(values=self.__values, size=self.__size)
 
-    # TODO Save filtered list for next filtration, drop on deleting chars
     def filter(self) -> None:
         """ Filter values with current value
         """
@@ -60,9 +118,8 @@ class CompletionCombo(PySimpleGUI.Combo):
                 size=self.__size)
             if new_field_values:
                 self.set_tooltip('\n'.join(new_field_values))
-                _combo_width, combo_height = self.get_size()
                 tooltip = self.TooltipObject
-                tooltip.y += 1.5 * combo_height
+                tooltip.y += self._calc_tooltip_offset()[1]
                 tooltip.showtip()
             else:
                 self.hide_tooltip()
@@ -71,7 +128,8 @@ class CompletionCombo(PySimpleGUI.Combo):
             self.hide_tooltip()
 
     def drop_down(self) -> None:
-        """ Drop list of values down like as the arrow button has been clicked
+        """
+        Drop the list of values down like as the arrow button has been clicked
 
         Only Tkinter compatible for now
         """
@@ -85,3 +143,12 @@ class CompletionCombo(PySimpleGUI.Combo):
         """
         self.update(set_to_index=0)
         self.hide_tooltip()
+
+    def _calc_tooltip_offset(self) -> Tuple[int, int]:
+        tooltip_fontsize = 10
+        if PySimpleGUI.TOOLTIP_FONT:
+            tooltip_fontsize = PySimpleGUI.TOOLTIP_FONT
+        _combo_width, combo_height = self.get_size()
+        x = 0
+        y = 1.0 * combo_height + 2.0 * tooltip_fontsize
+        return (x, y)

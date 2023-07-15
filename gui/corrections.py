@@ -106,15 +106,16 @@ def main():
                     window[value].update("")
 
         elif event.endswith("_key") and event.startswith("field"):
-            window[event.rstrip("_key")].filter()
+            combo = window[event.rstrip("_key")]
+            combo.filter()
 
         elif event.endswith("_enter") and event.startswith("field"):
             combo = window[event.rstrip("_enter")]
             combo.complete()
 
-        elif event.endswith("_key_down") and event.startswith("field"):
-            combo = window[event.rstrip("_key_down")]
-            combo.set_tooltip(None)
+        elif event.endswith("_focus-out") and event.startswith("field"):
+            combo = window[event.rstrip("_focus-out")]
+            combo.hide_tooltip()
 
     window.close()
 
@@ -258,7 +259,7 @@ def make_window():
         field = f"field{i}"
         window[field].bind("<Return>", "_enter")
         window[field].bind("<Key>", "_key")
-        window[field].bind("<Key-Down>", "_key_down")
+        window[field].bind("<FocusOut>", "_focus-out")
 
     return window
 
