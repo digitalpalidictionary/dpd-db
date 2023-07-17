@@ -7,6 +7,7 @@ __pycache__/
 *.log
 *.sqlite3
 *~lock.*
+config.ini
 csvs/
 definitions/
 dpd.db-journal
@@ -17,6 +18,7 @@ frequency/output/
 grammar_dict/output/
 gui/icons/
 gui/stash/
+resources/tipitaka-xml
 sandhi.zip
 sandhi/assets/
 sandhi/output_do/
@@ -34,4 +36,3 @@ temp/
 tests/syn_var_exceptions
 tests/word_family_exceptions
 tmp/
-config.ini

@@ -3,9 +3,12 @@ inflections/create_inflections_templates.py
 inflections/generate_inflection_tables.py
 inflections/transliterate_inflections.py
 
+# run the line below to run deconstructor locally
+# with texts in which all words have been added
 sandhi/sandhi_setup.py --local
 # run the line below to include all texts in deconstructor, it takes about 12 hours
 # sandhi/sandhi_setup.py --local --all_texts
+
 sandhi/sandhi_splitter.py
 sandhi/sandhi_postprocess.py
 
