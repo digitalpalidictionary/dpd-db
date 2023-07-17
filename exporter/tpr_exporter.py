@@ -374,69 +374,75 @@ def tpr_updater(tpr_df, i2h_df, sandhi_df):
 def copy_zip_to_tpr_downloads():
     print("upating tpr_downlaods")
 
-    with open(PTH.tpr_download_list_path) as f:
-        download_list = json.load(f)
-
-    day = TODAY.day
-    month = TODAY.month
-    month_str = TODAY.strftime("%B")
-    year = TODAY.year
-
-    if uposatha_today():
-        version = "release"
+    if not PTH.tpr_download_list_path.exists():
+        print("[red]tpr_downloads repo does not exist, download")
+        print("[red]https://github.com/bksubhuti/tpr_downloads")
+        print("[red]to /resources/ folder")
     else:
-        version = "beta"
+        with open(PTH.tpr_download_list_path) as f:
+            download_list = json.load(f)
 
-    file_path = PTH.tpr_sql_file_path
-    file_name = "dpd.sql"
+        day = TODAY.day
+        month = TODAY.month
+        month_str = TODAY.strftime("%B")
+        year = TODAY.year
 
-    def _zip_it_up(file_path, file_name, output_file):
-        with ZipFile(output_file, 'w', ZIP_DEFLATED) as zipfile:
-            zipfile.write(file_path, file_name)
+        if uposatha_today():
+            version = "release"
+        else:
+            version = "beta"
 
-    def _file_size(output_file):
-        filestat = os.stat(output_file)
-        filesize = f"{filestat.st_size/1000/1000:.1f}"
-        return filesize
+        file_path = PTH.tpr_sql_file_path
+        file_name = "dpd.sql"
 
-    if version == "release":
-        print("[green]upating release version")
+        def _zip_it_up(file_path, file_name, output_file):
+            with ZipFile(output_file, 'w', ZIP_DEFLATED) as zipfile:
+                zipfile.write(file_path, file_name)
 
-        output_file = PTH.tpr_release_path
-        _zip_it_up(file_path, file_name, output_file)
-        filesize = _file_size(output_file)
+        def _file_size(output_file):
+            filestat = os.stat(output_file)
+            filesize = f"{filestat.st_size/1000/1000:.1f}"
+            return filesize
 
-        dpd_info = {
-            "name": f"DPD {month_str} {year} release",
-            "release_date": f"{day}.{month}.{year}",
-            "type": "dictionary",
-            "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/download_source_files/dictionaries/dpd.zip",
-            "filename": "dpd.sql",
-            "size": f"{filesize} MB"
-        }
+        if version == "release":
+            print("[green]upating release version")
 
-        download_list[5] = dpd_info
+            output_file = PTH.tpr_release_path
+            _zip_it_up(file_path, file_name, output_file)
+            filesize = _file_size(output_file)
 
-    if version == "beta":
-        print("[green]upating beta version")
+            dpd_info = {
+                "name": f"DPD {month_str} {year} release",
+                "release_date": f"{day}.{month}.{year}",
+                "type": "dictionary",
+                "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/download_source_files/dictionaries/dpd.zip",
+                "filename": "dpd.sql",
+                "size": f"{filesize} MB"
+            }
 
-        output_file = PTH.tpr_beta_path
-        _zip_it_up(file_path, file_name, output_file)
-        filesize = _file_size(output_file)
+            download_list[5] = dpd_info
 
-        dpd_beta_info = {
-            "name": "DPD Beta",
-            "release_date": f"{day}.{month}.{year}",
-            "type": "dictionary",
-            "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/download_source_files/dictionaries/dpd_beta.zip",
-            "filename": "dpd.sql",
-            "size": f"{filesize} MB"
-        }
+        if version == "beta":
+            print("[green]upating beta version")
 
-        download_list[14] = dpd_beta_info
+            output_file = PTH.tpr_beta_path
+            _zip_it_up(file_path, file_name, output_file)
+            filesize = _file_size(output_file)
 
-    with open(PTH.tpr_download_list_path, "w") as f:
-        f.write(json.dumps(download_list, indent=4, ensure_ascii=False))
+            dpd_beta_info = {
+                "name": "DPD Beta",
+                "release_date": f"{day}.{month}.{year}",
+                "type": "dictionary",
+                "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/download_source_files/dictionaries/dpd_beta.zip",
+                "filename": "dpd.sql",
+                "size": f"{filesize} MB"
+            }
+
+            download_list[14] = dpd_beta_info
+
+        with open(PTH.tpr_download_list_path, "w") as f:
+            f.write(json.dumps(download_list, indent=4, ensure_ascii=False))
+    
 
 
 if __name__ == "__main__":
