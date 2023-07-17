@@ -39,11 +39,11 @@ def read_tsv_dot_dict(file_path):
 
 def write_tsv_list(
         file_path: str,
-        headers: List[str],
+        header: List[str],
         data: List[List[str]]) -> None:
     with open(file_path, "w", newline='') as file:
         writer = csv.writer(file, delimiter='\t')
-        writer.writerow(headers)
+        writer.writerow(header)
         for row in data:
             if row[0]:
                 writer.writerow(row)

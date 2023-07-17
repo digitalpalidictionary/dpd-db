@@ -31,14 +31,18 @@ def main():
     print("[bright_yellow]exporting dpd")
     size_dict = {}
 
-    roots_count_dict = make_roots_count_dict(DB_SESSION)
+    roots_count_dict = make_roots_count_dict(
+        DB_SESSION)
     dpd_data_list, size_dict = generate_dpd_html(
         DB_SESSION, PTH, SANDHI_CONTRACTIONS, size_dict)
     root_data_list, size_dict = generate_root_html(
         DB_SESSION, PTH, roots_count_dict, size_dict)
-    variant_spelling_data_list, size_dict = generate_variant_spelling_html(PTH, size_dict)
-    epd_data_list, size_dict = generate_epd_html(DB_SESSION, PTH, size_dict)
-    help_data_list, size_dict = generate_help_html(DB_SESSION, PTH, size_dict)
+    variant_spelling_data_list, size_dict = generate_variant_spelling_html(
+        PTH, size_dict)
+    epd_data_list, size_dict = generate_epd_html(
+        DB_SESSION, PTH, size_dict)
+    help_data_list, size_dict = generate_help_html(
+        DB_SESSION, PTH, size_dict)
     DB_SESSION.close()
 
     combined_data_list: list = (

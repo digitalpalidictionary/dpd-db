@@ -1,6 +1,5 @@
 import csv
 import markdown
-import markdownify
 import html2text
 import subprocess
 
@@ -51,12 +50,12 @@ class Help:
 
 
 def generate_help_html(DB_SESSION, PTH: Path, size_dict) -> list:
-    """genrating html of all help files used in the dictionary"""
+    """generating html of all help files used in the dictionary"""
     print("[green]generating help html")
 
     # 1. abbreviations
     # 2. contextual help
-    # 3. thanks you
+    # 3. thank yous
     # 4. bibliography
 
     with open(PTH.help_css_path) as f:
@@ -185,9 +184,15 @@ def add_bibliographhy(PTH: Path, header: str, help_data_list: list) -> list:
     html += "<div class='help'>"
     html += "<h2>Bibliography</h1>"
 
-    for i in bibliography_dict:
+    # i = current item, n = next item
+    for x in range(len(bibliography_dict)):
+        i = bibliography_dict[x]
+        try:
+            n = bibliography_dict[x+1]
+        except IndexError:
+            pass
+
         if i.category:
-            html += "</ul>"
             html += f"<h3>{i.category}</h3>"
             html += "<ul>"
         if i.surname:
@@ -204,7 +209,10 @@ def add_bibliographhy(PTH: Path, header: str, help_data_list: list) -> list:
             html += f", {i.publisher}"
         if i.site:
             html += f", accessed through <a href='{i.site}'  target='_blank'>{i.site}</a>"
-        html += " "
+        if i.surname:
+            html += "</li>"
+        if n.category:
+            html += "</ul>"
 
     html += "</div></body></html>"
     html = minify(html)
@@ -229,35 +237,57 @@ def add_bibliographhy(PTH: Path, header: str, help_data_list: list) -> list:
 
 def add_thanks(PTH: Path, header: str, help_data_list: list) -> list:
 
-    try:
-        print("adding thanks", end=" ")
+    print("adding thanks", end=" ")
 
-        with open(PTH.thanks_path) as f:
-            md = f.read()
+    file_path = PTH.thanks_tsv_path
+    thanks = read_tsv_dot_dict(file_path)
 
-        html = header
-        html += "<body>"
-        html += "<div class='help'>"
-        html += markdown.markdown(md)
-        html += "</div></body></html>"
+    html = header
+    html += "<body>"
+    html += "<div class='help'>"
 
-        html = minify(html)
+    # i = current item, n = next item
+    for x in range(len(thanks)):
+        i = thanks[x]
+        try:
+            n = thanks[x+1]
+        except IndexError:
+            pass
 
-        synonyms = ["dpd thanks", "thankyou", "thanks", "anumodana"]
+        if i.category:
+            html += f"<h2>{i.category}</h2>"
+            html += f"<p>{i.what}</p>"
+            html += "<ul>"
+        if i. who:
+            html += f"<li><b>{i.who}</b>"
+        if i.where:
+            html += f" {i.where}"
+        if i.what and not i.category:
+            html += f" {i.what}"
+        if i.who:
+            html += "</li>"
+        if n.category:
+            html += "</ul>"
 
-        help_data_list += [{
-            "word": "thanks",
-            "definition_html": html,
-            "definition_plain": "",
-            "synonyms": synonyms
-        }]
+    html += "</div></body></html>"
+    html = minify(html)
 
-        print(f"{bop():>41}")
-        return help_data_list
+    synonyms = ["dpd thanks", "thankyou", "thanks", "anumodana"]
 
-    except FileNotFoundError as e:
-        print(f"[red]thanks file not found. {e}")
-        return []
+    help_data_list += [{
+        "word": "thanks",
+        "definition_html": html,
+        "definition_plain": "",
+        "synonyms": synonyms
+    }]
+
+    # save markdown for website
+    md = html2text.html2text(html)
+    with open(PTH.thanks_md_path, "w") as file:
+        file.write(md)
+
+    print(f"{bop():>41}")
+    return help_data_list
 
 
 def render_abbrev_templ(i) -> str:
