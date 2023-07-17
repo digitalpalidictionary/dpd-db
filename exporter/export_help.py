@@ -1,7 +1,5 @@
 import csv
-import markdown
 import html2text
-import subprocess
 
 from css_html_js_minify import css_minify
 from mako.template import Template
@@ -227,9 +225,11 @@ def add_bibliographhy(PTH: Path, header: str, help_data_list: list) -> list:
     }]
 
     # save markdown for website
-    md = html2text.html2text(html)
-    with open(PTH.bibliography_md_path, "w") as file:
-        file.write(md)
+
+    if PTH.bibliography_md_path.exists():
+        md = html2text.html2text(html)
+        with open(PTH.bibliography_md_path, "w") as file:
+            file.write(md)
 
     print(f"{bop():>35}")
     return help_data_list
@@ -282,9 +282,10 @@ def add_thanks(PTH: Path, header: str, help_data_list: list) -> list:
     }]
 
     # save markdown for website
-    md = html2text.html2text(html)
-    with open(PTH.thanks_md_path, "w") as file:
-        file.write(md)
+    if PTH.thanks_md_path.exists():
+        md = html2text.html2text(html)
+        with open(PTH.thanks_md_path, "w") as file:
+            file.write(md)
 
     print(f"{bop():>41}")
     return help_data_list
