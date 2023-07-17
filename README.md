@@ -10,9 +10,10 @@ There are four parts to the code:
 1. Download this repo
 2. Download https://github.com/VipassanaTech/tipitaka-xml into the `/resources` folder
 3. Install [nodejs](https://nodejs.org/en/download) 
-4. `poetry install`
-5. `poetry run bash bash/initial_setup_run_once.sh`
-6. `poetry run bash bash/build_db.sh`
+4. Install [poetry](https://python-poetry.org/docs/)
+5. `poetry install`
+6. `poetry run bash bash/initial_setup_run_once.sh`
+7. `poetry run bash bash/build_db.sh`
 
 That should create an SQLite database `./dpd.db` which can be accessed by [DB Browser](https://sqlitebrowser.org/),  [DBeaver](https://dbeaver.io/), through [SQLAlechmy](https://www.sqlalchemy.org/) or your preferred method. 
 
