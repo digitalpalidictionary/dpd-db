@@ -1,5 +1,5 @@
 # local
-include = [
+limited_texts = [
     "vin1", "vin2",
     # "vin3", "vin4", "vin5",
 
@@ -42,7 +42,7 @@ include = [
 
 
 # cloud
-include_for_cloud = [
+all_texts = [
     "vin1", "vin2", "vin3", "vin4", "vin5",
 
     "dn1", "dn2", "dn3",

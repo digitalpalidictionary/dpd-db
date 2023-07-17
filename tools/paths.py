@@ -79,6 +79,7 @@ class ProjectPaths():
         "exporter/help/abbreviations.tsv")
     help_tsv_path: Path = Path("exporter/help/help.tsv")
     bibliography_tsv_path: Path = Path("exporter/help/bibliography.tsv")
+    thanks_tsv_path: Path = Path("exporter/help/thanks.tsv")
 
     # /exporter/javascript
     buttons_js_path: Path = Path("exporter/javascript/buttons.js")
@@ -211,6 +212,7 @@ class ProjectPaths():
         "resources/tpr_downloads/download_source_files/dictionaries/dpd_beta.zip")
 
     # /sandhi/assets
+    sandhi_assests_dir: Path = Path("sandhi/assets")
     unmatched_set_path: Path = Path(
         "sandhi/assets/unmatched_set")
     all_inflections_set_path: Path = Path(
@@ -266,7 +268,8 @@ class ProjectPaths():
         "sandhi/sandhi_related/sandhi_exceptions.tsv")
     spelling_mistakes_path: Path = Path(
         "sandhi/sandhi_related/spelling_mistakes.tsv")
-    variant_readings_path: Path = Path("sandhi/sandhi_related/variant_readings.tsv")
+    variant_readings_path: Path = Path(
+        "sandhi/sandhi_related/variant_readings.tsv")
     sandhi_rules_path: Path = Path("sandhi/sandhi_related/sandhi_rules.tsv")
     manual_corrections_path: Path = Path(
         "sandhi/sandhi_related/manual_corrections.tsv")
@@ -307,7 +310,7 @@ class ProjectPaths():
     # .. external
     bibliography_md_path: Path = Path(
         "../digitalpalidictionary-website-source/src/bibliography.md")
-    thanks_path: Path = Path(
+    thanks_md_path: Path = Path(
         "../digitalpalidictionary-website-source/src/thanks.md")
     old_roots_csv_path: Path = Path("../csvs/roots.csv")
     old_dpd_full_path: Path = Path("../csvs/dpd-full.csv")
@@ -330,6 +333,7 @@ class ProjectPaths():
             cls.word_count_dir,
             cls.tbw_output_dir,
             cls.temp_dir,
+            cls.sandhi_assests_dir,
             cls.sandhi_output_dir,
             cls.sandhi_output_do_dir,
             cls.rule_counts_dir,

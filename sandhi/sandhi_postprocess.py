@@ -13,18 +13,19 @@ from db.get_db_session import get_db_session
 from db.models import Sandhi
 from tools.paths import ProjectPaths as PTH
 from tools.tic_toc import tic, toc
+from tools.configger import config_test
 
-ADD_DO = True
+if config_test("deconstructor", "include_cloud", "yes"):
+    ADD_DO = True
+else:
+    ADD_DO = False
 
 
 def main():
     tic()
     print("[bright_yellow]post-processing sandhi-splitter")
 
-    if ADD_DO is True:
-        print("[green]add digital ocean [orange]true")
-    else:
-        print("[green]add digital ocean [orange]false")
+    print("[green]add digital ocean {ADD_DO}")
 
     global db_session
     db_session = get_db_session("dpd.db")

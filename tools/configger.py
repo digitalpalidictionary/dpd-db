@@ -12,6 +12,8 @@ def config_initialize():
     config.set("regenerate", "inflections", "yes")
     config.set("regenerate", "transliterations", "yes")
     config.set("regenerate", "freq_maps", "yes")
+    config.add_section("deconstructor")
+    config.set("deconstructor", "include_cloud", "no")
     config_write()
 
 
@@ -28,7 +30,7 @@ def config_update(section, field, value):
 def config_test(section, field, value):
     config.read("config.ini")
     if (
-        section in config and 
+        section in config and
         config.has_option(section, field)
     ):
         if config.get(section, field) == value:
