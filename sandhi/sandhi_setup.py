@@ -18,11 +18,11 @@ from tools.cst_sc_text_sets import make_cst_text_set
 from tools.cst_sc_text_sets import make_sc_text_set
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths as PTH
-from tools.configger import config_test
-# prepare all the necessary parts for local and cloud
 
 
 def main():
+    """Prepare all the necessary parts for deconstructor locally
+    or in the cloud."""
     tic()
     print(
         "[bright_yellow]setting up for sandhi splitting locally or in the cloud")
@@ -132,7 +132,7 @@ def main():
 
     make_matches_dict()
 
-    if config_test("deconstructor", "run_in_cloud", "yes"):
+    if not args.local:
         zip_for_cloud()
         move_zip()
 

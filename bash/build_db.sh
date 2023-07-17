@@ -15,7 +15,6 @@ sandhi/sandhi_setup.py --local
 # sandhi/sandhi_setup.py --local --all_texts
 sandhi/sandhi_splitter.py
 sandhi/sandhi_postprocess.py
-sandhi/dpd_splitter.py
 
 families/root_family.py
 families/word_family.py
