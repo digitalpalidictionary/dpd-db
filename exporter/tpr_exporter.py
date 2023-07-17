@@ -318,6 +318,7 @@ def copy_to_sqlite_db(tpr_data_list, sandhi_data_list):
     except Exception as e:
         print("[red] an error occurred copying to db")
         print(f"[red]{e}")
+        return tpr_df, i2h_df, sandhi_df
 
 
 def tpr_updater(tpr_df, i2h_df, sandhi_df):
