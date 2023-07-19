@@ -81,16 +81,14 @@ class CompletionCombo(PySimpleGUI.Combo):
     """
     def __init__(self, values: List[str], *args, **kwargs) -> None:
         self.__values = values
-        size = kwargs.get('size')
-        if not size:
+
+        self.__size = kwargs.get('size')
+        if not self.__size:
             self.__size = count_combo_size(values)
-        else:
-            self.__size = size
         kwargs['size'] = self.__size
-        initial_tooltip = kwargs.get('tooltip')
-        # if not initial_tooltip:
-        self.__initial_tooltip = '\n'.join(values)
-        kwargs['tooltip'] = self.__initial_tooltip
+
+        self.__initial_tooltip = kwargs.get('tooltip')
+
         super().__init__(values, *args, **kwargs)
 
     def hide_tooltip(self) -> None:
@@ -120,9 +118,9 @@ class CompletionCombo(PySimpleGUI.Combo):
                 size=self.__size)
             if new_field_values:
                 self.set_tooltip('\n'.join(new_field_values))
-                tooltip = self.TooltipObject
-                tooltip.y += self._calc_tooltip_offset()[1]
-                tooltip.showtip()
+                tooltip_obj = self.TooltipObject
+                tooltip_obj.y += self._calc_tooltip_offset()[1]
+                tooltip_obj.showtip()
             else:
                 self.hide_tooltip()
         else:
