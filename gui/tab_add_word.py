@@ -1,4 +1,4 @@
-# from functions_db import get_next_ids
+from completion_combo import CompletionCombo
 from functions_db import get_verb_values
 from functions_db import get_case_values
 from functions_db import get_root_key_values
@@ -147,7 +147,7 @@ def make_tab_add_word(sg):
         ],
         [
             sg.Text("pos", size=(15, 1)),
-            sg.Combo(
+            CompletionCombo(
                 POS, key="pos", size=(7, 1), enable_events=True,
                 text_color=None, background_color=None,
                 tooltip=pos_tooltip),
@@ -175,14 +175,14 @@ def make_tab_add_word(sg):
         ],
         [
             sg.Text("neg", size=(15, 1)),
-            sg.Combo(
+            CompletionCombo(
                     NEG_VALUES, key="neg", size=(7, 1), tooltip=neg_tooltip),
             sg.Text("", key="neg_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("verb", size=(15, 1)),
             sg.pin(
-                sg.Combo(
+                CompletionCombo(
                     VERB_VALUES, key="verb", size=(13, 1),
                     tooltip=verb_tooltip)),
             sg.Text("", key="verb_error", size=(50, 1), text_color="red")
@@ -190,7 +190,7 @@ def make_tab_add_word(sg):
         [
             sg.Text("trans", size=(15, 1)),
             sg.pin(
-                sg.Combo(
+                CompletionCombo(
                     TRANS_VALUES, key="trans", size=(7, 1),
                     tooltip=trans_tooltip)),
             sg.Text(
@@ -198,7 +198,7 @@ def make_tab_add_word(sg):
         ],
         [
             sg.Text("case", size=(15, 1)),
-            sg.Combo(
+            CompletionCombo(
                 CASE_VALUES, key="plus_case", size=(20, 1),
                 tooltip=plus_case_tooltip),
             sg.Text(
@@ -244,7 +244,7 @@ def make_tab_add_word(sg):
         [
             sg.Text("root_key", size=(15, 1)),
             sg.pin(
-                sg.Combo(
+                CompletionCombo(
                     ROOT_VALUES, key="root_key",
                     size=(10, 1), tooltip=root_key_tooltip,
                     auto_size_text=False)),
@@ -317,7 +317,7 @@ def make_tab_add_word(sg):
         [
             sg.Text("family_word", size=(15, 1)),
             sg.pin(
-                sg.Combo(
+                CompletionCombo(
                     FAMILY_WORD_VALUES,
                     key="family_word",
                     size=(49, 1),
@@ -366,7 +366,7 @@ def make_tab_add_word(sg):
         [
             sg.Text("derivative", size=(15, 1)),
             sg.pin(
-                sg.Combo(
+                CompletionCombo(
                     values=DERIVATIVE_VALUES, key="derivative", size=(10, 1),
                     enable_per_char_events=True,
                     tooltip=derivative_tooltip)),
@@ -398,7 +398,7 @@ def make_tab_add_word(sg):
         [
             sg.Text("compound_type", size=(15, 1)),
             sg.pin(
-                 sg.Combo(
+                CompletionCombo(
                     COMPOUND_TYPE_VALUES, key="compound_type",
                     size=(49, 1), tooltip=compound_type_tooltip)),
             sg.Text(
@@ -593,7 +593,7 @@ def make_tab_add_word(sg):
         ],
         [
             sg.Text("family set*", size=(15, 1)),
-            sg.Combo(
+            CompletionCombo(
                 FAMILY_SET_VALUES, key="family_set",
                 size=(49, 1), tooltip=family_set_tooltip),
             sg.Text("", key="family_set_error", size=(50, 1), text_color="red")
@@ -603,7 +603,7 @@ def make_tab_add_word(sg):
             sg.Input(
                 key="stem", size=(30, 1), justification="r",
                 enable_events=True, tooltip=stem_tooltip),
-            sg.Combo(
+            CompletionCombo(
                 PATTERN_VALUES, key="pattern",
                 size=(12, 1), tooltip=pattern_tooltip),
             sg.Input(

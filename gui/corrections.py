@@ -3,6 +3,8 @@ import csv
 import PySimpleGUI as sg
 from sqlalchemy import inspect
 
+from rich import print
+
 from completion_combo import CompletionCombo
 from db.get_db_session import get_db_session
 from db.models import PaliWord
@@ -10,6 +12,7 @@ from db.models import PaliWord
 from tools.meaning_construction import make_meaning
 from tools.meaning_construction import summarize_constr
 from tools.paths import ProjectPaths as PTH
+from tools.tsv_read_write import read_tsv_dot_dict, write_tsv_dot_dict
 
 
 ENABLE_LIST = \
@@ -39,7 +42,8 @@ def main():
 
     while True:
         event, values = window.read()
-        print(event, values)
+        print(event)
+        print(values)
 
         if event == sg.WIN_CLOSED:
             break
@@ -116,6 +120,41 @@ def main():
         elif event.endswith("_focus-out") and event.startswith("field"):
             combo = window[event.rstrip("_focus-out")]
             combo.hide_tooltip()
+
+        elif (
+            event == "tabgroup" and
+            values["tabgroup"] == "add_corrections_tab"
+        ):
+            corrections_list = load_corrections_tsv()
+            index = find_next_correction(
+                db_session, corrections_list, window, values)
+            values["add_approved"] = ""
+
+        elif event == "approve_button":
+            write_to_db(db_session, values)
+            values["add_approved"] = "yes"
+            update_corrections_tsv(PTH, values, corrections_list, index)
+            clear_all_add_tab(values, window)
+            index = find_next_correction(
+                db_session, corrections_list, window, values)
+
+        elif event == "reject_button":
+            if values["add_feedback"]:
+                values["add_approved"] = "no"
+                update_corrections_tsv(PTH, values, corrections_list, index)
+                clear_all_add_tab(values, window)
+                index = find_next_correction(
+                    db_session, corrections_list, window, values)
+            else:
+                sg.popup(
+                    "Warning!", "Can't reject without feedback!",
+                    title="No Feedback!")
+
+        elif event == "pass_button":
+            values["add_approved"] = ""
+            clear_all_add_tab(values, window)
+            index = find_next_correction(
+                db_session, corrections_list, window, values)
 
     window.close()
 
@@ -224,9 +263,97 @@ def make_window():
 
     add_corrections_tab = [
         [
+            sg.Text("id", size=(15, 1)),
+            sg.Input("", key="add_id", size=(20, 1)),
+            sg.Button(
+                "Previous", key="previous", font=(None, 13)),
+            sg.Button(
+                "Next", key="next", font=(None, 13)),
+        ],
+        [
+            sg.Text("summary", size=(15, 1)),
+            sg.Multiline(
+                "", key="add_summary", size=(101, 1), disabled=True,
+                pad=((0, 100), (0, 0)))
+        ],
+        [
+            sg.Text("field1", size=(15, 1)),
+            sg.Input(key="add_field1")
+        ],
+        [
+            sg.Text("value1", size=(15, 1)),
+            sg.Multiline(
+                "", key="add_value1_old", size=(50, 2), disabled=True),
+            sg.Multiline(
+                "", key="add_value1_new", size=(50, 2))
+        ],
+        [
+            sg.Text("comment1", size=(15, 1)),
+            sg.Input(
+                "", key="add_comment1", size=(103, 1))
+        ],
+        [
             sg.Text("", size=(15, 1)),
-            sg.Button("", key="approved", size=(103, 1)),
-        ]
+        ],
+        [
+            sg.Text("field2", size=(15, 1)),
+            sg.Input(key="add_field2")
+        ],
+        [
+            sg.Text("value2", size=(15, 1)),
+            sg.Multiline(
+                "", key="add_value2_old", size=(50, 2), disabled=True),
+            sg.Multiline(
+                "", key="add_value2_new", size=(50, 2))
+        ],
+        [
+            sg.Text("comment2", size=(15, 1)),
+            sg.Input(
+                "", key="add_comment2", size=(103, 1)),
+        ],
+        [
+            sg.Text("", size=(15, 1)),
+        ],
+        [
+            sg.Text("field3", size=(15, 1)),
+            sg.Input(key="add_field3"),
+            sg.Text("", size=(22, 1)),
+        ],
+        [
+            sg.Text("value3", size=(15, 1)),
+            sg.Multiline(
+                "", key="add_value3_old", size=(50, 4), disabled=True),
+            sg.Multiline(
+                "", key="add_value3_new", size=(50, 4))
+        ],
+        [
+            sg.Text("comment3", size=(15, 1)),
+            sg.Input(
+                "", key="add_comment3", size=(103, 1)),
+        ],
+        [
+            sg.Text("", size=(15, 1)),
+        ],
+        [
+            sg.Text("feedback", size=(15, 1)),
+            sg.Input(
+                "", key="add_feedback", size=(103, 1)),
+        ],
+        [
+            sg.Text("", size=(15, 1)),
+            sg.Button(
+                "Reject", key="reject_button", size=(101, 1))
+        ],
+        [
+            sg.Text("", size=(15, 1)),
+            sg.Button(
+                "Approve", key="approve_button", size=(101, 1))
+        ],
+        [
+            sg.Text("", size=(15, 1)),
+            sg.Button(
+                "Pass", key="pass_button", size=(101, 1))
+        ],
     ]
 
     tab_group = sg.TabGroup(
@@ -235,7 +362,7 @@ def make_window():
                 "Make Corrections", make_corrections_tab,
                 key="corrections_tab"),
             sg.Tab(
-                "Fix Corrections", add_corrections_tab,
+                "Add Corrections to DB", add_corrections_tab,
                 key="add_corrections_tab"),
         ]],
         key="tabgroup",
@@ -277,7 +404,8 @@ def save_corections_tsv(values, pth):
         "id",
         "field1", "value1_new", "comment1",
         "field2", "value2_new", "comment2",
-        "field3", "value3_new", "comment3"
+        "field3", "value3_new", "comment3",
+        "feedback", "approved"
     ]
 
     if not pth.corrections_tsv_path.exists():
@@ -287,7 +415,7 @@ def save_corections_tsv(values, pth):
 
     with open(pth.corrections_tsv_path, "a") as file:
         writer = csv.writer(file, delimiter="\t")
-        new_row = [str(values[heading]) for heading in headings]
+        new_row = [str(values.get(heading, "")) for heading in headings]
         writer.writerow(new_row)
 
 
@@ -298,6 +426,104 @@ def clear_all(values, window):
         if "tab" not in value:
             window[value].update("")
             window["id_info"].update("")
+
+
+def clear_all_add_tab(values, window):
+    for value in values:
+        if (
+            value.startswith("add_") and
+            "_tab" not in value and
+            "_approved" not in value
+        ):
+            window[value].update("")
+
+
+def load_corrections_tsv():
+    file_path = PTH.corrections_tsv_path
+    corrections_list = read_tsv_dot_dict(file_path)
+    return corrections_list
+
+
+def find_next_correction(db_session, corrections_list, window, values):
+    for index, c in enumerate(corrections_list):
+        if (
+            (c.field1 and not c.approved) or
+            (c.field2 and not c.approved) or
+            (c.field3 and not c.approved)
+        ):
+            print(c)
+            load_next_correction(db_session, c, window, values)
+            return index
+
+
+def load_next_correction(db_session, c, window, values):
+    db = db_session.query(PaliWord).filter(
+        c.id == PaliWord.id).first()
+    window["add_id"].update(c.id)
+    window["add_summary"].update(make_summary(db))
+    # field1
+    if c.field1:
+        window["add_field1"].update(c.field1)
+        window["add_value1_old"].update(getattr(db, c.field1))
+        window["add_value1_new"].update(c.value1)
+        window["add_comment1"].update(c.comment1)
+    # field2
+    if c.field2:
+        window["add_field2"].update(c.field2)
+        window["add_value2_old"].update(getattr(db, c.field2))
+        window["add_value2_new"].update(c.value2)
+        window["add_comment2"].update(c.comment2)
+    # field3
+    if c.field3:
+        window["add_field3"].update(c.field3)
+        window["add_value3_old"].update(getattr(db, c.field3))
+        window["add_value3_new"].update(c.value3)
+        window["add_comment3"].update(c.comment3)
+
+
+def write_to_db(db_session, values):
+    db = db_session.query(PaliWord).filter(
+        values["add_id"] == PaliWord.id).first()
+
+    field1 = values["add_field1"]
+    field2 = values["add_field2"]
+    field3 = values["add_field3"]
+    value1 = values["add_value1_new"]
+    value2 = values["add_value2_new"]
+    value3 = values["add_value3_new"]
+
+    if field1:
+        setattr(db, field1, value1)
+        print(f'{db.id} {db.pali_1} [yellow]{field1} \
+[white]updated to [yellow]{value1}')
+    if field2:
+        setattr(db, field2, value2)
+        print(f'{db.id} {db.pali_1} [yellow]{field2} \
+[white]updated to [yellow]{value2}')
+    if field3:
+        setattr(db, field3, value3)
+        print(f'{db.id} {db.pali_1} [yellow]{field3} \
+[white]updated to [yellow]{value3}')
+    # db_session.commit()
+
+
+def update_corrections_tsv(PTH, values, corrections_list, index):
+    fields = [
+        "add_id",
+        "add_field1", "add_value1_new", "add_comment1",
+        "add_field2", "add_value2_new", "add_comment2",
+        "add_field3", "add_value3_new", "add_comment3",
+        "add_feedback", "add_approved"
+    ]
+
+    c = corrections_list[index]
+    for field in fields:
+        new_field = field.replace("add_", "").replace("_new", "")
+        setattr(c, new_field, values[field])
+        print(new_field, getattr(c, new_field))
+
+    file_path = PTH.corrections_tsv_path
+    write_tsv_dot_dict(file_path, corrections_list)
 
 
 if __name__ == "__main__":

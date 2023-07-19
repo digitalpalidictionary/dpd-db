@@ -112,7 +112,7 @@ def main():
             window['example_2'].get_next_focus().set_focus()
 
         # add book
-        if event == "book_to_add_enter" or event == "books_to_add_button":
+        elif event == "book_to_add_enter" or event == "books_to_add_button":
             words_to_add_list = make_words_to_add_list(
                 window, values["book_to_add"])
 
@@ -131,7 +131,7 @@ def main():
 
         # open word in goldendict
 
-        if event == "word_to_add":
+        elif event == "word_to_add":
             if values["word_to_add"] != []:
                 open_in_goldendict(values["word_to_add"][0])
                 pyperclip.copy(values["word_to_add"][0])
@@ -139,7 +139,7 @@ def main():
 
         # sandhi ok
 
-        if event == "sandhi_ok":
+        elif event == "sandhi_ok":
             print(values)
             if values["word_to_add"] == []:
                 window["messages"].update("nothing selected", text_color="red")
@@ -162,7 +162,7 @@ def main():
 
         # add word
 
-        if event == "add_word":
+        elif event == "add_word":
             if values["word_to_add"] == []:
                 window["messages"].update("nothing selected", text_color="red")
             else:
@@ -178,7 +178,7 @@ def main():
 
         # fix sandhi
 
-        if event == "fix_sandhi":
+        elif event == "fix_sandhi":
             if values["word_to_add"] == []:
                 window["messages"].update("nothing selected", text_color="red")
             else:
@@ -191,23 +191,23 @@ def main():
                 window["spelling_mistake"].update(values["word_to_add"][0])
                 window["variant_reading"].update(values["word_to_add"][0])
 
-        if event == "update_inflection_templates":
+        elif event == "update_inflection_templates":
             open_inflection_tables()
 
-        if event == "remove_word":
+        elif event == "remove_word":
             words_to_add_list = remove_word_to_add(
                 values, window, words_to_add_list)
             window["words_to_add_length"].update(len(words_to_add_list))
 
         # add word events
 
-        if event == "pali_2":
+        elif event == "pali_2":
             if flags.pali_2:
                 window["pali_2"].update(f"{values['pali_1']}")
                 flags.pali_2 = False
 
         # test pos
-        if event == "grammar":
+        elif event == "grammar":
             if values["pos"] not in POS:
                 window["pos_error"].update(
                     f"'{values['pos']}' not a valid pos", text_color="red")
@@ -239,12 +239,12 @@ def main():
                     flags.show_fields = True
 
         # movement in this field triggers a spellcheck
-        if event == "add_spelling":
+        elif event == "add_spelling":
             field = "meaning_1"
             error_field = "meaning_1_error"
             check_spelling(field, error_field, values, window)
 
-        if event == "check_spelling_button":
+        elif event == "check_spelling_button":
             field = "meaning_1"
             error_field = "meaning_1_error"
             check_spelling(field, error_field, values, window)
@@ -257,22 +257,24 @@ def main():
             error_field = "meaning_2_error"
             check_spelling(field, error_field, values, window)
 
-        if event == "add_spelling_button":
+        elif event == "add_spelling_button":
             word = values["add_spelling"]
             add_spelling(word)
             window["messages"].update(
                 f"{word} added to dictionary", text_color="white")
 
-        if event == "edit_spelling_button":
+        elif event == "edit_spelling_button":
             edit_spelling()
 
-        if event == "family_root":
+        elif event == "family_root":
             root_info = get_root_info(values["root_key"])
             window["root_info"].update(root_info)
 
-        if (event == "family_root" and
-            values["family_root"] == ""
-                and values["root_key"] != ""):
+        elif (
+                event == "family_root" and
+                values["family_root"] == ""
+                and values["root_key"] != ""
+        ):
             if flags.family_root:
                 root_key = values["root_key"]
                 try:
@@ -283,7 +285,7 @@ def main():
                     window["messages"].update(
                         f"not a root. {e}", text_color="red")
 
-        if event == "get_family_root":
+        elif event == "get_family_root":
             if values["root_key"] != "":
                 root_key = values["root_key"]
                 FAMILY_ROOT_VALUES = get_family_root_values(root_key)
@@ -293,14 +295,14 @@ def main():
                 window["messages"].update(
                     "no root_key selected", text_color="red")
 
-        if event == "root_sign" and values["root_sign"] == "":
+        elif event == "root_sign" and values["root_sign"] == "":
             if flags.root_sign:
                 root_key = values["root_key"]
                 ROOT_SIGN_VALUES = get_root_sign_values(root_key)
                 window["root_sign"].update(values=ROOT_SIGN_VALUES)
                 flags.root_sign = False
 
-        if event == "get_root_sign":
+        elif event == "get_root_sign":
             if values["root_key"] != "":
                 root_key = values["root_key"]
                 ROOT_SIGN_VALUES = get_root_sign_values(root_key)
@@ -310,14 +312,14 @@ def main():
                 window["messages"].update(
                     "no root_key selected", text_color="red")
 
-        if event == "root_base" and values["root_base"] == "":
+        elif event == "root_base" and values["root_base"] == "":
             if flags.root_base:
                 root_key = values["root_key"]
                 ROOT_BASE_VALUES = get_root_base_values(root_key)
                 window["root_base"].update(values=ROOT_BASE_VALUES)
                 flags.root_base = False
 
-        if event == "get_root_base":
+        elif event == "get_root_base":
             if values["root_key"] != "":
                 root_key = values["root_key"]
                 ROOT_BASE_VALUES = get_root_base_values(root_key)
@@ -327,7 +329,7 @@ def main():
                 window["messages"].update(
                     "no root_key selected", text_color="red")
 
-        if event == "family_compound":
+        elif event == "family_compound":
             if (
                 flags.family_compound and
                 values["family_compound"] == "" and
@@ -338,7 +340,7 @@ def main():
             else:
                 test_family_compound(values, window)
 
-        if event == "construction":
+        elif event == "construction":
             if flags.construction and values["construction"] == "":
                 # build a construction from root family and base
                 if values["root_key"] != "":
@@ -364,20 +366,20 @@ def main():
             if values["root_key"] == "":
                 test_construction(values, window, pali_clean_list)
 
-        if (event == "add_construction_enter" or
+        elif (event == "add_construction_enter" or
                 event == "add_construction_button"):
             words_to_add_list = add_to_word_to_add(
                 values, window, words_to_add_list)
             window["word_to_add"].update(words_to_add_list)
             window["words_to_add_length"].update(len(words_to_add_list))
 
-        if event == "derivative":
+        elif event == "derivative":
             print("hello")
             "ptp" in values["grammar"]
             if "ptp" in values["grammar"]:
                 window["derivative"].update("kicca")
 
-        if event == "suffix":
+        elif event == "suffix":
             if flags.suffix and values["pos"] in DECLENSIONS:
                 if "comp" not in values["grammar"]:
                     suffix = values["construction"]
@@ -386,7 +388,7 @@ def main():
                     window["suffix"].update(suffix)
                 flags.suffix = False
 
-        if event == "compound_construction":
+        elif event == "compound_construction":
             if (
                 values["compound_type"] != "" and
                 flags.compound_construction and
@@ -401,7 +403,7 @@ def main():
                         values["construction"])
                     flags.compound_construction = False
 
-        if event == "bold_cc_button" or event == "bold_cc_enter":
+        elif event == "bold_cc_button" or event == "bold_cc_enter":
             cc_bold = re.sub(
                 values["bold_cc"],
                 f"<b>{values['bold_cc']}</b>",
@@ -409,7 +411,7 @@ def main():
             window["compound_construction"].update(cc_bold)
             window["bold_cc"].update("")
 
-        if (
+        elif (
             (
                 event == "example_1"
                 and flags.example_1 and
@@ -459,7 +461,7 @@ def main():
 
             flags.example_1 = False
 
-        if event == "bold_1_button" or event == "bold_1_enter":
+        elif event == "bold_1_button" or event == "bold_1_enter":
             # bold
             example_1_bold = re.sub(
                 values["bold_1"],
@@ -468,27 +470,27 @@ def main():
             window["example_1"].update(example_1_bold)
             window["bold_1"].update("")
 
-        if event == "example_1_lower":
+        elif event == "example_1_lower":
             values["example_1"] = values["example_1"].lower()
             window["example_1"].update(values["example_1"])
 
-        if event == "example_1_clean":
+        elif event == "example_1_clean":
             replace_sandhi(
                 values["example_1"], "example_1", sandhi_dict, window)
             replace_sandhi(
                 values["bold_1"], "bold_1", sandhi_dict, window)
 
-        if event == "example_2_clean":
+        elif event == "example_2_clean":
             replace_sandhi(
                 values["example_2"], "example_2", sandhi_dict, window)
             replace_sandhi(
                 values["bold_2"], "bold_2", sandhi_dict, window)
 
-        if event == "commentary_clean":
+        elif event == "commentary_clean":
             replace_sandhi(
                 values["commentary"], "commentary", sandhi_dict, window)
 
-        if event == "another_eg_2":
+        elif event == "another_eg_2":
             if values["book_to_add"] == "":
                 book_to_add = sg.popup_get_text(
                     "Which book?", title=None,
@@ -517,7 +519,7 @@ def main():
 
             flags.example_2 = False
 
-        if event == "bold_2_button" or event == "bold_2_enter":
+        elif event == "bold_2_button" or event == "bold_2_enter":
             # bold
             example_2_bold = re.sub(
                 values["bold_2"],
@@ -526,21 +528,21 @@ def main():
             window["example_2"].update(example_2_bold)
             window["bold_2"].update("")
 
-        if event == "example_2_lower":
+        elif event == "example_2_lower":
             values["example_2"] = values["example_2"].lower()
             window["example_2"].update(values["example_2"])
 
-        if event == "synonym":
+        elif event == "synonym":
             if flags.synoyms:
                 synoyms = get_synonyms(values["pos"], values["meaning_1"])
                 window["synonym"].update(synoyms)
                 flags.synoyms = False
 
-        if event == "search_for":
+        elif event == "search_for":
             if values["search_for"] == "":
                 window["search_for"].update(values["pali_1"])
 
-        if event == "search_for_enter" or event == "defintions_search_button":
+        elif event == "search_for_enter" or event == "defintions_search_button":
             try:
                 commentary_defintions = find_commentary_defintions(
                     sg, values, definitions_df)
@@ -555,41 +557,41 @@ def main():
                 commentary = commentary.rstrip("\n")
                 window["commentary"].update(commentary)
 
-        if event == "sanskrit":
+        elif event == "sanskrit":
             if flags.sanskrit and re.findall(r"\bcomp\b", values["grammar"]) != []:
                 sanskrit = get_sanskrit(values["construction"])
                 window["sanskrit"].update(sanskrit)
                 flags.sanskrit = False
 
-        if event == "stem":
+        elif event == "stem":
             if flags.stem:
                 add_stem_pattern(values, window)
                 flags.stem = False
 
         # add word buttons
 
-        if event == "Copy" or event == "word_to_copy_enter":
+        elif event == "Copy" or event == "word_to_copy_enter":
             if values["word_to_copy"] != "":
                 copy_word_from_db(values, window)
                 window["word_to_copy"].update("")
             else:
                 window["messages"].update("No word to copy!", text_color="red")
 
-        if event == "edit_button":
+        elif event == "edit_button":
             if values["word_to_copy"] != "":
                 edit_word_in_db(values, window)
                 window["word_to_copy"].update("")
             else:
                 window["messages"].update("No word to edit!", text_color="red")
 
-        if event == "Clear":
+        elif event == "Clear":
             clear_errors(window)
             clear_values(values, window)
             get_next_ids(window)
             reset_flags(flags)
             window["messages"].update("")
 
-        if event == "test_internal":
+        elif event == "test_internal":
 
             clear_errors(window)
             flags = individual_internal_tests(sg, window, values, flags)
@@ -607,13 +609,13 @@ def main():
             error_field = "meaning_2_error"
             check_spelling(field, error_field, values, window)
 
-        if event == "open_tests":
+        elif event == "open_tests":
             open_internal_tests()
 
-        if event == "update_sandhi":
+        elif event == "update_sandhi":
             sandhi_dict = make_sandhi_contraction_dict(db_session)
 
-        if event == "add_word_to_db":
+        elif event == "add_word_to_db":
             if flags.tested is False:
                 window["messages"].update("test first!", text_color="red")
             else:
@@ -628,7 +630,7 @@ def main():
                         remove_word_to_add(values, window, words_to_add_list)
                         window["words_to_add_length"].update(len(words_to_add_list))
 
-        if event == "update_word":
+        elif event == "update_word":
             if flags.tested is False:
                 window["messages"].update("test first!", text_color="red")
             else:
@@ -644,13 +646,13 @@ def main():
                         window["words_to_add_length"].update(
                             len(words_to_add_list))
 
-        if event == "Debug":
+        elif event == "Debug":
             print(f"{values}")
 
-        if event == "save_state":
+        elif event == "save_state":
             save_gui_state(values, words_to_add_list)
 
-        if event == "delete_button":
+        elif event == "delete_button":
             row_id = values['id']
             pali_1 = values['pali_1']
             yes_no = sg.popup_yes_no(
@@ -667,11 +669,11 @@ def main():
                     window["messages"].update(
                         f"{row_id} '{pali_1}' deleted", text_color="white")
 
-        if event == sg.WIN_CLOSED:
+        elif event == sg.WIN_CLOSED:
             # save_gui_state(values, words_to_add_list)
             break
 
-        if event == "Close":
+        elif event == "Close":
             window["messages"].update(
                 "backing up db to csvs", text_color="white")
             db_to_tsv()
@@ -681,42 +683,42 @@ def main():
         # fix sandhi events
 
         # sandhi rules
-        if event == "add_sandhi_rule":
+        elif event == "add_sandhi_rule":
             add_sandhi_rule(window, values)
 
-        if event == "open_sandhi_rules":
+        elif event == "open_sandhi_rules":
             open_sandhi_rules()
 
         # sandhi corrections
-        if event == "add_sandhi_correction":
+        elif event == "add_sandhi_correction":
             add_sandhi_correction(window, values)
 
-        if event == "open_sandhi_corrections":
+        elif event == "open_sandhi_corrections":
             open_sandhi_corrections()
 
         # spelling mistakes
-        if event == "add_spelling_mistake":
+        elif event == "add_spelling_mistake":
             add_spelling_mistake(window, values)
 
-        if event == "open_spelling_mistakes":
+        elif event == "open_spelling_mistakes":
             open_spelling_mistakes()
 
         # variant readings
-        if event == "add_variant_reading":
+        elif event == "add_variant_reading":
             add_variant_reading(window, values)
 
-        if event == "open_variant_readings":
+        elif event == "open_variant_readings":
             open_variant_readings()
 
-        if event == "open_sandhi_ok":
+        elif event == "open_sandhi_ok":
             open_sandhi_ok()
 
-        if event == "open_sandhi_exceptions":
+        elif event == "open_sandhi_exceptions":
             open_sandhi_exceptions()
 
         # hide fields logic
 
-        if event == "show_fields_all":
+        elif event == "show_fields_all":
             for value in values:
                 window[value].update(visible=True)
                 window["get_family_root"].update(visible=True)
@@ -728,7 +730,7 @@ def main():
                 window["example_2_lower"].update(visible=True)
                 flags.show_fields = False
 
-        if event == "show_fields_root":
+        elif event == "show_fields_root":
             hide_list = [
                 "meaning_2", "family_word", "family_compound", "compound_type",
                 "compound_construction", "bold_cc", "bold_cc_button",
@@ -746,7 +748,7 @@ def main():
             window["get_root_sign"].update(visible=True)
             flags.show_fields = False
 
-        if event == "show_fields_compound":
+        elif event == "show_fields_compound":
             hide_list = [
                 "verb", "trans", "meaning_2", "root_key", "family_root",
                 "get_family_root", "root_sign",  "get_root_sign", "root_base",
@@ -763,7 +765,7 @@ def main():
                 window[value].update(visible=False)
             flags.show_fields = False
 
-        if event == "show_fields_word":
+        elif event == "show_fields_word":
             hide_list = [
                 "verb", "trans", "meaning_2", "root_key",
                 "family_root", "get_family_root",
@@ -782,13 +784,13 @@ def main():
                 window[value].update(visible=False)
             flags.show_fields = False
 
-        if event == "stash":
+        elif event == "stash":
             with open(PTH.stash_path, "wb") as f:
                 pickle.dump(values, f)
             window["messages"].update(
                 f"{values['pali_1']} stashed", text_color="white")
 
-        if event == "unstash":
+        elif event == "unstash":
             with open(PTH.stash_path, "rb") as f:
                 unstash = pickle.load(f)
                 for key, value in unstash.items():
@@ -797,17 +799,31 @@ def main():
             window["messages"].update(
                 "unstashed", text_color="white")
 
-        if event == "summary":
+        elif event == "summary":
             display_summary(values, window, sg)
 
-        if event == "test_db_internal":
+        elif event == "test_db_internal":
             db_internal_tests(sg, window, flags)
 
-        if event == "test_next":
+        elif event == "test_next":
             flags.test_next = True
 
-        if event == "test_edit":
+        elif event == "test_edit":
             open_internal_tests()
+
+        # combo events
+
+        elif event.endswith("-key"):
+            combo = window[event.replace("-key", "")]
+            combo.filter()
+
+        elif event.endswith("enter"):
+            combo = window[event.replace("-enter", "")]
+            combo.complete()
+
+        elif event.endswith("-focus_out"):
+            combo = window[event.replace("-focus_out", "")]
+            combo.hide_tooltip()
 
     window.close()
 

@@ -66,4 +66,61 @@ def window_layout():
     window['example_1'].bind('<Tab>', '_tab', propagate=False)
     window['example_2'].bind('<Tab>', '_tab', propagate=False)
 
+    # completition combo bindings
+    window["pos"].bind("<Return>", "-enter")
+    window["pos"].bind("<Key>", "-key")
+    window["pos"].bind("<FocusOut>", "-focus_out")
+
+    window["neg"].bind("<Return>", "-enter")
+    window["neg"].bind("<Key>", "-key")
+    window["neg"].bind("<FocusOut>", "-focus_out")
+
+    window["verb"].bind("<Return>", "-enter")
+    window["verb"].bind("<Key>", "-key")
+    window["verb"].bind("<FocusOut>", "-focus_out")
+
+    window["trans"].bind("<Return>", "-enter")
+    window["trans"].bind("<Key>", "-key")
+    window["trans"].bind("<FocusOut>", "-focus_out")
+
+    window["plus_case"].bind("<Return>", "-enter")
+    window["plus_case"].bind("<Key>", "-key")
+    window["plus_case"].bind("<FocusOut>", "-focus_out")
+
+    window["root_key"].bind("<Return>", "-enter")
+    window["root_key"].bind("<Key>", "-key")
+    window["root_key"].bind("<FocusOut>", "-focus_out")
+
+    # window["family_root"].bind("<Return>", "-enter")
+    # window["family_root"].bind("<Key>", "-key")
+    # window["family_root"].bind("<FocusOut>", "-focus_out")
+
+    # window["root_sign"].bind("<Return>", "-enter")
+    # window["root_sign"].bind("<Key>", "-key")
+    # window["root_sign"].bind("<FocusOut>", "-focus_out")
+
+    # window["root_base"].bind("<Return>", "-enter")
+    # window["root_base"].bind("<Key>", "-key")
+    # window["root_base"].bind("<FocusOut>", "-focus_out")
+
+    window["family_word"].bind("<Return>", "-enter")
+    window["family_word"].bind("<Key>", "-key")
+    window["family_word"].bind("<FocusOut>", "-focus_out")
+
+    window["derivative"].bind("<Return>", "-enter")
+    window["derivative"].bind("<Key>", "-key")
+    window["derivative"].bind("<FocusOut>", "-focus_out")
+
+    window["compound_type"].bind("<Return>", "-enter")
+    window["compound_type"].bind("<Key>", "-key")
+    window["compound_type"].bind("<FocusOut>", "-focus_out")
+
+    window["family_set"].bind("<Return>", "-enter")
+    window["family_set"].bind("<Key>", "-key")
+    window["family_set"].bind("<FocusOut>", "-focus_out")
+
+    window["pattern"].bind("<Return>", "-enter")
+    window["pattern"].bind("<Key>", "-key")
+    window["pattern"].bind("<FocusOut>", "-focus_out")
+
     return window

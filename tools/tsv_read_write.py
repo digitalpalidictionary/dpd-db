@@ -37,6 +37,15 @@ def read_tsv_dot_dict(file_path):
     return data
 
 
+def write_tsv_dot_dict(file_path, data):
+    with open(file_path, "w", newline='') as file:
+        writer = csv.DictWriter(
+            file, fieldnames=data[0].keys(), delimiter='\t')
+        writer.writeheader()
+        for row in data:
+            writer.writerow(row)
+
+
 def write_tsv_list(
         file_path: str,
         header: List[str],
