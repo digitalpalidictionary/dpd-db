@@ -181,6 +181,7 @@ class ProjectPaths():
     grammar_dict_tsv_path = Path("grammar_dict/output/grammar_dict.tsv")
 
     # /gui/stash
+    stash_dir: Path = Path("gui/stash/")
     stash_path: Path = Path("gui/stash/stash")
     save_state_path: Path = Path("gui/stash/gui_state")
 
@@ -326,6 +327,7 @@ class ProjectPaths():
             cls.frequency_output_dir,
             cls.grammar_dict_output_dir,
             cls.grammar_dict_output_html_dir,
+            cls.stash_dir,
             cls.cst_txt_dir,
             cls.cst_xml_roman_dir,
             cls.raw_text_dir,

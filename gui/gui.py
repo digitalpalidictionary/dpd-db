@@ -24,6 +24,7 @@ from functions_db import get_root_info
 
 from functions import open_in_goldendict
 from functions import sandhi_ok
+from functions import test_book_to_add
 from functions import make_words_to_add_list
 from functions import add_sandhi_rule, open_sandhi_rules
 from functions import add_sandhi_correction
@@ -85,9 +86,10 @@ def main():
             window[key].update(value)
         window["word_to_add"].update(words_to_add_list)
         window["words_to_add_length"].update(len(words_to_add_list))
-    except FileNotFoundError as e:
+    except FileNotFoundError:
         window["messages"].update(
-            f"save_state not found. {e}", text_color="red")
+            "previously saved state not found. select a book to add",
+            text_color="white")
         words_to_add_list = []
 
     while True:
@@ -113,21 +115,22 @@ def main():
 
         # add book
         elif event == "book_to_add_enter" or event == "books_to_add_button":
-            words_to_add_list = make_words_to_add_list(
-                window, values["book_to_add"])
+            if test_book_to_add(values, window):
+                words_to_add_list = make_words_to_add_list(
+                    window, values["book_to_add"])
 
-            if words_to_add_list != []:
-                values["word_to_add"] = [words_to_add_list[0]]
-                window["word_to_add"].update(words_to_add_list)
-                window["words_to_add_length"].update(len(words_to_add_list))
-                print(values)
-                open_in_goldendict(words_to_add_list[0])
-                window["messages"].update(
-                    f"all missing words from {values['book_to_add']} added",
-                    text_color="white")
-            else:
-                window["messages"].update(
-                    "empty list, try again", text_color="red")
+                if words_to_add_list != []:
+                    values["word_to_add"] = [words_to_add_list[0]]
+                    window["word_to_add"].update(words_to_add_list)
+                    window["words_to_add_length"].update(len(words_to_add_list))
+                    print(values)
+                    open_in_goldendict(words_to_add_list[0])
+                    window["messages"].update(
+                        f"all missing words from {values['book_to_add']} added",
+                        text_color="white")
+                else:
+                    window["messages"].update(
+                        "empty list, try again", text_color="red")
 
         # open word in goldendict
 
@@ -416,19 +419,22 @@ def main():
                 event == "example_1"
                 and flags.example_1 and
                 values["example_1"] == "" and
-                values["pali_1"]
+                values["pali_1"] and
+                values["word_to_add"]
             ) or
             (
                 event == "source_1" and
                 flags.example_1 and
                 values["example_1"] == "" and
-                values["pali_1"]
+                values["pali_1"] and
+                values["word_to_add"]
             ) or
             (
                 event == "sutta_1" and
                 flags.example_1 and
                 values["example_1"] == "" and
-                values["pali_1"]
+                values["pali_1"] and
+                values["word_to_add"]
             ) or
             event == "another_eg_1"
         ):
@@ -437,29 +443,35 @@ def main():
                 book_to_add = sg.popup_get_text(
                     "Which book?", title=None,
                     location=(400, 400))
-                values["book_to_add"] = book_to_add
-                window["book_to_add"].update(book_to_add)
+                if book_to_add:
+                    values["book_to_add"] = book_to_add
+                    window["book_to_add"].update(book_to_add)
 
             if values["word_to_add"] == []:
                 word_to_add = sg.popup_get_text(
                     "What word?", default_text=values["pali_1"][:-1],
                     title=None,
                     location=(400, 400))
-                values["word_to_add"] = [word_to_add]
-                window["word_to_add"].update([word_to_add])
+                if word_to_add:
+                    values["word_to_add"] = [word_to_add]
+                    window["word_to_add"].update([word_to_add])
 
-            sutta_sentences = find_sutta_example(sg, window, values)
+            if (
+                test_book_to_add(values, window) and
+                values["book_to_add"] and
+                values["word_to_add"]
+            ):
+                sutta_sentences = find_sutta_example(sg, window, values)
 
-            if sutta_sentences is not None:
+                if sutta_sentences is not None:
+                    try:
+                        window["source_1"].update(sutta_sentences["source"])
+                        window["sutta_1"].update(sutta_sentences["sutta"])
+                        window["example_1"].update(sutta_sentences["example"])
+                    except KeyError as e:
+                        window["messages"].update(e, text_color="red")
 
-                try:
-                    window["source_1"].update(sutta_sentences["source"])
-                    window["sutta_1"].update(sutta_sentences["sutta"])
-                    window["example_1"].update(sutta_sentences["example"])
-                except KeyError as e:
-                    window["messages"].update(e, text_color="red")
-
-            flags.example_1 = False
+                flags.example_1 = False
 
         elif event == "bold_1_button" or event == "bold_1_enter":
             # bold
@@ -509,7 +521,6 @@ def main():
             sutta_sentences = find_sutta_example(sg, window, values)
 
             if sutta_sentences is not None:
-
                 try:
                     window["source_2"].update(sutta_sentences["source"])
                     window["sutta_2"].update(sutta_sentences["sutta"])
@@ -817,7 +828,7 @@ def main():
             combo = window[event.replace("-key", "")]
             combo.filter()
 
-        elif event.endswith("enter"):
+        elif event.endswith("-enter"):
             combo = window[event.replace("-enter", "")]
             combo.complete()
 

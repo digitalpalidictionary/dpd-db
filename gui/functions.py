@@ -447,22 +447,22 @@ def find_commentary_defintions(sg, values, definitions_df):
             except Exception:
                 layout_elements.append([sg.Text("no results")])
 
-    layout_elements.append(
-        [
-            sg.Button(
-                "Add Commentary Definition", key="add_button_2"),
-            sg.Button(
-                "Cancel", key="cancel_2")
-        ]
-    )
+    layout_elements.append([
+        sg.Button(
+            "Add Commentary Definition", key="add_button_2"),
+        sg.Button(
+            "Cancel", key="cancel_2")
+        ])
 
     layout = [
         [
-            [sg.Column(
-                layout=layout_elements, key="results",
-                expand_y=True, expand_x=True,
-                scrollable=True, vertical_scroll_only=True
-            )],
+            [
+                sg.Column(
+                    layout=layout_elements, key="results",
+                    expand_y=True, expand_x=True,
+                    scrollable=True, vertical_scroll_only=True
+                )
+            ],
         ]
     ]
 
@@ -471,7 +471,7 @@ def find_commentary_defintions(sg, values, definitions_df):
         layout,
         resizable=True,
         size=(1920, 1080),
-        finalize=True,
+        finalize=True
     )
 
     while True:
@@ -505,213 +505,259 @@ def transliterate_xml(xml):
 
 
 def find_sutta_example(sg, window, values: dict) -> str:
-    try:
-        filename = cst_texts[values["book_to_add"]][0].replace(".txt", ".xml")
-    except KeyError as e:
-        window["messages"].update(e, text_color="red")
 
-    with open(
-            PTH.cst_xml_dir.joinpath(filename), "r", encoding="UTF-16") as f:
-        xml = f.read()
-    xml = transliterate_xml(xml)
+    if values["book_to_add"] in cst_texts:
+        try:
+            filename = cst_texts[values["book_to_add"]][0].replace(".txt", ".xml")
+        except KeyError as e:
+            window["messages"].update(e, text_color="red")
 
-    with open(PTH.cst_xml_roman_dir.joinpath(filename), "w") as w:
-        w.write(xml)
-    print(PTH.cst_xml_roman_dir.joinpath(filename))
+        with open(
+                PTH.cst_xml_dir.joinpath(filename), "r", encoding="UTF-16") as f:
+            xml = f.read()
+        xml = transliterate_xml(xml)
 
-    soup = BeautifulSoup(xml, "xml")
+        with open(PTH.cst_xml_roman_dir.joinpath(filename), "w") as w:
+            w.write(xml)
+        print(PTH.cst_xml_roman_dir.joinpath(filename))
 
-    # remove all the "pb" tags
-    pbs = soup.find_all("pb")
-    for pb in pbs:
-        pb.decompose()
+        soup = BeautifulSoup(xml, "xml")
 
-    # unwrap all the notes
-    notes = soup.find_all("note")
-    for note in notes:
-        note.replace_with(fr" [{note.text}] ")
+        # remove all the "pb" tags
+        pbs = soup.find_all("pb")
+        for pb in pbs:
+            pb.decompose()
 
-    # unwrap all the hi parunum dot tags
-    his = soup.find_all("hi", rend=["paranum", "dot"])
-    for hi in his:
-        hi.unwrap()
+        # unwrap all the notes
+        notes = soup.find_all("note")
+        for note in notes:
+            note.replace_with(fr" [{note.text}] ")
 
-    word_to_add = values["word_to_add"][0]
-    ps = soup.find_all("p")
-    source = ""
-    sutta = ""
+        # unwrap all the hi parunum dot tags
+        his = soup.find_all("hi", rend=["paranum", "dot"])
+        for hi in his:
+            hi.unwrap()
 
-    sutta_sentences = []
-    sutta_counter = 0
-    udana_counter = 0
-    itivuttaka_counter = 0
-    snp_counter = 0
-    for p in ps:
+        word_to_add = values["word_to_add"][0]
+        ps = soup.find_all("p")
+        source = ""
+        sutta = ""
 
-        if p["rend"] == "subhead":
-            if "suttaṃ" in p.text:
-                sutta_counter += 1
-            source = values["book_to_add"].upper()
-            book = re.sub(r"\d", "", source)
-            # add space to digtis
-            source = re.sub(r"(?<=[A-Za-z])(?=\d)", " ", source)
-            try:
-                sutta_number = p.next_sibling.next_sibling["n"]
-            except KeyError as e:
-                window["messages"].update(e, text_color="red")
+        sutta_sentences = []
+        sutta_counter = 0
+        udana_counter = 0
+        itivuttaka_counter = 0
+        snp_counter = 0
+        for p in ps:
 
-            # choose which method to number suttas according to book
-            if values["book_to_add"].startswith("mn1"):
-                source = f"{book} {sutta_counter}"
-            elif values["book_to_add"].startswith("mn2"):
-                source = f"{book} {sutta_counter+50}"
-            elif values["book_to_add"].startswith("mn3"):
-                source = f"{book} {sutta_counter+100}"
-            elif values["book_to_add"].startswith("an"):
-                source = f"{source}.{sutta_number}"
+            if p["rend"] == "subhead":
+                if "suttaṃ" in p.text:
+                    sutta_counter += 1
+                source = values["book_to_add"].upper()
+                book = re.sub(r"\d", "", source)
+                # add space to digtis
+                source = re.sub(r"(?<=[A-Za-z])(?=\d)", " ", source)
+                try:
+                    sutta_number = p.next_sibling.next_sibling["n"]
+                except KeyError as e:
+                    window["messages"].update(e, text_color="red")
 
-            # remove the digits and the dot in sutta name
-            sutta = re.sub(r"\d*\. ", "", p.text)
+                # choose which method to number suttas according to book
+                if values["book_to_add"].startswith("mn1"):
+                    source = f"{book} {sutta_counter}"
+                elif values["book_to_add"].startswith("mn2"):
+                    source = f"{book} {sutta_counter+50}"
+                elif values["book_to_add"].startswith("mn3"):
+                    source = f"{book} {sutta_counter+100}"
+                elif values["book_to_add"].startswith("an"):
+                    source = f"{source}.{sutta_number}"
 
-        # kn1
-        if values["book_to_add"] == "kn1":
-            book = "KHP"
-            chapter_text = None
-            if not chapter_text:
-                chapter_div = p.find_parent("div", {"type": "chapter"})
-                if chapter_div:
-                    chapter_text = chapter_div.find("head").get_text()
-                    pattern = r"^(\d+)\.\s+(.*)$"
-                    match = re.match(pattern, chapter_text)
-                    source = f"{book}{match.group(1)}"
-                    sutta = match.group(2)
+                # remove the digits and the dot in sutta name
+                sutta = re.sub(r"\d*\. ", "", p.text)
 
-        # kn2
-        elif values["book_to_add"] == "kn2":
-            book = "DHP "
-            if p.has_attr("rend") and p["rend"] == "hangnum":
-                # Find the previous "head" tag with "rend" attribute containing "chapter"
-                chapter_head = p.find_previous("head", attrs={"rend": "chapter"})
-                if chapter_head is not None:
-                    chapter_text = chapter_head.string.strip()
-                    pattern = r"^(\d+)\.\s+(.*)$"
-                    match = re.match(pattern, chapter_text)
-                    if match:
+            # kn1
+            if values["book_to_add"] == "kn1":
+                book = "KHP"
+                chapter_text = None
+                if not chapter_text:
+                    chapter_div = p.find_parent("div", {"type": "chapter"})
+                    if chapter_div:
+                        chapter_text = chapter_div.find("head").get_text()
+                        pattern = r"^(\d+)\.\s+(.*)$"
+                        match = re.match(pattern, chapter_text)
                         source = f"{book}{match.group(1)}"
                         sutta = match.group(2)
 
-        elif values["book_to_add"] == "kn3":
-            book = "UD"
-            if p["rend"] == "subhead":
-                udana_counter += 1
-                source = f"{book} {udana_counter}"
+            # kn2
+            elif values["book_to_add"] == "kn2":
+                book = "DHP "
+                if p.has_attr("rend") and p["rend"] == "hangnum":
+                    # Find the previous "head" tag with "rend" attribute containing "chapter"
+                    chapter_head = p.find_previous("head", attrs={"rend": "chapter"})
+                    if chapter_head is not None:
+                        chapter_text = chapter_head.string.strip()
+                        pattern = r"^(\d+)\.\s+(.*)$"
+                        match = re.match(pattern, chapter_text)
+                        if match:
+                            source = f"{book}{match.group(1)}"
+                            sutta = match.group(2)
 
-        elif values["book_to_add"] == "kn4":
-            book = "ITI"
-            if p["rend"] == "subhead":
-                itivuttaka_counter += 1
-                source = f"{book} {itivuttaka_counter}"
+            elif values["book_to_add"] == "kn3":
+                book = "UD"
+                if p["rend"] == "subhead":
+                    udana_counter += 1
+                    source = f"{book} {udana_counter}"
 
-        elif values["book_to_add"] == "kn5":
-            book = "SNP"
-            if p["rend"] == "subhead":
-                snp_counter += 1
-                source = f"{book} {snp_counter}"
+            elif values["book_to_add"] == "kn4":
+                book = "ITI"
+                if p["rend"] == "subhead":
+                    itivuttaka_counter += 1
+                    source = f"{book} {itivuttaka_counter}"
 
-        text = clean_example(p.text)
+            elif values["book_to_add"] == "kn5":
+                book = "SNP"
+                if p["rend"] == "subhead":
+                    snp_counter += 1
+                    source = f"{book} {snp_counter}"
 
-        if word_to_add is not None and word_to_add in text:
+            text = clean_example(p.text)
 
-            # compile gathas line by line
-            if "gatha" in p["rend"]:
-                example = ""
+            if word_to_add is not None and word_to_add in text:
 
-                while True:
-                    if p.text == "\n":
-                        p = p.previous_sibling
-                    elif p["rend"] == "gatha1":
-                        break
-                    elif p["rend"] == "gatha2":
-                        p = p.previous_sibling
-                    elif p["rend"] == "gatha3":
-                        p = p.previous_sibling
-                    elif p["rend"] == "gathalast":
-                        p = p.previous_sibling
+                # compile gathas line by line
+                if "gatha" in p["rend"]:
+                    example = ""
 
-                text = clean_gatha(p.text)
-                text = text.replace(".", ",\n")
-                example += text
+                    while True:
+                        if p.text == "\n":
+                            p = p.previous_sibling
+                        elif p["rend"] == "gatha1":
+                            break
+                        elif p["rend"] == "gatha2":
+                            p = p.previous_sibling
+                        elif p["rend"] == "gatha3":
+                            p = p.previous_sibling
+                        elif p["rend"] == "gathalast":
+                            p = p.previous_sibling
 
-                while True:
-                    p = p.next_sibling
-                    if p.text == "\n":
-                        pass
-                    elif p["rend"] == "gatha2":
-                        text = clean_gatha(p.text)
-                        text = text.replace(".", ",")
-                        example += text
-                    elif p["rend"] == "gatha3":
-                        text = clean_gatha(p.text)
-                        text = text.replace(".", ",")
-                        example += text
-                    elif p["rend"] == "gathalast":
-                        text = clean_gatha(p.text)
-                        example += text
-                        break
+                    text = clean_gatha(p.text)
+                    text = text.replace(".", ",\n")
+                    example += text
 
-                sutta_sentences += [{
-                    "source": source,
-                    "sutta": sutta,
-                    "example": example}]
+                    while True:
+                        p = p.next_sibling
+                        if p.text == "\n":
+                            pass
+                        elif p["rend"] == "gatha2":
+                            text = clean_gatha(p.text)
+                            text = text.replace(".", ",")
+                            example += text
+                        elif p["rend"] == "gatha3":
+                            text = clean_gatha(p.text)
+                            text = text.replace(".", ",")
+                            example += text
+                        elif p["rend"] == "gathalast":
+                            text = clean_gatha(p.text)
+                            example += text
+                            break
 
-            # or compile sentences
-            else:
-                sentences = sent_tokenize(text)
-                for i, sentence in enumerate(sentences):
-                    if word_to_add in sentence:
-                        prev_sentence = sentences[i - 1] if i > 0 else ""
-                        next_sentence = sentences[i + 1] if i < len(sentences)-1 else ""
-                        sutta_sentences += [{
-                            "source": source,
-                            "sutta": sutta,
-                            "example": f"{prev_sentence} {sentence} {next_sentence}"}]
+                    sutta_sentences += [{
+                        "source": source,
+                        "sutta": sutta,
+                        "example": example}]
 
-    sentences_list = [sentence["example"] for sentence in sutta_sentences]
+                # or compile sentences
+                else:
+                    sentences = sent_tokenize(text)
+                    for i, sentence in enumerate(sentences):
+                        if word_to_add in sentence:
+                            prev_sentence = sentences[i - 1] if i > 0 else ""
+                            next_sentence = sentences[i + 1] if i < len(sentences)-1 else ""
+                            sutta_sentences += [{
+                                "source": source,
+                                "sutta": sutta,
+                                "example": f"{prev_sentence} {sentence} {next_sentence}"}]
 
-    layout = [[
-        sg.Radio(
-            "", "sentence", key=f"{i}", text_color="lightblue",
-            pad=((0, 10), 5)),
-        sg.Multiline(
-            sentences_list[i],
-            wrap_lines=True,
-            auto_size_text=True,
-            size=(100, 2),
-            text_color="lightgray",
-            no_scrollbar=True,
-        )]
-        for i in range(len(sentences_list))]
+        sentences_list = [sentence["example"] for sentence in sutta_sentences]
 
-    layout.append([sg.Button("OK")])
+        layout_elements = []
+        layout_elements.append([
+            sg.Button(
+                "Add Sutta Example", key="add_button_1"),
+            sg.Button(
+                "Cancel", key="cancel_1")
+        ])
 
-    window = sg.Window(
-        "Sutta Examples",
-        layout,
-        resizable=True,
-        location=(400, 200))
+        layout_elements.extend([
+            [
+                sg.Radio(
+                    "", "sentence",
+                    key=f"{i}",
+                    text_color="lightblue",
+                    pad=((0, 10), 5)),
+                sg.Multiline(
+                    sentences_list[i],
+                    wrap_lines=True,
+                    auto_size_text=True,
+                    size=(100, 2),
+                    text_color="lightgray",
+                    no_scrollbar=True,
+                )
+            ]
+            for i in range(len(sentences_list))
+        ])
 
-    event, values = window.read()
-    window.close()
+        layout_elements.append([
+            sg.Button(
+                "Add Sutta Example", key="add_button_2"),
+            sg.Button(
+                "Cancel", key="cancel_2")
+        ])
 
-    number = 0
-    for value in values:
-        if values[value] is True:
-            number = int(value)
+        layout = [[
+            [
+                sg.Column(
+                    layout=layout_elements, key="results",
+                    expand_y=True, expand_x=True,
+                    scrollable=True, vertical_scroll_only=True
+                )
+            ],
+        ]]
 
-    if sutta_sentences != []:
-        return sutta_sentences[number]
+        window = sg.Window(
+            "Find Sutta Examples",
+            layout,
+            resizable=True,
+            size=(1920, 1080),
+            finalize=True
+        )
+
+        while True:
+            event, values = window.read()
+
+            if event == "Close" or event == sg.WIN_CLOSED:
+                break
+
+            if event == "add_button_1" or event == "add_button_2":
+                number = 0
+                for value in values:
+                    if values[value] is True:
+                        number = int(value)
+
+                if sutta_sentences != []:
+                    window.close()
+                    return sutta_sentences[number]
+                else:
+                    window.close()
+                    return None
+
+            if event == "cancel_1" or event == "cancel_2":
+                window.close()
+
+        window.close()
+
     else:
-        return None
+        window["messages"].update("book code not found", text_color="red")
 
 
 def clean_example(text):
@@ -748,6 +794,20 @@ def find_gathalast(p, example):
         elif p["rend"] == "gathalast":
             example += p.text
         p = p.next_sibling
+
+
+def test_book_to_add(values, window):
+    """Test if book is in cst texts."""
+    book = values["book_to_add"]
+    if book in cst_texts:
+        window["messages"].update(
+            f"adding {book} ...", text_color="white")
+        window.refresh()
+        return True
+    else:
+        window["messages"].update(
+            f"{book} invalid book code", text_color="red")
+        return False
 
 
 def make_words_to_add_list(window, book: str) -> list:
