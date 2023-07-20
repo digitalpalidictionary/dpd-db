@@ -15,6 +15,8 @@ There are four parts to the code:
 6. `poetry run bash bash/initial_setup_run_once.sh`
 7. `poetry run bash bash/build_db.sh`
 
+8. To be able to run test of database you may need to install some of [those packages.](https://pyperclip.readthedocs.io/en/latest/index.html#not-implemented-error)
+
 That should create an SQLite database `./dpd.db` which can be accessed by [DB Browser](https://sqlitebrowser.org/),  [DBeaver](https://dbeaver.io/), through [SQLAlechmy](https://www.sqlalchemy.org/) or your preferred method. 
 
 For a quick tutorial on how to access any information in the db with SQLAlchemy, see `scripts/db_search_example.py`.
