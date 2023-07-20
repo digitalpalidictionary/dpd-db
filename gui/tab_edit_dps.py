@@ -210,7 +210,8 @@ def make_tab_edit_dps(sg):
         ],
         [
             sg.Text("sbs_chant_eng_1", size=(15, 1)),
-            sg.Text(
+            sg.Input(
+                "",
                 key="dps_sbs_chant_eng_1",
                 size=(50, 1),
                 tooltip="",
@@ -219,7 +220,8 @@ def make_tab_edit_dps(sg):
         ],
         [
             sg.Text("sbs_chapter_1", size=(15, 1)),
-            sg.Text(
+            sg.Input(
+                "",
                 key="dps_sbs_chapter_1",
                 size=(50, 1),
                 enable_events=True,
@@ -249,7 +251,8 @@ def make_tab_edit_dps(sg):
         ],
         [
             sg.Text("sbs_chant_eng_2", size=(15, 1)),
-            sg.Text(
+            sg.Input(
+                "",
                 key="dps_sbs_chant_eng_2",
                 size=(50, 1),
                 tooltip="",
@@ -258,7 +261,8 @@ def make_tab_edit_dps(sg):
         ],
         [
             sg.Text("sbs_chapter_2", size=(15, 1)),
-            sg.Text(
+            sg.Input(
+                "",
                 key="dps_sbs_chapter_2",
                 size=(50, 1),
                 enable_events=True,
@@ -310,7 +314,8 @@ def make_tab_edit_dps(sg):
         ],
         [
             sg.Text("sbs_chant_eng_3", size=(15, 1)),
-            sg.Text(
+            sg.Input(
+                "",
                 key="dps_sbs_chant_eng_3",
                 size=(50, 1),
                 tooltip="",
@@ -319,7 +324,8 @@ def make_tab_edit_dps(sg):
         ],
         [
             sg.Text("sbs_chapter_3", size=(15, 1)),
-            sg.Text(
+            sg.Input(
+                "",
                 key="dps_sbs_chapter_3",
                 size=(50, 1),
                 enable_events=True,
@@ -370,7 +376,8 @@ def make_tab_edit_dps(sg):
         ],
         [
             sg.Text("sbs_chant_eng_4", size=(15, 1)),
-            sg.Text(
+            sg.Input(
+                "",
                 key="dps_sbs_chant_eng_4",
                 size=(50, 1),
                 tooltip="",
@@ -379,7 +386,8 @@ def make_tab_edit_dps(sg):
         ],
         [
             sg.Text("sbs_chapter_4", size=(15, 1)),
-            sg.Text(
+            sg.Input(
+                "",
                 key="dps_sbs_chapter_4",
                 size=(50, 1),
                 enable_events=True,
@@ -392,6 +400,7 @@ def make_tab_edit_dps(sg):
             CompletionCombo(
                 pali_class_list,
                 key="dps_sbs_class_anki",
+                default_value="",
                 size=(3, 1),
                 enable_events=True,
                 text_color=sbs_text,
@@ -400,9 +409,29 @@ def make_tab_edit_dps(sg):
         ],
         [
             sg.Text("sbs_audio", size=(15, 1)),
-            sg.Text(
+            sg.Input(
                 "audio=[sound:pali1(without number).mp3]",
                 key="dps_sbs_audio",
+                size=(50, 1),
+                tooltip="",
+                text_color=sbs_text,
+                background_color=sbs_background),
+        ],
+        [
+            sg.Text("sbs_category", size=(15, 1)),
+            sg.Input(
+                "",
+                key="dps_sbs_category",
+                size=(50, 1),
+                tooltip="",
+                text_color=sbs_text,
+                background_color=sbs_background),
+        ],
+        [
+            sg.Text("sbs_index", size=(15, 1)),
+            sg.Input(
+                "",
+                key="dps_sbs_index",
                 size=(50, 1),
                 tooltip="",
                 text_color=sbs_text,
@@ -428,12 +457,9 @@ def make_tab_edit_dps(sg):
             sg.HSep(),
         ],
         [
-            sg.Button("Buttons", key="buttons_button"),
-            sg.Button("Which", key="which_button"),
-            sg.Button("Can", key="can_button"),
-            sg.Button("Do", key="do_button"),
-            sg.Button("Various", key="various_button"),
-            sg.Button("Stuff", key="stuff_button"),
+            sg.Button("Clear", key="dps_clear_button"),
+            sg.Button("Reset", key="dps_reset_button"),
+            sg.Button("Update DB", key="dps_update_db_button"),
         ],
     ]
 

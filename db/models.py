@@ -408,7 +408,7 @@ class SBS(Base):
     sbs_audio: Mapped[Optional[str]] = mapped_column(default='')
 
     def __repr__(self) -> str:
-        return f"SBS: {self.id} {PaliWord.pali_1} {self.sbs_class_anki} {self.sbs_class}"
+        return f"SBS: {self.id} {self.sbs_chant_pali_1} {self.sbs_class}"
 
 
 class Russian(Base):
@@ -420,4 +420,4 @@ class Russian(Base):
     ru_notes: Mapped[Optional[str]] = mapped_column(default='')
 
     def __repr__(self) -> str:
-        return f"Russian: {self.id} {PaliWord.pali_1} {self.ru_meaning}"
+        return f"Russian: {self.id} {self.ru_meaning}"

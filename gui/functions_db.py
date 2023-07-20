@@ -536,3 +536,32 @@ def fetch_sbs(id: int) -> SBS:
     """Fetch SBS word from db."""
     return db_session.query(SBS).filter(
         SBS.id == id).first()
+
+
+def dps_update_db(
+        values, window, dpd_word, ru_word, sbs_word) -> None:
+    """Update Russian and SBS tables with DPS edits."""
+    merge = None
+    if not ru_word:
+        merge = True
+        ru_word = Russian(id=dpd_word.id)
+    if not sbs_word:
+        sbs_word = SBS(id=dpd_word.id)
+
+    for value in values:
+        if value.startswith("dps_ru"):
+            attribute = value.replace("dps_", "")
+            new_value = values[value]
+            setattr(ru_word, attribute, new_value)
+        if value.startswith("dps_sbs"):
+            attribute = value.replace("dps_", "")
+            new_value = values[value]
+            setattr(sbs_word, attribute, new_value)
+
+    if merge:
+        db_session.merge(ru_word)
+        db_session.merge(sbs_word)
+    else:
+        db_session.add(ru_word)
+        db_session.add(sbs_word)
+    db_session.commit()

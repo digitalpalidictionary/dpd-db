@@ -1236,4 +1236,11 @@ def update_sbs_chant(number, chant, window):
     window[f"dps_sbs_chapter_{number}"].update(chapter)
 
 
+def clear_dps(values, window):
+    """Clear all value from DPS tab."""
+    for value in values:
+        if value.startswith("dps_"):
+            window[value].update("")
+
+
 sbs_index = load_sbs_index()

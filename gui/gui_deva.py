@@ -6,10 +6,12 @@ from tab_edit_dps import make_tab_edit_dps
 from functions_db import fetch_id_or_pali
 from functions_db import fetch_ru
 from functions_db import fetch_sbs
+from functions_db import dps_update_db
 
 from functions import open_in_goldendict
 from functions import populate_dps_tab
 from functions import update_sbs_chant
+from functions import clear_dps
 
 
 def main():
@@ -99,15 +101,17 @@ def main():
             event == "dps_id_or_pali_1_enter" or
             event == "dps_id_or_pali_1_button"
         ):
-            dpd_word = fetch_id_or_pali(values)
-            if dpd_word:
-                ru_word = fetch_ru(dpd_word.id)
-                sbs_word = fetch_sbs(dpd_word.id)
-                open_in_goldendict(dpd_word.pali_1)
-                populate_dps_tab(values, window, dpd_word, ru_word, sbs_word)
-            else:
-                window["messages"].update(
-                    "not a valid id or pali_1", text_color="red")
+            if values["dps_id_or_pali_1"]:
+                dpd_word = fetch_id_or_pali(values)
+                if dpd_word:
+                    ru_word = fetch_ru(dpd_word.id)
+                    sbs_word = fetch_sbs(dpd_word.id)
+                    open_in_goldendict(dpd_word.pali_1)
+                    populate_dps_tab(
+                        values, window, dpd_word, ru_word, sbs_word)
+                else:
+                    window["messages"].update(
+                        "not a valid id or pali_1", text_color="red")
 
         if event == "dps_sbs_chant_pali_1":
             chant = values["dps_sbs_chant_pali_1"]
@@ -124,6 +128,23 @@ def main():
         elif event == "dps_sbs_chant_pali_4":
             update_sbs_chant(
                 4, values["dps_sbs_chant_pali_4"], window)
+
+        elif event == "dps_clear_button":
+            clear_dps(values, window)
+
+        elif event == "dps_update_db_button":
+            dps_update_db(
+                values, window, dpd_word, ru_word, sbs_word)
+            clear_dps(values, window)
+
+        elif event == "dps_reset_button":
+            if dpd_word:
+                clear_dps(values, window)
+                populate_dps_tab(
+                            values, window, dpd_word, ru_word, sbs_word)
+            else:
+                window["messages"].update(
+                        "not a valid id or pali_1", text_color="red")
 
     window.close()
 
