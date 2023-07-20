@@ -69,6 +69,17 @@ def window_layout():
     window['example_1'].bind('<Tab>', '_tab', propagate=False)
     window['example_2'].bind('<Tab>', '_tab', propagate=False)
 
+    # bind tab dps
+    window['dps_ru_meaning'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_sbs_meaning'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_notes'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_ru_notes'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_sbs_notes'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_example_1'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_example_2'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_example_3'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_example_4'].bind('<Tab>', '_tab', propagate=False)
+
     # completition combo bindings
     window["pos"].bind("<Return>", "-enter")
     window["pos"].bind("<Key>", "-key")
@@ -125,5 +136,21 @@ def window_layout():
     window["pattern"].bind("<Return>", "-enter")
     window["pattern"].bind("<Key>", "-key")
     window["pattern"].bind("<FocusOut>", "-focus_out")
+
+    window["dps_sbs_chant_pali_1"].bind("<Return>", "-enter")
+    window["dps_sbs_chant_pali_1"].bind("<Key>", "-key")
+    window["dps_sbs_chant_pali_1"].bind("<FocusOut>", "-focus_out")
+
+    window["dps_sbs_chant_pali_2"].bind("<Return>", "-enter")
+    window["dps_sbs_chant_pali_2"].bind("<Key>", "-key")
+    window["dps_sbs_chant_pali_2"].bind("<FocusOut>", "-focus_out")
+
+    window["dps_sbs_chant_pali_3"].bind("<Return>", "-enter")
+    window["dps_sbs_chant_pali_3"].bind("<Key>", "-key")
+    window["dps_sbs_chant_pali_3"].bind("<FocusOut>", "-focus_out")
+
+    window["dps_sbs_chant_pali_4"].bind("<Return>", "-enter")
+    window["dps_sbs_chant_pali_4"].bind("<Key>", "-key")
+    window["dps_sbs_chant_pali_4"].bind("<FocusOut>", "-focus_out")
 
     return window

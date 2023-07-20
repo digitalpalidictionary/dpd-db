@@ -28,41 +28,37 @@ def make_tab_edit_dps(sg):
                 "Get word from Db",
                 key="dps_id_or_pali_1_button",
                 tooltip="click to fetch word from db",
-                font=(None, 13)
-            )
+                font=(None, 13)),
+            sg.Text("", size=(5, 1)),
         ],
         [
             sg.Text("id and pali_1", size=(15, 1)),
-            sg.Multiline(
+            sg.Input(
                 "00000",
                 key="dps_dpd_id", size=(7, 1),
-                no_scrollbar=True,
                 text_color=dpd_text,
                 background_color=dpd_background),
-            sg.Multiline(
+            sg.Input(
                 "chandarāgappaṭibaddhatta",
                 key="dps_pali_1", size=(43, 1),
-                no_scrollbar=True,
                 text_color=dpd_text,
                 background_color=dpd_background),
         ],
         [
             sg.Text("grammar", size=(15, 1)),
-            sg.Multiline(
+            sg.Input(
                 "pr, reflx 3rd sg of na bhāvayati, neg, caus, trans (+acc)",
                 key="dps_grammar",
                 size=(50, 1),
-                no_scrollbar=True,
                 text_color=dpd_text,
                 background_color=dpd_background),
         ],
         [
             sg.Text("meaning", size=(15, 1)),
-            sg.Multiline(
+            sg.Input(
                 "due to attachment to passion for sensual pleasure, bondage to it, greed for it, obsession with it and fixation with it; because of adherence to love of sensual desire, being tied to it, craving for it, being consumed by it and addiction to it",
                 key="dps_meaning",
                 size=(50, 2),
-                no_scrollbar=True,
                 text_color=dpd_text,
                 background_color=dpd_background),
         ],
@@ -70,10 +66,8 @@ def make_tab_edit_dps(sg):
 
             sg.Text("russian", size=(15, 1)),
             sg.Multiline(
-                "",
                 key="dps_ru_meaning",
                 size=(50, 2),
-                no_scrollbar=True,
                 enable_events=True,
                 tooltip="type Russian meaning",
                 text_color=ru_text,
@@ -81,11 +75,10 @@ def make_tab_edit_dps(sg):
         ],
         [
             sg.Text("russian lit", size=(15, 1)),
-            sg.Multiline(
+            sg.Input(
                 "",
                 key="dps_ru_meaning_lit",
                 size=(50, 1),
-                no_scrollbar=True,
                 enable_events=True,
                 tooltip="type Russian literal meaning",
                 text_color=ru_text,
@@ -94,10 +87,8 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("sbs meaning", size=(15, 1)),
             sg.Multiline(
-                "",
                 key="dps_sbs_meaning",
                 size=(50, 2),
-                no_scrollbar=True,
                 enable_events=True,
                 tooltip="type Russian literal meaning",
                 text_color=sbs_text,
@@ -105,52 +96,47 @@ def make_tab_edit_dps(sg):
         ],
         [
             sg.Text("root", size=(15, 1)),
-            sg.Multiline(
+            sg.Input(
                 "√sambh･4 uṇā (reach, attain)",
                 key="dps_root",
                 size=(50, 1),
-                no_scrollbar=True,
                 text_color=dpd_text,
                 background_color=dpd_background),
         ],
         [
             sg.Text("base or comp", size=(15, 1)),
-            sg.Multiline(
+            sg.Input(
                 "√sambh + uṇā > sambhuṇā",
                 key="dps_base_or_comp",
                 size=(50, 1),
-                no_scrollbar=True,
                 text_color=dpd_text,
                 background_color=dpd_background),
         ],
         [
             sg.Text("constr", size=(15, 1)),
-            sg.Multiline(
+            sg.Input(
                 "na > an + abhi + sambhuṇā + nta</br>na + abhisambhuṇanta",
                 key="dps_constr_or_comp_constr",
                 size=(50, 2),
-                no_scrollbar=True,
                 tooltip="",
                 text_color=dpd_text,
                 background_color=dpd_background),
         ],
         [
             sg.Text("synonym", size=(15, 1)),
-            sg.Multiline(
+            sg.Input(
                 "vevacana",
                 key="dps_synonym",
                 size=(50, 1),
-                no_scrollbar=True,
                 text_color=dpd_text,
                 background_color=dpd_background),
         ],
         [
             sg.Text("antonym", size=(15, 1)),
-            sg.Multiline(
+            sg.Input(
                 "avevacana",
                 key="dps_antonym",
                 size=(50, 1),
-                no_scrollbar=True,
                 text_color=dpd_text,
                 background_color=dpd_background),
         ],
@@ -160,18 +146,15 @@ def make_tab_edit_dps(sg):
                 "ten peceptions 1. aniccasaññā, 2. <b>anattasaññā</b>, 3. asubhasaññā, 4. ādīnavasaññā, 5. pahānasaññā, 6. virāgasaññā, 7. nirodhasaññā, 8. sabbaloke anabhiratasaññā, 9. sabbasaṅkhāresu anicchāsaññā, 10. ānāpānassati.",
                 key="dps_notes",
                 size=(50, 3),
-                no_scrollbar=True,
                 text_color=dpd_text,
                 background_color=dpd_background),
         ],
         [
             sg.Text("russian note", size=(15, 1)),
             sg.Multiline(
-                "",
                 key="dps_ru_notes",
-                size=(50, 1),
+                size=(50, 2),
                 enable_events=True,
-                no_scrollbar=True,
                 tooltip="",
                 text_color=ru_text,
                 background_color=ru_background),
@@ -179,11 +162,9 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("sbs note", size=(15, 1)),
             sg.Multiline(
-                "",
                 key="dps_sbs_notes",
-                size=(50, 1),
+                size=(50, 2),
                 enable_events=True,
-                no_scrollbar=True,
                 tooltip="",
                 text_color=sbs_text,
                 background_color=sbs_background),
@@ -202,11 +183,9 @@ def make_tab_edit_dps(sg):
             CompletionCombo(
                 pali_chant_list,
                 key="dps_sbs_chant_pali_1",
-                size=(50, 1),
                 enable_events=True,
                 text_color=sbs_text,
-                background_color=sbs_background,
-                tooltip=""),
+                background_color=sbs_background),
         ],
         [
             sg.Text("sbs_chant_eng_1", size=(15, 1)),
@@ -243,9 +222,7 @@ def make_tab_edit_dps(sg):
             CompletionCombo(
                 pali_chant_list,
                 key="dps_sbs_chant_pali_2",
-                size=(50, 1),
                 enable_events=True,
-                tooltip="",
                 text_color=sbs_text,
                 background_color=sbs_background),
         ],
@@ -306,9 +283,7 @@ def make_tab_edit_dps(sg):
             CompletionCombo(
                 pali_chant_list,
                 key="dps_sbs_chant_pali_3",
-                size=(50, 1),
                 enable_events=True,
-                tooltip="",
                 text_color=sbs_text,
                 background_color=sbs_background),
         ],
@@ -368,11 +343,9 @@ def make_tab_edit_dps(sg):
             CompletionCombo(
                 pali_chant_list,
                 key="dps_sbs_chant_pali_4",
-                size=(50, 1),
                 enable_events=True,
                 text_color=sbs_text,
-                background_color=sbs_background,
-                tooltip=""),
+                background_color=sbs_background),
         ],
         [
             sg.Text("sbs_chant_eng_4", size=(15, 1)),

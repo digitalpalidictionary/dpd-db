@@ -56,7 +56,36 @@ def main():
     )
 
     window["tab_edit_dps"].select()
+
+    # bind tab dps
+    window['dps_ru_meaning'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_sbs_meaning'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_notes'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_ru_notes'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_sbs_notes'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_example_1'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_example_2'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_sbs_example_3'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_sbs_example_4'].bind('<Tab>', '_tab', propagate=False)
+
+    # dps CompletionCombo
     window["dps_id_or_pali_1"].bind("<Return>", "_enter")
+
+    window["dps_sbs_chant_pali_1"].bind("<Return>", "-enter")
+    window["dps_sbs_chant_pali_1"].bind("<Key>", "-key")
+    window["dps_sbs_chant_pali_1"].bind("<FocusOut>", "-focus_out")
+
+    window["dps_sbs_chant_pali_2"].bind("<Return>", "-enter")
+    window["dps_sbs_chant_pali_2"].bind("<Key>", "-key")
+    window["dps_sbs_chant_pali_2"].bind("<FocusOut>", "-focus_out")
+
+    window["dps_sbs_chant_pali_3"].bind("<Return>", "-enter")
+    window["dps_sbs_chant_pali_3"].bind("<Key>", "-key")
+    window["dps_sbs_chant_pali_3"].bind("<FocusOut>", "-focus_out")
+
+    window["dps_sbs_chant_pali_4"].bind("<Return>", "-enter")
+    window["dps_sbs_chant_pali_4"].bind("<Key>", "-key")
+    window["dps_sbs_chant_pali_4"].bind("<FocusOut>", "-focus_out")
 
     while True:
         event, values = window.read()
@@ -69,22 +98,28 @@ def main():
             break
 
         # tabs jumps to next field in multiline
-        if event == "meaning_1_tab":
-            window['meaning_1'].get_next_focus().set_focus()
-        elif event == "construction_tab":
-            window['construction'].get_next_focus().set_focus()
-        elif event == "phonetic_tab":
-            window['phonetic'].get_next_focus().set_focus()
-        elif event == "commentary_tab":
-            window['commentary'].get_next_focus().set_focus()
-        elif event == "example_1_tab":
-            window['example_1'].get_next_focus().set_focus()
-        elif event == "example_2_tab":
-            window['example_2'].get_next_focus().set_focus()
+        if event == "dps_ru_meaning_tab":
+            window['dps_ru_meaning'].get_next_focus().set_focus()
+        elif event == "dps_sbs_meaning_tab":
+            window['dps_sbs_meaning'].get_next_focus().set_focus()
+        elif event == "dps_notes_tab":
+            window['dps_notes'].get_next_focus().set_focus()
+        elif event == "dps_ru_notes_tab":
+            window['dps_ru_notes'].get_next_focus().set_focus()
+        elif event == "dps_sbs_notes_tab":
+            window['dps_sbs_notes'].get_next_focus().set_focus()
+        elif event == "dps_example_1_tab":
+            window['dps_example_1'].get_next_focus().set_focus()
+        elif event == "dps_example_2_tab":
+            window['dps_example_2'].get_next_focus().set_focus()
+        elif event == "dps_sbs_example_3_tab":
+            window['dps_sbs_example_3'].get_next_focus().set_focus()
+        elif event == "dps_sbs_example_4_tab":
+            window['dps_sbs_example_4'].get_next_focus().set_focus()
 
         # combo events
 
-        elif event.endswith("-key"):
+        if event.endswith("-key"):
             combo = window[event.replace("-key", "")]
             combo.filter()
 
@@ -141,7 +176,7 @@ def main():
             if dpd_word:
                 clear_dps(values, window)
                 populate_dps_tab(
-                            values, window, dpd_word, ru_word, sbs_word)
+                    values, window, dpd_word, ru_word, sbs_word)
             else:
                 window["messages"].update(
                         "not a valid id or pali_1", text_color="red")
