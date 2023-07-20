@@ -34,12 +34,10 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("id and pali_1", size=(15, 1)),
             sg.Input(
-                "00000",
                 key="dps_dpd_id", size=(7, 1),
                 text_color=dpd_text,
                 background_color=dpd_background),
             sg.Input(
-                "chandarāgappaṭibaddhatta",
                 key="dps_pali_1", size=(43, 1),
                 text_color=dpd_text,
                 background_color=dpd_background),
@@ -47,7 +45,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("grammar", size=(15, 1)),
             sg.Input(
-                "pr, reflx 3rd sg of na bhāvayati, neg, caus, trans (+acc)",
                 key="dps_grammar",
                 size=(50, 1),
                 text_color=dpd_text,
@@ -56,7 +53,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("meaning", size=(15, 1)),
             sg.Input(
-                "due to attachment to passion for sensual pleasure, bondage to it, greed for it, obsession with it and fixation with it; because of adherence to love of sensual desire, being tied to it, craving for it, being consumed by it and addiction to it",
                 key="dps_meaning",
                 size=(50, 2),
                 text_color=dpd_text,
@@ -76,7 +72,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("russian lit", size=(15, 1)),
             sg.Input(
-                "",
                 key="dps_ru_meaning_lit",
                 size=(50, 1),
                 enable_events=True,
@@ -97,7 +92,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("root", size=(15, 1)),
             sg.Input(
-                "√sambh･4 uṇā (reach, attain)",
                 key="dps_root",
                 size=(50, 1),
                 text_color=dpd_text,
@@ -106,7 +100,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("base or comp", size=(15, 1)),
             sg.Input(
-                "√sambh + uṇā > sambhuṇā",
                 key="dps_base_or_comp",
                 size=(50, 1),
                 text_color=dpd_text,
@@ -115,7 +108,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("constr", size=(15, 1)),
             sg.Input(
-                "na > an + abhi + sambhuṇā + nta</br>na + abhisambhuṇanta",
                 key="dps_constr_or_comp_constr",
                 size=(50, 2),
                 tooltip="",
@@ -125,7 +117,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("synonym", size=(15, 1)),
             sg.Input(
-                "vevacana",
                 key="dps_synonym",
                 size=(50, 1),
                 text_color=dpd_text,
@@ -134,7 +125,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("antonym", size=(15, 1)),
             sg.Input(
-                "avevacana",
                 key="dps_antonym",
                 size=(50, 1),
                 text_color=dpd_text,
@@ -143,7 +133,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("notes", size=(15, 1)),
             sg.Multiline(
-                "ten peceptions 1. aniccasaññā, 2. <b>anattasaññā</b>, 3. asubhasaññā, 4. ādīnavasaññā, 5. pahānasaññā, 6. virāgasaññā, 7. nirodhasaññā, 8. sabbaloke anabhiratasaññā, 9. sabbasaṅkhāresu anicchāsaññā, 10. ānāpānassati.",
                 key="dps_notes",
                 size=(50, 3),
                 text_color=dpd_text,
@@ -172,7 +161,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("example 1", size=(15, 1)),
             sg.Multiline(
-                "tassā ubhosu tīresu kāsā ce'pi jātā assu, te naṃ ajjholambeyyuṃ, kusā ce'pi jātā assu, te naṃ ajjholambeyyuṃ, pabbajā ce'pi jātā assu, te naṃ ajjholambeyyuṃ, bīraṇā ce'pi jātā assu, te naṃ ajjholambeyyuṃ, rukkhā ce'pi jātā assu, te naṃ ajjholambeyyuṃ. SN 22.93 nadīsuttaṃ",
                 key="dps_example_1",
                 size=(50, 4),
                 text_color=dpd_text,
@@ -190,7 +178,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("sbs_chant_eng_1", size=(15, 1)),
             sg.Input(
-                "",
                 key="dps_sbs_chant_eng_1",
                 size=(50, 1),
                 tooltip="",
@@ -200,7 +187,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("sbs_chapter_1", size=(15, 1)),
             sg.Input(
-                "",
                 key="dps_sbs_chapter_1",
                 size=(50, 1),
                 enable_events=True,
@@ -211,7 +197,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("example 2", size=(15, 1)),
             sg.Multiline(
-                "dhammatā esā, bhikkhave, diṭṭhisampannassa puggalassa, kiñ'c'āpi tathārūpiṃ āpattiṃ āpajjati, yathārūpāya āpattiyā vuṭṭhānaṃ paññāyati, atha kho naṃ khippam'eva satthari vā viññūsu vā sabrahmacārīsu deseti vivarati uttānīkaroti, desetvā vivaritvā uttānīkatvā āyatiṃ saṃvaraṃ āpajjati. MN 48 kosambiyasuttaṃ",
                 key="dps_example_2",
                 size=(50, 4),
                 text_color=dpd_text,
@@ -229,7 +214,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("sbs_chant_eng_2", size=(15, 1)),
             sg.Input(
-                "",
                 key="dps_sbs_chant_eng_2",
                 size=(50, 1),
                 tooltip="",
@@ -239,7 +223,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("sbs_chapter_2", size=(15, 1)),
             sg.Input(
-                "",
                 key="dps_sbs_chapter_2",
                 size=(50, 1),
                 enable_events=True,
@@ -250,7 +233,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("sbs_source_3", size=(15, 1)),
             sg.Input(
-                "",
                 key="dps_sbs_source_3",
                 size=(50, 1),
                 enable_events=True,
@@ -261,7 +243,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("sbs_sutta_3", size=(15, 1)),
             sg.Input(
-                "",
                 key="dps_sbs_sutta_3",
                 size=(50, 1),
                 enable_events=True,
@@ -290,7 +271,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("sbs_chant_eng_3", size=(15, 1)),
             sg.Input(
-                "",
                 key="dps_sbs_chant_eng_3",
                 size=(50, 1),
                 tooltip="",
@@ -300,7 +280,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("sbs_chapter_3", size=(15, 1)),
             sg.Input(
-                "",
                 key="dps_sbs_chapter_3",
                 size=(50, 1),
                 enable_events=True,
@@ -311,7 +290,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("sbs_source_4", size=(15, 1)),
             sg.Input(
-                "",
                 key="dps_sbs_source_4",
                 size=(50, 1),
                 enable_events=True,
@@ -322,7 +300,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("sbs_sutta_4", size=(15, 1)),
             sg.Input(
-                "",
                 key="dps_sbs_sutta_4",
                 size=(50, 1),
                 enable_events=True,
@@ -350,7 +327,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("sbs_chant_eng_4", size=(15, 1)),
             sg.Input(
-                "",
                 key="dps_sbs_chant_eng_4",
                 size=(50, 1),
                 tooltip="",
@@ -360,7 +336,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("sbs_chapter_4", size=(15, 1)),
             sg.Input(
-                "",
                 key="dps_sbs_chapter_4",
                 size=(50, 1),
                 enable_events=True,
@@ -383,7 +358,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("sbs_audio", size=(15, 1)),
             sg.Input(
-                "audio=[sound:pali1(without number).mp3]",
                 key="dps_sbs_audio",
                 size=(50, 1),
                 tooltip="",
@@ -393,7 +367,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("sbs_category", size=(15, 1)),
             sg.Input(
-                "",
                 key="dps_sbs_category",
                 size=(50, 1),
                 tooltip="",
@@ -403,7 +376,6 @@ def make_tab_edit_dps(sg):
         [
             sg.Text("sbs_index", size=(15, 1)),
             sg.Input(
-                "",
                 key="dps_sbs_index",
                 size=(50, 1),
                 tooltip="",

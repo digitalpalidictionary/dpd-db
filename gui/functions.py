@@ -19,6 +19,7 @@ from tools.pos import INDECLINEABLES
 from tools.cst_sc_text_sets import make_cst_text_set
 from tools.cst_sc_text_sets import make_sc_text_set
 from tools.paths import ProjectPaths as PTH
+from tools.pali_text_files import cst_texts, sc_texts
 from tools.configger import config_test_option
 from tools.configger import config_update
 from tools.configger import config_test

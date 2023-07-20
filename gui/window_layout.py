@@ -77,8 +77,8 @@ def window_layout():
     window['dps_sbs_notes'].bind('<Tab>', '_tab', propagate=False)
     window['dps_example_1'].bind('<Tab>', '_tab', propagate=False)
     window['dps_example_2'].bind('<Tab>', '_tab', propagate=False)
-    window['dps_example_3'].bind('<Tab>', '_tab', propagate=False)
-    window['dps_example_4'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_sbs_example_3'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_sbs_example_4'].bind('<Tab>', '_tab', propagate=False)
 
     # completition combo bindings
     window["pos"].bind("<Return>", "-enter")
@@ -136,6 +136,9 @@ def window_layout():
     window["pattern"].bind("<Return>", "-enter")
     window["pattern"].bind("<Key>", "-key")
     window["pattern"].bind("<FocusOut>", "-focus_out")
+
+    # dps CompletionCombo
+    window["dps_id_or_pali_1"].bind("<Return>", "_enter")
 
     window["dps_sbs_chant_pali_1"].bind("<Return>", "-enter")
     window["dps_sbs_chant_pali_1"].bind("<Key>", "-key")

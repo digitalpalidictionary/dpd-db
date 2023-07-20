@@ -22,6 +22,11 @@ from functions_db import get_pali_clean_list
 from functions_db import delete_word
 from functions_db import get_root_info
 
+from functions_db import fetch_id_or_pali
+from functions_db import fetch_ru
+from functions_db import fetch_sbs
+from functions_db import dps_update_db
+
 from functions import open_in_goldendict
 from functions import sandhi_ok
 from functions import test_book_to_add
@@ -54,6 +59,10 @@ from functions import load_gui_state
 from functions import test_construction
 from functions import replace_sandhi
 from functions import test_username
+from functions import populate_dps_tab
+from functions import update_sbs_chant
+from functions import clear_dps
+
 from functions_tests import individual_internal_tests
 from functions_tests import open_internal_tests
 from functions_tests import db_internal_tests
@@ -71,11 +80,11 @@ def main():
     db_session = get_db_session("dpd.db")
     primary_user = test_username(sg)
 
-    # # !!! this is slow !!!
-    # try:
-    #     definitions_df = pd.read_csv(PTH.defintions_csv_path, sep="\t")
-    # except Exception:
-    #     definitions_df = pd.DataFrame()
+    # !!! this is slow !!!
+    try:
+        definitions_df = pd.read_csv(PTH.defintions_csv_path, sep="\t")
+    except Exception:
+        definitions_df = pd.DataFrame()
 
     sandhi_dict = make_sandhi_contraction_dict(db_session)
     pali_clean_list: list = get_pali_clean_list()
@@ -839,6 +848,77 @@ def main():
         elif event.endswith("-focus_out"):
             combo = window[event.replace("-focus_out", "")]
             combo.hide_tooltip()
+
+        # dps tab
+
+        # tabs jumps to next field in multiline
+        if event == "dps_ru_meaning_tab":
+            window['dps_ru_meaning'].get_next_focus().set_focus()
+        elif event == "dps_sbs_meaning_tab":
+            window['dps_sbs_meaning'].get_next_focus().set_focus()
+        elif event == "dps_notes_tab":
+            window['dps_notes'].get_next_focus().set_focus()
+        elif event == "dps_ru_notes_tab":
+            window['dps_ru_notes'].get_next_focus().set_focus()
+        elif event == "dps_sbs_notes_tab":
+            window['dps_sbs_notes'].get_next_focus().set_focus()
+        elif event == "dps_example_1_tab":
+            window['dps_example_1'].get_next_focus().set_focus()
+        elif event == "dps_example_2_tab":
+            window['dps_example_2'].get_next_focus().set_focus()
+        elif event == "dps_sbs_example_3_tab":
+            window['dps_sbs_example_3'].get_next_focus().set_focus()
+        elif event == "dps_sbs_example_4_tab":
+            window['dps_sbs_example_4'].get_next_focus().set_focus()
+
+        if (
+            event == "dps_id_or_pali_1_enter" or
+            event == "dps_id_or_pali_1_button"
+        ):
+            if values["dps_id_or_pali_1"]:
+                dpd_word = fetch_id_or_pali(values)
+                if dpd_word:
+                    ru_word = fetch_ru(dpd_word.id)
+                    sbs_word = fetch_sbs(dpd_word.id)
+                    open_in_goldendict(dpd_word.pali_1)
+                    populate_dps_tab(
+                        values, window, dpd_word, ru_word, sbs_word)
+                else:
+                    window["messages"].update(
+                        "not a valid id or pali_1", text_color="red")
+
+        if event == "dps_sbs_chant_pali_1":
+            chant = values["dps_sbs_chant_pali_1"]
+            update_sbs_chant(1, chant, window)
+
+        elif event == "dps_sbs_chant_pali_2":
+            update_sbs_chant(
+                2, values["dps_sbs_chant_pali_2"], window)
+
+        elif event == "dps_sbs_chant_pali_3":
+            update_sbs_chant(
+                3, values["dps_sbs_chant_pali_3"], window)
+
+        elif event == "dps_sbs_chant_pali_4":
+            update_sbs_chant(
+                4, values["dps_sbs_chant_pali_4"], window)
+
+        elif event == "dps_clear_button":
+            clear_dps(values, window)
+
+        elif event == "dps_update_db_button":
+            dps_update_db(
+                values, window, dpd_word, ru_word, sbs_word)
+            clear_dps(values, window)
+
+        elif event == "dps_reset_button":
+            if dpd_word:
+                clear_dps(values, window)
+                populate_dps_tab(
+                    values, window, dpd_word, ru_word, sbs_word)
+            else:
+                window["messages"].update(
+                        "not a valid id or pali_1", text_color="red")
 
     window.close()
 
