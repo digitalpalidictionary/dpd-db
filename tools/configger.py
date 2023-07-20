@@ -22,23 +22,35 @@ def config_write():
         config.write(file)
 
 
-def config_update(section, field, value):
-    config.set(section, field, value)
+def config_update(section, option, value):
+    if config.has_section(section):
+        config.set(section, option, value)
+    else:
+        config.add_section(section)
+        config.set(section, option, value)
     config_write()
 
 
-def config_test(section, field, value):
+def config_test(section, option, value):
     config.read("config.ini")
     if (
         section in config and
-        config.has_option(section, field)
+        config.has_option(section, option)
     ):
-        if config.get(section, field) == value:
+        if config.get(section, option) == value:
             return True
         else:
             return False
     else:
         print("[red]unknown config setting")
+
+
+def config_test_option(section, option):
+    config.read("config.ini")
+    if config.has_section(section):
+        return config.has_option(section, option)
+    else:
+        return False
 
 
 if __name__ == "__main__":

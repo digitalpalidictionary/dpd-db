@@ -28,6 +28,7 @@ class ProjectPaths():
 
     # dps
     dps_merge_dir: Path = Path("dps/to-merge/")
+    sbs_index_path: Path = Path("dps/sbs-index.csv")
 
     # ebook
     epub_dir: Path = Path("ebook/epub/")

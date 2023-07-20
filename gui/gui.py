@@ -53,6 +53,7 @@ from functions import save_gui_state
 from functions import load_gui_state
 from functions import test_construction
 from functions import replace_sandhi
+from functions import test_username
 from functions_tests import individual_internal_tests
 from functions_tests import open_internal_tests
 from functions_tests import db_internal_tests
@@ -68,14 +69,18 @@ from tools.paths import ProjectPaths as PTH
 
 def main():
     db_session = get_db_session("dpd.db")
-    # !!! this is slow !!!
-    try:
-        definitions_df = pd.read_csv(PTH.defintions_csv_path, sep="\t")
-    except Exception:
-        definitions_df = pd.DataFrame()
+    primary_user = test_username(sg)
+
+    # # !!! this is slow !!!
+    # try:
+    #     definitions_df = pd.read_csv(PTH.defintions_csv_path, sep="\t")
+    # except Exception:
+    #     definitions_df = pd.DataFrame()
+
     sandhi_dict = make_sandhi_contraction_dict(db_session)
     pali_clean_list: list = get_pali_clean_list()
     window = window_layout()
+
     flags = Flags()
     get_next_ids(window)
 
@@ -98,6 +103,9 @@ def main():
         if event:
             print(f"{event}")
             # print(f"{values}")
+
+        elif event == sg.WIN_CLOSED:
+            break
 
         # tabs jumps to next field in multiline
         if event == "meaning_1_tab":
@@ -172,7 +180,7 @@ def main():
                 words_to_add_list = remove_word_to_add(
                     values, window, words_to_add_list)
                 window["words_to_add_length"].update(len(words_to_add_list))
-                window["tab_add_word"].select()
+                window["tab_edit_dpd"].select()
                 window["pali_1"].update(values["word_to_add"][0])
                 window["search_for"].update(values["word_to_add"][0])
                 window["bold_1"].update(values["word_to_add"][0])
@@ -679,10 +687,6 @@ def main():
                     reset_flags(flags)
                     window["messages"].update(
                         f"{row_id} '{pali_1}' deleted", text_color="white")
-
-        elif event == sg.WIN_CLOSED:
-            # save_gui_state(values, words_to_add_list)
-            break
 
         elif event == "Close":
             window["messages"].update(

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import PySimpleGUI as sg
 from tab_add_next_word import make_tab_add_next_word
-from tab_add_word import make_tab_add_word
+from tab_edit_dpd import make_tab_edit_dpd
+from tab_edit_dps import make_tab_edit_dps
 from tab_fix_sandhi import make_tab_fix_sandhi
 from tab_db_tests import make_tab_db_tests
 
@@ -18,14 +19,16 @@ def window_layout():
     )
 
     tab_add_next_word = make_tab_add_next_word(sg)
-    tab_add_word = make_tab_add_word(sg)
+    tab_edit_dpd = make_tab_edit_dpd(sg)
+    tab_edit_dps = make_tab_edit_dps(sg)
     tab_fix_sandhi = make_tab_fix_sandhi(sg)
     tab_db_tests = make_tab_db_tests(sg)
 
     tab_group = sg.TabGroup(
         [[
             sg.Tab("Words To Add", tab_add_next_word, key="tab_add_next_word"),
-            sg.Tab("Add Word", tab_add_word, key="tab_add_word"),
+            sg.Tab("Edit DPD", tab_edit_dpd, key="tab_edit_dpd"),
+            sg.Tab("Edit DPS", tab_edit_dps, key="tab_edit_dps"),
             sg.Tab("Fix Sandhi", tab_fix_sandhi, key="tab_fix_sandhi"),
             sg.Tab("Test db", tab_db_tests, key="tab_db_tests")
         ]],
@@ -46,7 +49,7 @@ def window_layout():
         resizable=True,
         size=(1280, 1080),
         finalize=True,
-        )
+    )
 
     # bind enter key for quick search
     window['word_to_copy'].bind("<Return>", "_enter")

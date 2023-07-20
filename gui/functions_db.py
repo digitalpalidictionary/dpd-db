@@ -2,10 +2,13 @@ import re
 
 from rich import print
 from sqlalchemy import or_
+from sqlalchemy import Inspector
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from db.models import PaliRoot
+from db.models import Russian
+from db.models import SBS
 from db.models import InflectionTemplates
 from db.models import DerivedData
 from tools.pali_sort_key import pali_sort_key
@@ -504,3 +507,32 @@ def get_root_info(root_key):
 
 
 # print(get_root_info("√kar"))
+
+# dps functions
+
+def fetch_id_or_pali(values: dict) -> PaliWord:
+    """Get id or pali1 from db."""
+    dps_id_or_pali_1 = values["dps_id_or_pali_1"]
+    first_character = dps_id_or_pali_1[0]
+    if first_character.isalpha():
+        query = db_session.query(PaliWord).filter(
+            PaliWord.pali_1 == dps_id_or_pali_1).first()
+        if query:
+            return query
+    elif first_character.isdigit():
+        query = db_session.query(PaliWord).filter(
+            PaliWord.id == dps_id_or_pali_1).first()
+        if query:
+            return query
+
+
+def fetch_ru(id: int) -> Russian:
+    """Fetch Russian word from db."""
+    return db_session.query(Russian).filter(
+        Russian.id == id).first()
+
+
+def fetch_sbs(id: int) -> SBS:
+    """Fetch SBS word from db."""
+    return db_session.query(SBS).filter(
+        SBS.id == id).first()

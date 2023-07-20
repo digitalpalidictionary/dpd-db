@@ -88,7 +88,7 @@ bold_2_tooltip = ""
 another_eg_2_tooltip = ""
 
 
-def make_tab_add_word(sg):
+def make_tab_edit_dpd(sg):
 
     add_word_layout = [
         [
@@ -614,7 +614,7 @@ def make_tab_add_word(sg):
         ],
         ]
 
-    tab_add_word = [
+    tab_edit_dpd = [
         [
             sg.Column(
                 add_word_layout,
@@ -654,4 +654,4 @@ def make_tab_add_word(sg):
         ]
     ]
 
-    return tab_add_word
+    return tab_edit_dpd

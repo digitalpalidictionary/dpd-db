@@ -1,0 +1,46 @@
+russian spellchecker
+russian_lit spellchecker
+sbs_meaning english spellchecker
+russian note spellchecker
+sbs note spellchecker
+sbs_example_3 bold fucntion, 
+sbs_example_4 bold fucntion
+
+
+logix 
+if not primary_user
+save a copy of original paliword
+iterate tthru each attributeof paliword
+if attributeof is different from gui value
+if field is source_1, sutta_1, example_1, 
+        or source_2, sutta_2, example_2
+    update corrections with 3 fields
+    add comment to corrections
+elif field is deriavative suffix
+        or compound type compound construction
+    update corrections with 2 fields
+    add comment to corrections
+else
+    update corrections with one field
+    add comment to corrections
+
+udpate db as ususal
+
+del chanting examples, source in telegram converdation, trad, thai, etc. 
+
+corrections scrollable, old and new underneath each other
+compound type + compound construction
+derivative + suffix
+stem + pattern
+devamitta add to db button
+
+add_word user is devamitta, different options for adding to dbd, making changes, pop feedback, write to tsv
+
+get word from db logix is if first letter digit > id, if letter then pali_1
+
+
+
+
+
+
+

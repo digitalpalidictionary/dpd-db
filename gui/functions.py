@@ -10,15 +10,20 @@ from rich import print
 from bs4 import BeautifulSoup
 from nltk import sent_tokenize, word_tokenize
 
+from db.db_helpers import fetch_column_names
+from db.models import Russian, SBS
 from functions_db import make_all_inflections_set
 from functions_db import get_family_compound_values
-from tools.clean_machine import clean_machine
-from tools.pali_text_files import cst_texts, sc_texts
+
 from tools.pos import INDECLINEABLES
-from tools.pali_alphabet import pali_alphabet
 from tools.cst_sc_text_sets import make_cst_text_set
 from tools.cst_sc_text_sets import make_sc_text_set
 from tools.paths import ProjectPaths as PTH
+from tools.configger import config_test_option
+from tools.configger import config_update
+from tools.configger import config_test
+from tools.meaning_construction import make_meaning
+from tools.tsv_read_write import read_tsv_dot_dict
 
 
 def add_sandhi_correction(window, values: dict) -> None:
@@ -377,7 +382,7 @@ def edit_spelling():
 def clear_errors(window):
     error_elements = [
         e for e in window.element_list()
-        if e.key is not None and e.key != 0 and "error" in e.key]
+        if hasattr(e, "key") and isinstance(e.key, str) and "error" in e.key]
     for e in error_elements:
         window[e.key].update("")
 
@@ -1070,3 +1075,165 @@ def replace_sandhi(string, field: str, sandhi_dict: dict, window) -> None:
     string = string.strip()  # remove spaces front n back
 
     window[field].update(string)
+
+
+def test_username(sg):
+    """If no username in config.ini, save one.
+    Return user_1 or user_2."""
+    while True:
+        if not config_test_option("user", "username"):
+            username = sg.popup_get_text(
+                "What is your name?", title="username")
+            if username:
+                config_update("user", "username", username)
+                break
+        else:
+            break
+    if config_test("user", "username", "1"):
+        return True
+    else:
+        return False
+
+
+# dps tab functions
+
+def populate_dps_tab(values, window, dpd_word, ru_word, sbs_word):
+    """Populate DPS tab with DPD info."""
+    window["dps_dpd_id"].update(dpd_word.id)
+    window["dps_pali_1"].update(dpd_word.pali_1)
+
+    # grammar
+    dps_grammar = dpd_word.grammar
+    if dpd_word.neg:
+        dps_grammar += f", {dpd_word.neg}"
+    if dpd_word.verb:
+        dps_grammar += f", {dpd_word.verb}"
+    if dpd_word.trans:
+        dps_grammar += f", {dpd_word.trans}"
+    if dpd_word.plus_case:
+        dps_grammar += f" ({dpd_word.plus_case})"
+    window["dps_grammar"].update(dps_grammar)
+
+    # meaning
+    meaning = make_meaning(dpd_word)
+    if dpd_word.meaning_1:
+        window["dps_meaning"].update(meaning)
+    else:
+        meaning = f"(meaing_2) {meaning}"
+        window["dps_meaning"].update(meaning)
+
+    # russian
+    ru_columns = fetch_column_names(Russian)
+    for value in values:
+        if value.startswith("dps_"):
+            value_clean = value.replace("dps_", "")
+            if value_clean in ru_columns:
+                window[value].update(getattr(ru_word, value_clean, ""))
+
+    # sbs
+    sbs_columns = fetch_column_names(SBS)
+    for value in values:
+        if value.startswith("dps_"):
+            value_clean = value.replace("dps_", "")
+            if value_clean in sbs_columns:
+                window[value].update(getattr(sbs_word, value_clean, ""))
+
+    # root
+    root = ""
+    if dpd_word.root_key:
+        root = f"{dpd_word.root_key} "
+        root += f"{dpd_word.rt.root_has_verb} "
+        root += f"{dpd_word.rt.root_group} "
+        root += f"{dpd_word.root_sign} "
+        root += f"({dpd_word.rt.root_meaning})"
+    window["dps_root"].update(root)
+
+    # base_or_comp
+    base_or_comp = ""
+    if dpd_word.root_base:
+        base_or_comp += dpd_word.root_base
+    elif dpd_word.compound_type:
+        base_or_comp += dpd_word.compound_type
+    window["dps_base_or_comp"].update(base_or_comp)
+
+    # dps_constr_or_comp_constr
+    constr_or_comp_constr = ""
+    if dpd_word.compound_construction:
+        constr_or_comp_constr += dpd_word.compound_construction
+    elif dpd_word.construction:
+        constr_or_comp_constr += dpd_word.construction
+    window["dps_constr_or_comp_constr"].update(constr_or_comp_constr)
+
+    # synonym
+    dps_synonym = ""
+    if dpd_word.synonym:
+        dps_synonym = dpd_word.synonym
+    window["dps_synonym"].update(dps_synonym)
+
+    # antonym
+    dps_antonym = ""
+    if dpd_word.antonym:
+        dps_antonym = dpd_word.antonym
+    window["dps_antonym"].update(dps_antonym)
+
+    # notes
+    dps_notes = ""
+    if dpd_word.notes:
+        dps_notes = dpd_word.notes
+    window["dps_notes"].update(dps_notes)
+
+    # example_1
+    dps_example_1 = ""
+    if dpd_word.example_1:
+        dps_example_1 += f"{dpd_word.source_1} {dpd_word.sutta_1}\n"
+        dps_example_1 += dpd_word.example_1
+    window["dps_example_1"].update(dps_example_1)
+
+    # example_2
+    dps_example_2 = ""
+    if dpd_word.example_2:
+        dps_example_2 += f"{dpd_word.source_2} {dpd_word.sutta_2}\n"
+        dps_example_2 += dpd_word.example_2
+    window["dps_example_2"].update(dps_example_2)
+
+    # dps_sbs_chant_pali
+    if values["dps_sbs_chant_pali_1"]:
+        chant = values["dps_sbs_chant_pali_1"]
+        update_sbs_chant(1, chant, window)
+
+    if values["dps_sbs_chant_pali_2"]:
+        chant = values["dps_sbs_chant_pali_2"]
+        update_sbs_chant(2, chant, window)
+
+    if values["dps_sbs_chant_pali_3"]:
+        chant = values["dps_sbs_chant_pali_3"]
+        update_sbs_chant(3, chant, window)
+
+    if values["dps_sbs_chant_pali_4"]:
+        chant = values["dps_sbs_chant_pali_4"]
+        update_sbs_chant(4, chant, window)
+
+    # mp3
+    audio = f"audio=[sound:{dpd_word.pali_clean}.mp3]"
+    window["dps_sbs_audio"].update(audio)
+
+
+def load_sbs_index() -> dict:
+    file_path = PTH.sbs_index_path
+    sbs_index = read_tsv_dot_dict(file_path)
+    return sbs_index
+
+
+def fetch_sbs_index(pali_chant):
+    for i in sbs_index:
+        if i.pali_chant == pali_chant:
+            return i.english_chant, i.chapter
+
+
+def update_sbs_chant(number, chant, window):
+    english, chapter = fetch_sbs_index(chant)
+    window[f"dps_sbs_chant_eng_{number}"].update(english)
+    window[f"dps_sbs_chapter_{number}"].update(chapter)
+
+
+sbs_index = load_sbs_index()
