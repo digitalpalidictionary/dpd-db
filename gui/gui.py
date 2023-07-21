@@ -674,6 +674,13 @@ def main():
                         remove_word_to_add(values, window, words_to_add_list)
                         window["words_to_add_length"].update(
                             len(words_to_add_list))
+                        if not primary_user:
+                            edit_in_dps = sg.popup_ok_cancel(
+                                "Edit word in DPS?", title="edit in dps",
+                                location=(400, 400))
+                            if edit_in_dps:
+                                window["dps_id_or_pali_1"].update(values["id"])
+                                window["tab_edit_dps"].select()
 
         elif event == "debug_button":
             print(f"{values}")

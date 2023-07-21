@@ -613,13 +613,19 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
             sg.Button(
                 "Delete", key="delete_button",
                 tooltip="Delete a word from the db. Careful!"),
+            sg.Button(
+                "Update Sandhi", key="update_sandhi_button",
+                tooltip="Update list of words with sandhi apostophes"),
         ],
         [
             # gui buttons
             sg.Text("gui buttons", size=(15, 1)),
             sg.Button(
+                "Debug", key="debug_button",
+                tooltip="Print the current values in the terminal"),
+            sg.Button(
                 "Stash", key="stash_button",
-                tooltip="Stash the word you're currently editing"),
+                tooltip="Stash the word to edit it again later"),
             sg.Button(
                 "Unstash", key="unstash_button",
                 tooltip="Unstash a word to edit it again"),
@@ -634,20 +640,10 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
             sg.Button(
                 "Save and Close", key="save_and_close_button",
                 tooltip="Save the current state, backup to tsv and close"),
-        ],
-        [
-            # other buttons
-            sg.Text("other buttons", size=(15, 1)),
-            sg.Button(
-                "Debug", key="debug_button",
-                tooltip="Print the current values in the terminal"),
             sg.Button(
                 "Open Tests", key="open_tests_button",
                 tooltip="Open TSV file of internal tests"),
-            sg.Button(
-                "Update Sandhi", key="update_sandhi_button",
-                tooltip="Update list of word with sandhi apostophes"),
-        ],
+        ]
     ]
 
     return tab_edit_dpd
