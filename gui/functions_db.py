@@ -2,7 +2,6 @@ import re
 
 from rich import print
 from sqlalchemy import or_
-from sqlalchemy import Inspector
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord
@@ -96,7 +95,8 @@ def print_pos_list() -> list:
 def get_next_ids(window):
 
     used_ids = db_session.query(PaliWord.id).order_by(PaliWord.id).all()
-    used_uids = db_session.query(PaliWord.user_id).order_by(PaliWord.user_id).all()
+    used_uids = db_session.query(PaliWord.user_id).order_by(
+        PaliWord.user_id).all()
 
     def find_missing_or_next_id():
         counter = 1
@@ -133,81 +133,58 @@ def values_to_pali_word(values):
     return word_to_add
 
 
-def add_word_to_db(window, values: dict) -> None:
+def udpate_word_in_db(
+        window, values: dict) -> bool:
     word_to_add = values_to_pali_word(values)
+    pali_word_in_db = db_session.query(PaliWord).filter(
+        values["id"] == PaliWord.id).first()
 
-    exists = db_session.query(
-        PaliWord
-        ).filter(
-            PaliWord.pali_1 == values["pali_1"]
-        ).first()
-
-    if exists:
-        window["messages"].update(
-            f"""'{values['pali_1']}' already in db. Use Update instead""",
-            text_color="red")
-        return False
-
-    else:
+    # add if word not in db
+    if not pali_word_in_db:
         try:
             db_session.add(word_to_add)
             db_session.commit()
             window["messages"].update(
                 f"'{values['pali_1']}' added to db",
                 text_color="white")
-            return True
+            return True, "added"
 
         except Exception as e:
             window["messages"].update(f"{str(e)}", text_color="red")
             db_session.rollback()
-            return False
+            return False, "added"
 
-
-def update_word_in_db(window, values: dict) -> None:
-    # dict_to_add = [values_to_dict(values)]
-
-    word = db_session.query(
-        PaliWord
-        ).filter(
-            PaliWord.id == values["id"]
-        ).first()
-
-    if not word:
-        window["messages"].update(
-            f"""'{values['pali_1']}' not in db. Use Add to db instead""",
-            text_color="red")
-        return False
-
+    # update if word in db
     else:
-        for key in values:
-            if key in dpd_values_list:
-                setattr(word, key, values[key])
+        for value in values:
+            if value in dpd_values_list:
+                setattr(pali_word_in_db, value, values[value])
 
         try:
             db_session.commit()
             window["messages"].update(
                 f"'{values['pali_1']}' updated in db",
                 text_color="white")
-            return True
+            return True, "updated"
 
         except Exception as e:
             window["messages"].update(
                 f"{str(e)}", text_color="red")
             db_session.rollback()
-            return False
+            return False, "updated"
 
 
 def edit_word_in_db(values, window):
     pali_word = db_session.query(
         PaliWord
     ).filter(
-        PaliWord.pali_1 == values["word_to_copy"]
+        PaliWord.pali_1 == values["word_to_clone_edit"]
     ).first()
 
     if pali_word is None:
         window["messages"].update(
-            f"{values['word_to_copy']}' not found in db", text_color="red"
-        ),
+            f"{values['word_to_clone_edit']}' not found in db",
+            text_color="red"),
 
     else:
         attrs = pali_word.__dict__
@@ -215,20 +192,22 @@ def edit_word_in_db(values, window):
             if key in values:
                 window[key].update(attrs[key])
         window["messages"].update(
-            f"editing '{values['word_to_copy']}'", text_color="white")
+            f"editing '{values['word_to_clone_edit']}'", text_color="white")
+
+    return pali_word
 
 
 def copy_word_from_db(values, window):
     pali_word = db_session.query(
         PaliWord
     ).filter(
-        PaliWord.pali_1 == values["word_to_copy"]
+        PaliWord.pali_1 == values["word_to_clone_edit"]
     ).first()
 
     if pali_word is None:
         window["messages"].update(
-            f"{values['word_to_copy']}' not found in db", text_color="red"
-        ),
+            f"{values['word_to_clone_edit']}' not found in db",
+            text_color="red"),
 
     else:
         exceptions = [
@@ -243,7 +222,7 @@ def copy_word_from_db(values, window):
                 if key not in exceptions:
                     window[key].update(attrs[key])
         window["messages"].update(
-            f"copied '{values['word_to_copy']}'", text_color="white")
+            f"copied '{values['word_to_clone_edit']}'", text_color="white")
 
 
 def get_verb_values():
@@ -387,7 +366,8 @@ def get_synonyms(pos: str, string_of_meanings: str) -> str:
         PaliWord
         ).filter(
             PaliWord.pos == pos,
-            or_(*[PaliWord.meaning_1.like(f"%{meaning}%") for meaning in list_of_meanings])
+            or_(*[PaliWord.meaning_1.like(
+                f"%{meaning}%") for meaning in list_of_meanings])
         ).all()
 
     meaning_dict = {}
@@ -500,7 +480,8 @@ def get_root_info(root_key):
         ).first()
 
     try:
-        root_info = f"{r.root_clean} {r.root_group} {r.root_sign} ({r.root_meaning})"
+        root_info = f"{r.root_clean} {r.root_group} "
+        root_info += f"{r.root_sign} ({r.root_meaning})"
         return root_info
     except AttributeError as e:
         print(e)

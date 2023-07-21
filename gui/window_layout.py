@@ -52,7 +52,7 @@ def window_layout():
     )
 
     # bind enter key for quick search
-    window['word_to_copy'].bind("<Return>", "_enter")
+    window['word_to_clone_edit'].bind("<Return>", "_enter")
     window['book_to_add'].bind("<Return>", "_enter")
     window['search_for'].bind("<Return>", "_enter")
     window['contains'].bind("<Return>", "_enter")

@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
+
 import PySimpleGUI as sg
 import re
 import pandas as pd
 import pickle
 import pyperclip
 
+from copy import deepcopy
 from rich import print
 
 from window_layout import window_layout
-from functions_db import add_word_to_db
-from functions_db import update_word_in_db
+from functions_db import udpate_word_in_db
 from functions_db import get_next_ids
 from functions_db import get_family_root_values
 from functions_db import get_root_sign_values
@@ -21,7 +22,6 @@ from functions_db import edit_word_in_db
 from functions_db import get_pali_clean_list
 from functions_db import delete_word
 from functions_db import get_root_info
-
 from functions_db import fetch_id_or_pali
 from functions_db import fetch_ru
 from functions_db import fetch_sbs
@@ -62,6 +62,7 @@ from functions import test_username
 from functions import populate_dps_tab
 from functions import update_sbs_chant
 from functions import clear_dps
+from functions import compare_differences
 
 from functions_tests import individual_internal_tests
 from functions_tests import open_internal_tests
@@ -79,6 +80,7 @@ from tools.paths import ProjectPaths as PTH
 def main():
     db_session = get_db_session("dpd.db")
     primary_user = test_username(sg)
+    pali_word_original = None
 
     # !!! this is slow !!!
     try:
@@ -139,11 +141,12 @@ def main():
                 if words_to_add_list != []:
                     values["word_to_add"] = [words_to_add_list[0]]
                     window["word_to_add"].update(words_to_add_list)
-                    window["words_to_add_length"].update(len(words_to_add_list))
+                    window["words_to_add_length"].update(
+                        len(words_to_add_list))
                     print(values)
                     open_in_goldendict(words_to_add_list[0])
                     window["messages"].update(
-                        f"all missing words from {values['book_to_add']} added",
+                        f"added all missing words from {values['book_to_add']}",
                         text_color="white")
                 else:
                     window["messages"].update(
@@ -174,7 +177,8 @@ def main():
                 try:
                     values["word_to_add"] = [words_to_add_list[0]]
                     window["word_to_add"].update(words_to_add_list)
-                    window["words_to_add_length"].update(len(words_to_add_list))
+                    window["words_to_add_length"].update(
+                        len(words_to_add_list))
                     open_in_goldendict(words_to_add_list[0])
                 except IndexError:
                     window["messages"].update(
@@ -242,7 +246,10 @@ def main():
 
         if event == "derived_from":
             if flags.derived_from:
-                if " of " in values["grammar"] or " from " in values["grammar"]:
+                if (
+                    " of " in values["grammar"] or
+                    " from " in values["grammar"]
+                ):
                     derived_from = re.sub(
                         ".+( of | from )(.+)(,|$)", r"\2", values["grammar"])
                     derived_from = re.sub("^na ", "", derived_from)
@@ -570,7 +577,10 @@ def main():
             if values["search_for"] == "":
                 window["search_for"].update(values["pali_1"])
 
-        elif event == "search_for_enter" or event == "defintions_search_button":
+        elif (
+            event == "search_for_enter" or
+            event == "defintions_search_button"
+        ):
             try:
                 commentary_defintions = find_commentary_defintions(
                     sg, values, definitions_df)
@@ -586,7 +596,8 @@ def main():
                 window["commentary"].update(commentary)
 
         elif event == "sanskrit":
-            if flags.sanskrit and re.findall(r"\bcomp\b", values["grammar"]) != []:
+            if flags.sanskrit and re.findall(
+                    r"\bcomp\b", values["grammar"]) != []:
                 sanskrit = get_sanskrit(values["construction"])
                 window["sanskrit"].update(sanskrit)
                 flags.sanskrit = False
@@ -598,21 +609,22 @@ def main():
 
         # add word buttons
 
-        elif event == "Copy" or event == "word_to_copy_enter":
-            if values["word_to_copy"] != "":
+        elif event == "Clone" or event == "word_to_clone_edit_enter":
+            if values["word_to_clone_edit"] != "":
                 copy_word_from_db(values, window)
-                window["word_to_copy"].update("")
+                window["word_to_clone_edit"].update("")
             else:
                 window["messages"].update("No word to copy!", text_color="red")
 
         elif event == "edit_button":
-            if values["word_to_copy"] != "":
-                edit_word_in_db(values, window)
-                window["word_to_copy"].update("")
+            if values["word_to_clone_edit"] != "":
+                pali_word_original = edit_word_in_db(values, window)
+                pali_word_original2 = deepcopy(pali_word_original)
+                window["word_to_clone_edit"].update("")
             else:
                 window["messages"].update("No word to edit!", text_color="red")
 
-        elif event == "Clear":
+        elif event == "clear_button":
             clear_errors(window)
             clear_values(values, window)
             get_next_ids(window)
@@ -637,35 +649,24 @@ def main():
             error_field = "meaning_2_error"
             check_spelling(field, error_field, values, window)
 
-        elif event == "open_tests":
+        elif event == "open_tests_button":
             open_internal_tests()
 
-        elif event == "update_sandhi":
+        elif event == "update_sandhi_button":
             sandhi_dict = make_sandhi_contraction_dict(db_session)
 
-        elif event == "add_word_to_db":
+        elif event == "update_db_button":
             if flags.tested is False:
                 window["messages"].update("test first!", text_color="red")
             else:
                 last_button = display_summary(values, window, sg)
                 if last_button == "ok_button":
-                    success = add_word_to_db(window, values)
+                    success, action = udpate_word_in_db(
+                        window, values)
                     if success:
-                        clear_errors(window)
-                        clear_values(values, window)
-                        get_next_ids(window)
-                        reset_flags(flags)
-                        remove_word_to_add(values, window, words_to_add_list)
-                        window["words_to_add_length"].update(len(words_to_add_list))
-
-        elif event == "update_word":
-            if flags.tested is False:
-                window["messages"].update("test first!", text_color="red")
-            else:
-                last_button = display_summary(values, window, sg)
-                if last_button == "ok_button":
-                    success = update_word_in_db(window, values)
-                    if success:
+                        if not primary_user:
+                            compare_differences(
+                                values, sg, pali_word_original2, action)
                         clear_errors(window)
                         clear_values(values, window)
                         get_next_ids(window)
@@ -674,10 +675,10 @@ def main():
                         window["words_to_add_length"].update(
                             len(words_to_add_list))
 
-        elif event == "Debug":
+        elif event == "debug_button":
             print(f"{values}")
 
-        elif event == "save_state":
+        elif event == "save_state_button":
             save_gui_state(values, words_to_add_list)
 
         elif event == "delete_button":
@@ -697,7 +698,7 @@ def main():
                     window["messages"].update(
                         f"{row_id} '{pali_1}' deleted", text_color="white")
 
-        elif event == "Close":
+        elif event == "save_and_close_button":
             window["messages"].update(
                 "backing up db to csvs", text_color="white")
             db_to_tsv()
@@ -808,13 +809,13 @@ def main():
                 window[value].update(visible=False)
             flags.show_fields = False
 
-        elif event == "stash":
+        elif event == "stash_button":
             with open(PTH.stash_path, "wb") as f:
                 pickle.dump(values, f)
             window["messages"].update(
                 f"{values['pali_1']} stashed", text_color="white")
 
-        elif event == "unstash":
+        elif event == "unstash_button":
             with open(PTH.stash_path, "rb") as f:
                 unstash = pickle.load(f)
                 for key, value in unstash.items():
@@ -823,7 +824,7 @@ def main():
             window["messages"].update(
                 "unstashed", text_color="white")
 
-        elif event == "summary":
+        elif event == "summary_button":
             display_summary(values, window, sg)
 
         elif event == "test_db_internal":

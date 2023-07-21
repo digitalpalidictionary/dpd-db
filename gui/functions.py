@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 from nltk import sent_tokenize, word_tokenize
 
 from db.db_helpers import fetch_column_names
-from db.models import Russian, SBS
+from db.models import Russian, SBS, PaliWord
 from functions_db import make_all_inflections_set
 from functions_db import get_family_compound_values
 
@@ -19,7 +19,8 @@ from tools.pos import INDECLINEABLES
 from tools.cst_sc_text_sets import make_cst_text_set
 from tools.cst_sc_text_sets import make_sc_text_set
 from tools.paths import ProjectPaths as PTH
-from tools.pali_text_files import cst_texts, sc_texts
+from tools.pali_text_files import cst_texts
+from tools.pali_alphabet import pali_alphabet
 from tools.configger import config_test_option
 from tools.configger import config_update
 from tools.configger import config_test
@@ -1245,3 +1246,120 @@ def clear_dps(values, window):
 
 
 sbs_index = load_sbs_index()
+
+
+def compare_differences(
+        values: dict, sg, pali_word_original: PaliWord, action):
+    """Comapre the differences between original and new word.
+    Save to corrections or additions TSV."""
+
+    if action == "updated":
+        # check what's changed
+        got_comment = set()
+        fields = pali_word_original.__dict__
+        for field in fields.keys():
+            if field in values:
+                if str(getattr(pali_word_original, field)) != values[field]:
+                    group = None
+                    if field in ["source_1", "sutta_1", "example_1"]:
+                        group = "source_sutta_example1"
+                    elif field in ["source_2", "sutta_2", "example_2"]:
+                        group = "source_sutta_example2"
+                    elif field in ["derivative", "suffix"]:
+                        group = "derivative_suffix"
+                    elif field in ["compound_type", "compound_construction"]:
+                        group = "compound_type_construction"
+                    elif field in ["stem", "pattern"]:
+                        group = "stem_pattern"
+
+                    if group not in got_comment:
+                        while True:
+                            prompt = f"{field} has changed, why?\n"
+                            prompt += f"old: {getattr(pali_word_original, field)}\n"
+                            prompt += f"new: {values[field]}"
+                            comment = sg.popup_get_text(
+                                prompt, title="comment", location=(400, 400))
+                            if comment:
+                                break
+
+                        if group:
+                            got_comment.add(group)
+
+                        if group == "source_sutta_example1":
+                            correction = [
+                                values["id"],
+                                "source_1",
+                                values["source_1"],
+                                "sutta_1",
+                                values["sutta_1"],
+                                "example_1",
+                                values["example_1"],
+                                comment,
+                                "", ""]
+
+                        elif group == "source_sutta_example2":
+                            correction = [
+                                values["id"],
+                                "source_2",
+                                values["source_2"],
+                                "sutta_2",
+                                values["sutta_2"],
+                                "example_2",
+                                values["example_2"],
+                                comment,
+                                "", ""]
+
+                        elif group == "derivative_suffix":
+                            correction = [
+                                values["id"],
+                                "derivative",
+                                values["derivative"],
+                                "suffix",
+                                values["suffix"],
+                                "",
+                                "",
+                                comment,
+                                "", ""]
+
+                        elif group == "compound_type_construction":
+                            correction = [
+                                values["id"],
+                                "compound_type",
+                                values["compound_type"],
+                                "compound_construction",
+                                values["compound_construction"],
+                                "",
+                                "",
+                                comment,
+                                "", ""]
+
+                        elif group == "stem_pattern":
+                            correction = [
+                                values["id"],
+                                "stem",
+                                values["stem"],
+                                "pattern",
+                                values["pattern"],
+                                "",
+                                "",
+                                comment,
+                                "", ""]
+
+                        else:
+                            correction = [
+                                values["id"],
+                                field,
+                                values[field],
+                                "",
+                                "",
+                                "",
+                                "",
+                                comment,
+                                "", ""]
+
+                        with open(PTH.corrections_tsv_path, "a") as file:
+                            writer = csv.writer(file, delimiter="\t")
+                            writer.writerow(correction)
+
+    elif action == "added":
+        pass

@@ -19,74 +19,6 @@ DERIVATIVE_VALUES = ["", "kicca", "kita", "taddhita"]
 COMPOUND_TYPE_VALUES = get_compound_type_values()
 PATTERN_VALUES = get_patterns()
 
-# database field tooltips
-id_tooltip = "A unique id.\nNot manually adjustable."
-user_id_tooltip = "A unique user id.\nNot manually adjustable."
-show_fields_tooltip = "What type of word is it? \
-This determines what fields need to be added"
-pali_1_tooltip = "Nouns and partitiplces: vocative singular.\n\
-Verbs: 3rd person singular unless irrgular."
-pali_2_tooltip = "Nominative singular of masc and neuter nouns."
-pos_tooltip = "Only use values in the dropdown list."
-grammar_tooltip = "Order:\npos\n, or of\n"
-derived_from_tooltip = "Kitas are derived from the present tense verb.\n\
-Taddhitas - remove prefix and suffixes."
-neg_tooltip = "Most commonly prefixed with 'na', 'nir' or 'vi'."
-verb_tooltip = "Synchronize with base and grammar."
-trans_tooltip = "Transitivity of verbs and active participles.\n\
-Leave blank for other parts of speech."
-plus_case_tooltip = "What case does a related syntactically related word take?"
-meaning_1_tooltip = "Primary meanings, seperated by ';'"
-add_spelling_tooltip = "Add a word to the user dictionary."
-meaning_lit_tooltip = "Literal meaning of the prefix and suffix.\n\
-Leave empty for long compounds."
-meaning_2_tooltip = "Meaning from another dictionary."
-non_ia_tooltip = "Cognate of the word in non Indo-Aryan languages?"
-sanskrit_tooltip = "Cogante of the word in Sanskrit."
-root_key_tooltip = "Select a value from the dropdown list."
-root_sign_tooltip = "Sign of the verb.\n\
-Inlclude '*' for causatives and group 8 verbs."
-root_base_tooltip = "Root + sign = Base. (caus, pass, etc.)\n\
-If irregular, show phonetic development, e.g.\n\
-kar + *āpe  > kārāpe > karāpe (caus, irreg)."
-family_root_tooltip = "Prefix(es) and root seperated by a space."
-family_word_tooltip = "Family of the word if not derived from a root."
-family_compound_tooltip = "Family compounds, seperated by space."
-construction_tooltip = "Construciton of the word, showing all phonetic change."
-add_construction_tooltip = "Add this word to the words to add list."
-derivative_tooltip = ""
-suffix_tooltip = ""
-phonetic_tooltip = ""
-compound_type_tooltip = ""
-compound_construction_tooltip = ""
-bold_cc_tooltip = ""
-non_root_in_comps_tooltip = ""
-source_1_tooltip = ""
-sutta_1_tooltip = ""
-example_1_tooltip = ""
-source_2_tooltip = ""
-sutta_2_tooltip = ""
-example_2_tooltip = ""
-antonym_tooltip = ""
-synonym_tooltip = ""
-variant_tooltip = ""
-commentary_tooltip = ""
-notes_tooltip = ""
-cognate_tooltip = ""
-family_set_tooltip = ""
-link_tooltip = ""
-stem_tooltip = ""
-pattern_tooltip = ""
-origin_tooltip = ""
-
-# ui tooltips
-search_for_tooltip = ""
-contains_tooltip = ""
-bold_1_tooltip = ""
-another_eg_1_tooltip = ""
-bold_2_tooltip = ""
-another_eg_2_tooltip = ""
-
 
 def make_tab_edit_dpd(sg):
 
@@ -97,22 +29,22 @@ def make_tab_edit_dpd(sg):
                 "all", "group1",
                 key="show_fields_all",
                 enable_events=True,
-                tooltip=show_fields_tooltip),
+                tooltip="Show the fields relevant to the type of word"),
             sg.Radio(
                 "root", "group1",
                 key="show_fields_root",
                 enable_events=True,
-                tooltip=show_fields_tooltip),
+                tooltip="Show the fields relevant to the type of word"),
             sg.Radio(
                 "compound", "group1",
                 key="show_fields_compound",
                 enable_events=True,
-                tooltip=show_fields_tooltip),
+                tooltip="Show the fields relevant to the type of word"),
             sg.Radio(
                 "word", "group1",
                 key="show_fields_word",
                 enable_events=True,
-                tooltip=show_fields_tooltip),
+                tooltip="Show the fields relevant to the type of word"),
             sg.Text(
                 "", key="show_fields_error", size=(50, 1), text_color="red")
         ],
@@ -121,19 +53,22 @@ def make_tab_edit_dpd(sg):
             sg.Input(
                 "", key="id", size=(20, 1),
                 background_color="black",
-                tooltip=id_tooltip),
+                tooltip="A unique id.\n"),
 
             sg.Text("user_id"),
             sg.Input(
                 "", key="user_id", size=(21, 1),
                 background_color="black",
-                tooltip=user_id_tooltip),
+                tooltip="A unique user id."),
             sg.Text(
                 "", key="id_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("pali_1", size=(15, 1)),
-            sg.Input(key="pali_1", size=(50, 1), tooltip=pali_1_tooltip),
+            sg.Input(
+                key="pali_1", size=(50, 1),
+                tooltip="Vocative singular of nouns and partitiplces,\n\
+3rd person singular of verbs, unless irrgular."),
             sg.Text(
                 "", key="pali_1_error", size=(50, 1), text_color="red")
         ],
@@ -141,7 +76,7 @@ def make_tab_edit_dpd(sg):
             sg.Text("pali_2*", size=(15, 1)),
             sg.Input(
                 key="pali_2", size=(50, 1), enable_events=True,
-                tooltip=pali_2_tooltip),
+                tooltip="Nominative singular of masc and neuter nouns."),
             sg.Text(
                 "", key="pali_2_error", size=(50, 1), text_color="red")
         ],
@@ -150,7 +85,7 @@ def make_tab_edit_dpd(sg):
             CompletionCombo(
                 POS, key="pos", size=(7, 1), enable_events=True,
                 text_color=None, background_color=None,
-                tooltip=pos_tooltip),
+                tooltip="Part of speech. Only use values in the dropdown list."),
             sg.Text(
                 "", key="pos_error", size=(50, 1), text_color="red")
         ],
@@ -158,7 +93,7 @@ def make_tab_edit_dpd(sg):
             sg.Text("grammar*", size=(15, 1)),
             sg.Input(
                 key="grammar", size=(50, 1), enable_events=True,
-                tooltip=grammar_tooltip),
+                tooltip="Order:\npos\n, or of\n"),
             sg.Text(
                 "", key="grammar_error", size=(50, 1), text_color="red")
         ],
@@ -168,7 +103,8 @@ def make_tab_edit_dpd(sg):
             sg.Input(
                 key="derived_from", size=(50, 1),
                 enable_events=True,
-                tooltip=derived_from_tooltip),
+                tooltip="Kitas are derived from the present tense verb.\n\
+Taddhitas - remove prefix and suffixes."),
             sg.Text(
                 "", key="derived_from_error", size=(50, 1), text_color="red")
 
@@ -176,7 +112,8 @@ def make_tab_edit_dpd(sg):
         [
             sg.Text("neg", size=(15, 1)),
             CompletionCombo(
-                    NEG_VALUES, key="neg", size=(7, 1), tooltip=neg_tooltip),
+                    NEG_VALUES, key="neg", size=(7, 1),
+                    tooltip="Negatives. Most commonly prefixed with 'na', 'nir' or 'vi'."),
             sg.Text("", key="neg_error", size=(50, 1), text_color="red")
         ],
         [
@@ -184,7 +121,7 @@ def make_tab_edit_dpd(sg):
             sg.pin(
                 CompletionCombo(
                     VERB_VALUES, key="verb", size=(13, 1),
-                    tooltip=verb_tooltip)),
+                    tooltip="Type of verb. Synchronize with base and grammar.")),
             sg.Text("", key="verb_error", size=(50, 1), text_color="red")
         ],
         [
@@ -192,7 +129,8 @@ def make_tab_edit_dpd(sg):
             sg.pin(
                 CompletionCombo(
                     TRANS_VALUES, key="trans", size=(7, 1),
-                    tooltip=trans_tooltip)),
+                    tooltip="Transitivity of verbs and active participles.\n\
+Leave blank for other parts of speech.")),
             sg.Text(
                     "", key="trans_error", size=(50, 1), text_color="red")
         ],
@@ -200,7 +138,7 @@ def make_tab_edit_dpd(sg):
             sg.Text("case", size=(15, 1)),
             CompletionCombo(
                 CASE_VALUES, key="plus_case", size=(20, 1),
-                tooltip=plus_case_tooltip),
+                tooltip="What case does a related syntactically related word take?"),
             sg.Text(
                 "", key="case_error", size=(50, 1), text_color="red")
         ],
@@ -208,15 +146,16 @@ def make_tab_edit_dpd(sg):
             sg.Text("meaning_1", size=(15, 2)),
             sg.Multiline(
                 key="meaning_1", size=(50, 2), no_scrollbar=True,
-                enable_events=True, tooltip=meaning_1_tooltip),
+                enable_events=True,
+                tooltip="Primary meanings, seperated by ';'"),
             sg.Text(
                 "", key="meaning_1_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("add_spelling", size=(15, 1)),
             sg.Input(
-                key="add_spelling", size=(25, 1),
-                enable_events=True, tooltip=add_spelling_tooltip),
+                key="add_spelling", size=(25, 1), enable_events=True,
+                tooltip="Add a word to the user dictionary."),
             sg.Button("Add", key="add_spelling_button", font=(None, 13)),
             sg.Button("Edit", key="edit_spelling_button", font=(None, 13)),
             sg.Button("Check", key="check_spelling_button", font=(None, 13)),
@@ -227,7 +166,9 @@ def make_tab_edit_dpd(sg):
             sg.Text("meaning_lit", size=(15, 1)),
             sg.Input(
                 key="meaning_lit", size=(50, 1),
-                enable_events=True, tooltip=meaning_lit_tooltip),
+                enable_events=True,
+                tooltip="Literal meaning of the prefix and suffix.\n\
+Leave empty for long compounds."),
             sg.Text(
                 "", key="meaning_lit_error", size=(50, 1), text_color="red")
         ],
@@ -236,7 +177,8 @@ def make_tab_edit_dpd(sg):
             sg.pin(
                 sg.Input(
                     key="meaning_2", size=(50, 1),
-                    enable_events=True, tooltip=meaning_2_tooltip),
+                    enable_events=True,
+                    tooltip="Meaning from Buddhadatta or CPED or DPS."),
             ),
             sg.Text(
                 "", key="meaning_2_error", size=(50, 1), text_color="red")
@@ -246,8 +188,10 @@ def make_tab_edit_dpd(sg):
             sg.pin(
                 CompletionCombo(
                     ROOT_VALUES, key="root_key",
-                    size=(10, 1), tooltip=root_key_tooltip,
-                    auto_size_text=False)),
+                    size=(10, 1),
+                    auto_size_text=False,
+                    tooltip="Root key in PaliRoots table.\n\
+Select a value from the dropdown list.")),
             sg.Text(
                 "", key="root_info", text_color="white",
                 pad=(10, 0)),
@@ -263,7 +207,7 @@ def make_tab_edit_dpd(sg):
                     enable_events=True,
                     enable_per_char_events=True,
                     auto_size_text=False,
-                    tooltip=family_root_tooltip)),
+                    tooltip="Prefix(es) and root seperated by a space.")),
             sg.pin(
                 sg.Button(
                     "Get",
@@ -283,7 +227,8 @@ def make_tab_edit_dpd(sg):
                     enable_events=True,
                     enable_per_char_events=True,
                     auto_size_text=False,
-                    tooltip=root_sign_tooltip)),
+                    tooltip="Sign of the verb.\n\
+Inlclude '*' for causatives and group 8 verbs.")),
             sg.pin(
                 sg.Button(
                     "Get",
@@ -303,7 +248,9 @@ def make_tab_edit_dpd(sg):
                     size=(40, 1),
                     enable_per_char_events=True,
                     auto_size_text=False,
-                    tooltip=root_base_tooltip)),
+                    tooltip="Root + sign = Base. (caus, pass, etc.)\n\
+If irregular, show phonetic development, e.g.\n\
+kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
             sg.pin(
                 sg.Button(
                     "Get",
@@ -321,7 +268,7 @@ def make_tab_edit_dpd(sg):
                     FAMILY_WORD_VALUES,
                     key="family_word",
                     size=(49, 1),
-                    tooltip=family_word_tooltip),
+                    tooltip="Family of the word if not derived from a root."),
             ),
             sg.Text(
                 "", key="family_word_error",
@@ -333,7 +280,7 @@ def make_tab_edit_dpd(sg):
                 sg.Input(
                     key="family_compound", size=(50, 1),
                     enable_events=True,
-                    tooltip=family_compound_tooltip)),
+                    tooltip="Family compounds, seperated by space.")),
             sg.Text(
                 "", key="family_compound_error",
                 size=(50, 1), text_color="red")
@@ -345,7 +292,7 @@ def make_tab_edit_dpd(sg):
                 no_scrollbar=True,
                 size=(50, 2),
                 enable_events=True,
-                tooltip=construction_tooltip),
+                tooltip="Construciton of the word, showing all phonetic change."),
             sg.Text(
                 "", key="construction_error",
                 size=(50, 1), text_color="red")
@@ -355,7 +302,7 @@ def make_tab_edit_dpd(sg):
             sg.pin(
                  sg.Input(
                     key="add_construction", size=(20, 1),
-                    tooltip=add_construction_tooltip)),
+                    tooltip="Add this word to the words to add list.")),
             sg.pin(
                 sg.Button(
                     "Add", key="add_construction_button", font=(None, 13))),
@@ -369,7 +316,7 @@ def make_tab_edit_dpd(sg):
                 CompletionCombo(
                     values=DERIVATIVE_VALUES, key="derivative", size=(10, 1),
                     enable_per_char_events=True,
-                    tooltip=derivative_tooltip)),
+                    tooltip="Choose a value from the dropdown")),
             sg.Text(
                 "", key="derivative_error",
                 size=(50, 1), text_color="red")
@@ -381,7 +328,7 @@ def make_tab_edit_dpd(sg):
                     key="suffix",
                     enable_events=True,
                     size=(31, 1),
-                    tooltip=suffix_tooltip)),
+                    tooltip="Final suffix used. Don't add for words with case endings")),
             sg.Text(
                 "", key="suffix_error",
                 size=(50, 1), text_color="red")
@@ -390,7 +337,7 @@ def make_tab_edit_dpd(sg):
             sg.Text("phonetic", size=(15, 1)),
             sg.Multiline(
                 key="phonetic", size=(50, 2), no_scrollbar=True,
-                tooltip=phonetic_tooltip),
+                tooltip="List of all phonetic changes"),
             sg.Text(
                 "", key="phonetic_error",
                 size=(50, 1), text_color="red")
@@ -399,8 +346,9 @@ def make_tab_edit_dpd(sg):
             sg.Text("compound_type", size=(15, 1)),
             sg.pin(
                 CompletionCombo(
-                    COMPOUND_TYPE_VALUES, key="compound_type",
-                    size=(49, 1), tooltip=compound_type_tooltip)),
+                    COMPOUND_TYPE_VALUES,
+                    key="compound_type", size=(49, 1),
+                    tooltip="Type of samāsa")),
             sg.Text(
                 "", key="compound_type_error",
                 size=(50, 1), text_color="red")
@@ -411,14 +359,16 @@ def make_tab_edit_dpd(sg):
                 sg.Input(
                     key="compound_construction", size=(50, 1),
                     enable_events=True,
-                    tooltip=compound_construction_tooltip)),
+                    tooltip="Construction of the samāsa, showing case relationship")),
             sg.Text(
                 "", key="compound_construction_error",
                 size=(50, 1), text_color="red")
         ],
         [
             sg.Text("", size=(15, 1)),
-            sg.Input(key="bold_cc", size=(20, 1), tooltip=bold_cc_tooltip),
+            sg.Input(
+                key="bold_cc", size=(20, 1),
+                tooltip="Add bold to the case ending"),
             sg.Button("Bold", key="bold_cc_button", font=(None, 13)),
         ],
         [
@@ -426,14 +376,15 @@ def make_tab_edit_dpd(sg):
             sg.pin(
                 sg.Input(
                     key="non_root_in_comps", size=(50, 1),
-                    tooltip=non_root_in_comps_tooltip)),
+                    tooltip="")),
             sg.Text(
                 "", key="non_root_in_comps_error",
                 size=(50, 1), text_color="red")
         ],
         [
             sg.Text("antonym", size=(15, 1)),
-            sg.Input(key="antonym", size=(50, 1), tooltip=antonym_tooltip),
+            sg.Input(key="antonym", size=(50, 1),
+            tooltip="Word(s) with the opposite meaning"),
             sg.Text(
                 "", key="antonym_error",
                 size=(50, 1), text_color="red")
@@ -442,7 +393,7 @@ def make_tab_edit_dpd(sg):
             sg.Text("synonym*", size=(15, 1)),
             sg.Input(
                 key="synonym", size=(50, 1), enable_events=True,
-                tooltip=synonym_tooltip),
+                tooltip="Will get automatically filled"),
             sg.Text(
                 "", key="synonym_error",
                 size=(50, 1), text_color="red")
@@ -451,7 +402,7 @@ def make_tab_edit_dpd(sg):
             sg.Text("variant", size=(15, 1)),
             sg.Input(
                 key="variant", size=(50, 1), enable_events=True,
-                tooltip=variant_tooltip),
+                tooltip="Add variant readings in text"),
             sg.Text(
                 "", key="variant_error", size=(50, 1), text_color="red")
         ],
@@ -459,7 +410,7 @@ def make_tab_edit_dpd(sg):
             sg.Text("commentary", size=(15, 5)),
             sg.Multiline(
                 key="commentary", size=(50, 5), no_scrollbar=True,
-                tooltip=commentary_tooltip),
+                tooltip="Add commentary definition"),
             sg.Text(
                 "", key="commentary_error", size=(50, 1), text_color="red")
         ],
@@ -467,10 +418,11 @@ def make_tab_edit_dpd(sg):
             sg.Text("search for", size=(15, 1)),
             sg.Input(
                 "", key="search_for", size=(20, 1),
-                enable_events=True, tooltip=search_for_tooltip),
+                enable_events=True,
+                tooltip="Search for BOLD words in commentaries"),
             sg.Input(
                 "", key="contains", size=(17, 1),
-                tooltip=contains_tooltip),
+                tooltip="Search for NOT BOLD words in commentaries"),
             sg.Button(
                 "Search", key="defintions_search_button", font=(None, 13)),
             sg.Button(
@@ -481,14 +433,15 @@ def make_tab_edit_dpd(sg):
         [
             sg.Text("notes", size=(15, 1)),
             sg.Input(
-                key="notes", size=(50, 41), tooltip=notes_tooltip),
+                key="notes", size=(50, 41), tooltip="Add additional notes"),
             sg.Text(
                 "", key="notes_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("non_ia", size=(15, 1)),
             sg.pin(
-                sg.Input(key="non_ia", size=(50, 41), tooltip=non_ia_tooltip),
+                sg.Input(key="non_ia", size=(50, 41),
+                tooltip="Cognate of the word in non Indo-Aryan languages?"),
             ),
             sg.Text(
                 "", key="non_ia_error", size=(50, 1), text_color="red")
@@ -497,19 +450,21 @@ def make_tab_edit_dpd(sg):
             sg.Text("sanskrit*", size=(15, 1)),
             sg.Input(
                 key="sanskrit", size=(50, 1), enable_events=True,
-                tooltip=sanskrit_tooltip),
+                tooltip="Cogante of the word in Sanskrit or BHS."),
             sg.Text(
                 "", key="sanskrit_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("cognate", size=(15, 1)),
-            sg.Input(key="cognate", size=(50, 1), tooltip=cognate_tooltip),
+            sg.Input(key="cognate", size=(50, 1),
+            tooltip="Cognate words in English"),
             sg.Text(
                 "", key="cognate_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("link", size=(15, 1)),
-            sg.Input(key="link", size=(50, 1), tooltip=link_tooltip),
+            sg.Input(key="link", size=(50, 1),
+            tooltip="Add a wikipedia link"),
             sg.Text(
                 "", key="link_error", size=(50, 1), text_color="red")
         ],
@@ -517,7 +472,7 @@ def make_tab_edit_dpd(sg):
             sg.Text("source_1*", size=(15, 1)),
             sg.Input(
                 key="source_1", size=(50, 1), enable_events=True,
-                tooltip=source_1_tooltip),
+                tooltip="Sutta code using DPR system"),
             sg.Text(
                 "", key="source_1_error", size=(50, 1), text_color="red")
         ],
@@ -525,7 +480,7 @@ def make_tab_edit_dpd(sg):
             sg.Text("sutta_1*", size=(15, 1)),
             sg.Input(
                 key="sutta_1", size=(50, 1), enable_events=True,
-                tooltip=sutta_1_tooltip),
+                tooltip="Sutta name"),
             sg.Text(
                 "", key="sutta_1_error", size=(50, 1), text_color="red")
         ],
@@ -533,18 +488,21 @@ def make_tab_edit_dpd(sg):
             sg.Text("example_1*", size=(15, 5)),
             sg.Multiline(
                 key="example_1", size=(49, 5),
-                enable_events=True, tooltip=example_1_tooltip),
+                enable_events=True,
+                tooltip="Sutta example. Add all sandhi apostrophes."),
             sg.Text(
                 "", key="example_1_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("", size=(15, 1)),
-            sg.Input(key="bold_1", size=(20, 1), tooltip=bold_1_tooltip),
+            sg.Input(
+                key="bold_1", size=(20, 1),
+                tooltip="Bold the word"),
             sg.Button("Bold", key="bold_1_button", font=(None, 13)),
             sg.Button(
                 "Another Eg",
                 key="another_eg_1",
-                tooltip=another_eg_1_tooltip,
+                tooltip="Find another sutta example",
                 font=(None, 13)),
             sg.Button("Lower", key="example_1_lower", font=(None, 13)),
             sg.Button("Clean", key="example_1_clean", font=(None, 13)),
@@ -554,7 +512,8 @@ def make_tab_edit_dpd(sg):
             sg.Text("source_2", size=(15, 1)),
             sg.pin(
                 sg.Input(
-                    key="source_2", size=(50, 1), tooltip=source_2_tooltip)),
+                    key="source_2", size=(50, 1),
+                    tooltip="Sutta code using DPR system")),
             sg.Text(
                 "", key="source_2_error", size=(50, 1), text_color="red")
         ],
@@ -562,7 +521,8 @@ def make_tab_edit_dpd(sg):
             sg.Text("sutta_2", size=(15, 1)),
             sg.pin(
                 sg.Input(
-                    key="sutta_2", size=(50, 1), tooltip=sutta_2_tooltip)),
+                    key="sutta_2", size=(50, 1),
+                    tooltip="Sutta name")),
             sg.Text(
                 "", key="sutta_2_error", size=(50, 1), text_color="red")
         ],
@@ -571,20 +531,22 @@ def make_tab_edit_dpd(sg):
             sg.pin(
                 sg.Multiline(
                     key="example_2", size=(49, 5),
-                    tooltip=example_2_tooltip)),
+                    tooltip="Sutta example. Add all sandhi apostrophes.")),
             sg.Text(
                 "", key="example_2_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("", size=(15, 1)),
             sg.pin(
-                 sg.Input(key="bold_2", size=(20, 1), tooltip=bold_2_tooltip)),
+                sg.Input(
+                    key="bold_2", size=(20, 1),
+                    tooltip="Bold the word")),
             sg.pin(
                 sg.Button("Bold", key="bold_2_button", font=(None, 13))),
             sg.pin(
                 sg.Button(
                     "Another Eg", key="another_eg_2", font=(None, 13),
-                    tooltip=another_eg_2_tooltip)),
+                    tooltip="Find another sutta example")),
             sg.pin(
                 sg.Button("Lower", key="example_2_lower", font=(None, 13))),
             sg.pin(
@@ -595,20 +557,22 @@ def make_tab_edit_dpd(sg):
             sg.Text("family set*", size=(15, 1)),
             CompletionCombo(
                 FAMILY_SET_VALUES, key="family_set",
-                size=(49, 1), tooltip=family_set_tooltip),
+                size=(49, 1), 
+                tooltip="Add to sets"),
             sg.Text("", key="family_set_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("stem pattern*", size=(15, 1)),
             sg.Input(
                 key="stem", size=(30, 1), justification="r",
-                enable_events=True, tooltip=stem_tooltip),
+                enable_events=True,
+                tooltip="Stem of the word, without the pattern"),
             CompletionCombo(
                 PATTERN_VALUES, key="pattern",
-                size=(12, 1), tooltip=pattern_tooltip),
+                size=(12, 1), tooltip="Inflection pattern of the word"),
             sg.Input(
                 "pass1", key="origin", size=(6, 1),
-                tooltip=origin_tooltip),
+                tooltip="Where does this word data come from?"),
             sg.Text(
                 "", key="stem_error", size=(50, 1), text_color="red")
         ],
@@ -629,29 +593,61 @@ def make_tab_edit_dpd(sg):
             sg.HSep(),
         ],
         [
-            sg.Button("Copy"),
+            # db buttons
+            sg.Text("db buttons", size=(15, 1)),
+            sg.Button(
+                "Clone", tooltip="Clone a word from the db"),
             sg.Input(
-                key="word_to_copy",
+                key="word_to_clone_edit",
                 size=(15, 1),
                 enable_events=True,
+                tooltip="Clone this word from db "
             ),
-            sg.Button("Edit", key="edit_button"),
-            sg.Button("Test", key="test_internal"),
-            sg.Button("Add to db", key="add_word_to_db"),
-            sg.Button("Update", key="update_word"),
-            sg.Button("Save", key="save_state"),
-            sg.Button("Delete", key="delete_button"),
+            sg.Button(
+                "Edit", key="edit_button", tooltip="Edit a word in the db"),
+            sg.Button(
+                "Test", key="test_internal", tooltip="Run internal tests"),
+            sg.Button(
+                "Update db", key="update_db_button",
+                tooltip="Add a new word or update existing word in the db"),
+            sg.Button(
+                "Delete", key="delete_button",
+                tooltip="Delete a word from the db. Careful!"),
         ],
         [
-            sg.Button("Debug"),
-            sg.Button("Stash", key="stash"),
-            sg.Button("Unstash", key="unstash"),
-            sg.Button("Summary", key="summary"),
-            sg.Button("Open tests", key="open_tests"),
-            sg.Button("Update Sandhi", key="update_sandhi"),
-            sg.Button("Clear"),
-            sg.Button("Close"),
-        ]
+            # gui buttons
+            sg.Text("gui buttons", size=(15, 1)),
+            sg.Button(
+                "Stash", key="stash_button",
+                tooltip="Stash the word you're currently editing"),
+            sg.Button(
+                "Unstash", key="unstash_button",
+                tooltip="Unstash a word to edit it again"),
+            sg.Button(
+                "Summary", key="summary_button",
+                tooltip="See a summary of filled fields"),
+            sg.Button(
+                "Save", key="save_state_button",
+                tooltip="Save the current state of the GUI"),
+            sg.Button(
+                "Clear", key="clear_button", tooltip="Clear all the fields"),
+            sg.Button(
+                "Save and Close", key="save_and_close_button",
+                tooltip="Save the current state, backup to tsv and close"),
+        ],
+        [
+            # other buttons
+            sg.Text("other buttons", size=(15, 1)),
+            sg.Button(
+                "Debug", key="debug_button",
+                tooltip="Print the current values in the terminal"),
+            sg.Button(
+                "Open Tests", key="open_tests_button",
+                tooltip="Open TSV file of internal tests"),
+            sg.Button(
+                "Update Sandhi", key="update_sandhi_button",
+                tooltip="Update list of word with sandhi apostophes"),
+        ],
     ]
 
     return tab_edit_dpd
