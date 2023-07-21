@@ -69,7 +69,8 @@ from functions_tests import open_internal_tests
 from functions_tests import db_internal_tests
 
 from db.get_db_session import get_db_session
-from scripts.db_to_tsv import db_to_tsv
+from scripts.backup_paliword_paliroot import backup_paliword_paliroot
+from scripts.backup_ru_sbs import backup_ru_sbs
 
 from tools.pos import DECLENSIONS, VERBS
 from tools.pos import POS
@@ -146,7 +147,7 @@ def main():
                     print(values)
                     open_in_goldendict(words_to_add_list[0])
                     window["messages"].update(
-                        f"added all missing words from {values['book_to_add']}",
+                        f"added missing words from {values['book_to_add']}",
                         text_color="white")
                 else:
                     window["messages"].update(
@@ -708,7 +709,11 @@ def main():
         elif event == "save_and_close_button":
             window["messages"].update(
                 "backing up db to csvs", text_color="white")
-            db_to_tsv()
+            if primary_user:
+                backup_paliword_paliroot()
+            else:
+                backup_ru_sbs()
+
             save_gui_state(values, words_to_add_list)
             break
 

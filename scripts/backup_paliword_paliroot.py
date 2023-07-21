@@ -11,66 +11,58 @@ from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths as PTH
 
 
-def db_to_tsv():
+def backup_paliword_paliroot():
     tic()
+    print("[bright_yellow]backing paliword and paliroot tables to tsv")
     db_session = get_db_session("dpd.db")
     backup_paliwords(db_session, PTH)
     backup_paliroots(db_session, PTH)
-    # git_commit()
     db_session.close()
     toc()
 
 
 def backup_paliwords(db_session, PTH):
-    print("[bright_yellow]backing up db to tsv")
-    print("[green]getting db session")
-
-    print("[green]writing PaliWord")
+    """Backup PaliWord table to TSV."""
+    print("[green]writing PaliWord table")
     db = db_session.query(PaliWord).all()
 
     with open(PTH.pali_word_path, 'w', newline='') as tsvfile:
         exclude_columns = [
             "created_at", "updated_at"]
-
         csvwriter = csv.writer(
             tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL)
-
         column_names = [
             column.name for column in PaliWord.__mapper__.columns
             if column.name not in exclude_columns]
-
         csvwriter.writerow(column_names)
 
-        for curr in db:
+        for i in db:
             row = [
-                getattr(curr, column.name)
+                getattr(i, column.name)
                 for column in PaliWord.__mapper__.columns
                 if column.name not in exclude_columns]
             csvwriter.writerow(row)
 
 
 def backup_paliroots(db_session, PTH):
-    print("[green]writing PaliRoot")
+    """Backup PaliRoot table to TSV."""
+    print("[green]writing PaliRoot table")
     db = db_session.query(PaliRoot).all()
 
     with open(PTH.pali_root_path, 'w', newline='') as tsvfile:
-
         exclude_columns = [
             "created_at", "updated_at",
             "root_info", "root_matrix"]
-
         csvwriter = csv.writer(
             tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL)
-
         column_names = [
             column.name for column in PaliRoot.__mapper__.columns
             if column.name not in exclude_columns]
-
         csvwriter.writerow(column_names)
 
-        for curr in db:
+        for i in db:
             row = [
-                getattr(curr, column.name)
+                getattr(i, column.name)
                 for column in PaliRoot.__mapper__.columns
                 if column.name not in exclude_columns]
             csvwriter.writerow(row)
@@ -86,4 +78,4 @@ def git_commit():
 
 
 if __name__ == "__main__":
-    db_to_tsv()
+    backup_paliword_paliroot()

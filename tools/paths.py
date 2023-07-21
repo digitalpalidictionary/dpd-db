@@ -10,6 +10,8 @@ class ProjectPaths():
     # /backup_tsv
     pali_word_path: Path = Path("backup_tsv/PaliWord.tsv")
     pali_root_path: Path = Path("backup_tsv/PaliRoot.tsv")
+    russian_path: Path = Path("backup_tsv/Russian.tsv")
+    sbs_path: Path = Path("backup_tsv/SBS.tsv")
 
     # corrections
     corrections_tsv_path = Path("gui/corrections.tsv")
@@ -31,6 +33,7 @@ class ProjectPaths():
     sbs_index_path: Path = Path("dps/sbs-index.csv")
 
     # ebook
+    epub_dir: Path = Path("ebook/epub/")
     epub_dir: Path = Path("ebook/epub/")
     kindlegen_path: Path = Path("ebook/kindlegen")
 
@@ -324,6 +327,7 @@ class ProjectPaths():
         for d in [
             cls.zip_dir,
             cls.tpr_dir,
+            cls.epub_text_dir,
             cls.ebook_output_dir,
             cls.frequency_output_dir,
             cls.grammar_dict_output_dir,
