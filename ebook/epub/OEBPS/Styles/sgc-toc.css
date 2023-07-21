@@ -1,0 +1,34 @@
+h1 {
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: normal;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  text-align: left;
+}
+
+.sgc-toc-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: normal;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  text-align: left;
+}
+
+.sgc-toc-level-1,.sgc-toc-level-2,.sgc-toc-level-3,.sgc-toc-level-4,.sgc-toc-level-5,.sgc-toc-level-6 {
+  font-size: 1em;
+  font-weight: normal;
+  margin-bottom: 0.5em;
+  margin-left: 1.5em;
+  margin-top: 0.5em;
+  text-align: left;
+  text-indent: -1.5em;
+}
+
+
+/* Character Classes */
+a {
+  color: initial;
+  text-decoration-line: underline;
+}
