@@ -175,11 +175,8 @@ def udpate_word_in_db(
 
 
 def edit_word_in_db(values, window):
-    pali_word = db_session.query(
-        PaliWord
-    ).filter(
-        PaliWord.pali_1 == values["word_to_clone_edit"]
-    ).first()
+    pali_word = fetch_id_or_pali_1(
+        values, "word_to_clone_edit")
 
     if pali_word is None:
         window["messages"].update(
@@ -198,11 +195,9 @@ def edit_word_in_db(values, window):
 
 
 def copy_word_from_db(values, window):
-    pali_word = db_session.query(
-        PaliWord
-    ).filter(
-        PaliWord.pali_1 == values["word_to_clone_edit"]
-    ).first()
+
+    pali_word = fetch_id_or_pali_1(
+        values, "word_to_clone_edit")
 
     if pali_word is None:
         window["messages"].update(
@@ -491,18 +486,18 @@ def get_root_info(root_key):
 
 # dps functions
 
-def fetch_id_or_pali(values: dict) -> PaliWord:
+def fetch_id_or_pali_1(values: dict, field: str) -> PaliWord:
     """Get id or pali1 from db."""
-    dps_id_or_pali_1 = values["dps_id_or_pali_1"]
-    first_character = dps_id_or_pali_1[0]
+    id_or_pali_1 = values[field]
+    first_character = id_or_pali_1[0]
     if first_character.isalpha():
         query = db_session.query(PaliWord).filter(
-            PaliWord.pali_1 == dps_id_or_pali_1).first()
+            PaliWord.pali_1 == id_or_pali_1).first()
         if query:
             return query
     elif first_character.isdigit():
         query = db_session.query(PaliWord).filter(
-            PaliWord.id == dps_id_or_pali_1).first()
+            PaliWord.id == id_or_pali_1).first()
         if query:
             return query
 

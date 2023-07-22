@@ -14,6 +14,7 @@ from db.db_helpers import fetch_column_names
 from db.models import Russian, SBS, PaliWord
 from functions_db import make_all_inflections_set
 from functions_db import get_family_compound_values
+from functions_db import values_to_pali_word
 
 from tools.pos import INDECLINEABLES
 from tools.cst_sc_text_sets import make_cst_text_set
@@ -1362,4 +1363,31 @@ def compare_differences(
                             writer.writerow(correction)
 
     elif action == "added":
-        pass
+        while True:
+            prompt = "Please comment on this new word."
+            comment = sg.popup_get_text(
+                prompt, title="comment", location=(400, 400))
+            if comment:
+                break
+
+        pali_word = values_to_pali_word(values)
+        if PTH.additions_pickle_path.exists():
+            additions = additions_load()
+        else:
+            additions = []
+        additions.append((pali_word, comment))
+        additions_save(additions)
+
+
+def additions_load() -> None:
+    """Load the list of word to add to db from pickle file."""
+    with open(PTH.additions_pickle_path, "rb") as file:
+        additions = pickle.load(file)
+        print(additions)
+        return additions
+
+
+def additions_save(additions):
+    """Save the list of word to add to db to pickle file."""
+    with open(PTH.additions_pickle_path, "wb") as file:
+        pickle.dump(additions, file)

@@ -601,7 +601,7 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 key="word_to_clone_edit",
                 size=(15, 1),
                 enable_events=True,
-                tooltip="Clone this word from db "
+                tooltip="Enter id or pali_1"
             ),
             sg.Button(
                 "Edit", key="edit_button", tooltip="Edit a word in the db"),

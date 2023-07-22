@@ -22,7 +22,7 @@ from functions_db import edit_word_in_db
 from functions_db import get_pali_clean_list
 from functions_db import delete_word
 from functions_db import get_root_info
-from functions_db import fetch_id_or_pali
+from functions_db import fetch_id_or_pali_1
 from functions_db import fetch_ru
 from functions_db import fetch_sbs
 from functions_db import dps_update_db
@@ -82,12 +82,16 @@ def main():
     db_session = get_db_session("dpd.db")
     primary_user = test_username(sg)
     pali_word_original = None
+    pali_word_original2 = None
+
 
     # !!! this is slow !!!
     try:
         definitions_df = pd.read_csv(PTH.defintions_csv_path, sep="\t")
+        commentary_definitions_exists = True
     except Exception:
         definitions_df = pd.DataFrame()
+        commentary_definitions_exists = False
 
     sandhi_dict = make_sandhi_contraction_dict(db_session)
     pali_clean_list: list = get_pali_clean_list()
@@ -582,19 +586,23 @@ def main():
             event == "search_for_enter" or
             event == "defintions_search_button"
         ):
-            try:
-                commentary_defintions = find_commentary_defintions(
-                    sg, values, definitions_df)
-            except NameError as e:
+            if not commentary_definitions_exists:
                 window["messages"].update(
-                    f"turn on the definitions db! {e}", text_color="red")
+                    "Commentary database not found", text_color="red")
+            else:
+                try:
+                    commentary_defintions = find_commentary_defintions(
+                        sg, values, definitions_df)
+                except NameError as e:
+                    window["messages"].update(
+                        f"turn on the definitions db! {e}", text_color="red")
 
-            if commentary_defintions:
-                commentary = ""
-                for c in commentary_defintions:
-                    commentary += f"({c['ref_code']}) {c['commentary']}\n"
-                commentary = commentary.rstrip("\n")
-                window["commentary"].update(commentary)
+                if commentary_defintions:
+                    commentary = ""
+                    for c in commentary_defintions:
+                        commentary += f"({c['ref_code']}) {c['commentary']}\n"
+                    commentary = commentary.rstrip("\n")
+                    window["commentary"].update(commentary)
 
         elif event == "sanskrit":
             if flags.sanskrit and re.findall(
@@ -675,12 +683,16 @@ def main():
                             len(words_to_add_list))
 
         elif event == "update_db_button2":
+            tests_failed = None
             if flags.tested is False:
                 tests_failed = sg.popup_ok_cancel(
                     "Tests have failed. Are you sure you want to add to db?",
                     title="Error",
                     location=(400, 400))
-            if tests_failed:
+            if (
+                tests_failed or
+                flags.tested
+            ):
                 last_button = display_summary(values, window, sg)
                 if last_button == "ok_button":
                     success, action = udpate_word_in_db(
@@ -698,7 +710,7 @@ def main():
                         edit_in_dps = sg.popup_ok_cancel(
                             "Edit word in DPS?", title="edit in dps",
                             location=(400, 400))
-                        if edit_in_dps:
+                        if edit_in_dps == "ok":
                             window["dps_id_or_pali_1"].update(values["id"])
                             window["tab_edit_dps"].select()
 
@@ -908,7 +920,7 @@ def main():
             event == "dps_id_or_pali_1_button"
         ):
             if values["dps_id_or_pali_1"]:
-                dpd_word = fetch_id_or_pali(values)
+                dpd_word = fetch_id_or_pali_1(values, "dps_id_or_pali_1")
                 if dpd_word:
                     ru_word = fetch_ru(dpd_word.id)
                     sbs_word = fetch_sbs(dpd_word.id)

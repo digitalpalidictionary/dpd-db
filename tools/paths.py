@@ -13,8 +13,9 @@ class ProjectPaths():
     russian_path: Path = Path("backup_tsv/Russian.tsv")
     sbs_path: Path = Path("backup_tsv/SBS.tsv")
 
-    # corrections
-    corrections_tsv_path = Path("gui/corrections.tsv")
+    # corrections & additions
+    corrections_tsv_path: Path = Path("gui/corrections.tsv")
+    additions_pickle_path: Path = Path("gui/additions")
 
     # /csvs
     vocab_csv_path: Path = Path("csvs/vocab.csv")
