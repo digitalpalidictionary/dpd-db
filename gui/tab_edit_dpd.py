@@ -20,7 +20,7 @@ COMPOUND_TYPE_VALUES = get_compound_type_values()
 PATTERN_VALUES = get_patterns()
 
 
-def make_tab_edit_dpd(sg):
+def make_tab_edit_dpd(sg, primary_user):
 
     add_word_layout = [
         [
@@ -606,10 +606,16 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
             sg.Button(
                 "Edit", key="edit_button", tooltip="Edit a word in the db"),
             sg.Button(
-                "Test", key="test_internal", tooltip="Run internal tests"),
+                "Test", key="test_internal_button",
+                tooltip="Run internal tests"),
             sg.Button(
-                "Update db", key="update_db_button",
-                tooltip="Add a new word or update existing word in the db"),
+                "Update db", key="update_db_button1",
+                tooltip="Add a new word or update existing word in the db",
+                visible=primary_user),
+            sg.Button(
+                "Update DB", key="update_db_button2",
+                tooltip="Add a new word or update existing word in the db",
+                visible=not primary_user),
             sg.Button(
                 "Delete", key="delete_button",
                 tooltip="Delete a word from the db. Careful!"),

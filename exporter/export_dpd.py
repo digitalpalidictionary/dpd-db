@@ -293,9 +293,13 @@ def render_button_box_templ(i: PaliWord) -> str:
         word_family_button = ""
 
     # compound_family_button
-    if (i.meaning_1 != "" and
-        (i.family_compound != "" or
-            i.pali_clean in CF_SET)):
+    if (
+        i.meaning_1 != "" and
+        (
+            i.family_compound != "" or
+            i.pali_clean in CF_SET
+        )
+    ):
 
         if " " not in i.family_compound:
             compound_family_button = button_html.format(

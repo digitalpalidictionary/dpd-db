@@ -91,7 +91,7 @@ def main():
 
     sandhi_dict = make_sandhi_contraction_dict(db_session)
     pali_clean_list: list = get_pali_clean_list()
-    window = window_layout()
+    window = window_layout(primary_user)
 
     flags = Flags()
     get_next_ids(window)
@@ -632,10 +632,11 @@ def main():
             reset_flags(flags)
             window["messages"].update("")
 
-        elif event == "test_internal":
+        elif event == "test_internal_button":
 
             clear_errors(window)
-            flags = individual_internal_tests(sg, window, values, flags)
+            flags = individual_internal_tests(
+                sg, window, values, flags, primary_user)
 
             # spell checks
             field = "meaning_1"
@@ -656,7 +657,7 @@ def main():
         elif event == "update_sandhi_button":
             sandhi_dict = make_sandhi_contraction_dict(db_session)
 
-        elif event == "update_db_button":
+        elif event == "update_db_button1":
             if flags.tested is False:
                 window["messages"].update("test first!", text_color="red")
             else:
@@ -665,9 +666,6 @@ def main():
                     success, action = udpate_word_in_db(
                         window, values)
                     if success:
-                        if not primary_user:
-                            compare_differences(
-                                values, sg, pali_word_original2, action)
                         clear_errors(window)
                         clear_values(values, window)
                         get_next_ids(window)
@@ -675,13 +673,34 @@ def main():
                         remove_word_to_add(values, window, words_to_add_list)
                         window["words_to_add_length"].update(
                             len(words_to_add_list))
-                        if not primary_user:
-                            edit_in_dps = sg.popup_ok_cancel(
-                                "Edit word in DPS?", title="edit in dps",
-                                location=(400, 400))
-                            if edit_in_dps:
-                                window["dps_id_or_pali_1"].update(values["id"])
-                                window["tab_edit_dps"].select()
+
+        elif event == "update_db_button2":
+            if flags.tested is False:
+                tests_failed = sg.popup_ok_cancel(
+                    "Tests have failed. Are you sure you want to add to db?",
+                    title="Error",
+                    location=(400, 400))
+            if tests_failed:
+                last_button = display_summary(values, window, sg)
+                if last_button == "ok_button":
+                    success, action = udpate_word_in_db(
+                        window, values)
+                    if success:
+                        compare_differences(
+                            values, sg, pali_word_original2, action)
+                        clear_errors(window)
+                        clear_values(values, window)
+                        get_next_ids(window)
+                        reset_flags(flags)
+                        remove_word_to_add(values, window, words_to_add_list)
+                        window["words_to_add_length"].update(
+                            len(words_to_add_list))
+                        edit_in_dps = sg.popup_ok_cancel(
+                            "Edit word in DPS?", title="edit in dps",
+                            location=(400, 400))
+                        if edit_in_dps:
+                            window["dps_id_or_pali_1"].update(values["id"])
+                            window["tab_edit_dps"].select()
 
         elif event == "debug_button":
             print(f"{values}")

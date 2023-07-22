@@ -7,7 +7,7 @@ from tab_fix_sandhi import make_tab_fix_sandhi
 from tab_db_tests import make_tab_db_tests
 
 
-def window_layout():
+def window_layout(primary_user):
     sg.theme('DarkGrey10')
     sg.set_options(
         font=("Noto Sans", 16),
@@ -19,7 +19,7 @@ def window_layout():
     )
 
     tab_add_next_word = make_tab_add_next_word(sg)
-    tab_edit_dpd = make_tab_edit_dpd(sg)
+    tab_edit_dpd = make_tab_edit_dpd(sg, primary_user)
     tab_edit_dps = make_tab_edit_dps(sg)
     tab_fix_sandhi = make_tab_fix_sandhi(sg)
     tab_db_tests = make_tab_db_tests(sg)
