@@ -436,12 +436,13 @@ def main():
                     flags.compound_construction = False
 
         elif event == "bold_cc_button" or event == "bold_cc_enter":
-            cc_bold = re.sub(
-                values["bold_cc"],
-                f"<b>{values['bold_cc']}</b>",
-                values["compound_construction"])
-            window["compound_construction"].update(cc_bold)
-            window["bold_cc"].update("")
+            if values["bold_cc"]:
+                cc_bold = re.sub(
+                    values["bold_cc"],
+                    f"<b>{values['bold_cc']}</b>",
+                    values["compound_construction"])
+                window["compound_construction"].update(cc_bold)
+                window["bold_cc"].update("")
 
         elif (
             (
@@ -502,14 +503,15 @@ def main():
 
                 flags.example_1 = False
 
+        # bold
         elif event == "bold_1_button" or event == "bold_1_enter":
-            # bold
-            example_1_bold = re.sub(
-                values["bold_1"],
-                f"<b>{values['bold_1']}</b>",
-                values["example_1"])
-            window["example_1"].update(example_1_bold)
-            window["bold_1"].update("")
+            if values["bold_1"]:
+                example_1_bold = re.sub(
+                    values["bold_1"],
+                    f"<b>{values['bold_1']}</b>",
+                    values["example_1"])
+                window["example_1"].update(example_1_bold)
+                window["bold_1"].update("")
 
         elif event == "example_1_lower":
             values["example_1"] = values["example_1"].lower()
@@ -559,14 +561,15 @@ def main():
 
             flags.example_2 = False
 
+        # bold2
         elif event == "bold_2_button" or event == "bold_2_enter":
-            # bold
-            example_2_bold = re.sub(
-                values["bold_2"],
-                f"<b>{values['bold_2']}</b>",
-                values["example_2"])
-            window["example_2"].update(example_2_bold)
-            window["bold_2"].update("")
+            if values["bold_2"]:
+                example_2_bold = re.sub(
+                    values["bold_2"],
+                    f"<b>{values['bold_2']}</b>",
+                    values["example_2"])
+                window["example_2"].update(example_2_bold)
+                window["bold_2"].update("")
 
         elif event == "example_2_lower":
             values["example_2"] = values["example_2"].lower()
