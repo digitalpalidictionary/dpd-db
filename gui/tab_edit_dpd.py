@@ -22,6 +22,8 @@ PATTERN_VALUES = get_patterns()
 
 def make_tab_edit_dpd(sg, primary_user):
 
+    origin = "pass" if primary_user else "dps"
+
     add_word_layout = [
         [
             sg.Text("show fields", size=(15, 1)),
@@ -571,7 +573,7 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 PATTERN_VALUES, key="pattern",
                 size=(12, 1), tooltip="Inflection pattern of the word"),
             sg.Input(
-                "pass1", key="origin", size=(6, 1),
+                origin, key="origin", size=(6, 1),
                 tooltip="Where does this word data come from?"),
             sg.Text(
                 "", key="stem_error", size=(50, 1), text_color="red")

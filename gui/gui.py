@@ -514,6 +514,8 @@ def main():
                 window["bold_1"].update("")
 
         elif event == "example_1_lower":
+            values["sutta_1"] = values["sutta_1"].lower()
+            window["sutta_1"].update(values["sutta_1"])
             values["example_1"] = values["example_1"].lower()
             window["example_1"].update(values["example_1"])
 
@@ -572,6 +574,8 @@ def main():
                 window["bold_2"].update("")
 
         elif event == "example_2_lower":
+            values["sutta_2"] = values["sutta_2"].lower()
+            window["sutta_2"].update(values["sutta_2"])
             values["example_2"] = values["example_2"].lower()
             window["example_2"].update(values["example_2"])
 
@@ -638,7 +642,7 @@ def main():
 
         elif event == "clear_button":
             clear_errors(window)
-            clear_values(values, window)
+            clear_values(values, window, primary_user)
             get_next_ids(window)
             reset_flags(flags)
             window["messages"].update("")
@@ -678,7 +682,7 @@ def main():
                         window, values)
                     if success:
                         clear_errors(window)
-                        clear_values(values, window)
+                        clear_values(values, window, primary_user)
                         get_next_ids(window)
                         reset_flags(flags)
                         remove_word_to_add(values, window, words_to_add_list)
@@ -704,7 +708,7 @@ def main():
                         compare_differences(
                             values, sg, pali_word_original2, action)
                         clear_errors(window)
-                        clear_values(values, window)
+                        clear_values(values, window, primary_user)
                         get_next_ids(window)
                         reset_flags(flags)
                         remove_word_to_add(values, window, words_to_add_list)
@@ -734,7 +738,7 @@ def main():
                 success = delete_word(values, window)
                 if success:
                     clear_errors(window)
-                    clear_values(values, window)
+                    clear_values(values, window, primary_user)
                     get_next_ids(window)
                     reset_flags(flags)
                     window["messages"].update(

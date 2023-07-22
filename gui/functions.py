@@ -390,15 +390,16 @@ def clear_errors(window):
         window[e.key].update("")
 
 
-def clear_values(values, window):
+def clear_values(values, window, primary_user):
     from functions_db import dpd_values_list
+    origin = "pass" if primary_user else "dps"
     for value in values:
         if value in dpd_values_list:
             window[value].update("")
     window["family_root"].update(values=[])
     window["root_sign"].update(values=[])
     window["root_base"].update(values=[])
-    window["origin"].update("pass1")
+    window["origin"].update(origin)
     window["root_info"].update("")
 
 
