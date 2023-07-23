@@ -629,6 +629,9 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
             # gui buttons
             sg.Text("gui buttons", size=(15, 1)),
             sg.Button(
+                "Open Tests", key="open_tests_button",
+                tooltip="Open TSV file of internal tests"),
+            sg.Button(
                 "Debug", key="debug_button",
                 tooltip="Print the current values in the terminal"),
             sg.Button(
@@ -648,9 +651,6 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
             sg.Button(
                 "Save and Close", key="save_and_close_button",
                 tooltip="Save the current state, backup to tsv and close"),
-            sg.Button(
-                "Open Tests", key="open_tests_button",
-                tooltip="Open TSV file of internal tests"),
         ]
     ]
 
