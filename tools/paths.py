@@ -8,10 +8,10 @@ class ProjectPaths():
     dpd_db_path: Path = Path("dpd.db")
 
     # /backup_tsv
-    pali_word_path: Path = Path("backup_tsv/PaliWord.tsv")
-    pali_root_path: Path = Path("backup_tsv/PaliRoot.tsv")
-    russian_path: Path = Path("backup_tsv/Russian.tsv")
-    sbs_path: Path = Path("backup_tsv/SBS.tsv")
+    pali_word_path: Path = Path("backup_tsv/paliword.tsv")
+    pali_root_path: Path = Path("backup_tsv/paliroot.tsv")
+    russian_path: Path = Path("backup_tsv/russian.tsv")
+    sbs_path: Path = Path("backup_tsv/sbs.tsv")
 
     # corrections & additions
     corrections_tsv_path: Path = Path("gui/corrections.tsv")

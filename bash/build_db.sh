@@ -3,8 +3,7 @@ set -e
 test -e dpd.db || touch dpd.db
 tools/configger.py
 
-scripts/db_from_tsv.py
-scripts/sbs_russian_from_tsv.py
+scripts/db_rebuild_from_tsv.py
 
 inflections/create_inflections_templates.py
 inflections/generate_inflection_tables.py
