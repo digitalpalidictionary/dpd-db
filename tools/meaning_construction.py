@@ -120,3 +120,17 @@ def degree_of_completion(i):
             return """<span class="gray">~</span>"""
     else:
         return """<span class="gray">✗</span>"""
+
+
+def clean_construction(construction):
+    # strip line 2
+    construction = re.sub(r"\n.+", "", construction)
+    # remove > ... +
+    construction = re.sub(r" >.+?( \+)", "\\1", construction)
+    # remove [] ... +
+    construction = re.sub(r" \+ \[.+?( \+)", "\\1", construction)
+    # remove [] at beginning
+    construction = re.sub(r"^\[.+?( \+ )", "", construction)
+    # remove ??
+    construction = re.sub("\\?\\? ", "", construction)
+    return construction

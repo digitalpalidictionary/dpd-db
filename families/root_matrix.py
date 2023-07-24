@@ -245,7 +245,7 @@ def generate_root_matrix(db_session):
                         'ind deno': [],
                         'ind deno & caus': [],
                         'ind ✗': [],
-                        }
+                        },
                     }
 
             # assign words to dict categories
@@ -1397,3 +1397,5 @@ def generate_root_matrix(db_session):
     print(f"[green]{counter}")
 
     db_session.commit()
+
+    return html_dict

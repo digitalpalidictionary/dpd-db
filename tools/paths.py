@@ -24,6 +24,14 @@ class ProjectPaths():
     commentary_csv_path: Path = Path("csvs/commentary.csv")
     pass1_csv_path: Path = Path("csvs/pass1.csv")
     roots_csv_path: Path = Path("csvs/roots.csv")
+    family_compound_tsv_path: Path = Path(
+        "csvs/family_compound.tsv")
+    family_root_tsv_path: Path = Path(
+        "csvs/family_root.tsv")
+    family_word_tsv_path: Path = Path(
+        "csvs/family_word.tsv")
+    root_matrix_tsv_path: Path = Path(
+        "csvs/root_matrix.tsv")
 
     # /definitions/
     defintions_csv_path: Path = Path(

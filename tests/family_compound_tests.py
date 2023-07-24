@@ -9,6 +9,7 @@ from rich import print
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.tic_toc import tic, toc
+from tools.meaning_construction import clean_construction
 
 
 def main():
@@ -34,17 +35,17 @@ def make_dict_of_sets(db):
     }
 
     for i in db:
-        i = clean_construction(i)
+        construction = clean_construction(i.construction)
 
         # all_words_in_construction
         if (
             i.meaning_1 and
             re.findall(r"\bcomp\b", i.grammar) and
-            re.findall(r"\+", i.construction) and
+            re.findall(r"\+", construction) and
             i.family_compound
         ):
             d["all_words_in_construction"].update(
-                i.construction.split(" + "))
+                construction.split(" + "))
 
         # all_words_in_family_compound
         if (
@@ -75,18 +76,6 @@ def make_dict_of_sets(db):
     return d
 
 
-def clean_construction(i):
-    # strip line 2
-    i.construction = re.sub(r"\n.+", "", i.construction)
-    # remove > ... +
-    i.construction = re.sub(r" >.+?( \+)", "\\1", i.construction)
-    # remove [] ... +
-    i.construction = re.sub(r" \+ \[.+?( \+)", "\\1", i.construction)
-    # remove [] at beginning
-    i.construction = re.sub(r"^\[.+?( \+ )", "", i.construction)
-    # remove ??
-    i.construction = re.sub("\\?\\? ", "", i.construction)
-    return i
 
 
 def load_exceptions():

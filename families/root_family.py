@@ -10,17 +10,22 @@ from rich import print
 
 from root_matrix import generate_root_matrix
 from root_info import generate_root_info_html
+
 from db.get_db_session import get_db_session
 from db.models import PaliRoot, PaliWord, FamilyRoot
-from tools.tic_toc import tic, toc
-from tools.superscripter import superscripter_uni
+
+from tools.meaning_construction import degree_of_completion
+from tools.meaning_construction import clean_construction
 from tools.meaning_construction import make_meaning
 from tools.pali_sort_key import pali_sort_key
-from tools.meaning_construction import degree_of_completion
+from tools.paths import ProjectPaths as PTH
+from tools.superscripter import superscripter_uni
+from tools.tic_toc import tic, toc
+from tools.tsv_read_write import write_tsv_list
+from tools.date_and_time import day
 
 
 def main():
-    """Run it."""
     tic()
     print("[bright_yellow]root families")
 
@@ -39,8 +44,10 @@ def main():
     rf_dict = compile_rf_html(dpd_db, rf_dict)
     add_rf_to_db(db_session, rf_dict)
     generate_root_info_html(db_session, roots_db, bases_dict)
-    generate_root_matrix(db_session)
+    html_dict = generate_root_matrix(db_session)
     db_session.close()
+    anki_exporter(rf_dict)
+    anki_matrix_exporter(html_dict, db_session)
     toc()
 
 
@@ -58,7 +65,8 @@ def make_roots_family_dict_and_bases_dict(dpd_db):
                 "headwords": [i.pali_1],
                 "html": "",
                 "count": 1,
-                "meaning": i.rt.root_meaning}
+                "meaning": i.rt.root_meaning,
+                "data": []}
         else:
             rf_dict[family]["headwords"] += [i.pali_1]
             rf_dict[family]["count"] += 1
@@ -97,6 +105,14 @@ def compile_rf_html(dpd_db, rf_dict):
 
             rf_dict[family]["html"] = html_string
 
+            # anki data
+            anki_family = f"<b>{i.family_root}</b> "
+            anki_family += f"{i.rt.root_group} ({i.rt.root_meaning})"
+            construction = clean_construction(
+                i.construction) if i.meaning_1 else ""
+            rf_dict[family]["data"] += [
+                (anki_family, i.pali_1, i.pos, meaning, construction)]
+
     for rf in rf_dict:
         header = make_root_header(rf_dict, rf)
         rf_dict[rf]["html"] = header + rf_dict[rf]["html"] + "</table>"
@@ -134,6 +150,55 @@ def add_rf_to_db(db_session, rf_dict):
     db_session.execute(FamilyRoot.__table__.delete())
     db_session.add_all(add_to_db)
     db_session.commit()
+
+
+def anki_exporter(rf_dict):
+    """Save to TSV for anki."""
+    print("[green]saving family root tsv for anki")
+    anki_data_list = []
+    for i in rf_dict:
+        html = "<table><tbody>"
+        for row in rf_dict[i]["data"]:
+            family, headword, pos, meaning, construction = row
+            html += "<tr valign='top'>"
+            html += "<div style='color: #FFB380'>"
+            html += f"<td>{headword}</td>"
+            html += f"<td><div style='color: #FF6600'>{pos}</div></td>"
+            html += f"<td><div style='color: #FFB380'>{meaning}</td>"
+            html += f"<td><div style='color: #FF6600'>{construction}</div></td></tr>"
+
+        html += "</tbody></table>"
+        if len(html) > 131072:
+            print(f"[red]{i} longer than 131072 characters")
+        else:
+            anki_data_list += [(family, html, day())]
+
+    file_path = PTH.family_root_tsv_path
+    header = None
+    write_tsv_list(file_path, header, anki_data_list)
+
+
+def anki_matrix_exporter(html_dict, db_session):
+    """Save root matrix TSV for Anki."""
+    print("[green]saving root matrix tsv for anki")
+
+    with open(PTH.roots_css_path) as file:
+        css = file.read()
+
+    anki_data_list = []
+
+    for family, html in html_dict.items():
+        db = db_session.query(PaliRoot).filter(PaliRoot.root == family).first()
+        anki_name = f"{db.root_clean} {db.root_group} {db.root_meaning}"
+        html = f"<style>{css}</style>{html}"
+        anki_data_list += [(anki_name, html, day())]
+
+    file_path = PTH.root_matrix_tsv_path
+    header = None
+    write_tsv_list(file_path, header, anki_data_list)
+
+
+
 
 
 if __name__ == "__main__":

@@ -50,9 +50,10 @@ def write_tsv_list(
         file_path: str,
         header: List[str],
         data: List[List[str]]) -> None:
-    with open(file_path, "w", newline='') as file:
-        writer = csv.writer(file, delimiter='\t')
-        writer.writerow(header)
+    with open(file_path, "w", newline="") as file:
+        writer = csv.writer(file, delimiter="\t")
+        if header:
+            writer.writerow(header)
         for row in data:
             if row[0]:
                 writer.writerow(row)

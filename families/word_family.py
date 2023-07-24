@@ -4,13 +4,18 @@
 
 from rich import print
 
-from tools.tic_toc import tic, toc
-from tools.superscripter import superscripter_uni
-from tools.meaning_construction import make_meaning
-from tools.pali_sort_key import pali_sort_key
-from tools.meaning_construction import degree_of_completion
 from db.get_db_session import get_db_session
 from db.models import PaliWord, FamilyWord
+
+from tools.meaning_construction import clean_construction
+from tools.meaning_construction import degree_of_completion
+from tools.meaning_construction import make_meaning
+from tools.pali_sort_key import pali_sort_key
+from tools.paths import ProjectPaths as PTH
+from tools.superscripter import superscripter_uni
+from tools.tic_toc import tic, toc
+from tools.tsv_read_write import write_tsv_list
+from tools.date_and_time import day
 
 
 def main():
@@ -28,6 +33,7 @@ def main():
     wf_dict = compile_wf_html(wf_db, wf_dict)
     errors_list = add_wf_to_db(db_session, wf_dict)
     print_errors_list(errors_list)
+    anki_exporter(wf_dict)
     toc()
 
 
@@ -50,7 +56,8 @@ def make_word_fam_dict(wf_db):
         else:
             wf_dict[wf] = {
                 "headwords": [i.pali_1],
-                "html": ""}
+                "html": "",
+                "data": []}
 
     print(len(wf_dict))
     return wf_dict
@@ -75,6 +82,12 @@ def compile_wf_html(wf_db, wf_dict):
             html_string += "</tr>"
 
             wf_dict[wf]["html"] = html_string
+
+            # anki data
+            construction = clean_construction(
+                i.construction) if i.meaning_1 else ""
+            wf_dict[wf]["data"] += [
+                (i.pali_1, i.pos, meaning, construction)]
 
     for i in wf_dict:
         wf_dict[i]["html"] += "</table>"
@@ -113,6 +126,32 @@ def print_errors_list(errors_list):
     for error in errors_list:
         print(f"{error}", end=" ")
     print()
+
+
+def anki_exporter(wf_dict):
+    """Save to TSV for anki."""
+    print("[green]saving tsv for anki")
+    anki_data_list = []
+    for i in wf_dict:
+        html = "<table><tbody>"
+        for row in wf_dict[i]["data"]:
+            headword, pos, meaning, construction = row
+            html += "<tr valign='top'>"
+            html += "<div style='color: #FFB380'>"
+            html += f"<td>{headword}</td>"
+            html += f"<td><div style='color: #FF6600'>{pos}</div></td>"
+            html += f"<td><div style='color: #FFB380'>{meaning}</td>"
+            html += f"<td><div style='color: #FF6600'>{construction}</div></td></tr>"
+
+        html += "</tbody></table>"
+        if len(html) > 131072:
+            print(f"[red]{i} longer than 131072 characters")
+        else:
+            anki_data_list += [(i, html, day())]
+
+    file_path = PTH.family_word_tsv_path
+    header = None
+    write_tsv_list(file_path, header, anki_data_list)
 
 
 if __name__ == "__main__":

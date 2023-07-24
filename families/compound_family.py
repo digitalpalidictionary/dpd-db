@@ -6,15 +6,18 @@ from rich import print
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord, FamilyCompound
-from tools.tic_toc import tic, toc
-from tools.superscripter import superscripter_uni
+from tools.meaning_construction import clean_construction
+from tools.meaning_construction import degree_of_completion
 from tools.meaning_construction import make_meaning
 from tools.pali_sort_key import pali_sort_key
-from tools.meaning_construction import degree_of_completion
+from tools.paths import ProjectPaths as PTH
+from tools.superscripter import superscripter_uni
+from tools.tic_toc import tic, toc
+from tools.tsv_read_write import write_tsv_list
+from tools.date_and_time import day
 
 
 def main():
-    """Run it."""
     tic()
     print("[bright_yellow]compound families generator")
 
@@ -27,6 +30,7 @@ def main():
     cf_dict = create_comp_fam_dict(dpd_db)
     cf_dict = compile_cf_html(dpd_db, cf_dict)
     add_cf_to_db(db_session, cf_dict)
+    anki_exporter(cf_dict)
     toc()
 
 
@@ -61,7 +65,9 @@ def create_comp_fam_dict(dpd_db):
                 else:
                     cf_dict[cf] = {
                         "headwords": [i.pali_1],
-                        "html": ""}
+                        "html": "",
+                        "data": []
+                    }
 
     print(len(cf_dict))
     return cf_dict
@@ -89,6 +95,13 @@ def compile_cf_html(dpd_db, cf_dict):
 
                     cf_dict[cf]["html"] = html_string
 
+                    # anki data
+                    if i.meaning_1:
+                        construction = clean_construction(
+                            i.construction) if i.meaning_1 else ""
+                        cf_dict[cf]["data"] += [
+                            (i.pali_1, i.pos, meaning, construction)]
+
     for i in cf_dict:
         cf_dict[i]["html"] += "</table>"
 
@@ -112,6 +125,31 @@ def add_cf_to_db(db_session, cf_dict):
     db_session.commit()
     db_session.close()
     print("[white]ok")
+
+
+def anki_exporter(cf_dict):
+    """Save to TSV for anki."""
+    anki_data_list = []
+    for family in cf_dict:
+        anki_family = f"<b>{family}</b>"
+        html = "<table><tbody>"
+        for row in cf_dict[family]["data"]:
+            headword, pos, meaning, construction = row
+            html += "<tr valign='top'>"
+            html += "<div style='color: #FFB380'>"
+            html += f"<td>{headword}</td>"
+            html += f"<td><div style='color: #FF6600'>{pos}</div></td>"
+            html += f"<td><div style='color: #FFB380'>{meaning}</td>"
+            html += f"<td><div style='color: #FF6600'>{construction}</div></td></tr>"
+        html += "</tbody></table>"
+        if len(html) > 131072:
+            print(f"[red]{family} longer than 131072 characters")
+        else:
+            anki_data_list += [(anki_family, html, day())]
+
+    file_path = PTH.family_compound_tsv_path
+    header = None
+    write_tsv_list(file_path, header, anki_data_list)
 
 
 if __name__ == "__main__":

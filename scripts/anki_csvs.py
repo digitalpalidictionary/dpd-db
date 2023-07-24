@@ -9,13 +9,14 @@ from typing import List
 
 from db.models import PaliWord, PaliRoot
 from db.get_db_session import get_db_session
-from datetime import datetime
-from tools.pali_sort_key import pali_sort_key
-from tools.tic_toc import tic, toc
-from tools.paths import ProjectPaths as PTH
 
-current_datetime = datetime.now()
-date = str(current_datetime.strftime("%d"))
+from tools.pali_sort_key import pali_sort_key
+from tools.paths import ProjectPaths as PTH
+from tools.tic_toc import tic, toc
+from tools.tsv_read_write import write_tsv_list
+from tools.date_and_time import day
+
+date = day()
 
 
 def main():
@@ -24,14 +25,15 @@ def main():
 
     db_session = get_db_session("dpd.db")
     dpd_db = db_session.query(PaliWord).all()
-    roots_db = db_session.query(PaliRoot).all()
+    dpd_db = sorted(
+        dpd_db, key=lambda x: pali_sort_key(x.pali_1))
+    # roots_db = db_session.query(PaliRoot).all()
 
     vocab(dpd_db)
     commentary(dpd_db)
     pass1(dpd_db)
-    full_db(dpd_db)
-    roots(db_session, roots_db)
-
+    # full_db(dpd_db)
+    # roots(db_session, roots_db)
     toc()
 
 
@@ -164,7 +166,10 @@ def commentary(dpd_db):
     rows = []
 
     for i in dpd_db:
-        if i.meaning_1 != "" and i.example_1 == "":
+        if (
+            i.meaning_1 != "" and
+            i.example_1 == ""
+        ):
             rows.append(pali_row(i))
 
     with open(PTH.commentary_csv_path, "w", newline='', encoding='utf-8') as f:
@@ -174,14 +179,19 @@ def commentary(dpd_db):
 
 def pass1(dpd_db):
     print("[green]making pass1 csv")
-    output_file = open(PTH.pass1_csv_path, "w")
 
     rows = []
     for i in dpd_db:
-        if i.meaning_1 == "" and i.family_set != "" and "pass1" in i.family_set:
+        if (
+            not i.meaning_1 and
+            "pass1" in i.origin
+
+        ):
             rows.append(pali_row(i))
 
-    output_file.close()
+    output_file = PTH.pass1_csv_path
+    header = None
+    write_tsv_list(output_file, header, rows)
 
 
 def full_db(dpd_db):
