@@ -1,92 +1,75 @@
 id	field1	value1	field2	value2	field3	value3	comment	feedback	approved
-36019	grammar	pron, nt acc sg of ta					Ven Siha suggest that it is form of idaṃ		
-17901	construction	etad + disa					Siha: This is etad + disa (S. dṛśa), corresponding to S. etādṛśa, tādṛśa. An adjective *ādisa (S. *ādṛśa) is listed neither in PED, CPD nor Cone and is also unknown to MW, Apte and Böthlingk, so it seems this is a ghost word in DPD.		
-22032	construction	ka > ki + disa					same comment from Ven Siha		
-71824	source_2		sutta_2		example_2		same as 1		
-71825	source_2		sutta_2		example_2		same as 1		
-39683	source_2	MN 2.7	sutta_2	sabbāsavasuttaṃ	example_2	bhikkhu paṭisaṅkhā yoniso uppannaṃ kāmavitakkaṃ n'ādhivāseti <b>pajahati</b> vinodeti byantīkaroti anabhāvaṃ gameti.	since in SNP 42 variant with metrically lengthened ā		
-71989	pali_1	udumbarakhādikaṃ	example_1	sac'āyaṃ, byagghapajja, kulaputto appāyo samāno uḷāraṃ jīvikaṃ kappeti, tassa bhavanti vattāro, <b>udumbarakhādikaṃ</b> c'āyaṃ kulaputto bhoge khādatī'ti.			add from variant reading BD says it is acc. as adv. of manner. SCPN 		
-50807	pali_1	maññatī 1					add poetic version from māgaṇḍiyasutta SNP 47		
-58284	compound_type	kammadhāraya > bahubbīhi							
-70233	compound_type	dutiyā tappuirsa	compound_construction	vedaṃ + gū					
-21791	meaning_lit	what is this?							
-46089	meaning_1	one who seeks alms					add from ITI 91 		
-46089	sutta_1	jīvikasuttaṃ	example_1	piṇḍolo vicarasi pattapāṇī'ti. tañ'ca kho etaṃ, bhikkhave, kulaputtā upenti atthavasikā, atthavasaṃ paṭicca.			add from ITI 91 		
-40885	meaning_lit	would connect							
-20960	example_2						second example not fit		
-74157	example_2						second example not fit		
-9772	grammar	instr sg					CPD says: -sīlatā, f. abstr.; abl. ~ā, so same way as abbatā it should be instr or abl		
+36019	grammar	pron, nt acc sg of ta					Ven Siha suggest that it is form of idaṃ	see kaccāyana 152, 157, 212. tassa vā nattaṃ sabbattha.tassa sabbanāmassa takārassa nattaṃ hoti vā sabbattha liṅgesu. nāya, tāya, naṃ, taṃ, ne, te, nesu, tesu, namhi, tamhi, nāhi, tāhi, nābhi, tābhi.	no
+17901	construction	etad + disa					Siha: This is etad + disa (S. dṛśa), corresponding to S. etādṛśa, tādṛśa. An adjective *ādisa (S. *ādṛśa) is listed neither in PED, CPD nor Cone and is also unknown to MW, Apte and Böthlingk, so it seems this is a ghost word in DPD.	yes, i will change all of these indiviually	no
+22032	construction	ka > ki + disa					same comment from Ven Siha	yes, will change all of them individually	no
+71824	source_2		sutta_2		example_2		same as 1	already changed	no
+71825	source_2		sutta_2		example_2		same as 1		yes
+39683	source_2	MN 2.7	sutta_2	sabbāsavasuttaṃ	example_2	bhikkhu paṭisaṅkhā yoniso uppannaṃ kāmavitakkaṃ n'ādhivāseti <b>pajahati</b> vinodeti byantīkaroti anabhāvaṃ gameti.	since in SNP 42 variant with metrically lengthened ā	already fixed	no
+71989	pali_1	udumbarakhādikaṃ	example_1	sac'āyaṃ, byagghapajja, kulaputto appāyo samāno uḷāraṃ jīvikaṃ kappeti, tassa bhavanti vattāro, <b>udumbarakhādikaṃ</b> c'āyaṃ kulaputto bhoge khādatī'ti.			add from variant reading BD says it is acc. as adv. of manner. SCPN 	please add as a new word, this is for changing the db	no
+50807	pali_1	maññatī 1					add poetic version from māgaṇḍiyasutta SNP 47	please add as new word	no
+58284	compound_type	kammadhāraya > bahubbīhi							yes
+70233	compound_type	dutiyā tappuirsa	compound_construction	ved<b>aṃ</b> + gū				please add bold to compound constructions!	yes
+21791	meaning_lit	what is this?							yes
+46089	meaning_1	one who seeks alms					add from ITI 91 	please add as a new word, this updates the db	no
+46089	sutta_1	jīvikasuttaṃ	example_1	piṇḍolo vicarasi pattapāṇī'ti. tañ'ca kho etaṃ, bhikkhave, kulaputtā upenti atthavasikā, atthavasaṃ paṭicca.			add from ITI 91 	please add as a new word, this updates the db	no
+40885	meaning_lit	would connect							yes
+20960	example_2						second example not fit	please add all fields, this will just change one field	no
+74157	example_2						second example not fit	it's the correct meaning	no
+9772	grammar	instr sg					CPD says: -sīlatā, f. abstr.; abl. ~ā, so same way as abbatā it should be instr or abl	dicitonary entries are in nominative case, the fact that the instrumental is the same is irrelevant	no
 38878	example_2	"<b>no ce</b> kira diṭṭhiyā na sutiyā na ñāṇena,
 sīlabbaten'āpi na suddhim'āha,
 adiṭṭhiyā assutiyā añāṇā,
 asīlatā abbatā no'pi tena,
 maññām'ahaṃ momuham'eva dhammaṃ,
-diṭṭhiyā eke paccenti suddhiṃ."							
-74577	source_1	SN35.235	sutta_1		example_1				
-13742	meaning_1	sense base; sense organ					from comp cakkhundriya 2		
-101	source_1	MN 1000	sutta_1	test	example_1	so antaraghare nisinno samāno na chambhati na kampati na vedhati na paritassati. so achambhī  avedhī aparitassī vigatalomahaṃso.			
-52955	meaning_1	happiness (for); appreciation; sympathetic joy							
-68481	pali_1	avippayoga	source_1	SNPa	example_1	modanti vata bhonto sattā modanti sādhu suṭṭhū'ti'ādinā nayena hitasukh'āvippayogakāmatā muditā.	add from CPD from atthakatha comp hitasukh'āvippayogakāmatā		
-1384	pali_1	ajjhupekkhanatā	source_1	SNPa	example_1	paññāyissanti sakena kammenā'ti sukhadukkhesu ajjhupekkhanatā upekkhā	add fem abstr from commentary		
-57211	meaning_1	hesitates					in this context bikkhuni hesitate to give it to bhikkhu, and Buddhadatha nook 3 says this or maybe this is the example of sajjati 1.1		
-62426	source_1	MN 122	sutta_1	mahāsuññatasuttaṃ	example_1	na vo ahaṃ, ānanda, tathā parakkamissāmi yathā kumbhakāro āmake āmakamatte. niggayha niggayh'āhaṃ, ānanda, vakkhāmi; pavayha pavayha, ānanda, vakkhāmi. yo <b>sāro</b> so ṭhassatī'ti.			
-66007	meaning_1	proceeding; continuing; going forward; practicing					it is referring to disciple		
-65844	source_1		sutta_1		example_1		remve example since it is vaḍḍhi 4 now		
-11616	meaning_1	pointing out, aiming at; indicating	sutta_2	VIN 2.5.8.2	example_2	tena kho pana samayena bhagavā bhikkhūnaṃ anekapariyāyena vinayakathaṃ katheti, vinayassa vaṇṇaṃ bhāsati, vinayapariyattiyā vaṇṇaṃ bhāsati, ādissa ādissa āyasmato upālissa vaṇṇaṃ bhāsati.	CPD and Buddhadatha book 3		
-26143	source_1	MN 4	sutta_1	bhayabheravasuttaṃ	example_1	cattāḷīsam'pi jātiyo paññāsam'pi jātiyo jātisatam'pi jātisahassam'pi jātisatasahassam'pi aneke'pi saṃvaṭṭakappe aneke'pi vivaṭṭakappe aneke'pi saṃvaṭṭavivaṭṭakappe			
-64056	example_1	rūpassa nibbidāya virāgāya nirodhāya paṭipannā, te supaṭipannā. ye supaṭipannā, te imasmiṃ dhammavinaye gādhanti.							
-64057	example_1	na supaṭippassaddho, opakkamikā ce'pi te bhonto samaṇabrāhmaṇā dukkhā tibbā kharā kaṭukā vedanā vedayanti, abhabbāva te ñāṇāya dassanāya anuttarāya sambodhāya. diṭṭhiyā eke paccenti suddhiṃ.							
-74577	source_1	SN35.235	sutta_1		example_1				
-13742	meaning_1	sense base; sense organ					from comp cakkhundriya 2		
-101	source_1	MN 1000	sutta_1	test	example_1	so antaraghare nisinno samāno na chambhati na kampati na vedhati na paritassati. so achambhī  avedhī aparitassī vigatalomahaṃso.			
-52955	meaning_1	happiness (for); appreciation; sympathetic joy							
-68481	pali_1	avippayoga	source_1	SNPa	example_1	modanti vata bhonto sattā modanti sādhu suṭṭhū'ti'ādinā nayena hitasukh'āvippayogakāmatā muditā.	add from CPD from atthakatha comp hitasukh'āvippayogakāmatā		
-1384	pali_1	ajjhupekkhanatā	source_1	SNPa	example_1	paññāyissanti sakena kammenā'ti sukhadukkhesu ajjhupekkhanatā upekkhā	add fem abstr from commentary		
-57211	meaning_1	hesitates					in this context bikkhuni hesitate to give it to bhikkhu, and Buddhadatha nook 3 says this or maybe this is the example of sajjati 1.1		
-62426	source_1	MN 122	sutta_1	mahāsuññatasuttaṃ	example_1	na vo ahaṃ, ānanda, tathā parakkamissāmi yathā kumbhakāro āmake āmakamatte. niggayha niggayh'āhaṃ, ānanda, vakkhāmi; pavayha pavayha, ānanda, vakkhāmi. yo <b>sāro</b> so ṭhassatī'ti.			
-66007	meaning_1	proceeding; continuing; going forward; practicing					it is referring to disciple		
-65844	source_1		sutta_1		example_1		remve example since it is vaḍḍhi 4 now		
-11616	meaning_1	pointing out, aiming at; indicating	sutta_2	VIN 2.5.8.2	example_2	tena kho pana samayena bhagavā bhikkhūnaṃ anekapariyāyena vinayakathaṃ katheti, vinayassa vaṇṇaṃ bhāsati, vinayapariyattiyā vaṇṇaṃ bhāsati, ādissa ādissa āyasmato upālissa vaṇṇaṃ bhāsati.	CPD and Buddhadatha book 3		
-26143	source_1	MN 4	sutta_1	bhayabheravasuttaṃ	example_1	cattāḷīsam'pi jātiyo paññāsam'pi jātiyo jātisatam'pi jātisahassam'pi jātisatasahassam'pi aneke'pi saṃvaṭṭakappe aneke'pi vivaṭṭakappe aneke'pi saṃvaṭṭavivaṭṭakappe			
-64056	example_1	rūpassa nibbidāya virāgāya nirodhāya paṭipannā, te supaṭipannā. ye supaṭipannā, te imasmiṃ dhammavinaye gādhanti.							
-64057	example_1	na supaṭippassaddho, opakkamikā ce'pi te bhonto samaṇabrāhmaṇā dukkhā tibbā kharā kaṭukā vedanā vedayanti, abhabbāva te ñāṇāya dassanāya anuttarāya sambodhāya.							
-9429	pos	adj							
+diṭṭhiyā eke paccenti suddhiṃ."							yes
+74577	source_1	SN35.235						accepted, but your suggestion would delete the sutta name, please be more careful!	no
+13742	meaning_1	sense base; sense organ					from comp cakkhundriya 2	please add as new word	no
+101	source_1	MN 1000	sutta_1	test	example_1	so antaraghare nisinno samāno na chambhati na kampati na vedhati na paritassati. so achambhī  avedhī aparitassī vigatalomahaṃso.		seems like its just a test	no
+52955	meaning_1	happiness (for); appreciation; sympathetic joy							yes
+68481	pali_1	avippayoga	source_1	SNPa	example_1	modanti vata bhonto sattā modanti sādhu suṭṭhū'ti'ādinā nayena hitasukh'āvippayogakāmatā muditā.	add from CPD from atthakatha comp hitasukh'āvippayogakāmatā	please add as a new word, this updates the db	no
+1384	pali_1	ajjhupekkhanatā	source_1	SNPa	example_1	paññāyissanti sakena kammenā'ti sukhadukkhesu ajjhupekkhanatā upekkhā	add fem abstr from commentary	please add as new word, this updates the db	no
+57211	meaning_1	hesitates					in this context bikkhuni hesitate to give it to bhikkhu, and Buddhadatha nook 3 says this or maybe this is the example of sajjati 1.1	you need to correct more than one field in order to make this suggestion, root etc	no
+62426	source_1	MN 122	sutta_1	mahāsuññatasuttaṃ	example_1	na vo ahaṃ, ānanda, tathā parakkamissāmi yathā kumbhakāro āmake āmakamatte. niggayha niggayh'āhaṃ, ānanda, vakkhāmi; pavayha pavayha, ānanda, vakkhāmi. yo <b>sāro</b> so ṭhassatī'ti.			yes
+66007	meaning_1	proceeding; continuing; going forward; practicing					it is referring to disciple	please add as new word with example	no
+65844	source_1		sutta_1		example_1		remve example since it is vaḍḍhi 4 now		yes
+11616	meaning_1	pointing out, aiming at; indicating	sutta_2	VIN 2.5.8.2	example_2	tena kho pana samayena bhagavā bhikkhūnaṃ anekapariyāyena vinayakathaṃ katheti, vinayassa vaṇṇaṃ bhāsati, vinayapariyattiyā vaṇṇaṃ bhāsati, ādissa ādissa āyasmato upālissa vaṇṇaṃ bhāsati.	CPD and Buddhadatha book 3	please add new word	no
+26143	source_1	MN 4	sutta_1	bhayabheravasuttaṃ	example_1	<b>cattāḷīsam</b>'pi jātiyo paññāsam'pi jātiyo jātisatam'pi jātisahassam'pi jātisatasahassam'pi aneke'pi saṃvaṭṭakappe aneke'pi vivaṭṭakappe aneke'pi saṃvaṭṭavivaṭṭakappe		please add bold to examples	yes
+64056	example_1	rūpassa nibbidāya virāgāya nirodhāya paṭipannā, te supaṭipannā. ye supaṭipannā, te imasmiṃ dhammavinaye gādhanti.							yes
+64057	example_1	na supaṭippassaddho, opakkamikā ce'pi te bhonto samaṇabrāhmaṇā dukkhā tibbā kharā kaṭukā vedanā vedayanti, abhabbāva te ñāṇāya dassanāya anuttarāya sambodhāya. diṭṭhiyā eke paccenti suddhiṃ.							yes
+74577	source_1	SN35.235	sutta_1		example_1			your suggestion would delete sutta_1	no
+13742	meaning_1	sense base; sense organ					from comp cakkhundriya 2	please add new word	no
+101	source_1	MN 1000	sutta_1	test	example_1	so antaraghare nisinno samāno na chambhati na kampati na vedhati na paritassati. so achambhī  avedhī aparitassī vigatalomahaṃso.		test in sutta_1	no
+52955	meaning_1	happiness (for); appreciation; sympathetic joy						already done	no
+9429	pos	adj						if you change pos, need to change stem and pattern as well	yes
 42374	construction	papaṃ + ca	example_1	"papañ'ca udapānañ'ca, ye dadanti upassayaṃ.
-tesaṃ divā ca ratto ca, sadā puññaṃ pavaḍḍhati."			add sandhi from SN 1.47		
-7454	source_2	APA 8	sutta_2	upāli therāpadānaṃ	example_2	"allavatthā allasirā,
+tesaṃ divā ca ratto ca, sadā puññaṃ pavaḍḍhati."			add sandhi from SN 1.47	add new word	no
+7454	source_2	APA 8	sutta_2	upālitherāpadānaṃ	example_2	"allavatthā allasirā,
 sabb'eva pañjalīkatā,
 buddhassa pāde nipatitvā,
-idaṃ vacanam'abravuṃ."			
-53089	meaning_1	root; base; foot					remove (of a tree)  becasuse can be of a wall kuṭṭamūla		
-52133	source_1	SNP 38	sutta_1	dvayatānupassanāsuttaṃ	example_1	tena kho pana samayena bhagavā tadah'uposathe pannarase puṇṇāya puṇṇamāya rattiyā bhikkhusaṅghaparivuto abbhokāse nisinno hoti.	from comp puṇṇamā		
-48898	derived_from	brahā					BD book 3 says that brahanta same as mahanta is anta adj		
-49492	grammar	nt, irreg	pattern	a nt irreg			BD says it decline like kamma, and bhasmani make sence parten a nt irreg		
-45190	grammar	nt, irreg	pattern	a nt irreg			BD book 2 suggest it same as kamma, pattern a nt irreg, and paṃsuni make sence		
-437	grammar	card, fem	pattern	i2 card			BD book3		
-55468	grammar	card, nt sg	pattern	a2 card			same as sata, according to BD book3		
-9339	grammar	card, nt sg	pattern	a2 card			BD book3		
-7176	grammar	card, nt sg	pattern	a2 card					
-19855	grammar	card, nt sg	pattern	a2 card					
-51655	grammar	card, nt sg	pattern	a2 card					
-9339	grammar	card, nt sg	pattern	a2 card			and meaning according to normal format		
-17816	meaning_lit	one with one					incorrect meaning		
+idaṃ vacanam'<b>abravuṃ</b>."		please no spaces or dashes in sutta names, and add bold to examples. what you add here goes into the db!	yes
+53089	meaning_1	root; base; foot					remove (of a tree)  becasuse can be of a wall kuṭṭamūla		yes
+52133	source_1	SNP 38	sutta_1	dvayatānupassanāsuttaṃ	example_1	tena kho pana samayena bhagavā tadah'uposathe pannarase puṇṇāya puṇṇa<b>māya</b> rattiyā bhikkhusaṅghaparivuto abbhokāse nisinno hoti.	from comp puṇṇamā	please add bold to examples	yes
+48898	derived_from	brahanta					BD book 3 says that brahanta same as mahanta is anta adj	derived from column must match derived from in grammar, updated from brahā to brahanta	yes
+49492	grammar	nt, irreg	pattern	a nt irreg			BD says it decline like kamma, and bhasmani make sence parten a nt irreg	for this kind of change you must change pos, grammar and pattern, found this list in grammar books kamma, camma, vesma, bhasma	yes
+45190	grammar	nt, irreg	pattern	a nt irreg			BD book 2 suggest it same as kamma, pattern a nt irreg, and paṃsuni make sence	please change, pos, grammar, pattern	yes
+437	grammar	card, fem	pattern	i2 card			BD book3	"i dont think of these are actual cardinals, just ""names"" for big numbers so i'm keeping them fem"	no
+55468	grammar	card, nt sg	pattern	a2 card			same as sata, according to BD book3		yes
+9339	grammar	card, nt sg	pattern	a2 card			BD book3		yes
+7176	grammar	card, nt sg	pattern	a2 card					yes
+19855	grammar	card, nt sg	pattern	a2 card					yes
+51655	grammar	card, nt sg	pattern	a2 card					yes
+9339	grammar	card, nt sg	pattern	a2 card			and meaning according to normal format	if you want a change, make the change!	no
+17816	meaning_lit	one with one					incorrect meaning		yes
 9719	source_2	SN 4.5	sutta_2	dutiyamārapāsasuttaṃ	example_2	"mutt'āhaṃ sabbapāsehi,
 ye dibbā ye ca mānusā.
 mahābandhanamutto'mhi,
-nihato tvam'<b>asi</b> antakā'ti."	sutta example		
-52196	meaning_lit	coming from mother					construction changed but lit meaning not		
-69760	source_2	APA 393	sutta_2	pilindavaccha therāpadānaṃ	example_2	"satthena vā visena vā,
+nihato tvam'<b>asi</b> antakā'ti."	sutta example		yes
+52196	meaning_lit	coming from mother					construction changed but lit meaning not	"matrix means ""coming from mother"" its a cognate 8 )"	no
+69760	source_2	APA 393	sutta_2	pilindavacchatherāpadānaṃ	example_2	"satthena vā visena vā,
 <b>vihesam</b>'pi na kubbate,
 antarāmaraṇaṃ n'atthi,
-tesaṃ nissandato mama."	bold		
-30315	phonetic	a > ā					since *ituṃ it is not metrically lengthened ā		
-8244	source_1		sutta_1		example_1		example not match since durabhisambhava 2 has been updating.		
-45127	source_2	MN 107	sutta_2	gaṇakamoggallānasuttaṃ	example_2	ye pana te kulaputtā ... āraddhavīriyā <b>pahit</b>'attā upaṭṭhitassatino sampajānā samāhitā ekaggacittā paññavanto aneḷamūgā, tehi bhavaṃ gotamo saddhiṃ saṃvasati.	examples were very similar		
-57918	grammar	masc, gen sg of satthar					typo		
-64310	meaning_1	well free (of); properly liberated					good to be free - not an adj meaning			
-63663	pali_2	sucārurūpaṃ					nt		
-63663	pos	nt					nt			
-63663	grammar	nt, comp					noun in sentences, and if you think it is an adj - please change meaning_1		
-63663	stem	sucārurūp	pattern	a nt			nt		
-70169	meaning_lit	conquering (or) shaking					nice		
-68469	meaning_lit	negative remembering back					better english		
+tesaṃ nissandato mama."	bold	please remove spaces and dashes from sutta names	yes
+30315	phonetic	with metrically lengthened ā	construction	tar + ituṃ			since *ituṃ it is not metrically lengthened ā	i changed the construction instead, *ituṃ isn't really a thing. 	yes
+8244	source_1		sutta_1		example_1		example not match since durabhisambhava 2 has been updating.		yes
+45127	source_2	MN 107	sutta_2	gaṇakamoggallānasuttaṃ	example_2	ye pana te kulaputtā ... āraddhavīriyā <b>pahit</b>'attā upaṭṭhitassatino sampajānā samāhitā ekaggacittā paññavanto aneḷamūgā, tehi bhavaṃ gotamo saddhiṃ saṃvasati.	examples were very similar		yes
+57918	grammar	masc, gen sg of satthar					typo		yes

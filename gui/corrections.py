@@ -5,7 +5,7 @@ from sqlalchemy import inspect
 
 from rich import print
 
-from completion_combo import CompletionCombo
+from functions import open_in_goldendict
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 
@@ -28,9 +28,9 @@ def get_column_names():
     return column_names
 
 
-def _set_state(window: sg.Window, enabled=True) -> None:
-    for i in ENABLE_LIST:
-        window[i].update(disabled=not enabled)
+# def _set_state(window: sg.Window, enabled=True) -> None:
+#     for i in ENABLE_LIST:
+#         window[i].update(disabled=not enabled)
 
 
 def main():
@@ -38,7 +38,7 @@ def main():
     db_session = get_db_session("dpd.db")
     window = make_window()
     db = None
-    _set_state(window, enabled=False)
+    # _set_state(window, enabled=False)
 
     while True:
         event, values = window.read()
@@ -55,9 +55,9 @@ def main():
             if db:
                 summary = make_summary(db)
                 window["id_info"].update(summary)
-                _set_state(window, enabled=True)
+                # _set_state(window, enabled=True)
             else:
-                _set_state(window, enabled=False)
+                # _set_state(window, enabled=False)
                 sg.popup_error(f"No entry whith id {id_val}")
 
         elif event == "field1":
@@ -172,94 +172,7 @@ def make_window():
         margins=(0, 0),
     )
 
-    make_corrections_tab = [
-        [
-            sg.Text("id", size=(15, 1)),
-            sg.Input("", key="id", size=(20, 1)),
-            sg.Button(
-                "Clear All", key="clear_all", font=(None, 13))
-        ],
-        [
-            sg.Text("", size=(15, 1)),
-            sg.Multiline(
-                "", key="id_info", size=(100, 1), disabled=True,
-                pad=((0, 100), (0, 0)))
-        ],
-        [
-            sg.Text("field1", size=(15, 1)),
-            CompletionCombo(
-                column_names,
-                key="field1",
-                enable_events=True),
-            sg.Button(
-                "Clear", key="clear1", font=(None, 13))
-        ],
-        [
-            sg.Text("value1", size=(15, 1)),
-            sg.Multiline(
-                "", key="value1_old", size=(50, 2), disabled=True),
-            sg.Multiline(
-                "", key="value1_new", size=(50, 2))
-        ],
-        [
-            sg.Text("comment1", size=(15, 1)),
-            sg.Input(
-                "", key="comment1", size=(103, 1)),
-        ],
-        [
-            sg.Text("", size=(15, 1)),
-        ],
-        [
-            sg.Text("field2", size=(15, 1)),
-            CompletionCombo(
-                column_names,
-                key="field2",
-                enable_events=True),
-            sg.Button("Clear", key="clear2", font=(None, 13))
-        ],
-        [
-            sg.Text("value2", size=(15, 1)),
-            sg.Multiline(
-                "", key="value2_old", size=(50, 2), disabled=True),
-            sg.Multiline(
-                "", key="value2_new", size=(50, 2))
-        ],
-        [
-            sg.Text("comment2", size=(15, 1)),
-            sg.Input(
-                "", key="comment2", size=(103, 1)),
-        ],
-        [
-            sg.Text("", size=(15, 1)),
-        ],
-        [
-            sg.Text("field3", size=(15, 1)),
-            CompletionCombo(
-                column_names,
-                key="field3",
-                enable_events=True),
-            sg.Button("Clear", key="clear3", font=(None, 13)),
-            sg.Text("", size=(22, 1)),
-            sg.Input(key="bold", size=(30, 1)),
-            sg.Button("Bold", key="bold_button", font=(None, 13)),
-        ],
-        [
-            sg.Text("value3", size=(15, 1)),
-            sg.Multiline(
-                "", key="value3_old", size=(50, 4), disabled=True),
-            sg.Multiline(
-                "", key="value3_new", size=(50, 4))
-        ],
-        [
-            sg.Text("comment3", size=(15, 1)),
-            sg.Input(
-                "", key="comment3", size=(103, 1)),
-        ],
-        [
-            sg.Text("", size=(15, 1)),
-            sg.Button("Submit Correction", key="submit", size=(101, 1)),
-        ],
-    ]
+    make_corrections_tab = []
 
     add_corrections_tab = [
         [
@@ -273,63 +186,58 @@ def make_window():
         [
             sg.Text("summary", size=(15, 1)),
             sg.Multiline(
-                "", key="add_summary", size=(101, 1), disabled=True,
+                "", key="add_summary", size=(50, 1), disabled=True,
                 pad=((0, 100), (0, 0)))
         ],
         [
             sg.Text("field1", size=(15, 1)),
-            sg.Input(key="add_field1")
+            sg.Input(key="add_field1", size=(50, 1), text_color="#00bfff")
         ],
         [
-            sg.Text("value1", size=(15, 1)),
+            sg.Text("value1_old", size=(15, 1)),
             sg.Multiline(
-                "", key="add_value1_old", size=(50, 2), disabled=True),
+                "", key="add_value1_old", size=(50, 2), disabled=True,
+                background_color="black"),
+        ],
+        [
+            sg.Text("value1_new", size=(15, 1)),
             sg.Multiline(
                 "", key="add_value1_new", size=(50, 2))
         ],
         [
-            sg.Text("comment1", size=(15, 1)),
-            sg.Input(
-                "", key="add_comment1", size=(103, 1))
-        ],
-        [
-            sg.Text("", size=(15, 1)),
-        ],
-        [
             sg.Text("field2", size=(15, 1)),
-            sg.Input(key="add_field2")
+            sg.Input(key="add_field2", size=(50, 1), text_color="#00bfff")
         ],
         [
-            sg.Text("value2", size=(15, 1)),
+            sg.Text("value2_old", size=(15, 1)),
             sg.Multiline(
-                "", key="add_value2_old", size=(50, 2), disabled=True),
+                "", key="add_value2_old", size=(50, 2), disabled=True,
+                background_color="black"),
+        ],
+        [
+            sg.Text("value2_new", size=(15, 1)),
             sg.Multiline(
-                "", key="add_value2_new", size=(50, 2))
-        ],
-        [
-            sg.Text("comment2", size=(15, 1)),
-            sg.Input(
-                "", key="add_comment2", size=(103, 1)),
-        ],
-        [
-            sg.Text("", size=(15, 1)),
+                key="add_value2_new", size=(50, 2))
         ],
         [
             sg.Text("field3", size=(15, 1)),
-            sg.Input(key="add_field3"),
-            sg.Text("", size=(22, 1)),
+            sg.Input(key="add_field3", size=(50, 1), text_color="#00bfff"),
         ],
         [
-            sg.Text("value3", size=(15, 1)),
+            sg.Text("value3_old", size=(15, 1)),
             sg.Multiline(
-                "", key="add_value3_old", size=(50, 4), disabled=True),
-            sg.Multiline(
-                "", key="add_value3_new", size=(50, 4))
+                key="add_value3_old", size=(50, 4), disabled=True,
+                background_color="black"),
         ],
         [
-            sg.Text("comment3", size=(15, 1)),
+            sg.Text("value3_new", size=(15, 1)),
+            sg.Multiline(
+                key="add_value3_new", size=(50, 4))
+        ],
+        [
+            sg.Text("comment", size=(15, 1)),
             sg.Input(
-                "", key="add_comment3", size=(103, 1)),
+                "", key="add_comment", size=(50, 1)),
         ],
         [
             sg.Text("", size=(15, 1)),
@@ -337,22 +245,22 @@ def make_window():
         [
             sg.Text("feedback", size=(15, 1)),
             sg.Input(
-                "", key="add_feedback", size=(103, 1)),
+                "", key="add_feedback", size=(50, 1)),
         ],
         [
             sg.Text("", size=(15, 1)),
             sg.Button(
-                "Reject", key="reject_button", size=(101, 1))
+                "Reject", key="reject_button", size=(50, 1))
         ],
         [
             sg.Text("", size=(15, 1)),
             sg.Button(
-                "Approve", key="approve_button", size=(101, 1))
+                "Approve", key="approve_button", size=(50, 1))
         ],
         [
             sg.Text("", size=(15, 1)),
             sg.Button(
-                "Pass", key="pass_button", size=(101, 1))
+                "Pass", key="pass_button", size=(50, 1))
         ],
     ]
 
@@ -381,12 +289,12 @@ def make_window():
         finalize=True,
     )
 
-    window["id"].bind("<Return>", "_enter")
-    for i in range(1, 4):
-        field = f"field{i}"
-        window[field].bind("<Return>", "_enter")
-        window[field].bind("<Key>", "_key")
-        window[field].bind("<FocusOut>", "_focus-out")
+    # window["id"].bind("<Return>", "_enter")
+    # for i in range(1, 4):
+    #     field = f"field{i}"
+    #     window[field].bind("<Return>", "_enter")
+    #     window[field].bind("<Key>", "_key")
+    #     window[field].bind("<FocusOut>", "_focus-out")
 
     return window
 
@@ -402,10 +310,10 @@ def make_summary(db):
 def save_corections_tsv(values, pth):
     headings = [
         "id",
-        "field1", "value1_new", "comment1",
-        "field2", "value2_new", "comment2",
-        "field3", "value3_new", "comment3",
-        "feedback", "approved"
+        "field1", "value1_new",
+        "field2", "value2_new",
+        "field3", "value3_new",
+        "comment", "feedback", "approved"
     ]
 
     if not pth.corrections_tsv_path.exists():
@@ -459,6 +367,7 @@ def find_next_correction(db_session, corrections_list, window, values):
 def load_next_correction(db_session, c, window, values):
     db = db_session.query(PaliWord).filter(
         c.id == PaliWord.id).first()
+    open_in_goldendict(c.id)
     window["add_id"].update(c.id)
     window["add_summary"].update(make_summary(db))
     # field1
@@ -466,19 +375,17 @@ def load_next_correction(db_session, c, window, values):
         window["add_field1"].update(c.field1)
         window["add_value1_old"].update(getattr(db, c.field1))
         window["add_value1_new"].update(c.value1)
-        window["add_comment1"].update(c.comment1)
     # field2
     if c.field2:
         window["add_field2"].update(c.field2)
         window["add_value2_old"].update(getattr(db, c.field2))
         window["add_value2_new"].update(c.value2)
-        window["add_comment2"].update(c.comment2)
     # field3
     if c.field3:
         window["add_field3"].update(c.field3)
         window["add_value3_old"].update(getattr(db, c.field3))
         window["add_value3_new"].update(c.value3)
-        window["add_comment3"].update(c.comment3)
+    window["add_comment"].update(c.comment)
 
 
 def write_to_db(db_session, values):
@@ -504,21 +411,22 @@ def write_to_db(db_session, values):
         setattr(db, field3, value3)
         print(f'{db.id} {db.pali_1} [yellow]{field3} \
 [white]updated to [yellow]{value3}')
-    # db_session.commit()
+    db_session.commit()
 
 
 def update_corrections_tsv(PTH, values, corrections_list, index):
     fields = [
         "add_id",
-        "add_field1", "add_value1_new", "add_comment1",
-        "add_field2", "add_value2_new", "add_comment2",
-        "add_field3", "add_value3_new", "add_comment3",
-        "add_feedback", "add_approved"
+        "add_field1", "add_value1_new",
+        "add_field2", "add_value2_new",
+        "add_field3", "add_value3_new",
+        "add_comment", "add_feedback", "add_approved"
     ]
 
     c = corrections_list[index]
     for field in fields:
         new_field = field.replace("add_", "").replace("_new", "")
+        print(field, new_field)
         setattr(c, new_field, values[field])
         print(new_field, getattr(c, new_field))
 
