@@ -214,6 +214,9 @@ class ProjectPaths():
     cst_xml_dir: Path = Path("resources/tipitaka-xml/deva/")
     cst_xml_roman_dir: Path = Path("resources/tipitaka-xml/roman_xml/")
 
+    # resources/resources/other_pali_texts
+    other_pali_texts_dir: Path = Path("resources/other_pali_texts")
+
     # /resources/sutta_central
     sc_dir: Path = Path("resources/sutta_central/ms/")
 

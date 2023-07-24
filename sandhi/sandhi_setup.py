@@ -16,6 +16,7 @@ from db.models import PaliWord, DerivedData
 from db.get_db_session import get_db_session
 from tools.cst_sc_text_sets import make_cst_text_set
 from tools.cst_sc_text_sets import make_sc_text_set
+from tools.cst_sc_text_sets import make_other_pali_texts_set
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths as PTH
 
@@ -59,6 +60,10 @@ def main():
     sc_text_set = make_sc_text_set(texts_to_include)
     print(f"[white]{len(sc_text_set):>10,}")
 
+    print(f"[green]{'making other pali texts set':<35}", end="")
+    other_pali_text_set = make_other_pali_texts_set()
+    print(f"[white]{len(other_pali_text_set):>10,}")
+
     # bjt_text_set = make_bjt_text_set(include)
     (spelling_mistakes_set,
         spelling_corrections_set) = make_spelling_mistakes_set()
@@ -76,6 +81,7 @@ def main():
 
         text_set = cst_text_set | sc_text_set
         # text_set = text_set | bjt_text_set
+        text_set = text_set | other_pali_text_set
         text_set = text_set | spelling_corrections_set
         text_set = text_set | variant_corrections_set
         text_set = text_set - spelling_mistakes_set

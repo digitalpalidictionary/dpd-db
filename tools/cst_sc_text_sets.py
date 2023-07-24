@@ -74,8 +74,6 @@ def make_sc_text_set(books: list, niggahita="ṃ", return_list=False) -> set:
 
 def make_bjt_text_set(include):
 
-    print(f"[green]{'making buddhajayanti text set':<35}", end="")
-
     bjt_texts_list = []
     for i in include:
         if bjt_texts[i]:
@@ -110,3 +108,21 @@ def make_all_words_set():
     sc_word_set = make_sc_text_set(all_books)
     all_words_set = cst_word_set | sc_word_set
     return all_words_set
+
+
+def make_other_pali_texts_set() -> set:
+    """Compile a set of all words in other pali texts, chanting books, etc."""
+    other_pali_texts_set = set()
+
+    dir_path = PTH.other_pali_texts_dir
+    if dir_path.exists():
+        file_list = [file for file in dir_path.iterdir() if file.is_file()]
+        for file_path in file_list:
+            with open(file_path, "r") as f:
+                text_string = f.read()
+                text_string = clean_machine(text_string)
+                other_pali_texts_set.update(text_string.split())
+        return other_pali_texts_set
+
+
+# print(make_other_pali_texts_set())
