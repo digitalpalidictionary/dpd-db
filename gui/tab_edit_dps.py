@@ -167,6 +167,43 @@ def make_tab_edit_dps(sg):
                 background_color=dpd_background),
         ],
         [
+            sg.Text("example 2", size=(15, 1)),
+            sg.Multiline(
+                key="dps_example_2",
+                size=(50, 4),
+                text_color=dpd_text,
+                background_color=dpd_background),
+        ],
+        [
+            sg.Text("sbs_source_1", size=(15, 1)),
+            sg.Input(
+                key="dps_sbs_source_1",
+                size=(50, 1),
+                enable_events=True,
+                tooltip="",
+                text_color=sbs_text,
+                background_color=sbs_background),
+        ],
+        [
+            sg.Text("sbs_sutta_1", size=(15, 1)),
+            sg.Input(
+                key="dps_sbs_sutta_1",
+                size=(50, 1),
+                enable_events=True,
+                tooltip="",
+                text_color=sbs_text,
+                background_color=sbs_background),
+        ],
+        [
+            sg.Text("sbs_example_1", size=(15, 1)),
+            sg.Multiline(
+                key="dps_sbs_example_1",
+                size=(50, 4),
+                enable_events=True,
+                text_color=sbs_text,
+                background_color=sbs_background),
+        ],
+        [
             sg.Text("sbs_chant_pali_1", size=(15, 1)),
             CompletionCombo(
                 pali_chant_list,
@@ -195,12 +232,33 @@ def make_tab_edit_dps(sg):
                 tooltip=""),
         ],
         [
-            sg.Text("example 2", size=(15, 1)),
+            sg.Text("sbs_source_2", size=(15, 1)),
+            sg.Input(
+                key="dps_sbs_source_2",
+                size=(50, 1),
+                enable_events=True,
+                tooltip="",
+                text_color=sbs_text,
+                background_color=sbs_background),
+        ],
+        [
+            sg.Text("sbs_sutta_2", size=(15, 1)),
+            sg.Input(
+                key="dps_sbs_sutta_2",
+                size=(50, 1),
+                enable_events=True,
+                tooltip="",
+                text_color=sbs_text,
+                background_color=sbs_background),
+        ],
+        [
+            sg.Text("sbs_example_2", size=(15, 1)),
             sg.Multiline(
-                key="dps_example_2",
+                key="dps_sbs_example_2",
                 size=(50, 4),
-                text_color=dpd_text,
-                background_color=dpd_background),
+                enable_events=True,
+                text_color=sbs_text,
+                background_color=sbs_background),
         ],
         [
             sg.Text("sbs_chant_pali_2", size=(15, 1)),
