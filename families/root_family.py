@@ -108,8 +108,9 @@ def compile_rf_html(dpd_db, rf_dict):
             # anki data
             anki_family = f"<b>{i.family_root}</b> "
             anki_family += f"{i.rt.root_group} ({i.rt.root_meaning})"
-            construction = clean_construction(
-                i.construction) if i.meaning_1 else ""
+            construction = clean_construction(i.construction)
+            if not i.meaning_1:
+                construction = f"-{construction}"
             rf_dict[family]["data"] += [
                 (anki_family, i.pali_1, i.pos, meaning, construction)]
 
@@ -165,7 +166,11 @@ def anki_exporter(rf_dict):
             html += f"<td>{headword}</td>"
             html += f"<td><div style='color: #FF6600'>{pos}</div></td>"
             html += f"<td><div style='color: #FFB380'>{meaning}</td>"
-            html += f"<td><div style='color: #FF6600'>{construction}</div></td></tr>"
+            if construction.startswith("-"):
+                construction = construction.lstrip("-")
+                html += f"<td><div style='color: #421B01'>{construction}</div></td></tr>"
+            else:
+                html += f"<td><div style='color: #FF6600'>{construction}</div></td></tr>"
 
         html += "</tbody></table>"
         if len(html) > 131072:

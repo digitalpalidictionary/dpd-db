@@ -1,7 +1,6 @@
 #!/usr/bin/env python3.11
 
 from git import Repo
-from datetime import datetime
 from rich import print
 import csv
 
@@ -18,6 +17,7 @@ def backup_paliword_paliroot():
     backup_paliwords(db_session, PTH)
     backup_paliroots(db_session, PTH)
     db_session.close()
+    git_commit()
     toc()
 
 
@@ -69,12 +69,10 @@ def backup_paliroots(db_session, PTH):
 
 
 def git_commit():
-    today = datetime.today()
-    date = datetime.date(today)
     repo = Repo("./")
     index = repo.index
-    index.add(["backup_tsv/PaliRoot.tsv", "backup_tsv/PaliWord.tsv"])
-    index.commit(f"update {date}")
+    index.add(["backup_tsv/paliroot.tsv", "backup_tsv/paliword.tsv"])
+    index.commit("backup paliword & paliroot")
 
 
 if __name__ == "__main__":

@@ -620,7 +620,8 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 visible=not primary_user),
             sg.Button(
                 "Delete", key="delete_button",
-                tooltip="Delete a word from the db. Careful!"),
+                tooltip="Delete a word from the db. Careful!",
+                text_color="red"),
             sg.Button(
                 "Update Sandhi", key="update_sandhi_button",
                 tooltip="Update list of words with sandhi apostophes"),

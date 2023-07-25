@@ -1,5 +1,6 @@
 #!/usr/bin/env python3.11
 
+from git import Repo
 from rich import print
 import csv
 
@@ -56,6 +57,13 @@ def backup_sbs(db_session, PTH):
                 getattr(i, column.name)
                 for column in SBS.__mapper__.columns]
             csvwriter.writerow(row)
+
+
+def git_commit():
+    repo = Repo("./")
+    index = repo.index
+    index.add(["backup_tsv/russian.tsv", "backup_tsv/sbs.tsv"])
+    index.commit("backup russian & sbs")
 
 
 if __name__ == "__main__":
