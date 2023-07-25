@@ -7,6 +7,19 @@ class ProjectPaths():
     # ./ dpd_db
     dpd_db_path: Path = Path("dpd.db")
 
+    # /anki_csvs
+    anki_csvs_dir: Path = Path("anki_csvs/")
+    vocab_csv_path: Path = Path("anki_csvs/vocab.csv")
+    dpd_full_path: Path = Path("anki_csvs/dpd-full.csv")
+    dpd_dps_full_path: Path = Path("anki_csvs/dpd-dps-full.csv")
+    commentary_csv_path: Path = Path("anki_csvs/commentary.csv")
+    pass1_csv_path: Path = Path("anki_csvs/pass1.csv")
+    roots_csv_path: Path = Path("anki_csvs/roots.csv")
+    family_compound_tsv_path: Path = Path("anki_csvs/family_compound.tsv")
+    family_root_tsv_path: Path = Path("anki_csvs/family_root.tsv")
+    family_word_tsv_path: Path = Path("anki_csvs/family_word.tsv")
+    root_matrix_tsv_path: Path = Path("anki_csvs/root_matrix.tsv")
+
     # /backup_tsv
     pali_word_path: Path = Path("backup_tsv/paliword.tsv")
     pali_root_path: Path = Path("backup_tsv/paliroot.tsv")
@@ -16,22 +29,6 @@ class ProjectPaths():
     # corrections & additions
     corrections_tsv_path: Path = Path("gui/corrections.tsv")
     additions_pickle_path: Path = Path("gui/additions")
-
-    # /csvs
-    vocab_csv_path: Path = Path("csvs/vocab.csv")
-    dpd_full_path: Path = Path("csvs/dpd-full.csv")
-    dpd_dps_full_path: Path = Path("csvs/dpd-dps-full.csv")
-    commentary_csv_path: Path = Path("csvs/commentary.csv")
-    pass1_csv_path: Path = Path("csvs/pass1.csv")
-    roots_csv_path: Path = Path("csvs/roots.csv")
-    family_compound_tsv_path: Path = Path(
-        "csvs/family_compound.tsv")
-    family_root_tsv_path: Path = Path(
-        "csvs/family_root.tsv")
-    family_word_tsv_path: Path = Path(
-        "csvs/family_word.tsv")
-    root_matrix_tsv_path: Path = Path(
-        "csvs/root_matrix.tsv")
 
     # /definitions/
     defintions_csv_path: Path = Path(
@@ -337,6 +334,7 @@ class ProjectPaths():
     @classmethod
     def create_dirs(cls):
         for d in [
+            cls.anki_csvs_dir,
             cls.zip_dir,
             cls.tpr_dir,
             cls.epub_text_dir,

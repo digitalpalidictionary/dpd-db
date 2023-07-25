@@ -25,7 +25,7 @@ def main():
     tic()
     print("[bright_yellow]post-processing sandhi-splitter")
 
-    print("[green]add digital ocean {ADD_DO}")
+    print(f"[green]add digital ocean {ADD_DO}")
 
     global db_session
     db_session = get_db_session("dpd.db")

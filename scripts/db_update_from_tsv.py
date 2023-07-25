@@ -1,5 +1,7 @@
 #!/usr/bin/env python3.11
 
+from rich import print
+
 from db.get_db_session import get_db_session
 from db.models import PaliWord, PaliRoot, Russian, SBS
 from scripts.db_rebuild_from_tsv import make_pali_word_table_data

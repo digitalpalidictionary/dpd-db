@@ -8,10 +8,11 @@ __pycache__/
 *.log
 *.sqlite3
 *~lock.*
+anki_csvs/
 config.ini
-csvs/
 definitions/
 dpd.db-journal
+ebook/epub/OEBPS/content.opf
 ebook/epub/OEBPS/Text/0_a.xhtml
 ebook/epub/OEBPS/Text/1_a.xhtml
 ebook/epub/OEBPS/Text/10_g.xhtml
@@ -54,6 +55,7 @@ ebook/epub/OEBPS/Text/7_o.xhtml
 ebook/epub/OEBPS/Text/8_k.xhtml
 ebook/epub/OEBPS/Text/9_kh.xhtml
 ebook/epub/OEBPS/Text/abbreviations.xhtml
+ebook/epub/OEBPS/Text/titlepage.xhtml
 ebook/output/
 exporter/share/
 exporter/tpr
