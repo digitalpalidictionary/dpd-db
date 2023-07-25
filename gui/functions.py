@@ -10,7 +10,7 @@ from rich import print
 from bs4 import BeautifulSoup
 from nltk import sent_tokenize, word_tokenize
 
-from db.db_helpers import fetch_column_names
+from db.db_helpers import get_column_names
 from db.models import Russian, SBS, PaliWord
 from functions_db import make_all_inflections_set
 from functions_db import get_family_compound_values
@@ -1127,7 +1127,7 @@ def populate_dps_tab(values, window, dpd_word, ru_word, sbs_word):
         window["dps_meaning"].update(meaning)
 
     # russian
-    ru_columns = fetch_column_names(Russian)
+    ru_columns = get_column_names(Russian)
     for value in values:
         if value.startswith("dps_"):
             value_clean = value.replace("dps_", "")
@@ -1135,7 +1135,7 @@ def populate_dps_tab(values, window, dpd_word, ru_word, sbs_word):
                 window[value].update(getattr(ru_word, value_clean, ""))
 
     # sbs
-    sbs_columns = fetch_column_names(SBS)
+    sbs_columns = get_column_names(SBS)
     for value in values:
         if value.startswith("dps_"):
             value_clean = value.replace("dps_", "")

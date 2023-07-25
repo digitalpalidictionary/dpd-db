@@ -21,7 +21,7 @@ def print_column_names(tables_name):
         print(f"{counter}. {column_name}")
 
 
-def fetch_column_names(tables_name):
+def get_column_names(tables_name):
     inspector = inspect(tables_name)
     column_names = [column.name for column in inspector.columns]
     return column_names
