@@ -917,6 +917,10 @@ def main():
             window['dps_example_1'].get_next_focus().set_focus()
         elif event == "dps_example_2_tab":
             window['dps_example_2'].get_next_focus().set_focus()
+        elif event == "dps_sbs_example_1_tab":
+            window['dps_sbs_example_1'].get_next_focus().set_focus()
+        elif event == "dps_sbs_example_2_tab":
+            window['dps_sbs_example_2'].get_next_focus().set_focus()
         elif event == "dps_sbs_example_3_tab":
             window['dps_sbs_example_3'].get_next_focus().set_focus()
         elif event == "dps_sbs_example_4_tab":
