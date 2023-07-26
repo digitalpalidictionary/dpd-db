@@ -1255,7 +1255,10 @@ def compare_differences(
     """Comapre the differences between original and new word.
     Save to corrections or additions TSV."""
 
-    if action == "updated":
+    if (
+        action == "updated" and
+        pali_word_original
+    ):
         # check what's changed
         got_comment = set()
         fields = pali_word_original.__dict__
@@ -1363,7 +1366,10 @@ def compare_differences(
                             writer = csv.writer(file, delimiter="\t")
                             writer.writerow(correction)
 
-    elif action == "added":
+    elif (
+        action == "added" or
+        not pali_word_original
+    ):
         while True:
             prompt = "Please comment on this new word."
             comment = sg.popup_get_text(

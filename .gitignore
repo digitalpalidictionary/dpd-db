@@ -1,6 +1,5 @@
 __pycache__/
 .coverage
-.gitignore
 .pytest_cache
 .venv
 .vscode/

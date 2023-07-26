@@ -76,8 +76,6 @@ def make_dict_of_sets(db):
     return d
 
 
-
-
 def load_exceptions():
     try:
         with open("family_compound_exceptions") as file:
