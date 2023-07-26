@@ -559,7 +559,7 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
             sg.Text("family set*", size=(15, 1)),
             CompletionCombo(
                 FAMILY_SET_VALUES, key="family_set",
-                size=(49, 1), 
+                size=(49, 1),
                 tooltip="Add to sets"),
             sg.Text("", key="family_set_error", size=(50, 1), text_color="red")
         ],
@@ -576,7 +576,9 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 origin, key="origin", size=(6, 1),
                 tooltip="Where does this word data come from?"),
             sg.Text(
-                "", key="stem_error", size=(50, 1), text_color="red")
+                "", key="stem_error", size=(50, 1), text_color="red").
+            sg.Text(
+                "", key="pattern_error", size=(50, 1), text_color="red")
         ],
         ]
 
