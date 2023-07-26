@@ -73,3 +73,21 @@ tesaṃ nissandato mama."	bold	please remove spaces and dashes from sutta names	
 8244	source_1		sutta_1		example_1		example not match since durabhisambhava 2 has been updating.		yes
 45127	source_2	MN 107	sutta_2	gaṇakamoggallānasuttaṃ	example_2	ye pana te kulaputtā ... āraddhavīriyā <b>pahit</b>'attā upaṭṭhitassatino sampajānā samāhitā ekaggacittā paññavanto aneḷamūgā, tehi bhavaṃ gotamo saddhiṃ saṃvasati.	examples were very similar		yes
 57918	grammar	masc, gen sg of satthar					typo		yes
+74544	source_1	SN 12.22	sutta_1	dutiyadasabalasuttaṃ	example_1	tasmā't'iha, bhikkhave, vīriyaṃ ārabhatha appattassa pattiyā, anadhigatassa <b>adhigamāya</b>, asacchikatassa sacchikiriyāya.	new ex		
+74544	commentary	(MNa) <b>adhigamāyā</b>'ti paṭilābhāya.<br/>(ANa) <b>ñāyassa adhigamāyā</b>'ti sahavipassanakassa maggassa adhigaman'atthāya.					move from 1		
+74544	source_2	DN 22.1	sutta_2	mahāsatipaṭṭhānasuttaṃ	example_2	ek'āyano ayaṃ, bhikkhave, maggo sattānaṃ visuddhiyā sokaparidevānaṃ samatikkamāya dukkhadomanassānaṃ atthaṅ'gamāya ñāyassa <b>adhigamāya</b> nibbānassa sacchikiriyāya yad'idaṃ cattāro satipaṭṭhānā	new ex		
+3160	commentary						move to 2		
+2577	commentary	(SNPa) <b>att'ānudiṭṭhiṃ ūhaccā</b>'ti sakkāyadiṭṭhiṃ uddharitvā. sesaṃ sabbattha pākaṭameva.					add				
+30779	sanskrit	tiras + karaṇī					add		
+30779	meaning_1	curtain; screen; veil					move from m_2		
+62269	grammar	nt, ptp of sa + patati					from ptp		
+62269	meaning_2	one's own property; wealth; lit. one's own to be controlled					more to ptp		
+62269	derived_from	sa + patati					from ptp		
+62269	construction	sa > sā + √pat + *eyya					from root		
+62269	root_key	√pat 2					from root		
+62269	derivative	kicca	suffix	*eyya			kicca		
+62269	root_sign	ya					root		
+62269	family_root	√pat					root		
+62269	meaning_lit	one's own to be controlled					ptp		
+54318	derivative	taddhita	suffix	so			taddhita so		
+36475	derivative	taddhita	suffix	so			taddhita so		
