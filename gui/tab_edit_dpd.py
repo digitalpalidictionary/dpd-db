@@ -576,7 +576,7 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 origin, key="origin", size=(6, 1),
                 tooltip="Where does this word data come from?"),
             sg.Text(
-                "", key="stem_error", size=(50, 1), text_color="red").
+                "", key="stem_error", size=(50, 1), text_color="red"),
             sg.Text(
                 "", key="pattern_error", size=(50, 1), text_color="red")
         ],
