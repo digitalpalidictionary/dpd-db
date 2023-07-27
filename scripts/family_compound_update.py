@@ -15,8 +15,8 @@ def main():
     db_session = get_db_session("dpd.db")
     db = db_session.query(PaliWord).all()
 
-    find = "vasa"
-    replace = "vasa1"
+    find = "cāraṇa"
+    replace = "caraṇa"
 
     for i in db:
         if re.findall(fr"\b{find}\b", i.family_compound):
@@ -26,7 +26,7 @@ def main():
             print(f"[blue]{i.family_compound}")
             print()
 
-    # db_session.commit()
+    db_session.commit()
 
     toc()
 

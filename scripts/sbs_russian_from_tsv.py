@@ -1,5 +1,9 @@
 #!/usr/bin/env python3.11
 
+"""Import SBS and Russion tables from dps.tsv.
+Warnning! This will delete the current SBS and Russion tables in the database!
+"""
+
 import sys
 import csv
 
@@ -48,7 +52,6 @@ def add_dps_russian(db_session: Session, csv_path: Path):
     items: List[Russian] = []
     unmatched_ids: List[str] = []  # Store unmatched IDs
 
-
     for r in rows:
         id_search = db_session.query(PaliWord.id).filter(
             PaliWord.user_id == r["id"]).first()
@@ -74,6 +77,7 @@ def add_dps_russian(db_session: Session, csv_path: Path):
     if unmatched_ids:
         print(f"[red]IDs not matching the database: {unmatched_ids}")
 
+
 def _csv_row_to_russian(x: Dict[str, str], id) -> Russian:
 
     return Russian(
@@ -98,7 +102,6 @@ def add_dps_sbs(db_session: Session, csv_path: Path):
     items: List[SBS] = []
     unmatched_ids: List[str] = []  # Store unmatched IDs
 
-
     for r in rows:
         id_search = db_session.query(PaliWord.id).filter(
             PaliWord.user_id == r["id"]).first()
@@ -108,7 +111,6 @@ def add_dps_sbs(db_session: Session, csv_path: Path):
             items += [_csv_row_to_sbs(r, id)]
         else:
             unmatched_ids.append(r["id"])  # Add unmatched ID to the list
-
 
     print("[green]adding sbs to db")
     try:
