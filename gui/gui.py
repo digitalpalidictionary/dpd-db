@@ -237,7 +237,10 @@ def main():
 
         # test pos
         elif event == "grammar":
-            if values["pos"] not in POS:
+            if (
+                values["pos"] not in POS and
+                values["pali_1"]
+            ):
                 window["pos_error"].update(
                     f"'{values['pos']}' not a valid pos", text_color="red")
 
