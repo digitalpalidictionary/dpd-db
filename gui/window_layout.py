@@ -38,9 +38,9 @@ def window_layout(primary_user):
     )
 
     layout = [
-        [tab_group],
         [sg.Text(
-            "svāgataṃ", key="messages", text_color="white", font=(None, 12))]
+            "svāgataṃ", key="messages", text_color="white", font=(None, 12))],
+        [tab_group],
     ]
 
     window = sg.Window(
