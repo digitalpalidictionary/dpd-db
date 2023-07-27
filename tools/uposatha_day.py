@@ -1,4 +1,9 @@
 from datetime import date
+from tools.configger import config_update
+
+"""Dictionary releases are on full moon updatha days.
+Modules for testing whether today is an updatha day and
+saving the db count on uposatha day."""
 
 
 def uposatha_today():
@@ -28,3 +33,11 @@ def uposatha_today():
 
 
 # print(uposatha_day())
+
+
+def uposatha_count(value: int):
+    """Save the PaliWord count on uposatha day."""
+    config_update("uposatha", "count", str(value))
+
+
+# uposatha_count(74657)

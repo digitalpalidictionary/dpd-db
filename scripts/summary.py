@@ -9,17 +9,48 @@ from db.get_db_session import get_db_session
 from db.models import PaliWord, PaliRoot, Sandhi, DerivedData
 from tools.pali_sort_key import pali_sort_key
 from tools.tic_toc import tic, toc
-
-tic()
-db_session = get_db_session("dpd.db")
-dpd_db = db_session.query(PaliWord).all()
-roots_db = db_session.query(PaliRoot).all()
-sandhi_db = db_session.query(Sandhi).all()
-derived_db = db_session.query(DerivedData).all()
-last_count = 74657
+from tools.configger import config_read, config_write
+from tools.uposatha_day import uposatha_today
 
 
-def dpd_size():
+def main():
+    tic()
+    print("[bright_yellow]summary")
+    print("[green]reading db tables")
+
+    db_session = get_db_session("dpd.db")
+    dpd_db = db_session.query(PaliWord).all()
+    roots_db = db_session.query(PaliRoot).all()
+    sandhi_db = db_session.query(Sandhi).all()
+    derived_db = db_session.query(DerivedData).all()
+    last_count = config_read("uposatha", "count", default_value=74657)
+
+    print("[green]summarizing data")
+    line1, line5, root_families = dpd_size(dpd_db)
+    line2 = root_size(roots_db, root_families)
+    line3 = sandhi_size(sandhi_db)
+    line4 = inflection_size(derived_db)
+    line6 = root_data(roots_db)
+    new_words_string = new_words(db_session, last_count)
+
+    print()
+    print(line1)
+    print(line2)
+    print(line3)
+    print(line4)
+    print(line5)
+    print(line6)
+    print("- 100% dictionary recognition up to and including ")
+    print()
+    print(f"new words include: {new_words_string}")
+
+    if uposatha_today():
+        config_write("uposatha", "count", len(dpd_db))
+
+    toc()
+
+
+def dpd_size(dpd_db):
     total_headwords = len(dpd_db)
     total_complete = 0
     total_partially_complete = 0
@@ -64,7 +95,7 @@ def dpd_size():
     return line1, line5, root_families
 
 
-def new_words():
+def new_words(db_session, last_count):
     db = db_session.query(PaliWord).filter(PaliWord.id > last_count).all()
 
     new_words = [i.pali_1 for i in db]
@@ -80,7 +111,7 @@ def new_words():
     return new_words_string
 
 
-def root_size(root_families):
+def root_size(roots_db, root_families):
     total_roots = len(roots_db)
     total_root_families = len(root_families)
     total_derived_from_roots = 0
@@ -96,14 +127,14 @@ def root_size(root_families):
     return line2
 
 
-def sandhi_size():
+def sandhi_size(sandhi_db):
     total_sandhis = len(sandhi_db)
     line3 = f"- {total_sandhis:_} deconstructed compounds"
     line3 = line3.replace("_", " ")
     return line3
 
 
-def inflection_size():
+def inflection_size(derived_db):
     total_inflections = 0
     all_inflection_set = set()
 
@@ -121,7 +152,7 @@ def inflection_size():
     return line4
 
 
-def root_data():
+def root_data(roots_db):
     columns = PaliRoot.__table__.columns
     column_names = [c.name for c in columns]
     exceptions = ["root_info", "root_matrix", "created_at", "updated_at"]
@@ -141,21 +172,4 @@ def root_data():
 
 
 if __name__ == "__main__":
-    print("[bright_yellow]summary")
-    line1, line5, root_families = dpd_size()
-    line2 = root_size(root_families)
-    line3 = sandhi_size()
-    line4 = inflection_size()
-    line6 = root_data()
-    new_words_string = new_words()
-
-    print(line1)
-    print(line2)
-    print(line3)
-    print(line4)
-    print(line5)
-    print(line6)
-    print("- 100% dictionary recognition up to and including ")
-    print()
-    print(f"new words include: {new_words_string}")
-    toc()
+    main()
