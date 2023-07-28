@@ -1,3 +1,6 @@
+"""Render tab to run database tests."""
+
+
 def make_tab_db_tests(sg):
 
     LOGIC = [

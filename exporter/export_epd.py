@@ -1,3 +1,5 @@
+"""Compile HTML data for English to Pāḷi dictionary."""
+
 import re
 
 from css_html_js_minify import css_minify
@@ -20,7 +22,7 @@ epd_templ = Template(
 
 
 def generate_epd_html(DB_SESSION: Session, PTH, size_dict) -> list:
-    """generate html for english to pali dicitonary"""
+    """generate html for english to pali dictionary"""
 
     print("[green]generating epd html")
 

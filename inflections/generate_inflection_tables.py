@@ -1,5 +1,6 @@
-#!/usr/bin/env python3.11
-# coding: utf-8
+#!/usr/bin/env python3
+
+"""Generate all inflection tables and lists and save to database."""
 
 import re
 import json
@@ -144,7 +145,8 @@ def test_inflection_template_changed():
     new_patterns: set = {table.pattern for table in new_templates}
 
     added_patterns: list = [
-        table.pattern for table in new_templates if table.pattern not in old_patterns]
+        table.pattern for table in new_templates
+        if table.pattern not in old_patterns]
 
     if added_patterns != []:
         print(f"\t[red]{added_patterns}")
@@ -152,7 +154,8 @@ def test_inflection_template_changed():
 
     print("[green]testing for deleted patterns")
     deleted_patterns = [
-        table.pattern for table in old_templates if table.pattern not in new_patterns]
+        table.pattern for table in old_templates
+        if table.pattern not in new_patterns]
 
     if deleted_patterns != []:
         print(f"\t[red]{deleted_patterns}")

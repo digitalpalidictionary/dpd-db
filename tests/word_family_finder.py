@@ -1,4 +1,7 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
+
+"""Find missing word families."""
+
 import re
 import pickle
 import pyperclip

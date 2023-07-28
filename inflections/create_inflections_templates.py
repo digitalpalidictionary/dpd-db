@@ -1,5 +1,6 @@
-#!/usr/bin/env python3.11
-# coding: utf-8
+#!/usr/bin/env python3
+
+"""Import inflection templates from Excel file and save to database."""
 
 import pandas as pd
 import re

@@ -1,3 +1,5 @@
+# run deconstructor on cloud
+
 # open terminal
 # ssh root@ipaddress
 # bash sandhi.sh

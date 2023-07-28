@@ -1,8 +1,9 @@
 """Make sets of clean words in Chaṭṭha Saṅgāyana and Sutta Central texts.
-How to use: feed and a list of books and get a set in return.
-cst_test_set = make_cst_text_set(["an1", "an2"])
-sc_text_set = make_sc_text_set(["abh7"])
-sc_text_set = make_sc_text_set(["an1"], niggahita="ṁ")
+Optionally change the niggahita character.
+How to use: feed in a list of books and get a set in return.
+    cst_test_set = make_cst_text_set(["an1", "an2"])
+    sc_text_set = make_sc_text_set(["abh7"])
+    sc_text_set = make_sc_text_set(["an1"], niggahita="ṁ")
 """
 
 import os
@@ -18,6 +19,7 @@ from tools.paths import ProjectPaths as PTH
 
 def make_cst_text_set(books: list, niggahita="ṃ", return_list=False) -> set:
     """Make a list of words in CST texts from a list of books.
+    Optionally change the niggahita character.
     Return a list or a set."""
 
     cst_texts_list = []
@@ -42,6 +44,7 @@ def make_cst_text_set(books: list, niggahita="ṃ", return_list=False) -> set:
 
 def make_sc_text_set(books: list, niggahita="ṃ", return_list=False) -> set:
     """Make a list of words in Sutta Central texts from a list of books.
+    Optionally change the niggahita character.
     Return a list or a set."""
 
     # make a list of file names of included books
@@ -60,7 +63,7 @@ def make_sc_text_set(books: list, niggahita="ṃ", return_list=False) -> set:
         for file in files:
             if file in sc_texts_list:
                 with open(os.path.join(root, file)) as f:
-                    # sc texts are json dictionaries
+                    # Sutta Cental texts are json dictionaries
                     sc_text_dict: dict = json.load(f)
                     for title, text in sc_text_dict.items():
                         clean_text = clean_machine(text, niggahita=niggahita)
@@ -73,7 +76,7 @@ def make_sc_text_set(books: list, niggahita="ṃ", return_list=False) -> set:
 
 
 def make_bjt_text_set(include):
-
+    """This is not currently used. BJT texts are a mess."""
     bjt_texts_list = []
     for i in include:
         if bjt_texts[i]:
@@ -93,7 +96,7 @@ def make_bjt_text_set(include):
 
 
 def make_mula_words_set():
-    """Returns a set of all words in cst & sc mūla texts.
+    """Returns a set of all words in CST & Sutta Cental mūla texts.
     Usage: mula_word_set = make_mula_words_set()"""
     cst_word_set = make_cst_text_set(mula_books)
     sc_word_set = make_sc_text_set(mula_books)
@@ -102,7 +105,7 @@ def make_mula_words_set():
 
 
 def make_all_words_set():
-    """Returns a set of all words in cst & sc texts.
+    """Returns a set of all words in CST & Sutta Cental texts.
     Usage: all_words_set = make_all_words_set()"""
     cst_word_set = make_cst_text_set(all_books)
     sc_word_set = make_sc_text_set(all_books)

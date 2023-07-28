@@ -1,4 +1,6 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
+
+"""Convert part of speech - adj to ptp."""
 
 import re
 from db.get_db_session import get_db_session

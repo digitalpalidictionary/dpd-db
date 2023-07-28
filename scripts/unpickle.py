@@ -1,3 +1,5 @@
+"""A Pickle file reader."""
+
 import pickle
 
 filepath = "gui/additions"

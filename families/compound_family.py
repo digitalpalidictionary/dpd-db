@@ -1,4 +1,6 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
+
+"""Compile compound familes and save to database."""
 
 import re
 

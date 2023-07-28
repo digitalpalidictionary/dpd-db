@@ -1,3 +1,5 @@
+"""Compile HTML data for variants and spelling mistakes."""
+
 import csv
 
 from css_html_js_minify import css_minify

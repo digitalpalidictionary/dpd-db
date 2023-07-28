@@ -1,7 +1,11 @@
+"""A commented tutorial on how to search the db using SQLAlechmy,
+make changes and commit them to the database."""
+
 # these are the imports you will always need
 from db.get_db_session import get_db_session
 
-# if you want to access any table, import its Class here, other options are PaliRoot, Sandhi, families etc.
+# if you want to access any table, import its Class here.
+# other options are PaliRoot, Sandhi, families etc.
 from db.models import PaliWord
 
 # this connects to the db, use it once to access the db
@@ -29,12 +33,15 @@ for i in search_results:
 
     # this checks if there's a root
     if i.root_key != "":
-        # if you don't do this, you will get a NoneType Attribute Error trying to access root information where there is no root
+        # if you don't do this, you will get a NoneType Attribute Error
+        # trying to access root information where there is no root
 
         # now you can access the root table using i.rt.root column names
-        print(f"{'ROOT':<15}{i.rt.root_clean} {i.rt.root_group} {i.root_sign} ({i.rt.root_meaning})")
+        print(
+            f"{'ROOT':<15}{i.rt.root_clean} {i.rt.root_group} {i.root_sign} ({i.rt.root_meaning})")
 
-    # this imports the inflections list which is stored as csv list in the DerivedData table
+    # this imports the inflections list which is stored as csv list in the
+    # DerivedData table
     inflections = i.dd.inflections_list
 
     # this loops through the inflections and prints them out

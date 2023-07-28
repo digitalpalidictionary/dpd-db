@@ -1,3 +1,5 @@
+"""Compile HTML data for Help, Abbreviations, Thanks & Bibliography."""
+
 import csv
 import html2text
 

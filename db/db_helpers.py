@@ -1,3 +1,8 @@
+"""DB related functions:
+1. Create db if doesn't already exist,
+2. Get column names,
+3. Print column names."""
+
 from pathlib import Path
 from sqlalchemy import create_engine
 from sqlalchemy import inspect

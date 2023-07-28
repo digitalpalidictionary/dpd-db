@@ -1,3 +1,6 @@
+"""Render tab to add the next missing word from a text."""
+
+
 def make_tab_add_next_word(sg):
 
     tab_add_next_word = [

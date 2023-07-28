@@ -1,8 +1,13 @@
+"""A text cleaning machine."""
+
 import re
 from rich import print
 
 
 def clean_machine(text: str, niggahita="ṃ") -> str:
+    """Return clean text with only allowable characters
+    and optionally change the niggahita character."""
+
     allowed_characters = "aāiīuūeokgṅcjñṭḍṇtdnpbmyrlsvhḷṃṁ\n xfśṣǣæwqḥṛz"
 
     text = text.lower()
@@ -58,7 +63,7 @@ def clean_machine(text: str, niggahita="ṃ") -> str:
         "॰", "").replace(
         "ï", "i").replace(
         "ü", "u").replace(
-        "ạ", "a").replace(    
+        "ạ", "a").replace(
         '̥', "").replace(
         "'̆'", "").replace(
         "ใ", "").replace(

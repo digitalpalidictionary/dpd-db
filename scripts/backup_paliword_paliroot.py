@@ -1,4 +1,6 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
+
+"""Save latest PaliWord and PaliRoot tables to backup_tsv folder."""
 
 from git import Repo
 from rich import print

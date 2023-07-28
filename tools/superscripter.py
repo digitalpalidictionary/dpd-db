@@ -1,3 +1,4 @@
+"""Superscript numerals using Unicode or HTML."""
 import re
 
 

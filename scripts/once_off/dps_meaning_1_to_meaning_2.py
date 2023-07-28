@@ -1,11 +1,7 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
 import csv
-import re
-import pickle
-import pyperclip
 
 from rich import print
-from rich.prompt import Prompt
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord

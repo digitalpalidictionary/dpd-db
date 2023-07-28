@@ -1,4 +1,7 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
+
+"""Postprocess the results, find most likely candidates and save to database.
+"""
 
 import numpy as np
 import pandas as pd

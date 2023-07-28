@@ -1,3 +1,5 @@
+"""Simple code timer for modules or parts of code."""
+
 import time
 from datetime import datetime
 

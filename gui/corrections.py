@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+
+"""GUI to add corrections.tsv to the database and give feedback."""
+
 import csv
 import PySimpleGUI as sg
 from sqlalchemy import inspect

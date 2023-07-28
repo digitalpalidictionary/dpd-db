@@ -1,3 +1,5 @@
+"""A few helpful lists and functions for the exporter."""
+
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 

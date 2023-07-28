@@ -1,3 +1,4 @@
+"""Datebase model for use by SQLAlchemy."""
 import re
 
 from typing import List
@@ -144,7 +145,7 @@ class PaliWord(Base):
     root_base: Mapped[Optional[str]] = mapped_column(default='')
 
     family_root: Mapped[Optional[str]] = mapped_column(default='')
-        # ForeignKey("family_root.root_family"))
+    # ForeignKey("family_root.root_family"))
     family_word: Mapped[Optional[str]] = mapped_column(
         ForeignKey("family_word.word_family"), default='')
     family_compound: Mapped[Optional[str]] = mapped_column(default='')
@@ -380,7 +381,8 @@ class FamilySet(Base):
 class SBS(Base):
     __tablename__ = "sbs"
 
-    id: Mapped[int] = mapped_column(ForeignKey('pali_words.id'), primary_key=True)
+    id: Mapped[int] = mapped_column(
+        ForeignKey('pali_words.id'), primary_key=True)
     sbs_class_anki: Mapped[Optional[int]] = mapped_column(default='')
     sbs_class: Mapped[Optional[int]] = mapped_column(default='')
     sbs_meaning: Mapped[Optional[str]] = mapped_column(default='')
@@ -420,7 +422,8 @@ class SBS(Base):
 class Russian(Base):
     __tablename__ = "russian"
 
-    id: Mapped[int] = mapped_column(ForeignKey('pali_words.id'), primary_key=True)
+    id: Mapped[int] = mapped_column(
+        ForeignKey('pali_words.id'), primary_key=True)
     ru_meaning: Mapped[str] = mapped_column(default="")
     ru_meaning_lit: Mapped[Optional[str]] = mapped_column(default="")
     ru_notes: Mapped[Optional[str]] = mapped_column(default='')

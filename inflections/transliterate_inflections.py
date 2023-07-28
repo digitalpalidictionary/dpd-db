@@ -1,11 +1,11 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
 # coding: utf-8
 
-
-"""Transliterate all words with \
-1. changed stem & pattern or \
-2. changed inflection template \
-into Sinhala, Devanagari and Thai, and write back into db."""
+"""Transliterate all inflections into Sinhala, Devanagari and Thai.
+- Regenerate from scratch OR
+- Update if stem & pattern has changed or inflection template has changed.
+Save into database.
+"""
 
 
 import json

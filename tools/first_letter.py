@@ -1,3 +1,5 @@
+"""Finds the first Pāḷi letter, including aspirates like ch jh etc."""
+
 from tools.pali_alphabet import pali_alphabet
 
 

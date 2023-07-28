@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+"""Save a list of raw inflections (without stems) to TSV."""
+
 import json
 
 from db.get_db_session import get_db_session

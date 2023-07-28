@@ -1,3 +1,5 @@
+// transliterate the inflections into Devanagari, Sinhala and Thai using PathNirvana code
+
 let c = console.log
 import { createRequire } from "module"
 const require = createRequire(import.meta.url)

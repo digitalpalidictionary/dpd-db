@@ -1,4 +1,7 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
+
+"""Find synonyms and variants and add to database."""
+
 import re
 import pickle
 import pyperclip

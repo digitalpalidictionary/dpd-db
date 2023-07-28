@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-"""External tests examine the relationship between a row's data and other
-    rows in the db. """
+"""External tests examine the relationship between a word's data and other
+    words in the db. """
 
 import re
 import pyperclip

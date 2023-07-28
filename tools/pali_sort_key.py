@@ -1,3 +1,5 @@
+"""Functions for sorting by Pāḷi alphabetical order."""
+
 import re
 
 letter_to_number = {

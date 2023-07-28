@@ -1,3 +1,4 @@
+"""Process Critical Pali Dictionary and add missing words to DPD."""
 
 import csv
 import re

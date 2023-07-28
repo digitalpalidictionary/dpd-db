@@ -1,3 +1,5 @@
+"""Compile HTML data for Roots dictionary."""
+
 import re
 
 from css_html_js_minify import css_minify, js_minify

@@ -1,6 +1,8 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
+
+"""Merge DPS data into PaliWord table."""
+
 import csv
-import re
 import pickle
 import pyperclip
 
@@ -98,7 +100,7 @@ def main():
                     choice = Prompt.ask(question)
 
                     if choice == "a":
-                    # if True:
+                        # if True:
                         setattr(i, column, column_value_new)
                         setattr(i, "origin", "dps")
                         pyperclip.copy(f"/^{i.pali_1}$/")
@@ -124,5 +126,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-
-# ask devamitta for latest versions, bold

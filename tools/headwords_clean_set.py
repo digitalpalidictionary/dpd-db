@@ -1,3 +1,5 @@
+"""Returns a set of headwords without numbers from the PaliWord table."""
+
 from typing import List
 from db.models import PaliWord
 

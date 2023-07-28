@@ -1,3 +1,5 @@
+"""Various lists related to the Pāḷi alphabet and its subdivisions."""
+
 pali_alphabet = [
     "a", "ā", "i", "ī", "u", "ū", "e", "o",
     "k", "kh", "g", "gh", "ṅ",

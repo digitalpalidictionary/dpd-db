@@ -1,4 +1,7 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
+
+"""Rebuild the databse from scratch from files in backup_tsv folder."""
+
 import csv
 import sys
 

@@ -1,3 +1,5 @@
+"""Database functions related to the GUI."""
+
 import re
 
 from rich import print

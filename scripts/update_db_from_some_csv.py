@@ -1,3 +1,5 @@
+"""A tutoiral and template to update the database using a external TSV."""
+
 from pathlib import Path
 from rich import print
 
@@ -46,4 +48,3 @@ for i in csv:
 
 # dont forget to always close the db session
 db_session.close()
-

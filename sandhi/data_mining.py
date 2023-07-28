@@ -1,3 +1,5 @@
+"""Data mining the deconstructor results."""
+
 from collections import Counter
 
 import csv
@@ -12,7 +14,8 @@ do_matches_path = Path("sandhi/output_do/matches.tsv")
 do_matches_pairs_path = Path("sandhi/output/mining/matches_pairs.tsv")
 
 tipitaka_word_freq = Path("frequency/output/word_count/tipitaka.csv")
-tipitaka_umatched_freq_path = Path("sandhi/output/mining/umatched_freq_tipitaka.tsv")
+tipitaka_umatched_freq_path = Path(
+    "sandhi/output/mining/umatched_freq_tipitaka.tsv")
 
 ebts_word_freq = Path("frequency/output/word_count/ebts.csv")
 ebts_umatched_freq_path = Path("sandhi/output/mining/umatched_freq_ebts.tsv")
@@ -26,7 +29,8 @@ def mine_unmatched():
     groups = {}
     for word in do_unmatched:
         for i in range(len(word)-5):
-            for j in range(i+6, len(word)+1):  # iterate over all possible group lengths from 4 to len(word)
+            # iterate over all possible group lengths from 4 to len(word)
+            for j in range(i+6, len(word)+1):
                 group = word[i:j]
                 if len(group) < 4:  # skip groups shorter than 4 letters
                     continue
@@ -79,12 +83,13 @@ def tipitaka_unmatched_frequency():
     for word in do_unmatched:
         try:
             tipitaka_unmatched_freq[word] = tipitaka_freq[word]
-        except:
+        except KeyError:
             pass
             # print(f"{word} doesnt exist")
 
     tipitaka_unmatched_freq_sorted = [(k, v) for k, v in sorted(
-        tipitaka_unmatched_freq.items(), key=lambda item: item[1], reverse=True)]
+        tipitaka_unmatched_freq.items(),
+        key=lambda item: item[1], reverse=True)]
 
     with open(tipitaka_umatched_freq_path, "w", newline="") as f:
         writer = csv.writer(f, delimiter="\t")
@@ -108,7 +113,7 @@ def ebts_unmatched_frequency():
     for word in do_unmatched:
         try:
             ebts_unmatched_freq[word] = ebts_freq[word]
-        except:
+        except KeyError:
             pass
             # print(f"{word} doesnt exist")
 

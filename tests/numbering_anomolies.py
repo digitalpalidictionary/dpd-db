@@ -1,4 +1,8 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
+
+"""Find anomolies in the headword numbering.
+Looks for words with different roots or words families."""
+
 import re
 import pyperclip
 

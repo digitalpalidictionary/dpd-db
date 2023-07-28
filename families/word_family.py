@@ -1,6 +1,6 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
 
-"""Create an html list of all words belonging to the same word family."""
+"""Create an html table of all words belonging to the same family."""
 
 from rich import print
 

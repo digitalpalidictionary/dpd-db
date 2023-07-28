@@ -1,3 +1,6 @@
+"""Remove all Pāḷi diacritics from a string and return standard
+Roman alphabet text."""
+
 
 def diacritics_cleaner(text: str) -> str:
     """Remove Pāḷi diacritics from a string."""

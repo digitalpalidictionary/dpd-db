@@ -1,4 +1,5 @@
-# local
+"""Which books to include in the deconstructor?"""
+
 limited_texts = [
     "vin1", "vin2",
     # "vin3", "vin4", "vin5",
@@ -41,7 +42,6 @@ limited_texts = [
     ]
 
 
-# cloud
 all_texts = [
     "vin1", "vin2", "vin3", "vin4", "vin5",
 

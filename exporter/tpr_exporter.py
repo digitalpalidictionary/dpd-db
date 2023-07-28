@@ -1,4 +1,6 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
+
+"""Export simplified DPD data for integration with Tipitaka Pali Reader (TPR)."""
 
 import csv
 import json
@@ -442,7 +444,6 @@ def copy_zip_to_tpr_downloads():
 
         with open(PTH.tpr_download_list_path, "w") as f:
             f.write(json.dumps(download_list, indent=4, ensure_ascii=False))
-    
 
 
 if __name__ == "__main__":

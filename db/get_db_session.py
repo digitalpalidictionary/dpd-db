@@ -1,3 +1,5 @@
+"""Get DB session - used ubiquitously."""
+
 import os
 import sys
 

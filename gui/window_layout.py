@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+
+"""Render all tabs into main window."""
+
+
 import PySimpleGUI as sg
 from tab_add_next_word import make_tab_add_next_word
 from tab_edit_dpd import make_tab_edit_dpd

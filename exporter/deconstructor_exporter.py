@@ -1,4 +1,6 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
+
+"""Export Deconstrutor To GoldenDict and MDict formats."""
 
 import os
 import sys

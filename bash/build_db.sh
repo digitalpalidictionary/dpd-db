@@ -1,5 +1,5 @@
+# build dpd.db from scratch using backup_tsv
 set -e
-# build dpd.db
 test -e dpd.db || touch dpd.db
 tools/configger.py
 

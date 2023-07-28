@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+
+"""Compile and count all the instances of plus_case in PaliWord table and
+save to TSV."""
+
+
 import re
 
 from rich import print

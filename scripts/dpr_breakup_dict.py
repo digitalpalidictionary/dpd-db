@@ -1,3 +1,4 @@
+"""Return DPR Analysis data (originally from TPP repo) as a dict."""
 
 import json
 

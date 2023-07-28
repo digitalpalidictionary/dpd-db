@@ -1,4 +1,6 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
+
+"""Recursive algorithm to deconstruct compounds and split sandhi. """
 
 import pickle
 import re

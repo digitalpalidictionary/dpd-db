@@ -1,3 +1,5 @@
+"""Functions related to the GUI."""
+
 import re
 import csv
 import subprocess

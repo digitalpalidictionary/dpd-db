@@ -1,3 +1,5 @@
+"""Compile HTML data for PaliWord."""
+
 from css_html_js_minify import css_minify, js_minify
 from datetime import date
 from mako.template import Template

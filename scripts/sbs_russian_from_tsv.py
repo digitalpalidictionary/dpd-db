@@ -1,4 +1,7 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
+
+"""Update the Russian and SBS from backup_tsv folder.
+Additionally check for duplicate ids."""
 
 import sys
 import csv
@@ -48,7 +51,7 @@ def add_dps_russian(db_session: Session, csv_path: Path):
     items: List[Russian] = []
     unmatched_ids: List[str] = []  # Store unmatched IDs
     unique_ids = set()  # Use a set to keep track of unique ids in the CSV data
-    duplicated_ids = set()  # Use a set to keep track of duplicated ids in the CSV data
+    duplicated_ids = set()  # Use a set to keep track of duplicated ids
 
     for r in rows:
         id_search = db_session.query(PaliWord.id).filter(
@@ -59,7 +62,7 @@ def add_dps_russian(db_session: Session, csv_path: Path):
 
             # Check if the id is already in the set of unique ids
             if id in unique_ids:
-                duplicated_ids.add(id)  # Add the id to the set of duplicated ids
+                duplicated_ids.add(id)  # Add id to the set of duplicated ids
             else:
                 # Add the id to the set of unique ids
                 unique_ids.add(id)
@@ -72,7 +75,6 @@ def add_dps_russian(db_session: Session, csv_path: Path):
     # Print duplicated ids
     if duplicated_ids:
         print(f"[red]Duplicated IDs found in CSV: {duplicated_ids}")
-
 
     print("[green]adding russian to db")
     try:
@@ -88,22 +90,19 @@ def add_dps_russian(db_session: Session, csv_path: Path):
     if unmatched_ids:
         print(f"[red]IDs not matching the database: {unmatched_ids}")
 
+
 def _csv_row_to_russian(x: Dict[str, str], id, db_session) -> Russian:
     # Check if the id already exists in the 'russian' table
     existing_russian = db_session.query(Russian).filter_by(id=id).first()
 
-    # If an existing record is found, you might need to handle it based on your logic
+    # If an existing record is found, update
     if existing_russian:
-        # For example, you could choose to update the existing record instead of inserting a new one.
-        # In this case, update the existing record and return it.
-
-        # For example:
         existing_russian.ru_meaning = x['ru_meaning']
         existing_russian.ru_meaning_lit = x['ru_meaning_lit']
         existing_russian.ru_notes = x['ru_notes']
         return existing_russian
     else:
-        # If the id doesn't exist in the table, create a new Russian object with the provided id
+        # If the id doesn't exist in the table, create a new Russian object
         return Russian(
             id=id,
             ru_meaning=x['ru_meaning'],
@@ -126,7 +125,6 @@ def add_dps_sbs(db_session: Session, csv_path: Path):
     items: List[SBS] = []
     unmatched_ids: List[str] = []  # Store unmatched IDs
 
-
     for r in rows:
         id_search = db_session.query(PaliWord.id).filter(
             PaliWord.user_id == r["id"]).first()
@@ -136,7 +134,6 @@ def add_dps_sbs(db_session: Session, csv_path: Path):
             items += [_csv_row_to_sbs(r, id, db_session)]
         else:
             unmatched_ids.append(r["id"])  # Add unmatched ID to the list
-
 
     print("[green]adding sbs to db")
     try:

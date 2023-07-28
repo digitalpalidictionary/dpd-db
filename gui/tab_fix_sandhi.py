@@ -1,3 +1,7 @@
+"""Render tab to edit add sandhi rules, manual corrections, spelling mistakes
+and variant readings."""
+
+
 def make_tab_fix_sandhi(sg):
 
     tab_fix_sandhi = [

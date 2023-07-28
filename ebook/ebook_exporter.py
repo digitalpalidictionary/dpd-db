@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
+"""Create an EPUB and MOBI version of DPD using a limited data set."""
 
-import csv
 import os
 import shutil
 import subprocess
@@ -107,7 +107,7 @@ def render_xhtml():
         no_diacritics = diacritics_cleaner(i.pali_clean)
         dd_dict[i.id].add(no_diacritics)
 
-    # a dicitonary for entries of each letter of the alphabet
+    # a dictionary for entries of each letter of the alphabet
     print(f"[green]{'initialising letter dict':<40}")
     letter_dict: dict = {}
     for letter in pali_alphabet:
@@ -115,7 +115,6 @@ def render_xhtml():
 
     # add all words
     print("[green]creating entries")
-    excluded = []
     id_counter = 1
     for counter, i in enumerate(dpd_db):
         inflections: set = dd_dict[i.id]
@@ -158,7 +157,7 @@ def render_xhtml():
 
     return id_counter+1
 
-# -----------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
 # functions to create the various templates
 
 

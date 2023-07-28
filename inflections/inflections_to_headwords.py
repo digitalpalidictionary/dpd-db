@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+"""Save a TSV of every inflection found in texts or deconstructed compounds
+and matching corresponding headwords."""
+
 import csv
 
 from rich import print

@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+"""Find missing compound families."""
+
 import re
 import pickle
 import pyperclip

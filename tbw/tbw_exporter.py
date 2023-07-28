@@ -1,4 +1,9 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
+
+"""A simple system of
+1. inflection to headwords lookup
+2. compound deconstruction
+4. dictionary data for EBTS."""
 
 import json
 
@@ -64,7 +69,7 @@ def main():
 
     # -------------------------------------------------------------------------------
 
-    """Make an inflections to headwords dicitonary."""
+    """Make an inflections to headwords dictionary."""
     print(f"[green]{'making inflections to headwords dict':<40}", end="")
 
     i2h: dict = {}

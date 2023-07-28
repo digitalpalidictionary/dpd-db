@@ -1,3 +1,5 @@
+"""Render tab to edit a Russian and SBS tables in the database."""
+
 from functions import load_sbs_index
 from completion_combo import CompletionCombo
 

@@ -1,4 +1,11 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
+
+"""Setup for compound deconstruction.
+Args: None = run on cloud with all texts
+--local = run locally with limited texts
+--local --all_texts = run locally with all texts
+"""
+
 import argparse
 import os
 import pandas as pd

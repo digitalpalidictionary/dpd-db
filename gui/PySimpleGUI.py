@@ -11011,7 +11011,7 @@ class Window:
                 if self.AllKeysDict.get(self.LastButtonClicked, None):
                     if self.AllKeysDict.get(self.LastButtonClicked).Type != ELEM_TYPE_BUTTON:
                         self.LastButtonClickedWasRealtime = False  # stops from generating events until something changes
-                else:  # it is possible for the key to not be in the dicitonary because it has a modifier. If so, then clear the realtime button flag
+                else:  # it is possible for the key to not be in the dictionary because it has a modifier. If so, then clear the realtime button flag
                     self.LastButtonClickedWasRealtime = False  # stops from generating events until something changes
 
                 try:

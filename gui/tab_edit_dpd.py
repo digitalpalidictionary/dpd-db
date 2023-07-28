@@ -1,3 +1,5 @@
+"""Render tab to edit PaliWord table in the database."""
+
 from completion_combo import CompletionCombo
 from functions_db import get_verb_values
 from functions_db import get_case_values
@@ -87,7 +89,8 @@ def make_tab_edit_dpd(sg, primary_user):
             CompletionCombo(
                 POS, key="pos", size=(7, 1), enable_events=True,
                 text_color=None, background_color=None,
-                tooltip="Part of speech. Only use values in the dropdown list."),
+                tooltip="Part of speech. Only use values in the dropdown list."
+            ),
             sg.Text(
                 "", key="pos_error", size=(50, 1), text_color="red")
         ],
@@ -115,7 +118,7 @@ Taddhitas - remove prefix and suffixes."),
             sg.Text("neg", size=(15, 1)),
             CompletionCombo(
                     NEG_VALUES, key="neg", size=(7, 1),
-                    tooltip="Negatives. Most commonly prefixed with 'na', 'nir' or 'vi'."),
+                    tooltip="Negatives. Mostly prefixed with na, nir or vi."),
             sg.Text("", key="neg_error", size=(50, 1), text_color="red")
         ],
         [
@@ -385,8 +388,9 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
         ],
         [
             sg.Text("antonym", size=(15, 1)),
-            sg.Input(key="antonym", size=(50, 1),
-            tooltip="Word(s) with the opposite meaning"),
+            sg.Input(
+                key="antonym", size=(50, 1),
+                tooltip="Word(s) with the opposite meaning"),
             sg.Text(
                 "", key="antonym_error",
                 size=(50, 1), text_color="red")
@@ -442,8 +446,9 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
         [
             sg.Text("non_ia", size=(15, 1)),
             sg.pin(
-                sg.Input(key="non_ia", size=(50, 41),
-                tooltip="Cognate of the word in non Indo-Aryan languages?"),
+                sg.Input(
+                    key="non_ia", size=(50, 41),
+                    tooltip="Cognate of the word in non Indo-Aryan languages?"),
             ),
             sg.Text(
                 "", key="non_ia_error", size=(50, 1), text_color="red")
@@ -458,15 +463,17 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
         ],
         [
             sg.Text("cognate", size=(15, 1)),
-            sg.Input(key="cognate", size=(50, 1),
-            tooltip="Cognate words in English"),
+            sg.Input(
+                key="cognate", size=(50, 1),
+                tooltip="Cognate words in English"),
             sg.Text(
                 "", key="cognate_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("link", size=(15, 1)),
-            sg.Input(key="link", size=(50, 1),
-            tooltip="Add a wikipedia link"),
+            sg.Input(
+                key="link", size=(50, 1),
+                tooltip="Add a wikipedia link"),
             sg.Text(
                 "", key="link_error", size=(50, 1), text_color="red")
         ],

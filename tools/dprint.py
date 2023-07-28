@@ -1,3 +1,6 @@
+"""Function used for debugging. Prints relevant data to terminal."""
+
+
 def dprint(i):
     print(i.pali_root.root)
     print(i.pali_root.root_in_comps)

@@ -1,6 +1,10 @@
-#!/usr/bin/env python3.11
-import pandas as pd
+#!/usr/bin/env python3
 
+"""Compile and count all the instances of various kita, kicca and taddhita
+suffixes in the PaliWord table and save to TSV."""
+
+
+import pandas as pd
 from rich import print
 
 from db.get_db_session import get_db_session
@@ -17,9 +21,18 @@ def main_pandas():
     data = []
     for i in dpd_db:
         if i.meaning_1 and i.derivative in ["kita", "kicca", "taddhita"]:
-            data.append([i.derivative, i.suffix, i.pos, i.pali_1, i.meaning_1, i.construction])
+            data.append([
+                i.derivative,
+                i.suffix,
+                i.pos,
+                i.pali_1,
+                i.meaning_1,
+                i.construction])
 
-    df = pd.DataFrame(data, columns=["derivative", "suffix", "pos", "pali_1", "meaning", "construction"])
+    df = pd.DataFrame(
+        data, columns=[
+            "derivative", "suffix", "pos", "pali_1",
+            "meaning", "construction"])
 
     # add counts of suffixes and pos
     df["count_suffix"] = df.groupby(
@@ -45,7 +58,7 @@ def main_pandas():
     # csv of counts
     suffix_counts = df.value_counts(
         subset=["derivative", "suffix"],
-        ascending=False).rename("count") 
+        ascending=False).rename("count")
     suffix_counts.to_csv("temp/suffix_counts.tsv", sep="\t")
 
     print(df)

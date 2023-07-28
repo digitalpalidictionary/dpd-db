@@ -1,3 +1,6 @@
+"""Compiles lists of all compounds in db's Sandhi table,
+or individual words in sandhi splits."""
+
 from db.models import Sandhi
 from typing import List
 

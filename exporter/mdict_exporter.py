@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# coding: utf-8
+
+"""Prepare data and export to MDict."""
 
 import sys
 from functools import reduce

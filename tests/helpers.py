@@ -1,3 +1,5 @@
+"""Class for internal tests."""
+
 import json
 
 

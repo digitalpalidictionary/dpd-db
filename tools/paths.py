@@ -1,3 +1,5 @@
+"""All file paths that get used in the Project."""
+
 from pathlib import Path
 from dataclasses import dataclass
 

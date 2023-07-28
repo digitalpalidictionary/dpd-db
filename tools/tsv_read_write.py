@@ -1,3 +1,5 @@
+"""Modules for reading and writing TSV files."""
+
 import csv
 from typing import List
 

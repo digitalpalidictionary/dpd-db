@@ -1,8 +1,8 @@
-
-# types of tests
-# 1. individual internal tests - runs in edit tab
-# 2. db internal tests - runs in test tab
-# 3. db external tests - runs un test tab
+""""Functions related to running database tests using GUI.
+Types of tests:
+1. individual internal tests - runs in edit tab
+2. db internal tests - runs in test tab
+"""
 
 import re
 import csv

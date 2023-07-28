@@ -1,6 +1,6 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
 
-import csv
+"""ADd abbreviations to db."""
 from rich import print
 
 from db.get_db_session import get_db_session

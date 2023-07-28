@@ -1,4 +1,6 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
+
+"""Update the PaliWord, PaliRoot, Russian and SBS tables from backup_tsv"""
 
 from rich import print
 

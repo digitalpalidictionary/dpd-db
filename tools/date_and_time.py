@@ -1,3 +1,4 @@
+"""Get basic day, date, time info."""
 
 from datetime import datetime
 

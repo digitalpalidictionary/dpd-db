@@ -1,11 +1,11 @@
-#!/usr/bin/env python3.11
-# coding: utf-8
+#!/usr/bin/env python3
+
+"""Transliterate deconstructor results using Aksharamukha and PathNirvana."""
 
 import json
 
 from rich import print
 from typing import Dict
-from pathlib import Path
 from aksharamukha import transliterate
 from subprocess import check_output
 

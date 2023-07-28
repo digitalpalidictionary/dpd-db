@@ -1,3 +1,9 @@
+"""Functions for:
+1. Summarizating meaning and literal meaning,
+2. Summarizating construction,
+3. Cleaning construction of all brackets and phonetic changes,
+4. Creating an HTML styled symbol of a word data's degree of complettion."""
+
 import re
 from db.models import PaliWord
 
@@ -14,7 +20,7 @@ def make_meaning(i: PaliWord) -> str:
 
 
 def make_meaning_html(i: PaliWord) -> str:
-    """Compile meaning_1 and literal meaning, or return meaning_2.
+    """Compile html of meaning_1 and literal meaning, or return meaning_2.
     Meaning_1 in <b>bold</b>"""
 
     if i.meaning_1:
@@ -31,7 +37,8 @@ def make_meaning_html(i: PaliWord) -> str:
 
 
 def summarize_constr(i: PaliWord) -> str:
-    """create a summary of the word's construction"""
+    """Create a summary of a word's construction,
+    exlucing brackets and phonetic changes."""
     if "<b>" in i.construction:
         i.construction = i.construction.replace("<b>", "").replace("</b>", "")
 
@@ -74,7 +81,8 @@ def summarize_constr(i: PaliWord) -> str:
             # look for na in front
             if re.match("^na ", i.construction):
                 constr_prefix = re.sub("^(na )(.+)$", "\\1+ ", constr_oneline)
-                constr_trunc = re.sub(r"na > a|a > an|a > ana", "", constr_trunc)
+                constr_trunc = re.sub(
+                    r"na > a|a > an|a > ana", "", constr_trunc)
             # look for other prefixes in front
             elif re.match("^sa ", i.construction):
                 constr_prefix = "sa + "
@@ -85,7 +93,8 @@ def summarize_constr(i: PaliWord) -> str:
             else:
                 constr_prefix = ""
 
-            constr_reconstr = f"{constr_prefix}{family_plus} + {i.root_sign}{constr_trunc}"
+            constr_reconstr = f"{constr_prefix}{family_plus} + "
+            constr_reconstr += f"{i.root_sign}{constr_trunc}"
             return constr_reconstr
 
         elif i.root_base != "" and i.pos == "fut":
@@ -108,21 +117,13 @@ def summarize_constr(i: PaliWord) -> str:
             else:
                 constr_prefix = ""
 
-            constr_reconstr = f"{constr_prefix}{family_prefix} + {base}{constr_trunc}"
+            constr_reconstr = f"{constr_prefix}{family_prefix} + "
+            constr_reconstr += f"{base}{constr_trunc}"
             return constr_reconstr
 
 
-def degree_of_completion(i):
-    if i.meaning_1:
-        if i.source_1:
-            return """<span class="gray">✓</span>"""
-        else:
-            return """<span class="gray">~</span>"""
-    else:
-        return """<span class="gray">✗</span>"""
-
-
 def clean_construction(construction):
+    """Clean construction of all brackets and phonetic changes."""
     # strip line 2
     construction = re.sub(r"\n.+", "", construction)
     # remove > ... +
@@ -134,3 +135,14 @@ def clean_construction(construction):
     # remove ??
     construction = re.sub("\\?\\? ", "", construction)
     return construction
+
+
+def degree_of_completion(i):
+    """Return html styled symbol of a word data degree of completion."""
+    if i.meaning_1:
+        if i.source_1:
+            return """<span class="gray">✓</span>"""
+        else:
+            return """<span class="gray">~</span>"""
+    else:
+        return """<span class="gray">✗</span>"""

@@ -1,4 +1,7 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
+
+"""Not quite sure what this does. Anybody know?
+Looks like it exports the db in DPS format?"""
 
 import csv
 import re
@@ -7,7 +10,7 @@ from rich import print
 
 from typing import List
 
-from db.models import PaliWord, PaliRoot
+from db.models import PaliWord
 from db.get_db_session import get_db_session
 
 from tools.pali_sort_key import pali_sort_key
@@ -21,27 +24,8 @@ def main():
 
     db_session = get_db_session("dpd.db")
     dpd_db = db_session.query(PaliWord).all()
-    roots_db = db_session.query(PaliRoot).all()
-
-    # vocab(dpd_db)
-    # commentary(dpd_db)
-    # pass1(dpd_db)
     full_db(dpd_db)
-    # roots(db_session, roots_db)
-
     toc()
-
-
-# def vocab(dpd_db):
-
-#     def _is_needed(i: PaliWord):
-#         return (i.meaning_1 != "" and i.example_1 != "")
-
-#     rows = [pali_row(i) for i in dpd_db if _is_needed(i)]
-
-#     with open(PTH.vocab_csv_path, "w", newline='', encoding='utf-8') as f:
-#         writer = csv.writer(f, delimiter='\t')
-#         writer.writerows(rows)
 
 
 def pali_row(i: PaliWord, output="anki") -> List[str]:
@@ -189,31 +173,6 @@ def pali_row(i: PaliWord, output="anki") -> List[str]:
     return none_to_empty(fields)
 
 
-# def commentary(dpd_db):
-#     print("[green]making commentary csv")
-#     rows = []
-
-#     for i in dpd_db:
-#         if i.meaning_1 != "" and i.example_1 == "":
-#             rows.append(pali_row(i))
-
-#     with open(PTH.commentary_csv_path, "w", newline='', encoding='utf-8') as f:
-#         writer = csv.writer(f, delimiter='\t')
-#         writer.writerows(rows)
-
-
-# def pass1(dpd_db):
-#     print("[green]making pass1 csv")
-#     output_file = open(PTH.pass1_csv_path, "w")
-
-#     rows = []
-#     for i in dpd_db:
-#         if i.meaning_1 == "" and i.family_set != "" and "pass1" in i.family_set:
-#             rows.append(pali_row(i))
-
-#     output_file.close()
-
-
 def full_db(dpd_db):
     print("[green]making dpd-dps-full csv")
     rows = []
@@ -250,93 +209,6 @@ def full_db(dpd_db):
     dpd_df.to_csv(
         PTH.dpd_dps_full_path, sep="\t", index=False,
         quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
-
-
-# def roots(db_session, roots_db):
-
-#     print("[green]making roots list")
-#     roots_list = []
-#     for i in roots_db:
-#         roots_list += [i.root]
-
-#     print("[green]making roots count dictionary")
-#     root_count_dict = {}
-#     for root in roots_list:
-#         count = db_session.query(PaliWord).filter(
-#             PaliWord.root_key == root).count()
-#         root_count_dict[root] = count
-
-#     print("[green]making roots.csv")
-#     rows = []
-#     roots_header = [
-#         "Fin", "Count", "Root", "In Comps", "V", "Group", "Sign",
-#         "Base", "Meaning", "Sk Root", "Sk Root Mn", "Cl", "Example",
-#         "Dhātupātha", "DpRoot", "DpPāli", "DpEnglish",
-#         "Kaccāyana Dhātu Mañjūsā", "DmRoot", "DmPāli", "DmEnglish",
-#         "Saddanītippakaraṇaṃ Dhātumālā", "SnPāli", "SnEnglish",
-#         "Pāṇinīya Dhātupāṭha", "PdSanskrit", "PdEnglish", "Note",
-#         "Padaūpasiddhi", "PrPāli", "PrEnglish", "blanks", "same/diff",
-#         "matrix test"]
-
-#     rows.append(roots_header)
-
-#     for i in roots_db:
-#         rows.append(root_row(i, root_count_dict))
-
-#     with open(PTH.roots_csv_path, "w", newline='', encoding='utf-8') as f:
-#         writer = csv.writer(f, delimiter="\t")
-#         writer.writerows(rows)
-
-#     dpd_df = pd.read_csv(PTH.roots_csv_path, sep="\t", dtype=str)
-#     dpd_df.sort_values(
-#         by=["Root"], inplace=True, ignore_index=True,
-#         key=lambda x: x.map(pali_sort_key))
-#     dpd_df.to_csv(
-#         PTH.roots_csv_path, sep="\t", index=False,
-#         quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
-
-
-# def root_row(i: PaliRoot, root_count_dict: dict) -> List[str]:
-#     root_fields = []
-
-#     root_fields.extend([
-#         "",
-#         root_count_dict[i.root],
-#         i.root,
-#         i.root_in_comps,
-#         i.root_has_verb,
-#         i.root_group,
-#         i.root_sign,
-#         "",     # base
-#         i.root_meaning,
-#         i.sanskrit_root,
-#         i.sanskrit_root_meaning,
-#         i.sanskrit_root_class,
-#         i.root_example,
-#         i.dhatupatha_num,
-#         i.dhatupatha_root,
-#         i.dhatupatha_pali,
-#         i.dhatupatha_english,
-#         i.dhatumanjusa_num,
-#         i.dhatumanjusa_root,
-#         i.dhatumanjusa_pali,
-#         i.dhatumanjusa_english,
-#         i.dhatumala_root,
-#         i.dhatumala_pali,
-#         i.dhatumala_english,
-#         i.panini_root,
-#         i.panini_sanskrit,
-#         i.panini_english,
-#         i.note,
-#         "",     # rupasiddhi
-#         "",
-#         "",
-#         "",     # blanks
-#         "",     # same/diff
-#         i.matrix_test
-#     ])
-
-#     return none_to_empty(root_fields)
 
 
 def none_to_empty(values: List):

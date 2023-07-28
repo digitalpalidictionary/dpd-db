@@ -1,4 +1,6 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
+
+"""Convert /r/n to /n."""
 
 from rich import print
 

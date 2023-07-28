@@ -1,4 +1,7 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
+
+"""Compile HTML table of all grammatical possibilities of
+every inflected wordform."""
 
 import csv
 import pickle

@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+"""Update the family_compound column in PaliWord with a new value."""
+
 import re
 
 from rich import print

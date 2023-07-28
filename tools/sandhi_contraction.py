@@ -1,8 +1,43 @@
+"""Finds all words in examples and commentary that contain an apostrophe
+denoting sandhi or contraction, eg. ajj'uposatho, tañ'ca"""
+
 from typing import Dict
+
 from rich import print
+
+from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.pali_alphabet import pali_alphabet
 from tools.paths import ProjectPaths as PTH
+
+
+def main():
+    db_session = get_db_session("dpd.db")
+    sandhi_contractions: dict = make_sandhi_contraction_dict(db_session)
+    counter = 0
+
+    exceptions = [
+        "maññeti",
+        "āyataggaṃ",
+    ]
+
+    filepath = PTH.temp_dir.joinpath("sandhi_contraction.tsv")
+    with open(filepath, "w") as f:
+        for key, values in sandhi_contractions.items():
+            contractions = values["contractions"]
+
+            if len(contractions) > 1 and key not in exceptions:
+                f.write(f"{counter}. {key}: \n")
+
+                for contraction in contractions:
+                    f.write(f"{contraction}\n")
+
+                ids = values["ids"]
+                f.write(f"/^({'|'.join(ids)})$/\n")
+                f.write("\n")
+                counter += 1
+
+        print(counter)
 
 
 def make_sandhi_contraction_dict(db_session) -> Dict[[str, set], [str, list]]:
@@ -85,30 +120,4 @@ def make_sandhi_contraction_dict(db_session) -> Dict[[str, set], [str, list]]:
 
 
 if __name__ == "__main__":
-    from db.get_db_session import get_db_session
-    db_session = get_db_session("dpd.db")
-    sandhi_contractions: dict = make_sandhi_contraction_dict(db_session)
-    counter = 0
-
-    exceptions = [
-        "maññeti",
-        "āyataggaṃ",
-    ]
-
-    filepath = PTH.temp_dir.joinpath("sandhi_contraction.tsv")
-    with open(filepath, "w") as f:
-        for key, values in sandhi_contractions.items():
-            contractions = values["contractions"]
-
-            if len(contractions) > 1 and key not in exceptions:
-                f.write(f"{counter}. {key}: \n")
-
-                for contraction in contractions:
-                    f.write(f"{contraction}\n")
-
-                ids = values["ids"]
-                f.write(f"/^({'|'.join(ids)})$/\n")
-                f.write("\n")
-                counter += 1
-
-        print(counter)
+    main()

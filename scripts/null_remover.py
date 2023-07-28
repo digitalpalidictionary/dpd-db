@@ -1,3 +1,5 @@
+"""Find and remove fields with None / NULL in the PaliWord table."""
+
 from sqlalchemy import inspect
 from db.get_db_session import get_db_session
 from db.models import PaliWord

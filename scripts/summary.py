@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-"""A summary of dictionary updates to accompany
-the dictionary release. """
+"""Compile a summary of latest dictionary data to accompany a release."""
 
 from rich import print
 

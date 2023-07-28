@@ -1,3 +1,5 @@
+// transliterate deconstructor results using PathNirvana code
+
 let c = console.log
 import { createRequire } from "module"
 const require = createRequire(import.meta.url)

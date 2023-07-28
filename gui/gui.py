@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+"""Main program to run the GUI."""
+
 import PySimpleGUI as sg
 import re
 import pandas as pd
@@ -84,8 +86,7 @@ def main():
     pali_word_original = None
     pali_word_original2 = None
 
-
-    # !!! this is slow !!!
+    # !!! this is supa slow !!!
     try:
         definitions_df = pd.read_csv(PTH.defintions_csv_path, sep="\t")
         commentary_definitions_exists = True

@@ -1,4 +1,7 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
+
+"""Export DPD for GoldenDict and MDict."""
+
 import zipfile
 import csv
 import pickle

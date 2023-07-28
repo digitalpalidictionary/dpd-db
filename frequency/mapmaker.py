@@ -1,9 +1,10 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
+
+"""Create frequency map data and HTML and save into database."""
 
 import pandas as pd
 import pickle
 import re
-import json
 
 from rich import print
 from mako.template import Template

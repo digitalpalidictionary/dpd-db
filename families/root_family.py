@@ -1,6 +1,6 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
 
-"""Create an html list of all words belonging to the same root family\
+"""Create an html list of all words belonging to the same root family
 and add to db."""
 
 
