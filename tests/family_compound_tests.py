@@ -125,6 +125,5 @@ def add_to_db(failures):
             input()
 
 
-
 if __name__ == "__main__":
     main()

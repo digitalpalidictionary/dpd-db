@@ -1,1 +1,2 @@
-# All GUI related files and functions.
+# gui
+All GUI related files and functions.

@@ -1,1 +1,2 @@
-# Export DPD for GoldenDict, MDict, Kindle and Tipitaka Pali Reader.
+# exporter
+Export DPD for GoldenDict, MDict, Kindle and Tipitaka Pali Reader.

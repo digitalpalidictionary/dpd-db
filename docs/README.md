@@ -1,1 +1,2 @@
-# Project related documents
+# docs
+Project related documents
