@@ -1,1 +1,1 @@
-All files related to DPD icon.
+# All files DPD icon files.

@@ -1,2 +1,1 @@
-Compile families of roots, compounds, words and sets.
-Export to Anki for study.
+# Compile families of roots, compounds, words and sets, and export to Anki for study.
