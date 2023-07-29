@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-"""Not quite sure what this does. Anybody know?
-Looks like it exports the db in DPS format?"""
+"""Export db into dps related format: dpd_dps_full - fulla data of dpd + dps - for making full db with latest adding frequency in ebt column. So one can sort things abd find relevant data for class preparation. dps_full - only those part of data which have ru_meaning nit empty. from this file can be filterd csv for various anki decks related to pali class and SBS recitation book"""
 
 import csv
 import re
@@ -45,22 +44,22 @@ def dps(dpd_db):
     def _is_needed(i: PaliWord):
         return (i.ru)
 
-    header = ['id', 'user_id', 'pali_1', 'pali_2', 'Fin', 'sbs_class_anki', 'sbs_category', 'pos', 'grammar', 'derived_from',
+    header = ['id', 'user_id', 'pali_1', 'pali_2', 'fin', 'sbs_class_anki', 'sbs_category', 'pos', 'grammar', 'derived_from',
                     'neg', 'verb', 'trans', 'plus_case', 'meaning_1',
-                    'meaning_lit', 'ru_meaning', 'ru_meaning_lit', 'sbs_meaning', 'Non IA', 'sanskrit', 'root_sk',
-                    'Sk Root Mn', 'Cl', 'root_pali', 'Root In Comps', 'V',
-                    'Grp', 'Sgn', 'Root Meaning', 'root_base', 'Family',
-                    'Word Family', 'Family2', 'construction', 'derivative',
+                    'meaning_lit', 'ru_meaning', 'ru_meaning_lit', 'sbs_meaning', 'non_ia', 'sanskrit', 'root_sk',
+                    'sanskrit_root_meaning', 'sanskrit_root_class', 'root', 'root_in_comps', 'root_has_verb',
+                    'root_group', 'root_sign', 'root_meaning', 'root_base', 'family_root',
+                    'family_word', 'family_compound', 'construction', 'derivative',
                     'suffix', 'phonetic', 'compound_type',
-                    'compound_construction', 'Non-Root In Comps', 'source_1',
+                    'compound_construction', 'non_root_in_comps', 'source_1',
                     'sutta_1', 'example_1', 'source_2', 'sutta_2', 'example_2',
                     'sbs_source_1', 'sbs_sutta_1', 'sbs_example_1', 'sbs_chant_pali_1', 'sbs_chant_eng_1', 'sbs_chapter_1',
                     'sbs_source_2', 'sbs_sutta_2', 'sbs_example_2', 'sbs_chant_pali_2', 'sbs_chant_eng_2', 'sbs_chapter_2',
                     'sbs_source_3', 'sbs_sutta_3', 'sbs_example_3', 'sbs_chant_pali_3', 'sbs_chant_eng_3', 'sbs_chapter_3', 'sbs_source_4', 'sbs_sutta_4', 'sbs_example_4', 'sbs_chant_pali_4', 'sbs_chant_eng_4', 'sbs_chapter_4',
-                    'Antonyms', 'Synonyms – different word',
+                    'antonym', 'synonym',
                     'variant',  'commentary',
-                    'notes', 'sbs_notes', 'ru_notes', 'Cognate', 'Category', 'Link', 'stem', 'pattern',
-                    'meaning_2', 'sbs_index', 'sbs_audio', 'sbs_class', 'Test']
+                    'notes', 'sbs_notes', 'ru_notes', 'cognate', 'family_set', 'link', 'stem', 'pattern',
+                    'meaning_2', 'sbs_index', 'sbs_audio', 'sbs_class', 'test']
     
     rows = [header]  # Add the header as the first row
     rows.extend(pali_row(i) for i in dpd_db if _is_needed(i))
@@ -228,22 +227,22 @@ def pali_row(i: PaliWord, output="anki") -> List[str]:
 def full_db(dpd_db):
     print("[green]making dpd-dps-full csv")
     rows = []
-    header = ['id', 'user_id', 'pali_1', 'pali_2', 'Fin', 'sbs_class_anki', 'sbs_category', 'pos', 'grammar', 'derived_from',
+    header = ['id', 'user_id', 'pali_1', 'pali_2', 'fin', 'sbs_class_anki', 'sbs_category', 'pos', 'grammar', 'derived_from',
                     'neg', 'verb', 'trans', 'plus_case', 'meaning_1',
-                    'meaning_lit', 'ru_meaning', 'ru_meaning_lit', 'sbs_meaning', 'Non IA', 'sanskrit', 'root_sk',
-                    'Sk Root Mn', 'Cl', 'root_pali', 'Root In Comps', 'V',
-                    'Grp', 'Sgn', 'Root Meaning', 'root_base', 'Family',
-                    'Word Family', 'Family2', 'construction', 'derivative',
+                    'meaning_lit', 'ru_meaning', 'ru_meaning_lit', 'sbs_meaning', 'non_ia', 'sanskrit', 'root_sk',
+                    'sanskrit_root_meaning', 'sanskrit_root_class', 'root', 'root_in_comps', 'root_has_verb',
+                    'root_group', 'root_sign', 'root_meaning', 'root_base', 'family_root',
+                    'family_word', 'family_compound', 'construction', 'derivative',
                     'suffix', 'phonetic', 'compound_type',
-                    'compound_construction', 'Non-Root In Comps', 'source_1',
+                    'compound_construction', 'non_root_in_comps', 'source_1',
                     'sutta_1', 'example_1', 'source_2', 'sutta_2', 'example_2',
                     'sbs_source_1', 'sbs_sutta_1', 'sbs_example_1', 'sbs_chant_pali_1', 'sbs_chant_eng_1', 'sbs_chapter_1',
                     'sbs_source_2', 'sbs_sutta_2', 'sbs_example_2', 'sbs_chant_pali_2', 'sbs_chant_eng_2', 'sbs_chapter_2',
                     'sbs_source_3', 'sbs_sutta_3', 'sbs_example_3', 'sbs_chant_pali_3', 'sbs_chant_eng_3', 'sbs_chapter_3', 'sbs_source_4', 'sbs_sutta_4', 'sbs_example_4', 'sbs_chant_pali_4', 'sbs_chant_eng_4', 'sbs_chapter_4',
-                    'Antonyms', 'Synonyms – different word',
+                    'antonym', 'synonym',
                     'variant',  'commentary',
-                    'notes', 'sbs_notes', 'ru_notes', 'Cognate', 'Category', 'Link', 'stem', 'pattern',
-                    'meaning_2', 'sbs_index', 'sbs_audio', 'sbs_class', 'Test']
+                    'notes', 'sbs_notes', 'ru_notes', 'cognate', 'family_set', 'link', 'stem', 'pattern',
+                    'meaning_2', 'sbs_index', 'sbs_audio', 'sbs_class', 'test']
 
     rows.append(header)
 
