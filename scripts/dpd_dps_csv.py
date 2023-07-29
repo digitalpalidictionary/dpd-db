@@ -29,12 +29,10 @@ def main():
     dpd_db = db_session.query(PaliWord).all()
     dpd_db = sorted(
         dpd_db, key=lambda x: pali_sort_key(x.pali_1))
-    # roots_db = db_session.query(PaliRoot).all()
 
     dps(dpd_db)
-    # commentary(dpd_db)
-    # pass1(dpd_db)
-    full_db(dpd_db)
+    # full_db(dpd_db)
+    
     toc()
 
 
@@ -44,9 +42,9 @@ def dps(dpd_db):
     def _is_needed(i: PaliWord):
         return (i.ru)
 
-    header = ['id', 'user_id', 'pali_1', 'pali_2', 'fin', 'sbs_class_anki', 'sbs_category', 'pos', 'grammar', 'derived_from',
+    header = ['id', 'pali_1', 'pali_2', 'fin', 'sbs_class_anki', 'sbs_category', 'pos', 'grammar', 'derived_from',
                     'neg', 'verb', 'trans', 'plus_case', 'meaning_1',
-                    'meaning_lit', 'ru_meaning', 'ru_meaning_lit', 'sbs_meaning', 'non_ia', 'sanskrit', 'root_sk',
+                    'meaning_lit', 'ru_meaning', 'ru_meaning_lit', 'sbs_meaning', 'non_ia', 'sanskrit', 'sanskrit_root',
                     'sanskrit_root_meaning', 'sanskrit_root_class', 'root', 'root_in_comps', 'root_has_verb',
                     'root_group', 'root_sign', 'root_meaning', 'root_base', 'family_root',
                     'family_word', 'family_compound', 'construction', 'derivative',
@@ -82,7 +80,6 @@ def pali_row(i: PaliWord, output="anki") -> List[str]:
 
     fields.extend([
         i.id,
-        i.user_id,
         i.pali_1,
         i.pali_2,
     ])
@@ -227,9 +224,9 @@ def pali_row(i: PaliWord, output="anki") -> List[str]:
 def full_db(dpd_db):
     print("[green]making dpd-dps-full csv")
     rows = []
-    header = ['id', 'user_id', 'pali_1', 'pali_2', 'fin', 'sbs_class_anki', 'sbs_category', 'pos', 'grammar', 'derived_from',
+    header = ['id', 'pali_1', 'pali_2', 'fin', 'sbs_class_anki', 'sbs_category', 'pos', 'grammar', 'derived_from',
                     'neg', 'verb', 'trans', 'plus_case', 'meaning_1',
-                    'meaning_lit', 'ru_meaning', 'ru_meaning_lit', 'sbs_meaning', 'non_ia', 'sanskrit', 'root_sk',
+                    'meaning_lit', 'ru_meaning', 'ru_meaning_lit', 'sbs_meaning', 'non_ia', 'sanskrit', 'sanskrit_root',
                     'sanskrit_root_meaning', 'sanskrit_root_class', 'root', 'root_in_comps', 'root_has_verb',
                     'root_group', 'root_sign', 'root_meaning', 'root_base', 'family_root',
                     'family_word', 'family_compound', 'construction', 'derivative',
