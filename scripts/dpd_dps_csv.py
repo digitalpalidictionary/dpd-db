@@ -14,24 +14,75 @@ from db.models import PaliWord
 from db.get_db_session import get_db_session
 
 from tools.pali_sort_key import pali_sort_key
-from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths as PTH
+from tools.tic_toc import tic, toc
+from tools.tsv_read_write import write_tsv_list
+from tools.date_and_time import day
+
+date = day()
 
 
 def main():
     tic()
-    print("[bright_yellow]exporting anki csv")
+    print("[bright_yellow]exporting dps csvs")
 
     db_session = get_db_session("dpd.db")
     dpd_db = db_session.query(PaliWord).all()
+    dpd_db = sorted(
+        dpd_db, key=lambda x: pali_sort_key(x.pali_1))
+    # roots_db = db_session.query(PaliRoot).all()
+
+    dps(dpd_db)
+    # commentary(dpd_db)
+    # pass1(dpd_db)
     full_db(dpd_db)
     toc()
+
+
+def dps(dpd_db):
+    print("[green]making dps-full csv")
+
+    def _is_needed(i: PaliWord):
+        return (i.ru)
+
+    header = ['id', 'user_id', 'pali_1', 'pali_2', 'Fin', 'sbs_class_anki', 'sbs_category', 'pos', 'grammar', 'derived_from',
+                    'neg', 'verb', 'trans', 'plus_case', 'meaning_1',
+                    'meaning_lit', 'ru_meaning', 'ru_meaning_lit', 'sbs_meaning', 'Non IA', 'sanskrit', 'root_sk',
+                    'Sk Root Mn', 'Cl', 'root_pali', 'Root In Comps', 'V',
+                    'Grp', 'Sgn', 'Root Meaning', 'root_base', 'Family',
+                    'Word Family', 'Family2', 'construction', 'derivative',
+                    'suffix', 'phonetic', 'compound_type',
+                    'compound_construction', 'Non-Root In Comps', 'source_1',
+                    'sutta_1', 'example_1', 'source_2', 'sutta_2', 'example_2',
+                    'sbs_source_1', 'sbs_sutta_1', 'sbs_example_1', 'sbs_chant_pali_1', 'sbs_chant_eng_1', 'sbs_chapter_1',
+                    'sbs_source_2', 'sbs_sutta_2', 'sbs_example_2', 'sbs_chant_pali_2', 'sbs_chant_eng_2', 'sbs_chapter_2',
+                    'sbs_source_3', 'sbs_sutta_3', 'sbs_example_3', 'sbs_chant_pali_3', 'sbs_chant_eng_3', 'sbs_chapter_3', 'sbs_source_4', 'sbs_sutta_4', 'sbs_example_4', 'sbs_chant_pali_4', 'sbs_chant_eng_4', 'sbs_chapter_4',
+                    'Antonyms', 'Synonyms – different word',
+                    'variant',  'commentary',
+                    'notes', 'sbs_notes', 'ru_notes', 'Cognate', 'Category', 'Link', 'stem', 'pattern',
+                    'meaning_2', 'sbs_index', 'sbs_audio', 'sbs_class', 'Test']
+    
+    rows = [header]  # Add the header as the first row
+    rows.extend(pali_row(i) for i in dpd_db if _is_needed(i))
+
+    with open(PTH.dps_full_path, "w", newline='', encoding='utf-8') as f:
+        writer = csv.writer(f, delimiter='\t')
+        writer.writerows(rows)
+
+    dpd_df = pd.read_csv(PTH.dps_full_path, sep="\t", dtype=str)
+    dpd_df.sort_values(
+        by=["pali_1"], inplace=True, ignore_index=True,
+        key=lambda x: x.map(pali_sort_key))
+    dpd_df.to_csv(
+        PTH.dps_full_path, sep="\t", index=False,
+        quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
 
 
 def pali_row(i: PaliWord, output="anki") -> List[str]:
     fields = []
 
     fields.extend([
+        i.id,
         i.user_id,
         i.pali_1,
         i.pali_2,
@@ -114,59 +165,60 @@ def pali_row(i: PaliWord, output="anki") -> List[str]:
         i.family_root,
         i.family_word,
         i.family_compound,
-        i.construction,
+        i.construction.replace("\n", "<br>"),
         i.derivative,
         i.suffix,
-        i.phonetic,
+        i.phonetic.replace("\n", "<br>"),
         i.compound_type,
         i.compound_construction,
         i.non_root_in_comps,
-        i.source_1,
-        i.sutta_1,
-        i.example_1,
-        i.source_2,
-        i.sutta_2,
-        i.example_2,
-        i.sbs.sbs_source_1 if i.sbs else None,
-        i.sbs.sbs_sutta_1 if i.sbs else None,
-        i.sbs.sbs_example_1 if i.sbs else None,
+        i.source_1.replace("\n", "<br>"),
+        i.sutta_1.replace("\n", "<br>"),
+        i.example_1.replace("\n", "<br>"),
+        i.source_2.replace("\n", "<br>"),
+        i.sutta_2.replace("\n", "<br>"),
+        i.example_2.replace("\n", "<br>"),
+        i.sbs.sbs_source_1.replace("\n", "<br>") if i.sbs else None,
+        i.sbs.sbs_sutta_1.replace("\n", "<br>") if i.sbs else None,
+        i.sbs.sbs_example_1.replace("\n", "<br>") if i.sbs else None,
         i.sbs.sbs_chant_pali_1 if i.sbs else None,
         i.sbs.sbs_chant_eng_1 if i.sbs else None,
         i.sbs.sbs_chapter_1 if i.sbs else None,
-        i.sbs.sbs_source_2 if i.sbs else None,
-        i.sbs.sbs_sutta_2 if i.sbs else None,
-        i.sbs.sbs_example_2 if i.sbs else None,
+        i.sbs.sbs_source_2.replace("\n", "<br>") if i.sbs else None,
+        i.sbs.sbs_sutta_2.replace("\n", "<br>") if i.sbs else None,
+        i.sbs.sbs_example_2.replace("\n", "<br>") if i.sbs else None,
         i.sbs.sbs_chant_pali_2 if i.sbs else None,
         i.sbs.sbs_chant_eng_2 if i.sbs else None,
         i.sbs.sbs_chapter_2 if i.sbs else None,
-        i.sbs.sbs_source_3 if i.sbs else None,
-        i.sbs.sbs_sutta_3 if i.sbs else None,
-        i.sbs.sbs_example_3 if i.sbs else None,
+        i.sbs.sbs_source_3.replace("\n", "<br>") if i.sbs else None,
+        i.sbs.sbs_sutta_3.replace("\n", "<br>") if i.sbs else None,
+        i.sbs.sbs_example_3.replace("\n", "<br>") if i.sbs else None,
         i.sbs.sbs_chant_pali_3 if i.sbs else None,
         i.sbs.sbs_chant_eng_3 if i.sbs else None,
         i.sbs.sbs_chapter_3 if i.sbs else None,  
-        i.sbs.sbs_source_4 if i.sbs else None,
-        i.sbs.sbs_sutta_4 if i.sbs else None,
-        i.sbs.sbs_example_4 if i.sbs else None,
+        i.sbs.sbs_source_4.replace("\n", "<br>") if i.sbs else None,
+        i.sbs.sbs_sutta_4.replace("\n", "<br>") if i.sbs else None,
+        i.sbs.sbs_example_4.replace("\n", "<br>") if i.sbs else None,
         i.sbs.sbs_chant_pali_4 if i.sbs else None,
         i.sbs.sbs_chant_eng_4 if i.sbs else None,
         i.sbs.sbs_chapter_4 if i.sbs else None, 
         i.antonym,
         i.synonym,
         i.variant,
-        i.commentary,
-        i.notes,
-        i.sbs.sbs_notes if i.sbs else None,
-        i.ru.ru_notes if i.ru else None,
+        i.commentary.replace("\n", "<br>"),
+        i.notes.replace("\n", "<br>"),
+        i.sbs.sbs_notes.replace("\n", "<br>") if i.sbs else None,
+        i.ru.ru_notes.replace("\n", "<br>") if i.ru else None,
         i.cognate,
         i.family_set,
-        i.link,
+        i.link.replace("\n", "<br>"),
         i.stem,
         i.pattern,
         i.meaning_2,
         i.sbs.sbs_index if i.sbs else None,      
         i.sbs.sbs_audio if i.sbs else None, 
-        i.sbs.sbs_class if i.sbs else None, 
+        i.sbs.sbs_class if i.sbs else None,
+        date 
 
     ])
 
@@ -176,7 +228,7 @@ def pali_row(i: PaliWord, output="anki") -> List[str]:
 def full_db(dpd_db):
     print("[green]making dpd-dps-full csv")
     rows = []
-    header = ['id', 'pali_1', 'pali_2', 'Fin', 'sbs_class_anki', 'sbs_category', 'pos', 'grammar', 'derived_from',
+    header = ['id', 'user_id', 'pali_1', 'pali_2', 'Fin', 'sbs_class_anki', 'sbs_category', 'pos', 'grammar', 'derived_from',
                     'neg', 'verb', 'trans', 'plus_case', 'meaning_1',
                     'meaning_lit', 'ru_meaning', 'ru_meaning_lit', 'sbs_meaning', 'Non IA', 'sanskrit', 'root_sk',
                     'Sk Root Mn', 'Cl', 'root_pali', 'Root In Comps', 'V',
@@ -191,7 +243,7 @@ def full_db(dpd_db):
                     'Antonyms', 'Synonyms – different word',
                     'variant',  'commentary',
                     'notes', 'sbs_notes', 'ru_notes', 'Cognate', 'Category', 'Link', 'stem', 'pattern',
-                    'Buddhadatta', 'sbs_index', 'sbs_audio', 'sbs_class']
+                    'meaning_2', 'sbs_index', 'sbs_audio', 'sbs_class', 'Test']
 
     rows.append(header)
 
