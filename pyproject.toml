@@ -39,3 +39,11 @@ pylama = "^8.4.1"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pyright]
+pythonVersion = "3.11"
+typeCheckingMode = "basic"
+
+[tool.ruff]
+ignore = ["E401", "E501", "E712"]
+target-version = "py311"
