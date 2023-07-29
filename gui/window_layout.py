@@ -51,7 +51,7 @@ def window_layout(primary_user):
         'Add new words',
         layout,
         resizable=True,
-        size=(1280, 1080),
+        size=(None, None),
         finalize=True,
     )
 

@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
-"""A simple system of
-1. inflection to headwords lookup
-2. compound deconstruction
-4. dictionary data for EBTS."""
+"""A simple system of for Pāḷi word lookup consisting of:
+1. inflection to headwords
+2. dictionary data for EBTS.
+3. compound deconstruction
+"""
 
 import json
 
@@ -21,9 +22,13 @@ from tools.paths import ProjectPaths as PTH
 
 def main():
     tic()
-    print("[bright_yellow]exporting json files for the buddhas words website")
-    print(f"[green]{'making sutta central ebts word list':<40}", end="")
+    print("[bright_yellow]dpd lookup system")
 
+    # ---------------------------------------------------------------------
+    # make a set of words in sutta central texts
+    # ---------------------------------------------------------------------
+
+    print(f"[green]{'making sutta central ebts word list':<40}", end="")
     sc_text_list = [
         "vin1", "vin2", "vin3", "vin4", "vin5",
         "dn1", "dn2", "dn3",
@@ -35,53 +40,48 @@ def main():
         "kn8", "kn9",
         ]
 
-    tbw_word_set: set = make_sc_text_set(sc_text_list)
-    print(f"{len(tbw_word_set):,}")
+    text_set: set = make_sc_text_set(sc_text_list)
+    print(f"{len(text_set):,}")
 
-    # -------------------------------------------------------------------------------
-
-    """Get all the required info from the db."""
+    # ---------------------------------------------------------------------
+    # get all the required info from the database
+    # ---------------------------------------------------------------------
 
     print(f"[green]{'making db searches':<40}", end="")
-
     db_session = get_db_session("dpd.db")
     dpd_db = db_session.query(PaliWord)
     dd_db = db_session.query(DerivedData)
-    sandhi_db = db_session.query(Sandhi)
+    deconstr_db = db_session.query(Sandhi)
     print("OK")
 
-    # -------------------------------------------------------------------------------
+    # ---------------------------------------------------------------------
+    # make a set of all words in deconstructed compounds
+    # ---------------------------------------------------------------------
 
-    print(f"[green]{'making sandhi splits set':<40}", end="")
-
-    # inflections to headwords dict
-    sandhi_splits_set: set = set()
+    print(f"[green]{'making deconstructor splits set':<40}", end="")
+    deconstr_splits_set: set = set()
     matched = set()
-
-    for i in sandhi_db:
-        if i.sandhi in tbw_word_set:
+    for i in deconstr_db:
+        if i.sandhi in text_set:
             matched.add(i.sandhi)
             splits = i.split_list
             for split in splits:
-                sandhi_splits_set.update(split.split(" + "))
+                deconstr_splits_set.update(split.split(" + "))
+    print(f"{len(deconstr_splits_set):,}")
 
-    print(f"{len(sandhi_splits_set):,}")
+    # ---------------------------------------------------------------------
+    # make an inflections to headwords dictionary
+    # ---------------------------------------------------------------------
 
-    # -------------------------------------------------------------------------------
-
-    """Make an inflections to headwords dictionary."""
     print(f"[green]{'making inflections to headwords dict':<40}", end="")
-
     i2h: dict = {}
-
     for counter, (i, dd) in enumerate(zip(dpd_db, dd_db)):
         assert i.id == dd.id
-
         inflections = dd.inflections_list
         for inflection in inflections:
             test1 = (
-                inflection in tbw_word_set or
-                inflection in sandhi_splits_set)
+                inflection in text_set or
+                inflection in deconstr_splits_set)
             test2 = "(gram)" not in i.meaning_1
             if test1 & test2:
                 matched.add(inflection)
@@ -89,54 +89,41 @@ def main():
                     i2h[inflection] = [i.pali_1]
                 else:
                     i2h[inflection] += [i.pali_1]
-
     print(f"{len(i2h):,}")
 
-    # -------------------------------------------------------------------------------
+    # ---------------------------------------------------------------------
+    # save inflections to headwords json
+    # ---------------------------------------------------------------------
 
-    # add words with "n" instead of "ṅ"
-    # this problem is unique to tbw website
-
-    print(f"{'adding ṅ words with n':<40}", end="")
-    nṅdict = {}
-
-    i2h_copy = i2h.copy()
-    for inflection, headwords in i2h_copy.items():
-        if "ṅ" in inflection:
-            inflection_n = inflection.replace("ṅ", "n")
-            nṅdict[inflection_n] = inflection
-            # if inflection_n not in i2h:
-            #     i2h[inflection_n] = headwords
-            # else:
-            #     i2h[inflection_n] += headwords
-
-    print(f"{len(nṅdict):,}")
-
-    with open(PTH.nṅ_tsv_path, "w") as f:
-        f.write("n\tṅ\n")
-        for n, ṅ in nṅdict.items():
-            f.write(f"{n}\t{ṅ}\n")
-
-    # -------------------------------------------------------------------------------
-
-    unmatched = tbw_word_set - matched
-    print(f"[green]{'unmatched':<40}{len(unmatched):,}")
-
-    print(f"[green]{'writing i2h.json':<40}", end="")
+    print(f"[green]{'writing inflections to headwords json':<40}", end="")
     with open(PTH.i2h_json_path, "w") as f:
         json.dump(i2h, f, ensure_ascii=False, indent=0)
         print("OK")
 
-    # -------------------------------------------------------------------------------
+    # ---------------------------------------------------------------------
+    # make a set of unmatched words
+    # ---------------------------------------------------------------------
 
-    print(f"[green]{'making dpd data json':<40}", end="")
+    print(f"[green]{'making set of unmatched words':<40}", end="")
+    unmatched = text_set - matched
+    print(f"{len(unmatched):,}")
 
+    # ---------------------------------------------------------------------
+    # make a set of headwords in ebts
+    # ---------------------------------------------------------------------
+
+    print(f"[green]{'making headwords set':<40}", end="")
     headwords_set: set = set()
     for key, values in i2h.items():
         headwords_set.update(values)
+    print(f"{len(headwords_set):,}")
 
+    # ---------------------------------------------------------------------
+    # make a dict of dpd data - only words in ebts
+    # ---------------------------------------------------------------------
+
+    print(f"[green]{'making dpd ebts dict':<40}", end="")
     dpd_dict = {}
-
     for i in dpd_db:
         if i.pali_1 in headwords_set:
             string = f"{i.pos}. "
@@ -144,37 +131,48 @@ def main():
             if i.meaning_1:
                 if i.construction:
                     string += f" [{summarize_constr(i)}]"
-
             dpd_dict[i.pali_1] = string
 
-    dpd_dict = dict(sorted(dpd_dict.items(), key=lambda x: pali_sort_key(x[0])))
+    dpd_dict = dict(
+        sorted(dpd_dict.items(), key=lambda x: pali_sort_key(x[0])))
     print(f"{len(dpd_dict):,}")
 
-    # -------------------------------------------------------------------------------
+    # ---------------------------------------------------------------------
+    # write dpd dict to json
+    # ---------------------------------------------------------------------
 
-    print(f"[green]{'writing dpd_ebts.json':<40}", end="")
+    print(f"[green]{'writing dpd ebts to json':<40}", end="")
     with open(PTH.dpd_ebts_json_path, "w") as f:
         json.dump(dpd_dict, f, ensure_ascii=False, indent=0)
         print("OK")
 
-    # -------------------------------------------------------------------------------
+    # ---------------------------------------------------------------------
+    # make a dict of all deconstructed compounds
+    # ---------------------------------------------------------------------
 
-    sandhi_dict = {}
-
-    for i in sandhi_db:
-        if i.sandhi not in dpd_dict and i.sandhi in tbw_word_set:
+    print(f"[green]{'making deconstructor dict':<40}", end="")
+    deconstr_dict = {}
+    for i in deconstr_db:
+        if (
+            i.sandhi not in dpd_dict and
+            i.sandhi in text_set
+        ):
             splits = i.split_list
             string = "<br>".join(splits)
-            sandhi_dict[i.sandhi] = string
+            deconstr_dict[i.sandhi] = string
 
-    sandhi_dict = dict(sorted(sandhi_dict.items(), key=lambda x: pali_sort_key(x[0])))
+    deconstr_dict = dict(
+        sorted(deconstr_dict.items(), key=lambda x: pali_sort_key(x[0])))
+    print(f"{len(deconstr_dict):,}")
 
-    print(f"[green]{'writing sandhi.json':<40}", end="")
-    with open(PTH.sandhi_json_path, "w") as f:
-        json.dump(sandhi_dict, f, ensure_ascii=False, indent=0)
+    # ---------------------------------------------------------------------
+    # save deconstr dict to json
+    # ---------------------------------------------------------------------
+
+    print(f"[green]{'writing deconstructor dict to json':<40}", end="")
+    with open(PTH.deconstructor_json_path, "w") as f:
+        json.dump(deconstr_dict, f, ensure_ascii=False, indent=0)
         print("OK")
-
-    # -------------------------------------------------------------------------------
 
     toc()
 

@@ -307,10 +307,9 @@ class ProjectPaths():
 
     # /tbw
     tbw_output_dir: Path = Path("tbw/output/")
-    nṅ_tsv_path: Path = Path("tbw/output/nṅ.tsv")
-    i2h_json_path: Path = Path("tbw/output/i2h.json")
+    i2h_json_path: Path = Path("tbw/output/dpd_i2h.json")
     dpd_ebts_json_path: Path = Path("tbw/output/dpd_ebts.json")
-    sandhi_json_path: Path = Path("tbw/output/sandhi.json")
+    deconstructor_json_path: Path = Path("tbw/output/dpd_deconstructor.json")
 
     # temp
     temp_dir: Path = Path("temp/")

@@ -1,7 +1,7 @@
 # run deconstructor on cloud
 
-# open terminal
-# ssh root@ipaddress
+# ctrl-shift-p ssh
+# root@ipaddress
 # bash sandhi.sh
 apt-get install unzip
 sudo add-apt-repository ppa:deadsnakes/ppa

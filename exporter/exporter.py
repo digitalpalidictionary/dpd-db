@@ -112,7 +112,7 @@ def write_size_dict(size_dict):
         for key, value in size_dict.items():
             writer.writerow([key, value])
 
-    print(f"{bop():>23}")
+    print(f"{bop():>38}")
 
 
 def write_limited_datalist(combined_data_list):
