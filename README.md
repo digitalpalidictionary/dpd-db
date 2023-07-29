@@ -1,11 +1,5 @@
 # Digital Pāḷi Database
 
-There are four parts to the code:
-1. Create the database and build up the tables of derived data.
-2. Add new words, edit and update the db with a GUI. 
-3. Run data integrity tests on the db.
-4. Compile all the parts and export into various dictionary formats.  
-
 ## Building the DB
 1. Download this repo
 2. Download https://github.com/VipassanaTech/tipitaka-xml into the `/resources` folder
@@ -14,12 +8,18 @@ There are four parts to the code:
 5. `poetry install`
 6. `poetry run bash bash/initial_setup_run_once.sh`
 7. `poetry run bash bash/build_db.sh`
-
-8. To be able to run test of database you may need to install some of [those packages.](https://pyperclip.readthedocs.io/en/latest/index.html#not-implemented-error)
+8. To be able to run database tests you may need to install some of [these packages.](https://pyperclip.readthedocs.io/en/latest/index.html#not-implemented-error)
 
 That should create an SQLite database `./dpd.db` which can be accessed by [DB Browser](https://sqlitebrowser.org/),  [DBeaver](https://dbeaver.io/), through [SQLAlechmy](https://www.sqlalchemy.org/) or your preferred method. 
 
 For a quick tutorial on how to access any information in the db with SQLAlchemy, see `scripts/db_search_example.py`.
+
+## Code Structure
+There are four parts to the code:
+1. Create the database and build up the tables of derived data.
+2. Add new words, edit and update the db with a GUI. 
+3. Run data integrity tests on the db.
+4. Compile all the parts and export into various dictionary formats.
 
 ## About the database
 - `PaliWord` and `PaliRoots` tables are the heart of the db, everything else gets derived from those.  
@@ -32,4 +32,3 @@ For a quick tutorial on how to access any information in the db with SQLAlchemy,
 - `FamilyWord` table is html of all the words which are derived from a common word without a root.  
 - `InflectionTemplates` table are the templates from which all the inflection tables are derived.  
 - `Sandhi` table is all the deconstructed compounds which have been split by code.  
-
