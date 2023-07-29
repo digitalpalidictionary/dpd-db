@@ -10,7 +10,7 @@ from tools.paths import ProjectPaths as PTH
 
 def main():
     print("[bright_yellow]copying dps meaning_1 to meaning_2")
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
 
     dict = {}
@@ -37,6 +37,7 @@ def main():
 
     print(changed)
     db_session.commit()
+
 
 if __name__ == "__main__":
     main()

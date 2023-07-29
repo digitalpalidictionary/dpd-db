@@ -25,7 +25,7 @@ def main():
     tic()
     print("[bright_yellow]exporting anki csv")
 
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
     dpd_db = sorted(
         dpd_db, key=lambda x: pali_sort_key(x.pali_1))

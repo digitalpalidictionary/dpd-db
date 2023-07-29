@@ -46,7 +46,7 @@ def make_sandhi_data_list():
     """Prepare data set for GoldenDict of sandhi, splits and synonyms."""
 
     print(f"[green]{'making sandhi data list':<40}")
-    DB_SESSION = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
     sandhi_db = DB_SESSION.query(Sandhi).all()
     sandhi_db_length: int = len(sandhi_db)
     SANDHI_CONTRACTIONS: dict = make_sandhi_contraction_dict(DB_SESSION)

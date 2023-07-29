@@ -15,6 +15,7 @@ from db.models import PaliWord
 from db.models import FamilyCompound
 from tools.tic_toc import tic, toc
 from tools.pali_alphabet import consonants
+from tools.paths import ProjectPaths as PTH
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 
 # generic tests that return tuples of results
@@ -29,7 +30,7 @@ from tools.sandhi_contraction import make_sandhi_contraction_dict
 def run_external_tests():
 
     print("[bright_yellow]run external db tests")
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
 
     print("[green]make searches")
     searches: dict = make_searches(db_session)
@@ -283,7 +284,7 @@ def derived_from_not_in_headwords(searches: dict) -> tuple:
         test3 = i.derived_from not in clean_headwords
         test4 = i.derived_from not in root_families
         test5 = not re.findall("irreg form of", i.grammar)
-        test6 = not re.findall(fr"\bcomp\b", i.grammar)
+        test6 = not re.findall(r"\bcomp\b", i.grammar)
         test7 = not re.findall("√", i.derived_from)
 
         if test1 & test2 & test3 & test4 & test5 & test6 & test7:
@@ -433,7 +434,7 @@ def vuddhi(root):
         root_vuddhi += ["pilāv", "pilāp"]
     if root == "kili":
         root_vuddhi += ["kiles"]
-    
+
 
     root_regex = f"({'|'.join(root_vuddhi)})"
     return root_regex
@@ -892,7 +893,7 @@ def identical_meaning_1_meaning_lit(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-# next 
+# next
 # find_fem_abstr_comps
 
 # --- not included from old tests ---
@@ -909,7 +910,7 @@ def identical_meaning_1_meaning_lit(searches: dict) -> tuple:
 # family2_no_meaning
 # words_in_family2_not_in_dpd
 
-# --- db improvements in old tests --- 
+# --- db improvements in old tests ---
 # add_commentary_definitions
 # find_variants_and_synonyms
 # find_word_families

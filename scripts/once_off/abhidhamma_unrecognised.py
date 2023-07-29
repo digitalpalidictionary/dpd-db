@@ -9,9 +9,10 @@ from tools.pali_text_files import cst_texts
 from tools.sutta_central_text_set import make_sc_text_set
 from tools.clean_machine import clean_machine
 from tools.pali_sort_key import pali_sort_key
+from tools.paths import ProjectPaths as PTH
 
 
-db_session = get_db_session("dpd.db")
+db_session = get_db_session(PTH.dpd_db_path)
 cst_texts_dir = Path("resources/tipitaka-xml/roman_txt")
 
 

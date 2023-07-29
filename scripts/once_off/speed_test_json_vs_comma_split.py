@@ -4,9 +4,10 @@ import json
 from rich import print
 from db.models import PaliWord, DerivedData
 from db.get_db_session import get_db_session
+from tools.paths import ProjectPaths as PTH
 from tools.tic_toc import bip, bop
 
-db_session = get_db_session("dpd.db")
+db_session = get_db_session(PTH.dpd_db_path)
 
 
 def json_paliword_test():
@@ -60,7 +61,7 @@ def list_dd_test():
 
 
 def html_paliword_test():
-    
+
     db_query = db_session.query(PaliWord).all()
     bip()
     all_tables = []
@@ -71,7 +72,7 @@ def html_paliword_test():
 
 
 def html_dd_test():
-    
+
     db_query = db_session.query(DerivedData).all()
     bip()
     all_tables = []

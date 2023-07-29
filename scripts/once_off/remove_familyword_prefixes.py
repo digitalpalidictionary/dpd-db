@@ -5,10 +5,11 @@ from sqlalchemy import update
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord
+from tools.paths import ProjectPaths as PTH
 
 
 def remove_space_in_family_word():
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
     dpd_db = db_session.query(
         PaliWord
     ).all()

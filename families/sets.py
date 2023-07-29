@@ -11,12 +11,13 @@ from tools.superscripter import superscripter_uni
 from tools.meaning_construction import make_meaning
 from tools.pali_sort_key import pali_sort_key
 from tools.meaning_construction import degree_of_completion as doc
+from tools.paths import ProjectPaths as PTH
 
 
 def main():
     tic()
     print("[bright_yellow]sets generator")
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
 
     sets_db = db_session.query(
         PaliWord).filter(PaliWord.family_set != "").all()

@@ -22,7 +22,7 @@ from tools.paths import ProjectPaths as PTH
 
 def main():
     print("[bright_yellow]merging dps columns")
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
 
     columns = [
@@ -125,4 +125,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

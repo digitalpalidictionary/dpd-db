@@ -48,7 +48,7 @@ def main():
     # ---------------------------------------------------------------------
 
     print(f"[green]{'making db searches':<40}", end="")
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
     dpd_db = db_session.query(PaliWord)
     dd_db = db_session.query(DerivedData)
     deconstr_db = db_session.query(Sandhi)

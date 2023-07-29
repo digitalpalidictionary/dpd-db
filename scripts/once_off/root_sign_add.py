@@ -7,10 +7,11 @@ from rich import print
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.db_search_string import db_search_string
+from tools.paths import ProjectPaths as PTH
 
 
 def main():
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
     db = db_session.query(PaliWord).all()
     headwords = []
     for i in db:

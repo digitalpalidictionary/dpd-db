@@ -38,7 +38,7 @@ def get_column_names():
 
 def main():
 
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
     window = make_window()
     db = None
     # _set_state(window, enabled=False)

@@ -36,7 +36,7 @@ def main():
     print("[bright_yellow]grammar dictionary")
 
     # make headwords list
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
 
     db = db_session.query(PaliWord).all()
     db = sorted(db, key=lambda x: pali_sort_key(x.pali_1))

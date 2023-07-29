@@ -17,7 +17,7 @@ from tools.paths import ProjectPaths as PTH
 
 def main():
     print("[bright_yellow]finding word families")
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
 
     word_family_dict = build_word_family_dict(dpd_db)

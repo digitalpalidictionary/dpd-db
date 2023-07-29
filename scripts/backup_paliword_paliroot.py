@@ -15,7 +15,7 @@ from tools.paths import ProjectPaths as PTH
 def backup_paliword_paliroot():
     tic()
     print("[bright_yellow]backing paliword and paliroot tables to tsv")
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
     backup_paliwords(db_session, PTH)
     backup_paliroots(db_session, PTH)
     db_session.close()

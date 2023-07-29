@@ -4,9 +4,11 @@ from rich import print
 
 from db.db_helpers import get_db_session
 from db.models import PaliWord, DerivedData, FamilyRoot
+from tools.paths import ProjectPaths as PTH
 from tools.tic_toc import bip, bop
 
-DB_SESSION = get_db_session("dpd.db")
+
+db_session = get_db_session(PTH.dpd_db_path)
 
 
 def join_method():

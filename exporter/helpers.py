@@ -2,6 +2,7 @@
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord
+from tools.paths import ProjectPaths as PTH
 
 EXCLUDE_FROM_SETS: set = {
     "dps", "ncped", "pass1", "sandhi"}
@@ -19,7 +20,7 @@ def cf_set_gen():
     if _cached_cf_set is not None:
         return _cached_cf_set
 
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
     cf_db = db_session.query(
         PaliWord
     ).filter(PaliWord.family_compound != ""

@@ -3,13 +3,14 @@ make changes and commit them to the database."""
 
 # these are the imports you will always need
 from db.get_db_session import get_db_session
+from tools.paths import ProjectPaths as PTH
 
 # if you want to access any table, import its Class here.
 # other options are PaliRoot, Sandhi, families etc.
 from db.models import PaliWord
 
 # this connects to the db, use it once to access the db
-db_session = get_db_session("dpd.db")
+db_session = get_db_session(PTH.dpd_db_path)
 
 # this is how to search a table using a basic filter for
 # pos == "adj" and words starts with "abh"

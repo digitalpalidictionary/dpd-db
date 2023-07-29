@@ -8,7 +8,8 @@ from db.get_db_session import get_db_session
 from db.models import PaliWord, PaliRoot, Sandhi, DerivedData
 from tools.pali_sort_key import pali_sort_key
 from tools.tic_toc import tic, toc
-from tools.configger import config_read, config_write
+from tools.configger import config_read, config_update
+from tools.paths import ProjectPaths as PTH
 from tools.uposatha_day import uposatha_today
 
 
@@ -17,7 +18,7 @@ def main():
     print("[bright_yellow]summary")
     print("[green]reading db tables")
 
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
     roots_db = db_session.query(PaliRoot).all()
     sandhi_db = db_session.query(Sandhi).all()
@@ -44,7 +45,7 @@ def main():
     print(f"new words include: {new_words_string}")
 
     if uposatha_today():
-        config_write("uposatha", "count", len(dpd_db))
+        config_update("uposatha", "count", len(dpd_db))
 
     toc()
 

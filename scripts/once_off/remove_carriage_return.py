@@ -7,10 +7,11 @@ from rich import print
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from db.db_helpers import get_column_names
+from tools.paths import ProjectPaths as PTH
 
 
 def main():
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
     db = db_session.query(PaliWord).all()
     columns = get_column_names(PaliWord)
     r_columns = set()
@@ -28,8 +29,6 @@ def main():
 
     print(r_columns)
     print(r_examples)
-
-
 
 
 if __name__ == "__main__":

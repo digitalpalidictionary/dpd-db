@@ -16,7 +16,7 @@ from tools.paths import ProjectPaths as PTH
 def backup_ru_sbs():
     tic()
     print("[bright_yellow]backing russian and sbs tables to tsv")
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
     backup_russian(db_session, PTH)
     backup_sbs(db_session, PTH)
     db_session.close()

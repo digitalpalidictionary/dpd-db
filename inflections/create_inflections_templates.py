@@ -13,16 +13,17 @@ from rich import print
 from db.get_db_session import get_db_session
 from db.models import InflectionTemplates
 from tools.pali_sort_key import pali_list_sorter
+from tools.paths import ProjectPaths as PTH
 from tools.tic_toc import tic, toc
 
 tic()
 print("[bright_yellow]create inflection templates")
 
-db_session = get_db_session("dpd.db")
+db_session = get_db_session(PTH.dpd_db_path)
 db_session.query(InflectionTemplates).delete()
 inflection_templates_path = Path("inflections/inflection_templates.xlsx")
 
-# create index 
+# create index
 inflection_template_index_df = pd.read_excel(
     inflection_templates_path, sheet_name="index", dtype=str)
 inflection_template_index_df.fillna("", inplace=True)
@@ -45,7 +46,6 @@ inflection_template_df.columns = [
     "DG", "DH", "DI", "DJ", "DK"]
 inflection_template_df.fillna("", inplace=True)
 
-# 
 templates: List[InflectionTemplates] = []
 
 for row in range(inflection_template_index_length):

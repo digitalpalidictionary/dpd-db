@@ -233,7 +233,7 @@ Try to fix the problem and run Tests again.",
 
 def db_internal_tests_setup():
 
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
     internal_tests_list = make_internal_tests_list()
 

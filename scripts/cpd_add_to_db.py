@@ -9,6 +9,7 @@ from typing import Dict, List
 
 from db.models import PaliWord, InflectionTemplates
 from db.get_db_session import get_db_session
+from tools.paths import ProjectPaths as PTH
 from tools.tsv_read_write import read_tsv_dot_dict
 
 
@@ -20,7 +21,7 @@ class dotdict(dict):
 
 
 cpd_path = Path("../other dictionaries/cpd/output/cpd_for_db.csv")
-db_session = get_db_session("dpd.db")
+db_session = get_db_session(PTH.dpd_db_path)
 
 
 def main():

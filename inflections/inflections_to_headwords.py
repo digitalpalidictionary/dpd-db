@@ -22,7 +22,7 @@ def inflection_to_headwords():
 
     bip()
     print(f"[green]{'querying db':<30}", end="")
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
     dd_db = db_session.query(DerivedData).all()
     sandhi_db = db_session.query(Sandhi).all()

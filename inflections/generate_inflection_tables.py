@@ -20,7 +20,7 @@ from tools.superscripter import superscripter_uni
 from tools.paths import ProjectPaths as PTH
 
 
-db_session = get_db_session("dpd.db")
+db_session = get_db_session(PTH.dpd_db_path)
 dpd_db = db_session.query(PaliWord).all()
 
 changed_templates: list = []

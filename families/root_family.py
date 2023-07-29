@@ -29,7 +29,7 @@ def main():
     tic()
     print("[bright_yellow]root families")
 
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
 
     dpd_db = db_session.query(PaliWord).filter(
         PaliWord.family_root != "").all()

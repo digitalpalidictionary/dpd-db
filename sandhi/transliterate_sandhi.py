@@ -26,7 +26,7 @@ def main():
 def transliterate_sandhi():
     print("[green]transliterating sandhi")
 
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
     sandhi_db = db_session.query(Sandhi).all()
     sandhi_translit_dict: Dict = {}
 

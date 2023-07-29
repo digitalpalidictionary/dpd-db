@@ -12,7 +12,7 @@ from tools.paths import ProjectPaths as PTH
 
 
 def main():
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
     sandhi_contractions: dict = make_sandhi_contraction_dict(db_session)
     counter = 0
 

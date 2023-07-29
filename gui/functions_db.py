@@ -13,8 +13,9 @@ from db.models import SBS
 from db.models import InflectionTemplates
 from db.models import DerivedData
 from tools.pali_sort_key import pali_sort_key
+from tools.paths import ProjectPaths as PTH
 
-db_session = get_db_session("dpd.db")
+db_session = get_db_session(PTH.dpd_db_path)
 
 dpd_values_list = [
     "id", "user_id", "pali_1", "pali_2", "pos", "grammar", "derived_from",

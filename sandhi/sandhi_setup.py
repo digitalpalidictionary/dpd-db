@@ -57,7 +57,7 @@ def main():
         print("[green]setting up for [cyan]cloud with all texts")
 
     global db_session
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
 
     print(f"[green]{'making cst text set':<35}", end="")
     cst_text_set = make_cst_text_set(texts_to_include)

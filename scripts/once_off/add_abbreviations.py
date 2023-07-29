@@ -15,7 +15,7 @@ from tools.tsv_read_write import read_tsv_dict
 
 def main():
     tic()
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
     csv_path = PTH.abbreviations_tsv_path
     add_abbreviations(db_session, csv_path)
     toc()

@@ -31,7 +31,7 @@ def main():
     print(f"[green]add digital ocean {ADD_DO}")
 
     global db_session
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
 
     with open(PTH.neg_inflections_set_path, "rb") as f:
         neg_inflections_set = pickle.load(f)

@@ -13,6 +13,7 @@ from sqlalchemy.orm import Session
 
 from db.models import Russian, SBS, PaliWord
 from db.get_db_session import get_db_session
+from tools.paths import ProjectPaths as PTH
 from tools.tic_toc import tic, toc
 
 
@@ -26,7 +27,7 @@ def main():
             print(f"[bright_red]File does not exist: {p}")
             sys.exit(1)
 
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
 
     db_session.execute(Russian.__table__.delete())
     db_session.execute(SBS.__table__.delete())

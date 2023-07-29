@@ -81,7 +81,7 @@ from tools.paths import ProjectPaths as PTH
 
 
 def main():
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
     primary_user = test_username(sg)
     pali_word_original = None
     pali_word_original2 = None

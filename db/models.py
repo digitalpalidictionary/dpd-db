@@ -14,8 +14,9 @@ from sqlalchemy.orm import relationship
 
 from db.get_db_session import get_db_session
 from tools.pali_sort_key import pali_sort_key
+from tools.paths import ProjectPaths as PTH
 
-db_session = get_db_session("dpd.db")
+db_session = get_db_session(PTH.dpd_db_path)
 
 
 class Base(DeclarativeBase):

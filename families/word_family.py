@@ -23,7 +23,7 @@ def main():
 
     print("[bright_yellow]word families generator")
 
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
 
     wf_db = db_session.query(
         PaliWord).filter(PaliWord.family_word != "").all()

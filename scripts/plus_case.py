@@ -20,7 +20,7 @@ from tools.meaning_construction import make_meaning
 
 def main():
     print("[bright_yellow]finding case relationships")
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
     plus_case_list = []
     d = namedtuple("Data", ["pali_1", "pos", "plus_case", "meaning"])

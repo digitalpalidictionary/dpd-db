@@ -32,7 +32,7 @@ def main():
     print(f"[green]regenerate_all [white]{regenerate_all}")
 
     global db_session
-    db_session = get_db_session("dpd.db")
+    db_session = get_db_session(PTH.dpd_db_path)
 
     if regenerate_all is False:
         test_inflection_template_changed()
