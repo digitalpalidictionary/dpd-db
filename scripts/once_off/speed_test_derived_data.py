@@ -2,7 +2,7 @@
 
 from rich import print
 
-from db.db_helpers import get_db_session
+from db.get_db_session import get_db_session
 from db.models import PaliWord, DerivedData, FamilyRoot
 from tools.paths import ProjectPaths as PTH
 from tools.tic_toc import bip, bop
@@ -13,7 +13,7 @@ db_session = get_db_session(PTH.dpd_db_path)
 
 def join_method():
     bip()
-    dpd_db = DB_SESSION.query(
+    dpd_db = db_session.query(
         PaliWord, DerivedData, FamilyRoot
     ).outerjoin(
         DerivedData,
@@ -45,7 +45,7 @@ def join_method():
 
 def search_method():
     bip()
-    dpd_db = DB_SESSION.query(
+    dpd_db = db_session.query(
         PaliWord).all()
 
     for counter, i in enumerate(dpd_db):
@@ -57,14 +57,14 @@ def search_method():
         else:
             meaning = i.meaning_2
 
-        dd = DB_SESSION.query(
+        dd = db_session.query(
             DerivedData
             ).filter(
                 i.id == DerivedData.id
             ).first()
         inflections = dd.inflections
 
-        fr = DB_SESSION.query(
+        fr = db_session.query(
             FamilyRoot
             ).filter(
                 f"{i.root_key} {i.family_root}" == FamilyRoot.root_family
@@ -80,7 +80,7 @@ def search_method():
     return bop()
 
 
-join_method = join_method()
-search_method = search_method()
-print(f"{join_method=}")
-print(f"{search_method=}")
+join = join_method()
+search = search_method()
+print(f"{join=}")
+print(f"{search=}")

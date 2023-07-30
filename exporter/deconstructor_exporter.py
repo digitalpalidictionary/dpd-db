@@ -47,9 +47,9 @@ def make_sandhi_data_list():
 
     print(f"[green]{'making sandhi data list':<40}")
     db_session = get_db_session(PTH.dpd_db_path)
-    sandhi_db = DB_SESSION.query(Sandhi).all()
+    sandhi_db = db_session.query(Sandhi).all()
     sandhi_db_length: int = len(sandhi_db)
-    SANDHI_CONTRACTIONS: dict = make_sandhi_contraction_dict(DB_SESSION)
+    SANDHI_CONTRACTIONS: dict = make_sandhi_contraction_dict(db_session)
     sandhi_data_list: list = []
 
     with open(PTH.sandhi_css_path) as f:
@@ -64,12 +64,12 @@ def make_sandhi_data_list():
     for counter, i in enumerate(sandhi_db):
         splits = i.split_list
 
-        html_string = sandhi_header
+        html_string: str = sandhi_header
         html_string += "<body>"
-        html_string += sandhi_templ.render(
+        html_string += str(sandhi_templ.render(
             i=i,
             splits=splits,
-            today=TODAY)
+            today=TODAY))
 
         html_string += "</body></html>"
         html_string = minify(html_string)
@@ -126,7 +126,7 @@ def unzip_and_copy(PTH):
         print("[red]local GoldenDict directory not found")
 
 
-def make_mdict(PTH: Path, sandhi_data_list: List[Dict]):
+def make_mdict(PTH, sandhi_data_list: List[Dict]):
     """Export to MDict format."""
 
     print(f"[green]{'exporting mdct':<22}")
@@ -159,9 +159,8 @@ the Digital Pāḷi Dictionary website</a></p>"""
 
     bip()
     print("[white]copying mdx file", end=" ")
-    outfile = open(PTH.deconstructor_mdict_mdx_path, 'wb')
-    writer.write(outfile)
-    outfile.close()
+    with open(PTH.deconstructor_mdict_mdx_path, "wb") as outfile:
+        writer.write(outfile)
     print(bop())
 
 

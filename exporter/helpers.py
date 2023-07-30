@@ -39,8 +39,8 @@ def cf_set_gen():
 CF_SET: set = cf_set_gen()
 
 
-def make_roots_count_dict(DB_SESSION):
-    roots_db = DB_SESSION.query(PaliWord).all()
+def make_roots_count_dict(db_session):
+    roots_db = db_session.query(PaliWord).all()
     roots_count_dict = {}
     for i in roots_db:
         if i.root_key in roots_count_dict:

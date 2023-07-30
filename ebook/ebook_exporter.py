@@ -52,7 +52,7 @@ def render_xhtml():
     print("[bright_yellow]rendering dpd for ebook")
 
     print(f"[green]{'querying dpd db':<40}", end="")
-    db_sesssion = get_db_session("dpd.db")
+    db_sesssion = get_db_session(PTH.dpd_db_path)
     dpd_db = db_sesssion.query(PaliWord).all()
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.pali_1))
     print(f"{len(dpd_db):>10,}")

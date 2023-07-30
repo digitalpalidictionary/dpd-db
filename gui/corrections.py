@@ -310,7 +310,7 @@ def make_summary(db):
     return f"{word}: {pos}. {meaning} [{construction}]"
 
 
-def save_corections_tsv(values, pth):
+def save_corections_tsv(values, PTH):
     headings = [
         "id",
         "field1", "value1_new",
@@ -319,12 +319,12 @@ def save_corections_tsv(values, pth):
         "comment", "feedback", "approved"
     ]
 
-    if not pth.corrections_tsv_path.exists():
-        with open(pth.corrections_tsv_path, "w", newline="") as file:
+    if not PTH.corrections_tsv_path.exists():
+        with open(PTH.corrections_tsv_path, "w", newline="") as file:
             writer = csv.writer(file, delimiter="\t")
             writer.writerow(headings)
 
-    with open(pth.corrections_tsv_path, "a") as file:
+    with open(PTH.corrections_tsv_path, "a") as file:
         writer = csv.writer(file, delimiter="\t")
         new_row = [str(values.get(heading, "")) for heading in headings]
         writer.writerow(new_row)

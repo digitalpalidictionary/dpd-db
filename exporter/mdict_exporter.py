@@ -5,7 +5,6 @@
 import sys
 from functools import reduce
 from rich import print
-from pathlib import Path
 from typing import List, Dict
 from tools.tic_toc import bip, bop
 sys.path.insert(1, 'tools/writemdict')
@@ -20,7 +19,7 @@ def mdict_synonyms(all_items, item):
     return all_items
 
 
-def export_to_mdict(data_list: List[Dict], PTH: Path) -> None:
+def export_to_mdict(data_list: List[Dict], PTH) -> None:
     print("[green]converting to mdict")
 
     bip()

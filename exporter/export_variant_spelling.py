@@ -1,6 +1,7 @@
 """Compile HTML data for variants and spelling mistakes."""
 
 import csv
+from typing import Tuple
 
 from css_html_js_minify import css_minify
 from mako.template import Template
@@ -10,11 +11,10 @@ from rich import print
 from export_dpd import render_header_tmpl
 
 from tools.niggahitas import add_niggahitas
-from tools.paths import ProjectPaths
 
 
 def generate_variant_spelling_html(
-        PTH: ProjectPaths, size_dict: dict) -> str:
+        PTH, size_dict: dict) -> Tuple[list, dict]:
     """Generate html for variant readings and spelling corrections."""
     print("[green]generating variants html")
 
@@ -30,7 +30,7 @@ def generate_variant_spelling_html(
     return variant_spelling_data_list, size_dict
 
 
-def test_and_make_variant_dict(PTH: ProjectPaths) -> dict:
+def test_and_make_variant_dict(PTH) -> dict:
     variant_dict: dict = {}
 
     with open(
@@ -58,9 +58,9 @@ def test_and_make_variant_dict(PTH: ProjectPaths) -> dict:
 
 
 def generate_variant_data_list(
-        PTH: ProjectPaths,
+        PTH,
         variant_dict: dict,
-        size_dict: dict) -> (list, dict):
+        size_dict: dict) -> Tuple[list, dict]:
 
     variant_templ = Template(
         filename=str(PTH.variant_templ_path))
@@ -105,7 +105,7 @@ def render_variant_templ(main: str, variant_templ) -> str:
             main=main))
 
 
-def test_and_make_spelling_dict(PTH: ProjectPaths) -> dict:
+def test_and_make_spelling_dict(PTH) -> dict:
 
     spelling_dict: dict = {}
 
@@ -136,9 +136,9 @@ def test_and_make_spelling_dict(PTH: ProjectPaths) -> dict:
 
 
 def generate_spelling_data_list(
-        PTH: ProjectPaths,
+        PTH,
         spelling_dict: dict,
-        size_dict: dict) -> (list, dict):
+        size_dict: dict) -> Tuple[list, dict]:
 
     spelling_templ = Template(
         filename=str(PTH.spelling_templ_path))

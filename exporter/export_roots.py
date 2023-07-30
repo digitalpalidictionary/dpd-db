@@ -31,7 +31,7 @@ root_families_templ = Template(
     filename=str(PTH.root_families_templ_path))
 
 
-def generate_root_html(DB_SESSION, PTH, roots_count_dict, size_dict):
+def generate_root_html(db_session, PTH, roots_count_dict, size_dict):
     """compile html componenents for each pali root"""
 
     print("[green]generating roots html")
@@ -48,7 +48,7 @@ def generate_root_html(DB_SESSION, PTH, roots_count_dict, size_dict):
 
     header = render_header_tmpl(css=roots_css, js=buttons_js)
 
-    roots_db = DB_SESSION.query(PaliRoot).all()
+    roots_db = db_session.query(PaliRoot).all()
     root_db_length = len(roots_db)
 
     size_dict["root_definition"] = 0
@@ -74,7 +74,7 @@ def generate_root_html(DB_SESSION, PTH, roots_count_dict, size_dict):
         html += definition
         size_dict["root_definition"] += len(definition)
 
-        root_buttons = render_root_buttons_templ(r, DB_SESSION)
+        root_buttons = render_root_buttons_templ(r, db_session)
         html += root_buttons
         size_dict["root_buttons"] += len(root_buttons)
 
@@ -86,7 +86,7 @@ def generate_root_html(DB_SESSION, PTH, roots_count_dict, size_dict):
         html += root_matrix
         size_dict["root_matrix"] += len(root_matrix)
 
-        root_families = render_root_families_templ(r, DB_SESSION)
+        root_families = render_root_families_templ(r, db_session)
         html += root_families
         size_dict["root_families"] += len(root_families)
 
@@ -99,7 +99,7 @@ def generate_root_html(DB_SESSION, PTH, roots_count_dict, size_dict):
         synonyms.add(re.sub("√", "", r.root))
         synonyms.add(re.sub("√", "", r.root_clean))
 
-        frs = DB_SESSION.query(
+        frs = db_session.query(
             FamilyRoot
         ).filter(
             FamilyRoot.root_id == r.root,
@@ -141,10 +141,10 @@ def render_root_definition_templ(r: PaliRoot, roots_count_dict):
             today=TODAY))
 
 
-def render_root_buttons_templ(r: PaliRoot, DB_SESSION):
+def render_root_buttons_templ(r: PaliRoot, db_session):
     """render html of root buttons"""
 
-    frs = DB_SESSION.query(
+    frs = db_session.query(
         FamilyRoot
         ).filter(
             FamilyRoot.root_id == r.root)
@@ -177,10 +177,10 @@ def render_root_matrix_templ(r: PaliRoot, roots_count_dict):
             today=TODAY))
 
 
-def render_root_families_templ(r: PaliRoot, DB_SESSION):
+def render_root_families_templ(r: PaliRoot, db_session):
     """render html of root families"""
 
-    frs = DB_SESSION.query(
+    frs = db_session.query(
         FamilyRoot
         ).filter(
             FamilyRoot.root_id == r.root,

@@ -49,7 +49,7 @@ class Help:
         return f"Help: {self.help} {self.meaning}  ..."
 
 
-def generate_help_html(DB_SESSION, PTH: Path, size_dict) -> list:
+def generate_help_html(db_session, PTH, size_dict) -> list:
     """generating html of all help files used in the dictionary"""
     print("[green]generating help html")
 
@@ -86,7 +86,7 @@ def generate_help_html(DB_SESSION, PTH: Path, size_dict) -> list:
     return help_data_list, size_dict
 
 
-def add_abbrev_html(PTH: Path, header: str, help_data_list: list) -> list:
+def add_abbrev_html(PTH, header: str, help_data_list: list) -> list:
     bip()
     print("adding abbreviations", end=" ")
 
@@ -130,7 +130,7 @@ def add_abbrev_html(PTH: Path, header: str, help_data_list: list) -> list:
     return help_data_list
 
 
-def add_help_html(PTH: Path, header: str, help_data_list: list) -> list:
+def add_help_html(PTH, header: str, help_data_list: list) -> list:
     bip()
     print("adding help", end=" ")
 
@@ -172,7 +172,7 @@ def add_help_html(PTH: Path, header: str, help_data_list: list) -> list:
     return help_data_list
 
 
-def add_bibliographhy(PTH: Path, header: str, help_data_list: list) -> list:
+def add_bibliographhy(PTH, header: str, help_data_list: list) -> list:
 
     print("adding bibliography", end=" ")
 
@@ -237,7 +237,7 @@ def add_bibliographhy(PTH: Path, header: str, help_data_list: list) -> list:
     return help_data_list
 
 
-def add_thanks(PTH: Path, header: str, help_data_list: list) -> list:
+def add_thanks(PTH, header: str, help_data_list: list) -> list:
 
     print("adding thanks", end=" ")
 

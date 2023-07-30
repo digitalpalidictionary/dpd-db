@@ -25,14 +25,14 @@ from tools.uposatha_day import uposatha_today
 
 
 TODAY = date.today()
-DB_SESSION: Session = get_db_session("dpd.db")
+db_session: Session = get_db_session(PTH.dpd_db_path)
 
 
 def main():
     tic()
     print("[bright_yellow]generate tpr data")
 
-    dpd_db = DB_SESSION.query(PaliWord).all()
+    dpd_db = db_session.query(PaliWord).all()
     all_headwords_clean = make_clean_headwords_set(dpd_db)
     tpr_data_list = generate_tpr_data(dpd_db, all_headwords_clean)
     sandhi_data_list = generate_sandhi_data(all_headwords_clean)
@@ -203,7 +203,7 @@ def generate_tpr_data(dpd_db, all_headwords_clean):
     # add roots
     print("[green]compiling roots data")
 
-    roots_db = DB_SESSION.query(PaliRoot).all()
+    roots_db = db_session.query(PaliRoot).all()
     roots_db = sorted(roots_db, key=lambda x: pali_sort_key(x.root))
     html_string = ""
     new_root = True
@@ -242,7 +242,7 @@ def generate_sandhi_data(all_headwords_clean):
     # deconstructor
     print("[green]compiling sandhi data")
 
-    sandhi_db = DB_SESSION.query(Sandhi).all()
+    sandhi_db = db_session.query(Sandhi).all()
     sandhi_data_list = []
 
     for counter, i in enumerate(sandhi_db):

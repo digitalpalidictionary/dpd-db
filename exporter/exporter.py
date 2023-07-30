@@ -26,8 +26,8 @@ from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.paths import ProjectPaths as PTH
 
 tic()
-DB_SESSION: Session = get_db_session("dpd.db")
-SANDHI_CONTRACTIONS: dict = make_sandhi_contraction_dict(DB_SESSION)
+db_session: Session = get_db_session(PTH.dpd_db_path)
+SANDHI_CONTRACTIONS: dict = make_sandhi_contraction_dict(db_session)
 
 
 def main():
@@ -35,18 +35,18 @@ def main():
     size_dict = {}
 
     roots_count_dict = make_roots_count_dict(
-        DB_SESSION)
+        db_session)
     dpd_data_list, size_dict = generate_dpd_html(
-        DB_SESSION, PTH, SANDHI_CONTRACTIONS, size_dict)
+        db_session, PTH, SANDHI_CONTRACTIONS, size_dict)
     root_data_list, size_dict = generate_root_html(
-        DB_SESSION, PTH, roots_count_dict, size_dict)
+        db_session, PTH, roots_count_dict, size_dict)
     variant_spelling_data_list, size_dict = generate_variant_spelling_html(
         PTH, size_dict)
     epd_data_list, size_dict = generate_epd_html(
-        DB_SESSION, PTH, size_dict)
+        db_session, PTH, size_dict)
     help_data_list, size_dict = generate_help_html(
-        DB_SESSION, PTH, size_dict)
-    DB_SESSION.close()
+        db_session, PTH, size_dict)
+    db_session.close()
 
     combined_data_list: list = (
         dpd_data_list +

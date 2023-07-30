@@ -57,7 +57,7 @@ feedback_templ = Template(
     filename=str(PTH.feedback_templ_path))
 
 
-def generate_dpd_html(DB_SESSION, PTH, SANDHI_CONTRACTIONS, size_dict):
+def generate_dpd_html(db_session, PTH, SANDHI_CONTRACTIONS, size_dict):
     print("[green]generating dpd html")
 
     with open(PTH.dpd_css_path) as f:
@@ -72,7 +72,7 @@ def generate_dpd_html(DB_SESSION, PTH, SANDHI_CONTRACTIONS, size_dict):
     dpd_data_list: List[dict] = []
 
     dpd_db = (
-        DB_SESSION.query(
+        db_session.query(
             PaliWord, DerivedData, FamilyRoot, FamilyWord
         ).outerjoin(
             DerivedData,
@@ -154,11 +154,11 @@ def generate_dpd_html(DB_SESSION, PTH, SANDHI_CONTRACTIONS, size_dict):
         html += family_word
         size_dict["dpd_family_word"] += len(family_word)
 
-        family_compound = render_family_compound_templ(i, DB_SESSION)
+        family_compound = render_family_compound_templ(i, db_session)
         html += family_compound
         size_dict["dpd_family_compound"] += len(family_compound)
 
-        family_sets = render_family_sets_templ(i, DB_SESSION)
+        family_sets = render_family_sets_templ(i, db_session)
         html += family_sets
         size_dict["dpd_family_sets"] += len(family_sets)
 
@@ -436,7 +436,7 @@ def render_family_word_templ(i: PaliWord, fw: FamilyWord) -> str:
         return ""
 
 
-def render_family_compound_templ(i: PaliWord, DB_SESSION) -> str:
+def render_family_compound_templ(i: PaliWord, db_session) -> str:
     """render html table of all words containing the same compound"""
 
     if (i.meaning_1 != "" and
@@ -444,7 +444,7 @@ def render_family_compound_templ(i: PaliWord, DB_SESSION) -> str:
             i.pali_clean in CF_SET)):
 
         if i.family_compound != "":
-            fc = DB_SESSION.query(
+            fc = db_session.query(
                 FamilyCompound
             ).filter(
                 FamilyCompound.compound_family.in_(i.family_compound_list),
@@ -455,7 +455,7 @@ def render_family_compound_templ(i: PaliWord, DB_SESSION) -> str:
             fc = sorted(fc, key=lambda x: word_order.index(x.compound_family))
 
         else:
-            fc = DB_SESSION.query(
+            fc = db_session.query(
                 FamilyCompound
             ).filter(
                 FamilyCompound.compound_family == i.pali_clean
@@ -470,7 +470,7 @@ def render_family_compound_templ(i: PaliWord, DB_SESSION) -> str:
         return ""
 
 
-def render_family_sets_templ(i: PaliWord, DB_SESSION) -> str:
+def render_family_sets_templ(i: PaliWord, db_session) -> str:
     """render html table of all words belonging to the same set"""
 
     if (i.meaning_1 != "" and
@@ -478,7 +478,7 @@ def render_family_sets_templ(i: PaliWord, DB_SESSION) -> str:
 
         if len(i.family_set_list) > 0:
 
-            fs = DB_SESSION.query(
+            fs = db_session.query(
                 FamilySet
             ).filter(
                 FamilySet.set.in_(i.family_set_list)

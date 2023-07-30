@@ -21,16 +21,16 @@ epd_templ = Template(
     filename=str(PTH.epd_templ_path))
 
 
-def generate_epd_html(DB_SESSION: Session, PTH, size_dict) -> list:
+def generate_epd_html(db_session: Session, PTH, size_dict) -> list:
     """generate html for english to pali dictionary"""
 
     print("[green]generating epd html")
 
-    dpd_db: list = DB_SESSION.query(PaliWord).all()
+    dpd_db: list = db_session.query(PaliWord).all()
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.pali_1))
     dpd_db_length = len(dpd_db)
 
-    roots_db: list = DB_SESSION.query(PaliRoot).all()
+    roots_db: list = db_session.query(PaliRoot).all()
     roots_db_length = len(roots_db)
 
     epd: dict = {}
