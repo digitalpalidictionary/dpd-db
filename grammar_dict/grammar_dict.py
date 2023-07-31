@@ -248,7 +248,7 @@ def make_data_lists(grammar_dict_html):
 
 
 def make_golden_dict(PTH, gd_data_list):
-    print(f"[green]making goldendict")
+    print("[green]making goldendict")
 
     zip_path = PTH.grammar_dict_zip_path
 

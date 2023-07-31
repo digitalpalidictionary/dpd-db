@@ -45,6 +45,7 @@ def main():
     print(f"new words include: {new_words_string}")
 
     if uposatha_today():
+        print("[green]updating uposatha count")
         config_update("uposatha", "count", len(dpd_db))
 
     toc()
