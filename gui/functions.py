@@ -582,9 +582,31 @@ def find_sutta_example(sg, window, values: dict) -> str:
                     source = f"{book} {sutta_counter+100}"
                 elif values["book_to_add"].startswith("an"):
                     source = f"{source}.{sutta_number}"
+                elif values["book_to_add"].startswith("sn"):
+                    source = ""
 
                 # remove the digits and the dot in sutta name
                 sutta = re.sub(r"\d*\. ", "", p.text)
+
+            # dn
+            if "dn" in values["book_to_add"]:
+                book = "DN "
+                if p.has_attr("rend") and p["rend"] == "subhead":
+                    # Find the previous "head" tag with "rend" attribute containing "chapter"
+                    chapter_head = p.find_previous("head", attrs={"rend": "chapter"})
+                    chapter_text = chapter_head.text
+                    pattern = r"^(\d+)\.\s+(.*)$"
+                    match = re.match(pattern, chapter_text)
+                    if match:
+                        if values["book_to_add"] == "dn1":
+                            source = f"{book}{match.group(1)}"
+                        if values["book_to_add"] == "dn2":
+                            # there are 13 suttas previously in dn1
+                            source = f"{book}{int(match.group(1))+13}"
+                        if values["book_to_add"] == "dn3":
+                            # there are 13+10 suttas previously in dn1 & dn2
+                            source = f"{book}{int(match.group(1))+23}"
+                        sutta = match.group(2)
 
             # kn1
             if values["book_to_add"] == "kn1":
