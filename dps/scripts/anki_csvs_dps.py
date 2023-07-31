@@ -13,9 +13,10 @@ from db.models import PaliWord
 from db.get_db_session import get_db_session
 
 from tools.pali_sort_key import pali_sort_key
+from dps.scripts.paths_dps import DPSPaths as PTHDPS
 from tools.paths import ProjectPaths as PTH
 from tools.tic_toc import tic, toc
-from tools.tsv_read_write import write_tsv_list
+# from tools.tsv_read_write import write_tsv_list
 from tools.date_and_time import day
 
 date = day()
@@ -42,7 +43,7 @@ def dps(dpd_db):
     def _is_needed(i: PaliWord):
         return (i.ru)
 
-    header = ['id', 'pali_1', 'pali_2', 'fin', 'sbs_class_anki', 'sbs_category', 'pos', 'grammar', 'derived_from',
+    header = ['user_id', 'id', 'pali_1', 'pali_2', 'fin', 'sbs_class_anki', 'sbs_category', 'pos', 'grammar', 'derived_from',
                     'neg', 'verb', 'trans', 'plus_case', 'meaning_1',
                     'meaning_lit', 'ru_meaning', 'ru_meaning_lit', 'sbs_meaning', 'non_ia', 'sanskrit', 'sanskrit_root',
                     'sanskrit_root_meaning', 'sanskrit_root_class', 'root', 'root_in_comps', 'root_has_verb',
@@ -62,16 +63,16 @@ def dps(dpd_db):
     rows = [header]  # Add the header as the first row
     rows.extend(pali_row(i) for i in dpd_db if _is_needed(i))
 
-    with open(PTH.dps_full_path, "w", newline='', encoding='utf-8') as f:
+    with open(PTHDPS.dps_full_path, "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerows(rows)
 
-    dpd_df = pd.read_csv(PTH.dps_full_path, sep="\t", dtype=str)
+    dpd_df = pd.read_csv(PTHDPS.dps_full_path, sep="\t", dtype=str)
     dpd_df.sort_values(
         by=["pali_1"], inplace=True, ignore_index=True,
         key=lambda x: x.map(pali_sort_key))
     dpd_df.to_csv(
-        PTH.dps_full_path, sep="\t", index=False,
+        PTHDPS.dps_full_path, sep="\t", index=False,
         quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
 
 
@@ -79,6 +80,7 @@ def pali_row(i: PaliWord, output="anki") -> List[str]:
     fields = []
 
     fields.extend([
+        i.user_id,  
         i.id,
         i.pali_1,
         i.pali_2,
@@ -246,16 +248,16 @@ def full_db(dpd_db):
     for i in dpd_db:
         rows.append(pali_row(i, output="dpd"))
 
-    with open(PTH.dpd_dps_full_path, "w", newline='', encoding='utf-8') as f:
+    with open(PTHDPS.dpd_dps_full_path, "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerows(rows)
 
-    dpd_df = pd.read_csv(PTH.dpd_dps_full_path, sep="\t", dtype=str)
+    dpd_df = pd.read_csv(PTHDPS.dpd_dps_full_path, sep="\t", dtype=str)
     dpd_df.sort_values(
         by=["pali_1"], inplace=True, ignore_index=True,
         key=lambda x: x.map(pali_sort_key))
     dpd_df.to_csv(
-        PTH.dpd_dps_full_path, sep="\t", index=False,
+        PTHDPS.dpd_dps_full_path, sep="\t", index=False,
         quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
 
 

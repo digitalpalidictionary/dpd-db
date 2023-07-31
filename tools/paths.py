@@ -13,8 +13,6 @@ class ProjectPaths():
     anki_csvs_dir: Path = Path("anki_csvs/")
     vocab_csv_path: Path = Path("anki_csvs/vocab.csv")
     dpd_full_path: Path = Path("anki_csvs/dpd-full.csv")
-    dpd_dps_full_path: Path = Path("anki_csvs/dpd-dps-full.csv")
-    dps_full_path: Path = Path("anki_csvs/dps-full.csv")
     commentary_csv_path: Path = Path("anki_csvs/commentary.csv")
     pass1_csv_path: Path = Path("anki_csvs/pass1.csv")
     roots_csv_path: Path = Path("anki_csvs/roots.csv")
