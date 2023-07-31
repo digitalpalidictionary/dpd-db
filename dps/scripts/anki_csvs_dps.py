@@ -13,7 +13,7 @@ from db.models import PaliWord
 from db.get_db_session import get_db_session
 
 from tools.pali_sort_key import pali_sort_key
-from dps.scripts.paths_dps import DPSPaths as PTHDPS
+from dps.tools.paths_dps import DPSPaths as PTHDPS
 from tools.paths import ProjectPaths as PTH
 from tools.tic_toc import tic, toc
 # from tools.tsv_read_write import write_tsv_list
