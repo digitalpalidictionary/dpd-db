@@ -77,7 +77,6 @@ share/inflections_from_translit.json
 share/inflections_to_translit.json
 share/sandhi_from_translit.json
 share/sandhi_to_translit.json
-tbw/output/
 temp/
 tests/syn_var_exceptions
 tests/word_family_exceptions
