@@ -2,7 +2,8 @@
 
 ## Building the DB
 1. Download this repo
-2. Download https://github.com/VipassanaTech/tipitaka-xml into the `/resources` folder
+2. Get [tipitaka-xml](https://github.com/VipassanaTech/tipitaka-xml) with `git
+   submodule init && git submodule update` commands
 3. Install [nodejs](https://nodejs.org/en/download) 
 4. Install [poetry](https://python-poetry.org/docs/)
 5. `poetry install`

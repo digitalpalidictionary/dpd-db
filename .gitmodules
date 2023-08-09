@@ -1,0 +1,4 @@
+[submodule "resources/tipitaka-xml"]
+	path = resources/tipitaka-xml
+	url = https://github.com/vipassanatech/tipitaka-xml
+	ignore = untracked
