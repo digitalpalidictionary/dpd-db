@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Export db into dps related format: dpd_dps_full - fulla data of dpd + dps - for making full db with latest adding frequency in ebt column. So one can sort things abd find relevant data for class preparation. dps_full - only those part of data which have ru_meaning nit empty. from this file can be filterd csv for various anki decks related to pali class and SBS recitation book"""
+"""Export db into dps related format: dpd_dps_full - full data of dpd + dps - for making full db with latest adding frequency in ebt column. So one can sort things abd find relevant data for class preparation. dps_full - only those part of data which have ru_meaning not empty."""
 
 import csv
 import re
@@ -13,10 +13,9 @@ from db.models import PaliWord
 from db.get_db_session import get_db_session
 
 from tools.pali_sort_key import pali_sort_key
-from dps.tools.paths_dps import DPSPaths as PTHDPS
+from dps.tools.paths_dps import DPSPaths as DPSPTH
 from tools.paths import ProjectPaths as PTH
 from tools.tic_toc import tic, toc
-# from tools.tsv_read_write import write_tsv_list
 from tools.date_and_time import day
 
 date = day()
@@ -32,7 +31,7 @@ def main():
         dpd_db, key=lambda x: pali_sort_key(x.pali_1))
 
     dps(dpd_db)
-    # full_db(dpd_db)
+    full_db(dpd_db)
     
     toc()
 
@@ -43,7 +42,7 @@ def dps(dpd_db):
     def _is_needed(i: PaliWord):
         return (i.ru)
 
-    header = ['user_id', 'id', 'pali_1', 'pali_2', 'fin', 'sbs_class_anki', 'sbs_category', 'pos', 'grammar', 'derived_from',
+    header = ['id', 'pali_1', 'pali_2', 'fin', 'sbs_class_anki', 'sbs_category', 'pos', 'grammar', 'derived_from',
                     'neg', 'verb', 'trans', 'plus_case', 'meaning_1',
                     'meaning_lit', 'ru_meaning', 'ru_meaning_lit', 'sbs_meaning', 'non_ia', 'sanskrit', 'sanskrit_root',
                     'sanskrit_root_meaning', 'sanskrit_root_class', 'root', 'root_in_comps', 'root_has_verb',
@@ -63,16 +62,16 @@ def dps(dpd_db):
     rows = [header]  # Add the header as the first row
     rows.extend(pali_row(i) for i in dpd_db if _is_needed(i))
 
-    with open(PTHDPS.dps_full_path, "w", newline='', encoding='utf-8') as f:
+    with open(DPSPTH.dps_full_path, "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerows(rows)
 
-    dpd_df = pd.read_csv(PTHDPS.dps_full_path, sep="\t", dtype=str)
-    dpd_df.sort_values(
+    dps_df = pd.read_csv(DPSPTH.dps_full_path, sep="\t", dtype=str)
+    dps_df.sort_values(
         by=["pali_1"], inplace=True, ignore_index=True,
         key=lambda x: x.map(pali_sort_key))
-    dpd_df.to_csv(
-        PTHDPS.dps_full_path, sep="\t", index=False,
+    dps_df.to_csv(
+        DPSPTH.dps_full_path, sep="\t", index=False,
         quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
 
 
@@ -248,16 +247,16 @@ def full_db(dpd_db):
     for i in dpd_db:
         rows.append(pali_row(i, output="dpd"))
 
-    with open(PTHDPS.dpd_dps_full_path, "w", newline='', encoding='utf-8') as f:
+    with open(DPSPTH.dpd_dps_full_path, "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerows(rows)
 
-    dpd_df = pd.read_csv(PTHDPS.dpd_dps_full_path, sep="\t", dtype=str)
-    dpd_df.sort_values(
+    full_df = pd.read_csv(DPSPTH.dpd_dps_full_path, sep="\t", dtype=str)
+    full_df.sort_values(
         by=["pali_1"], inplace=True, ignore_index=True,
         key=lambda x: x.map(pali_sort_key))
-    dpd_df.to_csv(
-        PTHDPS.dpd_dps_full_path, sep="\t", index=False,
+    full_df.to_csv(
+        DPSPTH.dpd_dps_full_path, sep="\t", index=False,
         quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
 
 
