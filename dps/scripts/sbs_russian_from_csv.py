@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Update the Russian and SBS from backup_tsv folder.
+"""Update the Russian and SBS from dps.ods. Clean Russian and SBS before importing.
 Additionally check for duplicate ids."""
 
 import sys
@@ -8,21 +8,20 @@ import csv
 
 from rich import print
 from typing import Dict, List
-from pathlib import Path
 from sqlalchemy.orm import Session
 
 from db.models import Russian, SBS, PaliWord
 from db.get_db_session import get_db_session
 from tools.paths import ProjectPaths as PTH
+from dps.tools.paths_dps import DPSPaths as DPSPTH
 from tools.tic_toc import tic, toc
 
 
 def main():
     tic()
-    print("[bright_yellow]add dps.tsv to db")
-    dps_tsv_path = Path("dps/dps.tsv")
+    print("[bright_yellow]add dps.csv to db")
 
-    for p in [dps_tsv_path]:
+    for p in [DPSPTH.dps_csv_path]:
         if not p.exists():
             print(f"[bright_red]File does not exist: {p}")
             sys.exit(1)
@@ -31,18 +30,18 @@ def main():
 
     db_session.execute(Russian.__table__.delete())
     db_session.execute(SBS.__table__.delete())
-    add_dps_russian(db_session, dps_tsv_path)
-    add_dps_sbs(db_session, dps_tsv_path)
+    add_dps_russian(db_session)
+    add_dps_sbs(db_session)
 
     db_session.close()
     toc()
 
 
-def add_dps_russian(db_session: Session, csv_path: Path):
+def add_dps_russian(db_session: Session):
     print("[green]processing dps russian")
 
     rows = []
-    with open(csv_path, 'r') as f:
+    with open(DPSPTH.dps_csv_path, 'r') as f:
         reader = csv.DictReader(f, delimiter='\t')
         for row in reader:
             for key, value in row.items():
@@ -112,11 +111,11 @@ def _csv_row_to_russian(x: Dict[str, str], id, db_session) -> Russian:
         )
 
 
-def add_dps_sbs(db_session: Session, csv_path: Path):
+def add_dps_sbs(db_session: Session):
     print("[green]processing dps sbs")
 
     rows = []
-    with open(csv_path, 'r') as f:
+    with open(DPSPTH.dps_csv_path, 'r') as f:
         reader = csv.DictReader(f, delimiter='\t')
         for row in reader:
             for key, value in row.items():
