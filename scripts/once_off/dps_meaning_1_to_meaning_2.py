@@ -6,6 +6,7 @@ from rich import print
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.paths import ProjectPaths as PTH
+from dps.tools.paths_dps import DPSPaths as DPSPTH
 
 
 def main():
@@ -15,7 +16,7 @@ def main():
 
     dict = {}
     with open(
-        PTH.dps_merge_dir.joinpath(
+        DPSPTH.dps_merge_dir.joinpath(
                 "meaning_1").with_suffix(".csv")) as f:
         reader = csv.DictReader(f, delimiter=",")
         for r in reader:

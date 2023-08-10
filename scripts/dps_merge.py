@@ -12,6 +12,7 @@ from rich.prompt import Prompt
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.paths import ProjectPaths as PTH
+from dps.tools.paths_dps import DPSPaths as DPSPTH
 
 # make a generic system that adjusts according to column name
 # import csvs as dicts
@@ -69,7 +70,7 @@ def main():
 
         dict = {}
         with open(
-            PTH.dps_merge_dir.joinpath(
+            DPSPTH.dps_merge_dir.joinpath(
                     column).with_suffix(".csv")) as f:
             reader = csv.DictReader(f, delimiter=",")
             for row in reader:
