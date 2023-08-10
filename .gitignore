@@ -8,6 +8,10 @@ __pycache__/
 *.sqlite3
 *~lock.*
 anki_csvs/
+dps/backup
+dps/csvs
+dps/tools/config.py
+dps.ods
 config.ini
 definitions/
 dpd.db-journal
