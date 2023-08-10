@@ -61,10 +61,22 @@ from functions import load_gui_state
 from functions import test_construction
 from functions import replace_sandhi
 from functions import test_username
-from functions import populate_dps_tab
-from functions import update_sbs_chant
-from functions import clear_dps
 from functions import compare_differences
+
+from functions_dps import populate_dps_tab
+from functions_dps import update_sbs_chant
+from functions_dps import clear_dps
+from functions_dps import translate_to_russian_googletrans
+from functions_dps import translate_with_openai
+from functions_dps import swap_sbs_examples
+from functions_dps import remove_sbs_example
+from functions_dps import copy_dpd_examples
+from functions_dps import display_dps_summary
+from functions_dps import copy_and_split_content
+from functions_dps import ru_check_spelling
+from functions_dps import ru_add_spelling
+from functions_dps import ru_edit_spelling
+from functions_dps import Flags_dps
 
 from functions_tests import individual_internal_tests
 from functions_tests import open_internal_tests
@@ -99,6 +111,7 @@ def main():
     window = window_layout(primary_user)
 
     flags = Flags()
+    flags_dps = Flags_dps()
     get_next_ids(window)
 
     # load the previously saved state of the gui
@@ -718,12 +731,8 @@ def main():
                         remove_word_to_add(values, window, words_to_add_list)
                         window["words_to_add_length"].update(
                             len(words_to_add_list))
-                        edit_in_dps = sg.popup_ok_cancel(
-                            "Edit word in DPS?", title="edit in dps",
-                            location=(400, 400))
-                        if edit_in_dps == "ok":
-                            window["dps_id_or_pali_1"].update(values["id"])
-                            window["tab_edit_dps"].select()
+                        open_in_goldendict(values["pali_1"])
+        
 
         elif event == "debug_button":
             print(f"{values}")
@@ -907,7 +916,11 @@ def main():
         # dps tab
 
         # tabs jumps to next field in multiline
-        if event == "dps_ru_meaning_tab":
+        if event == "dps_meaning_tab":
+            window['dps_meaning'].get_next_focus().set_focus()
+        elif event == "dps_ru_online_suggestion_tab":
+            window['dps_ru_online_suggestion'].get_next_focus().set_focus()
+        elif event == "dps_ru_meaning_tab":
             window['dps_ru_meaning'].get_next_focus().set_focus()
         elif event == "dps_sbs_meaning_tab":
             window['dps_sbs_meaning'].get_next_focus().set_focus()
@@ -946,6 +959,334 @@ def main():
                     window["messages"].update(
                         "not a valid id or pali_1", text_color="red")
 
+        # buttons for sbs_ex_1
+        # search sbs_ex1
+        elif (
+            (
+                event == "dps_sbs_example_1"
+                and flags_dps.sbs_example_1 and
+                values["dps_sbs_example_1"] == "" and
+                values["pali_1"] and
+                values["sord_to_add"]
+            ) or
+            (
+                event == "dps_sbs_source_1" and
+                flags_dps.sbs_example_1 and
+                values["dps_sbs_example_1"] == "" and
+                values["dps_pali_1"] and
+                values["word_to_add"]
+            ) or
+            (
+                event == "dps_sbs_sutta_1" and
+                flags_dps.sbs_example_1 and
+                values["dps_sbs_example_1"] == "" and
+                values["dps_pali_1"] and
+                values["word_to_add"]
+            ) or
+            event == "dps_another_eg_1"
+        ):
+
+            if values["book_to_add"] == "":
+                book_to_add = sg.popup_get_text(
+                    "Which book?", title=None,
+                    location=(400, 400))
+                if book_to_add:
+                    values["book_to_add"] = book_to_add
+                    window["book_to_add"].update(book_to_add)
+            else:
+                book_to_add = sg.popup_get_text(
+                    "Which book?", default_text=values["book_to_add"], 
+                    title=None,
+                    location=(400, 400))
+                if book_to_add:
+                    values["book_to_add"] = book_to_add
+                    window["book_to_add"].update(book_to_add)
+
+
+            if values["word_to_add"] == []:
+                word_to_add = sg.popup_get_text(
+                    "What word?", default_text=values["dps_pali_1"][:-1],
+                    title=None,
+                    location=(400, 400))
+                if word_to_add:
+                    values["word_to_add"] = [word_to_add]
+                    window["word_to_add"].update([word_to_add])
+
+            if (
+                test_book_to_add(values, window) and
+                values["book_to_add"] and
+                values["word_to_add"]
+            ):
+                sutta_sentences = find_sutta_example(sg, window, values)
+
+                if sutta_sentences is not None:
+                    try:
+                        window["dps_sbs_source_1"].update(sutta_sentences["source"])
+                        window["dps_sbs_sutta_1"].update(sutta_sentences["sutta"])
+                        window["dps_sbs_example_1"].update(sutta_sentences["example"])
+                    except KeyError as e:
+                        window["messages"].update(e, text_color="red")
+
+                flags_dps.sbs_example_1 = False
+
+        # bold1
+        elif event == "dps_bold_1_button" or event == "dps_bold_1_enter":
+            if values["dps_bold_1"]:
+                dps_example_1_bold = re.sub(
+                    values["dps_bold_1"],
+                    f"<b>{values['dps_bold_1']}</b>",
+                    values["dps_sbs_example_1"])
+                window["dps_sbs_example_1"].update(dps_example_1_bold)
+                window["dps_bold_1"].update("")
+
+        # lower1
+        elif event == "dps_example_1_lower":
+            values["dps_sbs_sutta_1"] = values["dps_sbs_sutta_1"].lower()
+            window["dps_sbs_sutta_1"].update(values["dps_sbs_sutta_1"])
+            values["dps_sbs_example_1"] = values["dps_sbs_example_1"].lower()
+            window["dps_sbs_example_1"].update(values["dps_sbs_example_1"])
+
+        # clean1
+        elif event == "dps_example_1_clean":
+            replace_sandhi(
+                values["dps_sbs_example_1"], "dps_sbs_example_1", sandhi_dict, window)
+            replace_sandhi(
+                values["dps_bold_1"], "dps_bold_1", sandhi_dict, window)
+
+        # buttons for sbs_ex_2
+
+        # clean2
+        elif event == "dps_example_2_clean":
+            replace_sandhi(
+                values["dps_sbs_example_2"], "dps_sbs_example_2", sandhi_dict, window)
+            replace_sandhi(
+                values["dps_bold_2"], "dps_bold_2", sandhi_dict, window)
+
+        # search sbs_ex2
+        elif event == "dps_another_eg_2":
+            if values["book_to_add"] == "":
+                book_to_add = sg.popup_get_text(
+                    "Which book?", title=None,
+                    location=(400, 400))
+                values["book_to_add"] = book_to_add
+                window["book_to_add"].update(book_to_add)
+            else:
+                book_to_add = sg.popup_get_text(
+                    "Which book?", default_text=values["book_to_add"], 
+                    title=None,
+                    location=(400, 400))
+                if book_to_add:
+                    values["book_to_add"] = book_to_add
+                    window["book_to_add"].update(book_to_add)
+
+            if values["word_to_add"] == []:
+                word_to_add = sg.popup_get_text(
+                    "What word?", default_text=values["dps_pali_1"],
+                    title=None,
+                    location=(400, 400))
+                values["word_to_add"] = [word_to_add]
+                window["word_to_add"].update([word_to_add])
+
+            sutta_sentences = find_sutta_example(sg, window, values)
+
+            if sutta_sentences is not None:
+                try:
+                    window["dps_sbs_source_2"].update(sutta_sentences["source"])
+                    window["dps_sbs_sutta_2"].update(sutta_sentences["sutta"])
+                    window["dps_sbs_example_2"].update(sutta_sentences["example"])
+                except KeyError as e:
+                    window["messages"].update(e, text_color="red")
+
+            flags_dps.sbs_example_2 = False
+
+        # bold2
+        elif event == "dps_bold_2_button" or event == "dps_bold_2_enter":
+            if values["dps_bold_2"]:
+                example_2_bold = re.sub(
+                    values["dps_bold_2"],
+                    f"<b>{values['dps_bold_2']}</b>",
+                    values["dps_sbs_example_2"])
+                window["dps_sbs_example_2"].update(example_2_bold)
+                window["dps_bold_2"].update("")
+
+        # lower2
+        elif event == "dps_example_2_lower":
+            values["dps_sbs_sutta_2"] = values["dps_sbs_sutta_2"].lower()
+            window["dps_sbs_sutta_2"].update(values["dps_sbs_sutta_2"])
+            values["dps_sbs_example_2"] = values["dps_sbs_example_2"].lower()
+            window["dps_sbs_example_2"].update(values["dps_sbs_example_2"])
+
+        # buttons for sbs_ex_3
+
+        # clean3
+        elif event == "dps_example_3_clean":
+            replace_sandhi(
+                values["dps_sbs_example_3"], "dps_sbs_example_3", sandhi_dict, window)
+            replace_sandhi(
+                values["dps_bold_3"], "dps_bold_3", sandhi_dict, window)
+
+        # search sbs_ex3
+        elif event == "dps_another_eg_3":
+            if values["book_to_add"] == "":
+                book_to_add = sg.popup_get_text(
+                    "Which book?", title=None,
+                    location=(400, 400))
+                values["book_to_add"] = book_to_add
+                window["book_to_add"].update(book_to_add)
+            else:
+                book_to_add = sg.popup_get_text(
+                    "Which book?", default_text=values["book_to_add"], 
+                    title=None,
+                    location=(400, 400))
+                if book_to_add:
+                    values["book_to_add"] = book_to_add
+                    window["book_to_add"].update(book_to_add)
+
+            if values["word_to_add"] == []:
+                word_to_add = sg.popup_get_text(
+                    "What word?", default_text=values["dps_pali_1"],
+                    title=None,
+                    location=(400, 400))
+                values["word_to_add"] = [word_to_add]
+                window["word_to_add"].update([word_to_add])
+
+            sutta_sentences = find_sutta_example(sg, window, values)
+
+            if sutta_sentences is not None:
+                try:
+                    window["dps_sbs_source_3"].update(sutta_sentences["source"])
+                    window["dps_sbs_sutta_3"].update(sutta_sentences["sutta"])
+                    window["dps_sbs_example_3"].update(sutta_sentences["example"])
+                except KeyError as e:
+                    window["messages"].update(e, text_color="red")
+
+            flags_dps.sbs_example_3 = False
+
+        # bold3
+        elif event == "dps_bold_3_button" or event == "dps_bold_3_enter":
+            if values["dps_bold_3"]:
+                example_3_bold = re.sub(
+                    values["dps_bold_3"],
+                    f"<b>{values['dps_bold_3']}</b>",
+                    values["dps_sbs_example_3"])
+                window["dps_sbs_example_3"].update(example_3_bold)
+                window["dps_bold_3"].update("")
+
+        # lower3
+        elif event == "dps_example_3_lower":
+            values["dps_sbs_sutta_3"] = values["dps_sbs_sutta_3"].lower()
+            window["dps_sbs_sutta_3"].update(values["dps_sbs_sutta_3"])
+            values["dps_sbs_example_3"] = values["dps_sbs_example_3"].lower()
+            window["dps_sbs_example_3"].update(values["dps_sbs_example_3"])
+            
+        # buttons for sbs_ex_4
+
+        # clean4
+        elif event == "dps_example_4_clean":
+            replace_sandhi(
+                values["dps_sbs_example_4"], "dps_sbs_example_4", sandhi_dict, window)
+            replace_sandhi(
+                values["dps_bold_4"], "dps_bold_4", sandhi_dict, window)
+
+        # search sbs_ex4
+        elif event == "dps_another_eg_4":
+            if values["book_to_add"] == "":
+                book_to_add = sg.popup_get_text(
+                    "Which book?", title=None,
+                    location=(400, 400))
+                values["book_to_add"] = book_to_add
+                window["book_to_add"].update(book_to_add)
+            else:
+                book_to_add = sg.popup_get_text(
+                    "Which book?", default_text=values["book_to_add"], 
+                    title=None,
+                    location=(400, 400))
+                if book_to_add:
+                    values["book_to_add"] = book_to_add
+                    window["book_to_add"].update(book_to_add)
+
+            if values["word_to_add"] == []:
+                word_to_add = sg.popup_get_text(
+                    "What word?", default_text=values["dps_pali_1"],
+                    title=None,
+                    location=(400, 400))
+                values["word_to_add"] = [word_to_add]
+                window["word_to_add"].update([word_to_add])
+
+            sutta_sentences = find_sutta_example(sg, window, values)
+
+            if sutta_sentences is not None:
+                try:
+                    window["dps_sbs_source_4"].update(sutta_sentences["source"])
+                    window["dps_sbs_sutta_4"].update(sutta_sentences["sutta"])
+                    window["dps_sbs_example_4"].update(sutta_sentences["example"])
+                except KeyError as e:
+                    window["messages"].update(e, text_color="red")
+
+            flags_dps.sbs_example_4 = False
+
+        # bold4
+        elif event == "dps_bold_4_button" or event == "dps_bold_4_enter":
+            if values["dps_bold_4"]:
+                example_4_bold = re.sub(
+                    values["dps_bold_4"],
+                    f"<b>{values['dps_bold_4']}</b>",
+                    values["dps_sbs_example_4"])
+                window["dps_sbs_example_4"].update(example_4_bold)
+                window["dps_bold_4"].update("")
+
+        # lower4
+        elif event == "dps_example_4_lower":
+            values["dps_sbs_sutta_4"] = values["dps_sbs_sutta_4"].lower()
+            window["dps_sbs_sutta_4"].update(values["dps_sbs_sutta_4"])
+            values["dps_sbs_example_4"] = values["dps_sbs_example_4"].lower()
+            window["dps_sbs_example_4"].update(values["dps_sbs_example_4"])
+
+        # google translate button
+        elif event == "dps_google_translate_button":
+            translate_to_russian_googletrans(values["dps_meaning"], window)
+
+        # openai translate button
+        elif event == "dps_openai_translate_button":
+            translate_with_openai(values['dps_meaning'], values['dps_pali_1'], values['dps_grammar'], window)
+
+        
+        # copy ru sugestions button
+        elif event == "dps_copy_meaning_button":
+            copy_and_split_content('dps_ru_online_suggestion', 'dps_ru_meaning', 'dps_ru_meaning_lit', window, values)
+
+
+        # movement in this field triggers spellcheck dps tab
+        elif event == "ru_add_spelling":
+            field = "dps_ru_meaning"
+            error_field = "dps_ru_meaning_error"
+            ru_check_spelling(field, error_field, values, window)
+
+        elif event == "dps_ru_check_spelling_button":
+            field = "dps_ru_meaning"
+            error_field = "dps_ru_meaning_error"
+            ru_check_spelling(field, error_field, values, window)
+
+            field = "dps_ru_meaning_lit"
+            error_field = "dps_ru_meaning_lit_error"
+            ru_check_spelling(field, error_field, values, window)
+
+            field = "dps_sbs_meaning"
+            error_field = "dps_sbs_meaning_error"
+            check_spelling(field, error_field, values, window)
+
+        elif event == "dps_ru_add_spelling_button":
+            word = values["dps_ru_add_spelling"]
+            ru_add_spelling(word)
+            window["messages"].update(
+                f"{word} added to ru dictionary", text_color="white")
+
+        elif event == "dps_ru_edit_spelling_button":
+            ru_edit_spelling()
+
+
+        # choise from dropdown sbs chats
+
         if event == "dps_sbs_chant_pali_1":
             chant = values["dps_sbs_chant_pali_1"]
             update_sbs_chant(1, chant, window)
@@ -962,13 +1303,84 @@ def main():
             update_sbs_chant(
                 4, values["dps_sbs_chant_pali_4"], window)
 
+        # dps_examples buttons
+
+        elif event == "dps_copy_ex_1_to_1_button":
+            copy_dpd_examples(1, 1, window, values)
+
+        elif event == "dps_copy_ex_1_to_2_button":
+            copy_dpd_examples(1, 2, window, values)
+
+        elif event == "dps_copy_ex_1_to_3_button":
+            copy_dpd_examples(1, 3, window, values)
+
+        elif event == "dps_copy_ex_1_to_4_button":
+            copy_dpd_examples(1, 4, window, values)
+
+        elif event == "dps_copy_ex_2_to_1_button":
+            copy_dpd_examples(2, 1, window, values)
+
+        elif event == "dps_copy_ex_2_to_2_button":
+            copy_dpd_examples(2, 2, window, values)
+
+        elif event == "dps_copy_ex_2_to_3_button":
+            copy_dpd_examples(2, 3, window, values)
+
+        elif event == "dps_copy_ex_2_to_4_button":
+            copy_dpd_examples(2, 4, window, values)
+
+        # sbs_examples buttons
+
+        elif event in ("dps_swap_ex_1_with_2_button", "dps_swap_ex_2_with_1_button"):
+            swap_sbs_examples(1, 2, window, values)
+
+        elif event in ("dps_swap_ex_1_with_3_button", "dps_swap_ex_3_with_1_button"):
+            swap_sbs_examples(1, 3, window, values)
+
+        elif event in ("dps_swap_ex_1_with_4_button", "dps_swap_ex_4_with_1_button"):
+            swap_sbs_examples(1, 4, window, values)
+
+        elif event in ("dps_swap_ex_2_with_3_button", "dps_swap_ex_3_with_2_button"):
+            swap_sbs_examples(2, 3, window, values)
+
+        elif event in ("dps_swap_ex_2_with_4_button", "dps_swap_ex_4_with_2_button"):
+            swap_sbs_examples(2, 4, window, values)
+
+        elif event in ("dps_swap_ex_3_with_4_button", "dps_swap_ex_4_with_3_button"):
+            swap_sbs_examples(3, 4, window, values)
+
+        elif event == "dps_remove_example_1_button":
+            remove_sbs_example(1, window)
+
+        elif event == "dps_remove_example_2_button":
+            remove_sbs_example(2, window)
+
+        elif event == "dps_remove_example_3_button":
+            remove_sbs_example(3, window)
+
+        elif event == "dps_remove_example_4_button":
+            remove_sbs_example(4, window)
+
+        # bottom buttons
+
         elif event == "dps_clear_button":
             clear_dps(values, window)
 
+        # elif event == "dps_update_db_button":
+        #     dps_update_db(
+        #         values, window, dpd_word, ru_word, sbs_word)
+        #     clear_dps(values, window)
+
+
         elif event == "dps_update_db_button":
-            dps_update_db(
-                values, window, dpd_word, ru_word, sbs_word)
-            clear_dps(values, window)
+            last_button = display_dps_summary(values, window, sg)
+            if last_button == "dps_ok_button":
+                dps_update_db(values, window, dpd_word, ru_word, sbs_word)
+                clear_dps(values, window)
+
+        elif event == "dps_summary_button":
+            display_dps_summary(values, window, sg)
+
 
         elif event == "dps_reset_button":
             if dpd_word:

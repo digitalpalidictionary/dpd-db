@@ -65,6 +65,12 @@ def window_layout(primary_user):
     window['bold_2'].bind("<Return>", "_enter")
     window['add_construction'].bind("<Return>", "_enter")
 
+    # bind enter key dps
+    window['dps_bold_1'].bind("<Return>", "_enter")
+    window['dps_bold_2'].bind("<Return>", "_enter")
+    window['dps_bold_3'].bind("<Return>", "_enter")
+    window['dps_bold_4'].bind("<Return>", "_enter")
+
     # bind tab keys to jump to next field in multiline elements
     window['meaning_1'].bind('<Tab>', '_tab', propagate=False)
     window['construction'].bind('<Tab>', '_tab', propagate=False)
@@ -74,6 +80,8 @@ def window_layout(primary_user):
     window['example_2'].bind('<Tab>', '_tab', propagate=False)
 
     # bind tab dps
+    window['dps_meaning'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_ru_online_suggestion'].bind('<Tab>', '_tab', propagate=False)
     window['dps_ru_meaning'].bind('<Tab>', '_tab', propagate=False)
     window['dps_sbs_meaning'].bind('<Tab>', '_tab', propagate=False)
     window['dps_notes'].bind('<Tab>', '_tab', propagate=False)
@@ -81,6 +89,8 @@ def window_layout(primary_user):
     window['dps_sbs_notes'].bind('<Tab>', '_tab', propagate=False)
     window['dps_example_1'].bind('<Tab>', '_tab', propagate=False)
     window['dps_example_2'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_sbs_example_1'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_sbs_example_2'].bind('<Tab>', '_tab', propagate=False)
     window['dps_sbs_example_3'].bind('<Tab>', '_tab', propagate=False)
     window['dps_sbs_example_4'].bind('<Tab>', '_tab', propagate=False)
 
