@@ -28,6 +28,10 @@ nltk = "^3.8.1"
 pyperclip = "^1.8.2"
 css-html-js-minify = "^2.5.5"
 html2text = "^2020.1.16"
+openai = "^0.27.8"
+google-cloud-translate = "^3.11.3"
+googletrans = "4.0.0-rc1"
+python-docx = "^0.8.11"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"
