@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+# TODO Make testcases
+# TODO Switch to pyglossary_stardict
+
 """Export DPD for GoldenDict and MDict."""
 
 import zipfile
@@ -20,7 +23,8 @@ from helpers import make_roots_count_dict
 from mdict_exporter import export_to_mdict
 
 from db.get_db_session import get_db_session
-from tools.tic_toc import tic, toc, bip, bop
+from tools.tic_toc import tic, toc
+from tools.stop_watch import StopWatch
 from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.paths import ProjectPaths as PTH
@@ -30,7 +34,7 @@ db_session: Session = get_db_session(PTH.dpd_db_path)
 SANDHI_CONTRACTIONS: dict = make_sandhi_contraction_dict(db_session)
 
 
-def main():
+def main() -> None:
     print("[bright_yellow]exporting dpd")
     size_dict = {}
 
@@ -66,53 +70,54 @@ def main():
 
 def export_to_goldendict(data_list: list) -> None:
     """generate goldedict zip"""
-    bip()
 
-    print("[green]generating goldendict zip", end=" ")
+    with StopWatch() as timer:
+        print("[green]generating goldendict zip", end=" ")
 
-    ifo = ifo_from_opts(
-        {"bookname": "DPD",
-            "author": "Bodhirasa",
-            "description": "",
-            "website": "https://digitalpalidictionary.github.io/", }
-    )
+        ifo = ifo_from_opts(
+            {"bookname": "DPD",
+                "author": "Bodhirasa",
+                "description": "",
+                "website": "https://digitalpalidictionary.github.io/", }
+        )
 
-    export_words_as_stardict_zip(data_list, ifo, PTH.zip_path, PTH.icon_path)
+        export_words_as_stardict_zip(data_list, ifo, PTH.zip_path, PTH.icon_path)
 
-    # add bmp icon for android
-    with zipfile.ZipFile(PTH.zip_path, 'a') as zipf:
-        source_path = PTH.icon_bmp_path
-        destination = 'dpd/android.bmp'
-        zipf.write(source_path, destination)
+        # add bmp icon for android
+        with zipfile.ZipFile(PTH.zip_path, 'a') as zipf:
+            source_path = PTH.icon_bmp_path
+            destination = 'dpd/android.bmp'
+            zipf.write(source_path, destination)
 
-    print(f"{bop():>29}")
+    print(f"{timer:>29}")
 
 
 def goldendict_unzip_and_copy() -> None:
     """unzip and copy to goldendict folder"""
 
-    bip()
-    print("[green]unipping and copying goldendict", end=" ")
-    try:
-        popen(
-            f'unzip -o {PTH.zip_path} -d "/home/bhikkhu/Documents/Golden Dict"')
-    except Exception as e:
-        print(f"[red]{e}")
+    with StopWatch() as timer:
+        print("[green]unipping and copying goldendict", end=" ")
+        try:
+            popen(
+                f'unzip -o {PTH.zip_path} '
+                '-d "/home/bhikkhu/Documents/Golden Dict"')
+        except Exception as e:
+            print(f"[red]{e}")
 
-    print(f"{bop():>23}")
+    print(f"{timer:>23}")
 
 
 def write_size_dict(size_dict):
-    bip()
-    print("[green]writing size_dict", end=" ")
-    filename = PTH.temp_dir.joinpath("size_dict.tsv")
+    with StopWatch() as timer:
+        print("[green]writing size_dict", end=" ")
+        filename = PTH.temp_dir.joinpath("size_dict.tsv")
 
-    with open(filename, "w", newline="") as csvfile:
-        writer = csv.writer(csvfile, delimiter='\t')
-        for key, value in size_dict.items():
-            writer.writerow([key, value])
+        with open(filename, "w", newline="") as csvfile:
+            writer = csv.writer(csvfile, delimiter='\t')
+            for key, value in size_dict.items():
+                writer.writerow([key, value])
 
-    print(f"{bop():>38}")
+    print(f"{timer:>38}")
 
 
 def write_limited_datalist(combined_data_list):
