@@ -95,7 +95,8 @@ class CompletionCombo(PySimpleGUI.Combo):
         """ Hide the floating list of values
         """
         self.set_tooltip(self.__initial_tooltip)
-        self.TooltipObject.hidetip()
+        if self.TooltipObject is not None:
+            self.TooltipObject.hidetip()
 
     def reset(self) -> None:
         """ Reset values to initial state
@@ -119,8 +120,11 @@ class CompletionCombo(PySimpleGUI.Combo):
             if new_field_values:
                 self.set_tooltip('\n'.join(new_field_values))
                 tooltip_obj = self.TooltipObject
-                tooltip_obj.y += self._calc_tooltip_offset()[1]
-                tooltip_obj.showtip()
+                if tooltip_obj:  # This check ensures tooltip_obj is not None.
+                    tooltip_obj.y += self._calc_tooltip_offset()[1]
+                    tooltip_obj.showtip()
+                else:
+                    self.hide_tooltip()
             else:
                 self.hide_tooltip()
         else:
@@ -145,10 +149,20 @@ class CompletionCombo(PySimpleGUI.Combo):
         self.hide_tooltip()
 
     def _calc_tooltip_offset(self) -> Tuple[int, int]:
+        # Set a default tooltip_fontsize
         tooltip_fontsize = 10
-        if PySimpleGUI.TOOLTIP_FONT:
+        
+        # If PySimpleGUI.TOOLTIP_FONT is set and is a number, use it as the font size
+        if isinstance(PySimpleGUI.TOOLTIP_FONT, (int, float)):
             tooltip_fontsize = PySimpleGUI.TOOLTIP_FONT
+        
+        # Get combo size and ensure they are numbers
         _combo_width, combo_height = self.get_size()
+        
+        if not isinstance(combo_height, (int, float)):
+            combo_height = 0  # Or some other default value
+        
         x = 0
-        y = 1.0 * combo_height + 2.0 * tooltip_fontsize
+        y = int(1.0 * combo_height + 2.0 * tooltip_fontsize)  # Cast to integer
+    
         return (x, y)

@@ -5,6 +5,7 @@ import csv
 import subprocess
 import textwrap
 import pickle
+from typing import Optional, Tuple, List, Dict
 
 from spellchecker import SpellChecker
 from aksharamukha import transliterate
@@ -12,8 +13,8 @@ from rich import print
 from bs4 import BeautifulSoup
 from nltk import sent_tokenize, word_tokenize
 
-from db.db_helpers import get_column_names
-from db.models import Russian, SBS, PaliWord
+# from db.db_helpers import get_column_names
+from db.models import PaliWord
 from functions_db import make_all_inflections_set
 from functions_db import get_family_compound_values
 from functions_db import values_to_pali_word
@@ -27,8 +28,8 @@ from tools.pali_alphabet import pali_alphabet
 from tools.configger import config_test_option
 from tools.configger import config_update
 from tools.configger import config_test
-from tools.meaning_construction import make_meaning
-from tools.tsv_read_write import read_tsv_dot_dict
+# from tools.meaning_construction import make_meaning
+# from tools.tsv_read_write import read_tsv_dot_dict
 
 
 def add_sandhi_correction(window, values: dict) -> None:
@@ -358,11 +359,14 @@ def add_stem_pattern(values, window):
 # !!! add all the plural forms !!!
 
 
-spell = SpellChecker()
-spell.word_frequency.load_text_file(str(PTH.user_dict_path))
+
 
 
 def check_spelling(field, error_field, values, window):
+
+    spell = SpellChecker(language='en')
+    spell.word_frequency.load_text_file(str(PTH.user_dict_path))
+
     sentence = values[field]
     words = word_tokenize(sentence)
 
@@ -510,12 +514,17 @@ def find_commentary_defintions(sg, values, definitions_df):
 def transliterate_xml(xml):
     """transliterate from devanagari to roman"""
     xml = transliterate.process("autodetect", "IASTPali", xml)
+    if xml is None:
+        # Handle the error, perhaps by raising an exception or returning a default value.
+        raise ValueError("Failed to transliterate XML.")
     xml = xml.replace("ü", "u")
     xml = xml.replace("ï", "i")
     return xml
 
 
-def find_sutta_example(sg, window, values: dict) -> str:
+def find_sutta_example(sg, window, values: dict) -> Optional[Dict[str, str]]:
+
+    filename = ""
 
     if values["book_to_add"] in cst_texts:
         try:
@@ -568,6 +577,7 @@ def find_sutta_example(sg, window, values: dict) -> str:
                 book = re.sub(r"\d", "", source)
                 # add space to digtis
                 source = re.sub(r"(?<=[A-Za-z])(?=\d)", " ", source)
+                sutta_number = ""
                 try:
                     sutta_number = p.next_sibling.next_sibling["n"]
                 except KeyError as e:
@@ -618,8 +628,10 @@ def find_sutta_example(sg, window, values: dict) -> str:
                         chapter_text = chapter_div.find("head").get_text()
                         pattern = r"^(\d+)\.\s+(.*)$"
                         match = re.match(pattern, chapter_text)
-                        source = f"{book}{match.group(1)}"
-                        sutta = match.group(2)
+                        if match:
+                            source = f"{book}{match.group(1)}"
+                            sutta = match.group(2)
+                        
 
             # kn2
             elif values["book_to_add"] == "kn2":
@@ -846,7 +858,7 @@ def test_book_to_add(values, window):
 def make_words_to_add_list(window, book: str) -> list:
     cst_text_list = make_cst_text_set([book], return_list=True)
     sc_text_list = make_sc_text_set([book], return_list=True)
-    original_text_list = cst_text_list + sc_text_list
+    original_text_list = list(cst_text_list) + list(sc_text_list)
 
     sp_mistakes_list = make_sp_mistakes_list(PTH)
     variant_list = make_variant_list(PTH)
@@ -945,6 +957,7 @@ class Flags:
         self.commentary = True
         self.sanskrit = True
         self.example_1 = True
+        self.example_2 = False
         self.stem = True
         self.tested = False
         self.test_next = False
@@ -966,6 +979,7 @@ def reset_flags(flags):
     flags.commentary = True
     flags.sanskrit = True
     flags.example_1 = True
+    flags.example_2 = False
     flags.stem = True
     flags.tested = False
     flags.test_next = False
@@ -1084,9 +1098,8 @@ def test_construction(values, window, pali_clean_list):
 
 
 def replace_sandhi(string, field: str, sandhi_dict: dict, window) -> None:
-    global pali_alphabet
-    pali_alphabet = "".join(pali_alphabet)
-    splits = re.split(f"([^{pali_alphabet}])", string)
+    pali_string = "".join(pali_alphabet)
+    splits = re.split(f"([^{pali_string}])", string)
 
     for i in range(len(splits)):
         word = splits[i]
@@ -1259,7 +1272,7 @@ def compare_differences(
         additions_save(additions)
 
 
-def additions_load() -> None:
+def additions_load() -> List[Tuple]:
     """Load the list of word to add to db from pickle file."""
     with open(PTH.additions_pickle_path, "rb") as file:
         additions = pickle.load(file)

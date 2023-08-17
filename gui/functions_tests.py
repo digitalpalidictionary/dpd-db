@@ -72,6 +72,7 @@ def test_the_tests(internal_tests_list, window):
 
     for test_counter, t in enumerate(internal_tests_list):
         flag = True
+        message = ""
         if t.search_column_1 not in column_names:
             message = f"{test_counter}. {t.test_name} 'search_column_1' '{t.search_column_1}' invalid"
             flag = False

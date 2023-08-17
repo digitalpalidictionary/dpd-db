@@ -4,6 +4,7 @@ import re
 
 from rich import print
 from sqlalchemy import or_
+from typing import Optional, Tuple
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord
@@ -85,14 +86,14 @@ class Word:
         self.pattern: str
 
 
-def print_pos_list() -> list:
+def print_pos_list():
     pos_db = db_session.query(
         PaliWord.pos
     ).group_by(
         PaliWord.pos
     ).all()
     pos_list = sorted([i.pos for i in pos_db])
-    return print(pos_list, end=" ")
+    print(pos_list, end=" ")
 
 
 def get_next_ids(window):
@@ -137,7 +138,7 @@ def values_to_pali_word(values):
 
 
 def udpate_word_in_db(
-        window, values: dict) -> bool:
+        window, values: dict) -> Tuple[bool, str]:
     word_to_add = values_to_pali_word(values)
     pali_word_in_db = db_session.query(PaliWord).filter(
         values["id"] == PaliWord.id).first()
@@ -182,9 +183,8 @@ def edit_word_in_db(values, window):
         values, "word_to_clone_edit")
 
     if pali_word is None:
-        window["messages"].update(
-            f"{values['word_to_clone_edit']}' not found in db",
-            text_color="red"),
+        message = f"{values['word_to_clone_edit']}' not found in db"
+        window["messages"].update(message, text_color="red")
 
     else:
         attrs = pali_word.__dict__
@@ -203,9 +203,8 @@ def copy_word_from_db(values, window):
         values, "word_to_clone_edit")
 
     if pali_word is None:
-        window["messages"].update(
-            f"{values['word_to_clone_edit']}' not found in db",
-            text_color="red"),
+        message = f"{values['word_to_clone_edit']}' not found in db"
+        window["messages"].update(message, text_color="red")
 
     else:
         exceptions = [
@@ -370,13 +369,14 @@ def get_synonyms(pos: str, string_of_meanings: str) -> str:
 
     meaning_dict = {}
     for i in results:
-        for meaning in i.meaning_1.split("; "):
-            meaning_clean = re.sub(r" \(.*?\)|\(.*?\) ", "", meaning)
-            if meaning_clean in list_of_meanings:
-                if meaning_clean not in meaning_dict:
-                    meaning_dict[meaning_clean] = set([i.pali_clean])
-                else:
-                    meaning_dict[meaning_clean].add(i.pali_clean)
+        if i.meaning_1:  # check if it's not None and not an empty string
+            for meaning in i.meaning_1.split("; "):
+                meaning_clean = re.sub(r" \(.*?\)|\(.*?\) ", "", meaning)
+                if meaning_clean in list_of_meanings:
+                    if meaning_clean not in meaning_dict:
+                        meaning_dict[meaning_clean] = set([i.pali_clean])
+                    else:
+                        meaning_dict[meaning_clean].add(i.pali_clean)
 
     synonyms = set()
     for key_1 in meaning_dict:
@@ -477,21 +477,26 @@ def get_root_info(root_key):
             PaliRoot.root == root_key
         ).first()
 
-    try:
+    if r:
         root_info = f"{r.root_clean} {r.root_group} "
         root_info += f"{r.root_sign} ({r.root_meaning})"
         return root_info
-    except AttributeError as e:
-        print(e)
+    else:
+        print("No matching PaliRoot found for given root_key.")
+        return None
 
 
 # print(get_root_info("√kar"))
 
 # dps functions
 
-def fetch_id_or_pali_1(values: dict, field: str) -> PaliWord:
+def fetch_id_or_pali_1(values: dict, field: str) -> Optional[PaliWord]:
     """Get id or pali1 from db."""
     id_or_pali_1 = values[field]
+
+    if not id_or_pali_1:  # Check if id_or_pali_1 is empty
+        return None
+        
     first_character = id_or_pali_1[0]
     if first_character.isalpha():
         query = db_session.query(PaliWord).filter(
@@ -505,13 +510,13 @@ def fetch_id_or_pali_1(values: dict, field: str) -> PaliWord:
             return query
 
 
-def fetch_ru(id: int) -> Russian:
+def fetch_ru(id: int) -> Optional[Russian]:
     """Fetch Russian word from db."""
     return db_session.query(Russian).filter(
         Russian.id == id).first()
 
 
-def fetch_sbs(id: int) -> SBS:
+def fetch_sbs(id: int) -> Optional[SBS]:
     """Fetch SBS word from db."""
     return db_session.query(SBS).filter(
         SBS.id == id).first()
@@ -544,3 +549,7 @@ def dps_update_db(
         db_session.add(ru_word)
         db_session.add(sbs_word)
     db_session.commit()
+
+    window["messages"].update(
+    f"'{values['dps_id_or_pali_1']}' updated in db",
+    text_color="green")
