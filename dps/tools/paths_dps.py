@@ -19,6 +19,12 @@ class DPSPaths():
     temp_csv_path: Path = Path("dps/csvs/temp.csv")
     id_to_add_path: Path = Path("dps/csvs/id_to_add.csv")
 
+    # /tests
+    dps_internal_tests_path: Path = Path("dps/csvs/dps_internal_tests.tsv")
+    dps_internal_tests_replaced_path: Path = Path("dps/csvs/dps_internal_tests_replaced.tsv")
+    dps_wf_exceptions_list: Path = Path("dps/csvs/dps_word_family_exceptions")
+    dps_syn_var_exceptions_path: Path = Path("dps/csvs/dps_syn_var_exceptions")
+
     # sbs-tools related
     sbs_anki_style_dir: Path = Path("../sasanarakkha/study-tools/anki-style/")
 
@@ -39,9 +45,20 @@ class DPSPaths():
 
     # dps bakup folder
     dps_backup_dir: Path = Path("dps/backup/") 
+    temp_csv_backup_dir: Path = Path("dps/csvs/backup_csv/") 
 
     # ru_user_dictionary
     ru_user_dict_path: Path = Path("dps/tools/ru_user_dictionary.txt")
+
+    # local anki media path
+    anki_media_dir: Path = Path("/home/deva/.var/app/net.ankiweb.Anki/data/Anki2/deva/collection.media/") 
+
+    # errors
+    gui_errors_dir: Path = Path("/home/deva/.gui-errors.txt")
+
+    # /gui/stash
+    dps_stash_path: Path = Path("gui/stash/dps_stash.json")
+
 
 
     @classmethod
