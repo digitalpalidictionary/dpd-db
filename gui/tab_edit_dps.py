@@ -52,6 +52,26 @@ def make_tab_edit_dps(sg):
                 size=(50, 1),
                 text_color=dpd_text,
                 background_color=dpd_background),
+            sg.Input(
+                key="dps_pos",
+                text_color=dpd_text,
+                visible=False,
+                background_color=dpd_background),
+            sg.Input(
+                key="dps_verb",
+                text_color=dpd_text,
+                visible=False,
+                background_color=dpd_background),
+            sg.Input(
+                key="dps_suffix",
+                text_color=dpd_text,
+                visible=False,
+                background_color=dpd_background),
+            sg.Input(
+                key="dps_meaning_lit",
+                text_color=dpd_text,
+                visible=False,
+                background_color=dpd_background),
         ],
         [
             sg.Text("meaning", size=(15, 1)),
@@ -61,6 +81,8 @@ def make_tab_edit_dps(sg):
                 enable_events=True,
                 text_color=dpd_text,
                 background_color=dpd_background),
+            sg.Text(
+                "", key="dps_repetition_meaning_error", size=(50, 1), text_color="red"),
         ],
         [
             sg.Text("suggestion", size=(15, 1)),
@@ -75,11 +97,9 @@ def make_tab_edit_dps(sg):
             sg.Text("", size=(15, 1)),
             sg.Button("Google Translate", key="dps_google_translate_button", font=(None, 13)),
             sg.Button("OpenAI", key="dps_openai_translate_button", font=(None, 13)),
-            sg.Button("copy", key="dps_copy_meaning_button", font=(None, 13)),
+            sg.Button("Copy", key="dps_copy_meaning_button", font=(None, 13)),
             sg.Text(
-                "", key="dps_google_translate_error", size=(100, 1), text_color="red"),
-            sg.Text(
-                "", key="dps_openai_translate_error", size=(100, 3), text_color="red"),
+                "", key="dps_ru_meaning_suggestion_error", size=(50, 1), text_color="red"),
         ],
         [
             sg.Text("russian", size=(15, 1)),
@@ -170,12 +190,37 @@ def make_tab_edit_dps(sg):
                 background_color=dpd_background),
         ],
         [
+            sg.Text("set", size=(15, 1)),
+                    sg.Input(
+                key="dps_family_set",
+                size=(50, 1),
+                text_color=dpd_text,
+                background_color=dpd_background),
+        ],
+        [
             sg.Text("notes", size=(15, 1)),
             sg.Multiline(
                 key="dps_notes",
                 size=(50, 3),
                 text_color=dpd_text,
                 background_color=dpd_background),
+        ],
+        [
+            sg.Text("suggestion", size=(15, 1)),
+            sg.Multiline(
+                key="dps_notes_online_suggestion",
+                size=(50, 2),
+                enable_events=True,
+                text_color=other_text,
+                background_color=dpd_background),
+        ],
+        [
+            sg.Text("", size=(15, 1)),
+            sg.Button("Google Translate", key="dps_notes_google_translate_button", font=(None, 13)),
+            sg.Button("OpenAI", key="dps_notes_openai_translate_button", font=(None, 13)),
+            sg.Button("Copy", key="dps_notes_copy_meaning_button", font=(None, 13)),
+            sg.Text(
+                "", key="dps_ru_notes_suggestion_error", size=(50, 1), text_color="red"),
         ],
         [
             sg.Text("russian note", size=(15, 1)),
@@ -324,25 +369,11 @@ def make_tab_edit_dps(sg):
             sg.Text("", key="dps_bold_1_error", size=(50, 1), text_color="red")
         ],
         [
-            sg.Text("ex_1 swap with", size=(15, 1)),
-            sg.Button("sbs_ex_2", key="dps_swap_ex_1_with_2_button", font=(None, 13)),
-            sg.Button("sbs_ex_3", key="dps_swap_ex_1_with_3_button", font=(None, 13)),
-            sg.Button("sbs_ex_4", key="dps_swap_ex_1_with_4_button", font=(None, 13)),
-            sg.Button("clean ex 1", key="dps_remove_example_1_button", font=(None, 13)),
-            sg.Text(
-                "", key="dps_swap_ex_1_with_2_error", size=(50, 1), text_color="red"),
-            sg.Text(
-                "", key="dps_swap_ex_1_with_3_error", size=(50, 1), text_color="red"),
-            sg.Text(
-                "", key="dps_swap_ex_1_with_4_error", size=(50, 1), text_color="red"),
-            sg.Text(
-                "", key="dps_remove_example_1_error", size=(50, 1), text_color="red"),
-        ],
-        [
             sg.Text("sbs_chant_pali_1", size=(15, 1)),
             CompletionCombo(
                 pali_chant_list,
                 key="dps_sbs_chant_pali_1",
+                size=(50, 1),
                 enable_events=True,
                 text_color=sbs_text,
                 background_color=sbs_background),
@@ -367,6 +398,17 @@ def make_tab_edit_dps(sg):
                 text_color=sbs_text,
                 background_color=sbs_background,
                 tooltip=""),
+        ],
+        [
+            sg.Text("ex_1 swap with", size=(15, 1)),
+            sg.Button("ex_2", key="dps_swap_ex_1_with_2_button", font=(None, 13)),
+            sg.Button("ex_3", key="dps_swap_ex_1_with_3_button", font=(None, 13)),
+            sg.Button("ex_4", key="dps_swap_ex_1_with_4_button", font=(None, 13)),
+            sg.Button("remove", key="dps_remove_example_1_button", font=(None, 13)),
+            sg.Button("stash", key="dps_stash_ex_1_button", font=(None, 13)),
+            sg.Button("unstash", key="dps_unstash_ex_1_button", font=(None, 13)),
+            sg.Text(
+                "", key="dps_buttons_ex_1_error", size=(50, 1), text_color="red"),
         ],
         [
             sg.Text("sbs_source_2", size=(15, 1)),
@@ -419,25 +461,11 @@ def make_tab_edit_dps(sg):
             sg.Text("", key="dps_bold_2_error", size=(50, 1), text_color="red")
         ],
         [
-            sg.Text("ex_2 swap with", size=(15, 1)),
-            sg.Button("sbs_ex_1", key="dps_swap_ex_2_with_1_button", font=(None, 13)),
-            sg.Button("sbs_ex_3", key="dps_swap_ex_2_with_3_button", font=(None, 13)),
-            sg.Button("sbs_ex_4", key="dps_swap_ex_2_with_4_button", font=(None, 13)),
-            sg.Button("clean ex 2", key="dps_remove_example_2_button", font=(None, 13)),
-            sg.Text(
-                "", key="dps_swap_ex_2_with_1_error", size=(50, 1), text_color="red"),
-            sg.Text(
-                "", key="dps_swap_ex_2_with_3_error", size=(50, 1), text_color="red"),
-            sg.Text(
-                "", key="dps_swap_ex_2_with_4_error", size=(50, 1), text_color="red"),
-            sg.Text(
-                "", key="dps_remove_example_2_error", size=(50, 1), text_color="red"),
-        ],
-        [
             sg.Text("sbs_chant_pali_2", size=(15, 1)),
             CompletionCombo(
                 pali_chant_list,
                 key="dps_sbs_chant_pali_2",
+                size=(50, 1),
                 enable_events=True,
                 text_color=sbs_text,
                 background_color=sbs_background),
@@ -462,6 +490,17 @@ def make_tab_edit_dps(sg):
                 tooltip="",
                 text_color=sbs_text,
                 background_color=sbs_background),
+        ],
+        [
+            sg.Text("ex_2 swap with", size=(15, 1)),
+            sg.Button("ex_1", key="dps_swap_ex_2_with_1_button", font=(None, 13)),
+            sg.Button("ex_3", key="dps_swap_ex_2_with_3_button", font=(None, 13)),
+            sg.Button("ex_4", key="dps_swap_ex_2_with_4_button", font=(None, 13)),
+            sg.Button("remove", key="dps_remove_example_2_button", font=(None, 13)),
+            sg.Button("stash", key="dps_stash_ex_2_button", font=(None, 13)),
+            sg.Button("unstash", key="dps_unstash_ex_2_button", font=(None, 13)),
+            sg.Text(
+                "", key="dps_buttons_ex_2_error", size=(50, 1), text_color="red"),
         ],
         [
             sg.Text("sbs_source_3", size=(15, 1)),
@@ -514,25 +553,11 @@ def make_tab_edit_dps(sg):
             sg.Text("", key="dps_bold_3_error", size=(50, 1), text_color="red")
         ],
         [
-            sg.Text("ex_3 swap with", size=(15, 1)),
-            sg.Button("sbs_ex_1", key="dps_swap_ex_3_with_1_button", font=(None, 13)),
-            sg.Button("sbs_ex_2", key="dps_swap_ex_3_with_2_button", font=(None, 13)),
-            sg.Button("sbs_ex_4", key="dps_swap_ex_3_with_4_button", font=(None, 13)),
-            sg.Button("clean ex 3", key="dps_remove_example_3_button", font=(None, 13)),
-            sg.Text(
-                "", key="dps_swap_ex_3_with_1_error", size=(50, 1), text_color="red"),
-            sg.Text(
-                "", key="dps_swap_ex_3_with_2_error", size=(50, 1), text_color="red"),
-            sg.Text(
-                "", key="dps_swap_ex_3_with_4_error", size=(50, 1), text_color="red"),
-            sg.Text(
-                "", key="dps_remove_example_3_error", size=(50, 1), text_color="red"),
-        ],
-        [
             sg.Text("sbs_chant_pali_3", size=(15, 1)),
             CompletionCombo(
                 pali_chant_list,
                 key="dps_sbs_chant_pali_3",
+                size=(50, 1),
                 enable_events=True,
                 text_color=sbs_text,
                 background_color=sbs_background),
@@ -557,6 +582,17 @@ def make_tab_edit_dps(sg):
                 tooltip="",
                 text_color=sbs_text,
                 background_color=sbs_background),
+        ],
+        [
+            sg.Text("ex_3 swap with", size=(15, 1)),
+            sg.Button("ex_1", key="dps_swap_ex_3_with_1_button", font=(None, 13)),
+            sg.Button("ex_2", key="dps_swap_ex_3_with_2_button", font=(None, 13)),
+            sg.Button("ex_4", key="dps_swap_ex_3_with_4_button", font=(None, 13)),
+            sg.Button("remove", key="dps_remove_example_3_button", font=(None, 13)),
+            sg.Button("stash", key="dps_stash_ex_3_button", font=(None, 13)),
+            sg.Button("unstash", key="dps_unstash_ex_3_button", font=(None, 13)),
+            sg.Text(
+                "", key="dps_buttons_ex_3_error", size=(10, 1), text_color="red"),
         ],
         [
             sg.Text("sbs_source_4", size=(15, 1)),
@@ -609,25 +645,11 @@ def make_tab_edit_dps(sg):
             sg.Text("", key="dps_bold_4_error", size=(50, 1), text_color="red")
         ],
         [
-            sg.Text("ex_4 swap with", size=(15, 1)),
-            sg.Button("sbs_ex_1", key="dps_swap_ex_4_with_1_button", font=(None, 13)),
-            sg.Button("sbs_ex_2", key="dps_swap_ex_4_with_2_button", font=(None, 13)),
-            sg.Button("sbs_ex_3", key="dps_swap_ex_4_with_3_button", font=(None, 13)),
-            sg.Button("clean ex 4", key="dps_remove_example_4_button", font=(None, 13)),
-            sg.Text(
-                "", key="dps_swap_ex_4_with_1_error", size=(50, 1), text_color="red"),
-            sg.Text(
-                "", key="dps_swap_ex_4_with_2_error", size=(50, 1), text_color="red"),
-            sg.Text(
-                "", key="dps_swap_ex_4_with_3_error", size=(50, 1), text_color="red"),
-            sg.Text(
-                "", key="dps_remove_example_4_error", size=(50, 1), text_color="red"),
-        ],
-        [
             sg.Text("sbs_chant_pali_4", size=(15, 1)),
             CompletionCombo(
                 pali_chant_list,
                 key="dps_sbs_chant_pali_4",
+                size=(50, 1),
                 enable_events=True,
                 text_color=sbs_text,
                 background_color=sbs_background),
@@ -654,6 +676,17 @@ def make_tab_edit_dps(sg):
                 tooltip=""),
         ],
         [
+            sg.Text("ex_4 swap with", size=(15, 1)),
+            sg.Button("ex_1", key="dps_swap_ex_4_with_1_button", font=(None, 13)),
+            sg.Button("ex_2", key="dps_swap_ex_4_with_2_button", font=(None, 13)),
+            sg.Button("ex_3", key="dps_swap_ex_4_with_3_button", font=(None, 13)),
+            sg.Button("remove", key="dps_remove_example_4_button", font=(None, 13)),
+            sg.Button("stash", key="dps_stash_ex_4_button", font=(None, 13)),
+            sg.Button("unstash", key="dps_unstash_ex_4_button", font=(None, 13)),
+            sg.Text(
+                "", key="dps_buttons_ex_4_error", size=(10, 1), text_color="red"),
+        ],
+        [
             sg.Text("class anki", size=(15, 1)),
             CompletionCombo(
                 pali_class_list,
@@ -666,27 +699,9 @@ def make_tab_edit_dps(sg):
                 tooltip=""),
         ],
         [
-            sg.Text("sbs_audio", size=(15, 1)),
-            sg.Input(
-                key="dps_sbs_audio",
-                size=(50, 1),
-                tooltip="",
-                text_color=sbs_text,
-                background_color=sbs_background),
-        ],
-        [
             sg.Text("sbs_category", size=(15, 1)),
             sg.Input(
                 key="dps_sbs_category",
-                size=(50, 1),
-                tooltip="",
-                text_color=sbs_text,
-                background_color=sbs_background),
-        ],
-        [
-            sg.Text("sbs_index", size=(15, 1)),
-            sg.Input(
-                key="dps_sbs_index",
                 size=(50, 1),
                 tooltip="",
                 text_color=sbs_text,
@@ -712,14 +727,44 @@ def make_tab_edit_dps(sg):
             sg.HSep(),
         ],
         [
-            sg.Button("Clear", key="dps_clear_button", 
-                tooltip="Clear all the fields"),
-            sg.Button("Reset", key="dps_reset_button",
-                tooltip="Reset all fields as they was before editing"),
-            sg.Button("Update DB", key="dps_update_db_button",
-                tooltip="Add a sbs or ru info into the db"),
-            sg.Button("Summary", key="dps_summary_button", 
-                tooltip="See a summary of filled fields"),
+            sg.Button(
+                "Clear", 
+                key="dps_clear_button", 
+                tooltip="Clear all the fields"
+                ),
+            sg.Button(
+                "Reset", 
+                key="dps_reset_button",
+                tooltip="Reset all fields as they was before editing"
+                ),
+            sg.Button(
+                "Stash", key="dps_stash_button",
+                tooltip="Stash the word to edit it again later"),
+            sg.Button(
+                "Unstash", key="dps_unstash_button",
+                tooltip="Unstash a word to edit it again"),
+            sg.Button(
+                "Open Tests", key="dps_open_tests_button",
+                tooltip="Open TSV file of DPS internal tests"),
+            sg.Button(
+                "Log", key="dps_open_log_in_terminal_button",
+                tooltip="Open log of GUI in the terminal"),
+            sg.Button(
+                "Test", 
+                key="dps_test_internal_button",
+                tooltip="Run internal tests"
+                ),
+            sg.Button(
+                "Summary", 
+                key="dps_summary_button", 
+                tooltip="See a summary of filled fields"
+                ),
+            sg.Button(
+                "Update DB", 
+                key="dps_update_db_button",
+                tooltip="Add a sbs or ru info into the db"
+                ),
+
         ],
     ]
 
