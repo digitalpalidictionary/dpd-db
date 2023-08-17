@@ -9,6 +9,7 @@ from tab_edit_dpd import make_tab_edit_dpd
 from tab_edit_dps import make_tab_edit_dps
 from tab_fix_sandhi import make_tab_fix_sandhi
 from tab_db_tests import make_tab_db_tests
+from tab_dps_tests import make_tab_dps_tests
 from functions import load_gui_config
 
 config = load_gui_config()
@@ -38,6 +39,7 @@ def window_layout(primary_user):
     tab_edit_dps = make_tab_edit_dps(sg)
     tab_fix_sandhi = make_tab_fix_sandhi(sg)
     tab_db_tests = make_tab_db_tests(sg)
+    tab_dps_tests = make_tab_dps_tests(sg)
 
 
     tab_group = sg.TabGroup(
@@ -47,6 +49,7 @@ def window_layout(primary_user):
             sg.Tab("Edit DPS", tab_edit_dps, key="tab_edit_dps"),
             sg.Tab("Fix Sandhi", tab_fix_sandhi, key="tab_fix_sandhi"),
             sg.Tab("Test db", tab_db_tests, key="tab_db_tests"),
+            sg.Tab("Test DPS", tab_dps_tests, key="tab_dps_tests")
         ]],
         key="tabgroup",
         enable_events=True,
