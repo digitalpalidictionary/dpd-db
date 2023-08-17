@@ -5,6 +5,7 @@ import csv
 import subprocess
 import textwrap
 import pickle
+import configparser
 from typing import Optional, Tuple, List, Dict
 
 from spellchecker import SpellChecker
@@ -1284,3 +1285,21 @@ def additions_save(additions):
     """Save the list of word to add to db to pickle file."""
     with open(PTH.additions_pickle_path, "wb") as file:
         pickle.dump(additions, file)
+
+
+def load_gui_config(filename="config.ini"):
+    config = configparser.ConfigParser()
+    config.read(filename)
+    
+    gui_config = {
+        "theme": config["gui"]["theme"],
+        "screen_fraction_width": float(config["gui"]["screen_fraction_width"]),
+        "screen_fraction_height": float(config["gui"]["screen_fraction_height"]),
+        "window_location": (int(config["gui"]["window_x"]), int(config["gui"]["window_y"])),
+        "font": (config["gui"]["font_name"], int(config["gui"]["font_size"])),
+        "input_text_color": config["gui"]["input_text_color"],
+        "text_color": config["gui"]["text_color"],
+        "element_padding": (int(config["gui"]["element_padding_x"]), int(config["gui"]["element_padding_y"])),
+        "margins": (int(config["gui"]["margin_x"]), int(config["gui"]["margin_y"]))
+    }
+    return gui_config

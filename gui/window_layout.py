@@ -9,17 +9,28 @@ from tab_edit_dpd import make_tab_edit_dpd
 from tab_edit_dps import make_tab_edit_dps
 from tab_fix_sandhi import make_tab_fix_sandhi
 from tab_db_tests import make_tab_db_tests
+from functions import load_gui_config
 
+config = load_gui_config()
 
 def window_layout(primary_user):
-    sg.theme('DarkGrey10')
+
+    # Get screen width and height
+    screen_width, screen_height = sg.Window.get_screen_size()
+
+    # Calculate width and height of the screen
+    window_width = int(screen_width * config["screen_fraction_width"])
+    window_height = int(screen_height * config["screen_fraction_height"])
+
+
+    sg.theme(config["theme"])
     sg.set_options(
-        font=("Noto Sans", 16),
-        input_text_color="darkgray",
-        text_color="#00bfff",
-        window_location=(0, 0),
-        element_padding=(0, 3),
-        margins=(0, 0),
+        font=config["font"],
+        input_text_color=config["input_text_color"],
+        text_color=config["text_color"],
+        window_location=config["window_location"],
+        element_padding=config["element_padding"],
+        margins=config["margins"],
     )
 
     tab_add_next_word = make_tab_add_next_word(sg)
@@ -28,17 +39,17 @@ def window_layout(primary_user):
     tab_fix_sandhi = make_tab_fix_sandhi(sg)
     tab_db_tests = make_tab_db_tests(sg)
 
+
     tab_group = sg.TabGroup(
         [[
             sg.Tab("Words To Add", tab_add_next_word, key="tab_add_next_word"),
             sg.Tab("Edit DPD", tab_edit_dpd, key="tab_edit_dpd"),
             sg.Tab("Edit DPS", tab_edit_dps, key="tab_edit_dps"),
             sg.Tab("Fix Sandhi", tab_fix_sandhi, key="tab_fix_sandhi"),
-            sg.Tab("Test db", tab_db_tests, key="tab_db_tests")
+            sg.Tab("Test db", tab_db_tests, key="tab_db_tests"),
         ]],
         key="tabgroup",
         enable_events=True,
-        size=(None, None)
     )
 
     layout = [
@@ -51,9 +62,10 @@ def window_layout(primary_user):
         'Add new words',
         layout,
         resizable=True,
-        size=(None, None),
+        size=(window_width, window_height),
         finalize=True,
     )
+
 
     # bind enter key for quick search
     window['word_to_clone_edit'].bind("<Return>", "_enter")
@@ -82,6 +94,7 @@ def window_layout(primary_user):
     # bind tab dps
     window['dps_meaning'].bind('<Tab>', '_tab', propagate=False)
     window['dps_ru_online_suggestion'].bind('<Tab>', '_tab', propagate=False)
+    window['dps_notes_online_suggestion'].bind('<Tab>', '_tab', propagate=False)
     window['dps_ru_meaning'].bind('<Tab>', '_tab', propagate=False)
     window['dps_sbs_meaning'].bind('<Tab>', '_tab', propagate=False)
     window['dps_notes'].bind('<Tab>', '_tab', propagate=False)
