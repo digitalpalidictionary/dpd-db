@@ -412,9 +412,7 @@ class SBS(Base):
     sbs_chant_pali_4: Mapped[Optional[str]] = mapped_column(default='')
     sbs_chant_eng_4: Mapped[Optional[str]] = mapped_column(default='')
     sbs_chapter_4: Mapped[Optional[str]] = mapped_column(default='')
-    sbs_index: Mapped[Optional[int]] = mapped_column(default='')
     sbs_category: Mapped[Optional[str]] = mapped_column(default='')
-    sbs_audio: Mapped[Optional[str]] = mapped_column(default='')
 
     def __repr__(self) -> str:
         return f"SBS: {self.id} {self.sbs_chant_pali_1} {self.sbs_class}"
