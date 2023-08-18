@@ -1,7 +1,7 @@
 """Render tab to run database tests."""
 
 
-def make_tab_db_tests(sg):
+def make_tab_db_tests(sg, primary_user):
 
     LOGIC = [
         "equals",
@@ -22,6 +22,10 @@ def make_tab_db_tests(sg):
                 "Stop Tests", key="test_stop"),
             sg.Button(
                 "Edit Tests", key="test_edit"),
+            sg.Button(
+                "Run Ru Tests", key="ru_test_db_internal",
+                tooltip="Run tests for all which has ru.ru_meaning",
+                visible=not primary_user),
         ],
         [
             sg.Text(

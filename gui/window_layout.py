@@ -38,7 +38,7 @@ def window_layout(primary_user):
     tab_edit_dpd = make_tab_edit_dpd(sg, primary_user)
     tab_edit_dps = make_tab_edit_dps(sg)
     tab_fix_sandhi = make_tab_fix_sandhi(sg)
-    tab_db_tests = make_tab_db_tests(sg)
+    tab_db_tests = make_tab_db_tests(sg, primary_user)
     tab_dps_tests = make_tab_dps_tests(sg)
 
 

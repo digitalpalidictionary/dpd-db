@@ -25,6 +25,7 @@ from functions_tests import get_search_criteria
 from functions_tests import regex_fail_list
 from functions_tests import make_new_test
 from functions_tests import clean_exceptions
+from functions_tests import open_internal_tests
 
 # 1. individual internal tests run in dps edit tab
 
@@ -88,6 +89,12 @@ def replace_values_in_rows(rows):
 def make_db_internal_tests_list():
     """Constructs a list of InternalTestRow objects from the TSV."""
     rows = read_from_tsv(DPSPTH.dps_internal_tests_path)
+    return [InternalTestRow(**row) for row in rows]
+
+
+def make_dpd_db_internal_tests_list():
+    """Constructs a list of InternalTestRow objects from the TSV."""
+    rows = read_from_tsv(PTH.internal_tests_path)
     return [InternalTestRow(**row) for row in rows]
 
 
@@ -613,6 +620,169 @@ def clear_tests(window):
     for test_field in test_fields:
         window[test_field].update("")
     window.refresh()
+
+
+def dps_dpd_db_internal_tests(sg, window, flags):
+    clear_tests(window)
+    window["messages"].update("running tests", text_color="white")
+    window.refresh()
+
+    dpd_db = get_dpd_db()
+    db_internal_tests_list = make_dpd_db_internal_tests_list()
+
+    db_internal_tests_list = clean_exceptions(dpd_db, db_internal_tests_list)
+    integrity = test_the_tests(db_internal_tests_list, window)
+    if integrity is False:
+        return
+
+    for test_counter, t in enumerate(db_internal_tests_list):
+
+        window["test_number"].update(f"{test_counter+2}")
+        window["test_name"].update(t.test_name)
+        window["messages"].update(t.test_name, text_color="white")
+        window.refresh()
+
+        fail_list = []
+        test_results_display = [[t.display_1, t.display_2, t.display_3]]
+        results_count = 0
+
+        for i in dpd_db:
+            # Check for the existence of "ru" before running the tests
+            if not get_nested_attr(i, 'ru.ru_meaning'):
+                    continue  # skip this iteration if ru.ru_meaning does not exist or is empty
+
+
+            test_results = get_db_test_results(t, i)
+
+            if all(test_results.values()):
+                if i.pali_1 not in t.exceptions:
+                    fail_list += [i.pali_1]
+
+                    if results_count < int(t.iterations):
+                        if not t.display_1:  # checking if it's an empty string
+                            continue
+                        test_results_display += [[
+                            f"{get_nested_attr(i, t.display_1)}",
+                            f"{get_nested_attr(i, t.display_2)}",
+                            f"{get_nested_attr(i, t.display_3)}"]]
+                        results_count += 1
+
+        if fail_list:
+            fail_list_redux = (fail_list[:int(t.iterations)])
+            add_exceptions_list = fail_list_redux
+            db_query = regex_fail_list(fail_list_redux)
+            window["test_name"].update(t.test_name)
+            window["search_column_1"].update(t.search_column_1)
+            window["search_column_2"].update(t.search_column_2)
+            window["search_column_3"].update(t.search_column_3)
+            window["search_column_4"].update(t.search_column_4)
+            window["search_column_5"].update(t.search_column_5)
+            window["search_column_6"].update(t.search_column_6)
+            window["search_sign_1"].update(t.search_sign_1)
+            window["search_sign_2"].update(t.search_sign_2)
+            window["search_sign_3"].update(t.search_sign_3)
+            window["search_sign_4"].update(t.search_sign_4)
+            window["search_sign_5"].update(t.search_sign_5)
+            window["search_sign_6"].update(t.search_sign_6)
+            window["search_string_1"].update(t.search_string_1)
+            window["search_string_2"].update(t.search_string_2)
+            window["search_string_3"].update(t.search_string_3)
+            window["search_string_4"].update(t.search_string_4)
+            window["search_string_5"].update(t.search_string_5)
+            window["search_string_6"].update(t.search_string_6)
+            window["display_1"].update(t.display_1)
+            window["display_2"].update(t.display_2)
+            window["display_3"].update(t.display_3)
+            window["error_column"].update(t.error_column)
+            window["iterations"].update(t.iterations)
+            window["exceptions"].update(values=t.exceptions)
+            window["test_results_redux"].update(len(fail_list_redux))
+            window["test_results_total"].update(len(fail_list))
+            window["test_results"].update(test_results_display)
+            window["test_add_exception"].update(values=add_exceptions_list)
+            window["test_db_query"].update(db_query)
+
+            while True:
+                event, values = window.read()
+                if event == "test_next":
+                    clear_tests(window)
+                    break
+
+                if event == "test_stop":
+                    window["messages"].update(
+                        "testing stopped", text_color="white")
+                    return
+
+                if event == sg.WIN_CLOSED:
+                    break
+
+                if event == "test_add_exception_button":
+                    exception = values["test_add_exception"]
+                    db_internal_tests_list[test_counter].exceptions += [exception]
+
+                    write_internal_tests_list(db_internal_tests_list)
+
+                    window["messages"].update(
+                        f"{exception} added to exceptions",
+                        text_color="white")
+
+                    try:
+                        add_exceptions_list.remove(exception)
+                        window["test_add_exception"].update(
+                            values=add_exceptions_list)
+                    except ValueError as e:
+                        window["messages"].update(
+                            f"[red]can't remove {exception} from list! {e}")
+
+                if event == "test_delete":
+                    confirmation = sg.popup_yes_no(
+                        "Are you sure you want to delete this test?",
+                        location=(400, 400))
+                    if confirmation == "Yes":
+                        del db_internal_tests_list[test_counter]
+                        write_internal_tests_list(db_internal_tests_list)
+                        clear_tests(window)
+                        break
+
+                if event == "test_update":
+                    update_tests(db_internal_tests_list, test_counter, values)
+                    window["messages"].update(
+                        f"{test_counter}. {t.test_name} updated!",
+                        text_color="white")
+
+                if event == "test_new":
+                    make_new_test(values, test_counter, db_internal_tests_list)
+                    clear_tests(window)
+                    window["messages"].update(
+                        f"{values['test_name']} added to tests")
+                    break
+
+                if event == "test_db_query_copy":
+                    pyperclip.copy(db_query)
+
+                if event == "test_edit":
+                    open_internal_tests()
+
+                if event == "test_results":
+                    if values["test_results"]:
+                        index = values["test_results"][0]
+                        pali_word = test_results_display[index][0]
+                        pyperclip.copy(pali_word)
+                    else:
+                        # Handle the scenario where the list is empty.
+                        print("test_results is empty!")
+                        # or take some other appropriate action
+                    
+
+        else:
+            # print(f"{test_counter}. {t.test_name} passed!")
+            window["messages"].update(
+                f"{test_counter}. {t.test_name} passed")
+
+        flags.text_next = False
+
+    window["messages"].update(
+        "internal db tests complete", text_color="white")
 
 
 
