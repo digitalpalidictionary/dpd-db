@@ -986,22 +986,33 @@ def reset_flags(flags):
     flags.test_next = False
 
 
-def display_summary(values, window, sg):
+def display_summary(values, window, sg, pali_word_original2):
     from functions_db import dpd_values_list
+
+    # Assuming pali_word_original2 is a dictionary with the original values
+    original_values = pali_word_original2.__dict__
+
     summary = []
     for value in values:
         if value in dpd_values_list:
             if values[value] != "":
+                # Check if the value is changed
+                color = 'yellow' if str(original_values.get(value)) != str(values[value]) else 'white'
+
                 if len(values[value]) < 40:
                     summary += [[
-                        value, values[value]
+                        value, values[value], color
                     ]]
                 else:
                     wrapped_lines = textwrap.wrap(values[value], width=40)
-                    summary += [[value, wrapped_lines[0]]]
+                    summary += [[value, wrapped_lines[0], color]]
                     for wrapped_line in wrapped_lines:
                         if wrapped_line != wrapped_lines[0]:
-                            summary += [["", wrapped_line]]
+                            summary += [["", wrapped_line, color]]
+
+                print(f"Original{original_values.get(value)} (Type: {type(original_values.get(value))}), Current: {values[value]} (Type: {type(values[value])})")
+
+
 
     summary_layout = [
                 [
@@ -1011,6 +1022,8 @@ def display_summary(values, window, sg):
                         auto_size_columns=False,
                         justification="left",
                         col_widths=[20, 50],
+                        display_row_numbers=False,  # Optional: Do not display row numbers
+                        key="-TABLE-",
                         expand_y=True
                     )
                 ],
@@ -1024,8 +1037,26 @@ def display_summary(values, window, sg):
         "Summary",
         summary_layout,
         location=(400, 0),
-        size=(800, 1000)
+        size=(800, 1000),
+        finalize=True  # finalize the window
         )
+
+    # Perform an initial window.read() to populate the Table (Treeview) widget
+    event, values = window.read(timeout=10)
+
+    table = window["-TABLE-"]
+    treeview = table.Widget
+
+    # Create a custom color tag
+    treeview.tag_configure("yellow", background="dark blue")
+
+    # Find out the IDs of the items in the treeview
+    item_ids = treeview.get_children()
+
+    # Apply that tag to the rows that need to be highlighted
+    for i, item_id in enumerate(item_ids):
+        if summary[i][2] == 'yellow':
+            treeview.item(item_id, tags=("yellow",))
 
     while True:
         event, values = window.read()

@@ -31,6 +31,7 @@ db_session = get_db_session(PTH.dpd_db_path)
 
 class Flags_dps:
     def __init__(self):
+        self.synoyms = True
         self.sbs_example_1 = True
         self.sbs_example_2 = False
         self.sbs_example_3 = False
@@ -40,6 +41,7 @@ class Flags_dps:
 
 
 def dps_reset_flags(flags_dps):
+    flags_dps.synoyms = True
     flags_dps.sbs_example_1 = True
     flags_dps.sbs_example_2 = False
     flags_dps.sbs_example_3 = False
@@ -132,17 +134,13 @@ def populate_dps_tab(values, window, dpd_word, ru_word, sbs_word):
         constr_or_comp_constr += dpd_word.construction
     window["dps_constr_or_comp_constr"].update(constr_or_comp_constr)
 
-    # synonym
-    dps_synonym = ""
+    # synonym_antonym
+    dps_syn_ant = ""
     if dpd_word.synonym:
-        dps_synonym = dpd_word.synonym
-    window["dps_synonym"].update(dps_synonym)
-
-    # antonym
-    dps_antonym = ""
+        dps_syn_ant = f"(syn) {dpd_word.synonym}"
     if dpd_word.antonym:
-        dps_antonym = dpd_word.antonym
-    window["dps_antonym"].update(dps_antonym)
+        dps_syn_ant += f"(ant): {dpd_word.antonym}" 
+    window["dps_synonym_antonym"].update(dps_syn_ant)
 
     # notes
     dps_notes = ""
@@ -205,6 +203,31 @@ def populate_dps_tab(values, window, dpd_word, ru_word, sbs_word):
         update_sbs_chant(4, chant, window)
 
 
+def dps_get_original_values(values, dpd_word, ru_word, sbs_word):
+
+    original_values = {}
+
+    original_values["pali_1"] = dpd_word.pali_1
+
+    # For Russian columns
+    ru_columns = get_column_names(Russian)
+    for value in values:
+        if value.startswith("dps_"):
+            value_clean = value.replace("dps_", "")
+            if value_clean in ru_columns:
+                original_values[value_clean] = getattr(ru_word, value_clean, "")
+
+    # For SBS columns
+    sbs_columns = get_column_names(SBS)
+    for value in values:
+        if value.startswith("dps_"):
+            value_clean = value.replace("dps_", "")
+            if value_clean in sbs_columns:
+                original_values[value_clean] = getattr(sbs_word, value_clean, "")
+    
+    return original_values
+
+
 def clear_dps(values, window):
     """Clear all value from DPS tab."""
     for value in values:
@@ -217,25 +240,30 @@ def edit_corrections():
         ["code", PTH.corrections_tsv_path])
 
 
-def display_dps_summary(values, window, sg):
+def display_dps_summary(values, window, sg, original_values):
 
     dps_values_list = [
-    "dps_pali_1", "dps_grammar", "dps_meaning", "dps_ru_meaning", "dps_ru_meaning_lit", "dps_sbs_meaning", "dps_root", "dps_base_or_comp", "dps_constr_or_comp_constr", "dps_synonym", "dps_antonym", "dps_notes", "dps_ru_notes", "dps_sbs_notes", "dps_sbs_source_1", "dps_sbs_sutta_1", "dps_sbs_example_1", "dps_sbs_chant_pali_1", "dps_sbs_chant_eng_1", "dps_sbs_chapter_1", "dps_sbs_source_2", "dps_sbs_sutta_2", "dps_sbs_example_2", "dps_sbs_chant_pali_2", "dps_sbs_chant_eng_2", "dps_sbs_chapter_2", "dps_sbs_source_3", "dps_sbs_sutta_3", "dps_sbs_example_3", "dps_sbs_chant_pali_3", "dps_sbs_chant_eng_3", "dps_sbs_chapter_3", "dps_sbs_source_4", "dps_sbs_sutta_4", "dps_sbs_example_4", "dps_sbs_chant_pali_4", "dps_sbs_chant_eng_4", "dps_sbs_chapter_4", "dps_sbs_class_anki", "dps_sbs_category"]
+    "dps_pali_1", "dps_grammar", "dps_meaning", "dps_ru_meaning", "dps_ru_meaning_lit", "dps_sbs_meaning", "dps_root", "dps_base_or_comp", "dps_constr_or_comp_constr", "dps_synonym_antonym", "dps_notes", "dps_ru_notes", "dps_sbs_notes", "dps_sbs_source_1", "dps_sbs_sutta_1", "dps_sbs_example_1", "dps_sbs_chant_pali_1", "dps_sbs_chant_eng_1", "dps_sbs_chapter_1", "dps_sbs_source_2", "dps_sbs_sutta_2", "dps_sbs_example_2", "dps_sbs_chant_pali_2", "dps_sbs_chant_eng_2", "dps_sbs_chapter_2", "dps_sbs_source_3", "dps_sbs_sutta_3", "dps_sbs_example_3", "dps_sbs_chant_pali_3", "dps_sbs_chant_eng_3", "dps_sbs_chapter_3", "dps_sbs_source_4", "dps_sbs_sutta_4", "dps_sbs_example_4", "dps_sbs_chant_pali_4", "dps_sbs_chant_eng_4", "dps_sbs_chapter_4", "dps_sbs_class_anki", "dps_sbs_category"]
 
     summary = []
+    excluded_fields = ["dps_grammar", "dps_meaning", "dps_root", "dps_base_or_comp", "dps_constr_or_comp_constr", "dps_synonym_antonym", "dps_notes"]
+
     for value in values:
         if value in dps_values_list:
-            if values[value] != "":
+            if values[value] != "" and value not in excluded_fields:
+                # Check if the value is changed
+                color = 'yellow' if str(original_values.get(value.replace("dps_", ""))) != str(values[value]) else 'white'
+
                 if len(values[value]) < 40:
                     summary += [[
-                        value, values[value]
+                        value, values[value], color
                     ]]
                 else:
                     wrapped_lines = textwrap.wrap(values[value], width=40)
-                    summary += [[value, wrapped_lines[0]]]
+                    summary += [[value, wrapped_lines[0], color]]
                     for wrapped_line in wrapped_lines:
                         if wrapped_line != wrapped_lines[0]:
-                            summary += [["", wrapped_line]]
+                            summary += [["", wrapped_line, color]]
 
     summary_layout = [
                 [
@@ -245,6 +273,8 @@ def display_dps_summary(values, window, sg):
                         auto_size_columns=False,
                         justification="left",
                         col_widths=[20, 50],
+                        display_row_numbers=False,  # Optional
+                        key="-DPSTABLE-",
                         expand_y=True
                     )
                 ],
@@ -260,6 +290,16 @@ def display_dps_summary(values, window, sg):
         location=(300, 0),
         size=(1200, 1000)
         )
+
+    event, values = window.read(timeout=100)  # read the window for a short time
+
+    table = window["-DPSTABLE-"]
+    treeview = table.Widget
+    treeview.tag_configure("yellow", background="dark blue")
+    item_ids = treeview.get_children()
+    for i, item_id in enumerate(item_ids):
+        if summary[i][2] == 'yellow':
+            treeview.item(item_id, tags=("yellow",))
 
     while True:
         event, values = window.read()
@@ -354,79 +394,6 @@ def copy_dpd_examples(num_dpd, num_sbs, window, values):
     # Return values for keys_sbs
     return [values[key] for key in keys_sbs]
 
-# KEYS_TEMPLATE = [
-#     "dps_sbs_source_{}",
-#     "dps_sbs_sutta_{}",
-#     "dps_sbs_example_{}",
-#     "dps_sbs_chant_pali_{}",
-#     "dps_sbs_chant_eng_{}",
-#     "dps_sbs_chapter_{}"
-# ]
-
-# GENERIC_KEYS = [
-#     "dps_sbs_source",
-#     "dps_sbs_sutta",
-#     "dps_sbs_example",
-#     "dps_sbs_chant_pali",
-#     "dps_sbs_chant_eng",
-#     "dps_sbs_chapter"
-# ]
-
-# def stash_values_from(values, num, window, error_field):
-#     """Stash values from specific keys based on the provided number."""
-#     keys_to_stash = [key.format(num) for key in GENERIC_KEYS]
-
-#     # Check if sbs_example_{i} is empty
-#     example_key = f"dps_sbs_example_{num}"
-#     if values[example_key] == "":
-#         error_string = f"example {num} is empty"
-#         window[error_field].update(error_string)
-#         return  # Exit the function without stashing any values
-
-#     values_to_stash = {generic_key: values[key] for generic_key, key in zip(GENERIC_KEYS, keys_to_stash) if key in values}
-
-    
-#     try:
-#         with open(DPSPTH.dps_stash_path, "wb") as f:
-#             pickle.dump(values_to_stash, f)
-#     except Exception as e:
-#         window[error_field].update(str(e))
-
-
-# def unstash_values_to(window, num, error_field):
-#     """Unstash values and update the window based on the provided number."""
-#     keys_to_update = [key.format(num) for key in KEYS_TEMPLATE]
-    
-#     if not os.path.exists(DPSPTH.dps_stash_path):
-#         window[error_field].update("Stash file not found!")
-#         return
-
-#     try:
-#         with open(DPSPTH.dps_stash_path, "rb") as f:
-#             unstashed_values = pickle.load(f)
-#     except Exception as e:
-#         window[error_field].update(str(e))
-#         return
-
-#     # Check if sbs_example_{i} from unstashed values is empty
-#     example_key = f"dps_sbs_example_{num}"
-#     if example_key not in unstashed_values or not unstashed_values[example_key]:
-#         error_string = f"Unstashed example {num} is empty"
-#         window[error_field].update(error_string)
-#         return  # Exit the function without updating any values
-
-#     updated_values = {key: unstashed_values[generic_key] for key, generic_key in zip(keys_to_update, GENERIC_KEYS) if generic_key in unstashed_values}
-
-#     print(updated_values)  # print the updated values to check
-    
-#     for key in keys_to_update:
-#         if key in unstashed_values:
-#             window[key].update(updated_values)
-
-
-
-
-stash_path = DPSPTH.dps_stash_path
 
 KEYS_TEMPLATE = [
     "dps_sbs_source_{}",
@@ -459,13 +426,12 @@ def stash_values_from(values, num, window, error_field):
     print(f"Values to stash: {values_to_stash}")
     
     try:
-        with open(stash_path, "w") as f:
+        with open(DPSPTH.dps_stash_path, "w") as f:
             json.dump(values_to_stash, f)
-        print(f"Stashed values to {stash_path}.")
+        print(f"Stashed values to {DPSPTH.dps_stash_path}.")
     except Exception as e:
         print(f"Error while stashing: {e}")
         window[error_field].update(f"Error while stashing: {e}")
-
 
 
 def unstash_values_to(window, num, error_field):
@@ -474,16 +440,16 @@ def unstash_values_to(window, num, error_field):
     window[error_field].update("")
     
     # Check if the stash file exists
-    if not os.path.exists(stash_path):
+    if not os.path.exists(DPSPTH.dps_stash_path):
         window[error_field].update("Stash file not found!")
-        print(f"Error: {stash_path} not found.")
+        print(f"Error: {DPSPTH.dps_stash_path} not found.")
         return
 
     # Load the stashed values
     try:
-        with open(stash_path, "r") as f:
+        with open(DPSPTH.dps_stash_path, "r") as f:
             unstashed_values = json.load(f)
-        print(f"Loaded values from {stash_path}: {unstashed_values}")
+        print(f"Loaded values from {DPSPTH.dps_stash_path}: {unstashed_values}")
     except Exception as e:
         window[error_field].update(f"Error while unstashing: {e}")
         print(f"Error while unstashing: {e}")
@@ -502,7 +468,6 @@ def unstash_values_to(window, num, error_field):
             window[error_field].update(error_string)
             print(f"Error: Example {num} was not stashed.")
             return
-
 
 
 # russian related
@@ -788,3 +753,47 @@ def ru_edit_spelling():
 
 def tail_log():
     subprocess.Popen(["gnome-terminal", "--", "tail", "-f", "temp/.gui_errors.txt"])
+    
+
+def extract_sutta_from_file(sutta_name, book):
+    # Read the file content
+
+    print(PTH.cst_txt_dir.joinpath(book))  # Debugging print
+
+    with open(PTH.cst_txt_dir.joinpath(book), "r") as f:
+        text = f.read()
+
+    print(f"Loaded file with {len(text)} characters.")  # Debugging print
+
+    # Search for the beginning of the sutta using the sutta_name
+    start_index = text.find(sutta_name)
+    
+    # If sutta_name is not found in the text, return None
+    if start_index == -1:
+        print(f"'{sutta_name}' not found in the text.")
+        return None
+    print(f"Start index of sutta: {start_index}")  # Debugging print
+
+    # Adjust end pattern based on the file's name
+    if book.startswith(("s01", "s02")):
+        end_pattern = f"{sutta_name} niṭṭhitaṃ"
+    elif book.startswith(("s03", "s04", "s05")):
+        end_pattern = "suttaṃ"
+    else:
+        print(f"Unknown file name pattern: {book}")
+        return None
+    
+    # Search for the end of the sutta using the end_pattern
+    end_index = text.find(end_pattern, start_index + len(sutta_name))
+
+    
+    # If the end pattern is not found after the start index, return None
+    if end_index == -1:
+        print(f"End pattern '{end_pattern}' not found in the text after '{sutta_name}'.")
+        return None
+    print(f"End index of sutta: {end_index}")  # Debugging print
+
+    # Extract the sutta from the text using the start and end indices
+    sutta = text[start_index:end_index + len(end_pattern)]
+
+    return sutta

@@ -28,6 +28,7 @@ from functions_db import fetch_id_or_pali_1
 from functions_db import fetch_ru
 from functions_db import fetch_sbs
 from functions_db import dps_update_db
+from functions_db import dps_get_synonyms
 
 from functions import open_in_goldendict
 from functions import sandhi_ok
@@ -81,6 +82,7 @@ from functions_dps import edit_corrections
 from functions_dps import tail_log
 from functions_dps import stash_values_from
 from functions_dps import unstash_values_to
+from functions_dps import dps_get_original_values
 
 
 from functions_tests import individual_internal_tests
@@ -91,6 +93,7 @@ from functions_tests_dps import dps_open_internal_tests
 from functions_tests_dps import dps_individual_internal_tests
 from functions_tests_dps import dps_db_internal_tests
 from functions_tests_dps import check_repetition
+from functions_tests_dps import dps_dpd_db_internal_tests
 
 from db.get_db_session import get_db_session
 from scripts.backup_paliword_paliroot import backup_paliword_paliroot
@@ -180,7 +183,7 @@ def main():
 
                 if words_to_add_list != []:
                     values["word_to_add"] = [words_to_add_list[0]]
-                    window["word_to_add"].update(value=words_to_add_list)
+                    window["word_to_add"].update(values=words_to_add_list)
                     window["words_to_add_length"].update(
                         value=len(words_to_add_list))
                     print(values)
@@ -216,7 +219,7 @@ def main():
 
                 try:
                     values["word_to_add"] = [words_to_add_list[0]]
-                    window["word_to_add"].update(value=words_to_add_list)
+                    window["word_to_add"].update(values=words_to_add_list)
                     window["words_to_add_length"].update(
                         value=len(words_to_add_list))
                     open_in_goldendict(words_to_add_list[0])
@@ -440,7 +443,7 @@ def main():
                 event == "add_construction_button"):
             words_to_add_list = add_to_word_to_add(
                 values, window, words_to_add_list)
-            window["word_to_add"].update(value=words_to_add_list)
+            window["word_to_add"].update(values=words_to_add_list)
             window["words_to_add_length"].update(value=len(words_to_add_list))
 
         elif event == "derivative":
@@ -716,7 +719,7 @@ def main():
             if flags.tested is False:
                 window["messages"].update(value="test first!", text_color="red")
             else:
-                last_button = display_summary(values, window, sg)
+                last_button = display_summary(values, window, sg, pali_word_original2)
                 if last_button == "ok_button":
                     success, action = udpate_word_in_db(
                         window, values)
@@ -740,7 +743,7 @@ def main():
                 tests_failed or
                 flags.tested
             ):
-                last_button = display_summary(values, window, sg)
+                last_button = display_summary(values, window, sg, pali_word_original2)
                 if last_button == "ok_button":
                     success, action = udpate_word_in_db(
                         window, values)
@@ -913,7 +916,7 @@ def main():
                 value="unstashed", text_color="white")
 
         elif event == "summary_button":
-            display_summary(values, window, sg)
+            display_summary(values, window, sg, pali_word_original2)
 
         elif event == "test_db_internal":
             db_internal_tests(sg, window, flags)
@@ -1495,7 +1498,18 @@ def main():
             window["messages"].update(
                 value="unstashed to sbs_ex_4", text_color="white")
 
+
+        elif event == "dps_synonym":
+            if dps_flags.synoyms:
+                error_field = "dps_synonym_error"
+                synoyms = dps_get_synonyms(values["dps_pos"], values["dps_meaning"], window, error_field)
+                window["dps_synonym"].update(value=synoyms)
+                dps_flags.synoyms = False
+
         
+
+
+
         # bottom buttons
 
         elif event == "dps_clear_button":
@@ -1568,7 +1582,8 @@ def main():
                 if dpd_word:
                     ru_word = fetch_ru(dpd_word.id)
                     sbs_word = fetch_sbs(dpd_word.id)
-                    last_button = display_dps_summary(values, window, sg)
+                    original_values = dps_get_original_values(values, dpd_word, ru_word, sbs_word)
+                    last_button = display_dps_summary(values, window, sg, original_values)
                     if last_button == "dps_ok_button":
                         open_in_goldendict(values["dps_id_or_pali_1"])
                         dps_update_db(values, window, dpd_word, ru_word, sbs_word)
@@ -1583,7 +1598,10 @@ def main():
         elif event == "dps_summary_button":
             dpd_word = fetch_id_or_pali_1(values, "dps_id_or_pali_1")
             if dpd_word:
-                display_dps_summary(values, window, sg)
+                ru_word = fetch_ru(dpd_word.id)
+                sbs_word = fetch_sbs(dpd_word.id)
+                original_values = dps_get_original_values(values, dpd_word, ru_word, sbs_word)
+                display_dps_summary(values, window, sg, original_values)
             else:
                 window["messages"].update(
                     value="not a valid id or pali_1", text_color="red")
@@ -1600,6 +1618,10 @@ def main():
             else:
                 window["messages"].update(
                         value="not a valid id or pali_1", text_color="red")
+
+
+        elif event == "ru_test_db_internal":
+            dps_dpd_db_internal_tests(sg, window, flags)
 
 
         # dps test tab
