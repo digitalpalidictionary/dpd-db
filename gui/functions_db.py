@@ -4,15 +4,11 @@ import re
 
 from rich import print
 from sqlalchemy import or_
+from sqlalchemy.orm import joinedload
 from typing import Optional, Tuple
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
-from db.models import PaliRoot
-from db.models import Russian
-from db.models import SBS
-from db.models import InflectionTemplates
-from db.models import DerivedData
+from db.models import PaliWord, PaliRoot, Russian, SBS, InflectionTemplates, DerivedData
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths as PTH
 
@@ -553,3 +549,63 @@ def dps_update_db(
     window["messages"].update(
     f"'{values['dps_id_or_pali_1']}' updated in db",
     text_color="green")
+
+
+def dps_get_synonyms(pos: str, string_of_meanings: str, window, error_field) -> Optional[str]:
+
+    string_of_meanings = re.sub(r" \(.*?\)|\(.*?\) ", "", string_of_meanings)
+    list_of_meanings = string_of_meanings.split("; ")
+
+    results = db_session.query(PaliWord).join(Russian).filter(
+            PaliWord.pos == pos,
+            or_(*[PaliWord.meaning_1.like(f"%{meaning}%") for meaning in list_of_meanings]),
+            Russian.ru_meaning.isnot(None),  # Ensure ru_meaning is not null
+            Russian.ru_meaning != ""         # Ensure ru_meaning is not an empty string
+        ).options(joinedload(PaliWord.ru)).all()
+
+    meaning_dict = {}
+    for i in results:
+        if i.meaning_1:  # check if it's not None and not an empty string
+            for meaning in i.meaning_1.split("; "):
+                meaning_clean = re.sub(r" \(.*?\)|\(.*?\) ", "", meaning)
+                if meaning_clean in list_of_meanings:
+                    if meaning_clean not in meaning_dict:
+                        meaning_dict[meaning_clean] = set([i.pali_clean])
+                    else:
+                        meaning_dict[meaning_clean].add(i.pali_clean)
+
+    synonyms = set()
+    for key_1 in meaning_dict:
+        for key_2 in meaning_dict:
+            if key_1 != key_2:
+                intersection = meaning_dict[key_1].intersection(
+                    meaning_dict[key_2])
+                synonyms.update(intersection)
+
+    if not synonyms:
+        # Update error_field in window with appropriate message
+        window[error_field].update("No synonyms found that fit the filter.")
+        return None  # or some other value indicating failure
+
+
+    synonyms = ", ".join(sorted(synonyms, key=pali_sort_key))
+    print(synonyms)
+    return synonyms
+
+
+def dps_make_all_inflections_set():
+    
+    # Joining tables and filtering where Russian.ru_meaning is not empty
+    inflections_db = db_session.query(DerivedData) \
+                            .join(PaliWord, PaliWord.id == DerivedData.id) \
+                            .join(Russian, PaliWord.id == Russian.id) \
+                            .filter((Russian.ru_meaning.isnot(None)) & 
+                                    (Russian.ru_meaning != '')) \
+                            .all()
+
+    dps_all_inflections_set = set()
+    for i in inflections_db:
+        dps_all_inflections_set.update(i.inflections_list)
+
+    print(f"dps_all_inflections_set: {len(dps_all_inflections_set)}")
+    return dps_all_inflections_set

@@ -174,17 +174,20 @@ def make_tab_edit_dps(sg):
                 background_color=dpd_background),
         ],
         [
-            sg.Text("synonym", size=(15, 1)),
+            sg.Text("ru_synonym", size=(15, 1)),
             sg.Input(
                 key="dps_synonym",
-                size=(50, 1),
+                size=(50, 1), enable_events=True,
                 text_color=dpd_text,
                 background_color=dpd_background),
+            sg.Text(
+                "", key="dps_synonym_error",
+                size=(50, 1), text_color="red")
         ],
         [
-            sg.Text("antonym", size=(15, 1)),
+            sg.Text("syn&ant", size=(15, 1)),
             sg.Input(
-                key="dps_antonym",
+                key="dps_synonym_antonym",
                 size=(50, 1),
                 text_color=dpd_text,
                 background_color=dpd_background),
