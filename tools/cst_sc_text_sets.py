@@ -10,14 +10,110 @@ import os
 import json
 
 from rich import print
+from typing import Union
 
 from tools.clean_machine import clean_machine
 from tools.pali_text_files import sc_texts, cst_texts, bjt_texts
 from tools.pali_text_files import mula_books, all_books
 from tools.paths import ProjectPaths as PTH
+from dps.tools.paths_dps import DPSPaths as DPSPTH
 
 
-def make_cst_text_set(books: list, niggahita="ṃ", return_list=False) -> set:
+def extract_sutta_from_file(sutta_name, text_string, book):
+    # Read the file content
+
+    print(f"sutta_name : {sutta_name}")
+    
+    print(f"text_string : {len(text_string)}")
+    print(f"book : {book}")
+
+    # Search for the beginning of the sutta using the sutta_name
+    start_index = text_string.find(sutta_name)
+    
+    # If sutta_name is not found in the text_string, return None
+    if start_index == -1:
+        print(f"'{sutta_name}' not found in the text_string.")
+        return None
+    print(f"Start index of sutta: {start_index}")  # Debugging print
+
+    # Adjust end pattern based on the file's name
+    if book[0].startswith(("dn", "mn")):
+        end_pattern = f"{sutta_name} niṭṭhitaṃ"
+    elif book[0].startswith(("sn", "an", "kd")):
+        end_pattern = "suttaṃ"
+    else:
+        print(f"Unknown file name pattern: {text_string}")
+        return None
+    
+    # Search for the end of the sutta using the end_pattern
+    end_index = text_string.find(end_pattern, start_index + len(sutta_name))
+
+    
+    # If the end pattern is not found after the start index, return None
+    if end_index == -1:
+        print(f"End pattern '{end_pattern}' not found in the text_string after '{sutta_name}'.")
+        return None
+    print(f"End index of sutta: {end_index}")  # Debugging print
+
+    # Extract the sutta from the text_string using the start and end indices
+    sutta = text_string[start_index:end_index + len(end_pattern)]
+
+    print(f"sutta : {sutta}")
+
+    return sutta
+
+
+def make_cst_text_set_sutta(sutta_name, books: list, niggahita="ṃ", return_list=False) -> Union[set, list]:
+    """Make a list of words in CST texts from a list of books.
+    Optionally change the niggahita character.
+    Return a list or a set."""
+
+    cst_texts_list = []
+
+    for i in books:
+        if cst_texts[i]:
+            cst_texts_list += cst_texts[i]
+
+    words_list: list = []
+
+    for book in cst_texts_list:
+        with open(PTH.cst_txt_dir.joinpath(book), "r") as f:
+            text_string = f.read()
+            sutta_string = extract_sutta_from_file(sutta_name, text_string, books)
+            if sutta_string is not None:
+                sutta_string = clean_machine(sutta_string, niggahita=niggahita)
+                words_list.extend(sutta_string.split())
+
+
+    if return_list is True:
+        return words_list
+    else:
+        return set(words_list)
+
+
+def make_cst_text_set_from_file(niggahita="ṃ", return_list=False) -> Union[set, list]:
+    """Make a list of words in CST texts from a list of books.
+    Optionally change the niggahita character.
+    Return a list or a set."""
+
+    words_list: list = []
+
+    with open(DPSPTH.text_to_add, "r") as f:
+        text_string = f.read()
+
+        print(text_string)
+
+        text_string = clean_machine(text_string, niggahita=niggahita)
+        words_list.extend(text_string.split())
+
+    if return_list is True:
+        return words_list
+    else:
+        return set(words_list)
+
+
+
+def make_cst_text_set(books: list, niggahita="ṃ", return_list=False) -> Union[set, list]:
     """Make a list of words in CST texts from a list of books.
     Optionally change the niggahita character.
     Return a list or a set."""

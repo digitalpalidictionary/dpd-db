@@ -34,7 +34,7 @@ def window_layout(primary_user):
         margins=config["margins"],
     )
 
-    tab_add_next_word = make_tab_add_next_word(sg)
+    tab_add_next_word = make_tab_add_next_word(sg, primary_user)
     tab_edit_dpd = make_tab_edit_dpd(sg, primary_user)
     tab_edit_dps = make_tab_edit_dps(sg)
     tab_fix_sandhi = make_tab_fix_sandhi(sg)

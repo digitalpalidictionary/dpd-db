@@ -607,5 +607,4 @@ def dps_make_all_inflections_set():
     for i in inflections_db:
         dps_all_inflections_set.update(i.inflections_list)
 
-    print(f"dps_all_inflections_set: {len(dps_all_inflections_set)}")
     return dps_all_inflections_set

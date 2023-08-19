@@ -22,6 +22,8 @@ from functions_db import values_to_pali_word
 
 from tools.pos import INDECLINEABLES
 from tools.cst_sc_text_sets import make_cst_text_set
+from tools.cst_sc_text_sets import make_cst_text_set_sutta
+from tools.cst_sc_text_sets import make_cst_text_set_from_file
 from tools.cst_sc_text_sets import make_sc_text_set
 from tools.paths import ProjectPaths as PTH
 from tools.pali_text_files import cst_texts
@@ -872,6 +874,47 @@ def make_words_to_add_list(window, book: str) -> list:
     text_set = text_set - set(variant_list)
     text_set = text_set - all_inflections_set
     text_list = sorted(text_set, key=lambda x: original_text_list.index(x))
+    print(f"words_to_add: {len(text_list)}")
+
+    return text_list
+
+
+def make_words_to_add_list_sutta(sutta_name, book: str) -> list:
+    cst_text_list = make_cst_text_set_sutta(sutta_name, [book], return_list=True)
+
+    sp_mistakes_list = make_sp_mistakes_list(PTH)
+    variant_list = make_variant_list(PTH)
+    sandhi_ok_list = make_sandhi_ok_list(PTH)
+    all_inflections_set = make_all_inflections_set()
+
+    text_set = set(cst_text_list)
+    text_set = text_set - set(sandhi_ok_list)
+    text_set = text_set - set(sp_mistakes_list)
+    text_set = text_set - set(variant_list)
+    text_set = text_set - all_inflections_set
+    cst_text_index = {text: index for index, text in enumerate(cst_text_list)}
+    text_list = sorted(text_set, key=lambda x: cst_text_index.get(x, float('inf')))
+
+    print(f"words_to_add: {len(text_list)}")
+
+    return text_list
+
+
+def make_words_to_add_list_from_text() -> list:
+    cst_text_list = make_cst_text_set_from_file(return_list=True)
+
+    sp_mistakes_list = make_sp_mistakes_list(PTH)
+    variant_list = make_variant_list(PTH)
+    sandhi_ok_list = make_sandhi_ok_list(PTH)
+    all_inflections_set = make_all_inflections_set()
+
+    text_set = set(cst_text_list)
+    text_set = text_set - set(sandhi_ok_list)
+    text_set = text_set - set(sp_mistakes_list)
+    text_set = text_set - set(variant_list)
+    text_set = text_set - all_inflections_set
+    cst_text_index = {text: index for index, text in enumerate(cst_text_list)}
+    text_list = sorted(text_set, key=lambda x: cst_text_index.get(x, float('inf')))
     print(f"words_to_add: {len(text_list)}")
 
     return text_list

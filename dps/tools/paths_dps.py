@@ -19,6 +19,8 @@ class DPSPaths():
     temp_csv_path: Path = Path("dps/csvs/temp.csv")
     id_to_add_path: Path = Path("dps/csvs/id_to_add.csv")
 
+    sbs_pd_path: Path = Path("dps/csvs/sbs_pd.csv")
+
     # /tests
     dps_internal_tests_path: Path = Path("dps/csvs/dps_internal_tests.tsv")
     dps_internal_tests_replaced_path: Path = Path("dps/csvs/dps_internal_tests_replaced.tsv")
@@ -58,6 +60,9 @@ class DPSPaths():
 
     # /gui/stash
     dps_stash_path: Path = Path("gui/stash/dps_stash.json")
+
+    # text to add
+    text_to_add: Path = Path("temp/text.txt")
 
 
 

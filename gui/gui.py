@@ -63,6 +63,13 @@ from functions import test_construction
 from functions import replace_sandhi
 from functions import test_username
 from functions import compare_differences
+from functions import make_words_to_add_list_sutta
+from functions import make_words_to_add_list_from_text
+
+
+from functions_dps import dps_make_words_to_add_list
+from functions_dps import dps_make_words_to_add_list_sutta
+from functions_dps import dps_make_words_to_add_list_from_text
 
 from functions_dps import populate_dps_tab
 from functions_dps import update_sbs_chant
@@ -194,6 +201,46 @@ def main():
                 else:
                     window["messages"].update(
                         value="empty list, try again", text_color="red")
+
+        
+        # add sutta
+        elif event == "sutta_to_add_button":
+            if test_book_to_add(values, window):
+                words_to_add_list = make_words_to_add_list_sutta(
+                    values["sutta_to_add"], values["book_to_add"])
+
+                if words_to_add_list != []:
+                    values["word_to_add"] = [words_to_add_list[0]]
+                    window["word_to_add"].update(values=words_to_add_list)
+                    window["words_to_add_length"].update(
+                        value=len(words_to_add_list))
+                    print(values)
+                    open_in_goldendict(words_to_add_list[0])
+                    window["messages"].update(
+                        value=f"added missing words from {values['book_to_add']}",
+                        text_color="white")
+                else:
+                    window["messages"].update(
+                        value="empty list, try again", text_color="red")
+
+
+        # add words from text.txt
+        elif event == "from_txt_to_add_button":
+            words_to_add_list = make_words_to_add_list_from_text()
+
+            if words_to_add_list != []:
+                values["word_to_add"] = [words_to_add_list[0]]
+                window["word_to_add"].update(values=words_to_add_list)
+                window["words_to_add_length"].update(
+                    value=len(words_to_add_list))
+                print(values)
+                open_in_goldendict(words_to_add_list[0])
+                window["messages"].update(
+                    value=f"added missing words from {values['book_to_add']}",
+                    text_color="white")
+            else:
+                window["messages"].update(
+                    value="empty list, try again", text_color="red")
 
         # open word in goldendict
 
@@ -1634,6 +1681,69 @@ def main():
 
         elif event == "dps_test_edit":
             dps_open_internal_tests()
+
+        # dps add word
+
+        # add book
+        elif event == "dps_books_to_add_button":
+            if test_book_to_add(values, window):
+                words_to_add_list = dps_make_words_to_add_list(
+                    window, values["book_to_add"])
+
+                if words_to_add_list != []:
+                    values["word_to_add"] = [words_to_add_list[0]]
+                    window["word_to_add"].update(values=words_to_add_list)
+                    window["words_to_add_length"].update(
+                        value=len(words_to_add_list))
+                    print(values)
+                    open_in_goldendict(words_to_add_list[0])
+                    window["messages"].update(
+                        value=f"added missing words from {values['book_to_add']}",
+                        text_color="white")
+                else:
+                    window["messages"].update(
+                        value="empty list, try again", text_color="red")
+
+        
+        # add sutta
+        elif event == "dps_sutta_to_add_button":
+            if test_book_to_add(values, window):
+                words_to_add_list = dps_make_words_to_add_list_sutta(
+                    values["sutta_to_add"], values["book_to_add"])
+
+                if words_to_add_list != []:
+                    values["word_to_add"] = [words_to_add_list[0]]
+                    window["word_to_add"].update(values=words_to_add_list)
+                    window["words_to_add_length"].update(
+                        value=len(words_to_add_list))
+                    print(values)
+                    open_in_goldendict(words_to_add_list[0])
+                    window["messages"].update(
+                        value=f"added missing words from {values['book_to_add']}",
+                        text_color="white")
+                else:
+                    window["messages"].update(
+                        value="empty list, try again", text_color="red")
+
+
+        # add words from text.txt
+        elif event == "dps_from_txt_to_add_button":
+            words_to_add_list = dps_make_words_to_add_list_from_text()
+
+            if words_to_add_list != []:
+                values["word_to_add"] = [words_to_add_list[0]]
+                window["word_to_add"].update(values=words_to_add_list)
+                window["words_to_add_length"].update(
+                    value=len(words_to_add_list))
+                print(values)
+                open_in_goldendict(words_to_add_list[0])
+                window["messages"].update(
+                    value=f"added missing words from {values['book_to_add']}",
+                    text_color="white")
+            else:
+                window["messages"].update(
+                    value="empty list, try again", text_color="red")
+
 
     window.close()
 

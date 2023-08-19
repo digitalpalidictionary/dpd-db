@@ -25,6 +25,16 @@ from dps.tools.paths_dps import DPSPaths as DPSPTH
 from tools.meaning_construction import make_meaning
 from tools.tsv_read_write import read_tsv_dot_dict
 
+from tools.cst_sc_text_sets import make_cst_text_set
+from tools.cst_sc_text_sets import make_cst_text_set_sutta
+from tools.cst_sc_text_sets import make_cst_text_set_from_file
+from tools.cst_sc_text_sets import make_sc_text_set
+
+from functions_db import dps_make_all_inflections_set
+from functions import make_sp_mistakes_list
+from functions import make_sandhi_ok_list
+from functions import make_variant_list
+
 db_session = get_db_session(PTH.dpd_db_path)
 
 # flags
@@ -755,45 +765,64 @@ def tail_log():
     subprocess.Popen(["gnome-terminal", "--", "tail", "-f", "temp/.gui_errors.txt"])
     
 
-def extract_sutta_from_file(sutta_name, book):
-    # Read the file content
 
-    print(PTH.cst_txt_dir.joinpath(book))  # Debugging print
+def dps_make_words_to_add_list(window, book: str) -> list:
+    cst_text_list = make_cst_text_set([book], return_list=True)
+    sc_text_list = make_sc_text_set([book], return_list=True)
+    original_text_list = list(cst_text_list) + list(sc_text_list)
 
-    with open(PTH.cst_txt_dir.joinpath(book), "r") as f:
-        text = f.read()
+    sp_mistakes_list = make_sp_mistakes_list(PTH)
+    variant_list = make_variant_list(PTH)
+    sandhi_ok_list = make_sandhi_ok_list(PTH)
+    all_inflections_set = dps_make_all_inflections_set()
 
-    print(f"Loaded file with {len(text)} characters.")  # Debugging print
+    text_set = set(cst_text_list) | set(sc_text_list)
+    text_set = text_set - set(sandhi_ok_list)
+    text_set = text_set - set(sp_mistakes_list)
+    text_set = text_set - set(variant_list)
+    text_set = text_set - all_inflections_set
+    text_list = sorted(text_set, key=lambda x: original_text_list.index(x))
+    print(f"words_to_add: {len(text_list)}")
 
-    # Search for the beginning of the sutta using the sutta_name
-    start_index = text.find(sutta_name)
-    
-    # If sutta_name is not found in the text, return None
-    if start_index == -1:
-        print(f"'{sutta_name}' not found in the text.")
-        return None
-    print(f"Start index of sutta: {start_index}")  # Debugging print
+    return text_list
 
-    # Adjust end pattern based on the file's name
-    if book.startswith(("s01", "s02")):
-        end_pattern = f"{sutta_name} niṭṭhitaṃ"
-    elif book.startswith(("s03", "s04", "s05")):
-        end_pattern = "suttaṃ"
-    else:
-        print(f"Unknown file name pattern: {book}")
-        return None
-    
-    # Search for the end of the sutta using the end_pattern
-    end_index = text.find(end_pattern, start_index + len(sutta_name))
 
-    
-    # If the end pattern is not found after the start index, return None
-    if end_index == -1:
-        print(f"End pattern '{end_pattern}' not found in the text after '{sutta_name}'.")
-        return None
-    print(f"End index of sutta: {end_index}")  # Debugging print
+def dps_make_words_to_add_list_sutta(sutta_name, book: str) -> list:
+    cst_text_list = make_cst_text_set_sutta(sutta_name, [book], return_list=True)
 
-    # Extract the sutta from the text using the start and end indices
-    sutta = text[start_index:end_index + len(end_pattern)]
+    sp_mistakes_list = make_sp_mistakes_list(PTH)
+    variant_list = make_variant_list(PTH)
+    sandhi_ok_list = make_sandhi_ok_list(PTH)
+    all_inflections_set = dps_make_all_inflections_set()
 
-    return sutta
+    text_set = set(cst_text_list)
+    text_set = text_set - set(sandhi_ok_list)
+    text_set = text_set - set(sp_mistakes_list)
+    text_set = text_set - set(variant_list)
+    text_set = text_set - all_inflections_set
+    cst_text_index = {text: index for index, text in enumerate(cst_text_list)}
+    text_list = sorted(text_set, key=lambda x: cst_text_index.get(x, float('inf')))
+
+    print(f"words_to_add: {len(text_list)}")
+
+    return text_list
+
+
+def dps_make_words_to_add_list_from_text() -> list:
+    cst_text_list = make_cst_text_set_from_file(return_list=True)
+
+    sp_mistakes_list = make_sp_mistakes_list(PTH)
+    variant_list = make_variant_list(PTH)
+    sandhi_ok_list = make_sandhi_ok_list(PTH)
+    all_inflections_set = dps_make_all_inflections_set()
+
+    text_set = set(cst_text_list)
+    text_set = text_set - set(sandhi_ok_list)
+    text_set = text_set - set(sp_mistakes_list)
+    text_set = text_set - set(variant_list)
+    text_set = text_set - all_inflections_set
+    cst_text_index = {text: index for index, text in enumerate(cst_text_list)}
+    text_list = sorted(text_set, key=lambda x: cst_text_index.get(x, float('inf')))
+    print(f"words_to_add: {len(text_list)}")
+
+    return text_list

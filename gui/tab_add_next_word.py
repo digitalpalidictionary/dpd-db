@@ -1,18 +1,48 @@
 """Render tab to add the next missing word from a text."""
 
 
-def make_tab_add_next_word(sg):
+def make_tab_add_next_word(sg, primary_user):
 
     tab_add_next_word = [
         [
-            sg.Text("select book to add: ", pad=((100, 0), (100, 50))),
+            sg.Text("select book to add: ", pad=((100, 0), (100, 20))),
             sg.Input(
                 key="book_to_add",
-                size=(10, 1), pad=((0, 0), (100, 50)),
+                size=(10, 1), pad=((0, 0), (100, 20)),
             ),
             sg.Button(
-                "Add", key="books_to_add_button",
-                pad=((10, 0), (100, 50)),
+                "Add", key="books_to_add_button", visible=primary_user,
+                pad=((10, 0), (100, 20)),
+            ),
+            sg.Button(
+                "Add", key="dps_books_to_add_button", visible=not primary_user,
+                pad=((10, 0), (100, 20)),
+            )
+        ],
+        [
+            sg.Text("select sutta to add: ", pad=((100, 0), (0, 20))),
+            sg.Input(
+                key="sutta_to_add",
+                size=(10, 1), pad=((0, 0), (0, 20)),
+            ),
+            sg.Button(
+                "Add", key="sutta_to_add_button", visible=primary_user,
+                pad=((10, 0), (0, 20)),
+            ),
+            sg.Button(
+                "Add", key="dps_sutta_to_add_button", visible=not primary_user,
+                pad=((10, 0), (0, 20)),
+            )
+        ],
+        [
+            sg.Text("from temp/text.txt ", pad=((100, 0), (0, 20))),
+            sg.Button(
+                "Add", key="from_txt_to_add_button", visible=primary_user,
+                pad=((10, 0), (0, 20)),
+            ),
+            sg.Button(
+                "Add", key="dps_from_txt_to_add_button", visible=not primary_user,
+                pad=((10, 0), (0, 20)),
             )
         ],
         [
