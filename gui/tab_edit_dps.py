@@ -20,19 +20,19 @@ def make_tab_edit_dps(sg):
 
     dps_layout = [
         [
-            sg.Text("", size=(15, 1)),
-            sg.Input(
-                "",
-                key="dps_id_or_pali_1",
-                size=(35, 1),
+            sg.Text("show fields", size=(15, 1)),
+            sg.Radio(
+                "all", "group1",
+                key="dps_show_fields_all",
                 enable_events=True,
-                tooltip="enter id or pali_1"),
-            sg.Button(
-                "Get word from Db",
-                key="dps_id_or_pali_1_button",
-                tooltip="click to fetch word from db",
-                font=(None, 13)),
-            sg.Text("", size=(5, 1)),
+                tooltip="Show the fields relevant to the type of word"),
+            sg.Radio(
+                "no sbs", "group1",
+                key="dps_show_fields_no_sbs",
+                enable_events=True,
+                tooltip="Show the fields relevant to the type of word"),
+            sg.Text(
+                "", key="dps_show_fields_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("id and pali_1", size=(15, 1)),
@@ -52,6 +52,7 @@ def make_tab_edit_dps(sg):
                 size=(50, 1),
                 text_color=dpd_text,
                 background_color=dpd_background),
+            sg.Text("", size=(100, 1)),
             sg.Input(
                 key="dps_pos",
                 text_color=dpd_text,
@@ -102,7 +103,7 @@ def make_tab_edit_dps(sg):
                 "", key="dps_ru_meaning_suggestion_error", size=(50, 1), text_color="red"),
         ],
         [
-            sg.Text("russian", size=(15, 1)),
+            sg.Text("russian*", size=(15, 1)),
             sg.Multiline(
                 key="dps_ru_meaning",
                 size=(50, 2),
@@ -142,7 +143,7 @@ def make_tab_edit_dps(sg):
                 key="dps_sbs_meaning",
                 size=(50, 2),
                 enable_events=True,
-                tooltip="type Russian literal meaning",
+                tooltip="type meaning in SBS PER",
                 text_color=sbs_text,
                 background_color=sbs_background),
             sg.Text(
@@ -702,7 +703,7 @@ def make_tab_edit_dps(sg):
                 tooltip=""),
         ],
         [
-            sg.Text("sbs_category", size=(15, 1)),
+            sg.Text("dps_category", size=(15, 1)),
             sg.Input(
                 key="dps_sbs_category",
                 size=(50, 1),
@@ -730,6 +731,34 @@ def make_tab_edit_dps(sg):
             sg.HSep(),
         ],
         [
+            # db buttons
+            sg.Text("db buttons", size=(15, 1)),
+            sg.Input(
+                "",
+                key="dps_id_or_pali_1",
+                size=(15, 1),
+                enable_events=True,
+                tooltip="enter id or pali_1"),
+            sg.Button(
+                "Get word",
+                key="dps_id_or_pali_1_button",
+                tooltip="click to fetch word from db",
+                ),
+            sg.Text("", size=(2, 1)),
+            sg.Button(
+                "Test", 
+                key="dps_test_internal_button",
+                tooltip="Run internal tests"
+                ),
+            sg.Button(
+                "Update DB", 
+                key="dps_update_db_button",
+                tooltip="Add a sbs or ru info into the db"
+                ),
+        ],
+        [
+            # gui buttons
+            sg.Text("gui buttons", size=(15, 1)),
             sg.Button(
                 "Clear", 
                 key="dps_clear_button", 
@@ -753,21 +782,10 @@ def make_tab_edit_dps(sg):
                 "Log", key="dps_open_log_in_terminal_button",
                 tooltip="Open log of GUI in the terminal"),
             sg.Button(
-                "Test", 
-                key="dps_test_internal_button",
-                tooltip="Run internal tests"
-                ),
-            sg.Button(
                 "Summary", 
                 key="dps_summary_button", 
                 tooltip="See a summary of filled fields"
                 ),
-            sg.Button(
-                "Update DB", 
-                key="dps_update_db_button",
-                tooltip="Add a sbs or ru info into the db"
-                ),
-
         ],
     ]
 

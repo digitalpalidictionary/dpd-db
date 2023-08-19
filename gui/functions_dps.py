@@ -48,6 +48,7 @@ class Flags_dps:
         self.sbs_example_4 = False
         self.tested = False
         self.test_next = False
+        self.show_fields = True
 
 
 def dps_reset_flags(flags_dps):
@@ -58,6 +59,7 @@ def dps_reset_flags(flags_dps):
     flags_dps.sbs_example_4 = False
     flags_dps.tested = False
     flags_dps.test_next = False
+    flags_dps.show_fields = True
 
 
 # tab maintenance
@@ -198,19 +200,19 @@ def populate_dps_tab(values, window, dpd_word, ru_word, sbs_word):
     # dps_sbs_chant_pali
     if values["dps_sbs_chant_pali_1"]:
         chant = values["dps_sbs_chant_pali_1"]
-        update_sbs_chant(1, chant, window)
+        update_sbs_chant(1, chant, "", window)
 
     if values["dps_sbs_chant_pali_2"]:
         chant = values["dps_sbs_chant_pali_2"]
-        update_sbs_chant(2, chant, window)
+        update_sbs_chant(2, chant, "", window)
 
     if values["dps_sbs_chant_pali_3"]:
         chant = values["dps_sbs_chant_pali_3"]
-        update_sbs_chant(3, chant, window)
+        update_sbs_chant(3, chant, "", window)
 
     if values["dps_sbs_chant_pali_4"]:
         chant = values["dps_sbs_chant_pali_4"]
-        update_sbs_chant(4, chant, window)
+        update_sbs_chant(4, chant, "", window)
 
 
 def dps_get_original_values(values, dpd_word, ru_word, sbs_word):
@@ -337,7 +339,7 @@ def fetch_sbs_index(pali_chant):
     return None  # explicitly returning None when no match is found
 
 
-def update_sbs_chant(number, chant, window):
+def update_sbs_chant(number, chant, error_field, window):
     result = fetch_sbs_index(chant)
     if result is not None:
         english, chapter = result
@@ -345,6 +347,8 @@ def update_sbs_chant(number, chant, window):
         window[f"dps_sbs_chapter_{number}"].update(chapter)
     else:
         # handle the case when the chant is not found
+        error_message = "chant is not found"
+        window[error_field].update(error_message)
         window[f"dps_sbs_chant_eng_{number}"].update("")
         window[f"dps_sbs_chapter_{number}"].update("")
 

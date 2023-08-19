@@ -1425,19 +1425,23 @@ def main():
 
         if event == "dps_sbs_chant_pali_1":
             chant = values["dps_sbs_chant_pali_1"]
-            update_sbs_chant(1, chant, window)
+            error_field = "dps_sbs_chant_pali_1_error"
+            update_sbs_chant(1, chant, error_field, window)
 
         elif event == "dps_sbs_chant_pali_2":
+            error_field = "dps_sbs_chant_pali_2_error"
             update_sbs_chant(
-                2, values["dps_sbs_chant_pali_2"], window)
+                2, values["dps_sbs_chant_pali_2"], error_field, window)
 
         elif event == "dps_sbs_chant_pali_3":
+            error_field = "dps_sbs_chant_pali_3_error"
             update_sbs_chant(
-                3, values["dps_sbs_chant_pali_3"], window)
+                3, values["dps_sbs_chant_pali_3"], error_field, window)
 
         elif event == "dps_sbs_chant_pali_4":
+            error_field = "dps_sbs_chant_pali_4_error"
             update_sbs_chant(
-                4, values["dps_sbs_chant_pali_4"], window)
+                4, values["dps_sbs_chant_pali_4"], error_field, window)
 
         # dps_examples buttons
 
@@ -1743,6 +1747,53 @@ def main():
             else:
                 window["messages"].update(
                     value="empty list, try again", text_color="red")
+
+
+        # dps hide fields logic
+
+        elif event == "dps_show_fields_all":
+            for value in values:
+                window[value].update(visible=True)
+                window["dps_sbs_meaning"].update(visible=True)
+                window["dps_sbs_meaning_error"].update(visible=True)
+                window["dps_sbs_notes"].update(visible=True)
+                window["dps_sbs_notes_error"].update(visible=True)
+                window["dps_sbs_chant_pali_1"].update(visible=True)
+                window["dps_sbs_chant_pali_1_error"].update(visible=True)
+                window["dps_sbs_chant_eng_1"].update(visible=True)
+                window["dps_sbs_chapter_1"].update(visible=True)
+                window["dps_sbs_chant_pali_2"].update(visible=True)
+                window["dps_sbs_chant_pali_2_error"].update(visible=True)
+                window["dps_sbs_chant_eng_2"].update(visible=True)
+                window["dps_sbs_chapter_2"].update(visible=True)
+                window["dps_sbs_chant_pali_3"].update(visible=True)
+                window["dps_sbs_chant_pali_3_error"].update(visible=True)
+                window["dps_sbs_chant_eng_3"].update(visible=True)
+                window["dps_sbs_chapter_3"].update(visible=True)
+                window["dps_sbs_chant_pali_4"].update(visible=True)
+                window["dps_sbs_chant_pali_4_error"].update(visible=True)
+                window["dps_sbs_chant_eng_4"].update(visible=True)
+                window["dps_sbs_chapter_4"].update(visible=True)
+
+                dps_flags.show_fields = True
+
+        elif event == "dps_show_fields_no_sbs":
+            hide_list = [
+                "dps_sbs_meaning", "dps_sbs_meaning_error", "dps_sbs_notes", "dps_sbs_notes_error", 
+                "dps_sbs_chant_pali_1", "dps_sbs_chant_eng_1", "dps_sbs_chapter_1",
+                "dps_sbs_chant_pali_1_error",
+                "dps_sbs_chant_pali_2", "dps_sbs_chant_eng_2", "dps_sbs_chapter_2",
+                "dps_sbs_chant_pali_2_error",
+                "dps_sbs_chant_pali_3", "dps_sbs_chant_eng_3", "dps_sbs_chapter_3",
+                "dps_sbs_chant_pali_3_error",
+                "dps_sbs_chant_pali_4", "dps_sbs_chant_eng_4", "dps_sbs_chapter_4",
+                "dps_sbs_chant_pali_4_error",
+            ]
+            for value in values:
+                window[value].update(visible=True)
+            for value in hide_list:
+                window[value].update(visible=False)
+            dps_flags.show_fields = False
 
 
     window.close()
