@@ -13,17 +13,18 @@ from os import popen
 from rich import print
 from sqlalchemy.orm import Session
 
+
 from export_dpd import generate_dpd_html
-from export_roots import generate_root_html
 from export_epd import generate_epd_html
-from export_variant_spelling import generate_variant_spelling_html
 from export_help import generate_help_html
+from export_roots import generate_root_html
+from export_variant_spelling import generate_variant_spelling_html
+from pyglossary_exporter import export_stardict_zip
 
 from helpers import make_roots_count_dict
 from mdict_exporter import export_to_mdict
 
 from db.get_db_session import get_db_session
-from tools import pyglossary_exporter
 from tools.paths import ProjectPaths as PTH
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
@@ -102,8 +103,7 @@ def export_to_goldendict(data_list: list) -> None:
 
     timer = StopWatch()
     print("[green]generating goldendict zip", end=" ")
-    dst = PTH.zip_path.parent / 'dpd'
-    pyglossary_exporter.export(data_list, dst, format='Stardict')
+    export_stardict_zip(data_list, PTH.zip_path)
     print(f"{timer:>29}")
 
 
