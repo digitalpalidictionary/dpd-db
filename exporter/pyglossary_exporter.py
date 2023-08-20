@@ -2,6 +2,8 @@ import pyglossary
 import tempfile
 import shutil
 
+import rich
+
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -28,10 +30,10 @@ def _export(
     """
 
     info = {
-        "bookname": "DPD",
-        "author": "Bodhirasa",
-        "description": "",
-        "website": "https://digitalpalidictionary.github.io/",
+        'bookname': 'DPD',
+        'author': 'Bodhirasa',
+        'description': '',
+        'website': 'https://digitalpalidictionary.github.io/',
     }
 
     pyglossary.Glossary.init()
@@ -50,15 +52,18 @@ def _export(
             filename=str(glos_path),
             format=format_name,
             **format_options)
-        print(f'===> {glos_path.exists()}')
         # TODO Conditional zipping
         destination.mkdir(parents=True, exist_ok=True)
         shutil.copytree(unzipped_path, destination, dirs_exist_ok=True)
 
 
 def export_stardict_zip(data_list: DataType, destination: Path) -> None:
+    dictzip = shutil.which('dictzip')
+    if not dictzip:
+        rich.print('[yellow bold]WARINING: missing dictzip in $PATH, skipping StarDict compression')
     dst = destination.parent / 'dpd1'
-    # Avaliable options can be listed with pyglossary UI or with glos.writeOptions
+    # Avaliable options can be explored with pyglossary UI, with
+    # glos.writeOptions or in pyglossary.plugins.* source files
     fmt_opt = {
         'large_file': True,
         'dictzip': True,
