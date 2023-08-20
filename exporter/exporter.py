@@ -7,7 +7,6 @@
 
 import csv
 import pickle
-import pyglossary
 import zipfile
 
 from os import popen
@@ -24,21 +23,23 @@ from helpers import make_roots_count_dict
 from mdict_exporter import export_to_mdict
 
 from db.get_db_session import get_db_session
-from tools.tic_toc import tic, toc
-from tools.stop_watch import StopWatch
-from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
-from tools.sandhi_contraction import make_sandhi_contraction_dict
+from tools import pyglossary_exporter
 from tools.paths import ProjectPaths as PTH
+from tools.sandhi_contraction import make_sandhi_contraction_dict
+from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
+from tools.stop_watch import StopWatch
 
-tic()
 db_session: Session = get_db_session(PTH.dpd_db_path)
 SANDHI_CONTRACTIONS: dict = make_sandhi_contraction_dict(db_session)
 
 
 def main() -> None:
+    timer = StopWatch()
+
     print("[bright_yellow]exporting dpd")
     size_dict = {}
 
+    # TODO Decide to use in-memort DB or lazy storage for giant list
     roots_count_dict = make_roots_count_dict(
         db_session)
     dpd_data_list, size_dict = generate_dpd_html(
@@ -61,80 +62,48 @@ def main() -> None:
         help_data_list
     )
 
-    ## FIXME delete
-    import yaml
-
-    ## FIXME delete
-    #with open('data.yaml', 'w') as f:
-    #    yaml.dump(combined_data_list[0:100], stream=f)
-
-    ## FIXME delete
-    #with open('data.yaml', 'r') as f:
-    #    combined_data_list = yaml.safe_load(f)
-
     write_limited_datalist(combined_data_list)
     write_size_dict(size_dict)
     export_to_goldendict(combined_data_list)
+    #export_to_goldendict_orig(combined_data_list)
     goldendict_unzip_and_copy()
     export_to_mdict(combined_data_list, PTH)
-    toc()
+    print('[cyan]' '-' * 40)
+    print(f'time: {timer}')
+
+
+#TODO Deprecate
+def export_to_goldendict_orig(data_list: list) -> None:
+    """generate goldedict zip"""
+    timer = StopWatch()
+
+    print("[green]generating goldendict zip", end=" ")
+
+    ifo = ifo_from_opts(
+        {"bookname": "DPD",
+            "author": "Bodhirasa",
+            "description": "",
+            "website": "https://digitalpalidictionary.github.io/", }
+    )
+
+    export_words_as_stardict_zip(data_list, ifo, PTH.zip_path, PTH.icon_path)
+
+    # add bmp icon for android
+    with zipfile.ZipFile(PTH.zip_path, 'a') as zipf:
+        source_path = PTH.icon_bmp_path
+        destination = 'dpd/android.bmp'
+        zipf.write(source_path, destination)
+
+    print(f"{timer:>29}")
 
 
 def export_to_goldendict(data_list: list) -> None:
     """generate goldedict zip"""
 
-    with StopWatch() as timer:
-        print("[green]generating goldendict zip", end=" ")
-
-        # TODO Try empty fields for self-documentatnion
-        """
-        bookname=Digital Pāli Dictionary
-        wordcount=36893
-        synwordcount=1727042
-        idxfilesize=747969
-        idxoffsetbits=32
-        author=Digital Pāli Tools <digitalpalitools@gmail.com>
-        website=https://github.com/digitalpalitools
-        description=The next generation comprehensive Digital Pāli Dictionary.
-        date=2021-10-31T08:56:25Z
-        sametypesequence=h
-        """
-
-        info = {
-            "bookname": "DPD",
-            "author": "Bodhirasa",
-            "description": "",
-            "website": "https://digitalpalidictionary.github.io/",
-        }
-
-        pyglossary.Glossary.init()
-        glossary = pyglossary.Glossary(info=info)
-
-        for word in data_list:
-            entry = glossary.newEntry(
-                word=word['synonyms'],
-                defi=word['definition_html'],
-                defiFormat='h')
-            glossary.addEntryObj(entry)
-
-        glossary.write(filename=str(PTH.zip_path), format='Stardict')
-
-        # TODO Speed comparizon 51 sec
-        # TODO Size comparizon
-        # TODO Icon
-        # TODO Zip
-        # TODO Purge tools/*stardict.py
-        # TODO README dictd for dictzip
-        # FIXME Giant syn file
-
-        #export_words_as_stardict_zip(data_list, ifo, PTH.zip_path, PTH.icon_path)
-
-        # add bmp icon for android
-        #with zipfile.ZipFile(PTH.zip_path, 'a') as zipf:
-        #    source_path = PTH.icon_bmp_path
-        #    destination = 'dpd/android.bmp'
-        #    zipf.write(source_path, destination)
-
+    timer = StopWatch()
+    print("[green]generating goldendict zip", end=" ")
+    dst = PTH.zip_path.parent / 'dpd'
+    pyglossary_exporter.export(data_list, dst, format='Stardict')
     print(f"{timer:>29}")
 
 
