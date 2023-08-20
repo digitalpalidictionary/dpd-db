@@ -76,6 +76,14 @@ def replace_values_in_rows(rows):
         'sbs.sbs_example_2': 'dps_sbs_example_2',
         'sbs.sbs_example_3': 'dps_sbs_example_3',
         'sbs.sbs_example_4': 'dps_sbs_example_4',
+        'sbs.sbs_source_1' : 'dps_sbs_source_1',
+        'sbs.sbs_source_2' : 'dps_sbs_source_2',
+        'sbs.sbs_source_3' : 'dps_sbs_source_3',
+        'sbs.sbs_source_4' : 'dps_sbs_source_4',
+        'sbs.sbs_sutta_1' : 'dps_sbs_sutta_1',
+        'sbs.sbs_sutta_2' : 'dps_sbs_sutta_2',
+        'sbs.sbs_sutta_3' : 'dps_sbs_sutta_3',
+        'sbs.sbs_sutta_4' : 'dps_sbs_sutta_4',
     }
     
     modified_rows = []
