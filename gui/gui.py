@@ -130,10 +130,6 @@ def main():
     pali_clean_list: list = get_pali_clean_list()
     window = window_layout(primary_user)
 
-    flags = Flags()
-    dps_flags = Flags_dps()
-    get_next_ids(window)
-
     # load the previously saved state of the gui
     try:
         saved_values, words_to_add_list = load_gui_state()
@@ -145,6 +141,10 @@ def main():
         window["messages"].update(value="previously saved state not found. select a book to add",
             text_color="white")
         words_to_add_list = []
+
+    flags = Flags()
+    dps_flags = Flags_dps()
+    get_next_ids(window)
 
     while True:
         event, values = window.read() # type: ignore
@@ -795,8 +795,7 @@ def main():
                     success, action = udpate_word_in_db(
                         window, values)
                     if success:
-                        if pali_word_original2 is not None:
-                            compare_differences(values, sg, pali_word_original2, action)
+                        compare_differences(values, sg, pali_word_original2, action)
                         clear_errors(window)
                         clear_values(values, window, primary_user)
                         get_next_ids(window)

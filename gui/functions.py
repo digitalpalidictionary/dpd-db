@@ -1033,7 +1033,11 @@ def display_summary(values, window, sg, pali_word_original2):
     from functions_db import dpd_values_list
 
     # Assuming pali_word_original2 is a dictionary with the original values
-    original_values = pali_word_original2.__dict__
+    if pali_word_original2:
+        original_values = pali_word_original2.__dict__
+    else:
+        # Handle the case when it's None, perhaps:
+        original_values = {}
 
     summary = []
     for value in values:
@@ -1212,7 +1216,7 @@ def test_username(sg):
 
 
 def compare_differences(
-        values: dict, sg, pali_word_original: PaliWord, action):
+        values: dict, sg, pali_word_original: Optional[PaliWord], action):
     """Comapre the differences between original and new word.
     Save to corrections or additions TSV."""
 
