@@ -5,14 +5,16 @@
 
 """Export DPD for GoldenDict and MDict."""
 
+import argparse
 import csv
 import pickle
 import zipfile
+import tracemalloc
 
 from os import popen
+from pathlib import Path
 from rich import print
 from sqlalchemy.orm import Session
-
 
 from export_dpd import generate_dpd_html
 from export_epd import generate_epd_html
@@ -20,6 +22,7 @@ from export_help import generate_help_html
 from export_roots import generate_root_html
 from export_variant_spelling import generate_variant_spelling_html
 from pyglossary_exporter import export_stardict_zip
+from data_keeper import DataKeeper
 
 from helpers import make_roots_count_dict
 from mdict_exporter import export_to_mdict
@@ -28,49 +31,91 @@ from db.get_db_session import get_db_session
 from tools.paths import ProjectPaths as PTH
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
-from tools.stop_watch import StopWatch
+from tools.stop_watch import StopWatch, close_line
 
 db_session: Session = get_db_session(PTH.dpd_db_path)
 SANDHI_CONTRACTIONS: dict = make_sandhi_contraction_dict(db_session)
+DATA_KEEPER_DB_NAME = 'exporter.db'
+
+
+def get_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description='Exporter')
+    parser.add_argument(
+        '--keep',
+        required=False,
+        action='store_true',
+        help=f'Keep prepared data between runs, update data delete the "{DATA_KEEPER_DB_NAME}" file')
+    return parser.parse_args()
+
+
+def print_stage(text: str) -> None:
+    print('{:47}'.format(f'[green]{text}'), end='')
+
+
+def print_duration(text: str) -> None:
+    print('{:>15}'.format(text))
 
 
 def main() -> None:
+    # TODO Measure memory usage
+    tracemalloc.start()
+
     timer = StopWatch()
+    args = get_args()
+    keeper = DataKeeper(DATA_KEEPER_DB_NAME)
+    db_path = Path(DATA_KEEPER_DB_NAME)
 
     print("[bright_yellow]exporting dpd")
-    size_dict = {}
+    size_dict = {}  # TODO Keep
 
-    # TODO Decide to use in-memort DB or lazy storage for giant list
-    roots_count_dict = make_roots_count_dict(
-        db_session)
-    dpd_data_list, size_dict = generate_dpd_html(
-        db_session, PTH, SANDHI_CONTRACTIONS, size_dict)
-    root_data_list, size_dict = generate_root_html(
-        db_session, PTH, roots_count_dict, size_dict)
-    variant_spelling_data_list, size_dict = generate_variant_spelling_html(
-        PTH, size_dict)
-    epd_data_list, size_dict = generate_epd_html(
-        db_session, PTH, size_dict)
-    help_data_list, size_dict = generate_help_html(
-        db_session, PTH, size_dict)
-    db_session.close()
+    if args.keep and db_path.is_file():
+        sql_timer = StopWatch()
+        print_stage('loading saved data')
+        combined_data_list = keeper.load_data()
+        print_duration(sql_timer)
+    else:
+        # TODO Decide to use in-memort DB or lazy storage for giant list
+        roots_count_dict = make_roots_count_dict(
+            db_session)
+        dpd_data_list, size_dict = generate_dpd_html(
+            db_session, PTH, SANDHI_CONTRACTIONS, size_dict)
+        root_data_list, size_dict = generate_root_html(
+            db_session, PTH, roots_count_dict, size_dict)
+        variant_spelling_data_list, size_dict = generate_variant_spelling_html(
+            PTH, size_dict)
+        epd_data_list, size_dict = generate_epd_html(
+            db_session, PTH, size_dict)
+        help_data_list, size_dict = generate_help_html(
+            db_session, PTH, size_dict)
+        db_session.close()
 
-    combined_data_list: list = (
-        dpd_data_list +
-        root_data_list +
-        variant_spelling_data_list +
-        epd_data_list +
-        help_data_list
-    )
+        # FIXME Some synonyms are empty str, is it OK?
+        combined_data_list: list = (
+            dpd_data_list +
+            root_data_list +
+            variant_spelling_data_list +
+            epd_data_list +
+            help_data_list
+        )
+
+    if args.keep and not db_path.exists():
+        sql_timer = StopWatch()
+        print_stage('saving prepared data')
+        keeper.create_db()
+        keeper.save_data(combined_data_list)
+        print_duration(sql_timer)
 
     write_limited_datalist(combined_data_list)
     write_size_dict(size_dict)
     export_to_goldendict(combined_data_list)
-    #export_to_goldendict_orig(combined_data_list)
+    export_to_goldendict_orig(combined_data_list)
     goldendict_unzip_and_copy()
     export_to_mdict(combined_data_list, PTH)
-    print('[cyan]' '-' * 40)
-    print(f'time: {timer}')
+
+    close_line(timer)
+    statistics = tracemalloc.take_snapshot().statistics('lineno')
+    for stat in statistics[:10]:
+        print(stat)
 
 
 #TODO Deprecate
@@ -78,7 +123,7 @@ def export_to_goldendict_orig(data_list: list) -> None:
     """generate goldedict zip"""
     timer = StopWatch()
 
-    print("[green]generating goldendict zip", end=" ")
+    print('{:47}'.format('[green]generating goldendict zip'), end='')
 
     ifo = ifo_from_opts(
         {"bookname": "DPD",
@@ -95,7 +140,7 @@ def export_to_goldendict_orig(data_list: list) -> None:
         destination = 'dpd/android.bmp'
         zipf.write(source_path, destination)
 
-    print(f"{timer:>29}")
+    print(f"{timer:>15}")
 
 
 def export_to_goldendict(data_list: list) -> None:
@@ -123,14 +168,14 @@ def goldendict_unzip_and_copy() -> None:
 
 
 def write_size_dict(size_dict):
-    with StopWatch() as timer:
-        print("[green]writing size_dict", end=" ")
-        filename = PTH.temp_dir.joinpath("size_dict.tsv")
+    timer = StopWatch()
+    print("[green]writing size_dict", end=" ")
+    filename = PTH.temp_dir.joinpath("size_dict.tsv")
 
-        with open(filename, "w", newline="") as csvfile:
-            writer = csv.writer(csvfile, delimiter='\t')
-            for key, value in size_dict.items():
-                writer.writerow([key, value])
+    with open(filename, "w", newline="") as csvfile:
+        writer = csv.writer(csvfile, delimiter='\t')
+        for key, value in size_dict.items():
+            writer.writerow([key, value])
 
     print(f"{timer:>38}")
 

@@ -3,7 +3,14 @@
 
 import time
 
+import rich
+
 from typing import Optional
+
+
+def close_line(stop_watch: 'StopWatch') -> None:
+    rich.print('[cyan]' '-' * 40)
+    rich.print(f'time: {stop_watch}')
 
 
 class StopWatch:
