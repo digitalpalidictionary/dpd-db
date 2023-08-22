@@ -70,3 +70,38 @@ class StopWatch:
 
     def __format__(self, format_spec: str) -> str:
         return format(self.duration_str, format_spec)
+
+
+class Tic:
+    """ Formatted output of stage and execution time
+    """
+    TEXT_WIDTH = 50
+    TIME_WIDTH = 14
+    ELLIPSIS = '...'
+    TEMPLATE = '[green]{text:{text_width}}[/green]{time:{time_width}}'
+
+    def __init__(self, text: str) -> None:
+        self._active = True
+        self.text = rich.markup.escape(text)
+        self.timer = StopWatch()
+        formatted_text = self.TEMPLATE.format(
+            text=self.text, text_width=self.TEXT_WIDTH, time=self.ELLIPSIS, time_width=self.TIME_WIDTH)
+        rich.print(formatted_text, end='\r')
+
+    def __del__(self) -> None:
+        if self._active:
+            rich.print(f'[yellow bold]WARNING: {self.__class__.__name__} "{self.text}" unclosed')
+
+    def __enter__(self) -> 'Tic':
+        return self
+
+    def __exit__(self, *args, **kwargs) -> None:
+        self.toc()
+
+    def toc(self) -> None:
+        if not self._active:
+            rich.print(f'[yellow bold]WARNING: closing {self.__class__.__name__} "{self.text}", but already closed')
+        formatted_text = self.TEMPLATE.format(
+            text=self.text, text_width=self.TEXT_WIDTH, time=self.timer, time_width=self.TIME_WIDTH)
+        rich.print(formatted_text)
+        self._active = False

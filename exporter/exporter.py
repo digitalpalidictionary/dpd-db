@@ -14,6 +14,7 @@ import zipfile
 from os import popen
 from rich import print
 from sqlalchemy.orm import Session
+from typing import ContextManager, Type
 
 from export_dpd import generate_dpd_html
 from export_epd import generate_epd_html
@@ -29,7 +30,7 @@ from db.get_db_session import get_db_session
 from tools.paths import ProjectPaths as PTH
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
-from tools.stop_watch import StopWatch, close_line
+from tools.stop_watch import StopWatch, Tic, close_line
 from tools.profiler import Profiler
 
 db_session: Session = get_db_session(PTH.dpd_db_path)
@@ -44,14 +45,6 @@ def get_args() -> argparse.Namespace:
         action='store_true',
         help='Collect and print memory usage information in cost of execution time')
     return parser.parse_args()
-
-
-def print_stage(text: str) -> None:
-    print('{:47}'.format(f'[green]{text}'), end='')
-
-
-def print_duration(text: str) -> None:
-    print('{:>15}'.format(text))
 
 
 def main() -> None:
@@ -94,12 +87,10 @@ def main() -> None:
     close_line(timer)
 
 
-#TODO Deprecate
+# TODO Deprecate
 def export_to_goldendict_orig(data_list: list) -> None:
     """generate goldedict zip"""
-    timer = StopWatch()
-
-    print('{:47}'.format('[green]generating goldendict zip'), end='')
+    tic = Tic('generating goldendict zip')
 
     ifo = ifo_from_opts(
         {"bookname": "DPD",
@@ -116,36 +107,28 @@ def export_to_goldendict_orig(data_list: list) -> None:
         destination = 'dpd/android.bmp'
         zipf.write(source_path, destination)
 
-    print(f"{timer:>15}")
+    tic.toc()
 
 
 def export_to_goldendict(data_list: list) -> None:
     """generate goldedict zip"""
 
-    timer = StopWatch()
-    print("[green]generating goldendict zip", end=" ")
-    export_stardict_zip(data_list, PTH.zip_path)
-    print(f"{timer:>29}")
+    with Tic('generating goldendict zip'):
+        export_stardict_zip(data_list, PTH.zip_path)
 
 
 def goldendict_unzip_and_copy() -> None:
     """unzip and copy to goldendict folder"""
 
-    with StopWatch() as timer:
-        print("[green]unipping and copying goldendict", end=" ")
+    with Tic('unipping and copying goldendict'):
         try:
-            popen(
-                f'unzip -o {PTH.zip_path} '
-                '-d "/home/bhikkhu/Documents/Golden Dict"')
+            popen(f'unzip -o {PTH.zip_path} -d "/home/bhikkhu/Documents/Golden Dict"')
         except Exception as e:
             print(f"[red]{e}")
 
-    print(f"{timer:>23}")
-
 
 def write_size_dict(size_dict):
-    timer = StopWatch()
-    print("[green]writing size_dict", end=" ")
+    tic = Tic("writing size_dict")
     filename = PTH.temp_dir.joinpath("size_dict.tsv")
 
     with open(filename, "w", newline="") as csvfile:
@@ -153,7 +136,7 @@ def write_size_dict(size_dict):
         for key, value in size_dict.items():
             writer.writerow([key, value])
 
-    print(f"{timer:>38}")
+    tic.toc()
 
 
 def write_limited_datalist(combined_data_list):
@@ -169,7 +152,7 @@ def write_limited_datalist(combined_data_list):
 if __name__ == "__main__":
     args = get_args()
 
-    Context = contextlib.nullcontext
+    Context: Type[ContextManager] = contextlib.nullcontext
     if args.profiling:
         Context = Profiler
 
