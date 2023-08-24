@@ -21,7 +21,7 @@ from export_epd import generate_epd_html
 from export_help import generate_help_html
 from export_roots import generate_root_html
 from export_variant_spelling import generate_variant_spelling_html
-from pyglossary_exporter import export_stardict_zip
+from pyglossary_exporter import export_stardict_zip, Info
 
 from helpers import make_roots_count_dict
 from mdict_exporter import export_to_mdict
@@ -113,8 +113,14 @@ def export_to_goldendict_orig(data_list: list) -> None:
 def export_to_goldendict(data_list: list) -> None:
     """generate goldedict zip"""
 
+    info = Info(
+        bookname='DPD',
+        author='Bodhirasa',
+        description='Digital Pāḷi Dictionary is a feature-rich Pāḷi dictionary',
+        website='https://digitalpalidictionary.github.io/')
+
     with Tic('generating goldendict zip'):
-        export_stardict_zip(data_list, PTH.zip_path)
+        export_stardict_zip(data_list, PTH.zip_path, info)
 
 
 def goldendict_unzip_and_copy() -> None:
