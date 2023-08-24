@@ -9,7 +9,6 @@ from typing import Any, Dict, List
 
 DataType = List[Dict[str, str]]
 
-
 def _export(
         data_list: DataType,
         destination: Path,
@@ -61,11 +60,11 @@ def export_stardict_zip(data_list: DataType, destination: Path) -> None:
     dictzip = shutil.which('dictzip')
     if not dictzip:
         rich.print('[yellow bold]WARINING: missing dictzip in $PATH, skipping StarDict compression')
-    dst = destination.parent / 'dpd1'
+    dst = destination.parent / 'dpd1'  # FIXME
     # Avaliable options can be explored with pyglossary UI, with
     # glos.writeOptions or in pyglossary.plugins.* source files
     fmt_opt = {
-        'large_file': True,
+        'large_file': False,
         'dictzip': True,
         'stardict_client': True,
         'merge_syns': False,
