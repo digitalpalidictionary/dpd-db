@@ -79,6 +79,8 @@ def export_stardict_zip(
     dictzip = shutil.which('dictzip')
     if not dictzip:
         LOGGER.warning('[yellow bold]missing dictzip in $PATH, skipping StarDict compression')
+    if destination.suffix != '.zip':
+        LOGGER.warning('[yellow bold]Resulting zip file supposed to have a "zip" suffix')
     if icon_path and not icon_path.is_file():
         raise PyGlossaryExporterError(f'{icon_path} is not existing file')
     if android_icon_path and not android_icon_path.is_file():
@@ -95,6 +97,8 @@ def export_stardict_zip(
         'sqlite': False
     }
 
+    relative_destination = Path(destination.stem)
+
     # Unzipped dictionary will be created into a temporary destination (usually in /tmp/)
     with tempfile.TemporaryDirectory() as unzipped_path:
         tmp_destination = Path(unzipped_path) / destination.stem
@@ -110,19 +114,17 @@ def export_stardict_zip(
         if fmt_opt.get('dictzip'):
             syn_path = str(tmp_destination/tmp_destination.name) + '.syn'
             runDictzip(syn_path)
-            #with zipfile.ZipFile('./dpd.zip', mode='w', compression=zipfile.ZIP_LZMA) as arch:
 
-        if icon_path:
-            icon_dst = tmp_destination / icon_path.with_stem(destination.name).name
-            shutil.copy(icon_path, icon_dst)
+        with zipfile.ZipFile(destination, mode='w', compression=zipfile.ZIP_LZMA) as archive:
+            for file in tmp_destination.glob('*'):
+                archive.write(file, relative_destination/file.name)
+            if icon_path:
+                icon_dst = relative_destination/icon_path.with_stem(destination.name).name
+                archive.write(icon_path, icon_dst)
 
-        if android_icon_path:
-            android_icon_dst = tmp_destination / android_icon_path.with_stem('android').name
-            shutil.copy(android_icon_path, android_icon_dst)
-
-        # TODO ZIP
-        destination.mkdir(parents=True, exist_ok=True)
-        shutil.copytree(tmp_destination, destination, dirs_exist_ok=True)
+            if android_icon_path:
+                android_icon_dst = relative_destination/android_icon_path.with_stem('android').name
+                archive.write(android_icon_path, android_icon_dst)
 
 
 def export_slob_zip() -> None:
