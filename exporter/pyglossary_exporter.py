@@ -1,15 +1,16 @@
 import dataclasses
 import datetime
+import logging
 import pyglossary
 import shutil
 import tempfile
-
-import rich
+import zipfile
 
 from pathlib import Path
 from pyglossary.os_utils import runDictzip
 from typing import Any, Dict, List, Optional
 
+LOGGER = logging.getLogger(__name__)
 DataType = List[Dict[str, str]]
 
 
@@ -65,12 +66,19 @@ def export_stardict_zip(
         info: Info,
         icon_path: Optional[Path] = None,
         android_icon_path: Optional[Path] = None) -> None:
-    """
+    """ Create zipped stardict dictionary
+
+    :data_list: List of entries in form of {'word': 'value', definition_html: 'value', 'synonyms': []}
+    :destination: Directory to save result, will be created if not exists
+    :info: Metadata special dict
+    :icon_path: Path of ico-image to include into resulting file
+    TODO Check if android.bmp used anywhere
+    :android_icon_path: Path of image to include into resulting file for GoldenDict Mobile (?)
     """
 
     dictzip = shutil.which('dictzip')
     if not dictzip:
-        rich.print('[yellow bold]WARINING: missing dictzip in $PATH, skipping StarDict compression')
+        LOGGER.warning('[yellow bold]missing dictzip in $PATH, skipping StarDict compression')
     if icon_path and not icon_path.is_file():
         raise PyGlossaryExporterError(f'{icon_path} is not existing file')
     if android_icon_path and not android_icon_path.is_file():
@@ -81,14 +89,16 @@ def export_stardict_zip(
     fmt_opt = {
         'large_file': False,
         'dictzip': True,
+        'sametypesequence': ['h'],
         'stardict_client': True,
         'merge_syns': False,
         'sqlite': False
     }
 
+    # Unzipped dictionary will be created into a temporary destination (usually in /tmp/)
     with tempfile.TemporaryDirectory() as unzipped_path:
         tmp_destination = Path(unzipped_path) / destination.stem
-        print(tmp_destination)
+        LOGGER.info(f'export_stardict_zip temporary directory is {tmp_destination}')
         _export(
             data_list,
             destination=tmp_destination,
@@ -100,6 +110,7 @@ def export_stardict_zip(
         if fmt_opt.get('dictzip'):
             syn_path = str(tmp_destination/tmp_destination.name) + '.syn'
             runDictzip(syn_path)
+            #with zipfile.ZipFile('./dpd.zip', mode='w', compression=zipfile.ZIP_LZMA) as arch:
 
         if icon_path:
             icon_dst = tmp_destination / icon_path.with_stem(destination.name).name
@@ -109,11 +120,9 @@ def export_stardict_zip(
             android_icon_dst = tmp_destination / android_icon_path.with_stem('android').name
             shutil.copy(android_icon_path, android_icon_dst)
 
-        destination.mkdir(parents=True, exist_ok=True)
         # TODO ZIP
+        destination.mkdir(parents=True, exist_ok=True)
         shutil.copytree(tmp_destination, destination, dirs_exist_ok=True)
-
-    # TODO Purge tools/*stardict.py
 
 
 def export_slob_zip() -> None:

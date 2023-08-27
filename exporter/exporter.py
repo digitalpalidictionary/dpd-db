@@ -5,11 +5,13 @@
 import argparse
 import contextlib
 import csv
+import logging
 import pickle
 import zipfile
 
 from os import popen
 from rich import print
+from rich.logging import RichHandler
 from sqlalchemy.orm import Session
 from typing import ContextManager, Dict, Type
 
@@ -84,6 +86,7 @@ def main() -> None:
 
 
 # TODO Deprecate
+# TODO Purge tools/*stardict.py
 def export_to_goldendict_orig(data_list: list) -> None:
     """generate goldedict zip"""
     tic = Tic('generating goldendict zip')
@@ -159,6 +162,11 @@ def write_limited_datalist(combined_data_list):
 
 
 if __name__ == "__main__":
+    logging.basicConfig(
+        level=logging.WARNING,
+        format='%(message)s;',
+        datefmt='%T',
+        handlers=[RichHandler(markup=True)])
     args = get_args()
 
     Context: Type[ContextManager] = contextlib.nullcontext
