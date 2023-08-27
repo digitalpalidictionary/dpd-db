@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 
-# TODO Make testcases
-# TODO Switch to pyglossary_stardict
-
 """Export DPD for GoldenDict and MDict."""
 
 import argparse
@@ -14,7 +11,7 @@ import zipfile
 from os import popen
 from rich import print
 from sqlalchemy.orm import Session
-from typing import ContextManager, Type
+from typing import ContextManager, Dict, Type
 
 from export_dpd import generate_dpd_html
 from export_epd import generate_epd_html
@@ -51,9 +48,8 @@ def main() -> None:
     timer = StopWatch()
 
     print("[bright_yellow]exporting dpd")
-    size_dict = {}
+    size_dict: Dict[str, int] = {}
 
-    # TODO Decide to use in-memort DB or lazy storage for giant list
     roots_count_dict = make_roots_count_dict(
         db_session)
     dpd_data_list, size_dict = generate_dpd_html(
@@ -120,7 +116,14 @@ def export_to_goldendict(data_list: list) -> None:
         website='https://digitalpalidictionary.github.io/')
 
     with Tic('generating goldendict zip'):
-        export_stardict_zip(data_list, PTH.zip_path, info)
+        # FIXME
+        dst = PTH.zip_path.with_stem('dpd_new')
+        export_stardict_zip(
+            data_list,
+            destination=dst,
+            info=info,
+            icon_path=PTH.icon_path,
+            android_icon_path=PTH.icon_bmp_path)
 
 
 def goldendict_unzip_and_copy() -> None:

@@ -7,9 +7,14 @@ import tempfile
 import rich
 
 from pathlib import Path
+from pyglossary.os_utils import runDictzip
 from typing import Any, Dict, List, Optional
 
 DataType = List[Dict[str, str]]
+
+
+class PyGlossaryExporterError(RuntimeError):
+    ...
 
 
 def get_date_string() -> str:
@@ -24,7 +29,7 @@ class Info:
     author: Optional[str] = None
     description: Optional[str] = None
     website: Optional[str] = None
-    date: str = dataclasses.field(default=get_date_string())
+    date: str = dataclasses.field(default=get_date_string())  # TODO No field?
 
     def get(self) -> Dict[str, str]:
         dic = dataclasses.asdict(self)
@@ -37,8 +42,6 @@ def _export(
         info: Info,
         format_name: str,
         format_options: Dict[str, Any]) -> None:
-    # TODO Try empty fields for self-documentatnion
-
     pyglossary.Glossary.init()
     glossary = pyglossary.Glossary(info=info.get())
 
@@ -49,22 +52,30 @@ def _export(
             defiFormat='h')
         glossary.addEntryObj(entry)
 
-    with tempfile.TemporaryDirectory() as unzipped_path:
-        glos_path = Path(unzipped_path) / destination.name
-        glossary.write(
-            filename=str(glos_path),
-            format=format_name,
-            **format_options)
-        # TODO Conditional zipping
-        destination.mkdir(parents=True, exist_ok=True)
-        shutil.copytree(unzipped_path, destination, dirs_exist_ok=True)
+    destination.mkdir(parents=True, exist_ok=True)
+    glossary.write(
+        filename=str(destination),
+        format=format_name,
+        **format_options)
 
 
-def export_stardict_zip(data_list: DataType, destination: Path, info: Info) -> None:
+def export_stardict_zip(
+        data_list: DataType,
+        destination: Path,
+        info: Info,
+        icon_path: Optional[Path] = None,
+        android_icon_path: Optional[Path] = None) -> None:
+    """
+    """
+
     dictzip = shutil.which('dictzip')
     if not dictzip:
         rich.print('[yellow bold]WARINING: missing dictzip in $PATH, skipping StarDict compression')
-    dst = destination.parent / 'dpd1'  # FIXME
+    if icon_path and not icon_path.is_file():
+        raise PyGlossaryExporterError(f'{icon_path} is not existing file')
+    if android_icon_path and not android_icon_path.is_file():
+        raise PyGlossaryExporterError(f'{android_icon_path} is not existing file')
+
     # Avaliable options can be explored with pyglossary UI, with
     # glos.writeOptions or in pyglossary.plugins.* source files
     fmt_opt = {
@@ -75,14 +86,36 @@ def export_stardict_zip(data_list: DataType, destination: Path, info: Info) -> N
         'sqlite': False
     }
 
-    _export(data_list, destination=dst, info=info, format_name='Stardict', format_options=fmt_opt)
-    # TODO Speed comparizon 51 sec
-    # TODO Icon
-    # TODO Zip
-    # TODO Purge tools/*stardict.py
-    # TODO README dictd for dictzip
-    # TODO dictzip check
-    # TODO Info arg
-    # TODO Compress .syn
+    with tempfile.TemporaryDirectory() as unzipped_path:
+        tmp_destination = Path(unzipped_path) / destination.stem
+        print(tmp_destination)
+        _export(
+            data_list,
+            destination=tmp_destination,
+            info=info,
+            format_name='Stardict',
+            format_options=fmt_opt)
 
-    # TODO Slob, make class?
+        # dz-compress syn file while PyGlossary skip it
+        if fmt_opt.get('dictzip'):
+            syn_path = str(tmp_destination/tmp_destination.name) + '.syn'
+            runDictzip(syn_path)
+
+        if icon_path:
+            icon_dst = tmp_destination / icon_path.with_stem(destination.name).name
+            shutil.copy(icon_path, icon_dst)
+
+        if android_icon_path:
+            android_icon_dst = tmp_destination / android_icon_path.with_stem('android').name
+            shutil.copy(android_icon_path, android_icon_dst)
+
+        destination.mkdir(parents=True, exist_ok=True)
+        # TODO ZIP
+        shutil.copytree(tmp_destination, destination, dirs_exist_ok=True)
+
+    # TODO Purge tools/*stardict.py
+
+
+def export_slob_zip() -> None:
+    # TODO
+    ...
