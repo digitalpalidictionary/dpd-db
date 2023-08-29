@@ -20,8 +20,9 @@ class PyGlossaryExporterError(RuntimeError):
 
 
 def get_date_string() -> str:
-    tzinfo = datetime.timezone.utc
-    now = datetime.datetime.now(tzinfo)
+    """ Make current time iso-formatted UTC datetime string
+    """
+    now = datetime.datetime.utcnow().replace(microsecond=0)
     return now.isoformat()
 
 
@@ -92,7 +93,7 @@ def export_stardict_zip(
     fmt_opt = {
         'large_file': False,
         'dictzip': True,
-        'sametypesequence': ['h'],
+        'sametypesequence': 'h',
         'stardict_client': True,
         'merge_syns': False,
         'sqlite': False
