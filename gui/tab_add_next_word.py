@@ -5,18 +5,18 @@ def make_tab_add_next_word(sg, primary_user):
 
     tab_add_next_word = [
         [
-            sg.Text("select book to add: ", pad=((100, 0), (100, 20))),
+            sg.Text("select book to add: ", pad=((100, 0), (20, 20))),
             sg.Input(
                 key="book_to_add",
-                size=(10, 1), pad=((0, 0), (100, 20)),
+                size=(10, 1), pad=((0, 0), (20, 20)),
             ),
             sg.Button(
-                "Add", key="books_to_add_button", visible=primary_user,
-                pad=((10, 0), (100, 20)),
+                "Add", key="books_to_add_button",
+                pad=((10, 0), (20, 20)),
             ),
             sg.Button(
-                "Add", key="dps_books_to_add_button", visible=not primary_user,
-                pad=((10, 0), (100, 20)),
+                "Add (ru)", key="dps_books_to_add_button", visible=not primary_user,
+                pad=((10, 0), (20, 20)),
             )
         ],
         [
@@ -26,24 +26,37 @@ def make_tab_add_next_word(sg, primary_user):
                 size=(10, 1), pad=((0, 0), (0, 20)),
             ),
             sg.Button(
-                "Add", key="sutta_to_add_button", visible=primary_user,
+                "Add", key="sutta_to_add_button",
                 pad=((10, 0), (0, 20)),
             ),
             sg.Button(
-                "Add", key="dps_sutta_to_add_button", visible=not primary_user,
+                "Add (ru)", key="dps_sutta_to_add_button", visible=not primary_user,
                 pad=((10, 0), (0, 20)),
             )
         ],
         [
             sg.Text("from temp/text.txt ", pad=((100, 0), (0, 20))),
             sg.Button(
-                "Add", key="from_txt_to_add_button", visible=primary_user,
+                "Add", key="from_txt_to_add_button",
                 pad=((10, 0), (0, 20)),
             ),
             sg.Button(
-                "Add", key="dps_from_txt_to_add_button", visible=not primary_user,
+                "Add (ru)", key="dps_from_txt_to_add_button", visible=not primary_user,
                 pad=((10, 0), (0, 20)),
             )
+        ],
+        [
+            sg.Text("from id-list: ", visible=not primary_user, pad=((100, 0), (0, 20))),
+            sg.Button(
+                "Add (ru)", key="dps_word_from_id_list_button", visible=not primary_user,
+                pad=((10, 0), (0, 20)),
+            ),
+            sg.Text("filed", visible=not primary_user, pad=((10, 0), (0, 20))),
+            sg.Input(
+                key="field_for_id_list", visible=not primary_user,
+                size=(20, 1), pad=((0, 0), (0, 20)),
+            ),
+            sg.Checkbox('has value?', default=False, key="empty_field_id_list_check", visible=not primary_user, pad=((10, 0), (0, 20))),
         ],
         [
             sg.Text("next word to add: ", pad=((100, 0), (0, 0))),
@@ -77,6 +90,13 @@ def make_tab_add_next_word(sg, primary_user):
             sg.Button(
                 "add word to dictionary",
                 key="add_word", size=(50, 1),
+                enable_events=True, pad=((100, 0), (0, 0))
+            ),
+        ],
+        [
+            sg.Button(
+                "edit word in DPS",
+                key="dps_edit_word", size=(50, 1), visible=not primary_user,
                 enable_events=True, pad=((100, 0), (0, 0))
             ),
         ],
