@@ -189,6 +189,18 @@ Leave empty for long compounds."),
                 "", key="meaning_2_error", size=(50, 1), text_color="red")
         ],
         [
+            sg.Text("suggestion", visible=not primary_user, size=(15, 1)),
+            sg.Button("GPT", visible=not primary_user, key="online_suggestion_button"),
+            sg.Multiline(
+                key="online_suggestion",
+                visible=not primary_user,
+                size=(45, 2),
+                enable_events=True,
+            ),
+            sg.Text(
+                "", key="online_suggestion_error", size=(50, 1), text_color="red")
+        ],
+        [
             sg.Text("root_key", size=(15, 1)),
             sg.pin(
                 CompletionCombo(
