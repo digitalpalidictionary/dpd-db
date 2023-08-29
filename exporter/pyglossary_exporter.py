@@ -13,6 +13,7 @@ from typing import Any, Dict, List, Optional
 LOGGER = logging.getLogger(__name__)
 DataType = List[Dict[str, str]]
 
+# TODO Fix also Deconstructor_exporter.py
 
 class PyGlossaryExporterError(RuntimeError):
     ...
@@ -71,7 +72,7 @@ def export_stardict_zip(
     :data_list: List of entries in form of {'word': 'value', definition_html: 'value', 'synonyms': []}
     :destination: Directory to save result, will be created if not exists
     :info: Metadata special dict
-    :icon_path: Path of ico-image to include into resulting file
+    :icon_path: Path of *.ico image file to include into resulting file
     TODO Check if android.bmp used anywhere
     :android_icon_path: Path of image to include into resulting file for GoldenDict Mobile (?)
     """
@@ -115,11 +116,12 @@ def export_stardict_zip(
             syn_path = str(tmp_destination/tmp_destination.name) + '.syn'
             runDictzip(syn_path)
 
-        with zipfile.ZipFile(destination, mode='w', compression=zipfile.ZIP_LZMA) as archive:
+        with zipfile.ZipFile(destination, mode='w', compression=zipfile.ZIP_STORED) as archive:
             for file in tmp_destination.glob('*'):
                 archive.write(file, relative_destination/file.name)
+
             if icon_path:
-                icon_dst = relative_destination/icon_path.with_stem(destination.name).name
+                icon_dst = relative_destination/icon_path.with_stem(destination.stem).name
                 archive.write(icon_path, icon_dst)
 
             if android_icon_path:
