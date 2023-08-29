@@ -44,6 +44,10 @@ def main():
         & (df['meaning_2'].str.contains(" lit."))
     )
 
+    # Use .loc to only modify rows where 'link' is not empty
+    df.loc[df['link'] != '', 'link'] = '<a class="link" href="' + df['link'] + '">Wiki link</a>'
+
+
     # Remove everything after " lit." in 'meaning_2' for the rows matching the condition
     df.loc[lit_condition_mask, 'meaning_2'] = df.loc[lit_condition_mask, 'meaning_2'].apply(lambda x: x.split("; lit.")[0])
 
@@ -126,7 +130,9 @@ def sbs_per(df, sbs_ped_link):
         axis=1
     )
 
+
     # Sort the DataFrame by the 'sbs_index' column
+    filtered_df['sbs_index'] = pd.to_numeric(filtered_df['sbs_index'], errors='coerce')
     filtered_df.sort_values(by='sbs_index', inplace=True)
 
     # Save the DataFrame into csv
@@ -209,8 +215,7 @@ def dps(df, dps_link):
 
     df['feedback'] = df.apply(
         lambda row: (
-            f"{dps_link}={row['pali_1']}&entry.1433863141=Anki"
-            ">Пожалуйста сообщите</a>."
+            f"""{dps_link}={row['pali_1']}&entry.1433863141=Anki">Пожалуйста сообщите</a>."""
         ), 
         axis=1
     )

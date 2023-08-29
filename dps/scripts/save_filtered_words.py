@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 
-""" Filter words based on some codition and save into csv"""
+""" Filter words based on some codition and save into csv (with backing up existing temp csv)"""
 
 from db.models import PaliWord
 from tools.paths import ProjectPaths as PTH
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 from db.get_db_session import get_db_session
 import csv
+import os
+import shutil
 from rich import print
 from tools.tic_toc import tic, toc
+from datetime import datetime
 
 def save_filtered_words():
     tic()
@@ -22,6 +25,20 @@ def save_filtered_words():
 
     # Sort the filtered words by sbs_class
     filtered_words = sorted(filtered_words, key=lambda word: word.sbs.sbs_class_anki)
+
+    # Check if the CSV exists, and create a backup with a timestamp if it does
+    if os.path.exists(DPSPTH.temp_csv_path):
+        timestamp = datetime.now().strftime('%y%m%d%H%M')
+        base_name = os.path.basename(DPSPTH.temp_csv_path).replace('.csv', '')
+        
+        # Ensure the backup directory exists, if not, create it
+        if not os.path.exists(DPSPTH.temp_csv_backup_dir):
+            os.makedirs(DPSPTH.temp_csv_backup_dir)
+
+        print(f"[green]backup existing csv into {DPSPTH.temp_csv_backup_dir}")
+
+        backup_name = os.path.join(DPSPTH.temp_csv_backup_dir, f"{base_name}_backup_{timestamp}.csv")
+        shutil.copy(DPSPTH.temp_csv_path, backup_name)
 
     # Write to CSV using tab as delimiter
     with open(DPSPTH.temp_csv_path, 'w', newline='') as csvfile:

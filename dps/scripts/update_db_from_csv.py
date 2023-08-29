@@ -30,21 +30,22 @@ input("press enter to continue: ")
 
 
 # iterate through the csv item by item
-for i in csv:
+for idx, i in enumerate(csv, start=1):  # start=1 will start the indexing from 1
 
     # find the column name you want to change, in this case "sbs.sbs_class"
     if i.sbs_class:
         # this find the dpd word which matches the id
-        # here you could also use Russian or SBS instead of PaliWord
         csv_id = i.id
         db_entry = db_session.query(PaliWord).filter(
             PaliWord.id == csv_id).first()
 
         # this updates the db entry with the csv value
+        print(f"Row number: {idx}")
         print(f"old: {db_entry.sbs.sbs_class}")
         db_entry.sbs.sbs_class = i.sbs_class
         print(f"new: {db_entry.sbs.sbs_class}")
         print()
+
 
 # check that the output is as expected, then uncomment commit
 db_session.commit()

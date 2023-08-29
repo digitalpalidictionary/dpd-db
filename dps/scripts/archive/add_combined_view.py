@@ -84,7 +84,6 @@ with engine.connect() as connection:
             pali_words.cognate, 
             sbs.sbs_class_anki, 
             sbs.sbs_class, 
-            sbs.sbs_index, 
             sbs.sbs_category 
         FROM pali_words
         LEFT JOIN sbs ON pali_words.id = sbs.id

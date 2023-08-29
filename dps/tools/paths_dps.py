@@ -7,17 +7,22 @@ from dataclasses import dataclass
 @dataclass()
 class DPSPaths():
     # csvs
-    anki_csvs_dps_dir: Path = Path("dps/anki_csvs/")
+    anki_csvs_dps_dir: Path = Path("dps/csvs/anki_csvs/")
     csv_dps_dir: Path = Path("dps/csvs/")
     dpd_dps_full_path: Path = Path("dps/csvs/dpd_dps_full.csv")
     dps_full_path: Path = Path("dps/csvs/dps_full.csv")
     dps_csv_path: Path = Path("dps/csvs/dps.csv")
     sbs_index_path: Path = Path("dps/csvs/sbs_index.csv")
+    class_index_path: Path = Path("dps/csvs/class_index.csv")
+    sutta_index_path: Path = Path("dps/csvs/sutta_index.csv")
     freq_ebt_path: Path = Path("dps/csvs/freq_ebt.csv")
     dpd_dps_full_freq_path: Path = Path("dps/csvs/dpd_dps_full_freq.csv")
-    ai_suggestion_history_path: Path = Path("dps/csvs/ai_suggestion_history.csv")
+    ai_ru_suggestion_history_path: Path = Path("dps/csvs/ai_ru_suggestion_history.csv")
+    ai_ru_notes_suggestion_history_path: Path = Path("dps/csvs/ai_ru_notes_suggestion_history.csv")
+    ai_en_suggestion_history_path: Path = Path("dps/csvs/ai_en_suggestion_history.csv")
     temp_csv_path: Path = Path("dps/csvs/temp.csv")
     id_to_add_path: Path = Path("dps/csvs/id_to_add.csv")
+    word_to_add_path: Path = Path("dps/csvs/word_to_add.csv")
 
     sbs_pd_path: Path = Path("dps/csvs/sbs_pd.csv")
 
@@ -55,8 +60,9 @@ class DPSPaths():
     # local anki media path
     anki_media_dir: Path = Path("/home/deva/.var/app/net.ankiweb.Anki/data/Anki2/deva/collection.media/") 
 
-    # errors
-    gui_errors_dir: Path = Path("/home/deva/.gui-errors.txt")
+    # local log dir
+    log_dir: Path = Path("/home/deva/log/")
+
 
     # /gui/stash
     dps_stash_path: Path = Path("gui/stash/dps_stash.json")

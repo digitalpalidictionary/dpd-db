@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Update the Russian and SBS from dps.ods. Clean Russian and SBS before importing.
+"""Update the Russian and SBS from dps.csv. Clean Russian and SBS before importing.
 Additionally check for duplicate ids."""
 
 import sys
@@ -182,9 +182,7 @@ def _csv_row_to_sbs(x: Dict[str, str], id, db_session) -> SBS:
         sbs_chant_pali_4=x["sbs_chant_pali_4"],
         sbs_chant_eng_4=x["sbs_chant_eng_4"],
         sbs_chapter_4=x["sbs_chapter_4"],
-        sbs_index=x["sbs_index"],
         sbs_category=x["sbs_category"],
-        sbs_audio=x["sbs_audio"],
     )
 
 

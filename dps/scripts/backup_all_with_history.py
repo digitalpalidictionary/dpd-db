@@ -16,7 +16,7 @@ from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths as PTH
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 
-MAX_BACKUPS = 10  # Set the maximum number of backups
+MAX_BACKUPS = 1  # Set the maximum number of backups
 
 def backup_all_tables():
     tic()
@@ -42,9 +42,10 @@ def backup_generic(db_session, TableClass, backup_dir, table_name, exclude_colum
     print(f"[green]writing {table_name} table")
     
     # Manage old backups
-    manage_backups(backup_dir, table_name)
+    # manage_backups(backup_dir, table_name)
     
-    backup_filename = os.path.join(backup_dir, f"{table_name}_{get_unique_filename_suffix()}.tsv")
+    # backup_filename = os.path.join(backup_dir, f"{table_name}_{get_unique_filename_suffix()}.tsv")
+    backup_filename = os.path.join(backup_dir, f"{table_name}.tsv")
     db = db_session.query(TableClass).all()
     
     with open(backup_filename, 'w', newline='') as tsvfile:
@@ -56,9 +57,11 @@ def backup_generic(db_session, TableClass, backup_dir, table_name, exclude_colum
             row = [getattr(i, column.name) for column in TableClass.__mapper__.columns if column.name not in exclude_columns]
             csvwriter.writerow(row)
 
+
 def get_unique_filename_suffix():
     """Return a unique suffix for backup filenames."""
     return datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
+
 
 def manage_backups(backup_dir, table_name):
     """Delete oldest backups if they exceed the limit."""

@@ -10,68 +10,83 @@ from tools.paths import ProjectPaths as PTH
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 
 
+NEED_TO_UPDATE = True  # Change this to False if you don't want to update
+
+ORIGINAL_HAS_VALUE = False  # Change this to False if WHAT_TO_UPDATE originally is empty
+
+WHAT_TO_UPDATE = "sbs_category"  # Change this as required
+
+
+def read_ids_from_tsv(file_path):
+    with open(file_path, mode='r', encoding='utf-8-sig') as tsv_file:
+        tsv_reader = csv.reader(tsv_file, delimiter='\t')
+        next(tsv_reader)  # Skip header row
+        return [int(row[0]) for row in tsv_reader]  # Extracting IDs only from the first column
+
+
+def remove_duplicates(ordered_ids):
+    seen = set()
+    ordered_ids_no_duplicates = [x for x in ordered_ids if not (x in seen or seen.add(x))]
+    return ordered_ids_no_duplicates
+
+
+def fetch_matching_words_from_db(db_session, ordered_ids):
+    for word_id in ordered_ids:
+        word = db_session.query(PaliWord).filter(PaliWord.id == word_id).first()
+        if word and word.sbs:
+            attr_value = getattr(word.sbs, WHAT_TO_UPDATE, None)
+            if ORIGINAL_HAS_VALUE and attr_value:
+                yield word
+            elif not ORIGINAL_HAS_VALUE and not attr_value:
+                yield word
+
+
+def display_and_update_word(db_session, word, matching_words_count, input_value):
+    print(f"{word.pali_1}. [cyan]Remaining: {matching_words_count}", end=" ")
+    pyperclip.copy(word.pali_1)
+
+    if NEED_TO_UPDATE and hasattr(word.sbs, WHAT_TO_UPDATE):
+            setattr(word.sbs, WHAT_TO_UPDATE, input_value)
+            db_session.commit()
+            print(f"[green] {WHAT_TO_UPDATE} changed to '' {input_value} ''")
+
+    x = input()
+    if x == "x":
+        return False
+    return True
+
+
 def main():
     print(f"[bright_yellow]Adding words from the {DPSPTH.temp_csv_path}")
     print("[green]Press x to exit")
 
+    ordered_ids = read_ids_from_tsv(DPSPTH.temp_csv_path)
+    print(f"[blue]Total number of IDs fetched: {len(ordered_ids)}[/blue]")
 
-    # Load IDs from the TSV
-    with open(DPSPTH.temp_csv_path, mode='r', encoding='utf-8-sig') as tsv_file:
-        tsv_reader = csv.reader(tsv_file, delimiter='\t')
-        next(tsv_reader)  # Skip header row
-        # Extracting IDs only from the first column
-        ordered_ids = [int(row[0]) for row in tsv_reader]
- 
-
-    print(f"[blue]Tatal number of IDs fetched: {len(ordered_ids)}[/blue]")  # Print the whole number of fetched IDs
-
-    # Remove duplicates while maintaining order
-    seen = set()
-    ordered_ids_no_duplicates = []
-    for _id in ordered_ids:
-        if _id not in seen:
-            ordered_ids_no_duplicates.append(_id)
-            seen.add(_id)
-    ordered_ids = ordered_ids_no_duplicates
-
-    print(f"[blue]Ordered unique IDs fetched: {len(ordered_ids)}[/blue]")  # Print the unique number of fetched IDs
+    ordered_ids = remove_duplicates(ordered_ids)
+    print(f"[blue]Ordered unique IDs fetched: {len(ordered_ids)}[/blue]")
 
     db_session = get_db_session(PTH.dpd_db_path)
+    matching_word_generator = fetch_matching_words_from_db(db_session, ordered_ids)
+    matching_words_count = sum(1 for _ in fetch_matching_words_from_db(db_session, ordered_ids))
 
-    # Count the total number of words that match the conditions
-    total_number = 0
-    matching_words = []  # List to store words that match the criteria
-
-    for word_id in ordered_ids:
-        word = db_session.query(PaliWord).filter(PaliWord.id == word_id).first()
-        if word and (not word.sbs or (word.sbs and not word.sbs.sbs_category)):
-            total_number += 1
-            matching_words.append(word)  # Storing the word for later use
-
-    if total_number == 0:
+    if matching_words_count == 0:
         print("[red]No words match the criteria.[/red]")
         return
 
-    else:
-        print(f"[yellow]Total words matching criteria: {total_number}[/yellow]")  
+    print(f"[yellow]Total words matching criteria: {matching_words_count}[/yellow]")
 
-    # Display the words in order
-    for idx, word in enumerate(matching_words, start=1):
-        print(f"{idx}. {word.pali_1}. [cyan]Remaining: {total_number}", end=" ")
-        pyperclip.copy(word.pali_1)
+    # Only ask for input_value if updates are needed
+    input_value = ""
+    if NEED_TO_UPDATE:
+        input_value = input("Enter the source (e.g. sn56 sn22 sn35 sn12 sn47 sn43): ").strip()
 
-        # Update the some column if necessary
-        if word.sbs and word.sbs.sbs_class:
-            word.sbs.sbs_class = ""
-
-        # Commit the changes to the database
-        db_session.commit()
-
-        x = input()
-        if x == "x":
+    for word in matching_word_generator:
+        if not display_and_update_word(db_session, word, matching_words_count, input_value):
             break
+        matching_words_count -= 1
 
-        total_number -= 1
+    db_session.close()
 
 
 if __name__ == "__main__":
