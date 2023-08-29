@@ -486,9 +486,19 @@ def get_root_info(root_key):
 
 # dps functions
 
+def remove_line_breaker(word):
+    """Remove a line breaker from the end of the word if it exists."""
+    if word.endswith('\n'):
+        return word[:-1]
+    else:
+        return word
+
+
 def fetch_id_or_pali_1(values: dict, field: str) -> Optional[PaliWord]:
     """Get id or pali1 from db."""
     id_or_pali_1 = values[field]
+
+    id_or_pali_1 = remove_line_breaker(id_or_pali_1) 
 
     if not id_or_pali_1:  # Check if id_or_pali_1 is empty
         return None
@@ -548,7 +558,7 @@ def dps_update_db(
 
     window["messages"].update(
     f"'{values['dps_id_or_pali_1']}' updated in db",
-    text_color="green")
+    text_color="Lime")
 
 
 def dps_get_synonyms(pos: str, string_of_meanings: str, window, error_field) -> Optional[str]:
