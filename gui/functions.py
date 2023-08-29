@@ -3,6 +3,7 @@
 import re
 import csv
 import subprocess
+import pyperclip
 import textwrap
 import pickle
 import configparser
@@ -970,6 +971,7 @@ def make_sandhi_ok_list(PTH):
 def open_in_goldendict(word: str) -> None:
     cmd = ["goldendict", word]
     subprocess.Popen(cmd)
+    pyperclip.copy(word) 
 
 
 def open_inflection_tables():
