@@ -70,12 +70,15 @@ from functions import make_words_to_add_list_from_text
 from functions_dps import dps_make_words_to_add_list
 from functions_dps import dps_make_words_to_add_list_sutta
 from functions_dps import dps_make_words_to_add_list_from_text
+from functions_dps import fetch_matching_words_from_db
 
 from functions_dps import populate_dps_tab
 from functions_dps import update_sbs_chant
 from functions_dps import clear_dps
 from functions_dps import translate_to_russian_googletrans
-from functions_dps import translate_with_openai
+from functions_dps import ru_translate_with_openai
+from functions_dps import en_translate_with_openai
+from functions_dps import ru_notes_translate_with_openai
 from functions_dps import swap_sbs_examples
 from functions_dps import remove_sbs_example
 from functions_dps import copy_dpd_examples
@@ -182,6 +185,7 @@ def main():
             if focus is not None:
                 focus.set_focus()
 
+        # word to add tab
         # add book
         elif event == "book_to_add_enter" or event == "books_to_add_button":
             if test_book_to_add(values, window):
@@ -226,6 +230,7 @@ def main():
 
         # add words from text.txt
         elif event == "from_txt_to_add_button":
+            print("from_txt_to_add_button works")
             words_to_add_list = make_words_to_add_list_from_text()
 
             if words_to_add_list != []:
@@ -312,6 +317,34 @@ def main():
             words_to_add_list = remove_word_to_add(
                 values, window, words_to_add_list)
             window["words_to_add_length"].update(value=len(words_to_add_list))
+
+        # DPD edit tab
+
+        # tabs jumps to next field in multiline
+        if event == "meaning_1_tab":
+            focus = window['meaning_1'].get_next_focus()
+            if focus is not None:
+                focus.set_focus()
+        elif event == "construction_tab":
+            focus = window['construction'].get_next_focus()
+            if focus is not None:
+                focus.set_focus()
+        elif event == "phonetic_tab":
+            focus = window['phonetic'].get_next_focus()
+            if focus is not None:
+                focus.set_focus()
+        elif event == "commentary_tab":
+            focus = window['commentary'].get_next_focus()
+            if focus is not None:
+                focus.set_focus()
+        elif event == "example_1_tab":
+            focus = window['example_1'].get_next_focus()
+            if focus is not None:
+                focus.set_focus()
+        elif event == "example_2_tab":
+            focus = window['example_2'].get_next_focus()
+            if focus is not None:
+                focus.set_focus()
 
         # add word events
 
@@ -571,7 +604,7 @@ def main():
                     location=(400, 400))
                 if word_to_add:
                     values["word_to_add"] = [word_to_add]
-                    window["word_to_add"].update(value=[word_to_add])
+                    window["word_to_add"].update(values=[word_to_add])
 
             if (
                 test_book_to_add(values, window) and
@@ -636,7 +669,7 @@ def main():
                     title=None,
                     location=(400, 400))
                 values["word_to_add"] = [word_to_add]
-                window["word_to_add"].update(value=[word_to_add])
+                window["word_to_add"].update(values=[word_to_add])
 
             sutta_sentences = find_sutta_example(sg, window, values)
 
@@ -728,6 +761,8 @@ def main():
             else:
                 window["messages"].update(value="No word to edit!", text_color="red")
 
+        # gui buttons
+
         elif event == "clear_button":
             clear_errors(window)
             clear_values(values, window, primary_user)
@@ -759,8 +794,6 @@ def main():
 
         elif event == "update_sandhi_button":
             sandhi_dict = make_sandhi_contraction_dict(db_session)
-
-        
 
         elif event == "update_db_button1":
             if flags.tested is False:
@@ -797,6 +830,7 @@ def main():
                     if success:
                         compare_differences(values, sg, pali_word_original2, action)
                         clear_errors(window)
+                        window["dps_id_or_pali_1"].update(values["pali_1"])
                         clear_values(values, window, primary_user)
                         get_next_ids(window)
                         reset_flags(flags)
@@ -804,12 +838,32 @@ def main():
                         window["words_to_add_length"].update(
                             value=len(words_to_add_list))
                         open_in_goldendict(values["pali_1"])
+                        window["tab_edit_dps"].select()  # type: ignore
+                        
         
         elif event == "open_corrections_button":
             edit_corrections()
 
         elif event == "debug_button":
             print(f"{values}")
+
+        elif event == "stash_button":
+            with open(PTH.stash_path, "wb") as f:
+                pickle.dump(values, f)
+            window["messages"].update(
+                value=f"{values['pali_1']} stashed", text_color="white")
+
+        elif event == "unstash_button":
+            with open(PTH.stash_path, "rb") as f:
+                unstash = pickle.load(f)
+                for key, value in unstash.items():
+                    window[key].update(value)
+
+            window["messages"].update(
+                value="unstashed", text_color="white")
+
+        elif event == "summary_button":
+            display_summary(values, window, sg, pali_word_original2)
 
         elif event == "save_state_button":
             save_gui_state(values, words_to_add_list)
@@ -946,23 +1000,7 @@ def main():
                 window[value].update(visible=False)
             flags.show_fields = False
 
-        elif event == "stash_button":
-            with open(PTH.stash_path, "wb") as f:
-                pickle.dump(values, f)
-            window["messages"].update(
-                value=f"{values['pali_1']} stashed", text_color="white")
-
-        elif event == "unstash_button":
-            with open(PTH.stash_path, "rb") as f:
-                unstash = pickle.load(f)
-                for key, value in unstash.items():
-                    window[key].update(value)
-
-            window["messages"].update(
-                value="unstashed", text_color="white")
-
-        elif event == "summary_button":
-            display_summary(values, window, sg, pali_word_original2)
+        # test db tab buttons
 
         elif event == "test_db_internal":
             db_internal_tests(sg, window, flags)
@@ -987,7 +1025,52 @@ def main():
             combo = window[event.replace("-focus_out", "")]
             combo.hide_tooltip()  # type: ignore
 
-        # dps tab
+        # DPS tab
+
+        # dps hide fields logic
+        elif event == "dps_show_fields_all":
+            for value in values:
+                window[value].update(visible=True)
+                window["dps_sbs_meaning"].update(visible=True)
+                window["dps_sbs_meaning_error"].update(visible=True)
+                window["dps_sbs_notes"].update(visible=True)
+                window["dps_sbs_notes_error"].update(visible=True)
+                window["dps_sbs_chant_pali_1"].update(visible=True)
+                window["dps_sbs_chant_pali_1_error"].update(visible=True)
+                window["dps_sbs_chant_eng_1"].update(visible=True)
+                window["dps_sbs_chapter_1"].update(visible=True)
+                window["dps_sbs_chant_pali_2"].update(visible=True)
+                window["dps_sbs_chant_pali_2_error"].update(visible=True)
+                window["dps_sbs_chant_eng_2"].update(visible=True)
+                window["dps_sbs_chapter_2"].update(visible=True)
+                window["dps_sbs_chant_pali_3"].update(visible=True)
+                window["dps_sbs_chant_pali_3_error"].update(visible=True)
+                window["dps_sbs_chant_eng_3"].update(visible=True)
+                window["dps_sbs_chapter_3"].update(visible=True)
+                window["dps_sbs_chant_pali_4"].update(visible=True)
+                window["dps_sbs_chant_pali_4_error"].update(visible=True)
+                window["dps_sbs_chant_eng_4"].update(visible=True)
+                window["dps_sbs_chapter_4"].update(visible=True)
+
+                dps_flags.show_fields = True
+
+        elif event == "dps_show_fields_no_sbs":
+            hide_list = [
+                "dps_sbs_meaning", "dps_sbs_meaning_error", "dps_sbs_notes", "dps_sbs_notes_error", 
+                "dps_sbs_chant_pali_1", "dps_sbs_chant_eng_1", "dps_sbs_chapter_1",
+                "dps_sbs_chant_pali_1_error",
+                "dps_sbs_chant_pali_2", "dps_sbs_chant_eng_2", "dps_sbs_chapter_2",
+                "dps_sbs_chant_pali_2_error",
+                "dps_sbs_chant_pali_3", "dps_sbs_chant_eng_3", "dps_sbs_chapter_3",
+                "dps_sbs_chant_pali_3_error",
+                "dps_sbs_chant_pali_4", "dps_sbs_chant_eng_4", "dps_sbs_chapter_4",
+                "dps_sbs_chant_pali_4_error",
+            ]
+            for value in values:
+                window[value].update(visible=True)
+            for value in hide_list:
+                window[value].update(visible=False)
+            dps_flags.show_fields = False
 
         # tabs jumps to next field in multiline
         if event == "dps_meaning_tab":
@@ -1046,7 +1129,12 @@ def main():
             focus = window['dps_sbs_example_4'].get_next_focus()
             if focus is not None:
                 focus.set_focus()
+        elif event == "online_suggestion_tab":
+            focus = window['online_suggestion'].get_next_focus()
+            if focus is not None:
+                focus.set_focus()
 
+        # fetch word from db
         if (
             event == "dps_id_or_pali_1_enter" or
             event == "dps_id_or_pali_1_button"
@@ -1059,9 +1147,18 @@ def main():
                     open_in_goldendict(dpd_word.pali_1)
                     populate_dps_tab(
                         values, window, dpd_word, ru_word, sbs_word)
+                    window["messages"].update(
+                        value="data ready for editing", text_color="PaleTurquoise")
                 else:
                     window["messages"].update(
                         value="not a valid id or pali_1", text_color="red")
+
+        elif event == "dps_synonym":
+            if dps_flags.synoyms:
+                error_field = "dps_synonym_error"
+                synoyms = dps_get_synonyms(values["dps_pos"], values["dps_meaning"], window, error_field)
+                window["dps_synonym"].update(value=synoyms)
+                dps_flags.synoyms = False
 
         # buttons for sbs_ex_1
         # search sbs_ex1
@@ -1114,7 +1211,7 @@ def main():
                     location=(400, 400))
                 if word_to_add:
                     values["word_to_add"] = [word_to_add]
-                    window["word_to_add"].update(value=[word_to_add])
+                    window["word_to_add"].update(values=[word_to_add])
 
             if (
                 test_book_to_add(values, window) and
@@ -1133,7 +1230,7 @@ def main():
 
                 dps_flags.sbs_example_1 = False
 
-        # bold1
+        # dps bold1
         elif event == "dps_bold_1_button" or event == "dps_bold_1_enter":
             if values["dps_bold_1"]:
                 dps_example_1_bold = re.sub(
@@ -1143,14 +1240,14 @@ def main():
                 window["dps_sbs_example_1"].update(value=dps_example_1_bold)
                 window["dps_bold_1"].update(value="")
 
-        # lower1
+        # dps lower1
         elif event == "dps_example_1_lower":
             values["dps_sbs_sutta_1"] = values["dps_sbs_sutta_1"].lower()
             window["dps_sbs_sutta_1"].update(values["dps_sbs_sutta_1"])
             values["dps_sbs_example_1"] = values["dps_sbs_example_1"].lower()
             window["dps_sbs_example_1"].update(values["dps_sbs_example_1"])
 
-        # clean1
+        # dps clean1
         elif event == "dps_example_1_clean":
             replace_sandhi(
                 values["dps_sbs_example_1"], "dps_sbs_example_1", sandhi_dict, window)
@@ -1159,7 +1256,7 @@ def main():
 
         # buttons for sbs_ex_2
 
-        # clean2
+        # dps clean2
         elif event == "dps_example_2_clean":
             replace_sandhi(
                 values["dps_sbs_example_2"], "dps_sbs_example_2", sandhi_dict, window)
@@ -1189,7 +1286,7 @@ def main():
                     title=None,
                     location=(400, 400))
                 values["word_to_add"] = [word_to_add]
-                window["word_to_add"].update(value=[word_to_add])
+                window["word_to_add"].update(values=[word_to_add])
 
             sutta_sentences = find_sutta_example(sg, window, values)
 
@@ -1203,7 +1300,7 @@ def main():
 
             dps_flags.sbs_example_2 = False
 
-        # bold2
+        # dps bold2
         elif event == "dps_bold_2_button" or event == "dps_bold_2_enter":
             if values["dps_bold_2"]:
                 example_2_bold = re.sub(
@@ -1213,7 +1310,7 @@ def main():
                 window["dps_sbs_example_2"].update(value=example_2_bold)
                 window["dps_bold_2"].update(value="")
 
-        # lower2
+        # dps lower2
         elif event == "dps_example_2_lower":
             values["dps_sbs_sutta_2"] = values["dps_sbs_sutta_2"].lower()
             window["dps_sbs_sutta_2"].update(values["dps_sbs_sutta_2"])
@@ -1222,7 +1319,7 @@ def main():
 
         # buttons for sbs_ex_3
 
-        # clean3
+        # dps clean3
         elif event == "dps_example_3_clean":
             replace_sandhi(
                 values["dps_sbs_example_3"], "dps_sbs_example_3", sandhi_dict, window)
@@ -1252,7 +1349,7 @@ def main():
                     title=None,
                     location=(400, 400))
                 values["word_to_add"] = [word_to_add]
-                window["word_to_add"].update(value=[word_to_add])
+                window["word_to_add"].update(values=[word_to_add])
 
             sutta_sentences = find_sutta_example(sg, window, values)
 
@@ -1266,7 +1363,7 @@ def main():
 
             dps_flags.sbs_example_3 = False
 
-        # bold3
+        # dps bold3
         elif event == "dps_bold_3_button" or event == "dps_bold_3_enter":
             if values["dps_bold_3"]:
                 example_3_bold = re.sub(
@@ -1276,7 +1373,7 @@ def main():
                 window["dps_sbs_example_3"].update(value=example_3_bold)
                 window["dps_bold_3"].update(value="")
 
-        # lower3
+        # dps lower3
         elif event == "dps_example_3_lower":
             values["dps_sbs_sutta_3"] = values["dps_sbs_sutta_3"].lower()
             window["dps_sbs_sutta_3"].update(values["dps_sbs_sutta_3"])
@@ -1315,7 +1412,7 @@ def main():
                     title=None,
                     location=(400, 400))
                 values["word_to_add"] = [word_to_add]
-                window["word_to_add"].update(value=[word_to_add])
+                window["word_to_add"].update(values=[word_to_add])
 
             sutta_sentences = find_sutta_example(sg, window, values)
 
@@ -1329,7 +1426,7 @@ def main():
 
             dps_flags.sbs_example_4 = False
 
-        # bold4
+        # dps bold4
         elif event == "dps_bold_4_button" or event == "dps_bold_4_enter":
             if values["dps_bold_4"]:
                 example_4_bold = re.sub(
@@ -1339,7 +1436,7 @@ def main():
                 window["dps_sbs_example_4"].update(value=example_4_bold)
                 window["dps_bold_4"].update(value="")
 
-        # lower4
+        # dps lower4
         elif event == "dps_example_4_lower":
             values["dps_sbs_sutta_4"] = values["dps_sbs_sutta_4"].lower()
             window["dps_sbs_sutta_4"].update(values["dps_sbs_sutta_4"])
@@ -1361,12 +1458,18 @@ def main():
         elif event == "dps_openai_translate_button":
             field = "dps_ru_online_suggestion"
             error_field = "dps_ru_meaning_suggestion_error"
-            translate_with_openai(values['dps_meaning'], values['dps_pali_1'], values['dps_grammar'], field, error_field, window)
+            ru_translate_with_openai(values['dps_meaning'], values['dps_pali_1'], values['dps_grammar'], field, error_field, window)
 
         elif event == "dps_notes_openai_translate_button":
             field = "dps_notes_online_suggestion"
             error_field = "dps_ru_notes_suggestion_error"
-            translate_with_openai(values['dps_notes'], values['dps_pali_1'], values['dps_grammar'], field, error_field, window)
+            ru_notes_translate_with_openai(values['dps_notes'], values['dps_pali_1'], values['dps_grammar'], field, error_field, window)
+
+        # in dpd tab
+        elif event == "online_suggestion_button":
+            field = "online_suggestion"
+            error_field = "online_suggestion_error"
+            en_translate_with_openai(values['pali_1'], values['grammar'], values['example_1'], field, error_field, window)
 
         # copy ru sugestions buttons
         elif event == "dps_copy_meaning_button":
@@ -1376,7 +1479,6 @@ def main():
         elif event == "dps_notes_copy_meaning_button":
             error_field = "dps_ru_notes_suggestion_error"
             copy_and_split_content('dps_notes_online_suggestion', 'dps_ru_notes', '', error_field, window, values)
-
 
         # movement in this field triggers spellcheck dps tab
         elif event == "ru_add_spelling":
@@ -1419,8 +1521,7 @@ def main():
         elif event == "dps_ru_edit_spelling_button":
             ru_edit_spelling()
 
-
-        # choise from dropdown sbs chats
+        # choice from dropdown sbs chats
 
         if event == "dps_sbs_chant_pali_1":
             chant = values["dps_sbs_chant_pali_1"]
@@ -1548,42 +1649,7 @@ def main():
             window["messages"].update(
                 value="unstashed to sbs_ex_4", text_color="white")
 
-
-        elif event == "dps_synonym":
-            if dps_flags.synoyms:
-                error_field = "dps_synonym_error"
-                synoyms = dps_get_synonyms(values["dps_pos"], values["dps_meaning"], window, error_field)
-                window["dps_synonym"].update(value=synoyms)
-                dps_flags.synoyms = False
-
-        
-
-
-
-        # bottom buttons
-
-        elif event == "dps_clear_button":
-            clear_dps(values, window)
-            dps_reset_flags(dps_flags)
-            clear_errors(window)
-
-        elif event == "dps_stash_button":
-            with open(PTH.stash_path, "wb") as f:
-                pickle.dump(values, f)
-            window["messages"].update(
-                value=f"{values['pali_1']} stashed", text_color="white")
-
-        elif event == "dps_unstash_button":
-            with open(PTH.stash_path, "rb") as f:
-                unstash = pickle.load(f)
-                for key, value in unstash.items():
-                    window[key].update(value)
-
-        elif event == "dps_open_tests_button":
-            dps_open_internal_tests()
-
-        elif event == "dps_open_log_in_terminal_button":
-            tail_log()
+        # dps db buttons:
 
         elif event == "dps_test_internal_button":
             dpd_word = fetch_id_or_pali_1(values, "dps_id_or_pali_1")
@@ -1644,6 +1710,46 @@ def main():
                     window["messages"].update(
                         value="not a valid id or pali_1", text_color="red")
 
+        # dps gui buttons:
+
+        elif event == "dps_clear_button":
+            clear_dps(values, window)
+            dps_reset_flags(dps_flags)
+            clear_errors(window)
+            window["messages"].update(
+                        value="cleared", text_color="SteelBlue")
+
+        elif event == "dps_reset_button":
+            dpd_word = fetch_id_or_pali_1(values, "dps_id_or_pali_1")
+            if dpd_word:
+                ru_word = fetch_ru(dpd_word.id)
+                sbs_word = fetch_sbs(dpd_word.id)
+                clear_dps(values, window)
+                populate_dps_tab(
+                    values, window, dpd_word, ru_word, sbs_word)
+                window["messages"].update(
+                        value="reset", text_color="Wheat")
+            else:
+                window["messages"].update(
+                        value="not a valid id or pali_1", text_color="red")
+
+        elif event == "dps_stash_button":
+            with open(PTH.stash_path, "wb") as f:
+                pickle.dump(values, f)
+            window["messages"].update(
+                value=f"{values['pali_1']} stashed", text_color="white")
+
+        elif event == "dps_unstash_button":
+            with open(PTH.stash_path, "rb") as f:
+                unstash = pickle.load(f)
+                for key, value in unstash.items():
+                    window[key].update(value)
+
+        elif event == "dps_open_tests_button":
+            dps_open_internal_tests()
+
+        elif event == "dps_open_log_in_terminal_button":
+            tail_log()
 
         elif event == "dps_summary_button":
             dpd_word = fetch_id_or_pali_1(values, "dps_id_or_pali_1")
@@ -1656,36 +1762,10 @@ def main():
                 window["messages"].update(
                     value="not a valid id or pali_1", text_color="red")
 
+        elif event == "dps_save_state_button":
+            save_gui_state(values, words_to_add_list)
 
-        elif event == "dps_reset_button":
-            dpd_word = fetch_id_or_pali_1(values, "dps_id_or_pali_1")
-            if dpd_word:
-                ru_word = fetch_ru(dpd_word.id)
-                sbs_word = fetch_sbs(dpd_word.id)
-                clear_dps(values, window)
-                populate_dps_tab(
-                    values, window, dpd_word, ru_word, sbs_word)
-            else:
-                window["messages"].update(
-                        value="not a valid id or pali_1", text_color="red")
-
-
-        elif event == "ru_test_db_internal":
-            dps_dpd_db_internal_tests(sg, window, flags)
-
-
-        # dps test tab
-
-        elif event == "dps_test_db_internal":
-            dps_db_internal_tests(sg, window, dps_flags)
-
-        elif event == "dps_test_next":
-            dps_flags.test_next = True
-
-        elif event == "dps_test_edit":
-            dps_open_internal_tests()
-
-        # dps add word
+        # dps in word to add tab
 
         # add book
         elif event == "dps_books_to_add_button":
@@ -1707,7 +1787,6 @@ def main():
                     window["messages"].update(
                         value="empty list, try again", text_color="red")
 
-        
         # add sutta
         elif event == "dps_sutta_to_add_button":
             if test_book_to_add(values, window):
@@ -1728,7 +1807,6 @@ def main():
                     window["messages"].update(
                         value="empty list, try again", text_color="red")
 
-
         # add words from text.txt
         elif event == "dps_from_txt_to_add_button":
             words_to_add_list = dps_make_words_to_add_list_from_text()
@@ -1747,53 +1825,55 @@ def main():
                 window["messages"].update(
                     value="empty list, try again", text_color="red")
 
+        # add words from id list
+        elif event == "dps_word_from_id_list_button":
+            presence_of_value = []
+            if values['empty_field_id_list_check']:
+                presence_of_value = True
+            else:
+                presence_of_value = False
+            words_to_add_list = fetch_matching_words_from_db(values["field_for_id_list"], presence_of_value)
 
-        # dps hide fields logic
+            if words_to_add_list != []:
+                values["word_to_add"] = [words_to_add_list[0]]
+                window["word_to_add"].update(values=words_to_add_list)
+                window["words_to_add_length"].update(
+                    value=len(words_to_add_list))
+                print(values)
+                open_in_goldendict(words_to_add_list[0])
+                window["messages"].update(
+                    value=f"added missing words from {values['book_to_add']}",
+                    text_color="white")
+            else:
+                window["messages"].update(
+                    value="empty list, try again", text_color="red")
 
-        elif event == "dps_show_fields_all":
-            for value in values:
-                window[value].update(visible=True)
-                window["dps_sbs_meaning"].update(visible=True)
-                window["dps_sbs_meaning_error"].update(visible=True)
-                window["dps_sbs_notes"].update(visible=True)
-                window["dps_sbs_notes_error"].update(visible=True)
-                window["dps_sbs_chant_pali_1"].update(visible=True)
-                window["dps_sbs_chant_pali_1_error"].update(visible=True)
-                window["dps_sbs_chant_eng_1"].update(visible=True)
-                window["dps_sbs_chapter_1"].update(visible=True)
-                window["dps_sbs_chant_pali_2"].update(visible=True)
-                window["dps_sbs_chant_pali_2_error"].update(visible=True)
-                window["dps_sbs_chant_eng_2"].update(visible=True)
-                window["dps_sbs_chapter_2"].update(visible=True)
-                window["dps_sbs_chant_pali_3"].update(visible=True)
-                window["dps_sbs_chant_pali_3_error"].update(visible=True)
-                window["dps_sbs_chant_eng_3"].update(visible=True)
-                window["dps_sbs_chapter_3"].update(visible=True)
-                window["dps_sbs_chant_pali_4"].update(visible=True)
-                window["dps_sbs_chant_pali_4_error"].update(visible=True)
-                window["dps_sbs_chant_eng_4"].update(visible=True)
-                window["dps_sbs_chapter_4"].update(visible=True)
+        # edit word in DPS
+        elif event == "dps_edit_word":
+            if values["word_to_add"] == []:
+                window["messages"].update(value="nothing selected", text_color="red")
+            else:
+                words_to_add_list = remove_word_to_add(
+                    values, window, words_to_add_list)
+                window["words_to_add_length"].update(value=len(words_to_add_list))
+                window["tab_edit_dps"].select()  # type: ignore
+                window["dps_id_or_pali_1"].update(values["word_to_add"][0])
 
-                dps_flags.show_fields = True
+        # test db tab                
 
-        elif event == "dps_show_fields_no_sbs":
-            hide_list = [
-                "dps_sbs_meaning", "dps_sbs_meaning_error", "dps_sbs_notes", "dps_sbs_notes_error", 
-                "dps_sbs_chant_pali_1", "dps_sbs_chant_eng_1", "dps_sbs_chapter_1",
-                "dps_sbs_chant_pali_1_error",
-                "dps_sbs_chant_pali_2", "dps_sbs_chant_eng_2", "dps_sbs_chapter_2",
-                "dps_sbs_chant_pali_2_error",
-                "dps_sbs_chant_pali_3", "dps_sbs_chant_eng_3", "dps_sbs_chapter_3",
-                "dps_sbs_chant_pali_3_error",
-                "dps_sbs_chant_pali_4", "dps_sbs_chant_eng_4", "dps_sbs_chapter_4",
-                "dps_sbs_chant_pali_4_error",
-            ]
-            for value in values:
-                window[value].update(visible=True)
-            for value in hide_list:
-                window[value].update(visible=False)
-            dps_flags.show_fields = False
+        elif event == "ru_test_db_internal":
+            dps_dpd_db_internal_tests(sg, window, flags)
 
+        # dps test tab
+
+        elif event == "dps_test_db_internal":
+            dps_db_internal_tests(sg, window, dps_flags)
+
+        elif event == "dps_test_next":
+            dps_flags.test_next = True
+
+        elif event == "dps_test_edit":
+            dps_open_internal_tests()
 
     window.close()
 

@@ -109,6 +109,7 @@ def window_layout(primary_user):
     window['dps_sbs_example_2'].bind('<Tab>', '_tab', propagate=False)
     window['dps_sbs_example_3'].bind('<Tab>', '_tab', propagate=False)
     window['dps_sbs_example_4'].bind('<Tab>', '_tab', propagate=False)
+    window['online_suggestion'].bind('<Tab>', '_tab', propagate=False)
 
     # completition combo bindings
     window["pos"].bind("<Return>", "-enter")
@@ -185,5 +186,13 @@ def window_layout(primary_user):
     window["dps_sbs_chant_pali_4"].bind("<Return>", "-enter")
     window["dps_sbs_chant_pali_4"].bind("<Key>", "-key")
     window["dps_sbs_chant_pali_4"].bind("<FocusOut>", "-focus_out")
+
+    window["dps_sbs_class_anki"].bind("<Return>", "-enter")
+    window["dps_sbs_class_anki"].bind("<Key>", "-key")
+    window["dps_sbs_class_anki"].bind("<FocusOut>", "-focus_out")
+
+    window["dps_sbs_category"].bind("<Return>", "-enter")
+    window["dps_sbs_category"].bind("<Key>", "-key")
+    window["dps_sbs_category"].bind("<FocusOut>", "-focus_out")
 
     return window

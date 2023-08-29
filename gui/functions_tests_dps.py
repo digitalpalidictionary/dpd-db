@@ -321,7 +321,7 @@ def run_individual_internal_tests(
 
     else:
         window["messages"].update(
-            "all tests passed!", text_color="white")
+            "all tests passed!", text_color="SpringGreen")
         # print("exit test")
         flags_dps.tested = True
         return flags_dps

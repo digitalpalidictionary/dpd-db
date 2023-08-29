@@ -14,9 +14,11 @@ from spellchecker import SpellChecker
 from nltk import word_tokenize
 from googletrans import Translator
 
+from timeout_decorator import timeout, TimeoutError as TimeoutDecoratorError
+
 
 from db.db_helpers import get_column_names
-from db.models import Russian, SBS
+from db.models import Russian, SBS, PaliWord
 from db.get_db_session import get_db_session
 
 
@@ -69,6 +71,7 @@ def populate_dps_tab(values, window, dpd_word, ru_word, sbs_word):
     """Populate DPS tab with DPD info."""
     window["dps_dpd_id"].update(dpd_word.id)
     window["dps_pali_1"].update(dpd_word.pali_1)
+    window["dps_id_or_pali_1"].update(dpd_word.pali_1)
 
     # copy dpd values for tests
 
@@ -486,7 +489,7 @@ def unstash_values_to(window, num, error_field):
 
 # russian related
 
-
+@timeout(10, timeout_exception=TimeoutDecoratorError)  # Setting a 10-second timeout
 def translate_to_russian_googletrans(meaning, suggestion, error_field, window):
 
     window[error_field].update("")
@@ -511,14 +514,20 @@ def translate_to_russian_googletrans(meaning, suggestion, error_field, window):
         dps_ru_online_suggestion = dps_ru_online_suggestion.replace(";", "; ")
         dps_ru_online_suggestion = dps_ru_online_suggestion.replace("|", "| ")
 
-        window[suggestion].update(dps_ru_online_suggestion, text_color="yellow")
+        window[suggestion].update(dps_ru_online_suggestion, text_color="Aqua")
         return dps_ru_online_suggestion
+
+    except TimeoutDecoratorError:
+        # Handle any exceptions that occur
+        error_string = "Timed out"
+        window[error_field].update(error_string)
+        return error_string
 
     except Exception as e:
         # Handle any exceptions that occur
-        error_string = f"Error: {e}"
+        error_string = f"Error: {e} "
         window[error_field].update(error_string)
-        return error_string  # Placeholder error message
+        return error_string
 
 
 def replace_abbreviations(grammar_string, abbreviations_path):
@@ -562,14 +571,41 @@ def load_openia_config(filename="config.ini"):
     return openia_config
 
 # Setup OpenAI API key
-
 openia_config = load_openia_config()
-
 openai.api_key = openia_config["openia"]
 
 
-def translate_with_openai(meaning, pali_1, grammar, suggestion, error_field, window):
+@timeout(10, timeout_exception=TimeoutDecoratorError)  # Setting a 10-second timeout
+def call_openai(messages):
+    return openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages
+    )
 
+def handle_openai_response(messages, suggestion_field, error_field, window):
+    error_string = ""
+
+    try:
+        # Request translation from OpenAI's GPT chat model
+        response = call_openai(messages)
+        suggestion = response.choices[0].message['content'].replace('**Русский перевод**: ', '').strip().lower() # type: ignore
+        window[suggestion_field].update(suggestion, text_color="Aqua")
+
+        return suggestion
+
+    # Handle any exceptions that occur
+    except TimeoutDecoratorError:
+        error_string = "Timed out"
+        window[error_field].update(error_string)
+        return error_string
+
+    except Exception as e:
+        error_string = f"Error: {e} "
+        window[error_field].update(error_string)
+        return error_string
+
+
+def ru_translate_with_openai(meaning, pali_1, grammar, suggestion_field, error_field, window):
     window[error_field].update("")
 
     # keep original grammar
@@ -587,46 +623,115 @@ def translate_with_openai(meaning, pali_1, grammar, suggestion, error_field, win
         {
             "role": "user",
             "content": f"""
----
-**Pali Term**: {pali_1}
+                ---
+                **Pali Term**: {pali_1}
 
-**English Grammar Details**: {grammar}
+                **Grammar Details**: {grammar}
 
-**English Definition**: {meaning}
+                **English Definition**: {meaning}
 
-Please provide few distinct Russian translations for the English definition, considering the Pali term and its grammatical context. Each synonym should be separated by `;`. Avoid repeating the same word.
----
+                Please provide few distinct Russian translations for the English definition, considering the Pali term and its grammatical context. Each synonym should be separated by `;`. Avoid repeating the same word.
+                ---
+            """
+        }
+    ]
+
+    suggestion = handle_openai_response(messages, suggestion_field, error_field, window)
+
+    # Save to CSV
+    if suggestion != "Timed out":
+        with open(DPSPTH.ai_ru_suggestion_history_path, 'a', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file, delimiter="\t")
+            # Write the required columns to the CSV
+            writer.writerow([pali_1, grammar_orig, grammar, meaning, suggestion])
+
+    return suggestion
+
+
+def ru_notes_translate_with_openai(notes, pali_1, grammar, suggestion_field, error_field, window):
+    window[error_field].update("")
+
+    # keep original grammar
+    grammar_orig = grammar
+
+    # Replace abbreviations in grammar
+    grammar = replace_abbreviations(grammar, PTH.abbreviations_tsv_path)
+    
+    # Generate the chat messages based on provided values
+    messages = [
+        {
+            "role": "system",
+            "content": "You are a sophisticated translation model specialized in translating English notes to Russian, particularly in the context of Pāli terms and their grammatical nuances."        
+        },
+        {
+            "role": "user",
+            "content": f"""
+                ---
+                **Pali Term**: {pali_1}
+
+                **Grammar Details**: {grammar}
+
+                **English Notes**: {notes}
+
+                Translate the English notes into Russian. Make sure to take into account that these notes pertain to the Pāli term mentioned, and consider the provided grammatical context.
+                ---
+            """
+        }
+    ]
+
+    suggestion = handle_openai_response(messages, suggestion_field, error_field, window)
+
+    # Save to CSV
+    if suggestion != "Timed out":
+        with open(DPSPTH.ai_ru_notes_suggestion_history_path, 'a', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file, delimiter="\t")
+            # Write the required columns to the CSV
+            writer.writerow([pali_1, grammar_orig, grammar, notes, suggestion])
+
+    return suggestion
+
+
+def en_translate_with_openai(pali_1, grammar, example, suggestion_field, error_field, window):
+    window[error_field].update("")
+
+    # keep original grammar
+    grammar_orig = grammar
+
+    # Replace abbreviations in grammar
+    grammar = replace_abbreviations(grammar, PTH.abbreviations_tsv_path)
+    
+    # Generate the chat messages based on provided values
+    messages = [
+        {
+            "role": "system",
+            "content": "You are a sophisticated translation model specialized in Pāli to English translations, capable of considering context and grammatical details."
+        },
+        {
+            "role": "user",
+            "content": f"""
+                ---
+                **Pali Term**: {pali_1}
+
+                **Grammar Details**: {grammar}
+
+                **Contextual Pali Sentences**: {example}
+
+                Given the details provided, list distinct English synonyms for the specified Pāli term, separated by `;`. For example: "word1; word2; word3". Ensure no repetition.
+                ---
             """
         }
     ]
     
-    error_string = ""
+    suggestion = handle_openai_response(messages, suggestion_field, error_field, window)
 
-    
-    try:
-        # Request translation from OpenAI's GPT chat model
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=messages
-        )
-        dps_ru_online_suggestion = response.choices[0].message['content'].replace('**Русский перевод**: ', '').strip().lower() # type: ignore
-
-        window[suggestion].update(dps_ru_online_suggestion)
-
-        # Save to CSV
-        with open(DPSPTH.ai_suggestion_history_path, 'a', newline='', encoding='utf-8') as file:
+    # Save to CSV
+    if suggestion != "Timed out":
+        with open(DPSPTH.ai_en_suggestion_history_path, 'a', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter="\t")
             # Write the required columns to the CSV
-            writer.writerow([pali_1, grammar_orig, grammar, meaning, dps_ru_online_suggestion])
+            writer.writerow([pali_1, grammar_orig, grammar, example, suggestion])
 
-
-        return dps_ru_online_suggestion
-
-    except Exception as e:
-        # Handle any exceptions that occur
-        error_string = f"error: {e} "
-        window[error_field].update(error_string)
-        return error_string
+    return suggestion
 
 
 def copy_and_split_content(sugestion_key, meaning_key, lit_meaning_key, error_field, window, values):
@@ -695,35 +800,36 @@ def ru_check_spelling(field, error_field, values, window):
         truly_misspelled = [word for word in ru_misspelled if word in yandex_checked_words]
 
         if truly_misspelled:
-            print(f"yandex truly_misspelled {truly_misspelled}")    
+            print(f"yandex truly_misspelled {truly_misspelled}")  
+
+            # For the truly misspelled words, obtain suggestions from Yandex Speller and the local spellchecker
+            suggestions = []
+            for word in truly_misspelled:
+                suggestions.extend(get_spelling_suggestions(word))
+
+            # If no suggestions were found, display a custom message
+            if not suggestions:
+                custom_message = "?"
+                window[error_field].update(custom_message)
+                return
+
+            # Else process and display the suggestions
+            # Joining the flattened list
+            correction_text = ", ".join(suggestions)
+
+            # Wrap the correction_text and join it into a multiline string
+            wrapped_correction = "\n".join(textwrap.wrap(correction_text, width=30))  # Assuming width of 30 characters
+
+            num_lines = len(wrapped_correction.split('\n'))
+
+            window[error_field].set_size((50, num_lines))  # Adjust the size of the Text element based on the number of lines
+            window[error_field].update(wrapped_correction)  
 
         # If Yandex Speller does not recognize them as errors, clear the error field
-        if not truly_misspelled:
+        else:
             window[error_field].update("")
             return
         
-        # For the truly misspelled words, obtain suggestions from Yandex Speller and the local spellchecker
-        suggestions = []
-        for word in truly_misspelled:
-            suggestions.extend(get_spelling_suggestions(word))
-
-        # If no suggestions were found, display a custom message
-        if not suggestions and truly_misspelled:
-            custom_message = "?"
-            window[error_field].update(custom_message)
-            return
-
-        # Else process and display the suggestions
-        # Joining the flattened list
-        correction_text = ", ".join(suggestions)
-
-        # Wrap the correction_text and join it into a multiline string
-        wrapped_correction = "\n".join(textwrap.wrap(correction_text, width=30))  # Assuming width of 30 characters
-
-        num_lines = len(wrapped_correction.split('\n'))
-
-        window[error_field].set_size((50, num_lines))  # Adjust the size of the Text element based on the number of lines
-        window[error_field].update(wrapped_correction)
     else:
         window[error_field].set_size((50, 1))  # Reset to default size
         window[error_field].update("")
@@ -747,10 +853,13 @@ def get_spelling_suggestions(text, return_original=False):
 
     except requests.ConnectionError:
         print("Failed to connect to Yandex Speller. Please check your internet connection.")
+        suggestions = "No connection"
     except requests.Timeout:
         print("Request to Yandex Speller timed out. Please try again later.")
+        suggestions = "Timed out"
     except requests.RequestException as e:  # This will catch any other exception from the `requests` library
         print(f"An error occurred while connecting to Yandex Speller: {e}")
+        suggestions = "Some error"
 
     return suggestions
 
@@ -766,7 +875,7 @@ def ru_edit_spelling():
 
 
 def tail_log():
-    subprocess.Popen(["gnome-terminal", "--", "tail", "-f", "temp/.gui_errors.txt"])
+    subprocess.Popen(["gnome-terminal", "--", "tail", "-f", "/home/deva/logs/gui.log"])
     
 
 
@@ -830,3 +939,37 @@ def dps_make_words_to_add_list_from_text() -> list:
     print(f"words_to_add: {len(text_list)}")
 
     return text_list
+
+
+# functions which make a list of words from id list
+def read_ids_from_tsv(file_path):
+    with open(file_path, mode='r', encoding='utf-8-sig') as tsv_file:
+        tsv_reader = csv.reader(tsv_file, delimiter='\t')
+        next(tsv_reader)  # Skip header row
+        return [int(row[0]) for row in tsv_reader]  # Extracting IDs only from the first column
+
+
+def remove_duplicates(ordered_ids):
+    seen = set()
+    ordered_ids_no_duplicates = [x for x in ordered_ids if not (x in seen or seen.add(x))]
+    return ordered_ids_no_duplicates
+
+
+def fetch_matching_words_from_db(WHAT_TO_UPDATE, ORIGINAL_HAS_VALUE) -> list:
+
+    ordered_ids = read_ids_from_tsv(DPSPTH.id_to_add_path)
+    ordered_ids = remove_duplicates(ordered_ids)
+
+    matching_words = []
+    for word_id in ordered_ids:
+        word = db_session.query(PaliWord).filter(PaliWord.id == word_id).first()
+        if word and word.sbs:
+            attr_value = getattr(word.sbs, WHAT_TO_UPDATE, None)
+            if ORIGINAL_HAS_VALUE and attr_value:
+                matching_words.append(word.pali_1)
+            elif not ORIGINAL_HAS_VALUE and not attr_value:
+                matching_words.append(word.pali_1)
+
+    print(f"words_to_add: {len(matching_words)}")
+    return matching_words
+

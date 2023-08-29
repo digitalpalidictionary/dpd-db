@@ -5,7 +5,8 @@ from completion_combo import CompletionCombo
 
 sbs_index = load_sbs_index()
 pali_chant_list = [i.pali_chant for i in sbs_index]
-pali_class_list = [str(i) for i in range(1, 99)]
+pali_class_list = [str(i) for i in range(1, 60)]
+dps_category_list = ["mn107", "sn56"]
 
 dpd_background = "#1c1e23"
 dpd_text = "#0a9ce4"
@@ -13,7 +14,6 @@ ru_background = "#32363f"
 ru_text = "white"
 sbs_background = "#272a31"
 sbs_text = "white"
-other_text = "#2bff00"
 
 
 def make_tab_edit_dps(sg):
@@ -91,7 +91,6 @@ def make_tab_edit_dps(sg):
                 key="dps_ru_online_suggestion",
                 size=(50, 2),
                 enable_events=True,
-                text_color=other_text,
                 background_color=dpd_background),
         ],
         [
@@ -215,7 +214,6 @@ def make_tab_edit_dps(sg):
                 key="dps_notes_online_suggestion",
                 size=(50, 2),
                 enable_events=True,
-                text_color=other_text,
                 background_color=dpd_background),
         ],
         [
@@ -700,17 +698,30 @@ def make_tab_edit_dps(sg):
                 enable_events=True,
                 text_color=sbs_text,
                 background_color=sbs_background,
-                tooltip=""),
+                tooltip="which class from anki deck for Pali Class"),
         ],
         [
             sg.Text("dps_category", size=(15, 1)),
-            sg.Input(
+            CompletionCombo(
+                dps_category_list,
                 key="dps_sbs_category",
-                size=(50, 1),
-                tooltip="",
+                default_value="",
+                size=(8, 1),
+                enable_events=True,
                 text_color=sbs_text,
-                background_color=sbs_background),
+                background_color=sbs_background,
+                tooltip="which sutta from sutta anki deck"),
         ],
+        # [
+        #     sg.Text("sbs_class", size=(15, 1)),
+        #     sg.Input(
+        #         key="dps_sbs_class",
+        #         size=(50, 1),
+        #         enable_events=True,
+        #         text_color=sbs_text,
+        #         background_color=sbs_background,
+        #         tooltip=""),
+        # ],
         [
             sg.Text("", size=(55, 1))
         ],
@@ -786,6 +797,9 @@ def make_tab_edit_dps(sg):
                 key="dps_summary_button", 
                 tooltip="See a summary of filled fields"
                 ),
+            sg.Button(
+                "Save", key="dps_save_state_button",
+                tooltip="Save the current state of the GUI"),
         ],
     ]
 
