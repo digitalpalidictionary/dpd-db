@@ -15,6 +15,7 @@ from db.models import PaliWord, PaliRoot
 from tools.tic_toc import bip, bop
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths as PTH
+from tools.link_generator import generate_link
 
 
 epd_templ = Template(
@@ -87,6 +88,54 @@ def generate_epd_html(db_session: Session, PTH, size_dict) -> list:
                     epd_string = f"<b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
                     epd.update(
                         {meaning: epd_string})
+
+        # Extract sutta number from i.meaning_2 and use it as key in epd
+        if i.family_set.startswith("suttas of") and i.meaning_2:
+            sutta_number_match = re.search(r"\(([A-Z]+)[\s]?([\d\.]+)\)", i.meaning_2)
+            if sutta_number_match:
+                prefix = sutta_number_match.group(1)
+                number = sutta_number_match.group(2)
+
+                sutta_number_no_space = f"{prefix}{number}"  # Format without space
+                sutta_number_with_space = f"{prefix} {number}"  # Format with space
+
+                for sutta_number in [sutta_number_no_space, sutta_number_with_space]:
+                    # Generate link for the sutta number
+                    sutta_link = generate_link(sutta_number)
+                    anchor_link = f'<a href="{sutta_link}">link</a>'
+                    
+                    if sutta_number in epd.keys():
+                        # Append the new sutta name to the existing value
+                        epd[sutta_number] += f"<br><b class='epd'>{i.pali_clean}</b>. {i.meaning_2} {anchor_link}"
+                    else:
+                        # Create a new key-value pair in epd
+                        epd_string = f"<b class='epd'>{i.pali_clean}</b>. {i.meaning_2} {anchor_link}"
+                        epd.update({sutta_number: epd_string})
+
+        # bhikkhupatimokkha rules names
+        if i.family_set == "bhikkhupātimokkha rules" and i.meaning_2:
+            # Use regex to capture both formats with and without space
+            rule_number_match = re.search(r"([A-Z]+)[\s]?([\d]+)", i.meaning_2)
+            
+            if rule_number_match:
+                    prefix = rule_number_match.group(1)
+                    number = rule_number_match.group(2)
+                    
+                    rule_number_no_space = f"{prefix}{number}"  # Format without space
+                    rule_number_with_space = f"{prefix} {number}"  # Format with space
+
+                    for rule_number in [rule_number_no_space, rule_number_with_space]:
+                        # Generate link for the rule number
+                        rule_link = generate_link(rule_number)
+                        anchor_link = f'<a href="{rule_link}">link</a>'
+
+                        if rule_number in epd.keys():
+                            # Append the new sutta name to the existing value
+                            epd[rule_number] += f"<br><b class='epd'>{i.pali_clean}</b>. {i.meaning_2} {anchor_link}"
+                        else:
+                            # Create a new key-value pair in epd
+                            epd_string = f"<b class='epd'>{i.pali_clean}</b>. {i.meaning_2} {anchor_link}"
+                            epd.update({rule_number: epd_string})
 
         if counter % 10000 == 0:
             print(f"{counter:>10,} / {dpd_db_length:<10,} {i.pali_1[:20]:<20} {bop():>10}")
