@@ -48,12 +48,22 @@ def _export(
     pyglossary.Glossary.init()
     glossary = pyglossary.Glossary(info=info.get())
 
-    for word in data_list:
-        entry = glossary.newEntry(
-            word=word['synonyms'],
-            defi=word['definition_html'],
-            defiFormat='h')
-        glossary.addEntryObj(entry)
+    for word_data in data_list:
+        if (synonyms := word_data['synonyms']):
+            assert isinstance(synonyms, list)
+            word = [word_data['word']] + synonyms
+        else:
+            word = word_data['word']
+
+        if (definition := word_data['definition_html']):
+            definition_format = 'h'
+        else:
+            definition = word_data['definition_plain']
+            definition_format = 'm'
+
+        entry = glossary.newEntry(word=word, defi=definition, defiFormat=definition_format)
+
+        glossary.addEntry(entry)
 
     destination.mkdir(parents=True, exist_ok=True)
     glossary.write(
@@ -91,12 +101,12 @@ def export_stardict_zip(
     # Avaliable options can be explored with pyglossary UI, with
     # glos.writeOptions or in pyglossary.plugins.* source files
     fmt_opt = {
-        'large_file': False,
+        'large_file': False,  # 64-bit headers
         'dictzip': True,
-        'sametypesequence': 'h',
-        'stardict_client': True,
-        'merge_syns': False,
-        'sqlite': False
+        'sametypesequence': 'h',  # Mark all definitions in one format
+        'stardict_client': False,  # "Modify html entries for StarDict 3.0"
+        'merge_syns': False,  # No separate syn file
+        'sqlite': False,
     }
 
     relative_destination = Path(destination.stem)

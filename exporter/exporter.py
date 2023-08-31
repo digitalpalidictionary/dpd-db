@@ -89,7 +89,7 @@ def main() -> None:
 # TODO Purge tools/*stardict.py
 def export_to_goldendict_orig(data_list: list) -> None:
     """generate goldedict zip"""
-    tic = Tic('generating goldendict zip')
+    tic = Tic('generating goldendict zip (orig)')
 
     ifo = ifo_from_opts(
         {"bookname": "DPD",
@@ -113,7 +113,7 @@ def export_to_goldendict(data_list: list) -> None:
     """generate goldedict zip"""
 
     info = Info(
-        bookname='DPD',
+        bookname='DPD_new',  # FIXME
         author='Bodhirasa',
         description='Digital Pāḷi Dictionary is a feature-rich Pāḷi dictionary',
         website='https://digitalpalidictionary.github.io/')
