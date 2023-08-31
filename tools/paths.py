@@ -94,14 +94,12 @@ class ProjectPaths():
     # /exporter/share
     zip_dir: Path = Path("exporter/share")
     zip_path: Path = zip_dir/"dpd.zip"
-    mdict_mdx_path: Path = Path("exporter/share/dpd-mdict.mdx")
-    grammar_dict_zip_path: Path = Path("exporter/share/dpd-grammar.zip")
-    grammar_dict_mdict_path: Path = Path(
-        "exporter/share/dpd-grammar-mdict.mdx")
-    dpd_kindle_path: Path = Path("exporter/share/dpd-kindle.mobi")
-    deconstructor_zip_path: Path = Path("exporter/share/dpd-deconstructor.zip")
-    deconstructor_mdict_mdx_path: Path = Path(
-        "exporter/share/dpd-deconstructor-mdict.mdx")
+    mdict_mdx_path: Path = zip_dir/"dpd-mdict.mdx"
+    grammar_dict_zip_path: Path = zip_dir/"dpd-grammar.zip"
+    grammar_dict_mdict_path: Path = zip_dir/"dpd-grammar-mdict.mdx"
+    dpd_kindle_path: Path = zip_dir/"dpd-kindle.mobi"
+    deconstructor_zip_path: Path = zip_dir/"dpd-deconstructor.zip"
+    deconstructor_mdict_mdx_path: Path = zip_dir/"dpd-deconstructor-mdict.mdx"
 
     # /exporter/templates
     templates_dir: Path = Path("exporter/templates")
