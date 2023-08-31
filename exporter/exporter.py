@@ -5,9 +5,10 @@
 
 """Export DPD for GoldenDict and MDict."""
 
-import zipfile
 import csv
 import pickle
+import pyglossary
+import zipfile
 
 from os import popen
 from rich import print
@@ -60,6 +61,17 @@ def main() -> None:
         help_data_list
     )
 
+    ## FIXME delete
+    import yaml
+
+    ## FIXME delete
+    #with open('data.yaml', 'w') as f:
+    #    yaml.dump(combined_data_list[0:100], stream=f)
+
+    ## FIXME delete
+    #with open('data.yaml', 'r') as f:
+    #    combined_data_list = yaml.safe_load(f)
+
     write_limited_datalist(combined_data_list)
     write_size_dict(size_dict)
     export_to_goldendict(combined_data_list)
@@ -74,20 +86,54 @@ def export_to_goldendict(data_list: list) -> None:
     with StopWatch() as timer:
         print("[green]generating goldendict zip", end=" ")
 
-        ifo = ifo_from_opts(
-            {"bookname": "DPD",
-                "author": "Bodhirasa",
-                "description": "",
-                "website": "https://digitalpalidictionary.github.io/", }
-        )
+        # TODO Try empty fields for self-documentatnion
+        """
+        bookname=Digital Pāli Dictionary
+        wordcount=36893
+        synwordcount=1727042
+        idxfilesize=747969
+        idxoffsetbits=32
+        author=Digital Pāli Tools <digitalpalitools@gmail.com>
+        website=https://github.com/digitalpalitools
+        description=The next generation comprehensive Digital Pāli Dictionary.
+        date=2021-10-31T08:56:25Z
+        sametypesequence=h
+        """
 
-        export_words_as_stardict_zip(data_list, ifo, PTH.zip_path, PTH.icon_path)
+        info = {
+            "bookname": "DPD",
+            "author": "Bodhirasa",
+            "description": "",
+            "website": "https://digitalpalidictionary.github.io/",
+        }
+
+        pyglossary.Glossary.init()
+        glossary = pyglossary.Glossary(info=info)
+
+        for word in data_list:
+            entry = glossary.newEntry(
+                word=word['synonyms'],
+                defi=word['definition_html'],
+                defiFormat='h')
+            glossary.addEntryObj(entry)
+
+        glossary.write(filename=str(PTH.zip_path), format='Stardict')
+
+        # TODO Speed comparizon 51 sec
+        # TODO Size comparizon
+        # TODO Icon
+        # TODO Zip
+        # TODO Purge tools/*stardict.py
+        # TODO README dictd for dictzip
+        # FIXME Giant syn file
+
+        #export_words_as_stardict_zip(data_list, ifo, PTH.zip_path, PTH.icon_path)
 
         # add bmp icon for android
-        with zipfile.ZipFile(PTH.zip_path, 'a') as zipf:
-            source_path = PTH.icon_bmp_path
-            destination = 'dpd/android.bmp'
-            zipf.write(source_path, destination)
+        #with zipfile.ZipFile(PTH.zip_path, 'a') as zipf:
+        #    source_path = PTH.icon_bmp_path
+        #    destination = 'dpd/android.bmp'
+        #    zipf.write(source_path, destination)
 
     print(f"{timer:>29}")
 
