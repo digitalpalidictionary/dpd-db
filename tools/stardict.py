@@ -1,3 +1,4 @@
+# TODO DEPRECATED: delete in favor of PyGlossary
 # copied from https://github.com/simsapa/simsapa/blob/main/simsapa/app/stardict.py
 # on 2023-02-22
 

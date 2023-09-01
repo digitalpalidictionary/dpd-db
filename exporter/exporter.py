@@ -7,7 +7,6 @@ import contextlib
 import csv
 import logging
 import pickle
-import zipfile
 
 from os import popen
 from rich import print
@@ -28,7 +27,6 @@ from mdict_exporter import export_to_mdict
 from db.get_db_session import get_db_session
 from tools.paths import ProjectPaths as PTH
 from tools.sandhi_contraction import make_sandhi_contraction_dict
-from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.stop_watch import StopWatch, Tic, close_line
 from tools.profiler import Profiler
 
@@ -66,7 +64,6 @@ def main() -> None:
         db_session, PTH, size_dict)
     db_session.close()
 
-    # FIXME Some synonyms are empty str, is it OK?
     combined_data_list: list = (
         dpd_data_list +
         root_data_list +
@@ -78,52 +75,25 @@ def main() -> None:
     write_limited_datalist(combined_data_list)
     write_size_dict(size_dict)
     export_to_goldendict(combined_data_list)
-    export_to_goldendict_orig(combined_data_list)
     goldendict_unzip_and_copy()
     export_to_mdict(combined_data_list, PTH)  # TODO Try to optimize
 
     close_line(timer)
 
 
-# TODO Deprecate
-# TODO Purge tools/*stardict.py
-def export_to_goldendict_orig(data_list: list) -> None:
-    """generate goldedict zip"""
-    tic = Tic('generating goldendict zip (orig)')
-
-    ifo = ifo_from_opts(
-        {"bookname": "DPD",
-            "author": "Bodhirasa",
-            "description": "",
-            "website": "https://digitalpalidictionary.github.io/", }
-    )
-
-    export_words_as_stardict_zip(data_list, ifo, PTH.zip_path, PTH.icon_path)
-
-    # add bmp icon for android
-    with zipfile.ZipFile(PTH.zip_path, 'a') as zipf:
-        source_path = PTH.icon_bmp_path
-        destination = 'dpd/android.bmp'
-        zipf.write(source_path, destination)
-
-    tic.toc()
-
-
 def export_to_goldendict(data_list: list) -> None:
     """generate goldedict zip"""
 
     info = Info(
-        bookname='DPD_new',  # FIXME
+        bookname='DPD',
         author='Bodhirasa',
         description='Digital Pāḷi Dictionary is a feature-rich Pāḷi dictionary',
         website='https://digitalpalidictionary.github.io/')
 
     with Tic('generating goldendict zip'):
-        # FIXME
-        dst = PTH.zip_path.with_stem('dpd_new')
         export_stardict_zip(
             data_list,
-            destination=dst,
+            destination=PTH.zip_path,
             info=info,
             icon_path=PTH.icon_path,
             android_icon_path=PTH.icon_bmp_path)
