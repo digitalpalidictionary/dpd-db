@@ -3,7 +3,8 @@
 
 import time
 
-import rich, rich.markup
+import rich
+import rich.markup
 
 from typing import Optional
 

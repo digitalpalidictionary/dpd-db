@@ -15,6 +15,7 @@ DataType = List[Dict[str, str]]
 
 # TODO Fix also Deconstructor_exporter.py
 
+
 class PyGlossaryExporterError(RuntimeError):
     ...
 

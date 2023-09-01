@@ -15,6 +15,13 @@ That should create an SQLite database `./dpd.db` which can be accessed by [DB Br
 
 For a quick tutorial on how to access any information in the db with SQLAlchemy, see `scripts/db_search_example.py`.
 
+## Repo structure
+
+- [`db`](db/) — database models and related
+- [`exporter`](exporter/) — scripts to make output assets
+- [`gui`](gui/) — database editing graphical toolkit
+- [`tools`](tools/) — Python helper modules to be imported
+
 ## Code Structure
 There are four parts to the code:
 1. Create the database and build up the tables of derived data.
