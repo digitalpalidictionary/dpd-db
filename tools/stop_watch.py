@@ -3,7 +3,7 @@
 
 import time
 
-import rich
+import rich, rich.markup
 
 from typing import Optional
 
@@ -53,8 +53,8 @@ class StopWatch:
 
     @staticmethod
     def format_duration(duration: float) -> str:
-        """ Format sec to "M min SS sec" form"""
-        return f'{duration // 60:.0f} min {duration % 60:02.0f} sec'
+        """ Format sec to human readable string """
+        return f'{duration:06.3f} sec'
 
     def _get_delta(self) -> float:
         return time.time() - self._start_time
@@ -73,8 +73,7 @@ class StopWatch:
 
 
 class Tic:
-    """ Formatted output of stage and execution time
-    """
+    """ Formatted output of stage and execution time """
     TEXT_WIDTH = 50
     TIME_WIDTH = 14
     ELLIPSIS = '...'
