@@ -19,7 +19,7 @@ from export_epd import generate_epd_html
 from export_help import generate_help_html
 from export_roots import generate_root_html
 from export_variant_spelling import generate_variant_spelling_html
-from pyglossary_exporter import export_stardict_zip, Info
+from pyglossary_exporter import Info, export_slob, export_stardict_zip
 
 from helpers import make_roots_count_dict
 from mdict_exporter import export_to_mdict
@@ -75,6 +75,7 @@ def main() -> None:
     write_limited_datalist(combined_data_list)
     write_size_dict(size_dict)
     export_to_goldendict(combined_data_list)
+    export_to_slob(combined_data_list)
     goldendict_unzip_and_copy()
     export_to_mdict(combined_data_list, PTH)  # TODO Try to optimize
 
@@ -82,7 +83,7 @@ def main() -> None:
 
 
 def export_to_goldendict(data_list: list) -> None:
-    """generate goldedict zip"""
+    """Generate goldedict zip"""
 
     info = Info(
         bookname='DPD',
@@ -97,6 +98,23 @@ def export_to_goldendict(data_list: list) -> None:
             info=info,
             icon_path=PTH.icon_path,
             android_icon_path=PTH.icon_bmp_path)
+
+
+def export_to_slob(data_list: list) -> None:
+    """Generate Aard2 Slob"""
+
+    info = Info(
+        bookname='DPD',
+        author='Bodhirasa',
+        description='Digital Pāḷi Dictionary is a feature-rich Pāḷi dictionary',
+        website='https://digitalpalidictionary.github.io/')
+
+    from pathlib import Path  # FIXME
+    with Tic('generating slob'):
+        export_slob(
+            data_list,
+            destination=Path('exporter/share/dpd.slob'),  # FIXME
+            info=info)
 
 
 def goldendict_unzip_and_copy() -> None:

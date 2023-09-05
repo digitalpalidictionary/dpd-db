@@ -13,8 +13,6 @@ from typing import Any, Dict, List, Optional
 LOGGER = logging.getLogger(__name__)
 DataType = List[Dict[str, str]]
 
-# TODO Fix also Deconstructor_exporter.py
-
 
 class PyGlossaryExporterError(RuntimeError):
     ...
@@ -33,7 +31,7 @@ class Info:
     author: Optional[str] = None
     description: Optional[str] = None
     website: Optional[str] = None
-    date: str = dataclasses.field(default=get_date_string())  # TODO No field?
+    date: str = get_date_string()
 
     def get(self) -> Dict[str, str]:
         dic = dataclasses.asdict(self)
@@ -66,7 +64,12 @@ def _export(
 
         glossary.addEntry(entry)
 
-    destination.mkdir(parents=True, exist_ok=True)
+    if destination.exists():
+        backup_dst = destination.parent / (destination.name + '~')
+        shutil.move(destination, backup_dst)
+
+    destination.parent.mkdir(parents=True, exist_ok=True)
+
     glossary.write(
         filename=str(destination),
         format=format_name,
@@ -141,6 +144,19 @@ def export_stardict_zip(
                 archive.write(android_icon_path, android_icon_dst)
 
 
-def export_slob_zip() -> None:
-    # TODO
-    ...
+def export_slob(
+        data_list: DataType,
+        destination: Path,
+        info: Info) -> None:
+    fmt_opt = {
+        'compression': 'zlib',  # TODO bz2, zlib, lzma
+        'content_type': 'text/html; charset=utf-8',
+        'separate_alternates': False,  # TODO Check inflections
+        'word_title': True,  # TODO
+    }
+    _export(
+        data_list,
+        destination=destination,
+        info=info,
+        format_name='Aard2Slob',
+        format_options=fmt_opt)

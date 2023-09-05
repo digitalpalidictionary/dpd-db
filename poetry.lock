@@ -1910,6 +1910,16 @@ files = [
 plugins = ["importlib-metadata"]
 
 [[package]]
+name = "pyicu"
+version = "2.11"
+description = "Python extension wrapping the ICU C++ API"
+optional = false
+python-versions = "*"
+files = [
+    {file = "PyICU-2.11.tar.gz", hash = "sha256:3ab531264cfe9132b3d2ac5d708da9a4649d25f6e6813730ac88cf040a08a844"},
+]
+
+[[package]]
 name = "pykakasi"
 version = "2.2.1"
 description = "Kana kanji simple inversion library"
@@ -2770,4 +2780,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "71db4df808e081db333ba0413a3b4f380a3ded732a3b657e261f4c3c6314df46"
+content-hash = "483db5b1333054a9b8a79772bc23871f3959c7a2762bf0213e0a7119d9357acd"
