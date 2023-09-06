@@ -94,6 +94,7 @@ class ProjectPaths():
     # /exporter/share
     zip_dir: Path = Path("exporter/share")
     zip_path: Path = zip_dir/"dpd.zip"
+    slob_path: Path = zip_dir/"dpd.slob"
     mdict_mdx_path: Path = zip_dir/"dpd-mdict.mdx"
     grammar_dict_zip_path: Path = zip_dir/"dpd-grammar.zip"
     grammar_dict_mdict_path: Path = zip_dir/"dpd-grammar-mdict.mdx"

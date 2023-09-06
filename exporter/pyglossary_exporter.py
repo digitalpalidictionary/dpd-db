@@ -66,14 +66,11 @@ def _export(
 
     if destination.exists():
         backup_dst = destination.parent / (destination.name + '~')
-        shutil.move(destination, backup_dst)
+        destination.rename(backup_dst)
 
     destination.parent.mkdir(parents=True, exist_ok=True)
 
-    glossary.write(
-        filename=str(destination),
-        format=format_name,
-        **format_options)
+    glossary.write(filename=str(destination), format=format_name, **format_options)
 
 
 def export_stardict_zip(
@@ -117,7 +114,9 @@ def export_stardict_zip(
 
     # Unzipped dictionary will be created into a temporary destination (usually in /tmp/)
     with tempfile.TemporaryDirectory() as unzipped_path:
-        tmp_destination = Path(unzipped_path) / destination.stem
+        name = destination.stem
+        # To get properly named dir with StarDict files to zip
+        tmp_destination = Path(unzipped_path)/name/name
         LOGGER.info(f'export_stardict_zip temporary directory is {tmp_destination}')
         _export(
             data_list,
@@ -128,11 +127,11 @@ def export_stardict_zip(
 
         # dz-compress syn file while PyGlossary skip it
         if fmt_opt.get('dictzip'):
-            syn_path = str(tmp_destination/tmp_destination.name) + '.syn'
+            syn_path = str(tmp_destination) + '.syn'
             runDictzip(syn_path)
 
         with zipfile.ZipFile(destination, mode='w', compression=zipfile.ZIP_STORED) as archive:
-            for file in tmp_destination.glob('*'):
+            for file in tmp_destination.parent.glob('*'):
                 archive.write(file, relative_destination/file.name)
 
             if icon_path:
@@ -152,7 +151,7 @@ def export_slob(
         'compression': 'zlib',  # TODO bz2, zlib, lzma
         'content_type': 'text/html; charset=utf-8',
         'separate_alternates': False,  # TODO Check inflections
-        'word_title': True,  # TODO
+        'word_title': False,  # "Add headwords title to beginning of definition"
     }
     _export(
         data_list,

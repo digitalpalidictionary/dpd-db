@@ -103,18 +103,15 @@ def export_to_goldendict(data_list: list) -> None:
 def export_to_slob(data_list: list) -> None:
     """Generate Aard2 Slob"""
 
+    # TODO Populate slob-specific fields
     info = Info(
         bookname='DPD',
         author='Bodhirasa',
         description='Digital Pāḷi Dictionary is a feature-rich Pāḷi dictionary',
         website='https://digitalpalidictionary.github.io/')
 
-    from pathlib import Path  # FIXME
     with Tic('generating slob'):
-        export_slob(
-            data_list,
-            destination=Path('exporter/share/dpd.slob'),  # FIXME
-            info=info)
+        export_slob(data_list, destination=PTH.slob_path, info=info)
 
 
 def goldendict_unzip_and_copy() -> None:
