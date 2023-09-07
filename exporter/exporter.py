@@ -12,7 +12,7 @@ from os import popen
 from rich import print
 from rich.logging import RichHandler
 from sqlalchemy.orm import Session
-from typing import ContextManager, Dict, Type
+from typing import ContextManager, Dict, List, Type
 
 from export_dpd import generate_dpd_html
 from export_epd import generate_epd_html
@@ -26,9 +26,10 @@ from mdict_exporter import export_to_mdict
 
 from db.get_db_session import get_db_session
 from tools.paths import ProjectPaths as PTH
+from tools.argparse_utils import ListArgAction
+from tools.profiler import Profiler
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.stop_watch import StopWatch, Tic, close_line
-from tools.profiler import Profiler
 
 db_session: Session = get_db_session(PTH.dpd_db_path)
 SANDHI_CONTRACTIONS: dict = make_sandhi_contraction_dict(db_session)
@@ -41,10 +42,17 @@ def get_args() -> argparse.Namespace:
         required=False,
         action='store_true',
         help='Collect and print memory usage information in cost of execution time')
+    parser.add_argument(
+        '--formats',
+        required=False,
+        default=['stardict', 'mdict'],
+        action=ListArgAction,
+        nargs='*',
+        help='Build specified formats')
     return parser.parse_args()
 
 
-def main() -> None:
+def main(formats: List[str]) -> None:
     timer = StopWatch()
 
     print("[bright_yellow]exporting dpd")
@@ -74,10 +82,13 @@ def main() -> None:
 
     write_limited_datalist(combined_data_list)
     write_size_dict(size_dict)
-    export_to_goldendict(combined_data_list)
-    export_to_slob_zip(combined_data_list)
-    goldendict_unzip_and_copy()
-    export_to_mdict(combined_data_list, PTH)  # TODO Try to optimize
+    if 'stardict' in formats:
+        export_to_goldendict(combined_data_list)
+    if 'slob' in formats:
+        export_to_slob_zip(combined_data_list)
+        goldendict_unzip_and_copy()
+    if 'mdict' in formats:
+        export_to_mdict(combined_data_list, PTH)  # TODO Try to optimize
 
     close_line(timer)
 
@@ -159,4 +170,4 @@ if __name__ == "__main__":
         Context = Profiler
 
     with Context():
-        main()
+        main(args.formats)
