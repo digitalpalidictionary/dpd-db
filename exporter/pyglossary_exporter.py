@@ -143,19 +143,26 @@ def export_stardict_zip(
                 archive.write(android_icon_path, android_icon_dst)
 
 
-def export_slob(
+def export_slob_zip(
         data_list: DataType,
         destination: Path,
         info: Info) -> None:
+    # zlib and bz2 compressions are close in compression time and ration.
+    # lzma2 is ~1.3 times slower but gives ~1.18x better ration.
     fmt_opt = {
-        'compression': 'zlib',  # TODO bz2, zlib, lzma
+        'compression': 'zlib',  # bz2, zlib, lzma2
         'content_type': 'text/html; charset=utf-8',
-        'separate_alternates': False,  # TODO Check inflections
+        'separate_alternates': False,
         'word_title': False,  # "Add headwords title to beginning of definition"
     }
-    _export(
-        data_list,
-        destination=destination,
-        info=info,
-        format_name='Aard2Slob',
-        format_options=fmt_opt)
+    with tempfile.TemporaryDirectory() as unzipped_path:
+        tmp_destination = Path(unzipped_path)/destination.stem
+        _export(
+            data_list,
+            destination=tmp_destination,
+            info=info,
+            format_name='Aard2Slob',
+            format_options=fmt_opt)
+
+        with zipfile.ZipFile(destination, mode='w', compression=zipfile.ZIP_DEFLATED) as archive:
+            archive.write(tmp_destination, tmp_destination.name)
