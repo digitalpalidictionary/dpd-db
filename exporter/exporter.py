@@ -33,6 +33,11 @@ from tools.stop_watch import StopWatch, Tic, close_line
 
 db_session: Session = get_db_session(PTH.dpd_db_path)
 SANDHI_CONTRACTIONS: dict = make_sandhi_contraction_dict(db_session)
+PYGLOSSARY_INFO = Info(
+    bookname='DPD',
+    author='Bodhirasa',
+    description='Digital Pāḷi Dictionary is a feature-rich Pāḷi dictionary',
+    website='https://digitalpalidictionary.github.io/')
 
 
 def get_args() -> argparse.Namespace:
@@ -95,34 +100,19 @@ def main(formats: List[str]) -> None:
 
 def export_to_goldendict(data_list: list) -> None:
     """Generate goldedict zip"""
-
-    info = Info(
-        bookname='DPD',
-        author='Bodhirasa',
-        description='Digital Pāḷi Dictionary is a feature-rich Pāḷi dictionary',
-        website='https://digitalpalidictionary.github.io/')
-
     with Tic('generating goldendict zip'):
         export_stardict_zip(
             data_list,
             destination=PTH.zip_path,
-            info=info,
+            info=PYGLOSSARY_INFO,
             icon_path=PTH.icon_path,
             android_icon_path=PTH.icon_bmp_path)
 
 
 def export_to_slob_zip(data_list: list) -> None:
     """Generate Aard2 Slob"""
-
-    # TODO Populate slob-specific fields
-    info = Info(
-        bookname='DPD',
-        author='Bodhirasa',
-        description='Digital Pāḷi Dictionary is a feature-rich Pāḷi dictionary',
-        website='https://digitalpalidictionary.github.io/')
-
     with Tic('generating slob'):
-        export_slob_zip(data_list, destination=PTH.slob_zip_path, info=info)
+        export_slob_zip(data_list, destination=PTH.slob_zip_path, info=PYGLOSSARY_INFO)
 
 
 def goldendict_unzip_and_copy() -> None:

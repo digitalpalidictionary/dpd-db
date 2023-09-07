@@ -12,6 +12,7 @@ from typing import Any, Dict, List, Optional
 
 LOGGER = logging.getLogger(__name__)
 DataType = List[Dict[str, str]]
+pyglossary.Glossary.init()
 
 
 class PyGlossaryExporterError(RuntimeError):
@@ -44,7 +45,6 @@ def _export(
         info: Info,
         format_name: str,
         format_options: Dict[str, Any]) -> None:
-    pyglossary.Glossary.init()
     glossary = pyglossary.Glossary(info=info.get())
 
     for word_data in data_list:
