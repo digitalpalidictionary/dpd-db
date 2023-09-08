@@ -166,3 +166,22 @@ def export_slob_zip(
 
         with zipfile.ZipFile(destination, mode='w', compression=zipfile.ZIP_DEFLATED) as archive:
             archive.write(tmp_destination, tmp_destination.name)
+
+
+# TODO Reserved for next pyglossary release since QuickDic6 is only in master of v4.6.1
+def export_quickdic(
+        data_list: DataType,
+        destination: Path,
+        info: Info,
+        target_lang='English') -> None:
+    fmt_opt = {
+        'normalizer_rules': '',  # "ICU normalizer rules to use for index sorting"
+        'source_lang': 'Pali',
+        'target_lang': target_lang,
+    }
+    _export(
+        data_list,
+        destination=destination,
+        info=info,
+        format_name='QuickDic6',
+        format_options=fmt_opt)
