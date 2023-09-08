@@ -19,7 +19,11 @@ from export_epd import generate_epd_html
 from export_help import generate_help_html
 from export_roots import generate_root_html
 from export_variant_spelling import generate_variant_spelling_html
-from pyglossary_exporter import Info, export_slob_zip, export_stardict_zip
+from pyglossary_exporter import (
+    Info,
+    export_slob_zip,
+    export_stardict_zip,
+)
 
 from helpers import make_roots_count_dict
 from mdict_exporter import export_to_mdict
@@ -31,8 +35,6 @@ from tools.profiler import Profiler
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.stop_watch import StopWatch, Tic, close_line
 
-db_session: Session = get_db_session(PTH.dpd_db_path)
-SANDHI_CONTRACTIONS: dict = make_sandhi_contraction_dict(db_session)
 PYGLOSSARY_INFO = Info(
     bookname='DPD',
     author='Bodhirasa',
@@ -50,6 +52,7 @@ def get_args() -> argparse.Namespace:
     parser.add_argument(
         '--formats',
         required=False,
+        choices=['stardict', 'mdict', 'slob'],
         default=['stardict', 'mdict'],
         action=ListArgAction,
         nargs='*',
@@ -62,11 +65,13 @@ def main(formats: List[str]) -> None:
 
     print("[bright_yellow]exporting dpd")
     size_dict: Dict[str, int] = {}
+    db_session: Session = get_db_session(PTH.dpd_db_path)
+    sandhi_contractions = make_sandhi_contraction_dict(db_session)
 
     roots_count_dict = make_roots_count_dict(
         db_session)
     dpd_data_list, size_dict = generate_dpd_html(
-        db_session, PTH, SANDHI_CONTRACTIONS, size_dict)
+        db_session, PTH, sandhi_contractions, size_dict)
     root_data_list, size_dict = generate_root_html(
         db_session, PTH, roots_count_dict, size_dict)
     variant_spelling_data_list, size_dict = generate_variant_spelling_html(
@@ -89,9 +94,9 @@ def main(formats: List[str]) -> None:
     write_size_dict(size_dict)
     if 'stardict' in formats:
         export_to_goldendict(combined_data_list)
+        goldendict_unzip_and_copy()
     if 'slob' in formats:
         export_to_slob_zip(combined_data_list)
-        goldendict_unzip_and_copy()
     if 'mdict' in formats:
         export_to_mdict(combined_data_list, PTH)  # TODO Try to optimize
 
