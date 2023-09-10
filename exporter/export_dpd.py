@@ -6,7 +6,7 @@ from mako.template import Template
 from minify_html import minify
 from rich import print
 from sqlalchemy import and_
-from typing import List
+from typing import Dict, List, Tuple
 
 from helpers import CF_SET
 from helpers import EXCLUDE_FROM_FREQ
@@ -57,8 +57,11 @@ frequency_templ = Template(
 feedback_templ = Template(
     filename=str(PTH.feedback_templ_path))
 
+EntryListType = List[Dict[str, str | List[str]]]
+FuncReturnTuple = Tuple[EntryListType, Dict[str, int]]
 
-def generate_dpd_html(db_session, PTH, SANDHI_CONTRACTIONS, size_dict):
+
+def generate_dpd_html(db_session, PTH, SANDHI_CONTRACTIONS, size_dict) -> FuncReturnTuple:
     print("[green]generating dpd html")
 
     with open(PTH.dpd_css_path) as f:
@@ -123,7 +126,7 @@ def generate_dpd_html(db_session, PTH, SANDHI_CONTRACTIONS, size_dict):
         i.source_link_1 = generate_link(i.source_1) if i.source_1 else ""
         i.source_link_2 = generate_link(i.source_2) if i.source_2 else ""
 
-        html: str = ""
+        html = ""
         header = render_header_tmpl(dpd_css, button_js)
         html += header
         size_dict["dpd_header"] += len(header)
@@ -222,7 +225,7 @@ def render_dpd_defintion_templ(i: PaliWord) -> str:
     pos: str = i.pos
 
     # plus_case
-    plus_case: str = ""
+    plus_case = ""
     if i.plus_case != "":
         plus_case: str = i.plus_case
 

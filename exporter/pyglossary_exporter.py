@@ -82,7 +82,7 @@ def export_stardict_zip(
     """ Create zipped stardict dictionary
 
     :data_list: List of entries in form of {'word': 'value', definition_html: 'value', 'synonyms': []}
-    :destination: Directory to save result, will be created if not exists
+    :destination: Resulting filename in form of 'dir/name.zip'
     :info: Metadata special dict
     :icon_path: Path of *.ico image file to include into resulting file
     TODO Check if android.bmp used anywhere
@@ -147,6 +147,15 @@ def export_slob_zip(
         data_list: DataType,
         destination: Path,
         info: Info) -> None:
+    """ Create zipped slob dictionary
+
+    :data_list: List of entries in form of {'word': 'value', definition_html: 'value', 'synonyms': []}
+    :destination: Resulting filename in form of 'dir/name.slob.zip'
+    :info: Metadata special dict
+    :icon_path: Path of *.ico image file to include into resulting file
+    TODO Check if android.bmp used anywhere
+    :android_icon_path: Path of image to include into resulting file for GoldenDict Mobile (?)
+    """
     # zlib and bz2 compressions are close in compression time and ration.
     # lzma2 is ~1.3 times slower but gives ~1.18x better ration.
     fmt_opt = {
