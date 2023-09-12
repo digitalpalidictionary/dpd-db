@@ -47,6 +47,17 @@ pylama = "^8.4.1"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
+[tool.pylint]
+disable = [
+  "logging-fstring-interpolation",
+  "missing-class-docstring",
+  "missing-function-docstring",
+  "missing-module-docstring",
+  "no-else-return",
+  "too-few-public-methods",
+]
+max-line-length = 120
+
 [tool.pyright]
 pythonVersion = "3.11"
 typeCheckingMode = "basic"

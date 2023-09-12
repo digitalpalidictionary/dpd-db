@@ -19,6 +19,7 @@ class PyGlossaryExporterError(RuntimeError):
     ...
 
 
+# TODO Subject to move to tools/paths.py
 def path_append_suffix(path: Path, suffix: str) -> Path:
     """ Add additional suffix to filename """
     return Path(path.parent/(f'{path.name}.{suffix.lstrip(".")}'))
