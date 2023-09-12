@@ -1,13 +1,13 @@
 import dataclasses
 import datetime
+import idzip
 import logging
+import os
 import pyglossary
-import shutil
 import tempfile
 import zipfile
 
 from pathlib import Path
-from pyglossary.os_utils import runDictzip
 from typing import Any, Dict, List, Optional
 
 LOGGER = logging.getLogger(__name__)
@@ -19,9 +19,29 @@ class PyGlossaryExporterError(RuntimeError):
     ...
 
 
+def path_append_suffix(path: Path, suffix: str) -> Path:
+    """ Add additional suffix to filename """
+    return Path(path.parent/(f'{path.name}.{suffix.lstrip(".")}'))
+
+
+def dictzip(filename: Path) -> None:
+    """ Compress file into dictzip format """
+    with open(filename, 'rb') as file:
+        inputinfo = os.fstat(file.fileno())
+        destination = path_append_suffix(filename, 'dz')
+        logging.info("compressing %r to %r", filename, destination)
+        output = open(destination, "wb")
+        idzip.compressor.compress(
+            file,
+            inputinfo.st_size,
+            output,
+            filename.name,
+            int(inputinfo.st_mtime))
+    filename.unlink()
+
+
 def get_date_string() -> str:
-    """ Make current time iso-formatted UTC datetime string
-    """
+    """ Make current time iso-formatted UTC datetime string """
     now = datetime.datetime.utcnow().replace(microsecond=0)
     return now.isoformat()
 
@@ -89,9 +109,6 @@ def export_stardict_zip(
     :android_icon_path: Path of image to include into resulting file for GoldenDict Mobile (?)
     """
 
-    dictzip = shutil.which('dictzip')
-    if not dictzip:
-        LOGGER.warning('[yellow bold]missing dictzip in $PATH, skipping StarDict compression')
     if destination.suffix != '.zip':
         LOGGER.warning('[yellow bold]Resulting zip file supposed to have a "zip" suffix')
     if icon_path and not icon_path.is_file():
@@ -103,7 +120,8 @@ def export_stardict_zip(
     # glos.writeOptions or in pyglossary.plugins.* source files
     fmt_opt = {
         'large_file': False,  # 64-bit headers
-        'dictzip': True,
+        # While pyglossary depends on dictzip bin and does not compress syn compression will be done here
+        'dictzip': False,
         'sametypesequence': 'h',  # Mark all definitions in one format
         'stardict_client': False,  # "Modify html entries for StarDict 3.0"
         'merge_syns': False,  # No separate syn file
@@ -125,10 +143,8 @@ def export_stardict_zip(
             format_name='Stardict',
             format_options=fmt_opt)
 
-        # dz-compress syn file while PyGlossary skip it
-        if fmt_opt.get('dictzip'):
-            syn_path = str(tmp_destination) + '.syn'
-            runDictzip(syn_path)
+        dictzip(path_append_suffix(tmp_destination, 'syn'))
+        dictzip(path_append_suffix(tmp_destination, 'dict'))
 
         with zipfile.ZipFile(destination, mode='w', compression=zipfile.ZIP_STORED) as archive:
             for file in tmp_destination.parent.glob('*'):
