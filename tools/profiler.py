@@ -2,18 +2,18 @@ import rich
 import tracemalloc
 
 
-class Profiler:
+class MemoryProfiler:
     """ Context manager prints memory usage of most consuming modules
 
     Some module may have significantly higher consumption just because of some
     shared structure decided in its heap
 
-    It have perfomance kick
+    It has perfomance kick
     """
     def __init__(self, limit=15) -> None:
         self.limit = limit
 
-    def __enter__(self) -> 'Profiler':
+    def __enter__(self) -> 'MemoryProfiler':
         tracemalloc.start()
         return self
 

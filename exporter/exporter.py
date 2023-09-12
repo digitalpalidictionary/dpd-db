@@ -31,7 +31,7 @@ from mdict_exporter import export_to_mdict
 from db.get_db_session import get_db_session
 from tools.paths import ProjectPaths as PTH
 from tools.argparse_utils import ListArgAction
-from tools.profiler import Profiler
+from tools.profiler import MemoryProfiler
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.stop_watch import StopWatch, Tic, close_line
 
@@ -162,7 +162,7 @@ if __name__ == "__main__":
 
     Context: Type[ContextManager] = contextlib.nullcontext
     if args.profiling:
-        Context = Profiler
+        Context = MemoryProfiler
 
     with Context():
         main(args.formats)
