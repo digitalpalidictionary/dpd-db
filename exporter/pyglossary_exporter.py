@@ -29,9 +29,9 @@ def dictzip(filename: Path) -> None:
     """ Compress file into dictzip format """
     with open(filename, 'rb') as file:
         inputinfo = os.fstat(file.fileno())
-        destination = path_append_suffix(filename, 'dz')
-        logging.info("compressing %r to %r", filename, destination)
-        output = open(destination, "wb")
+        destination = path_append_suffix(filename, '.dz')
+        LOGGER.info('compressing %s to %s', filename, destination)
+        output = open(destination, 'wb')
         idzip.compressor.compress(
             file,
             inputinfo.st_size,
@@ -144,8 +144,8 @@ def export_stardict_zip(
             format_name='Stardict',
             format_options=fmt_opt)
 
-        dictzip(path_append_suffix(tmp_destination, 'syn'))
-        dictzip(path_append_suffix(tmp_destination, 'dict'))
+        dictzip(path_append_suffix(tmp_destination, '.syn'))
+        dictzip(path_append_suffix(tmp_destination, '.dict'))
 
         with zipfile.ZipFile(destination, mode='w', compression=zipfile.ZIP_STORED) as archive:
             for file in tmp_destination.parent.glob('*'):
