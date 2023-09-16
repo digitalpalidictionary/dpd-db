@@ -27,17 +27,18 @@ def path_append_suffix(path: Path, suffix: str) -> Path:
 
 def dictzip(filename: Path) -> None:
     """ Compress file into dictzip format """
-    with open(filename, 'rb') as file:
-        inputinfo = os.fstat(file.fileno())
-        destination = path_append_suffix(filename, '.dz')
+    destination = path_append_suffix(filename, '.dz')
+
+    with open(filename, 'rb') as input_f, open(destination, 'wb') as output_f:
+        inputinfo = os.fstat(input_f.fileno())
         LOGGER.info('compressing %s to %s', filename, destination)
-        output = open(destination, 'wb')
         idzip.compressor.compress(
-            file,
+            input_f,
             inputinfo.st_size,
-            output,
+            output_f,
             filename.name,
             int(inputinfo.st_mtime))
+
     filename.unlink()
 
 
