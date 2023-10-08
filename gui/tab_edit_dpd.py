@@ -648,7 +648,7 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 "Update Sandhi", key="update_sandhi_button",
                 tooltip="Update list of words with sandhi apostophes"),
             sg.Button(
-                "Open corrections", key="open_corrections_button",
+                "Log", key="open_corrections_button",
                 tooltip="open corrections tsv in code",
                 visible=not primary_user),
         ],

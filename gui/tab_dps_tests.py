@@ -99,14 +99,14 @@ def make_tab_dps_tests(sg):
             sg.Text("results")
         ],
         [
-            sg.Text("test results", size=(15, 11), justification="right"),
+            sg.Text("results", size=(6, 11), justification="left"),
             sg.Table(
                 [[]], headings=["1", "2", "3"], key="dps_test_results",
                 size=(70, 11), justification="left", enable_events=True,
                 auto_size_columns=False, col_widths=[20, 20, 30])
         ],
         [
-            sg.Text("add exception", size=(15, 1), justification="right"),
+            sg.Text("except:", size=(6, 1), justification="left"),
             sg.Combo(
                 [], key="dps_test_add_exception",
                 size=(30, 1), auto_size_text=False),
@@ -115,8 +115,8 @@ def make_tab_dps_tests(sg):
             sg.Button("Db Query", key="dps_test_db_query_copy"),
         ],
         [
-            sg.Text("", size=(15, 1)),
-            sg.Button("Next", key="dps_test_next", size=(69, 1))
+            sg.Text("", size=(44, 1)),
+            sg.Button("Next", key="dps_test_next", size=(18, 1))
         ],
     ]
 

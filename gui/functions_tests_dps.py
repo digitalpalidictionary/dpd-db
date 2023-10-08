@@ -67,6 +67,7 @@ def replace_values_in_rows(rows):
         'suffix': 'dps_suffix',
         'verb': 'dps_verb',
         'meaning_lit': 'dps_meaning_lit',
+        'meaning_1': 'dps_meaning_1',
         'notes': 'dps_notes',
         'ru.ru_meaning': 'dps_ru_meaning',
         'ru.ru_meaning_lit': 'dps_ru_meaning_lit',

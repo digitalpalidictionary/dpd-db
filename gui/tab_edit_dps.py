@@ -6,7 +6,7 @@ from completion_combo import CompletionCombo
 sbs_index = load_sbs_index()
 pali_chant_list = [i.pali_chant for i in sbs_index]
 pali_class_list = [str(i) for i in range(1, 60)]
-dps_category_list = ["mn107", "sn56"]
+dps_category_list = ["mn107", "sn56", "sn22"]
 
 dpd_background = "#1c1e23"
 dpd_text = "#0a9ce4"
@@ -70,6 +70,11 @@ def make_tab_edit_dps(sg):
                 background_color=dpd_background),
             sg.Input(
                 key="dps_meaning_lit",
+                text_color=dpd_text,
+                visible=False,
+                background_color=dpd_background),
+            sg.Input(
+                key="dps_meaning_1",
                 text_color=dpd_text,
                 visible=False,
                 background_color=dpd_background),
