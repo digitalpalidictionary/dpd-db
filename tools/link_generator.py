@@ -94,13 +94,12 @@ def link_vin_pat(source: str, base_url: str) -> str:
 
 def link_pat(source: str, base_url: str) -> str:
     # Logic for VIN PAT
-    pattern = re.match(r'(PA|SA|AN|NP|PC|PD|SE|AS)(\d+)', source)
+    pattern = re.match(r'(PA|SA|NP|PC|PD|SE|AS)\s?(\d+)', source)
     if pattern:
         pat_code, pat_number = pattern.groups()
         vin_pat_map = {
             'PA': 'pr',
             'SA': 'sg',
-            'AN': 'ay',
             'NP': 'np',
             'PC': 'pc',
             'PD': 'pd',
@@ -242,7 +241,7 @@ def link_ud(source: str, base_url: str) -> str:
 
 def link_iti(source: str, base_url: str) -> str:
     # Logic for ITI verses 
-    if source.startswith("ITI ?"):
+    if source.startswith("ITI"):
         return base_url + "it/it.html"
 
     return ""
