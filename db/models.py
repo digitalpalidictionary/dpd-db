@@ -11,6 +11,8 @@ from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
+from sqlalchemy.orm import declared_attr
+from sqlalchemy import Column, Integer
 
 from db.get_db_session import get_db_session
 from tools.pali_sort_key import pali_sort_key
@@ -278,6 +280,7 @@ class DerivedData(Base):
     thai: Mapped[Optional[str]] = mapped_column(default='')
     html_table: Mapped[Optional[str]] = mapped_column(default='')
     freq_html: Mapped[Optional[str]] = mapped_column(default='')
+    ebt_count: Mapped[Optional[int]] = mapped_column(default='')
 
     @property
     def inflections_list(self) -> list:
@@ -416,6 +419,18 @@ class SBS(Base):
 
     def __repr__(self) -> str:
         return f"SBS: {self.id} {self.sbs_chant_pali_1} {self.sbs_class}"
+
+    @declared_attr
+    def sbs_chapter_flag(cls):
+        return Column(Integer, nullable=True)  # Allow null values
+
+    def calculate_chapter_flag(self):
+        for i in range(1, 5):
+            chapter_attr = getattr(self, f'sbs_chapter_{i}')
+            if chapter_attr and chapter_attr.strip():
+                return 1
+        return None
+
 
 
 class Russian(Base):
