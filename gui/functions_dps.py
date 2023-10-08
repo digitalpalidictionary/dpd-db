@@ -16,9 +16,8 @@ from googletrans import Translator
 
 from timeout_decorator import timeout, TimeoutError as TimeoutDecoratorError
 
-
 from db.db_helpers import get_column_names
-from db.models import Russian, SBS, PaliWord
+from db.models import Russian, SBS, PaliWord, DerivedData
 from db.get_db_session import get_db_session
 
 
@@ -32,10 +31,16 @@ from tools.cst_sc_text_sets import make_cst_text_set_sutta
 from tools.cst_sc_text_sets import make_cst_text_set_from_file
 from tools.cst_sc_text_sets import make_sc_text_set
 
-from functions_db import dps_make_all_inflections_set
 from functions import make_sp_mistakes_list
 from functions import make_sandhi_ok_list
 from functions import make_variant_list
+
+from rich import print
+from sqlalchemy import or_
+from sqlalchemy.orm import joinedload
+from typing import Optional
+from tools.pali_sort_key import pali_sort_key
+
 
 db_session = get_db_session(PTH.dpd_db_path)
 
@@ -85,6 +90,8 @@ def populate_dps_tab(values, window, dpd_word, ru_word, sbs_word):
     window["dps_verb"].update(dps_verb)
     dps_meaning_lit = dpd_word.meaning_lit
     window["dps_meaning_lit"].update(dps_meaning_lit)
+    dps_meaning_1 = dpd_word.meaning_1
+    window["dps_meaning_1"].update(dps_meaning_1)
 
 
     # grammar
@@ -596,11 +603,13 @@ def handle_openai_response(messages, suggestion_field, error_field, window):
     # Handle any exceptions that occur
     except TimeoutDecoratorError:
         error_string = "Timed out"
+        print(error_string)
         window[error_field].update(error_string)
         return error_string
 
     except Exception as e:
         error_string = f"Error: {e} "
+        print(error_string)
         window[error_field].update(error_string)
         return error_string
 
@@ -875,7 +884,7 @@ def ru_edit_spelling():
 
 
 def tail_log():
-    subprocess.Popen(["gnome-terminal", "--", "tail", "-f", "/home/deva/logs/gui.log"])
+    subprocess.Popen(["gnome-terminal", "--", "tail", "-n", "+0", "-f", "/home/deva/logs/gui.log"])
     
 
 
@@ -941,6 +950,26 @@ def dps_make_words_to_add_list_from_text() -> list:
     return text_list
 
 
+def dps_make_words_to_add_list_from_text_filtered(source) -> list:
+    cst_text_list = make_cst_text_set_from_file(return_list=True)
+
+    sp_mistakes_list = make_sp_mistakes_list(PTH)
+    variant_list = make_variant_list(PTH)
+    sandhi_ok_list = make_sandhi_ok_list(PTH)
+    all_inflections_set = dps_make_filtered_inflections_set(source)
+
+    text_set = set(cst_text_list)
+    text_set = text_set - set(sandhi_ok_list)
+    text_set = text_set - set(sp_mistakes_list)
+    text_set = text_set - set(variant_list)
+    text_set = text_set - all_inflections_set
+    cst_text_index = {text: index for index, text in enumerate(cst_text_list)}
+    text_list = sorted(text_set, key=lambda x: cst_text_index.get(x, float('inf')))
+    print(f"words_to_add: {len(text_list)}")
+
+    return text_list
+
+
 # functions which make a list of words from id list
 def read_ids_from_tsv(file_path):
     with open(file_path, mode='r', encoding='utf-8-sig') as tsv_file:
@@ -963,13 +992,251 @@ def fetch_matching_words_from_db(WHAT_TO_UPDATE, ORIGINAL_HAS_VALUE) -> list:
     matching_words = []
     for word_id in ordered_ids:
         word = db_session.query(PaliWord).filter(PaliWord.id == word_id).first()
-        if word and word.sbs:
-            attr_value = getattr(word.sbs, WHAT_TO_UPDATE, None)
-            if ORIGINAL_HAS_VALUE and attr_value:
-                matching_words.append(word.pali_1)
-            elif not ORIGINAL_HAS_VALUE and not attr_value:
-                matching_words.append(word.pali_1)
+        # if word and word.sbs:
+        #     attr_value = getattr(word.sbs, WHAT_TO_UPDATE, None)
+        #     if ORIGINAL_HAS_VALUE and attr_value:
+        #         matching_words.append(word.pali_1)
+        #     elif not ORIGINAL_HAS_VALUE and not attr_value:
+        #         matching_words.append(word.pali_1)
+        if word and not word.sbs:
+            matching_words.append(word.pali_1)
 
     print(f"words_to_add: {len(matching_words)}")
     return matching_words
 
+
+def update_words_value(WHAT_TO_UPDATE, SOURCE):
+    # Fetch the matching words
+    ordered_ids = read_ids_from_tsv(DPSPTH.id_to_add_path)
+    ordered_ids = remove_duplicates(ordered_ids)
+
+    print(WHAT_TO_UPDATE)
+    print(SOURCE)
+
+    updated_count = 0
+
+    for word_id in ordered_ids:
+        word = db_session.query(PaliWord).filter(PaliWord.id == word_id).first()
+        if not word or not word.sbs:
+            continue
+
+        attr_value = getattr(word.sbs, WHAT_TO_UPDATE, None)
+
+        all_examples_present = all([
+            getattr(word.sbs, 'sbs_example_1', None),
+            getattr(word.sbs, 'sbs_example_2', None),
+            getattr(word.sbs, 'sbs_example_3', None),
+            getattr(word.sbs, 'sbs_example_4', None)
+        ])
+
+        print(f"Checking word ID: {word_id}")
+        print(f"all_examples_present: {all_examples_present}")
+        print(f"attr_value: {attr_value}")
+
+        if all_examples_present and not attr_value:
+            setattr(word.sbs, WHAT_TO_UPDATE, SOURCE)
+            updated_count += 1
+            print(f"{word.id} - {WHAT_TO_UPDATE} with {SOURCE}", flush=True)
+
+    db_session.close()
+    print(f"{updated_count} rows have been updated with {SOURCE}.")
+
+
+def print_words_value(WHAT_TO_UPDATE, SOURCE):
+    # Fetch the matching words
+    ordered_ids = read_ids_from_tsv(DPSPTH.id_to_add_path)
+    ordered_ids = remove_duplicates(ordered_ids)
+
+    print(WHAT_TO_UPDATE)
+    print(SOURCE)
+
+    for word_id in ordered_ids:
+        word = db_session.query(PaliWord).filter(PaliWord.id == word_id).first()
+        if not word or not word.sbs:
+            continue
+
+        attr_value = getattr(word.sbs, WHAT_TO_UPDATE, None)
+
+        all_examples_present = all([
+            getattr(word.sbs, 'sbs_example_1', None),
+            getattr(word.sbs, 'sbs_example_2', None),
+            getattr(word.sbs, 'sbs_example_3', None),
+            getattr(word.sbs, 'sbs_example_4', None)
+        ])
+        if all_examples_present and not attr_value:
+            setattr(word.sbs, WHAT_TO_UPDATE, SOURCE)
+            print(f"{word.id} - {WHAT_TO_UPDATE} with {SOURCE}", flush=True)
+
+
+def update_sbs_category(pali_1, source):
+    db_session = get_db_session(PTH.dpd_db_path)
+
+    word = db_session.query(PaliWord).filter(PaliWord.pali_1 == pali_1).first()
+
+    if word and word.sbs:
+        word.sbs.sbs_category = source
+        db_session.commit()
+    
+    db_session.close()
+
+
+def words_in_db_from_source(source):
+    db_session = get_db_session(PTH.dpd_db_path)
+
+    dpd_db = db_session.query(PaliWord).all()
+
+    matching_words = []
+
+    for i in dpd_db:
+        if i.sbs is None or not (
+            i.sbs.sbs_source_1 == source or
+            i.sbs.sbs_source_2 == source or
+            i.sbs.sbs_source_3 == source or
+            i.sbs.sbs_source_4 == source
+        ):
+            if i.source_1 == source or i.source_2 == source:
+                matching_words.append(i.pali_1)
+
+    print(f"from {source} words_to_add: {len(matching_words)}")
+
+    return matching_words
+
+
+# db functions
+
+
+def fetch_ru(id: int) -> Optional[Russian]:
+    """Fetch Russian word from db."""
+    return db_session.query(Russian).filter(
+        Russian.id == id).first()
+
+
+def fetch_sbs(id: int) -> Optional[SBS]:
+    """Fetch SBS word from db."""
+    return db_session.query(SBS).filter(
+        SBS.id == id).first()
+
+
+def dps_update_db(
+        values, window, dpd_word, ru_word, sbs_word) -> None:
+    """Update Russian and SBS tables with DPS edits."""
+    merge = None
+    if not ru_word:
+        merge = True
+        ru_word = Russian(id=dpd_word.id)
+    if not sbs_word:
+        sbs_word = SBS(id=dpd_word.id)
+
+    for value in values:
+        if value.startswith("dps_ru"):
+            attribute = value.replace("dps_", "")
+            new_value = values[value]
+            setattr(ru_word, attribute, new_value)
+        if value.startswith("dps_sbs"):
+            attribute = value.replace("dps_", "")
+            new_value = values[value]
+            setattr(sbs_word, attribute, new_value)
+
+    if merge:
+        db_session.merge(ru_word)
+        db_session.merge(sbs_word)
+    else:
+        db_session.add(ru_word)
+        db_session.add(sbs_word)
+    db_session.commit()
+
+    window["messages"].update(
+    f"'{values['dps_id_or_pali_1']}' updated in db",
+    text_color="Lime")
+
+
+def dps_get_synonyms(pos: str, string_of_meanings: str, window, error_field) -> Optional[str]:
+
+    string_of_meanings = re.sub(r" \(.*?\)|\(.*?\) ", "", string_of_meanings)
+    list_of_meanings = string_of_meanings.split("; ")
+
+    results = db_session.query(PaliWord).join(Russian).filter(
+            PaliWord.pos == pos,
+            or_(*[PaliWord.meaning_1.like(f"%{meaning}%") for meaning in list_of_meanings]),
+            Russian.ru_meaning.isnot(None),  # Ensure ru_meaning is not null
+            Russian.ru_meaning != ""         # Ensure ru_meaning is not an empty string
+        ).options(joinedload(PaliWord.ru)).all()
+
+    meaning_dict = {}
+    for i in results:
+        if i.meaning_1:  # check if it's not None and not an empty string
+            for meaning in i.meaning_1.split("; "):
+                meaning_clean = re.sub(r" \(.*?\)|\(.*?\) ", "", meaning)
+                if meaning_clean in list_of_meanings:
+                    if meaning_clean not in meaning_dict:
+                        meaning_dict[meaning_clean] = set([i.pali_clean])
+                    else:
+                        meaning_dict[meaning_clean].add(i.pali_clean)
+
+    synonyms = set()
+    for key_1 in meaning_dict:
+        for key_2 in meaning_dict:
+            if key_1 != key_2:
+                intersection = meaning_dict[key_1].intersection(
+                    meaning_dict[key_2])
+                synonyms.update(intersection)
+
+    if not synonyms:
+        # Update error_field in window with appropriate message
+        window[error_field].update("No synonyms found that fit the filter.")
+        return None  # or some other value indicating failure
+
+
+    synonyms = ", ".join(sorted(synonyms, key=pali_sort_key))
+    print(synonyms)
+    return synonyms
+
+
+def dps_make_all_inflections_set():
+    
+    # Joining tables and filtering where Russian.ru_meaning is not empty
+    inflections_db = db_session.query(DerivedData) \
+                            .join(PaliWord, PaliWord.id == DerivedData.id) \
+                            .join(Russian, PaliWord.id == Russian.id) \
+                            .filter((Russian.ru_meaning.isnot(None)) & 
+                                    (Russian.ru_meaning != '')) \
+                            .all()
+
+    dps_all_inflections_set = set()
+    for i in inflections_db:
+        dps_all_inflections_set.update(i.inflections_list)
+
+    print(f"dps_all_inflections_set: {len(dps_all_inflections_set)}")
+
+    return dps_all_inflections_set
+
+
+def dps_make_filtered_inflections_set(source):
+    
+    # Begin the query
+    query = db_session.query(DerivedData)
+    
+    # Join tables
+    query = query.join(PaliWord, PaliWord.id == DerivedData.id)
+    query = query.join(SBS, PaliWord.id == SBS.id)
+    
+    # Apply filters if 'source' contains in any of sbs_cource(s)
+    query = query.filter(
+        or_(
+            SBS.sbs_source_1.ilike(f"%{source}%"), 
+            SBS.sbs_source_2.ilike(f"%{source}%"), 
+            SBS.sbs_source_3.ilike(f"%{source}%"), 
+            SBS.sbs_source_4.ilike(f"%{source}%")
+        )
+    )
+
+    # Execute the query
+    inflections_db = query.all()
+
+    dps_filtered_inflections_set = set()
+    for i in inflections_db:
+        dps_filtered_inflections_set.update(i.inflections_list)
+
+    print(f"dps_filtered_inflections_set: {len(dps_filtered_inflections_set)}")
+
+    return dps_filtered_inflections_set
