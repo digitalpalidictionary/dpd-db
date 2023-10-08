@@ -5,9 +5,12 @@ from dps.tools.paths_dps import DPSPaths as DPSPTH
 
 import os
 import shutil
-from rich import print
+from rich.console import Console
+
 from tools.tic_toc import tic, toc
 from datetime import datetime
+
+console = Console()
 
 tic()
 

@@ -6,8 +6,10 @@ import pandas as pd
 import os
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 
-from rich import print
+from rich.console import Console
 from tools.tic_toc import tic, toc
+
+console = Console()
 
 # Dictionary of functions and whether they are enabled
 function_status = {
@@ -30,7 +32,7 @@ def main():
     tic()
 
     # Print starting message in yellow color
-    print("[bright_yellow]exporting csvs for anki from dps-full.csv.")
+    console.print("[bold bright_yellow]exporting csvs for anki from dps-full.csv.")
 
     # Read the CSV file
     df = pd.read_csv(DPSPTH.dps_full_path, sep="\t", dtype= str)
@@ -78,7 +80,7 @@ def main():
 def sbs_per(df, sbs_ped_link):
 
     # Print starting message in green color
-    print("[green]making sbs_per.csv.")
+    console.print("[bold green]making sbs_per.csv.")
 
     # Create the 'Feedback' column using string formatting with the specified content
     df.reset_index(drop=True, inplace=True)
@@ -149,7 +151,7 @@ def sbs_per(df, sbs_ped_link):
 def parittas(df, sbs_ped_link):
 
     # Print starting message in green color
-    print("[green]making parittas.csv.")
+    console.print("[bold green]making parittas.csv.")
 
     # Create a list of the values you want to filter for
     chant_names = ["Maṅgala-sutta", "Ratana-sutta", "Karaṇīya-metta-sutta"]
@@ -208,7 +210,7 @@ def parittas(df, sbs_ped_link):
 def dps(df, dps_link):
 
     # Print starting message in green color
-    print("[green]making dps.csv.")    
+    console.print("[bold green]making dps.csv.")    
 
     # Create the 'Feedback' column using string formatting with the specified content
     df.reset_index(drop=True, inplace=True)
@@ -341,7 +343,7 @@ def dhp(df, sbs_ped_link):
 def classes(df, sbs_ped_link):
 
     # Print starting message in green color
-    print("[green]making classes.csvs.")
+    console.print("[bold green]making classes.csvs.")
 
     # Change the value of 'ru_meaning' and 'ru_meaning_lit' columns to an empty string
     df['ru_meaning'] = ""
@@ -384,7 +386,7 @@ def classes(df, sbs_ped_link):
         # Save the filtered DataFrame to a CSV file with the corresponding class
         # value in the filename; Set header=False to remove column names in the CSV.
         file_name = f'class_{sbs_class_value}.csv'
-        full_file_path = os.path.join(DPSPTH.anki_csvs_dps_dir, 'pali_class', 'all', 
+        full_file_path = os.path.join(DPSPTH.anki_csvs_dps_dir, 'pali_class', 'classes', 
             file_name)
         filtered_df.to_csv(full_file_path, sep="\t", index=False, header=True)  
 
@@ -435,7 +437,7 @@ def classes(df, sbs_ped_link):
 def suttas_class(df, sbs_ped_link):
 
     # Print starting message in green color
-    print("[green]making suttas_class.csv.")
+    console.print("[bold green]making suttas_class.csv.")
 
     # Create the 'Feedback' column using string formatting with the specified content
     df.reset_index(drop=True, inplace=True)
@@ -444,11 +446,8 @@ def suttas_class(df, sbs_ped_link):
         f"""{sbs_ped_link}={row['pali_1']}&entry.1433863141=Suttas">Fix it here</a>"""
     ), axis=1)
 
-    # Change the value of 'ru_meaning' and 'ru_meaning_lit' columns to an empty string
+    # Change the value of 'ru_meaning' column to an empty string
     df['ru_meaning'] = ""
-
-    # Select the rows where 'sbs_class_anki' is not empty and 'root' is not empty
-    filtered_df = df[(df['sbs_category'] != "")]
 
     # Select the columns to keep in the filtered DataFrame
     columns_to_keep = ['id', 'pali_1', 'sbs_category', 
@@ -462,13 +461,27 @@ def suttas_class(df, sbs_ped_link):
         'sbs_sutta_4', 'sbs_example_4', 'antonym', 'synonym', 'variant', 'commentary', 
         'notes', 'sbs_notes', 'link', 'sbs_audio', 'test', 'feedback']
 
-    # Keep only the specified columns in the filtered DataFrame
-    filtered_df = filtered_df[columns_to_keep]
+    # Create a separate DataFrame with 'sbs_category' not empty
+    df_with_category = df[df['sbs_category'] != ""]
 
-    # Save the filtered DataFrame to a CSV file without headers
-    # Set header=False to exclude column names from the CSV.
-    output_path = os.path.join(DPSPTH.anki_csvs_dps_dir, 'pali_class', "suttas_class.csv")
-    filtered_df.to_csv(output_path, sep="\t", index=False, header=True)
+    # Save the whole DataFrame with 'sbs_category' not empty to a CSV file
+    output_path_full = os.path.join(DPSPTH.anki_csvs_dps_dir, 'pali_class', "suttas_class.csv")
+    df_with_category.to_csv(output_path_full, sep="\t", index=False, header=True)
+
+    # Iterate through unique values in the 'sbs_category' column
+    unique_categories = df['sbs_category'].unique()
+    for category in unique_categories:
+        if not pd.isnull(category) and category != "":
+            # Select the rows where 'sbs_category' matches the current category 
+            filtered_df = df[df['sbs_category'] == category]
+
+            # Keep only the specified columns in the filtered DataFrame
+            filtered_df = filtered_df[columns_to_keep]
+
+            # Save the filtered DataFrame to a CSV file with the name based on the category
+            output_filename = f"{category}.csv"
+            output_path = os.path.join(DPSPTH.anki_csvs_dps_dir, 'pali_class', 'suttas', output_filename)
+            filtered_df.to_csv(output_path, sep="\t", index=False, header=True)
 
     # Save the list of field names to a text file
     with open(f'{DPSPTH.sbs_anki_style_dir}/field-list-suttas-class.txt', 'w') as file:
@@ -480,7 +493,7 @@ def suttas_class(df, sbs_ped_link):
 def root_phonetic_class(df, sbs_ped_link):
 
     # Print starting message in green color
-    print("[green]making root and phonetic_class.csvs.")
+    console.print("[bold green]making root and phonetic_class.csvs.")
 
     # Create the 'Feedback' column using string formatting with the specified content
     df.reset_index(drop=True, inplace=True)

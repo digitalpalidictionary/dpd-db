@@ -3,13 +3,15 @@
 """insert column of frequency count of EBTs into dpd_dps_full and add in into freq.db"""
 
 from dps.tools.paths_dps import DPSPaths as DPSPTH
-# from tools.paths import ProjectPaths as PTH
 
-from rich import print
+from rich.console import Console
+
 from tools.tic_toc import tic, toc
 
 import pandas as pd
 import sqlite3
+
+console = Console()
 
 
 def read_dataframes(dps_full_path, freq_ebt_path):
@@ -46,7 +48,7 @@ def save_to_sqlite(merged_df, db_path):
 
 def main():
     tic()
-    print("[bright_yellow]adding frequency count into dpd_dps_full freq.db")
+    console.print("[bold bright_yellow]adding frequency count into dpd_dps_full freq.db")
 
     dps_full_path = DPSPTH.dpd_dps_full_path
     freq_ebt_path = DPSPTH.freq_ebt_path
@@ -55,7 +57,7 @@ def main():
     full_df, freq_df = read_dataframes(dps_full_path, freq_ebt_path)
     merged_df = process_dataframes(full_df, freq_df)
 
-    print("[green]saving into freq.db")
+    console.print("[bold green]saving into freq.db")
 
     save_to_sqlite(merged_df, db_path)
 

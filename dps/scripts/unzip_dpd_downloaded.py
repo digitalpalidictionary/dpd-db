@@ -27,17 +27,17 @@ with ZipFile(dpd_zip, 'r') as zipObj:
    zipObj.extractall(output_directory)
 
 # Print completion message in green color
-print("\033[33m from Downloads/ \033[0m")
+print("\033[1;33m from Downloads/ \033[0m")
 
 # Print completion message in green color
-print("\033[32m dpd.zip has been unpacked to the server folder \033[0m")
+print("\033[1;32m dpd.zip has been unpacked to the server folder \033[0m")
 
 with ZipFile(dpd_deconstructor, 'r') as zipObj:
    # Extract all the contents of zip file in current directory
    zipObj.extractall(output_directory)
 
 # Print completion message in green color
-print("\033[32m dpd-deconstructor.zip has been unpacked to the server folder \033[0m")
+print("\033[1;32m dpd-deconstructor.zip has been unpacked to the server folder \033[0m")
 
 
 with ZipFile(dpd_grammar, 'r') as zipObj:
@@ -46,6 +46,6 @@ with ZipFile(dpd_grammar, 'r') as zipObj:
 
 
 # Print completion message in green color
-print("\033[32m dpd-grammar.zip has been unpacked to the server folder \033[0m")
+print("\033[1;32m dpd-grammar.zip has been unpacked to the server folder \033[0m")
 
 

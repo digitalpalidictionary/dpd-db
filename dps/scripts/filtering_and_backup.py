@@ -2,7 +2,8 @@
 
 """filtering words by some condition and make tsv of all tables PaliWord, PaliRoot, Russian and SBS into the PTH.temp_dir"""
 
-from rich import print
+from rich.console import Console
+
 import csv
 import os
 
@@ -10,12 +11,13 @@ from db.get_db_session import get_db_session
 from db.models import PaliWord, PaliRoot, Russian, SBS
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths as PTH
-from dps.tools.paths_dps import DPSPaths as DPSPTH
+
+console = Console()
 
 
 def saving():
     tic()
-    print("[bright_yellow]saving all tables to tsv")
+    console.print("[bold bright_yellow]saving all tables to tsv")
     db_session = get_db_session(PTH.dpd_db_path)
 
     # Fetch the ids and roots for PaliWord table
@@ -33,7 +35,7 @@ def saving():
 
 def saving_paliwords(db_session, ids_to_saving):
     """saving PaliWord table to TSV."""
-    print("[green]writing PaliWord table")
+    console.print("[bold green]writing PaliWord table")
     db = db_session.query(PaliWord).filter(PaliWord.id.in_(ids_to_saving)).all()
 
 
@@ -58,7 +60,7 @@ def saving_paliwords(db_session, ids_to_saving):
 
 def saving_paliroots(db_session, roots_to_saving):
     """saving PaliRoot table to TSV."""
-    print("[green]writing PaliRoot table")
+    console.print("[bold green]writing PaliRoot table")
     db = db_session.query(PaliRoot).filter(PaliRoot.root.in_(roots_to_saving)).all()
 
 
@@ -84,7 +86,7 @@ def saving_paliroots(db_session, roots_to_saving):
 
 def saving_russian(db_session, ids_to_saving):
     """saving Russian table to TSV."""
-    print("[green]writing Russian table")
+    console.print("[bold green]writing Russian table")
     db = db_session.query(Russian).filter(Russian.id.in_(ids_to_saving)).all()
 
 
@@ -105,7 +107,7 @@ def saving_russian(db_session, ids_to_saving):
 
 def saving_sbs(db_session, ids_to_saving):
     """saving SBS tables to TSV."""
-    print("[green]writing SBS table")
+    console.print("[bold green]writing SBS table")
     db = db_session.query(SBS).filter(SBS.id.in_(ids_to_saving)).all()
 
 

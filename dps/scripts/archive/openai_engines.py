@@ -1,10 +1,21 @@
 # print list of available engines for your account in openai
 
+import configparser
 import openai
-from dps.tools.config import OPENAI_API_KEY
 
-# Set your API key
-openai.api_key = OPENAI_API_KEY
+
+def load_openia_config(filename="config.ini"):
+    config = configparser.ConfigParser()
+    config.read(filename)
+    
+    openia_config = {
+        "openia": config["openia"]["key"],
+    }
+    return openia_config
+
+# Setup OpenAI API key
+openia_config = load_openia_config()
+openai.api_key = openia_config["openia"]
 
 # Fetch list of available engines
 engines = openai.Engine.list()

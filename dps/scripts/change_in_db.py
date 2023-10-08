@@ -10,7 +10,9 @@ from sqlalchemy.orm import aliased
 from db.models import PaliWord, PaliRoot, Russian, SBS
 from tools.paths import ProjectPaths as PTH
 from db.get_db_session import get_db_session
-from rich import print
+from rich.console import Console
+
+console = Console()
 
 
 def filter_and_update(

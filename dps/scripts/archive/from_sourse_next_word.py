@@ -2,16 +2,20 @@
 """Find the next word from some sourse which do not have ru_meaning yet."""
 
 import pyperclip
-from rich import print
+from rich.console import Console
+
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.paths import ProjectPaths as PTH
 
+console = Console()
+
+
 def main():
-    print("[bright_yellow]adding missing words based on conditions")
+    console.print("[bold bright_yellow]adding missing words based on conditions")
     source_to_check = input("[blue]Please enter the source string to check (e.g., VIN 1.1.1): ")
 
-    print("[green]press x to exit")
+    console.print("[bold green]press x to exit")
     
     db_session = get_db_session(PTH.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()

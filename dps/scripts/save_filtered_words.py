@@ -9,13 +9,17 @@ from db.get_db_session import get_db_session
 import csv
 import os
 import shutil
-from rich import print
+from rich.console import Console
+
 from tools.tic_toc import tic, toc
 from datetime import datetime
 
+console = Console()
+
+
 def save_filtered_words():
     tic()
-    print("[bright_yellow]filtering words from db by some condition")
+    console.print("[bold bright_yellow]filtering words from db by some condition")
 
     db_session = get_db_session(PTH.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()

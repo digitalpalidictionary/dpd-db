@@ -3,11 +3,14 @@
 
 import pyperclip
 import csv
-from rich import print
+from rich.console import Console
+
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.paths import ProjectPaths as PTH
 from dps.tools.paths_dps import DPSPaths as DPSPTH
+
+console = Console()
 
 
 NEED_TO_UPDATE = True  # Change this to False if you don't want to update
@@ -58,7 +61,7 @@ def display_and_update_word(db_session, word, matching_words_count, input_value)
 
 def main():
     print(f"[bright_yellow]Adding words from the {DPSPTH.temp_csv_path}")
-    print("[green]Press x to exit")
+    console.print("[bold green]Press x to exit")
 
     ordered_ids = read_ids_from_tsv(DPSPTH.temp_csv_path)
     print(f"[blue]Total number of IDs fetched: {len(ordered_ids)}[/blue]")
@@ -71,7 +74,7 @@ def main():
     matching_words_count = sum(1 for _ in fetch_matching_words_from_db(db_session, ordered_ids))
 
     if matching_words_count == 0:
-        print("[red]No words match the criteria.[/red]")
+        console.print("[bold red]No words match the criteria.[/red]")
         return
 
     print(f"[yellow]Total words matching criteria: {matching_words_count}[/yellow]")

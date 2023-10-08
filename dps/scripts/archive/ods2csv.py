@@ -3,19 +3,21 @@
 """convering ods into csv keeping bold <b> and new line formating <br> and sort result in pali alpabetical order also cheking duplicates before caving"""
 
 import zipfile
-from rich import print
+from rich.console import Console
+
 from bs4 import BeautifulSoup
 import pandas as pd
 from tools.pali_sort_key import pali_sort_key
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 from tools.tic_toc import tic, toc
 
+console = Console()
 
 
 class ReadOds:
 
     def __init__(self, filename, sheets_name):
-        print("[green]opening ods")
+        console.print("[bold green]opening ods")
         # get content xml data from OpenDocument file
         ziparchive = zipfile.ZipFile(filename, "r")
         xmldata = ziparchive.read("content.xml")
@@ -32,13 +34,14 @@ class ReadOds:
             
         for sheet_name in sheets_name:
             sheet_rows = self.get_rows_in_sheet(sheet_name)
-            header = self.get_columns_in_row(sheet_rows[0])
-            header = [it for it in header if it]
+            if sheet_rows is not None:
+                header = self.get_columns_in_row(sheet_rows[0])
+                header = [it for it in header if it]
+                
+                n_row = len(header)
+                data = [dict(zip(header, (self.get_columns_in_row(row)[:n_row]))) for row in sheet_rows[1:]]
             
-            n_row = len(header)
-            data = [dict(zip(header, (self.get_columns_in_row(row)[:n_row]))) for row in sheet_rows[1:]]
-        
-            self.df[sheet_name] = pd.DataFrame(data)
+                self.df[sheet_name] = pd.DataFrame(data)
         
 
     def check_for_duplicates(self, sheet_df):
@@ -47,18 +50,18 @@ class ReadOds:
 
         # If no duplicates found, print "no duplicates"
         if duplicated_rows.empty:
-            print("[green]No duplicates found.")
+            console.print("[bold green]No duplicates found.")
         else:
             # Print the duplicates
-            print("[red]Duplicates found in 'id' column:")
-            print(duplicated_rows[['id']])
+            console.print("[bold red]Duplicates found in 'id' column:")
+            console.print(duplicated_rows[['id']])
             
             # Raise an exception to halt the code
             raise ValueError("Duplicates found in 'id' column. Halting execution.")
 
 
     def save_csv(self):
-        print("[green]saving csvs")
+        console.print("[bold green]saving csvs")
         for sheet_name in self.df:
             
             self.df[sheet_name].sort_values(by = ['pali_1'], ignore_index=True, inplace=True, key=lambda x: x.map(pali_sort_key))
@@ -71,7 +74,7 @@ class ReadOds:
             rows = self.df[sheet_name].shape[0]
             columns = self.df[sheet_name].shape[1]
             self.df[sheet_name].to_csv(DPSPTH.dps_csv_path, sep='\t', index=False, quoting=1)
-            print(f"{DPSPTH.dps_path} {rows} rows {columns} columns")
+            console.print(f"{DPSPTH.dps_path} {rows} rows {columns} columns")
 
     def get_bold_styles(self):
         ''' 
@@ -86,14 +89,20 @@ class ReadOds:
 
 
     def get_rows_in_sheet(self, sheet_name):
-        print(f"[green]processing cell data for sheet {sheet_name.lower()}")
+        console.print(f"[bold green]processing cell data for sheet {sheet_name.lower()}")
         current_sheet = self.soup.find('table:table', {'table:name':sheet_name})
-        if current_sheet == None:
-            print('[red]could not find sheet', sheet_name)
+
+        if current_sheet is None:
+            console.print('[bold red]could not find sheet', sheet_name)
             return None
-        rows = current_sheet.find_all('table:table-row')
-        #not ignore first row
-        return rows[0:]
+
+        if isinstance(current_sheet, BeautifulSoup):
+            rows = current_sheet.find_all('table:table-row')
+            #not ignore first row
+            return rows[0:]
+        else:
+            console.print(f"[bold red]current_sheet is not a BeautifulSoup object for sheet {sheet_name}")
+            return None
 
 
     def get_columns_in_row(self, row):
@@ -107,7 +116,7 @@ class ReadOds:
                 try:
                     num_repeate = int(cell['table:number-columns-repeated'])
                 except ValueError:
-                    print('[red]failed to parse repeated cell under', cell)
+                    console.print('[bold red]failed to parse repeated cell under', cell)
                 for _ in range(num_repeate - 1):
                     ret_cells.append(cell_value)
             ret_cells.append(cell_value)
@@ -118,7 +127,7 @@ class ReadOds:
         '''tex process for each column go here'''
 
         p_texts = cell.find_all('text:p')
-        if p_texts == None:
+        if p_texts is None:
             return ''
 
         ret_str = ''
@@ -156,7 +165,7 @@ if __name__ == '__main__':
     tic()
     sheet_name = "PALI"
 
-    print(f"[bright_yellow]converting {DPSPTH.dps_path} to csv")
+    console.print(f"[bold bright_yellow]converting {DPSPTH.dps_path} to csv")
     a = ReadOds(DPSPTH.dps_path, {sheet_name})
     a.save_csv()
     toc()

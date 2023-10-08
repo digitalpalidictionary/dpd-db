@@ -4,7 +4,8 @@
 
 
 from git.repo import Repo
-from rich import print
+from rich.console import Console
+
 import csv
 import os
 import glob
@@ -16,11 +17,13 @@ from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths as PTH
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 
+console = Console()
+
 MAX_BACKUPS = 1  # Set the maximum number of backups
 
 def backup_all_tables():
     tic()
-    print("[bright_yellow]Backing up all tables to dps/backup/*.tsvs")
+    console.print("[bold bright_yellow]Backing up all tables to dps/backup/*.tsvs")
     db_session = get_db_session(PTH.dpd_db_path)
 
     tables_to_backup = [

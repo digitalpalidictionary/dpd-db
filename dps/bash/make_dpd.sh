@@ -28,6 +28,10 @@ families/sets.py
 
 frequency/mapmaker.py
 
+frequency/ebt_calculation.py
+
+dps/scripts/sbs_chapter_flag.py
+
 exporter/exporter.py
 # exporter/tpr_exporter.py
 # exporter/deconstructor_exporter.py

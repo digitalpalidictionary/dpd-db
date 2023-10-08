@@ -8,7 +8,9 @@ The filter_and_update function updates the PaliWord database entries. For entrie
 from db.models import PaliWord
 from tools.paths import ProjectPaths as PTH
 from db.get_db_session import get_db_session
-from rich import print
+from rich.console import Console
+
+console = Console()
 import re
 
 

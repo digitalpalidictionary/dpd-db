@@ -6,7 +6,8 @@ Additionally check for duplicate ids."""
 import sys
 import csv
 
-from rich import print
+from rich.console import Console
+
 from typing import Dict, List
 from sqlalchemy.orm import Session
 
@@ -16,10 +17,12 @@ from tools.paths import ProjectPaths as PTH
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 from tools.tic_toc import tic, toc
 
+console = Console()
+
 
 def main():
     tic()
-    print("[bright_yellow]add dps.csv to db")
+    console.print("[bold bright_yellow]add dps.csv to db")
 
     for p in [DPSPTH.dps_csv_path]:
         if not p.exists():
@@ -38,7 +41,7 @@ def main():
 
 
 def add_dps_russian(db_session: Session):
-    print("[green]processing dps russian")
+    console.print("[bold green]processing dps russian")
 
     rows = []
     with open(DPSPTH.dps_csv_path, 'r') as f:
@@ -76,7 +79,7 @@ def add_dps_russian(db_session: Session):
     if duplicated_ids:
         print(f"[red]Duplicated IDs found in CSV: {duplicated_ids}")
 
-    print("[green]adding russian to db")
+    console.print("[bold green]adding russian to db")
     try:
         for i in items:
             db_session.add(i)
@@ -112,7 +115,7 @@ def _csv_row_to_russian(x: Dict[str, str], id, db_session) -> Russian:
 
 
 def add_dps_sbs(db_session: Session):
-    print("[green]processing dps sbs")
+    console.print("[bold green]processing dps sbs")
 
     rows = []
     with open(DPSPTH.dps_csv_path, 'r') as f:
@@ -135,7 +138,7 @@ def add_dps_sbs(db_session: Session):
         else:
             unmatched_ids.append(r["id"])  # Add unmatched ID to the list
 
-    print("[green]adding sbs to db")
+    console.print("[bold green]adding sbs to db")
     try:
         for i in items:
             db_session.add(i)

@@ -1,7 +1,7 @@
 """A tutoiral and template to update the database using a external csv. copy from https://github.com/digitalpalidictionary/dpd-db/blob/main/scripts/update_db_from_some_csv.py"""
 
 
-from rich import print
+from rich.console import Console
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord
@@ -9,7 +9,7 @@ from tools.paths import ProjectPaths as PTH
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 from tools.tsv_read_write import read_tsv_dot_dict
 
-
+console = Console()
 db_session = get_db_session(PTH.dpd_db_path)
 
 # put in the path of the csv you want to open
@@ -39,16 +39,17 @@ for idx, i in enumerate(csv, start=1):  # start=1 will start the indexing from 1
         db_entry = db_session.query(PaliWord).filter(
             PaliWord.id == csv_id).first()
 
-        # this updates the db entry with the csv value
-        print(f"Row number: {idx}")
-        print(f"old: {db_entry.sbs.sbs_class}")
-        db_entry.sbs.sbs_class = i.sbs_class
-        print(f"new: {db_entry.sbs.sbs_class}")
-        print()
+        if db_entry and db_entry.sbs:
+            # this updates the db entry with the csv value
+            print(f"Row number: {idx}")
+            print(f"old: {db_entry.sbs.sbs_class}")
+            db_entry.sbs.sbs_class = i.sbs_class
+            print(f"new: {db_entry.sbs.sbs_class}")
+            print()
 
 
 # check that the output is as expected, then uncomment commit
-db_session.commit()
+# db_session.commit()
 
 # dont forget to always close the db session
 db_session.close()

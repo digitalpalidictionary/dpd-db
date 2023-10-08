@@ -1,8 +1,12 @@
 from docx import Document
 import csv
-from rich import print
+from rich.console import Console
+from tools.tic_toc import tic, toc
 
 from dps.tools.paths_dps import DPSPaths as DPSPTH
+
+console = Console()
+
 
 def extract_ids_from_docx(filename):
     """
@@ -43,13 +47,22 @@ def write_ids_to_csv(ids, output_file):
 
 
 def main():
-    file_name = input("Enter the name of the .docx file (without extension): ").strip()
+
+    tic()
+
+    console.print("[bold blue]Enter the name of the .docx file (without extension):")
+    file_name = input("").strip()
     input_docx_file = f"{DPSPTH.local_downloads_dir}/{file_name}.docx"
     output_csv_file = DPSPTH.id_to_add_path
     
     ids = extract_ids_from_docx(input_docx_file)
+    unique_ids = list(set(ids))  # Convert to a set to get unique IDs, then convert back to a list
     write_ids_to_csv(ids, output_csv_file)
-    print(f"[green]IDs written to {output_csv_file}")
+    console.print(f"[bold green]IDs written to {output_csv_file}")
+    console.print(f"[bold cyan]Number of rows of unique IDs extracted: {len(unique_ids)}")
+
+
+    toc()
 
 if __name__ == "__main__":
     main()

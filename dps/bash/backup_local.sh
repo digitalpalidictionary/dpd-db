@@ -39,4 +39,5 @@ done
 echo "------ Local Backup Script Ended at $(date) ------"
 
 
-# export VISUAL=xed; crontab -e 
+# export VISUAL=nano 
+# crontab -e 

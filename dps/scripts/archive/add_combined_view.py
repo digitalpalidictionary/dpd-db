@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Add combined view into db which have PaliWord, Russian and SBS tables together and allow to eddit Russian and SBS tables ."""
+"""Add combined view into db which have PaliWord, Russian, SBS tables and ebt_count together."""
 
 from sqlalchemy import create_engine, text
 from tools.paths import ProjectPaths as PTH
@@ -15,7 +15,11 @@ with engine.connect() as connection:
     connection.execute(text("""
         CREATE VIEW dps AS
         SELECT 
-            pali_words.id, 
+            pali_words.id,
+            derived_data.ebt_count,
+            sbs.sbs_class_anki,
+            sbs.sbs_category,
+            sbs.sbs_chapter_flag,
             pali_words.pali_1, 
             pali_words.pos, 
             pali_words.grammar, 
@@ -82,10 +86,9 @@ with engine.connect() as connection:
             sbs.sbs_notes, 
             russian.ru_notes,
             pali_words.cognate, 
-            sbs.sbs_class_anki, 
-            sbs.sbs_class, 
-            sbs.sbs_category 
+            sbs.sbs_class  
         FROM pali_words
         LEFT JOIN sbs ON pali_words.id = sbs.id
-        LEFT JOIN russian ON pali_words.id = russian.id;
+        LEFT JOIN russian ON pali_words.id = russian.id
+        LEFT JOIN derived_data ON pali_words.id = derived_data.id
     """))

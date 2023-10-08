@@ -15,17 +15,17 @@ with ZipFile(PATH.zip_path, 'r') as zipObj:
    zipObj.extractall(DPSPATH.local_goldendict_path)
 
 # Print completion message in green color
-print("\033[33m from dpd-db/exporter/share/ \033[0m")
+print("\033[1;33m from dpd-db/exporter/share/ \033[0m")
 
 # Print completion message in green color
-print("\033[32m dpd.zip has been unpacked to the GoldenDict folder \033[0m")
+print("\033[1;32m dpd.zip has been unpacked to the GoldenDict folder \033[0m")
 
 with ZipFile(PATH.deconstructor_zip_path, 'r') as zipObj:
    # Extract all the contents of zip file in current directory
    zipObj.extractall(DPSPATH.local_goldendict_path)
 
 # Print completion message in green color
-print("\033[32m dpd-deconstructor.zip has been unpacked GoldenDict folder \033[0m")
+print("\033[1;32m dpd-deconstructor.zip has been unpacked GoldenDict folder \033[0m")
 
 
 with ZipFile(PATH.grammar_dict_zip_path, 'r') as zipObj:
@@ -34,6 +34,6 @@ with ZipFile(PATH.grammar_dict_zip_path, 'r') as zipObj:
 
 
 # Print completion message in green color
-print("\033[32m dpd-grammar.zip has been unpacked to the GoldenDict folder \033[0m")
+print("\033[1;32m dpd-grammar.zip has been unpacked to the GoldenDict folder \033[0m")
 
 

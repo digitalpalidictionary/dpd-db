@@ -6,7 +6,7 @@ also add sbs_index and sbs_audio based on some conditions"""
 import csv
 import re
 import os
-from rich import print
+from rich.console import Console
 
 from typing import List
 
@@ -20,11 +20,12 @@ from tools.tic_toc import tic, toc
 from tools.date_and_time import day
 
 date = day()
+console = Console()
 
 
 def main():
     tic()
-    print("[bright_yellow]exporting dps csvs")
+    console.print("[bold bright_yellow]exporting dps csvs")
 
     db_session = get_db_session(PTH.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
@@ -88,7 +89,7 @@ def load_sutta_link_map():
 
 
 def dps(dpd_db):
-    print("[green]making dps-full csv")
+    console.print("[bold green]making dps-full csv")
 
     def _is_needed(i: PaliWord):
         return (i.ru)
@@ -347,7 +348,7 @@ def pali_row(i: PaliWord, output="anki") -> List[str]:
 
 
 def full_db(dpd_db):
-    print("[green]making dpd-dps-full csv")
+    console.print("[bold green]making dpd-dps-full csv")
     rows = []
     header = ['id', 'pali_1', 'pali_2', 'fin', 'sbs_class_anki', 'sbs_category', 'pos', 'grammar', 'derived_from',
                     'neg', 'verb', 'trans', 'plus_case', 'meaning_1',

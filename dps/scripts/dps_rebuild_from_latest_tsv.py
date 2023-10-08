@@ -5,7 +5,7 @@
 import csv
 import os
 
-from rich import print
+from rich.console import Console
 
 from db.get_db_session import get_db_session
 from db.db_helpers import create_db_if_not_exists
@@ -13,6 +13,9 @@ from db.models import PaliWord, PaliRoot, Russian, SBS
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths as PTH
 from dps.tools.paths_dps import DPSPaths as DPSPTH
+
+console = Console()
+
 
 def get_latest_backup(prefix):
     """Get the latest backup file from a given directory with a specific prefix."""
@@ -23,7 +26,7 @@ def get_latest_backup(prefix):
 
 def main():
     tic()
-    print("[bright_yellow]rebuilding db from dps/backup/*.tsvs")
+    console.print("[bold bright_yellow]rebuilding db from dps/backup/*.tsvs")
 
     if PTH.dpd_db_path.exists():
         PTH.dpd_db_path.unlink()
@@ -46,13 +49,13 @@ def main():
 
     db_session.commit()
     db_session.close()
-    print("[bright_green]database restored successfully")
+    console.print("[bold bright_green]database restored successfully")
     toc()
 
 
 def make_pali_word_table_data(db_session, pali_word_latest_tsv):
     """Read TSV and return PaliWord table data."""
-    print("[green]creating PaliWord table data")
+    console.print("[bold green]creating PaliWord table data")
     with open(pali_word_latest_tsv, 'r', newline='') as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
         columns = next(csvreader)
@@ -66,7 +69,7 @@ def make_pali_word_table_data(db_session, pali_word_latest_tsv):
 
 def make_pali_root_table_data(db_session, pali_root_latest_tsv):
     """Read TSV and return PaliRoot table data."""
-    print("[green]creating PaliRoot table data")
+    console.print("[bold green]creating PaliRoot table data")
     with open(pali_root_latest_tsv, 'r', newline='') as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
         columns = next(csvreader)
@@ -82,7 +85,7 @@ def make_pali_root_table_data(db_session, pali_root_latest_tsv):
 
 def make_russian_table_data(db_session, russian_latest_tsv):
     """Read TSV and return Russian table data."""
-    print("[green]creating Russian table data")
+    console.print("[bold green]creating Russian table data")
     with open(russian_latest_tsv, 'r', newline='') as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
         columns = next(csvreader)
@@ -95,7 +98,7 @@ def make_russian_table_data(db_session, russian_latest_tsv):
 
 def make_sbs_table_data(db_session, sbs_latest_tsv):
     """Read TSV and return SBS table data."""
-    print("[green]creating SBS table data")
+    console.print("[bold green]creating SBS table data")
     with open(sbs_latest_tsv, 'r', newline='') as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
         columns = next(csvreader)
