@@ -90,16 +90,25 @@ def main():
 
     print("[green]transliterating sinhala with aksharamukha")
     sinhala: str = transliterate.process(
-        "IASTPali", "Sinhala", inflections_to_transliterate_string,
-        post_options=['SinhalaPali'])
+        "IASTPali",
+        "Sinhala",
+        inflections_to_transliterate_string,
+        post_options=['SinhalaPali'],
+    )
 
     print("[green]transliterating devanagari with aksharamukha")
     devanagari: str = transliterate.process(
-        "IASTPali", "Devanagari", inflections_to_transliterate_string)
+        "IASTPali",
+        "Devanagari",
+        inflections_to_transliterate_string,
+    )
 
     print("[green]transliterating thai with aksharamukha")
     thai: str = transliterate.process(
-        "IASTPali", "Thai", inflections_to_transliterate_string)
+        "IASTPali",
+        "Thai",
+        inflections_to_transliterate_string,
+    )
 
     sinhala_lines: list = sinhala.split("\n")
     devanagari_lines: list = devanagari.split("\n")
