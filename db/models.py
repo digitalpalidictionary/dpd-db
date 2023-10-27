@@ -111,8 +111,8 @@ class PaliRoot(Base):
         ).group_by(
             PaliWord.family_root
         ).all()
-        family_list = [i.family_root for i in results]
-        family_list = sorted(family_list, key=pali_sort_key)
+        family_list = [i.family_root for i in results if i.family_root is not None]
+        family_list = sorted(family_list, key=lambda x: pali_sort_key(x))
         return family_list
 
     def __repr__(self) -> str:
@@ -214,9 +214,13 @@ class PaliWord(Base):
     @property
     def root_clean(self) -> str:
         try:
-            return re.sub(r" \d.*$", "", self.root_key)
+            if self.root_key is None:
+                return ""
+            else:
+                return re.sub(r" \d.*$", "", self.root_key)
         except Exception as e:
             print(f"{self.pali_1}: {e}")
+            return ""
 
     @property
     def family_compound_list(self) -> list:
@@ -284,19 +288,31 @@ class DerivedData(Base):
 
     @property
     def inflections_list(self) -> list:
-        return self.inflections.split(",")
+        if self.inflections:
+            return self.inflections.split(",")
+        else:
+            return []
 
     @property
     def sinhala_list(self) -> list:
-        return self.sinhala.split(",")
+        if self.sinhala:
+            return self.sinhala.split(",")
+        else:
+            return []
 
     @property
     def devanagari_list(self) -> list:
-        return self.devanagari.split(",")
+        if self.devanagari:
+            return self.devanagari.split(",")
+        else:
+            return []
 
     @property
     def thai_list(self) -> list:
-        return self.thai.split(",")
+        if self.thai:
+            return self.thai.split(",")
+        else:
+            return []
 
     def __repr__(self) -> str:
         return f"DerivedData: {self.id} {PaliWord.pali_1} {self.inflections}"
@@ -317,15 +333,24 @@ class Sandhi(Base):
 
     @property
     def sinhala_list(self) -> list:
-        return self.sinhala.split(",")
+        if self.sinhala:
+            return self.sinhala.split(",")
+        else:
+            return []
 
     @property
     def devanagari_list(self) -> list:
-        return self.devanagari.split(",")
+        if self.devanagari:
+            return self.devanagari.split(",")
+        else:
+            return []
 
     @property
     def thai_list(self) -> list:
-        return self.thai.split(",")
+        if self.thai:
+            return self.thai.split(",")
+        else:
+            return []
 
     def __repr__(self) -> str:
         return f"Sandhi: {self.id} {self.sandhi} {self.split}"
@@ -369,7 +394,7 @@ class FamilyWord(Base):
     count: Mapped[int] = mapped_column(default=0)
 
     def __repr__(self) -> str:
-        return f"FamilyWord: {self.id} {self.word_family} {self.count}"
+        return f"FamilyWord: {self.word_family} {self.count}"
 
 
 class FamilySet(Base):
@@ -379,7 +404,7 @@ class FamilySet(Base):
     count: Mapped[int] = mapped_column(default=0)
 
     def __repr__(self) -> str:
-        return f"FamilySet: {self.id} {self.set} {self.count}"
+        return f"FamilySet: {self.set} {self.count}"
 
 
 class SBS(Base):
