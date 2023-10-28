@@ -8,7 +8,7 @@ import pandas as pd
 import cProfile
 
 from rich import print
-from typing import List
+from typing import Optional, Set
 from os import popen
 
 from tools.pali_alphabet import vowels
@@ -37,6 +37,7 @@ global clean_word_min_length
 global fuzzy_word_min_length
 global max_matches
 global max_recursions
+global profiler
 global profiler_on
 global max_word_length
 clean_list_max_length = 2
@@ -46,6 +47,7 @@ fuzzy_word_min_length = 1
 max_matches = 20
 max_recursions = 15
 profiler_on = False
+profiler: Optional[cProfile.Profile] = None
 max_word_length = 100
 
 problem_children = [
@@ -234,8 +236,10 @@ class Word:
         Word.count_value += 1
         self.count = Word.count_value
         self.word: str = word
-        self.tried: List = set()
+        self.tried: Set = set()
         self.matches = set()
+        self.front = ""
+        self.back = ""
 
     @property
     def comp(self):
@@ -369,6 +373,7 @@ def main():
 
     print("[bright_yellow]sandhi splitter")
 
+    global profiler
     if profiler_on is True:
         profiler = cProfile.Profile()
         profiler.enable()
@@ -469,7 +474,7 @@ def main():
     summary()
     toc()
 
-    if profiler_on:
+    if profiler is not None:
         profiler.disable()
         profiler.dump_stats('profiler.prof')
         yes_no = input("open profiler? (y/n) ")
@@ -492,7 +497,7 @@ def save_timer_dict(time_dict):
     df = pd.DataFrame.from_dict(time_dict, orient="index")
     df = df.sort_values(by=0, ascending=False)
     df.to_csv(
-        PTH.sandhi_timer_path, mode="a", header=None, sep="\t")
+        PTH.sandhi_timer_path, mode="a", header=False, sep="\t")
 
 
 def recursive_removal(d):

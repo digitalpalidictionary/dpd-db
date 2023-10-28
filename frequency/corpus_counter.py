@@ -276,7 +276,7 @@ def sanity_tests(tipitaka_dict, list_of_sections):
     print(f"list_of_sections {len(list_of_sections)}")
 
     all_files = []
-    for root, dirs, files in os.walk(PTH.cst_txt_dir, topdown=False):
+    for __root__, __dirs__, files in os.walk(PTH.cst_txt_dir, topdown=False):
         for file in files:
             all_files.append(file)
 
@@ -340,7 +340,7 @@ def make_raw_text_csv(tipitaka_dict):
         word_count_df = make_word_count_df(text_clean)
         word_count_df.to_csv(
             PTH.word_count_dir.joinpath(section).with_suffix(".csv"),
-            sep="\t", index=None, header=None)
+            sep="\t", index=False, header=False)
 
     save_ebt_raw_text_and_csv(ebt_text)
     save_tipitaka_raw_text_and_csv(full_text)
@@ -364,7 +364,7 @@ def save_tipitaka_raw_text_and_csv(full_text):
     full_text_df = make_word_count_df(full_text)
     full_text_df.to_csv(
         PTH.tipitaka_word_count_path,
-        sep="\t", index=None, header=None)
+        sep="\t", index=False, header=False)
 
 
 def save_ebt_raw_text_and_csv(ebt_text):
@@ -378,7 +378,7 @@ def save_ebt_raw_text_and_csv(ebt_text):
     ebt_text_df = make_word_count_df(ebt_text)
     ebt_text_df.to_csv(
         PTH.ebt_word_count_path,
-        sep="\t", index=None, header=None)
+        sep="\t", index=False, header=False)
 
 
 if __name__ == "__main__":

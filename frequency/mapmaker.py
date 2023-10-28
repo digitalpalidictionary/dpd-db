@@ -72,7 +72,7 @@ def test_inflection_template_changed():
 
     except FileNotFoundError as e:
         print(f"[red]{e}")
-        changed_templates == []
+        assert(changed_templates == [])
 
 
 def test_changed_headwords():
@@ -89,7 +89,7 @@ def test_changed_headwords():
 
     except FileNotFoundError as e:
         print(f"[bright_red]{e}")
-        changed_templates == []
+        assert(changed_templates == [])
 
 
 def test_html_file_missing():
@@ -354,7 +354,7 @@ def make_data_dict_and_html(dicts, regenerate_all):
                 d[str(section)] = {"data": count, "class": ""}
                 section += 1
 
-            d_values = [v["data"] for k, v, in d.items()]
+            d_values = [v["data"] for __k__, v, in d.items()]
 
             value_max = max(d_values)
             value_min = min(d_values)
@@ -381,7 +381,7 @@ def make_data_dict_and_html(dicts, regenerate_all):
                     map_html += f"""<p class="heading underlined">Exact matches of <b>{superscripter_uni(i.pali_1)} and its declensions</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
 
                 template = Template(filename='frequency/frequency.html')
-                map_html += template.render(d=d)
+                map_html += str(template.render(d=d))
 
             else:
                 map_html += f"""<p class="heading">There are no exact matches of <b>{superscripter_uni(i.pali_1)} or it's inflections</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
