@@ -8,7 +8,7 @@ import pandas as pd
 import cProfile
 
 from rich import print
-from typing import Optional, Set
+from typing import Optional, Set, TypedDict, Union, Self
 from os import popen
 
 from tools.pali_alphabet import vowels
@@ -251,13 +251,61 @@ class Word:
         word_copy.count = Word.count_value
         return word_copy
 
+class DotDictInit(TypedDict):
+    count: int
+    comm: str
+    init: str
+    front: str
+    word: str
+    back: str
+    rules_front: str
+    rules_back: str
+    tried: set
+    matches: set
+    path: str
+    processes: int
 
-class dotdict(dict):
-    """dot.notation access to dictionary attributes"""
-    __getattr__ = dict.get
-    __setattr__ = dict.__setitem__
-    __delattr__ = dict.__delitem__
+def default_dot_dict_init(counter: int, word: str) -> DotDictInit:
+    return DotDictInit(
+        count = counter,
+        comm = "start",
+        init = word,
+        front = "",
+        word = word,
+        back = "",
+        rules_front = "",
+        rules_back = "",
+        tried = set(),
+        matches =  set(),
+        path = "start",
+        processes = 0,
+    )
 
+class DotDict:
+    count = 0
+    comm = "start"
+    init = ""
+    front = ""
+    back = ""
+    rules_front = ""
+    rules_back = ""
+    word = ""
+    tried = set()
+    matches = set()
+    path = "start"
+    processes = 0
+
+    def __init__(self, d: Union[DotDictInit, Self]):
+        if isinstance(d, dict):
+            for key in d:
+                setattr(self, key, d[key])
+
+        elif isinstance(d, DotDict):
+            for key in d.__dict__:
+                setattr(self, key, getattr(d, key))
+
+        else:
+            raise TypeError("Invalid argument type.")
 
 def comp(d):
     return f"{d.front}{d.word}{d.back}"
@@ -400,21 +448,7 @@ def main():
             matches_dict[word] = []
 
             # d is a dictionary of data accessed using dot notation
-            d: dict = {
-                "count": counter,
-                "comm": "start",
-                "init": word,
-                "front": "",
-                "word": word,
-                "back": "",
-                "rules_front": "",
-                "rules_back": "",
-                "tried": set(),
-                "matches": set(),
-                "path": "start",
-                "processes": 0
-            }
-            d = dotdict(d)
+            d = DotDict(default_dot_dict_init(counter, word))
 
             # debug
             # if d.init != "aniccabhāvāpattidosadassanatthaṃ":
@@ -500,7 +534,7 @@ def save_timer_dict(time_dict):
         PTH.sandhi_timer_path, mode="a", header=False, sep="\t")
 
 
-def recursive_removal(d):
+def recursive_removal(d: DotDict) -> None:
 
     d.processes += 1
 
@@ -566,11 +600,11 @@ def recursive_removal(d):
                         d = remove_dur(d)
 
 
-def remove_neg(d):
+def remove_neg(d: DotDict) -> DotDict:
     """finds neg in front then
     1. finds match 2. recurses 3. passes through"""
 
-    d_orig = dotdict(d)
+    d_orig = DotDict(d)
 
     if comp(d) not in w.matches and len(d.word) > 2:
         d.path += " > neg"
@@ -606,7 +640,7 @@ def remove_neg(d):
             d.rules_front = "na,"
 
         if d.word in all_inflections_set:
-            d.comm == f"match! = {comp(d)}"
+            d.comm = f"match! = {comp(d)}"
 
             if comp(d) not in w.matches:
                 matches_dict[d.init] += [(
@@ -619,16 +653,16 @@ def remove_neg(d):
             d.comm = "recursing from na"
             recursive_removal(d)
 
-        d = dotdict(d_orig)
+        d = DotDict(d_orig)
 
     return d_orig
 
 
-def remove_sa(d):
+def remove_sa(d: DotDict) -> DotDict:
     """find sa in front then
     1. match 2. recurse or 3. pass through"""
 
-    d_orig = dotdict(d)
+    d_orig = DotDict(d)
 
     if comp(d) not in w.matches and len(d.word) > 3:
         d.path += " > sa"
@@ -657,16 +691,16 @@ def remove_sa(d):
             d.comm = "recursing sa"
             recursive_removal(d)
 
-        d = dotdict(d_orig)
+        d = DotDict(d_orig)
 
     return d_orig
 
 
-def remove_su(d):
+def remove_su(d: DotDict) -> DotDict:
     """find su in front then
     1. match 2. recurse or 3. pass through"""
 
-    d_orig = dotdict(d)
+    d_orig = DotDict(d)
 
     if comp(d) not in w.matches and len(d.word) > 3:
         d.path += " > su"
@@ -695,16 +729,16 @@ def remove_su(d):
             d.comm = "recursing su"
             recursive_removal(d)
 
-        d = dotdict(d_orig)
+        d = DotDict(d_orig)
 
     return d_orig
 
 
-def remove_dur(d):
+def remove_dur(d: DotDict) -> DotDict:
     """find du(r) in front then
     1. match 2. recurse or 3. pass through"""
 
-    d_orig = dotdict(d)
+    d_orig = DotDict(d)
 
     if comp(d) not in w.matches and len(d.word) > 3:
         d.path += " > dur"
@@ -733,16 +767,16 @@ def remove_dur(d):
             d.comm = "recursing dur"
             recursive_removal(d)
 
-        d = dotdict(d_orig)
+        d = DotDict(d_orig)
 
     return d_orig
 
 
-def remove_apievaiti(d):
+def remove_apievaiti(d: DotDict) -> DotDict:
     """find api eva or iti using sandhi rules then
     1. match 2. recurse or 3. pass through"""
 
-    d_orig = dotdict(d)
+    d_orig = DotDict(d)
 
     if comp(d) not in w.matches:
 
@@ -785,7 +819,7 @@ def remove_apievaiti(d):
                     d.path += " > apievaiti"
 
                     if d.word in all_inflections_set:
-                        d.comm == f"match! = {comp(d)}"
+                        d.comm = f"match! = {comp(d)}"
 
                         if comp(d) not in w.matches:
                             matches_dict[d.init] += [
@@ -797,16 +831,16 @@ def remove_apievaiti(d):
                     else:
                         recursive_removal(d)
 
-                    d = dotdict(d_orig)
+                    d = DotDict(d_orig)
 
     return d_orig
 
 
-def remove_lwff_clean(d):
+def remove_lwff_clean(d: DotDict) -> DotDict:
     """make a list of the longest clean words from the front then
     1. match 2. recurse or 3. pass through"""
 
-    d_orig = dotdict(d)
+    d_orig = DotDict(d)
 
     if comp(d) not in w.matches:
 
@@ -840,16 +874,16 @@ def remove_lwff_clean(d):
                     d.comm = f"recursing lwff_clean [yellow]{comp(d)}"
                     recursive_removal(d)
 
-                d = dotdict(d_orig)
+                d = DotDict(d_orig)
 
     return d_orig
 
 
-def remove_lwfb_clean(d):
+def remove_lwfb_clean(d: DotDict) -> DotDict:
     """make list of the longest clean words from the back then
     1. match 2. recurse or 3. pass through"""
 
-    d_orig = dotdict(d)
+    d_orig = DotDict(d)
 
     if comp(d) not in w.matches:
 
@@ -882,16 +916,16 @@ def remove_lwfb_clean(d):
                     d.comm = f"recursing lfwb_clean [yellow]{comp(d)}"
                     recursive_removal(d)
 
-                d = dotdict(d_orig)
+                d = DotDict(d_orig)
 
     return d_orig
 
 
-def remove_lwff_fuzzy(d):
+def remove_lwff_fuzzy(d: DotDict) -> DotDict:
     """make a list of the longest fuzzy words from the front then
     1. match 2. recurse or 3. pass through"""
 
-    d_orig = dotdict(d)
+    d_orig = DotDict(d)
 
     if comp(d) not in d.matches:
 
@@ -957,16 +991,16 @@ def remove_lwff_fuzzy(d):
                                 d.comm = f"recursing lwff_fuzzy {comp(d)}"
                                 recursive_removal(d)
 
-                            d = dotdict(d_orig)
+                            d = DotDict(d_orig)
 
     return d_orig
 
 
-def remove_lwfb_fuzzy(d):
+def remove_lwfb_fuzzy(d: DotDict) -> DotDict:
     """make a list of the longest fuzzy words from the back then
     1. match 2. recurse or 3. pass through"""
 
-    d_orig = dotdict(d)
+    d_orig = DotDict(d)
 
     if comp(d) not in w.matches:
 
@@ -1033,16 +1067,16 @@ def remove_lwfb_fuzzy(d):
                                 d.comm = f"recursing lwfb_fuzzy {comp(d)}"
                                 recursive_removal(d)
 
-                            d = dotdict(d_orig)
+                            d = DotDict(d_orig)
 
     return d_orig
 
 
-def two_word_sandhi(d):
+def two_word_sandhi(d: DotDict) -> DotDict:
     """split into two words, apply sandhi rules then
     1. match or 2. pass through"""
 
-    d_orig = dotdict(d)
+    d_orig = DotDict(d)
 
     if comp(d) not in w.matches:
 
@@ -1077,7 +1111,7 @@ def two_word_sandhi(d):
                     d.matches.add(comp(d))
                     unmatched_set.discard(d.init)
 
-                d = dotdict(d_orig)
+                d = DotDict(d_orig)
 
             # bla* *lah
 
@@ -1110,16 +1144,16 @@ def two_word_sandhi(d):
                             d.matches.add(comp(d))
                             unmatched_set.discard(d.init)
 
-                    d = dotdict(d_orig)
+                    d = DotDict(d_orig)
 
     return d_orig
 
 
-def three_word_sandhi(d):
+def three_word_sandhi(d: DotDict) -> DotDict:
     """split into three words, apply sandhi rules then
     1. match or 2. pass through"""
 
-    d_orig = dotdict(d)
+    d_orig = DotDict(d)
 
     if comp(d) not in w.matches:
 
@@ -1169,7 +1203,7 @@ def three_word_sandhi(d):
                         d.matches.add(comp(d))
                         unmatched_set.discard(d.init)
 
-                    d = dotdict(d_orig)
+                    d = DotDict(d_orig)
 
                 # blah bla* *lah
                 if wordA in all_inflections_set:
@@ -1208,7 +1242,7 @@ def three_word_sandhi(d):
                                     d.matches.add(comp(d))
                                     unmatched_set.discard(d.init)
 
-                                d = dotdict(d_orig)
+                                d = DotDict(d_orig)
 
                 # bla* *lah blah
 
@@ -1248,7 +1282,7 @@ def three_word_sandhi(d):
                                     d.matches.add(comp(d))
                                     unmatched_set.discard(d.init)
 
-                                d = dotdict(d_orig)
+                                d = DotDict(d_orig)
 
                 # bla* *la* *lah
 
@@ -1297,17 +1331,17 @@ def three_word_sandhi(d):
                                         d.matches.add(comp(d))
                                         unmatched_set.discard(d.init)
 
-                                    d = dotdict(d_orig)
+                                    d = DotDict(d_orig)
 
     return d_orig
 
 
-def four_word_sandhi(d):
+def four_word_sandhi(d: DotDict) -> DotDict:
 
     """split into four words, apply sandhi rules, then
     1. match or 2. pass through"""
 
-    d_orig = dotdict(d)
+    d_orig = DotDict(d)
 
     if comp(d) not in w.matches:
 
@@ -1390,16 +1424,16 @@ def four_word_sandhi(d):
                                                     unmatched_set.discard(
                                                         d.init)
 
-                                                d = dotdict(d_orig)
+                                                d = DotDict(d_orig)
 
     return d_orig
 
 
-def comp_rules(d):
+def comp_rules(d: DotDict) -> str:
     return f"{d.rules_front}{d.rules_back}"
 
 
-def dprint(d):
+def dprint(d: DotDict) -> None:
     print(f"count:\t{d.count}")
     print(f"comm:\t{d.comm}")
     print(f"init:\t'{d.init}'")
@@ -1437,7 +1471,7 @@ def summary():
     word_count = len(matches_dict)
     match_count = 0
 
-    for word, matches in matches_dict.items():
+    for __word__, matches in matches_dict.items():
         match_count += len(matches)
 
     match_average = match_count / word_count
