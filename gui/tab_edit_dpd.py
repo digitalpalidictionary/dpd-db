@@ -24,7 +24,7 @@ PATTERN_VALUES = get_patterns()
 
 def make_tab_edit_dpd(sg, primary_user):
 
-    origin = "pass" if primary_user else "dps"
+    origin = "pass1" if primary_user else "dps"
 
     add_word_layout = [
         [

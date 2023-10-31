@@ -2,6 +2,8 @@
 
 import re
 import csv
+import nltk
+nltk.download('punkt')
 import subprocess
 import pyperclip
 import textwrap
@@ -14,6 +16,7 @@ from aksharamukha import transliterate
 from rich import print
 from bs4 import BeautifulSoup
 from nltk import sent_tokenize, word_tokenize
+
 
 # from db.db_helpers import get_column_names
 from db.models import PaliWord
@@ -402,7 +405,7 @@ def clear_errors(window):
 
 def clear_values(values, window, primary_user):
     from functions_db import dpd_values_list
-    origin = "pass" if primary_user else "dps"
+    origin = "pass1" if primary_user else "dps"
     for value in values:
         if value in dpd_values_list:
             window[value].update("")
