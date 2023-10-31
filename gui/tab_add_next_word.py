@@ -72,8 +72,10 @@ def make_tab_add_next_word(sg, primary_user):
             )
         ],
         [
-            sg.Text("from temp/text.txt ", 
-            pad=((100, 0), (0, 20))
+            sg.Text(
+                "from temp/text.txt", 
+                pad=((100, 0), (0, 20)),
+                visible=not primary_user,
             ),
             sg.Button(
                 "Add", 
