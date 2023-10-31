@@ -1,7 +1,8 @@
 """Add all variants of niggahita character (ŋ ṁ) to a list."""
 
+from typing import List
 
-def add_niggahitas(words: list) -> list:
+def add_niggahitas(words: List[str]) -> List[str]:
     """Add various types of niggahitas (ŋ ṁ) to a list."""
 
     for word in words:

@@ -1,9 +1,11 @@
 """Finds all words in examples and commentary that contain an apostrophe
 denoting sandhi or contraction, eg. ajj'uposatho, tañ'ca"""
 
-from typing import Dict
+from typing import Dict, List, Set, TypedDict
 
 from rich import print
+
+from sqlalchemy.orm.session import Session
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord
@@ -40,14 +42,22 @@ def main():
         print(counter)
 
 
-def make_sandhi_contraction_dict(db_session) -> Dict[[str, set], [str, list]]:
+class SandhiContrItem(TypedDict):
+    contractions: Set[str]
+    ids: List[str]
+
+
+SandhiContractions = Dict[str, SandhiContrItem]
+
+
+def make_sandhi_contraction_dict(db_session: Session) -> SandhiContractions:
     """Return a list of all sandhi words in db that are split with '."""
 
     db = db_session.query(PaliWord).all()
-    sandhi_contraction: dict = {}
-    word_dict: dict = {}
+    sandhi_contraction: SandhiContractions = dict()
+    word_dict: Dict[int, Set[str]] = dict()
 
-    def replace_split(string) -> list:
+    def replace_split(string: str) -> List[str]:
         string = string.replace("<b>", "")
         string = string.replace("</b>", "")
         string = string.replace("<i>", "")
@@ -72,19 +82,19 @@ def make_sandhi_contraction_dict(db_session) -> Dict[[str, set], [str, list]]:
     for i in db:
         word_dict[i.id] = set()
 
-        if "'" in i.example_1:
+        if i.example_1 is not None and "'" in i.example_1:
             word_list = replace_split(i.example_1)
             for word in word_list:
                 if "'" in word:
                     word_dict[i.id].update([word])
 
-        if "'" in i.example_2:
+        if i.example_2 is not None and "'" in i.example_2:
             word_list = replace_split(i.example_2)
             for word in word_list:
                 if "'" in word:
                     word_dict[i.id].update([word])
 
-        if "'" in i.commentary:
+        if i.commentary is not None and "'" in i.commentary:
             word_list = replace_split(i.commentary)
             for word in word_list:
                 if "'" in word:
@@ -95,8 +105,10 @@ def make_sandhi_contraction_dict(db_session) -> Dict[[str, set], [str, list]]:
             word_clean = word.replace("'", "")
 
             if word_clean not in sandhi_contraction:
-                sandhi_contraction[word_clean] = {
-                    "contractions": {word}, "ids": [str(id)]}
+                sandhi_contraction[word_clean] = SandhiContrItem(
+                    contractions = {word},
+                    ids = [str(id)],
+                )
 
             else:
                 if word not in sandhi_contraction[word_clean]["contractions"]:
