@@ -12,13 +12,10 @@ from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import declared_attr
+from sqlalchemy.orm import object_session
 from sqlalchemy import Column, Integer
 
-from db.get_db_session import get_db_session
 from tools.pali_sort_key import pali_sort_key
-from tools.paths import ProjectPaths as PTH
-
-db_session = get_db_session(PTH.dpd_db_path)
 
 
 class Base(DeclarativeBase):
@@ -96,6 +93,10 @@ class PaliRoot(Base):
 
     @property
     def root_count(self) -> int:
+        db_session = object_session(self)
+        if db_session is None:
+            raise Exception("No db_session")
+
         return db_session.query(
             PaliWord
             ).filter(
@@ -104,6 +105,10 @@ class PaliRoot(Base):
 
     @property
     def root_family_list(self) -> list:
+        db_session = object_session(self)
+        if db_session is None:
+            raise Exception("No db_session")
+
         results = db_session.query(
             PaliWord
         ).filter(
@@ -238,6 +243,10 @@ class PaliWord(Base):
 
     @property
     def root_count(self) -> int:
+        db_session = object_session(self)
+        if db_session is None:
+            raise Exception("No db_session")
+
         return db_session.query(
             PaliWord.id
         ).filter(
@@ -246,6 +255,10 @@ class PaliWord(Base):
 
     @property
     def pos_list(self) -> list:
+        db_session = object_session(self)
+        if db_session is None:
+            raise Exception("No db_session")
+
         pos_db = db_session.query(
             PaliWord.pos
         ).group_by(
