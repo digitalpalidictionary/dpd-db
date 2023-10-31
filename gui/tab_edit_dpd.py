@@ -198,7 +198,7 @@ Leave empty for long compounds."),
                 enable_events=True,
             ),
             sg.Text(
-                "", key="online_suggestion_error", size=(50, 1), text_color="red")
+                "", key="online_suggestion_error", size=(50, 1), text_color="red", visible=not primary_user)
         ],
         [
             sg.Text("root_key", size=(15, 1)),
