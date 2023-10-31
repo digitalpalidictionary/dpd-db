@@ -19,6 +19,7 @@ from mdict_exporter import mdict_synonyms
 from db.models import Sandhi
 from db.get_db_session import get_db_session
 
+from tools.goldendict_path import goldedict_path
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths as PTH
 from tools.tic_toc import tic, toc, bip, bop
@@ -116,12 +117,15 @@ def make_golden_dict(PTH, sandhi_data_list):
 
 def unzip_and_copy(PTH):
 
-    print(f"[green]{'unzipping and copying to goldendict dir':<22}")
+    local_goldendict_path: (Path |str) = goldedict_path()
 
-    local_goldendict_path = Path("/home/bhikkhu/Documents/Golden Dict")
-    if local_goldendict_path.exists():
+    if (
+        local_goldendict_path and 
+        local_goldendict_path.exists()
+        ):
+        print(f"[green]unzipping and copying to [blue]{local_goldendict_path}")
         os.popen(
-            f'unzip -o {PTH.deconstructor_zip_path} -d "/home/bhikkhu/Documents/Golden Dict"')
+            f'unzip -o {PTH.deconstructor_zip_path} -d "{local_goldendict_path}"')
     else:
         print("[red]local GoldenDict directory not found")
 

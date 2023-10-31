@@ -7,6 +7,7 @@ import csv
 import pickle
 
 from os import popen
+from pathlib import Path
 from rich import print
 from sqlalchemy.orm import Session
 
@@ -20,6 +21,7 @@ from helpers import make_roots_count_dict
 from mdict_exporter import export_to_mdict
 
 from db.get_db_session import get_db_session
+from tools.goldendict_path import goldedict_path
 from tools.tic_toc import tic, toc, bip, bop
 from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.sandhi_contraction import make_sandhi_contraction_dict
@@ -91,13 +93,19 @@ def export_to_goldendict(data_list: list) -> None:
 def goldendict_unzip_and_copy() -> None:
     """unzip and copy to goldendict folder"""
 
+    goldendict_path: (Path |str) = goldedict_path()
+
     bip()
-    print("[green]unipping and copying goldendict", end=" ")
-    try:
+
+    if (
+        goldendict_path and 
+        goldendict_path.exists()
+        ):
+        print(f"[green]unzipping and copying to [blue]{goldendict_path}")
         popen(
-            f'unzip -o {PTH.zip_path} -d "/home/bhikkhu/Documents/Golden Dict"')
-    except Exception as e:
-        print(f"[red]{e}")
+            f'unzip -o {PTH.zip_path} -d "{goldendict_path}"')
+    else:
+        print("[red]local GoldenDict directory not found")
 
     print(f"{bop():>23}")
 

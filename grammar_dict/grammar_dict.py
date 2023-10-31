@@ -11,12 +11,14 @@ from functools import reduce
 from json import loads
 from mako.template import Template
 from os import popen
+from pathlib import Path
 from rich import print
 from typing import List
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord, Sandhi, InflectionTemplates
 
+from tools.goldendict_path import goldedict_path
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths as PTH
@@ -261,9 +263,17 @@ def make_golden_dict(PTH, gd_data_list):
 
     export_words_as_stardict_zip(gd_data_list, ifo, zip_path)
 
-    print("[green]unipping and copying goldendict")
-    popen(
-        f'unzip -o {PTH.grammar_dict_zip_path} -d "/home/bhikkhu/Documents/Golden Dict"')
+    goldendict_path: (Path |str) = goldedict_path()
+
+    if (
+        goldendict_path and 
+        goldendict_path.exists()
+        ):
+        print(f"[green]unzipping and copying to [blue]{goldendict_path}")
+        popen(
+            f'unzip -o {PTH.grammar_dict_zip_path} -d "{goldendict_path}"')
+    else:
+        print("[red]local GoldenDict directory not found")
 
 
 def make_mdict(PTH, md_data_list):

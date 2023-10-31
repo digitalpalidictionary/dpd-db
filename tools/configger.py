@@ -12,12 +12,14 @@ config.read("config.ini")
 
 def config_initialize() -> None:
     """Initialize config.ini."""
+
     config.add_section("regenerate")
     config.set("regenerate", "inflections", "yes")
     config.set("regenerate", "transliterations", "yes")
     config.set("regenerate", "freq_maps", "yes")
     config.add_section("deconstructor")
     config.set("deconstructor", "include_cloud", "no")
+
     config.add_section("gui")
     config.set("gui", "theme", "DarkGrey10")
     config.set("gui", "screen_fraction_width", "0.60")
@@ -32,15 +34,18 @@ def config_initialize() -> None:
     config.set("gui", "element_padding_y", "0")
     config.set("gui", "margin_x", "0")
     config.set("gui", "margin_y", "0")
+
+    config.add_section("goldendict")
+    config.set("goldendict", "path", "")
     config_write()
 
 
-def config_read(section: str, option: str, default_value=None) -> str:
+def config_read(section: str, option: str, default_value=None) -> (str):
     """Read config.ini. If error, return a specified default value"""
     try:
         return config.get(section, option)
     except (configparser.NoSectionError, configparser.NoOptionError):
-        return default_value
+        return ""
 
 
 def config_write() -> None:
@@ -73,6 +78,13 @@ def config_test(section: str, option: str, value) -> None:
         print("[red]unknown config setting")
         return False
 
+
+def config_test_section(section):
+    """Test config.ini to see if a section exists."""
+    if config.has_section(section):
+        return True
+    else:
+        return False
 
 def config_test_option(section, option):
     """Test config.ini to see if a section, option exists."""
