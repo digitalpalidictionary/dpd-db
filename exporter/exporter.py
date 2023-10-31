@@ -26,6 +26,7 @@ from tools.tic_toc import tic, toc, bip, bop
 from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.paths import ProjectPaths as PTH
+from tools.configger import config_test
 
 tic()
 db_session: Session = get_db_session(PTH.dpd_db_path)
@@ -35,6 +36,12 @@ SANDHI_CONTRACTIONS: dict = make_sandhi_contraction_dict(db_session)
 def main():
     print("[bright_yellow]exporting dpd")
     size_dict = {}
+
+    # check config
+    if config_test("dictionary", "make_mdict", "yes"):
+        make_mdct: bool = True
+    else:
+        make_mdct: bool = False
 
     roots_count_dict = make_roots_count_dict(
         db_session)
@@ -62,7 +69,10 @@ def main():
     write_size_dict(size_dict)
     export_to_goldendict(combined_data_list)
     goldendict_unzip_and_copy()
-    export_to_mdict(combined_data_list, PTH)
+
+    if make_mdct is True:
+        export_to_mdict(combined_data_list, PTH)
+
     toc()
 
 

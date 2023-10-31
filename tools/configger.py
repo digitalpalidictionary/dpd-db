@@ -17,6 +17,7 @@ def config_initialize() -> None:
     config.set("regenerate", "inflections", "yes")
     config.set("regenerate", "transliterations", "yes")
     config.set("regenerate", "freq_maps", "yes")
+
     config.add_section("deconstructor")
     config.set("deconstructor", "include_cloud", "no")
 
@@ -37,6 +38,14 @@ def config_initialize() -> None:
 
     config.add_section("goldendict")
     config.set("goldendict", "path", "")
+
+    config.add_section("dictionary")
+    config.set("dictionary", "make_mdict", "yes")
+    config.set("dictionary", "make_link", "no")
+
+    config.add_section("openia")
+    config.set("openia", "key", "")
+    
     config_write()
 
 

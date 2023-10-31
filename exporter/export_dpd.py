@@ -28,6 +28,7 @@ from tools.pos import DECLENSIONS
 from tools.pos import INDECLINEABLES
 from tools.tic_toc import bip, bop
 from tools.link_generator import generate_link
+from tools.configger import config_test
 
 TODAY = date.today()
 
@@ -60,6 +61,12 @@ feedback_templ = Template(
 
 def generate_dpd_html(db_session, PTH, SANDHI_CONTRACTIONS, size_dict):
     print("[green]generating dpd html")
+
+    # check config
+    if config_test("dictionary", "make_link", "yes"):
+        make_link: bool = True
+    else:
+        make_link: bool = False
 
     with open(PTH.dpd_css_path) as f:
         dpd_css = f.read()
@@ -120,8 +127,14 @@ def generate_dpd_html(db_session, PTH, SANDHI_CONTRACTIONS, size_dict):
         i.example_1 = i.example_1.replace("\n", "<br>")
         i.example_2 = i.example_2.replace("\n", "<br>")
 
-        i.source_link_1 = generate_link(i.source_1) if i.source_1 else ""
-        i.source_link_2 = generate_link(i.source_2) if i.source_2 else ""
+        if make_link is True:
+
+            i.source_link_1 = generate_link(i.source_1) if i.source_1 else ""
+            i.source_link_2 = generate_link(i.source_2) if i.source_2 else ""
+
+        else:
+            i.source_link_1 = ""
+            i.source_link_2 = ""
 
         html: str = ""
         header = render_header_tmpl(dpd_css, button_js)

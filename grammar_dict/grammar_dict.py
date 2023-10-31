@@ -25,6 +25,7 @@ from tools.paths import ProjectPaths as PTH
 from tools.tic_toc import tic, toc
 from tools.sandhi_words import make_words_in_sandhi_set
 from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
+from tools.configger import config_test
 
 sys.path.insert(1, 'tools/writemdict')
 from writemdict import MDictWriter
@@ -36,6 +37,12 @@ def main():
     all grammatical possibilities of every inflection."""
 
     print("[bright_yellow]grammar dictionary")
+
+    # check config
+    if config_test("dictionary", "make_mdict", "yes"):
+        make_mdct: bool = True
+    else:
+        make_mdct: bool = False
 
     # make headwords list
     db_session = get_db_session(PTH.dpd_db_path)
@@ -221,7 +228,10 @@ def main():
 
     gd_data_list, md_data_list = make_data_lists(grammar_dict_html)
     make_golden_dict(PTH, gd_data_list)
-    make_mdict(PTH, md_data_list)
+
+    if make_mdct is True:
+        make_mdict(PTH, md_data_list)
+        
     toc()
 
 

@@ -25,6 +25,7 @@ from tools.paths import ProjectPaths as PTH
 from tools.tic_toc import tic, toc, bip, bop
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
+from tools.configger import config_test
 
 sys.path.insert(1, 'tools/writemdict')
 from writemdict import MDictWriter
@@ -36,10 +37,20 @@ TODAY = date.today()
 def main():
     tic()
     print("[bright_yellow]making dpd deconstructor for goldendict & mdict")
+    
+    # check config
+    if config_test("dictionary", "make_mdict", "yes"):
+        make_mdct: bool = True
+    else:
+        make_mdct: bool = False
+
     sandhi_data_list = make_sandhi_data_list()
     make_golden_dict(PTH, sandhi_data_list)
     unzip_and_copy(PTH)
-    make_mdict(PTH, sandhi_data_list)
+
+    if make_mdct is True:
+        make_mdict(PTH, sandhi_data_list)
+
     toc()
 
 
