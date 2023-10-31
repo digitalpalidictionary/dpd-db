@@ -8,6 +8,8 @@ from rich import print
 from sqlalchemy import and_
 from typing import List
 
+from sqlalchemy.orm.session import Session
+
 from helpers import CF_SET
 from helpers import EXCLUDE_FROM_FREQ
 
@@ -59,7 +61,7 @@ feedback_templ = Template(
     filename=str(PTH.feedback_templ_path))
 
 
-def generate_dpd_html(db_session, PTH, SANDHI_CONTRACTIONS, size_dict):
+def generate_dpd_html(db_session: Session, PTH, SANDHI_CONTRACTIONS, size_dict):
     print("[green]generating dpd html")
 
     # check config
@@ -458,7 +460,7 @@ def render_family_word_templ(i: PaliWord, fw: FamilyWord) -> str:
         return ""
 
 
-def render_family_compound_templ(i: PaliWord, db_session) -> str:
+def render_family_compound_templ(i: PaliWord, db_session: Session) -> str:
     """render html table of all words containing the same compound"""
 
     if (i.meaning_1 != "" and
@@ -492,7 +494,7 @@ def render_family_compound_templ(i: PaliWord, db_session) -> str:
         return ""
 
 
-def render_family_sets_templ(i: PaliWord, db_session) -> str:
+def render_family_sets_templ(i: PaliWord, db_session: Session) -> str:
     """render html table of all words belonging to the same set"""
 
     if (i.meaning_1 != "" and
