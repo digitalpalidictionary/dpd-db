@@ -24,15 +24,17 @@ from tools.meaning_construction import make_meaning_html
 from tools.meaning_construction import summarize_constr
 from tools.meaning_construction import degree_of_completion
 from tools.niggahitas import add_niggahitas
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.pos import INDECLINEABLES
 from tools.tic_toc import bip, bop
 from tools.link_generator import generate_link
 from tools.configger import config_test
+from tools.sandhi_contraction import SandhiContractions
 
 TODAY = date.today()
+PTH = ProjectPaths()
 
 # templates
 header_tmpl = Template(
@@ -61,7 +63,10 @@ feedback_templ = Template(
     filename=str(PTH.feedback_templ_path))
 
 
-def generate_dpd_html(db_session: Session, PTH, SANDHI_CONTRACTIONS, size_dict):
+def generate_dpd_html(db_session: Session,
+                      pth: ProjectPaths,
+                      sandhi_contractions: SandhiContractions,
+                      size_dict):
     print("[green]generating dpd html")
 
     # check config
@@ -70,12 +75,12 @@ def generate_dpd_html(db_session: Session, PTH, SANDHI_CONTRACTIONS, size_dict):
     else:
         make_link: bool = False
 
-    with open(PTH.dpd_css_path) as f:
+    with open(pth.dpd_css_path) as f:
         dpd_css = f.read()
 
     dpd_css = css_minify(dpd_css)
 
-    with open(PTH.buttons_js_path) as f:
+    with open(pth.buttons_js_path) as f:
         button_js = f.read()
     button_js = js_minify(button_js)
 
@@ -114,20 +119,37 @@ def generate_dpd_html(db_session: Session, PTH, SANDHI_CONTRACTIONS, size_dict):
     size_dict["dpd_synonyms"] = 0
 
     bip()
-    for counter, (i, dd, fr, fw) in enumerate(dpd_db):
+    for counter, dpd_db_item in enumerate(dpd_db):
+        i: PaliWord
+        dd: DerivedData
+        fr: FamilyRoot
+        fw: FamilyWord
+        i, dd, fr, fw = dpd_db_item
 
         # replace \n with html line break
 
-        i.meaning_1 = i.meaning_1.replace("\n", "<br>")
-        i.sanskrit = i.sanskrit.replace("\n", "<br>")
-        i.phonetic = i.phonetic.replace("\n", "<br>")
-        i.compound_construction = i.compound_construction.replace("\n", "<br>")
-        i.commentary = i.commentary.replace("\n", "<br>")
-        i.link = i.link.replace("\n", "<br>")
-        i.sutta_1 = i.sutta_1.replace("\n", "<br>")
-        i.sutta_2 = i.sutta_2.replace("\n", "<br>")
-        i.example_1 = i.example_1.replace("\n", "<br>")
-        i.example_2 = i.example_2.replace("\n", "<br>")
+        if i.meaning_1:
+            i.meaning_1 = i.meaning_1.replace("\n", "<br>")
+        if i.sanskrit:
+            i.sanskrit = i.sanskrit.replace("\n", "<br>")
+        if i.phonetic:
+            i.phonetic = i.phonetic.replace("\n", "<br>")
+        if i.compound_construction:
+            i.compound_construction = i.compound_construction.replace("\n", "<br>")
+        if i.commentary:
+            i.commentary = i.commentary.replace("\n", "<br>")
+        if i.link:
+            i.link = i.link.replace("\n", "<br>")
+        if i.sutta_1:
+            i.sutta_1 = i.sutta_1.replace("\n", "<br>")
+        if i.sutta_2:
+            i.sutta_2 = i.sutta_2.replace("\n", "<br>")
+        if i.example_1:
+            i.example_1 = i.example_1.replace("\n", "<br>")
+        if i.example_2:
+            i.example_2 = i.example_2.replace("\n", "<br>")
+
+        # FIXME missing attr from PaliWord: source_link_1 source_link_2
 
         if make_link is True:
 
@@ -192,11 +214,11 @@ def generate_dpd_html(db_session: Session, PTH, SANDHI_CONTRACTIONS, size_dict):
         html += "</body></html>"
         html = minify(html)
 
-        synonyms: list = dd.inflections_list
+        synonyms: List[str] = dd.inflections_list
         synonyms = add_niggahitas(synonyms)
         for synonym in synonyms:
-            if synonym in SANDHI_CONTRACTIONS:
-                contractions = SANDHI_CONTRACTIONS[synonym]["contractions"]
+            if synonym in sandhi_contractions:
+                contractions = sandhi_contractions[synonym]["contractions"]
                 synonyms.extend(contractions)
         synonyms += dd.sinhala_list
         synonyms += dd.devanagari_list

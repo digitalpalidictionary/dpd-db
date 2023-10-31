@@ -11,30 +11,29 @@ from rich import print
 from export_dpd import render_header_tmpl
 
 from tools.niggahitas import add_niggahitas
+from tools.paths import ProjectPaths
 
-
-def generate_variant_spelling_html(
-        PTH, size_dict: dict) -> Tuple[list, dict]:
+def generate_variant_spelling_html(pth: ProjectPaths, size_dict: dict) -> Tuple[list, dict]:
     """Generate html for variant readings and spelling corrections."""
     print("[green]generating variants html")
 
-    variant_dict = test_and_make_variant_dict(PTH)
+    variant_dict = test_and_make_variant_dict(pth)
     variant_data_list, size_dict = generate_variant_data_list(
-        PTH, variant_dict, size_dict)
-    spelling_dict = test_and_make_spelling_dict(PTH)
+        pth, variant_dict, size_dict)
+    spelling_dict = test_and_make_spelling_dict(pth)
     spelling_data_list, size_dict = generate_spelling_data_list(
-        PTH, spelling_dict, size_dict)
+        pth, spelling_dict, size_dict)
 
     variant_spelling_data_list = variant_data_list + spelling_data_list
 
     return variant_spelling_data_list, size_dict
 
 
-def test_and_make_variant_dict(PTH) -> dict:
+def test_and_make_variant_dict(pth: ProjectPaths) -> dict:
     variant_dict: dict = {}
 
     with open(
-        PTH.variant_readings_path, "r",
+        pth.variant_readings_path, "r",
             newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter="\t")
 
@@ -58,14 +57,14 @@ def test_and_make_variant_dict(PTH) -> dict:
 
 
 def generate_variant_data_list(
-        PTH,
+        pth: ProjectPaths,
         variant_dict: dict,
         size_dict: dict) -> Tuple[list, dict]:
 
     variant_templ = Template(
-        filename=str(PTH.variant_templ_path))
+        filename=str(pth.variant_templ_path))
 
-    with open(PTH.variant_spelling_css_path) as f:
+    with open(pth.variant_spelling_css_path) as f:
         variant_css = f.read()
     variant_css = css_minify(variant_css)
 
@@ -75,7 +74,7 @@ def generate_variant_data_list(
     size_dict["variant_synonyms"] = 0
     variant_data_list = []
 
-    for counter, (variant, main) in enumerate(variant_dict.items()):
+    for __counter__, (variant, main) in enumerate(variant_dict.items()):
 
         html = header
         html += "<body>"
@@ -105,12 +104,12 @@ def render_variant_templ(main: str, variant_templ) -> str:
             main=main))
 
 
-def test_and_make_spelling_dict(PTH) -> dict:
+def test_and_make_spelling_dict(pth: ProjectPaths) -> dict:
 
     spelling_dict: dict = {}
 
     with open(
-        PTH.spelling_mistakes_path, "r",
+        pth.spelling_mistakes_path, "r",
             newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter="\t")
 
@@ -136,14 +135,14 @@ def test_and_make_spelling_dict(PTH) -> dict:
 
 
 def generate_spelling_data_list(
-        PTH,
+        pth: ProjectPaths,
         spelling_dict: dict,
         size_dict: dict) -> Tuple[list, dict]:
 
     spelling_templ = Template(
-        filename=str(PTH.spelling_templ_path))
+        filename=str(pth.spelling_templ_path))
 
-    with open(PTH.variant_spelling_css_path) as f:
+    with open(pth.variant_spelling_css_path) as f:
         spelling_css = f.read()
     spelling_css = css_minify(spelling_css)
 
@@ -153,7 +152,7 @@ def generate_spelling_data_list(
     size_dict["spelling_synonyms"] = 0
     spelling_data_list = []
 
-    for counter, (mistake, correction) in enumerate(spelling_dict.items()):
+    for __counter__, (mistake, correction) in enumerate(spelling_dict.items()):
 
         html = header
         html += "<body>"

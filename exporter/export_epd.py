@@ -7,23 +7,23 @@ from mako.template import Template
 from minify_html import minify
 from rich import print
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Tuple, Any
 
 from export_dpd import render_header_tmpl
 
 from db.models import PaliWord, PaliRoot
 from tools.tic_toc import bip, bop
 from tools.pali_sort_key import pali_sort_key
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.link_generator import generate_link
 from tools.configger import config_test
 
-
+PTH = ProjectPaths()
 epd_templ = Template(
     filename=str(PTH.epd_templ_path))
 
 
-def generate_epd_html(db_session: Session, PTH, size_dict) -> list:
+def generate_epd_html(db_session: Session, pth: ProjectPaths, size_dict) -> Tuple[list, Any]:
     """generate html for english to pali dictionary"""
 
     print("[green]generating epd html")
@@ -44,7 +44,7 @@ def generate_epd_html(db_session: Session, PTH, size_dict) -> list:
     epd: dict = {}
     pos_exclude_list = ["abbrev", "cs", "letter", "root", "suffix", "ve"]
 
-    with open(PTH.epd_css_path) as f:
+    with open(pth.epd_css_path) as f:
         epd_css: str = f.read()
 
     epd_css = css_minify(epd_css)

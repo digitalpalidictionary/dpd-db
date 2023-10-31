@@ -6,17 +6,19 @@ import html2text
 from css_html_js_minify import css_minify
 from mako.template import Template
 from minify_html import minify
-from pathlib import Path
 from rich import print
-from typing import List, Dict
+from typing import List, Dict, Tuple, Any
+
+from sqlalchemy.orm import Session
 
 from export_dpd import render_header_tmpl
 
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
 from tools.tsv_read_write import read_tsv_dict
 from tools.tsv_read_write import read_tsv_dot_dict
 
+PTH = ProjectPaths()
 
 abbrev_templ = Template(
     filename=str(PTH.abbrev_templ_path))
@@ -49,7 +51,9 @@ class Help:
         return f"Help: {self.help} {self.meaning}  ..."
 
 
-def generate_help_html(db_session, PTH, size_dict) -> list:
+def generate_help_html(db_session: Session,
+                       pth: ProjectPaths,
+                       size_dict) -> Tuple[list, Any]:
     """generating html of all help files used in the dictionary"""
     print("[green]generating help html")
 
@@ -58,7 +62,7 @@ def generate_help_html(db_session, PTH, size_dict) -> list:
     # 3. thank yous
     # 4. bibliography
 
-    with open(PTH.help_css_path) as f:
+    with open(pth.help_css_path) as f:
         css = f.read()
     css = css_minify(css)
 
@@ -67,34 +71,35 @@ def generate_help_html(db_session, PTH, size_dict) -> list:
     header = render_header_tmpl(css=css, js="")
     help_data_list: List[dict] = []
 
-    abbrev = add_abbrev_html(PTH, header, help_data_list)
+    abbrev = add_abbrev_html(pth, header, help_data_list)
     help_data_list = abbrev
     size_dict["help"] += len(str(abbrev))
 
-    help_html = add_help_html(PTH, header, help_data_list)
+    help_html = add_help_html(pth, header, help_data_list)
     help_data_list = help_html
     size_dict["help"] += len(str(help_html))
 
-    bibliography = add_bibliographhy(PTH, header, help_data_list)
+    bibliography = add_bibliographhy(pth, header, help_data_list)
     help_data_list = bibliography
     size_dict["help"] += len(str(bibliography))
 
-    thanks = add_thanks(PTH, header, help_data_list)
+    thanks = add_thanks(pth, header, help_data_list)
     help_data_list = thanks
     size_dict["help"] += len(str(thanks))
 
     return help_data_list, size_dict
 
 
-def add_abbrev_html(PTH, header: str, help_data_list: list) -> list:
+def add_abbrev_html(pth: ProjectPaths,
+                    header: str, help_data_list: list) -> list:
     bip()
     print("adding abbreviations", end=" ")
 
-    file_path = PTH.abbreviations_tsv_path
+    file_path = pth.abbreviations_tsv_path
     rows = read_tsv_dict(file_path)
 
     rows2 = []
-    with open(PTH.abbreviations_tsv_path) as f:
+    with open(pth.abbreviations_tsv_path) as f:
         reader = csv.DictReader(f, delimiter="\t")
         for row in reader:
             rows2.append(row)
@@ -130,15 +135,16 @@ def add_abbrev_html(PTH, header: str, help_data_list: list) -> list:
     return help_data_list
 
 
-def add_help_html(PTH, header: str, help_data_list: list) -> list:
+def add_help_html(pth: ProjectPaths,
+                  header: str, help_data_list: list) -> list:
     bip()
     print("adding help", end=" ")
 
-    file_path = PTH.help_tsv_path
+    file_path = pth.help_tsv_path
     rows = read_tsv_dict(file_path)
 
     rows2 = []
-    with open(PTH.help_tsv_path) as f:
+    with open(pth.help_tsv_path) as f:
         reader = csv.DictReader(f, delimiter="\t")
         for row in reader:
             rows2.append(row)
@@ -172,11 +178,12 @@ def add_help_html(PTH, header: str, help_data_list: list) -> list:
     return help_data_list
 
 
-def add_bibliographhy(PTH, header: str, help_data_list: list) -> list:
+def add_bibliographhy(pth: ProjectPaths,
+                      header: str, help_data_list: list) -> list:
 
     print("adding bibliography", end=" ")
 
-    file_path = PTH.bibliography_tsv_path
+    file_path = pth.bibliography_tsv_path
     bibliography_dict = read_tsv_dot_dict(file_path)
 
     html = header
@@ -190,6 +197,7 @@ def add_bibliographhy(PTH, header: str, help_data_list: list) -> list:
         try:
             n = bibliography_dict[x+1]
         except IndexError:
+            # FIXME handle the exception
             pass
 
         if i.category:
@@ -211,6 +219,7 @@ def add_bibliographhy(PTH, header: str, help_data_list: list) -> list:
             html += f", accessed through <a href='{i.site}'  target='_blank'>{i.site}</a>"
         if i.surname:
             html += "</li>"
+        # FIXME n is possibly unbound
         if n.category:
             html += "</ul>"
 
@@ -228,20 +237,21 @@ def add_bibliographhy(PTH, header: str, help_data_list: list) -> list:
 
     # save markdown for website
 
-    if PTH.bibliography_md_path.exists():
+    if pth.bibliography_md_path.exists():
         md = html2text.html2text(html)
-        with open(PTH.bibliography_md_path, "w") as file:
+        with open(pth.bibliography_md_path, "w") as file:
             file.write(md)
 
     print(f"{bop():>35}")
     return help_data_list
 
 
-def add_thanks(PTH, header: str, help_data_list: list) -> list:
+def add_thanks(pth: ProjectPaths,
+               header: str, help_data_list: list) -> list:
 
     print("adding thanks", end=" ")
 
-    file_path = PTH.thanks_tsv_path
+    file_path = pth.thanks_tsv_path
     thanks = read_tsv_dot_dict(file_path)
 
     html = header
@@ -254,6 +264,7 @@ def add_thanks(PTH, header: str, help_data_list: list) -> list:
         try:
             n = thanks[x+1]
         except IndexError:
+            # FIXME handle the exception
             pass
 
         if i.category:
@@ -268,6 +279,7 @@ def add_thanks(PTH, header: str, help_data_list: list) -> list:
             html += f" {i.what}"
         if i.who:
             html += "</li>"
+        # FIXME n is possibly unbound
         if n.category:
             html += "</ul>"
 
@@ -284,9 +296,9 @@ def add_thanks(PTH, header: str, help_data_list: list) -> list:
     }]
 
     # save markdown for website
-    if PTH.thanks_md_path.exists():
+    if pth.thanks_md_path.exists():
         md = html2text.html2text(html)
-        with open(PTH.thanks_md_path, "w") as file:
+        with open(pth.thanks_md_path, "w") as file:
             file.write(md)
 
     print(f"{bop():>41}")

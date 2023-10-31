@@ -7,17 +7,21 @@ from datetime import date
 from mako.template import Template
 from minify_html import minify
 from rich import print
+from typing import Dict
+
+from sqlalchemy.orm import Session
 
 from export_dpd import render_header_tmpl
 
 from db.models import PaliRoot, FamilyRoot
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
 
 
 TODAY = date.today()
+PTH = ProjectPaths()
 
 root_definition_templ = Template(
     filename=str(PTH.root_definition_templ_path))
@@ -31,18 +35,21 @@ root_families_templ = Template(
     filename=str(PTH.root_families_templ_path))
 
 
-def generate_root_html(db_session, PTH, roots_count_dict, size_dict):
+def generate_root_html(db_session: Session,
+                       pth: ProjectPaths,
+                       roots_count_dict: Dict[str, int],
+                       size_dict):
     """compile html componenents for each pali root"""
 
     print("[green]generating roots html")
 
     root_data_list = []
 
-    with open(PTH.roots_css_path) as f:
+    with open(pth.roots_css_path) as f:
         roots_css = f.read()
     roots_css = css_minify(roots_css)
 
-    with open(PTH.buttons_js_path) as f:
+    with open(pth.buttons_js_path) as f:
         buttons_js = f.read()
     buttons_js = js_minify(buttons_js)
 
@@ -63,9 +70,12 @@ def generate_root_html(db_session, PTH, roots_count_dict, size_dict):
     for counter, r in enumerate(roots_db):
 
         # replace \n with html line break
-        r.panini_root = r.panini_root.replace("\n", "<br>")
-        r.panini_sanskrit = r.panini_sanskrit.replace("\n", "<br>")
-        r.panini_english = r.panini_english.replace("\n", "<br>")
+        if r.panini_root:
+            r.panini_root = r.panini_root.replace("\n", "<br>")
+        if r.panini_sanskrit:
+            r.panini_sanskrit = r.panini_sanskrit.replace("\n", "<br>")
+        if r.panini_english:
+            r.panini_english = r.panini_english.replace("\n", "<br>")
 
         html = header
         html += "<body>"
@@ -111,7 +121,7 @@ def generate_root_html(db_session, PTH, roots_count_dict, size_dict):
             synonyms.add(fr.root_family)
             synonyms.add(re.sub("√", "", fr.root_family))
 
-        synonyms = add_niggahitas(list(synonyms))
+        synonyms = set(add_niggahitas(list(synonyms)))
         size_dict["root_synonyms"] += len(str(synonyms))
 
         root_data_list += [{
@@ -141,7 +151,7 @@ def render_root_definition_templ(r: PaliRoot, roots_count_dict):
             today=TODAY))
 
 
-def render_root_buttons_templ(r: PaliRoot, db_session):
+def render_root_buttons_templ(r: PaliRoot, db_session: Session):
     """render html of root buttons"""
 
     frs = db_session.query(
@@ -177,7 +187,7 @@ def render_root_matrix_templ(r: PaliRoot, roots_count_dict):
             today=TODAY))
 
 
-def render_root_families_templ(r: PaliRoot, db_session):
+def render_root_families_templ(r: PaliRoot, db_session: Session):
     """render html of root families"""
 
     frs = db_session.query(

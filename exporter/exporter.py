@@ -25,10 +25,11 @@ from tools.goldendict_path import goldedict_path
 from tools.tic_toc import tic, toc, bip, bop
 from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.sandhi_contraction import make_sandhi_contraction_dict
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.configger import config_test
 
 tic()
+PTH = ProjectPaths()
 db_session: Session = get_db_session(PTH.dpd_db_path)
 SANDHI_CONTRACTIONS: dict = make_sandhi_contraction_dict(db_session)
 
