@@ -149,6 +149,10 @@ def main():
     dps_flags = Flags_dps()
     get_next_ids(window)
 
+    hide_list_all = [
+        "sutta_to_add", "source_to_add", "field_for_id_list", "source_for_id_list", "empty_field_id_list_check", "online_suggestion"
+    ]
+
     while True:
         event, values = window.read() # type: ignore
 
@@ -909,6 +913,8 @@ def main():
                 window["another_eg_2"].update(visible=True)
                 window["example_2_lower"].update(visible=True)
                 flags.show_fields = False
+            for value in hide_list_all:
+                window[value].update(visible=not primary_user)
 
         elif event == "show_fields_root":
             hide_list = [
@@ -923,6 +929,8 @@ def main():
                 window[value].update(visible=True)
             for value in hide_list:
                 window[value].update(visible=False)
+            for value in hide_list_all:
+                window[value].update(visible=not primary_user)
             window["get_family_root"].update(visible=True)
             window["get_root_base"].update(visible=True)
             window["get_root_sign"].update(visible=True)
@@ -943,6 +951,8 @@ def main():
                 window["bold_2_button"].update(visible=True)
             for value in hide_list:
                 window[value].update(visible=False)
+            for value in hide_list_all:
+                window[value].update(visible=not primary_user)
             flags.show_fields = False
 
         elif event == "show_fields_word":
@@ -962,6 +972,8 @@ def main():
                 window[value].update(visible=True)
             for value in hide_list:
                 window[value].update(visible=False)
+            for value in hide_list_all:
+                window[value].update(visible=not primary_user)
             flags.show_fields = False
 
         # test db tab buttons
