@@ -12,7 +12,7 @@ class DPSPaths():
     dpd_dps_full_path: Path = Path("dps/csvs/dpd_dps_full.csv")
     dps_full_path: Path = Path("dps/csvs/dps_full.csv")
     dps_csv_path: Path = Path("dps/csvs/dps.csv")
-    sbs_index_path: Path = Path("dps/csvs/sbs_index.csv")
+    sbs_index_path: Path = Path("dps/sbs_index.csv")
     class_index_path: Path = Path("dps/csvs/class_index.csv")
     sutta_index_path: Path = Path("dps/csvs/sutta_index.csv")
     freq_ebt_path: Path = Path("dps/csvs/freq_ebt.csv")
@@ -23,6 +23,7 @@ class DPSPaths():
     temp_csv_path: Path = Path("dps/csvs/temp.csv")
     id_to_add_path: Path = Path("dps/csvs/id_to_add.csv")
     word_to_add_path: Path = Path("dps/csvs/word_to_add.csv")
+    new_words_path: Path = Path("dps/csvs/new_words.csv")
 
     sbs_pd_path: Path = Path("dps/csvs/sbs_pd.csv")
 
@@ -52,6 +53,7 @@ class DPSPaths():
 
     # dps bakup folder
     dps_backup_dir: Path = Path("dps/backup/") 
+    backup_for_compare_dir: Path = Path("dps/backup/backup_for_compare/") 
     temp_csv_backup_dir: Path = Path("dps/csvs/backup_csv/") 
 
     # ru_user_dictionary
