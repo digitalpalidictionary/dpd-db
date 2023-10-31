@@ -236,7 +236,7 @@ def render_dpd_defintion_templ(i: PaliWord) -> str:
 
     # plus_case
     plus_case: str = ""
-    if i.plus_case != "":
+    if i.plus_case is not None and i.plus_case != "":
         plus_case: str = i.plus_case
 
     meaning = make_meaning_html(i)
@@ -320,7 +320,7 @@ def render_button_box_templ(i: PaliWord) -> str:
         )
     ):
 
-        if " " not in i.family_compound:
+        if i.family_compound is not None and " " not in i.family_compound:
             compound_family_button = button_html.format(
                 target=f"compound_family_{i.pali_1_}", name="compound family")
 
@@ -372,8 +372,11 @@ def render_button_box_templ(i: PaliWord) -> str:
 def render_grammar_templ(i: PaliWord) -> str:
     """html table of grammatical information"""
 
-    if i.meaning_1 != "":
-        i.construction = i.construction.replace("\n", "<br>")
+    if i.meaning_1 is not None and i.meaning_1 != "":
+        if i.construction is not None and i.construction != "":
+            i.construction = i.construction.replace("\n", "<br>")
+        else:
+            i.construction = ""
 
         grammar = i.grammar
         if i.neg != "":
@@ -436,6 +439,8 @@ def render_family_root_templ(i: PaliWord, fr: FamilyRoot) -> str:
                     i=i,
                     fr=fr,
                     today=TODAY))
+        else:
+            return ""
     else:
         return ""
 
