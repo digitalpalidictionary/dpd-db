@@ -4,9 +4,10 @@ import json
 from rich import print
 from db.models import PaliWord, DerivedData
 from db.get_db_session import get_db_session
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
 
+PTH = ProjectPaths()
 db_session = get_db_session(PTH.dpd_db_path)
 
 
@@ -25,6 +26,8 @@ def json_dd_test():
     bip()
     all_inflections = []
     for i in db_query:
+        if i.inflections is None:
+            continue
         inflections = json.loads(i.inflections)
         all_inflections += inflections
     print(f"{'deriveddata > json.loads':<30} {len(all_inflections):>10} {bop()}")
@@ -45,6 +48,8 @@ def split_dd_test():
     bip()
     all_inflections = []
     for i in db_query:
+        if i.inflections is None:
+            continue
         inflections = i.inflections.split(",")
         all_inflections += inflections
     print(f"{'deriveddata > split':<30} {len(all_inflections):>10} {bop()}")
@@ -90,7 +95,9 @@ def zip_test():
     bip()
 
     all_inflections = []
-    for p, d in zip(pw, dd):
+    for __p__, d in zip(pw, dd):
+        if d.inflections is None:
+            continue
         inflections = d.inflections.split(",")
         all_inflections += inflections
     print(f"{'zip > split':<30} {len(all_inflections):>10} {bop()}")

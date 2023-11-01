@@ -13,7 +13,7 @@ from json import dumps, loads
 from typing import List, Tuple
 from rich import print
 
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 from db.get_db_session import get_db_session
 from db.models import PaliWord
@@ -101,9 +101,9 @@ def make_db_internal_tests_list():
     return [InternalTestRow(**row) for row in rows]
 
 
-def make_dpd_db_internal_tests_list():
+def make_dpd_db_internal_tests_list(pth: ProjectPaths):
     """Constructs a list of InternalTestRow objects from the TSV."""
-    rows = read_from_tsv(PTH.internal_tests_path)
+    rows = read_from_tsv(pth.internal_tests_path)
     return [InternalTestRow(**row) for row in rows]
 
 
@@ -241,7 +241,7 @@ def run_individual_internal_tests(
 
     # remove all spaces front and back, and doublespaces
     for value in values:
-        if type(values[value]) == str:
+        if isinstance(values[value], str):
             values[value] = re.sub(" +", " ", values[value])
             values[value] = values[value].strip()
             window[value].update(values[value])
@@ -332,7 +332,8 @@ def run_individual_internal_tests(
 
 
 def get_dpd_db():
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
     return db_session.query(PaliWord).options(joinedload(PaliWord.sbs), joinedload(PaliWord.ru)).all()
 
 
@@ -631,13 +632,13 @@ def clear_tests(window):
     window.refresh()
 
 
-def dps_dpd_db_internal_tests(sg, window, flags):
+def dps_dpd_db_internal_tests(pth: ProjectPaths, sg, window, flags):
     clear_tests(window)
     window["messages"].update("running tests", text_color="white")
     window.refresh()
 
     dpd_db = get_dpd_db()
-    db_internal_tests_list = make_dpd_db_internal_tests_list()
+    db_internal_tests_list = make_dpd_db_internal_tests_list(pth)
 
     db_internal_tests_list = clean_exceptions(dpd_db, db_internal_tests_list)
     integrity = test_the_tests(db_internal_tests_list, window)

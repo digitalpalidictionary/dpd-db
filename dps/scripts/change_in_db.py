@@ -7,8 +7,8 @@
 from sqlalchemy.orm.attributes import InstrumentedAttribute
 from sqlalchemy.orm import aliased
 
-from db.models import PaliWord, PaliRoot, Russian, SBS
-from tools.paths import ProjectPaths as PTH
+from db.models import PaliWord, SBS
+from tools.paths import ProjectPaths
 from db.get_db_session import get_db_session
 from rich.console import Console
 
@@ -22,7 +22,8 @@ def filter_and_update(
         related_column_to_update: InstrumentedAttribute, 
         update_value: str
     ):
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
     
     # Create an alias for the related class to query it directly
     related_alias = aliased(related_class)
@@ -32,7 +33,7 @@ def filter_and_update(
         related_alias, related_alias.id == PaliWord.id
     ).filter(column_to_filter == filter_value).all()
 
-    for word, related in words_to_update:
+    for __word__, related in words_to_update:
         old_value = getattr(related, related_column_to_update.key)
 
         setattr(related, related_column_to_update.key, update_value)  

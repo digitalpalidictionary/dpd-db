@@ -1,359 +1,298 @@
 """All file paths that get used in the Project."""
 
+import os
+from typing import Optional
 from pathlib import Path
-from dataclasses import dataclass
 
+from icecream import ic
 
-@dataclass()
-class ProjectPaths():
-    # ./ dpd_db
-    dpd_db_path: Path = Path("dpd.db")
+class ProjectPaths:
 
-    # /anki_csvs
-    anki_csvs_dir: Path = Path("anki_csvs/")
-    vocab_csv_path: Path = Path("anki_csvs/vocab.csv")
-    dpd_full_path: Path = Path("anki_csvs/dpd-full.csv")
-    commentary_csv_path: Path = Path("anki_csvs/commentary.csv")
-    pass1_csv_path: Path = Path("anki_csvs/pass1.csv")
-    roots_csv_path: Path = Path("anki_csvs/roots.csv")
-    family_compound_tsv_path: Path = Path("anki_csvs/family_compound.tsv")
-    family_root_tsv_path: Path = Path("anki_csvs/family_root.tsv")
-    family_word_tsv_path: Path = Path("anki_csvs/family_word.tsv")
-    root_matrix_tsv_path: Path = Path("anki_csvs/root_matrix.tsv")
+    def __init__(self, base_dir: Optional[Path] = None, create_dirs = True):
 
-    # /backup_tsv
-    pali_word_path: Path = Path("backup_tsv/paliword.tsv")
-    pali_root_path: Path = Path("backup_tsv/paliroot.tsv")
-    russian_path: Path = Path("backup_tsv/russian.tsv")
-    sbs_path: Path = Path("backup_tsv/sbs.tsv")
+        if base_dir is None:
+            # The current working directory of the shell.
+            base_dir = Path(os.path.abspath("."))
 
-    # corrections & additions
-    corrections_tsv_path: Path = Path("gui/corrections.tsv")
-    additions_pickle_path: Path = Path("gui/additions")
+        ic(base_dir)
 
-    # /definitions/
-    defintions_csv_path: Path = Path(
-        "definitions/definitions.csv")
+        # ./dpd_db
+        self.dpd_db_path = base_dir.joinpath(Path("dpd.db"))
 
-    # ebook
-    epub_dir: Path = Path("ebook/epub/")
-    epub_dir: Path = Path("ebook/epub/")
-    kindlegen_path: Path = Path("ebook/kindlegen")
+        # /anki_csvs
+        self.anki_csvs_dir = base_dir.joinpath(Path("anki_csvs/"))
+        self.vocab_csv_path = base_dir.joinpath(Path("anki_csvs/vocab.csv"))
+        self.dpd_full_path = base_dir.joinpath(Path("anki_csvs/dpd-full.csv"))
+        self.commentary_csv_path = base_dir.joinpath(Path("anki_csvs/commentary.csv"))
+        self.pass1_csv_path = base_dir.joinpath(Path("anki_csvs/pass1.csv"))
+        self.roots_csv_path = base_dir.joinpath(Path("anki_csvs/roots.csv"))
+        self.family_compound_tsv_path = base_dir.joinpath(Path("anki_csvs/family_compound.tsv"))
+        self.family_root_tsv_path = base_dir.joinpath(Path("anki_csvs/family_root.tsv"))
+        self.family_word_tsv_path = base_dir.joinpath(Path("anki_csvs/family_word.tsv"))
+        self.root_matrix_tsv_path = base_dir.joinpath(Path("anki_csvs/root_matrix.tsv"))
 
-    # ebook/epub
-    epub_text_dir: Path = Path("ebook/epub/OEBPS/Text")
-    epub_content_opf_path: Path = Path(
-        "ebook/epub/OEBPS/content.opf")
-    epub_abbreviations_path: Path = Path(
-        "ebook/epub/OEBPS/Text/abbreviations.xhtml")
-    epub_titlepage_path: Path = Path(
-        "ebook/epub/OEBPS/Text/titlepage.xhtml")
+        # /backup_tsv
+        self.pali_word_path = base_dir.joinpath(Path("backup_tsv/paliword.tsv"))
+        self.pali_root_path = base_dir.joinpath(Path("backup_tsv/paliroot.tsv"))
+        self.russian_path = base_dir.joinpath(Path("backup_tsv/russian.tsv"))
+        self.sbs_path = base_dir.joinpath(Path("backup_tsv/sbs.tsv"))
 
-    # /ebook/output
-    ebook_output_dir = Path("ebook/output/")
-    dpd_epub_path: Path = Path("ebook/output/dpd-kindle.epub")
-    dpd_mobi_path: Path = Path("ebook/output/dpd-kindle.mobi")
+        # corrections & additions
+        self.corrections_tsv_path = base_dir.joinpath(Path("gui/corrections.tsv"))
+        self.additions_pickle_path = base_dir.joinpath(Path("gui/additions"))
 
-    # /ebook/templates
-    ebook_letter_templ_path: Path = Path(
-        "ebook/templates/ebook_letter.html")
-    ebook_entry_templ_path: Path = Path(
-        "ebook/templates/ebook_entry.html")
-    ebook_sandhi_templ_path: Path = Path(
-        "ebook/templates/ebook_sandhi_entry.html")
-    ebook_grammar_templ_path: Path = Path(
-        "ebook/templates/ebook_grammar.html")
-    ebook_example_templ_path: Path = Path(
-        "ebook/templates/ebook_example.html")
-    ebook_abbrev_entry_templ_path: Path = Path(
-        "ebook/templates/ebook_abbreviation_entry.html")
-    ebook_title_page_templ_path: Path = Path(
-        "ebook/templates/ebook_titlepage.html")
-    ebook_content_opf_templ_path: Path = Path(
-        "ebook/templates/ebook_content_opf.html")
+        # /definitions/
+        self.defintions_csv_path = base_dir.joinpath(Path("definitions/definitions.csv"))
 
-    # /exporter/css
-    dpd_css_path: Path = Path("exporter/css/dpd.css")
-    roots_css_path: Path = Path("exporter/css/roots.css")
-    sandhi_css_path: Path = Path("exporter/css/sandhi.css")
-    epd_css_path: Path = Path("exporter/css/epd.css")
-    help_css_path: Path = Path("exporter/css/help.css")
-    grammar_css_path = Path("exporter/css/grammar.css")
-    variant_spelling_css_path = Path("exporter/css/variant_spelling.css")
+        # ebook
+        self.epub_dir = base_dir.joinpath(Path("ebook/epub/"))
+        self.epub_dir = base_dir.joinpath(Path("ebook/epub/"))
+        self.kindlegen_path = base_dir.joinpath(Path("ebook/kindlegen"))
 
-    # /exporter/help
-    abbreviations_tsv_path: Path = Path(
-        "exporter/help/abbreviations.tsv")
-    help_tsv_path: Path = Path("exporter/help/help.tsv")
-    bibliography_tsv_path: Path = Path("exporter/help/bibliography.tsv")
-    thanks_tsv_path: Path = Path("exporter/help/thanks.tsv")
+        # ebook/epub
+        self.epub_text_dir = base_dir.joinpath(Path("ebook/epub/OEBPS/Text"))
+        self.epub_content_opf_path = base_dir.joinpath(Path("ebook/epub/OEBPS/content.opf"))
+        self.epub_abbreviations_path = base_dir.joinpath(Path("ebook/epub/OEBPS/Text/abbreviations.xhtml"))
+        self.epub_titlepage_path = base_dir.joinpath(Path("ebook/epub/OEBPS/Text/titlepage.xhtml"))
 
-    # /exporter/javascript
-    buttons_js_path: Path = Path("exporter/javascript/buttons.js")
+        # /ebook/output
+        self.ebook_output_dir = base_dir.joinpath(Path("ebook/output/"))
+        self.dpd_epub_path = base_dir.joinpath(Path("ebook/output/dpd-kindle.epub"))
+        self.dpd_mobi_path = base_dir.joinpath(Path("ebook/output/dpd-kindle.mobi"))
 
-    # /exporter/share
-    zip_dir: Path = Path("exporter/share")
-    zip_path: Path = Path("exporter/share/dpd.zip")
-    mdict_mdx_path: Path = Path("exporter/share/dpd-mdict.mdx")
-    grammar_dict_zip_path: Path = Path("exporter/share/dpd-grammar.zip")
-    grammar_dict_mdict_path: Path = Path(
-        "exporter/share/dpd-grammar-mdict.mdx")
-    dpd_kindle_path: Path = Path("exporter/share/dpd-kindle.mobi")
-    deconstructor_zip_path: Path = Path("exporter/share/dpd-deconstructor.zip")
-    deconstructor_mdict_mdx_path: Path = Path(
-        "exporter/share/dpd-deconstructor-mdict.mdx")
+        # /ebook/templates
+        self.ebook_letter_templ_path = base_dir.joinpath(Path("ebook/templates/ebook_letter.html"))
+        self.ebook_entry_templ_path = base_dir.joinpath(Path("ebook/templates/ebook_entry.html"))
+        self.ebook_sandhi_templ_path = base_dir.joinpath(Path("ebook/templates/ebook_sandhi_entry.html"))
+        self.ebook_grammar_templ_path = base_dir.joinpath(Path("ebook/templates/ebook_grammar.html"))
+        self.ebook_example_templ_path = base_dir.joinpath(Path("ebook/templates/ebook_example.html"))
+        self.ebook_abbrev_entry_templ_path = base_dir.joinpath(Path("ebook/templates/ebook_abbreviation_entry.html"))
+        self.ebook_title_page_templ_path = base_dir.joinpath(Path("ebook/templates/ebook_titlepage.html"))
+        self.ebook_content_opf_templ_path = base_dir.joinpath(Path("ebook/templates/ebook_content_opf.html"))
 
-    # /exporter/templates
-    templates_dir: Path = Path("exporter/templates")
-    header_templ_path: Path = Path("exporter/templates/header.html")
-    dpd_definition_templ_path: Path = Path(
-        "exporter/templates/dpd_defintion.html")
-    button_box_templ_path: Path = Path(
-        "exporter/templates/dpd_button_box.html")
-    grammar_templ_path: Path = Path("exporter/templates/dpd_grammar.html")
-    example_templ_path: Path = Path("exporter/templates/dpd_example.html")
-    inflection_templ_path: Path = Path(
-        "exporter/templates/dpd_inflection.html")
-    family_root_templ_path: Path = Path(
-        "exporter/templates/dpd_family_root.html")
-    family_word_templ_path: Path = Path(
-        "exporter/templates/dpd_family_word.html")
-    family_compound_templ_path: Path = Path(
-        "exporter/templates/dpd_family_compound.html")
-    family_set_templ_path: Path = Path(
-        "exporter/templates/dpd_family_set.html")
-    frequency_templ_path: Path = Path(
-        "exporter/templates/dpd_frequency.html")
-    feedback_templ_path: Path = Path(
-        "exporter/templates/dpd_feedback.html")
-    variant_templ_path: Path = Path(
-        "exporter/templates/dpd_variant_reading.html")
-    spelling_templ_path: Path = Path(
-        "exporter/templates/dpd_spelling_mistake.html")
+        # /exporter/css
+        self.dpd_css_path = base_dir.joinpath(Path("exporter/css/dpd.css"))
+        self.roots_css_path = base_dir.joinpath(Path("exporter/css/roots.css"))
+        self.sandhi_css_path = base_dir.joinpath(Path("exporter/css/sandhi.css"))
+        self.epd_css_path = base_dir.joinpath(Path("exporter/css/epd.css"))
+        self.help_css_path = base_dir.joinpath(Path("exporter/css/help.css"))
+        self.grammar_css_path = base_dir.joinpath(Path("exporter/css/grammar.css"))
+        self.variant_spelling_css_path = base_dir.joinpath(Path("exporter/css/variant_spelling.css"))
 
-    # # root templates
-    root_definition_templ_path: Path = Path(
-        "exporter/templates/root_definition.html")
-    root_button_templ_path: Path = Path(
-        "exporter/templates/root_buttons.html")
-    root_info_templ_path: Path = Path(
-        "exporter/templates/root_info.html")
-    root_matrix_templ_path: Path = Path(
-        "exporter/templates/root_matrix.html")
-    root_families_templ_path: Path = Path(
-        "exporter/templates/root_families.html")
+        # /exporter/help
+        self.abbreviations_tsv_path = base_dir.joinpath(Path("exporter/help/abbreviations.tsv"))
+        self.help_tsv_path = base_dir.joinpath(Path("exporter/help/help.tsv"))
+        self.bibliography_tsv_path = base_dir.joinpath(Path("exporter/help/bibliography.tsv"))
+        self.thanks_tsv_path = base_dir.joinpath(Path("exporter/help/thanks.tsv"))
 
-    # # other templates
-    epd_templ_path: Path = Path(
-        "exporter/templates/epd.html")
-    sandhi_templ_path: Path = Path(
-        "exporter/templates/sandhi.html")
-    abbrev_templ_path: Path = Path(
-        "exporter/templates/help_abbrev.html")
-    help_templ_path: Path = Path(
-        "exporter/templates/help_help.html")
+        # /exporter/javascript
+        self.buttons_js_path = base_dir.joinpath(Path("exporter/javascript/buttons.js"))
 
-    header_deconstructor_templ_path: Path = Path(
-        "exporter/templates/header_deconstructor.html")
-    header_grammar_dict_templ_path: Path = Path(
-        "exporter/templates/header_grammar_dict.html")
+        # /exporter/share
+        self.zip_dir = base_dir.joinpath(Path("exporter/share"))
+        self.zip_path = base_dir.joinpath(Path("exporter/share/dpd.zip"))
+        self.mdict_mdx_path = base_dir.joinpath(Path("exporter/share/dpd-mdict.mdx"))
+        self.grammar_dict_zip_path = base_dir.joinpath(Path("exporter/share/dpd-grammar.zip"))
+        self.grammar_dict_mdict_path = base_dir.joinpath(Path("exporter/share/dpd-grammar-mdict.mdx"))
+        self.dpd_kindle_path = base_dir.joinpath(Path("exporter/share/dpd-kindle.mobi"))
+        self.deconstructor_zip_path = base_dir.joinpath(Path("exporter/share/dpd-deconstructor.zip"))
+        self.deconstructor_mdict_mdx_path = base_dir.joinpath(Path("exporter/share/dpd-deconstructor-mdict.mdx"))
 
-    # /exporter/tpr
-    tpr_dir: Path = Path("exporter/tpr")
-    tpr_sql_file_path: Path = Path("exporter/tpr/dpd.sql")
-    tpr_dpd_tsv_path: Path = Path("exporter/tpr/dpd.tsv")
-    tpr_i2h_tsv_path: Path = Path("exporter/tpr/i2h.tsv")
-    tpr_deconstructor_tsv_path: Path = Path("exporter/tpr/deconstructor.tsv")
+        # /exporter/templates
+        self.templates_dir = base_dir.joinpath(Path("exporter/templates"))
+        self.header_templ_path = base_dir.joinpath(Path("exporter/templates/header.html"))
+        self.dpd_definition_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_defintion.html"))
+        self.button_box_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_button_box.html"))
+        self.grammar_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_grammar.html"))
+        self.example_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_example.html"))
+        self.inflection_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_inflection.html"))
+        self.family_root_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_family_root.html"))
+        self.family_word_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_family_word.html"))
+        self.family_compound_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_family_compound.html"))
+        self.family_set_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_family_set.html"))
+        self.frequency_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_frequency.html"))
+        self.feedback_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_feedback.html"))
+        self.variant_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_variant_reading.html"))
+        self.spelling_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_spelling_mistake.html"))
 
-    # /frequency/output
-    frequency_output_dir: Path = Path("frequency/output/")
-    raw_text_dir: Path = Path("frequency/output/raw_text/")
-    freq_html_dir: Path = Path("frequency/output/html/")
-    word_count_dir: Path = Path(
-        "frequency/output/word_count")
-    tipitaka_raw_text_path: Path = Path(
-        "frequency/output/raw_text/tipitaka.txt")
-    tipitaka_word_count_path: Path = Path(
-        "frequency/output/word_count/tipitaka.csv")
-    ebt_raw_text_path: Path = Path(
-        "frequency/output/raw_text/ebts.txt")
-    ebt_word_count_path: Path = Path(
-        "frequency/output/word_count/ebts.csv")
+        # # root templates
+        self.root_definition_templ_path = base_dir.joinpath(Path("exporter/templates/root_definition.html"))
+        self.root_button_templ_path = base_dir.joinpath(Path("exporter/templates/root_buttons.html"))
+        self.root_info_templ_path = base_dir.joinpath(Path("exporter/templates/root_info.html"))
+        self.root_matrix_templ_path = base_dir.joinpath(Path("exporter/templates/root_matrix.html"))
+        self.root_families_templ_path = base_dir.joinpath(Path("exporter/templates/root_families.html"))
 
-    # /grammar_dict/output
-    grammar_dict_output_dir: Path = Path("grammar_dict/output")
-    grammar_dict_output_html_dir: Path = Path("grammar_dict/output/html")
-    grammar_dict_pickle_path: Path = Path(
-        "grammar_dict/output/grammar_dict_pickle")
-    grammar_dict_tsv_path = Path("grammar_dict/output/grammar_dict.tsv")
+        # # other templates
+        self.epd_templ_path = base_dir.joinpath(Path("exporter/templates/epd.html"))
+        self.sandhi_templ_path = base_dir.joinpath(Path("exporter/templates/sandhi.html"))
+        self.abbrev_templ_path = base_dir.joinpath(Path("exporter/templates/help_abbrev.html"))
+        self.help_templ_path = base_dir.joinpath(Path("exporter/templates/help_help.html"))
 
-    # /gui/stash
-    stash_dir: Path = Path("gui/stash/")
-    stash_path: Path = Path("gui/stash/stash")
-    save_state_path: Path = Path("gui/stash/gui_state")
+        self.header_deconstructor_templ_path = base_dir.joinpath(Path("exporter/templates/header_deconstructor.html"))
+        self.header_grammar_dict_templ_path = base_dir.joinpath(Path("exporter/templates/header_grammar_dict.html"))
 
-    # /icon
-    icon_path: Path = Path("icon/favicon.ico")
-    icon_bmp_path: Path = Path("icon/dpd.bmp")
+        # /exporter/tpr
+        self.tpr_dir = base_dir.joinpath(Path("exporter/tpr"))
+        self.tpr_sql_file_path = base_dir.joinpath(Path("exporter/tpr/dpd.sql"))
+        self.tpr_dpd_tsv_path = base_dir.joinpath(Path("exporter/tpr/dpd.tsv"))
+        self.tpr_i2h_tsv_path = base_dir.joinpath(Path("exporter/tpr/i2h.tsv"))
+        self.tpr_deconstructor_tsv_path = base_dir.joinpath(Path("exporter/tpr/deconstructor.tsv"))
 
-    # /inflections/
-    inflection_templates_path: Path = Path(
-        "inflections/inflection_templates.xlsx")
+        # /frequency/output
+        self.frequency_output_dir = base_dir.joinpath(Path("frequency/output/"))
+        self.raw_text_dir = base_dir.joinpath(Path("frequency/output/raw_text/"))
+        self.freq_html_dir = base_dir.joinpath(Path("frequency/output/html/"))
+        self.word_count_dir = base_dir.joinpath(Path("frequency/output/word_count"))
+        self.tipitaka_raw_text_path = base_dir.joinpath(Path("frequency/output/raw_text/tipitaka.txt"))
+        self.tipitaka_word_count_path = base_dir.joinpath(Path("frequency/output/word_count/tipitaka.csv"))
+        self.ebt_raw_text_path = base_dir.joinpath(Path("frequency/output/raw_text/ebts.txt"))
+        self.ebt_word_count_path = base_dir.joinpath(Path("frequency/output/word_count/ebts.csv"))
 
-    # /resources/dpr_breakup
-    dpr_breakup: Path = Path("resources/dpr_breakup/dpr_breakup.json")
+        # /grammar_dict/output
+        self.grammar_dict_output_dir = base_dir.joinpath(Path("grammar_dict/output"))
+        self.grammar_dict_output_html_dir = base_dir.joinpath(Path("grammar_dict/output/html"))
+        self.grammar_dict_pickle_path = base_dir.joinpath(Path("grammar_dict/output/grammar_dict_pickle"))
+        self.grammar_dict_tsv_path = base_dir.joinpath(Path("grammar_dict/output/grammar_dict.tsv"))
 
-    # /resources/tipitaka-xml
-    cst_txt_dir: Path = Path("resources/tipitaka-xml/roman_txt/")
-    cst_xml_dir: Path = Path("resources/tipitaka-xml/deva/")
-    cst_xml_roman_dir: Path = Path("resources/tipitaka-xml/roman_xml/")
+        # /gui/stash
+        self.stash_dir = base_dir.joinpath(Path("gui/stash/"))
+        self.stash_path = base_dir.joinpath(Path("gui/stash/stash"))
+        self.save_state_path = base_dir.joinpath(Path("gui/stash/gui_state"))
 
-    # resources/resources/other_pali_texts
-    other_pali_texts_dir: Path = Path("resources/other_pali_texts")
+        # /icon
+        self.icon_path = base_dir.joinpath(Path("icon/favicon.ico"))
+        self.icon_bmp_path = base_dir.joinpath(Path("icon/dpd.bmp"))
 
-    # /resources/sutta_central
-    sc_dir: Path = Path("resources/sutta_central/ms/")
+        # /inflections/
+        self.inflection_templates_path = base_dir.joinpath(Path("inflections/inflection_templates.xlsx"))
 
-    # /resources/tpr
-    tpr_download_list_path: Path = Path(
-        "resources/tpr_downloads/download_source_files/download_list.json")
-    tpr_release_path: Path = Path(
-        "resources/tpr_downloads/download_source_files/dictionaries/dpd.zip")
-    tpr_beta_path: Path = Path(
-        "resources/tpr_downloads/download_source_files/dictionaries/dpd_beta.zip")
+        # /resources/dpr_breakup
+        self.dpr_breakup = base_dir.joinpath(Path("resources/dpr_breakup/dpr_breakup.json"))
 
-    # /sandhi/assets
-    sandhi_assests_dir: Path = Path("sandhi/assets")
-    unmatched_set_path: Path = Path(
-        "sandhi/assets/unmatched_set")
-    all_inflections_set_path: Path = Path(
-        "sandhi/assets/all_inflections_set")
-    text_set_path: Path = Path(
-        "sandhi/assets/text_set")
-    neg_inflections_set_path: Path = Path(
-        "sandhi/assets/neg_inflections_set")
-    matches_dict_path: Path = Path(
-        "sandhi/assets/matches_dict")
+        # /resources/tipitaka-xml
+        self.cst_txt_dir = base_dir.joinpath(Path("resources/tipitaka-xml/roman_txt/"))
+        self.cst_xml_dir = base_dir.joinpath(Path("resources/tipitaka-xml/deva/"))
+        self.cst_xml_roman_dir = base_dir.joinpath(Path("resources/tipitaka-xml/roman_xml/"))
 
-    # /sandhi/output
-    sandhi_output_dir: Path = Path("sandhi/output/")
-    sandhi_output_do_dir: Path = Path("sandhi/output_do/")
-    matches_do_path: Path = Path(
-        "sandhi/output_do/matches.tsv")
-    process_path: Path = Path(
-        "sandhi/output/process.tsv")
-    matches_path: Path = Path(
-        "sandhi/output/matches.tsv")
-    unmatched_path: Path = Path(
-        "sandhi/output/unmatched.tsv")
-    matches_sorted: Path = Path(
-        "sandhi/output/matches_sorted.tsv")
-    sandhi_dict_path: Path = Path(
-        "sandhi/output/sandhi_dict")
-    sandhi_dict_df_path: Path = Path(
-        "sandhi/output/sandhi_dict_df.tsv")
-    sandhi_timer_path: Path = Path("sandhi/output/timer.tsv")
-    rule_counts_path: Path = Path(
-        "sandhi/output/rule_counts/rule_counts.tsv")
+        # resources/resources/other_pali_texts
+        self.other_pali_texts_dir = base_dir.joinpath(Path("resources/other_pali_texts"))
 
-    # /sandhi/output/rule_counts
-    rule_counts_dir: Path = Path("sandhi/output/rule_counts/")
+        # /resources/sutta_central
+        self.sc_dir = base_dir.joinpath(Path("resources/sutta_central/ms/"))
 
-    # /sandhi/output/letters
-    letters_dir: Path = Path("sandhi/output/letters/")
-    letters: Path = Path("sandhi/output/letters/letters.tsv")
-    letters1: Path = Path("sandhi/output/letters/letters1.tsv")
-    letters2: Path = Path("sandhi/output/letters/letters2.tsv")
-    letters3: Path = Path("sandhi/output/letters/letters3.tsv")
-    letters4: Path = Path("sandhi/output/letters/letters4.tsv")
-    letters5: Path = Path("sandhi/output/letters/letters5.tsv")
-    letters6: Path = Path("sandhi/output/letters/letters6.tsv")
-    letters7: Path = Path("sandhi/output/letters/letters7.tsv")
-    letters8: Path = Path("sandhi/output/letters/letters8.tsv")
-    letters9: Path = Path("sandhi/output/letters/letters9.tsv")
-    letters10: Path = Path("sandhi/output/letters/letters10plus.tsv")
+        # /resources/tpr
+        self.tpr_download_list_path = base_dir.joinpath(Path("resources/tpr_downloads/download_source_files/download_list.json"))
+        self.tpr_release_path = base_dir.joinpath(Path("resources/tpr_downloads/download_source_files/dictionaries/dpd.zip"))
+        self.tpr_beta_path = base_dir.joinpath(Path("resources/tpr_downloads/download_source_files/dictionaries/dpd_beta.zip"))
 
-    # /sandhi/sandhi_related/
-    sandhi_ok_path: Path = Path("sandhi/sandhi_related/sandhi_ok.csv")
-    sandhi_exceptions_path: Path = Path(
-        "sandhi/sandhi_related/sandhi_exceptions.tsv")
-    spelling_mistakes_path: Path = Path(
-        "sandhi/sandhi_related/spelling_mistakes.tsv")
-    variant_readings_path: Path = Path(
-        "sandhi/sandhi_related/variant_readings.tsv")
-    sandhi_rules_path: Path = Path("sandhi/sandhi_related/sandhi_rules.tsv")
-    manual_corrections_path: Path = Path(
-        "sandhi/sandhi_related/manual_corrections.tsv")
-    shortlist_path: Path = Path("sandhi/sandhi_related/shortlist.tsv")
+        # /sandhi/assets
+        self.sandhi_assests_dir = base_dir.joinpath(Path("sandhi/assets"))
+        self.unmatched_set_path = base_dir.joinpath(Path("sandhi/assets/unmatched_set"))
+        self.all_inflections_set_path = base_dir.joinpath(Path("sandhi/assets/all_inflections_set"))
+        self.text_set_path = base_dir.joinpath(Path("sandhi/assets/text_set"))
+        self.neg_inflections_set_path = base_dir.joinpath(Path("sandhi/assets/neg_inflections_set"))
+        self.matches_dict_path = base_dir.joinpath(Path("sandhi/assets/matches_dict"))
 
-    # /share
-    all_tipitaka_words_path: Path = Path("share/all_tipitaka_words")
-    template_changed_path: Path = Path("share/changed_templates")
-    changed_headwords_path: Path = Path("share/changed_headwords")
-    sandhi_to_translit_path: Path = Path("share/sandhi_to_translit.json")
-    sandhi_from_translit_path: Path = Path("share/sandhi_from_translit.json")
-    inflection_templates_pickle_path: Path = Path("share/inflection_templates")
-    headword_stem_pattern_dict_path: Path = Path(
-        "share/headword_stem_pattern_dict")
-    inflections_to_translit_json_path: Path = Path(
-        "share/inflections_to_translit.json")
-    inflections_from_translit_json_path: Path = Path(
-        "share/inflections_from_translit.json")
+        # /sandhi/output
+        self.sandhi_output_dir = base_dir.joinpath(Path("sandhi/output/"))
+        self.sandhi_output_do_dir = base_dir.joinpath(Path("sandhi/output_do/"))
+        self.matches_do_path = base_dir.joinpath(Path("sandhi/output_do/matches.tsv"))
+        self.process_path = base_dir.joinpath(Path("sandhi/output/process.tsv"))
+        self.matches_path = base_dir.joinpath(Path("sandhi/output/matches.tsv"))
+        self.unmatched_path = base_dir.joinpath(Path("sandhi/output/unmatched.tsv"))
+        self.matches_sorted = base_dir.joinpath(Path("sandhi/output/matches_sorted.tsv"))
+        self.sandhi_dict_path = base_dir.joinpath(Path("sandhi/output/sandhi_dict"))
+        self.sandhi_dict_df_path = base_dir.joinpath(Path("sandhi/output/sandhi_dict_df.tsv"))
+        self.sandhi_timer_path = base_dir.joinpath(Path("sandhi/output/timer.tsv"))
+        self.rule_counts_path = base_dir.joinpath(Path("sandhi/output/rule_counts/rule_counts.tsv"))
 
-    # /tbw
-    tbw_output_dir: Path = Path("tbw/output/")
-    i2h_json_path: Path = Path("tbw/output/dpd_i2h.json")
-    dpd_ebts_json_path: Path = Path("tbw/output/dpd_ebts.json")
-    deconstructor_json_path: Path = Path("tbw/output/dpd_deconstructor.json")
+        # /sandhi/output/rule_counts
+        self.rule_counts_dir = base_dir.joinpath(Path("sandhi/output/rule_counts/"))
 
-    # temp
-    temp_dir: Path = Path("temp/")
+        # /sandhi/output/letters
+        self.letters_dir = base_dir.joinpath(Path("sandhi/output/letters/"))
+        self.letters = base_dir.joinpath(Path("sandhi/output/letters/letters.tsv"))
+        self.letters1 = base_dir.joinpath(Path("sandhi/output/letters/letters1.tsv"))
+        self.letters2 = base_dir.joinpath(Path("sandhi/output/letters/letters2.tsv"))
+        self.letters3 = base_dir.joinpath(Path("sandhi/output/letters/letters3.tsv"))
+        self.letters4 = base_dir.joinpath(Path("sandhi/output/letters/letters4.tsv"))
+        self.letters5 = base_dir.joinpath(Path("sandhi/output/letters/letters5.tsv"))
+        self.letters6 = base_dir.joinpath(Path("sandhi/output/letters/letters6.tsv"))
+        self.letters7 = base_dir.joinpath(Path("sandhi/output/letters/letters7.tsv"))
+        self.letters8 = base_dir.joinpath(Path("sandhi/output/letters/letters8.tsv"))
+        self.letters9 = base_dir.joinpath(Path("sandhi/output/letters/letters9.tsv"))
+        self.letters10 = base_dir.joinpath(Path("sandhi/output/letters/letters10plus.tsv"))
 
-    # /tests
-    internal_tests_path: Path = Path("tests/internal_tests.tsv")
-    wf_exceptions_list: Path = Path("tests/word_family_exceptions")
-    syn_var_exceptions_path: Path = Path("tests/syn_var_exceptions")
+        # /sandhi/sandhi_related/
+        self.sandhi_ok_path = base_dir.joinpath(Path("sandhi/sandhi_related/sandhi_ok.csv"))
+        self.sandhi_exceptions_path = base_dir.joinpath(Path("sandhi/sandhi_related/sandhi_exceptions.tsv"))
+        self.spelling_mistakes_path = base_dir.joinpath(Path("sandhi/sandhi_related/spelling_mistakes.tsv"))
+        self.variant_readings_path = base_dir.joinpath(Path("sandhi/sandhi_related/variant_readings.tsv"))
+        self.sandhi_rules_path = base_dir.joinpath(Path("sandhi/sandhi_related/sandhi_rules.tsv"))
+        self.manual_corrections_path = base_dir.joinpath(Path("sandhi/sandhi_related/manual_corrections.tsv"))
+        self.shortlist_path = base_dir.joinpath(Path("sandhi/sandhi_related/shortlist.tsv"))
 
-    # tools
-    user_dict_path: Path = Path("tools/user_dictionary.txt")
+        # /share
+        self.all_tipitaka_words_path = base_dir.joinpath(Path("share/all_tipitaka_words"))
+        self.template_changed_path = base_dir.joinpath(Path("share/changed_templates"))
+        self.changed_headwords_path = base_dir.joinpath(Path("share/changed_headwords"))
+        self.sandhi_to_translit_path = base_dir.joinpath(Path("share/sandhi_to_translit.json"))
+        self.sandhi_from_translit_path = base_dir.joinpath(Path("share/sandhi_from_translit.json"))
+        self.inflection_templates_pickle_path = base_dir.joinpath(Path("share/inflection_templates"))
+        self.headword_stem_pattern_dict_path = base_dir.joinpath(Path("share/headword_stem_pattern_dict"))
+        self.inflections_to_translit_json_path = base_dir.joinpath(Path("share/inflections_to_translit.json"))
+        self.inflections_from_translit_json_path = base_dir.joinpath(Path("share/inflections_from_translit.json"))
 
-    # .. external
-    bibliography_md_path: Path = Path(
-        "../digitalpalidictionary-website-source/src/bibliography.md")
-    thanks_md_path: Path = Path(
-        "../digitalpalidictionary-website-source/src/thanks.md")
-    old_roots_csv_path: Path = Path("../csvs/roots.csv")
-    old_dpd_full_path: Path = Path("../csvs/dpd-full.csv")
-    bjt_text_path: Path = Path(
-        "../../../../git/tipitaka.lk/public/static/text roman/")
+        # /tbw
+        self.tbw_output_dir = base_dir.joinpath(Path("tbw/output/"))
+        self.i2h_json_path = base_dir.joinpath(Path("tbw/output/dpd_i2h.json"))
+        self.dpd_ebts_json_path = base_dir.joinpath(Path("tbw/output/dpd_ebts.json"))
+        self.deconstructor_json_path = base_dir.joinpath(Path("tbw/output/dpd_deconstructor.json"))
 
-    @classmethod
-    def create_dirs(cls):
+        # temp
+        self.temp_dir = base_dir.joinpath(Path("temp/"))
+
+        # /tests
+        self.internal_tests_path = base_dir.joinpath(Path("tests/internal_tests.tsv"))
+        self.wf_exceptions_list = base_dir.joinpath(Path("tests/word_family_exceptions"))
+        self.syn_var_exceptions_path = base_dir.joinpath(Path("tests/syn_var_exceptions"))
+
+        # tools
+        self.user_dict_path = base_dir.joinpath(Path("tools/user_dictionary.txt"))
+
+        # .. external
+        self.bibliography_md_path = base_dir.joinpath(Path("../digitalpalidictionary-website-source/src/bibliography.md"))
+        self.thanks_md_path = base_dir.joinpath(Path("../digitalpalidictionary-website-source/src/thanks.md"))
+        self.old_roots_csv_path = base_dir.joinpath(Path("../csvs/roots.csv"))
+        self.old_dpd_full_path = base_dir.joinpath(Path("../csvs/dpd-full.csv"))
+        self.bjt_text_path = base_dir.joinpath(Path("../../../../git/tipitaka.lk/public/static/text roman/"))
+
+        if create_dirs:
+            self.create_dirs()
+
+    def create_dirs(self):
         for d in [
-            cls.anki_csvs_dir,
-            cls.zip_dir,
-            cls.tpr_dir,
-            cls.epub_text_dir,
-            cls.ebook_output_dir,
-            cls.frequency_output_dir,
-            cls.grammar_dict_output_dir,
-            cls.grammar_dict_output_html_dir,
-            cls.stash_dir,
-            cls.cst_txt_dir,
-            cls.cst_xml_roman_dir,
-            cls.raw_text_dir,
-            cls.freq_html_dir,
-            cls.word_count_dir,
-            cls.tbw_output_dir,
-            cls.temp_dir,
-            cls.sandhi_assests_dir,
-            cls.sandhi_output_dir,
-            cls.sandhi_output_do_dir,
-            cls.rule_counts_dir,
-            cls.letters_dir,
+            self.anki_csvs_dir,
+            self.zip_dir,
+            self.tpr_dir,
+            self.epub_text_dir,
+            self.ebook_output_dir,
+            self.frequency_output_dir,
+            self.grammar_dict_output_dir,
+            self.grammar_dict_output_html_dir,
+            self.stash_dir,
+            self.cst_txt_dir,
+            self.cst_xml_roman_dir,
+            self.raw_text_dir,
+            self.freq_html_dir,
+            self.word_count_dir,
+            self.tbw_output_dir,
+            self.temp_dir,
+            self.sandhi_assests_dir,
+            self.sandhi_output_dir,
+            self.sandhi_output_do_dir,
+            self.rule_counts_dir,
+            self.letters_dir,
         ]:
             d.mkdir(parents=True, exist_ok=True)
 
-
-# Ensure dirs exist when module is imported
-ProjectPaths.create_dirs()

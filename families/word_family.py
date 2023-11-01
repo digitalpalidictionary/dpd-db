@@ -11,7 +11,7 @@ from tools.meaning_construction import clean_construction
 from tools.meaning_construction import degree_of_completion
 from tools.meaning_construction import make_meaning
 from tools.pali_sort_key import pali_sort_key
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.superscripter import superscripter_uni
 from tools.tic_toc import tic, toc
 from tools.tsv_read_write import write_tsv_list
@@ -23,7 +23,8 @@ def main():
 
     print("[bright_yellow]word families generator")
 
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
 
     wf_db = db_session.query(
         PaliWord).filter(PaliWord.family_word != "").all()
@@ -33,7 +34,7 @@ def main():
     wf_dict = compile_wf_html(wf_db, wf_dict)
     errors_list = add_wf_to_db(db_session, wf_dict)
     print_errors_list(errors_list)
-    anki_exporter(wf_dict)
+    anki_exporter(pth, wf_dict)
     toc()
 
 
@@ -45,7 +46,7 @@ def make_word_fam_dict(wf_db):
 
     wf_dict: dict = {}
 
-    for counter, i in enumerate(wf_db):
+    for __counter__, i in enumerate(wf_db):
         wf = i.family_word
 
         if " " in wf:
@@ -66,7 +67,7 @@ def make_word_fam_dict(wf_db):
 def compile_wf_html(wf_db, wf_dict):
     print("[green]compiling html")
 
-    for counter, i in enumerate(wf_db):
+    for __counter__, i in enumerate(wf_db):
         wf = i.family_word
         if i.pali_1 in wf_dict[wf]["headwords"]:
             if wf_dict[wf]["html"] == "":
@@ -101,7 +102,7 @@ def add_wf_to_db(db_session, wf_dict):
     add_to_db = []
     errors_list = []
 
-    for counter, wf in enumerate(wf_dict):
+    for __counter__, wf in enumerate(wf_dict):
         if len(wf_dict[wf]["headwords"]) < 2:
             errors_list += [wf]
 
@@ -111,7 +112,7 @@ def add_wf_to_db(db_session, wf_dict):
             count=len(wf_dict[wf]["headwords"]))
         add_to_db.append(wf_data)
 
-    db_session.execute(FamilyWord.__table__.delete())
+    db_session.execute(FamilyWord.__table__.delete()) # type: ignore
     db_session.add_all(add_to_db)
     db_session.commit()
     db_session.close()
@@ -128,7 +129,7 @@ def print_errors_list(errors_list):
     print()
 
 
-def anki_exporter(wf_dict):
+def anki_exporter(pth: ProjectPaths, wf_dict):
     """Save to TSV for anki."""
     print("[green]saving tsv for anki")
     anki_data_list = []
@@ -149,9 +150,9 @@ def anki_exporter(wf_dict):
         else:
             anki_data_list += [(i, html, day())]
 
-    file_path = PTH.family_word_tsv_path
-    header = None
-    write_tsv_list(file_path, header, anki_data_list)
+    file_path = pth.family_word_tsv_path
+    header = []
+    write_tsv_list(str(file_path), header, anki_data_list)
 
 
 if __name__ == "__main__":

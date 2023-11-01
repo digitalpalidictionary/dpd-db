@@ -10,18 +10,18 @@ import os
 from rich import print
 from tools.clean_machine import clean_machine
 from tools.pali_text_files import ebts
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 nltk.download('punkt')
 
 
 def main():
     """Do the job."""
     print("[bright_yellow]generating text lists")
-    global PTH
-    make_tipitaka_dict()
+    pth = ProjectPaths()
+    make_tipitaka_dict(pth)
 
 
-def make_tipitaka_dict():
+def make_tipitaka_dict(pth: ProjectPaths):
     """Assign the files related to each section of the Tipiṭaka into a dictionary."""
     print("[green]making master dict", end=" ")
     tipitaka_dict = {}
@@ -264,10 +264,10 @@ def make_tipitaka_dict():
 
     print(len(tipitaka_dict))
 
-    sanity_tests(tipitaka_dict, list_of_sections)
+    sanity_tests(pth, tipitaka_dict, list_of_sections)
 
 
-def sanity_tests(tipitaka_dict, list_of_sections):
+def sanity_tests(pth: ProjectPaths, tipitaka_dict, list_of_sections):
     """Check book counts."""
     # sanity test
 
@@ -276,7 +276,7 @@ def sanity_tests(tipitaka_dict, list_of_sections):
     print(f"list_of_sections {len(list_of_sections)}")
 
     all_files = []
-    for __root__, __dirs__, files in os.walk(PTH.cst_txt_dir, topdown=False):
+    for __root__, __dirs__, files in os.walk(pth.cst_txt_dir, topdown=False):
         for file in files:
             all_files.append(file)
 
@@ -304,10 +304,10 @@ def sanity_tests(tipitaka_dict, list_of_sections):
     # print(f"[bright_red]difference2: {len(difference2)}")
     # print(f"[bright_red]{difference2}")
 
-    make_raw_text_csv(tipitaka_dict)
+    make_raw_text_csv(pth, tipitaka_dict)
 
 
-def make_raw_text_csv(tipitaka_dict):
+def make_raw_text_csv(pth: ProjectPaths, tipitaka_dict):
     """Make clean text files, just letters no punctation."""
     print("[green]making raw text csvs")
 
@@ -320,7 +320,7 @@ def make_raw_text_csv(tipitaka_dict):
         text_clean = ""
 
         for t in texts:
-            f = open(PTH.cst_txt_dir.joinpath(t))
+            f = open(pth.cst_txt_dir.joinpath(t))
             file_read = f.read()
             text_clean += f"{clean_machine(file_read)}\n\n"
 
@@ -330,7 +330,7 @@ def make_raw_text_csv(tipitaka_dict):
         full_text += text_clean
 
         with open(
-                PTH.raw_text_dir.joinpath(section).with_suffix(".txt"),
+                pth.raw_text_dir.joinpath(section).with_suffix(".txt"),
                 "w") as f:
             f.write(text_clean)
 
@@ -339,11 +339,11 @@ def make_raw_text_csv(tipitaka_dict):
 
         word_count_df = make_word_count_df(text_clean)
         word_count_df.to_csv(
-            PTH.word_count_dir.joinpath(section).with_suffix(".csv"),
+            pth.word_count_dir.joinpath(section).with_suffix(".csv"),
             sep="\t", index=False, header=False)
 
-    save_ebt_raw_text_and_csv(ebt_text)
-    save_tipitaka_raw_text_and_csv(full_text)
+    save_ebt_raw_text_and_csv(pth, ebt_text)
+    save_tipitaka_raw_text_and_csv(pth, full_text)
 
 
 def make_word_count_df(text):
@@ -354,30 +354,30 @@ def make_word_count_df(text):
     return word_count_df
 
 
-def save_tipitaka_raw_text_and_csv(full_text):
+def save_tipitaka_raw_text_and_csv(pth: ProjectPaths, full_text):
     """Save full tipitaka frequency, all files in one."""
     print("[green]saving tipiṭaka csv")
 
-    with open(PTH.tipitaka_raw_text_path, "w") as f:
+    with open(pth.tipitaka_raw_text_path, "w") as f:
         f.write(full_text)
 
     full_text_df = make_word_count_df(full_text)
     full_text_df.to_csv(
-        PTH.tipitaka_word_count_path,
+        pth.tipitaka_word_count_path,
         sep="\t", index=False, header=False)
 
 
-def save_ebt_raw_text_and_csv(ebt_text):
+def save_ebt_raw_text_and_csv(pth: ProjectPaths, ebt_text):
     """Save Early Buddhist Texts frequency."""
     print("[green]saving ebts csv")
 
     with open(
-            PTH.ebt_raw_text_path, "w") as f:
+            pth.ebt_raw_text_path, "w") as f:
         f.write(ebt_text)
 
     ebt_text_df = make_word_count_df(ebt_text)
     ebt_text_df.to_csv(
-        PTH.ebt_word_count_path,
+        pth.ebt_word_count_path,
         sep="\t", index=False, header=False)
 
 

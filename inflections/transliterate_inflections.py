@@ -21,9 +21,9 @@ from db.models import PaliWord, DerivedData
 
 from tools.configger import config_test, config_update
 from tools.tic_toc import tic, toc
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
-
+PTH = ProjectPaths()
 db_session = get_db_session(PTH.dpd_db_path)
 dpd_db = db_session.query(PaliWord).all()
 dd1 = db_session.query(DerivedData).first()

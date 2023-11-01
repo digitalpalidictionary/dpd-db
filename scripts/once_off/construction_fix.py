@@ -4,16 +4,17 @@ from rich import print
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
 
 def main():
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(PaliWord).all()
 
     for i in db:
         if (
-            not i.meaning_1 and
+            not i.meaning_1 and i.construction is not None and
             i.construction.startswith("a +")
         ):
             i.construction = re.sub(r"^a \+", "na > a +", i.construction)

@@ -4,10 +4,11 @@ from rich import print
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord, DerivedData, FamilyRoot
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
 
 
+PTH = ProjectPaths()
 db_session = get_db_session(PTH.dpd_db_path)
 
 

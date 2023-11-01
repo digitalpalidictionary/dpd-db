@@ -5,19 +5,20 @@ from sqlalchemy import update
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
 
 def remove_space_in_family_word():
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(
         PaliWord
     ).all()
 
     add_to_db = []
-    for counter, i in enumerate(dpd_db):
+    for __counter__, i in enumerate(dpd_db):
 
-        if " " in i.family_word:
+        if i.family_word is not None and " " in i.family_word:
             new_fw = re.sub("^.* ", "", i.family_word)
             print(f"{ i.family_word:>15} ---> {new_fw:<15}")
 

@@ -6,16 +6,17 @@ The filter_and_update function updates the PaliWord database entries. For entrie
 
 
 from db.models import PaliWord
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from db.get_db_session import get_db_session
 from rich.console import Console
+import re
 
 console = Console()
-import re
 
 
 def filter_and_update():
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
 
     # Find the words that match the filter criteria
     words_to_update = db_session.query(PaliWord).filter(
@@ -78,7 +79,7 @@ def update_from_text_file(word, text_content):
 
 
 
-def filter_and_update_from_file():
+def filter_and_update_from_file(pth: ProjectPaths):
     # Define the path to your text file
     file_path = "/home/deva/Documents/dpd-db/temp/chattha-sangayana-patimokkhha.txt"
 
@@ -89,7 +90,7 @@ def filter_and_update_from_file():
     print("First 100 characters of content:", content[:100])  # Just a debug line
 
     # Initialize a database session
-    db_session = get_db_session(PTH.dpd_db_path)
+    db_session = get_db_session(pth.dpd_db_path)
 
     # Find the words that match the filter criteria of having family_set set to "bhikkhupātimokkha rules"
     words_to_update = db_session.query(PaliWord).filter(
@@ -117,7 +118,7 @@ def filter_and_update_from_file():
 
 
 
-def update_family_set_based_on_conditions():
+def update_family_set_based_on_conditions(pth: ProjectPaths):
     """
     This function will update the `family_set` attribute of `PaliWord` objects based on certain conditions.
     
@@ -125,7 +126,7 @@ def update_family_set_based_on_conditions():
     - session: This is the database session, assumed to be an SQLAlchemy session.
     """
 
-    db_session = get_db_session(PTH.dpd_db_path)
+    db_session = get_db_session(pth.dpd_db_path)
 
     # Filtering PaliWord objects where family_set is "bhikkhupātimokkha rules" and meaning_2 is empty
     for word in db_session.query(PaliWord).filter_by(family_set="bhikkhupātimokkha rules", meaning_2=""):
@@ -139,4 +140,5 @@ def update_family_set_based_on_conditions():
 
 
 # !To use the function:
-update_family_set_based_on_conditions()
+pth = ProjectPaths()
+update_family_set_based_on_conditions(pth)

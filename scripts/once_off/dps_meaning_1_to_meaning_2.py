@@ -5,13 +5,14 @@ from rich import print
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 
 
 def main():
     print("[bright_yellow]copying dps meaning_1 to meaning_2")
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
 
     dict = {}
@@ -28,7 +29,7 @@ def main():
 
     print(len(dict))
     changed = 0
-    for counter, i in enumerate(dpd_db):
+    for __counter__, i in enumerate(dpd_db):
 
         if i.user_id in dict:
             i.meaning_1 = ""

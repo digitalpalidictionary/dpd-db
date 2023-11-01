@@ -8,20 +8,22 @@ from bs4 import BeautifulSoup
 from aksharamukha import transliterate
 from rich import print
 
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
 
 def main():
     """Run it."""
     print("[bright_yellow]convert cst4 xml to txt")
 
-    for filename in sorted(os.listdir(PTH.cst_xml_dir)):
+    pth = ProjectPaths()
+
+    for filename in sorted(os.listdir(pth.cst_xml_dir)):
         if "xml" in filename and "toc" not in filename:
             print(f"[green]{filename:<40}", end="")
 
             try:
                 with open(
-                        PTH.cst_xml_dir.joinpath(filename), 'r',
+                        pth.cst_xml_dir.joinpath(filename), 'r',
                         encoding="UTF-16") as f:
 
                     contents = f.read()
@@ -37,7 +39,7 @@ def main():
                         "autodetect", "IASTPali", text_extract)
 
                     with open(
-                            PTH.cst_txt_dir.joinpath(filename).with_suffix(
+                            pth.cst_txt_dir.joinpath(filename).with_suffix(
                                 ".txt"), "w") as f:
                         f.write(text_translit)
 

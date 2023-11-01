@@ -17,7 +17,7 @@ from export_epd import generate_epd_html
 from export_variant_spelling import generate_variant_spelling_html
 from export_help import generate_help_html
 
-from helpers import make_roots_count_dict
+from helpers import cf_set_gen, make_roots_count_dict
 from mdict_exporter import export_to_mdict
 
 from db.get_db_session import get_db_session
@@ -29,13 +29,16 @@ from tools.paths import ProjectPaths
 from tools.configger import config_test
 
 tic()
-PTH = ProjectPaths()
-db_session: Session = get_db_session(PTH.dpd_db_path)
-SANDHI_CONTRACTIONS: dict = make_sandhi_contraction_dict(db_session)
-
 
 def main():
     print("[bright_yellow]exporting dpd")
+
+    pth = ProjectPaths()
+    db_session: Session = get_db_session(pth.dpd_db_path)
+    sandhi_contractions = make_sandhi_contraction_dict(db_session)
+
+    cf_set = cf_set_gen(pth)
+
     size_dict = {}
 
     # check config
@@ -47,15 +50,15 @@ def main():
     roots_count_dict = make_roots_count_dict(
         db_session)
     dpd_data_list, size_dict = generate_dpd_html(
-        db_session, PTH, SANDHI_CONTRACTIONS, size_dict)
+        db_session, pth, sandhi_contractions, cf_set, size_dict)
     root_data_list, size_dict = generate_root_html(
-        db_session, PTH, roots_count_dict, size_dict)
+        db_session, pth, roots_count_dict, size_dict)
     variant_spelling_data_list, size_dict = generate_variant_spelling_html(
-        PTH, size_dict)
+        pth, size_dict)
     epd_data_list, size_dict = generate_epd_html(
-        db_session, PTH, size_dict)
+        db_session, pth, size_dict)
     help_data_list, size_dict = generate_help_html(
-        db_session, PTH, size_dict)
+        db_session, pth, size_dict)
     db_session.close()
 
     combined_data_list: list = (
@@ -67,17 +70,17 @@ def main():
     )
 
     write_limited_datalist(combined_data_list)
-    write_size_dict(size_dict)
-    export_to_goldendict(combined_data_list)
-    goldendict_unzip_and_copy()
+    write_size_dict(pth, size_dict)
+    export_to_goldendict(pth, combined_data_list)
+    goldendict_unzip_and_copy(pth)
 
     if make_mdct is True:
-        export_to_mdict(combined_data_list, PTH)
+        export_to_mdict(combined_data_list, pth)
 
     toc()
 
 
-def export_to_goldendict(data_list: list) -> None:
+def export_to_goldendict(pth: ProjectPaths, data_list: list) -> None:
     """generate goldedict zip"""
     bip()
 
@@ -90,18 +93,18 @@ def export_to_goldendict(data_list: list) -> None:
             "website": "https://digitalpalidictionary.github.io/", }
     )
 
-    export_words_as_stardict_zip(data_list, ifo, PTH.zip_path, PTH.icon_path)
+    export_words_as_stardict_zip(data_list, ifo, pth.zip_path, pth.icon_path)
 
     # add bmp icon for android
-    with zipfile.ZipFile(PTH.zip_path, 'a') as zipf:
-        source_path = PTH.icon_bmp_path
+    with zipfile.ZipFile(pth.zip_path, 'a') as zipf:
+        source_path = pth.icon_bmp_path
         destination = 'dpd/android.bmp'
         zipf.write(source_path, destination)
 
     print(f"{bop():>29}")
 
 
-def goldendict_unzip_and_copy() -> None:
+def goldendict_unzip_and_copy(pth: ProjectPaths,) -> None:
     """unzip and copy to goldendict folder"""
 
     goldendict_path: (Path |str) = goldedict_path()
@@ -114,17 +117,17 @@ def goldendict_unzip_and_copy() -> None:
         ):
         print(f"[green]unzipping and copying to [blue]{goldendict_path}")
         popen(
-            f'unzip -o {PTH.zip_path} -d "{goldendict_path}"')
+            f'unzip -o {pth.zip_path} -d "{goldendict_path}"')
     else:
         print("[red]local GoldenDict directory not found")
 
     print(f"{bop():>23}")
 
 
-def write_size_dict(size_dict):
+def write_size_dict(pth: ProjectPaths, size_dict):
     bip()
     print("[green]writing size_dict", end=" ")
-    filename = PTH.temp_dir.joinpath("size_dict.tsv")
+    filename = pth.temp_dir.joinpath("size_dict.tsv")
 
     with open(filename, "w", newline="") as csvfile:
         writer = csv.writer(csvfile, delimiter='\t')

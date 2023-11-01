@@ -12,7 +12,7 @@ from subprocess import check_output
 from db.get_db_session import get_db_session
 from db.models import Sandhi
 from tools.tic_toc import tic, toc
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
 # !!! # only add new sandhi, leave the old ones alone
 
@@ -26,7 +26,8 @@ def main():
 def transliterate_sandhi():
     print("[green]transliterating sandhi")
 
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
     sandhi_db = db_session.query(Sandhi).all()
     sandhi_translit_dict: Dict = {}
 
@@ -49,7 +50,7 @@ def transliterate_sandhi():
 
     # saving json for path nirvana transliterator
 
-    with open(PTH.sandhi_to_translit_path, "w") as f:
+    with open(pth.sandhi_to_translit_path, "w") as f:
         f.write(json.dumps(
             sandhi_for_json_dict, ensure_ascii=False, indent=4))
 
@@ -113,7 +114,7 @@ def transliterate_sandhi():
 
     print("importing path nirvana translit", end=" ")
 
-    with open(PTH.sandhi_from_translit_path, "r") as f:
+    with open(pth.sandhi_from_translit_path, "r") as f:
         node_translit: dict = json.load(f)
         print(f"{len(node_translit)}")
 

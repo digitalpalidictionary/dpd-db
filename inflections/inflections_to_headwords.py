@@ -11,18 +11,18 @@ from tools.tic_toc import tic, toc, bip, bop
 from db.get_db_session import get_db_session
 from db.models import PaliRoot, PaliWord, DerivedData, Sandhi
 from tools.pali_sort_key import pali_sort_key
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.sandhi_words import make_words_in_sandhi_set
 from tools.headwords_clean_set import make_clean_headwords_set
 
 
-def inflection_to_headwords():
+def inflection_to_headwords(pth: ProjectPaths):
     tic()
     print("[bright_yellow]inflection to headwords dict")
 
     bip()
     print(f"[green]{'querying db':<30}", end="")
-    db_session = get_db_session(PTH.dpd_db_path)
+    db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
     dd_db = db_session.query(DerivedData).all()
     sandhi_db = db_session.query(Sandhi).all()
@@ -30,7 +30,7 @@ def inflection_to_headwords():
 
     bip()
     print(f"[green]{'all tipitaka words set':<30}", end="")
-    with open(PTH.tipitaka_word_count_path) as f:
+    with open(pth.tipitaka_word_count_path) as f:
         reader = csv.reader(f, delimiter="\t")
         all_tipitaka_words: set = set([row[0] for row in reader])
     print(f"{len(all_tipitaka_words):>10,}{bop():>10}")
@@ -57,7 +57,7 @@ def inflection_to_headwords():
 
     i2h_dict = {}
 
-    for counter, (i, dd) in enumerate(zip(dpd_db, dd_db)):
+    for __counter__, (i, dd) in enumerate(zip(dpd_db, dd_db)):
         inflections = dd.inflections_list
         for inflection in inflections:
             if inflection in all_words_set:
@@ -93,7 +93,7 @@ def inflection_to_headwords():
     bip()
     message = "saving to tsv"
     print(f"[green]{message:<30}", end="")
-    with open(PTH.tpr_i2h_tsv_path, "w") as f:
+    with open(pth.tpr_i2h_tsv_path, "w") as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerow(["inflection", "headwords"])
         for k, v in i2h_dict.items():
@@ -107,7 +107,8 @@ def inflection_to_headwords():
 
 
 def main():
-    inflection_to_headwords()
+    pth = ProjectPaths()
+    inflection_to_headwords(pth)
 
 
 if __name__ == "__main__":

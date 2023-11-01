@@ -7,7 +7,7 @@ from css_html_js_minify import css_minify
 from mako.template import Template
 from minify_html import minify
 from rich import print
-from typing import List, Dict, Optional, Tuple, Any
+from typing import List, Dict, Tuple, Any
 
 from sqlalchemy.orm import Session
 
@@ -61,7 +61,7 @@ def generate_help_html(__db_session__: Session,
 
     size_dict["help"] = 0
 
-    header = render_header_tmpl(css=css, js="")
+    header = render_header_tmpl(pth, css=css, js="")
     help_data_list: List[dict] = []
 
     abbrev = add_abbrev_html(pth, header, help_data_list)
@@ -112,7 +112,7 @@ def add_abbrev_html(pth: ProjectPaths,
     for i in items:
         html = header
         html += "<body>"
-        html += render_abbrev_templ(i)
+        html += render_abbrev_templ(pth, i)
         html += "</body></html>"
 
         html = minify(html)
@@ -155,7 +155,7 @@ def add_help_html(pth: ProjectPaths,
     for i in items:
         html = header
         html += "<body>"
-        html += render_help_templ(i)
+        html += render_help_templ(pth, i)
         html += "</body></html>"
 
         html = minify(html)
@@ -296,21 +296,17 @@ def add_thanks(pth: ProjectPaths,
     return help_data_list
 
 
-def render_abbrev_templ(i, pth: Optional[ProjectPaths] = None) -> str:
+def render_abbrev_templ(pth: ProjectPaths, i: Abbreviation) -> str:
     """render html of abbreviations"""
 
-    if pth is None:
-        pth = ProjectPaths()
     abbrev_templ = Template(filename=str(pth.abbrev_templ_path))
 
     return str(abbrev_templ.render(i=i))
 
 
-def render_help_templ(i, pth: Optional[ProjectPaths] = None) -> str:
+def render_help_templ(pth: ProjectPaths, i: Help) -> str:
     """render html of help"""
 
-    if pth is None:
-        pth = ProjectPaths()
     help_templ = Template(filename=str(pth.help_templ_path))
 
     return str(help_templ.render(i=i))

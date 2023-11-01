@@ -12,13 +12,14 @@ from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.tic_toc import tic, toc
 from tools.meaning_construction import clean_construction
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
 
 def main():
     tic()
     print("[bright_yellow]finding missing family_compounds")
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(PaliWord).all()
     d: dict = make_dict_of_sets(db)
     failures = test_family_compound(d)

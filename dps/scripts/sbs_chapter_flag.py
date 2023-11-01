@@ -6,7 +6,7 @@ from rich.console import Console
 
 from db.get_db_session import get_db_session
 from tools.tic_toc import tic, toc
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
 from sqlalchemy import text
 
@@ -17,7 +17,8 @@ def main():
     tic()
     console.print("[bold bright_yellow]making sbs_chapter_flag")
 
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
 
 
     # SQL query to update sbs_chapter_flag based on sbs_chapter_{i} columns

@@ -13,7 +13,7 @@ from db.models import PaliWord, PaliRoot
 from db.db_helpers import create_db_if_not_exists
 from db.get_db_session import get_db_session
 from tools.tic_toc import tic, toc
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
 
 def _csv_row_to_root(x: Dict[str, str]) -> PaliRoot:
@@ -184,20 +184,21 @@ def main():
 
     print("[bright_yellow]convert dpd.csv to dpd.db")
 
-    if PTH.dpd_db_path.exists():
-        PTH.dpd_db_path.unlink()
+    pth = ProjectPaths()
+    if pth.dpd_db_path.exists():
+        pth.dpd_db_path.unlink()
 
-    create_db_if_not_exists(PTH.dpd_db_path)
+    create_db_if_not_exists(pth.dpd_db_path)
 
-    for p in [PTH.old_roots_csv_path, PTH.old_dpd_full_path]:
+    for p in [pth.old_roots_csv_path, pth.old_dpd_full_path]:
         if not p.exists():
             print(f"[bright_red]File does not exist: {p}")
             sys.exit(1)
 
-    db_session = get_db_session(PTH.dpd_db_path)
+    db_session = get_db_session(pth.dpd_db_path)
 
-    add_pali_roots(db_session, PTH.old_roots_csv_path)
-    add_pali_words(db_session, PTH.old_dpd_full_path)
+    add_pali_roots(db_session, pth.old_roots_csv_path)
+    add_pali_words(db_session, pth.old_dpd_full_path)
 
     db_session.close()
     toc()

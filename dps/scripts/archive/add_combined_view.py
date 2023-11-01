@@ -3,8 +3,9 @@
 """Add combined view into db which have PaliWord, Russian, SBS tables and ebt_count together."""
 
 from sqlalchemy import create_engine, text
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
+PTH = ProjectPaths()
 engine = create_engine('sqlite:///' + str(PTH.dpd_db_path))
 
 with engine.connect() as connection:

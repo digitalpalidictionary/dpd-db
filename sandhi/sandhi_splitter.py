@@ -13,7 +13,7 @@ from os import popen
 
 from tools.pali_alphabet import vowels
 from tools.tic_toc import tic, toc, bip, bop
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
 # two word sandhi
 #     ↓
@@ -311,21 +311,21 @@ def comp(d):
     return f"{d.front}{d.word}{d.back}"
 
 
-def setup():
+def setup(pth: ProjectPaths):
     print("[green]importing assets")
 
     global rules
-    rules = import_sandhi_rules()
+    rules = import_sandhi_rules(pth)
 
     global shortlist_set
-    shortlist_set = make_shortlist_set()
+    shortlist_set = make_shortlist_set(pth)
 
     global unmatched_set
-    with open(PTH.unmatched_set_path, "rb") as f:
+    with open(pth.unmatched_set_path, "rb") as f:
         unmatched_set = pickle.load(f)
 
     global all_inflections_set
-    with open(PTH.all_inflections_set_path, "rb") as f:
+    with open(pth.all_inflections_set_path, "rb") as f:
         all_inflections_set = pickle.load(f)
 
     global all_inflections_nofirst
@@ -336,19 +336,19 @@ def setup():
             all_inflections_set)
 
     # initalise matches.csv
-    with open(PTH.matches_path, "w") as f:
+    with open(pth.matches_path, "w") as f:
         f.write("")
 
     # initalise timer dict
-    with open(PTH.sandhi_timer_path, "w") as f:
+    with open(pth.sandhi_timer_path, "w") as f:
         f.write("")
 
 
-def import_sandhi_rules():
+def import_sandhi_rules(pth: ProjectPaths):
     print("[green]importing sandhi rules", end=" ")
 
     sandhi_rules_df = pd.read_csv(
-        PTH.sandhi_rules_path, sep="\t", dtype=str)
+        pth.sandhi_rules_path, sep="\t", dtype=str)
     sandhi_rules_df.fillna("", inplace=True)
     print(f"[white]{len(sandhi_rules_df):,}")
     sandhi_rules = sandhi_rules_df.to_dict('index')
@@ -361,7 +361,7 @@ def import_sandhi_rules():
         print("\n[red]! duplicates found! please remove them and try again")
         print(f"\n[red]{dupes}")
         input("\n[white] press enter to continue")
-        import_sandhi_rules()
+        import_sandhi_rules(pth)
     else:
         print("[white]ok")
 
@@ -375,7 +375,7 @@ def import_sandhi_rules():
     ):
         print("\n[red]! spaces found! please remove them and try again")
         input("[white]press enter to continue ")
-        import_sandhi_rules()
+        import_sandhi_rules(pth)
 
     else:
         print("[white]ok")
@@ -383,12 +383,12 @@ def import_sandhi_rules():
     return sandhi_rules
 
 
-def make_shortlist_set():
+def make_shortlist_set(pth: ProjectPaths):
 
     print("[green]making shortlist set", end=" ")
 
     shortlist_df = pd.read_csv(
-        PTH.shortlist_path, dtype=str, header=None, sep="\t")
+        pth.shortlist_path, dtype=str, header=None, sep="\t")
     shortlist_df.fillna("", inplace=True)
 
     shortlist_set = set(shortlist_df[0].tolist())
@@ -426,11 +426,12 @@ def main():
         profiler = cProfile.Profile()
         profiler.enable()
 
+    pth = ProjectPaths()
     # make globally accessable vaiables
-    setup()
+    setup(pth)
 
     global matches_dict
-    with open(PTH.matches_dict_path, "rb") as f:
+    with open(pth.matches_dict_path, "rb") as f:
         matches_dict = pickle.load(f)
 
     time_dict = {}
@@ -493,19 +494,19 @@ def main():
                 print(
                     f"{d.count:>10,} / {unmatched_len_init:<10,}{d.word}")
 
-                save_matches(matches_dict)
-                save_timer_dict(time_dict)
+                save_matches(pth, matches_dict)
+                save_timer_dict(pth, time_dict)
                 matches_dict = {}
                 time_dict = {}
 
-    save_matches(matches_dict)
+    save_matches(pth, matches_dict)
 
     try:
-        save_timer_dict(time_dict)
+        save_timer_dict(pth, time_dict)
     except KeyError as e:
         print(f"[red] {e}")
 
-    summary()
+    summary(pth)
     toc()
 
     if profiler is not None:
@@ -516,9 +517,9 @@ def main():
             popen("tuna profiler.prof")
 
 
-def save_matches(matches_dict):
+def save_matches(pth: ProjectPaths, matches_dict):
 
-    with open(PTH.matches_path, "a") as f:
+    with open(pth.matches_path, "a") as f:
         for word, data in matches_dict.items():
             for item in data:
                 f.write(f"{word}\t")
@@ -527,11 +528,11 @@ def save_matches(matches_dict):
                 f.write("\n")
 
 
-def save_timer_dict(time_dict):
+def save_timer_dict(pth: ProjectPaths, time_dict):
     df = pd.DataFrame.from_dict(time_dict, orient="index")
     df = df.sort_values(by=0, ascending=False)
     df.to_csv(
-        PTH.sandhi_timer_path, mode="a", header=False, sep="\t")
+        pth.sandhi_timer_path, mode="a", header=False, sep="\t")
 
 
 def recursive_removal(d: DotDict) -> None:
@@ -1450,11 +1451,11 @@ def dprint(d: DotDict) -> None:
     print()
 
 
-def summary():
+def summary(pth: ProjectPaths):
 
     print("[green]writing unmatched set")
 
-    with open(PTH.unmatched_path, "w") as f:
+    with open(pth.unmatched_path, "w") as f:
         for item in unmatched_set:
             f.write(f"{item}\n")
 

@@ -11,7 +11,7 @@ from rich.prompt import Prompt
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 
 # make a generic system that adjusts according to column name
@@ -23,7 +23,8 @@ from dps.tools.paths_dps import DPSPaths as DPSPTH
 
 def main():
     print("[bright_yellow]merging dps columns")
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
 
     columns = [
@@ -78,7 +79,7 @@ def main():
 
         print(len(dict))
 
-        for counter, i in enumerate(dpd_db):
+        for __counter__, i in enumerate(dpd_db):
             if break_flag is True:
                 break
 
@@ -120,7 +121,7 @@ def main():
     try:
         with open("dps/exceptions_dict", "wb") as file:
             pickle.dump(exceptions_dict, file)
-    except:
+    except Exception:
         print("[red]not saved!")
 
 

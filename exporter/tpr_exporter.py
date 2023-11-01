@@ -9,7 +9,6 @@ import pandas as pd
 import re
 import sqlite3
 
-from datetime import date
 from rich import print
 from sqlalchemy.orm import Session
 from zipfile import ZipFile, ZIP_DEFLATED
@@ -18,33 +17,33 @@ from db.get_db_session import get_db_session
 from db.models import PaliWord, PaliRoot, Sandhi
 from export_dpd import render_dpd_defintion_templ
 from tools.pali_sort_key import pali_sort_key
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 from tools.headwords_clean_set import make_clean_headwords_set
 from tools.uposatha_day import uposatha_today
+from helpers import TODAY
 
-
-TODAY = date.today()
-db_session: Session = get_db_session(PTH.dpd_db_path)
 
 
 def main():
     tic()
     print("[bright_yellow]generate tpr data")
 
+    pth = ProjectPaths()
+    db_session: Session = get_db_session(pth.dpd_db_path)
+
     dpd_db = db_session.query(PaliWord).all()
     all_headwords_clean = make_clean_headwords_set(dpd_db)
-    tpr_data_list = generate_tpr_data(dpd_db, all_headwords_clean)
-    sandhi_data_list = generate_sandhi_data(all_headwords_clean)
-    write_tsvs(tpr_data_list, sandhi_data_list)
-    tpr_df, i2h_df, sandhi_df = copy_to_sqlite_db(
-        tpr_data_list, sandhi_data_list)
-    tpr_updater(tpr_df, i2h_df, sandhi_df)
-    copy_zip_to_tpr_downloads()
+    tpr_data_list = generate_tpr_data(pth, db_session, dpd_db, all_headwords_clean)
+    sandhi_data_list = generate_sandhi_data(db_session, all_headwords_clean)
+    write_tsvs(pth, tpr_data_list, sandhi_data_list)
+    tpr_df, i2h_df, sandhi_df = copy_to_sqlite_db(pth, tpr_data_list, sandhi_data_list)
+    tpr_updater(pth, tpr_df, i2h_df, sandhi_df)
+    copy_zip_to_tpr_downloads(pth)
     toc()
 
 
-def generate_tpr_data(dpd_db, all_headwords_clean):
+def generate_tpr_data(pth: ProjectPaths, db_session: Session, dpd_db, __all_headwords_clean__):
     print("[green]compiling pali word data")
     dpd_length = len(dpd_db)
     tpr_data_list = []
@@ -55,7 +54,7 @@ def generate_tpr_data(dpd_db, all_headwords_clean):
             print(f"{counter:>10,} / {dpd_length:<10,}{i.pali_1:<10}")
 
         # headword
-        html_string = render_dpd_defintion_templ(i)
+        html_string = render_dpd_defintion_templ(pth, i)
         html_string = html_string.replace("\n", "").replace("    ", "")
         html_string = re.sub("""<span class\\='g.+span>""", "", html_string)
 
@@ -238,7 +237,7 @@ def generate_tpr_data(dpd_db, all_headwords_clean):
     return tpr_data_list
 
 
-def generate_sandhi_data(all_headwords_clean):
+def generate_sandhi_data(db_session: Session, all_headwords_clean):
     # deconstructor
     print("[green]compiling sandhi data")
 
@@ -259,31 +258,30 @@ def generate_sandhi_data(all_headwords_clean):
     return sandhi_data_list
 
 
-def write_tsvs(tpr_data_list, sandhi_data_list):
+def write_tsvs(pth: ProjectPaths, tpr_data_list, sandhi_data_list):
     """Write TSV files of dpd, i2h and deconstructor."""
     print("[green]writing tsv files")
 
     # write dpd_tsv
-    with open(PTH.tpr_dpd_tsv_path, "w") as f:
+    with open(pth.tpr_dpd_tsv_path, "w") as f:
         f.write("word\tdefinition\tbook_id\n")
         for i in tpr_data_list:
             f.write(f"{i['word']}\t{i['definition']}\t{i['book_id']}\n")
 
     # write deconstructor tsv
     field_names = ["word", "breakup"]
-    with open(
-            PTH.tpr_deconstructor_tsv_path, "w", newline="", encoding="utf-8") as f:
+    with open(pth.tpr_deconstructor_tsv_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=field_names, delimiter="\t")
         writer.writeheader()
         writer.writerows(sandhi_data_list)
 
 
-def copy_to_sqlite_db(tpr_data_list, sandhi_data_list):
+def copy_to_sqlite_db(pth: ProjectPaths, tpr_data_list, sandhi_data_list):
     print("[green]copying data_list to tpr db", end=" ")
 
     # data frames
     tpr_df = pd.DataFrame(tpr_data_list)
-    i2h_df = pd.read_csv(PTH.tpr_i2h_tsv_path, sep="\t")
+    i2h_df = pd.read_csv(pth.tpr_i2h_tsv_path, sep="\t")
     sandhi_df = pd.DataFrame(sandhi_data_list)
 
     try:
@@ -323,7 +321,7 @@ def copy_to_sqlite_db(tpr_data_list, sandhi_data_list):
         return tpr_df, i2h_df, sandhi_df
 
 
-def tpr_updater(tpr_df, i2h_df, sandhi_df):
+def tpr_updater(pth: ProjectPaths, tpr_df, i2h_df, sandhi_df):
     print("[green]making tpr sql updater")
 
     sql_string = ""
@@ -369,19 +367,19 @@ def tpr_updater(tpr_df, i2h_df, sandhi_df):
 
     sql_string += "COMMIT;\n"
 
-    with open(PTH.tpr_sql_file_path, "w") as f:
+    with open(pth.tpr_sql_file_path, "w") as f:
         f.write(sql_string)
 
 
-def copy_zip_to_tpr_downloads():
+def copy_zip_to_tpr_downloads(pth: ProjectPaths):
     print("upating tpr_downlaods")
 
-    if not PTH.tpr_download_list_path.exists():
+    if not pth.tpr_download_list_path.exists():
         print("[red]tpr_downloads repo does not exist, download")
         print("[red]https://github.com/bksubhuti/tpr_downloads")
         print("[red]to /resources/ folder")
     else:
-        with open(PTH.tpr_download_list_path) as f:
+        with open(pth.tpr_download_list_path) as f:
             download_list = json.load(f)
 
         day = TODAY.day
@@ -394,7 +392,7 @@ def copy_zip_to_tpr_downloads():
         else:
             version = "beta"
 
-        file_path = PTH.tpr_sql_file_path
+        file_path = pth.tpr_sql_file_path
         file_name = "dpd.sql"
 
         def _zip_it_up(file_path, file_name, output_file):
@@ -409,7 +407,7 @@ def copy_zip_to_tpr_downloads():
         if version == "release":
             print("[green]upating release version")
 
-            output_file = PTH.tpr_release_path
+            output_file = pth.tpr_release_path
             _zip_it_up(file_path, file_name, output_file)
             filesize = _file_size(output_file)
 
@@ -427,7 +425,7 @@ def copy_zip_to_tpr_downloads():
         if version == "beta":
             print("[green]upating beta version")
 
-            output_file = PTH.tpr_beta_path
+            output_file = pth.tpr_beta_path
             _zip_it_up(file_path, file_name, output_file)
             filesize = _file_size(output_file)
 
@@ -442,7 +440,7 @@ def copy_zip_to_tpr_downloads():
 
             download_list[14] = dpd_beta_info
 
-        with open(PTH.tpr_download_list_path, "w") as f:
+        with open(pth.tpr_download_list_path, "w") as f:
             f.write(json.dumps(download_list, indent=4, ensure_ascii=False))
 
 

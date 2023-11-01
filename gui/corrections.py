@@ -14,7 +14,7 @@ from db.models import PaliWord
 
 from tools.meaning_construction import make_meaning
 from tools.meaning_construction import summarize_constr
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_dot_dict, write_tsv_dot_dict
 
 
@@ -37,8 +37,8 @@ def get_column_names():
 
 
 def main():
-
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
     window = make_window()
     db = None
     # _set_state(window, enabled=False)
@@ -102,7 +102,7 @@ def main():
             clear_all(values, window)
 
         elif event == "submit":
-            save_corections_tsv(values, PTH)
+            save_corections_tsv(values, pth)
             clear_all(values, window)
 
         elif event.startswith("clear") and event[5:].isdigit():
@@ -128,7 +128,7 @@ def main():
             event == "tabgroup" and
             values["tabgroup"] == "add_corrections_tab"
         ):
-            corrections_list = load_corrections_tsv()
+            corrections_list = load_corrections_tsv(pth)
             index = find_next_correction(
                 db_session, corrections_list, window, values)
             values["add_approved"] = ""
@@ -136,7 +136,7 @@ def main():
         elif event == "approve_button":
             write_to_db(db_session, values)
             values["add_approved"] = "yes"
-            update_corrections_tsv(PTH, values, corrections_list, index)
+            update_corrections_tsv(pth, values, corrections_list, index)
             clear_all_add_tab(values, window)
             index = find_next_correction(
                 db_session, corrections_list, window, values)
@@ -144,7 +144,7 @@ def main():
         elif event == "reject_button":
             if values["add_feedback"]:
                 values["add_approved"] = "no"
-                update_corrections_tsv(PTH, values, corrections_list, index)
+                update_corrections_tsv(pth, values, corrections_list, index)
                 clear_all_add_tab(values, window)
                 index = find_next_correction(
                     db_session, corrections_list, window, values)
@@ -310,7 +310,7 @@ def make_summary(db):
     return f"{word}: {pos}. {meaning} [{construction}]"
 
 
-def save_corections_tsv(values, PTH):
+def save_corections_tsv(values, pth: ProjectPaths):
     headings = [
         "id",
         "field1", "value1_new",
@@ -319,12 +319,12 @@ def save_corections_tsv(values, PTH):
         "comment", "feedback", "approved"
     ]
 
-    if not PTH.corrections_tsv_path.exists():
-        with open(PTH.corrections_tsv_path, "w", newline="") as file:
+    if not pth.corrections_tsv_path.exists():
+        with open(pth.corrections_tsv_path, "w", newline="") as file:
             writer = csv.writer(file, delimiter="\t")
             writer.writerow(headings)
 
-    with open(PTH.corrections_tsv_path, "a") as file:
+    with open(pth.corrections_tsv_path, "a") as file:
         writer = csv.writer(file, delimiter="\t")
         new_row = [str(values.get(heading, "")) for heading in headings]
         writer.writerow(new_row)
@@ -349,8 +349,8 @@ def clear_all_add_tab(values, window):
             window[value].update("")
 
 
-def load_corrections_tsv():
-    file_path = PTH.corrections_tsv_path
+def load_corrections_tsv(pth: ProjectPaths):
+    file_path = pth.corrections_tsv_path
     corrections_list = read_tsv_dot_dict(file_path)
     return corrections_list
 
@@ -367,7 +367,7 @@ def find_next_correction(db_session, corrections_list, window, values):
             return index
 
 
-def load_next_correction(db_session, c, window, values):
+def load_next_correction(db_session, c, window, __values__):
     db = db_session.query(PaliWord).filter(
         c.id == PaliWord.id).first()
     open_in_goldendict(c.id)
@@ -417,7 +417,7 @@ def write_to_db(db_session, values):
     db_session.commit()
 
 
-def update_corrections_tsv(PTH, values, corrections_list, index):
+def update_corrections_tsv(pth: ProjectPaths, values, corrections_list, index):
     fields = [
         "add_id",
         "add_field1", "add_value1_new",
@@ -433,7 +433,7 @@ def update_corrections_tsv(PTH, values, corrections_list, index):
         setattr(c, new_field, values[field])
         print(new_field, getattr(c, new_field))
 
-    file_path = PTH.corrections_tsv_path
+    file_path = pth.corrections_tsv_path
     write_tsv_dot_dict(file_path, corrections_list)
 
 

@@ -18,7 +18,7 @@ from tools.meaning_construction import degree_of_completion
 from tools.meaning_construction import clean_construction
 from tools.meaning_construction import make_meaning
 from tools.pali_sort_key import pali_sort_key
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.superscripter import superscripter_uni
 from tools.tic_toc import tic, toc
 from tools.tsv_read_write import write_tsv_list
@@ -29,7 +29,8 @@ def main():
     tic()
     print("[bright_yellow]root families")
 
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
 
     dpd_db = db_session.query(PaliWord).filter(
         PaliWord.family_root != "").all()
@@ -46,8 +47,8 @@ def main():
     generate_root_info_html(db_session, roots_db, bases_dict)
     html_dict = generate_root_matrix(db_session)
     db_session.close()
-    anki_exporter(rf_dict)
-    anki_matrix_exporter(html_dict, db_session)
+    anki_exporter(pth, rf_dict)
+    anki_matrix_exporter(pth, html_dict, db_session)
     toc()
 
 
@@ -87,7 +88,7 @@ def make_roots_family_dict_and_bases_dict(dpd_db):
 def compile_rf_html(dpd_db, rf_dict):
     print("[green]compiling html")
 
-    for counter, i in enumerate(dpd_db):
+    for __counter__, i in enumerate(dpd_db):
         family = f"{i.root_key},{i.family_root}"
 
         if i.pali_1 in rf_dict[family]["headwords"]:
@@ -136,7 +137,7 @@ def add_rf_to_db(db_session, rf_dict):
 
     add_to_db = []
 
-    for counter, rf in enumerate(rf_dict):
+    for __counter__, rf in enumerate(rf_dict):
         root_key = rf.split(",")[0]
         family_root = rf.split(",")[1]
 
@@ -148,17 +149,18 @@ def add_rf_to_db(db_session, rf_dict):
 
         add_to_db.append(root_family)
 
-    db_session.execute(FamilyRoot.__table__.delete())
+    db_session.execute(FamilyRoot.__table__.delete()) # type: ignore
     db_session.add_all(add_to_db)
     db_session.commit()
 
 
-def anki_exporter(rf_dict):
+def anki_exporter(pth: ProjectPaths, rf_dict):
     """Save to TSV for anki."""
     print("[green]saving family root tsv for anki")
     anki_data_list = []
     for i in rf_dict:
         html = "<table><tbody>"
+        family, headword, pos, meaning, construction = "", "", "", "", ""
         for row in rf_dict[i]["data"]:
             family, headword, pos, meaning, construction = row
             html += "<tr valign='top'>"
@@ -178,16 +180,16 @@ def anki_exporter(rf_dict):
         else:
             anki_data_list += [(family, html, day())]
 
-    file_path = PTH.family_root_tsv_path
-    header = None
-    write_tsv_list(file_path, header, anki_data_list)
+    file_path = pth.family_root_tsv_path
+    header = []
+    write_tsv_list(str(file_path), header, anki_data_list)
 
 
-def anki_matrix_exporter(html_dict, db_session):
+def anki_matrix_exporter(pth: ProjectPaths, html_dict, db_session):
     """Save root matrix TSV for Anki."""
     print("[green]saving root matrix tsv for anki")
 
-    with open(PTH.roots_css_path) as file:
+    with open(pth.roots_css_path) as file:
         css = file.read()
 
     anki_data_list = []
@@ -198,12 +200,9 @@ def anki_matrix_exporter(html_dict, db_session):
         html = f"<style>{css}</style>{html}"
         anki_data_list += [(anki_name, html, day())]
 
-    file_path = PTH.root_matrix_tsv_path
-    header = None
-    write_tsv_list(file_path, header, anki_data_list)
-
-
-
+    file_path = pth.root_matrix_tsv_path
+    header = []
+    write_tsv_list(str(file_path), header, anki_data_list)
 
 
 if __name__ == "__main__":

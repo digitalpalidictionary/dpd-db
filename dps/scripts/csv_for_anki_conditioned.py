@@ -14,7 +14,7 @@ from db.models import PaliWord
 from db.get_db_session import get_db_session
 
 from tools.pali_sort_key import pali_sort_key
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 from tools.tic_toc import tic, toc
 from tools.date_and_time import day
@@ -41,7 +41,8 @@ def main(header):
     tic()
     console.print("[bold bright_yellow]exporting csv for Anki")
 
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
     dpd_db = sorted(
         dpd_db, key=lambda x: pali_sort_key(x.pali_1))

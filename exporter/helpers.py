@@ -1,12 +1,15 @@
 """A few helpful lists and functions for the exporter."""
 
-from typing import Dict
+from typing import Dict, List, Set, Optional
+from datetime import date
 
 from sqlalchemy.orm import Session
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
+
+TODAY = date.today()
 
 EXCLUDE_FROM_SETS: set = {
     "dps", "ncped", "pass1", "sandhi"}
@@ -14,35 +17,32 @@ EXCLUDE_FROM_SETS: set = {
 EXCLUDE_FROM_FREQ: set = {
     "abbrev", "cs", "idiom", "letter", "prefix", "root", "suffix", "ve"}
 
-_cached_cf_set = None
+_cached_cf_set: Optional[Set[str]] = None
 
 
-def cf_set_gen():
+def cf_set_gen(pth: ProjectPaths) -> Set[str]:
     """generate a list of all compounds families"""
     global _cached_cf_set
 
     if _cached_cf_set is not None:
         return _cached_cf_set
 
-    db_session = get_db_session(PTH.dpd_db_path)
+    db_session = get_db_session(pth.dpd_db_path)
     cf_db = db_session.query(
         PaliWord
     ).filter(PaliWord.family_compound != ""
              ).all()
 
-    cf_set = set()
+    cf_set: Set[str] = set()
     for i in cf_db:
         if i.family_compound is None:
             continue
-        cfs = i.family_compound.split(" ")
+        cfs: List[str] = i.family_compound.split(" ")
         for cf in cfs:
             cf_set.add(cf)
 
     _cached_cf_set = cf_set
     return cf_set
-
-
-CF_SET: set = cf_set_gen()
 
 
 def make_roots_count_dict(db_session: Session) -> Dict[str, int]:

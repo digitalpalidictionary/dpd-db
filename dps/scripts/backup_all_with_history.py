@@ -14,7 +14,7 @@ import datetime
 from db.get_db_session import get_db_session
 from db.models import Russian, SBS, PaliWord, PaliRoot
 from tools.tic_toc import tic, toc
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 
 console = Console()
@@ -24,7 +24,8 @@ MAX_BACKUPS = 1  # Set the maximum number of backups
 def backup_all_tables():
     tic()
     console.print("[bold bright_yellow]Backing up all tables to dps/backup/*.tsvs")
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
 
     tables_to_backup = [
         {'class': PaliWord, 'name': "paliword", 'exclude_columns': ["created_at", "updated_at"]},

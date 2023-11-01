@@ -13,14 +13,15 @@ from collections import namedtuple
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.pali_sort_key import pali_sort_key
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.tsv_read_write import write_tsv_list
 from tools.meaning_construction import make_meaning
 
 
 def main():
     print("[bright_yellow]finding case relationships")
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
     plus_case_list = []
     d = namedtuple("Data", ["pali_1", "pos", "plus_case", "meaning"])
@@ -41,9 +42,9 @@ def main():
         plus_case_list, key=lambda x: (x.plus_case, pali_sort_key(x.pali_1)))
 
     # write to tsv
-    file_path = PTH.temp_dir.joinpath("plus_case.tsv")
+    file_path = pth.temp_dir.joinpath("plus_case.tsv")
     header = ["pali_1", "pos", "plus_case", "meaning"]
-    write_tsv_list(file_path, header, plus_case_list)
+    write_tsv_list(str(file_path), header, plus_case_list)
 
     # counts
     plus_case_counts = Counter(i[2] for i in plus_case_list)
@@ -52,9 +53,9 @@ def main():
     plus_case_count_list.sort(reverse=True)
 
     # write to tsv
-    file_path = PTH.temp_dir.joinpath("plus_case_counts.tsv")
+    file_path = pth.temp_dir.joinpath("plus_case_counts.tsv")
     header = ["count", "plus_case", ]
-    write_tsv_list(file_path, header, plus_case_count_list)
+    write_tsv_list(str(file_path), header, plus_case_count_list)
 
 
 if __name__ == "__main__":

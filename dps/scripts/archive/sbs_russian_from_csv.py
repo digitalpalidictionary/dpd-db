@@ -13,7 +13,7 @@ from sqlalchemy.orm import Session
 
 from db.models import Russian, SBS, PaliWord
 from db.get_db_session import get_db_session
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 from tools.tic_toc import tic, toc
 
@@ -29,10 +29,11 @@ def main():
             print(f"[bright_red]File does not exist: {p}")
             sys.exit(1)
 
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
 
-    db_session.execute(Russian.__table__.delete())
-    db_session.execute(SBS.__table__.delete())
+    db_session.execute(Russian.__table__.delete()) # type: ignore
+    db_session.execute(SBS.__table__.delete()) # type: ignore
     add_dps_russian(db_session)
     add_dps_sbs(db_session)
 
@@ -153,7 +154,7 @@ def add_dps_sbs(db_session: Session):
         print(f"[red]IDs not matching the database: {unmatched_ids}")
 
 
-def _csv_row_to_sbs(x: Dict[str, str], id, db_session) -> SBS:
+def _csv_row_to_sbs(x: Dict[str, str], id, __db_session__) -> SBS:
 
     return SBS(
         id=id,

@@ -7,7 +7,7 @@ from rich.console import Console
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 
 console = Console()
@@ -69,7 +69,8 @@ def main():
     ordered_ids = remove_duplicates(ordered_ids)
     print(f"[blue]Ordered unique IDs fetched: {len(ordered_ids)}[/blue]")
 
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
     matching_word_generator = fetch_matching_words_from_db(db_session, ordered_ids)
     matching_words_count = sum(1 for _ in fetch_matching_words_from_db(db_session, ordered_ids))
 

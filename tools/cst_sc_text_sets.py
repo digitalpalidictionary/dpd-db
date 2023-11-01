@@ -15,7 +15,7 @@ from typing import Union
 from tools.clean_machine import clean_machine
 from tools.pali_text_files import sc_texts, cst_texts, bjt_texts
 from tools.pali_text_files import mula_books, all_books
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 
 
@@ -63,7 +63,7 @@ def extract_sutta_from_file(sutta_name, text_string, book):
     return sutta
 
 
-def make_cst_text_set_sutta(sutta_name, books: list, niggahita="ṃ", return_list=False) -> Union[set, list]:
+def make_cst_text_set_sutta(pth: ProjectPaths, sutta_name, books: list, niggahita="ṃ", return_list=False) -> Union[set, list]:
     """Make a list of words in CST texts from a list of books.
     Optionally change the niggahita character.
     Return a list or a set."""
@@ -77,7 +77,7 @@ def make_cst_text_set_sutta(sutta_name, books: list, niggahita="ṃ", return_lis
     words_list: list = []
 
     for book in cst_texts_list:
-        with open(PTH.cst_txt_dir.joinpath(book), "r") as f:
+        with open(pth.cst_txt_dir.joinpath(book), "r") as f:
             text_string = f.read()
             sutta_string = extract_sutta_from_file(sutta_name, text_string, books)
             if sutta_string is not None:
@@ -113,7 +113,7 @@ def make_cst_text_set_from_file(niggahita="ṃ", return_list=False) -> Union[set
 
 
 
-def make_cst_text_set(books: list, niggahita="ṃ", return_list=False) -> Union[set, list]:
+def make_cst_text_set(pth: ProjectPaths, books: list, niggahita="ṃ", return_list=False) -> Union[set, list]:
     """Make a list of words in CST texts from a list of books.
     Optionally change the niggahita character.
     Return a list or a set."""
@@ -127,7 +127,7 @@ def make_cst_text_set(books: list, niggahita="ṃ", return_list=False) -> Union[
     words_list: list = []
 
     for book in cst_texts_list:
-        with open(PTH.cst_txt_dir.joinpath(book), "r") as f:
+        with open(pth.cst_txt_dir.joinpath(book), "r") as f:
             text_string = f.read()
             text_string = clean_machine(text_string, niggahita=niggahita)
             words_list.extend(text_string.split())
@@ -138,7 +138,7 @@ def make_cst_text_set(books: list, niggahita="ṃ", return_list=False) -> Union[
         return set(words_list)
 
 
-def make_sc_text_set(books: list, niggahita="ṃ", return_list=False) -> set:
+def make_sc_text_set(pth: ProjectPaths, books: list, niggahita="ṃ", return_list=False) -> set:
     """Make a list of words in Sutta Central texts from a list of books.
     Optionally change the niggahita character.
     Return a list or a set."""
@@ -155,23 +155,23 @@ def make_sc_text_set(books: list, niggahita="ṃ", return_list=False) -> set:
 
     words_list: list = []
 
-    for root, dirs, files in sorted(os.walk(PTH.sc_dir)):
+    for root, __dirs__, files in sorted(os.walk(pth.sc_dir)):
         for file in files:
             if file in sc_texts_list:
                 with open(os.path.join(root, file)) as f:
                     # Sutta Cental texts are json dictionaries
                     sc_text_dict: dict = json.load(f)
-                    for title, text in sc_text_dict.items():
+                    for __title__, text in sc_text_dict.items():
                         clean_text = clean_machine(text, niggahita=niggahita)
                         words_list.extend(clean_text.split())
 
     if return_list is True:
-        return words_list
+        return set(words_list)
     else:
         return set(words_list)
 
 
-def make_bjt_text_set(include):
+def make_bjt_text_set(pth: ProjectPaths, include):
     """This is not currently used. BJT texts are a mess."""
     bjt_texts_list = []
     for i in include:
@@ -181,7 +181,7 @@ def make_bjt_text_set(include):
     bjt_text_string = ""
 
     for bjt_text in bjt_texts_list:
-        with open(PTH.bjt_text_path.joinpath(bjt_text), "r") as f:
+        with open(pth.bjt_text_path.joinpath(bjt_text), "r") as f:
             bjt_text_string += f.read()
 
     bjt_text_string = clean_machine(bjt_text_string)
@@ -191,29 +191,29 @@ def make_bjt_text_set(include):
     return bjt_text_set
 
 
-def make_mula_words_set():
+def make_mula_words_set(pth: ProjectPaths):
     """Returns a set of all words in CST & Sutta Cental mūla texts.
     Usage: mula_word_set = make_mula_words_set()"""
-    cst_word_set = make_cst_text_set(mula_books)
-    sc_word_set = make_sc_text_set(mula_books)
+    cst_word_set = make_cst_text_set(pth, mula_books)
+    sc_word_set = make_sc_text_set(pth, mula_books)
     mula_word_set = cst_word_set | sc_word_set
     return mula_word_set
 
 
-def make_all_words_set():
+def make_all_words_set(pth: ProjectPaths):
     """Returns a set of all words in CST & Sutta Cental texts.
     Usage: all_words_set = make_all_words_set()"""
-    cst_word_set = make_cst_text_set(all_books)
-    sc_word_set = make_sc_text_set(all_books)
+    cst_word_set = make_cst_text_set(pth, all_books)
+    sc_word_set = make_sc_text_set(pth, all_books)
     all_words_set = cst_word_set | sc_word_set
     return all_words_set
 
 
-def make_other_pali_texts_set() -> set:
+def make_other_pali_texts_set(pth: ProjectPaths) -> set:
     """Compile a set of all words in other pali texts, chanting books, etc."""
     other_pali_texts_set = set()
 
-    dir_path = PTH.other_pali_texts_dir
+    dir_path = pth.other_pali_texts_dir
     if dir_path.exists():
         file_list = [file for file in dir_path.iterdir() if file.is_file()]
         for file_path in file_list:
@@ -221,7 +221,8 @@ def make_other_pali_texts_set() -> set:
                 text_string = f.read()
                 text_string = clean_machine(text_string)
                 other_pali_texts_set.update(text_string.split())
-        return other_pali_texts_set
+
+    return other_pali_texts_set
 
 
 # print(make_other_pali_texts_set())

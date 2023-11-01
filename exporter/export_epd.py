@@ -3,7 +3,6 @@
 import re
 
 from css_html_js_minify import css_minify
-from mako.template import Template
 from minify_html import minify
 from rich import print
 from sqlalchemy.orm import Session
@@ -17,10 +16,6 @@ from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.link_generator import generate_link
 from tools.configger import config_test
-
-PTH = ProjectPaths()
-epd_templ = Template(
-    filename=str(PTH.epd_templ_path))
 
 
 def generate_epd_html(db_session: Session, pth: ProjectPaths, size_dict) -> Tuple[list, Any]:
@@ -49,7 +44,7 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths, size_dict) -> Tupl
 
     epd_css = css_minify(epd_css)
 
-    header = render_header_tmpl(epd_css, js="")
+    header = render_header_tmpl(pth, epd_css, js="")
 
     bip()
     for counter, i in enumerate(dpd_db):

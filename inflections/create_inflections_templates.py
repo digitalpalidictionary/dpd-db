@@ -13,13 +13,14 @@ from rich import print
 from db.get_db_session import get_db_session
 from db.models import InflectionTemplates
 from tools.pali_sort_key import pali_list_sorter
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 
 tic()
 print("[bright_yellow]create inflection templates")
 
-db_session = get_db_session(PTH.dpd_db_path)
+pth = ProjectPaths()
+db_session = get_db_session(pth.dpd_db_path)
 db_session.query(InflectionTemplates).delete()
 inflection_templates_path = Path("inflections/inflection_templates.xlsx")
 

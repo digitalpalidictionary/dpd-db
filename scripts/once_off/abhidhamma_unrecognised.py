@@ -9,9 +9,10 @@ from tools.pali_text_files import cst_texts
 from tools.sutta_central_text_set import make_sc_text_set
 from tools.clean_machine import clean_machine
 from tools.pali_sort_key import pali_sort_key
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
 
+PTH = ProjectPaths()
 db_session = get_db_session(PTH.dpd_db_path)
 cst_texts_dir = Path("resources/tipitaka-xml/roman_txt")
 
@@ -43,7 +44,7 @@ def make_all_inflections_set():
     return all_inflections_set
 
 
-def make_cst_text_set(books) -> list:
+def make_cst_text_set(books) -> set:
     text_set = set()
 
     for book in books:

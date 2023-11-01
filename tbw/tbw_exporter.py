@@ -17,12 +17,14 @@ from tools.tic_toc import tic, toc
 from tools.cst_sc_text_sets import make_sc_text_set
 from tools.meaning_construction import make_meaning_html
 from tools.meaning_construction import summarize_constr
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
 
 def main():
     tic()
     print("[bright_yellow]dpd lookup system")
+
+    pth = ProjectPaths()
 
     # make a set of words in sutta central texts
     
@@ -38,13 +40,14 @@ def main():
         "kn8", "kn9",
         ]
 
-    text_set: set = make_sc_text_set(sc_text_list)
+    text_set: set = make_sc_text_set(pth, sc_text_list)
     print(f"{len(text_set):,}")
 
     # get all the required info from the database
     
     print(f"[green]{'making db searches':<40}", end="")
-    db_session = get_db_session(PTH.dpd_db_path)
+
+    db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(PaliWord)
     dd_db = db_session.query(DerivedData)
     deconstr_db = db_session.query(Sandhi)
@@ -67,7 +70,7 @@ def main():
     
     print(f"[green]{'making inflections to headwords dict':<40}", end="")
     i2h: dict = {}
-    for counter, (i, dd) in enumerate(zip(dpd_db, dd_db)):
+    for __counter__, (i, dd) in enumerate(zip(dpd_db, dd_db)):
         assert i.id == dd.id
         inflections = dd.inflections_list
         for inflection in inflections:
@@ -86,7 +89,7 @@ def main():
     # save inflections to headwords json
     
     print(f"[green]{'writing inflections to headwords json':<40}", end="")
-    with open(PTH.i2h_json_path, "w") as f:
+    with open(pth.i2h_json_path, "w") as f:
         json.dump(i2h, f, ensure_ascii=False, indent=0)
         print("OK")
 
@@ -100,7 +103,7 @@ def main():
     
     print(f"[green]{'making headwords set':<40}", end="")
     headwords_set: set = set()
-    for key, values in i2h.items():
+    for __key__, values in i2h.items():
         headwords_set.update(values)
     print(f"{len(headwords_set):,}")
 
@@ -123,7 +126,7 @@ def main():
     # write dpd dict to json
     
     print(f"[green]{'writing dpd ebts to json':<40}", end="")
-    with open(PTH.dpd_ebts_json_path, "w") as f:
+    with open(pth.dpd_ebts_json_path, "w") as f:
         json.dump(dpd_dict, f, ensure_ascii=False, indent=0)
         print("OK")
 
@@ -147,7 +150,7 @@ def main():
     # save deconstr dict to json
     
     print(f"[green]{'writing deconstructor dict to json':<40}", end="")
-    with open(PTH.deconstructor_json_path, "w") as f:
+    with open(pth.deconstructor_json_path, "w") as f:
         json.dump(deconstr_dict, f, ensure_ascii=False, indent=0)
         print("OK")
 
