@@ -4,8 +4,6 @@ import os
 from typing import Optional
 from pathlib import Path
 
-from icecream import ic
-
 class ProjectPaths:
 
     def __init__(self, base_dir: Optional[Path] = None, create_dirs = True):
@@ -13,8 +11,6 @@ class ProjectPaths:
         if base_dir is None:
             # The current working directory of the shell.
             base_dir = Path(os.path.abspath("."))
-
-        ic(base_dir)
 
         # ./dpd_db
         self.dpd_db_path = base_dir.joinpath(Path("dpd.db"))
