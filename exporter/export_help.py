@@ -7,7 +7,7 @@ from css_html_js_minify import css_minify
 from mako.template import Template
 from minify_html import minify
 from rich import print
-from typing import List, Dict, Tuple, Any
+from typing import List, Dict, Optional, Tuple, Any
 
 from sqlalchemy.orm import Session
 
@@ -17,13 +17,6 @@ from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
 from tools.tsv_read_write import read_tsv_dict
 from tools.tsv_read_write import read_tsv_dot_dict
-
-PTH = ProjectPaths()
-
-abbrev_templ = Template(
-    filename=str(PTH.abbrev_templ_path))
-help_templ = Template(
-    filename=str(PTH.help_templ_path))
 
 
 class Abbreviation:
@@ -51,7 +44,7 @@ class Help:
         return f"Help: {self.help} {self.meaning}  ..."
 
 
-def generate_help_html(db_session: Session,
+def generate_help_html(__db_session__: Session,
                        pth: ProjectPaths,
                        size_dict) -> Tuple[list, Any]:
     """generating html of all help files used in the dictionary"""
@@ -194,11 +187,10 @@ def add_bibliographhy(pth: ProjectPaths,
     # i = current item, n = next item
     for x in range(len(bibliography_dict)):
         i = bibliography_dict[x]
-        try:
+        if x+1 > len(bibliography_dict)-1:
+            break
+        else:
             n = bibliography_dict[x+1]
-        except IndexError:
-            # FIXME handle the exception
-            pass
 
         if i.category:
             html += f"<h3>{i.category}</h3>"
@@ -219,7 +211,7 @@ def add_bibliographhy(pth: ProjectPaths,
             html += f", accessed through <a href='{i.site}'  target='_blank'>{i.site}</a>"
         if i.surname:
             html += "</li>"
-        # FIXME n is possibly unbound
+
         if n.category:
             html += "</ul>"
 
@@ -261,11 +253,10 @@ def add_thanks(pth: ProjectPaths,
     # i = current item, n = next item
     for x in range(len(thanks)):
         i = thanks[x]
-        try:
+        if x+1 > len(thanks)-1:
+            break
+        else:
             n = thanks[x+1]
-        except IndexError:
-            # FIXME handle the exception
-            pass
 
         if i.category:
             html += f"<h2>{i.category}</h2>"
@@ -279,7 +270,7 @@ def add_thanks(pth: ProjectPaths,
             html += f" {i.what}"
         if i.who:
             html += "</li>"
-        # FIXME n is possibly unbound
+
         if n.category:
             html += "</ul>"
 
@@ -305,15 +296,21 @@ def add_thanks(pth: ProjectPaths,
     return help_data_list
 
 
-def render_abbrev_templ(i) -> str:
+def render_abbrev_templ(i, pth: Optional[ProjectPaths] = None) -> str:
     """render html of abbreviations"""
-    return str(
-        abbrev_templ.render(
-            i=i))
+
+    if pth is None:
+        pth = ProjectPaths()
+    abbrev_templ = Template(filename=str(pth.abbrev_templ_path))
+
+    return str(abbrev_templ.render(i=i))
 
 
-def render_help_templ(i) -> str:
+def render_help_templ(i, pth: Optional[ProjectPaths] = None) -> str:
     """render html of help"""
-    return str(
-        help_templ.render(
-            i=i))
+
+    if pth is None:
+        pth = ProjectPaths()
+    help_templ = Template(filename=str(pth.help_templ_path))
+
+    return str(help_templ.render(i=i))
