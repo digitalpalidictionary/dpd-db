@@ -9,7 +9,7 @@ from db.models import PaliWord, PaliRoot, Sandhi, DerivedData
 from tools.pali_sort_key import pali_sort_key
 from tools.tic_toc import tic, toc
 from tools.configger import config_read, config_update
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.uposatha_day import uposatha_today
 
 
@@ -18,7 +18,8 @@ def main():
     print("[bright_yellow]summary")
     print("[green]reading db tables")
 
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
     roots_db = db_session.query(PaliRoot).all()
     sandhi_db = db_session.query(Sandhi).all()

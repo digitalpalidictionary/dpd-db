@@ -68,7 +68,7 @@ def generate_variant_data_list(
         variant_css = f.read()
     variant_css = css_minify(variant_css)
 
-    header = render_header_tmpl(css=variant_css, js="")
+    header = render_header_tmpl(pth, css=variant_css, js="")
 
     size_dict["variant_readings"] = 0
     size_dict["variant_synonyms"] = 0
@@ -146,7 +146,7 @@ def generate_spelling_data_list(
         spelling_css = f.read()
     spelling_css = css_minify(spelling_css)
 
-    header = render_header_tmpl(css=spelling_css, js="")
+    header = render_header_tmpl(pth, css=spelling_css, js="")
 
     size_dict["spelling_mistakes"] = 0
     size_dict["spelling_synonyms"] = 0

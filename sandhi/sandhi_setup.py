@@ -19,13 +19,15 @@ from rich import print
 
 from books_to_include import limited_texts, all_texts
 
+from sqlalchemy.orm.session import Session
+
 from db.models import PaliWord, DerivedData
 from db.get_db_session import get_db_session
 from tools.cst_sc_text_sets import make_cst_text_set
 from tools.cst_sc_text_sets import make_sc_text_set
 from tools.cst_sc_text_sets import make_other_pali_texts_set
 from tools.tic_toc import tic, toc
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
 
 def main():
@@ -56,32 +58,32 @@ def main():
         texts_to_include = all_texts
         print("[green]setting up for [cyan]cloud with all texts")
 
-    global db_session
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
 
     print(f"[green]{'making cst text set':<35}", end="")
-    cst_text_set = make_cst_text_set(texts_to_include)
+    cst_text_set = make_cst_text_set(pth, texts_to_include)
     print(f"[white]{len(cst_text_set):>10,}")
 
     print(f"[green]{'making sc text set':<35}", end="")
-    sc_text_set = make_sc_text_set(texts_to_include)
+    sc_text_set = make_sc_text_set(pth, texts_to_include)
     print(f"[white]{len(sc_text_set):>10,}")
 
     print(f"[green]{'making other pali texts set':<35}", end="")
-    other_pali_text_set = make_other_pali_texts_set()
+    other_pali_text_set = make_other_pali_texts_set(pth)
     print(f"[white]{len(other_pali_text_set):>10,}")
 
     # bjt_text_set = make_bjt_text_set(include)
     (spelling_mistakes_set,
-        spelling_corrections_set) = make_spelling_mistakes_set()
+        spelling_corrections_set) = make_spelling_mistakes_set(pth)
     (variant_readings_set,
-        variant_corrections_set) = make_variant_readings_set()
-    abbreviations_set = make_abbreviations_set()
+        variant_corrections_set) = make_variant_readings_set(pth)
+    abbreviations_set = make_abbreviations_set(db_session)
     (manual_corrections_set,
-        manual_corrections_dict) = make_manual_corrections_set()
-    sandhi_exceptions_set = make_exceptions_set()
-    all_inflections_set = make_all_inflections_set(sandhi_exceptions_set)
-    neg_inflections_set = make_neg_inflections_set(sandhi_exceptions_set)
+        manual_corrections_dict) = make_manual_corrections_set(pth)
+    sandhi_exceptions_set = make_exceptions_set(pth)
+    all_inflections_set = make_all_inflections_set(db_session, sandhi_exceptions_set)
+    neg_inflections_set = make_neg_inflections_set(db_session, sandhi_exceptions_set)
 
     def make_unmatched_set():
         print(f"[green]{'making text set':<35}", end="")
@@ -112,38 +114,38 @@ def main():
 
     text_set, unmatched_set = make_unmatched_set()
 
-    def save_assets():
+    def save_assets(pth: ProjectPaths):
         print(f"[green]{'saving assets':<35}", end="")
 
-        with open(PTH.unmatched_set_path, "wb") as f:
+        with open(pth.unmatched_set_path, "wb") as f:
             pickle.dump(unmatched_set, f)
 
-        with open(PTH.all_inflections_set_path, "wb") as f:
+        with open(pth.all_inflections_set_path, "wb") as f:
             pickle.dump(all_inflections_set, f)
 
-        with open(PTH.text_set_path, "wb") as f:
+        with open(pth.text_set_path, "wb") as f:
             pickle.dump(text_set, f)
 
-        with open(PTH.neg_inflections_set_path, "wb") as f:
+        with open(pth.neg_inflections_set_path, "wb") as f:
             pickle.dump(neg_inflections_set, f)
 
         print(f"[white]{'ok':>10}")
 
-    save_assets()
+    save_assets(pth)
 
-    def make_matches_dict():
+    def make_matches_dict(pth: ProjectPaths):
         print(f"[green]{'saving matches_dict':<35}", end="")
         matches_dict = {}
         matches_dict["word"] = [
             ("split", "process", "rules", "path")]
         matches_dict.update(manual_corrections_dict)
 
-        with open(PTH.matches_dict_path, "wb") as f:
+        with open(pth.matches_dict_path, "wb") as f:
             pickle.dump(matches_dict, f)
 
         print(f"[white]{'ok':>10}")
 
-    make_matches_dict()
+    make_matches_dict(pth)
 
     if not args.local:
         zip_for_cloud()
@@ -152,11 +154,11 @@ def main():
     toc()
 
 
-def make_spelling_mistakes_set():
+def make_spelling_mistakes_set(pth: ProjectPaths):
     print(f"[green]{'making spelling mistakes set':<35}", end="")
 
     sp_mistakes_df = pd.read_csv(
-        PTH.spelling_mistakes_path, dtype=str, header=None, sep="\t")
+        pth.spelling_mistakes_path, dtype=str, header=None, sep="\t")
     sp_mistakes_df.fillna("", inplace=True)
 
     spelling_mistakes_set = set(sp_mistakes_df[0].tolist())
@@ -189,11 +191,11 @@ def make_spelling_mistakes_set():
         spelling_corrections_set)
 
 
-def make_variant_readings_set():
+def make_variant_readings_set(pth: ProjectPaths):
     print(f"[green]{'making variant readings set':<35}", end="")
 
     variant_reading_df = pd.read_csv(
-        PTH.variant_readings_path, dtype=str, header=None, sep="\t")
+        pth.variant_readings_path, dtype=str, header=None, sep="\t")
     variant_reading_df.fillna("", inplace=True)
 
     variant_readings_set = set(variant_reading_df[0].tolist())
@@ -224,7 +226,7 @@ def make_variant_readings_set():
     return variant_readings_set, variant_corrections_set
 
 
-def make_abbreviations_set():
+def make_abbreviations_set(db_session: Session):
 
     print(f"[green]{'making abbreviations set':<35}", end="")
 
@@ -243,12 +245,12 @@ def make_abbreviations_set():
     return abbreviations_set
 
 
-def make_manual_corrections_set():
+def make_manual_corrections_set(pth: ProjectPaths):
 
     print(f"[green]{'making manual corrections set':<35}", end="")
 
     manual_corrections_df = pd.read_csv(
-        PTH.manual_corrections_path, dtype=str, header=None, sep="\t")
+        pth.manual_corrections_path, dtype=str, header=None, sep="\t")
     manual_corrections_df.fillna("", inplace=True)
 
     manual_corrections_set = set(manual_corrections_df[0].tolist())
@@ -278,11 +280,11 @@ def make_manual_corrections_set():
     return manual_corrections_set, manual_corrections_dict
 
 
-def make_exceptions_set():
+def make_exceptions_set(pth: ProjectPaths):
     print(f"[green]{'making exceptions set':<35}", end="")
 
     sandhi_exceptions_df = pd.read_csv(
-        PTH.sandhi_exceptions_path, header=None)
+        pth.sandhi_exceptions_path, header=None)
     sandhi_exceptions_set = set(sandhi_exceptions_df[0].tolist())
 
     print(f"[white]{len(sandhi_exceptions_set):>10,}")
@@ -290,7 +292,7 @@ def make_exceptions_set():
     return sandhi_exceptions_set
 
 
-def make_all_inflections_set(sandhi_exceptions_set):
+def make_all_inflections_set(db_session: Session, sandhi_exceptions_set):
     print(f"[green]{'making all inflections set':<35}", end="")
     all_inflections_set = set()
 
@@ -320,7 +322,7 @@ def make_all_inflections_set(sandhi_exceptions_set):
     return all_inflections_set
 
 
-def make_neg_inflections_set(sandhi_exceptions_set):
+def make_neg_inflections_set(db_session: Session, sandhi_exceptions_set):
     print(f"[green]{'making neg inflections set':<35}", end="")
     neg_inflections_set = set()
 
@@ -375,7 +377,7 @@ def zip_for_cloud():
     zipfile_name = Path("sandhi.zip")
 
     def zipdir(path, ziph, include):
-        for root, dirs, files in os.walk(path):
+        for root, __dirs__, files in os.walk(path):
             for file in files:
                 if not any(
                         os.path.relpath(

@@ -5,7 +5,6 @@
 import os
 import sys
 
-from datetime import date
 from functools import reduce
 from pathlib import Path
 from typing import List, Dict
@@ -21,18 +20,15 @@ from db.get_db_session import get_db_session
 
 from tools.goldendict_path import goldedict_path
 from tools.niggahitas import add_niggahitas
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc, bip, bop
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.configger import config_test
+from helpers import TODAY
+from tools.writemdict.writemdict import MDictWriter
 
 sys.path.insert(1, 'tools/writemdict')
-from writemdict import MDictWriter
-
-sandhi_templ = Template(filename=str(PTH.sandhi_templ_path))
-TODAY = date.today()
-
 
 def main():
     tic()
@@ -44,33 +40,35 @@ def main():
     else:
         make_mdct: bool = False
 
-    sandhi_data_list = make_sandhi_data_list()
-    make_golden_dict(PTH, sandhi_data_list)
-    unzip_and_copy(PTH)
+    pth = ProjectPaths()
+    sandhi_data_list = make_sandhi_data_list(pth)
+    make_golden_dict(pth, sandhi_data_list)
+    unzip_and_copy(pth)
 
     if make_mdct is True:
-        make_mdict(PTH, sandhi_data_list)
+        make_mdict(pth, sandhi_data_list)
 
     toc()
 
 
-def make_sandhi_data_list():
+def make_sandhi_data_list(pth: ProjectPaths):
     """Prepare data set for GoldenDict of sandhi, splits and synonyms."""
 
     print(f"[green]{'making sandhi data list':<40}")
-    db_session = get_db_session(PTH.dpd_db_path)
+    db_session = get_db_session(pth.dpd_db_path)
     sandhi_db = db_session.query(Sandhi).all()
     sandhi_db_length: int = len(sandhi_db)
     SANDHI_CONTRACTIONS: dict = make_sandhi_contraction_dict(db_session)
     sandhi_data_list: list = []
 
-    with open(PTH.sandhi_css_path) as f:
+    with open(pth.sandhi_css_path) as f:
         sandhi_css = f.read()
         sandhi_css = css_minify(sandhi_css)
 
-    header_tmpl = Template(filename=str(
-        PTH.header_deconstructor_templ_path))
+    header_tmpl = Template(filename=str(pth.header_deconstructor_templ_path))
     sandhi_header = str(header_tmpl.render(css=sandhi_css, js=""))
+
+    sandhi_templ = Template(filename=str(pth.sandhi_templ_path))
 
     bip()
     for counter, i in enumerate(sandhi_db):

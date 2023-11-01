@@ -18,13 +18,6 @@ from tools.tic_toc import bip, bop
 from tools.tsv_read_write import read_tsv_dict
 from tools.tsv_read_write import read_tsv_dot_dict
 
-PTH = ProjectPaths()
-
-abbrev_templ = Template(
-    filename=str(PTH.abbrev_templ_path))
-help_templ = Template(
-    filename=str(PTH.help_templ_path))
-
 
 class Abbreviation:
     """defining the abbreviations.tsv columns"""
@@ -51,7 +44,7 @@ class Help:
         return f"Help: {self.help} {self.meaning}  ..."
 
 
-def generate_help_html(db_session: Session,
+def generate_help_html(__db_session__: Session,
                        pth: ProjectPaths,
                        size_dict) -> Tuple[list, Any]:
     """generating html of all help files used in the dictionary"""
@@ -68,7 +61,7 @@ def generate_help_html(db_session: Session,
 
     size_dict["help"] = 0
 
-    header = render_header_tmpl(css=css, js="")
+    header = render_header_tmpl(pth, css=css, js="")
     help_data_list: List[dict] = []
 
     abbrev = add_abbrev_html(pth, header, help_data_list)
@@ -119,7 +112,7 @@ def add_abbrev_html(pth: ProjectPaths,
     for i in items:
         html = header
         html += "<body>"
-        html += render_abbrev_templ(i)
+        html += render_abbrev_templ(pth, i)
         html += "</body></html>"
 
         html = minify(html)
@@ -162,7 +155,7 @@ def add_help_html(pth: ProjectPaths,
     for i in items:
         html = header
         html += "<body>"
-        html += render_help_templ(i)
+        html += render_help_templ(pth, i)
         html += "</body></html>"
 
         html = minify(html)
@@ -194,11 +187,10 @@ def add_bibliographhy(pth: ProjectPaths,
     # i = current item, n = next item
     for x in range(len(bibliography_dict)):
         i = bibliography_dict[x]
-        try:
+        if x+1 > len(bibliography_dict)-1:
+            break
+        else:
             n = bibliography_dict[x+1]
-        except IndexError:
-            # FIXME handle the exception
-            pass
 
         if i.category:
             html += f"<h3>{i.category}</h3>"
@@ -219,7 +211,7 @@ def add_bibliographhy(pth: ProjectPaths,
             html += f", accessed through <a href='{i.site}'  target='_blank'>{i.site}</a>"
         if i.surname:
             html += "</li>"
-        # FIXME n is possibly unbound
+
         if n.category:
             html += "</ul>"
 
@@ -261,11 +253,10 @@ def add_thanks(pth: ProjectPaths,
     # i = current item, n = next item
     for x in range(len(thanks)):
         i = thanks[x]
-        try:
+        if x+1 > len(thanks)-1:
+            break
+        else:
             n = thanks[x+1]
-        except IndexError:
-            # FIXME handle the exception
-            pass
 
         if i.category:
             html += f"<h2>{i.category}</h2>"
@@ -279,7 +270,7 @@ def add_thanks(pth: ProjectPaths,
             html += f" {i.what}"
         if i.who:
             html += "</li>"
-        # FIXME n is possibly unbound
+
         if n.category:
             html += "</ul>"
 
@@ -305,15 +296,17 @@ def add_thanks(pth: ProjectPaths,
     return help_data_list
 
 
-def render_abbrev_templ(i) -> str:
+def render_abbrev_templ(pth: ProjectPaths, i: Abbreviation) -> str:
     """render html of abbreviations"""
-    return str(
-        abbrev_templ.render(
-            i=i))
+
+    abbrev_templ = Template(filename=str(pth.abbrev_templ_path))
+
+    return str(abbrev_templ.render(i=i))
 
 
-def render_help_templ(i) -> str:
+def render_help_templ(pth: ProjectPaths, i: Help) -> str:
     """render html of help"""
-    return str(
-        help_templ.render(
-            i=i))
+
+    help_templ = Template(filename=str(pth.help_templ_path))
+
+    return str(help_templ.render(i=i))

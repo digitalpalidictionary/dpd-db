@@ -5,7 +5,7 @@ Update sbs_category for words from an ID list based on specific conditions
 """
 
 from db.models import PaliWord
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 from db.get_db_session import get_db_session
 from rich.console import Console
@@ -48,7 +48,8 @@ def derive_sutta_identifier(source):
 
 # Function to update sbs_category based on a condition function
 def update_sbs_category(source, condition_func, message):
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
 
     # Print the message at the beginning
     console.print(f"[bold bright_yellow]{message}")
@@ -85,7 +86,7 @@ def update_sbs_category(source, condition_func, message):
 
 
 # Condition function to check if all sbs_examples are not empty
-def condition_check_all_examples(word, sutta_identifier):
+def condition_check_all_examples(word, __sutta_identifier__):
     return all([
             getattr(word.sbs, 'sbs_example_1', None),
             getattr(word.sbs, 'sbs_example_2', None),

@@ -8,13 +8,13 @@ from rich import print
 from db.get_db_session import get_db_session
 from db.models import PaliWord, DerivedData
 from tools.tic_toc import tic, toc
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
 
-def make_dicts():
+def make_dicts(pth: ProjectPaths):
     print("[green]making word count dict of ebt wit vinaya ")
 
-    wc_dir = PTH.word_count_dir
+    wc_dir = pth.word_count_dir
 
     vinaya_pārājika_mūla = pd.read_csv(wc_dir.joinpath("vinaya_pārājika_mūla.csv"), sep="\t", header=None)
     vinaya_pācittiya_mūla = pd.read_csv(wc_dir.joinpath("vinaya_pācittiya_mūla.csv"), sep="\t", header=None)
@@ -57,18 +57,18 @@ def main():
     tic()
     print("[bright_yellow] EBT + Vinaya mūla frequency making")
 
-    global db_session
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
 
     dpd_db = db_session.query(PaliWord).all()
     dd_db = db_session.query(DerivedData).all()
 
-    dicts = make_dicts()
+    dicts = make_dicts(pth)
 
     # Create a list to store counts for each dictionary
     dictionary_counts = [{} for _ in dicts]
-    
-    for counter, (i, j) in enumerate(zip(dpd_db, dd_db)):
+
+    for __counter__, (i, j) in enumerate(zip(dpd_db, dd_db)):
         
         inflections = j.inflections_list
 

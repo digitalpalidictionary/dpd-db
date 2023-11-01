@@ -9,11 +9,13 @@ from rich import print
 
 from typing import List
 
+from sqlalchemy.orm.session import Session
+
 from db.models import PaliWord, PaliRoot
 from db.get_db_session import get_db_session
 
 from tools.pali_sort_key import pali_sort_key
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 from tools.tsv_read_write import write_tsv_list
 from tools.date_and_time import day
@@ -25,28 +27,29 @@ def main():
     tic()
     print("[bright_yellow]exporting anki csv")
 
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
     dpd_db = sorted(
         dpd_db, key=lambda x: pali_sort_key(x.pali_1))
     # roots_db = db_session.query(PaliRoot).all()
 
-    vocab(dpd_db)
-    commentary(dpd_db)
-    pass1(dpd_db)
+    vocab(pth, dpd_db)
+    commentary(pth, dpd_db)
+    pass1(pth, dpd_db)
     # full_db(dpd_db)
     # roots(db_session, roots_db)
     toc()
 
 
-def vocab(dpd_db):
+def vocab(pth: ProjectPaths, dpd_db):
 
     def _is_needed(i: PaliWord):
         return (i.meaning_1 != "" and i.example_1 != "")
 
     rows = [pali_row(i) for i in dpd_db if _is_needed(i)]
 
-    with open(PTH.vocab_csv_path, "w", newline='', encoding='utf-8') as f:
+    with open(pth.vocab_csv_path, "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerows(rows)
 
@@ -163,7 +166,7 @@ def pali_row(i: PaliWord, output="anki") -> List[str]:
     return none_to_empty(fields)
 
 
-def commentary(dpd_db):
+def commentary(pth: ProjectPaths, dpd_db):
     print("[green]making commentary csv")
     rows = []
 
@@ -174,12 +177,12 @@ def commentary(dpd_db):
         ):
             rows.append(pali_row(i))
 
-    with open(PTH.commentary_csv_path, "w", newline='', encoding='utf-8') as f:
+    with open(pth.commentary_csv_path, "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerows(rows)
 
 
-def pass1(dpd_db):
+def pass1(pth: ProjectPaths, dpd_db):
     print("[green]making pass1 csv")
 
     rows = []
@@ -191,12 +194,12 @@ def pass1(dpd_db):
         ):
             rows.append(pali_row(i))
 
-    output_file = PTH.pass1_csv_path
-    header = None
-    write_tsv_list(output_file, header, rows)
+    output_file = pth.pass1_csv_path
+    header = []
+    write_tsv_list(str(output_file), header, rows)
 
 
-def full_db(dpd_db):
+def full_db(pth: ProjectPaths, dpd_db):
     print("[green]making dpd-full csv")
     rows = []
     header = ['ID', 'Pāli1', 'Pāli2', 'Fin', 'POS', 'Grammar', 'Derived from',
@@ -218,20 +221,20 @@ def full_db(dpd_db):
     for i in dpd_db:
         rows.append(pali_row(i, output="dpd"))
 
-    with open(PTH.dpd_full_path, "w", newline='', encoding='utf-8') as f:
+    with open(pth.dpd_full_path, "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerows(rows)
 
-    dpd_df = pd.read_csv(PTH.dpd_full_path, sep="\t", dtype=str)
+    dpd_df = pd.read_csv(pth.dpd_full_path, sep="\t", dtype=str)
     dpd_df.sort_values(
         by=["Pāli1"], inplace=True, ignore_index=True,
         key=lambda x: x.map(pali_sort_key))
     dpd_df.to_csv(
-        PTH.dpd_full_path, sep="\t", index=False,
+        pth.dpd_full_path, sep="\t", index=False,
         quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
 
 
-def roots(db_session, roots_db):
+def roots(pth: ProjectPaths, db_session: Session, roots_db):
 
     print("[green]making roots list")
     roots_list = []
@@ -262,16 +265,16 @@ def roots(db_session, roots_db):
     for i in roots_db:
         rows.append(root_row(i, root_count_dict))
 
-    with open(PTH.roots_csv_path, "w", newline='', encoding='utf-8') as f:
+    with open(pth.roots_csv_path, "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter="\t")
         writer.writerows(rows)
 
-    dpd_df = pd.read_csv(PTH.roots_csv_path, sep="\t", dtype=str)
+    dpd_df = pd.read_csv(pth.roots_csv_path, sep="\t", dtype=str)
     dpd_df.sort_values(
         by=["Root"], inplace=True, ignore_index=True,
         key=lambda x: x.map(pali_sort_key))
     dpd_df.to_csv(
-        PTH.roots_csv_path, sep="\t", index=False,
+        pth.roots_csv_path, sep="\t", index=False,
         quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
 
 

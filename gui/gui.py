@@ -112,18 +112,19 @@ from scripts.backup_ru_sbs import backup_ru_sbs
 from tools.pos import DECLENSIONS, VERBS
 from tools.pos import POS
 from tools.sandhi_contraction import make_sandhi_contraction_dict
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
 
 def main():
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
     primary_user = test_username(sg)
     pali_word_original = None
     pali_word_original2 = None
 
     # !!! this is supa slow !!!
     try:
-        definitions_df = pd.read_csv(PTH.defintions_csv_path, sep="\t")
+        definitions_df = pd.read_csv(pth.defintions_csv_path, sep="\t")
         commentary_definitions_exists = True
     except Exception:
         definitions_df = pd.DataFrame()
@@ -812,13 +813,13 @@ def main():
             print(f"{values}")
 
         elif event == "stash_button":
-            with open(PTH.stash_path, "wb") as f:
+            with open(pth.stash_path, "wb") as f:
                 pickle.dump(values, f)
             window["messages"].update(
                 value=f"{values['pali_1']} stashed", text_color="white")
 
         elif event == "unstash_button":
-            with open(PTH.stash_path, "rb") as f:
+            with open(pth.stash_path, "rb") as f:
                 unstash = pickle.load(f)
                 for key, value in unstash.items():
                     window[key].update(value)
@@ -855,7 +856,7 @@ def main():
             window["messages"].update(
                 value="backing up db to csvs", text_color="white")
             if primary_user:
-                backup_paliword_paliroot()
+                backup_paliword_paliroot(pth)
             else:
                 backup_ru_sbs()
 
@@ -1718,13 +1719,13 @@ def main():
                         value="not a valid id or pali_1", text_color="red")
 
         elif event == "dps_stash_button":
-            with open(PTH.stash_path, "wb") as f:
+            with open(pth.stash_path, "wb") as f:
                 pickle.dump(values, f)
             window["messages"].update(
                 value=f"{values['pali_1']} stashed", text_color="white")
 
         elif event == "dps_unstash_button":
-            with open(PTH.stash_path, "rb") as f:
+            with open(pth.stash_path, "rb") as f:
                 unstash = pickle.load(f)
                 for key, value in unstash.items():
                     window[key].update(value)
@@ -1760,7 +1761,7 @@ def main():
         elif event == "dps_books_to_add_button":
             if test_book_to_add(values, window):
                 words_to_add_list = dps_make_words_to_add_list(
-                    window, values["book_to_add"])
+                    pth, window, values["book_to_add"])
 
                 if words_to_add_list != []:
                     values["word_to_add"] = [words_to_add_list[0]]
@@ -1801,7 +1802,7 @@ def main():
         elif event == "dps_sutta_to_add_button":
             if test_book_to_add(values, window):
                 words_to_add_list = dps_make_words_to_add_list_sutta(
-                    values["sutta_to_add"], values["book_to_add"])
+                    pth, values["sutta_to_add"], values["book_to_add"])
 
                 if words_to_add_list != []:
                     values["word_to_add"] = [words_to_add_list[0]]
@@ -1960,7 +1961,7 @@ def main():
         # test db tab                
 
         elif event == "ru_test_db_internal":
-            dps_dpd_db_internal_tests(sg, window, flags)
+            dps_dpd_db_internal_tests(pth, sg, window, flags)
 
         # dps test tab
 

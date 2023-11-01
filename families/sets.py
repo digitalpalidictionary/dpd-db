@@ -11,13 +11,14 @@ from tools.superscripter import superscripter_uni
 from tools.meaning_construction import make_meaning
 from tools.pali_sort_key import pali_sort_key
 from tools.meaning_construction import degree_of_completion as doc
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
 
 def main():
     tic()
     print("[bright_yellow]sets generator")
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
 
     sets_db = db_session.query(
         PaliWord).filter(PaliWord.family_set != "").all()
@@ -38,7 +39,7 @@ def make_sets_dict(sets_db):
 
     sets_dict: dict = {}
 
-    for counter, i in enumerate(sets_db):
+    for __counter__, i in enumerate(sets_db):
 
         for fs in i.family_set_list:
             if fs == " ":
@@ -63,7 +64,7 @@ def make_sets_dict(sets_db):
 def compile_sf_html(sets_db, sets_dict):
     print("[green]compiling html")
 
-    for counter, i in enumerate(sets_db):
+    for __counter__, i in enumerate(sets_db):
 
         for sf in i.family_set_list:
             if sf in sets_dict:
@@ -94,7 +95,7 @@ def add_sf_to_db(db_session, sets_dict):
     add_to_db = []
     errors_list = []
 
-    for counter, sf in enumerate(sets_dict):
+    for __counter__, sf in enumerate(sets_dict):
         count = len(sets_dict[sf]["headwords"])
 
         sf_data = FamilySet(
@@ -107,7 +108,7 @@ def add_sf_to_db(db_session, sets_dict):
         if count < 3:
             errors_list += [sf]
 
-    db_session.execute(FamilySet.__table__.delete())
+    db_session.execute(FamilySet.__table__.delete()) # type: ignore
     db_session.add_all(add_to_db)
     db_session.commit()
     db_session.close()

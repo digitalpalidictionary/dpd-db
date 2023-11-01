@@ -13,7 +13,7 @@ from json import dumps, loads
 from typing import List, Tuple
 from rich import print
 
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tests.helpers import InternalTestRow
@@ -21,6 +21,7 @@ from tools.pali_sort_key import pali_sort_key
 
 # 1. individual internal tests
 
+PTH = ProjectPaths()
 
 def open_internal_tests():
     subprocess.Popen(
@@ -138,7 +139,7 @@ def run_individual_internal_tests(
 
     # remove all spaces front and back, and doublespaces
     for value in values:
-        if type(values[value]) == str:
+        if isinstance(values[value], str):
             values[value] = re.sub(" +", " ", values[value])
             values[value] = values[value].strip()
             window[value].update(values[value])

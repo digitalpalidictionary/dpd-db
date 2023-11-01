@@ -10,11 +10,13 @@ import pickle
 from difflib import SequenceMatcher
 from rich import print
 
+from sqlalchemy.orm.session import Session
+
 from transliterate_sandhi import transliterate_sandhi
 
 from db.get_db_session import get_db_session
 from db.models import Sandhi
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 from tools.configger import config_test
 
@@ -30,31 +32,31 @@ def main():
 
     print(f"[green]add digital ocean {ADD_DO}")
 
-    global db_session
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
 
-    with open(PTH.neg_inflections_set_path, "rb") as f:
+    with open(pth.neg_inflections_set_path, "rb") as f:
         neg_inflections_set = pickle.load(f)
 
-    matches_df = process_matches(PTH, neg_inflections_set)
+    matches_df = process_matches(pth, neg_inflections_set)
     top_five_dict = make_top_five_dict(matches_df)
-    add_to_dpd_db(top_five_dict)
+    add_to_dpd_db(db_session, top_five_dict)
     transliterate_sandhi()
-    make_rule_counts(PTH, matches_df)
-    letter_counts(PTH, matches_df)
+    make_rule_counts(pth, matches_df)
+    letter_counts(pth, matches_df)
     toc()
 
 
-def process_matches(PTH, neg_inflections_set):
+def process_matches(pth: ProjectPaths, neg_inflections_set):
 
     print("[green]processing matches")
 
     print("reading tsvs")
-    matches_df = pd.read_csv(PTH.matches_path, dtype=str, sep="\t")
+    matches_df = pd.read_csv(pth.matches_path, dtype=str, sep="\t")
 
     if ADD_DO is True:
         matches_do_df = pd.read_csv(
-            PTH.matches_do_path, dtype=str, sep="\t")
+            pth.matches_do_path, dtype=str, sep="\t")
         matches_df = pd.concat([matches_df, matches_do_df], ignore_index=True)
 
     matches_df = matches_df.fillna("")
@@ -112,7 +114,7 @@ def process_matches(PTH, neg_inflections_set):
     )
 
     print("saving to matches_sorted.tsv")
-    matches_df.to_csv(PTH.matches_sorted, sep="\t", index=None)
+    matches_df.to_csv(pth.matches_sorted, sep="\t", index=None)
 
     return matches_df
 
@@ -121,7 +123,7 @@ def make_top_five_dict(matches_df):
     print("[green]making top five dict", end=" ")
     top_five_dict = {}
 
-    for index, i in matches_df.iterrows():
+    for __index__, i in matches_df.iterrows():
 
         if i.word not in top_five_dict:
             top_five_dict[i.word] = {
@@ -142,10 +144,10 @@ def make_top_five_dict(matches_df):
     return top_five_dict
 
 
-def add_to_dpd_db(top_five_dict):
+def add_to_dpd_db(db_session: Session, top_five_dict):
     print("[green]adding to dpd_db", end=" ")
 
-    db_session.execute(Sandhi.__table__.delete())
+    db_session.execute(Sandhi.__table__.delete()) # type: ignore
     db_session.commit()
 
     add_to_db = []
@@ -163,7 +165,7 @@ def add_to_dpd_db(top_five_dict):
     print(f"{len(add_to_db)}")
 
 
-def make_rule_counts(PTH, matches_df):
+def make_rule_counts(pth: ProjectPaths, matches_df):
     print("[green]saving rule counts", end=" ")
 
     rules_list = matches_df[['rules']].values.tolist()
@@ -178,12 +180,12 @@ def make_rule_counts(PTH, matches_df):
 
     df = pd.DataFrame.from_dict(rule_counts, orient="index", columns=["count"])
     counts_df = df.value_counts()
-    counts_df.to_csv(PTH.rule_counts_path, sep="\t")
+    counts_df.to_csv(pth.rule_counts_path, sep="\t")
 
     print("[white]ok")
 
 
-def letter_counts(PTH, df):
+def letter_counts(pth: ProjectPaths, df):
     print("[green]saving letter counts", end=" ")
     df.drop_duplicates(subset=['word', 'split'],
                        keep='first', inplace=True, ignore_index=True)
@@ -209,7 +211,7 @@ def letter_counts(PTH, df):
     for i in range(1, 11):
         letters_df = pd.DataFrame(letters[i])
         letters_counts_sorted = letters_df.value_counts()
-        letters_path = getattr(PTH, f"letters{i}")
+        letters_path = getattr(pth, f"letters{i}")
         letters_counts_sorted.to_csv(letters_path, sep="\t", header=None)
 
     print("[white]ok")

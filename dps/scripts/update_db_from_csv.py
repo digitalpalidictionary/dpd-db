@@ -5,11 +5,12 @@ from rich.console import Console
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 from tools.tsv_read_write import read_tsv_dot_dict
 
 console = Console()
+PTH = ProjectPaths()
 db_session = get_db_session(PTH.dpd_db_path)
 
 # put in the path of the csv you want to open

@@ -17,9 +17,10 @@ from tools.tic_toc import tic, toc
 from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.superscripter import superscripter_uni
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
 
+PTH = ProjectPaths()
 db_session = get_db_session(PTH.dpd_db_path)
 dpd_db = db_session.query(PaliWord).all()
 

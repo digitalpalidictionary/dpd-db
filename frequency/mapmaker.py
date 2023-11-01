@@ -9,6 +9,7 @@ import re
 from rich import print
 from mako.template import Template
 from sqlalchemy import update
+from sqlalchemy.orm.session import Session
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord, DerivedData
@@ -16,7 +17,7 @@ from db.models import PaliWord, DerivedData
 from tools.configger import config_test, config_update
 from tools.tic_toc import tic, toc
 from tools.superscripter import superscripter_uni
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
 
 def main():
@@ -31,13 +32,13 @@ def main():
 
     print(f"[green]regenerate_all [white]{regenerate_all}")
 
-    global db_session
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
 
     if regenerate_all is False:
-        test_inflection_template_changed()
-        test_changed_headwords()
-        test_html_file_missing()
+        test_inflection_template_changed(pth)
+        test_changed_headwords(pth)
+        test_html_file_missing(db_session)
 
     else:
         global changed_templates
@@ -47,8 +48,8 @@ def main():
         changed_headwords = []
         html_file_missing = []
 
-    dicts = make_dfs_and_dicts()
-    make_data_dict_and_html(dicts, regenerate_all)
+    dicts = make_dfs_and_dicts(pth)
+    make_data_dict_and_html(pth, db_session, dicts, regenerate_all)
     db_session.close()
 
     # config update
@@ -57,12 +58,12 @@ def main():
     toc()
 
 
-def test_inflection_template_changed():
+def test_inflection_template_changed(pth: ProjectPaths):
     print("[green]test if inflection templates changed", end=" ")
 
     global changed_templates
     try:
-        with open(PTH.template_changed_path, "rb") as f:
+        with open(pth.template_changed_path, "rb") as f:
             changed_templates = pickle.load(f)
 
             if changed_templates == []:
@@ -75,12 +76,12 @@ def test_inflection_template_changed():
         assert(changed_templates == [])
 
 
-def test_changed_headwords():
+def test_changed_headwords(pth: ProjectPaths):
     print("[green]test if stems or patterns have changed", end=" ")
 
     global changed_headwords
     try:
-        with open(PTH.changed_headwords_path, "rb") as f:
+        with open(pth.changed_headwords_path, "rb") as f:
             changed_headwords = pickle.load(f)
         if changed_headwords == []:
             print("[white] ok")
@@ -92,7 +93,7 @@ def test_changed_headwords():
         assert(changed_templates == [])
 
 
-def test_html_file_missing():
+def test_html_file_missing(db_session: Session):
     print("[green]test if html file is missing", end=" ")
 
     idioms_db = db_session.query(
@@ -119,10 +120,10 @@ def test_html_file_missing():
         print("ok")
 
 
-def make_dfs_and_dicts():
+def make_dfs_and_dicts(pth: ProjectPaths):
     print("[green]making word count dicts and df's")
 
-    wc_dir = PTH.word_count_dir
+    wc_dir = pth.word_count_dir
 
     vinaya_pārājika_mūla = pd.read_csv(wc_dir.joinpath("vinaya_pārājika_mūla.csv"), sep="\t", header=None)
     vinaya_pārājika_aṭṭhakathā = pd.read_csv(wc_dir.joinpath("vinaya_pārājika_aṭṭhakathā.csv"), sep="\t", header=None)
@@ -320,7 +321,7 @@ def colourme(value, hi, low):
         return "gr10"
 
 
-def make_data_dict_and_html(dicts, regenerate_all):
+def make_data_dict_and_html(pth: ProjectPaths, db_session: Session, dicts, regenerate_all):
 
     print("[green]compiling data csvs and html")
 
@@ -393,7 +394,7 @@ def make_data_dict_and_html(dicts, regenerate_all):
                 print(f"{counter:>10,} / {db_length:<10,} {i.pali_1}")
 
                 with open(
-                    PTH.freq_html_dir.joinpath(
+                    pth.freq_html_dir.joinpath(
                         i.pali_1).with_suffix(".html"), "w") as f:
                     f.write(map_html)
 

@@ -6,8 +6,8 @@
     % if i.example_1 != "":
     <p>${i.example_1}</p>
     <p class="sutta">
-        % if i.source_link_1:
-        <a href="${i.source_link_1}">${i.source_1}</a> 
+        % if make_link:
+        <a href="${i.source_link_1}">${i.source_1}</a>
         % else:
         ${i.source_1}
         % endif
@@ -16,8 +16,8 @@
     % if i.example_2 != "":
     <p>${i.example_2}</p>
     <p class="sutta">
-        % if i.source_link_2:
-        <a href="${i.source_link_2}">${i.source_2}</a> 
+        % if make_link:
+        <a href="${i.source_link_2}">${i.source_2}</a>
         % else:
         ${i.source_2}
         % endif 

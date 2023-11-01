@@ -21,15 +21,14 @@ from db.models import PaliWord, Sandhi, InflectionTemplates
 from tools.goldendict_path import goldedict_path
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 from tools.sandhi_words import make_words_in_sandhi_set
 from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.configger import config_test
+from tools.writemdict.writemdict import MDictWriter
 
 sys.path.insert(1, 'tools/writemdict')
-from writemdict import MDictWriter
-
 
 def main():
     tic()
@@ -45,7 +44,8 @@ def main():
         make_mdct: bool = False
 
     # make headwords list
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
 
     db = db_session.query(PaliWord).all()
     db = sorted(db, key=lambda x: pali_sort_key(x.pali_1))
@@ -76,7 +76,7 @@ def main():
             i.pos = "interr"
 
     # tipitaka word set
-    with open(PTH.tipitaka_word_count_path) as f:
+    with open(pth.tipitaka_word_count_path) as f:
         reader = csv.reader(f, delimiter="\t")
         tipitaka_word_set = set([row[0] for row in reader])
         print(f"[green]all tipitaka words{len(tipitaka_word_set):>22,}")
@@ -99,11 +99,10 @@ def main():
     grammar_dict_html = {}
     grammar_dict_table = {}
 
-    with open(PTH.grammar_css_path) as f:
+    with open(pth.grammar_css_path) as f:
         grammar_css = f.read()
 
-    header_tmpl = Template(filename=str(
-        PTH.header_grammar_dict_templ_path))
+    header_tmpl = Template(filename=str(pth.header_grammar_dict_templ_path))
 
     html_header = str(header_tmpl.render(css=grammar_css))
 
@@ -216,21 +215,21 @@ def main():
 
     print(f"[green]saving grammar_dict pickle{len(grammar_dict):>14,}")
     # save pickle file
-    with open(PTH.grammar_dict_pickle_path, "wb") as f:
+    with open(pth.grammar_dict_pickle_path, "wb") as f:
         pickle.dump(grammar_dict, f)
 
     # save tsv of inflection and table
     print(f"[green]saving grammar_dict tsv{len(grammar_dict_table):>14,}")
-    with open(PTH.grammar_dict_tsv_path, "w") as f:
+    with open(pth.grammar_dict_tsv_path, "w") as f:
         f.write("inflection\thtml\n")
         for inflection, table in grammar_dict_table.items():
             f.write(f"{inflection}\t{table}\n")
 
     gd_data_list, md_data_list = make_data_lists(grammar_dict_html)
-    make_golden_dict(PTH, gd_data_list)
+    make_golden_dict(pth, gd_data_list)
 
     if make_mdct is True:
-        make_mdict(PTH, md_data_list)
+        make_mdict(pth, md_data_list)
         
     toc()
 

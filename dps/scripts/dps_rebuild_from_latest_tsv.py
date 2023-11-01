@@ -11,7 +11,7 @@ from db.get_db_session import get_db_session
 from db.db_helpers import create_db_if_not_exists
 from db.models import PaliWord, PaliRoot, Russian, SBS
 from tools.tic_toc import tic, toc
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 
 console = Console()
@@ -28,12 +28,13 @@ def main():
     tic()
     console.print("[bold bright_yellow]rebuilding db from dps/backup/*.tsvs")
 
-    if PTH.dpd_db_path.exists():
-        PTH.dpd_db_path.unlink()
+    pth = ProjectPaths()
+    if pth.dpd_db_path.exists():
+        pth.dpd_db_path.unlink()
 
-    create_db_if_not_exists(PTH.dpd_db_path)
+    create_db_if_not_exists(pth.dpd_db_path)
 
-    db_session = get_db_session(PTH.dpd_db_path)
+    db_session = get_db_session(pth.dpd_db_path)
 
     pali_word_latest_tsv = get_latest_backup("paliword")
     pali_root_latest_tsv = get_latest_backup("paliroot")

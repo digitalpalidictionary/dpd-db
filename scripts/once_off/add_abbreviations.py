@@ -9,14 +9,15 @@ from sqlalchemy.orm import Session
 from pathlib import Path
 from typing import Dict, List
 from tools.tic_toc import tic, toc
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_dict
 
 
 def main():
     tic()
-    db_session = get_db_session(PTH.dpd_db_path)
-    csv_path = PTH.abbreviations_tsv_path
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
+    csv_path = pth.abbreviations_tsv_path
     add_abbreviations(db_session, csv_path)
     toc()
 

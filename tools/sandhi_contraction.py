@@ -10,11 +10,12 @@ from sqlalchemy.orm.session import Session
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.pali_alphabet import pali_alphabet
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
 
 def main():
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
     sandhi_contractions: dict = make_sandhi_contraction_dict(db_session)
     counter = 0
 
@@ -23,7 +24,7 @@ def main():
         "āyataggaṃ",
     ]
 
-    filepath = PTH.temp_dir.joinpath("sandhi_contraction.tsv")
+    filepath = pth.temp_dir.joinpath("sandhi_contraction.tsv")
     with open(filepath, "w") as f:
         for key, values in sandhi_contractions.items():
             contractions = values["contractions"]

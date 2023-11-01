@@ -3,7 +3,7 @@
 """ Filter words based on some codition and save into csv (with backing up existing temp csv)"""
 
 from db.models import PaliWord
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 from db.get_db_session import get_db_session
 import csv
@@ -21,7 +21,8 @@ def save_filtered_words():
     tic()
     console.print("[bold bright_yellow]filtering words from db by some condition")
 
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
 
     # Filter words based on sbs.sbs_class, also check if sbs is not None

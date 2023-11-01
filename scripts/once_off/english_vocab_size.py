@@ -1,15 +1,18 @@
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.clean_machine import clean_machine
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
 
 def main():
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(PaliWord)
     english_vocab: set = set()
 
     for i in db:
+        if i.meaning_1 is None:
+            continue
         clean_meaning = clean_machine(i.meaning_1)
         english_vocab.update(clean_meaning.split(" "))
 

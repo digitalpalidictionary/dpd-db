@@ -9,22 +9,25 @@ import pyperclip
 from rich import print
 from rich.prompt import Prompt
 
+from sqlalchemy.orm.session import Session
+
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.meaning_construction import make_meaning
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
 
 def main():
     print("[bright_yellow]finding word families")
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
 
     word_family_dict = build_word_family_dict(dpd_db)
     word_order = order_word_family_dict(word_family_dict)
     word_family_set = make_word_family_set(db_session)
 
-    find_in_family_compound(db_session, word_family_dict, word_order)
+    find_in_family_compound(pth, db_session, word_family_dict, word_order)
     find_in_construction(dpd_db, word_family_set)
     find_in_pali_1(dpd_db, word_family_set)
 
@@ -74,13 +77,13 @@ def order_word_family_dict(word_family_dict):
     return word_order
 
 
-def find_in_family_compound(db_session, word_family_dict, word_order):
+def find_in_family_compound(pth: ProjectPaths, db_session: Session, word_family_dict, word_order):
     """Test if word is compound or word_family and add info to db. """
     print("[green]finding word families in family_compound")
 
     processed_words = []
     break_flag = False
-    exceptions_list = open_exceptions_list()
+    exceptions_list = open_exceptions_list(pth)
 
     for word in word_order:
         if break_flag:
@@ -102,7 +105,7 @@ def find_in_family_compound(db_session, word_family_dict, word_order):
             if x not in processed_words:
                 headword = db_session.query(
                         PaliWord).filter(PaliWord.pali_1 == x).first()
-                if headword.pali_1 not in exceptions_list:
+                if headword is not None and headword.pali_1 not in exceptions_list:
                     meaning = make_meaning(headword)
                     query = Prompt.ask(f"{x}: [green]{headword.pos}. [light_green]{meaning} ")
                     if query == "c":
@@ -128,14 +131,14 @@ def find_in_family_compound(db_session, word_family_dict, word_order):
                     else:
                         print("[red]not a valid option")
             db_session.commit()
-        save_exceptions_list(exceptions_list)
+        save_exceptions_list(pth, exceptions_list)
         del word_family_dict[word]
 
 
-def open_exceptions_list():
+def open_exceptions_list(pth: ProjectPaths):
     """Load pickle of exceptions."""
     try:
-        with open(PTH.wf_exceptions_list, "rb") as f:
+        with open(pth.wf_exceptions_list, "rb") as f:
             exceptions_list = pickle.load(f)
             print("[green]exceptions file loaded", end=" ")
             print(exceptions_list)
@@ -145,9 +148,9 @@ def open_exceptions_list():
         return []
 
 
-def save_exceptions_list(exceptions_list):
+def save_exceptions_list(pth: ProjectPaths, exceptions_list):
     """Save pickle of exceptions."""
-    with open(PTH.wf_exceptions_list, "wb") as f:
+    with open(pth.wf_exceptions_list, "wb") as f:
         pickle.dump(exceptions_list, f)
     print("[green]exceptions file saved")
 

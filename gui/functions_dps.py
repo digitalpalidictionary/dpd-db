@@ -21,7 +21,7 @@ from db.models import Russian, SBS, PaliWord, DerivedData
 from db.get_db_session import get_db_session
 
 
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 from tools.meaning_construction import make_meaning
 from tools.tsv_read_write import read_tsv_dot_dict
@@ -41,7 +41,7 @@ from sqlalchemy.orm import joinedload
 from typing import Optional
 from tools.pali_sort_key import pali_sort_key
 
-
+PTH = ProjectPaths()
 db_session = get_db_session(PTH.dpd_db_path)
 
 # flags
@@ -888,9 +888,9 @@ def tail_log():
     
 
 
-def dps_make_words_to_add_list(window, book: str) -> list:
-    cst_text_list = make_cst_text_set([book], return_list=True)
-    sc_text_list = make_sc_text_set([book], return_list=True)
+def dps_make_words_to_add_list(pth: ProjectPaths, __window__, book: str) -> list:
+    cst_text_list = make_cst_text_set(pth, [book], return_list=True)
+    sc_text_list = make_sc_text_set(pth, [book], return_list=True)
     original_text_list = list(cst_text_list) + list(sc_text_list)
 
     sp_mistakes_list = make_sp_mistakes_list(PTH)
@@ -909,8 +909,8 @@ def dps_make_words_to_add_list(window, book: str) -> list:
     return text_list
 
 
-def dps_make_words_to_add_list_sutta(sutta_name, book: str) -> list:
-    cst_text_list = make_cst_text_set_sutta(sutta_name, [book], return_list=True)
+def dps_make_words_to_add_list_sutta(pth: ProjectPaths, sutta_name, book: str) -> list:
+    cst_text_list = make_cst_text_set_sutta(pth, sutta_name, [book], return_list=True)
 
     sp_mistakes_list = make_sp_mistakes_list(PTH)
     variant_list = make_variant_list(PTH)

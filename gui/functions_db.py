@@ -9,8 +9,9 @@ from typing import Optional, Tuple
 from db.get_db_session import get_db_session
 from db.models import PaliWord, PaliRoot, InflectionTemplates, DerivedData
 from tools.pali_sort_key import pali_sort_key
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
+PTH = ProjectPaths()
 db_session = get_db_session(PTH.dpd_db_path)
 
 dpd_values_list = [

@@ -6,7 +6,7 @@
 import re
 import pyperclip
 
-from typing import Dict
+from typing import Dict, Optional
 from rich import print
 
 from db.get_db_session import get_db_session
@@ -15,7 +15,7 @@ from db.models import PaliWord
 from db.models import FamilyCompound
 from tools.tic_toc import tic, toc
 from tools.pali_alphabet import consonants
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 
 # generic tests that return tuples of results
@@ -30,7 +30,8 @@ from tools.sandhi_contraction import make_sandhi_contraction_dict
 def run_external_tests():
 
     print("[bright_yellow]run external db tests")
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
 
     print("[green]make searches")
     searches: dict = make_searches(db_session)
@@ -103,7 +104,7 @@ def make_searches(db_session) -> Dict[str, list]:
     return searches
 
 
-def regex_results(results: list) -> str:
+def regex_results(results: list) -> Optional[str]:
     """Take a list of results and return a regex search string or None"""
 
     if results != []:
@@ -313,6 +314,7 @@ def pali_words_in_english_meaning(searches: dict) -> tuple:
     for i in searches["paliword"]:
         pali_words.add(i.pali_clean)
         meaning = i.meaning_1.lower()
+        # FIXME unsupported escape sequence \-, use r"" string
         meaning = re.sub("[^A-Za-zāīūṭḍḷñṅṇṃ1234567890\-'’ ]", "", meaning)
         english_words.update(meaning.split())
 
@@ -788,6 +790,7 @@ def duplicate_words(searches: dict) -> tuple:
                         if words[x] not in exceptions:
                             results += [i.pali_1]
                 if words and words[-1] == words[-2]:
+                    # FIXME x is possibly unbound
                     if words[x] not in exceptions:
                         results += [i.pali_1]
 
@@ -818,6 +821,7 @@ def duplicate_words_meaning_2(searches: dict) -> tuple:
                         if words[x] not in exceptions:
                             results += [i.pali_1]
                 if words and words[-1] == words[-2]:
+                    # FIXME x is possibly unbound
                     if words[x] not in exceptions:
                         results += [i.pali_1]
 
@@ -852,6 +856,7 @@ def duplicate_words_meaning_lit(searches: dict) -> tuple:
                         if words[x] not in exceptions:
                             results += [i.pali_1]
                 if words and words[-1] == words[-2]:
+                    # FIXME x is possibly unbound
                     if words[x] not in exceptions:
                         results += [i.pali_1]
 

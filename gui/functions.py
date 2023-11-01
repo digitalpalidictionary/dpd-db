@@ -3,7 +3,7 @@
 import re
 import csv
 import nltk
-nltk.download('punkt')
+
 import subprocess
 import pyperclip
 import textwrap
@@ -29,7 +29,7 @@ from tools.cst_sc_text_sets import make_cst_text_set
 from tools.cst_sc_text_sets import make_cst_text_set_sutta
 from tools.cst_sc_text_sets import make_cst_text_set_from_file
 from tools.cst_sc_text_sets import make_sc_text_set
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.pali_text_files import cst_texts
 from tools.pali_alphabet import pali_alphabet
 from tools.configger import config_test_option
@@ -38,6 +38,9 @@ from tools.configger import config_test
 # from tools.meaning_construction import make_meaning
 # from tools.tsv_read_write import read_tsv_dot_dict
 
+nltk.download('punkt')
+
+PTH = ProjectPaths()
 
 def add_sandhi_correction(window, values: dict) -> None:
     sandhi_to_correct = values["sandhi_to_correct"]
@@ -862,9 +865,9 @@ def test_book_to_add(values, window):
         return False
 
 
-def make_words_to_add_list(window, book: str) -> list:
-    cst_text_list = make_cst_text_set([book], return_list=True)
-    sc_text_list = make_sc_text_set([book], return_list=True)
+def make_words_to_add_list(__window__, book: str) -> list:
+    cst_text_list = make_cst_text_set(PTH, [book], return_list=True)
+    sc_text_list = make_sc_text_set(PTH, [book], return_list=True)
     original_text_list = list(cst_text_list) + list(sc_text_list)
 
     sp_mistakes_list = make_sp_mistakes_list(PTH)
@@ -884,7 +887,7 @@ def make_words_to_add_list(window, book: str) -> list:
 
 
 def make_words_to_add_list_sutta(sutta_name, book: str) -> list:
-    cst_text_list = make_cst_text_set_sutta(sutta_name, [book], return_list=True)
+    cst_text_list = make_cst_text_set_sutta(PTH, sutta_name, [book], return_list=True)
 
     sp_mistakes_list = make_sp_mistakes_list(PTH)
     variant_list = make_variant_list(PTH)

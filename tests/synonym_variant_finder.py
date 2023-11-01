@@ -13,7 +13,7 @@ from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.db_search_string import db_search_string
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 
 nouns = ["masc", "fem", "nt"]
@@ -23,27 +23,25 @@ def main():
     tic()
     print("[bright_yellow]finding synonyms and variants")
 
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
-    exceptions = load_exceptions()
+    exceptions = load_exceptions(pth)
 
-    identical_meaning_dict = find_identical_meanings(
-        dpd_db, exceptions)
-    add_identical_meanings(
-        identical_meaning_dict, db_session, exceptions)
+    identical_meaning_dict = find_identical_meanings(dpd_db, exceptions)
+    add_identical_meanings(pth, identical_meaning_dict, db_session, exceptions)
 
-    single_meaning_dict = find_single_meanings(
-        dpd_db, exceptions)
+    single_meaning_dict = find_single_meanings(dpd_db, exceptions)
     dual_meanings_dict = find_dual_meanings(single_meaning_dict)
-    add_dual_meanings(dual_meanings_dict, db_session, exceptions)
+    add_dual_meanings(pth, dual_meanings_dict, db_session, exceptions)
 
     toc()
 
 
-def load_exceptions():
+def load_exceptions(pth: ProjectPaths):
     """Load exceptions pickle file."""
     try:
-        with open(PTH.syn_var_exceptions_path, "rb") as f:
+        with open(pth.syn_var_exceptions_path, "rb") as f:
             return pickle.load(f)
     except FileNotFoundError:
         return []
@@ -55,7 +53,7 @@ def find_identical_meanings(dpd_db, exceptions):
 
     identical_meaning_dict: dict = {}
 
-    for counter, i in enumerate(dpd_db):
+    for __counter__, i in enumerate(dpd_db):
         if i.meaning_1:
             meaning = clean_meaning(i.meaning_1)
 
@@ -97,8 +95,7 @@ def clean_meaning(text):
     return text
 
 
-def add_identical_meanings(
-        identical_meaning_dict, db_session, exceptions):
+def add_identical_meanings(pth: ProjectPaths, identical_meaning_dict, db_session, exceptions):
     """Process identical meanings and add to db."""
     print("[green]adding identical meanings to db")
 
@@ -173,7 +170,7 @@ def add_identical_meanings(
 
                 elif choice == "e":
                     exceptions += [meaning]
-                    with open(PTH.syn_var_exceptions_path, "wb") as f:
+                    with open(pth.syn_var_exceptions_path, "wb") as f:
                         pickle.dump(exceptions, f)
                     print(exceptions)
 
@@ -259,8 +256,7 @@ def find_dual_meanings(single_meaning_dict):
     return dual_meanings_dict
 
 
-def add_dual_meanings(
-        dual_meanings_dict, db_session, exceptions):
+def add_dual_meanings(pth: ProjectPaths, dual_meanings_dict, db_session, exceptions):
     """Process dual meanings and add to db."""
     print("[green]adding dual meanings to db")
 
@@ -348,7 +344,7 @@ def add_dual_meanings(
 
             elif choice == "e":
                 exceptions += [f"{pos_meanings}"]
-                with open(PTH.syn_var_exceptions_path, "wb") as f:
+                with open(pth.syn_var_exceptions_path, "wb") as f:
                     pickle.dump(exceptions, f)
                 print(exceptions)
 

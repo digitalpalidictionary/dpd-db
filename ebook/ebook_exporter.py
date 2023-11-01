@@ -23,36 +23,18 @@ from tools.meaning_construction import summarize_constr
 from tools.meaning_construction import degree_of_completion
 from tools.pali_alphabet import pali_alphabet
 from tools.pali_sort_key import pali_sort_key
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 from tools.sandhi_words import make_words_in_sandhi_set
 from tools.tic_toc import tic, toc
 from tools.tsv_read_write import read_tsv_dict
-
-
-ebook_entry_templ = Template(
-    filename=str(PTH.ebook_entry_templ_path))
-ebook_sandhi_templ = Template(
-    filename=str(PTH.ebook_sandhi_templ_path))
-ebook_letter_tmpl = Template(
-    filename=str(PTH.ebook_letter_templ_path))
-ebook_grammar_templ = Template(
-    filename=str(PTH.ebook_grammar_templ_path))
-ebook_example_templ = Template(
-    filename=str(PTH.ebook_example_templ_path))
-ebook_abbreviation_entry_templ = Template(
-    filename=str(PTH.ebook_abbrev_entry_templ_path))
-ebook_title_page_templ = Template(
-    filename=str(PTH.ebook_title_page_templ_path))
-ebook_content_opf_templ = Template(
-    filename=str(PTH.ebook_content_opf_templ_path)
-)
 
 
 def render_xhtml():
     print("[bright_yellow]rendering dpd for ebook")
 
     print(f"[green]{'querying dpd db':<40}", end="")
-    db_sesssion = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_sesssion = get_db_session(pth.dpd_db_path)
     dpd_db = db_sesssion.query(PaliWord).all()
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.pali_1))
     print(f"{len(dpd_db):>10,}")
@@ -71,11 +53,11 @@ def render_xhtml():
 
     # all words in cst and sc texts
     print(f"[green]{'making cst text set':<40}", end="")
-    cst_text_set = make_cst_text_set(ebt_books)
+    cst_text_set = make_cst_text_set(pth, ebt_books)
     print(f"{len(cst_text_set):>10,}")
 
     print(f"[green]{'making sc text set':<40}", end="")
-    sc_text_set = make_sc_text_set(ebt_books)
+    sc_text_set = make_sc_text_set(pth, ebt_books)
     print(f"{len(sc_text_set):>10,}")
     combined_text_set = cst_text_set | sc_text_set
 
@@ -119,7 +101,7 @@ def render_xhtml():
     for counter, i in enumerate(dpd_db):
         inflections: set = dd_dict[i.id]
         first_letter = find_first_letter(i.pali_1)
-        entry = render_ebook_entry(id_counter, i, inflections)
+        entry = render_ebook_entry(pth, id_counter, i, inflections)
         letter_dict[first_letter] += [entry]
         id_counter += 1
 
@@ -131,7 +113,7 @@ def render_xhtml():
     for counter, i in enumerate(sandhi_db):
         if bool(set(i.sandhi) & all_words_set):
             first_letter = find_first_letter(i.sandhi)
-            entry = render_sandhi_entry(id_counter, i)
+            entry = render_sandhi_entry(pth, id_counter, i)
             letter_dict[first_letter] += [entry]
             id_counter += 1
 
@@ -146,8 +128,8 @@ def render_xhtml():
         ascii_letter = diacritics_cleaner(letter)
         total += len(entries)
         entries = "".join(entries)
-        xhtml = render_ebook_letter_tmpl(letter, entries)
-        output_path = PTH.epub_text_dir.joinpath(
+        xhtml = render_ebook_letter_tmpl(pth, letter, entries)
+        output_path = pth.epub_text_dir.joinpath(
             f"{counter}_{ascii_letter}.xhtml")
 
         with open(output_path, "w") as f:
@@ -161,7 +143,7 @@ def render_xhtml():
 # functions to create the various templates
 
 
-def render_ebook_entry(counter: int, i: PaliWord, inflections: set) -> str:
+def render_ebook_entry(pth: ProjectPaths, counter: int, i: PaliWord, inflections: set) -> str:
     """Render single word entry."""
 
     summary = f"{i.pos}. "
@@ -178,11 +160,13 @@ def render_ebook_entry(counter: int, i: PaliWord, inflections: set) -> str:
     if "&" in summary:
         summary = summary.replace("&", "and")
 
-    grammar_table = render_grammar_templ(i)
+    grammar_table = render_grammar_templ(pth, i)
     if "&" in grammar_table:
         grammar_table = grammar_table.replace("&", "and")
 
-    examples = render_example_templ(i)
+    examples = render_example_templ(pth, i)
+
+    ebook_entry_templ = Template(filename=str(pth.ebook_entry_templ_path))
 
     return str(ebook_entry_templ.render(
             counter=counter,
@@ -194,12 +178,14 @@ def render_ebook_entry(counter: int, i: PaliWord, inflections: set) -> str:
             examples=examples))
 
 
-def render_grammar_templ(i: PaliWord) -> str:
+def render_grammar_templ(pth: ProjectPaths, i: PaliWord) -> str:
     """html table of grammatical information"""
 
     if i.meaning_1 != "":
-        i.construction = i.construction.replace("\n", "<br/>")
-        i.phonetic = i.phonetic.replace("\n", "<br/>")
+        if i.construction is not None:
+            i.construction = i.construction.replace("\n", "<br/>")
+        if i.phonetic is not None:
+            i.phonetic = i.phonetic.replace("\n", "<br/>")
 
         grammar = i.grammar
         if i.neg != "":
@@ -213,6 +199,8 @@ def render_grammar_templ(i: PaliWord) -> str:
 
         meaning = f"{make_meaning_html(i)}"
 
+        ebook_grammar_templ = Template(filename=str(pth.ebook_grammar_templ_path))
+
         return str(
             ebook_grammar_templ.render(
                 i=i,
@@ -223,12 +211,18 @@ def render_grammar_templ(i: PaliWord) -> str:
         return ""
 
 
-def render_example_templ(i: PaliWord) -> str:
+def render_example_templ(pth: ProjectPaths, i: PaliWord) -> str:
     """render sutta examples html"""
-    i.example_1 = i.example_1.replace("\n", "<br/>")
-    i.example_2 = i.example_2.replace("\n", "<br/>")
-    i.sutta_1 = i.sutta_1.replace("\n", "<br/>")
-    i.sutta_2 = i.sutta_2.replace("\n", "<br/>")
+    if i.example_1 is not None:
+        i.example_1 = i.example_1.replace("\n", "<br/>")
+    if i.example_2 is not None:
+        i.example_2 = i.example_2.replace("\n", "<br/>")
+    if i.sutta_1 is not None:
+        i.sutta_1 = i.sutta_1.replace("\n", "<br/>")
+    if i.sutta_2 is not None:
+        i.sutta_2 = i.sutta_2.replace("\n", "<br/>")
+
+    ebook_example_templ = Template(filename=str(pth.ebook_example_templ_path))
 
     if i.meaning_1 and i.example_1:
         return str(
@@ -238,11 +232,13 @@ def render_example_templ(i: PaliWord) -> str:
         return ""
 
 
-def render_sandhi_entry(counter: int, i: Sandhi) -> str:
+def render_sandhi_entry(pth: ProjectPaths, counter: int, i: Sandhi) -> str:
     """Render sandhi word entry."""
 
     sandhi = i.sandhi
     splits = "<br/>".join(i.split_list)
+
+    ebook_sandhi_templ = Template(filename=str(pth.ebook_sandhi_templ_path))
 
     return str(ebook_sandhi_templ.render(
             counter=counter,
@@ -250,115 +246,123 @@ def render_sandhi_entry(counter: int, i: Sandhi) -> str:
             splits=splits))
 
 
-def render_ebook_letter_tmpl(letter: str, entries: str) -> str:
+def render_ebook_letter_tmpl(pth: ProjectPaths, letter: str, entries: str) -> str:
     """Render all entries for a single letter."""
-    return str(
-        ebook_letter_tmpl.render(
+    ebook_letter_tmpl = Template(filename=str(pth.ebook_letter_templ_path))
+    return str(ebook_letter_tmpl.render(
             letter=letter,
             entries=entries))
 
 
-def save_abbreviations_xhtml_page(id_counter):
+def save_abbreviations_xhtml_page(pth: ProjectPaths, id_counter):
     """Render xhtml of all DPD abbreviaitons and save as a page."""
     print(f"[green]{'saving abbrev xhtml':<40}", end="")
     abbreviations_list = []
 
-    file_path = PTH.abbreviations_tsv_path
+    file_path = pth.abbreviations_tsv_path
     abbreviations_list = read_tsv_dict(file_path)
 
     abbreviation_entries = []
     for i in abbreviations_list:
         abbreviation_entries += [
-            render_abbreviation_entry(id_counter, i)]
+            render_abbreviation_entry(pth, id_counter, i)]
         id_counter += 1
 
     entries = "".join(abbreviation_entries)
     entries = entries.replace(" > ", " &gt; ")
-    xhtml = render_ebook_letter_tmpl("Abbreviations", entries)
+    xhtml = render_ebook_letter_tmpl(pth, "Abbreviations", entries)
 
-    with open(PTH.epub_abbreviations_path, "w") as f:
+    with open(pth.epub_abbreviations_path, "w") as f:
         f.write(xhtml)
 
     print(f"{len(abbreviations_list):>10,}")
 
 
-def render_abbreviation_entry(counter: int, i: dict) -> str:
+def render_abbreviation_entry(pth: ProjectPaths, counter: int, i: dict) -> str:
     """Render a single abbreviations entry."""
+
+    ebook_abbreviation_entry_templ = Template(filename=str(pth.ebook_abbrev_entry_templ_path))
 
     return str(ebook_abbreviation_entry_templ.render(
             counter=counter,
             i=i))
 
 
-def save_title_page_xhtml():
+def save_title_page_xhtml(pth: ProjectPaths):
     """Save date and time in title page xhtml."""
     print(f"[green]{'saving titlepage xhtml':<40}", end="")
     current_datetime = datetime.now()
     date = current_datetime.strftime("%Y-%m-%d")
     time = current_datetime.strftime("%H:%M")
 
+    ebook_title_page_templ = Template(filename=str(pth.ebook_title_page_templ_path))
+
     xhtml = str(ebook_title_page_templ.render(
             date=date,
             time=time))
 
-    with open(PTH.epub_titlepage_path, "w") as f:
+    with open(pth.epub_titlepage_path, "w") as f:
         f.write(xhtml)
 
     print(f"{'OK':>10}")
 
-    save_content_opf_xhtml(current_datetime)
+    save_content_opf_xhtml(pth, current_datetime)
 
 
-def save_content_opf_xhtml(current_datetime):
+def save_content_opf_xhtml(pth: ProjectPaths, current_datetime):
     """Save date and time in content.opf."""
     print(f"[green]{'saving content.opf':<40}", end="")
 
     date_time_zulu = current_datetime.strftime("%Y-%m-%dT%H:%M:%SZ")
 
+    ebook_content_opf_templ = Template(filename=str(pth.ebook_content_opf_templ_path))
+
     content = str(ebook_content_opf_templ.render(
             date_time_zulu=date_time_zulu))
 
-    with open(PTH.epub_content_opf_path, "w") as f:
+    with open(pth.epub_content_opf_path, "w") as f:
         f.write(content)
 
     print(f"{'OK':>10}")
 
 
-def zip_epub():
+def zip_epub(pth: ProjectPaths):
     """Zip up the epub dir and name it dpd-kindle.epub."""
     print("[green]zipping up epub")
-    with ZipFile(PTH.dpd_epub_path, "w", ZIP_DEFLATED) as zipf:
-        for root, _, files in os.walk(PTH.epub_dir):
+    with ZipFile(pth.dpd_epub_path, "w", ZIP_DEFLATED) as zipf:
+        for root, _, files in os.walk(pth.epub_dir):
             for file in files:
                 file_path = os.path.join(root, file)
-                zipf.write(file_path, os.path.relpath(file_path, PTH.epub_dir))
+                zipf.write(file_path, os.path.relpath(file_path, pth.epub_dir))
 
 
-def make_mobi():
+def make_mobi(pth: ProjectPaths):
     """Run kindlegen to convert epub to mobi."""
     print("[green]converting epub to mobi")
 
     process = subprocess.Popen(
-        [str(PTH.kindlegen_path), str(PTH.dpd_epub_path)],
+        [str(pth.kindlegen_path), str(pth.dpd_epub_path)],
         stdout=subprocess.PIPE, text=True)
 
-    for line in process.stdout:
-        print(line, end='')
+    if process.stdout is not None:
+        for line in process.stdout:
+            print(line, end='')
     process.wait()
 
 
-def copy_mobi():
+def copy_mobi(pth: ProjectPaths):
     """Copy the mobi to the exporter/share dir."""
     print("[green]copying mobi to exporter/share")
-    shutil.copy2(PTH.dpd_mobi_path, PTH.dpd_kindle_path)
+    shutil.copy2(pth.dpd_mobi_path, pth.dpd_kindle_path)
 
 
 if __name__ == "__main__":
     tic()
     id_counter = render_xhtml()
-    save_abbreviations_xhtml_page(id_counter)
-    save_title_page_xhtml()
-    zip_epub()
-    make_mobi()
-    copy_mobi()
+    pth = ProjectPaths()
+    save_abbreviations_xhtml_page(pth, id_counter)
+    save_title_page_xhtml(pth)
+    zip_epub(pth)
+    make_mobi(pth)
+    copy_mobi(pth)
     toc()

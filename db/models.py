@@ -15,6 +15,7 @@ from sqlalchemy.orm import declared_attr
 from sqlalchemy.orm import object_session
 from sqlalchemy import Column, Integer
 
+from tools.link_generator import generate_link
 from tools.pali_sort_key import pali_sort_key
 
 
@@ -279,6 +280,14 @@ class PaliWord(Base):
             return self.variant.split(", ")
         else:
             return [self.variant]
+
+    @property
+    def source_link_1(self) -> str:
+        return generate_link(self.source_1) if self.source_1 else ""
+
+    @property
+    def source_link_2(self) -> str:
+        return generate_link(self.source_2) if self.source_2 else ""
 
     def __repr__(self) -> str:
         return f"""PaliWord: {self.id} {self.pali_1} {self.pos} {

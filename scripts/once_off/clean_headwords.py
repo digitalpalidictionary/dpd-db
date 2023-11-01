@@ -5,11 +5,12 @@ import re
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.pali_sort_key import pali_list_sorter
-from tools.paths import ProjectPaths as PTH
+from tools.paths import ProjectPaths
 
 
 def main():
-    db_session = get_db_session(PTH.dpd_db_path)
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
 
     clean_headwords = set()
@@ -17,7 +18,7 @@ def main():
         if not re.findall(r"\b(nom|acc|instr|dat|abl|gen|loc|voc|1st|2nd|reflx|pl)\b", i.grammar):
             clean_headwords.add(i.pali_clean)
 
-    clean_headwords = pali_list_sorter(clean_headwords)
+    clean_headwords = pali_list_sorter(list(clean_headwords))
 
     with open("temp/dpd_headwords.csv", "w") as file:
         for i in clean_headwords:
