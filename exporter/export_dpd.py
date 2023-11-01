@@ -29,7 +29,6 @@ from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.pos import INDECLINEABLES
 from tools.tic_toc import bip, bop
-from tools.link_generator import generate_link
 from tools.configger import config_test
 from tools.sandhi_contraction import SandhiContractions
 
@@ -149,17 +148,6 @@ def generate_dpd_html(db_session: Session,
         if i.example_2:
             i.example_2 = i.example_2.replace("\n", "<br>")
 
-        # FIXME missing attr from PaliWord: source_link_1 source_link_2
-
-        if make_link is True:
-
-            i.source_link_1 = generate_link(i.source_1) if i.source_1 else ""
-            i.source_link_2 = generate_link(i.source_2) if i.source_2 else ""
-
-        else:
-            i.source_link_1 = ""
-            i.source_link_2 = ""
-
         html: str = ""
         header = render_header_tmpl(dpd_css, button_js)
         html += header
@@ -179,7 +167,7 @@ def generate_dpd_html(db_session: Session,
         html += grammar
         size_dict["dpd_grammar"] += len(grammar)
 
-        example = render_example_templ(i)
+        example = render_example_templ(i, make_link)
         html += example
         size_dict["dpd_example"] += len(example)
 
@@ -425,13 +413,14 @@ def render_grammar_templ(i: PaliWord) -> str:
         return ""
 
 
-def render_example_templ(i: PaliWord) -> str:
+def render_example_templ(i: PaliWord, make_link: bool) -> str:
     """render sutta examples html"""
 
     if i.meaning_1 != "" and i.example_1 != "":
         return str(
             example_templ.render(
                 i=i,
+                make_link=make_link,
                 today=TODAY))
     else:
         return ""
