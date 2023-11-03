@@ -1,0 +1,97 @@
+#!/usr/bin/env python3
+
+"""
+Search for missing or wrong compound types according to TSV criteria.
+"""
+
+import pyperclip
+import re
+
+from rich import print
+from rich.prompt import Prompt
+
+from db.get_db_session import get_db_session
+from db.models import PaliWord
+
+from tools.db_search_string import db_search_string
+from tools.meaning_construction import make_meaning
+from tools.paths import ProjectPaths
+from tools.tsv_read_write import read_tsv_dot_dict
+
+
+def main():
+    pth = ProjectPaths()
+    csv = read_tsv_dot_dict(pth.compound_type_path)
+
+    db_session = get_db_session(pth.dpd_db_path)
+    db = db_session.query(PaliWord).all()
+
+    pos_exclusions = ["sandhi", "idiom"]
+    
+    for c_counter, c in enumerate(csv):
+        print("-"*40)
+        for k, v in c.items():
+            print(f"[green]{k:<15}: [white]{v}")
+        print()
+        exceptions = c.exceptions.split(", ")
+        pos = c.pos.split(", ")
+        search_list: list = []
+        i_counter = 0
+
+        for i in db:
+            if(
+                c.type in i.compound_type or
+                i.pali_1 in exceptions or 
+                i.pos in pos_exclusions or
+                "comp" not in i.grammar
+            ):
+                continue
+
+            if (
+                c.pos != "any" and
+                i.pos not in pos
+            ):
+                continue
+
+            search_in = f"{i.construction}"
+
+            if c.position == "first":
+                pattern = f"^{c.word} "
+            elif c.position == "middle":
+                pattern = f" {c.word} "
+            elif c.position == "last":
+                pattern = f" {c.word}$"
+            else:
+                print(f"[red]'{c.position}' position not recognised")
+                break
+
+            if re.findall(pattern, search_in):
+                search_list += [i.pali_1]
+                meaning = make_meaning(i)
+                printer(i, meaning)
+                i_counter += 1
+
+        if search_list:
+            print(i_counter)
+            search_string = db_search_string(search_list)
+            print(f"\n{search_string}")
+            pyperclip.copy(search_string)
+            if c_counter < len(csv)-1:
+                user_input = Prompt.ask("[yellow]Press ENTER to continue or X to exit")
+                if user_input == "x":
+                    break
+
+def printer(i, meaning) -> None:
+    string = ""
+    string += f"[white]{i.pali_1[:29]:<30}"
+    string += f"[cyan]{i.pos:<10}"
+    string += f"[white]{meaning[:49]:<50}"
+    construction = re.sub("\n.+", "", i.construction)
+    string += f"[cyan]{construction[:29]:<30}"
+    string += f"[white]{i.compound_type[:14]:<15}"
+    string += f"[cyan]{i.compound_construction[:19]:}"
+    print(string)
+
+
+if __name__ == "__main__":
+    main()
