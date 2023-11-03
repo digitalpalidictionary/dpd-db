@@ -286,7 +286,7 @@ def copy_to_sqlite_db(pth: ProjectPaths, tpr_data_list, sandhi_data_list):
 
     try:
         conn = sqlite3.connect(
-            '../../../../.local/share/com.paauk.tipitaka_pali_reader/tipitaka_pali.db')
+            '../../.local/share/tipitaka_pali_reader/tipitaka_pali.db')
         c = conn.cursor()
 
         # dpd table

@@ -219,7 +219,7 @@ def main():
         pickle.dump(grammar_dict, f)
 
     # save tsv of inflection and table
-    print(f"[green]saving grammar_dict tsv{len(grammar_dict_table):>14,}")
+    print(f"[green]saving grammar_dict tsv{len(grammar_dict_table):>17,}")
     with open(pth.grammar_dict_tsv_path, "w") as f:
         f.write("inflection\thtml\n")
         for inflection, table in grammar_dict_table.items():

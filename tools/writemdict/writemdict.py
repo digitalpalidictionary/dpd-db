@@ -39,9 +39,9 @@ import operator
 import sys
 import datetime
 
-from ripemd128 import ripemd128
 from html import escape
-from pureSalsa20 import Salsa20
+from tools.writemdict.ripemd128 import ripemd128
+from tools.writemdict.pureSalsa20 import Salsa20
 
 try:
     import lzo

@@ -260,15 +260,13 @@ def test_changes_in_stem_pattern() -> None:
 def test_missing_inflection_list_html() -> None:
     """test for missing inflections in derived_data table"""
 
-    print("[red]test_missing_inflection_list_html() FIXME: DerivedData.pali_1 column doesn't exist.")
+    print("[green]testing for missing inflection list and html tables")
 
-    # print("[green]testing for missing inflection list and html tables")
-
-    # derived_db = db_session.query(DerivedData).all()
-    # for i in derived_db:
-    #     if i.inflections == "":
-    #         print(f"\t[red]{i.pali_1}")
-    #         changed_headwords.append(i.pali_1)
+    dpd_db = db_session.query(PaliWord).all()
+    for i in dpd_db:
+        if i.dd.inflections == "":
+            print(f"\t[red]{i.pali_1}")
+            changed_headwords.append(i.pali_1)
 
 
 def test_missing_id() -> None:
