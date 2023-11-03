@@ -73,7 +73,7 @@ def config_update(section: str, option: str, value) -> None:
     config_write()
 
 
-def config_test(section: str, option: str, value) -> None:
+def config_test(section: str, option: str, value) -> bool:
     """Test config.ini to see if a section, option equals a value."""
     if (
         section in config and
@@ -84,7 +84,7 @@ def config_test(section: str, option: str, value) -> None:
         else:
             return False
     else:
-        print("[red]unknown config setting")
+        print(f"[red]unknown config setting: [brightyellow]{section}, {option}, {value}")
         return False
 
 
