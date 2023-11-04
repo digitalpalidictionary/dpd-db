@@ -35,25 +35,25 @@ def main():
         print()
         exceptions = c.exceptions.split(", ")
         pos = c.pos.split(", ")
+        type = c.type.split(", ")
         search_list: list = []
         i_counter = 0
 
         for i in db:
             if(
-                c.type in i.compound_type or
                 i.pali_1 in exceptions or 
                 i.pos in pos_exclusions or
                 "comp" not in i.grammar
             ):
                 continue
-
             if (
                 c.pos != "any" and
                 i.pos not in pos
             ):
                 continue
 
-            search_in = f"{i.construction}"
+            if any(t in i.compound_type for t in type):
+                continue
 
             if c.position == "first":
                 pattern = f"^{c.word} "
@@ -64,7 +64,8 @@ def main():
             else:
                 print(f"[red]'{c.position}' position not recognised")
                 break
-
+            
+            search_in = f"{i.construction}"
             if re.findall(pattern, search_in):
                 search_list += [i.pali_1]
                 meaning = make_meaning(i)

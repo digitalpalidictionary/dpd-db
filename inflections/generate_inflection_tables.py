@@ -262,9 +262,11 @@ def test_missing_inflection_list_html() -> None:
 
     print("[green]testing for missing inflection list and html tables")
 
-    dpd_db = db_session.query(PaliWord).all()
     for i in dpd_db:
-        if i.dd.inflections == "":
+        if (
+            i.dd is not None and
+            i.dd.inflections == ""
+        ):
             print(f"\t[red]{i.pali_1}")
             changed_headwords.append(i.pali_1)
 
@@ -273,7 +275,6 @@ def test_missing_id() -> None:
     """test for missing ids and wrong headwords in derived_data table"""
     print("[green]testing for missing id's")
 
-    dpd_db = db_session.query(PaliWord).all()
     for i in dpd_db:
         if i.dd is None:
             print(f"\t[red]{i.pali_1}")
