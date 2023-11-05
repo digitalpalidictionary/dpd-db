@@ -65,8 +65,8 @@ def make_sandhi_data_list(pth: ProjectPaths):
         sandhi_css = f.read()
         sandhi_css = css_minify(sandhi_css)
 
-    header_tmpl = Template(filename=str(pth.header_deconstructor_templ_path))
-    sandhi_header = str(header_tmpl.render(css=sandhi_css, js=""))
+    header_templ = Template(filename=str(pth.header_deconstructor_templ_path))
+    sandhi_header = str(header_templ.render(css=sandhi_css, js=""))
 
     sandhi_templ = Template(filename=str(pth.sandhi_templ_path))
 

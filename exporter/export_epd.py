@@ -8,7 +8,7 @@ from rich import print
 from sqlalchemy.orm import Session
 from typing import List, Tuple, Any
 
-from export_dpd import render_header_tmpl
+from export_dpd import render_header_templ
 
 from db.models import PaliWord, PaliRoot
 from tools.tic_toc import bip, bop
@@ -44,7 +44,7 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths, size_dict) -> Tupl
 
     epd_css = css_minify(epd_css)
 
-    header = render_header_tmpl(pth, epd_css, js="")
+    header = render_header_templ(pth, epd_css, js="")
 
     bip()
     for counter, i in enumerate(dpd_db):

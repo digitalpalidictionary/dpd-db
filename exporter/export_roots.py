@@ -10,7 +10,7 @@ from typing import Dict
 
 from sqlalchemy.orm import Session
 
-from export_dpd import render_header_tmpl
+from export_dpd import render_header_templ
 
 from helpers import TODAY
 from db.models import PaliRoot, FamilyRoot
@@ -38,7 +38,7 @@ def generate_root_html(db_session: Session,
         buttons_js = f.read()
     buttons_js = js_minify(buttons_js)
 
-    header = render_header_tmpl(pth, css=roots_css, js=buttons_js)
+    header = render_header_templ(pth, css=roots_css, js=buttons_js)
 
     roots_db = db_session.query(PaliRoot).all()
     root_db_length = len(roots_db)

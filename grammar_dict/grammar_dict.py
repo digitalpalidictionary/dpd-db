@@ -102,9 +102,9 @@ def main():
     with open(pth.grammar_css_path) as f:
         grammar_css = f.read()
 
-    header_tmpl = Template(filename=str(pth.header_grammar_dict_templ_path))
+    header_templ = Template(filename=str(pth.header_grammar_dict_templ_path))
 
-    html_header = str(header_tmpl.render(css=grammar_css))
+    html_header = str(header_templ.render(css=grammar_css))
 
     html_header += "<body><div class='grammar_dict'><table class='grammar_dict'>"
     html_table_header = "<div class='dpd_grammar'><table class='dpd_grammar'>"

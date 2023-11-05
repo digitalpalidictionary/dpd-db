@@ -128,7 +128,7 @@ def render_xhtml():
         ascii_letter = diacritics_cleaner(letter)
         total += len(entries)
         entries = "".join(entries)
-        xhtml = render_ebook_letter_tmpl(pth, letter, entries)
+        xhtml = render_ebook_letter_templ(pth, letter, entries)
         output_path = pth.epub_text_dir.joinpath(
             f"{counter}_{ascii_letter}.xhtml")
 
@@ -246,10 +246,10 @@ def render_sandhi_entry(pth: ProjectPaths, counter: int, i: Sandhi) -> str:
             splits=splits))
 
 
-def render_ebook_letter_tmpl(pth: ProjectPaths, letter: str, entries: str) -> str:
+def render_ebook_letter_templ(pth: ProjectPaths, letter: str, entries: str) -> str:
     """Render all entries for a single letter."""
-    ebook_letter_tmpl = Template(filename=str(pth.ebook_letter_templ_path))
-    return str(ebook_letter_tmpl.render(
+    ebook_letter_templ = Template(filename=str(pth.ebook_letter_templ_path))
+    return str(ebook_letter_templ.render(
             letter=letter,
             entries=entries))
 
@@ -270,7 +270,7 @@ def save_abbreviations_xhtml_page(pth: ProjectPaths, id_counter):
 
     entries = "".join(abbreviation_entries)
     entries = entries.replace(" > ", " &gt; ")
-    xhtml = render_ebook_letter_tmpl(pth, "Abbreviations", entries)
+    xhtml = render_ebook_letter_templ(pth, "Abbreviations", entries)
 
     with open(pth.epub_abbreviations_path, "w") as f:
         f.write(xhtml)

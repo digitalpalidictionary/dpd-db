@@ -8,7 +8,7 @@ from mako.template import Template
 from minify_html import minify
 from rich import print
 
-from export_dpd import render_header_tmpl
+from export_dpd import render_header_templ
 
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
@@ -68,7 +68,7 @@ def generate_variant_data_list(
         variant_css = f.read()
     variant_css = css_minify(variant_css)
 
-    header = render_header_tmpl(pth, css=variant_css, js="")
+    header = render_header_templ(pth, css=variant_css, js="")
 
     size_dict["variant_readings"] = 0
     size_dict["variant_synonyms"] = 0
@@ -146,7 +146,7 @@ def generate_spelling_data_list(
         spelling_css = f.read()
     spelling_css = css_minify(spelling_css)
 
-    header = render_header_tmpl(pth, css=spelling_css, js="")
+    header = render_header_templ(pth, css=spelling_css, js="")
 
     size_dict["spelling_mistakes"] = 0
     size_dict["spelling_synonyms"] = 0

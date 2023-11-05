@@ -32,12 +32,27 @@ from tools.configger import config_test
 from tools.sandhi_contraction import SandhiContractions
 
 
-def generate_dpd_html(db_session: Session,
-                      pth: ProjectPaths,
-                      sandhi_contractions: SandhiContractions,
-                      cf_set: Set[str],
-                      size_dict):
+def generate_dpd_html(
+        db_session: Session,
+        pth: ProjectPaths,
+        sandhi_contractions: SandhiContractions,
+        cf_set: Set[str],
+        size_dict
+):
     print("[green]generating dpd html")
+
+    header_templ = Template(filename=str(pth.header_templ_path))
+    dpd_definition_templ = Template(filename=str(pth.dpd_definition_templ_path))
+    button_box_templ = Template(filename=str(pth.button_box_templ_path))
+    grammar_templ = Template(filename=str(pth.grammar_templ_path))
+    example_templ = Template(filename=str(pth.example_templ_path))
+    inflection_templ = Template(filename=str(pth.inflection_templ_path))
+    family_root_templ = Template(filename=str(pth.family_root_templ_path))
+    family_word_templ = Template(filename=str(pth.family_word_templ_path))
+    family_compound_templ = Template(filename=str(pth.family_compound_templ_path))
+    family_set_templ = Template(filename=str(pth.family_set_templ_path))
+    frequency_templ = Template(filename=str(pth.frequency_templ_path))
+    feedback_templ = Template(filename=str(pth.feedback_templ_path))
 
     # check config
     if config_test("dictionary", "make_link", "yes"):
@@ -120,53 +135,54 @@ def generate_dpd_html(db_session: Session,
             i.example_2 = i.example_2.replace("\n", "<br>")
 
         html: str = ""
-        header = render_header_tmpl(pth, dpd_css, button_js)
+        header = render_header_templ(pth, dpd_css, button_js, header_templ)
         html += header
         size_dict["dpd_header"] += len(header)
 
         html += "<body>"
 
-        summary = render_dpd_defintion_templ(pth, i)
+        summary = render_dpd_definition_templ(pth, i, dpd_definition_templ)
         html += summary
         size_dict["dpd_summary"] += len(summary)
 
-        button_box = render_button_box_templ(pth, i, cf_set)
+        button_box = render_button_box_templ(pth, i, cf_set, button_box_templ)
         html += button_box
         size_dict["dpd_button_box"] += len(button_box)
 
-        grammar = render_grammar_templ(pth, i)
+        grammar = render_grammar_templ(pth, i, grammar_templ)
         html += grammar
         size_dict["dpd_grammar"] += len(grammar)
 
-        example = render_example_templ(pth, i, make_link)
+        example = render_example_templ(pth, i, make_link, example_templ)
         html += example
         size_dict["dpd_example"] += len(example)
 
-        inflection_table = render_inflection_templ(pth, i, dd)
+        inflection_table = render_inflection_templ(pth, i, dd, inflection_templ)
         html += inflection_table
         size_dict["dpd_inflection_table"] += len(inflection_table)
 
-        family_root = render_family_root_templ(pth, i, fr)
+        family_root = render_family_root_templ(pth, i, fr, family_root_templ)
         html += family_root
         size_dict["dpd_family_root"] += len(family_root)
 
-        family_word = render_family_word_templ(pth, i, fw)
+        family_word = render_family_word_templ(pth, i, fw, family_word_templ)
         html += family_word
         size_dict["dpd_family_word"] += len(family_word)
 
-        family_compound = render_family_compound_templ(pth, i, db_session, cf_set)
+        family_compound = render_family_compound_templ(
+            pth, i, db_session, cf_set, family_compound_templ)
         html += family_compound
         size_dict["dpd_family_compound"] += len(family_compound)
 
-        family_sets = render_family_sets_templ(pth, i, db_session)
+        family_sets = render_family_set_templ(pth, i, db_session, family_set_templ)
         html += family_sets
         size_dict["dpd_family_sets"] += len(family_sets)
 
-        frequency = render_frequency_templ(pth, i, dd)
+        frequency = render_frequency_templ(pth, i, dd, frequency_templ)
         html += frequency
         size_dict["dpd_frequency"] += len(frequency)
 
-        feedback = render_feedback_templ(pth, i)
+        feedback = render_feedback_templ(pth, i, feedback_templ)
         html += feedback
         size_dict["dpd_feedback"] += len(feedback)
 
@@ -201,23 +217,28 @@ def generate_dpd_html(db_session: Session,
     return dpd_data_list, size_dict
 
 
-def render_header_tmpl(pth: ProjectPaths, css: str, js: str) -> str:
+def render_header_templ(
+        pth: ProjectPaths,
+        css: str,
+        js: str,
+        header_templ: Template
+) -> str:
     """render the html header with css and js"""
 
-    header_tmpl = Template(filename=str(pth.header_templ_path))
-
-    return str(header_tmpl.render(css=css, js=js))
+    return str(header_templ.render(css=css, js=js))
 
 
-def render_dpd_defintion_templ(pth: ProjectPaths, i: PaliWord) -> str:
+def render_dpd_definition_templ(
+        pth: ProjectPaths, 
+        i: PaliWord,
+        dpd_definition_templ: Template
+) -> str:
     """render the definition of a word's most relevant information:
     1. pos
     2. case
     3 meaning
     4. summary
     5. degree of completition"""
-
-    dpd_definition_templ = Template(filename=str(pth.dpd_definition_templ_path))
 
     # pos
     pos: str = i.pos
@@ -241,10 +262,13 @@ def render_dpd_defintion_templ(pth: ProjectPaths, i: PaliWord) -> str:
             complete=complete))
 
 
-def render_button_box_templ(pth: ProjectPaths, i: PaliWord, cf_set: Set[str]) -> str:
+def render_button_box_templ(
+        pth: ProjectPaths,
+        i: PaliWord,
+        cf_set: Set[str],
+        button_box_templ: Template
+) -> str:
     """render buttons for each section of the dictionary"""
-
-    button_box_templ = Template(filename=str(pth.button_box_templ_path))
 
     button_html = (
         '<a class="button" '
@@ -359,10 +383,12 @@ def render_button_box_templ(pth: ProjectPaths, i: PaliWord, cf_set: Set[str]) ->
             feedback_button=feedback_button))
 
 
-def render_grammar_templ(pth: ProjectPaths, i: PaliWord) -> str:
+def render_grammar_templ(
+        pth: ProjectPaths,
+        i: PaliWord,
+        grammar_templ: Template
+) -> str:
     """html table of grammatical information"""
-
-    grammar_templ = Template(filename=str(pth.grammar_templ_path))
 
     if i.meaning_1 is not None and i.meaning_1 != "":
         if i.construction is not None and i.construction != "":
@@ -393,10 +419,13 @@ def render_grammar_templ(pth: ProjectPaths, i: PaliWord) -> str:
         return ""
 
 
-def render_example_templ(pth: ProjectPaths, i: PaliWord, make_link: bool) -> str:
+def render_example_templ(
+        pth: ProjectPaths,
+        i: PaliWord,
+        make_link: bool,
+        example_templ: Template
+) -> str:
     """render sutta examples html"""
-
-    example_templ = Template(filename=str(pth.example_templ_path))
 
     if i.meaning_1 != "" and i.example_1 != "":
         return str(
@@ -408,10 +437,13 @@ def render_example_templ(pth: ProjectPaths, i: PaliWord, make_link: bool) -> str
         return ""
 
 
-def render_inflection_templ(pth: ProjectPaths, i: PaliWord, dd: DerivedData) -> str:
+def render_inflection_templ(
+        pth: ProjectPaths,
+        i: PaliWord,
+        dd: DerivedData,
+        inflection_templ:Template
+) -> str:
     """inflection or conjugation table"""
-
-    inflection_templ = Template(filename=str(pth.inflection_templ_path))
 
     if i.pos not in INDECLINEABLES:
         return str(
@@ -425,10 +457,13 @@ def render_inflection_templ(pth: ProjectPaths, i: PaliWord, dd: DerivedData) -> 
         return ""
 
 
-def render_family_root_templ(pth: ProjectPaths, i: PaliWord, fr: FamilyRoot) -> str:
+def render_family_root_templ(
+        pth: ProjectPaths,
+        i: PaliWord,
+        fr: FamilyRoot,
+        family_root_templ
+) -> str:
     """render html table of all words with the same prefix and root"""
-
-    family_root_templ = Template(filename=str(pth.family_root_templ_path))
 
     if fr is not None:
         if i.family_root != "":
@@ -443,10 +478,13 @@ def render_family_root_templ(pth: ProjectPaths, i: PaliWord, fr: FamilyRoot) -> 
         return ""
 
 
-def render_family_word_templ(pth: ProjectPaths, i: PaliWord, fw: FamilyWord) -> str:
+def render_family_word_templ(
+        pth: ProjectPaths,
+        i: PaliWord,
+        fw: FamilyWord,
+        family_word_templ: Template
+) -> str:
     """render html of all words which belong to the same family"""
-
-    family_word_templ = Template(filename=str(pth.family_word_templ_path))
 
     if i.family_word != "":
         return str(
@@ -458,10 +496,14 @@ def render_family_word_templ(pth: ProjectPaths, i: PaliWord, fw: FamilyWord) -> 
         return ""
 
 
-def render_family_compound_templ(pth: ProjectPaths, i: PaliWord, db_session: Session, cf_set: Set[str]) -> str:
+def render_family_compound_templ(
+        pth: ProjectPaths,
+        i: PaliWord,
+        db_session: Session,
+        cf_set: Set[str],
+        family_compound_templ: Template
+) -> str:
     """render html table of all words containing the same compound"""
-
-    family_compound_templ = Template(filename=str(pth.family_compound_templ_path))
 
     if (i.meaning_1 != "" and
         (i.family_compound != "" or
@@ -494,10 +536,13 @@ def render_family_compound_templ(pth: ProjectPaths, i: PaliWord, db_session: Ses
         return ""
 
 
-def render_family_sets_templ(pth: ProjectPaths, i: PaliWord, db_session: Session) -> str:
+def render_family_set_templ(
+        pth: ProjectPaths,
+        i: PaliWord,
+        db_session: Session,
+        family_set_templ: Template
+) -> str:
     """render html table of all words belonging to the same set"""
-
-    family_set_templ = Template(filename=str(pth.family_set_templ_path))
 
     if (i.meaning_1 != "" and
             i.family_set != ""):
@@ -525,10 +570,13 @@ def render_family_sets_templ(pth: ProjectPaths, i: PaliWord, db_session: Session
         return ""
 
 
-def render_frequency_templ(pth: ProjectPaths, i: PaliWord, dd: DerivedData) -> str:
+def render_frequency_templ(
+        pth: ProjectPaths,
+        i: PaliWord,
+        dd: DerivedData,
+        frequency_templ: Template
+) -> str:
     """render html tempalte of freqency table"""
-
-    frequency_templ = Template(filename=str(pth.frequency_templ_path))
 
     if i.pos not in EXCLUDE_FROM_FREQ:
 
@@ -541,10 +589,12 @@ def render_frequency_templ(pth: ProjectPaths, i: PaliWord, dd: DerivedData) -> s
         return ""
 
 
-def render_feedback_templ(pth: ProjectPaths, i: PaliWord) -> str:
+def render_feedback_templ(
+        pth: ProjectPaths,
+        i: PaliWord,
+        feedback_templ: Template
+) -> str:
     """render html of feedback template"""
-
-    feedback_templ = Template(filename=str(pth.feedback_templ_path))
 
     return str(
         feedback_templ.render(

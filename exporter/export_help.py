@@ -11,7 +11,7 @@ from typing import List, Dict, Tuple, Any
 
 from sqlalchemy.orm import Session
 
-from export_dpd import render_header_tmpl
+from export_dpd import render_header_templ
 
 from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
@@ -61,7 +61,7 @@ def generate_help_html(__db_session__: Session,
 
     size_dict["help"] = 0
 
-    header = render_header_tmpl(pth, css=css, js="")
+    header = render_header_templ(pth, css=css, js="")
     help_data_list: List[dict] = []
 
     abbrev = add_abbrev_html(pth, header, help_data_list)
