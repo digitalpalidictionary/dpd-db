@@ -3,6 +3,7 @@
 import re
 
 from css_html_js_minify import css_minify
+from mako.template import Template
 from minify_html import minify
 from rich import print
 from sqlalchemy.orm import Session
@@ -44,7 +45,9 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths, size_dict) -> Tupl
 
     epd_css = css_minify(epd_css)
 
-    header = render_header_templ(pth, epd_css, js="")
+    header_templ = Template(filename=str(pth.header_templ_path))
+    header = render_header_templ(
+        pth, css=epd_css, js="", header_templ=header_templ)
 
     bip()
     for counter, i in enumerate(dpd_db):

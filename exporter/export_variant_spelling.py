@@ -17,12 +17,14 @@ def generate_variant_spelling_html(pth: ProjectPaths, size_dict: dict) -> Tuple[
     """Generate html for variant readings and spelling corrections."""
     print("[green]generating variants html")
 
+    header_templ = Template(filename=str(pth.header_templ_path))
+
     variant_dict = test_and_make_variant_dict(pth)
     variant_data_list, size_dict = generate_variant_data_list(
-        pth, variant_dict, size_dict)
+        pth, variant_dict, size_dict, header_templ)
     spelling_dict = test_and_make_spelling_dict(pth)
     spelling_data_list, size_dict = generate_spelling_data_list(
-        pth, spelling_dict, size_dict)
+        pth, spelling_dict, size_dict, header_templ)
 
     variant_spelling_data_list = variant_data_list + spelling_data_list
 
@@ -59,7 +61,8 @@ def test_and_make_variant_dict(pth: ProjectPaths) -> dict:
 def generate_variant_data_list(
         pth: ProjectPaths,
         variant_dict: dict,
-        size_dict: dict) -> Tuple[list, dict]:
+        size_dict: dict,
+        header_templ:Template) -> Tuple[list, dict]:
 
     variant_templ = Template(
         filename=str(pth.variant_templ_path))
@@ -68,7 +71,7 @@ def generate_variant_data_list(
         variant_css = f.read()
     variant_css = css_minify(variant_css)
 
-    header = render_header_templ(pth, css=variant_css, js="")
+    header = render_header_templ(pth, css=variant_css, js="", header_templ=header_templ)
 
     size_dict["variant_readings"] = 0
     size_dict["variant_synonyms"] = 0
@@ -137,7 +140,8 @@ def test_and_make_spelling_dict(pth: ProjectPaths) -> dict:
 def generate_spelling_data_list(
         pth: ProjectPaths,
         spelling_dict: dict,
-        size_dict: dict) -> Tuple[list, dict]:
+        size_dict: dict,
+        header_templ:Template) -> Tuple[list, dict]:
 
     spelling_templ = Template(
         filename=str(pth.spelling_templ_path))
@@ -146,7 +150,7 @@ def generate_spelling_data_list(
         spelling_css = f.read()
     spelling_css = css_minify(spelling_css)
 
-    header = render_header_templ(pth, css=spelling_css, js="")
+    header = render_header_templ(pth, css=spelling_css, js="", header_templ=header_templ)
 
     size_dict["spelling_mistakes"] = 0
     size_dict["spelling_synonyms"] = 0

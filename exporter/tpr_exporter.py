@@ -10,6 +10,7 @@ import re
 import sqlite3
 
 from rich import print
+from mako.template import Template
 from sqlalchemy.orm import Session
 from zipfile import ZipFile, ZIP_DEFLATED
 
@@ -47,6 +48,7 @@ def generate_tpr_data(pth: ProjectPaths, db_session: Session, dpd_db, __all_head
     print("[green]compiling pali word data")
     dpd_length = len(dpd_db)
     tpr_data_list = []
+    dpd_definition_templ = Template(filename=str(pth.dpd_definition_templ_path))
 
     for counter, i in enumerate(dpd_db):
 
@@ -54,7 +56,7 @@ def generate_tpr_data(pth: ProjectPaths, db_session: Session, dpd_db, __all_head
             print(f"{counter:>10,} / {dpd_length:<10,}{i.pali_1:<10}")
 
         # headword
-        html_string = render_dpd_definition_templ(pth, i)
+        html_string = render_dpd_definition_templ(pth, i, dpd_definition_templ)
         html_string = html_string.replace("\n", "").replace("    ", "")
         html_string = re.sub("""<span class\\='g.+span>""", "", html_string)
 

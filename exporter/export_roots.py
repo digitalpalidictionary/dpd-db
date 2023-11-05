@@ -38,7 +38,9 @@ def generate_root_html(db_session: Session,
         buttons_js = f.read()
     buttons_js = js_minify(buttons_js)
 
-    header = render_header_templ(pth, css=roots_css, js=buttons_js)
+    header_templ = Template(filename=str(pth.header_templ_path))
+    header = render_header_templ(
+        pth, css=roots_css, js=buttons_js, header_templ=header_templ)
 
     roots_db = db_session.query(PaliRoot).all()
     root_db_length = len(roots_db)

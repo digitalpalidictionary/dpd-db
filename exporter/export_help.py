@@ -61,7 +61,9 @@ def generate_help_html(__db_session__: Session,
 
     size_dict["help"] = 0
 
-    header = render_header_templ(pth, css=css, js="")
+    header_templ = Template(filename=str(pth.header_templ_path))
+    header = render_header_templ(
+        pth, css=css, js="", header_templ=header_templ)
     help_data_list: List[dict] = []
 
     abbrev = add_abbrev_html(pth, header, help_data_list)
