@@ -314,7 +314,7 @@ def add_stem_pattern(values, window):
             window["stem"].update(pali_1_clean[:-4])
             window["pattern"].update("māna prp")
         elif pali_1_clean.endswith("āna"):
-            window["stem"].update(pali_1_clean[:-4])
+            window["stem"].update(pali_1_clean[:-3])
             window["pattern"].update("āna prp")
 
     elif pos == "ptp":
