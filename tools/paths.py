@@ -253,6 +253,8 @@ class ProjectPaths:
         self.wf_exceptions_list = base_dir.joinpath(Path("tests/word_family_exceptions"))
         self.syn_var_exceptions_path = base_dir.joinpath(Path("tests/syn_var_exceptions"))
         self.compound_type_path = base_dir.joinpath(Path("tests/compound_type.tsv"))
+        self.phonetic_changes_path = base_dir.joinpath(Path("tests/phonetic_changes.tsv"))
+
 
         # tools
         self.user_dict_path = base_dir.joinpath(Path("tools/user_dictionary.txt"))

@@ -1,0 +1,78 @@
+initial	final	correct	wrong	without	exceptions
+
+aj + t	at	jt > t	x	x	x
+ati +	acc	ti > ty > cc	x	x	pacchājāta
+
+ī + b	ibb	īv > ivv > ibb	īv > ibb	ī + bh	x
+ī + v	ibb	īv > ivv > ibb	īv > ibb	ī + bh	x
+ī + bh	ibbh	ībh > ibbh	īb > ibb	x	x
+
+c + t	kk	ct > kk	c > k	ñc + t	x
+
+j + t	tt	jt > tt	j > t	j + th	vissaṭṭhatta, duttitikkha
+j + t	bb	jt > bb	x	x	ubbigga 1, ubbigga 2, anubbigga
+j + th	tth	jth > tth	j > t	x	x
+jj + t	ṭṭh	jjt > ṭṭh	jt > ṭṭh	jj + th	x
+j + s	kkh	js > kkh	x	x	x
+
+
+d + c	cc	dc > cc	d > c	d + ch	x
+d + ch	cch	dch > cch	d > c	x	x
+d + k	kk	dk > kk	d > k	d + kh	x
+d + kh	kkh	dkh > kkh	dk > kk	x	x
+d + n	nn	dn > nn	d > n	x	x
+d + v	bb	dv > bb	d > b	x	x
+d + s	ss	ds > ss	d > s	x	x
+dh + t	ddh	dht > ddh	x	x	x
+
+p + t	tt	pt > tt	p > t	p + th	x
+p + th	tth	pth > tth	p > t	x	x
+
+m + k	ṅk	mk > ṅk	m > ṅ	m + kh	x
+m + kh	ṅkh	mkh > ṅkh	m > ṅ	x	x
+m + g	ṅg	mg > ṅg	m > ṅ	m + gh	x
+m + gh	ṅgh	mgh > ṅgh	m > ṅ	x	x
+m + t	nt	mt > nt	m > n	m + th	x
+m + th	nth	mth > nth	m > n	x	x
+
+r + g	gg	rg > gg	r > g	r + gh	x
+r + gh	ggh	rgh > ggh	rg > gg	x	x
+r + t	tt	rt > tt	r > t	r + th	paritthata, akattha
+r + th	tth	rth > tth	r > t	x	x
+
+s + t	ṭṭh	st > ṭṭh	x	x	x
+s + y	ss	sy > ss	y > s	x	x
+
+h + g	gh	hg > gh (metathesis)	x	x	x
+h + y	yh	hy > yh (metathesis)	hy > yh	x	x	
+
+ṃ + a	ma	ṃa > ma	ṃ > m	x	x
+ṃ + ā	mā	ṃā > mā	ṃ > m	x	x
+ṃ + i	mi	ṃi > mi	ṃ > m	x	x
+ṃ + ī	mī	ṃī > mī	ṃ > m	x	x
+ṃ + u	mu	ṃu > mu	ṃ > m	x	x
+ṃ + ū	mū	ṃū > mū	ṃ > m	x	x
+ṃ + e	me	ṃe > me	ṃ > m	x	x
+ṃ + o	mo	ṃo > mo	ṃ > m	x	x
+xṃ + k	ṅk	ṃk > ṅk	ṃ > ṅ	ṃ + kh	x needs to reject upasaṅkamitukāma, maṅkuṃ karoti
+ṃ + kh	ṅkh	ṃkh > ṅkh	ṃ > ṅ	x	x
+ṃ + c	ñc	ṃc > ñc	ṃ > ñ	ṃ + ch	x
+ṃ + ch	ñch	ṃch > ñch	ṃ > ñ	x	x
+ṃ + j	ñj	ṃj > ñj	ṃ > ñ	ṃ + jh	x
+ṃ + jh	ñjh	ṃjh > ñjh	ṃ > ñ	x	x
+ṃ + ṭ	ṇṭ	ṃṭ > ṇṭ	ṃ > ṇ	ṃ + ṭh	x
+ṃ + ṭh	ṇṭh	ṃṭh > ṇṭh	ṃ > ṇ	x	x
+ṃ + ḍ	ṇḍ	ṃḍ > ṇḍ	ṃ > ṇ	ṃ + ḍh	x
+ṃ + ḍh	ṇḍh	ṃḍh > ṇḍh	ṃ > ṇ	x	x
+ṃ + t	nt	ṃt > nt	ṃ > n	ṃ + th	x
+ṃ + th	nth	ṃth > nth	ṃ > n	x	x
+ṃ + d	nd	ṃd > nd	ṃ > n	ṃ + dh	x
+ṃ + dh	ndh	ṃdh > ndh	ṃ > n	x	x
+ṃ + p	mp	ṃp > mp	ṃ > m	ṃ + ph	x
+ṃ + p	pp	ṃp > pp	ṃ > p	ṃ + ph	x
+ṃ + ph	pph	ṃph > pph	ṃ > p	x	x
+ṃ + ph	mph	ṃph > mph	ṃ > m	x	x
+ṃ + b	mb	ṃb > mb	ṃ > m	ṃ + bh	x
+ṃ + bh	mbh	ṃbh > mbh	ṃ > m	x	x
+ṃ + l	ll	ṃl > ll	ṃ > l	x	x
+
