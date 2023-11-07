@@ -17,16 +17,12 @@ from sqlalchemy.orm.session import Session
 from db.get_db_session import get_db_session
 from db.models import PaliWord, DerivedData
 
+from tools.pos import INDECLINABLES, CONJUGATIONS, DECLENSIONS
 from tools.configger import config_test, config_update
 from tools.tic_toc import tic, toc
 from tools.superscripter import superscripter_uni
 from tools.paths import ProjectPaths
 
-
-# Global constants
-INDECLINABLES = ["abbrev", "abs", "ger", "ind", "inf", "prefix", "sandhi", "idiom", "var"]
-CONJUGATIONS = ["aor", "cond", "fut", "imp", "imperf", "opt", "perf", "pr"]
-DECLENSIONS = ["adj", "card", "cs", "fem", "letter", "masc", "nt", "ordin", "pp", "pron", "prp", "ptp", "root", "suffix", "ve"]
 
 def list_into_batches(input_list: List, num_batches: int) -> List[List]:
     # When the division has remainder, this results in num + 1 batches, where
