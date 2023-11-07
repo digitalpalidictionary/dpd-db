@@ -26,7 +26,7 @@ from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
-from tools.pos import INDECLINEABLES
+from tools.pos import INDECLINABLES
 from tools.tic_toc import bip, bop
 from tools.configger import config_test
 from tools.sandhi_contraction import SandhiContractions
@@ -445,7 +445,7 @@ def render_inflection_templ(
 ) -> str:
     """inflection or conjugation table"""
 
-    if i.pos not in INDECLINEABLES:
+    if i.pos not in INDECLINABLES:
         return str(
             inflection_templ.render(
                 i=i,

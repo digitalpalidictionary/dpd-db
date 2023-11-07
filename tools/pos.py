@@ -1,6 +1,6 @@
 """Categorizing parts of speech (pos) into various lists."""
 
-INDECLINEABLES = [
+INDECLINABLES = [
     "abbrev", "abs", "ger", "ind", "inf", "prefix",
     "sandhi", "suffix", "idiom", "var"
 ]

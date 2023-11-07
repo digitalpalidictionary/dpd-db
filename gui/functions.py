@@ -24,7 +24,7 @@ from functions_db import make_all_inflections_set
 from functions_db import get_family_compound_values
 from functions_db import values_to_pali_word
 
-from tools.pos import INDECLINEABLES
+from tools.pos import INDECLINABLES
 from tools.cst_sc_text_sets import make_cst_text_set
 from tools.cst_sc_text_sets import make_cst_text_set_sutta
 from tools.cst_sc_text_sets import make_cst_text_set_from_file
@@ -362,7 +362,7 @@ def add_stem_pattern(values, window):
             window["stem"].update(pali_1_clean[:-1])
             window["pattern"].update("ā imperf")
 
-    elif pos in INDECLINEABLES:
+    elif pos in INDECLINABLES:
         window["stem"].update("-")
         window["pattern"].update("")
 
