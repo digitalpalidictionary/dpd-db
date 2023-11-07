@@ -44,12 +44,21 @@ def window_layout(primary_user):
 
     tab_group = sg.TabGroup(
         [[
-            sg.Tab("Words To Add", tab_add_next_word, key="tab_add_next_word"),
-            sg.Tab("Edit DPD", tab_edit_dpd, key="tab_edit_dpd"),
-            sg.Tab("Edit DPS", tab_edit_dps, key="tab_edit_dps"),
-            sg.Tab("Fix Sandhi", tab_fix_sandhi, key="tab_fix_sandhi"),
-            sg.Tab("Test db", tab_db_tests, key="tab_db_tests"),
-            sg.Tab("Test DPS", tab_dps_tests, key="tab_dps_tests")
+            sg.Tab(
+                "Words To Add", tab_add_next_word,
+                key="tab_add_next_word"),
+            sg.Tab(
+                "Edit DPD", tab_edit_dpd, key="tab_edit_dpd"),
+            sg.Tab(
+                "Edit DPS", tab_edit_dps, key="tab_edit_dps",
+                visible=not primary_user),
+            sg.Tab(
+                "Fix Sandhi", tab_fix_sandhi, key="tab_fix_sandhi"),
+            sg.Tab(
+                "Test db", tab_db_tests, key="tab_db_tests"),
+            sg.Tab(
+                "Test DPS", tab_dps_tests, key="tab_dps_tests",
+                visible=not primary_user)
         ]],
         key="tabgroup",
         enable_events=True,
@@ -57,7 +66,8 @@ def window_layout(primary_user):
 
     layout = [
         [sg.Text(
-            "svāgataṃ", key="messages", text_color="white", font=(None, 12))],
+            "svāgataṃ", key="messages", text_color="white",
+            font=(None, 12))],
         [tab_group],
     ]
 

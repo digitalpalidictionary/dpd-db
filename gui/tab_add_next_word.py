@@ -3,10 +3,63 @@
 
 def make_tab_add_next_word(sg, primary_user):
 
+    sutta_codes = """VIN
+01. pārājika:\t\tvin1
+02. pācittiya:\t\tvin2
+03. mahāvagga:\t\tvin3
+04. cūḷavagga:\t\tvin4
+05. parivāra:\t\tvin5
+
+DN
+01. sīlakkhandhavagga:\tdn1
+02. mahāvagga:\t\tdn2
+03. pāthikavagga:\t\tdn3
+
+MN
+01. mūlapaṇṇāsa:\t\tmn1
+02. majjhimapaṇṇāsa:\tmn2
+03. uparipaṇṇāsa:\t\tmn3
+
+SN
+01. sagāthāvaggo:\t\tsn1
+02. nidānavaggo:\t\tsn2
+03. khandhavaggo:\t\tsn3
+04. saḷāyatanavaggo:\tsn4
+05. mahāvaggo:\t\tsn5
+
+AN
+01. ekakanipāta:\t\tan1
+02. dukanipāta:\t\tan2
+...
+11. ekādasakanipāta:\tan11
+
+KN
+01. khuddakapāṭha:\tkn1
+02. dhammapada:\t\tkn2
+03. udāna:\t\tkn3
+04. itivuttaka:\t\tkn4
+05. suttanipāta:\t\tkn5
+06. vimānavatthu:\t\tkn6
+07. petavatthu:\t\tkn7
+08. theragāthā:\t\tkn8
+09. therīgāthā:\t\tkn9
+10. therāpadāna:\t\tkn10
+11. therīapadāna:\t\tkn11
+12. buddhavaṃsa:\t\tkn12
+13. cariyāpiṭaka:\t\tkn13
+14. jātaka:\t\tkn14
+15. mahāniddesa:\t\tkn15
+16. cūḷaniddesa:\t\tkn16
+17. paṭisambhidāmagga:\tkn17
+18. milindapañha:\t\tkn18
+19. nettippakaraṇa:\t\tkn19
+20. peṭakopadesa:\t\tkn20
+"""
+
     tab_add_next_word = [
         [
             sg.Text(
-                "select book to add: ", 
+                "select book to add:\t\t", 
                 pad=((100, 0), (20, 20))
             ),
             sg.Input(
@@ -23,12 +76,18 @@ def make_tab_add_next_word(sg, primary_user):
                 "Add (ru)", 
                 key="dps_books_to_add_button", 
                 visible=not primary_user,
+                pad=((10, 0), (20, 20))
+            ),
+            sg.Text(
+                "sutta codes",
+                size=(50, 1),
                 pad=((10, 0), (20, 20)),
-            )
+                tooltip=sutta_codes
+            ),
         ],
         [
             sg.Text(
-                "select sutta to add: ", 
+                "select sutta to add:\t\t", 
                 pad=((100, 0), (0, 20)),
                 visible=not primary_user,
             ),
@@ -53,7 +112,7 @@ def make_tab_add_next_word(sg, primary_user):
         ],
         [
             sg.Text(
-                "select source to add: ", 
+                "select source to add:\t\t", 
                 pad=((100, 0), (0, 20)),
                 visible=not primary_user,
             ),
@@ -98,7 +157,7 @@ def make_tab_add_next_word(sg, primary_user):
             )
         ],
         [
-            sg.Text("from id-list: ", 
+            sg.Text("from id-list:\t\t", 
             visible=not primary_user, 
             pad=((100, 0), (0, 20))
             ),
@@ -139,7 +198,7 @@ def make_tab_add_next_word(sg, primary_user):
             ),
         ],
         [
-            sg.Text("next word to add: ", 
+            sg.Text("next word to add:\t\t", 
             pad=((100, 0), (0, 0))),
         ],
         [
@@ -249,20 +308,6 @@ def make_tab_add_next_word(sg, primary_user):
                 pad=((100, 0), (0, 0))
             ),
         ],
-        [
-            sg.Text(
-                """kp 1, dhp 2, ud 3, iti 4, snp 5, vv 6, pv 7, th 8, thi 9, apa 10, api 11""",
-                size=(50, 1),
-                pad=((100, 0), (0, 0))
-            )
-        ],
-        [
-            sg.Text(
-                """bv 12, cp 13, ja 14, mnd 15, cnd 16, ps 17, mil 18, ne 19, pe 20""",
-                size=(50, 1),
-                pad=((100, 0), (0, 0))
-            )
-        ]
     ]
 
     return tab_add_next_word
