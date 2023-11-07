@@ -1,28 +1,60 @@
 initial	final	correct	wrong	without	exceptions
+ṃ + ṭh	nth	ṃṭh > nth	ṃṭ > nt	x	x
 
-aj + t	at	jt > t	x	x	x
-ati +	acc	ti > ty > cc	x	x	pacchājāta
+ati +	acc	ti > ty > cc	x	gacch	pacchājāta, gatikālādipaccayantarasamavāya
 
+ā + ñ	aññ	āñ > aññ	x	x	vadaññutā, sāmaññatā 2.1
+ānaṃ	annaṃ	ān > ann	x	x	x
+
+ī + n	inn	īn > inn	x	x	anunnāmāninnāmī
 ī + b	ibb	īv > ivv > ibb	īv > ibb	ī + bh	x
 ī + v	ibb	īv > ivv > ibb	īv > ibb	ī + bh	x
 ī + bh	ibbh	ībh > ibbh	īb > ibb	x	x
 
+u + a	va	ua > va	x	x	x
+u + ā	vā	uā > vā	x	x	x
+u + i	vi	ui > vi	x	x	x
+u + ī	vī	uī > vī	x	x	x
+u + u	vu	uu > vu	x	x	x
+u + ū	vū	uū > vū	x	x	x
+u + e	ve	ue > ve	x	x	x
+u + o	vo	uo > vo	x	x	x
+
 c + t	kk	ct > kk	c > k	ñc + t	x
+c + t	tt	ct > tt	c > t	c + th	x
+c + th	tth	cth > tth	c > t	x	x
+
+g + y	gg	gy > gg	x	x	x
+
 
 j + t	tt	jt > tt	j > t	j + th	vissaṭṭhatta, duttitikkha
 j + t	bb	jt > bb	x	x	ubbigga 1, ubbigga 2, anubbigga
 j + th	tth	jth > tth	j > t	x	x
 jj + t	ṭṭh	jjt > ṭṭh	jt > ṭṭh	jj + th	x
+j + y	jj	jy > jj	y > j	jj + y	x
+jj + y	jj	jjy > jj	y > j	x	x
 j + s	kkh	js > kkh	x	x	x
 
+t + y	cc	ty > cc	x	x	x
+t + y	tt	ty > tt	x	x	x
+
+nhā	nahā	nhā > nahā (epenthesis)	x	x	x
+n + y	nn	ny > nn	y > n	x	x
+n + y	ññ	ny > ññ	n > y	x	x
 
 d + c	cc	dc > cc	d > c	d + ch	x
 d + ch	cch	dch > cch	d > c	x	x
+d + j	jj	dj > jj	d > j	d + jh	x
+d + jh	jjh	djh > jjh	d > j	x	x
 d + k	kk	dk > kk	d > k	d + kh	x
 d + kh	kkh	dkh > kkh	dk > kk	x	x
+d + g	gg	dg > gg	d > g	d + gh	x
+d + gh	ggh	dgh > ggh	d > g	x	x
 d + n	nn	dn > nn	d > n	x	x
+d + t	tt	dt > tt	d > t	d + th	x
 d + v	bb	dv > bb	d > b	x	x
 d + s	ss	ds > ss	d > s	x	x
+
 dh + t	ddh	dht > ddh	x	x	x
 
 p + t	tt	pt > tt	p > t	p + th	x
@@ -34,16 +66,35 @@ m + g	ṅg	mg > ṅg	m > ṅ	m + gh	x
 m + gh	ṅgh	mgh > ṅgh	m > ṅ	x	x
 m + t	nt	mt > nt	m > n	m + th	x
 m + th	nth	mth > nth	m > n	x	x
+m + y	mm	my > mm	y > m	x	x
+mb 	mm	mb > mm	x	x 	x
 
+r + k	kk	rk > kk	r > k	r + kh	x
+r + kh	kkh	rkh > kkh	r > k	x	x
+r + ṇ	ṇṇ	rṇ > ṇṇ	r > ṇ	x	x
 r + g	gg	rg > gg	r > g	r + gh	x
 r + gh	ggh	rgh > ggh	rg > gg	x	x
 r + t	tt	rt > tt	r > t	r + th	paritthata, akattha
 r + th	tth	rth > tth	r > t	x	x
+r + d	dd	rd > dd	r > d	r + dh	x
+r + dh	ddh	rdh > ddh	r > d	x	x
+r + p	pp	rp > pp	r > p	r + ph	x
+r + ph	pph	rph > pph	r > p	x	x
+r + b	bb	rb > bb	r > b	r + bh	x
+r + bh	bbh	rbh > bbh	r > b	x	x
+r + m	mm	rm > mm	r > m	x	x
+r + v	bb	rv > vv > bb	v > b	x	x
+
+l + y	ll	ly > ll	y > l	x	x
+
+vi +	by	vi > vy > by	vi > by	x	x
 
 s + t	ṭṭh	st > ṭṭh	x	x	x
 s + y	ss	sy > ss	y > s	x	x
+snih + 	sini	snih > sinih (epenthesis)	x	x	x
 
 h + g	gh	hg > gh (metathesis)	x	x	x
+h + t	ddh	ht > ddh	x	bh + t	x
 h + y	yh	hy > yh (metathesis)	hy > yh	x	x	
 
 ṃ + a	ma	ṃa > ma	ṃ > m	x	x
@@ -68,11 +119,14 @@ xṃ + k	ṅk	ṃk > ṅk	ṃ > ṅ	ṃ + kh	x needs to reject upasaṅkamitukā
 ṃ + th	nth	ṃth > nth	ṃ > n	x	x
 ṃ + d	nd	ṃd > nd	ṃ > n	ṃ + dh	x
 ṃ + dh	ndh	ṃdh > ndh	ṃ > n	x	x
+ṃ + n	nn	ṃn > nn	ṃ > n	x 	x
 ṃ + p	mp	ṃp > mp	ṃ > m	ṃ + ph	x
 ṃ + p	pp	ṃp > pp	ṃ > p	ṃ + ph	x
 ṃ + ph	pph	ṃph > pph	ṃ > p	x	x
 ṃ + ph	mph	ṃph > mph	ṃ > m	x	x
 ṃ + b	mb	ṃb > mb	ṃ > m	ṃ + bh	x
 ṃ + bh	mbh	ṃbh > mbh	ṃ > m	x	x
+ṃ + m	mm	ṃm > mm	ṃ > m	x 	x
+ṃ + y	ññ	ṃy > ññ	x	x	x
 ṃ + l	ll	ṃl > ll	ṃ > l	x	x
-
+ṃs + t	st	ṃst > st	x	x	x
