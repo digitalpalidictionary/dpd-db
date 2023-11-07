@@ -2,9 +2,12 @@
 
 """Create frequency map data and HTML and save into database."""
 
+from multiprocessing.managers import ListProxy
+from typing import List, Tuple, TypedDict
 import pandas as pd
 import pickle
 import re
+from multiprocessing import Process, Manager
 
 from rich import print
 from mako.template import Template
@@ -20,6 +23,18 @@ from tools.superscripter import superscripter_uni
 from tools.paths import ProjectPaths
 
 
+# Global constants
+INDECLINABLES = ["abbrev", "abs", "ger", "ind", "inf", "prefix", "sandhi", "idiom", "var"]
+CONJUGATIONS = ["aor", "cond", "fut", "imp", "imperf", "opt", "perf", "pr"]
+DECLENSIONS = ["adj", "card", "cs", "fem", "letter", "masc", "nt", "ordin", "pp", "pron", "prp", "ptp", "root", "suffix", "ve"]
+
+def list_into_batches(input_list: List, num_batches: int) -> List[List]:
+    # When the division has remainder, this results in num + 1 batches, where
+    # the last batch has a small number of items, i.e. the remainder of the
+    # integer division.
+    batch_size = len(input_list) // num_batches
+    return [input_list[i:i + batch_size] for i in range(0, len(input_list), batch_size)]
+
 def main():
     tic()
     print("[bright_yellow]mapmaker")
@@ -29,6 +44,8 @@ def main():
         regenerate_all: bool = True
     else:
         regenerate_all: bool = False
+
+    regenerate_all: bool = True
 
     print(f"[green]regenerate_all [white]{regenerate_all}")
 
@@ -49,7 +66,7 @@ def main():
         html_file_missing = []
 
     dicts = make_dfs_and_dicts(pth)
-    make_data_dict_and_html(pth, db_session, dicts, regenerate_all)
+    make_data_dict_and_html(pth, db_session, dicts, 8, regenerate_all)
     db_session.close()
 
     # config update
@@ -120,7 +137,7 @@ def test_html_file_missing(db_session: Session):
         print("ok")
 
 
-def make_dfs_and_dicts(pth: ProjectPaths):
+def make_dfs_and_dicts(pth: ProjectPaths) -> List[dict]:
     print("[green]making word count dicts and df's")
 
     wc_dir = pth.word_count_dir
@@ -320,83 +337,114 @@ def colourme(value, hi, low):
     elif value == group10:
         return "gr10"
 
+ItemPair = Tuple[PaliWord, DerivedData]
 
-def make_data_dict_and_html(pth: ProjectPaths, db_session: Session, dicts, regenerate_all):
+class ParsedResult(TypedDict):
+    id: int
+    freq_html: str
 
+def _parse_item_pair(i: PaliWord, j: DerivedData, dicts: List[dict]) -> ParsedResult:
+    inflections = j.inflections_list
+
+    section = 1
+    d = {}
+    for dict in dicts:
+        count = 0
+        for inflection in inflections:
+            if inflection in dict:
+                infl = dict.get(inflection)
+                if infl is not None:
+                    count += infl
+
+        d[str(section)] = {"data": count, "class": ""}
+        section += 1
+
+    d_values = [v["data"] for __k__, v, in d.items()]
+
+    value_max = max(d_values)
+    value_min = min(d_values)
+
+    for x in d:
+        # add class
+        d[x]["class"] = colourme(d[x]["data"], value_max, value_min)
+
+        # remove zeros
+        if d[x]["data"] == 0:
+            d[x]["data"] = ""
+
+    map_html = ""
+
+    if value_max > 0:
+
+        if i.pos in INDECLINABLES or re.match(r"^!", i.stem):
+            map_html += f"""<p class="heading underlined">Exact matches of the word <b>{superscripter_uni(i.pali_1)}</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
+
+        elif i.pos in CONJUGATIONS:
+            map_html += f"""<p class="heading underlined">Exact matches of <b>{superscripter_uni(i.pali_1)} and its conjugations</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
+
+        elif i.pos in DECLENSIONS:
+            map_html += f"""<p class="heading underlined">Exact matches of <b>{superscripter_uni(i.pali_1)} and its declensions</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
+
+        template = Template(filename='frequency/frequency.html')
+        map_html += str(template.render(d=d))
+
+    else:
+        map_html += f"""<p class="heading">There are no exact matches of <b>{superscripter_uni(i.pali_1)} or it's inflections</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
+
+    return ParsedResult(id=i.id, freq_html=map_html)
+
+def make_data_dict_and_html(pth: ProjectPaths,
+                            db_session: Session,
+                            dicts: List[dict],
+                            use_n_processes: int,
+                            regenerate_all: bool):
     print("[green]compiling data csvs and html")
 
     dpd_db = db_session.query(PaliWord).all()
     dd_db = db_session.query(DerivedData).all()
-    db_length = len(dpd_db)
-    add_to_db = []
 
-    indeclinables = ["abbrev", "abs", "ger", "ind", "inf", "prefix", "sandhi", "idiom", "var"]
-    conjugations = ["aor", "cond", "fut", "imp", "imperf", "opt", "perf", "pr"]
-    declensions = ["adj", "card", "cs", "fem", "letter", "masc", "nt", "ordin", "pp", "pron", "prp", "ptp", "root", "suffix", "ve"]
+    def _keep(i: PaliWord) -> bool:
+        return (i.pos != "idiom" and \
+                (i.pattern in changed_templates or \
+                 i.pali_1 in changed_headwords or \
+                 i.id in html_file_missing or \
+                 regenerate_all is True))
 
-    for counter, (i, j) in enumerate(zip(dpd_db, dd_db)):
+    filtered_pairs: List[ItemPair] = [(i, j) for (i, j) in zip(dpd_db, dd_db) if _keep(i)]
 
-        if i.pos != "idiom" and \
-            (i.pattern in changed_templates or
-                i.pali_1 in changed_headwords or
-                i.id in html_file_missing or
-                regenerate_all is True):
+    batches: List[List[ItemPair]] = list_into_batches(filtered_pairs, use_n_processes)
 
-            inflections = j.inflections_list
+    def _parse_batch(batch: List[ItemPair], dicts: List[dict], results: ListProxy, batch_idx: int):
+        res = [_parse_item_pair(i, j, dicts) for (i, j) in batch]
+        results.extend(res)
 
-            section = 1
-            d = {}
-            for dict in dicts:
-                count = 0
-                for inflection in inflections:
-                    if inflection in dict:
-                        count += dict.get(inflection)
+        first_word, _ = batch[0]
+        first_map_html = res[0]["freq_html"]
 
-                d[str(section)] = {"data": count, "class": ""}
-                section += 1
+        print(f"Batch {batch_idx}: done, from {first_word.pali_1}")
 
-            d_values = [v["data"] for __k__, v, in d.items()]
+        with open(
+            pth.freq_html_dir.joinpath(
+                first_word.pali_1).with_suffix(".html"), "w") as f:
+            f.write(first_map_html)
 
-            value_max = max(d_values)
-            value_min = min(d_values)
+    processes: List[Process] = []
 
-            for x in d:
-                # add class
-                d[x]["class"] = colourme(d[x]["data"], value_max, value_min)
+    # The Manager allows shared memory between the worker threads.
+    manager = Manager()
+    results_list: ListProxy = manager.list()
 
-                # remove zeros
-                if d[x]["data"] == 0:
-                    d[x]["data"] = ""
+    for idx, batch in enumerate(batches):
+        p = Process(target=_parse_batch, args=(batch, dicts, results_list, idx,))
+        w, _ = batch[0]
+        print(f"Batch {idx}: start, len {len(batch):>10,}, from {w.pali_1}")
+        p.start()
+        processes.append(p)
 
-            map_html = ""
+    for p in processes:
+        p.join()
 
-            if value_max > 0:
-
-                if i.pos in indeclinables or re.match(r"^!", i.stem):
-                    map_html += f"""<p class="heading underlined">Exact matches of the word <b>{superscripter_uni(i.pali_1)}</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
-
-                elif i.pos in conjugations:
-                    map_html += f"""<p class="heading underlined">Exact matches of <b>{superscripter_uni(i.pali_1)} and its conjugations</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
-
-                elif i.pos in declensions:
-                    map_html += f"""<p class="heading underlined">Exact matches of <b>{superscripter_uni(i.pali_1)} and its declensions</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
-
-                template = Template(filename='frequency/frequency.html')
-                map_html += str(template.render(d=d))
-
-            else:
-                map_html += f"""<p class="heading">There are no exact matches of <b>{superscripter_uni(i.pali_1)} or it's inflections</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
-                pass
-
-            add_to_db += [{"id": i.id, "freq_html": map_html}]
-
-            if counter % 5000 == 0:
-                print(f"{counter:>10,} / {db_length:<10,} {i.pali_1}")
-
-                with open(
-                    pth.freq_html_dir.joinpath(
-                        i.pali_1).with_suffix(".html"), "w") as f:
-                    f.write(map_html)
+    add_to_db: List[ParsedResult] = list(results_list)
 
     print("[green]adding to db", end=" ")
     db_session.execute(update(DerivedData), add_to_db)
