@@ -45,8 +45,6 @@ def main():
     else:
         regenerate_all: bool = False
 
-    regenerate_all: bool = True
-
     print(f"[green]regenerate_all [white]{regenerate_all}")
 
     pth = ProjectPaths()
