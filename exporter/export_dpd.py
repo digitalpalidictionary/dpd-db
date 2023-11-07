@@ -218,7 +218,7 @@ def generate_dpd_html(
 
 
 def render_header_templ(
-        pth: ProjectPaths,
+        __pth__: ProjectPaths,
         css: str,
         js: str,
         header_templ: Template
@@ -229,7 +229,7 @@ def render_header_templ(
 
 
 def render_dpd_definition_templ(
-        pth: ProjectPaths, 
+        __pth__: ProjectPaths,
         i: PaliWord,
         dpd_definition_templ: Template
 ) -> str:
@@ -263,7 +263,7 @@ def render_dpd_definition_templ(
 
 
 def render_button_box_templ(
-        pth: ProjectPaths,
+        __pth__: ProjectPaths,
         i: PaliWord,
         cf_set: Set[str],
         button_box_templ: Template
@@ -384,7 +384,7 @@ def render_button_box_templ(
 
 
 def render_grammar_templ(
-        pth: ProjectPaths,
+        __pth__: ProjectPaths,
         i: PaliWord,
         grammar_templ: Template
 ) -> str:
@@ -420,7 +420,7 @@ def render_grammar_templ(
 
 
 def render_example_templ(
-        pth: ProjectPaths,
+        __pth__: ProjectPaths,
         i: PaliWord,
         make_link: bool,
         example_templ: Template
@@ -438,7 +438,7 @@ def render_example_templ(
 
 
 def render_inflection_templ(
-        pth: ProjectPaths,
+        __pth__: ProjectPaths,
         i: PaliWord,
         dd: DerivedData,
         inflection_templ:Template
@@ -458,7 +458,7 @@ def render_inflection_templ(
 
 
 def render_family_root_templ(
-        pth: ProjectPaths,
+        __pth__: ProjectPaths,
         i: PaliWord,
         fr: FamilyRoot,
         family_root_templ
@@ -479,7 +479,7 @@ def render_family_root_templ(
 
 
 def render_family_word_templ(
-        pth: ProjectPaths,
+        __pth__: ProjectPaths,
         i: PaliWord,
         fw: FamilyWord,
         family_word_templ: Template
@@ -497,7 +497,7 @@ def render_family_word_templ(
 
 
 def render_family_compound_templ(
-        pth: ProjectPaths,
+        __pth__: ProjectPaths,
         i: PaliWord,
         db_session: Session,
         cf_set: Set[str],
@@ -537,7 +537,7 @@ def render_family_compound_templ(
 
 
 def render_family_set_templ(
-        pth: ProjectPaths,
+        __pth__: ProjectPaths,
         i: PaliWord,
         db_session: Session,
         family_set_templ: Template
@@ -571,7 +571,7 @@ def render_family_set_templ(
 
 
 def render_frequency_templ(
-        pth: ProjectPaths,
+        __pth__: ProjectPaths,
         i: PaliWord,
         dd: DerivedData,
         frequency_templ: Template
@@ -590,7 +590,7 @@ def render_frequency_templ(
 
 
 def render_feedback_templ(
-        pth: ProjectPaths,
+        __pth__: ProjectPaths,
         i: PaliWord,
         feedback_templ: Template
 ) -> str:
