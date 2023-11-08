@@ -46,7 +46,7 @@ def add_sandhi_correction(window, values: dict) -> None:
     sandhi_to_correct = values["sandhi_to_correct"]
     sandhi_correction = values["sandhi_correction"]
 
-    if sandhi_to_correct == "" or sandhi_correction == "":
+    if not sandhi_to_correct or not sandhi_correction:
         window["messages"].update(
             "you're shooting blanks!", text_color="red")
 
@@ -80,7 +80,7 @@ def add_sandhi_rule(window, values: dict) -> None:
     example = values["example"]
     usage = values["usage"]
 
-    if (chA == "" or chB == "" or (ch1 == "" and ch2 == "")):
+    if (not chA or not chB or (not ch1 and not ch2)):
         window["messages"].update(
             "you're shooting blanks!", text_color="red")
 
@@ -123,7 +123,7 @@ def add_spelling_mistake(window, values: dict) -> None:
     spelling_mistake = values["spelling_mistake"]
     spelling_correction = values["spelling_correction"]
 
-    if spelling_mistake == "" or spelling_correction == "":
+    if not spelling_mistake or not spelling_correction:
         window["messages"].update(
             "you're shooting blanks!", text_color="red")
 
@@ -148,7 +148,7 @@ def add_variant_reading(window, values: dict) -> None:
     variant_reading = values["variant_reading"]
     main_reading = values["main_reading"]
 
-    if variant_reading == "" or main_reading == "":
+    if not variant_reading or not main_reading:
         window["messages"].update(
             "you're shooting blanks!", text_color="red")
 
@@ -1050,7 +1050,7 @@ def display_summary(values, window, sg, pali_word_original2):
     summary = []
     for value in values:
         if value in dpd_values_list:
-            if values[value] != "":
+            if values[value]:
                 # Check if the value is changed
                 color = 'yellow' if str(original_values.get(value)) != str(values[value]) else 'white'
 

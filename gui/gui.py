@@ -327,7 +327,7 @@ def main():
                     value=f"'{values['pos']}' not a valid pos", text_color="red")
 
         if event == "grammar":
-            if flags.grammar and values["grammar"] == "":
+            if flags.grammar and not values["grammar"]:
                 if values["pos"] in VERBS:
                     window["grammar"].update(value=f"{values['pos']} of ")
                 else:
@@ -389,8 +389,8 @@ def main():
 
         elif (
                 event == "family_root" and
-                values["family_root"] == ""
-                and values["root_key"] != ""
+                not values["family_root"] and
+                values["root_key"]
         ):
             if flags.family_root:
                 root_key = values["root_key"]
@@ -403,7 +403,7 @@ def main():
                         value=f"not a root. {e}", text_color="red")
 
         elif event == "get_family_root":
-            if values["root_key"] != "":
+            if values["root_key"]:
                 root_key = values["root_key"]
                 FAMILY_ROOT_VALUES = get_family_root_values(root_key)
                 window["family_root"].update(values=FAMILY_ROOT_VALUES)
@@ -412,7 +412,7 @@ def main():
                 window["messages"].update(
                     value="no root_key selected", text_color="red")
 
-        elif event == "root_sign" and values["root_sign"] == "":
+        elif event == "root_sign" and not values["root_sign"]:
             if flags.root_sign:
                 root_key = values["root_key"]
                 ROOT_SIGN_VALUES = get_root_sign_values(root_key)
@@ -420,7 +420,7 @@ def main():
                 flags.root_sign = False
 
         elif event == "get_root_sign":
-            if values["root_key"] != "":
+            if values["root_key"]:
                 root_key = values["root_key"]
                 ROOT_SIGN_VALUES = get_root_sign_values(root_key)
                 window["root_sign"].update(values=ROOT_SIGN_VALUES)
@@ -429,7 +429,7 @@ def main():
                 window["messages"].update(
                     value="no root_key selected", text_color="red")
 
-        elif event == "root_base" and values["root_base"] == "":
+        elif event == "root_base" and not values["root_base"]:
             if flags.root_base:
                 root_key = values["root_key"]
                 ROOT_BASE_VALUES = get_root_base_values(root_key)
@@ -437,7 +437,7 @@ def main():
                 flags.root_base = False
 
         elif event == "get_root_base":
-            if values["root_key"] != "":
+            if values["root_key"]:
                 root_key = values["root_key"]
                 ROOT_BASE_VALUES = get_root_base_values(root_key)
                 window["root_base"].update(values=ROOT_BASE_VALUES)
@@ -449,8 +449,8 @@ def main():
         elif event == "family_compound":
             if (
                 flags.family_compound and
-                values["family_compound"] == "" and
-                values["root_key"] == ""
+                not values["family_compound"] and
+                not values["root_key"]
             ):
                 window["family_compound"].update(values["pali_1"])
                 flags.family_compound = False
@@ -458,14 +458,14 @@ def main():
                 test_family_compound(values, window)
 
         elif event == "construction":
-            if flags.construction and values["construction"] == "":
+            if flags.construction and not values["construction"]:
                 # build a construction from root family and base
-                if values["root_key"] != "":
+                if values["root_key"]:
                     family = values["family_root"].replace(" ", " + ")
                     neg = ""
-                    if values["neg"] != "":
+                    if values["neg"]:
                         neg = "na + "
-                    if values["root_base"] != "":
+                    if values["root_base"]:
                         # remove (end brackets)
                         base = re.sub(r" \(.+\)$", "", values["root_base"])
                         # remove front
@@ -480,7 +480,7 @@ def main():
                 flags.construction = False
 
             # test construciton for missing headwords
-            if values["root_key"] == "":
+            if not values["root_key"]:
                 test_construction(values, window, pali_clean_list)
 
         elif (event == "add_construction_enter" or
@@ -506,9 +506,9 @@ def main():
 
         elif event == "compound_construction":
             if (
-                values["compound_type"] != "" and
+                values["compound_type"] and
                 flags.compound_construction and
-                values["compound_construction"] == ""
+                not values["compound_construction"]
             ):
                 if values["root_key"]:
                     window["compound_construction"].update(
@@ -532,28 +532,28 @@ def main():
             (
                 event == "example_1"
                 and flags.example_1 and
-                values["example_1"] == "" and
+                not values["example_1"] and
                 values["pali_1"] and
                 values["word_to_add"]
             ) or
             (
                 event == "source_1" and
                 flags.example_1 and
-                values["example_1"] == "" and
+                not values["example_1"] and
                 values["pali_1"] and
                 values["word_to_add"]
             ) or
             (
                 event == "sutta_1" and
                 flags.example_1 and
-                values["example_1"] == "" and
+                not values["example_1"] and
                 values["pali_1"] and
                 values["word_to_add"]
             ) or
             event == "another_eg_1"
         ):
 
-            if values["book_to_add"] == "":
+            if not values["book_to_add"]:
                 book_to_add = sg.popup_get_text(
                     "Which book?", title=None,
                     location=(400, 400))
@@ -620,7 +620,7 @@ def main():
                 values["commentary"], "commentary", sandhi_dict, window)
 
         elif event == "another_eg_2":
-            if values["book_to_add"] == "":
+            if not values["book_to_add"]:
                 book_to_add = sg.popup_get_text(
                     "Which book?", title=None,
                     location=(400, 400))
@@ -670,7 +670,7 @@ def main():
                 flags.synoyms = False
 
         elif event == "search_for":
-            if values["search_for"] == "":
+            if not values["search_for"]:
                 window["search_for"].update(values["pali_1"])
 
         elif (
@@ -711,14 +711,14 @@ def main():
         # add word buttons
 
         elif event == "Clone" or event == "word_to_clone_edit_enter":
-            if values["word_to_clone_edit"] != "":
+            if values["word_to_clone_edit"]:
                 copy_word_from_db(values, window)
                 window["word_to_clone_edit"].update(value="")
             else:
                 window["messages"].update(value="No word to copy!", text_color="red")
 
         elif event == "edit_button":
-            if values["word_to_clone_edit"] != "":
+            if values["word_to_clone_edit"]:
                 pali_word_original = edit_word_in_db(values, window)
                 pali_word_original2 = deepcopy(pali_word_original)
                 open_in_goldendict(values["word_to_clone_edit"])
@@ -1143,28 +1143,28 @@ def main():
             (
                 event == "dps_sbs_example_1"
                 and dps_flags.sbs_example_1 and
-                values["dps_sbs_example_1"] == "" and
+                not values["dps_sbs_example_1"] and
                 values["pali_1"] and
                 values["word_to_add"]
             ) or
             (
                 event == "dps_sbs_source_1" and
                 dps_flags.sbs_example_1 and
-                values["dps_sbs_example_1"] == "" and
+                not values["dps_sbs_example_1"] and
                 values["dps_pali_1"] and
                 values["word_to_add"]
             ) or
             (
                 event == "dps_sbs_sutta_1" and
                 dps_flags.sbs_example_1 and
-                values["dps_sbs_example_1"] == "" and
+                not values["dps_sbs_example_1"] and
                 values["dps_pali_1"] and
                 values["word_to_add"]
             ) or
             event == "dps_another_eg_1"
         ):
 
-            if values["book_to_add"] == "":
+            if not values["book_to_add"]:
                 book_to_add = sg.popup_get_text(
                     "Which book?", title=None,
                     location=(400, 400))
@@ -1242,7 +1242,7 @@ def main():
 
         # search sbs_ex2
         elif event == "dps_another_eg_2":
-            if values["book_to_add"] == "":
+            if not values["book_to_add"]:
                 book_to_add = sg.popup_get_text(
                     "Which book?", title=None,
                     location=(400, 400))
@@ -1305,7 +1305,7 @@ def main():
 
         # search sbs_ex3
         elif event == "dps_another_eg_3":
-            if values["book_to_add"] == "":
+            if not values["book_to_add"]:
                 book_to_add = sg.popup_get_text(
                     "Which book?", title=None,
                     location=(400, 400))
@@ -1368,7 +1368,7 @@ def main():
 
         # search sbs_ex4
         elif event == "dps_another_eg_4":
-            if values["book_to_add"] == "":
+            if not values["book_to_add"]:
                 book_to_add = sg.popup_get_text(
                     "Which book?", title=None,
                     location=(400, 400))

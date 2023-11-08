@@ -130,7 +130,7 @@ def family_compound_no_number(searches: dict) -> tuple:
         for fc in i.family_compound_list:
             if re.findall(r"\d", fc):
                 fc = re.sub(r"\d", "", fc)
-                if fc != "":
+                if fc:
                     compound_family_numbered.add(fc)
 
     for i in searches["paliword"]:
@@ -155,7 +155,7 @@ def suffix_does_not_match_pali_1(searches: dict) -> tuple:
         "sāraṇī", "bahulī", "yānī 2"]
 
     for i in searches["paliword"]:
-        if i.suffix != "" and i.pali_1 not in exceptions:
+        if i.suffix and i.pali_1 not in exceptions:
             suffix_lastletter = i.suffix[-1]
             pali_clean_lastletter = i.pali_clean[-1]
 
@@ -276,12 +276,12 @@ def derived_from_not_in_headwords(searches: dict) -> tuple:
 
     for i in searches["paliword"]:
         clean_headwords.add(i.pali_clean)
-        if i.family_root != "":
+        if i.family_root:
             root_families.add(i.family_root)
 
     for i in searches["paliword"]:
-        test1 = i.meaning_1 != ""
-        test2 = i.derived_from != ""
+        test1 = i.meaning_1
+        test2 = i.derived_from
         test3 = i.derived_from not in clean_headwords
         test4 = i.derived_from not in root_families
         test5 = not re.findall("irreg form of", i.grammar)
@@ -343,13 +343,13 @@ def derived_from_not_in_family_compound(searches: dict) -> tuple:
     for i in searches["paliword"]:
 
         test1 = i.pali_1 not in exceptions
-        test2 = i.root_key == ""
+        test2 = not i.root_key
         test3 = i.pos != "pron"
-        test4 = i.meaning_1 != ""
-        test5 = i.derived_from != ""
+        test4 = i.meaning_1
+        test5 = i.derived_from
         test6 = not re.findall(r"\bcomp\b", i.grammar)
-        test7 = i.family_compound == ""
-        test8 = i.family_word == ""
+        test7 = not i.family_compound
+        test8 = not i.family_word
 
         if test1 & test2 & test3 & test4 & test5 & test6 & test7 & test8:
             results += [i.pali_1]
@@ -448,7 +448,7 @@ def base_contains_extra_star(searches: dict) -> tuple:
     results = []
 
     for i in searches["paliword"]:
-        if (i.root_base != "" and
+        if (i.root_base and
             "*" in i.root_base and
                 i.pos != "perf"):
             root_no_sign = re.sub("√", "", i.root_clean)
@@ -471,7 +471,7 @@ def base_is_missing_star(searches: dict) -> tuple:
 
     for i in searches["paliword"]:
 
-        test1 = i.root_base != ""
+        test1 = i.root_base
         test2 = "*" not in i.root_base
         test3 = "*" in i.root_sign
         test4 = bool(re.findall("a|u|i", i.root_clean))
@@ -518,7 +518,7 @@ def root_x_construction_mismatch(searches: dict) -> tuple:
 
     for i in searches["paliword"]:
         root_clean = i.root_clean.replace("√", "")
-        if "√" in i.construction and i.root_key != "":
+        if "√" in i.construction and i.root_key:
             constr_clean = re.sub("\n.+", "", i.construction)
             constr_clean = re.sub("(.*√)(.[^ ]*)(.*)", "\\2", constr_clean)
             if root_clean != constr_clean:
@@ -539,7 +539,7 @@ def family_root_x_construction_mismatch(searches: dict) -> tuple:
 
     for i in searches["paliword"]:
         family_root_clean = re.sub(".*√", "", i.family_root)
-        if "√" in i.construction and i.root_key != "":
+        if "√" in i.construction and i.root_key:
             constr_clean = re.sub("\n.+", "", i.construction)
             constr_clean = re.sub("(.*√)(.[^ ]*)(.*)", "\\2", constr_clean)
             if family_root_clean != constr_clean:
@@ -559,7 +559,7 @@ def root_key_x_base_mismatch(searches: dict) -> tuple:
     results = []
 
     for i in searches["paliword"]:
-        if i.root_key != "" and i.root_base != "":
+        if i.root_key and i.root_base:
             base_clean = re.sub("(√.[^ ]*)(.*)", "\\1", i.root_base)
             if i.root_clean != base_clean:
                 results += [i.pali_1]
@@ -578,7 +578,7 @@ def root_sign_x_base_mismatch(searches: dict) -> tuple:
     results = []
 
     for i in searches["paliword"]:
-        if i.root_key != "" and i.root_base != "":
+        if i.root_key and i.root_base:
             root_sign_clean = re.sub(r"\*|\+", "", i.root_sign)
             base_clean = re.sub(r"\*|\+", "", i.root_base)
 

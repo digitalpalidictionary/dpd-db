@@ -28,7 +28,7 @@ def join_method():
 
         pali = i.pali_1
 
-        if i.meaning_1 != "":
+        if i.meaning_1:
             meaning = i.meaning_1
         else:
             meaning = i.meaning_2
@@ -53,7 +53,7 @@ def search_method():
 
         pali = i.pali_1
 
-        if i.meaning_1 != "":
+        if i.meaning_1:
             meaning = i.meaning_1
         else:
             meaning = i.meaning_2

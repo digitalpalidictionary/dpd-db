@@ -240,8 +240,8 @@ def find_in_construction(dpd_db, word_family_set):
                 not re.findall("idiom", i.pos) and
                 not re.findall("prefix", i.pos) and
                 re.findall(fr"\b{wf}\b", i.construction) and
-                i.family_word == "" and
-                    i.root_key == ""):
+                not i.family_word and
+                not i.root_key):
                 wf_list += [i.pali_1]
             for e in exceptions:
                 if e in wf_list:

@@ -45,7 +45,7 @@ def main():
 def vocab(pth: ProjectPaths, dpd_db):
 
     def _is_needed(i: PaliWord):
-        return (i.meaning_1 != "" and i.example_1 != "")
+        return (i.meaning_1 and i.example_1)
 
     rows = [pali_row(i) for i in dpd_db if _is_needed(i)]
 
@@ -63,9 +63,9 @@ def pali_row(i: PaliWord, output="anki") -> List[str]:
         i.pali_2,
     ])
 
-    if i.sutta_1 != "" and i.sutta_2 != "":
+    if i.sutta_1 and i.sutta_2:
         sign = "√√"
-    elif i.sutta_1 != "" and i.sutta_2 == "":
+    elif i.sutta_1 and not i.sutta_2:
         sign = "√"
     else:
         sign = ""
@@ -89,12 +89,12 @@ def pali_row(i: PaliWord, output="anki") -> List[str]:
     if i.rt is not None:
         if output == "dpd":
             root_key = i.root_key
-            if i.rt.root_in_comps == "":
+            if not i.rt.root_in_comps:
                 root_in_comps = "0"
             else:
                 root_in_comps = i.rt.root_in_comps
 
-            if i.rt.sanskrit_root_meaning == "":
+            if not i.rt.sanskrit_root_meaning:
                 sanskrit_root_meaning = "0"
             else:
                 sanskrit_root_meaning = i.rt.sanskrit_root_meaning
@@ -172,8 +172,8 @@ def commentary(pth: ProjectPaths, dpd_db):
 
     for i in dpd_db:
         if (
-            i.meaning_1 != "" and
-            i.example_1 == ""
+            i.meaning_1 and
+            not i.example_1
         ):
             rows.append(pali_row(i))
 

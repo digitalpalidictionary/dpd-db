@@ -142,7 +142,7 @@ def main():
             # !!! this must get added
             pass
 
-        elif i.pali_1 == "":
+        elif not i.pali_1:
             # !!! this must get added
             pass
 
@@ -176,7 +176,7 @@ def main():
                         grammar: str = [row_data[column_number+1]][0][0]
 
                         for inflection in cell_data:
-                            if inflection != "":
+                            if inflection:
                                 inflected_word = f"{i.stem}{inflection}"
                                 if inflected_word in all_words_set:
 

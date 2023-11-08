@@ -20,7 +20,7 @@ with open(old_dpd_csv_path, newline="") as csvfile:
 
 origin_dict = {}
 for i in old_dpd:
-    if i["Origin"] != "":
+    if i["Origin"]:
         id = i["ID"]
         origin = i["Origin"]
         pali_1 = i["Pāli1"]

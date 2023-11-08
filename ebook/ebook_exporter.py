@@ -181,20 +181,20 @@ def render_ebook_entry(pth: ProjectPaths, counter: int, i: PaliWord, inflections
 def render_grammar_templ(pth: ProjectPaths, i: PaliWord) -> str:
     """html table of grammatical information"""
 
-    if i.meaning_1 != "":
+    if i.meaning_1:
         if i.construction is not None:
             i.construction = i.construction.replace("\n", "<br/>")
         if i.phonetic is not None:
             i.phonetic = i.phonetic.replace("\n", "<br/>")
 
         grammar = i.grammar
-        if i.neg != "":
+        if i.neg:
             grammar += f", {i.neg}"
-        if i.verb != "":
+        if i.verb:
             grammar += f", {i.verb}"
-        if i.trans != "":
+        if i.trans:
             grammar += f", {i.trans}"
-        if i.plus_case != "":
+        if i.plus_case:
             grammar += f" ({i.plus_case})"
 
         meaning = f"{make_meaning_html(i)}"

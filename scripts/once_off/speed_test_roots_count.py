@@ -52,7 +52,7 @@ def root_key():
     for counter, i in enumerate(db):
 
         if counter < 1000:
-            if i.root_key != "":
+            if i.root_key:
                 print(i.pali_1, i.root_key, i.root_count)
     return bop()
 

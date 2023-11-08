@@ -44,7 +44,7 @@ def make_sets_dict(sets_db):
         for fs in i.family_set_list:
             if fs == " ":
                 print("[bright_red]ERROR: spaces found please remove!")
-            elif fs == "":
+            elif not fs:
                 print("[bright_red]ERROR: '' found please remove!")
             elif fs == "+":
                 print("[bright_red]ERROR: + found please remove!")
@@ -69,7 +69,7 @@ def compile_sf_html(sets_db, sets_dict):
         for sf in i.family_set_list:
             if sf in sets_dict:
                 if i.pali_1 in sets_dict[sf]["headwords"]:
-                    if sets_dict[sf]["html"] == "":
+                    if not sets_dict[sf]["html"]:
                         html_string = "<table class='family'>"
                     else:
                         html_string = sets_dict[sf]["html"]

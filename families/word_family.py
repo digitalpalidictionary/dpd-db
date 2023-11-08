@@ -70,7 +70,7 @@ def compile_wf_html(wf_db, wf_dict):
     for __counter__, i in enumerate(wf_db):
         wf = i.family_word
         if i.pali_1 in wf_dict[wf]["headwords"]:
-            if wf_dict[wf]["html"] == "":
+            if not wf_dict[wf]["html"]:
                 html_string = "<table class='family'>"
             else:
                 html_string = wf_dict[wf]["html"]

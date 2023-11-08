@@ -50,7 +50,7 @@ def create_comp_fam_dict(dpd_db):
         for cf in i.family_compound_list:
             if cf == " ":
                 print("[bright_red]ERROR: spaces found please remove!")
-            elif cf == "":
+            elif not cf:
                 print("[bright_red]ERROR: '' found please remove!")
             elif cf == "+":
                 print("[bright_red]ERROR: + found please remove!")
@@ -59,7 +59,7 @@ def create_comp_fam_dict(dpd_db):
             test2 = "sandhi" in i.pos
             test3 = "idiom" in i.pos
             test4 = len(re.sub(r" \d.*$", "", i.pali_1)) < 30
-            test5 = i.meaning_1 != ""
+            test5 = i.meaning_1
 
             if (test1 or test2 or test3) and test4 and test5:
 
@@ -84,7 +84,7 @@ def compile_cf_html(dpd_db, cf_dict):
         for cf in i.family_compound_list:
             if cf in cf_dict:
                 if i.pali_1 in cf_dict[cf]["headwords"]:
-                    if cf_dict[cf]["html"] == "":
+                    if not cf_dict[cf]["html"]:
                         html_string = "<table class='family'>"
                     else:
                         html_string = cf_dict[cf]["html"]

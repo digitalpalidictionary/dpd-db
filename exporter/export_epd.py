@@ -54,7 +54,7 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths, size_dict) -> Tupl
         meanings_list = []
         i.meaning_1 = re.sub(r"\?\?", "", i.meaning_1)
 
-        if (i.meaning_1 != "" and
+        if (i.meaning_1 and
                 i.pos not in pos_exclude_list):
 
             # remove all space brackets
@@ -76,20 +76,20 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths, size_dict) -> Tupl
             meanings_list = meanings_clean.split(";")
 
             for meaning in meanings_list:
-                if meaning in epd.keys() and i.plus_case == "":
+                if meaning in epd.keys() and not i.plus_case:
                     epd_string = f"{epd[meaning]}<br><b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.meaning_1}"
                     epd[meaning] = epd_string
 
-                if meaning in epd.keys() and i.plus_case != "":
+                if meaning in epd.keys() and i.plus_case:
                     epd_string = f"{epd[meaning]}<br><b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
                     epd[meaning] = epd_string
 
-                if meaning not in epd.keys() and i.plus_case == "":
+                if meaning not in epd.keys() and not i.plus_case:
                     epd_string = f"<b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.meaning_1}"
                     epd.update(
                         {meaning: epd_string})
 
-                if meaning not in epd.keys() and i.plus_case != "":
+                if meaning not in epd.keys() and i.plus_case:
                     epd_string = f"<b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
                     epd.update(
                         {meaning: epd_string})

@@ -82,7 +82,7 @@ def dpd_size(dpd_db):
         for column in column_names:
             if column not in exceptions:
                 cell_value = getattr(i, column)
-                if cell_value != "":
+                if cell_value:
                     total_data += 1
 
     line1 = "- "
@@ -164,7 +164,7 @@ def root_data(roots_db):
         for column in column_names:
             if column not in exceptions:
                 cell_value = getattr(i, column)
-                if cell_value != "":
+                if cell_value:
                     total_roots_data += 1
 
     line6 = f"- {total_roots_data:_} cells of Pāḷi root data"

@@ -28,7 +28,7 @@ def generate_root_info_html(db_session, roots_db, bases_dict):
             html_string += f"<tr><th>Base:</th><td>{bases}</td></tr>"
 
         # Root in comps
-        if i.root_in_comps != "":
+        if i.root_in_comps:
             html_string += "<tr><th>Root in Compounds:</th>"
             html_string += f"<td>{i.root_in_comps}</td></tr>"
 
@@ -74,7 +74,7 @@ def generate_root_info_html(db_session, roots_db, bases_dict):
         else:
             html_string += "<tr><th>Pāṇinīya Dhātupāṭha:</th><td>-</td></tr>"
 
-        if i.note != "":
+        if i.note:
             html_string += f"<tr><th>Notes:</th><td>{i.note}</td></tr>"
 
         html_string += "</tbody></table>"

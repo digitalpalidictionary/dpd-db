@@ -272,7 +272,7 @@ def display_dps_summary(values, window, sg, original_values):
 
     for value in values:
         if value in dps_values_list:
-            if values[value] != "" and value not in excluded_fields:
+            if values[value] and value not in excluded_fields:
                 # Check if the value is changed
                 color = 'yellow' if str(original_values.get(value.replace("dps_", ""))) != str(values[value]) else 'white'
 

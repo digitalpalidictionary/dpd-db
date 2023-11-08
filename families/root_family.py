@@ -75,7 +75,7 @@ def make_roots_family_dict_and_bases_dict(dpd_db):
         # compile bases
         base = re.sub("^.+> ", "", i.root_base)
 
-        if base != "":
+        if base:
             if i.root_key not in bases_dict:
                 bases_dict[i.root_key] = {base}
             else:
@@ -92,7 +92,7 @@ def compile_rf_html(dpd_db, rf_dict):
         family = f"{i.root_key},{i.family_root}"
 
         if i.pali_1 in rf_dict[family]["headwords"]:
-            if rf_dict[family]["html"] == "":
+            if not rf_dict[family]["html"]:
                 html_string = "<table class='family'>"
             else:
                 html_string = rf_dict[family]["html"]

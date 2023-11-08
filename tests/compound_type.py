@@ -31,7 +31,7 @@ def main():
     for c_counter, c in enumerate(csv):
         print("-"*40)
         for k, v in c.items():
-            print(f"[green]{k:<15}: [white]{v}")
+            print(f"[green]{str(k):<15}: [white]{str(v)}")
         print()
         exceptions = c.exceptions.split(", ")
         pos = c.pos.split(", ")

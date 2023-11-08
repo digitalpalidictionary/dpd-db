@@ -61,7 +61,7 @@ def generate_tpr_data(pth: ProjectPaths, db_session: Session, dpd_db, __all_head
         html_string = re.sub("""<span class\\='g.+span>""", "", html_string)
 
         # no meaning in context
-        if i.meaning_1 == "":
+        if not i.meaning_1:
             html_string = re.sub(
                 r"<div class='content'><p>",
                 fr'<div><p><b>• {i.pali_1}</b>: ',
@@ -84,56 +84,56 @@ def generate_tpr_data(pth: ProjectPaths, db_session: Session, dpd_db, __all_head
             html_string += """<tr><th valign="top">Grammar</th>"""
             html_string += f"""<td>{i.grammar}"""
 
-            if i.neg != "":
+            if i.neg:
                 html_string += f""", {i.neg}"""
 
-            if i.verb != "":
+            if i.verb:
                 html_string += f""", {i.verb}"""
 
-            if i.trans != "":
+            if i.trans:
                 html_string += f""", {i.trans}"""
 
-            if i.plus_case != "":
+            if i.plus_case:
                 html_string += f""", {i.plus_case}"""
 
             html_string += """</td></tr>"""
             html_string += """<tr><th valign="top">Meaning</th>"""
             html_string += f"""<td><b>{i.meaning_1}</b>"""
 
-            if i.meaning_lit != "":
+            if i.meaning_lit:
                 html_string += f"""; lit. {i.meaning_lit}"""
             html_string += """</td></tr>"""
 
-            if i.root_key != "":
+            if i.root_key:
                 html_string += """<tr><th valign="top">Root</th>"""
                 html_string += f"""<td>{i.rt.root_clean} {i.rt.root_group} """
                 html_string += f"""{i.root_sign} ({i.rt.root_meaning})</td>"""
                 html_string += """</tr>"""
 
-                if i.rt.root_in_comps != "":
+                if i.rt.root_in_comps:
                     html_string += """<tr><th valign="top">√ in comps</th>"""
                     html_string += f"""<td>{i.rt.root_in_comps}</td></tr>"""
 
-                if i.root_base != "":
+                if i.root_base:
                     html_string += """<tr><th valign="top">Base</th>"""
                     html_string += f"""<td>{i.root_base}</td></tr>"""
 
-            if i.construction != "":
+            if i.construction:
                 # <br/> is causing an extra line, replace with div
                 construction_br = i.construction.replace("\n", "<br>")
                 html_string += """<tr><th valign="top">Construction</th>"""
                 html_string += f"""<td>{construction_br}</td></tr>"""
 
-            if i.derivative != "":
+            if i.derivative:
                 html_string += """<tr><th valign="top">Derivative</th>"""
                 html_string += f"""<td>{i.derivative} ({i.suffix})</td></tr>"""
 
-            if i.phonetic != "":
+            if i.phonetic:
                 phonetic = re.sub("\n", "<br>", i.phonetic)
                 html_string += """<tr><th valign="top">Phonetic</th>"""
                 html_string += f"""<td>{phonetic}</td></tr>"""
 
-            if i.compound_type != "" and re.findall(
+            if i.compound_type and re.findall(
                     r"\d", i.compound_type) == []:
                 comp_constr_br = re.sub(
                     "\n", "<br>", i.compound_construction)
@@ -141,50 +141,50 @@ def generate_tpr_data(pth: ProjectPaths, db_session: Session, dpd_db, __all_head
                 html_string += f"""<td>{ i.compound_type} """
                 html_string += f"""({comp_constr_br})</td></tr>"""
 
-            if i.antonym != "":
+            if i.antonym:
                 html_string += """<tr><th valign="top">Antonym</th>"""
                 html_string += f"""<td>{i.antonym}</td></tr>"""
 
-            if i.synonym != "":
+            if i.synonym:
                 html_string += """<tr><th valign="top">Synonym</th>"""
                 html_string += f"""<td>{i.synonym}</td></tr>"""
 
-            if i.variant != "":
+            if i.variant:
                 html_string += """<tr><th valign="top">Variant</th>"""
                 html_string += f"""<td>{i.variant}</td></tr>"""
 
-            if i.commentary != "":
+            if  (i.commentary and i.commentary != "-"):
                 commentary_no_formatting = re.sub(
                     "\n", "<br>", i.commentary)
                 html_string += """<tr><th valign="top">Commentary</th>"""
                 html_string += f"""<td>{commentary_no_formatting}</td></tr>"""
 
-            if i.notes != "":
+            if i.notes:
                 notes_no_formatting = i.notes.replace("\n", "<br>")
                 html_string += """<tr><th valign="top">Notes</th>"""
                 html_string += f"""<td>{notes_no_formatting}</td></tr>"""
 
-            if i.cognate != "":
+            if i.cognate:
                 html_string += """<tr><th valign="top">Cognate</th>"""
                 html_string += f"""<td>{i.cognate}</td></tr>"""
 
-            if i.link != "":
+            if i.link:
                 link_br = i.link.replace("\n", "<br>")
                 html_string += """<tr><th valign="top">Link</th>"""
                 html_string += f"""<td><a href="{link_br}">"""
                 html_string += f"""{link_br}</a></td></tr>"""
 
-            if i.non_ia != "":
+            if i.non_ia:
                 html_string += """<tr><th valign="top">Non IA</th>"""
                 html_string += f"""<td>{i.non_ia}</td></tr>"""
 
-            if i.sanskrit != "":
+            if i.sanskrit:
                 sanskrit = i.sanskrit.replace("\n", "")
                 html_string += """<tr><th valign="top">Sanskrit</th>"""
                 html_string += f"""<td>{sanskrit}</td></tr>"""
 
-            if i.root_key != "":
-                if i.rt.sanskrit_root != "":
+            if i.root_key:
+                if i.rt.sanskrit_root:
                     sk_root_meaning = re.sub(
                         "'", "", i.rt.sanskrit_root_meaning)
                     html_string += """<tr><th valign="top">Sanskrit Root</th>"""

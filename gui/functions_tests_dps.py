@@ -266,7 +266,7 @@ def run_individual_internal_tests(
         test_results = {}
 
         for x, criterion in enumerate(search_criteria, start=1):
-            if criterion[1] == "":
+            if not criterion[1]:
                 test_results[f"test{x}"] = True
             elif criterion[1] == "equals":
                 test_results[f"test{x}"] = values[criterion[0]] == criterion[2]
@@ -294,7 +294,7 @@ def run_individual_internal_tests(
         message = f"{counter+2}. {t.test_name}"
 
         if all(test_results.values()):
-            if t.error_column != "":
+            if t.error_column:
                 window[f"{t.error_column}_error"].update(
                     f"{counter+2}. {t.test_name}")
 
@@ -352,7 +352,7 @@ def get_db_test_results(t, values):
 
         if actual_value is not None:
 
-            if criterion[1] == "":
+            if not criterion[1]:
                 test_results[f"test{count}"] = True
             elif criterion[1] == "equals":
                 test_results[f"test{count}"] = actual_value == criterion[2]

@@ -245,7 +245,7 @@ def render_dpd_definition_templ(
 
     # plus_case
     plus_case: str = ""
-    if i.plus_case is not None and i.plus_case != "":
+    if i.plus_case is not None and i.plus_case:
         plus_case: str = i.plus_case
 
     meaning = make_meaning_html(i)
@@ -277,21 +277,21 @@ def render_button_box_templ(
         'data-target="{target}">{name}</a>')
 
     # grammar_button
-    if i.meaning_1 != "":
+    if i.meaning_1:
         grammar_button = button_html.format(
             target=f"grammar_{i.pali_1_}", name="grammar")
     else:
         grammar_button = ""
 
     # example_button
-    if i.meaning_1 != "" and i.example_1 != "" and i.example_2 == "":
+    if i.meaning_1 and i.example_1 and not i.example_2:
         example_button = button_html.format(
             target=f"example_{i.pali_1_}", name="example")
     else:
         example_button = ""
 
     # examples_button
-    if i.meaning_1 != "" and i.example_1 != "" and i.example_2 != "":
+    if i.meaning_1 and i.example_1 and i.example_2:
         examples_button = button_html.format(
             target=f"examples_{i.pali_1_}", name="examples")
     else:
@@ -312,14 +312,14 @@ def render_button_box_templ(
         declension_button = ""
 
     # root_family_button
-    if i.family_root != "":
+    if i.family_root:
         root_family_button = button_html.format(
             target=f"root_family_{i.pali_1_}", name="root family")
     else:
         root_family_button = ""
 
     # word_family_button
-    if i.family_word != "":
+    if i.family_word:
         word_family_button = button_html.format(
             target=f"word_family_{i.pali_1_}", name="word family")
     else:
@@ -327,9 +327,9 @@ def render_button_box_templ(
 
     # compound_family_button
     if (
-        i.meaning_1 != "" and
+        i.meaning_1 and
         (
-            i.family_compound != "" or
+            i.family_compound or
             i.pali_clean in cf_set
         )
     ):
@@ -346,8 +346,8 @@ def render_button_box_templ(
         compound_family_button = ""
 
     # set_family_button
-    if (i.meaning_1 != "" and
-            i.family_set != ""):
+    if (i.meaning_1 and
+            i.family_set):
 
         if len(i.family_set_list) > 0:
             set_family_button = button_html.format(
@@ -390,20 +390,20 @@ def render_grammar_templ(
 ) -> str:
     """html table of grammatical information"""
 
-    if i.meaning_1 is not None and i.meaning_1 != "":
-        if i.construction is not None and i.construction != "":
+    if i.meaning_1 is not None and i.meaning_1:
+        if i.construction is not None and i.construction:
             i.construction = i.construction.replace("\n", "<br>")
         else:
             i.construction = ""
 
         grammar = i.grammar
-        if i.neg != "":
+        if i.neg:
             grammar += f", {i.neg}"
-        if i.verb != "":
+        if i.verb:
             grammar += f", {i.verb}"
-        if i.trans != "":
+        if i.trans:
             grammar += f", {i.trans}"
-        if i.plus_case != "":
+        if i.plus_case:
             grammar += f" ({i.plus_case})"
 
         meaning = f"<b>{make_meaning_html(i)}</b>"
@@ -427,7 +427,7 @@ def render_example_templ(
 ) -> str:
     """render sutta examples html"""
 
-    if i.meaning_1 != "" and i.example_1 != "":
+    if i.meaning_1 and i.example_1:
         return str(
             example_templ.render(
                 i=i,
@@ -466,7 +466,7 @@ def render_family_root_templ(
     """render html table of all words with the same prefix and root"""
 
     if fr is not None:
-        if i.family_root != "":
+        if i.family_root:
             return str(
                 family_root_templ.render(
                     i=i,
@@ -486,7 +486,7 @@ def render_family_word_templ(
 ) -> str:
     """render html of all words which belong to the same family"""
 
-    if i.family_word != "":
+    if i.family_word:
         return str(
             family_word_templ.render(
                 i=i,
@@ -505,11 +505,11 @@ def render_family_compound_templ(
 ) -> str:
     """render html table of all words containing the same compound"""
 
-    if (i.meaning_1 != "" and
-        (i.family_compound != "" or
+    if (i.meaning_1 and
+        (i.family_compound or
             i.pali_clean in cf_set)):
 
-        if i.family_compound != "":
+        if i.family_compound:
             fc = db_session.query(
                 FamilyCompound
             ).filter(
@@ -544,8 +544,8 @@ def render_family_set_templ(
 ) -> str:
     """render html table of all words belonging to the same set"""
 
-    if (i.meaning_1 != "" and
-            i.family_set != ""):
+    if (i.meaning_1 and
+            i.family_set):
 
         if len(i.family_set_list) > 0:
 

@@ -73,7 +73,7 @@ def main():
                 if exists is not None:
                     db_session.delete(exists)
 
-            if i.pattern != "":
+            if i.pattern:
                 html, inflections_list = generate_inflection_table(i)
 
                 derived_data = DerivedData(
@@ -183,7 +183,7 @@ def test_missing_stem() -> None:
     print("[green]testing for missing stem")
 
     for i in dpd_db:
-        if i.stem == "":
+        if not i.stem:
             print(
                 f"\t[red]{i.pali_1} {i.pos} has a missing stem.", end=" ")
             new_stem = input("what is the new stem? ")
@@ -196,7 +196,7 @@ def test_missing_pattern() -> None:
     print("[green]testing for missing pattern")
 
     for i in dpd_db:
-        if i.stem != "-" and i.pattern == "":
+        if i.stem != "-" and not i.pattern:
             print(f"\t[red]{i.pali_1} {i.pos} has a missing pattern.", end=" ")
             new_pattern = input("what is the new pattern? ")
             i.pattern = new_pattern
@@ -265,7 +265,7 @@ def test_missing_inflection_list_html() -> None:
     for i in dpd_db:
         if (
             i.dd is not None and
-            i.dd.inflections == ""
+            not i.dd.inflections
         ):
             print(f"\t[red]{i.pali_1}")
             changed_headwords.append(i.pali_1)
@@ -349,7 +349,7 @@ def generate_inflection_table(i: PaliWord) -> Tuple[str, list]:
                     title: str = [row_data[column_number + 1]][0][0]
 
                     for inflection in cell_data:
-                        if inflection == "":
+                        if not inflection:
                             html += f"<td title='{title}'></td>"
                         else:
                             word_clean = f"{stem}{inflection}"

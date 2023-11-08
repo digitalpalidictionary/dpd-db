@@ -59,7 +59,7 @@ KN
     tab_add_next_word = [
         [
             sg.Text(
-                "select book to add:\t\t", 
+                "select book to add:", 
                 pad=((100, 0), (20, 20))
             ),
             sg.Input(
@@ -87,7 +87,7 @@ KN
         ],
         [
             sg.Text(
-                "select sutta to add:\t\t", 
+                "select sutta to add:", 
                 pad=((100, 0), (0, 20)),
                 visible=not primary_user,
             ),
@@ -112,7 +112,7 @@ KN
         ],
         [
             sg.Text(
-                "select source to add:\t\t", 
+                "select source to add:", 
                 pad=((100, 0), (0, 20)),
                 visible=not primary_user,
             ),
@@ -157,7 +157,7 @@ KN
             )
         ],
         [
-            sg.Text("from id-list:\t\t", 
+            sg.Text("from id-list:", 
             visible=not primary_user, 
             pad=((100, 0), (0, 20))
             ),
@@ -198,7 +198,7 @@ KN
             ),
         ],
         [
-            sg.Text("next word to add:\t\t", 
+            sg.Text("next word to add:", 
             pad=((100, 0), (0, 0))),
         ],
         [

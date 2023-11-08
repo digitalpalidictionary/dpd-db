@@ -43,7 +43,7 @@ def family_root_missing():
     print("[green]family root missing")
     filtered_db = db_session.query(PaliWord).filter(
         PaliWord.family_root == "",
-        PaliWord.root_key != ""
+        PaliWord.root_key
     ).all()
 
     if len(filtered_db) > 0:
@@ -63,7 +63,7 @@ def problem_patterns():
     patterns = inflection_templates_dict.keys()
 
     filtered_db = db_session.query(PaliWord).filter(
-        PaliWord.pattern != "",
+        PaliWord.pattern,
         PaliWord.pattern.notin_(patterns)
         ).all()
 

@@ -43,7 +43,7 @@ def summarize_constr(i: PaliWord) -> str:
         i.construction = i.construction.replace("<b>", "").replace("</b>", "")
 
     # if no meaning then show root, word family or nothing
-    if i.meaning_1 == "":
+    if not i.meaning_1:
         if i.root_key:
             return i.family_root.replace(" ", " + ")
         elif i.family_word:
@@ -52,10 +52,10 @@ def summarize_constr(i: PaliWord) -> str:
             return ""
 
     else:
-        if i.construction == "":
+        if not i.construction:
             return ""
 
-        elif i.root_base == "":
+        elif not i.root_base:
             # remove line2
             constr = re.sub(r"\n.+$", "", i.construction)
             # remove [insertions]
@@ -65,12 +65,12 @@ def summarize_constr(i: PaliWord) -> str:
             # remove phonetic changes at end
             constr = re.sub(" > .[^ ]*?$", "", constr)
 
-            if constr != "":
+            if constr:
                 return f"{constr}"
             else:
                 return ""
 
-        elif i.root_base != "" and i.pos != "fut":
+        elif i.root_base and i.pos != "fut":
             base_clean = re.sub(" \\(.+\\)$", "", i.root_base)
             base_clean = re.sub("(.+ )(.+?$)", "\\2", base_clean)
             family_plus = re.sub(" ", " + ", i.family_root)
@@ -97,7 +97,7 @@ def summarize_constr(i: PaliWord) -> str:
             constr_reconstr += f"{i.root_sign}{constr_trunc}"
             return constr_reconstr
 
-        elif i.root_base != "" and i.pos == "fut":
+        elif i.root_base and i.pos == "fut":
             # remove > base and end brackets
             base = re.sub(" > .+ \\(.+\\)$", "", i.root_base)
             # remove root

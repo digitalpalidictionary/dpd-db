@@ -19,7 +19,7 @@ def generate_root_matrix(db_session):
 
         headword = i.pali_1
 
-        if i.root_key != "":
+        if i.root_key:
             if i.root_key not in root_matrix:
                 root_matrix[i.root_key] = {
                     'verbs': {

@@ -28,13 +28,13 @@ for i in search_results:
     print(f"{'POS:':<15}{i.pos}")
 
     # show meaning_2 if meaning_1 is empty
-    if i.meaning_1 != "":
+    if i.meaning_1:
         print(f"{'MEANING:':<15}{i.meaning_1}")
     else:
         print(f"{'MEANING:':<15}{i.meaning_2}")
 
     # this checks if there's a root
-    if i.root_key != "":
+    if i.root_key:
         # if you don't do this, you will get a NoneType Attribute Error
         # trying to access root information where there is no root
 
