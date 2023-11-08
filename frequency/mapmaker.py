@@ -22,14 +22,8 @@ from tools.configger import config_test, config_update
 from tools.tic_toc import tic, toc
 from tools.superscripter import superscripter_uni
 from tools.paths import ProjectPaths
+from tools.utils import list_into_batches
 
-
-def list_into_batches(input_list: List, num_batches: int) -> List[List]:
-    # When the division has remainder, this results in num + 1 batches, where
-    # the last batch has a small number of items, i.e. the remainder of the
-    # integer division.
-    batch_size = len(input_list) // num_batches
-    return [input_list[i:i + batch_size] for i in range(0, len(input_list), batch_size)]
 
 def main():
     tic()
@@ -398,20 +392,30 @@ def make_data_dict_and_html(pth: ProjectPaths,
     dd_db = db_session.query(DerivedData).all()
 
     def _keep(i: PaliWord) -> bool:
+        """Filter predicate function which returns whether an item should be kept.
+        """
         return (i.pos != "idiom" and \
                 (i.pattern in changed_templates or \
                  i.pali_1 in changed_headwords or \
                  i.id in html_file_missing or \
                  regenerate_all is True))
 
+    # Filter the PaliWord and Derived data list, while keeping the related items together in a Tuple.
     filtered_pairs: List[ItemPair] = [(i, j) for (i, j) in zip(dpd_db, dd_db) if _keep(i)]
 
+    # Split the list into batches, each batch will be assigned to a Process() thread.
     batches: List[List[ItemPair]] = list_into_batches(filtered_pairs, use_n_processes)
 
     def _parse_batch(batch: List[ItemPair], dicts: List[dict], results: ListProxy, batch_idx: int):
+        """Takes a batch of items (and the necessary lookup dicts for the work), applies the work with _parse_item_pair() to each work item.
+
+        The results are added to a ListProxy, which is going to be a list() in shared memory from the multiprocessing Manager().
+        """
+
         res = [_parse_item_pair(i, j, dicts) for (i, j) in batch]
         results.extend(res)
 
+        # Save the details of the first item of the batch for logging and review.
         first_word, _ = batch[0]
         first_map_html = res[0]["freq_html"]
 
@@ -429,17 +433,35 @@ def make_data_dict_and_html(pth: ProjectPaths,
     results_list: ListProxy = manager.list()
 
     for idx, batch in enumerate(batches):
+        # Assign a Process() thread to each batch list.
         p = Process(target=_parse_batch, args=(batch, dicts, results_list, idx,))
         w, _ = batch[0]
         print(f"Batch {idx}: start, len {len(batch):>10,}, from {w.pali_1}")
+
+        # Start the Process's target function, i.e. _parse_batch()
         p.start()
+
+        # Keep a handle to the process.
         processes.append(p)
 
+    # At this point the thread workers are started.
+    #
+    # However, the main thread will not automatically wait for sub-threads to
+    # complete, it would simply continue (and exit), terminating the worker
+    # threads before they complete.
+
+    # Process.join() blocks the main thread (i.e. makes it wait) until the
+    # process whose join() method is called terminates.
     for p in processes:
         p.join()
 
+    # At this point all worker processes are completed and the main thread will
+    # continue.
+
+    # Convert the ListProxy from Manager() back to a regular list()
     add_to_db: List[ParsedResult] = list(results_list)
 
+    # Add the results to the database.
     print("[green]adding to db", end=" ")
     db_session.execute(update(DerivedData), add_to_db)
     db_session.commit()
