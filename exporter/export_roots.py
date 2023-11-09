@@ -6,7 +6,7 @@ from css_html_js_minify import css_minify, js_minify
 from mako.template import Template
 from minify_html import minify
 from rich import print
-from typing import Dict
+from typing import Dict, Tuple, List
 
 from sqlalchemy.orm import Session
 
@@ -18,17 +18,19 @@ from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
+from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes
 
 
 def generate_root_html(db_session: Session,
                        pth: ProjectPaths,
-                       roots_count_dict: Dict[str, int],
-                       size_dict):
+                       roots_count_dict: Dict[str, int]) -> Tuple[List[RenderResult], RenderedSizes]:
     """compile html componenents for each pali root"""
 
     print("[green]generating roots html")
 
-    root_data_list = []
+    size_dict = default_rendered_sizes()
+
+    root_data_list: List[RenderResult] = []
 
     with open(pth.roots_css_path) as f:
         roots_css = f.read()
@@ -44,13 +46,6 @@ def generate_root_html(db_session: Session,
 
     roots_db = db_session.query(PaliRoot).all()
     root_db_length = len(roots_db)
-
-    size_dict["root_definition"] = 0
-    size_dict["root_buttons"] = 0
-    size_dict["root_info"] = 0
-    size_dict["root_matrix"] = 0
-    size_dict["root_families"] = 0
-    size_dict["root_synonyms"] = 0
 
     bip()
 
@@ -111,12 +106,14 @@ def generate_root_html(db_session: Session,
         synonyms = set(add_niggahitas(list(synonyms)))
         size_dict["root_synonyms"] += len(str(synonyms))
 
-        root_data_list += [{
-            "word": r.root,
-            "definition_html": html,
-            "definition_plain": "",
-            "synonyms": synonyms
-        }]
+        res = RenderResult(
+            word = r.root,
+            definition_html = html,
+            definition_plain = "",
+            synonyms = list(synonyms),
+        )
+
+        root_data_list.append(res)
 
         if counter % 100 == 0:
             print(

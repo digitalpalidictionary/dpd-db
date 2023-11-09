@@ -21,14 +21,14 @@
         % if i.root_key:
         <tr>
             <th>Root</th>
-            <td>${i.root_clean}<sup>${i.rt.root_has_verb}</sup>${i.rt.root_group} 
-                ${i.root_sign} (${i.rt.root_meaning})
+            <td>${i.root_clean}<sup>${rt.root_has_verb}</sup>${rt.root_group}
+                ${i.root_sign} (${rt.root_meaning})
             </td>
         </tr>
-        % if i.rt.root_in_comps:
+        % if rt.root_in_comps:
         <tr>
             <th>√ In Comps</th>
-            <td>${i.rt.root_in_comps}</td>
+            <td>${rt.root_in_comps}</td>
         </tr>
         % endif
         % endif
@@ -119,12 +119,12 @@
         </tr>
         % endif
         % if i.root_key:
-        % if i.rt.sanskrit_root:
+        % if rt.sanskrit_root:
         <tr>
             <th>Sanskrit Root</th>
             <td>
                 <i>
-                    ${i.rt.sanskrit_root} ${i.rt.sanskrit_root_class} (${i.rt.sanskrit_root_meaning})
+                    ${rt.sanskrit_root} ${rt.sanskrit_root_class} (${rt.sanskrit_root_meaning})
                 </i>
             </td>
         </tr>

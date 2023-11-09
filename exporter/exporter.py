@@ -2,6 +2,7 @@
 
 """Export DPD for GoldenDict and MDict."""
 
+from typing import List
 import zipfile
 import csv
 import pickle
@@ -27,6 +28,7 @@ from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.paths import ProjectPaths
 from tools.configger import config_test
+from tools.utils import RenderedSizes, sum_rendered_sizes
 
 tic()
 
@@ -39,7 +41,7 @@ def main():
 
     cf_set = cf_set_gen(pth)
 
-    size_dict = {}
+    rendered_sizes: List[RenderedSizes] = []
 
     # check config
     if config_test("dictionary", "make_mdict", "yes"):
@@ -47,18 +49,23 @@ def main():
     else:
         make_mdct: bool = False
 
-    roots_count_dict = make_roots_count_dict(
-        db_session)
-    dpd_data_list, size_dict = generate_dpd_html(
-        db_session, pth, sandhi_contractions, cf_set, size_dict)
-    root_data_list, size_dict = generate_root_html(
-        db_session, pth, roots_count_dict, size_dict)
-    variant_spelling_data_list, size_dict = generate_variant_spelling_html(
-        pth, size_dict)
-    epd_data_list, size_dict = generate_epd_html(
-        db_session, pth, size_dict)
-    help_data_list, size_dict = generate_help_html(
-        db_session, pth, size_dict)
+    roots_count_dict = make_roots_count_dict(db_session)
+
+    dpd_data_list, sizes = generate_dpd_html(db_session, pth, sandhi_contractions, cf_set)
+    rendered_sizes.append(sizes)
+
+    root_data_list, sizes = generate_root_html(db_session, pth, roots_count_dict)
+    rendered_sizes.append(sizes)
+
+    variant_spelling_data_list, sizes = generate_variant_spelling_html(pth)
+    rendered_sizes.append(sizes)
+
+    epd_data_list, sizes = generate_epd_html(db_session, pth)
+    rendered_sizes.append(sizes)
+
+    help_data_list, sizes = generate_help_html(db_session, pth)
+    rendered_sizes.append(sizes)
+
     db_session.close()
 
     combined_data_list: list = (
@@ -70,7 +77,7 @@ def main():
     )
 
     write_limited_datalist(combined_data_list)
-    write_size_dict(pth, size_dict)
+    write_size_dict(pth, sum_rendered_sizes(rendered_sizes))
     export_to_goldendict(pth, combined_data_list)
     goldendict_unzip_and_copy(pth)
 

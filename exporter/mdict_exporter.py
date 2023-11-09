@@ -7,8 +7,7 @@ from functools import reduce
 from rich import print
 from typing import List, Dict
 from tools.tic_toc import bip, bop
-sys.path.insert(1, 'tools/writemdict')
-from writemdict import MDictWriter
+from tools.writemdict.writemdict import MDictWriter
 
 
 def mdict_synonyms(all_items, item):

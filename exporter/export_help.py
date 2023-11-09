@@ -7,7 +7,7 @@ from css_html_js_minify import css_minify
 from mako.template import Template
 from minify_html import minify
 from rich import print
-from typing import List, Dict, Tuple, Any
+from typing import List, Dict, Tuple
 
 from sqlalchemy.orm import Session
 
@@ -17,6 +17,7 @@ from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
 from tools.tsv_read_write import read_tsv_dict
 from tools.tsv_read_write import read_tsv_dot_dict
+from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes
 
 
 class Abbreviation:
@@ -45,10 +46,11 @@ class Help:
 
 
 def generate_help_html(__db_session__: Session,
-                       pth: ProjectPaths,
-                       size_dict) -> Tuple[list, Any]:
+                       pth: ProjectPaths) -> Tuple[List[RenderResult], RenderedSizes]:
     """generating html of all help files used in the dictionary"""
     print("[green]generating help html")
+
+    size_dict = default_rendered_sizes()
 
     # 1. abbreviations
     # 2. contextual help
@@ -59,36 +61,37 @@ def generate_help_html(__db_session__: Session,
         css = f.read()
     css = css_minify(css)
 
-    size_dict["help"] = 0
-
     header_templ = Template(filename=str(pth.header_templ_path))
     header = render_header_templ(
         pth, css=css, js="", header_templ=header_templ)
-    help_data_list: List[dict] = []
 
-    abbrev = add_abbrev_html(pth, header, help_data_list)
-    help_data_list = abbrev
+    help_data_list: List[RenderResult] = []
+
+    abbrev = add_abbrev_html(pth, header)
+    help_data_list.extend(abbrev)
     size_dict["help"] += len(str(abbrev))
 
-    help_html = add_help_html(pth, header, help_data_list)
-    help_data_list = help_html
+    help_html = add_help_html(pth, header)
+    help_data_list.extend(help_html)
     size_dict["help"] += len(str(help_html))
 
-    bibliography = add_bibliographhy(pth, header, help_data_list)
-    help_data_list = bibliography
+    bibliography = add_bibliographhy(pth, header)
+    help_data_list.extend(bibliography)
     size_dict["help"] += len(str(bibliography))
 
-    thanks = add_thanks(pth, header, help_data_list)
-    help_data_list = thanks
+    thanks = add_thanks(pth, header)
+    help_data_list.extend(thanks)
     size_dict["help"] += len(str(thanks))
 
     return help_data_list, size_dict
 
 
 def add_abbrev_html(pth: ProjectPaths,
-                    header: str, help_data_list: list) -> list:
+                    header: str) -> List[RenderResult]:
     bip()
     print("adding abbreviations", end=" ")
+
+    help_data_list = []
 
     file_path = pth.abbreviations_tsv_path
     rows = read_tsv_dict(file_path)
@@ -119,21 +122,25 @@ def add_abbrev_html(pth: ProjectPaths,
 
         html = minify(html)
 
-        help_data_list += [{
-            "word": i.abbrev,
-            "definition_html": html,
-            "definition_plain": "",
-            "synonyms": ""
-        }]
+        res = RenderResult(
+            word = i.abbrev,
+            definition_html = html,
+            definition_plain = "",
+            synonyms = [],
+        )
+
+        help_data_list.append(res)
 
     print(f"{bop():>34}")
     return help_data_list
 
 
 def add_help_html(pth: ProjectPaths,
-                  header: str, help_data_list: list) -> list:
+                  header: str) -> List[RenderResult]:
     bip()
     print("adding help", end=" ")
+
+    help_data_list = []
 
     file_path = pth.help_tsv_path
     rows = read_tsv_dict(file_path)
@@ -162,21 +169,25 @@ def add_help_html(pth: ProjectPaths,
 
         html = minify(html)
 
-        help_data_list += [{
-            "word": i.help,
-            "definition_html": html,
-            "definition_plain": "",
-            "synonyms": ""
-        }]
+        res = RenderResult(
+            word = i.help,
+            definition_html = html,
+            definition_plain = "",
+            synonyms = [],
+        )
+
+        help_data_list.append(res)
 
     print(f"{bop():>43}")
     return help_data_list
 
 
 def add_bibliographhy(pth: ProjectPaths,
-                      header: str, help_data_list: list) -> list:
+                      header: str) -> List[RenderResult]:
 
     print("adding bibliography", end=" ")
+
+    help_data_list = []
 
     file_path = pth.bibliography_tsv_path
     bibliography_dict = read_tsv_dot_dict(file_path)
@@ -222,12 +233,14 @@ def add_bibliographhy(pth: ProjectPaths,
 
     synonyms = ["dpd bibliography", "bibliography", "bib"]
 
-    help_data_list += [{
-        "word": "bibliography",
-        "definition_html": html,
-        "definition_plain": "",
-        "synonyms": synonyms
-    }]
+    res = RenderResult(
+        word = "bibliography",
+        definition_html = html,
+        definition_plain = "",
+        synonyms = synonyms,
+    )
+
+    help_data_list.append(res)
 
     # save markdown for website
 
@@ -241,9 +254,11 @@ def add_bibliographhy(pth: ProjectPaths,
 
 
 def add_thanks(pth: ProjectPaths,
-               header: str, help_data_list: list) -> list:
+               header: str) -> List[RenderResult]:
 
     print("adding thanks", end=" ")
+
+    help_data_list = []
 
     file_path = pth.thanks_tsv_path
     thanks = read_tsv_dot_dict(file_path)
@@ -281,12 +296,14 @@ def add_thanks(pth: ProjectPaths,
 
     synonyms = ["dpd thanks", "thankyou", "thanks", "anumodana"]
 
-    help_data_list += [{
-        "word": "thanks",
-        "definition_html": html,
-        "definition_plain": "",
-        "synonyms": synonyms
-    }]
+    res = RenderResult(
+        word = "thanks",
+        definition_html = html,
+        definition_plain = "",
+        synonyms = synonyms,
+    )
+
+    help_data_list.append(res)
 
     # save markdown for website
     if pth.thanks_md_path.exists():

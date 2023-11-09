@@ -2,11 +2,12 @@
 
 """Create frequency map data and HTML and save into database."""
 
-from multiprocessing.managers import ListProxy
+import psutil
 from typing import List, Tuple, TypedDict
 import pandas as pd
 import pickle
 import re
+from multiprocessing.managers import ListProxy
 from multiprocessing import Process, Manager
 
 from rich import print
@@ -54,7 +55,8 @@ def main():
         html_file_missing = []
 
     dicts = make_dfs_and_dicts(pth)
-    make_data_dict_and_html(pth, db_session, dicts, 8, regenerate_all)
+    num_logical_cores = psutil.cpu_count()
+    make_data_dict_and_html(pth, db_session, dicts, num_logical_cores, regenerate_all)
     db_session.close()
 
     # config update

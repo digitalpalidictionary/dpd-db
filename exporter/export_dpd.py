@@ -1,18 +1,22 @@
 """Compile HTML data for PaliWord."""
 
+import psutil
 from css_html_js_minify import css_minify, js_minify
 from mako.template import Template
 from minify_html import minify
 from rich import print
 from sqlalchemy import and_
-from typing import List, Set
+from typing import List, Set, TypedDict, Tuple
+from multiprocessing.managers import ListProxy
+from multiprocessing import Process, Manager
 
+from sqlalchemy.orm import object_session
 from sqlalchemy.orm.session import Session
 
 from helpers import EXCLUDE_FROM_FREQ
 from helpers import TODAY
 
-from db.models import PaliWord
+from db.models import PaliRoot, PaliWord
 from db.models import DerivedData
 from db.models import FamilyRoot
 from db.models import FamilyWord
@@ -27,32 +31,227 @@ from tools.paths import ProjectPaths
 from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.pos import INDECLINABLES
-from tools.tic_toc import bip, bop
+from tools.tic_toc import bip
 from tools.configger import config_test
 from tools.sandhi_contraction import SandhiContractions
+from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, list_into_batches, sum_rendered_sizes
 
+
+class PaliWordTemplates:
+    def __init__(self, pth: ProjectPaths):
+        self.header_templ = Template(filename=str(pth.header_templ_path))
+        self.dpd_definition_templ = Template(filename=str(pth.dpd_definition_templ_path))
+        self.button_box_templ = Template(filename=str(pth.button_box_templ_path))
+        self.grammar_templ = Template(filename=str(pth.grammar_templ_path))
+        self.example_templ = Template(filename=str(pth.example_templ_path))
+        self.inflection_templ = Template(filename=str(pth.inflection_templ_path))
+        self.family_root_templ = Template(filename=str(pth.family_root_templ_path))
+        self.family_word_templ = Template(filename=str(pth.family_word_templ_path))
+        self.family_compound_templ = Template(filename=str(pth.family_compound_templ_path))
+        self.family_set_templ = Template(filename=str(pth.family_set_templ_path))
+        self.frequency_templ = Template(filename=str(pth.frequency_templ_path))
+        self.feedback_templ = Template(filename=str(pth.feedback_templ_path))
+
+        with open(pth.dpd_css_path) as f:
+            dpd_css = f.read()
+
+        self.dpd_css = css_minify(dpd_css)
+
+        with open(pth.buttons_js_path) as f:
+            button_js = f.read()
+        self.button_js = js_minify(button_js)
+
+def get_family_compounds_for_pali_word(i: PaliWord) -> List[FamilyCompound]:
+    db_session = object_session(i)
+    if db_session is None:
+        raise Exception("No db_session")
+
+    if i.family_compound:
+        fc = db_session.query(
+            FamilyCompound
+        ).filter(
+            FamilyCompound.compound_family.in_(i.family_compound_list),
+        ).all()
+
+        # sort by order of the  family compound list
+        word_order = i.family_compound_list
+        fc = sorted(fc, key=lambda x: word_order.index(x.compound_family))
+
+    else:
+        fc = db_session.query(
+            FamilyCompound
+        ).filter(
+            FamilyCompound.compound_family == i.pali_clean
+        ).all()
+
+    # Make sure it's not a lazy-loaded iterable.
+    fc = list(fc)
+
+    return fc
+
+def get_family_set_for_pali_word(i: PaliWord) -> List[FamilySet]:
+    db_session = object_session(i)
+    if db_session is None:
+        raise Exception("No db_session")
+
+    fs = db_session.query(
+        FamilySet
+    ).filter(
+        FamilySet.set.in_(i.family_set_list)
+    ).all()
+
+    # sort by order of the  family set list
+    word_order = i.family_set_list
+    fs = sorted(fs, key=lambda x: word_order.index(x.set))
+
+    # Make sure it's not a lazy-loaded iterable.
+    fs = list(fs)
+
+    return fs
+
+PaliWordDbRowItems = Tuple[PaliWord, DerivedData, FamilyRoot, FamilyWord]
+
+class PaliWordDbParts(TypedDict):
+   pali_word: PaliWord
+   pali_root: PaliRoot
+   derived_data: DerivedData
+   family_root: FamilyRoot
+   family_word: FamilyWord
+   family_compounds: List[FamilyCompound]
+   family_set: List[FamilySet]
+
+class PaliWordRenderData(TypedDict):
+    pth: ProjectPaths
+    word_templates: PaliWordTemplates
+    sandhi_contractions: SandhiContractions
+    cf_set: Set[str]
+    make_link: bool
+
+def render_pali_word_dpd_html(db_parts: PaliWordDbParts,
+                              render_data: PaliWordRenderData) -> Tuple[RenderResult, RenderedSizes]:
+    rd = render_data
+    size_dict = default_rendered_sizes()
+
+    i: PaliWord = db_parts["pali_word"]
+    rt: PaliRoot = db_parts["pali_root"]
+    dd: DerivedData = db_parts["derived_data"]
+    fr: FamilyRoot = db_parts["family_root"]
+    fw: FamilyWord = db_parts["family_word"]
+    fc: List[FamilyCompound] = db_parts["family_compounds"]
+    fs: List[FamilySet] = db_parts["family_set"]
+
+    tt = rd['word_templates']
+    pth = rd['pth']
+    sandhi_contractions = rd['sandhi_contractions']
+
+    # replace \n with html line break
+    if i.meaning_1:
+        i.meaning_1 = i.meaning_1.replace("\n", "<br>")
+    if i.sanskrit:
+        i.sanskrit = i.sanskrit.replace("\n", "<br>")
+    if i.phonetic:
+        i.phonetic = i.phonetic.replace("\n", "<br>")
+    if i.compound_construction:
+        i.compound_construction = i.compound_construction.replace("\n", "<br>")
+    if i.commentary:
+        i.commentary = i.commentary.replace("\n", "<br>")
+    if i.link:
+        i.link = i.link.replace("\n", "<br>")
+    if i.sutta_1:
+        i.sutta_1 = i.sutta_1.replace("\n", "<br>")
+    if i.sutta_2:
+        i.sutta_2 = i.sutta_2.replace("\n", "<br>")
+    if i.example_1:
+        i.example_1 = i.example_1.replace("\n", "<br>")
+    if i.example_2:
+        i.example_2 = i.example_2.replace("\n", "<br>")
+
+    html: str = ""
+    header = render_header_templ(pth, tt.dpd_css, tt.button_js, tt.header_templ)
+    html += header
+    size_dict["dpd_header"] += len(header)
+
+    html += "<body>"
+
+    summary = render_dpd_definition_templ(pth, i, tt.dpd_definition_templ)
+    html += summary
+    size_dict["dpd_summary"] += len(summary)
+
+    button_box = render_button_box_templ(pth, i, rd['cf_set'], tt.button_box_templ)
+    html += button_box
+    size_dict["dpd_button_box"] += len(button_box)
+
+    grammar = render_grammar_templ(pth, i, rt, tt.grammar_templ)
+    html += grammar
+    size_dict["dpd_grammar"] += len(grammar)
+
+    example = render_example_templ(pth, i, rd['make_link'], tt.example_templ)
+    html += example
+    size_dict["dpd_example"] += len(example)
+
+    inflection_table = render_inflection_templ(pth, i, dd, tt.inflection_templ)
+    html += inflection_table
+    size_dict["dpd_inflection_table"] += len(inflection_table)
+
+    family_root = render_family_root_templ(pth, i, fr, tt.family_root_templ)
+    html += family_root
+    size_dict["dpd_family_root"] += len(family_root)
+
+    family_word = render_family_word_templ(pth, i, fw, tt.family_word_templ)
+    html += family_word
+    size_dict["dpd_family_word"] += len(family_word)
+
+    family_compound = render_family_compound_templ(
+        pth, i, fc, rd['cf_set'], tt.family_compound_templ)
+    html += family_compound
+    size_dict["dpd_family_compound"] += len(family_compound)
+
+    family_sets = render_family_set_templ(pth, i, fs, tt.family_set_templ)
+    html += family_sets
+    size_dict["dpd_family_sets"] += len(family_sets)
+
+    frequency = render_frequency_templ(pth, i, dd, tt.frequency_templ)
+    html += frequency
+    size_dict["dpd_frequency"] += len(frequency)
+
+    feedback = render_feedback_templ(pth, i, tt.feedback_templ)
+    html += feedback
+    size_dict["dpd_feedback"] += len(feedback)
+
+    html += "</body></html>"
+    html = minify(html)
+
+    synonyms: List[str] = dd.inflections_list
+    synonyms = add_niggahitas(synonyms)
+    for synonym in synonyms:
+        if synonym in sandhi_contractions:
+            contractions = sandhi_contractions[synonym]["contractions"]
+            synonyms.extend(contractions)
+    synonyms += dd.sinhala_list
+    synonyms += dd.devanagari_list
+    synonyms += dd.thai_list
+    synonyms += i.family_set_list
+    synonyms += [str(i.id)]
+    size_dict["dpd_synonyms"] += len(str(synonyms))
+
+    res = RenderResult(
+        word = i.pali_1,
+        definition_html = html,
+        definition_plain = "",
+        synonyms = synonyms,
+    )
+
+    return (res, size_dict)
 
 def generate_dpd_html(
         db_session: Session,
         pth: ProjectPaths,
         sandhi_contractions: SandhiContractions,
-        cf_set: Set[str],
-        size_dict
-):
+        cf_set: Set[str]) -> Tuple[List[RenderResult], RenderedSizes]:
+
     print("[green]generating dpd html")
 
-    header_templ = Template(filename=str(pth.header_templ_path))
-    dpd_definition_templ = Template(filename=str(pth.dpd_definition_templ_path))
-    button_box_templ = Template(filename=str(pth.button_box_templ_path))
-    grammar_templ = Template(filename=str(pth.grammar_templ_path))
-    example_templ = Template(filename=str(pth.example_templ_path))
-    inflection_templ = Template(filename=str(pth.inflection_templ_path))
-    family_root_templ = Template(filename=str(pth.family_root_templ_path))
-    family_word_templ = Template(filename=str(pth.family_word_templ_path))
-    family_compound_templ = Template(filename=str(pth.family_compound_templ_path))
-    family_set_templ = Template(filename=str(pth.family_set_templ_path))
-    frequency_templ = Template(filename=str(pth.frequency_templ_path))
-    feedback_templ = Template(filename=str(pth.feedback_templ_path))
+    word_templates = PaliWordTemplates(pth)
 
     # check config
     if config_test("dictionary", "make_link", "yes"):
@@ -60,161 +259,100 @@ def generate_dpd_html(
     else:
         make_link: bool = False
 
-    with open(pth.dpd_css_path) as f:
-        dpd_css = f.read()
+    dpd_data_list: List[RenderResult] = []
 
-    dpd_css = css_minify(dpd_css)
+    dpd_db = db_session.query(
+        PaliWord, DerivedData, FamilyRoot, FamilyWord
+    ).outerjoin(
+        DerivedData,
+        PaliWord.id == DerivedData.id
+    ).outerjoin(
+        FamilyRoot,
+        and_(
+            PaliWord.root_key == FamilyRoot.root_id,
+            PaliWord.family_root == FamilyRoot.root_family)
+    ).outerjoin(
+        FamilyWord,
+        PaliWord.family_word == FamilyWord.word_family
+    ).all()
 
-    with open(pth.buttons_js_path) as f:
-        button_js = f.read()
-    button_js = js_minify(button_js)
-
-    dpd_data_list: List[dict] = []
-
-    dpd_db = (
-        db_session.query(
-            PaliWord, DerivedData, FamilyRoot, FamilyWord
-        ).outerjoin(
-            DerivedData,
-            PaliWord.id == DerivedData.id
-        ).outerjoin(
-            FamilyRoot,
-            and_(
-                PaliWord.root_key == FamilyRoot.root_id,
-                PaliWord.family_root == FamilyRoot.root_family)
-        ).outerjoin(
-            FamilyWord,
-            PaliWord.family_word == FamilyWord.word_family
-        ).all()
-    )
-
-    dpd_length = len(dpd_db)
-    size_dict["dpd_header"] = 0
-    size_dict["dpd_summary"] = 0
-    size_dict["dpd_button_box"] = 0
-    size_dict["dpd_grammar"] = 0
-    size_dict["dpd_example"] = 0
-    size_dict["dpd_inflection_table"] = 0
-    size_dict["dpd_family_root"] = 0
-    size_dict["dpd_family_word"] = 0
-    size_dict["dpd_family_compound"] = 0
-    size_dict["dpd_family_sets"] = 0
-    size_dict["dpd_frequency"] = 0
-    size_dict["dpd_feedback"] = 0
-    size_dict["dpd_synonyms"] = 0
-
-    bip()
-    for counter, dpd_db_item in enumerate(dpd_db):
-        i: PaliWord
+    def _add_parts(i: PaliWordDbRowItems) -> PaliWordDbParts:
+        pw: PaliWord
         dd: DerivedData
         fr: FamilyRoot
         fw: FamilyWord
-        i, dd, fr, fw = dpd_db_item
+        pw, dd, fr, fw = i
 
-        # replace \n with html line break
+        return PaliWordDbParts(
+            pali_word = pw,
+            pali_root = pw.rt,
+            derived_data = dd,
+            family_root = fr,
+            family_word = fw,
+            family_compounds = get_family_compounds_for_pali_word(pw),
+            family_set = get_family_set_for_pali_word(pw),
+        )
 
-        if i.meaning_1:
-            i.meaning_1 = i.meaning_1.replace("\n", "<br>")
-        if i.sanskrit:
-            i.sanskrit = i.sanskrit.replace("\n", "<br>")
-        if i.phonetic:
-            i.phonetic = i.phonetic.replace("\n", "<br>")
-        if i.compound_construction:
-            i.compound_construction = i.compound_construction.replace("\n", "<br>")
-        if i.commentary:
-            i.commentary = i.commentary.replace("\n", "<br>")
-        if i.link:
-            i.link = i.link.replace("\n", "<br>")
-        if i.sutta_1:
-            i.sutta_1 = i.sutta_1.replace("\n", "<br>")
-        if i.sutta_2:
-            i.sutta_2 = i.sutta_2.replace("\n", "<br>")
-        if i.example_1:
-            i.example_1 = i.example_1.replace("\n", "<br>")
-        if i.example_2:
-            i.example_2 = i.example_2.replace("\n", "<br>")
+    dpd_db_data = [_add_parts(i.tuple()) for i in dpd_db]
 
-        html: str = ""
-        header = render_header_templ(pth, dpd_css, button_js, header_templ)
-        html += header
-        size_dict["dpd_header"] += len(header)
+    rendered_sizes: List[RenderedSizes] = []
 
-        html += "<body>"
+    bip()
 
-        summary = render_dpd_definition_templ(pth, i, dpd_definition_templ)
-        html += summary
-        size_dict["dpd_summary"] += len(summary)
+    num_logical_cores = psutil.cpu_count()
 
-        button_box = render_button_box_templ(pth, i, cf_set, button_box_templ)
-        html += button_box
-        size_dict["dpd_button_box"] += len(button_box)
+    batches: List[List[PaliWordDbParts]] = list_into_batches(dpd_db_data, num_logical_cores)
 
-        grammar = render_grammar_templ(pth, i, grammar_templ)
-        html += grammar
-        size_dict["dpd_grammar"] += len(grammar)
+    processes: List[Process] = []
+    manager = Manager()
+    dpd_data_results_list: ListProxy = manager.list()
+    rendered_sizes_results_list: ListProxy = manager.list()
 
-        example = render_example_templ(pth, i, make_link, example_templ)
-        html += example
-        size_dict["dpd_example"] += len(example)
+    def _parse_batch(batch: List[PaliWordDbParts],
+                     render_data: PaliWordRenderData,
+                     dpd_data_results_list: ListProxy,
+                     rendered_sizes_results_list: ListProxy,
+                     batch_idx: int):
 
-        inflection_table = render_inflection_templ(pth, i, dd, inflection_templ)
-        html += inflection_table
-        size_dict["dpd_inflection_table"] += len(inflection_table)
+        res: List[Tuple[RenderResult, RenderedSizes]] = \
+            [render_pali_word_dpd_html(i, render_data) for i in batch]
 
-        family_root = render_family_root_templ(pth, i, fr, family_root_templ)
-        html += family_root
-        size_dict["dpd_family_root"] += len(family_root)
+        for i, j in res:
+            dpd_data_results_list.append(i)
+            rendered_sizes_results_list.append(j)
 
-        family_word = render_family_word_templ(pth, i, fw, family_word_templ)
-        html += family_word
-        size_dict["dpd_family_word"] += len(family_word)
+        first_word = batch[0]["pali_word"]
 
-        family_compound = render_family_compound_templ(
-            pth, i, db_session, cf_set, family_compound_templ)
-        html += family_compound
-        size_dict["dpd_family_compound"] += len(family_compound)
+        print(f"Batch {batch_idx}: done, from {first_word.pali_1}")
 
-        family_sets = render_family_set_templ(pth, i, db_session, family_set_templ)
-        html += family_sets
-        size_dict["dpd_family_sets"] += len(family_sets)
+    render_data = PaliWordRenderData(
+        pth = pth,
+        word_templates = word_templates,
+        sandhi_contractions = sandhi_contractions,
+        cf_set = cf_set,
+        make_link = make_link,
+    )
 
-        frequency = render_frequency_templ(pth, i, dd, frequency_templ)
-        html += frequency
-        size_dict["dpd_frequency"] += len(frequency)
+    for batch_idx, batch in enumerate(batches):
+        p = Process(target=_parse_batch, args=(batch,
+                                               render_data,
+                                               dpd_data_results_list,
+                                               rendered_sizes_results_list,
+                                               batch_idx,))
 
-        feedback = render_feedback_templ(pth, i, feedback_templ)
-        html += feedback
-        size_dict["dpd_feedback"] += len(feedback)
+        w = batch[0]["pali_word"]
+        print(f"Batch {batch_idx}: start, len {len(batch):>10,}, from {w.pali_1}")
 
-        html += "</body></html>"
-        html = minify(html)
+        p.start()
+        processes.append(p)
 
-        synonyms: List[str] = dd.inflections_list
-        synonyms = add_niggahitas(synonyms)
-        for synonym in synonyms:
-            if synonym in sandhi_contractions:
-                contractions = sandhi_contractions[synonym]["contractions"]
-                synonyms.extend(contractions)
-        synonyms += dd.sinhala_list
-        synonyms += dd.devanagari_list
-        synonyms += dd.thai_list
-        synonyms += i.family_set_list
-        synonyms += [str(i.id)]
-        size_dict["dpd_synonyms"] += len(str(synonyms))
+    for p in processes:
+        p.join()
 
-        dpd_data_list += [{
-            "word": i.pali_1,
-            "definition_html": html,
-            "definition_plain": "",
-            "synonyms": synonyms
-        }]
+    dpd_data_list = list(dpd_data_results_list)
+    rendered_sizes = list(rendered_sizes_results_list)
 
-        if counter % 10000 == 0:
-            print(
-                f"{counter:>10,} / {dpd_length:<10,}{i.pali_1:<20}{bop():>10}")
-            bip()
-
-    return dpd_data_list, size_dict
+    return dpd_data_list, sum_rendered_sizes(rendered_sizes)
 
 
 def render_header_templ(
@@ -386,6 +524,7 @@ def render_button_box_templ(
 def render_grammar_templ(
         __pth__: ProjectPaths,
         i: PaliWord,
+        rt: PaliRoot,
         grammar_templ: Template
 ) -> str:
     """html table of grammatical information"""
@@ -411,6 +550,7 @@ def render_grammar_templ(
         return str(
             grammar_templ.render(
                 i=i,
+                rt=rt,
                 grammar=grammar,
                 meaning=meaning,
                 today=TODAY))
@@ -499,7 +639,7 @@ def render_family_word_templ(
 def render_family_compound_templ(
         __pth__: ProjectPaths,
         i: PaliWord,
-        db_session: Session,
+        fc: List[FamilyCompound],
         cf_set: Set[str],
         family_compound_templ: Template
 ) -> str:
@@ -508,24 +648,6 @@ def render_family_compound_templ(
     if (i.meaning_1 and
         (i.family_compound or
             i.pali_clean in cf_set)):
-
-        if i.family_compound:
-            fc = db_session.query(
-                FamilyCompound
-            ).filter(
-                FamilyCompound.compound_family.in_(i.family_compound_list),
-            ).all()
-
-            # sort by order of the  family compound list
-            word_order = i.family_compound_list
-            fc = sorted(fc, key=lambda x: word_order.index(x.compound_family))
-
-        else:
-            fc = db_session.query(
-                FamilyCompound
-            ).filter(
-                FamilyCompound.compound_family == i.pali_clean
-            ).all()
 
         return str(
             family_compound_templ.render(
@@ -539,7 +661,7 @@ def render_family_compound_templ(
 def render_family_set_templ(
         __pth__: ProjectPaths,
         i: PaliWord,
-        db_session: Session,
+        fs: List[FamilySet],
         family_set_templ: Template
 ) -> str:
     """render html table of all words belonging to the same set"""
@@ -548,16 +670,6 @@ def render_family_set_templ(
             i.family_set):
 
         if len(i.family_set_list) > 0:
-
-            fs = db_session.query(
-                FamilySet
-            ).filter(
-                FamilySet.set.in_(i.family_set_list)
-            ).all()
-
-            # sort by order of the  family set list
-            word_order = i.family_set_list
-            fs = sorted(fs, key=lambda x: word_order.index(x.set))
 
             return str(
                 family_set_templ.render(

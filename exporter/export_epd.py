@@ -7,7 +7,7 @@ from mako.template import Template
 from minify_html import minify
 from rich import print
 from sqlalchemy.orm import Session
-from typing import List, Tuple, Any
+from typing import List, Tuple
 
 from export_dpd import render_header_templ
 
@@ -17,10 +17,13 @@ from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.link_generator import generate_link
 from tools.configger import config_test
+from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes
 
 
-def generate_epd_html(db_session: Session, pth: ProjectPaths, size_dict) -> Tuple[list, Any]:
+def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[RenderResult], RenderedSizes]:
     """generate html for english to pali dictionary"""
+
+    size_dict = default_rendered_sizes()
 
     print("[green]generating epd html")
 
@@ -189,9 +192,7 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths, size_dict) -> Tupl
 
     print("[green]compiling epd html")
 
-    epd_data_list: List[dict] = []
-    size_dict["epd_header"] = 0
-    size_dict["epd"] = 0
+    epd_data_list: List[RenderResult] = []
 
     for counter, (word, html_string) in enumerate(epd.items()):
         html = header
@@ -204,11 +205,13 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths, size_dict) -> Tupl
 
         html = minify(html)
 
-        epd_data_list += [{
-            "word": word,
-            "definition_html": html,
-            "definition_plain": "",
-            "synonyms": ""
-        }]
+        res = RenderResult(
+            word = word,
+            definition_html = html,
+            definition_plain = "",
+            synonyms = [],
+        )
+
+        epd_data_list.append(res)
 
     return epd_data_list, size_dict
