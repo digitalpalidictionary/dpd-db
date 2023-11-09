@@ -31,9 +31,12 @@ def main():
     for c_counter, c in enumerate(csv):
         print("-"*40)
         for k, v in c.items():
-            print(f"[green]{str(k):<15}: [white]{str(v)}")
+            print(f"[green]{str(k):<15}: [cyan]{str(v if v else '[red]None')}")
         print()
-        exceptions = c.exceptions.split(", ")
+        if c.exceptions:
+            exceptions = c.exceptions.split(", ")
+        else:
+            exceptions = []
         pos = c.pos.split(", ")
         type = c.type.split(", ")
         search_list: list = []
@@ -41,6 +44,7 @@ def main():
 
         for i in db:
             if(
+                not i.meaning_1 or
                 i.pali_1 in exceptions or 
                 i.pos in pos_exclusions or
                 "comp" not in i.grammar
