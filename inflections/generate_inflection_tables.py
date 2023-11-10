@@ -295,7 +295,7 @@ def test_changes() -> None:
 def generate_inflection_table(i: PaliWord) -> Tuple[str, list]:
     """generate the inflection table based on stem + pattern and template"""
 
-    if i.it.data is None:
+    if i.it is None or i.it.data is None:
         return "", []
 
     table_data = json.loads(i.it.data)

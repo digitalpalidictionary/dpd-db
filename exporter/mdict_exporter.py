@@ -2,7 +2,6 @@
 
 """Prepare data and export to MDict."""
 
-import sys
 from functools import reduce
 from rich import print
 from typing import List, Dict
