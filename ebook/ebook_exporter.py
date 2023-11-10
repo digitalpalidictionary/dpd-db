@@ -137,6 +137,7 @@ def render_xhtml():
 
     print(f"{total:>10,}")
 
+    db_sesssion.close()
     return id_counter+1
 
 # --------------------------------------------------------------------------------------

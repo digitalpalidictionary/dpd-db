@@ -152,7 +152,7 @@ def suffix_does_not_match_pali_1(searches: dict) -> tuple:
     results = []
     exceptions = [
         "adhipa", "bavh", "labbhā", "munī", "gatī", "visesi", "khantī",
-        "sāraṇī", "bahulī", "yānī 2"]
+        "sāraṇī", "bahulī", "yānī 2", "yada", "sabbadhī"]
 
     for i in searches["paliword"]:
         if i.suffix and i.pali_1 not in exceptions:
@@ -280,15 +280,15 @@ def derived_from_not_in_headwords(searches: dict) -> tuple:
             root_families.add(i.family_root)
 
     for i in searches["paliword"]:
-        test1 = i.meaning_1
-        test2 = i.derived_from
-        test3 = i.derived_from not in clean_headwords
-        test4 = i.derived_from not in root_families
-        test5 = not re.findall("irreg form of", i.grammar)
-        test6 = not re.findall(r"\bcomp\b", i.grammar)
-        test7 = not re.findall("√", i.derived_from)
-
-        if test1 & test2 & test3 & test4 & test5 & test6 & test7:
+        if (
+            i.meaning_1 != "" and
+            i.derived_from != "" and
+            i.derived_from not in clean_headwords and
+            i.derived_from not in root_families and
+            not re.findall("irreg form of", i.grammar) and
+            not re.findall(r"\bcomp\b", i.grammar) and
+            not re.findall("√", i.derived_from)
+        ):
             results += [i.pali_1]
 
     length = len(results)
@@ -341,17 +341,18 @@ def derived_from_not_in_family_compound(searches: dict) -> tuple:
     ]
 
     for i in searches["paliword"]:
+        
+        if (
 
-        test1 = i.pali_1 not in exceptions
-        test2 = not i.root_key
-        test3 = i.pos != "pron"
-        test4 = i.meaning_1
-        test5 = i.derived_from
-        test6 = not re.findall(r"\bcomp\b", i.grammar)
-        test7 = not i.family_compound
-        test8 = not i.family_word
-
-        if test1 & test2 & test3 & test4 & test5 & test6 & test7 & test8:
+            i.pali_1 not in exceptions and
+            not i.root_key and
+            i.pos != "pron" and
+            i.meaning_1 and
+            i.derived_from and
+            not re.findall(r"\bcomp\b", i.grammar) and
+            not i.family_compound and
+            not i.family_word
+        ):
             results += [i.pali_1]
 
     length = len(results)
@@ -366,7 +367,7 @@ def pos_does_not_equal_grammar(searches):
     """Test of pos equals pos in grammar."""
 
     results = []
-    exceptions: list = ["dve 2"]
+    exceptions: list = ["dve 2", "sāraṇī"]
 
     for i in searches["paliword"]:
         if i.pali_1 not in exceptions:
@@ -470,15 +471,14 @@ def base_is_missing_star(searches: dict) -> tuple:
     results = []
 
     for i in searches["paliword"]:
-
-        test1 = i.root_base
-        test2 = "*" not in i.root_base
-        test3 = "*" in i.root_sign
-        test4 = bool(re.findall("a|u|i", i.root_clean))
-        test5 = not re.findall("> .+ >", i.root_base)
-        test6 = not re.findall("√hi|√ḍi", i.root_key)
-
-        if test1 & test2 & test3 & test4 & test5 & test6:
+        if (
+            i.root_base and
+            "*" not in i.root_base and
+            "*" in i.root_sign and
+            bool(re.findall("a|u|i", i.root_clean)) and
+            not re.findall("> .+ >", i.root_base) and
+            not re.findall("√hi|√ḍi", i.root_key)
+        ):
             root_no_sign = re.sub("√", "", i.root_clean)
             if re.findall(f" > {vuddhi(root_no_sign)}", i.root_base):
                 results += [i.pali_1]
@@ -600,11 +600,11 @@ def root_base_x_construction_mismatch(searches: dict) -> tuple:
     results = []
 
     for i in searches["paliword"]:
-        test1 = i.root_base != ""
-        test2 = i.construction != ""
-        test3 = i.meaning_1 != ""
-
-        if test1 & test2 & test3:
+        if (
+            i.root_base != "" and
+            i.construction != "" and
+            i.meaning_1 != ""
+        ):
             base_clean = re.sub("^.+> ", "", i.root_base)
             base_clean = re.sub(r" \(.+$", "", base_clean)
 
@@ -632,9 +632,10 @@ def wrong_prefix_in_family_root(searches: dict) -> tuple:
         if i.family_root:
             fr_splits = i.family_root.split()
             for fr_split in fr_splits:
-                test1 = "√" not in fr_split
-                test2 = fr_split not in allowable_prefixes
-                if test1 & test2:
+                if (
+                    "√" not in fr_split and
+                    fr_split not in allowable_prefixes
+                ):
                     results += [i.pali_1]
 
     length = len(results)

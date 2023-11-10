@@ -1,6 +1,8 @@
 initial	final	correct	wrong	without	exceptions
-ṃ + ṭh	nth	ṃṭh > nth	ṃṭ > nt	x	x
-
+v + t	t	vt > t	v > t	v + th	
+v + t	tt	vt > tt	v > t	v + th	
+v + th	th	vth > th	x	x	
+-	-	-	-	-	-
 ati +	acc	ti > ty > cc	x	gacch	pacchājāta, gatikālādipaccayantarasamavāya
 
 ā + ñ	aññ	āñ > aññ	x	x	vadaññutā, sāmaññatā 2.1
@@ -10,15 +12,6 @@ ati +	acc	ti > ty > cc	x	gacch	pacchājāta, gatikālādipaccayantarasamavāya
 ī + b	ibb	īv > ivv > ibb	īv > ibb	ī + bh	x
 ī + v	ibb	īv > ivv > ibb	īv > ibb	ī + bh	x
 ī + bh	ibbh	ībh > ibbh	īb > ibb	x	x
-
-u + a	va	ua > va	x	x	x
-u + ā	vā	uā > vā	x	x	x
-u + i	vi	ui > vi	x	x	x
-u + ī	vī	uī > vī	x	x	x
-u + u	vu	uu > vu	x	x	x
-u + ū	vū	uū > vū	x	x	x
-u + e	ve	ue > ve	x	x	x
-u + o	vo	uo > vo	x	x	x
 
 c + t	kk	ct > kk	c > k	ñc + t	x
 c + t	tt	ct > tt	c > t	c + th	x
@@ -111,8 +104,10 @@ xṃ + k	ṅk	ṃk > ṅk	ṃ > ṅ	ṃ + kh	x needs to reject upasaṅkamitukā
 ṃ + ch	ñch	ṃch > ñch	ṃ > ñ	x	x
 ṃ + j	ñj	ṃj > ñj	ṃ > ñ	ṃ + jh	x
 ṃ + jh	ñjh	ṃjh > ñjh	ṃ > ñ	x	x
+ṃ + ñ	ññ	ṃñ > ññ	ṃ > ñ	x	x
 ṃ + ṭ	ṇṭ	ṃṭ > ṇṭ	ṃ > ṇ	ṃ + ṭh	x
 ṃ + ṭh	ṇṭh	ṃṭh > ṇṭh	ṃ > ṇ	x	x
+ṃ + ṭh	nth	ṃṭh > nth	ṃṭ > nt	x	x
 ṃ + ḍ	ṇḍ	ṃḍ > ṇḍ	ṃ > ṇ	ṃ + ḍh	x
 ṃ + ḍh	ṇḍh	ṃḍh > ṇḍh	ṃ > ṇ	x	x
 ṃ + t	nt	ṃt > nt	ṃ > n	ṃ + th	x

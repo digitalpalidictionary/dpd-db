@@ -38,6 +38,7 @@ def add_update_phonetic(db_session, db, csv):
         for i_counter, i in enumerate(db):
 
             if (
+                i.meaning_1 and
                 i.construction and
                 i.pali_1 not in c.exceptions):
 
