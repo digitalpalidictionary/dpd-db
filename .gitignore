@@ -8,6 +8,7 @@ __pycache__/
 *.sqlite3
 *~lock.*
 anki_csvs/
+dpd/
 dps/backup
 dps/csvs
 dps/tools/config.py

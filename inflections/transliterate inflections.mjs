@@ -1,12 +1,23 @@
 // transliterate the inflections into Devanagari, Sinhala and Thai using PathNirvana code
 
-let c = console.log
 import { createRequire } from "module"
 const require = createRequire(import.meta.url)
-const changedInflections = require('./../share/inflections_to_translit.json')
 const fs = require('fs')
 
-import { TextProcessor, Script, paliScriptInfo, getScriptForCode } from './pali-script.mjs'
+let json_input_path;
+let json_output_path;
+
+if (process.argv.length > 2) {
+    json_input_path = process.argv[2];
+    json_output_path = process.argv[3];
+} else {
+    json_input_path = './../share/inflections_to_translit.json';
+    json_output_path = './../share/inflections_from_translit.json';
+}
+
+const changedInflections = require(json_input_path);
+
+import { TextProcessor, Script } from './pali-script.mjs'
 
 function toSinhala(text) {
 	text = TextProcessor.basicConvertFrom(text, Script.RO)
@@ -43,7 +54,7 @@ for (let headword in changedInflections) {
 }
 
 let justInflectionsJson = JSON.stringify(changedInflections)
-fs.writeFile("share/inflections_from_translit.json", justInflectionsJson, function (err) {
+fs.writeFile(json_output_path, justInflectionsJson, function (err) {
 	if (err) {
 		console.log("An error occured while writing JSON Object to File.")
 		return console.log(err)
