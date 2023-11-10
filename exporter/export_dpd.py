@@ -1,5 +1,7 @@
 """Compile HTML data for PaliWord."""
 
+from datetime import datetime
+from tools.time_log import time_log
 import psutil
 from css_html_js_minify import css_minify, js_minify
 from mako.template import Template
@@ -35,7 +37,6 @@ from tools.tic_toc import bip
 from tools.configger import config_test
 from tools.sandhi_contraction import SandhiContractions
 from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, list_into_batches, sum_rendered_sizes
-
 
 class PaliWordTemplates:
     def __init__(self, pth: ProjectPaths):
@@ -251,6 +252,9 @@ def generate_dpd_html(
 
     print("[green]generating dpd html")
 
+    t0 = datetime.now()
+    time_log(t0, "generate_dpd_html()", start_new=True)
+
     word_templates = PaliWordTemplates(pth)
 
     # check config
@@ -294,6 +298,8 @@ def generate_dpd_html(
         )
 
     dpd_db_data = [_add_parts(i.tuple()) for i in dpd_db]
+
+    time_log(t0, "db items collected")
 
     rendered_sizes: List[RenderedSizes] = []
 
@@ -349,10 +355,19 @@ def generate_dpd_html(
     for p in processes:
         p.join()
 
-    dpd_data_list = list(dpd_data_results_list)
-    rendered_sizes = list(rendered_sizes_results_list)
+    time_log(t0, "batches finished")
 
-    return dpd_data_list, sum_rendered_sizes(rendered_sizes)
+    dpd_data_list = list(dpd_data_results_list)
+    time_log(t0, "dpd_data_list to list")
+
+    rendered_sizes = list(rendered_sizes_results_list)
+    time_log(t0, "rendered_sizes to list")
+
+    total_sizes = sum_rendered_sizes(rendered_sizes)
+
+    time_log(t0, "return")
+
+    return dpd_data_list, total_sizes
 
 
 def render_header_templ(
