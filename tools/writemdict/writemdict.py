@@ -32,7 +32,6 @@ import string
 import struct
 import functools
 import locale
-from typing import Any
 
 import zlib
 import datetime
@@ -41,13 +40,15 @@ from html import escape
 from tools.writemdict.ripemd128 import ripemd128
 from tools.writemdict.pureSalsa20 import Salsa20
 
-try:
-    import lzo
-    HAVE_LZO = True
-except ImportError:
-    lzo: Any = {}
-    HAVE_LZO = False
+# try:
+#     import lzo
+#     HAVE_LZO = True
+# except ImportError:
+#     lzo: Any = {}
+#     HAVE_LZO = False
 
+# Not using lzo compression.
+HAVE_LZO = False
 
 class ParameterError(Exception):
     ### Raised when some parameter to MdxWriter is invalid or uninterpretable.
@@ -62,10 +63,12 @@ def _mdx_compress(data, compression_type=2):
     elif compression_type == 2:
         return header + zlib.compress(data)
     elif compression_type == 1:
-        if HAVE_LZO:
-            return header + lzo.compress(data)[5:]  # python-lzo adds a 5-byte header.
-        else:
-            raise NotImplementedError()
+        # Not using lzo compression.
+        raise NotImplementedError()
+        # if HAVE_LZO:
+        #     return header + lzo.compress(data)[5:]  # python-lzo adds a 5-byte header.
+        # else:
+        #     raise NotImplementedError()
     else:
         raise ParameterError("Unknown compression type")
 
