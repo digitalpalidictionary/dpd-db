@@ -7,6 +7,8 @@ __pycache__/
 *.log
 *.sqlite3
 *~lock.*
+time_log.dat
+time_log.png
 anki_csvs/
 dpd/
 dps/backup
