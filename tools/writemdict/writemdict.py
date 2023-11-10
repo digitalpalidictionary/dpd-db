@@ -32,11 +32,9 @@ import string
 import struct
 import functools
 import locale
+from typing import Any
 
-import struct
 import zlib
-import operator
-import sys
 import datetime
 
 from html import escape
@@ -47,6 +45,7 @@ try:
     import lzo
     HAVE_LZO = True
 except ImportError:
+    lzo: Any = {}
     HAVE_LZO = False
 
 
@@ -87,8 +86,8 @@ def _mdx_encrypt(comp_block):
 
 
 def _salsa_encrypt(plaintext, dict_key):
-    assert(type(dict_key) == bytes)
-    assert(type(plaintext) == bytes)
+    assert(isinstance(dict_key, bytes))
+    assert(isinstance(plaintext, bytes))
     encrypt_key = ripemd128(dict_key)
     s20 = Salsa20(key=encrypt_key, IV=b"\x00"*8, rounds=8)
     return s20.encryptBytes(plaintext)
@@ -652,7 +651,7 @@ class _MdxBlock(object):
         raise NotImplementedError()
 
     @staticmethod
-    def _block_entry(t, version):
+    def _block_entry(__t__, __version__):
         # Returns the data corresponding to a single entry in offset.
         #
         # t is an _OffsetTableEntry object
@@ -660,7 +659,7 @@ class _MdxBlock(object):
         raise NotImplementedError()
 
     @staticmethod
-    def _len_block_entry(t):
+    def _len_block_entry(__t__):
         # Should be approximately equal to len(_block_entry(t)).
         #
         # Used by MdxWriter._split_blocks() to determine where to split into blocks."""
@@ -694,7 +693,7 @@ class _MdxRecordBlock(_MdxBlock):
         return struct.pack(format, self._comp_size, self._decomp_size)
 
     @staticmethod
-    def _block_entry(t, version):
+    def _block_entry(t, __version__):
         return t.record_null
 
     @staticmethod

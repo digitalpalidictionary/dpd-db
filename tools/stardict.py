@@ -202,7 +202,7 @@ def parse_stardict_zip(zip_path: Path) -> StarDictPaths:
         for name, pat_name in pat.items():
 
             file_path = None
-            for p in list(unzipped_dir.glob(f"**/*")):
+            for p in list(unzipped_dir.glob("**/*")):
                 if re.search(pat_name, str(p)) is not None:
                     file_path = p
                     break
@@ -215,28 +215,27 @@ def parse_stardict_zip(zip_path: Path) -> StarDictPaths:
                     stardict_paths[name] = None
                 else:
                     msg = f"ERROR: Can't find this type of file in the .zip: {name}"
-                    logger.error(msg)
+                    print(f"[bright_red]{msg}")
                     raise DictError(msg)
 
     except Exception as e:
-        logger.error(e)
+        print(e)
         raise e
 
     return stardict_paths
 
 
 def parse_ifo(paths: StarDictPaths) -> StarDictIfo:
-    logger.info("=== parse_ifo() ===")
     if paths['ifo_path'] is None:
-        msg = f"ifo file is None"
-        logger.error(msg)
+        msg = "ifo file is None"
+        print(f"[bright_red]{msg}")
         raise DictError(msg)
 
     ifo_path = paths['ifo_path']
 
     if not ifo_path.exists():
         msg = f"ifo file not found: {ifo_path}"
-        logger.error(msg)
+        print(f"[bright_red]{msg}")
         raise DictError(msg)
 
     magic_header = "StarDict's dict ifo file"
@@ -244,18 +243,16 @@ def parse_ifo(paths: StarDictPaths) -> StarDictIfo:
         magic_string = f.readline().rstrip()
         if (magic_string != magic_header):
             msg = "IFO: Incorrect header: {}".format(magic_string)
-            logger.error(msg)
+            print(f"[bright_red]{msg}")
             raise DictError(msg)
 
-        a = (l.split("=") for l in map(str.rstrip, f) if l != "")
+        a = (x.split("=") for x in map(str.rstrip, f) if x != "")
         opts = {k.strip(): v.strip() for k, v in a}
 
         return ifo_from_opts(opts)
 
 
 def stardict_to_dict_entries(paths: StarDictPaths, limit: Optional[int] = None) -> List[DictEntry]:
-    logger.info("=== stardict_to_dict_entries() ===")
-
     idx = parse_idx(paths)
     ifo = parse_ifo(paths)
     syn = parse_syn(paths)
@@ -266,18 +263,17 @@ def stardict_to_dict_entries(paths: StarDictPaths, limit: Optional[int] = None) 
 
 def parse_idx(paths: StarDictPaths) -> List[IdxEntry]:
     """Parse an .idx file."""
-    logger.info("=== parse_idx() ===")
 
     if paths['idx_path'] is None:
-        msg = f"idx file is None"
-        logger.error(msg)
+        msg = "idx file is None"
+        print(f"[bright_red]{msg}")
         raise DictError(msg)
 
     idx_path = paths['idx_path']
 
     if not idx_path.exists():
         msg = f"idx file not found: {idx_path}"
-        logger.error(msg)
+        print(f"[bright_red]{msg}")
         raise DictError(msg)
 
     words_index = []
@@ -314,7 +310,7 @@ def parse_bword_links_to_ssp(definition: str) -> str:
     return definition
 
 
-def _word_done(res: ParseResult):
+def _word_done(__res__: ParseResult):
     global TOTAL_SEGMENTS
     global DONE_COUNT
     DONE_COUNT += 1
@@ -324,21 +320,21 @@ def _word_done(res: ParseResult):
     # logger.info(f"Parsed {segment['bookname']} {percent:.2f}% {DONE_COUNT}/{TOTAL_SEGMENTS}: {segment['dict_word']}")
 
 
-def _add_synonyms(syn_entries: Optional[SynEntries], idx: int) -> List[str]:
-    if syn_entries is None:
-        return []
+# def _add_synonyms(syn_entries: Optional[SynEntries], idx: int) -> List[str]:
+#     if syn_entries is None:
+#         return []
+#
+#     synonyms = []
+#     for k, v in syn_entries.items():
+#         if v[0] == idx:
+#             synonyms.append(consistent_nasal_m(k))
+#
+#     return synonyms
 
-    synonyms = []
-    for k, v in syn_entries.items():
-        if v[0] == idx:
-            synonyms.append(consistent_nasal_m(k))
 
-    return synonyms
-
-
-def _parse_word(segment: DictSegment, types: str, syn_entries: Optional[SynEntries]) -> ParseResult:
+def _parse_word(segment: DictSegment, types: str, __syn_entries__: Optional[SynEntries]) -> ParseResult:
     dict_word = consistent_nasal_m(segment['dict_word'])
-    idx = segment['idx']
+    # idx = segment['idx']
     data_str = consistent_nasal_m(segment['data_str'])
 
     definition_plain = ""
@@ -359,11 +355,12 @@ def _parse_word(segment: DictSegment, types: str, syn_entries: Optional[SynEntri
         definition_plain = compact_rich_text(data_str)
 
     else:
-        logger.warn(
-            f"Entry type {types} is not handled, definition will be empty for {dict_word}")
+        msg = f"Entry type {types} is not handled, definition will be empty for {dict_word}"
+        print(f"[bright_yellow]{msg}")
 
     if definition_plain == "" and definition_html == "":
-        logger.warn(f"Definition type {types} is empty: {dict_word}")
+        msg = f"Definition type {types} is empty: {dict_word}"
+        print(f"[bright_yellow]{msg}")
 
     # FIXME very slow for DPD's long synonym lists.
     # synonyms = _add_synonyms(syn_entries, idx)
@@ -388,18 +385,17 @@ def parse_dict(paths: StarDictPaths,
                syn_entries: Optional[SynEntries],
                limit: Optional[int] = None) -> List[DictEntry]:
     """Parse a .dict file."""
-    logger.info("=== parse_dict() ===")
 
     dict_path = paths['dic_path']
 
     if dict_path is None:
-        msg = f"dict file is None"
-        logger.error(msg)
+        msg = "dict file is None"
+        print(f"[bright_red]{msg}")
         raise DictError(msg)
 
     if not dict_path.exists():
         msg = f"dict file not found: {dict_path}"
-        logger.error(msg)
+        print(f"[bright_red]{msg}")
         raise DictError(msg)
 
     open_dict = open
@@ -423,7 +419,7 @@ def parse_dict(paths: StarDictPaths,
     dict_segments: List[DictSegment] = []
 
     with open_dict(dict_path, "rb") as f:
-        logger.info(f"Reading segments from {dict_path}")
+        # print(f"Reading segments from {dict_path}")
 
         for idx, i in enumerate(idx_entries):
             f.seek(i["offset_begin"])
@@ -431,7 +427,8 @@ def parse_dict(paths: StarDictPaths,
             data_str: str = data.decode("utf-8").rstrip("\0")
 
             if len(data_str) == 0:
-                logger.warn(f"data_str empty: {i}")
+                msg = f"data_str empty: {i}"
+                print(f"[bright_yellow]{msg}")
 
             dict_word = i['word']
 
@@ -471,7 +468,7 @@ def parse_dict(paths: StarDictPaths,
 
     pool.close()
 
-    logger.info(f"parse_dict() {ifo['bookname']} finished")
+    # print(f"parse_dict() {ifo['bookname']} finished")
 
     return dict_entries
 
@@ -490,7 +487,6 @@ def parse_syn(paths: StarDictPaths) -> Optional[SynEntries]:
     or more items may have the same "synonym_word" with different
     original_word_index.
     """
-    logger.info("=== parse_syn() ===")
 
     if paths['syn_path'] is None:
         # Syn file is optional
@@ -500,7 +496,7 @@ def parse_syn(paths: StarDictPaths) -> Optional[SynEntries]:
 
     if not syn_path.exists():
         msg = f"syn file not found: {syn_path}"
-        logger.error(msg)
+        print(f"[bright_red]{msg}")
         raise DictError(msg)
 
     syn_entries: SynEntries = {}
@@ -538,7 +534,8 @@ def write_ifo(ifo: StarDictIfo, paths: StarDictPaths):
     """Writes .ifo"""
 
     if paths['ifo_path'] is None:
-        logger.error("ifo_path is required")
+        msg = "ifo_path is required"
+        print(f"[bright_red]{msg}")
         return
 
     lines: List[str] = ["StarDict's dict ifo file"]
@@ -551,7 +548,8 @@ def write_ifo(ifo: StarDictIfo, paths: StarDictPaths):
             missing.append(k)
 
     if len(missing) > 0:
-        logger.error(f"Missing required keys: {missing}")
+        msg = f"Missing required keys: {missing}"
+        print(f"[bright_red]{msg}")
         return
 
     for k in ifo.keys():
@@ -577,7 +575,8 @@ def write_words(words: List[DictEntry], paths: StarDictPaths) -> WriteResult:
     )
 
     if paths['idx_path'] is None or paths['dic_path'] is None:
-        logger.error("idx_path and dic_path are required")
+        msg = "idx_path and dic_path are required"
+        print(f"[bright_red]{msg}")
         return res
 
     idx: List[IdxEntry] = []

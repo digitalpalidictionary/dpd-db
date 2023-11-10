@@ -2166,6 +2166,23 @@ files = [
 ]
 
 [[package]]
+name = "python-lzo"
+version = "1.15"
+description = "Python bindings for the LZO data compression library"
+optional = false
+python-versions = "*"
+files = [
+    {file = "python-lzo-1.15.tar.gz", hash = "sha256:a57aaa00c5c3a0515dd9f7426ba2cf601767dc19dc023d8b99d4a13b0a327b49"},
+    {file = "python_lzo-1.15-cp310-cp310-win_amd64.whl", hash = "sha256:6224b4362580b3e797fa12ccfb56da22d0a8faac3d900dd0eafcc881ed98eb29"},
+    {file = "python_lzo-1.15-cp311-cp311-win_amd64.whl", hash = "sha256:6b00d32d53928514a3954385583c0d06850259fe8c54039260d0dbc0842a9d9e"},
+    {file = "python_lzo-1.15-cp37-cp37m-macosx_10_15_x86_64.whl", hash = "sha256:bf2dccde68e4cafa398c9f230af4962faaf694687127e55ebf46f9cca53911f0"},
+    {file = "python_lzo-1.15-cp37-cp37m-win_amd64.whl", hash = "sha256:df98c325f0ef5ad39d684e6e6823b9cf6790e9b24d24f18ad784c177eb8854b5"},
+    {file = "python_lzo-1.15-cp38-cp38-macosx_10_15_x86_64.whl", hash = "sha256:27e4cb7d8b279ff0f1cff0f0627ac47c18faf7cd2ad7b989a2a9c174bd832224"},
+    {file = "python_lzo-1.15-cp38-cp38-win_amd64.whl", hash = "sha256:f42fe060f1333adfeed043ef11a6d3747fa452502fa7bada3b66377264bb7ad9"},
+    {file = "python_lzo-1.15-cp39-cp39-win_amd64.whl", hash = "sha256:a285bacc2e28ac07abe0c608c46734588c04f59820d9b60f7baf87cd3b3ce411"},
+]
+
+[[package]]
 name = "pytz"
 version = "2023.3"
 description = "World timezone definitions, modern and historical"
@@ -2904,4 +2921,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "d6f35bc4c31aecf31257379bfca5db2761b6771171ef1d17ec35d8eb88fc65e1"
+content-hash = "e2be897b1b8e4ee055d96ba9fcdcb3acce16a0ba117adab791bda6aca78caf67"
