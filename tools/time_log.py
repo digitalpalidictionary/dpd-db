@@ -39,13 +39,14 @@ def strfdelta(td: timedelta, fmt='%H:%M:%S') -> str:
         S="{:02d}".format(int(secs)),
     )
 
-class LogPrecision(int, Enum):
-    Seconds = 0
-    Micro = 1
+class LogPrecision(str, Enum):
+    Seconds = "s"
+    Micro = "µs"
 
 class TimeLog:
     def __init__(self, precision = LogPrecision.Seconds):
         self.t0 = datetime.now()
+        self.t_prev = self.t0
         self.precision = precision
 
     def start(self, start_new=True):
@@ -64,20 +65,26 @@ class TimeLog:
         if trim and len(msg) > 30:
             msg = msg[0:30]
 
-        delta = datetime.now() - self.t0
+        now = datetime.now()
+        delta = now - self.t0
+        delta_prev = now - self.t_prev
+        self.t_prev = now
 
         dat_msg = msg.replace("_", "\\\\_")
 
         if self.precision == LogPrecision.Seconds:
             t = delta.seconds
+            tp = delta_prev.seconds
         elif self.precision == LogPrecision.Micro:
             t = delta.microseconds
+            tp = delta_prev.microseconds
         else:
             t = delta.seconds
+            tp = delta_prev.seconds
 
-        dat_line = f"{t}\t{dat_msg}\n"
+        dat_line = f"{t}\t{tp}\t{dat_msg}\n"
 
         with open(LOG_FILE, "a", encoding='utf-8') as f:
             f.write(dat_line)
 
-        print(f"{strfdelta(delta)} {msg}")
+        print(f"{strfdelta(delta)} {tp}{self.precision.value} {msg}")
