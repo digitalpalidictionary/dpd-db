@@ -29,11 +29,15 @@ from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.paths import ProjectPaths
 from tools.configger import config_test
 from tools.utils import RenderedSizes, sum_rendered_sizes
+from tools import time_log
 
 tic()
 
 def main():
     print("[bright_yellow]exporting dpd")
+
+    time_log.start(start_new=True)
+    time_log.log("exporter.py::main()")
 
     pth = ProjectPaths()
     db_session: Session = get_db_session(pth.dpd_db_path)
@@ -49,20 +53,26 @@ def main():
     else:
         make_mdct: bool = False
 
+    time_log.log("make_roots_count_dict()")
     roots_count_dict = make_roots_count_dict(db_session)
 
+    time_log.log("generate_dpd_html()")
     dpd_data_list, sizes = generate_dpd_html(db_session, pth, sandhi_contractions, cf_set)
     rendered_sizes.append(sizes)
 
+    time_log.log("generate_root_html()")
     root_data_list, sizes = generate_root_html(db_session, pth, roots_count_dict)
     rendered_sizes.append(sizes)
 
+    time_log.log("generate_variant_spelling_html()")
     variant_spelling_data_list, sizes = generate_variant_spelling_html(pth)
     rendered_sizes.append(sizes)
 
+    time_log.log("generate_epd_html()")
     epd_data_list, sizes = generate_epd_html(db_session, pth)
     rendered_sizes.append(sizes)
 
+    time_log.log("generate_help_html()")
     help_data_list, sizes = generate_help_html(db_session, pth)
     rendered_sizes.append(sizes)
 
@@ -76,15 +86,24 @@ def main():
         help_data_list
     )
 
+    time_log.log("write_limited_datalist()")
     write_limited_datalist(combined_data_list)
+
+    time_log.log("write_size_dict()")
     write_size_dict(pth, sum_rendered_sizes(rendered_sizes))
+
+    time_log.log("export_to_goldendict()")
     export_to_goldendict(pth, combined_data_list)
+
+    time_log.log("goldendict_unzip_and_copy()")
     goldendict_unzip_and_copy(pth)
 
     if make_mdct is True:
+        time_log.log("export_to_mdict()")
         export_to_mdict(combined_data_list, pth)
 
     toc()
+    time_log.log("exporter.py::main() return")
 
 
 def export_to_goldendict(pth: ProjectPaths, data_list: list) -> None:

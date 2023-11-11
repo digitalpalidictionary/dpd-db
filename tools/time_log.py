@@ -1,4 +1,5 @@
 import os
+from enum import Enum
 from pathlib import Path
 from string import Template
 from datetime import datetime
@@ -38,20 +39,45 @@ def strfdelta(td: timedelta, fmt='%H:%M:%S') -> str:
         S="{:02d}".format(int(secs)),
     )
 
-def time_log(t0: datetime, msg: str, start_new=False):
-    if not LOG_TIME:
-        return
+class LogPrecision(int, Enum):
+    Seconds = 0
+    Micro = 1
 
-    if start_new and LOG_FILE.exists():
-        LOG_FILE.unlink()
+class TimeLog:
+    def __init__(self, precision = LogPrecision.Seconds):
+        self.t0 = datetime.now()
+        self.precision = precision
 
-    d = datetime.now() - t0
+    def start(self, start_new=True):
+        if not LOG_TIME:
+            return
 
-    dat_msg = msg.replace("_", "\\\\_")
+        self.t0 = datetime.now()
 
-    dat_line = f"{d.seconds}\t{dat_msg}\n"
+        if start_new and LOG_FILE.exists():
+            LOG_FILE.unlink()
 
-    with open(LOG_FILE, "a", encoding='utf-8') as f:
-        f.write(dat_line)
+    def log(self, msg: str, trim = True):
+        if not LOG_TIME:
+            return
 
-    print(f"{strfdelta(d)} {msg}")
+        if trim and len(msg) > 30:
+            msg = msg[0:30]
+
+        delta = datetime.now() - self.t0
+
+        dat_msg = msg.replace("_", "\\\\_")
+
+        if self.precision == LogPrecision.Seconds:
+            t = delta.seconds
+        elif self.precision == LogPrecision.Micro:
+            t = delta.microseconds
+        else:
+            t = delta.seconds
+
+        dat_line = f"{t}\t{dat_msg}\n"
+
+        with open(LOG_FILE, "a", encoding='utf-8') as f:
+            f.write(dat_line)
+
+        print(f"{strfdelta(delta)} {msg}")

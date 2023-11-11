@@ -12,9 +12,13 @@ set xtics out nomirror
 
 set style fill solid
 
-set xtics rotate by 90 offset 0.0,-4.5
-set bmargin 20
-set xtics time format "%tM:%.3tS"
+#set xtics time format "%tM:%.3tS"
+#set xtics rotate by 90 offset 0.0,-4.5
+#set bmargin 20
+
+set xtics time format "%tM:%S"
+set xtics rotate by 90 offset 0.0,-2.5
+set bmargin 17
 
 ## Evenly spaced bars.
 # set boxwidth 0.2
@@ -24,4 +28,4 @@ set xtics time format "%tM:%.3tS"
 set boxwidth 0.5
 plot "time_log.dat" using 1:1 with boxes notitle, \
      '' using 1:1:1 with labels offset 0.5,0.5 notitle, \
-     '' using ($1):($0+0.5):2 with labels right offset 0.0,-7.0 rotate by 90 font ',10' notitle \
+     '' using ($1):($0+0.5):2 with labels right offset 0.0,-5.0 rotate by 90 font ',10' notitle \

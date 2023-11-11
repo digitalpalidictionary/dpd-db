@@ -1,7 +1,6 @@
 """Compile HTML data for PaliWord."""
 
-from datetime import datetime
-from tools.time_log import time_log
+from tools import time_log
 import psutil
 from css_html_js_minify import css_minify, js_minify
 from mako.template import Template
@@ -249,8 +248,7 @@ def generate_dpd_html(
         pth: ProjectPaths,
         sandhi_contractions: SandhiContractions,
         cf_set: Set[str]) -> Tuple[List[RenderResult], RenderedSizes]:
-    t0 = datetime.now()
-    time_log(t0, "generate_dpd_html()", start_new=True)
+    time_log.log("generate_dpd_html()")
 
     print("[green]generating dpd html")
 
@@ -263,6 +261,8 @@ def generate_dpd_html(
         make_link: bool = False
 
     dpd_data_list: List[RenderResult] = []
+
+    time_log.log("dpd_db = db_session.query()")
 
     dpd_db = db_session.query(
         PaliWord, DerivedData, FamilyRoot, FamilyWord
@@ -295,6 +295,8 @@ def generate_dpd_html(
             family_compounds = get_family_compounds_for_pali_word(pw),
             family_set = get_family_set_for_pali_word(pw),
         )
+
+    time_log.log("dpd_db_data = [_add_parts(i.tuple()) for i in dpd_db]")
 
     dpd_db_data = [_add_parts(i.tuple()) for i in dpd_db]
 
@@ -337,7 +339,7 @@ def generate_dpd_html(
         print(f"Batch {batch_idx}: done, from {first_word.pali_1}")
 
 
-    time_log(t0, "for batch_idx, batch in ...")
+    time_log.log("for batch_idx, batch in ...")
 
     for batch_idx, batch in enumerate(batches):
         p = Process(target=_parse_batch, args=(batch, batch_idx,))
@@ -351,16 +353,16 @@ def generate_dpd_html(
     for p in processes:
         p.join()
 
-    time_log(t0, "dpd_data_list = list...")
+    time_log.log("dpd_data_list = list...")
     dpd_data_list = list(dpd_data_results_list)
 
-    time_log(t0, "rendered_sizes = list...")
+    time_log.log("rendered_sizes = list...")
     rendered_sizes = list(rendered_sizes_results_list)
 
-    time_log(t0, "total_sizes = sum_ren...")
+    time_log.log("total_sizes = sum_ren...")
     total_sizes = sum_rendered_sizes(rendered_sizes)
 
-    time_log(t0, "return")
+    time_log.log("generate_dpd_html() return")
     return dpd_data_list, total_sizes
 
 
