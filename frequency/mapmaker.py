@@ -408,14 +408,24 @@ def make_data_dict_and_html(pth: ProjectPaths,
     # Split the list into batches, each batch will be assigned to a Process() thread.
     batches: List[List[ItemPair]] = list_into_batches(filtered_pairs, use_n_processes)
 
-    def _parse_batch(batch: List[ItemPair], dicts: List[dict], results: ListProxy, batch_idx: int):
+    processes: List[Process] = []
+
+    # The Manager allows shared memory between the worker threads.
+    manager = Manager()
+    results_list: ListProxy = manager.list()
+
+    # Don't need to pass everything as arguments, sub-threads have access to
+    # memory objects of the parent scope. This is a good way to access shared
+    # read-only memory object between threads.
+
+    def _parse_batch(batch: List[ItemPair], batch_idx: int):
         """Takes a batch of items (and the necessary lookup dicts for the work), applies the work with _parse_item_pair() to each work item.
 
         The results are added to a ListProxy, which is going to be a list() in shared memory from the multiprocessing Manager().
         """
 
         res = [_parse_item_pair(i, j, dicts) for (i, j) in batch]
-        results.extend(res)
+        results_list.extend(res)
 
         # Save the details of the first item of the batch for logging and review.
         first_word, _ = batch[0]
@@ -428,17 +438,11 @@ def make_data_dict_and_html(pth: ProjectPaths,
                 first_word.pali_1).with_suffix(".html"), "w") as f:
             f.write(first_map_html)
 
-    processes: List[Process] = []
-
-    # The Manager allows shared memory between the worker threads.
-    manager = Manager()
-    results_list: ListProxy = manager.list()
-
-    for idx, batch in enumerate(batches):
+    for batch_idx, batch in enumerate(batches):
         # Assign a Process() thread to each batch list.
-        p = Process(target=_parse_batch, args=(batch, dicts, results_list, idx,))
+        p = Process(target=_parse_batch, args=(batch, batch_idx,))
         w, _ = batch[0]
-        print(f"Batch {idx}: start, len {len(batch):>10,}, from {w.pali_1}")
+        print(f"Batch {batch_idx}: start, len {len(batch):>10,}, from {w.pali_1}")
 
         # Start the Process's target function, i.e. _parse_batch()
         p.start()

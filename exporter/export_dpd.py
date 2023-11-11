@@ -249,11 +249,10 @@ def generate_dpd_html(
         pth: ProjectPaths,
         sandhi_contractions: SandhiContractions,
         cf_set: Set[str]) -> Tuple[List[RenderResult], RenderedSizes]:
-
-    print("[green]generating dpd html")
-
     t0 = datetime.now()
     time_log(t0, "generate_dpd_html()", start_new=True)
+
+    print("[green]generating dpd html")
 
     word_templates = PaliWordTemplates(pth)
 
@@ -299,8 +298,6 @@ def generate_dpd_html(
 
     dpd_db_data = [_add_parts(i.tuple()) for i in dpd_db]
 
-    time_log(t0, "db items collected")
-
     rendered_sizes: List[RenderedSizes] = []
 
     bip()
@@ -314,11 +311,19 @@ def generate_dpd_html(
     dpd_data_results_list: ListProxy = manager.list()
     rendered_sizes_results_list: ListProxy = manager.list()
 
-    def _parse_batch(batch: List[PaliWordDbParts],
-                     render_data: PaliWordRenderData,
-                     dpd_data_results_list: ListProxy,
-                     rendered_sizes_results_list: ListProxy,
-                     batch_idx: int):
+    render_data = PaliWordRenderData(
+        pth = pth,
+        word_templates = word_templates,
+        sandhi_contractions = sandhi_contractions,
+        cf_set = cf_set,
+        make_link = make_link,
+    )
+
+    # Don't need to pass everything as arguments, sub-threads have access to
+    # memory objects of the parent scope. This is a good way to access shared
+    # read-only memory object between threads.
+
+    def _parse_batch(batch: List[PaliWordDbParts], batch_idx: int):
 
         res: List[Tuple[RenderResult, RenderedSizes]] = \
             [render_pali_word_dpd_html(i, render_data) for i in batch]
@@ -331,20 +336,11 @@ def generate_dpd_html(
 
         print(f"Batch {batch_idx}: done, from {first_word.pali_1}")
 
-    render_data = PaliWordRenderData(
-        pth = pth,
-        word_templates = word_templates,
-        sandhi_contractions = sandhi_contractions,
-        cf_set = cf_set,
-        make_link = make_link,
-    )
+
+    time_log(t0, "for batch_idx, batch in ...")
 
     for batch_idx, batch in enumerate(batches):
-        p = Process(target=_parse_batch, args=(batch,
-                                               render_data,
-                                               dpd_data_results_list,
-                                               rendered_sizes_results_list,
-                                               batch_idx,))
+        p = Process(target=_parse_batch, args=(batch, batch_idx,))
 
         w = batch[0]["pali_word"]
         print(f"Batch {batch_idx}: start, len {len(batch):>10,}, from {w.pali_1}")
@@ -355,18 +351,16 @@ def generate_dpd_html(
     for p in processes:
         p.join()
 
-    time_log(t0, "batches finished")
-
+    time_log(t0, "dpd_data_list = list...")
     dpd_data_list = list(dpd_data_results_list)
-    time_log(t0, "dpd_data_list to list")
 
+    time_log(t0, "rendered_sizes = list...")
     rendered_sizes = list(rendered_sizes_results_list)
-    time_log(t0, "rendered_sizes to list")
 
+    time_log(t0, "total_sizes = sum_ren...")
     total_sizes = sum_rendered_sizes(rendered_sizes)
 
     time_log(t0, "return")
-
     return dpd_data_list, total_sizes
 
 
