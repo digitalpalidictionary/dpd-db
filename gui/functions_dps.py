@@ -889,8 +889,8 @@ def tail_log():
 
 
 def dps_make_words_to_add_list(pth: ProjectPaths, __window__, book: str) -> list:
-    cst_text_list = make_cst_text_set(pth, [book], return_list=True)
-    sc_text_list = make_sc_text_set(pth, [book], return_list=True)
+    cst_text_list = make_cst_text_set(pth, [book])
+    sc_text_list = make_sc_text_set(pth, [book])
     original_text_list = list(cst_text_list) + list(sc_text_list)
 
     sp_mistakes_list = make_sp_mistakes_list(PTH)
@@ -910,7 +910,7 @@ def dps_make_words_to_add_list(pth: ProjectPaths, __window__, book: str) -> list
 
 
 def dps_make_words_to_add_list_sutta(pth: ProjectPaths, sutta_name, book: str) -> list:
-    cst_text_list = make_cst_text_set_sutta(pth, sutta_name, [book], return_list=True)
+    cst_text_list = make_cst_text_set_sutta(pth, sutta_name, [book])
 
     sp_mistakes_list = make_sp_mistakes_list(PTH)
     variant_list = make_variant_list(PTH)
@@ -931,7 +931,7 @@ def dps_make_words_to_add_list_sutta(pth: ProjectPaths, sutta_name, book: str) -
 
 
 def dps_make_words_to_add_list_from_text() -> list:
-    cst_text_list = make_cst_text_set_from_file(return_list=True)
+    cst_text_list = make_cst_text_set_from_file()
 
     sp_mistakes_list = make_sp_mistakes_list(PTH)
     variant_list = make_variant_list(PTH)
@@ -951,7 +951,7 @@ def dps_make_words_to_add_list_from_text() -> list:
 
 
 def dps_make_words_to_add_list_from_text_filtered(source) -> list:
-    cst_text_list = make_cst_text_set_from_file(return_list=True)
+    cst_text_list = make_cst_text_set_from_file()
 
     sp_mistakes_list = make_sp_mistakes_list(PTH)
     variant_list = make_variant_list(PTH)
@@ -984,7 +984,7 @@ def remove_duplicates(ordered_ids):
     return ordered_ids_no_duplicates
 
 
-def fetch_matching_words_from_db(WHAT_TO_UPDATE, ORIGINAL_HAS_VALUE) -> list:
+def fetch_matching_words_from_db(__WHAT_TO_UPDATE__, __ORIGINAL_HAS_VALUE__) -> list:
 
     ordered_ids = read_ids_from_tsv(DPSPTH.id_to_add_path)
     ordered_ids = remove_duplicates(ordered_ids)

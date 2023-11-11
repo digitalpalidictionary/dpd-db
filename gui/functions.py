@@ -866,8 +866,8 @@ def test_book_to_add(values, window):
 
 
 def make_words_to_add_list(__window__, book: str) -> list:
-    cst_text_list = make_cst_text_set(PTH, [book], return_list=True)
-    sc_text_list = make_sc_text_set(PTH, [book], return_list=True)
+    cst_text_list = make_cst_text_set(PTH, [book])
+    sc_text_list = make_sc_text_set(PTH, [book])
     original_text_list = list(cst_text_list) + list(sc_text_list)
 
     sp_mistakes_list = make_sp_mistakes_list(PTH)
@@ -886,8 +886,8 @@ def make_words_to_add_list(__window__, book: str) -> list:
     return text_list
 
 
-def make_words_to_add_list_sutta(sutta_name, book: str) -> list:
-    cst_text_list = make_cst_text_set_sutta(PTH, sutta_name, [book], return_list=True)
+def make_words_to_add_list_sutta(sutta_name: str, book: str) -> list:
+    cst_text_list = make_cst_text_set_sutta(PTH, sutta_name, [book])
 
     sp_mistakes_list = make_sp_mistakes_list(PTH)
     variant_list = make_variant_list(PTH)
@@ -908,7 +908,7 @@ def make_words_to_add_list_sutta(sutta_name, book: str) -> list:
 
 
 def make_words_to_add_list_from_text() -> list:
-    cst_text_list = make_cst_text_set_from_file(return_list=True)
+    cst_text_list = make_cst_text_set_from_file()
 
     sp_mistakes_list = make_sp_mistakes_list(PTH)
     variant_list = make_variant_list(PTH)

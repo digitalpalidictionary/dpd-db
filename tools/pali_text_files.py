@@ -2,7 +2,9 @@
 Chaṭṭha Saṅgāyana (CST) texts, Sutta Central (SC) texts,
 and Buddha Jayanti Tripitaka (BTJ) texts (unused)."""
 
-cst_texts = {
+from typing import Dict, List
+
+cst_texts: Dict[str, List[str]] = {
     "vin1": ["vin01m.mul.txt"],
     "vin2": ["vin02m1.mul.txt"],
     "vin3": ["vin02m2.mul.txt"],
@@ -280,7 +282,7 @@ cst_texts = {
 
 }
 
-sc_texts = {
+sc_texts: Dict[str, List[str]] = {
     "vin1": [
         "pli-tv-bu-vb-pj1_root-pli-ms.json",
         "pli-tv-bu-vb-pj2_root-pli-ms.json",
