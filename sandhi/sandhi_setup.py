@@ -8,6 +8,7 @@ Args: None = run on cloud with all texts
 
 import argparse
 import os
+from typing import Dict, List, Set, Tuple
 import pandas as pd
 import pickle
 import re
@@ -85,7 +86,7 @@ def main():
     all_inflections_set = make_all_inflections_set(db_session, sandhi_exceptions_set)
     neg_inflections_set = make_neg_inflections_set(db_session, sandhi_exceptions_set)
 
-    def make_unmatched_set():
+    def make_unmatched_set() -> Tuple[Set[str], Set[str]]:
         print(f"[green]{'making text set':<35}", end="")
 
         text_set = cst_text_set | sc_text_set
@@ -114,7 +115,7 @@ def main():
 
     text_set, unmatched_set = make_unmatched_set()
 
-    def save_assets(pth: ProjectPaths):
+    def save_assets(pth: ProjectPaths) -> None:
         print(f"[green]{'saving assets':<35}", end="")
 
         with open(pth.unmatched_set_path, "wb") as f:
@@ -133,7 +134,7 @@ def main():
 
     save_assets(pth)
 
-    def make_matches_dict(pth: ProjectPaths):
+    def make_matches_dict(pth: ProjectPaths) -> None:
         print(f"[green]{'saving matches_dict':<35}", end="")
         matches_dict = {}
         matches_dict["word"] = [
@@ -154,14 +155,14 @@ def main():
     toc()
 
 
-def make_spelling_mistakes_set(pth: ProjectPaths):
+def make_spelling_mistakes_set(pth: ProjectPaths) -> Tuple[Set[str], Set[str]]:
     print(f"[green]{'making spelling mistakes set':<35}", end="")
 
     sp_mistakes_df = pd.read_csv(
         pth.spelling_mistakes_path, dtype=str, header=None, sep="\t")
     sp_mistakes_df.fillna("", inplace=True)
 
-    spelling_mistakes_set = set(sp_mistakes_df[0].tolist())
+    spelling_mistakes_set: Set[str] = set(sp_mistakes_df[0].tolist())
     print(f"[white]{len(spelling_mistakes_set):>10,}")
 
     filtered = sp_mistakes_df[0] == sp_mistakes_df[1]
@@ -171,7 +172,7 @@ def make_spelling_mistakes_set(pth: ProjectPaths):
         print(f"[bright_red]! dupes found {dupes_list}")
 
     print(f"[green]{'making spelling corrections set':<35}", end="")
-    spelling_corrections_set = set(sp_mistakes_df[1].tolist())
+    spelling_corrections_set: Set[str] = set(sp_mistakes_df[1].tolist())
     remove_me = set()
     add_me = set()
 
@@ -191,14 +192,14 @@ def make_spelling_mistakes_set(pth: ProjectPaths):
         spelling_corrections_set)
 
 
-def make_variant_readings_set(pth: ProjectPaths):
+def make_variant_readings_set(pth: ProjectPaths) -> Tuple[Set[str], Set[str]]:
     print(f"[green]{'making variant readings set':<35}", end="")
 
     variant_reading_df = pd.read_csv(
         pth.variant_readings_path, dtype=str, header=None, sep="\t")
     variant_reading_df.fillna("", inplace=True)
 
-    variant_readings_set = set(variant_reading_df[0].tolist())
+    variant_readings_set: Set[str] = set(variant_reading_df[0].tolist())
     print(f"[white]{len(variant_readings_set):>10,}")
 
     filter = variant_reading_df[0] == variant_reading_df[1]
@@ -208,7 +209,7 @@ def make_variant_readings_set(pth: ProjectPaths):
         print(f"[bright_red]! dupes found {dupes_list}")
 
     print(f"[green]{'making variant corrections set':<35}", end="")
-    variant_corrections_set = set(variant_reading_df[1].tolist())
+    variant_corrections_set: Set[str] = set(variant_reading_df[1].tolist())
     remove_me = set()
     add_me = set()
 
@@ -226,11 +227,11 @@ def make_variant_readings_set(pth: ProjectPaths):
     return variant_readings_set, variant_corrections_set
 
 
-def make_abbreviations_set(db_session: Session):
+def make_abbreviations_set(db_session: Session) -> Set[str]:
 
     print(f"[green]{'making abbreviations set':<35}", end="")
 
-    abbreviations_set = set()
+    abbreviations_set: Set[str] = set()
 
     abbreviations_db = db_session.query(PaliWord).filter(
         PaliWord.pos == "abbrev"
@@ -245,7 +246,7 @@ def make_abbreviations_set(db_session: Session):
     return abbreviations_set
 
 
-def make_manual_corrections_set(pth: ProjectPaths):
+def make_manual_corrections_set(pth: ProjectPaths) -> Tuple[Set[str], Dict]:
 
     print(f"[green]{'making manual corrections set':<35}", end="")
 
@@ -253,10 +254,10 @@ def make_manual_corrections_set(pth: ProjectPaths):
         pth.manual_corrections_path, dtype=str, header=None, sep="\t")
     manual_corrections_df.fillna("", inplace=True)
 
-    manual_corrections_set = set(manual_corrections_df[0].tolist())
+    manual_corrections_set: Set[str] = set(manual_corrections_df[0].tolist())
     print(f"[white]{len(manual_corrections_set):>10,}")
 
-    manual_corrections_list = manual_corrections_df[1].tolist()
+    manual_corrections_list: List[str] = manual_corrections_df[1].tolist()
 
     for word in manual_corrections_list:
         if not re.findall("\\+", word):
@@ -280,21 +281,21 @@ def make_manual_corrections_set(pth: ProjectPaths):
     return manual_corrections_set, manual_corrections_dict
 
 
-def make_exceptions_set(pth: ProjectPaths):
+def make_exceptions_set(pth: ProjectPaths) -> Set[str]:
     print(f"[green]{'making exceptions set':<35}", end="")
 
     sandhi_exceptions_df = pd.read_csv(
         pth.sandhi_exceptions_path, header=None)
-    sandhi_exceptions_set = set(sandhi_exceptions_df[0].tolist())
+    sandhi_exceptions_set: Set[str] = set(sandhi_exceptions_df[0].tolist())
 
     print(f"[white]{len(sandhi_exceptions_set):>10,}")
 
     return sandhi_exceptions_set
 
 
-def make_all_inflections_set(db_session: Session, sandhi_exceptions_set):
+def make_all_inflections_set(db_session: Session, sandhi_exceptions_set: Set[str]) -> Set[str]:
     print(f"[green]{'making all inflections set':<35}", end="")
-    all_inflections_set = set()
+    all_inflections_set: Set[str] = set()
 
     exceptions_list = set(
         ["abbrev", "cs", "idiom", "letter", "prefix", "root", "sandhi",
@@ -322,9 +323,9 @@ def make_all_inflections_set(db_session: Session, sandhi_exceptions_set):
     return all_inflections_set
 
 
-def make_neg_inflections_set(db_session: Session, sandhi_exceptions_set):
+def make_neg_inflections_set(db_session: Session, sandhi_exceptions_set: Set[str]) -> Set[str]:
     print(f"[green]{'making neg inflections set':<35}", end="")
-    neg_inflections_set = set()
+    neg_inflections_set: Set[str] = set()
 
     exceptions_list = set(
         ["abbrev", "cs", "idiom", "letter", "prefix", "root", "sandhi",
