@@ -1,4 +1,6 @@
 initial	final	correct	wrong	without	exceptions
+d + ṭh	ṭṭh	dṭh > ṭṭh	d > ṭ	x	x 
+-	-	-	-	-	-
 v + t	t	vt > t	v > t	v + th	
 v + t	tt	vt > tt	v > t	v + th	
 v + th	th	vth > th	x	x	

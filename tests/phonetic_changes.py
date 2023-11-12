@@ -64,7 +64,7 @@ def add_update_phonetic(db_session, db, csv):
                         c.wrong in i.phonetic
                     ):
                         i.phonetic = re.sub(
-                            f"^{c.wrong}$", str(c.correct), str(i.phonetic))
+                            f"\\b{c.wrong}\\b", str(c.correct), str(i.phonetic))
                         auto_updated += [i.pali_1]
                     
                     # if i.phonetic empty > auto add correct

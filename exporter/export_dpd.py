@@ -32,7 +32,7 @@ from tools.paths import ProjectPaths
 from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.pos import INDECLINABLES
-from tools.tic_toc import bip
+from tools.tic_toc import bip, bop
 from tools.configger import config_test
 from tools.sandhi_contraction import SandhiContractions
 from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, list_into_batches, sum_rendered_sizes
@@ -251,6 +251,7 @@ def generate_dpd_html(
     time_log.log("generate_dpd_html()")
 
     print("[green]generating dpd html")
+    bip()
 
     word_templates = PaliWordTemplates(pth)
 
@@ -302,9 +303,8 @@ def generate_dpd_html(
 
     rendered_sizes: List[RenderedSizes] = []
 
-    bip()
-
     num_logical_cores = psutil.cpu_count()
+    print(f"num_logical_cores {num_logical_cores}")
 
     batches: List[List[PaliWordDbParts]] = list_into_batches(dpd_db_data, num_logical_cores)
 
@@ -363,6 +363,8 @@ def generate_dpd_html(
     total_sizes = sum_rendered_sizes(rendered_sizes)
 
     time_log.log("generate_dpd_html() return")
+    
+    print(f"html render time: {bop()}")
     return dpd_data_list, total_sizes
 
 
