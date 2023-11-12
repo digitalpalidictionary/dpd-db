@@ -37,3 +37,12 @@ jobs:
 
     - name: Build the database
       run: poetry run bash bash/build_db.sh
+
+    - name: Zip the database file
+      run: zip dpd-db.zip ./dpd.db
+
+    - name: Upload zipped database as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: dpd-db
+        path: ./dpd-db.zip
