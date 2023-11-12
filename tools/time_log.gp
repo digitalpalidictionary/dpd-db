@@ -28,7 +28,12 @@ set bmargin 17
 # plot "time_log.dat" using ($0+0.25):1:xtic(2) with boxes notitle, \
 #      '' using ($0+0.25):1:1 with labels offset 0.5,0.5 notitle
 
+# X axis is elapsed total time.
+# Y axis is a box plot, delta time since last point.
+# Place delta time number above the box.
+# Drop the delta time label if it is 0, by replacing it with an invalid value 1/0.
+# Place the label text under the X axis.
 set boxwidth 0.5
-plot "time_log.dat" using 1:1 with boxes notitle, \
-     '' using 1:($2 != 0 ? $1 : 1/0):2 with labels offset 0.5,1.0 font ',12' notitle, \
-     '' using ($1):($0+0.5):3 with labels right offset 0.0,-5.0 rotate by 90 font ',10' notitle \
+plot "time_log.dat" using 1:2 with boxes notitle, \
+     '' using 1:($2 != 0 ? $2 : 1/0):2 with labels offset 0.5,1.0 font ',12' notitle, \
+     '' using 1:($2 != 0 ? 0 : 0):3 with labels right offset 0.0,-5.0 rotate by 90 font ',10' notitle

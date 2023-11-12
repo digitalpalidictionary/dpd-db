@@ -1,5 +1,6 @@
 """Compile HTML data for PaliWord."""
 
+from sqlalchemy.sql import func
 from tools import time_log
 import psutil
 from css_html_js_minify import css_minify, js_minify
@@ -263,95 +264,89 @@ def generate_dpd_html(
 
     dpd_data_list: List[RenderResult] = []
 
-    time_log.log("dpd_db = db_session.query()")
+    pali_words_count = db_session \
+        .query(func.count(PaliWord.id)) \
+        .scalar()
 
-    dpd_db = db_session.query(
-        PaliWord, DerivedData, FamilyRoot, FamilyWord
-    ).outerjoin(
-        DerivedData,
-        PaliWord.id == DerivedData.id
-    ).outerjoin(
-        FamilyRoot,
-        and_(
-            PaliWord.root_key == FamilyRoot.root_id,
-            PaliWord.family_root == FamilyRoot.root_family)
-    ).outerjoin(
-        FamilyWord,
-        PaliWord.family_word == FamilyWord.word_family
-    ).all()
+    limit = 5000
+    offset = 0
 
-    def _add_parts(i: PaliWordDbRowItems) -> PaliWordDbParts:
-        pw: PaliWord
-        dd: DerivedData
-        fr: FamilyRoot
-        fw: FamilyWord
-        pw, dd, fr, fw = i
-
-        return PaliWordDbParts(
-            pali_word = pw,
-            pali_root = pw.rt,
-            derived_data = dd,
-            family_root = fr,
-            family_word = fw,
-            family_compounds = get_family_compounds_for_pali_word(pw),
-            family_set = get_family_set_for_pali_word(pw),
-        )
-
-    time_log.log("dpd_db_data = [_add_parts(i.tuple()) for i in dpd_db]")
-
-    dpd_db_data = [_add_parts(i.tuple()) for i in dpd_db]
-
-    rendered_sizes: List[RenderedSizes] = []
-
-    num_logical_cores = psutil.cpu_count()
-    print(f"num_logical_cores {num_logical_cores}")
-
-    batches: List[List[PaliWordDbParts]] = list_into_batches(dpd_db_data, num_logical_cores)
-
-    processes: List[Process] = []
     manager = Manager()
     dpd_data_results_list: ListProxy = manager.list()
     rendered_sizes_results_list: ListProxy = manager.list()
+    num_logical_cores = psutil.cpu_count()
+    print(f"num_logical_cores {num_logical_cores}")
 
-    render_data = PaliWordRenderData(
-        pth = pth,
-        word_templates = word_templates,
-        sandhi_contractions = sandhi_contractions,
-        cf_set = cf_set,
-        make_link = make_link,
-    )
+    time_log.log("while offset <= pali_words_count:")
 
-    # Don't need to pass everything as arguments, sub-threads have access to
-    # memory objects of the parent scope. This is a good way to access shared
-    # read-only memory object between threads.
+    while offset <= pali_words_count:
 
-    def _parse_batch(batch: List[PaliWordDbParts], batch_idx: int):
+        dpd_db = db_session.query(
+            PaliWord, DerivedData, FamilyRoot, FamilyWord
+        ).outerjoin(
+            DerivedData,
+            PaliWord.id == DerivedData.id
+        ).outerjoin(
+            FamilyRoot,
+            and_(
+                PaliWord.root_key == FamilyRoot.root_id,
+                PaliWord.family_root == FamilyRoot.root_family)
+        ).outerjoin(
+            FamilyWord,
+            PaliWord.family_word == FamilyWord.word_family
+        ).limit(limit).offset(offset).all()
 
-        res: List[Tuple[RenderResult, RenderedSizes]] = \
-            [render_pali_word_dpd_html(i, render_data) for i in batch]
+        def _add_parts(i: PaliWordDbRowItems) -> PaliWordDbParts:
+            pw: PaliWord
+            dd: DerivedData
+            fr: FamilyRoot
+            fw: FamilyWord
+            pw, dd, fr, fw = i
 
-        for i, j in res:
-            dpd_data_results_list.append(i)
-            rendered_sizes_results_list.append(j)
+            return PaliWordDbParts(
+                pali_word = pw,
+                pali_root = pw.rt,
+                derived_data = dd,
+                family_root = fr,
+                family_word = fw,
+                family_compounds = get_family_compounds_for_pali_word(pw),
+                family_set = get_family_set_for_pali_word(pw),
+            )
 
-        first_word = batch[0]["pali_word"]
+        dpd_db_data = [_add_parts(i.tuple()) for i in dpd_db]
 
-        print(f"Batch {batch_idx}: done, from {first_word.pali_1}")
+        rendered_sizes: List[RenderedSizes] = []
 
+        batches: List[List[PaliWordDbParts]] = list_into_batches(dpd_db_data, num_logical_cores)
 
-    time_log.log("for batch_idx, batch in ...")
+        processes: List[Process] = []
 
-    for batch_idx, batch in enumerate(batches):
-        p = Process(target=_parse_batch, args=(batch, batch_idx,))
+        render_data = PaliWordRenderData(
+            pth = pth,
+            word_templates = word_templates,
+            sandhi_contractions = sandhi_contractions,
+            cf_set = cf_set,
+            make_link = make_link,
+        )
 
-        w = batch[0]["pali_word"]
-        print(f"Batch {batch_idx}: start, len {len(batch):>10,}, from {w.pali_1}")
+        def _parse_batch(batch: List[PaliWordDbParts]):
+            res: List[Tuple[RenderResult, RenderedSizes]] = \
+                [render_pali_word_dpd_html(i, render_data) for i in batch]
 
-        p.start()
-        processes.append(p)
+            for i, j in res:
+                dpd_data_results_list.append(i)
+                rendered_sizes_results_list.append(j)
 
-    for p in processes:
-        p.join()
+        for batch in batches:
+            p = Process(target=_parse_batch, args=(batch,))
+
+            p.start()
+            processes.append(p)
+
+        for p in processes:
+            p.join()
+
+        offset += limit
 
     time_log.log("dpd_data_list = list...")
     dpd_data_list = list(dpd_data_results_list)
