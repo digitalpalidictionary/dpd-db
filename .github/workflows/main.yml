@@ -1,0 +1,32 @@
+name: Setup and Build Project
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository and submodules
+      uses: actions/checkout@v2
+      with:
+        submodules: 'recursive'
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14' # Specify the version of Node.js you need
+
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+
+    - name: Install dependencies with Poetry
+      run: poetry install
+
+    - name: Run initial setup script
+      run: poetry run bash bash/initial_setup_run_once.sh
+
+    - name: Build the database
+      run: poetry run bash bash/build_db.sh
