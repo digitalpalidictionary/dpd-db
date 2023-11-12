@@ -1,4 +1,4 @@
-name: Setup and Build Project
+name: Setup and Build dpd Project
 
 on:
   workflow_dispatch:
@@ -18,12 +18,19 @@ jobs:
       with:
         node-version: '14' # Specify the version of Node.js you need
 
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11' # Set up the Python version required by the project
+
     - name: Install Poetry
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
 
     - name: Install dependencies with Poetry
-      run: poetry install
+      run: |
+        poetry install
+      shell: /usr/bin/bash -e {0}
 
     - name: Run initial setup script
       run: poetry run bash bash/initial_setup_run_once.sh
