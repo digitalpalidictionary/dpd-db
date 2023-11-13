@@ -2,7 +2,10 @@
 
 """Compile sets save to database."""
 
+from typing import Dict, List, TypedDict
 from rich import print
+
+from sqlalchemy.orm.session import Session
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord, FamilySet
@@ -13,6 +16,10 @@ from tools.pali_sort_key import pali_sort_key
 from tools.meaning_construction import degree_of_completion as doc
 from tools.paths import ProjectPaths
 
+class SetItem(TypedDict):
+    headwords: List[str]
+
+SetsDict = Dict[str, SetItem]
 
 def main():
     tic()
@@ -24,24 +31,25 @@ def main():
         PaliWord).filter(PaliWord.family_set != "").all()
     sets_db = sorted(sets_db, key=lambda x: pali_sort_key(x.pali_1))
 
-    sets_dict = make_sets_dict(sets_db)
-    sets_dict = compile_sf_html(sets_db, sets_dict)
-    errors_list = add_sf_to_db(db_session, sets_dict)
+    sets_dict: SetsDict = dict()
+
+    make_sets_dict(sets_db, sets_dict)
+    errors_list = add_all_sf_to_db(db_session, sets_db, sets_dict)
     print_errors_list(errors_list)
+
+    db_session.close()
+
     toc()
 
 
-def make_sets_dict(sets_db):
+def make_sets_dict(sets_db: List[PaliWord], sets_dict: SetsDict) -> None:
     print("[green]extracting set names", end=" ")
 
     # create a dict of all sets
-    # set: {headwords: [], html: "", }
 
-    sets_dict: dict = {}
+    for i in sets_db:
 
-    for __counter__, i in enumerate(sets_db):
-
-        for fs in i.family_set_list:
+        for fs in i.family_set_key_list:
             if fs == " ":
                 print("[bright_red]ERROR: spaces found please remove!")
             elif not fs:
@@ -53,65 +61,61 @@ def make_sets_dict(sets_db):
                 if fs in sets_dict:
                     sets_dict[fs]["headwords"] += [i.pali_1]
                 else:
-                    sets_dict[fs] = {
-                        "headwords": [i.pali_1],
-                        "html": ""}
+                    sets_dict[fs] = SetItem(headwords = [i.pali_1])
 
     print(len(sets_dict))
-    return sets_dict
 
+def render_sf_html(i: PaliWord) -> str:
+    html_string = "<table class='family'>"
 
-def compile_sf_html(sets_db, sets_dict):
-    print("[green]compiling html")
+    meaning = make_meaning(i)
+    html_string += "<tr>"
+    html_string += f"<th>{superscripter_uni(i.pali_1)}</th>"
+    html_string += f"<td><b>{i.pos}</b></td>"
+    html_string += f"<td>{meaning} {doc(i)}</td>"
+    html_string += "</tr>"
 
-    for __counter__, i in enumerate(sets_db):
+    html_string += "</table>"
 
-        for sf in i.family_set_list:
-            if sf in sets_dict:
-                if i.pali_1 in sets_dict[sf]["headwords"]:
-                    if not sets_dict[sf]["html"]:
-                        html_string = "<table class='family'>"
-                    else:
-                        html_string = sets_dict[sf]["html"]
+    return html_string
 
-                    meaning = make_meaning(i)
-                    html_string += "<tr>"
-                    html_string += f"<th>{superscripter_uni(i.pali_1)}</th>"
-                    html_string += f"<td><b>{i.pos}</b></td>"
-                    html_string += f"<td>{meaning} {doc(i)}</td>"
-                    html_string += "</tr>"
-
-                    sets_dict[sf]["html"] = html_string
-
-    for i in sets_dict:
-        sets_dict[i]["html"] += "</table>"
-
-    return sets_dict
-
-
-def add_sf_to_db(db_session, sets_dict):
+def add_all_sf_to_db(db_session: Session, sets_db: List[PaliWord], sets_dict: SetsDict) -> List[str]:
     print("[green]adding to db", end=" ")
 
-    add_to_db = []
+    db_session.execute(FamilySet.__table__.delete()) # type: ignore
+
     errors_list = []
 
-    for __counter__, sf in enumerate(sets_dict):
-        count = len(sets_dict[sf]["headwords"])
+    for i in sets_db:
 
-        sf_data = FamilySet(
-            set=sf,
-            html=sets_dict[sf]["html"],
-            count=count)
+        for sf_key in i.family_set_key_list:
 
-        add_to_db.append(sf_data)
+            if sf_key in sets_dict.keys():
+                sf_item = sets_dict[sf_key]
 
-        if count < 3:
-            errors_list += [sf]
+                count = len(sf_item["headwords"])
 
-    db_session.execute(FamilySet.__table__.delete()) # type: ignore
-    db_session.add_all(add_to_db)
+                fs = db_session.query(FamilySet) \
+                               .filter(FamilySet.set == sf_key) \
+                               .first()
+
+                if fs is None:
+                    fs = FamilySet(
+                        set=sf_key,
+                        html=render_sf_html(i),
+                        count=count)
+
+                    db_session.add(fs)
+
+                if i.pali_1 in sf_item["headwords"]:
+                    if fs not in i.family_sets:
+                        i.family_sets.append(fs)
+
+                    if count < 3:
+                        errors_list += [sf_key]
+
     db_session.commit()
-    db_session.close()
+
     print("[white]ok")
 
     return errors_list

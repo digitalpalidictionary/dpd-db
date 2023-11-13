@@ -315,7 +315,7 @@ def get_family_compound_values():
     results = db_session.query(PaliWord).all()
     family_compound_values = []
     for i in results:
-        family_compound_values.extend(i.family_compound_list)
+        family_compound_values.extend(i.family_compound_key_list)
 
     family_compound_values = sorted(
         set(family_compound_values), key=pali_sort_key)

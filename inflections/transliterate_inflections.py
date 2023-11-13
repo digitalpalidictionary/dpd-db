@@ -173,7 +173,7 @@ def _parse_batch(batch: List[PaliWord],
     json_input_for_translit.unlink()
     json_output_from_translit.unlink()
 
-    print(f"Batch {batch_idx}: done, from {batch[0].pali_1}")
+    # print(f"Batch {batch_idx}: done, from {batch[0].pali_1}")
 
 
 class WordInflections(TypedDict):
@@ -221,7 +221,7 @@ def main():
                                                results_list,
                                                batch_idx,))
 
-        print(f"Batch {batch_idx}: start, len {len(batch):>10,}, from {batch[0].pali_1}")
+        # print(f"Batch {batch_idx}: start, len {len(batch):>10,}, from {batch[0].pali_1}")
 
         p.start()
         processes.append(p)

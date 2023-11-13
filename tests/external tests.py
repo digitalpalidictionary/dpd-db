@@ -127,7 +127,7 @@ def family_compound_no_number(searches: dict) -> tuple:
     results = []
 
     for i in searches["paliword"]:
-        for fc in i.family_compound_list:
+        for fc in i.family_compound_key_list:
             if re.findall(r"\d", fc):
                 fc = re.sub(r"\d", "", fc)
                 if fc:
