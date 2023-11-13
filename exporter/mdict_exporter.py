@@ -3,10 +3,11 @@
 """Prepare data and export to MDict."""
 
 from functools import reduce
+from multiprocessing.managers import ListProxy
 from rich import print
-from typing import List, Dict
 from tools.tic_toc import bip, bop
 from tools.writemdict.writemdict import MDictWriter
+from tools.paths import ProjectPaths
 
 
 def mdict_synonyms(all_items, item):
@@ -17,12 +18,13 @@ def mdict_synonyms(all_items, item):
     return all_items
 
 
-def export_to_mdict(data_list: List[Dict], PTH) -> None:
+def export_to_mdict(data_list: ListProxy, PTH: ProjectPaths) -> None:
     print("[green]converting to mdict")
 
     bip()
     print("[white]adding 'mdict' and h3 tag", end=" ")
     for i in data_list:
+        # i: RenderResult
         i['definition_html'] = i['definition_html'].replace(
             "GoldenDict", "MDict")
         i['definition_html'] = f"<h3>{i['word']}</h3>{i['definition_html']}"

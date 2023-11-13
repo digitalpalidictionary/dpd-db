@@ -127,13 +127,15 @@ def export_to_goldendict(pth: ProjectPaths, data_list: list) -> None:
         destination = 'dpd/android.bmp'
         zipf.write(source_path, destination)
 
-    print(f"{bop():>27}")
+    print(f"{bop():>29}")
 
 
 def goldendict_unzip_and_copy(pth: ProjectPaths,) -> None:
     """unzip and copy to goldendict folder"""
 
     goldendict_path: (Path |str) = goldedict_path()
+
+    bip()
 
     if (
         goldendict_path and 
@@ -144,6 +146,8 @@ def goldendict_unzip_and_copy(pth: ProjectPaths,) -> None:
             f'unzip -o {pth.zip_path} -d "{goldendict_path}"')
     else:
         print("[red]local GoldenDict directory not found")
+
+    print(f"{bop():>23}")
 
 
 def write_size_dict(pth: ProjectPaths, size_dict):
@@ -156,7 +160,7 @@ def write_size_dict(pth: ProjectPaths, size_dict):
         for key, value in size_dict.items():
             writer.writerow([key, value])
 
-    print(f"{bop():>36}")
+    print(f"{bop():>38}")
 
 
 def write_limited_datalist(combined_data_list):

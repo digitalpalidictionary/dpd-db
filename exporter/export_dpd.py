@@ -10,7 +10,7 @@ from rich import print
 from sqlalchemy import and_
 from typing import List, Set, TypedDict, Tuple
 from multiprocessing.managers import ListProxy
-from multiprocessing import Process, Manager
+from multiprocessing import Process
 
 from sqlalchemy.orm.session import Session
 
@@ -35,7 +35,7 @@ from tools.pos import INDECLINABLES
 from tools.tic_toc import bip, bop
 from tools.configger import config_test
 from tools.sandhi_contraction import SandhiContractions
-from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, list_into_batches, sum_rendered_sizes
+from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, list_into_batches
 
 class PaliWordTemplates:
     def __init__(self, pth: ProjectPaths):
@@ -199,7 +199,9 @@ def generate_dpd_html(
         db_session: Session,
         pth: ProjectPaths,
         sandhi_contractions: SandhiContractions,
-        cf_set: Set[str]) -> Tuple[List[RenderResult], RenderedSizes]:
+        cf_set: Set[str],
+        dpd_data_list: ListProxy,
+        rendered_sizes: ListProxy) -> None:
     time_log.log("generate_dpd_html()")
 
     print("[green]generating dpd html")
@@ -213,8 +215,6 @@ def generate_dpd_html(
     else:
         make_link: bool = False
 
-    dpd_data_list: List[RenderResult] = []
-
     pali_words_count = db_session \
         .query(func.count(PaliWord.id)) \
         .scalar()
@@ -222,9 +222,6 @@ def generate_dpd_html(
     limit = 5000
     offset = 0
 
-    manager = Manager()
-    dpd_data_results_list: ListProxy = manager.list()
-    rendered_sizes_results_list: ListProxy = manager.list()
     num_logical_cores = psutil.cpu_count()
     print(f"num_logical_cores {num_logical_cores}")
 
@@ -266,8 +263,6 @@ def generate_dpd_html(
 
         dpd_db_data = [_add_parts(i.tuple()) for i in dpd_db]
 
-        rendered_sizes: List[RenderedSizes] = []
-
         batches: List[List[PaliWordDbParts]] = list_into_batches(dpd_db_data, num_logical_cores)
 
         processes: List[Process] = []
@@ -285,8 +280,8 @@ def generate_dpd_html(
                 [render_pali_word_dpd_html(i, render_data) for i in batch]
 
             for i, j in res:
-                dpd_data_results_list.append(i)
-                rendered_sizes_results_list.append(j)
+                dpd_data_list.append(i)
+                rendered_sizes.append(j)
 
         for batch in batches:
             p = Process(target=_parse_batch, args=(batch,))
@@ -299,19 +294,9 @@ def generate_dpd_html(
 
         offset += limit
 
-    time_log.log("dpd_data_list = list...")
-    dpd_data_list = list(dpd_data_results_list)
-
-    time_log.log("rendered_sizes = list...")
-    rendered_sizes = list(rendered_sizes_results_list)
-
-    time_log.log("total_sizes = sum_ren...")
-    total_sizes = sum_rendered_sizes(rendered_sizes)
-
     time_log.log("generate_dpd_html() return")
     
     print(f"html render time: {bop()}")
-    return dpd_data_list, total_sizes
 
 
 def render_header_templ(

@@ -74,13 +74,6 @@ def default_rendered_sizes() -> RenderedSizes:
         help = 0,
     )
 
-def sum_rendered_sizes(sizes: List[RenderedSizes]) -> RenderedSizes:
-    res = default_rendered_sizes()
-    for i in sizes:
-        for k, v in i.items():
-            res[k] += v
-    return res
-
 def list_into_batches(input_list: List, num_batches: int) -> List[List]:
     """Splits a list into a number of lists.
 

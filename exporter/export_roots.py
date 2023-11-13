@@ -1,12 +1,13 @@
 """Compile HTML data for Roots dictionary."""
 
+from multiprocessing.managers import ListProxy
 import re
 
 from css_html_js_minify import css_minify, js_minify
 from mako.template import Template
 from minify_html import minify
 from rich import print
-from typing import Dict, Tuple, List
+from typing import Dict
 
 from sqlalchemy.orm import Session
 
@@ -18,19 +19,19 @@ from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
-from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes
+from tools.utils import RenderResult, default_rendered_sizes
 
 
 def generate_root_html(db_session: Session,
                        pth: ProjectPaths,
-                       roots_count_dict: Dict[str, int]) -> Tuple[List[RenderResult], RenderedSizes]:
+                       roots_count_dict: Dict[str, int],
+                       dpd_data_list: ListProxy,
+                       rendered_sizes: ListProxy) -> None:
     """compile html componenents for each pali root"""
 
     print("[green]generating roots html")
 
     size_dict = default_rendered_sizes()
-
-    root_data_list: List[RenderResult] = []
 
     with open(pth.roots_css_path) as f:
         roots_css = f.read()
@@ -113,14 +114,14 @@ def generate_root_html(db_session: Session,
             synonyms = list(synonyms),
         )
 
-        root_data_list.append(res)
+        dpd_data_list.append(res)
 
         if counter % 100 == 0:
             print(
                 f"{counter:>10,} / {root_db_length:<10,}{r.root:<20} {bop():>10}")
             bip()
 
-    return root_data_list, size_dict
+        rendered_sizes.append(size_dict)
 
 
 def render_root_definition_templ(pth: ProjectPaths, r: PaliRoot, roots_count_dict):
