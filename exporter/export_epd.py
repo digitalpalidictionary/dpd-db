@@ -167,7 +167,7 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[Rend
                                 epd.update({rule_number: epd_string})
 
         if counter % 10000 == 0:
-            print(f"{counter:>10,} / {dpd_db_length:<10,} {i.pali_1[:20]:<20} {bop():>10}")
+            print(f"{counter:>10,} / {dpd_db_length:<10,} {i.pali_1[:20]:<20}{bop():>10}")
             bip()
 
     print("[green]adding roots to epd")

@@ -1,5 +1,5 @@
 initial	final	correct	wrong	without	exceptions
-d + ṭh	ṭṭh	dṭh > ṭṭh	d > ṭ	x	x 
+
 -	-	-	-	-	-
 v + t	t	vt > t	v > t	v + th	
 v + t	tt	vt > tt	v > t	v + th	
@@ -8,6 +8,8 @@ v + th	th	vth > th	x	x
 ati +	acc	ti > ty > cc	x	gacch	pacchājāta, gatikālādipaccayantarasamavāya
 
 ā + ñ	aññ	āñ > aññ	x	x	vadaññutā, sāmaññatā 2.1
+xā + t	att	āt > att	x	 tta, ā + th	atthacariyatā, nakkhattavijjātiracchānavijjā, vatthuvijjātiracchānavijjā, hatthaoṭṭhajivhātālu, atta 2.1, atta 2.2
+ā + th	atth	āth > atth	x	x	x
 ānaṃ	annaṃ	ān > ann	x	x	x
 
 ī + n	inn	īn > inn	x	x	anunnāmāninnāmī
@@ -46,14 +48,24 @@ d + kh	kkh	dkh > kkh	dk > kk	x	x
 d + g	gg	dg > gg	d > g	d + gh	x
 d + gh	ggh	dgh > ggh	d > g	x	x
 d + n	nn	dn > nn	d > n	x	x
+d + ṭh	ṭṭh	dṭh > ṭṭh	d > ṭ	x	x 
 d + t	tt	dt > tt	d > t	d + th	x
+d + p	pp	dp > pp	d > p	d + ph	x
+d + ph	pph	dph > pph	d > p	x	x
+xd + b	bb	db > bb	d > b	x 	x	need to exlude roots starting with v
+xd + bh	bbh	dbh > bbh	d > b	x	need to exlude roots starting with v
 d + v	bb	dv > bb	d > b	x	x
 d + s	ss	ds > ss	d > s	x	x
 
+du	dū	u > ū	x	dur	dūpadhārita, ussāvabindūpama
 dh + t	ddh	dht > ddh	x	x	x
+dh + t
+dh + y	jjh	dhy > jjh	x	x	x
 
 p + t	tt	pt > tt	p > t	p + th	x
 p + th	tth	pth > tth	p > t	x	x
+pa + i	pe	ai > e	i > e	x	x
+plu 	pil	pl > pil (epenthesis)	x	x	x
 
 m + k	ṅk	mk > ṅk	m > ṅ	m + kh	x
 m + kh	ṅkh	mkh > ṅkh	m > ṅ	x	x
@@ -88,6 +100,8 @@ s + t	ṭṭh	st > ṭṭh	x	x	x
 s + y	ss	sy > ss	y > s	x	x
 snih + 	sini	snih > sinih (epenthesis)	x	x	x
 
+hu	ju	h > j	x	x	x
+hu	jū	h > j	x	x	x
 h + g	gh	hg > gh (metathesis)	x	x	x
 h + t	ddh	ht > ddh	x	bh + t	x
 h + y	yh	hy > yh (metathesis)	hy > yh	x	x	

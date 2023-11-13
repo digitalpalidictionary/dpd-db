@@ -131,7 +131,7 @@ def add_abbrev_html(pth: ProjectPaths,
 
         help_data_list.append(res)
 
-    print(f"{bop():>34}")
+    print(f"{bop():>33}")
     return help_data_list
 
 
@@ -178,7 +178,7 @@ def add_help_html(pth: ProjectPaths,
 
         help_data_list.append(res)
 
-    print(f"{bop():>43}")
+    print(f"{bop():>42}")
     return help_data_list
 
 
@@ -249,7 +249,7 @@ def add_bibliographhy(pth: ProjectPaths,
         with open(pth.bibliography_md_path, "w") as file:
             file.write(md)
 
-    print(f"{bop():>35}")
+    print(f"{bop():>34}")
     return help_data_list
 
 
@@ -311,7 +311,7 @@ def add_thanks(pth: ProjectPaths,
         with open(pth.thanks_md_path, "w") as file:
             file.write(md)
 
-    print(f"{bop():>41}")
+    print(f"{bop():>40}")
     return help_data_list
 
 

@@ -65,6 +65,8 @@ def main():
                 pattern = f" {c.word} "
             elif c.position == "last":
                 pattern = f" {c.word}$"
+            elif c.position == "any":
+                pattern = f"\\b{c.word}\\b"
             else:
                 print(f"[red]'{c.position}' position not recognised")
                 break
