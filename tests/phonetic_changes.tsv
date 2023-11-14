@@ -17,6 +17,9 @@ xā + t	att	āt > att	x	 tta, ā + th	atthacariyatā, nakkhattavijjātiracchāna
 ī + v	ibb	īv > ivv > ibb	īv > ibb	ī + bh	x
 ī + bh	ibbh	ībh > ibbh	īb > ibb	x	x
 
+xu + a	va	ua > va	u > v	vā	x	need to p_exlude and c_eclude  
+u + ā	vā	uā > vā	u > v	x	divādigaṇa, opilāpetvā, suvānaya 1, suvānaya 2, samannāharitvā
+
 c + t	kk	ct > kk	c > k	ñc + t	x
 c + t	tt	ct > tt	c > t	c + th	x
 c + th	tth	cth > tth	c > t	x	x
@@ -26,6 +29,7 @@ g + y	gg	gy > gg	x	x	x
 
 j + t	tt	jt > tt	j > t	j + th	vissaṭṭhatta, duttitikkha
 j + t	bb	jt > bb	x	x	ubbigga 1, ubbigga 2, anubbigga
+j + t	ṭṭh	jt > ṭṭh	x	j + th	x
 j + th	tth	jth > tth	j > t	x	x
 jj + t	ṭṭh	jjt > ṭṭh	jt > ṭṭh	jj + th	x
 j + y	jj	jy > jj	y > j	jj + y	x
@@ -53,9 +57,10 @@ d + t	tt	dt > tt	d > t	d + th	x
 d + p	pp	dp > pp	d > p	d + ph	x
 d + ph	pph	dph > pph	d > p	x	x
 xd + b	bb	db > bb	d > b	x 	x	need to exlude roots starting with v
-xd + bh	bbh	dbh > bbh	d > b	x	need to exlude roots starting with v
+xd + bh	bbh	dbh > bbh	d > b	x	x	need to exlude roots starting with v
 d + v	bb	dv > bb	d > b	x	x
 d + s	ss	ds > ss	d > s	x	x
+d + ṃ	nd	dṃ > nd (metathesis)	ṃ > n	x	x
 
 du	dū	u > ū	x	dur	dūpadhārita, ussāvabindūpama
 dh + t	ddh	dht > ddh	x	x	x
@@ -114,7 +119,7 @@ h + y	yh	hy > yh (metathesis)	hy > yh	x	x
 ṃ + ū	mū	ṃū > mū	ṃ > m	x	x
 ṃ + e	me	ṃe > me	ṃ > m	x	x
 ṃ + o	mo	ṃo > mo	ṃ > m	x	x
-xṃ + k	ṅk	ṃk > ṅk	ṃ > ṅ	ṃ + kh	x needs to reject upasaṅkamitukāma, maṅkuṃ karoti
+xṃ + k	ṅk	ṃk > ṅk	ṃ > ṅ	ṃ + kh	x	needs to reject upasaṅkamitukāma, maṅkuṃ karoti
 ṃ + kh	ṅkh	ṃkh > ṅkh	ṃ > ṅ	x	x
 ṃ + c	ñc	ṃc > ñc	ṃ > ñ	ṃ + ch	x
 ṃ + ch	ñch	ṃch > ñch	ṃ > ñ	x	x

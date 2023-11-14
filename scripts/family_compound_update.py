@@ -19,14 +19,14 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(PaliWord).all()
 
-    find = "cāraṇa"
-    replace = "caraṇa"
+    find: str = "kūṭa"
+    replace: str = "kūṭa1"
 
     for i in db:
-        if re.findall(fr"\b{find}\b", i.family_compound):
+        if re.findall(fr"\b{find}\b", str(i.family_compound)):
             print(f"[green]{i.family_compound}")
             i.family_compound = re.sub(
-                fr"\b{find}\b", replace, i.family_compound)
+                fr"\b{find}\b", replace, str(i.family_compound))
             print(f"[blue]{i.family_compound}")
             print()
 
