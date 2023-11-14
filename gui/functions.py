@@ -1256,7 +1256,7 @@ def compare_differences(
                             prompt += f"old: {getattr(pali_word_original, field)}\n"
                             prompt += f"new: {values[field]}"
                             comment = sg.popup_get_text(
-                                prompt, title="comment", location=(400, 400))
+                                prompt, title="comment", default_text='missing', location=(400, 400))
                             if comment:
                                 break
 
