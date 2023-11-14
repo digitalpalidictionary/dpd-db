@@ -915,16 +915,16 @@ Maṅgalasutta
 
 Evaṃ me sutaṃ Ekaṃ samayaṃ bhagavā sāvatthiyaṃ viharati jetavane anāthapiṇḍikassa ārāme. Atha kho aññatarā devatā abhikkantāya rattiyā abhikkantavaṇṇā kevalakappaṃ jetavanaṃ obhāsetvā yena bhagavā ten'upasaṅkami. Upasaṅkamitvā bhagavantaṃ abhivādetvā ekam'antaṃ aṭṭhāsi. Ekam'antaṃ ṭhitā kho sā devatā bhagavantaṃ gāthāya ajjhabhāsi: 
 Bahū devā manussā ca Maṅgalāni acintayuṃ Ākaṅkhamānā sotthānaṃ Brūhi maṅgalam'uttamaṃ
-Asevanā ca bālānaṃ Paṇḍitānañ'ca sevanā Pūjā ca pūjanīyānaṃ Etaṃ maṅgalam'uttamaṃ
-Paṭirūpadesavāso ca Pubbe ca katapuññatā Attasammāpaṇidhi ca Etaṃ maṅgalam'uttamaṃ
-Bāhusaccañ'ca sippañ'ca Vinayo ca susikkhito Subhāsitā ca yā vācā Etaṃ maṅgalam'uttamaṃ
-Mātāpituupaṭṭhānaṃ Puttadārassa saṅgaho Anākulā ca kammantā Etaṃ maṅgalam'uttamaṃ
-Dānañ'ca dhammacariyā ca Ñātakānañ'ca saṅgaho Anavajjāni kammāni Etaṃ maṅgalam'uttamaṃ
-Āratī viratī pāpā Majjapānā ca saññamo Appamādo ca dhammesu Etaṃ maṅgalam'uttamaṃ
-Gāravo ca nivāto ca Santuṭṭhī ca kataññutā Kālena dhammassavanaṃ Etaṃ maṅgalam'uttamaṃ
-Khantī ca sovacassatā Samaṇānañ'ca dassanaṃ Kālena dhammasākacchā Etaṃ maṅgalam'uttamaṃ
-Tapo ca brahmacariyañ'ca Ariyasaccānadassanaṃ Nibbānasacchikiriyā ca Etaṃ maṅgalam'uttamaṃ
-Phuṭṭhassa lokadhammehi Cittaṃ yassa na kampati Asokaṃ virajaṃ khemaṃ Etaṃ maṅgalam'uttamaṃ
+Asevanā ca bālānaṃ Paṇḍitānañ'ca sevanā Pūjā ca pūjanīyānaṃ Etam'maṅgalam'uttamaṃ
+Paṭirūpadesavāso ca Pubbe ca katapuññatā Attasammāpaṇidhi ca Etam'maṅgalam'uttamaṃ
+Bāhusaccañ'ca sippañ'ca Vinayo ca susikkhito Subhāsitā ca yā vācā Etam'maṅgalam'uttamaṃ
+Mātāpituupaṭṭhānaṃ Puttadārassa saṅgaho Anākulā ca kammantā Etam'maṅgalam'uttamaṃ
+Dānañ'ca dhammacariyā ca Ñātakānañ'ca saṅgaho Anavajjāni kammāni Etam'maṅgalam'uttamaṃ
+Āratī viratī pāpā Majjapānā ca saññamo Appamādo ca dhammesu Etam'maṅgalam'uttamaṃ
+Gāravo ca nivāto ca Santuṭṭhī ca kataññutā Kālena dhammassavanaṃ Etam'maṅgalam'uttamaṃ
+Khantī ca sovacassatā Samaṇānañ'ca dassanaṃ Kālena dhammasākacchā Etam'maṅgalam'uttamaṃ
+Tapo ca brahmacariyañ'ca Ariyasaccānadassanaṃ Nibbānasacchikiriyā ca Etam'maṅgalam'uttamaṃ
+Phuṭṭhassa lokadhammehi Cittaṃ yassa na kampati Asokaṃ virajaṃ khemaṃ Etam'maṅgalam'uttamaṃ
 Etādisāni katvāna Sabbattham'aparājitā Sabbattha sotthiṃ gacchanti Tan'tesaṃ maṅgalam'uttaman'ti 
 
 Ratanasutta
