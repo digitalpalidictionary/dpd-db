@@ -46,8 +46,10 @@ def add_update_phonetic(db_session, db, csv):
                 # no lines2, ph changes or root symbol
                 construction_clean = clean_construction(i.construction)
                 construction_clean = re.sub("√", "", construction_clean)
+                construction_clean = re.sub("\\*", "", construction_clean)
                 base_clean = clean_construction(i.root_base)
                 base_clean = re.sub("√", "", base_clean)
+                base_clean = re.sub("\\*", "", base_clean)
 
                 # test construction
                 if ((c.initial in construction_clean or
@@ -55,7 +57,7 @@ def add_update_phonetic(db_session, db, csv):
                     ) and
                     c.final in i.pali_clean and
                     c.correct not in i.phonetic and
-                    (c.without not in construction_clean and
+                    (c.without not in construction_clean or
                      c.without not in base_clean)
                 ):
                     # auto update wrong to correct

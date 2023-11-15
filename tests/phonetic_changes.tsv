@@ -1,5 +1,5 @@
 initial	final	correct	wrong	without	exceptions
-
+h + t	ḷh	ht > ḍh > ḷh (metathesis)	t > ḍ > ḷ	x	x 
 -	-	-	-	-	-
 v + t	t	vt > t	v > t	v + th	
 v + t	tt	vt > tt	v > t	v + th	
@@ -10,6 +10,7 @@ ati +	acc	ti > ty > cc	x	gacch	pacchājāta, gatikālādipaccayantarasamavāya
 ā + ñ	aññ	āñ > aññ	x	x	vadaññutā, sāmaññatā 2.1
 xā + t	att	āt > att	x	 tta, ā + th	atthacariyatā, nakkhattavijjātiracchānavijjā, vatthuvijjātiracchānavijjā, hatthaoṭṭhajivhātālu, atta 2.1, atta 2.2
 ā + th	atth	āth > atth	x	x	x
+ā + b	abb	āb > abb	x	v	abbheti, abbhetabba, anabbhita, sabbābhiññābalappatta
 ānaṃ	annaṃ	ān > ann	x	x	x
 
 ī + n	inn	īn > inn	x	x	anunnāmāninnāmī
@@ -69,6 +70,7 @@ dh + y	jjh	dhy > jjh	x	x	x
 
 p + t	tt	pt > tt	p > t	p + th	x
 p + th	tth	pth > tth	p > t	x	x
+p + s	cch	ps > cch	x	x	x
 pa + i	pe	ai > e	i > e	x	x
 plu 	pil	pl > pil (epenthesis)	x	x	x
 
