@@ -6,7 +6,7 @@ from completion_combo import CompletionCombo
 sbs_index = load_sbs_index()
 pali_chant_list = [i.pali_chant for i in sbs_index]
 pali_class_list = [str(i) for i in range(1, 60)]
-dps_category_list = ["mn107", "sn56", "sn22"]
+dps_category_list = ["sn35", "sn22", "sn56", "mn107"]
 
 dpd_background = "#1c1e23"
 dpd_text = "#0a9ce4"

@@ -102,8 +102,8 @@ def condition_check_source(word, sutta_identifier):
                 return True
     return False
 
-# input source eg "sn56" or "mn107"
-source = "sn22"
+# input source eg "sn56" or "mn107" or "sn22" or "sn35"
+source = "sn35"
 
 # !Update sbs_category based on all examples
 update_sbs_category(source, condition_check_all_examples, "Checking if all examples are present")

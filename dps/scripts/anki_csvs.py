@@ -427,6 +427,33 @@ def classes(df, sbs_ped_link):
     output_path = os.path.join(DPSPTH.anki_csvs_dps_dir, 'pali_class', "class_upcoming.csv")
     concatenated_df.to_csv(output_path, sep="\t", index=False, header=True)
 
+    # Define the range of values you want to include in the 'class_basic.csv'
+    start_value = 1
+    end_value = 29
+
+    # Initialize an empty DataFrame to concatenate filtered DataFrames
+    concatenated_df = pd.DataFrame()
+
+    # Loop through each unique value in 'sbs_class_anki' column
+    for sbs_class_value in unique_sbs_class_values:
+        # Convert the 'sbs_class_value' to an integer
+        sbs_class_value_int = int(sbs_class_value)
+
+        # Check if the 'sbs_class_value' as an integer falls within the desired range
+        if start_value <= sbs_class_value_int <= end_value:
+            # Filter the DataFrame for the current 'sbs_class_anki' value
+            filtered_df = df[df['sbs_class_anki'] == sbs_class_value]
+
+            # Keep only the specified columns in the filtered DataFrame
+            filtered_df = filtered_df[columns_to_keep]
+
+            # Append the filtered DataFrame to the concatenated DataFrame
+            concatenated_df = pd.concat([concatenated_df, filtered_df])
+
+    # Save the concatenated DataFrame to the 'class_basic.csv' file
+    output_path = os.path.join(DPSPTH.anki_csvs_dps_dir, 'pali_class', "class_basic.csv")
+    concatenated_df.to_csv(output_path, sep="\t", index=False, header=True)
+
     # Save the list of field names to a text file
     with open(f'{DPSPTH.sbs_anki_style_dir}/field-list-vocab-class.txt', 'w') as file:
         file.write('\n'.join(columns_to_keep))
