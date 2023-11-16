@@ -418,7 +418,7 @@ def make_data_dict_and_html(pth: ProjectPaths,
     # memory objects of the parent scope. This is a good way to access shared
     # read-only memory object between threads.
 
-    def _parse_batch(batch: List[ItemPair], batch_idx: int):
+    def _parse_batch(batch: List[ItemPair], __batch_idx__: int):
         """Takes a batch of items (and the necessary lookup dicts for the work), applies the work with _parse_item_pair() to each work item.
 
         The results are added to a ListProxy, which is going to be a list() in shared memory from the multiprocessing Manager().
@@ -431,7 +431,7 @@ def make_data_dict_and_html(pth: ProjectPaths,
         first_word, _ = batch[0]
         first_map_html = res[0]["freq_html"]
 
-        print(f"Batch {batch_idx}: done, from {first_word.pali_1}")
+        # print(f"Batch {batch_idx}: done, from {first_word.pali_1}")
 
         with open(
             pth.freq_html_dir.joinpath(
@@ -441,8 +441,8 @@ def make_data_dict_and_html(pth: ProjectPaths,
     for batch_idx, batch in enumerate(batches):
         # Assign a Process() thread to each batch list.
         p = Process(target=_parse_batch, args=(batch, batch_idx,))
-        w, _ = batch[0]
-        print(f"Batch {batch_idx}: start, len {len(batch):>10,}, from {w.pali_1}")
+        # w, _ = batch[0]
+        # print(f"Batch {batch_idx}: start, len {len(batch):>10,}, from {w.pali_1}")
 
         # Start the Process's target function, i.e. _parse_batch()
         p.start()

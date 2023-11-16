@@ -1,13 +1,14 @@
 """Compile HTML data for Help, Abbreviations, Thanks & Bibliography."""
 
 import csv
+from multiprocessing.managers import ListProxy
 import html2text
 
 from css_html_js_minify import css_minify
 from mako.template import Template
 from minify_html import minify
 from rich import print
-from typing import List, Dict, Tuple
+from typing import List, Dict
 
 from sqlalchemy.orm import Session
 
@@ -17,7 +18,7 @@ from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
 from tools.tsv_read_write import read_tsv_dict
 from tools.tsv_read_write import read_tsv_dot_dict
-from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes
+from tools.utils import RenderResult, default_rendered_sizes
 
 
 class Abbreviation:
@@ -46,7 +47,9 @@ class Help:
 
 
 def generate_help_html(__db_session__: Session,
-                       pth: ProjectPaths) -> Tuple[List[RenderResult], RenderedSizes]:
+                       pth: ProjectPaths,
+                       dpd_data_list: ListProxy,
+                       rendered_sizes: ListProxy) -> None:
     """generating html of all help files used in the dictionary"""
     print("[green]generating help html")
 
@@ -65,25 +68,23 @@ def generate_help_html(__db_session__: Session,
     header = render_header_templ(
         pth, css=css, js="", header_templ=header_templ)
 
-    help_data_list: List[RenderResult] = []
-
     abbrev = add_abbrev_html(pth, header)
-    help_data_list.extend(abbrev)
+    dpd_data_list.extend(abbrev)
     size_dict["help"] += len(str(abbrev))
 
     help_html = add_help_html(pth, header)
-    help_data_list.extend(help_html)
+    dpd_data_list.extend(help_html)
     size_dict["help"] += len(str(help_html))
 
     bibliography = add_bibliographhy(pth, header)
-    help_data_list.extend(bibliography)
+    dpd_data_list.extend(bibliography)
     size_dict["help"] += len(str(bibliography))
 
     thanks = add_thanks(pth, header)
-    help_data_list.extend(thanks)
+    dpd_data_list.extend(thanks)
     size_dict["help"] += len(str(thanks))
 
-    return help_data_list, size_dict
+    rendered_sizes.append(size_dict)
 
 
 def add_abbrev_html(pth: ProjectPaths,

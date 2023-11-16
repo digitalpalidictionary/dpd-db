@@ -57,7 +57,7 @@ def make_dict_of_sets(db):
             i.family_compound
         ):
             d["all_words_in_family_compound"].update(
-                i.family_compound_list)
+                i.family_compound_key_list)
 
         # all_clean_headwords
         if (i.meaning_1):

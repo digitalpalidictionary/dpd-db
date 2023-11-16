@@ -5,7 +5,7 @@
 <div id="compound_family_${i.pali_1_}" class="content hidden">
 % if " " in i.family_compound:
     <p id="${i.pali_1_}cf_top" class="heading">jump to: 
-    % for cf in i.family_compound_list:
+    % for cf in i.family_compound_key_list:
         <a class="jump" href="#${i.pali_1_}cf_${cf}">${superscripter_uni(cf)} </a>
     % endfor
     </p>

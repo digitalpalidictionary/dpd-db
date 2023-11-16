@@ -11,6 +11,7 @@ https://github.com/codito/stargaze/blob/master/stargaze.py
 """
 import html
 import multiprocessing
+from multiprocessing.managers import ListProxy
 from pathlib import Path
 import datetime
 from typing import List, TypedDict, Optional
@@ -566,7 +567,7 @@ class WriteResult(TypedDict):
     syn_count: Optional[int]
 
 
-def write_words(words: List[DictEntry], paths: StarDictPaths) -> WriteResult:
+def write_words(words: ListProxy, paths: StarDictPaths) -> WriteResult:
     """Writes .idx, .dict.dz, .syn.dz"""
 
     res = WriteResult(
@@ -585,6 +586,7 @@ def write_words(words: List[DictEntry], paths: StarDictPaths) -> WriteResult:
         offset_begin = 0
         data_size = 0
         for w in words:
+            # w: DictEntry
             d = bytes(w['definition_html'], 'utf-8')
             f.write(d)
 
@@ -642,7 +644,7 @@ def write_stardict_zip(paths: StarDictPaths):
                 z.write(p, p.relative_to(paths['unzipped_dir'].parent))
 
 
-def export_words_as_stardict_zip(words: List[DictEntry],
+def export_words_as_stardict_zip(words: ListProxy,
                                  ifo: StarDictIfo,
                                  zip_path: Path,
                                  icon_path: Optional[Path] = None):

@@ -52,7 +52,7 @@ def build_word_family_dict(dpd_db):
             "idiom" not in i.pos and
             "sandhi" not in i.pos
                 ):
-            for cf in i.family_compound_list:
+            for cf in i.family_compound_key_list:
                 if cf not in word_family_dict:
                     word_family_dict[cf] = [i.pali_1]
                 else:

@@ -1,5 +1,6 @@
 """Compile HTML data for English to Pāḷi dictionary."""
 
+from multiprocessing.managers import ListProxy
 import re
 
 from css_html_js_minify import css_minify
@@ -7,7 +8,6 @@ from mako.template import Template
 from minify_html import minify
 from rich import print
 from sqlalchemy.orm import Session
-from typing import List, Tuple
 
 from export_dpd import render_header_templ
 
@@ -17,10 +17,13 @@ from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.link_generator import generate_link
 from tools.configger import config_test
-from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes
+from tools.utils import RenderResult, default_rendered_sizes
 
 
-def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[RenderResult], RenderedSizes]:
+def generate_epd_html(db_session: Session,
+                      pth: ProjectPaths,
+                      dpd_data_list: ListProxy,
+                      rendered_sizes: ListProxy) -> None:
     """generate html for english to pali dictionary"""
 
     size_dict = default_rendered_sizes()
@@ -192,8 +195,6 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[Rend
 
     print("[green]compiling epd html")
 
-    epd_data_list: List[RenderResult] = []
-
     for counter, (word, html_string) in enumerate(epd.items()):
         html = header
         size_dict["epd_header"] += len(header)
@@ -212,6 +213,6 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[Rend
             synonyms = [],
         )
 
-        epd_data_list.append(res)
+        dpd_data_list.append(res)
 
-    return epd_data_list, size_dict
+    rendered_sizes.append(size_dict)
