@@ -452,3 +452,47 @@ uragavaggo 4"	example_2	seyyathā'pi nāma phālo <b>divasasantatto</b> udake pa
 22003	source_1	SN 22.82	sutta_1	puṇṇamasuttaṃ	example_1	ime kho pana, bhante, pañc'upādānakkhandhā <b>kiṃmūlakā</b>'ti? ime kho, bhikkhu, pañc'upādānakkhandhā chandamūlakā'ti	missing		
 22003	sanskrit	kaḥ + mūlaka					missing		
 22003	commentary	-					missing		
+27429	source_1	SN 22.82	sutta_1	puṇṇamasuttaṃ	example_1	siyā pana, bhante, pañcupādānakkhandhesu <b>chandarāgavemattatā</b>'ti?	missing		
+27429	sanskrit	chanda + rāga + vimātratā					missing		
+23475	source_1	SN 22.82	sutta_1	puṇṇamasuttaṃ	example_1	kittāvatā nu kho, bhante, khandhānaṃ <b>khandhādhivacanan</b>'ti? yaṃ kiñ'ci, bhikkhu, rūpaṃ atīt'ānāgatapaccuppannaṃ ajjhattaṃ vā bahiddhā vā oḷārikaṃ vā sukhumaṃ vā hīnaṃ vā paṇītaṃ vā yaṃ dūre santike vā, ayaṃ vuccati rūpakkhandho.	missing		
+23475	meaning_2	designation as khandhas; term ‘aggregates’					context		
+23475	compound_type	kammadhāraya	compound_construction	khandha + adhivacana			missing		
+23475	family_compound	khandha adhivacana					missing		
+23475	construction	khandha + adhivacana					missing		
+23475	commentary	(MNa) <b>khandhādhivacanan</b>'ti khandhānaṃ khandhapaṇṇatti kittakena hotī'ti pucchati.					missing		
+8771	source_1		sutta_1	pheṇapiṇḍūpamasuttaṃ	example_1	ekaṃ samayaṃ bhagavā <b>ayujjhāyaṃ</b> viharati gaṅgāya nadiyā tīre. tatra kho bhagavā bhikkhū āmantesi	missing		
+8771	source_1	SN 22.95	sutta_1	pheṇapiṇḍūpamasuttaṃ	example_1	ekaṃ samayaṃ bhagavā <b>ayujjhāyaṃ</b> viharati gaṅgāya nadiyā tīre. tatra kho bhagavā bhikkhū āmantesi	missing		
+14869	source_1	SN 22.95	sutta_1	pheṇapiṇḍūpamasuttaṃ	example_1	seyyathā'pi, bhikkhave, saradasamaye thullaphusitake deve vassante udake <b>udakapubbuḷaṃ</b> uppajjati c'eva nirujjhati ca.	missing		
+14869	sanskrit	udaka + budbuda					missing		
+14869	commentary	-					missing		
+46916	source_1	SN 22.95	sutta_1	pheṇapiṇḍūpamasuttaṃ	example_1	seyyathā'pi, bhikkhave, saradasamaye thullaphusitake deve vassante udake udaka<b>pubbuḷaṃ</b> uppajjati c'eva nirujjhati ca.	missing		
+46916	commentary	-					missing		
+51743	source_1	SN 22.102	sutta_1	aniccasaññāsuttaṃ	example_1	seyyathā'pi, bhikkhave, saradasamaye kassako <b>mahānaṅgalena</b> kasanto sabbāni mūlasantānakāni sampadālento kasati, evam'eva kho, bhikkhave, aniccasaññā bhāvitā bahulīkatā sabbaṃ kāmarāgaṃ pariyādiyati, sabbaṃ rūparāgaṃ pariyādiyati, sabbaṃ bhavarāgaṃ pariyādiyati, sabbaṃ avijjaṃ pariyādiyati, sabbaṃ asmimānaṃ samūhanati.	missing		
+51743	sanskrit	mahant + lāṅgala					missing		
+51743	commentary	-					missing		
+26194	source_1	SN 22.102	sutta_1	aniccasaññāsuttaṃ	example_1	seyyathā'pi, bhikkhave, yā kāci tārakarūpānaṃ pabhā, sabbā tā <b>candimappabhāya</b> kalaṃ n'āgghanti soḷasiṃ, candappabhā tāsaṃ aggam'akkhāyati, evam'eva kho, bhikkhave, aniccasaññā .. sabbaṃ asmimānaṃ samūhanati.	missing		
+26194	compound_type	chaṭṭhī tappurisa	compound_construction	candim<b>assa</b> + pabhā			missing		
+26194	sanskrit	candra + prabhā					missing		
+26194	commentary	-					missing		
+58907	source_1	SN 35.24	sutta_1	pahānasuttaṃ	example_1	katamo ca, bhikkhave, <b>sabbappahānāya</b> dhammo? cakkhuṃ, bhikkhave, pahātabbaṃ, rūpā pahātabbā, cakkhuviññāṇaṃ pahātabbaṃ, cakkhusamphasso pahātabbo	missing		
+58907	sanskrit	sarva + prahāṇa					missing		
+29904	source_1	SN 35.118	sutta_1	sakkapañhasuttaṃ	example_1	tañ'ce bhikkhu abhinandati abhivadati ajjhosāya tiṭṭhati. tassa taṃ abhinandato abhivadato ajjhosāya tiṭṭhato <b>tan'nissitaṃ</b> viññāṇaṃ hoti tadupādānaṃ.	missing		
+55271	source_1	SN 35.136	sutta_1	paṭhamarūpārāmasuttaṃ	example_1	rūpārāmā, bhikkhave, devamanussā rūparatā rūpasammuditā. <b>rūpavipariṇāmavirāganirodhā</b> dukkhā, bhikkhave, devamanussā viharanti. saddārāmā, bhikkhave, devamanussā saddaratā saddasammuditā.	missing		
+55271	sanskrit	rūpa + vipariṇāma + virāga + nirodha					missing		
+55271	commentary	-					missing		
+34920	source_1	SN 35.136	sutta_1	paṭhamarūpārāmasuttaṃ	example_1	<b>dhammavipariṇāmavirāganirodhā</b> dukkhā, bhikkhave, devamanussā viharanti. tathāgato ca kho, bhikkhave, arahaṃ sammāsambuddho rūpānaṃ samudayañ'ca atthaṅ'gamañ'ca assādañ'ca ādīnavaṃ ca nissaraṇañ'ca yathābhūtaṃ viditvā na rūpārāmo na rūparato na rūpasammudito.	missing		
+34920	sanskrit	dharma + dhanvan + vipariṇāma + virāga + nirodha					missing		
+34920	commentary	-					missing		
+34825	source_1	SN 35.228	sutta_1	paṭhamasamuddasuttaṃ	example_1	yo taṃ <b>dhammamayaṃ</b> vegaṃ sahati, ayaṃ vuccati, bhikkhave, atari manosamuddaṃ saūmiṃ sāvaṭṭaṃ sagāhaṃ sarakkhasaṃ, tiṇṇo pāraṅ'gato thale tiṭṭhati brāhmaṇo'ti.	missing		
+34825	commentary	-					missing		
+51288	source_1	SN 35.228	sutta_1	paṭhamasamuddasuttaṃ	example_1	yo taṃ dhammamayaṃ vegaṃ sahati, ayaṃ vuccati, bhikkhave, atari <b>manosamuddaṃ</b> saūmiṃ sāvaṭṭaṃ sagāhaṃ sarakkhasaṃ, tiṇṇo pāraṅ'gato thale tiṭṭhati brāhmaṇo'ti.	missing		
+51288	sanskrit	manas + samudra					missing		
+51288	commentary	-					missing		
+12124	source_1	SN 35.230	sutta_1	bāḷisikopamasuttaṃ	example_1	seyyathā'pi, bhikkhave, bāḷisiko <b>āmisagatabaḷisaṃ</b> gambhīre udakarahade pakkhipeyya. tam'enaṃ aññataro āmisacakkhu maccho gileyya.	missing		
+12124	sanskrit	āmiṣa + gata + baḍiśa					missing		
+24997	source_1	SN 35.230	sutta_1	bāḷisikopamasuttaṃ	example_1	tam'enaṃ aññataro āmisacakkhu maccho gileyya. evañ'hi so, bhikkhave, maccho <b>gilitabaḷiso</b> bāḷisikassa anayaṃ āpanno byasanaṃ āpanno yathākāmakaraṇīyo bāḷisikassa.	missing		
+24997	sanskrit	galita + baḍiśa					missing		
+24996	source_1	SN 35.230	sutta_1	bāḷisikopamasuttaṃ	example_1	tam'enaṃ aññataro āmisacakkhu maccho gileyya. evañ'hi so, bhikkhave, maccho <b>gilita</b>baḷiso bāḷisikassa anayaṃ āpanno byasanaṃ āpanno yathākāmakaraṇīyo bāḷisikassa.	missing		
+24996	commentary	(NPa) <b>ayaṃ vuccati, bhikkhave, bhikkhu gilitabaḷiso mārassā</b>'ti ayaṃ, bhikkhu, kilesamārassa baḷisabhūtaṃ rūpataṇhaṃ gilitvā ṭhito'ti vuccati.					missing		
+12126	source_1	SN35.230	sutta_1	bāḷisikopamasuttaṃ	example_1	seyyathā'pi, bhikkhave, bāḷisiko āmisagatabaḷisaṃ gambhīre udakarahade pakkhipeyya. tam'enaṃ aññataro <b>āmisacakkhu</b> maccho gileyya.	missing		
+12126	sanskrit	āmiṣa + cakṣu					missing		
