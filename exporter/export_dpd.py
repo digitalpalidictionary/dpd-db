@@ -219,7 +219,17 @@ def generate_dpd_html(
         .query(func.count(PaliWord.id)) \
         .scalar()
 
-    limit = 2000
+    # If the work items per loop are too high, low-memory systems will slow down
+    # when multi-threading.
+    #
+    # Setting the threshold to 9 GB to make sure 8 GB systems are covered.
+    low_mem_threshold = 9*1024*1024*1024
+    mem = psutil.virtual_memory()
+    if mem.total < low_mem_threshold:
+        limit = 2000
+    else:
+        limit = 5000
+
     offset = 0
 
     num_logical_cores = psutil.cpu_count()
