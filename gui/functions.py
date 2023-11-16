@@ -420,8 +420,12 @@ def clear_values(values, window, primary_user):
 
 
 def find_commentary_defintions(sg, values, definitions_df):
-
-    test1 = definitions_df["bold"].str.contains(values["search_for"])
+    
+    try:
+        test1 = definitions_df["bold"].str.contains(values["search_for"])
+    except Exception as e:
+        test1 = ""
+        print(e)
     test2 = definitions_df["commentary"].str.contains(
         values["contains"])
     filtered = test1 & test2
