@@ -12,3 +12,5 @@ dps/scripts/dps_csv.py
 dps/scripts/anki_csvs.py
 # dps/scripts/insert_freq_ebt.py
 
+# dps/scripts/save_concise_txt.py
+

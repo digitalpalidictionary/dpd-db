@@ -72,6 +72,10 @@ class DPSPaths():
     # text to add
     text_to_add: Path = Path("temp/text.txt")
 
+    # other
+    dpd_dps_concise_txt_path: Path = Path("temp/dpd_dps_concise.txt")
+
+
 
 
     @classmethod
