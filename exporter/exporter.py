@@ -2,7 +2,6 @@
 
 """Export DPD for GoldenDict and MDict."""
 
-from typing import List
 import zipfile
 import csv
 import pickle
@@ -11,6 +10,8 @@ from os import popen
 from pathlib import Path
 from rich import print
 from sqlalchemy.orm import Session
+from multiprocessing.managers import ListProxy
+from multiprocessing import Manager
 
 from export_dpd import generate_dpd_html
 from export_roots import generate_root_html
@@ -28,7 +29,7 @@ from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.paths import ProjectPaths
 from tools.configger import config_test
-from tools.utils import RenderedSizes, sum_rendered_sizes
+from tools.utils import RenderedSizes, default_rendered_sizes
 from tools import time_log
 
 tic()
@@ -45,68 +46,57 @@ def main():
 
     cf_set = cf_set_gen(pth)
 
-    rendered_sizes: List[RenderedSizes] = []
-
     # check config
     if config_test("dictionary", "make_mdict", "yes"):
         make_mdct: bool = True
     else:
         make_mdct: bool = False
 
+    manager = Manager()
+    dpd_data_list: ListProxy = manager.list()
+    rendered_sizes: ListProxy = manager.list()
+
     time_log.log("make_roots_count_dict()")
     roots_count_dict = make_roots_count_dict(db_session)
 
     time_log.log("generate_dpd_html()")
-    dpd_data_list, sizes = generate_dpd_html(db_session, pth, sandhi_contractions, cf_set)
-    rendered_sizes.append(sizes)
+    generate_dpd_html(db_session, pth, sandhi_contractions, cf_set, dpd_data_list, rendered_sizes)
 
     time_log.log("generate_root_html()")
-    root_data_list, sizes = generate_root_html(db_session, pth, roots_count_dict)
-    rendered_sizes.append(sizes)
+    generate_root_html(db_session, pth, roots_count_dict, dpd_data_list, rendered_sizes)
 
     time_log.log("generate_variant_spelling_html()")
-    variant_spelling_data_list, sizes = generate_variant_spelling_html(pth)
-    rendered_sizes.append(sizes)
+    generate_variant_spelling_html(pth, dpd_data_list, rendered_sizes)
 
     time_log.log("generate_epd_html()")
-    epd_data_list, sizes = generate_epd_html(db_session, pth)
-    rendered_sizes.append(sizes)
+    generate_epd_html(db_session, pth, dpd_data_list, rendered_sizes)
 
     time_log.log("generate_help_html()")
-    help_data_list, sizes = generate_help_html(db_session, pth)
-    rendered_sizes.append(sizes)
+    generate_help_html(db_session, pth, dpd_data_list, rendered_sizes)
 
     db_session.close()
 
-    combined_data_list: list = (
-        dpd_data_list +
-        root_data_list +
-        variant_spelling_data_list +
-        epd_data_list +
-        help_data_list
-    )
-
     time_log.log("write_limited_datalist()")
-    write_limited_datalist(combined_data_list)
+    write_limited_datalist(dpd_data_list)
 
     time_log.log("write_size_dict()")
-    write_size_dict(pth, sum_rendered_sizes(rendered_sizes))
+    write_size_dict(pth, rendered_sizes)
 
     time_log.log("export_to_goldendict()")
-    export_to_goldendict(pth, combined_data_list)
+    export_to_goldendict(pth, dpd_data_list)
 
     time_log.log("goldendict_unzip_and_copy()")
     goldendict_unzip_and_copy(pth)
 
     if make_mdct is True:
         time_log.log("export_to_mdict()")
-        export_to_mdict(combined_data_list, pth)
+        export_to_mdict(dpd_data_list, pth)
 
     toc()
     time_log.log("exporter.py::main() return")
 
 
-def export_to_goldendict(pth: ProjectPaths, data_list: list) -> None:
+def export_to_goldendict(pth: ProjectPaths, data_list: ListProxy) -> None:
     """generate goldedict zip"""
     bip()
 
@@ -149,11 +139,19 @@ def goldendict_unzip_and_copy(pth: ProjectPaths,) -> None:
 
     print(f"{bop():>23}")
 
+def sum_rendered_sizes(sizes: ListProxy) -> RenderedSizes:
+    res = default_rendered_sizes()
+    for i in sizes:
+        for k, v in i.items():
+            res[k] += v
+    return res
 
-def write_size_dict(pth: ProjectPaths, size_dict):
+def write_size_dict(pth: ProjectPaths, rendered_sizes: ListProxy):
     bip()
     print("[green]writing size_dict", end=" ")
     filename = pth.temp_dir.joinpath("size_dict.tsv")
+
+    size_dict = sum_rendered_sizes(rendered_sizes)
 
     with open(filename, "w", newline="") as csvfile:
         writer = csv.writer(csvfile, delimiter='\t')
