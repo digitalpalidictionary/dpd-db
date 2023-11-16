@@ -219,7 +219,7 @@ def generate_dpd_html(
         .query(func.count(PaliWord.id)) \
         .scalar()
 
-    limit = 5000
+    limit = 2000
     offset = 0
 
     num_logical_cores = psutil.cpu_count()
