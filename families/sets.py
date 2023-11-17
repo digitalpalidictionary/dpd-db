@@ -2,7 +2,7 @@
 
 """Compile sets save to database."""
 
-from typing import Dict, List, TypedDict
+from typing import Dict, List, Set, TypedDict
 from rich import print
 
 from sqlalchemy.orm.session import Session
@@ -79,16 +79,44 @@ def render_sf_html(i: PaliWord) -> str:
 
     return html_string
 
-def add_all_sf_to_db(db_session: Session, sets_db: List[PaliWord], sets_dict: SetsDict) -> List[str]:
+def add_all_sf_to_db(db_session: Session, dpd_db: List[PaliWord], sets_dict: SetsDict) -> List[str]:
     print("[green]adding to db", end=" ")
 
     db_session.execute(FamilySet.__table__.delete()) # type: ignore
 
     errors_list = []
 
-    for i in sets_db:
+    sf_exists: Set[str] = set()
+    # First, create all family sets from the semicolon-separated str list in Pali words.
+    for i in dpd_db:
+        if i.family_set is None:
+            continue
 
-        for sf_key in i.family_set_key_list:
+        for sf_key in i.family_set.split("; "):
+            if sf_key in sets_dict.keys():
+                if sf_key in sf_exists:
+                    continue
+                sf_exists.add(sf_key)
+
+                sf_item = sets_dict[sf_key]
+                count = len(sf_item["headwords"])
+
+                fs = FamilySet(
+                    set=sf_key,
+                    html=render_sf_html(i),
+                    count=count)
+
+                db_session.add(fs)
+
+    db_session.commit()
+
+    # Create the associations.
+
+    for i in dpd_db:
+        if i.family_set is None:
+            continue
+
+        for sf_key in i.family_set.split("; "):
 
             if sf_key in sets_dict.keys():
                 sf_item = sets_dict[sf_key]
@@ -100,12 +128,7 @@ def add_all_sf_to_db(db_session: Session, sets_db: List[PaliWord], sets_dict: Se
                                .first()
 
                 if fs is None:
-                    fs = FamilySet(
-                        set=sf_key,
-                        html=render_sf_html(i),
-                        count=count)
-
-                    db_session.add(fs)
+                    raise Exception(f"FamilySet {sf_key} not found in db")
 
                 if i.pali_1 in sf_item["headwords"]:
                     if fs not in i.family_sets:

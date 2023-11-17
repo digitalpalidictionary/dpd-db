@@ -424,6 +424,10 @@ def make_data_dict_and_html(pth: ProjectPaths,
         The results are added to a ListProxy, which is going to be a list() in shared memory from the multiprocessing Manager().
         """
 
+        if len(batch) == 0:
+            print("[yellow]Batch list has 0 length")
+            return
+
         res = [_parse_item_pair(i, j, dicts) for (i, j) in batch]
         results_list.extend(res)
 

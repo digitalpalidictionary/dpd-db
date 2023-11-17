@@ -3,7 +3,7 @@
 """Compile compound familes and save to database."""
 
 import re
-from typing import Dict, List, Tuple, TypedDict
+from typing import Dict, List, Set, Tuple, TypedDict
 from rich import print
 
 from sqlalchemy.orm.session import Session
@@ -111,6 +111,32 @@ def add_all_cf_to_db(db_session: Session, dpd_db: List[PaliWord], cf_dict: Compo
 
     db_session.execute(FamilyCompound.__table__.delete()) # type: ignore
 
+    cf_exists: Set[str] = set()
+
+    # First, create all family compounds from the space-separated lists in Pali words.
+    # The compounds will need db ids when we associate them to the Pali words.
+    # This way we only have to .commit() once, after the loop, not after each .add().
+    for i in dpd_db:
+        if i.family_compound is None:
+            continue
+
+        for cf_key in i.family_compound.split(" "):
+            if cf_key in cf_dict.keys():
+                if cf_key in cf_exists:
+                    continue
+                cf_exists.add(cf_key)
+
+                fc = FamilyCompound(
+                    compound_family=cf_key,
+                    html=render_compound_family_html(i),
+                    count=len(cf_dict[cf_key]["headwords"]))
+
+                db_session.add(fc)
+
+    db_session.commit()
+
+    # Create the associations.
+
     for i in dpd_db:
         if i.family_compound is None:
             continue
@@ -125,16 +151,12 @@ def add_all_cf_to_db(db_session: Session, dpd_db: List[PaliWord], cf_dict: Compo
                                .first()
 
                 if fc is None:
-                    fc = FamilyCompound(
-                        compound_family=cf_key,
-                        html=render_compound_family_html(i),
-                        count=len(cf_item["headwords"]))
-
-                    db_session.add(fc)
+                    raise Exception(f"FamilyCompound {cf_key} not found in db")
 
                 if i.pali_1 in cf_item["headwords"]:
                     if fc not in i.family_compounds:
                         i.family_compounds.append(fc)
+
                     add_anki_data_family_html(i, cf_item)
 
     db_session.commit()
