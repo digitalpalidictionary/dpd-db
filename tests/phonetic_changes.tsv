@@ -1,5 +1,12 @@
 initial	final	correct	wrong	without	exceptions
-h + t	ḷh	ht > ḍh > ḷh (metathesis)	t > ḍ > ḷ	x	x 
+d + s	cch	ds > cch	d > c	x	x
+pā + pā	pi	pā > pi	x	x	x
+n + s	ṃs	ns > ṃs	x	x	x
+man + man	vī	man > vī	m > v	x	x
+i + s	iṃs	is > iṃs	x	x	x
+i + s	īs	is > iṃs > īs	x	x	catuvīsatisatasahassa, diṭṭhisīsa, belaṭṭhisīsa
+s + s	cch	ss > cch	x	x	x
+t + s	cch	ts > cch	x	x	x
 -	-	-	-	-	-
 v + t	t	vt > t	v > t	v + th	
 v + t	tt	vt > tt	v > t	v + th	
@@ -39,6 +46,7 @@ j + s	kkh	js > kkh	x	x	x
 
 t + y	cc	ty > cc	x	x	x
 t + y	tt	ty > tt	x	x	x
+t + s	cch	ts > cch	x	x	x
 
 nhā	nahā	nhā > nahā (epenthesis)	x	x	x
 n + y	nn	ny > nn	y > n	x	x
@@ -111,6 +119,7 @@ hu	ju	h > j	x	x	x
 hu	jū	h > j	x	x	x
 h + g	gh	hg > gh (metathesis)	x	x	x
 h + t	ddh	ht > ddh	x	bh + t	x
+h + t	ḷh	ht > ḍh > ḷh (metathesis)	t > ḍ > ḷ	x	x 
 h + y	yh	hy > yh (metathesis)	hy > yh	x	x	
 
 ṃ + a	ma	ṃa > ma	ṃ > m	x	x

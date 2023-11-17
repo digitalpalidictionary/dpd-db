@@ -553,7 +553,7 @@ def render_grammar_templ(
         if i.plus_case:
             grammar += f" ({i.plus_case})"
 
-        meaning = f"<b>{make_meaning_html(i)}</b>"
+        meaning = f"{make_meaning_html(i)}"
 
         return str(
             grammar_templ.render(
