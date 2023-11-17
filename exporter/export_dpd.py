@@ -10,8 +10,9 @@ from rich import print
 from sqlalchemy import and_
 from typing import List, Set, TypedDict, Tuple
 from multiprocessing.managers import ListProxy
-from multiprocessing import Process
+from multiprocessing import Process, Manager
 
+from sqlalchemy.orm import object_session
 from sqlalchemy.orm.session import Session
 
 from helpers import EXCLUDE_FROM_FREQ
@@ -35,7 +36,7 @@ from tools.pos import INDECLINABLES
 from tools.tic_toc import bip, bop
 from tools.configger import config_test
 from tools.sandhi_contraction import SandhiContractions
-from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, list_into_batches
+from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, list_into_batches, sum_rendered_sizes
 
 class PaliWordTemplates:
     def __init__(self, pth: ProjectPaths):
@@ -60,6 +61,54 @@ class PaliWordTemplates:
         with open(pth.buttons_js_path) as f:
             button_js = f.read()
         self.button_js = js_minify(button_js)
+
+def get_family_compounds_for_pali_word(i: PaliWord) -> List[FamilyCompound]:
+    db_session = object_session(i)
+    if db_session is None:
+        raise Exception("No db_session")
+
+    if i.family_compound:
+        fc = db_session.query(
+            FamilyCompound
+        ).filter(
+            FamilyCompound.compound_family.in_(i.family_compound_list),
+        ).all()
+
+        # sort by order of the  family compound list
+        word_order = i.family_compound_list
+        fc = sorted(fc, key=lambda x: word_order.index(x.compound_family))
+
+    else:
+        fc = db_session.query(
+            FamilyCompound
+        ).filter(
+            FamilyCompound.compound_family == i.pali_clean
+        ).all()
+
+    # Make sure it's not a lazy-loaded iterable.
+    fc = list(fc)
+
+    return fc
+
+def get_family_set_for_pali_word(i: PaliWord) -> List[FamilySet]:
+    db_session = object_session(i)
+    if db_session is None:
+        raise Exception("No db_session")
+
+    fs = db_session.query(
+        FamilySet
+    ).filter(
+        FamilySet.set.in_(i.family_set_list)
+    ).all()
+
+    # sort by order of the  family set list
+    word_order = i.family_set_list
+    fs = sorted(fs, key=lambda x: word_order.index(x.set))
+
+    # Make sure it's not a lazy-loaded iterable.
+    fs = list(fs)
+
+    return fs
 
 PaliWordDbRowItems = Tuple[PaliWord, DerivedData, FamilyRoot, FamilyWord]
 
@@ -182,7 +231,7 @@ def render_pali_word_dpd_html(db_parts: PaliWordDbParts,
     synonyms += dd.sinhala_list
     synonyms += dd.devanagari_list
     synonyms += dd.thai_list
-    synonyms += i.family_set_key_list
+    synonyms += i.family_set_list
     synonyms += [str(i.id)]
     size_dict["dpd_synonyms"] += len(str(synonyms))
 
@@ -199,9 +248,7 @@ def generate_dpd_html(
         db_session: Session,
         pth: ProjectPaths,
         sandhi_contractions: SandhiContractions,
-        cf_set: Set[str],
-        dpd_data_list: ListProxy,
-        rendered_sizes: ListProxy) -> None:
+        cf_set: Set[str]) -> Tuple[List[RenderResult], RenderedSizes]:
     time_log.log("generate_dpd_html()")
 
     print("[green]generating dpd html")
@@ -215,23 +262,18 @@ def generate_dpd_html(
     else:
         make_link: bool = False
 
+    dpd_data_list: List[RenderResult] = []
+
     pali_words_count = db_session \
         .query(func.count(PaliWord.id)) \
         .scalar()
 
-    # If the work items per loop are too high, low-memory systems will slow down
-    # when multi-threading.
-    #
-    # Setting the threshold to 9 GB to make sure 8 GB systems are covered.
-    low_mem_threshold = 9*1024*1024*1024
-    mem = psutil.virtual_memory()
-    if mem.total < low_mem_threshold:
-        limit = 2000
-    else:
-        limit = 5000
-
+    limit = 5000
     offset = 0
 
+    manager = Manager()
+    dpd_data_results_list: ListProxy = manager.list()
+    rendered_sizes_results_list: ListProxy = manager.list()
     num_logical_cores = psutil.cpu_count()
     print(f"num_logical_cores {num_logical_cores}")
 
@@ -267,11 +309,13 @@ def generate_dpd_html(
                 derived_data = dd,
                 family_root = fr,
                 family_word = fw,
-                family_compounds = pw.family_compounds,
-                family_set = pw.family_sets,
+                family_compounds = get_family_compounds_for_pali_word(pw),
+                family_set = get_family_set_for_pali_word(pw),
             )
 
         dpd_db_data = [_add_parts(i.tuple()) for i in dpd_db]
+
+        rendered_sizes: List[RenderedSizes] = []
 
         batches: List[List[PaliWordDbParts]] = list_into_batches(dpd_db_data, num_logical_cores)
 
@@ -290,8 +334,8 @@ def generate_dpd_html(
                 [render_pali_word_dpd_html(i, render_data) for i in batch]
 
             for i, j in res:
-                dpd_data_list.append(i)
-                rendered_sizes.append(j)
+                dpd_data_results_list.append(i)
+                rendered_sizes_results_list.append(j)
 
         for batch in batches:
             p = Process(target=_parse_batch, args=(batch,))
@@ -304,9 +348,19 @@ def generate_dpd_html(
 
         offset += limit
 
+    time_log.log("dpd_data_list = list...")
+    dpd_data_list = list(dpd_data_results_list)
+
+    time_log.log("rendered_sizes = list...")
+    rendered_sizes = list(rendered_sizes_results_list)
+
+    time_log.log("total_sizes = sum_ren...")
+    total_sizes = sum_rendered_sizes(rendered_sizes)
+
     time_log.log("generate_dpd_html() return")
     
     print(f"html render time: {bop()}")
+    return dpd_data_list, total_sizes
 
 
 def render_header_templ(
@@ -441,7 +495,7 @@ def render_button_box_templ(
     if (i.meaning_1 and
             i.family_set):
 
-        if len(i.family_set_key_list) > 0:
+        if len(i.family_set_list) > 0:
             set_family_button = button_html.format(
                 target=f"set_family_{i.pali_1_}", name="set")
         else:
@@ -623,7 +677,7 @@ def render_family_set_templ(
     if (i.meaning_1 and
             i.family_set):
 
-        if len(i.family_set_key_list) > 0:
+        if len(i.family_set_list) > 0:
 
             return str(
                 family_set_templ.render(

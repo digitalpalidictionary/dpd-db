@@ -87,4 +87,7 @@ def list_into_batches(input_list: List, num_batches: int) -> List[List]:
     if batch_size == 0:
         return [input_list]
 
+    if batch_size == 0:
+        return [input_list]
+
     return [input_list[i:i + batch_size] for i in range(0, len(input_list), batch_size)]

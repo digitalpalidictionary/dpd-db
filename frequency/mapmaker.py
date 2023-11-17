@@ -435,8 +435,6 @@ def make_data_dict_and_html(pth: ProjectPaths,
         first_word, _ = batch[0]
         first_map_html = res[0]["freq_html"]
 
-        # print(f"Batch {batch_idx}: done, from {first_word.pali_1}")
-
         with open(
             pth.freq_html_dir.joinpath(
                 first_word.pali_1).with_suffix(".html"), "w") as f:
@@ -445,8 +443,6 @@ def make_data_dict_and_html(pth: ProjectPaths,
     for batch_idx, batch in enumerate(batches):
         # Assign a Process() thread to each batch list.
         p = Process(target=_parse_batch, args=(batch, batch_idx,))
-        # w, _ = batch[0]
-        # print(f"Batch {batch_idx}: start, len {len(batch):>10,}, from {w.pali_1}")
 
         # Start the Process's target function, i.e. _parse_batch()
         p.start()

@@ -15,10 +15,9 @@ def make_meaning(i: PaliWord) -> str:
         if i.meaning_lit:
             meaning += f"; lit. {i.meaning_lit}"
         return meaning
-    elif i.meaning_2:
-        return i.meaning_2
     else:
-        return ""
+        return i.meaning_2
+
 
 def make_meaning_html(i: PaliWord) -> str:
     """Compile html of meaning_1 and literal meaning, or return meaning_2.
