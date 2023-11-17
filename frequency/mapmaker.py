@@ -76,7 +76,7 @@ def test_inflection_template_changed(pth: ProjectPaths):
             if changed_templates == []:
                 print("[white]ok")
             else:
-                print(f"[bright_red]{len(changed_templates)}")
+                print(f"[bright_red]{len(changed_templates)}", end=" ")
 
     except FileNotFoundError as e:
         print(f"[red]{e}")
