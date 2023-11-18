@@ -114,10 +114,11 @@ def add_to_db(failures):
     exceptions = load_exceptions()
     print(len(failures))
 
-    for failure in failures:
+    for counter, failure in enumerate(failures):
         if failure not in exceptions:
             sql_search_term = re.escape(failure)
             sql_query = f"SELECT pali_1, grammar, meaning_1, family_compound, construction FROM pali_words WHERE (pali_1 REGEXP '\\b{sql_search_term}\\b' OR construction REGEXP '\\b{sql_search_term}\\b') AND meaning_1 <> ''"
+            print(counter+1)
             print(failure, end=" ")
             pyperclip.copy(sql_query)
             input()
@@ -125,6 +126,7 @@ def add_to_db(failures):
             print(regex_search_term, end=" ")
             pyperclip.copy(regex_search_term)
             input()
+            print()
 
 
 if __name__ == "__main__":

@@ -4,5 +4,7 @@ Various database tests:
 - External tests (relationships between words)
 - Find synonyms and variants
 - Find word families
-- Find missing family compounds
-- Fix numbering anomlies
+- Find missing compound family 
+- Correct numbering anomlies
+- Add and correct compound types
+- Add and correct phonetic changes 

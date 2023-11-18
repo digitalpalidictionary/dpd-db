@@ -390,7 +390,7 @@ def pos_does_not_equal_pattern(searches: dict) -> tuple:
     pos_exceptions: list = [
         'abbrev', 'abs', 'cs', 'fut', 'ger', 'idiom', 'imp', 'ind', 'inf',
         'letter', 'root', 'opt', 'prefix', 'sandhi', 'suffix', 've', 'var']
-    headword_exceptions = ["paṭṭhitago", "dve 2"]
+    headword_exceptions = ["paṭṭhitago", "dve 2", "sāraṇī"]
 
     for i in searches["paliword"]:
         if (i.pos not in pos_exceptions and
