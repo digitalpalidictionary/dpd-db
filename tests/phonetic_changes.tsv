@@ -1,17 +1,5 @@
 initial	final	correct	wrong	without	exceptions
-d + s	cch	ds > cch	d > c	x	x
-pā + pā	pi	pā > pi	x	x	x
-n + s	ṃs	ns > ṃs	x	x	x
-man + man	vī	man > vī	m > v	x	x
-i + s	iṃs	is > iṃs	x	x	x
-i + s	īs	is > iṃs > īs	x	x	catuvīsatisatasahassa, diṭṭhisīsa, belaṭṭhisīsa
-s + s	cch	ss > cch	x	x	x
-t + s	cch	ts > cch	x	x	x
--	-	-	-	-	-
-v + t	t	vt > t	v > t	v + th	
-v + t	tt	vt > tt	v > t	v + th	
-v + th	th	vth > th	x	x	
--	-	-	-	-	-
+
 ati +	acc	ti > ty > cc	x	gacch	pacchājāta, gatikālādipaccayantarasamavāya
 
 ā + ñ	aññ	āñ > aññ	x	x	vadaññutā, sāmaññatā 2.1
@@ -20,13 +8,17 @@ xā + t	att	āt > att	x	 tta, ā + th	atthacariyatā, nakkhattavijjātiracchāna
 ā + b	abb	āb > abb	x	v	abbheti, abbhetabba, anabbhita, sabbābhiññābalappatta
 ānaṃ	annaṃ	ān > ann	x	x	x
 
+i + s	iṃs	is > iṃs	x	x	x
+i + s	īs	is > iṃs > īs	x	x	catuvīsatisatasahassa, diṭṭhisīsa, belaṭṭhisīsa
+
+
 ī + n	inn	īn > inn	x	x	anunnāmāninnāmī
 ī + b	ibb	īv > ivv > ibb	īv > ibb	ī + bh	x
 ī + v	ibb	īv > ivv > ibb	īv > ibb	ī + bh	x
 ī + bh	ibbh	ībh > ibbh	īb > ibb	x	x
 
 xu + a	va	ua > va	u > v	vā	x	need to p_exlude and c_eclude  
-u + ā	vā	uā > vā	u > v	x	divādigaṇa, opilāpetvā, suvānaya 1, suvānaya 2, samannāharitvā
+u + ā	vā	uā > vā	u > v	x	divādigaṇa, opilāpetvā, suvānaya 1, suvānaya 2, samannāharitvā, lavāpeti, lavāpetvā
 
 c + t	kk	ct > kk	c > k	ñc + t	x
 c + t	tt	ct > tt	c > t	c + th	x
@@ -48,9 +40,10 @@ t + y	cc	ty > cc	x	x	x
 t + y	tt	ty > tt	x	x	x
 t + s	cch	ts > cch	x	x	x
 
-nhā	nahā	nhā > nahā (epenthesis)	x	x	x
 n + y	nn	ny > nn	y > n	x	x
 n + y	ññ	ny > ññ	n > y	x	x
+n + s	ṃs	ns > ṃs	x	x	x
+nhā	nahā	nhā > nahā (epenthesis)	x	x	x
 
 d + c	cc	dc > cc	d > c	d + ch	x
 d + ch	cch	dch > cch	d > c	x	x
@@ -67,19 +60,21 @@ d + p	pp	dp > pp	d > p	d + ph	x
 d + ph	pph	dph > pph	d > p	x	x
 xd + b	bb	db > bb	d > b	x 	x	need to exlude roots starting with v
 xd + bh	bbh	dbh > bbh	d > b	x	x	need to exlude roots starting with v
+d + m	mm	dm > mm	d > m	x	x
 d + v	bb	dv > bb	d > b	x	x
 d + s	ss	ds > ss	d > s	x	x
+d + s	cch	ds > cch	d > c	x	x
 d + ṃ	nd	dṃ > nd (metathesis)	ṃ > n	x	x
 
 du	dū	u > ū	x	dur	dūpadhārita, ussāvabindūpama
 dh + t	ddh	dht > ddh	x	x	x
-dh + t
 dh + y	jjh	dhy > jjh	x	x	x
 
 p + t	tt	pt > tt	p > t	p + th	x
 p + th	tth	pth > tth	p > t	x	x
 p + s	cch	ps > cch	x	x	x
 pa + i	pe	ai > e	i > e	x	x
+pā + pā	pi	pā > pi	x	x	x
 plu 	pil	pl > pil (epenthesis)	x	x	x
 
 m + k	ṅk	mk > ṅk	m > ṅ	m + kh	x
@@ -89,6 +84,7 @@ m + gh	ṅgh	mgh > ṅgh	m > ṅ	x	x
 m + t	nt	mt > nt	m > n	m + th	x
 m + th	nth	mth > nth	m > n	x	x
 m + y	mm	my > mm	y > m	x	x
+man + man	vī	man > vī	m > v	x	x
 mb 	mm	mb > mm	x	x 	x
 
 r + k	kk	rk > kk	r > k	r + kh	x
@@ -96,7 +92,7 @@ r + kh	kkh	rkh > kkh	r > k	x	x
 r + ṇ	ṇṇ	rṇ > ṇṇ	r > ṇ	x	x
 r + g	gg	rg > gg	r > g	r + gh	x
 r + gh	ggh	rgh > ggh	rg > gg	x	x
-r + t	tt	rt > tt	r > t	r + th	paritthata, akattha
+r + t	tt	rt > tt	r > t	r + th	paritthata, akattha, akatatta 1.1, akatatta 1.2, atthata 1, atthata 2, anatthata, otthaṭa 1, otthaṭa 2, otthata, katatta, katattā, nissaṭatta, pakatatta 1, patthaṭa 1.1, saṅkhatatta, vitthata, kiccatta, saṃvutatta 1
 r + th	tth	rth > tth	r > t	x	x
 r + d	dd	rd > dd	r > d	r + dh	x
 r + dh	ddh	rdh > ddh	r > d	x	x
@@ -109,20 +105,24 @@ r + v	bb	rv > vv > bb	v > b	x	x
 
 l + y	ll	ly > ll	y > l	x	x
 
+v + t	t	vt > t	v > t	v + th	
+v + t	tt	vt > tt	v > t	v + th	
+v + th	th	vth > th	x	x	
 vi +	by	vi > vy > by	vi > by	x	x
 
 s + t	ṭṭh	st > ṭṭh	x	x	x
 s + y	ss	sy > ss	y > s	x	x
+s + s	cch	ss > cch	x	x	x
 snih + 	sini	snih > sinih (epenthesis)	x	x	x
 
-hu	ju	h > j	x	x	x
+hu	ju	h > j	x	x	khujjuttarā
 hu	jū	h > j	x	x	x
-h + g	gh	hg > gh (metathesis)	x	x	x
+h + g	gh	hg > gh (metathesis)	x	h + gh	x
 h + t	ddh	ht > ddh	x	bh + t	x
 h + t	ḷh	ht > ḍh > ḷh (metathesis)	t > ḍ > ḷ	x	x 
 h + y	yh	hy > yh (metathesis)	hy > yh	x	x	
 
-ṃ + a	ma	ṃa > ma	ṃ > m	x	x
+ṃ + a	ma	ṃa > ma	ṃ > m	x	bahulīmakasi
 ṃ + ā	mā	ṃā > mā	ṃ > m	x	x
 ṃ + i	mi	ṃi > mi	ṃ > m	x	x
 ṃ + ī	mī	ṃī > mī	ṃ > m	x	x
@@ -144,7 +144,7 @@ xṃ + k	ṅk	ṃk > ṅk	ṃ > ṅ	ṃ + kh	x	needs to reject upasaṅkamitukā
 ṃ + ḍh	ṇḍh	ṃḍh > ṇḍh	ṃ > ṇ	x	x
 ṃ + t	nt	ṃt > nt	ṃ > n	ṃ + th	x
 ṃ + th	nth	ṃth > nth	ṃ > n	x	x
-ṃ + d	nd	ṃd > nd	ṃ > n	ṃ + dh	x
+ṃ + d	nd	ṃd > nd	ṃ > n	ṃ + dh	khandhādisa
 ṃ + dh	ndh	ṃdh > ndh	ṃ > n	x	x
 ṃ + n	nn	ṃn > nn	ṃ > n	x 	x
 ṃ + p	mp	ṃp > mp	ṃ > m	ṃ + ph	x

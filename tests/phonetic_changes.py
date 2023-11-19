@@ -56,9 +56,9 @@ def add_update_phonetic(db_session, db, csv):
                      c.initial in base_clean
                     ) and
                     c.final in i.pali_clean and
-                    c.correct not in i.phonetic and
-                    (c.without not in construction_clean or
-                     c.without not in base_clean)
+                    c.correct not in i.phonetic and not
+                    (c.without in construction_clean or
+                     c.without in base_clean)
                 ):
                     # auto update wrong to correct
                     if (
