@@ -1,5 +1,7 @@
 initial	final	correct	wrong	without	exceptions
 
+-
+a + v	bb	v > b	x	bb	x
 ati +	acc	ti > ty > cc	x	gacch	pacchājāta, gatikālādipaccayantarasamavāya
 
 ā + ñ	aññ	āñ > aññ	x	x	vadaññutā, sāmaññatā 2.1
@@ -25,7 +27,6 @@ c + t	tt	ct > tt	c > t	c + th	x
 c + th	tth	cth > tth	c > t	x	x
 
 g + y	gg	gy > gg	x	x	x
-
 
 j + t	tt	jt > tt	j > t	j + th	vissaṭṭhatta, duttitikkha
 j + t	bb	jt > bb	x	x	ubbigga 1, ubbigga 2, anubbigga
@@ -61,6 +62,7 @@ d + ph	pph	dph > pph	d > p	x	x
 xd + b	bb	db > bb	d > b	x 	x	need to exlude roots starting with v
 xd + bh	bbh	dbh > bbh	d > b	x	x	need to exlude roots starting with v
 d + m	mm	dm > mm	d > m	x	x
+xd + y	bb	dy > bb	x	abhi	x	exclude tings
 d + v	bb	dv > bb	d > b	x	x
 d + s	ss	ds > ss	d > s	x	x
 d + s	cch	ds > cch	d > c	x	x
@@ -76,6 +78,8 @@ p + s	cch	ps > cch	x	x	x
 pa + i	pe	ai > e	i > e	x	x
 pā + pā	pi	pā > pi	x	x	x
 plu 	pil	pl > pil (epenthesis)	x	x	x
+
+bh + y	bbh	bhy > bbh	x	x	x
 
 m + k	ṅk	mk > ṅk	m > ṅ	m + kh	x
 m + kh	ṅkh	mkh > ṅkh	m > ṅ	x	x

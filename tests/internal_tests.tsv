@@ -28,7 +28,7 @@ adj is pp	meaning_1	is not empty	-	pos	equals	adj	grammar	does not contain word	
 adj is prp	pali_1	contains	(enta|māna)\b	pos	equals	adj	grammar	does not contain word	prp	meaning_1	is not empty	-								pali_1	grammar	meaning_1	"[""asamāna"", ""dīnamāna"", ""nihatamāna"", ""pahīnamāna"", ""vijjamāna 2"", ""samāna 1.1"", ""samāna 1.2""]"	5
 adj with wrong ending	meaning_1	is not empty	-	pos	equals	adj	pali_1	does not contain	(a|ā|u|ū|i|ī|ant)\b	grammar	does not contain word	(nom|acc|instr|dat|abl|gen|loc|voc)								pali_1	grammar	meaning_1	"[""paṭṭhitago""]"	5
 adv comp no from	derived_from	is empty	-	pos	equals	ind	grammar	contains word	adv	grammar	does not contain word	comp	pali_1	does not contain	hetu|paccayā	sutta_1	is not empty			pali_1	grammar	meaning_1	"[""atipāto"", ""atippago"", ""addhā 1"", ""eva 3"", ""nāccogāḷhaṃ"", ""hurā""]"	10
-antonym	neg	contains	neg	antonym	is empty	-														pali_1	grammar	meaning_1	"[""atakkanīya"", ""avekallatta"", ""nupasussayati"", ""agaha"", ""sanighaṇḍu"", ""ajita 8"", ""ajita 9"", ""a 2.3""]"	10
+antonym	neg	contains	neg	antonym	is empty	-														pali_1	grammar	meaning_1	"[""atakkanīya"", ""avekallatta"", ""nupasussayati"", ""agaha"", ""sanighaṇḍu"", ""ajita 8"", ""ajita 9"", ""a 2.3"", ""virājetvā 2""]"	10
 aor with base	meaning_1	is not empty	-	pos	equals	aor	root_base	is not empty	-	root_base	does not contain	caus|irreg|pass|desid|intens|deno	root_key	does not contain	(√i|√bhū|√ñā|√mud|√thu|√brū|√dā|√ṭhā|√hi|√hū|√ji|√is|√nī|√sī|√bhī|√cu|√gah|√hā|√mā|√ap|√rud|√su|√kus|√suc|√ruc|√thī|√pu|√dhū)\b	root_sign	does not contain	\*aya|ya|\*e|ṃa		pali_1	grammar	meaning_1	"[""odhuni"", ""opuni"", ""pahiṇi"", ""saṅgāmesi""]"	10
 base > >, no irreg	root_base	contains	>.+>	root_base	does not contain word	irreg														pali_1	grammar	meaning_1	[]	25
 base and √	meaning_1	is not empty	-	construction	contains	\√	root_base	is not empty												pali_1	grammar	meaning_1	[]	10
@@ -71,6 +71,7 @@ compound construction no bold	compound_construction	is not empty	-	compound_cons
 compound construction no plus	meaning_1	is not empty	-	compound_construction	is not empty	-	compound_construction	does not contain	\+	compound_type	does not contain	dvanda	compound_construction	does not contain	\b(viya|eva|iva)\b					pali_1	grammar	meaning_1	"[""upakkitakavāda"", ""paṇḍitamānī"", ""vasalavāda""]"	10
 compound construction plurals	compound_construction	is not empty	-	grammar	contains	\bpl\b	compound_type	equals	dvanda	compound_construction	does not contain	(ā|āni|ayo)\b								pali_1	grammar	compound_construction	"[""aṅgamaṅgāni"", ""aṭṭhārasa 1"", ""ekādasa 1"", ""kapaṇaddhikavanibbakā"", ""kalahaviggahavivādatuvaṃtuvaṃpesuññamusāvādā"", ""kuveravāsavā"", ""candimasūriyā"", ""terasa 1"", ""dvādasa 1"", ""paṇṇarasa 1.2"", ""pannarasa 1"", ""pitupitāmahā"", ""bhaṇḍanakalahaviggahavivādā"", ""makkhalipūraṇā"", ""mātāpitūnaṃ"", ""sāriputtamoggallānā"", ""sokaparidevadukkhadomanassupāyāsā"", ""soḷasa 1"", ""nāradapabbatā"", ""paridevasokā"", ""sunīdhavassakārā"", ""sunidhavassakārā""]"	20
 compound type kammadhāraya bold	compound_type	equals	kammadhāraya	compound_construction	contains	<b>														pali_1	compound_type	compound_construction	"[""karuṇāmahaṇṇava"", ""malamacchera"", ""saṅgharatana""]"	10
+compound_type: delete comp verb	pos	contains word	pr|aor|inf|imperf|abs	compound_type	is not empty	-														pali_1	grammar	meaning_1	[]	10
 construction * suffix no *	meaning_1	is not empty	-	construction	contains	\*.[^ ]*$	suffix	does not contain	\*	pos	does not contain	ind|abs|ger|inf								pali_1	grammar	meaning_1	[]	10
 construction ^an	construction	contains	^an 																	pali_1	grammar	meaning_1	[]	5
 construction empty has root	meaning_1	is not empty	-	construction	is empty	-	root_key	is not empty	-											pali_1	grammar	meaning_1	[]	10
@@ -85,6 +86,8 @@ construction tta, nt, no abstr	meaning_1	is not empty	-	pos	equals	nt	constructi
 construction: + > or > +	construction	contains	(\+ \>|\> \+|\+\>|\>\+)																	pali_1	grammar	meaning_1	[]	10
 construction: add neg verb line 2	meaning_1	is not empty	-	pos	contains word	(pr|aor|perf|imper|fut|cond|opt)	neg	equals	neg	construction	does not contain	\n	construction	does not contain	^vi					pali_1	grammar	meaning_1	"[""mākāsi""]"	10
 construction: nir > ni	construction	contains	nir > ni	phonetic	does not contain	nir > ni														pali_1	grammar	meaning_1	[]	10
+construction: vi > vy	meaning_1	is not empty	-	pali_1	contains	^(vy|avy)	construction	contains	\bvi\b	construction	does not contain	vi > vy								pali_1	grammar	meaning_1	[]	10
+construction: vi > vy > by	meaning_1	is not empty	-	pali_1	contains	^(by|aby)	construction	contains	\bvi\b	construction	does not contain	vi > vy > by								pali_1	grammar	meaning_1	[]	10
 decl abs	meaning_1	is not empty	-	pos	equals	abs	stem	does not contain	\-											pali_1	grammar	meaning_1	[]	100
 decl adj	meaning_1	is not empty	-	pos	equals	adj	pattern	does not contain word	adj	grammar	does not contain word	(nom|acc|instr|dat|abl|gen|loc|voc)								pali_1	grammar	meaning_1	"[""telasa"", ""teḷasa"", ""paṭṭhitago""]"	100
 decl aor	meaning_1	is not empty	-	pos	equals	aor	pattern	does not contain word	aor	grammar	does not contain word	(1st|2nd|3rd|sg|pl)	grammar	does not contain word	comp vb					pali_1	grammar	meaning_1	[]	100
@@ -131,7 +134,7 @@ example_1 no bold <b>	example_1	is not empty	-	example_1	does not contain	<b>	me
 example_1 space comma	example_1	contains	 ,																	pali_1	meaning_1	example_1	[]	10
 example_1 space comma	example_1	contains	 ,$| , 																	pali_1	pos	example_1	[]	10
 example_1 space fullstop	example_1	contains	 \.$| \. 																	pali_1	pos	example_1	[]	10
-example_2 -	meaning_1	is not empty	-	example_2	contains	-														pali_1	meaning_1	example_2	"[""akattha"", ""akkhara 1"", ""akkhara 2"", ""akkhāna 1"", ""agā"", ""aggisikhā 1"", ""aghosa"", ""aṅgaṇa 2.1"", ""aṅgārakāsu"", ""aṅgika"", ""ajjhosāna"", ""aññathābhāva 1"", ""aṭṭa 1.1"", ""atiga"", ""atipātī 1"", ""atiritta 1"", ""attakilamatha"", ""anu 3"", ""anukampī"", ""tulya"", ""vuḍḍha 2"", ""diṭṭhiṭṭhāna"", ""apekkha 1"", ""abhisaññānirodha"", ""upanīta 1"", ""anurakkhī 1""]"	10
+example_2 -	meaning_1	is not empty	-	example_2	contains	-														pali_1	meaning_1	example_2	"[""akattha"", ""akkhara 1"", ""akkhara 2"", ""akkhāna 1"", ""agā"", ""aggisikhā 1"", ""aghosa"", ""aṅgaṇa 2.1"", ""aṅgārakāsu"", ""aṅgika"", ""ajjhosāna"", ""aññathābhāva 1"", ""aṭṭa 1.1"", ""atiga"", ""atipātī 1"", ""atiritta 1"", ""attakilamatha"", ""anu 3"", ""anukampī"", ""tulya"", ""vuḍḍha 2"", ""diṭṭhiṭṭhāna"", ""apekkha 1"", ""abhisaññānirodha"", ""upanīta 1"", ""anurakkhī 1"", ""indakhīla 1"", ""rājaratha""]"	10
 example_2 ‒	meaning_1	is not empty	-	example_2	contains	‒														pali_1	meaning_1	example_2	[]	10
 example_2 –	meaning_1	is not empty	-	example_2	contains	–														pali_1	meaning_1	example_2	[]	10
 example_2 needs lines breaks	example_2	contains	\n	example_2	contains	(,.+\.|,.+,)	meaning_1	is not empty	-											pali_1	grammar	example_2	[]	20
@@ -169,6 +172,7 @@ grammar contains +	meaning_1	is not empty	-	grammar	does not contain word	(nom|a
 grammar no comma	meaning_1	is not empty	-	grammar	contains	\w from														pali_1	grammar	meaning_1	[]	5
 grammar no comma2	meaning_1	is not empty	-	grammar	contains word	comp	grammar	does not contain	,											pali_1	grammar	meaning_1	[]	10
 grammar no plural	pattern	contains word	pl	grammar	does not contain word	pl														pali_1	grammar	meaning_1	"[""kati"", ""pāṇinā""]"	10
+grammar: contains comp vb	grammar	contains	comp vb	pos	contains word	adj|masc|nt|fem|pp														pali_1	grammar	meaning_1	[]	10
 grammar: pos is weird	meaning_1	is not empty	-	grammar	does not contain word	(masc|fem|nt|adj|pron|card|prp|ptp|pp|pr|aor|fut|imp|opt|cond|perf|imperf|indef|inf|ind|prefix|letter|suffix|abs|ger|idiom|abbrev|sandhi|cs|ve|root|ordin|var)	family_set	does not contain word	dps											pali_1	grammar	meaning_1	[]	5
 grammar: pp of	construction	contains	 (ta|ita|na)$	grammar	does not contain	pp	construction	does not contain	^(su|dur) 											pali_1	grammar	meaning_1	[]	10
 grammar: su from noun not verb	construction	contains	^su 	grammar	contains	from .+(ati|āti|eti|oti)														pali_1	grammar	meaning_1	[]	10
@@ -413,7 +417,5 @@ trans not empty	meaning_1	is not empty	-	pos	contains word	(ptp|pp|adj)	trans	is
 trans values	trans	is not empty	-	trans	does not contain word	^(trans|ditrans|intrans)$	meaning_1	is not empty	-											pali_1	trans	meaning_1	[]	10
 verb number comma	grammar	contains	(pr|aor|perf|imper|fut|cond|opt|imp), \d																	pali_1	grammar	meaning_1	[]	10
 verb values	verb	is not empty	-	verb	does not contain word	^(caus|caus, pass|deno|deno, caus|desid|desid, caus|desid, pass|impers|impers, pass|intens|inten|pass)$														pali_1	verb	meaning_1	[]	10
-construction: vi > vy > by	meaning_1	is not empty	-	pali_1	contains	^(by|aby)	construction	contains	\bvi\b	construction	does not contain	vi > vy > by								pali_1	grammar	meaning_1	[]	10
-construction: vi > vy	meaning_1	is not empty	-	pali_1	contains	^(vy|avy)	construction	contains	\bvi\b	construction	does not contain	vi > vy								pali_1	grammar	meaning_1	[]	10
 word family and comp in grammar	family_word	is not empty	-	grammar	contains	\bcomp\b														pali_1	grammar	meaning_1	"[""ajjhatta"", ""ajjhattaṃ"", ""aticiraṃ"", ""nātidīghatā""]"	10
 word family and family	family_word	is not empty	-	family_root	is not empty	-														pali_1	grammar	meaning_1	[]	10
