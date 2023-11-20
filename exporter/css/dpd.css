@@ -108,7 +108,7 @@ span.gray {
 }
 
 a.jump {
-    color:#00A4CC;
+    color: #00A4CC;
     text-decoration: none;
     font-weight: bold;
 }
@@ -140,7 +140,7 @@ input {
 div.button-box {
     font-size: 0px;
     margin: 2px 0px 3px 0px;
-    
+
 }
 
 a.button {
@@ -196,7 +196,18 @@ table.freq thead th {
 }
 
 table.freq tbody th {
-    text-align: left;
+    border: 1px solid #00A4CC;
+    border-radius: 7px;
+    padding: 5px;
+    text-align: center;
+    width: auto;
+}
+
+.vertical-text {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    /* inline-size: fit-content;
+    transform: rotate(-90deg); */
 }
 
 table.freq td {
@@ -205,6 +216,7 @@ table.freq td {
     border-radius: 7px;
     text-align: center;
     width: 12%;
+    white-space: nowrap;
 }
 
 td.void {
@@ -273,8 +285,4 @@ td.gr10 {
     background-color: #00008f;
     border-color: #00008f;
     color: #fff;
-}
-
-table.freq tr.line th {
-    border-top: 1px solid #00A4CC;
 }
