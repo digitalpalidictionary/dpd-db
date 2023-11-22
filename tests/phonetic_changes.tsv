@@ -22,6 +22,8 @@ i + s	īs	is > iṃs > īs	x	x	catuvīsatisatasahassa, diṭṭhisīsa, belaṭ�
 xu + a	va	ua > va	u > v	vā	x	need to p_exlude and c_eclude  
 u + ā	vā	uā > vā	u > v	x	divādigaṇa, opilāpetvā, suvānaya 1, suvānaya 2, samannāharitvā, lavāpeti, lavāpetvā
 
+xū + a	av	ū > av	x	x	x	so many exceptions 
+
 c + t	kk	ct > kk	c > k	ñc + t	x
 c + t	tt	ct > tt	c > t	c + th	x
 c + th	tth	cth > tth	c > t	x	x
@@ -32,20 +34,24 @@ j + t	tt	jt > tt	j > t	j + th	vissaṭṭhatta, duttitikkha
 j + t	bb	jt > bb	x	x	ubbigga 1, ubbigga 2, anubbigga
 j + t	ṭṭh	jt > ṭṭh	x	j + th	x
 j + th	tth	jth > tth	j > t	x	x
-jj + t	ṭṭh	jjt > ṭṭh	jt > ṭṭh	jj + th	x
 j + y	jj	jy > jj	y > j	jj + y	x
-jj + y	jj	jjy > jj	y > j	x	x
 j + s	kkh	js > kkh	x	x	x
+
+ja + y	jj	jy > jj	x	x	x
+jj + t	ṭṭh	jjt > ṭṭh	jt > ṭṭh	jj + th	x
+jj + y	jj	jjy > jj	y > j	x	x
 
 t + y	cc	ty > cc	x	x	x
 t + y	tt	ty > tt	x	x	x
 t + s	cch	ts > cch	x	x	x
+ta + y	cc	ty > cc	x	cc	veyyāvacca
 
 n + y	nn	ny > nn	y > n	x	x
 n + y	ññ	ny > ññ	n > y	x	x
 n + s	ṃs	ns > ṃs	x	x	x
 nhā	nahā	nhā > nahā (epenthesis)	x	x	x
 
+d + ī	jj	dy > jj	x	x	x
 d + c	cc	dc > cc	d > c	d + ch	x
 d + ch	cch	dch > cch	d > c	x	x
 d + j	jj	dj > jj	d > j	d + jh	x
@@ -85,6 +91,7 @@ m + k	ṅk	mk > ṅk	m > ṅ	m + kh	x
 m + kh	ṅkh	mkh > ṅkh	m > ṅ	x	x
 m + g	ṅg	mg > ṅg	m > ṅ	m + gh	x
 m + gh	ṅgh	mgh > ṅgh	m > ṅ	x	x
+xm + t	t	mt > t	x	x	x	exclude nt in pali_1 etc
 m + t	nt	mt > nt	m > n	m + th	x
 m + th	nth	mth > nth	m > n	x	x
 m + y	mm	my > mm	y > m	x	x
@@ -108,6 +115,7 @@ r + m	mm	rm > mm	r > m	x	x
 r + v	bb	rv > vv > bb	v > b	x	x
 
 l + y	ll	ly > ll	y > l	x	x
+la + y	ll	ly > ll	y > l	x	x
 
 v + t	t	vt > t	v > t	v + th	
 v + t	tt	vt > tt	v > t	v + th	
@@ -136,6 +144,8 @@ h + y	yh	hy > yh (metathesis)	hy > yh	x	x
 ṃ + o	mo	ṃo > mo	ṃ > m	x	x
 xṃ + k	ṅk	ṃk > ṅk	ṃ > ṅ	ṃ + kh	x	needs to reject upasaṅkamitukāma, maṅkuṃ karoti
 ṃ + kh	ṅkh	ṃkh > ṅkh	ṃ > ṅ	x	x
+ṃ + g	ṅg	ṃg > ṅg	ṃ > ṅ	ṃ + gh	x
+ṃ + gh	ṅgh	ṃgh > ṅgh	ṃ > ṅ	x	x
 ṃ + c	ñc	ṃc > ñc	ṃ > ñ	ṃ + ch	x
 ṃ + ch	ñch	ṃch > ñch	ṃ > ñ	x	x
 ṃ + j	ñj	ṃj > ñj	ṃ > ñ	ṃ + jh	x
