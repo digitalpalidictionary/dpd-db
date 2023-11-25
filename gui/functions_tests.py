@@ -413,9 +413,12 @@ def db_internal_tests(sg, window, flags):
                     open_internal_tests()
 
                 if event == "test_results":
-                    index = values["test_results"][0]
-                    pali_word = test_results_display[index][0]
-                    pyperclip.copy(pali_word)
+                    if values["test_results"]:
+                        index = values["test_results"][0]
+                        pali_word = test_results_display[index][0]
+                        pyperclip.copy(pali_word)
+                    else:
+                        print("test_results is empty!")
 
         else:
             # print(f"{test_counter}. {t.test_name} passed!")

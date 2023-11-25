@@ -514,27 +514,27 @@ uragavaggo 4"	example_2	seyyathā'pi nāma phālo <b>divasasantatto</b> udake pa
 51620	source_2	MN 82	sutta_2	raṭṭhapālasuttaṃ	example_2	eta'r'ahi jiṇṇo vuḍḍho <b>mahallako</b> addhagato vayoanuppatto āsītiko me vayo vattati. app'ekad'āhaṃ, bho raṭṭhapāla, idha pādaṃ karissāmī'ti aññen'eva pādaṃ karomī'ti.	no sandhi		yes	
 27179	source_1	VIN PAT SA 11	sutta_1	bhedānuvattakasikkhāpadaṃ	example_1	te evaṃ vadeyyuṃ m'āyasmanto etaṃ bhikkhuṃ kiñci avacuttha, dhammavādī <b>c'eso</b> bhikkhu, vinayavādī <b>c'eso</b> bhikkhu, amhākañ'<b>c'eso</b> bhikkhu chandañ'ca ruciñ'ca ādāya voharati	bold		yes	
 68717	meaning_lit						wrong lit		yes	
-28968	notes	ññū in comps					missing		
-75714	stem	sasaṅgh	pattern	a masc			noun		
-75714	grammar	masc, from saṅgha					noun		
-75714	pos	masc					noun		
-75716	meaning_2	to delete					duplication of sasaṅgha 2, need to remove		
-31538	source_1	VIN 1.2.6	sutta_1	kuṭikārasikkhāpadaṃ	example_1	ekaṃ piṇḍaṃ anāgate āpatti <b>thull'accayassa</b>. tasmiṃ piṇḍe āgate āpatti saṅghādisesassa.	sandhi		
-31538	source_2	VIN 4.4.141	sutta_2	pavāraṇāṭhapanaṃ	example_2	so ce evaṃ vadeyya, cattāri pārājikāni, terasa saṅghādisesā, ayaṃ sīlavipatti. <b>thull'accayaṃ</b>, pācittiyaṃ, pāṭidesanīyaṃ, dukkaṭaṃ, dubbhāsitaṃ, ayaṃ ācāravipatti. micchādiṭṭhi, antaggāhikādiṭṭhi, ayaṃ diṭṭhivipattī'ti,	sandhi		
-49408	commentary	-					missing		
-49408	meaning_1	sir; lord; venerable sir; reverend; sirs; lords; venerable sirs; reverends					same as āvuso for epd		
-71265	meaning_1	sense of shame; modesty; conscience; sense of right and wrong; scruples; (comm) originating from inside					missing comm translation		
-71288	meaning_1	sense of shame; modesty; conscience; sense of right and wrong; scruples; (comm) originating from inside					missing comm tr		
-18553	meaning_1	regret; shame in wrongdoing; respect for others; (comm) originating from outside					missing comm tr		
-27447	commentary	-					missing		
-27447	source_1	PAT PK	sutta_1	dhammayuttikapubbakicca	example_1	pānīyaparibhojanīy'upaṭṭhapanañ'ca, chand'ārahānaṃ bhikkhūnaṃ <b>chand'āharaṇañ</b>'ca, tesaññ'eva akat'uposathānaṃ pārisuddhiyā'pi āharaṇañ'ca	wring bold		
-27447	sanskrit	chanda + āharaṇa					missing		
-12517	antonym						since only to āruḷha 1		
-63077	link	https://en.wikipedia.org/wiki/Simsapa_tree					correct link		
+28968	notes	ññū in comps					missing		yes	
+75714	stem	sasaṅgh	pattern	a masc			noun		yes	
+75714	grammar	masc, from saṅgha					noun		yes	
+75714	pos	masc					noun		yes	
+75716	meaning_2	to delete					duplication of sasaṅgha 2, need to remove		yes	
+31538	source_1	VIN 1.2.6	sutta_1	kuṭikārasikkhāpadaṃ	example_1	ekaṃ piṇḍaṃ anāgate āpatti <b>thull'accayassa</b>. tasmiṃ piṇḍe āgate āpatti saṅghādisesassa.	sandhi		yes	
+31538	source_2	VIN 4.4.141	sutta_2	pavāraṇāṭhapanaṃ	example_2	so ce evaṃ vadeyya, cattāri pārājikāni, terasa saṅghādisesā, ayaṃ sīlavipatti. <b>thull'accayaṃ</b>, pācittiyaṃ, pāṭidesanīyaṃ, dukkaṭaṃ, dubbhāsitaṃ, ayaṃ ācāravipatti. micchādiṭṭhi, antaggāhikādiṭṭhi, ayaṃ diṭṭhivipattī'ti,	sandhi		yes	
+49408	commentary	-					missing	are you sure there is no commentary!?	no	
+49408	meaning_1	sir; sirs; lord; lords; venerable sir; venerable sirs; reverend; reverends					same as āvuso for epd		yes	
+71265	meaning_1	sense of shame; modesty; conscience; sense of right and wrong; scruples; (comm) originating from inside					missing comm translation		yes	
+71288	meaning_1	sense of shame; modesty; conscience; sense of right and wrong; scruples; (comm) originating from inside					missing comm tr		yes	
+18553	meaning_1	regret; shame in wrongdoing; respect for others; (comm) originating from outside					missing comm tr		yes	
+27447	commentary	-					missing		yes	
+27447	source_1	PAT PK	sutta_1	dhammayuttikapubbakicca	example_1	pānīyaparibhojanīy'upaṭṭhapanañ'ca, chand'ārahānaṃ bhikkhūnaṃ <b>chand'āharaṇañ</b>'ca, tesaññ'eva akat'uposathānaṃ pārisuddhiyā'pi āharaṇañ'ca	wring bold		yes	
+27447	sanskrit	chanda + āharaṇa					missing		yes	
+12517	antonym						since only to āruḷha 1		yes	
+63077	link	https://en.wikipedia.org/wiki/Simsapa_tree					correct link		yes	
 9569	source_1	KHP 9	sutta_1	karaṇīya mettasuttaṃ	example_1	"mettañ'ca sabbalokasmi,
 mānasaṃ bhāvaye aparimāṇaṃ,
 uddhaṃ adho ca tiriyañ'ca,
-<b>asambādhaṃ</b> averam'asapattaṃ."	sandhi		
-10832	grammar	nt, in comps					missing		
-59396	meaning_lit	from ends together					since it is abl		
-57194	source_2	AN 3.102	sutta_2	paṃsudhovakasuttaṃ	example_2	yassa yassa ca abhiññā sacchikaraṇīyassa dhammassa cittaṃ abhininnāmeti abhiññā <b>sacchikiriyāya</b> tatra tatr'eva sakkhibhabbataṃ pāpuṇāti sati satiāyatane.	wrong bold		
+<b>asambādhaṃ</b> averam'asapattaṃ."	sandhi		yes	
+10832	grammar	nt, in comps					missing		yes	
+59396	meaning_lit	from ends together					since it is abl		yes	
+57194	source_2	AN 3.102	sutta_2	paṃsudhovakasuttaṃ	example_2	yassa yassa ca abhiññā sacchikaraṇīyassa dhammassa cittaṃ abhininnāmeti abhiññā <b>sacchikiriyāya</b> tatra tatr'eva sakkhibhabbataṃ pāpuṇāti sati satiāyatane.	wrong bold		yes	

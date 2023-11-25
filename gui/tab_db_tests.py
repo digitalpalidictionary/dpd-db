@@ -17,15 +17,15 @@ def make_tab_db_tests(sg, primary_user):
         [
             sg.Text("", size=(15, 1)),
             sg.Button(
-                "Run Tests", key="test_db_internal"),
+                "Run Tests", key="test_db_internal", pad=((0, 10), (10, 10))),
             sg.Button(
-                "Stop Tests", key="test_stop"),
+                "Stop Tests", key="test_stop", pad=((0, 10), (10, 10))),
             sg.Button(
-                "Edit Tests", key="test_edit"),
+                "Edit Tests", key="test_edit", pad=((0, 10), (10, 10))),
             sg.Button(
                 "Run Ru Tests", key="ru_test_db_internal",
                 tooltip="Run tests for all which has ru.ru_meaning",
-                visible=not primary_user),
+                visible=not primary_user, pad=((0, 10), (10, 10))),
         ],
         [
             sg.Text(
@@ -84,9 +84,9 @@ def make_tab_db_tests(sg, primary_user):
         ],
         [
             sg.Text("", size=(15, 1)),
-            sg.Button("Update Tests", key="test_update"),
-            sg.Button("Add New Test", key="test_new"),
-            sg.Button("Delete Test", key="test_delete"),
+            sg.Button("Update Tests", key="test_update", pad=((0, 10), (10, 10))),
+            sg.Button("Add New Test", key="test_new", pad=((0, 10), (10, 10))),
+            sg.Button("Delete Test", key="test_delete", pad=((0, 10), (10, 10))),
         ],
         [
             sg.Text("", size=(15, 1), justification="right"),

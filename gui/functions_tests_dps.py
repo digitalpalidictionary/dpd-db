@@ -779,9 +779,7 @@ def dps_dpd_db_internal_tests(pth: ProjectPaths, sg, window, flags):
                         pali_word = test_results_display[index][0]
                         pyperclip.copy(pali_word)
                     else:
-                        # Handle the scenario where the list is empty.
                         print("test_results is empty!")
-                        # or take some other appropriate action
                     
 
         else:
