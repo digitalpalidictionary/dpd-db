@@ -488,6 +488,14 @@ def main():
             elif d.word.startswith("du"):
                 d = remove_dur(d)
 
+            # ati
+            elif d.word.startswith("ati"):
+                d = remove_ati(d)
+
+            # tā ttā tāya
+            if d.word.endswith(("tā", "ttā", "tāya")):
+                d = remove_tta(d)
+
             time_dict[word] = bop()
 
             if d.count % 1000 == 0:
@@ -600,6 +608,14 @@ def recursive_removal(d: DotDict) -> None:
                     elif d.word.startswith("du"):
                         d = remove_dur(d)
 
+                    # ati
+                    elif d.word.startswith("ati"):
+                        d = remove_ati(d)
+
+                    # tā ttā
+                    if d.word.endswith(("tā", "ttā", "tāya")):
+                        d = remove_tta(d)
+
 
 def remove_neg(d: DotDict) -> DotDict:
     """finds neg in front then
@@ -609,36 +625,28 @@ def remove_neg(d: DotDict) -> DotDict:
 
     if comp(d) not in w.matches and len(d.word) > 2:
         d.path += " > neg"
+        d.rules_front = "na,"
+        d.front = f"na + {d.front}"
 
         if d.word.startswith("a"):
             if d.word[1] == d.word[2]:
-                d.front = f"na + {d.front}"
+                
                 d.word = d.word[2:]
-                d.rules_front = "na,"
             else:
-                d.front = f"na + {d.front}"
                 d.word = d.word[1:]
-                d.rules_front = "na,"
+            
 
         elif d.word.startswith("an"):
-            d.front = f"na + {d.front}"
             d.word = d.word[2:]
-            d.rules_front = "na,"
 
         elif d.word.startswith("na"):
             if d.word[1] == d.word[2]:
-                d.front = f"na + {d.front}"
                 d.word = d.word[3:]
-                d.rules_front = "na,"
             else:
-                d.front = f"na + {d.front}"
                 d.word = d.word[2:]
-                d.rules_front = "na,"
 
         elif d.word.startswith("nā"):
-            d.front = f"na + {d.front}"
             d.word = f"a{d.word[2:]}"
-            d.rules_front = "na,"
 
         if d.word in all_inflections_set:
             d.comm = f"match! = {comp(d)}"
@@ -667,17 +675,14 @@ def remove_sa(d: DotDict) -> DotDict:
 
     if comp(d) not in w.matches and len(d.word) > 3:
         d.path += " > sa"
+        d.front = f"sa + {d.front}"
+        d.rules_front = "sa,"
 
         if d.word[2] == d.word[3]:
-            d.front = f"sa + {d.front}"
             d.word = d.word[3:]
-            d.rules_front = "sa,"
 
         else:
-            d.front = f"sa + {d.front}"
             d.word = d.word[2:]
-            d.rules_front = "sa,"
-
         if d.word in all_inflections_set:
             d.comm = "sa"
 
@@ -705,17 +710,13 @@ def remove_su(d: DotDict) -> DotDict:
 
     if comp(d) not in w.matches and len(d.word) > 3:
         d.path += " > su"
-
+        d.front = f"su + {d.front}"
+        d.rules_front += "su,"
         if d.word[2] == d.word[3]:
-            d.front = f"su + {d.front}"
             d.word = d.word[3:]
-            d.rules_front = "su,"
-
         else:
-            d.front = f"su + {d.front}"
             d.word = d.word[2:]
-            d.rules_front += "su,"
-
+        
         if d.word in all_inflections_set:
             d.comm = "su"
 
@@ -743,16 +744,13 @@ def remove_dur(d: DotDict) -> DotDict:
 
     if comp(d) not in w.matches and len(d.word) > 3:
         d.path += " > dur"
-
+        d.rules_front = "dur,"
+        d.front = f"dur + {d.front}"
         if d.word[2] == d.word[3]:
-            d.front = f"dur + {d.front}"
             d.word = d.word[3:]
-            d.rules_front = "dur,"
-
         else:
-            d.front = f"dur + {d.front}"
             d.word = d.word[2:]
-            d.rules_front = "dur,"
+        
 
         if d.word in all_inflections_set:
             d.comm = "dur"
@@ -766,6 +764,85 @@ def remove_dur(d: DotDict) -> DotDict:
 
         else:
             d.comm = "recursing dur"
+            recursive_removal(d)
+
+        d = DotDict(d_orig)
+
+    return d_orig
+
+
+def remove_ati(d: DotDict) -> DotDict:
+    """find ati in front then
+    1. match 2. recurse or 3. pass through"""
+
+    d_orig = DotDict(d)
+
+    if comp(d) not in w.matches and len(d.word) > 3:
+        d.path += " > ati"
+        d.front = f"ati + {d.front}"
+        d.rules_front += "ati,"
+
+        if d.word[3] == d.word[4]:
+            d.word = d.word[4:]
+        else:
+            d.word = d.word[3:]
+
+        if d.word in all_inflections_set:
+            d.comm = "ati"
+
+            if comp(d) not in w.matches:
+                matches_dict[d.init] += [
+                    (comp(d), "xword-ati", "ati", d.path)]
+                w.matches.add(comp(d))
+                d.matches.add(comp(d))
+                unmatched_set.discard(d.init)
+
+        else:
+            d.comm = "recursing ati"
+            recursive_removal(d)
+
+        d = DotDict(d_orig)
+
+    return d_orig
+
+
+def remove_tta(d: DotDict) -> DotDict:
+    """find tā, ttā, tāya in back then
+    1. match 2. recurse or 3. pass through.
+    These are suffix which create abstract nouns,
+    very common in the commentaries."""
+
+    d_orig = DotDict(d)
+
+    if comp(d) not in w.matches and len(d.word) > 3:
+        d.path += " > tta"
+        if d.word.endswith("ttā"):
+            d.back = f"{d.back} + ttā"
+            d.word = d.word[:-3]
+            d.rules_back = f"ttā,{d.rules_back}"
+
+        elif d.word.endswith("tā"):
+            d.back = f"{d.back} + tā"
+            d.word = d.word[:-2]
+            d.rules_back = f"tā,{d.rules_back}"
+
+        elif d.word.endswith("tāya"):
+            d.back = f"{d.back} + tāya"
+            d.word = d.word[:-4]
+            d.rules_back = f"tāya,{d.rules_back}"
+
+        if d.word in all_inflections_set:
+            d.comm = "tta"
+
+            if comp(d) not in w.matches:
+                matches_dict[d.init] += [
+                    (comp(d), "xword-tta", "tta", d.path)]
+                w.matches.add(comp(d))
+                d.matches.add(comp(d))
+                unmatched_set.discard(d.init)
+
+        else:
+            d.comm = "recursing tta"
             recursive_removal(d)
 
         d = DotDict(d_orig)
