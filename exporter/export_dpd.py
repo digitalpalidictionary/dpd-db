@@ -26,7 +26,7 @@ from db.models import FamilyCompound
 from db.models import FamilySet
 
 from tools.meaning_construction import make_meaning_html
-from tools.meaning_construction import summarize_constr
+from tools.meaning_construction import summarize_construction
 from tools.meaning_construction import degree_of_completion
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
@@ -405,7 +405,7 @@ def render_dpd_definition_templ(
         plus_case: str = i.plus_case
 
     meaning = make_meaning_html(i)
-    summary = summarize_constr(i)
+    summary = summarize_construction(i)
     complete = degree_of_completion(i)
 
     return str(

@@ -16,7 +16,7 @@ from tools.pali_sort_key import pali_sort_key
 from tools.tic_toc import tic, toc
 from tools.cst_sc_text_sets import make_sc_text_set
 from tools.meaning_construction import make_meaning_html
-from tools.meaning_construction import summarize_constr
+from tools.meaning_construction import summarize_construction
 from tools.paths import ProjectPaths
 
 
@@ -116,7 +116,7 @@ def main():
             string = f"{i.pos}. "
             string += make_meaning_html(i)
             if i.construction:
-                string += f" [{summarize_constr(i)}]"
+                string += f" [{summarize_construction(i)}]"
             dpd_dict[i.pali_1] = string
 
     dpd_dict = dict(
