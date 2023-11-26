@@ -13,7 +13,7 @@ from db.get_db_session import get_db_session
 from db.models import PaliWord
 
 from tools.meaning_construction import make_meaning
-from tools.meaning_construction import summarize_constr
+from tools.meaning_construction import summarize_construction
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_dot_dict, write_tsv_dot_dict
 
@@ -306,7 +306,7 @@ def make_summary(db):
     word = db.pali_1
     pos = db.pos
     meaning = make_meaning(db)
-    construction = summarize_constr(db)
+    construction = summarize_construction(db)
     return f"{word}: {pos}. {meaning} [{construction}]"
 
 

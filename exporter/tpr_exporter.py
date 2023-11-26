@@ -97,12 +97,6 @@ def generate_tpr_data(pth: ProjectPaths, db_session: Session, dpd_db, __all_head
                 html_string += f""", {i.plus_case}"""
 
             html_string += """</td></tr>"""
-            html_string += """<tr><th valign="top">Meaning</th>"""
-            html_string += f"""<td><b>{i.meaning_1}</b>"""
-
-            if i.meaning_lit:
-                html_string += f"""; lit. {i.meaning_lit}"""
-            html_string += """</td></tr>"""
 
             if i.root_key:
                 html_string += """<tr><th valign="top">Root</th>"""

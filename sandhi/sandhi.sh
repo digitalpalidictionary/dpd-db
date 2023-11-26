@@ -15,7 +15,7 @@ apt install zip
 
 unzip -o sandhi.zip
 rm sandhi.zip
-pip install poetry
+apt install python3-poetry
 poetry install
 # poetry shell
 export PYTHONPATH=$PYTHONPATH:sandhi/tools

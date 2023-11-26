@@ -3,10 +3,6 @@
         <th>Grammar</th>
         <td>${grammar}</td>
     </tr>
-    <tr>
-        <th>Meaning</th>
-        <td>${meaning}</td>
-    </tr>
     % if i.family_root:
     <tr>
         <th>Root Family</th>
@@ -75,7 +71,7 @@
         <td>${i.variant}</td>
     </tr>
     % endif
-    % if i.commentary:
+    % if (i.commentary and i.commentary != "-"):
     <tr>
         <th>Commentary</th>
         <td>${i.commentary}</td>

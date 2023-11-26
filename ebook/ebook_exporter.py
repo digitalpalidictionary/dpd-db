@@ -8,6 +8,7 @@ import subprocess
 from datetime import datetime
 from mako.template import Template
 from rich import print
+from typing import Dict, List
 from zipfile import ZipFile, ZIP_DEFLATED
 
 from db.get_db_session import get_db_session
@@ -19,10 +20,11 @@ from tools.cst_sc_text_sets import make_sc_text_set
 from tools.diacritics_cleaner import diacritics_cleaner
 from tools.first_letter import find_first_letter
 from tools.meaning_construction import make_meaning_html
-from tools.meaning_construction import summarize_constr
+from tools.meaning_construction import summarize_construction
 from tools.meaning_construction import degree_of_completion
+from tools.niggahitas import add_niggahitas
 from tools.pali_alphabet import pali_alphabet
-from tools.pali_sort_key import pali_sort_key
+from tools.pali_sort_key import pali_sort_key, pali_list_sorter
 from tools.paths import ProjectPaths
 from tools.sandhi_words import make_words_in_sandhi_set
 from tools.tic_toc import tic, toc
@@ -75,19 +77,26 @@ def render_xhtml():
     # only include inflections which exist in all_words_set
     print(f"[green]{'creating inflections dict':<40}", end="")
     dd_db = db_sesssion.query(DerivedData).all()
-    dd_dict = {}
+    dd_dict: Dict[int, List[str]] = {}
     dd_counter = 0
 
     for i in dd_db:
-        inflection_set = set(i.inflections_list) & all_words_set
-        dd_dict[i.id] = inflection_set
-        dd_counter += len(inflection_set)
+        inflections = set(i.inflections_list) & all_words_set
+        dd_dict[i.id] = list(inflections)
+        dd_counter += len(inflections)
+        
     print(f"{dd_counter:>10,}")
 
     # add one clean inflection without diacritics
     for i in dpd_db:
         no_diacritics = diacritics_cleaner(i.pali_clean)
-        dd_dict[i.id].add(no_diacritics)
+        dd_dict[i.id] += [no_diacritics]
+    
+    # add inflection with ṁ and sort
+    for i in dd_dict:
+        inflections_plus: list = add_niggahitas(list(dd_dict[i]), all=False)
+        inflections_plus = sorted(set(inflections_plus), key=pali_sort_key)
+        dd_dict[i] = inflections_plus
 
     # a dictionary for entries of each letter of the alphabet
     print(f"[green]{'initialising letter dict':<40}")
@@ -152,7 +161,7 @@ def render_ebook_entry(pth: ProjectPaths, counter: int, i: PaliWord, inflections
         summary += f"({i.plus_case}) "
     summary += make_meaning_html(i)
 
-    construction = summarize_constr(i)
+    construction = summarize_construction(i)
     if construction:
         summary += f" [{construction}]"
 
