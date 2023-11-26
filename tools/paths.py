@@ -93,6 +93,8 @@ class ProjectPaths:
         self.dpd_kindle_path = base_dir.joinpath(Path("exporter/share/dpd-kindle.mobi"))
         self.deconstructor_zip_path = base_dir.joinpath(Path("exporter/share/dpd-deconstructor.zip"))
         self.deconstructor_mdict_mdx_path = base_dir.joinpath(Path("exporter/share/dpd-deconstructor-mdict.mdx"))
+        self.dpd_goldendict_zip_path = base_dir.joinpath(Path("exporter/share/dpd-goldendict.zip"))
+        self.dpd_mdict_zip_path = base_dir.joinpath(Path("exporter/share/dpd-mdict.zip"))
 
         # /exporter/templates
         self.templates_dir = base_dir.joinpath(Path("exporter/templates"))

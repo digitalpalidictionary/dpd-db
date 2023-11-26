@@ -30,5 +30,6 @@ exporter/deconstructor_exporter.py
 exporter/tpr_exporter.py
 ebook/ebook_exporter.py
 
+scripts/zip_goldedict_mdict.py
 scripts/anki_csvs.py
 scripts/summary.py
