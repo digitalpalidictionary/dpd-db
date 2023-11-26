@@ -484,10 +484,8 @@ def render_button_box_templ(
     # compound_family_button
     if (
         i.meaning_1 and
-        (
-            i.family_compound or
-            i.pali_clean in cf_set
-        )
+        # sometimes there's an empty compound family, so
+        any(item in cf_set for item in i.family_compound_list)
     ):
 
         if i.family_compound is not None and " " not in i.family_compound:

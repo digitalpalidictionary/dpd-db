@@ -94,7 +94,7 @@ def generate_tpr_data(pth: ProjectPaths, db_session: Session, dpd_db, __all_head
                 html_string += f""", {i.trans}"""
 
             if i.plus_case:
-                html_string += f""", {i.plus_case}"""
+                html_string += f""" ({i.plus_case})"""
 
             html_string += """</td></tr>"""
 
@@ -411,7 +411,7 @@ def copy_zip_to_tpr_downloads(pth: ProjectPaths):
                 "name": f"DPD {month_str} {year} release",
                 "release_date": f"{day}.{month}.{year}",
                 "type": "dictionary",
-                "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/download_source_files/dictionaries/dpd.zip",
+                "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/release_zips/dpd.zip",
                 "filename": "dpd.sql",
                 "size": f"{filesize} MB"
             }
@@ -429,7 +429,7 @@ def copy_zip_to_tpr_downloads(pth: ProjectPaths):
                 "name": "DPD Beta",
                 "release_date": f"{day}.{month}.{year}",
                 "type": "dictionary",
-                "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/download_source_files/dictionaries/dpd_beta.zip",
+                "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/release_zips/dpd_beta.zip",
                 "filename": "dpd.sql",
                 "size": f"{filesize} MB"
             }

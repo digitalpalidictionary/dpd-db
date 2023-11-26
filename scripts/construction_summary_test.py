@@ -15,11 +15,23 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(PaliWord).all()
 
+    test_cases = [
+        "duddada",
+        "duddama",
+        "duddasa",
+        "duddasika",
+        "niddara",
+        "niddarathaṃ",
+        "niddasa",
+        "sududdasa"
+    ]
+
     for counter, i in enumerate(db):
         if (
-            i.meaning_1
+            i.pali_1 in test_cases
+            # and i.meaning_1
             # and i.pos == "fut"
-            and i.construction.startswith("ku ")
+            # and i.construction.startswith("ku ")
             # and i.root_base
         ):
             construction = summarize_construction(i)

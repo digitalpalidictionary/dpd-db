@@ -1,11 +1,21 @@
+#!/usr/bin/env python3
+
+"""Rezip the three files DPD into one:
+1. dpd.zip, 2. dpd-grammar.zip, 3. dpd-deconstructor.zip
+1. dpd.mdx, 2. dpd-grammar.mdx, 3. dpd-deconstructor.mdx"""
+
 import os
 from zipfile import ZipFile, ZIP_DEFLATED
 from tools.paths import ProjectPaths
+from tools.tic_toc import tic, toc
 
 def main():
+    tic()
+    print("[bright yellow] rezipping goldendict and mdict")
     pth = ProjectPaths()
     rezip_goldendict(pth)
     rezip_mdict(pth)
+    toc()
 
 
 def rezip_goldendict(pth: ProjectPaths):
@@ -21,7 +31,6 @@ def rezip_goldendict(pth: ProjectPaths):
                  compresslevel=5) as output_zip:
         for input_zip_file in input_zip_files:
             with ZipFile(input_zip_file, "r") as input_zip:
-                print(dir(input_zip))
                 for file_info in input_zip.infolist():
                     file_content = input_zip.read(file_info.filename)
 

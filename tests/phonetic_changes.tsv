@@ -1,8 +1,8 @@
 initial	final	correct	wrong	without	exceptions
 
--
 a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant
 ati +	acc	ti > ty > cc	x	gacch	pacchājāta, gatikālādipaccayantarasamavāya
+abhi + a	abbh	bhi > bhy > bbh	x	x	x
 ava	o	ava > o	x	o	ponobbhavika, ponobhavika, anavabodha
 xaṃ + a	ā	aṃa > ā	x	ā	x	need more exclusions
 
@@ -34,6 +34,7 @@ e + a	aya	e > ay	x	x	x
 c + t	kk	ct > kk	c > k	ñc + t	x
 c + t	tt	ct > tt	c > t	c + th	x
 c + th	tth	cth > tth	c > t	x	x
+c + ṃ	ñc	cṃ > ñc (metathesis)	x	x	x
 
 g + y	gg	gy > gg	x	x	x
 
@@ -130,9 +131,9 @@ ri + a	lla	ri > li > ly > ll	x	x	x
 l + y	ll	ly > ll	y > l	x	x
 la + y	ll	ly > ll	y > l	x	x
 
-v + t	t	vt > t	v > t	v + th
-v + t	tt	vt > tt	v > t	v + th
-v + th	th	vth > th	x	x
+v + t	t	vt > t	v > t	v + th	x
+v + t	tt	vt > tt	v > t	v + th	x
+v + th	th	vth > th	x	x	x
 vi +	by	vi > vy > by	vi > by	x	x
 
 s + t	ṭṭh	st > ṭṭh	x	x	x

@@ -180,8 +180,8 @@ class ProjectPaths:
 
         # /resources/tpr
         self.tpr_download_list_path = base_dir.joinpath(Path("resources/tpr_downloads/download_source_files/download_list.json"))
-        self.tpr_release_path = base_dir.joinpath(Path("resources/tpr_downloads/download_source_files/dictionaries/dpd.zip"))
-        self.tpr_beta_path = base_dir.joinpath(Path("resources/tpr_downloads/download_source_files/dictionaries/dpd_beta.zip"))
+        self.tpr_release_path = base_dir.joinpath(Path("resources/tpr_downloads/release_zips/dpd.zip"))
+        self.tpr_beta_path = base_dir.joinpath(Path("resources/tpr_downloads/release_zips/dpd_beta.zip"))
 
         # /sandhi/assets
         self.sandhi_assests_dir = base_dir.joinpath(Path("sandhi/assets"))
