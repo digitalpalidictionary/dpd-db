@@ -6,8 +6,9 @@ How to use: feed in a list of books and get a set in return.
     sc_text_set = make_sc_text_set(["an1"], niggahita="ṁ")
 """
 
-import os
 import json
+import os
+import re
 
 from rich import print
 from typing import Optional, Set, List
@@ -106,7 +107,7 @@ def make_cst_text_set_from_file(niggahita="ṃ") -> Set[str]:
 
 
 def make_cst_text_set(pth: ProjectPaths, books: List[str], niggahita="ṃ") -> Set[str]:
-    """Make a list of words in CST texts from a list of books.
+    """Make a set of words in CST texts from a list of books.
     Optionally change the niggahita character.
     Return a list or a set."""
 
@@ -125,6 +126,45 @@ def make_cst_text_set(pth: ProjectPaths, books: List[str], niggahita="ṃ") -> S
             words_list.extend(text_string.split())
 
     return set(words_list)
+
+
+def make_cst_text_list(
+        pth: ProjectPaths, 
+        books: List[str], 
+        niggahita="ṃ",
+        dedupe=True) -> List[str]:
+    """Make a list of words in CST texts from a list of books.
+    Optionally change the niggahita character and dedupe the list.
+    Usage:
+    word_list = make_cst_text_list(pth, ["kn8"], niggahita="ŋ")
+    word_list = make_cst_text_list(pth, ["kn8", "kn9"], dedupe=False)
+    """
+
+    cst_texts_list: List[str] = []
+
+    for i in books:
+        if cst_texts[i]:
+            cst_texts_list += cst_texts[i]
+
+    words_list: List[str] = []
+
+    for book in cst_texts_list:
+        with open(pth.cst_txt_dir.joinpath(book), "r") as f:
+            text_string = f.read()
+            text_string = re.sub(r"\(.+\)", "", text_string)
+            text_string = clean_machine(text_string, niggahita=niggahita)
+            words_list.extend(text_string.split())
+    
+    if dedupe == True:
+        exists = []
+        reduced_list = []
+        for word in words_list:
+            if word not in exists:
+                exists += [word]
+                reduced_list += [word]
+        return reduced_list
+    else:
+        return words_list
 
 
 def make_sc_text_set(pth: ProjectPaths, books: List[str], niggahita="ṃ") -> Set[str]:
@@ -155,6 +195,49 @@ def make_sc_text_set(pth: ProjectPaths, books: List[str], niggahita="ṃ") -> Se
                         words_list.extend(clean_text.split())
 
     return set(words_list)
+
+
+def make_sc_text_list(
+        pth: ProjectPaths,
+        books: List[str],
+        niggahita="ṃ",
+        deduped=True) -> List[str]:
+    """Make a list of words in Sutta Central texts from a list of books.
+    Optionally change the niggahita character and dedupe.
+    Return a list."""
+
+    # make a list of file names of included books
+    sc_texts_list: List[str] = []
+    for i in books:
+        try:
+            if sc_texts[i]:
+                sc_texts_list += sc_texts[i]
+        except KeyError as e:
+            print(f"[red]book does not exist: {e}")
+            return []
+
+    words_list: List[str] = []
+
+    for root, __dirs__, files in sorted(os.walk(pth.sc_dir)):
+        for file in files:
+            if file in sc_texts_list:
+                with open(os.path.join(root, file)) as f:
+                    # Sutta Cental texts are json dictionaries
+                    sc_text_dict: dict = json.load(f)
+                    for __title__, text in sc_text_dict.items():
+                        clean_text = clean_machine(text, niggahita=niggahita)
+                        words_list.extend(clean_text.split())
+    
+    if deduped == False:
+        return words_list
+    else:
+        exists = []
+        deduped_list = []
+        for word in words_list:
+            if word not in exists:
+                exists += [word]
+                deduped_list += [word]
+        return deduped_list
 
 
 def make_bjt_text_set(pth: ProjectPaths, include: List[str]) -> Set[str]:

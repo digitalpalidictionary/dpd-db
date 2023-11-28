@@ -97,6 +97,10 @@ def window_layout(primary_user):
     window['dps_bold_4'].bind("<Return>", "_enter")
 
     # bind tab keys to jump to next field in multiline elements
+    window['pali_1'].bind('<Tab>', '_tab', propagate=False)
+    window['pali_2'].bind('<Tab>', '_tab', propagate=False)
+    window['pos'].bind('<Tab>', '_tab', propagate=False)
+    window['grammar'].bind('<Tab>', '_tab', propagate=False)
     window['meaning_1'].bind('<Tab>', '_tab', propagate=False)
     window['construction'].bind('<Tab>', '_tab', propagate=False)
     window['phonetic'].bind('<Tab>', '_tab', propagate=False)

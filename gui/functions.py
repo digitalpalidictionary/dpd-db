@@ -25,10 +25,8 @@ from functions_db import get_family_compound_values
 from functions_db import values_to_pali_word
 
 from tools.pos import INDECLINABLES
-from tools.cst_sc_text_sets import make_cst_text_set
-from tools.cst_sc_text_sets import make_cst_text_set_sutta
-from tools.cst_sc_text_sets import make_cst_text_set_from_file
-from tools.cst_sc_text_sets import make_sc_text_set
+from tools.cst_sc_text_sets import make_cst_text_list
+from tools.cst_sc_text_sets import make_sc_text_list
 from tools.paths import ProjectPaths
 from tools.pali_text_files import cst_texts
 from tools.pali_alphabet import pali_alphabet
@@ -557,7 +555,7 @@ def find_sutta_example(sg, window, values: dict) -> Optional[Dict[str, str]]:
 
         soup = BeautifulSoup(xml, "xml")
 
-        # remove all the "pb" tags
+        # remove all the "pb" tags (page numbers in books) 
         pbs = soup.find_all("pb")
         for pb in pbs:
             pb.decompose()
@@ -870,9 +868,9 @@ def test_book_to_add(values, window):
 
 
 def make_words_to_add_list(__window__, book: str) -> list:
-    cst_text_list = make_cst_text_set(PTH, [book])
-    sc_text_list = make_sc_text_set(PTH, [book])
-    original_text_list = list(cst_text_list) + list(sc_text_list)
+    cst_text_list = make_cst_text_list(PTH, [book])
+    sc_text_list = make_sc_text_list(PTH, [book])
+    original_text_list = cst_text_list + sc_text_list
 
     sp_mistakes_list = make_sp_mistakes_list(PTH)
     variant_list = make_variant_list(PTH)
@@ -888,66 +886,6 @@ def make_words_to_add_list(__window__, book: str) -> list:
     print(f"words_to_add: {len(text_list)}")
 
     return text_list
-
-
-def make_words_to_add_list_sutta(sutta_name: str, book: str) -> list:
-    cst_text_list = make_cst_text_set_sutta(PTH, sutta_name, [book])
-
-    sp_mistakes_list = make_sp_mistakes_list(PTH)
-    variant_list = make_variant_list(PTH)
-    sandhi_ok_list = make_sandhi_ok_list(PTH)
-    all_inflections_set = make_all_inflections_set()
-
-    text_set = set(cst_text_list)
-    text_set = text_set - set(sandhi_ok_list)
-    text_set = text_set - set(sp_mistakes_list)
-    text_set = text_set - set(variant_list)
-    text_set = text_set - all_inflections_set
-    cst_text_index = {text: index for index, text in enumerate(cst_text_list)}
-    text_list = sorted(text_set, key=lambda x: cst_text_index.get(x, float('inf')))
-
-    print(f"words_to_add: {len(text_list)}")
-
-    return text_list
-
-
-def make_words_to_add_list_from_text() -> list:
-    cst_text_list = make_cst_text_set_from_file()
-
-    sp_mistakes_list = make_sp_mistakes_list(PTH)
-    variant_list = make_variant_list(PTH)
-    sandhi_ok_list = make_sandhi_ok_list(PTH)
-    all_inflections_set = make_all_inflections_set()
-
-    text_set = set(cst_text_list)
-    text_set = text_set - set(sandhi_ok_list)
-    text_set = text_set - set(sp_mistakes_list)
-    text_set = text_set - set(variant_list)
-    text_set = text_set - all_inflections_set
-    cst_text_index = {text: index for index, text in enumerate(cst_text_list)}
-    text_list = sorted(text_set, key=lambda x: cst_text_index.get(x, float('inf')))
-    print(f"words_to_add: {len(text_list)}")
-
-    return text_list
-
-
-# def make_text_list(window, PTH, book: str) -> list:
-#     text_list = []
-
-#     if book in cst_texts and book in sc_texts:
-#         for b in cst_texts[book]:
-#             filepath = PTH.cst_txt_dir.joinpath(b)
-#             with open(filepath) as f:
-#                 text_read = f.read()
-#                 text_clean = clean_machine(text_read)
-#                 text_list += text_clean.split()
-
-#     else:
-#         window["messages"].update(
-#             f"{book} not found", text_color="red")
-
-#     print(f"text list: {len(text_list)}")
-#     return text_list
 
 
 def make_sp_mistakes_list(PTH):

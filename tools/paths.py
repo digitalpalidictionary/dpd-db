@@ -170,7 +170,7 @@ class ProjectPaths:
         # /resources/tipitaka-xml
         self.cst_txt_dir = base_dir.joinpath(Path("resources/tipitaka-xml/roman_txt/"))
         self.cst_xml_dir = base_dir.joinpath(Path("resources/tipitaka-xml/deva/"))
-        self.cst_xml_roman_dir = base_dir.joinpath(Path("resources/tipitaka-xml/roman_xml/"))
+        self.cst_xml_roman_dir = base_dir.joinpath(Path("resources/tipitaka-xml/romn/"))
 
         # resources/resources/other_pali_texts
         self.other_pali_texts_dir = base_dir.joinpath(Path("resources/other_pali_texts"))
