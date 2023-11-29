@@ -9,14 +9,14 @@ from tools.paths import ProjectPaths
 from tools.pali_text_files import cst_texts
 
 
-def find_sutta_example(
+def find_source_sutta_example(
         pth: ProjectPaths, 
         book: str, 
         text_to_find: str
         ) -> List[Tuple[str, str, str]]:
 
     filename = ""
-    sutta_examples = []
+    sutta_examples: List[Tuple[str, str, str]] = []
 
 
     if book in cst_texts:
@@ -339,6 +339,6 @@ if __name__ == "__main__":
     pth = ProjectPaths()
     book = "kn16"
     text_to_find = "khaggavisāṇakappo"
-    sutta_examples = find_sutta_example(pth, book, text_to_find)
+    sutta_examples = find_source_sutta_example(pth, book, text_to_find)
     print(sutta_examples)
 

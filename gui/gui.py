@@ -120,7 +120,7 @@ def main():
     pali_word_original = None
     pali_word_original2 = None
 
-    # !!! this is supa slow !!!
+    # !!! FIXME this is supa slow !!!
     try:
         definitions_df = pd.read_csv(pth.defintions_csv_path, sep="\t")
         commentary_definitions_exists = True
@@ -613,13 +613,13 @@ def main():
                 values["book_to_add"] and
                 values["word_to_add"]
             ):
-                sutta_sentences = find_sutta_example(sg, window, values)
+                source_sutta_example = find_sutta_example(sg, window, values)
 
-                if sutta_sentences is not None:
+                if source_sutta_example is not None:
                     try:
-                        window["source_1"].update(value=sutta_sentences["source"])
-                        window["sutta_1"].update(value=sutta_sentences["sutta"])
-                        window["example_1"].update(value=sutta_sentences["example"])
+                        window["source_1"].update(value=source_sutta_example[0])
+                        window["sutta_1"].update(value=source_sutta_example[1])
+                        window["example_1"].update(value=source_sutta_example[2])
                     except KeyError as e:
                         window["messages"].update(value=str(e), text_color="red")
 
@@ -673,13 +673,13 @@ def main():
                 values["word_to_add"] = [word_to_add]
                 window["word_to_add"].update(values=[word_to_add])
 
-            sutta_sentences = find_sutta_example(sg, window, values)
+            source_sutta_example = find_sutta_example(sg, window, values)
 
-            if sutta_sentences is not None:
+            if source_sutta_example is not None:
                 try:
-                    window["source_2"].update(value=sutta_sentences["source"])
-                    window["sutta_2"].update(value=sutta_sentences["sutta"])
-                    window["example_2"].update(value=sutta_sentences["example"])
+                    window["source_2"].update(value=source_sutta_example[0])
+                    window["sutta_2"].update(value=source_sutta_example[1])
+                    window["example_2"].update(value=source_sutta_example[2])
                 except KeyError as e:
                     window["messages"].update(value=str(e), text_color="red")
 
@@ -1236,13 +1236,13 @@ def main():
                 values["book_to_add"] and
                 values["word_to_add"]
             ):
-                sutta_sentences = find_sutta_example(sg, window, values)
+                source_sutta_example = find_sutta_example(sg, window, values)
 
-                if sutta_sentences is not None:
+                if source_sutta_example is not None:
                     try:
-                        window["dps_sbs_source_1"].update(value=sutta_sentences["source"])
-                        window["dps_sbs_sutta_1"].update(value=sutta_sentences["sutta"])
-                        window["dps_sbs_example_1"].update(value=sutta_sentences["example"])
+                        window["dps_sbs_source_1"].update(value=source_sutta_example[0])
+                        window["dps_sbs_sutta_1"].update(value=source_sutta_example[1])
+                        window["dps_sbs_example_1"].update(value=source_sutta_example[2])
                     except KeyError as e:
                         window["messages"].update(value=str(e), text_color="red")
 
@@ -1306,13 +1306,13 @@ def main():
                 values["word_to_add"] = [word_to_add]
                 window["word_to_add"].update(values=[word_to_add])
 
-            sutta_sentences = find_sutta_example(sg, window, values)
+            source_sutta_example = find_sutta_example(sg, window, values)
 
-            if sutta_sentences is not None:
+            if source_sutta_example is not None:
                 try:
-                    window["dps_sbs_source_2"].update(value=sutta_sentences["source"])
-                    window["dps_sbs_sutta_2"].update(value=sutta_sentences["sutta"])
-                    window["dps_sbs_example_2"].update(value=sutta_sentences["example"])
+                    window["dps_sbs_source_2"].update(value=source_sutta_example[0])
+                    window["dps_sbs_sutta_2"].update(value=source_sutta_example[1])
+                    window["dps_sbs_example_2"].update(value=source_sutta_example[2])
                 except KeyError as e:
                     window["messages"].update(value=str(e), text_color="red")
 
@@ -1369,13 +1369,13 @@ def main():
                 values["word_to_add"] = [word_to_add]
                 window["word_to_add"].update(values=[word_to_add])
 
-            sutta_sentences = find_sutta_example(sg, window, values)
+            source_sutta_example = find_sutta_example(sg, window, values)
 
-            if sutta_sentences is not None:
+            if source_sutta_example is not None:
                 try:
-                    window["dps_sbs_source_3"].update(value=sutta_sentences["source"])
-                    window["dps_sbs_sutta_3"].update(value=sutta_sentences["sutta"])
-                    window["dps_sbs_example_3"].update(value=sutta_sentences["example"])
+                    window["dps_sbs_source_3"].update(value=source_sutta_example[0])
+                    window["dps_sbs_sutta_3"].update(value=source_sutta_example[1])
+                    window["dps_sbs_example_3"].update(value=source_sutta_example[2])
                 except KeyError as e:
                     window["messages"].update(value=str(e), text_color="red")
 
@@ -1432,13 +1432,13 @@ def main():
                 values["word_to_add"] = [word_to_add]
                 window["word_to_add"].update(values=[word_to_add])
 
-            sutta_sentences = find_sutta_example(sg, window, values)
+            source_sutta_example = find_sutta_example(sg, window, values)
 
-            if sutta_sentences is not None:
+            if source_sutta_example is not None:
                 try:
-                    window["dps_sbs_source_4"].update(value=sutta_sentences["source"])
-                    window["dps_sbs_sutta_4"].update(value=sutta_sentences["sutta"])
-                    window["dps_sbs_example_4"].update(value=sutta_sentences["example"])
+                    window["dps_sbs_source_4"].update(value=source_sutta_example[0])
+                    window["dps_sbs_sutta_4"].update(value=source_sutta_example[1])
+                    window["dps_sbs_example_4"].update(value=source_sutta_example[2])
                 except KeyError as e:
                     window["messages"].update(value=str(e), text_color="red")
 

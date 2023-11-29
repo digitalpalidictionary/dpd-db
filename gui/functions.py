@@ -17,24 +17,23 @@ from rich import print
 from bs4 import BeautifulSoup
 from nltk import sent_tokenize, word_tokenize
 
-
-# from db.db_helpers import get_column_names
 from db.models import PaliWord
 from functions_db import make_all_inflections_set
 from functions_db import get_family_compound_values
 from functions_db import values_to_pali_word
 
-from tools.pos import INDECLINABLES
+from tools.configger import config_test_option
+from tools.configger import config_update
+from tools.configger import config_test
+
 from tools.cst_sc_text_sets import make_cst_text_list
 from tools.cst_sc_text_sets import make_sc_text_list
 from tools.paths import ProjectPaths
 from tools.pali_text_files import cst_texts
 from tools.pali_alphabet import pali_alphabet
-from tools.configger import config_test_option
-from tools.configger import config_update
-from tools.configger import config_test
-# from tools.meaning_construction import make_meaning
-# from tools.tsv_read_write import read_tsv_dot_dict
+from tools.pos import INDECLINABLES
+from tools.source_sutta_example import find_source_sutta_example
+
 
 nltk.download('punkt')
 
@@ -534,287 +533,92 @@ def transliterate_xml(xml):
     return xml
 
 
-def find_sutta_example(sg, window, values: dict) -> Optional[Dict[str, str]]:
+def find_sutta_example(sg, window, values: dict) -> Optional[Tuple[str, str, str]]:
 
-    filename = ""
+    book = values["book_to_add"]
+    text_to_find = values["word_to_add"][0]
+    sutta_examples = find_source_sutta_example(PTH, book, text_to_find)
 
-    if values["book_to_add"] in cst_texts:
-        try:
-            filename = cst_texts[values["book_to_add"]][0].replace(".txt", ".xml")
-        except KeyError as e:
-            window["messages"].update(e, text_color="red")
+    sentences_list = [sentence[2] for sentence in sutta_examples]
 
-        with open(
-                PTH.cst_xml_dir.joinpath(filename), "r", encoding="UTF-16") as f:
-            xml = f.read()
-        xml = transliterate_xml(xml)
+    layout_elements = []
+    layout_elements.append([
+        sg.Button(
+            "Add Sutta Example", key="add_button_1"),
+        sg.Button(
+            "Cancel", key="cancel_1")
+    ])
 
-        with open(PTH.cst_xml_roman_dir.joinpath(filename), "w") as w:
-            w.write(xml)
-        print(PTH.cst_xml_roman_dir.joinpath(filename))
+    layout_elements.extend([
+        [
+            sg.Radio(
+                "", "sentence",
+                key=f"{i}",
+                text_color="lightblue",
+                pad=((0, 10), 5)),
+            sg.Multiline(
+                sentences_list[i],
+                wrap_lines=True,
+                auto_size_text=True,
+                size=(100, 2),
+                text_color="lightgray",
+                no_scrollbar=True,
+            )
+        ]
+        for i in range(len(sentences_list))
+    ])
 
-        soup = BeautifulSoup(xml, "xml")
+    layout_elements.append([
+        sg.Button(
+            "Add Sutta Example", key="add_button_2"),
+        sg.Button(
+            "Cancel", key="cancel_2")
+    ])
 
-        # remove all the "pb" tags (page numbers in books) 
-        pbs = soup.find_all("pb")
-        for pb in pbs:
-            pb.decompose()
+    layout = [[
+        [
+            sg.Column(
+                layout=layout_elements, key="results",
+                expand_y=True, expand_x=True,
+                scrollable=True, vertical_scroll_only=True
+            )
+        ],
+    ]]
 
-        # unwrap all the notes
-        notes = soup.find_all("note")
-        for note in notes:
-            note.replace_with(fr" [{note.text}] ")
+    window = sg.Window(
+        "Find Sutta Examples",
+        layout,
+        resizable=True,
+        size=(1920, 1080),
+        finalize=True
+    )
 
-        # unwrap all the hi parunum dot tags
-        his = soup.find_all("hi", rend=["paranum", "dot"])
-        for hi in his:
-            hi.unwrap()
+    while True:
+        event, values = window.read()
 
-        word_to_add = values["word_to_add"][0]
-        ps = soup.find_all("p")
-        source = ""
-        sutta = ""
+        if event == "Close" or event == sg.WIN_CLOSED:
+            break
 
-        sutta_sentences = []
-        sutta_counter = 0
-        udana_counter = 0
-        itivuttaka_counter = 0
-        snp_counter = 0
-        for p in ps:
+        if event == "add_button_1" or event == "add_button_2":
+            number = 0
+            for value in values:
+                if values[value] is True:
+                    number = int(value)
 
-            if p["rend"] == "subhead":
-                if "suttaṃ" in p.text:
-                    sutta_counter += 1
-                source = values["book_to_add"].upper()
-                book = re.sub(r"\d", "", source)
-                # add space to digtis
-                source = re.sub(r"(?<=[A-Za-z])(?=\d)", " ", source)
-                sutta_number = ""
-                try:
-                    sutta_number = p.next_sibling.next_sibling["n"]
-                except KeyError as e:
-                    window["messages"].update(e, text_color="red")
-
-                # choose which method to number suttas according to book
-                if values["book_to_add"].startswith("mn1"):
-                    source = f"{book} {sutta_counter}"
-                elif values["book_to_add"].startswith("mn2"):
-                    source = f"{book} {sutta_counter+50}"
-                elif values["book_to_add"].startswith("mn3"):
-                    source = f"{book} {sutta_counter+100}"
-                elif values["book_to_add"].startswith("an"):
-                    source = f"{source}.{sutta_number}"
-                elif values["book_to_add"].startswith("sn"):
-                    source = ""
-
-                # remove the digits and the dot in sutta name
-                sutta = re.sub(r"\d*\. ", "", p.text)
-
-            # dn
-            if "dn" in values["book_to_add"]:
-                book = "DN "
-                if p.has_attr("rend") and p["rend"] == "subhead":
-                    # Find the previous "head" tag with "rend" attribute containing "chapter"
-                    chapter_head = p.find_previous("head", attrs={"rend": "chapter"})
-                    chapter_text = chapter_head.text
-                    pattern = r"^(\d+)\.\s+(.*)$"
-                    match = re.match(pattern, chapter_text)
-                    if match:
-                        if values["book_to_add"] == "dn1":
-                            source = f"{book}{match.group(1)}"
-                        if values["book_to_add"] == "dn2":
-                            # there are 13 suttas previously in dn1
-                            source = f"{book}{int(match.group(1))+13}"
-                        if values["book_to_add"] == "dn3":
-                            # there are 13+10 suttas previously in dn1 & dn2
-                            source = f"{book}{int(match.group(1))+23}"
-                        sutta = match.group(2)
-
-            # kn1
-            if values["book_to_add"] == "kn1":
-                book = "KHP"
-                chapter_text = None
-                if not chapter_text:
-                    chapter_div = p.find_parent("div", {"type": "chapter"})
-                    if chapter_div:
-                        chapter_text = chapter_div.find("head").get_text()
-                        pattern = r"^(\d+)\.\s+(.*)$"
-                        match = re.match(pattern, chapter_text)
-                        if match:
-                            source = f"{book}{match.group(1)}"
-                            sutta = match.group(2)
-                        
-
-            # kn2
-            elif values["book_to_add"] == "kn2":
-                book = "DHP "
-                if p.has_attr("rend") and p["rend"] == "hangnum":
-                    # Find the previous "head" tag with "rend" attribute containing "chapter"
-                    chapter_head = p.find_previous("head", attrs={"rend": "chapter"})
-                    if chapter_head is not None:
-                        chapter_text = chapter_head.string.strip()
-                        pattern = r"^(\d+)\.\s+(.*)$"
-                        match = re.match(pattern, chapter_text)
-                        if match:
-                            source = f"{book}{match.group(1)}"
-                            sutta = match.group(2)
-
-            elif values["book_to_add"] == "kn3":
-                book = "UD"
-                if p["rend"] == "subhead":
-                    udana_counter += 1
-                    source = f"{book} {udana_counter}"
-
-            elif values["book_to_add"] == "kn4":
-                book = "ITI"
-                if p["rend"] == "subhead":
-                    itivuttaka_counter += 1
-                    source = f"{book} {itivuttaka_counter}"
-
-            elif values["book_to_add"] == "kn5":
-                book = "SNP"
-                if p["rend"] == "subhead":
-                    snp_counter += 1
-                    source = f"{book} {snp_counter}"
-
-            text = clean_example(p.text)
-
-            if word_to_add is not None and word_to_add in text:
-
-                # compile gathas line by line
-                if "gatha" in p["rend"]:
-                    example = ""
-
-                    while True:
-                        if p.text == "\n":
-                            p = p.previous_sibling
-                        elif p["rend"] == "gatha1":
-                            break
-                        elif p["rend"] == "gatha2":
-                            p = p.previous_sibling
-                        elif p["rend"] == "gatha3":
-                            p = p.previous_sibling
-                        elif p["rend"] == "gathalast":
-                            p = p.previous_sibling
-
-                    text = clean_gatha(p.text)
-                    text = text.replace(".", ",\n")
-                    example += text
-
-                    while True:
-                        p = p.next_sibling
-                        if p.text == "\n":
-                            pass
-                        elif p["rend"] == "gatha2":
-                            text = clean_gatha(p.text)
-                            text = text.replace(".", ",")
-                            example += text
-                        elif p["rend"] == "gatha3":
-                            text = clean_gatha(p.text)
-                            text = text.replace(".", ",")
-                            example += text
-                        elif p["rend"] == "gathalast":
-                            text = clean_gatha(p.text)
-                            example += text
-                            break
-
-                    sutta_sentences += [{
-                        "source": source,
-                        "sutta": sutta,
-                        "example": example}]
-
-                # or compile sentences
-                else:
-                    sentences = sent_tokenize(text)
-                    for i, sentence in enumerate(sentences):
-                        if word_to_add in sentence:
-                            prev_sentence = sentences[i - 1] if i > 0 else ""
-                            next_sentence = sentences[i + 1] if i < len(sentences)-1 else ""
-                            sutta_sentences += [{
-                                "source": source,
-                                "sutta": sutta,
-                                "example": f"{prev_sentence} {sentence} {next_sentence}"}]
-
-        sentences_list = [sentence["example"] for sentence in sutta_sentences]
-
-        layout_elements = []
-        layout_elements.append([
-            sg.Button(
-                "Add Sutta Example", key="add_button_1"),
-            sg.Button(
-                "Cancel", key="cancel_1")
-        ])
-
-        layout_elements.extend([
-            [
-                sg.Radio(
-                    "", "sentence",
-                    key=f"{i}",
-                    text_color="lightblue",
-                    pad=((0, 10), 5)),
-                sg.Multiline(
-                    sentences_list[i],
-                    wrap_lines=True,
-                    auto_size_text=True,
-                    size=(100, 2),
-                    text_color="lightgray",
-                    no_scrollbar=True,
-                )
-            ]
-            for i in range(len(sentences_list))
-        ])
-
-        layout_elements.append([
-            sg.Button(
-                "Add Sutta Example", key="add_button_2"),
-            sg.Button(
-                "Cancel", key="cancel_2")
-        ])
-
-        layout = [[
-            [
-                sg.Column(
-                    layout=layout_elements, key="results",
-                    expand_y=True, expand_x=True,
-                    scrollable=True, vertical_scroll_only=True
-                )
-            ],
-        ]]
-
-        window = sg.Window(
-            "Find Sutta Examples",
-            layout,
-            resizable=True,
-            size=(1920, 1080),
-            finalize=True
-        )
-
-        while True:
-            event, values = window.read()
-
-            if event == "Close" or event == sg.WIN_CLOSED:
-                break
-
-            if event == "add_button_1" or event == "add_button_2":
-                number = 0
-                for value in values:
-                    if values[value] is True:
-                        number = int(value)
-
-                if sutta_sentences != []:
-                    window.close()
-                    return sutta_sentences[number]
-                else:
-                    window.close()
-                    return None
-
-            if event == "cancel_1" or event == "cancel_2":
+            if sutta_examples != []:
                 window.close()
+                return sutta_examples[number]
+            else:
+                window.close()
+                return None
 
-        window.close()
+        if event == "cancel_1" or event == "cancel_2":
+            window.close()
 
-    else:
-        window["messages"].update("book code not found", text_color="red")
+    window.close()
+
+    # else:
+    #     window["messages"].update("book code not found", text_color="red")
 
 
 def clean_example(text):
