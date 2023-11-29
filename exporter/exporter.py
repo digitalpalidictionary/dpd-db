@@ -7,7 +7,7 @@ import zipfile
 import csv
 import pickle
 
-from os import popen
+from subprocess import Popen, PIPE
 from pathlib import Path
 from rich import print
 from sqlalchemy.orm import Session
@@ -130,20 +130,27 @@ def export_to_goldendict(pth: ProjectPaths, data_list: list) -> None:
     print(f"{bop():>29}")
 
 
-def goldendict_unzip_and_copy(pth: ProjectPaths,) -> None:
+def goldendict_unzip_and_copy(pth: ProjectPaths) -> None:
     """unzip and copy to goldendict folder"""
 
     goldendict_path: (Path |str) = goldedict_path()
 
     bip()
 
-    if (
-        goldendict_path and 
-        goldendict_path.exists()
-    ):
-        print(f"[green]unzipping and copying to [blue]{goldendict_path}")
-        popen(
-            f'unzip -o {pth.dpd_zip_path} -d "{goldendict_path}"')
+    if goldendict_path and goldendict_path.exists():
+        try:
+            with Popen(f'unzip -o {pth.dpd_zip_path} -d "{goldendict_path}"', shell=True, stdout=PIPE, stderr=PIPE) as process:
+                stdout, stderr = process.communicate()
+
+                if process.returncode == 0:
+                    print(f"[green]Unzipping and copying to [blue]{goldendict_path} [green]successful")
+                else:
+                    print("[red]Error during unzip and copy:")
+                    print(f"Exit Code: {process.returncode}")
+                    print(f"Standard Output: {stdout.decode('utf-8')}")
+                    print(f"Standard Error: {stderr.decode('utf-8')}")
+        except Exception as e:
+            print(f"[red]Error during unzip and copy: {e}")
     else:
         print("[red]local GoldenDict directory not found")
 
