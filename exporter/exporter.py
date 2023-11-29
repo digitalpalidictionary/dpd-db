@@ -119,10 +119,10 @@ def export_to_goldendict(pth: ProjectPaths, data_list: list) -> None:
             "website": "https://digitalpalidictionary.github.io/", }
     )
 
-    export_words_as_stardict_zip(data_list, ifo, pth.zip_path, pth.icon_path)
+    export_words_as_stardict_zip(data_list, ifo, pth.dpd_zip_path, pth.icon_path)
 
     # add bmp icon for android
-    with zipfile.ZipFile(pth.zip_path, 'a') as zipf:
+    with zipfile.ZipFile(pth.dpd_zip_path, 'a') as zipf:
         source_path = pth.icon_bmp_path
         destination = 'dpd/android.bmp'
         zipf.write(source_path, destination)
@@ -140,10 +140,10 @@ def goldendict_unzip_and_copy(pth: ProjectPaths,) -> None:
     if (
         goldendict_path and 
         goldendict_path.exists()
-        ):
+    ):
         print(f"[green]unzipping and copying to [blue]{goldendict_path}")
         popen(
-            f'unzip -o {pth.zip_path} -d "{goldendict_path}"')
+            f'unzip -o {pth.dpd_zip_path} -d "{goldendict_path}"')
     else:
         print("[red]local GoldenDict directory not found")
 

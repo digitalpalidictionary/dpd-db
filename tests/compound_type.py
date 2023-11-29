@@ -47,7 +47,7 @@ def main():
 				not i.meaning_1 or
 				i.pali_1 in exceptions or 
 				i.pos in pos_exclusions or
-				"comp" not in i.grammar
+				", comp" not in i.grammar
 			):
 				continue
 			if (

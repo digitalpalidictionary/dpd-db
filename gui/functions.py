@@ -1136,13 +1136,24 @@ def replace_sandhi(string, field: str, sandhi_dict: dict, window) -> None:
             splits[i] = "//".join(sandhi_dict[word]["contractions"])
     string = "".join(splits)
 
-    string = string.replace("</b>ti", "</b>'ti")    # fix bold 'ti
-    string = string.replace("</b>nti", "n</b>'ti")  # fix bold 'ti
-    string = string.replace(",</b>", "</b>,")  # fix bold comma
-    string = re.sub(r"\[[^]]*\]", "", string)   # remove [...]
-    string = re.sub(" +", " ", string)  # remove double spaces
-    string = re.sub(r"^\d*\. ", "", string)  # remove digits in front
-    string = string.strip()  # remove spaces front n back
+    # fix bold 'ti
+    string = string.replace("</b>ti", "</b>'ti")
+    # fix bold 'ti
+    string = string.replace("</b>nti", "n</b>'ti")
+    # fix bold comma
+    string = string.replace(",</b>", "</b>,")
+    # fix bold stop
+    string = string.replace(".</b>", "</b>.")
+    # fix bold quote
+    string = string.replace("'</b>'", "</b>'")
+    # remove [...]
+    string = re.sub(r"\[[^]]*\]", "", string)
+    # remove double spaces
+    string = re.sub(" +", " ", string)
+    # remove digits in front
+    string = re.sub(r"^\d*\. ", "", string)
+    # remove spaces front n back
+    string = string.strip()  
 
     window[field].update(string)
 

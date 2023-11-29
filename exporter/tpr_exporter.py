@@ -31,17 +31,24 @@ def main():
     print("[bright_yellow]generate tpr data")
 
     pth = ProjectPaths()
-    db_session: Session = get_db_session(pth.dpd_db_path)
+    print(pth.tpr_release_path)
 
-    dpd_db = db_session.query(PaliWord).all()
-    all_headwords_clean = make_clean_headwords_set(dpd_db)
-    tpr_data_list = generate_tpr_data(pth, db_session, dpd_db, all_headwords_clean)
-    sandhi_data_list = generate_sandhi_data(db_session, all_headwords_clean)
-    write_tsvs(pth, tpr_data_list, sandhi_data_list)
-    tpr_df, i2h_df, sandhi_df = copy_to_sqlite_db(pth, tpr_data_list, sandhi_data_list)
-    tpr_updater(pth, tpr_df, i2h_df, sandhi_df)
-    copy_zip_to_tpr_downloads(pth)
-    toc()
+    if pth.tpr_release_path.exists():
+
+        db_session: Session = get_db_session(pth.dpd_db_path)
+        dpd_db = db_session.query(PaliWord).all()
+        all_headwords_clean = make_clean_headwords_set(dpd_db)
+        tpr_data_list = generate_tpr_data(pth, db_session, dpd_db, all_headwords_clean)
+        sandhi_data_list = generate_sandhi_data(db_session, all_headwords_clean)
+        write_tsvs(pth, tpr_data_list, sandhi_data_list)
+        tpr_df, i2h_df, sandhi_df = copy_to_sqlite_db(pth, tpr_data_list, sandhi_data_list)
+        tpr_updater(pth, tpr_df, i2h_df, sandhi_df)
+        copy_zip_to_tpr_downloads(pth)
+        toc()
+    
+    else:
+        print("[red]tpr_downloads directory does not exist")
+        print("it's not essential to create the dictionary")
 
 
 def generate_tpr_data(pth: ProjectPaths, db_session: Session, dpd_db, __all_headwords_clean__):
