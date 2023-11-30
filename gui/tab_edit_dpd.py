@@ -450,10 +450,20 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
         ],
         [
             sg.Text("notes", size=(15, 1)),
-            sg.Input(
-                key="notes", size=(50, 41), tooltip="Add additional notes"),
+            sg.Multiline(
+                key="notes", size=(50, 1), tooltip="Add additional notes"),
             sg.Text(
                 "", key="notes_error", size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("", size=(15, 1)),
+            sg.Input(
+                key="notes_italic_bold", size=(30, 1),
+                tooltip="Bold the word"),
+            sg.Button("Italic", key="notes_italic_button", font=(None, 13)),
+            sg.Button("Bold", key="notes_bold_button", font=(None, 13)),
+            sg.Text(
+                "", key="notes_italic_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("non_ia", size=(15, 1)),

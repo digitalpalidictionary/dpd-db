@@ -85,11 +85,12 @@ def window_layout(primary_user):
     window['book_to_add'].bind("<Return>", "_enter")
     window['search_for'].bind("<Return>", "_enter")
     window['contains'].bind("<Return>", "_enter")
+    window['notes_italic_bold'].bind("<Return>", "_enter")
     window['bold_cc'].bind("<Return>", "_enter")
     window['bold_1'].bind("<Return>", "_enter")
     window['bold_2'].bind("<Return>", "_enter")
     window['add_construction'].bind("<Return>", "_enter")
-
+    
     # bind enter key dps
     window['dps_bold_1'].bind("<Return>", "_enter")
     window['dps_bold_2'].bind("<Return>", "_enter")
@@ -105,6 +106,8 @@ def window_layout(primary_user):
     window['construction'].bind('<Tab>', '_tab', propagate=False)
     window['phonetic'].bind('<Tab>', '_tab', propagate=False)
     window['commentary'].bind('<Tab>', '_tab', propagate=False)
+    window['notes'].bind('<Tab>', '_tab', propagate=False)
+    window['notes_italic_bold'].bind('<Tab>', '_tab', propagate=False)
     window['example_1'].bind('<Tab>', '_tab', propagate=False)
     window['example_2'].bind('<Tab>', '_tab', propagate=False)
 

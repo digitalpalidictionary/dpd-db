@@ -179,6 +179,14 @@ def main():
             focus = window['commentary'].get_next_focus()
             if focus is not None:
                 focus.set_focus()
+        elif event == "notes_tab":
+            focus = window['notes'].get_next_focus()
+            if focus is not None:
+                focus.set_focus()
+        elif event == "notes_italic_bold_tab":
+            focus = window['notes_italic_bold'].get_next_focus()
+            if focus is not None:
+                focus.set_focus()
         elif event == "example_1_tab":
             focus = window['example_1'].get_next_focus()
             if focus is not None:
