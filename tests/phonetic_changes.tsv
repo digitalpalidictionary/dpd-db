@@ -1,7 +1,10 @@
 initial	final	correct	wrong	without	exceptions
 
+
 -
 a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant
+a + ṭ	iṭ	a > i	x	a + ṭh	x
+a + ṭh	iṭṭh	a > i	x	x	x	
 ati +	acc	ti > ty > cc	x	gacch	pacchājāta, gatikālādipaccayantarasamavāya
 adhi + a	jjh	dhi > dhy > jjh	adhi > adhy > ajjh	adhi + ā	x
 adhi + ā	jjh	dhi > dhy > jjh	x	adhi + a	x
@@ -143,6 +146,7 @@ s + t	ṭṭh	st > ṭṭh	x	x	x
 s + y	ss	sy > ss	y > s	x	x
 s + s	cch	ss > cch	x	x	x
 snih + 	sini	snih > sinih (epenthesis)	x	x	x
+sud	sod	u > o	x	a + u	x
 
 hu	ju	h > j	x	x	khujjuttarā
 hu	jū	h > j	x	x	x
