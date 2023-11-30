@@ -737,6 +737,28 @@ def main():
                     commentary = commentary.rstrip("\n")
                     window["commentary"].update(value=commentary)
 
+        elif (
+            event == "notes_italic_button"
+            or event == "notes_italic_bold_enter"
+        ):
+            if values["notes_italic_bold"]:
+                notes_italic = re.sub(
+                    values["notes_italic_bold"],
+                    f"<i>{values['notes_italic_bold']}</i>",
+                    values["notes"])
+                window["notes"].update(value=notes_italic)
+                window["notes_italic_bold"].update(value="")
+
+        elif event == "notes_bold_button":
+            if values["notes_italic_bold"]:
+                notes_bold = re.sub(
+                    values["notes_italic_bold"],
+                    f"<b>{values['notes_italic_bold']}</b>",
+                    values["notes"])
+                window["notes"].update(value=notes_bold)
+                window["notes_italic_bold"].update(value="")
+
+
         elif event == "sanskrit":
             if flags.sanskrit and re.findall(
                     r"\bcomp\b", values["grammar"]) != []:
