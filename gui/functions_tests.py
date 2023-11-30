@@ -189,7 +189,7 @@ def run_individual_internal_tests(
             else:
                 print(f"[red]search_{x} error")
 
-        message = f"{counter+2}. {t.test_name}"
+        test_message = f"{counter+2}. {t.test_name}"
 
         if all(test_results.values()):
             if t.error_column:
@@ -197,33 +197,52 @@ def run_individual_internal_tests(
                     f"{counter+2}. {t.test_name}")
 
             window["messages"].update(
-                f"{message} - failed!", text_color="red")
+                f"{test_message} - failed!", text_color="red")
+            
+            def popup_window():
 
-            exception_popup = sg.popup_get_text(
-                f"{message}\nClick Ok to add exception or Cancel to edit.",
-                default_text=values["pali_1"],
-                location=(200, 200),
-                text_color="white"
-                )
+                layout = [
+                    [sg.Text(test_message, text_color="white")],
+                    [sg.Button("Exception"), sg.Button("Edit"), sg.Button("Next")],
+                    
+                ]
+                window = sg.Window(
+                    "Test Failed", layout, 
+                    location=(200, 200))
+                return window
+            
+            popup_win = popup_window()
 
-            if exception_popup is None:
-                return flags
-            else:
-                if primary_user:
-                    internal_tests_list[counter].exceptions += [values['pali_1']]
-                    write_internal_tests_list(internal_tests_list)
-                else:
-                    sg.popup_ok(
-                        "Sorry, you don't have permission to edit that.\n\
-Try to fix the problem and run Tests again.",
-                        title="Error",
-                        location=(400, 400))
+            while True:
+                event_popup, values_popup = popup_win.read()
+
+                if (
+                    event_popup == "Edit"
+                    or event_popup is None
+                ):  
+                    popup_win.close()
                     return flags
+
+                elif event_popup == "Exception":
+                    if primary_user:
+                        popup_win.close()
+                        internal_tests_list[counter].exceptions += [values['pali_1']]
+                        write_internal_tests_list(internal_tests_list)
+                    else:
+                        message = "Sorry, you don't have permission to edit that.\nUse the Next button."
+                        sg.popup_ok(
+                            message,
+                            title="Error",
+                            location=(400, 400))
+                        return flags
+                    
+                elif event_popup == "Next":
+                    popup_win.close()
+                    break
 
         else:
             window["messages"].update(
-                f"{message} - passed!", text_color="white")
-            # print(f"{message} - passed!")
+                f"{test_message} - passed!", text_color="white")
 
     else:
         window["messages"].update(
