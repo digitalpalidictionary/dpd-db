@@ -96,6 +96,7 @@ from functions_dps import unstash_values_to
 from functions_dps import dps_get_original_values
 from functions_dps import update_sbs_category
 from functions_dps import words_in_db_from_source
+from functions_dps import get_next_ids_dps
 
 from functions_tests_dps import dps_open_internal_tests
 from functions_tests_dps import dps_individual_internal_tests
@@ -146,7 +147,11 @@ def main():
 
     flags = Flags()
     dps_flags = Flags_dps()
-    get_next_ids(window)
+    if primary_user:
+        get_next_ids(window)
+    else:
+        get_next_ids_dps(window)
+    
 
     hide_list_all = [
         "sutta_to_add", "source_to_add", "field_for_id_list", "source_for_id_list", "empty_field_id_list_check", "online_suggestion"
@@ -802,7 +807,10 @@ def main():
         elif event == "clear_button":
             clear_errors(window)
             clear_values(values, window, primary_user)
-            get_next_ids(window)
+            if primary_user:
+                get_next_ids(window)
+            else:
+                get_next_ids_dps(window)
             reset_flags(flags)
             window["messages"].update(value="")
 
@@ -842,7 +850,10 @@ def main():
                     if success:
                         clear_errors(window)
                         clear_values(values, window, primary_user)
-                        get_next_ids(window)
+                        if primary_user:
+                            get_next_ids(window)
+                        else:
+                            get_next_ids_dps(window)
                         reset_flags(flags)
                         remove_word_to_add(values, window, words_to_add_list)
                         window["words_to_add_length"].update(
@@ -868,7 +879,10 @@ def main():
                         clear_errors(window)
                         window["dps_id_or_pali_1"].update(values["pali_1"])
                         clear_values(values, window, primary_user)
-                        get_next_ids(window)
+                        if primary_user:
+                            get_next_ids(window)
+                        else:
+                            get_next_ids_dps(window)
                         reset_flags(flags)
                         remove_word_to_add(values, window, words_to_add_list)
                         window["words_to_add_length"].update(
@@ -918,7 +932,10 @@ def main():
                 if success:
                     clear_errors(window)
                     clear_values(values, window, primary_user)
-                    get_next_ids(window)
+                    if primary_user:
+                        get_next_ids(window)
+                    else:
+                        get_next_ids_dps(window)
                     reset_flags(flags)
                     window["messages"].update(
                         value=f"{row_id} '{pali_1}' deleted", text_color="white")
