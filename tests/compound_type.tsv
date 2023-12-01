@@ -1,4 +1,11 @@
 word	pos	position	type	exceptions
+paṇīta	any	first	kammadhāraya	paṇītagāmī, paṇītasaṅkhātatara, paṇītādhimuttika
+sabba	any	first	kammadhāraya	
+kāraka	any	last	dutiyā	asannidhikāraka
+visaññoga	masc	last	pañcamī	
+visaṃyoga	masc	last	pañcamī	
+loka	masc	last	chaṭṭhī	anekadhātunānādhātuloka, idhaloka, paraloka, paroloka, sabbaloka
+kīḷita	any	last	tatiyā	kumārakīḷita, hasitalapitakīḷita
 karaṇa	any	last	dutiyā	
 gambhīra	any	first	kammadhāraya	
 sita	adj	last	dutiyā	pathavissita 1, pathavissita 2, paṭhavissita
@@ -69,7 +76,6 @@ vippahīna	any	last	dutiyā
 ñū	any	last	dutiyā	akhettaññū 1, akhettaññū 2, apakataññū, apakataññū, amattaññū, asabbaññū, pakataññū, akataññū 1.1, appakataññū, akālaññū
 pema	any	last	sattamī	avigatapema, vigatapema, adhigatapema, niviṭṭhapema, ittarapema
 ratta  	any	last	sattamī	    
-sabba	any	first	kammadhāraya	
 dhara	any	last	dutiyā	
 kāma	adj	last	dutiyā, tuṃpaccaya	
 vinaya	any	last	chaṭṭhī	

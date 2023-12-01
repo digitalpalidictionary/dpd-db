@@ -202,8 +202,8 @@ def run_individual_internal_tests(
             def popup_window():
 
                 layout = [
-                    [sg.Text(test_message, text_color="white")],
-                    [sg.Button("Exception"), sg.Button("Edit"), sg.Button("Next")],
+                    [sg.Text(test_message, text_color="white", pad=10)],
+                    [sg.Button("Exception", pad=5), sg.Button("Edit", pad=5), sg.Button("Next", pad=5)],
                     
                 ]
                 window = sg.Window(
@@ -228,6 +228,7 @@ def run_individual_internal_tests(
                         popup_win.close()
                         internal_tests_list[counter].exceptions += [values['pali_1']]
                         write_internal_tests_list(internal_tests_list)
+                        break
                     else:
                         message = "Sorry, you don't have permission to edit that.\nUse the Next button."
                         sg.popup_ok(
