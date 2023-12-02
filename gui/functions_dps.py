@@ -1244,21 +1244,14 @@ def dps_make_filtered_inflections_set(source):
 
 def get_next_ids_dps(window):
     used_ids = db_session.query(PaliWord.id).order_by(PaliWord.id).all()
-    used_uids = db_session.query(PaliWord.user_id).order_by(PaliWord.user_id).all()
 
     def find_largest_id():
         return max(used_id.id for used_id in used_ids) if used_ids else 0
 
-    def find_largest_user_id():
-        return max(uid.user_id for uid in used_uids) if used_uids else 0
-
     largest_id = find_largest_id()
-    largest_uid = find_largest_user_id()
 
     next_id = largest_id + 10000
-    next_uid = largest_uid + 10000
 
-    print(next_id, next_uid)
+    print(next_id)
 
     window["id"].update(next_id)
-    window["user_id"].update(next_uid)

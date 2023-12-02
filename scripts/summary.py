@@ -62,7 +62,7 @@ def dpd_size(dpd_db):
 
     columns = PaliWord.__table__.columns
     column_names = [c.name for c in columns]
-    exceptions = ["id", "user_id", "created_at", "updated_at"]
+    exceptions = ["id", "created_at", "updated_at"]
 
     for i in dpd_db:
         if i.meaning_1:

@@ -286,7 +286,6 @@ def add_to_db(cpd, dpd_length):
         for counter, i in enumerate(cpd):
             i.pali_1.replace("ṁ", "ṃ")
             i.stem.replace("ṁ", "ṃ")
-            user_id = dpd_length+counter+1
             if "; lit" in i.meaning_2:
                 meaning_lit = re.sub(r"(.+; lit\. )(.+)", r"\2", i.meaning_2)
             else:
@@ -296,7 +295,6 @@ def add_to_db(cpd, dpd_length):
                 cpd_data = PaliWord(
                     pali_1=i.pali_1,
                     pali_2=i.pali_1,
-                    user_id=user_id,
                     pos=i.pos,
                     grammar=i.grammar,
                     neg=i.neg,

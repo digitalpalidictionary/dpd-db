@@ -58,12 +58,6 @@ def make_tab_edit_dpd(sg, primary_user):
                 "", key="id", size=(20, 1),
                 background_color="black",
                 tooltip="A unique id.\n"),
-
-            sg.Text("user_id"),
-            sg.Input(
-                "", key="user_id", size=(21, 1),
-                background_color="black",
-                tooltip="A unique user id."),
             sg.Text(
                 "", key="id_error", size=(50, 1), text_color="red")
         ],

@@ -58,7 +58,7 @@ def pali_row(i: PaliWord, output="anki") -> List[str]:
     fields = []
 
     fields.extend([
-        i.user_id,
+        i.id,
         i.pali_1,
         i.pali_2,
     ])

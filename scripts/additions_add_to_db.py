@@ -37,7 +37,6 @@ def main():
             # id values
             old_id = p.id
             p.id = next_id
-            p.user_id = next_id
             
             # test if pali_1 exists or not
             try:

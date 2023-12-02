@@ -15,7 +15,7 @@ PTH = ProjectPaths()
 db_session = get_db_session(PTH.dpd_db_path)
 
 dpd_values_list = [
-    "id", "user_id", "pali_1", "pali_2", "pos", "grammar", "derived_from",
+    "id" "pali_1", "pali_2", "pos", "grammar", "derived_from",
     "neg", "verb", "trans", "plus_case", "meaning_1", "meaning_lit",
     "meaning_2", "non_ia", "sanskrit", "root_key", "root_sign", "root_base",
     "family_root", "family_word", "family_compound", "family_set",
@@ -95,8 +95,6 @@ def print_pos_list():
 def get_next_ids(window):
 
     used_ids = db_session.query(PaliWord.id).order_by(PaliWord.id).all()
-    used_uids = db_session.query(PaliWord.user_id).order_by(
-        PaliWord.user_id).all()
 
     def find_missing_or_next_id():
         counter = 1
@@ -107,21 +105,10 @@ def get_next_ids(window):
                 counter += 1
         return counter
 
-    def find_missing_or_next_user_id():
-        counter = 1
-        for uid in used_uids:
-            if counter != int(uid.user_id):
-                return counter
-            else:
-                counter += 1
-        return counter
-
     next_id = find_missing_or_next_id()
-    next_uid = find_missing_or_next_user_id()
-    print(next_id, next_uid)
+    print(next_id)
 
     window["id"].update(next_id)
-    window["user_id"].update(next_uid)
 
 
 def values_to_pali_word(values):
@@ -204,7 +191,7 @@ def copy_word_from_db(values, window):
 
     else:
         exceptions = [
-            "id", "user_id", "pali_1", "pali_2", "origin", "source_1",
+            "id", "pali_1", "pali_2", "origin", "source_1",
             "sutta_1", "example_1", "source_2", "sutta_2", "example_2",
             "commentary", "meaning_2"
         ]
