@@ -9,13 +9,12 @@ import pyperclip
 import textwrap
 import pickle
 import configparser
-from typing import Optional, Tuple, List, Dict
+from typing import Optional, Tuple, List
 
 from spellchecker import SpellChecker
 from aksharamukha import transliterate
 from rich import print
-from bs4 import BeautifulSoup
-from nltk import sent_tokenize, word_tokenize
+from nltk import word_tokenize
 
 from db.models import PaliWord
 from functions_db import make_all_inflections_set
@@ -1146,3 +1145,34 @@ def load_gui_config(filename="config.ini"):
         "margins": (int(config["gui"]["margin_x"]), int(config["gui"]["margin_y"]))
     }
     return gui_config
+
+
+def stasher(pth: ProjectPaths, values: dict, window):
+    with open(pth.stash_path, "wb") as f:
+        pickle.dump(values, f)
+    window["messages"].update(
+        value=f"{values['pali_1']} stashed", text_color="white")
+
+
+def unstasher(pth: ProjectPaths, window):
+    exceptions = ["word_to_add"]
+    with open(pth.stash_path, "rb") as f:
+        unstash = pickle.load(f)
+        for key, value in unstash.items():
+            if key not in exceptions:
+                window[key].update(value)
+    window["messages"].update(
+        value="unstashed", text_color="white")
+    
+def increment_pali_1(values: dict) -> Tuple[str, str]:
+    pali_1: str = values["pali_1"]
+    pattern: str = r"\d$"
+    matches: list = re.findall(pattern, pali_1)
+    last_digit = int(matches[-1]) if matches else None
+    if last_digit is not None:
+        new_last_digit = last_digit + 1
+        updated_pali_1: str = re.sub(pattern, str(new_last_digit), pali_1, count=1)
+        return (pali_1, updated_pali_1)
+    else:
+        return (f"{pali_1} 1", f"{pali_1} 2")
+

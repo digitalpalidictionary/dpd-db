@@ -59,6 +59,8 @@ from functions import test_construction
 from functions import replace_sandhi
 from functions import test_username
 from functions import compare_differences
+from functions import stasher, unstasher
+from functions import increment_pali_1
 
 from functions_tests import individual_internal_tests
 from functions_tests import open_internal_tests
@@ -613,8 +615,9 @@ def main():
                     window["book_to_add"].update(book_to_add)
 
             if values["word_to_add"] == []:
+                default_text = re.sub(r" \d.*$", "", values["pali_1"])
                 word_to_add = sg.popup_get_text(
-                    "What word?", default_text=values["pali_1"][:-1],
+                    "What word?", default_text=default_text[:-1],
                     title=None,
                     location=(400, 400))
                 if word_to_add:
@@ -679,8 +682,9 @@ def main():
                 window["book_to_add"].update(value=book_to_add)
 
             if values["word_to_add"] == []:
+                default_text = re.sub(r" \d.*$", "", values["pali_1"])
                 word_to_add = sg.popup_get_text(
-                    "What word?", default_text=values["pali_1"],
+                    "What word?", default_text=default_text[:-1],
                     title=None,
                     location=(400, 400))
                 values["word_to_add"] = [word_to_add]
@@ -898,19 +902,30 @@ def main():
             print(f"{values}")
 
         elif event == "stash_button":
-            with open(pth.stash_path, "wb") as f:
-                pickle.dump(values, f)
-            window["messages"].update(
-                value=f"{values['pali_1']} stashed", text_color="white")
+            stasher(pth, values, window)
 
         elif event == "unstash_button":
-            with open(pth.stash_path, "rb") as f:
-                unstash = pickle.load(f)
-                for key, value in unstash.items():
-                    window[key].update(value)
+            unstasher(pth, window)
 
-            window["messages"].update(
-                value="unstashed", text_color="white")
+        elif event == "split_button":
+            pali_1_old, pali_1_new = increment_pali_1(values)
+            window["pali_1"].update(value=pali_1_old)
+            values["pali_1"] = pali_1_old
+            stasher(pth, values, window)
+            if primary_user:
+                get_next_ids(window)
+            else:
+                get_next_ids_dps(window)
+            window["pali_1"].update(value=pali_1_new)
+            reset_flags(flags)
+
+            # clear these fields
+            clear_fields = [
+                "messages", "commentary", "synonym", "variant",
+                "source_1", "sutta_1", "example_1", 
+                "source_2", "sutta_2", "example_2",]
+            for c in clear_fields:
+                window[c].update(value="")
 
         elif event == "summary_button":
             display_summary(values, window, sg, pali_word_original2)
