@@ -59,7 +59,7 @@ def make_pali_word_table_data(pth: ProjectPaths, db_session: Session):
         for row in csvreader:
             data = {}
             for col_name, value in zip(columns, row):
-                if col_name not in ("created_at", "updated_at"):
+                if col_name not in ("user_id", "created_at", "updated_at"):
                     data[col_name] = value
             db_session.add(PaliWord(**data))
 
