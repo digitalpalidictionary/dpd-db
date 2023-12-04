@@ -1,10 +1,20 @@
-"""Generating links for suttas based on the website https://find.dhamma.gift/bw/"""
+"""Generating links for suttas based on the desired website"""
 
 import re
+import configparser
+
+
+def load_link(filename="config.ini"):
+    config = configparser.ConfigParser()
+    config.read(filename)
+    
+    base_url = config["dictionary"]["link_url"]
+
+    return base_url
 
 
 def generate_link(source: str) -> str:
-    base_url = "https://find.dhamma.gift/bw/"
+    base_url = load_link()
 
     # List of functions to check each pattern
     pattern_funcs = [link_vin, link_vin_pat, link_pat, link_dn_mn, link_an, link_sn, 
@@ -112,7 +122,7 @@ def link_pat(source: str, base_url: str) -> str:
 
 
 def link_dn_mn(source: str, base_url: str) -> str:
-    match = re.match(r'(DN|MN) ?(\d+)(\.\d+)?', source)
+    match = re.match(r'(DN|MN)\s?(\d+)(\.\d+)?', source)
     if match:
         book, number = match.groups()[0], match.groups()[1]
         return f"{base_url}{book.lower()}/{book.lower()}{number}.html"
@@ -122,7 +132,7 @@ def link_dn_mn(source: str, base_url: str) -> str:
 
 def link_an(source: str, base_url: str) -> str:
     # Special case for AN3.x
-    an_match = re.match(r'AN ?3\.(\d+)', source)
+    an_match = re.match(r'AN\s?3\.(\d+)', source)
     if an_match:
         sub_num = int(an_match.group(1))
         if 48 <= sub_num <= 183:
@@ -134,7 +144,7 @@ def link_an(source: str, base_url: str) -> str:
 
 def link_sn(source: str, base_url: str) -> str:
     # Regular cases for AN, SN (whole number valid with sub numbers)
-    sub_match = re.match(r'(AN|SN) ?(\d+(\.\d+)?)', source)
+    sub_match = re.match(r'(AN|SN)\s?(\d+(\.\d+)?)', source)
     if sub_match:
         book, number = sub_match.groups()[0], sub_match.groups()[1]
         return f"{base_url}{book.lower()}/{book.lower()}{number}.html"
@@ -154,7 +164,7 @@ def link_khp(source: str, base_url: str) -> str:
 
 # Example of a more data-driven approach:
 def link_dhp(source: str, base_url: str) -> str:
-    match = re.match(r'DHP ?(\d+)', source)
+    match = re.match(r'DHP\s?(\d+)', source)
     if match:
         verse_number = int(match.group(1))
         dhp_ranges = {
@@ -194,7 +204,7 @@ def link_dhp(source: str, base_url: str) -> str:
 
 def link_snp(source: str, base_url: str) -> str:
     # Logic for SNP verses
-    snp_match = re.match(r'SNP ?(\d+)', source)
+    snp_match = re.match(r'SNP\s?(\d+)', source)
     if snp_match:
         snp_number = int(snp_match.group(1))
         
@@ -216,7 +226,7 @@ def link_snp(source: str, base_url: str) -> str:
 
 def link_ud(source: str, base_url: str) -> str:
     # Logic for UD verses
-    ud_match = re.match(r'UD ?(\d+)', source)
+    ud_match = re.match(r'UD\s?(\d+)', source)
     if ud_match:
         ud_number = int(ud_match.group(1))
         if 1 <= ud_number <= 10:
@@ -249,7 +259,7 @@ def link_iti(source: str, base_url: str) -> str:
 
 def link_thi(source: str, base_url: str) -> str:
     # Logic for THI verses
-    thi_match = re.match(r'THI ?(\d+)', source)
+    thi_match = re.match(r'THI\s?(\d+)', source)
     if thi_match:
         thi_number = int(thi_match.group(1))
         if 1 <= thi_number <= 18:
@@ -290,7 +300,7 @@ def link_thi(source: str, base_url: str) -> str:
 
 def link_th(source: str, base_url: str) -> str:
     # Logic for TH verses
-    th_match = re.match(r'TH ?(\d+)', source)
+    th_match = re.match(r'TH\s?(\d+)', source)
     if th_match:
         th_number = int(th_match.group(1))
         if 1 <= th_number <= 120:
@@ -337,7 +347,3 @@ def link_th(source: str, base_url: str) -> str:
             return f"{base_url}tha/tha21.html"
 
     return ""
-
-
-# source = "SN 3.77"
-# print(f"{source} {generate_link(source)}")

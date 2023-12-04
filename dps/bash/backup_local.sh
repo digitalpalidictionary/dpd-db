@@ -8,6 +8,7 @@ SOURCES=(
     "/home/deva/Documents/dpd-db/scripts/"
     "/home/deva/Documents/dpd-db/tools/"
     "/home/deva/Documents/dpd-db/backup_tsv/"
+    "/home/deva/Documents/dpd-db/config.ini"
 )
 
 DEST="/home/deva/backups"

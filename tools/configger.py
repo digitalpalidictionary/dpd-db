@@ -41,6 +41,7 @@ def config_initialize() -> None:
 
     config.add_section("dictionary")
     config.set("dictionary", "make_mdict", "yes")
+    config.set("dictionary", "link_url", "https://find.dhamma.gift/bw/")
     config.set("dictionary", "make_link", "no")
 
     config.add_section("openia")
