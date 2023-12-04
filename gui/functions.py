@@ -402,9 +402,14 @@ def clear_errors(window):
         window[e.key].update("")
 
 
-def clear_values(values, window, primary_user):
+def clear_values(values, window, username):
     from functions_db import dpd_values_list
-    origin = "pass1" if primary_user else "dps"
+    if username == "primary_user":
+        origin = "pass1"
+    elif username == "deva":
+        origin = "dps"
+    else:
+        origin = "new_user"
     for value in values:
         if value in dpd_values_list:
             window[value].update("")
@@ -974,9 +979,13 @@ def test_username(sg):
         else:
             break
     if config_test("user", "username", "1"):
-        return True
+        username = "primary_user"
+    elif config_test("user", "username", "deva"):
+        username = "deva"
     else:
-        return False
+        username = ""
+
+    return username
 
 
 def compare_differences(

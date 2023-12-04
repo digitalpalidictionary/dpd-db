@@ -29,12 +29,12 @@ def open_internal_tests():
 
 
 def individual_internal_tests(
-        sg, window, values, flags, primary_user):
+        sg, window, values, flags, username):
     flags.tested = False
     internal_tests_list = make_internal_tests_list()
     test_the_tests(internal_tests_list, window)
     flags = run_individual_internal_tests(
-        internal_tests_list, values, window, flags, sg, primary_user)
+        internal_tests_list, values, window, flags, sg, username)
     return flags
 
 
@@ -135,7 +135,7 @@ def get_search_criteria(t: InternalTestRow) -> List[Tuple]:
 
 
 def run_individual_internal_tests(
-        internal_tests_list, values, window, flags, sg, primary_user):
+        internal_tests_list, values, window, flags, sg, username):
 
     # remove all spaces front and back, and doublespaces
     for value in values:
@@ -224,7 +224,7 @@ def run_individual_internal_tests(
                     return flags
 
                 elif event_popup == "Exception":
-                    if primary_user:
+                    if username == "primary_user":
                         popup_win.close()
                         internal_tests_list[counter].exceptions += [values['pali_1']]
                         write_internal_tests_list(internal_tests_list)

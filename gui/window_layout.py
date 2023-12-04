@@ -14,7 +14,7 @@ from functions import load_gui_config
 
 config = load_gui_config()
 
-def window_layout(primary_user):
+def window_layout(username):
 
     # Get screen width and height
     screen_width, screen_height = sg.Window.get_screen_size()
@@ -34,11 +34,11 @@ def window_layout(primary_user):
         margins=config["margins"],
     )
 
-    tab_add_next_word = make_tab_add_next_word(sg, primary_user)
-    tab_edit_dpd = make_tab_edit_dpd(sg, primary_user)
+    tab_add_next_word = make_tab_add_next_word(sg, username)
+    tab_edit_dpd = make_tab_edit_dpd(sg, username)
     tab_edit_dps = make_tab_edit_dps(sg)
     tab_fix_sandhi = make_tab_fix_sandhi(sg)
-    tab_db_tests = make_tab_db_tests(sg, primary_user)
+    tab_db_tests = make_tab_db_tests(sg, username)
     tab_dps_tests = make_tab_dps_tests(sg)
 
 
@@ -51,14 +51,14 @@ def window_layout(primary_user):
                 "Edit DPD", tab_edit_dpd, key="tab_edit_dpd"),
             sg.Tab(
                 "Edit DPS", tab_edit_dps, key="tab_edit_dps",
-                visible=not primary_user),
+                visible=username == "deva"),
             sg.Tab(
                 "Fix Sandhi", tab_fix_sandhi, key="tab_fix_sandhi"),
             sg.Tab(
                 "Test db", tab_db_tests, key="tab_db_tests"),
             sg.Tab(
                 "Test DPS", tab_dps_tests, key="tab_dps_tests",
-                visible=not primary_user)
+                visible=username == "deva")
         ]],
         key="tabgroup",
         enable_events=True,

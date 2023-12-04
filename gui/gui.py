@@ -119,7 +119,7 @@ from tools.paths import ProjectPaths
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    primary_user = test_username(sg)
+    username = test_username(sg)
     pali_word_original = None
     pali_word_original2 = None
 
@@ -133,7 +133,7 @@ def main():
 
     sandhi_dict = make_sandhi_contraction_dict(db_session)
     pali_clean_list: list = get_pali_clean_list()
-    window = window_layout(primary_user)
+    window = window_layout(username)
 
     # load the previously saved state of the gui
     try:
@@ -149,10 +149,13 @@ def main():
 
     flags = Flags()
     dps_flags = Flags_dps()
-    if primary_user:
+    if username == "primary_user":
         get_next_ids(window)
-    else:
+    elif username == "deva":
         get_next_ids_dps(window)
+    else:
+    # Perform actions for other usernames
+        get_next_ids(window)
     
 
     hide_list_all = [
@@ -810,11 +813,14 @@ def main():
 
         elif event == "clear_button":
             clear_errors(window)
-            clear_values(values, window, primary_user)
-            if primary_user:
+            clear_values(values, window, username)
+            if username == "primary_user":
                 get_next_ids(window)
-            else:
+            elif username == "deva":
                 get_next_ids_dps(window)
+            else:
+                # Perform actions for other usernames
+                get_next_ids(window)
             reset_flags(flags)
             window["messages"].update(value="")
 
@@ -822,7 +828,7 @@ def main():
 
             clear_errors(window)
             flags = individual_internal_tests(
-                sg, window, values, flags, primary_user)
+                sg, window, values, flags, username)
 
             # spell checks
             field = "meaning_1"
@@ -853,11 +859,14 @@ def main():
                         window, values)
                     if success:
                         clear_errors(window)
-                        clear_values(values, window, primary_user)
-                        if primary_user:
+                        clear_values(values, window, username)
+                        if username == "primary_user":
                             get_next_ids(window)
-                        else:
+                        elif username == "deva":
                             get_next_ids_dps(window)
+                        else:
+                            # Perform actions for other usernames
+                            get_next_ids(window)
                         reset_flags(flags)
                         remove_word_to_add(values, window, words_to_add_list)
                         window["words_to_add_length"].update(
@@ -882,11 +891,14 @@ def main():
                         compare_differences(values, sg, pali_word_original2, action)
                         clear_errors(window)
                         window["dps_id_or_pali_1"].update(values["pali_1"])
-                        clear_values(values, window, primary_user)
-                        if primary_user:
+                        clear_values(values, window, username)
+                        if username == "primary_user":
                             get_next_ids(window)
-                        else:
+                        elif username == "deva":
                             get_next_ids_dps(window)
+                        else:
+                            # Perform actions for other usernames
+                            get_next_ids(window)
                         reset_flags(flags)
                         remove_word_to_add(values, window, words_to_add_list)
                         window["words_to_add_length"].update(
@@ -912,10 +924,13 @@ def main():
             window["pali_1"].update(value=pali_1_old)
             values["pali_1"] = pali_1_old
             stasher(pth, values, window)
-            if primary_user:
+            if username == "primary_user":
                 get_next_ids(window)
-            else:
+            elif username == "deva":
                 get_next_ids_dps(window)
+            else:
+                # Perform actions for other usernames
+                get_next_ids(window)
             window["pali_1"].update(value=pali_1_new)
             reset_flags(flags)
 
@@ -946,11 +961,14 @@ def main():
                 success = delete_word(values, window)
                 if success:
                     clear_errors(window)
-                    clear_values(values, window, primary_user)
-                    if primary_user:
+                    clear_values(values, window, username)
+                    if username == "primary_user":
                         get_next_ids(window)
-                    else:
+                    elif username == "deva":
                         get_next_ids_dps(window)
+                    else:
+                        # Perform actions for other usernames
+                        get_next_ids(window)
                     reset_flags(flags)
                     window["messages"].update(
                         value=f"{row_id} '{pali_1}' deleted", text_color="white")
@@ -958,9 +976,9 @@ def main():
         elif event == "save_and_close_button":
             window["messages"].update(
                 value="backing up db to csvs", text_color="white")
-            if primary_user:
+            if username == "primary_user":
                 backup_paliword_paliroot(pth)
-            else:
+            elif username == "deva":
                 backup_ru_sbs()
 
             save_gui_state(values, words_to_add_list)
@@ -1018,7 +1036,7 @@ def main():
                 window["example_2_lower"].update(visible=True)
                 flags.show_fields = False
             for value in hide_list_all:
-                window[value].update(visible=not primary_user)
+                window[value].update(visible=username == "deva")
 
         elif event == "show_fields_root":
             hide_list = [
@@ -1034,7 +1052,7 @@ def main():
             for value in hide_list:
                 window[value].update(visible=False)
             for value in hide_list_all:
-                window[value].update(visible=not primary_user)
+                window[value].update(visible=username == "deva")
             window["get_family_root"].update(visible=True)
             window["get_root_base"].update(visible=True)
             window["get_root_sign"].update(visible=True)
@@ -1056,7 +1074,7 @@ def main():
             for value in hide_list:
                 window[value].update(visible=False)
             for value in hide_list_all:
-                window[value].update(visible=not primary_user)
+                window[value].update(visible=username == "deva")
             flags.show_fields = False
 
         elif event == "show_fields_word":
@@ -1077,7 +1095,7 @@ def main():
             for value in hide_list:
                 window[value].update(visible=False)
             for value in hide_list_all:
-                window[value].update(visible=not primary_user)
+                window[value].update(visible=username == "deva")
             flags.show_fields = False
 
         # test db tab buttons

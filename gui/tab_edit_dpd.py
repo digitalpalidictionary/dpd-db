@@ -22,9 +22,15 @@ COMPOUND_TYPE_VALUES = get_compound_type_values()
 PATTERN_VALUES = get_patterns()
 
 
-def make_tab_edit_dpd(sg, primary_user):
+def make_tab_edit_dpd(sg, username):
 
-    origin = "pass1" if primary_user else "dps"
+    if username == "primary_user":
+        origin = "pass1"
+    elif username == "deva":
+        origin = "dps"
+    else:
+        origin = "new_user"
+
 
     add_word_layout = [
         [
@@ -183,16 +189,16 @@ Leave empty for long compounds."),
                 "", key="meaning_2_error", size=(50, 1), text_color="red")
         ],
         [
-            sg.Text("suggestion", visible=not primary_user, size=(15, 1)),
-            sg.Button("GPT", visible=not primary_user, key="online_suggestion_button"),
+            sg.Text("suggestion", visible=username == "deva", size=(15, 1)),
+            sg.Button("GPT", visible=username == "deva", key="online_suggestion_button"),
             sg.Multiline(
                 key="online_suggestion",
-                visible=not primary_user,
+                visible=username == "deva",
                 size=(45, 2),
                 enable_events=True,
             ),
             sg.Text(
-                "", key="online_suggestion_error", size=(50, 1), text_color="red", visible=not primary_user)
+                "", key="online_suggestion_error", size=(50, 1), text_color="red", visible=username == "deva")
         ],
         [
             sg.Text("root_key", size=(15, 1)),
@@ -638,23 +644,23 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
             sg.Button(
                 "Update db", key="update_db_button1",
                 tooltip="Add a new word or update existing word in the db",
-                visible=primary_user),
+                visible=username == "primary_user"),
             sg.Button(
                 "Update DB", key="update_db_button2",
                 tooltip="Add a new word or update existing word in the db",
-                visible=not primary_user),
+                visible=username == "deva"),
             sg.Button(
                 "Delete", key="delete_button",
                 tooltip="Delete a word from the db. Careful!",
                 mouseover_colors="red",
-                visible=primary_user),
+                visible=username == "primary_user"),
             sg.Button(
                 "Update Sandhi", key="update_sandhi_button",
                 tooltip="Update list of words with sandhi apostophes"),
             sg.Button(
                 "Log", key="open_corrections_button",
                 tooltip="open corrections tsv in code",
-                visible=not primary_user),
+                visible=username == "deva"),
         ],
         [
             # gui buttons

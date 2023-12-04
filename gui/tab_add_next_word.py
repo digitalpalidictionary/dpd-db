@@ -1,7 +1,7 @@
 """Render tab to add the next missing word from a text."""
 
 
-def make_tab_add_next_word(sg, primary_user):
+def make_tab_add_next_word(sg, username):
 
     sutta_codes = """VIN
 01. pārājika:\t\tvin1
@@ -75,7 +75,7 @@ KN
             sg.Button(
                 "Add (ru)", 
                 key="dps_books_to_add_button", 
-                visible=not primary_user,
+                visible=username == "deva",
                 pad=((10, 0), (20, 20))
             ),
             sg.Text(
@@ -89,24 +89,24 @@ KN
             sg.Text(
                 "select sutta to add:", 
                 pad=((100, 0), (0, 20)),
-                visible=not primary_user,
+                visible=username == "deva",
             ),
             sg.Input(
                 key="sutta_to_add",
                 size=(10, 1), 
                 pad=((0, 0), (0, 20)),
-                visible=not primary_user,
+                visible=username == "deva",
             ),
             sg.Button(
                 "Add", 
                 key="sutta_to_add_button",
                 pad=((10, 0), (0, 20)),
-                visible=not primary_user,
+                visible=username == "deva",
             ),
             sg.Button(
                 "Add (ru)", 
                 key="dps_sutta_to_add_button", 
-                visible=not primary_user,
+                visible=username == "deva",
                 pad=((10, 0), (0, 20)),
             )
         ],
@@ -114,18 +114,18 @@ KN
             sg.Text(
                 "select source to add:", 
                 pad=((100, 0), (0, 20)),
-                visible=not primary_user,
+                visible=username == "deva",
             ),
             sg.Input(
                 key="source_to_add",
                 size=(10, 1), 
                 pad=((0, 0), (0, 20)),
-                visible=not primary_user,
+                visible=username == "deva",
             ),
             sg.Button(
                 "Add (ru)", 
                 key="dps_add_from_source", 
-                visible=not primary_user,
+                visible=username == "deva",
                 tooltip="from source show all words from db which do not have this source in sbs examples",
                 pad=((10, 0), (0, 20)),
             )
@@ -134,57 +134,57 @@ KN
             sg.Text(
                 "from temp/text.txt", 
                 pad=((100, 0), (0, 20)),
-                visible=not primary_user,
+                visible=username == "deva",
             ),
             sg.Button(
                 "Add", 
                 key="from_txt_to_add_button",
                 pad=((10, 0), (0, 20)),
-                visible=not primary_user,
+                visible=username == "deva",
             ),
             sg.Button(
                 "Add (ru)", 
                 key="dps_from_txt_to_add_button", 
-                visible=not primary_user,
+                visible=username == "deva",
                 pad=((10, 0), (0, 20)),
             ),
             sg.Button(
                 "No source", 
                 key="dps_from_txt_to_add_considering_source_button",
                 tooltip="from txt show all words whcih do not have source in sbs",
-                visible=not primary_user,
+                visible=username == "deva",
                 pad=((10, 0), (0, 20)),
             )
         ],
         [
             sg.Text("from id-list:", 
-            visible=not primary_user, 
+            visible=username == "deva", 
             pad=((100, 0), (0, 20))
             ),
             sg.Button(
                 "Add (ru)", 
                 key="dps_word_from_id_list_button", 
-                visible=not primary_user,
+                visible=username == "deva",
                 pad=((10, 0), (0, 20)),
             ),
             sg.Text("filed", 
-            visible=not primary_user, 
+            visible=username == "deva", 
             pad=((10, 0), (0, 20))
             ),
             sg.Input(
                 key="field_for_id_list", 
-                visible=not primary_user, 
+                visible=username == "deva", 
                 tooltip="'field' which need to be updated",
                 size=(15, 1), 
                 pad=((0, 0), (0, 20)),
             ),
             sg.Text("source", 
-            visible=not primary_user, 
+            visible=username == "deva", 
             pad=((10, 0), (0, 20))
             ),
             sg.Input(
                 key="source_for_id_list", 
-                visible=not primary_user, 
+                visible=username == "deva", 
                 tooltip="'source' of those words (mn107, sn56, etc)",
                 size=(7, 1), 
                 pad=((0, 0), (0, 20)),
@@ -192,7 +192,7 @@ KN
             sg.Checkbox('has value?', 
             default=False, 
             key="empty_field_id_list_check", 
-            visible=not primary_user, 
+            visible=username == "deva", 
             pad=((10, 0), (0, 20)), 
             tooltip="does the 'field' currently have any value?"
             ),
@@ -244,20 +244,20 @@ KN
                 text_color="white", 
                 pad=((100, 0), (0, 0)), 
                 size=(10, 1),
-                visible=not primary_user
+                visible=username == "deva"
             ),
             sg.Button(
                 "in DPS",
                 key="dps_edit_word", 
                 size=(19, 1), 
-                visible=not primary_user,
+                visible=username == "deva",
                 enable_events=True,
             ),
             sg.Button(
                 "in DPD",
                 key="dpd_edit_word", 
                 size=(19, 1), 
-                visible=not primary_user,
+                visible=username == "deva",
                 enable_events=True,
             ),
         ],
@@ -266,7 +266,7 @@ KN
                 "update sbs_category",
                 key="dps_update_word", 
                 size=(50, 1), 
-                visible=not primary_user,
+                visible=username == "deva",
                 enable_events=True, 
                 pad=((100, 0), (0, 0))
             ),
@@ -303,7 +303,7 @@ KN
                 "save GUI state",
                 key="dps_save_gui_state", 
                 size=(50, 1), 
-                visible=not primary_user,
+                visible=username == "deva",
                 enable_events=True, 
                 pad=((100, 0), (0, 0))
             ),
