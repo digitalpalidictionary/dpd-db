@@ -345,6 +345,15 @@ def classes(df, sbs_ped_link):
     # Print starting message in green color
     console.print("[bold green]making classes.csvs.")
 
+    # Create a mask for rows where 'ru_meaning_lit' is not an empty string
+    mask = df['ru_meaning_lit'].apply(lambda x: x != "")
+
+    # Concatenate 'ru_meaning' and 'ru_meaning_lit' with '; досл. ' for rows where 'ru_meaning_lit' is not an empty string
+    df.loc[mask, 'ru_meaning'] = df.loc[mask, ['ru_meaning', 'ru_meaning_lit']].apply(lambda row: '; досл. '.join(filter(None, row)), axis=1)
+
+    # Create a copy of the DataFrame with the original 'ru_meaning' values
+    df_original = df.copy()
+
     # Change the value of 'ru_meaning' and 'ru_meaning_lit' columns to an empty string
     df['ru_meaning'] = ""
     df['ru_meaning_lit'] = ""
@@ -433,6 +442,7 @@ def classes(df, sbs_ped_link):
 
     # Initialize an empty DataFrame to concatenate filtered DataFrames
     concatenated_df = pd.DataFrame()
+    concatenated_ru_df = pd.DataFrame()
 
     # Loop through each unique value in 'sbs_class_anki' column
     for sbs_class_value in unique_sbs_class_values:
@@ -444,15 +454,25 @@ def classes(df, sbs_ped_link):
             # Filter the DataFrame for the current 'sbs_class_anki' value
             filtered_df = df[df['sbs_class_anki'] == sbs_class_value]
 
+            # Filter the same for ru_meaning
+            filtered_ru_df = df_original[df_original['sbs_class_anki'] == sbs_class_value]
+
             # Keep only the specified columns in the filtered DataFrame
+            filtered_ru_df = filtered_ru_df[['id', 'ru_meaning']]
+
             filtered_df = filtered_df[columns_to_keep]
 
             # Append the filtered DataFrame to the concatenated DataFrame
             concatenated_df = pd.concat([concatenated_df, filtered_df])
+            concatenated_ru_df = pd.concat([concatenated_ru_df, filtered_ru_df])
 
     # Save the concatenated DataFrame to the 'class_basic.csv' file
     output_path = os.path.join(DPSPTH.anki_csvs_dps_dir, 'pali_class', "class_basic.csv")
     concatenated_df.to_csv(output_path, sep="\t", index=False, header=True)
+
+    # Save the concatenated DataFrame to the 'class_ru.csv' file
+    output_path_ru = os.path.join(DPSPTH.anki_csvs_dps_dir, 'pali_class', "class_ru.csv")
+    concatenated_ru_df.to_csv(output_path_ru, sep="\t", index=False, header=True)
 
     # Save the list of field names to a text file
     with open(f'{DPSPTH.sbs_anki_style_dir}/field-list-vocab-class.txt', 'w') as file:
@@ -490,6 +510,8 @@ def suttas_class(df, sbs_ped_link):
 
     # Create a separate DataFrame with 'sbs_category' not empty
     df_with_category = df[df['sbs_category'] != ""]
+
+    df_with_category = df_with_category[columns_to_keep]
 
     # Save the whole DataFrame with 'sbs_category' not empty to a CSV file
     output_path_full = os.path.join(DPSPTH.anki_csvs_dps_dir, 'pali_class', "suttas_class.csv")

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# showing new words and then making fresh backup for compare
+# cheking changed words, replacing id from additions
 
 exec > >(tee "/home/deva/logs/check_new_words.log") 2>&1
 
@@ -13,18 +13,29 @@ reset=$(tput sgr0)
 
 echo "${bold}${yellow}Filter the list of words${reset}"
 
-dps/scripts/find_new_words.py
+dps/scripts/compare_changed_id.py
+
+libreoffice dps/backup/for_compare/mismatched_rows.tsv
 
 # Ask the user for confirmation
 read -p "${bold}${yellow}Did you apply all changes? (y/n): ${reset}" confirmation
 if [ "$confirmation" == "y" ]; then
-    
-    dps/scripts/backup_all_with_history.py
 
-    # Copy backups
-    cp -rf dps/backup/* dps/backup/backup_for_compare/
+    # Copy paliword
+    cp -rf backup_tsv/paliword.tsv dps/backup/for_compare/paliword.tsv
 
     echo "${bold}${green}The job is done${reset}"
+else
+    echo "${bold}${red}No changes applied. Exiting.${reset}"
+fi
+
+read -p "${bold}${yellow}Did you recive additions.tsv and moved it into temp/ ? (y/n): ${reset}" confirmation
+if [ "$confirmation" == "y" ]; then
+
+    # change IDs
+    dps/scripts/replace_new_id_ru_sbs.py
+
+    echo "${bold}${green}Id's has been replaced, copy files from temp/ and rebuild DB${reset}"
 else
     echo "${bold}${red}No changes applied. Exiting.${reset}"
 fi

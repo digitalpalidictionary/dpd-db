@@ -53,7 +53,7 @@ class DPSPaths():
 
     # dps bakup folder
     dps_backup_dir: Path = Path("dps/backup/") 
-    backup_for_compare_dir: Path = Path("dps/backup/backup_for_compare/") 
+    for_compare_dir: Path = Path("dps/backup/for_compare/") 
     temp_csv_backup_dir: Path = Path("dps/csvs/backup_csv/") 
 
     # ru_user_dictionary
