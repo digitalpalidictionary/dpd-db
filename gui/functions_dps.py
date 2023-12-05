@@ -20,7 +20,6 @@ from db.db_helpers import get_column_names
 from db.models import Russian, SBS, PaliWord, DerivedData
 from db.get_db_session import get_db_session
 
-
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 from tools.meaning_construction import make_meaning
@@ -1255,3 +1254,35 @@ def get_next_ids_dps(window):
     print(next_id)
 
     window["id"].update(next_id)
+
+
+def add_number_to_pali(word_id, word_pali_1):
+    # save into corrections.tsv
+    correction = [
+        word_id,
+        "pali_1",
+        word_pali_1,
+        "",
+        "",
+        "",
+        "",
+        "added new meaning",
+        "", ""
+    ]
+
+    with open(PTH.corrections_tsv_path, "a") as file:
+        writer = csv.writer(file, delimiter="\t")
+        writer.writerow(correction)
+
+    # udpate pali_1 in db
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
+    word_to_update = db_session.query(PaliWord).filter_by(id=word_id).first()
+
+    if word_to_update:
+            word_to_update.pali_1 = word_pali_1
+
+            db_session.commit()
+            print(f"Updated pali_1 for id {word_id} to '{word_pali_1}'")
+    else:
+        print(f"No record found with id {word_id}")

@@ -99,6 +99,7 @@ from functions_dps import dps_get_original_values
 from functions_dps import update_sbs_category
 from functions_dps import words_in_db_from_source
 from functions_dps import get_next_ids_dps
+from functions_dps import add_number_to_pali
 
 from functions_tests_dps import dps_open_internal_tests
 from functions_tests_dps import dps_individual_internal_tests
@@ -921,6 +922,12 @@ def main():
 
         elif event == "split_button":
             pali_1_old, pali_1_new = increment_pali_1(values)
+            if username == "deva":
+                print(f"pali_1_old {pali_1_old}")
+                if pali_1_old.endswith(" 1"):
+                    if sg.popup_yes_no('add #1 to pali_1 ?') == 'Yes':
+                        id_old = values["id"]
+                        add_number_to_pali(id_old, pali_1_old)
             window["pali_1"].update(value=pali_1_old)
             values["pali_1"] = pali_1_old
             stasher(pth, values, window)
