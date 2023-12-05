@@ -14,8 +14,9 @@ def find_names_and_number():
     sutta_counter = 0
     chapter_number = 0
     chapter_counter = 0
+    verse = 1
 
-    name_list: List[Tuple[str, int, str]] = []
+    name_list: List[Tuple[str, int, str, int]] = []
 
     heads = soup.find_all('head', {'rend': 'chapter'})
     for head in heads:
@@ -24,6 +25,16 @@ def find_names_and_number():
 
         ps = head.find_next_siblings('p')
         for p in ps:
+
+            first_verse_flag = True 
+
+            # paragraph number
+            if (
+                p["rend"] == "hangnum"
+                and first_verse_flag
+            ):
+                verse = int(p["n"]) + 1
+                first_verse_flag = False
 
             # find name in heading
             if p["rend"] == "subhead":
@@ -37,8 +48,9 @@ def find_names_and_number():
                     name = re.sub("sāmaṇeragāthā", "", name)\
 
                 name = name_cleaner(name)
-                name_list.append(
-                    (name, sutta_counter, f"{chapter_number}.{chapter_counter}"))
+                name_list.append((
+                    name, sutta_counter,
+                    f"{chapter_number}.{chapter_counter}", verse))
 
 
             
@@ -52,9 +64,9 @@ def find_names_and_number():
                         r"\b[^ ]*tthero\b", p.text)[0]
                     if name:
                         name = name_cleaner(name)
-                    name_list.append(   
-                        (name, sutta_counter, f"{chapter_number}.{chapter_counter}"))
-                
+                        name_list.append((
+                            name, sutta_counter,
+                            f"{chapter_number}.{chapter_counter}", verse))
                 # find names with " thero" in them
                 if " thero" in p.text:
 
@@ -65,15 +77,17 @@ def find_names_and_number():
                         if name is not None:
                             name = re.sub(r" \(.*\)", "", name)
                             name = name_cleaner(name)
-                            name_list.append(
-                                (name, sutta_counter, f"{chapter_number}.{chapter_counter}"))
+                            name_list.append((
+                                    name, sutta_counter,
+                                    f"{chapter_number}.{chapter_counter}", verse))
                         note.decompose()
 
                     # find the word before "thero"
                     name = p.text.split("thero")[0].split()[-1]
                     name = name_cleaner(name)
-                    name_list.append(
-                        (name, sutta_counter, f"{chapter_number}.{chapter_counter}"))
+                    name_list.append((
+                        name, sutta_counter,
+                        f"{chapter_number}.{chapter_counter}", verse))
     
     return name_list
 
@@ -81,7 +95,7 @@ def find_names_and_number():
 def test_missing_numbers(name_list):
     has_number = set()
     for i in name_list:
-        name, number, chapter = i
+        name, number, chapter, verse = i
         has_number.add(number)
     
     for i in range(1, 264):
@@ -117,20 +131,58 @@ def reduce_list(name_list):
 
 def sutta_chapter_name_dict(name_list):
     dict = {}
-    for name, sutta_number, chapter in name_list:
+    for counter, i in enumerate(name_list):
+        name, sutta_number, chapter, verse = i
         if sutta_number not in dict:
             dict[sutta_number] = {
                 "chapter": chapter,
-                "name":[name]}
+                "first_verse": verse,
+                "last_verse": verse,
+                "name":{name}}
         else:
-            dict[sutta_number]["name"].append(name)
+            dict[sutta_number]["name"].add(name)
+            dict[sutta_number]["last_verse"] = verse-1
     return dict
+
+def write_tsv(name_dict):
+    with open("temp/theras.tsv", "w") as f:
+        header = ["add", "pali_1", "pali_2", "pos", "grammar", "meaning_1", "variant", "stem", "pattern\n"]
+        f.write("\t".join(header))
+        for number, i in name_dict.items():
+            chapter = i["chapter"]
+            first_verse = i["first_verse"]
+            last_verse = i["last_verse"]
+            if first_verse == last_verse:
+                verses = f"verse {first_verse}"
+            else:
+                verses = f"verses {first_verse}-{last_verse}"
+            names = i["name"]
+            for name in names:
+                add = ""
+                pali_1 = name
+                pali_2 = make_pali_2(name)
+                pos = "masc"
+                grammar = "masc"
+                meaning_1 = "name of an arahant monk; "
+                meaning_1 += f"Theragāthā {chapter}, {verses} (TH{number})"
+                variant = f"{', '.join(names - {name})}"
+                stem = name[:-1]
+                pattern = f"{name[-1:]} masc\n"
+                data = [add, pali_1, pali_2, pos, grammar, meaning_1, variant, stem, pattern]
+                f.write("\t".join(data))
+
+
+def make_pali_2(name):
+    if name.endswith("a"):
+        name = f"{name[:-1]}o"
+    return name    
 
 
 if __name__ == "__main__":
     name_list = find_names_and_number()
+    test_missing_numbers(name_list)
     name_list = reduce_list(name_list)
     name_dict = sutta_chapter_name_dict(name_list)
-    print(name_dict)
-    test_missing_numbers(name_list)
-
+    write_tsv(name_dict)
+    # print(name_dict)
+    

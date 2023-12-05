@@ -941,7 +941,8 @@ def main():
 
             # clear these fields
             clear_fields = [
-                "messages", "commentary", "synonym", "variant",
+                "messages", "commentary",
+                "synonym", "variant", "notes",  
                 "source_1", "sutta_1", "example_1", 
                 "source_2", "sutta_2", "example_2",]
             for c in clear_fields:
