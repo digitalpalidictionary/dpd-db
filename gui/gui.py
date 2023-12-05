@@ -616,7 +616,6 @@ def main():
                     location=(400, 400))
                 if book_to_add:
                     values["book_to_add"] = book_to_add
-                    window["book_to_add"].update(book_to_add)
 
             if values["word_to_add"] == []:
                 default_text = re.sub(r" \d.*$", "", values["pali_1"])
@@ -683,7 +682,6 @@ def main():
                     "Which book?", title=None,
                     location=(400, 400))
                 values["book_to_add"] = book_to_add
-                window["book_to_add"].update(value=book_to_add)
 
             if values["word_to_add"] == []:
                 default_text = re.sub(r" \d.*$", "", values["pali_1"])
@@ -1298,7 +1296,6 @@ def main():
                     location=(400, 400))
                 if book_to_add:
                     values["book_to_add"] = book_to_add
-                    window["book_to_add"].update(book_to_add)
             else:
                 book_to_add = sg.popup_get_text(
                     "Which book?", default_text=values["book_to_add"], 
@@ -1306,8 +1303,6 @@ def main():
                     location=(400, 400))
                 if book_to_add:
                     values["book_to_add"] = book_to_add
-                    window["book_to_add"].update(book_to_add)
-
 
             if values["word_to_add"] == []:
                 word_to_add = sg.popup_get_text(
@@ -1375,7 +1370,7 @@ def main():
                     "Which book?", title=None,
                     location=(400, 400))
                 values["book_to_add"] = book_to_add
-                window["book_to_add"].update(value=book_to_add)
+
             else:
                 book_to_add = sg.popup_get_text(
                     "Which book?", default_text=values["book_to_add"], 
@@ -1383,7 +1378,6 @@ def main():
                     location=(400, 400))
                 if book_to_add:
                     values["book_to_add"] = book_to_add
-                    window["book_to_add"].update(book_to_add)
 
             if values["word_to_add"] == []:
                 word_to_add = sg.popup_get_text(
@@ -1438,7 +1432,7 @@ def main():
                     "Which book?", title=None,
                     location=(400, 400))
                 values["book_to_add"] = book_to_add
-                window["book_to_add"].update(value=book_to_add)
+
             else:
                 book_to_add = sg.popup_get_text(
                     "Which book?", default_text=values["book_to_add"], 
@@ -1446,7 +1440,6 @@ def main():
                     location=(400, 400))
                 if book_to_add:
                     values["book_to_add"] = book_to_add
-                    window["book_to_add"].update(book_to_add)
 
             if values["word_to_add"] == []:
                 word_to_add = sg.popup_get_text(
@@ -1501,7 +1494,7 @@ def main():
                     "Which book?", title=None,
                     location=(400, 400))
                 values["book_to_add"] = book_to_add
-                window["book_to_add"].update(value=book_to_add)
+
             else:
                 book_to_add = sg.popup_get_text(
                     "Which book?", default_text=values["book_to_add"], 
@@ -1509,7 +1502,6 @@ def main():
                     location=(400, 400))
                 if book_to_add:
                     values["book_to_add"] = book_to_add
-                    window["book_to_add"].update(book_to_add)
 
             if values["word_to_add"] == []:
                 word_to_add = sg.popup_get_text(
