@@ -1,9 +1,11 @@
+import csv
 import re
 
 from typing import Tuple, List
 from rich import print
 from tools.paths import ProjectPaths
 from tools.source_sutta_example import make_cst_soup
+
 
 
 def find_names_and_number():
@@ -41,6 +43,7 @@ def find_names_and_number():
                 sutta_counter += 1
                 chapter_counter += 1
 
+                # remove digits fullstop
                 name = re.sub(r"\d*\. ", "", p.text)
                 if "theragāthā" in p.text:
                     name = re.sub("ttheragāthā", "", name)
@@ -51,8 +54,6 @@ def find_names_and_number():
                 name_list.append((
                     name, sutta_counter,
                     f"{chapter_number}.{chapter_counter}", verse))
-
-
             
             if (
                 p["rend"] == "bodytext" or
@@ -125,7 +126,6 @@ def reduce_list(name_list):
     for i in name_list:
         if i not in seen_list:
             seen_list.append(i)
-
     return seen_list
 
 
@@ -146,16 +146,19 @@ def sutta_chapter_name_dict(name_list):
 
 def write_tsv(name_dict):
     with open("temp/theras.tsv", "w") as f:
-        header = ["add", "pali_1", "pali_2", "pos", "grammar", "meaning_1", "variant", "stem", "pattern\n"]
-        f.write("\t".join(header))
+        writer = csv.writer(f, delimiter="\t")
+        header = ["add", "pali_1", "pali_2", "pos", "grammar", "meaning_1", "variant", "notes", "family_set", "stem", "pattern\n"]
+        writer.writerow(header)
         for number, i in name_dict.items():
             chapter = i["chapter"]
             first_verse = i["first_verse"]
             last_verse = i["last_verse"]
             if first_verse == last_verse:
                 verses = f"verse {first_verse}"
+                note_ending = "is attributed to him"
             else:
                 verses = f"verses {first_verse}-{last_verse}"
+                note_ending = "are attributed to him"
             names = i["name"]
             for name in names:
                 add = ""
@@ -163,13 +166,14 @@ def write_tsv(name_dict):
                 pali_2 = make_pali_2(name)
                 pos = "masc"
                 grammar = "masc"
-                meaning_1 = "name of an arahant monk; "
-                meaning_1 += f"Theragāthā {chapter}, {verses} (TH{number})"
+                meaning_1 = "name of an arahant monk"
                 variant = f"{', '.join(names - {name})}"
+                notes = f"Theragāthā {verses} (TH{chapter}, TH{number}) {note_ending}."
+                family_set = "names of monks; names of arahants"
                 stem = name[:-1]
-                pattern = f"{name[-1:]} masc\n"
-                data = [add, pali_1, pali_2, pos, grammar, meaning_1, variant, stem, pattern]
-                f.write("\t".join(data))
+                pattern = f"{name[-1:]} masc"
+                data = [add, pali_1, pali_2, pos, grammar, meaning_1, variant, notes, family_set, stem, pattern]
+                writer.writerow(data)
 
 
 def make_pali_2(name):
