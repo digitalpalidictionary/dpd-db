@@ -10,19 +10,19 @@ from functions_db import get_compound_type_values
 from functions_db import get_patterns
 from tools.pos import POS
 
-VERB_VALUES = get_verb_values()
-TRANS_VALUES = ["", "trans", "intrans", "ditrans"]
-NEG_VALUES = ["", "neg", "neg x2"]
-CASE_VALUES = get_case_values()
-ROOT_VALUES = get_root_key_values()
-FAMILY_WORD_VALUES = get_family_word_values()
-FAMILY_SET_VALUES = get_family_set_values()
-DERIVATIVE_VALUES = ["", "kicca", "kita", "taddhita"]
-COMPOUND_TYPE_VALUES = get_compound_type_values()
-PATTERN_VALUES = get_patterns()
 
+def make_tab_edit_dpd(db_session, sg, username):
 
-def make_tab_edit_dpd(sg, username):
+    VERB_VALUES = get_verb_values(db_session)
+    TRANS_VALUES = ["", "trans", "intrans", "ditrans"]
+    NEG_VALUES = ["", "neg", "neg x2"]
+    CASE_VALUES = get_case_values(db_session)
+    ROOT_VALUES = get_root_key_values(db_session)
+    FAMILY_WORD_VALUES = get_family_word_values(db_session)
+    FAMILY_SET_VALUES = get_family_set_values(db_session)
+    DERIVATIVE_VALUES = ["", "kicca", "kita", "taddhita"]
+    COMPOUND_TYPE_VALUES = get_compound_type_values(db_session)
+    PATTERN_VALUES = get_patterns(db_session)
 
     if username == "primary_user":
         origin = "pass1"

@@ -18,9 +18,7 @@ from timeout_decorator import timeout, TimeoutError as TimeoutDecoratorError
 
 from db.db_helpers import get_column_names
 from db.models import Russian, SBS, PaliWord, DerivedData
-from db.get_db_session import get_db_session
 
-from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths as DPSPTH
 from tools.meaning_construction import make_meaning
 from tools.tsv_read_write import read_tsv_dot_dict
@@ -39,9 +37,6 @@ from sqlalchemy import or_
 from sqlalchemy.orm import joinedload
 from typing import Optional
 from tools.pali_sort_key import pali_sort_key
-
-PTH = ProjectPaths()
-db_session = get_db_session(PTH.dpd_db_path)
 
 # flags
 
@@ -69,7 +64,6 @@ def dps_reset_flags(flags_dps):
 
 
 # tab maintenance
-
 
 def populate_dps_tab(values, window, dpd_word, ru_word, sbs_word):
     """Populate DPS tab with DPD info."""
@@ -256,9 +250,9 @@ def clear_dps(values, window):
             window[value].update("")
 
 
-def edit_corrections():
+def edit_corrections(pth):
     subprocess.Popen(
-        ["libreoffice", PTH.corrections_tsv_path])
+        ["libreoffice", pth.corrections_tsv_path])
 
 
 def display_dps_summary(values, window, sg, original_values):
@@ -613,14 +607,14 @@ def handle_openai_response(messages, suggestion_field, error_field, window):
         return error_string
 
 
-def ru_translate_with_openai(meaning, pali_1, grammar, suggestion_field, error_field, window):
+def ru_translate_with_openai(pth, meaning, pali_1, grammar, suggestion_field, error_field, window):
     window[error_field].update("")
 
     # keep original grammar
     grammar_orig = grammar
 
     # Replace abbreviations in grammar
-    grammar = replace_abbreviations(grammar, PTH.abbreviations_tsv_path)
+    grammar = replace_abbreviations(grammar, pth.abbreviations_tsv_path)
     
     # Generate the chat messages based on provided values
     messages = [
@@ -656,14 +650,14 @@ def ru_translate_with_openai(meaning, pali_1, grammar, suggestion_field, error_f
     return suggestion
 
 
-def ru_notes_translate_with_openai(notes, pali_1, grammar, suggestion_field, error_field, window):
+def ru_notes_translate_with_openai(pth, notes, pali_1, grammar, suggestion_field, error_field, window):
     window[error_field].update("")
 
     # keep original grammar
     grammar_orig = grammar
 
     # Replace abbreviations in grammar
-    grammar = replace_abbreviations(grammar, PTH.abbreviations_tsv_path)
+    grammar = replace_abbreviations(grammar, pth.abbreviations_tsv_path)
     
     # Generate the chat messages based on provided values
     messages = [
@@ -699,14 +693,14 @@ def ru_notes_translate_with_openai(notes, pali_1, grammar, suggestion_field, err
     return suggestion
 
 
-def en_translate_with_openai(pali_1, grammar, example, suggestion_field, error_field, window):
+def en_translate_with_openai(pth, pali_1, grammar, example, suggestion_field, error_field, window):
     window[error_field].update("")
 
     # keep original grammar
     grammar_orig = grammar
 
     # Replace abbreviations in grammar
-    grammar = replace_abbreviations(grammar, PTH.abbreviations_tsv_path)
+    grammar = replace_abbreviations(grammar, pth.abbreviations_tsv_path)
     
     # Generate the chat messages based on provided values
     messages = [
@@ -887,15 +881,15 @@ def tail_log():
     
 
 
-def dps_make_words_to_add_list(pth: ProjectPaths, __window__, book: str) -> list:
+def dps_make_words_to_add_list(db_session, pth, __window__, book: str) -> list:
     cst_text_list = make_cst_text_set(pth, [book])
     sc_text_list = make_sc_text_set(pth, [book])
     original_text_list = list(cst_text_list) + list(sc_text_list)
 
-    sp_mistakes_list = make_sp_mistakes_list(PTH)
-    variant_list = make_variant_list(PTH)
-    sandhi_ok_list = make_sandhi_ok_list(PTH)
-    all_inflections_set = dps_make_all_inflections_set()
+    sp_mistakes_list = make_sp_mistakes_list(pth)
+    variant_list = make_variant_list(pth)
+    sandhi_ok_list = make_sandhi_ok_list(pth)
+    all_inflections_set = dps_make_all_inflections_set(db_session)
 
     text_set = set(cst_text_list) | set(sc_text_list)
     text_set = text_set - set(sandhi_ok_list)
@@ -908,13 +902,13 @@ def dps_make_words_to_add_list(pth: ProjectPaths, __window__, book: str) -> list
     return text_list
 
 
-def dps_make_words_to_add_list_sutta(pth: ProjectPaths, sutta_name, book: str) -> list:
+def dps_make_words_to_add_list_sutta(db_session, pth, sutta_name, book: str) -> list:
     cst_text_list = make_cst_text_set_sutta(pth, sutta_name, [book])
 
-    sp_mistakes_list = make_sp_mistakes_list(PTH)
-    variant_list = make_variant_list(PTH)
-    sandhi_ok_list = make_sandhi_ok_list(PTH)
-    all_inflections_set = dps_make_all_inflections_set()
+    sp_mistakes_list = make_sp_mistakes_list(pth)
+    variant_list = make_variant_list(pth)
+    sandhi_ok_list = make_sandhi_ok_list(pth)
+    all_inflections_set = dps_make_all_inflections_set(db_session)
 
     text_set = set(cst_text_list)
     text_set = text_set - set(sandhi_ok_list)
@@ -929,13 +923,13 @@ def dps_make_words_to_add_list_sutta(pth: ProjectPaths, sutta_name, book: str) -
     return text_list
 
 
-def dps_make_words_to_add_list_from_text() -> list:
+def dps_make_words_to_add_list_from_text(db_session, pth) -> list:
     cst_text_list = make_cst_text_set_from_file()
 
-    sp_mistakes_list = make_sp_mistakes_list(PTH)
-    variant_list = make_variant_list(PTH)
-    sandhi_ok_list = make_sandhi_ok_list(PTH)
-    all_inflections_set = dps_make_all_inflections_set()
+    sp_mistakes_list = make_sp_mistakes_list(pth)
+    variant_list = make_variant_list(pth)
+    sandhi_ok_list = make_sandhi_ok_list(pth)
+    all_inflections_set = dps_make_all_inflections_set(db_session)
 
     text_set = set(cst_text_list)
     text_set = text_set - set(sandhi_ok_list)
@@ -949,13 +943,13 @@ def dps_make_words_to_add_list_from_text() -> list:
     return text_list
 
 
-def dps_make_words_to_add_list_from_text_filtered(source) -> list:
+def dps_make_words_to_add_list_from_text_filtered(db_session, pth, source) -> list:
     cst_text_list = make_cst_text_set_from_file()
 
-    sp_mistakes_list = make_sp_mistakes_list(PTH)
-    variant_list = make_variant_list(PTH)
-    sandhi_ok_list = make_sandhi_ok_list(PTH)
-    all_inflections_set = dps_make_filtered_inflections_set(source)
+    sp_mistakes_list = make_sp_mistakes_list(pth)
+    variant_list = make_variant_list(pth)
+    sandhi_ok_list = make_sandhi_ok_list(pth)
+    all_inflections_set = dps_make_filtered_inflections_set(db_session, source)
 
     text_set = set(cst_text_list)
     text_set = text_set - set(sandhi_ok_list)
@@ -983,7 +977,7 @@ def remove_duplicates(ordered_ids):
     return ordered_ids_no_duplicates
 
 
-def fetch_matching_words_from_db(__WHAT_TO_UPDATE__, __ORIGINAL_HAS_VALUE__) -> list:
+def fetch_matching_words_from_db(db_session, __WHAT_TO_UPDATE__, __ORIGINAL_HAS_VALUE__) -> list:
 
     ordered_ids = read_ids_from_tsv(DPSPTH.id_to_add_path)
     ordered_ids = remove_duplicates(ordered_ids)
@@ -1004,7 +998,7 @@ def fetch_matching_words_from_db(__WHAT_TO_UPDATE__, __ORIGINAL_HAS_VALUE__) -> 
     return matching_words
 
 
-def update_words_value(WHAT_TO_UPDATE, SOURCE):
+def update_words_value(db_session, WHAT_TO_UPDATE, SOURCE):
     # Fetch the matching words
     ordered_ids = read_ids_from_tsv(DPSPTH.id_to_add_path)
     ordered_ids = remove_duplicates(ordered_ids)
@@ -1041,7 +1035,7 @@ def update_words_value(WHAT_TO_UPDATE, SOURCE):
     print(f"{updated_count} rows have been updated with {SOURCE}.")
 
 
-def print_words_value(WHAT_TO_UPDATE, SOURCE):
+def print_words_value(db_session, WHAT_TO_UPDATE, SOURCE):
     # Fetch the matching words
     ordered_ids = read_ids_from_tsv(DPSPTH.id_to_add_path)
     ordered_ids = remove_duplicates(ordered_ids)
@@ -1067,8 +1061,7 @@ def print_words_value(WHAT_TO_UPDATE, SOURCE):
             print(f"{word.id} - {WHAT_TO_UPDATE} with {SOURCE}", flush=True)
 
 
-def update_sbs_category(pali_1, source):
-    db_session = get_db_session(PTH.dpd_db_path)
+def update_sbs_category(db_session, pth, pali_1, source):
 
     word = db_session.query(PaliWord).filter(PaliWord.pali_1 == pali_1).first()
 
@@ -1079,9 +1072,7 @@ def update_sbs_category(pali_1, source):
     db_session.close()
 
 
-def words_in_db_from_source(source):
-    db_session = get_db_session(PTH.dpd_db_path)
-
+def words_in_db_from_source(db_session, pth, source):
     dpd_db = db_session.query(PaliWord).all()
 
     matching_words = []
@@ -1104,20 +1095,20 @@ def words_in_db_from_source(source):
 # db functions
 
 
-def fetch_ru(id: int) -> Optional[Russian]:
+def fetch_ru(db_session, id: int) -> Optional[Russian]:
     """Fetch Russian word from db."""
     return db_session.query(Russian).filter(
         Russian.id == id).first()
 
 
-def fetch_sbs(id: int) -> Optional[SBS]:
+def fetch_sbs(db_session, id: int) -> Optional[SBS]:
     """Fetch SBS word from db."""
     return db_session.query(SBS).filter(
         SBS.id == id).first()
 
 
 def dps_update_db(
-        values, window, dpd_word, ru_word, sbs_word) -> None:
+       db_session, values, window, dpd_word, ru_word, sbs_word) -> None:
     """Update Russian and SBS tables with DPS edits."""
     merge = None
     if not ru_word:
@@ -1149,7 +1140,7 @@ def dps_update_db(
     text_color="Lime")
 
 
-def dps_get_synonyms(pos: str, string_of_meanings: str, window, error_field) -> Optional[str]:
+def dps_get_synonyms(db_session, pos: str, string_of_meanings: str, window, error_field) -> Optional[str]:
 
     string_of_meanings = re.sub(r" \(.*?\)|\(.*?\) ", "", string_of_meanings)
     list_of_meanings = string_of_meanings.split("; ")
@@ -1191,7 +1182,7 @@ def dps_get_synonyms(pos: str, string_of_meanings: str, window, error_field) -> 
     return synonyms
 
 
-def dps_make_all_inflections_set():
+def dps_make_all_inflections_set(db_session):
     
     # Joining tables and filtering where Russian.ru_meaning is not empty
     inflections_db = db_session.query(DerivedData) \
@@ -1210,7 +1201,7 @@ def dps_make_all_inflections_set():
     return dps_all_inflections_set
 
 
-def dps_make_filtered_inflections_set(source):
+def dps_make_filtered_inflections_set(db_session, source):
     
     # Begin the query
     query = db_session.query(DerivedData)
@@ -1241,7 +1232,7 @@ def dps_make_filtered_inflections_set(source):
     return dps_filtered_inflections_set
 
 
-def get_next_ids_dps(window):
+def get_next_ids_dps(db_session, window):
     used_ids = db_session.query(PaliWord.id).order_by(PaliWord.id).all()
 
     def find_largest_id():
@@ -1256,7 +1247,7 @@ def get_next_ids_dps(window):
     window["id"].update(next_id)
 
 
-def add_number_to_pali(word_id, word_pali_1):
+def add_number_to_pali(pth, db_session, word_id, word_pali_1):
     # save into corrections.tsv
     correction = [
         word_id,
@@ -1270,13 +1261,11 @@ def add_number_to_pali(word_id, word_pali_1):
         "", ""
     ]
 
-    with open(PTH.corrections_tsv_path, "a") as file:
+    with open(pth.corrections_tsv_path, "a") as file:
         writer = csv.writer(file, delimiter="\t")
         writer.writerow(correction)
 
     # udpate pali_1 in db
-    pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
     word_to_update = db_session.query(PaliWord).filter_by(id=word_id).first()
 
     if word_to_update:

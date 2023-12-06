@@ -6,13 +6,9 @@ from rich import print
 from sqlalchemy import or_
 from typing import Optional, Tuple
 
-from db.get_db_session import get_db_session
 from db.models import PaliWord, PaliRoot, InflectionTemplates, DerivedData
 from tools.pali_sort_key import pali_sort_key
-from tools.paths import ProjectPaths
 
-PTH = ProjectPaths()
-db_session = get_db_session(PTH.dpd_db_path)
 
 dpd_values_list = [
     "id" "pali_1", "pali_2", "pos", "grammar", "derived_from",
@@ -82,7 +78,7 @@ class Word:
         self.pattern: str
 
 
-def print_pos_list():
+def print_pos_list(db_session):
     pos_db = db_session.query(
         PaliWord.pos
     ).group_by(
@@ -92,7 +88,7 @@ def print_pos_list():
     print(pos_list, end=" ")
 
 
-def get_next_ids(window):
+def get_next_ids(db_session, window):
 
     used_ids = db_session.query(PaliWord.id).order_by(PaliWord.id).all()
 
@@ -121,7 +117,7 @@ def values_to_pali_word(values):
 
 
 def udpate_word_in_db(
-        window, values: dict) -> Tuple[bool, str]:
+        db_session, window, values: dict) -> Tuple[bool, str]:
     word_to_add = values_to_pali_word(values)
     pali_word_in_db = db_session.query(PaliWord).filter(
         values["id"] == PaliWord.id).first()
@@ -161,9 +157,9 @@ def udpate_word_in_db(
             return False, "updated"
 
 
-def edit_word_in_db(values, window):
+def edit_word_in_db(db_session, values, window):
     pali_word = fetch_id_or_pali_1(
-        values, "word_to_clone_edit")
+        db_session, values, "word_to_clone_edit")
 
     if pali_word is None:
         message = f"{values['word_to_clone_edit']}' not found in db"
@@ -180,10 +176,10 @@ def edit_word_in_db(values, window):
     return pali_word
 
 
-def copy_word_from_db(values, window):
+def copy_word_from_db(db_session, values, window):
 
     pali_word = fetch_id_or_pali_1(
-        values, "word_to_clone_edit")
+        db_session, values, "word_to_clone_edit")
 
     if pali_word is None:
         message = f"{values['word_to_clone_edit']}' not found in db"
@@ -205,7 +201,7 @@ def copy_word_from_db(values, window):
             f"copied '{values['word_to_clone_edit']}'", text_color="white")
 
 
-def get_verb_values():
+def get_verb_values(db_session):
     results = db_session.query(
         PaliWord.verb
     ).group_by(
@@ -217,7 +213,7 @@ def get_verb_values():
 # get_verb_values()
 
 
-def get_case_values():
+def get_case_values(db_session):
     results = db_session.query(
         PaliWord.plus_case
     ).group_by(
@@ -229,7 +225,7 @@ def get_case_values():
 
 # get_case_values()
 
-def get_root_key_values():
+def get_root_key_values(db_session):
     results = db_session.query(
         PaliWord.root_key
     ).group_by(
@@ -241,7 +237,7 @@ def get_root_key_values():
 
 # get_root_key_values()
 
-def get_family_root_values(root_key):
+def get_family_root_values(db_session, root_key):
     results = db_session.query(
         PaliRoot
     ).filter(
@@ -256,7 +252,7 @@ def get_family_root_values(root_key):
 
 # get_family_root_values("√kar")
 
-def get_root_sign_values(root_key):
+def get_root_sign_values(db_session, root_key):
     results = db_session.query(
         PaliWord.root_sign
     ).filter(
@@ -270,7 +266,7 @@ def get_root_sign_values(root_key):
 
 # get_root_sign_values("√kar")
 
-def get_root_base_values(root_key):
+def get_root_base_values(db_session, root_key):
     results = db_session.query(
         PaliWord.root_base
     ).filter(
@@ -285,7 +281,7 @@ def get_root_base_values(root_key):
 # print(get_root_base_values("√heṭh"))
 
 
-def get_family_word_values():
+def get_family_word_values(db_session):
     results = db_session.query(
         PaliWord.family_word
     ).group_by(
@@ -298,7 +294,7 @@ def get_family_word_values():
 # print(get_family_word_values())
 
 
-def get_family_compound_values():
+def get_family_compound_values(db_session):
     results = db_session.query(PaliWord).all()
     family_compound_values = []
     for i in results:
@@ -312,7 +308,7 @@ def get_family_compound_values():
 # print(get_family_compound_values())
 
 
-def get_derivative_values():
+def get_derivative_values(db_session):
     results = db_session.query(
         PaliWord.derivative
     ).group_by(
@@ -325,7 +321,7 @@ def get_derivative_values():
 # print(get_derivative_values())
 
 
-def get_compound_type_values():
+def get_compound_type_values(db_session):
     results = db_session.query(
         PaliWord.compound_type
     ).group_by(
@@ -337,7 +333,7 @@ def get_compound_type_values():
 
 # print(get_compound_type_values())
 
-def get_synonyms(pos: str, string_of_meanings: str) -> str:
+def get_synonyms(db_session, pos: str, string_of_meanings: str) -> str:
 
     string_of_meanings = re.sub(r" \(.*?\)|\(.*?\) ", "", string_of_meanings)
     list_of_meanings = string_of_meanings.split("; ")
@@ -376,7 +372,7 @@ def get_synonyms(pos: str, string_of_meanings: str) -> str:
 # print(get_synonyms_and_variants("fem", "talk; speech; statement"))
 
 
-def get_sanskrit(construction: str) -> str:
+def get_sanskrit(db_session, construction: str) -> str:
     constr_splits = construction.split(" + ")
     sanskrit = ""
     already_added = []
@@ -400,7 +396,7 @@ def get_sanskrit(construction: str) -> str:
 
 # print(get_sanskrit("sāvaka + saṅgha + ika"))
 
-def get_patterns():
+def get_patterns(db_session):
     results = db_session.query(
         InflectionTemplates.pattern
     ).all()
@@ -410,7 +406,7 @@ def get_patterns():
 # print(get_patterns())
 
 
-def get_family_set_values():
+def get_family_set_values(db_session):
     results = db_session.query(
         PaliWord.family_set
     ).all()
@@ -426,7 +422,7 @@ def get_family_set_values():
 # print(get_family_set_values())
 
 
-def make_all_inflections_set():
+def make_all_inflections_set(db_session):
 
     inflections_db = db_session.query(DerivedData).all()
 
@@ -438,12 +434,12 @@ def make_all_inflections_set():
     return all_inflections_set
 
 
-def get_pali_clean_list():
+def get_pali_clean_list(db_session):
     results = db_session.query(PaliWord).all()
     return [i.pali_clean for i in results]
 
 
-def delete_word(values, window):
+def delete_word(db_session, values, window):
     try:
         row_id = values["id"]
         db_session.query(PaliWord).filter(row_id == PaliWord.id).delete()
@@ -454,7 +450,7 @@ def delete_word(values, window):
         return False
 
 
-def get_root_info(root_key):
+def get_root_info(db_session, root_key):
     r = db_session.query(
         PaliRoot).filter(
             PaliRoot.root == root_key
@@ -479,7 +475,7 @@ def remove_line_breaker(word):
         return word
 
 
-def fetch_id_or_pali_1(values: dict, field: str) -> Optional[PaliWord]:
+def fetch_id_or_pali_1(db_session, values: dict, field: str) -> Optional[PaliWord]:
     """Get id or pali1 from db."""
     id_or_pali_1 = values[field]
 

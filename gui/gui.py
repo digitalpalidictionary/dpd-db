@@ -133,12 +133,12 @@ def main():
         commentary_definitions_exists = False
 
     sandhi_dict = make_sandhi_contraction_dict(db_session)
-    pali_clean_list: list = get_pali_clean_list()
-    window = window_layout(username)
+    pali_clean_list: list = get_pali_clean_list(db_session)
+    window = window_layout(db_session, username)
 
     # load the previously saved state of the gui
     try:
-        saved_values, words_to_add_list = load_gui_state()
+        saved_values, words_to_add_list = load_gui_state(pth)
         for key, value in saved_values.items():
             window[key].update(value)
         window["word_to_add"].update(words_to_add_list)
@@ -151,12 +151,12 @@ def main():
     flags = Flags()
     dps_flags = Flags_dps()
     if username == "primary_user":
-        get_next_ids(window)
+        get_next_ids(db_session, window)
     elif username == "deva":
-        get_next_ids_dps(window)
+        get_next_ids_dps(db_session, window)
     else:
     # Perform actions for other usernames
-        get_next_ids(window)
+        get_next_ids(db_session, window)
     
 
     hide_list_all = [
@@ -212,7 +212,7 @@ def main():
         elif event == "book_to_add_enter" or event == "books_to_add_button":
             if test_book_to_add(values, window):
                 words_to_add_list = make_words_to_add_list(
-                    window, values["book_to_add"])
+                    db_session, pth, window, values["book_to_add"])
 
                 if words_to_add_list != []:
                     values["word_to_add"] = [words_to_add_list[0]]
@@ -245,7 +245,7 @@ def main():
             else:
                 words_to_add_list = remove_word_to_add(
                     values, window, words_to_add_list)
-                sandhi_ok(window, values["word_to_add"][0])
+                sandhi_ok(pth, window, values["word_to_add"][0])
 
                 if values["word_to_add"][0] in words_to_add_list:
                     words_to_add_list.remove(values["word_to_add"][0])
@@ -292,7 +292,7 @@ def main():
                 window["variant_reading"].update(values["word_to_add"][0])
 
         elif event == "update_inflection_templates":
-            open_inflection_tables()
+            open_inflection_tables(pth)
 
         elif event == "remove_word":
             words_to_add_list = remove_word_to_add(
@@ -416,32 +416,32 @@ def main():
         elif event == "add_spelling":
             field = "meaning_1"
             error_field = "meaning_1_error"
-            check_spelling(field, error_field, values, window)
+            check_spelling(pth, field, error_field, values, window)
 
         elif event == "check_spelling_button":
             field = "meaning_1"
             error_field = "meaning_1_error"
-            check_spelling(field, error_field, values, window)
+            check_spelling(pth, field, error_field, values, window)
 
             field = "meaning_lit"
             error_field = "meaning_lit_error"
-            check_spelling(field, error_field, values, window)
+            check_spelling(pth, field, error_field, values, window)
 
             field = "meaning_2"
             error_field = "meaning_2_error"
-            check_spelling(field, error_field, values, window)
+            check_spelling(pth, field, error_field, values, window)
 
         elif event == "add_spelling_button":
             word = values["add_spelling"]
-            add_spelling(word)
+            add_spelling(pth, word)
             window["messages"].update(
                 value=f"{word} added to dictionary", text_color="white")
 
         elif event == "edit_spelling_button":
-            edit_spelling()
+            edit_spelling(pth)
 
         elif event == "family_root":
-            root_info = get_root_info(values["root_key"])
+            root_info = get_root_info(db_session, values["root_key"])
             window["root_info"].update(value=root_info)
 
         elif (
@@ -452,7 +452,7 @@ def main():
             if flags.family_root:
                 root_key = values["root_key"]
                 try:
-                    FAMILY_ROOT_VALUES = get_family_root_values(root_key)
+                    FAMILY_ROOT_VALUES = get_family_root_values(db_session, root_key)
                     window["family_root"].update(values=FAMILY_ROOT_VALUES)
                     flags.family_root = False
                 except UnboundLocalError as e:
@@ -462,7 +462,7 @@ def main():
         elif event == "get_family_root":
             if values["root_key"]:
                 root_key = values["root_key"]
-                FAMILY_ROOT_VALUES = get_family_root_values(root_key)
+                FAMILY_ROOT_VALUES = get_family_root_values(db_session, root_key)
                 window["family_root"].update(values=FAMILY_ROOT_VALUES)
                 flags.family_root = False
             else:
@@ -472,14 +472,14 @@ def main():
         elif event == "root_sign" and not values["root_sign"]:
             if flags.root_sign:
                 root_key = values["root_key"]
-                ROOT_SIGN_VALUES = get_root_sign_values(root_key)
+                ROOT_SIGN_VALUES = get_root_sign_values(db_session, root_key)
                 window["root_sign"].update(values=ROOT_SIGN_VALUES)
                 flags.root_sign = False
 
         elif event == "get_root_sign":
             if values["root_key"]:
                 root_key = values["root_key"]
-                ROOT_SIGN_VALUES = get_root_sign_values(root_key)
+                ROOT_SIGN_VALUES = get_root_sign_values(db_session, root_key)
                 window["root_sign"].update(values=ROOT_SIGN_VALUES)
                 flags.root_sign = False
             else:
@@ -489,14 +489,14 @@ def main():
         elif event == "root_base" and not values["root_base"]:
             if flags.root_base:
                 root_key = values["root_key"]
-                ROOT_BASE_VALUES = get_root_base_values(root_key)
+                ROOT_BASE_VALUES = get_root_base_values(db_session, root_key)
                 window["root_base"].update(values=ROOT_BASE_VALUES)
                 flags.root_base = False
 
         elif event == "get_root_base":
             if values["root_key"]:
                 root_key = values["root_key"]
-                ROOT_BASE_VALUES = get_root_base_values(root_key)
+                ROOT_BASE_VALUES = get_root_base_values(db_session, root_key)
                 window["root_base"].update(values=ROOT_BASE_VALUES)
                 flags.root_base = False
             else:
@@ -512,7 +512,7 @@ def main():
                 window["family_compound"].update(values["pali_1"])
                 flags.family_compound = False
             else:
-                test_family_compound(values, window)
+                test_family_compound(db_session, values, window)
 
         elif event == "construction":
             if flags.construction and not values["construction"]:
@@ -632,7 +632,7 @@ def main():
                 values["book_to_add"] and
                 values["word_to_add"]
             ):
-                source_sutta_example = find_sutta_example(sg, window, values)
+                source_sutta_example = find_sutta_example(pth, sg, window, values)
 
                 if source_sutta_example is not None:
                     try:
@@ -692,7 +692,7 @@ def main():
                 values["word_to_add"] = [word_to_add]
                 window["word_to_add"].update(values=[word_to_add])
 
-            source_sutta_example = find_sutta_example(sg, window, values)
+            source_sutta_example = find_sutta_example(pth, sg, window, values)
 
             if source_sutta_example is not None:
                 try:
@@ -722,7 +722,7 @@ def main():
 
         elif event == "synonym":
             if flags.synoyms:
-                synoyms = get_synonyms(values["pos"], values["meaning_1"])
+                synoyms = get_synonyms(db_session, values["pos"], values["meaning_1"])
                 window["synonym"].update(value=synoyms)
                 flags.synoyms = False
 
@@ -781,7 +781,7 @@ def main():
         elif event == "sanskrit":
             if flags.sanskrit and re.findall(
                     r"\bcomp\b", values["grammar"]) != []:
-                sanskrit = get_sanskrit(values["construction"])
+                sanskrit = get_sanskrit(db_session, values["construction"])
                 window["sanskrit"].update(value=sanskrit)
                 flags.sanskrit = False
 
@@ -794,14 +794,14 @@ def main():
 
         elif event == "Clone" or event == "word_to_clone_edit_enter":
             if values["word_to_clone_edit"]:
-                copy_word_from_db(values, window)
+                copy_word_from_db(db_session, values, window)
                 window["word_to_clone_edit"].update(value="")
             else:
                 window["messages"].update(value="No word to copy!", text_color="red")
 
         elif event == "edit_button":
             if values["word_to_clone_edit"]:
-                pali_word_original = edit_word_in_db(values, window)
+                pali_word_original = edit_word_in_db(db_session, values, window)
                 pali_word_original2 = deepcopy(pali_word_original)
                 open_in_goldendict(values["word_to_clone_edit"])
                 window["word_to_clone_edit"].update(value="")
@@ -814,12 +814,12 @@ def main():
             clear_errors(window)
             clear_values(values, window, username)
             if username == "primary_user":
-                get_next_ids(window)
+                get_next_ids(db_session, window)
             elif username == "deva":
-                get_next_ids_dps(window)
+                get_next_ids_dps(db_session, window)
             else:
                 # Perform actions for other usernames
-                get_next_ids(window)
+                get_next_ids(db_session, window)
             reset_flags(flags)
             window["messages"].update(value="")
 
@@ -827,23 +827,23 @@ def main():
 
             clear_errors(window)
             flags = individual_internal_tests(
-                sg, window, values, flags, username)
+                pth, sg, window, values, flags, username)
 
             # spell checks
             field = "meaning_1"
             error_field = "meaning_1_error"
-            check_spelling(field, error_field, values, window)
+            check_spelling(pth, field, error_field, values, window)
 
             field = "meaning_lit"
             error_field = "meaning_lit_error"
-            check_spelling(field, error_field, values, window)
+            check_spelling(pth, field, error_field, values, window)
 
             field = "meaning_2"
             error_field = "meaning_2_error"
-            check_spelling(field, error_field, values, window)
+            check_spelling(pth, field, error_field, values, window)
 
         elif event == "open_tests_button":
-            open_internal_tests()
+            open_internal_tests(pth)
 
         elif event == "update_sandhi_button":
             sandhi_dict = make_sandhi_contraction_dict(db_session)
@@ -855,17 +855,17 @@ def main():
                 last_button = display_summary(values, window, sg, pali_word_original2)
                 if last_button == "ok_button":
                     success, action = udpate_word_in_db(
-                        window, values)
+                        db_session, window, values)
                     if success:
                         clear_errors(window)
                         clear_values(values, window, username)
                         if username == "primary_user":
-                            get_next_ids(window)
+                            get_next_ids(db_session, window)
                         elif username == "deva":
-                            get_next_ids_dps(window)
+                            get_next_ids_dps(db_session, window)
                         else:
                             # Perform actions for other usernames
-                            get_next_ids(window)
+                            get_next_ids(db_session, window)
                         reset_flags(flags)
                         remove_word_to_add(values, window, words_to_add_list)
                         window["words_to_add_length"].update(
@@ -885,19 +885,19 @@ def main():
                 last_button = display_summary(values, window, sg, pali_word_original2)
                 if last_button == "ok_button":
                     success, action = udpate_word_in_db(
-                        window, values)
+                        db_session, window, values)
                     if success:
-                        compare_differences(values, sg, pali_word_original2, action)
+                        compare_differences(pth, values, sg, pali_word_original2, action)
                         clear_errors(window)
                         window["dps_id_or_pali_1"].update(values["pali_1"])
                         clear_values(values, window, username)
                         if username == "primary_user":
-                            get_next_ids(window)
+                            get_next_ids(db_session, window)
                         elif username == "deva":
-                            get_next_ids_dps(window)
+                            get_next_ids_dps(db_session, window)
                         else:
                             # Perform actions for other usernames
-                            get_next_ids(window)
+                            get_next_ids(db_session, window)
                         reset_flags(flags)
                         remove_word_to_add(values, window, words_to_add_list)
                         window["words_to_add_length"].update(
@@ -907,7 +907,7 @@ def main():
                         
         
         elif event == "open_corrections_button":
-            edit_corrections()
+            edit_corrections(pth)
 
         elif event == "debug_button":
             print(f"{values}")
@@ -921,21 +921,22 @@ def main():
         elif event == "split_button":
             pali_1_old, pali_1_new = increment_pali_1(values)
             if username == "deva":
+                # add number 1 to pali_1 for old word if there is no number
                 print(f"pali_1_old {pali_1_old}")
                 if pali_1_old.endswith(" 1"):
                     if sg.popup_yes_no('add #1 to pali_1 ?') == 'Yes':
                         id_old = values["id"]
-                        add_number_to_pali(id_old, pali_1_old)
+                        add_number_to_pali(pth, db_session, id_old, pali_1_old)
             window["pali_1"].update(value=pali_1_old)
             values["pali_1"] = pali_1_old
             stasher(pth, values, window)
             if username == "primary_user":
-                get_next_ids(window)
+                get_next_ids(db_session, window)
             elif username == "deva":
-                get_next_ids_dps(window)
+                get_next_ids_dps(db_session, window)
             else:
                 # Perform actions for other usernames
-                get_next_ids(window)
+                get_next_ids(db_session, window)
             window["pali_1"].update(value=pali_1_new)
             reset_flags(flags)
 
@@ -952,7 +953,7 @@ def main():
             display_summary(values, window, sg, pali_word_original2)
 
         elif event == "save_state_button":
-            save_gui_state(values, words_to_add_list)
+            save_gui_state(pth, values, words_to_add_list)
             window["messages"].update(
                     value="saved gui state", text_color="green")
 
@@ -964,17 +965,17 @@ def main():
                 location=(400, 400),
                 modal=True)
             if yes_no == "Yes":
-                success = delete_word(values, window)
+                success = delete_word(db_session, values, window)
                 if success:
                     clear_errors(window)
                     clear_values(values, window, username)
                     if username == "primary_user":
-                        get_next_ids(window)
+                        get_next_ids(db_session, window)
                     elif username == "deva":
-                        get_next_ids_dps(window)
+                        get_next_ids_dps(db_session, window)
                     else:
                         # Perform actions for other usernames
-                        get_next_ids(window)
+                        get_next_ids(db_session, window)
                     reset_flags(flags)
                     window["messages"].update(
                         value=f"{row_id} '{pali_1}' deleted", text_color="white")
@@ -987,7 +988,7 @@ def main():
             elif username == "deva":
                 backup_ru_sbs()
 
-            save_gui_state(values, words_to_add_list)
+            save_gui_state(pth, values, words_to_add_list)
             window["messages"].update(
                     value="saved gui state", text_color="green")
             break
@@ -996,37 +997,37 @@ def main():
 
         # sandhi rules
         elif event == "add_sandhi_rule":
-            add_sandhi_rule(window, values)
+            add_sandhi_rule(pth, window, values)
 
         elif event == "open_sandhi_rules":
-            open_sandhi_rules()
+            open_sandhi_rules(pth)
 
         # sandhi corrections
         elif event == "add_sandhi_correction":
-            add_sandhi_correction(window, values)
+            add_sandhi_correction(pth, window, values)
 
         elif event == "open_sandhi_corrections":
-            open_sandhi_corrections()
+            open_sandhi_corrections(pth)
 
         # spelling mistakes
         elif event == "add_spelling_mistake":
-            add_spelling_mistake(window, values)
+            add_spelling_mistake(pth, window, values)
 
         elif event == "open_spelling_mistakes":
-            open_spelling_mistakes()
+            open_spelling_mistakes(pth)
 
         # variant readings
         elif event == "add_variant_reading":
-            add_variant_reading(window, values)
+            add_variant_reading(pth, window, values)
 
         elif event == "open_variant_readings":
-            open_variant_readings()
+            open_variant_readings(pth)
 
         elif event == "open_sandhi_ok":
-            open_sandhi_ok()
+            open_sandhi_ok(pth)
 
         elif event == "open_sandhi_exceptions":
-            open_sandhi_exceptions()
+            open_sandhi_exceptions(pth)
 
         # hide fields logic
 
@@ -1107,13 +1108,13 @@ def main():
         # test db tab buttons
 
         elif event == "test_db_internal":
-            db_internal_tests(sg, window, flags)
+            db_internal_tests(db_session, pth, sg, window, flags)
 
         elif event == "test_next":
             flags.test_next = True
 
         elif event == "test_edit":
-            open_internal_tests()
+            open_internal_tests(pth)
 
         # combo events
 
@@ -1244,10 +1245,10 @@ def main():
             event == "dps_id_or_pali_1_button"
         ):
             if values["dps_id_or_pali_1"]:
-                dpd_word = fetch_id_or_pali_1(values, "dps_id_or_pali_1")
+                dpd_word = fetch_id_or_pali_1(db_session, values, "dps_id_or_pali_1")
                 if dpd_word:
-                    ru_word = fetch_ru(dpd_word.id)
-                    sbs_word = fetch_sbs(dpd_word.id)
+                    ru_word = fetch_ru(db_session, dpd_word.id)
+                    sbs_word = fetch_sbs(db_session, dpd_word.id)
                     open_in_goldendict(dpd_word.pali_1)
                     populate_dps_tab(
                         values, window, dpd_word, ru_word, sbs_word)
@@ -1260,7 +1261,7 @@ def main():
         elif event == "dps_synonym":
             if dps_flags.synoyms:
                 error_field = "dps_synonym_error"
-                synoyms = dps_get_synonyms(values["dps_pos"], values["dps_meaning"], window, error_field)
+                synoyms = dps_get_synonyms(db_session, values["dps_pos"], values["dps_meaning"], window, error_field)
                 window["dps_synonym"].update(value=synoyms)
                 dps_flags.synoyms = False
 
@@ -1319,7 +1320,7 @@ def main():
                 values["book_to_add"] and
                 values["word_to_add"]
             ):
-                source_sutta_example = find_sutta_example(sg, window, values)
+                source_sutta_example = find_sutta_example(pth, sg, window, values)
 
                 if source_sutta_example is not None:
                     try:
@@ -1388,7 +1389,7 @@ def main():
                 values["word_to_add"] = [word_to_add]
                 window["word_to_add"].update(values=[word_to_add])
 
-            source_sutta_example = find_sutta_example(sg, window, values)
+            source_sutta_example = find_sutta_example(pth, sg, window, values)
 
             if source_sutta_example is not None:
                 try:
@@ -1450,7 +1451,7 @@ def main():
                 values["word_to_add"] = [word_to_add]
                 window["word_to_add"].update(values=[word_to_add])
 
-            source_sutta_example = find_sutta_example(sg, window, values)
+            source_sutta_example = find_sutta_example(pth, sg, window, values)
 
             if source_sutta_example is not None:
                 try:
@@ -1512,7 +1513,7 @@ def main():
                 values["word_to_add"] = [word_to_add]
                 window["word_to_add"].update(values=[word_to_add])
 
-            source_sutta_example = find_sutta_example(sg, window, values)
+            source_sutta_example = find_sutta_example(pth, sg, window, values)
 
             if source_sutta_example is not None:
                 try:
@@ -1556,18 +1557,18 @@ def main():
         elif event == "dps_openai_translate_button":
             field = "dps_ru_online_suggestion"
             error_field = "dps_ru_meaning_suggestion_error"
-            ru_translate_with_openai(values['dps_meaning'], values['dps_pali_1'], values['dps_grammar'], field, error_field, window)
+            ru_translate_with_openai(pth, values['dps_meaning'], values['dps_pali_1'], values['dps_grammar'], field, error_field, window)
 
         elif event == "dps_notes_openai_translate_button":
             field = "dps_notes_online_suggestion"
             error_field = "dps_ru_notes_suggestion_error"
-            ru_notes_translate_with_openai(values['dps_notes'], values['dps_pali_1'], values['dps_grammar'], field, error_field, window)
+            ru_notes_translate_with_openai(pth, values['dps_notes'], values['dps_pali_1'], values['dps_grammar'], field, error_field, window)
 
         # in dpd tab
         elif event == "online_suggestion_button":
             field = "online_suggestion"
             error_field = "online_suggestion_error"
-            en_translate_with_openai(values['pali_1'], values['grammar'], values['example_1'], field, error_field, window)
+            en_translate_with_openai(pth, values['pali_1'], values['grammar'], values['example_1'], field, error_field, window)
 
         # copy ru sugestions buttons
         elif event == "dps_copy_meaning_button":
@@ -1599,11 +1600,11 @@ def main():
 
             field = "dps_sbs_meaning"
             error_field = "dps_sbs_meaning_error"
-            check_spelling(field, error_field, values, window)
+            check_spelling(pth, field, error_field, values, window)
 
             field = "dps_sbs_notes"
             error_field = "dps_sbs_notes_error"
-            check_spelling(field, error_field, values, window)
+            check_spelling(pth, field, error_field, values, window)
 
             # dps repetition check
             field = "dps_ru_meaning"
@@ -1758,7 +1759,7 @@ def main():
         # dps db buttons:
 
         elif event == "dps_test_internal_button":
-            dpd_word = fetch_id_or_pali_1(values, "dps_id_or_pali_1")
+            dpd_word = fetch_id_or_pali_1(db_session, values, "dps_id_or_pali_1")
             if dpd_word:
 
                 clear_errors(window)
@@ -1781,11 +1782,11 @@ def main():
 
                 field = "dps_sbs_meaning"
                 error_field = "dps_sbs_meaning_error"
-                check_spelling(field, error_field, values, window)
+                check_spelling(pth, field, error_field, values, window)
 
                 field = "dps_sbs_notes"
                 error_field = "dps_sbs_notes_error"
-                check_spelling(field, error_field, values, window)
+                check_spelling(pth, field, error_field, values, window)
 
                 # dps repetition check
                 field = "dps_ru_meaning"
@@ -1800,15 +1801,15 @@ def main():
             if dps_flags.tested is False:
                 window["messages"].update(value="test first!", text_color="red")
             else:
-                dpd_word = fetch_id_or_pali_1(values, "dps_id_or_pali_1")
+                dpd_word = fetch_id_or_pali_1(db_session, values, "dps_id_or_pali_1")
                 if dpd_word:
-                    ru_word = fetch_ru(dpd_word.id)
-                    sbs_word = fetch_sbs(dpd_word.id)
+                    ru_word = fetch_ru(db_session, dpd_word.id)
+                    sbs_word = fetch_sbs(db_session, dpd_word.id)
                     original_values = dps_get_original_values(values, dpd_word, ru_word, sbs_word)
                     last_button = display_dps_summary(values, window, sg, original_values)
                     if last_button == "dps_ok_button":
                         open_in_goldendict(values["dps_id_or_pali_1"])
-                        dps_update_db(values, window, dpd_word, ru_word, sbs_word)
+                        dps_update_db(db_session, values, window, dpd_word, ru_word, sbs_word)
                         clear_dps(values, window)
                         clear_errors(window)
                         dps_reset_flags(dps_flags)
@@ -1826,10 +1827,10 @@ def main():
                         value="cleared", text_color="SteelBlue")
 
         elif event == "dps_reset_button":
-            dpd_word = fetch_id_or_pali_1(values, "dps_id_or_pali_1")
+            dpd_word = fetch_id_or_pali_1(db_session, values, "dps_id_or_pali_1")
             if dpd_word:
-                ru_word = fetch_ru(dpd_word.id)
-                sbs_word = fetch_sbs(dpd_word.id)
+                ru_word = fetch_ru(db_session, dpd_word.id)
+                sbs_word = fetch_sbs(db_session, dpd_word.id)
                 clear_dps(values, window)
                 populate_dps_tab(
                     values, window, dpd_word, ru_word, sbs_word)
@@ -1860,10 +1861,10 @@ def main():
             tail_log()
 
         elif event == "dps_summary_button":
-            dpd_word = fetch_id_or_pali_1(values, "dps_id_or_pali_1")
+            dpd_word = fetch_id_or_pali_1(db_session, values, "dps_id_or_pali_1")
             if dpd_word:
-                ru_word = fetch_ru(dpd_word.id)
-                sbs_word = fetch_sbs(dpd_word.id)
+                ru_word = fetch_ru(db_session, dpd_word.id)
+                sbs_word = fetch_sbs(db_session, dpd_word.id)
                 original_values = dps_get_original_values(values, dpd_word, ru_word, sbs_word)
                 display_dps_summary(values, window, sg, original_values)
             else:
@@ -1871,7 +1872,7 @@ def main():
                     value="not a valid id or pali_1", text_color="red")
 
         elif event == "dps_save_state_button":
-            save_gui_state(values, words_to_add_list)
+            save_gui_state(pth, values, words_to_add_list)
             window["messages"].update(
                     value="saved gui state", text_color="green")
 
@@ -1882,7 +1883,7 @@ def main():
         elif event == "dps_books_to_add_button":
             if test_book_to_add(values, window):
                 words_to_add_list = dps_make_words_to_add_list(
-                    pth, window, values["book_to_add"])
+                    db_session, pth, window, values["book_to_add"])
 
                 if words_to_add_list != []:
                     values["word_to_add"] = [words_to_add_list[0]]
@@ -1902,7 +1903,7 @@ def main():
         elif event == "sutta_to_add_button":
             if test_book_to_add(values, window):
                 words_to_add_list = dps_make_words_to_add_list_sutta(
-                    pth, values["sutta_to_add"], values["book_to_add"])
+                    db_session, pth, values["sutta_to_add"], values["book_to_add"])
 
                 if words_to_add_list != []:
                     values["word_to_add"] = [words_to_add_list[0]]
@@ -1923,7 +1924,7 @@ def main():
         elif event == "dps_sutta_to_add_button":
             if test_book_to_add(values, window):
                 words_to_add_list = dps_make_words_to_add_list_sutta(
-                    pth, values["sutta_to_add"], values["book_to_add"])
+                    db_session, pth, values["sutta_to_add"], values["book_to_add"])
 
                 if words_to_add_list != []:
                     values["word_to_add"] = [words_to_add_list[0]]
@@ -1941,7 +1942,7 @@ def main():
 
         # from source
         elif event == "dps_add_from_source":
-            words_to_add_list = words_in_db_from_source(values["source_to_add"])
+            words_to_add_list = words_in_db_from_source(db_session, pth, values["source_to_add"])
 
             if words_to_add_list != []:
                 values["word_to_add"] = [words_to_add_list[0]]
@@ -1960,7 +1961,7 @@ def main():
 
         # add words from text.txt (dps)
         elif event == "dps_from_txt_to_add_button":
-            words_to_add_list = dps_make_words_to_add_list_from_text()
+            words_to_add_list = dps_make_words_to_add_list_from_text(db_session, pth)
 
             if words_to_add_list != []:
                 values["word_to_add"] = [words_to_add_list[0]]
@@ -1978,7 +1979,7 @@ def main():
 
         # add words from text.txt which do not have source
         elif event == "dps_from_txt_to_add_considering_source_button":
-            words_to_add_list = dps_make_words_to_add_list_from_text_filtered(values["source_to_add"])
+            words_to_add_list = dps_make_words_to_add_list_from_text_filtered(db_session, pth, values["source_to_add"])
             if words_to_add_list != []:
                 values["word_to_add"] = [words_to_add_list[0]]
                 window["word_to_add"].update(values=words_to_add_list)
@@ -2001,7 +2002,7 @@ def main():
                 presence_of_value = True
             else:
                 presence_of_value = False
-            words_to_add_list = fetch_matching_words_from_db(values["field_for_id_list"], presence_of_value)
+            words_to_add_list = fetch_matching_words_from_db(db_session, values["field_for_id_list"], presence_of_value)
 
             if words_to_add_list != []:
                 values["word_to_add"] = [words_to_add_list[0]]
@@ -2048,13 +2049,13 @@ def main():
                 words_to_add_list = remove_word_to_add(
                     values, window, words_to_add_list)
                 window["words_to_add_length"].update(value=len(words_to_add_list))
-                update_sbs_category(values["word_to_add"][0], values["source_for_id_list"])
+                update_sbs_category(db_session, pth, values["word_to_add"][0], values["source_for_id_list"])
                 window["messages"].update(
                         value="category updated",
                         text_color="white")
 
         elif event == "dps_save_gui_state":
-            save_gui_state(values, words_to_add_list)
+            save_gui_state(pth, values, words_to_add_list)
             window["messages"].update(
                     value="saved gui state", text_color="green")
 
@@ -2062,12 +2063,12 @@ def main():
         # test db tab                
 
         elif event == "ru_test_db_internal":
-            dps_dpd_db_internal_tests(pth, sg, window, flags)
+            dps_dpd_db_internal_tests(db_session, pth, sg, window, flags)
 
         # dps test tab
 
         elif event == "dps_test_db_internal":
-            dps_db_internal_tests(sg, window, dps_flags)
+            dps_db_internal_tests(pth, db_session, sg, window, dps_flags)
 
         elif event == "dps_test_next":
             dps_flags.test_next = True

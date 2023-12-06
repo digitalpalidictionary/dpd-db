@@ -14,7 +14,7 @@ from functions import load_gui_config
 
 config = load_gui_config()
 
-def window_layout(username):
+def window_layout(db_session, username):
 
     # Get screen width and height
     screen_width, screen_height = sg.Window.get_screen_size()
@@ -35,7 +35,7 @@ def window_layout(username):
     )
 
     tab_add_next_word = make_tab_add_next_word(sg, username)
-    tab_edit_dpd = make_tab_edit_dpd(sg, username)
+    tab_edit_dpd = make_tab_edit_dpd(db_session, sg, username)
     tab_edit_dps = make_tab_edit_dps(sg)
     tab_fix_sandhi = make_tab_fix_sandhi(sg)
     tab_db_tests = make_tab_db_tests(sg, username)

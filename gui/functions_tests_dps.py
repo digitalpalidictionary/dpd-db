@@ -13,9 +13,7 @@ from json import dumps, loads
 from typing import List, Tuple
 from rich import print
 
-from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths as DPSPTH
-from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tests.helpers import InternalTestRow
 # from tools.pali_sort_key import pali_sort_key
@@ -101,7 +99,7 @@ def make_db_internal_tests_list():
     return [InternalTestRow(**row) for row in rows]
 
 
-def make_dpd_db_internal_tests_list(pth: ProjectPaths):
+def make_dpd_db_internal_tests_list(pth):
     """Constructs a list of InternalTestRow objects from the TSV."""
     rows = read_from_tsv(pth.internal_tests_path)
     return [InternalTestRow(**row) for row in rows]
@@ -331,12 +329,6 @@ def run_individual_internal_tests(
 # 2. db internal tests - runs in dps test tab
 
 
-def get_dpd_db():
-    pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
-    return db_session.query(PaliWord).options(joinedload(PaliWord.sbs), joinedload(PaliWord.ru)).all()
-
-
 def get_db_test_results(t, values):
 
     search_criteria: List[Tuple] = get_search_criteria(t)
@@ -382,12 +374,12 @@ def get_db_test_results(t, values):
     return test_results
 
 
-def dps_db_internal_tests(sg, window, flags_dps):
+def dps_db_internal_tests(pth, db_session, sg, window, flags_dps):
     clear_tests(window)
     window["messages"].update("running tests", text_color="white")
     window.refresh()
 
-    dpd_db = get_dpd_db()
+    dpd_db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs), joinedload(PaliWord.ru)).all()
     db_internal_tests_list = make_db_internal_tests_list()
 
     db_internal_tests_list = clean_exceptions(dpd_db, db_internal_tests_list)
@@ -511,7 +503,7 @@ def dps_db_internal_tests(sg, window, flags_dps):
                         text_color="white")
 
                 if event == "dps_test_new":
-                    make_new_test(values, test_counter, db_internal_tests_list)
+                    make_new_test(pth, values, test_counter, db_internal_tests_list)
                     clear_tests(window)
                     window["messages"].update(
                         f"{values['dps_test_name']} added to tests")
@@ -632,12 +624,12 @@ def clear_tests(window):
     window.refresh()
 
 
-def dps_dpd_db_internal_tests(pth: ProjectPaths, sg, window, flags):
+def dps_dpd_db_internal_tests(db_session, pth, sg, window, flags):
     clear_tests(window)
     window["messages"].update("running tests", text_color="white")
     window.refresh()
 
-    dpd_db = get_dpd_db()
+    dpd_db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs), joinedload(PaliWord.ru)).all()
     db_internal_tests_list = make_dpd_db_internal_tests_list(pth)
 
     db_internal_tests_list = clean_exceptions(dpd_db, db_internal_tests_list)
@@ -761,7 +753,7 @@ def dps_dpd_db_internal_tests(pth: ProjectPaths, sg, window, flags):
                         text_color="white")
 
                 if event == "test_new":
-                    make_new_test(values, test_counter, db_internal_tests_list)
+                    make_new_test(pth, values, test_counter, db_internal_tests_list)
                     clear_tests(window)
                     window["messages"].update(
                         f"{values['test_name']} added to tests")
@@ -771,7 +763,7 @@ def dps_dpd_db_internal_tests(pth: ProjectPaths, sg, window, flags):
                     pyperclip.copy(db_query)
 
                 if event == "test_edit":
-                    open_internal_tests()
+                    open_internal_tests(pth)
 
                 if event == "test_results":
                     if values["test_results"]:

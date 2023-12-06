@@ -13,40 +13,37 @@ from json import dumps, loads
 from typing import List, Tuple
 from rich import print
 
-from tools.paths import ProjectPaths
-from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tests.helpers import InternalTestRow
 from tools.pali_sort_key import pali_sort_key
 
 # 1. individual internal tests
 
-PTH = ProjectPaths()
 
-def open_internal_tests():
+def open_internal_tests(pth):
     subprocess.Popen(
-        ["libreoffice", PTH.internal_tests_path])
+        ["libreoffice", pth.internal_tests_path])
 
 
 def individual_internal_tests(
-        sg, window, values, flags, username):
+        pth, sg, window, values, flags, username):
     flags.tested = False
-    internal_tests_list = make_internal_tests_list()
+    internal_tests_list = make_internal_tests_list(pth)
     test_the_tests(internal_tests_list, window)
     flags = run_individual_internal_tests(
-        internal_tests_list, values, window, flags, sg, username)
+        pth, internal_tests_list, values, window, flags, sg, username)
     return flags
 
 
-def make_internal_tests_list():
-    with open(PTH.internal_tests_path, newline="") as csvfile:
+def make_internal_tests_list(pth):
+    with open(pth.internal_tests_path, newline="") as csvfile:
         reader = csv.DictReader(csvfile, delimiter="\t")
         internal_tests_list = [InternalTestRow(**row) for row in reader]
     return internal_tests_list
 
 
-def write_internal_tests_list(internal_tests_list):
-    with open(PTH.internal_tests_path, 'w', newline="") as csvfile:
+def write_internal_tests_list(pth, internal_tests_list):
+    with open(pth.internal_tests_path, 'w', newline="") as csvfile:
         fieldnames = internal_tests_list[0].__dict__.keys()
         writer = csv.DictWriter(csvfile, delimiter="\t", fieldnames=fieldnames)
         writer.writeheader()
@@ -135,7 +132,7 @@ def get_search_criteria(t: InternalTestRow) -> List[Tuple]:
 
 
 def run_individual_internal_tests(
-        internal_tests_list, values, window, flags, sg, username):
+        pth, internal_tests_list, values, window, flags, sg, username):
 
     # remove all spaces front and back, and doublespaces
     for value in values:
@@ -227,7 +224,7 @@ def run_individual_internal_tests(
                     if username == "primary_user":
                         popup_win.close()
                         internal_tests_list[counter].exceptions += [values['pali_1']]
-                        write_internal_tests_list(internal_tests_list)
+                        write_internal_tests_list(pth, internal_tests_list)
                         break
                     else:
                         message = "Sorry, you don't have permission to edit that.\nUse the Next button."
@@ -253,11 +250,10 @@ def run_individual_internal_tests(
         return flags
 
 
-def db_internal_tests_setup():
+def db_internal_tests_setup(db_session, pth):
 
-    db_session = get_db_session(PTH.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
-    internal_tests_list = make_internal_tests_list()
+    internal_tests_list = make_internal_tests_list(pth)
 
     return dpd_db, internal_tests_list
 
@@ -299,12 +295,12 @@ def get_db_test_results(t, values):
     return test_results
 
 
-def db_internal_tests(sg, window, flags):
+def db_internal_tests(db_session, pth, sg, window, flags):
     clear_tests(window)
     window["messages"].update("running tests", text_color="white")
     window.refresh()
 
-    dpd_db, internal_tests_list = db_internal_tests_setup()
+    dpd_db, internal_tests_list = db_internal_tests_setup(db_session, pth)
     internal_tests_list = clean_exceptions(dpd_db, internal_tests_list)
     integrity = test_the_tests(internal_tests_list, window)
     if integrity is False:
@@ -389,7 +385,7 @@ def db_internal_tests(sg, window, flags):
                     exception = values["test_add_exception"]
                     internal_tests_list[test_counter].exceptions += [exception]
 
-                    write_internal_tests_list(internal_tests_list)
+                    write_internal_tests_list(pth, internal_tests_list)
 
                     window["messages"].update(
                         f"{exception} added to exceptions",
@@ -409,18 +405,18 @@ def db_internal_tests(sg, window, flags):
                         location=(400, 400))
                     if confirmation == "Yes":
                         del internal_tests_list[test_counter]
-                        write_internal_tests_list(internal_tests_list)
+                        write_internal_tests_list(pth, internal_tests_list)
                         clear_tests(window)
                         break
 
                 if event == "test_update":
-                    update_tests(internal_tests_list, test_counter, values)
+                    update_tests(pth, internal_tests_list, test_counter, values)
                     window["messages"].update(
                         f"{test_counter}. {t.test_name} updated!",
                         text_color="white")
 
                 if event == "test_new":
-                    make_new_test(values, test_counter, internal_tests_list)
+                    make_new_test(pth, values, test_counter, internal_tests_list)
                     clear_tests(window)
                     window["messages"].update(
                         f"{values['test_name']} added to tests")
@@ -430,7 +426,7 @@ def db_internal_tests(sg, window, flags):
                     pyperclip.copy(db_query)
 
                 if event == "test_edit":
-                    open_internal_tests()
+                    open_internal_tests(pth)
 
                 if event == "test_results":
                     if values["test_results"]:
@@ -463,7 +459,7 @@ def regex_fail_list(fail_list):
     return string
 
 
-def update_tests(internal_tests_list, count, values):
+def update_tests(pth, internal_tests_list, count, values):
     internal_tests_list[count].test_name = values["test_name"]
     internal_tests_list[count].search_column_1 = values["search_column_1"]
     internal_tests_list[count].search_column_2 = values["search_column_2"]
@@ -494,7 +490,7 @@ def update_tests(internal_tests_list, count, values):
     internal_tests_list[count].display_2 = values["display_2"]
     internal_tests_list[count].display_3 = values["display_3"]
 
-    write_internal_tests_list(internal_tests_list)
+    write_internal_tests_list(pth, internal_tests_list)
 
 
 def make_new_test_row(v):
@@ -527,10 +523,10 @@ def make_new_test_row(v):
     )
 
 
-def make_new_test(values, test_counter, internal_tests_list):
+def make_new_test(pth, values, test_counter, internal_tests_list):
     new_test_row = make_new_test_row(values)
     internal_tests_list.insert(test_counter + 1, new_test_row)
-    write_internal_tests_list(internal_tests_list)
+    write_internal_tests_list(pth, internal_tests_list)
 
 
 def clear_tests(window):
