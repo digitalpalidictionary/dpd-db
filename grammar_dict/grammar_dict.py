@@ -258,10 +258,10 @@ def make_data_lists(grammar_dict_html):
     return gd_data_list, md_data_list
 
 
-def make_golden_dict(PTH, gd_data_list):
+def make_golden_dict(pth, gd_data_list):
     print("[green]making goldendict")
 
-    zip_path = PTH.grammar_dict_zip_path
+    zip_path = pth.grammar_dict_zip_path
 
     ifo = ifo_from_opts({
         "bookname": "DPD Grammar",
@@ -280,12 +280,12 @@ def make_golden_dict(PTH, gd_data_list):
         ):
         print(f"[green]unzipping and copying to [blue]{goldendict_path}")
         popen(
-            f'unzip -o {PTH.grammar_dict_zip_path} -d "{goldendict_path}"')
+            f'unzip -o {pth.grammar_dict_zip_path} -d "{goldendict_path}"')
     else:
         print("[red]local GoldenDict directory not found")
 
 
-def make_mdict(PTH, md_data_list):
+def make_mdict(pth, md_data_list):
     print("[green]making mdict")
 
     def synonyms(all_items, item):
@@ -305,7 +305,7 @@ def make_mdict(PTH, md_data_list):
     mdict_data = reduce(synonyms, md_data_list, [])
     writer = MDictWriter(
         mdict_data, title=ifo['bookname'], description=f"<p>by {ifo['author']} </p> <p>For more infortmation, please visit <a href=\"{ifo['website']}\">{ifo['description']}</a></p>")
-    outfile = open(PTH.grammar_dict_mdict_path, 'wb')
+    outfile = open(pth.grammar_dict_mdict_path, 'wb')
     writer.write(outfile)
     outfile.close()
 

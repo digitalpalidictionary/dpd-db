@@ -3,9 +3,9 @@
 import json
 
 
-def make_dpr_breakup_dict(PTH):
+def make_dpr_breakup_dict(pth):
     print(f"[green]{'making dpr breakup dict':<40}", end="")
-    with open(PTH.dpr_breakup) as f:
+    with open(pth.dpr_breakup) as f:
         dpr_breakup = json.load(f)
 
     dpr_breakup_dict = {}

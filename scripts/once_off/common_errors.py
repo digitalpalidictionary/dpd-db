@@ -8,8 +8,8 @@ from db.models import PaliWord
 from db.get_db_session import get_db_session
 from tools.paths import ProjectPaths
 
-PTH = ProjectPaths()
-db_session = get_db_session(PTH.dpd_db_path)
+pth = ProjectPaths()
+db_session = get_db_session(pth.dpd_db_path)
 
 pos_list = [
     'abbrev', 'abs', 'adj', 'aor', 'card', 'cond', 'cs', 'fem', 'fut', 'ger',

@@ -20,8 +20,8 @@ from tools.superscripter import superscripter_uni
 from tools.paths import ProjectPaths
 
 
-PTH = ProjectPaths()
-db_session = get_db_session(PTH.dpd_db_path)
+pth = ProjectPaths()
+db_session = get_db_session(pth.dpd_db_path)
 dpd_db = db_session.query(PaliWord).all()
 
 changed_templates: list = []
@@ -29,7 +29,7 @@ changed_headwords: list = []
 
 # !!! how is all_tipitaka_words getting generated?
 
-with open(PTH.all_tipitaka_words_path, "rb") as f:
+with open(pth.all_tipitaka_words_path, "rb") as f:
     all_tipitaka_words: set = pickle.load(f)
 
 
@@ -106,10 +106,10 @@ def main():
     for row in add_to_db:
         db_session.add(row)
 
-    with open(PTH.changed_headwords_path, "wb") as f:
+    with open(pth.changed_headwords_path, "wb") as f:
         pickle.dump(changed_headwords, f)
 
-    with open(PTH.template_changed_path, "wb") as f:
+    with open(pth.template_changed_path, "wb") as f:
         pickle.dump(changed_templates, f)
 
     # # !!! find all unused patterns !!!
@@ -126,7 +126,7 @@ def test_inflection_template_changed():
     """test if the inflection template has changes since the last run"""
 
     try:
-        with open(PTH.inflection_templates_pickle_path, "rb") as f:
+        with open(pth.inflection_templates_pickle_path, "rb") as f:
             old_templates: List[InflectionTemplates] = pickle.load(f)
     except Exception:
         old_templates = []
@@ -172,7 +172,7 @@ def test_inflection_template_changed():
 
     def save_pickle() -> None:
         tables = db_session.query(InflectionTemplates).all()
-        with open(PTH.inflection_templates_pickle_path, "wb") as f:
+        with open(pth.inflection_templates_pickle_path, "wb") as f:
             pickle.dump(tables, f)
 
     save_pickle()
@@ -230,7 +230,7 @@ def test_changes_in_stem_pattern() -> None:
     print("[green]testing for changes in stem and pattern")
 
     try:
-        with open(PTH.headword_stem_pattern_dict_path, "rb") as f:
+        with open(pth.headword_stem_pattern_dict_path, "rb") as f:
             old_dict: dict = pickle.load(f)
     except FileNotFoundError:
         old_dict = {}
@@ -251,7 +251,7 @@ def test_changes_in_stem_pattern() -> None:
             headword_stem_pattern_dict[i.pali_1] = {
                 "stem": i.stem, "pattern": i.pattern}
 
-        with open(PTH.headword_stem_pattern_dict_path, "wb") as f:
+        with open(pth.headword_stem_pattern_dict_path, "wb") as f:
             pickle.dump(headword_stem_pattern_dict, f)
 
     save_pickle()

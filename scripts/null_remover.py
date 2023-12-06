@@ -5,8 +5,8 @@ from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.paths import ProjectPaths
 
-PTH = ProjectPaths()
-db_session = get_db_session(PTH.dpd_db_path)
+pth = ProjectPaths()
+db_session = get_db_session(pth.dpd_db_path)
 
 inspector = inspect(PaliWord)
 column_names = [column.name for column in inspector.columns]

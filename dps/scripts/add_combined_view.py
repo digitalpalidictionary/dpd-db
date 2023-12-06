@@ -8,8 +8,8 @@ from tools.paths import ProjectPaths
 from rich.console import Console
 from tools.tic_toc import tic, toc
 
-PTH = ProjectPaths()
-engine = create_engine('sqlite:///' + str(PTH.dpd_db_path))
+pth = ProjectPaths()
+engine = create_engine('sqlite:///' + str(pth.dpd_db_path))
 
 console = Console()
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""filtering words by some condition and make tsv of all tables PaliWord, PaliRoot, Russian and SBS into the PTH.temp_dir"""
+"""filtering words by some condition and make tsv of all tables PaliWord, PaliRoot, Russian and SBS into the pth.temp_dir"""
 
 from rich.console import Console
 

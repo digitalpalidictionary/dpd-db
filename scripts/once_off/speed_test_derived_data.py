@@ -8,8 +8,8 @@ from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
 
 
-PTH = ProjectPaths()
-db_session = get_db_session(PTH.dpd_db_path)
+pth = ProjectPaths()
+db_session = get_db_session(pth.dpd_db_path)
 
 
 def join_method():

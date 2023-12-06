@@ -17,7 +17,7 @@ def mdict_synonyms(all_items, item):
     return all_items
 
 
-def export_to_mdict(data_list: List[Dict], PTH) -> None:
+def export_to_mdict(data_list: List[Dict], pth) -> None:
     print("[green]converting to mdict")
 
     bip()
@@ -49,7 +49,7 @@ the Digital Pāḷi Dictionary website</a></p>"""
     print(bop())
 
     print("[white]copying mdx file", end=" ")
-    outfile = open(PTH.mdict_mdx_path, 'wb')
+    outfile = open(pth.mdict_mdx_path, 'wb')
     writer.write(outfile)
     outfile.close()
     print(bop())
