@@ -30,7 +30,7 @@ def main():
                 WHEN sbs_chapter_2 IS NOT NULL AND TRIM(sbs_chapter_2) <> '' THEN 1
                 WHEN sbs_chapter_3 IS NOT NULL AND TRIM(sbs_chapter_3) <> '' THEN 1
                 WHEN sbs_chapter_4 IS NOT NULL AND TRIM(sbs_chapter_4) <> '' THEN 1
-                ELSE NULL  -- or 0 if you prefer 0 over NULL
+                ELSE ""
             END
     """)
 

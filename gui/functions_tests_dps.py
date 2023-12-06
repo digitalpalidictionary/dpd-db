@@ -13,7 +13,6 @@ from json import dumps, loads
 from typing import List, Tuple
 from rich import print
 
-from dps.tools.paths_dps import DPSPaths as DPSPTH
 from db.models import PaliWord
 from tests.helpers import InternalTestRow
 # from tools.pali_sort_key import pali_sort_key
@@ -28,19 +27,19 @@ from functions_tests import open_internal_tests
 # 1. individual internal tests run in dps edit tab
 
 
-def dps_open_internal_tests():
+def dps_open_internal_tests(dpspth):
     subprocess.Popen(
-        ["libreoffice", DPSPTH.dps_internal_tests_path])
+        ["libreoffice", dpspth.dps_internal_tests_path])
 
 
 def dps_individual_internal_tests(
-        sg, window, values, flags_dps):
+        dpspth, sg, window, values, flags_dps):
     
     flags_dps.tested = False
-    individual_internal_tests_list = make_individual_internal_tests_list()
+    individual_internal_tests_list = make_individual_internal_tests_list(dpspth)
     test_the_tests(individual_internal_tests_list, window)
     flags_dps = run_individual_internal_tests(
-        individual_internal_tests_list, values, window, flags_dps, sg)
+        dpspth, individual_internal_tests_list, values, window, flags_dps, sg)
     return flags_dps
 
 
@@ -93,9 +92,9 @@ def replace_values_in_rows(rows):
     return modified_rows
 
 
-def make_db_internal_tests_list():
+def make_db_internal_tests_list(dpspth):
     """Constructs a list of InternalTestRow objects from the TSV."""
-    rows = read_from_tsv(DPSPTH.dps_internal_tests_path)
+    rows = read_from_tsv(dpspth.dps_internal_tests_path)
     return [InternalTestRow(**row) for row in rows]
 
 
@@ -105,16 +104,16 @@ def make_dpd_db_internal_tests_list(pth):
     return [InternalTestRow(**row) for row in rows]
 
 
-def make_individual_internal_tests_list():
+def make_individual_internal_tests_list(dpspth):
     """Replaces values in the rows and constructs a list of InternalTestRow objects."""
-    rows = read_from_tsv(DPSPTH.dps_internal_tests_path)
+    rows = read_from_tsv(dpspth.dps_internal_tests_path)
     modified_rows = replace_values_in_rows(rows)
     return [InternalTestRow(**modified_row) for modified_row in modified_rows]
 
 
-def write_exceptions_to_internal_tests_list(internal_tests_list):
+def write_exceptions_to_internal_tests_list(dpspth, internal_tests_list):
     # Read the current contents of the file
-    with open(DPSPTH.dps_internal_tests_path, 'r', newline="") as csvfile:
+    with open(dpspth.dps_internal_tests_path, 'r', newline="") as csvfile:
         reader = csv.DictReader(csvfile, delimiter="\t")
         current_data = [row for row in reader]
 
@@ -128,7 +127,7 @@ def write_exceptions_to_internal_tests_list(internal_tests_list):
             row['exceptions'] = dumps(list(test.exceptions), ensure_ascii=False)
 
     # Write the updated rows back to the same file
-    with open(DPSPTH.dps_internal_tests_path, 'w', newline="") as csvfile:
+    with open(dpspth.dps_internal_tests_path, 'w', newline="") as csvfile:
         if current_data:
             fieldnames = current_data[0].keys()
         else:
@@ -140,10 +139,10 @@ def write_exceptions_to_internal_tests_list(internal_tests_list):
             writer.writerow(row)
 
 
-def write_internal_tests_list(internal_tests_list):
+def write_internal_tests_list(dpspth, internal_tests_list):
 
 
-    with open(DPSPTH.dps_internal_tests_path, 'w', newline="") as csvfile:
+    with open(dpspth.dps_internal_tests_path, 'w', newline="") as csvfile:
         fieldnames = internal_tests_list[0].__dict__.keys()
         writer = csv.DictWriter(csvfile, delimiter="\t", fieldnames=fieldnames)
         writer.writeheader()
@@ -235,7 +234,7 @@ def test_the_tests(internal_tests_list, window):
 
 
 def run_individual_internal_tests(
-        internal_tests_list, values, window, flags_dps, sg):
+        dpspth, internal_tests_list, values, window, flags_dps, sg):
 
     # remove all spaces front and back, and doublespaces
     for value in values:
@@ -310,7 +309,7 @@ def run_individual_internal_tests(
                 return flags_dps
             else:
                 internal_tests_list[counter].exceptions += [values['dps_pali_1']]
-                write_exceptions_to_internal_tests_list(internal_tests_list)
+                write_exceptions_to_internal_tests_list(dpspth, internal_tests_list)
                 return flags_dps
 
         else:
@@ -374,13 +373,13 @@ def get_db_test_results(t, values):
     return test_results
 
 
-def dps_db_internal_tests(pth, db_session, sg, window, flags_dps):
+def dps_db_internal_tests(dpspth, pth, db_session, sg, window, flags_dps):
     clear_tests(window)
     window["messages"].update("running tests", text_color="white")
     window.refresh()
 
     dpd_db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs), joinedload(PaliWord.ru)).all()
-    db_internal_tests_list = make_db_internal_tests_list()
+    db_internal_tests_list = make_db_internal_tests_list(dpspth)
 
     db_internal_tests_list = clean_exceptions(dpd_db, db_internal_tests_list)
     integrity = test_the_tests(db_internal_tests_list, window)
@@ -472,7 +471,7 @@ def dps_db_internal_tests(pth, db_session, sg, window, flags_dps):
                     exception = values["dps_test_add_exception"]
                     db_internal_tests_list[test_counter].exceptions += [exception]
 
-                    write_internal_tests_list(db_internal_tests_list)
+                    write_internal_tests_list(dpspth, db_internal_tests_list)
 
                     window["messages"].update(
                         f"{exception} added to exceptions",
@@ -492,12 +491,12 @@ def dps_db_internal_tests(pth, db_session, sg, window, flags_dps):
                         location=(400, 400))
                     if confirmation == "Yes":
                         del db_internal_tests_list[test_counter]
-                        write_internal_tests_list(db_internal_tests_list)
+                        write_internal_tests_list(dpspth, db_internal_tests_list)
                         clear_tests(window)
                         break
 
                 if event == "dps_test_update":
-                    update_tests(db_internal_tests_list, test_counter, values)
+                    update_tests(dpspth, db_internal_tests_list, test_counter, values)
                     window["messages"].update(
                         f"{test_counter}. {t.test_name} updated!",
                         text_color="white")
@@ -513,7 +512,7 @@ def dps_db_internal_tests(pth, db_session, sg, window, flags_dps):
                     pyperclip.copy(db_query)
 
                 if event == "dps_test_edit":
-                    dps_open_internal_tests()
+                    dps_open_internal_tests(dpspth)
 
                 if event == "dps_test_results":
                     if values["dps_test_results"]:
@@ -537,7 +536,7 @@ def dps_db_internal_tests(pth, db_session, sg, window, flags_dps):
         "internal db tests complete", text_color="white")
 
 
-def update_tests(internal_tests_list, count, values):
+def update_tests(dpspth, internal_tests_list, count, values):
 
     internal_tests_list[count].test_name = values["dps_test_name"]
     internal_tests_list[count].search_column_1 = values["dps_search_column_1"]
@@ -569,7 +568,7 @@ def update_tests(internal_tests_list, count, values):
     internal_tests_list[count].display_2 = values["dps_display_2"]
     internal_tests_list[count].display_3 = values["dps_display_3"]
 
-    write_internal_tests_list(internal_tests_list)
+    write_internal_tests_list(dpspth, internal_tests_list)
 
 
 def make_new_test_row(v):
@@ -624,7 +623,7 @@ def clear_tests(window):
     window.refresh()
 
 
-def dps_dpd_db_internal_tests(db_session, pth, sg, window, flags):
+def dps_dpd_db_internal_tests(dpspth, db_session, pth, sg, window, flags):
     clear_tests(window)
     window["messages"].update("running tests", text_color="white")
     window.refresh()
@@ -722,7 +721,7 @@ def dps_dpd_db_internal_tests(db_session, pth, sg, window, flags):
                     exception = values["test_add_exception"]
                     db_internal_tests_list[test_counter].exceptions += [exception]
 
-                    write_internal_tests_list(db_internal_tests_list)
+                    write_internal_tests_list(dpspth, db_internal_tests_list)
 
                     window["messages"].update(
                         f"{exception} added to exceptions",
@@ -742,12 +741,12 @@ def dps_dpd_db_internal_tests(db_session, pth, sg, window, flags):
                         location=(400, 400))
                     if confirmation == "Yes":
                         del db_internal_tests_list[test_counter]
-                        write_internal_tests_list(db_internal_tests_list)
+                        write_internal_tests_list(dpspth, db_internal_tests_list)
                         clear_tests(window)
                         break
 
                 if event == "test_update":
-                    update_tests(db_internal_tests_list, test_counter, values)
+                    update_tests(dpspth, db_internal_tests_list, test_counter, values)
                     window["messages"].update(
                         f"{test_counter}. {t.test_name} updated!",
                         text_color="white")

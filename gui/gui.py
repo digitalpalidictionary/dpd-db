@@ -116,9 +116,12 @@ from tools.pos import POS
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.paths import ProjectPaths
 
+from dps.tools.paths_dps import DPSPaths
+
 
 def main():
     pth = ProjectPaths()
+    dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
     username = test_username(sg)
     pali_word_original = None
@@ -134,7 +137,7 @@ def main():
 
     sandhi_dict = make_sandhi_contraction_dict(db_session)
     pali_clean_list: list = get_pali_clean_list(db_session)
-    window = window_layout(db_session, username)
+    window = window_layout(dpspth, db_session, username)
 
     # load the previously saved state of the gui
     try:
@@ -921,10 +924,11 @@ def main():
         elif event == "split_button":
             pali_1_old, pali_1_new = increment_pali_1(values)
             if username == "deva":
-                # add number 1 to pali_1 for old word if there is no number
-                print(f"pali_1_old {pali_1_old}")
-                if pali_1_old.endswith(" 1"):
-                    if sg.popup_yes_no('add #1 to pali_1 ?') == 'Yes':
+                # add number 1 to pali_1 for old word if there is no digit
+                pali_1 = values['pali_1']
+                if not re.search(r'\d', pali_1):
+                # Execute code here when pali_1 doesn't contain any digit
+                    if sg.popup_yes_no(f'change pali_1 of original word to {pali_1} 1 ?') == 'Yes':
                         id_old = values["id"]
                         add_number_to_pali(pth, db_session, id_old, pali_1_old)
             window["pali_1"].update(value=pali_1_old)
@@ -1251,7 +1255,7 @@ def main():
                     sbs_word = fetch_sbs(db_session, dpd_word.id)
                     open_in_goldendict(dpd_word.pali_1)
                     populate_dps_tab(
-                        values, window, dpd_word, ru_word, sbs_word)
+                        dpspth, values, window, dpd_word, ru_word, sbs_word)
                     window["messages"].update(
                         value=f'editing {values["dps_id_or_pali_1"]}', text_color="PaleTurquoise")
                 else:
@@ -1557,18 +1561,18 @@ def main():
         elif event == "dps_openai_translate_button":
             field = "dps_ru_online_suggestion"
             error_field = "dps_ru_meaning_suggestion_error"
-            ru_translate_with_openai(pth, values['dps_meaning'], values['dps_pali_1'], values['dps_grammar'], field, error_field, window)
+            ru_translate_with_openai(dpspth, pth, values['dps_meaning'], values['dps_pali_1'], values['dps_grammar'], field, error_field, window)
 
         elif event == "dps_notes_openai_translate_button":
             field = "dps_notes_online_suggestion"
             error_field = "dps_ru_notes_suggestion_error"
-            ru_notes_translate_with_openai(pth, values['dps_notes'], values['dps_pali_1'], values['dps_grammar'], field, error_field, window)
+            ru_notes_translate_with_openai(dpspth, pth, values['dps_notes'], values['dps_pali_1'], values['dps_grammar'], field, error_field, window)
 
         # in dpd tab
         elif event == "online_suggestion_button":
             field = "online_suggestion"
             error_field = "online_suggestion_error"
-            en_translate_with_openai(pth, values['pali_1'], values['grammar'], values['example_1'], field, error_field, window)
+            en_translate_with_openai(dpspth, pth, values['pali_1'], values['grammar'], values['example_1'], field, error_field, window)
 
         # copy ru sugestions buttons
         elif event == "dps_copy_meaning_button":
@@ -1583,20 +1587,20 @@ def main():
         elif event == "ru_add_spelling":
             field = "dps_ru_meaning"
             error_field = "dps_ru_meaning_error"
-            ru_check_spelling(field, error_field, values, window)
+            ru_check_spelling(dpspth, field, error_field, values, window)
 
         elif event == "dps_ru_check_spelling_button":
             field = "dps_ru_meaning"
             error_field = "dps_ru_meaning_error"
-            ru_check_spelling(field, error_field, values, window)
+            ru_check_spelling(dpspth, field, error_field, values, window)
 
             field = "dps_ru_meaning_lit"
             error_field = "dps_ru_meaning_lit_error"
-            ru_check_spelling(field, error_field, values, window)
+            ru_check_spelling(dpspth, field, error_field, values, window)
             
             field = "dps_ru_notes"
             error_field = "dps_ru_notes_error"
-            ru_check_spelling(field, error_field, values, window)
+            ru_check_spelling(dpspth, field, error_field, values, window)
 
             field = "dps_sbs_meaning"
             error_field = "dps_sbs_meaning_error"
@@ -1613,34 +1617,34 @@ def main():
 
         elif event == "dps_ru_add_spelling_button":
             word = values["dps_ru_add_spelling"]
-            ru_add_spelling(word)
+            ru_add_spelling(dpspth, word)
             window["messages"].update(
                 value=f"{word} added to ru dictionary", text_color="white")
 
         elif event == "dps_ru_edit_spelling_button":
-            ru_edit_spelling()
+            ru_edit_spelling(dpspth)
 
         # choice from dropdown sbs chats
 
         if event == "dps_sbs_chant_pali_1":
             chant = values["dps_sbs_chant_pali_1"]
             error_field = "dps_sbs_chant_pali_1_error"
-            update_sbs_chant(1, chant, error_field, window)
+            update_sbs_chant(dpspth, 1, chant, error_field, window)
 
         elif event == "dps_sbs_chant_pali_2":
             error_field = "dps_sbs_chant_pali_2_error"
             update_sbs_chant(
-                2, values["dps_sbs_chant_pali_2"], error_field, window)
+                dpspth, 2, values["dps_sbs_chant_pali_2"], error_field, window)
 
         elif event == "dps_sbs_chant_pali_3":
             error_field = "dps_sbs_chant_pali_3_error"
             update_sbs_chant(
-                3, values["dps_sbs_chant_pali_3"], error_field, window)
+                dpspth, 3, values["dps_sbs_chant_pali_3"], error_field, window)
 
         elif event == "dps_sbs_chant_pali_4":
             error_field = "dps_sbs_chant_pali_4_error"
             update_sbs_chant(
-                4, values["dps_sbs_chant_pali_4"], error_field, window)
+                dpspth, 4, values["dps_sbs_chant_pali_4"], error_field, window)
 
         # dps_examples buttons
 
@@ -1710,49 +1714,49 @@ def main():
 
         elif event == "dps_stash_ex_1_button":
             error_field = "dps_buttons_ex_1_error"
-            stash_values_from(values, 1, window, error_field)
+            stash_values_from(dpspth, values, 1, window, error_field)
             window["messages"].update(
                 value="sbs_ex_1 stashed", text_color="white")
 
         elif event == "dps_stash_ex_2_button":
             error_field = "dps_buttons_ex_2_error"
-            stash_values_from(values, 2, window, error_field)
+            stash_values_from(dpspth, values, 2, window, error_field)
             window["messages"].update(
                 value="sbs_ex_2 stashed", text_color="white")
 
         elif event == "dps_stash_ex_3_button":
             error_field = "dps_buttons_ex_3_error"
-            stash_values_from(values, 3, window, error_field)
+            stash_values_from(dpspth, values, 3, window, error_field)
             window["messages"].update(
                 value="sbs_ex_3 stashed", text_color="white")
 
         elif event == "dps_stash_ex_4_button":
             error_field = "dps_buttons_ex_4_error"
-            stash_values_from(values, 4, window, error_field)
+            stash_values_from(dpspth, values, 4, window, error_field)
             window["messages"].update(
                 value="sbs_ex_4 stashed", text_color="white")
 
         elif event == "dps_unstash_ex_1_button":
             error_field = "dps_buttons_ex_1_error"
-            unstash_values_to(window, 1, error_field)
+            unstash_values_to(dpspth, window, 1, error_field)
             window["messages"].update(
                 value="unstashed to sbs_ex_1", text_color="white")
 
         elif event == "dps_unstash_ex_2_button":
             error_field = "dps_buttons_ex_2_error"
-            unstash_values_to(window, 2, error_field)
+            unstash_values_to(dpspth, window, 2, error_field)
             window["messages"].update(
                 value="unstashed to sbs_ex_2", text_color="white")
 
         elif event == "dps_unstash_ex_3_button":
             error_field = "dps_buttons_ex_3_error"
-            unstash_values_to(window, 3, error_field)
+            unstash_values_to(dpspth, window, 3, error_field)
             window["messages"].update(
                 value="unstashed to sbs_ex_3", text_color="white")
 
         elif event == "dps_unstash_ex_4_button":
             error_field = "dps_buttons_ex_4_error"
-            unstash_values_to(window, 4, error_field)
+            unstash_values_to(dpspth, window, 4, error_field)
             window["messages"].update(
                 value="unstashed to sbs_ex_4", text_color="white")
 
@@ -1765,20 +1769,20 @@ def main():
                 clear_errors(window)
 
                 dps_flags = dps_individual_internal_tests(
-                    sg, window, values, dps_flags)
+                    dpspth, sg, window, values, dps_flags)
                 
                 # dps spell checks
                 field = "dps_ru_meaning"
                 error_field = "dps_ru_meaning_error"
-                ru_check_spelling(field, error_field, values, window)
+                ru_check_spelling(dpspth, field, error_field, values, window)
 
                 field = "dps_ru_meaning_lit"
                 error_field = "dps_ru_meaning_lit_error"
-                ru_check_spelling(field, error_field, values, window)
+                ru_check_spelling(dpspth, field, error_field, values, window)
 
                 field = "dps_ru_notes"
                 error_field = "dps_ru_notes_error"
-                ru_check_spelling(field, error_field, values, window)
+                ru_check_spelling(dpspth, field, error_field, values, window)
 
                 field = "dps_sbs_meaning"
                 error_field = "dps_sbs_meaning_error"
@@ -1833,7 +1837,7 @@ def main():
                 sbs_word = fetch_sbs(db_session, dpd_word.id)
                 clear_dps(values, window)
                 populate_dps_tab(
-                    values, window, dpd_word, ru_word, sbs_word)
+                    dpspth, values, window, dpd_word, ru_word, sbs_word)
                 window["messages"].update(
                         value="reset", text_color="Wheat")
             else:
@@ -1855,7 +1859,7 @@ def main():
                 value=f"{values['pali_1']} unstashed", text_color="white")
 
         elif event == "dps_open_tests_button":
-            dps_open_internal_tests()
+            dps_open_internal_tests(dpspth)
 
         elif event == "dps_open_log_in_terminal_button":
             tail_log()
@@ -1961,7 +1965,7 @@ def main():
 
         # add words from text.txt (dps)
         elif event == "dps_from_txt_to_add_button":
-            words_to_add_list = dps_make_words_to_add_list_from_text(db_session, pth)
+            words_to_add_list = dps_make_words_to_add_list_from_text(dpspth, db_session, pth)
 
             if words_to_add_list != []:
                 values["word_to_add"] = [words_to_add_list[0]]
@@ -1979,7 +1983,7 @@ def main():
 
         # add words from text.txt which do not have source
         elif event == "dps_from_txt_to_add_considering_source_button":
-            words_to_add_list = dps_make_words_to_add_list_from_text_filtered(db_session, pth, values["source_to_add"])
+            words_to_add_list = dps_make_words_to_add_list_from_text_filtered(dpspth, db_session, pth, values["source_to_add"])
             if words_to_add_list != []:
                 values["word_to_add"] = [words_to_add_list[0]]
                 window["word_to_add"].update(values=words_to_add_list)
@@ -2002,7 +2006,7 @@ def main():
                 presence_of_value = True
             else:
                 presence_of_value = False
-            words_to_add_list = fetch_matching_words_from_db(db_session, values["field_for_id_list"], presence_of_value)
+            words_to_add_list = fetch_matching_words_from_db(dpspth, db_session, values["field_for_id_list"], presence_of_value)
 
             if words_to_add_list != []:
                 values["word_to_add"] = [words_to_add_list[0]]
@@ -2063,18 +2067,18 @@ def main():
         # test db tab                
 
         elif event == "ru_test_db_internal":
-            dps_dpd_db_internal_tests(db_session, pth, sg, window, flags)
+            dps_dpd_db_internal_tests(dpspth, db_session, pth, sg, window, flags)
 
         # dps test tab
 
         elif event == "dps_test_db_internal":
-            dps_db_internal_tests(pth, db_session, sg, window, dps_flags)
+            dps_db_internal_tests(dpspth, pth, db_session, sg, window, dps_flags)
 
         elif event == "dps_test_next":
             dps_flags.test_next = True
 
         elif event == "dps_test_edit":
-            dps_open_internal_tests()
+            dps_open_internal_tests(dpspth)
 
     window.close()
 

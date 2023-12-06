@@ -1,91 +1,81 @@
 """All file paths that get used in the dps related codes."""
 
+import os
+from typing import Optional
 from pathlib import Path
-from dataclasses import dataclass
+
+class DPSPaths:
+
+    def __init__(self, base_dir: Optional[Path] = None, create_dirs = True):
+
+        if base_dir is None:
+            # The current working directory of the shell.
+            base_dir = Path(os.path.abspath("."))
+
+        # csvs
+        self.anki_csvs_dps_dir = base_dir.joinpath(Path("dps/csvs/anki_csvs/"))
+        self.csv_dps_dir = base_dir.joinpath(Path("dps/csvs/"))
+        self.dpd_dps_full_path = base_dir.joinpath(Path("dps/csvs/dpd_dps_full.csv"))
+        self.dps_full_path = base_dir.joinpath(Path("dps/csvs/dps_full.csv"))
+        self.dps_csv_path = base_dir.joinpath(Path("dps/csvs/dps.csv"))
+        self.sbs_index_path = base_dir.joinpath(Path("dps/sbs_index.csv"))
+        self.class_index_path = base_dir.joinpath(Path("dps/csvs/class_index.csv"))
+        self.sutta_index_path = base_dir.joinpath(Path("dps/csvs/sutta_index.csv"))
+        self.freq_ebt_path = base_dir.joinpath(Path("dps/csvs/freq_ebt.csv"))
+        self.dpd_dps_full_freq_path = base_dir.joinpath(Path("dps/csvs/dpd_dps_full_freq.csv"))
+        self.ai_ru_suggestion_history_path = base_dir.joinpath(Path("dps/csvs/ai_ru_suggestion_history.csv"))
+        self.ai_ru_notes_suggestion_history_path = base_dir.joinpath(Path("dps/csvs/ai_ru_notes_suggestion_history.csv"))
+        self.ai_en_suggestion_history_path = base_dir.joinpath(Path("dps/csvs/ai_en_suggestion_history.csv"))
+        self.temp_csv_path = base_dir.joinpath(Path("dps/csvs/temp.csv"))
+        self.id_to_add_path = base_dir.joinpath(Path("dps/csvs/id_to_add.csv"))
+
+        self.sbs_pd_path = base_dir.joinpath(Path("dps/csvs/sbs_pd.csv"))
+
+        # /tests
+        self.dps_internal_tests_path = base_dir.joinpath(Path("dps/csvs/dps_internal_tests.tsv"))
+        self.dps_internal_tests_replaced_path = base_dir.joinpath(Path("dps/csvs/dps_internal_tests_replaced.tsv"))
+
+        # spreadsheets
+        self.dps_path = base_dir.joinpath(Path("dps/dps.ods"))
+
+        # to-merge/
+        self.dps_merge_dir = base_dir.joinpath(Path("dps/to-merge/"))
+
+        # dps bakup folder
+        self.dps_backup_dir = base_dir.joinpath(Path("dps/backup/")) 
+        self.for_compare_dir = base_dir.joinpath(Path("dps/backup/for_compare/")) 
+        self.temp_csv_backup_dir = base_dir.joinpath(Path("dps/csvs/backup_csv/")) 
+
+        # db with frequency
+        self.freq_db_path = base_dir.joinpath(Path("dps/freq.db"))
+
+        # txt
+        self.ru_user_dict_path = base_dir.joinpath(Path("dps/tools/ru_user_dictionary.txt"))
+        self.text_to_add_path = base_dir.joinpath(Path("temp/text.txt"))
+        self.dpd_dps_concise_txt_path = base_dir.joinpath(Path("temp/dpd_dps_concise.txt"))
+
+        # /gui/stash
+        self.dps_stash_path = base_dir.joinpath(Path("gui/stash/dps_stash.json"))
+
+        # .. external
+        self.sbs_anki_style_dir = base_dir.joinpath(Path("../sasanarakkha/study-tools/anki-style/"))
+        self.local_goldendict_path = base_dir.joinpath(Path("../GoldenDict/"))
+        self.local_downloads_dir = base_dir.joinpath(Path("../../Downloads/"))
+        self.anki_media_dir = base_dir.joinpath(Path("/home/deva/.var/app/net.ankiweb.Anki/data/Anki2/deva/collection.media/")) 
+        self.log_dir = base_dir.joinpath(Path("/home/deva/log/"))
+
+        if create_dirs:
+            self.create_dirs()
 
 
-@dataclass()
-class DPSPaths():
-    # csvs
-    anki_csvs_dps_dir: Path = Path("dps/csvs/anki_csvs/")
-    csv_dps_dir: Path = Path("dps/csvs/")
-    dpd_dps_full_path: Path = Path("dps/csvs/dpd_dps_full.csv")
-    dps_full_path: Path = Path("dps/csvs/dps_full.csv")
-    dps_csv_path: Path = Path("dps/csvs/dps.csv")
-    sbs_index_path: Path = Path("dps/sbs_index.csv")
-    class_index_path: Path = Path("dps/csvs/class_index.csv")
-    sutta_index_path: Path = Path("dps/csvs/sutta_index.csv")
-    freq_ebt_path: Path = Path("dps/csvs/freq_ebt.csv")
-    dpd_dps_full_freq_path: Path = Path("dps/csvs/dpd_dps_full_freq.csv")
-    ai_ru_suggestion_history_path: Path = Path("dps/csvs/ai_ru_suggestion_history.csv")
-    ai_ru_notes_suggestion_history_path: Path = Path("dps/csvs/ai_ru_notes_suggestion_history.csv")
-    ai_en_suggestion_history_path: Path = Path("dps/csvs/ai_en_suggestion_history.csv")
-    temp_csv_path: Path = Path("dps/csvs/temp.csv")
-    id_to_add_path: Path = Path("dps/csvs/id_to_add.csv")
-    word_to_add_path: Path = Path("dps/csvs/word_to_add.csv")
-    new_words_path: Path = Path("dps/csvs/new_words.csv")
+    def create_dirs(self):
+            for d in [
+                self.anki_csvs_dps_dir,
+                self.csv_dps_dir,
+                self.dps_backup_dir,
+                self.for_compare_dir,
+                self.temp_csv_backup_dir,
+                self.log_dir,
+            ]:
+                d.mkdir(parents=True, exist_ok=True)
 
-    sbs_pd_path: Path = Path("dps/csvs/sbs_pd.csv")
-
-    # /tests
-    dps_internal_tests_path: Path = Path("dps/csvs/dps_internal_tests.tsv")
-    dps_internal_tests_replaced_path: Path = Path("dps/csvs/dps_internal_tests_replaced.tsv")
-    dps_wf_exceptions_list: Path = Path("dps/csvs/dps_word_family_exceptions")
-    dps_syn_var_exceptions_path: Path = Path("dps/csvs/dps_syn_var_exceptions")
-
-    # sbs-tools related
-    sbs_anki_style_dir: Path = Path("../sasanarakkha/study-tools/anki-style/")
-
-    # local GoldenDict/
-    local_goldendict_path: Path = Path("../GoldenDict/")
-
-    # spreadsheets
-    dps_path: Path = Path("dps/dps.ods")
-
-    # to-merge/
-    dps_merge_dir: Path = Path("dps/to-merge/")
-
-    # db with frequency
-    freq_db_path: Path = Path("dps/freq.db")
-
-    # local Downloads
-    local_downloads_dir: Path = Path("../../Downloads/")
-
-    # dps bakup folder
-    dps_backup_dir: Path = Path("dps/backup/") 
-    for_compare_dir: Path = Path("dps/backup/for_compare/") 
-    temp_csv_backup_dir: Path = Path("dps/csvs/backup_csv/") 
-
-    # ru_user_dictionary
-    ru_user_dict_path: Path = Path("dps/tools/ru_user_dictionary.txt")
-
-    # local anki media path
-    anki_media_dir: Path = Path("/home/deva/.var/app/net.ankiweb.Anki/data/Anki2/deva/collection.media/") 
-
-    # local log dir
-    log_dir: Path = Path("/home/deva/log/")
-
-
-    # /gui/stash
-    dps_stash_path: Path = Path("gui/stash/dps_stash.json")
-
-    # text to add
-    text_to_add: Path = Path("temp/text.txt")
-
-    # other
-    dpd_dps_concise_txt_path: Path = Path("temp/dpd_dps_concise.txt")
-
-
-
-
-    @classmethod
-    def create_dirs(cls):
-        for d in [
-            cls.anki_csvs_dps_dir,
-            cls.csv_dps_dir,
-            cls.dps_backup_dir,
-        ]:
-            d.mkdir(parents=True, exist_ok=True)
-
-# Ensure dirs exist when module is imported
-DPSPaths.create_dirs()

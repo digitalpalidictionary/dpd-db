@@ -8,11 +8,12 @@ from rich.console import Console
 from bs4 import BeautifulSoup
 import pandas as pd
 from tools.pali_sort_key import pali_sort_key
-from dps.tools.paths_dps import DPSPaths as DPSPTH
+from dps.tools.paths_dps import DPSPaths
 from tools.tic_toc import tic, toc
 
 console = Console()
 
+dpspth = DPSPaths()
 
 class ReadOds:
 
@@ -73,8 +74,8 @@ class ReadOds:
 
             rows = self.df[sheet_name].shape[0]
             columns = self.df[sheet_name].shape[1]
-            self.df[sheet_name].to_csv(DPSPTH.dps_csv_path, sep='\t', index=False, quoting=1)
-            console.print(f"{DPSPTH.dps_path} {rows} rows {columns} columns")
+            self.df[sheet_name].to_csv(dpspth.dps_csv_path, sep='\t', index=False, quoting=1)
+            console.print(f"{dpspth.dps_path} {rows} rows {columns} columns")
 
     def get_bold_styles(self):
         ''' 
@@ -165,8 +166,8 @@ if __name__ == '__main__':
     tic()
     sheet_name = "PALI"
 
-    console.print(f"[bold bright_yellow]converting {DPSPTH.dps_path} to csv")
-    a = ReadOds(DPSPTH.dps_path, {sheet_name})
+    console.print(f"[bold bright_yellow]converting {dpspth.dps_path} to csv")
+    a = ReadOds(dpspth.dps_path, {sheet_name})
     a.save_csv()
     toc()
 

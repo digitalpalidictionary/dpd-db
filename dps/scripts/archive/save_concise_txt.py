@@ -10,7 +10,7 @@ from db.models import PaliWord
 from db.get_db_session import get_db_session
 
 from tools.pali_sort_key import pali_sort_key
-from dps.tools.paths_dps import DPSPaths as DPSPTH
+from dps.tools.paths_dps import DPSPaths
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 from tools.date_and_time import day
@@ -24,19 +24,20 @@ def main():
     console.print("[bold bright_yellow]exporting dpd dps txt")
 
     pth = ProjectPaths()
+    dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
     dpd_db = sorted(
         dpd_db, key=lambda x: pali_sort_key(x.pali_1))
 
-    save_concise_txt(dpd_db)
+    save_concise_txt(dpspth, dpd_db)
     
     toc()
 
 
 
 
-def save_concise_txt(dpd_db):
+def save_concise_txt(dpspth, dpd_db):
     console.print("[bold blue]saving concise txt")
 
     header = ['pali_1', 'grammar', 'meaning_1', 'meaning_lit', 'ru_meaning', 'ru_meaning_lit']
@@ -47,7 +48,7 @@ def save_concise_txt(dpd_db):
     rows = [" ,".join(map(str, header))]
     rows += [row_to_string(i) for i in dpd_db]
 
-    with open(DPSPTH.dpd_dps_concise_txt_path, "w", encoding='utf-8') as f:
+    with open(dpspth.dpd_dps_concise_txt_path, "w", encoding='utf-8') as f:
         f.write("\n".join(rows))
 
 

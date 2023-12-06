@@ -14,7 +14,7 @@ from sqlalchemy.orm import Session
 from db.models import Russian, SBS, PaliWord
 from db.get_db_session import get_db_session
 from tools.paths import ProjectPaths
-from dps.tools.paths_dps import DPSPaths as DPSPTH
+from dps.tools.paths_dps import DPSPaths
 from tools.tic_toc import tic, toc
 
 console = Console()
@@ -24,28 +24,29 @@ def main():
     tic()
     console.print("[bold bright_yellow]add dps.csv to db")
 
-    for p in [DPSPTH.dps_csv_path]:
+    pth = ProjectPaths()
+    dpspth = DPSPaths()
+    db_session = get_db_session(pth.dpd_db_path)
+
+    for p in [dpspth.dps_csv_path]:
         if not p.exists():
             print(f"[bright_red]File does not exist: {p}")
             sys.exit(1)
 
-    pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
-
     db_session.execute(Russian.__table__.delete()) # type: ignore
     db_session.execute(SBS.__table__.delete()) # type: ignore
-    add_dps_russian(db_session)
-    add_dps_sbs(db_session)
+    add_dps_russian(dpspth, db_session)
+    add_dps_sbs(dpspth, db_session)
 
     db_session.close()
     toc()
 
 
-def add_dps_russian(db_session: Session):
+def add_dps_russian(dpspth, db_session: Session):
     console.print("[bold green]processing dps russian")
 
     rows = []
-    with open(DPSPTH.dps_csv_path, 'r') as f:
+    with open(dpspth.dps_csv_path, 'r') as f:
         reader = csv.DictReader(f, delimiter='\t')
         for row in reader:
             for key, value in row.items():
@@ -59,7 +60,7 @@ def add_dps_russian(db_session: Session):
 
     for r in rows:
         id_search = db_session.query(PaliWord.id).filter(
-            PaliWord.user_id == r["id"]).first()
+            PaliWord.id == r["id"]).first()
 
         if id_search is not None:
             id = id_search[0]
@@ -115,11 +116,11 @@ def _csv_row_to_russian(x: Dict[str, str], id, db_session) -> Russian:
         )
 
 
-def add_dps_sbs(db_session: Session):
+def add_dps_sbs(dpspth, db_session: Session):
     console.print("[bold green]processing dps sbs")
 
     rows = []
-    with open(DPSPTH.dps_csv_path, 'r') as f:
+    with open(dpspth.dps_csv_path, 'r') as f:
         reader = csv.DictReader(f, delimiter='\t')
         for row in reader:
             for key, value in row.items():
@@ -131,7 +132,7 @@ def add_dps_sbs(db_session: Session):
 
     for r in rows:
         id_search = db_session.query(PaliWord.id).filter(
-            PaliWord.user_id == r["id"]).first()
+            PaliWord.id == r["id"]).first()
 
         if id_search is not None:
             id = id_search[0]

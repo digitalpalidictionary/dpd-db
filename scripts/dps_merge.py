@@ -12,11 +12,11 @@ from rich.prompt import Prompt
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.paths import ProjectPaths
-from dps.tools.paths_dps import DPSPaths as DPSPTH
+from dps.tools.paths_dps import DPSPaths
 
 # make a generic system that adjusts according to column name
 # import csvs as dicts
-# if user_id = key then add to specific field
+# if id = key then add to specific field
 # print grammar, meaning, added field
 # copy to pyperclip for db searches
 
@@ -24,6 +24,7 @@ from dps.tools.paths_dps import DPSPaths as DPSPTH
 def main():
     print("[bright_yellow]merging dps columns")
     pth = ProjectPaths()
+    dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
 
@@ -71,7 +72,7 @@ def main():
 
         dict = {}
         with open(
-            DPSPTH.dps_merge_dir.joinpath(
+            dpspth.dps_merge_dir.joinpath(
                     column).with_suffix(".csv")) as f:
             reader = csv.DictReader(f, delimiter=",")
             for row in reader:
@@ -86,11 +87,11 @@ def main():
             column_value_old = getattr(i, column)
 
             if (
-                i.user_id in dict and
-                i.user_id not in exceptions_dict[column] and
+                i.id in dict and
+                i.id not in exceptions_dict[column] and
                 not column_value_old
             ):
-                column_value_new = dict[i.user_id].replace("<br/>", "\n")
+                column_value_new = dict[i.id].replace("<br/>", "\n")
                 if column_value_old != column_value_new:
                     print()
                     print(f"{i.pali_1} [green]({column})")
@@ -109,7 +110,7 @@ def main():
                         # db_session.commit()
 
                     if choice == "e":
-                        exceptions_dict[column] += [i.user_id]
+                        exceptions_dict[column] += [i.id]
 
                     if choice == "b":
                         break_flag = True

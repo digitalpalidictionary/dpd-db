@@ -7,7 +7,7 @@ import os
 
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_dot_dict, write_tsv_dot_dict
-from dps.tools.paths_dps import DPSPaths as DPSPTH
+from dps.tools.paths_dps import DPSPaths
 from tools.tic_toc import tic, toc
 
 
@@ -19,6 +19,7 @@ def main():
     print("[bright_yellow]replacing id in ru and sbs backup files according to additions.csv")
 
     pth = ProjectPaths()
+    dpspth = DPSPaths()
 
     if pth.dpd_db_path.exists():
         pth.dpd_db_path.unlink()

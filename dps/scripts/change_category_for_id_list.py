@@ -6,7 +6,7 @@ Update sbs_category for words from an ID list based on specific conditions
 
 from db.models import PaliWord
 from tools.paths import ProjectPaths
-from dps.tools.paths_dps import DPSPaths as DPSPTH
+from dps.tools.paths_dps import DPSPaths
 from db.get_db_session import get_db_session
 from rich.console import Console
 import csv
@@ -49,13 +49,15 @@ def derive_sutta_identifier(source):
 # Function to update sbs_category based on a condition function
 def update_sbs_category(source, condition_func, message):
     pth = ProjectPaths()
+    dpspth = DPSPaths()
+
     db_session = get_db_session(pth.dpd_db_path)
 
     # Print the message at the beginning
     console.print(f"[bold bright_yellow]{message}")
 
     # 1. Fetch the list of word IDs from a file
-    ordered_ids = read_ids_from_tsv(DPSPTH.id_to_add_path)
+    ordered_ids = read_ids_from_tsv(dpspth.id_to_add_path)
     
     # 2. Remove duplicates from the list
     unique_ids = remove_duplicates(ordered_ids)

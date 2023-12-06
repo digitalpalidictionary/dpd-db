@@ -8,9 +8,11 @@ from rich.console import Console
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.paths import ProjectPaths
-from dps.tools.paths_dps import DPSPaths as DPSPTH
+from dps.tools.paths_dps import DPSPaths
 
 console = Console()
+
+dpspth = DPSPaths()
 
 
 NEED_TO_UPDATE = True  # Change this to False if you don't want to update
@@ -60,10 +62,10 @@ def display_and_update_word(db_session, word, matching_words_count, input_value)
 
 
 def main():
-    print(f"[bright_yellow]Adding words from the {DPSPTH.temp_csv_path}")
+    print(f"[bright_yellow]Adding words from the {dpspth.temp_csv_path}")
     console.print("[bold green]Press x to exit")
 
-    ordered_ids = read_ids_from_tsv(DPSPTH.temp_csv_path)
+    ordered_ids = read_ids_from_tsv(dpspth.temp_csv_path)
     print(f"[blue]Total number of IDs fetched: {len(ordered_ids)}[/blue]")
 
     ordered_ids = remove_duplicates(ordered_ids)

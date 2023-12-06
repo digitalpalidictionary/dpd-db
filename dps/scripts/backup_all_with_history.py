@@ -15,7 +15,7 @@ from db.get_db_session import get_db_session
 from db.models import Russian, SBS, PaliWord, PaliRoot
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
-from dps.tools.paths_dps import DPSPaths as DPSPTH
+from dps.tools.paths_dps import DPSPaths
 
 console = Console()
 
@@ -25,6 +25,7 @@ def backup_all_tables():
     tic()
     console.print("[bold bright_yellow]Backing up all tables to dps/backup/*.tsvs")
     pth = ProjectPaths()
+    dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
     tables_to_backup = [
@@ -35,7 +36,7 @@ def backup_all_tables():
     ]
 
     for table in tables_to_backup:
-        backup_generic(db_session, table['class'], DPSPTH.dps_backup_dir, table['name'], table['exclude_columns'])
+        backup_generic(db_session, table['class'], dpspth.dps_backup_dir, table['name'], table['exclude_columns'])
 
     db_session.close()
     # git_commit()

@@ -3,7 +3,7 @@ import csv
 from rich.console import Console
 from tools.tic_toc import tic, toc
 
-from dps.tools.paths_dps import DPSPaths as DPSPTH
+from dps.tools.paths_dps import DPSPaths
 
 console = Console()
 
@@ -52,8 +52,9 @@ def main():
 
     console.print("[bold blue]Enter the name of the .docx file (without extension):")
     file_name = input("").strip()
-    input_docx_file = f"{DPSPTH.local_downloads_dir}/{file_name}.docx"
-    output_csv_file = DPSPTH.id_to_add_path
+    dpspth = DPSPaths()
+    input_docx_file = f"{dpspth.local_downloads_dir}/{file_name}.docx"
+    output_csv_file = dpspth.id_to_add_path
     
     ids = extract_ids_from_docx(input_docx_file)
     unique_ids = list(set(ids))  # Convert to a set to get unique IDs, then convert back to a list

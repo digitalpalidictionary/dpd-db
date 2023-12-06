@@ -4,12 +4,14 @@
 
 import pandas as pd
 import os
-from dps.tools.paths_dps import DPSPaths as DPSPTH
+from dps.tools.paths_dps import DPSPaths
 
 from rich.console import Console
 from tools.tic_toc import tic, toc
 
 console = Console()
+
+dpspth = DPSPaths()
 
 # Dictionary of functions and whether they are enabled
 function_status = {
@@ -35,7 +37,7 @@ def main():
     console.print("[bold bright_yellow]exporting csvs for anki from dps-full.csv.")
 
     # Read the CSV file
-    df = pd.read_csv(DPSPTH.dps_full_path, sep="\t", dtype= str)
+    df = pd.read_csv(dpspth.dps_full_path, sep="\t", dtype= str)
     df.fillna("", inplace=True)
 
 
@@ -132,17 +134,19 @@ def sbs_per(df, sbs_ped_link):
         axis=1
     )
 
+    row_count = len(filtered_df)
+    print("Number of rows:", row_count)
 
     # Sort the DataFrame by the 'sbs_index' column
     filtered_df['sbs_index'] = pd.to_numeric(filtered_df['sbs_index'], errors='coerce')
     filtered_df.sort_values(by='sbs_index', inplace=True)
 
     # Save the DataFrame into csv
-    output_path = os.path.join(DPSPTH.anki_csvs_dps_dir, "anki_sbs.csv")
+    output_path = os.path.join(dpspth.anki_csvs_dps_dir, "anki_sbs.csv")
     filtered_df.to_csv(output_path, sep="\t", index=False, header=True)
 
     # Save the list of field names to a text file
-    with open(f'{DPSPTH.sbs_anki_style_dir}/field-list-sbs.txt', 'w') as file:
+    with open(f'{dpspth.sbs_anki_style_dir}/field-list-sbs.txt', 'w') as file:
         file.write('\n'.join(columns_to_keep))
 
     return None
@@ -196,12 +200,15 @@ def parittas(df, sbs_ped_link):
     # Keep only the specified columns in the DataFrame
     filtered_df = filtered_df[columns_to_keep]
 
+    row_count = len(filtered_df)
+    print("Number of rows:", row_count)
+
     # Save the DataFrame into csv
-    output_path = os.path.join(DPSPTH.anki_csvs_dps_dir, "anki_parittas.csv")
+    output_path = os.path.join(dpspth.anki_csvs_dps_dir, "anki_parittas.csv")
     filtered_df.to_csv(output_path, sep="\t", index=False, header=True)
 
     # Save the list of field names to a text file
-    with open(f'{DPSPTH.sbs_anki_style_dir}/field-list-parittas.txt', 'w') as file:
+    with open(f'{dpspth.sbs_anki_style_dir}/field-list-parittas.txt', 'w') as file:
         file.write('\n'.join(columns_to_keep))
 
     return None
@@ -241,18 +248,24 @@ def dps(df, dps_link):
     # Keep only the specified columns in the DataFrame
     df = df[columns_to_keep]
 
+    row_count = len(df)
+    print("Number of rows:", row_count)
+
     # Save the DataFrame into csv
-    output_path = os.path.join(DPSPTH.anki_csvs_dps_dir, "anki_dps.csv")
+    output_path = os.path.join(dpspth.anki_csvs_dps_dir, "anki_dps.csv")
     df.to_csv(output_path, sep="\t", index=False, header=True)
 
     # Save the list of field names to a text file
-    with open(f'{DPSPTH.sbs_anki_style_dir}/field-list-dps.txt', 'w') as file:
+    with open(f'{dpspth.sbs_anki_style_dir}/field-list-dps.txt', 'w') as file:
         file.write('\n'.join(columns_to_keep))
 
     return None
 
 
 def dhp(df, sbs_ped_link):
+
+    # Print starting message in green color
+    console.print("[bold green]making dhp.csv.")   
 
     # Define the conditions for filtering
     conditions = [
@@ -329,12 +342,15 @@ def dhp(df, sbs_ped_link):
     # Sort the DataFrame by the 'sbs_sutta_1' column
     filtered_df.sort_values(by='sbs_source_1', inplace=True)
 
+    row_count = len(filtered_df)
+    print("Number of rows:", row_count)
+
     # Save the DataFrame into csv
-    output_path = os.path.join(DPSPTH.anki_csvs_dps_dir, "anki_dhp.csv")
+    output_path = os.path.join(dpspth.anki_csvs_dps_dir, "anki_dhp.csv")
     filtered_df.to_csv(output_path, sep="\t", index=False, header=True)
 
     # Save the list of field names to a text file
-    with open(f'{DPSPTH.sbs_anki_style_dir}/field-list-dhp.txt', 'w') as file:
+    with open(f'{dpspth.sbs_anki_style_dir}/field-list-dhp.txt', 'w') as file:
         file.write('\n'.join(columns_to_keep))
 
     return None
@@ -395,7 +411,7 @@ def classes(df, sbs_ped_link):
         # Save the filtered DataFrame to a CSV file with the corresponding class
         # value in the filename; Set header=False to remove column names in the CSV.
         file_name = f'class_{sbs_class_value}.csv'
-        full_file_path = os.path.join(DPSPTH.anki_csvs_dps_dir, 'pali_class', 'classes', 
+        full_file_path = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', 'classes', 
             file_name)
         filtered_df.to_csv(full_file_path, sep="\t", index=False, header=True)  
 
@@ -406,7 +422,7 @@ def classes(df, sbs_ped_link):
     all_class_df = all_class_df[columns_to_keep]
 
     # Save the DataFrame into csv
-    output_path = os.path.join(DPSPTH.anki_csvs_dps_dir, 'pali_class', "all_class.csv")
+    output_path = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', "all_class.csv")
     all_class_df.to_csv(output_path, sep="\t", index=False, header=True)
 
     # Define the range of values you want to include in the 'class_upcoming.csv'
@@ -433,7 +449,7 @@ def classes(df, sbs_ped_link):
             concatenated_df = pd.concat([concatenated_df, filtered_df])
 
     # Save the concatenated DataFrame to the 'class_upcoming.csv' file
-    output_path = os.path.join(DPSPTH.anki_csvs_dps_dir, 'pali_class', "class_upcoming.csv")
+    output_path = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', "class_upcoming.csv")
     concatenated_df.to_csv(output_path, sep="\t", index=False, header=True)
 
     # Define the range of values you want to include in the 'class_basic.csv'
@@ -466,16 +482,19 @@ def classes(df, sbs_ped_link):
             concatenated_df = pd.concat([concatenated_df, filtered_df])
             concatenated_ru_df = pd.concat([concatenated_ru_df, filtered_ru_df])
 
+    row_count = len(concatenated_df)
+    print("Number of rows (class_basic):", row_count)
+
     # Save the concatenated DataFrame to the 'class_basic.csv' file
-    output_path = os.path.join(DPSPTH.anki_csvs_dps_dir, 'pali_class', "class_basic.csv")
+    output_path = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', "class_basic.csv")
     concatenated_df.to_csv(output_path, sep="\t", index=False, header=True)
 
     # Save the concatenated DataFrame to the 'class_ru.csv' file
-    output_path_ru = os.path.join(DPSPTH.anki_csvs_dps_dir, 'pali_class', "class_ru.csv")
+    output_path_ru = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', "class_ru.csv")
     concatenated_ru_df.to_csv(output_path_ru, sep="\t", index=False, header=True)
 
     # Save the list of field names to a text file
-    with open(f'{DPSPTH.sbs_anki_style_dir}/field-list-vocab-class.txt', 'w') as file:
+    with open(f'{dpspth.sbs_anki_style_dir}/field-list-vocab-class.txt', 'w') as file:
         file.write('\n'.join(columns_to_keep))
 
     return None
@@ -513,8 +532,11 @@ def suttas_class(df, sbs_ped_link):
 
     df_with_category = df_with_category[columns_to_keep]
 
+    row_count = len(df_with_category)
+    print("Number of rows:", row_count)
+
     # Save the whole DataFrame with 'sbs_category' not empty to a CSV file
-    output_path_full = os.path.join(DPSPTH.anki_csvs_dps_dir, 'pali_class', "suttas_class.csv")
+    output_path_full = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', "suttas_class.csv")
     df_with_category.to_csv(output_path_full, sep="\t", index=False, header=True)
 
     # Iterate through unique values in the 'sbs_category' column
@@ -529,11 +551,11 @@ def suttas_class(df, sbs_ped_link):
 
             # Save the filtered DataFrame to a CSV file with the name based on the category
             output_filename = f"{category}.csv"
-            output_path = os.path.join(DPSPTH.anki_csvs_dps_dir, 'pali_class', 'suttas', output_filename)
+            output_path = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', 'suttas', output_filename)
             filtered_df.to_csv(output_path, sep="\t", index=False, header=True)
 
     # Save the list of field names to a text file
-    with open(f'{DPSPTH.sbs_anki_style_dir}/field-list-suttas-class.txt', 'w') as file:
+    with open(f'{dpspth.sbs_anki_style_dir}/field-list-suttas-class.txt', 'w') as file:
         file.write('\n'.join(columns_to_keep))
 
     return None
@@ -577,16 +599,22 @@ def root_phonetic_class(df, sbs_ped_link):
     root_df = root_df[columns_to_keep]
     phonetic_df = phonetic_df[columns_to_keep]
 
+    row_count = len(root_df)
+    print("Number of rows (root_df):", row_count)
+
+    row_count = len(phonetic_df)
+    print("Number of rows (phonetic_df):", row_count)
+
     # Save the filtered DataFrame to a CSV file without headers
     # Set header=False to exclude column names from the CSV.
-    output_path = os.path.join(DPSPTH.anki_csvs_dps_dir, 'pali_class', "roots_class.csv")
+    output_path = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', "roots_class.csv")
     root_df.to_csv(output_path, sep="\t", index=False, header=True)
 
-    output_path = os.path.join(DPSPTH.anki_csvs_dps_dir, 'pali_class', "phonetic_class.csv")
+    output_path = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', "phonetic_class.csv")
     phonetic_df.to_csv(output_path, sep="\t", index=False, header=True)
 
     # Save the list of field names to a text file
-    with open(f'{DPSPTH.sbs_anki_style_dir}/field-list-roots-class.txt', 'w') as file:
+    with open(f'{dpspth.sbs_anki_style_dir}/field-list-roots-class.txt', 'w') as file:
         file.write('\n'.join(columns_to_keep))
 
     return None

@@ -4,7 +4,7 @@
 
 from db.models import PaliWord
 from tools.paths import ProjectPaths
-from dps.tools.paths_dps import DPSPaths as DPSPTH
+from dps.tools.paths_dps import DPSPaths
 from db.get_db_session import get_db_session
 import csv
 import os
@@ -22,6 +22,7 @@ def save_filtered_words():
     console.print("[bold bright_yellow]filtering words from db by some condition")
 
     pth = ProjectPaths()
+    dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
 
@@ -32,21 +33,21 @@ def save_filtered_words():
     filtered_words = sorted(filtered_words, key=lambda word: word.sbs.sbs_class_anki)
 
     # Check if the CSV exists, and create a backup with a timestamp if it does
-    if os.path.exists(DPSPTH.temp_csv_path):
+    if os.path.exists(dpspth.temp_csv_path):
         timestamp = datetime.now().strftime('%y%m%d%H%M')
-        base_name = os.path.basename(DPSPTH.temp_csv_path).replace('.csv', '')
+        base_name = os.path.basename(dpspth.temp_csv_path).replace('.csv', '')
         
         # Ensure the backup directory exists, if not, create it
-        if not os.path.exists(DPSPTH.temp_csv_backup_dir):
-            os.makedirs(DPSPTH.temp_csv_backup_dir)
+        if not os.path.exists(dpspth.temp_csv_backup_dir):
+            os.makedirs(dpspth.temp_csv_backup_dir)
 
-        print(f"[green]backup existing csv into {DPSPTH.temp_csv_backup_dir}")
+        print(f"[green]backup existing csv into {dpspth.temp_csv_backup_dir}")
 
-        backup_name = os.path.join(DPSPTH.temp_csv_backup_dir, f"{base_name}_backup_{timestamp}.csv")
-        shutil.copy(DPSPTH.temp_csv_path, backup_name)
+        backup_name = os.path.join(dpspth.temp_csv_backup_dir, f"{base_name}_backup_{timestamp}.csv")
+        shutil.copy(dpspth.temp_csv_path, backup_name)
 
     # Write to CSV using tab as delimiter
-    with open(DPSPTH.temp_csv_path, 'w', newline='') as csvfile:
+    with open(dpspth.temp_csv_path, 'w', newline='') as csvfile:
         fieldnames = ['id', 'ru_meaning', 'meaning_1', 'sbs_class', 'sbs_class_anki']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter='\t')
 
@@ -63,7 +64,7 @@ def save_filtered_words():
 
     db_session.close()
 
-    print(f"[green]saved into {DPSPTH.temp_csv_path}")
+    print(f"[green]saved into {dpspth.temp_csv_path}")
 
     toc()
 

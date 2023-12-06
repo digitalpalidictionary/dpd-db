@@ -6,18 +6,19 @@ from rich import print
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.paths import ProjectPaths
-from dps.tools.paths_dps import DPSPaths as DPSPTH
+from dps.tools.paths_dps import DPSPaths
 
 
 def main():
     print("[bright_yellow]copying dps meaning_1 to meaning_2")
     pth = ProjectPaths()
+    dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
 
     dict = {}
     with open(
-        DPSPTH.dps_merge_dir.joinpath(
+        dpspth.dps_merge_dir.joinpath(
                 "meaning_1").with_suffix(".csv")) as f:
         reader = csv.DictReader(f, delimiter=",")
         for r in reader:
@@ -31,9 +32,9 @@ def main():
     changed = 0
     for __counter__, i in enumerate(dpd_db):
 
-        if i.user_id in dict:
+        if i.id in dict:
             i.meaning_1 = ""
-            i.meaning_2 = dict[i.user_id]
+            i.meaning_2 = dict[i.id]
             # print(f"[green]{i.pali_1:<30}[blue]{i.pos:<10}[cyan]{i.meaning_2}")
             changed += 1
 

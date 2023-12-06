@@ -1,5 +1,7 @@
 import csv
-from dps.tools.paths_dps import DPSPaths as DPSPTH
+from dps.tools.paths_dps import DPSPaths
+
+dpspth = DPSPaths()
 
 def reverse_replace_values_in_tsv():
     replacements = {
@@ -21,7 +23,7 @@ def reverse_replace_values_in_tsv():
     modified_rows = []
 
     # Read the replaced TSV and replace values to original
-    with open(DPSPTH.dps_internal_tests_replaced_path, newline="") as csvfile:
+    with open(dpspth.dps_internal_tests_replaced_path, newline="") as csvfile:
         reader = csv.DictReader(csvfile, delimiter="\t")
         for row in reader:
             modified_row = {}
@@ -37,7 +39,7 @@ def reverse_replace_values_in_tsv():
             raise ValueError("Fieldnames could not be determined from the TSV.")
 
         # Write the original values back to the main TSV
-        with open(DPSPTH.dps_internal_tests_path, 'w', newline="") as writefile:
+        with open(dpspth.dps_internal_tests_path, 'w', newline="") as writefile:
             writer = csv.DictWriter(writefile, fieldnames=reader.fieldnames, delimiter="\t")
             writer.writeheader()
             for modified_row in modified_rows:
@@ -65,7 +67,7 @@ def replace_values_in_tsv():
     modified_rows = []
 
     # Read the TSV and replace values as required
-    with open(DPSPTH.dps_internal_tests_path, newline="") as csvfile:
+    with open(dpspth.dps_internal_tests_path, newline="") as csvfile:
         reader = csv.DictReader(csvfile, delimiter="\t")
         for row in reader:
             modified_row = {}
@@ -81,7 +83,7 @@ def replace_values_in_tsv():
             raise ValueError("Fieldnames could not be determined from the TSV.")
 
         # Write the modified rows to the TSV
-        with open(DPSPTH.dps_internal_tests_replaced_path, 'w', newline="") as writefile:
+        with open(dpspth.dps_internal_tests_replaced_path, 'w', newline="") as writefile:
             writer = csv.DictWriter(writefile, fieldnames=reader.fieldnames, delimiter="\t")
             writer.writeheader()
             for modified_row in modified_rows:

@@ -6,15 +6,16 @@ from rich.console import Console
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.paths import ProjectPaths
-from dps.tools.paths_dps import DPSPaths as DPSPTH
+from dps.tools.paths_dps import DPSPaths
 from tools.tsv_read_write import read_tsv_dot_dict
 
 console = Console()
-PTH = ProjectPaths()
-db_session = get_db_session(PTH.dpd_db_path)
+pth = ProjectPaths()
+dpspth = DPSPaths()
+db_session = get_db_session(pth.dpd_db_path)
 
 # put in the path of the csv you want to open
-csv_path = DPSPTH.temp_csv_path
+csv_path = dpspth.temp_csv_path
 
 print(f"[yellow]updating db from {csv_path}")
 

@@ -3,20 +3,19 @@
 from functions_dps import load_sbs_index
 from completion_combo import CompletionCombo
 
-sbs_index = load_sbs_index()
-pali_chant_list = [i.pali_chant for i in sbs_index]
-pali_class_list = [str(i) for i in range(1, 60)]
-dps_category_list = ["sn35", "sn22", "sn56", "mn107"]
+def make_tab_edit_dps(dpspth, sg):
 
-dpd_background = "#1c1e23"
-dpd_text = "#0a9ce4"
-ru_background = "#32363f"
-ru_text = "white"
-sbs_background = "#272a31"
-sbs_text = "white"
+    sbs_index = load_sbs_index(dpspth)
+    pali_chant_list = [i.pali_chant for i in sbs_index]
+    pali_class_list = [str(i) for i in range(1, 60)]
+    dps_category_list = ["sn35", "sn22", "sn56", "mn107"]
 
-
-def make_tab_edit_dps(sg):
+    dpd_background = "#1c1e23"
+    dpd_text = "#0a9ce4"
+    ru_background = "#32363f"
+    ru_text = "white"
+    sbs_background = "#272a31"
+    sbs_text = "white"
 
     dps_layout = [
         [

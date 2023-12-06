@@ -15,7 +15,7 @@ from db.get_db_session import get_db_session
 
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from dps.tools.paths_dps import DPSPaths as DPSPTH
+from dps.tools.paths_dps import DPSPaths
 from tools.tic_toc import tic, toc
 from tools.date_and_time import day
 
@@ -42,6 +42,7 @@ def main(header):
     console.print("[bold bright_yellow]exporting csv for Anki")
 
     pth = ProjectPaths()
+    dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
     dpd_db = sorted(
@@ -49,10 +50,10 @@ def main(header):
 
     console.print("[bold blue]Enter the name of the .docx file (without extension):")
     file_name = input("").strip()
-    input_docx_file = f"{DPSPTH.local_downloads_dir}/{file_name}.docx"
+    input_docx_file = f"{dpspth.local_downloads_dir}/{file_name}.docx"
 
     if file_name:
-        header = fromid(dpd_db, input_docx_file, header)
+        header = fromid(dpspth, dpd_db, input_docx_file, header)
     else:
         console.print("[bold yellow]Skipping the first process due to empty input.")
 
@@ -60,7 +61,7 @@ def main(header):
     source_to_check = input("").strip()
 
     if source_to_check:
-        fromsource(dpd_db, source_to_check, header)
+        fromsource(dpspth, dpd_db, source_to_check, header)
     else:
         console.print("[yellow]Skipping the second process due to empty input.")
 
@@ -98,7 +99,7 @@ def extract_ids_from_docx(filename):
     return all_ids
 
 
-def fromsource(dpd_db, source_to_check, header):
+def fromsource(dpspth, dpd_db, source_to_check, header):
 
     console.print(f"[bold green]making anki_{source_to_check}.csv")
 
@@ -116,7 +117,7 @@ def fromsource(dpd_db, source_to_check, header):
     rows = [header]  # Add the header as the first row
     rows.extend(pali_row(i) for i in dpd_db if _needed(i))
 
-    output_path = os.path.join(DPSPTH.anki_csvs_dps_dir, f"anki_{source_to_check}.csv")
+    output_path = os.path.join(dpspth.anki_csvs_dps_dir, f"anki_{source_to_check}.csv")
 
     with open(output_path, "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
@@ -124,7 +125,7 @@ def fromsource(dpd_db, source_to_check, header):
 
 
 
-def fromid(dpd_db, docx_filename, header):
+def fromid(dpspth, dpd_db, docx_filename, header):
 
     console.print("[bold green]making anki_id_list.csv")
 
@@ -137,7 +138,7 @@ def fromid(dpd_db, docx_filename, header):
     rows = [header]  # Add the header as the first row
     rows.extend(pali_row(i) for i in dpd_db if _is_needed(i))
 
-    output_path = os.path.join(DPSPTH.anki_csvs_dps_dir, "anki_id_list.csv")
+    output_path = os.path.join(dpspth.anki_csvs_dps_dir, "anki_id_list.csv")
 
     with open(output_path, "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')

@@ -14,7 +14,7 @@ from db.models import PaliWord
 from db.get_db_session import get_db_session
 
 from tools.pali_sort_key import pali_sort_key
-from dps.tools.paths_dps import DPSPaths as DPSPTH
+from dps.tools.paths_dps import DPSPaths
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 from tools.date_and_time import day
@@ -28,21 +28,23 @@ def main():
     console.print("[bold bright_yellow]exporting dps csvs")
 
     pth = ProjectPaths()
+    dpspth = DPSPaths()
+
     db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(PaliWord).all()
     dpd_db = sorted(
         dpd_db, key=lambda x: pali_sort_key(x.pali_1))
 
-    dps(dpd_db)
+    dps(dpspth, dpd_db)
     # full_db(dpd_db)
     
     toc()
 
 
-def load_chant_index_map():
+def load_chant_index_map(dpspth):
     """Load the chant-index mapping from a TSV file into a dictionary."""
     chant_index_map = {}
-    with open(DPSPTH.sbs_index_path, 'r', encoding='utf-8') as csvfile:
+    with open(dpspth.sbs_index_path, 'r', encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile, delimiter='\t')
         next(reader)  # Skip header row
         for row in reader:
@@ -51,10 +53,10 @@ def load_chant_index_map():
     return chant_index_map
 
 
-def load_chant_link_map():
+def load_chant_link_map(dpspth):
     """Load the chant-link mapping from a TSV file into a dictionary."""
     chant_link_map = {}
-    with open(DPSPTH.sbs_index_path, 'r', encoding='utf-8') as csvfile:
+    with open(dpspth.sbs_index_path, 'r', encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile, delimiter='\t')
         next(reader)  # Skip header row
         for row in reader:
@@ -63,10 +65,10 @@ def load_chant_link_map():
     return chant_link_map
 
 
-def load_class_link_map():
+def load_class_link_map(dpspth):
     """Load the class-link mapping from a TSV file into a dictionary."""
     class_link_map = {}
-    with open(DPSPTH.class_index_path, 'r', encoding='utf-8') as csvfile:
+    with open(dpspth.class_index_path, 'r', encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile, delimiter='\t')
         next(reader)  # Skip header row
         for row in reader:
@@ -75,10 +77,10 @@ def load_class_link_map():
     return class_link_map
 
 
-def load_sutta_link_map():
+def load_sutta_link_map(dpspth):
     """Load the sutta-link mapping from a TSV file into a dictionary."""
     sutta_link_map = {}
-    with open(DPSPTH.sutta_index_path, 'r', encoding='utf-8') as csvfile:
+    with open(dpspth.sutta_index_path, 'r', encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile, delimiter='\t')
         next(reader)  # Skip header row
         for row in reader:
@@ -89,7 +91,7 @@ def load_sutta_link_map():
 
 
 
-def dps(dpd_db):
+def dps(dpspth, dpd_db):
     console.print("[bold green]making dps-full csv")
 
     def _is_needed(i: PaliWord):
@@ -113,22 +115,25 @@ def dps(dpd_db):
                     'meaning_2', 'sbs_index', 'sbs_audio', 'sbs_class', 'test', "sbs_link_1", "sbs_link_2", "sbs_link_3", "sbs_link_4", "class_link", "sutta_link"]
     
     rows = [header]  # Add the header as the first row
-    rows.extend(pali_row(i) for i in dpd_db if _is_needed(i))
+    rows.extend(pali_row(dpspth, i) for i in dpd_db if _is_needed(i))
 
-    with open(DPSPTH.dps_full_path, "w", newline='', encoding='utf-8') as f:
+    num_rows = len(rows)  # Count the number of rows before writing to the file
+    console.print(f"Number of rows: [bold]{num_rows}[/bold]")
+
+    with open(dpspth.dps_full_path, "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerows(rows)
 
-    # dps_df = pd.read_csv(DPSPTH.dps_full_path, sep="\t", dtype=str)
+    # dps_df = pd.read_csv(dpspth.dps_full_path, sep="\t", dtype=str)
     # dps_df.sort_values(
     #     by=["pali_1"], inplace=True, ignore_index=True,
     #     key=lambda x: x.map(pali_sort_key))
     # dps_df.to_csv(
-    #     DPSPTH.dps_full_path, sep="\t", index=False,
+    #     dpspth.dps_full_path, sep="\t", index=False,
     #     quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
 
 
-def pali_row(i: PaliWord, output="anki") -> List[str]:
+def pali_row(dpspth, i: PaliWord, output="anki") -> List[str]:
     fields = []
 
     fields.extend([ 
@@ -268,21 +273,21 @@ def pali_row(i: PaliWord, output="anki") -> List[str]:
 
     # Logic for sbs_index
     if i.sbs:
-        chant_index_map = load_chant_index_map()
+        chant_index_map = load_chant_index_map(dpspth)
 
         chants = [i.sbs.sbs_chant_pali_1, i.sbs.sbs_chant_pali_2, i.sbs.sbs_chant_pali_3, i.sbs.sbs_chant_pali_4]
 
         indexes = [chant_index_map.get(chant) for chant in chants if chant in chant_index_map]
 
         if indexes:
-            sbs_index = min(indexes)
+            sbs_index = min(indexes)  # type: ignore 
         else:
             sbs_index = ""
 
         fields.append(sbs_index)
 
     # Logic for sbs_audio
-    audio_path = os.path.join(DPSPTH.anki_media_dir, f"{i.pali_clean}.mp3")
+    audio_path = os.path.join(dpspth.anki_media_dir, f"{i.pali_clean}.mp3")
     if os.path.exists(audio_path):
         sbs_audio = f"[sound:{i.pali_clean}.mp3]"
     else:
@@ -296,7 +301,7 @@ def pali_row(i: PaliWord, output="anki") -> List[str]:
     ])
     # Logic for chant links
     if i.sbs:
-        chant_link_map = load_chant_link_map()
+        chant_link_map = load_chant_link_map(dpspth)
 
         # Get the individual chants
         chants = [
@@ -319,7 +324,7 @@ def pali_row(i: PaliWord, output="anki") -> List[str]:
 
     if i.sbs:
         # Call the function to get the mapping
-        class_link_map = load_class_link_map()
+        class_link_map = load_class_link_map(dpspth)
 
         # Assuming you have an object `sbs` with an attribute `sbs_class_anki`
         class_num = i.sbs.sbs_class_anki
@@ -333,7 +338,7 @@ def pali_row(i: PaliWord, output="anki") -> List[str]:
 
     if i.sbs:
         # Call the function to get the mapping
-        sutta_link_map = load_sutta_link_map()
+        sutta_link_map = load_sutta_link_map(dpspth)
 
         # Assuming you have an object `sbs` with an attribute `sbs_category`
         sutta_num = i.sbs.sbs_category
@@ -348,7 +353,7 @@ def pali_row(i: PaliWord, output="anki") -> List[str]:
     return none_to_empty(fields)
 
 
-def full_db(dpd_db):
+def full_db(dpspth, dpd_db):
     console.print("[bold green]making dpd-dps-full csv")
     rows = []
     header = ['id', 'pali_1', 'pali_2', 'fin', 'sbs_class_anki', 'sbs_category', 'pos', 'grammar', 'derived_from',
@@ -371,18 +376,21 @@ def full_db(dpd_db):
     rows.append(header)
 
     for i in dpd_db:
-        rows.append(pali_row(i, output="dpd"))
+        rows.append(pali_row(dpspth, i, output="dpd"))
 
-    with open(DPSPTH.dpd_dps_full_path, "w", newline='', encoding='utf-8') as f:
+    num_rows = len(rows)  # Count the number of rows before writing to the file
+    console.print(f"Number of rows: [bold]{num_rows}[/bold]")
+
+    with open(dpspth.dpd_dps_full_path, "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerows(rows)
 
-    # full_df = pd.read_csv(DPSPTH.dpd_dps_full_path, sep="\t", dtype=str)
+    # full_df = pd.read_csv(dpspth.dpd_dps_full_path, sep="\t", dtype=str)
     # full_df.sort_values(
     #     by=["pali_1"], inplace=True, ignore_index=True,
     #     key=lambda x: x.map(pali_sort_key))
     # full_df.to_csv(
-    #     DPSPTH.dpd_dps_full_path, sep="\t", index=False,
+    #     dpspth.dpd_dps_full_path, sep="\t", index=False,
     #     quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
 
 

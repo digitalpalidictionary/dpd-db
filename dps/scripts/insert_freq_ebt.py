@@ -2,7 +2,7 @@
 
 """insert column of frequency count of EBTs into dpd_dps_full and add in into freq.db"""
 
-from dps.tools.paths_dps import DPSPaths as DPSPTH
+from dps.tools.paths_dps import DPSPaths
 
 from rich.console import Console
 
@@ -50,9 +50,11 @@ def main():
     tic()
     console.print("[bold bright_yellow]adding frequency count into dpd_dps_full freq.db")
 
-    dps_full_path = DPSPTH.dpd_dps_full_path
-    freq_ebt_path = DPSPTH.freq_ebt_path
-    db_path = DPSPTH.freq_db_path
+    dpspth = DPSPaths()
+
+    dps_full_path = dpspth.dpd_dps_full_path
+    freq_ebt_path = dpspth.freq_ebt_path
+    db_path = dpspth.freq_db_path
 
     full_df, freq_df = read_dataframes(dps_full_path, freq_ebt_path)
     merged_df = process_dataframes(full_df, freq_df)

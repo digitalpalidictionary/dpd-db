@@ -12,15 +12,15 @@ from db.db_helpers import create_db_if_not_exists
 from db.models import PaliWord, PaliRoot, Russian, SBS
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
-from dps.tools.paths_dps import DPSPaths as DPSPTH
+from dps.tools.paths_dps import DPSPaths
 
 console = Console()
 
 
-def get_latest_backup(prefix):
+def get_latest_backup(dpspth, prefix):
     """Get the latest backup file from a given directory with a specific prefix."""
-    backup_files = [f for f in os.listdir(DPSPTH.dps_backup_dir) if f.startswith(prefix)]
-    return os.path.join(DPSPTH.dps_backup_dir, sorted(backup_files, reverse=True)[0])
+    backup_files = [f for f in os.listdir(dpspth.dps_backup_dir) if f.startswith(prefix)]
+    return os.path.join(dpspth.dps_backup_dir, sorted(backup_files, reverse=True)[0])
 
 
 
@@ -29,6 +29,7 @@ def main():
     console.print("[bold bright_yellow]rebuilding db from dps/backup/*.tsvs")
 
     pth = ProjectPaths()
+    dpspth = DPSPaths()
     if pth.dpd_db_path.exists():
         pth.dpd_db_path.unlink()
 
@@ -36,10 +37,10 @@ def main():
 
     db_session = get_db_session(pth.dpd_db_path)
 
-    pali_word_latest_tsv = get_latest_backup("paliword")
-    pali_root_latest_tsv = get_latest_backup("paliroot")
-    russian_latest_tsv = get_latest_backup("russian")
-    sbs_latest_tsv = get_latest_backup("sbs")
+    pali_word_latest_tsv = get_latest_backup(dpspth, "paliword")
+    pali_root_latest_tsv = get_latest_backup(dpspth, "paliroot")
+    russian_latest_tsv = get_latest_backup(dpspth, "russian")
+    sbs_latest_tsv = get_latest_backup(dpspth, "sbs")
 
     make_pali_word_table_data(db_session, pali_word_latest_tsv)
     make_pali_root_table_data(db_session, pali_root_latest_tsv)

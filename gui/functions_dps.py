@@ -19,7 +19,6 @@ from timeout_decorator import timeout, TimeoutError as TimeoutDecoratorError
 from db.db_helpers import get_column_names
 from db.models import Russian, SBS, PaliWord, DerivedData
 
-from dps.tools.paths_dps import DPSPaths as DPSPTH
 from tools.meaning_construction import make_meaning
 from tools.tsv_read_write import read_tsv_dot_dict
 
@@ -65,7 +64,7 @@ def dps_reset_flags(flags_dps):
 
 # tab maintenance
 
-def populate_dps_tab(values, window, dpd_word, ru_word, sbs_word):
+def populate_dps_tab(dpspth, values, window, dpd_word, ru_word, sbs_word):
     """Populate DPS tab with DPD info."""
     window["dps_dpd_id"].update(dpd_word.id)
     window["dps_pali_1"].update(dpd_word.pali_1)
@@ -203,19 +202,19 @@ def populate_dps_tab(values, window, dpd_word, ru_word, sbs_word):
     # dps_sbs_chant_pali
     if values["dps_sbs_chant_pali_1"]:
         chant = values["dps_sbs_chant_pali_1"]
-        update_sbs_chant(1, chant, "", window)
+        update_sbs_chant(dpspth, 1, chant, "", window)
 
     if values["dps_sbs_chant_pali_2"]:
         chant = values["dps_sbs_chant_pali_2"]
-        update_sbs_chant(2, chant, "", window)
+        update_sbs_chant(dpspth, 2, chant, "", window)
 
     if values["dps_sbs_chant_pali_3"]:
         chant = values["dps_sbs_chant_pali_3"]
-        update_sbs_chant(3, chant, "", window)
+        update_sbs_chant(dpspth, 3, chant, "", window)
 
     if values["dps_sbs_chant_pali_4"]:
         chant = values["dps_sbs_chant_pali_4"]
-        update_sbs_chant(4, chant, "", window)
+        update_sbs_chant(dpspth, 4, chant, "", window)
 
 
 def dps_get_original_values(values, dpd_word, ru_word, sbs_word):
@@ -328,22 +327,22 @@ def display_dps_summary(values, window, sg, original_values):
 # examples related
 
 
-def load_sbs_index() -> list:
-    file_path = DPSPTH.sbs_index_path
+def load_sbs_index(dpspth) -> list:
+    file_path = dpspth.sbs_index_path
     sbs_index = read_tsv_dot_dict(file_path)
     return sbs_index
 
 
-def fetch_sbs_index(pali_chant):
-    sbs_index = load_sbs_index()
+def fetch_sbs_index(dpspth, pali_chant):
+    sbs_index = load_sbs_index(dpspth)
     for i in sbs_index:
         if i.pali_chant == pali_chant:
             return i.english_chant, i.chapter
     return None  # explicitly returning None when no match is found
 
 
-def update_sbs_chant(number, chant, error_field, window):
-    result = fetch_sbs_index(chant)
+def update_sbs_chant(dpspth, number, chant, error_field, window):
+    result = fetch_sbs_index(dpspth, chant)
     if result is not None:
         english, chapter = result
         window[f"dps_sbs_chant_eng_{number}"].update(english)
@@ -421,7 +420,7 @@ KEYS_TEMPLATE = [
     "dps_sbs_chapter_{}"
 ]
 
-def stash_values_from(values, num, window, error_field):
+def stash_values_from(dpspth, values, num, window, error_field):
     print("Starting stash_values_from...")
 
     window[error_field].update("")
@@ -443,30 +442,30 @@ def stash_values_from(values, num, window, error_field):
     print(f"Values to stash: {values_to_stash}")
     
     try:
-        with open(DPSPTH.dps_stash_path, "w") as f:
+        with open(dpspth.dps_stash_path, "w") as f:
             json.dump(values_to_stash, f)
-        print(f"Stashed values to {DPSPTH.dps_stash_path}.")
+        print(f"Stashed values to {dpspth.dps_stash_path}.")
     except Exception as e:
         print(f"Error while stashing: {e}")
         window[error_field].update(f"Error while stashing: {e}")
 
 
-def unstash_values_to(window, num, error_field):
+def unstash_values_to(dpspth, window, num, error_field):
     print("Starting unstash_values_to...")
 
     window[error_field].update("")
     
     # Check if the stash file exists
-    if not os.path.exists(DPSPTH.dps_stash_path):
+    if not os.path.exists(dpspth.dps_stash_path):
         window[error_field].update("Stash file not found!")
-        print(f"Error: {DPSPTH.dps_stash_path} not found.")
+        print(f"Error: {dpspth.dps_stash_path} not found.")
         return
 
     # Load the stashed values
     try:
-        with open(DPSPTH.dps_stash_path, "r") as f:
+        with open(dpspth.dps_stash_path, "r") as f:
             unstashed_values = json.load(f)
-        print(f"Loaded values from {DPSPTH.dps_stash_path}: {unstashed_values}")
+        print(f"Loaded values from {dpspth.dps_stash_path}: {unstashed_values}")
     except Exception as e:
         window[error_field].update(f"Error while unstashing: {e}")
         print(f"Error while unstashing: {e}")
@@ -607,7 +606,7 @@ def handle_openai_response(messages, suggestion_field, error_field, window):
         return error_string
 
 
-def ru_translate_with_openai(pth, meaning, pali_1, grammar, suggestion_field, error_field, window):
+def ru_translate_with_openai(dpspth, pth, meaning, pali_1, grammar, suggestion_field, error_field, window):
     window[error_field].update("")
 
     # keep original grammar
@@ -642,7 +641,7 @@ def ru_translate_with_openai(pth, meaning, pali_1, grammar, suggestion_field, er
 
     # Save to CSV
     if suggestion != "Timed out":
-        with open(DPSPTH.ai_ru_suggestion_history_path, 'a', newline='', encoding='utf-8') as file:
+        with open(dpspth.ai_ru_suggestion_history_path, 'a', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter="\t")
             # Write the required columns to the CSV
             writer.writerow([pali_1, grammar_orig, grammar, meaning, suggestion])
@@ -650,7 +649,7 @@ def ru_translate_with_openai(pth, meaning, pali_1, grammar, suggestion_field, er
     return suggestion
 
 
-def ru_notes_translate_with_openai(pth, notes, pali_1, grammar, suggestion_field, error_field, window):
+def ru_notes_translate_with_openai(dpspth, pth, notes, pali_1, grammar, suggestion_field, error_field, window):
     window[error_field].update("")
 
     # keep original grammar
@@ -685,7 +684,7 @@ def ru_notes_translate_with_openai(pth, notes, pali_1, grammar, suggestion_field
 
     # Save to CSV
     if suggestion != "Timed out":
-        with open(DPSPTH.ai_ru_notes_suggestion_history_path, 'a', newline='', encoding='utf-8') as file:
+        with open(dpspth.ai_ru_notes_suggestion_history_path, 'a', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter="\t")
             # Write the required columns to the CSV
             writer.writerow([pali_1, grammar_orig, grammar, notes, suggestion])
@@ -693,7 +692,7 @@ def ru_notes_translate_with_openai(pth, notes, pali_1, grammar, suggestion_field
     return suggestion
 
 
-def en_translate_with_openai(pth, pali_1, grammar, example, suggestion_field, error_field, window):
+def en_translate_with_openai(dpspth, pth, pali_1, grammar, example, suggestion_field, error_field, window):
     window[error_field].update("")
 
     # keep original grammar
@@ -728,7 +727,7 @@ def en_translate_with_openai(pth, pali_1, grammar, example, suggestion_field, er
 
     # Save to CSV
     if suggestion != "Timed out":
-        with open(DPSPTH.ai_en_suggestion_history_path, 'a', newline='', encoding='utf-8') as file:
+        with open(dpspth.ai_en_suggestion_history_path, 'a', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter="\t")
             # Write the required columns to the CSV
             writer.writerow([pali_1, grammar_orig, grammar, example, suggestion])
@@ -772,13 +771,13 @@ def copy_and_split_content(sugestion_key, meaning_key, lit_meaning_key, error_fi
 YANDEX_SPELLER_API = "https://speller.yandex.net/services/spellservice.json/checkText"
 
 
-def ru_check_spelling(field, error_field, values, window):
+def ru_check_spelling(dpspth, field, error_field, values, window):
 
     window[error_field].update("")
     window[error_field].set_size((50, 1))
 
     ru_spell = SpellChecker(language='ru')
-    ru_spell.word_frequency.load_text_file(str(DPSPTH.ru_user_dict_path))
+    ru_spell.word_frequency.load_text_file(str(dpspth.ru_user_dict_path))
     
     ru_sentence = values[field]
     ru_words = word_tokenize(ru_sentence) 
@@ -788,7 +787,7 @@ def ru_check_spelling(field, error_field, values, window):
         print(f"offline ru_misspelled {ru_misspelled}")
 
     # Load custom dictionary words
-    with open(DPSPTH.ru_user_dict_path, 'r', encoding='utf-8') as f:
+    with open(dpspth.ru_user_dict_path, 'r', encoding='utf-8') as f:
         custom_words = set(f.read().splitlines())
 
     # Filter out words that are in the custom dictionary
@@ -866,14 +865,14 @@ def get_spelling_suggestions(text, return_original=False):
     return suggestions
 
 
-def ru_add_spelling(word):
-    with open(DPSPTH.ru_user_dict_path, "a", encoding='utf-8') as f:
+def ru_add_spelling(dpspth, word):
+    with open(dpspth.ru_user_dict_path, "a", encoding='utf-8') as f:
         f.write(f"{word}\n")
 
 
-def ru_edit_spelling():
+def ru_edit_spelling(dpspth):
     subprocess.Popen(
-        ["code", DPSPTH.ru_user_dict_path])
+        ["code", dpspth.ru_user_dict_path])
 
 
 def tail_log():
@@ -923,8 +922,8 @@ def dps_make_words_to_add_list_sutta(db_session, pth, sutta_name, book: str) -> 
     return text_list
 
 
-def dps_make_words_to_add_list_from_text(db_session, pth) -> list:
-    cst_text_list = make_cst_text_set_from_file()
+def dps_make_words_to_add_list_from_text(dpspth, db_session, pth) -> list:
+    cst_text_list = make_cst_text_set_from_file(dpspth)
 
     sp_mistakes_list = make_sp_mistakes_list(pth)
     variant_list = make_variant_list(pth)
@@ -943,8 +942,8 @@ def dps_make_words_to_add_list_from_text(db_session, pth) -> list:
     return text_list
 
 
-def dps_make_words_to_add_list_from_text_filtered(db_session, pth, source) -> list:
-    cst_text_list = make_cst_text_set_from_file()
+def dps_make_words_to_add_list_from_text_filtered(dpspth, db_session, pth, source) -> list:
+    cst_text_list = make_cst_text_set_from_file(dpspth)
 
     sp_mistakes_list = make_sp_mistakes_list(pth)
     variant_list = make_variant_list(pth)
@@ -977,9 +976,9 @@ def remove_duplicates(ordered_ids):
     return ordered_ids_no_duplicates
 
 
-def fetch_matching_words_from_db(db_session, __WHAT_TO_UPDATE__, __ORIGINAL_HAS_VALUE__) -> list:
+def fetch_matching_words_from_db(dpspth, db_session, __WHAT_TO_UPDATE__, __ORIGINAL_HAS_VALUE__) -> list:
 
-    ordered_ids = read_ids_from_tsv(DPSPTH.id_to_add_path)
+    ordered_ids = read_ids_from_tsv(dpspth.id_to_add_path)
     ordered_ids = remove_duplicates(ordered_ids)
 
     matching_words = []
@@ -998,9 +997,9 @@ def fetch_matching_words_from_db(db_session, __WHAT_TO_UPDATE__, __ORIGINAL_HAS_
     return matching_words
 
 
-def update_words_value(db_session, WHAT_TO_UPDATE, SOURCE):
+def update_words_value(dpspth, db_session, WHAT_TO_UPDATE, SOURCE):
     # Fetch the matching words
-    ordered_ids = read_ids_from_tsv(DPSPTH.id_to_add_path)
+    ordered_ids = read_ids_from_tsv(dpspth.id_to_add_path)
     ordered_ids = remove_duplicates(ordered_ids)
 
     print(WHAT_TO_UPDATE)
@@ -1035,9 +1034,9 @@ def update_words_value(db_session, WHAT_TO_UPDATE, SOURCE):
     print(f"{updated_count} rows have been updated with {SOURCE}.")
 
 
-def print_words_value(db_session, WHAT_TO_UPDATE, SOURCE):
+def print_words_value(dpspth, db_session, WHAT_TO_UPDATE, SOURCE):
     # Fetch the matching words
-    ordered_ids = read_ids_from_tsv(DPSPTH.id_to_add_path)
+    ordered_ids = read_ids_from_tsv(dpspth.id_to_add_path)
     ordered_ids = remove_duplicates(ordered_ids)
 
     print(WHAT_TO_UPDATE)
@@ -1108,7 +1107,7 @@ def fetch_sbs(db_session, id: int) -> Optional[SBS]:
 
 
 def dps_update_db(
-       db_session, values, window, dpd_word, ru_word, sbs_word) -> None:
+    db_session, values, window, dpd_word, ru_word, sbs_word) -> None:
     """Update Russian and SBS tables with DPS edits."""
     merge = None
     if not ru_word:
