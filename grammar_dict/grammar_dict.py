@@ -43,6 +43,11 @@ def main():
     else:
         make_mdct: bool = False
 
+    if config_test("goldendict", "copy_unzip", "yes"):
+        copy_unzip: bool = True
+    else:
+        copy_unzip: bool = False
+
     # make headwords list
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -228,6 +233,9 @@ def main():
     gd_data_list, md_data_list = make_data_lists(grammar_dict_html)
     make_golden_dict(pth, gd_data_list)
 
+    if copy_unzip is True:
+        unzip_and_copy(pth)
+
     if make_mdct is True:
         make_mdict(pth, md_data_list)
         
@@ -272,19 +280,20 @@ def make_golden_dict(pth, gd_data_list):
 
     export_words_as_stardict_zip(gd_data_list, ifo, zip_path)
 
-    if config_test("goldendict", "copy_unzip", "yes"):
 
-        goldendict_path: (Path |str) = goldedict_path()
+def unzip_and_copy(pth):
 
-        if (
-            goldendict_path and 
-            goldendict_path.exists()
-            ):
-            print(f"[green]unzipping and copying to [blue]{goldendict_path}")
-            popen(
-                f'unzip -o {pth.grammar_dict_zip_path} -d "{goldendict_path}"')
-        else:
-            print("[red]local GoldenDict directory not found")
+    goldendict_path: (Path |str) = goldedict_path()
+
+    if (
+        goldendict_path and 
+        goldendict_path.exists()
+        ):
+        print(f"[green]unzipping and copying to [blue]{goldendict_path}")
+        popen(
+            f'unzip -o {pth.grammar_dict_zip_path} -d "{goldendict_path}"')
+    else:
+        print("[red]local GoldenDict directory not found")
 
 
 def make_mdict(pth, md_data_list):
