@@ -5,7 +5,6 @@ import subprocess
 import textwrap
 import requests
 import re
-import configparser
 import openai
 import os
 import json
@@ -21,6 +20,8 @@ from db.models import Russian, SBS, PaliWord, DerivedData
 
 from tools.meaning_construction import make_meaning
 from tools.tsv_read_write import read_tsv_dot_dict
+
+from tools.configger import config_test_option, config_update_default_value, config_read
 
 from tools.cst_sc_text_sets import make_cst_text_set
 from tools.cst_sc_text_sets import make_cst_text_set_sutta
@@ -560,18 +561,17 @@ def replace_abbreviations(grammar_string, abbreviations_path):
     return replaced_string
 
 
-def load_openia_config(filename="config.ini"):
-    config = configparser.ConfigParser()
-    config.read(filename)
-    
-    openia_config = {
-        "openia": config["openia"]["key"],
-    }
+def load_openia_config():
+    if not config_test_option("openia", "key"):
+        config_update_default_value("openia", "key")
+        openia_config = ""
+    else:
+        openia_config = config_read("openia", "key")
     return openia_config
 
+
 # Setup OpenAI API key
-openia_config = load_openia_config()
-openai.api_key = openia_config["openia"]
+openai.api_key = load_openia_config()
 
 
 @timeout(15, timeout_exception=TimeoutDecoratorError)  # Setting a 15-second timeout

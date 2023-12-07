@@ -1,20 +1,19 @@
 """Generating links for suttas based on the desired website"""
 
 import re
-import configparser
+from tools.configger import config_test_option, config_update_default_value, config_read
 
 
-def load_link(filename="config.ini"):
-    config = configparser.ConfigParser()
-    config.read(filename)
-    
-    base_url = config["dictionary"]["link_url"]
+def load_link():
+    if not config_test_option("dictionary", "link_url"):
+        config_update_default_value("dictionary", "link_url")
+    return config_read("dictionary", "link_url")
 
-    return base_url
+
+base_url = load_link()
 
 
 def generate_link(source: str) -> str:
-    base_url = load_link()
 
     # List of functions to check each pattern
     pattern_funcs = [link_vin, link_vin_pat, link_pat, link_dn_mn, link_an, link_sn, 

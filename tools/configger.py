@@ -88,19 +88,18 @@ def config_test(section: str, option: str, value) -> bool:
     if config.has_section(section) and config.has_option(section, option):
         return config.get(section, option) == str(value)
     else:
-        print(f"[yellow]unknown config setting: [brightyellow]{section}, {option}, {value}")
-        
-        # Check if the section exists in the default config initialization
-        if section not in DEFAULT_CONFIG or option not in DEFAULT_CONFIG[section]:
-            print(f"[red]Missing default value for option: [brightyellow]{section}, {option}")
-            return False
-        
-        # If section or option missing, add default value for that section or option from DEFAULT_CONFIG
+        print(f"[yellow]unknown config setting: [brightyellow]{section}, {option}")
+        config_update_default_value(section, option)
+        return config.get(section, option, fallback='') == str(value)
+
+
+def config_update_default_value(section: str, option: str) -> None:
+    """Update config.ini with a default value for a missing section or option."""
+    if section in DEFAULT_CONFIG and option in DEFAULT_CONFIG[section]:
         default_value = DEFAULT_CONFIG[section].get(option)
         config_update(section, option, default_value)
-        
-        # Check if the value matches the provided value or the default value
-        return config.get(section, option) == str(value) or default_value == str(value)
+    else:
+        print(f"[red]Missing default value for option: [brightyellow]{section}, {option}")
 
 
 def config_test_section(section):
