@@ -25,6 +25,7 @@ from functions_db import get_pali_clean_list
 from functions_db import delete_word
 from functions_db import get_root_info
 from functions_db import fetch_id_or_pali_1
+from functions_db import get_family_compound_values
 
 from functions import open_in_goldendict
 from functions import sandhi_ok
@@ -135,6 +136,7 @@ def main():
         definitions_df = pd.DataFrame()
         commentary_definitions_exists = False
 
+    family_compound_values = get_family_compound_values(db_session)
     sandhi_dict = make_sandhi_contraction_dict(db_session)
     pali_clean_list: list = get_pali_clean_list(db_session)
     window = window_layout(dpspth, db_session, username)
@@ -515,7 +517,7 @@ def main():
                 window["family_compound"].update(values["pali_1"])
                 flags.family_compound = False
             else:
-                test_family_compound(db_session, values, window)
+                test_family_compound(values, window, family_compound_values)
 
         elif event == "construction":
             if flags.construction and not values["construction"]:
