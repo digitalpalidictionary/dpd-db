@@ -274,7 +274,7 @@ def link_thi(source: str, base_url: str) -> str:
             return f"{base_url}thi/thi5.html"
         elif 50 <= thi_number <= 57:
             return f"{base_url}thi/thi6.html"
-        elif 58 <= thi_number <= 59:
+        elif 58 <= thi_number <= 60:
             return f"{base_url}thi/thi7.html"
         elif thi_number == 61:
             return f"{base_url}thi/thi8.html"
@@ -335,7 +335,7 @@ def link_th(source: str, base_url: str) -> str:
             return f"{base_url}tha/tha15.html"
         elif 248 <= th_number <= 257:
             return f"{base_url}tha/tha16.html"
-        elif 258 <= th_number <= 259:
+        elif 258 <= th_number <= 260:
             return f"{base_url}tha/tha17.html"
         elif th_number == 261:
             return f"{base_url}tha/tha18.html"

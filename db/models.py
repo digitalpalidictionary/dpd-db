@@ -286,6 +286,30 @@ class PaliWord(Base):
     def source_link_2(self) -> str:
         return generate_link(self.source_2) if self.source_2 else ""
 
+    @property
+    def source_link_sutta(self) -> str:
+        if self.meaning_2:
+            if self.family_set.startswith("suttas of") or self.family_set == "bhikkhupātimokkha rules":
+                unified_pattern = r"\(([A-Z]+)\s?([\d\.]+)\)|([A-Z]+)[\s]?([\d]+)"
+                match = re.finditer(unified_pattern, self.meaning_2)
+                    
+                for m in match:
+                    prefix = m.group(1) if m.group(1) else m.group(3)
+                    number = m.group(2) if m.group(2) else m.group(4)
+                    
+                    combined_number = f"{prefix}{number}" if prefix and number else None
+                    
+                    if combined_number:
+                        link = generate_link(combined_number)
+
+                        if link:
+                            return link
+
+            return ""
+        else:
+            return ""
+
+
     def __repr__(self) -> str:
         return f"""PaliWord: {self.id} {self.pali_1} {self.pos} {
             self.meaning_1}"""

@@ -174,7 +174,7 @@ def render_pali_word_dpd_html(db_parts: PaliWordDbParts,
 
     html += "<body>"
 
-    summary = render_dpd_definition_templ(pth, i, tt.dpd_definition_templ)
+    summary = render_dpd_definition_templ(pth, i, rd['make_link'], tt.dpd_definition_templ)
     html += summary
     size_dict["dpd_summary"] += len(summary)
 
@@ -387,6 +387,7 @@ def render_header_templ(
 def render_dpd_definition_templ(
         __pth__: ProjectPaths,
         i: PaliWord,
+        make_link: bool,
         dpd_definition_templ: Template
 ) -> str:
     """render the definition of a word's most relevant information:
@@ -411,6 +412,7 @@ def render_dpd_definition_templ(
     return str(
         dpd_definition_templ.render(
             i=i,
+            make_link=make_link,
             pos=pos,
             plus_case=plus_case,
             meaning=meaning,
