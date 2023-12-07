@@ -40,10 +40,17 @@ def main():
     else:
         make_mdct: bool = False
 
+    if config_test("goldendict", "copy_unzip", "yes"):
+        copy_unzip: bool = True
+    else:
+        copy_unzip: bool = False
+
     pth = ProjectPaths()
     sandhi_data_list = make_sandhi_data_list(pth)
     make_golden_dict(pth, sandhi_data_list)
-    unzip_and_copy(pth)
+
+    if copy_unzip is True:
+        unzip_and_copy(pth)
 
     if make_mdct is True:
         make_mdict(pth, sandhi_data_list)

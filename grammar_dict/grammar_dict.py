@@ -272,17 +272,19 @@ def make_golden_dict(pth, gd_data_list):
 
     export_words_as_stardict_zip(gd_data_list, ifo, zip_path)
 
-    goldendict_path: (Path |str) = goldedict_path()
+    if config_test("goldendict", "copy_unzip", "yes"):
 
-    if (
-        goldendict_path and 
-        goldendict_path.exists()
-        ):
-        print(f"[green]unzipping and copying to [blue]{goldendict_path}")
-        popen(
-            f'unzip -o {pth.grammar_dict_zip_path} -d "{goldendict_path}"')
-    else:
-        print("[red]local GoldenDict directory not found")
+        goldendict_path: (Path |str) = goldedict_path()
+
+        if (
+            goldendict_path and 
+            goldendict_path.exists()
+            ):
+            print(f"[green]unzipping and copying to [blue]{goldendict_path}")
+            popen(
+                f'unzip -o {pth.grammar_dict_zip_path} -d "{goldendict_path}"')
+        else:
+            print("[red]local GoldenDict directory not found")
 
 
 def make_mdict(pth, md_data_list):

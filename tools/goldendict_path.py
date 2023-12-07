@@ -15,7 +15,7 @@ def goldedict_path() -> Path:
     or return the path if it does."""
 
     if not config_test_option("goldendict", "path"):
-        goldendict_path = Prompt.ask(f"[yellow]Enter your GoldenDict directory (or ENTER for None)")
+        goldendict_path = Prompt.ask("[yellow]Enter your GoldenDict directory (or ENTER for None)")
         config_update("goldendict", "path", goldendict_path)
         return Path(goldendict_path)
     else:

@@ -53,6 +53,11 @@ def main():
     else:
         make_mdct: bool = False
 
+    if config_test("goldendict", "copy_unzip", "yes"):
+        copy_unzip: bool = True
+    else:
+        copy_unzip: bool = False
+
     time_log.log("make_roots_count_dict()")
     roots_count_dict = make_roots_count_dict(db_session)
 
@@ -95,8 +100,9 @@ def main():
     time_log.log("export_to_goldendict()")
     export_to_goldendict(pth, combined_data_list)
 
-    time_log.log("goldendict_unzip_and_copy()")
-    goldendict_unzip_and_copy(pth)
+    if copy_unzip is True:
+        time_log.log("goldendict_unzip_and_copy()")
+        goldendict_unzip_and_copy(pth)
 
     if make_mdct is True:
         time_log.log("export_to_mdict()")

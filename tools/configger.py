@@ -37,11 +37,12 @@ def config_initialize() -> None:
     config.set("gui", "margin_y", "0")
 
     config.add_section("goldendict")
+    config.set("goldendict", "copy_unzip", "no")
     config.set("goldendict", "path", "")
 
     config.add_section("dictionary")
     config.set("dictionary", "make_mdict", "yes")
-    config.set("dictionary", "link_url", "https://find.dhamma.gift/bw/")
+    config.set("dictionary", "link_url", "https://www.thebuddhaswords.net/")
     config.set("dictionary", "make_link", "no")
 
     config.add_section("openia")
