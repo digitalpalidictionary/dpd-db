@@ -75,7 +75,6 @@ class DPSPaths:
                 self.dps_backup_dir,
                 self.for_compare_dir,
                 self.temp_csv_backup_dir,
-                self.log_dir,
             ]:
                 d.mkdir(parents=True, exist_ok=True)
 
