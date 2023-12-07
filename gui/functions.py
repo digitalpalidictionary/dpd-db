@@ -869,11 +869,7 @@ def display_summary(values, window, sg, pali_word_original2):
     return event
 
 
-
-
-
-def test_family_compound(db_session, values, window):
-    family_compound_values = get_family_compound_values(db_session)
+def test_family_compound(values, window, family_compound_values):
     family_compounds = values["family_compound"].split()
     error_string = ""
     for family_compound in family_compounds:

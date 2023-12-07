@@ -194,9 +194,12 @@ def copy_word_from_db(db_session, values, window):
 
         attrs = pali_word.__dict__
         for key in attrs.keys():
-            if key in values:
-                if key not in exceptions:
-                    window[key].update(attrs[key])
+            if (
+                key in values
+                and key not in exceptions
+                and not values[key] 
+            ):
+                window[key].update(attrs[key])
         window["messages"].update(
             f"copied '{values['word_to_clone_edit']}'", text_color="white")
 
