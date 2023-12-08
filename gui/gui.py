@@ -854,7 +854,7 @@ def main():
             sandhi_dict = make_sandhi_contraction_dict(db_session)
 
         elif event == "update_db_button1":
-            if flags.tested is False:
+            if not flags.tested:
                 window["messages"].update(value="test first!", text_color="red")
             else:
                 last_button = display_summary(values, window, sg, pali_word_original2)
@@ -878,7 +878,7 @@ def main():
 
         elif event == "update_db_button2":
             tests_failed = None
-            if flags.tested is False:
+            if not flags.tested:
                 tests_failed = sg.popup_ok_cancel(
                     "Tests have failed. Are you sure you want to add to db?",
                     title="Error",
@@ -1804,7 +1804,7 @@ def main():
                     value="not a valid id or pali_1", text_color="red")
 
         elif event == "dps_update_db_button":
-            if dps_flags.tested is False:
+            if not dps_flags.tested:
                 window["messages"].update(value="test first!", text_color="red")
             else:
                 dpd_word = fetch_id_or_pali_1(db_session, values, "dps_id_or_pali_1")

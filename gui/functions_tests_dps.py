@@ -383,7 +383,7 @@ def dps_db_internal_tests(dpspth, pth, db_session, sg, window, flags_dps):
 
     db_internal_tests_list = clean_exceptions(dpd_db, db_internal_tests_list)
     integrity = test_the_tests(db_internal_tests_list, window)
-    if integrity is False:
+    if not integrity:
         return
 
     for test_counter, t in enumerate(db_internal_tests_list):
@@ -633,7 +633,7 @@ def dps_dpd_db_internal_tests(dpspth, db_session, pth, sg, window, flags):
 
     db_internal_tests_list = clean_exceptions(dpd_db, db_internal_tests_list)
     integrity = test_the_tests(db_internal_tests_list, window)
-    if integrity is False:
+    if not integrity:
         return
 
     for test_counter, t in enumerate(db_internal_tests_list):

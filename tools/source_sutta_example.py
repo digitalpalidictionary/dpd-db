@@ -32,7 +32,7 @@ def make_cst_soup(pth: ProjectPaths,
         for pb in pbs:
             pb.decompose()
 
-        if unwrap_notes is True:
+        if unwrap_notes:
             # unwrap all the notes (variant readings)
             notes = soup.find_all("note")
             for note in notes:

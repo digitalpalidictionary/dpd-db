@@ -109,7 +109,7 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[Rend
                 
                 if combined_number:
                     number_link = i.source_link_sutta
-                    if make_link is True:
+                    if make_link:
                         anchor_link = f'<a href="{number_link}">link</a>'
                         epd_string = f"<b class='epd'>{i.pali_clean}</b>. {i.meaning_2} {anchor_link}" if make_link else f"<b class='epd'>{i.pali_clean}</b>. {i.meaning_2}"
                     else:

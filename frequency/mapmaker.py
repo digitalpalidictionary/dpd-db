@@ -41,7 +41,7 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    if regenerate_all is False:
+    if not regenerate_all:
         test_inflection_template_changed(pth)
         test_changed_headwords(pth)
         test_html_file_missing(db_session)

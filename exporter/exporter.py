@@ -100,11 +100,11 @@ def main():
     time_log.log("export_to_goldendict()")
     export_to_goldendict(pth, combined_data_list)
 
-    if copy_unzip is True:
+    if copy_unzip:
         time_log.log("goldendict_unzip_and_copy()")
         goldendict_unzip_and_copy(pth)
 
-    if make_mdct is True:
+    if make_mdct:
         time_log.log("export_to_mdict()")
         export_to_mdict(combined_data_list, pth)
 

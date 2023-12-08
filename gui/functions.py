@@ -604,7 +604,7 @@ def find_sutta_example(pth, sg, window, values: dict) -> Optional[Tuple[str, str
         if event == "add_button_1" or event == "add_button_2":
             number = 0
             for value in values:
-                if values[value] is True:
+                if values[value]:
                     number = int(value)
 
             if sutta_examples != []:

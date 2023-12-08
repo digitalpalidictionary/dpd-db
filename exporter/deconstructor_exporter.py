@@ -49,10 +49,10 @@ def main():
     sandhi_data_list = make_sandhi_data_list(pth)
     make_golden_dict(pth, sandhi_data_list)
 
-    if copy_unzip is True:
+    if copy_unzip:
         unzip_and_copy(pth)
 
-    if make_mdct is True:
+    if make_mdct:
         make_mdict(pth, sandhi_data_list)
 
     toc()

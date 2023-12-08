@@ -265,7 +265,7 @@ def add_dual_meanings(pth: ProjectPaths, dual_meanings_dict, db_session, excepti
     for counter, (pos_meanings, word_list) in enumerate(
             dual_meanings_dict.items()):
 
-        if break_flag is True:
+        if break_flag:
             break
 
         pos, meaning1, meaning2 = pos_meanings.split(":")

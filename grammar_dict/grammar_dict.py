@@ -233,10 +233,10 @@ def main():
     gd_data_list, md_data_list = make_data_lists(grammar_dict_html)
     make_golden_dict(pth, gd_data_list)
 
-    if copy_unzip is True:
+    if copy_unzip:
         unzip_and_copy(pth)
 
-    if make_mdct is True:
+    if make_mdct:
         make_mdict(pth, md_data_list)
         
     toc()

@@ -54,7 +54,7 @@ def process_matches(pth: ProjectPaths, neg_inflections_set):
     print("reading tsvs")
     matches_df = pd.read_csv(pth.matches_path, dtype=str, sep="\t")
 
-    if ADD_DO is True:
+    if ADD_DO:
         matches_do_df = pd.read_csv(
             pth.matches_do_path, dtype=str, sep="\t")
         matches_df = pd.concat([matches_df, matches_do_df], ignore_index=True)

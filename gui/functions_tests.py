@@ -89,7 +89,7 @@ def test_the_tests(internal_tests_list, window):
         if t.search_column_6 not in column_names:
             message = f"{test_counter}. {t.test_name} 'search_column_6' '{t.search_column_6}' invalid"
 
-        if flag is False:
+        if not flag:
             window["messages"].update(message, text_color="red")
             print(f"[red]{message}")
             return False
@@ -113,7 +113,7 @@ def test_the_tests(internal_tests_list, window):
             message = f"{test_counter}. {t.test_name} 'search_sign_6' '{t.search_sign_6}' invalid"
             flag = False
 
-        if flag is False:
+        if not flag:
             window["messages"].update(message, text_color="red")
             print(f"[red]{message}")
             return False
@@ -303,7 +303,7 @@ def db_internal_tests(db_session, pth, sg, window, flags):
     dpd_db, internal_tests_list = db_internal_tests_setup(db_session, pth)
     internal_tests_list = clean_exceptions(dpd_db, internal_tests_list)
     integrity = test_the_tests(internal_tests_list, window)
-    if integrity is False:
+    if not integrity:
         return
 
     for test_counter, t in enumerate(internal_tests_list):

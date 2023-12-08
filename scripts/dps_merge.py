@@ -67,7 +67,7 @@ def main():
         except KeyError:
             exceptions_dict[column] = []
 
-        if break_flag is True:
+        if break_flag:
             break
 
         dict = {}
@@ -81,7 +81,7 @@ def main():
         print(len(dict))
 
         for __counter__, i in enumerate(dpd_db):
-            if break_flag is True:
+            if break_flag:
                 break
 
             column_value_old = getattr(i, column)

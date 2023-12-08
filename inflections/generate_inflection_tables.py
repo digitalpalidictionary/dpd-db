@@ -63,7 +63,7 @@ def main():
             # stem contains "!" then add table and clean headword
             # pattern == "" then no table, just add clean headword
 
-            if regenerate_all is True:
+            if regenerate_all:
                 db_session.execute(DerivedData.__table__.delete()) # type: ignore
 
             else:

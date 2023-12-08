@@ -422,7 +422,7 @@ def main():
     print("[bright_yellow]sandhi splitter")
 
     global profiler
-    if profiler_on is True:
+    if profiler_on:
         profiler = cProfile.Profile()
         profiler.enable()
 
