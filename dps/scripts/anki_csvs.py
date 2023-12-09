@@ -265,7 +265,10 @@ def dps(df, dps_link):
 def dhp(df, sbs_ped_link):
 
     # Print starting message in green color
-    console.print("[bold green]making dhp.csv.")   
+    console.print("[bold green]making dhp.csv.")
+
+    # Change the value of 'ru_meaning' and 'ru_meaning_lit' columns to an empty string
+    df['ru_meaning'] = ""   
 
     # Define the conditions for filtering
     conditions = [

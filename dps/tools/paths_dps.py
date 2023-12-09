@@ -62,7 +62,6 @@ class DPSPaths:
         self.local_goldendict_path = base_dir.joinpath(Path("../GoldenDict/"))
         self.local_downloads_dir = base_dir.joinpath(Path("../../Downloads/"))
         self.anki_media_dir = base_dir.joinpath(Path("/home/deva/.var/app/net.ankiweb.Anki/data/Anki2/deva/collection.media/")) 
-        self.log_dir = base_dir.joinpath(Path("/home/deva/log/"))
 
         if create_dirs:
             self.create_dirs()

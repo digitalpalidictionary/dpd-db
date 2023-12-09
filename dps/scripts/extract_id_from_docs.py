@@ -60,6 +60,7 @@ def main():
     unique_ids = list(set(ids))  # Convert to a set to get unique IDs, then convert back to a list
     write_ids_to_csv(ids, output_csv_file)
     console.print(f"[bold green]IDs written to {output_csv_file}")
+    console.print(f"[bold yellow]from {file_name}.docx")
     console.print(f"[bold cyan]Number of rows of unique IDs extracted: {len(unique_ids)}")
 
 

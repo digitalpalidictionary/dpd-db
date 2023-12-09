@@ -976,7 +976,7 @@ def remove_duplicates(ordered_ids):
     return ordered_ids_no_duplicates
 
 
-def fetch_matching_words_from_db(dpspth, db_session, __WHAT_TO_UPDATE__, __ORIGINAL_HAS_VALUE__) -> list:
+def fetch_matching_words_from_db(dpspth, db_session, attribute_name, original_has_value) -> list:
 
     ordered_ids = read_ids_from_tsv(dpspth.id_to_add_path)
     ordered_ids = remove_duplicates(ordered_ids)
@@ -984,12 +984,12 @@ def fetch_matching_words_from_db(dpspth, db_session, __WHAT_TO_UPDATE__, __ORIGI
     matching_words = []
     for word_id in ordered_ids:
         word = db_session.query(PaliWord).filter(PaliWord.id == word_id).first()
-        # if word and word.sbs:
-        #     attr_value = getattr(word.sbs, WHAT_TO_UPDATE, None)
-        #     if ORIGINAL_HAS_VALUE and attr_value:
-        #         matching_words.append(word.pali_1)
-        #     elif not ORIGINAL_HAS_VALUE and not attr_value:
-        #         matching_words.append(word.pali_1)
+        if word and word.sbs:
+            attr_value = getattr(word.sbs, attribute_name, None)
+            if original_has_value and attr_value:
+                matching_words.append(word.pali_1)
+            elif not original_has_value and not attr_value:
+                matching_words.append(word.pali_1)
         if word and not word.sbs:
             matching_words.append(word.pali_1)
 

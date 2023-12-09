@@ -36,7 +36,7 @@ def main():
         dpd_db, key=lambda x: pali_sort_key(x.pali_1))
 
     dps(dpspth, dpd_db)
-    # full_db(dpd_db)
+    # full_db(dpspth, dpd_db)
     
     toc()
 
@@ -112,7 +112,7 @@ def dps(dpspth, dpd_db):
                     'antonym', 'synonym',
                     'variant',  'commentary',
                     'notes', 'sbs_notes', 'ru_notes', 'cognate', 'family_set', 'link', 'stem', 'pattern',
-                    'meaning_2', 'sbs_index', 'sbs_audio', 'sbs_class', 'test', "sbs_link_1", "sbs_link_2", "sbs_link_3", "sbs_link_4", "class_link", "sutta_link"]
+                    'meaning_2', 'test', 'sbs_index', 'sbs_audio', 'sbs_class', "sbs_link_1", "sbs_link_2", "sbs_link_3", "sbs_link_4", "class_link", "sutta_link"]
     
     rows = [header]  # Add the header as the first row
     rows.extend(pali_row(dpspth, i) for i in dpd_db if _is_needed(i))
@@ -142,9 +142,9 @@ def pali_row(dpspth, i: PaliWord, output="anki") -> List[str]:
         i.pali_2,
     ])
 
-    if i.sutta_1 != "" and i.sutta_2 != "":
+    if i.sutta_1 and i.sutta_2:
         sign = "√√"
-    elif i.sutta_1 != "" and i.sutta_2 == "":
+    elif i.sutta_1 and not i.sutta_2:
         sign = "√"
     else:
         sign = ""
@@ -173,12 +173,12 @@ def pali_row(dpspth, i: PaliWord, output="anki") -> List[str]:
     if i.rt is not None:
         if output == "dpd":
             root_key = i.root_key
-            if i.rt.root_in_comps == "":
+            if not i.rt.root_in_comps:
                 root_in_comps = "0"
             else:
                 root_in_comps = i.rt.root_in_comps
 
-            if i.rt.sanskrit_root_meaning == "":
+            if not i.rt.sanskrit_root_meaning:
                 sanskrit_root_meaning = "0"
             else:
                 sanskrit_root_meaning = i.rt.sanskrit_root_meaning
@@ -269,6 +269,7 @@ def pali_row(dpspth, i: PaliWord, output="anki") -> List[str]:
         i.stem,
         i.pattern,
         i.meaning_2,
+        date,
     ])
 
     # Logic for sbs_index
@@ -284,7 +285,10 @@ def pali_row(dpspth, i: PaliWord, output="anki") -> List[str]:
         else:
             sbs_index = ""
 
-        fields.append(sbs_index)
+    else:
+        sbs_index = ""
+
+    fields.append(sbs_index)
 
     # Logic for sbs_audio
     audio_path = os.path.join(dpspth.anki_media_dir, f"{i.pali_clean}.mp3")
@@ -297,7 +301,6 @@ def pali_row(dpspth, i: PaliWord, output="anki") -> List[str]:
 
     fields.extend([
         i.sbs.sbs_class if i.sbs else None,
-        date
     ])
     # Logic for chant links
     if i.sbs:
@@ -320,6 +323,11 @@ def pali_row(dpspth, i: PaliWord, output="anki") -> List[str]:
         fields.append(links[2])  # sbs_link_3
         fields.append(links[3])  # sbs_link_4
 
+    else:
+        links = ""
+        fields.append(links)
+
+
     # Logic for class links
 
     if i.sbs:
@@ -331,8 +339,10 @@ def pali_row(dpspth, i: PaliWord, output="anki") -> List[str]:
 
         # Assign the corresponding link from the map to class_link
         class_link = class_link_map.get(class_num, "")  # Default to empty string if the class number doesn't exist in the map
+    else:
+        class_link = ""
 
-        fields.append(class_link)
+    fields.append(class_link)
 
     # Logic for sutta links
 
@@ -346,9 +356,11 @@ def pali_row(dpspth, i: PaliWord, output="anki") -> List[str]:
         # Assign the corresponding link from the map to sutta_link
         sutta_link = sutta_link_map.get(sutta_num, "")  # Default to empty string if the sutta number doesn't exist in the map
 
-        fields.append(sutta_link)
+    else:
+        sutta_link = ""
 
-    
+    fields.append(sutta_link)
+
 
     return none_to_empty(fields)
 
@@ -371,7 +383,7 @@ def full_db(dpspth, dpd_db):
                     'antonym', 'synonym',
                     'variant',  'commentary',
                     'notes', 'sbs_notes', 'ru_notes', 'cognate', 'family_set', 'link', 'stem', 'pattern',
-                    'meaning_2', 'sbs_index', 'sbs_audio', 'sbs_class', 'test', "sbs_link_1", "sbs_link_2", "sbs_link_3", "sbs_link_4", "class_link", "sutta_link"]
+                    'meaning_2', 'test', 'sbs_index', 'sbs_audio', 'sbs_class', "sbs_link_1", "sbs_link_2", "sbs_link_3", "sbs_link_4", "class_link", "sutta_link"]
 
     rows.append(header)
 
