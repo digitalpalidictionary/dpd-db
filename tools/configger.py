@@ -80,15 +80,17 @@ def config_update(section: str, option: str, value) -> None:
         config.add_section(section)
         config.set(section, option, str(value))
     config_write()
-    print(f"[green]config setting updated: {section}, {option}, {value}")
+    print(f"[green]config setting updated: '{section}, {option}' is '{value}'")
 
 
 def config_test(section: str, option: str, value) -> bool:
     """Test config.ini to see if a section, option equals a value."""
     if config.has_section(section) and config.has_option(section, option):
+        current_value = config.get(section, option)
+        print(f"current config setting: '{section}, {option}' is '{current_value}'")
         return config.get(section, option) == str(value)
     else:
-        print(f"[yellow]unknown config setting: [brightyellow]{section}, {option}")
+        print(f"[yellow]unknown config setting: [brightyellow]'{section}, {option}'")
         config_update_default_value(section, option)
         return config.get(section, option, fallback='') == str(value)
 
@@ -99,7 +101,7 @@ def config_update_default_value(section: str, option: str) -> None:
         default_value = DEFAULT_CONFIG[section].get(option)
         config_update(section, option, default_value)
     else:
-        print(f"[red]Missing default value for option: [brightyellow]{section}, {option}")
+        print(f"[red]missing default value for option: [brightyellow]{section}, {option}")
 
 
 def config_test_section(section):
