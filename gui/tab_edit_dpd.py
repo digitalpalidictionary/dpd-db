@@ -150,7 +150,7 @@ Leave blank for other parts of speech.")),
         [
             sg.Text("meaning_1", size=(15, 2)),
             sg.Multiline(
-                key="meaning_1", size=(50, 2), no_scrollbar=True,
+                key="meaning_1", size=(49, 2), no_scrollbar=False,
                 enable_events=True,
                 tooltip="Primary meanings, seperated by ';'"),
             sg.Text(
@@ -306,8 +306,8 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
             sg.Text("construction*", size=(15, 2)),
             sg.Multiline(
                 key="construction",
-                no_scrollbar=True,
-                size=(50, 2),
+                no_scrollbar=False,
+                size=(49, 2),
                 enable_events=True,
                 tooltip="Construciton of the word, showing all phonetic change."),
             sg.Text(
@@ -353,7 +353,7 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
         [
             sg.Text("phonetic", size=(15, 1)),
             sg.Multiline(
-                key="phonetic", size=(50, 2), no_scrollbar=True,
+                key="phonetic", size=(49, 2), no_scrollbar=False,
                 tooltip="List of all phonetic changes"),
             sg.Text(
                 "", key="phonetic_error",
@@ -427,7 +427,7 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
         [
             sg.Text("commentary", size=(15, 5)),
             sg.Multiline(
-                key="commentary", size=(50, 5), no_scrollbar=True,
+                key="commentary", size=(49, 5), no_scrollbar=False,
                 tooltip="Add commentary definition"),
             sg.Text(
                 "", key="commentary_error", size=(50, 1), text_color="red")
@@ -451,7 +451,7 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
         [
             sg.Text("notes", size=(15, 1)),
             sg.Multiline(
-                key="notes", size=(50, 1), tooltip="Add additional notes"),
+                key="notes", size=(49, 1), tooltip="Add additional notes"),
             sg.Text(
                 "", key="notes_error", size=(50, 1), text_color="red")
         ],

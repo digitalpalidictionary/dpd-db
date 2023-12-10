@@ -10,8 +10,10 @@ from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.paths import ProjectPaths
 
+threshold=0.88
 
 def main():
+    print("[bright_yellow]find duplicate or similar examples")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(PaliWord).all()
@@ -26,13 +28,38 @@ def main():
 
             # test if similar
             elif paragraphs_are_similar(i.example_1, i.example_2):
-                print(i.pali_1, end=", ")
+                print()
+                print(f"{i.id:<10}{i.pali_1}")
+                print(f"[dark_green]{i.source_1} {i.sutta_1}")
+                print(f"[green]{i.example_1}")
+                print(f"[blue]{i.source_2} {i.sutta_2}")
+                print(f"[cyan]{i.example_2}")
                 pyperclip.copy(i.pali_1)
-                input()
+                user_input = input("Delete example2? ")
+                if user_input == "y":
+                    i = delete_example_2(i)
+                    db_session.commit()
+                if user_input == "s":
+                    i = swop_example_1_and_2(i)
+                    i = delete_example_2(i)
+                    db_session.commit()
+
+def delete_example_2(i):
+    i.source_2 = ""
+    i.sutta_2 = ""
+    i.example_2 = ""
+    return i
+
+def swop_example_1_and_2(i):
+    i.source_1 = i.source_2
+    i.sutta_1 = i.sutta_2
+    i.example_1 = i.example_2
+    return i
 
 
 
-def paragraphs_are_similar(paragraph1, paragraph2, threshold=0.8):
+
+def paragraphs_are_similar(paragraph1, paragraph2, threshold=threshold):
     matcher = SequenceMatcher(None, paragraph1, paragraph2)
     similarity_ratio = matcher.ratio()
     return similarity_ratio >= threshold
