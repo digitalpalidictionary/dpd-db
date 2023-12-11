@@ -308,6 +308,36 @@ KN
                 pad=((100, 0), (0, 0))
             ),
         ],
+        [
+            sg.Text(
+                "Added:", 
+                pad=((100, 0), (0, 0))
+            ),
+            sg.Text(
+                "0", key="daily_added",
+                text_color="white"
+            ),
+        ],
+        [
+            sg.Text(
+                "Edited: ",
+                pad=((100, 0), (0, 0))
+            ),
+            sg.Text(
+                "0", key="daily_edited",
+                text_color="white"
+            ),
+        ],
+        [
+            sg.Text(
+                "Deleted: ",
+                pad=((100, 0), (0, 0))
+            ),
+            sg.Text(
+                "0", key="daily_deleted",
+                text_color="white"
+            ),
+        ],
     ]
 
     return tab_add_next_word

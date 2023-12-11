@@ -24,7 +24,7 @@ from tools.meaning_construction import summarize_construction
 from tools.meaning_construction import degree_of_completion
 from tools.niggahitas import add_niggahitas
 from tools.pali_alphabet import pali_alphabet
-from tools.pali_sort_key import pali_sort_key, pali_list_sorter
+from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.sandhi_words import make_words_in_sandhi_set
 from tools.tic_toc import tic, toc
@@ -108,7 +108,7 @@ def render_xhtml():
     print("[green]creating entries")
     id_counter = 1
     for counter, i in enumerate(dpd_db):
-        inflections: set = dd_dict[i.id]
+        inflections: set = set(dd_dict[i.id])
         first_letter = find_first_letter(i.pali_1)
         entry = render_ebook_entry(pth, id_counter, i, inflections)
         letter_dict[first_letter] += [entry]

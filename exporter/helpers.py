@@ -1,12 +1,12 @@
 """A few helpful lists and functions for the exporter."""
 
-from typing import Dict, List, Set, Optional
+from typing import Dict, Set, Optional
 from datetime import date
 
 from sqlalchemy.orm import Session
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import PaliWord, FamilyCompound
 from tools.paths import ProjectPaths
 
 TODAY = date.today()
@@ -28,18 +28,11 @@ def cf_set_gen(pth: ProjectPaths) -> Set[str]:
         return _cached_cf_set
 
     db_session = get_db_session(pth.dpd_db_path)
-    cf_db = db_session.query(
-        PaliWord
-    ).filter(PaliWord.family_compound != ""
-             ).all()
+    cf_db = db_session.query(FamilyCompound).all()
 
     cf_set: Set[str] = set()
     for i in cf_db:
-        if i.family_compound is None:
-            continue
-        cfs: List[str] = i.family_compound.split(" ")
-        for cf in cfs:
-            cf_set.add(cf)
+        cf_set.add(i.compound_family)
 
     _cached_cf_set = cf_set
     return cf_set

@@ -67,6 +67,8 @@ from functions_tests import individual_internal_tests
 from functions_tests import open_internal_tests
 from functions_tests import db_internal_tests
 
+from functions_daily_record import daily_record_udpate
+
 from functions_dps import fetch_ru
 from functions_dps import fetch_sbs
 from functions_dps import dps_update_db
@@ -127,6 +129,7 @@ def main():
     username = test_username(sg)
     pali_word_original = None
     pali_word_original2 = None
+    
 
     # !!! FIXME this is supa slow !!!
     try:
@@ -140,6 +143,7 @@ def main():
     sandhi_dict = make_sandhi_contraction_dict(db_session)
     pali_clean_list: list = get_pali_clean_list(db_session)
     window = window_layout(dpspth, db_session, username)
+    daily_record_udpate(window, pth, "refresh", 0)
 
     # load the previously saved state of the gui
     try:
@@ -860,7 +864,7 @@ def main():
                 last_button = display_summary(values, window, sg, pali_word_original2)
                 if last_button == "ok_button":
                     success, action = udpate_word_in_db(
-                        db_session, window, values)
+                        pth, db_session, window, values)
                     if success:
                         clear_errors(window)
                         clear_values(values, window, username)
@@ -890,7 +894,7 @@ def main():
                 last_button = display_summary(values, window, sg, pali_word_original2)
                 if last_button == "ok_button":
                     success, action = udpate_word_in_db(
-                        db_session, window, values)
+                        pth, db_session, window, values)
                     if success:
                         compare_differences(pth, values, sg, pali_word_original2, action)
                         clear_errors(window)
@@ -971,7 +975,7 @@ def main():
                 location=(400, 400),
                 modal=True)
             if yes_no == "Yes":
-                success = delete_word(db_session, values, window)
+                success = delete_word(pth, db_session, values, window)
                 if success:
                     clear_errors(window)
                     clear_values(values, window, username)

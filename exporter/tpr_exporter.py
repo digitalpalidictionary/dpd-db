@@ -63,7 +63,7 @@ def generate_tpr_data(pth: ProjectPaths, db_session: Session, dpd_db, __all_head
             print(f"{counter:>10,} / {dpd_length:<10,}{i.pali_1:<10}")
 
         # headword
-        html_string = render_dpd_definition_templ(pth, i, dpd_definition_templ)
+        html_string = render_dpd_definition_templ(pth, i, False, dpd_definition_templ)
         html_string = html_string.replace("\n", "").replace("    ", "")
         html_string = re.sub("""<span class\\='g.+span>""", "", html_string)
 
@@ -423,7 +423,7 @@ def copy_zip_to_tpr_downloads(pth: ProjectPaths):
                 "size": f"{filesize} MB"
             }
 
-            download_list[5] = dpd_info
+            download_list[6] = dpd_info
 
         if version == "beta":
             print("[green]upating beta version")
@@ -441,7 +441,7 @@ def copy_zip_to_tpr_downloads(pth: ProjectPaths):
                 "size": f"{filesize} MB"
             }
 
-            download_list[14] = dpd_beta_info
+            download_list[15] = dpd_beta_info
 
         with open(pth.tpr_download_list_path, "w") as f:
             f.write(json.dumps(download_list, indent=4, ensure_ascii=False))

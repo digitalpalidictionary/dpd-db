@@ -156,6 +156,7 @@ class ProjectPaths:
         self.stash_dir = base_dir.joinpath(Path("gui/stash/"))
         self.stash_path = base_dir.joinpath(Path("gui/stash/stash"))
         self.save_state_path = base_dir.joinpath(Path("gui/stash/gui_state"))
+        self.daily_record_path = base_dir.joinpath(Path("gui/stash/daily_record"))
 
         # /icon
         self.icon_path = base_dir.joinpath(Path("icon/favicon.ico"))
