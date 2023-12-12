@@ -1,6 +1,6 @@
 initial	final	correct	wrong	without	exceptions
 
--
+
 a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant
 a + ṭ	iṭ	a > i	x	a + ṭh	x
 a + ṭh	iṭṭh	a > i	x	x	x	

@@ -11,7 +11,7 @@ from tools.tic_toc import tic, toc
 
 def main():
     tic()
-    print("[bright yellow] rezipping goldendict and mdict")
+    print("[bright_yellow] rezipping goldendict and mdict")
     pth = ProjectPaths()
     rezip_goldendict(pth)
     rezip_mdict(pth)

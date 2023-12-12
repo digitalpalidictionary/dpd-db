@@ -10,7 +10,7 @@ from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.paths import ProjectPaths
 
-threshold=0.88
+threshold=0.84
 
 def main():
     print("[bright_yellow]find duplicate or similar examples")
@@ -35,14 +35,16 @@ def main():
                 print(f"[blue]{i.source_2} {i.sutta_2}")
                 print(f"[cyan]{i.example_2}")
                 pyperclip.copy(i.pali_1)
-                user_input = input("Delete example2? ")
-                if user_input == "y":
+                user_input = input("d=delete, s=swap ")
+                if user_input == "d":
                     i = delete_example_2(i)
                     db_session.commit()
-                if user_input == "s":
+                    print("[red]example_2 deleted")
+                elif user_input == "s":
                     i = swop_example_1_and_2(i)
                     i = delete_example_2(i)
                     db_session.commit()
+                    print("[red]example_2 swapped")
 
 def delete_example_2(i):
     i.source_2 = ""
