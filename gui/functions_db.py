@@ -7,7 +7,7 @@ from sqlalchemy import or_
 from typing import Optional, Tuple
 
 from db.models import PaliWord, PaliRoot, InflectionTemplates, DerivedData
-from functions_daily_record import daily_record_udpate
+from functions_daily_record import daily_record_update
 
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
@@ -134,7 +134,7 @@ def udpate_word_in_db(
             window["messages"].update(
                 f"'{values['pali_1']}' added to db",
                 text_color="white")
-            daily_record_udpate(window, pth, "add", word_id)
+            daily_record_update(window, pth, "add", word_id)
             return True, "added"
 
         except Exception as e:
@@ -153,7 +153,7 @@ def udpate_word_in_db(
             window["messages"].update(
                 f"'{values['pali_1']}' updated in db",
                 text_color="white")
-            daily_record_udpate(window, pth, "edit", word_id)
+            daily_record_update(window, pth, "edit", word_id)
             return True, "updated"
 
         except Exception as e:
@@ -450,10 +450,10 @@ def get_pali_clean_list(db_session):
 
 def delete_word(pth, db_session, values, window):
     try:
-        row_id = values["id"]
-        db_session.query(PaliWord).filter(row_id == PaliWord.id).delete()
+        word_id = values["id"]
+        db_session.query(PaliWord).filter(word_id == PaliWord.id).delete()
         db_session.commit()
-        daily_record_udpate(window, pth, "delete", row_id)
+        daily_record_update(window, pth, "delete", word_id)
         return True
     except Exception as e:
         window["messages"].update(e, text_color="red")

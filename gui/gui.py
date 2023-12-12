@@ -67,7 +67,7 @@ from functions_tests import individual_internal_tests
 from functions_tests import open_internal_tests
 from functions_tests import db_internal_tests
 
-from functions_daily_record import daily_record_udpate
+from functions_daily_record import daily_record_update
 
 from functions_dps import fetch_ru
 from functions_dps import fetch_sbs
@@ -143,7 +143,7 @@ def main():
     sandhi_dict = make_sandhi_contraction_dict(db_session)
     pali_clean_list: list = get_pali_clean_list(db_session)
     window = window_layout(dpspth, db_session, username)
-    daily_record_udpate(window, pth, "refresh", 0)
+    daily_record_update(window, pth, "refresh", 0)
 
     # load the previously saved state of the gui
     try:

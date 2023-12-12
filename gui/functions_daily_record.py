@@ -34,7 +34,7 @@ def daily_record_add_date(daily_record: dict, date: str) -> dict:
     return daily_record
 
 
-def daily_record_udpate(window,
+def daily_record_update(window,
                         pth:ProjectPaths,
                         action: str,
                         word_id: int):
