@@ -423,30 +423,30 @@ def dps_db_internal_tests(dpspth, pth, db_session, sg, window, flags_dps):
             add_exceptions_list = fail_list_redux
             db_query = regex_fail_list(fail_list_redux)
             window["dps_test_name"].update(t.test_name)
-            window["dps_search_column_1"].update(t.search_column_1)
-            window["dps_search_column_2"].update(t.search_column_2)
-            window["dps_search_column_3"].update(t.search_column_3)
-            window["dps_search_column_4"].update(t.search_column_4)
-            window["dps_search_column_5"].update(t.search_column_5)
-            window["dps_search_column_6"].update(t.search_column_6)
-            window["dps_search_sign_1"].update(t.search_sign_1)
-            window["dps_search_sign_2"].update(t.search_sign_2)
-            window["dps_search_sign_3"].update(t.search_sign_3)
-            window["dps_search_sign_4"].update(t.search_sign_4)
-            window["dps_search_sign_5"].update(t.search_sign_5)
-            window["dps_search_sign_6"].update(t.search_sign_6)
-            window["dps_search_string_1"].update(t.search_string_1)
-            window["dps_search_string_2"].update(t.search_string_2)
-            window["dps_search_string_3"].update(t.search_string_3)
-            window["dps_search_string_4"].update(t.search_string_4)
-            window["dps_search_string_5"].update(t.search_string_5)
-            window["dps_search_string_6"].update(t.search_string_6)
-            window["dps_display_1"].update(t.display_1)
-            window["dps_display_2"].update(t.display_2)
-            window["dps_display_3"].update(t.display_3)
-            window["dps_error_column"].update(t.error_column)
-            window["dps_iterations"].update(t.iterations)
-            window["dps_exceptions"].update(values=t.exceptions)
+            window["dps_test_search_column_1"].update(t.search_column_1)
+            window["dps_test_search_column_2"].update(t.search_column_2)
+            window["dps_test_search_column_3"].update(t.search_column_3)
+            window["dps_test_search_column_4"].update(t.search_column_4)
+            window["dps_test_search_column_5"].update(t.search_column_5)
+            window["dps_test_search_column_6"].update(t.search_column_6)
+            window["dps_test_search_sign_1"].update(t.search_sign_1)
+            window["dps_test_search_sign_2"].update(t.search_sign_2)
+            window["dps_test_search_sign_3"].update(t.search_sign_3)
+            window["dps_test_search_sign_4"].update(t.search_sign_4)
+            window["dps_test_search_sign_5"].update(t.search_sign_5)
+            window["dps_test_search_sign_6"].update(t.search_sign_6)
+            window["dps_test_search_string_1"].update(t.search_string_1)
+            window["dps_test_search_string_2"].update(t.search_string_2)
+            window["dps_test_search_string_3"].update(t.search_string_3)
+            window["dps_test_search_string_4"].update(t.search_string_4)
+            window["dps_test_search_string_5"].update(t.search_string_5)
+            window["dps_test_search_string_6"].update(t.search_string_6)
+            window["dps_test_display_1"].update(t.display_1)
+            window["dps_test_display_2"].update(t.display_2)
+            window["dps_test_display_3"].update(t.display_3)
+            window["dps_test_error_column"].update(t.error_column)
+            window["dps_test_iterations"].update(t.iterations)
+            window["dps_test_exceptions"].update(values=t.exceptions)
             window["dps_test_results_redux"].update(len(fail_list_redux))
             window["dps_test_results_total"].update(len(fail_list))
             window["dps_test_results"].update(test_results_display)
@@ -539,34 +539,34 @@ def dps_db_internal_tests(dpspth, pth, db_session, sg, window, flags_dps):
 def update_tests(dpspth, internal_tests_list, count, values):
 
     internal_tests_list[count].test_name = values["dps_test_name"]
-    internal_tests_list[count].search_column_1 = values["dps_search_column_1"]
-    internal_tests_list[count].search_column_2 = values["dps_search_column_2"]
-    internal_tests_list[count].search_column_3 = values["dps_search_column_3"]
-    internal_tests_list[count].search_column_4 = values["dps_search_column_4"]
-    internal_tests_list[count].search_column_5 = values["dps_search_column_5"]
-    internal_tests_list[count].search_column_6 = values["dps_search_column_6"]
+    internal_tests_list[count].search_column_1 = values["dps_test_search_column_1"]
+    internal_tests_list[count].search_column_2 = values["dps_test_search_column_2"]
+    internal_tests_list[count].search_column_3 = values["dps_test_search_column_3"]
+    internal_tests_list[count].search_column_4 = values["dps_test_search_column_4"]
+    internal_tests_list[count].search_column_5 = values["dps_test_search_column_5"]
+    internal_tests_list[count].search_column_6 = values["dps_test_search_column_6"]
 
-    internal_tests_list[count].search_sign_1 = values["dps_search_sign_1"]
-    internal_tests_list[count].search_sign_2 = values["dps_search_sign_2"]
-    internal_tests_list[count].search_sign_3 = values["dps_search_sign_3"]
-    internal_tests_list[count].search_sign_4 = values["dps_search_sign_4"]
-    internal_tests_list[count].search_sign_5 = values["dps_search_sign_5"]
-    internal_tests_list[count].search_sign_6 = values["dps_search_sign_6"]
+    internal_tests_list[count].search_sign_1 = values["dps_test_search_sign_1"]
+    internal_tests_list[count].search_sign_2 = values["dps_test_search_sign_2"]
+    internal_tests_list[count].search_sign_3 = values["dps_test_search_sign_3"]
+    internal_tests_list[count].search_sign_4 = values["dps_test_search_sign_4"]
+    internal_tests_list[count].search_sign_5 = values["dps_test_search_sign_5"]
+    internal_tests_list[count].search_sign_6 = values["dps_test_search_sign_6"]
 
-    internal_tests_list[count].search_string_1 = values["dps_search_string_1"]
-    internal_tests_list[count].search_string_2 = values["dps_search_string_2"]
-    internal_tests_list[count].search_string_3 = values["dps_search_string_3"]
-    internal_tests_list[count].search_string_4 = values["dps_search_string_4"]
-    internal_tests_list[count].search_string_5 = values["dps_search_string_5"]
-    internal_tests_list[count].search_string_6 = values["dps_search_string_6"]
+    internal_tests_list[count].search_string_1 = values["dps_test_search_string_1"]
+    internal_tests_list[count].search_string_2 = values["dps_test_search_string_2"]
+    internal_tests_list[count].search_string_3 = values["dps_test_search_string_3"]
+    internal_tests_list[count].search_string_4 = values["dps_test_search_string_4"]
+    internal_tests_list[count].search_string_5 = values["dps_test_search_string_5"]
+    internal_tests_list[count].search_string_6 = values["dps_test_search_string_6"]
 
-    internal_tests_list[count].error_column = values["dps_error_column"]
-    internal_tests_list[count].exceptions = values["dps_exceptions"]
-    internal_tests_list[count].iterations = values["dps_iterations"]
+    internal_tests_list[count].error_column = values["dps_test_error_column"]
+    internal_tests_list[count].exceptions = values["dps_test_exceptions"]
+    internal_tests_list[count].iterations = values["dps_test_iterations"]
 
-    internal_tests_list[count].display_1 = values["dps_display_1"]
-    internal_tests_list[count].display_2 = values["dps_display_2"]
-    internal_tests_list[count].display_3 = values["dps_display_3"]
+    internal_tests_list[count].display_1 = values["dps_test_display_1"]
+    internal_tests_list[count].display_2 = values["dps_test_display_2"]
+    internal_tests_list[count].display_3 = values["dps_test_display_3"]
 
     write_internal_tests_list(dpspth, internal_tests_list)
 
@@ -575,30 +575,30 @@ def make_new_test_row(v):
 
     return InternalTestRow(
         test_name=v["dps_test_name"],
-        search_column_1=v["dps_search_column_1"],
-        search_sign_1=v["dps_search_sign_1"],
-        search_string_1=v["dps_search_string_1"],
-        search_column_2=v["dps_search_column_2"],
-        search_sign_2=v["dps_search_sign_2"],
-        search_string_2=v["dps_search_string_2"],
-        search_column_3=v["dps_search_column_3"],
-        search_sign_3=v["dps_search_sign_3"],
-        search_string_3=v["dps_search_string_3"],
-        search_column_4=v["dps_search_column_4"],
-        search_sign_4=v["dps_search_sign_4"],
-        search_string_4=v["dps_search_string_4"],
-        search_column_5=v["dps_search_column_5"],
-        search_sign_5=v["dps_search_sign_5"],
-        search_string_5=v["dps_search_string_5"],
-        search_column_6=v["dps_search_column_6"],
-        search_sign_6=v["dps_search_sign_6"],
-        search_string_6=v["dps_search_string_6"],
-        error_column=v["dps_error_column"],
-        display_1=v["dps_display_1"],
-        display_2=v["dps_display_2"],
-        display_3=v["dps_display_3"],
+        search_column_1=v["dps_test_search_column_1"],
+        search_sign_1=v["dps_test_search_sign_1"],
+        search_string_1=v["dps_test_search_string_1"],
+        search_column_2=v["dps_test_search_column_2"],
+        search_sign_2=v["dps_test_search_sign_2"],
+        search_string_2=v["dps_test_search_string_2"],
+        search_column_3=v["dps_test_search_column_3"],
+        search_sign_3=v["dps_test_search_sign_3"],
+        search_string_3=v["dps_test_search_string_3"],
+        search_column_4=v["dps_test_search_column_4"],
+        search_sign_4=v["dps_test_search_sign_4"],
+        search_string_4=v["dps_test_search_string_4"],
+        search_column_5=v["dps_test_search_column_5"],
+        search_sign_5=v["dps_test_search_sign_5"],
+        search_string_5=v["dps_test_search_string_5"],
+        search_column_6=v["dps_test_search_column_6"],
+        search_sign_6=v["dps_test_search_sign_6"],
+        search_string_6=v["dps_test_search_string_6"],
+        error_column=v["dps_test_error_column"],
+        display_1=v["dps_test_display_1"],
+        display_2=v["dps_test_display_2"],
+        display_3=v["dps_test_display_3"],
         exceptions=[],
-        iterations=v["dps_iterations"]
+        iterations=v["dps_test_iterations"]
     )
 
 
@@ -606,15 +606,15 @@ def clear_tests(window):
 
     test_fields = [
         "dps_test_name",
-        "dps_search_column_1", "dps_search_column_2", "dps_search_column_3",
-        "dps_search_column_4", "dps_search_column_5", "dps_search_column_6",
-        "dps_search_sign_1", "dps_search_sign_2", "dps_search_sign_3",
-        "dps_search_sign_4", "dps_search_sign_5", "dps_search_sign_6",
-        "dps_search_string_1", "dps_search_string_2", "dps_search_string_3",
-        "dps_search_string_4", "dps_search_string_5", "dps_search_string_6",
-        "dps_display_1", "dps_display_2", "dps_display_3",
-        "dps_error_column",
-        "dps_iterations", "dps_exceptions",
+        "dps_test_search_column_1", "dps_test_search_column_2", "dps_test_search_column_3",
+        "dps_test_search_column_4", "dps_test_search_column_5", "dps_test_search_column_6",
+        "dps_test_search_sign_1", "dps_test_search_sign_2", "dps_test_search_sign_3",
+        "dps_test_search_sign_4", "dps_test_search_sign_5", "dps_test_search_sign_6",
+        "dps_test_search_string_1", "dps_test_search_string_2", "dps_test_search_string_3",
+        "dps_test_search_string_4", "dps_test_search_string_5", "dps_test_search_string_6",
+        "dps_test_display_1", "dps_test_display_2", "dps_test_display_3",
+        "dps_test_error_column",
+        "dps_test_iterations", "dps_test_exceptions",
         "dps_test_results_redux", "dps_test_results_total",
         "dps_test_results", "dps_test_add_exception", "dps_test_db_query"]
 

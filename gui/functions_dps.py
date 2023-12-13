@@ -248,7 +248,7 @@ def dps_get_original_values(values, dpd_word, ru_word, sbs_word):
 def clear_dps(values, window):
     """Clear all value from DPS tab."""
     for value in values:
-        if value.startswith("dps_"):
+        if value.startswith("dps_") and not value.startswith("dps_test_"):
             window[value].update("")
 
 
