@@ -93,7 +93,7 @@ def make_tab_edit_dps(dpspth, sg):
             sg.Text("suggestion", size=(15, 1)),
             sg.Multiline(
                 key="dps_ru_online_suggestion",
-                size=(50, 2),
+                size=(50, 3),
                 enable_events=True,
                 background_color=dpd_background),
         ],

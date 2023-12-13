@@ -32,6 +32,8 @@ from functions import make_sp_mistakes_list
 from functions import make_sandhi_ok_list
 from functions import make_variant_list
 
+from functions_daily_record import daily_record_update
+
 from rich import print
 from sqlalchemy import or_
 from sqlalchemy.orm import joinedload
@@ -1107,9 +1109,10 @@ def fetch_sbs(db_session, id: int) -> Optional[SBS]:
 
 
 def dps_update_db(
-    db_session, values, window, dpd_word, ru_word, sbs_word) -> None:
+    pth, db_session, values, window, dpd_word, ru_word, sbs_word) -> None:
     """Update Russian and SBS tables with DPS edits."""
     merge = None
+    word_id = values["dps_dpd_id"]
     if not ru_word:
         merge = True
         ru_word = Russian(id=dpd_word.id)
@@ -1137,6 +1140,7 @@ def dps_update_db(
     window["messages"].update(
     f"'{values['dps_id_or_pali_1']}' updated in db",
     text_color="Lime")
+    daily_record_update(window, pth, "edit", word_id)
 
 
 def dps_get_synonyms(db_session, pos: str, string_of_meanings: str, window, error_field) -> Optional[str]:

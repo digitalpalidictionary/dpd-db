@@ -1819,7 +1819,7 @@ def main():
                     last_button = display_dps_summary(values, window, sg, original_values)
                     if last_button == "dps_ok_button":
                         open_in_goldendict(values["dps_id_or_pali_1"])
-                        dps_update_db(db_session, values, window, dpd_word, ru_word, sbs_word)
+                        dps_update_db(pth, db_session, values, window, dpd_word, ru_word, sbs_word)
                         clear_dps(values, window)
                         clear_errors(window)
                         dps_reset_flags(dps_flags)

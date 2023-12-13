@@ -1,6 +1,9 @@
 """A Pickle file reader and editor."""
 
 import pickle
+from tools.paths import ProjectPaths
+
+pth = ProjectPaths()
 
 def load_pickled_data(filepath):
     """Load data from a pickled file."""
@@ -10,8 +13,7 @@ def load_pickled_data(filepath):
 
 def print_values(data):
     """Print the values in the loaded data."""
-    for item in data:
-        print(item)
+    print(data)
 
 def print_values_with_row_numbers(data):
     """Print the values in the loaded data along with their row numbers."""
@@ -34,10 +36,14 @@ def save_modified_data(data, filepath):
         pickle.dump(data, file)
 
 # usage
-filepath = "gui/additions"
+filepath = pth.daily_record_path
+
+# additions_pickle_path
+# daily_record_path
+
 data = load_pickled_data(filepath)
-# print_values(data)
-print_values_with_row_numbers(data)
+print_values(data)
+# print_values_with_row_numbers(data)
 
 # index_to_remove = 9  # Replace this with the actual index you want to remove
 # if remove_row(data, index_to_remove):
