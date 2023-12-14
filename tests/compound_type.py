@@ -75,8 +75,10 @@ def main():
 			if re.findall(pattern, search_in):
 				search_list += [i.pali_1]
 				meaning = make_meaning(i)
-				printer(i, meaning)
 				i_counter += 1
+				pyperclip.copy(i.pali_1)
+				printer(i, meaning)
+				input()
 
 		if search_list:
 			print(i_counter)

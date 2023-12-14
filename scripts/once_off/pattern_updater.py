@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Quick starter template for getting a database session and iterating thru."""
+"""Update the pattern with a new one."""
 
 from rich import print
 

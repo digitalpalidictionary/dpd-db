@@ -193,9 +193,12 @@ def copy_word_from_db(db_session, values, window):
 
     else:
         exceptions = [
-            "id", "pali_1", "pali_2", "origin", "source_1",
-            "sutta_1", "example_1", "source_2", "sutta_2", "example_2",
-            "commentary", "meaning_2"
+            "id", "pali_1", "pali_2",
+            "antonym", "synonym", "variant", 
+            "source_1", "sutta_1", "example_1",
+            "source_2", "sutta_2", "example_2",
+            "commentary", "meaning_2",
+            "origin",
         ]
 
         attrs = pali_word.__dict__

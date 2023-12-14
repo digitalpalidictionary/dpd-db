@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Quick starter template for getting a database session and iterating thru."""
+"""Find a specific inflection in the derivated_data table."""
 
 import re
 from rich import print

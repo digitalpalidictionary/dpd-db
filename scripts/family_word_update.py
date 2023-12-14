@@ -19,8 +19,8 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(PaliWord).all()
 
-    find: str = "khattiya"
-    replace: str = "khatta"
+    find: str = "rudhira"
+    replace: str = "rudh"
 
     for i in db:
         if re.findall(fr"\b{find}\b", str(i.family_word)):

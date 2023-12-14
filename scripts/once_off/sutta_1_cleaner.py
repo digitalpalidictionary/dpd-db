@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Quick starter template for getting a database session and iterating thru."""
+"""Cleanup sutta_1"""
 
 from rich import print
 

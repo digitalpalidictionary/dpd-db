@@ -1,6 +1,7 @@
 initial	final	correct	wrong	without	exceptions
+u + i	vay	uay > vay	x	x	x
 
-
+-
 a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant
 a + ṭ	iṭ	a > i	x	a + ṭh	x
 a + ṭh	iṭṭh	a > i	x	x	x	
@@ -15,6 +16,7 @@ xaṃ + a	ā	aṃa > ā	x	ā	x	need more exclusions
 xā + t	att	āt > att	x	 tta, ā + th	atthacariyatā, nakkhattavijjātiracchānavijjā, vatthuvijjātiracchānavijjā, hatthaoṭṭhajivhātālu, atta 2.1, atta 2.2
 ā + th	atth	āth > atth	x	x	x
 ā + b	abb	āb > abb	x	v	abbheti, abbhetabba, anabbhita, sabbābhiññābalappatta
+ā + s	ass	ās > ass	x	ass	x
 ānaṃ	annaṃ	ān > ann	x	x	x
 
 i + u	ū	iu > ū	x	ū	payirūpāsanā
@@ -34,6 +36,7 @@ u + i + y	by	vy > by	x	x	x
 uṭ	oṭ	u > o	x	x	x
 
 xū + a	av	ū > av	x	x	x	so many exceptions
+ūy	ubb	ūy > ūv > uvv > ubb	x	x	x
 
 e + a	aya	e > ay	x	x	x
 
@@ -160,6 +163,7 @@ h + t	ḷh	ht > ḍh > ḷh (metathesis)	t > ḍ > ḷ	x	x
 h + y	yh	hy > yh (metathesis)	hy > yh	x	x
 
 ṃ + a	ma	ṃa > ma	ṃ > m	x	bahulīmakasi
+ṃ + ava	mo	ṃo > mo	ṃ > m	x	x
 ṃ + ā	mā	ṃā > mā	ṃ > m	x	x
 ṃ + i	mi	ṃi > mi	ṃ > m	x	x
 ṃ + ī	mī	ṃī > mī	ṃ > m	x	x
