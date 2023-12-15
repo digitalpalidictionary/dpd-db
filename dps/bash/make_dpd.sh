@@ -19,7 +19,7 @@ sandhi/sandhi_splitter.py
 sandhi/sandhi_postprocess.py
 
 inflections/inflections_to_headwords.py
-grammar_dict/grammar_dict.py
+# grammar_dict/grammar_dict.py
 
 families/root_family.py
 families/word_family.py
@@ -35,7 +35,7 @@ dps/scripts/sbs_chapter_flag.py
 dps/scripts/add_combined_view.py
 
 exporter/exporter.py
-exporter/tpr_exporter.py
+# exporter/tpr_exporter.py
 # exporter/deconstructor_exporter.py
 
 # ebook/ebook_exporter.py
@@ -44,5 +44,6 @@ exporter/tpr_exporter.py
 # dps/scripts/anki_csvs.py
 
 # dps/scripts/unzip_dpd.py
+dps/scripts/move_mdict.py
 
 echo "------ generate DPD for GoldenDict Finished at $(date) ------"

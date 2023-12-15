@@ -5,6 +5,7 @@
 from datetime import date
 from zipfile import ZipFile
 import os
+import shutil
 
 today = date.today()
 
@@ -44,28 +45,31 @@ dpd_kindle_mobi_dest = os.path.join(software_dir, 'dpd-kindle.mobi')
 dpd_goldendict_src = os.path.join(downloads_dir, 'dpd-goldendict.zip')
 dpd_mdict_src = os.path.join(downloads_dir, 'dpd-mdict.zip')
 
-# Unzip dpd_goldendict to the specified directory
-with ZipFile(dpd_goldendict_src, 'r') as zipObj:
-   # Extract all the contents of zip file in current directory
-   zipObj.extractall(gd_dir)
+if os.path.exists(dpd_goldendict_src):
 
-# Print completion message in green color
-print("\033[1;32m dpd_goldendict.zip has been unpacked to the server folder \033[0m")
+   # Unzip dpd_goldendict to the specified directory
+   with ZipFile(dpd_goldendict_src, 'r') as zipObj:
+      # Extract all the contents of zip file in current directory
+      zipObj.extractall(gd_dir)
 
-# Unzip dpd_mdict to the specified directory
-with ZipFile(dpd_mdict_src, 'r') as zipObj:
-   # Extract all the contents of zip file in current directory
-   zipObj.extractall(md_dir)
+   # Print completion message in green color
+   print("\033[1;32m dpd_goldendict.zip has been unpacked to the server folder \033[0m")
 
-# Print completion message in green color
-print("\033[1;32m dpd_mdict.zip has been unpacked to the server folder \033[0m")
+if os.path.exists(dpd_mdict_src):
+   # Unzip dpd_mdict to the specified directory
+   with ZipFile(dpd_mdict_src, 'r') as zipObj:
+      # Extract all the contents of zip file in current directory
+      zipObj.extractall(md_dir)
 
-# Copy dpd-kindle.mobi to the specified directory
-with open(dpd_kindle_mobi_src, 'rb') as src_file, open(dpd_kindle_mobi_dest, 'wb') as dest_file:
-    dest_file.write(src_file.read())
+   # Print completion message in green color
+   print("\033[1;32m dpd_mdict.zip has been unpacked to the server folder \033[0m")
 
-# Print completion message for copying the file in green color
-print("\033[1;32m dpd-kindle.mobi has been copied to the server folder \033[0m")
+# Move dpd-kindle.mobi to the specified directory
+if os.path.exists(dpd_kindle_mobi_src):
+   shutil.move(dpd_kindle_mobi_src, dpd_kindle_mobi_dest)
+   print("\033[1;32m dpd_kindle moved to Sync folder \033[0m")
+else:
+   print("\033[1;31m dpd_kindle is missing. Cannot proceed with moving. \033[0m")
 
 
 

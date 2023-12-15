@@ -37,16 +37,16 @@ def main():
                             if example1 == example2 or paragraphs_are_similar(example1, example2):
                                 ids_to_save.add(i.id)
 
-    with open(dpspth.id_to_add_path, 'w', newline='') as csvfile:
+    with open(dpspth.id_temp_list_path, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         for _id in ids_to_save:
             writer.writerow([_id])
 
     # Counting rows in the CSV file
-    with open(dpspth.id_to_add_path, 'r', newline='') as csvfile:
+    with open(dpspth.id_temp_list_path, 'r', newline='') as csvfile:
         row_count = sum(1 for row in csvfile)
 
-    console.print(f"[bold green]IDs written to {dpspth.id_to_add_path}")
+    console.print(f"[bold green]IDs written to {dpspth.id_temp_list_path}")
     console.print(f"[bold cyan]Number of rows of unique IDs extracted: {row_count}")
 
     toc()

@@ -37,12 +37,14 @@ share_dir = os.path.join(
 
 dpd_goldendict_src = os.path.join(share_dir, 'dpd.zip')
 
-# Unzip dpd_goldendict to the specified directory
-with ZipFile(dpd_goldendict_src, 'r') as zipObj:
-   # Extract all the contents of zip file in current directory
-   zipObj.extractall(software_dir)
 
-# Print completion message in green color
-print("\033[1;32m dpd.zip has been unpacked to the server folder \033[0m")
+if os.path.exists(dpd_goldendict_src):
+   # Unzip dpd_goldendict to the specified directory
+   with ZipFile(dpd_goldendict_src, 'r') as zipObj:
+      # Extract all the contents of zip file in current directory
+      zipObj.extractall(software_dir)
+
+   # Print completion message in green color
+   print("\033[1;32m dpd.zip has been unpacked to the server folder \033[0m")
 
 

@@ -36,14 +36,14 @@ def save_modified_data(data, filepath):
         pickle.dump(data, file)
 
 # usage
-filepath = pth.daily_record_path
+filepath = pth.additions_pickle_path
 
 # additions_pickle_path
 # daily_record_path
 
 data = load_pickled_data(filepath)
-print_values(data)
-# print_values_with_row_numbers(data)
+# print_values(data)
+print_values_with_row_numbers(data)
 
 # index_to_remove = 9  # Replace this with the actual index you want to remove
 # if remove_row(data, index_to_remove):
