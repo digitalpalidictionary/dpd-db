@@ -40,7 +40,8 @@ DEFAULT_CONFIG = {
     "dictionary": {
         "make_mdict": "yes",
         "link_url": "https://www.thebuddhaswords.net/",
-        "make_link": "no"
+        "make_link": "no",
+        "extended_synonyms": "no"
     },
     "openia": {
         "key": ""

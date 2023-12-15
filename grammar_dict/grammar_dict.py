@@ -10,7 +10,7 @@ import sys
 from functools import reduce
 from json import loads
 from mako.template import Template
-from os import popen
+from subprocess import Popen, PIPE
 from pathlib import Path
 from rich import print
 from typing import List
@@ -28,7 +28,20 @@ from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.configger import config_test
 from tools.writemdict.writemdict import MDictWriter
 
+# from exporter.export_dpd import render_header_templ
+from css_html_js_minify import css_minify, js_minify
+
 sys.path.insert(1, 'tools/writemdict')
+
+def render_header_templ(
+        __pth__: ProjectPaths,
+        css: str,
+        js: str,
+        header_templ: Template
+) -> str:
+    """render the html header with css and js"""
+
+    return str(header_templ.render(css=css, js=js))
 
 def main():
     tic()
@@ -59,9 +72,9 @@ def main():
 
     nouns = ["fem", "masc", "nt", ]
     verbs = ["aor", "cond", "fut", "imp", "imperf", "opt", "perf", "pr"]
-    indeclineables = ["abbrev", "abs", "ger", "ind", "inf", "prefix"]
-    others = ["cs", "adj", "card", "letter", "ordin", "ordinal", "pp",
-        "pron", "prp", "ptp", "root", "sandhi", "suffix", "var", "ve"]
+    # indeclineables = ["abbrev", "abs", "ger", "ind", "inf", "prefix"]
+    # others = ["cs", "adj", "card", "letter", "ordin", "ordinal", "pp",
+    #     "pron", "prp", "ptp", "root", "sandhi", "suffix", "var", "ve"]
 
     # modfiy parts of speech
     for i in db:
@@ -106,13 +119,22 @@ def main():
 
     with open(pth.grammar_css_path) as f:
         grammar_css = f.read()
+    grammar_css = css_minify(grammar_css)
+
+    with open(pth.sorter_js_path) as f:
+        sorter_js = f.read()
+    sorter_js = js_minify(sorter_js)
 
     header_templ = Template(filename=str(pth.header_grammar_dict_templ_path))
 
-    html_header = str(header_templ.render(css=grammar_css))
+    html_header = render_header_templ(
+        pth, css=grammar_css, js=sorter_js, header_templ=header_templ)
 
     html_header += "<body><div class='grammar_dict'><table class='grammar_dict'>"
-    html_table_header = "<div class='dpd_grammar'><table class='dpd_grammar'>"
+
+    html_table_header = "<body><div class='grammar_dict'><table class='grammar_dict'>"
+
+    html_header += "<thead><tr><th id='col1'>pos &#x2195;</th><th id='col2'>grammar &#x2195;</th><th id='col5'></th><th id='col6'>word &#x2195;</th></tr></thead><tbody>"
 
     for counter, i in enumerate(db):
         # words with ! in stem must get inflection table but no synonsyms
@@ -160,54 +182,56 @@ def main():
                 InflectionTemplates.pattern == i.pattern
             ).first()
 
-            template_data = loads(template.data)
+            if template is not None:
+                template_data = loads(template.data)
+                
+                # data is a nest of lists
+                # list[] table
+                # list[[]] row
+                # list[[[]]] cell
+                # row 0 is the top header
+                # column 0 is the grammar header
+                # odd rows > 0 are inflections
+                # even rows > 0 are grammar info
 
-            # data is a nest of lists
-            # list[] table
-            # list[[]] row
-            # list[[[]]] cell
-            # row 0 is the top header
-            # column 0 is the grammar header
-            # odd rows > 0 are inflections
-            # even rows > 0 are grammar info
+                for row_number, row_data in enumerate(template_data):
 
-            for row_number, row_data in enumerate(template_data):
+                    for column_number, cell_data in enumerate(row_data):
 
-                for column_number, cell_data in enumerate(row_data):
+                        if (row_number > 0 and
+                            column_number % 2 == 1 and
+                                column_number > 0):
+                            grammar: str = [row_data[column_number+1]][0][0]
 
-                    if (row_number > 0 and
-                        column_number % 2 == 1 and
-                            column_number > 0):
-                        grammar: str = [row_data[column_number+1]][0][0]
+                            for inflection in cell_data:
+                                if inflection:
+                                    inflected_word = f"{i.stem}{inflection}"
+                                    if inflected_word in all_words_set:
 
-                        for inflection in cell_data:
-                            if inflection:
-                                inflected_word = f"{i.stem}{inflection}"
-                                if inflected_word in all_words_set:
+                                        data_line = (i.pali_1, i.pos, grammar)
+                                        html_line = "<tr>"
+                                        html_line += f"<td><b>{i.pos}</b></td>"
+                                        html_line += f"<td>{grammar}</td>"
+                                        html_line += "<td>of</td>"
+                                        html_line += f"<td>{i.pali_clean}</td>"
+                                        html_line += "</tr>"
 
-                                    data_line = (i.pali_1, i.pos, grammar)
-                                    html_line = "<tr>"
-                                    html_line += f"<td><b>{i.pos}</b></td>"
-                                    html_line += f"<td>{grammar}</td>"
-                                    html_line += "<td>of</td>"
-                                    html_line += f"<td>{i.pali_clean}</td>"
-                                    html_line += "</tr>"
+                                        # grammar_dict update
+                                        if inflected_word not in grammar_dict:
+                                            grammar_dict[inflected_word] = [data_line]
+                                        else:
+                                            if data_line not in grammar_dict[inflected_word]:
+                                                grammar_dict[inflected_word].append(data_line)
 
-                                    # grammar_dict update
-                                    if inflected_word not in grammar_dict:
-                                        grammar_dict[inflected_word] = [data_line]
-                                    else:
-                                        if data_line not in grammar_dict[inflected_word]:
-                                            grammar_dict[inflected_word].append(data_line)
+                                        # grammar_dict_html update
+                                        if inflected_word not in grammar_dict_html:
+                                            grammar_dict_html[inflected_word] = f"{html_header}{html_line}"
+                                            grammar_dict_table[inflected_word] = f"{html_table_header}{html_line}"
+                                        else:
+                                            if html_line not in grammar_dict_html[inflected_word]:
+                                                grammar_dict_html[inflected_word] += html_line
+                                                grammar_dict_table[inflected_word] += html_line
 
-                                    # grammar_dict_html update
-                                    if inflected_word not in grammar_dict_html:
-                                        grammar_dict_html[inflected_word] = f"{html_header}{html_line}"
-                                        grammar_dict_table[inflected_word] = f"{html_table_header}{html_line}"
-                                    else:
-                                        if html_line not in grammar_dict_html[inflected_word]:
-                                            grammar_dict_html[inflected_word] += html_line
-                                            grammar_dict_table[inflected_word] += html_line
 
         if counter % 5000 == 0:
             print(f"{counter:>10,} / {len(db):<10,}{i.pali_1[:17]:>17}")
@@ -217,6 +241,20 @@ def main():
 
     for item in grammar_dict_table:
         grammar_dict_table[item] += "</table></div>"
+
+    # !!! find out how to remove headings from table with only 1 row
+
+    for item in grammar_dict_table:
+        grammar_dict_table[item] += "</tbody></table></div>"
+
+    # print example for debug
+    # selected_inflection = "dhammaṃ bhāsati"
+
+    # # Check if the selected_inflection exists in grammar_dict_html
+    # if selected_inflection in grammar_dict_html:
+
+    #     print(f"html of {selected_inflection}")
+    #     print(grammar_dict_html[selected_inflection])
 
     print(f"[green]saving grammar_dict pickle{len(grammar_dict):>14,}")
     # save pickle file
@@ -285,13 +323,20 @@ def unzip_and_copy(pth):
 
     goldendict_path: (Path |str) = goldedict_path()
 
-    if (
-        goldendict_path and 
-        goldendict_path.exists()
-        ):
-        print(f"[green]unzipping and copying to [blue]{goldendict_path}")
-        popen(
-            f'unzip -o {pth.grammar_dict_zip_path} -d "{goldendict_path}"')
+    if goldendict_path and goldendict_path.exists():
+        try:
+            with Popen(f'unzip -o {pth.grammar_dict_zip_path} -d "{goldendict_path}"', shell=True, stdout=PIPE, stderr=PIPE) as process:
+                stdout, stderr = process.communicate()
+
+                if process.returncode == 0:
+                    print(f"[green]Unzipping and copying to [blue]{goldendict_path} [green]successful")
+                else:
+                    print("[red]Error during unzip and copy:")
+                    print(f"Exit Code: {process.returncode}")
+                    print(f"Standard Output: {stdout.decode('utf-8')}")
+                    print(f"Standard Error: {stderr.decode('utf-8')}")
+        except Exception as e:
+            print(f"[red]Error during unzip and copy: {e}")
     else:
         print("[red]local GoldenDict directory not found")
 

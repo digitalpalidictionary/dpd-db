@@ -83,6 +83,7 @@ class ProjectPaths:
 
         # /exporter/javascript
         self.buttons_js_path = base_dir.joinpath(Path("exporter/javascript/buttons.js"))
+        self.sorter_js_path = base_dir.joinpath(Path("exporter/javascript/sorter.js"))
 
         # /exporter/share
         self.zip_dir = base_dir.joinpath(Path("exporter/share"))
