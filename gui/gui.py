@@ -181,8 +181,16 @@ def main():
             print(f"{event}")
             # print(f"{values}")
 
-        elif event == sg.WIN_CLOSED:
+        if event == sg.WIN_CLOSED:
             break
+
+        elif event == "control_q":
+            close_yes_cancel = sg.popup_ok_cancel(
+                    "Are you sure you want to quit?",
+                    title="Quit",
+                    location=(400, 400))
+            if close_yes_cancel == "OK":
+                break
 
         # tabs jumps to next field in multiline
         if event == "meaning_1_tab":
@@ -803,14 +811,21 @@ def main():
 
         # add word buttons
 
-        elif event == "Clone" or event == "word_to_clone_edit_enter":
+        elif (
+            event == "Clone" 
+            or event == "word_to_clone_edit_enter"
+            or event == "alt_c" 
+        ):
             if values["word_to_clone_edit"]:
                 copy_word_from_db(db_session, values, window)
                 window["word_to_clone_edit"].update(value="")
             else:
                 window["messages"].update(value="No word to copy!", text_color="red")
 
-        elif event == "edit_button":
+        elif (
+            event == "edit_button"
+            or event == "alt_e"
+        ):
             if values["word_to_clone_edit"]:
                 pali_word_original = edit_word_in_db(db_session, values, window)
                 pali_word_original2 = deepcopy(pali_word_original)
@@ -821,7 +836,10 @@ def main():
 
         # gui buttons
 
-        elif event == "clear_button":
+        elif (
+            event == "clear_button"
+            or event == "control_l"
+        ):
             clear_errors(window)
             clear_values(values, window, username)
             if username == "primary_user":
@@ -834,8 +852,10 @@ def main():
             reset_flags(flags)
             window["messages"].update(value="")
 
-        elif event == "test_internal_button":
-
+        elif (
+            event == "test_internal_button"
+            or event == "control_t"
+        ):
             clear_errors(window)
             flags = individual_internal_tests(
                 pth, sg, window, values, flags, username)
@@ -859,7 +879,10 @@ def main():
         elif event == "update_sandhi_button":
             sandhi_dict = make_sandhi_contraction_dict(db_session)
 
-        elif event == "update_db_button1":
+        elif (
+            event == "update_db_button1"
+            or event == "control_u"
+        ):
             if not flags.tested:
                 window["messages"].update(value="test first!", text_color="red")
             else:
@@ -923,13 +946,21 @@ def main():
         elif event == "debug_button":
             print(f"{values}")
 
-        elif event == "stash_button":
+        elif (
+            event == "stash_button"
+            or event == "alt_s"
+        ):
             stasher(pth, values, window)
 
-        elif event == "unstash_button":
+        elif (event == "unstash_button"
+            or event == "alt_u"
+        ):
             unstasher(pth, window)
 
-        elif event == "split_button":
+        elif (
+            event == "split_button"
+            or event == "control_p"
+        ):
             pali_1_old, pali_1_new = increment_pali_1(values)
             if username == "deva":
                 # add number 1 to pali_1 for old word if there is no digit
@@ -965,7 +996,10 @@ def main():
         elif event == "summary_button":
             display_summary(values, window, sg, pali_word_original2)
 
-        elif event == "save_state_button":
+        elif (
+            event == "save_state_button"
+            or event == "control_s"
+        ):
             save_gui_state(pth, values, words_to_add_list)
             window["messages"].update(
                     value="saved gui state", text_color="green")

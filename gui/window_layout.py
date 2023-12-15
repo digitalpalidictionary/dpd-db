@@ -212,4 +212,19 @@ def window_layout(dpspth, db_session, username):
     window["dps_sbs_category"].bind("<Key>", "-key")
     window["dps_sbs_category"].bind("<FocusOut>", "-focus_out")
 
+    # control keys
+    window.bind('<Control-s>', 'control_s')  # save gui state
+    window.bind('<Control-t>', 'control_t')  # internal tests
+    window.bind('<Control-u>', 'control_u')  # update db
+    window.bind('<Control-q>', 'control_q')  # quit
+    window.bind('<Control-p>', 'control_p')  # split
+    window.bind('<Control-x>', 'control_l')  # clear 
+
+    # alt keys
+    window.bind('<Alt-s>', 'alt_s')  # stash
+    window.bind('<Alt-u>', 'alt_u')  # unstash
+    window.bind('<Alt-c>', 'alt_c')  # clone word
+    window.bind('<Alt-e>', 'alt_e')  # edit word
+
+
     return window

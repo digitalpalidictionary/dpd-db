@@ -43,6 +43,10 @@ DEFAULT_CONFIG = {
         "make_link": "no",
         "extended_synonyms": "no"
     },
+    "exporter" : {
+        "make_ebook": "no",
+        "make_tpr": "no",
+    },
     "openia": {
         "key": ""
     }

@@ -15,6 +15,7 @@ from db.get_db_session import get_db_session
 from db.models import PaliWord, Sandhi
 from db.models import DerivedData
 
+from tools.configger import config_test
 from tools.cst_sc_text_sets import make_cst_text_set
 from tools.cst_sc_text_sets import make_sc_text_set
 from tools.diacritics_cleaner import diacritics_cleaner
@@ -367,12 +368,13 @@ def copy_mobi(pth: ProjectPaths):
 
 
 if __name__ == "__main__":
-    tic()
-    id_counter = render_xhtml()
-    pth = ProjectPaths()
-    save_abbreviations_xhtml_page(pth, id_counter)
-    save_title_page_xhtml(pth)
-    zip_epub(pth)
-    make_mobi(pth)
-    copy_mobi(pth)
-    toc()
+    if config_test("exporter", "make_ebook", "yes"):
+        tic()
+        id_counter = render_xhtml()
+        pth = ProjectPaths()
+        save_abbreviations_xhtml_page(pth, id_counter)
+        save_title_page_xhtml(pth)
+        zip_epub(pth)
+        make_mobi(pth)
+        copy_mobi(pth)
+        toc()

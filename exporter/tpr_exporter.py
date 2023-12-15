@@ -17,6 +17,7 @@ from zipfile import ZipFile, ZIP_DEFLATED
 from db.get_db_session import get_db_session
 from db.models import PaliWord, PaliRoot, Sandhi
 from export_dpd import render_dpd_definition_templ
+from tools.configger import config_test
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
@@ -27,6 +28,7 @@ from helpers import TODAY
 
 
 def main():
+
     tic()
     print("[bright_yellow]generate tpr data")
 
@@ -448,4 +450,5 @@ def copy_zip_to_tpr_downloads(pth: ProjectPaths):
 
 
 if __name__ == "__main__":
-    main()
+    if config_test("exporter", "make_tpr", "yes"):
+        main()
