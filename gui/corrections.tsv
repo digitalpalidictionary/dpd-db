@@ -597,20 +597,22 @@ khippatara + aṃ"					missing
 24075	family_compound	gaṇaka moggallāna sutta					missing				
 24075	construction	gaṇaka + moggallāna + sutta					missing				
 24076	pali_1						delete since exists proper sutta name				
-68183	meaning_1	who has gone to the underworld; who is in purgatory					missing		
-62402	construction	sāyaṃ + anha					typo		
+68183	meaning_1	who has gone to the underworld; who is in purgatory					missing				
+62402	construction	sāyaṃ + anha					typo				
 11797	source_2	SN1.41	sutta_2	ādittasuttaṃ	example_2	"datvā ca bhutvā ca yatha-<b>ānubhāvaṃ</b>,
-anindito saggam'upeti ṭhānan'ti."	typo		
-21932	meaning_1	of whom?; of what?; of which?					typo (perhaps)		
+anindito saggam'upeti ṭhānan'ti."	typo				
+21932	meaning_1	of whom?; of what?; of which?					typo (perhaps)				
 67381	commentary	"(ANa) <b>viggāhikakathan</b>'ti na tvaṃ imaṃ dhammavinayaṃ ājānāsī'tiādinayappavattā viggāhikakathā.
-(DNa) <b>viggāhikakathā</b>'ti viggahakathā, sārambhakathā."					from notes to comm		
-67381	notes						from notes to comm		
-70402	meaning_1	belonging to a tiger; regarding a tiger; with a tiger					typo		
-68570	meaning_2	classifying; analysing					make clear difference between 1 and 2		
-15512	grammar	abs, of upaṭṭhapeti					missing		
-15512	meaning_1	having established; having set up; having caused to attend; having caused to be present					missing		
-6128	source_1		sutta_1		example_1		wrong ex		
-43853	pos	nt					since it is a noun		
-43853	grammar	nt, ptp of paribhuñjati					since it is a noun		
-43853	pali_2	paribhojanīyaṃ					since it is a noun		
-43853	stem	paribhojanīy	pattern	a nt			since it is a noun		
+(DNa) <b>viggāhikakathā</b>'ti viggahakathā, sārambhakathā."					from notes to comm				
+67381	notes						from notes to comm				
+70402	meaning_1	belonging to a tiger; regarding a tiger; with a tiger					typo				
+68570	meaning_2	classifying; analysing					make clear difference between 1 and 2				
+15512	grammar	abs, of upaṭṭhapeti					missing				
+15512	meaning_1	having established; having set up; having caused to attend; having caused to be present					missing				
+6128	source_1		sutta_1		example_1		wrong ex				
+43853	pos	nt					since it is a noun				
+43853	grammar	nt, ptp of paribhuñjati					since it is a noun				
+43853	pali_2	paribhojanīyaṃ					since it is a noun				
+43853	stem	paribhojanīy	pattern	a nt			since it is a noun				
+21791	meaning_lit	what just this?					missing				
+61087	source_2	DN16.27	sutta_2	mahāparinibbānasuttaṃ	example_2	sabbaphāliphullā kho, ānanda, yamakasālā akālapupphehi. te tathāgatassa <b>sarīraṃ</b> okiranti ajjhokiranti abhippakiranti tathāgatassa pūjāya.	missing		
