@@ -18,12 +18,12 @@ from nltk import word_tokenize
 
 from db.models import PaliWord
 from functions_db import make_all_inflections_set
-from functions_db import get_family_compound_values
 from functions_db import values_to_pali_word
 
 from tools.configger import config_test_option
 from tools.configger import config_update
 from tools.configger import config_test
+from tools.configger import config_read
 
 from tools.cst_sc_text_sets import make_cst_text_list
 from tools.cst_sc_text_sets import make_sc_text_list
@@ -975,10 +975,8 @@ def test_username(sg):
             break
     if config_test("user", "username", "1"):
         username = "primary_user"
-    elif config_test("user", "username", "deva"):
-        username = "deva"
     else:
-        username = ""
+        username = config_read("user", "username")
 
     return username
 

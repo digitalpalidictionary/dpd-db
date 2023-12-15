@@ -28,12 +28,15 @@ class DPSPaths:
         self.ai_en_suggestion_history_path = base_dir.joinpath(Path("dps/csvs/ai_en_suggestion_history.csv"))
         self.temp_csv_path = base_dir.joinpath(Path("dps/csvs/temp.csv"))
         self.id_to_add_path = base_dir.joinpath(Path("dps/csvs/id_to_add.csv"))
+        self.id_temp_list_path = base_dir.joinpath(Path("dps/csvs/id_temp_list.csv"))
 
         self.sbs_pd_path = base_dir.joinpath(Path("dps/csvs/sbs_pd.csv"))
 
         # /tests
         self.dps_internal_tests_path = base_dir.joinpath(Path("dps/csvs/dps_internal_tests.tsv"))
         self.dps_internal_tests_replaced_path = base_dir.joinpath(Path("dps/csvs/dps_internal_tests_replaced.tsv"))
+        self.dps_test_1_path = base_dir.joinpath(Path("dps/csvs/dps_test_1.tsv"))
+        self.dps_test_2_path = base_dir.joinpath(Path("dps/csvs/dps_test_2.tsv"))
 
         # spreadsheets
         self.dps_path = base_dir.joinpath(Path("dps/dps.ods"))

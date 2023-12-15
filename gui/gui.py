@@ -77,6 +77,7 @@ from functions_dps import dps_make_words_to_add_list
 from functions_dps import dps_make_words_to_add_list_sutta
 from functions_dps import dps_make_words_to_add_list_from_text
 from functions_dps import dps_make_words_to_add_list_from_text_filtered
+from functions_dps import fetch_matching_words_from_db_with_conditions
 from functions_dps import fetch_matching_words_from_db
 from functions_dps import populate_dps_tab
 from functions_dps import update_sbs_chant
@@ -103,6 +104,7 @@ from functions_dps import update_sbs_category
 from functions_dps import words_in_db_from_source
 from functions_dps import get_next_ids_dps
 from functions_dps import add_number_to_pali
+from functions_dps import read_tsv_words
 
 from functions_tests_dps import dps_open_internal_tests
 from functions_tests_dps import dps_individual_internal_tests
@@ -2013,7 +2015,7 @@ def main():
                 presence_of_value = True
             else:
                 presence_of_value = False
-            words_to_add_list = fetch_matching_words_from_db(dpspth, db_session, values["field_for_id_list"], presence_of_value)
+            words_to_add_list = fetch_matching_words_from_db_with_conditions(dpspth, db_session, values["field_for_id_list"], presence_of_value)
 
             if words_to_add_list != []:
                 values["word_to_add"] = [words_to_add_list[0]]
@@ -2024,6 +2026,45 @@ def main():
                 open_in_goldendict(words_to_add_list[0])
                 window["messages"].update(
                     value=f"added missing words from {values['source_for_id_list']}",
+                    text_color="white")
+            else:
+                window["messages"].update(
+                    value="empty list, try again", text_color="red")
+
+        
+        # add words from tests
+        elif event == "from_test_to_add_button":
+            words_to_add_list = read_tsv_words(dpspth.dps_test_1_path)
+
+            if words_to_add_list != []:
+                values["word_to_add"] = [words_to_add_list[0]]
+                window["word_to_add"].update(values=words_to_add_list)
+                window["words_to_add_length"].update(
+                    value=len(words_to_add_list))
+                print(values)
+                open_in_goldendict(words_to_add_list[0])
+                window["messages"].update(
+                    value="added words from tests",
+                    text_color="white")
+            else:
+                window["messages"].update(
+                    value="empty list, try again", text_color="red")
+
+        # add words from temp id list
+        elif event == "from_temp_id_list_to_add_button":
+            file_path = dpspth.id_temp_list_path
+
+            words_to_add_list = fetch_matching_words_from_db(file_path, db_session)
+
+            if words_to_add_list != []:
+                values["word_to_add"] = [words_to_add_list[0]]
+                window["word_to_add"].update(values=words_to_add_list)
+                window["words_to_add_length"].update(
+                    value=len(words_to_add_list))
+                print(values)
+                open_in_goldendict(words_to_add_list[0])
+                window["messages"].update(
+                    value=f"added words from {file_path}",
                     text_color="white")
             else:
                 window["messages"].update(

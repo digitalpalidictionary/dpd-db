@@ -964,6 +964,14 @@ def dps_make_words_to_add_list_from_text_filtered(dpspth, db_session, pth, sourc
     return text_list
 
 
+def read_tsv_words(file_path):
+    with open(file_path, "r") as file:
+        reader = csv.reader(file, delimiter='\t')
+        next(reader)  # Skip header row if present
+        words = [row[0] for row in reader]
+        return words
+
+
 # functions which make a list of words from id list
 def read_ids_from_tsv(file_path):
     with open(file_path, mode='r', encoding='utf-8-sig') as tsv_file:
@@ -978,7 +986,22 @@ def remove_duplicates(ordered_ids):
     return ordered_ids_no_duplicates
 
 
-def fetch_matching_words_from_db(dpspth, db_session, attribute_name, original_has_value) -> list:
+def fetch_matching_words_from_db(path, db_session) -> list:
+
+    ordered_ids = read_ids_from_tsv(path)
+    ordered_ids = remove_duplicates(ordered_ids)
+
+    matching_words = []
+    for word_id in ordered_ids:
+        word = db_session.query(PaliWord).filter(PaliWord.id == word_id).first()
+        if word:
+            matching_words.append(word.pali_1)
+
+    print(f"words_to_add: {len(matching_words)}")
+    return matching_words
+
+
+def fetch_matching_words_from_db_with_conditions(dpspth, db_session, attribute_name, original_has_value) -> list:
 
     ordered_ids = read_ids_from_tsv(dpspth.id_to_add_path)
     ordered_ids = remove_duplicates(ordered_ids)

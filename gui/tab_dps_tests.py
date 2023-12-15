@@ -113,6 +113,7 @@ def make_tab_dps_tests(sg):
             sg.Button("Add", key="dps_test_add_exception_button", size=(5, 1)),
             sg.Input("", key="dps_test_db_query", size=(19, 1)),
             sg.Button("Db Query", key="dps_test_db_query_copy"),
+            sg.Button("Save list", key="dps_test_save_list", tooltip="save current list of words in dps_test_1.tsv",),
         ],
         [
             sg.Text("", size=(44, 1)),

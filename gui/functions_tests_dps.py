@@ -55,6 +55,12 @@ def read_from_tsv(file_path):
     return rows
 
 
+def save_to_tsv(words_list, file_name):
+    with open(file_name, 'w', encoding='utf-8') as tsvfile:
+        for word in words_list:
+            tsvfile.write(f"{word}\n")
+
+
 def replace_values_in_rows(rows):
     """Replaces specified values in a list of rows."""
     replacements = {
@@ -510,6 +516,14 @@ def dps_db_internal_tests(dpspth, pth, db_session, sg, window, flags_dps):
 
                 if event == "dps_test_db_query_copy":
                     pyperclip.copy(db_query)
+
+                if event == "dps_test_save_list":
+                    print(f"words, saved to tsv: {fail_list_redux}")
+                    try:
+                        save_to_tsv(fail_list_redux, dpspth.dps_test_1_path)
+                    except ValueError:
+                    # The content is not a number, so we skip it
+                        continue
 
                 if event == "dps_test_edit":
                     dps_open_internal_tests(dpspth)

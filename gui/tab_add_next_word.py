@@ -73,8 +73,9 @@ KN
                 pad=((10, 0), (20, 20)),
             ),
             sg.Button(
-                "Add (ru)", 
-                key="dps_books_to_add_button", 
+                "Add (dps)", 
+                key="dps_books_to_add_button",
+                tooltip="only in dps db", 
                 visible=username == "deva",
                 pad=((10, 0), (20, 20))
             ),
@@ -104,8 +105,9 @@ KN
                 visible=username == "deva",
             ),
             sg.Button(
-                "Add (ru)", 
-                key="dps_sutta_to_add_button", 
+                "Add (dps)", 
+                key="dps_sutta_to_add_button",
+                tooltip="only in dps db", 
                 visible=username == "deva",
                 pad=((10, 0), (0, 20)),
             )
@@ -123,16 +125,16 @@ KN
                 visible=username == "deva",
             ),
             sg.Button(
-                "Add (ru)", 
-                key="dps_add_from_source", 
+                "Add (dps)", 
+                key="dps_add_from_source",
+                tooltip="only in dps db", 
                 visible=username == "deva",
-                tooltip="from source show all words from db which do not have this source in sbs examples",
                 pad=((10, 0), (0, 20)),
             )
         ],
         [
             sg.Text(
-                "from temp/text.txt", 
+                "from temp/text.txt:", 
                 pad=((100, 0), (0, 20)),
                 visible=username == "deva",
             ),
@@ -143,15 +145,16 @@ KN
                 visible=username == "deva",
             ),
             sg.Button(
-                "Add (ru)", 
+                "Add (dps)", 
                 key="dps_from_txt_to_add_button", 
+                tooltip="only in dps db",
                 visible=username == "deva",
                 pad=((10, 0), (0, 20)),
             ),
             sg.Button(
                 "No source", 
                 key="dps_from_txt_to_add_considering_source_button",
-                tooltip="from txt show all words whcih do not have source in sbs",
+                tooltip="show all words from text.txt that do not have a source in sbs_example(s), using the 'source to add'",
                 visible=username == "deva",
                 pad=((10, 0), (0, 20)),
             )
@@ -162,8 +165,9 @@ KN
             pad=((100, 0), (0, 20))
             ),
             sg.Button(
-                "Add (ru)", 
+                "Add (dps)", 
                 key="dps_word_from_id_list_button", 
+                tooltip="show all words from the id_to_add.csv file that have an empty or non-empty 'field', depending on the value of the 'has value' parameter",
                 visible=username == "deva",
                 pad=((10, 0), (0, 20)),
             ),
@@ -174,7 +178,7 @@ KN
             sg.Input(
                 key="field_for_id_list", 
                 visible=username == "deva", 
-                tooltip="'field' which need to be updated",
+                tooltip="'field' which needs to be updated",
                 size=(15, 1), 
                 pad=((0, 0), (0, 20)),
             ),
@@ -195,6 +199,32 @@ KN
             visible=username == "deva", 
             pad=((10, 0), (0, 20)), 
             tooltip="does the 'field' currently have any value?"
+            ),
+        ],
+        [
+            sg.Text(
+                "from tests:", 
+                pad=((100, 0), (0, 20)),
+                visible=username == "deva",
+            ),
+            sg.Button(
+                "Add", 
+                key="from_test_to_add_button",
+                tooltip="show all words from the current dps_test_1.tsv",
+                pad=((10, 0), (0, 20)),
+                visible=username == "deva",
+            ),
+            sg.Text(
+                "from temp id list:", 
+                pad=((100, 0), (0, 20)),
+                visible=username == "deva",
+            ),
+            sg.Button(
+                "Add", 
+                key="from_temp_id_list_to_add_button",
+                tooltip="show all words from the temp_id_list.csv",
+                pad=((10, 0), (0, 20)),
+                visible=username == "deva",
             ),
         ],
         [
