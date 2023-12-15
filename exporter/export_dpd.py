@@ -128,7 +128,7 @@ class PaliWordRenderData(TypedDict):
     cf_set: Set[str]
     make_link: bool
 
-def render_pali_word_dpd_html(db_parts: PaliWordDbParts,
+def render_pali_word_dpd_html(extended_synonyms, db_parts: PaliWordDbParts,
                               render_data: PaliWordRenderData) -> Tuple[RenderResult, RenderedSizes]:
     rd = render_data
     size_dict = default_rendered_sizes()
@@ -233,6 +233,16 @@ def render_pali_word_dpd_html(db_parts: PaliWordDbParts,
     synonyms += dd.thai_list
     synonyms += i.family_set_list
     synonyms += [str(i.id)]
+    
+
+    if extended_synonyms:
+
+        # Split i.pali_clean only if it contains a space
+        if ' ' in i.pali_clean:
+            words = i.pali_clean.split(' ')
+            synonyms.extend(words)
+    
+
     size_dict["dpd_synonyms"] += len(str(synonyms))
 
     res = RenderResult(
@@ -261,6 +271,11 @@ def generate_dpd_html(
         make_link: bool = True
     else:
         make_link: bool = False
+
+    if config_test("dictionary", "extended_synonyms", "yes"):
+        extended_synonyms: bool = True
+    else:
+        extended_synonyms: bool = False
 
     dpd_data_list: List[RenderResult] = []
 
@@ -341,7 +356,7 @@ def generate_dpd_html(
 
         def _parse_batch(batch: List[PaliWordDbParts]):
             res: List[Tuple[RenderResult, RenderedSizes]] = \
-                [render_pali_word_dpd_html(i, render_data) for i in batch]
+                [render_pali_word_dpd_html(extended_synonyms, i, render_data) for i in batch]
 
             for i, j in res:
                 dpd_data_results_list.append(i)
