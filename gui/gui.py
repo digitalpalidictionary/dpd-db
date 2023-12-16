@@ -290,7 +290,7 @@ def main():
                 window["words_to_add_length"].update(value=len(words_to_add_list))
                 window["tab_edit_dpd"].select()  # type: ignore
                 window["pali_1"].update(values["word_to_add"][0])
-                window["search_for"].update(values["word_to_add"][0])
+                window["search_for"].update(values["word_to_add"][0][:-1])
                 window["bold_1"].update(values["word_to_add"][0])
                 window["messages"].update(value="adding word", text_color="white")
                 window["pali_1"].set_focus(force=True)
@@ -747,7 +747,8 @@ def main():
 
         elif event == "search_for":
             if not values["search_for"]:
-                window["search_for"].update(values["pali_1"])
+                word_no_spaces = re.sub(r" \d.*", "", values["pali_1"])
+                window["search_for"].update(value=word_no_spaces[:-1])
 
         elif (
             event == "search_for_enter" or
