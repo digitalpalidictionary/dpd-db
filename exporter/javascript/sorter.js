@@ -1,34 +1,16 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const table = document.querySelector('table.grammar_dict');
+function sortTable(colIndex) {
+    const table = document.querySelector('.grammar_dict');
     const tbody = table.querySelector('tbody');
-    const headers = table.querySelectorAll('th');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
 
-    headers.forEach(header => {
-        header.addEventListener('click', () => {
-            const order = header.dataset.order === 'asc' ? 'desc' : 'asc';
-            const colIndex = header.cellIndex;
-            const rows = Array.from(tbody.querySelectorAll('tr'));
-
-            rows.sort((a, b) => {
-                const aValue = a.cells[colIndex].textContent.toLowerCase();
-                const bValue = b.cells[colIndex].textContent.toLowerCase();
-                return aValue > bValue ? 1 : -1;
-            });
-
-            if (order === 'desc') {
-                rows.reverse();
-            }
-
-            tbody.innerHTML = '';
-            rows.forEach(row => {
-                tbody.appendChild(row);
-            });
-
-            headers.forEach(header => {
-                header.dataset.order = '';
-            });
-
-            header.dataset.order = order;
-        });
+    rows.sort((a, b) => {
+        const aValue = a.cells[colIndex].textContent.toLowerCase();
+        const bValue = b.cells[colIndex].textContent.toLowerCase();
+        return aValue > bValue ? 1 : -1;
     });
-});
+
+    tbody.innerHTML = '';
+    rows.forEach(row => {
+        tbody.appendChild(row);
+    });
+}
