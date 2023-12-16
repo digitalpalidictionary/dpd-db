@@ -134,7 +134,7 @@ def main():
 
     html_table_header = "<body><div class='grammar_dict'><table class='grammar_dict'>"
 
-    html_header += "<thead><tr><th onclick='sortTable(0, event)'>pos &#x2195;</th><th onclick='sortTable(1, event)'>grammar &#x2195;</th><th onclick='sortTable(2, event)'</th><th onclick='sortTable(3, event)'>word &#x2195;</th></tr></thead><tbody>"
+    html_header += "<thead><tr><th id='col1'>pos &#x2195;</th><th id='col2'>grammar &#x2195;</th><th id='col3'></th><th id='col4'>word &#x2195;</th></tr></thead><tbody>"
 
     for counter, i in enumerate(db):
         # words with ! in stem must get inflection table but no synonsyms
