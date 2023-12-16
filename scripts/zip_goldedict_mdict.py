@@ -5,13 +5,14 @@
 1. dpd.mdx, 2. dpd-grammar.mdx, 3. dpd-deconstructor.mdx"""
 
 import os
+from rich import print
 from zipfile import ZipFile, ZIP_DEFLATED
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 
 def main():
     tic()
-    print("[bright_yellow] rezipping goldendict and mdict")
+    print("[bright_yellow]rezipping goldendict and mdict")
     pth = ProjectPaths()
     rezip_goldendict(pth)
     rezip_mdict(pth)
