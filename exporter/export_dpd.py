@@ -37,6 +37,7 @@ from tools.tic_toc import bip, bop
 from tools.configger import config_test
 from tools.sandhi_contraction import SandhiContractions
 from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, list_into_batches, sum_rendered_sizes
+from tools.superscripter import superscripter_uni
 
 class PaliWordTemplates:
     def __init__(self, pth: ProjectPaths):
@@ -689,6 +690,7 @@ def render_family_compound_templ(
             family_compound_templ.render(
                 i=i,
                 fc=fc,
+                superscripter_uni=superscripter_uni,
                 today=TODAY))
     else:
         return ""
@@ -711,6 +713,7 @@ def render_family_set_templ(
                 family_set_templ.render(
                     i=i,
                     fs=fs,
+                    superscripter_uni=superscripter_uni,
                     today=TODAY))
         else:
             return ""
