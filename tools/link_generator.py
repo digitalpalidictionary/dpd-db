@@ -32,10 +32,10 @@ def link_vin(source: str, base_url: str) -> str:
     # Vinaya piṭaka
     # Logic for Bhikkhu Vibhanga
     source = source.strip().upper()
-    if source.startswith("VIN 1.") or source.startswith("VIN 2."):
+    if re.match(r"^(VIN\s?1|VIN\s?2).*", source):
 
         # Logic for VIN verses
-        vin_match = re.match(r'VIN (\d+)(\.(\d+))?(\.(\d+))?(\.(\d+))?', source)
+        vin_match = re.match(r'VIN\s?(\d+)(\.(\d+))?(\.(\d+))?(\.(\d+))?', source)
         if vin_match:
             vin_main = int(vin_match.group(1))
             vin_sub1 = int(vin_match.group(3)) if vin_match.group(3) else None
@@ -75,7 +75,7 @@ def link_vin(source: str, base_url: str) -> str:
         return ""
 
     # VIN 4,5 cases
-    elif source.startswith("VIN 4.") or source.startswith("VIN 5."):
+    elif re.match(r"^(VIN\s?4|VIN\s?5).*", source):
         return base_url + "vi/kd.html"
 
     return ""
@@ -153,7 +153,7 @@ def link_sn(source: str, base_url: str) -> str:
 
 def link_khp(source: str, base_url: str) -> str:
     # Logic for KHP verses
-    khp_match = re.match(r'KHP ?(\d+)', source)
+    khp_match = re.match(r'KHP\s?(\d+)', source)
     if khp_match:
         khp_number = int(khp_match.group(1))
         return f"{base_url}kp/kp{khp_number}.html"
