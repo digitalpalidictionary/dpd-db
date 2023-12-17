@@ -33,7 +33,6 @@ from tools.tsv_read_write import read_tsv_dict
 
 
 def render_xhtml():
-    print("[bright_yellow]rendering dpd for ebook")
 
     print(f"[green]{'querying dpd db':<40}", end="")
     pth = ProjectPaths()
@@ -368,6 +367,7 @@ def copy_mobi(pth: ProjectPaths):
 
 
 if __name__ == "__main__":
+    print("[bright_yellow]rendering dpd for ebook")
     if config_test("exporter", "make_ebook", "yes"):
         tic()
         id_counter = render_xhtml()

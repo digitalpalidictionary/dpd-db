@@ -6,7 +6,6 @@ Args: None = run on cloud with all texts
 --local --all_texts = run locally with all texts
 """
 
-import argparse
 import os
 from typing import Dict, List, Set, Tuple
 import pandas as pd
@@ -29,32 +28,21 @@ from tools.cst_sc_text_sets import make_sc_text_set
 from tools.cst_sc_text_sets import make_other_pali_texts_set
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
+from tools.configger import config_test
 
 
 def main():
     """Prepare all the necessary parts for deconstructor locally
     or in the cloud."""
     tic()
-    print(
-        "[bright_yellow]setting up for sandhi splitting locally or in the cloud")
 
-    # setup args for --local and --all_texts
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--local", action='store_true', help="Run deconstructor locally")
-    parser.add_argument(
-        "--all_texts", action='store_true', help="Deconstruct all texts in corpus")
-    args = parser.parse_args()
-
-    # run locally with all texts or limited tetxs
-    # or in the cloud with all texts
-    if args.local:
-        if args.all_texts:
-            texts_to_include = all_texts
-            print("[green]setting up for [cyan]local with all texts")
-        else:
-            texts_to_include = limited_texts
-            print("[green]setting up for [cyan]local with limited texts")
+    # Read configurations from config.ini and setup args for --local and --all_texts
+    if config_test("deconstructor", "all_texts", "yes"):
+        texts_to_include = all_texts
+        print("[green]setting up for [cyan]local with all texts")
+    elif config_test("deconstructor", "limited_texts", "yes"):
+        texts_to_include = limited_texts
+        print("[green]setting up for [cyan]local with limited texts")
     else:
         texts_to_include = all_texts
         print("[green]setting up for [cyan]cloud with all texts")
@@ -148,7 +136,7 @@ def main():
 
     make_matches_dict(pth)
 
-    if not args.local:
+    if config_test("deconstructor", "local", "no"):
         zip_for_cloud()
         move_zip()
 
@@ -399,4 +387,6 @@ def move_zip():
 
 
 if __name__ == "__main__":
-    main()
+    print("[bright_yellow]setting up for sandhi splitting")
+    if config_test("exporter", "make_deconstructor", "yes"):
+        main()

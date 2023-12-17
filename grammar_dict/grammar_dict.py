@@ -48,8 +48,6 @@ def main():
     """Generating a grammar dictionary which shows
     all grammatical possibilities of every inflection."""
 
-    print("[bright_yellow]grammar dictionary")
-
     # check config
     if config_test("dictionary", "make_mdict", "yes"):
         make_mdct: bool = True
@@ -367,4 +365,6 @@ def make_mdict(pth, md_data_list):
 
 
 if __name__ == "__main__":
-    main()
+    print("[bright_yellow]grammar dictionary")
+    if config_test("exporter", "make_grammar", "yes"):
+        main()

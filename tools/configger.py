@@ -16,7 +16,10 @@ DEFAULT_CONFIG = {
         "freq_maps": "yes"
     },
     "deconstructor": {
-        "include_cloud": "no"
+        "include_cloud": "no",
+        "all_texts": "no",
+        "limited_texts": "yes",
+        "local": "yes"
     },
     "gui": {
         "theme": "DarkGrey10",
@@ -45,7 +48,9 @@ DEFAULT_CONFIG = {
     },
     "exporter" : {
         "make_ebook": "no",
-        "make_tpr": "no",
+        "make_grammar": "no",
+        "make_deconstructor": "no",
+        "make_tpr": "no"
     },
     "openia": {
         "key": ""

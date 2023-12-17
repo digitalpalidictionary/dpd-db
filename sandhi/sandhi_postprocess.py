@@ -28,7 +28,6 @@ else:
 
 def main():
     tic()
-    print("[bright_yellow]post-processing sandhi-splitter")
 
     print(f"[green]add digital ocean {ADD_DO}")
 
@@ -218,4 +217,6 @@ def letter_counts(pth: ProjectPaths, df):
 
 
 if __name__ == "__main__":
-    main()
+    print("[bright_yellow]post-processing sandhi-splitter")
+    if config_test("exporter", "make_deconstructor", "yes"):
+        main()

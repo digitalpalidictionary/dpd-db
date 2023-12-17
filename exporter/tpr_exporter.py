@@ -30,7 +30,6 @@ from helpers import TODAY
 def main():
 
     tic()
-    print("[bright_yellow]generate tpr data")
 
     pth = ProjectPaths()
     print(pth.tpr_release_path)
@@ -450,5 +449,6 @@ def copy_zip_to_tpr_downloads(pth: ProjectPaths):
 
 
 if __name__ == "__main__":
+    print("[bright_yellow]generate tpr data")
     if config_test("exporter", "make_tpr", "yes"):
         main()

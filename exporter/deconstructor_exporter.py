@@ -32,7 +32,6 @@ sys.path.insert(1, 'tools/writemdict')
 
 def main():
     tic()
-    print("[bright_yellow]making dpd deconstructor for goldendict & mdict")
     
     # check config
     if config_test("dictionary", "make_mdict", "yes"):
@@ -185,4 +184,6 @@ the Digital Pāḷi Dictionary website</a></p>"""
 
 
 if __name__ == "__main__":
-    main()
+    print("[bright_yellow]making dpd deconstructor")
+    if config_test("exporter", "make_deconstructor", "yes"):
+        main()

@@ -14,6 +14,7 @@ from os import popen
 from tools.pali_alphabet import vowels
 from tools.tic_toc import tic, toc, bip, bop
 from tools.paths import ProjectPaths
+from tools.configger import config_test
 
 # two word sandhi
 #     ↓
@@ -418,8 +419,6 @@ def make_all_inflections_nfl_nll(all_inflections_set):
 
 def main():
     tic()
-
-    print("[bright_yellow]sandhi splitter")
 
     global profiler
     if profiler_on:
@@ -1559,7 +1558,9 @@ def summary(pth: ProjectPaths):
 
 
 if __name__ == "__main__":
-    main()
+    print("[bright_yellow]sandhi splitter")
+    if config_test("exporter", "make_deconstructor", "yes"):
+        main()
 
 
 # add ttā and its inflections to all inflections
