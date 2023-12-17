@@ -388,5 +388,10 @@ def move_zip():
 
 if __name__ == "__main__":
     print("[bright_yellow]setting up for sandhi splitting")
-    if config_test("exporter", "make_deconstructor", "yes"):
+    if (
+        config_test("exporter", "make_deconstructor", "yes") or 
+        config_test("exporter", "make_tpr", "yes") or 
+        config_test("exporter", "make_ebook", "yes") or 
+        config_test("regenerate", "db_rebuild", "yes")
+    ):
         main()

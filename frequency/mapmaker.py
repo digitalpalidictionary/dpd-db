@@ -28,8 +28,6 @@ from tools.utils import list_into_batches
 
 def main():
     tic()
-    print("[bright_yellow]mapmaker")
-
     # check config
     if config_test("regenerate", "freq_maps", "yes"):
         regenerate_all: bool = True
@@ -59,8 +57,8 @@ def main():
     make_data_dict_and_html(pth, db_session, dicts, num_logical_cores, regenerate_all)
     db_session.close()
 
-    # config update
-    config_update("regenerate", "freq_maps", "no")
+    if regenerate_all:
+        config_update("regenerate", "freq_maps", "no")
 
     toc()
 
@@ -476,4 +474,14 @@ def make_data_dict_and_html(pth: ProjectPaths,
 
 
 if __name__ == "__main__":
-    main()
+    print("[bright_yellow]mapmaker")
+    if (
+        config_test("exporter", "make_dpd", "yes") or 
+        config_test("regenerate", "db_rebuild", "yes") or 
+        config_test("exporter", "make_tpr", "yes") or 
+        config_test("exporter", "make_ebook", "yes")
+    ):
+        main()
+        if config_test("regenerate", "db_rebuild", "yes"):
+            config_update("regenerate", "db_rebuild", "no")
+

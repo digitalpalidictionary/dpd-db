@@ -17,11 +17,11 @@ from tools.superscripter import superscripter_uni
 from tools.tic_toc import tic, toc
 from tools.tsv_read_write import write_tsv_list
 from tools.date_and_time import day
+from tools.configger import config_test
 
 
 def main():
     tic()
-    print("[bright_yellow]compound families generator")
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -156,4 +156,11 @@ def anki_exporter(pth: ProjectPaths, cf_dict):
 
 
 if __name__ == "__main__":
-    main()
+    print("[bright_yellow]compound families generator")
+    if (
+        config_test("exporter", "make_dpd", "yes") or 
+        config_test("regenerate", "db_rebuild", "yes") or 
+        config_test("exporter", "make_tpr", "yes") or 
+        config_test("exporter", "make_ebook", "yes")
+    ):
+        main()

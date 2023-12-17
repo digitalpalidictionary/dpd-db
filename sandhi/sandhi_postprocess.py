@@ -20,14 +20,14 @@ from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 from tools.configger import config_test
 
-if config_test("deconstructor", "include_cloud", "yes"):
-    ADD_DO = True
-else:
-    ADD_DO = False
-
 
 def main():
     tic()
+
+    if config_test("deconstructor", "include_cloud", "yes"):
+        ADD_DO = True
+    else:
+        ADD_DO = False
 
     print(f"[green]add digital ocean {ADD_DO}")
 
@@ -37,7 +37,7 @@ def main():
     with open(pth.neg_inflections_set_path, "rb") as f:
         neg_inflections_set = pickle.load(f)
 
-    matches_df = process_matches(pth, neg_inflections_set)
+    matches_df = process_matches(ADD_DO, pth, neg_inflections_set)
     top_five_dict = make_top_five_dict(matches_df)
     add_to_dpd_db(db_session, top_five_dict)
     transliterate_sandhi()
@@ -46,7 +46,7 @@ def main():
     toc()
 
 
-def process_matches(pth: ProjectPaths, neg_inflections_set):
+def process_matches(ADD_DO, pth: ProjectPaths, neg_inflections_set):
 
     print("[green]processing matches")
 
@@ -218,5 +218,10 @@ def letter_counts(pth: ProjectPaths, df):
 
 if __name__ == "__main__":
     print("[bright_yellow]post-processing sandhi-splitter")
-    if config_test("exporter", "make_deconstructor", "yes"):
+    if (
+        config_test("exporter", "make_deconstructor", "yes") or 
+        config_test("exporter", "make_tpr", "yes") or 
+        config_test("exporter", "make_ebook", "yes") or 
+        config_test("regenerate", "db_rebuild", "yes")
+    ):
         main()

@@ -250,7 +250,8 @@ def main():
     db_session.close()
 
     # config update
-    config_update("regenerate", "transliterations", "no")
+    if regenerate_all:
+        config_update("regenerate", "transliterations", "no")
 
     toc()
 

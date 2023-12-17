@@ -13,7 +13,8 @@ DEFAULT_CONFIG = {
     "regenerate": {
         "inflections": "yes",
         "transliterations": "yes",
-        "freq_maps": "yes"
+        "freq_maps": "yes",
+        "db_rebuild": "no"
     },
     "deconstructor": {
         "include_cloud": "no",
@@ -47,10 +48,11 @@ DEFAULT_CONFIG = {
         "extended_synonyms": "no"
     },
     "exporter" : {
-        "make_ebook": "no",
-        "make_grammar": "no",
+        "make_dpd": "yes",
         "make_deconstructor": "no",
-        "make_tpr": "no"
+        "make_grammar": "no",
+        "make_tpr": "no",
+        "make_ebook": "no"
     },
     "openia": {
         "key": ""

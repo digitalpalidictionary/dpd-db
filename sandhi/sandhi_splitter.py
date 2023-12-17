@@ -1559,9 +1559,13 @@ def summary(pth: ProjectPaths):
 
 if __name__ == "__main__":
     print("[bright_yellow]sandhi splitter")
-    if config_test("exporter", "make_deconstructor", "yes"):
+    if (
+        config_test("exporter", "make_deconstructor", "yes") or 
+        config_test("exporter", "make_tpr", "yes") or 
+        config_test("exporter", "make_ebook", "yes") or 
+        config_test("regenerate", "db_rebuild", "yes")
+    ):
         main()
-
 
 # add ttā and its inflections to all inflections
 # Pathavīkasiṇasamāpattintiādi

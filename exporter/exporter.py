@@ -34,7 +34,6 @@ from tools import time_log
 tic()
 
 def main():
-    print("[bright_yellow]exporting dpd")
 
     time_log.start(start_new=True)
     time_log.log("exporter.py::main()")
@@ -187,4 +186,6 @@ def write_limited_datalist(combined_data_list):
 
 
 if __name__ == "__main__":
-    main()
+    print("[bright_yellow]exporting dpd")
+    if config_test("exporter", "make_dpd", "yes"):
+        main()

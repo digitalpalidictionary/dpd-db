@@ -12,11 +12,11 @@ from tools.meaning_construction import make_meaning
 from tools.pali_sort_key import pali_sort_key
 from tools.meaning_construction import degree_of_completion as doc
 from tools.paths import ProjectPaths
+from tools.configger import config_test
 
 
 def main():
     tic()
-    print("[bright_yellow]sets generator")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
@@ -126,3 +126,11 @@ def print_errors_list(errors_list):
 
 if __name__ == "__main__":
     main()
+    print("[bright_yellow]sets generator")
+    if (
+        config_test("exporter", "make_dpd", "yes") or 
+        config_test("regenerate", "db_rebuild", "yes") or 
+        config_test("exporter", "make_tpr", "yes") or 
+        config_test("exporter", "make_ebook", "yes")
+    ):
+        main()
