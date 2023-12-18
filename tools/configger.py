@@ -19,7 +19,6 @@ DEFAULT_CONFIG = {
     "deconstructor": {
         "include_cloud": "no",
         "all_texts": "no",
-        "limited_texts": "yes",
         "local": "yes"
     },
     "gui": {

@@ -40,7 +40,7 @@ def main():
     if config_test("deconstructor", "all_texts", "yes"):
         texts_to_include = all_texts
         print("[green]setting up for [cyan]local with all texts")
-    elif config_test("deconstructor", "limited_texts", "yes"):
+    elif config_test("deconstructor", "all_texts", "no"):
         texts_to_include = limited_texts
         print("[green]setting up for [cyan]local with limited texts")
     else:
