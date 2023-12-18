@@ -419,6 +419,15 @@ def clear_values(values, window, username):
 
 
 def find_commentary_defintions(sg, values, definitions_df):
+
+    config = load_gui_config()
+
+    # Get screen width and height
+    screen_width, screen_height = sg.Window.get_screen_size()
+
+    # Calculate width and height of the screen
+    window_width = int(screen_width * config["screen_fraction_width"])
+    window_height = int(screen_height * config["screen_fraction_height"])
     
     try:
         test1 = definitions_df["bold"].str.contains(values["search_for"])
@@ -468,7 +477,7 @@ def find_commentary_defintions(sg, values, definitions_df):
                 layout_elements.append(
                     [
                         sg.Text(
-                            f"{commentary}", size=(150, None),
+                            f"{commentary}", size=(80, None),
                             text_color="lightgray"),
                     ],
                 )
@@ -498,7 +507,7 @@ def find_commentary_defintions(sg, values, definitions_df):
         "Find Commentary Defintions",
         layout,
         resizable=True,
-        size=(1920, 1080),
+        size=(window_width, window_height),
         finalize=True
     )
 
@@ -537,6 +546,15 @@ def transliterate_xml(xml):
 
 def find_sutta_example(pth, sg, window, values: dict) -> Optional[Tuple[str, str, str]]:
 
+    config = load_gui_config()
+
+    # Get screen width and height
+    screen_width, screen_height = sg.Window.get_screen_size()
+
+    # Calculate width and height of the screen
+    window_width = int(screen_width * config["screen_fraction_width"])
+    window_height = int(screen_height * config["screen_fraction_height"])
+
     book = values["book_to_add"]
     text_to_find = values["word_to_add"][0]
     sutta_examples = find_source_sutta_example(pth, book, text_to_find)
@@ -562,7 +580,7 @@ def find_sutta_example(pth, sg, window, values: dict) -> Optional[Tuple[str, str
                 sentences_list[i],
                 wrap_lines=True,
                 auto_size_text=True,
-                size=(100, 2),
+                size=(76, 2),
                 text_color="lightgray",
                 no_scrollbar=True,
             )
@@ -591,7 +609,7 @@ def find_sutta_example(pth, sg, window, values: dict) -> Optional[Tuple[str, str
         "Find Sutta Examples",
         layout,
         resizable=True,
-        size=(1920, 1080),
+        size=(window_width, window_height),
         finalize=True
     )
 
@@ -839,8 +857,8 @@ def display_summary(values, window, sg, pali_word_original2):
     window = sg.Window(
         "Summary",
         summary_layout,
-        location=(400, 0),
-        size=(800, 1000),
+        location=(300, 0),
+        size=(850, 1000),
         finalize=True  # finalize the window
         )
 

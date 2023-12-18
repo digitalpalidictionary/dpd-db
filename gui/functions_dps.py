@@ -305,7 +305,7 @@ def display_dps_summary(values, window, sg, original_values):
         "Summary",
         summary_layout,
         location=(300, 0),
-        size=(1200, 1000)
+        size=(850, 1000)
         )
 
     event, values = window.read(timeout=100)  # read the window for a short time
