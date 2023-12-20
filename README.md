@@ -17,8 +17,7 @@ For a quick tutorial on how to access any information in the db with SQLAlchemy,
 
 ## Build a complete database locally
 
-⚠ When `sandhi/sandhi_splitter.py` runs with the config option `deconstructor.all_texts = yes`, it will take several hours to complete.
-
+⚠️ WARNING: When `sandhi/sandhi_splitter.py` runs with the config option `deconstructor.all_texts = yes`, it will take several hours to complete.
 
 Starting with a fresh clone of the tip:
 
