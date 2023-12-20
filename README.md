@@ -15,6 +15,60 @@ That should create an SQLite database `./dpd.db` which can be accessed by [DB Br
 
 For a quick tutorial on how to access any information in the db with SQLAlchemy, see `scripts/db_search_example.py`.
 
+## Build a complete database locally
+
+⚠ When `sandhi/sandhi_splitter.py` runs with the config option `deconstructor.all_texts = yes`, it will take several hours to complete.
+
+
+Starting with a fresh clone of the tip:
+
+``` shell
+git clone --depth=1 https://github.com/digitalpalidictionary/dpd-db.git
+cd dpd-db
+git submodule init && git submodule update
+poetry install
+poetry run bash bash/initial_setup_run_once.sh
+```
+
+Create `config.ini`:
+
+```
+[regenerate]
+inflections = no
+transliterations = no
+freq_maps = yes
+db_rebuild = yes
+
+[deconstructor]
+include_cloud = no
+all_texts = yes
+local = yes
+
+[exporter]
+make_deconstructor = yes
+make_ebook = no
+make_grammar = no
+make_tpr = no
+make_dpd = no
+
+[dictionary]
+link_url = https://www.thebuddhaswords.net/
+```
+
+Now build the db:
+
+``` shell
+poetry run bash bash/build_db.sh
+```
+
+This creates the `dpd.db` SQLite database.
+
+To also create the full i2h including all words in all texts, execute:
+
+```
+poetry run python3 inflections/inflections_to_headwords.py
+```
+
 ## Code Structure
 There are four parts to the code:
 1. Create the database and build up the tables of derived data.
