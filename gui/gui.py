@@ -754,6 +754,8 @@ def main():
             event == "search_for_enter" or
             event == "defintions_search_button"
         ):
+            if "/" in values["search_for"]:
+                values["search_for"] = values["search_for"].replace("/", "")
             if not commentary_definitions_exists:
                 window["messages"].update(
                     value="Commentary database not found", text_color="red")
