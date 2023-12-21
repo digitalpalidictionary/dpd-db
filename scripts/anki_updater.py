@@ -272,7 +272,7 @@ def make_new_note(col, deck, model_dict, deck_dict, i):
     model_id = model_dict[deck]
     deck_id = deck_dict[deck]
     note = col.new_note(model_id)
-    note = update_note_values(col, note, i)
+    note, is_updated = update_note_values(col, note, i)
     col.add_note(note, deck_id)
 
 
