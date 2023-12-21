@@ -37,7 +37,7 @@ DEFAULT_CONFIG = {
         "margin_y": "0"
     },
     "goldendict": {
-        "copy_unzip": "yes",
+        "copy_unzip": "no",
         "path": ""
     },
     "dictionary": {
