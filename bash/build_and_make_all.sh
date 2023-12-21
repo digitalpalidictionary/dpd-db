@@ -8,28 +8,7 @@ test -e dpd.db || touch dpd.db
 scripts/db_rebuild_from_tsv.py
 scripts/db_all_text_setup.py
 
-inflections/create_inflections_templates.py
-inflections/generate_inflection_tables.py
-inflections/transliterate_inflections.py
-inflections/inflections_to_headwords.py
-
-sandhi/sandhi_setup.py
-sandhi/sandhi_splitter.py
-sandhi/sandhi_postprocess.py
-
-families/root_family.py
-families/word_family.py
-families/compound_family.py
-families/sets.py
-
-frequency/mapmaker.py
-
-grammar_dict/grammar_dict.py
-exporter/exporter.py
-exporter/deconstructor_exporter.py
-
-exporter/tpr_exporter.py
-ebook/ebook_exporter.py
+poetry run bash bash/makedict.sh
 
 
 

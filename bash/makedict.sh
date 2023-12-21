@@ -1,23 +1,10 @@
 # update db and generate DPD in all formats
 
 set -e
-inflections/create_inflections_templates.py
-inflections/generate_inflection_tables.py
-inflections/transliterate_inflections.py
-
-sandhi/sandhi_setup.py
-sandhi/sandhi_splitter.py
-sandhi/sandhi_postprocess.py
+poetry run bash bash/generating_components.sh
 
 inflections/inflections_to_headwords.py
 grammar_dict/grammar_dict.py
-
-families/root_family.py
-families/word_family.py
-families/compound_family.py
-families/sets.py
-
-frequency/mapmaker.py
 
 exporter/exporter.py
 exporter/deconstructor_exporter.py
