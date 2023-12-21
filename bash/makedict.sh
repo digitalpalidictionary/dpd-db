@@ -1,7 +1,7 @@
 # update db and generate DPD in all formats
 
 set -e
-poetry run bash bash/generating_components.sh
+bash/generating_components.sh
 
 inflections/inflections_to_headwords.py
 grammar_dict/grammar_dict.py
