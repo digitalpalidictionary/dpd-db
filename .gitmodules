@@ -2,3 +2,6 @@
 	path = resources/tipitaka-xml
 	url = https://github.com/vipassanatech/tipitaka-xml
 	ignore = untracked
+[submodule "resources/tpr_downloads"]
+	path = resources/tpr_downloads
+	url = https://github.com/bksubhuti/tpr_downloads
