@@ -1,5 +1,10 @@
 # building components for db
 
+if [ ! -e "dpd.db" ]; then
+    echo "Error: dpd.db file not found."
+    exit 1
+fi
+
 inflections/create_inflections_templates.py
 inflections/generate_inflection_tables.py
 inflections/transliterate_inflections.py
