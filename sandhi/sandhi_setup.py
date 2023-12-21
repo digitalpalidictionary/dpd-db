@@ -28,7 +28,7 @@ from tools.cst_sc_text_sets import make_sc_text_set
 from tools.cst_sc_text_sets import make_other_pali_texts_set
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
-from tools.configger import config_test
+from tools.configger import config_test, config_update
 
 
 def main():
@@ -139,6 +139,8 @@ def main():
     if config_test("deconstructor", "local", "no"):
         zip_for_cloud()
         move_zip()
+
+    config_update("deconstructor", "all_texts", "no")
 
     toc()
 
