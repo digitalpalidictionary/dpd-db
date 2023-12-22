@@ -148,10 +148,10 @@ def main():
                 note = data_dict[id]["note"]
                 note, is_updated = update_note_values(col, note, i)
                 if is_updated:
-                    updated_list += [id]
+                    updated_list += [i.id]
                     col.update_note(note)
                 if update_deck(col, note, i, data_dict[id], deck_dict, model_dict):
-                    changed_deck_list += [id]
+                    changed_deck_list += [i.id]
                 
             # add note
             else:
