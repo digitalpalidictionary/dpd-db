@@ -371,7 +371,7 @@ def check_spelling(pth, field, error_field, values, window):
     spell = SpellChecker(language='en')
     spell.word_frequency.load_text_file(str(pth.user_dict_path))
 
-    sentence = values[field]
+    sentence = values[field].replace("-", " ")
     words = word_tokenize(sentence)
 
     misspelled = spell.unknown(words)
@@ -379,7 +379,13 @@ def check_spelling(pth, field, error_field, values, window):
     candidates = ""
     for word in misspelled:
         candidates = spell.candidates(word)
-    window[error_field].update(f"{candidates}")
+        window[error_field].update(f"{candidates}")
+    
+    if misspelled:
+        window[field].update(text_color="red")
+    else:
+        window[field].update(text_color="darkgray")
+        window[error_field].update("")
 
 
 def add_spelling(pth, word):
@@ -894,8 +900,12 @@ def test_family_compound(values, window, family_compound_values):
         if family_compound not in family_compound_values:
             error_string += f"{family_compound} "
 
-    window["family_compound_error"].update(
-        error_string, text_color="red")
+    if error_string:
+        window["family_compound_error"].update(
+            error_string, text_color="red")
+        window["family_compound"].update(text_color="red")
+    else:
+        window["family_compound"].update(text_color="darkgray")
 
 
 def remove_word_to_add(values, window, words_to_add_list):

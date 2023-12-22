@@ -1,12 +1,17 @@
-from anki.collection import Collection
+"""Update Anki with latest data directly from the DB."""
 
 import copy
+
+from anki.collection import Collection
+from anki.errors import DBError
 from rich import print
+
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc, bip, bop
+from tools.configger import config_read, config_test
 
 
 def main():
@@ -20,9 +25,29 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(PaliWord).all()
 
-    anki_db_path = "/home/bodhirasa/.local/share/Anki2/User 1/collection.anki2"
-    col = Collection(anki_db_path)
-    print(f"{len(db):>10}{bop():>10.2f}")
+    anki_db_path = config_read("anki", "db_path")
+    try:
+        col = Collection(anki_db_path)
+        print(f"{len(db):>10}{bop():>10.2f}")
+    except DBError:
+        print("\n[red]Anki is currently open, ", end="")
+        print("close and try again.")
+        return
+
+    # backup anki db
+    bip()
+    print(f"[green]{'backup anki db':<20}", end="")
+    anki_backup_path = config_read("anki", "backup_path")
+    if anki_backup_path:
+        is_backed_up = col.create_backup(backup_folder=anki_backup_path, force=False, wait_for_completion=True)
+        # if force = False, the db will not backup if it has not changed
+        if not is_backed_up:
+            print(f"[red]{'no':>10}{bop():>10.2f}")
+        else:
+            print(f"{'ok':>10}{bop():>10.2f}")
+    else:
+        print(f"[red]{'no path':>10}{bop():>10.2f}")
+    
 
     # get field names
     def get_field_names():
@@ -54,10 +79,12 @@ def main():
     print(f"[green]{'get decks':<20}", end="")
     decks = col.decks.all()
     deck_dict = {deck["name"]: deck["id"] for deck in decks}
-    deck_dict2 = {}
+    # add the values as keys
+    deck_dict_reverse = {}
     for deck, did in deck_dict.items():
-        deck_dict2[did] = deck
-    print(f"{len(deck_dict):>10}{bop():>10.2f}")
+        deck_dict_reverse[did] = deck
+    deck_dict.update(deck_dict_reverse)
+    print(f"{len(deck_dict_reverse):>10}{bop():>10.2f}")
 
     # get models
     bip()
@@ -69,10 +96,10 @@ def main():
     # make data_dict
     bip()
     print(f"[green]{'make data_dict':<20}", end="")
-    data1 = {}
+    data_dict = {}
     for note in notes:
         if len(note.fields) > 5:  # exclude other decks 
-            data1[note.id] = {
+            data_dict[note.id] = {
                 "nid": note.id,
                 "dpd_id": note.fields[0],
                 "mid": note.mid,
@@ -84,22 +111,26 @@ def main():
             }
     
     for card in cards:
-        if card.nid in data1:
-            data1[card.nid]["cid"] = card.id
-            data1[card.nid]["did"] = card.did
-            data1[card.nid]["card"] = card
-    print(f"{len(data1):>10}{bop():>10.2f}")
+        if card.nid in data_dict:
+            data_dict[card.nid]["cid"] = card.id
+            data_dict[card.nid]["did"] = card.did
+            data_dict[card.nid]["card"] = card
 
-    # re-key data
-    bip()
-    print(f"[green]{'re-keying data':<20}", end="")
+    # re-key data_dict
     data2 = {}
-    for key, data, in data1.items():
+    for key, data, in data_dict.items():
         dpd_id = data["dpd_id"]
-        data2[dpd_id] = data
-    print(f"{len(data2):>10}{bop():>10.2f}")
+        if dpd_id in data_dict:
+            print(f"[red]key {dpd_id} already exists")
+        else:
+            data2[dpd_id] = data
+    for key in data2:
+        if key in data_dict:
+            print("Key", key, "will be overwritten")
+    data_dict.update(data2)
+    print(f"{len(data_dict):>10}{bop():>10.2f}")
 
-    assert(data2["1157"])
+    assert(data_dict["1157"])
     
     # update from db
     bip()
@@ -113,13 +144,13 @@ def main():
         deck = deck_selector(i)
         if deck:
             # update
-            if id in data2:
-                note = data2[id]["note"]
+            if id in data_dict:
+                note = data_dict[id]["note"]
                 note, is_updated = update_note_values(col, note, i)
                 if is_updated:
                     updated_list += [id]
                     col.update_note(note)
-                if update_deck(col, note, i, data2[id], deck_dict, deck_dict2, model_dict):
+                if update_deck(col, note, i, data_dict[id], deck_dict, model_dict):
                     changed_deck_list += [id]
                 
             # add note
@@ -132,8 +163,8 @@ def main():
 
         else:
             # delete
-            if i.id in data2:
-                print(data2[id])
+            if i.id in data_dict:
+                print(data_dict[id])
                 deleted_list += [i.id]
 
     print(f"[green]{'updated':<20}{len(updated_list):>10}")
@@ -183,7 +214,7 @@ def update_note_values(col, note, i):
     note["meaning_lit"] = str(i.meaning_lit)
     note["non_ia"] = str(i.non_ia)
     note["sanskrit"] = str(i.sanskrit)
-    note["root_key"] = str(i.root_key)
+    note["root_key"] = str(i.root_clean)
     note["root_sign"] = str(i.root_sign)
     note["root_base"] = str(i.root_base)
     if i.root_key:
@@ -248,9 +279,9 @@ def deck_selector(i):
         return None
 
 
-def update_deck(col, note, i, data, deck_dict, deck_dict2, model_dict):
+def update_deck(col, note, i, data, deck_dict, model_dict):
     new_deck = deck_selector(i)
-    old_deck = deck_dict2[data["did"]]
+    old_deck = deck_dict[data["did"]]
 
     if old_deck != new_deck:
 
@@ -277,4 +308,5 @@ def make_new_note(col, deck, model_dict, deck_dict, i):
 
 
 if __name__ == "__main__":
-    main()
+    if config_test("anki", "update", "yes"):
+        main()

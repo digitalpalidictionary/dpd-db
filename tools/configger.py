@@ -55,6 +55,11 @@ DEFAULT_CONFIG = {
     },
     "openia": {
         "key": ""
+    },
+    "anki": {
+        "update": "no",
+        "db_path": "",
+        "backup_path": ""
     }
 }
 
