@@ -14,17 +14,7 @@ print("\033[1;33m moving mdict from exporter/ \033[0m")
 
 
 # check config
-if config_test("dictionary", "make_mdict", "yes"):
-   make_mdct: bool = True
-else:
-   make_mdct: bool = False
-
-if config_test("goldendict", "copy_unzip", "yes"):
-   copy_unzip: bool = True
-else:
-   copy_unzip: bool = False
-
-if make_mdct and copy_unzip:
+if config_test("dictionary", "make_mdict", "yes") or config_test("goldendict", "copy_unzip", "yes"):
 
    # Assuming the script is in the 'Documents/dpd-db/dps/scripts' directory
    script_dir = os.path.dirname(os.path.realpath(__file__))
@@ -67,6 +57,9 @@ if make_mdct and copy_unzip:
       print("\033[1;32m dpd-deconstructor-mdict.mdx moved to Sync folder \033[0m")
    else:
       print("\033[1;31m dpd-deconstructor-mdict.mdx is missing. Cannot proceed with moving. \033[0m")
+
+else:
+   print("moving is disabled in the config")
 
 
 

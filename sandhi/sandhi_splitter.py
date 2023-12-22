@@ -1566,6 +1566,8 @@ if __name__ == "__main__":
         config_test("regenerate", "db_rebuild", "yes")
     ):
         main()
+    else:
+        print("generating is disabled in the config")
 
 # add ttā and its inflections to all inflections
 # Pathavīkasiṇasamāpattintiādi

@@ -187,3 +187,5 @@ if __name__ == "__main__":
     print("[bright_yellow]making dpd deconstructor")
     if config_test("exporter", "make_deconstructor", "yes"):
         main()
+    else:
+        print("generating is disabled in the config")

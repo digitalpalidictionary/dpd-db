@@ -368,3 +368,5 @@ if __name__ == "__main__":
     print("[bright_yellow]grammar dictionary")
     if config_test("exporter", "make_grammar", "yes"):
         main()
+    else:
+        print("generating is disabled in the config")

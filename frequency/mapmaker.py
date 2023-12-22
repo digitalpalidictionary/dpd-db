@@ -484,4 +484,6 @@ if __name__ == "__main__":
         main()
         if config_test("regenerate", "db_rebuild", "yes"):
             config_update("regenerate", "db_rebuild", "no")
+    else:
+        print("generating is disabled in the config")
 

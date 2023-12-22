@@ -14,14 +14,15 @@ from db.db_helpers import create_db_if_not_exists
 from db.models import PaliWord, PaliRoot, Russian, SBS
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
-from tools.configger import config_update
+from tools.configger import config_update, config_test
 
 
 def main():
     tic()
     print("[bright_yellow]rebuilding db from tsvs")
-
-    config_update("regenerate", "db_rebuild", "yes")
+    
+    if config_test("regenerate", "db_rebuild", "no"):
+        config_update("regenerate", "db_rebuild", "yes")
 
     pth = ProjectPaths()
 

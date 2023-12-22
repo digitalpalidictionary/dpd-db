@@ -310,3 +310,5 @@ def make_new_note(col, deck, model_dict, deck_dict, i):
 if __name__ == "__main__":
     if config_test("anki", "update", "yes"):
         main()
+    else:
+        print("updating is disabled in the config")

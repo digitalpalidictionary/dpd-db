@@ -114,8 +114,8 @@ def main():
 
     # # !!! find all unused patterns !!!
 
-    # config update
-    config_update("regenerate", "inflections", "no")
+    if config_test("regenerate", "inflections", "yes"):
+        config_update("regenerate", "inflections", "no")
 
     db_session.commit()
     db_session.close()

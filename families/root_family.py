@@ -214,3 +214,5 @@ if __name__ == "__main__":
         config_test("exporter", "make_ebook", "yes")
     ):
         main()
+    else:
+        print("generating is disabled in the config")

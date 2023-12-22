@@ -102,8 +102,6 @@ def config_update(section: str, option: str, value) -> None:
 def config_test(section: str, option: str, value) -> bool:
     """Test config.ini to see if a section, option equals a value."""
     if config.has_section(section) and config.has_option(section, option):
-        current_value = config.get(section, option)
-        print(f"current config setting: '{section}, {option}' is '{current_value}'")
         return config.get(section, option) == str(value)
     else:
         print(f"[yellow]unknown config setting: [brightyellow]'{section}, {option}'")

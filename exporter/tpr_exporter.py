@@ -452,3 +452,5 @@ if __name__ == "__main__":
     print("[bright_yellow]generate tpr data")
     if config_test("exporter", "make_tpr", "yes"):
         main()
+    else:
+        print("generating is disabled in the config")

@@ -140,7 +140,8 @@ def main():
         zip_for_cloud()
         move_zip()
 
-    config_update("deconstructor", "all_texts", "no")
+    if config_test("deconstructor", "all_texts", "yes"):
+        config_update("deconstructor", "all_texts", "no")
 
     toc()
 
@@ -397,3 +398,5 @@ if __name__ == "__main__":
         config_test("regenerate", "db_rebuild", "yes")
     ):
         main()
+    else:
+        print("generating is disabled in the config")

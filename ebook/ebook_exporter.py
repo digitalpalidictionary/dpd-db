@@ -378,3 +378,5 @@ if __name__ == "__main__":
         make_mobi(pth)
         copy_mobi(pth)
         toc()
+    else:
+        print("generating is disabled in the config")

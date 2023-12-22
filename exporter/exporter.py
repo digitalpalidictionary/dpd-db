@@ -189,3 +189,5 @@ if __name__ == "__main__":
     print("[bright_yellow]exporting dpd")
     if config_test("exporter", "make_dpd", "yes"):
         main()
+    else:
+        print("generating is disabled in the config")
