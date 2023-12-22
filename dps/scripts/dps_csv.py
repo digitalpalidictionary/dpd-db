@@ -36,9 +36,11 @@ def main():
         dpd_db, key=lambda x: pali_sort_key(x.pali_1))
 
     dps(dpspth, dpd_db)
+    toc()
+    
     # full_db(dpspth, dpd_db)
     
-    toc()
+
 
 
 def load_chant_index_map(dpspth):
@@ -366,6 +368,7 @@ def pali_row(dpspth, i: PaliWord, output="anki") -> List[str]:
 
 
 def full_db(dpspth, dpd_db):
+    tic()
     console.print("[bold green]making dpd-dps-full csv")
     rows = []
     header = ['id', 'pali_1', 'pali_2', 'fin', 'sbs_class_anki', 'sbs_category', 'pos', 'grammar', 'derived_from',
@@ -404,6 +407,8 @@ def full_db(dpspth, dpd_db):
     # full_df.to_csv(
     #     dpspth.dpd_dps_full_path, sep="\t", index=False,
     #     quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
+
+    toc()
 
 
 def none_to_empty(values: List):

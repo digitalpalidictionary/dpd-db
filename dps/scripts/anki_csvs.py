@@ -135,7 +135,7 @@ def sbs_per(df, sbs_ped_link):
     )
 
     row_count = len(filtered_df)
-    print("Number of rows:", row_count)
+    console.print(f"Number of rows: [bold]{row_count}[/bold]")
 
     # Sort the DataFrame by the 'sbs_index' column
     filtered_df['sbs_index'] = pd.to_numeric(filtered_df['sbs_index'], errors='coerce')
@@ -201,7 +201,7 @@ def parittas(df, sbs_ped_link):
     filtered_df = filtered_df[columns_to_keep]
 
     row_count = len(filtered_df)
-    print("Number of rows:", row_count)
+    console.print(f"Number of rows: [bold]{row_count}[/bold]")
 
     # Save the DataFrame into csv
     output_path = os.path.join(dpspth.anki_csvs_dps_dir, "anki_parittas.csv")
@@ -249,7 +249,7 @@ def dps(df, dps_link):
     df = df[columns_to_keep]
 
     row_count = len(df)
-    print("Number of rows:", row_count)
+    console.print(f"Number of rows: [bold]{row_count}[/bold]")
 
     # Save the DataFrame into csv
     output_path = os.path.join(dpspth.anki_csvs_dps_dir, "anki_dps.csv")
@@ -346,7 +346,7 @@ def dhp(df, sbs_ped_link):
     filtered_df.sort_values(by='sbs_source_1', inplace=True)
 
     row_count = len(filtered_df)
-    print("Number of rows:", row_count)
+    console.print(f"Number of rows: [bold]{row_count}[/bold]")
 
     # Save the DataFrame into csv
     output_path = os.path.join(dpspth.anki_csvs_dps_dir, "anki_dhp.csv")
@@ -486,7 +486,7 @@ def classes(df, sbs_ped_link):
             concatenated_ru_df = pd.concat([concatenated_ru_df, filtered_ru_df])
 
     row_count = len(concatenated_df)
-    print("Number of rows (class_basic):", row_count)
+    console.print(f"Number of rows (class_basic): [bold]{row_count}[/bold]")
 
     # Save the concatenated DataFrame to the 'class_basic.csv' file
     output_path = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', "class_basic.csv")
@@ -536,7 +536,7 @@ def suttas_class(df, sbs_ped_link):
     df_with_category = df_with_category[columns_to_keep]
 
     row_count = len(df_with_category)
-    print("Number of rows:", row_count)
+    console.print(f"Number of rows: [bold]{row_count}[/bold]")
 
     # Save the whole DataFrame with 'sbs_category' not empty to a CSV file
     output_path_full = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', "suttas_class.csv")
@@ -603,10 +603,10 @@ def root_phonetic_class(df, sbs_ped_link):
     phonetic_df = phonetic_df[columns_to_keep]
 
     row_count = len(root_df)
-    print("Number of rows (root_df):", row_count)
+    console.print(f"Number of rows (root_df): [bold]{row_count}[/bold]")
 
     row_count = len(phonetic_df)
-    print("Number of rows (phonetic_df):", row_count)
+    console.print(f"Number of rows (phonetic_df): [bold]{row_count}[/bold]")
 
     # Save the filtered DataFrame to a CSV file without headers
     # Set header=False to exclude column names from the CSV.

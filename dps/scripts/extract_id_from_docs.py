@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+
+"""
+This script reads IDs from tables in a Word document, removes duplicates, and writes the unique IDs into a CSV file.
+"""
+
 from docx import Document
 import csv
 from rich.console import Console
@@ -61,7 +67,7 @@ def main():
     write_ids_to_csv(ids, output_csv_file)
     console.print(f"[bold green]IDs written to {output_csv_file}")
     console.print(f"[bold yellow]from {file_name}.docx")
-    console.print(f"[bold cyan]Number of rows of unique IDs extracted: {len(unique_ids)}")
+    console.print(f"Number of rows of unique IDs extracted: [bold]{len(unique_ids)}[/bold]")
 
 
     toc()

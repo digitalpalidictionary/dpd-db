@@ -10,6 +10,7 @@ from dps.tools.paths_dps import DPSPaths
 from db.get_db_session import get_db_session
 from rich.console import Console
 import csv
+from tools.tic_toc import tic, toc
 
 console = Console()
 
@@ -39,9 +40,9 @@ def derive_sutta_identifier(source):
         # capitalize the letter
         sutta_identifier += char.upper()
         # Check if the current character is a letter and the next character is a digit
-        if char.isalpha() and i < len(source) - 1 and source[i + 1].isdigit():
-            # If yes, insert a space before the letter and capitalize it
-            sutta_identifier += " "
+        # if char.isalpha() and i < len(source) - 1 and source[i + 1].isdigit():
+        #     # If yes, insert a space before the letter and capitalize it
+        #     sutta_identifier += ""
 
     return sutta_identifier
 
@@ -104,13 +105,23 @@ def condition_check_source(word, sutta_identifier):
                 return True
     return False
 
-# input source eg "sn56" or "mn107" or "sn22" or "sn35"
-source = "sn35"
 
-# !Update sbs_category based on all examples
-update_sbs_category(source, condition_check_all_examples, "Checking if all examples are present")
+def main():
 
-# !Update sbs_category based on sbs_source
-update_sbs_category(source, lambda word, sutta_identifier: condition_check_source(word, sutta_identifier), f"Checking if any sbs_source has {source}")
+    tic()
 
+    console.print("[bold blue]Update sbs_category for words from an ID list based on specific conditions")
 
+    # input source eg "sn56" or "mn107" or "sn22" or "sn35"
+    source = "sn35"
+
+    # !Update sbs_category based on all examples
+    update_sbs_category(source, condition_check_all_examples, "Checking if all examples are present")
+
+    # !Update sbs_category based on sbs_source
+    update_sbs_category(source, lambda word, sutta_identifier: condition_check_source(word, sutta_identifier), f"Checking if any sbs_source has {source}")
+
+    toc()
+
+if __name__ == "__main__":
+    main()

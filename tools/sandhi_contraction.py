@@ -12,6 +12,7 @@ from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.pali_alphabet import pali_alphabet
 from tools.paths import ProjectPaths
+from tools.configger import config_test
 
 
 def main():
@@ -102,29 +103,31 @@ def make_sandhi_contraction_dict(db_session: Session) -> SandhiContractions:
                 if "'" in word:
                     word_dict[i.id].update([word])
 
-        # if i.sbs and i.sbs.sbs_example_1 is not None and "'" in i.sbs.sbs_example_1:
-        #     word_list = replace_split(i.sbs.sbs_example_1)
-        #     for word in word_list:
-        #         if "'" in word:
-        #             word_dict[i.id].update([word])
+        if config_test("user", "username", "deva"):
 
-        # if i.sbs and i.sbs.sbs_example_2 is not None and "'" in i.sbs.sbs_example_2:
-        #     word_list = replace_split(i.sbs.sbs_example_2)
-        #     for word in word_list:
-        #         if "'" in word:
-        #             word_dict[i.id].update([word])
+            if i.sbs and i.sbs.sbs_example_1 is not None and "'" in i.sbs.sbs_example_1:
+                word_list = replace_split(i.sbs.sbs_example_1)
+                for word in word_list:
+                    if "'" in word:
+                        word_dict[i.id].update([word])
 
-        # if i.sbs and i.sbs.sbs_example_3 is not None and "'" in i.sbs.sbs_example_3:
-        #     word_list = replace_split(i.sbs.sbs_example_3)
-        #     for word in word_list:
-        #         if "'" in word:
-        #             word_dict[i.id].update([word])
+            if i.sbs and i.sbs.sbs_example_2 is not None and "'" in i.sbs.sbs_example_2:
+                word_list = replace_split(i.sbs.sbs_example_2)
+                for word in word_list:
+                    if "'" in word:
+                        word_dict[i.id].update([word])
 
-        # if i.sbs and i.sbs.sbs_example_4 is not None and "'" in i.sbs.sbs_example_4:
-        #     word_list = replace_split(i.sbs.sbs_example_4)
-        #     for word in word_list:
-        #         if "'" in word:
-        #             word_dict[i.id].update([word])
+            if i.sbs and i.sbs.sbs_example_3 is not None and "'" in i.sbs.sbs_example_3:
+                word_list = replace_split(i.sbs.sbs_example_3)
+                for word in word_list:
+                    if "'" in word:
+                        word_dict[i.id].update([word])
+
+            if i.sbs and i.sbs.sbs_example_4 is not None and "'" in i.sbs.sbs_example_4:
+                word_list = replace_split(i.sbs.sbs_example_4)
+                for word in word_list:
+                    if "'" in word:
+                        word_dict[i.id].update([word])
 
     for id, words in word_dict.items():
         for word in words:
