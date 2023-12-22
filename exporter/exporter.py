@@ -148,7 +148,7 @@ def goldendict_unzip_and_copy(pth: ProjectPaths) -> None:
                 stdout, stderr = process.communicate()
 
                 if process.returncode == 0:
-                    print(f"[green]Unzipping and copying to [blue]{goldendict_path} [green]successful")
+                    print("[green]Unzipping and copying [blue]ok")
                 else:
                     print("[red]Error during unzip and copy:")
                     print(f"Exit Code: {process.returncode}")
@@ -172,7 +172,7 @@ def write_size_dict(pth: ProjectPaths, size_dict):
         for key, value in size_dict.items():
             writer.writerow([key, value])
 
-    print(f"{bop():>38}")
+    print(f"{bop():>37}")
 
 
 def write_limited_datalist(combined_data_list):

@@ -48,6 +48,7 @@ the Digital Pāḷi Dictionary website</a></p>"""
         description=description)
     print(bop())
 
+    bip()
     print("[white]copying mdx file", end=" ")
     outfile = open(pth.mdict_mdx_path, 'wb')
     writer.write(outfile)

@@ -905,6 +905,7 @@ def test_family_compound(values, window, family_compound_values):
             error_string, text_color="red")
         window["family_compound"].update(text_color="red")
     else:
+        window["family_compound_error"].update("")
         window["family_compound"].update(text_color="darkgray")
 
 
