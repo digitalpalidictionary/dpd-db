@@ -4,6 +4,7 @@
 
 import csv
 import re
+import sys
 import os
 from rich.console import Console
 from docx import Document
@@ -48,9 +49,13 @@ def main(header):
     dpd_db = sorted(
         dpd_db, key=lambda x: pali_sort_key(x.pali_1))
 
-    console.print("[bold blue]Enter the name of the .docx file (without extension):")
-    file_name = input("").strip()
-    input_docx_file = f"{dpspth.local_downloads_dir}/{file_name}.docx"
+    if dpspth.local_downloads_dir:
+        console.print("[bold blue]Enter the name of the .docx file (without extension):")
+        file_name = input("").strip()
+        input_docx_file = f"{dpspth.local_downloads_dir}/{file_name}.docx"
+    else:
+        console.print("[bold red]no path to Downloads")
+        sys.exit()
 
     if file_name:
         header = fromid(dpspth, dpd_db, input_docx_file, header)

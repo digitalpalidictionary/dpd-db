@@ -6,6 +6,7 @@ This script reads IDs from tables in a Word document, removes duplicates, and wr
 
 from docx import Document
 import csv
+import sys
 from rich.console import Console
 from tools.tic_toc import tic, toc
 
@@ -59,7 +60,11 @@ def main():
     console.print("[bold blue]Enter the name of the .docx file (without extension):")
     file_name = input("").strip()
     dpspth = DPSPaths()
-    input_docx_file = f"{dpspth.local_downloads_dir}/{file_name}.docx"
+    if dpspth.local_downloads_dir:
+        input_docx_file = f"{dpspth.local_downloads_dir}/{file_name}.docx"
+    else:
+        console.print("[bold red]no path to Downloads")
+        sys.exit()
     output_csv_file = dpspth.id_to_add_path
     
     ids = extract_ids_from_docx(input_docx_file)

@@ -145,9 +145,12 @@ def sbs_per(df, sbs_ped_link):
     output_path = os.path.join(dpspth.anki_csvs_dps_dir, "anki_sbs.csv")
     filtered_df.to_csv(output_path, sep="\t", index=False, header=True)
 
-    # Save the list of field names to a text file
-    with open(f'{dpspth.sbs_anki_style_dir}/field-list-sbs.txt', 'w') as file:
-        file.write('\n'.join(columns_to_keep))
+    if dpspth.sbs_anki_style_dir:
+        # Save the list of field names to a text file
+        with open(f'{dpspth.sbs_anki_style_dir}/field-list-sbs.txt', 'w') as file:
+            file.write('\n'.join(columns_to_keep))
+    else:
+        console.print("[bold red]no path to sbs_anki_style_dir")
 
     return None
 
@@ -207,9 +210,12 @@ def parittas(df, sbs_ped_link):
     output_path = os.path.join(dpspth.anki_csvs_dps_dir, "anki_parittas.csv")
     filtered_df.to_csv(output_path, sep="\t", index=False, header=True)
 
-    # Save the list of field names to a text file
-    with open(f'{dpspth.sbs_anki_style_dir}/field-list-parittas.txt', 'w') as file:
-        file.write('\n'.join(columns_to_keep))
+    if dpspth.sbs_anki_style_dir:
+        # Save the list of field names to a text file
+        with open(f'{dpspth.sbs_anki_style_dir}/field-list-parittas.txt', 'w') as file:
+            file.write('\n'.join(columns_to_keep))
+    else:
+        console.print("[bold red]no path to sbs_anki_style_dir")
 
     return None
 
@@ -255,9 +261,13 @@ def dps(df, dps_link):
     output_path = os.path.join(dpspth.anki_csvs_dps_dir, "anki_dps.csv")
     df.to_csv(output_path, sep="\t", index=False, header=True)
 
-    # Save the list of field names to a text file
-    with open(f'{dpspth.sbs_anki_style_dir}/field-list-dps.txt', 'w') as file:
-        file.write('\n'.join(columns_to_keep))
+    if dpspth.sbs_anki_style_dir:
+        # Save the list of field names to a text file
+        with open(f'{dpspth.sbs_anki_style_dir}/field-list-dps.txt', 'w') as file:
+            file.write('\n'.join(columns_to_keep))
+
+    else:
+        console.print("[bold red]no path to sbs_anki_style_dir")
 
     return None
 
@@ -352,9 +362,13 @@ def dhp(df, sbs_ped_link):
     output_path = os.path.join(dpspth.anki_csvs_dps_dir, "anki_dhp.csv")
     filtered_df.to_csv(output_path, sep="\t", index=False, header=True)
 
-    # Save the list of field names to a text file
-    with open(f'{dpspth.sbs_anki_style_dir}/field-list-dhp.txt', 'w') as file:
-        file.write('\n'.join(columns_to_keep))
+    if dpspth.sbs_anki_style_dir:
+        # Save the list of field names to a text file
+        with open(f'{dpspth.sbs_anki_style_dir}/field-list-dhp.txt', 'w') as file:
+            file.write('\n'.join(columns_to_keep))
+
+    else:
+        console.print("[bold red]no path to sbs_anki_style_dir")
 
     return None
 
@@ -496,9 +510,13 @@ def classes(df, sbs_ped_link):
     output_path_ru = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', "class_ru.csv")
     concatenated_ru_df.to_csv(output_path_ru, sep="\t", index=False, header=True)
 
-    # Save the list of field names to a text file
-    with open(f'{dpspth.sbs_anki_style_dir}/field-list-vocab-class.txt', 'w') as file:
-        file.write('\n'.join(columns_to_keep))
+    if dpspth.sbs_anki_style_dir:
+        # Save the list of field names to a text file
+        with open(f'{dpspth.sbs_anki_style_dir}/field-list-vocab-class.txt', 'w') as file:
+            file.write('\n'.join(columns_to_keep))
+
+    else:
+        console.print("[bold red]no path to sbs_anki_style_dir")
 
     return None
 
@@ -557,9 +575,13 @@ def suttas_class(df, sbs_ped_link):
             output_path = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', 'suttas', output_filename)
             filtered_df.to_csv(output_path, sep="\t", index=False, header=True)
 
-    # Save the list of field names to a text file
-    with open(f'{dpspth.sbs_anki_style_dir}/field-list-suttas-class.txt', 'w') as file:
-        file.write('\n'.join(columns_to_keep))
+    if dpspth.sbs_anki_style_dir:
+        # Save the list of field names to a text file
+        with open(f'{dpspth.sbs_anki_style_dir}/field-list-suttas-class.txt', 'w') as file:
+            file.write('\n'.join(columns_to_keep))
+
+    else:
+        console.print("[bold red]no path to sbs_anki_style_dir")
 
     return None
 
@@ -616,10 +638,14 @@ def root_phonetic_class(df, sbs_ped_link):
     output_path = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', "phonetic_class.csv")
     phonetic_df.to_csv(output_path, sep="\t", index=False, header=True)
 
-    # Save the list of field names to a text file
-    with open(f'{dpspth.sbs_anki_style_dir}/field-list-roots-class.txt', 'w') as file:
-        file.write('\n'.join(columns_to_keep))
+    if dpspth.sbs_anki_style_dir:
+        # Save the list of field names to a text file
+        with open(f'{dpspth.sbs_anki_style_dir}/field-list-roots-class.txt', 'w') as file:
+            file.write('\n'.join(columns_to_keep))
 
+    else:
+        console.print("[bold red]no path to sbs_anki_style_dir")
+        
     return None
 
 

@@ -8,6 +8,7 @@ import re
 import openai
 import os
 import json
+from rich.prompt import Prompt
 
 from spellchecker import SpellChecker
 from nltk import word_tokenize
@@ -21,7 +22,7 @@ from db.models import Russian, SBS, PaliWord, DerivedData
 from tools.meaning_construction import make_meaning
 from tools.tsv_read_write import read_tsv_dot_dict
 
-from tools.configger import config_test_option, config_update_default_value, config_read
+from tools.configger import config_test_option, config_read, config_update
 
 from tools.cst_sc_text_sets import make_cst_text_set
 from tools.cst_sc_text_sets import make_cst_text_set_sutta
@@ -564,9 +565,11 @@ def replace_abbreviations(grammar_string, abbreviations_path):
 
 
 def load_openia_config():
+    """Add a OpenAI key if one doesn't exist, or return the key if it does."""
+
     if not config_test_option("openia", "key"):
-        config_update_default_value("openia", "key")
-        openia_config = ""
+        openia_config = Prompt.ask("[yellow]Enter your openai key (or ENTER for None)")
+        config_update("openia", "key", openia_config)
     else:
         openia_config = config_read("openia", "key")
     return openia_config

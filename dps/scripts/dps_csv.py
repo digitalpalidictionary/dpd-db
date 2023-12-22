@@ -293,13 +293,16 @@ def pali_row(dpspth, i: PaliWord, output="anki") -> List[str]:
     fields.append(sbs_index)
 
     # Logic for sbs_audio
-    audio_path = os.path.join(dpspth.anki_media_dir, f"{i.pali_clean}.mp3")
-    if os.path.exists(audio_path):
-        sbs_audio = f"[sound:{i.pali_clean}.mp3]"
-    else:
-        sbs_audio = ''
+    if dpspth.anki_media_dir:
+        audio_path = os.path.join(dpspth.anki_media_dir, f"{i.pali_clean}.mp3")
+        if os.path.exists(audio_path):
+            sbs_audio = f"[sound:{i.pali_clean}.mp3]"
+        else:
+            sbs_audio = ''
 
-    fields.append(sbs_audio)
+        fields.append(sbs_audio)
+    else:
+        console.print("[bold red]no path to anki media")
 
     fields.extend([
         i.sbs.sbs_class if i.sbs else None,
