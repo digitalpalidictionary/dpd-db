@@ -41,9 +41,6 @@ class DPSPaths:
         # spreadsheets
         self.dps_path = base_dir.joinpath(Path("dps/dps.ods"))
 
-        # to-merge/
-        self.dps_merge_dir = base_dir.joinpath(Path("dps/to-merge/"))
-
         # dps bakup folder
         self.dps_backup_dir = base_dir.joinpath(Path("dps/backup/")) 
         self.for_compare_dir = base_dir.joinpath(Path("dps/backup/for_compare/")) 
@@ -62,7 +59,6 @@ class DPSPaths:
 
         # .. external
         self.sbs_anki_style_dir = base_dir.joinpath(Path("../sasanarakkha/study-tools/anki-style/"))
-        self.local_goldendict_path = base_dir.joinpath(Path("../GoldenDict/"))
         self.local_downloads_dir = base_dir.joinpath(Path("../../Downloads/"))
         self.anki_media_dir = base_dir.joinpath(Path("/home/deva/.var/app/net.ankiweb.Anki/data/Anki2/deva/collection.media/")) 
 
