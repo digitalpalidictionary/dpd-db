@@ -205,6 +205,7 @@ class ProjectPaths:
         self.sandhi_dict_df_path = base_dir.joinpath(Path("sandhi/output/sandhi_dict_df.tsv"))
         self.sandhi_timer_path = base_dir.joinpath(Path("sandhi/output/timer.tsv"))
         self.rule_counts_path = base_dir.joinpath(Path("sandhi/output/rule_counts/rule_counts.tsv"))
+        self.sandhi_log_path = base_dir.joinpath(Path("sandhi/output/logfile.log"))
 
         # /sandhi/output/rule_counts
         self.rule_counts_dir = base_dir.joinpath(Path("sandhi/output/rule_counts/"))

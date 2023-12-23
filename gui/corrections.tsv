@@ -538,127 +538,127 @@ uddhaṃ adho ca tiriyañ'ca,
 10832	grammar	nt, in comps					missing		yes		
 59396	meaning_lit	from ends together					since it is abl		yes		
 57194	source_2	AN 3.102	sutta_2	paṃsudhovakasuttaṃ	example_2	yassa yassa ca abhiññā sacchikaraṇīyassa dhammassa cittaṃ abhininnāmeti abhiññā <b>sacchikiriyāya</b> tatra tatr'eva sakkhibhabbataṃ pāpuṇāti sati satiāyatane.	wrong bold		yes		
-75748	meaning_lit	over-dark					lit				
+75748	meaning_lit	too-dark					lit		yes		
 75753	source_1	Abhi Dhs 1	sutta_1	mātikā, tikamātikā	example_1	"saṅkiliṭṭhasaṅkilesikā dhammā.
 asaṅkiliṭṭhasaṅkilesikā dhammā.
-asaṅkiliṭṭh'<b>āsaṅkilesikā</b> dhammā."	example				
-75761	notes						clean				
-75704	meaning_lit	praising all around					missing				
-15065	construction	udumbara + khādikā					missing				
-15065	source_1	AN8.54	sutta_1	dīghajāṇusuttaṃ	example_1	sac'āyaṃ kulaputto app'āyo samāno uḷāraṃ jīvikaṃ kappeti, tassa bhavan'ti vattāro, <b>udumbarakhādikaṃ</b> v'āyaṃ kulaputto bhoge khādatī'ti.	missing				
-15065	variant	udumbarakhādī					missing				
-15065	commentary	-					missing				
-15065	meaning_1	sqanderer; who wastes resources					missing				
-15065	notes	acc. as adv. of manner. SCPN §52					from BD book3				
-15065	meaning_lit	cluster fig eater					missing				
-15065	grammar	fem, comp					missing				
-15065	compound_type	dutiyā tappurisa	compound_construction	udumbar<b>e</b> + khādikā			missing				
-15065	sanskrit	uḍumbara + khādikā					missing				
-15065	family_compound	udumbara khādikā					missing				
-15065	meaning_1	squanderer; who wastes resources					typo				
-15064	pali_1						can be removed I think, because in AN 8.54 it is udumbarakhādikā 1				
-71990	variant	udumbarakhādikā					missing				
-71990	notes	acc. as adv. of manner. SCPN §52					missing				
-71990	meaning_1	squanderer; who wastes resources					typo				
-71989	meaning_1	squanderer; who wastes resources					typo				
-20960	source_2		sutta_2		example_2		not in this example				
-74577	source_1	SN35.235	sutta_1	ādittapariyāyasuttaṃ	example_1	katamo ca, bhikkhave, ādittapariyāyo, dhammapariyāyo? varaṃ, bhikkhave, tattāya ayosalākāya ādittāya sampajjalitāya sajotibhūtāya <b>cakkhu'ndriyaṃ</b> sampalimaṭṭhaṃ, na tv'eva cakkhuviññeyyesu rūpesu anubyañjanaso nimittaggāho.	correct sutta number				
-52955	meaning_1	happiness (for); appreciation; sympathetic joy					common translation				
-36475	derivative	taddhita	suffix	so			missing				
-5251	source_2	MN107	sutta_2	gaṇakamoggallānasuttaṃ	example_2	seyyathā'pi, bho gotama, ye keci mūlagandhā, kāla-<b>anusāri </b>tesaṃ aggam'akkhāyati, ... evam'eva bhoto gotamassa ovādo param'ajjadhammesu.	same as ex1				
+asaṅkiliṭṭh'<b>āsaṅkilesikā</b> dhammā."	example		yes		
+75761	notes						clean	note doesnt fit the meaning	no		
+75704	meaning_lit	praising all around					missing		yes		
+15065	construction	udumbara + khādikā					missing		yes		
+15065	source_1	AN8.54	sutta_1	dīghajāṇusuttaṃ	example_1	sac'āyaṃ kulaputto app'āyo samāno uḷāraṃ jīvikaṃ kappeti, tassa bhavan'ti vattāro, <b>udumbarakhādikaṃ</b> v'āyaṃ kulaputto bhoge khādatī'ti.	missing	i prefer this as an acc adv of manner, see udumbarakhādikaṃ	no		
+15065	variant	udumbarakhādī					missing		yes		
+15065	commentary	-					missing		yes		
+15065	meaning_1	sqanderer; who wastes resources					missing		yes		
+15065	notes	acc. as adv. of manner. SCPN §52					from BD book3		yes		
+15065	meaning_lit	cluster fig eater					missing		yes		
+15065	grammar	fem, comp					missing		yes		
+15065	compound_type	dutiyā tappurisa	compound_construction	udumbar<b>e</b> + khādikā			missing		yes		
+15065	sanskrit	uḍumbara + khādikā					missing		yes		
+15065	family_compound	udumbara khādikā					missing		yes		
+15065	meaning_1	squanderer; who wastes resources					typo		yes		
+15064	pali_1	udumbarakhādikaṃ	pali_2	udumbarakhādikaṃ			can be removed I think, because in AN 8.54 it is udumbarakhādikā 1	i prefer this as the main reading	yes		
+71990	variant	udumbarakhādikā					missing		yes		
+71990	notes	acc. as adv. of manner. SCPN §52					missing		yes		
+71990	meaning_1	squanderer; who wastes resources					typo		yes		
+71989	meaning_1	squanderer; who wastes resources					typo		yes		
+20960	source_2		sutta_2		example_2		not in this example		yes		
+74577	source_1	SN35.235	sutta_1	ādittapariyāyasuttaṃ	example_1	katamo ca, bhikkhave, ādittapariyāyo, dhammapariyāyo? varaṃ, bhikkhave, tattāya ayosalākāya ādittāya sampajjalitāya sajotibhūtāya <b>cakkhu'ndriyaṃ</b> sampalimaṭṭhaṃ, na tv'eva cakkhuviññeyyesu rūpesu anubyañjanaso nimittaggāho.	correct sutta number		yes		
+52955	meaning_1	happiness (for); appreciation; sympathetic joy					common translation		yes		
+36475	derivative	taddhita	suffix	so			missing		yes		
+5251	source_2	MN107	sutta_2	gaṇakamoggallānasuttaṃ	example_2	seyyathā'pi, bho gotama, ye keci mūlagandhā, kāla-<b>anusāri </b>tesaṃ aggam'akkhāyati, ... evam'eva bhoto gotamassa ovādo param'ajjadhammesu.	same as ex1		yes		
 23718	construction	"√khip + ra + tara + aṃ
-khippatara + aṃ"					missing				
-23718	grammar	ind, adv, from khippatara					missing				
-23718	derived_from	khippatara					missing				
-20419	meaning_1	should do; could make					seems error				
-44744	meaning_1	with relaxed body; with calm body					adj meaning				
-11982	meaning_lit	oppression					missing				
-10018	meaning_1	will breathe in; will inhale					typo				
-26326	pali_1	care 1					#1 since added care 2				
-44395	meaning_1	who harms others; who injures others					typo				
-63609	meaning_1	Accomplished One; Fortunate One; epithet of the Buddha					Fortunate One already translation of bhagavā, so to keep it different				
-12568	meaning_2	got ready; set up; produced					missing				
-8427	meaning_2	passing over; getting through towards; surpassing; overcoming					more refine paritta meaning				
-1048	meaning_2	MN123					for links				
-9000	meaning_1	Majjhima Nikāya 26; Discourse on the Noble Quest (MN26); (or) Discourse on the Heap of Snares					typo and for link				
-9000	meaning_2	MN26					for link				
-45882	meaning_1	Majjhima Nikāya 26; Discourse on the Heap of Snares (MN26); (or) Discourse on the Noble Quest					typo				
-39924	meaning_2	MN102					for link				
-57630	meaning_2	MN10					for link				
-60800	pali_1						delete since exists proper sutta name				
-51818	meaning_1	Majjhima Nikāya 109; Discourse on the Great Full Moon Night (MN109)					missing				
-51818	sanskrit	mahant + pūrṇimā + sūtra					missing				
-51818	family_compound	mahā puṇṇamā sutta					missing				
-51818	construction	mahā + puṇṇamā + sutta					missing				
-51817	pali_1						delete since exists proper sutta name				
-58872	meaning_1	discourse of the root cause of all things					pariyāya was not translated				
-24075	meaning_1	Discourse to Moggallāna the Accountant; Majjhima Nikāya 107 (MN107)					missing				
-24075	sanskrit	gaṇaka + maudgalyāyana + sūtra					missing				
-24075	family_compound	gaṇaka moggallāna sutta					missing				
-24075	construction	gaṇaka + moggallāna + sutta					missing				
-24076	pali_1						delete since exists proper sutta name				
-68183	meaning_1	who has gone to the underworld; who is in purgatory					missing				
-62402	construction	sāyaṃ + anha					typo				
+khippatara + aṃ"					missing		yes		
+23718	grammar	ind, adv, from khippatara					missing		yes		
+23718	derived_from	khippatara					missing		yes		
+20419	meaning_1	should do; could make					seems error		yes		
+44744	meaning_1	with a relaxed body; with a calm body					adj meaning		yes		
+11982	meaning_lit	oppression					missing		yes		
+10018	meaning_1	will breathe in; will inhale					typo		yes		
+26326	pali_1	care 1					#1 since added care 2	don't worry about numbering, i have a test that catches them	no		
+44395	meaning_1	who harms others; who injures others					typo		yes		
+63609	meaning_1	Accomplished One; Fortunate One; epithet of the Buddha					Fortunate One already translation of bhagavā, so to keep it different		yes		
+12568	meaning_2	got ready; set up; produced					missing		yes		
+8427	meaning_2	passing over; surpassing; overcoming					more refine paritta meaning		yes		
+1048	meaning_2	MN123					for links		yes		
+9000	meaning_1	Majjhima Nikāya 26; Discourse on the Noble Quest (MN26); (or) Discourse on the Heap of Snares					typo and for link		yes		
+9000	meaning_2	MN26					for link		yes		
+45882	meaning_1	Majjhima Nikāya 26; Discourse on the Heap of Snares (MN26); (or) Discourse on the Noble Quest					typo		yes		
+39924	meaning_2	MN102					for link		yes		
+57630	meaning_2	MN10					for link		yes		
+60800	pali_1						delete since exists proper sutta name	it's referred to in commentaries by this same, so it stays	no		
+51818	meaning_1	Majjhima Nikāya 109; Discourse on the Great Full Moon Night (MN109)					missing		yes		
+51818	sanskrit	mahā + pūrṇimā + sūtra					missing		yes		
+51818	family_compound	mahā puṇṇamā sutta					missing	i dont add suttas to compound families, they just muddy the water	no		
+51818	construction	mahā + puṇṇamā + sutta					missing		yes		
+51817	pali_1						delete since exists proper sutta name	same again, it's called this in commentaries	no		
+58872	meaning_1	discourse of the root cause of all things					pariyāya was not translated		yes		
+24075	meaning_1	Discourse to Moggallāna the Accountant; Majjhima Nikāya 107 (MN107)					missing		yes		
+24075	sanskrit	gaṇaka + maudgalyāyana + sūtra					missing		yes		
+24075	family_compound	gaṇaka moggallāna sutta					missing		yes		
+24075	construction	gaṇaka + moggallāna + sutta					missing		yes		
+24076	pali_1						delete since exists proper sutta name	is aclled this in commetnaries	no		
+68183	meaning_1	who has gone to the underworld; who is in purgatory					missing		yes		
+62402	construction	sāyaṃ + anha					typo		yes		
 11797	source_2	SN1.41	sutta_2	ādittasuttaṃ	example_2	"datvā ca bhutvā ca yatha-<b>ānubhāvaṃ</b>,
-anindito saggam'upeti ṭhānan'ti."	typo				
-21932	meaning_1	of whom?; of what?; of which?					typo (perhaps)				
+anindito saggam'upeti ṭhānan'ti."	typo		yes		
+21932	meaning_1	of whom?; of what?; of which?					typo (perhaps)		yes		
 67381	commentary	"(ANa) <b>viggāhikakathan</b>'ti na tvaṃ imaṃ dhammavinayaṃ ājānāsī'tiādinayappavattā viggāhikakathā.
-(DNa) <b>viggāhikakathā</b>'ti viggahakathā, sārambhakathā."					from notes to comm				
-67381	notes						from notes to comm				
-70402	meaning_1	belonging to a tiger; regarding a tiger; with a tiger					typo				
-68570	meaning_2	classifying; analysing					make clear difference between 1 and 2				
-15512	grammar	abs, of upaṭṭhapeti					missing				
-15512	meaning_1	having established; having set up; having caused to attend; having caused to be present					missing				
-6128	source_1		sutta_1		example_1		wrong ex				
-43853	pos	nt					since it is a noun				
-43853	grammar	nt, ptp of paribhuñjati					since it is a noun				
-43853	pali_2	paribhojanīyaṃ					since it is a noun				
-43853	stem	paribhojanīy	pattern	a nt			since it is a noun				
-21791	meaning_lit	what just this?					missing				
-61087	source_2	DN16.27	sutta_2	mahāparinibbānasuttaṃ	example_2	sabbaphāliphullā kho, ānanda, yamakasālā akālapupphehi. te tathāgatassa <b>sarīraṃ</b> okiranti ajjhokiranti abhippakiranti tathāgatassa pūjāya.	missing				
-65815	source_1	SN22.95	sutta_1	pheṇapiṇḍūpamasuttaṃ	example_1	tam'enaṃ mūle chindeyya, mūle chetvā agge chindeyya, agge chetvā patta<b>vaṭṭiṃ</b> vinibbhujeyya. so tassa patta<b>vaṭṭiṃ</b> vinibbhujanto pheggum'pi n'ādhigaccheyya, kuto sāraṃ!	missing				
-65815	meaning_1	roll					missing				
-42589	source_1	AN10.15	sutta_1	appamādasuttaṃ	example_1	seyyathā'pi, bhikkhave, yā kāci tārakarūpānaṃ <b>pabhā</b>, sabbā tā canda<b>ppabhāya</b> kalaṃ n'āgghanti soḷasiṃ, canda<b>ppabhā</b> tāsaṃ aggam'akkhāyati	missing				
-16236	family_set	names of monks					missing				
-16236	source_1	SN35.70	sutta_1	upavāṇasandiṭṭhikasuttaṃ	example_1	ekam'antaṃ nisinno kho āyasmā <b>upavāṇo</b> bhagavantaṃ etad'avoca, sandiṭṭhiko dhammo, sandiṭṭhiko dhammo'ti, bhante, vuccati.	missing				
-16236	meaning_1	name of a monk; attendant of the Buddha					missing				
-49844	source_2	SN35.93	sutta_2	dutiyadvayasuttaṃ	example_2	cakkhu aniccaṃ vipariṇāmi aññathā<b>bhāvi</b>. rūpā aniccā vipariṇāmino aññathā<b>bhāvino</b>. itth'etaṃ dvayaṃ calañ'c'eva byathañ'ca aniccaṃ vipariṇāmi aññathā<b>bhāvi</b>.	missing				
-55061	commentary	(MNa) <b>rukkhaphal'ūpamā</b> sabb'aṅgapacc'aṅga-palibhañjan'aṭṭhena.					sandhi				
-58813	source_1	SN12.64	sutta_1	atthirāgasuttaṃ	example_1	seyyathā'pi, bhikkhave, rajako vā cittakārako vā sati rajanāya vā lākhāya vā haliddiyā vā nīliyā vā mañjiṭṭhāya vā suparimaṭṭhe vā phalake bhittiyā vā dussapaṭṭe vā itthirūpaṃ vā purisarūpaṃ vā abhinimmineyya <b>sabb'aṅgapacc'aṅgaṃ</b>.	sandhi				
+(DNa) <b>viggāhikakathā</b>'ti viggahakathā, sārambhakathā."					from notes to comm		yes		
+67381	notes						from notes to comm		yes		
+70402	meaning_1	belonging to a tiger; regarding a tiger; with a tiger					typo		yes		
+68570	meaning_2	classifying; analysing					make clear difference between 1 and 2		yes		
+15512	grammar	abs, of upaṭṭhapeti					missing		yes		
+15512	meaning_1	having established; having set up; having caused to attend; having caused to be present					missing		yes		
+6128	source_1		sutta_1		example_1		wrong ex		yes		
+43853	pos	nt					since it is a noun		yes		
+43853	grammar	nt, ptp of paribhuñjati					since it is a noun		yes		
+43853	pali_2	paribhojanīyaṃ					since it is a noun		yes		
+43853	stem	paribhojanīy	pattern	a nt			since it is a noun		yes		
+21791	meaning_lit	what just this?					missing		yes		
+61087	source_2	DN16.27	sutta_2	mahāparinibbānasuttaṃ	example_2	sabbaphāliphullā kho, ānanda, yamakasālā akālapupphehi. te tathāgatassa <b>sarīraṃ</b> okiranti ajjhokiranti abhippakiranti tathāgatassa pūjāya.	missing	the buddha is still alive at this point, not a corpse!	no		
+65815	source_1	SN22.95	sutta_1	pheṇapiṇḍūpamasuttaṃ	example_1	tam'enaṃ mūle chindeyya, mūle chetvā agge chindeyya, agge chetvā patta<b>vaṭṭiṃ</b> vinibbhujeyya. so tassa patta<b>vaṭṭiṃ</b> vinibbhujanto pheggum'pi n'ādhigaccheyya, kuto sāraṃ!	missing		yes		
+65815	meaning_1	roll					missing		yes		
+42589	source_1	AN10.15	sutta_1	appamādasuttaṃ	example_1	seyyathā'pi, bhikkhave, yā kāci tārakarūpānaṃ <b>pabhā</b>, sabbā tā canda<b>ppabhāya</b> kalaṃ n'āgghanti soḷasiṃ, canda<b>ppabhā</b> tāsaṃ aggam'akkhāyati	missing		yes		
+16236	family_set	names of monks; names of arahants					missing		yes		
+16236	source_1	SN35.70	sutta_1	upavāṇasandiṭṭhikasuttaṃ	example_1	ekam'antaṃ nisinno kho āyasmā <b>upavāṇo</b> bhagavantaṃ etad'avoca, sandiṭṭhiko dhammo, sandiṭṭhiko dhammo'ti, bhante, vuccati.	missing		yes		
+16236	meaning_1	name of an arahant monk; attendant of the Buddha					missing		yes		
+49844	source_2	SN35.93	sutta_2	dutiyadvayasuttaṃ	example_2	cakkhu aniccaṃ vipariṇāmi aññathā<b>bhāvi</b>. rūpā aniccā vipariṇāmino aññathā<b>bhāvino</b>. itth'etaṃ dvayaṃ calañ'c'eva byathañ'ca aniccaṃ vipariṇāmi aññathā<b>bhāvi</b>.	missing		yes		
+55061	commentary	(MNa) <b>rukkhaphal'ūpamā</b> sabb'aṅgapacc'aṅga-palibhañjan'aṭṭhena.					sandhi		yes		
+58813	source_1	SN12.64	sutta_1	atthirāgasuttaṃ	example_1	seyyathā'pi, bhikkhave, rajako vā cittakārako vā sati rajanāya vā lākhāya vā haliddiyā vā nīliyā vā mañjiṭṭhāya vā suparimaṭṭhe vā phalake bhittiyā vā dussapaṭṭe vā itthirūpaṃ vā purisarūpaṃ vā abhinimmineyya <b>sabb'aṅgapaccaṅgaṃ</b>.	sandhi	its internal sandhi, those don't normally get maked	no		
 73802	source_1	MN131	sutta_1	bhaddekarattasuttaṃ	example_1	"atītaṃ n'ānvāgameyya,
 nappaṭikaṅkhe anāgataṃ,
 <b>yadatītam'pahīnan'taṃ</b>,
-appattañ'ca anāgataṃ."	sandhi				
-28313	source_1	AN8.30	sutta_1	anuruddha mahāvitakkasuttaṃ	example_1	idha, bhikkhave, bhikkhu app'iccho samāno app'iccho'ti maṃ <b>jāneyyun</b>'ti na icchati	sandhi				
-59691	source_1	AN8.30	sutta_1	anuruddha mahāvitakkasuttaṃ	example_1	idha, bhikkhave, bhikkhu app'iccho <b>samāno</b>, app'iccho'ti maṃ jāneyyun'ti na icchati	sandhi				
+appattañ'ca anāgataṃ."	sandhi		yes		
+28313	source_1	AN8.30	sutta_1	anuruddha mahāvitakkasuttaṃ	example_1	idha, bhikkhave, bhikkhu app'iccho samāno app'iccho'ti maṃ <b>jāneyyun</b>'ti na icchati	sandhi		yes		
+59691	source_1	AN8.30	sutta_1	anuruddha mahāvitakkasuttaṃ	example_1	idha, bhikkhave, bhikkhu app'iccho <b>samāno</b>, app'iccho'ti maṃ jāneyyun'ti na icchati	sandhi		yes		
 73802	source_1	MN131	sutta_1	bhaddekarattasuttaṃ	example_1	"atītaṃ n'ānvāgameyya,
 nappaṭikaṅkhe anāgataṃ,
-<b>yad'atītam'pahīnan'taṃ</b>,
-appattañ'ca anāgataṃ."	sandhi		
+<b>yadatītam'pahīnan'taṃ</b>,
+appattañ'ca anāgataṃ."	sandhi	i dont normall mark yad tad etc	no		
 47396	source_1	DHP401	sutta_1	brāhmaṇavaggo	example_1	"vāri <b>pokkharapatt</b>'eva,
 ār'agge'r'iva sāsapo,
 yo na limpati kāmesu,
-tam'ahaṃ brūmi brāhmaṇaṃ."	sandhi		
+tam'ahaṃ brūmi brāhmaṇaṃ."	sandhi		yes		
 62619	source_1	DHP401	sutta_1	brāhmaṇavaggo	example_1	"vāri pokkharapatt'eva,
 ār'agge'r'iva <b>sāsapo</b>,
 yo na limpati kāmesu,
-tam'ahaṃ brūmi brāhmaṇaṃ."	sandhi		
+tam'ahaṃ brūmi brāhmaṇaṃ."	sandhi		yes		
 12355	source_1	DHP401	sutta_1	brāhmaṇavaggo	example_1	"vāri pokkharapatt'eva,
 <b>ār'agge</b>'r'iva sāsapo,
 yo na limpati kāmesu,
-tam'ahaṃ brūmi brāhmaṇaṃ."	sandhi		
+tam'ahaṃ brūmi brāhmaṇaṃ."	sandhi		yes		
 12433	source_1	DHP401	sutta_1	brāhmaṇavaggo	example_1	"vāri pokkharapatt'eva,
 <b>ār</b>'agge'r'iva sāsapo,
 yo na limpati kāmesu,
-tam'ahaṃ brūmi brāhmaṇaṃ."	sandhi		
+tam'ahaṃ brūmi brāhmaṇaṃ."	sandhi		yes		
 55042	source_1	DHP401	sutta_1	brāhmaṇavaggo	example_1	"vāri pokkharapatt'eva,
 ār'agge'<b>r'iva</b> sāsapo,
 yo na limpati kāmesu,
-tam'ahaṃ brūmi brāhmaṇaṃ."	sandhi		
+tam'ahaṃ brūmi brāhmaṇaṃ."	sandhi		yes		
 8386	source_2	SNP37	sutta_2	"nālakasuttaṃ
 mahāvaggo 11"	example_2	"sa piṇḍacāraṃ caritvā,
 van'antam'<b>abhihāraye</b>,
 upaṭṭhito rukkhamūlasmiṃ,
-āsan'ūpagato muni."	sandhi		
-40689	meaning_lit	shines back					missing		
-1702	meaning_1	is troubled by, ashamed of and disgusted with; is distressed, disturbed and disgusted					typo		
+āsan'ūpagato muni."	sandhi		yes		
+40689	meaning_lit	shines back					missing		yes		
+1702	meaning_1	is troubled by, ashamed of and disgusted with; is distressed, disturbed and disgusted					typo		yes		
