@@ -24,17 +24,23 @@ jobs:
         poetry config virtualenvs.in-project true
         poetry install
 
-    - name: 1. Setup
-      run: |
-        poetry run python sandhi/sandhi_setup.py
-        
-    - name: 2. Splitter
-      run: |
-        poetry run python sandhi/sandhi_splitter.py
+    - name: Run initial setup script
+      run: poetry run bash bash/initial_setup_run_once.sh
 
-    - name: 3. Postporocess setup
-      run: |
-        poetry run python sandhi/sandhi_postprocess.py
+    - name: Build the database
+      run: poetry run bash bash/build_db.sh
+
+    - name: Config settings for all texts
+      run: poetry run scripts/db_all_text_setup.py
+
+    - name: Sandhi Setup
+      run: poetry run python sandhi/sandhi_setup.py
+        
+    - name: Sandhi Splitter
+      run: poetry run python sandhi/sandhi_splitter.py
+
+    - name: Sandhi Postporocess setup
+      run: poetry run python sandhi/sandhi_postprocess.py
 
     - name: Zip sandhi/output directory
       run: |
@@ -46,5 +52,6 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         path: ./sandhi/output.zip
+        continue-on-error: true
     
 
