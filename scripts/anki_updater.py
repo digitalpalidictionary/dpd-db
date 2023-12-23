@@ -167,17 +167,17 @@ def main():
                 print(data_dict[id])
                 deleted_list += [i.id]
 
+    print(f"[green]{'added':<20}{len(added_list):>10}")
     print(f"[green]{'updated':<20}{len(updated_list):>10}")
     print(f"[green]{'changed deck':<20}{len(changed_deck_list):>10}")
-    print(f"[green]{'added':<20}{len(added_list):>10}")
     print(f"[green]{'deleted':<20}{len(deleted_list):>10}")
 
     col.close()
     toc()
 
+    print(f"{added_list=}")
     print(f"{updated_list=}")
     print(f"{changed_deck_list=}")
-    print(f"{added_list=}")
     print(f"{deleted_list=}")
 
 

@@ -232,6 +232,9 @@ class ProjectPaths:
         self.manual_corrections_path = base_dir.joinpath(Path("sandhi/sandhi_related/manual_corrections.tsv"))
         self.shortlist_path = base_dir.joinpath(Path("sandhi/sandhi_related/shortlist.tsv"))
 
+        # sanskrit
+        self.root_families_sanskrit_path = base_dir.joinpath(Path("sanskrit/root_families_sanskrit.tsv"))
+        
         # /share
         self.all_tipitaka_words_path = base_dir.joinpath(Path("share/all_tipitaka_words"))
         self.template_changed_path = base_dir.joinpath(Path("share/changed_templates"))

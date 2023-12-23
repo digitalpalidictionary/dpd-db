@@ -1,3 +1,5 @@
+"""A class to handle all data relevant to adding user additions to the db."""
+
 import pickle
 
 from datetime import datetime
@@ -66,8 +68,7 @@ class Addition:
 """
 
 if __name__ == "__main__":
-    pth = ProjectPaths()
     additions_list = Addition.load_additions()
-    for a in additions_list:
-        print(a)
+    [print(a) for a in additions_list]
+        
 
