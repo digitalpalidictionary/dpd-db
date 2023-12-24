@@ -1,5 +1,6 @@
 initial	final	correct	wrong	without	exceptions
-
+vi + ā	veyyā	vi > veyy (Kacc 401, 375)	vy > veyy	veyy	
+-
 a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant
 a + ṭ	iṭ	a > i	x	a + ṭh	x
 a + ṭh	iṭṭh	a > i	x	x	x	
@@ -39,7 +40,10 @@ xū + a	av	ū > av	x	x	x	so many exceptions
 
 e + a	aya	e > ay	x	x	x
 
-c + t	kk	ct > kk	c > k	ñc + t	x
+c + a	ka	c > k (Kacc 623, 554)	c > k	k	avaṅka 1, avaṅkatta, pallaṅka 1, pallaṅka 2, sampavaṅka, sampavaṅkatā, savaṅkatta, vaṅka 1, vaṅka 2, vaṅka 3, vaṅka 6, vaṅkatta
+
+c + t	kk	ct > kk (Kacc 623, 554)	c > k	ñc + t	x
+c + t	kk	ct > kk (Kacc 623, 554)	ct > kk	ñc + t	x
 c + t	tt	ct > tt	c > t	c + th	x
 c + th	tth	cth > tth	c > t	x	x
 c + ṃ	ñc	cṃ > ñc (metathesis)	x	x	x
@@ -57,9 +61,11 @@ ja + y	jj	jy > jj	x	x	x
 jj + t	ṭṭh	jjt > ṭṭh	jt > ṭṭh	jj + th	x
 jj + y	jj	jjy > jj	y > j	x	x
 
-ṇa + y	ññ	ṇy > ññ	x	x	x
+ñc	ṅk	ñc > ṅk (Kacc 623, 554)	ñc > ṅk	ṅk	asaṅkaccika, saṅkaccika
 
 ṭh + ṃ	ṇṭh	ṭhṃ > ṇṭḥ (metathesis)	x	x	x
+
+ṇa + y	ññ	ṇy > ññ	x	x	x
 
 t + ṃ	nt	tṃ > nt (metathesis)	x	x	x
 t + y	cc	ty > cc	x	x	x

@@ -1,6 +1,6 @@
 # run deconstructor on cloud
 
-# ctrl-shift-p ssh
+# ctrl-shift-p ssh connect to host
 # root@ipaddress
 # bash sandhi.sh
 apt-get install unzip

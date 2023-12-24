@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 
-"""Setup for compound deconstruction.
-Args: None = run on cloud with all texts
---local = run locally with limited texts
---local --all_texts = run locally with all texts
-"""
+"""Setup for compound deconstruction."""
 
 import os
 from typing import Dict, List, Set, Tuple
@@ -36,16 +32,20 @@ def main():
     or in the cloud."""
     tic()
 
-    # Read configurations from config.ini and setup args for --local and --all_texts
+    # Read configurations from config.ini
+    if config_test("deconstructor", "run_on_cloud", "yes"):
+        run_on_cloud = True
+        print("[green]setting up to run [cyan]on cloud")
+    else:
+        run_on_cloud = False
+        print("[green]setting up to run [cyan]locally")
     if config_test("deconstructor", "all_texts", "yes"):
         texts_to_include = all_texts
-        print("[green]setting up for [cyan]local with all texts")
+        print("[green]including [cyan]all texts")
     elif config_test("deconstructor", "all_texts", "no"):
         texts_to_include = limited_texts
-        print("[green]setting up for [cyan]local with limited texts")
-    else:
-        texts_to_include = all_texts
-        print("[green]setting up for [cyan]cloud with all texts")
+        print("[green]including [cyan]limited texts")
+    
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -136,12 +136,12 @@ def main():
 
     make_matches_dict(pth)
 
-    if config_test("deconstructor", "local", "no"):
+    if run_on_cloud:
         zip_for_cloud()
         move_zip()
 
-    if config_test("deconstructor", "all_texts", "yes"):
-        config_update("deconstructor", "all_texts", "no")
+    # if config_test("deconstructor", "all_texts", "yes"):
+    #     config_update("deconstructor", "all_texts", "no")
 
     toc()
 
