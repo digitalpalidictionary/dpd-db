@@ -66,7 +66,8 @@ def make_dict_of_sets(db):
         # all_empty_family_compounds
         if (
             i.meaning_1 and
-            not i.family_compound
+            not i.family_compound and
+            not i.meaning_1.startswith("name of")
         ):
             d["all_empty_family_compounds"].update([i.pali_clean])
 
@@ -82,8 +83,8 @@ def make_dict_of_sets(db):
 
 def load_exceptions():
     try:
-        with open("family_compound_exceptions") as file:
-            exceptions = pickle.load(file)
+        with open("family_compound_exceptions") as f:
+            exceptions = pickle.load(f)
     except FileNotFoundError:
         exceptions = set()
     return exceptions

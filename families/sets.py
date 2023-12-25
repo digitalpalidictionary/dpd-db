@@ -125,7 +125,6 @@ def print_errors_list(errors_list):
 
 
 if __name__ == "__main__":
-    main()
     print("[bright_yellow]sets generator")
     if (
         config_test("exporter", "make_dpd", "yes") or 

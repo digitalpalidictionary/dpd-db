@@ -2,9 +2,9 @@
 
 """Fill in the missing details of auto-added monks' names in Theragāthā"""
 
+import os
 import pickle
 import pyperclip
-import subprocess
 
 from rich import print
 
@@ -13,8 +13,8 @@ from db.models import PaliWord
 from tools.paths import ProjectPaths
 
 def open_in_goldendict(word: str) -> None:
-    cmd = ["goldendict", word]
-    subprocess.Popen(cmd)
+    cmd = "nohup goldendict " + word + " > /dev/null 2>&1 &"
+    os.system(cmd)
 
 
 def main():
@@ -23,25 +23,32 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(PaliWord).all()
 
-    first = 76179
-    last = 76417
-
     # load previous set or start a new one
     try:
         done_list = load_pickle()
     except FileNotFoundError:
         done_list = []
+
+    first = 76179
+    last = 76417
+    processed = len(done_list)
+    total = last - first + 1
+
     print_done(done_list)
+    print("Press any key to contine or X to exit")
 
     for counter, i in enumerate(db):
         if (
             first <= i.id <= last
             and i.id not in done_list
         ):
-            open_in_goldendict(i.pali_clean)
-            print(counter, i.pali_1)
             pyperclip.copy(i.id)
-            inp = input("Press any key to contine or X to exit: ")
+            # open_in_goldendict(i.pali_clean)
+            
+            processed = len(done_list)
+            print(f"{processed + 1:>3}/{total:<3} [green]{counter:<6}{i.pali_1}", end=" ")
+            inp = input()
+
             if inp == "x":
                 break
             else:
@@ -60,7 +67,7 @@ def dump_pickle(done_list):
 
 
 def print_done(done_list):
-    print(f"completed: {done_list}")
+    print(f"completed: {len(done_list)}")
     
 
 if __name__ == "__main__":

@@ -1,9 +1,8 @@
 initial	final	correct	wrong	without	exceptions
-vi + ā	veyyā	vi > veyy (Kacc 401, 375)	vy > veyy	veyy	
--
+
 a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant
 a + ṭ	iṭ	a > i	x	a + ṭh	x
-a + ṭh	iṭṭh	a > i	x	x	x	
+a + ṭh	iṭṭh	a > i	x	x	x
 ati +	acc	ti > ty > cc	x	gacch	pacchājāta, gatikālādipaccayantarasamavāya
 adhi + a	jjh	dhi > dhy > jjh	adhi > adhy > ajjh	adhi + ā	x
 adhi + ā	jjh	dhi > dhy > jjh	x	adhi + a	x
@@ -31,9 +30,10 @@ i + s	īs	is > iṃs > īs	x	x	catuvīsatisatasahassa, diṭṭhisīsa, belaṭ�
 
 xu + a	va	ua > va	u > v	vā	x	need to p_exlude and c_eclude
 u + ā	vā	uā > vā	u > v	x	divādigaṇa, opilāpetvā, suvānaya 1, suvānaya 2, samannāharitvā, lavāpeti, lavāpetvā
-u + i	vay	uay > vay	x	x	x
+u + i	vay	ui > vi	x	x	x
 u + i + y	by	vy > by	x	x	x
 uṭ	oṭ	u > o	x	x	x
+ud + h	ūh	ud > ū before h	ud > ū	x	x
 
 xū + a	av	ū > av	x	x	x	so many exceptions
 ūy	ubb	ūy > ūv > uvv > ubb	x	x	x
@@ -153,6 +153,8 @@ v + t	t	vt > t	v > t	v + th	x
 v + t	tt	vt > tt	v > t	v + th	x
 v + th	th	vth > th	x	x	x
 vi +	by	vi > vy > by	vi > by	x	x
+vi + ā	veyyā	vi > veyy (Kacc 401, 375)	vy > veyy	veyy	
+
 
 s + t	ṭṭh	st > ṭṭh	x	x	x
 s + y	ss	sy > ss	y > s	x	x

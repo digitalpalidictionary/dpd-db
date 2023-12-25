@@ -2028,3 +2028,7 @@ irrefutability
 refutable
 disputable
 entwinings
+goodness
+rightness
+correctness
+properness

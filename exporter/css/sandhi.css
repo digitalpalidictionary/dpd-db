@@ -46,3 +46,9 @@ a.sandhi_feedback {
     margin: 1px;
     vertical-align: top;
 }
+
+p.sandhi_footer {
+    border-top: 1px solid #ffd700;
+    font-size: 0.8em;
+    padding: 5px 0px;
+}

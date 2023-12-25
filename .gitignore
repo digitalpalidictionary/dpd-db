@@ -88,3 +88,5 @@ tests/word_family_exceptions
 time_log.dat
 time_log.png
 tmp/
+sandhi/do_output.zip
+sandhi/output_do_old/

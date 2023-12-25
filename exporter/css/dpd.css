@@ -45,8 +45,9 @@ p.heading b {
 }
 
 p.footer {
-    padding: 5px 0px;
     border-top: 1px solid #00A4CC;
+    font-size: 0.8em;
+    padding: 5px 0px;
 }
 
 table {
