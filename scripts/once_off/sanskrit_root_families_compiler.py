@@ -56,6 +56,8 @@ def main():
                 if i.sanskrit:
                     root_dict[root_family_key].sanskrit.add(i.sanskrit)
     
+    return
+    # writing is disable in case of stupidity.
     with open(
         pth.root_families_sanskrit_path, "w", newline="") as csvfile:
         fieldnames = [
