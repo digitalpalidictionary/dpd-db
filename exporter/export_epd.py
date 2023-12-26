@@ -105,20 +105,31 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[Rend
                 prefix = m.group(1) if m.group(1) else m.group(3)
                 number = m.group(2) if m.group(2) else m.group(4)
                 
-                combined_number = f"{prefix}{number}" if prefix and number else None
-                
-                if combined_number:
-                    number_link = i.source_link_sutta
-                    if make_link:
-                        anchor_link = f'<a href="{number_link}">link</a>'
-                        epd_string = f"<b class='epd'>{i.pali_clean}</b>. {i.meaning_2} {anchor_link}" if make_link else f"<b class='epd'>{i.pali_clean}</b>. {i.meaning_2}"
-                    else:
-                        epd_string = f"<b class='epd'>{i.pali_clean}</b>. {i.meaning_2}"
+                combined_number_without_space = f"{prefix}{number}" if prefix and number else None
+                combined_number_with_space = f"{prefix} {number}" if prefix and number else None
 
-                    if combined_number in epd.keys():
-                        epd[combined_number] += f"<br>{epd_string}"
-                    else:
-                        epd.update({combined_number: epd_string})
+                if combined_number_without_space and combined_number_with_space:
+                    combined_numbers = [combined_number_without_space, combined_number_with_space]
+                elif combined_number_without_space:
+                    combined_numbers = [combined_number_without_space]
+                elif combined_number_with_space:
+                    combined_numbers = [combined_number_with_space]
+                else:
+                    combined_numbers = []
+
+                for combined_number in combined_numbers:
+                    if combined_number:
+                        number_link = i.source_link_sutta
+                        if make_link:
+                            anchor_link = f'<a href="{number_link}">link</a>'
+                            epd_string = f"<b class='epd'>{i.pali_clean}</b>. {i.meaning_2} {anchor_link}" if make_link else f"<b class='epd'>{i.pali_clean}</b>. {i.meaning_2}"
+                        else:
+                            epd_string = f"<b class='epd'>{i.pali_clean}</b>. {i.meaning_2}"
+
+                        if combined_number in epd.keys():
+                            epd[combined_number] += f"<br>{epd_string}"
+                        else:
+                            epd.update({combined_number: epd_string})
 
 
 
