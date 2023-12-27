@@ -14,13 +14,14 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(PaliWord).all()
     # character = "\u0061\u0304" # ā
-    character = "\u0075\u0304"  # ū
-    character = "\u006E\u0323"
+    # character = "\u0075\u0304"  # ū
+    character = "ṁ"
+    replacement = "ṃ"
     for i in db:
         for field in i.__dict__.keys():
             if isinstance(getattr(i, field), str):
                 if character in getattr(i, field):
-                    setattr(i, field, getattr(i, field).replace(character, "ā"))
+                    setattr(i, field, getattr(i, field).replace(character, replacement))
                     print(getattr(i, field))
         
     # db_session.commit()

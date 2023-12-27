@@ -4,11 +4,15 @@ import copy
 
 from anki.collection import Collection
 from anki.errors import DBError
-from rich import print
+from anki.notes import Note
+from anki.cards import Card
 
+from rich import print
+from typing import List, Dict
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord
+
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc, bip, bop
 from tools.configger import config_read, config_test
@@ -17,23 +21,55 @@ from tools.configger import config_read, config_test
 def main():
     tic()
     print("[bright_yellow]updating anki")
-    
+
     # setup dbs
     bip()
     print(f"[green]{'setup dbs':<20}", end="")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(PaliWord).all()
+    print(f"{len(db):>10}{bop():>10.2f}")
 
+    decks = ["Vocab", "Commentary", "Pass1"]
+    (
+        col,
+        data_dict,
+        deck_dict,
+        model_dict,
+        carry_on
+    ) = setup_anki_updater(decks)
+
+    if carry_on:
+        update_from_db(
+            db, col, data_dict, deck_dict, model_dict)
+
+def setup_anki_updater(decks):
+    col = get_anki_collection()
+    if col:
+        backup_anki_db(col)
+        notes = get_notes(col, decks)
+        cards = get_cards(col, decks)
+        deck_dict = get_decks(col)
+        model_dict = get_models(col)
+        data_dict = make_data_dict(notes, cards)
+        return col, data_dict, deck_dict, model_dict, True
+    else:
+        return col, {}, {}, {}, False
+        
+def get_anki_collection() -> Collection|None:
+    bip()
+    print(f"[green]{'get anki collection':<20}", end="")
     anki_db_path = config_read("anki", "db_path")
     try:
         col = Collection(anki_db_path)
-        print(f"{len(db):>10}{bop():>10.2f}")
+        print(f"{'ok':>10}{bop():>10.2f}")
+        return col
     except DBError:
         print("\n[red]Anki is currently open, ", end="")
         print("close and try again.")
-        return
+        return None
 
+def backup_anki_db(col) -> None:
     # backup anki db
     bip()
     print(f"[green]{'backup anki db':<20}", end="")
@@ -47,34 +83,43 @@ def main():
             print(f"{'ok':>10}{bop():>10.2f}")
     else:
         print(f"[red]{'no path':>10}{bop():>10.2f}")
-    
 
-    # get field names
-    def get_field_names():
-        deck_name = "Vocab"
-        note_ids = col.find_notes(f"deck:'{deck_name}'")
-        if note_ids:
-            note_id = note_ids[0]
-            note = col.get_note(note_id)
-            field_names = note.keys()
-            print(field_names)
+def get_field_names(col: Collection, deck_name: str) -> List[str]:
+    """get field names for a specif deck"""
+    note_ids = col.find_notes(f"deck:{deck_name}")
+    if note_ids:
+        note_id = note_ids[0]
+        note = col.get_note(note_id)
+        field_names = note.keys()
+        return field_names
+    else:
+        return []
 
+def make_search_query(decks):
+    return " or ".join(f'deck:"{deck}"' for deck in decks)
 
-    # get all notes
+def get_notes(col: Collection, decks: List[str]) -> List[Note]:
+    """get all notes for a list of decks"""
     bip()
     print(f"[green]{'get notes':<20}", end="")
-    note_ids = col.find_notes("")
+    search_query =  make_search_query(decks)
+    note_ids = col.find_notes(search_query)
     notes = [col.get_note(note_id) for note_id in note_ids]
     print(f"{len(notes):>10}{bop():>10.2f}")
+    return notes
 
-    # get cards
+def get_cards(col: Collection, decks: List[str]) -> List[Card]:
+    """get all cards for a list of decks"""
     bip()
     print(f"[green]{'get cards':<20}", end="")
-    card_ids = col.find_cards("")
+    search_query =  make_search_query(decks)
+    card_ids = col.find_cards(search_query)
     cards = [col.get_card(card_id) for card_id in card_ids]
     print(f"{len(cards):>10}{bop():>10.2f}")
+    return cards
 
-    # get decks
+def get_decks(col: Collection) -> Dict:
+    """get all decks"""
     bip()
     print(f"[green]{'get decks':<20}", end="")
     decks = col.decks.all()
@@ -85,30 +130,37 @@ def main():
         deck_dict_reverse[did] = deck
     deck_dict.update(deck_dict_reverse)
     print(f"{len(deck_dict_reverse):>10}{bop():>10.2f}")
+    return deck_dict
 
+def get_models(col: Collection) -> dict:
     # get models
     bip()
     print(f"[green]{'get models':<20}", end="")
     models = col.models.all()
     model_dict = {model["name"]: model["id"] for model in models}
     print(f"{len(model_dict):>10}{bop():>10.2f}")
+    return model_dict
 
-    # make data_dict
+def make_data_dict(
+        notes: List[Note],
+        cards: List[Card]) -> dict:
+    """make data dict"""
+
     bip()
     print(f"[green]{'make data_dict':<20}", end="")
     data_dict = {}
+
     for note in notes:
-        if len(note.fields) > 5:  # exclude other decks 
-            data_dict[note.id] = {
-                "nid": note.id,
-                "dpd_id": note.fields[0],
-                "mid": note.mid,
-                "guid": note.guid,
-                "note": note,
-                "cid": None,
-                "did": None,
-                "card": None,
-            }
+        data_dict[note.id] = {
+            "nid": note.id,
+            "dpd_id": note.fields[0],
+            "mid": note.mid,
+            "guid": note.guid,
+            "note": note,
+            "cid": None,
+            "did": None,
+            "card": None,
+        }
     
     for card in cards:
         if card.nid in data_dict:
@@ -129,9 +181,9 @@ def main():
             print("Key", key, "will be overwritten")
     data_dict.update(data2)
     print(f"{len(data_dict):>10}{bop():>10.2f}")
+    return data_dict
 
-    assert(data_dict["1157"])
-    
+def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:    
     # update from db
     bip()
     print(f"[green]{'updating':<20}")
@@ -156,7 +208,7 @@ def main():
             # add note
             else:
                 added_list += [i.id]
-                make_new_note(col, deck, model_dict, deck_dict, i)
+                make_new_family_note(col, deck, model_dict, deck_dict, i)
             if counter % 5000 == 0:
                 print(f"{counter:>5} {i.pali_1[:23]:<24}{bop():>10.2f}")
                 bip()
@@ -180,15 +232,38 @@ def main():
     print(f"{changed_deck_list=}")
     print(f"{deleted_list=}")
 
+def update_family(col, deck, data_dict, deck_dict, model_dict, anki_data) -> None:    
+    # update from db
+    bip()
+    message = f"updating {deck[0].lower()}"
+    print(f"[white]{message:<20}")
+    added_list = []
+    updated_list = []
+    deleted_list = []
 
+    for i in anki_data:
+        key, html, date = i
+        if key in data_dict:
+            note = data_dict[key]["note"]
+            note, is_updated = update_family_note(note, i)
+            if is_updated:
+                updated_list += [key]
+                col.update_note(note)
+            
+            # add note
+        else:
+            added_list += [key]
+            make_new_family_note(col, deck, model_dict, deck_dict, i)
 
-def replace_line_breaks(i):
-    for attr_name, attr_value in i.__dict__.items():
-        if not attr_name.startswith("__") and not callable(attr_value):
-            if isinstance(attr_value, str):
-                setattr(i, attr_name, attr_value.replace("\n", "<br>"))
-    return i
+    for key, data in data_dict.items():
+        if data["note"]["Front"] not in [item[0] for item in anki_data]:
+            note = data["note"]
+            col.remove_notes([note.id])
+            deleted_list += [key]
 
+    print(f"[green]{'added':<20}{len(added_list):>10}")
+    print(f"[green]{'updated':<20}{len(updated_list):>10}")
+    print(f"[green]{'deleted':<20}{len(deleted_list):>10}")
 
 def update_note_values(col, note, i):
     old_fields = copy.copy(note.fields)
@@ -264,9 +339,24 @@ def update_note_values(col, note, i):
                     print(f"Field at index {index} has changed:")
                     print(f"  Old value: {old_value}")
                     print(f"  New value: {new_value}")
-        # unicode_combo_characters()
+        unicode_combo_characters()
     return note, is_updated
 
+
+def update_family_note(note, i):
+    old_fields = copy.copy(note.fields)
+    key, html, date = i
+
+    note["Front"] = key
+    note["Back"] = html
+    note["Test"] = date
+
+    is_updated = None
+    if note.fields == old_fields:
+        is_updated = False
+    elif note.fields != old_fields:
+        is_updated = True
+    return note, is_updated
 
 def deck_selector(i):
     if i.meaning_1 and i.example_1:
@@ -277,7 +367,6 @@ def deck_selector(i):
         return "Pass1"
     else:
         return None
-
 
 def update_deck(col, note, i, data, deck_dict, model_dict):
     new_deck = deck_selector(i)
@@ -298,7 +387,6 @@ def update_deck(col, note, i, data, deck_dict, model_dict):
     else:
         return False
 
-
 def make_new_note(col, deck, model_dict, deck_dict, i):
     model_id = model_dict[deck]
     deck_id = deck_dict[deck]
@@ -306,6 +394,13 @@ def make_new_note(col, deck, model_dict, deck_dict, i):
     note, is_updated = update_note_values(col, note, i)
     col.add_note(note, deck_id)
 
+def make_new_family_note(col, deck, model_dict, deck_dict, i):
+    deck = deck[0]
+    model_id = model_dict[deck]
+    deck_id = deck_dict[deck]
+    note = col.new_note(model_id)
+    note, is_updated = update_family_note(note, i)
+    col.add_note(note, deck_id)
 
 if __name__ == "__main__":
     if config_test("anki", "update", "yes"):

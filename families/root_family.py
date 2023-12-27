@@ -14,6 +14,9 @@ from root_info import generate_root_info_html
 from db.get_db_session import get_db_session
 from db.models import PaliRoot, PaliWord, FamilyRoot
 
+from scripts.anki_updater import setup_anki_updater
+from scripts.anki_updater import update_family
+
 from tools.meaning_construction import degree_of_completion
 from tools.meaning_construction import clean_construction
 from tools.meaning_construction import make_meaning
@@ -47,8 +50,37 @@ def main():
     generate_root_info_html(db_session, roots_db, bases_dict)
     html_dict = generate_root_matrix(db_session)
     db_session.close()
-    anki_exporter(pth, rf_dict)
-    anki_matrix_exporter(pth, html_dict, db_session)
+
+
+    # FIXME make this a single function that just takes
+    # data dict and deck as input 
+
+    print("[white]family root updater")
+    anki_data_list = anki_exporter(pth, rf_dict)
+    deck = ["Family Root"]
+    col, data_dict, deck_dict, model_dict, carry_on = setup_anki_updater(deck)
+    if not carry_on:
+        return
+    else:
+        update_family(
+            col, deck, data_dict, deck_dict, model_dict, anki_data_list)
+    
+    if col:
+        col.close()
+
+    print("[white]root matrix updater")
+    anki_data_list = anki_matrix_exporter(pth, html_dict, db_session)
+    deck = ["Root Matrix"]
+    col, data_dict, deck_dict, model_dict, carry_on = setup_anki_updater(deck)
+    if not carry_on:
+        return
+    else:
+        update_family(
+            col, deck, data_dict, deck_dict, model_dict, anki_data_list)
+
+    if col:
+        col.close()
+
     toc()
 
 
@@ -155,8 +187,8 @@ def add_rf_to_db(db_session, rf_dict):
 
 
 def anki_exporter(pth: ProjectPaths, rf_dict):
-    """Save to TSV for anki."""
-    print("[green]saving family root tsv for anki")
+    """Create anki_data_list for updating"""
+    print("[green]making anki_data_list")
     anki_data_list = []
     for i in rf_dict:
         html = "<table><tbody>"
@@ -179,6 +211,8 @@ def anki_exporter(pth: ProjectPaths, rf_dict):
             print(f"[red]{i} longer than 131072 characters")
         else:
             anki_data_list += [(family, html, day())]
+    
+    return anki_data_list
 
     file_path = pth.family_root_tsv_path
     header = []
@@ -186,19 +220,17 @@ def anki_exporter(pth: ProjectPaths, rf_dict):
 
 
 def anki_matrix_exporter(pth: ProjectPaths, html_dict, db_session):
-    """Save root matrix TSV for Anki."""
-    print("[green]saving root matrix tsv for anki")
-
-    with open(pth.roots_css_path) as file:
-        css = file.read()
+    """Save root matrix data for anki updater"""
+    print("[green]making anki_data_list")
 
     anki_data_list = []
 
     for family, html in html_dict.items():
         db = db_session.query(PaliRoot).filter(PaliRoot.root == family).first()
         anki_name = f"{db.root_clean} {db.root_group} {db.root_meaning}"
-        html = f"<style>{css}</style>{html}"
         anki_data_list += [(anki_name, html, day())]
+    
+    return anki_data_list
 
     file_path = pth.root_matrix_tsv_path
     header = []
