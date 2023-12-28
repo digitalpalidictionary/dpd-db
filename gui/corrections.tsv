@@ -542,10 +542,10 @@ uddhaṃ adho ca tiriyañ'ca,
 75753	source_1	Abhi Dhs 1	sutta_1	mātikā, tikamātikā	example_1	"saṅkiliṭṭhasaṅkilesikā dhammā.
 asaṅkiliṭṭhasaṅkilesikā dhammā.
 asaṅkiliṭṭh'<b>āsaṅkilesikā</b> dhammā."	example		yes		
-75761	notes						clean	note doesnt fit the meaning	no		
+75761	notes						clean	note doesnt fit the meaning	no	yes	
 75704	meaning_lit	praising all around					missing		yes		
 15065	construction	udumbara + khādikā					missing		yes		
-15065	source_1	AN8.54	sutta_1	dīghajāṇusuttaṃ	example_1	sac'āyaṃ kulaputto app'āyo samāno uḷāraṃ jīvikaṃ kappeti, tassa bhavan'ti vattāro, <b>udumbarakhādikaṃ</b> v'āyaṃ kulaputto bhoge khādatī'ti.	missing	i prefer this as an acc adv of manner, see udumbarakhādikaṃ	no		
+15065	source_1	AN8.54	sutta_1	dīghajāṇusuttaṃ	example_1	sac'āyaṃ kulaputto app'āyo samāno uḷāraṃ jīvikaṃ kappeti, tassa bhavan'ti vattāro, <b>udumbarakhādikaṃ</b> v'āyaṃ kulaputto bhoge khādatī'ti.	missing	i prefer this as an acc adv of manner, see udumbarakhādikaṃ	no	yes	
 15065	variant	udumbarakhādī					missing		yes		
 15065	commentary	-					missing		yes		
 15065	meaning_1	sqanderer; who wastes resources					missing		yes		
@@ -574,7 +574,7 @@ khippatara + aṃ"					missing		yes
 44744	meaning_1	with a relaxed body; with a calm body					adj meaning		yes		
 11982	meaning_lit	oppression					missing		yes		
 10018	meaning_1	will breathe in; will inhale					typo		yes		
-26326	pali_1	care 1					#1 since added care 2	don't worry about numbering, i have a test that catches them	no		
+26326	pali_1	care 1					#1 since added care 2	don't worry about numbering, i have a test that catches them	no	yes	
 44395	meaning_1	who harms others; who injures others					typo		yes		
 63609	meaning_1	Accomplished One; Fortunate One; epithet of the Buddha					Fortunate One already translation of bhagavā, so to keep it different		yes		
 12568	meaning_2	got ready; set up; produced					missing		yes		
@@ -585,18 +585,18 @@ khippatara + aṃ"					missing		yes
 45882	meaning_1	Majjhima Nikāya 26; Discourse on the Heap of Snares (MN26); (or) Discourse on the Noble Quest					typo		yes		
 39924	meaning_2	MN102					for link		yes		
 57630	meaning_2	MN10					for link		yes		
-60800	pali_1						delete since exists proper sutta name	it's referred to in commentaries by this same, so it stays	no		
+60800	pali_1						delete since exists proper sutta name	it's referred to in commentaries by this same, so it stays	no	yes	
 51818	meaning_1	Majjhima Nikāya 109; Discourse on the Great Full Moon Night (MN109)					missing		yes		
 51818	sanskrit	mahā + pūrṇimā + sūtra					missing		yes		
-51818	family_compound	mahā puṇṇamā sutta					missing	i dont add suttas to compound families, they just muddy the water	no		
+51818	family_compound	mahā puṇṇamā sutta					missing	i dont add suttas to compound families, they just muddy the water	no	yes	
 51818	construction	mahā + puṇṇamā + sutta					missing		yes		
-51817	pali_1						delete since exists proper sutta name	same again, it's called this in commentaries	no		
+51817	pali_1						delete since exists proper sutta name	same again, it's called this in commentaries	no	yes	
 58872	meaning_1	discourse of the root cause of all things					pariyāya was not translated		yes		
 24075	meaning_1	Discourse to Moggallāna the Accountant; Majjhima Nikāya 107 (MN107)					missing		yes		
 24075	sanskrit	gaṇaka + maudgalyāyana + sūtra					missing		yes		
 24075	family_compound	gaṇaka moggallāna sutta					missing		yes		
 24075	construction	gaṇaka + moggallāna + sutta					missing		yes		
-24076	pali_1						delete since exists proper sutta name	is aclled this in commetnaries	no		
+24076	pali_1						delete since exists proper sutta name	is aclled this in commetnaries	no	yes	
 68183	meaning_1	who has gone to the underworld; who is in purgatory					missing		yes		
 62402	construction	sāyaṃ + anha					typo		yes		
 11797	source_2	SN1.41	sutta_2	ādittasuttaṃ	example_2	"datvā ca bhutvā ca yatha-<b>ānubhāvaṃ</b>,
@@ -615,7 +615,7 @@ anindito saggam'upeti ṭhānan'ti."	typo		yes
 43853	pali_2	paribhojanīyaṃ					since it is a noun		yes		
 43853	stem	paribhojanīy	pattern	a nt			since it is a noun		yes		
 21791	meaning_lit	what just this?					missing		yes		
-61087	source_2	DN16.27	sutta_2	mahāparinibbānasuttaṃ	example_2	sabbaphāliphullā kho, ānanda, yamakasālā akālapupphehi. te tathāgatassa <b>sarīraṃ</b> okiranti ajjhokiranti abhippakiranti tathāgatassa pūjāya.	missing	the buddha is still alive at this point, not a corpse!	no		
+61087	source_2	DN16.27	sutta_2	mahāparinibbānasuttaṃ	example_2	sabbaphāliphullā kho, ānanda, yamakasālā akālapupphehi. te tathāgatassa <b>sarīraṃ</b> okiranti ajjhokiranti abhippakiranti tathāgatassa pūjāya.	missing	the buddha is still alive at this point, not a corpse!	no	yes	
 65815	source_1	SN22.95	sutta_1	pheṇapiṇḍūpamasuttaṃ	example_1	tam'enaṃ mūle chindeyya, mūle chetvā agge chindeyya, agge chetvā patta<b>vaṭṭiṃ</b> vinibbhujeyya. so tassa patta<b>vaṭṭiṃ</b> vinibbhujanto pheggum'pi n'ādhigaccheyya, kuto sāraṃ!	missing		yes		
 65815	meaning_1	roll					missing		yes		
 42589	source_1	AN10.15	sutta_1	appamādasuttaṃ	example_1	seyyathā'pi, bhikkhave, yā kāci tārakarūpānaṃ <b>pabhā</b>, sabbā tā canda<b>ppabhāya</b> kalaṃ n'āgghanti soḷasiṃ, canda<b>ppabhā</b> tāsaṃ aggam'akkhāyati	missing		yes		
@@ -624,7 +624,7 @@ anindito saggam'upeti ṭhānan'ti."	typo		yes
 16236	meaning_1	name of an arahant monk; attendant of the Buddha					missing		yes		
 49844	source_2	SN35.93	sutta_2	dutiyadvayasuttaṃ	example_2	cakkhu aniccaṃ vipariṇāmi aññathā<b>bhāvi</b>. rūpā aniccā vipariṇāmino aññathā<b>bhāvino</b>. itth'etaṃ dvayaṃ calañ'c'eva byathañ'ca aniccaṃ vipariṇāmi aññathā<b>bhāvi</b>.	missing		yes		
 55061	commentary	(MNa) <b>rukkhaphal'ūpamā</b> sabb'aṅgapacc'aṅga-palibhañjan'aṭṭhena.					sandhi		yes		
-58813	source_1	SN12.64	sutta_1	atthirāgasuttaṃ	example_1	seyyathā'pi, bhikkhave, rajako vā cittakārako vā sati rajanāya vā lākhāya vā haliddiyā vā nīliyā vā mañjiṭṭhāya vā suparimaṭṭhe vā phalake bhittiyā vā dussapaṭṭe vā itthirūpaṃ vā purisarūpaṃ vā abhinimmineyya <b>sabb'aṅgapaccaṅgaṃ</b>.	sandhi	its internal sandhi, those don't normally get maked	no		
+58813	source_1	SN12.64	sutta_1	atthirāgasuttaṃ	example_1	seyyathā'pi, bhikkhave, rajako vā cittakārako vā sati rajanāya vā lākhāya vā haliddiyā vā nīliyā vā mañjiṭṭhāya vā suparimaṭṭhe vā phalake bhittiyā vā dussapaṭṭe vā itthirūpaṃ vā purisarūpaṃ vā abhinimmineyya <b>sabb'aṅgapaccaṅgaṃ</b>.	sandhi	its internal sandhi, those don't normally get maked	no	yes	
 73802	source_1	MN131	sutta_1	bhaddekarattasuttaṃ	example_1	"atītaṃ n'ānvāgameyya,
 nappaṭikaṅkhe anāgataṃ,
 <b>yadatītam'pahīnan'taṃ</b>,
@@ -634,7 +634,7 @@ appattañ'ca anāgataṃ."	sandhi		yes
 73802	source_1	MN131	sutta_1	bhaddekarattasuttaṃ	example_1	"atītaṃ n'ānvāgameyya,
 nappaṭikaṅkhe anāgataṃ,
 <b>yadatītam'pahīnan'taṃ</b>,
-appattañ'ca anāgataṃ."	sandhi	i dont normall mark yad tad etc	no		
+appattañ'ca anāgataṃ."	sandhi	i dont normall mark yad tad etc	no	yes	
 47396	source_1	DHP401	sutta_1	brāhmaṇavaggo	example_1	"vāri <b>pokkharapatt</b>'eva,
 ār'agge'r'iva sāsapo,
 yo na limpati kāmesu,
@@ -663,6 +663,7 @@ upaṭṭhito rukkhamūlasmiṃ,
 40689	meaning_lit	shines back					missing		yes		
 1702	meaning_1	is troubled by, ashamed of and disgusted with; is distressed, disturbed and disgusted					typo		yes		
 2714	notes						error				
-36907	meaning_lit	who speaks pulling down					more lit		
-75743	meaning_lit	striking against idea					more fit from saññā 2		
-49818	meaning_lit	to cause to be					since developed it is alreade 'caused to be', original lit. to cause to be developed kind of x2 caus		
+36907	meaning_lit	who speaks pulling down					more lit				
+75743	meaning_lit	striking against idea					more fit from saññā 2				
+49818	meaning_lit	to cause to be					since developed it is alreade 'caused to be', original lit. to cause to be developed kind of x2 caus				
+75761	notes						Bhante I am trying to remove it because it does not fit the meaning				

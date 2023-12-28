@@ -19,7 +19,7 @@ DEFAULT_CONFIG = {
     "deconstructor": {
         "include_cloud": "no",
         "all_texts": "no",
-        "local": "yes"
+        "run_on_cloud": "no"
     },
     "gui": {
         "theme": "DarkGrey10",
