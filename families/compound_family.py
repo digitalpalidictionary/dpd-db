@@ -8,6 +8,11 @@ from rich import print
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord, FamilyCompound
+
+from scripts.anki_updater import family_updater
+
+
+from tools.configger import config_test
 from tools.meaning_construction import clean_construction
 from tools.meaning_construction import degree_of_completion
 from tools.meaning_construction import make_meaning
@@ -15,9 +20,6 @@ from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.superscripter import superscripter_uni
 from tools.tic_toc import tic, toc
-from tools.tsv_read_write import write_tsv_list
-from tools.date_and_time import day
-from tools.configger import config_test
 
 
 def main():
@@ -33,7 +35,13 @@ def main():
     cf_dict = create_comp_fam_dict(dpd_db)
     cf_dict = compile_cf_html(dpd_db, cf_dict)
     add_cf_to_db(db_session, cf_dict)
-    anki_exporter(pth, cf_dict)
+
+    # update anki
+    if config_test("anki", "update", "yes"):
+        anki_data_list = make_anki_data(cf_dict)
+        deck = ["Family Compound"]
+        family_updater(anki_data_list, deck)
+
     toc()
 
 
@@ -130,9 +138,11 @@ def add_cf_to_db(db_session, cf_dict):
     print("[white]ok")
 
 
-def anki_exporter(pth: ProjectPaths, cf_dict):
-    """Save to TSV for anki."""
+def make_anki_data(cf_dict):
+    """Make data list for anki updater."""
+
     anki_data_list = []
+    
     for family in cf_dict:
         anki_family = f"<b>{family}</b>"
         html = "<table><tbody>"
@@ -145,14 +155,13 @@ def anki_exporter(pth: ProjectPaths, cf_dict):
             html += f"<td><div style='color: #FFB380'>{meaning}</td>"
             html += f"<td><div style='color: #FF6600'>{construction}</div></td></tr>"
         html += "</tbody></table>"
+        
         if len(html) > 131072:
             print(f"[red]{family} longer than 131072 characters")
         else:
-            anki_data_list += [(anki_family, html, day())]
-
-    file_path = pth.family_compound_tsv_path
-    header = []
-    write_tsv_list(str(file_path), header, anki_data_list)
+            anki_data_list += [(anki_family, html)]
+    
+    return anki_data_list
 
 
 if __name__ == "__main__":

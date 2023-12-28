@@ -13,9 +13,9 @@ from typing import List, Dict
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 
+from tools.configger import config_read, config_test
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc, bip, bop
-from tools.configger import config_read, config_test
 
 
 def main():
@@ -42,6 +42,10 @@ def main():
     if carry_on:
         update_from_db(
             db, col, data_dict, deck_dict, model_dict)
+    
+    toc()
+
+    
 
 def setup_anki_updater(decks):
     col = get_anki_collection()
@@ -55,6 +59,33 @@ def setup_anki_updater(decks):
         return col, data_dict, deck_dict, model_dict, True
     else:
         return col, {}, {}, {}, False
+
+
+def family_updater(anki_data_list, deck):
+    print(f"[white]updating {deck[0].lower()}")
+    (
+        col,
+        data_dict,
+        deck_dict,
+        model_dict,
+        carry_on
+    ) = setup_anki_updater(deck)
+
+    if carry_on:
+        update_family(
+            col,
+            deck,
+            data_dict,
+            deck_dict,
+            model_dict,
+            anki_data_list)
+
+        if col:
+            col.close()
+    else:
+        return
+
+
         
 def get_anki_collection() -> Collection|None:
     bip()
@@ -208,7 +239,7 @@ def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:
             # add note
             else:
                 added_list += [i.id]
-                make_new_family_note(col, deck, model_dict, deck_dict, i)
+                make_new_note(col, deck, model_dict, deck_dict, i)
             if counter % 5000 == 0:
                 print(f"{counter:>5} {i.pali_1[:23]:<24}{bop():>10.2f}")
                 bip()
@@ -224,25 +255,28 @@ def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:
     print(f"[green]{'changed deck':<20}{len(changed_deck_list):>10}")
     print(f"[green]{'deleted':<20}{len(deleted_list):>10}")
 
-    col.close()
-    toc()
-
     print(f"{added_list=}")
     print(f"{updated_list=}")
     print(f"{changed_deck_list=}")
     print(f"{deleted_list=}")
 
-def update_family(col, deck, data_dict, deck_dict, model_dict, anki_data) -> None:    
-    # update from db
+def update_family(
+        col,
+        deck,
+        data_dict,
+        deck_dict,
+        model_dict,
+        anki_data
+) -> None:    
+
     bip()
-    message = f"updating {deck[0].lower()}"
-    print(f"[white]{message:<20}")
+    print("[green]updating anki collection")
     added_list = []
     updated_list = []
     deleted_list = []
 
     for i in anki_data:
-        key, html, date = i
+        key, html = i
         if key in data_dict:
             note = data_dict[key]["note"]
             note, is_updated = update_family_note(note, i)
@@ -264,6 +298,9 @@ def update_family(col, deck, data_dict, deck_dict, model_dict, anki_data) -> Non
     print(f"[green]{'added':<20}{len(added_list):>10}")
     print(f"[green]{'updated':<20}{len(updated_list):>10}")
     print(f"[green]{'deleted':<20}{len(deleted_list):>10}")
+    print(f"{added_list=}")
+    print(f"{updated_list=}")
+    print(f"{deleted_list=}")
 
 def update_note_values(col, note, i):
     old_fields = copy.copy(note.fields)
@@ -339,17 +376,16 @@ def update_note_values(col, note, i):
                     print(f"Field at index {index} has changed:")
                     print(f"  Old value: {old_value}")
                     print(f"  New value: {new_value}")
-        unicode_combo_characters()
+        # unicode_combo_characters()
     return note, is_updated
 
 
 def update_family_note(note, i):
     old_fields = copy.copy(note.fields)
-    key, html, date = i
+    key, html = i
 
     note["Front"] = key
     note["Back"] = html
-    note["Test"] = date
 
     is_updated = None
     if note.fields == old_fields:

@@ -7,6 +7,9 @@ from rich import print
 from db.get_db_session import get_db_session
 from db.models import PaliWord, FamilyWord
 
+from scripts.anki_updater import family_updater
+
+from tools.configger import config_test
 from tools.meaning_construction import clean_construction
 from tools.meaning_construction import degree_of_completion
 from tools.meaning_construction import make_meaning
@@ -14,9 +17,8 @@ from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.superscripter import superscripter_uni
 from tools.tic_toc import tic, toc
-from tools.tsv_read_write import write_tsv_list
-from tools.date_and_time import day
-from tools.configger import config_test
+
+
 
 
 def main():
@@ -33,7 +35,13 @@ def main():
     wf_dict = compile_wf_html(wf_db, wf_dict)
     errors_list = add_wf_to_db(db_session, wf_dict)
     print_errors_list(errors_list)
-    anki_exporter(pth, wf_dict)
+
+    if config_test("anki", "update", "yes"):
+        # root families
+        anki_data_list = make_anki_data(wf_dict)
+        deck = ["Family Word"]
+        family_updater(anki_data_list, deck)
+
     toc()
 
 
@@ -128,10 +136,11 @@ def print_errors_list(errors_list):
     print()
 
 
-def anki_exporter(pth: ProjectPaths, wf_dict):
+def make_anki_data(wf_dict):
     """Save to TSV for anki."""
-    print("[green]saving tsv for anki")
+
     anki_data_list = []
+
     for i in wf_dict:
         html = "<table><tbody>"
         for row in wf_dict[i]["data"]:
@@ -147,11 +156,9 @@ def anki_exporter(pth: ProjectPaths, wf_dict):
         if len(html) > 131072:
             print(f"[red]{i} longer than 131072 characters")
         else:
-            anki_data_list += [(i, html, day())]
+            anki_data_list += [(i, html)]
 
-    file_path = pth.family_word_tsv_path
-    header = []
-    write_tsv_list(str(file_path), header, anki_data_list)
+    return anki_data_list
 
 
 if __name__ == "__main__":

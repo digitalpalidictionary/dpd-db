@@ -14,9 +14,9 @@ from root_info import generate_root_info_html
 from db.get_db_session import get_db_session
 from db.models import PaliRoot, PaliWord, FamilyRoot
 
-from scripts.anki_updater import setup_anki_updater
-from scripts.anki_updater import update_family
+from scripts.anki_updater import family_updater
 
+from tools.configger import config_test
 from tools.meaning_construction import degree_of_completion
 from tools.meaning_construction import clean_construction
 from tools.meaning_construction import make_meaning
@@ -24,9 +24,6 @@ from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.superscripter import superscripter_uni
 from tools.tic_toc import tic, toc
-from tools.tsv_read_write import write_tsv_list
-from tools.date_and_time import day
-from tools.configger import config_test
 
 
 def main():
@@ -51,35 +48,16 @@ def main():
     html_dict = generate_root_matrix(db_session)
     db_session.close()
 
+    if config_test("anki", "update", "yes"):
+        # root families
+        anki_data_list = make_anki_data(pth, rf_dict)
+        deck = ["Family Root"]
+        family_updater(anki_data_list, deck)
 
-    # FIXME make this a single function that just takes
-    # data dict and deck as input 
-
-    print("[white]family root updater")
-    anki_data_list = anki_exporter(pth, rf_dict)
-    deck = ["Family Root"]
-    col, data_dict, deck_dict, model_dict, carry_on = setup_anki_updater(deck)
-    if not carry_on:
-        return
-    else:
-        update_family(
-            col, deck, data_dict, deck_dict, model_dict, anki_data_list)
-    
-    if col:
-        col.close()
-
-    print("[white]root matrix updater")
-    anki_data_list = anki_matrix_exporter(pth, html_dict, db_session)
-    deck = ["Root Matrix"]
-    col, data_dict, deck_dict, model_dict, carry_on = setup_anki_updater(deck)
-    if not carry_on:
-        return
-    else:
-        update_family(
-            col, deck, data_dict, deck_dict, model_dict, anki_data_list)
-
-    if col:
-        col.close()
+        # root matrix
+        anki_data_list = make_anki_matrix_data(pth, html_dict, db_session)
+        deck = ["Root Matrix"]
+        family_updater(anki_data_list, deck)
 
     toc()
 
@@ -186,10 +164,11 @@ def add_rf_to_db(db_session, rf_dict):
     db_session.commit()
 
 
-def anki_exporter(pth: ProjectPaths, rf_dict):
+def make_anki_data(pth: ProjectPaths, rf_dict):
     """Create anki_data_list for updating"""
-    print("[green]making anki_data_list")
+
     anki_data_list = []
+
     for i in rf_dict:
         html = "<table><tbody>"
         family, headword, pos, meaning, construction = "", "", "", "", ""
@@ -210,31 +189,22 @@ def anki_exporter(pth: ProjectPaths, rf_dict):
         if len(html) > 131072:
             print(f"[red]{i} longer than 131072 characters")
         else:
-            anki_data_list += [(family, html, day())]
+            anki_data_list += [(family, html)]
     
     return anki_data_list
 
-    file_path = pth.family_root_tsv_path
-    header = []
-    write_tsv_list(str(file_path), header, anki_data_list)
 
-
-def anki_matrix_exporter(pth: ProjectPaths, html_dict, db_session):
+def make_anki_matrix_data(pth: ProjectPaths, html_dict, db_session):
     """Save root matrix data for anki updater"""
-    print("[green]making anki_data_list")
 
     anki_data_list = []
 
     for family, html in html_dict.items():
         db = db_session.query(PaliRoot).filter(PaliRoot.root == family).first()
         anki_name = f"{db.root_clean} {db.root_group} {db.root_meaning}"
-        anki_data_list += [(anki_name, html, day())]
+        anki_data_list += [(anki_name, html)]
     
     return anki_data_list
-
-    file_path = pth.root_matrix_tsv_path
-    header = []
-    write_tsv_list(str(file_path), header, anki_data_list)
 
 
 if __name__ == "__main__":
