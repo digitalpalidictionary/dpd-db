@@ -554,3 +554,17 @@ class Russian(Base):
 
     def __repr__(self) -> str:
         return f"Russian: {self.id} {self.ru_meaning}"
+
+
+class InflectionToHeadwords(Base):
+    __tablename__ = "inflection_to_headwords"
+
+    inflection: Mapped[str] = mapped_column(primary_key=True)
+    headwords: Mapped[str] = mapped_column(default="")
+
+    @property
+    def headwords_list(self) -> list:
+        return self.headwords.split(",")
+
+    def __repr__(self) -> str:
+        return f"i2h: {self.inflection} {self.headwords}"

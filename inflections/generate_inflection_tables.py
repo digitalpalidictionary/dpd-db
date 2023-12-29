@@ -34,12 +34,15 @@ with open(pth.all_tipitaka_words_path, "rb") as f:
 
 
 def main():
-    """main program"""
+    """run it."""
     tic()
     print("[bright_yellow]generate inflection lists and html tables")
 
     # check config
-    if config_test("regenerate", "transliterations", "yes"):
+    if (
+        config_test("regenerate", "inflections", "yes") or
+        config_test("regenerate", "db_rebuild", "yes")
+    ):
         regenerate_all: bool = True
     else:
         regenerate_all: bool = False

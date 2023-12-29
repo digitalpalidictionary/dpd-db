@@ -15,8 +15,8 @@ from multiprocessing import Process, Manager
 from sqlalchemy.orm import object_session
 from sqlalchemy.orm.session import Session
 
-from helpers import EXCLUDE_FROM_FREQ
-from helpers import TODAY
+from exporter.helpers import EXCLUDE_FROM_FREQ
+from exporter.helpers import TODAY
 
 from db.models import PaliRoot, PaliWord
 from db.models import DerivedData

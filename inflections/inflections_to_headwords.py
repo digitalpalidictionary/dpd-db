@@ -10,6 +10,7 @@ from rich import print
 from tools.tic_toc import tic, toc, bip, bop
 from db.get_db_session import get_db_session
 from db.models import PaliRoot, PaliWord, DerivedData, Sandhi
+from db.models import InflectionToHeadwords
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.sandhi_words import make_words_in_sandhi_set
@@ -74,6 +75,8 @@ def inflection_to_headwords(pth: ProjectPaths):
     print(f"[green]{message:<30}", end="")
     roots_db = db_session.query(PaliRoot).all()
 
+    # !!! FIXME add proper roots headwords 
+
     for r in roots_db:
 
         # add clean roots
@@ -102,8 +105,29 @@ def inflection_to_headwords(pth: ProjectPaths):
             writer.writerow([k, v])
     print(f"{len(i2h_dict):>10,}{bop():>10}")
 
+    add_i2h_to_db(db_session, i2h_dict)
     toc()
-    return
+
+
+def add_i2h_to_db(db_session, i2h_dict):
+    bip()
+    print(f"[green]{'adding to db':<30}", end="")
+
+    add_to_db = []
+
+    for inflection, headwords in i2h_dict.items():
+        headwords = sorted(headwords, key=pali_sort_key)
+        headwords_string = ",".join(headwords)
+        i2h_data = InflectionToHeadwords(
+            inflection=inflection,
+            headwords=headwords_string)
+        add_to_db.append(i2h_data)
+
+    db_session.execute(InflectionToHeadwords.__table__.delete())
+    db_session.add_all(add_to_db)
+    db_session.commit()
+    db_session.close()
+    print(f"{len(i2h_dict):>10,}{bop():>10}")
 
 
 def main():
