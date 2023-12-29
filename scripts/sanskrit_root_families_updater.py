@@ -49,8 +49,8 @@ def main():
             i.root_key
             and i.family_root
         ):
-            root_family_key = f"{i.root_key} {i.family_root}"
-            r = root_dict.get(root_family_key)
+            # root_family_key = f"{i.root_key} {i.family_root}"
+            r = root_dict.get(i.root_family_key)
             
             if r:
                 if r.sanskrit_root_family:

@@ -4,16 +4,25 @@ import re
 from typing import List
 from typing import Optional
 
+
+from sqlalchemy import and_
+from sqlalchemy import case
+from sqlalchemy import null
+from sqlalchemy import Column
 from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
-from sqlalchemy.sql import func
+from sqlalchemy import ForeignKeyConstraint
+from sqlalchemy import Integer
+from sqlalchemy.ext.hybrid import hybrid_property
+
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import declared_attr
 from sqlalchemy.orm import object_session
-from sqlalchemy import Column, Integer
+from sqlalchemy.sql import func
+
 
 from tools.link_generator import generate_link
 from tools.pali_sort_key import pali_sort_key
@@ -125,6 +134,33 @@ class PaliRoot(Base):
         return f"""PaliRoot: {self.root} {self.root_group} {self.root_sign} ({self.root_meaning})"""
 
 
+class FamilyRoot(Base):
+    __tablename__ = "family_root"
+    root_family_key: Mapped[str] = mapped_column(primary_key=True)
+    root_key: Mapped[str] = mapped_column()
+    root_family: Mapped[str] = mapped_column()
+    html: Mapped[str] = mapped_column(default='')
+    count: Mapped[int] = mapped_column(default=0)
+
+    __table_args__ = (
+        ForeignKeyConstraint(
+            ["root_key", "root_family"],
+            ["pali_words.root_key", "pali_words.family_root"]
+        ),
+    )
+
+    @property
+    def root_family_link(self) -> str:
+        return self.root_family.replace(" ", "%20")
+
+    @property
+    def root_family_(self) -> str:
+        return self.root_family.replace(" ", "_")
+
+    def __repr__(self) -> str:
+        return f"FamilyRoot: {self.root_key} {self.root_family} {self.count}"
+
+
 class PaliWord(Base):
     __tablename__ = "pali_words"
 
@@ -152,7 +188,6 @@ class PaliWord(Base):
     root_base: Mapped[str] = mapped_column(default='')
 
     family_root: Mapped[str] = mapped_column(default='')
-    # ForeignKey("family_root.root_family"))
     family_word: Mapped[str] = mapped_column(
         ForeignKey("family_word.word_family"), default='')
     family_compound: Mapped[str] = mapped_column(default='')
@@ -192,16 +227,44 @@ class PaliWord(Base):
     updated_at: Mapped[Optional[DateTime]] = mapped_column(
         DateTime(timezone=True), onupdate=func.now())
 
+    # pali_root
     rt: Mapped[PaliRoot] = relationship(uselist=False)
 
+    # family_root
+    fr = relationship(
+        FamilyRoot, 
+        primaryjoin=and_(
+            root_key==FamilyRoot.root_key, 
+            family_root==FamilyRoot.root_family),
+        uselist=False 
+    )
+
+    # derived data
     dd = relationship("DerivedData", uselist=False)
 
+    # sbs
     sbs = relationship("SBS", uselist=False)
 
+    # russion
     ru = relationship("Russian", uselist=False)
 
+    # inflection templates
     it: Mapped[InflectionTemplates] = relationship()
 
+
+    @hybrid_property
+    def root_family_key(self):
+        if self.root_key and self.family_root:
+            return f"{self.root_key} {self.family_root}"
+        else:
+            return ""
+
+    @root_family_key.expression
+    def root_family_key(cls):
+        return case(
+            (and_(cls.root_key != null(), cls.family_root != null()),\
+                 cls.root_key + ' ' + cls.family_root), else_="")    
+    
     @property
     def pali_1_(self) -> str:
         return self.pali_1.replace(" ", "_").replace(".", "_")
@@ -396,26 +459,6 @@ class Sandhi(Base):
 
     def __repr__(self) -> str:
         return f"Sandhi: {self.id} {self.sandhi} {self.split}"
-
-
-class FamilyRoot(Base):
-    __tablename__ = "family_root"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    root_id: Mapped[str] = mapped_column(default='')
-    root_family: Mapped[str] = mapped_column(default='')
-    html: Mapped[str] = mapped_column(default='')
-    count: Mapped[int] = mapped_column(default=0)
-
-    @property
-    def root_family_link(self) -> str:
-        return self.root_family.replace(" ", "%20")
-
-    @property
-    def root_family_(self) -> str:
-        return self.root_family.replace(" ", "_")
-
-    def __repr__(self) -> str:
-        return f"FamilyRoot: {self.id} {self.root_id} {self.root_family} {self.count}"
 
 
 class FamilyCompound(Base):

@@ -14,7 +14,7 @@ from tools.pali_sort_key import pali_sort_key
 
 class RootFamily():
     def __init__(self, i: PaliWord) -> None:
-        self.root_family_key = f"{i.root_key} {i.family_root}"
+        self.root_family_key = i.root_family_key
         self.root_key: str = i.root_key
         self.root_group: str = str(i.rt.root_group)
         self.root_sign: str = i.rt.root_sign
@@ -49,7 +49,7 @@ def main():
     root_dict = {}
     for i in db:
         if i.root_key:
-            root_family_key = f"{i.root_key} {i.family_root}"
+            root_family_key = i.root_family_key
             if root_family_key not in root_dict:
                 root_dict[root_family_key] = RootFamily(i)
             else:

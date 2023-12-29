@@ -91,13 +91,8 @@ def generate_root_html(db_session: Session,
         synonyms.add(re.sub("√", "", r.root))
         synonyms.add(re.sub("√", "", r.root_clean))
 
-        frs = db_session.query(
-            FamilyRoot
-        ).filter(
-            FamilyRoot.root_id == r.root,
-            FamilyRoot.root_family != "info",
-            FamilyRoot.root_family != "matrix",
-        ).all()
+        frs = db_session.query(FamilyRoot)\
+            .filter(FamilyRoot.root_key == r.root).all()
 
         for fr in frs:
             synonyms.add(fr.root_family)
@@ -145,7 +140,7 @@ def render_root_buttons_templ(pth: ProjectPaths, r: PaliRoot, db_session: Sessio
     frs = db_session.query(
         FamilyRoot
         ).filter(
-            FamilyRoot.root_id == r.root)
+            FamilyRoot.root_key == r.root)
 
     frs = sorted(frs, key=lambda x: pali_sort_key(x.root_family))
 
@@ -188,9 +183,7 @@ def render_root_families_templ(pth: ProjectPaths, r: PaliRoot, db_session: Sessi
     frs = db_session.query(
         FamilyRoot
         ).filter(
-            FamilyRoot.root_id == r.root,
-            FamilyRoot.root_family != "info",
-            FamilyRoot.root_family != "matrix",
+            FamilyRoot.root_key == r.root,
         ).all()
 
     frs = sorted(frs, key=lambda x: pali_sort_key(x.root_family))

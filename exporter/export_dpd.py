@@ -314,9 +314,7 @@ def generate_dpd_html(
             PaliWord.id == DerivedData.id
         ).outerjoin(
             FamilyRoot,
-            and_(
-                PaliWord.root_key == FamilyRoot.root_id,
-                PaliWord.family_root == FamilyRoot.root_family)
+            PaliWord.root_family_key == FamilyRoot.root_family_key
         ).outerjoin(
             FamilyWord,
             PaliWord.family_word == FamilyWord.word_family

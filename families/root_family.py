@@ -69,10 +69,12 @@ def make_roots_family_dict_and_bases_dict(dpd_db):
     for i in dpd_db:
 
         # compile root subfamilies
-        family = f"{i.root_key},{i.family_root}"
+        family = i.root_family_key
 
         if family not in rf_dict:
             rf_dict[family] = {
+                "root_key": i.root_key,
+                "root_family": i.family_root,
                 "headwords": [i.pali_1],
                 "html": "",
                 "count": 1,
@@ -99,7 +101,7 @@ def compile_rf_html(dpd_db, rf_dict):
     print("[green]compiling html")
 
     for __counter__, i in enumerate(dpd_db):
-        family = f"{i.root_key},{i.family_root}"
+        family = i.root_family_key
 
         if i.pali_1 in rf_dict[family]["headwords"]:
             if not rf_dict[family]["html"]:
@@ -132,13 +134,12 @@ def compile_rf_html(dpd_db, rf_dict):
 
 
 def make_root_header(rf_dict, rf):
-    family_root = rf.split(",")[1]
     header = "<p class='heading underlined'>"
     if rf_dict[rf]["count"] == 1:
         header += "<b>1</b> word belongs to the root family "
     else:
         header += f"<b>{rf_dict[rf]['count']}</b> words belong to the root family "
-    header += f"<b>{family_root}</b> ({rf_dict[rf]['meaning']})</p>"
+    header += f"<b>{rf_dict[rf]['root_family']}</b> ({rf_dict[rf]['meaning']})</p>"
     return header
 
 
@@ -148,12 +149,11 @@ def add_rf_to_db(db_session, rf_dict):
     add_to_db = []
 
     for __counter__, rf in enumerate(rf_dict):
-        root_key = rf.split(",")[0]
-        family_root = rf.split(",")[1]
-
+        
         root_family = FamilyRoot(
-            root_id=root_key,
-            root_family=family_root,
+            root_family_key=rf,
+            root_key=rf_dict[rf]["root_key"],
+            root_family=rf_dict[rf]["root_family"],
             html=rf_dict[rf]["html"],
             count=len(rf_dict[rf]["headwords"]))
 
