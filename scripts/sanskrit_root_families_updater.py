@@ -11,6 +11,8 @@ from db.get_db_session import get_db_session
 
 from tools.paths import ProjectPaths
 
+# the root == the word
+exceptions = ["saṃjñā"]
 
 class RootFamily():
     def __init__(self, row):
@@ -64,9 +66,10 @@ def main():
                         print(f"removed []: {old_sanskrit:<20}{i.sanskrit}")
                     
                     # remove old values
-                    escaped_sanskrit_root_family = r.sanskrit_root_family.replace('+', '\\+')
-                    remove = fr"(^|, |\[|\b){escaped_sanskrit_root_family}($|, |\])"
-                    i.sanskrit = re.sub(remove, "", i.sanskrit)
+                    if r.sanskrit_root_family not in exceptions:
+                        escaped_sanskrit_root_family = r.sanskrit_root_family.replace('+', '\\+')
+                        remove = fr"(^|, |\[|\b){escaped_sanskrit_root_family}($|, |\])"
+                        i.sanskrit = re.sub(remove, "", i.sanskrit)
 
                     # add new value
                     i.sanskrit = i.sanskrit.strip() + f" [{r.sanskrit_root_family}]"

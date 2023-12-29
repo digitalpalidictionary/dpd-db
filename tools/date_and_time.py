@@ -5,7 +5,7 @@ from datetime import datetime
 now = datetime.now()
 
 
-def date_and_time():
+def year_month_day():
     return now.strftime("%Y-%m-%d")
 
 

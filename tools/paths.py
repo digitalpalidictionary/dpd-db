@@ -113,7 +113,12 @@ class ProjectPaths:
         self.feedback_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_feedback.html"))
         self.variant_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_variant_reading.html"))
         self.spelling_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_spelling_mistake.html"))
-        self.complete_word_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_complete_word.html"))
+        
+        # exporter/jinja templates 
+        self.jinja_templates_dir = base_dir.joinpath(Path("exporter/templates_jinja/"))
+        self.complete_word_templ_path = base_dir.joinpath(Path("exporter/templates_jinja/dpd_complete_word.html"))
+        self.temp_html_file_path = base_dir.joinpath(Path("temp/temp_html_file.html"))
+
 
         # # root templates
         self.root_definition_templ_path = base_dir.joinpath(Path("exporter/templates/root_definition.html"))
