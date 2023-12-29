@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """Update Anki with latest data directly from the DB."""
 
 import copy
