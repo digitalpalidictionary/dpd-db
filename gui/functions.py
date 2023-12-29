@@ -54,11 +54,17 @@ def add_sandhi_correction(pth, window, values: dict) -> None:
                 pth.manual_corrections_path, mode="a", newline="") as file:
             writer = csv.writer(file, delimiter="\t")
             writer.writerow([sandhi_to_correct, sandhi_correction])
-            window["messages"].update(
-                f"{sandhi_to_correct} > {sandhi_correction} added to corrections", text_color="white")
-            window["sandhi_to_correct"].update("")
-            window["chB"].update("")
-            window["sandhi_correction"].update("")
+        
+        # also add to sandhi ok
+        with open(
+                pth.sandhi_ok_path, mode="a", newline="") as file:
+            writer = csv.writer(file, delimiter="\t")
+            writer.writerow([sandhi_to_correct])
+        
+        window["messages"].update(
+            f"{sandhi_to_correct} > {sandhi_correction} added to corrections", text_color="white")
+        window["sandhi_to_correct"].update("")
+        window["sandhi_correction"].update("")
 
 
 def open_sandhi_corrections(pth):

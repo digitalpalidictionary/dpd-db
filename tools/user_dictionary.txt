@@ -2033,3 +2033,4 @@ rightness
 correctness
 properness
 ownerless
+Jīva
