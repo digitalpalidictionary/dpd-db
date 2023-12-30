@@ -9,6 +9,7 @@ from typing import Optional, Tuple
 from db.models import PaliWord, PaliRoot, InflectionTemplates, DerivedData
 from functions_daily_record import daily_record_update
 
+from tools.i2html import make_html
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 
@@ -135,6 +136,7 @@ def udpate_word_in_db(
                 f"'{values['pali_1']}' added to db",
                 text_color="white")
             daily_record_update(window, pth, "add", word_id)
+            make_html(pth, [values["pali_1"]])
             return True, "added"
 
         except Exception as e:
@@ -154,6 +156,7 @@ def udpate_word_in_db(
                 f"'{values['pali_1']}' updated in db",
                 text_color="white")
             daily_record_update(window, pth, "edit", word_id)
+            make_html(pth, [values["pali_1"]])
             return True, "updated"
 
         except Exception as e:

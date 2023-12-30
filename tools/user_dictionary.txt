@@ -2034,3 +2034,7 @@ correctness
 properness
 ownerless
 Jīva
+immediate
+immediately
+afterwards
+contiguously

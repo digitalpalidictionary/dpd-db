@@ -26,6 +26,8 @@ from db.models import FamilyCompound
 from db.models import FamilySet
 
 from tools.meaning_construction import make_meaning_html
+from tools.meaning_construction import make_grammar_line
+
 from tools.meaning_construction import summarize_construction
 from tools.meaning_construction import degree_of_completion
 from tools.niggahitas import add_niggahitas
@@ -570,16 +572,7 @@ def render_grammar_templ(
         else:
             i.construction = ""
 
-        grammar = i.grammar
-        if i.neg:
-            grammar += f", {i.neg}"
-        if i.verb:
-            grammar += f", {i.verb}"
-        if i.trans:
-            grammar += f", {i.trans}"
-        if i.plus_case:
-            grammar += f" ({i.plus_case})"
-
+        grammar = make_grammar_line(i)
         meaning = f"{make_meaning_html(i)}"
 
         return str(

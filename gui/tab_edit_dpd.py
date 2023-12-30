@@ -680,8 +680,8 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 "Split", key="split_button",
                 tooltip="Stash the word and open a copy to edit"),
             sg.Button(
-                "Summary", key="summary_button",
-                tooltip="See a summary of filled fields"),
+                "HTML", key="html_summary_button",
+                tooltip="See a html summary of a word in db"),
             sg.Button(
                 "Save", key="save_state_button",
                 tooltip="Save the current state of the GUI"),

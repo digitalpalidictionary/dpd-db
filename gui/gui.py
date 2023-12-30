@@ -116,6 +116,7 @@ from db.get_db_session import get_db_session
 from scripts.backup_paliword_paliroot import backup_paliword_paliroot
 from scripts.backup_ru_sbs import backup_ru_sbs
 
+from tools.i2html import make_html
 from tools.pos import DECLENSIONS, VERBS
 from tools.pos import POS
 from tools.sandhi_contraction import make_sandhi_contraction_dict
@@ -996,8 +997,8 @@ def main():
             for c in clear_fields:
                 window[c].update(value="")
 
-        elif event == "summary_button":
-            display_summary(values, window, sg, pali_word_original2)
+        elif event == "html_summary_button":
+            make_html(pth, [values["pali_1"]])
 
         elif (
             event == "save_state_button"

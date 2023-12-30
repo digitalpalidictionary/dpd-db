@@ -29,7 +29,7 @@
                 Grammar
             </th>
             <td>
-                {{ d.i.grammar}}
+                {{ d.grammar }}
             </td> 
         </tr>
 
@@ -52,7 +52,7 @@
             <td>
                 {{ d.i.root_clean}}
                 <sup>
-                    {{d.i.rt.root_has_verb}}
+                    {{d.i.rt.root_has_verb|trim}}
                 </sup>
                 {{ d.i.rt.root_group}} 
                 {{ d.i.root_sign}} 
@@ -223,7 +223,10 @@
                 Sanskrit
             </th>
             <td>
-                {{ d.i.sanskrit }}
+                <i>
+                    {{ d.i.sanskrit }}
+                </i>
+                
             </td>
         </tr>
         {% endif %}

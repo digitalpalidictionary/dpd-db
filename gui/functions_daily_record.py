@@ -51,7 +51,7 @@ def daily_record_update(window,
     elif action == "refresh":
         pass
     daily_record_save(pth, daily_record)
-    print(daily_record)
+    print(daily_record[date])
 
     window["daily_added"].update(len(daily_record[date]["added"]))
     window["daily_edited"].update(len(daily_record[date]["edited"]))

@@ -37,6 +37,21 @@ def make_meaning_html(i: PaliWord) -> str:
             return f"<b>{i.meaning_2}</b>"
 
 
+def make_grammar_line(i: PaliWord) -> str:
+    """Compile grammar line"""
+    
+    grammar = i.grammar
+    if i.neg:
+        grammar += f", {i.neg}"
+    if i.verb:
+        grammar += f", {i.verb}"
+    if i.trans:
+        grammar += f", {i.trans}"
+    if i.plus_case:
+        grammar += f" ({i.plus_case})"
+    return grammar
+     
+
 def summarize_construction(i: PaliWord) -> str:
     """Create a summary of a word's construction,
     exlucing brackets and phonetic changes."""
