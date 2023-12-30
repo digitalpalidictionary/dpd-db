@@ -4,11 +4,8 @@
 
 import webbrowser
 
-from copy import deepcopy
 from jinja2 import Environment, FileSystemLoader
 from rich import print
-from sqlalchemy.orm.session import make_transient
-
 
 from typing import List
 
@@ -22,7 +19,7 @@ from tools.meaning_construction import make_meaning_html
 from tools.meaning_construction import make_grammar_line
 from tools.meaning_construction import degree_of_completion
 from tools.date_and_time import year_month_day
-from tools.tic_toc import bip, bop
+from tools.tic_toc import tic, toc
 
 
 class WordData():
@@ -52,11 +49,9 @@ class WordData():
                         continue  # skip attributes that don't have a setter
         return obj
 
-def main():
+def main(pth, db_session):
     
     the_word = "pavapati"
-    pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
     
     headwords: List[str] = lookup_inflection(pth, db_session, the_word)
 
@@ -80,6 +75,8 @@ def make_html(
         headwords: List[str]
 ):
     """"Create html from jinja template."""
+
+    tic()
 
     db_session = get_db_session(pth.dpd_db_path)
 
@@ -106,6 +103,8 @@ def make_html(
     db_session.close()
     open_html_in_browser(pth, html)
 
+    toc()
+
 
 def open_html_in_browser(pth, html_content):
     path = f"{pth.temp_html_file_path}"
@@ -118,5 +117,7 @@ def open_html_in_browser(pth, html_content):
 
 
 if __name__ == "__main__":
-    main()
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
+    main(pth, db_session)
 

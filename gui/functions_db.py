@@ -15,7 +15,7 @@ from tools.paths import ProjectPaths
 
 
 dpd_values_list = [
-    "id" "pali_1", "pali_2", "pos", "grammar", "derived_from",
+    "id", "pali_1", "pali_2", "pos", "grammar", "derived_from",
     "neg", "verb", "trans", "plus_case", "meaning_1", "meaning_lit",
     "meaning_2", "non_ia", "sanskrit", "root_key", "root_sign", "root_base",
     "family_root", "family_word", "family_compound", "family_set",
@@ -121,7 +121,12 @@ def values_to_pali_word(values):
 
 
 def udpate_word_in_db(
-        pth: ProjectPaths, db_session, window, values: dict) -> Tuple[bool, str]:
+        pth: ProjectPaths,
+        db_session,
+        window,
+        values: dict
+) -> Tuple[bool, str]:
+    
     word_to_add = values_to_pali_word(values)
     word_id = values["id"]
     pali_word_in_db = db_session.query(PaliWord).filter(
