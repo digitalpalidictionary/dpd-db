@@ -42,6 +42,9 @@ md_dir = os.path.join(
 dpd_kindle_mobi_src = os.path.join(downloads_dir, 'dpd-kindle.mobi')
 dpd_kindle_mobi_dest = os.path.join(software_dir, 'dpd-kindle.mobi')
 
+dpd_kindle_epub_src = os.path.join(downloads_dir, 'dpd-kindle.epub')
+dpd_kindle_epub_dest = os.path.join(software_dir, 'dpd-kindle.epub')
+
 dpd_goldendict_src = os.path.join(downloads_dir, 'dpd-goldendict.zip')
 dpd_mdict_src = os.path.join(downloads_dir, 'dpd-mdict.zip')
 
@@ -67,9 +70,18 @@ if os.path.exists(dpd_mdict_src):
 # Move dpd-kindle.mobi to the specified directory
 if os.path.exists(dpd_kindle_mobi_src):
    shutil.move(dpd_kindle_mobi_src, dpd_kindle_mobi_dest)
-   print("\033[1;32m dpd_kindle moved to Sync folder \033[0m")
+   print("\033[1;32m dpd_kindle.mobi moved to Sync folder \033[0m")
 else:
    print("\033[1;31m dpd_kindle is missing. Cannot proceed with moving. \033[0m")
+
+# Move dpd-kindle.epub to the specified directory
+if os.path.exists(dpd_kindle_epub_src):
+   shutil.move(dpd_kindle_epub_src, dpd_kindle_epub_dest)
+   print("\033[1;32m dpd_kindle.epub moved to Sync folder \033[0m")
+else:
+   print("\033[1;31m dpd_kindle is missing. Cannot proceed with moving. \033[0m")
+
+
 
 
 
