@@ -9,7 +9,7 @@ from typing import Optional, Tuple
 from db.models import PaliWord, PaliRoot, InflectionTemplates, DerivedData
 from functions_daily_record import daily_record_update
 
-from tools.i2html import make_html
+from exporter.i2html import make_html
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 

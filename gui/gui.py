@@ -116,7 +116,7 @@ from db.get_db_session import get_db_session
 from scripts.backup_paliword_paliroot import backup_paliword_paliroot
 from scripts.backup_ru_sbs import backup_ru_sbs
 
-from tools.i2html import make_html
+from exporter.i2html import make_html
 from tools.pos import DECLENSIONS, VERBS
 from tools.pos import POS
 from tools.sandhi_contraction import make_sandhi_contraction_dict

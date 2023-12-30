@@ -4,7 +4,6 @@ import re
 from typing import List
 from typing import Optional
 
-
 from sqlalchemy import and_
 from sqlalchemy import case
 from sqlalchemy import null
@@ -23,9 +22,11 @@ from sqlalchemy.orm import declared_attr
 from sqlalchemy.orm import object_session
 from sqlalchemy.sql import func
 
-
 from tools.link_generator import generate_link
 from tools.pali_sort_key import pali_sort_key
+from tools.pos import CONJUGATIONS
+from tools.pos import DECLENSIONS
+from tools.pos import EXCLUDE_FROM_FREQ
 
 
 class Base(DeclarativeBase):
@@ -239,6 +240,9 @@ class PaliWord(Base):
         uselist=False 
     )
 
+    #  FamilyWord
+    fw = relationship("FamilyWord", uselist=False)
+
     # derived data
     dd = relationship("DerivedData", uselist=False)
 
@@ -371,7 +375,84 @@ class PaliWord(Base):
             return ""
         else:
             return ""
+    
+    # needs_button
 
+    @property
+    def needs_grammar_button(self) -> bool:
+        return bool(self.meaning_1)
+
+    @property
+    def needs_example_button(self) -> bool:
+        return bool(
+            self.meaning_1 
+            and self.example_1 
+            and not self.example_2)
+
+    @property
+    def needs_examples_button(self) -> bool:
+        return bool(
+            self.meaning_1 
+            and self.example_1 
+            and self.example_2)
+
+    @property
+    def needs_conjugation_button(self) -> bool:
+        return bool(self.pos in CONJUGATIONS)
+    
+    @property
+    def needs_declension_button(self) -> bool:
+        return bool(self.pos in DECLENSIONS)
+
+    @property
+    def needs_root_family_button(self) -> bool:
+        return bool(self.family_root)
+    
+    @property
+    def needs_word_family_button(self) -> bool:
+        return bool(self.family_word)
+
+    @property
+    def cf_set(self):
+        from tools.cf_set_gen import cf_set_gen
+        return cf_set_gen()
+
+    @property
+    def needs_compound_family_button(self) -> bool:
+        return bool(
+            self.meaning_1
+            and " " not in self.family_compound
+            and(
+                any(item in self.cf_set for item in self.family_compound_list) or
+                self.pali_clean in self.cf_set
+            ))
+
+    @property
+    def needs_compound_families_button(self) -> bool:
+        return bool(
+            self.meaning_1
+            and " " in self.family_compound
+            and(
+                any(item in self.cf_set for item in self.family_compound_list)
+                or self.pali_clean in self.cf_set))
+
+    @property
+    def needs_set_button(self) -> bool:
+        return bool(
+            self.meaning_1
+            and self.family_set
+            and len(self.family_set_list) == 1)
+
+    @property
+    def needs_sets_button(self) -> bool:
+        return bool(
+            self.meaning_1
+            and self.family_set
+            and len(self.family_set_list) > 1)
+
+    @property
+    def needs_frequency_button(self) -> bool:
+        return bool(self.pos not in EXCLUDE_FROM_FREQ)
 
     def __repr__(self) -> str:
         return f"""PaliWord: {self.id} {self.pali_1} {self.pos} {
@@ -477,6 +558,9 @@ class FamilyWord(Base):
     word_family: Mapped[str] = mapped_column(primary_key=True)
     html: Mapped[str] = mapped_column(default='')
     count: Mapped[int] = mapped_column(default=0)
+
+    # pali_words: Mapped[List["PaliWord"]] = relationship("PaliWord", back_populates="fw")
+
 
     def __repr__(self) -> str:
         return f"FamilyWord: {self.word_family} {self.count}"

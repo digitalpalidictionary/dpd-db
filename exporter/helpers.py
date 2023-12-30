@@ -1,41 +1,16 @@
 """A few helpful lists and functions for the exporter."""
 
-from typing import Dict, Set, Optional
+from typing import Dict
 from datetime import date
 
 from sqlalchemy.orm import Session
 
-from db.get_db_session import get_db_session
-from db.models import PaliWord, FamilyCompound
-from tools.paths import ProjectPaths
+from db.models import PaliWord
 
 TODAY = date.today()
 
 EXCLUDE_FROM_SETS: set = {
     "dps", "ncped", "pass1", "sandhi"}
-
-EXCLUDE_FROM_FREQ: set = {
-    "abbrev", "cs", "idiom", "letter", "prefix", "root", "suffix", "ve"}
-
-_cached_cf_set: Optional[Set[str]] = None
-
-
-def cf_set_gen(pth: ProjectPaths) -> Set[str]:
-    """generate a list of all compounds families"""
-    global _cached_cf_set
-
-    if _cached_cf_set is not None:
-        return _cached_cf_set
-
-    db_session = get_db_session(pth.dpd_db_path)
-    cf_db = db_session.query(FamilyCompound).all()
-
-    cf_set: Set[str] = set()
-    for i in cf_db:
-        cf_set.add(i.compound_family)
-
-    _cached_cf_set = cf_set
-    return cf_set
 
 
 def make_roots_count_dict(db_session: Session) -> Dict[str, int]:

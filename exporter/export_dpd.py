@@ -1,22 +1,25 @@
 """Compile HTML data for PaliWord."""
 
-from sqlalchemy.sql import func
-from tools import time_log
 import psutil
+
+from sqlalchemy.sql import func
+
+
 from css_html_js_minify import css_minify, js_minify
 from mako.template import Template
 from minify_html import minify
-from rich import print
-from sqlalchemy import and_
-from typing import List, Set, TypedDict, Tuple
 from multiprocessing.managers import ListProxy
 from multiprocessing import Process, Manager
+from rich import print
+from typing import List, Set, TypedDict, Tuple
 
 from sqlalchemy.orm import object_session
 from sqlalchemy.orm.session import Session
 
-from exporter.helpers import EXCLUDE_FROM_FREQ
-from exporter.helpers import TODAY
+
+from helpers import TODAY
+
+from tools import time_log
 
 from db.models import PaliRoot, PaliWord
 from db.models import DerivedData
@@ -35,6 +38,7 @@ from tools.paths import ProjectPaths
 from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.pos import INDECLINABLES
+from tools.pos import EXCLUDE_FROM_FREQ
 from tools.tic_toc import bip, bop
 from tools.configger import config_test
 from tools.sandhi_contraction import SandhiContractions
@@ -451,64 +455,56 @@ def render_button_box_templ(
         'data-target="{target}">{name}</a>')
 
     # grammar_button
-    if i.meaning_1:
+    if i.needs_grammar_button:
         grammar_button = button_html.format(
             target=f"grammar_{i.pali_1_}", name="grammar")
     else:
         grammar_button = ""
 
     # example_button
-    if i.meaning_1 and i.example_1 and not i.example_2:
+    if i.needs_example_button:
         example_button = button_html.format(
             target=f"example_{i.pali_1_}", name="example")
     else:
         example_button = ""
 
     # examples_button
-    if i.meaning_1 and i.example_1 and i.example_2:
+    if i.needs_examples_button:
         examples_button = button_html.format(
             target=f"examples_{i.pali_1_}", name="examples")
     else:
         examples_button = ""
 
     # conjugation_button
-    if i.pos in CONJUGATIONS:
+    if i.needs_conjugation_button:
         conjugation_button = button_html.format(
             target=f"conjugation_{i.pali_1_}", name="conjugation")
     else:
         conjugation_button = ""
 
     # declension_button
-    if i.pos in DECLENSIONS:
+    if i.needs_declension_button:
         declension_button = button_html.format(
             target=f"declension_{i.pali_1_}", name="declension")
     else:
         declension_button = ""
 
     # root_family_button
-    if i.family_root:
+    if i.needs_root_family_button:
         root_family_button = button_html.format(
             target=f"root_family_{i.pali_1_}", name="root family")
     else:
         root_family_button = ""
 
     # word_family_button
-    if i.family_word:
+    if i.needs_word_family_button:
         word_family_button = button_html.format(
             target=f"word_family_{i.pali_1_}", name="word family")
     else:
         word_family_button = ""
 
     # compound_family_button
-    if (
-        i.meaning_1 and
-        (
-            # sometimes there's an empty compound family, so
-            any(item in cf_set for item in i.family_compound_list) or
-            # add a button to the word itself
-            i.pali_clean in cf_set)
-    ):
-
+    if i.needs_compound_family_button:
         if i.family_compound is not None and " " not in i.family_compound:
             compound_family_button = button_html.format(
                 target=f"compound_family_{i.pali_1_}", name="compound family")
@@ -521,9 +517,7 @@ def render_button_box_templ(
         compound_family_button = ""
 
     # set_family_button
-    if (i.meaning_1 and
-            i.family_set):
-
+    if i.needs_set_button:
         if len(i.family_set_list) > 0:
             set_family_button = button_html.format(
                 target=f"set_family_{i.pali_1_}", name="set")
@@ -533,7 +527,7 @@ def render_button_box_templ(
         set_family_button = ""
 
     # frequency_button
-    if i.pos not in EXCLUDE_FROM_FREQ:
+    if i.needs_frequency_button:
         frequency_button = button_html.format(
             target=f"frequency_{i.pali_1_}", name="frequency")
     else:

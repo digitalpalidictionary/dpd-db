@@ -27,3 +27,7 @@ VERBS = [
 ]
 
 NOUNS = ["fem", "masc", "nt", ]
+
+EXCLUDE_FROM_FREQ: set = {
+    "abbrev", "cs", "idiom", "letter", "prefix", "root", "suffix", "ve"}
+

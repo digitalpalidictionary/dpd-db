@@ -21,6 +21,7 @@ from tools.meaning_construction import degree_of_completion
 from tools.date_and_time import year_month_day
 from tools.tic_toc import tic, toc
 
+the_word = "kāḷa"
 
 class WordData():
     def __init__(self, css, js, i):
@@ -31,6 +32,7 @@ class WordData():
         self.complete = degree_of_completion(i)
         self.grammar = make_grammar_line(i)
         self.i = self.convert_newlines(i)
+        self.app_name = "Jinja"
         self.date = year_month_day()
         if config_test("dictionary", "make_link", "yes"):
             self.make_link = True
@@ -51,7 +53,7 @@ class WordData():
 
 def main(pth, db_session):
     
-    the_word = "pavapati"
+    
     
     headwords: List[str] = lookup_inflection(pth, db_session, the_word)
 
