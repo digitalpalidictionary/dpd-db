@@ -414,7 +414,7 @@ class PaliWord(Base):
 
     @property
     def cf_set(self):
-        from tools.cf_set_gen import cf_set_gen
+        from tools.exporter_functions import cf_set_gen
         return cf_set_gen()
 
     @property

@@ -18,16 +18,18 @@ from export_epd import generate_epd_html
 from export_variant_spelling import generate_variant_spelling_html
 from export_help import generate_help_html
 
-from helpers import cf_set_gen, make_roots_count_dict
+from helpers import make_roots_count_dict
 from mdict_exporter import export_to_mdict
 
 from db.get_db_session import get_db_session
-from tools.goldendict_path import goldedict_path
-from tools.tic_toc import tic, toc, bip, bop
-from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
-from tools.sandhi_contraction import make_sandhi_contraction_dict
-from tools.paths import ProjectPaths
+
 from tools.configger import config_test
+from tools.exporter_functions import cf_set_gen
+from tools.goldendict_path import goldedict_path
+from tools.paths import ProjectPaths
+from tools.sandhi_contraction import make_sandhi_contraction_dict
+from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
+from tools.tic_toc import tic, toc, bip, bop
 from tools.utils import RenderedSizes, sum_rendered_sizes
 from tools import time_log
 
@@ -42,7 +44,7 @@ def main():
     db_session: Session = get_db_session(pth.dpd_db_path)
     sandhi_contractions = make_sandhi_contraction_dict(db_session)
 
-    cf_set = cf_set_gen(pth)
+    cf_set = cf_set_gen()
 
     rendered_sizes: List[RenderedSizes] = []
 

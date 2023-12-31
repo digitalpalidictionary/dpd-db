@@ -13,7 +13,7 @@ from multiprocessing import Process, Manager
 from rich import print
 from typing import List, Set, TypedDict, Tuple
 
-from sqlalchemy.orm import object_session
+
 from sqlalchemy.orm.session import Session
 
 
@@ -28,9 +28,11 @@ from db.models import FamilyWord
 from db.models import FamilyCompound
 from db.models import FamilySet
 
+from tools.configger import config_test
+from tools.exporter_functions import get_family_compounds
+from tools.exporter_functions import get_family_set
 from tools.meaning_construction import make_meaning_html
 from tools.meaning_construction import make_grammar_line
-
 from tools.meaning_construction import summarize_construction
 from tools.meaning_construction import degree_of_completion
 from tools.niggahitas import add_niggahitas
@@ -39,11 +41,11 @@ from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.pos import INDECLINABLES
 from tools.pos import EXCLUDE_FROM_FREQ
-from tools.tic_toc import bip, bop
-from tools.configger import config_test
 from tools.sandhi_contraction import SandhiContractions
-from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, list_into_batches, sum_rendered_sizes
 from tools.superscripter import superscripter_uni
+from tools.tic_toc import bip, bop
+from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, list_into_batches, sum_rendered_sizes
+
 
 class PaliWordTemplates:
     def __init__(self, pth: ProjectPaths):
@@ -68,54 +70,6 @@ class PaliWordTemplates:
         with open(pth.buttons_js_path) as f:
             button_js = f.read()
         self.button_js = js_minify(button_js)
-
-def get_family_compounds_for_pali_word(i: PaliWord) -> List[FamilyCompound]:
-    db_session = object_session(i)
-    if db_session is None:
-        raise Exception("No db_session")
-
-    if i.family_compound:
-        fc = db_session.query(
-            FamilyCompound
-        ).filter(
-            FamilyCompound.compound_family.in_(i.family_compound_list),
-        ).all()
-
-        # sort by order of the  family compound list
-        word_order = i.family_compound_list
-        fc = sorted(fc, key=lambda x: word_order.index(x.compound_family))
-
-    else:
-        fc = db_session.query(
-            FamilyCompound
-        ).filter(
-            FamilyCompound.compound_family == i.pali_clean
-        ).all()
-
-    # Make sure it's not a lazy-loaded iterable.
-    fc = list(fc)
-
-    return fc
-
-def get_family_set_for_pali_word(i: PaliWord) -> List[FamilySet]:
-    db_session = object_session(i)
-    if db_session is None:
-        raise Exception("No db_session")
-
-    fs = db_session.query(
-        FamilySet
-    ).filter(
-        FamilySet.set.in_(i.family_set_list)
-    ).all()
-
-    # sort by order of the  family set list
-    word_order = i.family_set_list
-    fs = sorted(fs, key=lambda x: word_order.index(x.set))
-
-    # Make sure it's not a lazy-loaded iterable.
-    fs = list(fs)
-
-    return fs
 
 PaliWordDbRowItems = Tuple[PaliWord, DerivedData, FamilyRoot, FamilyWord]
 
@@ -339,8 +293,8 @@ def generate_dpd_html(
                 derived_data = dd,
                 family_root = fr,
                 family_word = fw,
-                family_compounds = get_family_compounds_for_pali_word(pw),
-                family_set = get_family_set_for_pali_word(pw),
+                family_compounds = get_family_compounds(pw),
+                family_set = get_family_set(pw),
             )
 
         dpd_db_data = [_add_parts(i.tuple()) for i in dpd_db]

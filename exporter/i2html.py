@@ -6,13 +6,15 @@ import webbrowser
 
 from jinja2 import Environment, FileSystemLoader
 from rich import print
-
 from typing import List
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord, InflectionToHeadwords
+from db.models import PaliWord
+from db.models import InflectionToHeadwords
 
 from tools.configger import config_test
+from tools.exporter_functions import get_family_compounds
+from tools.exporter_functions import get_family_set
 from tools.paths import ProjectPaths
 from tools.meaning_construction import summarize_construction
 from tools.meaning_construction import make_meaning_html
@@ -21,10 +23,10 @@ from tools.meaning_construction import degree_of_completion
 from tools.date_and_time import year_month_day
 from tools.tic_toc import tic, toc
 
-the_word = "kāḷa"
+the_word = "assa"
 
-class WordData():
-    def __init__(self, css, js, i):
+class HeadwordData():
+    def __init__(self, css, js, i, fc, fs):
         self.css = css
         self.js = js
         self.meaning = make_meaning_html(i)
@@ -32,12 +34,15 @@ class WordData():
         self.complete = degree_of_completion(i)
         self.grammar = make_grammar_line(i)
         self.i = self.convert_newlines(i)
+        self.fc = fc
+        self.fs = fs
         self.app_name = "Jinja"
         self.date = year_month_day()
         if config_test("dictionary", "make_link", "yes"):
             self.make_link = True
         else:
             self.make_link = False
+        
 
     @staticmethod
     def convert_newlines(obj):
@@ -52,8 +57,6 @@ class WordData():
         return obj
 
 def main(pth, db_session):
-    
-    
     
     headwords: List[str] = lookup_inflection(pth, db_session, the_word)
 
@@ -98,8 +101,10 @@ def make_html(
     results = db_session.query(PaliWord)\
         .filter(PaliWord.pali_1.in_(headwords)).all()
 
-    for i in results:
-        d = WordData(css, js, i)
+    for counter, i in enumerate(results):
+        fc = get_family_compounds(i)
+        fs = get_family_set(i)
+        d = HeadwordData(css, js, i, fc, fs)
         html += word_template.render(d=d)
     
     db_session.close()
