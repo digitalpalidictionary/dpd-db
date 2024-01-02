@@ -134,5 +134,12 @@ def config_test_option(section, option):
         return False
 
 
+def print_config_settings() -> None:
+    for section in config.sections():
+        print(f"[{section}]")
+        for key, value in config.items(section):
+            print(f"{key} = {value}")
+
+
 if __name__ == "__main__":
     config_initialize()

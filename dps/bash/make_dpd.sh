@@ -1,6 +1,8 @@
 # generate dictionaries
 
 set -e
+python -c "from tools.configger import print_config_settings; print_config_settings()"
+
 inflections/create_inflections_templates.py
 inflections/generate_inflection_tables.py
 inflections/transliterate_inflections.py
