@@ -1101,6 +1101,21 @@ def update_sbs_category(db_session, pth, pali_1, source):
     db_session.close()
 
 
+def update_sbs_category_with_change(db_session, pth, pali_1, source):
+
+    word = db_session.query(PaliWord).filter(PaliWord.pali_1 == pali_1).first()
+
+    source = source + "_"
+
+    if word:
+        if not word.sbs:
+            word.sbs = SBS(id=word.id)
+        word.sbs.sbs_category = source
+        db_session.commit()
+    
+    db_session.close()
+
+
 def words_in_db_from_source(db_session, pth, source):
     dpd_db = db_session.query(PaliWord).all()
 

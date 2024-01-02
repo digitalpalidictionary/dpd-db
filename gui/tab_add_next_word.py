@@ -266,11 +266,9 @@ KN
                 pad=((100, 0), (0, 0))
             ),
         ],
-
         [
             sg.Text(
                 "edit word",
-                key="words_to_add_length",
                 text_color="white", 
                 pad=((100, 0), (0, 0)), 
                 size=(10, 1),
@@ -293,12 +291,25 @@ KN
         ],
         [
             sg.Button(
-                "update sbs_category",
+                "update",
                 key="dps_update_word", 
-                size=(50, 1), 
+                pad=((100, 0), (0, 0)), 
+                size=(19, 1), 
                 visible=username == "deva",
-                enable_events=True, 
-                pad=((100, 0), (0, 0))
+                enable_events=True,
+            ),
+            sg.Button(
+                "mark",
+                key="dps_mark_word", 
+                size=(19, 1), 
+                visible=username == "deva",
+                enable_events=True,
+            ),
+            sg.Text(
+                " category",
+                text_color="white", 
+                size=(10, 1),
+                visible=username == "deva"
             ),
         ],
         [
