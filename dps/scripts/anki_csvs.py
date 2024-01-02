@@ -439,7 +439,7 @@ def classes(df, sbs_ped_link):
     all_class_df = all_class_df[columns_to_keep]
 
     # Save the DataFrame into csv
-    output_path = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', "all_class.csv")
+    output_path = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', 'classes', "class_total.csv")
     all_class_df.to_csv(output_path, sep="\t", index=False, header=True)
 
     # Define the range of values you want to include in the 'class_upcoming.csv'
@@ -466,7 +466,7 @@ def classes(df, sbs_ped_link):
             concatenated_df = pd.concat([concatenated_df, filtered_df])
 
     # Save the concatenated DataFrame to the 'class_upcoming.csv' file
-    output_path = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', "class_upcoming.csv")
+    output_path = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', 'classes', "class_upcoming.csv")
     concatenated_df.to_csv(output_path, sep="\t", index=False, header=True)
 
     # Define the range of values you want to include in the 'class_basic.csv'
@@ -503,7 +503,7 @@ def classes(df, sbs_ped_link):
     console.print(f"Number of rows (class_basic): [bold]{row_count}[/bold]")
 
     # Save the concatenated DataFrame to the 'class_basic.csv' file
-    output_path = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', "class_basic.csv")
+    output_path = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', "class_all.csv")
     concatenated_df.to_csv(output_path, sep="\t", index=False, header=True)
 
     # Save the concatenated DataFrame to the 'class_ru.csv' file

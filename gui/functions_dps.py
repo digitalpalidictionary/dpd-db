@@ -1092,7 +1092,9 @@ def update_sbs_category(db_session, pth, pali_1, source):
 
     word = db_session.query(PaliWord).filter(PaliWord.pali_1 == pali_1).first()
 
-    if word and word.sbs:
+    if word:
+        if not word.sbs:
+            word.sbs = SBS(id=word.id)
         word.sbs.sbs_category = source
         db_session.commit()
     
