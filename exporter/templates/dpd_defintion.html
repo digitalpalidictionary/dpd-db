@@ -12,5 +12,8 @@
         <a href="${i.source_link_sutta}">link</a>
         % endif
         ${complete} 
+        % if show_id:
+            <span class="gray">${id}</span>
+        % endif
     </p>
 </div>

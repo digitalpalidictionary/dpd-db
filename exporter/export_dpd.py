@@ -135,7 +135,7 @@ def render_pali_word_dpd_html(extended_synonyms, db_parts: PaliWordDbParts,
 
     html += "<body>"
 
-    summary = render_dpd_definition_templ(pth, i, rd['make_link'], tt.dpd_definition_templ)
+    summary = render_dpd_definition_templ(pth, i, rd['make_link'], rd['show_id'], tt.dpd_definition_templ)
     html += summary
     size_dict["dpd_summary"] += len(summary)
 
@@ -238,6 +238,11 @@ def generate_dpd_html(
     else:
         extended_synonyms: bool = False
 
+    if config_test("dictionary", "show_id", "yes"):
+        show_id: bool = True
+    else:
+        show_id: bool = False
+
     dpd_data_list: List[RenderResult] = []
 
     pali_words_count = db_session \
@@ -311,6 +316,7 @@ def generate_dpd_html(
             sandhi_contractions = sandhi_contractions,
             cf_set = cf_set,
             make_link = make_link,
+            show_id = show_id
         )
 
         def _parse_batch(batch: List[PaliWordDbParts]):
@@ -362,6 +368,7 @@ def render_dpd_definition_templ(
         __pth__: ProjectPaths,
         i: PaliWord,
         make_link: bool,
+        show_id: bool,
         dpd_definition_templ: Template
 ) -> str:
     """render the definition of a word's most relevant information:
@@ -383,6 +390,9 @@ def render_dpd_definition_templ(
     summary = summarize_construction(i)
     complete = degree_of_completion(i)
 
+    # pos
+    id: int = i.id
+
     return str(
         dpd_definition_templ.render(
             i=i,
@@ -391,7 +401,11 @@ def render_dpd_definition_templ(
             plus_case=plus_case,
             meaning=meaning,
             summary=summary,
-            complete=complete))
+            complete=complete,
+            id=id,
+            show_id=show_id
+            )
+        )
 
 
 def render_button_box_templ(
