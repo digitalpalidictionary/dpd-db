@@ -27,7 +27,12 @@ def main():
     pth = ProjectPaths()
 
     if pth.dpd_db_path.exists():
-        pth.dpd_db_path.unlink()
+        print("[red]this will destroy your current database!")
+        response = input("are you sure you would like to rebuild the db? [y/n] ")
+        if response != "y":
+            return
+        else:
+            pth.dpd_db_path.unlink()
 
     create_db_if_not_exists(pth.dpd_db_path)
 

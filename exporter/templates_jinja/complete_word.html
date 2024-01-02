@@ -528,7 +528,11 @@
     {% for f in d.fc%}
     <a class="jump" 
         href="#{{d.i.pali_1_}}cf_{{f.compound_family}}">
-        {{cf}} 
+        {% if not loop.last %}
+            {{f.compound_family}},
+        {% else%}
+            {{f.compound_family}}
+        {% endif %} 
     </a>
     {% endfor %}
     </p>
@@ -593,7 +597,12 @@
     {% for set in d.i.family_set_list %}
     <a class="jump" 
         href="#{{d.i.pali_1_}}sets_{{set}}">
-        {{set}} 
+    {% if not loop.last %}
+        {{set}},
+    {% else%}
+        {{set}}
+    {% endif %}
+         
     </a>
     {% endfor %}
     </p>
@@ -608,7 +617,7 @@
         <b>{{d.i.pali_clean}}</b> 
         belongs to the set of 
         <b>{{f.set}}</b>
-        {% if counter > 0 %}
+        {% if loop.index0 > 0 %}
         <a class="jump" href="#{{d.i.pali_1_}}sets_top"> ⤴</a>
         {% endif %}
         </p>

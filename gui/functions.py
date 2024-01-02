@@ -32,7 +32,6 @@ from tools.pali_alphabet import pali_alphabet
 from tools.pos import INDECLINABLES
 from tools.source_sutta_example import find_source_sutta_example
 
-
 nltk.download('punkt')
 
 
@@ -720,6 +719,10 @@ def make_words_to_add_list(db_session, pth, __window__, book: str) -> list:
     text_set = text_set - all_inflections_set
     text_list = sorted(text_set, key=lambda x: original_text_list.index(x))
     print(f"words_to_add: {len(text_list)}")
+
+    with open(f"temp/{book}.tsv", "w") as f:
+        for i in text_list:
+            f.write(f"{i}\n")
 
     return text_list
 

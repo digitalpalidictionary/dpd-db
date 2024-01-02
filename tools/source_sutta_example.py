@@ -294,21 +294,26 @@ def find_source_sutta_example(
                 example += text
 
                 while True:
-                    p = p.next_sibling
-                    if p.text == "\n":
-                        pass
-                    elif p["rend"] == "gatha2":
-                        text = clean_gatha(p.text)
-                        text = text.replace(".", ",")
-                        example += text
-                    elif p["rend"] == "gatha3":
-                        text = clean_gatha(p.text)
-                        text = text.replace(".", ",")
-                        example += text
-                    elif p["rend"] == "gathalast":
-                        text = clean_gatha(p.text)
-                        example += text
+                    try:
+                        p = p.next_sibling
+                        if p.text == "\n":
+                            pass
+                        elif p["rend"] == "gatha2":
+                            text = clean_gatha(p.text)
+                            text = text.replace(".", ",")
+                            example += text
+                        elif p["rend"] == "gatha3":
+                            text = clean_gatha(p.text)
+                            text = text.replace(".", ",")
+                            example += text
+                        elif p["rend"] == "gathalast":
+                            text = clean_gatha(p.text)
+                            example += text
+                            break
+                    except AttributeError as e:
+                        print(f"[red]{e}")
                         break
+                        
 
                 sutta_examples += [(source, sutta.lower(), example)]
 

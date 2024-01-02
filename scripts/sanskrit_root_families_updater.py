@@ -12,7 +12,7 @@ from db.get_db_session import get_db_session
 from tools.paths import ProjectPaths
 
 # the root == the word
-exceptions = ["saṃjñā"]
+exceptions = ["saṃjñā", "śraddhā"]
 
 class RootFamily():
     def __init__(self, row):
