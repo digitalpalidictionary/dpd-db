@@ -77,6 +77,7 @@ from functions_dps import dps_make_words_to_add_list
 from functions_dps import dps_make_words_to_add_list_sutta
 from functions_dps import dps_make_words_to_add_list_from_text
 from functions_dps import dps_make_words_to_add_list_from_text_filtered
+from functions_dps import dps_make_words_to_add_list_from_text_no_field
 from functions_dps import fetch_matching_words_from_db_with_conditions
 from functions_dps import fetch_matching_words_from_db
 from functions_dps import populate_dps_tab
@@ -2032,6 +2033,23 @@ def main():
         # add words from text.txt which do not have source
         elif event == "dps_from_txt_to_add_considering_source_button":
             words_to_add_list = dps_make_words_to_add_list_from_text_filtered(dpspth, db_session, pth, values["source_to_add"])
+            if words_to_add_list != []:
+                values["word_to_add"] = [words_to_add_list[0]]
+                window["word_to_add"].update(values=words_to_add_list)
+                window["words_to_add_length"].update(
+                    value=len(words_to_add_list))
+                print(values)
+                open_in_goldendict(words_to_add_list[0])
+                window["messages"].update(
+                    value="added missing words from text.txt",
+                    text_color="white")
+            else:
+                window["messages"].update(
+                    value="empty list, try again", text_color="red")
+
+        # add words from text.txt which do not have field
+        elif event == "dps_from_txt_to_add_considering_field_button":
+            words_to_add_list = dps_make_words_to_add_list_from_text_no_field(dpspth, db_session, pth, values["field_for_id_list"])
             if words_to_add_list != []:
                 values["word_to_add"] = [words_to_add_list[0]]
                 window["word_to_add"].update(values=words_to_add_list)

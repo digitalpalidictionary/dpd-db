@@ -967,6 +967,26 @@ def dps_make_words_to_add_list_from_text_filtered(dpspth, db_session, pth, sourc
     return text_list
 
 
+def dps_make_words_to_add_list_from_text_no_field(dpspth, db_session, pth, field) -> list:
+    cst_text_list = make_cst_text_set_from_file(dpspth)
+
+    sp_mistakes_list = make_sp_mistakes_list(pth)
+    variant_list = make_variant_list(pth)
+    sandhi_ok_list = make_sandhi_ok_list(pth)
+    all_inflections_set = dps_make_no_field_inflections_set(db_session, field)
+
+    text_set = set(cst_text_list)
+    text_set = text_set - set(sandhi_ok_list)
+    text_set = text_set - set(sp_mistakes_list)
+    text_set = text_set - set(variant_list)
+    text_set = text_set - all_inflections_set
+    cst_text_index = {text: index for index, text in enumerate(cst_text_list)}
+    text_list = sorted(text_set, key=lambda x: cst_text_index.get(x, float('inf')))
+    print(f"words_to_add: {len(text_list)}")
+
+    return text_list
+
+
 def read_tsv_words(file_path):
     with open(file_path, "r") as file:
         reader = csv.reader(file, delimiter='\t')
@@ -1264,6 +1284,33 @@ def dps_make_filtered_inflections_set(db_session, source):
             SBS.sbs_source_3.ilike(f"%{source}%"), 
             SBS.sbs_source_4.ilike(f"%{source}%")
         )
+    )
+
+    # Execute the query
+    inflections_db = query.all()
+
+    dps_filtered_inflections_set = set()
+    for i in inflections_db:
+        dps_filtered_inflections_set.update(i.inflections_list)
+
+    print(f"dps_filtered_inflections_set: {len(dps_filtered_inflections_set)}")
+
+    return dps_filtered_inflections_set
+
+
+def dps_make_no_field_inflections_set(db_session, field):
+    
+    # Begin the query
+    query = db_session.query(DerivedData)
+    
+    # Join tables
+    query = query.join(PaliWord, PaliWord.id == DerivedData.id)
+    query = query.join(SBS, PaliWord.id == SBS.id)
+    
+    # Apply filters dynamically using the 'field' variable
+    query = query.filter(
+        getattr(SBS, field).isnot(None),  # Ensure field is not null
+        getattr(SBS, field) != ""         # Ensure field is not an empty string
     )
 
     # Execute the query

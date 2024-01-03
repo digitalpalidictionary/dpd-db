@@ -157,6 +157,13 @@ KN
                 tooltip="show all words from text.txt that do not have a source in sbs_example(s), using the 'source to add'",
                 visible=username == "deva",
                 pad=((10, 0), (0, 20)),
+            ),
+            sg.Button(
+                "No field", 
+                key="dps_from_txt_to_add_considering_field_button",
+                tooltip="show all words from text.txt that do not have anything in field",
+                visible=username == "deva",
+                pad=((10, 0), (0, 20)),
             )
         ],
         [

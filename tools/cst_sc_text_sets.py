@@ -93,15 +93,18 @@ def make_cst_text_set_from_file(dpspth, niggahita="ṃ") -> Set[str]:
 
     words_list: List[str] = []
 
-    with open(dpspth.text_to_add_path, "r") as f:
-        text_string = f.read()
-
-        print(text_string)
-
-        text_string = clean_machine(text_string, niggahita=niggahita)
-        words_list.extend(text_string.split())
+    if dpspth.text_to_add_path:
+        try:
+            with open(dpspth.text_to_add_path, "r") as f:
+                text_string = f.read()
+                text_string = clean_machine(text_string, niggahita=niggahita)
+                words_list.extend(text_string.split())
+        except FileNotFoundError:
+            print(f"[red]file {dpspth.text_to_add_path } does not exist")
+            return set()
 
     return set(words_list)
+
 
 
 def make_cst_text_set(pth, books: List[str], niggahita="ṃ") -> Set[str]:

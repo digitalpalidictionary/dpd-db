@@ -28,3 +28,5 @@ exporter/tpr_exporter.py
 ebook/ebook_exporter.py
 
 dps/scripts/move_mdict.py
+
+scripts/zip_goldedict_mdict.py
