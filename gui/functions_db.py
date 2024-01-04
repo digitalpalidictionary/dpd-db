@@ -397,11 +397,9 @@ def get_sanskrit(db_session, construction: str) -> str:
     sanskrit = ""
     already_added = []
     for constr_split in constr_splits:
-        results = db_session.query(
-            PaliWord
-            ).filter(
-                PaliWord.pali_1.like(f"%{constr_split}%")
-            ).all()
+        results = db_session.query(PaliWord)\
+            .filter(PaliWord.pali_1.like(f"%{constr_split}%"))\
+            .all()
         for i in results:
             if i.pali_clean == constr_split:
                 if i.sanskrit not in already_added:
@@ -410,6 +408,11 @@ def get_sanskrit(db_session, construction: str) -> str:
                     else:
                         sanskrit += f"{i.sanskrit} "
                     already_added += [i.sanskrit]
+    
+    sanskrit = re.sub(r"\[.*?\]", "", sanskrit) # remove square brackets
+    sanskrit = sanskrit.replace("+ +", "+") # remove double plus signs             
+    sanskrit = re.sub("  ", " ", sanskrit)  # remove double spaces
+    sanskrit = sanskrit.strip()
 
     return sanskrit
 

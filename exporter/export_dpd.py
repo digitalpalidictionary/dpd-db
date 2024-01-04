@@ -473,24 +473,23 @@ def render_button_box_templ(
 
     # compound_family_button
     if i.needs_compound_family_button:
-        if i.family_compound is not None and " " not in i.family_compound:
-            compound_family_button = button_html.format(
-                target=f"compound_family_{i.pali_1_}", name="compound family")
+        compound_family_button = button_html.format(
+            target=f"compound_family_{i.pali_1_}", name="compound family")
 
-        else:
-            compound_family_button = button_html.format(
-                target=f"compound_family_{i.pali_1_}", name="compound familes")
+    elif i.needs_compound_families_button:
+        compound_family_button = button_html.format(
+            target=f"compound_families_{i.pali_1_}", name="compound familes")
 
     else:
         compound_family_button = ""
 
     # set_family_button
     if i.needs_set_button:
-        if len(i.family_set_list) > 0:
-            set_family_button = button_html.format(
-                target=f"set_family_{i.pali_1_}", name="set")
-        else:
-            set_family_button = ""
+        set_family_button = button_html.format(
+            target=f"set_family_{i.pali_1_}", name="set")
+    elif i.needs_sets_button:
+        set_family_button = button_html.format(
+            target=f"set_families_{i.pali_1_}", name="sets")
     else:
         set_family_button = ""
 
