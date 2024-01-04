@@ -1,0 +1,17 @@
+.query-box {
+    width: 200px;
+    height: 30px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+ }
+
+body {
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #221A0F;
+    color: #e4e4e4;
+}

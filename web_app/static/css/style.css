@@ -1,0 +1,290 @@
+h3 {
+    font-size: 130%;
+    margin-top: 10px;
+    margin-bottom: 1px;
+}
+
+body {
+    font-family: "Noto Sans", "DejaVu Serif", "Verajja Serif";
+}
+
+div.content {
+    border: 2px solid #00A4CC;
+    border-radius: 7px;
+    line-height: 150%;
+    margin: 0px 0px;
+    overflow: auto;
+    padding: 3px 7px;
+    text-align: left;
+}
+
+p {
+    line-height: 150%;
+    margin: 0px 0px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+p.heading {
+    margin: 0px 0px;
+    padding: 2px 0px;
+}
+
+.underlined {
+    border-bottom: 1px solid #00A4CC;
+    margin-bottom: 5px;
+}
+
+.overlined {
+    border-top: 1px solid #00A4CC;
+    margin-top: 5px;
+}
+
+p.heading b {
+    font-weight: 700;
+}
+
+p.footer {
+    border-top: 1px solid #00A4CC;
+    font-size: 0.8em;
+    padding: 5px 0px;
+}
+
+table {
+    margin: 3px 0px;
+}
+
+table.grammar {
+    border: none;
+}
+
+table.grammar td,
+table.grammar th {
+    text-align: left;
+    vertical-align: top;
+    padding: 0px 0px;
+}
+
+table.grammar th {
+    color: #00A4CC;
+    font-weight: 700;
+    white-space: nowrap;
+    padding: 0px 5px 2px 0px
+}
+
+table.grammar b {
+    font-weight: 700;
+}
+
+p.sutta {
+    color: #00A4CC;
+    font-style: italic;
+    padding: 0px 0px 7px 0px;
+}
+
+table.inflection {
+    width: 100%;
+    padding: 0 0 5px 0px;
+}
+
+table.inflection td,
+table.inflection th {
+    border: 1px solid gray;
+    border-radius: 7px;
+    line-height: 150%;
+    padding: 5px 5px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.inflection th {
+    border: 1px solid #00A4CC;
+    color: #00A4CC;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+span.gray {
+    color: gray;
+}
+
+a.jump {
+    color: #00A4CC;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+table.family td,
+table.family th {
+    text-align: left;
+    vertical-align: top;
+}
+
+table.family th {
+    color: #00A4CC;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+table.family td {
+    padding-right: 7px;
+}
+
+table.family b {
+    font-weight: 700;
+}
+
+/* input {
+    display: none;
+} */
+
+div.button-box {
+    font-size: 0px;
+    margin: 2px 0px 3px 0px;
+
+}
+
+a.button {
+    background-color: #65DBFF;
+    border-radius: 7px;
+    box-shadow: 0px 4px 4px -2px #888888;
+    color: #000;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 400;
+    margin: 0px 1px 2px 0px;
+    padding: 3px 5px;
+    text-decoration: none;
+    user-select: none;
+}
+
+
+
+a.button.close {
+    float: right;
+    margin: 10px;
+}
+
+a.button.active {
+    background-color: #00A4CC;
+    color: black;
+    user-select: none;
+}
+
+a.button:hover {
+    background-color: #00A4CC;
+    color: white;
+    user-select: none;
+}
+
+.link {
+    color: #00A4CC;
+    font-weight: 700;
+}
+
+.hidden {
+    display: none;
+}
+
+table.freq th,
+table.freq td {
+    vertical-align: middle;
+}
+
+table.freq thead th {
+    text-align: center;
+}
+
+table.freq tbody th {
+    border: 1px solid #00A4CC;
+    border-radius: 7px;
+    padding: 5px;
+    text-align: center;
+    width: auto;
+}
+
+.vertical-text {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    /* inline-size: fit-content;
+    transform: rotate(-90deg); */
+}
+
+table.freq td {
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 7px;
+    text-align: center;
+    width: 12%;
+    white-space: nowrap;
+}
+
+td.void {
+    border: 0px solid transparent;
+}
+
+td.gr0 {
+    border: 1px solid #dbdbff;
+}
+
+td.gr1 {
+    background-color: #ddecfa;
+    border-color: #ddecfa;
+    color: #000;
+}
+
+td.gr2 {
+    background-color: #d2e2ff;
+    border-color: #d2e2ff;
+    color: #000;
+}
+
+td.gr3 {
+    background-color: #b0dbff;
+    border-color: #b0dbff;
+    color: #000;
+}
+
+td.gr4 {
+    background-color: #9dc3fd;
+    border-color: #9dc3fd;
+    color: #000;
+}
+
+td.gr5 {
+    background-color: #668efc;
+    border-color: #668efc;
+    color: #000;
+}
+
+td.gr6 {
+    background-color: #4668ff;
+    border-color: #4668ff;
+    color: #fff;
+}
+
+td.gr7 {
+    background-color: #314ffc;
+    border-color: #314ffc;
+    color: #fff;
+}
+
+td.gr8 {
+    background-color: #003cff;
+    border-color: #003cff;
+    color: #fff;
+}
+
+td.gr9 {
+    background-color: #0000bb;
+    border-color: #0000bb;
+    color: #fff;
+}
+
+td.gr10 {
+    background-color: #00008f;
+    border-color: #00008f;
+    color: #fff;
+}
+

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/style.css") }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home.css') }}">
+
+    </head>
+<body>
+
+<title>Digital Pāḷi Dictionary</title>
+
+
+<form action="/" method="get">
+ <label for="query">Enter your query:</label><br>
+ <input type="text" id="query" name="query" class="query-box">
+ <input type="submit" value="Submit">
+</form> 
+{{ html | safe }}
+<script src="{{ url_for("static", filename="js/buttons.js") }}"></script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+     document.body.addEventListener('dblclick', function() {
+     var selection = window.getSelection().toString();
+     if (selection.trim() !== "") {
+      window.location.href = '/?query=' + encodeURIComponent(selection);
+     }
+     });
+    });
+    </script>
+</body>
+</html>
