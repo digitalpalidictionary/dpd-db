@@ -27,10 +27,12 @@ def save_filtered_words():
     dpd_db = db_session.query(PaliWord).all()
 
     # Filter words based on sbs.sbs_class, also check if sbs is not None
-    filtered_words = [word for word in dpd_db if word.sbs and word.sbs.sbs_class == '(ru)']
+    # filtered_words = [word for word in dpd_db if word.sbs and word.sbs.sbs_class == '(ru)']
+    filtered_words = [word for word in dpd_db if word.sbs and '_' in word.sbs.sbs_category]
+
 
     # Sort the filtered words by sbs_class
-    filtered_words = sorted(filtered_words, key=lambda word: word.sbs.sbs_class_anki)
+    filtered_words = sorted(filtered_words, key=lambda word: str(word.sbs.sbs_class_anki))
 
     # Check if the CSV exists, and create a backup with a timestamp if it does
     if os.path.exists(dpspth.temp_csv_path):
@@ -56,10 +58,10 @@ def save_filtered_words():
         for word in filtered_words:
             writer.writerow({
                 'id': word.id,
-                'ru_meaning': word.ru.ru_meaning,
+                'ru_meaning': word.ru.ru_meaning if word.ru else None,
                 'meaning_1': word.meaning_1,
-                'sbs_class': word.sbs.sbs_class,
-                'sbs_class_anki': word.sbs.sbs_class_anki
+                'sbs_class': word.sbs.sbs_class if word.sbs else None,
+                'sbs_class_anki': word.sbs.sbs_class_anki if word.sbs else None,
             })
 
     db_session.close()

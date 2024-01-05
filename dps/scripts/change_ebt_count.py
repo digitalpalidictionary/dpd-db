@@ -66,7 +66,7 @@ if __name__ == "__main__":
 
 
 # # in eport_dpd.py
-#     summary = render_dpd_definition_templ(pth, i, dd, rd['make_link'], tt.dpd_definition_templ)
+    # summary = render_dpd_definition_templ(pth, i, dd, rd['make_link'], rd['show_id'], tt.dpd_definition_templ)
 
 
 # def render_dpd_definition_templ(
@@ -74,6 +74,7 @@ if __name__ == "__main__":
 #         i: PaliWord,
 #         dd: DerivedData,
 #         make_link: bool,
+#         show_id: bool,
 #         dpd_definition_templ: Template
 # ) -> str:
 #     """render the definition of a word's most relevant information:
@@ -86,9 +87,6 @@ if __name__ == "__main__":
 #     # pos
 #     pos: str = i.pos
 
-#     # id
-#     id: int = i.id
-
 #     # plus_case
 #     plus_case: str = ""
 #     if i.plus_case is not None and i.plus_case:
@@ -97,6 +95,9 @@ if __name__ == "__main__":
 #     meaning = make_meaning_html(i)
 #     summary = summarize_construction(i)
 #     complete = degree_of_completion(i)
+
+#     # pos
+#     id: int = i.id
 
 #     # sbs_category
 #     sbs_category: str = ""
@@ -118,5 +119,7 @@ if __name__ == "__main__":
 #             summary=summary,
 #             complete=complete,
 #             id=id,
+#             show_id=show_id,
 #             sbs_category=sbs_category
-#             ))
+#             )
+#         )
