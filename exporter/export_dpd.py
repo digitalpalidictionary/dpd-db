@@ -88,6 +88,7 @@ class PaliWordRenderData(TypedDict):
     sandhi_contractions: SandhiContractions
     cf_set: Set[str]
     make_link: bool
+    show_id: bool
 
 def render_pali_word_dpd_html(extended_synonyms, db_parts: PaliWordDbParts,
                               render_data: PaliWordRenderData) -> Tuple[RenderResult, RenderedSizes]:
@@ -403,7 +404,7 @@ def render_dpd_definition_templ(
             summary=summary,
             complete=complete,
             id=id,
-            show_id=show_id
+            show_id=show_id,
             )
         )
 
