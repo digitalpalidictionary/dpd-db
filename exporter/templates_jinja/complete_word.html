@@ -505,7 +505,8 @@
 
 <!-- compound family -->
 
-{% if d.i.needs_compound_family_button %}
+{% if d.i.needs_compound_family_button and d.fc %}
+
     <div id="compound_family_{{d.i.pali_1_}}" class="content hidden">
         <p class="heading underlined">
             <b>

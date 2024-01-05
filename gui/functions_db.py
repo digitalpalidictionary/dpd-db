@@ -410,8 +410,8 @@ def get_sanskrit(db_session, construction: str) -> str:
                     already_added += [i.sanskrit]
     
     sanskrit = re.sub(r"\[.*?\]", "", sanskrit) # remove square brackets
-    sanskrit = sanskrit.replace("+ +", "+") # remove double plus signs             
     sanskrit = re.sub("  ", " ", sanskrit)  # remove double spaces
+    sanskrit = sanskrit.replace("+ +", "+") # remove double plus signs    
     sanskrit = sanskrit.strip()
 
     return sanskrit

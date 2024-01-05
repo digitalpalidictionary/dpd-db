@@ -31,7 +31,7 @@ from tools.pali_text_files import cst_texts
 from tools.pali_alphabet import pali_alphabet
 from tools.pos import INDECLINABLES
 from tools.source_sutta_example import find_source_sutta_example
-
+from tools.addition_class import Addition
 nltk.download('punkt')
 
 
@@ -1148,11 +1148,13 @@ def compare_differences(
 
         pali_word = values_to_pali_word(values)
         if pth.additions_pickle_path.exists():
-            additions = additions_load(pth)
+            additions_list = Addition.load_additions()
         else:
-            additions = []
-        additions.append((pali_word, comment))
-        additions_save(pth, additions)
+            additions_list = []
+        addition = Addition(pali_word, comment)
+
+        additions_list.append(addition)
+        Addition.save_additions(additions_list)
 
 
 def additions_load(pth) -> List[Tuple]:
