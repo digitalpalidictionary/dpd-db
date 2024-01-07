@@ -170,13 +170,13 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √is	1	a	wish for	√iṣ	1, 4, 6, 9	seek, desire	vi √is		
 √is	1	a	wish for	√iṣ	1, 4, 6, 9	seek, desire	saṃ pati √is		saṃpratīcchat, saṃpratīcchati, saṃpratyeṣita (bsk), sampratīṣ, saṃpratīcchana (bsk)
 √iss	1	a	be envious, jealous	√īrṣy	1	be jealous	√iss		na + īrṣyaka +, īrṣuka +, īrṣyaka +, īrṣyā, īrṣy, īrṣyati
-√īr 1	1	a	move, shake	√īr	1, 2	set in motion	√īr		īrāṇa, īryā, īrayati, na + īrayati, īrate, īrayamāṇa, īrat, īrte, īrita, svairin
-√īr 1	1	a	move, shake	√īr	1, 2	set in motion	saṃ √īr		samīrte, samīrita
-√īr 2	8	e, aya	speak	√īr	1, 2	set in motion	√īr		īrayati
-√īr 2	8	e, aya	speak	√īr	1, 2	set in motion	abhi ud √īr		+ udīrayati, abhyudīr, abhyudīrayati
-√īr 2	8	e, aya	speak	√īr	1, 2	set in motion	ud √īr		udīrayat, udīr, udīryate, udīrayati, udīr, udīrita
-√īr 2	8	e, aya	speak	√īr	1, 2	set in motion	saṃ √īr		
-√īr 2	8	e, aya	speak	√īr	1, 2	set in motion	saṃ ud √īr		
+√īr 1	1	a	move, shake	√īr	1, 2	set in motion	√īr	īr	īrāṇa, īryā, īrayati, na + īrayati, īrate, īrayamāṇa, īrat, īrte, īrita, svairin
+√īr 1	1	a	move, shake	√īr	1, 2	set in motion	saṃ √īr	samīr	samīrte, samīrita
+√īr 2	8	e, aya	speak	√īr	1, 2	set in motion	√īr	īr	īrayati
+√īr 2	8	e, aya	speak	√īr	1, 2	set in motion	abhi ud √īr	abhyudīr	+ udīrayati, abhyudīr, abhyudīrayati
+√īr 2	8	e, aya	speak	√īr	1, 2	set in motion	ud √īr	udīr	udīrayat, udīr, udīryate, udīrayati, udīr, udīrita
+√īr 2	8	e, aya	speak	√īr	1, 2	set in motion	saṃ √īr	samīr	
+√īr 2	8	e, aya	speak	√īr	1, 2	set in motion	saṃ ud √īr	samudīr	
 √īs	3	ya	have power	√īś	1, 2	be master	√īs		īśvarī, īśvarīya, īśvara, anīśvara
 √īs	3	ya	have power	√īś	1, 2	be master	abhi √īs		na + adhīśvara
 √īh	1	a	strive	√īh	1	be eager	√īh		nirīhā
@@ -1665,16 +1665,16 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √pīḷ	8	e, aya	press, crush	√pīḍ	10	press	pati √pīḷ	pratipīḍ	pratipīḍita, pratipīḍana
 √pīḷ	8	e, aya	press, crush	√pīḍ	10	press	pari √pīḷ	paripīḍ	
 √pīḷ	8	e, aya	press, crush	√pīḍ	10	press	saṃ √pīḷ	sampīḍ	sampīḍana
-√pu	5	nā	purify, cleanse	√pū	1, 9	cleanse	√pu		punāna, pūyamāna, pavana, punāti, pāvaka, pāvana
-√pu	5	nā	purify, cleanse	√pū	1, 9	cleanse	ava √pu		niṣpū, niṣpunāti
-√pucch	1	a	ask, question	√prach	6	ask	√pucch		aprachat, na + āpṛṣṭa, na + pṛṣṭvā, prachyamāna, pṛṣṭa, praṣṭum, pṛcchya, áprākṣīt, pṛṣṭvā, prachat, āpraṣṭa, pṛccha, praṣṭum, pṛccham, praṣṭṛ, prach, aprākṣīt, pṛcchaka, aprākṣīt, pṛcchana, āpṛṣṭa, pṛcchati, na + pṛcchya, apṛṣṭa, pṛcchā
-√pucch	1	a	ask, question	√prach	6	ask	anu √pucch		na + anu + pṛṣṭa, anupṛcchati, anu + pṛṣṭa, anuprachamāna
-√pucch	1	a	ask, question	√prach	6	ask	abhi √pucch		abhipṛṣṭa
-√pucch	1	a	ask, question	√prach	6	ask	ā √pucch		na + āpṛcchya, āpṛṣṭvā, āpṛṣṭvā, āprach, na + āprachat, na + āpṛṣṭvā, āpṛcchate, āpṛcchya, āpṛṣṭvā
-√pucch	1	a	ask, question	√prach	6	ask	pati √pucch		pratiprach, pratipṛcchati, pratipraṣṭvā, pratipraśna, pratipṛcchat
-√pucch	1	a	ask, question	√prach	6	ask	pari √pucch		paripṛcchā, pariprach, na + paripṛṣṭa, paripṛcchat, paripṛcchaka, paripṛcchati, aparipṛcchā, pariprach, pariprachamāna, paripṛṣṭa
-√pucch	1	a	ask, question	√prach	6	ask	saṃ √pucch		sampṛccham, sampṛcche, saṃspṛṣṭa
-√puñch	1	a	wipe	pra√uñch √proñch	1, 6	wipe out	√puñch		proñchana +, poñchate (bsk)
+√pu	5	nā	purify, cleanse	√pū	1, 9	cleanse	√pu	pū	punāna, pūyamāna, pavana, punāti, pāvaka, pāvana
+√pu	5	nā	purify, cleanse	√pū	1, 9	cleanse	ava √pu	niṣpū	niṣpū, niṣpunāti
+√pucch	1	a	ask, question	√prach	6	ask	√pucch	prach	aprachat, na + āpṛṣṭa, na + pṛṣṭvā, prachyamāna, pṛṣṭa, praṣṭum, pṛcchya, áprākṣīt, pṛṣṭvā, prachat, āpraṣṭa, pṛccha, praṣṭum, pṛccham, praṣṭṛ, prach, aprākṣīt, pṛcchaka, aprākṣīt, pṛcchana, āpṛṣṭa, pṛcchati, na + pṛcchya, apṛṣṭa, pṛcchā
+√pucch	1	a	ask, question	√prach	6	ask	anu √pucch	anuprach	na + anu + pṛṣṭa, anupṛcchati, anu + pṛṣṭa, anuprachamāna
+√pucch	1	a	ask, question	√prach	6	ask	abhi √pucch	abhiprach	abhipṛṣṭa
+√pucch	1	a	ask, question	√prach	6	ask	ā √pucch	āprach	na + āpṛcchya, āpṛṣṭvā, āpṛṣṭvā, āprach, na + āprachat, na + āpṛṣṭvā, āpṛcchate, āpṛcchya, āpṛṣṭvā
+√pucch	1	a	ask, question	√prach	6	ask	pati √pucch	pratiprach	pratiprach, pratipṛcchati, pratipraṣṭvā, pratipraśna, pratipṛcchat
+√pucch	1	a	ask, question	√prach	6	ask	pari √pucch	pariprach	paripṛcchā, pariprach, na + paripṛṣṭa, paripṛcchat, paripṛcchaka, paripṛcchati, aparipṛcchā, pariprach, pariprachamāna, paripṛṣṭa
+√pucch	1	a	ask, question	√prach	6	ask	saṃ √pucch	samprach	sampṛccham, sampṛcche, saṃspṛṣṭa
+√puñch	1	a	wipe	pra√uñch √proñch	1, 6	wipe out	√puñch	poñch / proñch	proñchana +, poñchate (bsk)
 √puñch	1	a	wipe	pra√uñch √proñch	1, 6	wipe out	ava √puñch		
 √puñch	1	a	wipe	pra√uñch √proñch	1, 6	wipe out	nī √puñch		
 √puṭ	1	a	wrap, envelop	√puṭ	6	clasp	√puṭ		puṭa, puṭaka
@@ -3103,29 +3103,29 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √snih	3	ya	love, be moist	√ṣṇih √snih	4	be sticky	√snih		snehita, snehayati, snehavat, sneha, snigdha, sasneha
 √had	1	a	excrete	√had	1	evacuate	√had		hadati
 √had	1	a	excrete	√had	1	evacuate	ud √had		ud + hadati
-√han	1	a	strike, kill	√han	1, 2	smite	√han		hanyate, hatatā, hanti, na + hatatā, hana, hanana +, ahata, hantavya, hatvā, avadhi, aghāni, hatya, na + hanat, hanamāna, hantum, hanana, suhata + tara, hanat, suhata, han, hantṛ, hata, hanyamāna, hanati, hanyāt
+√han	1	a	strike, kill	√han	1, 2	smite	√han	han	hanyate, hatatā, hanti, na + hatatā, hana, hanana +, ahata, hantavya, hatvā, avadhi, aghāni, hatya, na + hanat, hanamāna, hantum, hanana, suhata + tara, hanat, suhata, han, hantṛ, hata, hanyamāna, hanati, hanyāt
 √han	1	a	strike, kill	√han	1, 2	smite	anu ā √han		na + anu + āhata
-√han	1	a	strike, kill	√han	1, 2	smite	apa ā √han		apahata
-√han	1	a	strike, kill	√han	1, 2	smite	abhi √han		abhihan
-√han	1	a	strike, kill	√han	1, 2	smite	abhi ā √han		abhyāhata, abhyāhan, abhyāhata
-√han	1	a	strike, kill	√han	1, 2	smite	abhi ni √han		abhinihanati
+√han	1	a	strike, kill	√han	1, 2	smite	apa ā √han	apahan	apahata
+√han	1	a	strike, kill	√han	1, 2	smite	abhi √han	abhihan	abhihan
+√han	1	a	strike, kill	√han	1, 2	smite	abhi ā √han	abhyāhan	abhyāhata, abhyāhan, abhyāhata
+√han	1	a	strike, kill	√han	1, 2	smite	abhi ni √han	abhinihan	abhinihanati
 √han	1	a	strike, kill	√han	1, 2	smite	abhi nī √han		
 √han	1	a	strike, kill	√han	1, 2	smite	abhi vi √han		abhivihatya
-√han	1	a	strike, kill	√han	1, 2	smite	ava √han		avahanti
-√han	1	a	strike, kill	√han	1, 2	smite	ā √han		anāhata, āhaniṣyati, āhanyate, āhata, āhatya
-√han	1	a	strike, kill	√han	1, 2	smite	ud √han		uddharati, uddhan, uddhanti, uddhanya, uddhata, uddhanyate, anupahata
-√han	1	a	strike, kill	√han	1, 2	smite	upa √han		upahanyate, upahantvā, upahata +, upahantya, upahata, na + upa + hatya, anupahata
-√han	1	a	strike, kill	√han	1, 2	smite	ni √han		na + nihata, nihanya, nihantavya, nihatya, dur + nihata, nihata, su + nihata
-√han	1	a	strike, kill	√han	1, 2	smite	pa √han		prahantvāya, prahata
-√han	1	a	strike, kill	√han	1, 2	smite	pati √han		pratihanti, na + pratihanyate, pratihanamāna, pratihan, na + pratihanyamāna, pratihata, pratihanyamāna, na + pratihata, pratihanyate
-√han	1	a	strike, kill	√han	1, 2	smite	pari √han		parihan
-√han	1	a	strike, kill	√han	1, 2	smite	pari ā √han		parāhata
-√han	1	a	strike, kill	√han	1, 2	smite	vi √han		vihata, na + vihan, vihanyamāna, vihanet, vihanti, vihanyate, vihanyamāna
-√han	1	a	strike, kill	√han	1, 2	smite	vi saṃ √han		visaṃhan, visaṃhata
-√han	1	a	strike, kill	√han	1, 2	smite	saṃ √han		saṃhanti
+√han	1	a	strike, kill	√han	1, 2	smite	ava √han	avahan	avahanti
+√han	1	a	strike, kill	√han	1, 2	smite	ā √han	āhan	anāhata, āhaniṣyati, āhanyate, āhata, āhatya
+√han	1	a	strike, kill	√han	1, 2	smite	ud √han	uddhan	uddharati, uddhan, uddhanti, uddhanya, uddhata, uddhanyate, anupahata
+√han	1	a	strike, kill	√han	1, 2	smite	upa √han	upahan	upahanyate, upahantvā, upahata +, upahantya, upahata, na + upa + hatya, anupahata
+√han	1	a	strike, kill	√han	1, 2	smite	ni √han	nihan	na + nihata, nihanya, nihantavya, nihatya, dur + nihata, nihata, su + nihata
+√han	1	a	strike, kill	√han	1, 2	smite	pa √han	prahan	prahantvāya, prahata
+√han	1	a	strike, kill	√han	1, 2	smite	pati √han	pratihan	pratihanti, na + pratihanyate, pratihanamāna, pratihan, na + pratihanyamāna, pratihata, pratihanyamāna, na + pratihata, pratihanyate
+√han	1	a	strike, kill	√han	1, 2	smite	pari √han	parihan	parihan
+√han	1	a	strike, kill	√han	1, 2	smite	pari ā √han	parāhan	parāhata
+√han	1	a	strike, kill	√han	1, 2	smite	vi √han	vihan	vihata, na + vihan, vihanyamāna, vihanet, vihanti, vihanyate, vihanyamāna
+√han	1	a	strike, kill	√han	1, 2	smite	vi saṃ √han	visaṃhan	visaṃhan, visaṃhata
+√han	1	a	strike, kill	√han	1, 2	smite	saṃ √han	saṃhan	saṃhanti
 √han	1	a	strike, kill	√han	1, 2	smite	saṃ anu ā √han		saṃ + anu + āhata
 √han	1	a	strike, kill	√han	1, 2	smite	saṃ abhi ā √han		
-√han	1	a	strike, kill	√han	1, 2	smite	saṃ ā √han		samāhata
+√han	1	a	strike, kill	√han	1, 2	smite	saṃ ā √han	samāhan	samāhata
 √han	1	a	strike, kill	√han	1, 2	smite	saṃ ud √han		samūhata, saṃ + uddhatvā, su + samūhata (bsk), samuddhata, su + samūhata + (bsk), na + samūhata (bsk), samūhata (bsk), saṃ + uddhanti, saṃ + uddhan, saṃ + uddhanya
 √har 1	1	a	carry	√hṛ	1	take	√har		haraṇī, hriyate, hārikā, ahārṣīt, hārāpayati, haraṇi, hāra, hāraṇā, na + hārin, haramāṇa, harayitavya, hārita, hartṛ, hriyamāṇa, haraṇa, haritum, hārayitvā, harat, hartavya, hārayati, hṛ, harati, hāraka, haraṇīya, hārayat, hṛta, hārika, hṛta +, dur + hara, na + hārayitvā, hārin
 √har 1	1	a	carry	√hṛ	1	take	ati √har		atihrayitvā, atiharayati
