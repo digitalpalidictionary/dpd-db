@@ -5,7 +5,6 @@ import csv
 import nltk
 
 import subprocess
-import pyperclip
 import textwrap
 import pickle
 import configparser
@@ -20,18 +19,18 @@ from db.models import PaliWord
 from functions_db import make_all_inflections_set
 from functions_db import values_to_pali_word
 
+from tools.addition_class import Addition
 from tools.configger import config_test_option
 from tools.configger import config_update
 from tools.configger import config_test
 from tools.configger import config_read
-
 from tools.cst_sc_text_sets import make_cst_text_list
 from tools.cst_sc_text_sets import make_sc_text_list
 from tools.pali_text_files import cst_texts
 from tools.pali_alphabet import pali_alphabet
 from tools.pos import INDECLINABLES
 from tools.source_sutta_example import find_source_sutta_example
-from tools.addition_class import Addition
+
 nltk.download('punkt')
 
 
@@ -753,12 +752,6 @@ def make_sandhi_ok_list(pth):
 
     print(f"sandhi_ok_list: {len(sandhi_ok_list)}")
     return sandhi_ok_list
-
-
-def open_in_goldendict(word: str) -> None:
-    cmd = ["goldendict", word]
-    subprocess.Popen(cmd)
-    pyperclip.copy(word) 
 
 
 def open_inflection_tables(pth):

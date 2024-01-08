@@ -80,6 +80,7 @@ def find_source_sutta_example(
                 sutta_number = p.next_sibling.next_sibling["n"]
             except Exception as e:
                 print(e)
+                continue
 
             # choose which method to number suttas according to book
             if book.startswith("mn1"):
@@ -271,7 +272,7 @@ def find_source_sutta_example(
 
         text = clean_example(p.text)
 
-        if text_to_find is not None and text_to_find in text:
+        if text_to_find is not None and re.findall(text_to_find, text):
 
             # compile gathas line by line
             if "gatha" in p["rend"]:
@@ -290,38 +291,41 @@ def find_source_sutta_example(
                         p = p.previous_sibling
 
                 text = clean_gatha(p.text)
-                text = text.replace(".", ",\n")
+                # text = text.replace(".", ",\n")
                 example += text
 
                 while True:
                     try:
-                        p = p.next_sibling
-                        if p.text == "\n":
-                            pass
-                        elif p["rend"] == "gatha2":
-                            text = clean_gatha(p.text)
-                            text = text.replace(".", ",")
-                            example += text
-                        elif p["rend"] == "gatha3":
-                            text = clean_gatha(p.text)
-                            text = text.replace(".", ",")
-                            example += text
-                        elif p["rend"] == "gathalast":
-                            text = clean_gatha(p.text)
-                            example += text
+                        if p is not None:
+                            p = p.next_sibling
+                            if p.text == "\n":
+                                pass
+                            elif p["rend"] == "gatha2":
+                                text = clean_gatha(p.text)
+                                text = text.replace(".", ",")
+                                example += text
+                            elif p["rend"] == "gatha3":
+                                text = clean_gatha(p.text)
+                                text = text.replace(".", ",")
+                                example += text
+                            elif p["rend"] == "gathalast":
+                                text = clean_gatha(p.text)
+                                text = re.sub(",$", ".", text)
+                                example += text
+                                break
+                        else:
                             break
                     except AttributeError as e:
                         print(f"[red]{e}")
                         break
-                        
-
+                
                 sutta_examples += [(source, sutta.lower(), example)]
 
             # or compile sentences
             else:
                 sentences = sent_tokenize(text)
                 for i, sentence in enumerate(sentences):
-                    if text_to_find in sentence:
+                    if re.findall(text_to_find, sentence):
                         prev_sentence = sentences[i - 1] if i > 0 else ""
                         next_sentence = sentences[i + 1] if i < len(sentences)-1 else ""
                         sutta_examples += [(
@@ -334,6 +338,7 @@ def find_source_sutta_example(
 
 # FIXME remove clean_example from functions
 def clean_example(text):
+    text = text.strip()
     text = text.lower()
     text = text.replace("‘", "")
     text = text.replace(" – ", ", ")
@@ -348,8 +353,11 @@ def clean_example(text):
 # FIXME remove clean_gatha from functions
 def clean_gatha(text):
     text = clean_example(text)
-    text = text.replace(", ", ",\n")
     text = text.strip()
+    text = text.replace(" ,", ",")
+    text = text.replace(" .", ".")
+    text = text.replace(", ", ",\n")
+    text = re.sub(",$", ",\n", text)
     return text
 
 

@@ -27,7 +27,6 @@ from functions_db import get_root_info
 from functions_db import fetch_id_or_pali_1
 from functions_db import get_family_compound_values
 
-from functions import open_in_goldendict
 from functions import sandhi_ok
 from functions import test_book_to_add
 from functions import make_words_to_add_list
@@ -119,6 +118,7 @@ from scripts.backup_paliword_paliroot import backup_paliword_paliroot
 from scripts.backup_ru_sbs import backup_ru_sbs
 
 from exporter.i2html import make_html
+from tools.goldedict_tools import open_in_goldendict
 from tools.pos import DECLENSIONS, VERBS
 from tools.pos import POS
 from tools.sandhi_contraction import make_sandhi_contraction_dict

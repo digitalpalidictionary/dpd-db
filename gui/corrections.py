@@ -8,7 +8,7 @@ from sqlalchemy import inspect
 
 from rich import print
 
-from functions import open_in_goldendict
+from tools.goldedict_tools import open_in_goldendict
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 

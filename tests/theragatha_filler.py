@@ -2,7 +2,7 @@
 
 """Fill in the missing details of auto-added monks' names in Theragāthā"""
 
-import os
+
 import pickle
 import pyperclip
 
@@ -10,11 +10,10 @@ from rich import print
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord
+from tools.goldedict_tools import open_in_goldendict
 from tools.paths import ProjectPaths
 
-def open_in_goldendict(word: str) -> None:
-    cmd = "nohup goldendict " + word + " > /dev/null 2>&1 &"
-    os.system(cmd)
+
 
 
 def main():
@@ -43,7 +42,7 @@ def main():
             and i.id not in done_list
         ):
             pyperclip.copy(i.id)
-            # open_in_goldendict(i.pali_clean)
+            open_in_goldendict(i.pali_clean)
             
             processed = len(done_list)
             print(f"{processed + 1:>3}/{total:<3} [green]{counter:<6}{i.pali_1}", end=" ")
@@ -57,9 +56,11 @@ def main():
     print_done(done_list)
     dump_pickle(done_list)
 
+
 def load_pickle():
     with open("scripts/theragatha_filler", "rb") as f:
         return pickle.load(f)
+
 
 def dump_pickle(done_list):
         with open("scripts/theragatha_filler", "wb") as f:

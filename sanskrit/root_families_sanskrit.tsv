@@ -474,7 +474,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kup	3	ya	shake, be angry	√kup	4	be angry	saṃ √kup		saṃ + kopa, saṃkupyati, na + saṅkopya, saṃkupita
 √kumār	8	e, aya	play	kumāra	-	child	√kumār		kumāra, sukumāra, kumārikā, kumāraka, kumārī
 √kur	1	a	sound	√kur	6	utter sound	√kur		kurara, krūra, kurara
-√kul	1	a	be close	√kul	1	accumulate	√kul		kulīnatā, kaula, kula, kulīna, akula, kulāya
+√kul	1	a	be close	√kul	1	accumulate	√kul	kul	kulīnatā, kaula, kula, kulīna, akula, kulāya
 √kul	1	a	be close	√kul	1	accumulate	anu √kul		anu + kula
 √kul	1	a	be close	√kul	1	accumulate	ā √kul		anākula, ākula +, ākula
 √kul	1	a	be close	√kul	1	accumulate	pa ā √kul		ākula
@@ -482,13 +482,13 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kul	1	a	be close	√kul	1	accumulate	vi ā √kul		vyākula
 √kul	1	a	be close	√kul	1	accumulate	saṃ √kul		saṃkula +
 √kul	1	a	be close	√kul	1	accumulate	saṃ ā √kul		
-√kus 1	1	*a	call, insult	√kruś	1	cry out	√kus		kruś
-√kus 1	1	*a	call, insult	√kruś	1	cry out	ā √kus		ākrośa, ākrośayitṛ, ākruṣṭa, na + ākrośat, ākrośayati, ākrośati, akrukṣat, ākruṣṭvā, ākruśyamāna, ākrośat, ākruśyate
-√kus 1	1	*a	call, insult	√kruś	1	cry out	ud √kus		
-√kus 1	1	*a	call, insult	√kruś	1	cry out	upa √kus		na + upakruṣṭa, anupakruṣṭa (bsk)
-√kus 1	1	*a	call, insult	√kruś	1	cry out	pa √kus		prakrośati, prakrośāpayitvā, prakrośāpayati, prakruṣṭvā, prakruṣṭa
+√kus 1	1	*a	call, insult	√kruś	1	cry out	√kus	kruś	kruś
+√kus 1	1	*a	call, insult	√kruś	1	cry out	ā √kus	ākruś	ākrośa, ākrośayitṛ, ākruṣṭa, na + ākrośat, ākrośayati, ākrośati, akrukṣat, ākruṣṭvā, ākruśyamāna, ākrośat, ākruśyate
+√kus 1	1	*a	call, insult	√kruś	1	cry out	ud √kus	utkruś	
+√kus 1	1	*a	call, insult	√kruś	1	cry out	upa √kus	upakruś	na + upakruṣṭa, anupakruṣṭa (bsk)
+√kus 1	1	*a	call, insult	√kruś	1	cry out	pa √kus	prakruś	prakrośati, prakrośāpayitvā, prakrośāpayati, prakruṣṭvā, prakruṣṭa
 √kus 1	1	*a	call, insult	√kruś	1	cry out	pati √kus		na + pratyākroṣṭavya, pratyākroṣṭavya, pratykrośat, prati, pratyākruś, pratykrośati, pratyākruśya, pratikṛṣṭa, pratikruṣṭa, anupākruṣṭa, prati + ā + √kruś, na + pratyākruś, pratikruṣṭa, na + pratyākruśya, pratikṛṣṭa, pratikruṣṭa +
-√kus 1	1	*a	call, insult	√kruś	1	cry out	pati ā √kus		pratyākrośati
+√kus 1	1	*a	call, insult	√kruś	1	cry out	pati ā √kus	pratyākruś	pratyākrośati
 √kus 2	1	a	fill, enfold	√kuś	4	enfold	√kus		koṣṭhaka, kauśeya, kośaka, kośa, kukṣi +, koṣṭha, koṣṭhaka, kauśika, koṣṭha, kukṣi, koṣṭha, koṣṭhaka, koṣṭhikā (bsk)
 √kus 3	1	a	cut, tear	√kuṣ	6, 9	?	√kus		kuṣṭhin, kuṣṭha
 √kuh	8	e, aya	deceive	√kuh	10	cheat	√kuh		kuha, na + kuhanā, kuhana, kuhayate, kuhanā, kuhaka, akuhaka, akuha
@@ -1351,22 +1351,22 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √dham	1	a	blow, sound	√dhmā √dham	1, 2	blow	nī √dham		nirdhamati, nirdhamanīya, nirdhamana, nirdhānta, nirdhantvā, na + nir + dhamita
 √dham	1	a	blow, sound	√dhmā √dham	1, 2	blow	vi √dham		vidham
 √dham	1	a	blow, sound	√dhmā √dham	1, 2	blow	saṃ √dham		na + saṃ + dhamita, saṃ + dhamita, saṃdhmā
-√dhar 1	1	a	hold, carry, endure	√dhṛ	1	hold	√dhar		uddhṛtya, adharmya, dharma, a + dharma, dhṛti, su + dharmatā, dhārā, dharat, dharaṇa, dhara, sadharma, dharmeṇa, dhṛ, dhṛtimat, dharmatā, dharmya, dhṛta, sudharmā, dhṛ, dhāra, dhura, na + dharmeṇa, dharamāṇa, dharmin, adharma, dhārin
+√dhar 1	1	a	hold, carry, endure	√dhṛ	1	hold	√dhar	dhṛ	uddhṛtya, adharmya, dharma, a + dharma, dhṛti, su + dharmatā, dhārā, dharat, dharaṇa, dhara, sadharma, dharmeṇa, dhṛ, dhṛtimat, dharmatā, dharmya, dhṛta, sudharmā, dhṛ, dhāra, dhura, na + dharmeṇa, dharamāṇa, dharmin, adharma, dhārin
 √dhar 1	1	a	hold, carry, endure	√dhṛ	1	hold	anu √dhar		anu + dharma
 √dhar 1	1	a	hold, carry, endure	√dhṛ	1	hold	apa √dhar		
-√dhar 1	1	a	hold, carry, endure	√dhṛ	1	hold	abhi √dhar		abhidharma +, abhidharma
-√dhar 1	1	a	hold, carry, endure	√dhṛ	1	hold	ud √dhar		uddharati, uddharat, uddhārayati, uddhrayitvā, auddharyate, na + uddhata, uddhartum, uddhata, uddhṛta (bsk), na + auddhatya, auddhatya, uddhata, uddharaṇa, uddhartavya, uddhṛ, uddhartum, uddhṛtvā, uddhṛta
+√dhar 1	1	a	hold, carry, endure	√dhṛ	1	hold	abhi √dhar	abhidhṛ	abhidharma +, abhidharma
+√dhar 1	1	a	hold, carry, endure	√dhṛ	1	hold	ud √dhar	uddhṛ	uddharati, uddharat, uddhārayati, uddhrayitvā, auddharyate, na + uddhata, uddhartum, uddhata, uddhṛta (bsk), na + auddhatya, auddhatya, uddhata, uddharaṇa, uddhartavya, uddhṛ, uddhartum, uddhṛtvā, uddhṛta
 √dhar 1	1	a	hold, carry, endure	√dhṛ	1	hold	pati ud √dhar		+ uddharati, pratyuddhṛta (re-obtained), na + prati + uddhāraṇa, na + pratyuddhṛta (re-obtained), prati + uddhāraṇa, na + prati + uddhāraka
-√dhar 1	1	a	hold, carry, endure	√dhṛ	1	hold	saṃ √dhar		asādhāraṇa, sādhāraṇa
-√dhar 1	1	a	hold, carry, endure	√dhṛ	1	hold	saṃ ud √dhar		
-√dhar 2	8	e, aya	wear, hold, carry	√dhṛ	1	hold	√dhar		dhārayati, dhṛ, dhartṛ, dharayiṣyati, dhāraya, dhṛ, adārṣīt, adārṣīt, dhārayitavya, na + dhṛta, dhāraṇa, dhāraka, dhārayat, dhriyat, dhara, dhāryamāṇa, dhātṛ, dhṛta
-√dhar 2	8	e, aya	wear, hold, carry	√dhṛ	1	hold	anu √dhar		anudhāryamāṇa
-√dhar 2	8	e, aya	wear, hold, carry	√dhṛ	1	hold	ava √dhar		avadhāraṇa
-√dhar 2	8	e, aya	wear, hold, carry	√dhṛ	1	hold	ā √dhar		ādhāraṇa, ādhāra
-√dhar 2	8	e, aya	wear, hold, carry	√dhṛ	1	hold	upa √dhar		upadhṛ, upadhrita, upadhāraṇa, su + upadhṛ
-√dhar 2	8	e, aya	wear, hold, carry	√dhṛ	1	hold	nī √dhar		nirdhṛ
-√dhar 2	8	e, aya	wear, hold, carry	√dhṛ	1	hold	pa √dhar		pradhṛ, pradhṛta
-√dhar 2	8	e, aya	wear, hold, carry	√dhṛ	1	hold	saṃ √dhar		saṃdhārayati, saṃdhāraṇa, sandhartum, saṃdhārayat, sandharayitum, saṃdhṛ
+√dhar 1	1	a	hold, carry, endure	√dhṛ	1	hold	saṃ √dhar	saṃdhṛ	asādhāraṇa, sādhāraṇa
+√dhar 1	1	a	hold, carry, endure	√dhṛ	1	hold	saṃ ud √dhar	samuddhṛ	
+√dhar 2	8	e, aya	wear, hold, carry	√dhṛ	1	hold	√dhar	dhṛ	dhārayati, dhṛ, dhartṛ, dharayiṣyati, dhāraya, dhṛ, adārṣīt, adārṣīt, dhārayitavya, na + dhṛta, dhāraṇa, dhāraka, dhārayat, dhriyat, dhara, dhāryamāṇa, dhātṛ, dhṛta
+√dhar 2	8	e, aya	wear, hold, carry	√dhṛ	1	hold	anu √dhar	anudhṛ	anudhāryamāṇa
+√dhar 2	8	e, aya	wear, hold, carry	√dhṛ	1	hold	ava √dhar	avadhṛ	avadhāraṇa
+√dhar 2	8	e, aya	wear, hold, carry	√dhṛ	1	hold	ā √dhar	ādhṛ	ādhāraṇa, ādhāra
+√dhar 2	8	e, aya	wear, hold, carry	√dhṛ	1	hold	upa √dhar	upadhṛ	upadhṛ, upadhrita, upadhāraṇa, su + upadhṛ
+√dhar 2	8	e, aya	wear, hold, carry	√dhṛ	1	hold	nī √dhar	nirdhṛ	nirdhṛ
+√dhar 2	8	e, aya	wear, hold, carry	√dhṛ	1	hold	pa √dhar	pradhṛ	pradhṛ, pradhṛta
+√dhar 2	8	e, aya	wear, hold, carry	√dhṛ	1	hold	saṃ √dhar	saṃdhṛ	saṃdhārayati, saṃdhāraṇa, sandhartum, saṃdhārayat, sandharayitum, saṃdhṛ
 √dhaṃs	1	a	fall down, destroy	√dhvaṃs √dhvaṅs	1	scatter	√dhaṃs		dhvaṃsana, dhvaṃsate, dhvaṃsati, dhvaṃsin, dhvaṃsita
 √dhaṃs	1	a	fall down, destroy	√dhvaṃs √dhvaṅs	1	scatter	anu √dhaṃs		anudhvaṃsati, anudhvaṃs, anudhvaṃsita, na + anudhvaṃsati
 √dhaṃs	1	a	fall down, destroy	√dhvaṃs √dhvaṅs	1	scatter	ava √dhaṃs		avadhvasta
@@ -1993,16 +1993,16 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √man	3	ya	think	√man	3, 4, 8	think	vi √man		vimati, vimanas, vimāna, vaimatika, vimānayati, avimanas
 √man	3	ya	think	√man	3, 4, 8	think	saṃ √man		sammata, sammanyate, sammanitum, na + sammata, sammanta, sammanitavya, sammantvā, na + sammāna, samman, sammānayati
 √man	3	ya	think	√man	3, 4, 8	think	saṃ anu √man		samanumanyate
-√mant	8	e, aya	counsel, invite	√mantr	10	speak	√mant		durmantrita, mantrayati, mantrayitvā, mantrayamāṇa, mantr, mantrayati, mantr, mantrayate, mantrayitum, mantrayat, mantra, mantrin, durmantrin
-√mant	8	e, aya	counsel, invite	√mantr	10	speak	abhi ni √mant		abhi + nimantraṇa
-√mant	8	e, aya	counsel, invite	√mantr	10	speak	ā √mant		āmantrayate, na + āmantr, āmantrya, āmantr, na + āmantr, āmantraṇa, āmantraṇā, āmantrita
-√mant	8	e, aya	counsel, invite	√mantr	10	speak	ni √mant		nimantrayati, nimantrya, na + nimantrita, nimantraṇa, nimantrayitvā, naimantraṇaka, nimantrayitum, nimantrayat, nimantr, nimantrita
-√mant	8	e, aya	counsel, invite	√mantr	10	speak	pati √mant		pratimantrayati, pratimantraṇa, pratimanta, pratimantṛ
-√mant	8	e, aya	counsel, invite	√mantr	10	speak	saṃ √mant		sammantrayati
-√manth	1	a	shake, crush	√math √manth	1, 9	shake	√manth		a + mathyamāna, mantha (churning)
-√manth	1	a	shake, crush	√math √manth	1, 9	shake	abhi √manth		abhimanthet, abhimanthati, abhimanth, abhimanthat
-√manth	1	a	shake, crush	√math √manth	1, 9	shake	nī √manth		
-√mar	1	a	die	√mṛ	1	die	√mar		mārayati, māryamāṇa, amṛta, mārita, māraṇa, mriyamāṇa, māra, mārin, mṛ, mriyate, marati, amaraṇa, na + amaraṇa, martya, maraṇa, na + mriyamāṇa, maramāṇa, martum, marat, amāri, amara, mṛta, mārayat, mṛtyu, samāraka, mriyate, maraṇīya
+√mant	8	e, aya	counsel, invite	√mantr	10	speak	√mant	mantr	durmantrita, mantrayati, mantrayitvā, mantrayamāṇa, mantr, mantrayati, mantr, mantrayate, mantrayitum, mantrayat, mantra, mantrin, durmantrin
+√mant	8	e, aya	counsel, invite	√mantr	10	speak	abhi ni √mant	abhinimantr	abhi + nimantraṇa
+√mant	8	e, aya	counsel, invite	√mantr	10	speak	ā √mant	āmantr	āmantrayate, na + āmantr, āmantrya, āmantr, na + āmantr, āmantraṇa, āmantraṇā, āmantrita
+√mant	8	e, aya	counsel, invite	√mantr	10	speak	ni √mant	nimantr	nimantrayati, nimantrya, na + nimantrita, nimantraṇa, nimantrayitvā, naimantraṇaka, nimantrayitum, nimantrayat, nimantr, nimantrita
+√mant	8	e, aya	counsel, invite	√mantr	10	speak	pati √mant	pratimantr	pratimantrayati, pratimantraṇa, pratimanta, pratimantṛ
+√mant	8	e, aya	counsel, invite	√mantr	10	speak	saṃ √mant	sammantr	sammantrayati
+√manth	1	a	shake, crush	√math √manth	1, 9	shake	√manth	manth	a + mathyamāna, mantha (churning)
+√manth	1	a	shake, crush	√math √manth	1, 9	shake	abhi √manth	abhimanth	abhimanthet, abhimanthati, abhimanth, abhimanthat
+√manth	1	a	shake, crush	√math √manth	1, 9	shake	nī √manth	nirmanth	
+√mar	1	a	die	√mṛ	1	die	√mar	mṛ	mārayati, māryamāṇa, amṛta, mārita, māraṇa, mriyamāṇa, māra, mārin, mṛ, mriyate, marati, amaraṇa, na + amaraṇa, martya, maraṇa, na + mriyamāṇa, maramāṇa, martum, marat, amāri, amara, mṛta, mārayat, mṛtyu, samāraka, mriyate, maraṇīya
 √mar	1	a	die	√mṛ	1	die	ati √mar		ati + māpayat
 √maris	8	e, aya	be patient	√mṛṣ	10	endure, bear	√maris		mṛṣ, marṣaṇa
 √mal	1	a	dirty, stain	√mlai √mlā	1, 2, 4	relax	√mal		mala, nirmala, amala, amalina, samala, malina, mala + tara
@@ -2350,7 +2350,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √lagh	2	ṃa	lift up, jump	√lagh √laṅgh	1	leap	ud √lagh		
 √lagh	2	ṃa	lift up, jump	√lagh √laṅgh	1	leap	vi √lagh		na + vilaṅghita, vilaṅghana
 √lajj	1	a	be ashamed	√laj √lajj	6	be ashamed	√lajj		lajjate, lajjā, lajjayati, lajjyate, a + lajja, lajjitavya (bsk), alajjitavya (bsk)
-√lañch	1	a	mark	√lach	1	mark	√lañch		lāñchita +, lāñchita
+√lañch	1	a	mark	√lach	1	mark	√lañch	lāñch	lāñchita +, lāñchita
 √lañch	1	a	mark	√lach	1	mark	ni √lañch		
 √lap	1	a	speak, chat	√lap	1	prate	√lap		lāpayati, su + lapita, na + lapita, lapana, lāpin, lapita, nirlapaka (bsk), lāpayitum, lapati, lapyati, lāba, lap, lālapya (bsk), lāpana (bsk), lāpa, lapa (bsk)
 √lap	1	a	speak, chat	√lap	1	prate	api √lap		api + lapati
@@ -2555,39 +2555,39 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √vatt	1	a	be, proceed	√vṛt	1	turn	saṃ ati √vatt		samativartate, vṛtta
 √vatt	1	a	be, proceed	√vṛt	1	turn	saṃ pa √vatt		sampravṛt, sampravartayati, sampravartate
 √vatt	1	a	be, proceed	√vṛt	1	turn	saṃ pari √vatt		samparivṛtyamāna, samparivartati, samparivṛttvā, samparivartayati, samparivṛtayitvā, sam + parivartaka, saṃparivarta (bsk)
-√vad 1	1	a	say, speak	√vad	1	speak	√vad		vadat, udya, vādin, vādyate, vādya, vaditavya, vādana, na + vadat, vādayati, uvāda, vad, vadasva, udeyam, vadati, na + uditvā, vadamāna, vaditavya +, vadeḥ, vadate, vadana, vaditum, vaditṛ, vadet, avādīt, uditvā, vādita, vādaka, vāda, vada, vādayat
+√vad 1	1	a	say, speak	√vad	1	speak	√vad	vad	vadat, udya, vādin, vādyate, vādya, vaditavya, vādana, na + vadat, vādayati, uvāda, vad, vadasva, udeyam, vadati, na + uditvā, vadamāna, vaditavya +, vadeḥ, vadate, vadana, vaditum, vaditṛ, vadet, avādīt, uditvā, vādita, vādaka, vāda, vada, vādayat
 √vad 1	1	a	say, speak	√vad	1	speak	ati ā √vad		ativad, ativadati
-√vad 1	1	a	say, speak	√vad	1	speak	anu √vad		anavadya, anuvadyamāna, anuvāda (repetition), sāvadya
-√vad 1	1	a	say, speak	√vad	1	speak	apa √vad		upavadati
-√vad 1	1	a	say, speak	√vad	1	speak	abhi √vad		abhivādana, abhivādya, abhivadayitavya, na + abhivadati, abhivadat, na + abhivadat, abhivadati, abhivad, abhivādayati, abhivādanīya
-√vad 1	1	a	say, speak	√vad	1	speak	ava √vad		avavāda, na + avavādin, avavadat (bsk), na + avavadat (bsk), avavādaka, ava + vad, avavad (bsk), avavadita, avavadyamāna, avavadamāna (bsk), avavaditavya
-√vad 1	1	a	say, speak	√vad	1	speak	ā √vad		āvadati
-√vad 1	1	a	say, speak	√vad	1	speak	upa √vad		upavadati, upavādin, upavāda, na + upavāda +, upavadat, na + upavadati, na + upavad, na + upavāda, na + upavādin, na + upavad, nirapavāda, niravadya, sāvadya, upavāda, apavādaka
-√vad 1	1	a	say, speak	√vad	1	speak	pa √vad		pravadati, pravādya, pravadat, pravādaka, pravāda, pravādin
-√vad 1	1	a	say, speak	√vad	1	speak	pati √vad		prativad, prativadeyuḥ, prativadati
-√vad 1	1	a	say, speak	√vad	1	speak	vi √vad		vivāda, vivādayati, vivadat, avivāda, vivadati, vivadana, vivadamāna, + vādin, na + vivadana
-√vad 1	1	a	say, speak	√vad	1	speak	vi saṃ √vad		avisaṃvādana, visaṃvādana, + vādin, na + visaṃvādaka
-√vad 1	1	a	say, speak	√vad	1	speak	saṃ √vad		na + saṃvadamāna, saṃvadati, saṃvadamāna
-√vad 2	8	e, aya	salute, praise	√vad	1	speak	ava √vad		anavadya, anavadyatva, anusaṃvṛjina, sāvadya, avadya
-√vaddh	1	a	grow, increase	√vṛdh	1	grow	√vaddh		vṛdh, vardhanī, vardhate, vṛddha, vṛddhi
-√vaddh	1	a	grow, increase	√vṛdh	1	grow	abhi √vaddh		
-√vaddh	1	a	grow, increase	√vṛdh	1	grow	pa √vaddh		
-√vaddh	1	a	grow, increase	√vṛdh	1	grow	saṃ √vaddh		saṃvṛddha, saṃvardhana
-√vadh	8	e, aya	hurt, slaughter	√vadh	1, 5	slay	√vadh		avadhīm, vadhayati, vaddhvā, vadhaka, vaddha, vadhya, badhya, vadh, vaddhvā, vadhyāt, vadh, vadhyate, avadhya, vadha, vadhyamāna
-√vadh	8	e, aya	hurt, slaughter	√vadh	1, 5	slay	ud √vadh		udvadhīt
-√van	7	o	like, desire	√van	1, 6, 8	win	√van		vanatha (bsk), van, vanoti, nis + vana, van, nir + vanatha (bsk), vanana
+√vad 1	1	a	say, speak	√vad	1	speak	anu √vad	anuvad	anavadya, anuvadyamāna, anuvāda (repetition), sāvadya
+√vad 1	1	a	say, speak	√vad	1	speak	apa √vad	apavad	upavadati
+√vad 1	1	a	say, speak	√vad	1	speak	abhi √vad	abhivad	abhivādana, abhivādya, abhivadayitavya, na + abhivadati, abhivadat, na + abhivadat, abhivadati, abhivad, abhivādayati, abhivādanīya
+√vad 1	1	a	say, speak	√vad	1	speak	ava √vad	avavad	avavāda, na + avavādin, avavadat (bsk), na + avavadat (bsk), avavādaka, ava + vad, avavad (bsk), avavadita, avavadyamāna, avavadamāna (bsk), avavaditavya
+√vad 1	1	a	say, speak	√vad	1	speak	ā √vad	āvad	āvadati
+√vad 1	1	a	say, speak	√vad	1	speak	upa √vad	upavad	upavadati, upavādin, upavāda, na + upavāda +, upavadat, na + upavadati, na + upavad, na + upavāda, na + upavādin, na + upavad, nirapavāda, niravadya, sāvadya, upavāda, apavādaka
+√vad 1	1	a	say, speak	√vad	1	speak	pa √vad	pravad	pravadati, pravādya, pravadat, pravādaka, pravāda, pravādin
+√vad 1	1	a	say, speak	√vad	1	speak	pati √vad	prativad	prativad, prativadeyuḥ, prativadati
+√vad 1	1	a	say, speak	√vad	1	speak	vi √vad	vivad	vivāda, vivādayati, vivadat, avivāda, vivadati, vivadana, vivadamāna, + vādin, na + vivadana
+√vad 1	1	a	say, speak	√vad	1	speak	vi saṃ √vad	visaṃvad	avisaṃvādana, visaṃvādana, + vādin, na + visaṃvādaka
+√vad 1	1	a	say, speak	√vad	1	speak	saṃ √vad	saṃvad	na + saṃvadamāna, saṃvadati, saṃvadamāna
+√vad 2	8	e, aya	salute, praise	√vad	1	speak	ava √vad	avavad	anavadya, anavadyatva, anusaṃvṛjina, sāvadya, avadya
+√vaddh	1	a	grow, increase	√vṛdh	1	grow	√vaddh	vṛdh	vṛdh, vardhanī, vardhate, vṛddha, vṛddhi
+√vaddh	1	a	grow, increase	√vṛdh	1	grow	abhi √vaddh	abhivṛdh	
+√vaddh	1	a	grow, increase	√vṛdh	1	grow	pa √vaddh	pravṛdh	
+√vaddh	1	a	grow, increase	√vṛdh	1	grow	saṃ √vaddh	saṃvṛdh	saṃvṛddha, saṃvardhana
+√vadh	8	e, aya	hurt, slaughter	√vadh	1, 5	slay	√vadh	vadh	avadhīm, vadhayati, vaddhvā, vadhaka, vaddha, vadhya, badhya, vadh, vaddhvā, vadhyāt, vadh, vadhyate, avadhya, vadha, vadhyamāna
+√vadh	8	e, aya	hurt, slaughter	√vadh	1, 5	slay	ud √vadh	udvadh	udvadhīt
+√van	7	o	like, desire	√van	1, 6, 8	win	√van	van	vanatha (bsk), van, vanoti, nis + vana, van, nir + vanatha (bsk), vanana
 √vand	1	a	bow, honour	√vad √vand	1	greet	√vand	vand	vandana, vandi, vandita, avanditvā, vand, vandate, vanditvā, na + vandita, vandanā
 √vand	1	a	bow, honour	√vad √vand	1	greet	abhi √vand	abhivand	abhivandya, abhivandati
 √vap	1	a	sow, shave	√vap	1	strew	√vap	vap	vapate, uptvā, vyupta, upta, vap, upta, vyupta, vāpayitvā, vāpya, vāpayitavya, vāpaka, upyate
 √vap	1	a	sow, shave	√vap	1	strew	ud √vap	udvap	udvāpa, udvāpa +
 √vap	1	a	sow, shave	√vap	1	strew	ni √vap	nivap	nivāpaka, nivāpa, nivapati, nyupta
 √vap	1	a	sow, shave	√vap	1	strew	pa √vap	pravap	pravāpita, pravāpitam
-√vam	1	a	eject, vomit	√vam	1, 2	vomit	√vam		vam, vamitvā, vāntvā, vamati, vāntavat, vamita, vānta, vamitam, vāntam, vamathu
+√vam	1	a	eject, vomit	√vam	1, 2	vomit	√vam	vam	vam, vamitvā, vāntvā, vamati, vāntavat, vamita, vānta, vamitam, vāntam, vamathu
 √vam	1	a	eject, vomit	√vam	1, 2	vomit	ava √vam		vamitvā
 √vam	1	a	eject, vomit	√vam	1, 2	vomit	ā √vam		ā + vamati, āvamitum
 √vam	1	a	eject, vomit	√vam	1, 2	vomit	pati ā √vam		prati + ā + vamati
 √vambh	8	e, aya	despise	vi√ḍamb	10	mock	√vambh		viḍambaka, viḍambanā, viḍambayitum, viḍambita, viḍambayati, viḍambana, viḍambin
-√var 1	1	a	cover, dress, restrain	√vṛ	1, 5, 9	cover	√var		vārayitvā, varṇa, varṇaka, vṛta, vṛti +, varṇa +, suvarṇa, svarṇa, varatrā, vṛti, vāri, vāra, varman, na + suvarṇa, durvarṇatā, suvarṇa, vārayamāṇa, savarṇa, suvarṇatā, vaṭa, vāraka, vṛ, avāvarīt, avīvarat, varṇavat, durvarṇa, varṇavattā, suvarṇaka, vāraṇa, varṇatā, vārayati, vārayat, vṛti, varṇin
+√var 1	1	a	cover, dress, restrain	√vṛ	1, 5, 9	cover	√var	vṛ	vārayitvā, varṇa, varṇaka, vṛta, vṛti +, varṇa +, suvarṇa, svarṇa, varatrā, vṛti, vāri, vāra, varman, na + suvarṇa, durvarṇatā, suvarṇa, vārayamāṇa, savarṇa, suvarṇatā, vaṭa, vāraka, vṛ, avāvarīt, avīvarat, varṇavat, durvarṇa, varṇavattā, suvarṇaka, vāraṇa, varṇatā, vārayati, vārayat, vṛti, varṇin
 √var 1	1	a	cover, dress, restrain	√vṛ	1, 5, 9	cover	adhi ā √var		adhyāvara
 √var 1	1	a	cover, dress, restrain	√vṛ	1, 5, 9	cover	anu pari √var		anu + parivṛ, anu + parivārayati
 √var 1	1	a	cover, dress, restrain	√vṛ	1, 5, 9	cover	apa √var	apavṛ	pra+
@@ -3221,4 +3221,3 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √hū	1	a	be	√bhū	1	be	pa √hū	prabhū	pra+, prabhavati, prabhavat, prabhavati +, na + prabhavati, prabhū, prabhūta
 √heṭh	8	e, aya	harass, annoy	√heṭh	1, 9	vex, harass	√heṭh	heṭh	heṭhati, heṭhaka, heṭh, heṭhayitvā, na + heṭhaka, heṭhayamāna, heṭhayat, na + heṭhayat, heṭhana, heṭhayati, heṭh
 √heṭh	8	e, aya	harass, annoy	√heṭh	1, 9	vex, harass	vi √heṭh	viheṭh	viheṭhayat, na + viheṭhayat, viheṭhana, viheṭh, viheṭhaka, viheṭhayamāna, viheṭh, viheṭhayati, viheṭhati
-								648	

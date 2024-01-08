@@ -272,6 +272,9 @@ class ProjectPaths:
 
         # tools
         self.user_dict_path = base_dir.joinpath(Path("tools/user_dictionary.txt"))
+        
+        # scripts
+        self.tried_dict_path = base_dir.joinpath(Path("scripts/pass2_dict"))
 
         # .. external
         self.bibliography_md_path = base_dir.joinpath(Path("../digitalpalidictionary-website-source/src/bibliography.md"))
