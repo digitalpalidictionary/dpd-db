@@ -56,25 +56,25 @@ def main():
             
             if r:
                 if r.sanskrit_root_family:
-                    print(f"{counter:<5}{i.pali_1:<20}{i.family_root:<20}{i.sanskrit}")
+                    print(f"{counter:<10}{i.pali_1:<20}{i.family_root:<20}{i.sanskrit}")
 
                     # remove any sqaure brackets at the end
                     if "[" in i.sanskrit:
                         # old_sanskrit = copy.deepcopy(i.sanskrit)
                         i.sanskrit = re.sub(r"\[.+\]", "", i.sanskrit)
-                        print(f"{counter:<5}{i.pali_1:<20}{i.family_root:<20}{i.sanskrit}")
+                        print(f"{counter:<10}{i.pali_1:<20}{i.family_root:<20}{i.sanskrit}")
                     
                     # remove old values
                     if r.sanskrit_root_family not in exceptions:
                         escaped_sanskrit_root_family = r.sanskrit_root_family.replace('+', '\\+')
                         remove = fr"(^|, |\[|\b){escaped_sanskrit_root_family}($|, |\])"
                         i.sanskrit = re.sub(remove, "", i.sanskrit)
-                        print(f"{counter:<5}{i.pali_1:<20}{i.family_root:<20}{i.sanskrit}")
+                        print(f"{counter:<10}{i.pali_1:<20}{i.family_root:<20}{i.sanskrit}")
 
                     # add new value
                     i.sanskrit = i.sanskrit.strip() + f" [{r.sanskrit_root_family}]"
                     i.sanskrit = i.sanskrit.strip()
-                    print(f"{counter:<5}{i.pali_1:<20}{i.family_root:<20}{i.sanskrit}\n")
+                    print(f"{counter:<10}{i.pali_1:<20}{i.family_root:<20}{i.sanskrit}\n")
                     counter += 1
     
     db_session.commit()

@@ -1,4 +1,5 @@
 import re
+import time
 
 from bs4 import BeautifulSoup
 from nltk import sent_tokenize
@@ -278,6 +279,7 @@ def find_source_sutta_example(
             if "gatha" in p["rend"]:
                 example = ""
 
+                start_time = time.time()
                 while True:
                     if p.text == "\n":
                         p = p.previous_sibling
@@ -289,6 +291,9 @@ def find_source_sutta_example(
                         p = p.previous_sibling
                     elif p["rend"] == "gathalast":
                         p = p.previous_sibling
+                    if time.time() - start_time > 1:
+                        print(f"[bright_red]{text_to_find} [red]is stuck in a loop")
+                        break
 
                 text = clean_gatha(p.text)
                 # text = text.replace(".", ",\n")

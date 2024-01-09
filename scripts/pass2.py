@@ -74,19 +74,26 @@ def main():
                                 .get(headword, set())
                         ):
                             meaning = make_meaning(i)
+
                             print("-"*50)
-                            print(f"[dark_green]{source} {sutta}")
+                            print()
+                            print(f"[green]{source} [dark_green]{sutta}")
                             print(f"[white]{example}")
                             print()
-                            print(f"-- [green]{i.pali_1}: [white]{i.pos}. [cyan]{meaning}")
-                            print("[yellow]y/n: ", end="")
+                            print(f"[cyan]{i.pali_1}: [blue3]{i.pos}. [blue1]{meaning}")
+                            print()
+                            print("[grey54]y/n: ", end="")
+                            pyperclip.copy(word)
                             option = input("")
+                            
                             if option == "n":
                                 pd.update_tried_dict(word, headword, sutta_example)
+                            
                             elif option == "y":
                                 pyperclip.copy(i.id)
-                                print(f"[green]{i.pali_1} {i.id} copied to clipboard")
-                                print("[yellow]press any key to continue...", end= "")
+                                print()
+                                print(f"[cyan]{i.pali_1} {i.id} copied to clipboard")
+                                print("[grey54]press any key to continue...", end= "")
                                 input()
                 else:
                     # here needs to look in sandhi

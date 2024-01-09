@@ -108,7 +108,7 @@ def backup_anki_db(col) -> None:
     print(f"[green]{'backup anki db':<20}", end="")
     anki_backup_path = config_read("anki", "backup_path")
     if anki_backup_path:
-        is_backed_up = col.create_backup(backup_folder=anki_backup_path, force=False, wait_for_completion=True)
+        is_backed_up = col.create_backup(backup_folder=anki_backup_path, force=False, wait_for_completion=False)
         # if force = False, the db will not backup if it has not changed
         if not is_backed_up:
             print(f"[red]{'no':>10}{bop():>10.2f}")
@@ -419,6 +419,9 @@ def update_deck(col, note, i, data, deck_dict, model_dict):
         # update card
         card = data["card"]
         card.did = deck_dict[new_deck]
+        card.queue = 0
+        card.lapse = 0
+        card.due = 0
         col.update_card(card)
 
         return True
