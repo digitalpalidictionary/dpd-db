@@ -48,10 +48,13 @@ letter_to_number = {
     }
 
 
-def pali_list_sorter(words: list) -> list:
-    """Sort a list of words in Pāḷi alphabetical order.
+def pali_list_sorter(words: list | set) -> list:
+    """Sort a list or a set of words in Pāḷi alphabetical order.
     Usage:
     pali_list_sorter(list_of_pali_words)"""
+
+    if isinstance(words, set):
+        words = list(words)
 
     if words is None:
         return []
