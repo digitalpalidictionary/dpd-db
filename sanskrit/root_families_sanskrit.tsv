@@ -45,15 +45,15 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √an	1	a	breath, blow	√an	1, 2, 6	breathe	pati √an		pratyanīkatva, na + pratyanīkatva, pratyanīka
 √an	1	a	breath, blow	√an	1, 2, 6	breathe	vi pati √an		vipratyanīka
 √ap	4	ṇo, uṇā	reach, attain	√āp	5	obtain	√ap		āpayamāna, āpayati, āp
-√ap	4	ṇo, uṇā	reach, attain	√āp	5	obtain	adhi ā pa √ap		abhiprāpta
-√ap	4	ṇo, uṇā	reach, attain	√āp	5	obtain	anu pa √ap		na + anuprāptvā, na + anuprāpta, na + anuprāpnoti, anuprāptvā, anuprāpnoti, anuprāpta, anu + prāpti
-√ap	4	ṇo, uṇā	reach, attain	√āp	5	obtain	pa √ap		a + prāpta, prāpayya, prāptum, prāpayitvā, prāpti, a + prāpya, aprāpta, pra, prāpaṇa, na + prāptatva, prāp, prāpayamāṇa, prāptatva, prāp, prāptvā, prāpta, prāpayitavya +, a + prāpya<i>not, prāpta +, prāpṇuvat, prāptavya, prāpya, prāptin (bsk), prāpayitum, su + prāpta, aprāpṇuvat, aprāptvā, na + prāpayya, prāpayati, prāpayat, prāpayitavya, prāpnoti
-√ap	4	ṇo, uṇā	reach, attain	√āp	5	obtain	pari √ap		paryāpta, paryavāpti (bsk), a + paryāpta
-√ap	4	ṇo, uṇā	reach, attain	√āp	5	obtain	pari ā √ap		paryāpta, paryavāpnoti, paryavāp
-√ap	4	ṇo, uṇā	reach, attain	√āp	5	obtain	pari saṃ √ap		parisamāpta
-√ap	4	ṇo, uṇā	reach, attain	√āp	5	obtain	vi √ap		vyāp, vyāpita, su + vyāp, vyāpita
-√ap	4	ṇo, uṇā	reach, attain	√āp	5	obtain	saṃ √ap		samāp, samāpita, samāpta, susamāpta, samāpayati
-√ap	4	ṇo, uṇā	reach, attain	√āp	5	obtain	saṃ pa √ap		samprāp, samprāptvā, samprāp, samprāptvā, saṃprāpya, saṃ + prāpaka, samprāpnoti, samprāpta, asaṃprāpta
+√ap	4	ṇo, uṇā	reach, attain	√āp	5	obtain	adhi ā pa √ap	āp	abhiprāpta
+√ap	4	ṇo, uṇā	reach, attain	√āp	5	obtain	anu pa √ap	anuprāp	na + anuprāptvā, na + anuprāpta, na + anuprāpnoti, anuprāptvā, anuprāpnoti, anuprāpta, anu + prāpti
+√ap	4	ṇo, uṇā	reach, attain	√āp	5	obtain	pa √ap	prāp	a + prāpta, prāpayya, prāptum, prāpayitvā, prāpti, a + prāpya, aprāpta, pra, prāpaṇa, na + prāptatva, prāp, prāpayamāṇa, prāptatva, prāp, prāptvā, prāpta, prāpayitavya +, a + prāpya<i>not, prāpta +, prāpṇuvat, prāptavya, prāpya, prāptin (bsk), prāpayitum, su + prāpta, aprāpṇuvat, aprāptvā, na + prāpayya, prāpayati, prāpayat, prāpayitavya, prāpnoti
+√ap	4	ṇo, uṇā	reach, attain	√āp	5	obtain	pari √ap	paryāp	paryāpta, paryavāpti (bsk), a + paryāpta
+√ap	4	ṇo, uṇā	reach, attain	√āp	5	obtain	pari ā √ap	paryāp	paryāpta, paryavāpnoti, paryavāp
+√ap	4	ṇo, uṇā	reach, attain	√āp	5	obtain	pari saṃ √ap	parisamāp	parisamāpta
+√ap	4	ṇo, uṇā	reach, attain	√āp	5	obtain	vi √ap	vyāp	vyāp, vyāpita, su + vyāp, vyāpita
+√ap	4	ṇo, uṇā	reach, attain	√āp	5	obtain	saṃ √ap	samāp	samāp, samāpita, samāpta, susamāpta, samāpayati
+√ap	4	ṇo, uṇā	reach, attain	√āp	5	obtain	saṃ pa √ap	samprāp	samprāp, samprāptvā, samprāp, samprāptvā, saṃprāpya, saṃ + prāpaka, samprāpnoti, samprāpta, asaṃprāpta
 √ar	1	a	move, attain	√ṛ	1	go, send	√ar	ṛ	sārtha, arpayati, araṇīya, anartha, arthavat, ara, arthika, arthāt, arthena, āraṇyaka +, arthāya, nirarthaka, arpita (fixed), arṇava, araṇī, arpayitvā, araṇya, arthin, uru, arpayat, arpaṇa, artha, āraṇyaka, sārthaka, nirartha, aryate, artham, ṛcchati, anarthāya
 √ar	1	a	move, attain	√ṛ	1	go, send	ati √ar		ati + ṛcchati
 √ar	1	a	move, attain	√ṛ	1	go, send	anu √ar	anvṛ	
@@ -824,29 +824,29 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √cal	1	a	shake, tremble	√cal	1	stir	saṃ √cal		saṃcal, saṃcalati
 √cal	1	a	shake, tremble	√cal	1	stir	saṃ pa √cal		sam + pracalita, sam + pracalayati
 √cāy	1	a	honour	√cāy	1	note, observe	apa √cāy		apacāyyamāna, apacāyaka, na + apacita, apacāyati, apacita, apacāyita, apacāyin
-√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	√ci		kāyatva, kāya, caya, cinvāna, caitya, kāyika, citā, cīyate, citikā, cinvat, cita
-√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	anu √ci		
+√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	√ci	ci	kāyatva, kāya, caya, cinvāna, caitya, kāyika, citā, cīyate, citikā, cinvat, cita
+√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	anu √ci	anuci	
 √ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	anu vi √ci		
-√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	apa √ci		apacinoti, apracinoti, apacaya, apracinvat, apaci, apraci
+√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	apa √ci	apaci	apacinoti, apracinoti, apacaya, apracinvat, apaci, apraci
 √ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	abhi saṃ ā √ci		
-√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	ava √ci		avaci, avacetum, avaci, avacinvat, avacetum
-√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	ā √ci		ācinvat, ācita, ācinoti, ācaya
-√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	ud √ci		uccaya
-√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	upa √ci		upacaya, upacita, upcītvā, na + upacīyate, upacinoti
-√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	ni √ci		nicaya +, nikāya, nicaya
-√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	nī √ci		niścinoti, niścitya, niścita, naiścitya, niraceṣṭa
-√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	pa √ci		viceṣyáti, pracinvat, pracinvat (pluck), pracīyate
-√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	pa vi √ci		pravicinvat, pravicinoti, praviciyat, pavicayati
+√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	ava √ci	avaci	avaci, avacetum, avaci, avacinvat, avacetum
+√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	ā √ci	āci	ācinvat, ācita, ācinoti, ācaya
+√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	ud √ci	ucci	uccaya
+√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	upa √ci	upaci	upacaya, upacita, upcītvā, na + upacīyate, upacinoti
+√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	ni √ci	nici	nicaya +, nikāya, nicaya
+√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	nī √ci	niści	niścinoti, niścitya, niścita, naiścitya, niraceṣṭa
+√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	pa √ci	praci	viceṣyáti, pracinvat, pracinvat (pluck), pracīyate
+√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	pa vi √ci	pravici	pravicinvat, pravicinoti, praviciyat, pavicayati
 √ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	pati √ci		pracaya
 √ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	pati vi √ci		
-√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	pari √ci		paricita, paricaya, su + paricita
-√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	vi √ci		vicaya, vicayāt, vicinoti, viceṣyáti, vicita, vicinvat
-√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	vi nī √ci		vinicayayat, na + viniścita, viniścita, suviniścita, viniścaya, viniści, viniścāyin
-√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	saṃ √ci		saṃcaya, + cinvat, saṃcita
-√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	saṃ ud √ci		samuccaya, samuccita
-√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	saṃ ni √ci		saṃnicaya, saṃnicita
+√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	pari √ci	parici	paricita, paricaya, su + paricita
+√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	vi √ci	vici	vicaya, vicayāt, vicinoti, viceṣyáti, vicita, vicinvat
+√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	vi nī √ci	viniści	vinicayayat, na + viniścita, viniścita, suviniścita, viniścaya, viniści, viniścāyin
+√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	saṃ √ci	saṃci	saṃcaya, + cinvat, saṃcita
+√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	saṃ ud √ci	samucci	samuccaya, samuccita
+√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	saṃ ni √ci	saṃnici	saṃnicaya, saṃnicita
 √ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	saṃ pari √ci		sam + paricita
-√ci 2	5	nā	note, observe	√ci	1, 3, 5	note, observe	apa √ci		apacāyati, apaci, apaciti
+√ci 2	5	nā	note, observe	√ci	1, 3, 5	note, observe	apa √ci	apaci	apacāyati, apaci, apaciti
 √cikkh	1	a	show, tell	√khyā √cakṣ	2	see	abhi ā √cikkh		abhyākhyetum, abhyākhyā, abhyākhyāna, na + abhyākhyāti, abhyākhyāti
 √cikkh	1	a	show, tell	√khyā √cakṣ	2	see	ā √cikkh		na + ākhyā, ākhyat, ākhīyamāna, ākhyāna, ācakṣat, ākhyāt, ākhyāti, ākhīyate, ākhyāta, ākhyā, ākhyātum, ākhyātavya
 √cikkh	1	a	show, tell	√khyā √cakṣ	2	see	pati ā √cikkh		pratyācikhyāsati
@@ -882,8 +882,8 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √cumb	1	a	kiss	√cumb	1	kiss	√cumb		cumbati, cumbya, cumbita
 √cumb	1	a	kiss	√cumb	1	kiss	pari √cumb		paricumbati
 √cur	8	e, aya	steal	√cur	3, 10	steal	√cur		cur, cora, corī, corayati, coraka, corayat, corikā, na + corī
-√chaḍḍ	8	e, aya	discard, abandon	√chṛd √tyaj	1, 7	spue, eject	√chaḍḍ		chardayamāna, ṣṭyūta, chardayat, na + tyajita, chardita, tyajita, tyajanīya, chṛd, chardayati, chṛd, achārdīt, chardayitvā, chardati
-√chaḍḍ	8	e, aya	discard, abandon	√chṛd √tyaj	1, 7	spue, eject	ud √chaḍḍ		uttyaktvā
+√chaḍḍ	8	e, aya	discard, abandon	√chṛd √tyaj	1, 7	spue, eject	√chaḍḍ	chṛd / tyaj	chardayamāna, ṣṭyūta, chardayat, na + tyajita, chardita, tyajita, tyajanīya, chṛd, chardayati, chṛd, achārdīt, chardayitvā, chardati
+√chaḍḍ	8	e, aya	discard, abandon	√chṛd √tyaj	1, 7	spue, eject	ud √chaḍḍ	uttyaj	uttyaktvā
 √chaḍḍ	8	e, aya	discard, abandon	√chṛd √tyaj	1, 7	spue, eject	vi √chaḍḍ		vicchardayamāna
 √chad	8	e, aya	cover, conceal	√chad	1	cover	√chad	chad	chāda, su + channa, accha, chattra, chattrin, chadana, chadayat, chādaka, chad, chādayitvā, chādayamāna, chāttra, channa, chada, dur + channa, na + channa, chādita, chādayati, chādana, channa +, chadayitum
 √chad	8	e, aya	cover, conceal	√chad	1	cover	abhi √chad	abhicchad	abhi + channa
@@ -2635,14 +2635,14 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √vas 2	8	e, aya	wear, dress	√vas	2, 6	clothe	ni √vas		dunivasita, nivāsa, su + nivasita, nivāsana, nivasita, na + nivasita, nivāsayati, nivasya, nivasayitvā
 √vas 3	1	a	want, control	√vaś	1, 2, 3	will	√vas		a + vaśin, vaśa, vaśin, varṣa, vaśin, vaśika (bsk), sa + vaśa, avaśa, āvaśyaka, vaśena, vaśinam, avaśyam
 √vas 4	1	a	shine, lubricate	√vas	6	shine	√vas		vasā
-√vass 1	1	a	rain	√vṛṣ	1, 6	rain	√vass		vṛṣṭa, na + varṣat, varṣati, varṣa, na + vṛṣṭi +, varṣika, su + vṛṣṭi, vṛṣṭi, varṣā, varṣat, vāś, vāśana, vārṣikī, varṣin
-√vass 1	1	a	rain	√vṛṣ	1, 6	rain	ati √vass		na + ativṛṣ, na + abhivarṣati, abhivarṣati, ativṛṣ, + vṛṣṭa
-√vass 1	1	a	rain	√vṛṣ	1, 6	rain	anu √vass		
-√vass 1	1	a	rain	√vṛṣ	1, 6	rain	abhi √vass		na + abhivarṣati, abhivarṣati, abhivarṣin, abhivṛṣṭa
-√vass 1	1	a	rain	√vṛṣ	1, 6	rain	abhi pa √vass		abhipravarṣati, abhipravṛṣ, abhipravṛṣṭa
-√vass 1	1	a	rain	√vṛṣ	1, 6	rain	ava √vass		avavarṣati, avavṛṣṭa
-√vass 1	1	a	rain	√vṛṣ	1, 6	rain	pa √vass		pravṛṣ, prāvṛṣa +, pravarṣaṇa, prāvṛṣa, pravarṣat, pravarṣati, + vṛṣṭa
-√vass 2	1	a	howl, roar, bark	√vāś	1, 4	bellow	√vass		vāśyate, vaśā, vāś, vāśana, vāśyamāna
+√vass 1	1	a	rain	√vṛṣ	1, 6	rain	√vass	vṛṣ	vṛṣṭa, na + varṣat, varṣati, varṣa, na + vṛṣṭi +, varṣika, su + vṛṣṭi, vṛṣṭi, varṣā, varṣat, vāś, vāśana, vārṣikī, varṣin
+√vass 1	1	a	rain	√vṛṣ	1, 6	rain	ati √vass	ativṛṣ	na + ativṛṣ, na + abhivarṣati, abhivarṣati, ativṛṣ, + vṛṣṭa
+√vass 1	1	a	rain	√vṛṣ	1, 6	rain	anu √vass	anuvṛṣ	
+√vass 1	1	a	rain	√vṛṣ	1, 6	rain	abhi √vass	abhivṛṣ	na + abhivarṣati, abhivarṣati, abhivarṣin, abhivṛṣṭa
+√vass 1	1	a	rain	√vṛṣ	1, 6	rain	abhi pa √vass	abhipravṛṣ	abhipravarṣati, abhipravṛṣ, abhipravṛṣṭa
+√vass 1	1	a	rain	√vṛṣ	1, 6	rain	ava √vass	avavṛṣ	avavarṣati, avavṛṣṭa
+√vass 1	1	a	rain	√vṛṣ	1, 6	rain	pa √vass	pravṛṣ	pravṛṣ, prāvṛṣa +, pravarṣaṇa, prāvṛṣa, pravarṣat, pravarṣati, + vṛṣṭa
+√vass 2	1	a	howl, roar, bark	√vāś	1, 4	bellow	√vass	vāś	vāśyate, vaśā, vāś, vāśana, vāśyamāna
 √vah	1	a	carry, bring	√vah	1	carry	√vah	vah	ūḍha, vāhayati, uhyate, vaha, sa + vāhana, vāhin, vahati, vāhasā, sa + vāhanā, vāhinī, vahitum, vah, vāha, na + vāhana, vāhaka, vāhinī, vāhana, uhyamāna, vahat, vayha
 √vah	1	a	carry, bring	√vah	1	carry	adhi √vah		abhi + vahin, adhivahati, adhivāha, abhivahana
 √vah	1	a	carry, bring	√vah	1	carry	anu √vah	anuvah	
@@ -3042,19 +3042,19 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √su 1	4	ṇu, ṇā	hear	√śru	5	hear	upa √su		upaśruti
 √su 1	4	ṇu, ṇā	hear	√śru	5	hear	pati √su		pratiśraya, sapratīśa (bsk), apratīśa (bsk), prati + śrāvin, pratiśrava, pratiśru
 √su 1	4	ṇu, ṇā	hear	√śru	5	hear	vi √su		vaiśravaṇa, viśravaṇa, viśruta, viśravaṇa
-√su 2	1	a	flow	√sru	1	flow	√su		śrāvastī, sravati, srotas, sravaṇa, prasravati, sravat
+√su 2	1	a	flow	√sru	1	flow	√su	sru	śrāvastī, sravati, srotas, sravaṇa, prasravati, sravat
 √su 2	1	a	flow	√sru	1	flow	anu √su		anu + srvayitvā, anusrotasa, na + anu + sravati, anu + sravati
 √su 2	1	a	flow	√sru	1	flow	anu ā √su		anu + āsravati, na + anu + āsravati
 √su 2	1	a	flow	√sru	1	flow	anu saṃ √su		anu + saṃsrvayitvā
-√su 2	1	a	flow	√sru	1	flow	abhi √su		abhisravati
+√su 2	1	a	flow	√sru	1	flow	abhi √su	adhisru	abhisravati
 √su 2	1	a	flow	√sru	1	flow	ava √su		avasruta, na + avasruta, na + avasrava, ava + sravaṇa
-√su 2	1	a	flow	√sru	1	flow	ā √su		āsrāvin, āsravati, āsravaṇa, sāsrava, anāsrava, āsrava, āsrāva, na + āsrāvin
+√su 2	1	a	flow	√sru	1	flow	ā √su	avasru	āsrāvin, āsravati, āsravaṇa, sāsrava, anāsrava, āsrava, āsrāva, na + āsrāvin
 √su 2	1	a	flow	√sru	1	flow	ud √su		ud + srāva
-√su 2	1	a	flow	√sru	1	flow	nī √su		nisruta +, nisruta
-√su 2	1	a	flow	√sru	1	flow	pa √su		prasavinī, prasavin, prasrāva, prasru, prasravat, prasravati
+√su 2	1	a	flow	√sru	1	flow	nī √su	niḥsru	nisruta +, nisruta
+√su 2	1	a	flow	√sru	1	flow	pa √su	prasru	prasavinī, prasavin, prasrāva, prasru, prasravat, prasravati
 √su 2	1	a	flow	√sru	1	flow	pati √su		pratisrotam, pratisrota
-√su 2	1	a	flow	√sru	1	flow	pari √su		na + parisrava +, parisrvita, parisrava (streaming), pariśraya (bsk), parisravati, sa + pariśraya (bsk), parisrvayitvā, parisravayati, parisrāvaṇa
-√su 2	1	a	flow	√sru	1	flow	vi √su		
+√su 2	1	a	flow	√sru	1	flow	pari √su	parisru	na + parisrava +, parisrvita, parisrava (streaming), pariśraya (bsk), parisravati, sa + pariśraya (bsk), parisrvayitvā, parisravayati, parisrāvaṇa
+√su 2	1	a	flow	√sru	1	flow	vi √su	visru	
 √su 3	1	a	extract, distil	√su	5	press out, extract	√su		surā
 √su 3	1	a	extract, distil	√su	5	press out, extract	ā √su		āsava
 √su 4	1	a	generate, beget	√sū	1, 2, 4, 5	generate, enliven, impel	√su		sutā
@@ -3127,62 +3127,62 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √han	1	a	strike, kill	√han	1, 2	smite	saṃ abhi ā √han		
 √han	1	a	strike, kill	√han	1, 2	smite	saṃ ā √han	samāhan	samāhata
 √han	1	a	strike, kill	√han	1, 2	smite	saṃ ud √han		samūhata, saṃ + uddhatvā, su + samūhata (bsk), samuddhata, su + samūhata + (bsk), na + samūhata (bsk), samūhata (bsk), saṃ + uddhanti, saṃ + uddhan, saṃ + uddhanya
-√har 1	1	a	carry	√hṛ	1	take	√har		haraṇī, hriyate, hārikā, ahārṣīt, hārāpayati, haraṇi, hāra, hāraṇā, na + hārin, haramāṇa, harayitavya, hārita, hartṛ, hriyamāṇa, haraṇa, haritum, hārayitvā, harat, hartavya, hārayati, hṛ, harati, hāraka, haraṇīya, hārayat, hṛta, hārika, hṛta +, dur + hara, na + hārayitvā, hārin
-√har 1	1	a	carry	√hṛ	1	take	ati √har		atihrayitvā, atiharayati
-√har 1	1	a	carry	√hṛ	1	take	adhi ava √har		abhyavaharaṇa
-√har 1	1	a	carry	√hṛ	1	take	adhi ā √har		
-√har 1	1	a	carry	√hṛ	1	take	anu √har		
+√har 1	1	a	carry	√hṛ	1	take	√har	hṛ	haraṇī, hriyate, hārikā, ahārṣīt, hārāpayati, haraṇi, hāra, hāraṇā, na + hārin, haramāṇa, harayitavya, hārita, hartṛ, hriyamāṇa, haraṇa, haritum, hārayitvā, harat, hartavya, hārayati, hṛ, harati, hāraka, haraṇīya, hārayat, hṛta, hārika, hṛta +, dur + hara, na + hārayitvā, hārin
+√har 1	1	a	carry	√hṛ	1	take	ati √har	atihṛ	atihrayitvā, atiharayati
+√har 1	1	a	carry	√hṛ	1	take	adhi ava √har	abhyavahṛ	abhyavaharaṇa
+√har 1	1	a	carry	√hṛ	1	take	adhi ā √har	abhyāhṛ	
+√har 1	1	a	carry	√hṛ	1	take	anu √har	anuhṛ	
 √har 1	1	a	carry	√hṛ	1	take	anu pari √har		anu + parihartvā, anu + pariharati
-√har 1	1	a	carry	√hṛ	1	take	apa ā √har		
-√har 1	1	a	carry	√hṛ	1	take	abhi √har		abhihartvā, abhiharyate, na + abhihṛta, abhihārayati, abhiharati, abhihāra (bringing near), anuvyāharati, abhihartum, abhihṛta, abhihṛ, na + abhiharati
-√har 1	1	a	carry	√hṛ	1	take	abhi ud ā √har		
+√har 1	1	a	carry	√hṛ	1	take	apa ā √har	apāhṛ	
+√har 1	1	a	carry	√hṛ	1	take	abhi √har	abhihṛ	abhihartvā, abhiharyate, na + abhihṛta, abhihārayati, abhiharati, abhihāra (bringing near), anuvyāharati, abhihartum, abhihṛta, abhihṛ, na + abhiharati
+√har 1	1	a	carry	√hṛ	1	take	abhi ud ā √har	abhyudāhṛ	
 √har 1	1	a	carry	√hṛ	1	take	abhi ni √har		
-√har 1	1	a	carry	√hṛ	1	take	abhi nī √har		abhinirharati, abhinirhāra
+√har 1	1	a	carry	√hṛ	1	take	abhi nī √har	abhinirhṛ	abhinirharati, abhinirhāra
 √har 1	1	a	carry	√hṛ	1	take	abhi pa √har		abhi + prahārin
 √har 1	1	a	carry	√hṛ	1	take	abhi saṃ √har		
-√har 1	1	a	carry	√hṛ	1	take	ava √har		avahārin, avahṛ, avahrayitvā, avahṛ
-√har 1	1	a	carry	√hṛ	1	take	ā √har		āharyate, āhartum, āhartvā, na + āhṛta, āhṛta, āhriyate, āhṛ, āhṛtya (having fetched), āharat, āharati, āharamāṇa, āhara, āhartavya, āharaṇa, āhṛ, āhartvā, āhṛ, āhriyat, āhāraṇā, na + āharati
-√har 1	1	a	carry	√hṛ	1	take	ud √har		uddhṛta, uddhṛ
-√har 1	1	a	carry	√hṛ	1	take	ud ā √har		udāharati, udāharaṇa, udāhartavya
-√har 1	1	a	carry	√hṛ	1	take	upa √har		upahāraka, na + upahāra, upahāra
-√har 1	1	a	carry	√hṛ	1	take	upa nī √har		upanirhṛ
-√har 1	1	a	carry	√hṛ	1	take	upa saṃ √har		upasaṃharat, upasaṃhṛ, upasaṃharati
-√har 1	1	a	carry	√hṛ	1	take	nī √har		nirhṛ, nirharyate, nirhartavya, nirharati, nirhrayitvā, nirharat, su + nirhṛ, nirharaṇīya, nirhāra, su + nirhṛta, nirharaṇa, dus + nirhṛ, nirharaṇīya, nirhṛtvā, nirhāraka, nirhṛta, nirhṛ, nirhartum, nirhṛ, nirharaṇīya, na + nirhṛta
-√har 1	1	a	carry	√hṛ	1	take	pa √har		praharat, praharaṇa, prahārin, praharati, prahāra, na + praharat, prahartum, prahāra +, prahṛ, prahartvā
-√har 1	1	a	carry	√hṛ	1	take	pa vi ā √har		pravyāhṛ, pravyāharati
-√har 1	1	a	carry	√hṛ	1	take	pati √har		pratihāra, prātihārya, pratihartavya, na + prātihārya, sa + prātihārya, apratihārya
-√har 1	1	a	carry	√hṛ	1	take	pati ā √har		pratyāharayati
+√har 1	1	a	carry	√hṛ	1	take	ava √har	avahṛ	avahārin, avahṛ, avahrayitvā, avahṛ
+√har 1	1	a	carry	√hṛ	1	take	ā √har	āhṛ	āharyate, āhartum, āhartvā, na + āhṛta, āhṛta, āhriyate, āhṛ, āhṛtya (having fetched), āharat, āharati, āharamāṇa, āhara, āhartavya, āharaṇa, āhṛ, āhartvā, āhṛ, āhriyat, āhāraṇā, na + āharati
+√har 1	1	a	carry	√hṛ	1	take	ud √har	uddhṛ	uddhṛta, uddhṛ
+√har 1	1	a	carry	√hṛ	1	take	ud ā √har	udāhṛ	udāharati, udāharaṇa, udāhartavya
+√har 1	1	a	carry	√hṛ	1	take	upa √har	upahṛ	upahāraka, na + upahāra, upahāra
+√har 1	1	a	carry	√hṛ	1	take	upa nī √har	upanirhṛ	upanirhṛ
+√har 1	1	a	carry	√hṛ	1	take	upa saṃ √har	upasaṃhṛ	upasaṃharat, upasaṃhṛ, upasaṃharati
+√har 1	1	a	carry	√hṛ	1	take	nī √har	nirhṛ	nirhṛ, nirharyate, nirhartavya, nirharati, nirhrayitvā, nirharat, su + nirhṛ, nirharaṇīya, nirhāra, su + nirhṛta, nirharaṇa, dus + nirhṛ, nirharaṇīya, nirhṛtvā, nirhāraka, nirhṛta, nirhṛ, nirhartum, nirhṛ, nirharaṇīya, na + nirhṛta
+√har 1	1	a	carry	√hṛ	1	take	pa √har	prahṛ	praharat, praharaṇa, prahārin, praharati, prahāra, na + praharat, prahartum, prahāra +, prahṛ, prahartvā
+√har 1	1	a	carry	√hṛ	1	take	pa vi ā √har	pravyāhṛ	pravyāhṛ, pravyāharati
+√har 1	1	a	carry	√hṛ	1	take	pati √har	pratihṛ	pratihāra, prātihārya, pratihartavya, na + prātihārya, sa + prātihārya, apratihārya
+√har 1	1	a	carry	√hṛ	1	take	pati ā √har	pratyāhṛ	pratyāharayati
 √har 1	1	a	carry	√hṛ	1	take	pati pa √har		pratiprahāra.<i>m.</i><i>
 √har 1	1	a	carry	√hṛ	1	take	pati vi ā √har		
-√har 1	1	a	carry	√hṛ	1	take	pati saṃ √har		pratisaṃharati, prati
-√har 1	1	a	carry	√hṛ	1	take	pari √har		parihartum, pariharati, pariharat, parihāra (leading round), parihārin, na + parihārin, parihā, parihartvā, parihartavya, parihṛ, pariharyate, parihāra, parihriyate, pariharta, parihāraka, pariharaṇa (moving around)
+√har 1	1	a	carry	√hṛ	1	take	pati saṃ √har	pratisaṃhṛ	pratisaṃharati, prati
+√har 1	1	a	carry	√hṛ	1	take	pari √har	parihṛ	parihartum, pariharati, pariharat, parihāra (leading round), parihārin, na + parihārin, parihā, parihartvā, parihartavya, parihṛ, pariharyate, parihāra, parihriyate, pariharta, parihāraka, pariharaṇa (moving around)
 √har 1	1	a	carry	√hṛ	1	take	pari ud ā √har		
-√har 1	1	a	carry	√hṛ	1	take	vi √har		vihartya, vihṛ
-√har 1	1	a	carry	√hṛ	1	take	vi ati √har		vyatihāra (exchange)
-√har 1	1	a	carry	√hṛ	1	take	vi ava √har		+ harat, vyavaharati, vyavahartum, na + vyāvahārika, vyavaharta, vyavahartvā, vyavahāra, saṃvyavahāra, vyavaharyamāṇa, vyavahartavya, vyavaharyate
-√har 1	1	a	carry	√hṛ	1	take	vi ā √har		vyāhartavya, vyāharati
+√har 1	1	a	carry	√hṛ	1	take	vi √har	vihṛ	vihartya, vihṛ
+√har 1	1	a	carry	√hṛ	1	take	vi ati √har	vyatihṛ	vyatihāra (exchange)
+√har 1	1	a	carry	√hṛ	1	take	vi ava √har	vyavahṛ	+ harat, vyavaharati, vyavahartum, na + vyāvahārika, vyavaharta, vyavahartvā, vyavahāra, saṃvyavahāra, vyavaharyamāṇa, vyavahartavya, vyavaharyate
+√har 1	1	a	carry	√hṛ	1	take	vi ā √har	vyāhṛ	vyāhartavya, vyāharati
 √har 1	1	a	carry	√hṛ	1	take	vi saṃ √har		na + vi + saṃhṛta
-√har 1	1	a	carry	√hṛ	1	take	saṃ √har		saṃhriyate, saṃhṛta, saṃharaṇa, saṃhṛ, saṃhara, saṃharat, saṃhrayitvā, saṃharati, asaṃhārya, saṃhartum, saṃhāra, saṃhāraka, saṃhārayati, saṃhṛtvā, saṃharayati, saṃharamāṇa
+√har 1	1	a	carry	√hṛ	1	take	saṃ √har	saṃhṛ	saṃhriyate, saṃhṛta, saṃharaṇa, saṃhṛ, saṃhara, saṃharat, saṃhrayitvā, saṃharati, asaṃhārya, saṃhartum, saṃhāra, saṃhāraka, saṃhārayati, saṃhṛtvā, saṃharayati, saṃharamāṇa
 √har 1	1	a	carry	√hṛ	1	take	saṃ anu ā √har		samanvāharati (bsk), sam + anvāharaṇa, samanvāharaṇa (bsk)
-√har 1	1	a	carry	√hṛ	1	take	saṃ ā √har		
-√har 1	1	a	carry	√hṛ	1	take	saṃ ud ā √har		samudāharaṇa, samudāhāra
-√har 1	1	a	carry	√hṛ	1	take	saṃ pa √har		samprahāra
-√har 1	1	a	carry	√hṛ	1	take	saṃ vi ava √har		saṃvyavahāra, saṃvyavaharamāṇa
-√har 2	1	a	take, seize	√hṛ	1	take	√har		hara, ahārya, na + hṛ, hārya, ahārṣīt
-√har 2	1	a	take, seize	√hṛ	1	take	adhi ava √har		abhyavaharate, abhyavahṛ, abhyavahṛta, abhyavahartavya, abhyavaharaṇa, abhyavaharyate, abhyavahartvā, abhyavaharaṇīya, abhyavaharyat, abhyavahāra
-√har 2	1	a	take, seize	√hṛ	1	take	adhi upa √har		
-√har 2	1	a	take, seize	√hṛ	1	take	apa √har		apahāraka, apaharaṇa, apahartum
-√har 2	1	a	take, seize	√hṛ	1	take	ava √har		avahṛta, avaharati, avaharamāṇa, avahartum, avahāra, avaharaṇa, na + avaharati, avahartvā, avahṛ
-√har 2	1	a	take, seize	√hṛ	1	take	ā √har		āhrayitvā, sa + āhāra, āhāra, āharayat, āhṛ, āharati, āhārayati, anāhāra, na + āhāra, āharayamāṇa, āharayati, āhartṛ
-√har 3	1	a	live	√hṛ	1	take	vi √har		viharamāṇa, viharema, viharat, vihariṣyati, vihariṣyāmi, viharati, vihariṣyasi, vihartavya, vihṛ, viaharan, vihāra, viharitum, vihṛtvā, vihārin, viharet
-√har 4	3	ya	be ashamed	√hrī	3	be ashamed	√har		hrayāṇa, hriyāyat, hrī, hriyāyati
-√has	1	a	elate, laugh	√hṛṣ √has	1	laugh	√has		hāsayati, harṣa, harṣati, hasitum, hāsa, hāsayat, hasanīya, harṣamāṇa +, hasa, hasat, harṣayat, harṣamāṇa, hasitavya +, hasita, hāsya, harṣayamāṇa
+√har 1	1	a	carry	√hṛ	1	take	saṃ ā √har	samāhṛ	
+√har 1	1	a	carry	√hṛ	1	take	saṃ ud ā √har	samudāhṛ	samudāharaṇa, samudāhāra
+√har 1	1	a	carry	√hṛ	1	take	saṃ pa √har	samprahṛ	samprahāra
+√har 1	1	a	carry	√hṛ	1	take	saṃ vi ava √har	saṃvyavahṛ	saṃvyavahāra, saṃvyavaharamāṇa
+√har 2	1	a	take, seize	√hṛ	1	take	√har	hṛ	hara, ahārya, na + hṛ, hārya, ahārṣīt
+√har 2	1	a	take, seize	√hṛ	1	take	adhi ava √har	abhyavahṛ	abhyavaharate, abhyavahṛ, abhyavahṛta, abhyavahartavya, abhyavaharaṇa, abhyavaharyate, abhyavahartvā, abhyavaharaṇīya, abhyavaharyat, abhyavahāra
+√har 2	1	a	take, seize	√hṛ	1	take	adhi upa √har	abhyupāhṛ	
+√har 2	1	a	take, seize	√hṛ	1	take	apa √har	upahṛ	apahāraka, apaharaṇa, apahartum
+√har 2	1	a	take, seize	√hṛ	1	take	ava √har	avahṛ	avahṛta, avaharati, avaharamāṇa, avahartum, avahāra, avaharaṇa, na + avaharati, avahartvā, avahṛ
+√har 2	1	a	take, seize	√hṛ	1	take	ā √har	āhṛ	āhrayitvā, sa + āhāra, āhāra, āharayat, āhṛ, āharati, āhārayati, anāhāra, na + āhāra, āharayamāṇa, āharayati, āhartṛ
+√har 3	1	a	live	√hṛ	1	take	vi √har	vihṛ	viharamāṇa, viharema, viharat, vihariṣyati, vihariṣyāmi, viharati, vihariṣyasi, vihartavya, vihṛ, viaharan, vihāra, viharitum, vihṛtvā, vihārin, viharet
+√har 4	3	ya	be ashamed	√hrī	3	be ashamed	√har	hrī	hrayāṇa, hriyāyat, hrī, hriyāyati
+√has	1	a	elate, laugh	√hṛṣ √has	1	laugh	√has	has	hāsayati, harṣa, harṣati, hasitum, hāsa, hāsayat, hasanīya, harṣamāṇa +, hasa, hasat, harṣayat, harṣamāṇa, hasitavya +, hasita, hāsya, harṣayamāṇa
 √has	1	a	elate, laugh	√hṛṣ √has	1	laugh	anu √has		anu + hāsya
 √has	1	a	elate, laugh	√hṛṣ √has	1	laugh	abhi √has		
-√has	1	a	elate, laugh	√hṛṣ √has	1	laugh	ava √has		avahasati, avahas, avahasitavya, avahas, avahasitavya +, ūhasati (bsk)
-√has	1	a	elate, laugh	√hṛṣ √has	1	laugh	ud √has		ūhasat (bsk), ūhasati (bsk)
-√has	1	a	elate, laugh	√hṛṣ √has	1	laugh	pa √has		prahasyate, praharṣamāṇa
-√has	1	a	elate, laugh	√hṛṣ √has	1	laugh	pari √has		
+√has	1	a	elate, laugh	√hṛṣ √has	1	laugh	ava √has	avahas	avahasati, avahas, avahasitavya, avahas, avahasitavya +, ūhasati (bsk)
+√has	1	a	elate, laugh	√hṛṣ √has	1	laugh	ud √has	uddhas	ūhasat (bsk), ūhasati (bsk)
+√has	1	a	elate, laugh	√hṛṣ √has	1	laugh	pa √has	prahas	prahasyate, praharṣamāṇa
+√has	1	a	elate, laugh	√hṛṣ √has	1	laugh	pari √has	parihas	
 √has	1	a	elate, laugh	√hṛṣ √has	1	laugh	saṃ √has		saṃ + hasat
 √haṃs	1	a	rise, elate	√hṛṣ	1, 4	be excited	√haṃs	hṛṣ	hṛṣita, hṛṣṭa, harṣaṇa, harṣa, harṣati
 √haṃs	1	a	rise, elate	√hṛṣ	1, 4	be excited	abhi √haṃs	abhihṛṣ	na + abhiharṣati, abhiharṣati

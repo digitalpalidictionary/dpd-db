@@ -93,12 +93,14 @@ def main():
                 wd.update_sutta_example(sutta_example)
 
                 # check for headwords with no examples
-                headwords_list = get_headwords(pd, wd)
-                check_example_headword(pd, wd, headwords_list)
+                headwords_list = get_headwords(pd, word)
+                if headwords_list:
+                    check_example_headword(pd, wd, headwords_list)
 
                 # check for words in deconstructions with no examples
-                headwords_list = get_deconstruction_headwords(pd, wd)
-                check_example_headword(pd, wd, headwords_list)
+                headwords_list = get_deconstruction_headwords(pd, word)
+                if headwords_list:
+                    check_example_headword(pd, wd, headwords_list)
 
 
 # other possbilities:
@@ -106,69 +108,16 @@ def main():
 # words in  constructions
 # subwords in consrtuctions
 
-def check_example_headword(pd, wd, headwords_list):
-    if headwords_list:
-        for headword in headwords_list:
-            wd.update_headword(headword)
-            needs_example, pali_word = has_no_example(pd, wd)
-            if (
-                needs_example and pali_word
-                and wd.sutta_example not in pd.tried_dict\
-                    .get(pd.book, {})\
-                    .get(wd.word, {})\
-                    .get(wd.headword, set())
-            ):  
-                print_to_terminal(pd, wd, pali_word)
 
-
-                
-          
-def print_to_terminal(pd, wd, pali_word):
-    """Display the example and the headword in the terminal."""                  
-    print("-"*50)
-    print()
-    print(f"[green]{wd.source} [dark_green]{wd.sutta}")
-    print(f"[white]{wd.example_print}")
-    print()
-    print(f"[cyan]{pali_word.pali_1}: [blue3]{pali_word.pos}. [blue1]{make_meaning(pali_word)}")
-    print()
-    print("[grey54]y/n: ", end="")
-    pyperclip.copy(wd.word)
-    ask_to_add(pd, wd, pali_word)
+def get_headwords(pd:ProgData,
+                  word_to_find: str
+                  ) -> List[str] | None:
     
-
-def ask_to_add(pd, wd, pali_word):
-    """Ask the user to add or not."""
-    should_add = input("")
-    if should_add == "n":
-        pd.update_tried_dict(wd)
-    elif should_add == "y":
-        pyperclip.copy(pali_word.id)
-        print()
-        print(f"[cyan]{pali_word.pali_1} {pali_word.id} copied to clipboard")
-        print("[grey54]press any key to continue...", end= "")
-        input()
-    
-    
-def make_text_list(pth, book):
-    cst_text_list = make_cst_text_list(pth, [book])
-    sc_text_list = make_sc_text_list(pth, [book])
-    full_text_list = cst_text_list + sc_text_list
-
-    # sp_mistakes_list = make_sp_mistakes_list(pth)
-    # variant_list = make_variant_list(pth)
-
-    text_set = set(cst_text_list) | set(sc_text_list)
-    # text_set = text_set - set(sp_mistakes_list)
-    # text_set = text_set - set(variant_list)
-    return sorted(text_set, key=lambda x: full_text_list.index(x))
-
-
-def get_headwords(pd, wd):
     """Get the headwords of an inflected word."""
+    
     results = pd.db_session\
         .query(InflectionToHeadwords)\
-        .filter_by(inflection=wd.word)\
+        .filter_by(inflection=word_to_find)\
         .first()
     if results:
         return results.headwords_list
@@ -176,11 +125,15 @@ def get_headwords(pd, wd):
         return None
 
 
-def get_deconstruction_headwords(pd, wd):
+def get_deconstruction_headwords(pd: ProgData,
+                                 word_to_find: str
+                                 ) -> List[str] | None:
+
     """Lookup in deconstructions and return a list of headwords."""
+
     results = pd.db_session\
         .query(Sandhi)\
-        .filter_by(sandhi=wd.word)\
+        .filter_by(sandhi=word_to_find)\
         .first()
     if results:
         deconstructions = results.split_list
@@ -201,18 +154,117 @@ def get_deconstruction_headwords(pd, wd):
     else:
         return None
 
-      
+
+def check_example_headword(pd: ProgData,
+                           wd: WordData,
+                           headwords_list: List[str]
+                           ) -> None:
+    if headwords_list:
+        for headword in headwords_list:
+            wd.update_headword(headword)
+            pali_word = pd.db_session\
+                .query(PaliWord)\
+                .filter_by(pali_1=wd.headword)\
+                .first()
+            if (
+                pali_word 
+                and has_no_meaning_or_example(pali_word)
+                and wd.sutta_example not in pd.tried_dict\
+                    .get(pd.book, {})\
+                    .get(wd.word, {})\
+                    .get(wd.headword, set())
+            ):  
+                print_to_terminal(pd, wd, pali_word)
+            
+            if pali_word:
+                test_words_in_construction(pd, wd, pali_word)
 
 
-def has_no_example(pd: ProgData, wd: WordData) -> Tuple[bool, PaliWord | None]:
-    pali_word = pd.db_session\
-                    .query(PaliWord)\
-                    .filter_by(pali_1=wd.headword)\
-                    .first()
-    if pali_word and not pali_word.example_1:
-        return True, pali_word
+
+def has_no_meaning_or_example(pali_word: PaliWord
+                              ) -> bool:
+    """"Test the pali_word"""
+
+    # needs an example
+    condition_1 = pali_word and not pali_word.example_1
+
+    # needs meaning_1
+    condition_2 = pali_word and not pali_word.meaning_1
+
+    if condition_1 or condition_2:
+        return True
     else:
-        return False, None
+        return False
+                
+          
+def print_to_terminal(pd: ProgData,
+                      wd: WordData,
+                      pali_word: PaliWord
+                      ) -> None:
+
+    """Display the example and the headword in the terminal."""                  
+
+    print("-"*50)
+    print()
+    print(f"[green]{wd.source} [dark_green]{wd.sutta}")
+    print(f"[white]{wd.example_print}")
+    print()
+    print(f"[cyan]{pali_word.pali_1}: [blue3]{pali_word.pos}. [blue1]{make_meaning(pali_word)}")
+    print()
+    print("[grey54]y/n: ", end="")
+    pyperclip.copy(wd.word)
+    ask_to_add(pd, wd, pali_word)
+    
+
+def ask_to_add(pd, wd, pali_word) -> None:
+    """Ask the user to add or not."""
+    should_add = input("")
+    if should_add == "n":
+        pd.update_tried_dict(wd)
+    elif should_add == "y":
+        pyperclip.copy(pali_word.id)
+        print()
+        print(f"[cyan]{pali_word.pali_1} {pali_word.id} copied to clipboard")
+        print("[grey54]press any key to continue...", end= "")
+        input()
+
+
+def test_words_in_construction(
+        pd: ProgData,
+        wd:WordData,
+        pali_word: PaliWord
+        ) -> None:
+
+    if (
+        pali_word
+        and not pali_word.root_key
+        and pali_word.construction
+        and re.findall(r"\bcomp\b", pali_word.grammar)
+    ):
+        construction_clean = re.sub(
+            r" >.+?\+ ", " + ", pali_word.construction)
+        construction_parts = construction_clean.split(" + ")
+        for word in construction_parts:
+            headwords_list = get_headwords(pd, word)
+            if headwords_list:
+                check_example_headword(pd, wd, headwords_list)
+    
+
+def make_text_list(
+        pth: ProjectPaths,
+        book: str
+        ) -> List[str]:
+    cst_text_list = make_cst_text_list(pth, [book])
+    sc_text_list = make_sc_text_list(pth, [book])
+    full_text_list = cst_text_list + sc_text_list
+
+    # sp_mistakes_list = make_sp_mistakes_list(pth)
+    # variant_list = make_variant_list(pth)
+
+    text_set = set(cst_text_list) | set(sc_text_list)
+    # text_set = text_set - set(sp_mistakes_list)
+    # text_set = text_set - set(variant_list)
+    return sorted(text_set, key=lambda x: full_text_list.index(x))
 
 
 if __name__ == "__main__":
