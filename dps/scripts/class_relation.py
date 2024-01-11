@@ -1,3 +1,4 @@
+# Make sbs_class according to class topics
 
 import re
 
