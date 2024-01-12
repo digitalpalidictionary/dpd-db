@@ -19,7 +19,6 @@ from tools.pali_sort_key import pali_list_sorter
 
 
 class ProgData():
-    tried_dict_path = "temp/pass2_dict/"
     def __init__(self, book: str) -> None:
         self.pth: ProjectPaths = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)

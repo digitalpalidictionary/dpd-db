@@ -723,9 +723,9 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √gup 2	1	a	guard	√gup	1	protect	pari √gup		
 √gup 2	1	a	guard	√gup	1	protect	saṃ √gup		
 √gumph	1	a	tie, string together	√guph √gumph	1	twine	ava √gumph		ava + gumph, ava + gumphayati
-√guh	1	*a	hide, conceal	√guh	1	hide	√guh		gūḍha, guh, guhā, guyha
-√guh	1	*a	hide, conceal	√guh	1	hide	upa √guh		
-√guh	1	*a	hide, conceal	√guh	1	hide	ni √guh		nigūhana
+√guh	1	*a	hide, conceal	√guh	1	hide	√guh	guh	gūḍha, guh, guhā, guyha
+√guh	1	*a	hide, conceal	√guh	1	hide	upa √guh	upaguh	
+√guh	1	*a	hide, conceal	√guh	1	hide	ni √guh	niguh	nigūhana
 √guh	1	*a	hide, conceal	√guh	1	hide	pati √guh		
 √guh	1	*a	hide, conceal	√guh	1	hide	pari √guh		pari + guhyate, pari + gūhati
 √guḷ	1	a	roll around, protect	√guḍ	6	guard	√guḷ		guḍa, gola, golaka, guṇa, gulikā, guṭikā, golikā
@@ -745,13 +745,13 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ghaṭ 1	8	e, aya	strike, kill	√han √ghaṭ	1, 2, 8	smite	vi ni √ghaṭ		vighātin
 √ghaṭ 1	8	e, aya	strike, kill	√han √ghaṭ	1, 2, 8	smite	saṃ √ghaṭ		saṃhata, saṃghāta
 √ghaṭ 1	8	e, aya	strike, kill	√han √ghaṭ	1, 2, 8	smite	saṃ ud √ghaṭ		samudghāta +, samudghaṭ, samudghāta, samudghātana
-√ghaṭ 2	1	a	join together	√ghaṭ	1	strive	√ghaṭ		jhaṭyate, ghaṭikā (bsk), han, ghātayati, jhāṭa, ghaṭayamāna
+√ghaṭ 2	1	a	join together	√ghaṭ	1	strive	√ghaṭ	ghaṭ	jhaṭyate, ghaṭikā (bsk), han, ghātayati, jhāṭa, ghaṭayamāna
 √ghaṭ 2	1	a	join together	√ghaṭ	1	strive	anu √ghaṭ		
-√ghaṭ 2	1	a	join together	√ghaṭ	1	strive	ud √ghaṭ		udghaṭayati, udghaṭayitvā, udghaṭ, udghaṭita
-√ghaṭ 2	1	a	join together	√ghaṭ	1	strive	vi √ghaṭ		vighātana
-√ghaṭ 2	1	a	join together	√ghaṭ	1	strive	saṃ √ghaṭ		saṃghāṭi, saṅghaṭitum, saṅghaṭanīya, saṃghāṭi +, sāṃghika, saṃghaṭ, saṃghaṭita, saṃghāṭa, saṃgha, saṃghāta, saṃghāt, saṃghaṭ, sa + saṃgha
-√ghaṭ 3	1	a	be busy with, strive	√ghaṭ	1	strive	√ghaṭ		ghaṭat, han, na + ghaṭat, ghnate, ghātayati, ghaṭamāna, ghaṭayat
-√ghaṭ 3	1	a	be busy with, strive	√ghaṭ	1	strive	ud √ghaṭ		
+√ghaṭ 2	1	a	join together	√ghaṭ	1	strive	ud √ghaṭ	udghaṭ	udghaṭayati, udghaṭayitvā, udghaṭ, udghaṭita
+√ghaṭ 2	1	a	join together	√ghaṭ	1	strive	vi √ghaṭ	vighaṭ	vighātana
+√ghaṭ 2	1	a	join together	√ghaṭ	1	strive	saṃ √ghaṭ	saṃghaṭ	saṃghāṭi, saṅghaṭitum, saṅghaṭanīya, saṃghāṭi +, sāṃghika, saṃghaṭ, saṃghaṭita, saṃghāṭa, saṃgha, saṃghāta, saṃghāt, saṃghaṭ, sa + saṃgha
+√ghaṭ 3	1	a	be busy with, strive	√ghaṭ	1	strive	√ghaṭ	ghaṭ	ghaṭat, han, na + ghaṭat, ghnate, ghātayati, ghaṭamāna, ghaṭayat
+√ghaṭ 3	1	a	be busy with, strive	√ghaṭ	1	strive	ud √ghaṭ	udghaṭ	
 √ghaṭṭ 1	8	e, aya	hit, strike	√ghaṭ	1, 2, 8	smite	√ghaṭṭ		na + ghaṭṭayat, ghaṭṭayati, ghaṭṭyamāna, ghaṭṭ, ghaṭṭayat, ghaṭṭana, ghaṭṭita
 √ghaṭṭ 1	8	e, aya	hit, strike	√ghaṭ	1, 2, 8	smite	ava √ghaṭṭ		
 √ghaṭṭ 1	8	e, aya	hit, strike	√ghaṭ	1, 2, 8	smite	vi √ghaṭṭ		
@@ -1082,9 +1082,9 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √tacch	1	a	cut, chop	√takṣ √tvakṣ	1, 2, 5	fashion	apa √tacch		apa + takṣaka
 √tacch	1	a	cut, chop	√takṣ √tvakṣ	1, 2, 5	fashion	vi √tacch		su + vitakṣita, vitakṣita, vitakṣ
 √tacch	1	a	cut, chop	√takṣ √tvakṣ	1, 2, 5	fashion	vi pa √tacch		vitakṣamāṇa
-√tajj	8	e, aya	frighten, threaten	√tarj	1	threaten	√tajj		tarj, tarjita, tarjayat, tarjayitvā, tarjayati
+√tajj	8	e, aya	frighten, threaten	√tarj	1	threaten	√tajj	tarj	tarj, tarjita, tarjayat, tarjayitvā, tarjayati
 √tajj	8	e, aya	frighten, threaten	√tarj	1	threaten	pari √tajj		
-√tajj	8	e, aya	frighten, threaten	√tarj	1	threaten	saṃ √tajj		saṃtarjayat, saṃtarjayamāna
+√tajj	8	e, aya	frighten, threaten	√tarj	1	threaten	saṃ √tajj	saṃtarj	saṃtarjayat, saṃtarjayamāna
 √tan	7	o	stretch, extend	√tan	8	stretch	√tan		tanutva, tanu, satata, tantrī, tanoti, tanute, sātatya, sutanu, satataṃ, sātatika, tanuka, tata, tanti, tantra
 √tan	7	o	stretch, extend	√tan	8	stretch	ati √tan		ati + tanu, na + ati + tanu
 √tan	7	o	stretch, extend	√tan	8	stretch	ā √tan		
@@ -1180,14 +1180,14 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √thak	8	e, aya	close	√stak	1	strike against	√thak		stakayati, stakayitvā
 √than	1	a	thunder, roar	√stan	1, 2	thunder	√than		stanita, stanayat, stanayitvā
 √than	1	a	thunder, roar	√stan	1, 2	thunder	abhi √than		
-√tham	1	a	hang	√stam	1	bt disturbed	√tham		
-√thambh	1	a	support, be stiff	√ṣṭabh √stabh √ṣṭambh √stambh	1, 5, 9	prop	√thambh		stabh, stabdha, stabdha, stabhāyati, stabdhatā, stabhāyat, astabdha, stambha, stambhana, astabdha +
-√thambh	1	a	support, be stiff	√ṣṭabh √stabh √ṣṭambh √stambh	1, 5, 9	prop	ati √thambh		
+√tham	1	a	hang	√stam	1	be disturbed	√tham		
+√thambh	1	a	support, be stiff	√ṣṭabh √stabh √ṣṭambh √stambh	1, 5, 9	prop	√thambh	stambh	stabh, stabdha, stabdha, stabhāyati, stabdhatā, stabhāyat, astabdha, stambha, stambhana, astabdha +
+√thambh	1	a	support, be stiff	√ṣṭabh √stabh √ṣṭambh √stambh	1, 5, 9	prop	ati √thambh	atistambh	
 √thambh	1	a	support, be stiff	√ṣṭabh √stabh √ṣṭambh √stambh	1, 5, 9	prop	apa √thambh		avaṣṭambhita
-√thambh	1	a	support, be stiff	√ṣṭabh √stabh √ṣṭambh √stambh	1, 5, 9	prop	upa √thambh		upastabdha, upastambhana, upastambha, upastambhaka
+√thambh	1	a	support, be stiff	√ṣṭabh √stabh √ṣṭambh √stambh	1, 5, 9	prop	upa √thambh	upastambh	upastabdha, upastambhana, upastambha, upastambhaka
 √thambh	1	a	support, be stiff	√ṣṭabh √stabh √ṣṭambh √stambh	1, 5, 9	prop	pa √thambh		prastabdha
-√thambh	1	a	support, be stiff	√ṣṭabh √stabh √ṣṭambh √stambh	1, 5, 9	prop	vi √thambh		viṣṭambhana
-√thambh	1	a	support, be stiff	√ṣṭabh √stabh √ṣṭambh √stambh	1, 5, 9	prop	saṃ √thambh		saṃstambh, saṃstambhitvā, saṃstabhnoti, saṃstabhnāti, saṃstabhitum
+√thambh	1	a	support, be stiff	√ṣṭabh √stabh √ṣṭambh √stambh	1, 5, 9	prop	vi √thambh	viṣṭambh	viṣṭambhana
+√thambh	1	a	support, be stiff	√ṣṭabh √stabh √ṣṭambh √stambh	1, 5, 9	prop	saṃ √thambh	saṃstambh	saṃstambh, saṃstambhitvā, saṃstabhnoti, saṃstabhnāti, saṃstabhitum
 √thar	1	a	spread, expand	√stṛ √stṝ	5, 9	spread	adhi ava √thar		adhi + ava +, adhi + ava + staraṇa, adhi + avastṛṇāti, na + adhi + avastṛ, addme, adhi + avastṝ, avastaryamāṇa, adhi + avastīrtvā
 √thar	1	a	spread, expand	√stṛ √stṝ	5, 9	spread	ava √thar		avastṛṇāti, avastṛ, avastṛṇāna, avastaraṇa, avastaryamāṇa, avastīrṇa, avastartvā, avastarta
 √thar	1	a	spread, expand	√stṛ √stṝ	5, 9	spread	ā √thar		āstartvā, āstīrṇa, an + āstīrṇa, āstaraka, āstaraṇa, āstara, āstṛṇoti
@@ -1970,29 +1970,29 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √mad	3	ya	be mad, intoxicated	√mad	1, 2, 3, 4	be exhilarated	ud √mad		na + unmattaka, unmāda, unmatta, unmāditā, unmattaka, unmādinī
 √mad	3	ya	be mad, intoxicated	√mad	1, 2, 3, 4	be exhilarated	pa √mad		pramada, pramāda +, na + apramāda, apramāda, pramad, pramādayitvā, pramāda, na + pramad, pramaditum, na + pramadyat, pra + amādīt, pramadati, na + pramadati
 √mad	3	ya	be mad, intoxicated	√mad	1, 2, 3, 4	be exhilarated	saṃ √mad		sammatta, sam + mattaka, samada, sammad, sammadayati
-√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	√madd		mardayati, mārttika, mṛdita, mardita, mardati, marda, mardayitvā, mardana, su + mṛdita, mṛttikā, mārttika, mradat
+√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	√madd	mṛd	mardayati, mārttika, mṛdita, mardita, mardati, marda, mardayitvā, mardana, su + mṛdita, mṛttikā, mārttika, mradat
 √madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	adhi ava √madd		adhi + avamardati
-√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	abhi √madd		abhimardati, abhimṛdnāti, abhimṛd, na + abhimardati, abhimṛdnāti
+√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	abhi √madd	abhimṛd	abhimardati, abhimṛdnāti, abhimṛd, na + abhimardati, abhimṛdnāti
 √madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	abhi nī √madd		abhi + nirmada
-√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	ava √madd		avamriditvā, avamṛdnāti
-√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	ā √madd		
-√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	ud √madd		unmardayati, unmardana
-√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	ni √madd		
-√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	pa √madd		pramardana, pramardin
-√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	pari √madd		su + parimṛdita, parimardayati, parimardati, parimardat, parimṛdita, parimṛd, parimardana
-√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	vi √madd		vimṛdyamāna
-√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	saṃ √madd		sammṛdnāti, sammardati, sammriditvā, sammardat
+√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	ava √madd	avamṛd	avamriditvā, avamṛdnāti
+√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	ā √madd	āmṛd	
+√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	ud √madd	unmṛd	unmardayati, unmardana
+√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	ni √madd	nimṛd	
+√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	pa √madd	pramṛd	pramardana, pramardin
+√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	pari √madd	parimṛd	su + parimṛdita, parimardayati, parimardati, parimardat, parimṛdita, parimṛd, parimardana
+√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	vi √madd	vimṛd	vimṛdyamāna
+√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	saṃ √madd	sammṛd	sammṛdnāti, sammardati, sammriditvā, sammardat
 √man	3	ya	think	√man	3, 4, 8	think	√man	man	mānasika, na + mānita, durmanas, amīmāṃsiṣṭhās, mana, manyamāna, mānayitavya, sumanasya, mano, manas, durmati, matimat, mānana, manyeta, mānyate, sumanasya +, na + man, mānita, mantṛ, na + manyita (bsk), mīmāṃsā, mīmāṃsat, mati, manasā, amaniṣyam, mīmāṃsita, matvā, manitvā, mānatva, daurmanasya, mīmāṃsya, samanas +, sumānasa, manya, manyanā (bsk), amata, manasa, manasaḥ, sumanā, mīmāṃsyamāna, mīmāṃsaka, a + mānana, mīmāṃsate, manastva, mānayat, mānin, mīmāṃsitvā, manyate, na + manyamāna, man, manya, manas, manyita (bsk), mānayati, mānika, amanuta, manyat, manye, manasi, māna, mānanā, mānasatva, mata, sumanas, mānasa, mānyamāna
-√man	3	ya	think	√man	3, 4, 8	think	ati √man		atimānin, atimāna +, atimanyamāna, atimanyate, atiman, na + atimanyamāna, anatimānin, na + atimāna, atimāna, na + atimanyate
-√man	3	ya	think	√man	3, 4, 8	think	adhi √man		adhiman, adhi + mānasa, adhimānika (bsk), adhimāna (bsk)
-√man	3	ya	think	√man	3, 4, 8	think	anu √man		anumata, anumanayitavya, anumanyate
-√man	3	ya	think	√man	3, 4, 8	think	abhi √man		abhimāna, abhimanyate, abhimanas
-√man	3	ya	think	√man	3, 4, 8	think	ava √man		avamanyate, avamanyamāna
-√man	3	ya	think	√man	3, 4, 8	think	pati √man		pratimānayat (honouring), pratimānayati (honours)
-√man	3	ya	think	√man	3, 4, 8	think	pari √man		pari + mīmāṃsā, pari + man, pari + mīmāṃsate, pari + mīmāṃsamāna
-√man	3	ya	think	√man	3, 4, 8	think	vi √man		vimati, vimanas, vimāna, vaimatika, vimānayati, avimanas
-√man	3	ya	think	√man	3, 4, 8	think	saṃ √man		sammata, sammanyate, sammanitum, na + sammata, sammanta, sammanitavya, sammantvā, na + sammāna, samman, sammānayati
-√man	3	ya	think	√man	3, 4, 8	think	saṃ anu √man		samanumanyate
+√man	3	ya	think	√man	3, 4, 8	think	ati √man	atiman	atimānin, atimāna +, atimanyamāna, atimanyate, atiman, na + atimanyamāna, anatimānin, na + atimāna, atimāna, na + atimanyate
+√man	3	ya	think	√man	3, 4, 8	think	adhi √man	adhiman	adhiman, adhi + mānasa, adhimānika (bsk), adhimāna (bsk)
+√man	3	ya	think	√man	3, 4, 8	think	anu √man	anuman	anumata, anumanayitavya, anumanyate
+√man	3	ya	think	√man	3, 4, 8	think	abhi √man	abhiman	abhimāna, abhimanyate, abhimanas
+√man	3	ya	think	√man	3, 4, 8	think	ava √man	avaman	avamanyate, avamanyamāna
+√man	3	ya	think	√man	3, 4, 8	think	pati √man	pratiman	pratimānayat (honouring), pratimānayati (honours)
+√man	3	ya	think	√man	3, 4, 8	think	pari √man	pariman	pari + mīmāṃsā, pari + man, pari + mīmāṃsate, pari + mīmāṃsamāna
+√man	3	ya	think	√man	3, 4, 8	think	vi √man	viman	vimati, vimanas, vimāna, vaimatika, vimānayati, avimanas
+√man	3	ya	think	√man	3, 4, 8	think	saṃ √man	samman	sammata, sammanyate, sammanitum, na + sammata, sammanta, sammanitavya, sammantvā, na + sammāna, samman, sammānayati
+√man	3	ya	think	√man	3, 4, 8	think	saṃ anu √man	samanuman	samanumanyate
 √mant	8	e, aya	counsel, invite	√mantr	10	speak	√mant	mantr	durmantrita, mantrayati, mantrayitvā, mantrayamāṇa, mantr, mantrayati, mantr, mantrayate, mantrayitum, mantrayat, mantra, mantrin, durmantrin
 √mant	8	e, aya	counsel, invite	√mantr	10	speak	abhi ni √mant	abhinimantr	abhi + nimantraṇa
 √mant	8	e, aya	counsel, invite	√mantr	10	speak	ā √mant	āmantr	āmantrayate, na + āmantr, āmantrya, āmantr, na + āmantr, āmantraṇa, āmantraṇā, āmantrita
@@ -2696,7 +2696,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √vid 3	2	ṃa	feel, like	√vid	2, 6	find	anu √vid	anuvid	na + anuvid
 √vid 3	2	ṃa	feel, like	√vid	2, 6	find	abhi nī √vid		abhi + nirvid, nirvidā (bsk)
 √vid 3	2	ṃa	feel, like	√vid	2, 6	find	nī √vid	nirvid	nirvid, nirvidyamāna, nirvidya, nirvid, nirvidā (bsk), nirviṇṇa, nirvidyate, nirvettum, nirvidyat
-√vid 4	2	ṃa	get, find	√vid	2, 6	find	√vid	nid	vidya, vindati, vidyamāna, vitta, avidat, vidita, vittavat, vivitsā, vitti (gain)
+√vid 4	2	ṃa	get, find	√vid	2, 6	find	√vid	vid	vidya, vindati, vidyamāna, vitta, avidat, vidita, vittavat, vivitsā, vitti (gain)
 √vid 4	2	ṃa	get, find	√vid	2, 6	find	anu √vid	anuvid	anuvidita (bsk)
 √vid 4	2	ṃa	get, find	√vid	2, 6	find	abhi √vid	abhivid	
 √vid 4	2	ṃa	get, find	√vid	2, 6	find	saṃ √vid	saṃvid	na + saṃvidat, saṃvidat

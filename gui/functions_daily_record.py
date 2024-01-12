@@ -30,18 +30,22 @@ def daily_record_save(pth: ProjectPaths, daily_record: dict) -> None:
 
 
 def daily_record_add_date(daily_record: dict, date: str) -> dict:
-    daily_record.update({date: {"added":[], "edited":[], "deleted":[]}})
-    return daily_record
+   if date not in daily_record:
+       daily_record.update({date: {"added":[], "edited":[], "deleted":[]}})
+   return daily_record
 
 
 def daily_record_update(window,
                         pth:ProjectPaths,
                         action: str,
                         word_id: int):
+
     """"Actions are "add", "edit", "delete", refresh"""
 
     date = year_month_day()
     daily_record = get_daily_record(pth)
+    if date not in daily_record:
+        daily_record = daily_record_add_date(daily_record, date)
     if action == "add":
         daily_record[date]["added"] += [word_id]
     elif action == "edit":
