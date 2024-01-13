@@ -413,7 +413,7 @@ def clear_errors(window):
 def clear_values(values, window, username):
     from functions_db import dpd_values_list
     if username == "primary_user":
-        origin = "pass1"
+        origin = "pass2"
     elif username == "deva":
         origin = "dps"
     else:

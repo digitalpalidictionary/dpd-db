@@ -25,7 +25,18 @@ class ProgData():
         self.book = book
         self.tried_dict: dict = self.load_tried_dict()
         self.word_list: List[str] = make_text_list(self.pth, self.book)
-        # self.word_list = ["ovadatīti"]
+        self.commentary_list: List[str] = [
+            "VINa", "VINt", "DNa", "MNa", "SNa", "SNt", "ANa", 
+            "KHPa", "KPa", "DHPa", "UDa", "ITIa", "SNPa", "VVa", "VVt",
+            "PVa", "THa", "THIa", "APAa", "APIa", "BVa", "CPa", "JAa",
+            "NIDD1a", "NIDD2a", "PMa", "NPa", "NPt", "PTP",
+            "DSa", "PPa", "VIBHa", "VIBHt", "ADHa", "ADHt",
+            "KVa", "VMVt", "VSa", "PYt", "SDt", "SPV", "VAt", "VBt",
+            "VISM", "VISMa",
+            "PRS", "SDM", "SPM",
+            "bālāvatāra", "kaccāyana", "saddanīti", "padarūpasiddhi",
+            "buddhavandana"
+            ]
         
     def load_tried_dict(self):
         try:
@@ -49,7 +60,7 @@ class ProgData():
 class WordData():
     def __init__(self, word) -> None:
         self.word: str = word
-        self.search_pattern: str = fr"(\s)({self.word})(\s|[.,;:!?])"  
+        self.search_pattern: str = fr"(^|\s)({self.word})(\s|[.,;:!?]|$)"  
         self.sutta_example: Tuple[str, str, str]
         self.source: str
         self.sutta: str
@@ -165,15 +176,22 @@ def check_example_headword(pd: ProgData,
                 .query(PaliWord)\
                 .filter_by(pali_1=wd.headword)\
                 .first()
-            if (
-                pali_word 
-                and has_no_meaning_or_example(pali_word)
-                and wd.sutta_example not in pd.tried_dict\
-                    .get(pd.book, {})\
-                    .get(wd.word, {})\
-                    .get(wd.headword, set())
-            ):  
-                print_to_terminal(pd, wd, pali_word)
+            if pali_word:
+                test1 = (
+                    has_no_meaning_or_example(pali_word)
+                    and wd.sutta_example not in pd.tried_dict\
+                        .get(pd.book, {})\
+                        .get(wd.word, {})\
+                        .get(wd.headword, set())
+                    )
+
+                # test if can replace a commentary example 
+                test2 = (
+                    any(item in pali_word.source_1 for item in pd.commentary_list)
+                    ) and "(gram)" not in pali_word.meaning_1
+
+                if test1 or test2:
+                    print_to_terminal(pd, wd, pali_word)
             
             if pali_word:
                 test_words_in_construction(pd, wd, pali_word)

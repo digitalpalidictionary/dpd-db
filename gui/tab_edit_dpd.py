@@ -25,7 +25,7 @@ def make_tab_edit_dpd(db_session, sg, username):
     PATTERN_VALUES = get_patterns(db_session)
 
     if username == "primary_user":
-        origin = "pass1"
+        origin = "pass2"
     elif username == "deva":
         origin = "dps"
     else:

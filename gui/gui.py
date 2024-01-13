@@ -861,6 +861,7 @@ def main():
         elif (
             event == "test_internal_button"
             or event == "control_t"
+            or event == "origin_enter"
         ):
             clear_errors(window)
             flags = individual_internal_tests(

@@ -90,6 +90,7 @@ def window_layout(dpspth, db_session, username):
     window['bold_1'].bind("<Return>", "_enter")
     window['bold_2'].bind("<Return>", "_enter")
     window['add_construction'].bind("<Return>", "_enter")
+    window['origin'].bind("<Return>", "_enter")
     
     # bind enter key dps
     window['dps_bold_1'].bind("<Return>", "_enter")

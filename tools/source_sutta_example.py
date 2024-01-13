@@ -82,6 +82,7 @@ def find_source_sutta_example(
             except Exception as e:
                 print(e)
                 print(text_to_find)
+                print(p)
                 continue
 
             # choose which method to number suttas according to book
@@ -324,6 +325,7 @@ def find_source_sutta_example(
                     except AttributeError as e:
                         print(f"[red]{e}")
                         print(text_to_find)
+                        print(p)
                         break
                 
                 sutta_examples += [(source, sutta.lower(), example)]
