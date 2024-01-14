@@ -45,7 +45,8 @@ DEFAULT_CONFIG = {
         "link_url": "https://www.thebuddhaswords.net/",
         "make_link": "no",
         "extended_synonyms": "no",
-        "show_id": "no"
+        "show_id": "no",
+        "show_ebt_count": "no"
     },
     "exporter" : {
         "make_dpd": "yes",

@@ -236,7 +236,7 @@ def dps(df, dps_link):
     )
 
     # Select the columns to keep in the DataFrame
-    columns_to_keep = ['id', 'pali_1', 'sbs_class_anki', 'sbs_category', 'grammar', 
+    columns_to_keep = ['id', 'pali_1', 'sbs_class_anki', 'sbs_category', 'sbs_class', 'grammar', 
         'neg', 'verb', 'trans', 'plus_case', 'meaning_1', 'meaning_lit', 'ru_meaning', 
         'ru_meaning_lit', 'sbs_meaning', 'sanskrit', 'sanskrit_root', 
         'sanskrit_root_meaning', 'sanskrit_root_class', 'root', 'root_has_verb', 

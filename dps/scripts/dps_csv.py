@@ -99,7 +99,7 @@ def dps(dpspth, dpd_db):
     def _is_needed(i: PaliWord):
         return (i.ru)
 
-    header = ['id', 'pali_1', 'pali_2', 'fin', 'sbs_class_anki', 'sbs_category', 'pos', 'grammar', 'derived_from',
+    header = ['id', 'pali_1', 'pali_2', 'fin', 'sbs_class_anki', 'sbs_category', 'sbs_class', 'pos', 'grammar', 'derived_from',
                     'neg', 'verb', 'trans', 'plus_case', 'meaning_1',
                     'meaning_lit', 'ru_meaning', 'ru_meaning_lit', 'sbs_meaning', 'non_ia', 'sanskrit', 'sanskrit_root',
                     'sanskrit_root_meaning', 'sanskrit_root_class', 'root', 'root_in_comps', 'root_has_verb',
@@ -114,7 +114,7 @@ def dps(dpspth, dpd_db):
                     'antonym', 'synonym',
                     'variant',  'commentary',
                     'notes', 'sbs_notes', 'ru_notes', 'cognate', 'family_set', 'link', 'stem', 'pattern',
-                    'meaning_2', 'test', 'sbs_index', 'sbs_audio', 'sbs_class', "sbs_link_1", "sbs_link_2", "sbs_link_3", "sbs_link_4", "class_link", "sutta_link"]
+                    'meaning_2', 'test', 'sbs_index', 'sbs_audio', "sbs_link_1", "sbs_link_2", "sbs_link_3", "sbs_link_4", "class_link", "sutta_link"]
     
     rows = [header]  # Add the header as the first row
     rows.extend(pali_row(dpspth, i) for i in dpd_db if _is_needed(i))
@@ -155,7 +155,8 @@ def pali_row(dpspth, i: PaliWord, output="anki") -> List[str]:
 
     fields.extend([
         i.sbs.sbs_class_anki if i.sbs else None, 
-        i.sbs.sbs_category if i.sbs else None, 
+        i.sbs.sbs_category if i.sbs else None,
+        i.sbs.sbs_class if i.sbs else None,
         i.pos,
         i.grammar,
         i.derived_from,
@@ -304,9 +305,6 @@ def pali_row(dpspth, i: PaliWord, output="anki") -> List[str]:
     else:
         console.print("[bold red]no path to anki media")
 
-    fields.extend([
-        i.sbs.sbs_class if i.sbs else None,
-    ])
     # Logic for chant links
     if i.sbs:
         chant_link_map = load_chant_link_map(dpspth)
@@ -374,7 +372,7 @@ def full_db(dpspth, dpd_db):
     tic()
     console.print("[bold green]making dpd-dps-full csv")
     rows = []
-    header = ['id', 'pali_1', 'pali_2', 'fin', 'sbs_class_anki', 'sbs_category', 'pos', 'grammar', 'derived_from',
+    header = ['id', 'pali_1', 'pali_2', 'fin', 'sbs_class_anki', 'sbs_category', 'sbs_class','pos', 'grammar', 'derived_from',
                     'neg', 'verb', 'trans', 'plus_case', 'meaning_1',
                     'meaning_lit', 'ru_meaning', 'ru_meaning_lit', 'sbs_meaning', 'non_ia', 'sanskrit', 'sanskrit_root',
                     'sanskrit_root_meaning', 'sanskrit_root_class', 'root', 'root_in_comps', 'root_has_verb',
@@ -389,7 +387,7 @@ def full_db(dpspth, dpd_db):
                     'antonym', 'synonym',
                     'variant',  'commentary',
                     'notes', 'sbs_notes', 'ru_notes', 'cognate', 'family_set', 'link', 'stem', 'pattern',
-                    'meaning_2', 'test', 'sbs_index', 'sbs_audio', 'sbs_class', "sbs_link_1", "sbs_link_2", "sbs_link_3", "sbs_link_4", "class_link", "sutta_link"]
+                    'meaning_2', 'test', 'sbs_index', 'sbs_audio', "sbs_link_1", "sbs_link_2", "sbs_link_3", "sbs_link_4", "class_link", "sutta_link"]
 
     rows.append(header)
 

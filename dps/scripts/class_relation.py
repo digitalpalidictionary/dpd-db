@@ -61,6 +61,76 @@ def determine_sbs_class(word):
         # print(f"Pattern: ū masc & adj, Word: {word.pali_1}")
         return "6"
 
+    # filter dat of purpose
+    if (
+        "dat " in word.grammar and 
+        "āya" in word.pali_1
+    ):
+        # print(f"Pattern: dat of purpose, Word: {word.pali_1}")
+        return "9"
+
+    # loc & gen abs
+    if (
+        "loc abs" in word.grammar or 
+        "gen abs" in word.grammar
+    ):
+        # print(f"Pattern: loc & gen abs, Word: {word.pali_1}")
+        return "10"
+
+    # filter numbers
+    if (
+        (word.pos == "card" or word.pos == "ordin") and
+        "!" not in word.stem
+    ):
+        # print(f"Pattern: numbers, Word: {word.pali_1}")
+        return "12"
+
+    # filter imp < 5
+    if (
+        word.pos == "imp" and
+        not word.neg == "neg" and
+        "reflx" not in word.grammar and
+        "irreg" not in word.grammar and
+        word.verb != "caus" and
+        word.verb != "pass"
+    ):
+        # print(f"Pattern: imp, Word: {word.pali_1}")
+        return "4"
+
+    # filter fut
+    if (
+        word.pos == "fut" and
+        "reflx" not in word.grammar and
+        "irreg" not in word.grammar and
+        "irreg" not in word.root_base and
+        word.verb != "caus" and
+        word.verb != "pass"
+    ):
+        # print(f"Pattern: fut, Word: {word.pali_1}")
+        return "5"
+
+    # filter opt
+    if (
+        word.pos == "opt" and
+        "reflx" not in word.grammar and
+        "irreg" not in word.grammar and
+        "irreg" not in word.root_base and
+        word.verb != "caus" and
+        word.verb != "pass"
+    ):
+        # print(f"Pattern: opt, Word: {word.pali_1}")
+        return "7"
+
+    # filter opt be
+    if (
+            (word.pattern == "siyā opt" or 
+            word.pattern == "ssa opt") and
+        ", comp" not in word.grammar
+        
+    ):
+        # print(f"Pattern: be opt, Word: {word.pali_1}")
+        return "7"
+
     # rest of BPC:
 
     if (
@@ -69,15 +139,15 @@ def determine_sbs_class(word):
     "reflx" not in word.grammar and
     "desid" not in word.grammar and
     "irreg" not in word.grammar and
-    # "!" not in word.stem and
-    "irreg" not in word.root_base
+    "!" not in word.stem
     ):
         # not caus or pass < 13
         if (
-        word.verb != "caus" and
-        ", pass" not in word.grammar and
-        word.verb != "pass" and
-        ", caus" not in word.grammar
+            word.verb != "caus" and
+            ", pass" not in word.grammar and
+            word.verb != "pass" and
+            ", caus" not in word.grammar and
+            word.verb != "caus, pass"
         ):
         
             if "dat " not in word.grammar:
@@ -131,12 +201,6 @@ def determine_sbs_class(word):
                             # print(f"Pattern: pr, Word: {word.pali_1}")
                             return "3"
 
-                    #! filter imp < 5
-                    if word.pos == "imp":
-                        if "!" in word.stem:
-                            # print(f"Pattern: imp, Word: {word.pali_1}")
-                            return "4"
-
                     # filter aor < 5
                     if (
                         word.pos == "aor" and 
@@ -188,11 +252,6 @@ def determine_sbs_class(word):
                 # print(f"Pattern: tvaṃ pron, Word: {word.pali_1}")
                 return "5"
 
-            # filter fut
-            if word.pos == "fut":
-                # print(f"Pattern: fut, Word: {word.pali_1}")
-                return "5"
-
             # filter substantives (ant)
             if word.pattern == "ant adj":
                 # print(f"Pattern: ant adj, Word: {word.pali_1}")
@@ -200,11 +259,6 @@ def determine_sbs_class(word):
             if word.pattern == "ant masc":
                 # print(f"Pattern: ant masc, Word: {word.pali_1}")
                 return "6"
-
-            # filter opt
-            if word.pos == "opt":
-                # print(f"Pattern: opt, Word: {word.pali_1}")
-                return "7"
 
             # filter ger and abs
             if word.pos == "ger":
@@ -236,22 +290,15 @@ def determine_sbs_class(word):
                 # print(f"Pattern: +inf, Word: {word.pali_1}")
                 return "9"
 
-            # filter dat of purpose
-            if (
-                "dat " in word.grammar and 
-                "āya" in word.pali_1
-            ):
-                # print(f"Pattern: dat of purpose, Word: {word.pali_1}")
-                return "9"
-
-            # filter until-then
+            #! filter until-then how to incluad parts of those idioms and excluad them from rest adv?
             if re.match(r"^y.{1,6} t.{1,6}$", word.pali_1):
                 # print(f"Pattern: until-then, Word: {word.pali_1}")
                 return "9"
 
             # filter interr
             if (
-                ("interr" in word.grammar) and 
+                "interr" in word.grammar and 
+                "ptp " not in word.grammar and 
                 (word.pos == "ind" or word.pos == "pron")
             ):
                 # print(f"Pattern: interr, Word: {word.pali_1}")
@@ -272,14 +319,6 @@ def determine_sbs_class(word):
                 word.pattern != "tvaṃ pron"
             ):
                 # print(f"Pattern: pron rest, Word: {word.pali_1}")
-                return "10"
-
-            # loc & gen abs
-            if (
-                "loc abs" in word.grammar or 
-                "gen abs" in word.grammar
-            ):
-                # print(f"Pattern: loc & gen abs, Word: {word.pali_1}")
                 return "10"
 
             # filter pp
@@ -307,83 +346,100 @@ def determine_sbs_class(word):
                 word.pattern != "ant adj" and 
                 word.pattern != "ī adj" and
                 word.pattern != "ū adj" and
+                "app " not in word.grammar and
                 not word.construction.endswith("kāma")
             ):
                 # print(f"Pattern: adj, Word: {word.pali_1}")
                 return "11"
 
-            # filter abl of separation
+                # filter abl of separation
             if (
                 "abl" in word.grammar and 
-                word.pali_2.endswith("o")
+                word.pos == "ind" and
+                word.pali_2.endswith("to") and
+                "ya" not in word.derived_from and
+                "ta" not in word.derived_from and
+                "ka" not in word.derived_from and
+                "ima" not in word.derived_from and
+                "sabba" not in word.derived_from and
+                "para" not in word.derived_from
             ):
                 # print(f"Pattern: abl of separation, Word: {word.pali_1}")
                 return "11"
 
-            # filter numbers
-            if word.pos == "card" or word.pos == "ordin":
-                # print(f"Pattern: numbers, Word: {word.pali_1}")
-                return "12"
+            #! elif until then class 9
 
-            # filter adv
-            if word.pos == "ind" and ", adv" in word.grammar:
+            #! elif adv of time class 6
+
+            #! elif adv of place class 8
+
+            # filter other adv
+            elif (
+                word.pos == "ind" and 
+                "interr" not in word.grammar and
+                ", adv" in word.grammar
+            ):
                 # print(f"Pattern: adv, Word: {word.pali_1}")
                 return "13"
 
         # caus or pass > 13
         
         # filter pass
-            if (
-                word.verb == "pass" and 
-                ", caus" not in word.grammar and 
-                ", pass" in word.grammar and 
-                word.verb != "caus"
-            ):
-                # print(f"Pattern: pass, Word: {word.pali_1}")
-                return "13"
+        if (
+            word.verb == "pass" and 
+            ", caus" not in word.grammar and
+            word.pos != "ptp" and
+            "ptp " not in word.grammar
+        ):
+            # print(f"Pattern: pass, Word: {word.pali_1}")
+            return "13"
 
-            # filter caus
-            if (
-                word.verb == "caus" and 
-                ", pass" not in word.grammar and 
-                ", caus" in word.grammar and 
-                word.verb != "pass"
-            ):
-                # print(f"Pattern: caus, Word: {word.pali_1}")
-                return "14"
+        if (
+            ", pass" in word.grammar and 
+            word.verb != "caus" and
+            word.pos != "ptp" and
+            "ptp " not in word.grammar
+        ):
+            # print(f"Pattern: pass, Word: {word.pali_1}")
+            return "13"
 
-            # filter caus pass
-            if (
-                word.verb == "caus" and 
-                "pass" in word.grammar and 
-                word.verb == "pass" and 
-                "caus" in word.grammar
-            ):
-                # print(f"Pattern: caus pass, Word: {word.pali_1}")
-                return "14"
+        # filter caus
+        if (
+            (word.verb == "caus" and 
+            ", pass" not in word.grammar) or 
+            (", caus" in word.grammar and 
+            word.verb != "pass")
+        ):
+            # print(f"Pattern: caus, Word: {word.pali_1}")
+            return "14"
 
-            if word.verb == "caus, pass":
-                # print(f"Pattern: caus, pass, Word: {word.pali_1}")
-                return "14"
+        # filter caus pass
+        if (
+            word.verb == "caus" and 
+            ", pass" in word.grammar 
+        ):
+            # print(f"Pattern: caus pass, Word: {word.pali_1}")
+            return "14"
 
-            # filter ptp
-            if word.pos == "ptp":
-                # print(f"Pattern: ptp, Word: {word.pali_1}")
-                return "14"
+        # filter caus pass
+        if (
+            word.verb == "pass" and 
+            ", caus" in word.grammar 
+        ):
+            # print(f"Pattern: caus pass, Word: {word.pali_1}")
+            return "14"
 
-            if (
-                "ptp " in word.grammar and
-                word.pattern == "a masc"
-            ):
-                # print(f"Pattern: masc a from ptp, Word: {word.pali_1}")
-                return "14"
+        if word.verb == "caus, pass":
+            # print(f"Pattern: caus, pass, Word: {word.pali_1}")
+            return "14"
 
-            if (
-                "ptp " in word.grammar and
-                word.pos == "nt"
-            ):
-                # print(f"Pattern: nt from ptp, Word: {word.pali_1}")
-                return "14"
+        # filter ptp
+        if (
+            word.pos == "ptp" or
+            "ptp " in word.grammar
+        ):
+            # print(f"Pattern: ptp, Word: {word.pali_1}")
+            return "14"
 
 
 if __name__ == "__main__":

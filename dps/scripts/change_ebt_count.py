@@ -9,10 +9,11 @@ from db.models import PaliWord
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 
+from tools.configger import config_test
 
 def main():
     tic()
-    print("[bright_yellow] mark all which have sbs_category changing ebt_count")
+
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -37,89 +38,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
-
-
-
-# # in dpd_definition.html
-
-# <div class='content'>
-#     <p>
-#         % if sbs_category:
-#             <i>(s)</i>
-#         % endif
-#         ${pos}. 
-#         % if plus_case:
-#             (${plus_case}) 
-#         % endif
-#         ${meaning} 
-#         % if summary:
-#             [${summary}] 
-#         % endif
-#         % if make_link and i.source_link_sutta:
-#         <a href="${i.source_link_sutta}">link</a>
-#         % endif
-#         ${complete} 
-#         ${id} 
-#     </p>
-# </div>
-
-
-# # in eport_dpd.py
-    # summary = render_dpd_definition_templ(pth, i, dd, rd['make_link'], rd['show_id'], tt.dpd_definition_templ)
-
-
-# def render_dpd_definition_templ(
-#         __pth__: ProjectPaths,
-#         i: PaliWord,
-#         dd: DerivedData,
-#         make_link: bool,
-#         show_id: bool,
-#         dpd_definition_templ: Template
-# ) -> str:
-#     """render the definition of a word's most relevant information:
-#     1. pos
-#     2. case
-#     3 meaning
-#     4. summary
-#     5. degree of completition"""
-
-#     # pos
-#     pos: str = i.pos
-
-#     # plus_case
-#     plus_case: str = ""
-#     if i.plus_case is not None and i.plus_case:
-#         plus_case: str = i.plus_case
-
-#     meaning = make_meaning_html(i)
-#     summary = summarize_construction(i)
-#     complete = degree_of_completion(i)
-
-#     # pos
-#     id: int = i.id
-
-#     # sbs_category
-#     sbs_category: str = ""
-#     if dd.ebt_count is None:
-#         sbs_category = ""
-#     elif dd.ebt_count == 1:
-#         sbs_category = """<i>(s)</i>"""
-#     else:
-#         sbs_category = ""
-
-
-#     return str(
-#         dpd_definition_templ.render(
-#             i=i,
-#             make_link=make_link,
-#             pos=pos,
-#             plus_case=plus_case,
-#             meaning=meaning,
-#             summary=summary,
-#             complete=complete,
-#             id=id,
-#             show_id=show_id,
-#             sbs_category=sbs_category
-#             )
-#         )
+    print("[bright_yellow] mark all which have sbs_category changing ebt_count")
+    if config_test("dictionary", "show_ebt_count", "yes"):
+        main()
+    else:
+        print("generating is disabled in the config")

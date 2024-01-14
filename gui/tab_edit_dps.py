@@ -7,8 +7,9 @@ def make_tab_edit_dps(dpspth, sg):
 
     sbs_index = load_sbs_index(dpspth)
     pali_chant_list = [i.pali_chant for i in sbs_index]
-    pali_class_list = [str(i) for i in range(1, 60)]
-    dps_category_list = ["sn35", "sn22", "sn56", "mn107"]
+    anki_class_list = [str(i) for i in range(1, 60)]
+    class_list = [str(i) for i in range(2, 29)]
+    dps_category_list = ["sn12", "sn35", "sn22", "sn56", "mn107"]
 
     dpd_background = "#1c1e23"
     dpd_text = "#0a9ce4"
@@ -693,19 +694,30 @@ def make_tab_edit_dps(dpspth, sg):
                 "", key="dps_buttons_ex_4_error", size=(10, 1), text_color="red"),
         ],
         [
-            sg.Text("class anki", size=(15, 1)),
+            sg.Text("sbs_class_anki", size=(15, 1)),
             CompletionCombo(
-                pali_class_list,
+                anki_class_list,
                 key="dps_sbs_class_anki",
                 default_value="",
                 size=(3, 1),
                 enable_events=True,
                 text_color=sbs_text,
                 background_color=sbs_background,
-                tooltip="which class from anki deck for Pali Class"),
+                tooltip="which class from Anki deck for Pāli Class"),
+            sg.Text("", size=(1, 1)),
+            sg.Text("sbs_class "),
+            CompletionCombo(
+                class_list,
+                key="dps_sbs_class",
+                default_value="",
+                size=(3, 1),
+                enable_events=True,
+                text_color=sbs_text,
+                background_color=sbs_background,
+                tooltip="related to which class from the Pāli Course"),
         ],
         [
-            sg.Text("dps_category", size=(15, 1)),
+            sg.Text("sbs_category", size=(15, 1)),
             CompletionCombo(
                 dps_category_list,
                 key="dps_sbs_category",
@@ -716,16 +728,6 @@ def make_tab_edit_dps(dpspth, sg):
                 background_color=sbs_background,
                 tooltip="which sutta from sutta anki deck"),
         ],
-        # [
-        #     sg.Text("sbs_class", size=(15, 1)),
-        #     sg.Input(
-        #         key="dps_sbs_class",
-        #         size=(50, 1),
-        #         enable_events=True,
-        #         text_color=sbs_text,
-        #         background_color=sbs_background,
-        #         tooltip=""),
-        # ],
         [
             sg.Text("", size=(55, 1))
         ],
