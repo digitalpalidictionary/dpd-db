@@ -21,6 +21,8 @@ families/sets.py
 
 frequency/mapmaker.py
 
+dps/scripts/change_ebt_count.py
+
 exporter/exporter.py
 exporter/deconstructor_exporter.py
 exporter/tpr_exporter.py
@@ -30,3 +32,7 @@ ebook/ebook_exporter.py
 dps/scripts/move_mdict.py
 
 scripts/zip_goldedict_mdict.py
+
+frequency/ebt_calculation.py
+
+

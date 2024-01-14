@@ -89,6 +89,7 @@ class PaliWordRenderData(TypedDict):
     cf_set: Set[str]
     make_link: bool
     show_id: bool
+    show_ebt_count: bool
 
 def render_pali_word_dpd_html(extended_synonyms, db_parts: PaliWordDbParts,
                               render_data: PaliWordRenderData) -> Tuple[RenderResult, RenderedSizes]:
@@ -136,7 +137,7 @@ def render_pali_word_dpd_html(extended_synonyms, db_parts: PaliWordDbParts,
 
     html += "<body>"
 
-    summary = render_dpd_definition_templ(pth, i, rd['make_link'], rd['show_id'], tt.dpd_definition_templ)
+    summary = render_dpd_definition_templ(pth, i, dd, rd['make_link'], rd['show_id'], rd['show_ebt_count'], tt.dpd_definition_templ)
     html += summary
     size_dict["dpd_summary"] += len(summary)
 
@@ -244,6 +245,11 @@ def generate_dpd_html(
     else:
         show_id: bool = False
 
+    if config_test("dictionary", "show_ebt_count", "yes"):
+        show_ebt_count: bool = True
+    else:
+        show_ebt_count: bool = False
+
     dpd_data_list: List[RenderResult] = []
 
     pali_words_count = db_session \
@@ -317,7 +323,8 @@ def generate_dpd_html(
             sandhi_contractions = sandhi_contractions,
             cf_set = cf_set,
             make_link = make_link,
-            show_id = show_id
+            show_id = show_id,
+            show_ebt_count = show_ebt_count
         )
 
         def _parse_batch(batch: List[PaliWordDbParts]):
@@ -368,8 +375,10 @@ def render_header_templ(
 def render_dpd_definition_templ(
         __pth__: ProjectPaths,
         i: PaliWord,
+        dd: DerivedData,
         make_link: bool,
         show_id: bool,
+        show_ebt_count: bool,
         dpd_definition_templ: Template
 ) -> str:
     """render the definition of a word's most relevant information:
@@ -391,8 +400,11 @@ def render_dpd_definition_templ(
     summary = summarize_construction(i)
     complete = degree_of_completion(i)
 
-    # pos
+    # id
     id: int = i.id
+
+    # ebt_count
+    ebt_count: int = dd.ebt_count
 
     return str(
         dpd_definition_templ.render(
@@ -405,6 +417,8 @@ def render_dpd_definition_templ(
             complete=complete,
             id=id,
             show_id=show_id,
+            show_ebt_count=show_ebt_count,
+            ebt_count=ebt_count,
             )
         )
 

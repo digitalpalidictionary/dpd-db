@@ -7,6 +7,7 @@ from rich import print
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord, DerivedData
+from tools.configger import config_update, config_test
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 
@@ -102,3 +103,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+    if config_test("dictionary", "show_ebt_count", "yes"):
+        config_update("dictionary", "show_ebt_count", "no")

@@ -1,5 +1,8 @@
 <div class='content'>
     <p>
+        % if show_ebt_count and ebt_count != "":
+        <span class="gray">(${ebt_count})</span>
+        % endif
         ${pos}. 
         % if plus_case:
             (${plus_case}) 
