@@ -7,6 +7,7 @@ from tools.paths import ProjectPaths
 from db.get_db_session import get_db_session
 from rich.console import Console
 from tools.tic_toc import tic, toc
+from typing import Optional
 
 console = Console()
 
@@ -20,26 +21,37 @@ def main():
 
     # Iterate over all PaliWord instances and update their sbs_class
     for word in db_session.query(PaliWord).all():
+            sbs_class: Optional[int]
             sbs_class = determine_sbs_class(word)
-            if sbs_class:
-                # if word.sbs and word.sbs.sbs_class and sbs_class == "9":
-                #     print(f"for {word.pali_1} old sbs_class: {word.sbs.sbs_class}")
-                if word.sbs and not word.sbs.sbs_class:
+            if sbs_class is not None:
+                # debug check inconsistency with existing sbs.sbs_class
+                # if (
+                #     word.sbs and 
+                #     word.sbs.sbs_class and 
+                #     word.sbs.sbs_class != sbs_class and
+                #     sbs_class == 15
+                # ):
+                #     print(f"for {word.pali_1} old sbs_class: {word.sbs.sbs_class} and new is {sbs_class}")
+                # if word.sbs and not word.sbs.sbs_class:
+                #     word.sbs.sbs_class = int(sbs_class)
+                if word.sbs:
                     word.sbs.sbs_class = int(sbs_class)
+                    # print(f"for {word.pali_1} new sbs_class: {sbs_class}")
                 if not word.sbs:
                     word.sbs = SBS(id=word.id)
                     word.sbs.sbs_class = int(sbs_class)
+                    # print(f"for {word.pali_1} new sbs_class: {sbs_class}")
 
 
 
     # Commit the changes to the database
-    # db_session.commit()
+    db_session.commit()
 
     # Close the session
     db_session.close()
     toc()
 
-def determine_sbs_class(word):
+def determine_sbs_class(word) -> Optional[int]:
 
 
     
@@ -51,15 +63,16 @@ def determine_sbs_class(word):
         word.construction.endswith("kāma")
     ):
         # print(f"Pattern: inf kāma, Word: {word.pali_1}")
-        return "9"
+        return 9
 
     # filter ū masc + ū adj
     if (
-        word.pattern == "ū adj" or
-        word.pattern == "ū masc"
+        (word.pattern == "ū adj" or
+        word.pattern == "ū masc") and
+        "app " not in word.grammar 
     ):
         # print(f"Pattern: ū masc & adj, Word: {word.pali_1}")
-        return "6"
+        return 6
 
     # filter dat of purpose
     if (
@@ -67,7 +80,7 @@ def determine_sbs_class(word):
         "āya" in word.pali_1
     ):
         # print(f"Pattern: dat of purpose, Word: {word.pali_1}")
-        return "9"
+        return 9
 
     # loc & gen abs
     if (
@@ -75,7 +88,7 @@ def determine_sbs_class(word):
         "gen abs" in word.grammar
     ):
         # print(f"Pattern: loc & gen abs, Word: {word.pali_1}")
-        return "10"
+        return 10
 
     # filter numbers
     if (
@@ -83,7 +96,7 @@ def determine_sbs_class(word):
         "!" not in word.stem
     ):
         # print(f"Pattern: numbers, Word: {word.pali_1}")
-        return "12"
+        return 12
 
     # filter imp < 5
     if (
@@ -95,7 +108,7 @@ def determine_sbs_class(word):
         word.verb != "pass"
     ):
         # print(f"Pattern: imp, Word: {word.pali_1}")
-        return "4"
+        return 4
 
     # filter fut
     if (
@@ -107,7 +120,7 @@ def determine_sbs_class(word):
         word.verb != "pass"
     ):
         # print(f"Pattern: fut, Word: {word.pali_1}")
-        return "5"
+        return 5
 
     # filter opt
     if (
@@ -119,7 +132,7 @@ def determine_sbs_class(word):
         word.verb != "pass"
     ):
         # print(f"Pattern: opt, Word: {word.pali_1}")
-        return "7"
+        return 7
 
     # filter opt be
     if (
@@ -129,7 +142,7 @@ def determine_sbs_class(word):
         
     ):
         # print(f"Pattern: be opt, Word: {word.pali_1}")
-        return "7"
+        return 7
 
     # rest of BPC:
 
@@ -152,21 +165,24 @@ def determine_sbs_class(word):
         
             if "dat " not in word.grammar:
                 # filter masc > 5
-                if word.pattern == "ī adj":
+                if (
+                    word.pattern == "ī adj" and
+                    "app " not in word.grammar 
+                ):
                     # print(f"Pattern: ī adj, Word: {word.pali_1}")
-                    return "5"
+                    return 5
                 if word.pattern == "ī masc":
                     # print(f"Pattern: ī masc, Word: {word.pali_1}")
-                    return "5"
+                    return 5
                 if word.pattern == "u masc":
                     # print(f"Pattern: u masc, Word: {word.pali_1}")
-                    return "6"
+                    return 6
                 if word.pattern == "ar masc":
                     # print(f"Pattern: ar masc, Word: {word.pali_1}")
-                    return "6"
+                    return 6
                 if word.pattern == "ar2 masc":
                     # print(f"Pattern: ar2 masc, Word: {word.pali_1}")
-                    return "6"
+                    return 6
                 
                 # filter not neg < 5
                 if not word.neg == "neg":
@@ -178,18 +194,18 @@ def determine_sbs_class(word):
                         word.pattern == "a masc"
                     ):
                         # print(f"Pattern: a masc, Word: {word.pali_1}")
-                        return "2"
+                        return 2
                     if word.pattern == "i masc":
                         # print(f"Pattern: i masc, Word: {word.pali_1}")
-                        return "4"
+                        return 4
 
                     # filter pr < 5
                     if "hoti" in word.pattern:
                         # print(f"Pattern: hoti, Word: {word.pali_1}")
-                        return "4"
+                        return 4
                     elif "atthi" in word.pattern:
                         # print(f"Pattern: atthi, Word: {word.pali_1}")
-                        return "4"
+                        return 4
                     else:
                         if (
                             word.pos == "pr" and 
@@ -199,7 +215,7 @@ def determine_sbs_class(word):
                             "kubbati" not in word.pattern
                         ):
                             # print(f"Pattern: pr, Word: {word.pali_1}")
-                            return "3"
+                            return 3
 
                     # filter aor < 5
                     if (
@@ -209,64 +225,64 @@ def determine_sbs_class(word):
                         "ddasa" not in word.pattern
                     ):
                         # print(f"Pattern: aor, Word: {word.pali_1}")
-                        return "4"
+                        return 4
 
                 # filter neg > 5
                 if word.neg == "neg":
                     if word.pos == "aor":
                         # print(f"Pattern: aor neg, Word: {word.pali_1}")
-                        return "5"
+                        return 5
                     if word.pos == "pr":
                         # print(f"Pattern: pr neg, Word: {word.pali_1}")
-                        return "5"
+                        return 5
                     if (
                         "ptp " not in word.grammar and
                         "pp " not in word.grammar and
                         word.pattern == "a masc"
                     ):
                         # print(f"Pattern: masc neg, Word: {word.pali_1}")
-                        return "5"
+                        return 5
 
                 # filter fem
                 if word.pattern == "ā fem":
                     # print(f"Pattern: ā fem, Word: {word.pali_1}")
-                    return "7"
+                    return 7
                 if word.pattern == "ī fem":
                     # print(f"Pattern: ī fem, Word: {word.pali_1}")
-                    return "8"
+                    return 8
                 if word.pattern == "u fem":
                     # print(f"Pattern: u fem, Word: {word.pali_1}")
-                    return "8"
+                    return 8
                 if word.pattern.endswith("ar fem"):
                     # print(f"Pattern: ar fem, Word: {word.pali_1}")
-                    return "8"
+                    return 8
                 if word.pattern == "ū fem":
                     # print(f"Pattern: ū fem, Word: {word.pali_1}")
-                    return "8" 
+                    return 8 
 
             # filter pers pron
             if word.pattern == "ahaṃ pron":
                 # print(f"Pattern: ahaṃ pron, Word: {word.pali_1}")
-                return "5"
+                return 5
             if word.pattern == "tvaṃ pron":
                 # print(f"Pattern: tvaṃ pron, Word: {word.pali_1}")
-                return "5"
+                return 5
 
             # filter substantives (ant)
             if word.pattern == "ant adj":
                 # print(f"Pattern: ant adj, Word: {word.pali_1}")
-                return "6"
+                return 6
             if word.pattern == "ant masc":
                 # print(f"Pattern: ant masc, Word: {word.pali_1}")
-                return "6"
+                return 6
 
             # filter ger and abs
             if word.pos == "ger":
                 # print(f"Pattern: ger, Word: {word.pali_1}")
-                return "8"
+                return 8
             if word.pos == "abs":
                 # print(f"Pattern: abs, Word: {word.pali_1}")
-                return "8"
+                return 8
 
             if (
                 "irreg" not in word.pattern and 
@@ -278,38 +294,35 @@ def determine_sbs_class(word):
                 word.pos == "nt"
             ):
                 # print(f"Pattern: nt, Word: {word.pali_1}")
-                return "9"
+                return 9
 
             # filter inf
             if word.pos == "inf":
                 # print(f"Pattern: inf, Word: {word.pali_1}")
-                return "9"
+                return 9
 
             # filter +inf
-            if "+inf" in word.plus_case:
+            if (
+                "+inf" in word.plus_case and
+                word.pos != "adj" and
+                word.pos != "pp" and
+                word.pos != "ptp" and
+                word.pos != "prp"
+            ):
                 # print(f"Pattern: +inf, Word: {word.pali_1}")
-                return "9"
+                return 9
 
-            #! filter until-then how to incluad parts of those idioms and excluad them from rest adv?
+            # filter until-then
             if re.match(r"^y.{1,6} t.{1,6}$", word.pali_1):
                 # print(f"Pattern: until-then, Word: {word.pali_1}")
-                return "9"
-
-            # filter interr
-            if (
-                "interr" in word.grammar and 
-                "ptp " not in word.grammar and 
-                (word.pos == "ind" or word.pos == "pron")
-            ):
-                # print(f"Pattern: interr, Word: {word.pali_1}")
-                return "9"
+                return 9
 
             # filter prp
             if (
                 word.pos == "prp"
             ):
                 # print(f"Pattern: prp, Word: {word.pali_1}")
-                return "10"
+                return 10
 
             # filter pron
             if (
@@ -319,26 +332,26 @@ def determine_sbs_class(word):
                 word.pattern != "tvaṃ pron"
             ):
                 # print(f"Pattern: pron rest, Word: {word.pali_1}")
-                return "10"
+                return 10
 
             # filter pp
             if word.pos == "pp":
                 # print(f"Pattern: pp, Word: {word.pali_1}")
-                return "11"
+                return 11
 
             if (
                 "pp " in word.grammar and
                 word.pattern == "a masc"
             ):
                 # print(f"Pattern: masc a from pp, Word: {word.pali_1}")
-                return "11"
+                return 11
 
             if (
                 "pp " in word.grammar and
                 word.pos == "nt"
             ):
                 # print(f"Pattern: nt from pp, Word: {word.pali_1}")
-                return "11"
+                return 11
 
             # filter adj
             if (
@@ -350,37 +363,73 @@ def determine_sbs_class(word):
                 not word.construction.endswith("kāma")
             ):
                 # print(f"Pattern: adj, Word: {word.pali_1}")
-                return "11"
+                return 11
 
-                # filter abl of separation
+            # adv
+            adv_of_time = ["pubbe", "āyatiṃ", "dāni", "yadā", "pacchā", "ajja", "tadā", "sadā", "sāyaṃ", "kadā", "idāni", "pāto", "ekadā", "suve", "purā", "atippago", "aciraṃ", "ciraṃ", "atisāyaṃ", "kālena", "pure"]
+
+            adv_of_place = ["tattha", "tatra", "ettha", "yattha", "yatra", "kattha", "sabbattha", "ekattha", "aññattha", "kuto", "tato", "yato", "ekato", "parito", "purato", "samantato", "kuhiṃ", "tahiṃ", "yahiṃ", "ittha", "idha", "katthaci", "pure"]
+
+            adv_until_then = ["yāva", "tāva", "yena", "tena"]
+
+            # adv of time
             if (
+                word.pali_2 in adv_of_time and
+                word.pos == "ind" and 
+                ", adv" in word.grammar
+            ):
+                # print(f"Pattern: adv of time, Word: {word.pali_1}")
+                return 6
+
+            # adv of place
+            elif (
+                word.pali_2 in adv_of_place and
+                word.pos == "ind" and 
+                (", adv" in word.grammar or "prep" in word.grammar)
+            ):
+                # print(f"Pattern: adv of time, Word: {word.pali_1}")
+                return 8
+
+            # filter interr
+            elif (
+                "interr" in word.grammar and 
+                "ptp " not in word.grammar and 
+                (word.pos == "ind" or word.pos == "pron")
+            ):
+                # print(f"Pattern: interr, Word: {word.pali_1}")
+                return 9
+
+            # filter until-then
+            elif (
+                word.pali_2 in adv_until_then and
+                word.pos == "ind" and 
+                ", adv" in word.grammar
+            ):
+                # print(f"Pattern: until-then, Word: {word.pali_1}")
+                return 9
+
+            # filter abl of separation
+            elif (
                 "abl" in word.grammar and 
                 word.pos == "ind" and
                 word.pali_2.endswith("to") and
-                "ya" not in word.derived_from and
-                "ta" not in word.derived_from and
-                "ka" not in word.derived_from and
-                "ima" not in word.derived_from and
-                "sabba" not in word.derived_from and
-                "para" not in word.derived_from
+                word.derived_from != "ya" and
+                word.derived_from != "ta" and
+                word.derived_from != "ka" and
+                word.derived_from != "ima"  and
+                word.derived_from != "sabba" and
+                word.derived_from != "para"
             ):
                 # print(f"Pattern: abl of separation, Word: {word.pali_1}")
-                return "11"
-
-            #! elif until then class 9
-
-            #! elif adv of time class 6
-
-            #! elif adv of place class 8
+                return 11
 
             # filter other adv
             elif (
                 word.pos == "ind" and 
-                "interr" not in word.grammar and
                 ", adv" in word.grammar
             ):
                 # print(f"Pattern: adv, Word: {word.pali_1}")
-                return "13"
+                return 13
 
         # caus or pass > 13
         
@@ -392,7 +441,7 @@ def determine_sbs_class(word):
             "ptp " not in word.grammar
         ):
             # print(f"Pattern: pass, Word: {word.pali_1}")
-            return "13"
+            return 13
 
         if (
             ", pass" in word.grammar and 
@@ -401,7 +450,7 @@ def determine_sbs_class(word):
             "ptp " not in word.grammar
         ):
             # print(f"Pattern: pass, Word: {word.pali_1}")
-            return "13"
+            return 13
 
         # filter caus
         if (
@@ -411,7 +460,7 @@ def determine_sbs_class(word):
             word.verb != "pass")
         ):
             # print(f"Pattern: caus, Word: {word.pali_1}")
-            return "14"
+            return 14
 
         # filter caus pass
         if (
@@ -419,7 +468,7 @@ def determine_sbs_class(word):
             ", pass" in word.grammar 
         ):
             # print(f"Pattern: caus pass, Word: {word.pali_1}")
-            return "14"
+            return 14
 
         # filter caus pass
         if (
@@ -427,11 +476,11 @@ def determine_sbs_class(word):
             ", caus" in word.grammar 
         ):
             # print(f"Pattern: caus pass, Word: {word.pali_1}")
-            return "14"
+            return 14
 
         if word.verb == "caus, pass":
             # print(f"Pattern: caus, pass, Word: {word.pali_1}")
-            return "14"
+            return 14
 
         # filter ptp
         if (
@@ -439,7 +488,10 @@ def determine_sbs_class(word):
             "ptp " in word.grammar
         ):
             # print(f"Pattern: ptp, Word: {word.pali_1}")
-            return "14"
+            return 14
+
+    # Return None if none of the conditions are met
+    return None
 
 
 if __name__ == "__main__":
