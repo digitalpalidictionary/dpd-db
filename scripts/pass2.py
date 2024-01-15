@@ -177,25 +177,28 @@ def check_example_headword(pd: ProgData,
                 .filter_by(pali_1=wd.headword)\
                 .first()
             if pali_word:
-                test1 = (
-                    has_no_meaning_or_example(pali_word)
-                    and wd.sutta_example not in pd.tried_dict\
+                # test not in tried_dict
+                test1 = wd.sutta_example not in pd.tried_dict\
                         .get(pd.book, {})\
                         .get(wd.word, {})\
                         .get(wd.headword, set())
-                    )
+                
+                # test has no meaning and example
+                test2 = has_no_meaning_or_example(pali_word)
 
                 # test if can replace a commentary example 
-                test2 = (
-                    any(item in pali_word.source_1 for item in pd.commentary_list)
+                test3 = (
+                    any(
+                        item in pali_word.source_1 
+                        and item in pali_word.source_2
+                        for item in pd.commentary_list)
                     ) and "(gram)" not in pali_word.meaning_1
 
-                if test1 or test2:
+                if test1 and (test2 or test3):
                     print_to_terminal(pd, wd, pali_word)
             
             if pali_word:
                 test_words_in_construction(pd, wd, pali_word)
-
 
 
 def has_no_meaning_or_example(pali_word: PaliWord

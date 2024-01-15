@@ -2065,3 +2065,7 @@ flambeau
 dismounts
 disembarks
 tonsured
+ordaining
+Libra
+Anopamā
+transmigrated

@@ -804,8 +804,11 @@ def main():
 
 
         elif event == "sanskrit":
-            if flags.sanskrit and re.findall(
-                    r"\bcomp\b", values["grammar"]) != []:
+            if (
+                flags.sanskrit 
+                and not values["root_key"]
+                and not values["sanskrit"]
+            ):
                 sanskrit = get_sanskrit(db_session, values["construction"])
                 window["sanskrit"].update(value=sanskrit)
                 flags.sanskrit = False

@@ -2,7 +2,6 @@
 
 """Update and replace Sanskrit root families from tsv data."""
 
-import copy
 import csv
 import re
 

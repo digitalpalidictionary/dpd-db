@@ -25,8 +25,9 @@ i + s	īs	is > iṃs > īs	x	x	catuvīsatisatasahassa, diṭṭhisīsa, belaṭ�
 ī + a	aya	ī > ay	x	x	x
 ī + n	inn	īn > inn	x	x	anunnāmāninnāmī
 ī + b	ibb	īv > ivv > ibb	īv > ibb	ī + bh	x
-ī + v	ibb	īv > ivv > ibb	īv > ibb	ī + bh	x
 ī + bh	ibbh	ībh > ibbh	īb > ibb	x	x
+ī + l	ill	īl > ill	x	x	x
+ī + v	ibb	īv > ivv > ibb	īv > ibb	ī + bh	x
 
 xu + a	va	ua > va	u > v	vā	x	need to p_exlude and c_eclude
 u + ā	vā	uā > vā	u > v	x	divādigaṇa, opilāpetvā, suvānaya 1, suvānaya 2, samannāharitvā, lavāpeti, lavāpetvā
@@ -60,6 +61,7 @@ j + s	kkh	js > kkh	x	x	x
 ja + y	jj	jy > jj	x	x	x
 jj + t	ṭṭh	jjt > ṭṭh	jt > ṭṭh	jj + th	x
 jj + y	jj	jjy > jj	y > j	x	x
+j + ṃ	ñj	jṃ > ñj (metathesis)	jṃ > ñj	x	x
 
 ñc	ṅk	ñc > ṅk (Kacc 623, 554)	ñc > ṅk	ṅk	asaṅkaccika, saṅkaccika
 
@@ -98,6 +100,7 @@ xd + b	bb	db > bb	d > b	x 	x	need to exlude roots starting with v
 xd + bh	bbh	dbh > bbh	d > b	x	x	need to exlude roots starting with v
 d + m	mm	dm > mm	d > m	x	x
 xd + y	bb	dy > bb	x	abhi	x	exclude tings
+d + y	yy	dy > yy	d > y	yy	x
 d + v	bb	dv > bb	d > b	x	x
 d + s	ss	ds > ss	d > s	x	x
 d + s	cch	ds > cch	d > c	x	x
@@ -106,6 +109,7 @@ d + ṃ	nd	dṃ > nd (metathesis)	ṃ > n	x	x
 du	dū	u > ū	x	dur	dūpadhārita, ussāvabindūpama
 dh + t	ddh	dht > ddh	x	x	x
 dh + y	jjh	dhy > jjh	x	x	x
+dh + ṃ	ndh	dhṃ > ndh (metathesis)	x	x	x
 dhi + a	jjh	dhi > dhy > jjh	x	x	x
 
 p + t	tt	pt > tt	p > t	p + th	x

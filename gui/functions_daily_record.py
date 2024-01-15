@@ -57,7 +57,7 @@ def daily_record_update(window,
     daily_record_save(pth, daily_record)
     print(daily_record[date])
 
-    window["daily_added"].update(len(daily_record[date]["added"]))
-    window["daily_edited"].update(len(daily_record[date]["edited"]))
-    window["daily_deleted"].update(len(daily_record[date]["deleted"]))
+    window["daily_added"].update(len(set(daily_record[date]["added"])))
+    window["daily_edited"].update(len(set(daily_record[date]["edited"])))
+    window["daily_deleted"].update(len(set(daily_record[date]["deleted"])))
                                       

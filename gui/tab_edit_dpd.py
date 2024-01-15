@@ -675,10 +675,12 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 tooltip="Stash the word to edit it again later"),
             sg.Button(
                 "Unstash", key="unstash_button",
-                tooltip="Unstash a word to edit it again"),
+                tooltip="Unstash a word to edit it again",
+                mouseover_colors="red"),
             sg.Button(
                 "Split", key="split_button",
-                tooltip="Stash the word and open a copy to edit"),
+                tooltip="Stash the word and open a copy to edit",
+                mouseover_colors="red"),
             sg.Button(
                 "HTML", key="html_summary_button",
                 tooltip="See a html summary of a word in db"),
