@@ -1,4 +1,6 @@
-# PaliWord table style guideline
+# style guideline
+
+## pali_words table
 
 ### pali_1
 
@@ -42,8 +44,12 @@
 
 ### verb
 
-- For all parts of speech except present tense (pr), variations include "", "caus," "pass," "caus, pass."
+- For all parts of speech except present tense (pr), variations include "", "caus", "pass"
 - For present tense (pr) this information splitted between this field and "grammar" field
+- if the $derived_from verb is denominative mention 'deno'
+- if the $derived_from verb is desiderative mention 'desid'
+- if the verb, verbal participles, indeclinable participles, idiom or sandhi is impersonal mention 'impers'
+- those variation can be combined, (eg 'impers, pass' or 'caus, pass')
 
 ### trans
 
@@ -72,9 +78,14 @@
 ### non_ia
 
 
+### sanskrit	
+
+- Closest Sanskrit cognate of the headword
+- see [explisit guide](https://github.com/digitalpalidictionary/dpd-db/blob/main/sanskrit/sanskrit_style_guide.md)
+
 ### root_key
 
-- The root_key divided by meanings.
+- The root_key divided by meanings, should be coosen from existing in pali_roots table
 
 ### root_sign
 
@@ -97,81 +108,127 @@
 
 ### root_base
 
+- Root + Conjugational sign > Base.
+- Extra information includes the causative, passive, denominative, future, irregular, desiderative forms
 
 ### family_root
 
+- All words which are formed from the same prefix + root combination
+- mention to which family of prefix(es) + root this word is belong
 
 ### family_word
 
+- All words comprised of the same component word
 
 ### family_compound
 
+- All words comprised of the same component word
+- mention parts of conpounds in dictionary form
+- if some part does not exist in dpd please add it as a new word
 
 ### construction
 
+- For words derived from a root, e.g. <b>na > a + √kar + ta + tta</b> :
+<br/>prefix(es) + root or base + primary derivative + secondary derivative(s) + case endings
+<br/>
+- For compound words, e.g. <b>abhi + okāsa + *ika</b> :
+<br/>component word 1 + component word 2 + secondary derivative(s) + case endings
 
 ### derivative
 
+- Type of derivative and (the derivative itself), e.g. <b>kita (ta)</b>
+- - <b>kita</b> – primary derivative
+- - <b>kiccha</b> – primary derivative forming potential participles
+- - <b>taddhita</b> – secondary derivative
 
 ### suffix
 
 
 ### phonetic
 
+- Phonetic changes undergone by vowels and consonants, e.g. <b>rt > t</b>
 
 ### compound_type
 
+- Type of compound in Pāli
+- for bahubbīhi comp mention from which compound type it originated (eg 'digu > bahubbīhi')
 
 ### compound_construction
 
+- Expanded construction of the compound
 
 ### non_root_in_comps
 
 
 ### source_1
 
+- Sutta number for example # 1  (DPR Quick Link)
 
 ### sutta_1
 
+- name of the sutta for example # 1
 
 ### example_1
 
+- Relevant example # 1 of the headword in context.
 
 ### source_2
 
+- Sutta number for example # 2  (DPR Quick Link)
 
 ### sutta_2
 
+- name of the sutta for example # 2
 
 ### example_2
 
+- Relevant example # 2 of the headword in context.
 
 ### antonym
 
+- Word with the opposite meaning in context.
 
 ### synonym
 
+- Word with a similar meaning in context.
 
 ### variant
 
+- Different form of the same word, either by morphology, different spelling, or a variant reading found in texts
 
 ### commentary
 
+- Meaning in context according to the Aṭṭhakathā or Ṭīkā
+- bold the $pali_1
 
 ### notes
 
+- Notes, comments and information from other sources
 
 ### cognate
 
 
 ### family_set
 
+- different categories of words
 
 ### stem
 
-
+- starting with `!` for not dictionary forms
+- * for irregular declinations
+- `-` for indeclinable
 
 ### pattern
+
+
+
+
+
+
+
+
+
+
 
 
 

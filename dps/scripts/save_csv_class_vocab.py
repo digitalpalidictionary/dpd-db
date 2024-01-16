@@ -41,23 +41,30 @@ def save_words_to_csv(sbs_class: int, filename: str):
 
     # Open the CSV file and write the headers
     with open(filename, 'w', newline='') as csvfile:
-        fieldnames = ['pali_1', 'pos', 'meaning_1', 'root', 'pattern',  'sbs_class']
+        fieldnames = ['pali', 'pos', 'meaning', 'root', 'construction', 'pattern',  'cl.']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
 
         # Write each word to the CSV file
         for word in words:
+            if word.rt:
+                root_value = word.root_clean + " " + str(word.rt.root_group) + " " + word.root_sign + " (" + word.rt.root_meaning + ")"
+            else:
+                root_value = word.root_key
+
             writer.writerow({
-                'pali_1': word.pali_1,
+                'pali': word.pali_1,
                 'pos': word.pos,
-                'meaning_1': word.meaning_1,
-                'root': word.root_key,
+                'meaning': word.meaning_1,
+                'root': root_value,
+                'construction': word.construction,
                 'pattern': word.pattern,
-                'sbs_class': word.sbs.sbs_class
+                'cl.': word.sbs.sbs_class
             })
 
 
 def save_csv_files_to_xlsx(sbs_class: int, filename: str, writer):
+
     # Check if the file exists
     if not os.path.isfile(filename):
         print(f"File {filename} does not exist.")
@@ -65,6 +72,9 @@ def save_csv_files_to_xlsx(sbs_class: int, filename: str, writer):
 
     # Read the CSV file into a DataFrame
     df = pd.read_csv(filename)
+
+    # Sort the DataFrame by the "cl." column
+    df = df.sort_values('cl.')
 
     # Get the base name of the CSV file without the extension
     sheet_name = os.path.basename(filename).split('.')[0]
