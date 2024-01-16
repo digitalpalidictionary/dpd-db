@@ -987,7 +987,7 @@ def replace_sandhi(string, field: str, sandhi_dict: dict, window) -> None:
     # remove digits in front
     string = re.sub(r"^\d*\. ", "", string)
     # remove spaces front n back
-    string = string.strip()  
+    string = string.strip()
 
     window[field].update(string)
 

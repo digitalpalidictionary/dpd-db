@@ -197,8 +197,15 @@ def check_example_headword(pd: ProgData,
                 if test1 and (test2 or test3):
                     print_to_terminal(pd, wd, pali_word)
             
+            else:
+                if "√" not in headword:
+                    print(headwords_list)
+                    print(f"[red]{headword} not found")
+                    input()
+
             if pali_word:
                 test_words_in_construction(pd, wd, pali_word)
+                
 
 
 def has_no_meaning_or_example(pali_word: PaliWord
