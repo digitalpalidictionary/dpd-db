@@ -15,7 +15,7 @@ from sqlalchemy.orm import Session
 from zipfile import ZipFile, ZIP_DEFLATED
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord, PaliRoot, Sandhi
+from db.models import PaliWord, PaliRoot, Sandhi, DerivedData
 from export_dpd import render_dpd_definition_templ
 from tools.configger import config_test
 from tools.pali_sort_key import pali_sort_key
@@ -63,8 +63,11 @@ def generate_tpr_data(pth: ProjectPaths, db_session: Session, dpd_db, __all_head
         if counter % 5000 == 0 or counter % dpd_length == 0:
             print(f"{counter:>10,} / {dpd_length:<10,}{i.pali_1:<10}")
 
+        dd = DerivedData()
+
         # headword
-        html_string = render_dpd_definition_templ(pth, i, False, dpd_definition_templ)
+        html_string = render_dpd_definition_templ(
+            pth, i, dd, False, False, False, dpd_definition_templ)
         html_string = html_string.replace("\n", "").replace("    ", "")
         html_string = re.sub("""<span class\\='g.+span>""", "", html_string)
 

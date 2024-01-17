@@ -109,7 +109,7 @@ d + ṃ	nd	dṃ > nd (metathesis)	ṃ > n	x	x
 du	dū	u > ū	x	dur	dūpadhārita, ussāvabindūpama
 dh + t	ddh	dht > ddh	x	x	x
 dh + y	jjh	dhy > jjh	x	x	x
-dh + ṃ	ndh	dhṃ > ndh (metathesis)	x	x	x
+dh + ṃ	ndh	dhṃ > ndh (metathesis)	dhṃ > ndh	x	x
 dhi + a	jjh	dhi > dhy > jjh	x	x	x
 
 p + t	tt	pt > tt	p > t	p + th	x
@@ -148,6 +148,7 @@ r + b	bb	rb > bb	r > b	r + bh	x
 r + bh	bbh	rbh > bbh	r > b	x	x
 r + m	mm	rm > mm	r > m	x	x
 r + v	bb	rv > vv > bb	v > b	x	x
+r + v	bb	rv > vv > bb	rv > bb	x	x
 ri + a	lla	ri > li > ly > ll	x	x	x
 
 l + y	ll	ly > ll	y > l	x	x
