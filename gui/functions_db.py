@@ -467,6 +467,8 @@ def delete_word(pth, db_session, values, window):
         word_id = values["id"]
         db_session.query(PaliWord).filter(word_id == PaliWord.id).delete()
         db_session.commit()
+        db_session.query(DerivedData).filter(word_id == DerivedData.id).delete()
+        db_session.commit()
         daily_record_update(window, pth, "delete", word_id)
         return True
     except Exception as e:

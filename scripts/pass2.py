@@ -189,8 +189,7 @@ def check_example_headword(pd: ProgData,
                 # test if can replace a commentary example 
                 test3 = (
                     any(
-                        item in pali_word.source_1 
-                        and item in pali_word.source_2
+                        item in pali_word.source_1
                         for item in pd.commentary_list)
                     ) and "(gram)" not in pali_word.meaning_1
 
@@ -232,6 +231,7 @@ def print_to_terminal(pd: ProgData,
     """Display the example and the headword in the terminal."""                  
 
     print("-"*50)
+    print(wd.word, wd.headword)
     print()
     print(f"[green]{wd.source} [dark_green]{wd.sutta}")
     print(f"[white]{wd.example_print}")

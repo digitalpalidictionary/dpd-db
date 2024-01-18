@@ -59,13 +59,16 @@ def inflection_to_headwords(pth: ProjectPaths):
     i2h_dict = {}
 
     for __counter__, (i, dd) in enumerate(zip(dpd_db, dd_db)):
-        inflections = dd.inflections_list
-        for inflection in inflections:
-            if inflection in all_words_set:
-                if inflection not in i2h_dict:
-                    i2h_dict[inflection] = {i.pali_1}
-                else:
-                    i2h_dict[inflection].add(i.pali_1)
+        if i.id == dd.id:
+            inflections = dd.inflections_list
+            for inflection in inflections:
+                if inflection in all_words_set:
+                    if inflection not in i2h_dict:
+                        i2h_dict[inflection] = {i.pali_1}
+                    else:
+                        i2h_dict[inflection].add(i.pali_1)
+        else:
+            print(f"id: {i.id} != dd_id: {dd.id}")
 
     print(f"{len(dpd_db):>10,}{bop():>10}")
 
