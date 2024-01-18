@@ -401,6 +401,12 @@ def determine_sbs_class(word) -> Optional[int]:
                 # print(f"Pattern: pron rest, Word: {word.pali_1}")
                 return 10
 
+            if (
+                word.pali_2 == "eva"
+            ):
+                # print(f"Pattern: eva, Word: {word.pali_1}")
+                return 10
+
             # filter pp
             if word.pos == "pp":
                 # print(f"Pattern: pp, Word: {word.pali_1}")
