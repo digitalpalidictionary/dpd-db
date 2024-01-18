@@ -107,15 +107,10 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[Rend
                 
                 combined_number_without_space = f"{prefix}{number}" if prefix and number else None
                 combined_number_with_space = f"{prefix} {number}" if prefix and number else None
+                combined_number_with_colon_with_space = f"{prefix} {number.replace('.', ':')}" if prefix and number else None
+                combined_number_with_colon_without_space = f"{prefix}{number.replace('.', ':')}" if prefix and number else None
 
-                if combined_number_without_space and combined_number_with_space:
-                    combined_numbers = [combined_number_without_space, combined_number_with_space]
-                elif combined_number_without_space:
-                    combined_numbers = [combined_number_without_space]
-                elif combined_number_with_space:
-                    combined_numbers = [combined_number_with_space]
-                else:
-                    combined_numbers = []
+                combined_numbers = [combined_number_without_space, combined_number_with_space, combined_number_with_colon_with_space, combined_number_with_colon_without_space]
 
                 for combined_number in combined_numbers:
                     if combined_number:
