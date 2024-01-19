@@ -382,8 +382,8 @@ sanskrit prp	meaning_1	is not empty	-	sanskrit	does not contain	(āna|āṇa|mā
 sanskrit: add na +	meaning_1	is not empty	-	sanskrit	does not contain	^(na|nir|niṣ|nis|a|vi)	neg	contains	neg	sanskrit	is not empty	-								pali_1	grammar	meaning_1	"[""virajji"", ""vītasoka 2"", ""suvisama""]"	10
 semi-colon in eg1	meaning_1	is not empty	-	example_1	contains	;	pos	does not equal	abbrev											pali_1	grammar	meaning_1	[]	10
 semi-colon in eg2	meaning_1	is not empty	-	example_2	contains	;	pos	does not equal	abbrev											pali_1	grammar	meaning_1	[]	10
-semicolon space 1	meaning_1	contains	 ;																	pali_1	grammar	meaning_1	[]	5
-semicolon space 2	meaning_1	contains	;\S																	pali_1	grammar	meaning_1	[]	5
+meaning_1: space + semicolon	meaning_1	contains	 ;																	pali_1	grammar	meaning_1	[]	5
+meaning_1: no space after semicolon	meaning_1	contains	;\S																	pali_1	grammar	meaning_1	[]	5
 sign base mismatch *āpaya	root_sign	equals	āpaya	root_base	does not contain	āpaya	root_base	is not empty	-											pali_1	grammar	meaning_1	[]	10
 sign base mismatch *āpe	root_sign	equals	āpe	root_base	does not contain	āpe	root_base	is not empty	-											pali_1	grammar	meaning_1	[]	10
 sign base mismatch *e	root_sign	equals	*e	root_base	does not contain	\+ \*e|\+ e	root_base	is not empty	-											pali_1	grammar	meaning_1	[]	10
