@@ -1,4 +1,5 @@
 # Make sbs_class according to class topics
+#! Use debug print before commit!
 
 import re
 
@@ -43,11 +44,11 @@ def main():
 
                 # debug check inconsistency with existing sbs.sbs_class
                 # if (
-                #     word.sbs and 
-                #     # word.sbs.sbs_class and 
-                #     # word.sbs.sbs_class != sbs_class and
-                #     word.sbs.sbs_class_anki and
-                #     sbs_class == 15
+                #     word.sbs.sbs_class and 
+                #     word.sbs.sbs_class != sbs_class and
+                #     # word.sbs.sbs_class_anki and
+                #     # sbs_class == 15 and
+                #     word.sbs
                 # ):
                 #     count += 1
                 #     print(f"{count} for {word.pali_1} || old sbs_class: {word.sbs.sbs_class} || new is {sbs_class}")
@@ -67,6 +68,15 @@ def main():
             else:
                 if word.sbs and word.sbs.sbs_class:
                     word.sbs.sbs_class = ""
+
+                    # debug check inconsistency with existing sbs.sbs_class
+                    # if (
+                    #     # word.sbs.sbs_class_anki and
+                    #     # sbs_class == 15 and
+                    #     word.sbs.sbs_class != sbs_class
+                    # ):
+                    #     count += 1
+                    #     print(f"{count} for {word.pali_1} || old sbs_class: {word.sbs.sbs_class} || new is {sbs_class}")
 
     # db_session.commit()
 
@@ -380,7 +390,10 @@ def determine_sbs_class(word) -> Optional[int]:
                 return 9
 
             # filter until-then
-            if re.match(r"^y.{1,6} t.{1,6}$", word.pali_1):
+            if (
+                re.match(r"^y.{1,6} t.{1,6}$", word.pali_1) or 
+                word.pali_2 == "yo so"
+            ):
                 # print(f"Pattern: until-then, Word: {word.pali_1}")
                 return 9
 
