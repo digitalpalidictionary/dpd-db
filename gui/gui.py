@@ -458,6 +458,7 @@ def main():
             add_spelling(pth, word)
             window["messages"].update(
                 value=f"{word} added to dictionary", text_color="white")
+            window["add_spelling"].update("")
 
         elif event == "edit_spelling_button":
             edit_spelling(pth)
@@ -744,8 +745,10 @@ def main():
 
         elif event == "synonym":
             if flags.synoyms:
-                synoyms = get_synonyms(db_session, values["pos"], values["meaning_1"])
+                synoyms = get_synonyms(
+                    db_session, values["pos"], values["meaning_1"], values["pali_1"])
                 window["synonym"].update(value=synoyms)
+                window["messages"].update(value="synonyms updated")
                 flags.synoyms = False
 
         elif event == "search_for":

@@ -14,17 +14,22 @@ from tools.pali_alphabet import pali_alphabet
 from tools.paths import ProjectPaths
 from tools.configger import config_test
 
+exceptions = [
+    "maññeti",
+    "āyataggaṃ",
+    "nayanti",
+    "āṇāti",
+    "gacchanti",
+    "jīvanti",
+    "sayissanti",
+    "gāmeti"
+]
 
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     sandhi_contractions: dict = make_sandhi_contraction_dict(db_session)
     counter = 0
-
-    exceptions = [
-        "maññeti",
-        "āyataggaṃ",
-    ]
 
     filepath = pth.temp_dir.joinpath("sandhi_contraction.tsv")
     with open(filepath, "w") as f:
@@ -133,19 +138,32 @@ def make_sandhi_contraction_dict(db_session: Session) -> SandhiContractions:
         for word in words:
             word_clean = word.replace("'", "")
 
-            if word_clean not in sandhi_contraction:
-                sandhi_contraction[word_clean] = SandhiContrItem(
-                    contractions = {word},
-                    ids = [str(id)],
-                )
+            if word not in exceptions:
 
-            else:
-                if word not in sandhi_contraction[word_clean]["contractions"]:
-                    sandhi_contraction[word_clean]["contractions"].add(word)
-                    sandhi_contraction[word_clean]["ids"] += [str(id)]
+                if word_clean not in sandhi_contraction:
+                    sandhi_contraction[word_clean] = SandhiContrItem(
+                        contractions = {word},
+                        ids = [str(id)],
+                    )
+
                 else:
-                    sandhi_contraction[word_clean]["ids"] += [str(id)]
+                    if word not in sandhi_contraction[word_clean]["contractions"]:
+                        sandhi_contraction[word_clean]["contractions"].add(word)
+                        sandhi_contraction[word_clean]["ids"] += [str(id)]
+                    else:
+                        sandhi_contraction[word_clean]["ids"] += [str(id)]
+    
+    # go back thru the db and find words without ' but in sandhi_contraction            
+    for i in db:
+        word_list = replace_split(i.example_1)
+        word_list += replace_split(i.example_2)
+        word_list += replace_split(i.commentary)
+        for word in word_list:
+            if word in sandhi_contraction:
+                sandhi_contraction[word]["contractions"].add(word)
+                sandhi_contraction[word]["ids"] += [str(i.id)]
 
+    # print out an wrong charcters
     error_list = []
     for key in sandhi_contraction:
         for char in key:

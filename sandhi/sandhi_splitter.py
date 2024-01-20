@@ -767,7 +767,7 @@ def main():
                 d = remove_dur(d)
 
             # ati
-            elif d.word.startswith("ati"):
+            if d.word.startswith("ati"):
                 d = remove_ati(d)
 
             # tā ttā tāya

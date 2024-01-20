@@ -135,9 +135,10 @@ mb 	mm	mb > mm	x	x 	x
 
 r + k	kk	rk > kk	r > k	r + kh	x
 r + kh	kkh	rkh > kkh	r > k	x	x
-r + ṇ	ṇṇ	rṇ > ṇṇ	r > ṇ	x	x
 r + g	gg	rg > gg	r > g	r + gh	x
 r + gh	ggh	rgh > ggh	rg > gg	x	x
+r + j	jj	rj > jj	x	x	x
+r + ṇ	ṇṇ	rṇ > ṇṇ	r > ṇ	x	x
 r + t	tt	rt > tt	r > t	r + th	paritthata, akattha, akatatta 1.1, akatatta 1.2, atthata 1, atthata 2, anatthata, otthaṭa 1, otthaṭa 2, otthata, katatta, katattā, nissaṭatta, pakatatta 1, patthaṭa 1.1, saṅkhatatta, vitthata, kiccatta, saṃvutatta 1
 r + th	tth	rth > tth	r > t	x	x
 r + d	dd	rd > dd	r > d	r + dh	x
