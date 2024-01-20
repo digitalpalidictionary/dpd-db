@@ -1,6 +1,7 @@
 """A class to handle all data relevant to adding user additions to the db."""
 
 import pickle
+import pandas as pd
 
 from datetime import datetime
 from rich import print
@@ -56,6 +57,15 @@ class Addition:
         with open(pth.additions_pickle_path, "wb") as file:
             pickle.dump(additions_list, file)
 
+
+    def replace_id_in_file(self, file_path):
+        df = pd.read_csv(file_path, sep='\t', header=None)
+        if self.new_id is not None:
+            df[0] = df[0].apply(lambda x: str(self.new_id) if str(x) == str(self.old_id) else x)
+            df.to_csv(file_path, sep='\t', index=False, header=False)
+            print(f"{self.old_id} has been replaced with {self.new_id} in the {file_path}")
+
+
     def __repr__(self):
         return f"""
 {'pali_word':<20}{self.pali_word}
@@ -70,5 +80,10 @@ class Addition:
 if __name__ == "__main__":
     additions_list = Addition.load_additions()
     [print(a) for a in additions_list]
-        
+
+    for addition in additions_list:
+        addition.replace_id_in_file(pth.corrections_tsv_path)
+        addition.replace_id_in_file(pth.sbs_path)
+        addition.replace_id_in_file(pth.russian_path)
+
 
