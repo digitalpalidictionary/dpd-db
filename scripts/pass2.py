@@ -5,7 +5,7 @@ import pyperclip
 import re
 
 from rich import print
-from typing import Dict, List, Tuple
+from typing import List, Tuple
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord, InflectionToHeadwords, Sandhi
@@ -37,6 +37,7 @@ class ProgData():
             "bālāvatāra", "kaccāyana", "saddanīti", "padarūpasiddhi",
             "buddhavandana"
             ]
+        self.exceptions: List[int] = [6664]
         
     def load_tried_dict(self):
         try:
@@ -192,15 +193,18 @@ def check_example_headword(pd: ProgData,
                         item in pali_word.source_1
                         for item in pd.commentary_list)
                     ) and "(gram)" not in pali_word.meaning_1
+                
+                test4 = pali_word.id not in pd.exceptions
 
-                if test1 and (test2 or test3):
+                if test1 and (test2 or test3) and test4:
                     print_to_terminal(pd, wd, pali_word)
             
             else:
                 if "√" not in headword:
+                    pali_word = PaliWord()
                     print(headwords_list)
                     print(f"[red]{headword} not found")
-                    input()
+                    print_to_terminal(pd, wd, pali_word)
 
             if pali_word:
                 test_words_in_construction(pd, wd, pali_word)

@@ -353,11 +353,17 @@ def get_compound_type_values(db_session):
 
 # print(get_compound_type_values())
 
-def get_synonyms(db_session, pos: str, string_of_meanings: str) -> str:
-
+def get_synonyms(
+        db_session, pos: str, string_of_meanings: str, pali_1: str) -> str:
+    
+    # remove brackets and split on semicolons
     string_of_meanings = re.sub(r" \(.*?\)|\(.*?\) ", "", string_of_meanings)
     list_of_meanings = string_of_meanings.split("; ")
 
+    # remove the number from pali_1
+    pali_1_clean = re.sub(r" \d.*$", "", pali_1)
+
+    # search for similar meanings
     results = db_session.query(
         PaliWord
         ).filter(
@@ -366,6 +372,7 @@ def get_synonyms(db_session, pos: str, string_of_meanings: str) -> str:
                 f"%{meaning}%") for meaning in list_of_meanings])
         ).all()
 
+    # make a dictioanary of all meanings
     meaning_dict = {}
     for i in results:
         if i.meaning_1:  # check if it's not None and not an empty string
@@ -377,16 +384,23 @@ def get_synonyms(db_session, pos: str, string_of_meanings: str) -> str:
                     else:
                         meaning_dict[meaning_clean].add(i.pali_clean)
 
-    synonyms = set()
+    # test if two meanings are the same
+    synonyms_set = set()
     for key_1 in meaning_dict:
         for key_2 in meaning_dict:
             if key_1 != key_2:
                 intersection = meaning_dict[key_1].intersection(
                     meaning_dict[key_2])
-                synonyms.update(intersection)
-    synonyms = ", ".join(sorted(synonyms, key=pali_sort_key))
-    print(synonyms)
-    return synonyms
+                synonyms_set.update(intersection)
+    
+    # remove the word itself
+    synonyms_set.discard(pali_1_clean)
+    
+    # join into a comma seperated string
+    synonyms_string = ", ".join(sorted(synonyms_set, key=pali_sort_key))
+    print(synonyms_string)
+
+    return synonyms_string
 
 
 # print(get_synonyms_and_variants("fem", "talk; speech; statement"))

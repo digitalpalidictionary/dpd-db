@@ -960,36 +960,43 @@ def test_construction(values, window, pali_clean_list):
     window["construction_error"].update(error_string, text_color="red")
 
 
-def replace_sandhi(string, field: str, sandhi_dict: dict, window) -> None:
-    pali_string = "".join(pali_alphabet)
-    splits = re.split(f"([^{pali_string}])", string)
+def replace_sandhi(
+        text: str, field: str, sandhi_dict: dict, window) -> None:
+    pali_alphabet_string = "".join(pali_alphabet)
+    splits = re.split(f"([^{pali_alphabet_string}])", text)
 
     for i in range(len(splits)):
         word = splits[i]
         if word in sandhi_dict:
             splits[i] = "//".join(sandhi_dict[word]["contractions"])
-    string = "".join(splits)
+    text = "".join(splits)
 
     # fix bold 'ti
-    string = string.replace("</b>ti", "</b>'ti")
+    text = text.replace("</b>ti", "</b>'ti")
     # fix bold 'ti
-    string = string.replace("</b>nti", "n</b>'ti")
+    text = text.replace("</b>nti", "n</b>'ti")
     # fix bold comma
-    string = string.replace(",</b>", "</b>,")
+    text = text.replace(",</b>", "</b>,")
     # fix bold stop
-    string = string.replace(".</b>", "</b>.")
+    text = text.replace(".</b>", "</b>.")
     # fix bold quote
-    string = string.replace("'</b>'", "</b>'")
+    text = text.replace("'</b>'", "</b>'")
+    # fix 'tipi
+    text = text.replace("'tipi", "'ti'pi")
     # remove [...]
-    string = re.sub(r"\[[^]]*\]", "", string)
+    text = re.sub(r"\[[^]]*\]", "", text)
     # remove double spaces
-    string = re.sub(" +", " ", string)
+    text = re.sub(" +", " ", text)
     # remove digits in front
-    string = re.sub(r"^\d*\. ", "", string)
+    text = re.sub(r"^\d*\. ", "", text)
+    # remove space comma
+    text = text.replace(" ,", ",")
+    # remove space fullstop
+    text = text.replace(" .", ".")
     # remove spaces front n back
-    string = string.strip()
+    text = text.strip()
 
-    window[field].update(string)
+    window[field].update(text)
 
 
 def test_username(sg):
