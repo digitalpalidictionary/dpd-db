@@ -931,7 +931,8 @@ def main():
                     success, action = udpate_word_in_db(
                         pth, db_session, window, values)
                     if success:
-                        compare_differences(pth, values, sg, pali_word_original2, action)
+                        book_to_add = values["book_to_add"]
+                        compare_differences(book_to_add, pth, values, sg, pali_word_original2, action)
                         clear_errors(window)
                         window["dps_id_or_pali_1"].update(values["pali_1"])
                         clear_values(values, window, username)

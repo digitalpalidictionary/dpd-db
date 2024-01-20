@@ -1013,7 +1013,7 @@ def test_username(sg):
 
 
 def compare_differences(
-        pth, values: dict, sg, pali_word_original: Optional[PaliWord], action):
+        book_to_add, pth, values: dict, sg, pali_word_original: Optional[PaliWord], action):
     """Comapre the differences between original and new word.
     Save to corrections or additions TSV."""
 
@@ -1135,7 +1135,7 @@ def compare_differences(
         while True:
             prompt = "Please comment on this new word."
             comment = sg.popup_get_text(
-                prompt, title="comment", location=(400, 400))
+                prompt, default_text=f'{book_to_add}', title="comment", location=(400, 400))
             if comment:
                 break
 
