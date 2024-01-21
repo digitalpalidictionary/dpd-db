@@ -225,7 +225,7 @@ def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:
             else:
                 added_list += [i.id]
 
-                print(f"Model Dictionary:, {model_dict}")
+                # print(f"Model Dictionary:, {model_dict}")
 
                 make_new_note(col, deck, model_dict, deck_dict, i)
             if counter % 5000 == 0:

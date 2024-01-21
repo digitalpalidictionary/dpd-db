@@ -35,32 +35,33 @@
 
 ### derived_from
 
-- Word or root from which the term is derived.
+- Word from which the pali_1 is derived.
+- (or) Combination of ruut and prefix(es) from which the pali_1 is derived.
 
 ### neg
 
-- Indicate "neg" if the term is a negative word, has neg prefix (e.g., na-, vi-).
-- If the word has two negative prefixes, indicate "neg x2."
+- Indicate "neg" if the term is a negative word, has ne.g. prefix (e.g., na-, vi-).
+- If the word has two negative prefixes, indicate "ne.g. x2."
 
 ### verb
 
 - For all parts of speech except present tense (pr), variations include "", "caus", "pass"
 - For present tense (pr) this information splitted between this field and "grammar" field
-- if the $derived_from verb is denominative mention 'deno'
-- if the $derived_from verb is desiderative mention 'desid'
-- if the verb, verbal participles, indeclinable participles, idiom or sandhi is impersonal mention 'impers'
-- those variation can be combined, (eg 'impers, pass' or 'caus, pass')
+- If the $derived_from verb is denominative mention 'deno'
+- If the $derived_from verb is desiderative mention 'desid'
+- If the verb, verbal participles, indeclinable participles, idiom or sandhi is impersonal mention 'impers'
+- Those variation can be combined, (e.g. 'impers, pass' or 'caus, pass')
 
 ### trans
 
 - "trans" for all verbs and verbal participles that take a direct object (+acc).
-- "intrans" for all verbs and verbal participles that do not take a direct object (+acc) or take it with different clase (eg +instr).
+- "intrans" for all verbs and verbal participles that do not take a direct object (+acc) or take it with different clase (e.g. +instr).
 - "ditrans" if the verb or verbal participle takes two (or more) objects.
 
 ### plus_case
 
 - Specify the case in which the object of the verb or verbal participle appears.
-- if word takes infinitive mention "+inf"
+- If word takes infinitive mention "+inf"
 
 ### meaning_1
 
@@ -81,11 +82,11 @@
 ### sanskrit	
 
 - Closest Sanskrit cognate of the headword
-- see [explisit guide](https://github.com/digitalpalidictionary/dpd-db/blob/main/sanskrit/sanskrit_style_guide.md)
+- See [explisit guide](https://github.com/digitalpalidictionary/dpd-db/blob/main/sanskrit/sanskrit_style_guide.md)
 
 ### root_key
 
-- The root_key divided by meanings, should be coosen from existing in pali_roots table
+- The root_key divided by meanings, should be chosen from existing in pali_roots table
 
 ### root_sign
 
@@ -109,12 +110,12 @@
 ### root_base
 
 - Root + Conjugational sign > Base.
-- Extra information includes the causative, passive, denominative, future, irregular, desiderative forms
+- Includes information about causative, passive, denominative, future, irregular, and desiderative forms.
 
 ### family_root
 
 - All words which are formed from the same prefix + root combination
-- mention to which family of prefix(es) + root this word is belong
+- Indicate to which family of prefix(es) + root this word belongs.
 
 ### family_word
 
@@ -123,14 +124,16 @@
 ### family_compound
 
 - All words comprised of the same component word
-- mention parts of conpounds in dictionary form
-- if some part does not exist in dpd please add it as a new word
+- Mention parts of compounds in dictionary form.
+- If some part does not exist in DPD, please add it as a new word.
 
 ### construction
 
 - For words derived from a root, e.g. <b>na > a + √kar + ta + tta</b> :
 <br/>prefix(es) + root or base + primary derivative + secondary derivative(s) + case endings
 <br/>
+- for secondary derivative add second line where showing its formation (e.g. <b>na > a + √kaṅkh + ā + ī<b><br>
+<b>akaṅkhā + ī<b>)
 - For compound words, e.g. <b>abhi + okāsa + *ika</b> :
 <br/>component word 1 + component word 2 + secondary derivative(s) + case endings
 
@@ -143,6 +146,7 @@
 
 ### suffix
 
+- Last suffix which determin type of derivative
 
 ### phonetic
 
@@ -151,38 +155,31 @@
 ### compound_type
 
 - Type of compound in Pāli
-- for bahubbīhi comp mention from which compound type it originated (eg 'digu > bahubbīhi')
+- For bahubbīhi compounds, mention from which compound type it originated  (e.g. 'digu > bahubbīhi')
 
 ### compound_construction
 
 - Expanded construction of the compound
+- Bold the declined part of the component (e.g. akat<b>aṃ</b> + ñū)
 
 ### non_root_in_comps
 
 
-### source_1
+### source_1 and source_2
 
-- Sutta number for example # 1  (DPR Quick Link)
+- Sutta number for example # 1 and 2  (DPR Quick Link)
+- Do not use space between book and sutta number (e.g. SN11.1)
 
-### sutta_1
+### sutta_1 and sutta_2
 
-- name of the sutta for example # 1
+- Name of the sutta for example # 1 and 2
+- Usually from Chaṭṭha Saṅgāyana corpus
 
-### example_1
+### example_1 and example_1
 
-- Relevant example # 1 of the headword in context.
-
-### source_2
-
-- Sutta number for example # 2  (DPR Quick Link)
-
-### sutta_2
-
-- name of the sutta for example # 2
-
-### example_2
-
-- Relevant example # 2 of the headword in context.
+- Relevant example # 1 and 2 of the headword in context.
+- Bold pali_1 in its inflected form
+- Try to avoid `-`, exeptions may be only very long compounds. (e.g. cīvara-piṇḍapāta-sen'āsana-gilānapaccaya-bhesajjaparikkhārehi)
 
 ### antonym
 
@@ -199,7 +196,7 @@
 ### commentary
 
 - Meaning in context according to the Aṭṭhakathā or Ṭīkā
-- bold the $pali_1
+- Bold the $pali_1
 
 ### notes
 
@@ -210,17 +207,19 @@
 
 ### family_set
 
-- different categories of words
+- Different categories of words
 
 ### stem
 
-- starting with `!` for not dictionary forms
+- Non-declined part of the word, without declined ending
+- Starting with `!` for not dictionary forms
 - * for irregular declinations
-- `-` for indeclinable
+- `-` for indeclinables
 
 ### pattern
 
-
+- Pattern by which the word changes its inflected forms.
+- All patterns can be found in the [inflection_templates.xlsx](https://github.com/digitalpalidictionary/dpd-db/raw/main/inflections/inflection_templates.xlsx)
 
 
 
