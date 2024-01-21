@@ -58,12 +58,15 @@ class Addition:
             pickle.dump(additions_list, file)
 
 
-    def replace_id_in_file(self, file_path):
-        df = pd.read_csv(file_path, sep='\t', header=None)
-        if self.new_id is not None:
-            df[0] = df[0].apply(lambda x: str(self.new_id) if str(x) == str(self.old_id) else x)
+    def replace_id_in_file(self, file_path, checking_data):
+        df = pd.read_csv(file_path, sep='\t', header=None, low_memory=False)
+        if (
+            self.new_id is not None and
+            self.added_date is not None and
+            datetime.strptime(self.added_date, '%Y-%m-%d') >= datetime.strptime(checking_data, '%Y-%m-%d')
+        ):
+            df[0] = df[0].apply(lambda x: (print(f"Old ID: {x}, New ID: {self.new_id} in {file_path}") or str(self.new_id)) if str(x) == str(self.old_id) else x)
             df.to_csv(file_path, sep='\t', index=False, header=False)
-            print(f"{self.old_id} has been replaced with {self.new_id} in the {file_path}")
 
 
     def __repr__(self):
@@ -81,9 +84,12 @@ if __name__ == "__main__":
     additions_list = Addition.load_additions()
     [print(a) for a in additions_list]
 
+    # from this added_date onward we going to replace old_id with new_id
+    checking_data = "2024-01-01"
+
     for addition in additions_list:
-        addition.replace_id_in_file(pth.corrections_tsv_path)
-        addition.replace_id_in_file(pth.sbs_path)
-        addition.replace_id_in_file(pth.russian_path)
+        addition.replace_id_in_file(pth.corrections_tsv_path, checking_data)
+        addition.replace_id_in_file(pth.sbs_path, checking_data)
+        addition.replace_id_in_file(pth.russian_path, checking_data)
 
 
