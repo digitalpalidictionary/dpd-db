@@ -190,7 +190,9 @@ def render_pali_word_dpd_html(extended_synonyms, db_parts: PaliWordDbParts,
     for synonym in synonyms:
         if synonym in sandhi_contractions:
             contractions = sandhi_contractions[synonym]["contractions"]
-            synonyms.extend(contractions)
+            for contraction in contractions:
+                if "'" in contraction:
+                    synonyms.append(contraction)
     synonyms += dd.sinhala_list
     synonyms += dd.devanagari_list
     synonyms += dd.thai_list

@@ -5,8 +5,6 @@ if [ ! -e "dpd.db" ]; then
     exit 1
 fi
 
-scripts/sanskrit_root_families_updater.py
-
 inflections/create_inflections_templates.py
 inflections/generate_inflection_tables.py
 inflections/transliterate_inflections.py

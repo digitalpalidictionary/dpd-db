@@ -61,6 +61,9 @@ from functions import test_username
 from functions import compare_differences
 from functions import stasher, unstasher
 from functions import increment_pali_1
+from functions import make_compound_construction
+from functions import make_construction
+from functions import make_pali_clean
 
 from functions_tests import individual_internal_tests
 from functions_tests import open_internal_tests
@@ -539,25 +542,20 @@ def main():
 
         elif event == "construction":
             if flags.construction and not values["construction"]:
-                # build a construction from root family and base
-                if values["root_key"]:
-                    family = values["family_root"].replace(" ", " + ")
-                    neg = ""
-                    if values["neg"]:
-                        neg = "na + "
-                    if values["root_base"]:
-                        # remove (end brackets)
-                        base = re.sub(r" \(.+\)$", "", values["root_base"])
-                        # remove front
-                        base = re.sub("^.+> ", "", base)
-                        family = re.sub("√.+", base, family)
-                    window["construction"].update(value=f"{neg}{family} + ")
-
-                # if compound update with pali_1
-                elif re.findall(r"\bcomp\b", values["grammar"]) != []:
-                    window["construction"].update(values["pali_1"])
-
+                construction = make_construction(values)
+                window["construction"].update(value=construction)
                 flags.construction = False
+            
+            # newline in construction
+            elif (
+                flags.construction_line2
+                and "\n" in values["construction"]
+            ):
+                pali_clean = make_pali_clean(values)
+                window["construction"].update(
+                    value=f"{values['construction']}{pali_clean}")
+                flags.construction_line2 = False
+
 
             # test construciton for missing headwords
             if not values["root_key"]:
@@ -590,14 +588,10 @@ def main():
                 flags.compound_construction and
                 not values["compound_construction"]
             ):
-                if values["root_key"]:
-                    window["compound_construction"].update(
-                        values["pali_1"])
-                    flags.compound_construction = False
-                else:
-                    window["compound_construction"].update(
-                        values["construction"])
-                    flags.compound_construction = False
+                cc = make_compound_construction(values)
+                window["compound_construction"].update(value=cc)
+                flags.compound_construction = False
+
 
         elif event == "bold_cc_button" or event == "bold_cc_enter":
             if values["bold_cc"]:

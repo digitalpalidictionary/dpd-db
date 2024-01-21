@@ -777,6 +777,7 @@ class Flags:
         self.root_base = True
         self.family_compound = True
         self.construction = True
+        self.construction_line2 = True
         self.suffix = True
         self.compound_construction = True
         self.synoyms = True
@@ -799,6 +800,7 @@ def reset_flags(flags):
     flags.root_base = True
     flags.family_compound = True
     flags.construction = True
+    flags.construction_line2 = True
     flags.suffix = True
     flags.compound_construction = True
     flags.synoyms = True
@@ -1205,7 +1207,8 @@ def unstasher(pth, window):
                 window[key].update(value)
     window["messages"].update(
         value="unstashed", text_color="white")
-    
+
+
 def increment_pali_1(values: dict) -> Tuple[str, str]:
     pali_1: str = values["pali_1"]
     pattern: str = r"\d$"
@@ -1218,3 +1221,64 @@ def increment_pali_1(values: dict) -> Tuple[str, str]:
     else:
         return (f"{pali_1} 1", f"{pali_1} 2")
 
+
+def make_pali_clean(values) -> str:
+    return re.sub(r" \d*$", "", values["pali_1"])
+
+
+def make_construction(values) -> str:
+    """Make a construction out of root family"""
+    pali_clean = make_pali_clean(values)
+
+    # root
+    if values["root_key"]:
+        family = values["family_root"].replace(" ", " + ")
+        neg = ""
+        if values["neg"]:
+            neg = "na + "
+        if values["root_base"]:
+            # remove (end brackets)
+            base = re.sub(r" \(.+\)$", "", values["root_base"])
+            # remove front
+            base = re.sub("^.+> ", "", base)
+            family = re.sub("√.+", base, family)
+        return f"{neg}{family} + "
+
+    # compound
+    elif re.findall(r"\bcomp\b", values["grammar"]):
+        return pali_clean
+    else:
+        return pali_clean
+
+
+def make_construction_line1(values) -> str:
+    # remove line 2
+    construction = re.sub(r"\n.+", "", values["construction"])
+    # remove phonetic changes >
+    construction = re.sub(r">.[^+]+", "", construction)
+    return construction
+
+
+def make_compound_construction(values):
+    pali_clean = make_pali_clean(values)
+    construction_line1 = make_construction_line1(values)
+    
+    # roots starting with su dur na
+    if values["root_key"]:
+        if values["construction"].startswith("su "):
+            return f"su + {pali_clean[2:]}"
+        elif values["construction"].startswith("dur "):
+            return f"dur + {pali_clean[3:]}"
+        elif values["construction"].startswith("na "):
+            if pali_clean.startswith("an"):
+                return f"na + {pali_clean[2:]}"
+            elif pali_clean.startswith("a"):
+                return f"na + {pali_clean[1:]}"
+            elif pali_clean.startswith("na"):
+                return f"na + {pali_clean[2:]}"  
+    
+    # compounds
+    elif re.findall(r"\bcomp\b", values["grammar"]):
+        return construction_line1
+    else:
+        return pali_clean

@@ -376,6 +376,11 @@ class PaliWord(Base):
         else:
             return ""
     
+    @property
+    def sanskrit_clean(self) -> str:
+        sanskrit_clean = re.sub(r"\[.+\]", "", self.sanskrit)
+        return sanskrit_clean.strip()
+    
     # needs_button
 
     @property
