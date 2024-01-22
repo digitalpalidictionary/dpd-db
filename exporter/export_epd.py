@@ -97,36 +97,46 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[Rend
                         {meaning: epd_string})
 
         # Extract sutta number from i.meaning_2 and use it as key in epd
-        if i.meaning_2 and (i.family_set.startswith("suttas of") or i.family_set == "bhikkhupātimokkha rules"):
+        def extract_sutta_numbers(meaning_2):
             unified_pattern = r"\(([A-Z]+)\s?([\d\.]+)\)|([A-Z]+)[\s]?([\d]+)"
-            match = re.finditer(unified_pattern, i.meaning_2)
-            
+            match = re.finditer(unified_pattern, meaning_2)
+            combined_numbers = []
+
             for m in match:
                 prefix = m.group(1) if m.group(1) else m.group(3)
                 number = m.group(2) if m.group(2) else m.group(4)
-                
                 combined_number_without_space = f"{prefix}{number}" if prefix and number else None
                 combined_number_with_space = f"{prefix} {number}" if prefix and number else None
-                combined_number_with_colon_with_space = f"{prefix} {number.replace('.', ':')}" if prefix and number else None
-                combined_number_with_colon_without_space = f"{prefix}{number.replace('.', ':')}" if prefix and number else None
 
-                combined_numbers = [combined_number_without_space, combined_number_with_space, combined_number_with_colon_with_space, combined_number_with_colon_without_space]
+                if '.' in number:
+                    combined_number_with_colon_with_space = f"{prefix} {number.replace('.', ':')}" if prefix and number else None
+                    combined_number_with_colon_without_space = f"{prefix}{number.replace('.', ':')}" if prefix and number else None
+                else:
+                    combined_number_with_colon_with_space = None
+                    combined_number_with_colon_without_space = None
 
-                for combined_number in combined_numbers:
-                    if combined_number:
-                        number_link = i.source_link_sutta
-                        if make_link:
-                            anchor_link = f'<a href="{number_link}">link</a>'
-                            epd_string = f"<b class='epd'>{i.pali_clean}</b>. {i.meaning_2} {anchor_link}" if make_link else f"<b class='epd'>{i.pali_clean}</b>. {i.meaning_2}"
-                        else:
-                            epd_string = f"<b class='epd'>{i.pali_clean}</b>. {i.meaning_2}"
+                combined_numbers.extend([combined_number_without_space, combined_number_with_space, combined_number_with_colon_with_space, combined_number_with_colon_without_space])
 
-                        if combined_number in epd.keys():
-                            epd[combined_number] += f"<br>{epd_string}"
-                        else:
-                            epd.update({combined_number: epd_string})
+            return combined_numbers
 
+        def update_epd(epd, combined_numbers, i, make_link):
+            for combined_number in combined_numbers:
+                if combined_number:
+                    number_link = i.source_link_sutta
+                    if make_link and number_link:
+                        anchor_link = f'<a href="{number_link}">link</a>'
+                        epd_string = f"<b class='epd'>{i.pali_clean}</b>. {i.meaning_2} {anchor_link}"
+                    else:
+                        epd_string = f"<b class='epd'>{i.pali_clean}</b>. {i.meaning_2}"
 
+                    if combined_number in epd.keys():
+                        epd[combined_number] += f"<br>{epd_string}"
+                    else:
+                        epd.update({combined_number: epd_string})
+
+        if i.meaning_2 and (i.family_set.startswith("suttas of") or i.family_set == "bhikkhupātimokkha rules"):
+            combined_numbers = extract_sutta_numbers(i.meaning_2)
+            update_epd(epd, combined_numbers, i, make_link)
 
         if counter % 10000 == 0:
             print(f"{counter:>10,} / {dpd_db_length:<10,} {i.pali_1[:20]:<20} {bop():>10}")
