@@ -3,6 +3,7 @@
 import pickle
 import pyperclip
 import re
+import sys
 
 from rich import print
 from typing import List, Tuple
@@ -45,6 +46,10 @@ class ProgData():
                 return pickle.load(f)
         except FileNotFoundError:
             return {self.book: dict()}
+
+    def save_tried_dict(self) -> None:
+        with open(self.pth.tried_dict_path, "wb") as f:
+                pickle.dump(self.tried_dict, f)
     
     def update_tried_dict(self, wd) -> None:
         if self.book not in self.tried_dict:
@@ -54,14 +59,22 @@ class ProgData():
         if wd.headword not in self.tried_dict[self.book][wd.word]:
             self.tried_dict[self.book][wd.word][wd.headword] = set()
         self.tried_dict[self.book][wd.word][wd.headword].add(wd.sutta_example)
-        
-        with open(self.pth.tried_dict_path, "wb") as f:
-                pickle.dump(self.tried_dict, f)
+        self.save_tried_dict()
+    
+    def update_last_word(self, wd) -> None:
+        self.tried_dict["last_word"] = wd.word
+        self.save_tried_dict()
+        index = self.word_list.index(wd.word)
+        total = len(self.word_list)
+        counter = f"{index+1} / {total+12}"
+        print("-"*50)
+        print(f"[cyan]{counter:<12}[green]last word saved: [white]{wd.word}")
+
 
 class WordData():
     def __init__(self, word) -> None:
         self.word: str = word
-        self.search_pattern: str = fr"(^|\s)({self.word})(\s|[.,;:!?]|$)"  
+        self.search_pattern: str = fr"(^|\[|\{{|\s)({self.word})(\s|[.,;:!?]|\]|\}}$)"
         self.sutta_example: Tuple[str, str, str]
         self.source: str
         self.sutta: str
@@ -90,9 +103,39 @@ class WordData():
         self.headword: str = headword
 
 
+def start_from_where(pd):
+    """
+    1. Start from the beginning
+    2. or from the last saved word
+    3. or from a specific word."""
+    print("[green]1. start from the beginning")
+    print("[green]2. start from the last saved word")
+    print(f"[green]{'3. start from a specifc word':<40}", end="")
+    user_input = input()
+    
+    if user_input == "2":
+        last_word = pd.tried_dict["last_word"]
+        index = pd.word_list.index(last_word)
+        pd.word_list = pd.word_list[index:]
+    
+    elif user_input == "3":
+        print(f"[green]{'start from which word?':<40}", end="")
+        user_input = input()
+
+        try:
+            index = pd.word_list.index(user_input)
+            pd.word_list = pd.word_list[index:]
+        except ValueError:
+            print(f"[bright_red]{user_input} not found in list")
+            start_from_where(pd)
+
+
 def main():
+    print("[bright_yellow]pass2")
     book = "kn9"
     pd = ProgData(book)
+
+    start_from_where(pd)
 
     for word in pd.word_list:
         wd = WordData(word)   
@@ -112,12 +155,12 @@ def main():
                 headwords_list = get_deconstruction_headwords(pd, word)
                 if headwords_list:
                     check_example_headword(pd, wd, headwords_list)
-
-
-# other possbilities:
-# example is commentary
-# words in  constructions
-# subwords in consrtuctions
+                
+            pd.update_last_word(wd)
+        
+        else:
+            print(f"[red]{'-'*50}")
+            print(f"[red]no sutta example found for [bright_red]{word}")
 
 
 def get_headwords(pd:ProgData,
@@ -235,14 +278,15 @@ def print_to_terminal(pd: ProgData,
     """Display the example and the headword in the terminal."""                  
 
     print("-"*50)
-    print(wd.word, wd.headword)
+    print(f"{'word: ':<12}{wd.word}")
+    print(f"{'headword: ':<12}{wd.headword}")
     print()
     print(f"[green]{wd.source} [dark_green]{wd.sutta}")
     print(f"[white]{wd.example_print}")
     print()
     print(f"[cyan]{pali_word.pali_1}: [blue3]{pali_word.pos}. [blue1]{make_meaning(pali_word)}")
     print()
-    print("[grey54]y/n: ", end="")
+    print("[white]y[grey54]es / [white]n[grey54]o / e[white]x[grey54]it: ", end="")
     pyperclip.copy(wd.word)
     ask_to_add(pd, wd, pali_word)
     
@@ -258,6 +302,8 @@ def ask_to_add(pd, wd, pali_word) -> None:
         print(f"[cyan]{pali_word.pali_1} {pali_word.id} copied to clipboard")
         print("[grey54]press any key to continue...", end= "")
         input()
+    elif should_add == "x":
+        sys.exit()
 
 
 def test_words_in_construction(

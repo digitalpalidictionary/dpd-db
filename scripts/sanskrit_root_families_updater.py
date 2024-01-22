@@ -17,20 +17,6 @@ from tools.tic_toc import tic, toc
 # the root == the word
 exceptions = ["saṃjñā", "śraddhā", "prajñā", "ājñā"]
 
-# class RootFamilyTsv():
-#     """Create a Root Family from tsv data."""
-#     def __init__(self, row):
-#         self.root_key = row["root_key"]
-#         self.root_group = row["root_group"]
-#         self.root_sign = row["root_sign"]
-#         self.root_meaning = row["root_meaning"]
-#         self.sanskrit_root = row["sanskrit_root"]
-#         self.sanskrit_root_class = row["sanskrit_root_class"]
-#         self.sanskrit_root_meaning = row["sanskrit_root_meaning"]
-#         self.pali_root_family = row["pali_root_family"]
-#         self.sanskrit_root_family = row["sanskrit_root_family"]
-#         self.sanskrit_dump = set(row["sanskrit_dump"].split(", "))
-
 
 class RootFamily():
     """Create a Root Family from db data."""
