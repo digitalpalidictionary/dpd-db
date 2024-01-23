@@ -662,51 +662,51 @@ upaṭṭhito rukkhamūlasmiṃ,
 āsan'ūpagato muni."	sandhi		yes		
 40689	meaning_lit	shines back					missing		yes		
 1702	meaning_1	is troubled by, ashamed of and disgusted with; is distressed, disturbed and disgusted					typo		yes		
-2714	notes						error				
-36907	meaning_lit	who speaks pulling down					more lit				
-75743	meaning_lit	striking against idea					more fit from saññā 2				
-49818	meaning_lit	to cause to be					since developed it is alreade 'caused to be', original lit. to cause to be developed kind of x2 caus				
-75761	notes						Bhante I am trying to remove it because it does not fit the meaning				
-36220	source_2	MN104	sutta_2	sāmagāmasuttaṃ	example_2	passatha no tumhe taṃ vacanapathaṃ, aṇuṃ vā thūlaṃ vā, yaṃ tumhe <b>n'ādhivāseyyāthā</b>'ti?	different example				
+2714	notes						error		yes		
+36907	meaning_lit	who speaks pulling down					more lit		yes		
+75743	meaning_lit	striking against idea					more fit from saññā 2	hmmm not sure which is better	no		
+49818	meaning_lit	to cause to be					since developed it is alreade 'caused to be', original lit. to cause to be developed kind of x2 caus		yes		
+75761	notes						Bhante I am trying to remove it because it does not fit the meaning		yes		
+36220	source_2	MN104	sutta_2	sāmagāmasuttaṃ	example_2	passatha no tumhe taṃ vacanapathaṃ, aṇuṃ vā thūlaṃ vā, yaṃ tumhe <b>n'ādhivāseyyāthā</b>'ti?	different example		yes		
 36430	source_1	DN16.11	sutta_1	mahāparinibbānasuttaṃ	example_1	"kattha āpo ca pathavī,
 tejo vāyo na gādhati,
 kattha dīghañ'ca rassañ'ca,
 aṇuṃ thūlaṃ subh'āsubhaṃ,
 kattha <b>nāmañ</b>'ca rūpañ'ca,
-asesaṃ uparujjhatī'ti?"	sandhi				
-44560	source_1	MN118	sutta_1	ānāpānassatisuttaṃ	example_1	idha, bhikkhave, bhikkhu araññagato vā rukkhamūlagato vā suññ'āgāragato vā nisīdati, <b>pallaṅkaṃ</b> ābhujitvā, ujuṃ kāyaṃ paṇidhāya, parimukhaṃ satiṃ upaṭṭhapetvā.	sutta example				
-4905	meaning_1	arrival; attainment					missing				
-4905	grammar	fem, abstr					missing				
-60509	notes						since it is lit, not need to duplicate info				
-18179	sanskrit	evam + rañjanīya					missing				
-18179	source_1	SN35.246	sutta_1	vīṇopamasuttaṃ	example_1	tam'enaṃ evaṃ vadeyyuṃ, esā, kho, bhante, vīṇā nāma, yassā eso saddo <b>evaṃrajanīyo</b> evaṃkamanīyo evaṃmadanīyo evaṃmucchanīyo evaṃbandhanīyo'ti.	missing				
-18142	sanskrit	evam + kamanīya					missing				
-18142	source_1	SN35.246	sutta_1	vīṇopamasuttaṃ	example_1	tam'enaṃ evaṃ vadeyyuṃ, esā, kho, bhante, vīṇā nāma, yassā eso saddo evaṃrajanīyo <b>evaṃkamanīyo</b> evaṃmadanīyo evaṃmucchanīyo evaṃbandhanīyo'ti.	missing				
-63281	meaning_1	grove of Dalbergia trees; Dalbergia tree forest					missing				
-63281	synonym	siṃsapāvana					missing				
-63281	sanskrit	śiṃśapā + vana					missing				
-63281	source_1	SN56.31	sutta_1	sīsapāvanasuttaṃ	example_1	appamattakāni, bhante, bhagavatā parittāni sīsapāpaṇṇāni pāṇinā gahitāni, atha kho etān'eva bahutarāni yad'idaṃ upari <b>sīsapāvane</b>'ti.	missing				
-63279	source_1	SN56.31	sutta_1	sīsapāvanasuttaṃ	example_1	appamattakāni, bhante, bhagavatā parittāni <b>sīsapā</b>paṇṇāni pāṇinā gahitāni, atha kho etān'eva bahutarāni yad'idaṃ upari <b>sīsapā</b>vane'ti.	missing				
-63280	sanskrit	śiṃśapā + parṇa					missing				
-63280	source_1	SN56.31	sutta_1	sīsapāvanasuttaṃ	example_1	appamattakāni, bhante, bhagavatā parittāni <b>sīsapāpaṇṇāni</b> pāṇinā gahitāni, atha kho etān'eva bahutarāni yad'idaṃ upari sīsapāvane'ti.	missing				
-5900	source_1	SN56.38	sutta_1	dutiyasūriyasuttaṃ	example_1	n'eva <b>andhakāratamaṃ</b> tadā hoti na andhakāratimisā. atha rattin'divā paññāyanti, mās'addhamāsā paññāyanti, utusaṃvaccharā paññāyanti.	missing				
-63279	link	https://en.wikipedia.org/wiki/Simsapa_tree					link correction		
-52133	meaning_1	moon					missing		
-52133	source_1	SN22.82	sutta_1	puṇṇamasuttaṃ	example_1	tena kho pana samayena bhagavā tadah'uposathe pannarase puṇṇāya puṇṇa<b>māya</b> rattiyā bhikkhusaṅghaparivuto ajjhokāse nisinno hoti.	missing		
-55179	meaning_1	material aggregate; mass of matter; first of the five aggregates					missing		
-23018	pali_1	koṭṭhika 1					added new meaning		
-8423	source_1	SN35.230	sutta_1	bāḷisikopamasuttaṃ	example_1	ayaṃ vuccati, bhikkhave, bhikkhu na gilitabaḷiso mārassa <b>abhedi</b> baḷisaṃ paribhedi baḷisaṃ na anayaṃ āpanno na byasanaṃ āpanno na yathākāmakaraṇīyo pāpimato	missing		
-43838	source_1	SN35.230	sutta_1	bāḷisikopamasuttaṃ	example_1	ayaṃ vuccati, bhikkhave, bhikkhu na gilitabaḷiso mārassa abhedi baḷisaṃ <b>paribhedi</b> baḷisaṃ na anayaṃ āpanno na byasanaṃ āpanno na yathākāmakaraṇīyo pāpimato	missing		
-27483	sanskrit	ṣaḍ + prāṇaka					missing		
-27483	source_1	SN35.247	sutta_1	chappāṇakopamasuttaṃ	example_1	seyyathā'pi, bhikkhave, puriso <b>chappāṇake</b> gahetvā nānāvisaye nānāgocare daḷhāya rajjuyā bandheyya. ahiṃ gahetvā daḷhāya rajjuyā bandheyya.	missing		
-87111	pos	masc					noun		
-87111	pali_2	koṭṭhiko					noun		
-87111	grammar	masc, from koṭṭha					noun		
-87111	stem	koṭṭhik	pattern	a masc			noun		
-56554	commentary	(MOGG) lokāya saṃvattatī'ti lokiko suṭṭhu aggo'ti <b>saggo</b>.					move from notes		
-56554	notes						move from notes		
-47112	grammar	ind, prep					prep		
-25662	grammar	ind, conj					missing		
-97111	sanskrit	yaḥ + taḥ					missing		
-187111	compound_type	chaṭṭhī tappurisa	compound_construction	bodh<b>iyā</b> + kathā			comp type		
-197111	compound_type	chaṭṭhī tappurisa	compound_construction	ajapāl<b>assa</b> + kathā			genitive		
+asesaṃ uparujjhatī'ti?"	sandhi		yes		
+44560	source_1	MN118	sutta_1	ānāpānassatisuttaṃ	example_1	idha, bhikkhave, bhikkhu araññagato vā rukkhamūlagato vā suññ'āgāragato vā nisīdati, <b>pallaṅkaṃ</b> ābhujitvā, ujuṃ kāyaṃ paṇidhāya, parimukhaṃ satiṃ upaṭṭhapetvā.	sutta example		yes		
+4905	meaning_1	arrival; attainment					missing		yes		
+4905	grammar	fem, abstr					missing		yes		
+60509	notes						since it is lit, not need to duplicate info		yes		
+18179	sanskrit	evam + rañjanīya					missing		yes		
+18179	source_1	SN35.246	sutta_1	vīṇopamasuttaṃ	example_1	tam'enaṃ evaṃ vadeyyuṃ, esā, kho, bhante, vīṇā nāma, yassā eso saddo <b>evaṃrajanīyo</b> evaṃkamanīyo evaṃmadanīyo evaṃmucchanīyo evaṃbandhanīyo'ti.	missing		yes		
+18142	sanskrit	evam + kamanīya					missing		yes		
+18142	source_1	SN35.246	sutta_1	vīṇopamasuttaṃ	example_1	tam'enaṃ evaṃ vadeyyuṃ, esā, kho, bhante, vīṇā nāma, yassā eso saddo evaṃrajanīyo <b>evaṃkamanīyo</b> evaṃmadanīyo evaṃmucchanīyo evaṃbandhanīyo'ti.	missing		yes		
+63281	meaning_1	grove of Dalbergia trees; Dalbergia tree forest					missing		yes		
+63281	synonym	siṃsapāvana					missing		yes		
+63281	sanskrit	śiṃśapā + vana					missing		yes		
+63281	source_1	SN56.31	sutta_1	sīsapāvanasuttaṃ	example_1	appamattakāni, bhante, bhagavatā parittāni sīsapāpaṇṇāni pāṇinā gahitāni, atha kho etān'eva bahutarāni yad'idaṃ upari <b>sīsapāvane</b>'ti.	missing		yes		
+63279	source_1	SN56.31	sutta_1	sīsapāvanasuttaṃ	example_1	appamattakāni, bhante, bhagavatā parittāni <b>sīsapā</b>paṇṇāni pāṇinā gahitāni, atha kho etān'eva bahutarāni yad'idaṃ upari <b>sīsapā</b>vane'ti.	missing		yes		
+63280	sanskrit	śiṃśapā + parṇa					missing		yes		
+63280	source_1	SN56.31	sutta_1	sīsapāvanasuttaṃ	example_1	appamattakāni, bhante, bhagavatā parittāni <b>sīsapāpaṇṇāni</b> pāṇinā gahitāni, atha kho etān'eva bahutarāni yad'idaṃ upari sīsapāvane'ti.	missing		yes		
+5900	source_1	SN56.38	sutta_1	dutiyasūriyasuttaṃ	example_1	n'eva <b>andhakāratamaṃ</b> tadā hoti na andhakāratimisā. atha rattin'divā paññāyanti, mās'addhamāsā paññāyanti, utusaṃvaccharā paññāyanti.	missing		yes		
+63279	link	https://en.wikipedia.org/wiki/Simsapa_tree					link correction		yes		
+52133	meaning_1	moon					missing		yes		
+52133	source_1	SN22.82	sutta_1	puṇṇamasuttaṃ	example_1	tena kho pana samayena bhagavā tadah'uposathe pannarase puṇṇāya puṇṇa<b>māya</b> rattiyā bhikkhusaṅghaparivuto ajjhokāse nisinno hoti.	missing		yes		
+55179	meaning_1	material aggregate; mass of matter; first of the five aggregates					missing		yes		
+23018	pali_1	koṭṭhika 1					added new meaning		yes		
+8423	source_1	SN35.230	sutta_1	bāḷisikopamasuttaṃ	example_1	ayaṃ vuccati, bhikkhave, bhikkhu na gilitabaḷiso mārassa <b>abhedi</b> baḷisaṃ paribhedi baḷisaṃ na anayaṃ āpanno na byasanaṃ āpanno na yathākāmakaraṇīyo pāpimato	missing		yes		
+43838	source_1	SN35.230	sutta_1	bāḷisikopamasuttaṃ	example_1	ayaṃ vuccati, bhikkhave, bhikkhu na gilitabaḷiso mārassa abhedi baḷisaṃ <b>paribhedi</b> baḷisaṃ na anayaṃ āpanno na byasanaṃ āpanno na yathākāmakaraṇīyo pāpimato	missing		yes		
+27483	sanskrit	ṣaḍ + prāṇaka					missing		yes		
+27483	source_1	SN35.247	sutta_1	chappāṇakopamasuttaṃ	example_1	seyyathā'pi, bhikkhave, puriso <b>chappāṇake</b> gahetvā nānāvisaye nānāgocare daḷhāya rajjuyā bandheyya. ahiṃ gahetvā daḷhāya rajjuyā bandheyya.	missing		yes		
+								this id is not in the db, please add ti again. 	no		
+								this is is not in the db, please add again	no		
+								id not in db 	no		
+								id not in db	no		
+56554	commentary	(MOGG) lokāya saṃvattatī'ti lokiko suṭṭhu aggo'ti <b>saggo</b>.					move from notes		yes		
+56554	notes						move from notes		yes		
+47112	grammar	ind, prep					prep		yes		
+25662	grammar	ind, conj					missing		yes		
+								id not in db	no		
+								id not in db	no		
+								id not in db	no		

@@ -292,13 +292,6 @@ def make_window():
         finalize=True,
     )
 
-    # window["id"].bind("<Return>", "_enter")
-    # for i in range(1, 4):
-    #     field = f"field{i}"
-    #     window[field].bind("<Return>", "_enter")
-    #     window[field].bind("<Key>", "_key")
-    #     window[field].bind("<FocusOut>", "_focus-out")
-
     return window
 
 
@@ -368,27 +361,32 @@ def find_next_correction(db_session, corrections_list, window, values):
 
 
 def load_next_correction(db_session, c, window, __values__):
-    db = db_session.query(PaliWord).filter(
-        c.id == PaliWord.id).first()
-    open_in_goldendict(c.id)
-    window["add_id"].update(c.id)
-    window["add_summary"].update(make_summary(db))
-    # field1
-    if c.field1:
-        window["add_field1"].update(c.field1)
-        window["add_value1_old"].update(getattr(db, c.field1))
-        window["add_value1_new"].update(c.value1)
-    # field2
-    if c.field2:
-        window["add_field2"].update(c.field2)
-        window["add_value2_old"].update(getattr(db, c.field2))
-        window["add_value2_new"].update(c.value2)
-    # field3
-    if c.field3:
-        window["add_field3"].update(c.field3)
-        window["add_value3_old"].update(getattr(db, c.field3))
-        window["add_value3_new"].update(c.value3)
-    window["add_comment"].update(c.comment)
+    db = db_session.query(PaliWord) \
+        .filter(c.id == PaliWord.id) \
+        .first()
+    if db:
+        open_in_goldendict(c.id)
+        window["add_id"].update(c.id)
+        window["add_summary"].update(make_summary(db))
+        # field1
+        if c.field1:
+            window["add_field1"].update(c.field1)
+            window["add_value1_old"].update(getattr(db, c.field1))
+            window["add_value1_new"].update(c.value1)
+        # field2
+        if c.field2:
+            window["add_field2"].update(c.field2)
+            window["add_value2_old"].update(getattr(db, c.field2))
+            window["add_value2_new"].update(c.value2)
+        # field3
+        if c.field3:
+            window["add_field3"].update(c.field3)
+            window["add_value3_old"].update(getattr(db, c.field3))
+            window["add_value3_new"].update(c.value3)
+        window["add_comment"].update(c.comment)
+    else:
+        message = f"{c.id} not found"
+        window["add_summary"].update(message, text_color="red")
 
 
 def write_to_db(db_session, values):
@@ -439,3 +437,6 @@ def update_corrections_tsv(pth: ProjectPaths, values, corrections_list, index):
 
 if __name__ == "__main__":
     main()
+    # pth = ProjectPaths()
+    # corrections = load_corrections_tsv(pth)
+    # print(corrections)

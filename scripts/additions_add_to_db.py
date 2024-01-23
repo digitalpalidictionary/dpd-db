@@ -38,21 +38,45 @@ def main():
             if not p.meaning_1:
                 p.meaning_1 = p.meaning_2
             a.update(next_id)
-            
-            print(a)
 
-            # add it to the session
-            db_session.add(p)
-
-            # increment the id
-            next_id = next_id + 1
-            added_count += 1
-
-    Addition.save_additions(additions_list)
+            if test_pali(db_session, a):
+                # increment the id
+                next_id = next_id + 1
+                added_count += 1
 
     db_session.commit()
-    print(f"{'added:':<20}{added_count:>10}")
+    Addition.save_additions(additions_list)
+    print(f"{'added:':<20}{added_count}")
+
+
+def test_pali(db_session, a):
+    """Test if pali_word is in the db already."""
+
+    pali_1 = a.pali_word.pali_1
+    
+    result = db_session.query(PaliWord).filter_by(pali_1=pali_1).first() 
+    if result:
+        print("[red]duplicate pali_1 found: ", end="")
+        print(f"[white]{a.pali_word}")
+        print("[white]r[red]ename or [white]d[red]elete? ", end="")
+        rename_delete = input ()
+        if rename_delete == "d":
+            a.pali_word = result
+            a.new_id = result.id
+            print(a)
+            return False
+        elif rename_delete == "r":
+            print("enter a new name?")
+            new_name = input()
+            a.pali_word.pali_1 = new_name
+            return test_pali(db_session, a)
+    else:
+        print(a)
+        db_session.add(a.pali_word)
+        return True
 
 
 if __name__ == "__main__":
     main()
+    # additions_list = Addition.load_additions()
+    # print(additions_list)
