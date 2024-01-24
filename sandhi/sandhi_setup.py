@@ -140,9 +140,6 @@ def main():
         zip_for_cloud()
         move_zip()
 
-    # if config_test("deconstructor", "all_texts", "yes"):
-    #     config_update("deconstructor", "all_texts", "no")
-
     toc()
 
 

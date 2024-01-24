@@ -18,60 +18,60 @@ def clean_machine(text: str, niggahita="ṃ") -> str:
     if niggahita == "ṃ":
         text = text.replace("ṁ", "ṃ")
 
-    text = text.replace(
-        ".", " ").replace(
-        ",", " ").replace(
-        ";", " ").replace(
-        ":", " ").replace(
-        "'", "").replace(
-        "‘", "").replace(
-        "’", "").replace(
-        "`", "").replace(
-        "`", "").replace(
-        "“", "").replace(
-        "”", "").replace(
-        '"', "").replace(
-        "!", "").replace(
-        "?", "").replace(
-        "+", "").replace(
-        "*", "").replace(
-        "=", "").replace(
-        "~", "").replace(
-        "﻿", "").replace(
-        "§", " ").replace(
-        "‡", " ").replace(
-        "†", " ").replace(
-        "$", " ").replace(
-        "(", " ").replace(
-        ")", " ").replace(
-        "[", " ").replace(
-        "]", " ").replace(
-        "{", " ").replace(
-        "}", " ").replace(
-        "/", " ").replace(
-        "\\", " ").replace(
-        "<", " ").replace(
-        ">", " ").replace(
-        "^", " ").replace(
-        "-", " ").replace(
-        "–", "").replace(
-        "—", " ").replace(
-        "_", "").replace(
-        "–", "").replace(
-        "…", " ").replace(
-        "  ", " ").replace(
-        "॰", "").replace(
-        "ï", "i").replace(
-        "ü", "u").replace(
-        "ạ", "a").replace(
-        '̥', "").replace(
-        "'̆'", "").replace(
-        "ใ", "").replace(
-        "'̆'", "").replace(
-        "\xad", "").replace(
-        "\xa0", "").replace(
-        "\u0306", ""
-        )
+    text = text.replace(".", " ")\
+        .replace(",", " ")\
+        .replace(";", " ")\
+        .replace(":", " ")\
+        .replace("'", "")\
+        .replace("‘", "")\
+        .replace("’", "")\
+        .replace("`", "")\
+        .replace("`", "")\
+        .replace("“", "")\
+        .replace("”", "")\
+        .replace('"', "")\
+        .replace("!", "")\
+        .replace("?", "")\
+        .replace("+", "")\
+        .replace("*", "")\
+        .replace("=", "")\
+        .replace("~", "")\
+        .replace("﻿", "")\
+        .replace("§", " ")\
+        .replace("‡", " ")\
+        .replace("†", " ")\
+        .replace("$", " ")\
+        .replace("(", " ")\
+        .replace(")", " ")\
+        .replace("[", " ")\
+        .replace("]", " ")\
+        .replace("{", " ")\
+        .replace("}", " ")\
+        .replace("/", " ")\
+        .replace("\\", " ")\
+        .replace("<", " ")\
+        .replace(">", " ")\
+        .replace("^", " ")\
+        .replace("-", " ")\
+        .replace("–", "")\
+        .replace("—", " ")\
+        .replace("_", "")\
+        .replace("–", "")\
+        .replace("…", " ")\
+        .replace("  ", " ")\
+        .replace("॰", "")\
+        .replace("ï", "i")\
+        .replace("ü", "u")\
+        .replace("ạ", "a")\
+        .replace('̥', "")\
+        .replace("'̆'", "")\
+        .replace("ใ", "")\
+        .replace("'̆'", "")\
+        .replace("\xad", "")\
+        .replace("\xa0", "")\
+        .replace("\u0306", "")\
+        .replace("&", "")\
+        .replace("°", "")
 
     text = re.sub("^ *", "", text)
     text = re.sub(" $", "", text)

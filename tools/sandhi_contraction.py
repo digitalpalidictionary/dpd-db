@@ -82,6 +82,8 @@ def make_sandhi_contraction_dict(db_session: Session) -> SandhiContractions:
         string = string.replace("}", " ")
         string = string.replace("(", " ")
         string = string.replace(")", " ")
+        string = string.replace("[", " ")
+        string = string.replace("]", " ")
         string = string.replace(":", " ")
         string = string.replace("\n", " ")
         list = string.split(" ")
