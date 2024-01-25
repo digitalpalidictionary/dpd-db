@@ -1,4 +1,10 @@
 word	pos	position	type	exceptions
+sati	fem	last	chaṭṭhī	anussaraṇasati, kāyagatāsati, micchāsati 2, sammāsati 1
+mātar	any	last	chaṭṭhī	janikāmātū, janimātar, sakamātar, samātar
+dhītar	any	last	chaṭṭhī	asakyadhītar, ekadhītar
+vepulla	any	last	chaṭṭhī	
+pasanna	any	last	sattamī	aveccappasanna, ubhatopasanna, muddhappasanna, mudhappasanna
+paṇṇa	nt	last	chaṭṭhī	tiṇapaṇṇa, haritakapaṇṇa
 citta	any	first	kammadhāraya	cittakata 1.1, cittakāra, cittakāraka, cittakilamatha, cittakelisa, cittakkhepa, cittagelañña, cittanibbāpana, cittanissita, cittanvaya, cittapaṭisaṃvedī, cittaparikkhāratthaṃ, cittapassaddhi, cittapārisuddhi, cittapārisuddhipadhāniyaṅga, cittappakopana, cittappaṭibaddha, cittappaṭisaṃvedī, cittappamaddī, cittappasāda, cittappassaddhi, cittabhāvanā, cittabhāvanānuyogamanuyutta, cittamohanī, cittasaṅkilesa, cittasaṅkhārapaṭisaṃvedī, cittasamādhi, cittasamādhipadhānasaṅkhārasamannāgata, cittasamādhippadhānasaṅkhārasamannāgata, cittasamuṭṭhānikādivasena, cittasaṃkilesa, cittasukha, cittavāra, cittavipatti, cittavisuddhattha, cittavisuddhi, cittavuḍḍhikara, cittavūpakāsa, cittavūpasama, cittavodāna, cittahetu, cittāgāra, cittānupassanā, cittānupassī, cittānurakkhī, cittālaṅkāra, cittālaṅkāracittaparikkhāratthaṃ, cittupapādapariyāya, cittuppāda, cittekaggatā, cittaṭṭhānasata, cittaja, cittanimitta, cittahetū, cittadomanassa
 sappi	nt	last	chaṭṭhī	
 bahu	any	first	kammadhāraya	bāhujañña 1, bāhujañña 2, bāhusacca

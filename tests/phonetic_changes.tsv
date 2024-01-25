@@ -1,5 +1,5 @@
 initial	final	correct	wrong	without	exceptions
--
+
 xa + u	o	au > o	u > o	o	anoka 1, anoka 2, anoka 3, anodaka, odarika, 	need more rules
 a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant
 a + ṭ	iṭ	a > i	x	a + ṭh	x
@@ -182,6 +182,7 @@ h + y	yh	hy > yh (metathesis)	hy > yh	x	x
 ṃ + i	mi	ṃi > mi	ṃ > m	x	x
 ṃ + ī	mī	ṃī > mī	ṃ > m	x	x
 ṃ + u	mu	ṃu > mu	ṃ > m	x	x
+ṃ + u	mū	ṃu > mu	ṃ > m	x	x
 ṃ + ū	mū	ṃū > mū	ṃ > m	x	x
 ṃ + e	me	ṃe > me	ṃ > m	x	x
 ṃ + o	mo	ṃo > mo	ṃ > m	x	x

@@ -20,6 +20,7 @@ scripts/anki_updater.py
 sandhi/sandhi_setup.py
 sandhi/sandhi_splitter.py
 sandhi/sandhi_postprocess.py
+scripts/deconstrutor_tissā.py
 
 frequency/mapmaker.py
 

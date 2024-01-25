@@ -68,9 +68,13 @@ grammar_dict/output/
 gui/icons/
 gui/stash/
 gui/window_layout.py
+profiler_output.txt
 resources/thai_mahachula/
 sandhi.zip
 sandhi/assets/
+sandhi/do_output.zip
+sandhi/output_do_old/
+sandhi/output_do.zip
 sandhi/output_do/
 sandhi/output/
 share/changed_headwords
@@ -88,6 +92,3 @@ tests/word_family_exceptions
 time_log.dat
 time_log.png
 tmp/
-sandhi/do_output.zip
-sandhi/output_do_old/
-profiler_output.txt

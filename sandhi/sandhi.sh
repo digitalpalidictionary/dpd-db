@@ -21,4 +21,4 @@ poetry install
 export PYTHONPATH=$PYTHONPATH:sandhi/tools
 nohup poetry run python3.11 sandhi/sandhi_splitter.py &
 # cat nohup.out
-# zip -j -r do_output.zip sandhi/output/ && zip do_output nohup.out
+# zip -j -r output_do.zip sandhi/output/ && zip output_do nohup.out
