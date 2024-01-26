@@ -196,7 +196,10 @@ def main():
     print("[bright_yellow]transliterating inflections")
 
     # check config
-    if config_test("regenerate", "transliterations", "yes"):
+    if (
+        config_test("regenerate", "transliterations", "yes")
+        or config_test("regenerate", "db_rebuild", "yes")
+    ):
         regenerate_all: bool = True
     else:
         regenerate_all: bool = False

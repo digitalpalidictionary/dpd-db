@@ -40,8 +40,8 @@ def main():
 
     # check config
     if (
-        config_test("regenerate", "inflections", "yes") or
-        config_test("regenerate", "db_rebuild", "yes")
+        config_test("regenerate", "inflections", "yes")
+        or config_test("regenerate", "db_rebuild", "yes")
     ):
         regenerate_all: bool = True
     else:

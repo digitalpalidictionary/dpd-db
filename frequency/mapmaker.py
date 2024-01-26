@@ -29,7 +29,10 @@ from tools.utils import list_into_batches
 def main():
     tic()
     # check config
-    if config_test("regenerate", "freq_maps", "yes"):
+    if (
+        config_test("regenerate", "freq_maps", "yes")
+        or config_test("regenerate", "db_rebuild", "yes")
+    ):
         regenerate_all: bool = True
     else:
         regenerate_all: bool = False
