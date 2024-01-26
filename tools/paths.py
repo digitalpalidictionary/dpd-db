@@ -12,8 +12,9 @@ class ProjectPaths:
             # The current working directory of the shell.
             base_dir = Path(os.path.abspath("."))
 
-        # ./dpd_db
+        # root
         self.dpd_db_path = base_dir.joinpath(Path("dpd.db"))
+        self.pyproject_path = base_dir.joinpath(Path("pyproject.toml"))
 
         # /anki_csvs
         self.anki_csvs_dir = base_dir.joinpath(Path("anki_csvs/"))

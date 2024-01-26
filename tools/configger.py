@@ -10,6 +10,9 @@ config = configparser.ConfigParser()
 config.read("config.ini")
 
 DEFAULT_CONFIG = {
+    "version": {
+        "version": "",
+    },
     "regenerate": {
         "inflections": "yes",
         "transliterations": "yes",
@@ -90,7 +93,7 @@ def config_write() -> None:
         config.write(file)
 
 
-def config_update(section: str, option: str, value) -> None:
+def config_update(section: str, option: str, value, silent=False) -> None:
     """Update config.ini with a new section, option & value."""
     if config.has_section(section):
         config.set(section, option, str(value))
@@ -98,7 +101,8 @@ def config_update(section: str, option: str, value) -> None:
         config.add_section(section)
         config.set(section, option, str(value))
     config_write()
-    print(f"[green]config setting updated: '{section}, {option}' is '{value}'")
+    if not silent:
+        print(f"[green]config setting updated: '{section}, {option}' is '{value}'")
 
 
 def config_test(section: str, option: str, value) -> bool:

@@ -4,7 +4,7 @@ test -e dpd.db || touch dpd.db
 
 scripts/db_rebuild_from_tsv.py
 
-bash/generating_components.sh
+bash/generate_components.sh
 
 
 

@@ -5,7 +5,7 @@ test -e dpd.db || touch dpd.db
 
 dps/scripts/db_rebuild_from_backup.py
 
-bash/generating_components.sh
+bash/generate_components.sh
 
 frequency/ebt_calculation.py
 dps/scripts/sbs_chapter_flag.py

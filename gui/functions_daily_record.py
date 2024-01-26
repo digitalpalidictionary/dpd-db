@@ -3,11 +3,11 @@ import pickle
 from rich import print
 
 from tools.paths import ProjectPaths
-from tools.date_and_time import year_month_day
+from tools.date_and_time import year_month_day_dash
 
 
 def get_daily_record(pth: ProjectPaths):
-    date = year_month_day()
+    date = year_month_day_dash()
     if not pth.daily_record_path.exists():
         daily_record: dict = {}
         daily_record = daily_record_add_date(daily_record, date)
@@ -42,7 +42,7 @@ def daily_record_update(window,
 
     """"Actions are "add", "edit", "delete", refresh"""
 
-    date = year_month_day()
+    date = year_month_day_dash()
     daily_record = get_daily_record(pth)
     if date not in daily_record:
         daily_record = daily_record_add_date(daily_record, date)

@@ -5,27 +5,20 @@ import sys
 from flask import Flask, render_template
 from flask import request
 from flask_sqlalchemy import SQLAlchemy
-from db.models import PaliWord, PaliRoot, InflectionToHeadwords
+from db.models import PaliWord, InflectionToHeadwords
 from tools.paths import ProjectPaths
-from exporter.i2html import make_html
 
 from rich import print
-from typing import List
 
-from db.get_db_session import get_db_session
-from db.models import PaliWord
-from db.models import InflectionToHeadwords
 
 from tools.configger import config_test
 from tools.exporter_functions import get_family_compounds
 from tools.exporter_functions import get_family_set
-from tools.paths import ProjectPaths
 from tools.meaning_construction import summarize_construction
 from tools.meaning_construction import make_meaning_html
 from tools.meaning_construction import make_grammar_line
 from tools.meaning_construction import degree_of_completion
-from tools.date_and_time import year_month_day
-from tools.tic_toc import tic, toc
+from tools.date_and_time import year_month_day_dash
 
 
 
@@ -41,7 +34,7 @@ class HeadwordData():
         self.fc = fc
         self.fs = fs
         self.app_name = "Jinja"
-        self.date = year_month_day()
+        self.date = year_month_day_dash()
         if config_test("dictionary", "make_link", "yes"):
             self.make_link = True
         else:

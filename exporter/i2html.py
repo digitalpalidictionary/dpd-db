@@ -20,7 +20,7 @@ from tools.meaning_construction import summarize_construction
 from tools.meaning_construction import make_meaning_html
 from tools.meaning_construction import make_grammar_line
 from tools.meaning_construction import degree_of_completion
-from tools.date_and_time import year_month_day
+from tools.date_and_time import year_month_day_dash
 from tools.tic_toc import tic, toc
 
 the_word = "assa"
@@ -37,7 +37,7 @@ class HeadwordData():
         self.fc = fc
         self.fs = fs
         self.app_name = "Jinja"
-        self.date = year_month_day()
+        self.date = year_month_day_dash()
         if config_test("dictionary", "make_link", "yes"):
             self.make_link = True
         else:

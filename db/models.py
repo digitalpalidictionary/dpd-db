@@ -32,6 +32,15 @@ from tools.pos import EXCLUDE_FROM_FREQ
 class Base(DeclarativeBase):
     pass
 
+class DbInfo(Base):
+    """Storing general key-value data such as dpd_release_version and cached
+    values, e.g. cf_set and so on."""
+    __tablename__ = "db_info"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    key: Mapped[str] = mapped_column(unique=True)
+    value: Mapped[str] = mapped_column(default='')
+
 
 class InflectionTemplates(Base):
     __tablename__ = "inflection_templates"
