@@ -52,7 +52,8 @@ def clean_machine(text: str, niggahita="ṃ") -> str:
         .replace("<", " ")\
         .replace(">", " ")\
         .replace("^", " ")\
-        .replace("-", " ")\
+        .replace(" - ", " ")\
+        .replace("-", "")\
         .replace("–", "")\
         .replace("—", " ")\
         .replace("_", "")\
