@@ -17,7 +17,7 @@ from typing import List, Dict
 from db.get_db_session import get_db_session
 from db.models import PaliWord
 
-from tools.configger import config_read, config_test
+from tools.configger import config_read
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
 from tools.tic_toc import tic, toc, bip, bop
@@ -561,7 +561,6 @@ def make_new_note(col, deck, model_dict, deck_dict, i):
 
 
 if __name__ == "__main__":
-    if config_test("anki", "update", "yes"):
-        main()
-    else:
-        print("updating is disabled in the config")
+
+    main()
+

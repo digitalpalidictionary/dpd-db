@@ -24,9 +24,29 @@ merged = pd.merge(file_new, file_old, on=['id', 'pali_1'], how='outer', indicato
 # Select rows that exist only in the file_new or only in the file_old
 mismatched_rows = merged[merged['_merge'] != 'both']
 
+# Read the backup_ru file into a DataFrame
+backup_ru = pd.read_csv(pth.russian_path, sep='\t')
+
+# Merge the mismatched_rows DataFrame with the backup_ru DataFrame on 'id'
+merged_with_ru = pd.merge(mismatched_rows, backup_ru, on='id', how='inner')
+
+# Remove duplicates based on 'id'
+merged_with_ru = merged_with_ru.drop_duplicates(subset='id')
+
+# Filter the rows that have ru_meaning
+filtered_rows = merged_with_ru[merged_with_ru['ru_meaning'].notna()] #type: ignore
+
+
 # Save the mismatched rows to a TSV file
 output_path = os.path.join(dpspth.for_compare_dir, 'mismatched_rows.tsv')
-mismatched_rows[['id', 'pali_1']].to_csv(output_path, sep='\t', index=False)
-print(f"Mismatched rows saved to {output_path}")
+# mismatched_rows[['id', 'pali_1']].to_csv(output_path, sep='\t', index=False)
+# print(f"Mismatched rows saved to {output_path}")
+
+# Save the filtered rows to a TSV file
+filtered_rows[['id', 'pali_1']].to_csv(output_path, sep='\t', index=False)
+print(f"Filtered mismatched rows saved to {output_path}")
+
+
+
 
 
