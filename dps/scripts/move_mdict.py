@@ -20,7 +20,7 @@ if config_test("dictionary", "make_mdict", "yes") or config_test("goldendict", "
    script_dir = os.path.dirname(os.path.realpath(__file__))
    deva_dir = os.path.abspath(os.path.join(script_dir, '..', '..', '..', '..'))
 
-   sync_dir = os.path.join(deva_dir, 'Mdict')
+   sync_mdict_dir = os.path.join(deva_dir, 'Mdict')
 
    share_dir = os.path.join(
       deva_dir, 
@@ -34,9 +34,9 @@ if config_test("dictionary", "make_mdict", "yes") or config_test("goldendict", "
    dpd_grammar_mdict_src = os.path.join(share_dir, 'dpd-grammar-mdict.mdx')
    dpd_deconstructor_mdict_src = os.path.join(share_dir, 'dpd-deconstructor-mdict.mdx')
 
-   dpd_mdict_dest = os.path.join(sync_dir, 'dpd-mdict.mdx')
-   dpd_grammar_mdict_dest = os.path.join(sync_dir, 'dpd-grammar-mdict.mdx')
-   dpd_deconstructor_mdict_dest = os.path.join(sync_dir, 'dpd-deconstructor-mdict.mdx')
+   dpd_mdict_dest = os.path.join(sync_mdict_dir, 'dpd-mdict.mdx')
+   dpd_grammar_mdict_dest = os.path.join(sync_mdict_dir, 'dpd-grammar-mdict.mdx')
+   dpd_deconstructor_mdict_dest = os.path.join(sync_mdict_dir, 'dpd-deconstructor-mdict.mdx')
 
 
    # Move each file if it exists

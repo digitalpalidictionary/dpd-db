@@ -30,7 +30,7 @@ def main():
 
 def call_openai(messages):
     return openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-3.5-turbo-1106",
         messages=messages
     )
 
@@ -55,7 +55,7 @@ def separate_languages_openai(chunk):
                 ---
                 **Full text**: {chunk}
 
-                Pāli sentences has diacritics āīūṭṃṇñḍṭ. English does not. Separate the Pāli and English sentences in the following text and return only clean Pāli sentences
+                Pāli sentences has diacritics āīūṅñṭḍṇḷṃṁ. English does not. Separate the Pāli and English sentences in the following text and return only clean Pāli sentences
                 ---
             """
         }

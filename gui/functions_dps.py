@@ -582,7 +582,7 @@ openai.api_key = load_openia_config()
 @timeout(15, timeout_exception=TimeoutDecoratorError)  # Setting a 15-second timeout
 def call_openai(messages):
     return openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-3.5-turbo-1106",
         messages=messages
     )
 
@@ -636,7 +636,7 @@ def ru_translate_with_openai(dpspth, pth, meaning, pali_1, grammar, suggestion_f
 
                 **English Definition**: {meaning}
 
-                Please provide few distinct Russian translations for the English definition, considering the Pali term and its grammatical context. Each synonym should be separated by `;`. Avoid repeating the same word.
+                Please provide few distinct Russian translations for the English definition, considering the Pali term and its grammatical context. Each synonym should be separated by `;`. Avoid repeating the same word, even between main words and literal meaning. In the answer please give only there few russian synonims and nothing else.
                 ---
             """
         }

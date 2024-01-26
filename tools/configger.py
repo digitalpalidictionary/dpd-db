@@ -37,7 +37,8 @@ DEFAULT_CONFIG = {
         "element_padding_x": "0",
         "element_padding_y": "0",
         "margin_x": "0",
-        "margin_y": "0"
+        "margin_y": "0",
+        "include_sbs_examples": "no"
     },
     "goldendict": {
         "copy_unzip": "no",

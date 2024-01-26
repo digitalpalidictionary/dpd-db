@@ -41,17 +41,14 @@ def main():
             sbs_class = determine_sbs_class(word)
             if sbs_class is not None:
 
-
-                # debug check inconsistency with existing sbs.sbs_class
-                # if (
-                #     word.sbs.sbs_class and 
-                #     word.sbs.sbs_class != sbs_class and
-                #     # word.sbs.sbs_class_anki and
-                #     # sbs_class == 15 and
-                #     word.sbs
-                # ):
-                #     count += 1
-                #     print(f"{count} for {word.pali_1} || old sbs_class: {word.sbs.sbs_class} || new is {sbs_class}")
+                # debug check if have a new number but it is not the same as old
+                if (
+                    word.sbs and
+                    word.sbs.sbs_class_anki and
+                    word.sbs.sbs_class != sbs_class
+                ):
+                    count += 1
+                    print(f"{count} for {word.pali_1} || old sbs_class: {word.sbs.sbs_class} || new is {sbs_class}")
 
             
                 if word.sbs and not word.sbs.sbs_class:
@@ -69,14 +66,12 @@ def main():
                 if word.sbs and word.sbs.sbs_class:
                     word.sbs.sbs_class = ""
 
-                    # debug check inconsistency with existing sbs.sbs_class
-                    # if (
-                    #     # word.sbs.sbs_class_anki and
-                    #     # sbs_class == 15 and
-                    #     word.sbs.sbs_class != sbs_class
-                    # ):
-                    #     count += 1
-                    #     print(f"{count} for {word.pali_1} || old sbs_class: {word.sbs.sbs_class} || new is {sbs_class}")
+                    # debug check if does not have a new number but have old
+                    if (
+                        word.sbs.sbs_class_anki
+                    ):
+                        count += 1
+                        print(f"{count} for {word.pali_1} || old sbs_class: {word.sbs.sbs_class} || new is {sbs_class}")
 
     # db_session.commit()
 
@@ -454,7 +449,7 @@ def determine_sbs_class(word) -> Optional[int]:
             # adv
             adv_of_time = ["pubbe", "āyatiṃ", "dāni", "yadā", "pacchā", "ajja", "tadā", "sadā", "sāyaṃ", "kadā", "idāni", "pāto", "ekadā", "suve", "purā", "atippago", "aciraṃ", "ciraṃ", "atisāyaṃ", "kālena", "pure"]
 
-            adv_of_place = ["tattha", "tatra", "ettha", "yattha", "yatra", "kattha", "sabbattha", "ekattha", "aññattha", "kuto", "tato", "yato", "ekato", "parito", "purato", "samantato", "kuhiṃ", "tahiṃ", "yahiṃ", "ittha", "idha", "katthaci", "pure"]
+            adv_of_place = ["tattha", "tatra", "ettha", "yattha", "yatra", "kattha", "sabbattha", "ekattha", "aññattha", "kuto", "tato", "yato", "ekato", "parito", "purato", "samantato", "kuhiṃ", "tahiṃ", "yahiṃ", "ittha", "idha", "katthaci", "pure", "amutra"]
 
             adv_until_then = ["yāva", "tāva", "yena", "tena"]
 

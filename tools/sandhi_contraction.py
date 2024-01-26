@@ -110,7 +110,7 @@ def make_sandhi_contraction_dict(db_session: Session) -> SandhiContractions:
                 if "'" in word:
                     word_dict[i.id].update([word])
 
-        if config_test("user", "username", "deva"):
+        if config_test("gui", "include_sbs_examples", "yes"):
 
             if i.sbs and i.sbs.sbs_example_1 is not None and "'" in i.sbs.sbs_example_1:
                 word_list = replace_split(i.sbs.sbs_example_1)

@@ -85,11 +85,11 @@ if __name__ == "__main__":
     [print(a) for a in additions_list]
 
     # from this added_date onward we going to replace old_id with new_id
-    checking_data = "2024-01-01"
+    checking_data = "2024-02-01"
 
-    for addition in additions_list:
-        addition.replace_id_in_file(pth.corrections_tsv_path, checking_data)
-        addition.replace_id_in_file(pth.sbs_path, checking_data)
-        addition.replace_id_in_file(pth.russian_path, checking_data)
+    # for addition in additions_list:
+    #     addition.replace_id_in_file(pth.corrections_tsv_path, checking_data)
+    #     addition.replace_id_in_file(pth.sbs_path, checking_data)
+    #     addition.replace_id_in_file(pth.russian_path, checking_data)
 
 
