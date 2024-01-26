@@ -26,15 +26,15 @@ def uposatha_today():
         date(2023, 12, 27),
         date(2024, 1, 26),
         date(2024, 2, 24),
-        date(2024, 3, 25),
-        date(2024, 4, 24),
-        date(2024, 5, 23),
-        date(2024, 6, 22),
-        date(2024, 7, 21),
+        date(2024, 3, 24),
+        date(2024, 4, 23),
+        date(2024, 5, 22),
+        date(2024, 6, 21),
+        date(2024, 7, 20),
         date(2024, 8, 19),
-        date(2024, 9, 18),
-        date(2024, 10, 18),
-        date(2024, 11, 16),
+        date(2024, 9, 17),
+        date(2024, 10, 17),
+        date(2024, 11, 15),
         date(2024, 12, 15),
         ]
 
@@ -50,7 +50,7 @@ def uposatha_today():
         return False
 
 
-print(uposatha_today())
+# print(uposatha_today())
 
 
 def uposatha_count(value: int):
