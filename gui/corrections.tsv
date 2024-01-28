@@ -664,7 +664,7 @@ upaṭṭhito rukkhamūlasmiṃ,
 1702	meaning_1	is troubled by, ashamed of and disgusted with; is distressed, disturbed and disgusted					typo		yes		
 2714	notes						error		yes		
 36907	meaning_lit	who speaks pulling down					more lit		yes		
-75743	meaning_lit	striking against idea					more fit from saññā 2	hmmm not sure which is better	no		
+75743	meaning_lit	striking against idea					more fit from saññā 2	hmmm not sure which is better	no	yes	
 49818	meaning_lit	to cause to be					since developed it is alreade 'caused to be', original lit. to cause to be developed kind of x2 caus		yes		
 75761	notes						Bhante I am trying to remove it because it does not fit the meaning		yes		
 36220	source_2	MN104	sutta_2	sāmagāmasuttaṃ	example_2	passatha no tumhe taṃ vacanapathaṃ, aṇuṃ vā thūlaṃ vā, yaṃ tumhe <b>n'ādhivāseyyāthā</b>'ti?	different example		yes		
@@ -706,20 +706,27 @@ asesaṃ uparujjhatī'ti?"	sandhi		yes
 77756	sanskrit	yaḥ + taḥ					missing				
 77765	compound_type	chaṭṭhī tappurisa	compound_construction	bodh<b>iyā</b> + kathā			comp type				
 77766	compound_type	chaṭṭhī tappurisa	compound_construction	ajapāl<b>assa</b> + kathā			genitive				
-11982	source_2	AN10.60	sutta_2	girimānandasuttaṃ	example_2	ṭhānaṃ kho pan'etaṃ vijjati yaṃ girimānandassa bhikkhuno dasa saññā sutvā so <b>ābādho</b> ṭhānaso paṭippassambheyya.	missing		
-18334	meaning_1	occurred; happened; befallen					missing		
-18334	meaning_lit	descended					missing		
-18334	commentary	(DNa) <b>okkamī</b>'ti iminā c'assa okkantabhāvo pāḷiyaṃ dassito, na okkamanakkamo.					missing		
-14712	meaning_1	superior; supreme; better; higher					mistake		
-14712	phonetic	dt > tt					missing		
-14712	family_compound	uttari					mistake		
-14712	compound_type		compound_construction				mistake		
-14712	grammar	adj					mistake		
-14712	synonym	atireka, anoma, anomiya, uttara, visesi, visesī					missing		
+11982	source_2	AN10.60	sutta_2	girimānandasuttaṃ	example_2	ṭhānaṃ kho pan'etaṃ vijjati yaṃ girimānandassa bhikkhuno dasa saññā sutvā so <b>ābādho</b> ṭhānaso paṭippassambheyya.	missing				
+18334	meaning_1	occurred; happened; befallen					missing				
+18334	meaning_lit	descended					missing				
+18334	commentary	(DNa) <b>okkamī</b>'ti iminā c'assa okkantabhāvo pāḷiyaṃ dassito, na okkamanakkamo.					missing				
+14712	meaning_1	superior; supreme; better; higher					mistake				
+14712	phonetic	dt > tt					missing				
+14712	family_compound	uttari					mistake				
+14712	compound_type		compound_construction				mistake				
+14712	grammar	adj					mistake				
+14712	synonym	atireka, anoma, anomiya, uttara, visesi, visesī					missing				
 14712	construction	"ud + tara + i
-uttara + i"					mistake		
-14712	commentary	(ANa) <b>uttari</b> manussadhammā'ti dasakusalakammapathasaṅkhātā manussadhammā uttariṃ.					mistake		
-14712	derivative	taddhita	suffix	i			missing		
-17890	grammar	pron, masc & nt loc sg of eta					missing		
-22170	meaning_1	for looking after the stomach; for taking care of the belly					same as kāyaparihārika		
-22904	meaning_1	complete and utter; for 100%					it seems the idiom need to have adj meaning, while before it looked like adv		
+uttara + i"					mistake				
+14712	commentary	(ANa) <b>uttari</b> manussadhammā'ti dasakusalakammapathasaṅkhātā manussadhammā uttariṃ.					mistake				
+14712	derivative	taddhita	suffix	i			missing				
+17890	grammar	pron, masc & nt loc sg of eta					missing				
+22170	meaning_1	for looking after the stomach; for taking care of the belly					same as kāyaparihārika				
+22904	meaning_1	complete and utter; for 100%					it seems the idiom need to have adj meaning, while before it looked like adv				
+46477	source_1	AN4.70	sutta_1	adhammikasuttaṃ	example_1	"gunnaṃ ce taramānānaṃ,
+jimhaṃ gacchati <b>puṅgavo</b>,
+sabbā tā jimhaṃ gacchanti,
+nette jimhaṃ gate sati."	1st ex moved to puṅgava 2		
+46477	source_2		sutta_2		example_2		1st ex moved to puṅgava 2		
+46477	meaning_1	bull					since added puṅgava 2 and there it is more about noble being		
+76729	source_2	UD45	sutta_2	uposathasuttaṃ	example_2	evam'eva kho, bhikkhave, ayaṃ dhammavinayo bahuratano anekaratano, tatr'imāni ratanāni, seyyath'idaṃ, cattāro satipaṭṭhānā, cattāro <b>sammappadhānā</b>, cattāro iddhipādā, pañc'indriyāni, pañca balāni, satta bojjh'aṅgā, ariyo aṭṭh'aṅgiko maggo	missing		

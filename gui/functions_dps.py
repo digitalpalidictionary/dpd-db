@@ -9,6 +9,7 @@ import openai
 import os
 import json
 from rich.prompt import Prompt
+import pickle
 
 from spellchecker import SpellChecker
 from nltk import word_tokenize
@@ -36,7 +37,7 @@ from functions import make_variant_list
 from functions_daily_record import daily_record_update
 
 from rich import print
-from sqlalchemy import or_
+from sqlalchemy import not_, or_
 from sqlalchemy.orm import joinedload
 from typing import Optional
 from tools.pali_sort_key import pali_sort_key
@@ -511,7 +512,7 @@ def translate_to_russian_googletrans(meaning, suggestion, error_field, window):
     try:
         translator = Translator()
         translation = translator.translate(meaning, dest='ru')
-        dps_ru_online_suggestion = translation.text.lower()
+        dps_ru_online_suggestion = translation.text.lower() # type: ignore
 
         # Add spaces after semicolons and lit. for better readability
         dps_ru_online_suggestion = dps_ru_online_suggestion.replace(";", "; ")
@@ -1024,7 +1025,7 @@ def fetch_matching_words_from_db(path, db_session) -> list:
     return matching_words
 
 
-def fetch_matching_words_from_db_with_conditions(dpspth, db_session, attribute_name, original_has_value) -> list:
+def fetch_matching_words_from_db_with_conditions(dpspth, db_session, attribute_name) -> list:
 
     ordered_ids = read_ids_from_tsv(dpspth.id_to_add_path)
     ordered_ids = remove_duplicates(ordered_ids)
@@ -1034,9 +1035,7 @@ def fetch_matching_words_from_db_with_conditions(dpspth, db_session, attribute_n
         word = db_session.query(PaliWord).filter(PaliWord.id == word_id).first()
         if word and word.sbs:
             attr_value = getattr(word.sbs, attribute_name, None)
-            if original_has_value and attr_value:
-                matching_words.append(word.pali_1)
-            elif not original_has_value and not attr_value:
+            if not attr_value:
                 matching_words.append(word.pali_1)
         if word and not word.sbs:
             matching_words.append(word.pali_1)
@@ -1136,7 +1135,7 @@ def update_sbs_category_with_change(db_session, pth, pali_1, source):
     db_session.close()
 
 
-def words_in_db_from_source(db_session, pth, source):
+def words_in_db_from_source(db_session, source):
     dpd_db = db_session.query(PaliWord).all()
 
     matching_words = []
@@ -1154,6 +1153,30 @@ def words_in_db_from_source(db_session, pth, source):
     print(f"from {source} words_to_add: {len(matching_words)}")
 
     return matching_words
+
+
+#! TODO - it is a very fast fetch, redo all other slow in the same way
+def words_in_db_with_value_in_field_sbs(db_session, field, source):
+    # Ensure the SBS model has the specified field to avoid runtime errors
+    if hasattr(SBS, field):
+        # Modify the query to include a condition that checks if the field is not empty
+        dpd_db = db_session.query(PaliWord).join(SBS, PaliWord.id == SBS.id).filter(
+            # Check if the field is not empty
+            not_(getattr(SBS, field).is_(None)),
+            not_(getattr(SBS, field) == ''),
+            # Check if the field matches the source
+            getattr(SBS, field) == source
+        ).all()
+
+        matching_words = [i.pali_1 for i in dpd_db]
+
+        print(f"words with {source} in {field}: {len(matching_words)}")
+
+        return matching_words
+    else:
+        print(f"The field '{field}' does not exist in the SBS model.")
+        return []
+
 
 
 # db functions
@@ -1368,3 +1391,19 @@ def add_number_to_pali(pth, db_session, word_id, word_pali_1):
             print(f"Updated pali_1 for id {word_id} to '{word_pali_1}'")
     else:
         print(f"No record found with id {word_id}")
+
+
+def save_gui_state_dps(dpspth, values, words_to_add_list):
+    save_state: tuple = (values, words_to_add_list)
+    print(f"[green]saving gui state (2), values:{len(values)}, words_to_add_list: {len(words_to_add_list)}")
+    with open(dpspth.dps_save_state_path, "wb") as f:
+        pickle.dump(save_state, f)
+
+
+def load_gui_state_dps(dpspth):
+    with open(dpspth.dps_save_state_path, "rb") as f:
+        save_state = pickle.load(f)
+    values = save_state[0]
+    words_to_add_list = save_state[1]
+    print(f"[green]loading gui state (2), values:{len(values)}, words_to_add_list: {len(words_to_add_list)}")
+    return values, words_to_add_list

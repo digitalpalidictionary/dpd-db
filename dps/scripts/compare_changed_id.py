@@ -46,6 +46,10 @@ output_path = os.path.join(dpspth.for_compare_dir, 'mismatched_rows.tsv')
 filtered_rows[['id', 'pali_1']].to_csv(output_path, sep='\t', index=False)
 print(f"Filtered mismatched rows saved to {output_path}")
 
+# Save the just id for gui
+filtered_rows[['id']].to_csv(dpspth.id_temp_list_path, sep='\t', index=False)
+print(f"id list saved to {dpspth.id_temp_list_path}")
+
 
 
 

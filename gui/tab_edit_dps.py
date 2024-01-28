@@ -803,9 +803,6 @@ def make_tab_edit_dps(dpspth, sg):
                 key="dps_summary_button", 
                 tooltip="See a summary of filled fields"
                 ),
-            sg.Button(
-                "Save", key="dps_save_state_button",
-                tooltip="Save the current state of the GUI"),
         ],
     ]
 

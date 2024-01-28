@@ -56,6 +56,7 @@ class DPSPaths:
 
         # /gui/stash
         self.dps_stash_path = base_dir.joinpath(Path("gui/stash/dps_stash.json"))
+        self.dps_save_state_path = base_dir.joinpath(Path("gui/stash/dps_gui_state"))
 
         # .. external
         self.sbs_anki_style_dir = base_dir.joinpath(Path("../sasanarakkha/study-tools/anki-style/"))

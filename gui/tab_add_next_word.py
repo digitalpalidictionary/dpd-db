@@ -88,46 +88,68 @@ KN
         ],
         [
             sg.Text(
-                "select sutta to add:", 
+                "sutta: ", 
                 pad=((100, 0), (0, 20)),
                 visible=username == "deva",
             ),
             sg.Input(
                 key="sutta_to_add",
-                size=(10, 1), 
+                tooltip="name of the 'sutta' from which we are adding words",
+                size=(15, 1), 
                 pad=((0, 0), (0, 20)),
                 visible=username == "deva",
             ),
-            sg.Button(
-                "Add", 
-                key="sutta_to_add_button",
-                pad=((10, 0), (0, 20)),
-                visible=username == "deva",
-            ),
-            sg.Button(
-                "Add (dps)", 
-                key="dps_sutta_to_add_button",
-                tooltip="only in dps db", 
-                visible=username == "deva",
-                pad=((10, 0), (0, 20)),
-            )
-        ],
-        [
             sg.Text(
-                "select source to add:", 
+                "source: ", 
                 pad=((100, 0), (0, 20)),
                 visible=username == "deva",
             ),
             sg.Input(
                 key="source_to_add",
-                size=(10, 1), 
+                tooltip="'source' from which we are adding words",
+                size=(8, 1), 
                 pad=((0, 0), (0, 20)),
+                visible=username == "deva",
+            ),
+            sg.Text(
+                "field: ", 
+                pad=((100, 0), (0, 20)),
+                visible=username == "deva",
+            ),
+            sg.Input(
+                key="field_for_id_list", 
+                visible=username == "deva", 
+                tooltip="'field' which needs to be updated or checked",
+                size=(15, 1), 
+                pad=((0, 0), (0, 20)),
+            ),
+        ],
+        [
+            sg.Button(
+                "Add from sutta", 
+                key="sutta_to_add_button",
+                tooltip="add words from 'sutta' full db", 
+                pad=((100, 0), (0, 20)),
                 visible=username == "deva",
             ),
             sg.Button(
                 "Add (dps)", 
+                key="dps_sutta_to_add_button",
+                tooltip="add words from 'sutta' only in dps db", 
+                visible=username == "deva",
+                pad=((10, 0), (0, 20)),
+            ),
+            sg.Button(
+                "Add from source (dps)", 
                 key="dps_add_from_source",
-                tooltip="only in dps db", 
+                tooltip="add words from 'source' only in dps db", 
+                visible=username == "deva",
+                pad=((10, 0), (0, 20)),
+            ),
+            sg.Button(
+                "source in field", 
+                key="dps_source_in_field",
+                tooltip="add words which has 'source' in sbs_'field'", 
                 visible=username == "deva",
                 pad=((10, 0), (0, 20)),
             )
@@ -167,69 +189,29 @@ KN
             )
         ],
         [
-            sg.Text("from id-list:", 
-            visible=username == "deva", 
-            pad=((100, 0), (0, 20))
+            sg.Text(
+                "Add:", 
+                pad=((100, 0), (0, 20)),
+                visible=username == "deva",
             ),
             sg.Button(
-                "Add (dps)", 
+                "from id_to_add", 
                 key="dps_word_from_id_list_button", 
                 tooltip="show all words from the id_to_add.csv file that have an empty or non-empty 'field', depending on the value of the 'has value' parameter",
                 visible=username == "deva",
                 pad=((10, 0), (0, 20)),
             ),
-            sg.Text("filed", 
-            visible=username == "deva", 
-            pad=((10, 0), (0, 20))
-            ),
-            sg.Input(
-                key="field_for_id_list", 
-                visible=username == "deva", 
-                tooltip="'field' which needs to be updated",
-                size=(15, 1), 
-                pad=((0, 0), (0, 20)),
-            ),
-            sg.Text("source", 
-            visible=username == "deva", 
-            pad=((10, 0), (0, 20))
-            ),
-            sg.Input(
-                key="source_for_id_list", 
-                visible=username == "deva", 
-                tooltip="'source' of those words (mn107, sn56, etc)",
-                size=(7, 1), 
-                pad=((0, 0), (0, 20)),
-            ),
-            sg.Checkbox('has value?', 
-            default=False, 
-            key="empty_field_id_list_check", 
-            visible=username == "deva", 
-            pad=((10, 0), (0, 20)), 
-            tooltip="does the 'field' currently have any value?"
-            ),
-        ],
-        [
-            sg.Text(
-                "from tests:", 
-                pad=((100, 0), (0, 20)),
-                visible=username == "deva",
-            ),
             sg.Button(
-                "Add", 
+                "from tests", 
                 key="from_test_to_add_button",
                 tooltip="show all words from the current dps_test_1.tsv",
                 pad=((10, 0), (0, 20)),
                 visible=username == "deva",
             ),
-            sg.Text(
-                "from temp id list:", 
-                pad=((100, 0), (0, 20)),
-                visible=username == "deva",
-            ),
             sg.Button(
-                "Add", 
+                "from id_temp_list", 
                 key="from_temp_id_list_to_add_button",
-                tooltip="show all words from the temp_id_list.csv",
+                tooltip="show all words from the id_temp_list.csv",
                 pad=((10, 0), (0, 20)),
                 visible=username == "deva",
             ),
@@ -347,13 +329,43 @@ KN
             ),
         ],
         [
+            sg.Text(
+                "load GUI",
+                text_color="white", 
+                size=(10, 1),
+                pad=((100, 0), (0, 0)),
+                visible=username == "deva"
+            ),
             sg.Button(
-                "save GUI state",
-                key="dps_save_gui_state", 
-                size=(50, 1), 
+                "state (1)",
+                key="dps_load_gui_state_1", 
+                size=(19, 1), 
+                visible=username == "deva",
+                enable_events=True, 
+            ),
+            sg.Button(
+                "state (2)",
+                key="dps_load_gui_state_2", 
+                size=(19, 1), 
+                visible=username == "deva",
+                enable_events=True,
+            ),
+        ],
+        [
+            sg.Button(
+                "save GUI state (1)",
+                key="dps_save_gui_state_1", 
+                size=(24, 1), 
                 visible=username == "deva",
                 enable_events=True, 
                 pad=((100, 0), (0, 0))
+            ),
+            sg.Button(
+                "save GUI state (2)",
+                key="dps_save_gui_state_2", 
+                size=(24, 1), 
+                visible=username == "deva",
+                enable_events=True,
             ),
         ],
         [

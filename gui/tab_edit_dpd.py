@@ -686,6 +686,7 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 tooltip="See a html summary of a word in db"),
             sg.Button(
                 "Save", key="save_state_button",
+                visible=username == "primary_user",
                 tooltip="Save the current state of the GUI"),
             sg.Button(
                 "Clear", key="clear_button", tooltip="Clear all the fields"),

@@ -2,8 +2,10 @@
 
 import pickle
 from tools.paths import ProjectPaths
+from dps.tools.paths_dps import DPSPaths
 
 pth = ProjectPaths()
+dpspth = DPSPaths()
 
 def load_pickled_data(filepath):
     """Load data from a pickled file."""
@@ -36,10 +38,12 @@ def save_modified_data(data, filepath):
         pickle.dump(data, file)
 
 # usage
-filepath = pth.additions_pickle_path
+filepath = pth.save_state_path
 
-# additions_pickle_path
-# daily_record_path
+# pth.additions_pickle_path
+# pth.daily_record_path
+# pthdps.dps_save_state_path
+# pth.save_state_path
 
 data = load_pickled_data(filepath)
 print_values(data)
