@@ -104,8 +104,8 @@ from functions_dps import tail_log
 from functions_dps import stash_values_from
 from functions_dps import unstash_values_to
 from functions_dps import dps_get_original_values
-from functions_dps import update_sbs_category
-from functions_dps import update_sbs_category_with_change
+from functions_dps import update_field
+from functions_dps import update_field_with_change
 from functions_dps import words_in_db_from_source
 from functions_dps import get_next_ids_dps
 from functions_dps import add_number_to_pali
@@ -2176,7 +2176,7 @@ def main():
                 words_to_add_list = remove_word_to_add(
                     values, window, words_to_add_list)
                 window["words_to_add_length"].update(value=len(words_to_add_list))
-                update_sbs_category(db_session, pth, values["word_to_add"][0], values["source_to_add"])
+                update_field(db_session, values["field_for_id_list"], values["word_to_add"][0], values["source_to_add"])
                 window["messages"].update(
                         value="category updated",
                         text_color="white")
@@ -2189,7 +2189,7 @@ def main():
                 words_to_add_list = remove_word_to_add(
                     values, window, words_to_add_list)
                 window["words_to_add_length"].update(value=len(words_to_add_list))
-                update_sbs_category_with_change(db_session, pth, values["word_to_add"][0], values["source_to_add"])
+                update_field_with_change(db_session, values["field_for_id_list"], values["word_to_add"][0], values["source_to_add"])
                 window["messages"].update(
                         value="word marked",
                         text_color="white")

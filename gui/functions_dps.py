@@ -1107,20 +1107,20 @@ def print_words_value(dpspth, db_session, WHAT_TO_UPDATE, SOURCE):
             print(f"{word.id} - {WHAT_TO_UPDATE} with {SOURCE}", flush=True)
 
 
-def update_sbs_category(db_session, pth, pali_1, source):
+def update_field(db_session, WHAT_TO_UPDATE, pali_1, source):
 
     word = db_session.query(PaliWord).filter(PaliWord.pali_1 == pali_1).first()
 
     if word:
         if not word.sbs:
             word.sbs = SBS(id=word.id)
-        word.sbs.sbs_category = source
+        setattr(word.sbs, WHAT_TO_UPDATE, source)
         db_session.commit()
     
     db_session.close()
 
 
-def update_sbs_category_with_change(db_session, pth, pali_1, source):
+def update_field_with_change(db_session, WHAT_TO_UPDATE, pali_1, source):
 
     word = db_session.query(PaliWord).filter(PaliWord.pali_1 == pali_1).first()
 
@@ -1129,7 +1129,7 @@ def update_sbs_category_with_change(db_session, pth, pali_1, source):
     if word:
         if not word.sbs:
             word.sbs = SBS(id=word.id)
-        word.sbs.sbs_category = source
+        setattr(word.sbs, WHAT_TO_UPDATE, source)
         db_session.commit()
     
     db_session.close()

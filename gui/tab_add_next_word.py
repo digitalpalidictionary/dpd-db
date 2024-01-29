@@ -56,6 +56,20 @@ KN
 20. peṭakopadesa:\t\tkn20
 """
 
+    corresponding_quick_links = """
+DN
+01. sīlakkhandhavagga
+02. mahāvagga (>=DN14)
+03. pāthikavagga (>=DN24)
+
+SN
+01. sagāthāvagg
+02. nidānavaggo (>=SN12)
+03. khandhavaggo (>=SN22)
+04. saḷāyatanavaggo (>=SN35)
+05. mahāvaggo (>=SN45)
+"""
+
     tab_add_next_word = [
         [
             sg.Text(
@@ -73,11 +87,16 @@ KN
                 pad=((10, 0), (20, 20)),
             ),
             sg.Button(
-                "Add (dps)", 
+                "dps", 
                 key="dps_books_to_add_button",
                 tooltip="only in dps db", 
                 visible=username == "deva",
                 pad=((10, 0), (20, 20))
+            ),
+            sg.Text(
+                "links",
+                tooltip=corresponding_quick_links,
+                visible=username == "deva",
             ),
             sg.Text(
                 "sutta codes",
@@ -95,25 +114,25 @@ KN
             sg.Input(
                 key="sutta_to_add",
                 tooltip="name of the 'sutta' from which we are adding words",
-                size=(15, 1), 
+                size=(20, 1), 
                 pad=((0, 0), (0, 20)),
                 visible=username == "deva",
             ),
             sg.Text(
                 "source: ", 
-                pad=((100, 0), (0, 20)),
+                pad=((20, 0), (0, 20)),
                 visible=username == "deva",
             ),
             sg.Input(
                 key="source_to_add",
                 tooltip="'source' from which we are adding words",
-                size=(8, 1), 
+                size=(10, 1), 
                 pad=((0, 0), (0, 20)),
                 visible=username == "deva",
             ),
             sg.Text(
                 "field: ", 
-                pad=((100, 0), (0, 20)),
+                pad=((20, 0), (0, 20)),
                 visible=username == "deva",
             ),
             sg.Input(
@@ -126,21 +145,26 @@ KN
         ],
         [
             sg.Button(
-                "Add from sutta", 
+                "from sutta", 
                 key="sutta_to_add_button",
                 tooltip="add words from 'sutta' full db", 
                 pad=((100, 0), (0, 20)),
                 visible=username == "deva",
             ),
+            sg.Text(
+                "dps:", 
+                pad=((20, 0), (0, 20)),
+                visible=username == "deva",
+            ),
             sg.Button(
-                "Add (dps)", 
+                "from sutta", 
                 key="dps_sutta_to_add_button",
                 tooltip="add words from 'sutta' only in dps db", 
                 visible=username == "deva",
                 pad=((10, 0), (0, 20)),
             ),
             sg.Button(
-                "Add from source (dps)", 
+                "from source", 
                 key="dps_add_from_source",
                 tooltip="add words from 'source' only in dps db", 
                 visible=username == "deva",
@@ -163,11 +187,17 @@ KN
             sg.Button(
                 "Add", 
                 key="from_txt_to_add_button",
+                tooltip="full db",
                 pad=((10, 0), (0, 20)),
                 visible=username == "deva",
             ),
+            sg.Text(
+                "dps:", 
+                pad=((20, 0), (0, 20)),
+                visible=username == "deva",
+            ),
             sg.Button(
-                "Add (dps)", 
+                "Add", 
                 key="dps_from_txt_to_add_button", 
                 tooltip="only in dps db",
                 visible=username == "deva",
@@ -176,7 +206,7 @@ KN
             sg.Button(
                 "No source", 
                 key="dps_from_txt_to_add_considering_source_button",
-                tooltip="show all words from text.txt that do not have a source in sbs_example(s), using the 'source to add'",
+                tooltip="show all words from text.txt that do not have a source in sbs_source(s), using the 'source to add'",
                 visible=username == "deva",
                 pad=((10, 0), (0, 20)),
             ),
@@ -197,7 +227,7 @@ KN
             sg.Button(
                 "from id_to_add", 
                 key="dps_word_from_id_list_button", 
-                tooltip="show all words from the id_to_add.csv file that have an empty or non-empty 'field', depending on the value of the 'has value' parameter",
+                tooltip="show all words from the id_to_add.csv file that have an empty 'field'",
                 visible=username == "deva",
                 pad=((10, 0), (0, 20)),
             ),
@@ -282,6 +312,7 @@ KN
             sg.Button(
                 "update",
                 key="dps_update_word", 
+                tooltip="update 'field' with 'source'",
                 pad=((100, 0), (0, 0)), 
                 size=(19, 1), 
                 visible=username == "deva",
@@ -289,13 +320,15 @@ KN
             ),
             sg.Button(
                 "mark",
-                key="dps_mark_word", 
+                key="dps_mark_word",
+                tooltip="update 'field' with 'source' + '_', e.g. if 'source' is sn35 'field' will be updated with sn35_", 
                 size=(19, 1), 
                 visible=username == "deva",
                 enable_events=True,
             ),
             sg.Text(
-                " category",
+                " field",
+                tooltip="from 'field' input box",
                 text_color="white", 
                 size=(10, 1),
                 visible=username == "deva"
