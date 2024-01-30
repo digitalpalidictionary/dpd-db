@@ -112,6 +112,7 @@ from functions_dps import add_number_to_pali
 from functions_dps import read_tsv_words
 from functions_dps import save_gui_state_dps
 from functions_dps import load_gui_state_dps
+from functions_dps import send_sutta_study_request
 
 from functions_tests_dps import dps_open_internal_tests
 from functions_tests_dps import dps_individual_internal_tests
@@ -261,6 +262,8 @@ def main():
         elif event == "word_to_add":
             if values["word_to_add"] != []:
                 open_in_goldendict(values["word_to_add"][0])
+                if username == "deva":
+                    send_sutta_study_request(values["word_to_add"][0], values['source_to_add'])
                 pyperclip.copy(values["word_to_add"][0])
                 print(window["word_to_add"].get_list_values()) # type: ignore
 

@@ -251,6 +251,8 @@ def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:
 
 def update_note_values(note, i):
     old_fields = copy.copy(note.fields)
+    tags = ""
+    tags = " ".join(note.tags)  # Convert list of tags to a single string
 
     note["id"] = str(i.id)
     note["pali_1"] = str(i.pali_1)
@@ -351,7 +353,7 @@ def update_note_values(note, i):
     note["variant"] = str(i.variant)
     note["commentary"] = str(i.commentary).replace("\n", "<br>")
     note["notes"] = str(i.notes).replace("\n", "<br>")
-    note["test"] = str(date)
+    # note["test"] = str(date)
 
     # 'link' field
     if i.link:
@@ -360,18 +362,44 @@ def update_note_values(note, i):
         note['link'] = ''
 
     # sbs_index
-    chant_index_map = load_chant_index_map()
-    chants = [
-        i.sbs.sbs_chant_pali_1,
-        i.sbs.sbs_chant_pali_2,
-        i.sbs.sbs_chant_pali_3,
-        i.sbs.sbs_chant_pali_4
-    ] if i.sbs else []
+    if i.sbs:
+        chant_index_map = load_chant_index_map()
+        chants = [
+            i.sbs.sbs_chant_pali_1,
+            i.sbs.sbs_chant_pali_2,
+            i.sbs.sbs_chant_pali_3,
+            i.sbs.sbs_chant_pali_4
+        ] if i.sbs else []
 
-    indexes = [chant_index_map.get(chant) for chant in chants if chant in chant_index_map]
-    sbs_index = min(indexes) if indexes else ""   # type: ignore 
+        indexes = [chant_index_map.get(chant) for chant in chants if chant in chant_index_map]
+        sbs_index = min(indexes) if indexes else ""   # type: ignore 
 
-    note["sbs_index"] = str(sbs_index)
+        note["sbs_index"] = str(sbs_index)
+
+        # adding _SBS tag if pubbakicca index is 75
+        if sbs_index and sbs_index != 75:
+            if not any(tag.startswith("_SBS") or tag.startswith("*parit") for tag in tags.split()):
+                if tags:
+                    tags += " "
+                tags += "_SBS"
+                note.tags = tags.split()
+            
+    # adding _pātimokkha tag if PAT is in the source
+    if i.sbs:
+        sources = [i.sbs.sbs_source_1, i.sbs.sbs_source_2, i.sbs.sbs_source_3, i.sbs.sbs_source_4]
+        if any("PAT" in source for source in sources):
+            if not any(tag.startswith("_pātimokkha") for tag in tags.split()):
+                if tags:
+                    tags += " "
+                tags += "_pātimokkha"
+                note.tags = tags.split()
+
+        # removing _pātimokkha tag if PAT is not in the source
+        else:
+            if "_pātimokkha" in tags.split():
+                tags = " ".join(tag for tag in tags.split() if not tag.startswith("_pātimokkha"))
+                note.tags = tags.split()
+
 
     # sbs_audio
     if dpspth.anki_media_dir:

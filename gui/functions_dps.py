@@ -637,7 +637,7 @@ def ru_translate_with_openai(dpspth, pth, meaning, pali_1, grammar, suggestion_f
 
                 **English Definition**: {meaning}
 
-                Please provide few distinct Russian translations for the English definition, considering the Pali term and its grammatical context. Each synonym should be separated by `;`. Avoid repeating the same word, even between main words and literal meaning. In the answer please give only there few russian synonims and nothing else.
+                Please provide few distinct Russian translations for the English definition, considering the Pali term and its grammatical context. Each synonym should be separated by `;`. Avoid repeating the same word, even between main words and literal meaning. In the answer please give only there few russian synonyms and nothing else.
                 ---
             """
         }
@@ -668,7 +668,7 @@ def ru_notes_translate_with_openai(dpspth, pth, notes, pali_1, grammar, suggesti
     messages = [
         {
             "role": "system",
-            "content": "You are a sophisticated translation model specialized in translating English notes to Russian, particularly in the context of Pāli terms and their grammatical nuances."        
+            "content": "You are a sophisticated translation model specialized in translating English notes to Russian, particularly in the context of Pāli terms and their grammatical nuances. "        
         },
         {
             "role": "user",
@@ -680,7 +680,7 @@ def ru_notes_translate_with_openai(dpspth, pth, notes, pali_1, grammar, suggesti
 
                 **English Notes**: {notes}
 
-                Translate the English notes into Russian. Make sure to take into account that these notes pertain to the Pāli term mentioned, and consider the provided grammatical context.
+                Translate the English notes into Russian. Make sure to take into account that these notes pertain to the Pāli term mentioned, and consider the provided grammatical context. In the answer please give only russian translation and nothing else. 
                 ---
             """
         }
@@ -723,7 +723,7 @@ def en_translate_with_openai(dpspth, pth, pali_1, grammar, example, suggestion_f
 
                 **Contextual Pali Sentences**: {example}
 
-                Given the details provided, list distinct English synonyms for the specified Pāli term, separated by `;`. For example: "word1; word2; word3". Ensure no repetition.
+                Given the details provided, list distinct English synonyms for the specified Pāli term, separated by `;`. For example: "word1; word2; word3". Ensure no repetition. In the answer please give only there few english synonyms and nothing else.
                 ---
             """
         }
@@ -1407,3 +1407,33 @@ def load_gui_state_dps(dpspth):
     words_to_add_list = save_state[1]
     print(f"[green]loading gui state (2), values:{len(values)}, words_to_add_list: {len(words_to_add_list)}")
     return values, words_to_add_list
+
+
+def send_sutta_study_request(word, simsapa_book):
+
+    # Construct the sutta_uid by concatenating simsapa_book with "/pli/ms"
+    sutta_uid = simsapa_book + "/pli/ms"
+
+    print(f"sutta_uid: {sutta_uid}")
+    print(f"word: {word}")
+    # Construct the params dictionary
+    params = {
+        "sutta_panels": [
+            {
+                "sutta_uid": sutta_uid,
+                "find_text": word
+            }
+        ],
+        "lookup_panel": {
+            "query_text": word
+        }
+    }
+    
+    # Send the POST request
+    response = requests.post("http://localhost:4848/sutta_study", json=params)
+    
+    # Check the response
+    if response.status_code == 200:
+        print("Request sent successfully.")
+    else:
+        print("Error:", response.status_code)
