@@ -169,12 +169,10 @@
             {% if d.ru.ru_meaning %}
             <tr>
                 <th>
-                    Russian
+                    Русский
                 </th>
                 <td>
-                    {{d.ru.ru_meaning}}
-                    {% if d.ru.ru_meaning_lit %}
-                    досл. {{d.ru.ru_meaning_lit}}
+                    {{d.ru.ru_meaning}}{% if d.ru.ru_meaning_lit %}; досл. {{d.ru.ru_meaning_lit}}
                     {% endif %}
                 </td>
             </tr>

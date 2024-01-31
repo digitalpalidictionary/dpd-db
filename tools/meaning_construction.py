@@ -33,6 +33,8 @@ def make_meaning_html(i: PaliWord) -> str:
         # add bold to meaning_2, keep lit. plain
         if "; lit." in i.meaning_2:
             return re.sub("(.+)(; lit.+)", "<b>\\1</b>\\2", i.meaning_2)
+        elif i.meaning_lit:
+            return f"<b>{i.meaning_2}</b>; lit. {i.meaning_lit}"
         else:
             return f"<b>{i.meaning_2}</b>"
 
