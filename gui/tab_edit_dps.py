@@ -803,6 +803,9 @@ def make_tab_edit_dps(dpspth, sg):
                 key="dps_summary_button", 
                 tooltip="See a summary of filled fields"
                 ),
+            sg.Button(
+                "HTML", key="dps_html_summary_button",
+                tooltip="See a html summary of a DPS data of the word in db"),
         ],
     ]
 

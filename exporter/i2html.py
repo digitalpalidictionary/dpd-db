@@ -9,7 +9,7 @@ from rich import print
 from typing import List
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import PaliWord, SBS, Russian
 from db.models import InflectionToHeadwords
 
 from tools.configger import config_test
@@ -26,7 +26,7 @@ from tools.tic_toc import tic, toc
 the_word = "assa"
 
 class HeadwordData():
-    def __init__(self, css, js, i, fc, fs):
+    def __init__(self, css, js, i, fc, fs, sbs, ru):
         self.css = css
         self.js = js
         self.meaning = make_meaning_html(i)
@@ -38,10 +38,16 @@ class HeadwordData():
         self.fs = fs
         self.app_name = "Jinja"
         self.date = year_month_day_dash()
+        self.sbs = self.convert_newlines(sbs)
+        self.ru = self.convert_newlines(ru)
         if config_test("dictionary", "make_link", "yes"):
             self.make_link = True
         else:
             self.make_link = False
+        if config_test("user", "username", "deva"):
+            self.dps_data = True
+        else:
+            self.dps_data = False
         
 
     @staticmethod
@@ -86,6 +92,7 @@ def make_html(
     db_session = get_db_session(pth.dpd_db_path)
 
     env = Environment(loader=FileSystemLoader(pth.jinja_templates_dir))
+    env.filters['safe_getattr'] = safe_getattr
     header_templ = env.get_template("header.html")
     word_template = env.get_template("complete_word.html")
 
@@ -104,7 +111,9 @@ def make_html(
     for counter, i in enumerate(results):
         fc = get_family_compounds(i)
         fs = get_family_set(i)
-        d = HeadwordData(css, js, i, fc, fs)
+        sbs = db_session.query(SBS).filter_by(id=i.id).first()
+        ru = db_session.query(Russian).filter_by(id=i.id).first()
+        d = HeadwordData(css, js, i, fc, fs, sbs, ru)
         html += word_template.render(d=d)
     
     db_session.close()
@@ -121,6 +130,11 @@ def open_html_in_browser(pth, html_content):
         webbrowser.open_new_tab("file://" + path)
     except Exception as e:
         print(f"An error occurred while opening the HTML in the browser: {e}")
+
+
+def safe_getattr(obj, attr, default=None):
+    """A safe version of getattr for Jinja templates."""
+    return getattr(obj, attr, default)
 
 
 if __name__ == "__main__":

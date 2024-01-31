@@ -1905,7 +1905,7 @@ def main():
             with open(pth.stash_path, "wb") as f:
                 pickle.dump(values, f)
             window["messages"].update(
-                value=f"{values['pali_1']} stashed", text_color="white")
+                value=f"{values['dps_pali_1']} stashed", text_color="white")
 
         elif event == "dps_unstash_button":
             with open(pth.stash_path, "rb") as f:
@@ -1913,7 +1913,7 @@ def main():
                 for key, value in unstash.items():
                     window[key].update(value)
             window["messages"].update(
-                value=f"{values['pali_1']} unstashed", text_color="white")
+                value=f"{values['dps_pali_1']} unstashed", text_color="white")
 
         elif event == "dps_open_tests_button":
             dps_open_internal_tests(dpspth)
@@ -1932,10 +1932,8 @@ def main():
                 window["messages"].update(
                     value="not a valid id or pali_1", text_color="red")
 
-        elif event == "dps_save_state_button":
-            save_gui_state(pth, values, words_to_add_list)
-            window["messages"].update(
-                    value="saved gui state", text_color="green")
+        elif event == "dps_html_summary_button":
+            make_html(pth, [values["dps_pali_1"]])
 
 
         # dps in word to add tab

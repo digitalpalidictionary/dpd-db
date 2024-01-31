@@ -273,25 +273,8 @@ def pali_row(dpspth, i: PaliWord, output="anki") -> List[str]:
         i.pattern,
         i.meaning_2,
         date,
+        i.sbs.sbs_index if i.sbs else None
     ])
-
-    # Logic for sbs_index
-    if i.sbs:
-        chant_index_map = load_chant_index_map(dpspth)
-
-        chants = [i.sbs.sbs_chant_pali_1, i.sbs.sbs_chant_pali_2, i.sbs.sbs_chant_pali_3, i.sbs.sbs_chant_pali_4]
-
-        indexes = [chant_index_map.get(chant) for chant in chants if chant in chant_index_map]
-
-        if indexes:
-            sbs_index = min(indexes)  # type: ignore 
-        else:
-            sbs_index = ""
-
-    else:
-        sbs_index = ""
-
-    fields.append(sbs_index)
 
     # Logic for sbs_audio
     if dpspth.anki_media_dir:
@@ -305,65 +288,14 @@ def pali_row(dpspth, i: PaliWord, output="anki") -> List[str]:
     else:
         console.print("[bold red]no path to anki media")
 
-    # Logic for chant links
-    if i.sbs:
-        chant_link_map = load_chant_link_map(dpspth)
-
-        # Get the individual chants
-        chants = [
-            i.sbs.sbs_chant_pali_1,
-            i.sbs.sbs_chant_pali_2,
-            i.sbs.sbs_chant_pali_3,
-            i.sbs.sbs_chant_pali_4
-        ]
-
-        # For each chant, get the corresponding link or an empty string if it doesn't exist
-        links = [chant_link_map.get(chant, "") for chant in chants]
-
-        # Append each link as separate fields
-        fields.append(links[0])  # sbs_link_1
-        fields.append(links[1])  # sbs_link_2
-        fields.append(links[2])  # sbs_link_3
-        fields.append(links[3])  # sbs_link_4
-
-    else:
-        links = ""
-        fields.append(links)
-
-
-    # Logic for class links
-
-    if i.sbs:
-        # Call the function to get the mapping
-        class_link_map = load_class_link_map(dpspth)
-
-        # Assuming you have an object `sbs` with an attribute `sbs_class_anki`
-        class_num = i.sbs.sbs_class_anki
-
-        # Assign the corresponding link from the map to class_link
-        class_link = class_link_map.get(class_num, "")  # Default to empty string if the class number doesn't exist in the map
-    else:
-        class_link = ""
-
-    fields.append(class_link)
-
-    # Logic for sutta links
-
-    if i.sbs:
-        # Call the function to get the mapping
-        sutta_link_map = load_sutta_link_map(dpspth)
-
-        # Assuming you have an object `sbs` with an attribute `sbs_category`
-        sutta_num = i.sbs.sbs_category
-
-        # Assign the corresponding link from the map to sutta_link
-        sutta_link = sutta_link_map.get(sutta_num, "")  # Default to empty string if the sutta number doesn't exist in the map
-
-    else:
-        sutta_link = ""
-
-    fields.append(sutta_link)
-
+    fields.extend([
+        i.sbs.sbs_chant_link_1 if i.sbs else None,
+        i.sbs.sbs_chant_link_2 if i.sbs else None,
+        i.sbs.sbs_chant_link_3 if i.sbs else None,
+        i.sbs.sbs_chant_link_4 if i.sbs else None,
+        i.sbs.sbs_class_link if i.sbs else None,
+        i.sbs.sbs_sutta_link if i.sbs else None,
+    ])
 
     return none_to_empty(fields)
 

@@ -19,23 +19,23 @@ def main():
 
     with engine.connect() as connection:
         connection.execute(text("""
-            DROP VIEW IF EXISTS dps;
+            DROP VIEW IF EXISTS _dps;
         """))
         
         connection.execute(text("""
-            CREATE VIEW dps AS
+            CREATE VIEW _dps AS
             SELECT 
                 COALESCE(pali_words.id, '') AS id,
-                COALESCE(derived_data.ebt_count, '') AS ebt_count,
-                COALESCE(sbs.sbs_class, '') AS sbs_class,
-                COALESCE(sbs.sbs_class_anki, '') AS sbs_class_anki,
-                COALESCE(sbs.sbs_category, '') AS sbs_category,
-                COALESCE(sbs.sbs_chapter_flag, '') AS sbs_chapter_flag,
+                COALESCE(derived_data.ebt_count, '') AS count,
+                COALESCE(sbs.sbs_class, '') AS class,
+                COALESCE(sbs.sbs_class_anki, '') AS anki,
+                COALESCE(sbs.sbs_category, '') AS categ,
+                COALESCE(sbs.sbs_index, '') AS PER,
                 COALESCE(pali_words.pali_1, '') AS pali_1, 
-                COALESCE(pali_words.pali_2, '') AS pali_2, 
+                COALESCE(pali_words.pali_2, '') AS pali_2,  
                 COALESCE(pali_words.pos, '') AS pos, 
                 COALESCE(pali_words.grammar, '') AS grammar, 
-                COALESCE(pali_words.derived_from, '') AS derived_from, 
+                COALESCE(pali_words.derived_from, '') AS derived, 
                 COALESCE(pali_words.neg, '') AS neg, 
                 COALESCE(pali_words.verb, '') AS verb, 
                 COALESCE(pali_words.trans, '') AS trans, 
@@ -47,8 +47,8 @@ def main():
                 COALESCE(russian.ru_meaning, '') AS ru_meaning, 
                 COALESCE(russian.ru_meaning_lit, '') AS ru_meaning_lit, 
                 COALESCE(pali_words.sanskrit, '') AS sanskrit, 
-                COALESCE(pali_words.root_key, '') AS root_key, 
-                COALESCE(pali_words.root_sign, '') AS root_sign, 
+                COALESCE(pali_words.root_key, '') AS root, 
+                COALESCE(pali_words.root_sign, '') AS sign, 
                 COALESCE(pali_words.root_base, '') AS root_base, 
                 COALESCE(pali_words.family_root, '') AS family_root, 
                 COALESCE(pali_words.family_word, '') AS family_word, 

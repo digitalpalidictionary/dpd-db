@@ -28,6 +28,8 @@ from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.pos import EXCLUDE_FROM_FREQ
 
+from dps.tools.sbs_table_functions import SBS_table_tools
+
 
 class Base(DeclarativeBase):
     pass
@@ -597,6 +599,7 @@ class SBS(Base):
         ForeignKey('pali_words.id'), primary_key=True)
     sbs_class_anki: Mapped[int] = mapped_column(default='')
     sbs_class: Mapped[int] = mapped_column(default='')
+    sbs_category: Mapped[str] = mapped_column(default='')
     sbs_meaning: Mapped[str] = mapped_column(default='')
     sbs_notes: Mapped[str] = mapped_column(default='')
     sbs_source_1: Mapped[str] = mapped_column(default='')
@@ -623,22 +626,90 @@ class SBS(Base):
     sbs_chant_pali_4: Mapped[str] = mapped_column(default='')
     sbs_chant_eng_4: Mapped[str] = mapped_column(default='')
     sbs_chapter_4: Mapped[str] = mapped_column(default='')
-    sbs_category: Mapped[str] = mapped_column(default='')
+
+
+    @declared_attr
+    def sbs_index(cls):
+        return Column(Integer)
+
+    def calculate_index(self):
+        chant_index_map = SBS_table_tools().load_chant_index_map()
+        chants = [self.sbs_chant_pali_1, self.sbs_chant_pali_2, self.sbs_chant_pali_3, self.sbs_chant_pali_4]
+
+        indexes = [chant_index_map.get(chant) for chant in chants if chant in chant_index_map]
+        indexes = [index for index in indexes if index is not None]  # Filter out None values
+
+        if indexes:
+            return min(indexes)
+        else:
+            return ""
+
+
+    @property
+    def needs_sbs_example_button(self) -> bool:
+        count = sum(1 for i in range(1, 5) if getattr(self, f'sbs_example_{i}', '') and getattr(self, f'sbs_example_{i}').strip())
+        return count == 1
+
+    @property
+    def needs_sbs_examples_button(self) -> bool:
+        count = sum(1 for i in range(1, 5) if getattr(self, f'sbs_example_{i}', '') and getattr(self, f'sbs_example_{i}').strip())
+        return count >= 2
+
+    # Properties for sbs_chant_link_X
+    @property
+    def sbs_chant_link_1(self):
+        chant_link_map = SBS_table_tools().load_chant_link_map()
+        return chant_link_map.get(self.sbs_chant_pali_1, "")
+
+    @property
+    def sbs_chant_link_2(self):
+        chant_link_map = SBS_table_tools().load_chant_link_map()
+        return chant_link_map.get(self.sbs_chant_pali_2, "")
+
+    @property
+    def sbs_chant_link_3(self):
+        chant_link_map = SBS_table_tools().load_chant_link_map()
+        return chant_link_map.get(self.sbs_chant_pali_3, "")
+
+    @property
+    def sbs_chant_link_4(self):
+        chant_link_map = SBS_table_tools().load_chant_link_map()
+        return chant_link_map.get(self.sbs_chant_pali_4, "")
+
+    @property
+    def sbs_class_link(self):
+        class_link_map = SBS_table_tools().load_class_link_map()
+        return class_link_map.get(self.sbs_class_anki, "")
+
+    @property
+    def sbs_sutta_link(self):
+        sutta_link_map = SBS_table_tools().load_sutta_link_map()
+        return sutta_link_map.get(self.sbs_category, "")
+    
+    @property
+    def sbs_source_link_1(self) -> str:
+        return generate_link(self.sbs_source_1) if self.sbs_source_1 else ""
+
+    @property
+    def sbs_source_link_2(self) -> str:
+        return generate_link(self.sbs_source_2) if self.sbs_source_2 else ""
+
+    @property
+    def sbs_source_link_3(self) -> str:
+        return generate_link(self.sbs_source_3) if self.sbs_source_3 else ""
+
+    @property
+    def sbs_source_link_4(self) -> str:
+        return generate_link(self.sbs_source_4) if self.sbs_source_4 else ""
+
 
     def __repr__(self) -> str:
         return f"SBS: {self.id} {self.sbs_chant_pali_1} {self.sbs_class}"
 
-    @declared_attr
-    def sbs_chapter_flag(cls):
-        return Column(Integer, nullable=True)  # Allow null values
-
-    def calculate_chapter_flag(self):
-        for i in range(1, 5):
-            chapter_attr = getattr(self, f'sbs_chapter_{i}')
-            if chapter_attr and chapter_attr.strip():
-                return 1
-        return None
-
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.sbs_index = self.calculate_index()
 
 
 class Russian(Base):

@@ -35,6 +35,7 @@ from functions import make_sandhi_ok_list
 from functions import make_variant_list
 
 from functions_daily_record import daily_record_update
+from exporter.i2html import make_html
 
 from rich import print
 from sqlalchemy import not_, or_
@@ -1221,12 +1222,18 @@ def dps_update_db(
     else:
         db_session.add(ru_word)
         db_session.add(sbs_word)
+
+    # Calculate the sbs_index and update the sbs_word object
+    sbs_index_value = sbs_word.calculate_index()
+    sbs_word.sbs_index = sbs_index_value  # Manually set the sbs_index
+
     db_session.commit()
 
     window["messages"].update(
     f"'{values['dps_id_or_pali_1']}' updated in db",
     text_color="Lime")
     daily_record_update(window, pth, "edit", word_id)
+    make_html(pth, [values["dps_pali_1"]])
 
 
 def dps_get_synonyms(db_session, pos: str, string_of_meanings: str, window, error_field) -> Optional[str]:

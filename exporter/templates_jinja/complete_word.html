@@ -3,6 +3,21 @@
 <h3>{{d.i.pali_1}}</h3>
 <div class='content summary'>
     <p>
+        {% if d.dps_data %}
+            {% if d.sbs.sbs_class_anki %}
+                <a href="{{d.sbs.sbs_class_link}}"
+                target="_blank"><i>(cl.{{d.sbs.sbs_class_anki}})</i></a>
+                {% if d.sbs.sbs_class %}
+                    <span class="gray"><i>{{d.sbs.sbs_class}}</i></span>
+                {% endif %}
+                <span class="gray"> | </span>
+            {% endif %}
+            {% if d.sbs.sbs_category %}
+                <a href="{{d.sbs.sbs_sutta_link}}"
+                target="_blank"><i>({{d.sbs.sbs_category}})</i></a> | 
+            {% endif %}
+        {% endif %}
+
         {{d.i.pos}}.
         {% if d.i.plus_case %}
             ({{d.i.plus_case}})
@@ -42,6 +57,16 @@
         onclick="button_click(this)" 
         data-target="examples_{{d.i.pali_1_}}">
         examples</a>
+    {% endif %}
+
+    {% if d.dps_data %}
+        {% if d.sbs.needs_sbs_example_button or d.sbs.needs_sbs_examples_button %}
+        <a class="button active" 
+        href="javascript:void(0);" 
+        onclick="button_click(this)" 
+        data-target="dps_example_{{d.i.pali_1_}}">
+        dps</a>
+        {% endif %}
     {% endif %}
 
     {% if d.i.needs_conjugation_button %}
@@ -138,6 +163,36 @@
                 {{d.i.pali_2}}
             </td>
         </tr>
+
+        {% if d.dps_data %}
+
+            {% if d.ru.ru_meaning %}
+            <tr>
+                <th>
+                    Russian
+                </th>
+                <td>
+                    {{d.ru.ru_meaning}}
+                    {% if d.ru.ru_meaning_lit %}
+                    досл. {{d.ru.ru_meaning_lit}}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endif %}
+
+            {% if d.sbs.sbs_meaning %}
+            <tr>
+                <th>
+                    SBS
+                </th>
+                <td>
+                    {{d.sbs.sbs_meaning}}
+                </td>
+            </tr>
+            {% endif %}
+
+        {% endif %}
+
         <tr>
             <th>
                 Grammar
@@ -294,6 +349,32 @@
         </tr>
         {% endif %}
 
+        {% if d.dps_data %}
+
+            {% if d.sbs.sbs_notes %}
+            <tr>
+                <th>
+                    SBS Notes
+                </th>
+                <td>
+                    {{d.sbs.sbs_notes}}
+                </td>
+            </tr>
+            {% endif %}
+
+            {% if d.ru.ru_notes %}
+            <tr>
+                <th>
+                    Заметки
+                </th>
+                <td>
+                    {{d.ru.ru_notes}}
+                </td>
+            </tr>
+            {% endif %}
+
+        {% endif %}
+
         {% if d.i.cognate %}
         <tr>
             <th>
@@ -379,10 +460,9 @@
 </p>
 <p class="sutta">
     {% if d.make_link and d.i.source_link_1 %}
-        <a href="{{d.i.source_link_1}}" 
+    <a href="{{d.i.source_link_1}}" 
         target="_blank">
-            {{d.i.source_1}}
-        </a>
+        {{d.i.source_1}}</a>
     {% else %}
         {{d.i.source_1}}
     {% endif %}
@@ -395,10 +475,9 @@
 </p>
 <p class="sutta">
     {% if d.make_link and d.i.source_link_2 %}
-        <a href="{{d.i.source_link_2}}" 
-        target="_blank">
-            {{d.i.source_2}}
-        </a>
+        <a href="{{d.i.source_link_2}}"
+            target="_blank">
+            {{d.i.source_2}}</a>
     {% else %}
         {{d.i.source_2}}
     {% endif %}
@@ -415,6 +494,46 @@
 </p>
 
 </div>
+{% endif %}
+
+{% if d.dps_data %}
+    {% if d.sbs.needs_sbs_example_button or d.sbs.needs_sbs_examples_button %}
+
+        <div id="dps_example_{{d.i.pali_1_}}" class="content">
+            {% for i in range(1, 5) %}
+                {% set example = d.sbs|safe_getattr('sbs_example_' ~ i) %}
+                {% set source = d.sbs|safe_getattr('sbs_source_' ~ i) %}
+                {% set source_link = d.sbs|safe_getattr('sbs_source_link_' ~ i) %}
+                {% set sutta = d.sbs|safe_getattr('sbs_sutta_' ~ i) %}
+                {% set chapter = d.sbs|safe_getattr('sbs_chapter_' ~ i) %}
+                {% set chant_pali = d.sbs|safe_getattr('sbs_chant_pali_' ~ i) %}
+                {% set chant_link = d.sbs|safe_getattr('sbs_chant_link_' ~ i) %}
+                {% set chant_eng = d.sbs|safe_getattr('sbs_chant_eng_' ~ i) %}
+                
+                {% if example %}
+                    <p>{{ example }}</p>
+                    <p class="sutta">
+                        {% if d.make_link and source_link %}
+                            <a href="{{ source_link }}"
+                            target="_blank">{{ source }}</a>
+                        {% else %}
+                            {{ source }}
+                        {% endif %}
+                        {{ sutta }}
+                    </p>
+                    {% if chapter %}
+                        <p class="sutta">
+                        {{ chapter }} <a href="{{ chant_link }}"
+                        target="_blank">{{ chant_pali }}</a>
+                        {% if chant_eng %}
+                            {{ chant_eng }}
+                        {% endif %}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endif %}
 
 <!-- declension -->
