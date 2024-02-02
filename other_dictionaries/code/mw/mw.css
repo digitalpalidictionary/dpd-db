@@ -1,0 +1,59 @@
+<html><head><style>body {
+    font-family: "Noto Sans", "DejaVu Serif", "Verajja Serif";
+}
+
+h2 {
+    font-size: 130%;
+    margin-top: 10px;
+    margin-bottom: 1px;
+}
+
+hom {
+    font-weight: 500;
+    color: darkorange;
+}
+
+s1 {
+    font-weight: 500;
+    color: darkorange;
+}
+
+lex {
+    font-weight: 500;
+    color: darkslategray;
+}
+
+i {
+    font-style: italic;
+}
+
+etym {
+    font-style: italic;
+}
+
+pc,
+pcol,
+shortlong {
+    color: darkslategray;
+}
+
+ls {
+    font-weight: 500;
+    color: darkslategray;
+}
+
+ab {
+    color: darkslategray;
+}
+
+bot {
+    color: #925000;
+}
+
+
+sub {
+    color: darkslategray;
+    vertical-align: baseline;
+}
+
+</style></head><body>

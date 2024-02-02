@@ -92,3 +92,7 @@ tests/word_family_exceptions
 time_log.dat
 time_log.png
 tmp/
+other_dictionaries/code/cpd/output
+other_dictionaries/json/
+other_dictionaries/goldendict/
+other_dictionaries/mdict/

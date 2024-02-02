@@ -1,0 +1,1268 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+		<link href="chrome://digitalpalireader/skin/icons/logo.png" rel="shortcut icon"/>
+		<link href="../../../css/styles.css" type="text/css" rel="stylesheet"/>
+		<!-- PAL must be the first script after JQuery. -->
+		<script src="../../../js/dpr_pal.js" type="text/javascript"></script>
+		<script src="../../../js/prefload.js" type="text/javascript" language="JavaScript1.3"/>
+		<script src="../../../js/config.js" type="text/javascript" language="JavaScript1.3"/>
+		<script src="../../../js/translit.js" type="text/javascript" language="JavaScript1.3"/>
+		<script>
+			function onLoad() {
+				var x = document.getElementsByTagName('a');
+				for (i in x) {
+					x[i].innerHTML = toUni(toSkt(x[i].innerHTML,true));
+				}
+			}
+		</script>
+	</head>
+	<body onload="//onLoad()">
+		<a href="ac.htm">√ac</a><br/>
+		<a href="ad.htm">√ad</a><br/>
+
+		<a href="ah.htm">√ah</a><br/>
+		<a href="aj.htm">√aj</a><br/>
+		<a href="akz1.htm">√akṣ1</a><br/>
+		<a href="akz2.htm">√akṣ2</a><br/>
+		<a href="akz.htm">√akṣ</a><br/>
+		<a href="am.htm">√am</a><br/>
+
+		<a href="aNg.htm">√aṅg</a><br/>
+		<a href="aNh.htm">√aṅh</a><br/>
+		<a href="an.htm">√an</a><br/>
+		<a href="aNS.htm">√aṅś</a><br/>
+		<a href="Ap.htm">√āp</a><br/>
+		<a href="arc.htm">√arc</a><br/>
+
+		<a href="ard.htm">√ard</a><br/>
+		<a href="arh.htm">√arh</a><br/>
+		<a href="Ar.htm">√ār</a><br/>
+		<a href="arj.htm">√arj</a><br/>
+		<a href="art.htm">√art</a><br/>
+		<a href="aRW.htm">√aṇṭh</a><br/>
+
+		<a href="as1.htm">√as1</a><br/>
+		<a href="aS1.htm">√aś1</a><br/>
+		<a href="as2.htm">√as2</a><br/>
+		<a href="aS2.htm">√aś2</a><br/>
+		<a href="as.htm">√as</a><br/>
+		<a href="aS.htm">√aś</a><br/>
+
+		<a href="As.htm">√ās</a><br/>
+		<a href="at.htm">√at</a><br/>
+		<a href="av.htm">√av</a><br/>
+		<a href="aw.htm">√aṭ</a><br/>
+		<a href="aYc.htm">√añc</a><br/>
+		<a href="AYC.htm">√āñch</a><br/>
+
+		<a href="ay.htm">√ay</a><br/>
+		<a href="aYj.htm">√añj</a><br/>
+		<a href="baD.htm">√badh</a><br/>
+		<a href="bAD.htm">√bādh</a><br/>
+		<a href="BA.htm">√bhā</a><br/>
+		<a href="Baj.htm">√bhaj</a><br/>
+
+		<a href="Bakz.htm">√bhakṣ</a><br/>
+		<a href="bal.htm">√bal</a><br/>
+		<a href="Bal.htm">√bhal</a><br/>
+		<a href="BAm.htm">√bhām</a><br/>
+		<a href="banD.htm">√bandh</a><br/>
+		<a href="Band.htm">√bhand</a><br/>
+
+		<a href="baNh.htm">√baṅh</a><br/>
+		<a href="Ban.htm">√bhan</a><br/>
+		<a href="BaR.htm">√bhaṇ</a><br/>
+		<a href="Barts.htm">√bharts</a><br/>
+		<a href="Barv.htm">√bharv</a><br/>
+		<a href="Bas.htm">√bhas</a><br/>
+
+		<a href="BAs.htm">√bhās</a><br/>
+		<a href="Baw.htm">√bhaṭ</a><br/>
+		<a href="BaYj.htm">√bhañj</a><br/>
+		<a href="Baz.htm">√bhaṣ</a><br/>
+		<a href="BAz.htm">√bhāṣ</a><br/>
+		<a href="bfh1.htm">√bṛh1</a><br/>
+
+		<a href="bfh2.htm">√bṛh2</a><br/>
+		<a href="bfh.htm">√bṛh</a><br/>
+		<a href="Bf.htm">√bhṛ</a><br/>
+		<a href="Bfjj.htm">√bhṛjj</a><br/>
+		<a href="bfNh.htm">√bṛṅh</a><br/>
+		<a href="Bid.htm">√bhid</a><br/>
+
+		<a href="BI.htm">√bhī</a><br/>
+		<a href="Bikz.htm">√bhikṣ</a><br/>
+		<a href="Bizaj.htm">√bhiṣaj</a><br/>
+		<a href="BIz.htm">√bhīṣ</a><br/>
+		<a href="blI.htm">√blī</a><br/>
+		<a href="BrAj.htm">√bhrāj</a><br/>
+
+		<a href="Bram.htm">√bhram</a><br/>
+		<a href="BraNS.htm">√bhraṅś</a><br/>
+		<a href="BraS.htm">√bhraś</a><br/>
+		<a href="Brez.htm">√bhreṣ</a><br/>
+		<a href="BrI.htm">√bhrī</a><br/>
+		<a href="brU.htm">√brū</a><br/>
+
+		<a href="buD.htm">√budh</a><br/>
+		<a href="BU.htm">√bhū</a><br/>
+		<a href="Buj1.htm">√bhuj1</a><br/>
+		<a href="Buj2.htm">√bhuj2</a><br/>
+		<a href="Buj.htm">√bhuj</a><br/>
+		<a href="bul.htm">√bul</a><br/>
+
+		<a href="Buraj.htm">√bhuraj</a><br/>
+		<a href="Bur.htm">√bhur</a><br/>
+		<a href="BUz.htm">√bhūṣ</a><br/>
+		<a href="Byas.htm">√bhyas</a><br/>
+		<a href="Cad.htm">√chad</a><br/>
+		<a href="CA.htm">√chā</a><br/>
+
+		<a href="cakAs.htm">√cakās</a><br/>
+		<a href="cak.htm">√cak</a><br/>
+		<a href="cakz.htm">√cakṣ</a><br/>
+		<a href="cal.htm">√cal</a><br/>
+		<a href="cam.htm">√cam</a><br/>
+		<a href="cand.htm">√cand</a><br/>
+
+		<a href="Cand.htm">√chand</a><br/>
+		<a href="can.htm">√can</a><br/>
+		<a href="carc.htm">√carc</a><br/>
+		<a href="car.htm">√car</a><br/>
+		<a href="carv.htm">√carv</a><br/>
+		<a href="cat.htm">√cat</a><br/>
+
+		<a href="caw.htm">√caṭ</a><br/>
+		<a href="caYc.htm">√cañc</a><br/>
+		<a href="cAy.htm">√cāy</a><br/>
+		<a href="cezw.htm">√ceṣṭ</a><br/>
+		<a href="Cfd.htm">√chṛd</a><br/>
+		<a href="cft.htm">√cṛt</a><br/>
+
+		<a href="ci1.htm">√ci1</a><br/>
+		<a href="ci2.htm">√ci2</a><br/>
+		<a href="Cid.htm">√chid</a><br/>
+		<a href="ci.htm">√ci</a><br/>
+		<a href="cint.htm">√cint</a><br/>
+		<a href="cit.htm">√cit</a><br/>
+
+		<a href="cud.htm">√cud</a><br/>
+		<a href="culump.htm">√culump</a><br/>
+		<a href="cumb.htm">√cumb</a><br/>
+		<a href="cup.htm">√cup</a><br/>
+		<a href="Cuq.htm">√chuḍ</a><br/>
+		<a href="cur.htm">√cur</a><br/>
+
+		<a href="Cur.htm">√chur</a><br/>
+		<a href="Cuw.htm">√chuṭ</a><br/>
+		<a href="cUz.htm">√cūṣ</a><br/>
+		<a href="cyu.htm">√cyu</a><br/>
+		<a href="cyut.htm">√cyut</a><br/>
+		<a href="dA1.htm">√dā1</a><br/>
+
+		<a href="DA1.htm">√dhā1</a><br/>
+		<a href="dA2.htm">√dā2</a><br/>
+		<a href="dA3.htm">√dā3</a><br/>
+		<a href="dA4.htm">√dā4</a><br/>
+		<a href="daB.htm">√dabh</a><br/>
+		<a href="dad.htm">√dad</a><br/>
+
+		<a href="daD.htm">√dadh</a><br/>
+		<a href="daG.htm">√dagh</a><br/>
+		<a href="dah.htm">√dah</a><br/>
+		<a href="dA.htm">√dā</a><br/>
+		<a href="DA.htm">√dhā</a><br/>
+		<a href="dakz.htm">√dakṣ</a><br/>
+
+		<a href="dal.htm">√dal</a><br/>
+		<a href="damB.htm">√dambh</a><br/>
+		<a href="dam.htm">√dam</a><br/>
+		<a href="Dam.htm">√dham</a><br/>
+		<a href="dan.htm">√dan</a><br/>
+		<a href="Dan.htm">√dhan</a><br/>
+
+		<a href="daNs.htm">√daṅs</a><br/>
+		<a href="daNS.htm">√daṅś</a><br/>
+		<a href="Danv.htm">√dhanv</a><br/>
+		<a href="daridrA.htm">√daridrā</a><br/>
+		<a href="das.htm">√das</a><br/>
+		<a href="daS.htm">√daś</a><br/>
+
+		<a href="dAs.htm">√dās</a><br/>
+		<a href="DAv1.htm">√dhāv1</a><br/>
+		<a href="DAv2.htm">√dhāv2</a><br/>
+		<a href="Dav.htm">√dhav</a><br/>
+		<a href="DAv.htm">√dhāv</a><br/>
+		<a href="day.htm">√day</a><br/>
+
+		<a href="dev.htm">√dev</a><br/>
+		<a href="df1.htm">√dṛ1</a><br/>
+		<a href="df2.htm">√dṛ2</a><br/>
+		<a href="dfB.htm">√dṛbh</a><br/>
+		<a href="dfh.htm">√dṛh</a><br/>
+		<a href="df.htm">√dṛ</a><br/>
+
+		<a href="Df.htm">√dhṛ</a><br/>
+		<a href="dfNh.htm">√dṛṅh</a><br/>
+		<a href="dfp.htm">√dṛp</a><br/>
+		<a href="dfS.htm">√dṛś</a><br/>
+		<a href="Dfz.htm">√dhṛṣ</a><br/>
+		<a href="dI1.htm">√dī1</a><br/>
+
+		<a href="dI2.htm">√dī2</a><br/>
+		<a href="dIdI.htm">√dīdī</a><br/>
+		<a href="dIDI.htm">√dīdhī</a><br/>
+		<a href="dih.htm">√dih</a><br/>
+		<a href="di.htm">√di</a><br/>
+		<a href="dI.htm">√dī</a><br/>
+
+		<a href="Di.htm">√dhi</a><br/>
+		<a href="DI.htm">√dhī</a><br/>
+		<a href="dIkz.htm">√dīkṣ</a><br/>
+		<a href="Dinv.htm">√dhinv</a><br/>
+		<a href="dIp.htm">√dīp</a><br/>
+		<a href="diS.htm">√diś</a><br/>
+
+		<a href="dIv1.htm">√dīv1</a><br/>
+		<a href="dIv2.htm">√dīv2</a><br/>
+		<a href="div.htm">√div</a><br/>
+		<a href="dIv.htm">√dīv</a><br/>
+		<a href="DmA.htm">√dhmā</a><br/>
+		<a href="drA1.htm">√drā1</a><br/>
+
+		<a href="drA2.htm">√drā2</a><br/>
+		<a href="drA.htm">√drā</a><br/>
+		<a href="Draj.htm">√dhraj</a><br/>
+		<a href="DrAj.htm">√dhrāj</a><br/>
+		<a href="dram.htm">√dram</a><br/>
+		<a href="drAq.htm">√drāḍ</a><br/>
+
+		<a href="druh.htm">√druh</a><br/>
+		<a href="dru.htm">√dru</a><br/>
+		<a href="drU.htm">√drū</a><br/>
+		<a href="Dru.htm">√dhru</a><br/>
+		<a href="duD.htm">√dudh</a><br/>
+		<a href="duh.htm">√duh</a><br/>
+
+		<a href="du.htm">√du</a><br/>
+		<a href="dU.htm">√dū</a><br/>
+		<a href="Du.htm">√dhu</a><br/>
+		<a href="DU.htm">√dhū</a><br/>
+		<a href="Dukz.htm">√dhukṣ</a><br/>
+		<a href="dul.htm">√dul</a><br/>
+
+		<a href="Dur.htm">√dhur</a><br/>
+		<a href="DUrv.htm">√dhūrv</a><br/>
+		<a href="duz.htm">√duṣ</a><br/>
+		<a href="Dvan.htm">√dhvan</a><br/>
+		<a href="DvaNs.htm">√dhvaṅs</a><br/>
+		<a href="dvar.htm">√dvar</a><br/>
+
+		<a href="Dvas.htm">√dhvas</a><br/>
+		<a href="Dvf.htm">√dhvṛ</a><br/>
+		<a href="dviz.htm">√dviṣ</a><br/>
+		<a href="DyA.htm">√dhyā</a><br/>
+		<a href="dyu.htm">√dyu</a><br/>
+		<a href="dyut.htm">√dyut</a><br/>
+
+		<a href="eD.htm">√edh</a><br/>
+		<a href="ej.htm">√ej</a><br/>
+		<a href="ez.htm">√eṣ</a><br/>
+		<a href="fc.htm">√ṛc</a><br/>
+		<a href="fC.htm">√ṛch</a><br/>
+		<a href="fd.htm">√ṛd</a><br/>
+
+		<a href="fD.htm">√ṛdh</a><br/>
+		<a href="f.htm">√ṛ</a><br/>
+		<a href="fj2.htm">√ṛj2</a><br/>
+		<a href="fj.htm">√ṛj</a><br/>
+		<a href="ft.htm">√ṛt</a><br/>
+		<a href="fYj.htm">√ṛñj</a><br/>
+
+		<a href="fz.htm">√ṛṣ</a><br/>
+		<a href="gA1.htm">√gā1</a><br/>
+		<a href="gA2.htm">√gā2</a><br/>
+		<a href="gaB.htm">√gabh</a><br/>
+		<a href="gaC.htm">√gach</a><br/>
+		<a href="gad.htm">√gad</a><br/>
+
+		<a href="gaD.htm">√gadh</a><br/>
+		<a href="gAh.htm">√gāh</a><br/>
+		<a href="gA.htm">√gā</a><br/>
+		<a href="galB.htm">√galbh</a><br/>
+		<a href="gal.htm">√gal</a><br/>
+		<a href="gam.htm">√gam</a><br/>
+
+		<a href="gard.htm">√gard</a><br/>
+		<a href="garh.htm">√garh</a><br/>
+		<a href="Gar.htm">√ghar</a><br/>
+		<a href="garj.htm">√garj</a><br/>
+		<a href="Gas.htm">√ghas</a><br/>
+		<a href="Gaw.htm">√ghaṭ</a><br/>
+
+		<a href="Gaww.htm">√ghaṭṭ</a><br/>
+		<a href="gf1.htm">√gṛ1</a><br/>
+		<a href="gf2.htm">√gṛ2</a><br/>
+		<a href="gf3.htm">√gṛ3</a><br/>
+		<a href="gfD.htm">√gṛdh</a><br/>
+		<a href="gf.htm">√gṛ</a><br/>
+
+		<a href="Gf.htm">√ghṛ</a><br/>
+		<a href="Gfz.htm">√ghṛṣ</a><br/>
+		<a href="gil.htm">√gil</a><br/>
+		<a href="gir.htm">√gir</a><br/>
+		<a href="glah.htm">√glah</a><br/>
+		<a href="glA.htm">√glā</a><br/>
+
+		<a href="glap.htm">√glap</a><br/>
+		<a href="graB.htm">√grabh</a><br/>
+		<a href="grah.htm">√grah</a><br/>
+		<a href="GrA.htm">√ghrā</a><br/>
+		<a href="granT.htm">√granth</a><br/>
+		<a href="gras.htm">√gras</a><br/>
+
+		<a href="graT.htm">√grath</a><br/>
+		<a href="guh.htm">√guh</a><br/>
+		<a href="gu.htm">√gu</a><br/>
+		<a href="gulP.htm">√gulph</a><br/>
+		<a href="gumP.htm">√gumph</a><br/>
+		<a href="gup.htm">√gup</a><br/>
+
+		<a href="guP.htm">√guph</a><br/>
+		<a href="gUrd.htm">√gūrd</a><br/>
+		<a href="gUrD.htm">√gūrdh</a><br/>
+		<a href="gur.htm">√gur</a><br/>
+		<a href="GUrR.htm">√ghūrṇ</a><br/>
+		<a href="guRW.htm">√guṇṭh</a><br/>
+
+		<a href="Guw.htm">√ghuṭ</a><br/>
+		<a href="guYj.htm">√guñj</a><br/>
+		<a href="Guz.htm">√ghuṣ</a><br/>
+		<a href="hA1.htm">√hā1</a><br/>
+		<a href="hA2.htm">√hā2</a><br/>
+		<a href="had.htm">√had</a><br/>
+
+		<a href="hA.htm">√hā</a><br/>
+		<a href="han.htm">√han</a><br/>
+		<a href="har.htm">√har</a><br/>
+		<a href="has.htm">√has</a><br/>
+		<a href="hAs.htm">√hās</a><br/>
+		<a href="hel.htm">√hel</a><br/>
+
+		<a href="heq.htm">√heḍ</a><br/>
+		<a href="heW.htm">√heṭh</a><br/>
+		<a href="hez.htm">√heṣ</a><br/>
+		<a href="hf1.htm">√hṛ1</a><br/>
+		<a href="hf2.htm">√hṛ2</a><br/>
+		<a href="hf.htm">√hṛ</a><br/>
+
+		<a href="hfz.htm">√hṛṣ</a><br/>
+		<a href="hi.htm">√hi</a><br/>
+		<a href="hikk.htm">√hikk</a><br/>
+		<a href="hiNs.htm">√hiṅs</a><br/>
+		<a href="hIq.htm">√hīḍ</a><br/>
+		<a href="hiRq.htm">√hiṇḍ</a><br/>
+
+		<a href="hlAd.htm">√hlād</a><br/>
+		<a href="hnu.htm">√hnu</a><br/>
+		<a href="hrAd.htm">√hrād</a><br/>
+		<a href="hras.htm">√hras</a><br/>
+		<a href="hrez.htm">√hreṣ</a><br/>
+		<a href="hrI.htm">√hrī</a><br/>
+
+		<a href="hru.htm">√hru</a><br/>
+		<a href="hu.htm">√hu</a><br/>
+		<a href="hU.htm">√hū</a><br/>
+		<a href="hUrC.htm">√hūrch</a><br/>
+		<a href="hur.htm">√hur</a><br/>
+		<a href="hvA.htm">√hvā</a><br/>
+
+		<a href="hval.htm">√hval</a><br/>
+		<a href="hvf.htm">√hvṛ</a><br/>
+		<a href="i1.htm">√i1</a><br/>
+		<a href="i2.htm">√i2</a><br/>
+		<a href="iC.htm">√ich</a><br/>
+		<a href="iD.htm">√idh</a><br/>
+
+		<a href="Ih.htm">√īh</a><br/>
+		<a href="i.htm">√i</a><br/>
+		<a href="I.htm">√ī</a><br/>
+		<a href="Ij.htm">√īj</a><br/>
+		<a href="Ikz.htm">√īkṣ</a><br/>
+		<a href="il.htm">√il</a><br/>
+
+		<a href="inakz.htm">√inakṣ</a><br/>
+		<a href="inD.htm">√indh</a><br/>
+		<a href="iNg.htm">√iṅg</a><br/>
+		<a href="in.htm">√in</a><br/>
+		<a href="INK.htm">√īṅkh</a><br/>
+		<a href="inv.htm">√inv</a><br/>
+
+		<a href="iq.htm">√iḍ</a><br/>
+		<a href="Iq.htm">√īḍ</a><br/>
+		<a href="iraD.htm">√iradh</a><br/>
+		<a href="irajy.htm">√irajy</a><br/>
+		<a href="Ir.htm">√īr</a><br/>
+		<a href="Irzy.htm">√īrṣy</a><br/>
+
+		<a href="IS.htm">√īś</a><br/>
+		<a href="iw.htm">√iṭ</a><br/>
+		<a href="iyakz.htm">√iyakṣ</a><br/>
+		<a href="iz1.htm">√iṣ1</a><br/>
+		<a href="iz2.htm">√iṣ2</a><br/>
+		<a href="iz.htm">√iṣ</a><br/>
+
+		<a href="Iz.htm">√īṣ</a><br/>
+		<a href="jaB.htm">√jabh</a><br/>
+		<a href="jAgf.htm">√jāgṛ</a><br/>
+		<a href="jaG.htm">√jagh</a><br/>
+		<a href="jah.htm">√jah</a><br/>
+		<a href="jA.htm">√jā</a><br/>
+
+		<a href="jaJ.htm">√jajh</a><br/>
+		<a href="jakz1.htm">√jakṣ1</a><br/>
+		<a href="jakz2.htm">√jakṣ2</a><br/>
+		<a href="jakz.htm">√jakṣ</a><br/>
+		<a href="jalp.htm">√jalp</a><br/>
+		<a href="jamB.htm">√jambh</a><br/>
+
+		<a href="jam.htm">√jam</a><br/>
+		<a href="jan.htm">√jan</a><br/>
+		<a href="jap.htm">√jap</a><br/>
+		<a href="jar.htm">√jar</a><br/>
+		<a href="Jar.htm">√jhar</a><br/>
+		<a href="JaR.htm">√jhaṇ</a><br/>
+
+		<a href="jas.htm">√jas</a><br/>
+		<a href="Jaw.htm">√jhaṭ</a><br/>
+		<a href="jaYj.htm">√jañj</a><br/>
+		<a href="jeh.htm">√jeh</a><br/>
+		<a href="jf1.htm">√jṛ1</a><br/>
+		<a href="jf2.htm">√jṛ2</a><br/>
+
+		<a href="jf.htm">√jṛ</a><br/>
+		<a href="ji1.htm">√ji1</a><br/>
+		<a href="ji2.htm">√ji2</a><br/>
+		<a href="ji.htm">√ji</a><br/>
+		<a href="jI].htm">√jī]</a><br/>
+		<a href="jinv.htm">√jinv</a><br/>
+
+		<a href="jIv.htm">√jīv</a><br/>
+		<a href="jri.htm">√jri</a><br/>
+		<a href="jrmB.htm">√jrmbh</a><br/>
+		<a href="jU.htm">√jū</a><br/>
+		<a href="jur.htm">√jur</a><br/>
+		<a href="jUrv.htm">√jūrv</a><br/>
+
+		<a href="juz.htm">√juṣ</a><br/>
+		<a href="jval.htm">√jval</a><br/>
+		<a href="jvar.htm">√jvar</a><br/>
+		<a href="jyA.htm">√jyā</a><br/>
+		<a href="jYA.htm">√jñā</a><br/>
+		<a href="jyut.htm">√jyut</a><br/>
+
+		<a href="Kac.htm">√khac</a><br/>
+		<a href="kad.htm">√kad</a><br/>
+		<a href="Kad.htm">√khad</a><br/>
+		<a href="KAd.htm">√khād</a><br/>
+		<a href="kA.htm">√kā</a><br/>
+		<a href="KA.htm">√khā</a><br/>
+
+		<a href="Kall.htm">√khall</a><br/>
+		<a href="kam.htm">√kam</a><br/>
+		<a href="kamp.htm">√kamp</a><br/>
+		<a href="kan.htm">√kan</a><br/>
+		<a href="Kan.htm">√khan</a><br/>
+		<a href="kANkz.htm">√kāṅkṣ</a><br/>
+
+		<a href="Karj.htm">√kharj</a><br/>
+		<a href="kas.htm">√kas</a><br/>
+		<a href="kAs.htm">√kās</a><br/>
+		<a href="kAS.htm">√kāś</a><br/>
+		<a href="katT.htm">√katth</a><br/>
+		<a href="KaYj.htm">√khañj</a><br/>
+
+		<a href="kaz.htm">√kaṣ</a><br/>
+		<a href="Kel.htm">√khel</a><br/>
+		<a href="kf1.htm">√kṛ1</a><br/>
+		<a href="kf2.htm">√kṛ2</a><br/>
+		<a href="kf3.htm">√kṛ3</a><br/>
+		<a href="kf.htm">√kṛ</a><br/>
+
+		<a href="kfp.htm">√kṛp</a><br/>
+		<a href="kfS.htm">√kṛś</a><br/>
+		<a href="kft1.htm">√kṛt1</a><br/>
+		<a href="kft2.htm">√kṛt2</a><br/>
+		<a href="kft.htm">√kṛt</a><br/>
+		<a href="kfz.htm">√kṛṣ</a><br/>
+
+		<a href="Kid.htm">√khid</a><br/>
+		<a href="kir.htm">√kir</a><br/>
+		<a href="klam.htm">√klam</a><br/>
+		<a href="kland.htm">√kland</a><br/>
+		<a href="klaT.htm">√klath</a><br/>
+		<a href="klav.htm">√klav</a><br/>
+
+		<a href="klid.htm">√klid</a><br/>
+		<a href="kliS.htm">√kliś</a><br/>
+		<a href="knU.htm">√knū</a><br/>
+		<a href="krakz.htm">√krakṣ</a><br/>
+		<a href="kram.htm">√kram</a><br/>
+		<a href="krand.htm">√krand</a><br/>
+
+		<a href="kraT.htm">√krath</a><br/>
+		<a href="krI.htm">√krī</a><br/>
+		<a href="krIq.htm">√krīḍ</a><br/>
+		<a href="kruD.htm">√krudh</a><br/>
+		<a href="kru.htm">√kru</a><br/>
+		<a href="krUq.htm">√krūḍ</a><br/>
+
+		<a href="kruS.htm">√kruś</a><br/>
+		<a href="kuc.htm">√kuc</a><br/>
+		<a href="Kud.htm">√khud</a><br/>
+		<a href="ku.htm">√ku</a><br/>
+		<a href="kU.htm">√kū</a><br/>
+		<a href="kUj.htm">√kūj</a><br/>
+
+		<a href="kUl.htm">√kūl</a><br/>
+		<a href="kup.htm">√kup</a><br/>
+		<a href="kUq.htm">√kūḍ</a><br/>
+		<a href="kUrd.htm">√kūrd</a><br/>
+		<a href="kUR.htm">√kūṇ</a><br/>
+		<a href="kuRW.htm">√kuṇṭh</a><br/>
+
+		<a href="kuT.htm">√kuth</a><br/>
+		<a href="kuww.htm">√kuṭṭ</a><br/>
+		<a href="kuYc.htm">√kuñc</a><br/>
+		<a href="kuYj.htm">√kuñj</a><br/>
+		<a href="kuz.htm">√kuṣ</a><br/>
+		<a href="kvaR.htm">√kvaṇ</a><br/>
+
+		<a href="kvaT.htm">√kvath</a><br/>
+		<a href="kxp.htm">√kḷp</a><br/>
+		<a href="KyA.htm">√khyā</a><br/>
+		<a href="kzad.htm">√kṣad</a><br/>
+		<a href="kzA.htm">√kṣā</a><br/>
+		<a href="kzal.htm">√kṣal</a><br/>
+
+		<a href="kzam.htm">√kṣam</a><br/>
+		<a href="kzan.htm">√kṣan</a><br/>
+		<a href="kzap.htm">√kṣap</a><br/>
+		<a href="kzar.htm">√kṣar</a><br/>
+		<a href="kzi1.htm">√kṣi1</a><br/>
+		<a href="kzi2.htm">√kṣi2</a><br/>
+
+		<a href="kzi.htm">√kṣi</a><br/>
+		<a href="kzI.htm">√kṣī</a><br/>
+		<a href="kzip.htm">√kṣip</a><br/>
+		<a href="kzmA.htm">√kṣmā</a><br/>
+		<a href="kzRu.htm">√kṣṇu</a><br/>
+		<a href="kzuB.htm">√kṣubh</a><br/>
+
+		<a href="kzud.htm">√kṣud</a><br/>
+		<a href="kzuD.htm">√kṣudh</a><br/>
+		<a href="kzu.htm">√kṣu</a><br/>
+		<a href="kzup.htm">√kṣup</a><br/>
+		<a href="kzvel.htm">√kṣvel</a><br/>
+		<a href="kzvid.htm">√kṣvid</a><br/>
+
+		<a href="kzviq.htm">√kṣviḍ</a><br/>
+		<a href="laB.htm">√labh</a><br/>
+		<a href="lag.htm">√lag</a><br/>
+		<a href="lA.htm">√lā</a><br/>
+		<a href="lajj.htm">√lajj</a><br/>
+		<a href="lakz.htm">√lakṣ</a><br/>
+
+		<a href="lal.htm">√lal</a><br/>
+		<a href="lamb.htm">√lamb</a><br/>
+		<a href="lam.htm">√lam</a><br/>
+		<a href="laNG.htm">√laṅgh</a><br/>
+		<a href="lap.htm">√lap</a><br/>
+		<a href="laq.htm">√laḍ</a><br/>
+
+		<a href="las.htm">√las</a><br/>
+		<a href="lAYC.htm">√lāñch</a><br/>
+		<a href="laz.htm">√laṣ</a><br/>
+		<a href="lI1.htm">√lī1</a><br/>
+		<a href="lI2.htm">√lī2</a><br/>
+		<a href="lih.htm">√lih</a><br/>
+
+		<a href="lI.htm">√lī</a><br/>
+		<a href="liK.htm">√likh</a><br/>
+		<a href="limp.htm">√limp</a><br/>
+		<a href="lip.htm">√lip</a><br/>
+		<a href="liS.htm">√liś</a><br/>
+		<a href="loc.htm">√loc</a><br/>
+
+		<a href="lok.htm">√lok</a><br/>
+		<a href="luB.htm">√lubh</a><br/>
+		<a href="lU.htm">√lū</a><br/>
+		<a href="lul.htm">√lul</a><br/>
+		<a href="lup.htm">√lup</a><br/>
+		<a href="luq.htm">√luḍ</a><br/>
+
+		<a href="luRW.htm">√luṇṭh</a><br/>
+		<a href="luW1.htm">√luṭh1</a><br/>
+		<a href="luW2.htm">√luṭh2</a><br/>
+		<a href="luW.htm">√luṭh</a><br/>
+		<a href="luYc.htm">√luñc</a><br/>
+		<a href="mA1.htm">√mā1</a><br/>
+
+		<a href="mA2.htm">√mā2</a><br/>
+		<a href="mA3.htm">√mā3</a><br/>
+		<a href="mad.htm">√mad</a><br/>
+		<a href="mah.htm">√mah</a><br/>
+		<a href="mA.htm">√mā</a><br/>
+		<a href="majj.htm">√majj</a><br/>
+
+		<a href="mand.htm">√mand</a><br/>
+		<a href="maNh.htm">√maṅh</a><br/>
+		<a href="man.htm">√man</a><br/>
+		<a href="manT.htm">√manth</a><br/>
+		<a href="mArg.htm">√mārg</a><br/>
+		<a href="maR.htm">√maṇ</a><br/>
+
+		<a href="maRq.htm">√maṇḍ</a><br/>
+		<a href="maRw.htm">√maṇṭ</a><br/>
+		<a href="maT.htm">√math</a><br/>
+		<a href="maYc.htm">√mañc</a><br/>
+		<a href="med [mid].htm">√med [mid]</a><br/>
+		<a href="mf1.htm">√mṛ1</a><br/>
+
+		<a href="mf2.htm">√mṛ2</a><br/>
+		<a href="mfc.htm">√mṛc</a><br/>
+		<a href="mfC.htm">√mṛch</a><br/>
+		<a href="mfd.htm">√mṛd</a><br/>
+		<a href="mfD.htm">√mṛdh</a><br/>
+		<a href="mf.htm">√mṛ</a><br/>
+
+		<a href="mfj.htm">√mṛj</a><br/>
+		<a href="mfkz.htm">√mṛkṣ</a><br/>
+		<a href="mfq.htm">√mṛḍ</a><br/>
+		<a href="mfR.htm">√mṛṇ</a><br/>
+		<a href="mfS.htm">√mṛś</a><br/>
+		<a href="mfz.htm">√mṛṣ</a><br/>
+
+		<a href="mid.htm">√mid</a><br/>
+		<a href="miG.htm">√migh</a><br/>
+		<a href="mih.htm">√mih</a><br/>
+		<a href="mi.htm">√mi</a><br/>
+		<a href="mI.htm">√mī</a><br/>
+		<a href="mikz.htm">√mikṣ</a><br/>
+
+		<a href="mil.htm">√mil</a><br/>
+		<a href="mIl.htm">√mīl</a><br/>
+		<a href="miT.htm">√mith</a><br/>
+		<a href="mIv.htm">√mīv</a><br/>
+		<a href="miz.htm">√miṣ</a><br/>
+		<a href="mlA.htm">√mlā</a><br/>
+
+		<a href="mleC.htm">√mlech</a><br/>
+		<a href="mlit.htm">√mlit</a><br/>
+		<a href="mluc.htm">√mluc</a><br/>
+		<a href="mlup.htm">√mlup</a><br/>
+		<a href="mnA.htm">√mnā</a><br/>
+		<a href="mokz.htm">√mokṣ</a><br/>
+
+		<a href="mrad.htm">√mrad</a><br/>
+		<a href="mreq.htm">√mreḍ</a><br/>
+		<a href="mrit.htm">√mrit</a><br/>
+		<a href="mruc.htm">√mruc</a><br/>
+		<a href="muc.htm">√muc</a><br/>
+		<a href="mud.htm">√mud</a><br/>
+
+		<a href="muh.htm">√muh</a><br/>
+		<a href="mU.htm">√mū</a><br/>
+		<a href="mUrC.htm">√mūrch</a><br/>
+		<a href="mUr.htm">√mūr</a><br/>
+		<a href="muw.htm">√muṭ</a><br/>
+		<a href="muz.htm">√muṣ</a><br/>
+
+		<a href="myakz.htm">√myakṣ</a><br/>
+		<a href="naB.htm">√nabh</a><br/>
+		<a href="nad.htm">√nad</a><br/>
+		<a href="nAD.htm">√nādh</a><br/>
+		<a href="nah.htm">√nah</a><br/>
+		<a href="nakz.htm">√nakṣ</a><br/>
+
+		<a href="nam.htm">√nam</a><br/>
+		<a href="nand.htm">√nand</a><br/>
+		<a href="naNS.htm">√naṅś</a><br/>
+		<a href="nard.htm">√nard</a><br/>
+		<a href="naS1.htm">√naś1</a><br/>
+		<a href="naS2.htm">√naś2</a><br/>
+
+		<a href="nas.htm">√nas</a><br/>
+		<a href="naS.htm">√naś</a><br/>
+		<a href="nAT.htm">√nāth</a><br/>
+		<a href="naw.htm">√naṭ</a><br/>
+		<a href="ned.htm">√ned</a><br/>
+		<a href="nf.htm">√nṛ</a><br/>
+
+		<a href="nft.htm">√nṛt</a><br/>
+		<a href="nid.htm">√nid</a><br/>
+		<a href="nI.htm">√nī</a><br/>
+		<a href="nij.htm">√nij</a><br/>
+		<a href="nikz.htm">√nikṣ</a><br/>
+		<a href="nind.htm">√nind</a><br/>
+
+		<a href="niNs.htm">√niṅs</a><br/>
+		<a href="nIq.htm">√nīḍ</a><br/>
+		<a href="nu1.htm">√nu1</a><br/>
+		<a href="nu2.htm">√nu2</a><br/>
+		<a href="nud.htm">√nud</a><br/>
+		<a href="nu.htm">√nu</a><br/>
+
+		<a href="nU.htm">√nū</a><br/>
+		<a href="pA1.htm">√pā1</a><br/>
+		<a href="pA2.htm">√pā2</a><br/>
+		<a href="pA3.htm">√pā3</a><br/>
+		<a href="pac.htm">√pac</a><br/>
+		<a href="pad.htm">√pad</a><br/>
+
+		<a href="pA.htm">√pā</a><br/>
+		<a href="paj.htm">√paj</a><br/>
+		<a href="Pakk.htm">√phakk</a><br/>
+		<a href="Pal1.htm">√phal1</a><br/>
+		<a href="Pal2.htm">√phal2</a><br/>
+		<a href="Pal.htm">√phal</a><br/>
+
+		<a href="pan.htm">√pan</a><br/>
+		<a href="pard.htm">√pard</a><br/>
+		<a href="paR.htm">√paṇ</a><br/>
+		<a href="Par.htm">√phar</a><br/>
+		<a href="PaR.htm">√phaṇ</a><br/>
+		<a href="paS1.htm">√paś1</a><br/>
+
+		<a href="paS2.htm">√paś2</a><br/>
+		<a href="paS.htm">√paś</a><br/>
+		<a href="pat1.htm">√pat1</a><br/>
+		<a href="pat2.htm">√pat2</a><br/>
+		<a href="pat.htm">√pat</a><br/>
+		<a href="paT.htm">√path</a><br/>
+
+		<a href="paw.htm">√paṭ</a><br/>
+		<a href="paW.htm">√paṭh</a><br/>
+		<a href="pAy.htm">√pāy</a><br/>
+		<a href="pf1.htm">√pṛ1</a><br/>
+		<a href="pf2.htm">√pṛ2</a><br/>
+		<a href="pf3.htm">√pṛ3</a><br/>
+
+		<a href="pfc.htm">√pṛc</a><br/>
+		<a href="pf.htm">√pṛ</a><br/>
+		<a href="pfR.htm">√pṛṇ</a><br/>
+		<a href="pfS.htm">√pṛś</a><br/>
+		<a href="pft.htm">√pṛt</a><br/>
+		<a href="pfz.htm">√pṛṣ</a><br/>
+
+		<a href="pI1.htm">√pī1</a><br/>
+		<a href="pI2.htm">√pī2</a><br/>
+		<a href="pibd.htm">√pibd</a><br/>
+		<a href="pi.htm">√pi</a><br/>
+		<a href="pI.htm">√pī</a><br/>
+		<a href="pinv.htm">√pinv</a><br/>
+
+		<a href="pIq.htm">√pīḍ</a><br/>
+		<a href="pis.htm">√pis</a><br/>
+		<a href="piS.htm">√piś</a><br/>
+		<a href="pIy.htm">√pīy</a><br/>
+		<a href="piz.htm">√piṣ</a><br/>
+		<a href="plI.htm">√plī</a><br/>
+
+		<a href="plu.htm">√plu</a><br/>
+		<a href="pluz.htm">√pluṣ</a><br/>
+		<a href="praC.htm">√prach</a><br/>
+		<a href="prA.htm">√prā</a><br/>
+		<a href="praT.htm">√prath</a><br/>
+		<a href="prI.htm">√prī</a><br/>
+
+		<a href="pru.htm">√pru</a><br/>
+		<a href="pruT.htm">√pruth</a><br/>
+		<a href="pruz.htm">√pruṣ</a><br/>
+		<a href="psA.htm">√psā</a><br/>
+		<a href="pU.htm">√pū</a><br/>
+		<a href="pUj.htm">√pūj</a><br/>
+
+		<a href="pUr.htm">√pūr</a><br/>
+		<a href="puT.htm">√puth</a><br/>
+		<a href="puw.htm">√puṭ</a><br/>
+		<a href="pUy.htm">√pūy</a><br/>
+		<a href="puz.htm">√puṣ</a><br/>
+		<a href="pyA.htm">√pyā</a><br/>
+
+		<a href="qamb.htm">√ḍamb</a><br/>
+		<a href="qam.htm">√ḍam</a><br/>
+		<a href="qI.htm">√ḍī</a><br/>
+		<a href="QOk.htm">√ḍhauk</a><br/>
+		<a href="qval.htm">√ḍval</a><br/>
+		<a href="rA1.htm">√rā1</a><br/>
+
+		<a href="rA2.htm">√rā2</a><br/>
+		<a href="raB.htm">√rabh</a><br/>
+		<a href="rac.htm">√rac</a><br/>
+		<a href="rad.htm">√rad</a><br/>
+		<a href="raD.htm">√radh</a><br/>
+		<a href="rAD.htm">√rādh</a><br/>
+
+		<a href="rah.htm">√rah</a><br/>
+		<a href="rA.htm">√rā</a><br/>
+		<a href="raj1.htm">√raj1</a><br/>
+		<a href="raj2.htm">√raj2</a><br/>
+		<a href="raj.htm">√raj</a><br/>
+		<a href="rAj.htm">√rāj</a><br/>
+
+		<a href="rakz.htm">√rakṣ</a><br/>
+		<a href="ramb.htm">√ramb</a><br/>
+		<a href="ramB.htm">√rambh</a><br/>
+		<a href="ram.htm">√ram</a><br/>
+		<a href="ran1.htm">√ran1</a><br/>
+		<a href="ran2.htm">√ran2</a><br/>
+
+		<a href="ranD.htm">√randh</a><br/>
+		<a href="raNg.htm">√raṅg</a><br/>
+		<a href="raNh.htm">√raṅh</a><br/>
+		<a href="ran.htm">√ran</a><br/>
+		<a href="rap.htm">√rap</a><br/>
+		<a href="raP.htm">√raph</a><br/>
+
+		<a href="rapS.htm">√rapś</a><br/>
+		<a href="raRv.htm">√raṇv</a><br/>
+		<a href="rAs1.htm">√rās1</a><br/>
+		<a href="rAs2.htm">√rās2</a><br/>
+		<a href="ras.htm">√ras</a><br/>
+		<a href="raS.htm">√raś</a><br/>
+
+		<a href="rAs.htm">√rās</a><br/>
+		<a href="raw.htm">√raṭ</a><br/>
+		<a href="raYC.htm">√rañch</a><br/>
+		<a href="raYj.htm">√rañj</a><br/>
+		<a href="reB.htm">√rebh</a><br/>
+		<a href="rej.htm">√rej</a><br/>
+
+		<a href="req.htm">√reḍ</a><br/>
+		<a href="riB.htm">√ribh</a><br/>
+		<a href="ric.htm">√ric</a><br/>
+		<a href="rih.htm">√rih</a><br/>
+		<a href="ri.htm">√ri</a><br/>
+		<a href="rI.htm">√rī</a><br/>
+
+		<a href="riK.htm">√rikh</a><br/>
+		<a href="riNg.htm">√riṅg</a><br/>
+		<a href="riNK.htm">√riṅkh</a><br/>
+		<a href="rip.htm">√rip</a><br/>
+		<a href="riP.htm">√riph</a><br/>
+		<a href="riS.htm">√riś</a><br/>
+
+		<a href="riz.htm">√riṣ</a><br/>
+		<a href="rS.htm">√rś</a><br/>
+		<a href="ru1.htm">√ru1</a><br/>
+		<a href="ru2.htm">√ru2</a><br/>
+		<a href="ruc.htm">√ruc</a><br/>
+		<a href="ruD1.htm">√rudh1</a><br/>
+
+		<a href="ruD2.htm">√rudh2</a><br/>
+		<a href="rud.htm">√rud</a><br/>
+		<a href="ruD.htm">√rudh</a><br/>
+		<a href="ruh.htm">√ruh</a><br/>
+		<a href="ru.htm">√ru</a><br/>
+		<a href="ruj.htm">√ruj</a><br/>
+
+		<a href="rup.htm">√rup</a><br/>
+		<a href="ruW.htm">√ruṭh</a><br/>
+		<a href="ruz.htm">√ruṣ</a><br/>
+		<a href="rUz.htm">√rūṣ</a><br/>
+		<a href="sA2.htm">√sā2</a><br/>
+		<a href="sac.htm">√sac</a><br/>
+
+		<a href="Sad1.htm">√śad1</a><br/>
+		<a href="Sad2.htm">√śad2</a><br/>
+		<a href="sad.htm">√sad</a><br/>
+		<a href="saD.htm">√sadh</a><br/>
+		<a href="sAD.htm">√sādh</a><br/>
+		<a href="Sad.htm">√śad</a><br/>
+
+		<a href="saG.htm">√sagh</a><br/>
+		<a href="sah.htm">√sah</a><br/>
+		<a href="sA.htm">√sā</a><br/>
+		<a href="SA.htm">√śā</a><br/>
+		<a href="saj.htm">√saj</a><br/>
+		<a href="Sak.htm">√śak</a><br/>
+
+		<a href="sakz.htm">√sakṣ</a><br/>
+		<a href="Sal.htm">√śal</a><br/>
+		<a href="Sam1.htm">√śam1</a><br/>
+		<a href="Sam2.htm">√śam2</a><br/>
+		<a href="Sam3.htm">√śam3</a><br/>
+		<a href="Sam.htm">√śam</a><br/>
+
+		<a href="san.htm">√san</a><br/>
+		<a href="SaNk.htm">√śaṅk</a><br/>
+		<a href="SaNs.htm">√śaṅs</a><br/>
+		<a href="sap.htm">√sap</a><br/>
+		<a href="Sap.htm">√śap</a><br/>
+		<a href="sarj.htm">√sarj</a><br/>
+
+		<a href="SAs1.htm">√śās1</a><br/>
+		<a href="SAs2.htm">√śās2</a><br/>
+		<a href="saSc.htm">√saśc</a><br/>
+		<a href="sas.htm">√sas</a><br/>
+		<a href="Sas.htm">√śas</a><br/>
+		<a href="SaS.htm">√śaś</a><br/>
+
+		<a href="SAs.htm">√śās</a><br/>
+		<a href="Sat.htm">√śat</a><br/>
+		<a href="saYj.htm">√sañj</a><br/>
+		<a href="Scam.htm">√ścam</a><br/>
+		<a href="Scand.htm">√ścand</a><br/>
+		<a href="Scut.htm">√ścut</a><br/>
+
+		<a href="see 1vas.htm">√see 1vas</a><br/>
+		<a href="sev.htm">√sev</a><br/>
+		<a href="Sf1.htm">√śṛ1</a><br/>
+		<a href="Sf2.htm">√śṛ2</a><br/>
+		<a href="Sf3.htm">√śṛ3</a><br/>
+		<a href="SfD.htm">√śṛdh</a><br/>
+
+		<a href="sf.htm">√sṛ</a><br/>
+		<a href="Sf.htm">√śṛ</a><br/>
+		<a href="sfj.htm">√sṛj</a><br/>
+		<a href="sfk.htm">√sṛk</a><br/>
+		<a href="sfp.htm">√sṛp</a><br/>
+		<a href="SI1.htm">√śī1</a><br/>
+
+		<a href="SI2.htm">√śī2</a><br/>
+		<a href="sic.htm">√sic</a><br/>
+		<a href="siD1.htm">√sidh1</a><br/>
+		<a href="siD2.htm">√sidh2</a><br/>
+		<a href="siD.htm">√sidh</a><br/>
+		<a href="si.htm">√si</a><br/>
+
+		<a href="sI.htm">√sī</a><br/>
+		<a href="Si.htm">√śi</a><br/>
+		<a href="SI.htm">√śī</a><br/>
+		<a href="Sikz.htm">√śikṣ</a><br/>
+		<a href="Sim.htm">√śim</a><br/>
+		<a href="SiNG.htm">√śiṅgh</a><br/>
+
+		<a href="Sip.htm">√śip</a><br/>
+		<a href="sIv.htm">√sīv</a><br/>
+		<a href="SiYj.htm">√śiñj</a><br/>
+		<a href="Siz.htm">√śiṣ</a><br/>
+		<a href="skaB.htm">√skabh</a><br/>
+		<a href="sKal.htm">√skhal</a><br/>
+
+		<a href="skamB.htm">√skambh</a><br/>
+		<a href="skand.htm">√skand</a><br/>
+		<a href="skf.htm">√skṛ</a><br/>
+		<a href="sku.htm">√sku</a><br/>
+		<a href="SlAG.htm">√ślāgh</a><br/>
+		<a href="SlA.htm">√ślā</a><br/>
+
+		<a href="SlaT.htm">√ślath</a><br/>
+		<a href="Sliz.htm">√śliṣ</a><br/>
+		<a href="smf.htm">√smṛ</a><br/>
+		<a href="smi.htm">√smi</a><br/>
+		<a href="snA.htm">√snā</a><br/>
+		<a href="SnaT.htm">√śnath</a><br/>
+
+		<a href="snih.htm">√snih</a><br/>
+		<a href="snu.htm">√snu</a><br/>
+		<a href="sPA.htm">√sphā</a><br/>
+		<a href="sPal.htm">√sphal</a><br/>
+		<a href="spand.htm">√spand</a><br/>
+		<a href="sPar.htm">√sphar</a><br/>
+
+		<a href="spaS.htm">√spaś</a><br/>
+		<a href="sPaw.htm">√sphaṭ</a><br/>
+		<a href="spfD.htm">√spṛdh</a><br/>
+		<a href="spfh.htm">√spṛh</a><br/>
+		<a href="spf.htm">√spṛ</a><br/>
+		<a href="sPf.htm">√sphṛ</a><br/>
+
+		<a href="spfS.htm">√spṛś</a><br/>
+		<a href="sPul.htm">√sphul</a><br/>
+		<a href="spUrD.htm">√spūrdh</a><br/>
+		<a href="sPur.htm">√sphur</a><br/>
+		<a href="sPUrj.htm">√sphūrj</a><br/>
+		<a href="sPuw.htm">√sphuṭ</a><br/>
+
+		<a href="SrA.htm">√śrā</a><br/>
+		<a href="SramB.htm">√śrambh</a><br/>
+		<a href="Sram.htm">√śram</a><br/>
+		<a href="Sran.htm">√śran</a><br/>
+		<a href="sraNs.htm">√sraṅs</a><br/>
+		<a href="sras.htm">√sras</a><br/>
+
+		<a href="SraT.htm">√śrath</a><br/>
+		<a href="SrI1.htm">√śrī1</a><br/>
+		<a href="SrI]2.htm">√śrī]2</a><br/>
+		<a href="SrI2.htm">√śrī2</a><br/>
+		<a href="sriD.htm">√sridh</a><br/>
+		<a href="Sri.htm">√śri</a><br/>
+
+		<a href="SrI.htm">√śrī</a><br/>
+		<a href="srIv.htm">√srīv</a><br/>
+		<a href="Sriz.htm">√śriṣ</a><br/>
+		<a href="sru.htm">√sru</a><br/>
+		<a href="Sru.htm">√śru</a><br/>
+		<a href="Sruz.htm">√śruṣ</a><br/>
+
+		<a href="staB.htm">√stabh</a><br/>
+		<a href="sTag.htm">√sthag</a><br/>
+		<a href="stA.htm">√stā</a><br/>
+		<a href="sTA.htm">√sthā</a><br/>
+		<a href="stamB.htm">√stambh</a><br/>
+		<a href="stan.htm">√stan</a><br/>
+
+		<a href="stfh.htm">√stṛh</a><br/>
+		<a href="stf.htm">√stṛ</a><br/>
+		<a href="stiG.htm">√stigh</a><br/>
+		<a href="stI.htm">√stī</a><br/>
+		<a href="stim.htm">√stim</a><br/>
+		<a href="stIm.htm">√stīm</a><br/>
+
+		<a href="stu2.htm">√stu2</a><br/>
+		<a href="stuB.htm">√stubh</a><br/>
+		<a href="stu.htm">√stu</a><br/>
+		<a href="styA.htm">√styā</a><br/>
+		<a href="suB.htm">√subh</a><br/>
+		<a href="SuB.htm">√śubh</a><br/>
+
+		<a href="Suc.htm">√śuc</a><br/>
+		<a href="sUd.htm">√sūd</a><br/>
+		<a href="SuD.htm">√śudh</a><br/>
+		<a href="su.htm">√su</a><br/>
+		<a href="sU.htm">√sū</a><br/>
+		<a href="SU.htm">√śū</a><br/>
+
+		<a href="Suj.htm">√śuj</a><br/>
+		<a href="sul.htm">√sul</a><br/>
+		<a href="sumB.htm">√sumbh</a><br/>
+		<a href="SumB.htm">√śumbh</a><br/>
+		<a href="SunD.htm">√śundh</a><br/>
+		<a href="sUrkz.htm">√sūrkṣ</a><br/>
+
+		<a href="Suz1.htm">√śuṣ1</a><br/>
+		<a href="Suz2.htm">√śuṣ2</a><br/>
+		<a href="Suz.htm">√śuṣ</a><br/>
+		<a href="svad.htm">√svad</a><br/>
+		<a href="svAd.htm">√svād</a><br/>
+		<a href="SvA.htm">√śvā</a><br/>
+
+		<a href="svaj.htm">√svaj</a><br/>
+		<a href="svan.htm">√svan</a><br/>
+		<a href="svap.htm">√svap</a><br/>
+		<a href="svar.htm">√svar</a><br/>
+		<a href="Svas.htm">√śvas</a><br/>
+		<a href="SvaYc.htm">√śvañc</a><br/>
+
+		<a href="svaYj.htm">√svañj</a><br/>
+		<a href="svid.htm">√svid</a><br/>
+		<a href="Svi.htm">√śvi</a><br/>
+		<a href="Svit.htm">√śvit</a><br/>
+		<a href="syad.htm">√syad</a><br/>
+		<a href="SyA.htm">√śyā</a><br/>
+
+		<a href="syand.htm">√syand</a><br/>
+		<a href="syU.htm">√syū</a><br/>
+		<a href="tac.htm">√tac</a><br/>
+		<a href="tA.htm">√tā</a><br/>
+		<a href="tak.htm">√tak</a><br/>
+		<a href="takz.htm">√takṣ</a><br/>
+
+		<a href="tam.htm">√tam</a><br/>
+		<a href="tan1.htm">√tan1</a><br/>
+		<a href="tan2.htm">√tan2</a><br/>
+		<a href="tand.htm">√tand</a><br/>
+		<a href="tan.htm">√tan</a><br/>
+		<a href="taNs.htm">√taṅs</a><br/>
+
+		<a href="tap.htm">√tap</a><br/>
+		<a href="taq.htm">√taḍ</a><br/>
+		<a href="tarj.htm">√tarj</a><br/>
+		<a href="tark.htm">√tark</a><br/>
+		<a href="tas.htm">√tas</a><br/>
+		<a href="tAv.htm">√tāv</a><br/>
+
+		<a href="taw.htm">√taṭ</a><br/>
+		<a href="taYc.htm">√tañc</a><br/>
+		<a href="tAy.htm">√tāy</a><br/>
+		<a href="tfd.htm">√tṛd</a><br/>
+		<a href="tfh.htm">√tṛh</a><br/>
+		<a href="tf.htm">√tṛ</a><br/>
+
+		<a href="tfp.htm">√tṛp</a><br/>
+		<a href="tfz.htm">√tṛṣ</a><br/>
+		<a href="ti.htm">√ti</a><br/>
+		<a href="tij.htm">√tij</a><br/>
+		<a href="til.htm">√til</a><br/>
+		<a href="tim.htm">√tim</a><br/>
+
+		<a href="tir.htm">√tir</a><br/>
+		<a href="trA.htm">√trā</a><br/>
+		<a href="trap.htm">√trap</a><br/>
+		<a href="tras.htm">√tras</a><br/>
+		<a href="truw.htm">√truṭ</a><br/>
+		<a href="tsar.htm">√tsar</a><br/>
+
+		<a href="tuc.htm">√tuc</a><br/>
+		<a href="tud.htm">√tud</a><br/>
+		<a href="tu.htm">√tu</a><br/>
+		<a href="tuj.htm">√tuj</a><br/>
+		<a href="tul.htm">√tul</a><br/>
+		<a href="tur.htm">√tur</a><br/>
+
+		<a href="turv.htm">√turv</a><br/>
+		<a href="tUrv.htm">√tūrv</a><br/>
+		<a href="Turv.htm">√thurv</a><br/>
+		<a href="tuS.htm">√tuś</a><br/>
+		<a href="tuz.htm">√tuṣ</a><br/>
+		<a href="tvac.htm">√tvac</a><br/>
+
+		<a href="tvakz.htm">√tvakṣ</a><br/>
+		<a href="tvaNg.htm">√tvaṅg</a><br/>
+		<a href="tvar.htm">√tvar</a><br/>
+		<a href="tviz.htm">√tviṣ</a><br/>
+		<a href="tyaj.htm">√tyaj</a><br/>
+		<a href="uB.htm">√ubh</a><br/>
+
+		<a href="ubj.htm">√ubj</a><br/>
+		<a href="uc.htm">√uc</a><br/>
+		<a href="uC.htm">√uch</a><br/>
+		<a href="ud.htm">√ud</a><br/>
+		<a href="Uh1.htm">√ūh1</a><br/>
+		<a href="Uh2.htm">√ūh2</a><br/>
+
+		<a href="Uh.htm">√ūh</a><br/>
+		<a href="u.htm">√u</a><br/>
+		<a href="uJ.htm">√ujh</a><br/>
+		<a href="ukz1.htm">√ukṣ1</a><br/>
+		<a href="ukz2.htm">√ukṣ2</a><br/>
+		<a href="ukz.htm">√ukṣ</a><br/>
+
+		<a href="umB.htm">√umbh</a><br/>
+		<a href="und.htm">√und</a><br/>
+		<a href="UrRu1.htm">√ūrṇu1</a><br/>
+		<a href="uYC.htm">√uñch</a><br/>
+		<a href="uz.htm">√uṣ</a><br/>
+		<a href="vA1.htm">√vā1</a><br/>
+
+		<a href="vA2.htm">√vā2</a><br/>
+		<a href="vA3.htm">√vā3</a><br/>
+		<a href="vac.htm">√vac</a><br/>
+		<a href="vad.htm">√vad</a><br/>
+		<a href="vaD.htm">√vadh</a><br/>
+		<a href="vah.htm">√vah</a><br/>
+
+		<a href="vAh.htm">√vāh</a><br/>
+		<a href="vA.htm">√vā</a><br/>
+		<a href="vaj.htm">√vaj</a><br/>
+		<a href="vak.htm">√vak</a><br/>
+		<a href="vakz.htm">√vakṣ</a><br/>
+		<a href="valg.htm">√valg</a><br/>
+
+		<a href="valh.htm">√valh</a><br/>
+		<a href="val.htm">√val</a><br/>
+		<a href="vam.htm">√vam</a><br/>
+		<a href="vand.htm">√vand</a><br/>
+		<a href="van.htm">√van</a><br/>
+		<a href="vap1.htm">√vap1</a><br/>
+
+		<a href="vap2.htm">√vap2</a><br/>
+		<a href="vap.htm">√vap</a><br/>
+		<a href="vaRw.htm">√vaṇṭ</a><br/>
+		<a href="vas1.htm">√vas1</a><br/>
+		<a href="vas2.htm">√vas2</a><br/>
+		<a href="vas3.htm">√vas3</a><br/>
+
+		<a href="vas.htm">√vas</a><br/>
+		<a href="vaS.htm">√vaś</a><br/>
+		<a href="vAS.htm">√vāś</a><br/>
+		<a href="vat.htm">√vat</a><br/>
+		<a href="vaYc.htm">√vañc</a><br/>
+		<a href="vAYC.htm">√vāñch</a><br/>
+
+		<a href="vell.htm">√vell</a><br/>
+		<a href="ven.htm">√ven</a><br/>
+		<a href="vep.htm">√vep</a><br/>
+		<a href="vezw.htm">√veṣṭ</a><br/>
+		<a href="vf1.htm">√vṛ1</a><br/>
+		<a href="vf2.htm">√vṛ2</a><br/>
+
+		<a href="vfD.htm">√vṛdh</a><br/>
+		<a href="vfh.htm">√vṛh</a><br/>
+		<a href="vf.htm">√vṛ</a><br/>
+		<a href="vfj.htm">√vṛj</a><br/>
+		<a href="vfNh.htm">√vṛṅh</a><br/>
+		<a href="vft.htm">√vṛt</a><br/>
+
+		<a href="vfz.htm">√vṛṣ</a><br/>
+		<a href="vic1.htm">√vic1</a><br/>
+		<a href="vic2.htm">√vic2</a><br/>
+		<a href="vic.htm">√vic</a><br/>
+		<a href="vid1.htm">√vid1</a><br/>
+		<a href="vid2.htm">√vid2</a><br/>
+
+		<a href="viD2.htm">√vidh2</a><br/>
+		<a href="vid.htm">√vid</a><br/>
+		<a href="viD.htm">√vidh</a><br/>
+		<a href="vi.htm">√vi</a><br/>
+		<a href="vI.htm">√vī</a><br/>
+		<a href="vij.htm">√vij</a><br/>
+
+		<a href="vIj.htm">√vīj</a><br/>
+		<a href="vinD.htm">√vindh</a><br/>
+		<a href="vip.htm">√vip</a><br/>
+		<a href="vIq.htm">√vīḍ</a><br/>
+		<a href="viS.htm">√viś</a><br/>
+		<a href="viz.htm">√viṣ</a><br/>
+
+		<a href="vizw.htm">√viṣṭ</a><br/>
+		<a href="vlag.htm">√vlag</a><br/>
+		<a href="vlaNg.htm">√vlaṅg</a><br/>
+		<a href="vlI.htm">√vlī</a><br/>
+		<a href="vrad.htm">√vrad</a><br/>
+		<a href="vrAD.htm">√vrādh</a><br/>
+
+		<a href="vraj.htm">√vraj</a><br/>
+		<a href="vrand.htm">√vrand</a><br/>
+		<a href="vran.htm">√vran</a><br/>
+		<a href="vraSc.htm">√vraśc</a><br/>
+		<a href="vrIq.htm">√vrīḍ</a><br/>
+		<a href="vruq.htm">√vruḍ</a><br/>
+
+		<a href="vyac.htm">√vyac</a><br/>
+		<a href="vyaD.htm">√vyadh</a><br/>
+		<a href="vyA.htm">√vyā</a><br/>
+		<a href="vyaj.htm">√vyaj</a><br/>
+		<a href="vyaT.htm">√vyath</a><br/>
+		<a href="vyay.htm">√vyay</a><br/>
+
+		<a href="wal.htm">√ṭal</a><br/>
+		<a href="waNk.htm">√ṭaṅk</a><br/>
+		<a href="wIk.htm">√ṭīk</a><br/>
+		<a href="wup.htm">√ṭup</a><br/>
+		<a href="yaB.htm">√yabh</a><br/>
+		<a href="yaC.htm">√yach</a><br/>
+
+		<a href="yAc.htm">√yāc</a><br/>
+		<a href="yAd.htm">√yād</a><br/>
+		<a href="yah.htm">√yah</a><br/>
+		<a href="yA.htm">√yā</a><br/>
+		<a href="yaj.htm">√yaj</a><br/>
+		<a href="yakz.htm">√yakṣ</a><br/>
+
+		<a href="yam.htm">√yam</a><br/>
+		<a href="yas.htm">√yas</a><br/>
+		<a href="yat.htm">√yat</a><br/>
+		<a href="yez.htm">√yeṣ</a><br/>
+		<a href="yu1.htm">√yu1</a><br/>
+		<a href="yu2.htm">√yu2</a><br/>
+
+		<a href="yuC.htm">√yuch</a><br/>
+		<a href="yuD.htm">√yudh</a><br/>
+		<a href="yu.htm">√yu</a><br/>
+		<a href="yuj.htm">√yuj</a><br/>
+		<a href="yup.htm">√yup</a><br/>
+		<a href="zWIv.htm">√ṣṭhīv</a><br/>
+	</body>
+</html>
