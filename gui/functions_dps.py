@@ -10,6 +10,9 @@ import os
 import json
 from rich.prompt import Prompt
 import pickle
+import shutil
+
+from requests.exceptions import RequestException
 
 from spellchecker import SpellChecker
 from nltk import word_tokenize
@@ -1403,6 +1406,14 @@ def add_number_to_pali(pth, db_session, word_id, word_pali_1):
 def save_gui_state_dps(dpspth, values, words_to_add_list):
     save_state: tuple = (values, words_to_add_list)
     print(f"[green]saving gui state (2), values:{len(values)}, words_to_add_list: {len(words_to_add_list)}")
+
+    # Check if the file exists and create a backup if it does
+    if os.path.exists(dpspth.dps_save_state_path):
+        backup_path = str(dpspth.dps_save_state_path) + '_backup'
+        shutil.copy2(dpspth.dps_save_state_path, backup_path)
+        print(f"[yellow]Backed up old state to {backup_path}")
+    
+    # Save the new state
     with open(dpspth.dps_save_state_path, "wb") as f:
         pickle.dump(save_state, f)
 
@@ -1418,29 +1429,34 @@ def load_gui_state_dps(dpspth):
 
 def send_sutta_study_request(word, simsapa_book):
 
-    # Construct the sutta_uid by concatenating simsapa_book with "/pli/ms"
-    sutta_uid = simsapa_book + "/pli/ms"
+    try:
 
-    print(f"sutta_uid: {sutta_uid}")
-    print(f"word: {word}")
-    # Construct the params dictionary
-    params = {
-        "sutta_panels": [
-            {
-                "sutta_uid": sutta_uid,
-                "find_text": word
+        # Construct the sutta_uid by concatenating simsapa_book with "/pli/ms"
+        sutta_uid = simsapa_book + "/pli/ms"
+
+        print(f"sutta_uid: {sutta_uid}")
+        print(f"word: {word}")
+        # Construct the params dictionary
+        params = {
+            "sutta_panels": [
+                {
+                    "sutta_uid": sutta_uid,
+                    "find_text": word
+                }
+            ],
+            "lookup_panel": {
+                "query_text": word
             }
-        ],
-        "lookup_panel": {
-            "query_text": word
         }
-    }
-    
-    # Send the POST request
-    response = requests.post("http://localhost:4848/sutta_study", json=params)
-    
-    # Check the response
-    if response.status_code == 200:
-        print("Request sent successfully.")
-    else:
-        print("Error:", response.status_code)
+        
+        # Send the POST request
+        response = requests.post("http://localhost:4848/sutta_study", json=params)
+        
+        # Check the response
+        if response.status_code == 200:
+            print("Request sent successfully.")
+        else:
+            print("Error:", response.status_code)
+
+    except RequestException as e:
+        print(f"An error occurred while sending the request: {e}")

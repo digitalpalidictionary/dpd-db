@@ -3,6 +3,8 @@
 import re
 import csv
 import nltk
+import os
+import shutil
 
 import subprocess
 import textwrap
@@ -940,6 +942,14 @@ def add_to_word_to_add(values, window, words_to_add_list):
 def save_gui_state(pth, values, words_to_add_list):
     save_state: tuple = (values, words_to_add_list)
     print(f"[green]saving gui state, values:{len(values)}, words_to_add_list: {len(words_to_add_list)}")
+
+    # Check if the file exists and create a backup if it does
+    if os.path.exists(pth.save_state_path):
+        backup_path = str(pth.save_state_path) + '_backup'
+        shutil.copy2(pth.save_state_path, backup_path)
+        print(f"[yellow]Backed up old state to {backup_path}")
+    
+    # Save the new state
     with open(pth.save_state_path, "wb") as f:
         pickle.dump(save_state, f)
 
