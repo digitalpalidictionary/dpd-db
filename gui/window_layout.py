@@ -220,6 +220,7 @@ def window_layout(dpspth, db_session, username):
     window.bind('<Control-q>', 'control_q')  # quit
     window.bind('<Control-p>', 'control_p')  # split
     window.bind('<Control-l>', 'control_l')  # clear 
+    window.bind('<Control-a>', 'control_a')  # add a word to word_to_add 
 
     # alt keys
     window.bind('<Alt-s>', 'alt_s')  # stash

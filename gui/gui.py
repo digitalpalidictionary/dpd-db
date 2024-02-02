@@ -64,6 +64,7 @@ from functions import increment_pali_1
 from functions import make_compound_construction
 from functions import make_construction
 from functions import make_pali_clean
+from functions import make_has_values_list
 
 from functions_tests import individual_internal_tests
 from functions_tests import open_internal_tests
@@ -120,16 +121,19 @@ from functions_tests_dps import dps_db_internal_tests
 from functions_tests_dps import check_repetition
 from functions_tests_dps import dps_dpd_db_internal_tests
 
+from db.models import BoldDefintion
 from db.get_db_session import get_db_session
 from scripts.backup_paliword_paliroot import backup_paliword_paliroot
 from scripts.backup_ru_sbs import backup_ru_sbs
 
 from exporter.i2html import make_html
+
 from tools.goldedict_tools import open_in_goldendict
+from tools.paths import ProjectPaths
 from tools.pos import DECLENSIONS, VERBS
 from tools.pos import POS
 from tools.sandhi_contraction import make_sandhi_contraction_dict
-from tools.paths import ProjectPaths
+from tools.tic_toc import bip, bop
 
 from dps.tools.paths_dps import DPSPaths
 
@@ -142,13 +146,15 @@ def main():
     pali_word_original = None
     pali_word_original2 = None
     
-
-    # !!! FIXME this is supa slow !!!
+    
     try:
-        definitions_df = pd.read_csv(pth.defintions_csv_path, sep="\t")
+        bip()
+        print("getting bold_defintions_db ", end="")
+        bold_defintions_db = db_session.query(BoldDefintion).all()
         commentary_definitions_exists = True
+        print(bop())
     except Exception:
-        definitions_df = pd.DataFrame()
+        bold_defintions_db = []
         commentary_definitions_exists = False
 
     family_compound_values = get_family_compound_values(db_session)
@@ -471,7 +477,7 @@ def main():
             add_spelling(pth, word)
             window["messages"].update(
                 value=f"{word} added to dictionary", text_color="white")
-            window["add_spelling"].update("") # type: ignore
+            window["add_spelling"].update(value="")
 
         elif event == "edit_spelling_button":
             edit_spelling(pth)
@@ -571,12 +577,23 @@ def main():
             if not values["root_key"]:
                 test_construction(values, window, pali_clean_list)
 
-        elif (event == "add_construction_enter" or
-                event == "add_construction_button"):
+        elif (
+            event == "add_construction_enter" or
+            event == "add_construction_button"
+        ):  
+            new_word_to_add = values["add_construction"]
             words_to_add_list = add_to_word_to_add(
-                values, window, words_to_add_list)
+                words_to_add_list, new_word_to_add, window)
             window["word_to_add"].update(values=words_to_add_list)
             window["words_to_add_length"].update(value=len(words_to_add_list))
+
+        elif event == "control_a":
+            new_word_to_add = sg.popup_get_text(
+                "What word would you like to add?", title="Add a word", location=(400, 400))
+            if new_word_to_add:
+                words_to_add_list = add_to_word_to_add(words_to_add_list, new_word_to_add, window)
+                window["word_to_add"].update(values=words_to_add_list)
+                window["words_to_add_length"].update(value=len(words_to_add_list))
 
         elif event == "derivative":
             print("hello")
@@ -776,7 +793,7 @@ def main():
                 commentary_defintions = None
                 try:
                     commentary_defintions = find_commentary_defintions(
-                        sg, values, definitions_df)
+                        sg, values, bold_defintions_db)
                 except NameError as e:
                     window["messages"].update(
                         value=f"turn on the definitions db! {e}", text_color="red")
@@ -784,7 +801,7 @@ def main():
                 if commentary_defintions:
                     commentary = ""
                     for c in commentary_defintions:
-                        commentary += f"({c['ref_code']}) {c['commentary']}\n"
+                        commentary += f"({c.ref_code}) {c.commentary}\n"
                     commentary = commentary.rstrip("\n")
                     window["commentary"].update(value=commentary)
 
@@ -1097,6 +1114,7 @@ def main():
         # hide fields logic
 
         elif event == "show_fields_all":
+
             for value in values:
                 window[value].update(visible=True)
                 window["get_family_root"].update(visible=True)
@@ -1111,6 +1129,9 @@ def main():
                 window[value].update(visible=username == "deva")
 
         elif event == "show_fields_root":
+
+            has_value_list = make_has_values_list(values)
+
             hide_list = [
                 "meaning_2", "family_word", "family_compound", "compound_type",
                 "compound_construction", "bold_cc", "bold_cc_button",
@@ -1122,7 +1143,8 @@ def main():
             for value in values:
                 window[value].update(visible=True)
             for value in hide_list:
-                window[value].update(visible=False)
+                if value not in has_value_list:
+                    window[value].update(visible=False)
             for value in hide_list_all:
                 window[value].update(visible=username == "deva")
             window["get_family_root"].update(visible=True)
@@ -1131,6 +1153,9 @@ def main():
             flags.show_fields = False
 
         elif event == "show_fields_compound":
+
+            has_value_list = make_has_values_list(values)
+
             hide_list = [
                 "verb", "trans", "meaning_2", "root_key", "family_root",
                 "get_family_root", "root_sign",  "get_root_sign", "root_base",
@@ -1144,12 +1169,16 @@ def main():
                 window["bold_cc_button"].update(visible=True)
                 window["bold_2_button"].update(visible=True)
             for value in hide_list:
-                window[value].update(visible=False)
+                if value not in has_value_list:
+                    window[value].update(visible=False)
             for value in hide_list_all:
                 window[value].update(visible=username == "deva")
             flags.show_fields = False
 
         elif event == "show_fields_word":
+
+            has_value_list = make_has_values_list(values)
+
             hide_list = [
                 "verb", "trans", "meaning_2", "root_key",
                 "family_root", "get_family_root",
@@ -1165,7 +1194,8 @@ def main():
             for value in values:
                 window[value].update(visible=True)
             for value in hide_list:
-                window[value].update(visible=False)
+                if value not in has_value_list:
+                    window[value].update(visible=False)
             for value in hide_list_all:
                 window[value].update(visible=username == "deva")
             flags.show_fields = False

@@ -22,6 +22,7 @@ from functions_db import make_all_inflections_set
 from functions_db import values_to_pali_word
 
 from tools.addition_class import Addition
+from tools.bold_definitions_search import search_bold_defintions
 from tools.configger import config_test_option
 from tools.configger import config_update
 from tools.configger import config_test
@@ -430,7 +431,7 @@ def clear_values(values, window, username):
     window["root_info"].update("")
 
 
-def find_commentary_defintions(sg, values, definitions_df):
+def find_commentary_defintions(sg, values, bold_defintions_db):
 
     config = load_gui_config()
 
@@ -441,16 +442,8 @@ def find_commentary_defintions(sg, values, definitions_df):
     window_width = int(screen_width * config["screen_fraction_width"])
     window_height = int(screen_height * config["screen_fraction_height"])
     
-    try:
-        test1 = definitions_df["bold"].str.contains(values["search_for"])
-    except Exception as e:
-        test1 = ""
-        print(e)
-    test2 = definitions_df["commentary"].str.contains(
-        values["contains"])
-    filtered = test1 & test2
-    df_filtered = definitions_df[filtered]
-    search_results = df_filtered.to_dict(orient="records")
+    search_results = search_bold_defintions(bold_defintions_db,
+        values["search_for"], values["contains"])
 
     layout_elements = []
     layout_elements.append(
@@ -470,26 +463,28 @@ def find_commentary_defintions(sg, values, definitions_df):
             [sg.Text("dispalying the first 50 results. \
                 please refine your search")])
 
-    for i, r in enumerate(search_results):
-        if i >= 50:
+    for count, r in enumerate(search_results):
+        if count >= 50:
             break
         else:
             try:
-                commentary = r["commentary"].replace("<b>", "")
-                commentary = commentary.replace("</b>", "")
-                commentary = textwrap.fill(commentary, 150)
+                commentary_clean = r.commentary.replace("<b>", "<").replace("</b>", ">")
+                commentary_clean = textwrap.fill(commentary_clean, 150)
 
                 layout_elements.append(
                     [
-                        sg.Checkbox(f"{i}.", key=i),
-                        sg.Text(r["ref_code"]),
-                        sg.Text(r["bold"], text_color="white"),
+                        sg.Checkbox(f"{count}.", key=count),
+                        sg.Text(r.ref_code),
+                        sg.Text(r.bold, text_color="white"),
                     ]
                 )
+
+                # FIXME how to add actual bold text in pysimplegui?
+
                 layout_elements.append(
                     [
                         sg.Text(
-                            f"{commentary}", size=(80, None),
+                            commentary_clean, size=(80, None),
                             text_color="lightgray"),
                     ],
                 )
@@ -928,13 +923,14 @@ def remove_word_to_add(values, window, words_to_add_list):
     return words_to_add_list
 
 
-def add_to_word_to_add(values, window, words_to_add_list):
-    if values["add_construction"]:
-        words_to_add_list.insert(0, values["add_construction"])
-        window["add_construction"].update("")
-        window["messages"].update(
-            f"{values['add_construction']} added to words to add list",
-            text_color="white")
+def add_to_word_to_add(words_to_add_list, word_to_add, window):
+    """Update word_to_add_list with a new word,
+    wither from construction or control_a."""
+    words_to_add_list.insert(0, word_to_add)
+    window["add_construction"].update("")
+    window["messages"].update(
+        f"{word_to_add} added to words to add list",
+        text_color="white")
 
     return words_to_add_list
 
@@ -1017,7 +1013,7 @@ def test_username(sg):
     while True:
         if not config_test_option("user", "username"):
             username = sg.popup_get_text(
-                "What is your name?", title="username")
+                "What is your name?", title="username", location=(400, 400))
             if username:
                 config_update("user", "username", username)
                 break
@@ -1292,3 +1288,12 @@ def make_compound_construction(values):
         return construction_line1
     else:
         return pali_clean
+
+
+def make_has_values_list(values: dict) -> list[str]:
+    """Return a list of all the fields with values."""
+    has_value_list = []
+    for key, value in values.items():
+        if value:
+            has_value_list.append(key)
+    return has_value_list

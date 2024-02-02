@@ -186,6 +186,7 @@ def edit_word_in_db(db_session, values, window):
                 window[key].update(attrs[key])
         window["messages"].update(
             f"editing '{values['word_to_clone_edit']}'", text_color="white")
+        window["search_for"].update(pali_word.pali_clean[:-1])
 
     return pali_word
 
