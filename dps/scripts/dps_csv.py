@@ -5,7 +5,6 @@ also add sbs_index and sbs_audio based on some conditions"""
 
 import csv
 import re
-import os
 from rich.console import Console
 
 from typing import List
@@ -18,6 +17,8 @@ from dps.tools.paths_dps import DPSPaths
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 from tools.date_and_time import day
+
+from dps.tools.sbs_table_functions import SBS_table_tools
 
 date = day()
 console = Console()
@@ -40,58 +41,6 @@ def main():
     
     # full_db(dpspth, dpd_db)
     
-
-
-
-def load_chant_index_map(dpspth):
-    """Load the chant-index mapping from a TSV file into a dictionary."""
-    chant_index_map = {}
-    with open(dpspth.sbs_index_path, 'r', encoding='utf-8') as csvfile:
-        reader = csv.reader(csvfile, delimiter='\t')
-        next(reader)  # Skip header row
-        for row in reader:
-            index, chant = row[0], row[1]
-            chant_index_map[chant] = int(index)
-    return chant_index_map
-
-
-def load_chant_link_map(dpspth):
-    """Load the chant-link mapping from a TSV file into a dictionary."""
-    chant_link_map = {}
-    with open(dpspth.sbs_index_path, 'r', encoding='utf-8') as csvfile:
-        reader = csv.reader(csvfile, delimiter='\t')
-        next(reader)  # Skip header row
-        for row in reader:
-            chant, link = row[1], row[4]
-            chant_link_map[chant] = link
-    return chant_link_map
-
-
-def load_class_link_map(dpspth):
-    """Load the class-link mapping from a TSV file into a dictionary."""
-    class_link_map = {}
-    with open(dpspth.class_index_path, 'r', encoding='utf-8') as csvfile:
-        reader = csv.reader(csvfile, delimiter='\t')
-        next(reader)  # Skip header row
-        for row in reader:
-            class_num, link = int(row[0]), row[2]  # Convert class_num to integer
-            class_link_map[class_num] = link
-    return class_link_map
-
-
-def load_sutta_link_map(dpspth):
-    """Load the sutta-link mapping from a TSV file into a dictionary."""
-    sutta_link_map = {}
-    with open(dpspth.sutta_index_path, 'r', encoding='utf-8') as csvfile:
-        reader = csv.reader(csvfile, delimiter='\t')
-        next(reader)  # Skip header row
-        for row in reader:
-            sutta_num, link = row[0], row[2]
-            sutta_link_map[sutta_num] = link
-    return sutta_link_map
-
-
-
 
 def dps(dpspth, dpd_db):
     console.print("[bold green]making dps-full csv")
@@ -276,17 +225,8 @@ def pali_row(dpspth, i: PaliWord, output="anki") -> List[str]:
         i.sbs.sbs_index if i.sbs else None
     ])
 
-    # Logic for sbs_audio
-    if dpspth.anki_media_dir:
-        audio_path = os.path.join(dpspth.anki_media_dir, f"{i.pali_clean}.mp3")
-        if os.path.exists(audio_path):
-            sbs_audio = f"[sound:{i.pali_clean}.mp3]"
-        else:
-            sbs_audio = ''
-
-        fields.append(sbs_audio)
-    else:
-        console.print("[bold red]no path to anki media")
+    # sbs_audio
+    fields.append(SBS_table_tools().generate_sbs_audio(i.pali_clean))
 
     fields.extend([
         i.sbs.sbs_chant_link_1 if i.sbs else None,

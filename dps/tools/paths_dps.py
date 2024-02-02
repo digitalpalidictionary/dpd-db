@@ -29,6 +29,8 @@ class DPSPaths:
         self.temp_csv_path = base_dir.joinpath(Path("dps/csvs/temp.csv"))
         self.id_to_add_path = base_dir.joinpath(Path("dps/csvs/id_to_add.csv"))
         self.id_temp_list_path = base_dir.joinpath(Path("dps/csvs/id_temp_list.csv"))
+        self.csvs_for_audio_dir = base_dir.joinpath(Path("dps/csvs/csvs_for_audio/"))
+
 
         self.sbs_pd_path = base_dir.joinpath(Path("dps/csvs/sbs_pd.csv"))
 
@@ -75,6 +77,7 @@ class DPSPaths:
                 self.dps_backup_dir,
                 self.for_compare_dir,
                 self.temp_csv_backup_dir,
+                self.csvs_for_audio_dir
             ]:
                 d.mkdir(parents=True, exist_ok=True)
 

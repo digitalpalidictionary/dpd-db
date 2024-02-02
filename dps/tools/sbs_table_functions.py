@@ -1,6 +1,7 @@
 """Functions for properties in SBS table"""
 
 import csv
+import os
 
 from dps.tools.paths_dps import DPSPaths
 
@@ -53,3 +54,12 @@ class SBS_table_tools:
                 sutta_num, link = row[0], row[2]
                 sutta_link_map[sutta_num] = link
         return sutta_link_map
+
+    
+    def generate_sbs_audio(self, pali_clean):
+        """Generate the sbs_audio string based on the presence of an audio file."""
+        if dpspth.anki_media_dir:
+            audio_path = os.path.join(dpspth.anki_media_dir, f"{pali_clean}.mp3")
+            if os.path.exists(audio_path):
+                return f"[sound:{pali_clean}.mp3]"
+        return ''
