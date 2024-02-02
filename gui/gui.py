@@ -262,8 +262,6 @@ def main():
         elif event == "word_to_add":
             if values["word_to_add"] != []:
                 open_in_goldendict(values["word_to_add"][0])
-                if username == "deva":
-                    send_sutta_study_request(values["word_to_add"][0], values['source_to_add'])
                 pyperclip.copy(values["word_to_add"][0])
                 print(window["word_to_add"].get_list_values()) # type: ignore
 
@@ -277,6 +275,7 @@ def main():
                 words_to_add_list = remove_word_to_add(
                     values, window, words_to_add_list)
                 sandhi_ok(pth, window, values["word_to_add"][0])
+                daily_record_update(window, pth, "check", values["word_to_add"][0])
 
                 if values["word_to_add"][0] in words_to_add_list:
                     words_to_add_list.remove(values["word_to_add"][0])
@@ -313,6 +312,7 @@ def main():
             if values["word_to_add"] == []:
                 window["messages"].update(value="nothing selected", text_color="red")
             else:
+                daily_record_update(window, pth, "check", values["word_to_add"][0])
                 words_to_add_list = remove_word_to_add(
                     values, window, words_to_add_list)
                 window["words_to_add_length"].update(value=len(words_to_add_list))
@@ -326,9 +326,13 @@ def main():
             open_inflection_tables(pth)
 
         elif event == "remove_word":
-            words_to_add_list = remove_word_to_add(
-                values, window, words_to_add_list)
-            window["words_to_add_length"].update(value=len(words_to_add_list))
+            if values["word_to_add"] == []:
+                window["messages"].update(value="nothing selected", text_color="red")
+            else:
+                daily_record_update(window, pth, "check", values["word_to_add"][0])
+                words_to_add_list = remove_word_to_add(
+                    values, window, words_to_add_list)
+                window["words_to_add_length"].update(value=len(words_to_add_list))
 
         # DPD edit tab
 
@@ -950,7 +954,7 @@ def main():
                         remove_word_to_add(values, window, words_to_add_list)
                         window["words_to_add_length"].update(
                             value=len(words_to_add_list))
-                        open_in_goldendict(values["pali_1"])
+                        # open_in_goldendict(values["pali_1"])
                         window["tab_edit_dps"].select()  # type: ignore
                         
         
@@ -2146,6 +2150,13 @@ def main():
                 window["messages"].update(
                     value="empty list, try again", text_color="red")
 
+        # sent request to simsapa               
+        elif event == "send_sutta_study_request_button":
+            print(values)
+            if values["word_to_add"] == []:
+                window["messages"].update(value="nothing selected", text_color="red")
+            else:
+                send_sutta_study_request(values["word_to_add"][0], values['source_to_add'])
 
         # edit word in DPS
         elif event == "dps_edit_word":
@@ -2174,6 +2185,7 @@ def main():
             if values["word_to_add"] == []:
                 window["messages"].update(value="nothing selected", text_color="red")
             else:
+                daily_record_update(window, pth, "check", values["word_to_add"][0])
                 words_to_add_list = remove_word_to_add(
                     values, window, words_to_add_list)
                 window["words_to_add_length"].update(value=len(words_to_add_list))
@@ -2187,6 +2199,7 @@ def main():
             if values["word_to_add"] == []:
                 window["messages"].update(value="nothing selected", text_color="red")
             else:
+                daily_record_update(window, pth, "check", values["word_to_add"][0])
                 words_to_add_list = remove_word_to_add(
                     values, window, words_to_add_list)
                 window["words_to_add_length"].update(value=len(words_to_add_list))

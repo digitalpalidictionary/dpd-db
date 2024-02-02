@@ -262,6 +262,13 @@ SN
                 "",
                 key="words_to_add_length",
                 text_color="white"),
+            sg.Button(
+                "to simsapa", 
+                key="send_sutta_study_request_button",
+                tooltip="search word in the simsapa in the 'source' + /pli/ms", 
+                pad=((20, 0), (0, 5)),
+                visible=username == "deva",
+            ),
         ],
         [
             sg.Text(
@@ -428,6 +435,16 @@ SN
             ),
             sg.Text(
                 "0", key="daily_deleted",
+                text_color="white"
+            ),
+        ],
+        [
+            sg.Text(
+                "Checked: ",
+                pad=((100, 0), (0, 0))
+            ),
+            sg.Text(
+                "0", key="daily_checked",
                 text_color="white"
             ),
         ],
