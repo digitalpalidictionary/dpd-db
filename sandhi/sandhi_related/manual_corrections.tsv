@@ -19,13 +19,13 @@ yepi	ye + api
 sāva	sā + eva
 isīti	isi + iti
 midhekaccaṃ	m + idha + ekaccaṃ
+midhekaccaṃ	m + idhekaccaṃ
 soyeva	so + eva
 teti	te + iti
 sopi	so + api
 vātiādikaṃ	vā + iti + ādikaṃ
 vātiādimāha	vā + iti + ādiṃ + āha
 vātiādīni	vā + iti + ādīni
-vātipi	vā + iti + api
 sāpi	sā + api
 sāssa	sā + assa
 tāyapi	tāya + api
@@ -60,7 +60,6 @@ maññeva	maṃ + eva
 santettha	santi + ettha
 santibhūtaṃ	santi + bhūtaṃ
 santiupāyameva	santi + upāyaṃ + eva
-yantīti	yanti + iti
 udakaṭṭhānetipi	udaka + ṭhāne + iti + api
 uraṭṭhiṃ	ura + aṭṭhiṃ
 nevāhaṃ	na + eva + ahaṃ
@@ -89,12 +88,12 @@ yampi	yaṃ + api
 yampissa	yaṃ + api + assa
 yampudāyi	yaṃ + api + udāyi
 yaṃyadeva	yaṃ + yad + eva
-yañca	yam + ca
 yañhi	yaṃ + hi
 yannūnāhanti	yaṃ + nūna + ahaṃ + iti
 yāpi	yā + api
 yāpissa	yā + api + assa
 yeva	y + eva
+yeva	eva
 yevāha	eva + āha
 yevāti	eva + iti
 yeveso	eva + eso
@@ -114,6 +113,7 @@ kenacidevāti	kenaci + eva + iti
 imināvārahāmevāhaṃ	iminā + eva + arahāmi + eva + ahaṃ
 raññikiṭāgirināmo	arañña + kiṭāgiri + nāmo
 itiha	iti + ha
+itiha	iti + iha
 itveva	iti + eva
 āsāti	āsā + iti
 kvatthoti	ko + attho + iti
@@ -133,17 +133,21 @@ asimāvudhañca	asiṃ + āvudhaṃ + ca
 kevalinosmaseti	kevalino + asmase + iti
 asmāti	asmā + iti
 seyyaṃsoti	seyyaṃ + so + iti
+seyyaṃsoti	seyyaṃso + iti
 pāpiyaṃsoti	pāpiyaṃ + so + iti
+pāpiyaṃsoti	pāpiyaṃso + iti
 kathaṃsūti	kathaṃsu + iti
 aññadeva	añña + eva
 iticiticeva	iti + ca + iti + ca + eva
 sammadeva	sammā + eva
 kismiñcideva	kismiñci + eva
+kismiñcideva	kismiṃ + ci + eva
 yaññadeva	yaṃ + yad + eva
 yāvadeva	yāva + eva
 ahudeva	ahu + eva
 kocideva	koci + eva
 kiñcideva	kiñci + eva
+kiñcideva	kiṃ + ci + eva
 yāvadevāti	yāva + eva + iti
 sakidevāti	saki + eva + iti
 sammadevāti	sammā + eva + iti
@@ -163,6 +167,7 @@ meti	me + iti
 mesi	me + asi
 myāyaṃ	me + ayaṃ
 māhu	ma + ahu
+māhu	mā + ahu
 nāhamettha	na + ahaṃ + ettha
 alameva	alaṃ + eva
 metthāti	me + ettha + iti
@@ -183,6 +188,7 @@ atthāhaṃ	atthi + ahaṃ
 tedha	te + idha
 nayidaṃ	na + idaṃ
 amāhaṃ	amuṃ + ahaṃ
+amāhaṃ	ama + ahaṃ
 yamahaṃ	yaṃ + ahaṃ
 tayidaṃ	ta + idaṃ
 natvevāti	na + tu + eva + iti
@@ -190,7 +196,6 @@ yamidaṃ	yaṃ + idaṃ
 yamudāyi	yaṃ + udāyi
 svepi	so + api
 bhāvitamāsiṃsati	bhāvitaṃ + āsiṃsati
-noti	no + iti
 pādagaṇṭhirahu	pādagaṇṭhi + ahu
 yadūpaghātāya	yad + upaghātāya
 yadānulomikaṃ	yad + anulomikaṃ
@@ -203,8 +208,10 @@ atthītissa	atthi + iti + assa
 jitamhā	jita + amhā
 nevasassato	na + eva + sassato
 svāssudaṃ	so + assudaṃ
+svāssudaṃ	so + sudaṃ
 yañcassāhaṃ	yaṃ + ca + assa + ahaṃ
 sopāgā	so + upagā
+sopāgā	so + api + āgā
 yaṃpāvuso	yaṃ + api + āvuso
 vohaṃ	vo + ahaṃ
 nevattānaṃ	na + eva + attānaṃ
@@ -221,8 +228,10 @@ māssu	mā + ssu
 yaṃnūnāhampi	yaṃ + nūna + ahaṃ + api
 jalatisu	jalati + su
 midhekacce	m + idha + ekacce
+midhekacce	idha + ekacce
 āmāvuso	āma + āvuso
 yasassiso	yasassi + so
+yasassiso	yasassī + so
 jalatassu	jalati + assu
 jhāyatassu	jhāyati + assu
 nāvuso	na + āvuso
@@ -251,11 +260,10 @@ pavivittassāyaṃ	pavivittassa + ayaṃ
 upaṭṭhitasatissāyaṃ	upaṭṭhitasatissa + ayaṃ
 samāhitassāyaṃ	samāhitassa + ayaṃ
 nippapañcassāyaṃ	nippapañcassa + ayaṃ
-amāhaṃ	ama + ahaṃ
-amāhaṃ	amuṃ + ahaṃ
 mapi	m + api
 nevassu	na + eva + ssu
 yidaṃ	y + idaṃ
+yidaṃ	idaṃ
 yañhissa	yaṃ + hi + assa
 nāhamasmi	na + ahaṃ + asmi
 asuyeva	asu + eva
@@ -274,18 +282,14 @@ tebhikkhū	te + bhikkhū
 yaṃsa	yaṃ + assa
 sopikho	so + api + kho
 tyāvuso	te + āvuso
-alañca	alam + ca
 metamāsado	mā + etaṃ + āsado
 māhaṃ	mā + ahaṃ
 yañcassa	yaṃ + ca + assa
 atthānanda	atthi + ānanda
 appatissotissa	appatisso + iti + assa
-midhekaccaṃ	m + idhekaccaṃ
 tamenāññataro	taṃ + ena + aññataro
 evaṃbyākhoti	evaṃ + byā + kho + iti
 maññantīti	maññanti + iti
-seyyaṃsoti	seyyaṃso + iti
-pāpiyaṃsoti	pāpiyaṃso + iti
 naṅgulīhi	na + aṅgulīhi
 yodhapuññañca	yo + idha + puññaṃ + ca
 yodhakāme	yo + idha + kāme
@@ -363,6 +367,7 @@ yannu	yaṃ + nu
 alaṃvacanāyāti	alaṃ + vacanāyā + iti
 yannūnassāhaṃ	yaṃ + nūna + assa + ahaṃ
 sāhaṃ	sā + ahaṃ
+sāhaṃ	so + ahaṃ
 nevajjhagā	na + eva + ajjhagā
 itonidānā	ito + nidānā
 kosudha	ko + su + idha
@@ -428,6 +433,7 @@ handimaṃ	handa + imaṃ
 kinte	kiṃ + te
 māvuso	mā + āvuso
 tāvade	tāva + eva
+tāvade	tāva + eva > e
 alametaṃ	alaṃ + etaṃ
 yaṃpāhaṃ	yaṃ + api + ahaṃ
 yampāhaṃ	yaṃ + api + ahaṃ
@@ -472,6 +478,7 @@ sassatamhāti	sassata + amhā + iti
 vimuttītissa	vimuttī + iti + assa
 virāgotissa	virāgo + iti + assa
 tissa	ti + assa
+tissa	iti + assa
 nibbidātissa	nibbidā + iti + assa
 yathābhūtañāṇadassanantissa	yathābhūtañāṇadassanaṃ + iti + assa
 samādhītissa	samādhi + iti + assa
@@ -502,6 +509,7 @@ tāvime	tāva + ime
 nocedañca	no + ce + idaṃ + ca
 nocedaṃ	no + ce + idaṃ
 subhantveva	subhaṃ + ti + eva
+subhantveva	subhaṃ + tu + eva
 kiñcarahāvuso	kiṃ + carahi + āvuso
 kamuddiseyyanti	kaṃ + uddiseyyaṃ + iti
 tāvadeti	tāva + eva + iti
@@ -629,7 +637,6 @@ yyāssa	ye + assa
 yaṃnissitā	yaṃ + nissitā
 saṅkhasaddotveva	saṅkhasaddo + iti + eva
 bherisaddotveva	bherisaddo + iti + eva
-yampāyaṃ	yaṃ + api + ayaṃ
 sukhañcetaṃdhivattatīti	sukhaṃ + ca + etaṃ + adhivattati + iti
 taṇhāyogena	taṇhā + yogena
 cayime	ca + ime
@@ -664,6 +671,7 @@ caṇḍālimpi	caṇḍāliṃ + api
 sayanamathannapānaṃ	sayanaṃ + atha + annapānaṃ
 abhiramatāyasmā	abhiramati + āyasmā
 nāssassa	nāssa + assa
+nāssassa	na + assa + assa
 appaṃsupati	appaṃ + supati
 sopapajjati	so + upapajjati
 sopapajjatīti	so + upapajjati + iti
@@ -686,6 +694,7 @@ nayimāni	na + imāni
 taṭṭhānā	ta + ṭhānā
 sāpissa	sā + api + assa
 tyāpare	te + āpare
+tyāpare	te + apare
 vayañcassānupassatīti	vayaṃ + ca + assa + anupassati + iti
 yassaṃdisaṃ	yassaṃ + disaṃ
 atohayaṃ	ato + hi + ayaṃ
@@ -737,13 +746,11 @@ catūhāvuso	catūhi + āvuso
 sāvassā	sā + eva + assā
 anatikkamanīyāti	anatikkamanīyā + iti
 āyañca	āyaṃ + ca
-catūhāvuso	catūhi + āvuso
 tīhāvuso	tīhi + āvuso
 dvīhāvuso	dvīhi + āvuso
 nūname	nūna + ime
 hanūname	ha + nūna + ime
 paname	pana + ime
-hanūname	ha + nūna + ime
 navahaṅgehi	navahi + aṅgehi
 vuḍḍhihesā	vuḍḍhi + hi + esā
 tāvāyaṃ	tāva + ayaṃ
@@ -754,7 +761,6 @@ tiādinā	iti + ādinā
 jhāyīhete	jhāyī + hi + ete
 tathāhimaṃ	tathā + hi + imaṃ
 atthābhinibbattesuṃ	attha + abhinibbattesuṃ
-parisuddhenamhi	parisuddhena + amhi
 parisuddhenamhi	parisuddhena + amhi
 nīvaraṇātissa	nīvaraṇā + iti + assa
 asatāsampajaññantissa	asatāsampajaññaṃ + iti + assa
@@ -805,14 +811,15 @@ hitāyassa	hitāya + assa
 karaṇīyamatthakusalena	karaṇīyaṃ + atthakusalena
 yantasantaṃ	yaṃ + taṃ + santaṃ
 nāññamaññassa	na + aññamaññassa
+nāññamaññassa	na + aññaṃ + aññassa
 yāvatāssa	yāvatā + assa
 vihāramidhamāhu	vihāraṃ + idha + āhu
 retīti	r + eti + iti
 maparājitā	m + aparājitā
-petānamatthāya	petānaṃ + atthāya
 tāvassunihito	tāva + ssu + nihito
 cakkaṃva	cakkaṃ + iva
 rukkhaṃva	rukkhaṃ + iva
+rukkhaṃva	rukkhaṃ + eva
 uṭṭhānenappamādena	uṭṭhānena + appamādena
 pabbataṭṭhova	pabbataṭṭho + iva
 okamokataubbhato	okaṃ + okato + ubbhato
@@ -850,6 +857,7 @@ māvoca	mā + avoca
 kasāmiva	kasā + iva
 parijiṇṇamidaṃ	parijiṇṇaṃ + idaṃ
 yānimānipaviddhāni	yāna + imāni + apaviddhāni
+yānimānipaviddhāni	yāni + imāni + apaviddhāni
 alābūneva	alābūni + eva
 alāpūneva	alāpūni + eva
 balibaddhova	balibaddho + iva
@@ -887,7 +895,6 @@ maggamisippaveditaṃ	maggaṃ + isippaveditaṃ
 khīrapakova	khīrapako + iva
 sāradikaṃva	sāradikaṃ + iva
 santimaggameva	santimaggaṃ + eva
-yānimānipaviddhāni	yāni + imāni + apaviddhāni
 himavantova	himavanto + iva
 asantettha	asanto + ettha
 damayamattānaṃ	damayaṃ + attānaṃ
@@ -938,7 +945,6 @@ anuruddhattheravatthu	anuruddha + thera + vatthu
 mahākaccāyanattheravatthu	mahākaccāyana + thera + vatthu
 anatthapucchakabrāhmaṇavatthu	anattha + pucchaka + brāhmaṇa + vatthu
 sahāyakabrāhmaṇavatthu	sahāyaka + brāhmaṇa + vatthu
-petānamatthāya	petānaṃ + atthāya
 abalassaṃva	abalassaṃ + iva
 ñātīva	ñātī + iva
 ayasāva	ayasā + iva
@@ -974,10 +980,10 @@ uppatitvāpi	uppatitvā + api
 palāyatanti	palāyataṃ + iti
 kilantosīti	kilanto + asi + iti
 kilantomhīti	kilanto + amhā + iti
+kilantomhīti	kilanto + amhi + iti
 kalyāṇiyāsi	kalyāṇiyā + asi
 cāsi	ca + asi
 visamānīva	visamāni + iva
-kilantomhīti	kilanto + amhi + iti
 siddhamidanti	siddhaṃ + idaṃ + iti
 vidūti	vidū + iti
 tamogadhanti	taṃ + ogadhaṃ + iti
@@ -1021,7 +1027,6 @@ addhāti	addhā + iti
 ekasaṃyojanampi	ekasaṃyojanaṃ + api
 bhāvitattaññataraṃ	bhāvitatta + aññataraṃ
 puttamicchanti	puttaṃ + icchanti
-ekasaṃyojanampi	ekasaṃyojanaṃ + api
 kusāpi	kusā + api
 pattāpi	pattā + api
 sāsaneti	sāsane + iti
@@ -1055,6 +1060,7 @@ saheyyumāgataṃ	saheyyuṃ + āgataṃ
 baddhāsi	baddhā + asi
 aṭṭhamahāsaṃvegavatthusamāvajjanañca	aṭṭha + mahā + saṃvega + vatthu + samāvajjanaṃ + ca
 tāhaṃ	te + ahaṃ
+tāhaṃ	taṃ + ahaṃ
 imāvuso	ime + āvuso
 sahottappañāṇaṃ	saha + ottappa + ñāṇaṃ
 abhisāpāyaṃ	abhisāpo + ayaṃ
@@ -1200,7 +1206,6 @@ nomhi	no + amhi
 tassijjheti	tassa + ijjhe + iti
 hutamijjhe	hutaṃ + ijjhe
 vedagumaddasāma	vedaguṃ + addasāma
-tassijjheti	tassa + ijjhe + iti
 caññāsi	ca + aññāsi
 hutamatthu	hutaṃ + atthu
 yaññamāgataṃ	yaññaṃ + āgataṃ
@@ -1282,7 +1287,6 @@ attānamabhitosayaṃ	attānaṃ + abhitosayaṃ
 gāmantamabhihāraye	gāmantaṃ + abhihāraye
 gāmamāgamma	gāmaṃ + āgamma
 rukkhaṃvupanivattati	rukkhaṃ + eva + upanivattati
-rukkhaṃva	rukkhaṃ + eva
 monamakkhātaṃ	monaṃ + akkhātaṃ
 pūrova	pūro + iva
 dvayatānupassanāti	dvayatānupassanā + iti
@@ -1335,7 +1339,6 @@ paṇidhīdha	paṇidhi + idha
 aṇūpi	aṇu + api
 diṭṭhimanādiyānaṃ	diṭṭhiṃ + anādiyānaṃ
 vassasatāpi	vassasatā + api
-jarasāpi	jarasā + api
 vinābhāvasantamevidaṃ	vinābhāva + santaṃ + eva + idaṃ
 mamidanti	mama + idaṃ + iti
 mamayidanti	mama + idaṃ + iti
@@ -1488,7 +1491,6 @@ tiṭṭhantamenaṃ	tiṭṭhantaṃ + enaṃ
 piṅgiyāti	piṅgiya + iti
 kiñcanamatthi	kiñcanaṃ + atthi
 jatukaṇṇīti	jatukaṇṇi + iti
-vanasavhayaṃ	vanasa + avhayaṃ
 nattamahābhipassa	nattamahaṃ + abhipassa
 pārāyanamanugāyissaṃ	pārāyanaṃ + anugāyissaṃ
 yathāddakkhi	yathā + addakkhi
@@ -1528,7 +1530,6 @@ diṭṭhimakaṃsu	diṭṭhiṃ + akaṃsu
 manusāsati	m + anusāsati
 viriyavāti	viriyavā + iti
 tamanudāsino	tamanudo + āsino
-mānamakkhappahāyino	māna + makkha + pahāyino
 sammāparibbājanīyopi	sammāparibbājanīyo + api
 puṭṭhumakāmamāgamaṃ	puṭṭhuṃ + akāmaṃ + āgamaṃ
 pārāyananteva	pārāyanaṃ + iti + eva
@@ -1654,7 +1655,6 @@ mūsikasobbhaṃva	mūsikasobbhaṃ + iva
 tesaññataroyamāyuvā	tesaṃ + aññataro + ayaṃ + āyuvā
 sabbapāṇānukampati	sabbapāṇe + anukampati
 assaddhānīdha	assaddhānaṃ + idha
-saṅgāmasīseva	saṅgāmasīse + iva
 rajojallamadhārayiṃ	rajojallaṃ + adhārayiṃ
 mahājutimanāsavaṃ	mahājutiṃ + anāsavaṃ
 leṇamaleṇadassinī	leṇaṃ + aleṇadassinī
@@ -1780,6 +1780,7 @@ suddhamajjhagā	suddhaṃ + ajjhagā
 niccamāraddhavīriyo	niccaṃ + āraddhavīriyo
 nippapañcamadesayi	nippapañcaṃ + adesayi
 tiriñcati	ti + riñcati
+tiriñcati	iti + riñcati
 udakāsanabhojanaṃ	udaka + āsana + bhojanaṃ
 nānappayātamhi	nānā + payātamhi
 phussasavhayaṃ	phussa + savhayaṃ
@@ -1849,9 +1850,7 @@ samaṇaṭṭhitomhi	samaṇa + ṭhito + amhi
 ujjuhānova	ujjuhāno + iva
 sasaṅgāmeva	sasaṅgāme + eva
 sayantuttānaseyyakā	sayanti + uttānaseyyakā
-tiriñcati	iti + riñcati
 gaṇikāva	gaṇikā + iva
-phussasavhayaṃ	phussa + savhayaṃ
 padīpadhārova	padīpadhāro + iva
 dhammaviññāṇamākaṅkhaṃ	dhammaviññāṇaṃ + ākaṅkhaṃ
 vassupetova	vassupeto + iva
@@ -2082,3 +2081,1083 @@ mahārājassahaṃ	mahārājassa + ahaṃ
 desessanti	desessaṃ + iti
 khemātissā	khemā + iti + assā
 yathāyampadīpo	yathā + ayaṃ + padīpo
+vuṭṭhahissanti	vuṭṭhahissaṃ + iti
+tayassu	taya + ssu
+abhipatthayanti	abhipatthayaṃ + iti
+kappanti	kappaṃ + iti
+akālodāni	akālo + idāni
+aṅganteva	aṅgaṃ + eva
+ajānamevaṃ	ajānaṃ + evaṃ
+ajjuposatho	ajja + uposatho
+ajjeva	ajja + eva
+ajjhattañca	ajjhattaṃ + ca
+aññatreva	aññatra + eva
+aññathāsmīti	aññathā + asmi + iti
+aññabhāgiyañceva	añña + bhāgiyaṃ + ce + eva
+aññamaññassa	aññaṃ + aññassa
+aññamaññaṃ	aññaṃ + aññaṃ
+aññasseva	aññassa + iva
+aññāṇatthampi	aññāṇa + atthaṃ + api
+aññāva	aññā + eva
+aññenaññaṃ	aññena + aññaṃ
+aññenapi	aññena + api
+aññenāññaṃ	aññena + aññaṃ
+aññeva	aññe + eva
+aṭṭhānametaṃ	aṭṭhānaṃ + etaṃ
+aṭṭhimāni	aṭṭha + imāni
+aṭṭhime	aṭṭha + ime
+aṭṭhete	aṭṭha + ete
+aṇumattampi	aṇumattaṃ + api
+atippageva	ati + pago + eva
+atippagova	ati + pago + eva
+attahitaparahitaubhayahitasabbalokahitameva	attahita + parahita + ubhayahita + sabbalokahitaṃ + eva
+attānaṃyeva	attānaṃ + eva
+atthaññaṃ	atthi + aññaṃ
+atthañño	atthi + añño
+atthamattano	atthaṃ + attano
+atthassāyaṃ	atthassa + ayaṃ
+atthāvuso	atthi + āvuso
+atthekaccāni	atthi + ekaccāni
+atthekacco	atthi + ekacco
+attheva	atthi + eva
+athañño	atha + añño
+athassa	atha + assa
+athavāpi	atha + vā + api
+athāguṃ	atha + āguṃ
+athāpara	atha + apara
+athāparaṃ	atha + aparaṃ
+athāparesaṃ	atha + aparesaṃ
+athāpi	atha + api
+athāyaṃ	atha + ayaṃ
+athāhaṃ	atha + ahaṃ
+athekadivasaṃ	atha + eka + divasaṃ
+athettha	atha + ettha
+athopi	atho + api
+adukkhamasukhantipi	adukkhaṃ + asukhaṃ + iti + api
+addhamidaṃ	addhaṃ + idaṃ
+adhiccamidaṃ	adhiccaṃ + idaṃ
+anamataggoyaṃ	anamataggo + ayaṃ
+analañca	na + alaṃ + ca
+anekapariyāyenāvuso	anekapariyāyena + āvuso
+antarāva	antarā + eva
+antimoyaṃ	antimo + ayaṃ
+antogadhāvāssa	antogadhā + eva + assa
+antoyeva	anto + eva
+aparāpi	aparā + api
+apāvuso	api + āvuso
+apica	api + ca
+apicettha	api + ca + ettha
+apissu	api + ssu
+apissudaṃ	api + sudaṃ
+apissumaṃ	api + ssu + maṃ
+apihaṃ	api + ahaṃ
+appañhi	appaṃ + hi
+appampi	appaṃ + api
+appasmeke	appasmā + eke
+appahitepi	na + pahite + api
+appekadā	api + ekadā
+appeke	api + eke
+appeva	api + eva
+appevanāma	api + eva + nāma
+abhikkamosānaṃ	abhikkamo + esānaṃ
+abhijānāmahaṃ	abhijānāmi + ahaṃ
+abhibhosmi	abhibhū + asmi
+amūlakañceva	amūlakaṃ + ce + eva
+amhākañceso	amhākaṃ + ca + eso
+amhākañcevāyaṃ	amhākaṃ + ca + eva + ayaṃ
+amhākampi	amhākaṃ + api
+amhākampetaṃ	amhākaṃ + api + etaṃ
+ayañca	ayaṃ + ca
+ayañcettha	ayaṃ + ca + ettha
+ayañceva	ayaṃ + ca + eva
+ayañhi	ayaṃ + hi
+ayamattho	ayaṃ + attho
+ayamanudhamma	ayaṃ + anudhamma
+ayamantarākathā	ayaṃ + antarākathā
+ayamantimā	ayaṃ + antimā
+ayamassa	ayaṃ + assa
+ayamahamasmīti	ayaṃ + ahaṃ + asmi + iti
+ayamāyasmā	ayaṃ + āyasmā
+ayamāhāro	ayaṃ + āhāro
+ayamuddeso	ayaṃ + uddeso
+ayamekānupassanā	ayaṃ + eka + anupassanā
+ayameko	ayaṃ + eko
+ayamettha	ayaṃ + ettha
+ayameva	ayaṃ + eva
+ayamevettha	ayaṃ + eva + ettha
+ayampi	ayaṃ + api
+ayaṃsa	ayaṃ + assa
+arahantamhā	arahantā + amhā
+ariyañcaṭṭhaṅgikaṃ	ariyaṃ + ca + aṭṭhaṅgikaṃ
+alañca	alaṃ + ca
+alasvassa	alaso + assa
+asasmi	asa + asmi
+asecanakamojavaṃ	asecanakaṃ + ojavaṃ
+asmiñca	asmiṃ + ca
+asmīti	asmi + iti
+avañjhānitvevāhaṃ	avañjhāni + tu + eva + ahaṃ
+avijjampāhaṃ	avijjaṃ + api + ahaṃ
+ahañca	ahaṃ + ca
+ahañce	ahaṃ + ce
+ahañceva	ahaṃ + ce + eva
+ahañceva	ahaṃ + ca + eva
+ahaññeveko	ahaṃ + eva + eko
+ahañhi	ahaṃ + hi
+ahanti	ahaṃ + iti
+ahamaññatra	ahaṃ + aññatra
+ahamasmi	ahaṃ + asmi
+ahameva	ahaṃ + eva
+ahampāyasmante	ahaṃ + api + āyasmante
+ahampi	ahaṃ + api
+ahamhi	ahaṃ + hi
+āgatamha	āgata + amha
+āgatosi	āgato + asi
+āditova	ādito + eva
+ādimeva	ādiṃ + eva
+āpannomhi	āpanno + amhi
+āyasmāpi	āyasmā + api
+āyāmānanda	āyāma + ānanda
+āyāmāvuso	āyāma + āvuso
+iccanena	iti + anena
+iccādi	iti + ādi
+iccāyasmā	iti + āyasmā
+iccāsi	iti + āsi
+icceke	iti + eke
+iccetaṃ	iti + etaṃ
+iccete	iti + ete
+icceva	iti + eva
+iccevamādi	iti + evaṃ + ādi
+iccevaṃ	iti + evaṃ
+icchāmahaṃ	icchāmi + ahaṃ
+icchāyasantyā	icchāya + asantiyā
+iñjitametaṃ	iñjitaṃ + etaṃ
+iticiti	iti + ca + iti
+itipi	iti + api
+itissa	iti + assa
+itissame	iti + assa + ime
+itissime	iti + assa + ime
+itissu	iti + ssu
+itihanti	iti + ahaṃ + iti
+itihetaṃ	iti + hi + etaṃ
+itthasmīti	ittha + asmi + iti
+ittheke	ittha + eke
+itthetaṃ	ittha + etaṃ
+itthetepi	ittha + ete + api
+idañca	idaṃ + ca
+idañcidañca	idaṃ + ca + idaṃ + ca
+idañhi	idaṃ + hi
+idamassa	idaṃ + assa
+idamavoca	idaṃ + avoca
+idamavocāyasmā	idaṃ + avoca + āyasmā
+idametaṃ	idaṃ + etaṃ
+idamettha	idaṃ + ettha
+idameva	idaṃ + eva
+idampi	idaṃ + api
+idānāyasmā	idāni + āyasmā
+idānāhaṃ	idāni + ahaṃ
+idānihaṃ	idāni + ahaṃ
+idāneva	idāni + eva
+iddhimantāssunāmime	iddhimantā + ssu + nāma + ime
+idhatthi	idha + atthi
+idhassa	idha + assa
+idhassu	idha + assu
+idhānanda	idha + ānanda
+idhāvuso	idha + āvuso
+idhāhaṃ	idha + ahaṃ
+idhūpapanno	idha + upapanno
+idheva	idha + eva
+idhevāhaṃ	idha + eva + ahaṃ
+imañca	imaṃ + ca
+imañcāhaṃ	imaṃ + ca + ahaṃ
+imañce	imaṃ + ce
+imameva	imaṃ + eva
+imasmiñca	imasmiṃ + ca
+imasmiññeva	imasmiṃ + eva
+imasmimpi	imasmiṃ + api
+imasmiṃyeva	imasmiṃ + eva
+imassuppādā	imassa + uppādā
+imassetaṃ	imassa + etaṃ
+imaṃyeva	imaṃ + eva
+imāhaṃ	imaṃ + ahaṃ
+iminānukkamena	iminā + anukkamena
+imināpetaṃ	iminā + api + etaṃ
+imināsmīti	iminā + asmi + iti
+imināhaṃ	iminā + ahaṃ
+imettamapi	imaṃ + ettaṃ + api
+imesampissa	imesaṃ + api + assa
+imeva	ime + eva
+imehaṃ	ime + ahaṃ
+ivoccante	iva + uccante
+utūnīdha	utūni + idha
+uttariñca	uttariṃ + ca
+uttānatthameva	uttāna + atthaṃ + eva
+uttānatthamevāti	uttāna + atthaṃ + eva + iti
+uttānatthāneva	uttāna + atthā + eva
+uttānameva	uttānaṃ + eva
+uttānamevāti	uttānaṃ + eva + iti
+upamāyapidhekacce	upamāya + api + idha + ekacce
+uparinemassa	upari + nemassa
+upasaṅkamatāyasmā	upasaṅkamatu + āyasmā
+ubhayametaṃ	ubhayaṃ + etaṃ
+ubhopi	ubho + api
+ubhova	ubho + eva
+ekañca	eka + aṃ + ca
+ekaññeva	ekaṃ + eva
+ekañhi	ekaṃ + hi
+ekadivaseneva	eka + divasena + eva
+ekamidāhaṃ	ekaṃ + idaṃ + ahaṃ
+ekampi	ekaṃ + api
+ekarattampi	ekarattaṃ + api
+ekaṃyeva	ekaṃ + eva
+ekāyeva	ekā + eva
+ekenapi	ekena + api
+ekenekā	ekena + ekā
+ekeneva	ekena + eva
+ekoyeva	eko + eva
+ekova	eko + eva
+etañca	etaṃ + ca
+etañhi	etaṃ + hi
+etadaggaṃ	etad + aggaṃ
+etadahosi	etad + ahosi
+etadeva	etad + eva
+etamatthaṃ	etaṃ + atthaṃ
+etamahaṃ	etaṃ + ahaṃ
+etamādīnava	etaṃ + ādīnava
+etampi	etaṃ + api
+etasseva	etassa + eva
+etenupāyena	etena + upāyena
+eteneva	etena + eva
+eteyeva	ete + eva
+ettakopi	ettako + api
+ettāvataggaṃ	ettāvatā + aggaṃ
+ettāvatāpi	ettāvatā + pi
+etthantare	ettha + antare
+etthāyaṃ	ettha + ayaṃ
+etthete	ettha + ete
+etthesā	ettha + esā
+ettheva	ettha + eva
+esānisaṃso	esa + ānisaṃso
+esāhaṃ	eso + ahaṃ
+esūpamā	esā + upamā
+eseva	eso + eva
+esevanto	eso + eva + anto
+esohamasmi	eso + ahaṃ + asmi
+evañca	evaṃ + ca
+evañcetaṃ	evaṃ + ce + etaṃ
+evañcetaṃ	evaṃ + ca + etaṃ
+evañcettha	evaṃ + ca + ettha
+evañhi	evaṃ + hi
+evantaṃ	evaṃ + taṃ
+evantiparivaṭṭaṃ	evaṃ + tiparivaṭṭaṃ
+evamaññepi	evaṃ + aññe + api
+evamattho	evaṃ + attho
+evamayaṃ	evaṃ + ayaṃ
+evamassa	evaṃ + assa
+evamassu	evaṃ + assu
+evamāvuso	evaṃ + āvuso
+evamāha	evaṃ + āha
+evamāhaṃsu	evaṃ + āhaṃsu
+evamidaṃ	evaṃ + idaṃ
+evamīdisesu	evaṃ + īdisesu
+evametasmā	evaṃ + etasmā
+evametassa	evaṃ + etassa
+evametaṃ	evaṃ + etaṃ
+evametāsaṃ	evaṃ + etāsaṃ
+evametissā	evaṃ + etissā
+evametesaṃ	evaṃ + etesaṃ
+evamettha	evaṃ + ettha
+evamesā	evaṃ + esā
+evameva	evaṃ + eva
+evamevassu	evaṃ + eva + ssu
+evamevaṃ	evaṃ + evaṃ
+evamevāyaṃ	evaṃ + eva + ayaṃ
+evampi	evaṃ + api
+evarūpāpi	evarūpā + api
+evarūpepi	evarūpe + api
+evarūpopi	evarūpo + api
+evassa	eva + assa
+evaṃsa	evaṃ + assa
+evaṃsmīti	evaṃ + asmi + iti
+evāyaṃ	eva + ayaṃ
+evāhaṃ	evaṃ + ahaṃ
+evetaṃ	eva + etaṃ
+evesā	eva + esā
+ehambho	ehi + ambho
+ehāvuso	ehi + āvuso
+okamokata	okaṃ + okata
+ogāhamuttiṇṇaṃ	ogāhaṃ + uttiṇṇaṃ
+otiṇṇomhi	otiṇṇo + amhi
+kaccāhaṃ	kacci + ahaṃ
+kaccittha	kacci + ettha
+kaccittha	kacci + attha
+kaccissu	kacci + su
+kacchevāmakase	kacche + iva + amakase
+kañcideva	kaṃ + ci + eva
+katamañcāvuso	katamaṃ + ca + āvuso
+katamettāvatā	kataṃ + ettāvatā
+kathañca	kathaṃ + ca
+kathañcarahi	kathaṃ + carahi
+kathañcānanda	kathaṃ + ca + ānanda
+kathañcāvuso	kathaṃ + ca + āvuso
+kathañhi	kathaṃ + hi
+kathamidaṃ	kathaṃ + idaṃ
+kathamime	kathaṃ + ime
+kathaṃsu	kathaṃ + su
+kathāyaṃ	kathaṃ + ayaṃ
+kamatthamanubhoti	kaṃ + atthaṃ + anubhoti
+kammakiliṭṭhamattano	kamma + kiliṭṭhaṃ + attano
+kammavisuddhimattano	kamma + visuddhiṃ + attano
+kayirāthenaṃ	kayirātha + enaṃ
+karomahaṃ	karomi + ahaṃ
+kalyāṇamittassetaṃ	kalyāṇamittassa + etaṃ
+kallosi	kalla + asi
+kāyanuttha	kāya + nu + ettha
+kāyānamantarena	kāyānaṃ + antarena
+kālasseva	kālassa + eva
+kālepi	kāle + api
+kiccamātappaṃ	kiccaṃ + ātappaṃ
+kiñca	kiṃ + ca
+kiñcarahi	kiṃ + carahi
+kiñcāpi	kiṃ + ca + api
+kiñcāyaṃ	kiñci + ayaṃ
+kiñcetaṃ	kiṃ + ca + etaṃ
+kiñhi	kiṃ + hi
+kintāhaṃ	kiṃ + iti + ahaṃ
+kintāhaṃ	kiṃ + te + ahaṃ
+kinti	kiṃ + iti
+kinnu	kiṃ + nu
+kinnumāva	kiṃ + nu + imā + eva
+kimaññatra	kiṃ + aññatra
+kimassa	kiṃ + assa
+kimassāhaṃ	kiṃ + assa + ahaṃ
+kimahaṃ	kiṃ + ahaṃ
+kimāha	kiṃ + āha
+kimidaṃ	kiṃ + idaṃ
+kimetaṃ	kiṃ + etaṃ
+kimevidaṃ	kiṃ + eva + idaṃ
+kirāyasmā	kira + āyasmā
+kissassu	kissa + ssu
+kiṃninnaṃ	kiṃ + ninnaṃ
+kiṃpabbhāraṃ	kiṃ + pabbhāraṃ
+kiṃpoṇaṃ	kiṃ + poṇaṃ
+kiṃsūdha	kiṃ + su + idha
+kutettha	kuto + ettha
+kudāssu	kudā + ssu
+kuddhabhāvamassa	kuddha + bhāva + assa
+kecideva	keci + eva
+kecime	keci + ime
+kenassu	kena + ssu
+kenassubbhāhato	kena + ssu + abbhāhato
+kenīdha	kena + idha
+kenesa	kena + esa
+kesaggamattampi	kesa + agga + mattaṃ + api
+kesūdha	ka + idha
+kocañño	koci + añño
+kocideso	koci + deso
+kodha	ko + idha
+konāmo	ko + nāmo
+kosi	ko + asi
+kyassa	ke + assa
+kyāhaṃ	kiṃ + ahaṃ
+kvāssa	kva + assa
+kvettha	ko + ettha
+khamāmahaṃ	khamāmi + ahaṃ
+khārivividhamādāya	khārivividhaṃ + ādāya
+khippameva	khippaṃ + eva
+khippaṃyeva	khippaṃ + eva
+khome	kho + ime
+khomhi	kho + amhi
+khosi	kho + asi
+khosmi	kho + asmi
+khohaṃ	kho + ahaṃ
+khvassa	kho + assa
+khvāyaṃ	kho + ayaṃ
+khvāssa	kho + assa
+khvāvuso	kho + āvuso
+khvāhaṃ	kho + ahaṃ
+khvesa	kho + esa
+gacchāvuso	gaccha + āvuso
+gantumicchasi	gantuṃ + icchasi
+gāthamāha	gāthaṃ + āha
+gāthācimā	gāthā + ca + imā
+ghāsamacchādanaṃ	ghāsaṃ + acchādanaṃ
+caggimāsīno	ca + aggiṃ + āsīno
+caññe	ca + aññe
+cattārimāni	cattāri + imāni
+cattārome	cattāro + ime
+catthāya	ca + atthāya
+catthi	ca + atthi
+canekāyatanappavutto	ca + aneka + āyatana + pavutto
+cantalikkhasmiṃ	ca + antalikkhasmiṃ
+camhi	ca + amhi
+carapire	cara + api + re
+carahāvuso	carahi + āvuso
+cassa	ca + assa
+cassa	ce + assa
+cassaṃ	ca + assaṃ
+cassā	ca + assā
+cassu	ca + assu
+cāpanataṃ	ca + apanataṃ
+cāpanato	ca + apanato
+cāpi	ca + api
+cāpime	ca + api + ime
+cābhinataṃ	ca + abhinataṃ
+cābhinato	ca + abhinato
+cāyasmatā	ca + āyasmatā
+cāyasmā	ca + āyasmā
+cāyaṃ	ca + ayaṃ
+cāsiṃ	ca + āsiṃ
+cāvuso	ca + āvuso
+cāha	ca + āha
+cāhaṃ	ca + ahaṃ
+cāhaṃ	ce + ahaṃ
+cāhu	ca + ahu
+cāhu	ca + āhu
+citiceva	ca + iti + ca + eva
+cittamassa	citta + assa
+cittamidaṃ	citta + idaṃ
+cidaṃ	ca + idaṃ
+cimaṃ	ca + imaṃ
+cirasseva	cirassa + eva
+cuttari	ca + uttari
+cudakā	ca + udakā
+cūbhayaṃ	ca + ubhaya + aṃ
+ceke	ca + eke
+cetanāhaṃ	cetanā + ahaṃ
+cetarahi	ca + etarahi
+cetaṃ	ca + etaṃ
+cetaṃ	ce + etaṃ
+cetā	ca + etā
+cetā	ca + esā
+cete	ca + ete
+cettha	ca + ettha
+cenaṃ	ca + enaṃ
+cepi	ce + api
+cesa	ce + esa
+cesa	ca + esa
+ceso	ca + eso
+ceva	ce + eva
+ceva	ca + eva
+cevassa	ca + eva + assa
+cevetassa	ce + eva + etassa
+cevettha	ca + eva + ettha
+corosi	coro + asi
+chaccābhiṭhānāni	cha + ca + abhiṭhānāni
+channetaṃ	channaṃ + etaṃ
+chayimā	cha + imā
+chayimāni	cha + imāni
+chayime	cha + ime
+jarādhammomhi	jarā + dhammo + amhi
+jātameva	jātaṃ + eva
+jātosmi	jāto + asmi
+jānāmahaṃ	jānāmi + ahaṃ
+jīvitamattano	jīvitaṃ + attano
+jīvitamuttamaṃ	jīvitaṃ + uttamaṃ
+jhānalābhīsi	jhāna + lābhī + asi
+jhāyinosmā	jhāyino + asmā
+ṭhānañhi	ṭhānaṃ + hi
+ṭhitomhi	ṭhito + amhi
+tañca	taṃ + ca
+tañcassa	taṃ + ca + assa
+tañcāyatanaṃ	taṃ + ca + āyatanaṃ
+tañcāyaṃ	taṃ + ca + ayaṃ
+tañcāhaṃ	taṃ + ca + ahaṃ
+tañce	taṃ + ce
+tañceva	taṃ + ca + eva
+taññeva	taṃ + eva
+taññevettha	taṃ + eva + ettha
+tañhi	taṃ + hi
+tañhissa	taṃ + hi + assa
+taṇhamabbuyha	taṇhaṃ + abbuyha
+tatiyampi	tatiyaṃ + api
+tatohaṃ	tato + ahaṃ
+tatthaddasaṃ	tattha + addasaṃ
+tatthāyasmante	tattha + āyasmante
+tatthāyaṃ	tattha + ayaṃ
+tatthāhaṃ	tattha + ahaṃ
+tatthetaṃ	tattha + etaṃ
+tattheva	tattha + eva
+tatthevantaradhāyi	tattha + eva + antaradhāyi
+tatthevantaradhāyīti	tattha + eva + antaradhāyi + iti
+tatrapime	tatra + api + ime
+tatrassa	tatra + assa
+tatrāpāsiṃ	tatra + api + āsiṃ
+tatrāpāhaṃ	tatra + api + ahaṃ
+tatrāpi	tatra + api
+tatrāyaṃ	tatra + ayaṃ
+tatrāssa	tatra + assa
+tatrāssu	tatra + ssu
+tatrāvuso	tatra + āvuso
+tatridamekaṃ	tatra + idaṃ + ekaṃ
+tatridaṃ	tatra + idaṃ
+tatrime	tatra + ime
+tatreko	tatra + eko
+tatreva	tatra + eva
+tatvassa	tato + assa
+tathariva	tathā + eva > riva
+tathāpi	tathā + api
+tathāyaṃ	tathā + ayaṃ
+tathāhaṃ	tathā + ahaṃ
+tathūpamāhaṃ	tathā + upama + ahaṃ
+tatheva	tathā + eva
+tatheva	tatha + eva
+tadajjahaṃ	tad + ajja + ahaṃ
+tadadhimutto	tad + adhimutto
+tadanuttaraṃ	tad + anuttaraṃ
+tadanudhammañca	tad + anudhammaṃ + ca
+tadapi	tad + api
+tadamariyānaṃ	tad + idaṃ + ariyānaṃ
+tadaminā	tad + iminā
+tadamināpetaṃ	tad + aminā + api + etaṃ
+tadariyā	tad + ariyā
+tadassa	tad + assa
+tadahuposathe	tad + aha + uposathe
+tadāpi	tadā + api
+tadiṅgha	tad + iṅgha
+tadidaṃ	tad + idaṃ
+tadeva	tad + eva
+tadevassa	tad + eva + assa
+tadevāhaṃ	tad + eva + ahaṃ
+tadevekaccesu	tad + eva + ekaccesu
+tapantamādiccamivantalikkhe	tapantaṃ + ādiccaṃ + iva + antalikkhe
+tamaññe	taṃ + aññe
+tamañño	taṃ + añño
+tamattha	taṃ + attha
+tamatthaṃ	taṃ + atthaṃ
+tamahaṃ	taṃ + ahaṃ
+tamāhu	taṃ + āhu
+tamenaṃ	taṃ + enaṃ
+tameva	taṃ + eva
+tamevassa	taṃ + eva + assa
+tamevūpekkhaṃ	taṃ + eva + upekkhā + aṃ
+tampi	taṃ + api
+tampissa	taṃ + api + assa
+tammayaṃ	taṃ + mayaṃ
+tamhuddhaṭe	tamhi + uddhaṭe
+tayāmhi	tayā + amhi
+tayome	tayo + ime
+tarathetaṃ	taratha + etaṃ
+tasmiṃyeva	tasmiṃ + eva
+tassattho	tassa + attho
+tassapi	tassa + api
+tassassu	tassa + assu
+tassāyeva	tassā + eva
+tassāhaṃ	tassa + ahaṃ
+tassimāni	tassa + imāni
+tassime	tassa + ime
+tassimesu	tassa + imesu
+tassīdha	tassa + idha
+tassuttarato	tassa + uttarato
+tassuddānaṃ	tassa + uddānaṃ
+tassetaṃ	tassa + etaṃ
+tassesā	tassa + esā
+tasseva	tassa + eva
+tassevanti	tassa + evaṃ + iti
+tassevaṃ	tassa + evaṃ
+taveva	tava + eva
+taṃyevettha	taṃ + eva + ettha
+tādisameva	tādisa + eva
+tādisaṃyeva	tādisaṃ + eva
+tādisovassa	tādiso + eva + assa
+tānassu	tāni + assu
+tānāssu	tāni + assu
+tāsañca	tāsaṃ + ca
+tāsaṃyeva	tāsaṃ + eva
+tāsāhaṃ	tāsu + ahaṃ
+tāvatakeneva	tāvatakena + eva
+tāvatakvassa	tāvatako + assa
+tāvadevassā	tāva + eva + assā
+tiādi	iti + ādi
+tiādimāha	iti + ādiṃ + āha
+tiṭṭhatetaṃ	tiṭṭhatu + etaṃ
+tiṭṭhatesā	tiṭṭhatu + esā
+tiriyañca	tiriyaṃ + ca
+tīṇaṅgāni	tīṇi + aṅgāni
+tīṇimāni	tīṇi + imāni
+tīramevānudhāvati	tīraṃ + eva + anudhāvati
+tumhākampi	tumhākaṃ + api
+tumhepi	tumhe + api
+tuyhañhi	tuyhaṃ + hi
+tuyhameva	tuyhaṃ + eva
+tuyhampi	tuyhaṃ + api
+tuyhiminā	tuyhaṃ + iminā
+tuvañhi	tuvaṃ + hi
+tuvaṃtuvaṃ	tuvaṃ + tuvaṃ
+tenañjaliṃ	tena + añjaliṃ
+tenapi	tena + api
+tenahāyasmā	tena + hi + āyasmā
+tenahāvuso	tena + hi + āvuso
+tenahi	tena + hi
+tenāyaṃ	tena + ayaṃ
+tenāha	tena + āha
+tenāhaṃ	tena + ahaṃ
+tenāhu	tena + āhu
+teneva	tena + eva
+tenevantaravassena	tena + eva + antaravassena
+tenevāha	tena + eva + āha
+tepare	te + pare
+tesañca	tesaṃ + ca
+tesaññeva	tesaṃ + eva
+tesantakaro	tesaṃ + antakaro
+tesampi	tesaṃ + api
+tesaṃyeva	tesaṃ + eva
+tesāhaṃ	tesaṃ + ahaṃ
+teva	te + eva
+tvañca	tvaṃ + ca
+tvaññeva	tvaṃ + eva
+tvamasi	tvaṃ + asi
+tvampi	tvaṃ + api
+tvaṃyeva	tvaṃ + eva
+tveva	tu + eva
+tvevāhaṃ	tu + eva + ahaṃ
+thenosi	theno + asi
+dantamādhāya	dantaṃ + ādhāya
+dantebhidantamādhāya	dantebhi + dantaṃ + ādhāya
+dasayimāni	dasa + imāni
+dasayime	dasa + ime
+dasahaṅgehi	dasahi + aṅgehi
+dassanakāmamhā	dassana + kāma + amhā
+daḷhamenaṃ	daḷhaṃ + enaṃ
+dānāyaṃ	dāni + ayaṃ
+dānāhaṃ	dāni + ahaṃ
+dānime	dāni + ime
+dānisi	dāni + asi
+diṭṭhevadhamme	diṭṭhe + eva + dhamme
+diṭṭhosi	diṭṭho + asi
+dibbenādhipateyyena	dibbena + ādhipateyyena
+disvāva	disvā + eva
+dīghamāpajjate	dīghaṃ + āpajjate
+dīgharattamidaṃ	dīgha + rattaṃ + idaṃ
+dukkhanti	dukkhaṃ + iti
+dukkhantipi	dukkhaṃ + iti + api
+dukkhamappiyaṃ	dukkhaṃ + appiyaṃ
+dukkhamidaṃ	dukkhaṃ + idaṃ
+dukkhosamānasaṃvāso	dukkho + samāna + saṃvāso
+dutiyampi	dutiyaṃ + api
+dūratopi	dūrato + api
+dūratova	dūrato + eva
+desitādiccabandhunā	desitaṃ + ādiccabandhunā
+devarajjamakārayiṃ	devarajjaṃ + akārayiṃ
+devānumodanti	devā + anumodanti
+devāpi	devā + api
+dvāhaṃ	dvi + ahaṃ
+dvemā	dve + imā
+dvemāni	dve + imāni
+dveme	dve + ime
+dveyeva	dve + eva
+dveva	dve + eva
+dhammamuttamaṃ	dhammaṃ + uttamaṃ
+dhammameva	dhamma + eva
+dhammesa	dhamme + esa
+nacirasseva	na + cirassa + eva
+najja	nu + ajja
+natthaññaṃ	na + atthi + aññaṃ
+natthañño	na + atthi + añño
+natthidāni	natthi + idāni
+nanāyaṃ	nanu + ayaṃ
+napi	na + api
+nayenettha	nayena + ettha
+nassu	na + ssu
+navayime	nava + ime
+nāṇupi	na + aṇu + api
+nāmassu	nāma + su
+nāmāyaṃ	nāma + ayaṃ
+nāmāhaṃ	nāma + ahaṃ
+nāmete	nāma + ete
+nāmeso	nāma + eso
+nāmhi	na + amhi
+nāyamāyasmā	na + ayaṃ + āyasmā
+nāyaṃ	na + ayaṃ
+nāyaṃ	nu + ayaṃ
+nāssa	na + assa
+nāssudha	na + ssu + idha
+nibbānamattano	nibbānaṃ + attano
+nisinnomhi	nisinno + amhi
+nuttha	nu + ettha
+numāni	nu + imāni
+nuhaṃ	nu + ahaṃ
+nūnāhaṃ	nūna + ahaṃ
+nekattamupapajjati	na + ekattaṃ + upapajjati
+nevattato	na + eva + attato
+nevattasañcetanā	na + eva + atta + sañcetanā
+nocidha	no + ca + idha
+notevettha	no + iti + eva + ettha
+nvayaṃ	nu + ayaṃ
+pakkamatāyasmā	pakkamatu + āyasmā
+pageva	pago + eva
+paccattaññeva	paccattaṃ + eva
+pacchatopissa	pacchato + api + assa
+pacchāsaṃ	pacchā + esaṃ
+pacchāssa	pacchā + assa
+pañcamettha	pañcamo + ettha
+pañcasupādānakkhandhesu	pañcasu + upādānakkhandhesu
+pañcimā	pañca + imā
+pañcimāni	pañca + imāni
+pañcime	pañca + ime
+pañcete	pañca + ete
+paññāṇamaggino	paññāṇaṃ + aggino
+paññāṇamitthiyā	paññāṇaṃ + itthiyā
+paṭikacceva	paṭikacca + eva
+paṭikkamosānaṃ	paṭikkamo + esānaṃ
+paṭisanthāravutyassa	paṭisanthāra + vutti + assa
+paṭhamaññeva	paṭhamaṃ + eva
+paṇītametaṃ	paṇītaṃ + etaṃ
+pattakāyena	patta + kāyena
+pattacīvaramādāya	pattaṃ + cīvaraṃ + ādāya
+panaññampi	pana + aññaṃ + api
+panaññānipi	pana + aññāni + api
+panassa	pana + assa
+panāniccaṃ	pana + aniccaṃ
+panāyamāyasmā	pana + ayaṃ + āyasmā
+panāyasmato	pan + āyasmato
+panāyasmantaṃ	pana + āyasmantaṃ
+panāyasmanto	pana + āyasmanto
+panāyasmā	pana + āyasmā
+panāyaṃ	pana + ayaṃ
+panāssu	pana + assu
+panāvuso	pana + āvuso
+panāhaṃ	pana + ahaṃ
+panidaṃ	pana + idaṃ
+panimassa	pana + imassa
+panimaṃ	pana + imaṃ
+panimāni	pana + imāni
+panimehi	pana + imehi
+paneke	pana + eke
+panetaṃ	pana + etaṃ
+panete	pana + ete
+panettha	pana + ettha
+panesā	pana + esā
+paneso	pana + eso
+paneva	pana + eva
+pabbajitomhi	pabbajito + amhi
+pabbatamuddhaniṭṭhito	pabbatamuddhani + ṭhito
+pamādattha	pamāda + attha
+pamutyatthi	pamutti + atthi
+parañca	paraṃ + ca
+paramajjadhammesu	parama + ajja + dhammesu
+paramattakāmo	paraṃ + attakāmo
+parisuddhetthāyasmanto	parisuddhā + ettha + āyasmanto
+passāmahaṃ	passāmi + ahaṃ
+paviṭṭhamhā	paviṭṭha + amhā
+pātova	pāto + eva
+pāpañce	pāpaṃ + ce
+pāpamāgamā	pāpaṃ + āgamā
+pāyaṃ	api + ayaṃ
+pāsādamāruyha	pāsādaṃ + āruyha
+pāḷinayeneva	pāḷi + nayena + eva
+piyataramattanā	piyataraṃ + attanā
+pucchāvuso	puccha + āvuso
+puṭṭhohaṃ	puṭṭho + ahaṃ
+punadeva	puna + eva
+punapi	puna + api
+punareva	puna + eva
+pubbeva	pubbe + eva
+puratopissa	purato + api + assa
+purimanayeneva	purima + nayena + eva
+pūjitamettāvatā	pūjitaṃ + ettāvatā
+phullamavītagandhaṃ	phullaṃ + avītagandhaṃ
+balavamhi	balavā + amhi
+bahudeva	bahu + eva
+bahuneke	bahunā + eke
+bālosi	bālo + asi
+buddhagāthābhigītomhi	buddha + gāthā + abhigīto + amhi
+buddhavacanānussaraṇavasenetaṃ	buddhavacana + anussaraṇa + vasena + etaṃ
+buddhosmi	buddho + asmi
+byādhidhammomhi	byādhi + dhammo + amhi
+brāhmaṇamhā	brāhmaṇā + amhā
+bhayamantarato	bhayaṃ + antarato
+bhavamatthu	bhavaṃ + atthu
+bhavissanti	bhavissaṃ + iti
+bhavobhirādhito	bhavo + abhirādhito
+bhāsitampetaṃ	bhāsitaṃ + api + etaṃ
+bhūtapubbāhaṃ	bhūtapubbaṃ + ahaṃ
+bhūtamidaṃ	bhūtaṃ + idaṃ
+maggakkhāyīhaṃ	magga + akkhāyī + ahaṃ
+maññitametaṃ	maññitaṃ + etaṃ
+maññevettha	maṃ + eva + ettha
+matthi	me + atthi
+manāpeneva	manāpena + eva
+mantaṃ	maṃ + taṃ
+mamaccaye	mama + accaya + e
+mamañca	mamaṃ + ca
+mamaññeva	mamaṃ + eva
+mamanti	mamaṃ + iti
+mamapi	mama + api
+mamassa	mama + assa
+mameva	mama + eva
+mamevārabbha	maṃ + eva + ārabbha
+mamevettha	maṃ + eva + ettha
+mayañhi	mayaṃ + hi
+mayamettha	mayaṃ + ettha
+mayampi	mayaṃ + api
+mayampetaṃ	mayaṃ + api + etaṃ
+mayāpi	mayā + api
+mayhaṃpatthi	mayhaṃ + api + atthi
+mayhevekassa	mayhaṃ + eva + ekassa
+maraṇadhammomhi	maraṇa + dhamma + amhi
+mahamattasambhavaṃ	ahaṃ + attasambhavaṃ
+māyasmanto	mā + āyasmanto
+māyasmā	mā + āyasmā
+midaṃ	idaṃ
+muṇḍāsi	muṇḍā + asi
+muttosi	mutto + asi
+muhuttampi	muhuttaṃ + api
+mūḷhosi	mūḷho + asi
+meso	me + eso
+moghamaññanti	moghaṃ + aññaṃ + iti
+moghamaññaṃ	moghaṃ + aññaṃ
+modahaṃ	modi + ahaṃ
+yaggheyye	yagghe + ayye
+yañca	yaṃ + ca
+yatassa	yato + assa
+yatthapi	yattha + api
+yatthassa	yattha + assa
+yatthākicchena	yattha + akicchena
+yatthāhaṃ	yattha + ahaṃ
+yatthimā	yattha + imā
+yatthetaṃ	yattha + etaṃ
+yattheva	yattha + eva
+yatvādhikaraṇamenaṃ	yato + adhikaraṇaṃ + enaṃ
+yathayidaṃ	yathā + idaṃ
+yathājja	yathā + ajja
+yathāttanā	yathā + attanā
+yathāpi	yathā + api
+yathāyaṃ	yathā + ayaṃ
+yathāssa	yathā + assa
+yathāhaṃ	yathā + ahaṃ
+yatheva	yathā + eva
+yathevaṃ	yathā + evaṃ
+yadaggi	yadā + aggi
+yadatthi	yad + atthi
+yadapi	yad + api
+yadāpi	yadā + api
+yadāyasmantānaṃ	yadi + āyasmantānaṃ
+yadāyaṃ	yadā + ayaṃ
+yadāhaṃ	yadā + ahaṃ
+yadidaṃ	yad + idaṃ
+yadipime	yadi + api + ime
+yadetaṃ	yad + etaṃ
+yadettha	yad + ettha
+yadeva	yad + eva
+yantaṃ	yaṃ + taṃ
+yamāhu	yaṃ + āhu
+yametamatthaṃ	yaṃ + etaṃ + atthaṃ
+yametaṃ	yaṃ + etaṃ
+yassa	yo + assa
+yassadāni	yassa + dāni
+yassassu	yassa + assu
+yassāhaṃ	yassa + ahaṃ
+yassiñjitaṃ	yassa + iñjitaṃ
+yasseva	yassa + eva
+yaṃpaccayāssa	yaṃ + paccayā + assa
+yānimāni	yāni + imāni
+yānīdha	yāni + idha
+yāyaṃ	yā + ayaṃ
+yāvakīvañca	yāva + kīvaṃ + ca
+yāvañcidaṃ	yāva + ca + idaṃ
+yāvatakvassa	yāvatā + ko + assa
+yāvatatiyañca	yāva + tatiyaṃ + ca
+yāvatatiyañce	yāva + tatiyaṃ + ce
+yāvatājagatogati	yāvatā + jagato + gati
+yāvasubhāsitamidaṃ	yāva + subhāsitaṃ + idaṃ
+yāvassu	yāva + ssu
+yāvāhaṃ	yāva + ahaṃ
+yāhayaṃ	yāhi + ayaṃ
+yāhu	yo + ahu
+yuñjantāyasmanto	yuñjantu + āyasmanto
+yenaññataro	yena + aññataro
+yenattho	yena + attho
+yenassa	yena + assa
+yenāyasmā	yena + āyasmā
+yenāhaṃ	yena + ahaṃ
+yeneva	yena + eva
+yesañca	yesaṃ + ca
+yesīdha	yesu + idha
+yotivākyaṃ	yo + ativākyaṃ
+yodha	yo + idha
+yopi	yo + api
+yopissa	yo + api + assa
+yomaṃ	yo + imaṃ
+yohaṃ	yo + ahaṃ
+yvāyaṃ	yo + ayaṃ
+yvāssa	yo + assa
+rakkhassetaṃ	rakkhassu + etaṃ
+ramāmahaṃ	ramāmi + ahaṃ
+rājāhaṃ	rāja + ahaṃ
+riva	iva > riva
+riva	eva > riva
+laṅghetumicchasi	laṅghetuṃ + icchasi
+labhantatthe	labhanti + atthe
+labheyyāhaṃ	labbheyyaṃ + ahaṃ
+lābhīmhi	lābhī + amhi
+lokamimaṃ	lokaṃ + imaṃ
+lopamāpajjate	lopaṃ + āpajjate
+sakiṃdeva	sakiṃ + eva
+saggakāyamagamaṃ	saggakāyaṃ + agamaṃ
+saṅkhāresūpasantesu	saṅkhāresu + upasantesu
+sacajja	sace + ajja
+sacāyaṃ	sace + ayaṃ
+sacāhaṃ	sace + ahaṃ
+sacepi	sace + api
+saññīmeva	saññī + eva
+saṭhāssunāmime	saṭhā + ssu + nāma + ime
+satasmīti	sat + asmi + iti
+satasmīti	sata + asmi + iti
+satova	sato + eva
+sattantarā	satta + antarā
+sattahaṅgehi	sattahi + aṅgehi
+sattimā	satta + imā
+sattime	satta + ime
+satyassa	sati + assa
+sadisohamasmi	sadiso + ahaṃ + asmi
+sadisohamasmīti	sadiso + ahaṃ + asmi + iti
+saddhimattho	saddhiṃ + attho
+saddhīdha	saddhā + idha
+santametaṃ	santaṃ + etaṃ
+santaṃyeva	santaṃ + eva
+santāvuso	santi + āvuso
+santimuttamaṃ	santiṃ + uttamaṃ
+sandhāyāha	sandhāya + āha
+sandhāyetaṃ	sandhāya + etaṃ
+sabbamaññaṃ	sabbaṃ + aññaṃ
+sabbamidaṃ	sabbam + idaṃ
+sabbametaṃ	sabbaṃ + etaṃ
+sabbāneva	sabbāni + eva
+sabbete	sabbe + ete
+sabbesampissa	sabbesaṃ + api + assa
+sabbeva	sabbe + eva
+sabbeheva	sabbehi + eva
+sabbhireva	sabbhi + eva
+samaṇamhā	samaṇā + amhā
+samaṇīdha	samaṇaṃ + idha
+samatthi	sama + atthi
+sametāyasmantānaṃ	sametu + āyasmantānaṃ
+sametāyasmā	sametu + āyasmā
+sampadamidaṃ	sampadaṃ + idaṃ
+sampannatthūdha	sampanna + atthu + idha
+samphalaṃ	saṃ + phalaṃ
+sambādhapaṭipannosmi	sambādha + paṭipanno + asmi
+sayameva	sayaṃ + eva
+sayānomhi	sayāno + amhi
+sallamattano	sallaṃ + attano
+sahāpi	saha + api
+sahāvassa	saha + eva + assa
+saṃvāsamanvāya	saṃvāsaṃ + anvāya
+saṃvijjantassa	saṃvijjanti + assa
+sādhayye	sādhu + ayye
+sādhāvuso	sādhu + āvuso
+sāmampi	sāmaṃ + api
+sāyeva	sā + eva
+sīdha	su + idha
+sīlesvevassa	sīlesu + eva + assa
+sīhaṃvekacaraṃ	sīhaṃ + iva + ekacaraṃ
+sukhantipi	sukhaṃ + iti + api
+sucirasseva	sucirassa + eva
+sudaṃ	su + idaṃ
+sudāhaṃ	sudaṃ + ahaṃ
+seṭṭhamupanamaṃ	seṭṭhaṃ + upanamaṃ
+seyyathāpi	se + yathā + api
+seyyathidaṃ	se + yathā + idaṃ
+seyyathīdaṃ	se + yathā + idaṃ
+seyyohamasmi	seyyo + ahaṃ + asmi
+seyyohamasmīti	seyyo + ahaṃ + asmi + iti
+sesapadadvayepi	sesa + pada + dvaye + api
+sesapadesupi	sesapadesu + api
+sesamettha	sesaṃ + ettha
+sesavāresupi	sesavāresu + api
+sesesupi	sesesu + api
+sotthimattānaṃ	sotthiṃ + attānaṃ
+somaṃ	so + imaṃ
+soyanti	so + ayaṃ + iti
+svājja	so + ajja
+svāyamattho	so + ayaṃ + attho
+sveva	so + eva
+vatamhi	vata + amhi
+vatayaṃ	vata + ayaṃ
+vatassāhaṃ	vata + assaṃ + ahaṃ
+vatāyasmantaṃyeva	vata + āyasmantaṃ + eva
+vatāyaṃ	vata + ayaṃ
+vatāhaṃ	vata + ahaṃ
+vatidaṃ	vata + idaṃ
+vatime	vata + ime
+vadāmahaṃ	vadāmi + ahaṃ
+vayañcassānupassati	vayaṃ + ca + assa + anupassati
+vareyyāhe	vareyya + ahe
+vasenetaṃ	vasena + etaṃ
+vāti	vā + iti
+vāpi	vā + api
+vāpi	ve + api
+vāyaṃ	vā + ayaṃ
+vāyaṃ	ve + ayaṃ
+vāraññe	vā + araññe
+vāsi	ve + asi
+vāhametaṃ	vā + ahaṃ + etaṃ
+vāhaṃ	vā + ahaṃ
+vināyeva	vinā + eva
+vippamuttosi	vippamutto + asi
+vimuttamattānaṃ	vimuttaṃ + attānaṃ
+vimuttomhi	vimutto + amhi
+viramathāyasmanto	viramatha + āyasmanto
+visuddhamattānaṃ	visuddhaṃ + attānaṃ
+vissāsamanvāya	vissāsaṃ + anvāya
+vivicceva	vivicca + eva
+viharatāyasmā	viharatu + āyasmā
+vihārotveva	vihāro + tu + eva
+vuccatāvuso	vuccati + āvuso
+vuttañhetaṃ	vuttaṃ + hi + etaṃ
+vuttatthāneva	vutta + atthā + eva
+vuttanayāneva	vuttanayāni + eva
+vuttanayeneva	vutta + nayena + eva
+vuttamarahatāti	vuttaṃ + arahatā + iti
+vuttamidaṃ	vutta + idaṃ
+vuttānusāreneva	vutta + anusārena + eva
+vuttāhaṃ	vutte + ahaṃ
+vuddhihesā	vuddhi + hi + esā
+vekacaraṃ	iva + ekacaraṃ
+veditabbametaṃ	veditabbaṃ + etaṃ
+vocchijjatārammaṇaṃ	vocchijjati + ārammaṇaṃ
+haññadatthatthipasaṃsalābhā	hi + añña + attha + atthi + pasaṃsā + lābhā
+hatthamevānukantati	hatthaṃ + eva + anukantati
+handāhaṃ	handa + ahaṃ
+hayaṃ	hi + ayaṃ
+halaṃ	hi + alaṃ
+hānanda	hi + ānanda
+hāyaṃ	hi + ayaṃ
+hāvuso	hi + āvuso
+hitamattano	hitaṃ + attano
+hidaṃ	hi + idaṃ
+himavāññe	himavā + āññe
+himavāvaññe	himavā + iva + aññe
+hissa	hi + assa
+hissa	hi + ssa
+hīnohamasmi	hīno + ahaṃ + asmi
+hīnohamasmīti	hīno + ahaṃ + asmi + iti
+hīme	hi + ime
+heke	hi + eke
+hetaṃ	hi + etaṃ
+hete	hi + ete
+hettha	hi + ettha
+hesā	hi + esā
+heva	hi + eva
+hevantissa	hi + evaṃ + iti + assa
+hevaṃ	hi + evaṃ
+hoteva	hoti + eva
+santamassa	santaṃ + assa
+santi	saṃ + iti
+tathārūpāssa	tathārūpā + assa
+yadatītampahīnantaṃ	yad + atītaṃ + pahīnaṃ + taṃ
+samādhimānantarikaññamāhu	samādhiṃ + ānantarikaṃ + yaṃ + āhu
+yadajjhagā	yad + ajjhagā
+jīvitamāhu	jīvitaṃ + āhu
+appevanāmimassa	api + eva + nāma + imassa
+dukkhamanveti	dukkhaṃ + anveti
+sukhamanveti	sukhaṃ + anveti
+lābhimhi	lābhī + amhi
+yathāmedaṃ	yathā + me + idaṃ
+tavāhamasmi	tava + ahaṃ + asmi
+sakhāhamasmi	sakha + ahaṃ + asmi
+sotāvadhānūpanisūpapanne	sotāvadhāna + upanisā + upapanne
+asīti	asi + iti
+panāyasmante	pana + āyasmante
+ajānamevāhaṃ	ajānaṃ + evaṃ + ahaṃ
+sopalepapatito	so + upalepa + patito
