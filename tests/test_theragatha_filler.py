@@ -58,12 +58,12 @@ def main():
 
 
 def load_pickle():
-    with open("scripts/theragatha_filler", "rb") as f:
+    with open("tests/tests/theragatha_filler", "rb") as f:
         return pickle.load(f)
 
 
 def dump_pickle(done_list):
-        with open("scripts/theragatha_filler", "wb") as f:
+        with open("tests/test_theragatha_filler", "wb") as f:
             pickle.dump(done_list, f)
 
 

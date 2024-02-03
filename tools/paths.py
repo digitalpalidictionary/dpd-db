@@ -303,11 +303,11 @@ class ProjectPaths:
         self.temp_dir = base_dir.joinpath(Path("temp/"))
 
         # /tests
-        self.internal_tests_path = base_dir.joinpath(Path("tests/internal_tests.tsv"))
-        self.wf_exceptions_list = base_dir.joinpath(Path("tests/word_family_exceptions"))
-        self.syn_var_exceptions_path = base_dir.joinpath(Path("tests/syn_var_exceptions"))
-        self.compound_type_path = base_dir.joinpath(Path("tests/compound_type.tsv"))
-        self.phonetic_changes_path = base_dir.joinpath(Path("tests/phonetic_changes.tsv"))
+        self.internal_tests_path = base_dir.joinpath(Path("tests/tests_internal.tsv"))
+        self.wf_exceptions_list = base_dir.joinpath(Path("tests/add_word_family_exceptions"))
+        self.syn_var_exceptions_path = base_dir.joinpath(Path("tests/add_synonym_variant_exceptions.py"))
+        self.compound_type_path = base_dir.joinpath(Path("tests/add_compound_type.tsv"))
+        self.phonetic_changes_path = base_dir.joinpath(Path("tests/add_phonetic_changes.tsv"))
         self.hyphenations_dict_path = base_dir.joinpath(Path("tests/test_hyphenations.json"))
         self.hyphenations_scratchpad_path = base_dir.joinpath(Path("tests/test_hyphenations.txt"))
 
