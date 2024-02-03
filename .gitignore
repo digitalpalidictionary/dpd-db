@@ -96,3 +96,4 @@ other_dictionaries/code/cpd/output
 other_dictionaries/json/
 other_dictionaries/goldendict/
 other_dictionaries/mdict/
+tests/test_hyphenations.txt

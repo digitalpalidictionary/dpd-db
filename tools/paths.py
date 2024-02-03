@@ -308,6 +308,8 @@ class ProjectPaths:
         self.syn_var_exceptions_path = base_dir.joinpath(Path("tests/syn_var_exceptions"))
         self.compound_type_path = base_dir.joinpath(Path("tests/compound_type.tsv"))
         self.phonetic_changes_path = base_dir.joinpath(Path("tests/phonetic_changes.tsv"))
+        self.hyphenations_dict_path = base_dir.joinpath(Path("tests/test_hyphenations.json"))
+        self.hyphenations_scratchpad_path = base_dir.joinpath(Path("tests/test_hyphenations.txt"))
 
 
         # tools
