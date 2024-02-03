@@ -73,6 +73,7 @@ construction: case, no line 2	meaning_1	is not empty	-	grammar	contains word	(no
 construction: ī before √kar √bhū, missing >	meaning_1	is not empty	-	phonetic	contains	before \√	construction	does not contain	\>											pali_1	grammar	meaning_1	[]	5
 construction: nir > ni	construction	contains	nir > ni	phonetic	does not contain	nir > ni														pali_1	grammar	meaning_1	[]	10
 construction: ptp delete line 2	pos	equals	ptp	construction	contains	\n														pali_1	grammar	construction	[]	10
+construction: two roots	construction	contains	√.+√																	pali_1	grammar	construction	[]	10
 construction: vi > vy	meaning_1	is not empty	-	pali_1	contains	^(vy|avy)	construction	contains	\bvi\b	construction	does not contain	vi > vy								pali_1	grammar	meaning_1	[]	10
 construction: vi > vy > by	meaning_1	is not empty	-	pali_1	contains	^(by|aby)	construction	contains	\bvi\b	construction	does not contain	vi > vy > by								pali_1	grammar	meaning_1	[]	10
 decl abs	meaning_1	is not empty	-	pos	equals	abs	stem	does not contain	\-											pali_1	grammar	meaning_1	[]	100

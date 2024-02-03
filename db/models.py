@@ -1,10 +1,8 @@
 """Datebase model for use by SQLAlchemy."""
 import re
-from turtle import update
 
-from typing import Any, List
+from typing import List
 from typing import Optional
-from attr import dataclass
 
 from sqlalchemy import and_
 from sqlalchemy import case
