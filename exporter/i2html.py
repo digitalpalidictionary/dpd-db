@@ -139,6 +139,7 @@ def safe_getattr(obj, attr, default=None):
 
 if __name__ == "__main__":
     pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
-    main(pth, db_session)
+    if pth.dpd_db_path:
+        db_session = get_db_session(pth.dpd_db_path)
+        main(pth, db_session)
 

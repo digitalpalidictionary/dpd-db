@@ -3,9 +3,10 @@ import cProfile
 import sys
 
 from flask import Flask, render_template
+from markupsafe import Markup
 from flask import request
 from flask_sqlalchemy import SQLAlchemy
-from db.models import PaliWord, InflectionToHeadwords
+from db.models import PaliWord, InflectionToHeadwords, SBS, Russian
 from tools.paths import ProjectPaths
 
 from rich import print
@@ -23,7 +24,7 @@ from tools.date_and_time import year_month_day_dash
 
 
 class HeadwordData():
-    def __init__(self, js, i, fc, fs):
+    def __init__(self, js, i, fc, fs, sbs, ru):
         # self.css = css
         self.js = js
         self.meaning = make_meaning_html(i)
@@ -35,10 +36,16 @@ class HeadwordData():
         self.fs = fs
         self.app_name = "Jinja"
         self.date = year_month_day_dash()
+        self.sbs = self.convert_newlines(sbs)
+        self.ru = self.convert_newlines(ru)
         if config_test("dictionary", "make_link", "yes"):
             self.make_link = True
         else:
             self.make_link = False
+        if config_test("user", "username", "deva"):
+            self.dps_data = True
+        else:
+            self.dps_data = False
 
     @staticmethod
     def convert_newlines(obj):
@@ -82,7 +89,9 @@ def home():
             for i in results:
                 fc = get_family_compounds(i)
                 fs = get_family_set(i)
-                d = HeadwordData(js, i, fc, fs)
+                sbs = db.session.query(SBS).filter_by(id=i.id).first()
+                ru = db.session.query(Russian).filter_by(id=i.id).first()
+                d = HeadwordData(js, i, fc, fs, sbs, ru)
                 html += render_template("complete_word.html", d=d)
             return render_template("home.html", html=html)
 
@@ -95,6 +104,14 @@ def clean_query(query):
 def run_app():
     app.run(debug=True, port=8000)
 
+@app.template_filter('safe_getattr')
+def safe_getattr(obj, attr, default=None):
+    """A safe version of getattr for Jinja templates that marks strings as safe."""
+    value = getattr(obj, attr, default)
+    if isinstance(value, str):
+        # Automatically mark the string as safe if it contains HTML
+        return Markup(value)
+    return value
 
 
 print("Before profiling")
