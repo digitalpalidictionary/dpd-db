@@ -1427,12 +1427,12 @@ def load_gui_state_dps(dpspth):
     return values, words_to_add_list
 
 
-def send_sutta_study_request(word, simsapa_book):
+def send_sutta_study_request(word, sutta, source):
 
     try:
 
-        # Construct the sutta_uid by concatenating simsapa_book with "/pli/ms"
-        sutta_uid = simsapa_book + "/pli/ms"
+        # Construct the sutta_uid by concatenating sutta with source
+        sutta_uid = sutta + source
 
         print(f"sutta_uid: {sutta_uid}")
         print(f"word: {word}")

@@ -2156,7 +2156,7 @@ def main():
             if values["word_to_add"] == []:
                 window["messages"].update(value="nothing selected", text_color="red")
             else:
-                send_sutta_study_request(values["word_to_add"][0], values['source_to_add'])
+                send_sutta_study_request(values["word_to_add"][0], values['sutta_to_add'], values['source_to_add'])
 
         # edit word in DPS
         elif event == "dps_edit_word":
