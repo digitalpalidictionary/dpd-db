@@ -180,29 +180,31 @@ class ProjectPaths:
         self.dpr_css_path = base_dir.joinpath(Path("other_dictionaries/code/dpr/dpr.css/"))
 
         # other_dictionaries/source
-        self.dpr_source_path = base_dir.joinpath(Path("other_dictionaries/code/dpr/source/dpr.json"))
         self.bhs_source_path = base_dir.joinpath(Path("other_dictionaries/code/bhs/source/bhs.xml"))
         self.cpd_source_path = base_dir.joinpath(Path("other_dictionaries/code/cpd/source/en-critical.json"))
+        self.dpr_source_path = base_dir.joinpath(Path("other_dictionaries/code/dpr/source/dpr.json"))
         self.mw_source_path = base_dir.joinpath(Path("other_dictionaries/code/mw/source/mw_from_simsapa.json"))
         self.peu_source_path = base_dir.joinpath(Path("other_dictionaries/code/peu/source/latest.json"))
         self.vri_source_path = base_dir.joinpath(Path("other_dictionaries/code/vri/source/vri.csv"))
         self.whitney_source_dir = base_dir.joinpath(Path("other_dictionaries/code/whitney/source/"))
 
         # other_dictionaries/goldendict
-        self.dpr_gd_path = base_dir.joinpath(Path("other_dictionaries/goldendict/dpr.zip"))
         self.bhs_gd_path = base_dir.joinpath(Path("other_dictionaries/goldendict/bhs.zip"))
         self.cpd_gd_path = base_dir.joinpath(Path("other_dictionaries/goldendict/cpd.zip"))
+        self.dpr_gd_path = base_dir.joinpath(Path("other_dictionaries/goldendict/dpr.zip"))
         self.mw_gd_path = base_dir.joinpath(Path("other_dictionaries/goldendict/mw.zip"))
         self.peu_gd_path = base_dir.joinpath(Path("other_dictionaries/goldendict/peu.zip"))
+        self.pts_gd_path = base_dir.joinpath(Path("other_dictionaries/goldendict/pts.zip"))
         self.vri_gd_path = base_dir.joinpath(Path("other_dictionaries/goldendict/vri.zip"))
         self.whitney_gd_path = base_dir.joinpath(Path("other_dictionaries/goldendict/whitney.zip"))
 
         # other_dictionaries/json
-        self.dpr_json_path = base_dir.joinpath(Path("other_dictionaries/json/dpr.json"))
         self.bhs_json_path = base_dir.joinpath(Path("other_dictionaries/json/bhs.json"))
         self.cpd_json_path = base_dir.joinpath(Path("other_dictionaries/json/cpd.json"))
+        self.dpr_json_path = base_dir.joinpath(Path("other_dictionaries/json/dpr.json"))
         self.mw_json_path = base_dir.joinpath(Path("other_dictionaries/json/mw.json"))
         self.peu_json_path = base_dir.joinpath(Path("other_dictionaries/json/peu.json"))
+        self.pts_json_path = base_dir.joinpath(Path("other_dictionaries/json/pts.json"))
         self.vri_json_path = base_dir.joinpath(Path("other_dictionaries/json/vri.json"))
         self.whitney_json_path = base_dir.joinpath(Path("other_dictionaries/json/whitney.json"))
 
@@ -212,6 +214,7 @@ class ProjectPaths:
         self.cpd_mdict_path = base_dir.joinpath(Path("other_dictionaries/mdict/cpd.mdx"))
         self.mw_mdict_path = base_dir.joinpath(Path("other_dictionaries/mdict/mw.mdx"))
         self.peu_mdict_path = base_dir.joinpath(Path("other_dictionaries/mdict/peu.mdx"))
+        self.pts_mdict_path = base_dir.joinpath(Path("other_dictionaries/mdict/pts.mdx"))
         self.vri_mdict_path = base_dir.joinpath(Path("other_dictionaries/mdict/vri.mdx"))
         self.whitney_mdict_path = base_dir.joinpath(Path("other_dictionaries/mdict/whitney.mdx"))
 
