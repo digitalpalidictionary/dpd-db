@@ -6,7 +6,7 @@ from rich import print
 from sqlalchemy import or_
 from typing import Optional, Tuple
 
-from db.models import PaliWord, PaliRoot, InflectionTemplates, DerivedData
+from db.models import SBS, PaliWord, PaliRoot, InflectionTemplates, DerivedData, Russian
 from functions_daily_record import daily_record_update
 
 from exporter.i2html import make_html
@@ -483,6 +483,17 @@ def delete_word(pth, db_session, values, window):
         db_session.query(PaliWord).filter(word_id == PaliWord.id).delete()
         db_session.commit()
         db_session.query(DerivedData).filter(word_id == DerivedData.id).delete()
+        
+        # also delete from Russian and SBS tables
+        try:
+            db_session.query(Russian).filter(word_id == Russian.id).delete()
+        except Exception:
+            print("[red]no Russian word found")
+        try:
+            db_session.query(SBS).filter(word_id == SBS.id).delete()
+        except Exception:
+            print("[red]no SBS word found")
+
         db_session.commit()
         daily_record_update(window, pth, "delete", word_id)
         return True
