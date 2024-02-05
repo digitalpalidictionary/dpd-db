@@ -68,38 +68,117 @@ def find_source_sutta_example(
     sutta_counter = 0
     kn_counter = 0
     for p in ps:
+        
+        if (
+            book == "dn"
+            or book == "mn"
+            or book == "an"
+            or book == "sn"
+        ):
+            if p["rend"] == "subhead":
+                if "suttaṃ" in p.text:
+                    sutta_counter += 1
+                source = book.upper()
+                book_name = re.sub(r"\d", "", source)
+                # add space to digtis
+                # source = re.sub(r"(?<=[A-Za-z])(?=\d)", " ", source)
+                sutta_number = ""
+                try:
+                    sutta_number = p.next_sibling.next_sibling["n"]
+                except Exception as e:
+                    # print(e)
+                    # print(text_to_find)
+                    # print(p)
+                    continue
 
-        if p["rend"] == "subhead":
-            if "suttaṃ" in p.text:
-                sutta_counter += 1
-            source = book.upper()
-            book_name = re.sub(r"\d", "", source)
-            # add space to digtis
-            # source = re.sub(r"(?<=[A-Za-z])(?=\d)", " ", source)
-            sutta_number = ""
-            try:
-                sutta_number = p.next_sibling.next_sibling["n"]
-            except Exception as e:
-                print(e)
-                print(text_to_find)
-                print(p)
-                continue
+                # choose which method to number suttas according to book
+                if book.startswith("mn1"):
+                    source = f"{book_name}{sutta_counter}"
+                elif book.startswith("mn2"):
+                    source = f"{book_name}{sutta_counter+50}"
+                elif book.startswith("mn3"):
+                    source = f"{book_name}{sutta_counter+100}"
+                elif book.startswith("an"):
+                    source = f"{source}.{sutta_number}"
+                elif book.startswith("sn"):
+                    source = ""
+                # FIXME system for Saṃyutta Nikāya
 
-            # choose which method to number suttas according to book
-            if book.startswith("mn1"):
-                source = f"{book_name}{sutta_counter}"
-            elif book.startswith("mn2"):
-                source = f"{book_name}{sutta_counter+50}"
-            elif book.startswith("mn3"):
-                source = f"{book_name}{sutta_counter+100}"
-            elif book.startswith("an"):
-                source = f"{source}.{sutta_number}"
-            elif book.startswith("sn"):
-                source = ""
-            # FIXME system for Saṃyutta Nikāya
+                # remove the digits and the dot in sutta name
+                sutta = re.sub(r"\d*\. ", "", p.text)
+            
+        # # vin3 mahāvagga
+        # if book == "vin3":
+        #     book_name = "VIN3"
+        #     if p.has_attr("rend") and p["rend"] == "subhead":
+        #         subhead = p.text
 
-            # remove the digits and the dot in sutta name
-            sutta = re.sub(r"\d*\. ", "", p.text)
+        #         # remove / keep digits 
+        #         sub_num = re.sub("\\. *.+", "", subhead)
+        #         sub_title = re.sub("\\d*\\. *", "", subhead)
+
+        #         # only continue if there are digits
+        #         if sub_num[0].isnumeric():
+                
+        #             # find the previous head + chapter
+        #             chapter_head = p.find_previous("head", attrs={"rend": "chapter"}).text
+                    
+        #             # remove / keep digits
+        #             chapter_num = re.sub("\\. *.+", ".", chapter_head)
+        #             chapter_title =  re.sub("\\d*\\. *", "", chapter_head)
+
+        #             # construct the source
+        #             source = f"{book_name}.{chapter_num}{sub_num}"
+        #             print(source, end=" ")
+
+        #             # construct the sutta name
+        #             sutta = f"{chapter_title}, {sub_title}"
+        #             sutta = sutta.lower()
+        #             print(sutta)
+
+        # vin3 vin4 mahāvagga & culavagga
+        if (
+            book == "vin3"
+            or book == "vin4"
+        ):
+            if book == "vin3":
+                book_name = "VIN3"
+            else:
+                book_name = "VIN4"
+
+            if p.has_attr("rend") and p["rend"] == "subhead":
+                subhead = p.text.lower()
+
+                bad_subheadings = [
+                    "soṇassa pabbajjā", "abhiññātānaṃ pabbajjā"]
+                if subhead in bad_subheadings:
+                    continue
+
+                # remove / keep digits 
+                sub_num = re.sub("\\. *.+", "", subhead)
+                sub_title = re.sub("\\d*\\. *", "", subhead)
+
+                # if subnum not a digit, then remove
+                if not sub_num[0].isnumeric():
+                    sub_num = ""
+                
+                # find the previous head + chapter
+                chapter_head = p.find_previous("head", attrs={"rend": "chapter"}).text
+                
+                # remove / keep digits
+                chapter_num = re.sub("\\. *.+", ".", chapter_head)
+                chapter_title =  re.sub("\\d*\\. *", "", chapter_head)
+
+                # construct the source if there's valid parts
+                # if not, the previous source will be used
+                if book_name and chapter_num and sub_num:
+                    source = f"{book_name}.{chapter_num}{sub_num}"
+                    print(source, end=" ")
+
+                # construct the sutta name
+                sutta = f"{chapter_title}, {sub_title}"
+                sutta = sutta.lower()
+                print(sutta)
 
         # dn
         if "dn" in book:
@@ -372,7 +451,7 @@ def clean_gatha(text):
 
 if __name__ == "__main__":
     pth = ProjectPaths()
-    book = "kn16"
-    text_to_find = "khaggavisāṇakappo"
+    book = "vin4"
+    text_to_find = "ukkhepanīyakammaṃ adhammakammañca"
     sutta_examples = find_source_sutta_example(pth, book, text_to_find)
     print(sutta_examples)
