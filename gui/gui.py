@@ -4,7 +4,6 @@
 
 import PySimpleGUI as sg
 import re
-import pandas as pd
 import pickle
 import pyperclip
 
@@ -432,6 +431,15 @@ def main():
                 masc_as = re.sub("as$", "ā", values["pali_2"])
                 window["pali_2"].update(value=masc_as)
                 window["grammar"].update(value="masc, mano group, ")
+            # fix adjecitves ending with 'o' and 'aṃ'
+            elif (
+                values["pos"] == "adj"
+                and (
+                    values["pali_2"].endswith("aṃ")
+                    or values["pali_2"].endswith("o"))
+            ):
+                a_adj = re.sub("(aṃ|o)$", "a", values["pali_2"])
+                window["pali_2"].update(value=a_adj)
 
         if event == "derived_from":
             if flags.derived_from:
@@ -455,23 +463,19 @@ def main():
                     flags.show_fields = True
 
         # movement in this field triggers a spellcheck
-        elif event == "add_spelling":
-            field = "meaning_1"
-            error_field = "meaning_1_error"
-            check_spelling(pth, field, error_field, values, window)
 
         elif event == "check_spelling_button":
             field = "meaning_1"
             error_field = "meaning_1_error"
-            check_spelling(pth, field, error_field, values, window)
+            flags = check_spelling(pth, field, error_field, values, window, flags)
 
             field = "meaning_lit"
             error_field = "meaning_lit_error"
-            check_spelling(pth, field, error_field, values, window)
+            flags = check_spelling(pth, field, error_field, values, window, flags)
 
             field = "meaning_2"
             error_field = "meaning_2_error"
-            check_spelling(pth, field, error_field, values, window)
+            flags = check_spelling(pth, field, error_field, values, window, flags)
 
         elif event == "add_spelling_button":
             word = values["add_spelling"]
@@ -898,15 +902,15 @@ def main():
             # spell checks
             field = "meaning_1"
             error_field = "meaning_1_error"
-            check_spelling(pth, field, error_field, values, window)
+            flags = check_spelling(pth, field, error_field, values, window, flags)
 
             field = "meaning_lit"
             error_field = "meaning_lit_error"
-            check_spelling(pth, field, error_field, values, window)
+            flags = check_spelling(pth, field, error_field, values, window, flags)
 
             field = "meaning_2"
             error_field = "meaning_2_error"
-            check_spelling(pth, field, error_field, values, window)
+            flags = check_spelling(pth, field, error_field, values, window, flags)
 
             # check allowable characters
             error_dict = test_allowable_characters_gui(values)
@@ -931,25 +935,33 @@ def main():
         ):
             if not flags.tested:
                 window["messages"].update(value="test first!", text_color="red")
-            else:
-                last_button = display_summary(values, window, sg, pali_word_original2)
-                if last_button == "ok_button":
-                    success, action = udpate_word_in_db(
-                        pth, db_session, window, values)
-                    if success:
-                        clear_errors(window)
-                        clear_values(values, window, username)
-                        if username == "primary_user":
-                            get_next_ids(db_session, window)
-                        elif username == "deva":
-                            get_next_ids_dps(db_session, window)
-                        else:
-                            # Perform actions for other usernames
-                            get_next_ids(db_session, window)
-                        reset_flags(flags)
-                        remove_word_to_add(values, window, words_to_add_list)
-                        window["words_to_add_length"].update(
-                            value=len(words_to_add_list))
+            elif not flags.spelling_ok:
+                yes_no = sg.popup_yes_no(
+                    "There are spelling mistakes. Are you sure you want to continue?",
+                    location=(400, 400),
+                    modal=True)
+                if yes_no == "Yes":
+                    flags.spelling_ok = True
+                else:
+                    continue   
+            last_button = display_summary(values, window, sg, pali_word_original2)
+            if last_button == "ok_button":
+                success, action = udpate_word_in_db(
+                    pth, db_session, window, values)
+                if success:
+                    clear_errors(window)
+                    clear_values(values, window, username)
+                    if username == "primary_user":
+                        get_next_ids(db_session, window)
+                    elif username == "deva":
+                        get_next_ids_dps(db_session, window)
+                    else:
+                        # Perform actions for other usernames
+                        get_next_ids(db_session, window)
+                    reset_flags(flags)
+                    remove_word_to_add(values, window, words_to_add_list)
+                    window["words_to_add_length"].update(
+                        value=len(words_to_add_list))
 
         elif event == "update_db_button2":
             tests_failed = None
@@ -1707,11 +1719,11 @@ def main():
 
             field = "dps_sbs_meaning"
             error_field = "dps_sbs_meaning_error"
-            check_spelling(pth, field, error_field, values, window)
+            flags = check_spelling(pth, field, error_field, values, window, flags)
 
             field = "dps_sbs_notes"
             error_field = "dps_sbs_notes_error"
-            check_spelling(pth, field, error_field, values, window)
+            flags = check_spelling(pth, field, error_field, values, window, flags)
 
             # dps repetition check
             field = "dps_ru_meaning"
@@ -1889,11 +1901,11 @@ def main():
 
                 field = "dps_sbs_meaning"
                 error_field = "dps_sbs_meaning_error"
-                check_spelling(pth, field, error_field, values, window)
+                flags = check_spelling(pth, field, error_field, values, window, flags)
 
                 field = "dps_sbs_notes"
                 error_field = "dps_sbs_notes_error"
-                check_spelling(pth, field, error_field, values, window)
+                flags = check_spelling(pth, field, error_field, values, window, flags)
 
                 # dps repetition check
                 field = "dps_ru_meaning"

@@ -37,6 +37,55 @@ from tools.source_sutta_example import find_source_sutta_example
 nltk.download('punkt')
 
 
+
+class Flags:
+    def __init__(self):
+        self.show_fields = True
+        self.pali_2 = True
+        self.grammar = True
+        self.derived_from = True
+        self.family_root = True
+        self.root_sign = True
+        self.root_base = True
+        self.family_compound = True
+        self.construction = True
+        self.construction_line2 = True
+        self.suffix = True
+        self.compound_construction = True
+        self.synoyms = True
+        self.commentary = True
+        self.sanskrit = True
+        self.example_1 = True
+        self.example_2 = False
+        self.stem = True
+        self.tested = False
+        self.test_next = False
+        self.spelling_ok = False
+
+
+def reset_flags(flags):
+    flags.show_fields = True
+    flags.pali_2 = True
+    flags.grammar = True
+    flags.derived_from = True
+    flags.family_root = True
+    flags.root_sign = True
+    flags.root_base = True
+    flags.family_compound = True
+    flags.construction = True
+    flags.construction_line2 = True
+    flags.suffix = True
+    flags.compound_construction = True
+    flags.synoyms = True
+    flags.commentary = True
+    flags.sanskrit = True
+    flags.example_1 = True
+    flags.example_2 = False
+    flags.stem = True
+    flags.tested = False
+    flags.test_next = False
+
+
 def add_sandhi_correction(pth, window, values: dict) -> None:
     sandhi_to_correct = values["sandhi_to_correct"]
     sandhi_correction = values["sandhi_correction"]
@@ -373,7 +422,7 @@ def add_stem_pattern(values, window):
 
 
 
-def check_spelling(pth, field, error_field, values, window):
+def check_spelling(pth, field, error_field, values, window, flags) -> Flags:
 
     spell = SpellChecker(language='en')
     spell.word_frequency.load_text_file(str(pth.user_dict_path))
@@ -390,9 +439,13 @@ def check_spelling(pth, field, error_field, values, window):
     
     if misspelled:
         window[field].update(text_color="red")
+        flags.spelling_ok = False
+        return flags
     else:
         window[field].update(text_color="darkgray")
         window[error_field].update("")
+        flags.spelling_ok = True
+        return flags
 
 
 def add_spelling(pth, word):
@@ -761,53 +814,6 @@ def sandhi_ok(pth, window, word,):
         writer = csv.writer(csvfile)
         writer.writerow([word])
     window["messages"].update(f"{word} added", text_color="white")
-
-
-class Flags:
-    def __init__(self):
-        self.show_fields = True
-        self.pali_2 = True
-        self.grammar = True
-        self.derived_from = True
-        self.family_root = True
-        self.root_sign = True
-        self.root_base = True
-        self.family_compound = True
-        self.construction = True
-        self.construction_line2 = True
-        self.suffix = True
-        self.compound_construction = True
-        self.synoyms = True
-        self.commentary = True
-        self.sanskrit = True
-        self.example_1 = True
-        self.example_2 = False
-        self.stem = True
-        self.tested = False
-        self.test_next = False
-
-
-def reset_flags(flags):
-    flags.show_fields = True
-    flags.pali_2 = True
-    flags.grammar = True
-    flags.derived_from = True
-    flags.family_root = True
-    flags.root_sign = True
-    flags.root_base = True
-    flags.family_compound = True
-    flags.construction = True
-    flags.construction_line2 = True
-    flags.suffix = True
-    flags.compound_construction = True
-    flags.synoyms = True
-    flags.commentary = True
-    flags.sanskrit = True
-    flags.example_1 = True
-    flags.example_2 = False
-    flags.stem = True
-    flags.tested = False
-    flags.test_next = False
 
 
 def display_summary(values, window, sg, pali_word_original2):
@@ -1286,6 +1292,9 @@ def make_compound_construction(values):
     # compounds
     elif re.findall(r"\bcomp\b", values["grammar"]):
         return construction_line1
+    # dvanda '+' > 'ca'
+    elif values["compound_type"] == "dvanda":
+        return construction_line1.replace("+", "<b>ca</b>") + " <b>ca</b>" 
     else:
         return pali_clean
 
