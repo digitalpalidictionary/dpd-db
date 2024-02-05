@@ -12,6 +12,7 @@ class RenderedSizes(TypedDict):
     dpd_button_box: int
     dpd_grammar: int
     dpd_example: int
+    sbs_example: int
     dpd_inflection_table: int
     dpd_family_root: int
     dpd_family_word: int
@@ -46,6 +47,7 @@ def default_rendered_sizes() -> RenderedSizes:
         dpd_button_box = 0,
         dpd_grammar = 0,
         dpd_example = 0,
+        sbs_example = 0,
         dpd_inflection_table = 0,
         dpd_family_root = 0,
         dpd_family_word = 0,

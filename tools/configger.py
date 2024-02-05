@@ -50,7 +50,8 @@ DEFAULT_CONFIG = {
         "make_link": "no",
         "extended_synonyms": "no",
         "show_id": "no",
-        "show_ebt_count": "no"
+        "show_ebt_count": "no",
+        "show_dps_data": "no"
     },
     "exporter" : {
         "make_dpd": "yes",

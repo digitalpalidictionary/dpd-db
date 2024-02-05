@@ -105,6 +105,7 @@ class ProjectPaths:
         self.button_box_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_button_box.html"))
         self.grammar_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_grammar.html"))
         self.example_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_example.html"))
+        self.sbs_example_templ_path = base_dir.joinpath(Path("exporter/templates/sbs_example.html"))
         self.inflection_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_inflection.html"))
         self.family_root_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_family_root.html"))
         self.family_word_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_family_word.html"))

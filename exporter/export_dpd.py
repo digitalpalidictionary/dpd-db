@@ -21,7 +21,7 @@ from helpers import TODAY
 
 from tools import time_log
 
-from db.models import PaliRoot, PaliWord
+from db.models import PaliRoot, PaliWord, Russian, SBS
 from db.models import DerivedData
 from db.models import FamilyRoot
 from db.models import FamilyWord
@@ -54,6 +54,7 @@ class PaliWordTemplates:
         self.button_box_templ = Template(filename=str(pth.button_box_templ_path))
         self.grammar_templ = Template(filename=str(pth.grammar_templ_path))
         self.example_templ = Template(filename=str(pth.example_templ_path))
+        self.sbs_example_templ = Template(filename=str(pth.sbs_example_templ_path))
         self.inflection_templ = Template(filename=str(pth.inflection_templ_path))
         self.family_root_templ = Template(filename=str(pth.family_root_templ_path))
         self.family_word_templ = Template(filename=str(pth.family_word_templ_path))
@@ -71,11 +72,13 @@ class PaliWordTemplates:
             button_js = f.read()
         self.button_js = js_minify(button_js)
 
-PaliWordDbRowItems = Tuple[PaliWord, DerivedData, FamilyRoot, FamilyWord]
+PaliWordDbRowItems = Tuple[PaliWord, DerivedData, FamilyRoot, FamilyWord, SBS, Russian]
 
 class PaliWordDbParts(TypedDict):
    pali_word: PaliWord
    pali_root: PaliRoot
+   sbs: SBS
+   ru: Russian
    derived_data: DerivedData
    family_root: FamilyRoot
    family_word: FamilyWord
@@ -90,14 +93,17 @@ class PaliWordRenderData(TypedDict):
     make_link: bool
     show_id: bool
     show_ebt_count: bool
+    dps_data: bool
 
-def render_pali_word_dpd_html(extended_synonyms, db_parts: PaliWordDbParts,
+def render_pali_word_dpd_html(extended_synonyms, dps_data, db_parts: PaliWordDbParts,
                               render_data: PaliWordRenderData) -> Tuple[RenderResult, RenderedSizes]:
     rd = render_data
     size_dict = default_rendered_sizes()
 
     i: PaliWord = db_parts["pali_word"]
     rt: PaliRoot = db_parts["pali_root"]
+    sbs: SBS = db_parts["sbs"]
+    ru: Russian = db_parts["ru"]
     dd: DerivedData = db_parts["derived_data"]
     fr: FamilyRoot = db_parts["family_root"]
     fw: FamilyWord = db_parts["family_word"]
@@ -129,6 +135,23 @@ def render_pali_word_dpd_html(extended_synonyms, db_parts: PaliWordDbParts,
         i.example_1 = i.example_1.replace("\n", "<br>")
     if i.example_2:
         i.example_2 = i.example_2.replace("\n", "<br>")
+    if sbs is not None and dps_data:
+        if sbs.sbs_sutta_1:
+            sbs.sbs_sutta_1 = sbs.sbs_sutta_1.replace("\n", "<br>")
+        if sbs.sbs_sutta_2:
+            sbs.sbs_sutta_2 = sbs.sbs_sutta_2.replace("\n", "<br>")
+        if sbs.sbs_sutta_3:
+            sbs.sbs_sutta_3 = sbs.sbs_sutta_3.replace("\n", "<br>")
+        if sbs.sbs_sutta_4:
+            sbs.sbs_sutta_4 = sbs.sbs_sutta_4.replace("\n", "<br>")
+        if sbs.sbs_example_1:
+            sbs.sbs_example_1 = sbs.sbs_example_1.replace("\n", "<br>")
+        if sbs.sbs_example_2:
+            sbs.sbs_example_2 = sbs.sbs_example_2.replace("\n", "<br>")
+        if sbs.sbs_example_3:
+            sbs.sbs_example_3 = sbs.sbs_example_3.replace("\n", "<br>")
+        if sbs.sbs_example_4:
+            sbs.sbs_example_4 = sbs.sbs_example_4.replace("\n", "<br>")
 
     html: str = ""
     header = render_header_templ(pth, tt.dpd_css, tt.button_js, tt.header_templ)
@@ -137,21 +160,26 @@ def render_pali_word_dpd_html(extended_synonyms, db_parts: PaliWordDbParts,
 
     html += "<body>"
 
-    summary = render_dpd_definition_templ(pth, i, dd, rd['make_link'], rd['show_id'], rd['show_ebt_count'], tt.dpd_definition_templ)
+    summary = render_dpd_definition_templ(pth, i, sbs, dd, rd['make_link'], rd['show_id'], rd['show_ebt_count'], rd['dps_data'], tt.dpd_definition_templ)
     html += summary
     size_dict["dpd_summary"] += len(summary)
 
-    button_box = render_button_box_templ(pth, i, rd['cf_set'], tt.button_box_templ)
+    button_box = render_button_box_templ(pth, i, sbs, rd['dps_data'], rd['cf_set'], tt.button_box_templ)
     html += button_box
     size_dict["dpd_button_box"] += len(button_box)
 
-    grammar = render_grammar_templ(pth, i, rt, tt.grammar_templ)
+    grammar = render_grammar_templ(pth, i, rt, sbs, ru, rd['dps_data'], tt.grammar_templ)
     html += grammar
     size_dict["dpd_grammar"] += len(grammar)
 
     example = render_example_templ(pth, i, rd['make_link'], tt.example_templ)
     html += example
     size_dict["dpd_example"] += len(example)
+
+    if sbs is not None and dps_data:
+        sbs_example = render_sbs_example_templ(pth, i, sbs, rd['make_link'], tt.sbs_example_templ)
+        html += sbs_example
+        size_dict["sbs_example"] += len(sbs_example)
 
     inflection_table = render_inflection_templ(pth, i, dd, tt.inflection_templ)
     html += inflection_table
@@ -252,6 +280,11 @@ def generate_dpd_html(
     else:
         show_ebt_count: bool = False
 
+    if config_test("dictionary", "show_dps_data", "yes"):
+        dps_data: bool = True
+    else:
+        dps_data: bool = False
+
     dpd_data_list: List[RenderResult] = []
 
     pali_words_count = db_session \
@@ -282,10 +315,16 @@ def generate_dpd_html(
     while offset <= pali_words_count:
 
         dpd_db = db_session.query(
-            PaliWord, DerivedData, FamilyRoot, FamilyWord
+            PaliWord, DerivedData, FamilyRoot, FamilyWord, SBS, Russian
         ).outerjoin(
             DerivedData,
             PaliWord.id == DerivedData.id
+        ).outerjoin(
+            SBS,
+            PaliWord.id == SBS.id
+        ).outerjoin(
+            Russian,
+            PaliWord.id == Russian.id
         ).outerjoin(
             FamilyRoot,
             PaliWord.root_family_key == FamilyRoot.root_family_key
@@ -299,11 +338,15 @@ def generate_dpd_html(
             dd: DerivedData
             fr: FamilyRoot
             fw: FamilyWord
-            pw, dd, fr, fw = i
+            sbs: SBS
+            ru: Russian
+            pw, dd, fr, fw, sbs, ru = i
 
             return PaliWordDbParts(
                 pali_word = pw,
                 pali_root = pw.rt,
+                sbs = sbs,
+                ru = ru,
                 derived_data = dd,
                 family_root = fr,
                 family_word = fw,
@@ -326,12 +369,13 @@ def generate_dpd_html(
             cf_set = cf_set,
             make_link = make_link,
             show_id = show_id,
-            show_ebt_count = show_ebt_count
+            show_ebt_count = show_ebt_count,
+            dps_data = dps_data
         )
 
         def _parse_batch(batch: List[PaliWordDbParts]):
             res: List[Tuple[RenderResult, RenderedSizes]] = \
-                [render_pali_word_dpd_html(extended_synonyms, i, render_data) for i in batch]
+                [render_pali_word_dpd_html(extended_synonyms, dps_data, i, render_data) for i in batch]
 
             for i, j in res:
                 dpd_data_results_list.append(i)
@@ -377,10 +421,12 @@ def render_header_templ(
 def render_dpd_definition_templ(
         __pth__: ProjectPaths,
         i: PaliWord,
+        sbs: SBS,
         dd: DerivedData,
         make_link: bool,
         show_id: bool,
         show_ebt_count: bool,
+        dps_data: bool,
         dpd_definition_templ: Template
 ) -> str:
     """render the definition of a word's most relevant information:
@@ -411,6 +457,7 @@ def render_dpd_definition_templ(
     return str(
         dpd_definition_templ.render(
             i=i,
+            sbs=sbs,
             make_link=make_link,
             pos=pos,
             plus_case=plus_case,
@@ -420,6 +467,7 @@ def render_dpd_definition_templ(
             id=id,
             show_id=show_id,
             show_ebt_count=show_ebt_count,
+            dps_data=dps_data,
             ebt_count=ebt_count,
             )
         )
@@ -428,6 +476,8 @@ def render_dpd_definition_templ(
 def render_button_box_templ(
         __pth__: ProjectPaths,
         i: PaliWord,
+        sbs: SBS,
+        dps_data: bool,
         cf_set: Set[str],
         button_box_templ: Template
 ) -> str:
@@ -459,6 +509,13 @@ def render_button_box_templ(
             target=f"examples_{i.pali_1_}", name="examples")
     else:
         examples_button = ""
+
+    # sbs_example_button
+    sbs_example_button = ""
+    if sbs is not None and dps_data:
+        if sbs.needs_sbs_example_button or sbs.needs_sbs_examples_button:
+            sbs_example_button = button_html.format(
+                target=f"sbs_example_{i.pali_1_}", name="sbs")
 
     # conjugation_button
     if i.needs_conjugation_button:
@@ -526,6 +583,7 @@ def render_button_box_templ(
             grammar_button=grammar_button,
             example_button=example_button,
             examples_button=examples_button,
+            sbs_example_button=sbs_example_button,
             conjugation_button=conjugation_button,
             declension_button=declension_button,
             root_family_button=root_family_button,
@@ -540,6 +598,9 @@ def render_grammar_templ(
         __pth__: ProjectPaths,
         i: PaliWord,
         rt: PaliRoot,
+        sbs: SBS,
+        ru: Russian,
+        dps_data: bool,
         grammar_templ: Template
 ) -> str:
     """html table of grammatical information"""
@@ -557,6 +618,9 @@ def render_grammar_templ(
             grammar_templ.render(
                 i=i,
                 rt=rt,
+                sbs=sbs,
+                ru=ru,
+                dps_data=dps_data,
                 grammar=grammar,
                 meaning=meaning,
                 today=TODAY))
@@ -577,6 +641,26 @@ def render_example_templ(
         return str(
             example_templ.render(
                 i=i,
+                make_link=make_link,
+                today=TODAY))
+    else:
+        return ""
+
+
+def render_sbs_example_templ(
+        __pth__: ProjectPaths,
+        i: PaliWord,
+        sbs: SBS,
+        make_link: bool,
+        example_templ: Template
+) -> str:
+    """render sbs examples html"""
+
+    if sbs.sbs_example_1 or sbs.sbs_example_2 or sbs.sbs_example_3 or sbs.sbs_example_4:
+        return str(
+            example_templ.render(
+                i=i,
+                sbs=sbs,
                 make_link=make_link,
                 today=TODAY))
     else:
