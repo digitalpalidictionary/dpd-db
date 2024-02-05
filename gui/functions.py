@@ -1292,9 +1292,38 @@ def make_compound_construction(values):
     # compounds
     elif re.findall(r"\bcomp\b", values["grammar"]):
         return construction_line1
+    
     # dvanda '+' > 'ca'
     elif values["compound_type"] == "dvanda":
-        return construction_line1.replace("+", "<b>ca</b>") + " <b>ca</b>" 
+        return construction_line1.replace("+", "<b>ca</b>") + " <b>ca</b>"
+
+    # neg kammadhārayas
+    elif (
+        values["compound_type"] == "kammadhāraya"
+        and "neg" in values["neg"] 
+    ):
+        if pali_clean.startswith("na"):
+            
+            # check if there's a double consonant
+            if pali_clean[2] == pali_clean[3]:
+                return f"na + {pali_clean[3:]}"
+            else:
+                return f"na + {pali_clean[2:]}"
+            
+        elif pali_clean.startswith("an"):
+            return f"na + {pali_clean[2:]}"
+        
+        elif pali_clean.startswith("a"):
+            
+            # check if there's a double consonant
+            if pali_clean[1] == pali_clean[2]:
+                return f"na + {pali_clean[2:]}"
+            else:
+                return f"na + {pali_clean[1:]}"
+        
+        elif pali_clean.startswith("nā"):
+            return f"na + a{pali_clean[2:]}"
+
     else:
         return pali_clean
 
