@@ -145,7 +145,7 @@ Leave blank for other parts of speech.")),
                 CASE_VALUES, key="plus_case", size=(20, 1),
                 tooltip="What case does a related syntactically related word take?"),
             sg.Text(
-                "", key="case_error", size=(50, 1), text_color="red")
+                "", key="plus_case_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("meaning_1", size=(15, 2)),

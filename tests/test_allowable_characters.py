@@ -1,41 +1,38 @@
 import re
+import pyperclip
 from rich import print
 from db.get_db_session import get_db_session
 from db.models import PaliWord
+from tools.db_search_string import db_search_string
 from tools.pali_alphabet import pali_alphabet
 from tools.pali_alphabet import english_alphabet
 from tools.pali_alphabet import english_capitals
 from tools.pali_alphabet import sanskrit_alphabet
 from tools.paths import ProjectPaths
 
-
-def join_allowed(allowed: list) -> str:
-    """Turn a list into a compiled string 
-    for regex find and replace."""
-    return f"({'|'.join(allowed)})"
-
-
-def main():
-    pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).all()
+class AllowableCharacters():
+    """Defined lists of allowable characters,
+    and the characters allowable in each field."""
 
     # --------------------------------------------------
-    # lists of allowable characterss
+    # lists of allowable characters
     # --------------------------------------------------
 
     # letters 
     niggahitas = ["ṁ", "ŋ"]                 #   only in definition of niggahīta
     
-    pali_capitals = ["Ā"]                   #   only one in use so far, updated as needed
+    pali_capitals = ["Ā", "Ñ", "Ṭ"]         #   update as needed
     
-    sanskrit_capitals = ["Ṛ"]               #   only one in use so far, updated as needed
+    sanskrit_capitals = [                   #   update as needed
+        "Ṛ", "V", "B", "Ś"]     
     
     greek_characters = [                    #   in names of stars
         "α", "β", "ι", "γ", "δ", "θ"]       
     
     non_ia_char = [                         #   in Tamil, Munda, etc. alphabets
         "ṉ", "ḻ", "ō", "ḵ", "ḱ", "", '̱', '̤']
+    
+    german_characters = ["ü"]
 
     # digits
     digits = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
@@ -45,25 +42,39 @@ def main():
     super_digits = ["⁰", "¹", "²", "³", "⁴", "⁵", "⁶", "⁷", "⁸", "⁹"]
 
     # punctuation
-    space = [" "]
-    comma = [","]
-    semicolon = [";"]
-    fullstop = ["\\."]
-    question = ["\\?"]
-    exclamation = ["!"]
-    brackets = ["\\(", "\\)"]
-    dash = ["\\-"]
     ampersand = ["&"]
-    root = ["√"]
-    plus = ["\\+"]
-    equals = ["\\="]                        #   used in measures 7 x = 1 y
-    percent = ["%"]                         #   100% 
-    forward_slash = ["\\/"]                 #   used in factions 1/16th
-    dot_dot_dot = ["…"]                     #   rather than ...
-    star = ["\\*"]                          #   used as ṇ anubandha in grammatical terms
     apostrophe = ["'"]                      #   FIXME this should get upgraded to quotation marks etc
+    brackets = ["\\(", "\\)"]
+    colon = [":"]
+    comma = [","]
+    dash = ["\\-"]
+    dot_dot_dot = ["…"]                     #   rather than ...
+    equals = ["\\="]                        #   to show measures 7 x = 1 y
+    exclamation = ["!"]
+    forward_slash = ["\\/"]                 #   to show factions 1/16th
+    fullstop = ["\\."]
+    greater_than = [">"]                    #   to show phonetic development
+    hash = ["#"]                            #   only in web links
+    less_than = ["<"]                       #   to show derivation from
+    low_line = ["_"]                        #   only in weblinks
+    new_line = ["\n"]
+    percent = ["%"]                         #   to show 100% 
+    plus = ["\\+"]
+    question = ["\\?"]
+    root = ["√"]
+    semicolon = [";"]
+    space = [" "]
+    square_brackets = ["\\[", "\\]"]
+    star = ["\\*"]                          #   to show ṇ anubandha in grammatical terms and imaginary word forms
 
     # special groups
+
+    section = ["§"]
+
+    bold = ["<b>", "<\\/b>"]
+
+    italic = ["<i>", "<\\/i>"]
+
     neg = ["neg", "x2"]
     
     verbs = [
@@ -87,6 +98,46 @@ def main():
         "Santali",
         "Tamil", "Telugu", 
         ]
+    
+    derivatives = ["kita", "kicca", "taddhita"]
+
+    phonetic_terms = [
+        "Kacc", "with metrically", "lengthened", "shortened",
+        "before", "vowel", "under the influence of", "expansion",
+        "contraction", "sk ṛ", "nasalization"]
+    
+    compound_types = [
+        "abyayībhāva", "digu", "tappurisa", "dvanda", "kammadhāraya",
+        "bahubbīhi", "missaka", "alutta", "dvanda",
+        "dutiyā", "tatiyā", "catutthī", "pañcamī", "chaṭṭhī", "sattamī",
+        "tuṃpaccaya"]
+    
+    source = [
+        "kaccāyana", "padarūpasiddhi", "saddanīti", "padamālā", "bālāvatāra",
+        "buddhavandana", "a", "t"]
+    
+    origins = [
+        "pass1", "pass2", "dps", "sandhi", "cpd", "dps", "ncped"
+    ]
+    
+    patterns = [
+    "paccabyādhi", "pokkharaṇī", "dakkhati", "arahant", "kubbati",
+    "bhavant", "ekacca", "issati", "lattha", "kayirā", "addasā",
+    "brahma", "hanati", "assosi", "parisā", "jāniyā", "natthi",
+    "imperf", "letter", "ubhaya", "karoti", "jantu", "ssati", "kamma",
+    "vajjā", "ratti", "brūti", "avaca", "ddasa", "irreg", "addha",
+    "mātar", "atthi", "dammi", "avoca", "ordin", "santa", "dajjā",
+    "issaṃ", "essa", "card", "nadī", "ubha", "kari", "masc", "māna",
+    "anta", "hari", "onta", "pivi", "jāti", "aṃsu", "isuṃ", "east",
+    "yuva", "enta", "kaci", "hiti", "catu", "pron", "kati", "iṃsu",
+    "hoti", "perf", "tvaṃ", "root", "issa", "ahaṃ", "rāja", "eyya",
+    "siyā", "cond", "hosi", "fem", "āha", "opt", "eti", "amu", "oti",
+    "eka", "prp", "ati", "āti", "ant", "āsi", "fut", "ima", "aka",
+    "aor", "adj", "āna", "dvi", "ssa", "esi", "ptp", "cha", "ar2",
+    "ya", "a1", "ka", "ve", "pp", "pl", "ta", "pr", "as", "ar", "aī",
+    "go", "nt", "ti", "a2", "i2", "ā", "i", "ṃ", "2", "ī", "u", "ū",
+    "a", "o" ]
+    
 
     # --------------------------------------------------
     # allowable characters in each field
@@ -195,8 +246,259 @@ def main():
     
     sanskrit_allowed = (
         sanskrit_alphabet +
+        sanskrit_capitals +
+        english_alphabet +
+        digits +
         space +
-        plus
+        comma + 
+        fullstop +
+        plus + 
+        brackets +
+        square_brackets +
+        dash +
+        forward_slash +
+        less_than
+    )
+
+    root_key_allowed = (
+        pali_alphabet +
+        digits +
+        space +
+        root
+    )
+
+    root_sign_allowed = (
+        pali_alphabet +
+        space +
+        plus +
+        star
+    )
+
+    root_base_allowed = (
+        pali_alphabet +
+        english_alphabet +
+        space +
+        comma +
+        plus +
+        root +
+        star +
+        greater_than +
+        brackets +
+        square_brackets
+    )
+
+    family_root_allowed = (
+        pali_alphabet +
+        root +
+        space
+    )
+
+    family_word_allowed = (
+        pali_alphabet +
+        digits
+    )
+
+    family_compound_allowed = (
+        pali_alphabet +
+        digits +
+        space
+    )
+
+    family_set_allowed = (
+        pali_alphabet +
+        english_alphabet +
+        english_capitals +
+        digits +
+        space +
+        comma +
+        semicolon
+    )
+
+    construction_allowed = (
+        pali_alphabet +
+        space +
+        comma +
+        plus +
+        root +
+        star +
+        question +
+        greater_than +      
+        bold +              #   FIXME remove?
+        brackets +
+        square_brackets +
+        new_line
+    )
+
+    derivative_allowed = (
+        derivatives
+    )
+
+    suffix_allowed = (
+        pali_alphabet +
+        star
+    )
+
+    phonetic_allowed = (
+        phonetic_terms +
+        pali_alphabet +
+        digits +
+        space +
+        comma +
+        plus +
+        root +
+        greater_than +
+        new_line +
+        brackets
+    )
+
+    compound_type_allowed = (
+        compound_types +
+        space +
+        greater_than
+    )
+
+    compound_construction_allowed = (
+        pali_alphabet +
+        space +
+        plus +
+        bold +
+        new_line
+    )
+
+    non_root_in_comps_allowed = (
+        pali_alphabet
+    )
+
+    source_allowed = (
+        english_capitals +
+        source +
+        digits +
+        space +
+        fullstop +
+        dash
+    )
+    sutta_allowed = (
+        pali_alphabet +
+        digits +
+        space +
+        comma +                 #   for subsections of suttas
+        new_line
+    )
+
+    example_allowed = (
+        pali_alphabet +
+        digits +
+        space +
+        comma +
+        fullstop +
+        question +
+        exclamation +
+        apostrophe +
+        dash +
+        dot_dot_dot +
+        brackets +
+        square_brackets +       #   for CST notes [theri. ap. 47]
+        equals +                #   only in CST notes
+        plus +                  #   only in CST notes
+        bold +
+        new_line
+    )
+
+    ant_syn_var_allowed = (
+        pali_alphabet +
+        space +
+        comma
+    )
+
+    commentary_allowed = (
+        pali_alphabet +
+        english_capitals +
+        digits +
+        space +
+        comma +
+        fullstop +
+        question +
+        apostrophe +
+        dash +
+        dot_dot_dot +
+        brackets +
+        bold +
+        new_line
+    )
+
+    notes_allowed = (
+        pali_alphabet +
+        pali_capitals +
+        english_alphabet +
+        english_capitals +
+        sanskrit_alphabet +
+        sanskrit_capitals +
+        german_characters +
+        digits +
+        space +
+        comma +
+        semicolon +
+        colon +
+        fullstop +
+        exclamation +
+        question +
+        apostrophe +
+        dash +
+        dot_dot_dot +
+        new_line +
+        plus +
+        star +
+        root +
+        equals +                # in measures 1x = 12y
+        forward_slash +         # in fractions 1/12th
+        greater_than +          # in derivations na > an 
+        brackets +
+        bold + 
+        italic +
+        section
+    )
+
+    cognate_allowed = (
+        english_alphabet +
+        english_capitals +
+        space +
+        comma +
+        star +                   # for imaginary derivations *n-mrt-os (PIE)
+        brackets +
+        greater_than +           # in derivations na > an
+        dash
+    )
+
+    link_allowed = (
+        english_alphabet +
+        english_capitals +
+        digits +
+        space +
+        fullstop +
+        forward_slash +
+        colon +
+        dash + 
+        hash +
+        percent +
+        brackets +
+        low_line +
+        new_line
+    )
+
+    origin_allowed = (
+        origins
+    )
+
+    stem_allowed = (
+        pali_alphabet +
+        exclamation +
+        star +
+        dash 
+    )
+
+    pattern_allowed = (
+        patterns +
+        space
     )
 
     # --------------------------------------------------
@@ -218,18 +520,57 @@ def main():
         ("meaning_2", meaning_1_allowed),
         ("non_ia", non_ia_allowed),
         ("sanskrit", sanskrit_allowed),
+        ("root_key", root_key_allowed),
+        ("root_sign", root_sign_allowed),
+        ("root_base", root_base_allowed),
+        ("family_root", family_root_allowed),
+        ("family_word", family_word_allowed),
+        ("family_compound", family_compound_allowed),
+        ("family_set", family_set_allowed),
+        ("construction", construction_allowed),
+        ("derivative", derivative_allowed),
+        ("suffix", suffix_allowed),
+        ("phonetic", phonetic_allowed),
+        ("compound_type", compound_type_allowed),
+        ("compound_construction", compound_construction_allowed),
+        # ("non_root_in_comps", )
+        ("source_1", source_allowed),
+        ("sutta_1", sutta_allowed),
+        ("example_1", example_allowed),
+        ("source_2", source_allowed),
+        ("sutta_2", sutta_allowed),
+        ("example_2", example_allowed),
+        ("antonym", ant_syn_var_allowed),
+        ("synonym", ant_syn_var_allowed),
+        ("variant", ant_syn_var_allowed),
+        ("commentary", commentary_allowed),
+        ("notes", notes_allowed),
+        ("cognate", cognate_allowed),
+        ("link", link_allowed),
+        ("origin", origin_allowed),
+        ("stem", stem_allowed),
+        ("pattern", pattern_allowed), 
     ]
 
-    # --------------------------------------------------
-    # the sharp end of the stick
-    # --------------------------------------------------
 
-    for test_data in tests_data:
+def main():
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
+    db = db_session.query(PaliWord).all()
+    a = AllowableCharacters()
+
+    debug = False
+    error_list = []
+
+    for test_data in a.tests_data:
         # setup variables
         column, allowed = test_data
-        allowed = join_allowed(allowed)
-        remainder = "" 
         print(f"[green]{column:<40}", end="")
+        allowed = join_allowed(allowed)
+        if debug:
+            print()
+            print(allowed)
+        remainder = "" 
         
         for i in db:    
             # grab the text from the column
@@ -237,46 +578,69 @@ def main():
             
             # remove all allowable characters
             oops = re.sub(allowed, "", text)
-
+            
             # compile the remaining characters
             if oops:
-                # print(i.pali_1, oops)
+                if debug:
+                    print(f"{i.pali_1} '{oops}'")
                 remainder += oops
+                error_list += [i.pali_1]
 
-        print(f"[white]{[char for char in set(remainder)]}")
+        print(f"[white]{[char for char in set(remainder)]}", end=" ")
+
+        # unicode numbers for obscure characters
+        unicode_remainder = [ord(char) for char in set(remainder)]
+        for error in unicode_remainder:
+            print("\\u{:04x}".format(error), end=" ")
+        print()    
+
+        if debug:
+            # print db serach string
+            error_search_string = db_search_string(error_list)
+            pyperclip.copy(error_search_string)
+            print("[green]db search string copied to clipboard")
+
+
+def test_allowable_characters_gui(values):
+    """Test allowabl characters in gui values dict.
+    Return a dict of probems."""
+    a = AllowableCharacters()
+
+    # whats the plan?
+    # test each of the values
+    # and return a package of results
+
+    error_dict = {}
+    for test_data in a.tests_data:
+        column, allowed = test_data
+        allowed = join_allowed(allowed)
+        
+        if column in values:
+            # grab the text from the column
+            text = values[column]
+            
+            # remove all allowable characters
+            oops = re.sub(allowed, "", text)
+            
+            # add to error dict
+            error_string = ""
+            if oops:
+                for char in set(oops):
+                    error_list = []
+                    error_list += [f"{char}"]
+                    unicode = "\\u{:04x}".format(ord(char))
+                    error_list += [unicode]
+                    error_string = " ".join(error_list)
+            
+                    error_dict[column] = error_string
+    
+    return error_dict
+
+
+def join_allowed(allowed: list) -> str:
+    """Turn a list into a compiled string for regex 
+    find and replace."""
+    return f"({'|'.join(allowed)})"
 
 if __name__ == "__main__":
     main()
-
-    # root_key_allowed = ()
-    # root_sign_allowed = ()
-    # root_base_allowed = ()
-    # family_root_allowed = ()
-    # family_word_allowed = ()
-    # family_compound_allowed = ()
-    # family_set_allowed = ()
-    # construction_allowed = ()
-    # derivative_allowed = ()
-    # suffix_allowed = ()
-    # phonetic_allowed = ()
-    # compound_type_allowed = ()
-    # compound_construction_allowed = ()
-    # non_root_in_comps_allowed = ()
-    # source_1_allowed = ()
-    # sutta_1_allowed = ()
-    # example_1_allowed = ()
-    # source_2_allowed = ()
-    # sutta_2_allowed = ()
-    # example_2_allowed = ()
-    # antonym_allowed = ()
-    # synonym_allowed = ()
-    # variant_allowed = ()
-    # commentary_allowed = ()
-    # notes_allowed = ()
-    # cognate_allowed = ()
-    # link_allowed = ()
-    # origin_allowed = ()
-    # stem_allowed = ()
-    # pattern_allowed = ()
-    # created_at_allowed = ()
-    # updated_at_allowed = ()

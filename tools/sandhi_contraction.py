@@ -165,7 +165,7 @@ def make_sandhi_contraction_dict(db_session: Session) -> SandhiContractions:
                 sandhi_contraction[word]["contractions"].add(word)
                 sandhi_contraction[word]["ids"] += [str(i.id)]
 
-    # print out an wrong charcters
+    # print out an wrong characters
     error_list = []
     for key in sandhi_contraction:
         for char in key:

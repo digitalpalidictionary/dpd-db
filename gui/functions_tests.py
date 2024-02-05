@@ -133,6 +133,8 @@ def get_search_criteria(t: InternalTestRow) -> List[Tuple]:
 
 def run_individual_internal_tests(
         pth, internal_tests_list, values, window, flags, sg, username):
+    
+    next_flag = True
 
     # remove all spaces front and back, and doublespaces
     for value in values:
@@ -236,6 +238,7 @@ def run_individual_internal_tests(
                     
                 elif event_popup == "Next":
                     popup_win.close()
+                    next_flag = False
                     break
 
         else:
@@ -243,11 +246,16 @@ def run_individual_internal_tests(
                 f"{test_message} - passed!", text_color="white")
 
     else:
-        window["messages"].update(
-            "all tests passed!", text_color="white")
-        # print("exit test")
-        flags.tested = True
-        return flags
+        if next_flag is True:
+            window["messages"].update(
+                "all tests passed!", text_color="white")
+            flags.tested = True
+            return flags
+        else:
+            window["messages"].update(
+                "test again", text_color="red")
+            return flags
+
 
 
 def db_internal_tests_setup(db_session, pth):

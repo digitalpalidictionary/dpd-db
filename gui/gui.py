@@ -127,6 +127,7 @@ from scripts.backup_paliword_paliroot import backup_paliword_paliroot
 from scripts.backup_ru_sbs import backup_ru_sbs
 
 from exporter.i2html import make_html
+from tests.test_allowable_characters import test_allowable_characters_gui
 
 from tools.goldedict_tools import open_in_goldendict
 from tools.paths import ProjectPaths
@@ -906,6 +907,17 @@ def main():
             field = "meaning_2"
             error_field = "meaning_2_error"
             check_spelling(pth, field, error_field, values, window)
+
+            # check allowable characters
+            error_dict = test_allowable_characters_gui(values)
+            for column, test_value in error_dict.items():
+                if column != "origin":
+                    if test_value:
+                        window[f"{column}_error"].update(value=test_value, text_color="red")
+                        window["messages"].update(value="fix bad characters", text_color="red")
+                        flags.tested = False
+                    else:
+                        window[f"{column}_error"].update(value="", text_color="darkgray")
 
         elif event == "open_tests_button":
             open_internal_tests(pth)
