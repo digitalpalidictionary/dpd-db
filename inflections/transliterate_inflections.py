@@ -85,7 +85,7 @@ def _parse_batch(batch: List[PaliWord],
         "Sinhala",
         inflections_to_transliterate_string,
         post_options=['SinhalaPali'],
-    )
+    ) # type:ignore
 
     # print("[green]transliterating devanagari with aksharamukha")
 
@@ -93,7 +93,7 @@ def _parse_batch(batch: List[PaliWord],
         "IASTPali",
         "Devanagari",
         inflections_to_transliterate_string,
-    )
+    ) # type:ignore
 
     # print("[green]transliterating thai with aksharamukha")
 
@@ -101,7 +101,7 @@ def _parse_batch(batch: List[PaliWord],
         "IASTPali",
         "Thai",
         inflections_to_transliterate_string,
-    )
+    ) # type:ignore
 
     sinhala_lines: list = sinhala.split("\n")
     devanagari_lines: list = devanagari.split("\n")
@@ -237,8 +237,9 @@ def main():
             translit_dict[k] = v
 
     # write back into database
-    print("[green]writing to db")
+    print("[green]writing to db", end=" ")
 
+    translit_counter = 0
     for i in dpd_db:
         if i.pali_1 in translit_dict:
 
@@ -248,6 +249,9 @@ def main():
                 list(translit_dict[i.pali_1]["devanagari"]))
             i.dd.thai = ",".join(
                 list(translit_dict[i.pali_1]["thai"]))
+            translit_counter +=1
+
+    print(translit_counter)
 
     db_session.commit()
     db_session.close()

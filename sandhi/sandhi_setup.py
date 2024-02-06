@@ -24,7 +24,7 @@ from tools.cst_sc_text_sets import make_sc_text_set
 from tools.cst_sc_text_sets import make_other_pali_texts_set
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
-from tools.configger import config_test, config_update
+from tools.configger import config_test
 
 
 def main():

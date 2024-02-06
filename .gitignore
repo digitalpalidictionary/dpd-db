@@ -90,7 +90,7 @@ share/inflections_to_translit.json
 share/sandhi_from_translit.json
 share/sandhi_to_translit.json
 temp/
-tests/add_syn_var_exceptions
+tests/add_synonym_variant_exceptions
 tests/add_word_family_exceptions
 tests/test_hyphenations.txt
 tests/test_theragatha_filler
