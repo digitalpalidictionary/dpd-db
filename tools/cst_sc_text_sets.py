@@ -16,6 +16,125 @@ from typing import Optional, Set, List
 from tools.clean_machine import clean_machine
 from tools.pali_text_files import sc_texts, cst_texts, bjt_texts
 from tools.pali_text_files import mula_books, all_books
+from tools.paths import ProjectPaths
+
+
+def make_cst_text_set(
+        pth, books: List[str], 
+        niggahita="ṃ", 
+        add_hyphenated_parts=True,
+    ) -> Set[str]:
+    
+    """
+    Make a set of words in CST texts from a list of books.
+    - Use when keeping the word order is *not* important.
+    - Optionally change the niggahita character (niggahita="ṃ" or niggahita="ṁ")
+    - Optionally add the parts of hyphenated word (add_hyphenated_parts=True)
+    - Return a disordered set."""
+
+    cst_texts_list: List[str] = []
+
+    for i in books:
+        if cst_texts[i]:
+            cst_texts_list += cst_texts[i]
+
+    words_list: List[str] = []
+
+    for book in cst_texts_list:
+        with open(pth.cst_txt_dir.joinpath(book), "r") as f:
+            text_string = f.read()
+            if add_hyphenated_parts:
+                # dont remove the hyphen, deal with it later
+                text_string = clean_machine(
+                    text_string, niggahita=niggahita, remove_hyphen=False)
+            else:
+                # remove the hyphen immediately
+                text_string = clean_machine(
+                    text_string, niggahita=niggahita, remove_hyphen=True)
+
+            words_list.extend(text_string.split())
+    
+    if add_hyphenated_parts:
+        for index, word in enumerate(words_list):
+            if "-" in word:
+                # remove the dash and add the clean word back into the list
+                words_list[index] = word.replace("-", "")
+
+                # split on dashes and add each split back into the list
+                # in the correct order
+                hyphenated_words = word.split("-")
+                for h_word in hyphenated_words.__reversed__():
+                    words_list.insert(index + 1, h_word)
+    
+    return set(words_list)
+
+
+def make_cst_text_list(
+        pth, 
+        books: List[str], 
+        niggahita="ṃ",
+        dedupe=True,
+        add_hyphenated_parts=True,
+    ) -> List[str]:
+    
+    """
+    Make a list of words in CST texts from a list of books.
+    - Use when keeping the order *is* important.
+    - Optionally change the niggahita character (niggahita="ṁ").
+    - Optionally dedupe the list (dedupe=True).
+    Usage:
+    - word_list = make_cst_text_list(pth, ["kn8"], niggahita="ŋ")
+    - word_list = make_cst_text_list(pth, ["kn8", "kn9"], dedupe=False)
+    - word_list = make_cst_text_list(pth, ["kn8", "kn9"], add_hyphenated_parts=True)
+    """
+
+    cst_texts_list: List[str] = []
+
+    for i in books:
+        if cst_texts[i]:
+            cst_texts_list += cst_texts[i]
+
+    words_list: List[str] = []
+
+    for book in cst_texts_list:
+        with open(pth.cst_txt_dir.joinpath(book), "r") as f:
+            text_string = f.read()
+            # remove all brackets
+            text_string = re.sub(r"\(.+\)", "", text_string)
+            
+            if add_hyphenated_parts:
+                # dont remove the hyphen, deal with it later
+                text_string = clean_machine(
+                    text_string, niggahita=niggahita, remove_hyphen=False)
+            else:
+                # remove the hyphen immediately
+                text_string = clean_machine(
+                    text_string, niggahita=niggahita, remove_hyphen=True)
+            
+            words_list.extend(text_string.split())
+
+    if add_hyphenated_parts:
+        for index, word in enumerate(words_list):
+            if "-" in word:
+                # remove the dash and add the clean word back into the list
+                words_list[index] = word.replace("-", "")
+
+                # split on dashes and add each split back into the list
+                # in the correct order
+                hyphenated_words = word.split("-")
+                for h_word in hyphenated_words.__reversed__():
+                    words_list.insert(index + 1, h_word)
+
+    if dedupe == True:
+        exists = []
+        reduced_list = []
+        for word in words_list:
+            if word not in exists:
+                exists += [word]
+                reduced_list += [word]
+        return reduced_list
+    else:
+        return words_list
 
 
 def extract_sutta_from_file(sutta_name: str, text_string: str, books: List[str]) -> Optional[str]:
@@ -62,7 +181,8 @@ def extract_sutta_from_file(sutta_name: str, text_string: str, books: List[str])
     return sutta
 
 
-def make_cst_text_set_sutta(pth, sutta_name: str, books: List[str], niggahita="ṃ") -> Set[str]:
+def make_cst_text_set_sutta(
+        pth, sutta_name: str, books: List[str], niggahita="ṃ") -> Set[str]:
     """Make a list of words in CST texts from a list of books.
     Optionally change the niggahita character.
     Return a list or a set."""
@@ -106,68 +226,6 @@ def make_cst_text_set_from_file(dpspth, niggahita="ṃ") -> Set[str]:
     return set(words_list)
 
 
-
-def make_cst_text_set(pth, books: List[str], niggahita="ṃ") -> Set[str]:
-    """Make a set of words in CST texts from a list of books.
-    Optionally change the niggahita character.
-    Return a list or a set."""
-
-    cst_texts_list: List[str] = []
-
-    for i in books:
-        if cst_texts[i]:
-            cst_texts_list += cst_texts[i]
-
-    words_list: List[str] = []
-
-    for book in cst_texts_list:
-        with open(pth.cst_txt_dir.joinpath(book), "r") as f:
-            text_string = f.read()
-            text_string = clean_machine(text_string, niggahita=niggahita)
-            words_list.extend(text_string.split())
-
-    return set(words_list)
-
-
-def make_cst_text_list(
-        pth, 
-        books: List[str], 
-        niggahita="ṃ",
-        dedupe=True) -> List[str]:
-    """Make a list of words in CST texts from a list of books.
-    Optionally change the niggahita character and dedupe the list.
-    Usage:
-    word_list = make_cst_text_list(pth, ["kn8"], niggahita="ŋ")
-    word_list = make_cst_text_list(pth, ["kn8", "kn9"], dedupe=False)
-    """
-
-    cst_texts_list: List[str] = []
-
-    for i in books:
-        if cst_texts[i]:
-            cst_texts_list += cst_texts[i]
-
-    words_list: List[str] = []
-
-    for book in cst_texts_list:
-        with open(pth.cst_txt_dir.joinpath(book), "r") as f:
-            text_string = f.read()
-            text_string = re.sub(r"\(.+\)", "", text_string)
-            text_string = clean_machine(text_string, niggahita=niggahita)
-            words_list.extend(text_string.split())
-    
-    if dedupe == True:
-        exists = []
-        reduced_list = []
-        for word in words_list:
-            if word not in exists:
-                exists += [word]
-                reduced_list += [word]
-        return reduced_list
-    else:
-        return words_list
-
-
 def make_sc_text_set(pth, books: List[str], niggahita="ṃ") -> Set[str]:
     """Make a list of words in Sutta Central texts from a list of books.
     Optionally change the niggahita character.
@@ -203,8 +261,11 @@ def make_sc_text_list(
         books: List[str],
         niggahita="ṃ",
         deduped=True) -> List[str]:
-    """Make a list of words in Sutta Central texts from a list of books.
-    Optionally change the niggahita character and dedupe.
+    
+    """
+    Make a list of words in Sutta Central texts from a list of books.
+    - optionally change the niggahita character 
+    - optionally dedupe.
     Return a list."""
 
     # make a list of file names of included books
@@ -242,7 +303,7 @@ def make_sc_text_list(
 
 
 def make_bjt_text_set(pth, include: List[str]) -> Set[str]:
-    """This is not currently used. BJT texts are a mess."""
+    """This is not currently used. BJT texts are an unedit digital mess."""
     bjt_texts_list: List[str] = []
     for i in include:
         if bjt_texts[i]:
@@ -295,4 +356,8 @@ def make_other_pali_texts_set(pth) -> Set[str]:
     return other_pali_texts_set
 
 
-# print(make_other_pali_texts_set())
+if __name__ == "__main__":
+    pth = ProjectPaths()
+    cst_test_set = make_cst_text_list(pth, ["mn1"], add_hyphenated_parts=False)
+    print("ādhānaggāhi" in cst_test_set)
+

@@ -4,9 +4,13 @@ import re
 from rich import print
 
 
-def clean_machine(text: str, niggahita="ṃ") -> str:
-    """Return clean text with only allowable characters
-    and optionally change the niggahita character."""
+def clean_machine(text: str, niggahita="ṃ", remove_hyphen=True) -> str:
+    
+    """
+    Return clean text with only allowable characters
+    - optionally change the niggahita character
+    - optionally keep the hyphen
+    """
 
     allowed_characters = "aāiīuūeokgṅcjñṭḍṇtdnpbmyrlsvhḷṃṁ\n xfśṣǣæwqḥṛz"
 
@@ -53,7 +57,6 @@ def clean_machine(text: str, niggahita="ṃ") -> str:
         .replace(">", " ")\
         .replace("^", " ")\
         .replace(" - ", " ")\
-        .replace("-", "")\
         .replace("–", "")\
         .replace("—", " ")\
         .replace("_", "")\
@@ -73,6 +76,9 @@ def clean_machine(text: str, niggahita="ṃ") -> str:
         .replace("\u0306", "")\
         .replace("&", "")\
         .replace("°", "")
+    
+    if remove_hyphen:
+        text = text.replace("-", "")\
 
     text = re.sub("^ *", "", text)
     text = re.sub(" $", "", text)
