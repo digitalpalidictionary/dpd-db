@@ -975,7 +975,11 @@ def test_construction(values, window, pali_clean_list):
 
 
 def replace_sandhi(
-        text: str, field: str, sandhi_dict: dict, window) -> None:
+        text: str, field: str, 
+        sandhi_dict: dict, hyphenations_dict: dict, window
+    ) -> None:
+    """Replace Sandhi and hypenated words."""
+    
     pali_alphabet_string = "".join(pali_alphabet)
     splits = re.split(f"([^{pali_alphabet_string}])", text)
 
@@ -983,6 +987,10 @@ def replace_sandhi(
         word = splits[i]
         if word in sandhi_dict:
             splits[i] = "//".join(sandhi_dict[word]["contractions"])
+
+        if word in hyphenations_dict:
+            splits[i] = hyphenations_dict[word]
+    
     text = "".join(splits)
 
     # fix bold 'ti

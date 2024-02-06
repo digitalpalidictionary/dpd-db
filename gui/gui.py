@@ -2,6 +2,7 @@
 
 """Main program to run the GUI."""
 
+import json
 import PySimpleGUI as sg
 import re
 import pickle
@@ -137,6 +138,8 @@ from tools.tic_toc import bip, bop
 
 from dps.tools.paths_dps import DPSPaths
 
+debug = True
+
 
 def main():
     pth = ProjectPaths()
@@ -146,19 +149,26 @@ def main():
     pali_word_original = None
     pali_word_original2 = None
     
-    
-    try:
-        bip()
-        print("getting bold_defintions_db ", end="")
-        bold_defintions_db = db_session.query(BoldDefintion).all()
-        commentary_definitions_exists = True
-        print(bop())
-    except Exception:
+    if debug is False:
+        try:
+            bip()
+            print("getting bold_defintions_db ", end="")
+            bold_defintions_db = db_session.query(BoldDefintion).all()
+            commentary_definitions_exists = True
+            print(bop())
+        except Exception:
+            bold_defintions_db = []
+            commentary_definitions_exists = False
+    else:
         bold_defintions_db = []
         commentary_definitions_exists = False
 
     family_compound_values = get_family_compound_values(db_session)
     sandhi_dict = make_sandhi_contraction_dict(db_session)
+
+    with open(pth.hyphenations_dict_path) as f:
+        hyphenations_dict = json.load(f)
+
     pali_clean_list: list = get_pali_clean_list(db_session)
     window = window_layout(dpspth, db_session, username)
     daily_record_update(window, pth, "refresh", 0)
@@ -711,19 +721,24 @@ def main():
 
         elif event == "example_1_clean":
             replace_sandhi(
-                values["example_1"], "example_1", sandhi_dict, window)
+                values["example_1"], "example_1", 
+                sandhi_dict, hyphenations_dict, window)
             replace_sandhi(
-                values["bold_1"], "bold_1", sandhi_dict, window)
+                values["bold_1"], "bold_1", 
+                sandhi_dict, hyphenations_dict, window)
 
         elif event == "example_2_clean":
             replace_sandhi(
-                values["example_2"], "example_2", sandhi_dict, window)
+                values["example_2"], "example_2", 
+                sandhi_dict, hyphenations_dict, window)
             replace_sandhi(
-                values["bold_2"], "bold_2", sandhi_dict, window)
+                values["bold_2"], "bold_2", 
+                sandhi_dict, hyphenations_dict, window)
 
         elif event == "commentary_clean":
             replace_sandhi(
-                values["commentary"], "commentary", sandhi_dict, window)
+                values["commentary"], "commentary", 
+                sandhi_dict, hyphenations_dict, window)
 
         elif event == "another_eg_2":
             if not values["book_to_add"]:
@@ -1471,18 +1486,22 @@ def main():
         # dps clean1
         elif event == "dps_example_1_clean":
             replace_sandhi(
-                values["dps_sbs_example_1"], "dps_sbs_example_1", sandhi_dict, window)
+                values["dps_sbs_example_1"], "dps_sbs_example_1", 
+                sandhi_dict, hyphenations_dict, window)
             replace_sandhi(
-                values["dps_bold_1"], "dps_bold_1", sandhi_dict, window)
+                values["dps_bold_1"], "dps_bold_1", 
+                sandhi_dict, hyphenations_dict, window)
 
         # buttons for sbs_ex_2
 
         # dps clean2
         elif event == "dps_example_2_clean":
             replace_sandhi(
-                values["dps_sbs_example_2"], "dps_sbs_example_2", sandhi_dict, window)
+                values["dps_sbs_example_2"], "dps_sbs_example_2", 
+                sandhi_dict, hyphenations_dict, window)
             replace_sandhi(
-                values["dps_bold_2"], "dps_bold_2", sandhi_dict, window)
+                values["dps_bold_2"], "dps_bold_2", 
+                sandhi_dict, hyphenations_dict, window)
 
         # search sbs_ex2
         elif event == "dps_another_eg_2":
@@ -1542,9 +1561,11 @@ def main():
         # dps clean3
         elif event == "dps_example_3_clean":
             replace_sandhi(
-                values["dps_sbs_example_3"], "dps_sbs_example_3", sandhi_dict, window)
+                values["dps_sbs_example_3"], "dps_sbs_example_3", 
+                sandhi_dict, hyphenations_dict, window)
             replace_sandhi(
-                values["dps_bold_3"], "dps_bold_3", sandhi_dict, window)
+                values["dps_bold_3"], "dps_bold_3", 
+                sandhi_dict, hyphenations_dict, window)
 
         # search sbs_ex3
         elif event == "dps_another_eg_3":
@@ -1604,9 +1625,11 @@ def main():
         # clean4
         elif event == "dps_example_4_clean":
             replace_sandhi(
-                values["dps_sbs_example_4"], "dps_sbs_example_4", sandhi_dict, window)
+                values["dps_sbs_example_4"], "dps_sbs_example_4", 
+                sandhi_dict, hyphenations_dict, window)
             replace_sandhi(
-                values["dps_bold_4"], "dps_bold_4", sandhi_dict, window)
+                values["dps_bold_4"], "dps_bold_4", 
+                sandhi_dict, hyphenations_dict, window)
 
         # search sbs_ex4
         elif event == "dps_another_eg_4":
