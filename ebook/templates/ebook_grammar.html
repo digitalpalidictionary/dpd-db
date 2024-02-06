@@ -1,116 +1,116 @@
 <table class="grammar">
     <tr>
-        <th>Grammar</th>
+        <td class='th'>Grammar</td>
         <td>${grammar}</td>
     </tr>
     % if i.family_root:
     <tr>
-        <th>Root Family</th>
+        <td class='th'>Root Family</td>
         <td>${i.family_root}</td>
     </tr>
     % endif
     % if i.root_key:
     <tr>
-        <th>Root</th>
+        <td class='th'>Root</td>
         <td>${i.root_clean}<sup>${i.rt.root_has_verb}</sup>${i.rt.root_group} 
             ${i.root_sign} (${i.rt.root_meaning})
         </td>
     </tr>
     % if i.rt.root_in_comps:
     <tr>
-        <th>√ In Comps</th>
+        <td class='th'>√ In Comps</td>
         <td>${i.rt.root_in_comps}</td>
     </tr>
     % endif
     % endif
     % if i.root_base:
     <tr>
-        <th>Base</th>
+        <td class='th'>Base</td>
         <td>${i.root_base}</td>
     </tr>
     % endif
     % if i.construction:
     <tr>
-        <th>Construction</th>
+        <td class='th'>Construction</td>
         <td>${i.construction}</td>
     </tr>
     % endif
     % if i.derivative:
     <tr>
-        <th>Derivative</th>
+        <td class='th'>Derivative</td>
         <td>${i.derivative} (${i.suffix})</td>
     </tr>
     % endif
     % if i.phonetic:
     <tr>
-        <th>Phonetic Change</th>
+        <td class='th'>Phonetic Change</td>
         <td>${i.phonetic}</td>
     </tr>
     % endif
     % if i.compound_type:
     <tr>
-        <th>Compound</th>
+        <td class='th'>Compound</td>
         <td>${i.compound_type} (${i.compound_construction})</td>
     </tr>
     % endif
     % if i.antonym:
     <tr>
-        <th>Antonym</th>
+        <td class='th'>Antonym</td>
         <td>${i.antonym}</td>
     </tr>
     % endif
     % if i.synonym:
     <tr>
-        <th>Synonym</th>
+        <td class='th'>Synonym</td>
         <td>${i.synonym}</td>
     </tr>
     % endif
     % if i.variant:
     <tr>
-        <th>Variant</th>
+        <td class='th'>Variant</td>
         <td>${i.variant}</td>
     </tr>
     % endif
     % if (i.commentary and i.commentary != "-"):
     <tr>
-        <th>Commentary</th>
+        <td class='th'>Commentary</td>
         <td>${i.commentary}</td>
     </tr>
     % endif
     % if i.notes:
     <tr>
-        <th>Notes</th>
+        <td class='th'>Notes</td>
         <td>${i.notes}</td>
     </tr>
     % endif
     % if i.cognate:
     <tr>
-        <th>English Cognate</th>
+        <td class='th'>English Cognate</td>
         <td>${i.cognate}</td>
     </tr>
     % endif
     % if i.link:
     <tr>
-        <th>Web Link</th>
+        <td class='th'>Web Link</td>
         <td>${i.link}</td>
     </tr>
     % endif
     % if i.non_ia:
     <tr>
-        <th>Non IA</th>
+        <td class='th'>Non IA</td>
         <td><i>${i.non_ia}</i></td>
     </tr>
     % endif
     % if i.sanskrit:
     <tr>
-        <th>Sanskrit</th>
+        <td class='th'>Sanskrit</td>
         <td><i>${i.sanskrit}</i></td>
     </tr>
     % endif
     % if i.root_key:
     % if i.rt.sanskrit_root:
     <tr>
-        <th>Sanskrit Root</th>
+        <td class='th'>Sanskrit Root</td>
         <td>
             <i>
                 ${i.rt.sanskrit_root} ${i.rt.sanskrit_root_class} (${i.rt.sanskrit_root_meaning})

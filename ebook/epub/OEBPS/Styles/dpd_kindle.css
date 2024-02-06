@@ -354,21 +354,24 @@ span.gray {
   color: gray;
 }
 
+table {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 table.grammar {
     margin-top: 0.5em;
     }
 
-table.grammar td,
-table.grammar th {
-    text-align: left;
-    vertical-align: top;
+.th {
+    color: gray;
+    font-weight: bold;
+    white-space: nowrap;
 }
 
-table.grammar th {
-    color: gray;
-    font-weight: normal;
-    white-space: nowrap;
-    padding: 0em 0.5em 0em 0em;
+table.grammar td {
+  text-align: left;
+  vertical-align: top;
 }
 
 table.grammar b {

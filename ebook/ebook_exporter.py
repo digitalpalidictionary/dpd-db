@@ -196,6 +196,8 @@ def render_grammar_templ(pth: ProjectPaths, i: PaliWord) -> str:
             i.construction = i.construction.replace("\n", "<br/>")
         if i.phonetic is not None:
             i.phonetic = i.phonetic.replace("\n", "<br/>")
+        if i.commentary is not None:
+            i.commentary = i.commentary.replace("\n", "<br/>")
 
         grammar = i.grammar
         if i.neg:
