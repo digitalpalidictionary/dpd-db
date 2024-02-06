@@ -135,7 +135,7 @@ def render_pali_word_dpd_html(extended_synonyms, dps_data, db_parts: PaliWordDbP
         i.example_1 = i.example_1.replace("\n", "<br>")
     if i.example_2:
         i.example_2 = i.example_2.replace("\n", "<br>")
-    if sbs is not None and dps_data:
+    if dps_data and sbs:
         if sbs.sbs_sutta_1:
             sbs.sbs_sutta_1 = sbs.sbs_sutta_1.replace("\n", "<br>")
         if sbs.sbs_sutta_2:
@@ -176,7 +176,7 @@ def render_pali_word_dpd_html(extended_synonyms, dps_data, db_parts: PaliWordDbP
     html += example
     size_dict["dpd_example"] += len(example)
 
-    if sbs is not None and dps_data:
+    if dps_data and sbs:
         sbs_example = render_sbs_example_templ(pth, i, sbs, rd['make_link'], tt.sbs_example_templ)
         html += sbs_example
         size_dict["sbs_example"] += len(sbs_example)
@@ -206,9 +206,10 @@ def render_pali_word_dpd_html(extended_synonyms, dps_data, db_parts: PaliWordDbP
     html += frequency
     size_dict["dpd_frequency"] += len(frequency)
 
-    feedback = render_feedback_templ(pth, i, tt.feedback_templ)
-    html += feedback
-    size_dict["dpd_feedback"] += len(feedback)
+    if not dps_data:
+        feedback = render_feedback_templ(pth, i, tt.feedback_templ)
+        html += feedback
+        size_dict["dpd_feedback"] += len(feedback)
 
     html += "</body></html>"
     html = minify(html)
@@ -512,10 +513,13 @@ def render_button_box_templ(
 
     # sbs_example_button
     sbs_example_button = ""
-    if sbs is not None and dps_data:
-        if sbs.needs_sbs_example_button or sbs.needs_sbs_examples_button:
-            sbs_example_button = button_html.format(
-                target=f"sbs_example_{i.pali_1_}", name="sbs")
+    if (
+        dps_data and
+        sbs and
+        (sbs.needs_sbs_example_button or sbs.needs_sbs_examples_button)
+    ):
+        sbs_example_button = button_html.format(
+            target=f"sbs_example_{i.pali_1_}", name="<b>SBS</b>")
 
     # conjugation_button
     if i.needs_conjugation_button:
@@ -575,8 +579,11 @@ def render_button_box_templ(
         frequency_button = ""
 
     # feedback_button
-    feedback_button = button_html.format(
-        target=f"feedback_{i.pali_1_}", name="feedback")
+    if dps_data:
+        feedback_button = ""
+    else:
+        feedback_button = button_html.format(
+            target=f"feedback_{i.pali_1_}", name="feedback")
 
     return str(
         button_box_templ.render(
@@ -652,17 +659,16 @@ def render_sbs_example_templ(
         i: PaliWord,
         sbs: SBS,
         make_link: bool,
-        example_templ: Template
+        sbs_example_templ: Template
 ) -> str:
     """render sbs examples html"""
 
     if sbs.sbs_example_1 or sbs.sbs_example_2 or sbs.sbs_example_3 or sbs.sbs_example_4:
         return str(
-            example_templ.render(
+            sbs_example_templ.render(
                 i=i,
                 sbs=sbs,
-                make_link=make_link,
-                today=TODAY))
+                make_link=make_link))
     else:
         return ""
 

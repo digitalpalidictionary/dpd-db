@@ -514,7 +514,7 @@
                 
                 {% if example %}
                     <p>{{ example }}</p>
-                    <p class="sutta">
+                    <p class="sutta_sbs">
                         {% if d.make_link and source_link %}
                             <a href="{{ source_link }}"
                             target="_blank">{{ source }}</a>
@@ -524,7 +524,7 @@
                         {{ sutta }}
                     </p>
                     {% if chapter %}
-                        <p class="sutta">
+                        <p class="sutta_sbs">
                         {{ chapter }} <a href="{{ chant_link }}"
                         target="_blank">{{ chant_pali }}</a>
                         {% if chant_eng %}

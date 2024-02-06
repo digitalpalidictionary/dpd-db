@@ -82,6 +82,12 @@ p.sutta {
     padding: 0px 0px 7px 0px;
 }
 
+p.sutta_sbs {
+    color: #ab7b38;
+    font-style: italic;
+    padding: 0px 0px 7px 0px;
+}
+
 table.inflection {
     width: 100%;
     padding: 0 0 5px 0px;

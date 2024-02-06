@@ -32,6 +32,11 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[Rend
     else:
         make_link: bool = False
 
+    if config_test("dictionary", "show_dps_data", "yes"):
+        dps_data: bool = True
+    else:
+        dps_data: bool = False
+
     dpd_db: list = db_session.query(PaliWord).all()
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.pali_1))
     dpd_db_length = len(dpd_db)
@@ -95,6 +100,44 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[Rend
                     epd_string = f"<b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
                     epd.update(
                         {meaning: epd_string})
+
+        # Generate ru-pali
+        if (
+            dps_data and
+            i.ru and
+            i.ru.ru_meaning and 
+            i.pos not in pos_exclude_list
+        ):
+            
+            i.ru.ru_meaning = re.sub(r"\?\?", "", i.ru.ru_meaning)
+
+            # remove all space brackets
+            ru_meanings_clean = re.sub(r" \(.+?\)", "", i.ru.ru_meaning)
+            # remove all brackets space
+            ru_meanings_clean = re.sub(r"\(.+?\) ", "", ru_meanings_clean)
+            # remove space at start and fin
+            ru_meanings_clean = re.sub(r"(^ | $)", "", ru_meanings_clean)
+            # remove double spaces
+            ru_meanings_clean = re.sub(r"  ", " ", ru_meanings_clean)
+            # remove space around ;
+            ru_meanings_clean = re.sub(r" ;|; ", ";", ru_meanings_clean)
+            # remove т.д.
+            ru_meanings_clean = re.sub(r"т\.д\. ", "", ru_meanings_clean)
+            # remove !
+            ru_meanings_clean = re.sub(r"!", "", ru_meanings_clean)
+            # remove ?
+            ru_meanings_clean = re.sub(r"\\?", "", ru_meanings_clean)
+            ru_meanings_list = ru_meanings_clean.split(";")
+
+            for ru_meaning in ru_meanings_list:
+                if ru_meaning in epd.keys():
+                    epd_string = f"{epd[ru_meaning]}<br><b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.ru.ru_meaning}"
+                    epd[ru_meaning] = epd_string
+
+                if ru_meaning not in epd.keys():
+                    epd_string = f"<b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.ru.ru_meaning}"
+                    epd.update(
+                        {ru_meaning: epd_string})
 
         # Extract sutta number from i.meaning_2 and use it as key in epd
         def extract_sutta_numbers(meaning_2):

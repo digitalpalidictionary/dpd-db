@@ -1,13 +1,20 @@
-help	meaning
-Pāḷi	The is the nominative singular of nouns, 3rd person singular of verbs, and base form of adjectives and participles, unless otherwise specified
+help	meaning	ru_help	ru_meaning
+Pāḷi	The is the nominative singular of nouns, 3rd person singular of verbs, and base form of adjectives and participles, unless otherwise specified	Пали	Это форма именительного падежа единственного числа существительных, 3-е лицо единственного числа глаголов и базовая форма прилагательных и причастий, если не указано иное.
 Grammar	"Grammatical information including 
 <br/>- part of speech
 <br/>- gender
 <br/>- verbal information (passive, causative, denominative)
 <br/>- word derived from
 <br/>- negatives
-<br/>- syntax case which the word takes"
-Meaning	English meaning of the word within the context of the given example(s), as well as a literal meaning, where relevant. 
+<br/>- syntax case which the word takes"	Грамматика	"Грамматическая информация, включающая
+<br/>- часть речи
+<br/>- пол
+<br/>- информация глагола (пассивная, каузативная, деноминативная)
+<br/>- слово от которого образовано
+<br/>- отрицание
+<br/>- падеж в котором будет парное слово"
+Meaning	English meaning of the word within the context of the given example(s), as well as a literal meaning, where relevant. 	Смысл	Английский перевод в контексте приведённого ниже примера(ов), также дословный перевод, где это уместно.
+Русский	Russian meaning of the word within the context of the given example(s), as well as a literal meaning, where relevant. 	Русский	Русский перевод в контексте приведённого ниже примера(ов), также дословный перевод, где это уместно.
 Root	"All root-related information<br/>e.g. <b>√gam<sup>･</sup>1 a (to go)</b>
 <br/><b>√</b> root symbol
 <br/><b>√gam</b> Pāḷi root
@@ -25,36 +32,41 @@ Root	"All root-related information<br/>e.g. <b>√gam<sup>･</sup>1 a (to go)</
 <br/>5  √ki etc. (+ nā) kiyādigaṇa
 <br/>6  √gah etc. (+ ṇhā) gahādigaṇa
 <br/>7  √tan etc. (+ o) tanādigaṇa
-<br/>8  √cur etc. (+ *e + *aya) curādigaṇa"
-Sanskrit	Closest Sanskrit cognate of the headword
-Sanskrit Root	Equivalent Sanskrit root, root class and root meaning
-√ in comps	Form that the root takes in compounds
+<br/>8  √cur etc. (+ *e + *aya) curādigaṇa"	Корень	Вся информация связанная с корнем слова, пример: √gam 1 a (to go)<br/>√gam : корень на Пали<br/>1 : группа корня<br/>a : признак сопряжения<br/>(to go) перевод корня<br/><br/>Root Groups: <br/>1 : bhūvāddigaṇa + a<br/>2 : rudhādigaṇa + ṃa<br/>3 : divādigaṇa + ya<br/>4 : svādigaṇa + ṇo + ṇā + uṇā<br/>5 : kiyādigaṇa + nā<br/>6 : gahādigaṇa + ṇhā<br/>7 : tanādigaṇa + o<br/>8 : curādigaṇa + e (aya)
+Sanskrit	Closest Sanskrit cognate of the headword	Санскрит	Ближайший эквивалент на Санскрите
+Sanskrit Root	Equivalent Sanskrit root, root class and root meaning	Санск. Корень	Корень Санскритского эквивалента
+√ in comps	Form that the root takes in compounds	√ в сост	Форма корня в составах
 Base	"Root + Conjugational sign > Base.
-<br/>Extra information includes the causative, passive, denominative, future and irregular forms"
+<br/>Extra information includes the causative, passive, denominative, future and irregular forms"	Основа	Корень + признак сопряжения > основа. Дополнительная информация включающая в себя каузальные, пассивные, отымённые, будующие и неправильные формы основы глагола
 Construction	"For words derived from a root, e.g. <b>na > a + √kar + ta + tta</b>
 <br/>prefix(es) + root or base + primary derivative + secondary derivative(s) + case endings
 <br/>
 <br/>For compound words, e.g. <b>abhi + okāsa + *ika</b>
-<br/>component word 1 + component word 2 + secondary derivative(s) + case endings"
+<br/>component word 1 + component word 2 + secondary derivative(s) + case endings"	Образование	"Для слов произошедших от корня, например <b>na > a + √kar + ta + tta</b>
+<br/>Приставка(и) + корень + первичный производный суфикс + вторичный производный суфикс(ы) + окончание
+<br/>Для слов являющихся сочетанием, например <b>abhi + okāsa + *ika</b>
+<br/>слово 1 + слово 1 + вторичный производный суфикс(ы) + окончание"
 Derivative	"Type of derivative and (the derivative itself), e.g. <b>kita (ta)</b>
 <br/><b>kita</b> – primary derivative
 <br/><b>kiccha</b> – primary derivative forming potential participles
 <br/><b>taddhita</b> – secondary derivative
-"
-Phonetic	Phonetic changes undergone by vowels and consonants, e.g. <b>rt > t</b>
-Compound	Type of compound and (expanded construction of the compound)
-Antonym	Word with the opposite meaning in context.
-Synonym	Word with a similar meaning in context.
-Variant	Different form of the same word, either by morphology, different spelling, or a variant reading found in texts
-Commentary	Meaning in context according to the Aṭṭhakathā or Ṭīkā
-Notes	Notes, comments and information from other sources
-Declension	Inflected forms of a noun, pronoun, adjective or participle, according to case, number and gender
-Conjugation	Inflected forms of a verb, according to tense, person and number
+"	Производное	Тип производного и (сам производный элемент), например, <b>kita (ta)</b> <br/><b>kita</b> – первичное производное <br/><b>kicca</b> – первичное производное, образующее потенциальные причастия <br/><b>taddhita</b> – вторичное производное
+Phonetic	Phonetic changes undergone by vowels and consonants, e.g. <b>rt > t</b>	Фонетика	Фонетические изменения, происходящие с гласными и согласными звуками, например, <b>rt > t</b>
+Compound	Type of compound and (expanded construction of the compound)	Составное	Тип составного слова и (расширенная конструкция состава)
+Antonym	Word with the opposite meaning in context.	Антоним	Слово с противоположным значением в контексте.
+Synonym	Word with a similar meaning in context.	Синоним	Слово с похожим значением в контексте.
+Variant	Different form of the same word, either by morphology, different spelling, or a variant reading found in texts	Вариант	Различные формы этого же слова, имеющие либо морфологические, либо орфографические отличия, либо аналог найденный в других вариантах текста.
+Commentary	Meaning in context according to the Aṭṭhakathā or Ṭīkā	Комментарий	Определение данного слова в Комментариях или Подкомментариях
+Notes	Notes, comments and information from other sources	Заметки	Заметки из разных источников
+Declension	Inflected forms of a noun, pronoun, adjective or participle, according to case, number and gender	Склонения	Склонения существительных, местоимений, прилагательных и других частей речи, в соответствии с падежом, родом и числом
+Conjugation	Inflected forms of a verb, according to tense, person and number	Спряжения	Спряжения глаголов, в соответствии с временем, лицом и числом
 Examples	"Relevant example of the headword in context.
-Sutta number  (DPR Quick Link) and name"
-root family	All words which are formed from the same prefix + root combination
-compound family	All words comprised of the same component word
-compounds	All words comprised of the same component word
+Sutta number  (DPR Quick Link) and name"	Примеры	"Подходящие примеры слова в контексте.
+Номера сутты (DPR) и названия"
+root family	All words which are formed from the same prefix + root combination	Семья корней	Все слова, образованные от той же комбинации приставки и корня.
+compound family	All words comprised of the same component word	Семья состава	Все слова, составленные из одного и того же компонента слова.
+word family	All words comprised of the same component word	Семья слова	Все слова, составленные из одного и того же компонента слова.
 family	"<br>- Root family: All words which are formed from the same prefix + root combination
-<br>- Compound family: All words comprised of the same component word"
-Help	Click on any heading or abbrevaiation to get contextual help. 
+<br>- Compound family: All words comprised of the same component word"	Семья	"Семья корней: Все слова, образованные от той же комбинации префикса и корня.
+Семья составных слов: Все слова, составленные из одного и того же компонента слова."
+Help	Click on any heading or abbrevaiation to get contextual help. 	Помощь	Чтобы увидеть подробное описание пожалуйста кликните на любое заглавие или сокращение. 

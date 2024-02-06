@@ -18,17 +18,20 @@ from tools.tic_toc import bip, bop
 from tools.tsv_read_write import read_tsv_dict
 from tools.tsv_read_write import read_tsv_dot_dict
 from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes
+from tools.configger import config_test
 
 
 class Abbreviation:
     """defining the abbreviations.tsv columns"""
 
-    def __init__(self, abbrev, meaning, pali, example, information):
+    def __init__(self, abbrev, meaning, pali, example, information, ru_abbrev, ru_meaning):
         self.abbrev = abbrev
         self.meaning = meaning
         self.pali = pali
         self.example = example
         self.information = information
+        self.ru_abbrev = ru_abbrev
+        self.ru_meaning = ru_meaning
 
     def __repr__(self) -> str:
         return f"Abbreviation: {self.abbrev} {self.meaning} {self.pali} ..."
@@ -37,9 +40,11 @@ class Abbreviation:
 class Help:
     """defining the help.tsv columns"""
 
-    def __init__(self, help, meaning):
+    def __init__(self, help, meaning, ru_help, ru_meaning):
         self.help = help
         self.meaning = meaning
+        self.ru_help = ru_help
+        self.ru_meaning = ru_meaning
 
     def __repr__(self) -> str:
         return f"Help: {self.help} {self.meaning}  ..."
@@ -57,6 +62,11 @@ def generate_help_html(__db_session__: Session,
     # 3. thank yous
     # 4. bibliography
 
+    if config_test("dictionary", "show_dps_data", "yes"):
+        dps_data: bool = True
+    else:
+        dps_data: bool = False
+
     with open(pth.help_css_path) as f:
         css = f.read()
     css = css_minify(css)
@@ -67,11 +77,11 @@ def generate_help_html(__db_session__: Session,
 
     help_data_list: List[RenderResult] = []
 
-    abbrev = add_abbrev_html(pth, header)
+    abbrev = add_abbrev_html(pth, header, dps_data)
     help_data_list.extend(abbrev)
     size_dict["help"] += len(str(abbrev))
 
-    help_html = add_help_html(pth, header)
+    help_html = add_help_html(pth, header, dps_data)
     help_data_list.extend(help_html)
     size_dict["help"] += len(str(help_html))
 
@@ -87,7 +97,8 @@ def generate_help_html(__db_session__: Session,
 
 
 def add_abbrev_html(pth: ProjectPaths,
-                    header: str) -> List[RenderResult]:
+                    header: str,
+                    dps_data:bool) -> List[RenderResult]:
     bip()
     print("adding abbreviations", end=" ")
 
@@ -110,14 +121,16 @@ def add_abbrev_html(pth: ProjectPaths,
             meaning=x["meaning"],
             pali=x["pāli"],
             example=x["example"],
-            information=x["explanation"])
+            information=x["explanation"],
+            ru_abbrev=x["ru_abbrev"],
+            ru_meaning=x["ru_meaning"])
 
     items = list(map(_csv_row_to_abbreviations, rows))
 
     for i in items:
         html = header
         html += "<body>"
-        html += render_abbrev_templ(pth, i)
+        html += render_abbrev_templ(dps_data, pth, i)
         html += "</body></html>"
 
         html = minify(html)
@@ -136,7 +149,8 @@ def add_abbrev_html(pth: ProjectPaths,
 
 
 def add_help_html(pth: ProjectPaths,
-                  header: str) -> List[RenderResult]:
+                  header: str,
+                  dps_data:bool) -> List[RenderResult]:
     bip()
     print("adding help", end=" ")
 
@@ -156,7 +170,9 @@ def add_help_html(pth: ProjectPaths,
     def _csv_row_to_help(x: Dict[str, str]) -> Help:
         return Help(
             help=x["help"],
-            meaning=x["meaning"]
+            meaning=x["meaning"],
+            ru_help=x["ru_help"],
+            ru_meaning=x["ru_meaning"]
         )
 
     items = list(map(_csv_row_to_help, rows))
@@ -164,7 +180,7 @@ def add_help_html(pth: ProjectPaths,
     for i in items:
         html = header
         html += "<body>"
-        html += render_help_templ(pth, i)
+        html += render_help_templ(dps_data, pth, i)
         html += "</body></html>"
 
         html = minify(html)
@@ -315,17 +331,17 @@ def add_thanks(pth: ProjectPaths,
     return help_data_list
 
 
-def render_abbrev_templ(pth: ProjectPaths, i: Abbreviation) -> str:
+def render_abbrev_templ(dps_data, pth: ProjectPaths, i: Abbreviation) -> str:
     """render html of abbreviations"""
 
     abbrev_templ = Template(filename=str(pth.abbrev_templ_path))
 
-    return str(abbrev_templ.render(i=i))
+    return str(abbrev_templ.render(i=i, dps_data=dps_data))
 
 
-def render_help_templ(pth: ProjectPaths, i: Help) -> str:
+def render_help_templ(dps_data, pth: ProjectPaths, i: Help) -> str:
     """render html of help"""
 
     help_templ = Template(filename=str(pth.help_templ_path))
 
-    return str(help_templ.render(i=i))
+    return str(help_templ.render(i=i, dps_data=dps_data))

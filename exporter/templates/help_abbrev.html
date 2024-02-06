@@ -26,5 +26,19 @@
             <td>${i.information}</td>
         </tr>
         % endif
+        %if dps_data:
+            % if i.ru_abbrev:
+            <tr>
+                <th>Сокращение</th>
+                <td>${i.ru_abbrev}</td>
+            </tr>
+            % endif
+            % if i.ru_meaning:
+            <tr>
+                <th>Смысл</th>
+                <td>${i.ru_meaning}</td>
+            </tr>
+            % endif
+        % endif
     </table>
 </div>
