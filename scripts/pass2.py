@@ -1,12 +1,12 @@
 """Go thru each word and its components in a text to find missing examples."""
 
-import pickle
+import json
 import pyperclip
 import re
 import sys
 
 from rich import print
-from typing import List, Tuple
+from typing import List
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord, InflectionToHeadwords, Sandhi
@@ -42,23 +42,23 @@ class ProgData():
         
     def load_tried_dict(self):
         try:
-            with open(self.pth.tried_dict_path, "rb") as f:
-                return pickle.load(f)
+            with open(self.pth.pass2_dict, "r") as f:
+                return json.load(f)
         except FileNotFoundError:
             return {self.book: dict()}
 
     def save_tried_dict(self) -> None:
-        with open(self.pth.tried_dict_path, "wb") as f:
-                pickle.dump(self.tried_dict, f)
+        with open(self.pth.pass2_dict, "w") as f:
+            json.dump(self.tried_dict, f, ensure_ascii=False, indent=2)
     
     def update_tried_dict(self, wd) -> None:
         if self.book not in self.tried_dict:
             self.tried_dict[self.book] = {}
         if wd.word not in self.tried_dict[self.book]:
             self.tried_dict[self.book][wd.word] = {}
-        if wd.headword not in self.tried_dict[self.book][wd.word]:
-            self.tried_dict[self.book][wd.word][wd.headword] = set()
-        self.tried_dict[self.book][wd.word][wd.headword].add(wd.sutta_example)
+        if wd.id not in self.tried_dict[self.book][wd.word]:
+            self.tried_dict[self.book][wd.word][wd.id] = []
+        self.tried_dict[self.book][wd.word][wd.id].append(wd.sutta_example)
         self.save_tried_dict()
     
     def update_last_word(self, wd) -> None:
@@ -75,12 +75,13 @@ class WordData():
     def __init__(self, word) -> None:
         self.word: str = word
         self.search_pattern: str = fr"(^|\[|\{{|\s)({self.word})(\s|[.,;:!?]|\]|\}}$)"
-        self.sutta_example: Tuple[str, str, str]
+        self.sutta_example: List[str]
         self.source: str
         self.sutta: str
         self.example: str
         self.example_print: str
         self.headword: str
+        self.id: str
     
     def update_sutta_example(self, sutta_example):
         self.sutta_example = sutta_example
@@ -102,12 +103,17 @@ class WordData():
     def update_headword(self, headword):
         self.headword: str = headword
 
+    def update_id(self, id):
+        self.id: str = str(id)
+
 
 def start_from_where(pd):
     """
     1. Start from the beginning
     2. or from the last saved word
-    3. or from a specific word."""
+    3. or from a specific word.
+    """
+
     print("[green]1. start from the beginning")
     print("[green]2. start from the last saved word")
     print(f"[green]{'3. start from a specifc word':<40}", end="")
@@ -144,7 +150,7 @@ def main():
 
         if sutta_examples:
             for sutta_example in sutta_examples:
-                wd.update_sutta_example(sutta_example)
+                wd.update_sutta_example(list(sutta_example))
 
                 # check for headwords with no examples
                 headwords_list = get_headwords(pd, word)
@@ -163,9 +169,10 @@ def main():
             print(f"[red]no sutta example found for [bright_red]{word}")
 
 
-def get_headwords(pd:ProgData,
-                  word_to_find: str
-                  ) -> List[str] | None:
+def get_headwords(
+        pd:ProgData,
+        word_to_find: str
+    ) -> List[str] | None:
     
     """Get the headwords of an inflected word."""
     
@@ -179,9 +186,10 @@ def get_headwords(pd:ProgData,
         return None
 
 
-def get_deconstruction_headwords(pd: ProgData,
-                                 word_to_find: str
-                                 ) -> List[str] | None:
+def get_deconstruction_headwords(
+        pd: ProgData,
+        word_to_find: str
+    ) -> List[str] | None:
 
     """Lookup in deconstructions and return a list of headwords."""
 
@@ -209,10 +217,12 @@ def get_deconstruction_headwords(pd: ProgData,
         return None
 
 
-def check_example_headword(pd: ProgData,
-                           wd: WordData,
-                           headwords_list: List[str]
-                           ) -> None:
+def check_example_headword(
+        pd: ProgData,
+        wd: WordData,
+        headwords_list: List[str]
+    ) -> None:
+
     if headwords_list:
         for headword in headwords_list:
             wd.update_headword(headword)
@@ -221,11 +231,13 @@ def check_example_headword(pd: ProgData,
                 .filter_by(pali_1=wd.headword)\
                 .first()
             if pali_word:
+                wd.update_id(pali_word.id)
+
                 # test not in tried_dict
                 test1 = wd.sutta_example not in pd.tried_dict\
                         .get(pd.book, {})\
                         .get(wd.word, {})\
-                        .get(wd.headword, set())
+                        .get(wd.id, [])
                 
                 # test has no meaning and example
                 test2 = has_no_meaning_or_example(pali_word)
@@ -280,11 +292,12 @@ def print_to_terminal(pd: ProgData,
     print("-"*50)
     print(f"{'word: ':<12}{wd.word}")
     print(f"{'headword: ':<12}{wd.headword}")
+    print(f"{'id: ':<12}{wd.id}")
     print()
     print(f"[green]{wd.source} [dark_green]{wd.sutta}")
     print(f"[white]{wd.example_print}")
     print()
-    print(f"[cyan]{pali_word.pali_1}: [blue3]{pali_word.pos}. [blue1]{make_meaning(pali_word)}")
+    print(f"[cyan]{pali_word.id} {pali_word.pali_1}: [blue3]{pali_word.pos}. [blue1]{make_meaning(pali_word)}")
     print()
     print("[white]y[grey54]es / [white]n[grey54]o / e[white]x[grey54]it: ", end="")
     pyperclip.copy(wd.word)

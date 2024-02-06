@@ -107,35 +107,6 @@ def find_source_sutta_example(
                 # remove the digits and the dot in sutta name
                 sutta = re.sub(r"\d*\. ", "", p.text)
             
-        # # vin3 mahāvagga
-        # if book == "vin3":
-        #     book_name = "VIN3"
-        #     if p.has_attr("rend") and p["rend"] == "subhead":
-        #         subhead = p.text
-
-        #         # remove / keep digits 
-        #         sub_num = re.sub("\\. *.+", "", subhead)
-        #         sub_title = re.sub("\\d*\\. *", "", subhead)
-
-        #         # only continue if there are digits
-        #         if sub_num[0].isnumeric():
-                
-        #             # find the previous head + chapter
-        #             chapter_head = p.find_previous("head", attrs={"rend": "chapter"}).text
-                    
-        #             # remove / keep digits
-        #             chapter_num = re.sub("\\. *.+", ".", chapter_head)
-        #             chapter_title =  re.sub("\\d*\\. *", "", chapter_head)
-
-        #             # construct the source
-        #             source = f"{book_name}.{chapter_num}{sub_num}"
-        #             print(source, end=" ")
-
-        #             # construct the sutta name
-        #             sutta = f"{chapter_title}, {sub_title}"
-        #             sutta = sutta.lower()
-        #             print(sutta)
-
         # vin3 vin4 mahāvagga & culavagga
         if (
             book == "vin3"
@@ -229,59 +200,69 @@ def find_source_sutta_example(
                         source = f"{book_name}{match.group(1)}"
                         sutta = match.group(2)
 
+
         elif book == "kn3":
             book_name = "UD"
             if p["rend"] == "subhead":
                 kn_counter += 1
                 source = f"{book_name}{kn_counter}"
+                sutta = re.sub("\\d*\\. *", "", p.text)
 
         elif book == "kn4":
             book_name = "ITI"
             if p["rend"] == "subhead":
                 kn_counter += 1
                 source = f"{book_name}{kn_counter}"
+                sutta = re.sub("\\d*\\. *", "", p.text)
 
         elif book == "kn5":
             book_name = "SNP"
             if p["rend"] == "subhead":
                 kn_counter += 1
                 source = f"{book_name}{kn_counter}"
+                sutta = re.sub("\\d*\\. *", "", p.text)
 
         elif book == "kn6":
             book_name = "VV"
             if p["rend"] == "subhead":
                 kn_counter += 1
                 source = f"{book_name}{kn_counter}"
+                sutta = re.sub("\\d*\\. *", "", p.text)
 
         elif book == "kn7":
             book_name = "PV"
             if p["rend"] == "subhead":
                 kn_counter += 1
                 source = f"{book_name}{kn_counter}"
+                sutta = re.sub("\\d*\\. *", "", p.text)
 
         elif book == "kn8":
             book_name = "TH"
             if p["rend"] == "subhead":
                 kn_counter += 1
                 source = f"{book_name}{kn_counter}"
+                sutta = re.sub("\\d*\\. *", "", p.text)
 
         elif book == "kn9":
             book_name = "THI"
             if p["rend"] == "subhead":
                 kn_counter += 1
                 source = f"{book_name}{kn_counter}"
+                sutta = re.sub("\\d*\\. *", "", p.text)
 
         elif book == "kn10":
             book_name = "APA"
             if p["rend"] == "subhead":
                 kn_counter += 1
                 source = f"{book_name}{kn_counter}"
+                sutta = re.sub("\\d*\\. *", "", p.text)
 
         elif book == "kn11":
             book_name = "API"
             if p["rend"] == "subhead":
                 kn_counter += 1
                 source = f"{book_name}{kn_counter}"
+                sutta = re.sub("\\d*\\. *", "", p.text)
 
         elif book == "kn12":
             book_name = "BV"
@@ -451,7 +432,7 @@ def clean_gatha(text):
 
 if __name__ == "__main__":
     pth = ProjectPaths()
-    book = "vin4"
-    text_to_find = "ukkhepanīyakammaṃ adhammakammañca"
+    book = "kn8"
+    text_to_find = "jarāya"
     sutta_examples = find_source_sutta_example(pth, book, text_to_find)
     print(sutta_examples)
