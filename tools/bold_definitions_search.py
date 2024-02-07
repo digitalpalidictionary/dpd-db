@@ -24,8 +24,9 @@ def search_bold_defintions(db, search1, search2):
    
 def test_regex(search1, search2) -> bool:
     print("test regex ", end="")
+    # regex_characters = re.escape("+*|./[]()$^")
     regex_characters = [
-        "\\+", "\\*", "|", "\\.", "\\/", "\\[", "\\]", "\\(", "\\)", "$", "^"]
+        "\\+", "\\*", "\\|", "\\.", "\\[", "\\]", "\\(", "\\)", "\\$", "\\^"]
     regex_str = "|".join(regex_characters)
 
     if re.findall(regex_str, search1):
@@ -69,7 +70,7 @@ if __name__ == "__main__":
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(BoldDefintion).all()
     bold_defintions_db = db_session.query(BoldDefintion).all()
-    search1 = "dantadh.*"
-    search2 = "ñ*"
-    search_results = search_bold_defintions_gui(bold_defintions_db, search1, search2)
+    search1 = "dantadh"
+    search2 = "ñ"
+    search_results = search_bold_defintions(bold_defintions_db, search1, search2)
 
