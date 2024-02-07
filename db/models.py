@@ -268,7 +268,7 @@ class PaliWord(Base):
 
 
     @hybrid_property
-    def root_family_key(self):
+    def root_family_key(self): #type:ignore
         if self.root_key and self.family_root:
             return f"{self.root_key} {self.family_root}"
         else:
@@ -277,7 +277,7 @@ class PaliWord(Base):
     @root_family_key.expression
     def root_family_key(cls):
         return case(
-            (and_(cls.root_key != null(), cls.family_root != null()),\
+            (and_(cls.root_key != null(), cls.family_root != null()), #type:ignore
                  cls.root_key + ' ' + cls.family_root), else_="")    
     
     @property
@@ -348,6 +348,13 @@ class PaliWord(Base):
             PaliWord.pos
         ).all()
         return sorted([i.pos for i in pos_db])
+
+    @property
+    def antonym_list(self) -> list:
+        if self.antonym:
+            return self.antonym.split(", ")
+        else:
+            return [self.antonym]
 
     @property
     def synonym_list(self) -> list:
