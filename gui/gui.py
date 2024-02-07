@@ -138,8 +138,6 @@ from tools.tic_toc import bip, bop
 
 from dps.tools.paths_dps import DPSPaths
 
-debug = True
-
 
 def main():
     pth = ProjectPaths()
@@ -149,17 +147,13 @@ def main():
     pali_word_original = None
     pali_word_original2 = None
     
-    if debug is False:
-        try:
-            bip()
-            print("getting bold_defintions_db ", end="")
-            bold_defintions_db = db_session.query(BoldDefintion).all()
-            commentary_definitions_exists = True
-            print(bop())
-        except Exception:
-            bold_defintions_db = []
-            commentary_definitions_exists = False
-    else:
+    try:
+        bip()
+        print("getting bold_defintions_db ", end="")
+        bold_defintions_db = db_session.query(BoldDefintion).all()
+        commentary_definitions_exists = True
+        print(bop())
+    except Exception:
         bold_defintions_db = []
         commentary_definitions_exists = False
 

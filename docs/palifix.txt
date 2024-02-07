@@ -4,6 +4,12 @@ desetvā 1 sk tvā, desetvā 2
 vinayitvā sk tvā
 vināsetvā 1 sk tvā
 vināsetvā 2 sk tvā
+akatakappa 2 (of a robe) without a distinguishing dirty mark
+
+antonyms
+add krubbanta
+add khāditapubba
+sagaṇa
 
 
 SANDHI to TEST
@@ -20,7 +26,8 @@ nīlappabhāyuttānīti pabhā
 vitthāretu'kamyatā t u t uṃ sandhi rule
 ānāpānassatisamādhibhāvanānurūpasenāsanapariggahaparidīpanaṃ
 vanacchāyappavesanaudakaparibhogesu
-
+iṭṭhāniṭṭhaviparītānubhavanalakkhaṇā
+iṭṭhāniṭṭha + viparītā + nu + bhavana + lakkhaṇā
 
 PALI
 sudhā 2 √dhe drink

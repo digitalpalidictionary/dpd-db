@@ -5,7 +5,6 @@
 import json
 import re
 import pyperclip
-import subprocess
 
 from rich import print
 from typing import Optional
@@ -18,10 +17,9 @@ from tools.tic_toc import tic, toc
 from tools.db_search_string import db_search_string
 
 
-
 class ProgData():
     def __init__(self) -> None:
-        self.max_length: int = 38
+        self.max_length: int = 35
         
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
@@ -50,7 +48,7 @@ class ProgData():
         with open(self.pth.hyphenations_dict_path, "w") as file:
             json.dump(
                 self.hyphenations_dict, file, 
-                ensure_ascii=False, indent=4)
+                ensure_ascii=False, indent=2)
     
     def update_hyphenations_dict(self, clean_word, dirty_word):
         if clean_word in self.hyphenations_dict:
@@ -165,7 +163,7 @@ def process_long_words(pd):
         if clean_word not in pd.hyphenations_dict:
             print("_"*50)
             print()
-            print(f"{counter} / {len(pd.variations_dict)}")
+            print(f"{counter+1} / {len(pd.variations_dict)}")
             print(f"[green]{clean_word} [blue]{len(clean_word)}")
             
             pd.spelling_chosen = None
