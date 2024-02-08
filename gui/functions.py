@@ -484,7 +484,7 @@ def clear_values(values, window, username):
     window["root_info"].update("")
 
 
-def find_commentary_defintions(sg, values, bold_defintions_db):
+def find_commentary_defintions(sg, values, db_session):
 
     config = load_gui_config()
 
@@ -495,8 +495,8 @@ def find_commentary_defintions(sg, values, bold_defintions_db):
     window_width = int(screen_width * config["screen_fraction_width"])
     window_height = int(screen_height * config["screen_fraction_height"])
     
-    search_results = search_bold_defintions(bold_defintions_db,
-        values["search_for"], values["contains"])
+    search_results = search_bold_defintions(
+        db_session, values["search_for"], values["contains"])
 
     layout_elements = []
     layout_elements.append(

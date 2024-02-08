@@ -10,9 +10,11 @@ from tools.paths import ProjectPaths
 from tools.pali_text_files import cst_texts
 
 
-def make_cst_soup(pth: ProjectPaths,
-                  book,
-                  unwrap_notes=True):
+def make_cst_soup(
+        pth: ProjectPaths,
+        book,
+        unwrap_notes=True
+):
     filename = ""
 
     if book in cst_texts:
@@ -67,14 +69,16 @@ def find_source_sutta_example(
 
     sutta_counter = 0
     kn_counter = 0
+    four_nikayas = [
+        "dn1", "dn2", "dn3",
+        "mn1", "mn2", "mn3",
+        "sn1", "sn2", "sn3", "sn4", "sn5",
+        "an1", "an2", "an3", "an4", "an5",
+        "an6", "an7", "an8", "an9", "an10", "an11"]
     for p in ps:
         
-        if (
-            book == "dn"
-            or book == "mn"
-            or book == "an"
-            or book == "sn"
-        ):
+        
+        if book in four_nikayas:
             if p["rend"] == "subhead":
                 if "suttaṃ" in p.text:
                     sutta_counter += 1
@@ -86,9 +90,9 @@ def find_source_sutta_example(
                 try:
                     sutta_number = p.next_sibling.next_sibling["n"]
                 except Exception as e:
-                    # print(e)
-                    # print(text_to_find)
-                    # print(p)
+                    print(e)
+                    print(text_to_find)
+                    print(p)
                     continue
 
                 # choose which method to number suttas according to book
@@ -432,7 +436,7 @@ def clean_gatha(text):
 
 if __name__ == "__main__":
     pth = ProjectPaths()
-    book = "kn8"
-    text_to_find = "jarāya"
+    book = "an3"
+    text_to_find = "jarā"
     sutta_examples = find_source_sutta_example(pth, book, text_to_find)
     print(sutta_examples)

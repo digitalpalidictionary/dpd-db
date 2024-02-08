@@ -11,13 +11,15 @@ from db.models import BoldDefintion
 from tools.paths import ProjectPaths
 
 
-def search_bold_defintions(db, search1, search2):
+def search_bold_defintions(db_session, search1, search2):
     print("[green]search_bold_defintions_gui")
-    is_regex = test_regex(search1, search2)
-    if is_regex:
-        search_results: list[BoldDefintion] = regex_search(db, search1, search2)
-    else:
-        search_results: list[BoldDefintion] = plain_search(db, search1, search2)
+    
+    search_results = db_session \
+        .query(BoldDefintion) \
+        .filter(BoldDefintion.bold.regexp_match(search1)) \
+        .filter(BoldDefintion.commentary.regexp_match(search2)) \
+        .all()
+    
     print(f"{len(search_results)} reults found")
     return search_results
 
@@ -42,6 +44,7 @@ def test_regex(search1, search2) -> bool:
 
 def regex_search(db, search1, search2) -> list[BoldDefintion]:
     print("regex_search")
+
     search_results = []
     for i in db:
         try:
@@ -68,9 +71,7 @@ def plain_search(db, search1, search2) -> list[BoldDefintion]:
 if __name__ == "__main__":
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(BoldDefintion).all()
-    bold_defintions_db = db_session.query(BoldDefintion).all()
-    search1 = "dantadh"
+    search1 = "dadh"
     search2 = "ñ"
-    search_results = search_bold_defintions(bold_defintions_db, search1, search2)
+    search_results = search_bold_defintions(db_session, search1, search2)
 

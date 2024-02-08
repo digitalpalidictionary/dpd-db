@@ -121,7 +121,6 @@ from functions_tests_dps import dps_db_internal_tests
 from functions_tests_dps import check_repetition
 from functions_tests_dps import dps_dpd_db_internal_tests
 
-from db.models import BoldDefintion
 from db.get_db_session import get_db_session
 from scripts.backup_paliword_paliroot import backup_paliword_paliroot
 from scripts.backup_ru_sbs import backup_ru_sbs
@@ -134,7 +133,6 @@ from tools.paths import ProjectPaths
 from tools.pos import DECLENSIONS, VERBS
 from tools.pos import POS
 from tools.sandhi_contraction import make_sandhi_contraction_dict
-from tools.tic_toc import bip, bop
 
 from dps.tools.paths_dps import DPSPaths
 
@@ -147,16 +145,6 @@ def main():
     pali_word_original = None
     pali_word_original2 = None
     
-    try:
-        bip()
-        print("getting bold_defintions_db ", end="")
-        bold_defintions_db = db_session.query(BoldDefintion).all()
-        commentary_definitions_exists = True
-        print(bop())
-    except Exception:
-        bold_defintions_db = []
-        commentary_definitions_exists = False
-
     family_compound_values = get_family_compound_values(db_session)
     sandhi_dict = make_sandhi_contraction_dict(db_session)
 
@@ -795,29 +783,20 @@ def main():
             event == "search_for_enter" or
             event == "defintions_search_button"
         ):
-            if "/" in values["search_for"]:
-                values["search_for"] = values["search_for"].replace("/", "")
-            if not commentary_definitions_exists:
+            commentary_defintions = None
+            try:
+                commentary_defintions = find_commentary_defintions(
+                    sg, values, db_session)
+            except NameError as e:
                 window["messages"].update(
-                    value="Commentary database not found", text_color="red")
-            elif values["search_for"].endswith("/"):
-                window["messages"].update(
-                    value="Do you like crashes? Delete /", text_color="red")
-            else:
-                commentary_defintions = None
-                try:
-                    commentary_defintions = find_commentary_defintions(
-                        sg, values, bold_defintions_db)
-                except NameError as e:
-                    window["messages"].update(
-                        value=f"turn on the definitions db! {e}", text_color="red")
+                    value=f"turn on the definitions db! {e}", text_color="red")
 
-                if commentary_defintions:
-                    commentary = ""
-                    for c in commentary_defintions:
-                        commentary += f"({c.ref_code}) {c.commentary}\n"
-                    commentary = commentary.rstrip("\n")
-                    window["commentary"].update(value=commentary)
+            if commentary_defintions:
+                commentary = ""
+                for c in commentary_defintions:
+                    commentary += f"({c.ref_code}) {c.commentary}\n"
+                commentary = commentary.rstrip("\n")
+                window["commentary"].update(value=commentary)
 
         elif (
             event == "notes_italic_button"
