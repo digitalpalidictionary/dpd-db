@@ -26,6 +26,8 @@ scripts/deconstrutor_tissā.py
 
 frequency/mapmaker.py
 
+scripts/dealbreakers.py
+
 
 
 
