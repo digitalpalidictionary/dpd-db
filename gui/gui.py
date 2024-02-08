@@ -26,6 +26,7 @@ from functions_db import delete_word
 from functions_db import get_root_info
 from functions_db import fetch_id_or_pali_1
 from functions_db import get_family_compound_values
+from functions_db import del_syns_if_pos_meaning_changed
 
 from functions import sandhi_ok
 from functions import test_book_to_add
@@ -923,6 +924,7 @@ def main():
         ):
             if not flags.tested:
                 window["messages"].update(value="test first!", text_color="red")
+            
             elif not flags.spelling_ok:
                 yes_no = sg.popup_yes_no(
                     "There are spelling mistakes. Are you sure you want to continue?",
@@ -932,11 +934,16 @@ def main():
                     flags.spelling_ok = True
                 else:
                     continue   
+            
             last_button = display_summary(values, window, sg, pali_word_original2)
+            
             if last_button == "ok_button":
+                
                 success, action = udpate_word_in_db(
                     pth, db_session, window, values)
+                
                 if success:
+                    del_syns_if_pos_meaning_changed(db_session, values, pali_word_original2)
                     clear_errors(window)
                     clear_values(values, window, username)
                     if username == "primary_user":

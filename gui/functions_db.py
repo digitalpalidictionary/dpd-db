@@ -548,3 +548,33 @@ def fetch_id_or_pali_1(db_session, values: dict, field: str) -> Optional[PaliWor
         if query:
             return query
 
+
+def del_syns_if_pos_meaning_changed(
+        db_session,
+        values: dict,
+        pali_word_original2: Optional[PaliWord]
+):
+        """Delete all occurences of the headword 
+        in the synonms column of the db if
+        - the pos has changed
+        - meaning_1 has changed."""
+        
+        if pali_word_original2:
+            if (    
+                pali_word_original2.pos != values["pos"]
+                or pali_word_original2.meaning_1 != values["meaning_1"]
+            ):
+                pali_clean = re.sub(" \\d.*$", "", values["pali_1"])
+                search_term = f"(, |^){pali_clean}(, |$)"
+
+                results = db_session \
+                    .query(PaliWord) \
+                    .filter(PaliWord.synonym.regexp_match(search_term)) \
+                    .all()
+
+                for r in results:
+                    r.synonym = re.sub(search_term, "", r.synonym)
+                    print(f"[green]deleted synonym [white]{pali_clean}[/white] from [white]{r.pali_1}")
+
+                db_session.commit()
+                print("[green]db_session committed ")
