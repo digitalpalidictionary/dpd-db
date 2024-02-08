@@ -2,7 +2,7 @@
 
 import re
 from rich import print
-
+from tools.unicode_char import unicode_char
 
 def clean_machine(text: str, niggahita="ṃ", remove_hyphen=True) -> str:
     
@@ -87,9 +87,10 @@ def clean_machine(text: str, niggahita="ṃ", remove_hyphen=True) -> str:
 
     if len(errors) != 0:
         print(f"[bright_red]errors:{errors}", end=" ")
-        unicode_errors = [ord(error) for error in errors]
+        unicode_errors = [unicode_char(error) for error in errors]
         for error in unicode_errors:
-            print("[bright_red]", end="")
-            print("\\u{:04x}".format(error), end=" ")
+            print(f"[bright_red]{error}", end=" ")
 
     return text
+
+# clean_machine("½¾")

@@ -3,12 +3,14 @@ import pyperclip
 from rich import print
 from db.get_db_session import get_db_session
 from db.models import PaliWord
+
 from tools.db_search_string import db_search_string
 from tools.pali_alphabet import pali_alphabet
 from tools.pali_alphabet import english_alphabet
 from tools.pali_alphabet import english_capitals
 from tools.pali_alphabet import sanskrit_alphabet
 from tools.paths import ProjectPaths
+from tools.unicode_char import unicode_char
 
 class AllowableCharacters():
     """Defined lists of allowable characters,
@@ -601,16 +603,12 @@ def main():
             print("[green]db search string copied to clipboard")
 
 
-def test_allowable_characters_gui(values):
+def test_allowable_characters_gui(values: dict[str, str]) -> dict[str, str]:
     """Test allowabl characters in gui values dict.
     Return a dict of probems."""
     a = AllowableCharacters()
 
-    # whats the plan?
-    # test each of the values
-    # and return a package of results
-
-    error_dict = {}
+    error_dict: dict[str, str] = {}
     for test_data in a.tests_data:
         column, allowed = test_data
         allowed = join_allowed(allowed)
@@ -625,14 +623,10 @@ def test_allowable_characters_gui(values):
             # add to error dict
             error_string = ""
             if oops:
-                for char in set(oops):
-                    error_list = []
-                    error_list += [f"{char}"]
-                    unicode = "\\u{:04x}".format(ord(char))
-                    error_list += [unicode]
-                    error_string = " ".join(error_list)
-            
-                    error_dict[column] = error_string
+                error_list = []
+                error_list.extend(char + unicode_char(char) for char in set(oops))
+                error_string = " ".join(error_list)
+                error_dict[column] = error_string
     
     return error_dict
 
@@ -644,3 +638,6 @@ def join_allowed(allowed: list) -> str:
 
 if __name__ == "__main__":
     main()
+
+    # x = test_allowable_characters_gui({"pali_1": "®±²£¥"})
+    # print(x)
