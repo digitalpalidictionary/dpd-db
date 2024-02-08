@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import tomlkit
 
 from rich import print
@@ -60,11 +62,23 @@ def update_db_version(pth, version):
     if db_info:
         db_info.value = version
     
-    # add the dpd_release_version if it doesnt exist
+    # add the dpd_release_version and author info if it doesnt exist
     else:
         dpd_release_version = DbInfo(
             key="dpd_release_version", value=version)
         db_session.add(dpd_release_version)
+
+        author = DbInfo(
+            key="author", value="Bodhirasa")
+        db_session.add(author)
+
+        email_address = DbInfo(
+            key="email", value="digitalpalidictionary@gmail.com")
+        db_session.add(email_address)
+
+        website = DbInfo(
+            key="website", value="https://digitalpalidictionary.github.io/")
+        db_session.add(website)
     
     db_session.commit()
     printer("dpd.db", "ok")
