@@ -741,10 +741,14 @@ def render_family_compound_templ(
 ) -> str:
     """render html table of all words containing the same compound"""
 
-    if (i.meaning_1 and
-        (i.family_compound or
-            i.pali_clean in cf_set)):
-
+    if (
+        (
+            i.meaning_1 
+            and i.pali_clean in cf_set
+        ) or (
+            i.family_compound
+            and i.pali_clean in cf_set)
+    ):
         return str(
             family_compound_templ.render(
                 i=i,
