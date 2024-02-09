@@ -141,7 +141,7 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[Rend
 
         # Extract sutta number from i.meaning_2 and use it as key in epd
         def extract_sutta_numbers(meaning_2):
-            unified_pattern = r"\(([A-Z]+)\s?([\d\.]+)\)|([A-Z]+)[\s]?([\d]+)"
+            unified_pattern = r"\(([A-Z]+)\s?([\d\.]+)(-\d+)?\)|([A-Z]+)[\s]?([\d\.]+)(-\d+)?"
             match = re.finditer(unified_pattern, meaning_2)
             combined_numbers = []
 
@@ -177,9 +177,14 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[Rend
                     else:
                         epd.update({combined_number: epd_string})
 
-        if i.meaning_2 and (i.family_set.startswith("suttas of") or i.family_set == "bhikkhupātimokkha rules"):
+        if (
+            i.meaning_2 and 
+            (i.family_set.startswith("suttas of") or 
+            i.family_set == "bhikkhupātimokkha rules" or 
+            i.family_set == "chapters of the Saṃyutta Nikāya")
+        ):
             combined_numbers = extract_sutta_numbers(i.meaning_2)
-            update_epd(epd, combined_numbers, i, make_link)
+            update_epd(epd, combined_numbers, i, make_link) 
 
         if counter % 10000 == 0:
             print(f"{counter:>10,} / {dpd_db_length:<10,} {i.pali_1[:20]:<20} {bop():>10}")

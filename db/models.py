@@ -367,8 +367,12 @@ class PaliWord(Base):
     @property
     def source_link_sutta(self) -> str:
         if self.meaning_2:
-            if self.family_set.startswith("suttas of") or self.family_set == "bhikkhupātimokkha rules":
-                unified_pattern = r"\(([A-Z]+)\s?([\d\.]+)\)|([A-Z]+)[\s]?([\d]+)"
+            if (
+                self.family_set.startswith("suttas of") or 
+                self.family_set == "bhikkhupātimokkha rules" or 
+                self.family_set == "chapters of the Saṃyutta Nikāya"
+            ):
+                unified_pattern = r"\(([A-Z]+)\s?([\d\.]+)(-\d+)?\)|([A-Z]+)[\s]?([\d\.]+)(-\d+)?"
                 match = re.finditer(unified_pattern, self.meaning_2)
                     
                 for m in match:
