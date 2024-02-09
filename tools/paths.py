@@ -307,6 +307,7 @@ class ProjectPaths:
 
         # /tests
         self.antonym_dict_path = base_dir.joinpath(Path("tests/test_antonyms.json"))
+        self.bahubbihi_dict_path = base_dir.joinpath(Path("tests/test_bahubbihis.json"))        
         self.compound_type_path = base_dir.joinpath(Path("tests/add_compound_type.tsv"))
         self.digu_path = base_dir.joinpath(Path("tests/test_digu.tsv"))
         self.hyphenations_dict_path = base_dir.joinpath(Path("tests/test_hyphenations.json"))
