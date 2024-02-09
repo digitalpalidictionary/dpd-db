@@ -20,7 +20,7 @@ def search_bold_defintions(db_session, search1, search2):
         .filter(BoldDefintion.commentary.regexp_match(search2)) \
         .all()
     
-    print(f"{len(search_results)} reults found")
+    print(f"{len(search_results)} results found")
     return search_results
 
    
