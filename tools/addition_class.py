@@ -67,11 +67,10 @@ class Addition:
         ):
             df[0] = df[0].apply(lambda x: (print(f"Old ID: {x}, New ID: {self.new_id} in {file_path}") or str(self.new_id)) if str(x) == str(self.old_id) else x)
             df.to_csv(file_path, sep='\t', index=False, header=False)
-
+# {'pali_word':<20}{self.pali_word}
 
     def __repr__(self):
         return f"""
-{'pali_word':<20}{self.pali_word}
 {'comment':<20}{self.comment}
 {'date_created':<20}{self.date_created}
 {'old_id':<20}{self.old_id}

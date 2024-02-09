@@ -76,7 +76,7 @@ def git_commit():
     repo = Repo("./")
     index = repo.index
     index.add(["backup_tsv/paliroot.tsv", "backup_tsv/paliword.tsv"])
-    index.commit("backup paliword & paliroot")
+    index.commit("pali update")
 
 
 if __name__ == "__main__":

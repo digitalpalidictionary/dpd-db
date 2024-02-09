@@ -5,6 +5,7 @@
 # - a noun in the last place of the compound
 # - pos can be a noun or adjective
 # - often contains 'who', 'whose', 'which' in the meaning.
+# Find possible candidates and assign them accordingly. 
 """
 
 import json
@@ -12,15 +13,12 @@ import re
 import pyperclip
 
 from rich import print
-from typing import Optional
 
 from db.get_db_session import get_db_session
 from db.models import PaliWord
-from tools.meaning_construction import clean_construction, make_meaning
+from tools.meaning_construction import clean_construction
 from tools.paths import ProjectPaths
-from tools.pali_alphabet import pali_alphabet
 from tools.tic_toc import tic, toc
-from tools.db_search_string import db_search_string
 from tools.terminal_highlights import terminal_bold
 
 class ProgData:
@@ -32,11 +30,11 @@ class ProgData:
         self.yes_no: str = "[white]y[green]es [white]n[green]o"
         self.yes_no_maybe: str = "[white]y[green]es [white]n[green]o [white]m[green]aybe"
 
-
         self.noun = ["masc", "fem", "nt"]
         self.noun_or_adjective = ["masc", "fem", "nt", "adj"]
         self.relative_pronouns = ["who", "whose", "which"]
         self.nouns_set: set
+        self.pure_nouns_set: set
 
         self.bahubbihi_dict: dict[str, list[int]] = self.load_bahubbhihi_dict()
 
@@ -83,14 +81,22 @@ def make_set_of_all_nouns_list():
     print(f"[green]{'making a set of all nouns':<30}", end="")
 
     nouns_set = set()
+    adjectives_set = set()
+    pp_set = set()
 
     for i in g.db:
         if i.pos in g.noun:
             nouns_set.add(i.pali_clean)
+        if i.pos == "adj":
+            adjectives_set.add(i.pali_clean)
+        if i.pos == "pp":
+            pp_set.add(i.pali_clean)
 
     g.nouns_set = nouns_set
+    
+    g.pure_nouns_set = nouns_set - adjectives_set - pp_set
 
-    print(len(nouns_set))
+    print(len(g.nouns_set), len(g.pure_nouns_set))
 
 
 def find_bahubbihis():
@@ -115,8 +121,10 @@ def find_bahubbihis():
             # FIXME what about plurals ending in ' + ā' etc?
             # FIXME what about noun in the first position, pp in the second eg. aggappatta
             # FIXME what about noun in the first position, adj in the second, eg paññānirodhika 
+            # FIXME what about using g.nouns_set?
 
-            if constr_list[-1] in g.nouns_set:
+            if constr_list[-1] in g.pure_nouns_set:
+                
                 # check if there is a relative prounoun
                 for rel_pr in g.relative_pronouns:
                     if re.findall(f"\\b{rel_pr}\\b", i.meaning_1):

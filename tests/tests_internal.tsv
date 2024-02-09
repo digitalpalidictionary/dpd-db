@@ -129,7 +129,7 @@ example_1 space fullstop	example_1	contains	 \.$| \. 																	pali_1	pos
 example_1: contains :	example_1	contains	:																	pali_1	grammar	meaning_1	[]	10
 example_2  'n<	example_2	contains	'n<																	pali_1	grammar	example_2	[]	10
 example_2  //	example_2	contains	\/\/																	pali_1	grammar	example_2	[]	10
-example_2 -	meaning_1	is not empty	-	example_2	contains	-														pali_1	meaning_1	example_2	[68, 385, 386, 403, 521, 683, 743, 771, 800, 808, 1433, 1551, 1685, 2098, 2202, 2270, 2447, 3152, 3234, 3311, 4307, 4341, 5127, 75278, 6724, 7924, 8178, 10221, 10392, 12407, 13724, 14021, 15485, 15825, 22955, 31082, 32495, 32797, 48876, 54933, 70026, 77760, 16184]	10
+example_2 -	meaning_1	is not empty	-	example_2	contains	-														pali_1	meaning_1	example_2	"[68, 385, 386, 403, 521, 683, 743, 771, 800, 808, 1433, 1551, 1685, 2098, 2202, 2270, 2447, 3152, 3234, 3311, 4307, 4341, 5127, 75278, 6724, 7924, 8178, 10221, 10392, 12407, 13724, 14021, 15485, 15825, 22955, 31082, 32495, 32797, 48876, 54933, 70026, 77760, 16184, ""upasevati 1""]"	10
 example_2 ‒	meaning_1	is not empty	-	example_2	contains	‒														pali_1	meaning_1	example_2	[]	10
 example_2 –	meaning_1	is not empty	-	example_2	contains	–														pali_1	meaning_1	example_2	[]	10
 example_2 needs lines breaks	example_2	contains	\n	example_2	contains	(,.+\.|,.+,)	meaning_1	is not empty	-											pali_1	grammar	example_2	[]	20
