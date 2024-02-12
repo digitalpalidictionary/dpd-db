@@ -7,7 +7,7 @@
 import csv
 import re
 from rich import print
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from db.get_db_session import get_db_session
 
 from tools.paths import ProjectPaths
@@ -80,14 +80,14 @@ def write_to_tsv(pth, root_dict) -> None:
 def printer(counter, i, printer_on):
     if printer_on:
         sanksrit_print = i.sanskrit.replace("[", r"\[")
-        print(f"{counter:<10}{i.pali_1:<20}{i.family_root:<20}{sanksrit_print}")
+        print(f"{counter:<10}{i.lemma_1:<20}{i.family_root:<20}{sanksrit_print}")
 
 def main():
     tic()
     print("[bright_yellow]update sanskrit root families")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).all()
+    db = db_session.query(DpdHeadwords).all()
     db = sorted(
         db, key=lambda x: (pali_sort_key(x.root_family_key)))
 

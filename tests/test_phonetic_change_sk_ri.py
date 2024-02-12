@@ -3,10 +3,9 @@
 """Find phonetic changes because of Sanskrit ṛ"""
 
 from rich import print
-from sqlalchemy import and_, or_
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 
 
@@ -15,7 +14,7 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
     
     results = db_session \
-        .query(PaliWord) \
+        .query(DpdHeadwords) \
         .all()
     
     reduced_results = []
@@ -34,7 +33,7 @@ def main():
     for index, r in enumerate(reduced_results):
         if index > start_point:
             print(f"[green]{index+1} / {length+1}")
-            print(f"[green]{'headword':40}[white]{r.pali_1}")
+            print(f"[green]{'headword':40}[white]{r.lemma_1}")
             
             phonetic_split = r.phonetic.split("\n")
             if len(phonetic_split) == 1:

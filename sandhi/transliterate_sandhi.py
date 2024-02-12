@@ -10,7 +10,7 @@ from aksharamukha import transliterate
 from subprocess import check_output
 
 from db.get_db_session import get_db_session
-from db.models import Sandhi
+from db.models import Lookup
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 

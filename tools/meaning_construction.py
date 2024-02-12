@@ -5,10 +5,10 @@
 4. Creating an HTML styled symbol of a word data's degree of complettion."""
 
 import re
-from db.models import PaliWord
+from db.models import DpdHeadwords
 
 
-def make_meaning(i: PaliWord) -> str:
+def make_meaning(i: DpdHeadwords) -> str:
 	"""Compile meaning_1 and literal meaning, or return meaning_2."""
 	if i.meaning_1:
 		meaning: str = i.meaning_1
@@ -20,7 +20,7 @@ def make_meaning(i: PaliWord) -> str:
 	else:
 		return ""
 
-def make_meaning_html(i: PaliWord) -> str:
+def make_meaning_html(i: DpdHeadwords) -> str:
     """Compile html of meaning_1 and literal meaning, or return meaning_2.
     Meaning_1 in <b>bold</b>"""
 
@@ -39,7 +39,7 @@ def make_meaning_html(i: PaliWord) -> str:
             return f"<b>{i.meaning_2}</b>"
 
 
-def make_grammar_line(i: PaliWord) -> str:
+def make_grammar_line(i: DpdHeadwords) -> str:
     """Compile grammar line"""
     
     grammar = i.grammar
@@ -54,7 +54,7 @@ def make_grammar_line(i: PaliWord) -> str:
     return grammar
      
 
-def summarize_construction(i: PaliWord) -> str:
+def summarize_construction(i: DpdHeadwords) -> str:
     """Create a summary of a word's construction,
     exlucing brackets and phonetic changes."""
     if "<b>" in i.construction:

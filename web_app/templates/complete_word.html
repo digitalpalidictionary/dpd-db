@@ -1,6 +1,6 @@
 <!-- summary -->
 
-<h3>{{d.i.pali_1}}</h3>
+<h3>{{d.i.lemma_1}}</h3>
 <div class='content summary'>
     <p>
         {% if d.dps_data %}
@@ -39,7 +39,7 @@
         <a class="button" 
         href="javascript:void(0);" 
         onclick="button_click(this)" 
-        data-target="grammar_{{d.i.pali_1_}}">
+        data-target="grammar_{{d.i.lemma_1_}}">
         grammar</a>
     {% endif %}
 
@@ -47,7 +47,7 @@
         <a class="button" 
         href="javascript:void(0);" 
         onclick="button_click(this)" 
-        data-target="example_{{d.i.pali_1_}}">
+        data-target="example_{{d.i.lemma_1_}}">
         example</a>
     {% endif %}
 
@@ -55,7 +55,7 @@
         <a class="button" 
         href="javascript:void(0);" 
         onclick="button_click(this)" 
-        data-target="examples_{{d.i.pali_1_}}">
+        data-target="examples_{{d.i.lemma_1_}}">
         examples</a>
     {% endif %}
 
@@ -64,7 +64,7 @@
         <a class="button" 
         href="javascript:void(0);" 
         onclick="button_click(this)" 
-        data-target="dps_example_{{d.i.pali_1_}}">
+        data-target="dps_example_{{d.i.lemma_1_}}">
         dps</a>
         {% endif %}
     {% endif %}
@@ -73,7 +73,7 @@
         <a class="button" 
         href="javascript:void(0);" 
         onclick="button_click(this)" 
-        data-target="conjugation_{{d.i.pali_1_}}">
+        data-target="conjugation_{{d.i.lemma_1_}}">
         conjugation</a>
     {% endif %}
 
@@ -81,7 +81,7 @@
         <a class="button" 
         href="javascript:void(0);" 
         onclick="button_click(this)" 
-        data-target="declension_{{d.i.pali_1_}}">
+        data-target="declension_{{d.i.lemma_1_}}">
         declension</a>
     {% endif %}
 
@@ -89,7 +89,7 @@
         <a class="button" 
         href="javascript:void(0);" 
         onclick="button_click(this)" 
-        data-target="root_family_{{d.i.pali_1_}}">
+        data-target="root_family_{{d.i.lemma_1_}}">
         root family</a>
     {% endif %}
 
@@ -97,7 +97,7 @@
         <a class="button" 
         href="javascript:void(0);" 
         onclick="button_click(this)" 
-        data-target="word_family_{{d.i.pali_1_}}">
+        data-target="word_family_{{d.i.lemma_1_}}">
         word family</a>
     {% endif %}
 
@@ -105,7 +105,7 @@
         <a class="button" 
         href="javascript:void(0);" 
         onclick="button_click(this)" 
-        data-target="compound_family_{{d.i.pali_1_}}">
+        data-target="compound_family_{{d.i.lemma_1_}}">
         compound family</a>
     {% endif %}
 
@@ -113,7 +113,7 @@
         <a class="button" 
         href="javascript:void(0);" 
         onclick="button_click(this)" 
-        data-target="compound_families_{{d.i.pali_1_}}">
+        data-target="compound_families_{{d.i.lemma_1_}}">
         compound families</a>
     {% endif %}
 
@@ -121,7 +121,7 @@
         <a class="button" 
         href="javascript:void(0);" 
         onclick="button_click(this)" 
-        data-target="set_{{d.i.pali_1_}}">
+        data-target="set_{{d.i.lemma_1_}}">
         set</a>
     {% endif %}
 
@@ -129,7 +129,7 @@
         <a class="button" 
         href="javascript:void(0);" 
         onclick="button_click(this)" 
-        data-target="sets_{{d.i.pali_1_}}">
+        data-target="sets_{{d.i.lemma_1_}}">
         sets</a>
     {% endif %}
 
@@ -137,14 +137,14 @@
         <a class="button" 
         href="javascript:void(0);" 
         onclick="button_click(this)" 
-        data-target="frequency_{{d.i.pali_1_}}">
+        data-target="frequency_{{d.i.lemma_1_}}">
         frequency</a>
     {% endif %}
 
     <a class="button" 
     href="javascript:void(0);" 
     onclick="button_click(this)" 
-    data-target="feedback_{{d.i.pali_1_}}">
+    data-target="feedback_{{d.i.lemma_1_}}">
     feedback</a>
 </div>
 
@@ -153,14 +153,14 @@
 
 
 {% if d.i.needs_grammar_button %}
-<div id="grammar_{{d.i.pali_1_}}" class="content hidden">
+<div id="grammar_{{d.i.lemma_1_}}" class="content hidden">
     <table class="grammar">
         <tr>
             <th>
                 Pāḷi
             </th>
             <td>
-                {{d.i.pali_2}}
+                {{d.i.lemma_2}}
             </td>
         </tr>
 
@@ -438,7 +438,7 @@
     <p class='footer'>
         Did you spot a mistake? 
         <a class="link" 
-        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.pali_link}}&entry.326955045=Grammar&entry.1433863141={{d.app_name}}+{{d.date}}" 
+        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Grammar&entry.1433863141={{d.app_name}}+{{d.date}}" 
         target="_blank">
         Correct it here.</a>
     </p>
@@ -448,10 +448,10 @@
 <!-- examples -->
 
 {% if d.i.needs_example_button %}
-<div id="example_{{d.i.pali_1_}}" class="content hidden">
+<div id="example_{{d.i.lemma_1_}}" class="content hidden">
 
 {% elif d.i.needs_examples_button %}
-<div id="examples_{{d.i.pali_1_}}" class="content hidden">
+<div id="examples_{{d.i.lemma_1_}}" class="content hidden">
 {% endif %}
 
 {% if d.i.example_1 %}
@@ -488,7 +488,7 @@
 <p class='footer'>
     Can you think of a better example? 
     <a class="link" 
-    href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.pali_link}}&entry.326955045=Examples&entry.1433863141={{d.app_name}}+{{d.date}}" 
+    href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Examples&entry.1433863141={{d.app_name}}+{{d.date}}" 
     target="_blank">
         Add it here.</a>
 </p>
@@ -501,7 +501,7 @@
 {% if d.dps_data %}
     {% if d.sbs.needs_sbs_example_button or d.sbs.needs_sbs_examples_button %}
 
-        <div id="dps_example_{{d.i.pali_1_}}" class="content hidden">
+        <div id="dps_example_{{d.i.lemma_1_}}" class="content hidden">
             {% for i in range(1, 5) %}
                 {% set example = d.sbs|safe_getattr('sbs_example_' ~ i) %}
                 {% set source = d.sbs|safe_getattr('sbs_source_' ~ i) %}
@@ -541,9 +541,9 @@
 <!-- declension -->
 
 {% if d.i.needs_declension_button %}
-    <div id="declension_{{d.i.pali_1_}}" class="content hidden">
-        {{d.i.dd.html_table|safe}}
-    {% if "gray" in d.i.dd.html_table %}
+    <div id="declension_{{d.i.lemma_1_}}" class="content hidden">
+        {{d.i.html_table|safe}}
+    {% if "gray" in d.i.html_table %}
         <p>
             Inflections not found in the Chaṭṭha Saṅgāyana corpus, or within processed sandhi compounds are <span class='gray'>grayed out</span>. They might still occur elsewhere, within compounds or in other versions of the Pāḷi texts.
         </p>
@@ -554,7 +554,7 @@
             Did you spot a mistake in the declension table? 
             Something missing? 
             <a class="link" 
-            href="https://docs.google.com/forms/d/e/1FAIpQLSfKUBx-icfRCWmhHqUwzX60BVQE21s_NERNfU2VvbjEfE371A/viewform?usp=pp_url&entry.1370304754={{d.i.pali_link}}&entry.1433863141={{d.app_name}}+{{d.date}}" 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfKUBx-icfRCWmhHqUwzX60BVQE21s_NERNfU2VvbjEfE371A/viewform?usp=pp_url&entry.1370304754={{d.i.lemma_link}}&entry.1433863141={{d.app_name}}+{{d.date}}" 
             target="_blank">
             Report it here.</a>
         </p>
@@ -566,9 +566,9 @@
 
 
 {% if d.i.needs_conjugation_button %}
-    <div id="conjugation_{{d.i.pali_1_}}" class="content hidden">
-        {{d.i.dd.html_table|safe}}
-    {% if "gray" in d.i.dd.html_table %}
+    <div id="conjugation_{{d.i.lemma_1_}}" class="content hidden">
+        {{d.i.html_table|safe}}
+    {% if "gray" in d.i.html_table %}
         <p>
             Inflections not found in the Chaṭṭha Saṅgāyana corpus, or within processed sandhi compounds are <span class='gray'>grayed out</span>. They might still occur elsewhere, within compounds or in other versions of the Pāḷi texts.
         </p>
@@ -579,7 +579,7 @@
             Did you spot a mistake in the conjugation table? 
             Something missing? 
             <a class="link" 
-            href="https://docs.google.com/forms/d/e/1FAIpQLSdAL2PzavyrtXgGmtNrZAMyh3hV6g3fU0chxhWFxunQEZtH0g/viewform?usp=pp_url&entry.1932605469={{d.i.pali_link}}&entry.1433863141={{d.app_name}}+{{d.date}}" 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSdAL2PzavyrtXgGmtNrZAMyh3hV6g3fU0chxhWFxunQEZtH0g/viewform?usp=pp_url&entry.1932605469={{d.i.lemma_link}}&entry.1433863141={{d.app_name}}+{{d.date}}" 
             target="_blank">
             Report it here.</a>
         </p>
@@ -591,12 +591,12 @@
 
 
 {% if d.i.needs_root_family_button %}
-    <div id="root_family_{{d.i.pali_1_}}" class="content hidden">
+    <div id="root_family_{{d.i.lemma_1_}}" class="content hidden">
         {{d.i.fr.html|safe}}
         <p class='footer'>
             Something out of place? 
             <a class="link" 
-            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.pali_link}}&entry.326955045=Root+Family&entry.1433863141={{d.app_name}}+{{d.date}}" 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Root+Family&entry.1433863141={{d.app_name}}+{{d.date}}" 
             target="_blank">
             Report it here</a>.
         </p> 
@@ -606,7 +606,7 @@
 <!-- word family -->
 
 {% if d.i.needs_word_family_button %}
-    <div id="word_family_{{d.i.pali_1_}}" class="content hidden">
+    <div id="word_family_{{d.i.lemma_1_}}" class="content hidden">
         <p class="heading underlined">
             <b>{{d.i.fw.count}}</b> 
             words which belong to the 
@@ -617,7 +617,7 @@
             {{d.i.fw.html}}
             Something out of place? 
             <a class="link" 
-            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.pali_link}}&entry.326955045=Word+Family&entry.1433863141={{d.app_name}}+{{d.date}}" 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Word+Family&entry.1433863141={{d.app_name}}+{{d.date}}" 
             target="_blank">
             Report it here</a>.
         </p> 
@@ -627,7 +627,7 @@
 <!-- compound family -->
 
 {% if d.i.needs_compound_family_button %}
-    <div id="compound_family_{{d.i.pali_1_}}" class="content hidden">
+    <div id="compound_family_{{d.i.lemma_1_}}" class="content hidden">
         <p class="heading underlined">
             <b>
                 {{d.fc[0].count}}
@@ -644,11 +644,11 @@
 <!-- compound families -->
 
 {% if d.i.needs_compound_families_button %}
-<div id="compound_families_{{d.i.pali_1_}}" class="content hidden">
-    <p id="{{d.i.pali_1_}}cf_top" class="heading">jump to: 
+<div id="compound_families_{{d.i.lemma_1_}}" class="content hidden">
+    <p id="{{d.i.lemma_1_}}cf_top" class="heading">jump to: 
     {% for f in d.fc%}
     <a class="jump" 
-        href="#{{d.i.pali_1_}}cf_{{f.compound_family}}">
+        href="#{{d.i.lemma_1_}}cf_{{f.compound_family}}">
         {% if not loop.last %}
             {{f.compound_family}},
         {% else%}
@@ -662,7 +662,7 @@
         {% if loop.index == 0 %}
             <p class="heading underlined overlined">
         {% else %}
-            <p id="{{d.i.pali_1_}}cf_{{f.compound_family}}" 
+            <p id="{{d.i.lemma_1_}}cf_{{f.compound_family}}" 
                 class="heading underlined overlined">
         {% endif %}
         {% if f.count == 1 %}
@@ -674,7 +674,7 @@
             compounds which contain 
             <b>{{f.compound_family}}</b>
             <a class="jump" 
-                href="#{{d.i.pali_1_}}cf_top"> ⤴
+                href="#{{d.i.lemma_1_}}cf_top"> ⤴
             </a>
         {% endif %}
         </p>
@@ -683,12 +683,12 @@
     <p class="underline overlined">
         Back to the top 
         <a class="jump" 
-        href="#{{d.i.pali_1_}}cf_top">⤴</a>
+        href="#{{d.i.lemma_1_}}cf_top">⤴</a>
     </p>
     <p class='footer'>
         Spot a mistake? 
         <a class="link" 
-            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.pali_link}}&entry.326955045=Compound+Family&entry.1433863141={{d.app_name}}+{{d.date}}" 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Compound+Family&entry.1433863141={{d.app_name}}+{{d.date}}" 
             target="_blank">
             Fix it here</a>.
     </p>
@@ -698,10 +698,10 @@
 <!-- set -->
 
 {% if d.i.needs_set_button %}
-<div id="set_{{d.i.pali_1_}}" class="content hidden">
+<div id="set_{{d.i.lemma_1_}}" class="content hidden">
     {% for f in d.fs %}
     <p class="heading underlined">
-        <b>{{d.i.pali_clean}}</b> 
+        <b>{{d.i.lemma_clean}}</b> 
         belongs to the set of 
         <b>{{f.set}}</b>
     </p>
@@ -713,11 +713,11 @@
 <!-- sets -->
 
 {% if d.i.needs_sets_button %}
-<div id="sets_{{d.i.pali_1_}}" class="content hidden">
-    <p id="{{d.i.pali_1_}}sets_top" class="heading">jump to: 
+<div id="sets_{{d.i.lemma_1_}}" class="content hidden">
+    <p id="{{d.i.lemma_1_}}sets_top" class="heading">jump to: 
     {% for set in d.i.family_set_list %}
     <a class="jump" 
-        href="#{{d.i.pali_1_}}sets_{{set}}">
+        href="#{{d.i.lemma_1_}}sets_{{set}}">
     {% if not loop.last %}
         {{set|safe}},
     {% else%}
@@ -732,14 +732,14 @@
         {% if loop.index0 == 0 %}
             <p class="heading underlined overlined">
         {% else %}
-            <p id="{{d.i.pali_1_}}sets_{{f.set}}" 
+            <p id="{{d.i.lemma_1_}}sets_{{f.set}}" 
                 class="heading underlined overlined">
         {% endif %}
-        <b>{{d.i.pali_clean}}</b> 
+        <b>{{d.i.lemma_clean}}</b> 
         belongs to the set of 
         <b>{{f.set}}</b>
         {% if loop.index0 > 0 %}
-        <a class="jump" href="#{{d.i.pali_1_}}sets_top"> ⤴</a>
+        <a class="jump" href="#{{d.i.lemma_1_}}sets_top"> ⤴</a>
         {% endif %}
         </p>
         {{f.html|safe}}
@@ -747,12 +747,12 @@
     <p class="underline overlined">
         Back to the top 
         <a class="jump" 
-        href="#{{d.i.pali_1_}}sets_top">⤴</a>
+        href="#{{d.i.lemma_1_}}sets_top">⤴</a>
     </p>
     <p class='footer'>
         Spot a mistake? 
         <a class="link" 
-            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.pali_link}}&entry.326955045=Set&entry.1433863141={{d.app_name}}+{{d.date}}" 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Set&entry.1433863141={{d.app_name}}+{{d.date}}" 
             target="_blank">
             Fix it here</a>.
     </p>
@@ -760,14 +760,14 @@
 {% endif %}
 
 {% if d.i.needs_sets_button %}
-<div id="sets_{{d.i.pali_1_}}" class="content hidden">
+<div id="sets_{{d.i.lemma_1_}}" class="content hidden">
     {% for f in d.fs %}
     {% if loop.index0 == 0 %}
     <p class="heading underlined">
     {% else %}
     <p class="heading underlined overlined">
     {% endif %}
-        <b>{{d.i.pali_clean}}</b> 
+        <b>{{d.i.lemma_clean}}</b> 
         belongs to the set of 
         <b>{{f.set}}</b>
     </p>
@@ -779,15 +779,15 @@
 <!-- frequency -->
 
 {% if d.i.needs_frequency_button %}
-<div id="frequency_{{d.i.pali_1_}}" class="content hidden">
-    {{d.i.dd.freq_html|safe}}
+<div id="frequency_{{d.i.lemma_1_}}" class="content hidden">
+    {{d.i.freq_html|safe}}
     <p>
         For a detailed explanation of how this word frequency chart is calculated, it's accuracies and inaccuracies, please refer to <a class="link" href="https://digitalpalidictionary.github.io/frequency.html">this webpage</a>.
     </p>
     <p class='footer'>
         If something looks out of place, 
         <a class="link" 
-            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.pali_link}}&entry.326955045=Frequency&entry.1433863141={{d.app_name}}+{{d.date}}"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Frequency&entry.1433863141={{d.app_name}}+{{d.date}}"
             target="_blank">
             log it here.
         </a>
@@ -797,7 +797,7 @@
 
 <!-- feedback -->
 
-<div id="feedback_{{d.i.pali_1_}}" class="content hidden">
+<div id="feedback_{{d.i.lemma_1_}}" class="content hidden">
     <p>
         ID <b>{{d.i.id}}</b>
     </p>
@@ -805,7 +805,7 @@
         Digital Pāḷi Dictionary is a work in progress, made available for testing and feedback purposes.
     </p>
     <p>
-        <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.pali_link}}&entry.1433863141={{d.app_name}}+{{d.date}}" target="_blank">Correct a mistake</a><span>. Did you spot a mistake in the dictionary? Have something to add? Please report it. It generally takes less than a minute and your corrections and suggestions help to improve the quality of this dictionary for everyone who uses it.</span>
+        <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.1433863141={{d.app_name}}+{{d.date}}" target="_blank">Correct a mistake</a><span>. Did you spot a mistake in the dictionary? Have something to add? Please report it. It generally takes less than a minute and your corrections and suggestions help to improve the quality of this dictionary for everyone who uses it.</span>
     </p>
     <p>
         <a class="link" 

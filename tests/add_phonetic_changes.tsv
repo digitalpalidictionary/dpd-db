@@ -126,7 +126,7 @@ m + k	ṅk	mk > ṅk	m > ṅ	m + kh	x
 m + kh	ṅkh	mkh > ṅkh	m > ṅ	x	x
 m + g	ṅg	mg > ṅg	m > ṅ	m + gh	x
 m + gh	ṅgh	mgh > ṅgh	m > ṅ	x	x
-xm + t	t	mt > t	x	x	x	exclude nt in pali_1 etc
+xm + t	t	mt > t	x	x	x	exclude nt in lemma_1 etc
 m + t	nt	mt > nt	m > n	m + th	x
 m + th	nth	mth > nth	m > n	x	x
 m + y	mm	my > mm	y > m	x	x

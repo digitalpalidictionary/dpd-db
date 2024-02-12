@@ -97,3 +97,5 @@ tests/test_theragatha_filler
 time_log.dat
 time_log.png
 tmp/
+bold_defintions/bold_defintions.json
+bold_defintions/bold_defintions.tsv

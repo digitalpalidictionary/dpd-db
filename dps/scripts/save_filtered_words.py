@@ -2,7 +2,7 @@
 
 """ Filter words based on some codition and save into csv (with backing up existing temp csv)"""
 
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
 from db.get_db_session import get_db_session
@@ -26,7 +26,7 @@ def save_filtered_words():
     pth = ProjectPaths()
     dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs), joinedload(PaliWord.ru)).all()
+    dpd_db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs), joinedload(DpdHeadwords.ru)).all()
 
     # Filter words based on sbs.sbs_class, also check if sbs is not None
     # filtered_words = [word for word in dpd_db if word.sbs and word.sbs.sbs_class == '(ru)']

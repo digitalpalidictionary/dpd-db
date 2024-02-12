@@ -54,7 +54,7 @@ def uposatha_today():
 
 
 def uposatha_count(value: int):
-    """Save the PaliWord count on uposatha day."""
+    """Save the DpdHeadwords count on uposatha day."""
     config_update("uposatha", "count", str(value))
 
 

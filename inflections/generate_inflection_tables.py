@@ -10,7 +10,7 @@ from rich import print
 from typing import List, Dict, Tuple
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord, InflectionTemplates, DerivedData
+from db.models import DpdHeadwords, InflectionTemplates
 
 from tools.configger import config_test, config_update
 from tools.tic_toc import tic, toc
@@ -22,7 +22,7 @@ from tools.paths import ProjectPaths
 
 pth = ProjectPaths()
 db_session = get_db_session(pth.dpd_db_path)
-dpd_db = db_session.query(PaliWord).all()
+dpd_db = db_session.query(DpdHeadwords).all()
 
 changed_templates: list = []
 changed_headwords: list = []
@@ -54,7 +54,7 @@ def main():
     add_to_db = []
     for i in dpd_db:
 
-        test1 = i.pali_1 in changed_headwords
+        test1 = i.lemma_1 in changed_headwords
         test2 = i.pattern in changed_templates
         test3 = regenerate_all is True
 
@@ -67,40 +67,23 @@ def main():
             # pattern == "" then no table, just add clean headword
 
             if regenerate_all:
-                db_session.execute(DerivedData.__table__.delete()) # type: ignore
-
-            else:
-                exists = db_session.query(DerivedData).filter(
-                    DerivedData.id == i.id).first()
-
-                if exists is not None:
-                    db_session.delete(exists)
+                pass
+                # FIXME derived data table no longer exists!
+                # db_session.execute(DerivedData.__table__.delete()) # type: ignore
 
             if i.pattern:
                 html, inflections_list = generate_inflection_table(i)
-
-                derived_data = DerivedData(
-                    id=i.id,
-                    # pali_1=i.pali_1,
-                    inflections=",".join(inflections_list),
-                    html_table=html
-                )
+                
+                i.inflections = ",".join(inflections_list)
+                i.inflections_html = html
 
                 if "!" in i.stem:
-                    derived_data = DerivedData(
-                        id=i.id,
-                        # pali_1=i.pali_1,
-                        inflections=i.pali_clean,
-                        html_table=html,
-                    )
-
+                    i.inflections = i.lemma_clean
+                    i.inflections_html = html
             else:
-                derived_data = DerivedData(
-                    id=i.id,
-                    inflections=i.pali_clean
-                )
+                i.inflections = i.lemma_clean
 
-            add_to_db.append(derived_data)
+
 
     db_session.commit()
 
@@ -188,7 +171,7 @@ def test_missing_stem() -> None:
     for i in dpd_db:
         if not i.stem:
             print(
-                f"\t[red]{i.pali_1} {i.pos} has a missing stem.", end=" ")
+                f"\t[red]{i.lemma_1} {i.pos} has a missing stem.", end=" ")
             new_stem = input("what is the new stem? ")
             i.stem = new_stem
     db_session.commit()
@@ -200,7 +183,7 @@ def test_missing_pattern() -> None:
 
     for i in dpd_db:
         if i.stem != "-" and not i.pattern:
-            print(f"\t[red]{i.pali_1} {i.pos} has a missing pattern.", end=" ")
+            print(f"\t[red]{i.lemma_1} {i.pos} has a missing pattern.", end=" ")
             new_pattern = input("what is the new pattern? ")
             i.pattern = new_pattern
     db_session.commit()
@@ -213,12 +196,12 @@ def test_wrong_pattern() -> None:
     tables = db_session.query(InflectionTemplates).all()
     pattern_list: list = [table.pattern for table in tables]
 
-    wrong_pattern_db = db_session.query(PaliWord).filter(
-        PaliWord.pattern.notin_(pattern_list)).filter(
-            PaliWord.pattern != "").all()
+    wrong_pattern_db = db_session.query(DpdHeadwords).filter(
+        DpdHeadwords.pattern.notin_(pattern_list)).filter(
+            DpdHeadwords.pattern != "").all()
 
     for i in wrong_pattern_db:
-        print(f"\t[red]{i.pali_1} {i.pos} has the wrong pattern.", end=" ")
+        print(f"\t[red]{i.lemma_1} {i.pos} has the wrong pattern.", end=" ")
 
         new_pattern = ""
         while new_pattern not in pattern_list:
@@ -240,7 +223,7 @@ def test_changes_in_stem_pattern() -> None:
 
     new_dict: Dict[str, Dict] = {}
     for i in dpd_db:
-        new_dict[i.pali_1] = {
+        new_dict[i.lemma_1] = {
             "stem": i.stem, "pattern": i.pattern}
 
     for headword, value in new_dict.items():
@@ -251,7 +234,7 @@ def test_changes_in_stem_pattern() -> None:
     def save_pickle() -> None:
         headword_stem_pattern_dict: Dict[str, Dict] = {}
         for i in dpd_db:
-            headword_stem_pattern_dict[i.pali_1] = {
+            headword_stem_pattern_dict[i.lemma_1] = {
                 "stem": i.stem, "pattern": i.pattern}
 
         with open(pth.headword_stem_pattern_dict_path, "wb") as f:
@@ -261,27 +244,14 @@ def test_changes_in_stem_pattern() -> None:
 
 
 def test_missing_inflection_list_html() -> None:
-    """test for missing inflections in derived_data table"""
+    """test for missing inflections in dpd_headwords table"""
 
     print("[green]testing for missing inflection list and html tables")
 
     for i in dpd_db:
-        if (
-            i.dd is not None and
-            not i.dd.inflections
-        ):
-            print(f"\t[red]{i.pali_1}")
-            changed_headwords.append(i.pali_1)
-
-
-def test_missing_id() -> None:
-    """test for missing ids and wrong headwords in derived_data table"""
-    print("[green]testing for missing id's")
-
-    for i in dpd_db:
-        if i.dd is None:
-            print(f"\t[red]{i.pali_1}")
-            changed_headwords.append(i.pali_1)
+        if not i.inflections:
+            print(f"\t[red]{i.lemma_1}")
+            changed_headwords.append(i.lemma_1)
 
 
 def test_changes() -> None:
@@ -292,21 +262,20 @@ def test_changes() -> None:
     test_wrong_pattern()
     test_changes_in_stem_pattern()
     test_missing_inflection_list_html()
-    test_missing_id()
 
 
-def generate_inflection_table(i: PaliWord) -> Tuple[str, list]:
+def generate_inflection_table(i: DpdHeadwords) -> Tuple[str, list]:
     """generate the inflection table based on stem + pattern and template"""
 
     if i.it is None or i.it.data is None:
         return "", []
 
     table_data = json.loads(i.it.data)
-    inflections_list: list = [i.pali_clean]
+    inflections_list: list = [i.lemma_clean]
 
     # heading
     html: str = "<p class='heading'>"
-    html += f"<b>{superscripter_uni(i.pali_1)}</b> is <b>{i.pattern}</b> "
+    html += f"<b>{superscripter_uni(i.lemma_1)}</b> is <b>{i.pattern}</b> "
     if i.it.like != "irreg":
         if i.pos in CONJUGATIONS:
             html += "conjugation "

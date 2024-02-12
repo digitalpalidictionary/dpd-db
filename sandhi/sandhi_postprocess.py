@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-"""Postprocess the results, find most likely candidates and save to database.
+"""
+Postprocess the results, find top five most likely candidates and save to database.
 """
 
 import numpy as np
@@ -11,11 +12,13 @@ from difflib import SequenceMatcher
 from rich import print
 
 from sqlalchemy.orm.session import Session
+from tools.lookup_is_another_value import is_another_value
+from tools.update_test_add import update_test_add
 
 from transliterate_sandhi import transliterate_sandhi
 
 from db.get_db_session import get_db_session
-from db.models import Sandhi
+from db.models import Lookup
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 from tools.configger import config_test
@@ -40,45 +43,44 @@ def main():
     matches_df = process_matches(ADD_DO, pth, neg_inflections_set)
     top_five_dict = make_top_five_dict(matches_df)
     add_to_dpd_db(db_session, top_five_dict)
-    transliterate_sandhi()
+    # transliterate_sandhi() FIXME!
     make_rule_counts(pth, matches_df)
     letter_counts(pth, matches_df)
     toc()
 
 
 def process_matches(ADD_DO, pth: ProjectPaths, neg_inflections_set):
-
     print("[green]processing matches")
 
     print("reading tsvs")
     matches_df = pd.read_csv(pth.matches_path, dtype=str, sep="\t")
 
     if ADD_DO:
-        matches_do_df = pd.read_csv(
-            pth.matches_do_path, dtype=str, sep="\t")
+        matches_do_df = pd.read_csv(pth.matches_do_path, dtype=str, sep="\t")
         matches_df = pd.concat([matches_df, matches_do_df], ignore_index=True)
 
     matches_df = matches_df.fillna("")
 
     print("adding manual")
-    matches_df["manual"] = matches_df['process'].str.count("manual")
+    matches_df["manual"] = matches_df["process"].str.count("manual")
 
     print("adding splitcount")
-    matches_df["splitcount"] = matches_df['split'].str.count(r' \+ ')
+    matches_df["splitcount"] = matches_df["split"].str.count(r" \+ ")
 
     print("adding lettercount")
-    matches_df["lettercount"] = matches_df['split'].str.count('.')
+    matches_df["lettercount"] = matches_df["split"].str.count(".")
 
     print("adding word count")
-    matches_df['count'] = matches_df.groupby('word')['word'].transform('size')
+    matches_df["count"] = matches_df.groupby("word")["word"].transform("size")
 
     def calculate_ratio(original, split):
         split = split.replace(" + ", "")
         return SequenceMatcher(None, original, split).ratio()
 
     print("adding difference ratio")
-    matches_df['ratio'] = np.vectorize(
-        calculate_ratio)(matches_df['split'], matches_df['split'])
+    matches_df["ratio"] = np.vectorize(calculate_ratio)(
+        matches_df["split"], matches_df["split"]
+    )
 
     print("adding neg_count")
 
@@ -93,7 +95,7 @@ def process_matches(ADD_DO, pth: ProjectPaths, neg_inflections_set):
                     neg_count += 1
         return neg_count
 
-    matches_df['neg_count'] = matches_df.apply(neg_counter, axis=1)
+    matches_df["neg_count"] = matches_df.apply(neg_counter, axis=1)
 
     print("sorting df values")
     matches_df.sort_values(
@@ -101,15 +103,12 @@ def process_matches(ADD_DO, pth: ProjectPaths, neg_inflections_set):
         axis=0,
         ascending=[False, True, True, False, True],
         inplace=True,
-        ignore_index=True
+        ignore_index=True,
     )
 
     print("dropping duplicates")
     matches_df.drop_duplicates(
-        subset=['word', 'split'],
-        keep='first',
-        inplace=True,
-        ignore_index=True
+        subset=["word", "split"], keep="first", inplace=True, ignore_index=True
     )
 
     print("saving to matches_sorted.tsv")
@@ -123,11 +122,8 @@ def make_top_five_dict(matches_df):
     top_five_dict = {}
 
     for __index__, i in matches_df.iterrows():
-
         if i.word not in top_five_dict:
-            top_five_dict[i.word] = {
-                "splits": [i.split],
-                "splitcount": i.splitcount}
+            top_five_dict[i.word] = {"splits": [i.split], "splitcount": i.splitcount}
         else:
             if len(top_five_dict[i.word]["splits"]) < 5:
                 if i.splitcount <= top_five_dict[i.word]["splitcount"]:
@@ -146,16 +142,29 @@ def make_top_five_dict(matches_df):
 def add_to_dpd_db(db_session: Session, top_five_dict):
     print("[green]adding to dpd_db", end=" ")
 
-    db_session.execute(Sandhi.__table__.delete()) # type: ignore
+    lookup_table = (db_session.query(Lookup).all())
+    update_set, test_set, add_set = update_test_add(lookup_table, top_five_dict)
+
+    # update test add
+    for i in lookup_table:
+        if i.lookup_key in update_set:
+            i.pack_deconstructor(top_five_dict[i.lookup_key])
+        elif i.lookup_key in test_set:
+            if is_another_value(i, "deconstructor"):
+                i.deconstructor = ""
+            else:
+                db_session.delete(i) 
+
     db_session.commit()
 
+    # add
     add_to_db = []
-    for word, splits in top_five_dict.items():
-        sandhi_split = Sandhi(
-            sandhi=word,
-            split=",".join(splits)
-        )
-        add_to_db.append(sandhi_split)
+    for constructed, deconstructed in top_five_dict.items():
+        if constructed in add_set:
+            add_me = Lookup()
+            add_me.lookup_key = constructed
+            add_me.pack_deconstructor(deconstructed)
+            add_to_db.append(add_me)
 
     db_session.add_all(add_to_db)
     db_session.commit()
@@ -167,11 +176,11 @@ def add_to_dpd_db(db_session: Session, top_five_dict):
 def make_rule_counts(pth: ProjectPaths, matches_df):
     print("[green]saving rule counts", end=" ")
 
-    rules_list = matches_df[['rules']].values.tolist()
+    rules_list = matches_df[["rules"]].values.tolist()
     rule_counts = {}
 
     for sublist in rules_list:
-        for item in sublist[0].split(','):
+        for item in sublist[0].split(","):
             if item not in rule_counts:
                 rule_counts[item] = 1
             else:
@@ -186,8 +195,9 @@ def make_rule_counts(pth: ProjectPaths, matches_df):
 
 def letter_counts(pth: ProjectPaths, df):
     print("[green]saving letter counts", end=" ")
-    df.drop_duplicates(subset=['word', 'split'],
-                       keep='first', inplace=True, ignore_index=True)
+    df.drop_duplicates(
+        subset=["word", "split"], keep="first", inplace=True, ignore_index=True
+    )
     masterlist = []
     for row in range(len(df)):
         split = df.loc[row, "split"]
@@ -219,10 +229,10 @@ def letter_counts(pth: ProjectPaths, df):
 if __name__ == "__main__":
     print("[bright_yellow]post-processing sandhi-splitter")
     if (
-        config_test("exporter", "make_deconstructor", "yes") or 
-        config_test("exporter", "make_tpr", "yes") or 
-        config_test("exporter", "make_ebook", "yes") or 
-        config_test("regenerate", "db_rebuild", "yes")
+        config_test("exporter", "make_deconstructor", "yes")
+        or config_test("exporter", "make_tpr", "yes")
+        or config_test("exporter", "make_ebook", "yes")
+        or config_test("regenerate", "db_rebuild", "yes")
     ):
         main()
     else:

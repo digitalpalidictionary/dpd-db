@@ -6,16 +6,16 @@ import re
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 from tools.pali_alphabet import pali_alphabet
 
 class ProgData():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).all()
+    db = db_session.query(DpdHeadwords).all()
     pali_alphabet: list[str] = pali_alphabet
-    i: PaliWord
+    i: DpdHeadwords
     fields: list[str] = ["example_1", "example_2"]
     field: str
     bold_words: list[str]
@@ -47,7 +47,7 @@ def find_all_bold_words():
 
 def get_inflections():
     """Get the inflections list."""
-    g.inflections_list = g.i.dd.inflections_list
+    g.inflections_list = g.i.inflections_list
 
 
 def test1():
@@ -113,7 +113,7 @@ def test6():
 
 def printer(message):
     """Print out the problem and up the tally."""
-    print(f"{g.counter:<4}{g.i.id:<8}{g.i.pali_1:<40}{g.clean_bold_word:<30}{g.field:<10}{message}")
+    print(f"{g.counter:<4}{g.i.id:<8}{g.i.lemma_1:<40}{g.clean_bold_word:<30}{g.field:<10}{message}")
     g.counter += 1
     
 

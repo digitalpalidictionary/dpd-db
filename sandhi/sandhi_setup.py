@@ -17,7 +17,7 @@ from books_to_include import limited_texts, all_texts
 
 from sqlalchemy.orm.session import Session
 
-from db.models import PaliWord, DerivedData
+from db.models import DpdHeadwords
 from db.get_db_session import get_db_session
 from tools.cst_sc_text_sets import make_cst_text_set
 from tools.cst_sc_text_sets import make_sc_text_set
@@ -221,13 +221,13 @@ def make_abbreviations_set(db_session: Session) -> Set[str]:
 
     abbreviations_set: Set[str] = set()
 
-    abbreviations_db = db_session.query(PaliWord).filter(
-        PaliWord.pos == "abbrev"
+    abbreviations_db = db_session.query(DpdHeadwords).filter(
+        DpdHeadwords.pos == "abbrev"
     )
 
     for i in abbreviations_db:
-        pali_1_clean = re.sub(r" \d.*", "", i.pali_1)
-        abbreviations_set.add(pali_1_clean)
+        lemma_1_clean = re.sub(r" \d.*", "", i.lemma_1)
+        abbreviations_set.add(lemma_1_clean)
 
     print(f"[white]{len(abbreviations_set):>10,}")
 
@@ -289,13 +289,13 @@ def make_all_inflections_set(db_session: Session, sandhi_exceptions_set: Set[str
         ["abbrev", "cs", "idiom", "letter", "prefix", "root", "sandhi",
             "suffix", "ve"])
 
-    no_exceptions = db_session.query(PaliWord).filter(
-        PaliWord.pos.notin_(exceptions_list)).all()
+    no_exceptions = db_session.query(DpdHeadwords).filter(
+        DpdHeadwords.pos.notin_(exceptions_list)).all()
 
     all_headwords = [i.id for i in no_exceptions]
 
-    all_inflections_db = db_session.query(DerivedData).filter(
-        DerivedData.id.in_(all_headwords)).all()
+    all_inflections_db = db_session.query(DpdHeadwords).filter(
+        DpdHeadwords.id.in_(all_headwords)).all()
 
     for i in all_inflections_db:
         inflections = i.inflections_list
@@ -319,14 +319,14 @@ def make_neg_inflections_set(db_session: Session, sandhi_exceptions_set: Set[str
         ["abbrev", "cs", "idiom", "letter", "prefix", "root", "sandhi",
             "suffix", "ve"])
 
-    neg_headwords_db = db_session.query(PaliWord).filter(
-        PaliWord.pos.notin_(exceptions_list)).filter(
-        PaliWord.neg == "neg").all()
+    neg_headwords_db = db_session.query(DpdHeadwords).filter(
+        DpdHeadwords.pos.notin_(exceptions_list)).filter(
+        DpdHeadwords.neg == "neg").all()
 
     neg_headwords = [i.id for i in neg_headwords_db]
 
-    neg_inflections_db = db_session.query(DerivedData).filter(
-        DerivedData.id.in_(neg_headwords)).all()
+    neg_inflections_db = db_session.query(DpdHeadwords).filter(
+        DpdHeadwords.id.in_(neg_headwords)).all()
 
     for i in neg_inflections_db:
         inflections = i.inflections_list

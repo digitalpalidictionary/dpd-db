@@ -2,7 +2,7 @@ import re
 import pyperclip
 from rich import print
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 
 from tools.db_search_string import db_search_string
 from tools.pali_alphabet import pali_alphabet
@@ -159,14 +159,14 @@ class AllowableCharacters():
     # allowable characters in each field
     # --------------------------------------------------
 
-    pali_1_allowed = (
+    lemma_1_allowed = (
         pali_alphabet + 
         fullstop + 
         space + 
         digits
     )
     
-    pali_2_allowed = (
+    lemma_2_allowed = (
         pali_alphabet + 
         fullstop + 
         space + 
@@ -640,8 +640,8 @@ class AllowableCharacters():
     # --------------------------------------------------
  
     tests_data = [
-        ("pali_1", pali_1_allowed),
-        ("pali_2", pali_2_allowed),
+        ("lemma_1", lemma_1_allowed),
+        ("lemma_2", lemma_2_allowed),
         ("pos", pos_allowed),
         ("grammar", grammar_allowed),
         ("derived_from", derived_from_allowed),
@@ -735,7 +735,7 @@ class AllowableCharacters():
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs), joinedload(PaliWord.ru)).all()
+    db = db_session.query(DpdHeadwords).options(joinedload(PaliWord.sbs), joinedload(PaliWord.ru)).all()
 
     a = AllowableCharacters()
 
@@ -773,9 +773,9 @@ def main():
             # compile the remaining characters
             if oops:
                 if debug:
-                    print(f"{i.pali_1} '{oops}'")
+                    print(f"{i.lemma_1} '{oops}'")
                 remainder += oops
-                error_list += [i.pali_1]
+                error_list += [i.lemma_1]
 
         print(f"[white]{[char for char in set(remainder)]}", end=" ")
 
@@ -861,5 +861,5 @@ def join_allowed(allowed: list) -> str:
 if __name__ == "__main__":
     main()
 
-    # x = test_allowable_characters_gui({"pali_1": "®±²£¥"})
+    # x = test_allowable_characters_gui({"lemma_1": "®±²£¥"})
     # print(x)

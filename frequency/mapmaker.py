@@ -3,7 +3,7 @@
 """Create frequency map data and HTML and save into database."""
 
 import psutil
-from typing import List, Tuple, TypedDict
+from typing import List, TypedDict
 import pandas as pd
 import pickle
 import re
@@ -16,7 +16,7 @@ from sqlalchemy import update
 from sqlalchemy.orm.session import Session
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord, DerivedData
+from db.models import DpdHeadwords
 
 from tools.pos import INDECLINABLES, CONJUGATIONS, DECLENSIONS
 from tools.configger import config_test, config_update
@@ -105,18 +105,18 @@ def test_html_file_missing(db_session: Session):
     print("[green]test if html file is missing", end=" ")
 
     idioms_db = db_session.query(
-        PaliWord.id, PaliWord.pos
+        DpdHeadwords.id, DpdHeadwords.pos
     ).filter(
-        PaliWord.pos == "idiom"
+        DpdHeadwords.pos == "idiom"
     ).all()
 
     idioms_list = [i.id for i in idioms_db]
 
     missing_html_db = db_session.query(
-        DerivedData.id, DerivedData.freq_html
+        DpdHeadwords.id, DpdHeadwords.freq_html
     ).filter(
-        DerivedData.freq_html == "",
-        DerivedData.id.notin_(idioms_list)
+        DpdHeadwords.freq_html == "",
+        DpdHeadwords.id.notin_(idioms_list)
     ).all()
 
     global html_file_missing
@@ -328,14 +328,13 @@ def colourme(value, hi, low):
     elif value == group10:
         return "gr10"
 
-ItemPair = Tuple[PaliWord, DerivedData]
 
 class ParsedResult(TypedDict):
     id: int
     freq_html: str
 
-def _parse_item_pair(i: PaliWord, j: DerivedData, dicts: List[dict]) -> ParsedResult:
-    inflections = j.inflections_list
+def _parse_item(i: DpdHeadwords, dicts: List[dict]) -> ParsedResult:
+    inflections = i.inflections_list
 
     section = 1
     d = {}
@@ -368,46 +367,47 @@ def _parse_item_pair(i: PaliWord, j: DerivedData, dicts: List[dict]) -> ParsedRe
     if value_max > 0:
 
         if i.pos in INDECLINABLES or re.match(r"^!", i.stem):
-            map_html += f"""<p class="heading underlined">Exact matches of the word <b>{superscripter_uni(i.pali_1)}</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
+            map_html += f"""<p class="heading underlined">Exact matches of the word <b>{superscripter_uni(i.lemma_1)}</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
 
         elif i.pos in CONJUGATIONS:
-            map_html += f"""<p class="heading underlined">Exact matches of <b>{superscripter_uni(i.pali_1)} and its conjugations</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
+            map_html += f"""<p class="heading underlined">Exact matches of <b>{superscripter_uni(i.lemma_1)} and its conjugations</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
 
         elif i.pos in DECLENSIONS:
-            map_html += f"""<p class="heading underlined">Exact matches of <b>{superscripter_uni(i.pali_1)} and its declensions</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
+            map_html += f"""<p class="heading underlined">Exact matches of <b>{superscripter_uni(i.lemma_1)} and its declensions</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
 
         template = Template(filename='frequency/frequency.html')
         map_html += str(template.render(d=d))
 
     else:
-        map_html += f"""<p class="heading">There are no exact matches of <b>{superscripter_uni(i.pali_1)} or it's inflections</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
+        map_html += f"""<p class="heading">There are no exact matches of <b>{superscripter_uni(i.lemma_1)} or it's inflections</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
 
     return ParsedResult(id=i.id, freq_html=map_html)
 
-def make_data_dict_and_html(pth: ProjectPaths,
-                            db_session: Session,
-                            dicts: List[dict],
-                            use_n_processes: int,
-                            regenerate_all: bool):
+def make_data_dict_and_html(
+        pth: ProjectPaths,
+        db_session: Session,
+        dicts: List[dict],
+        use_n_processes: int,
+        regenerate_all: bool
+):
     print("[green]compiling data csvs and html")
 
-    dpd_db = db_session.query(PaliWord).all()
-    dd_db = db_session.query(DerivedData).all()
+    dpd_db = db_session.query(DpdHeadwords).all()
 
-    def _keep(i: PaliWord) -> bool:
+    def _keep(i: DpdHeadwords) -> bool:
         """Filter predicate function which returns whether an item should be kept.
         """
         return (i.pos != "idiom" and \
                 (i.pattern in changed_templates or \
-                 i.pali_1 in changed_headwords or \
+                 i.lemma_1 in changed_headwords or \
                  i.id in html_file_missing or \
                  regenerate_all is True))
 
-    # Filter the PaliWord and Derived data list, while keeping the related items together in a Tuple.
-    filtered_pairs: List[ItemPair] = [(i, j) for (i, j) in zip(dpd_db, dd_db) if _keep(i)]
+    # Filter the DpdHeadwords and Derived data list, while keeping the related items together in a Tuple.
+    filtered_pairs: List = [i for i in dpd_db if _keep(i)]
 
     # Split the list into batches, each batch will be assigned to a Process() thread.
-    batches: List[List[ItemPair]] = list_into_batches(filtered_pairs, use_n_processes)
+    batches: List = list_into_batches(filtered_pairs, use_n_processes)
 
     processes: List[Process] = []
 
@@ -419,7 +419,7 @@ def make_data_dict_and_html(pth: ProjectPaths,
     # memory objects of the parent scope. This is a good way to access shared
     # read-only memory object between threads.
 
-    def _parse_batch(batch: List[ItemPair], __batch_idx__: int):
+    def _parse_batch(batch: List, __batch_idx__: int):
         """Takes a batch of items (and the necessary lookup dicts for the work), applies the work with _parse_item_pair() to each work item.
 
         The results are added to a ListProxy, which is going to be a list() in shared memory from the multiprocessing Manager().
@@ -429,16 +429,16 @@ def make_data_dict_and_html(pth: ProjectPaths,
             print("[yellow]Batch list has 0 length")
             return
 
-        res = [_parse_item_pair(i, j, dicts) for (i, j) in batch]
+        res = [_parse_item(i, dicts) for i in batch]
         results_list.extend(res)
 
         # Save the details of the first item of the batch for logging and review.
-        first_word, _ = batch[0]
+        first_word = batch[0]
         first_map_html = res[0]["freq_html"]
 
         with open(
             pth.freq_html_dir.joinpath(
-                first_word.pali_1).with_suffix(".html"), "w") as f:
+                first_word.lemma_1).with_suffix(".html"), "w") as f:
             f.write(first_map_html)
 
     for batch_idx, batch in enumerate(batches):
@@ -470,10 +470,12 @@ def make_data_dict_and_html(pth: ProjectPaths,
 
     # Add the results to the database.
     print("[green]adding to db", end=" ")
-    db_session.execute(update(DerivedData), add_to_db)
+    db_session.execute(update(DpdHeadwords), add_to_db)
     db_session.commit()
     db_session.close()
     print(len(add_to_db))
+
+    # {'id': 77789, 'freq_html': '<p class="heading underlined">Exact matches of <b>chupanta and its declensions</b> in the Chaṭṭha Saṅgāyana corpus.</p><!-- template for rendering frequency map as html -->\n\n<table class = \'freq\'>\n  <thead>\n    <tr style="text-align: right;">\n      <th></th>\n      <th></th>\n      <th>M</th>\n      <th>A</th>\n      <th>Ṭ</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th rowspan=\'6\' class="vertical-text">Vinaya</th>\n    </tr>\n    <tr>\n      <th>Pārājika</th>\n      <td class=\'gr1\'>1</td>\n      <td class=\'gr3\'>9</td>\n      <td class=\'gr10\' rowspan=\'5\'>28</td>\n    </tr>\n    <tr>\n      <th>Pācittiya</th>\n      <td class=\'gr0\'></td>\n      <td class=\'gr0\'></td>\n    </tr>\n    <tr>\n      <th>Mahāvagga</th>\n      <td class=\'gr0\'></td>\n      <td class=\'gr0\'></td>\n    </tr>\n    <tr>\n      <th>Cūḷavagga</th>\n      <td class=\'gr0\'></td>\n      <td class=\'gr0\'></td>\n    </tr>\n    <tr>\n      <th>Parivāra</th>\n      <td class=\'gr0\'></td>\n      <td class=\'gr0\'></td>\n    </tr>\n    <tr>\n      <th rowspan=\'8\' class="vertical-text">Sutta</th>\n    </tr>\n    <tr>\n      <th>Dīgha Nikāya</th>\n      <td class=\'gr0\'></td>\n      <td class=\'gr0\'></td>\n      <td class=\'gr0\'></td>\n    </tr>\n    <tr>\n      <th>Majjhima Nikāya</th>\n      <td class=\'gr0\'></td>\n      <td class=\'gr0\'></td>\n      <td class=\'gr0\'></td>\n    </tr>\n    <tr>\n      <th>Saṃyutta Nikāya</th>\n      <td class=\'gr0\'></td>\n      <td class=\'gr0\'></td>\n      <td class=\'gr0\'></td>\n    </tr>\n    <tr>\n      <th>Aṅguttara Nikāya</th>\n      <td class=\'gr0\'></td>\n      <td class=\'gr0\'></td>\n      <td class=\'gr0\'></td>\n    </tr>\n    <tr>\n      <th>Khuddaka Nikāya 1</th>\n      <td class=\'gr0\'></td>\n      <td class=\'gr0\'></td>\n      <td class=\'void\'></td>\n    </tr>\n    <tr>\n      <th>Khuddaka Nikāya 2</th>\n      <td class=\'gr0\'></td>\n      <td class=\'gr0\'></td>\n      <td class=\'void\'></td>\n    </tr>\n    <tr>\n      <th>Khuddaka Nikāya 3</th>\n      <td class=\'gr0\'></td>\n      <td class=\'gr0\'></td>\n      <td class=\'gr0\'></td>\n      <td class=\'void\'></td>\n    </tr>\n    <tr>\n      <th rowspan=\'8\' class="vertical-text">Abhidhamma</th>\n    </tr>\n    <tr>\n      <th>Dhammasaṅgaṇī</th>\n      <td class=\'gr0\'></td>\n      <td class=\'gr0\' rowspan=\'7\'></td>\n      <td class=\'gr0\' rowspan=\'7\'></td>\n    </tr>\n    <tr>\n      <th>Vibhaṅga</th>\n      <td class=\'gr0\'></td>\n    </tr>\n    <tr>\n      <th>Dhātukathā</th>\n      <td class=\'gr0\'></td>\n    </tr>\n    <tr>\n      <th>Puggalapaññatti</th>\n      <td class=\'gr0\'></td>\n    </tr>\n    <tr>\n      <th>Kathāvatthu</th>\n      <td class=\'gr0\'></td>\n    </tr>\n    <tr>\n      <th>Yamaka</th>\n      <td class=\'gr0\'></td>\n    </tr>\n    <tr>\n      <th>Paṭṭhāna</th>\n      <td class=\'gr0\'></td>\n    </tr>\n    <tr>\n      <th rowspan=\'10\' class="vertical-text">Aññā</th>\n    </tr>\n    <tr>\n      <th>Visuddhimagga</th>\n      <td class=\'void\'></td>\n      <td class=\'gr0\'></td>\n      <td class=\'gr0\'></td>\n    </tr>\n    <tr>\n      <th>Leḍī Sayāḍo</th>\n      <td class=\'void\'></td>\n      <td class=\'void\'></td>\n      <td class=\'gr0\'></td>\n    </tr>\n    <tr>\n      <th>Buddhavandanā</th>\n      <td class=\'void\'></td>\n      <td class=\'void\'></td>\n      <td class=\'gr0\'></td>\n    </tr>\n    <tr>\n      <th>Vaṃsa</th>\n      <td class=\'void\'></td>\n      <td class=\'void\'></td>\n      <td class=\'gr0\'></td>\n    </tr>\n    <tr>\n      <th>Byākaraṇa</th>\n      <td class=\'void\'></td>\n      <td class=\'void\'></td>\n      <td class=\'gr1\'>2</td>\n    </tr>\n    <tr>\n      <th>Pucchavissajjanā</th>\n      <td class=\'void\'></td>\n      <td class=\'void\'></td>\n      <td class=\'gr0\'></td>\n    </tr>\n    <tr>\n      <th>Nīti</th>\n      <td class=\'void\'></td>\n      <td class=\'void\'></td>\n      <td class=\'gr0\'></td>\n    </tr>\n    <tr>\n      <th>Pakiṇṇaka</th>\n      <td class=\'void\'></td>\n      <td class=\'void\'></td>\n      <td class=\'gr0\'></td>\n    </tr>\n    <tr>\n      <th>Sihaḷa</th>\n      <td class=\'void\'></td>\n      <td class=\'void\'></td>\n      <td class=\'gr0\'></td>\n    </tr>\n  </tbody>\n</table>'}
 
 
 if __name__ == "__main__":

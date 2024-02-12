@@ -10,7 +10,7 @@ from rich import print
 from rich.prompt import Prompt
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.db_search_string import db_search_string
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 from tools.paths import ProjectPaths
@@ -25,7 +25,7 @@ def main():
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(PaliWord).all()
+    dpd_db = db_session.query(DpdHeadwords).all()
     exceptions = load_exceptions(pth)
 
     identical_meaning_dict = find_identical_meanings(dpd_db, exceptions)
@@ -72,9 +72,9 @@ def find_identical_meanings(dpd_db, exceptions):
                     r"\b(nom|acc|instr|dat|abl|gen|loc|voc)\b", i.grammar)
             ):
                 if pos_meaning not in identical_meaning_dict:
-                    identical_meaning_dict[pos_meaning] = [i.pali_1]
+                    identical_meaning_dict[pos_meaning] = [i.lemma_1]
                 else:
-                    identical_meaning_dict[pos_meaning] += [i.pali_1]
+                    identical_meaning_dict[pos_meaning] += [i.lemma_1]
 
     # remove single entries
     for k, v in identical_meaning_dict.copy().items():
@@ -104,11 +104,11 @@ def add_identical_meanings(pth: ProjectPaths, identical_meaning_dict, db_session
         if len(headwords) > 1:
 
             db = db_session.query(
-                PaliWord).filter(PaliWord.pali_1.in_(headwords)).all()
+                DpdHeadwords).filter(DpdHeadwords.lemma_1.in_(headwords)).all()
 
             # sorted lists of clean headwords, synonyms and variants
-            db = sorted(db, key=lambda x: pali_sort_key(x.pali_1))
-            clean_headwords = pali_list_sorter([i.pali_clean for i in db])
+            db = sorted(db, key=lambda x: pali_sort_key(x.lemma_1))
+            clean_headwords = pali_list_sorter([i.lemma_clean for i in db])
 
             synonyms = pali_list_sorter(
                 [syn for i in db for syn in i.synonym_list if syn])
@@ -125,7 +125,7 @@ def add_identical_meanings(pth: ProjectPaths, identical_meaning_dict, db_session
                 print(f"\n{count} / {len(identical_meaning_dict)}")
 
                 for i in db:
-                    print(f"[yellow]{i.pali_1:<20}[blue]{i.pos:10}[green]{i.meaning_1:<30} [cyan]{i.synonym_list} [violet]{i.variant_list}")
+                    print(f"[yellow]{i.lemma_1:<20}[blue]{i.pos:10}[green]{i.meaning_1:<30} [cyan]{i.synonym_list} [violet]{i.variant_list}")
                 print(f"[cyan]{synonyms}")
                 print(f"[violet]{variants}")
 
@@ -145,7 +145,7 @@ def add_identical_meanings(pth: ProjectPaths, identical_meaning_dict, db_session
                 if choice == "s":
                     for i in db:
                         synonyms = set(clean_headwords) | set(synonyms)
-                        synonyms = synonyms - set([i.pali_clean])
+                        synonyms = synonyms - set([i.lemma_clean])
                         synonyms = synonyms - set(i.variant_list)
                         synonyms = pali_list_sorter(synonyms)
                         i.synonym = ", ".join(synonyms)
@@ -156,7 +156,7 @@ def add_identical_meanings(pth: ProjectPaths, identical_meaning_dict, db_session
                 elif choice == "v":
                     for i in db:
                         variants = set(clean_headwords) | set(variants)
-                        variants = variants - set([i.pali_clean])
+                        variants = variants - set([i.lemma_clean])
                         variants = variants - set(i.synonym_list)
                         variants = pali_list_sorter(variants)
                         i.variant = ", ".join(variants)
@@ -209,13 +209,13 @@ def find_single_meanings(dpd_db, exceptions):
                         r"\b(nom|acc|instr|dat|abl|gen|loc|voc|3rd|2nd|1st|reflx)\b", i.grammar)
                 ):
                     if pos_meaning not in single_meanings_dict:
-                        single_meanings_dict[pos_meaning] = set([i.pali_1])
+                        single_meanings_dict[pos_meaning] = set([i.lemma_1])
                     else:
                         # dont include same headword with different numbers
                         if not re.findall(
-                            fr"{i.pali_clean} \d.*",
+                            fr"{i.lemma_clean} \d.*",
                                 ", ".join(single_meanings_dict[pos_meaning])):
-                            single_meanings_dict[pos_meaning].add(i.pali_1)
+                            single_meanings_dict[pos_meaning].add(i.lemma_1)
 
     # remove meanings with single words
     # for (pos_meaning, word_list) in (single_meanings_dict.copy().items()):
@@ -274,11 +274,11 @@ def add_dual_meanings(pth: ProjectPaths, dual_meanings_dict, db_session, excepti
         # add individual words to synonyms or variants
 
         db = db_session.query(
-            PaliWord).filter(PaliWord.pali_1.in_(word_list)).all()
+            DpdHeadwords).filter(DpdHeadwords.lemma_1.in_(word_list)).all()
 
         # sorted lists of clean headwords, synonyms and variants
-        db = sorted(db, key=lambda x: pali_sort_key(x.pali_1))
-        clean_headwords = pali_list_sorter([i.pali_clean for i in db])
+        db = sorted(db, key=lambda x: pali_sort_key(x.lemma_1))
+        clean_headwords = pali_list_sorter([i.lemma_clean for i in db])
 
         synonyms = pali_list_sorter(
             set([syn for i in db for syn in i.synonym_list if syn]))
@@ -295,7 +295,7 @@ def add_dual_meanings(pth: ProjectPaths, dual_meanings_dict, db_session, excepti
             print(f"\n{counter}. {pos}. {meaning1} / {meaning2}")
 
             for i in db:
-                print(f"[yellow]{i.pali_1:<20}[blue]{i.pos:10}[green]{i.meaning_1:<30} [cyan]{i.synonym_list} [violet]{i.variant_list}")
+                print(f"[yellow]{i.lemma_1:<20}[blue]{i.pos:10}[green]{i.meaning_1:<30} [cyan]{i.synonym_list} [violet]{i.variant_list}")
             print(f"[cyan]{synonyms}")
             print(f"[violet]{variants}")
 
@@ -315,7 +315,7 @@ def add_dual_meanings(pth: ProjectPaths, dual_meanings_dict, db_session, excepti
             if choice == "s":
                 for i in db:
                     synonyms = set(clean_headwords) | set(i.synonym_list)
-                    synonyms = synonyms - set([i.pali_clean])
+                    synonyms = synonyms - set([i.lemma_clean])
                     synonyms = synonyms - set(i.variant_list)
                     if "" in synonyms:
                         synonyms.remove("")
@@ -328,7 +328,7 @@ def add_dual_meanings(pth: ProjectPaths, dual_meanings_dict, db_session, excepti
             elif choice == "v":
                 for i in db:
                     variants = set(clean_headwords) | set(i.variant_list)
-                    variants = variants - set([i.pali_clean])
+                    variants = variants - set([i.lemma_clean])
                     variants = variants - set(i.synonym_list)
                     if "" in variants:
                         variants.remove("")

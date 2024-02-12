@@ -7,7 +7,7 @@ from difflib import SequenceMatcher
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 
 threshold=0.84
@@ -16,25 +16,25 @@ def main():
     print("[bright_yellow]find duplicate or similar examples")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).all()
+    db = db_session.query(DpdHeadwords).all()
     for i in db:
         if i.example_1 and i.example_2:
             
             # test if identical
             if i.example_1 == i.example_2:
-                print(i.pali_1)
-                pyperclip.copy(i.pali_1)
+                print(i.lemma_1)
+                pyperclip.copy(i.lemma_1)
                 input()
 
             # test if similar
             elif paragraphs_are_similar(i.example_1, i.example_2):
                 print()
-                print(f"{i.id:<10}{i.pali_1}")
+                print(f"{i.id:<10}{i.lemma_1}")
                 print(f"[dark_green]{i.source_1} {i.sutta_1}")
                 print(f"[green]{i.example_1}")
                 print(f"[blue]{i.source_2} {i.sutta_2}")
                 print(f"[cyan]{i.example_2}")
-                pyperclip.copy(i.pali_1)
+                pyperclip.copy(i.lemma_1)
                 user_input = input("d=delete, s=swap ")
                 if user_input == "d":
                     i = delete_example_2(i)

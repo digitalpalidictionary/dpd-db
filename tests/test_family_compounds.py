@@ -9,7 +9,7 @@ import pyperclip
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.tic_toc import tic, toc
 from tools.meaning_construction import clean_construction
 from tools.paths import ProjectPaths
@@ -20,7 +20,7 @@ def main():
     print("[bright_yellow]finding missing family_compounds")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).all()
+    db = db_session.query(DpdHeadwords).all()
     d: dict = make_dict_of_sets(db)
     failures = test_family_compound(d)
     add_to_db(failures)
@@ -61,7 +61,7 @@ def make_dict_of_sets(db):
 
         # all_clean_headwords
         if (i.meaning_1):
-            d["all_clean_headwords"].update([i.pali_clean])
+            d["all_clean_headwords"].update([i.lemma_clean])
 
         # all_empty_family_compounds
         if (
@@ -69,14 +69,14 @@ def make_dict_of_sets(db):
             not i.family_compound and
             not i.meaning_1.startswith("name of")
         ):
-            d["all_empty_family_compounds"].update([i.pali_clean])
+            d["all_empty_family_compounds"].update([i.lemma_clean])
 
         # all_compound_headwords
         if (
             i.meaning_1 and
             re.findall(r"\bcomp\b", i.grammar)
         ):
-            d["all_compound_headwords"].update([i.pali_clean])
+            d["all_compound_headwords"].update([i.lemma_clean])
 
     return d
 
@@ -118,7 +118,7 @@ def add_to_db(failures):
     for counter, failure in enumerate(failures):
         if failure not in exceptions:
             sql_search_term = re.escape(failure)
-            sql_query = f"SELECT pali_1, grammar, meaning_1, family_compound, construction FROM pali_words WHERE (pali_1 REGEXP '\\b{sql_search_term}\\b' OR construction REGEXP '\\b{sql_search_term}\\b') AND meaning_1 <> ''"
+            sql_query = f"SELECT lemma_1, grammar, meaning_1, family_compound, construction FROM dpd_headwords WHERE (lemma_1 REGEXP '\\b{sql_search_term}\\b' OR construction REGEXP '\\b{sql_search_term}\\b') AND meaning_1 <> ''"
             print(counter+1)
             print(failure, end=" ")
             pyperclip.copy(sql_query)

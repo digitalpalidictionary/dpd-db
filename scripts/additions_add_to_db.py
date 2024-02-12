@@ -3,7 +3,7 @@
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 
 from tools.paths import ProjectPaths
 from tools.addition_class import Addition
@@ -15,7 +15,7 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
 
     # get the very last id number
-    last_id = max(db_session.query(PaliWord.id).all())[0]
+    last_id = max(db_session.query(DpdHeadwords.id).all())[0]
     next_id = last_id + 1
     print(f"{'last_id:':<20}{last_id:>10}")
     print(f"{'next_id:':<20}{next_id:>10}")
@@ -52,11 +52,11 @@ def main():
 def test_pali(db_session, a):
     """Test if pali_word is in the db already."""
 
-    pali_1 = a.pali_word.pali_1
+    lemma_1 = a.pali_word.lemma_1
     
-    result = db_session.query(PaliWord).filter_by(pali_1=pali_1).first() 
+    result = db_session.query(DpdHeadwords).filter_by(lemma_1=lemma_1).first() 
     if result:
-        print("[red]duplicate pali_1 found: ", end="")
+        print("[red]duplicate lemma_1 found: ", end="")
         print(f"[white]{a.pali_word}")
         print("[white]r[red]ename or [white]d[red]elete? ", end="")
         rename_delete = input ()
@@ -68,7 +68,7 @@ def test_pali(db_session, a):
         elif rename_delete == "r":
             print("enter a new name?")
             new_name = input()
-            a.pali_word.pali_1 = new_name
+            a.pali_word.lemma_1 = new_name
             return test_pali(db_session, a)
     else:
         print(a)

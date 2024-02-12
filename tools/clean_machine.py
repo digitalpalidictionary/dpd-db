@@ -83,7 +83,10 @@ def clean_machine(text: str, niggahita="ṃ", remove_hyphen=True) -> str:
     text = re.sub("^ *", "", text)
     text = re.sub(" $", "", text)
 
+    if remove_hyphen == False:
+        allowed_characters += "-"
     errors = set([c for c in text if c not in allowed_characters])
+
 
     if len(errors) != 0:
         print(f"[bright_red]errors:{errors}", end=" ")

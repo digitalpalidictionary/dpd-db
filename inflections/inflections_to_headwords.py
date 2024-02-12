@@ -4,17 +4,18 @@
 and matching corresponding headwords."""
 
 import csv
+import json
 
 from rich import print
+from tools.lookup_is_another_value import is_another_value
 
 from tools.tic_toc import tic, toc, bip, bop
 from db.get_db_session import get_db_session
-from db.models import PaliRoot, PaliWord, DerivedData, Sandhi
-from db.models import InflectionToHeadwords
-from tools.pali_sort_key import pali_sort_key
+from db.models import DpdHeadwords, Lookup
 from tools.paths import ProjectPaths
-from tools.sandhi_words import make_words_in_sandhi_set
+from tools.deconstructed_words import make_words_in_deconstructions
 from tools.headwords_clean_set import make_clean_headwords_set
+from tools.update_test_add import update_test_add
 
 
 def inflection_to_headwords(pth: ProjectPaths):
@@ -24,9 +25,7 @@ def inflection_to_headwords(pth: ProjectPaths):
     bip()
     print(f"[green]{'querying db':<30}", end="")
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(PaliWord).all()
-    dd_db = db_session.query(DerivedData).all()
-    sandhi_db = db_session.query(Sandhi).all()
+    dpd_db = db_session.query(DpdHeadwords).all()
     print(f"{len(dpd_db):>10,}{bop():>10}")
 
     bip()
@@ -37,9 +36,9 @@ def inflection_to_headwords(pth: ProjectPaths):
     print(f"{len(all_tipitaka_words):>10,}{bop():>10}")
 
     bip()
-    print(f"[green]{'all words in sandhi set':<30}", end="")
-    words_in_sandhi_set: set = make_words_in_sandhi_set(sandhi_db)
-    print(f"{len(words_in_sandhi_set):>10,}{bop():>10}")
+    print(f"[green]{'all words in deconstructor set':<30}", end="")
+    words_in_deconstructions: set = make_words_in_deconstructions(db_session)
+    print(f"{len(words_in_deconstructions):>10,}{bop():>10}")
 
     bip()
     print(f"[green]{'clean headwords set':<30}", end="")
@@ -48,7 +47,7 @@ def inflection_to_headwords(pth: ProjectPaths):
 
     bip()
     print(f"[green]{'all words set':<30}", end="")
-    all_words_set: set = all_tipitaka_words | words_in_sandhi_set
+    all_words_set: set = all_tipitaka_words | words_in_deconstructions
     all_words_set.update(clean_headwords_set)
     print(f"{len(all_words_set):>10,}{bop():>10}")
 
@@ -58,43 +57,16 @@ def inflection_to_headwords(pth: ProjectPaths):
 
     i2h_dict = {}
 
-    for __counter__, (i, dd) in enumerate(zip(dpd_db, dd_db)):
-        if i.id == dd.id:
-            inflections = dd.inflections_list
-            for inflection in inflections:
-                if inflection in all_words_set:
-                    if inflection not in i2h_dict:
-                        i2h_dict[inflection] = {i.pali_1}
-                    else:
-                        i2h_dict[inflection].add(i.pali_1)
-        else:
-            print(f"id: {i.id} != dd_id: {dd.id}")
+    for i in dpd_db:
+        inflections = i.inflections_list
+        for inflection in inflections:
+            if inflection in all_words_set:
+                if inflection not in i2h_dict:
+                    i2h_dict[inflection] = [i.id]
+                else:
+                    i2h_dict[inflection].append(i.id)
 
     print(f"{len(dpd_db):>10,}{bop():>10}")
-
-    # add roots
-    bip()
-    message = "adding roots"
-    print(f"[green]{message:<30}", end="")
-    roots_db = db_session.query(PaliRoot).all()
-
-    # !!! FIXME add proper roots headwords 
-
-    for r in roots_db:
-
-        # add clean roots
-        if r.root_clean not in i2h_dict:
-            i2h_dict[r.root_clean] = {r.root_clean}
-        else:
-            i2h_dict[r.root_clean].add(r.root_clean)
-
-        # add roots no sign
-        if r.root_no_sign not in i2h_dict:
-            i2h_dict[r.root_no_sign] = {r.root_clean}
-        else:
-            i2h_dict[r.root_no_sign].add(r.root_clean)
-
-    print(f"{len(roots_db):>10,}{bop():>10}")
 
     bip()
     message = "saving to tsv"
@@ -102,10 +74,9 @@ def inflection_to_headwords(pth: ProjectPaths):
     with open(pth.tpr_i2h_tsv_path, "w") as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerow(["inflection", "headwords"])
-        for k, v in i2h_dict.items():
-            v = sorted(v, key=pali_sort_key)
-            v = ",".join(v)
-            writer.writerow([k, v])
+        for headword, ids in i2h_dict.items():
+            ids = json.dumps(sorted(ids))
+            writer.writerow([headword, ids])
     print(f"{len(i2h_dict):>10,}{bop():>10}")
 
     add_i2h_to_db(db_session, i2h_dict)
@@ -116,20 +87,34 @@ def add_i2h_to_db(db_session, i2h_dict):
     bip()
     print(f"[green]{'adding to db':<30}", end="")
 
+    lookup_table = (db_session.query(Lookup).all())
+    update_set, test_set, add_set = update_test_add(lookup_table, i2h_dict)
+
+    # update test add
+    for i in lookup_table:
+        if i.lookup_key in update_set:
+            i.pack_headwords(sorted(i2h_dict[i.lookup_key]))
+        elif i.lookup_key in test_set:
+            if is_another_value(i, "headwords"):
+                i.headwords = ""
+            else:
+                db_session.delete(i)    
+    
+    db_session.commit()
+
+    # add
     add_to_db = []
-
     for inflection, headwords in i2h_dict.items():
-        headwords = sorted(headwords, key=pali_sort_key)
-        headwords_string = ",".join(headwords)
-        i2h_data = InflectionToHeadwords(
-            inflection=inflection,
-            headwords=headwords_string)
-        add_to_db.append(i2h_data)
+        if inflection in add_set:
+            add_me = Lookup()
+            add_me.lookup_key = inflection
+            add_me.pack_headwords(sorted(headwords))
+            add_to_db.append(add_me)
 
-    db_session.execute(InflectionToHeadwords.__table__.delete())
     db_session.add_all(add_to_db)
     db_session.commit()
     db_session.close()
+
     print(f"{len(i2h_dict):>10,}{bop():>10}")
 
 

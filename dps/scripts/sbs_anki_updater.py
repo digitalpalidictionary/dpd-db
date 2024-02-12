@@ -15,7 +15,7 @@ from rich import print
 from typing import List, Dict
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 
 from tools.configger import config_read
 from tools.paths import ProjectPaths
@@ -40,7 +40,7 @@ def main():
     print(f"[green]{'setup dbs':<20}", end="")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs), joinedload(PaliWord.ru)).all()
+    db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs), joinedload(DpdHeadwords.ru)).all()
     print(f"{len(db):>10}{bop():>10.2f}")
 
     decks = ["Pali DHP vocab", "Pali Parittas", "Phonetic Changes Pali Class", "Roots Pali Class", "SBS Pali-English Vocab", "Suttas Advanced Pali Class", "Vocab Pali Class"]
@@ -233,7 +233,7 @@ def update_from_db(decks, db, col, data_dict, deck_dict, model_dict) -> None:
 
                         # make_new_note(col, deck, model_dict, deck_dict, i)
                     if counter % 5000 == 0:
-                        print(f"{counter:>5} {i.pali_1[:23]:<24}{bop():>10.2f}")
+                        print(f"{counter:>5} {i.lemma_1[:23]:<24}{bop():>10.2f}")
                         bip()
 
                 else:
@@ -257,7 +257,7 @@ def update_note_values(deck, note, i):
     old_fields = copy.copy(note.fields)
 
     note["id"] = str(i.id)
-    note["pali_1"] = str(i.pali_1)
+    note["lemma_1"] = str(i.lemma_1)
 
     if i.sbs:
         if "sbs_meaning" in note:
@@ -274,8 +274,8 @@ def update_note_values(deck, note, i):
             note["sbs_sutta_1"] = str(i.sbs.sbs_sutta_1).replace("\n", "<br>")
         if "sbs_example_1" in note:            
             note["sbs_example_1"] = str(i.sbs.sbs_example_1).replace("\n", "<br>")
-        if "sbs_chant_pali_1" in note:            
-            note["sbs_chant_pali_1"] = str(i.sbs.sbs_chant_pali_1)
+        if "sbs_chant_lemma_1" in note:            
+            note["sbs_chant_lemma_1"] = str(i.sbs.sbs_chant_lemma_1)
         if "sbs_chant_eng_1" in note:            
             note["sbs_chant_eng_1"] = str(i.sbs.sbs_chant_eng_1)
         if "sbs_chapter_1" in note:            
@@ -286,8 +286,8 @@ def update_note_values(deck, note, i):
             note["sbs_sutta_2"] = str(i.sbs.sbs_sutta_2).replace("\n", "<br>")
         if "sbs_example_2" in note:            
             note["sbs_example_2"] = str(i.sbs.sbs_example_2).replace("\n", "<br>")
-        if "sbs_chant_pali_2" in note:            
-            note["sbs_chant_pali_2"] = str(i.sbs.sbs_chant_pali_2)
+        if "sbs_chant_lemma_2" in note:            
+            note["sbs_chant_lemma_2"] = str(i.sbs.sbs_chant_lemma_2)
         if "sbs_chant_eng_2" in note:            
             note["sbs_chant_eng_2"] = str(i.sbs.sbs_chant_eng_2)
         if "sbs_chapter_2" in note:            
@@ -340,27 +340,27 @@ def update_note_values(deck, note, i):
             # Remove everything after " lit." in 'meaning_2'
             meaning_2_without_lit = i.meaning_2.split("; lit.")[0]
             note['meaning_1'] = meaning_2_without_lit
-            # print(f"meaning_2_without_lit {i.pali_1}") # Debugging line
+            # print(f"meaning_2_without_lit {i.lemma_1}") # Debugging line
         elif (
             not i.meaning_1 and 
             i.meaning_lit and 
             i.meaning_2
         ):
             note['meaning_1'] = i.meaning_2
-            # print(f"meaning_2=meaning_1 {i.pali_1}") # Debugging line
+            # print(f"meaning_2=meaning_1 {i.lemma_1}") # Debugging line
         elif (
             not i.meaning_1 and 
             not i.meaning_lit and 
             i.meaning_2
         ):
             note['meaning_1'] = i.meaning_2
-            # print(f"meaning_2=meaning_1 {i.pali_1}") # Debugging line
+            # print(f"meaning_2=meaning_1 {i.lemma_1}") # Debugging line
 
         elif i.meaning_1:
             note['meaning_1'] = i.meaning_1
-            # print(f"meaning_1 {i.pali_1}") # Debugging line
+            # print(f"meaning_1 {i.lemma_1}") # Debugging line
         else:
-            print(f"no meaning {i.pali_1}")
+            print(f"no meaning {i.lemma_1}")
 
     if "meaning_lit" in note:           
         note["meaning_lit"] = str(i.meaning_lit)
@@ -412,10 +412,10 @@ def update_note_values(deck, note, i):
 
     if "tags" in note and deck == "SBS Pali-English Vocab":
         tags = []
-        if i.sbs.sbs_chant_pali_1:
-            tags.append(i.sbs.sbs_chant_pali_1.replace(' ', '-'))
-        if i.sbs.sbs_chant_pali_2:
-            tags.append(i.sbs.sbs_chant_pali_2.replace(' ', '-'))
+        if i.sbs.sbs_chant_lemma_1:
+            tags.append(i.sbs.sbs_chant_lemma_1.replace(' ', '-'))
+        if i.sbs.sbs_chant_lemma_2:
+            tags.append(i.sbs.sbs_chant_lemma_2.replace(' ', '-'))
         if i.sbs.sbs_chant_pali_3:
             tags.append(i.sbs.sbs_chant_pali_3.replace(' ', '-'))
         if i.sbs.sbs_chant_pali_4:
@@ -432,8 +432,8 @@ def update_note_values(deck, note, i):
     # sbs_index
     chant_index_map = load_chant_index_map()
     chants = [
-        i.sbs.sbs_chant_pali_1,
-        i.sbs.sbs_chant_pali_2,
+        i.sbs.sbs_chant_lemma_1,
+        i.sbs.sbs_chant_lemma_2,
         i.sbs.sbs_chant_pali_3,
         i.sbs.sbs_chant_pali_4
     ] if i.sbs else []
@@ -446,9 +446,9 @@ def update_note_values(deck, note, i):
 
     # sbs_audio
     if dpspth.anki_media_dir:
-        audio_path = os.path.join(dpspth.anki_media_dir, f"{i.pali_clean}.mp3")
+        audio_path = os.path.join(dpspth.anki_media_dir, f"{i.lemma_clean}.mp3")
         if os.path.exists(audio_path):
-            sbs_audio = f"[sound:{i.pali_clean}.mp3]"
+            sbs_audio = f"[sound:{i.lemma_clean}.mp3]"
         else:
             sbs_audio = ''
     else:
@@ -459,7 +459,7 @@ def update_note_values(deck, note, i):
         note["sbs_audio"] = sbs_audio
 
     # Logic for feedback
-    feedback_url = f'Spot a mistake? <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLScNC5v2gQbBCM3giXfYIib9zrp-WMzwJuf_iVXEMX2re4BFFw/viewform?usp=pp_url&entry.438735500={i.pali_1}&entry.1433863141={deck}">Fix it here</a>.'
+    feedback_url = f'Spot a mistake? <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLScNC5v2gQbBCM3giXfYIib9zrp-WMzwJuf_iVXEMX2re4BFFw/viewform?usp=pp_url&entry.438735500={i.lemma_1}&entry.1433863141={deck}">Fix it here</a>.'
     if "feedback" in note:
         note["feedback"] = feedback_url
 
@@ -530,7 +530,7 @@ def update_deck(decks, col, note, i, data, deck_dict, model_dict):
 
 def make_new_note(col, deck, model_dict, deck_dict, i):
     
-    print(f"Creating new note for {i.pali_1}") # Debugging line
+    print(f"Creating new note for {i.lemma_1}") # Debugging line
 
     # Get the list of all note types from the collection
     note_types = [model["name"] for model in col.models.all()]
@@ -548,7 +548,7 @@ def make_new_note(col, deck, model_dict, deck_dict, i):
     if (
         i.ru and
         i.sbs and
-        (i.sbs.sbs_chant_pali_1 or i.sbs.sbs_chant_pali_2 or i.sbs.sbs_chant_pali_3 or i.sbs.sbs_chant_pali_4)
+        (i.sbs.sbs_chant_lemma_1 or i.sbs.sbs_chant_lemma_2 or i.sbs.sbs_chant_pali_3 or i.sbs.sbs_chant_pali_4)
     ):
         model_id = model_dict['SBS Vocab']
         deck_id = deck_dict[deck]
@@ -556,10 +556,10 @@ def make_new_note(col, deck, model_dict, deck_dict, i):
         note, is_updated = update_note_values(deck, note, i)
         col.add_note(note, deck_id)
 
-    # print(f"Added new note for {i.pali_1}") # Debugging line
+    # print(f"Added new note for {i.lemma_1}") # Debugging line
 
     # else:
-    #     print(f"Warning: Note type '{note_types}' not found in model_dict. for {i.pali_1}")
+    #     print(f"Warning: Note type '{note_types}' not found in model_dict. for {i.lemma_1}")
 
 
 if __name__ == "__main__":

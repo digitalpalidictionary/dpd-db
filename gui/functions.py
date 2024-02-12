@@ -17,7 +17,7 @@ from aksharamukha import transliterate
 from rich import print
 from nltk import word_tokenize
 
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from functions_db import make_all_inflections_set
 from functions_db import values_to_pali_word
 
@@ -41,7 +41,7 @@ nltk.download('punkt')
 class Flags:
     def __init__(self):
         self.show_fields = True
-        self.pali_2 = True
+        self.lemma_2 = True
         self.grammar = True
         self.derived_from = True
         self.family_root = True
@@ -65,7 +65,7 @@ class Flags:
 
 def reset_flags(flags):
     flags.show_fields = True
-    flags.pali_2 = True
+    flags.lemma_2 = True
     flags.grammar = True
     flags.derived_from = True
     flags.family_root = True
@@ -231,185 +231,185 @@ def open_sandhi_exceptions(pth):
 def add_stem_pattern(values, window):
     pos = values["pos"]
     grammar = values["grammar"]
-    pali_1 = values["pali_1"]
-    pali_1_clean = re.sub(r"\s\d.*$", "", pali_1)
+    lemma_1 = values["lemma_1"]
+    lemma_1_clean = re.sub(r"\s\d.*$", "", lemma_1)
 
     if pos == "adj":
-        if pali_1_clean.endswith("a"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("a"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("a adj")
-        if pali_1_clean.endswith("ī"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("ī"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("ī adj")
-        if pali_1_clean.endswith("ant"):
-            window["stem"].update(pali_1_clean[:-3])
+        if lemma_1_clean.endswith("ant"):
+            window["stem"].update(lemma_1_clean[:-3])
             window["pattern"].update("ant adj")
-        if pali_1_clean.endswith("u"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("u"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("u adj")
-        if pali_1_clean.endswith("i"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("i"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("i adj")
-        if pali_1_clean.endswith("ū"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("ū"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("ū adj")
-        if pali_1_clean.endswith("aka"):
-            window["stem"].update(pali_1_clean[:-3])
+        if lemma_1_clean.endswith("aka"):
+            window["stem"].update(lemma_1_clean[:-3])
             window["pattern"].update("aka adj")
 
     elif pos == "masc":
-        if pali_1_clean.endswith("a"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("a"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("a masc")
-        if pali_1_clean.endswith("ī"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("ī"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("ī masc")
-        if pali_1_clean.endswith("i"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("i"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("i masc")
-        if pali_1_clean.endswith("u"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("u"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("u masc")
-        if pali_1_clean.endswith("ar"):
-            window["stem"].update(pali_1_clean[:-2])
+        if lemma_1_clean.endswith("ar"):
+            window["stem"].update(lemma_1_clean[:-2])
             window["pattern"].update("ar masc")
-        if pali_1_clean.endswith("as"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("as"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("as masc")
-        if pali_1_clean.endswith("ū"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("ū"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("ū masc")
-        if pali_1_clean.endswith("ant"):
-            window["stem"].update(pali_1_clean[:-3])
+        if lemma_1_clean.endswith("ant"):
+            window["stem"].update(lemma_1_clean[:-3])
             window["pattern"].update("ant masc")
-        if pali_1_clean.endswith("ā"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("ā"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("a masc pl")
-        if pali_1_clean.endswith("as"):
-            window["stem"].update(pali_1_clean[:-2])
+        if lemma_1_clean.endswith("as"):
+            window["stem"].update(lemma_1_clean[:-2])
             window["pattern"].update("as masc")
 
     elif pos == "fem":
-        if pali_1_clean.endswith("ā"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("ā"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("ā fem")
-        if pali_1_clean.endswith("i"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("i"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("i fem")
-        if pali_1_clean.endswith("ī"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("ī"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("ī fem")
-        if pali_1_clean.endswith("u"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("u"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("u fem")
-        if pali_1_clean.endswith("ar"):
-            window["stem"].update(pali_1_clean[:-2])
+        if lemma_1_clean.endswith("ar"):
+            window["stem"].update(lemma_1_clean[:-2])
             window["pattern"].update("ar fem")
-        if pali_1_clean.endswith("ū"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("ū"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("ū fem")
-        if pali_1_clean.endswith("mātar"):
-            window["stem"].update(pali_1_clean[:-5])
+        if lemma_1_clean.endswith("mātar"):
+            window["stem"].update(lemma_1_clean[:-5])
             window["pattern"].update("mātar fem")
 
     elif pos == "nt":
-        if pali_1_clean.endswith("a"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("a"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("a nt")
-        if pali_1_clean.endswith("u"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("u"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("u nt")
-        if pali_1_clean.endswith("i"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("i"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("i nt")
 
     elif pos == "card":
         if "x pl" in grammar:
-            window["stem"].update(pali_1_clean[:-1])
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("a1 card")
         if "nt sg" in grammar:
-            window["stem"].update(pali_1_clean[:-1])
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("a2 card")
-        if pali_1_clean.endswith("i"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("i"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("i card")
-        if pali_1_clean.endswith("koṭi"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("koṭi"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("i2 card")
-        if pali_1_clean.endswith("ā"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("ā"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("ā card")
 
     elif pos == "ordin":
-        if pali_1_clean.endswith("a"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("a"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("a ordin")
 
     elif pos == "pp":
-        if pali_1_clean.endswith("a"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("a"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("a pp")
 
     elif pos == "prp":
-        if pali_1_clean.endswith("anta"):
-            window["stem"].update(pali_1_clean[:-4])
+        if lemma_1_clean.endswith("anta"):
+            window["stem"].update(lemma_1_clean[:-4])
             window["pattern"].update("anta prp")
-        if pali_1_clean.endswith("enta"):
-            window["stem"].update(pali_1_clean[:-4])
+        if lemma_1_clean.endswith("enta"):
+            window["stem"].update(lemma_1_clean[:-4])
             window["pattern"].update("enta prp")
-        if pali_1_clean.endswith("onta"):
-            window["stem"].update(pali_1_clean[:-4])
+        if lemma_1_clean.endswith("onta"):
+            window["stem"].update(lemma_1_clean[:-4])
             window["pattern"].update("onta prp")
-        if pali_1_clean.endswith("māna"):
-            window["stem"].update(pali_1_clean[:-4])
+        if lemma_1_clean.endswith("māna"):
+            window["stem"].update(lemma_1_clean[:-4])
             window["pattern"].update("māna prp")
-        elif pali_1_clean.endswith("āna"):
-            window["stem"].update(pali_1_clean[:-3])
+        elif lemma_1_clean.endswith("āna"):
+            window["stem"].update(lemma_1_clean[:-3])
             window["pattern"].update("āna prp")
 
     elif pos == "ptp":
-        if pali_1_clean.endswith("a"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("a"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("a ptp")
 
     elif pos == "pron":
-        if pali_1_clean.endswith("a"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("a"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("a pron")
 
     elif pos == "pr":
-        if pali_1_clean.endswith("ati"):
-            window["stem"].update(pali_1_clean[:-3])
+        if lemma_1_clean.endswith("ati"):
+            window["stem"].update(lemma_1_clean[:-3])
             window["pattern"].update("ati pr")
-        if pali_1_clean.endswith("eti"):
-            window["stem"].update(pali_1_clean[:-3])
+        if lemma_1_clean.endswith("eti"):
+            window["stem"].update(lemma_1_clean[:-3])
             window["pattern"].update("eti pr")
-        if pali_1_clean.endswith("oti"):
-            window["stem"].update(pali_1_clean[:-3])
+        if lemma_1_clean.endswith("oti"):
+            window["stem"].update(lemma_1_clean[:-3])
             window["pattern"].update("oti pr")
-        if pali_1_clean.endswith("āti"):
-            window["stem"].update(pali_1_clean[:-3])
+        if lemma_1_clean.endswith("āti"):
+            window["stem"].update(lemma_1_clean[:-3])
             window["pattern"].update("āti pr")
 
     elif pos == "aor":
-        if pali_1_clean.endswith("i"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("i"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("i aor")
-        if pali_1_clean.endswith("esi"):
-            window["stem"].update(pali_1_clean[:-3])
+        if lemma_1_clean.endswith("esi"):
+            window["stem"].update(lemma_1_clean[:-3])
             window["pattern"].update("esi aor")
-        if pali_1_clean.endswith("āsi"):
-            window["stem"].update(pali_1_clean[:-3])
+        if lemma_1_clean.endswith("āsi"):
+            window["stem"].update(lemma_1_clean[:-3])
             window["pattern"].update("āsi aor")
 
     elif pos == "perf":
-        if pali_1_clean.endswith("a"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("a"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("a perf")
 
     elif pos == "imperf":
-        if pali_1_clean.endswith("ā"):
-            window["stem"].update(pali_1_clean[:-1])
+        if lemma_1_clean.endswith("ā"):
+            window["stem"].update(lemma_1_clean[:-1])
             window["pattern"].update("ā imperf")
 
     elif pos in INDECLINABLES:
@@ -965,11 +965,11 @@ def load_gui_state(pth):
     return values, words_to_add_list
 
 
-def test_construction(values, window, pali_clean_list):
+def test_construction(values, window, lemma_clean_list):
     construction_list = values["construction"].split(" + ")
     error_string = ""
     for c in construction_list:
-        if c not in pali_clean_list:
+        if c not in lemma_clean_list:
             error_string += f"{c} "
     window["construction_error"].update(error_string, text_color="red")
 
@@ -1042,7 +1042,7 @@ def test_username(sg):
 
 
 def compare_differences(
-        book_to_add, pth, values: dict, sg, pali_word_original: Optional[PaliWord], action):
+        book_to_add, pth, values: dict, sg, pali_word_original: Optional[DpdHeadwords], action):
     """Comapre the differences between original and new word.
     Save to corrections or additions TSV."""
 
@@ -1215,7 +1215,7 @@ def stasher(pth, values: dict, window):
     with open(pth.stash_path, "wb") as f:
         pickle.dump(values, f)
     window["messages"].update(
-        value=f"{values['pali_1']} stashed", text_color="white")
+        value=f"{values['lemma_1']} stashed", text_color="white")
 
 
 def unstasher(pth, window):
@@ -1229,26 +1229,26 @@ def unstasher(pth, window):
         value="unstashed", text_color="white")
 
 
-def increment_pali_1(values: dict) -> Tuple[str, str]:
-    pali_1: str = values["pali_1"]
+def increment_lemma_1(values: dict) -> Tuple[str, str]:
+    lemma_1: str = values["lemma_1"]
     pattern: str = r"\d$"
-    matches: list = re.findall(pattern, pali_1)
+    matches: list = re.findall(pattern, lemma_1)
     last_digit = int(matches[-1]) if matches else None
     if last_digit is not None:
         new_last_digit = last_digit + 1
-        updated_pali_1: str = re.sub(pattern, str(new_last_digit), pali_1, count=1)
-        return (pali_1, updated_pali_1)
+        updated_lemma_1: str = re.sub(pattern, str(new_last_digit), lemma_1, count=1)
+        return (lemma_1, updated_lemma_1)
     else:
-        return (f"{pali_1} 1", f"{pali_1} 2")
+        return (f"{lemma_1} 1", f"{lemma_1} 2")
 
 
-def make_pali_clean(values) -> str:
-    return re.sub(r" \d*$", "", values["pali_1"])
+def make_lemma_clean(values) -> str:
+    return re.sub(r" \d*$", "", values["lemma_1"])
 
 
 def make_construction(values) -> str:
     """Make a construction out of root family"""
-    pali_clean = make_pali_clean(values)
+    lemma_clean = make_lemma_clean(values)
 
     # root
     if values["root_key"]:
@@ -1266,9 +1266,9 @@ def make_construction(values) -> str:
 
     # compound
     elif re.findall(r"\bcomp\b", values["grammar"]):
-        return pali_clean
+        return lemma_clean
     else:
-        return pali_clean
+        return lemma_clean
 
 
 def make_construction_line1(values) -> str:
@@ -1280,22 +1280,22 @@ def make_construction_line1(values) -> str:
 
 
 def make_compound_construction(values):
-    pali_clean = make_pali_clean(values)
+    lemma_clean = make_lemma_clean(values)
     construction_line1 = make_construction_line1(values)
     
     # roots starting with su dur na
     if values["root_key"]:
         if values["construction"].startswith("su "):
-            return f"su + {pali_clean[2:]}"
+            return f"su + {lemma_clean[2:]}"
         elif values["construction"].startswith("dur "):
-            return f"dur + {pali_clean[3:]}"
+            return f"dur + {lemma_clean[3:]}"
         elif values["construction"].startswith("na "):
-            if pali_clean.startswith("an"):
-                return f"na + {pali_clean[2:]}"
-            elif pali_clean.startswith("a"):
-                return f"na + {pali_clean[1:]}"
-            elif pali_clean.startswith("na"):
-                return f"na + {pali_clean[2:]}"  
+            if lemma_clean.startswith("an"):
+                return f"na + {lemma_clean[2:]}"
+            elif lemma_clean.startswith("a"):
+                return f"na + {lemma_clean[1:]}"
+            elif lemma_clean.startswith("na"):
+                return f"na + {lemma_clean[2:]}"  
     
     # compounds
     elif re.findall(r"\bcomp\b", values["grammar"]):
@@ -1310,30 +1310,30 @@ def make_compound_construction(values):
         values["compound_type"] == "kammadhāraya"
         and "neg" in values["neg"] 
     ):
-        if pali_clean.startswith("na"):
+        if lemma_clean.startswith("na"):
             
             # check if there's a double consonant
-            if pali_clean[2] == pali_clean[3]:
-                return f"na + {pali_clean[3:]}"
+            if lemma_clean[2] == lemma_clean[3]:
+                return f"na + {lemma_clean[3:]}"
             else:
-                return f"na + {pali_clean[2:]}"
+                return f"na + {lemma_clean[2:]}"
             
-        elif pali_clean.startswith("an"):
-            return f"na + {pali_clean[2:]}"
+        elif lemma_clean.startswith("an"):
+            return f"na + {lemma_clean[2:]}"
         
-        elif pali_clean.startswith("a"):
+        elif lemma_clean.startswith("a"):
             
             # check if there's a double consonant
-            if pali_clean[1] == pali_clean[2]:
-                return f"na + {pali_clean[2:]}"
+            if lemma_clean[1] == lemma_clean[2]:
+                return f"na + {lemma_clean[2:]}"
             else:
-                return f"na + {pali_clean[1:]}"
+                return f"na + {lemma_clean[1:]}"
         
-        elif pali_clean.startswith("nā"):
-            return f"na + a{pali_clean[2:]}"
+        elif lemma_clean.startswith("nā"):
+            return f"na + a{lemma_clean[2:]}"
 
     else:
-        return pali_clean
+        return lemma_clean
 
 
 def make_has_values_list(values: dict) -> list[str]:

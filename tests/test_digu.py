@@ -6,7 +6,7 @@ import re
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 
 from tools.meaning_construction import clean_construction, make_meaning
 from tools.paths import ProjectPaths
@@ -16,7 +16,7 @@ from tools.tsv_read_write import write_tsv_list, read_tsv_dot_dict, write_tsv_do
 class ProgData():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).all()
+    db = db_session.query(DpdHeadwords).all()
     cardinal_set = set()
     cardinal_in_construction_set = set()
     all_parts_are_cardinal_set = set()
@@ -45,7 +45,7 @@ def make_dict_of_cardinals():
     
     for i in g.db:
         if i.pos == "card":
-            g.cardinal_set.add(i.pali_clean)
+            g.cardinal_set.add(i.lemma_clean)
     
     print(len(g.cardinal_set))
 
@@ -65,12 +65,12 @@ def find_cardinals_in_construction():
             all_parts_are_card = True
             for part in construction_parts:
                 if part in g.cardinal_set:
-                    g.cardinal_in_construction_set.add(i.pali_1)
+                    g.cardinal_in_construction_set.add(i.lemma_1)
                 else:
                     all_parts_are_card = False
             
             if all_parts_are_card:
-                g.all_parts_are_cardinal_set.add(i.pali_1)
+                g.all_parts_are_cardinal_set.add(i.lemma_1)
     
     print(len(g.cardinal_in_construction_set))
 
@@ -91,12 +91,12 @@ def write_to_tsv():
     print(f"[green]{'writing to tsv':<40}", end="")
 
     data_list = []
-    header = ["pali_1", "pos", "meaning", "construction", "compound_type", "compound_construction"]
+    header = ["lemma_1", "pos", "meaning", "construction", "compound_type", "compound_construction"]
     
     for i in g.db:
-        if i.pali_1 in g.cardinal_in_construction_set:
+        if i.lemma_1 in g.cardinal_in_construction_set:
             data_list.append(
-                [i.pali_1, i.pos, make_meaning(i), i.construction, i.compound_type, i.compound_construction])
+                [i.lemma_1, i.pos, make_meaning(i), i.construction, i.compound_type, i.compound_construction])
     
     write_tsv_list(str(g.pth.digu_path), header, data_list)
 
@@ -118,13 +118,13 @@ def fix_missing_id():
 def make_id_dict(g):
     g.pali_id_dict = {}
     for i in g.db:
-        g.pali_id_dict[i.pali_1] = i.id
+        g.pali_id_dict[i.lemma_1] = i.id
 
 
 def add_id_tsv_data(g):
     for i in g.digu_tsv_data:
         print(i)
-        i["id"] = g.pali_id_dict[i.pali_1]
+        i["id"] = g.pali_id_dict[i.lemma_1]
         print(i)
 
 def write_back_to_tsv(g):

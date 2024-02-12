@@ -11,7 +11,7 @@ from typing import List, Tuple
 
 from export_dpd import render_header_templ
 
-from db.models import PaliWord, PaliRoot
+from db.models import DpdHeadwords, DpdRoots
 from tools.tic_toc import bip, bop
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
@@ -38,11 +38,11 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[Rend
     else:
         dps_data: bool = False
 
-    dpd_db: list = db_session.query(PaliWord).options(joinedload(PaliWord.ru)).all()
-    dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.pali_1))
+    dpd_db: list = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.ru)).all()
+    dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
     dpd_db_length = len(dpd_db)
 
-    roots_db: list = db_session.query(PaliRoot).all()
+    roots_db: list = db_session.query(DpdRoots).all()
     roots_db_length = len(roots_db)
 
     epd: dict = {}
@@ -85,20 +85,20 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[Rend
 
             for meaning in meanings_list:
                 if meaning in epd.keys() and not i.plus_case:
-                    epd_string = f"{epd[meaning]}<br><b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.meaning_1}"
+                    epd_string = f"{epd[meaning]}<br><b class = 'epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1}"
                     epd[meaning] = epd_string
 
                 if meaning in epd.keys() and i.plus_case:
-                    epd_string = f"{epd[meaning]}<br><b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
+                    epd_string = f"{epd[meaning]}<br><b class = 'epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
                     epd[meaning] = epd_string
 
                 if meaning not in epd.keys() and not i.plus_case:
-                    epd_string = f"<b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.meaning_1}"
+                    epd_string = f"<b class = 'epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1}"
                     epd.update(
                         {meaning: epd_string})
 
                 if meaning not in epd.keys() and i.plus_case:
-                    epd_string = f"<b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
+                    epd_string = f"<b class = 'epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
                     epd.update(
                         {meaning: epd_string})
 
@@ -132,11 +132,11 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[Rend
 
             for ru_meaning in ru_meanings_list:
                 if ru_meaning in epd.keys():
-                    epd_string = f"{epd[ru_meaning]}<br><b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.ru.ru_meaning}"
+                    epd_string = f"{epd[ru_meaning]}<br><b class = 'epd'>{i.lemma_clean}</b> {i.pos}. {i.ru.ru_meaning}"
                     epd[ru_meaning] = epd_string
 
                 if ru_meaning not in epd.keys():
-                    epd_string = f"<b class = 'epd'>{i.pali_clean}</b> {i.pos}. {i.ru.ru_meaning}"
+                    epd_string = f"<b class = 'epd'>{i.lemma_clean}</b> {i.pos}. {i.ru.ru_meaning}"
                     epd.update(
                         {ru_meaning: epd_string})
 
@@ -169,9 +169,9 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[Rend
                     number_link = i.source_link_sutta
                     if make_link and number_link:
                         anchor_link = f'<a href="{number_link}">link</a>'
-                        epd_string = f"<b class='epd'>{i.pali_clean}</b>. {i.meaning_2} {anchor_link}"
+                        epd_string = f"<b class='epd'>{i.lemma_clean}</b>. {i.meaning_2} {anchor_link}"
                     else:
-                        epd_string = f"<b class='epd'>{i.pali_clean}</b>. {i.meaning_2}"
+                        epd_string = f"<b class='epd'>{i.lemma_clean}</b>. {i.meaning_2}"
 
                     if combined_number in epd.keys():
                         epd[combined_number] += f"<br>{epd_string}"
@@ -188,7 +188,7 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[Rend
             update_epd(epd, combined_numbers, i, make_link) 
 
         if counter % 10000 == 0:
-            print(f"{counter:>10,} / {dpd_db_length:<10,} {i.pali_1[:20]:<20} {bop():>10}")
+            print(f"{counter:>10,} / {dpd_db_length:<10,} {i.lemma_1[:20]:<20} {bop():>10}")
             bip()
 
     print("[green]adding roots to epd")

@@ -1,5 +1,5 @@
 % if sbs.needs_sbs_example_button or sbs.needs_sbs_examples_button:
-<div id="sbs_example_${i.pali_1_}" class="content hidden">
+<div id="sbs_example_${i.lemma_1_}" class="content hidden">
 % endif
 
     % if sbs.sbs_example_1:
@@ -13,7 +13,7 @@
         ${sbs.sbs_sutta_1}</p>
         % if sbs.sbs_chapter_1:
         <p class="sutta_sbs">
-            ${sbs.sbs_chapter_1} <a href="${sbs.sbs_chant_link_1}">${sbs.sbs_chant_pali_1}</a>
+            ${sbs.sbs_chapter_1} <a href="${sbs.sbs_chant_link_1}">${sbs.sbs_chant_lemma_1}</a>
             % if sbs.sbs_chant_eng_1:
                 ${sbs.sbs_chant_eng_1}
             % endif
@@ -31,7 +31,7 @@
         ${sbs.sbs_sutta_2}</p>
         % if sbs.sbs_chapter_2:
         <p class="sutta_sbs">
-            ${sbs.sbs_chapter_2} <a href="${sbs.sbs_chant_link_2}">${sbs.sbs_chant_pali_2}</a>
+            ${sbs.sbs_chapter_2} <a href="${sbs.sbs_chant_link_2}">${sbs.sbs_chant_lemma_2}</a>
             % if sbs.sbs_chant_eng_2:
                 ${sbs.sbs_chant_eng_2}
             % endif
@@ -75,7 +75,7 @@
     % endif
 
     <p class='footer'>
-        Did you spot a mistake in SBS examples? <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLScNC5v2gQbBCM3giXfYIib9zrp-WMzwJuf_iVXEMX2re4BFFw/viewform?usp=pp_url&entry.438735500=${i.pali_link}&entry.1433863141=SBS" target="_blank">Correct it here.</a>
+        Did you spot a mistake in SBS examples? <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLScNC5v2gQbBCM3giXfYIib9zrp-WMzwJuf_iVXEMX2re4BFFw/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.1433863141=SBS" target="_blank">Correct it here.</a>
     </p>
 
 </div>

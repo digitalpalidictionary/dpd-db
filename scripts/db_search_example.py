@@ -6,8 +6,8 @@ from db.get_db_session import get_db_session
 from tools.paths import ProjectPaths
 
 # if you want to access any table, import its Class here.
-# other options are PaliRoot, Sandhi, families etc.
-from db.models import PaliWord
+# other options are DpdRoots, Sandhi, families etc.
+from db.models import DpdHeadwords
 
 pth = ProjectPaths()
 # this connects to the db, use it once to access the db
@@ -15,15 +15,15 @@ db_session = get_db_session(pth.dpd_db_path)
 
 # this is how to search a table using a basic filter for
 # pos == "adj" and words starts with "abh"
-search_results = db_session.query(PaliWord).filter(
-    PaliWord.pos == "adj", PaliWord.pali_1.startswith("a")).all()
-# take note the results are returned as a [list] of PaliWord class instances
+search_results = db_session.query(DpdHeadwords).filter(
+    DpdHeadwords.pos == "adj", DpdHeadwords.lemma_1.startswith("a")).all()
+# take note the results are returned as a [list] of DpdHeadwords class instances
 
 # then loop through the list of results
 for i in search_results:
 
     # now you can access any table column by dot notation
-    print(f"{'PALI:':<15}{i.pali_1}")
+    print(f"{'PALI:':<15}{i.lemma_1}")
     # :<15 means 'left justify the text by 15 characters'
     print(f"{'POS:':<15}{i.pos}")
 
@@ -42,9 +42,8 @@ for i in search_results:
         print(
             f"{'ROOT':<15}{i.rt.root_clean} {i.rt.root_group} {i.root_sign} ({i.rt.root_meaning})")
 
-    # this imports the inflections list which is stored as csv list in the
-    # DerivedData table
-    inflections = i.dd.inflections_list
+    # this imports the inflections list which is stored as csv list
+    inflections = i.inflections_list
 
     # this loops through the inflections and prints them out
     print(f"{'INFLECTIONS:':<15}", end="")

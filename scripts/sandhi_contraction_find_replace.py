@@ -10,7 +10,7 @@ from sqlalchemy import or_
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 
 from tools.db_search_string import db_search_string
 from tools.paths import ProjectPaths
@@ -63,12 +63,12 @@ def input_word(pd):
 
 
 def find_instances(pd):
-    db = pd.db_session.query(PaliWord) \
+    db = pd.db_session.query(DpdHeadwords) \
         .filter(
             or_(
-                PaliWord.example_1.contains(pd.find_me),
-                PaliWord.example_2.contains(pd.find_me),
-                PaliWord.commentary.contains(pd.find_me))
+                DpdHeadwords.example_1.contains(pd.find_me),
+                DpdHeadwords.example_2.contains(pd.find_me),
+                DpdHeadwords.commentary.contains(pd.find_me))
                 ).all()
    
     pd.db = db
@@ -90,7 +90,7 @@ def find_instances(pd):
 
 
 def find_instances_in_bold(pd):
-    db = pd.db_session.query(PaliWord).all()
+    db = pd.db_session.query(DpdHeadwords).all()
     pd.db = db
 
     print("[green]searching inside bold strings")
@@ -104,7 +104,7 @@ def find_instances_in_bold(pd):
                 .replace("</b>", "")
             if clean_field.find(pd.find_me) != -1:
                 counter += 1
-                found_list += [(i.pali_1, field)]
+                found_list += [(i.lemma_1, field)]
 
     print(f"{counter} instance(s) found")
     print()
@@ -139,7 +139,7 @@ def replace_instances(pd):
             if field.find(pd.find_me) != -1:
                 counter += 1
 
-                print(f"[green]{counter}. {i.pali_1}: {column}")
+                print(f"[green]{counter}. {i.lemma_1}: {column}")
                 print()
                 
                 print("[yellow]before")
@@ -203,7 +203,7 @@ def replace_instances_regex(pd):
                 counter += 1
 
                 print()
-                print(f"[green]{counter}. {i.pali_1}: {column}")
+                print(f"[green]{counter}. {i.lemma_1}: {column}")
                 print()
                 
                 print("[yellow]before")

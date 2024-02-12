@@ -37,13 +37,13 @@ jobs:
     - name: Config settings for all texts
       run: poetry run scripts/db_all_text_setup.py
 
-    - name: Sandhi Setup
+    - name: Deconstruction Setup
       run: poetry run python sandhi/sandhi_setup.py
         
-    - name: Sandhi Splitter
+    - name: Deconstruction Splitter
       run: poetry run python sandhi/sandhi_splitter.py
 
-    - name: Sandhi Postporocess setup
+    - name: Deconstruction Postporocess setup
       run: poetry run python sandhi/sandhi_postprocess.py
 
     - name: Zip sandhi/output directory

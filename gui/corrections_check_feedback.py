@@ -4,14 +4,13 @@
 
 import csv
 import PySimpleGUI as sg
-from sqlalchemy import inspect
 import subprocess
 
 from rich import print
 
 from tools.goldedict_tools import open_in_goldendict
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 
 from tools.meaning_construction import make_meaning
 from tools.meaning_construction import summarize_construction
@@ -272,7 +271,7 @@ def open_corrections(pth):
 
 
 def make_summary(db):
-    word = db.pali_1
+    word = db.lemma_1
     pos = db.pos
     meaning = make_meaning(db)
     construction = summarize_construction(db)
@@ -350,8 +349,8 @@ def find_next_commented(db_session, corrections_list, window, values):
 
 
 def load_next_correction(db_session, c, window, __values__):
-    db = db_session.query(PaliWord).filter(
-        c.id == PaliWord.id).first()
+    db = db_session.query(DpdHeadwords).filter(
+        c.id == DpdHeadwords.id).first()
     open_in_goldendict(c.id)
     window["add_id"].update(c.id)
     window["add_summary"].update(make_summary(db))

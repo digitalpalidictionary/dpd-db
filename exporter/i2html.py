@@ -9,8 +9,7 @@ from rich import print
 from typing import List
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord, SBS, Russian
-from db.models import InflectionToHeadwords
+from db.models import DpdHeadwords, SBS, Russian
 
 from tools.configger import config_test
 from tools.exporter_functions import get_family_compounds
@@ -105,8 +104,8 @@ def make_html(
     html = header_templ.render(css=css, js=js)
 
     # iterate over headwords
-    results = db_session.query(PaliWord)\
-        .filter(PaliWord.pali_1.in_(headwords)).all()
+    results = db_session.query(DpdHeadwords)\
+        .filter(DpdHeadwords.lemma_1.in_(headwords)).all()
 
     for counter, i in enumerate(results):
         fc = get_family_compounds(i)

@@ -5,7 +5,7 @@
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 
 from sqlalchemy.orm import joinedload
@@ -17,7 +17,7 @@ column = "cognate"
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs), joinedload(PaliWord.ru)).all()
+    db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs), joinedload(DpdHeadwords.ru)).all()
     
     counter = 0
     for i in db:
@@ -38,7 +38,7 @@ def main():
         if find_char in old_field:
             new_field = old_field.replace(find_char, replace_char)
             
-            print(f"[white]{i.pali_1:<40}")
+            print(f"[white]{i.lemma_1:<40}")
             print(f"[green]{old_field}")
             print(f"[light_green]{new_field}")
             print()

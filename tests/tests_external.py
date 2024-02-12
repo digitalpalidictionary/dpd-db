@@ -10,8 +10,8 @@ from typing import Dict, Optional
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliRoot
-from db.models import PaliWord
+from db.models import DpdRoots
+from db.models import DpdHeadwords
 from db.models import FamilyCompound
 from tools.tic_toc import tic, toc
 from tools.pali_alphabet import consonants
@@ -43,11 +43,11 @@ def run_external_tests():
     # tests
     results_list = []
     results_list.append(family_compound_no_number(searches))
-    results_list.append(suffix_does_not_match_pali_1(searches))
-    results_list.append(construction_line1_does_not_match_pali_1(searches))
-    results_list.append(construction_line2_does_not_match_pali_1(searches))
-    results_list.append(pali_1_missing_a_number(searches))
-    results_list.append(pali_1_contains_extra_number(searches))
+    results_list.append(suffix_does_not_match_lemma_1(searches))
+    results_list.append(construction_line1_does_not_match_lemma_1(searches))
+    results_list.append(construction_line2_does_not_match_lemma_1(searches))
+    results_list.append(lemma_1_missing_a_number(searches))
+    results_list.append(lemma_1_contains_extra_number(searches))
     results_list.append(derived_from_not_in_headwords(searches))
     results_list.append(pali_words_in_english_meaning(searches))
     results_list.append(derived_from_not_in_family_compound(searches))
@@ -63,9 +63,9 @@ def run_external_tests():
     results_list.append(root_sign_x_base_mismatch(searches))
     results_list.append(root_base_x_construction_mismatch(searches))
     results_list.append(wrong_prefix_in_family_root(searches))
-    results_list.append(variant_equals_pali_1(searches))
-    results_list.append(antonym_equals_pali_1(searches))
-    results_list.append(synonym_equals_pali_1(searches))
+    results_list.append(variant_equals_lemma_1(searches))
+    results_list.append(antonym_equals_lemma_1(searches))
+    results_list.append(synonym_equals_lemma_1(searches))
     results_list.append(sandhi_contraction_errors(db_session))
     results_list.append(duplicate_phrases(searches))
     results_list.append(duplicate_words(searches))
@@ -89,17 +89,16 @@ def make_searches(db_session) -> Dict[str, list]:
 
     searches = {}
 
-    paliword = db_session.query(PaliWord).all()
+    paliword = db_session.query(DpdHeadwords).all()
     searches["paliword"] = paliword
 
-    paliroots = db_session.query(PaliRoot).all()
+    paliroots = db_session.query(DpdRoots).all()
     searches["paliroots"] = paliroots
 
     compound_families = db_session.query(FamilyCompound).all()
     searches["compound_families"] = compound_families
 
-    # deriveddata = db_session.query(DerivedData).all()
-    # searches["derived_data"] = deriveddata
+
 
     return searches
 
@@ -136,7 +135,7 @@ def family_compound_no_number(searches: dict) -> tuple:
     for i in searches["paliword"]:
         for fc in i.family_compound.split(" "):
             if fc in compound_family_numbered:
-                results += [i.pali_1]
+                results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
@@ -146,8 +145,8 @@ def family_compound_no_number(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def suffix_does_not_match_pali_1(searches: dict) -> tuple:
-    """Suffix last letter does not match the last letter of pali_1."""
+def suffix_does_not_match_lemma_1(searches: dict) -> tuple:
+    """Suffix last letter does not match the last letter of lemma_1."""
 
     results = []
     exceptions = [
@@ -155,23 +154,23 @@ def suffix_does_not_match_pali_1(searches: dict) -> tuple:
         "sāraṇī", "bahulī", "yānī 2", "yada", "sabbadhī"]
 
     for i in searches["paliword"]:
-        if i.suffix and i.pali_1 not in exceptions:
+        if i.suffix and i.lemma_1 not in exceptions:
             suffix_lastletter = i.suffix[-1]
-            pali_clean_lastletter = i.pali_clean[-1]
+            lemma_clean_lastletter = i.lemma_clean[-1]
 
-            if suffix_lastletter != pali_clean_lastletter:
-                results += [i.pali_1]
+            if suffix_lastletter != lemma_clean_lastletter:
+                results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
-    name = "suffix_does_not_match_pali_1"
+    name = "suffix_does_not_match_lemma_1"
     solution = "change suffix"
 
     return name, results, length, solution
 
 
-def construction_line1_does_not_match_pali_1(searches: dict) -> tuple:
-    """The end of construction line 1 does not match the end of pali_1."""
+def construction_line1_does_not_match_lemma_1(searches: dict) -> tuple:
+    """The end of construction line 1 does not match the end of lemma_1."""
 
     results = []
     exceptions = [
@@ -185,97 +184,97 @@ def construction_line1_does_not_match_pali_1(searches: dict) -> tuple:
         "sivathikā", "sīvathikā", "sakad", "bahulī"]
 
     for i in searches["paliword"]:
-        if i.pali_1 not in exceptions:
+        if i.lemma_1 not in exceptions:
             if i.construction and i.meaning_1:
                 const_lastlettter = re.sub("\n.+", "", i.construction)[-1]
-                if i.pali_clean[-1] != const_lastlettter:
-                    results += [i.pali_1]
+                if i.lemma_clean[-1] != const_lastlettter:
+                    results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
-    name = "construction_line1_does_not_match_pali_1"
+    name = "construction_line1_does_not_match_lemma_1"
     solution = "edit construction or add to exceptions"
 
     return name, results, length, solution
 
 
-def construction_line2_does_not_match_pali_1(searches: dict) -> tuple:
-    """The end of construction line 1 does not match the end of pali_1."""
+def construction_line2_does_not_match_lemma_1(searches: dict) -> tuple:
+    """The end of construction line 1 does not match the end of lemma_1."""
 
     results = []
 
     for i in searches["paliword"]:
         if "\n" in i.construction and i.meaning_1:
             const_lastlettter = i.construction[-1]
-            if i.pali_clean[-1] != const_lastlettter:
-                results += [i.pali_1]
+            if i.lemma_clean[-1] != const_lastlettter:
+                results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
-    name = "construction_line2_does_not_match_pali_1"
+    name = "construction_line2_does_not_match_lemma_1"
     solution = "edit construction line2"
 
     return name, results, length, solution
 
 
-def pali_1_missing_a_number(searches: dict) -> tuple:
-    """pali_1 does not contain a number, but should"""
+def lemma_1_missing_a_number(searches: dict) -> tuple:
+    """lemma_1 does not contain a number, but should"""
 
     results = []
     clean_headwords_count: dict = {}
 
     for i in searches["paliword"]:
-        if i.pali_clean not in clean_headwords_count:
-            clean_headwords_count[i.pali_clean] = 1
+        if i.lemma_clean not in clean_headwords_count:
+            clean_headwords_count[i.lemma_clean] = 1
         else:
-            clean_headwords_count[i.pali_clean] += 1
+            clean_headwords_count[i.lemma_clean] += 1
 
     for i in searches["paliword"]:
-        if not re.findall(r"\d", i.pali_1):
-            if clean_headwords_count[i.pali_clean] > 1:
-                results += [i.pali_clean]
+        if not re.findall(r"\d", i.lemma_1):
+            if clean_headwords_count[i.lemma_clean] > 1:
+                results += [i.lemma_clean]
 
     length = len(results)
     results = regex_results(results)
-    name = "pali_1_missing_a_number"
-    solution = "add a number to pali_1"
+    name = "lemma_1_missing_a_number"
+    solution = "add a number to lemma_1"
 
     return name, results, length, solution
 
 
-def pali_1_contains_extra_number(searches: dict) -> tuple:
-    """pali_1 contains a number, but shouldn't"""
+def lemma_1_contains_extra_number(searches: dict) -> tuple:
+    """lemma_1 contains a number, but shouldn't"""
 
     results = []
     clean_headwords_count: dict = {}
 
     for i in searches["paliword"]:
-        if i.pali_clean not in clean_headwords_count:
-            clean_headwords_count[i.pali_clean] = 1
+        if i.lemma_clean not in clean_headwords_count:
+            clean_headwords_count[i.lemma_clean] = 1
         else:
-            clean_headwords_count[i.pali_clean] += 1
+            clean_headwords_count[i.lemma_clean] += 1
 
     for i in searches["paliword"]:
-        if re.findall(r"\d", i.pali_1):
-            if clean_headwords_count[i.pali_clean] == 1:
-                results += [i.pali_clean]
+        if re.findall(r"\d", i.lemma_1):
+            if clean_headwords_count[i.lemma_clean] == 1:
+                results += [i.lemma_clean]
 
     length = len(results)
     results = regex_results(results)
-    name = "pali_1_contains_extra_number"
-    solution = "delete number from pali_1"
+    name = "lemma_1_contains_extra_number"
+    solution = "delete number from lemma_1"
     return name, results, length, solution
 
 
 def derived_from_not_in_headwords(searches: dict) -> tuple:
-    """Test if derived from is not found in pali_1."""
+    """Test if derived from is not found in lemma_1."""
 
     results = []
     clean_headwords: set = set()
     root_families: set = set()
 
     for i in searches["paliword"]:
-        clean_headwords.add(i.pali_clean)
+        clean_headwords.add(i.lemma_clean)
         if i.family_root:
             root_families.add(i.family_root)
 
@@ -289,7 +288,7 @@ def derived_from_not_in_headwords(searches: dict) -> tuple:
             not re.findall(r"\bcomp\b", i.grammar) and
             not re.findall("√", i.derived_from)
         ):
-            results += [i.pali_1]
+            results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
@@ -312,7 +311,7 @@ def pali_words_in_english_meaning(searches: dict) -> tuple:
         "bodhisatta", "brahma"}
 
     for i in searches["paliword"]:
-        pali_words.add(i.pali_clean)
+        pali_words.add(i.lemma_clean)
         meaning = i.meaning_1.lower()
         # FIXME unsupported escape sequence \-, use r"" string
         meaning = re.sub("[^A-Za-zāīūṭḍḷñṅṇṃ1234567890\-'’ ]", "", meaning)
@@ -324,7 +323,7 @@ def pali_words_in_english_meaning(searches: dict) -> tuple:
     length = len(results)
     results = regex_results(results)
     name = "pali_words_in_english_meaning"
-    solution = "add pali_1 to exceptions"
+    solution = "add lemma_1 to exceptions"
 
     return name, results, length, solution
 
@@ -344,7 +343,7 @@ def derived_from_not_in_family_compound(searches: dict) -> tuple:
         
         if (
 
-            i.pali_1 not in exceptions and
+            i.lemma_1 not in exceptions and
             not i.root_key and
             i.pos != "pron" and
             i.meaning_1 and
@@ -353,12 +352,12 @@ def derived_from_not_in_family_compound(searches: dict) -> tuple:
             not i.family_compound and
             not i.family_word
         ):
-            results += [i.pali_1]
+            results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
     name = "derived_from_not_in_family_compound"
-    solution = "add pali_1 to exceptions, or add derived_from to family compound"
+    solution = "add lemma_1 to exceptions, or add derived_from to family compound"
 
     return name, results, length, solution
 
@@ -370,10 +369,10 @@ def pos_does_not_equal_grammar(searches):
     exceptions: list = ["dve 2", "sāraṇī"]
 
     for i in searches["paliword"]:
-        if i.pali_1 not in exceptions:
+        if i.lemma_1 not in exceptions:
             grammar_pos = re.sub("( |,).+$", "", i.grammar)
             if i.pos != grammar_pos:
-                results += [i.pali_1]
+                results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
@@ -394,7 +393,7 @@ def pos_does_not_equal_pattern(searches: dict) -> tuple:
 
     for i in searches["paliword"]:
         if (i.pos not in pos_exceptions and
-                i.pali_1 not in headword_exceptions):
+                i.lemma_1 not in headword_exceptions):
 
             # how many spaces in the pattern?
             if len(re.findall(" ", i.pattern)) == 1:
@@ -405,7 +404,7 @@ def pos_does_not_equal_pattern(searches: dict) -> tuple:
                 pattern_pos = i.pattern
 
             if i.pos != pattern_pos:
-                results += [i.pali_1]
+                results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
@@ -455,7 +454,7 @@ def base_contains_extra_star(searches: dict) -> tuple:
             root_no_sign = re.sub("√", "", i.root_clean)
 
             if not re.findall(f" > {vuddhi(root_no_sign)}", i.root_base):
-                results += [i.pali_1]
+                results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
@@ -481,7 +480,7 @@ def base_is_missing_star(searches: dict) -> tuple:
         ):
             root_no_sign = re.sub("√", "", i.root_clean)
             if re.findall(f" > {vuddhi(root_no_sign)}", i.root_base):
-                results += [i.pali_1]
+                results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
@@ -501,7 +500,7 @@ def root_x_root_family_mismatch(searches: dict) -> tuple:
         root_family_clean = re.sub(".*√", "", i.family_root)
 
         if root_clean != root_family_clean:
-            results += [i.pali_1]
+            results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
@@ -522,7 +521,7 @@ def root_x_construction_mismatch(searches: dict) -> tuple:
             constr_clean = re.sub("\n.+", "", i.construction)
             constr_clean = re.sub("(.*√)(.[^ ]*)(.*)", "\\2", constr_clean)
             if root_clean != constr_clean:
-                results += [i.pali_1]
+                results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
@@ -543,7 +542,7 @@ def family_root_x_construction_mismatch(searches: dict) -> tuple:
             constr_clean = re.sub("\n.+", "", i.construction)
             constr_clean = re.sub("(.*√)(.[^ ]*)(.*)", "\\2", constr_clean)
             if family_root_clean != constr_clean:
-                results += [i.pali_1]
+                results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
@@ -562,7 +561,7 @@ def root_key_x_base_mismatch(searches: dict) -> tuple:
         if i.root_key and i.root_base:
             base_clean = re.sub("(√.[^ ]*)(.*)", "\\1", i.root_base)
             if i.root_clean != base_clean:
-                results += [i.pali_1]
+                results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
@@ -584,7 +583,7 @@ def root_sign_x_base_mismatch(searches: dict) -> tuple:
 
             if f" {root_sign_clean} " not in base_clean:
                 if not re.findall("intens|desid|perf|fut", i.root_base):
-                    results += [i.pali_1]
+                    results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
@@ -609,7 +608,7 @@ def root_base_x_construction_mismatch(searches: dict) -> tuple:
             base_clean = re.sub(r" \(.+$", "", base_clean)
 
             if re.findall(f"(^| ){base_clean} ", i.construction) == []:
-                results += [i.pali_1]
+                results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
@@ -636,7 +635,7 @@ def wrong_prefix_in_family_root(searches: dict) -> tuple:
                     "√" not in fr_split and
                     fr_split not in allowable_prefixes
                 ):
-                    results += [i.pali_1]
+                    results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
@@ -646,55 +645,55 @@ def wrong_prefix_in_family_root(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def variant_equals_pali_1(searches: dict) -> tuple:
-    """Test if variant equals pali_1"""
+def variant_equals_lemma_1(searches: dict) -> tuple:
+    """Test if variant equals lemma_1"""
 
     results = []
     for i in searches["paliword"]:
         variants = i.variant.split(", ")
         for variant in variants:
-            if variant == i.pali_clean:
-                results += [i.pali_1]
+            if variant == i.lemma_clean:
+                results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
-    name = "variant_equals_pali_1"
+    name = "variant_equals_lemma_1"
     solution = "add correct variant"
 
     return name, results, length, solution
 
 
-def antonym_equals_pali_1(searches: dict) -> tuple:
-    """Test if antonym equals pali_1"""
+def antonym_equals_lemma_1(searches: dict) -> tuple:
+    """Test if antonym equals lemma_1"""
 
     results = []
     for i in searches["paliword"]:
         antonyms = i.antonym.split(", ")
         for antonym in antonyms:
-            if antonym == i.pali_clean:
-                results += [i.pali_1]
+            if antonym == i.lemma_clean:
+                results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
-    name = "antonym_equals_pali_1"
+    name = "antonym_equals_lemma_1"
     solution = "add correct antonym"
 
     return name, results, length, solution
 
 
-def synonym_equals_pali_1(searches: dict) -> tuple:
-    """Test if synonym equals pali_1"""
+def synonym_equals_lemma_1(searches: dict) -> tuple:
+    """Test if synonym equals lemma_1"""
 
     results = []
     for i in searches["paliword"]:
         synonyms = i.synonym.split(", ")
         for synonym in synonyms:
-            if synonym == i.pali_clean:
-                results += [i.pali_1]
+            if synonym == i.lemma_clean:
+                results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
-    name = "synonym_equals_pali_1"
+    name = "synonym_equals_lemma_1"
     solution = "add correct synonym"
 
     return name, results, length, solution
@@ -709,7 +708,7 @@ def synonym_equals_variant(searches: dict) -> tuple:
             synonyms = i.synonym.split(", ")
             for synonym in synonyms:
                 if synonym in i.variant_list:
-                    results += [i.pali_1]
+                    results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
@@ -761,12 +760,12 @@ def duplicate_phrases(searches: dict) -> tuple:
 
     results = []
     for i in searches["paliword"]:
-        if i.pali_1 not in exceptions:
+        if i.lemma_1 not in exceptions:
             meaning_1 = re.sub(r"^\(.*\)| \(.*\)", "", i.meaning_1)
             meanings_list = meaning_1.split("; ")
             meanings_set = set(meanings_list)
             if len(meanings_list) != len(meanings_set):
-                results += [i.pali_1]
+                results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
@@ -783,17 +782,17 @@ def duplicate_words(searches: dict) -> tuple:
 
     results = []
     for i in searches["paliword"]:
-        if i.pali_1 not in exceptions:
+        if i.lemma_1 not in exceptions:
             words = i.meaning_1.split()
             if len(words) > 1:
                 for x in range(len(words) - 1):
                     if words[x] == words[x+1]:
                         if words[x] not in exceptions:
-                            results += [i.pali_1]
+                            results += [i.lemma_1]
                 if words and words[-1] == words[-2]:
                     # FIXME x is possibly unbound
                     if words[x] not in exceptions:
-                        results += [i.pali_1]
+                        results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
@@ -814,17 +813,17 @@ def duplicate_words_meaning_2(searches: dict) -> tuple:
 
     results = []
     for i in searches["paliword"]:
-        if i.pali_1 not in exceptions:
+        if i.lemma_1 not in exceptions:
             words = i.meaning_2.split()
             if len(words) > 1:
                 for x in range(len(words) - 1):
                     if words[x] == words[x+1]:
                         if words[x] not in exceptions:
-                            results += [i.pali_1]
+                            results += [i.lemma_1]
                 if words and words[-1] == words[-2]:
                     # FIXME x is possibly unbound
                     if words[x] not in exceptions:
-                        results += [i.pali_1]
+                        results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
@@ -849,17 +848,17 @@ def duplicate_words_meaning_lit(searches: dict) -> tuple:
 
     results = []
     for i in searches["paliword"]:
-        if i.pali_1 not in exceptions:
+        if i.lemma_1 not in exceptions:
             words = i.meaning_lit.split()
             if len(words) > 1:
                 for x in range(len(words) - 1):
                     if words[x] == words[x+1]:
                         if words[x] not in exceptions:
-                            results += [i.pali_1]
+                            results += [i.lemma_1]
                 if words and words[-1] == words[-2]:
                     # FIXME x is possibly unbound
                     if words[x] not in exceptions:
-                        results += [i.pali_1]
+                        results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
@@ -876,7 +875,7 @@ def identical_meaning_1_meaning_lit(searches: dict) -> tuple:
     exceptions = ["kyāhaṃ karomi"]
 
     for i in searches["paliword"]:
-        if i.meaning_1 and i.pali_1 not in exceptions:
+        if i.meaning_1 and i.lemma_1 not in exceptions:
             if "(" in i.meaning_1:
                 meaning_1 = re.sub(r"\(.+?\) | \(.+?\)", "", i.meaning_1)
             else:
@@ -889,7 +888,7 @@ def identical_meaning_1_meaning_lit(searches: dict) -> tuple:
             meaning_lit_set = set(meaning_lit.split("; "))
             for m1 in meaning_1_set:
                 if m1 in meaning_lit_set:
-                    results += [i.pali_1]
+                    results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)

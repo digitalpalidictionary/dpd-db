@@ -4,7 +4,7 @@ from pathlib import Path
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_dot_dict
 
@@ -33,10 +33,10 @@ for i in csv:
     # find the column name you want to change, in this case "Category"
     if i.Category:
         # this find the dpd word which matches the user_id
-        # here you could also use Russian or SBS instead of PaliWord
+        # here you could also use Russian or SBS instead of DpdHeadwords
         csv_user_id = i.ID
-        db_entry = db_session.query(PaliWord).filter(
-            PaliWord.user_id == csv_user_id).first()
+        db_entry = db_session.query(DpdHeadwords).filter(
+            DpdHeadwords.user_id == csv_user_id).first()
 
         # this updates the db entry with the csv value
         print(f"old: {db_entry.family_set}")

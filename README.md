@@ -39,13 +39,13 @@ There are four parts to the code:
 4. Compile all the parts and export into various dictionary formats.
 
 ## About the database
-- `PaliWord` and `PaliRoots` tables are the heart of the db, everything else gets derived from those.  
-- They have a relationship `PaliWord.rt.` to access any root information. For example, `PaliWord.rt.root_meaning`
+- `DpdHeadwords` and `DpdRoots` tables are the heart of the db, everything else gets derived from those.  
+- They have a relationship `DpdHeadwords.rt.` to access any root information. For example, `DpdHeadwords.rt.root_meaning`
 - There are also lots of `@properties` in `db/models.py` to access useful derived information.  
-- `DerivedData` table is lists of inflections of every word in multiple scripts, as well as html inflection tables.
+- `DpdHeadwords` table also contains lists of inflections of every word in multiple scripts, as well as html inflection tables.
 - `FamilyCompound` table is html of all the compound words which contain a specific word.  
 - `FamilyRoot` table is html of all the words with the same prefix and root.  
 - `FamilySet` table is html of all the words which belong to the same set, e.g. names of monks.  
 - `FamilyWord` table is html of all the words which are derived from a common word without a root.  
 - `InflectionTemplates` table are the templates from which all the inflection tables are derived.  
-- `Sandhi` table is all the deconstructed compounds which have been split by code.  
+<!-- - `Sandhi` table is all the deconstructed compounds which have been split by code.   -->

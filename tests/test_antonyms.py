@@ -10,7 +10,7 @@ from rich import print
 from typing import Optional
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 from tools.pali_alphabet import pali_alphabet
 from tools.tic_toc import tic, toc
@@ -21,27 +21,28 @@ class ProgData():
     def __init__(self) -> None:
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
-        self.db = self.db_session.query(PaliWord).all()
+        self.db = self.db_session.query(DpdHeadwords).all()
         self.antonym_dict: dict = self.load_antonym_dict()
         self.last_word: int = self.antonym_dict["last_word"]
         self.debug: bool = False
         
         # word in progress
-        self.w1: PaliWord
+        self.w1: DpdHeadwords
         self.w1_orig_antonym: str
 
         # word being checked
-        self.w2: PaliWord
+        self.w2: DpdHeadwords
         
         self.yes_no: str = "[white]y[green]es [white]n[green]o "
 
 
-    def load_antonym_dict(self):
+    def load_antonym_dict(self)-> dict:
         if self.pth.antonym_dict_path.exists():
             with open(self.pth.antonym_dict_path) as file:
                 return json.load(file)
         else:
             print("[red]error opening antonym dict")
+            return {}
 
 
     def save_antonym_dict(self):
@@ -92,7 +93,7 @@ def check_w1(g):
     """Various tests and reroute as applicable."""
 
     def printer(w, colour):
-        print(f"[{colour}]{w.id:>5} {w.pali_1:<30}{w.pos:10}{w.antonym}")
+        print(f"[{colour}]{w.id:>5} {w.lemma_1:<30}{w.pos:10}{w.antonym}")
 
     if g.w1.antonym:
         print("_"*100)
@@ -103,8 +104,8 @@ def check_w1(g):
         for w1_antonym in w1_antonyms:
             g.w1_orig_antonym = w1_antonym
             results = g.db_session \
-                .query(PaliWord) \
-                .filter(PaliWord.pali_1.like(f"%{w1_antonym}%")) \
+                .query(DpdHeadwords) \
+                .filter(DpdHeadwords.lemma_1.like(f"%{w1_antonym}%")) \
                 .all()
             
             # FIXME here the results must test of the antonym is in the results
@@ -120,11 +121,11 @@ def check_w1(g):
                     
                     for w2_antonym in w2_antonyms:
                        
-                        if r.pali_clean == w1_antonym:
+                        if r.lemma_clean == w1_antonym:
 
                             # antonym and pos matches
                             if (
-                                g.w1.pali_clean == w2_antonym
+                                g.w1.lemma_clean == w2_antonym
                                 and r.pos == g.w1.pos
                             ):
                                 printer(r, "light_green")
@@ -134,7 +135,7 @@ def check_w1(g):
 
                             # antonym matches, pos doesn't
                             elif (
-                                g.w1.pali_clean == w2_antonym
+                                g.w1.lemma_clean == w2_antonym
                                 and r.pos != g.w1.pos
                             ):
                                 # check if w2 not already in exceptions
@@ -146,23 +147,23 @@ def check_w1(g):
                                     
                                     print()
                                     print("[red]pos does not match")
-                                    print(f"[green]{'pali_1':<30}{'pos':10}{'antonym':<20}meaning")
-                                    print(f"{g.w1.pali_1:<30}{g.w1.pos:10}{g.w1.antonym:<20}{g.w1.meaning_1}")
-                                    print(f"{r.pali_1:<30}[red]{r.pos:<10}[/red]{r.antonym:<20}{r.meaning_1}")
+                                    print(f"[green]{'lemma_1':<30}{'pos':10}{'antonym':<20}meaning")
+                                    print(f"{g.w1.lemma_1:<30}{g.w1.pos:10}{g.w1.antonym:<20}{g.w1.meaning_1}")
+                                    print(f"{r.lemma_1:<30}[red]{r.pos:<10}[/red]{r.antonym:<20}{r.meaning_1}")
                                     if no_other_results(g):
                                         update_w2(g)
                                         no_results = False
 
                             # antonym does not match, pos does
                             elif (
-                                not g.w1.pali_clean == w2_antonym
+                                not g.w1.lemma_clean == w2_antonym
                                 and r.pos == g.w1.pos
                             ):
                                 print()
                                 print("[red]antonym does not match")
-                                print(f"[green]{'pali_1':<30}{'pos':10}{'antonym':<20}meaning")
-                                print(f"{g.w1.pali_1:<30}{g.w1.pos:10}{g.w1.antonym:<20}{g.w1.meaning_1}")
-                                print(f"{r.pali_1:<30}{r.pos:<10}[red]{r.antonym:<20}[/red]{r.meaning_1}")
+                                print(f"[green]{'lemma_1':<30}{'pos':10}{'antonym':<20}meaning")
+                                print(f"{g.w1.lemma_1:<30}{g.w1.pos:10}{g.w1.antonym:<20}{g.w1.meaning_1}")
+                                print(f"{r.lemma_1:<30}{r.pos:<10}[red]{r.antonym:<20}[/red]{r.meaning_1}")
                                 
                                 # check if w2 not already in exceptions
                                 if (
@@ -187,10 +188,10 @@ def check_w1(g):
                             ):
                                 print()
                                 print("[red]w2 has no antonym")
-                                print(f"[green]{'pali_1':<30}{'pos':10}{'antonym':<20}meaning")
-                                print(f"{g.w1.pali_1:<30}{g.w1.pos:10}{g.w1.antonym:<20}{g.w1.meaning_1}")
-                                print(f"{r.pali_1:<30}{r.pos:10}[red]None{r.antonym:<20}[/red]{r.meaning_1}")
-                                update_w2_or_add_exceptions(g)
+                                print(f"[green]{'lemma_1':<30}{'pos':10}{'antonym':<20}meaning")
+                                print(f"{g.w1.lemma_1:<30}{g.w1.pos:10}{g.w1.antonym:<20}{g.w1.meaning_1}")
+                                print(f"{r.lemma_1:<30}{r.pos:10}[red]None{r.antonym:<20}[/red]{r.meaning_1}")
+                                update_w2(g)
                                 no_results = False
 
                 if no_results:
@@ -202,7 +203,7 @@ def no_other_results(g):
     """test if no other results contain the antonym and pos."""
     for r in g.results:
         if (
-            r.pali_clean == g.w1_orig_antonym
+            r.lemma_clean == g.w1_orig_antonym
             and r.pos == g.w1.pos
         ):
             return False
@@ -211,13 +212,13 @@ def no_other_results(g):
 
 def update_w2(g):
     print()
-    print(f"[cyan]u [green] update w1 [white]{g.w1.pali_1}[/white] antonym [white]{g.w1.antonym}")
-    print(f"[cyan]d1[green] delete w1 [white]{g.w1.pali_1}[/white] antonym [white]{g.w1.antonym}")
+    print(f"[cyan]u [green] update w1 [white]{g.w1.lemma_1}[/white] antonym [white]{g.w1.antonym}")
+    print(f"[cyan]d1[green] delete w1 [white]{g.w1.lemma_1}[/white] antonym [white]{g.w1.antonym}")
     if g.w2:
-        print(f"[cyan]a [green] auto-update w2 [white]{g.w2.pali_1}[/white] antonym [white]{g.w2.antonym}")
-        print(f"[cyan]r [green] replace [white]{g.w2.pali_1}[/white] antonym [white]{g.w2.antonym}")
-        print(f"[cyan]m [green] manual update w2 [white]{g.w2.pali_1}[/white] antonym [white]{g.w2.antonym}")
-        print(f"[cyan]d2[green] delete w2 [white]{g.w2.pali_1}[/white] antonym [white]{g.w2.antonym}")
+        print(f"[cyan]a [green] auto-update w2 [white]{g.w2.lemma_1}[/white] antonym [white]{g.w2.antonym}")
+        print(f"[cyan]r [green] replace [white]{g.w2.lemma_1}[/white] antonym [white]{g.w2.antonym}")
+        print(f"[cyan]m [green] manual update w2 [white]{g.w2.lemma_1}[/white] antonym [white]{g.w2.antonym}")
+        print(f"[cyan]d2[green] delete w2 [white]{g.w2.lemma_1}[/white] antonym [white]{g.w2.antonym}")
         print("[cyan]e [green] add an exception")
     print("[cyan]p [green] pass", end=" ")
     route = input()
@@ -225,54 +226,54 @@ def update_w2(g):
     if route == "u":
         """update w1 antonym"""
         print()
-        print(f"[green]enter new antonym for [white]{g.w1.pali_1}: ", end=" ")
+        print(f"[green]enter new antonym for [white]{g.w1.lemma_1}: ", end=" ")
         new_antonym = input()
         if new_antonym:
             g.w1.antonym = new_antonym
             g.db_session.commit()
-            print(f"{g.w1.pali_1} [green]antonym udpated with [white]{g.w1.antonym}")
+            print(f"{g.w1.lemma_1} [green]antonym udpated with [white]{g.w1.antonym}")
     
     elif route == "d1":
         """delete w1 antonym"""
         print()
         g.w1.antonym = ""
         g.db_session.commit()
-        print(f"{g.w1.pali_1} [green]antonym deleted")
+        print(f"{g.w1.lemma_1} [green]antonym deleted")
     
     if g.w2:
         if route == "a":
             """auto-update w2"""
             print()
             if g.w2.antonym:
-                g.w2.antonym = f"{g.w2.antonym}, {g.w1.pali_clean}"
+                g.w2.antonym = f"{g.w2.antonym}, {g.w1.lemma_clean}"
             else:
-                g.w2.antonym = g.w1.pali_clean
+                g.w2.antonym = g.w1.lemma_clean
             g.db_session.commit()
-            print(f"{g.w2.pali_1} [green]antonym udpated with [white]{g.w2.antonym}")
+            print(f"{g.w2.lemma_1} [green]antonym udpated with [white]{g.w2.antonym}")
 
         elif route == "r":
             """reaplce w2"""
             print()
-            g.w2.antonym = g.w1.pali_clean
+            g.w2.antonym = g.w1.lemma_clean
             g.db_session.commit()
-            print(f"{g.w2.pali_1} [green]antonym udpated with [white]{g.w2.antonym}")
+            print(f"{g.w2.lemma_1} [green]antonym udpated with [white]{g.w2.antonym}")
 
         elif route == "m":
             """manual update w2"""
             print()
-            print(f"[green]enter new antonym for [white]{g.w2.pali_1}: ", end=" ")
+            print(f"[green]enter new antonym for [white]{g.w2.lemma_1}: ", end=" ")
             new_antonym = input()
             if new_antonym:
                 g.w2.antonym = new_antonym
                 g.db_session.commit()
-                print(f"{g.w2.pali_1} [green]antonym udpated with [white]{g.w2.antonym}")
+                print(f"{g.w2.lemma_1} [green]antonym udpated with [white]{g.w2.antonym}")
         
         elif route == "d2":
             """delete w2 antonym"""
             print()
             g.w2.antonym = ""
             g.db_session.commit()
-            print(f"{g.w2.pali_1} [green]antonym deleted")
+            print(f"{g.w2.lemma_1} [green]antonym deleted")
         
         elif route == "e":
             """add exception"""
@@ -309,17 +310,17 @@ def update_w2(g):
 #         print()
 #         g.w1.antonym = ""
 #         g.db_session.commit()
-#         print(f"{g.w1.pali_1} [green]antonym deleted")
+#         print(f"{g.w1.lemma_1} [green]antonym deleted")
 
 
 # def add_antonym_back(g):
 #     results = g.db_session \
-#         .query(PaliWord) \
-#         .filter(PaliWord.pali_1.like(g.new_antonym))
+#         .query(DpdHeadwords) \
+#         .filter(DpdHeadwords.lemma_1.like(g.new_antonym))
     
 #     for r in results:
 #         print()
-#         print(f"{r.pali_1} {r.pos} {r.antonym}")
+#         print(f"{r.lemma_1} {r.pos} {r.antonym}")
 #         print(f"[green]the new antonym will be [white]{g.w1_orig_antonym}[/white] {g.yes_no} ")
 
 #         r.antoym = g.orig_antonym

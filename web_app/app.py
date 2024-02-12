@@ -6,7 +6,7 @@ from flask import Flask, render_template
 from markupsafe import Markup
 from flask import request
 from flask_sqlalchemy import SQLAlchemy
-from db.models import PaliWord, InflectionToHeadwords, SBS, Russian
+from db.models import DpdHeadwords, InflectionToHeadwords, SBS, Russian
 from tools.paths import ProjectPaths
 
 from rich import print
@@ -83,8 +83,8 @@ def home():
         if result:
             headwords = result.headwords_list
             results = db.session\
-                .query(PaliWord)\
-                .filter(PaliWord.pali_1.in_(headwords))\
+                .query(DpdHeadwords)\
+                .filter(DpdHeadwords.lemma_1.in_(headwords))\
                 .all()
             for i in results:
                 fc = get_family_compounds(i)

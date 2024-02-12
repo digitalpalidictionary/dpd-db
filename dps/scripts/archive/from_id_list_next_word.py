@@ -6,7 +6,7 @@ import csv
 from rich.console import Console
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
 
@@ -37,7 +37,7 @@ def remove_duplicates(ordered_ids):
 
 def fetch_matching_words_from_db(db_session, ordered_ids):
     for word_id in ordered_ids:
-        word = db_session.query(PaliWord).filter(PaliWord.id == word_id).first()
+        word = db_session.query(DpdHeadwords).filter(DpdHeadwords.id == word_id).first()
         if word and word.sbs:
             attr_value = getattr(word.sbs, WHAT_TO_UPDATE, None)
             if ORIGINAL_HAS_VALUE and attr_value:
@@ -47,8 +47,8 @@ def fetch_matching_words_from_db(db_session, ordered_ids):
 
 
 def display_and_update_word(db_session, word, matching_words_count, input_value):
-    print(f"{word.pali_1}. [cyan]Remaining: {matching_words_count}", end=" ")
-    pyperclip.copy(word.pali_1)
+    print(f"{word.lemma_1}. [cyan]Remaining: {matching_words_count}", end=" ")
+    pyperclip.copy(word.lemma_1)
 
     if NEED_TO_UPDATE and hasattr(word.sbs, WHAT_TO_UPDATE):
             setattr(word.sbs, WHAT_TO_UPDATE, input_value)

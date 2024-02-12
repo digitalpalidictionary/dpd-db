@@ -6,7 +6,7 @@ so that they are all recognised in deconstructor."""
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 
 from tools.meaning_construction import clean_construction
 from tools.paths import ProjectPaths
@@ -15,20 +15,20 @@ from tools.tsv_read_write import read_tsv
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).all()
+    db = db_session.query(DpdHeadwords).all()
     
     sandhi_dict = {}
     sandhi_dupes = []
     for i in db:
         if i.pos == "sandhi" and i.meaning_1:
             constr_clean = clean_construction(i.construction).strip()
-            if i.pali_clean not in sandhi_dict:
-                sandhi_dict[i.pali_clean] = [constr_clean]
+            if i.lemma_clean not in sandhi_dict:
+                sandhi_dict[i.lemma_clean] = [constr_clean]
             else:
-                if constr_clean not in sandhi_dict[i.pali_clean]:
-                    sandhi_dict[i.pali_clean] += [constr_clean]
+                if constr_clean not in sandhi_dict[i.lemma_clean]:
+                    sandhi_dict[i.lemma_clean] += [constr_clean]
                 else:
-                    sandhi_dupes += [i.pali_clean]
+                    sandhi_dupes += [i.lemma_clean]
 
     print(len(sandhi_dict))
 

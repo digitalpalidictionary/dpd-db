@@ -22,9 +22,9 @@ from helpers import make_roots_count_dict
 from mdict_exporter import export_to_mdict
 
 from db.get_db_session import get_db_session
+from tools.cache_load import load_cf_set, load_idioms_set
 
 from tools.configger import config_test
-from tools.exporter_functions import cf_set_gen
 from tools.goldendict_path import goldedict_path
 from tools.paths import ProjectPaths
 from tools.sandhi_contraction import make_sandhi_contraction_dict
@@ -44,7 +44,8 @@ def main():
     db_session: Session = get_db_session(pth.dpd_db_path)
     sandhi_contractions = make_sandhi_contraction_dict(db_session)
 
-    cf_set = cf_set_gen()
+    cf_set: set = load_cf_set()
+    idioms_set: set = load_idioms_set()
 
     rendered_sizes: List[RenderedSizes] = []
 
@@ -63,7 +64,8 @@ def main():
     roots_count_dict = make_roots_count_dict(db_session)
 
     time_log.log("generate_dpd_html()")
-    dpd_data_list, sizes = generate_dpd_html(db_session, pth, sandhi_contractions, cf_set)
+    dpd_data_list, sizes = generate_dpd_html(
+        db_session, pth, sandhi_contractions, cf_set, idioms_set)
     rendered_sizes.append(sizes)
 
     time_log.log("generate_root_html()")

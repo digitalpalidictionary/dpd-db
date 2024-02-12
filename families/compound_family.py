@@ -2,12 +2,13 @@
 
 """Compile compound familes and save to database."""
 
+import json
 import re
 
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord, FamilyCompound
+from db.models import DbInfo, DpdHeadwords, FamilyCompound
 
 from scripts.anki_updater import family_updater
 
@@ -29,18 +30,20 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
 
     dpd_db = db_session.query(
-        PaliWord).filter(PaliWord.family_compound != "").all()
-    dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.pali_1))
+        DpdHeadwords).filter(DpdHeadwords.family_compound != "").all()
+    dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     cf_dict = create_comp_fam_dict(dpd_db)
     cf_dict = compile_cf_html(dpd_db, cf_dict)
     add_cf_to_db(db_session, cf_dict)
+    update_db_cache(db_session, cf_dict)
 
     # update anki
     if config_test("anki", "update", "yes"):
         anki_data_list = make_anki_data(cf_dict)
         deck = ["Family Compound"]
         family_updater(anki_data_list, deck)
+    
 
     toc()
 
@@ -66,18 +69,19 @@ def create_comp_fam_dict(dpd_db):
             test1 = re.findall(r"\bcomp\b", i.grammar) != []
             test2 = "sandhi" in i.pos
             test3 = "idiom" in i.pos
-            test4 = len(re.sub(r" \d.*$", "", i.pali_1)) < 30
+            test4 = len(re.sub(r" \d.*$", "", i.lemma_1)) < 30
             test5 = i.meaning_1
 
             if (test1 or test2 or test3) and test4 and test5:
 
                 if cf in cf_dict:
-                    cf_dict[cf]["headwords"] += [i.pali_1]
+                    cf_dict[cf]["headwords"] += [i.lemma_1]
                 else:
                     cf_dict[cf] = {
-                        "headwords": [i.pali_1],
+                        "headwords": [i.lemma_1],
                         "html": "",
-                        "data": []
+                        "data": [],
+                        "anki": []
                     }
 
     print(len(cf_dict))
@@ -91,7 +95,7 @@ def compile_cf_html(dpd_db, cf_dict):
 
         for cf in i.family_compound_list:
             if cf in cf_dict:
-                if i.pali_1 in cf_dict[cf]["headwords"]:
+                if i.lemma_1 in cf_dict[cf]["headwords"]:
                     if not cf_dict[cf]["html"]:
                         html_string = "<table class='family'>"
                     else:
@@ -99,19 +103,24 @@ def compile_cf_html(dpd_db, cf_dict):
 
                     meaning = make_meaning(i)
                     html_string += "<tr>"
-                    html_string += f"<th>{superscripter_uni(i.pali_1)}</th>"
+                    html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
                     html_string += f"<td><b>{i.pos}</b></td>"
                     html_string += f"<td>{meaning} {degree_of_completion(i)}</td>"
                     html_string += "</tr>"
 
                     cf_dict[cf]["html"] = html_string
 
+                    # data
+                    if i.meaning_1:
+                        cf_dict[cf]["data"].append(
+                        (i.lemma_1, i.pos, meaning))
+
                     # anki data
                     if i.meaning_1:
                         construction = clean_construction(
                             i.construction) if i.meaning_1 else ""
-                        cf_dict[cf]["data"] += [
-                            (i.pali_1, i.pos, meaning, construction)]
+                        cf_dict[cf]["anki"] += [
+                            (i.lemma_1, i.pos, meaning, construction)]
 
     for i in cf_dict:
         cf_dict[i]["html"] += "</table>"
@@ -129,6 +138,7 @@ def add_cf_to_db(db_session, cf_dict):
             compound_family=cf,
             html=cf_dict[cf]["html"],
             count=len(cf_dict[cf]["headwords"]))
+        cf_data.pack_fc_data(cf_dict[cf]["data"])
         add_to_db.append(cf_data)
 
     db_session.execute(FamilyCompound.__table__.delete()) # type: ignore
@@ -146,7 +156,7 @@ def make_anki_data(cf_dict):
     for family in cf_dict:
         anki_family = f"<b>{family}</b>"
         html = "<table><tbody>"
-        for row in cf_dict[family]["data"]:
+        for row in cf_dict[family]["anki"]:
             headword, pos, meaning, construction = row
             html += "<tr valign='top'>"
             html += "<div style='color: #FFB380'>"
@@ -162,6 +172,29 @@ def make_anki_data(cf_dict):
             anki_data_list += [(anki_family, html)]
     
     return anki_data_list
+
+
+def update_db_cache(db_session, cf_dict):
+    """Update the db_info with cf_set for use in the exporter."""
+    
+    print("[green]adding dbinfo cache item")
+
+    cf_set = set()
+    for i in cf_dict:
+        cf_set.add(i)
+    
+    cf_set_cache = db_session \
+        .query(DbInfo) \
+        .filter_by(key="cf_set") \
+        .first()
+
+    if not cf_set_cache:    
+        cf_set_cache = DbInfo()
+    
+    cf_set_cache.key = "cf_set"
+    cf_set_cache.value = json.dumps(list(cf_set), ensure_ascii=False, indent=1)
+    db_session.add(cf_set_cache)
+    db_session.commit()
 
 
 if __name__ == "__main__":

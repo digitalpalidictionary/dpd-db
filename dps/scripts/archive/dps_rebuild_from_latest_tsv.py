@@ -9,7 +9,7 @@ from rich.console import Console
 
 from db.get_db_session import get_db_session
 from db.db_helpers import create_db_if_not_exists
-from db.models import PaliWord, PaliRoot, Russian, SBS
+from db.models import DpdHeadwords, DpdRoots, Russian, SBS
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
@@ -56,8 +56,8 @@ def main():
 
 
 def make_pali_word_table_data(db_session, pali_word_latest_tsv):
-    """Read TSV and return PaliWord table data."""
-    console.print("[bold green]creating PaliWord table data")
+    """Read TSV and return DpdHeadwords table data."""
+    console.print("[bold green]creating DpdHeadwords table data")
     with open(pali_word_latest_tsv, 'r', newline='') as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
         columns = next(csvreader)
@@ -66,12 +66,12 @@ def make_pali_word_table_data(db_session, pali_word_latest_tsv):
             for col_name, value in zip(columns, row):
                 if col_name not in ("created_at", "updated_at"):
                     data[col_name] = value
-            db_session.add(PaliWord(**data))
+            db_session.add(DpdHeadwords(**data))
 
 
 def make_pali_root_table_data(db_session, pali_root_latest_tsv):
-    """Read TSV and return PaliRoot table data."""
-    console.print("[bold green]creating PaliRoot table data")
+    """Read TSV and return DpdRoots table data."""
+    console.print("[bold green]creating DpdRoots table data")
     with open(pali_root_latest_tsv, 'r', newline='') as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
         columns = next(csvreader)
@@ -82,7 +82,7 @@ def make_pali_root_table_data(db_session, pali_root_latest_tsv):
                     "created_at", "updated_at",
                         "root_info", "root_matrix"):
                     data[col_name] = value
-            db_session.add(PaliRoot(**data))
+            db_session.add(DpdRoots(**data))
 
 
 def make_russian_table_data(db_session, russian_latest_tsv):

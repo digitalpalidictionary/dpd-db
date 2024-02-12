@@ -88,7 +88,7 @@ def sbs_per(df, sbs_ped_link):
     df.reset_index(drop=True, inplace=True)
 
     df['feedback'] = df.apply(lambda row: (
-        f"""{sbs_ped_link}={row['pali_1']}&entry.1433863141=SBS">Fix it here</a>"""
+        f"""{sbs_ped_link}={row['lemma_1']}&entry.1433863141=SBS">Fix it here</a>"""
     ), axis=1)
 
     # Change the value of 'ru_meaning' and 'ru_meaning_lit' columns to an empty string
@@ -98,14 +98,14 @@ def sbs_per(df, sbs_ped_link):
     filtered_df = df[(df['sbs_index'] != "")]
 
     # Select the columns to keep in the DataFrame
-    columns_to_keep = ['id', 'pali_1', 'grammar', 'neg', 'verb', 'trans', 'plus_case',
+    columns_to_keep = ['id', 'lemma_1', 'grammar', 'neg', 'verb', 'trans', 'plus_case',
         'meaning_1', 'meaning_lit', 'ru_meaning', 'sbs_meaning', 'sanskrit', 
         'sanskrit_root', 'sanskrit_root_meaning', 'sanskrit_root_class', 'root', 
         'root_has_verb', 'root_group', 'root_sign', 'root_meaning', 'root_base', 
         'construction', 'derivative', 'suffix', 'phonetic', 'compound_type', 
         'compound_construction', 'sbs_source_1', 'sbs_sutta_1', 'sbs_example_1', 
-        'sbs_chant_pali_1', 'sbs_chant_eng_1', 'sbs_chapter_1', 'sbs_source_2',
-        'sbs_sutta_2', 'sbs_example_2', 'sbs_chant_pali_2', 'sbs_chant_eng_2', 
+        'sbs_chant_lemma_1', 'sbs_chant_eng_1', 'sbs_chapter_1', 'sbs_source_2',
+        'sbs_sutta_2', 'sbs_example_2', 'sbs_chant_lemma_2', 'sbs_chant_eng_2', 
         'sbs_chapter_2', 'sbs_source_3', 'sbs_sutta_3', 'sbs_example_3', 
         'sbs_chant_pali_3', 'sbs_chant_eng_3', 'sbs_chapter_3', 'sbs_source_4', 
         'sbs_sutta_4', 'sbs_example_4', 'sbs_chant_pali_4', 'sbs_chant_eng_4', 
@@ -116,7 +116,7 @@ def sbs_per(df, sbs_ped_link):
     filtered_df = filtered_df[columns_to_keep]
 
     # Replace all spaces with underscores in the specified columns
-    columns_to_replace = ['sbs_chant_pali_1', 'sbs_chant_pali_2', 'sbs_chant_pali_3', 
+    columns_to_replace = ['sbs_chant_lemma_1', 'sbs_chant_lemma_2', 'sbs_chant_pali_3', 
         'sbs_chant_pali_4']
     filtered_df[columns_to_replace] = filtered_df[columns_to_replace].replace(' ', '-', 
         regex=True)
@@ -125,8 +125,8 @@ def sbs_per(df, sbs_ped_link):
     filtered_df['tags'] = filtered_df.apply(
         lambda row: ' '.join(
             [
-                row['sbs_chant_pali_1'],
-                row['sbs_chant_pali_2'],
+                row['sbs_chant_lemma_1'],
+                row['sbs_chant_lemma_2'],
                 row['sbs_chant_pali_3'],
                 row['sbs_chant_pali_4']
             ]
@@ -167,10 +167,10 @@ def parittas(df, sbs_ped_link):
     chant_names = ["Maṅgala-sutta", "Ratana-sutta", "Karaṇīya-metta-sutta"]
 
     # Use the 'isin()' method to filter rows based on the values in the 
-    # 'sbs_chant_pali_1' or 'sbs_chant_pali_2' columns
+    # 'sbs_chant_lemma_1' or 'sbs_chant_lemma_2' columns
     filtered_df = df[
-        df['sbs_chant_pali_1'].isin(chant_names) |
-        df['sbs_chant_pali_2'].isin(chant_names)
+        df['sbs_chant_lemma_1'].isin(chant_names) |
+        df['sbs_chant_lemma_2'].isin(chant_names)
     ]
 
     # Drop duplicates to avoid having multiple occurrences of the same row in the output
@@ -178,9 +178,9 @@ def parittas(df, sbs_ped_link):
 
     # Replace the columns 'sbs_source_1','sbs_sutta_1', 'sbs_example_1' with 
     # 'sbs_source_2', 'sbs_sutta_2', 'sbs_example_2' for the rows where 
-    # 'sbs_chant_pali_2' matches the specified chants and 'sbs_chant_pali_1' doesn't
-    replacement_mask = (filtered_df['sbs_chant_pali_2'].isin(chant_names)) & \
-        (~filtered_df['sbs_chant_pali_1'].isin(chant_names))
+    # 'sbs_chant_lemma_2' matches the specified chants and 'sbs_chant_lemma_1' doesn't
+    replacement_mask = (filtered_df['sbs_chant_lemma_2'].isin(chant_names)) & \
+        (~filtered_df['sbs_chant_lemma_1'].isin(chant_names))
 
     filtered_df.loc[replacement_mask, ['sbs_source_1', 'sbs_sutta_1', 
         'sbs_example_1']] = (
@@ -195,11 +195,11 @@ def parittas(df, sbs_ped_link):
     filtered_df.reset_index(drop=True, inplace=True)
 
     filtered_df['feedback'] = filtered_df.apply(lambda row: (
-        f"""{sbs_ped_link}={row['pali_1']}&entry.1433863141=Parittas">Fix it here</a>"""
+        f"""{sbs_ped_link}={row['lemma_1']}&entry.1433863141=Parittas">Fix it here</a>"""
     ), axis=1)
 
     # Select the columns to keep in the DataFrame
-    columns_to_keep = ['id', 'pali_1', 'grammar', 'meaning_1', 'meaning_lit', 'root', 
+    columns_to_keep = ['id', 'lemma_1', 'grammar', 'meaning_1', 'meaning_lit', 'root', 
         'root_group', 'root_sign', 'root_meaning', 'root_base', 'construction', 
         'sbs_source_1', 'sbs_sutta_1', 'sbs_example_1', 'sbs_audio', 'test', 'feedback']
 
@@ -236,21 +236,21 @@ def dps(df, dps_link):
 
     df['feedback'] = df.apply(
         lambda row: (
-            f"""{dps_link}={row['pali_1']}&entry.1433863141=Anki">Пожалуйста сообщите</a>."""
+            f"""{dps_link}={row['lemma_1']}&entry.1433863141=Anki">Пожалуйста сообщите</a>."""
         ), 
         axis=1
     )
 
     # Select the columns to keep in the DataFrame
-    columns_to_keep = ['id', 'pali_1', 'sbs_class_anki', 'sbs_category', 'sbs_class', 'grammar', 
+    columns_to_keep = ['id', 'lemma_1', 'sbs_class_anki', 'sbs_category', 'sbs_class', 'grammar', 
         'neg', 'verb', 'trans', 'plus_case', 'meaning_1', 'meaning_lit', 'ru_meaning', 
         'ru_meaning_lit', 'sbs_meaning', 'sanskrit', 'sanskrit_root', 
         'sanskrit_root_meaning', 'sanskrit_root_class', 'root', 'root_has_verb', 
         'root_group', 'root_sign', 'root_meaning', 'root_base', 'construction', 
         'derivative', 'suffix', 'phonetic', 'compound_type', 'compound_construction', 
-        'sbs_source_1', 'sbs_sutta_1', 'sbs_example_1', 'sbs_chant_pali_1', 
+        'sbs_source_1', 'sbs_sutta_1', 'sbs_example_1', 'sbs_chant_lemma_1', 
         'sbs_chant_eng_1', 'sbs_chapter_1', 'sbs_source_2', 'sbs_sutta_2', 
-        'sbs_example_2', 'sbs_chant_pali_2', 'sbs_chant_eng_2', 'sbs_chapter_2', 
+        'sbs_example_2', 'sbs_chant_lemma_2', 'sbs_chant_eng_2', 'sbs_chapter_2', 
         'sbs_source_3', 'sbs_sutta_3', 'sbs_example_3', 'sbs_chant_pali_3', 
         'sbs_chant_eng_3', 'sbs_chapter_3', 'sbs_source_4', 'sbs_sutta_4', 
         'sbs_example_4', 'sbs_chant_pali_4', 'sbs_chant_eng_4', 'sbs_chapter_4', 
@@ -346,11 +346,11 @@ def dhp(df, sbs_ped_link):
     filtered_df.reset_index(drop=True, inplace=True)
 
     filtered_df.loc[:, 'feedback'] = filtered_df.apply(lambda row: (
-        f"""{sbs_ped_link}={row['pali_1']}&entry.1433863141=Parittas">Fix it here</a>"""
+        f"""{sbs_ped_link}={row['lemma_1']}&entry.1433863141=Parittas">Fix it here</a>"""
     ), axis=1)
 
     # Select the columns to keep in the filtered DataFrame
-    columns_to_keep = ['id', 'pali_1', 'grammar', 'neg', 'verb', 'trans', 
+    columns_to_keep = ['id', 'lemma_1', 'grammar', 'neg', 'verb', 'trans', 
         'plus_case', 'meaning_1', 'meaning_lit', 'ru_meaning', 'sanskrit', 
         'sanskrit_root', 'sanskrit_root_meaning', 'sanskrit_root_class', 'root', 
         'root_has_verb', 'root_group', 'root_sign', 'root_meaning', 'root_base', 
@@ -407,22 +407,22 @@ def classes(df, sbs_ped_link):
     df.reset_index(drop=True, inplace=True)
 
     df['feedback'] = df.apply(lambda row: (
-        f"""{sbs_ped_link}={row['pali_1']}&entry.1433863141=Vocab">Fix it here</a>"""
+        f"""{sbs_ped_link}={row['lemma_1']}&entry.1433863141=Vocab">Fix it here</a>"""
     ), axis=1)
 
     # Get unique values in 'sbs_class_anki' column
     unique_sbs_class_values = df[df['sbs_class_anki'] != ""]["sbs_class_anki"].unique()
 
     # Select the columns to keep in the DataFrame
-    columns_to_keep = ['id', 'pali_1', 'sbs_class_anki', 
+    columns_to_keep = ['id', 'lemma_1', 'sbs_class_anki', 
         'grammar', 'neg', 'verb', 'trans', 'plus_case', 'meaning_1', 'meaning_lit', 
         'ru_meaning', 'sanskrit', 'sanskrit_root', 
         'sanskrit_root_meaning', 'sanskrit_root_class', 'root', 'root_has_verb', 
         'root_group', 'root_sign', 'root_meaning', 'root_base', 'construction', 
         'derivative', 'suffix', 'phonetic', 'compound_type', 'compound_construction', 
-        'sbs_source_1', 'sbs_sutta_1', 'sbs_example_1', 'sbs_chant_pali_1', 
+        'sbs_source_1', 'sbs_sutta_1', 'sbs_example_1', 'sbs_chant_lemma_1', 
         'sbs_chant_eng_1', 'sbs_chapter_1', 'sbs_source_2', 'sbs_sutta_2', 
-        'sbs_example_2', 'sbs_chant_pali_2', 'sbs_chant_eng_2', 'sbs_chapter_2', 
+        'sbs_example_2', 'sbs_chant_lemma_2', 'sbs_chant_eng_2', 'sbs_chapter_2', 
         'sbs_source_3', 'sbs_sutta_3', 'sbs_example_3', 'sbs_chant_pali_3', 
         'sbs_chant_eng_3', 'sbs_chapter_3', 'sbs_source_4', 'sbs_sutta_4', 
         'sbs_example_4', 'sbs_chant_pali_4', 'sbs_chant_eng_4', 'sbs_chapter_4', 
@@ -545,14 +545,14 @@ def suttas_class(df, sbs_ped_link):
     df.reset_index(drop=True, inplace=True)
 
     df['feedback'] = df.apply(lambda row: (
-        f"""{sbs_ped_link}={row['pali_1']}&entry.1433863141=Suttas">Fix it here</a>"""
+        f"""{sbs_ped_link}={row['lemma_1']}&entry.1433863141=Suttas">Fix it here</a>"""
     ), axis=1)
 
     # Change the value of 'ru_meaning' column to an empty string
     df['ru_meaning'] = ""
 
     # Select the columns to keep in the filtered DataFrame
-    columns_to_keep = ['id', 'pali_1', 'sbs_category', 
+    columns_to_keep = ['id', 'lemma_1', 'sbs_category', 
         'grammar', 'neg', 'verb', 'trans', 'plus_case', 'meaning_1', 'meaning_lit', 
         'ru_meaning', 'sanskrit', 'sanskrit_root', 
         'sanskrit_root_meaning', 'sanskrit_root_class', 'root', 'root_has_verb', 
@@ -613,7 +613,7 @@ def root_phonetic_class(df, sbs_ped_link):
     df.reset_index(drop=True, inplace=True)
 
     df['feedback'] = df.apply(lambda row: (
-        f"""{sbs_ped_link}={row['pali_1']}&entry.1433863141=Roots">Fix it here</a>"""
+        f"""{sbs_ped_link}={row['lemma_1']}&entry.1433863141=Roots">Fix it here</a>"""
     ), axis=1)
 
     # Change the value of 'ru_meaning' and 'ru_meaning_lit' columns to an empty string
@@ -627,7 +627,7 @@ def root_phonetic_class(df, sbs_ped_link):
     phonetic_df = df[(df['sbs_class_anki'] != "") & (df['phonetic'] != "")]
 
     # Select the columns to keep in the filtered DataFrame
-    columns_to_keep = ['id', 'pali_1', 'sbs_class_anki',
+    columns_to_keep = ['id', 'lemma_1', 'sbs_class_anki',
         'grammar', 'neg', 'verb', 'trans', 'plus_case', 'meaning_1', 'meaning_lit', 
         'ru_meaning', 'sanskrit', 'sanskrit_root', 
         'sanskrit_root_meaning', 'sanskrit_root_class', 'root', 'root_has_verb', 

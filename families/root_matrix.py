@@ -3,7 +3,7 @@ import re
 
 from rich import print
 
-from db.models import PaliWord, FamilyRoot, PaliRoot
+from db.models import DpdHeadwords, DpdRoots
 from tools.superscripter import superscripter_uni
 
 
@@ -13,11 +13,11 @@ def generate_root_matrix(db_session):
     total_counter = 0
     word_counter = 0
 
-    dpd_db = db_session.query(PaliWord).all()
+    dpd_db = db_session.query(DpdHeadwords).all()
 
     for counter, i in enumerate(dpd_db):
 
-        headword = i.pali_1
+        headword = i.lemma_1
 
         if i.root_key:
             if i.root_key not in root_matrix:
@@ -1390,7 +1390,7 @@ def generate_root_matrix(db_session):
 
     # add back into db
     print("[green]adding to db", end= " ")
-    roots_db = db_session.query(PaliRoot).all()
+    roots_db = db_session.query(DpdRoots).all()
     for counter, i in enumerate(roots_db):
         i.root_matrix = html_dict[i.root]
 

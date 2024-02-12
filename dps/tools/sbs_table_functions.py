@@ -56,10 +56,10 @@ class SBS_table_tools:
         return sutta_link_map
 
     
-    def generate_sbs_audio(self, pali_clean):
+    def generate_sbs_audio(self, lemma_clean):
         """Generate the sbs_audio string based on the presence of an audio file."""
         if dpspth.anki_media_dir:
-            audio_path = os.path.join(dpspth.anki_media_dir, f"{pali_clean}.mp3")
+            audio_path = os.path.join(dpspth.anki_media_dir, f"{lemma_clean}.mp3")
             if os.path.exists(audio_path):
-                return f"[sound:{pali_clean}.mp3]"
+                return f"[sound:{lemma_clean}.mp3]"
         return ''

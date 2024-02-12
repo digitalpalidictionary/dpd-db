@@ -12,7 +12,7 @@ from rich.prompt import Prompt
 from sqlalchemy.orm.session import Session
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.meaning_construction import make_meaning
 from tools.paths import ProjectPaths
 
@@ -21,7 +21,7 @@ def main():
     print("[bright_yellow]finding word families")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(PaliWord).all()
+    dpd_db = db_session.query(DpdHeadwords).all()
 
     word_family_dict = build_word_family_dict(dpd_db)
     word_order = order_word_family_dict(word_family_dict)
@@ -29,7 +29,7 @@ def main():
 
     find_in_family_compound(pth, db_session, word_family_dict, word_order)
     find_in_construction(dpd_db, word_family_set)
-    find_in_pali_1(dpd_db, word_family_set)
+    find_in_lemma_1(dpd_db, word_family_set)
 
     db_session.close()
 
@@ -54,9 +54,9 @@ def build_word_family_dict(dpd_db):
                 ):
             for cf in i.family_compound_list:
                 if cf not in word_family_dict:
-                    word_family_dict[cf] = [i.pali_1]
+                    word_family_dict[cf] = [i.lemma_1]
                 else:
-                    word_family_dict[cf] += [i.pali_1]
+                    word_family_dict[cf] += [i.lemma_1]
 
     # # remove single entries
     # for i in word_family_dict.copy():
@@ -104,8 +104,8 @@ def find_in_family_compound(pth: ProjectPaths, db_session: Session, word_family_
         for x in word_family_dict[word]:
             if x not in processed_words:
                 headword = db_session.query(
-                        PaliWord).filter(PaliWord.pali_1 == x).first()
-                if headword is not None and headword.pali_1 not in exceptions_list:
+                        DpdHeadwords).filter(DpdHeadwords.lemma_1 == x).first()
+                if headword is not None and headword.lemma_1 not in exceptions_list:
                     meaning = make_meaning(headword)
                     query = Prompt.ask(f"{x}: [green]{headword.pos}. [light_green]{meaning} ")
                     if query == "c":
@@ -117,7 +117,7 @@ def find_in_family_compound(pth: ProjectPaths, db_session: Session, word_family_
                         enter_wf = Prompt.ask("[red]what is the word family? ")
                         headword.family_word = enter_wf
                     elif query == "e":
-                        exceptions_list += [headword.pali_1]
+                        exceptions_list += [headword.lemma_1]
                     elif query == "r":
                         enter_root = Prompt.ask("[red]what is the root? ")
                         headword.root_key = enter_root
@@ -161,13 +161,13 @@ def make_word_family_set(db_session):
 
     word_family_set = set()
 
-    wf_db = db_session.query(PaliWord).all()
+    wf_db = db_session.query(DpdHeadwords).all()
 
     for i in wf_db:
         try:
             word_family_set.add(re.sub(r"\d", "", i.family_word))
         except TypeError:
-            print(i.pali_1)
+            print(i.lemma_1)
 
     exceptions = [
         "", "ka", "na", "a", "vi"
@@ -242,7 +242,7 @@ def find_in_construction(dpd_db, word_family_set):
                 re.findall(fr"\b{wf}\b", i.construction) and
                 not i.family_word and
                 not i.root_key):
-                wf_list += [i.pali_1]
+                wf_list += [i.lemma_1]
             for e in exceptions:
                 if e in wf_list:
                     wf_list.remove(e)
@@ -258,9 +258,9 @@ def find_in_construction(dpd_db, word_family_set):
             print(f"{counter}. {wf}: {wf_list}")
 
 
-def find_in_pali_1(dpd_db, word_family_set):
+def find_in_lemma_1(dpd_db, word_family_set):
     """Find clean headwords which match family_word."""
-    print("[green]finding word families in pali_1")
+    print("[green]finding word families in lemma_1")
 
     wf_dict = {}
     exceptions = [
@@ -283,15 +283,15 @@ def find_in_pali_1(dpd_db, word_family_set):
     pos_exceptions = ["abbrev", "prefix", "suffix", "cs", "ve", "sandhi"]
 
     for i in dpd_db:
-        if (i.pali_clean in word_family_set and
-                i.pali_1 not in exceptions and
+        if (i.lemma_clean in word_family_set and
+                i.lemma_1 not in exceptions and
                 not i.family_word and
                 not i.root_key and
                 i.pos not in pos_exceptions):
-            if i.pali_clean not in wf_dict:
-                wf_dict[i.pali_clean] = [i.pali_1]
+            if i.lemma_clean not in wf_dict:
+                wf_dict[i.lemma_clean] = [i.lemma_1]
             else:
-                wf_dict[i.pali_clean] += [i.pali_1]
+                wf_dict[i.lemma_clean] += [i.lemma_1]
 
     for counter, wf in enumerate(wf_dict):
         print(f"{counter+1} / {len(wf_dict)}\t{wf}")

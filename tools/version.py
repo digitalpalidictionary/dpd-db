@@ -13,7 +13,7 @@ from tools.tic_toc import tic, toc
 
 
 major = 0
-minor = 0
+minor = 1
 
 
 def update_version():

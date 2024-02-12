@@ -30,7 +30,8 @@ def make_cst_text_set(
     - Use when keeping the word order is *not* important.
     - Optionally change the niggahita character (niggahita="ṃ" or niggahita="ṁ")
     - Optionally add the parts of hyphenated word (add_hyphenated_parts=True)
-    - Return a disordered set."""
+    - Return a disordered set.
+    """
 
     cst_texts_list: List[str] = []
 

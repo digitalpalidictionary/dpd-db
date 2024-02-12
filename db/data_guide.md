@@ -1,8 +1,8 @@
 # style guideline
 
-## pali_words table
+## dpd_headwords table
 
-### pali_1
+### lemma_1
 
 - Provide the dictionary form of the word.
 - If the same word comes from different roots, use the numbering system (e.g., 1.1, 2.1, etc.).
@@ -10,7 +10,7 @@
 - If a word has clear different meanings in context, add a new number and meaning.
 - If a word has different case relationships in different sentences (e.g., +acc in one, +dat in another), list the meanings separately.
 
-### pali_2
+### lemma_2
 
 - Present clean Pāli without numbers.
 - Neuter nouns that end in -a in Pali_1 will have -aṃ ending in Pali_2 (e.g., Pali_1: citta 1.1, Pali_2: cittaṃ).
@@ -35,8 +35,8 @@
 
 ### derived_from
 
-- Word from which the pali_1 is derived.
-- (or) Combination of ruut and prefix(es) from which the pali_1 is derived.
+- Word from which the lemma_1 is derived.
+- (or) Combination of ruut and prefix(es) from which the lemma_1 is derived.
 
 ### neg
 
@@ -86,7 +86,7 @@
 
 ### root_key
 
-- The root_key divided by meanings, should be chosen from existing in pali_roots table
+- The root_key divided by meanings, should be chosen from existing in dpd_roots table
 
 ### root_sign
 
@@ -178,7 +178,7 @@
 ### example_1 and example_1
 
 - Relevant example # 1 and 2 of the headword in context.
-- Bold pali_1 in its inflected form
+- Bold lemma_1 in its inflected form
 - Try to avoid `-`, exeptions may be only very long compounds. (e.g. cīvara-piṇḍapāta-sen'āsana-gilānapaccaya-bhesajjaparikkhārehi)
 
 ### antonym
@@ -196,7 +196,7 @@
 ### commentary
 
 - Meaning in context according to the Aṭṭhakathā or Ṭīkā
-- Bold the $pali_1
+- Bold the $lemma_1
 
 ### notes
 

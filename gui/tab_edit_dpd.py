@@ -1,4 +1,4 @@
-"""Render tab to edit PaliWord table in the database."""
+"""Render tab to edit DpdHeadwords table in the database."""
 
 from completion_combo import CompletionCombo
 from functions_db import get_verb_values
@@ -68,21 +68,21 @@ def make_tab_edit_dpd(db_session, sg, username):
                 "", key="id_error", size=(50, 1), text_color="red")
         ],
         [
-            sg.Text("pali_1", size=(15, 1)),
+            sg.Text("lemma_1", size=(15, 1)),
             sg.Input(
-                key="pali_1", size=(50, 1),
+                key="lemma_1", size=(50, 1),
                 tooltip="Vocative singular of nouns and partitiplces,\n\
 3rd person singular of verbs, unless irrgular."),
             sg.Text(
-                "", key="pali_1_error", size=(50, 1), text_color="red")
+                "", key="lemma_1_error", size=(50, 1), text_color="red")
         ],
         [
-            sg.Text("pali_2*", size=(15, 1)),
+            sg.Text("lemma_2*", size=(15, 1)),
             sg.Input(
-                key="pali_2", size=(50, 1), enable_events=True,
+                key="lemma_2", size=(50, 1), enable_events=True,
                 tooltip="Nominative singular of masc and neuter nouns."),
             sg.Text(
-                "", key="pali_2_error", size=(50, 1), text_color="red")
+                "", key="lemma_2_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("pos", size=(15, 1)),
@@ -207,7 +207,7 @@ Leave empty for long compounds."),
                     ROOT_VALUES, key="root_key",
                     size=(10, 1),
                     auto_size_text=False,
-                    tooltip="Root key in PaliRoots table.\n\
+                    tooltip="Root key in DpdRootss table.\n\
 Select a value from the dropdown list.")),
             sg.Text(
                 "", key="root_info", text_color="white",
@@ -634,7 +634,7 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 key="word_to_clone_edit",
                 size=(15, 1),
                 enable_events=True,
-                tooltip="Enter id or pali_1"
+                tooltip="Enter id or lemma_1"
             ),
             sg.Button(
                 "Edit", key="edit_button", tooltip="Edit a word in the db"),

@@ -11,7 +11,7 @@ from rich import print
 from rich.prompt import Prompt
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 
 from tools.db_search_string import db_search_string
 from tools.meaning_construction import make_meaning
@@ -24,7 +24,7 @@ def main():
 	csv = read_tsv_dot_dict(pth.compound_type_path)
 
 	db_session = get_db_session(pth.dpd_db_path)
-	db = db_session.query(PaliWord).all()
+	db = db_session.query(DpdHeadwords).all()
 
 	pos_exclusions = ["sandhi", "idiom", "aor"]
 	
@@ -45,7 +45,7 @@ def main():
 		for i in db:
 			if(
 				not i.meaning_1 or
-				i.pali_1 in exceptions or 
+				i.lemma_1 in exceptions or 
 				i.pos in pos_exclusions or
 				", comp" not in i.grammar
 			):
@@ -73,10 +73,10 @@ def main():
 			
 			search_in = f"{i.construction}"
 			if re.findall(pattern, search_in):
-				search_list += [i.pali_1]
+				search_list += [i.lemma_1]
 				meaning = make_meaning(i)
 				i_counter += 1
-				pyperclip.copy(i.pali_1)
+				pyperclip.copy(i.lemma_1)
 				printer(i, meaning)
 				input()
 
@@ -92,7 +92,7 @@ def main():
 
 def printer(i, meaning) -> None:
 	string = ""
-	string += f"[white]{i.pali_1[:29]:<30}"
+	string += f"[white]{i.lemma_1[:29]:<30}"
 	string += f"[cyan]{i.pos:<10}"
 	string += f"[white]{meaning[:49]:<50}"
 	construction = re.sub("\n.+", "", i.construction)

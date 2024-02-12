@@ -5,7 +5,7 @@ import pyperclip
 from rich.console import Console
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 
 console = Console()
@@ -19,7 +19,7 @@ def main():
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(PaliWord).all()
+    dpd_db = db_session.query(DpdHeadwords).all()
 
     counter = 0
     words_set = set()
@@ -28,7 +28,7 @@ def main():
         if not i.ru and (
             i.source_1 == source_to_check or i.source_2 == source_to_check
         ):
-            words_set.update([i.pali_1])
+            words_set.update([i.lemma_1])
             counter += 1
     
     done = 0

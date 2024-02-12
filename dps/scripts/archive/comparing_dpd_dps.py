@@ -20,9 +20,9 @@ with open(csv_file) as f, \
     for file in out_files:
         name = basename(file.name)[:-4]
         if name.startswith('meaning'):
-            headings = ['id', 'pali_1', 'sbs_index', 'sbs_class_anki', 'sbs_category', 'meaning_1', 'meaning_lit']
+            headings = ['id', 'lemma_1', 'sbs_index', 'sbs_class_anki', 'sbs_category', 'meaning_1', 'meaning_lit']
         else:
-            headings = ['id', 'pali_1', 'sbs_class_anki', 'sbs_index', 'sbs_category',  name]
+            headings = ['id', 'lemma_1', 'sbs_class_anki', 'sbs_index', 'sbs_category',  name]
         dict_writers[name] = csv.DictWriter(file, headings)
         dict_writers[name].writeheader()
 
@@ -31,9 +31,9 @@ with open(csv_file) as f, \
             dpd_name = 'DPD_' + name
             if row[name] and not row[dpd_name]:
                 if name.startswith('meaning'):
-                    filtered_row = {'id': row['id'], 'pali_1': row['pali_1'],
+                    filtered_row = {'id': row['id'], 'lemma_1': row['lemma_1'],
                                     'meaning_1': row['meaning_1'], 'meaning_lit': row['meaning_lit']}
                 else:
                     filtered_row = {
-                        'id': row['id'], 'pali_1': row['pali_1'], name: row[name]}
+                        'id': row['id'], 'lemma_1': row['lemma_1'], name: row[name]}
                 dict_writers[name].writerow(filtered_row)

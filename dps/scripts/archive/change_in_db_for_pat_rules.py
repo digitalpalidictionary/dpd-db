@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
 """
-The filter_and_update function updates the PaliWord database entries. For entries where pali_1 ends with 'sikkhāpada' and meaning_2 is empty, it sets a new family set and updates meaning_2 based on patterns in meaning_1.
+The filter_and_update function updates the DpdHeadwords database entries. For entries where lemma_1 ends with 'sikkhāpada' and meaning_2 is empty, it sets a new family set and updates meaning_2 based on patterns in meaning_1.
 """
 
 
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 from db.get_db_session import get_db_session
 from rich.console import Console
@@ -19,9 +19,9 @@ def filter_and_update():
     db_session = get_db_session(pth.dpd_db_path)
 
     # Find the words that match the filter criteria
-    words_to_update = db_session.query(PaliWord).filter(
-        PaliWord.pali_1.endswith('sikkhāpada'),
-        PaliWord.meaning_2 == ""
+    words_to_update = db_session.query(DpdHeadwords).filter(
+        DpdHeadwords.lemma_1.endswith('sikkhāpada'),
+        DpdHeadwords.meaning_2 == ""
     ).all()
 
     for word in words_to_update:
@@ -51,7 +51,7 @@ def filter_and_update():
 """
 This program contains two main functions:
 
-    update_from_text_file: This function processes a word's pali_1 field by removing the suffix "sikkhāpada". It then searches for this processed word in a given text file to determine its corresponding rule number.
+    update_from_text_file: This function processes a word's lemma_1 field by removing the suffix "sikkhāpada". It then searches for this processed word in a given text file to determine its corresponding rule number.
 
     filter_and_update_from_file: This function first reads the content of a specified text file. It then filters words from the database where the family_set is set to "bhikkhupātimokkha rules". For each of these words, it calls update_from_text_file to identify and assign the appropriate rule number to the meaning_2 field of the word.
 
@@ -61,11 +61,11 @@ In summary, the program identifies words associated with "bhikkhupātimokkha rul
 
 def update_from_text_file(word, text_content):
     """
-    Given a word object, this function processes its pali_2 and search for its corresponding rule in the provided text_content.
+    Given a word object, this function processes its lemma_2 and search for its corresponding rule in the provided text_content.
     It then returns the found rule number.
     """
-    # Process the pali_2 field
-    rule_name = word.pali_2
+    # Process the lemma_2 field
+    rule_name = word.lemma_2
 
     # Create a regular expression pattern to search for the rule name and its number
     pattern = re.compile(rf"{rule_name} (\w+\d+)", re.IGNORECASE)
@@ -93,22 +93,22 @@ def filter_and_update_from_file(pth: ProjectPaths):
     db_session = get_db_session(pth.dpd_db_path)
 
     # Find the words that match the filter criteria of having family_set set to "bhikkhupātimokkha rules"
-    words_to_update = db_session.query(PaliWord).filter(
-        PaliWord.family_set == "bhikkhupātimokkha rules",
-        PaliWord.meaning_2 == ""
+    words_to_update = db_session.query(DpdHeadwords).filter(
+        DpdHeadwords.family_set == "bhikkhupātimokkha rules",
+        DpdHeadwords.meaning_2 == ""
     ).all()
 
     print("Number of words found:", len(words_to_update))  # Debug info
-    print("First few words:", [word.pali_2 for word in words_to_update[:5]])  # Debug info
+    print("First few words:", [word.lemma_2 for word in words_to_update[:5]])  # Debug info
 
 
     for word in words_to_update:
         rule_number = update_from_text_file(word, content)
         if rule_number:
             word.meaning_2 = rule_number
-            print(f"+Success: pali_2: {word.pali_2}, meaning_2: {word.meaning_2}")
+            print(f"+Success: lemma_2: {word.lemma_2}, meaning_2: {word.meaning_2}")
         else:
-            print(f"Failed: {word.pali_2}")  # This will let us know which words did not get updated
+            print(f"Failed: {word.lemma_2}")  # This will let us know which words did not get updated
 
 
     # db_session.commit()
@@ -120,7 +120,7 @@ def filter_and_update_from_file(pth: ProjectPaths):
 
 def update_family_set_based_on_conditions(pth: ProjectPaths):
     """
-    This function will update the `family_set` attribute of `PaliWord` objects based on certain conditions.
+    This function will update the `family_set` attribute of `DpdHeadwords` objects based on certain conditions.
     
     Args:
     - session: This is the database session, assumed to be an SQLAlchemy session.
@@ -128,8 +128,8 @@ def update_family_set_based_on_conditions(pth: ProjectPaths):
 
     db_session = get_db_session(pth.dpd_db_path)
 
-    # Filtering PaliWord objects where family_set is "bhikkhupātimokkha rules" and meaning_2 is empty
-    for word in db_session.query(PaliWord).filter_by(family_set="bhikkhupātimokkha rules", meaning_2=""):
+    # Filtering DpdHeadwords objects where family_set is "bhikkhupātimokkha rules" and meaning_2 is empty
+    for word in db_session.query(DpdHeadwords).filter_by(family_set="bhikkhupātimokkha rules", meaning_2=""):
         word.family_set = ""
 
         print(f"id: {word.id}, meaning_2 : {word.meaning_2} family_set(new): {word.family_set}")

@@ -15,7 +15,7 @@ import pyperclip
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.meaning_construction import clean_construction
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
@@ -25,7 +25,7 @@ class ProgData:
     def __init__(self) -> None:
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
-        self.db = self.db_session.query(PaliWord).all()
+        self.db = self.db_session.query(DpdHeadwords).all()
 
         self.yes_no: str = "[white]y[green]es [white]n[green]o"
         self.yes_no_maybe: str = "[white]y[green]es [white]n[green]o [white]m[green]aybe"
@@ -86,11 +86,11 @@ def make_set_of_all_nouns_list():
 
     for i in g.db:
         if i.pos in g.noun:
-            nouns_set.add(i.pali_clean)
+            nouns_set.add(i.lemma_clean)
         if i.pos == "adj":
-            adjectives_set.add(i.pali_clean)
+            adjectives_set.add(i.lemma_clean)
         if i.pos == "pp":
-            pp_set.add(i.pali_clean)
+            pp_set.add(i.lemma_clean)
 
     g.nouns_set = nouns_set
     
@@ -131,9 +131,9 @@ def find_bahubbihis():
                         print_check_assign(i, constr)
 
 
-def print_check_assign(i: PaliWord, constr: str):
+def print_check_assign(i: DpdHeadwords, constr: str):
     print()
-    print(f"- [white]{i.pali_1}")
+    print(f"- [white]{i.lemma_1}")
     print(f"- [green]{i.pos}")
     print(f"- [light_green]{constr}")
     print(
@@ -152,7 +152,7 @@ def print_check_assign(i: PaliWord, constr: str):
         i.compound_type += " > bahubbīhi"
         g.db_session.commit()
         g.update_yes(i.id)
-        pyperclip.copy(i.pali_1)
+        pyperclip.copy(i.lemma_1)
         print("committed to db")
     
     if route == "n":

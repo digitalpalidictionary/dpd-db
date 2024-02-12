@@ -11,7 +11,7 @@ from rich.console import Console
 from typing import Dict, List
 from sqlalchemy.orm import Session
 
-from db.models import Russian, SBS, PaliWord
+from db.models import Russian, SBS, DpdHeadwords
 from db.get_db_session import get_db_session
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
@@ -59,8 +59,8 @@ def add_dps_russian(dpspth, db_session: Session):
     duplicated_ids = set()  # Use a set to keep track of duplicated ids
 
     for r in rows:
-        id_search = db_session.query(PaliWord.id).filter(
-            PaliWord.id == r["id"]).first()
+        id_search = db_session.query(DpdHeadwords.id).filter(
+            DpdHeadwords.id == r["id"]).first()
 
         if id_search is not None:
             id = id_search[0]
@@ -131,8 +131,8 @@ def add_dps_sbs(dpspth, db_session: Session):
     unmatched_ids: List[str] = []  # Store unmatched IDs
 
     for r in rows:
-        id_search = db_session.query(PaliWord.id).filter(
-            PaliWord.id == r["id"]).first()
+        id_search = db_session.query(DpdHeadwords.id).filter(
+            DpdHeadwords.id == r["id"]).first()
 
         if id_search is not None:
             id = id_search[0]
@@ -166,13 +166,13 @@ def _csv_row_to_sbs(x: Dict[str, str], id, __db_session__) -> SBS:
         sbs_source_1=x["sbs_source_1"],
         sbs_sutta_1=x["sbs_sutta_1"],
         sbs_example_1=x["sbs_example_1"],
-        sbs_chant_pali_1=x["sbs_chant_pali_1"],
+        sbs_chant_lemma_1=x["sbs_chant_lemma_1"],
         sbs_chant_eng_1=x["sbs_chant_eng_1"],
         sbs_chapter_1=x["sbs_chapter_1"],
         sbs_source_2=x["sbs_source_2"],
         sbs_sutta_2=x["sbs_sutta_2"],
         sbs_example_2=x["sbs_example_2"],
-        sbs_chant_pali_2=x["sbs_chant_pali_2"],
+        sbs_chant_lemma_2=x["sbs_chant_lemma_2"],
         sbs_chant_eng_2=x["sbs_chant_eng_2"],
         sbs_chapter_2=x["sbs_chapter_2"],
         sbs_source_3=x["sbs_source_3"],

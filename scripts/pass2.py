@@ -9,7 +9,7 @@ from rich import print
 from typing import List
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord, InflectionToHeadwords, Sandhi
+from db.models import DpdHeadwords, InflectionToHeadwords, Sandhi
 from tools.paths import ProjectPaths
 
 from tools.cst_sc_text_sets import make_cst_text_list
@@ -227,8 +227,8 @@ def check_example_headword(
         for headword in headwords_list:
             wd.update_headword(headword)
             pali_word = pd.db_session\
-                .query(PaliWord)\
-                .filter_by(pali_1=wd.headword)\
+                .query(DpdHeadwords)\
+                .filter_by(lemma_1=wd.headword)\
                 .first()
             if pali_word:
                 wd.update_id(pali_word.id)
@@ -256,7 +256,7 @@ def check_example_headword(
             
             else:
                 if "√" not in headword:
-                    pali_word = PaliWord()
+                    pali_word = DpdHeadwords()
                     print(headwords_list)
                     print(f"[red]{headword} not found")
                     print_to_terminal(pd, wd, pali_word)
@@ -266,7 +266,7 @@ def check_example_headword(
                 
 
 
-def has_no_meaning_or_example(pali_word: PaliWord
+def has_no_meaning_or_example(pali_word: DpdHeadwords
                               ) -> bool:
     """"Test the pali_word"""
 
@@ -284,7 +284,7 @@ def has_no_meaning_or_example(pali_word: PaliWord
           
 def print_to_terminal(pd: ProgData,
                       wd: WordData,
-                      pali_word: PaliWord
+                      pali_word: DpdHeadwords
                       ) -> None:
 
     """Display the example and the headword in the terminal."""                  
@@ -297,7 +297,7 @@ def print_to_terminal(pd: ProgData,
     print(f"[green]{wd.source} [dark_green]{wd.sutta}")
     print(f"[white]{wd.example_print}")
     print()
-    print(f"[cyan]{pali_word.id} {pali_word.pali_1}: [blue3]{pali_word.pos}. [blue1]{make_meaning(pali_word)}")
+    print(f"[cyan]{pali_word.id} {pali_word.lemma_1}: [blue3]{pali_word.pos}. [blue1]{make_meaning(pali_word)}")
     print()
     print("[white]y[grey54]es / [white]n[grey54]o / e[white]x[grey54]it: ", end="")
     pyperclip.copy(wd.word)
@@ -312,7 +312,7 @@ def ask_to_add(pd, wd, pali_word) -> None:
     elif should_add == "y":
         pyperclip.copy(pali_word.id)
         print()
-        print(f"[cyan]{pali_word.pali_1} {pali_word.id} copied to clipboard")
+        print(f"[cyan]{pali_word.lemma_1} {pali_word.id} copied to clipboard")
         print("[grey54]press any key to continue...", end= "")
         input()
     elif should_add == "x":
@@ -322,7 +322,7 @@ def ask_to_add(pd, wd, pali_word) -> None:
 def test_words_in_construction(
         pd: ProgData,
         wd:WordData,
-        pali_word: PaliWord
+        pali_word: DpdHeadwords
         ) -> None:
 
     if (

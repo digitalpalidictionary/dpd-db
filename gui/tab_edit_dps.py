@@ -36,13 +36,13 @@ def make_tab_edit_dps(dpspth, sg):
                 "", key="dps_show_fields_error", size=(50, 1), text_color="red")
         ],
         [
-            sg.Text("id and pali_1", size=(15, 1)),
+            sg.Text("id and lemma_1", size=(15, 1)),
             sg.Input(
                 key="dps_dpd_id", size=(7, 1),
                 text_color=dpd_text,
                 background_color=dpd_background),
             sg.Input(
-                key="dps_pali_1", size=(43, 1),
+                key="dps_lemma_1", size=(43, 1),
                 text_color=dpd_text,
                 background_color=dpd_background),
         ],
@@ -387,16 +387,16 @@ def make_tab_edit_dps(dpspth, sg):
             sg.Text("", key="dps_bold_1_error", size=(50, 1), text_color="red")
         ],
         [
-            sg.Text("sbs_chant_pali_1", size=(15, 1)),
+            sg.Text("sbs_chant_lemma_1", size=(15, 1)),
             CompletionCombo(
                 pali_chant_list,
-                key="dps_sbs_chant_pali_1",
+                key="dps_sbs_chant_lemma_1",
                 size=(50, 1),
                 enable_events=True,
                 text_color=sbs_text,
                 background_color=sbs_background),
             sg.Text(
-                "", key="dps_sbs_chant_pali_1_error", size=(50, 1), text_color="red")
+                "", key="dps_sbs_chant_lemma_1_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("sbs_chant_eng_1", size=(15, 1)),
@@ -483,16 +483,16 @@ def make_tab_edit_dps(dpspth, sg):
             sg.Text("", key="dps_bold_2_error", size=(50, 1), text_color="red")
         ],
         [
-            sg.Text("sbs_chant_pali_2", size=(15, 1)),
+            sg.Text("sbs_chant_lemma_2", size=(15, 1)),
             CompletionCombo(
                 pali_chant_list,
-                key="dps_sbs_chant_pali_2",
+                key="dps_sbs_chant_lemma_2",
                 size=(50, 1),
                 enable_events=True,
                 text_color=sbs_text,
                 background_color=sbs_background),
             sg.Text(
-                "", key="dps_sbs_chant_pali_2_error", size=(50, 1), text_color="red")
+                "", key="dps_sbs_chant_lemma_2_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("sbs_chant_eng_2", size=(15, 1)),
@@ -781,13 +781,13 @@ def make_tab_edit_dps(dpspth, sg):
             sg.Text("db buttons", size=(15, 1)),
             sg.Input(
                 "",
-                key="dps_id_or_pali_1",
+                key="dps_id_or_lemma_1",
                 size=(15, 1),
                 enable_events=True,
-                tooltip="enter id or pali_1"),
+                tooltip="enter id or lemma_1"),
             sg.Button(
                 "Get word",
-                key="dps_id_or_pali_1_button",
+                key="dps_id_or_lemma_1_button",
                 tooltip="click to fetch word from db",
                 ),
             sg.Text("", size=(2, 1)),

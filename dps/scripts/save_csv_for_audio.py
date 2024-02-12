@@ -1,7 +1,7 @@
 import csv
 import os
 import re
-from db.models import PaliWord, SBS
+from db.models import DpdHeadwords, SBS
 from db.get_db_session import get_db_session
 from tools.paths import ProjectPaths
 from rich.console import Console
@@ -40,22 +40,22 @@ def main():
 
 def save_words_to_csv(conditions, filename):
 
-    words = db_session.query(PaliWord).join(SBS).filter(conditions).all()
+    words = db_session.query(DpdHeadwords).join(SBS).filter(conditions).all()
 
     with open(os.path.join(dpspth.csvs_for_audio_dir, filename), 'w', newline='') as csvfile:
         fieldnames = ['pali']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
 
-        seen_palis = set() # Set to keep track of unique pali_clean values
+        seen_palis = set() # Set to keep track of unique lemma_clean values
 
         for word in words:
-            if word.sbs and not SBS_table_tools().generate_sbs_audio(word.pali_clean):
-                if word.pali_clean not in seen_palis:
+            if word.sbs and not SBS_table_tools().generate_sbs_audio(word.lemma_clean):
+                if word.lemma_clean not in seen_palis:
                     writer.writerow({
-                        'pali': word.pali_clean,
+                        'pali': word.lemma_clean,
                     })
-                    seen_palis.add(word.pali_clean) # Add the pali_clean value to the set
+                    seen_palis.add(word.lemma_clean) # Add the lemma_clean value to the set
 
 
 def unite_csvs():

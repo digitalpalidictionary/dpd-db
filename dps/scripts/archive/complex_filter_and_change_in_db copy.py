@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 from db.get_db_session import get_db_session
 from rich.console import Console
@@ -9,7 +9,7 @@ import re
 console = Console()
 
 """
-    Fetch all entries from the database where the `PaliWord.note` contains the string "see ".
+    Fetch all entries from the database where the `DpdHeadwords.note` contains the string "see ".
     Update the `ru.ru_notes` column with the corresponding format and print the changes.
     Commit the changes to the database.
 """
@@ -20,7 +20,7 @@ def get_words_with_see():
     """
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    words = db_session.query(PaliWord).filter(PaliWord.notes.contains("see ")).all()
+    words = db_session.query(DpdHeadwords).filter(DpdHeadwords.notes.contains("see ")).all()
     return words, db_session
 
 

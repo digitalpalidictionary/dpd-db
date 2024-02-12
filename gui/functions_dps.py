@@ -21,7 +21,7 @@ from googletrans import Translator
 from timeout_decorator import timeout, TimeoutError as TimeoutDecoratorError
 
 from db.db_helpers import get_column_names
-from db.models import Russian, SBS, PaliWord, DerivedData
+from db.models import Russian, SBS, DpdHeadwords
 
 from tools.meaning_construction import make_meaning
 from tools.tsv_read_write import read_tsv_dot_dict
@@ -76,8 +76,8 @@ def dps_reset_flags(flags_dps):
 def populate_dps_tab(dpspth, values, window, dpd_word, ru_word, sbs_word):
     """Populate DPS tab with DPD info."""
     window["dps_dpd_id"].update(dpd_word.id)
-    window["dps_pali_1"].update(dpd_word.pali_1)
-    window["dps_id_or_pali_1"].update(dpd_word.pali_1)
+    window["dps_lemma_1"].update(dpd_word.lemma_1)
+    window["dps_id_or_lemma_1"].update(dpd_word.lemma_1)
 
     # copy dpd values for tests
 
@@ -209,12 +209,12 @@ def populate_dps_tab(dpspth, values, window, dpd_word, ru_word, sbs_word):
     window["dps_example_2"].update(dps_example_2)
 
     # dps_sbs_chant_pali
-    if values["dps_sbs_chant_pali_1"]:
-        chant = values["dps_sbs_chant_pali_1"]
+    if values["dps_sbs_chant_lemma_1"]:
+        chant = values["dps_sbs_chant_lemma_1"]
         update_sbs_chant(dpspth, 1, chant, "", window)
 
-    if values["dps_sbs_chant_pali_2"]:
-        chant = values["dps_sbs_chant_pali_2"]
+    if values["dps_sbs_chant_lemma_2"]:
+        chant = values["dps_sbs_chant_lemma_2"]
         update_sbs_chant(dpspth, 2, chant, "", window)
 
     if values["dps_sbs_chant_pali_3"]:
@@ -230,7 +230,7 @@ def dps_get_original_values(values, dpd_word, ru_word, sbs_word):
 
     original_values = {}
 
-    original_values["pali_1"] = dpd_word.pali_1
+    original_values["lemma_1"] = dpd_word.lemma_1
 
     # For Russian columns
     ru_columns = get_column_names(Russian)
@@ -266,7 +266,7 @@ def edit_corrections(pth):
 def display_dps_summary(values, window, sg, original_values):
 
     dps_values_list = [
-    "dps_pali_1", "dps_grammar", "dps_meaning", "dps_ru_meaning", "dps_ru_meaning_lit", "dps_sbs_meaning", "dps_root", "dps_base_or_comp", "dps_constr_or_comp_constr", "dps_synonym_antonym", "dps_notes", "dps_ru_notes", "dps_sbs_notes", "dps_sbs_source_1", "dps_sbs_sutta_1", "dps_sbs_example_1", "dps_sbs_chant_pali_1", "dps_sbs_chant_eng_1", "dps_sbs_chapter_1", "dps_sbs_source_2", "dps_sbs_sutta_2", "dps_sbs_example_2", "dps_sbs_chant_pali_2", "dps_sbs_chant_eng_2", "dps_sbs_chapter_2", "dps_sbs_source_3", "dps_sbs_sutta_3", "dps_sbs_example_3", "dps_sbs_chant_pali_3", "dps_sbs_chant_eng_3", "dps_sbs_chapter_3", "dps_sbs_source_4", "dps_sbs_sutta_4", "dps_sbs_example_4", "dps_sbs_chant_pali_4", "dps_sbs_chant_eng_4", "dps_sbs_chapter_4", "dps_sbs_class_anki", "dps_sbs_class", "dps_sbs_category"]
+    "dps_lemma_1", "dps_grammar", "dps_meaning", "dps_ru_meaning", "dps_ru_meaning_lit", "dps_sbs_meaning", "dps_root", "dps_base_or_comp", "dps_constr_or_comp_constr", "dps_synonym_antonym", "dps_notes", "dps_ru_notes", "dps_sbs_notes", "dps_sbs_source_1", "dps_sbs_sutta_1", "dps_sbs_example_1", "dps_sbs_chant_lemma_1", "dps_sbs_chant_eng_1", "dps_sbs_chapter_1", "dps_sbs_source_2", "dps_sbs_sutta_2", "dps_sbs_example_2", "dps_sbs_chant_lemma_2", "dps_sbs_chant_eng_2", "dps_sbs_chapter_2", "dps_sbs_source_3", "dps_sbs_sutta_3", "dps_sbs_example_3", "dps_sbs_chant_pali_3", "dps_sbs_chant_eng_3", "dps_sbs_chapter_3", "dps_sbs_source_4", "dps_sbs_sutta_4", "dps_sbs_example_4", "dps_sbs_chant_pali_4", "dps_sbs_chant_eng_4", "dps_sbs_chapter_4", "dps_sbs_class_anki", "dps_sbs_class", "dps_sbs_category"]
 
     summary = []
     excluded_fields = ["dps_grammar", "dps_meaning", "dps_root", "dps_base_or_comp", "dps_constr_or_comp_constr", "dps_synonym_antonym", "dps_notes"]
@@ -616,7 +616,7 @@ def handle_openai_response(messages, suggestion_field, error_field, window):
         return error_string
 
 
-def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, pth, meaning, pali_1, grammar, suggestion_field, error_field, window):
+def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, pth, meaning, lemma_1, grammar, suggestion_field, error_field, window):
     window[error_field].update("")
 
     # keep original grammar
@@ -648,7 +648,7 @@ def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, p
             "role": "user",
             "content": f"""
                 ---
-                **Pali Term**: {pali_1}
+                **Pali Term**: {lemma_1}
 
                 **Grammar Details**: {grammar}
 
@@ -673,12 +673,12 @@ def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, p
         with open(dpspth.ai_ru_suggestion_history_path, 'a', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter="\t")
             # Write the required columns to the CSV
-            writer.writerow([pali_1, grammar_orig, grammar, meaning, suggestion])
+            writer.writerow([lemma_1, grammar_orig, grammar, meaning, suggestion])
 
     return suggestion
 
 
-def ru_notes_translate_with_openai(dpspth, pth, notes, pali_1, grammar, suggestion_field, error_field, window):
+def ru_notes_translate_with_openai(dpspth, pth, notes, lemma_1, grammar, suggestion_field, error_field, window):
     window[error_field].update("")
 
     # keep original grammar
@@ -697,7 +697,7 @@ def ru_notes_translate_with_openai(dpspth, pth, notes, pali_1, grammar, suggesti
             "role": "user",
             "content": f"""
                 ---
-                **Pali Term**: {pali_1}
+                **Pali Term**: {lemma_1}
 
                 **Grammar Details**: {grammar}
 
@@ -716,12 +716,12 @@ def ru_notes_translate_with_openai(dpspth, pth, notes, pali_1, grammar, suggesti
         with open(dpspth.ai_ru_notes_suggestion_history_path, 'a', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter="\t")
             # Write the required columns to the CSV
-            writer.writerow([pali_1, grammar_orig, grammar, notes, suggestion])
+            writer.writerow([lemma_1, grammar_orig, grammar, notes, suggestion])
 
     return suggestion
 
 
-def en_translate_with_openai(dpspth, pth, pali_1, grammar, example, suggestion_field, error_field, window):
+def en_translate_with_openai(dpspth, pth, lemma_1, grammar, example, suggestion_field, error_field, window):
     window[error_field].update("")
 
     # keep original grammar
@@ -740,7 +740,7 @@ def en_translate_with_openai(dpspth, pth, pali_1, grammar, example, suggestion_f
             "role": "user",
             "content": f"""
                 ---
-                **Pali Term**: {pali_1}
+                **Pali Term**: {lemma_1}
 
                 **Grammar Details**: {grammar}
 
@@ -759,7 +759,7 @@ def en_translate_with_openai(dpspth, pth, pali_1, grammar, example, suggestion_f
         with open(dpspth.ai_en_suggestion_history_path, 'a', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter="\t")
             # Write the required columns to the CSV
-            writer.writerow([pali_1, grammar_orig, grammar, example, suggestion])
+            writer.writerow([lemma_1, grammar_orig, grammar, example, suggestion])
 
     return suggestion
 
@@ -1040,9 +1040,9 @@ def fetch_matching_words_from_db(path, db_session) -> list:
 
     matching_words = []
     for word_id in ordered_ids:
-        word = db_session.query(PaliWord).filter(PaliWord.id == word_id).first()
+        word = db_session.query(DpdHeadwords).filter(DpdHeadwords.id == word_id).first()
         if word:
-            matching_words.append(word.pali_1)
+            matching_words.append(word.lemma_1)
 
     print(f"words_to_add: {len(matching_words)}")
     return matching_words
@@ -1055,13 +1055,13 @@ def fetch_matching_words_from_db_with_conditions(dpspth, db_session, attribute_n
 
     matching_words = []
     for word_id in ordered_ids:
-        word = db_session.query(PaliWord).filter(PaliWord.id == word_id).first()
+        word = db_session.query(DpdHeadwords).filter(DpdHeadwords.id == word_id).first()
         if word and word.sbs:
             attr_value = getattr(word.sbs, attribute_name, None)
             if not attr_value:
-                matching_words.append(word.pali_1)
+                matching_words.append(word.lemma_1)
         if word and not word.sbs:
-            matching_words.append(word.pali_1)
+            matching_words.append(word.lemma_1)
 
     print(f"words_to_add: {len(matching_words)}")
     return matching_words
@@ -1078,7 +1078,7 @@ def update_words_value(dpspth, db_session, WHAT_TO_UPDATE, SOURCE):
     updated_count = 0
 
     for word_id in ordered_ids:
-        word = db_session.query(PaliWord).filter(PaliWord.id == word_id).first()
+        word = db_session.query(DpdHeadwords).filter(DpdHeadwords.id == word_id).first()
         if not word or not word.sbs:
             continue
 
@@ -1113,7 +1113,7 @@ def print_words_value(dpspth, db_session, WHAT_TO_UPDATE, SOURCE):
     print(SOURCE)
 
     for word_id in ordered_ids:
-        word = db_session.query(PaliWord).filter(PaliWord.id == word_id).first()
+        word = db_session.query(DpdHeadwords).filter(DpdHeadwords.id == word_id).first()
         if not word or not word.sbs:
             continue
 
@@ -1130,9 +1130,9 @@ def print_words_value(dpspth, db_session, WHAT_TO_UPDATE, SOURCE):
             print(f"{word.id} - {WHAT_TO_UPDATE} with {SOURCE}", flush=True)
 
 
-def update_field(db_session, WHAT_TO_UPDATE, pali_1, source):
+def update_field(db_session, WHAT_TO_UPDATE, lemma_1, source):
 
-    word = db_session.query(PaliWord).filter(PaliWord.pali_1 == pali_1).first()
+    word = db_session.query(DpdHeadwords).filter(DpdHeadwords.lemma_1 == lemma_1).first()
 
     if word:
         if not word.sbs:
@@ -1143,9 +1143,9 @@ def update_field(db_session, WHAT_TO_UPDATE, pali_1, source):
     db_session.close()
 
 
-def update_field_with_change(db_session, WHAT_TO_UPDATE, pali_1, source):
+def update_field_with_change(db_session, WHAT_TO_UPDATE, lemma_1, source):
 
-    word = db_session.query(PaliWord).filter(PaliWord.pali_1 == pali_1).first()
+    word = db_session.query(DpdHeadwords).filter(DpdHeadwords.lemma_1 == lemma_1).first()
 
     source = source + "_"
 
@@ -1159,7 +1159,7 @@ def update_field_with_change(db_session, WHAT_TO_UPDATE, pali_1, source):
 
 
 def words_in_db_from_source(db_session, source):
-    dpd_db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs)).all()
+    dpd_db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs)).all()
 
     matching_words = []
 
@@ -1171,7 +1171,7 @@ def words_in_db_from_source(db_session, source):
             i.sbs.sbs_source_4 == source
         ):
             if i.source_1 == source or i.source_2 == source:
-                matching_words.append(i.pali_1)
+                matching_words.append(i.lemma_1)
 
     print(f"from {source} words_to_add: {len(matching_words)}")
 
@@ -1183,7 +1183,7 @@ def words_in_db_with_value_in_field_sbs(db_session, field, source):
     # Ensure the SBS model has the specified field to avoid runtime errors
     if hasattr(SBS, field):
         # Modify the query to include a condition that checks if the field is not empty
-        dpd_db = db_session.query(PaliWord).join(SBS, PaliWord.id == SBS.id).filter(
+        dpd_db = db_session.query(DpdHeadwords).join(SBS, DpdHeadwords.id == SBS.id).filter(
             # Check if the field is not empty
             not_(getattr(SBS, field).is_(None)),
             not_(getattr(SBS, field) == ''),
@@ -1191,7 +1191,7 @@ def words_in_db_with_value_in_field_sbs(db_session, field, source):
             getattr(SBS, field) == source
         ).all()
 
-        matching_words = [i.pali_1 for i in dpd_db]
+        matching_words = [i.lemma_1 for i in dpd_db]
 
         print(f"words with {source} in {field}: {len(matching_words)}")
 
@@ -1252,10 +1252,10 @@ def dps_update_db(
     db_session.commit()
 
     window["messages"].update(
-    f"'{values['dps_id_or_pali_1']}' updated in db",
+    f"'{values['dps_id_or_lemma_1']}' updated in db",
     text_color="Lime")
     daily_record_update(window, pth, "edit", word_id)
-    make_html(pth, [values["dps_pali_1"]])
+    make_html(pth, [values["dps_lemma_1"]])
 
 
 def dps_get_synonyms(db_session, pos: str, string_of_meanings: str, window, error_field) -> Optional[str]:
@@ -1263,12 +1263,12 @@ def dps_get_synonyms(db_session, pos: str, string_of_meanings: str, window, erro
     string_of_meanings = re.sub(r" \(.*?\)|\(.*?\) ", "", string_of_meanings)
     list_of_meanings = string_of_meanings.split("; ")
 
-    results = db_session.query(PaliWord).join(Russian).filter(
-            PaliWord.pos == pos,
-            or_(*[PaliWord.meaning_1.like(f"%{meaning}%") for meaning in list_of_meanings]),
+    results = db_session.query(DpdHeadwords).join(Russian).filter(
+            DpdHeadwords.pos == pos,
+            or_(*[DpdHeadwords.meaning_1.like(f"%{meaning}%") for meaning in list_of_meanings]),
             Russian.ru_meaning.isnot(None),  # Ensure ru_meaning is not null
             Russian.ru_meaning != ""         # Ensure ru_meaning is not an empty string
-        ).options(joinedload(PaliWord.ru)).all()
+        ).options(joinedload(DpdHeadwords.ru)).all()
 
     meaning_dict = {}
     for i in results:
@@ -1277,9 +1277,9 @@ def dps_get_synonyms(db_session, pos: str, string_of_meanings: str, window, erro
                 meaning_clean = re.sub(r" \(.*?\)|\(.*?\) ", "", meaning)
                 if meaning_clean in list_of_meanings:
                     if meaning_clean not in meaning_dict:
-                        meaning_dict[meaning_clean] = set([i.pali_clean])
+                        meaning_dict[meaning_clean] = set([i.lemma_clean])
                     else:
-                        meaning_dict[meaning_clean].add(i.pali_clean)
+                        meaning_dict[meaning_clean].add(i.lemma_clean)
 
     synonyms = set()
     for key_1 in meaning_dict:
@@ -1303,9 +1303,8 @@ def dps_get_synonyms(db_session, pos: str, string_of_meanings: str, window, erro
 def dps_make_all_inflections_set(db_session):
     
     # Joining tables and filtering where Russian.ru_meaning is not empty
-    inflections_db = db_session.query(DerivedData) \
-                            .join(PaliWord, PaliWord.id == DerivedData.id) \
-                            .join(Russian, PaliWord.id == Russian.id) \
+    inflections_db = db_session.query(DpdHeadwords) \
+                            .join(Russian, DpdHeadwords.id == Russian.id) \
                             .filter((Russian.ru_meaning.isnot(None)) & 
                                     (Russian.ru_meaning != '')) \
                             .all()
@@ -1322,11 +1321,10 @@ def dps_make_all_inflections_set(db_session):
 def dps_make_filtered_inflections_set(db_session, source):
     
     # Begin the query
-    query = db_session.query(DerivedData)
+    query = db_session.query(DpdHeadwords)
     
     # Join tables
-    query = query.join(PaliWord, PaliWord.id == DerivedData.id)
-    query = query.join(SBS, PaliWord.id == SBS.id)
+    query = query.join(SBS, DpdHeadwords.id == SBS.id)
     
     # Apply filters if 'source' contains in any of sbs_cource(s)
     query = query.filter(
@@ -1353,11 +1351,11 @@ def dps_make_filtered_inflections_set(db_session, source):
 def dps_make_no_field_inflections_set(db_session, field):
     
     # Begin the query
-    query = db_session.query(DerivedData)
+    query = db_session.query(DpdHeadwords)
     
     # Join tables
-    query = query.join(PaliWord, PaliWord.id == DerivedData.id)
-    query = query.join(SBS, PaliWord.id == SBS.id)
+
+    query = query.join(SBS, DpdHeadwords.id == SBS.id)
     
     # Apply filters dynamically using the 'field' variable
     query = query.filter(
@@ -1378,7 +1376,7 @@ def dps_make_no_field_inflections_set(db_session, field):
 
 
 def get_next_ids_dps(db_session, window):
-    used_ids = db_session.query(PaliWord.id).order_by(PaliWord.id).all()
+    used_ids = db_session.query(DpdHeadwords.id).order_by(DpdHeadwords.id).all()
 
     def find_largest_id():
         return max(used_id.id for used_id in used_ids) if used_ids else 0
@@ -1392,12 +1390,12 @@ def get_next_ids_dps(db_session, window):
     window["id"].update(next_id)
 
 
-def add_number_to_pali(pth, db_session, word_id, word_pali_1):
+def add_number_to_pali(pth, db_session, word_id, word_lemma_1):
     # save into corrections.tsv
     correction = [
         word_id,
-        "pali_1",
-        word_pali_1,
+        "lemma_1",
+        word_lemma_1,
         "",
         "",
         "",
@@ -1410,14 +1408,14 @@ def add_number_to_pali(pth, db_session, word_id, word_pali_1):
         writer = csv.writer(file, delimiter="\t")
         writer.writerow(correction)
 
-    # udpate pali_1 in db
-    word_to_update = db_session.query(PaliWord).filter_by(id=word_id).first()
+    # udpate lemma_1 in db
+    word_to_update = db_session.query(DpdHeadwords).filter_by(id=word_id).first()
 
     if word_to_update:
-            word_to_update.pali_1 = word_pali_1
+            word_to_update.lemma_1 = word_lemma_1
 
             db_session.commit()
-            print(f"Updated pali_1 for id {word_id} to '{word_pali_1}'")
+            print(f"Updated lemma_1 for id {word_id} to '{word_lemma_1}'")
     else:
         print(f"No record found with id {word_id}")
 

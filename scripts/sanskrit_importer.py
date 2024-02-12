@@ -6,10 +6,8 @@
 import pandas as pd
 import pickle
 
-from rich import print
-
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 
 
@@ -20,11 +18,11 @@ def main():
     df = pd.read_excel("sanskrit/DPD Sanskrit Updates v1.xlsx", index_col=0)
     df = df.fillna("")
     df = df.rename(columns={"sanskrit": "sanskrit_old", "sanskrit2": "sanskrit_new"})
-    sk_dict = df[["pali_1", "sanskrit_old", "sanskrit_new"]].to_dict(orient="index")
+    sk_dict = df[["lemma_1", "sanskrit_old", "sanskrit_new"]].to_dict(orient="index")
     
     # setup db session
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).all()
+    db = db_session.query(DpdHeadwords).all()
 
     counter = 0
     for i in db:

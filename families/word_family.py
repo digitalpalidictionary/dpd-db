@@ -5,7 +5,7 @@
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord, FamilyWord
+from db.models import DpdHeadwords, FamilyWord
 
 from scripts.anki_updater import family_updater
 
@@ -28,8 +28,8 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
 
     wf_db = db_session.query(
-        PaliWord).filter(PaliWord.family_word != "").all()
-    wf_db = sorted(wf_db, key=lambda x: pali_sort_key(x.pali_1))
+        DpdHeadwords).filter(DpdHeadwords.family_word != "").all()
+    wf_db = sorted(wf_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     wf_dict = make_word_fam_dict(wf_db)
     wf_dict = compile_wf_html(wf_db, wf_dict)
@@ -60,10 +60,10 @@ def make_word_fam_dict(wf_db):
             print("[bright_red]ERROR: spaces found please remove!")
 
         if wf in wf_dict:
-            wf_dict[wf]["headwords"] += [i.pali_1]
+            wf_dict[wf]["headwords"] += [i.lemma_1]
         else:
             wf_dict[wf] = {
-                "headwords": [i.pali_1],
+                "headwords": [i.lemma_1],
                 "html": "",
                 "data": []}
 
@@ -76,7 +76,7 @@ def compile_wf_html(wf_db, wf_dict):
 
     for __counter__, i in enumerate(wf_db):
         wf = i.family_word
-        if i.pali_1 in wf_dict[wf]["headwords"]:
+        if i.lemma_1 in wf_dict[wf]["headwords"]:
             if not wf_dict[wf]["html"]:
                 html_string = "<table class='family'>"
             else:
@@ -84,7 +84,7 @@ def compile_wf_html(wf_db, wf_dict):
 
             meaning = make_meaning(i)
             html_string += "<tr>"
-            html_string += f"<th>{superscripter_uni(i.pali_1)}</th>"
+            html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
             html_string += f"<td><b>{i.pos}</b></td>"
             html_string += f"<td>{meaning} {degree_of_completion(i)}</td>"
             html_string += "</tr>"
@@ -95,7 +95,7 @@ def compile_wf_html(wf_db, wf_dict):
             construction = clean_construction(
                 i.construction) if i.meaning_1 else ""
             wf_dict[wf]["data"] += [
-                (i.pali_1, i.pos, meaning, construction)]
+                (i.lemma_1, i.pos, meaning, construction)]
 
     for i in wf_dict:
         wf_dict[i]["html"] += "</table>"

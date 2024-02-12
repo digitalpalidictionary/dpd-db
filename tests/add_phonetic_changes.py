@@ -11,7 +11,7 @@ from rich import print
 from rich.prompt import Prompt
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 
 from tools.db_search_string import db_search_string
 from tools.meaning_construction import clean_construction
@@ -40,7 +40,7 @@ def add_update_phonetic(db_session, db, csv):
 			if (
 				i.meaning_1 and
 				i.construction and
-				i.pali_1 not in c.exceptions):
+				i.lemma_1 not in c.exceptions):
 
 				# construction and base with:
 				# no lines2, ph changes or root symbol
@@ -55,7 +55,7 @@ def add_update_phonetic(db_session, db, csv):
 				if ((c.initial in construction_clean or
 					 c.initial in base_clean
 					) and
-					c.final in i.pali_clean and
+					c.final in i.lemma_clean and
 					c.correct not in i.phonetic and not
 					(c.without in construction_clean or
 					 c.without in base_clean)
@@ -67,16 +67,16 @@ def add_update_phonetic(db_session, db, csv):
 					):
 						i.phonetic = re.sub(
 							f"\\b{c.wrong}\\b", str(c.correct), str(i.phonetic))
-						auto_updated += [i.pali_1]
+						auto_updated += [i.lemma_1]
 					
 					# if i.phonetic empty > auto add correct
 					elif not i.phonetic:
 						i.phonetic = c.correct
-						auto_added += [i.pali_1]
+						auto_added += [i.lemma_1]
 						
 					# if i.phonetic not empty > compila a list to change manually
 					else:
-						manual_update += [i.pali_1]
+						manual_update += [i.lemma_1]
 
 		
 		print(f"[green]{'auto_updated':<15}: [white]{db_search_string(auto_updated)}")
@@ -109,7 +109,7 @@ def finder(db, csv, string):
 	for i in db:
 		for p in i.phonetic.split("\n"):
 			if string == p:
-				found += [i.pali_1]
+				found += [i.lemma_1]
 	
 	if found:
 		found_string = db_search_string(found)
@@ -155,7 +155,7 @@ if __name__ == "__main__":
 	csv = read_tsv_dot_dict(pth.phonetic_changes_path)
 
 	db_session = get_db_session(pth.dpd_db_path)
-	db = db_session.query(PaliWord).all()
+	db = db_session.query(DpdHeadwords).all()
 
 	list_all_phonetic_changes(db, csv)
 	add_update_phonetic(db_session, db, csv)

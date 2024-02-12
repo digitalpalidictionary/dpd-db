@@ -1,4 +1,5 @@
 """Datebase model for use by SQLAlchemy."""
+import json
 import re
 
 from typing import List
@@ -22,6 +23,7 @@ from sqlalchemy.orm import declared_attr
 from sqlalchemy.orm import object_session
 from sqlalchemy.sql import func
 
+from tools.cache_load import load_cf_set, load_idioms_set
 from tools.link_generator import generate_link
 from tools.pali_sort_key import pali_sort_key
 from tools.pos import CONJUGATIONS
@@ -51,12 +53,19 @@ class InflectionTemplates(Base):
     like: Mapped[str] = mapped_column(default='')
     data: Mapped[str] = mapped_column(default='')
 
+    # infletcion templates pack unpack
+    def pack_inflection_template(self, list: list[str]) -> None:
+        self.data = json.dumps(list, ensure_ascii=False)
+
+    def unpack_inflection_template(self) -> list[str]:
+        return json.loads(self.data)
+
     def __repr__(self) -> str:
         return f"InflectionTemplates: {self.pattern} {self.like} {self.data}"
 
 
-class PaliRoot(Base):
-    __tablename__ = "pali_roots"
+class DpdRoots(Base):
+    __tablename__ = "dpd_roots"
 
     root: Mapped[str] = mapped_column(primary_key=True)
     root_in_comps: Mapped[str] = mapped_column(default='')
@@ -86,23 +95,23 @@ class PaliRoot(Base):
     matrix_test: Mapped[str] = mapped_column(default='')
     root_info: Mapped[str] = mapped_column(default='')
     root_matrix: Mapped[str] = mapped_column(default='')
-    # ru_root_meaning: Mapped[str] = mapped_column(default='')
-    # ru_sk_root_meaning: Mapped[str] = mapped_column(default='')
 
     created_at: Mapped[Optional[DateTime]] = mapped_column(
         DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[Optional[DateTime]] = mapped_column(
         DateTime(timezone=True), onupdate=func.now())
 
-    pw: Mapped[List["PaliWord"]] = relationship(
+    pw: Mapped[List["DpdHeadwords"]] = relationship(
         back_populates="rt")
 
     @property
     def root_clean(self) -> str:
+        """Remove digits from the end"""
         return re.sub(r" \d.*$", "", self.root)
 
     @property
     def root_no_sign(self) -> str:
+        """Remove digits from the end and root sign"""
         return re.sub(r"\d| |√", "", self.root)
 
     @property
@@ -119,11 +128,10 @@ class PaliRoot(Base):
         if db_session is None:
             raise Exception("No db_session")
 
-        return db_session.query(
-            PaliWord
-            ).filter(
-                PaliWord.root_key == self.root
-            ).count()
+        return db_session \
+            .query(DpdHeadwords) \
+            .filter(DpdHeadwords.root_key == self.root) \
+            .count()
 
     @property
     def root_family_list(self) -> list:
@@ -131,35 +139,42 @@ class PaliRoot(Base):
         if db_session is None:
             raise Exception("No db_session")
 
-        results = db_session.query(
-            PaliWord
-        ).filter(
-            PaliWord.root_key == self.root
-        ).group_by(
-            PaliWord.family_root
-        ).all()
+        results = db_session \
+            .query(DpdHeadwords) \
+            .filter(DpdHeadwords.root_key == self.root) \
+            .group_by(DpdHeadwords.family_root) \
+            .all()
         family_list = [i.family_root for i in results if i.family_root is not None]
         family_list = sorted(family_list, key=lambda x: pali_sort_key(x))
         return family_list
 
     def __repr__(self) -> str:
-        return f"""PaliRoot: {self.root} {self.root_group} {self.root_sign} ({self.root_meaning})"""
+        return f"""DpdRoots: {self.root} {self.root_group} {self.root_sign} ({self.root_meaning})"""
 
 
 class FamilyRoot(Base):
     __tablename__ = "family_root"
     root_family_key: Mapped[str] = mapped_column(primary_key=True)
-    root_key: Mapped[str] = mapped_column()
-    root_family: Mapped[str] = mapped_column()
+    root_key: Mapped[str] = mapped_column(primary_key=True)
+    root_family: Mapped[str] = mapped_column(default='')
+    root_meaning: Mapped[str] = mapped_column(default='')
     html: Mapped[str] = mapped_column(default='')
+    data: Mapped[str] = mapped_column(default='')
     count: Mapped[int] = mapped_column(default=0)
 
     __table_args__ = (
         ForeignKeyConstraint(
             ["root_key", "root_family"],
-            ["pali_words.root_key", "pali_words.family_root"]
+            ["dpd_headwords.root_key", "dpd_headwords.family_root"]
         ),
     )
+
+    # root family pack unpack
+    def pack_fr_data(self, list: list[str]) -> None:
+        self.data = json.dumps(list, ensure_ascii=False, indent=1)
+
+    def unpack_fr_data(self) -> list[str]:
+        return json.loads(self.data)
 
     @property
     def root_family_link(self) -> str:
@@ -169,16 +184,93 @@ class FamilyRoot(Base):
     def root_family_(self) -> str:
         return self.root_family.replace(" ", "_")
 
+    @property
+    def root_family_clean(self) -> str:
+        """Remove root sign"""
+        return self.root_family.replace("√", "")
+
+    @property
+    def root_family_clean_no_space(self) -> str:
+        """Remove root sign and space"""
+        return self.root_family.replace("√", "").replace(" ", "")
+
     def __repr__(self) -> str:
-        return f"FamilyRoot: {self.root_key} {self.root_family} {self.count}"
+        return f"FamilyRoot: {self.root_family_key} {self.count}"
 
 
-class PaliWord(Base):
-    __tablename__ = "pali_words"
+class Lookup(Base):
+    __tablename__ = "lookup"
+
+    lookup_key: Mapped[str] = mapped_column(primary_key=True)
+    headwords: Mapped[str] = mapped_column(default='')
+    roots: Mapped[str] = mapped_column(default='')
+    deconstructor: Mapped[str] = mapped_column(default='')
+    variant: Mapped[str] = mapped_column(default='')
+    spelling: Mapped[str] = mapped_column(default='')
+    grammar: Mapped[str] = mapped_column(default='')
+    help: Mapped[str] = mapped_column(default='')
+    abbrev: Mapped[str] = mapped_column(default='')
+    thanks: Mapped[str] = mapped_column(default='')
+    bibliography: Mapped[str] = mapped_column(default='')
+    epd: Mapped[str] = mapped_column(default='')
+    other: Mapped[str] = mapped_column(default='')
+    sinhala: Mapped[str] = mapped_column(default='')
+    devanagari: Mapped[str] = mapped_column(default='')
+    thai: Mapped[str] = mapped_column(default='')
+
+    # headwords pack unpack
+    def pack_headwords(self, list: list[str]) -> None:
+        self.headwords = json.dumps(list, ensure_ascii=False)
+
+    def unpack_headwords(self) -> list[str]:
+        return json.loads(self.headwords)
+
+    # roots pack unpack
+    def pack_roots(self, list: list[str]) -> None:
+        self.roots = json.dumps(list, ensure_ascii=False)
+
+    def unpack_roots(self) -> list[str]:
+        return json.loads(self.roots)
+
+    # deconstructor pack unpack
+    def pack_deconstructor(self, list: list[str]) -> None:
+        self.deconstructor = json.dumps(list, ensure_ascii=False)
+
+    def unpack_deconstructor(self) -> list[str]:
+        return json.loads(self.deconstructor)
+
+    # variants pack unpack
+    def pack_variants(self, list: list[str]) -> None:
+        self.variant = json.dumps(list, ensure_ascii=False)
+
+    def unpack_variants(self) -> list[str]:
+        return json.loads(self.variant)
+
+    # spelling pack unpack
+    def pack_spelling(self, list: list[str]) -> None:
+        self.spelling = json.dumps(list, ensure_ascii=False)
+
+    def unpack_spelling(self) -> list[str]:
+        return json.loads(self.spelling)
+    
+    # grammar pack unpack
+    # TODO add a method to unpack to html
+    def pack_grammar(self, list: list[tuple[str]]) -> None:
+        self.grammar = json.dumps(list, ensure_ascii=False)
+
+    def unpack_grammar(self) -> list[str]:
+        return json.loads(self.grammar)
+
+    def __repr__(self) -> str:
+        return f"Lookup: {self.lookup_key} {self.headwords} {self.roots} {self.deconstructor}"
+
+
+class DpdHeadwords(Base):
+    __tablename__ = "dpd_headwords"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    pali_1: Mapped[str] = mapped_column(unique=True)
-    pali_2: Mapped[str] = mapped_column(default='')
+    lemma_1: Mapped[str] = mapped_column(unique=True)
+    lemma_2: Mapped[str] = mapped_column(default='')
     pos: Mapped[str] = mapped_column(default='')
     grammar: Mapped[str] = mapped_column(default='')
     derived_from: Mapped[str] = mapped_column(default='')
@@ -195,7 +287,7 @@ class PaliWord(Base):
     sanskrit: Mapped[str] = mapped_column(default='')
 
     root_key: Mapped[str] = mapped_column(
-        ForeignKey("pali_roots.root"), default='')
+        ForeignKey("dpd_roots.root"), default='')
     root_sign: Mapped[str] = mapped_column(default='')
     root_base: Mapped[str] = mapped_column(default='')
 
@@ -203,6 +295,7 @@ class PaliWord(Base):
     family_word: Mapped[str] = mapped_column(
         ForeignKey("family_word.word_family"), default='')
     family_compound: Mapped[str] = mapped_column(default='')
+    family_idioms: Mapped[str] = mapped_column(default='')
     family_set: Mapped[str] = mapped_column(default='')
 
     construction:  Mapped[str] = mapped_column(default='')
@@ -224,6 +317,8 @@ class PaliWord(Base):
     antonym: Mapped[str] = mapped_column(default='')
     synonym: Mapped[str] = mapped_column(default='')
     variant: Mapped[str] = mapped_column(default='')
+    var_phonetic: Mapped[str] = mapped_column(default='')
+    var_text: Mapped[str] = mapped_column(default='')
     commentary: Mapped[str] = mapped_column(default='')
     notes: Mapped[str] = mapped_column(default='')
     cognate: Mapped[str] = mapped_column(default='')
@@ -238,9 +333,19 @@ class PaliWord(Base):
         DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[Optional[DateTime]] = mapped_column(
         DateTime(timezone=True), onupdate=func.now())
+    
+    # derived data 
+
+    inflections: Mapped[str] = mapped_column(default='')
+    inflections_sinhala: Mapped[str] = mapped_column(default='')
+    inflections_devanagari: Mapped[str] = mapped_column(default='')
+    inflections_thai: Mapped[str] = mapped_column(default='')
+    inflections_html: Mapped[str] = mapped_column(default='')
+    freq_html: Mapped[str] = mapped_column(default='')
+    ebt_count: Mapped[int] = mapped_column(default='')
 
     # pali_root
-    rt: Mapped[PaliRoot] = relationship(uselist=False)
+    rt: Mapped[DpdRoots] = relationship(uselist=False)
 
     # family_root
     fr = relationship(
@@ -253,9 +358,6 @@ class PaliWord(Base):
 
     #  FamilyWord
     fw = relationship("FamilyWord", uselist=False)
-
-    # derived data
-    dd = relationship("DerivedData", uselist=False)
 
     # sbs
     sbs = relationship("SBS", uselist=False)
@@ -281,16 +383,16 @@ class PaliWord(Base):
                  cls.root_key + ' ' + cls.family_root), else_="")    
     
     @property
-    def pali_1_(self) -> str:
-        return self.pali_1.replace(" ", "_").replace(".", "_")
+    def lemma_1_(self) -> str:
+        return self.lemma_1.replace(" ", "_").replace(".", "_")
 
     @property
-    def pali_link(self) -> str:
-        return self.pali_1.replace(" ", "%20")
+    def lemma_link(self) -> str:
+        return self.lemma_1.replace(" ", "%20")
 
     @property
-    def pali_clean(self) -> str:
-        return re.sub(r" \d.*$", "", self.pali_1)
+    def lemma_clean(self) -> str:
+        return re.sub(r" \d.*$", "", self.lemma_1)
 
     @property
     def root_clean(self) -> str:
@@ -300,7 +402,7 @@ class PaliWord(Base):
             else:
                 return re.sub(r" \d.*$", "", self.root_key)
         except Exception as e:
-            print(f"{self.pali_1}: {e}")
+            print(f"{self.lemma_1}: {e}")
             return ""
     
     @property
@@ -318,6 +420,13 @@ class PaliWord(Base):
             return [self.family_compound]
 
     @property
+    def family_idioms_list(self) -> list:
+        if self.family_idioms:
+            return self.family_idioms.split(" ")
+        else:
+            return [self.family_idioms]
+
+    @property
     def family_set_list(self) -> list:
         if self.family_set:
             return self.family_set.split("; ")
@@ -330,11 +439,11 @@ class PaliWord(Base):
         if db_session is None:
             raise Exception("No db_session")
 
-        return db_session.query(
-            PaliWord.id
-        ).filter(
-            PaliWord.root_key == self.root_key
-        ).count()
+        return db_session\
+            .query(DpdHeadwords.id)\
+            .filter(DpdHeadwords\
+            .root_key == self.root_key)\
+            .count()
 
     @property
     def pos_list(self) -> list:
@@ -342,11 +451,10 @@ class PaliWord(Base):
         if db_session is None:
             raise Exception("No db_session")
 
-        pos_db = db_session.query(
-            PaliWord.pos
-        ).group_by(
-            PaliWord.pos
-        ).all()
+        pos_db = db_session \
+            .query(DpdHeadwords.pos) \
+            .group_by(DpdHeadwords.pos) \
+            .all()
         return sorted([i.pos for i in pos_db])
 
     @property
@@ -409,7 +517,37 @@ class PaliWord(Base):
     def sanskrit_clean(self) -> str:
         sanskrit_clean = re.sub(r"\[.+\]", "", self.sanskrit)
         return sanskrit_clean.strip()
-    
+
+    # derived data properties
+
+    @property
+    def inflections_list(self) -> list:
+        if self.inflections:
+            return self.inflections.split(",")
+        else:
+            return []
+
+    @property
+    def inflections_sinhala_list(self) -> list:
+        if self.inflections_sinhala:
+            return self.inflections_sinhala.split(",")
+        else:
+            return []
+
+    @property
+    def inflections_devanagari_list(self) -> list:
+        if self.inflections_devanagari:
+            return self.inflections_devanagari.split(",")
+        else:
+            return []
+
+    @property
+    def inflections_thai_list(self) -> list:
+        if self.inflections_thai:
+            return self.inflections_thai.split(",")
+        else:
+            return []
+
     # needs_button
 
     @property
@@ -447,10 +585,13 @@ class PaliWord(Base):
         return bool(self.family_word)
 
     @property
-    def cf_set(self):
-        from tools.exporter_functions import cf_set_gen
-        return cf_set_gen()
+    def cf_set(self) -> set[str]:
+        return load_cf_set()
 
+    @property
+    def idioms_set(self) -> set[str]:
+        return load_idioms_set( )
+    
     @property
     def needs_compound_family_button(self) -> bool:
         return bool(
@@ -458,8 +599,17 @@ class PaliWord(Base):
             and " " not in self.family_compound
             and(
                 any(item in self.cf_set for item in self.family_compound_list) or
-                self.pali_clean in self.cf_set
+                self.lemma_clean in self.cf_set #type:ignore
             ))
+
+        # alternative logix
+        # i.meaning_1
+        # and i.lemma_clean in cf_set) 
+        # or (
+        #     i.meaning_1
+        #     and i.family_compound
+        #     and any(item in cf_set 
+        #         for item in i.family_compound_list))
 
     @property
     def needs_compound_families_button(self) -> bool:
@@ -468,7 +618,21 @@ class PaliWord(Base):
             and " " in self.family_compound
             and(
                 any(item in self.cf_set for item in self.family_compound_list)
-                or self.pali_clean in self.cf_set))
+                or self.lemma_clean in self.cf_set)) #type:ignore
+
+    @property
+    def needs_idioms_button(self) -> bool:
+        return bool(
+            self.meaning_1
+            and(
+                any(item in self.idioms_set for item in self.family_idioms_list) or
+                self.lemma_clean in self.idioms_set #type:ignore
+            ))
+
+    # alternative logix
+    # if ((i.meaning_1 and i.lemma_clean in idioms_set) 
+    #     or (i.family_idioms and any(item in idioms_set 
+    #             for item in i.family_idioms_list)))
 
     @property
     def needs_set_button(self) -> bool:
@@ -489,111 +653,36 @@ class PaliWord(Base):
         return bool(self.pos not in EXCLUDE_FROM_FREQ)
 
     def __repr__(self) -> str:
-        return f"""PaliWord: {self.id} {self.pali_1} {self.pos} {
+        return f"""DpdHeadwords: {self.id} {self.lemma_1} {self.pos} {
             self.meaning_1}"""
-
-class DerivedData(Base):
-    __tablename__ = "derived_data"
-
-    id: Mapped[int] = mapped_column(
-        ForeignKey('pali_words.id'), primary_key=True)
-    # pali_1: Mapped[str] = mapped_column(unique=True)
-    inflections: Mapped[str] = mapped_column(default='')
-    sinhala: Mapped[str] = mapped_column(default='')
-    devanagari: Mapped[str] = mapped_column(default='')
-    thai: Mapped[str] = mapped_column(default='')
-    html_table: Mapped[str] = mapped_column(default='')
-    freq_html: Mapped[str] = mapped_column(default='')
-    ebt_count: Mapped[int] = mapped_column(default='')
-
-    @property
-    def inflections_list(self) -> list:
-        if self.inflections:
-            return self.inflections.split(",")
-        else:
-            return []
-
-    @property
-    def sinhala_list(self) -> list:
-        if self.sinhala:
-            return self.sinhala.split(",")
-        else:
-            return []
-
-    @property
-    def devanagari_list(self) -> list:
-        if self.devanagari:
-            return self.devanagari.split(",")
-        else:
-            return []
-
-    @property
-    def thai_list(self) -> list:
-        if self.thai:
-            return self.thai.split(",")
-        else:
-            return []
-
-    def __repr__(self) -> str:
-        return f"DerivedData: {self.id} {PaliWord.pali_1} {self.inflections}"
-
-
-class Sandhi(Base):
-    __tablename__ = "sandhi"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    sandhi: Mapped[str] = mapped_column(unique=True)
-    split: Mapped[str] = mapped_column(default='')
-    sinhala: Mapped[str] = mapped_column(default='')
-    devanagari: Mapped[str] = mapped_column(default='')
-    thai: Mapped[str] = mapped_column(default='')
-
-    @property
-    def split_list(self) -> list:
-        return self.split.split(",")
-
-    @property
-    def sinhala_list(self) -> list:
-        if self.sinhala:
-            return self.sinhala.split(",")
-        else:
-            return []
-
-    @property
-    def devanagari_list(self) -> list:
-        if self.devanagari:
-            return self.devanagari.split(",")
-        else:
-            return []
-
-    @property
-    def thai_list(self) -> list:
-        if self.thai:
-            return self.thai.split(",")
-        else:
-            return []
-
-    def __repr__(self) -> str:
-        return f"Sandhi: {self.id} {self.sandhi} {self.split}"
 
 
 class FamilyCompound(Base):
     __tablename__ = "family_compound"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    compound_family: Mapped[str] = mapped_column(unique=True)
+    compound_family: Mapped[str] = mapped_column(primary_key=True)
     html: Mapped[str] = mapped_column(default='')
+    data: Mapped[str] = mapped_column(default='')
     count: Mapped[int] = mapped_column(default=0)
 
+    # family_compound pack unpack
+    def pack_fc_data(self, list: list[str]) -> None:
+        self.data = json.dumps(list, ensure_ascii=False, indent=1)
+
+    def unpack_fc_data(self) -> list[str]:
+        return json.loads(self.data)
+
     def __repr__(self) -> str:
-        return f"FamilyCompound: {self.id} {self.compound_family} {self.count}"
+        return f"FamilyCompound: {self.compound_family} {self.count}"
 
 
 class FamilyWord(Base):
     __tablename__ = "family_word"
     word_family: Mapped[str] = mapped_column(primary_key=True)
     html: Mapped[str] = mapped_column(default='')
+    data: Mapped[str] = mapped_column(default='')
     count: Mapped[int] = mapped_column(default=0)
 
-    # pali_words: Mapped[List["PaliWord"]] = relationship("PaliWord", back_populates="fw")
+    dpd_headwords: Mapped[List["DpdHeadwords"]] = relationship("DpdHeadwords", back_populates="fw")
 
 
     def __repr__(self) -> str:
@@ -604,17 +693,47 @@ class FamilySet(Base):
     __tablename__ = "family_set"
     set: Mapped[str] = mapped_column(primary_key=True)
     html: Mapped[str] = mapped_column(default='')
+    data: Mapped[str] = mapped_column(default='')
     count: Mapped[int] = mapped_column(default=0)
+
+
+    # family_set pack unpack
+    def pack_set_data(self, list: list[str]) -> None:
+        self.data = json.dumps(list, ensure_ascii=False, indent=1)
+
+    def unpack_set_data(self) -> list[str]:
+        return json.loads(self.data)
 
     def __repr__(self) -> str:
         return f"FamilySet: {self.set} {self.count}"
+
+
+class FamilyIdiom(Base):
+    __tablename__ = "family_idiom"
+    idiom: Mapped[str] = mapped_column(primary_key=True)
+    html: Mapped[str] = mapped_column(default='')
+    data: Mapped[str] = mapped_column(default='')
+    count: Mapped[int] = mapped_column(default=0)
+
+
+    # idioms data pack unpack
+    def pack_idioms_data(self, list: list[str]) -> None:
+        self.data = json.dumps(list, ensure_ascii=False, indent=1)
+
+    def unpack_idioms_data(self) -> list[str]:
+        return json.loads(self.data)
+
+    def __repr__(self) -> str:
+        return f"FamilySet: {self.idiom} {self.count}"
+
+
 
 
 class SBS(Base):
     __tablename__ = "sbs"
 
     id: Mapped[int] = mapped_column(
-        ForeignKey('pali_words.id'), primary_key=True)
+        ForeignKey('dpd_headwords.id'), primary_key=True)
     sbs_class_anki: Mapped[int] = mapped_column(default='')
     sbs_class: Mapped[int] = mapped_column(default='')
     sbs_category: Mapped[str] = mapped_column(default='')
@@ -623,13 +742,13 @@ class SBS(Base):
     sbs_source_1: Mapped[str] = mapped_column(default='')
     sbs_sutta_1: Mapped[str] = mapped_column(default='')
     sbs_example_1: Mapped[str] = mapped_column(default='')
-    sbs_chant_pali_1: Mapped[str] = mapped_column(default='')
+    sbs_chant_lemma_1: Mapped[str] = mapped_column(default='')
     sbs_chant_eng_1: Mapped[str] = mapped_column(default='')
     sbs_chapter_1: Mapped[str] = mapped_column(default='')
     sbs_source_2: Mapped[str] = mapped_column(default='')
     sbs_sutta_2: Mapped[str] = mapped_column(default='')
     sbs_example_2: Mapped[str] = mapped_column(default='')
-    sbs_chant_pali_2: Mapped[str] = mapped_column(default='')
+    sbs_chant_lemma_2: Mapped[str] = mapped_column(default='')
     sbs_chant_eng_2: Mapped[str] = mapped_column(default='')
     sbs_chapter_2: Mapped[str] = mapped_column(default='')
     sbs_source_3: Mapped[str] = mapped_column(default='')
@@ -652,7 +771,7 @@ class SBS(Base):
 
     def calculate_index(self):
         chant_index_map = SBS_table_tools().load_chant_index_map()
-        chants = [self.sbs_chant_pali_1, self.sbs_chant_pali_2, self.sbs_chant_pali_3, self.sbs_chant_pali_4]
+        chants = [self.sbs_chant_lemma_1, self.sbs_chant_lemma_2, self.sbs_chant_pali_3, self.sbs_chant_pali_4]
 
         indexes = [chant_index_map.get(chant) for chant in chants if chant in chant_index_map]
         indexes = [index for index in indexes if index is not None]  # Filter out None values
@@ -677,12 +796,12 @@ class SBS(Base):
     @property
     def sbs_chant_link_1(self):
         chant_link_map = SBS_table_tools().load_chant_link_map()
-        return chant_link_map.get(self.sbs_chant_pali_1, "")
+        return chant_link_map.get(self.sbs_chant_lemma_1, "")
 
     @property
     def sbs_chant_link_2(self):
         chant_link_map = SBS_table_tools().load_chant_link_map()
-        return chant_link_map.get(self.sbs_chant_pali_2, "")
+        return chant_link_map.get(self.sbs_chant_lemma_2, "")
 
     @property
     def sbs_chant_link_3(self):
@@ -722,7 +841,7 @@ class SBS(Base):
 
 
     def __repr__(self) -> str:
-        return f"SBS: {self.id} {self.sbs_chant_pali_1} {self.sbs_class}"
+        return f"SBS: {self.id} {self.sbs_chant_lemma_1} {self.sbs_class}"
 
     
     def __init__(self, *args, **kwargs):
@@ -734,7 +853,7 @@ class Russian(Base):
     __tablename__ = "russian"
 
     id: Mapped[int] = mapped_column(
-        ForeignKey('pali_words.id'), primary_key=True)
+        ForeignKey('dpd_headwords.id'), primary_key=True)
     ru_meaning: Mapped[str] = mapped_column(default="")
     ru_meaning_lit: Mapped[str] = mapped_column(default="")
     ru_notes: Mapped[str] = mapped_column(default='')
@@ -742,19 +861,6 @@ class Russian(Base):
     def __repr__(self) -> str:
         return f"Russian: {self.id} {self.ru_meaning}"
 
-
-class InflectionToHeadwords(Base):
-    __tablename__ = "inflection_to_headwords"
-
-    inflection: Mapped[str] = mapped_column(primary_key=True)
-    headwords: Mapped[str] = mapped_column(default="")
-
-    @property
-    def headwords_list(self) -> list:
-        return self.headwords.split(",")
-
-    def __repr__(self) -> str:
-        return f"i2h: {self.inflection} {self.headwords}"
 
 
 class BoldDefintion(Base):
@@ -772,7 +878,7 @@ class BoldDefintion(Base):
     commentary: Mapped[str] = mapped_column(default='')
 
     def update_bold_defintion(
-            self, file_name, ref_code, nikaya, book, title, subhead,
+        self, file_name, ref_code, nikaya, book, title, subhead,
 			bold, bold_end, commentary):
         self.file_name = file_name
         self.ref_code = ref_code

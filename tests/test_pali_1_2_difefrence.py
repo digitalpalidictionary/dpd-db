@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Test to see if pali_1 and pali_2 are almost identical"""
+"""Test to see if lemma_1 and lemma_2 are almost identical"""
 
 import difflib
 import pyperclip
@@ -9,7 +9,7 @@ import re
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.db_search_string import db_search_string
 from tools.paths import ProjectPaths
 from tools.pos import INDECLINABLES
@@ -27,10 +27,10 @@ pos_differs = [
 
 
 def main():
-    print("[bright_yellow]find differences in pali_1, pali_2, stem pattern")
+    print("[bright_yellow]find differences in lemma_1, lemma_2, stem pattern")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).all()
+    db = db_session.query(DpdHeadwords).all()
     error_list = []
     for i in db:
         
@@ -46,55 +46,55 @@ def main():
 
 def test_zero(i, error_list):
     if (
-        i.pali_1 not in exceptions
+        i.lemma_1 not in exceptions
         and i.pos not in pos_differs
         and i.meaning_1
-        and not i.pali_clean.endswith("ar")
+        and not i.lemma_clean.endswith("ar")
     ):
         diff = 0
-        is_same = compare_strings(i.pali_clean, i.pali_2, diff)
+        is_same = compare_strings(i.lemma_clean, i.lemma_2, diff)
         if not is_same:
             printer(i)
-            error_list += [i.pali_1]
+            error_list += [i.lemma_1]
     return error_list
 
 
 def test_one(i, error_list):
     if (
-        i.pali_1 not in exceptions
-        and not i.pali_clean.endswith("ant")
-        and not i.pali_clean.endswith("ar")
-        and not i.pali_clean.endswith("as")
+        i.lemma_1 not in exceptions
+        and not i.lemma_clean.endswith("ant")
+        and not i.lemma_clean.endswith("ar")
+        and not i.lemma_clean.endswith("as")
     ):  
         diff = 1
-        is_same = compare_strings(i.pali_clean, i.pali_2, diff)
+        is_same = compare_strings(i.lemma_clean, i.lemma_2, diff)
         if not is_same:
             printer(i)
-            error_list += [i.pali_1]
+            error_list += [i.lemma_1]
     return error_list
 
 
 def test_two(i, error_list):
     if (
-        i.pali_clean.endswith("ar")
-        or i.pali_clean.endswith("as")
+        i.lemma_clean.endswith("ar")
+        or i.lemma_clean.endswith("as")
     ):
         diff = 2
-        is_same = compare_strings(i.pali_clean, i.pali_2, diff)
+        is_same = compare_strings(i.lemma_clean, i.lemma_2, diff)
         if not is_same:
             printer(i)
-            error_list += [i.pali_1]
+            error_list += [i.lemma_1]
     return error_list
 
 def test_three(i, error_list):
     if (
-        i.pali_clean.endswith("ant")
+        i.lemma_clean.endswith("ant")
     ):
         diff = 3
-        is_same = compare_strings(i.pali_clean, i.pali_2, diff)
+        is_same = compare_strings(i.lemma_clean, i.lemma_2, diff)
         if not is_same:
             printer(i)
-            error_list += [i.pali_1]
+            error_list += [i.lemma_1]
     return error_list
 
 def test_stem_pattern(i, error_list):
@@ -111,15 +111,15 @@ def test_stem_pattern(i, error_list):
         pattern = re.sub(r"\d$", "", pattern)
         stem_pattern = f"{i.stem}{pattern}"
         diff = 0
-        is_same = compare_strings(i.pali_clean, stem_pattern, diff)
+        is_same = compare_strings(i.lemma_clean, stem_pattern, diff)
         if not is_same:
             printer(i)
-            error_list += [i.pali_1]
+            error_list += [i.lemma_1]
     return error_list
 
 
 def printer(i):
-    print(f"{i.id:<10}{i.pali_1:<30}{i.pali_2:<30}")
+    print(f"{i.id:<10}{i.lemma_1:<30}{i.lemma_2:<30}")
 
 
 

@@ -12,7 +12,7 @@ import glob
 import datetime
 
 from db.get_db_session import get_db_session
-from db.models import Russian, SBS, PaliWord, PaliRoot
+from db.models import Russian, SBS, DpdHeadwords, DpdRoots
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
@@ -29,8 +29,8 @@ def backup_all_tables():
     db_session = get_db_session(pth.dpd_db_path)
 
     tables_to_backup = [
-        {'class': PaliWord, 'name': "paliword", 'exclude_columns': ["created_at", "updated_at"]},
-        {'class': PaliRoot, 'name': "paliroot", 'exclude_columns': ["created_at", "updated_at", "root_info", "root_matrix"]},
+        {'class': DpdHeadwords, 'name': "paliword", 'exclude_columns': ["created_at", "updated_at"]},
+        {'class': DpdRoots, 'name': "paliroot", 'exclude_columns': ["created_at", "updated_at", "root_info", "root_matrix"]},
         {'class': SBS, 'name': "sbs", 'exclude_columns': []},
         {'class': Russian, 'name': "russian", 'exclude_columns': []}
     ]

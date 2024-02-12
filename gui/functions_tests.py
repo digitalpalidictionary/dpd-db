@@ -13,7 +13,7 @@ from json import dumps, loads
 from typing import List, Tuple
 from rich import print
 
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tests.helpers import InternalTestRow
 from tools.pali_sort_key import pali_sort_key
 
@@ -59,7 +59,7 @@ def write_internal_tests_list(pth, internal_tests_list):
 
 
 def test_the_tests(internal_tests_list, window):
-    column_names = [column.name for column in PaliWord.__table__.columns]
+    column_names = [column.name for column in DpdHeadwords.__table__.columns]
     column_names += [""]
     logical_operators = [
         "",
@@ -147,7 +147,7 @@ def run_individual_internal_tests(
 
         # try:
         if t.exceptions != {""}:
-            if values["pali_1"] in t.exceptions:
+            if values["lemma_1"] in t.exceptions:
                 print(f"[red]{counter}. {t.exceptions}")
                 continue
 
@@ -225,7 +225,7 @@ def run_individual_internal_tests(
                 elif event_popup == "Exception":
                     if username == "primary_user":
                         popup_win.close()
-                        internal_tests_list[counter].exceptions += [values['pali_1']]
+                        internal_tests_list[counter].exceptions += [values['lemma_1']]
                         write_internal_tests_list(pth, internal_tests_list)
                         break
                     else:
@@ -260,7 +260,7 @@ def run_individual_internal_tests(
 
 def db_internal_tests_setup(db_session, pth):
 
-    dpd_db = db_session.query(PaliWord).all()
+    dpd_db = db_session.query(DpdHeadwords).all()
     internal_tests_list = make_internal_tests_list(pth)
 
     return dpd_db, internal_tests_list
@@ -330,8 +330,8 @@ def db_internal_tests(db_session, pth, sg, window, flags):
             test_results = get_db_test_results(t, i)
 
             if all(test_results.values()):
-                if i.pali_1 not in t.exceptions:
-                    fail_list += [i.pali_1]
+                if i.lemma_1 not in t.exceptions:
+                    fail_list += [i.lemma_1]
 
                     if results_count < int(t.iterations):
                         test_results_display += [[
@@ -561,7 +561,7 @@ def clean_exceptions(dpd_db, internal_tests_list):
     """Remove exceptions which are not headwords and
     sort exceptions in pali alphabetical order."""
 
-    all_headwords: set = set([i.pali_1 for i in dpd_db])
+    all_headwords: set = set([i.lemma_1 for i in dpd_db])
 
     for t in internal_tests_list:
         exceptions = t.exceptions

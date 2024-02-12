@@ -13,7 +13,7 @@ from rich import print
 from typing import List, Dict
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 
 from tools.configger import config_read, config_test
 from tools.paths import ProjectPaths
@@ -29,7 +29,7 @@ def main():
     print(f"[green]{'setup dbs':<20}", end="")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).all()
+    db = db_session.query(DpdHeadwords).all()
     print(f"{len(db):>10}{bop():>10.2f}")
 
     decks = ["Vocab", "Commentary", "Pass1"]
@@ -262,7 +262,7 @@ def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:
                 added_list += [i.id]
                 make_new_note(col, deck, model_dict, deck_dict, i)
             if counter % 5000 == 0:
-                print(f"{counter:>5} {i.pali_1[:23]:<24}{bop():>10.2f}")
+                print(f"{counter:>5} {i.lemma_1[:23]:<24}{bop():>10.2f}")
                 bip()
 
         else:
@@ -336,8 +336,8 @@ def update_note_values(col, note, i):
         fin = ""
     
     note["id"] = str(i.id)
-    note["pali_1"] = str(i.pali_1)
-    note["pali_2"] = str(i.pali_2)
+    note["lemma_1"] = str(i.lemma_1)
+    note["lemma_2"] = str(i.lemma_2)
     note["fin"] = fin
     note["pos"] = str(i.pos)
     note["grammar"] = str(i.grammar)

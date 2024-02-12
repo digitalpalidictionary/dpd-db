@@ -13,7 +13,7 @@ from json import dumps, loads
 from typing import List, Tuple
 from rich import print
 
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tests.helpers import InternalTestRow
 # from tools.pali_sort_key import pali_sort_key
 from sqlalchemy.orm import joinedload
@@ -172,11 +172,11 @@ def is_valid_column(column_name):
 
     if "." in column_name:  # Check for nested attributes
         relationship_name, attr_name = column_name.split(".", 1)
-        if hasattr(PaliWord, relationship_name):
-            related_class = getattr(PaliWord, relationship_name).property.mapper.class_
+        if hasattr(DpdHeadwords, relationship_name):
+            related_class = getattr(DpdHeadwords, relationship_name).property.mapper.class_
             return hasattr(related_class, attr_name)
     else:  # Direct attribute
-        return column_name in [column.name for column in PaliWord.__table__.columns]
+        return column_name in [column.name for column in DpdHeadwords.__table__.columns]
     return False
 
 
@@ -197,7 +197,7 @@ def get_nested_attr(obj, attr_str, default=None):
 def test_the_tests(internal_tests_list, window):
 
     # Extract column names
-    column_names = [column.name for column in PaliWord.__table__.columns]
+    column_names = [column.name for column in DpdHeadwords.__table__.columns]
     column_names += [""]
 
     # Define logical operators
@@ -253,7 +253,7 @@ def run_individual_internal_tests(
 
         # try:
         if t.exceptions != {""}:
-            if values["dps_pali_1"] in t.exceptions:
+            if values["dps_lemma_1"] in t.exceptions:
                 print(f"[red]{counter}. {t.exceptions}")
                 continue
 
@@ -306,7 +306,7 @@ def run_individual_internal_tests(
 
             exception_popup = sg.popup_get_text(
                 f"{message}\nClick Ok to add exception or Cancel to edit.",
-                default_text=values["dps_pali_1"],
+                default_text=values["dps_lemma_1"],
                 location=(200, 200),
                 text_color="white"
                 )
@@ -314,7 +314,7 @@ def run_individual_internal_tests(
             if exception_popup is None:
                 return flags_dps
             else:
-                internal_tests_list[counter].exceptions += [values['dps_pali_1']]
+                internal_tests_list[counter].exceptions += [values['dps_lemma_1']]
                 write_exceptions_to_internal_tests_list(dpspth, internal_tests_list)
                 return flags_dps
 
@@ -384,7 +384,7 @@ def dps_db_internal_tests(dpspth, pth, db_session, sg, window, flags_dps):
     window["messages"].update("running tests", text_color="white")
     window.refresh()
 
-    dpd_db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs), joinedload(PaliWord.ru)).all()
+    dpd_db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs), joinedload(DpdHeadwords.ru)).all()
     db_internal_tests_list = make_db_internal_tests_list(dpspth)
 
     db_internal_tests_list = clean_exceptions(dpd_db, db_internal_tests_list)
@@ -412,8 +412,8 @@ def dps_db_internal_tests(dpspth, pth, db_session, sg, window, flags_dps):
             test_results = get_db_test_results(t, i)
 
             if all(test_results.values()):
-                if i.pali_1 not in t.exceptions:
-                    fail_list += [i.pali_1]
+                if i.lemma_1 not in t.exceptions:
+                    fail_list += [i.lemma_1]
 
                     if results_count < int(t.iterations):
                         if not t.display_1:  # checking if it's an empty string
@@ -642,7 +642,7 @@ def dps_dpd_db_internal_tests(dpspth, db_session, pth, sg, window, flags):
     window["messages"].update("running tests", text_color="white")
     window.refresh()
 
-    dpd_db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs), joinedload(PaliWord.ru)).all()
+    dpd_db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs), joinedload(DpdHeadwords.ru)).all()
     db_internal_tests_list = make_dpd_db_internal_tests_list(pth)
 
     db_internal_tests_list = clean_exceptions(dpd_db, db_internal_tests_list)
@@ -670,8 +670,8 @@ def dps_dpd_db_internal_tests(dpspth, db_session, pth, sg, window, flags):
             test_results = get_db_test_results(t, i)
 
             if all(test_results.values()):
-                if i.pali_1 not in t.exceptions:
-                    fail_list += [i.pali_1]
+                if i.lemma_1 not in t.exceptions:
+                    fail_list += [i.lemma_1]
 
                     if results_count < int(t.iterations):
                         if not t.display_1:  # checking if it's an empty string

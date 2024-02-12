@@ -5,7 +5,7 @@
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord, FamilySet
+from db.models import DpdHeadwords, FamilySet
 from tools.tic_toc import tic, toc
 from tools.superscripter import superscripter_uni
 from tools.meaning_construction import make_meaning
@@ -21,8 +21,8 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
 
     sets_db = db_session.query(
-        PaliWord).filter(PaliWord.family_set != "").all()
-    sets_db = sorted(sets_db, key=lambda x: pali_sort_key(x.pali_1))
+        DpdHeadwords).filter(DpdHeadwords.family_set != "").all()
+    sets_db = sorted(sets_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     sets_dict = make_sets_dict(sets_db)
     sets_dict = compile_sf_html(sets_db, sets_dict)
@@ -35,7 +35,7 @@ def make_sets_dict(sets_db):
     print("[green]extracting set names", end=" ")
 
     # create a dict of all sets
-    # set: {headwords: [], html: "", }
+    # set: {headwords: [], html: "", data:, []}
 
     sets_dict: dict = {}
 
@@ -51,11 +51,12 @@ def make_sets_dict(sets_db):
 
             if i.meaning_1:
                 if fs in sets_dict:
-                    sets_dict[fs]["headwords"] += [i.pali_1]
+                    sets_dict[fs]["headwords"] += [i.lemma_1]
                 else:
                     sets_dict[fs] = {
-                        "headwords": [i.pali_1],
-                        "html": ""}
+                        "headwords": [i.lemma_1],
+                        "html": "",
+                        "data": []}
 
     print(len(sets_dict))
     return sets_dict
@@ -68,7 +69,7 @@ def compile_sf_html(sets_db, sets_dict):
 
         for sf in i.family_set_list:
             if sf in sets_dict:
-                if i.pali_1 in sets_dict[sf]["headwords"]:
+                if i.lemma_1 in sets_dict[sf]["headwords"]:
                     if not sets_dict[sf]["html"]:
                         html_string = "<table class='family'>"
                     else:
@@ -76,12 +77,16 @@ def compile_sf_html(sets_db, sets_dict):
 
                     meaning = make_meaning(i)
                     html_string += "<tr>"
-                    html_string += f"<th>{superscripter_uni(i.pali_1)}</th>"
+                    html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
                     html_string += f"<td><b>{i.pos}</b></td>"
                     html_string += f"<td>{meaning} {doc(i)}</td>"
                     html_string += "</tr>"
 
                     sets_dict[sf]["html"] = html_string
+
+                    # data
+                    sets_dict[sf]["data"].append(
+                        (i.lemma_1, i.pos, meaning))
 
     for i in sets_dict:
         sets_dict[i]["html"] += "</table>"
@@ -102,6 +107,7 @@ def add_sf_to_db(db_session, sets_dict):
             set=sf,
             html=sets_dict[sf]["html"],
             count=count)
+        sf_data.pack_set_data(sets_dict[sf]["data"])
 
         add_to_db.append(sf_data)
 

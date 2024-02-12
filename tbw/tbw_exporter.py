@@ -11,7 +11,7 @@ import json
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord, Sandhi, DerivedData
+from db.models import DpdHeadwords, Sandhi
 from tools.pali_sort_key import pali_sort_key
 from tools.tic_toc import tic, toc
 from tools.cst_sc_text_sets import make_sc_text_set
@@ -48,8 +48,8 @@ def main():
     print(f"[green]{'making db searches':<40}", end="")
 
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(PaliWord)
-    dd_db = db_session.query(DerivedData)
+    dpd_db = db_session.query(DpdHeadwords)
+
     deconstr_db = db_session.query(Sandhi)
     print("OK")
 
@@ -70,9 +70,8 @@ def main():
     
     print(f"[green]{'making inflections to headwords dict':<40}", end="")
     i2h: dict = {}
-    for __counter__, (i, dd) in enumerate(zip(dpd_db, dd_db)):
-        assert i.id == dd.id
-        inflections = dd.inflections_list
+    for __counter__, i in enumerate(dpd_db):
+        inflections = i.inflections_list
         for inflection in inflections:
             test1 = (
                 inflection in text_set or
@@ -81,9 +80,9 @@ def main():
             if test1 & test2:
                 matched.add(inflection)
                 if inflection not in i2h:
-                    i2h[inflection] = [i.pali_1]
+                    i2h[inflection] = [i.lemma_1]
                 else:
-                    i2h[inflection] += [i.pali_1]
+                    i2h[inflection] += [i.lemma_1]
     print(f"{len(i2h):,}")
 
     # save inflections to headwords json
@@ -112,12 +111,12 @@ def main():
     print(f"[green]{'making dpd ebts dict':<40}", end="")
     dpd_dict = {}
     for i in dpd_db:
-        if i.pali_1 in headwords_set:
+        if i.lemma_1 in headwords_set:
             string = f"{i.pos}. "
             string += make_meaning_html(i)
             if i.construction:
                 string += f" [{summarize_construction(i)}]"
-            dpd_dict[i.pali_1] = string
+            dpd_dict[i.lemma_1] = string
 
     dpd_dict = dict(
         sorted(dpd_dict.items(), key=lambda x: pali_sort_key(x[0])))

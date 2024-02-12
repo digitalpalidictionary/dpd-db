@@ -9,7 +9,7 @@ from rich.console import Console
 
 from typing import List
 
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from db.get_db_session import get_db_session
 
 from tools.pali_sort_key import pali_sort_key
@@ -34,9 +34,9 @@ def main():
     dpspth = DPSPaths()
 
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs), joinedload(PaliWord.ru)).all()
+    dpd_db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs), joinedload(DpdHeadwords.ru)).all()
     dpd_db = sorted(
-        dpd_db, key=lambda x: pali_sort_key(x.pali_1))
+        dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     dps(dpspth, dpd_db)
     toc()
@@ -47,10 +47,10 @@ def main():
 def dps(dpspth, dpd_db):
     console.print("[bold green]making dps-full csv")
 
-    def _is_needed(i: PaliWord):
+    def _is_needed(i: DpdHeadwords):
         return (i.ru)
 
-    header = ['id', 'pali_1', 'pali_2', 'fin', 'sbs_class_anki', 'sbs_category', 'sbs_class', 'pos', 'grammar', 'derived_from',
+    header = ['id', 'lemma_1', 'lemma_2', 'fin', 'sbs_class_anki', 'sbs_category', 'sbs_class', 'pos', 'grammar', 'derived_from',
                     'neg', 'verb', 'trans', 'plus_case', 'meaning_1',
                     'meaning_lit', 'ru_meaning', 'ru_meaning_lit', 'sbs_meaning', 'non_ia', 'sanskrit', 'sanskrit_root',
                     'sanskrit_root_meaning', 'sanskrit_root_class', 'root', 'root_in_comps', 'root_has_verb',
@@ -59,8 +59,8 @@ def dps(dpspth, dpd_db):
                     'suffix', 'phonetic', 'compound_type',
                     'compound_construction', 'non_root_in_comps', 'source_1',
                     'sutta_1', 'example_1', 'source_2', 'sutta_2', 'example_2',
-                    'sbs_source_1', 'sbs_sutta_1', 'sbs_example_1', 'sbs_chant_pali_1', 'sbs_chant_eng_1', 'sbs_chapter_1',
-                    'sbs_source_2', 'sbs_sutta_2', 'sbs_example_2', 'sbs_chant_pali_2', 'sbs_chant_eng_2', 'sbs_chapter_2',
+                    'sbs_source_1', 'sbs_sutta_1', 'sbs_example_1', 'sbs_chant_lemma_1', 'sbs_chant_eng_1', 'sbs_chapter_1',
+                    'sbs_source_2', 'sbs_sutta_2', 'sbs_example_2', 'sbs_chant_lemma_2', 'sbs_chant_eng_2', 'sbs_chapter_2',
                     'sbs_source_3', 'sbs_sutta_3', 'sbs_example_3', 'sbs_chant_pali_3', 'sbs_chant_eng_3', 'sbs_chapter_3', 'sbs_source_4', 'sbs_sutta_4', 'sbs_example_4', 'sbs_chant_pali_4', 'sbs_chant_eng_4', 'sbs_chapter_4',
                     'antonym', 'synonym',
                     'variant',  'commentary',
@@ -79,20 +79,20 @@ def dps(dpspth, dpd_db):
 
     # dps_df = pd.read_csv(dpspth.dps_full_path, sep="\t", dtype=str)
     # dps_df.sort_values(
-    #     by=["pali_1"], inplace=True, ignore_index=True,
+    #     by=["lemma_1"], inplace=True, ignore_index=True,
     #     key=lambda x: x.map(pali_sort_key))
     # dps_df.to_csv(
     #     dpspth.dps_full_path, sep="\t", index=False,
     #     quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
 
 
-def pali_row(dpspth, i: PaliWord, output="anki") -> List[str]:
+def pali_row(dpspth, i: DpdHeadwords, output="anki") -> List[str]:
     fields = []
 
     fields.extend([ 
         i.id,
-        i.pali_1,
-        i.pali_2,
+        i.lemma_1,
+        i.lemma_2,
     ])
 
     if i.sutta_1 and i.sutta_2:
@@ -189,13 +189,13 @@ def pali_row(dpspth, i: PaliWord, output="anki") -> List[str]:
         i.sbs.sbs_source_1.replace("\n", "<br>") if i.sbs else None,
         i.sbs.sbs_sutta_1.replace("\n", "<br>") if i.sbs else None,
         i.sbs.sbs_example_1.replace("\n", "<br>") if i.sbs else None,
-        i.sbs.sbs_chant_pali_1 if i.sbs else None,
+        i.sbs.sbs_chant_lemma_1 if i.sbs else None,
         i.sbs.sbs_chant_eng_1 if i.sbs else None,
         i.sbs.sbs_chapter_1 if i.sbs else None,
         i.sbs.sbs_source_2.replace("\n", "<br>") if i.sbs else None,
         i.sbs.sbs_sutta_2.replace("\n", "<br>") if i.sbs else None,
         i.sbs.sbs_example_2.replace("\n", "<br>") if i.sbs else None,
-        i.sbs.sbs_chant_pali_2 if i.sbs else None,
+        i.sbs.sbs_chant_lemma_2 if i.sbs else None,
         i.sbs.sbs_chant_eng_2 if i.sbs else None,
         i.sbs.sbs_chapter_2 if i.sbs else None,
         i.sbs.sbs_source_3.replace("\n", "<br>") if i.sbs else None,
@@ -228,7 +228,7 @@ def pali_row(dpspth, i: PaliWord, output="anki") -> List[str]:
     ])
 
     # sbs_audio
-    fields.append(SBS_table_tools().generate_sbs_audio(i.pali_clean))
+    fields.append(SBS_table_tools().generate_sbs_audio(i.lemma_clean))
 
     fields.extend([
         i.sbs.sbs_chant_link_1 if i.sbs else None,
@@ -246,7 +246,7 @@ def full_db(dpspth, dpd_db):
     tic()
     console.print("[bold green]making dpd-dps-full csv")
     rows = []
-    header = ['id', 'pali_1', 'pali_2', 'fin', 'sbs_class_anki', 'sbs_category', 'sbs_class','pos', 'grammar', 'derived_from',
+    header = ['id', 'lemma_1', 'lemma_2', 'fin', 'sbs_class_anki', 'sbs_category', 'sbs_class','pos', 'grammar', 'derived_from',
                     'neg', 'verb', 'trans', 'plus_case', 'meaning_1',
                     'meaning_lit', 'ru_meaning', 'ru_meaning_lit', 'sbs_meaning', 'non_ia', 'sanskrit', 'sanskrit_root',
                     'sanskrit_root_meaning', 'sanskrit_root_class', 'root', 'root_in_comps', 'root_has_verb',
@@ -255,8 +255,8 @@ def full_db(dpspth, dpd_db):
                     'suffix', 'phonetic', 'compound_type',
                     'compound_construction', 'non_root_in_comps', 'source_1',
                     'sutta_1', 'example_1', 'source_2', 'sutta_2', 'example_2',
-                    'sbs_source_1', 'sbs_sutta_1', 'sbs_example_1', 'sbs_chant_pali_1', 'sbs_chant_eng_1', 'sbs_chapter_1',
-                    'sbs_source_2', 'sbs_sutta_2', 'sbs_example_2', 'sbs_chant_pali_2', 'sbs_chant_eng_2', 'sbs_chapter_2',
+                    'sbs_source_1', 'sbs_sutta_1', 'sbs_example_1', 'sbs_chant_lemma_1', 'sbs_chant_eng_1', 'sbs_chapter_1',
+                    'sbs_source_2', 'sbs_sutta_2', 'sbs_example_2', 'sbs_chant_lemma_2', 'sbs_chant_eng_2', 'sbs_chapter_2',
                     'sbs_source_3', 'sbs_sutta_3', 'sbs_example_3', 'sbs_chant_pali_3', 'sbs_chant_eng_3', 'sbs_chapter_3', 'sbs_source_4', 'sbs_sutta_4', 'sbs_example_4', 'sbs_chant_pali_4', 'sbs_chant_eng_4', 'sbs_chapter_4',
                     'antonym', 'synonym',
                     'variant',  'commentary',
@@ -277,7 +277,7 @@ def full_db(dpspth, dpd_db):
 
     # full_df = pd.read_csv(dpspth.dpd_dps_full_path, sep="\t", dtype=str)
     # full_df.sort_values(
-    #     by=["pali_1"], inplace=True, ignore_index=True,
+    #     by=["lemma_1"], inplace=True, ignore_index=True,
     #     key=lambda x: x.map(pali_sort_key))
     # full_df.to_csv(
     #     dpspth.dpd_dps_full_path, sep="\t", index=False,

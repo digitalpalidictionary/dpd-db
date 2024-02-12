@@ -128,9 +128,9 @@ def pali_sort_key(word: str) -> str:
     """A key for sorting in Pāḷi alphabetical order."
     Usage:
     list = sorted(list, key=pali_sort_key)
-    db = sorted(db, key=lambda x: pali_sort_key(x.pali_1))
+    db = sorted(db, key=lambda x: pali_sort_key(x.lemma_1))
     df.sort_values(
-        by="pali_1", inplace=True, ignore_index=True,
+        by="lemma_1", inplace=True, ignore_index=True,
         key=lambda x: x.map(pali_sort_key))"""
 
     pattern = '|'.join(re.escape(key) for key in letter_to_number.keys())
@@ -148,9 +148,9 @@ def sanskrit_sort_key(word: str) -> str:
     """A key for sorting in Sanskrit alphabetical order."
     Usage:
     list = sorted(list, key=pali_sort_key)
-    db = sorted(db, key=lambda x: sanskrit_sort_key(x.pali_1))
+    db = sorted(db, key=lambda x: sanskrit_sort_key(x.lemma_1))
     df.sort_values(
-        by="pali_1", inplace=True, ignore_index=True,
+        by="lemma_1", inplace=True, ignore_index=True,
         key=lambda x: x.map(sanskrit_sort_key))"""
 
     pattern = '|'.join(re.escape(key) for key in sanksrit_letter_to_number.keys())

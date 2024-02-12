@@ -1,5 +1,5 @@
 # TSV Backups of database tables
-- PaliWord
-- PaliRoot
+- DpdHeadwords
+- DpdRoots
 - Russian
 - SBS 

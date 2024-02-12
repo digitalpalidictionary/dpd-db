@@ -10,7 +10,7 @@ from rich import print
 
 from tools.goldedict_tools import open_in_goldendict
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 
 from tools.meaning_construction import make_meaning
 from tools.meaning_construction import summarize_construction
@@ -25,7 +25,7 @@ ENABLE_LIST = \
 
 
 def get_column_names():
-    inspector = inspect(PaliWord)
+    inspector = inspect(DpdHeadwords)
     column_names = [column.name for column in inspector.columns]
     column_names = sorted(column_names)
     return column_names
@@ -53,8 +53,8 @@ def main():
 
         if event == "id_enter":
             id_val = values["id"]
-            db = db_session.query(PaliWord)\
-                .filter(PaliWord.id == id_val).first()
+            db = db_session.query(DpdHeadwords)\
+                .filter(DpdHeadwords.id == id_val).first()
             if db:
                 summary = make_summary(db)
                 window["id_info"].update(summary)
@@ -163,7 +163,6 @@ def main():
 
 
 def make_window():
-    column_names = get_column_names()
     sg.theme("DarkGrey10")
     sg.set_options(
         font=("Noto Sans", 16),
@@ -296,7 +295,7 @@ def make_window():
 
 
 def make_summary(db):
-    word = db.pali_1
+    word = db.lemma_1
     pos = db.pos
     meaning = make_meaning(db)
     construction = summarize_construction(db)
@@ -361,8 +360,8 @@ def find_next_correction(db_session, corrections_list, window, values):
 
 
 def load_next_correction(db_session, c, window, __values__):
-    db = db_session.query(PaliWord) \
-        .filter(c.id == PaliWord.id) \
+    db = db_session.query(DpdHeadwords) \
+        .filter(c.id == DpdHeadwords.id) \
         .first()
     if db:
         open_in_goldendict(c.id)
@@ -390,8 +389,8 @@ def load_next_correction(db_session, c, window, __values__):
 
 
 def write_to_db(db_session, values):
-    db = db_session.query(PaliWord).filter(
-        values["add_id"] == PaliWord.id).first()
+    db = db_session.query(DpdHeadwords).filter(
+        values["add_id"] == DpdHeadwords.id).first()
 
     field1 = values["add_field1"]
     field2 = values["add_field2"]
@@ -402,15 +401,15 @@ def write_to_db(db_session, values):
 
     if field1:
         setattr(db, field1, value1)
-        print(f'{db.id} {db.pali_1} [yellow]{field1} \
+        print(f'{db.id} {db.lemma_1} [yellow]{field1} \
 [white]updated to [yellow]{value1}')
     if field2:
         setattr(db, field2, value2)
-        print(f'{db.id} {db.pali_1} [yellow]{field2} \
+        print(f'{db.id} {db.lemma_1} [yellow]{field2} \
 [white]updated to [yellow]{value2}')
     if field3:
         setattr(db, field3, value3)
-        print(f'{db.id} {db.pali_1} [yellow]{field3} \
+        print(f'{db.id} {db.lemma_1} [yellow]{field3} \
 [white]updated to [yellow]{value3}')
     db_session.commit()
 

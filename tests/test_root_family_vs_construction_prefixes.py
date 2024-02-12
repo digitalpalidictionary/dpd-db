@@ -8,7 +8,7 @@ import re
 from rich import print
 from typing import Optional
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 
 from tools.meaning_construction import clean_construction
 from tools.paths import ProjectPaths
@@ -16,8 +16,8 @@ from tools.paths import ProjectPaths
 class ProgData():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).all()
-    i: PaliWord
+    db = db_session.query(DpdHeadwords).all()
+    i: DpdHeadwords
     constr_no_root_or_base: Optional[str]
     root_fam_prefix: Optional[str]
     construc_prefix: Optional[str]
@@ -156,7 +156,7 @@ def printer(pd):
     print("_"*50)
     print()
     print(f"[green]{'i.id':<40}[white]{pd.i.id}")
-    print(f"[green]{'i.pali_1':<40}[white]{pd.i.pali_1}")
+    print(f"[green]{'i.lemma_1':<40}[white]{pd.i.lemma_1}")
     print(f"[green]{'i.pos':<40}[white]{pd.i.pos}")
     print(f"[green]{'i.family_root':<40}[white]{pd.i.family_root}")
     print(f"[green]{'i.construction':<40}[white]{pd.i.construction}")

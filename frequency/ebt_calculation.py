@@ -6,7 +6,7 @@ import pandas as pd
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord, DerivedData
+from db.models import DpdHeadwords
 from tools.configger import config_update, config_test
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
@@ -61,17 +61,16 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    dpd_db = db_session.query(PaliWord).all()
-    dd_db = db_session.query(DerivedData).all()
+    dpd_db = db_session.query(DpdHeadwords).all()
 
     dicts = make_dicts(pth)
 
     # Create a list to store counts for each dictionary
     dictionary_counts = [{} for _ in dicts]
 
-    for __counter__, (i, j) in enumerate(zip(dpd_db, dd_db)):
+    for __counter__, i in enumerate(dpd_db):
         
-        inflections = j.inflections_list
+        inflections = i.inflections_list
 
         for idx, dictionary in enumerate(dicts):
             count: int = 0
@@ -80,15 +79,15 @@ def main():
                     count += int(dictionary.get(inflection, 0))
 
             # Store the count for this word in the corresponding dictionary's counts
-            dictionary_counts[idx][i.pali_1] = count
+            dictionary_counts[idx][i.lemma_1] = count
 
     # Calculate and print the total counts for all words
     total_word_counts = {}
     for word in dpd_db:
-        total_count = sum(dictionary_counts[idx].get(word.pali_1, 0) for idx in range(len(dicts)))
-        total_word_counts[word.pali_1] = total_count
+        total_count = sum(dictionary_counts[idx].get(word.lemma_1, 0) for idx in range(len(dicts)))
+        total_word_counts[word.lemma_1] = total_count
 
-        word.dd.ebt_count = total_count
+        word.ebt_count = total_count
 
     # print("\nTotal Counts:")
     # for word, total_count in total_word_counts.items():

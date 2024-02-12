@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
-"""Update the family_compound column in PaliWord with a new value."""
+"""Update the family_compound column in DpdHeadwords with a new value."""
 
 import re
 
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 
@@ -17,7 +17,7 @@ def main():
     print("[bright_yellow]update compound family")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).all()
+    db = db_session.query(DpdHeadwords).all()
 
     find: str = "saṅkhalikā"
     replace: str ="saṅkhalā"

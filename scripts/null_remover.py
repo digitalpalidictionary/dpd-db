@@ -1,17 +1,17 @@
-"""Find and remove fields with None / NULL in the PaliWord table."""
+"""Find and remove fields with None / NULL in the DpdHeadwords table."""
 
 from sqlalchemy import inspect
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 
 pth = ProjectPaths()
 db_session = get_db_session(pth.dpd_db_path)
 
-inspector = inspect(PaliWord)
+inspector = inspect(DpdHeadwords)
 column_names = [column.name for column in inspector.columns]
 
-db = db_session.query(PaliWord)
+db = db_session.query(DpdHeadwords)
 
 for row in db:
     columns = row.__dict__

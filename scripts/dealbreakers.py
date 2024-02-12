@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
 """Fix all the dealbreakers which break exporter code."""
+import sys
 from rich import print
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
+from tools.pos import POS
 
 def main():
     tic()
@@ -13,51 +15,68 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    print(f"[green]{'fixing apostrophe in key fields':<30} ", end="")
-    found = apostrophe_in_key_fields(db_session)
-    print(found)
-
+    apostrophe_in_key_fields(db_session)
+    
+    ok = pos_not_in_pos(db_session)
+    if not ok:
+        sys.exit(1)
     toc()
+
+
+def pos_not_in_pos(db_session):
+    """Check that pos in db match pos in theory."""
+    print(f"[green]{'finding wrong pos':<30} ")
+
+    ok = True
+    result = db_session.query(DpdHeadwords).all()
+    for r in result:
+        if r.pos not in POS:
+            print(f"[red]{'wrong pos found':<20}{r.pos:<10}[bright_red][white]{r.lemma_1}")
+            ok = False
+    if not ok:
+        return False
+    else:
+        return True
 
 
 def apostrophe_in_key_fields(db_session):
     """Find apostrophes in key fields:
-    - pali_1
-    - pali_2
+    - lemma_1
+    - lemma_2
     - stem
     """
-
+    print(f"[green]{'fixing apostrophe in key fields':<30} ", end="")
     found = 0
 
-    # pali_1
+    # lemma_1
     results = db_session \
-        .query(PaliWord) \
-        .filter(PaliWord.pali_1.contains("'", )) \
+        .query(DpdHeadwords) \
+        .filter(DpdHeadwords.lemma_1.contains("'", )) \
         .all()
     for r in results:
-        r.pali_1 = r.pali_1.replace("'", "")
+        r.lemma_1 = r.lemma_1.replace("'", "")
         found += 1
 
-    # pali_2
+    # lemma_2
     results = db_session \
-        .query(PaliWord) \
-        .filter(PaliWord.pali_2.contains("'", )) \
+        .query(DpdHeadwords) \
+        .filter(DpdHeadwords.lemma_2.contains("'", )) \
         .all()
     for r in results:
-        r.pali_2 = r.pali_2.replace("'", "")
+        r.lemma_2 = r.lemma_2.replace("'", "")
         found += 1
 
     # stem
     results = db_session \
-        .query(PaliWord) \
-        .filter(PaliWord.stem.contains("'", )) \
+        .query(DpdHeadwords) \
+        .filter(DpdHeadwords.stem.contains("'", )) \
         .all()
     for r in results:
         r.stem = r.stem.replace("'", "")
         found += 1
 
     db_session.commit()
-    return found
+    print(found)
 
 if __name__ == "__main__":
     main()

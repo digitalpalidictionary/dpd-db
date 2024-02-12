@@ -17,6 +17,7 @@ class RenderedSizes(TypedDict):
     dpd_family_root: int
     dpd_family_word: int
     dpd_family_compound: int
+    dpd_family_idiom: int
     dpd_family_sets: int
     dpd_frequency: int
     dpd_feedback: int
@@ -52,6 +53,7 @@ def default_rendered_sizes() -> RenderedSizes:
         dpd_family_root = 0,
         dpd_family_word = 0,
         dpd_family_compound = 0,
+        dpd_family_idiom = 0,
         dpd_family_sets = 0,
         dpd_frequency = 0,
         dpd_feedback = 0,

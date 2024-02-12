@@ -7,7 +7,7 @@ from datetime import datetime
 from rich import print
 from typing import Optional
 
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 
 pth = ProjectPaths()
@@ -15,7 +15,7 @@ pth = ProjectPaths()
 class Addition:
     def __init__(
             self,
-            pali_word: PaliWord,
+            pali_word: DpdHeadwords,
             comment: str,
             date_created: Optional[str] = None,
             old_id: Optional[int] = None,

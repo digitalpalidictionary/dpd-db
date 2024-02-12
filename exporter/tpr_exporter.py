@@ -15,7 +15,7 @@ from sqlalchemy.orm import Session
 from zipfile import ZipFile, ZIP_DEFLATED
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord, PaliRoot, Sandhi, DerivedData
+from db.models import DpdHeadwords, DpdRoots, Sandhi, DpdHeadwords
 from export_dpd import render_dpd_definition_templ
 from tools.configger import config_test
 from tools.pali_sort_key import pali_sort_key
@@ -37,7 +37,7 @@ def main():
     if pth.tpr_release_path.exists():
 
         db_session: Session = get_db_session(pth.dpd_db_path)
-        dpd_db = db_session.query(PaliWord).all()
+        dpd_db = db_session.query(DpdHeadwords).all()
         all_headwords_clean = make_clean_headwords_set(dpd_db)
         tpr_data_list = generate_tpr_data(pth, db_session, dpd_db, all_headwords_clean)
         sandhi_data_list = generate_sandhi_data(db_session, all_headwords_clean)
@@ -61,13 +61,11 @@ def generate_tpr_data(pth: ProjectPaths, db_session: Session, dpd_db, __all_head
     for counter, i in enumerate(dpd_db):
 
         if counter % 5000 == 0 or counter % dpd_length == 0:
-            print(f"{counter:>10,} / {dpd_length:<10,}{i.pali_1:<10}")
-
-        dd = DerivedData()
+            print(f"{counter:>10,} / {dpd_length:<10,}{i.lemma_1:<10}")
 
         # headword
         html_string = render_dpd_definition_templ(
-            pth, i, dd, False, False, False, dpd_definition_templ)
+            pth, i, dpd_definition_templ, False, False, False, dps, dbsNone)
         html_string = html_string.replace("\n", "").replace("    ", "")
         html_string = re.sub("""<span class\\='g.+span>""", "", html_string)
 
@@ -75,14 +73,14 @@ def generate_tpr_data(pth: ProjectPaths, db_session: Session, dpd_db, __all_head
         if not i.meaning_1:
             html_string = re.sub(
                 r"<div class='content'><p>",
-                fr'<div><p><b>• {i.pali_1}</b>: ',
+                fr'<div><p><b>• {i.lemma_1}</b>: ',
                 html_string)
 
         # has meaning in context
         else:
             html_string = re.sub(
                 r"<div class='content'><p>",
-                fr'<div><details><summary><b>{i.pali_1}</b>: ',
+                fr'<div><details><summary><b>{i.lemma_1}</b>: ',
                 html_string)
             html_string = re.sub(
                 r'</p></div>',
@@ -91,7 +89,7 @@ def generate_tpr_data(pth: ProjectPaths, db_session: Session, dpd_db, __all_head
 
             # grammar
             html_string += """<table><tr><th valign="top">Pāḷi</th>"""
-            html_string += f"""<td>{i.pali_2}</td></tr>"""
+            html_string += f"""<td>{i.lemma_2}</td></tr>"""
             html_string += """<tr><th valign="top">Grammar</th>"""
             html_string += f"""<td>{i.grammar}"""
 
@@ -195,21 +193,21 @@ def generate_tpr_data(pth: ProjectPaths, db_session: Session, dpd_db, __all_head
                     html_string += """<tr><th valign="top">Sanskrit Root</th>"""
                     html_string += f"""<td>{i.rt.sanskrit_root} {i.rt.sanskrit_root_class} ({sk_root_meaning})</td></tr>"""
 
-            html_string += f"""<tr><td colspan="2"><a href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={i.pali_link}&entry.1433863141=TPR%20{TODAY}" target="_blank">Submit a correction</a></td></tr>"""
+            html_string += f"""<tr><td colspan="2"><a href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={i.lemma_link}&entry.1433863141=TPR%20{TODAY}" target="_blank">Submit a correction</a></td></tr>"""
             html_string += """</table>"""
             html_string += """</details></div>"""
 
         html_string = re.sub("'", "’", html_string)
 
         tpr_data_list += [{
-            "word": i.pali_1,
+            "word": i.lemma_1,
             "definition": f"<p>{html_string}</p>",
             "book_id": 11}]
 
     # add roots
     print("[green]compiling roots data")
 
-    roots_db = db_session.query(PaliRoot).all()
+    roots_db = db_session.query(DpdRoots).all()
     roots_db = sorted(roots_db, key=lambda x: pali_sort_key(x.root))
     html_string = ""
     new_root = True

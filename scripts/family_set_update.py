@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
-"""Update the family_set column in PaliWord with a new value."""
+"""Update the family_set column in DpdHeadwords with a new value."""
 
 import re
 
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 
@@ -17,7 +17,7 @@ def main():
     print("[bright_yellow]update family set")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).all()
+    db = db_session.query(DpdHeadwords).all()
 
     find: str = "nipāta"
     replace: str = "indeclinables"
@@ -25,7 +25,7 @@ def main():
     for i in db:
         if re.findall(
             fr"\b{find}\b", str(i.family_set)):
-            print(f"[green]{i.pali_1}")
+            print(f"[green]{i.lemma_1}")
             print(f"[green]{i.family_set}")
             i.family_set = re.sub(
                 fr"\b{find}\b", replace, str(i.family_set))

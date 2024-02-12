@@ -5,7 +5,7 @@ import re
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 from tools.pali_sort_key import pali_list_sorter
 
@@ -13,7 +13,7 @@ from tools.pali_sort_key import pali_list_sorter
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).all()
+    db = db_session.query(DpdHeadwords).all()
     sutta_codes = set()
     find_me = "VIN "
     replace_me = "VIN"

@@ -21,10 +21,10 @@ from functions_db import get_synonyms
 from functions_db import get_sanskrit
 from functions_db import copy_word_from_db
 from functions_db import edit_word_in_db
-from functions_db import get_pali_clean_list
+from functions_db import get_lemma_clean_list
 from functions_db import delete_word
 from functions_db import get_root_info
-from functions_db import fetch_id_or_pali_1
+from functions_db import fetch_id_or_lemma_1
 from functions_db import get_family_compound_values
 from functions_db import del_syns_if_pos_meaning_changed
 
@@ -61,10 +61,10 @@ from functions import replace_sandhi
 from functions import test_username
 from functions import compare_differences
 from functions import stasher, unstasher
-from functions import increment_pali_1
+from functions import increment_lemma_1
 from functions import make_compound_construction
 from functions import make_construction
-from functions import make_pali_clean
+from functions import make_lemma_clean
 from functions import make_has_values_list
 
 from functions_tests import individual_internal_tests
@@ -153,7 +153,7 @@ def main():
     with open(pth.hyphenations_dict_path) as f:
         hyphenations_dict = json.load(f)
 
-    pali_clean_list: list = get_pali_clean_list(db_session)
+    lemma_clean_list: list = get_lemma_clean_list(db_session)
     window = window_layout(dpspth, db_session, username)
     daily_record_update(window, pth, "refresh", 0)
 
@@ -300,11 +300,11 @@ def main():
                     values, window, words_to_add_list)
                 window["words_to_add_length"].update(value=len(words_to_add_list))
                 window["tab_edit_dpd"].select()  # type: ignore
-                window["pali_1"].update(values["word_to_add"][0])
+                window["lemma_1"].update(values["word_to_add"][0])
                 window["search_for"].update(values["word_to_add"][0][:-1])
                 window["bold_1"].update(values["word_to_add"][0])
                 window["messages"].update(value="adding word", text_color="white")
-                window["pali_1"].set_focus(force=True)
+                window["lemma_1"].set_focus(force=True)
 
         # fix sandhi
 
@@ -337,12 +337,12 @@ def main():
         # DPD edit tab
 
         # tabs jumps to next field in multiline
-        if event == "pali_1_tab":
-            focus = window['pali_1'].get_next_focus()
+        if event == "lemma_1_tab":
+            focus = window['lemma_1'].get_next_focus()
             if focus is not None:
                 focus.set_focus()        
-        elif event == "pali_2_tab":
-            focus = window['pali_2'].get_next_focus()
+        elif event == "lemma_2_tab":
+            focus = window['lemma_2'].get_next_focus()
             if focus is not None:
                 focus.set_focus()
         elif event == "pos_tab":
@@ -380,18 +380,18 @@ def main():
 
         # add word events
 
-        # copy pali_1 to pali_2
-        if event == "pali_1_tab":
-            if flags.pali_2:
-                pali_2 = re.sub(" \\d.*", "", values['pali_1'])
-                window["pali_2"].update(value=pali_2)
-                flags.pali_2 = False
+        # copy lemma_1 to lemma_2
+        if event == "lemma_1_tab":
+            if flags.lemma_2:
+                lemma_2 = re.sub(" \\d.*", "", values['lemma_1'])
+                window["lemma_2"].update(value=lemma_2)
+                flags.lemma_2 = False
 
         # test pos
         if event == "grammar":
             if (
                 values["pos"] not in POS and
-                values["pali_1"]
+                values["lemma_1"]
             ):
                 window["pos_error"].update(
                     value=f"'{values['pos']}' not a valid pos", text_color="red")
@@ -404,36 +404,36 @@ def main():
                     window["grammar"].update(value=f"{values['pos']}, ")
                 flags.grammar = False
         
-        # pali_2 masc o / nt aṃ / masc as
+        # lemma_2 masc o / nt aṃ / masc as
         if event == "pos_tab":
             if (
                 values["pos"] == "masc" and
-                values["pali_2"].endswith("a")
+                values["lemma_2"].endswith("a")
             ):
-                masc_o = re.sub("a$", "o", values["pali_2"])
-                window["pali_2"].update(value=masc_o)
+                masc_o = re.sub("a$", "o", values["lemma_2"])
+                window["lemma_2"].update(value=masc_o)
             elif (
                 values["pos"] == "nt" and
-                values["pali_2"].endswith("a")
+                values["lemma_2"].endswith("a")
             ):
-                nt_aṃ = re.sub("a$", "aṃ", values["pali_2"])
-                window["pali_2"].update(value=nt_aṃ)
+                nt_aṃ = re.sub("a$", "aṃ", values["lemma_2"])
+                window["lemma_2"].update(value=nt_aṃ)
             elif (
                 values["pos"] == "masc" and
-                values["pali_2"].endswith("as")
+                values["lemma_2"].endswith("as")
             ):
-                masc_as = re.sub("as$", "ā", values["pali_2"])
-                window["pali_2"].update(value=masc_as)
+                masc_as = re.sub("as$", "ā", values["lemma_2"])
+                window["lemma_2"].update(value=masc_as)
                 window["grammar"].update(value="masc, mano group, ")
             # fix adjecitves ending with 'o' and 'aṃ'
             elif (
                 values["pos"] == "adj"
                 and (
-                    values["pali_2"].endswith("aṃ")
-                    or values["pali_2"].endswith("o"))
+                    values["lemma_2"].endswith("aṃ")
+                    or values["lemma_2"].endswith("o"))
             ):
-                a_adj = re.sub("(aṃ|o)$", "a", values["pali_2"])
-                window["pali_2"].update(value=a_adj)
+                a_adj = re.sub("(aṃ|o)$", "a", values["lemma_2"])
+                window["lemma_2"].update(value=a_adj)
 
         if event == "derived_from":
             if flags.derived_from:
@@ -550,7 +550,7 @@ def main():
                 not values["family_compound"] and
                 not values["root_key"]
             ):
-                window["family_compound"].update(values["pali_1"])
+                window["family_compound"].update(values["lemma_1"])
                 flags.family_compound = False
             else:
                 test_family_compound(values, window, family_compound_values)
@@ -566,15 +566,15 @@ def main():
                 flags.construction_line2
                 and "\n" in values["construction"]
             ):
-                pali_clean = make_pali_clean(values)
+                lemma_clean = make_lemma_clean(values)
                 window["construction"].update(
-                    value=f"{values['construction']}{pali_clean}")
+                    value=f"{values['construction']}{lemma_clean}")
                 flags.construction_line2 = False
 
 
             # test construciton for missing headwords
             if not values["root_key"]:
-                test_construction(values, window, pali_clean_list)
+                test_construction(values, window, lemma_clean_list)
 
         elif (
             event == "add_construction_enter" or
@@ -633,21 +633,21 @@ def main():
                 event == "example_1"
                 and flags.example_1 and
                 not values["example_1"] and
-                values["pali_1"] and
+                values["lemma_1"] and
                 values["word_to_add"]
             ) or
             (
                 event == "source_1" and
                 flags.example_1 and
                 not values["example_1"] and
-                values["pali_1"] and
+                values["lemma_1"] and
                 values["word_to_add"]
             ) or
             (
                 event == "sutta_1" and
                 flags.example_1 and
                 not values["example_1"] and
-                values["pali_1"] and
+                values["lemma_1"] and
                 values["word_to_add"]
             ) or
             event == "another_eg_1"
@@ -661,7 +661,7 @@ def main():
                     values["book_to_add"] = book_to_add
 
             if values["word_to_add"] == []:
-                default_text = re.sub(r" \d.*$", "", values["pali_1"])
+                default_text = re.sub(r" \d.*$", "", values["lemma_1"])
                 word_to_add = sg.popup_get_text(
                     "What word?", default_text=default_text[:-1],
                     title=None,
@@ -732,7 +732,7 @@ def main():
                 values["book_to_add"] = book_to_add
 
             if values["word_to_add"] == []:
-                default_text = re.sub(r" \d.*$", "", values["pali_1"])
+                default_text = re.sub(r" \d.*$", "", values["lemma_1"])
                 word_to_add = sg.popup_get_text(
                     "What word?", default_text=default_text[:-1],
                     title=None,
@@ -771,14 +771,14 @@ def main():
         elif event == "synonym":
             if flags.synoyms:
                 synoyms = get_synonyms(
-                    db_session, values["pos"], values["meaning_1"], values["pali_1"])
+                    db_session, values["pos"], values["meaning_1"], values["lemma_1"])
                 window["synonym"].update(value=synoyms)
                 window["messages"].update(value="synonyms updated")
                 flags.synoyms = False
 
         elif event == "search_for":
             if not values["search_for"]:
-                word_no_spaces = re.sub(r" \d.*", "", values["pali_1"])
+                word_no_spaces = re.sub(r" \d.*", "", values["lemma_1"])
                 window["search_for"].update(value=word_no_spaces[:-1])
 
         elif (
@@ -978,7 +978,7 @@ def main():
                         book_to_add = values["book_to_add"]
                         compare_differences(book_to_add, pth, values, sg, pali_word_original2, action)
                         clear_errors(window)
-                        window["dps_id_or_pali_1"].update(values["pali_1"])
+                        window["dps_id_or_lemma_1"].update(values["lemma_1"])
                         clear_values(values, window, username)
                         if username == "primary_user":
                             get_next_ids(db_session, window)
@@ -991,7 +991,7 @@ def main():
                         remove_word_to_add(values, window, words_to_add_list)
                         window["words_to_add_length"].update(
                             value=len(words_to_add_list))
-                        # open_in_goldendict(values["pali_1"])
+                        # open_in_goldendict(values["lemma_1"])
                         window["tab_edit_dps"].select()  # type: ignore
                         
         
@@ -1016,17 +1016,17 @@ def main():
             event == "split_button"
             or event == "control_p"
         ):
-            pali_1_old, pali_1_new = increment_pali_1(values)
+            lemma_1_old, lemma_1_new = increment_lemma_1(values)
             if username == "deva":
-                # add number 1 to pali_1 for old word if there is no digit
-                pali_1 = values['pali_1']
-                if not re.search(r'\d', pali_1):
-                # Execute code here when pali_1 doesn't contain any digit
-                    if sg.popup_yes_no(f'change pali_1 of original word to {pali_1} 1 ?') == 'Yes':
+                # add number 1 to lemma_1 for old word if there is no digit
+                lemma_1 = values['lemma_1']
+                if not re.search(r'\d', lemma_1):
+                # Execute code here when lemma_1 doesn't contain any digit
+                    if sg.popup_yes_no(f'change lemma_1 of original word to {lemma_1} 1 ?') == 'Yes':
                         id_old = values["id"]
-                        add_number_to_pali(pth, db_session, id_old, pali_1_old)
-            window["pali_1"].update(value=pali_1_old)
-            values["pali_1"] = pali_1_old
+                        add_number_to_pali(pth, db_session, id_old, lemma_1_old)
+            window["lemma_1"].update(value=lemma_1_old)
+            values["lemma_1"] = lemma_1_old
             stasher(pth, values, window)
             if username == "primary_user":
                 get_next_ids(db_session, window)
@@ -1035,7 +1035,7 @@ def main():
             else:
                 # Perform actions for other usernames
                 get_next_ids(db_session, window)
-            window["pali_1"].update(value=pali_1_new)
+            window["lemma_1"].update(value=lemma_1_new)
             reset_flags(flags)
 
             # clear these fields
@@ -1049,7 +1049,7 @@ def main():
                 window[c].update(value="")
 
         elif event == "html_summary_button":
-            make_html(pth, [values["pali_1"]])
+            make_html(pth, [values["lemma_1"]])
 
         elif (
             event == "save_state_button"
@@ -1061,9 +1061,9 @@ def main():
 
         elif event == "delete_button":
             row_id = values['id']
-            pali_1 = values['pali_1']
+            lemma_1 = values['lemma_1']
             yes_no = sg.popup_yes_no(
-                f"Are you sure you want to delete {row_id} {pali_1}?",
+                f"Are you sure you want to delete {row_id} {lemma_1}?",
                 location=(400, 400),
                 modal=True)
             if yes_no == "Yes":
@@ -1080,7 +1080,7 @@ def main():
                         get_next_ids(db_session, window)
                     reset_flags(flags)
                     window["messages"].update(
-                        value=f"{row_id} '{pali_1}' deleted", text_color="white")
+                        value=f"{row_id} '{lemma_1}' deleted", text_color="white")
 
         elif event == "save_and_close_button":
             window["messages"].update(
@@ -1255,12 +1255,12 @@ def main():
                 window["dps_sbs_meaning_error"].update(visible=True)
                 window["dps_sbs_notes"].update(visible=True)
                 window["dps_sbs_notes_error"].update(visible=True)
-                window["dps_sbs_chant_pali_1"].update(visible=True)
-                window["dps_sbs_chant_pali_1_error"].update(visible=True)
+                window["dps_sbs_chant_lemma_1"].update(visible=True)
+                window["dps_sbs_chant_lemma_1_error"].update(visible=True)
                 window["dps_sbs_chant_eng_1"].update(visible=True)
                 window["dps_sbs_chapter_1"].update(visible=True)
-                window["dps_sbs_chant_pali_2"].update(visible=True)
-                window["dps_sbs_chant_pali_2_error"].update(visible=True)
+                window["dps_sbs_chant_lemma_2"].update(visible=True)
+                window["dps_sbs_chant_lemma_2_error"].update(visible=True)
                 window["dps_sbs_chant_eng_2"].update(visible=True)
                 window["dps_sbs_chapter_2"].update(visible=True)
                 window["dps_sbs_chant_pali_3"].update(visible=True)
@@ -1277,10 +1277,10 @@ def main():
         elif event == "dps_show_fields_no_sbs":
             hide_list = [
                 "dps_sbs_meaning", "dps_sbs_meaning_error", "dps_sbs_notes", "dps_sbs_notes_error", 
-                "dps_sbs_chant_pali_1", "dps_sbs_chant_eng_1", "dps_sbs_chapter_1",
-                "dps_sbs_chant_pali_1_error",
-                "dps_sbs_chant_pali_2", "dps_sbs_chant_eng_2", "dps_sbs_chapter_2",
-                "dps_sbs_chant_pali_2_error",
+                "dps_sbs_chant_lemma_1", "dps_sbs_chant_eng_1", "dps_sbs_chapter_1",
+                "dps_sbs_chant_lemma_1_error",
+                "dps_sbs_chant_lemma_2", "dps_sbs_chant_eng_2", "dps_sbs_chapter_2",
+                "dps_sbs_chant_lemma_2_error",
                 "dps_sbs_chant_pali_3", "dps_sbs_chant_eng_3", "dps_sbs_chapter_3",
                 "dps_sbs_chant_pali_3_error",
                 "dps_sbs_chant_pali_4", "dps_sbs_chant_eng_4", "dps_sbs_chapter_4",
@@ -1356,22 +1356,22 @@ def main():
 
         # fetch word from db
         if (
-            event == "dps_id_or_pali_1_enter" or
-            event == "dps_id_or_pali_1_button"
+            event == "dps_id_or_lemma_1_enter" or
+            event == "dps_id_or_lemma_1_button"
         ):
-            if values["dps_id_or_pali_1"]:
-                dpd_word = fetch_id_or_pali_1(db_session, values, "dps_id_or_pali_1")
+            if values["dps_id_or_lemma_1"]:
+                dpd_word = fetch_id_or_lemma_1(db_session, values, "dps_id_or_lemma_1")
                 if dpd_word:
                     ru_word = fetch_ru(db_session, dpd_word.id)
                     sbs_word = fetch_sbs(db_session, dpd_word.id)
-                    open_in_goldendict(dpd_word.pali_1)
+                    open_in_goldendict(dpd_word.lemma_1)
                     populate_dps_tab(
                         dpspth, values, window, dpd_word, ru_word, sbs_word)
                     window["messages"].update(
-                        value=f'editing {values["dps_id_or_pali_1"]}', text_color="PaleTurquoise")
+                        value=f'editing {values["dps_id_or_lemma_1"]}', text_color="PaleTurquoise")
                 else:
                     window["messages"].update(
-                        value="not a valid id or pali_1", text_color="red")
+                        value="not a valid id or lemma_1", text_color="red")
 
         elif event == "dps_synonym":
             if dps_flags.synoyms:
@@ -1387,21 +1387,21 @@ def main():
                 event == "dps_sbs_example_1"
                 and dps_flags.sbs_example_1 and
                 not values["dps_sbs_example_1"] and
-                values["pali_1"] and
+                values["lemma_1"] and
                 values["word_to_add"]
             ) or
             (
                 event == "dps_sbs_source_1" and
                 dps_flags.sbs_example_1 and
                 not values["dps_sbs_example_1"] and
-                values["dps_pali_1"] and
+                values["dps_lemma_1"] and
                 values["word_to_add"]
             ) or
             (
                 event == "dps_sbs_sutta_1" and
                 dps_flags.sbs_example_1 and
                 not values["dps_sbs_example_1"] and
-                values["dps_pali_1"] and
+                values["dps_lemma_1"] and
                 values["word_to_add"]
             ) or
             event == "dps_another_eg_1"
@@ -1423,7 +1423,7 @@ def main():
 
             if values["word_to_add"] == []:
                 word_to_add = sg.popup_get_text(
-                    "What word?", default_text=values["dps_pali_1"][:-1],
+                    "What word?", default_text=values["dps_lemma_1"][:-1],
                     title=None,
                     location=(400, 400))
                 if word_to_add:
@@ -1502,7 +1502,7 @@ def main():
 
             if values["word_to_add"] == []:
                 word_to_add = sg.popup_get_text(
-                    "What word?", default_text=values["dps_pali_1"],
+                    "What word?", default_text=values["dps_lemma_1"],
                     title=None,
                     location=(400, 400))
                 values["word_to_add"] = [word_to_add]
@@ -1566,7 +1566,7 @@ def main():
 
             if values["word_to_add"] == []:
                 word_to_add = sg.popup_get_text(
-                    "What word?", default_text=values["dps_pali_1"],
+                    "What word?", default_text=values["dps_lemma_1"],
                     title=None,
                     location=(400, 400))
                 values["word_to_add"] = [word_to_add]
@@ -1630,7 +1630,7 @@ def main():
 
             if values["word_to_add"] == []:
                 word_to_add = sg.popup_get_text(
-                    "What word?", default_text=values["dps_pali_1"],
+                    "What word?", default_text=values["dps_lemma_1"],
                     title=None,
                     location=(400, 400))
                 values["word_to_add"] = [word_to_add]
@@ -1680,18 +1680,18 @@ def main():
         elif event == "dps_openai_translate_button":
             field = "dps_ru_online_suggestion"
             error_field = "dps_ru_meaning_suggestion_error"
-            ru_translate_with_openai(values['sbs_example_for_suggestion'], values['dps_example_1'], values['dps_sbs_example_1'], values['dps_sbs_example_2'], values['dps_sbs_example_3'], values['dps_sbs_example_4'], dpspth, pth, values['dps_meaning'], values['dps_pali_1'], values['dps_grammar'], field, error_field, window)
+            ru_translate_with_openai(values['sbs_example_for_suggestion'], values['dps_example_1'], values['dps_sbs_example_1'], values['dps_sbs_example_2'], values['dps_sbs_example_3'], values['dps_sbs_example_4'], dpspth, pth, values['dps_meaning'], values['dps_lemma_1'], values['dps_grammar'], field, error_field, window)
 
         elif event == "dps_notes_openai_translate_button":
             field = "dps_notes_online_suggestion"
             error_field = "dps_ru_notes_suggestion_error"
-            ru_notes_translate_with_openai(dpspth, pth, values['dps_notes'], values['dps_pali_1'], values['dps_grammar'], field, error_field, window)
+            ru_notes_translate_with_openai(dpspth, pth, values['dps_notes'], values['dps_lemma_1'], values['dps_grammar'], field, error_field, window)
 
         # in dpd tab
         elif event == "online_suggestion_button":
             field = "online_suggestion"
             error_field = "online_suggestion_error"
-            en_translate_with_openai(dpspth, pth, values['pali_1'], values['grammar'], values['example_1'], field, error_field, window)
+            en_translate_with_openai(dpspth, pth, values['lemma_1'], values['grammar'], values['example_1'], field, error_field, window)
 
         # copy ru sugestions buttons
         elif event == "dps_copy_meaning_button":
@@ -1745,15 +1745,15 @@ def main():
 
         # choice from dropdown sbs chats
 
-        if event == "dps_sbs_chant_pali_1":
-            chant = values["dps_sbs_chant_pali_1"]
-            error_field = "dps_sbs_chant_pali_1_error"
+        if event == "dps_sbs_chant_lemma_1":
+            chant = values["dps_sbs_chant_lemma_1"]
+            error_field = "dps_sbs_chant_lemma_1_error"
             update_sbs_chant(dpspth, 1, chant, error_field, window)
 
-        elif event == "dps_sbs_chant_pali_2":
-            error_field = "dps_sbs_chant_pali_2_error"
+        elif event == "dps_sbs_chant_lemma_2":
+            error_field = "dps_sbs_chant_lemma_2_error"
             update_sbs_chant(
-                dpspth, 2, values["dps_sbs_chant_pali_2"], error_field, window)
+                dpspth, 2, values["dps_sbs_chant_lemma_2"], error_field, window)
 
         elif event == "dps_sbs_chant_pali_3":
             error_field = "dps_sbs_chant_pali_3_error"
@@ -1882,7 +1882,7 @@ def main():
         # dps db buttons:
 
         elif event == "dps_test_internal_button":
-            dpd_word = fetch_id_or_pali_1(db_session, values, "dps_id_or_pali_1")
+            dpd_word = fetch_id_or_lemma_1(db_session, values, "dps_id_or_lemma_1")
             if dpd_word:
 
                 clear_errors(window)
@@ -1929,27 +1929,27 @@ def main():
 
             else:
                 window["messages"].update(
-                    value="not a valid id or pali_1", text_color="red")
+                    value="not a valid id or lemma_1", text_color="red")
 
         elif event == "dps_update_db_button":
             if not dps_flags.tested:
                 window["messages"].update(value="test first!", text_color="red")
             else:
-                dpd_word = fetch_id_or_pali_1(db_session, values, "dps_id_or_pali_1")
+                dpd_word = fetch_id_or_lemma_1(db_session, values, "dps_id_or_lemma_1")
                 if dpd_word:
                     ru_word = fetch_ru(db_session, dpd_word.id)
                     sbs_word = fetch_sbs(db_session, dpd_word.id)
                     original_values = dps_get_original_values(values, dpd_word, ru_word, sbs_word)
                     last_button = display_dps_summary(values, window, sg, original_values)
                     if last_button == "dps_ok_button":
-                        open_in_goldendict(values["dps_id_or_pali_1"])
+                        open_in_goldendict(values["dps_id_or_lemma_1"])
                         dps_update_db(pth, db_session, values, window, dpd_word, ru_word, sbs_word)
                         clear_dps(values, window)
                         clear_errors(window)
                         dps_reset_flags(dps_flags)
                 else:
                     window["messages"].update(
-                        value="not a valid id or pali_1", text_color="red")
+                        value="not a valid id or lemma_1", text_color="red")
 
         # dps gui buttons:
 
@@ -1961,7 +1961,7 @@ def main():
                         value="cleared", text_color="SteelBlue")
 
         elif event == "dps_reset_button":
-            dpd_word = fetch_id_or_pali_1(db_session, values, "dps_id_or_pali_1")
+            dpd_word = fetch_id_or_lemma_1(db_session, values, "dps_id_or_lemma_1")
             if dpd_word:
                 ru_word = fetch_ru(db_session, dpd_word.id)
                 sbs_word = fetch_sbs(db_session, dpd_word.id)
@@ -1972,13 +1972,13 @@ def main():
                         value="reset", text_color="Wheat")
             else:
                 window["messages"].update(
-                        value="not a valid id or pali_1", text_color="red")
+                        value="not a valid id or lemma_1", text_color="red")
 
         elif event == "dps_stash_button":
             with open(pth.stash_path, "wb") as f:
                 pickle.dump(values, f)
             window["messages"].update(
-                value=f"{values['dps_pali_1']} stashed", text_color="white")
+                value=f"{values['dps_lemma_1']} stashed", text_color="white")
 
         elif event == "dps_unstash_button":
             with open(pth.stash_path, "rb") as f:
@@ -1986,7 +1986,7 @@ def main():
                 for key, value in unstash.items():
                     window[key].update(value)
             window["messages"].update(
-                value=f"{values['dps_pali_1']} unstashed", text_color="white")
+                value=f"{values['dps_lemma_1']} unstashed", text_color="white")
 
         elif event == "dps_open_tests_button":
             dps_open_internal_tests(dpspth)
@@ -1995,7 +1995,7 @@ def main():
             tail_log()
 
         elif event == "dps_summary_button":
-            dpd_word = fetch_id_or_pali_1(db_session, values, "dps_id_or_pali_1")
+            dpd_word = fetch_id_or_lemma_1(db_session, values, "dps_id_or_lemma_1")
             if dpd_word:
                 ru_word = fetch_ru(db_session, dpd_word.id)
                 sbs_word = fetch_sbs(db_session, dpd_word.id)
@@ -2003,10 +2003,10 @@ def main():
                 display_dps_summary(values, window, sg, original_values)
             else:
                 window["messages"].update(
-                    value="not a valid id or pali_1", text_color="red")
+                    value="not a valid id or lemma_1", text_color="red")
 
         elif event == "dps_html_summary_button":
-            make_html(pth, [values["dps_pali_1"]])
+            make_html(pth, [values["dps_lemma_1"]])
 
 
         # dps in word to add tab
@@ -2236,7 +2236,7 @@ def main():
                     values, window, words_to_add_list)
                 window["words_to_add_length"].update(value=len(words_to_add_list))
                 window["tab_edit_dps"].select()  # type: ignore
-                window["dps_id_or_pali_1"].update(values["word_to_add"][0])
+                window["dps_id_or_lemma_1"].update(values["word_to_add"][0])
 
         # edit word in DPD
         elif event == "dpd_edit_word":

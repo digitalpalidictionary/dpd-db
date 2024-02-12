@@ -9,7 +9,7 @@ import pyperclip
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.goldedict_tools import open_in_goldendict
 from tools.paths import ProjectPaths
 
@@ -20,7 +20,7 @@ def main():
     print("[bright_yellow]fill details of theragāthā monks")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).all()
+    db = db_session.query(DpdHeadwords).all()
 
     # load previous set or start a new one
     try:
@@ -42,10 +42,10 @@ def main():
             and i.id not in done_list
         ):
             pyperclip.copy(i.id)
-            open_in_goldendict(i.pali_clean)
+            open_in_goldendict(i.lemma_clean)
             
             processed = len(done_list)
-            print(f"{processed + 1:>3}/{total:<3} [green]{counter:<6}{i.pali_1}", end=" ")
+            print(f"{processed + 1:>3}/{total:<3} [green]{counter:<6}{i.lemma_1}", end=" ")
             inp = input()
 
             if inp == "x":

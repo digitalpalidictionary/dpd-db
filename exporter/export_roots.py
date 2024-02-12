@@ -13,7 +13,7 @@ from sqlalchemy.orm import Session
 from export_dpd import render_header_templ
 
 from helpers import TODAY
-from db.models import PaliRoot, FamilyRoot
+from db.models import DpdRoots, FamilyRoot
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
@@ -44,7 +44,7 @@ def generate_root_html(db_session: Session,
     header = render_header_templ(
         pth, css=roots_css, js=buttons_js, header_templ=header_templ)
 
-    roots_db = db_session.query(PaliRoot).all()
+    roots_db = db_session.query(DpdRoots).all()
     root_db_length = len(roots_db)
 
     bip()
@@ -118,7 +118,7 @@ def generate_root_html(db_session: Session,
     return root_data_list, size_dict
 
 
-def render_root_definition_templ(pth: ProjectPaths, r: PaliRoot, roots_count_dict):
+def render_root_definition_templ(pth: ProjectPaths, r: DpdRoots, roots_count_dict):
     """render html of main root info"""
 
     root_definition_templ = Template(filename=str(pth.root_definition_templ_path))
@@ -132,7 +132,7 @@ def render_root_definition_templ(pth: ProjectPaths, r: PaliRoot, roots_count_dic
             today=TODAY))
 
 
-def render_root_buttons_templ(pth: ProjectPaths, r: PaliRoot, db_session: Session):
+def render_root_buttons_templ(pth: ProjectPaths, r: DpdRoots, db_session: Session):
     """render html of root buttons"""
 
     root_buttons_templ = Template(filename=str(pth.root_button_templ_path))
@@ -150,7 +150,7 @@ def render_root_buttons_templ(pth: ProjectPaths, r: PaliRoot, db_session: Sessio
             frs=frs))
 
 
-def render_root_info_templ(pth: ProjectPaths, r: PaliRoot):
+def render_root_info_templ(pth: ProjectPaths, r: DpdRoots):
     """render html of root grammatical info"""
 
     root_info_templ = Template(filename=str(pth.root_info_templ_path))
@@ -161,7 +161,7 @@ def render_root_info_templ(pth: ProjectPaths, r: PaliRoot):
             today=TODAY))
 
 
-def render_root_matrix_templ(pth: ProjectPaths, r: PaliRoot, roots_count_dict):
+def render_root_matrix_templ(pth: ProjectPaths, r: DpdRoots, roots_count_dict):
     """render html of root matrix"""
 
     root_matrix_templ = Template(filename=str(pth.root_matrix_templ_path))
@@ -175,7 +175,7 @@ def render_root_matrix_templ(pth: ProjectPaths, r: PaliRoot, roots_count_dict):
             today=TODAY))
 
 
-def render_root_families_templ(pth: ProjectPaths, r: PaliRoot, db_session: Session):
+def render_root_families_templ(pth: ProjectPaths, r: DpdRoots, db_session: Session):
     """render html of root families"""
 
     root_families_templ = Template(filename=str(pth.root_families_templ_path))

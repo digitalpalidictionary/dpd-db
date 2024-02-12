@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
 """Compile and count all the instances of various kita, kicca and taddhita
-suffixes in the PaliWord table and save to TSV."""
+suffixes in the DpdHeadwords table and save to TSV."""
 
 
 import pandas as pd
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 
@@ -18,7 +18,7 @@ def main_pandas():
     print("[green]processing db")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(PaliWord).all()
+    dpd_db = db_session.query(DpdHeadwords).all()
 
     data = []
     for i in dpd_db:
@@ -27,13 +27,13 @@ def main_pandas():
                 i.derivative,
                 i.suffix,
                 i.pos,
-                i.pali_1,
+                i.lemma_1,
                 i.meaning_1,
                 i.construction])
 
     df = pd.DataFrame(
         data, columns=[
-            "derivative", "suffix", "pos", "pali_1",
+            "derivative", "suffix", "pos", "lemma_1",
             "meaning", "construction"])
 
     # add counts of suffixes and pos
@@ -45,7 +45,7 @@ def main_pandas():
     df.sort_values(
         by=[
             "count_suffix", "suffix", "derivative",
-            "count_pos", "pos", "pali_1"],
+            "count_pos", "pos", "lemma_1"],
         inplace=True,
         ignore_index=True,
         ascending=[False, True, True, False, True, True],
@@ -53,7 +53,7 @@ def main_pandas():
 
     df = df[[
         "count_suffix", "derivative", "suffix", "count_pos", "pos",
-        "pali_1", "meaning", "construction"]]
+        "lemma_1", "meaning", "construction"]]
 
     df.to_csv("temp/suffixes_sorted.tsv", index=False, sep="\t")
 

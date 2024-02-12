@@ -12,8 +12,7 @@ from typing import Dict, List
 from zipfile import ZipFile, ZIP_DEFLATED
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord, Sandhi
-from db.models import DerivedData
+from db.models import DpdHeadwords, Sandhi
 
 from tools.configger import config_test
 from tools.cst_sc_text_sets import make_cst_text_set
@@ -27,7 +26,7 @@ from tools.niggahitas import add_niggahitas
 from tools.pali_alphabet import pali_alphabet
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from tools.sandhi_words import make_words_in_sandhi_set
+from tools.deconstructed_words import make_words_in_deconstructions
 from tools.tic_toc import tic, toc
 from tools.tsv_read_write import read_tsv_dict
 
@@ -37,8 +36,8 @@ def render_xhtml():
     print(f"[green]{'querying dpd db':<40}", end="")
     pth = ProjectPaths()
     db_sesssion = get_db_session(pth.dpd_db_path)
-    dpd_db = db_sesssion.query(PaliWord).all()
-    dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.pali_1))
+    dpd_db = db_sesssion.query(DpdHeadwords).all()
+    dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
     print(f"{len(dpd_db):>10,}")
 
     # limit the extent of the dictionary to an ebt text set
@@ -67,7 +66,7 @@ def render_xhtml():
     print(f"[green]{'querying sandhi db':<40}", end="")
     sandhi_db = db_sesssion.query(Sandhi).filter(
         Sandhi.sandhi.in_(combined_text_set)).all()
-    words_in_sandhi_set = make_words_in_sandhi_set(sandhi_db)
+    words_in_sandhi_set = make_words_in_deconstructions(sandhi_db)
     print(f"{len(words_in_sandhi_set):>10,}")
 
     # all_words_set = cst_text_set + sc_text_set + words in sandhi compounds
@@ -76,7 +75,7 @@ def render_xhtml():
 
     # only include inflections which exist in all_words_set
     print(f"[green]{'creating inflections dict':<40}", end="")
-    dd_db = db_sesssion.query(DerivedData).all()
+    dd_db = db_sesssion.query(DpdHeadwords).all()
     dd_dict: Dict[int, List[str]] = {}
     dd_counter = 0
 
@@ -89,7 +88,7 @@ def render_xhtml():
 
     # add one clean inflection without diacritics
     for i in dpd_db:
-        no_diacritics = diacritics_cleaner(i.pali_clean)
+        no_diacritics = diacritics_cleaner(i.lemma_clean)
         dd_dict[i.id] += [no_diacritics]
     
     # add inflection with ṁ and sort
@@ -109,13 +108,13 @@ def render_xhtml():
     id_counter = 1
     for counter, i in enumerate(dpd_db):
         inflections: set = set(dd_dict[i.id])
-        first_letter = find_first_letter(i.pali_1)
+        first_letter = find_first_letter(i.lemma_1)
         entry = render_ebook_entry(pth, id_counter, i, inflections)
         letter_dict[first_letter] += [entry]
         id_counter += 1
 
         if counter % 5000 == 0:
-            print(f"{counter:>10,} / {len(dpd_db):<10,} {i.pali_1}")
+            print(f"{counter:>10,} / {len(dpd_db):<10,} {i.lemma_1}")
 
     # add sandhi words which are in all_words_set
     print("[green]add sandhi words")
@@ -153,7 +152,7 @@ def render_xhtml():
 # functions to create the various templates
 
 
-def render_ebook_entry(pth: ProjectPaths, counter: int, i: PaliWord, inflections: set) -> str:
+def render_ebook_entry(pth: ProjectPaths, counter: int, i: DpdHeadwords, inflections: set) -> str:
     """Render single word entry."""
 
     summary = f"{i.pos}. "
@@ -180,15 +179,15 @@ def render_ebook_entry(pth: ProjectPaths, counter: int, i: PaliWord, inflections
 
     return str(ebook_entry_templ.render(
             counter=counter,
-            pali_1=i.pali_1,
-            pali_clean=i.pali_clean,
+            lemma_1=i.lemma_1,
+            lemma_clean=i.lemma_clean,
             inflections=inflections,
             summary=summary,
             grammar_table=grammar_table,
             examples=examples))
 
 
-def render_grammar_templ(pth: ProjectPaths, i: PaliWord) -> str:
+def render_grammar_templ(pth: ProjectPaths, i: DpdHeadwords) -> str:
     """html table of grammatical information"""
 
     if i.meaning_1:
@@ -223,7 +222,7 @@ def render_grammar_templ(pth: ProjectPaths, i: PaliWord) -> str:
         return ""
 
 
-def render_example_templ(pth: ProjectPaths, i: PaliWord) -> str:
+def render_example_templ(pth: ProjectPaths, i: DpdHeadwords) -> str:
     """render sutta examples html"""
     if i.example_1 is not None:
         i.example_1 = i.example_1.replace("\n", "<br/>")

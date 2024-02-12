@@ -34,6 +34,10 @@ class ProjectPaths:
         self.russian_path = base_dir.joinpath(Path("backup_tsv/russian.tsv"))
         self.sbs_path = base_dir.joinpath(Path("backup_tsv/sbs.tsv"))
 
+        # /bold_definitions
+        self.bold_defintions_tsv_path = base_dir.joinpath(Path("bold_defintions/bold_defintions.tsv"))
+        self.bold_defintions_json_path = base_dir.joinpath(Path("bold_defintions/bold_defintions.json"))
+ 
         # corrections & additions
         self.corrections_tsv_path = base_dir.joinpath(Path("gui/corrections.tsv"))
         self.additions_pickle_path = base_dir.joinpath(Path("gui/additions"))
@@ -110,6 +114,7 @@ class ProjectPaths:
         self.family_root_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_family_root.html"))
         self.family_word_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_family_word.html"))
         self.family_compound_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_family_compound.html"))
+        self.family_idiom_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_family_idiom.html"))
         self.family_set_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_family_set.html"))
         self.frequency_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_frequency.html"))
         self.feedback_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_feedback.html"))

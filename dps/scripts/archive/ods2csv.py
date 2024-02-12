@@ -65,8 +65,8 @@ class ReadOds:
         console.print("[bold green]saving csvs")
         for sheet_name in self.df:
             
-            self.df[sheet_name].sort_values(by = ['pali_1'], ignore_index=True, inplace=True, key=lambda x: x.map(pali_sort_key))
-            filter = self.df[sheet_name]['pali_1'] != ""
+            self.df[sheet_name].sort_values(by = ['lemma_1'], ignore_index=True, inplace=True, key=lambda x: x.map(pali_sort_key))
+            filter = self.df[sheet_name]['lemma_1'] != ""
             self.df[sheet_name] = self.df[sheet_name][filter]
 
             # Call the duplicate-checking method

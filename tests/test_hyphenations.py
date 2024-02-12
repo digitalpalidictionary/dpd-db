@@ -10,7 +10,7 @@ from rich import print
 from typing import Optional
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 from tools.pali_alphabet import pali_alphabet
 from tools.tic_toc import tic, toc
@@ -23,7 +23,7 @@ class ProgData():
         
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
-        self.db = self.db_session.query(PaliWord).all()
+        self.db = self.db_session.query(DpdHeadwords).all()
         self.hyphenations_dict: dict[str, str] = self.load_hyphenations_dict()
         
         self.clean_words_dict: dict
@@ -238,16 +238,16 @@ def replace_word_in_db(pd):
     replacement_count = 0
     db_list = []
     for replace_me in pd.spelling_other:
-        db = pd.db_session.query(PaliWord)\
-            .filter(PaliWord.example_1.contains(replace_me)).all()
+        db = pd.db_session.query(DpdHeadwords)\
+            .filter(DpdHeadwords.example_1.contains(replace_me)).all()
         db_list.extend(db)
         
-        db = pd.db_session.query(PaliWord)\
-            .filter(PaliWord.example_2.contains(replace_me)).all()
+        db = pd.db_session.query(DpdHeadwords)\
+            .filter(DpdHeadwords.example_2.contains(replace_me)).all()
         db_list.extend(db)
         
-        db = pd.db_session.query(PaliWord)\
-            .filter(PaliWord.commentary.contains(replace_me)).all()
+        db = pd.db_session.query(DpdHeadwords)\
+            .filter(DpdHeadwords.commentary.contains(replace_me)).all()
         db_list.extend(db)
 
         for i in db_list:

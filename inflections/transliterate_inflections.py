@@ -21,21 +21,23 @@ from multiprocessing.managers import ListProxy
 from multiprocessing import Process, Manager
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 
 from tools.configger import config_test, config_update
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 from tools.utils import list_into_batches
 
-def _parse_batch(batch: List[PaliWord],
-                 pth: ProjectPaths,
-                 changed_headwords: list,
-                 changed_templates: list,
-                 regenerate_all: bool,
-                 results_list: ListProxy,
-                 batch_idx: int):
 
+def _parse_batch(
+    batch: List[DpdHeadwords],
+    pth: ProjectPaths,
+    changed_headwords: list,
+    changed_templates: list,
+    regenerate_all: bool,
+    results_list: ListProxy,
+    batch_idx: int,
+):
     # aksharamukha works much faster with large text files than smaller lists
     # inflections_to_transliterate_string contains the inflections,
     # and inflections_index_dict contains the line numbers
@@ -51,30 +53,33 @@ def _parse_batch(batch: List[PaliWord],
 
     for counter, i in enumerate(batch):
         test1 = i.pattern in changed_templates
-        test2 = i.pali_1 in changed_headwords
+        test2 = i.lemma_1 in changed_headwords
 
         if test1 or test2 or regenerate_all:
-            inflections: list = i.dd.inflections_list
-            inflections_index_dict[counter] = i.pali_1
-            inflections_for_json_dict[i.pali_1] = {"inflections": inflections}
+            inflections: list = i.inflections_list
+            inflections_index_dict[counter] = i.lemma_1
+            inflections_for_json_dict[i.lemma_1] = {"inflections": inflections}
 
-            # inflections_to_transliterate_string += (f"{i.pali_1}\t")
+            # inflections_to_transliterate_string += (f"{i.lemma_1}\t")
             for inflection in inflections:
                 inflections_to_transliterate_string += f"{inflection},"
             inflections_to_transliterate_string += "\n"
 
         else:
-            inflections_index_dict[counter] = i.pali_1
+            inflections_index_dict[counter] = i.lemma_1
             inflections_to_transliterate_string += "\n"
 
     # saving json for path nirvana transliterator
 
-    json_input_for_translit = pth.inflections_to_translit_json_path.with_suffix(f".batch_{batch_idx}_input.json")
-    json_output_from_translit = pth.inflections_from_translit_json_path.with_suffix(f".batch_{batch_idx}_output.json")
+    json_input_for_translit = pth.inflections_to_translit_json_path.with_suffix(
+        f".batch_{batch_idx}_input.json"
+    )
+    json_output_from_translit = pth.inflections_from_translit_json_path.with_suffix(
+        f".batch_{batch_idx}_output.json"
+    )
 
     with open(json_input_for_translit, "w") as f:
-        f.write(json.dumps(
-            inflections_for_json_dict, ensure_ascii=False, indent=4))
+        f.write(json.dumps(inflections_for_json_dict, ensure_ascii=False, indent=4))
 
     # transliterating with aksharamukha
 
@@ -84,8 +89,8 @@ def _parse_batch(batch: List[PaliWord],
         "IASTPali",
         "Sinhala",
         inflections_to_transliterate_string,
-        post_options=['SinhalaPali'],
-    ) # type:ignore
+        post_options=["SinhalaPali"],
+    )  # type:ignore
 
     # print("[green]transliterating devanagari with aksharamukha")
 
@@ -93,7 +98,7 @@ def _parse_batch(batch: List[PaliWord],
         "IASTPali",
         "Devanagari",
         inflections_to_transliterate_string,
-    ) # type:ignore
+    )  # type:ignore
 
     # print("[green]transliterating thai with aksharamukha")
 
@@ -101,7 +106,7 @@ def _parse_batch(batch: List[PaliWord],
         "IASTPali",
         "Thai",
         inflections_to_transliterate_string,
-    ) # type:ignore
+    )  # type:ignore
 
     sinhala_lines: list = sinhala.split("\n")
     devanagari_lines: list = devanagari.split("\n")
@@ -113,25 +118,25 @@ def _parse_batch(batch: List[PaliWord],
         if line:
             headword: str = inflections_index_dict[counter]
             sinhala_inflections_set: set = set(line.split(","))
-            sinhala_inflections_set.remove('')
+            sinhala_inflections_set.remove("")
             translit_dict[headword] = WordInflections(
-                sinhala = sinhala_inflections_set,
-                devanagari = set(),
-                thai = set(),
+                sinhala=sinhala_inflections_set,
+                devanagari=set(),
+                thai=set(),
             )
 
     for counter, line in enumerate(devanagari_lines[:-1]):
         if line:
             headword: str = inflections_index_dict[counter]
             devanagari_inflections_set: set = set(line.split(","))
-            devanagari_inflections_set.remove('')
+            devanagari_inflections_set.remove("")
             translit_dict[headword]["devanagari"] = devanagari_inflections_set
 
     for counter, line in enumerate(thai_lines[:-1]):
         if line:
             headword: str = inflections_index_dict[counter]
             thai_inflections_set: set = set(line.split(","))
-            thai_inflections_set.remove('')
+            thai_inflections_set.remove("")
             translit_dict[headword]["thai"] = thai_inflections_set
 
     # path nirvana transliteration using node.js
@@ -140,10 +145,14 @@ def _parse_batch(batch: List[PaliWord],
     # print("[green]running path nirvana node.js transliteration", end=" ")
 
     try:
-        _ = check_output(["node",
-                          "inflections/transliterate inflections.mjs",
-                          json_input_for_translit,
-                          json_output_from_translit])
+        _ = check_output(
+            [
+                "node",
+                "inflections/transliterate inflections.mjs",
+                json_input_for_translit,
+                json_output_from_translit,
+            ]
+        )
         # print(f"[green]{output}")
     except Exception as e:
         print(f"[bright_red]{e}")
@@ -158,15 +167,17 @@ def _parse_batch(batch: List[PaliWord],
 
     for headword, values in new_inflections.items():
         if values["sinhala"]:
-
             translit_dict[headword]["sinhala"].update(
-                set(new_inflections[headword]["sinhala"]))
+                set(new_inflections[headword]["sinhala"])
+            )
 
             translit_dict[headword]["devanagari"].update(
-                set(new_inflections[headword]["devanagari"]))
+                set(new_inflections[headword]["devanagari"])
+            )
 
             translit_dict[headword]["thai"].update(
-                set(new_inflections[headword]["thai"]))
+                set(new_inflections[headword]["thai"])
+            )
 
     results_list.append(translit_dict)
 
@@ -179,12 +190,13 @@ class WordInflections(TypedDict):
     devanagari: set
     thai: set
 
+
 def main():
     """It's the main function."""
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(PaliWord).all()
+    dpd_db = db_session.query(DpdHeadwords).all()
 
     with open(pth.changed_headwords_path, "rb") as f:
         changed_headwords: list = pickle.load(f)
@@ -196,9 +208,8 @@ def main():
     print("[bright_yellow]transliterating inflections")
 
     # check config
-    if (
-        config_test("regenerate", "transliterations", "yes")
-        or config_test("regenerate", "db_rebuild", "yes")
+    if config_test("regenerate", "transliterations", "yes") or config_test(
+        "regenerate", "db_rebuild", "yes"
     ):
         regenerate_all: bool = True
     else:
@@ -207,20 +218,25 @@ def main():
     print(f"[green]regenerate all [white]{regenerate_all}")
 
     num_logical_cores = psutil.cpu_count()
-    batches: List[List[PaliWord]] = list_into_batches(dpd_db, num_logical_cores)
+    batches: List[List[DpdHeadwords]] = list_into_batches(dpd_db, num_logical_cores)
 
     processes: List[Process] = []
     manager = Manager()
     results_list: ListProxy = manager.list()
 
     for batch_idx, batch in enumerate(batches):
-        p = Process(target=_parse_batch, args=(batch,
-                                               pth,
-                                               changed_headwords,
-                                               changed_templates,
-                                               regenerate_all,
-                                               results_list,
-                                               batch_idx,))
+        p = Process(
+            target=_parse_batch,
+            args=(
+                batch,
+                pth,
+                changed_headwords,
+                changed_templates,
+                regenerate_all,
+                results_list,
+                batch_idx,
+            ),
+        )
 
         p.start()
         processes.append(p)
@@ -241,15 +257,13 @@ def main():
 
     translit_counter = 0
     for i in dpd_db:
-        if i.pali_1 in translit_dict:
-
-            i.dd.sinhala = ",".join(
-                list(translit_dict[i.pali_1]["sinhala"]))
-            i.dd.devanagari = ",".join(
-                list(translit_dict[i.pali_1]["devanagari"]))
-            i.dd.thai = ",".join(
-                list(translit_dict[i.pali_1]["thai"]))
-            translit_counter +=1
+        if i.lemma_1 in translit_dict:
+            i.inflections_sinhala = ",".join(list(translit_dict[i.lemma_1]["sinhala"]))
+            i.inflections_devanagari = ",".join(
+                list(translit_dict[i.lemma_1]["devanagari"])
+            )
+            i.inflections_thai = ",".join(list(translit_dict[i.lemma_1]["thai"]))
+            translit_counter += 1
 
     print(translit_counter)
 

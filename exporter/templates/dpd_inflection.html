@@ -1,7 +1,7 @@
 % if i.pos in declensions:
-    <div id="declension_${i.pali_1_}" class="content hidden">
+    <div id="declension_${i.lemma_1_}" class="content hidden">
 % elif i.pos in conjugations:
-    <div id="conjugation_${i.pali_1_}" class="content hidden">
+    <div id="conjugation_${i.lemma_1_}" class="content hidden">
 % endif
 ${table}
 % if "gray" in table:
@@ -13,9 +13,9 @@ ${table}
 <p>
 % endif
 % if i.pos in declensions:
-    Did you spot a mistake in the declension table? Something missing? <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSfKUBx-icfRCWmhHqUwzX60BVQE21s_NERNfU2VvbjEfE371A/viewform?usp=pp_url&entry.1370304754=${i.pali_link}&entry.1433863141=GoldenDict+${today}" target="_blank">Report it here.</a>
+    Did you spot a mistake in the declension table? Something missing? <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSfKUBx-icfRCWmhHqUwzX60BVQE21s_NERNfU2VvbjEfE371A/viewform?usp=pp_url&entry.1370304754=${i.lemma_link}&entry.1433863141=GoldenDict+${today}" target="_blank">Report it here.</a>
 % elif i.pos in conjugations:
-    Did you spot a mistake in the conjugation table? Something missing? <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSdAL2PzavyrtXgGmtNrZAMyh3hV6g3fU0chxhWFxunQEZtH0g/viewform?usp=pp_url&entry.1932605469=${i.pali_link}&entry.1433863141=GoldenDict+${today}" target="_blank">Report it here.</a>
+    Did you spot a mistake in the conjugation table? Something missing? <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSdAL2PzavyrtXgGmtNrZAMyh3hV6g3fU0chxhWFxunQEZtH0g/viewform?usp=pp_url&entry.1932605469=${i.lemma_link}&entry.1433863141=GoldenDict+${today}" target="_blank">Report it here.</a>
 % endif
 </p>
 </div>

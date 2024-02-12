@@ -11,7 +11,7 @@ from docx import Document
 
 from typing import List
 
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from db.get_db_session import get_db_session
 
 from tools.pali_sort_key import pali_sort_key
@@ -45,9 +45,9 @@ def main(header):
     pth = ProjectPaths()
     dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(PaliWord).all()
+    dpd_db = db_session.query(DpdHeadwords).all()
     dpd_db = sorted(
-        dpd_db, key=lambda x: pali_sort_key(x.pali_1))
+        dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     if dpspth.local_downloads_dir:
         console.print("[bold blue]Enter the name of the .docx file (without extension):")
@@ -116,7 +116,7 @@ def fromsource(dpspth, dpd_db, source_to_check, header):
         ):
             words_set.update([i.id])
 
-    def _needed(i: PaliWord):
+    def _needed(i: DpdHeadwords):
         return i.id in words_set
 
     rows = [header]  # Add the header as the first row
@@ -137,7 +137,7 @@ def fromid(dpspth, dpd_db, docx_filename, header):
     ordered_ids = extract_ids_from_docx(docx_filename)
     ordered_ids = remove_duplicates(ordered_ids)
 
-    def _is_needed(i: PaliWord):
+    def _is_needed(i: DpdHeadwords):
         return i.id in ordered_ids
 
     rows = [header]  # Add the header as the first row
@@ -150,12 +150,12 @@ def fromid(dpspth, dpd_db, docx_filename, header):
         writer.writerows(rows)
 
 
-def pali_row(i: PaliWord, output="anki") -> List[str]:
+def pali_row(i: DpdHeadwords, output="anki") -> List[str]:
     fields = []
 
     fields.extend([
         i.id,
-        i.pali_1,
+        i.lemma_1,
         i.pos,
         i.grammar,
         i.derived_from,

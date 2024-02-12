@@ -9,7 +9,7 @@ from tools.tic_toc import tic, toc
 from sqlalchemy.orm.session import Session
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.pali_alphabet import pali_alphabet
 from tools.paths import ProjectPaths
 from tools.configger import config_test
@@ -63,7 +63,7 @@ SandhiContractions = Dict[str, SandhiContrItem]
 def make_sandhi_contraction_dict(db_session: Session) -> SandhiContractions:
     """Return a list of all sandhi words in db that are split with '."""
 
-    db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs)).all()
+    db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs)).all()
     sandhi_contraction: SandhiContractions = dict()
     word_dict: Dict[int, Set[str]] = dict()
 
@@ -88,6 +88,7 @@ def make_sandhi_contraction_dict(db_session: Session) -> SandhiContractions:
         string = string.replace("]", " ")
         string = string.replace(":", " ")
         string = string.replace("\n", " ")
+        string = string.replace("\r", " ")
         list = string.split(" ")
         return list
 

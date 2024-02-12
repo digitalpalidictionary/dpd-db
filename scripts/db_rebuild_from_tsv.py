@@ -11,7 +11,7 @@ from sqlalchemy.orm.session import Session
 
 from db.get_db_session import get_db_session
 from db.db_helpers import create_db_if_not_exists
-from db.models import PaliWord, PaliRoot, Russian, SBS
+from db.models import DpdHeadwords, DpdRoots, Russian, SBS
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 from tools.configger import config_update, config_test
@@ -60,8 +60,8 @@ def main():
 
 
 def make_pali_word_table_data(pth: ProjectPaths, db_session: Session):
-    """Read TSV and return PaliWord table data."""
-    print("[green]creating PaliWord table data")
+    """Read TSV and return DpdHeadwords table data."""
+    print("[green]creating DpdHeadwords table data")
     with open(pth.pali_word_path, 'r', newline='') as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
         columns = next(csvreader)
@@ -70,12 +70,12 @@ def make_pali_word_table_data(pth: ProjectPaths, db_session: Session):
             for col_name, value in zip(columns, row):
                 if col_name not in ("user_id", "created_at", "updated_at"):
                     data[col_name] = value
-            db_session.add(PaliWord(**data))
+            db_session.add(DpdHeadwords(**data))
 
 
 def make_pali_root_table_data(pth: ProjectPaths, db_session: Session):
-    """Read TSV and return PaliRoot table data."""
-    print("[green]creating PaliRoot table data")
+    """Read TSV and return DpdRoots table data."""
+    print("[green]creating DpdRoots table data")
     with open(pth.pali_root_path, 'r', newline='') as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
         columns = next(csvreader)
@@ -86,7 +86,7 @@ def make_pali_root_table_data(pth: ProjectPaths, db_session: Session):
                     "created_at", "updated_at",
                         "root_info", "root_matrix"):
                     data[col_name] = value
-            db_session.add(PaliRoot(**data))
+            db_session.add(DpdRoots(**data))
 
 
 def make_russian_table_data(pth: ProjectPaths, db_session: Session):

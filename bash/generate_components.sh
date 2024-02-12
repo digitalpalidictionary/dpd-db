@@ -5,12 +5,15 @@ if [ ! -e "dpd.db" ]; then
     exit 1
 fi
 
+set -e
+
 tools/version.py
+
+scripts/lookup_add_variants_and_spelling_mistakes.py
 
 inflections/create_inflections_templates.py
 inflections/generate_inflection_tables.py
 inflections/transliterate_inflections.py
-inflections/inflections_to_headwords.py
 
 families/root_family.py
 families/word_family.py
@@ -23,10 +26,20 @@ sandhi/sandhi_setup.py
 sandhi/sandhi_splitter.py
 sandhi/sandhi_postprocess.py
 scripts/deconstrutor_tissā.py
+inflections/inflections_to_headwords.py
 
 frequency/mapmaker.py
 
+bold_defintions/update_bold_defintions_db.py
+
 scripts/dealbreakers.py
+status=$?
+if [[ $status -ne  0 ]]; then
+    echo "dealbreakers exited with $status. Stopping the script."
+    exit $status
+fi
+
+
 
 
 

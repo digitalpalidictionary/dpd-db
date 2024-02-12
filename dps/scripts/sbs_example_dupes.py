@@ -6,7 +6,7 @@ import csv
 from difflib import SequenceMatcher
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
 
@@ -25,7 +25,7 @@ def main():
     pth = ProjectPaths()
     dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs)).all()
+    db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs)).all()
 
     ids_to_save = set()
 
