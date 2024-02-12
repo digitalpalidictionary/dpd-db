@@ -32,7 +32,10 @@ def backup_paliwords(db_session: Session, pth: ProjectPaths):
 
     with open(pth.pali_word_path, 'w', newline='') as tsvfile:
         exclude_columns = [
-            "created_at", "updated_at"]
+            "created_at", "updated_at",
+            "inflections", "inflections_sinhala", "inflections_devanagari", "inflections_thai", "inflections_html",
+            "freq_html", "ebt_count"]
+        
         csvwriter = csv.writer(
             tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL)
         column_names = [
