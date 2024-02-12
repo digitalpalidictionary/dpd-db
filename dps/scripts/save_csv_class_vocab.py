@@ -6,7 +6,7 @@ from db.get_db_session import get_db_session
 from tools.paths import ProjectPaths
 from rich.console import Console
 from dps.tools.paths_dps import DPSPaths
-
+from sqlalchemy.orm import joinedload
 
 pth = ProjectPaths()
 dpspth = DPSPaths()
@@ -34,7 +34,7 @@ def main():
 def save_words_to_csv(sbs_class: int, filename: str):
     # Get all words that meet the conditions
 
-    words = db_session.query(PaliWord).join(SBS).filter(
+    words = db_session.query(PaliWord).options(joinedload(PaliWord.sbs)).join(SBS).filter(
         SBS.sbs_class <= sbs_class,
         SBS.sbs_class_anki <= sbs_class
     ).all()

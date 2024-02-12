@@ -14,6 +14,8 @@ from tools.pali_alphabet import pali_alphabet
 from tools.paths import ProjectPaths
 from tools.configger import config_test
 
+from sqlalchemy.orm import joinedload
+
 exceptions = [
     "maññeti",
     "āyataggaṃ",
@@ -61,7 +63,7 @@ SandhiContractions = Dict[str, SandhiContrItem]
 def make_sandhi_contraction_dict(db_session: Session) -> SandhiContractions:
     """Return a list of all sandhi words in db that are split with '."""
 
-    db = db_session.query(PaliWord).all()
+    db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs)).all()
     sandhi_contraction: SandhiContractions = dict()
     word_dict: Dict[int, Set[str]] = dict()
 

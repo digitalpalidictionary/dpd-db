@@ -14,6 +14,8 @@ from rich.console import Console
 from tools.tic_toc import tic, toc
 from datetime import datetime
 
+from sqlalchemy.orm import joinedload
+
 console = Console()
 
 
@@ -24,7 +26,7 @@ def save_filtered_words():
     pth = ProjectPaths()
     dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(PaliWord).all()
+    dpd_db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs), joinedload(PaliWord.ru)).all()
 
     # Filter words based on sbs.sbs_class, also check if sbs is not None
     # filtered_words = [word for word in dpd_db if word.sbs and word.sbs.sbs_class == '(ru)']

@@ -145,6 +145,9 @@ def sbs_per(df, sbs_ped_link):
     output_path = os.path.join(dpspth.anki_csvs_dps_dir, "anki_sbs.csv")
     filtered_df.to_csv(output_path, sep="\t", index=False, header=True)
 
+    # Add 'marks' to the list of columns to keep
+    columns_to_keep.append('marks')
+
     if dpspth.sbs_anki_style_dir:
         # Save the list of field names to a text file
         with open(f'{dpspth.sbs_anki_style_dir}/field-list-sbs.txt', 'w') as file:
@@ -210,6 +213,9 @@ def parittas(df, sbs_ped_link):
     output_path = os.path.join(dpspth.anki_csvs_dps_dir, "anki_parittas.csv")
     filtered_df.to_csv(output_path, sep="\t", index=False, header=True)
 
+    # Add 'marks' to the list of columns to keep
+    columns_to_keep.append('marks')
+
     if dpspth.sbs_anki_style_dir:
         # Save the list of field names to a text file
         with open(f'{dpspth.sbs_anki_style_dir}/field-list-parittas.txt', 'w') as file:
@@ -260,6 +266,9 @@ def dps(df, dps_link):
     # Save the DataFrame into csv
     output_path = os.path.join(dpspth.anki_csvs_dps_dir, "anki_dps.csv")
     df.to_csv(output_path, sep="\t", index=False, header=True)
+
+    # Add 'marks' to the list of columns to keep
+    columns_to_keep.append('marks')
 
     if dpspth.sbs_anki_style_dir:
         # Save the list of field names to a text file
@@ -361,6 +370,9 @@ def dhp(df, sbs_ped_link):
     # Save the DataFrame into csv
     output_path = os.path.join(dpspth.anki_csvs_dps_dir, "anki_dhp.csv")
     filtered_df.to_csv(output_path, sep="\t", index=False, header=True)
+
+    # Add 'marks' to the list of columns to keep
+    columns_to_keep.append('marks')
 
     if dpspth.sbs_anki_style_dir:
         # Save the list of field names to a text file
@@ -510,6 +522,9 @@ def classes(df, sbs_ped_link):
     output_path_ru = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', "class_ru.csv")
     concatenated_ru_df.to_csv(output_path_ru, sep="\t", index=False, header=True)
 
+    # Add 'marks' to the list of columns to keep
+    columns_to_keep.append('marks')
+
     if dpspth.sbs_anki_style_dir:
         # Save the list of field names to a text file
         with open(f'{dpspth.sbs_anki_style_dir}/field-list-vocab-class.txt', 'w') as file:
@@ -575,6 +590,9 @@ def suttas_class(df, sbs_ped_link):
             output_path = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', 'suttas', output_filename)
             filtered_df.to_csv(output_path, sep="\t", index=False, header=True)
 
+    # Add 'marks' to the list of columns to keep
+    columns_to_keep.append('marks')
+
     if dpspth.sbs_anki_style_dir:
         # Save the list of field names to a text file
         with open(f'{dpspth.sbs_anki_style_dir}/field-list-suttas-class.txt', 'w') as file:
@@ -637,6 +655,9 @@ def root_phonetic_class(df, sbs_ped_link):
 
     output_path = os.path.join(dpspth.anki_csvs_dps_dir, 'pali_class', "phonetic_class.csv")
     phonetic_df.to_csv(output_path, sep="\t", index=False, header=True)
+
+    # Add 'marks' to the list of columns to keep
+    columns_to_keep.append('marks')
 
     if dpspth.sbs_anki_style_dir:
         # Save the list of field names to a text file

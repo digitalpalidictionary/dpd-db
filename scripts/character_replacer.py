@@ -8,6 +8,8 @@ from db.get_db_session import get_db_session
 from db.models import PaliWord
 from tools.paths import ProjectPaths
 
+from sqlalchemy.orm import joinedload
+
 find_char = ';'
 replace_char = ","
 column = "cognate"
@@ -15,11 +17,23 @@ column = "cognate"
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).all()
+    db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs), joinedload(PaliWord.ru)).all()
     
     counter = 0
     for i in db:
-        old_field = getattr(i, column)
+        # grab the text from the column
+        if column.startswith("sbs_"):
+            if i.sbs:
+                old_field = getattr(i.sbs, column)
+            else:
+                old_field = ""
+        elif column.startswith("ru_"):
+            if i.ru:
+                old_field = getattr(i.ru, column)
+            else:
+                old_field = ""
+        else:
+            old_field = getattr(i, column)
         
         if find_char in old_field:
             new_field = old_field.replace(find_char, replace_char)
@@ -28,7 +42,12 @@ def main():
             print(f"[green]{old_field}")
             print(f"[light_green]{new_field}")
             print()
-            setattr(i, column, new_field)
+            if column.startswith("sbs_"):
+                setattr(i.sbs, column, new_field)
+            elif column.startswith("ru_"):
+                setattr(i.ru, column, new_field)
+            else:
+                setattr(i, column, new_field)
             counter +=1
 
     if counter > 0:

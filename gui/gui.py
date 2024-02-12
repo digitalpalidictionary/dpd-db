@@ -128,6 +128,7 @@ from scripts.backup_ru_sbs import backup_ru_sbs
 
 from exporter.i2html import make_html
 from tests.test_allowable_characters import test_allowable_characters_gui
+from tests.test_allowable_characters import test_allowable_characters_gui_dps
 
 from tools.goldedict_tools import open_in_goldendict
 from tools.paths import ProjectPaths
@@ -1679,7 +1680,7 @@ def main():
         elif event == "dps_openai_translate_button":
             field = "dps_ru_online_suggestion"
             error_field = "dps_ru_meaning_suggestion_error"
-            ru_translate_with_openai(dpspth, pth, values['dps_meaning'], values['dps_pali_1'], values['dps_grammar'], field, error_field, window)
+            ru_translate_with_openai(values['sbs_example_for_suggestion'], values['dps_example_1'], values['dps_sbs_example_1'], values['dps_sbs_example_2'], values['dps_sbs_example_3'], values['dps_sbs_example_4'], dpspth, pth, values['dps_meaning'], values['dps_pali_1'], values['dps_grammar'], field, error_field, window)
 
         elif event == "dps_notes_openai_translate_button":
             field = "dps_notes_online_suggestion"
@@ -1914,6 +1915,17 @@ def main():
                 field = "dps_ru_meaning"
                 error_field = "dps_repetition_meaning_error"
                 check_repetition(field, error_field, values, window)
+
+                # dps check allowable characters
+                error_dict = test_allowable_characters_gui_dps(values)
+                for column, test_value in error_dict.items():
+                    if column != "origin":
+                        if test_value:
+                            window[f"dps_{column}_error"].update(value=test_value, text_color="red")
+                            window["messages"].update(value="fix bad characters", text_color="red")
+                            flags.tested = False
+                        else:
+                            window[f"dps_{column}_error"].update(value="", text_color="darkgray")
 
             else:
                 window["messages"].update(

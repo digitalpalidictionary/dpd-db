@@ -10,6 +10,8 @@ from rich.console import Console
 from tools.tic_toc import tic, toc
 from typing import Optional
 
+from sqlalchemy.orm import joinedload
+
 console = Console()
 
 
@@ -23,7 +25,7 @@ def main():
     count = 0
 
     # Iterate over all PaliWord instances and update their sbs_class
-    for word in db_session.query(PaliWord).all():
+    for word in db_session.query(PaliWord).options(joinedload(PaliWord.sbs)).all():
 
 
             # debug check all sbs_class_anki which has not sbs.sbs_class

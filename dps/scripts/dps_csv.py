@@ -18,6 +18,8 @@ from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 from tools.date_and_time import day
 
+from sqlalchemy.orm import joinedload
+
 from dps.tools.sbs_table_functions import SBS_table_tools
 
 date = day()
@@ -32,7 +34,7 @@ def main():
     dpspth = DPSPaths()
 
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(PaliWord).all()
+    dpd_db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs), joinedload(PaliWord.ru)).all()
     dpd_db = sorted(
         dpd_db, key=lambda x: pali_sort_key(x.pali_1))
 

@@ -17,6 +17,7 @@ from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.configger import config_test
 from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes
+from sqlalchemy.orm import joinedload
 
 
 def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[RenderResult], RenderedSizes]:
@@ -37,7 +38,7 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[Rend
     else:
         dps_data: bool = False
 
-    dpd_db: list = db_session.query(PaliWord).all()
+    dpd_db: list = db_session.query(PaliWord).options(joinedload(PaliWord.ru)).all()
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.pali_1))
     dpd_db_length = len(dpd_db)
 

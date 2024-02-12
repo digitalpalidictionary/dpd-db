@@ -597,7 +597,7 @@ def handle_openai_response(messages, suggestion_field, error_field, window):
     try:
         # Request translation from OpenAI's GPT chat model
         response = call_openai(messages)
-        suggestion = response.choices[0].message['content'].replace('**Русский перевод**: ', '').strip().lower() # type: ignore
+        suggestion = response.choices[0].message['content'].strip() # type: ignore
         window[suggestion_field].update(suggestion, text_color="Aqua")
 
         return suggestion
@@ -616,7 +616,7 @@ def handle_openai_response(messages, suggestion_field, error_field, window):
         return error_string
 
 
-def ru_translate_with_openai(dpspth, pth, meaning, pali_1, grammar, suggestion_field, error_field, window):
+def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, pth, meaning, pali_1, grammar, suggestion_field, error_field, window):
     window[error_field].update("")
 
     # keep original grammar
@@ -624,6 +624,19 @@ def ru_translate_with_openai(dpspth, pth, meaning, pali_1, grammar, suggestion_f
 
     # Replace abbreviations in grammar
     grammar = replace_abbreviations(grammar, pth.abbreviations_tsv_path)
+
+    # Choosing example
+
+    if number == "0":
+        example = dps_ex_1
+    if number == "1":
+        example = ex_1
+    if number == "2":
+        example = ex_2
+    if number == "3":
+        example = ex_3
+    if number == "4":
+        example = ex_4
     
     # Generate the chat messages based on provided values
     messages = [
@@ -639,15 +652,21 @@ def ru_translate_with_openai(dpspth, pth, meaning, pali_1, grammar, suggestion_f
 
                 **Grammar Details**: {grammar}
 
+                **Pali sentence**: {example}
+
                 **English Definition**: {meaning}
 
-                Please provide few distinct Russian translations for the English definition, considering the Pali term and its grammatical context. Each synonym should be separated by `;`. Avoid repeating the same word, even between main words and literal meaning. In the answer please give only there few russian synonyms and nothing else.
+                Please provide a few distinct Russian translations for the English definition, taking into account the Pali term and its grammatical context and Pali sentence. Separate each synonym with `;`. Avoid repeating the same word, even between main words and literal meanings. Provide a lot of Russian synonyms in the answer and nothing else.
                 ---
             """
         }
     ]
 
-    suggestion = handle_openai_response(messages, suggestion_field, error_field, window)
+    print(messages)
+
+
+    suggestion = handle_openai_response(messages, suggestion_field, error_field, window).lower()
+    
 
     # Save to CSV
     if suggestion != "Timed out":
@@ -1140,7 +1159,7 @@ def update_field_with_change(db_session, WHAT_TO_UPDATE, pali_1, source):
 
 
 def words_in_db_from_source(db_session, source):
-    dpd_db = db_session.query(PaliWord).all()
+    dpd_db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs)).all()
 
     matching_words = []
 

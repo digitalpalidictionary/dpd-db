@@ -9,6 +9,8 @@ from db.models import PaliWord
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 
+from sqlalchemy.orm import joinedload
+
 from tools.configger import config_test
 
 def main():
@@ -18,7 +20,7 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    dpd_db = db_session.query(PaliWord).all()
+    dpd_db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs)).all()
 
     for word in dpd_db:
         if word.sbs:

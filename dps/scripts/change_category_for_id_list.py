@@ -12,6 +12,8 @@ from rich.console import Console
 import csv
 from tools.tic_toc import tic, toc
 
+from sqlalchemy.orm import joinedload
+
 console = Console()
 
 
@@ -72,7 +74,7 @@ def update_sbs_category(source, condition_func, message):
 
     # 3. Iterate through the IDs and update the database
     for word_id in unique_ids:
-        word = db_session.query(PaliWord).filter(PaliWord.id == word_id).first()
+        word = db_session.query(PaliWord).options(joinedload(PaliWord.sbs)).filter(PaliWord.id == word_id).first()
 
         if not word or not word.sbs:
             continue

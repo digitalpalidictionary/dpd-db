@@ -10,6 +10,8 @@ from db.models import PaliWord
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
 
+from sqlalchemy.orm import joinedload
+
 from rich.console import Console
 from tools.tic_toc import tic, toc
 
@@ -23,12 +25,12 @@ def main():
     pth = ProjectPaths()
     dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).all()
+    db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs)).all()
 
     ids_to_save = set()
 
     for i in db:
-        if i.sbs and (i.sbs.sbs_chapter_flag or i.sbs.sbs_category or i.sbs.sbs_class_anki):
+        if i.sbs and (i.sbs.sbs_index or i.sbs.sbs_category or i.sbs.sbs_class_anki):
             examples = [i.sbs.sbs_example_1, i.sbs.sbs_example_2, i.sbs.sbs_example_3, i.sbs.sbs_example_4]
             for idx1, example1 in enumerate(examples):
                 for idx2, example2 in enumerate(examples):

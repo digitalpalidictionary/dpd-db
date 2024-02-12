@@ -12,6 +12,10 @@ from tools.pali_alphabet import sanskrit_alphabet
 from tools.paths import ProjectPaths
 from tools.unicode_char import unicode_char
 
+from sqlalchemy.orm import joinedload
+
+from tools.configger import config_test
+
 class AllowableCharacters():
     """Defined lists of allowable characters,
     and the characters allowable in each field."""
@@ -35,6 +39,14 @@ class AllowableCharacters():
         "ṉ", "ḻ", "ō", "ḵ", "ḱ", "", '̱', '̤']
     
     german_characters = ["ü"]
+
+    cyrillic_characters = [
+        "а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и", "й", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "ф", "х", "ц", "ч", "ш", "щ", "ъ", "ы", "ь", "э", "ю", "я"
+        ]
+    
+    cyrillic_capitals = [
+        "А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "Й", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ы", "Ь", "Э", "Ю", "Я"
+        ]
 
     # digits
     digits = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
@@ -139,6 +151,8 @@ class AllowableCharacters():
     "ya", "a1", "ka", "ve", "pp", "pl", "ta", "pr", "as", "ar", "aī",
     "go", "nt", "ti", "a2", "i2", "ā", "i", "ṃ", "2", "ī", "u", "ū",
     "a", "o" ]
+
+    sbs_chanting_book_sorces = ["Sri Lanka", "Trad", "Thai", "MJG"]
     
 
     # --------------------------------------------------
@@ -504,6 +518,124 @@ class AllowableCharacters():
     )
 
     # --------------------------------------------------
+    # allowable characters for Russian fields
+    # --------------------------------------------------
+
+    ru_meaning_allowed = (
+        # letters
+        cyrillic_characters +
+        cyrillic_capitals +
+        pali_alphabet +
+        pali_capitals +
+        niggahitas +
+        sanskrit_capitals +
+        greek_characters +
+        
+        # digits
+        digits +
+        super_digits +
+        
+        # punctuation
+        space +
+        comma + 
+        semicolon +
+        fullstop +
+        exclamation + 
+        question +
+        apostrophe +
+        brackets +
+        percent +
+        forward_slash + 
+        dot_dot_dot + 
+        star +
+        root + 
+        equals +
+        ampersand +
+        dash
+    )
+
+    ru_notes_allowed = (
+        pali_alphabet +
+        pali_capitals +
+        cyrillic_characters +
+        cyrillic_capitals +
+        # english_alphabet +
+        english_capitals +
+        sanskrit_alphabet +
+        sanskrit_capitals +
+        german_characters +
+        digits +
+        space +
+        comma +
+        semicolon +
+        colon +
+        fullstop +
+        exclamation +
+        question +
+        apostrophe +
+        dash +
+        dot_dot_dot +
+        new_line +
+        plus +
+        star +
+        root +
+        equals +                # in measures 1x = 12y
+        forward_slash +         # in fractions 1/12th
+        greater_than +          # in derivations na > an 
+        brackets +
+        bold + 
+        italic +
+        section
+    )
+
+
+    # --------------------------------------------------
+    # allowable characters for SBS fields
+    # --------------------------------------------------
+
+    sbs_category_allowed = (
+        english_alphabet +
+        digits +
+        low_line
+    )
+
+    sbs_source_allowed = (
+        english_capitals +
+        source +
+        english_alphabet +
+        digits +
+        space +
+        fullstop +
+        dash
+    )
+    
+    sbs_chant_pali_allowed = (
+        pali_alphabet +
+        pali_capitals +
+        english_capitals +
+        space +
+        apostrophe +
+        dash
+    )
+
+    sbs_chant_english_allowed = (
+        pali_alphabet +
+        english_alphabet +
+        english_capitals +
+        space +
+        apostrophe +
+        dash
+    )
+
+    sbs_chapter_allowed = (
+        pali_alphabet +
+        english_alphabet +
+        english_capitals +
+        space
+    )
+
+
+    # --------------------------------------------------
     # test data, tuple of column and allowable characters
     # --------------------------------------------------
  
@@ -554,11 +686,57 @@ class AllowableCharacters():
         ("pattern", pattern_allowed), 
     ]
 
+    sbs_data = [
+        ("sbs_meaning", meaning_1_allowed),
+        ("sbs_category", sbs_category_allowed),
+        
+        ("sbs_source_1", sbs_source_allowed),
+        ("sbs_sutta_1", sutta_allowed),
+        ("sbs_example_1", example_allowed),
+        ("sbs_chant_pali_1", sbs_chant_pali_allowed),
+        ("sbs_chant_eng_1", sbs_chant_english_allowed),
+        ("sbs_chapter_1", sbs_chapter_allowed),
+
+        ("sbs_source_2", sbs_source_allowed),
+        ("sbs_sutta_2", sutta_allowed),
+        ("sbs_example_2", example_allowed),
+        ("sbs_chant_pali_2", sbs_chant_pali_allowed),
+        ("sbs_chant_eng_2", sbs_chant_english_allowed),
+        ("sbs_chapter_2", sbs_chapter_allowed),
+
+        ("sbs_source_3", sbs_source_allowed),
+        ("sbs_sutta_3", sutta_allowed),
+        ("sbs_example_3", example_allowed),
+        ("sbs_chant_pali_3", sbs_chant_pali_allowed),
+        ("sbs_chant_eng_3", sbs_chant_english_allowed),
+        ("sbs_chapter_3", sbs_chapter_allowed),
+
+        ("sbs_source_4", sbs_source_allowed),
+        ("sbs_sutta_4", sutta_allowed),
+        ("sbs_example_4", example_allowed),
+        ("sbs_chant_pali_4", sbs_chant_pali_allowed),
+        ("sbs_chant_eng_4", sbs_chant_english_allowed),
+        ("sbs_chapter_4", sbs_chapter_allowed),
+
+        ("sbs_notes", notes_allowed),
+    ]
+
+    ru_data = [
+        ("ru_meaning", ru_meaning_allowed),
+        ("ru_meaning_lit", ru_meaning_allowed),
+        ("ru_notes", ru_notes_allowed),
+    ]
+
+    dps_tests_data = sbs_data + ru_data
+
+    if config_test("user", "username", "deva"):
+        tests_data = tests_data + dps_tests_data
 
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).all()
+    db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs), joinedload(PaliWord.ru)).all()
+
     a = AllowableCharacters()
 
     debug = False
@@ -576,7 +754,18 @@ def main():
         
         for i in db:    
             # grab the text from the column
-            text = getattr(i, column)
+            if column.startswith("sbs_"):
+                if i.sbs:
+                    text = getattr(i.sbs, column)
+                else:
+                    text = ""
+            elif column.startswith("ru_"):
+                if i.ru:
+                    text = getattr(i.ru, column)
+                else:
+                    text = ""
+            else:
+                text = getattr(i, column)
             
             # remove all allowable characters
             oops = re.sub(allowed, "", text)
@@ -627,6 +816,39 @@ def test_allowable_characters_gui(values: dict[str, str]) -> dict[str, str]:
                 error_list.extend(char + unicode_char(char) for char in set(oops))
                 error_string = " ".join(error_list)
                 error_dict[column] = error_string
+    
+    return error_dict
+
+
+def test_allowable_characters_gui_dps(values: dict[str, str]) -> dict[str, str]:
+    """Test allowabl characters in dps tab gui values dict.
+    Return a dict of probems."""
+    a = AllowableCharacters()
+
+    error_dict: dict[str, str] = {}
+    for dps_test_data in a.dps_tests_data:
+        column, allowed = dps_test_data
+        allowed = join_allowed(allowed)
+
+        # Strip the 'dps_' prefix from the keys in the values dictionary
+        dps_values = {key.replace('dps_', ''): value for key, value in values.items()}
+
+        if column in dps_values:
+            # grab the text from the column
+            text = dps_values[column]
+            
+            # remove all allowable characters
+            oops = re.sub(allowed, "", text)
+            
+            # add to error dict
+            error_string = ""
+            if oops:
+                error_list = []
+                error_list.extend(char + unicode_char(char) for char in set(oops))
+                error_string = " ".join(error_list)
+                error_dict[column] = error_string
+        else:
+            print(f"{column} not in dps_values")
     
     return error_dict
 

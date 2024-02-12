@@ -24,6 +24,8 @@ from tools.tic_toc import tic, toc, bip, bop
 
 from tools.date_and_time import day
 
+from sqlalchemy.orm import joinedload
+
 date = day()
 
 dpspth = DPSPaths()
@@ -38,7 +40,7 @@ def main():
     print(f"[green]{'setup dbs':<20}", end="")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).all()
+    db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs), joinedload(PaliWord.ru)).all()
     print(f"{len(db):>10}{bop():>10.2f}")
 
     decks = ["Pali DHP vocab", "Pali Parittas", "Phonetic Changes Pali Class", "Roots Pali Class", "SBS Pali-English Vocab", "Suttas Advanced Pali Class", "Vocab Pali Class"]

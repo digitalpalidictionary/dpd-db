@@ -491,7 +491,7 @@ def render_button_box_templ(
         'data-target="{target}">{name}</a>')
 
     # grammar_button
-    if i.needs_grammar_button:
+    if i.needs_grammar_button or dps_data:
         grammar_button = button_html.format(
             target=f"grammar_{i.pali_1_}", name="grammar")
     else:
@@ -612,7 +612,7 @@ def render_grammar_templ(
 ) -> str:
     """html table of grammatical information"""
 
-    if i.meaning_1 is not None and i.meaning_1:
+    if (i.meaning_1 is not None and i.meaning_1) or dps_data:
         if i.construction is not None and i.construction:
             i.construction = i.construction.replace("\n", "<br>")
         else:
