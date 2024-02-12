@@ -735,7 +735,7 @@ class AllowableCharacters():
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).options(joinedload(PaliWord.sbs), joinedload(PaliWord.ru)).all()
+    db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs), joinedload(DpdHeadwords.ru)).all()
 
     a = AllowableCharacters()
 

@@ -1255,12 +1255,12 @@ def main():
                 window["dps_sbs_meaning_error"].update(visible=True)
                 window["dps_sbs_notes"].update(visible=True)
                 window["dps_sbs_notes_error"].update(visible=True)
-                window["dps_sbs_chant_lemma_1"].update(visible=True)
-                window["dps_sbs_chant_lemma_1_error"].update(visible=True)
+                window["dps_sbs_chant_pali_1"].update(visible=True)
+                window["dps_sbs_chant_pali_1_error"].update(visible=True)
                 window["dps_sbs_chant_eng_1"].update(visible=True)
                 window["dps_sbs_chapter_1"].update(visible=True)
-                window["dps_sbs_chant_lemma_2"].update(visible=True)
-                window["dps_sbs_chant_lemma_2_error"].update(visible=True)
+                window["dps_sbs_chant_pali_2"].update(visible=True)
+                window["dps_sbs_chant_pali_2_error"].update(visible=True)
                 window["dps_sbs_chant_eng_2"].update(visible=True)
                 window["dps_sbs_chapter_2"].update(visible=True)
                 window["dps_sbs_chant_pali_3"].update(visible=True)
@@ -1277,10 +1277,10 @@ def main():
         elif event == "dps_show_fields_no_sbs":
             hide_list = [
                 "dps_sbs_meaning", "dps_sbs_meaning_error", "dps_sbs_notes", "dps_sbs_notes_error", 
-                "dps_sbs_chant_lemma_1", "dps_sbs_chant_eng_1", "dps_sbs_chapter_1",
-                "dps_sbs_chant_lemma_1_error",
-                "dps_sbs_chant_lemma_2", "dps_sbs_chant_eng_2", "dps_sbs_chapter_2",
-                "dps_sbs_chant_lemma_2_error",
+                "dps_sbs_chant_pali_1", "dps_sbs_chant_eng_1", "dps_sbs_chapter_1",
+                "dps_sbs_chant_pali_1_error",
+                "dps_sbs_chant_pali_2", "dps_sbs_chant_eng_2", "dps_sbs_chapter_2",
+                "dps_sbs_chant_pali_2_error",
                 "dps_sbs_chant_pali_3", "dps_sbs_chant_eng_3", "dps_sbs_chapter_3",
                 "dps_sbs_chant_pali_3_error",
                 "dps_sbs_chant_pali_4", "dps_sbs_chant_eng_4", "dps_sbs_chapter_4",
@@ -1745,15 +1745,15 @@ def main():
 
         # choice from dropdown sbs chats
 
-        if event == "dps_sbs_chant_lemma_1":
-            chant = values["dps_sbs_chant_lemma_1"]
-            error_field = "dps_sbs_chant_lemma_1_error"
+        if event == "dps_sbs_chant_pali_1":
+            chant = values["dps_sbs_chant_pali_1"]
+            error_field = "dps_sbs_chant_pali_1_error"
             update_sbs_chant(dpspth, 1, chant, error_field, window)
 
-        elif event == "dps_sbs_chant_lemma_2":
-            error_field = "dps_sbs_chant_lemma_2_error"
+        elif event == "dps_sbs_chant_pali_2":
+            error_field = "dps_sbs_chant_pali_2_error"
             update_sbs_chant(
-                dpspth, 2, values["dps_sbs_chant_lemma_2"], error_field, window)
+                dpspth, 2, values["dps_sbs_chant_pali_2"], error_field, window)
 
         elif event == "dps_sbs_chant_pali_3":
             error_field = "dps_sbs_chant_pali_3_error"

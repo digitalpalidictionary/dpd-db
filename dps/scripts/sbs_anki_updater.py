@@ -274,8 +274,8 @@ def update_note_values(deck, note, i):
             note["sbs_sutta_1"] = str(i.sbs.sbs_sutta_1).replace("\n", "<br>")
         if "sbs_example_1" in note:            
             note["sbs_example_1"] = str(i.sbs.sbs_example_1).replace("\n", "<br>")
-        if "sbs_chant_lemma_1" in note:            
-            note["sbs_chant_lemma_1"] = str(i.sbs.sbs_chant_lemma_1)
+        if "sbs_chant_pali_1" in note:            
+            note["sbs_chant_pali_1"] = str(i.sbs.sbs_chant_pali_1)
         if "sbs_chant_eng_1" in note:            
             note["sbs_chant_eng_1"] = str(i.sbs.sbs_chant_eng_1)
         if "sbs_chapter_1" in note:            
@@ -286,8 +286,8 @@ def update_note_values(deck, note, i):
             note["sbs_sutta_2"] = str(i.sbs.sbs_sutta_2).replace("\n", "<br>")
         if "sbs_example_2" in note:            
             note["sbs_example_2"] = str(i.sbs.sbs_example_2).replace("\n", "<br>")
-        if "sbs_chant_lemma_2" in note:            
-            note["sbs_chant_lemma_2"] = str(i.sbs.sbs_chant_lemma_2)
+        if "sbs_chant_pali_2" in note:            
+            note["sbs_chant_pali_2"] = str(i.sbs.sbs_chant_pali_2)
         if "sbs_chant_eng_2" in note:            
             note["sbs_chant_eng_2"] = str(i.sbs.sbs_chant_eng_2)
         if "sbs_chapter_2" in note:            
@@ -412,10 +412,10 @@ def update_note_values(deck, note, i):
 
     if "tags" in note and deck == "SBS Pali-English Vocab":
         tags = []
-        if i.sbs.sbs_chant_lemma_1:
-            tags.append(i.sbs.sbs_chant_lemma_1.replace(' ', '-'))
-        if i.sbs.sbs_chant_lemma_2:
-            tags.append(i.sbs.sbs_chant_lemma_2.replace(' ', '-'))
+        if i.sbs.sbs_chant_pali_1:
+            tags.append(i.sbs.sbs_chant_pali_1.replace(' ', '-'))
+        if i.sbs.sbs_chant_pali_2:
+            tags.append(i.sbs.sbs_chant_pali_2.replace(' ', '-'))
         if i.sbs.sbs_chant_pali_3:
             tags.append(i.sbs.sbs_chant_pali_3.replace(' ', '-'))
         if i.sbs.sbs_chant_pali_4:
@@ -432,8 +432,8 @@ def update_note_values(deck, note, i):
     # sbs_index
     chant_index_map = load_chant_index_map()
     chants = [
-        i.sbs.sbs_chant_lemma_1,
-        i.sbs.sbs_chant_lemma_2,
+        i.sbs.sbs_chant_pali_1,
+        i.sbs.sbs_chant_pali_2,
         i.sbs.sbs_chant_pali_3,
         i.sbs.sbs_chant_pali_4
     ] if i.sbs else []
@@ -548,7 +548,7 @@ def make_new_note(col, deck, model_dict, deck_dict, i):
     if (
         i.ru and
         i.sbs and
-        (i.sbs.sbs_chant_lemma_1 or i.sbs.sbs_chant_lemma_2 or i.sbs.sbs_chant_pali_3 or i.sbs.sbs_chant_pali_4)
+        (i.sbs.sbs_chant_pali_1 or i.sbs.sbs_chant_pali_2 or i.sbs.sbs_chant_pali_3 or i.sbs.sbs_chant_pali_4)
     ):
         model_id = model_dict['SBS Vocab']
         deck_id = deck_dict[deck]

@@ -99,8 +99,8 @@ def window_layout(dpspth, db_session, username):
     window['dps_bold_4'].bind("<Return>", "_enter")
 
     # bind tab keys to jump to next field in multiline elements
-    window['pali_1'].bind('<Tab>', '_tab', propagate=False)
-    window['pali_2'].bind('<Tab>', '_tab', propagate=False)
+    window['lemma_1'].bind('<Tab>', '_tab', propagate=False)
+    window['lemma_2'].bind('<Tab>', '_tab', propagate=False)
     window['pos'].bind('<Tab>', '_tab', propagate=False)
     window['grammar'].bind('<Tab>', '_tab', propagate=False)
     window['meaning_1'].bind('<Tab>', '_tab', propagate=False)
@@ -187,7 +187,7 @@ def window_layout(dpspth, db_session, username):
     window["pattern"].bind("<FocusOut>", "-focus_out")
 
     # dps CompletionCombo
-    window["dps_id_or_pali_1"].bind("<Return>", "_enter")
+    window["dps_id_or_lemma_1"].bind("<Return>", "_enter")
 
     window["dps_sbs_chant_pali_1"].bind("<Return>", "-enter")
     window["dps_sbs_chant_pali_1"].bind("<Key>", "-key")

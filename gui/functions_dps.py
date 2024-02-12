@@ -209,12 +209,12 @@ def populate_dps_tab(dpspth, values, window, dpd_word, ru_word, sbs_word):
     window["dps_example_2"].update(dps_example_2)
 
     # dps_sbs_chant_pali
-    if values["dps_sbs_chant_lemma_1"]:
-        chant = values["dps_sbs_chant_lemma_1"]
+    if values["dps_sbs_chant_pali_1"]:
+        chant = values["dps_sbs_chant_pali_1"]
         update_sbs_chant(dpspth, 1, chant, "", window)
 
-    if values["dps_sbs_chant_lemma_2"]:
-        chant = values["dps_sbs_chant_lemma_2"]
+    if values["dps_sbs_chant_pali_2"]:
+        chant = values["dps_sbs_chant_pali_2"]
         update_sbs_chant(dpspth, 2, chant, "", window)
 
     if values["dps_sbs_chant_pali_3"]:
@@ -266,7 +266,7 @@ def edit_corrections(pth):
 def display_dps_summary(values, window, sg, original_values):
 
     dps_values_list = [
-    "dps_lemma_1", "dps_grammar", "dps_meaning", "dps_ru_meaning", "dps_ru_meaning_lit", "dps_sbs_meaning", "dps_root", "dps_base_or_comp", "dps_constr_or_comp_constr", "dps_synonym_antonym", "dps_notes", "dps_ru_notes", "dps_sbs_notes", "dps_sbs_source_1", "dps_sbs_sutta_1", "dps_sbs_example_1", "dps_sbs_chant_lemma_1", "dps_sbs_chant_eng_1", "dps_sbs_chapter_1", "dps_sbs_source_2", "dps_sbs_sutta_2", "dps_sbs_example_2", "dps_sbs_chant_lemma_2", "dps_sbs_chant_eng_2", "dps_sbs_chapter_2", "dps_sbs_source_3", "dps_sbs_sutta_3", "dps_sbs_example_3", "dps_sbs_chant_pali_3", "dps_sbs_chant_eng_3", "dps_sbs_chapter_3", "dps_sbs_source_4", "dps_sbs_sutta_4", "dps_sbs_example_4", "dps_sbs_chant_pali_4", "dps_sbs_chant_eng_4", "dps_sbs_chapter_4", "dps_sbs_class_anki", "dps_sbs_class", "dps_sbs_category"]
+    "dps_lemma_1", "dps_grammar", "dps_meaning", "dps_ru_meaning", "dps_ru_meaning_lit", "dps_sbs_meaning", "dps_root", "dps_base_or_comp", "dps_constr_or_comp_constr", "dps_synonym_antonym", "dps_notes", "dps_ru_notes", "dps_sbs_notes", "dps_sbs_source_1", "dps_sbs_sutta_1", "dps_sbs_example_1", "dps_sbs_chant_pali_1", "dps_sbs_chant_eng_1", "dps_sbs_chapter_1", "dps_sbs_source_2", "dps_sbs_sutta_2", "dps_sbs_example_2", "dps_sbs_chant_pali_2", "dps_sbs_chant_eng_2", "dps_sbs_chapter_2", "dps_sbs_source_3", "dps_sbs_sutta_3", "dps_sbs_example_3", "dps_sbs_chant_pali_3", "dps_sbs_chant_eng_3", "dps_sbs_chapter_3", "dps_sbs_source_4", "dps_sbs_sutta_4", "dps_sbs_example_4", "dps_sbs_chant_pali_4", "dps_sbs_chant_eng_4", "dps_sbs_chapter_4", "dps_sbs_class_anki", "dps_sbs_class", "dps_sbs_category"]
 
     summary = []
     excluded_fields = ["dps_grammar", "dps_meaning", "dps_root", "dps_base_or_comp", "dps_constr_or_comp_constr", "dps_synonym_antonym", "dps_notes"]

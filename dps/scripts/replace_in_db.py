@@ -6,7 +6,7 @@
 
 from sqlalchemy.orm.attributes import InstrumentedAttribute
 
-from db.models import PaliWord, SBS
+from db.models import DpdHeadwords, SBS
 from tools.paths import ProjectPaths
 from db.get_db_session import get_db_session
 from rich.console import Console
@@ -27,8 +27,8 @@ def filter_and_replace(
     db_session = get_db_session(pth.dpd_db_path)
 
     # Find the words that match the filter criteria
-    words_to_update = db_session.query(PaliWord, related_table).join(
-        related_table, related_table.id == PaliWord.id
+    words_to_update = db_session.query(DpdHeadwords, related_table).join(
+        related_table, related_table.id == DpdHeadwords.id
     ).filter(
         column_to_filter == filter_value,
         (related_column_to_update).contains(what_to_replace)
@@ -50,7 +50,7 @@ def filter_and_replace(
     # db_session.commit()
 
 
-column_to_filter = PaliWord.pos
+column_to_filter = DpdHeadwords.pos
 filter_value = "idiom"
 related_table = SBS
 related_column_to_update = SBS.sbs_example_4

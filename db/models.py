@@ -742,13 +742,13 @@ class SBS(Base):
     sbs_source_1: Mapped[str] = mapped_column(default='')
     sbs_sutta_1: Mapped[str] = mapped_column(default='')
     sbs_example_1: Mapped[str] = mapped_column(default='')
-    sbs_chant_lemma_1: Mapped[str] = mapped_column(default='')
+    sbs_chant_pali_1: Mapped[str] = mapped_column(default='')
     sbs_chant_eng_1: Mapped[str] = mapped_column(default='')
     sbs_chapter_1: Mapped[str] = mapped_column(default='')
     sbs_source_2: Mapped[str] = mapped_column(default='')
     sbs_sutta_2: Mapped[str] = mapped_column(default='')
     sbs_example_2: Mapped[str] = mapped_column(default='')
-    sbs_chant_lemma_2: Mapped[str] = mapped_column(default='')
+    sbs_chant_pali_2: Mapped[str] = mapped_column(default='')
     sbs_chant_eng_2: Mapped[str] = mapped_column(default='')
     sbs_chapter_2: Mapped[str] = mapped_column(default='')
     sbs_source_3: Mapped[str] = mapped_column(default='')
@@ -771,7 +771,7 @@ class SBS(Base):
 
     def calculate_index(self):
         chant_index_map = SBS_table_tools().load_chant_index_map()
-        chants = [self.sbs_chant_lemma_1, self.sbs_chant_lemma_2, self.sbs_chant_pali_3, self.sbs_chant_pali_4]
+        chants = [self.sbs_chant_pali_1, self.sbs_chant_pali_2, self.sbs_chant_pali_3, self.sbs_chant_pali_4]
 
         indexes = [chant_index_map.get(chant) for chant in chants if chant in chant_index_map]
         indexes = [index for index in indexes if index is not None]  # Filter out None values
@@ -796,12 +796,12 @@ class SBS(Base):
     @property
     def sbs_chant_link_1(self):
         chant_link_map = SBS_table_tools().load_chant_link_map()
-        return chant_link_map.get(self.sbs_chant_lemma_1, "")
+        return chant_link_map.get(self.sbs_chant_pali_1, "")
 
     @property
     def sbs_chant_link_2(self):
         chant_link_map = SBS_table_tools().load_chant_link_map()
-        return chant_link_map.get(self.sbs_chant_lemma_2, "")
+        return chant_link_map.get(self.sbs_chant_pali_2, "")
 
     @property
     def sbs_chant_link_3(self):
@@ -841,7 +841,7 @@ class SBS(Base):
 
 
     def __repr__(self) -> str:
-        return f"SBS: {self.id} {self.sbs_chant_lemma_1} {self.sbs_class}"
+        return f"SBS: {self.id} {self.sbs_chant_pali_1} {self.sbs_class}"
 
     
     def __init__(self, *args, **kwargs):

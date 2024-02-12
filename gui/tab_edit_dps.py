@@ -387,16 +387,16 @@ def make_tab_edit_dps(dpspth, sg):
             sg.Text("", key="dps_bold_1_error", size=(50, 1), text_color="red")
         ],
         [
-            sg.Text("sbs_chant_lemma_1", size=(15, 1)),
+            sg.Text("sbs_chant_pali_1", size=(15, 1)),
             CompletionCombo(
                 pali_chant_list,
-                key="dps_sbs_chant_lemma_1",
+                key="dps_sbs_chant_pali_1",
                 size=(50, 1),
                 enable_events=True,
                 text_color=sbs_text,
                 background_color=sbs_background),
             sg.Text(
-                "", key="dps_sbs_chant_lemma_1_error", size=(50, 1), text_color="red")
+                "", key="dps_sbs_chant_pali_1_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("sbs_chant_eng_1", size=(15, 1)),
@@ -483,16 +483,16 @@ def make_tab_edit_dps(dpspth, sg):
             sg.Text("", key="dps_bold_2_error", size=(50, 1), text_color="red")
         ],
         [
-            sg.Text("sbs_chant_lemma_2", size=(15, 1)),
+            sg.Text("sbs_chant_pali_2", size=(15, 1)),
             CompletionCombo(
                 pali_chant_list,
-                key="dps_sbs_chant_lemma_2",
+                key="dps_sbs_chant_pali_2",
                 size=(50, 1),
                 enable_events=True,
                 text_color=sbs_text,
                 background_color=sbs_background),
             sg.Text(
-                "", key="dps_sbs_chant_lemma_2_error", size=(50, 1), text_color="red")
+                "", key="dps_sbs_chant_pali_2_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("sbs_chant_eng_2", size=(15, 1)),

@@ -6,7 +6,7 @@ import re
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 from tools.pali_alphabet import pali_alphabet
 
@@ -15,9 +15,9 @@ from sqlalchemy.orm import joinedload
 class ProgData():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(PaliWord).options(joinedload(PaliWord.sbs)).all()
+    db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs)).all()
     pali_alphabet: list[str] = pali_alphabet
-    i: PaliWord
+    i: DpdHeadwords
     fields: list[str] = ["sbs_example_1", "sbs_example_2", "sbs_example_3", "sbs_example_4"]
     field: str
     bold_words: list[str]
@@ -115,7 +115,7 @@ def test6():
 
 def printer(message):
     """Print out the problem and up the tally."""
-    print(f"{g.counter:<4}{g.i.id:<8}{g.i.pali_1:<40}{g.clean_bold_word:<30}{g.field:<10}{message}")
+    print(f"{g.counter:<4}{g.i.id:<8}{g.i.lemma_1:<40}{g.clean_bold_word:<30}{g.field:<10}{message}")
     g.counter += 1
     
 

@@ -271,13 +271,13 @@ def update_note_values(note, i):
         note["sbs_source_1"] = str(i.sbs.sbs_source_1)
         note["sbs_sutta_1"] = str(i.sbs.sbs_sutta_1).replace("\n", "<br>")
         note["sbs_example_1"] = str(i.sbs.sbs_example_1).replace("\n", "<br>")
-        note["sbs_chant_lemma_1"] = str(i.sbs.sbs_chant_lemma_1)
+        note["sbs_chant_pali_1"] = str(i.sbs.sbs_chant_pali_1)
         note["sbs_chant_eng_1"] = str(i.sbs.sbs_chant_eng_1)
         note["sbs_chapter_1"] = str(i.sbs.sbs_chapter_1)
         note["sbs_source_2"] = str(i.sbs.sbs_source_2)
         note["sbs_sutta_2"] = str(i.sbs.sbs_sutta_2).replace("\n", "<br>")
         note["sbs_example_2"] = str(i.sbs.sbs_example_2).replace("\n", "<br>")
-        note["sbs_chant_lemma_2"] = str(i.sbs.sbs_chant_lemma_2)
+        note["sbs_chant_pali_2"] = str(i.sbs.sbs_chant_pali_2)
         note["sbs_chant_eng_2"] = str(i.sbs.sbs_chant_eng_2)
         note["sbs_chapter_2"] = str(i.sbs.sbs_chapter_2)
         note["sbs_source_3"] = str(i.sbs.sbs_source_3)
@@ -367,8 +367,8 @@ def update_note_values(note, i):
     if i.sbs:
         chant_index_map = load_chant_index_map()
         chants = [
-            i.sbs.sbs_chant_lemma_1,
-            i.sbs.sbs_chant_lemma_2,
+            i.sbs.sbs_chant_pali_1,
+            i.sbs.sbs_chant_pali_2,
             i.sbs.sbs_chant_pali_3,
             i.sbs.sbs_chant_pali_4
         ] if i.sbs else []
