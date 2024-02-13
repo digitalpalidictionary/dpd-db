@@ -10,9 +10,9 @@ from tools.paths import ProjectPaths
 
 from sqlalchemy.orm import joinedload
 
-find_char = ';'
-replace_char = ","
-column = "cognate"
+find_char = '\r'
+replace_char = ""
+column = "link"
 
 def main():
     pth = ProjectPaths()

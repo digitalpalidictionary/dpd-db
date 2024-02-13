@@ -3,7 +3,8 @@
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadwords, PaliWord
+from sqlalchemy.orm.session import make_transient
 
 from tools.paths import ProjectPaths
 from tools.addition_class import Addition
@@ -28,15 +29,20 @@ def main():
         a : Addition
         p = a.pali_word
 
+        
+        if bool(type(p) == PaliWord):
+            hw = remap_pali_word_to_dpd_headword(p)
+            a.pali_word = hw
+    
         # check if it's added
         if not a.added_to_db:
 
             # update the id
-            p.id = next_id
+            hw.id = next_id
             
             # always use meaning_1
-            if not p.meaning_1:
-                p.meaning_1 = p.meaning_2
+            if not hw.meaning_1:
+                hw.meaning_1 = hw.meaning_2
             a.update(next_id)
 
             if test_pali(db_session, a):
@@ -47,6 +53,63 @@ def main():
     db_session.commit()
     Addition.save_additions(additions_list)
     print(f"{'added:':<20}{added_count}")
+
+
+def remap_pali_word_to_dpd_headword(p):
+    make_transient(p)
+
+    hw = DpdHeadwords()
+    hw.id = p.id
+    hw.lemma_1 = p.pali_1
+    hw.lemma_2 = p.pali_2
+    hw.pos = p.pos
+    hw.grammar = p.grammar
+    hw.derived_from = p.derived_from
+    hw.neg = p.neg
+    hw.verb = p.verb 
+    hw.trans = p.trans 
+    hw.plus_case = p.plus_case 
+    hw.meaning_1 = p.meaning_1 
+    hw.meaning_lit = p.meaning_lit 
+    hw.meaning_2 = p.meaning_2 
+    hw.non_ia = p.non_ia 
+    hw.sanskrit = p.sanskrit 
+    hw.root_key = p.root_key 
+    hw.root_sign = p.root_sign 
+    hw.root_base = p.root_base 
+    hw.family_root = p.family_root 
+    hw.family_word = p.family_word 
+    hw.family_compound = p.family_compound 
+    hw.family_idioms = "" 
+    hw.family_set = p.family_set 
+    hw.construction = p.construction 
+    hw.derivative = p.derivative 
+    hw.suffix = p.suffix 
+    hw.phonetic = p.phonetic 
+    hw.compound_type = p.compound_type 
+    hw.compound_construction = p.compound_construction 
+    hw.non_root_in_comps = p.non_root_in_comps 
+    hw.source_1 = p.source_1 
+    hw.sutta_1 = p.sutta_1 
+    hw.example_1 = p.example_1 
+    hw.source_2 = p.source_2 
+    hw.sutta_2 = p.sutta_2 
+    hw.example_2 = p.example_2 
+    hw.antonym = p.antonym 
+    hw.synonym = p.synonym 
+    hw.variant = p.variant 
+    hw.var_phonetic = "" 
+    hw.var_text = "" 
+    hw.commentary = p.commentary 
+    hw.notes = p.notes 
+    hw.cognate = p.cognate 
+    hw.link = p.link 
+    hw.origin = p.origin 
+    hw.stem = p.stem 
+    hw.pattern = p.pattern 
+    hw.created_at = p.created_at 
+    hw.updated_at = p.updated_at 
+    return hw
 
 
 def test_pali(db_session, a):

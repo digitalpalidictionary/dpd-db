@@ -5,9 +5,10 @@ import pandas as pd
 
 from datetime import datetime
 from rich import print
+from sqlalchemy.orm.session import make_transient
 from typing import Optional
 
-from db.models import DpdHeadwords
+from db.models import DpdHeadwords, PaliWord
 from tools.paths import ProjectPaths
 
 pth = ProjectPaths()
@@ -67,12 +68,13 @@ class Addition:
         ):
             df[0] = df[0].apply(lambda x: (print(f"Old ID: {x}, New ID: {self.new_id} in {file_path}") or str(self.new_id)) if str(x) == str(self.old_id) else x)
             df.to_csv(file_path, sep='\t', index=False, header=False)
-# {'pali_word':<20}{self.pali_word}
+
 
     def __repr__(self):
         return f"""
 {'comment':<20}{self.comment}
 {'date_created':<20}{self.date_created}
+{'pali_word':<20}{self.pali_word}
 {'old_id':<20}{self.old_id}
 {'new_id':<20}{self.new_id}
 {'added_to_db':<20}{self.added_to_db}
@@ -81,7 +83,7 @@ class Addition:
 
 if __name__ == "__main__":
     additions_list = Addition.load_additions()
-    [print(a) for a in additions_list]
+    print([a for a in additions_list])
 
     # from this added_date onward we going to replace old_id with new_id
     checking_data = "2024-02-01"

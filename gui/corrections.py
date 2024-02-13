@@ -3,6 +3,7 @@
 """GUI to add corrections.tsv to the database and give feedback."""
 
 import csv
+from ctypes import alignment
 import PySimpleGUI as sg
 from sqlalchemy import inspect
 
@@ -174,8 +175,6 @@ def make_window():
         margins=(0, 0),
     )
 
-    make_corrections_tab = []
-
     add_corrections_tab = [
         [
             sg.Text("id", size=(15, 1)),
@@ -196,45 +195,39 @@ def make_window():
             sg.Input(key="add_field1", size=(50, 1), text_color="#00bfff")
         ],
         [
-            sg.Text("value1_old", size=(15, 1)),
+            sg.Text("value1_new", size=(15, 1)),
+            sg.Multiline(
+                "", key="add_value1_new", size=(50, 2)),
+            sg.Text("old", size=(5, 1), justification="right"),
             sg.Multiline(
                 "", key="add_value1_old", size=(50, 2), disabled=True,
                 background_color="black"),
-        ],
-        [
-            sg.Text("value1_new", size=(15, 1)),
-            sg.Multiline(
-                "", key="add_value1_new", size=(50, 2))
         ],
         [
             sg.Text("field2", size=(15, 1)),
             sg.Input(key="add_field2", size=(50, 1), text_color="#00bfff")
         ],
         [
-            sg.Text("value2_old", size=(15, 1)),
+            sg.Text("value2_new", size=(15, 1)),
+            sg.Multiline(
+                key="add_value2_new", size=(50, 2)),
+            sg.Text("old", size=(5, 1), justification="right"),
             sg.Multiline(
                 "", key="add_value2_old", size=(50, 2), disabled=True,
                 background_color="black"),
-        ],
-        [
-            sg.Text("value2_new", size=(15, 1)),
-            sg.Multiline(
-                key="add_value2_new", size=(50, 2))
         ],
         [
             sg.Text("field3", size=(15, 1)),
             sg.Input(key="add_field3", size=(50, 1), text_color="#00bfff"),
         ],
         [
-            sg.Text("value3_old", size=(15, 1)),
+            sg.Text("value3_new", size=(15, 1)),
+            sg.Multiline(
+                key="add_value3_new", size=(50, 4)),
+            sg.Text("old", size=(5, 1), justification="right"),
             sg.Multiline(
                 key="add_value3_old", size=(50, 4), disabled=True,
                 background_color="black"),
-        ],
-        [
-            sg.Text("value3_new", size=(15, 1)),
-            sg.Multiline(
-                key="add_value3_new", size=(50, 4))
         ],
         [
             sg.Text("comment", size=(15, 1)),
@@ -268,9 +261,6 @@ def make_window():
 
     tab_group = sg.TabGroup(
         [[
-            sg.Tab(
-                "Make Corrections", make_corrections_tab,
-                key="corrections_tab"),
             sg.Tab(
                 "Add Corrections to DB", add_corrections_tab,
                 key="add_corrections_tab"),

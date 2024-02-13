@@ -677,6 +677,8 @@ class AllowableCharacters():
         ("antonym", ant_syn_var_allowed),
         ("synonym", ant_syn_var_allowed),
         ("variant", ant_syn_var_allowed),
+        ("var_phonetic", ant_syn_var_allowed),
+        ("var_text", ant_syn_var_allowed),
         ("commentary", commentary_allowed),
         ("notes", notes_allowed),
         ("cognate", cognate_allowed),
@@ -735,7 +737,8 @@ class AllowableCharacters():
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs), joinedload(DpdHeadwords.ru)).all()
+    db = db_session.query(DpdHeadwords)
+    # db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs), joinedload(DpdHeadwords.ru)).all()
 
     a = AllowableCharacters()
 

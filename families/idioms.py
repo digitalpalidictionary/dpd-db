@@ -155,8 +155,9 @@ def update_db_cache(db_session, idioms_dict):
     print("[green]adding dbinfo cache item")
 
     idioms_set = set()
-    for i in idioms_dict:
-        idioms_set.add(i)
+    for word in idioms_dict:
+        if idioms_dict[word]["count"] > 0:
+            idioms_set.add(word)
 
     idioms_set_cache = db_session \
         .query(DbInfo) \

@@ -703,105 +703,105 @@ asesaṃ uparujjhatī'ti?"	sandhi		yes
 56554	notes						move from notes		yes		
 47112	grammar	ind, prep					prep		yes		
 25662	grammar	ind, conj					missing		yes		
-77756	sanskrit	yaḥ + taḥ					missing				
-77765	compound_type	chaṭṭhī tappurisa	compound_construction	bodh<b>iyā</b> + kathā			comp type				
-77766	compound_type	chaṭṭhī tappurisa	compound_construction	ajapāl<b>assa</b> + kathā			genitive				
-11982	source_2	AN10.60	sutta_2	girimānandasuttaṃ	example_2	ṭhānaṃ kho pan'etaṃ vijjati yaṃ girimānandassa bhikkhuno dasa saññā sutvā so <b>ābādho</b> ṭhānaso paṭippassambheyya.	missing				
-18334	meaning_1	occurred; happened; befallen					missing				
-18334	meaning_lit	descended					missing				
-18334	commentary	(DNa) <b>okkamī</b>'ti iminā c'assa okkantabhāvo pāḷiyaṃ dassito, na okkamanakkamo.					missing				
-14712	meaning_1	superior; supreme; better; higher					mistake				
-14712	phonetic	dt > tt					missing				
-14712	family_compound	uttari					mistake				
-14712	compound_type		compound_construction				mistake				
-14712	grammar	adj					mistake				
-14712	synonym	atireka, anoma, anomiya, uttara, visesi, visesī					missing				
+77756	sanskrit	yaḥ + taḥ					missing		yes		
+77765	compound_type	chaṭṭhī tappurisa	compound_construction	bodh<b>iyā</b> + kathā			comp type		yes		
+77766	compound_type	chaṭṭhī tappurisa	compound_construction	ajapāl<b>assa</b> + kathā			genitive		yes		
+11982	source_2	AN10.60	sutta_2	girimānandasuttaṃ	example_2	ṭhānaṃ kho pan'etaṃ vijjati yaṃ girimānandassa bhikkhuno dasa saññā sutvā so <b>ābādho</b> ṭhānaso paṭippassambheyya.	missing		yes		
+18334	meaning_1	occurred; happened; befallen					missing		yes		
+18334	meaning_lit	descended					missing		yes		
+18334	commentary	(DNa) <b>okkamī</b>'ti iminā c'assa okkantabhāvo pāḷiyaṃ dassito, na okkamanakkamo.					missing		yes		
+14712	meaning_1	superior; supreme; better; higher					mistake		yes		
+14712	phonetic	dt > tt					missing		yes		
+14712	family_compound	uttari					mistake		yes		
+14712	compound_type		compound_construction				mistake		yes		
+14712	grammar	adj					mistake		yes		
+14712	synonym	atireka, anoma, anomiya, uttara, visesi, visesī					missing		yes		
 14712	construction	"ud + tara + i
-uttara + i"					mistake				
-14712	commentary	(ANa) <b>uttari</b> manussadhammā'ti dasakusalakammapathasaṅkhātā manussadhammā uttariṃ.					mistake				
-14712	derivative	taddhita	suffix	i			missing				
-17890	grammar	pron, masc & nt loc sg of eta					missing				
-22170	meaning_1	for looking after the stomach; for taking care of the belly					same as kāyaparihārika				
-22904	meaning_1	complete and utter; for 100%					it seems the idiom need to have adj meaning, while before it looked like adv				
+uttara + i"					mistake		yes		
+14712	commentary	(ANa) <b>uttari</b> manussadhammā'ti dasakusalakammapathasaṅkhātā manussadhammā uttariṃ.					mistake	dont change the commentary's bold	no		
+14712	derivative	taddhita	suffix	i			missing		yes		
+17890	grammar	pron, masc & nt loc sg of eta					missing		yes		
+22170	meaning_1	for looking after the stomach; for taking care of the belly					same as kāyaparihārika		yes		
+22904	meaning_1	completely and utterly; complete and utter; 100%					it seems the idiom need to have adj meaning, while before it looked like adv	it can be taken both ways	yes		
 46477	source_1	AN4.70	sutta_1	adhammikasuttaṃ	example_1	"gunnaṃ ce taramānānaṃ,
 jimhaṃ gacchati <b>puṅgavo</b>,
 sabbā tā jimhaṃ gacchanti,
-nette jimhaṃ gate sati."	1st ex moved to puṅgava 2		
-46477	source_2		sutta_2		example_2		1st ex moved to puṅgava 2		
-46477	meaning_1	bull					since added puṅgava 2 and there it is more about noble being		
-76729	source_2	UD45	sutta_2	uposathasuttaṃ	example_2	evam'eva kho, bhikkhave, ayaṃ dhammavinayo bahuratano anekaratano, tatr'imāni ratanāni, seyyath'idaṃ, cattāro satipaṭṭhānā, cattāro <b>sammappadhānā</b>, cattāro iddhipādā, pañc'indriyāni, pañca balāni, satta bojjh'aṅgā, ariyo aṭṭh'aṅgiko maggo	missing		
-7334	notes						same as constr		
-26630	lemma_1	cittasaṅkhāra 1					added new meaning		
-30153	grammar	pron, masc & nt loc sg of ta					missing		
-30154	grammar	pron, masc & nt loc sg of ta, loc abs					missing		
-30155	grammar	pron, masc & nt loc sg of ta, loc abs					missing		
-30156	grammar	pron, masc & nt loc sg of ta, loc abs					missing		
-30157	grammar	pron, masc & nt loc sg of ta					missing		
-217776	family_set	names of arahants					housholder which later become arahant		
-217776	meaning_1	name of an arahant monk; one of the four friends of Yasa					housholder which later become arahant		
-59672	compound_type	catutthī tappurisa	compound_construction	samādh<b>ino</b> + saṃvattanika			error		
-20013	source_1	SN12.51	sutta_1	parivīmaṃsanasuttaṃ	example_1	tatra y'āyaṃ usmā sā tatth'eva vūpasameyya, <b>kapallāni</b> avasisseyyuṃ. evam'eva kho, bhikkhave, bhikkhu kāyapariyantikaṃ vedanaṃ vedayamāno kāyapariyantikaṃ vedanaṃ vedayāmī'ti pajānāti, jīvitapariyantikaṃ vedanaṃ vedayamāno jīvitapariyantikaṃ vedanaṃ vedayāmī'ti pajānāti.	missing		
-20013	construction	kapāla + ya					missing		
-20013	commentary	(SNa) <b>kapallānī</b>'ti saha mukhavaṭṭiyā ekābaddhāni kumbhakapallāni.					missing		
-20013	derivative	taddhita	suffix	ya			missing		
-20013	meaning_1	potsherd; shard					missing		
-20013	grammar	nt, from kapāla					missing		
-20013	derived_from	kapāla					missing		
-20013	family_compound	kapāla					missing		
-297776	source_1	VIN3.1.9	sutta_1	pabbajjūpasampadākathā	example_1	tena kho pana samayena bhikkhū nānādisā nānājanapadā pabbajj'āpekkhe ca <b>upasampad'āpekkhe</b> ca ānenti, bhagavā ne pabbājessati upasampādessatī'ti.	missing		
-317776	source_1	VIN3.1.9	sutta_1	pabbajjūpasampadākathā	example_1	paṭhamaṃ kesamassuṃ ohārāpetvā, kāsāyāni vatthāni acchādāpetvā, ek'aṃsaṃ uttar'āsaṅgaṃ kārāpetvā, bhikkhūnaṃ pāde vandāpetvā, ukkuṭikaṃ nisīdāpetvā, añjaliṃ <b>paggaṇhāpetvā</b>, evaṃ vadehī'ti vattabbo	missing		
-36625	source_2	SN12.55	sutta_2	mahārukkhasuttaṃ	example_2	so taṃ rukkhaṃ mūle chindeyya, mūlaṃ chinditvā palikhaṇeyya, palikhaṇitvā mūlāni uddhareyya antamaso usīra<b>nāḷi</b>mattāni'pi.	missing		
-36625	meaning_1	tube; pipe; stalk					missing		
-60772	commentary	(SNa) <b>sammasatha no</b>'ti sammasatha nu.					missing		
-60772	source_2	SN12.66	sutta_2	sammasasuttaṃ	example_2	bhagavā etadavoca, <b>sammasatha</b> no tumhe, bhikkhave, antaraṃ sammasan'ti.	missing		
-60771	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	bhagavā etadavoca, sammasatha no tumhe, bhikkhave, antaraṃ <b>sammasan</b>'ti.	missing		
-12458	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	atha kho so bhikkhu byākāsi. yathā so bhikkhu byākāsi na so bhikkhu bhagavato cittaṃ <b>ārādhesi</b>.	missing		
-12458	construction	ā + rādhe + si					missing		
-12458	commentary	(SNa) <b>na so bhikkhu bhagavato cittaṃ ārādhesī</b>'ti paccayākāravasena byākārāpetukāmassa bhagavato tathā abyākaritvā dvattiṃs'ākāravasena byākaronto ajjhāsayaṃ gahetuṃ n'āsakkhi.					missing		
-12458	plus_case	+acc					missing		
-12458	meaning_1	satisfied; pleased; appealed (to)					missing		
-12458	synonym	ārādhayi, santappesi					missing		
-54587	meaning_lit	of night and of day					gen		
-50451	lemma_2						del word, something wrong here		
+nette jimhaṃ gate sati."	1st ex moved to puṅgava 2		yes		
+46477	source_2		sutta_2		example_2		1st ex moved to puṅgava 2		yes		
+46477	meaning_1	bull					since added puṅgava 2 and there it is more about noble being		yes		
+76729	source_2	UD45	sutta_2	uposathasuttaṃ	example_2	evam'eva kho, bhikkhave, ayaṃ dhammavinayo bahuratano anekaratano, tatr'imāni ratanāni, seyyath'idaṃ, cattāro satipaṭṭhānā, cattāro <b>sammappadhānā</b>, cattāro iddhipādā, pañc'indriyāni, pañca balāni, satta bojjh'aṅgā, ariyo aṭṭh'aṅgiko maggo	missing		yes		
+7334	notes						same as constr		yes		
+26630	lemma_1	cittasaṅkhāra 1					added new meaning		yes		
+30153	grammar	pron, masc & nt loc sg of ta					missing		yes		
+30154	grammar	pron, masc & nt loc sg of ta, loc abs					missing		yes		
+30155	grammar	pron, masc & nt loc sg of ta, loc abs					missing		yes		
+30156	grammar	pron, masc & nt loc sg of ta, loc abs					missing		yes		
+30157	grammar	pron, masc & nt loc sg of ta					missing		yes		
+								217776 not found	no		
+								217776 not found	no		
+59672	compound_type	catutthī tappurisa	compound_construction	samādh<b>ino</b> + saṃvattanika			error	well caught	yes		
+20013	source_1	SN12.51	sutta_1	parivīmaṃsanasuttaṃ	example_1	tatra y'āyaṃ usmā sā tatth'eva vūpasameyya, <b>kapallāni</b> avasisseyyuṃ. evam'eva kho, bhikkhave, bhikkhu kāyapariyantikaṃ vedanaṃ vedayamāno kāyapariyantikaṃ vedanaṃ vedayāmī'ti pajānāti, jīvitapariyantikaṃ vedanaṃ vedayamāno jīvitapariyantikaṃ vedanaṃ vedayāmī'ti pajānāti.	missing		yes		
+20013	construction	kapāla + ya					missing		yes		
+20013	commentary	(SNa) <b>kapallānī</b>'ti saha mukhavaṭṭiyā ekābaddhāni kumbhakapallāni.					missing		yes		
+20013	derivative	taddhita	suffix	ya			missing		yes		
+20013	meaning_1	potsherd; shard					missing		yes		
+20013	grammar	nt, from kapāla					missing		yes		
+20013	derived_from	kapāla					missing		yes		
+20013	family_compound	kapāla					missing		yes		
+								297776 not found	no		
+								317776 not found	no		
+36625	source_2	SN12.55	sutta_2	mahārukkhasuttaṃ	example_2	so taṃ rukkhaṃ mūle chindeyya, mūlaṃ chinditvā palikhaṇeyya, palikhaṇitvā mūlāni uddhareyya antamaso usīra<b>nāḷi</b>mattāni'pi.	missing		yes		
+36625	meaning_1	tube; pipe; stalk					missing		yes		
+60772	commentary	(SNa) <b>sammasatha no</b>'ti sammasatha nu.					missing		yes		
+60772	source_2	SN12.66	sutta_2	sammasasuttaṃ	example_2	bhagavā etadavoca, <b>sammasatha</b> no tumhe, bhikkhave, antaraṃ sammasan'ti.	missing		yes		
+60771	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	bhagavā etadavoca, sammasatha no tumhe, bhikkhave, antaraṃ <b>sammasan</b>'ti.	missing		yes		
+12458	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	atha kho so bhikkhu byākāsi. yathā so bhikkhu byākāsi na so bhikkhu bhagavato cittaṃ <b>ārādhesi</b>.	missing		yes		
+12458	construction	ā + rādhe + si					missing		yes		
+12458	commentary	(SNa) <b>na so bhikkhu bhagavato cittaṃ ārādhesī</b>'ti paccayākāravasena byākārāpetukāmassa bhagavato tathā abyākaritvā dvattiṃs'ākāravasena byākaronto ajjhāsayaṃ gahetuṃ n'āsakkhi.					missing		yes		
+12458	plus_case	+acc					missing		yes		
+12458	meaning_1	satisfied; pleased; appealed (to)					missing		yes		
+12458	synonym	ārādhayi, santappesi					missing		yes		
+54587	meaning_lit	of night and of day					gen		yes		
+50451	lemma_2						del word, something wrong here	can't figure out what you're trying to do here	no		
 29909	commentary	"(SNa) <b>tapatī</b>'ti virocati.
-(DHPa) <b>divā tapatī</b>'ti divā virocati, rattiṃ pan'assa gatamaggopi na paññāyati."					missing		
+(DHPa) <b>divā tapatī</b>'ti divā virocati, rattiṃ pan'assa gatamaggopi na paññāyati."					missing		yes		
 29909	source_2	DHP26	sutta_2	brāhmaṇavaggo	example_2	"divā <b>tapati</b> ādicco,
 rattim'ābhāti candimā,
 sannaddho khattiyo <b>tapati</b>,
 jhāyī <b>tapati</b> brāhmaṇo,
 atha sabbam'ahorattiṃ,
-buddho <b>tapati</b> tejasā."	duplicted changed		
-5520	sanskrit	aneka + sambhāra					missing		
-5520	source_1	SN35.246	sutta_1	vīṇopamasuttaṃ	example_1	so evaṃ vadeyya, alaṃ me, bho, tāya vīṇāya, tam'eva me saddaṃ āharathā'ti. tam'enaṃ evaṃ vadeyyuṃ, ayaṃ kho, bhante, vīṇā nāma <b>anekasambhārā</b> mahāsambhārā.	missing		
-5520	commentary	-					missing		
-5646	source_2	SN35.241	sutta_2	paṭhamadārukkhandhopamasuttaṃ	example_2	evaṃ, bhante. sace so, bhikkhave, dārukkhandho na orimaṃ tīraṃ upagacchati, na pārimaṃ tīraṃ upagacchati, na majjhe saṃsīdissati, na thale ussīdissati, na manussaggāho gahessati, na amanussaggāho gahessati, na āvaṭṭaggāho gahessati, na <b>anto</b>pūti bhavissati, evañ'hi so, bhikkhave, dārukkhandho samuddaninno bhavissati samuddapoṇo samuddapabbhāro. taṃ kissa hetu?	missing		
-18169	sanskrit	evam + bandhanīya					missing		
-18169	source_1	SN35.246	sutta_1	vīṇopamasuttaṃ	example_1	tam'enaṃ evaṃ vadeyyuṃ, esā, kho, bhante, vīṇā nāma, yassā eso saddo evaṃrajanīyo evaṃkamanīyo evaṃmadanīyo evaṃmucchanīyo <b>evaṃbandhanīyo</b>'ti.	missing		
-18169	commentary	-					missing		
-18174	sanskrit	evam + madanīya					missing		
-18174	source_1	SN35.246	sutta_1	vīṇopamasuttaṃ	example_1	tam'enaṃ evaṃ vadeyyuṃ, esā, kho, bhante, vīṇā nāma, yassā eso saddo evaṃrajanīyo evaṃkamanīyo <b>evaṃmadanīyo</b> evaṃmucchanīyo evaṃbandhanīyo'ti.	missing		
-18174	commentary	-					missing		
-18178	sanskrit	evam + mūrch					missing		
-18178	source_1	SN35.246	sutta_1	vīṇopamasuttaṃ	example_1	tam'enaṃ evaṃ vadeyyuṃ, esā, kho, bhante, vīṇā nāma, yassā eso saddo evaṃrajanīyo evaṃkamanīyo evaṃmadanīyo <b>evaṃmucchanīyo</b> evaṃbandhanīyo'ti.	missing		
-18178	commentary	-					missing		
-18745	source_2	SN35.246	sutta_2	vīṇopamasuttaṃ	example_2	sakalikaṃ sakalikaṃ karitvā agginā ḍaheyya, agginā ḍahitvā masiṃ kareyya. masiṃ karitvā mahāvāte vā <b>ophuneyya</b>, nadiyā vā sīghasotāya pavāheyya.	missing		
-38596	meaning_2	consisting of blue, yellow etc.					typo		
-51059	meaning_1	who talks sweetly; who abstains from harsh speech					fig meaning		
-59283	notes	see BSK samātta for discussion. (PED) pp. of saṃ + āp					now abr is BSK		
-51121	source_1	MN2.2	sutta_1	sabbāsavasuttaṃ	example_1	idha, bhikkhave, assutavā puthujjano <b>manasikaraṇīye</b> dhamme nappajānāti, amanasikaraṇīye dhamme nappajānāti	typo		
-35064	meaning_2	Saṃyutta Nikāya 14 (SN14)					for samukta search		
-60767	meaning_2	Saṃyutta Nikāya 49.1-12 (SN49)					link for samukta search		
-62528	meaning_2	Saṃyutta Nikāya 28 (SN28)					link for samukta search		
-15956	meaning_1	attached by engaging, grasping and clinging; shackled with going near, grabbing and holding					to fit instr tappurisa		
-35546	source_1	SN12.15	sutta_1	kaccānagottasuttaṃ	example_1	dvayanissito khv'āyaṃ, kaccāna, loko yebhuyyena, atthitañ'c'eva <b>n'atthitañ</b>'ca. lokasamudayaṃ kho, kaccāna, yathābhūtaṃ sammappaññāya passato yā loke <b>n'atthitā</b> sā na hoti. lokanirodhaṃ kho, kaccāna, yathābhūtaṃ sammappaññāya passato yā loke atthitā sā na hoti.	sandhi		
-35546	source_2	VIN PAT PK	sutta_2	saṅghuposatha pubbakaraṇādi vidhi	example_2	ovādo, bhikkhuṇīnaṃ ovādo dātabbo dinno kiṃ? idāni pana tāsaṃ <b>n'atthitāya</b>, so ca ovādo idha n'atthi.	sandhi		
-18210	sanskrit	evam + ayam					error		
-18210	construction	evaṃ + ayaṃ					error		
-18210	family_compound	evaṃ ayaṃ					error		
-46002	meaning_2	Tipiṭaka; three main collections of scripture; Vinaya, Sutta and Abhidhamma; lit. three baskets					: > ;		
-33649	stem	duppūraṇ	pattern	a adj			correct spelling		
-33649	construction	dur + √pūr + aṇa					error in spelling		
-33649	lemma_2	duppūraṇa					error in spelling		
-33649	source_1	SNa35.228	sutta_1	paṭhamasamuddasuttavaṇṇanā	example_1	yadi <b>duppūraṇ</b>'aṭṭhena yadi vā samuddan'aṭṭhena samuddo, cakkhum'eva samuddo.	missing		
-33649	lemma_1	duppūraṇa					error in spelling		
-12461	notes						error		
+buddho <b>tapati</b> tejasā."	duplicted changed		yes		
+5520	sanskrit	aneka + sambhāra					missing		yes		
+5520	source_1	SN35.246	sutta_1	vīṇopamasuttaṃ	example_1	so evaṃ vadeyya, alaṃ me, bho, tāya vīṇāya, tam'eva me saddaṃ āharathā'ti. tam'enaṃ evaṃ vadeyyuṃ, ayaṃ kho, bhante, vīṇā nāma <b>anekasambhārā</b> mahāsambhārā.	missing		yes		
+5520	commentary	-					missing		yes		
+5646	source_2	SN35.241	sutta_2	paṭhamadārukkhandhopamasuttaṃ	example_2	evaṃ, bhante. sace so, bhikkhave, dārukkhandho na orimaṃ tīraṃ upagacchati, na pārimaṃ tīraṃ upagacchati, na majjhe saṃsīdissati, na thale ussīdissati, na manussaggāho gahessati, na amanussaggāho gahessati, na āvaṭṭaggāho gahessati, na <b>anto</b>pūti bhavissati, evañ'hi so, bhikkhave, dārukkhandho samuddaninno bhavissati samuddapoṇo samuddapabbhāro. taṃ kissa hetu?	missing		yes		
+18169	sanskrit	evam + bandhanīya					missing		yes		
+18169	source_1	SN35.246	sutta_1	vīṇopamasuttaṃ	example_1	tam'enaṃ evaṃ vadeyyuṃ, esā, kho, bhante, vīṇā nāma, yassā eso saddo evaṃrajanīyo evaṃkamanīyo evaṃmadanīyo evaṃmucchanīyo <b>evaṃbandhanīyo</b>'ti.	missing		yes		
+18169	commentary	-					missing		yes		
+18174	sanskrit	evam + madanīya					missing		yes		
+18174	source_1	SN35.246	sutta_1	vīṇopamasuttaṃ	example_1	tam'enaṃ evaṃ vadeyyuṃ, esā, kho, bhante, vīṇā nāma, yassā eso saddo evaṃrajanīyo evaṃkamanīyo <b>evaṃmadanīyo</b> evaṃmucchanīyo evaṃbandhanīyo'ti.	missing		yes		
+18174	commentary	-					missing		yes		
+18178	sanskrit	evam + mūrch					missing		yes		
+18178	source_1	SN35.246	sutta_1	vīṇopamasuttaṃ	example_1	tam'enaṃ evaṃ vadeyyuṃ, esā, kho, bhante, vīṇā nāma, yassā eso saddo evaṃrajanīyo evaṃkamanīyo evaṃmadanīyo <b>evaṃmucchanīyo</b> evaṃbandhanīyo'ti.	missing		yes		
+18178	commentary	-					missing		yes		
+18745	source_2	SN35.246	sutta_2	vīṇopamasuttaṃ	example_2	sakalikaṃ sakalikaṃ karitvā agginā ḍaheyya, agginā ḍahitvā masiṃ kareyya. masiṃ karitvā mahāvāte vā <b>ophuneyya</b>, nadiyā vā sīghasotāya pavāheyya.	missing		yes		
+38596	meaning_2	consisting of blue, yellow etc.					typo		yes		
+51059	meaning_1	who talks sweetly; who abstains from harsh speech					fig meaning		yes		
+59283	notes	see BSK samātta for discussion. (PED) pp. of saṃ + āp					now abr is BSK		yes		
+51121	source_1	MN2.2	sutta_1	sabbāsavasuttaṃ	example_1	idha, bhikkhave, assutavā puthujjano <b>manasikaraṇīye</b> dhamme nappajānāti, amanasikaraṇīye dhamme nappajānāti	typo		yes		
+35064	meaning_2	Saṃyutta Nikāya 14 (SN14)					for samukta search		yes		
+60767	meaning_2	Saṃyutta Nikāya 49.1-12 (SN49)					link for samukta search		yes		
+62528	meaning_2	Saṃyutta Nikāya 28 (SN28)					link for samukta search		yes		
+15956	meaning_1	attached by engaging, grasping and clinging; shackled with going near, grabbing and holding					to fit instr tappurisa	too literal english	no		
+35546	source_1	SN12.15	sutta_1	kaccānagottasuttaṃ	example_1	dvayanissito khv'āyaṃ, kaccāna, loko yebhuyyena, atthitañ'c'eva <b>n'atthitañ</b>'ca. lokasamudayaṃ kho, kaccāna, yathābhūtaṃ sammappaññāya passato yā loke <b>n'atthitā</b> sā na hoti. lokanirodhaṃ kho, kaccāna, yathābhūtaṃ sammappaññāya passato yā loke atthitā sā na hoti.	sandhi		yes		
+35546	source_2	VIN PAT PK	sutta_2	saṅghuposatha pubbakaraṇādi vidhi	example_2	ovādo, bhikkhuṇīnaṃ ovādo dātabbo dinno kiṃ? idāni pana tāsaṃ <b>n'atthitāya</b>, so ca ovādo idha n'atthi.	sandhi		yes		
+18210	sanskrit	evam + ayam					error		yes		
+18210	construction	evaṃ + ayaṃ					error		yes		
+18210	family_compound	evaṃ ayaṃ					error		yes		
+46002	meaning_2	Tipiṭaka; three main collections of scripture; Vinaya, Sutta and Abhidhamma; lit. three baskets					: > ;		yes		
+33649	stem	duppūraṇ	pattern	a adj			correct spelling		yes		
+33649	construction	dur + √pūr + aṇa					error in spelling		yes		
+33649	lemma_2	duppūraṇa					error in spelling		yes		
+33649	source_1	SNa35.228	sutta_1	paṭhamasamuddasuttavaṇṇanā	example_1	yadi <b>duppūraṇ</b>'aṭṭhena yadi vā samuddan'aṭṭhena samuddo, cakkhum'eva samuddo.	missing		yes		
+33649	lemma_1	duppūraṇa					error in spelling		yes		
+12461	notes						error		yes		

@@ -33,22 +33,10 @@ def load_variant_dict(pd):
     
     variants_tsv = read_tsv(pd.pth.variant_readings_path)
     variants_dict = defaultdict(set)
-    for variant, main in variants_tsv:
+    for variant, main in variants_tsv[1:]:
         variants_dict[variant].add(main)
     pd.variants_dict = variants_dict
     print(f"{len(variants_dict):>10,}")
-
-
-def load_spelling_dict(pd):
-    """Turn the spelling_mistakes.tsv into a dictionary"""
-    print(f"[green]{'loading spelling tsv':<30}", end="")
-    
-    spellings_tsv = read_tsv(pd.pth.spelling_mistakes_path)
-    spellings_dict = defaultdict(set)
-    for spelling, correction in spellings_tsv:
-        spellings_dict[spelling].add(correction)
-    pd.spellings_dict = spellings_dict
-    print(f"{len(spellings_dict):>10,}")
 
 
 def add_variants(pd):
@@ -82,6 +70,18 @@ def add_variants(pd):
     pd.db_session.commit()
 
     print(f"{len(pd.variants_dict):>10,}")
+
+
+def load_spelling_dict(pd):
+    """Turn the spelling_mistakes.tsv into a dictionary"""
+    print(f"[green]{'loading spelling tsv':<30}", end="")
+    
+    spellings_tsv = read_tsv(pd.pth.spelling_mistakes_path)
+    spellings_dict = defaultdict(set)
+    for spelling, correction in spellings_tsv[1:]:
+        spellings_dict[spelling].add(correction)
+    pd.spellings_dict = spellings_dict
+    print(f"{len(spellings_dict):>10,}")
 
 
 def add_spellings(pd):

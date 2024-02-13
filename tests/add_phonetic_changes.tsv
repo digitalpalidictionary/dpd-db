@@ -1,6 +1,6 @@
 initial	final	correct	wrong	without	exceptions
 
-xa + u	o	au > o	u > o	o	anoka 1, anoka 2, anoka 3, anodaka, odarika, 	need more rules
+xa + u	o	au > o	u > o	o	anoka 1, anoka 2, anoka 3, anodaka, odarika,	need more rules
 a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant
 a + ṭ	iṭ	a > i	x	a + ṭh	x
 a + ṭh	iṭṭh	a > i	x	x	x
@@ -12,7 +12,7 @@ ava	o	ava > o	x	o	ponobbhavika, ponobhavika, anavabodha, bhavamūlopagāmī
 xaṃ + a	ā	aṃa > ā	x	ā	x	need more exclusions
 
 ā + ñ	aññ	āñ > aññ	x	x	vadaññutā, sāmaññatā 2.1
-xā + t	att	āt > att	x	 tta, ā + th	atthacariyatā, nakkhattavijjātiracchānavijjā, vatthuvijjātiracchānavijjā, hatthaoṭṭhajivhātālu, atta 2.1, atta 2.2
+xā + t	att	āt > att	x	tta, ā + th	atthacariyatā, nakkhattavijjātiracchānavijjā, vatthuvijjātiracchānavijjā, hatthaoṭṭhajivhātālu, atta 2.1, atta 2.2
 ā + th	atth	āth > atth	x	x	x
 ā + b	abb	āb > abb	x	v	abbheti, abbhetabba, anabbhita, sabbābhiññābalappatta
 ā + s	ass	ās > ass	x	ass	x
@@ -66,7 +66,7 @@ j + ṃ	ñj	jṃ > ñj (metathesis)	jṃ > ñj	x	x
 
 ñc	ṅk	ñc > ṅk (Kacc 623, 554)	ñc > ṅk	ṅk	asaṅkaccika, saṅkaccika
 
-ṭh + ṃ	ṇṭh	ṭhṃ > ṇṭḥ (metathesis)	ṭhṃ > ṇṭḥ	x	x
+ṭh + ṃ	ṇṭh	ṭhṃ > ṇṭh (metathesis)	ṭhṃ > ṇṭh	x	x
 
 ṇa + y	ññ	ṇy > ññ	x	x	x
 
@@ -97,7 +97,7 @@ d + ṭh	ṭṭh	dṭh > ṭṭh	d > ṭ	x	x
 d + t	tt	dt > tt	d > t	d + th	x
 d + p	pp	dp > pp	d > p	d + ph	x
 d + ph	pph	dph > pph	d > p	x	x
-xd + b	bb	db > bb	d > b	x 	x	need to exlude roots starting with v
+xd + b	bb	db > bb	d > b	x	x	need to exlude roots starting with v
 xd + bh	bbh	dbh > bbh	d > b	x	x	need to exlude roots starting with v
 d + m	mm	dm > mm	d > m	x	x
 xd + y	bb	dy > bb	x	abhi	x	exclude tings
@@ -118,7 +118,7 @@ p + th	tth	pth > tth	p > t	x	x
 p + s	cch	ps > cch	x	x	x
 pa + i	pe	ai > e	i > e	x	x
 pā + pā	pi	pā > pi	x	x	x
-plu 	pil	pl > pil (epenthesis)	x	x	x
+plu	pil	pl > pil (epenthesis)	x	x	x
 
 bh + y	bbh	bhy > bbh	x	x	x
 
@@ -132,7 +132,7 @@ m + th	nth	mth > nth	m > n	x	x
 m + y	mm	my > mm	y > m	x	x
 man + man	vī	man > vī	m > v	x	x
 mā + nā	min	mā > mi (Kacc 502, 493)	x	x	x
-mb 	mm	mb > mm	x	x 	x
+mb	mm	mb > mm	x	mm	x
 
 r + k	kk	rk > kk	r > k	r + kh	x
 r + kh	kkh	rkh > kkh	r > k	x	x
@@ -166,7 +166,7 @@ vi + ā	veyyā	vi > veyy (Kacc 401, 375)	vy > veyy	veyy
 s + t	ṭṭh	st > ṭṭh	x	x	x
 s + y	ss	sy > ss	y > s	x	x
 s + s	cch	ss > cch	x	x	x
-snih + 	sini	snih > sinih (epenthesis)	x	x	x
+snih +	sini	snih > sinih (epenthesis)	x	x	x
 sud	sod	u > o	x	a + u	x
 
 hu	ju	h > j	x	x	khujjuttarā
@@ -204,14 +204,14 @@ h + y	yh	hy > yh (metathesis)	hy > yh	x	x
 ṃ + th	nth	ṃth > nth	ṃ > n	x	x
 ṃ + d	nd	ṃd > nd	ṃ > n	ṃ + dh	khandhādisa
 ṃ + dh	ndh	ṃdh > ndh	ṃ > n	x	x
-ṃ + n	nn	ṃn > nn	ṃ > n	x 	x
+ṃ + n	nn	ṃn > nn	ṃ > n	x	x
 ṃ + p	mp	ṃp > mp	ṃ > m	ṃ + ph	x
 ṃ + p	pp	ṃp > pp	ṃ > p	ṃ + ph	x
 ṃ + ph	pph	ṃph > pph	ṃ > p	x	x
 ṃ + ph	mph	ṃph > mph	ṃ > m	x	x
 ṃ + b	mb	ṃb > mb	ṃ > m	ṃ + bh	x
 ṃ + bh	mbh	ṃbh > mbh	ṃ > m	x	x
-ṃ + m	mm	ṃm > mm	ṃ > m	x 	x
+ṃ + m	mm	ṃm > mm	ṃ > m	x	x
 ṃ + y	ññ	ṃy > ññ	x	x	x
 ṃ + l	ll	ṃl > ll	ṃ > l	x	x
 ṃs + t	st	ṃst > st	x	x	x

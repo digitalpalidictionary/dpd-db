@@ -56,7 +56,7 @@ def make_dicts(pth: ProjectPaths):
 
 def calculate_ebt_count():
     tic()
-    print("[bright_yellow] EBT + Vinaya mūla frequency making")
+    print("[bright_yellow]EBT & Vinaya mūla frequency calculation")
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)

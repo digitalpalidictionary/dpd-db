@@ -265,6 +265,74 @@ class Lookup(Base):
         return f"Lookup: {self.lookup_key} {self.headwords} {self.roots} {self.deconstructor}"
 
 
+class PaliWord(Base):
+    """DO NOT USE !!! JUST FOR CONVERTING OLD FILE FORMATS !!!"""
+    __tablename__ = "pali_words"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    pali_1: Mapped[str] = mapped_column(unique=True)
+    pali_2: Mapped[str] = mapped_column(default='')
+    pos: Mapped[str] = mapped_column(default='')
+    grammar: Mapped[str] = mapped_column(default='')
+    derived_from: Mapped[str] = mapped_column(default='')
+    neg: Mapped[str] = mapped_column(default='')
+    verb: Mapped[str] = mapped_column(default='')
+    trans:  Mapped[str] = mapped_column(default='')
+    plus_case:  Mapped[str] = mapped_column(default='')
+
+    meaning_1: Mapped[str] = mapped_column(default='')
+    meaning_lit: Mapped[str] = mapped_column(default='')
+    meaning_2: Mapped[str] = mapped_column(default='')
+
+    non_ia: Mapped[str] = mapped_column(default='')
+    sanskrit: Mapped[str] = mapped_column(default='')
+
+    root_key: Mapped[str] = mapped_column(
+        ForeignKey("pali_roots.root"), default='')
+    root_sign: Mapped[str] = mapped_column(default='')
+    root_base: Mapped[str] = mapped_column(default='')
+
+    family_root: Mapped[str] = mapped_column(default='')
+    family_word: Mapped[str] = mapped_column(
+        ForeignKey("family_word.word_family"), default='')
+    family_compound: Mapped[str] = mapped_column(default='')
+    family_set: Mapped[str] = mapped_column(default='')
+
+    construction:  Mapped[str] = mapped_column(default='')
+    derivative: Mapped[str] = mapped_column(default='')
+    suffix: Mapped[str] = mapped_column(default='')
+    phonetic: Mapped[str] = mapped_column(default='')
+    compound_type: Mapped[str] = mapped_column(default='')
+    compound_construction: Mapped[str] = mapped_column(default='')
+    non_root_in_comps: Mapped[str] = mapped_column(default='')
+
+    source_1: Mapped[str] = mapped_column(default='')
+    sutta_1: Mapped[str] = mapped_column(default='')
+    example_1: Mapped[str] = mapped_column(default='')
+
+    source_2: Mapped[str] = mapped_column(default='')
+    sutta_2: Mapped[str] = mapped_column(default='')
+    example_2: Mapped[str] = mapped_column(default='')
+
+    antonym: Mapped[str] = mapped_column(default='')
+    synonym: Mapped[str] = mapped_column(default='')
+    variant: Mapped[str] = mapped_column(default='')
+    commentary: Mapped[str] = mapped_column(default='')
+    notes: Mapped[str] = mapped_column(default='')
+    cognate: Mapped[str] = mapped_column(default='')
+    link: Mapped[str] = mapped_column(default='')
+    origin: Mapped[str] = mapped_column(default='')
+
+    stem: Mapped[str] = mapped_column(default='')
+    pattern: Mapped[str] = mapped_column(
+        ForeignKey("inflection_templates.pattern"), default='')
+
+    created_at: Mapped[Optional[DateTime]] = mapped_column(
+        DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[Optional[DateTime]] = mapped_column(
+        DateTime(timezone=True), onupdate=func.now())
+
+
 class DpdHeadwords(Base):
     __tablename__ = "dpd_headwords"
 

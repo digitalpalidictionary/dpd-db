@@ -7,8 +7,6 @@ if [ ! -e "dpd.db" ]; then
     exit 1
 fi
 
-set -e
-
 bash/generate_components.sh
 
 grammar_dict/grammar_dict.py
