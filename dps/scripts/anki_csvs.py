@@ -390,6 +390,8 @@ def classes(df, sbs_ped_link):
     # Print starting message in green color
     console.print("[bold green]making classes.csvs.")
 
+    console.print("[bold red]please rename column lemma_1 to pali_1")
+
     # Create a mask for rows where 'ru_meaning_lit' is not an empty string
     mask = df['ru_meaning_lit'].apply(lambda x: x != "")
 

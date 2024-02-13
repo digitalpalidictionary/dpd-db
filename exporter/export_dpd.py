@@ -175,7 +175,7 @@ def render_pali_word_dpd_html(
     html += button_box
     size_dict["dpd_button_box"] += len(button_box)
 
-    if i.needs_grammar_button:
+    if i.needs_grammar_button or dps_data:
         grammar = render_grammar_templ(pth, i, rt, sbs, ru, rd['dps_data'], tt.grammar_templ)
         html += grammar
         size_dict["dpd_grammar"] += len(grammar)

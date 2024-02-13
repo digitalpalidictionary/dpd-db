@@ -27,9 +27,9 @@ def main():
             if word.sbs.sbs_category:
                 word.ebt_count = 1
             else:
-                word.ebt_count = 0
+                word.ebt_count = ""
         else:
-            word.ebt_count = 0
+            word.ebt_count = ""
 
 
     db_session.commit()

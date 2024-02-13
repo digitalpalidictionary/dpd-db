@@ -54,7 +54,7 @@ def make_dicts(pth: ProjectPaths):
     return dicts
 
 
-def main():
+def calculate_ebt_count():
     tic()
     print("[bright_yellow] EBT + Vinaya mūla frequency making")
 
@@ -101,6 +101,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    calculate_ebt_count()
     if config_test("dictionary", "show_ebt_count", "yes"):
         config_update("dictionary", "show_ebt_count", "no")
