@@ -28,7 +28,7 @@ def main():
         DpdHeadwords).filter(DpdHeadwords.family_idioms != "").all()
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
-    # sync_idiom_numbers_with_family_compound(db_session)
+    sync_idiom_numbers_with_family_compound(db_session)
     idioms_dict = create_idioms_dict(dpd_db)
     idioms_dict = compile_idioms_html(dpd_db, idioms_dict)
     add_idioms_to_db(db_session, idioms_dict)
@@ -74,7 +74,6 @@ def create_idioms_dict(dpd_db):
 
     idioms_dict: dict = {}
     for i in dpd_db:
-
         for word in i.family_idioms_list:
             if i.meaning_1:
                 if word in idioms_dict:
@@ -84,6 +83,7 @@ def create_idioms_dict(dpd_db):
                         "headwords": [i.lemma_1],
                         "html": "",
                         "data": [],
+                        "count": 0
                     }
 
     print(len(idioms_dict))
@@ -94,28 +94,33 @@ def compile_idioms_html(dpd_db, idioms_dict):
     print("[green]compiling html")
 
     for i in dpd_db:
-        if i.pos == "idiom":
+        if i.pos in ["idiom", "sandhi"]:
             for word in i.family_idioms_list:
-                if word in idioms_dict:
-                    if i.lemma_1 in idioms_dict[word]["headwords"]:
-                        if not idioms_dict[word]["html"]:
-                            html_string = "<table class='family'>"
-                        else:
-                            html_string = idioms_dict[word]["html"]
+                if (
+                    i.meaning_1
+                    and word in idioms_dict
+                    and i.lemma_1 in idioms_dict[word]["headwords"]
+                ):
+                    if not idioms_dict[word]["html"]:
+                        html_string = "<table class='family'>"
+                    else:
+                        html_string = idioms_dict[word]["html"]
 
-                        meaning = make_meaning(i)
-                        html_string += "<tr>"
-                        html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
-                        html_string += f"<td><b>{i.pos}</b></td>"
-                        html_string += f"<td>{meaning} {degree_of_completion(i)}</td>"
-                        html_string += "</tr>"
+                    meaning = make_meaning(i)
+                    html_string += "<tr>"
+                    html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
+                    html_string += f"<td><b>{i.pos}</b></td>"
+                    html_string += f"<td>{meaning} {degree_of_completion(i)}</td>"
+                    html_string += "</tr>"
 
-                        idioms_dict[word]["html"] = html_string
+                    idioms_dict[word]["html"] = html_string
 
-                        # data
-                        if i.meaning_1:
-                            idioms_dict[word]["data"].append(
-                            (i.lemma_1, i.pos, meaning))
+                    # data
+                    idioms_dict[word]["data"].append(
+                    (i.lemma_1, i.pos, meaning))
+
+                    # count
+                    idioms_dict[word]["count"] += 1
 
     for i in idioms_dict:
         idioms_dict[i]["html"] += "</table>"
@@ -133,7 +138,7 @@ def add_idioms_to_db(db_session, idioms_dict):
             idiom_data = FamilyIdiom(
                 idiom=idiom,
                 html=idioms_dict[idiom]["html"],
-                count=len(idioms_dict[idiom]["headwords"]))
+                count=idioms_dict[idiom]["count"])
             idiom_data.pack_idioms_data(idioms_dict[idiom]["data"])
             add_to_db.append(idiom_data)
 

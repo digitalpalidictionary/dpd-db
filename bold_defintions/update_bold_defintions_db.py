@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.10
+#!/usr/bin/env python3
 
 """Update the bold definitions table from a previously saved tsv."""
 

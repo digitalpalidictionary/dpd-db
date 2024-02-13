@@ -53,6 +53,7 @@ def main():
     make_russian_table_data(pth, db_session)
     make_sbs_table_data(pth, db_session)
 
+    print("[green]committing to db")
     db_session.commit()
     db_session.close()
     print("[bright_green]database restored successfully")
