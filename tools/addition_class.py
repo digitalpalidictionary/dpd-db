@@ -60,7 +60,12 @@ class Addition:
 
 
     def replace_id_in_file(self, file_path, checking_data):
-        df = pd.read_csv(file_path, sep='\t', header=None, low_memory=False)
+        try:
+            df = pd.read_csv(file_path, sep='\t', header=None, low_memory=False, on_bad_lines='skip')
+        except Exception as e:
+            print(f"Error reading file {file_path}: {e}")
+            return
+
         if (
             self.new_id is not None and
             self.added_date is not None and
@@ -86,7 +91,7 @@ if __name__ == "__main__":
     print([a for a in additions_list])
 
     # from this added_date onward we going to replace old_id with new_id
-    checking_data = "2024-02-01"
+    checking_data = "2024-02-14"
 
     # for addition in additions_list:
     #     addition.replace_id_in_file(pth.corrections_tsv_path, checking_data)

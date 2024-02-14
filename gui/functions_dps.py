@@ -662,11 +662,7 @@ def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, p
         }
     ]
 
-    print(messages)
-
-
     suggestion = handle_openai_response(messages, suggestion_field, error_field, window).lower()
-    
 
     # Save to CSV
     if suggestion != "Timed out":
