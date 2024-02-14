@@ -12,7 +12,7 @@ from tools.mdict_exporter import export_to_mdict
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import sanskrit_sort_key
 from tools.paths import ProjectPaths
-from tools.stardict import export_words_as_stardict_zip, ifo_from_opts, DictEntry
+from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.tic_toc import tic, toc
 
 
@@ -87,7 +87,7 @@ def main():
 
 	bookname = "Whitney Sanskrit Roots"
 	author = "William Dwight Whitney"
-	description = "The Roots, Verb-Forms and Primary Derivatives of the Sanskrit Language by William Dwight Whitney. Trübner & Co, London, 1895. Digitally encoded by Bodhirasa 2024"
+	description = """<h3>The Roots, Verb-Forms and Primary Derivatives of the Sanskrit Language by William Dwight Whitney</h3><p>Published by Trübner & Co, London, 1895.</p><p>Availble as part of the <a href='https://www.sanskrit-lexicon.uni-koeln.de/scans/csl-whitroot/disp/index.php'>Cologne Sanskrit Lexicon</a></p><p>Encoded by Bodhirasa 2024.</p>"""
 	website = "www.sanskrit-lexicon.uni-koeln.de"
 
 	ifo = ifo_from_opts(
@@ -110,7 +110,7 @@ def main():
 		whitney_data_list,
 		output_file,
 		bookname,
-		f"{description}. {website}",
+		description,
 		h3_header=False)
 
 	toc()

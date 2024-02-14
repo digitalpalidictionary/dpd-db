@@ -4,9 +4,7 @@ import json
 import sqlite3
 
 from rich import print
-from pathlib import Path
 
-from tools.date_and_time import year_month_day_dash
 from tools.mdict_exporter import export_to_mdict
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
@@ -71,7 +69,7 @@ def main():
 
     bookname = "Pāḷi Myanmar Abhidhan"
     author = "Pāḷi Myanmar Abhidhan"
-    description = f"Pāḷi Myanmar Abhidhan, translated into English. Version {year_month_day_dash()}"
+    description = "<h3>Pali Myanmar Abhidhan</h3><p>Pali Myanmar Abhidhan is the world's largest Pali dictionary, a massive 23 volumes, with more than 200 000 words, a complete reference guide to the language of the root texts and commentaries.</p><p>There is a project underway to translate this into English, currently at about 80% human translated, the remainder is by Google.</p><p><a href='https://pm12e.pali.tools/'>Project Website</a></p><p>This dicitonary can be found in the Tipitaka Pali Projector project on <a href='https://github.com/bksubhuti/Tipitaka-Pali-Projector'>Github</a></p><p>Encoded by Bodhirasa 2024.</p>"
     website = ""
 
     ifo = ifo_from_opts({
@@ -91,7 +89,7 @@ def main():
         peu_data_list,
         output_path,
         bookname,
-        f"{description}. {website}")
+        description)
 
     toc()
 

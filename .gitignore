@@ -69,9 +69,7 @@ gui/icons/
 gui/stash/
 gui/window_layout.py
 other_dictionaries/code/cpd/output
-other_dictionaries/goldendict/
 other_dictionaries/json/
-other_dictionaries/mdict/
 profiler_output.txt
 resources/thai_mahachula/
 sandhi.zip

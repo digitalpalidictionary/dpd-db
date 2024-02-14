@@ -16,7 +16,7 @@ from tools.tic_toc import tic, toc
 
 def main():
     tic()
-    print("[bright_yellow]exporting Edgerton BHS to GoldenDict, MDict & JSON")
+    print("[bright_yellow]exporting edgerton bhs to various formats")
     print("[green]preparing data")
     pth = ProjectPaths()
     
@@ -61,9 +61,7 @@ def main():
 
     bookname = "Edgerton's Buddhist Hybrid Sanskrit Dictionary 1953"
     author = "Franklin Edgerton"
-    description = """Buddhist Hybrid Sanskrit grammar and dictionary by Franklin Edgerton, 
-Serling Professor of Sanskrit and Comparative Philology, Yale University.
-Volume II: Dictionary. Yale University Press. New Haven, Conn. 1953"""
+    description = """<h3>Buddhist Hybrid Sanskrit grammar and dictionary</h3><p>by Franklin Edgerton, Serling Professor of Sanskrit and Comparative Philology, Yale University.<p><b>Volume II: Dictionary</b></p><p>Yale University Press. New Haven, Conn. 1953.</p><p>For more Sanskrit dicitonaries please visit <a href="http://www.sanskrit-lexicon.uni-koeln.de">Cologne Sanskrit Lexicon</a> website.</p><p>Encoded by Bodhirasa 2024.</p>"""
     website = "www.sanskrit-lexicon.uni-koeln.de"
 
     ifo = ifo_from_opts(
@@ -86,7 +84,7 @@ Volume II: Dictionary. Yale University Press. New Haven, Conn. 1953"""
         bhs_data_list,
         output_file,
         bookname,
-        f"{description}. {website}",
+        description,
         h3_header=True
         )
 

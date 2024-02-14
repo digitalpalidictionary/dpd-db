@@ -77,8 +77,9 @@ def main():
     # TODO find out more details, website etc
 
     bookname = "PTS Pali-English Dictionary"
-    description = "The Pali Text Society's Pali-English Dictionary 1925"
     author = "T.W. Rhys Davids & William Stede"
+    description = "<h3>Pali-English Dictionary</h3><p>The Pali Text Society's Pali-English Dictionary, edited by T.W. Rhys Davids & William Stede, published by the Pali Text Society, 1921-1925.</p><p>Reformatted for the <a href='https://github.com/simsapa/simsapa'>Simsapa Dhamma Reader.</a></p><p>Encoded by Bodhirasa 2024.</p>"
+
     website = ""
 
     ifo = ifo_from_opts({

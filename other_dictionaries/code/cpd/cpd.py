@@ -69,7 +69,7 @@ def main():
     
     bookname = "Critical Pāli Dictionary"
     author = "V. Trenckner et al."
-    description = "Critical Pāli Dictionary. Digitally encoded by Bodhirasa"
+    description = "<h3>A Critical Pāli Dictionary</h3><p>by V. Trenckner, et al. Published by the Royal Danish Academy of Science and Letters, Copenhagen, 1925 -2011</p>The dictionary can be found online on the <a href='https://cpd.uni-koeln.de'>Cologne University</a> website</p><p>Encoded by Bodhirasa 2024.</p>"
     website = "https://cpd.uni-koeln.de"
 
     ifo = ifo_from_opts({
@@ -89,7 +89,7 @@ def main():
         cpd_data_list,
         output_path,
         bookname,
-        f"{description}. {website}")
+        description)
 
     toc()
 

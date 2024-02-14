@@ -71,7 +71,7 @@ def main():
 
     bookname = "DPR Analysis"
     author = "Ven. Yuttadhammo"
-    description = "DPR Analysis was the first known attempt to digitally anaylse and deconstruct Pāḷi compounds. The code was written in JavaScript by Ven. Yuttadhammmo.<br>The JSON file used to create this dictionary is from the Tipitaka Pali Projector repository on GitHub. It seems to be an attempt to run each word in the CST through DPR Analysis and produce a flat lookup file, rather than using DPR's dynamic process. The results are slightly different to the actual DPR Analysis which produces multiple solutions. Still, it is useful as a reference.<br>This version encoded for GoldenDict and MDict by Bodhirasa 2024.<br>"
+    description = "<h3>DPR Analysis</h3><p>DPR Analysis was the first known attempt to digitally anaylse and deconstruct Pāḷi compounds. The code was written in JavaScript by Ven. Yuttadhammmo.</p><p>The JSON file used to create this dictionary is from the Tipitaka Pali Projector repository on GitHub. It seems to be an attempt to run each word in the CST through DPR Analysis and produce a flat lookup file, rather than using DPR's dynamic process. The results are slightly different to the actual DPR Analysis which produces multiple solutions. Still, it is useful as a reference.</p><p><a href='https://www.digitalpalireader.online/'>Digital Pali Reader Online</a></p><p>Encoded by Bodhirasa 2024.</p>"
     website = "https://www.digitalpalireader.online/"
 
     ifo = ifo_from_opts({
@@ -91,7 +91,7 @@ def main():
         dpr_data_list,
         output_path,
         bookname,
-        f"{description}. {website}")
+        description)
 
     toc()
 
