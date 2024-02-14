@@ -97,3 +97,5 @@ time_log.png
 tmp/
 bold_defintions/bold_defintions.json
 bold_defintions/bold_defintions.tsv
+other_dictionaries/goldendict/
+other_dictionaries/mdict/
