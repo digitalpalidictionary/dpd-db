@@ -15,7 +15,7 @@ dpspth = DPSPaths()
 file_new = pd.read_csv(pth.pali_word_path, sep='\t')
 
 # Construct the path to the second TSV file (file_old)
-file_old_path = os.path.join(dpspth.for_compare_dir, 'paliword.tsv')
+file_old_path = os.path.join(dpspth.for_compare_dir, 'dpd_headwords.tsv')
 file_old = pd.read_csv(file_old_path, sep='\t')
 
 # Merge the DataFrames on 'id' and 'lemma_1' columns

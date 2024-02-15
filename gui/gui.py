@@ -123,7 +123,7 @@ from functions_tests_dps import check_repetition
 from functions_tests_dps import dps_dpd_db_internal_tests
 
 from db.get_db_session import get_db_session
-from scripts.backup_paliword_paliroot import backup_paliword_paliroot
+from scripts.backup_dpd_headwords_and_roots import backup_dpd_headwords_and_roots
 from scripts.backup_ru_sbs import backup_ru_sbs
 
 from exporter.i2html import make_html
@@ -1086,7 +1086,7 @@ def main():
             window["messages"].update(
                 value="backing up db to csvs", text_color="white")
             if username == "primary_user":
-                backup_paliword_paliroot(pth)
+                backup_dpd_headwords_and_roots(pth)
 
                 save_gui_state(pth, values, words_to_add_list)
                 window["messages"].update(

@@ -22,7 +22,7 @@ read -p "${bold}${yellow}Did you apply all changes? (y/n): ${reset}" confirmatio
 if [ "$confirmation" == "y" ]; then
 
     # Copy paliword
-    cp -rf backup_tsv/paliword.tsv dps/backup/for_compare/paliword.tsv
+    cp -rf backup_tsv/dpd_headwords.tsv dps/backup/for_compare/dpd_headwords.tsv
 
     echo "${bold}${green}The job is done${reset}"
 else

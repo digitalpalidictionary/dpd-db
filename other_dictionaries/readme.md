@@ -9,7 +9,7 @@ Critial Pali Dictionary <a href="https://drive.google.com/uc?export=download&id=
 DPR Analysis <a href="https://drive.google.com/uc?export=download&id=1cMDFnvEZml6cixAts4onqVpD4fI0nuTq" target="_blank">dpr</a>  
 Monier Williams <a href="https://drive.google.com/uc?export=download&id=1SSNNYJlAk655Ckw1MHslzwLcoysjDvtx" target="_blank">mw</a>  
 Pali Myanmar Abhidhan <a href="https://drive.google.com/uc?export=download&id=1hT-l8Np_rarYCrfT-bs2LML-KxpvXBDB" target="_blank">peu</a>  
-Pali Text Society's Pali English Dictionary<a href="https://drive.google.com/uc?export=download&id=1RwQWI0cV_AZpHNJuf2F7Nd1753SugeQh" target="_blank">pts</a>  
+Pali Text Society's Pali English Dictionary <a href="https://drive.google.com/uc?export=download&id=1RwQWI0cV_AZpHNJuf2F7Nd1753SugeQh" target="_blank">pts</a>  
 Whitney's Roots <a href="https://drive.google.com/uc?export=download&id=1HBTahdfSrDOGW6grMqL1yXXWGl5WOTCZ" target="_blank">whitney</a>  
 
 ## MDict

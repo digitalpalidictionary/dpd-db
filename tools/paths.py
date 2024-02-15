@@ -29,8 +29,8 @@ class ProjectPaths:
         self.root_matrix_tsv_path = base_dir.joinpath(Path("anki_csvs/root_matrix.tsv"))
 
         # /backup_tsv
-        self.pali_word_path = base_dir.joinpath(Path("backup_tsv/paliword.tsv"))
-        self.pali_root_path = base_dir.joinpath(Path("backup_tsv/paliroot.tsv"))
+        self.pali_word_path = base_dir.joinpath(Path("backup_tsv/dpd_headwords.tsv"))
+        self.pali_root_path = base_dir.joinpath(Path("backup_tsv/dpd_roots.tsv"))
         self.russian_path = base_dir.joinpath(Path("backup_tsv/russian.tsv"))
         self.sbs_path = base_dir.joinpath(Path("backup_tsv/sbs.tsv"))
 
@@ -74,7 +74,7 @@ class ProjectPaths:
         # /exporter/css
         self.dpd_css_path = base_dir.joinpath(Path("exporter/css/dpd.css"))
         self.roots_css_path = base_dir.joinpath(Path("exporter/css/roots.css"))
-        self.sandhi_css_path = base_dir.joinpath(Path("exporter/css/sandhi.css"))
+        self.deconstructor_css_path = base_dir.joinpath(Path("exporter/css/deconstructor.css"))
         self.epd_css_path = base_dir.joinpath(Path("exporter/css/epd.css"))
         self.help_css_path = base_dir.joinpath(Path("exporter/css/help.css"))
         self.grammar_css_path = base_dir.joinpath(Path("exporter/css/grammar.css"))
@@ -136,7 +136,7 @@ class ProjectPaths:
 
         # # other templates
         self.epd_templ_path = base_dir.joinpath(Path("exporter/templates/epd.html"))
-        self.sandhi_templ_path = base_dir.joinpath(Path("exporter/templates/sandhi.html"))
+        self.deconstructor_templ_path = base_dir.joinpath(Path("exporter/templates/deconstructor.html"))
         self.abbrev_templ_path = base_dir.joinpath(Path("exporter/templates/help_abbrev.html"))
         self.help_templ_path = base_dir.joinpath(Path("exporter/templates/help_help.html"))
 

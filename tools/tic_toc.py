@@ -1,41 +1,45 @@
-"""Simple code timer for modules or parts of code."""
+"""Simple timer for modules or parts of code."""
 
 import time
 from datetime import datetime
+from rich import print
 
-
-blue = "\033[38;5;33m"  # blue
-green = "\033[38;5;34m"  # green
-red = "\033[38;5;160m"  # red
-yellow = "\033[38;5;220m"  # yellow
-white = "\033[38;5;251m"  # white
-orange = "\033[38;5;172m"  # orange
-cyan = "\033[38;5;14m"  # cyan
 line = "-"*40
 
 
 def tic():
+    """Start the clock"""
     global ticx
     ticx = datetime.now()
 
 
 def toc():
+    "Stop the clock and print a line and elapsed time."
     tocx = datetime.now()
     tictoc = (tocx - ticx)
-    print(f"{cyan}{line}")
-    print(f"{cyan}{tictoc}")
+    print(f"[cyan]{line}")
+    print(f"[cyan]{tictoc}")
     print()
 
 
 def bip():
+    """Start a mini clock."""
     global start_time
     start_time = time.time()
 
 
 def bop():
+    "End the mini clock and return elapsed time."
     elapsed_time = time.time() - start_time
-    # return f"{elapsed_time:.2f}"
-    return round(elapsed_time, 3)
+    return f"{elapsed_time:.3f}"
+    # return round(elapsed_time, 3)
+
+
+def pbop():
+    "End the mini clock and print elapsed time."
+    elapsed_time = time.time() - start_time
+    print(f"{elapsed_time:.3f}")
+    # return round(elapsed_time, 3)
 
 
 def today():

@@ -14,18 +14,18 @@ from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 
 
-def backup_paliword_paliroot(pth: ProjectPaths):
+def backup_dpd_headwords_and_roots(pth: ProjectPaths):
     tic()
-    print("[bright_yellow]backing paliword and paliroot tables to tsv")
+    print("[bright_yellow]backing headword and roots tables to tsv")
     db_session = get_db_session(pth.dpd_db_path)
-    backup_paliwords(db_session, pth)
-    backup_paliroots(db_session, pth)
+    backup_dpd_headwords(db_session, pth)
+    backup_dpd_roots(db_session, pth)
     db_session.close()
     git_commit()
     toc()
 
 
-def backup_paliwords(db_session: Session, pth: ProjectPaths):
+def backup_dpd_headwords(db_session: Session, pth: ProjectPaths):
     """Backup DpdHeadwords table to TSV."""
     print("[green]writing DpdHeadwords table")
     db = db_session.query(DpdHeadwords).all()
@@ -51,7 +51,7 @@ def backup_paliwords(db_session: Session, pth: ProjectPaths):
             csvwriter.writerow(row)
 
 
-def backup_paliroots(db_session: Session, pth: ProjectPaths):
+def backup_dpd_roots(db_session: Session, pth: ProjectPaths):
     """Backup DpdRoots table to TSV."""
     print("[green]writing DpdRoots table")
     db = db_session.query(DpdRoots).all()
@@ -78,10 +78,10 @@ def backup_paliroots(db_session: Session, pth: ProjectPaths):
 def git_commit():
     repo = Repo("./")
     index = repo.index
-    index.add(["backup_tsv/paliroot.tsv", "backup_tsv/paliword.tsv"])
+    index.add(["backup_tsv/dpd_roots.tsv", "backup_tsv/dpd_headwords.tsv"])
     index.commit("pali update")
 
 
 if __name__ == "__main__":
     pth = ProjectPaths()
-    backup_paliword_paliroot(pth)
+    backup_dpd_headwords_and_roots(pth)

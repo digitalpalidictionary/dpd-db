@@ -45,12 +45,12 @@ def export_to_mdict(
         printer("adding h3 tag")
         for i in data_list:
             i['definition_html'] = f"<h3>{i['word']}</h3>{i['definition_html']}"
-        print(bop())
+        print(f"{bop():>10}")
 
     bip()
     printer("reducing synonyms")
     data = reduce(mdict_synonyms, data_list, [])
-    print(bop())
+    print(f"{bop():>10}")
 
     bip()
     printer("writing mdict")
@@ -58,10 +58,10 @@ def export_to_mdict(
         data,
         title=title,
         description=description)
-    print(bop())
+    print(f"{bop():>10}")
 
     bip()
     printer("copying mdx file")
     with open(output_file, 'wb') as outfile:
         writer.write(outfile)
-    print(bop())
+    print(f"{bop():>10}")

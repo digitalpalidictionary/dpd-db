@@ -65,7 +65,7 @@ def main():
 def make_pali_word_table_data(dpspth, db_session: Session):
     """Read TSV and return DpdHeadwords table data."""
     print("[green]creating DpdHeadwords table data")
-    pali_word_path = os.path.join(dpspth.dps_backup_dir, "paliword.tsv")
+    pali_word_path = os.path.join(dpspth.dps_backup_dir, "dpd_headwords.tsv")
     with open(pali_word_path, 'r', newline='') as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
         columns = next(csvreader)
@@ -80,7 +80,7 @@ def make_pali_word_table_data(dpspth, db_session: Session):
 def make_pali_root_table_data(dpspth, db_session: Session):
     """Read TSV and return DpdRoots table data."""
     print("[green]creating DpdRoots table data")
-    pali_root_path = os.path.join(dpspth.dps_backup_dir, "paliroot.tsv")
+    pali_root_path = os.path.join(dpspth.dps_backup_dir, "dpd_roots.tsv")
     with open(pali_root_path, 'r', newline='') as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
         columns = next(csvreader)

@@ -42,7 +42,7 @@ def saving_paliwords(pth: ProjectPaths, db_session: Session, ids_to_saving):
     db = db_session.query(DpdHeadwords).filter(DpdHeadwords.id.in_(ids_to_saving)).all()
 
 
-    file_path = os.path.join(pth.temp_dir, 'paliword.tsv')
+    file_path = os.path.join(pth.temp_dir, 'dpd_headwords.tsv')
     with open(file_path, 'w', newline='') as tsvfile:
         exclude_columns = [
             "created_at", "updated_at"]
@@ -67,7 +67,7 @@ def saving_paliroots(pth: ProjectPaths, db_session: Session, roots_to_saving):
     db = db_session.query(DpdRoots).filter(DpdRoots.root.in_(roots_to_saving)).all()
 
 
-    file_path = os.path.join(pth.temp_dir, 'paliroot.tsv')
+    file_path = os.path.join(pth.temp_dir, 'dpd_roots.tsv')
     with open(file_path, 'w', newline='') as tsvfile:
         exclude_columns = [
             "created_at", "updated_at",

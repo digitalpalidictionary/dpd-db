@@ -8,7 +8,7 @@ h3 {
     margin-bottom: 1px
 }
 
-div.sandhi {
+div.deconstructor {
     border: 2px solid #ffd700;
     border-radius: 7px;
     line-height: 150%;
@@ -18,21 +18,21 @@ div.sandhi {
     text-align: left;
 }
 
-p.sandhi {
+p.deconstructor {
     line-height: 150%;
     margin: 0px 0px;
     vertical-align: middle;
     text-align: left;
 }
 
-a.sandhi_feedback {
+a.deconstructor_feedback {
     float: right;
     text-decoration: none;
     margin: 1px;
     vertical-align: top;
 }
 
-p.sandhi_footer {
+p.deconstructor_footer {
     border-top: 1px solid #ffd700;
     font-size: 0.8em;
     margin: 5px 0 0 0;

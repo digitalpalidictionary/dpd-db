@@ -10,8 +10,8 @@ BACKUP_DIR="dps/backup/"
 # Get today's date
 TODAY=$(date "+%Y-%m-%d")
 
-# Check the modification date of a file (for example, paliword.tsv)
-FILE_DATE=$(stat -c %y "${BACKUP_DIR}paliword.tsv" | cut -d' ' -f1)
+# Check the modification date of a file (for example, dpd_headwords.tsv)
+FILE_DATE=$(stat -c %y "${BACKUP_DIR}dpd_headwords.tsv" | cut -d' ' -f1)
 
 # Check if backups for today exist in backup_tsv/
 if [[ "$FILE_DATE" == "$TODAY" ]]; then
