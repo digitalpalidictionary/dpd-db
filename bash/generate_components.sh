@@ -28,6 +28,7 @@ sandhi/sandhi_splitter.py
 sandhi/sandhi_postprocess.py
 # scripts/deconstrutor_tissā.py
 inflections/inflections_to_headwords.py
+lookup/transliterate_lookup_table.py
 
 frequency/mapmaker.py
 

@@ -261,6 +261,27 @@ class Lookup(Base):
     def unpack_grammar(self) -> list[str]:
         return json.loads(self.grammar)
 
+    # pack unpack sinhala
+    def pack_sinhala(self, list: list[str]) -> None:
+        self.sinhala = json.dumps(list, ensure_ascii=False)
+
+    def unpack_sinhala(self) -> list[str]:
+        return json.loads(self.sinhala)
+
+    # pack unpack devanagari
+    def pack_devanagari(self, list: list[str]) -> None:
+        self.devanagari = json.dumps(list, ensure_ascii=False)
+
+    def unpack_devanagari(self) -> list[str]:
+        return json.loads(self.devanagari)
+
+    # pack unpack thai
+    def pack_thai(self, list: list[str]) -> None:
+        self.thai = json.dumps(list, ensure_ascii=False)
+
+    def unpack_thai(self) -> list[str]:
+        return json.loads(self.thai)
+
     def __repr__(self) -> str:
         return f"Lookup: {self.lookup_key} {self.headwords} {self.roots} {self.deconstructor}"
 
@@ -287,14 +308,12 @@ class PaliWord(Base):
     non_ia: Mapped[str] = mapped_column(default='')
     sanskrit: Mapped[str] = mapped_column(default='')
 
-    root_key: Mapped[str] = mapped_column(
-        ForeignKey("pali_roots.root"), default='')
+    root_key: Mapped[str] = mapped_column(default='')
     root_sign: Mapped[str] = mapped_column(default='')
     root_base: Mapped[str] = mapped_column(default='')
 
     family_root: Mapped[str] = mapped_column(default='')
-    family_word: Mapped[str] = mapped_column(
-        ForeignKey("family_word.word_family"), default='')
+    family_word: Mapped[str] = mapped_column(default='')
     family_compound: Mapped[str] = mapped_column(default='')
     family_set: Mapped[str] = mapped_column(default='')
 
@@ -324,8 +343,7 @@ class PaliWord(Base):
     origin: Mapped[str] = mapped_column(default='')
 
     stem: Mapped[str] = mapped_column(default='')
-    pattern: Mapped[str] = mapped_column(
-        ForeignKey("inflection_templates.pattern"), default='')
+    pattern: Mapped[str] = mapped_column(default='')
 
     created_at: Mapped[Optional[DateTime]] = mapped_column(
         DateTime(timezone=True), server_default=func.now())

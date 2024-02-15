@@ -85,8 +85,8 @@ share/headword_stem_pattern_dict
 share/inflection_templates
 share/inflections_from_translit.json
 share/inflections_to_translit.json
-share/sandhi_from_translit.json
-share/sandhi_to_translit.json
+share/lookup_from_translit.json
+share/lookup_to_translit.json
 temp/
 tests/add_synonym_variant_exceptions
 tests/add_word_family_exceptions

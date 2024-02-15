@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-"""Transliterate all inflections into Sinhala, Devanagari and Thai.
-- Regenerate from scratch OR
-- Update if stem & pattern has changed or inflection template has changed.
+"""Transliterate all Lookup table keys into Sinhala, Devanagari and Thai.
+Either regenerate from scratch OR update missing entries.
 Save into database.
 """
 
 
 import json
-import pickle
 
 from aksharamukha import transliterate
 from rich import print
@@ -21,7 +19,7 @@ from multiprocessing.managers import ListProxy
 from multiprocessing import Process, Manager
 
 from db.get_db_session import get_db_session
-from db.models import DpdHeadwords
+from db.models import Lookup
 
 from tools.configger import config_test, config_update
 from tools.tic_toc import tic, toc
@@ -30,56 +28,51 @@ from tools.utils import list_into_batches
 
 
 def _parse_batch(
-    batch: List[DpdHeadwords],
+    batch: List[Lookup],
     pth: ProjectPaths,
-    changed_headwords: list,
-    changed_templates: list,
     regenerate_all: bool,
     results_list: ListProxy,
     batch_idx: int,
 ):
     # aksharamukha works much faster with large text files than smaller lists
-    # inflections_to_transliterate_string contains the inflections,
-    # and inflections_index_dict contains the line numbers
+    # lookup_to_transliterate_string contains the lookup_key,
+    # and translit_index_dict contains the line numbers
 
     # print("[green]creating string of inflections to transliterate")
 
     translit_dict: Dict[str, WordInflections] = dict()
 
-    inflections_to_transliterate_string: str = ""
-    inflections_index_dict: Dict[int, str] = dict()
-    inflections_for_json_dict: Dict[str, Dict[str, list]] = dict()
+    lookup_to_transliterate_string: str = ""
+    translit_index_dict: Dict[int, str] = dict()
+    lookup_for_json_dict: dict[str, dict[str, list[str]]]= dict()
     counter: int = 0
 
     for counter, i in enumerate(batch):
-        test1 = i.pattern in changed_templates
-        test2 = i.lemma_1 in changed_headwords
 
-        if test1 or test2 or regenerate_all:
-            inflections: list = i.inflections_list
-            inflections_index_dict[counter] = i.lemma_1
-            inflections_for_json_dict[i.lemma_1] = {"inflections": inflections}
+        if not i.sinhala or regenerate_all:
+            lookup_key: str = i.lookup_key
+            translit_index_dict[counter] = lookup_key
+            lookup_for_json_dict[lookup_key] = {"inflections": [lookup_key]}
 
-            # inflections_to_transliterate_string += (f"{i.lemma_1}\t")
-            for inflection in inflections:
-                inflections_to_transliterate_string += f"{inflection},"
-            inflections_to_transliterate_string += "\n"
+            # lookup_to_transliterate_string += (f"{i.lemma_1}\t")
+            # for inflection in lookup_key:
+            lookup_to_transliterate_string += f"{lookup_key}\n"
 
         else:
-            inflections_index_dict[counter] = i.lemma_1
-            inflections_to_transliterate_string += "\n"
+            translit_index_dict[counter] = i.lookup_key
+            lookup_to_transliterate_string += "\n"
 
     # saving json for path nirvana transliterator
 
-    json_input_for_translit = pth.inflections_to_translit_json_path.with_suffix(
+    json_input_for_translit = pth.lookup_to_translit_path.with_suffix(
         f".batch_{batch_idx}_input.json"
     )
-    json_output_from_translit = pth.inflections_from_translit_json_path.with_suffix(
+    json_output_from_translit = pth.lookup_from_translit_path.with_suffix(
         f".batch_{batch_idx}_output.json"
     )
 
     with open(json_input_for_translit, "w") as f:
-        f.write(json.dumps(inflections_for_json_dict, ensure_ascii=False, indent=4))
+        f.write(json.dumps(lookup_for_json_dict, ensure_ascii=False, indent=4))
 
     # transliterating with aksharamukha
 
@@ -88,7 +81,7 @@ def _parse_batch(
     sinhala: str = transliterate.process(
         "IASTPali",
         "Sinhala",
-        inflections_to_transliterate_string,
+        lookup_to_transliterate_string,
         post_options=["SinhalaPali"],
     )  # type:ignore
 
@@ -97,7 +90,7 @@ def _parse_batch(
     devanagari: str = transliterate.process(
         "IASTPali",
         "Devanagari",
-        inflections_to_transliterate_string,
+        lookup_to_transliterate_string,
     )  # type:ignore
 
     # print("[green]transliterating thai with aksharamukha")
@@ -105,7 +98,7 @@ def _parse_batch(
     thai: str = transliterate.process(
         "IASTPali",
         "Thai",
-        inflections_to_transliterate_string,
+        lookup_to_transliterate_string,
     )  # type:ignore
 
     sinhala_lines: list = sinhala.split("\n")
@@ -116,28 +109,28 @@ def _parse_batch(
 
     for counter, line in enumerate(sinhala_lines[:-1]):
         if line:
-            headword: str = inflections_index_dict[counter]
-            sinhala_inflections_set: set = set(line.split(","))
-            sinhala_inflections_set.remove("")
+            headword: str = translit_index_dict[counter]
+            sinhala_translit_set: set = set(line.split(","))
+            # sinhala_translit_set.remove("")
             translit_dict[headword] = WordInflections(
-                sinhala=sinhala_inflections_set,
+                sinhala=sinhala_translit_set,
                 devanagari=set(),
                 thai=set(),
             )
 
     for counter, line in enumerate(devanagari_lines[:-1]):
         if line:
-            headword: str = inflections_index_dict[counter]
-            devanagari_inflections_set: set = set(line.split(","))
-            devanagari_inflections_set.remove("")
-            translit_dict[headword]["devanagari"] = devanagari_inflections_set
+            headword: str = translit_index_dict[counter]
+            devanagari_translit_set: set = set(line.split(","))
+            # devanagari_translit_set.remove("")
+            translit_dict[headword]["devanagari"] = devanagari_translit_set
 
     for counter, line in enumerate(thai_lines[:-1]):
         if line:
-            headword: str = inflections_index_dict[counter]
-            thai_inflections_set: set = set(line.split(","))
-            thai_inflections_set.remove("")
-            translit_dict[headword]["thai"] = thai_inflections_set
+            headword: str = translit_index_dict[counter]
+            thai_translit_set: set = set(line.split(","))
+            # thai_translit_set.remove("")
+            translit_dict[headword]["thai"] = thai_translit_set
 
     # path nirvana transliteration using node.js
     # pali-script.mjs produces different orthography from akshramusha
@@ -148,7 +141,7 @@ def _parse_batch(
         _ = check_output(
             [
                 "node",
-                "inflections/transliterate inflections.mjs",
+                "lookup/transliterate_lookup.mjs",
                 json_input_for_translit,
                 json_output_from_translit,
             ]
@@ -162,21 +155,21 @@ def _parse_batch(
     # print("[green]importing path nirvana inflections", end=" ")
 
     with open(json_output_from_translit, "r") as f:
-        new_inflections: Dict[str, WordInflections] = json.load(f)
+        new_translit: Dict[str, WordInflections] = json.load(f)
         # print(f"{len(new_inflections)}")
 
-    for headword, values in new_inflections.items():
+    for headword, values in new_translit.items():
         if values["sinhala"]:
             translit_dict[headword]["sinhala"].update(
-                set(new_inflections[headword]["sinhala"])
+                set(new_translit[headword]["sinhala"])
             )
 
             translit_dict[headword]["devanagari"].update(
-                set(new_inflections[headword]["devanagari"])
+                set(new_translit[headword]["devanagari"])
             )
 
             translit_dict[headword]["thai"].update(
-                set(new_inflections[headword]["thai"])
+                set(new_translit[headword]["thai"])
             )
 
     results_list.append(translit_dict)
@@ -192,20 +185,12 @@ class WordInflections(TypedDict):
 
 
 def main():
-    """It's the main function."""
+    tic()
+    print("[bright_yellow]transliterating lookup table")
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(DpdHeadwords).all()
-
-    with open(pth.changed_headwords_path, "rb") as f:
-        changed_headwords: list = pickle.load(f)
-
-    with open(pth.template_changed_path, "rb") as f:
-        changed_templates: list = pickle.load(f)
-
-    tic()
-    print("[bright_yellow]transliterating inflections")
+    lookup_db = db_session.query(Lookup).all()
 
     # check config
     if config_test("regenerate", "transliterations", "yes") or config_test(
@@ -218,7 +203,7 @@ def main():
     print(f"[green]{'regenerate all':<20}[white]{regenerate_all:>10}")
 
     num_logical_cores = psutil.cpu_count()
-    batches: List[List[DpdHeadwords]] = list_into_batches(dpd_db, num_logical_cores)
+    batches: List[List[Lookup]] = list_into_batches(lookup_db, num_logical_cores)
 
     processes: List[Process] = []
     manager = Manager()
@@ -230,8 +215,6 @@ def main():
             args=(
                 batch,
                 pth,
-                changed_headwords,
-                changed_templates,
                 regenerate_all,
                 results_list,
                 batch_idx,
@@ -248,6 +231,7 @@ def main():
 
     translit_dict: Dict[str, WordInflections] = dict()
 
+
     for i in results_translit_dict:
         for k, v in i.items():
             translit_dict[k] = v
@@ -255,21 +239,25 @@ def main():
     # write back into database
     print(f"[green]{'writing to db':<20}", end="")
 
-
     translit_counter = 0
-    for i in dpd_db:
-        if i.lemma_1 in translit_dict:
-            i.inflections_sinhala = ",".join(list(translit_dict[i.lemma_1]["sinhala"]))
-            i.inflections_devanagari = ",".join(
-                list(translit_dict[i.lemma_1]["devanagari"])
-            )
-            i.inflections_thai = ",".join(list(translit_dict[i.lemma_1]["thai"]))
+    for i in lookup_db:
+        if i.lookup_key in translit_dict:
+            i.pack_sinhala(
+                list(translit_dict[i.lookup_key]["sinhala"]))
+            i.pack_devanagari(
+                list(translit_dict[i.lookup_key]["devanagari"]))
+            i.pack_thai(
+                list(translit_dict[i.lookup_key]["thai"]))
             translit_counter += 1
 
     print(f"{translit_counter:>10,}")
 
     db_session.commit()
     db_session.close()
+
+    # config update
+    if regenerate_all:
+        config_update("regenerate", "transliterations", "no")
 
     toc()
 
