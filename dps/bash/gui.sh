@@ -17,7 +17,7 @@ FILE_DATE=$(stat -c %y "${BACKUP_DIR}dpd_headwords.tsv" | cut -d' ' -f1)
 if [[ "$FILE_DATE" == "$TODAY" ]]; then
     echo "Backups for today already exist."
 else
-    dps/scripts/backup_all_with_history.py
+    dps/scripts/backup_all_dps.py
 fi
 
 # Run the GUI script

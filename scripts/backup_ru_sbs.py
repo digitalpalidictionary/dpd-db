@@ -26,12 +26,15 @@ def backup_ru_sbs():
     toc()
 
 
-def backup_russian(db_session: Session, pth: ProjectPaths):
+def backup_russian(db_session: Session, pth: ProjectPaths, custom_path: str = ""):
     """Backup Russian table to TSV."""
     print("[green]writing Russian table")
     db = db_session.query(Russian).all()
 
-    with open(pth.russian_path, 'w', newline='') as tsvfile:
+    # Use the custom path if provided, otherwise use the default path
+    russian_path = custom_path if custom_path else pth.russian_path
+
+    with open(russian_path, 'w', newline='') as tsvfile:
         csvwriter = csv.writer(
             tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL)
         column_names = [
@@ -45,12 +48,15 @@ def backup_russian(db_session: Session, pth: ProjectPaths):
             csvwriter.writerow(row)
 
 
-def backup_sbs(db_session: Session, pth: ProjectPaths):
+def backup_sbs(db_session: Session, pth: ProjectPaths, custom_path: str = ""):
     """Backup SBS tables to TSV."""
     print("[green]writing SBS table")
     db = db_session.query(SBS).all()
 
-    with open(pth.sbs_path, 'w', newline='') as tsvfile:
+    # Use the custom path if provided, otherwise use the default path
+    sbs_path = custom_path if custom_path else pth.sbs_path
+
+    with open(sbs_path, 'w', newline='') as tsvfile:
 
         csvwriter = csv.writer(
             tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL)

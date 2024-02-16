@@ -50,7 +50,7 @@ def dps(dpspth, dpd_db):
     def _is_needed(i: DpdHeadwords):
         return (i.ru)
 
-    header = ['id', 'lemma_1', 'lemma_2', 'fin', 'sbs_class_anki', 'sbs_category', 'sbs_class', 'pos', 'grammar', 'derived_from',
+    header = ['id', 'pali_1', 'pali_2', 'fin', 'sbs_class_anki', 'sbs_category', 'sbs_class', 'pos', 'grammar', 'derived_from',
                     'neg', 'verb', 'trans', 'plus_case', 'meaning_1',
                     'meaning_lit', 'ru_meaning', 'ru_meaning_lit', 'sbs_meaning', 'non_ia', 'sanskrit', 'sanskrit_root',
                     'sanskrit_root_meaning', 'sanskrit_root_class', 'root', 'root_in_comps', 'root_has_verb',
@@ -76,14 +76,6 @@ def dps(dpspth, dpd_db):
     with open(dpspth.dps_full_path, "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerows(rows)
-
-    # dps_df = pd.read_csv(dpspth.dps_full_path, sep="\t", dtype=str)
-    # dps_df.sort_values(
-    #     by=["lemma_1"], inplace=True, ignore_index=True,
-    #     key=lambda x: x.map(pali_sort_key))
-    # dps_df.to_csv(
-    #     dpspth.dps_full_path, sep="\t", index=False,
-    #     quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
 
 
 def pali_row(dpspth, i: DpdHeadwords, output="anki") -> List[str]:
@@ -246,7 +238,7 @@ def full_db(dpspth, dpd_db):
     tic()
     console.print("[bold green]making dpd-dps-full csv")
     rows = []
-    header = ['id', 'lemma_1', 'lemma_2', 'fin', 'sbs_class_anki', 'sbs_category', 'sbs_class','pos', 'grammar', 'derived_from',
+    header = ['id', 'pali_1', 'pali_2', 'fin', 'sbs_class_anki', 'sbs_category', 'sbs_class','pos', 'grammar', 'derived_from',
                     'neg', 'verb', 'trans', 'plus_case', 'meaning_1',
                     'meaning_lit', 'ru_meaning', 'ru_meaning_lit', 'sbs_meaning', 'non_ia', 'sanskrit', 'sanskrit_root',
                     'sanskrit_root_meaning', 'sanskrit_root_class', 'root', 'root_in_comps', 'root_has_verb',
@@ -274,14 +266,6 @@ def full_db(dpspth, dpd_db):
     with open(dpspth.dpd_dps_full_path, "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerows(rows)
-
-    # full_df = pd.read_csv(dpspth.dpd_dps_full_path, sep="\t", dtype=str)
-    # full_df.sort_values(
-    #     by=["lemma_1"], inplace=True, ignore_index=True,
-    #     key=lambda x: x.map(pali_sort_key))
-    # full_df.to_csv(
-    #     dpspth.dpd_dps_full_path, sep="\t", index=False,
-    #     quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
 
     toc()
 

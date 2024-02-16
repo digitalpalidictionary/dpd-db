@@ -46,34 +46,44 @@ def main():
                 # debug check if have a new number but it is not the same as old
                 if (
                     word.sbs and
-                    word.sbs.sbs_class_anki and
+                    # word.sbs.sbs_class_anki and
                     word.sbs.sbs_class != sbs_class
                 ):
                     count += 1
-                    print(f"{count} for {word.lemma_1} || old sbs_class: {word.sbs.sbs_class} || new is {sbs_class}")
+                    print(f"(changed) {count} for {word.lemma_1} || old sbs_class: {word.sbs.sbs_class} || new is {sbs_class}")
+
+                # debug for new words
+                if (
+                    not word.sbs
+                ):
+                    count += 1
+                    print(f"(added) {count} for {word.lemma_1} || old sbs_class: None || new is {sbs_class}")
 
             
                 if word.sbs and not word.sbs.sbs_class:
                     word.sbs.sbs_class = int(sbs_class)
+                    # print(f"(added) for {word.lemma_1} new sbs_class: {sbs_class}")
 
                 if word.sbs:
                     word.sbs.sbs_class = int(sbs_class)
-                    # print(f"for {word.lemma_1} new sbs_class: {sbs_class}")
+                    # print(f"(added) for {word.lemma_1} new sbs_class: {sbs_class}")
+
                 if not word.sbs:
                     word.sbs = SBS(id=word.id)
                     word.sbs.sbs_class = int(sbs_class)
-                    # print(f"for {word.lemma_1} new sbs_class: {sbs_class}")
+                    # print(f"(added) for {word.lemma_1} new sbs_class: {sbs_class}")
 
             else:
                 if word.sbs and word.sbs.sbs_class:
                     word.sbs.sbs_class = ""
+                    # print(f"(del) for {word.lemma_1} new sbs_class: {sbs_class}")
 
                     # debug check if does not have a new number but have old
                     if (
                         word.sbs.sbs_class_anki
                     ):
                         count += 1
-                        print(f"{count} for {word.lemma_1} || old sbs_class: {word.sbs.sbs_class} || new is {sbs_class}")
+                        print(f"(removed) {count} for {word.lemma_1} || old sbs_class: {word.sbs.sbs_class} || new is {sbs_class}")
 
     # db_session.commit()
 
@@ -104,7 +114,8 @@ def determine_sbs_class(word) -> Optional[int]:
     # filter dat of purpose
     if (
         "dat " in word.grammar and 
-        "āya" in word.lemma_1
+        "āya" in word.lemma_1 and
+        word.pos != "ind"
     ):
         # print(f"Pattern: dat of purpose, Word: {word.lemma_1}")
         return 9

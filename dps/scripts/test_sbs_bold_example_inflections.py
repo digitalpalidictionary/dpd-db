@@ -49,7 +49,7 @@ def find_all_bold_words():
 
 def get_inflections():
     """Get the inflections list."""
-    g.inflections_list = g.i.dd.inflections_list
+    g.inflections_list = g.i.inflections_list
 
 
 def test1():

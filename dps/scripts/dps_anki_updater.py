@@ -41,7 +41,7 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs), joinedload(DpdHeadwords.ru)).all()
-    print(f"{len(db):>10}{bop():>10.2f}")
+    print(f"{len(db):>10} {bop()}")
 
     decks = ["Пали Словарь"]
     (
@@ -80,7 +80,7 @@ def get_anki_collection() -> Collection|None:
     anki_db_path = config_read("anki", "db_path")
     try:
         col = Collection(anki_db_path)
-        print(f"{'ok':>10}{bop():>10.2f}")
+        print(f"{'ok':>10} {bop()}")
         return col
     except DBError:
         print("\n[red]Anki is currently open, ", end="")
@@ -96,11 +96,11 @@ def backup_anki_db(col) -> None:
         is_backed_up = col.create_backup(backup_folder=anki_backup_path, force=False, wait_for_completion=False)
         # if force = False, the db will not backup if it has not changed
         if not is_backed_up:
-            print(f"[red]{'no':>10}{bop():>10.2f}")
+            print(f"[red]{'no':>10} {bop()}")
         else:
-            print(f"{'ok':>10}{bop():>10.2f}")
+            print(f"{'ok':>10} {bop()}")
     else:
-        print(f"[red]{'no path':>10}{bop():>10.2f}")
+        print(f"[red]{'no path':>10} {bop()}")
 
 def get_field_names(col: Collection, deck_name: str) -> List[str]:
     """get field names for a specif deck"""
@@ -123,7 +123,7 @@ def get_notes(col: Collection, decks: List[str]) -> List[Note]:
     search_query =  make_search_query(decks)
     note_ids = col.find_notes(search_query)
     notes = [col.get_note(note_id) for note_id in note_ids]
-    print(f"{len(notes):>10}{bop():>10.2f}")
+    print(f"{len(notes):>10} {bop()}")
     return notes
 
 def get_cards(col: Collection, decks: List[str]) -> List[Card]:
@@ -133,7 +133,7 @@ def get_cards(col: Collection, decks: List[str]) -> List[Card]:
     search_query =  make_search_query(decks)
     card_ids = col.find_cards(search_query)
     cards = [col.get_card(card_id) for card_id in card_ids]
-    print(f"{len(cards):>10}{bop():>10.2f}")
+    print(f"{len(cards):>10} {bop()}")
     return cards
 
 def get_decks(col: Collection) -> Dict:
@@ -147,7 +147,7 @@ def get_decks(col: Collection) -> Dict:
     for deck, did in deck_dict.items():
         deck_dict_reverse[did] = deck
     deck_dict.update(deck_dict_reverse)
-    print(f"{len(deck_dict_reverse):>10}{bop():>10.2f}")
+    print(f"{len(deck_dict_reverse):>10} {bop()}")
     return deck_dict
 
 def get_models(col: Collection) -> dict:
@@ -156,7 +156,7 @@ def get_models(col: Collection) -> dict:
     print(f"[green]{'get models':<20}", end="")
     models = col.models.all()
     model_dict = {model["name"]: model["id"] for model in models}
-    print(f"{len(model_dict):>10}{bop():>10.2f}")
+    print(f"{len(model_dict):>10} {bop()}")
     return model_dict
 
 def make_data_dict(
@@ -198,7 +198,7 @@ def make_data_dict(
         if key in data_dict:
             print("Key", key, "will be overwritten")
     data_dict.update(data2)
-    print(f"{len(data_dict):>10}{bop():>10.2f}")
+    print(f"{len(data_dict):>10} {bop()}")
     return data_dict
 
 def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:    
@@ -231,7 +231,7 @@ def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:
 
                 make_new_note(col, deck, model_dict, deck_dict, i)
             if counter % 5000 == 0:
-                print(f"{counter:>5} {i.lemma_1[:23]:<24}{bop():>10.2f}")
+                print(f"{counter:>5} {i.lemma_1[:23]:<24} {bop()}")
                 bip()
 
         else:
@@ -257,7 +257,7 @@ def update_note_values(note, i):
     tags = " ".join(note.tags)  # Convert list of tags to a single string
 
     note["id"] = str(i.id)
-    note["lemma_1"] = str(i.lemma_1)
+    note["pali_1"] = str(i.lemma_1)
     if i.ru:
         note["native_meaning"] = str(i.ru.ru_meaning)
         note["native_meaning_lit"] = str(i.ru.ru_meaning_lit)

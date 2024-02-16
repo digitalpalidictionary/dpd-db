@@ -25,12 +25,15 @@ def backup_dpd_headwords_and_roots(pth: ProjectPaths):
     toc()
 
 
-def backup_dpd_headwords(db_session: Session, pth: ProjectPaths):
+def backup_dpd_headwords(db_session: Session, pth: ProjectPaths, custom_path: str = ""):
     """Backup DpdHeadwords table to TSV."""
     print("[green]writing DpdHeadwords table")
     db = db_session.query(DpdHeadwords).all()
 
-    with open(pth.pali_word_path, 'w', newline='') as tsvfile:
+    # Use the custom path if provided, otherwise use the default path
+    pali_word_path = custom_path if custom_path else pth.pali_word_path
+
+    with open(pali_word_path, 'w', newline='') as tsvfile:
         exclude_columns = [
             "created_at", "updated_at",
             "inflections", "inflections_sinhala", "inflections_devanagari", "inflections_thai", "inflections_html",
@@ -51,12 +54,15 @@ def backup_dpd_headwords(db_session: Session, pth: ProjectPaths):
             csvwriter.writerow(row)
 
 
-def backup_dpd_roots(db_session: Session, pth: ProjectPaths):
+def backup_dpd_roots(db_session: Session, pth: ProjectPaths, custom_path: str = ""):
     """Backup DpdRoots table to TSV."""
     print("[green]writing DpdRoots table")
     db = db_session.query(DpdRoots).all()
 
-    with open(pth.pali_root_path, 'w', newline='') as tsvfile:
+    # Use the custom path if provided, otherwise use the default path
+    pali_root_path = custom_path if custom_path else pth.pali_root_path
+
+    with open(pali_root_path, 'w', newline='') as tsvfile:
         exclude_columns = [
             "created_at", "updated_at",
             "root_info", "root_matrix"]
