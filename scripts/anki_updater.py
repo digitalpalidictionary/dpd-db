@@ -364,6 +364,7 @@ def update_note_values(col, note, i):
     note["family_root"] = str(i.family_root)
     note["family_word"] = str(i.family_word)
     note["family_compound"] = str(i.family_compound)
+    note["family_idioms"] = str(i.family_idioms)
     note["construction"] = str(i.construction).replace("\n", "<br>")
     note["derivative"] = str(i.derivative)
     note["suffix"] = str(i.suffix)

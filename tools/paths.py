@@ -322,6 +322,7 @@ class ProjectPaths:
         self.syn_var_exceptions_path = base_dir.joinpath(Path("tests/add_synonym_variant_exceptions.py"))
         self.wf_exceptions_list = base_dir.joinpath(Path("tests/add_word_family_exceptions"))
         self.idioms_exceptions_dict = base_dir.joinpath(Path("tests/test_idioms.json"))
+        self.neg_compound_exceptions = base_dir.joinpath(Path("tests/test_neg_compound_exceptions.json"))
 
         # tools
         self.user_dict_path = base_dir.joinpath(Path("tools/user_dictionary.txt"))

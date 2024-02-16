@@ -3,18 +3,13 @@
 """Find super long words and hyphenate them."""
 
 import json
-import re
-import pyperclip
 
 from rich import print
-from typing import Optional
 
 from db.get_db_session import get_db_session
 from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
-from tools.pali_alphabet import pali_alphabet
 from tools.tic_toc import tic, toc
-from tools.db_search_string import db_search_string
 
 
 class ProgData():
