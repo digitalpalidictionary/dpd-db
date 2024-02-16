@@ -15,8 +15,6 @@ from sqlalchemy.orm.session import Session
 from tools.lookup_is_another_value import is_another_value
 from tools.update_test_add import update_test_add
 
-from transliterate_sandhi import transliterate_sandhi
-
 from db.get_db_session import get_db_session
 from db.models import Lookup
 from tools.paths import ProjectPaths
@@ -43,7 +41,6 @@ def main():
     matches_df = process_matches(ADD_DO, pth, neg_inflections_set)
     top_five_dict = make_top_five_dict(matches_df)
     add_to_dpd_db(db_session, top_five_dict)
-    # transliterate_sandhi() FIXME!
     make_rule_counts(pth, matches_df)
     letter_counts(pth, matches_df)
     toc()
