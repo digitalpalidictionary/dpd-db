@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Save all tables in dps/backup folder."""
+"""Save all tables to dps/backup folder."""
 
 
 from rich.console import Console
@@ -19,15 +19,15 @@ console = Console()
 
 def backup_all_tables_dps():
     tic()
-    console.print("[bold bright_yellow]Backing up all tables to dps/backup/*.tsvs")
+    console.print("[bold bright_yellow]Backing up all tables to dps/backup/ folder")
     pth = ProjectPaths()
     dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
     
-    dps_ru_path = os.path.join(dpspth.dps_backup_dir, "russian.tsv")
-    dps_sbs_path = os.path.join(dpspth.dps_backup_dir, "sbs.tsv")
     dps_headwords_path = os.path.join(dpspth.dps_backup_dir, "dpd_headwords.tsv")
     dps_roots_path = os.path.join(dpspth.dps_backup_dir, "dpd_roots.tsv")
+    dps_ru_path = os.path.join(dpspth.dps_backup_dir, "russian.tsv")
+    dps_sbs_path = os.path.join(dpspth.dps_backup_dir, "sbs.tsv")
 
     backup_dpd_headwords(db_session, pth, dps_headwords_path)
     backup_dpd_roots(db_session, pth, dps_roots_path)

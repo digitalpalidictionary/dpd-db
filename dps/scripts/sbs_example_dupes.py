@@ -17,6 +17,7 @@ from tools.tic_toc import tic, toc
 
 console = Console()
 
+threshold=0.84
 
 def main():
 
@@ -54,7 +55,7 @@ def main():
     toc()
 
 
-def paragraphs_are_similar(paragraph1, paragraph2, threshold=0.85):
+def paragraphs_are_similar(paragraph1, paragraph2, threshold=threshold):
     matcher = SequenceMatcher(None, paragraph1, paragraph2)
     similarity_ratio = matcher.ratio()
     return similarity_ratio >= threshold

@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+
+"""
+    saving words for vocab pali class into separate csv and untute them to one xlsx
+"""
+
 import csv
 import os
 import pandas as pd

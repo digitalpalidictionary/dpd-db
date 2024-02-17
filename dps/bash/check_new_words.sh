@@ -21,7 +21,7 @@ libreoffice dps/backup/for_compare/mismatched_rows.tsv
 read -p "${bold}${yellow}Did you apply all changes? (y/n): ${reset}" confirmation
 if [ "$confirmation" == "y" ]; then
 
-    # Copy paliword
+    # Copy dpd_headwords
     cp -rf backup_tsv/dpd_headwords.tsv dps/backup/for_compare/dpd_headwords.tsv
 
     echo "${bold}${green}The job is done${reset}"
@@ -29,13 +29,3 @@ else
     echo "${bold}${red}No changes applied. Exiting.${reset}"
 fi
 
-read -p "${bold}${yellow}Did you recive additions.tsv and moved it into temp/ ? (y/n): ${reset}" confirmation
-if [ "$confirmation" == "y" ]; then
-
-    # change IDs
-    dps/scripts/replace_new_id_ru_sbs.py
-
-    echo "${bold}${green}Id's has been replaced, copy files from temp/ and rebuild DB${reset}"
-else
-    echo "${bold}${red}No changes applied. Exiting.${reset}"
-fi

@@ -9,14 +9,28 @@ from db.get_db_session import get_db_session
 from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 from tools.pali_alphabet import pali_alphabet
+from sqlalchemy.orm import joinedload
+from tools.configger import config_test
+
+#check username
+if config_test("user", "username", "deva"):
+    dps_data = True
+else:
+    dps_data = False
 
 class ProgData():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    if dps_data:
+        db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs)).all()
+    else:
+        db = db_session.query(DpdHeadwords).all()
     pali_alphabet: list[str] = pali_alphabet
     i: DpdHeadwords
-    fields: list[str] = ["example_1", "example_2"]
+    if dps_data:
+        fields: list[str] = ["sbs_example_1", "sbs_example_2", "sbs_example_3", "sbs_example_4"]
+    else:
+        fields: list[str] = ["example_1", "example_2"]
     field: str
     bold_words: list[str]
     bold_word: str
@@ -33,7 +47,10 @@ def main():
             # search in a list of fields
             for field in g.fields:
                 g.field = field
-                find_all_bold_words()
+                if dps_data:
+                    find_all_bold_words_sbs()
+                else:
+                    find_all_bold_words()
                 get_inflections()
                 for bold_word in g.bold_words:
                     g.bold_word = bold_word
@@ -43,6 +60,14 @@ def main():
 def find_all_bold_words():
     """Get All the bold words from the string."""
     g.bold_words = re.findall("<b>.+?<\\/b>", getattr(g.i, g.field))
+
+
+def find_all_bold_words_sbs():
+    """Get All the bold words from the string."""
+    if g.i.sbs is not None:
+        g.bold_words = re.findall("<b>.+?<\\/b>", getattr(g.i.sbs, g.field))
+    else:
+        g.bold_words = []
 
 
 def get_inflections():

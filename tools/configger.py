@@ -141,11 +141,15 @@ def config_test_option(section, option):
         return False
 
 
-def print_config_settings() -> None:
-    for section in config.sections():
-        print(f"[{section}]")
-        for key, value in config.items(section):
-            print(f"{key} = {value}")
+def print_config_settings(sections_to_print=None) -> None:
+    """Print specified sections from config.ini or all if not specified."""
+    if sections_to_print is None:
+        sections_to_print = config.sections()
+    for section in sections_to_print:
+        if config.has_section(section):
+            print(f"[{section}]")
+            for key, value in config.items(section):
+                print(f"{key} = {value}")
 
 
 if __name__ == "__main__":

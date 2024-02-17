@@ -14,7 +14,7 @@ print("\033[1;33m moving mdict from exporter/ \033[0m")
 
 
 # check config
-if config_test("dictionary", "make_mdict", "yes") or config_test("goldendict", "copy_unzip", "yes"):
+if config_test("dictionary", "make_mdict", "yes"):
 
    # Assuming the script is in the 'Documents/dpd-db/dps/scripts' directory
    script_dir = os.path.dirname(os.path.realpath(__file__))

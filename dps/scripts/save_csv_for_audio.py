@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+
+"""
+    saving all words which dose not have an audio file. Saving them separately and unite them into one csv
+"""
+
 import csv
 import os
 import re

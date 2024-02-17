@@ -1,7 +1,6 @@
-# build dpd.db from scratch using dps backup_tsv and making goldendict
+# update data in dpd.db from from dps backup_tsv
 
 set -e
-test -e dpd.db || touch dpd.db
 
 # Define filenames
 FILENAMES=("sbs.tsv" "russian.tsv" "dpd_roots.tsv" "dpd_headwords.tsv")
@@ -16,16 +15,12 @@ for file in "${FILENAMES[@]}"; do
     cp -rf ./dps/backup/$file ./backup_tsv/$file
 done
 
-bash/build_db.sh
-
-dps/scripts/add_combined_view.py
+scripts/db_update_from_tsv.py
 
 # Move files back from temp/ to backup_tsv/ after all other scripts have completed
 for file in "${FILENAMES[@]}"; do
     mv -f ./temp/$file ./backup_tsv/$file
 done
-
-exporter/exporter.py
 
 
 
