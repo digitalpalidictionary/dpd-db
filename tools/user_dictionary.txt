@@ -2094,3 +2094,4 @@ blameworthy
 Yasa
 potsherd
 anchorite
+enterer

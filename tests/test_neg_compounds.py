@@ -105,7 +105,6 @@ def auto_replace_na(lemma_clean: str) -> str:
             return f"na + {lemma_clean[3:]}"
         else:
             return f"na + {lemma_clean[2:]}"
-        
     elif lemma_clean.startswith("an"):
         print("[light_coral]an or a?", end=" ")
         route = input()
@@ -113,30 +112,16 @@ def auto_replace_na(lemma_clean: str) -> str:
             return f"na + {lemma_clean[2:]}"
         else:
             return f"na + {lemma_clean[1:]}"
-    
     elif lemma_clean.startswith("a"):
-        
         # check if there's a double consonant
         if lemma_clean[1] == lemma_clean[2]:
             return f"na + {lemma_clean[2:]}"
         else:
             return f"na + {lemma_clean[1:]}"
-    
     elif lemma_clean.startswith("nā"):
         return f"na + a{lemma_clean[2:]}"
-    
     else: 
         return ""
-
-
-
-
-
-
-
-
-
-
 
 
 if __name__ == "__main__":

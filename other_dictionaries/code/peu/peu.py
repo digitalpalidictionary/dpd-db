@@ -1,6 +1,10 @@
 """Export PEU into Goldendict, MDict and JSON formats."""
 
+# the most up to date data is always available from 
+# https://pm12e.pali.tools/dump
+
 import json
+import re
 import sqlite3
 
 from rich import print
@@ -27,6 +31,19 @@ def extract_peu_from_tpr_database():
     peu_data = c.fetchall()
 
     return peu_data
+
+def extract_peu_from_data_dump():
+    """Latest data from https://pm12e.pali.tools/dump"""
+
+    with open("other_dictionaries/code/peu/source/peu_dump_2024_02_16.js") as f:
+        raw_data = f.read()
+        raw_data = re.sub(r'[\x00-\x1F\x7F-\x9F]', '', raw_data)
+        raw_data = raw_data.replace('"', '^^^')
+        raw_data = raw_data.replace("'", '"')
+        raw_data = raw_data.replace("^^^", "'")
+
+        return json.loads(raw_data)
+
 
 
 def main():
@@ -95,4 +112,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    # x = extract_peu_from_data_dump()
+    x = extract_peu_from_tpr_database()
+    print(len(x))
+    print(type(x))
+    # for i in x:
+        # print(i)

@@ -56,15 +56,10 @@ class ProjectPaths:
         self.epub_abbreviations_path = base_dir.joinpath(Path("ebook/epub/OEBPS/Text/abbreviations.xhtml"))
         self.epub_titlepage_path = base_dir.joinpath(Path("ebook/epub/OEBPS/Text/titlepage.xhtml"))
 
-        # /ebook/output
-        self.ebook_output_dir = base_dir.joinpath(Path("ebook/output/"))
-        self.dpd_epub_path = base_dir.joinpath(Path("ebook/output/dpd-kindle.epub"))
-        self.dpd_mobi_path = base_dir.joinpath(Path("ebook/output/dpd-kindle.mobi"))
-
         # /ebook/templates
         self.ebook_letter_templ_path = base_dir.joinpath(Path("ebook/templates/ebook_letter.html"))
         self.ebook_entry_templ_path = base_dir.joinpath(Path("ebook/templates/ebook_entry.html"))
-        self.ebook_sandhi_templ_path = base_dir.joinpath(Path("ebook/templates/ebook_sandhi_entry.html"))
+        self.ebook_deconstructor_templ_path = base_dir.joinpath(Path("ebook/templates/ebook_deconstructor_entry.html"))
         self.ebook_grammar_templ_path = base_dir.joinpath(Path("ebook/templates/ebook_grammar.html"))
         self.ebook_example_templ_path = base_dir.joinpath(Path("ebook/templates/ebook_example.html"))
         self.ebook_abbrev_entry_templ_path = base_dir.joinpath(Path("ebook/templates/ebook_abbreviation_entry.html"))
@@ -96,7 +91,8 @@ class ProjectPaths:
         self.mdict_mdx_path = base_dir.joinpath(Path("exporter/share/dpd-mdict.mdx"))
         self.grammar_dict_zip_path = base_dir.joinpath(Path("exporter/share/dpd-grammar.zip"))
         self.grammar_dict_mdict_path = base_dir.joinpath(Path("exporter/share/dpd-grammar-mdict.mdx"))
-        self.dpd_kindle_path = base_dir.joinpath(Path("exporter/share/dpd-kindle.mobi"))
+        self.dpd_mobi_path = base_dir.joinpath(Path("exporter/share/dpd-kindle.mobi"))
+        self.dpd_epub_path = base_dir.joinpath(Path("exporter/share/dpd-kindle.epub"))
         self.deconstructor_zip_path = base_dir.joinpath(Path("exporter/share/dpd-deconstructor.zip"))
         self.deconstructor_mdict_mdx_path = base_dir.joinpath(Path("exporter/share/dpd-deconstructor-mdict.mdx"))
         self.dpd_goldendict_zip_path = base_dir.joinpath(Path("exporter/share/dpd-goldendict.zip"))
@@ -346,7 +342,6 @@ class ProjectPaths:
             self.zip_dir,
             self.tpr_dir,
             self.epub_text_dir,
-            self.ebook_output_dir,
             self.frequency_output_dir,
             self.grammar_dict_output_dir,
             self.grammar_dict_output_html_dir,

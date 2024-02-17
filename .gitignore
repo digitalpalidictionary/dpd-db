@@ -8,6 +8,8 @@ __pycache__/
 *.sqlite3
 *~lock.*
 anki_csvs/
+bold_defintions/bold_defintions.json
+bold_defintions/bold_defintions.tsv
 config.ini
 definitions/
 dpd.db-journal
@@ -69,7 +71,10 @@ gui/icons/
 gui/stash/
 gui/window_layout.py
 other_dictionaries/code/cpd/output
+other_dictionaries/code/peu/source/peu_dump_2024_02_16.js
+other_dictionaries/goldendict/
 other_dictionaries/json/
+other_dictionaries/mdict/
 profiler_output.txt
 resources/thai_mahachula/
 sandhi.zip
@@ -95,7 +100,3 @@ tests/test_theragatha_filler
 time_log.dat
 time_log.png
 tmp/
-bold_defintions/bold_defintions.json
-bold_defintions/bold_defintions.tsv
-other_dictionaries/goldendict/
-other_dictionaries/mdict/

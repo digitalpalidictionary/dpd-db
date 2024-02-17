@@ -531,7 +531,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √khar	1	a	perish, break apart	√kṣar	1, 2	flow	√khar	kṣar	akṣarā, akṣaravat, akṣara
 √khal 1	1	a	stumble, make mistake	√skhal	1	stumble	√khal	skhal	na + skhalita, skhalita
 √khal 1	1	a	stumble, make mistake	√skhal	1	stumble	ava √khal		+ skhalita
-√khal 1	1	a	stumble, make mistake	√skhal	1	stumble	upa √khal		upa + skhal
+√khal 1	1	a	stumble, make mistake	√skhal	1	stumble	upa √khal	skhal	upa + skhal
 √khal 1	1	a	stumble, make mistake	√skhal	1	stumble	pa √khal	praskhal	
 √khal 1	1	a	stumble, make mistake	√skhal	1	stumble	vi √khal	viskhal	viskhalita
 √khal 2	8	*e	clean, rinse	√kṣal √kṣar	10	wash	√khal	kṣal	kṣālayati
@@ -1506,7 +1506,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √nah	3	ya	bind, arm	√nah	4	tie	ā saṃ √nah		ā + saṃnaddha
 √nah	3	ya	bind, arm	√nah	4	tie	upa √nah	upanah	na + upanāha, upanāhin, upanāha, anupānah, upanahyati, na + upanāhin, upānah
 √nah	3	ya	bind, arm	√nah	4	tie	pari √nah	pariṇah	pariṇāha
-√nah	3	ya	bind, arm	√nah	4	tie	pari ava √nah		
+√nah	3	ya	bind, arm	√nah	4	tie	pari ava √nah	avanah	
 √nah	3	ya	bind, arm	√nah	4	tie	saṃ √nah	saṃnah	saṃnaddhvā, sannāḍhvā, saṃnaddha, saṃnahyati, saṃnāha
 √nāth	1	a	have power, protect	√nāth	1	seek aid	√nāth	nāth	nātha, sanātha, anātha
 √nind	1	a	blame, abuse	√nind	1	revile	√nind	nind	nindya, nindanīya, nindat, anindita, nindati, nindita, nindā, na + nindā, nindana
@@ -2145,30 +2145,30 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √yas	3	ya	strive, struggle	√yas	1, 3, 4	be heated	ā √yas		āyāsa, anāyāsa
 √yas	3	ya	strive, struggle	√yas	1, 3, 4	be heated	upa ā √yas		upāyāsa (bsk), sa + upāyāsa (bsk), na + upāyāsa (bsk)
 √yas	3	ya	strive, struggle	√yas	1, 3, 4	be heated	nī √yas		niryāsa, rasa
-√yā	1	a	go	√yā	2	go	√yā		yā, yātvā, yāpana, yāpayat, ayīyapat, yā, yantra, yāt, yāpayatuṃ, yānī, yāpayatu, yā, yātu, yātum, yāyin, yāti, yātvā, yāpanāya, yāpayati, yāna, yāpayitvā, yāpanīya, yātrā
-√yā	1	a	go	√yā	2	go	ati √yā		atiyā, atiyātum
-√yā	1	a	go	√yā	2	go	anu √yā		anu ītvā, na + anuyāyin, anuyāta, anuyāt, anuyāna, anuyāta
-√yā	1	a	go	√yā	2	go	anu pari √yā		anu + pariyāti, anu + paryāya
-√yā	1	a	go	√yā	2	go	anu saṃ √yā		anusaṃyāti, anusaṃyātuṃ, anusaṃyāmāna, anusaṃyā
-√yā	1	a	go	√yā	2	go	anu saṃ pa √yā		
-√yā	1	a	go	√yā	2	go	apa √yā		apayāpayitum, apayāpayitavya, apayāpayati
-√yā	1	a	go	√yā	2	go	abhi √yā		
+√yā	1	a	go	√yā	2	go	√yā	yā	yā, yātvā, yāpana, yāpayat, ayīyapat, yā, yantra, yāt, yāpayatuṃ, yānī, yāpayatu, yā, yātu, yātum, yāyin, yāti, yātvā, yāpanāya, yāpayati, yāna, yāpayitvā, yāpanīya, yātrā
+√yā	1	a	go	√yā	2	go	ati √yā	atiyā	atiyā, atiyātum
+√yā	1	a	go	√yā	2	go	anu √yā	anuyā	anu ītvā, na + anuyāyin, anuyāta, anuyāt, anuyāna, anuyāta
+√yā	1	a	go	√yā	2	go	anu pari √yā	anupariyā	anu + pariyāti, anu + paryāya
+√yā	1	a	go	√yā	2	go	anu saṃ √yā	anusaṃyā	anusaṃyāti, anusaṃyātuṃ, anusaṃyāmāna, anusaṃyā
+√yā	1	a	go	√yā	2	go	anu saṃ pa √yā	anusamprayā	
+√yā	1	a	go	√yā	2	go	apa √yā	apayā	apayāpayitum, apayāpayitavya, apayāpayati
+√yā	1	a	go	√yā	2	go	abhi √yā	abhiyā	
 √yā	1	a	go	√yā	2	go	abhi ud √yā		abhiyāta, abhiyāti, abhiyā
-√yā	1	a	go	√yā	2	go	ava √yā		
-√yā	1	a	go	√yā	2	go	ā √yā		āyāt, āyata, āyatam, āyāma, āyāti
-√yā	1	a	go	√yā	2	go	ud √yā		udyāpayati, udyāna
-√yā	1	a	go	√yā	2	go	upa √yā		upayāti, upayāyati, upayāt
-√yā	1	a	go	√yā	2	go	upa saṃ √yā		
-√yā	1	a	go	√yā	2	go	nī √yā		na + niryāṇa, nīyati, niryāti, nairyānika (bsk), niryāt, na + nairyānika (bsk), niryāṇa, na + nairyānika (bsk) +, niryātuṃ, niryāta
-√yā	1	*āpe	go	√yā	2	go	pa √yā		prayāta, prayā, prayāta, prayetum, prayāti, prayāsin?
-√yā	1	a	go	√yā	2	go	pati ā √yā		pratiyā
-√yā	1	a	go	√yā	2	go	pati ā nī √yā		pratiniryāti
-√yā	1	a	go	√yā	2	go	pati ud √yā		pratyudyā
-√yā	1	a	go	√yā	2	go	pari √yā		pari + īyāyat, pari + īyāyate
-√yā	1	a	go	√yā	2	go	vi √yā		
-√yā	1	a	go	√yā	2	go	vi apa √yā		vyapayāti
-√yā	1	a	go	√yā	2	go	saṃ ā √yā		
-√yā	1	a	go	√yā	2	go	saṃ pa √yā		samprayāta, samprayā́tave
+√yā	1	a	go	√yā	2	go	ava √yā	avayā	
+√yā	1	a	go	√yā	2	go	ā √yā	āyā	āyāt, āyata, āyatam, āyāma, āyāti
+√yā	1	a	go	√yā	2	go	ud √yā	udyā	udyāpayati, udyāna
+√yā	1	a	go	√yā	2	go	upa √yā	upayā	upayāti, upayāyati, upayāt
+√yā	1	a	go	√yā	2	go	upa saṃ √yā	upasaṃyā	
+√yā	1	a	go	√yā	2	go	nī √yā	niryā	na + niryāṇa, nīyati, niryāti, nairyānika (bsk), niryāt, na + nairyānika (bsk), niryāṇa, na + nairyānika (bsk) +, niryātuṃ, niryāta
+√yā	1	*āpe	go	√yā	2	go	pa √yā	prayā	prayāta, prayā, prayāta, prayetum, prayāti, prayāsin?
+√yā	1	a	go	√yā	2	go	pati ā √yā	pratiyā	pratiyā
+√yā	1	a	go	√yā	2	go	pati ā nī √yā	pratiniryā	pratiniryāti
+√yā	1	a	go	√yā	2	go	pati ud √yā	pratyudyā	pratyudyā
+√yā	1	a	go	√yā	2	go	pari √yā	pariyā	pari + īyāyat, pari + īyāyate
+√yā	1	a	go	√yā	2	go	vi √yā	viyā	
+√yā	1	a	go	√yā	2	go	vi apa √yā	vyapayā	vyapayāti
+√yā	1	a	go	√yā	2	go	saṃ ā √yā	samāyā	
+√yā	1	a	go	√yā	2	go	saṃ pa √yā	samprayā	samprayāta, samprayā́tave
 √yā	1	a	go	√yā	2	go	saṃ pa ā √yā		samprayāti, samprayā, na + samprayāt
 √yāc	1	a	beg	√yāc	1	ask	√yāc	yāc	yācitaka, yācati, na + yācita, ayācīt, yācayati, yācyamāna, yācikā, a + yācyaTr., yāci, yācitavya, yācaka, yācanaka, yācita, yācitum, na + yācaka, yācitvā, yācya, yācana
 √yāc	1	a	beg	√yāc	1	ask	ati √yāc		ati + yācanaka, ati + yācana, ati + yācaka

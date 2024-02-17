@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
-"""Create an EPUB and MOBI version of DPD using a limited data set."""
+"""Create an EPUB and MOBI version of DPD. 
+The word set is limited to  
+- CST EBTS
+- Sutta Central EBTS
+- words in deconstruted compounds."""
 
 import os
-import shutil
 import subprocess
 
 from datetime import datetime
 from mako.template import Template
 from rich import print
-from typing import Dict, List
+from typing import Dict
 from zipfile import ZipFile, ZIP_DEFLATED
 
 from db.get_db_session import get_db_session
-from db.models import DpdHeadwords, Sandhi
+from db.models import DpdHeadwords, Lookup
 
 from tools.configger import config_test
 from tools.cst_sc_text_sets import make_cst_text_set
@@ -24,7 +27,7 @@ from tools.meaning_construction import summarize_construction
 from tools.meaning_construction import degree_of_completion
 from tools.niggahitas import add_niggahitas
 from tools.pali_alphabet import pali_alphabet
-from tools.pali_sort_key import pali_sort_key
+from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 from tools.paths import ProjectPaths
 from tools.deconstructed_words import make_words_in_deconstructions
 from tools.tic_toc import tic, toc
@@ -39,6 +42,7 @@ def render_xhtml():
     dpd_db = db_sesssion.query(DpdHeadwords).all()
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
     print(f"{len(dpd_db):>10,}")
+
 
     # limit the extent of the dictionary to an ebt text set
     ebt_books = [
@@ -62,40 +66,49 @@ def render_xhtml():
     print(f"{len(sc_text_set):>10,}")
     combined_text_set = cst_text_set | sc_text_set
 
-    # words in sandhi compounds in cst_text_set & sc_text_set
-    print(f"[green]{'querying sandhi db':<40}", end="")
-    sandhi_db = db_sesssion.query(Sandhi).filter(
-        Sandhi.sandhi.in_(combined_text_set)).all()
-    words_in_sandhi_set = make_words_in_deconstructions(sandhi_db)
-    print(f"{len(words_in_sandhi_set):>10,}")
 
-    # all_words_set = cst_text_set + sc_text_set + words in sandhi compounds
-    all_words_set = combined_text_set | words_in_sandhi_set
+    # words in deconstructor in cst_text_set & sc_text_set
+    print(f"[green]{'querying lookup table for deconstructor':<40}", end="")
+    deconstructor_db = db_sesssion \
+        .query(Lookup) \
+        .filter(
+            Lookup.deconstructor != "", 
+            Lookup.lookup_key.in_(combined_text_set)) \
+        .all()
+        
+    words_in_deconstructor_set = make_words_in_deconstructions(db_sesssion)
+    print(f"{len(words_in_deconstructor_set):>10,}")
+
+
+    # all_words_set = cst_text_set + sc_text_set + words in deconstrutor compounds
+    all_words_set = combined_text_set | words_in_deconstructor_set
     print(f"[green]{'all_words_set':<40}{len(all_words_set):>10,}")
+
 
     # only include inflections which exist in all_words_set
     print(f"[green]{'creating inflections dict':<40}", end="")
-    dd_db = db_sesssion.query(DpdHeadwords).all()
-    dd_dict: Dict[int, List[str]] = {}
-    dd_counter = 0
 
-    for i in dd_db:
-        inflections = set(i.inflections_list) & all_words_set
-        dd_dict[i.id] = list(inflections)
-        dd_counter += len(inflections)
-        
-    print(f"{dd_counter:>10,}")
-
-    # add one clean inflection without diacritics
+    inflections_dict: Dict[int, list[str]] = {}
+    inflections_counter = 0
     for i in dpd_db:
-        no_diacritics = diacritics_cleaner(i.lemma_clean)
-        dd_dict[i.id] += [no_diacritics]
-    
-    # add inflection with ṁ and sort
-    for i in dd_dict:
-        inflections_plus: list = add_niggahitas(list(dd_dict[i]), all=False)
-        inflections_plus = sorted(set(inflections_plus), key=pali_sort_key)
-        dd_dict[i] = inflections_plus
+        # only add inflections in all words set
+        inflections_set: set[str] = set(i.inflections_list) & all_words_set
+
+        # # add one clean inflection without diacritics
+        # inflections_set.add(diacritics_cleaner(i.lemma_clean))
+
+        # add niggahitas
+        inflections_set = set(add_niggahitas(list(inflections_set), all=False))
+
+        # sort into pali alphabetical order
+        inflections_sorted: list[str] = pali_list_sorter(list(inflections_set))
+
+        # update dict
+        inflections_dict[i.id] = inflections_sorted
+        inflections_counter += len(inflections_sorted)
+
+    print(f"{inflections_counter:>10,}")
+
 
     # a dictionary for entries of each letter of the alphabet
     print(f"[green]{'initialising letter dict':<40}")
@@ -103,30 +116,33 @@ def render_xhtml():
     for letter in pali_alphabet:
         letter_dict[letter] = []
 
+
     # add all words
     print("[green]creating entries")
     id_counter = 1
     for counter, i in enumerate(dpd_db):
-        inflections: set = set(dd_dict[i.id])
+        inflection_list: list = inflections_dict[i.id]
         first_letter = find_first_letter(i.lemma_1)
-        entry = render_ebook_entry(pth, id_counter, i, inflections)
+        entry = render_ebook_entry(pth, id_counter, i, inflection_list)
         letter_dict[first_letter] += [entry]
         id_counter += 1
 
         if counter % 5000 == 0:
             print(f"{counter:>10,} / {len(dpd_db):<10,} {i.lemma_1}")
 
-    # add sandhi words which are in all_words_set
-    print("[green]add sandhi words")
-    for counter, i in enumerate(sandhi_db):
-        if bool(set(i.sandhi) & all_words_set):
-            first_letter = find_first_letter(i.sandhi)
-            entry = render_sandhi_entry(pth, id_counter, i)
+
+    # add deconstructor words which are in all_words_set
+    print("[green]add deconstructor words")
+    for counter, i in enumerate(deconstructor_db):
+        if bool(set(i.lookup_key) & all_words_set):
+            first_letter = find_first_letter(i.lookup_key)
+            entry = render_deconstructor_entry(pth, id_counter, i)
             letter_dict[first_letter] += [entry]
             id_counter += 1
 
         if counter % 5000 == 0:
-            print(f"{counter:>10,} / {len(sandhi_db):<10,} {i.sandhi}")
+            print(f"{counter:>10,} / {len(deconstructor_db):<10,} {i.lookup_key}")
+
 
     # save to a single file for each letter of the alphabet
     print(f"[green]{'saving entries xhtml':<40}", end="")
@@ -152,7 +168,8 @@ def render_xhtml():
 # functions to create the various templates
 
 
-def render_ebook_entry(pth: ProjectPaths, counter: int, i: DpdHeadwords, inflections: set) -> str:
+def render_ebook_entry(
+        pth: ProjectPaths, counter: int, i: DpdHeadwords, inflections: list) -> str:
     """Render single word entry."""
 
     summary = f"{i.pos}. "
@@ -243,21 +260,25 @@ def render_example_templ(pth: ProjectPaths, i: DpdHeadwords) -> str:
         return ""
 
 
-def render_sandhi_entry(pth: ProjectPaths, counter: int, i: Sandhi) -> str:
-    """Render sandhi word entry."""
+def render_deconstructor_entry(
+        pth: ProjectPaths, counter: int, i: Lookup) -> str:
+    """Render deconstructor word entry."""
 
-    sandhi = i.sandhi
-    splits = "<br/>".join(i.split_list)
+    construction = i.lookup_key
+    deconstruction = "<br/>".join(i.unpack_deconstructor())
 
-    ebook_sandhi_templ = Template(filename=str(pth.ebook_sandhi_templ_path))
+    ebook_deconstructor_templ = Template(
+        filename=str(
+            pth.ebook_deconstructor_templ_path))
 
-    return str(ebook_sandhi_templ.render(
+    return str(ebook_deconstructor_templ.render(
             counter=counter,
-            sandhi=sandhi,
-            splits=splits))
+            construction=construction,
+            deconstruction=deconstruction))
 
 
-def render_ebook_letter_templ(pth: ProjectPaths, letter: str, entries: str) -> str:
+def render_ebook_letter_templ(
+        pth: ProjectPaths, letter: str, entries: str) -> str:
     """Render all entries for a single letter."""
     ebook_letter_templ = Template(filename=str(pth.ebook_letter_templ_path))
     return str(ebook_letter_templ.render(
@@ -292,7 +313,8 @@ def save_abbreviations_xhtml_page(pth: ProjectPaths, id_counter):
 def render_abbreviation_entry(pth: ProjectPaths, counter: int, i: dict) -> str:
     """Render a single abbreviations entry."""
 
-    ebook_abbreviation_entry_templ = Template(filename=str(pth.ebook_abbrev_entry_templ_path))
+    ebook_abbreviation_entry_templ = Template(
+        filename=str(pth.ebook_abbrev_entry_templ_path))
 
     return str(ebook_abbreviation_entry_templ.render(
             counter=counter,
@@ -306,7 +328,8 @@ def save_title_page_xhtml(pth: ProjectPaths):
     date = current_datetime.strftime("%Y-%m-%d")
     time = current_datetime.strftime("%H:%M")
 
-    ebook_title_page_templ = Template(filename=str(pth.ebook_title_page_templ_path))
+    ebook_title_page_templ = Template(
+        filename=str(pth.ebook_title_page_templ_path))
 
     xhtml = str(ebook_title_page_templ.render(
             date=date,
@@ -326,7 +349,8 @@ def save_content_opf_xhtml(pth: ProjectPaths, current_datetime):
 
     date_time_zulu = current_datetime.strftime("%Y-%m-%dT%H:%M:%SZ")
 
-    ebook_content_opf_templ = Template(filename=str(pth.ebook_content_opf_templ_path))
+    ebook_content_opf_templ = Template(
+        filename=str(pth.ebook_content_opf_templ_path))
 
     content = str(ebook_content_opf_templ.render(
             date_time_zulu=date_time_zulu))
@@ -361,23 +385,21 @@ def make_mobi(pth: ProjectPaths):
     process.wait()
 
 
-def copy_mobi(pth: ProjectPaths):
-    """Copy the mobi to the exporter/share dir."""
-    print("[green]copying mobi to exporter/share")
-    shutil.copy2(pth.dpd_mobi_path, pth.dpd_kindle_path)
-
-
-if __name__ == "__main__":
+def main():
+    tic()
     print("[bright_yellow]rendering dpd for ebook")
     if config_test("exporter", "make_ebook", "yes"):
-        tic()
         id_counter = render_xhtml()
         pth = ProjectPaths()
         save_abbreviations_xhtml_page(pth, id_counter)
         save_title_page_xhtml(pth)
         zip_epub(pth)
         make_mobi(pth)
-        copy_mobi(pth)
-        toc()
     else:
         print("generating is disabled in the config")
+    toc()
+
+
+if __name__ == "__main__":
+    main()
+
