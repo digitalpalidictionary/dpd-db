@@ -3,6 +3,7 @@
 """Test the bold word in examples is an actual inflection of the headword."""
 
 import re
+import pyperclip
 from rich import print
 
 from db.get_db_session import get_db_session
@@ -138,8 +139,15 @@ def test6():
 
 def printer(message):
     """Print out the problem and up the tally."""
-    print(f"{g.counter:<4}{g.i.id:<8}{g.i.lemma_1:<40}{g.clean_bold_word:<30}{g.field:<10}{message}")
+    p = f"{g.counter:<4}{g.i.id:<8}{g.i.lemma_1:<40}"
+    p += f"[deep_sky_blue4]{g.field:<10}"
+    p += f"[chartreuse2]{g.clean_bold_word:<30}"
+    p += f"[light_sky_blue3]{message:<10}"
+    print(p, end="")
     g.counter += 1
+    pyperclip.copy(g.i.lemma_1)
+    # input("press enter to continue: ")
+    print()
     
 
 if __name__ == "__main__":
