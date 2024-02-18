@@ -57,6 +57,7 @@ class InflectionTemplates(Base):
     def pack_inflection_template(self, list: list[str]) -> None:
         self.data = json.dumps(list, ensure_ascii=False)
 
+    @property
     def unpack_inflection_template(self) -> list[str]:
         return json.loads(self.data)
 
@@ -170,10 +171,11 @@ class FamilyRoot(Base):
     )
 
     # root family pack unpack
-    def pack_fr_data(self, list: list[str]) -> None:
+    def data_pack(self, list: list[str]) -> None:
         self.data = json.dumps(list, ensure_ascii=False, indent=1)
 
-    def unpack_fr_data(self) -> list[str]:
+    @property
+    def data_unpack(self) -> list[str]:
         return json.loads(self.data)
 
     @property
@@ -219,71 +221,157 @@ class Lookup(Base):
     thai: Mapped[str] = mapped_column(default='')
 
     # headwords pack unpack
-    def pack_headwords(self, list: list[str]) -> None:
-        self.headwords = json.dumps(list, ensure_ascii=False)
+    
+    def headwords_pack(self, list: list[str]) -> None:
+        if list:
+            self.headwords = json.dumps(list, ensure_ascii=False) 
+        else:
+            raise ValueError("A list must be provided to pack.")
 
-    def unpack_headwords(self) -> list[str]:
-        return json.loads(self.headwords)
+    @property
+    def headwords_unpack(self) -> list[str]:
+        if self.headwords:
+            return json.loads(self.headwords)
+        else:
+            return []
 
     # roots pack unpack
-    def pack_roots(self, list: list[str]) -> None:
-        self.roots = json.dumps(list, ensure_ascii=False)
+    
+    def roots_pack(self, list: list[str]) -> None:
+        if list:
+            self.roots = json.dumps(list, ensure_ascii=False)
+        else:
+            raise ValueError("A list must be provided to pack.")
 
-    def unpack_roots(self) -> list[str]:
-        return json.loads(self.roots)
+    @property
+    def roots_unpack(self) -> list[str]:
+        if self.roots:
+            return json.loads(self.roots)
+        else:
+            return []
 
     # deconstructor pack unpack
-    def pack_deconstructor(self, list: list[str]) -> None:
-        self.deconstructor = json.dumps(list, ensure_ascii=False)
+    
+    def deconstructor_pack(self, list: list[str]) -> None:
+        if list:
+            self.deconstructor = json.dumps(list, ensure_ascii=False)
+        else:
+            raise ValueError("A list must be provided to pack.")
 
-    def unpack_deconstructor(self) -> list[str]:
-        return json.loads(self.deconstructor)
+    @property
+    def deconstructor_unpack(self) -> list[str]:
+        if self.deconstructor:
+            return json.loads(self.deconstructor)
+        else:
+            return []
 
     # variants pack unpack
-    def pack_variants(self, list: list[str]) -> None:
-        self.variant = json.dumps(list, ensure_ascii=False)
+    
+    def variants_pack(self, list: list[str]) -> None:
+        if list:
+            self.variant = json.dumps(list, ensure_ascii=False)
+        else:
+            raise ValueError("A list must be provided to pack.")
 
-    def unpack_variants(self) -> list[str]:
-        return json.loads(self.variant)
+    @property
+    def variants_unpack(self) -> list[str]:
+        if self.variant:
+            return json.loads(self.variant)
+        else:
+            return []
 
     # spelling pack unpack
-    def pack_spelling(self, list: list[str]) -> None:
-        self.spelling = json.dumps(list, ensure_ascii=False)
+    
+    def spelling_pack(self, list: list[str]) -> None:
+        if list:
+            self.spelling = json.dumps(list, ensure_ascii=False)
+        else:
+            raise ValueError("A list must be provided to pack.")
 
-    def unpack_spelling(self) -> list[str]:
-        return json.loads(self.spelling)
+    @property
+    def spelling_unpack(self) -> list[str]:
+        if self.spelling:
+            return json.loads(self.spelling)
+        else:
+            return []
     
     # grammar pack unpack
     # TODO add a method to unpack to html
-    def pack_grammar(self, list: list[tuple[str]]) -> None:
-        self.grammar = json.dumps(list, ensure_ascii=False)
 
-    def unpack_grammar(self) -> list[str]:
-        return json.loads(self.grammar)
+    def grammar_pack(self, list: list[tuple[str]]) -> None:
+        if list:
+            self.grammar = json.dumps(list, ensure_ascii=False)
+        else:
+            raise ValueError("A list must be provided to pack.")
+
+    @property
+    def grammar_unpack(self) -> list[str]:
+        if self.grammar:
+            return json.loads(self.grammar)
+        else:
+            return []
 
     # pack unpack sinhala
-    def pack_sinhala(self, list: list[str]) -> None:
-        self.sinhala = json.dumps(list, ensure_ascii=False)
+    
+    def sinhala_pack(self, list: list[str]) -> None:
+        if list:
+            self.sinhala = json.dumps(list, ensure_ascii=False)
+        else:
+            raise ValueError("A list must be provided to pack.")
 
-    def unpack_sinhala(self) -> list[str]:
-        return json.loads(self.sinhala)
+    @property
+    def sinhala_unpack(self) -> list[str]:
+        if self.sinhala:
+            return json.loads(self.sinhala)
+        else:
+            return []
 
     # pack unpack devanagari
-    def pack_devanagari(self, list: list[str]) -> None:
-        self.devanagari = json.dumps(list, ensure_ascii=False)
 
-    def unpack_devanagari(self) -> list[str]:
-        return json.loads(self.devanagari)
+    def devanagari_pack(self, list: list[str]) -> None:
+        if list:
+            self.devanagari = json.dumps(list, ensure_ascii=False)
+        else:
+            raise ValueError("A list must be provided to pack.")
+
+    @property
+    def devanagari_unpack(self) -> list[str]:
+        if self.devanagari:
+            return json.loads(self.devanagari)
+        else:
+            return []
 
     # pack unpack thai
-    def pack_thai(self, list: list[str]) -> None:
-        self.thai = json.dumps(list, ensure_ascii=False)
 
-    def unpack_thai(self) -> list[str]:
-        return json.loads(self.thai)
+    def thai_pack(self, list: list[str]) -> None:
+        if list:
+            self.thai = json.dumps(list, ensure_ascii=False)
+        else:
+            raise ValueError("A list must be provided to pack.")
+
+    @property
+    def thai_unpack(self) -> list[str]:
+        if self.thai:
+            return json.loads(self.thai)
+        else:
+            return []
+
 
     def __repr__(self) -> str:
-        return f"Lookup: {self.lookup_key} {self.headwords} {self.roots} {self.deconstructor}"
+        return f"""
+key:           {self.lookup_key}
+headwords:     {self.headwords}
+roots:         {self.roots}
+deconstructor: {self.deconstructor}
+variant:       {self.variant}
+spelling:      {self.spelling}
+grammar:       {self.grammar}
+help:          {self.help}
+abbrev:        {self.abbrev}
+sinhala:       {self.sinhala}
+devanagari:    {self.devanagari}
+thai:          {self.thai}
+"""
 
 
 class PaliWord(Base):
@@ -751,10 +839,11 @@ class FamilyCompound(Base):
     count: Mapped[int] = mapped_column(default=0)
 
     # family_compound pack unpack
-    def pack_fc_data(self, list: list[str]) -> None:
+    def data_pack(self, list: list[str]) -> None:
         self.data = json.dumps(list, ensure_ascii=False, indent=1)
 
-    def unpack_fc_data(self) -> list[str]:
+    @property
+    def data_unpack(self) -> list[str]:
         return json.loads(self.data)
 
     def __repr__(self) -> str:
@@ -784,10 +873,11 @@ class FamilySet(Base):
 
 
     # family_set pack unpack
-    def pack_set_data(self, list: list[str]) -> None:
+    def data_pack(self, list: list[str]) -> None:
         self.data = json.dumps(list, ensure_ascii=False, indent=1)
 
-    def unpack_set_data(self) -> list[str]:
+    @property
+    def data_unpack(self) -> list[str]:
         return json.loads(self.data)
 
     def __repr__(self) -> str:
@@ -803,9 +893,10 @@ class FamilyIdiom(Base):
 
 
     # idioms data pack unpack
-    def pack_idioms_data(self, list: list[str]) -> None:
+    def data_pack(self, list: list[str]) -> None:
         self.data = json.dumps(list, ensure_ascii=False, indent=1)
 
+    @property
     def unpack_idioms_data(self) -> list[str]:
         return json.loads(self.data)
 

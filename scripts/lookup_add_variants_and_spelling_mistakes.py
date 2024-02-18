@@ -63,7 +63,7 @@ def add_variants(pd):
         if variant in add_set:
             add_me = Lookup()
             add_me.lookup_key = variant
-            add_me.pack_variants(pali_list_sorter(main))
+            add_me.variants_pack(pali_list_sorter(main))
             add_to_db.append(add_me)
 
     pd.db_session.add_all(add_to_db)
@@ -108,7 +108,7 @@ def add_spellings(pd):
         if mistake in add_set:
             add_me = Lookup()
             add_me.lookup_key = mistake
-            add_me.pack_spelling(pali_list_sorter(correction))
+            add_me.spelling_pack(pali_list_sorter(correction))
             add_to_db.append(add_me)
 
     pd.db_session.add_all(add_to_db)

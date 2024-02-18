@@ -30,7 +30,7 @@ from tools.tic_toc import tic, toc, bip, bop
 sys.path.insert(1, 'tools/writemdict')
 
 class Metadata:
-    """Metadata for Diciotnary Info file."""
+    """Metadata for Dictionary Info file."""
     title: str = "DPD Deconstructor"
     author: str = "Bodhirasa"
     description: str = "<h3>DPD Deconstructor by Bodhirasa</h3><p>Automated compound deconstruction and sandhi-splitting of all words in <b>Chaṭṭha Saṅgāyana Tipitaka</b> and <b>Sutta Central</b> texts.</p><p>For more information please visit the <a href='https://digitalpalidictionary.github.io/deconstructor.html'>Deconstrutor page</a> on the <a href='https://digitalpalidictionary.github.io/'>DPD website</a>.</p>"
@@ -92,7 +92,7 @@ def make_decon_data_list(pth: ProjectPaths):
 
     bip()
     for counter, i in enumerate(decon_db):
-        deconstructions = i.unpack_deconstructor()
+        deconstructions = i.deconstructor_unpack
 
         html_string: str = decon_header
         html_string += "<body>"
@@ -105,10 +105,10 @@ def make_decon_data_list(pth: ProjectPaths):
         html_string = minify(html_string)
 
         # make synonyms list
-        synonyms = add_niggahitas([i.lookup_key])
-        synonyms += i.sinhala
-        synonyms += i.devanagari
-        synonyms += i.thai
+        synonyms = add_niggahitas([i.lookup_key], all=False)
+        synonyms.extend(i.sinhala_unpack)
+        synonyms.extend(i.devanagari_unpack)
+        synonyms.extend(i.thai_unpack)
         if i.lookup_key in sandhi_contractions:
             contractions = sandhi_contractions[i.lookup_key]["contractions"]
             synonyms.extend(contractions)

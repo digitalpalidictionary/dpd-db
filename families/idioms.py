@@ -2,7 +2,6 @@
 
 """Compile idioms and save to database."""
 
-from collections import defaultdict
 import json
 import re
 
@@ -139,7 +138,7 @@ def add_idioms_to_db(db_session, idioms_dict):
                 idiom=idiom,
                 html=idioms_dict[idiom]["html"],
                 count=idioms_dict[idiom]["count"])
-            idiom_data.pack_idioms_data(idioms_dict[idiom]["data"])
+            idiom_data.data_pack(idioms_dict[idiom]["data"])
             add_to_db.append(idiom_data)
 
     db_session.execute(FamilyIdiom.__table__.delete()) # type: ignore

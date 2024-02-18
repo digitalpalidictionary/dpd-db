@@ -145,7 +145,7 @@ def add_to_dpd_db(db_session: Session, top_five_dict):
     # update test add
     for i in lookup_table:
         if i.lookup_key in update_set:
-            i.pack_deconstructor(top_five_dict[i.lookup_key])
+            i.deconstructor_pack(top_five_dict[i.lookup_key])
         elif i.lookup_key in test_set:
             if is_another_value(i, "deconstructor"):
                 i.deconstructor = ""
@@ -160,7 +160,7 @@ def add_to_dpd_db(db_session: Session, top_five_dict):
         if constructed in add_set:
             add_me = Lookup()
             add_me.lookup_key = constructed
-            add_me.pack_deconstructor(deconstructed)
+            add_me.deconstructor_pack(deconstructed)
             add_to_db.append(add_me)
 
     db_session.add_all(add_to_db)

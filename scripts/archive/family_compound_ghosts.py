@@ -4,7 +4,6 @@
 
 import pyperclip
 from rich import print
-from sqlalchemy import and_, or_
 
 from db.get_db_session import get_db_session
 from db.models import DpdHeadwords, FamilyCompound

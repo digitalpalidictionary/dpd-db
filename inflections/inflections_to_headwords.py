@@ -8,6 +8,7 @@ import json
 
 from rich import print
 from tools.lookup_is_another_value import is_another_value
+from tools.pali_sort_key import pali_list_sorter
 
 from tools.tic_toc import tic, toc, bip, bop
 from db.get_db_session import get_db_session
@@ -108,7 +109,7 @@ def add_i2h_to_db(db_session, i2h_dict):
         if inflection in add_set:
             add_me = Lookup()
             add_me.lookup_key = inflection
-            add_me.pack_headwords(sorted(headwords))
+            add_me.headwords_pack(pali_list_sorter(headwords))
             add_to_db.append(add_me)
 
     db_session.add_all(add_to_db)

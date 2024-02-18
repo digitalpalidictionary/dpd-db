@@ -138,7 +138,7 @@ def add_cf_to_db(db_session, cf_dict):
             compound_family=cf,
             html=cf_dict[cf]["html"],
             count=len(cf_dict[cf]["headwords"]))
-        cf_data.pack_fc_data(cf_dict[cf]["data"])
+        cf_data.data_pack(cf_dict[cf]["data"])
         add_to_db.append(cf_data)
 
     db_session.execute(FamilyCompound.__table__.delete()) # type: ignore

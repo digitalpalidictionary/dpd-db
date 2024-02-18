@@ -5,10 +5,9 @@ import pandas as pd
 
 from datetime import datetime
 from rich import print
-from sqlalchemy.orm.session import make_transient
 from typing import Optional
 
-from db.models import DpdHeadwords, PaliWord
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 
 pth = ProjectPaths()

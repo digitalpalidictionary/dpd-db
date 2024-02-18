@@ -65,7 +65,7 @@ def get_headword_ids(g: ProgData, key):
         .first()
     
     if lookup:
-        return lookup.unpack_headwords()
+        return lookup.headwords_unpack
     else:
         return []
 

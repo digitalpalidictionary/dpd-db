@@ -21,7 +21,7 @@ def make_words_in_deconstructions(db_session: Session) -> set:
 
     deconstructed_words = set()
     for i in results:
-        deconstructions = i.unpack_deconstructor()
+        deconstructions = i.deconstructor_unpack
         for deconstruction in deconstructions:
             for word in deconstruction.split(" + "):
                 deconstructed_words.add(word)

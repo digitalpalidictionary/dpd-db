@@ -3,7 +3,6 @@
 """GUI to add corrections.tsv to the database and give feedback."""
 
 import csv
-from ctypes import alignment
 import PySimpleGUI as sg
 from sqlalchemy import inspect
 

@@ -13,15 +13,19 @@ from tools.pali_alphabet import pali_alphabet
 from sqlalchemy.orm import joinedload
 from tools.configger import config_test
 
-#check username
-if config_test("user", "username", "deva"):
-    dps_data = True
-else:
-    dps_data = False
+
+
+def check_username():
+    if config_test("user", "username", "deva"):
+        return True
+    else:
+        return False
+
 
 class ProgData():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
+    dps_data: bool = check_username()
     if dps_data:
         db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs)).all()
     else:
@@ -39,31 +43,32 @@ class ProgData():
     clean_bold_word: str
     counter: int = 1
 
-g = ProgData
+
 
 def main():
+    g = ProgData
     for i in g.db:
         g.i = i
         if i.pos not in ["idiom"]:
             # search in a list of fields
             for field in g.fields:
                 g.field = field
-                if dps_data:
-                    find_all_bold_words_sbs()
+                if g.dps_data:
+                    find_all_bold_words_sbs(g)
                 else:
-                    find_all_bold_words()
-                get_inflections()
+                    find_all_bold_words(g)
+                get_inflections(g)
                 for bold_word in g.bold_words:
                     g.bold_word = bold_word
-                    test1()
+                    test1(g)
 
 
-def find_all_bold_words():
+def find_all_bold_words(g):
     """Get All the bold words from the string."""
     g.bold_words = re.findall("<b>.+?<\\/b>", getattr(g.i, g.field))
 
 
-def find_all_bold_words_sbs():
+def find_all_bold_words_sbs(g):
     """Get All the bold words from the string."""
     if g.i.sbs is not None:
         g.bold_words = re.findall("<b>.+?<\\/b>", getattr(g.i.sbs, g.field))
@@ -71,12 +76,12 @@ def find_all_bold_words_sbs():
         g.bold_words = []
 
 
-def get_inflections():
+def get_inflections(g):
     """Get the inflections list."""
     g.inflections_list = g.i.inflections_list
 
 
-def test1():
+def test1(g):
     """Clean up the word from tags and internal punctuation.
     Test if there's something left"""
     g.clean_bold_word = g.bold_word\
@@ -86,38 +91,38 @@ def test1():
         .replace("-", "")\
         .strip()
     if not g.clean_bold_word:
-        printer("test1")
+        printer(g, "test1")
         return
     else:
-        test2()
+        test2(g)
 
 
-def test2():
+def test2(g):
     """test 2, non-pali characters in the word."""
     for char in g.clean_bold_word:
         if char not in g.pali_alphabet:
-            printer("test2")
+            printer(g, "test2")
             return
-    test3()
+    test3(g)
 
 
-def test3():
+def test3(g):
     """test 3, clean bold is in inflections list."""
     if g.clean_bold_word in g.inflections_list:
         return
     else:
-        test4()
+        test4(g)
 
 
-def test4():
+def test4(g):
     """"test 4, missing last letter is the problem."""
     for inflection in g.inflections_list:
         if re.findall(f"{g.clean_bold_word}.", inflection):
             return
-    test5()
+    test5(g)
 
 
-def test5():
+def test5(g):
     """test 5, nasals in last position."""
     nasals = ["ṅ", "ñ", "ṇ", "n", "m"]
     if g.clean_bold_word[-1] in nasals:
@@ -125,19 +130,19 @@ def test5():
         if clean_bold_nasal in g.inflections_list:
             return
         else:
-            test6()
+            test6(g)
 
 
-def test6():
+def test6(g):
     """test 6, ññ in last position."""
     if g.clean_bold_word[-2:] == "ññ":
         clean_bold_nasal = f"{g.clean_bold_word[:-2]}ṃ"
         if clean_bold_nasal in g.inflections_list:
             return
-    printer("test6")
+    printer(g, "test6")
 
 
-def printer(message):
+def printer(g, message):
     """Print out the problem and up the tally."""
     p = f"{g.counter:<4}{g.i.id:<8}{g.i.lemma_1:<40}"
     p += f"[deep_sky_blue4]{g.field:<10}"

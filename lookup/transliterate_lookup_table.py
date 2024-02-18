@@ -242,11 +242,11 @@ def main():
     translit_counter = 0
     for i in lookup_db:
         if i.lookup_key in translit_dict:
-            i.pack_sinhala(
+            i.sinhala_pack(
                 list(translit_dict[i.lookup_key]["sinhala"]))
-            i.pack_devanagari(
+            i.devanagari_pack(
                 list(translit_dict[i.lookup_key]["devanagari"]))
-            i.pack_thai(
+            i.thai_pack(
                 list(translit_dict[i.lookup_key]["thai"]))
             translit_counter += 1
 

@@ -23,7 +23,7 @@ from multiprocessing import Process, Manager
 from db.get_db_session import get_db_session
 from db.models import DpdHeadwords
 
-from tools.configger import config_test, config_update
+from tools.configger import config_test
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 from tools.utils import list_into_batches

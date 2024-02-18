@@ -168,7 +168,7 @@ def add_rf_to_db(db_session, rf_dict):
             root_meaning=rf_dict[rf]["root_meaning"],
             html=rf_dict[rf]["html"],
             count=len(rf_dict[rf]["headwords"]))
-        root_family.pack_fr_data(rf_dict[rf]["data"])
+        root_family.data_pack(rf_dict[rf]["data"])
 
         add_to_db.append(root_family)
 
@@ -216,7 +216,7 @@ def update_lookup_table(db_session):
         if inflection in add_set:
             add_me = Lookup()
             add_me.lookup_key = inflection
-            add_me.pack_roots(pali_list_sorter(root_keys))
+            add_me.roots_pack(pali_list_sorter(root_keys))
             add_to_db.append(add_me)
 
     db_session.add_all(add_to_db)

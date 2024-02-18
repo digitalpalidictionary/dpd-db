@@ -352,7 +352,7 @@ def add_to_lookup_table(pd):
         if inflection in add_set:
             add_me = Lookup()
             add_me.lookup_key = inflection
-            add_me.pack_grammar(grammar_data)
+            add_me.grammar_pack(grammar_data)
             add_to_db.append(add_me)
 
     pd.db_session.add_all(add_to_db)

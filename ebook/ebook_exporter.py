@@ -265,7 +265,7 @@ def render_deconstructor_entry(
     """Render deconstructor word entry."""
 
     construction = i.lookup_key
-    deconstruction = "<br/>".join(i.unpack_deconstructor())
+    deconstruction = "<br/>".join(i.deconstructor_unpack)
 
     ebook_deconstructor_templ = Template(
         filename=str(

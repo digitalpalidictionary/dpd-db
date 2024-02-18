@@ -107,7 +107,7 @@ def add_sf_to_db(db_session, sets_dict):
             set=sf,
             html=sets_dict[sf]["html"],
             count=count)
-        sf_data.pack_set_data(sets_dict[sf]["data"])
+        sf_data.data_pack(sets_dict[sf]["data"])
 
         add_to_db.append(sf_data)
 
