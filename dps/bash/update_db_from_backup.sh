@@ -1,4 +1,8 @@
+#!/usr/bin/env bash
+
 # update data in dpd.db from from dps backup_tsv
+
+git pull
 
 set -e
 

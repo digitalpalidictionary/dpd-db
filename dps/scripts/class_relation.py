@@ -1,5 +1,5 @@
 # Make sbs_class according to class topics
-#! Use debug print before commit!
+# Use debug print before commit!
 
 import re
 

@@ -429,7 +429,7 @@ def apply_all_suggestions():
                     setattr(db, field3, value3)
                     print(f"{id}: {field3} with {value3}")
                 
-                # db_session.commit()
+                db_session.commit()
             else:
                 print(f"Entry with ID {correction.id} not found.")
 

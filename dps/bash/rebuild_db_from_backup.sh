@@ -1,4 +1,8 @@
+#!/usr/bin/env bash
+
 # build dpd.db from scratch using dps backup_tsv and making goldendict
+
+git pull
 
 set -e
 test -e dpd.db || touch dpd.db
@@ -26,6 +30,8 @@ for file in "${FILENAMES[@]}"; do
 done
 
 exporter/exporter.py
+
+git checkout -- pyproject.toml
 
 
 

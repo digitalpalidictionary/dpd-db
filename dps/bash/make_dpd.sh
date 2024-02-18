@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # generate dictionaries
 
 set -e
@@ -33,3 +35,5 @@ if python -c "from tools.configger import config_test; exit(not config_test('dic
     python -c "from tools.configger import config_update; config_update('dictionary', 'show_ebt_count', 'no')"
 
 fi
+
+git checkout -- pyproject.toml
