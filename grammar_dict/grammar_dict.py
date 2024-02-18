@@ -337,7 +337,7 @@ def add_to_lookup_table(pd):
     # update test add
     for i in lookup_table:
         if i.lookup_key in update_set:
-            i.pack_grammar(pd.grammar_dict[i.lookup_key])
+            i.grammar_pack(pd.grammar_dict[i.lookup_key])
         elif i.lookup_key in test_set:
             if is_another_value(i, "grammar"):
                 i.grammar = ""

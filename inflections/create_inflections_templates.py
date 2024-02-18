@@ -81,7 +81,7 @@ for row in range(inflection_template_index_length):
         pattern=inflection_name,
         like=like)
         # data=json.dumps(rows, ensure_ascii=False, indent=1)
-    t.pack_inflection_template(rows)
+    t.inflection_template_pack(rows)
 
     search = db_session \
         .query(InflectionTemplates) \

@@ -2099,3 +2099,6 @@ haughtiness
 adjectival
 appositional
 sunshade
+shakeable
+assailable
+creatress

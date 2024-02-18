@@ -48,7 +48,7 @@ def add_variants(pd):
     for i in pd.lookup_table:
         if i.lookup_key in update_set:
             sorted_variant = pali_list_sorter(pd.variants_dict[i.lookup_key])
-            i.pack_variants(sorted_variant)
+            i.variants_pack(sorted_variant)
         elif i.lookup_key in test_set:
             if is_another_value(i, "variant"):
                 i.variant = ""
@@ -93,7 +93,7 @@ def add_spellings(pd):
     for i in pd.lookup_table:
         if i.lookup_key in update_set:
             sorted_spelling = pali_list_sorter(pd.spellings_dict[i.lookup_key])
-            i.pack_spelling(sorted_spelling)
+            i.spelling_pack(sorted_spelling)
         elif i.lookup_key in test_set:
             if is_another_value(i, "spelling"):
                 i.spelling = ""

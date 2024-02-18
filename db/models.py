@@ -54,11 +54,11 @@ class InflectionTemplates(Base):
     data: Mapped[str] = mapped_column(default='')
 
     # infletcion templates pack unpack
-    def pack_inflection_template(self, list: list[str]) -> None:
+    def inflection_template_pack(self, list: list[str]) -> None:
         self.data = json.dumps(list, ensure_ascii=False)
 
     @property
-    def unpack_inflection_template(self) -> list[str]:
+    def inflection_template_unpack(self) -> list[str]:
         return json.loads(self.data)
 
     def __repr__(self) -> str:

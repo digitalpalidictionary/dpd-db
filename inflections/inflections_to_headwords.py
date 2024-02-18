@@ -94,7 +94,7 @@ def add_i2h_to_db(db_session, i2h_dict):
     # update test add
     for i in lookup_table:
         if i.lookup_key in update_set:
-            i.pack_headwords(sorted(i2h_dict[i.lookup_key]))
+            i.headwords_pack(sorted(i2h_dict[i.lookup_key]))
         elif i.lookup_key in test_set:
             if is_another_value(i, "headwords"):
                 i.headwords = ""

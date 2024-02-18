@@ -201,7 +201,7 @@ def update_lookup_table(db_session):
     # update test add
     for i in lookup_table:
         if i.lookup_key in update_set:
-            i.pack_roots(pali_list_sorter(r2h_dict[i.lookup_key]))
+            i.roots_pack(pali_list_sorter(r2h_dict[i.lookup_key]))
         elif i.lookup_key in test_set:
             if is_another_value(i, "roots"):
                 i.root = ""

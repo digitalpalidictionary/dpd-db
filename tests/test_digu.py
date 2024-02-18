@@ -39,6 +39,7 @@ def main():
         remove_identical_members()
         write_to_tsv()
 
+
 def make_dict_of_cardinals():
     """Make a list of all cardinal numbers in the db."""
     print(f"[green]{'making list of cardinals':40}", end="")
@@ -114,6 +115,7 @@ def fix_missing_id():
         make_id_dict(g)
         add_id_tsv_data(g)
         write_back_to_tsv(g)
+
 
 def make_id_dict(g):
     g.pali_id_dict = {}
