@@ -212,8 +212,6 @@ class Lookup(Base):
     grammar: Mapped[str] = mapped_column(default='')
     help: Mapped[str] = mapped_column(default='')
     abbrev: Mapped[str] = mapped_column(default='')
-    thanks: Mapped[str] = mapped_column(default='')
-    bibliography: Mapped[str] = mapped_column(default='')
     epd: Mapped[str] = mapped_column(default='')
     other: Mapped[str] = mapped_column(default='')
     sinhala: Mapped[str] = mapped_column(default='')
@@ -310,6 +308,39 @@ class Lookup(Base):
             return json.loads(self.grammar)
         else:
             return []
+
+
+    # help pack unpack
+
+    def help_pack(self, string: str) -> None:
+        if string:
+            self.help = json.dumps(
+                string, ensure_ascii=False)
+        else:
+            raise ValueError("A string must be provided to pack.")
+
+    @property
+    def help_unpack(self) -> str:
+        if self.abbrev:
+            return json.loads(self.help)
+        else:
+            return ""
+
+    # abbreviations pack unpack
+
+    def abbrev_pack(self, dict: dict[str, str]) -> None:
+        if dict:
+            self.abbrev = json.dumps(
+                dict, ensure_ascii=False, indent=1)
+        else:
+            raise ValueError("A dict must be provided to pack.")
+
+    @property
+    def abbrev_unpack(self) -> dict[str, str]:
+        if self.abbrev:
+            return json.loads(self.abbrev)
+        else:
+            return {}
 
     # pack unpack sinhala
     

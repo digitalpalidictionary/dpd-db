@@ -1,6 +1,7 @@
 """Modules for reading and writing TSV files."""
 
 import csv
+from pathlib import Path
 from typing import List
 
 
@@ -59,3 +60,15 @@ def write_tsv_list(
         for row in data:
             if row[0]:
                 writer.writerow(row)
+
+
+def read_tsv_as_dict(file_path: Path) -> dict:
+    dict = {}
+    with open(file_path) as tsv_file:
+        tsv_reader = csv.reader(tsv_file, delimiter='\t')
+        headers = next(tsv_reader)  # Skip the header row
+        for row in tsv_reader:
+            key = row[0]
+            sub_dict = {headers[i]: value for i, value in enumerate(row) if i !=  0}
+            dict[key] = sub_dict
+    return dict

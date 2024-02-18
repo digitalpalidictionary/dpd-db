@@ -19,3 +19,5 @@ ebook/ebook_exporter.py
 
 scripts/zip_goldedict_mdict.py
 scripts/summary.py
+
+scripts/tarball_db.py

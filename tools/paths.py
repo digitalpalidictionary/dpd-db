@@ -86,7 +86,7 @@ class ProjectPaths:
         self.sorter_js_path = base_dir.joinpath(Path("exporter/javascript/sorter.js"))
 
         # /exporter/share
-        self.zip_dir = base_dir.joinpath(Path("exporter/share"))
+        self.share_dir = base_dir.joinpath(Path("exporter/share"))
         self.dpd_zip_path = base_dir.joinpath(Path("exporter/share/dpd.zip"))
         self.mdict_mdx_path = base_dir.joinpath(Path("exporter/share/dpd-mdict.mdx"))
         self.grammar_dict_zip_path = base_dir.joinpath(Path("exporter/share/dpd-grammar.zip"))
@@ -339,7 +339,7 @@ class ProjectPaths:
     def create_dirs(self):
         for d in [
             self.anki_csvs_dir,
-            self.zip_dir,
+            self.share_dir,
             self.tpr_dir,
             self.epub_text_dir,
             self.frequency_output_dir,
