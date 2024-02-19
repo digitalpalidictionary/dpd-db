@@ -298,10 +298,10 @@ class ProjectPaths:
         self.inflections_from_translit_json_path = base_dir.joinpath(Path("share/inflections_from_translit.json"))
 
         # /tbw
-        self.tbw_output_dir = base_dir.joinpath(Path("tbw/output/"))
-        self.i2h_json_path = base_dir.joinpath(Path("tbw/output/dpd_i2h.json"))
-        self.dpd_ebts_json_path = base_dir.joinpath(Path("tbw/output/dpd_ebts.json"))
-        self.deconstructor_json_path = base_dir.joinpath(Path("tbw/output/dpd_deconstructor.json"))
+        self.tbw_output_dir = base_dir.joinpath(Path("resources/bw2/dpd_data/output/"))
+        self.i2h_json_path = base_dir.joinpath(Path("resources/bw2/dpd_data/dpd_i2h.json"))
+        self.dpd_ebts_json_path = base_dir.joinpath(Path("resources/bw2/dpd_data/dpd_ebts.json"))
+        self.deconstructor_json_path = base_dir.joinpath(Path("resources/bw2/dpd_data/dpd_deconstructor.json"))
 
         # temp
         self.temp_dir = base_dir.joinpath(Path("temp/"))

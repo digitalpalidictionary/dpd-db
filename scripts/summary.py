@@ -5,7 +5,7 @@
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import DpdHeadwords, DpdRoots, Sandhi
+from db.models import DpdHeadwords, DpdRoots, Lookup
 from tools.pali_sort_key import pali_sort_key
 from tools.tic_toc import tic, toc
 from tools.configger import config_read, config_update
@@ -22,13 +22,13 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(DpdHeadwords).all()
     roots_db = db_session.query(DpdRoots).all()
-    sandhi_db = db_session.query(Sandhi).all()
+    deconstructor_db = db_session.query(Lookup).filter(Lookup.deconstructor != "").all()
     last_count = config_read("uposatha", "count", default_value=74657)
 
     print("[green]summarizing data")
     line1, line5, root_families = dpd_size(dpd_db)
     line2 = root_size(roots_db, root_families)
-    line3 = sandhi_size(sandhi_db)
+    line3 = deconstructor_size(deconstructor_db)
     line4 = inflection_size(dpd_db)
     line6 = root_data(roots_db)
     new_words_string = new_words(db_session, last_count)
@@ -128,9 +128,9 @@ def root_size(roots_db, root_families):
     return line2
 
 
-def sandhi_size(sandhi_db):
-    total_sandhis = len(sandhi_db)
-    line3 = f"- {total_sandhis:_} deconstructed compounds"
+def deconstructor_size(deconstuctor_db):
+    total_deconstructions = len(deconstuctor_db)
+    line3 = f"- {total_deconstructions:_} deconstructed compounds"
     line3 = line3.replace("_", " ")
     return line3
 

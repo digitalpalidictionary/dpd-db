@@ -1,17 +1,11 @@
-
+#!/usr/bin/env python3
 
 import tarfile
 import os
 
 from rich import print
 from tools.paths import ProjectPaths
-from tools.tic_toc import bip, bop
-
-
-def main():
-    print("[bright_yellow]compressing db to share")
-    pth = ProjectPaths()
-    create_tarball_bz2(pth)
+from tools.tic_toc import bip, bop, tic, toc
 
 
 def create_tarball_bz2(pth: ProjectPaths):
@@ -34,6 +28,14 @@ def create_tarball_bz2(pth: ProjectPaths):
     # move to share folder
     os.rename(tarball_name, os.path.join(destination_dir, tarball_name))
 
+
+def main():
+    tic()
+    print("[bright_yellow]compressing db to share")
+    pth = ProjectPaths()
+    create_tarball_bz2(pth)
+    toc()
+    
 
 if __name__ == "__main__":
     main()

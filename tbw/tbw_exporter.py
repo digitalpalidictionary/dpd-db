@@ -11,7 +11,7 @@ import json
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import DpdHeadwords, Sandhi
+from db.models import DpdHeadwords, Lookup
 from tools.pali_sort_key import pali_sort_key
 from tools.tic_toc import tic, toc
 from tools.cst_sc_text_sets import make_sc_text_set
@@ -50,7 +50,7 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(DpdHeadwords)
 
-    deconstr_db = db_session.query(Sandhi)
+    deconstr_db = db_session.query(Lookup).filter(Lookup.deconstructor != "").all()
     print("OK")
 
     # make a set of all words in deconstructed compounds
@@ -59,11 +59,11 @@ def main():
     deconstr_splits_set: set = set()
     matched = set()
     for i in deconstr_db:
-        if i.sandhi in text_set:
-            matched.add(i.sandhi)
-            splits = i.split_list
-            for split in splits:
-                deconstr_splits_set.update(split.split(" + "))
+        if i.lookup_key in text_set:
+            matched.add(i.lookup_key)
+            deconstructions = i.deconstructor_unpack
+            for deconstruction in deconstructions:
+                deconstr_splits_set.update(deconstruction.split(" + "))
     print(f"{len(deconstr_splits_set):,}")
 
     # make an inflections to headwords dictionary
@@ -135,12 +135,12 @@ def main():
     deconstr_dict = {}
     for i in deconstr_db:
         if (
-            i.sandhi not in dpd_dict and
-            i.sandhi in text_set
+            i.lookup_key not in dpd_dict and
+            i.lookup_key in text_set
         ):
-            splits = i.split_list
-            string = "<br>".join(splits)
-            deconstr_dict[i.sandhi] = string
+            deconstructions = i.deconstructor_unpack
+            string = "<br>".join(deconstructions)
+            deconstr_dict[i.lookup_key] = string
 
     deconstr_dict = dict(
         sorted(deconstr_dict.items(), key=lambda x: pali_sort_key(x[0])))

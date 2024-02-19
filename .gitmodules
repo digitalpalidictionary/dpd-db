@@ -5,3 +5,6 @@
 [submodule "resources/tpr_downloads"]
 	path = resources/tpr_downloads
 	url = https://github.com/bksubhuti/tpr_downloads
+[submodule "resources/bw2"]
+	path = resources/bw2
+	url = https://github.com/thebuddhaswords/BW2.git
