@@ -88,8 +88,9 @@ def main():
     # save inflections to headwords json
     
     print(f"[green]{'writing inflections to headwords json':<40}", end="")
-    with open(pth.i2h_json_path, "w") as f:
-        json.dump(i2h, f, ensure_ascii=False, indent=0)
+    i2h_json_dump = json.dumps(i2h, ensure_ascii=False, indent=2)
+    with open(pth.i2h_js_path, "w") as f:
+        f.write(f"dpd_i2h = {i2h_json_dump}")
         print("OK")
 
     # make a set of unmatched words
@@ -125,8 +126,9 @@ def main():
     # write dpd dict to json
     
     print(f"[green]{'writing dpd ebts to json':<40}", end="")
-    with open(pth.dpd_ebts_json_path, "w") as f:
-        json.dump(dpd_dict, f, ensure_ascii=False, indent=0)
+    dpd_json_dump = json.dumps(dpd_dict, ensure_ascii=False, indent=2)
+    with open(pth.dpd_ebts_js_path, "w") as f:
+        f.write(f"let dpd_ebts = {dpd_json_dump}")
         print("OK")
 
     # make a dict of all deconstructed compounds
@@ -149,8 +151,9 @@ def main():
     # save deconstr dict to json
     
     print(f"[green]{'writing deconstructor dict to json':<40}", end="")
-    with open(pth.deconstructor_json_path, "w") as f:
-        json.dump(deconstr_dict, f, ensure_ascii=False, indent=0)
+    json_dump = json.dumps(deconstr_dict, ensure_ascii=False, indent=2)
+    with open(pth.deconstructor_js_path, "w") as f:
+        f.write(f"let dpd_deconstructor = {json_dump}")
         print("OK")
 
     toc()

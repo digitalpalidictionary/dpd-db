@@ -297,12 +297,11 @@ class ProjectPaths:
         self.inflections_to_translit_json_path = base_dir.joinpath(Path("share/inflections_to_translit.json"))
         self.inflections_from_translit_json_path = base_dir.joinpath(Path("share/inflections_from_translit.json"))
 
-        # /tbw
-        self.tbw_output_dir = base_dir.joinpath(Path("resources/bw2/dpd_data/output/"))
-        self.i2h_json_path = base_dir.joinpath(Path("resources/bw2/dpd_data/dpd_i2h.json"))
-        self.dpd_ebts_json_path = base_dir.joinpath(Path("resources/bw2/dpd_data/dpd_ebts.json"))
-        self.deconstructor_json_path = base_dir.joinpath(Path("resources/bw2/dpd_data/dpd_deconstructor.json"))
-
+        # tbw/js
+        self.i2h_js_path = base_dir.joinpath(Path("resources/bw2/js/dpd_i2h.js"))
+        self.dpd_ebts_js_path = base_dir.joinpath(Path("resources/bw2/js/dpd_ebts.js"))
+        self.deconstructor_js_path = base_dir.joinpath(Path("resources/bw2/js/dpd_deconstructor.js"))
+        
         # temp
         self.temp_dir = base_dir.joinpath(Path("temp/"))
 
@@ -351,7 +350,6 @@ class ProjectPaths:
             self.raw_text_dir,
             self.freq_html_dir,
             self.word_count_dir,
-            self.tbw_output_dir,
             self.temp_dir,
             self.sandhi_assests_dir,
             self.sandhi_output_dir,

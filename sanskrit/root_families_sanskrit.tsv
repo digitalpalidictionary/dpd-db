@@ -159,10 +159,10 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √iñj	1	a	move, shake	√iṅg	1	stir	√iñj		āniñjya, aniṅgana, na + iṅgyamāna, iṅgana, aṅga, iṅgita +, iṅgati, iṅgita, na + iṅgamāna
 √iñj	1	a	move, shake	√iṅg	1	stir	ā vi √iñj		āvarjati
 √iñj	1	a	move, shake	√iṅg	1	stir	saṃ √iñj		samiṅgitvā, samiṅgat, samiṅg, samiṅgayati, samiṅgati, saṃṛṇj, samiṅgita, saṃ + riñjate, saṃ + ṛñj, samiṅgayati, saṃmiñjana (bsk)
-√idh	3	ya	succeed, accomplish	√ṛdh	2, 4, 5, 6, 7	thrive	√idh		ṛddhi, ṛdh, ṛdhyati, ṛddhimat, ṛddha
-√idh	3	ya	succeed, accomplish	√ṛdh	2, 4, 5, 6, 7	thrive	ati saṃ √idh		saṃsiddhi
-√idh	3	ya	succeed, accomplish	√ṛdh	2, 4, 5, 6, 7	thrive	ā √idh		na + āḍhya, āḍhya, ārthatā
-√idh	3	ya	succeed, accomplish	√ṛdh	2, 4, 5, 6, 7	thrive	saṃ √idh		saṃsiddhi, samṛddha, samṛddhi, samṛdhyate, samṛdhnoti, samṛdh
+√idh	3	ya	succeed, accomplish	√ṛdh	2, 4, 5, 6, 7	thrive	√idh	ṛdh	ṛddhi, ṛdh, ṛdhyati, ṛddhimat, ṛddha
+√idh	3	ya	succeed, accomplish	√ṛdh	2, 4, 5, 6, 7	thrive	ati saṃ √idh	samṛdh	saṃsiddhi
+√idh	3	ya	succeed, accomplish	√ṛdh	2, 4, 5, 6, 7	thrive	ā √idh	āṛdh	na + āḍhya, āḍhya, ārthatā
+√idh	3	ya	succeed, accomplish	√ṛdh	2, 4, 5, 6, 7	thrive	saṃ √idh	samṛdh	saṃsiddhi, samṛddha, samṛddhi, samṛdhyate, samṛdhnoti, samṛdh
 √indh	2	ṃa	fire, burn	√indh √idh	1, 7	kindle	√indh		iṣṭakā, iṣṭikā, iṣṭakā
 √is	1	a	wish for	√iṣ	1, 4, 6, 9	seek, desire	√is		icchat, na + icchamāna, icchamāna, iṣṭa, icchā, aiṣīt, icchati, iṣ, aniṣṭa, icchā, aniccha, na + icchat, icchaka, na + icchati, icchet, iṣṭa, anicchā, anicchaka
 √is	1	*a	wish for	√iṣ	1, 4, 6, 9	seek, desire	adhi √is		adhyeṣate, adhyeṣi, adhyeṣaṇa
@@ -1660,7 +1660,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √pih	8	*aya	desire, envy	√spṛh	6, 10	be eager	√pih	spṛh	spṛhā, aspṛhālu, spṛhayālu, spṛhayat, spṛhayati, a, spṛhayamāṇa
 √pī	5	nā	love, please	√prī	9	please	√pī	prī	a + prīti, preman, priya, priyāyate, apriya, priyāya, niṣprītika, premaṇīya, sa + prītika, priyāyat, priyatva, priyaka, priyatā, supriya, prīti, prema, priyā, praiya, priyatara
 √pī	5	nā	love, please	√prī	9	please	anu √pī		
-√pī	5	nā	love, please	√prī	9	please	saṃ √pī	saṃprī	sampriya +, sampriyeṇa
+√pī	5	nā	love, please	√prī	9	please	saṃ √pī	samprī	sampriya +, sampriyeṇa
 √pīṇ	8	*e	please, swell	√prī √pī √pyai √pṛṇ	9	please	√pīṇ		prīṇita, pīna, pīna, pīvan
 √pīṇ	8	*e	please, swell	√prī √pī √pyai √pṛṇ	9	please	saṃ √pīṇ		
 √pīḷ	8	*e	press, crush	√pīḍ	10	press	√pīḷ	pīḍ	pīḍyamāna, apipīḍat, apīpiḍat, pīḍita, pīḍana, piṭṭaka, piḍaka, na +, pīḍā
@@ -1716,32 +1716,32 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √pūr	1	a	fill, fulfil	√pṝ √pṛ	3, 6, 9	fill	pari √pūr	paripṝ	paripūrti, paripūrtvā, paripūryate, suparipūrṇa, paripūrṇa, na + paripūrṇa, paripūrṇatva, paripūrna, na + paripūryamāṇa, paripūrayitum, paripūrayat, paripūrṇa +, paripūraṇa, aparipūrṇa, paripūrṇatā, pāripūri, na + paripūrtvā, paripūrayati
 √pūr	1	a	fill, fulfil	√pṝ √pṛ	3, 6, 9	fill	saṃ √pūr	sampṝ	sampūrṇa
 √pel	1	a	move, propel	√pel	1	go, move	√pel		śaśa
-√plu 1	1	*āpe	float, swim	√plu	1	float	√plu		plavate, plava
-√plu 1	1	a	float, swim	√plu	1	float	ava √plu		avaplu, avaplāvayati
-√plu 1	1	a	float, swim	√plu	1	float	ud √plu		utplūtvā, utplu, udplavate, utplavate, utplavana, pluta
-√plu 1	1	a	float, swim	√plu	1	float	upa √plu		
+√plu 1	1	*āpe	float, swim	√plu	1	float	√plu	plu	plavate, plava
+√plu 1	1	a	float, swim	√plu	1	float	ava √plu	avaplu	avaplu, avaplāvayati
+√plu 1	1	a	float, swim	√plu	1	float	ud √plu	utplu	utplūtvā, utplu, udplavate, utplavate, utplavana, pluta
+√plu 1	1	a	float, swim	√plu	1	float	upa √plu	upaplu	
 √plu 1	1	a	float, swim	√plu	1	float	ni √plu		vipluta
-√plu 1	1	a	float, swim	√plu	1	float	pari √plu		pariplava
-√plu 1	1	*āpe	float, swim	√plu	1	float	saṃ √plu		samplava
-√plu 1	1	a	float, swim	√plu	1	float	saṃ ud √plu		saṃ + utplu
-√plu 2	1	a	spring, swing	√pru	1	spring	√plu		pravate
-√plu 2	1	a	spring, swing	√pru	1	spring	ud √plu		udpru, utplava, utpru, utplava, utplavana
-√phaṇ	1	*e	skim	√phaṇ	1	spring	√phaṇ		phāṇita
-√phand	1	a	shake, quiver	√spand	1	quiver	√phand		na + spandyamāna, spandita, spandate, spandamāna, spandayati, spandayat, spandita +, spandana, a + spandana, na + spandamāna, spandat
-√phand	1	a	shake, quiver	√spand	1	quiver	pari √phand		+ spandana, na + parispanda, parispandamāna, parispandate
-√phand	1	a	shake, quiver	√spand	1	quiver	vi √phand		+ spandamāna, vispandya, vispandana, vispandita
-√phar	1	a	suffuse, pervade	√sphar	6	expand	√phar		sphur, spharaṇa, sphar, sphārayat, sphuritum, asphorīt, asphuṭa, sphurati, sphar, spharamāṇa, sphuṭa
+√plu 1	1	a	float, swim	√plu	1	float	pari √plu	pariplu	pariplava
+√plu 1	1	*āpe	float, swim	√plu	1	float	saṃ √plu	samplu	samplava
+√plu 1	1	a	float, swim	√plu	1	float	saṃ ud √plu	samutplu	saṃ + utplu
+√plu 2	1	a	spring, swing	√pru	1	spring	√plu	pru	pravate
+√plu 2	1	a	spring, swing	√pru	1	spring	ud √plu	utpru	udpru, utplava, utpru, utplava, utplavana
+√phaṇ	1	*e	skim	√phaṇ	1	spring	√phaṇ	phaṇ	phāṇita
+√phand	1	a	shake, quiver	√spand	1	quiver	√phand	spand	na + spandyamāna, spandita, spandate, spandamāna, spandayati, spandayat, spandita +, spandana, a + spandana, na + spandamāna, spandat
+√phand	1	a	shake, quiver	√spand	1	quiver	pari √phand	parispand	+ spandana, na + parispanda, parispandamāna, parispandate
+√phand	1	a	shake, quiver	√spand	1	quiver	vi √phand	vispand	+ spandamāna, vispandya, vispandana, vispandita
+√phar	1	a	suffuse, pervade	√sphar	6	expand	√phar	sphar	sphur, spharaṇa, sphar, sphārayat, sphuritum, asphorīt, asphuṭa, sphurati, sphar, spharamāṇa, sphuṭa
 √phar	1	a	suffuse, pervade	√sphar	6	expand	anu √phar		
 √phar	1	a	suffuse, pervade	√sphar	6	expand	ni √phar		
 √phar	1	a	suffuse, pervade	√sphar	6	expand	pati √phar		pratisphurta, pratisphurati, na + pratisphurati
-√phar	1	a	suffuse, pervade	√sphar	6	expand	pari √phar		parisphuṭa, parisphar
-√phar	1	a	suffuse, pervade	√sphar	6	expand	vi √phar		
-√phal 1	1	a	split open	√phal √sphaṭ	1	burst	√phal		phalaka, sphaṭika, sphāṭīka, aphālīt, sphoṭana, phal, phalat, phālayat, phalati, phala, phāla, phālayati, sphāṭita, phalgu, sphaṭika
-√phal 1	1	*e	split open	√phal √sphaṭ	1	burst	ud √phal		
-√phal 1	1	*e	split open	√phal √sphaṭ	1	burst	vi √phal		viphal, visphuṭ, sphāṭita
-√phal 2	1	a	fruit, ripen	√phal	1	fruit	√phal		phalat, na + aphala, aphala, niṣphala, phalati, phalin, saphala, phalita, phala, saphala, na + niṣphala
-√phal 2	1	a	fruit, ripen	√phal	1	fruit	vi √phal		
-√phā	1	a	swell, get fat	√sphāy √sphā	1	fatten	√phā		sphīta, sphāti
+√phar	1	a	suffuse, pervade	√sphar	6	expand	pari √phar	parisphar	parisphuṭa, parisphar
+√phar	1	a	suffuse, pervade	√sphar	6	expand	vi √phar	visphar	
+√phal 1	1	a	split open	√phal √sphaṭ	1	burst	√phal	phal	phalaka, sphaṭika, sphāṭīka, aphālīt, sphoṭana, phal, phalat, phālayat, phalati, phala, phāla, phālayati, sphāṭita, phalgu, sphaṭika
+√phal 1	1	*e	split open	√phal √sphaṭ	1	burst	ud √phal	utphal	
+√phal 1	1	*e	split open	√phal √sphaṭ	1	burst	vi √phal	viphal	viphal, visphuṭ, sphāṭita
+√phal 2	1	a	fruit, ripen	√phal	1	fruit	√phal	phal	phalat, na + aphala, aphala, niṣphala, phalati, phalin, saphala, phalita, phala, saphala, na + niṣphala
+√phal 2	1	a	fruit, ripen	√phal	1	fruit	vi √phal	viphal	
+√phā	1	a	swell, get fat	√sphāy √sphā	1	fatten	√phā	sphāy	sphīta, sphāti
 √phuṭ 1	8	*e	beat, smash	√sphuṭ	1, 6	burst	√phuṭ	sphuṭ	sphuṭayati, sprṣṭa, sphoṭana (splitting)
 √phuṭ 1	8	*aya	beat, smash	√sphuṭ	1, 6	burst	ā √phuṭ	āsphuṭ	āsphoṭayat
 √phuṭ 1	8	*e	beat, smash	√sphuṭ	1, 6	burst	ni √phuṭ		sphoṭa, nir + sphuṭayati, prasphoṭana
@@ -1853,30 +1853,30 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √bham	1	a	turn, revolve, buzz	√bhram	1, 4	wander	pari √bham		paribhramati
 √bham	1	a	turn, revolve, buzz	√bhram	1, 4	wander	vi √bham		vibhramya, vibhrānta +, vibhrānta, sambhramati
 √bham	1	a	turn, revolve, buzz	√bhram	1, 4	wander	saṃ √bham		vibhramati, sambhrama
-√bhar	1	a	carry, support	√bhṛ	1	bear	√bhar		bhartṛ, bharita, durbhara, bhāra, bhartre, sa + bhāryā, bhṛti, bhāryā, bhṛtya, bhārya, bhāratara, subhara, durbhara +, subhṛta, bhartuḥ, bharaṇa, bhṛta, abhārika +tā, subharatva (subhara + -tā), bhārika, bharitavya, bhara, su + bhāryā, bhṛtaka, bharati
+√bhar	1	a	carry, support	√bhṛ	1	bear	√bhar	bhṛ	bhartṛ, bharita, durbhara, bhāra, bhartre, sa + bhāryā, bhṛti, bhāryā, bhṛtya, bhārya, bhāratara, subhara, durbhara +, subhṛta, bhartuḥ, bharaṇa, bhṛta, abhārika +tā, subharatva (subhara + -tā), bhārika, bharitavya, bhara, su + bhāryā, bhṛtaka, bharati
 √bhar	1	a	carry, support	√bhṛ	1	bear	ati √bhar		atibhṛ, atibhṛta, atibhāra, atibhrita
-√bhar	1	a	carry, support	√bhṛ	1	bear	ava √bhar		avabhṛta
-√bhar	1	a	carry, support	√bhṛ	1	bear	ā √bhar		ābharaṇa, ābhṛta
-√bhar	1		carry, support	√bhṛ	1	bear	ud √bhar		uddhāra
-√bhar	1	a	carry, support	√bhṛ	1	bear	nī √bhar		nirbhṛta, su + nirbhṛta
-√bhar	1	a	carry, support	√bhṛ	1	bear	pa √bhar		prabhṛti
+√bhar	1	a	carry, support	√bhṛ	1	bear	ava √bhar	avabhṛ	avabhṛta
+√bhar	1	a	carry, support	√bhṛ	1	bear	ā √bhar	ābhṛ	ābharaṇa, ābhṛta
+√bhar	1		carry, support	√bhṛ	1	bear	ud √bhar	udbhṛ	uddhāra
+√bhar	1	a	carry, support	√bhṛ	1	bear	nī √bhar	nirbhṛ	nirbhṛta, su + nirbhṛta
+√bhar	1	a	carry, support	√bhṛ	1	bear	pa √bhar	prabhṛ	prabhṛti
 √bhar	1	a	carry, support	√bhṛ	1	bear	pa ā √bhar		prabhṛta
-√bhar	1	a	carry, support	√bhṛ	1	bear	pari √bhar		paribhṛ, paribhṛ +
-√bhar	1	a	carry, support	√bhṛ	1	bear	saṃ √bhar		sambhṛta, sambhāra
-√bhas 1	3	ya	fall down	√bhraś √bhraṅś	1, 4	fall	√bhas		bhraśamāna, bhraṣṭā, bhraśat
+√bhar	1	a	carry, support	√bhṛ	1	bear	pari √bhar	paribhṛ	paribhṛ, paribhṛ +
+√bhar	1	a	carry, support	√bhṛ	1	bear	saṃ √bhar	sambhṛ	sambhṛta, sambhāra
+√bhas 1	3	ya	fall down	√bhraś √bhraṅś	1, 4	fall	√bhas	bhraṃś	bhraśamāna, bhraṣṭā, bhraśat
 √bhas 1	3	ya	fall down	√bhraś √bhraṅś	1, 4	fall	ava √bhas		ava + bhraṣṭā
-√bhas 1	3	ya	fall down	√bhraś √bhraṅś	1, 4	fall	pa √bhas		pra + bhraś
-√bhas 1	3	ya	fall down	√bhraś √bhraṅś	1, 4	fall	pari √bhas		+ bhraṣṭā
+√bhas 1	3	ya	fall down	√bhraś √bhraṅś	1, 4	fall	pa √bhas	prabhraṃś	pra + bhraś
+√bhas 1	3	ya	fall down	√bhraś √bhraṅś	1, 4	fall	pari √bhas	paribhraṃś	+ bhraṣṭā
 √bhas 2	1	a	make ashes	bhas	-	ashes	√bhas		bhasman
-√bhā	1	a	shine, speak	√bhā	2	shine	√bhā		bhānumat, bhāṣiṣyati, bhānu, bhāṣiṣyasi, abhāsīt, bhāti, ābhāsīt
-√bhā	1	a	shine, speak	√bhā	2	shine	anu pa √bhā		anuprabhā, anuprabhāti
+√bhā	1	a	shine, speak	√bhā	2	shine	√bhā	bhā	bhānumat, bhāṣiṣyati, bhānu, bhāṣiṣyasi, abhāsīt, bhāti, ābhāsīt
+√bhā	1	a	shine, speak	√bhā	2	shine	anu pa √bhā	anuprabhā	anuprabhā, anuprabhāti
 √bhā	1	a	shine, speak	√bhā	2	shine	apa anu √bhā		apabhāṣ
-√bhā	1	a	shine, speak	√bhā	2	shine	ā √bhā		ābhā, ābhāti, ābha
+√bhā	1	a	shine, speak	√bhā	2	shine	ā √bhā	ābhā	ābhā, ābhāti, ābha
 √bhā	1	a	shine, speak	√bhā	2	shine	upa ni √bhā		upanibha
-√bhā	1	a	shine, speak	√bhā	2	shine	ni √bhā		nirbhāti, nirbhā, nibha
-√bhā	1	a	shine, speak	√bhā	2	shine	pa √bhā		suprabhāta, prabhāta, a + prabhāsa, niṣprabha, a + prabha, prabhā
-√bhā	1	a	shine, speak	√bhā	2	shine	pati √bhā		na + pratibhāti, pratibhā, pratibhāna, pratibhāti
-√bhā	1	a	shine, speak	√bhā	2	shine	vi √bhā		vibhāti, vibhāta
+√bhā	1	a	shine, speak	√bhā	2	shine	ni √bhā	nirbhā	nirbhāti, nirbhā, nibha
+√bhā	1	a	shine, speak	√bhā	2	shine	pa √bhā	prabhā	suprabhāta, prabhāta, a + prabhāsa, niṣprabha, a + prabha, prabhā
+√bhā	1	a	shine, speak	√bhā	2	shine	pati √bhā	pratibhā	na + pratibhāti, pratibhā, pratibhāna, pratibhāti
+√bhā	1	a	shine, speak	√bhā	2	shine	vi √bhā	vibhā	vibhāti, vibhāta
 √bhā	1	a	shine, speak	√bhā	2	shine	saṃ ni √bhā		saṃnibha
 √bhās 1	1	a	speak	√bhāṣ	1	speak	√bhās	bhāṣ	na + bhāṣitavya, bhāṣitṛ, na + bhāṣya, bhāṣitum, bhāṣya, a + bhāṣaṇa, bhāṣati, abhāṣat, bhāṣaṇa, bhāṣin, bhāṣiṣyate, bhāṣā, abhāṣitvā (na + bhāṣitvā), subhāṣita, bhāṣamāṇa, durbhāṣita, na + bhāṣamāṇa, na + na + bhāṣamāṇa, bhāṣita, subhāṣitataḥ , subhāṣitāt (< subhāṣita), bhāṣyamāṇa, abhāṣiṣṭa, bhāṣat, bhāṣitavya, na + bhāṣita
 √bhās 1	1	a	speak	√bhāṣ	1	speak	adhi √bhās	abhibhāṣ	
@@ -2936,28 +2936,28 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √sar 3	1	a	make sound	√svṛ √svar	1	sound	vi √sar		visvara
 √sar 4	1	a	shine	√svar	1	shine	√sar		svarga +, svarga, suvarga
 √sar 5	1	a	hurt, injure	√sṝ √svṛ	9	hurt	√sar		sīrta, sarītavya
-√sas 1	1	a	breath	√śvas	1, 2	blow	√sas		śvāsa
-√sas 1	1	a	breath	√śvas	1, 2	blow	ā √sas		āśvāsin, āśvasat, āśvāsanīya, āśvas, āśvasayat, āśvasta, āśvāsa, āśvasayitavya, nir + āśas, āśvāsayitum, aśvattha, praśvasiti, āśvāsika, anāśvāsika (bdk), na + āśvasat
-√sas 1	1	a	breath	√śvas	1, 2	blow	nī √sas		
-√sas 1	1	a	breath	√śvas	1, 2	blow	pa √sas		praśvasat (inhale), praśvasiti (inhale), niḥśvasana, praśvāsa (inhaling)
-√sas 1	1	a	breath	√śvas	1, 2	blow	vi √sas		viśvāsya, viśvasta +, viśvāsin, viśvas, viśvasati, na + viśvāsya, viśvasat, na + viśvasat, viśvāsika, viśvāsa, viśvasta
-√sas 1	1	*e	breath	√śvas	1, 2	blow	saṃ ā √sas		samāśvasta, samāśvāsayat, samāśvāsayati, samāśvas, samāśvāsa
+√sas 1	1	a	breath	√śvas	1, 2	blow	√sas	śvas	śvāsa
+√sas 1	1	a	breath	√śvas	1, 2	blow	ā √sas	āśvas	āśvāsin, āśvasat, āśvāsanīya, āśvas, āśvasayat, āśvasta, āśvāsa, āśvasayitavya, nir + āśas, āśvāsayitum, aśvattha, praśvasiti, āśvāsika, anāśvāsika (bdk), na + āśvasat
+√sas 1	1	a	breath	√śvas	1, 2	blow	nī √sas	niśvas	
+√sas 1	1	a	breath	√śvas	1, 2	blow	pa √sas	praśvas	praśvasat (inhale), praśvasiti (inhale), niḥśvasana, praśvāsa (inhaling)
+√sas 1	1	a	breath	√śvas	1, 2	blow	vi √sas	viśvas	viśvāsya, viśvasta +, viśvāsin, viśvas, viśvasati, na + viśvāsya, viśvasat, na + viśvasat, viśvāsika, viśvāsa, viśvasta
+√sas 1	1	*e	breath	√śvas	1, 2	blow	saṃ ā √sas	samāśvas	samāśvasta, samāśvāsayat, samāśvāsayati, samāśvas, samāśvāsa
 √sas 1	1	a	breath	√śvas	1, 2	blow	saṃ vi √sas		suviśvasta
-√sas 2	1	a	slaughter	√śas	1, 2	cut	√sas		aśastreṇa, śasati, aśastra, śastra, śastraka, saśastra
-√sah 1	1	a	overcome, prevail	√sah	1, 2, 4	prevail	√sah		asahya, asāhasena, sahate, asahana (na + sahana), sahana, sāhasika, na + sahamāna, sāhasāt, sahana +, sāhin, duḥsaha, sahasā, sahas, sahamāna, sāhasa, sahya, sahaka, saheta, asāhasa, sahat, saha, asahana +
-√sah 1	1	a	overcome, prevail	√sah	1, 2, 4	prevail	abhi ud √sah		
-√sah 1	1	a	overcome, prevail	√sah	1, 2, 4	prevail	ud √sah		utsahat, utsāha, utsāha, utsoḍhi, utsahate
-√sah 1	1	a	overcome, prevail	√sah	1, 2, 4	prevail	pa √sah		prasahate, na + prasahate, a + prasahyaḷ, duṣprasaha, prasahya
+√sas 2	1	a	slaughter	√śas	1, 2	cut	√sas	śas	aśastreṇa, śasati, aśastra, śastra, śastraka, saśastra
+√sah 1	1	a	overcome, prevail	√sah	1, 2, 4	prevail	√sah	sah	asahya, asāhasena, sahate, asahana (na + sahana), sahana, sāhasika, na + sahamāna, sāhasāt, sahana +, sāhin, duḥsaha, sahasā, sahas, sahamāna, sāhasa, sahya, sahaka, saheta, asāhasa, sahat, saha, asahana +
+√sah 1	1	a	overcome, prevail	√sah	1, 2, 4	prevail	abhi ud √sah	abhyutsah	
+√sah 1	1	a	overcome, prevail	√sah	1, 2, 4	prevail	ud √sah	utsah	utsahat, utsāha, utsāha, utsoḍhi, utsahate
+√sah 1	1	a	overcome, prevail	√sah	1, 2, 4	prevail	pa √sah	prasah	prasahate, na + prasahate, a + prasahyaḷ, duṣprasaha, prasahya
 √sah 1	1	a	overcome, prevail	√sah	1, 2, 4	prevail	pari √sah		
 √sah 1	1	a	overcome, prevail	√sah	1, 2, 4	prevail	vi √sah		na + viṣahat, viṣahat, viṣahate, visahamāna
-√sah 1	1	*e	overcome, prevail	√sah	1, 2, 4	prevail	saṃ ud √sah		
-√sah 2	1	a	be able	√sah	1	prevail	√sah		sahate
-√sah 2	1	a	be able	√sah	1	prevail	ud √sah		utsahate
+√sah 1	1	*e	overcome, prevail	√sah	1, 2, 4	prevail	saṃ ud √sah	samutsah	
+√sah 2	1	a	be able	√sah	1	prevail	√sah	sah	sahate
+√sah 2	1	a	be able	√sah	1	prevail	ud √sah	utsah	utsahate
 √sah 2	1	ya	be able	√sah	1	prevail	vi √sah		aviṣaya, viṣahate, viṣahya
-√saṃs 1	1	a	proclaim, praise	√śaṃs √śaṅs	1	praise	√saṃs		praśaṃsati, praśaṃs
+√saṃs 1	1	a	proclaim, praise	√śaṃs √śaṅs	1	praise	√saṃs	śaṃs	praśaṃsati, praśaṃs
 √saṃs 1	1	a	proclaim, praise	√śaṃs √śaṅs	1	praise	ā ni √saṃs		anuśaṃsa (bsk)
-√saṃs 1	1	a	proclaim, praise	√śaṃs √śaṅs	1	praise	pa √saṃs		praśaṃsati, praśaṃsana, praśaṃsat, praśaṃsitavya, na + praśaṃsati, praśaṃsya + tara, praśaṃsā, praśastatva, praśaṃsya +, praśaṃsamāna, praśaṃs, praśaṃsana, praśaṃsin, praśasta, praśaṃsanīya, praśaṃsita, praśaṃsya, praśaṃsaka, praśaṃs
-√saṃs 2	1	a	wish, desire	√śaṃs	1	praise	ā √saṃs		āśaṃsamāna, āśaṃsa
+√saṃs 1	1	a	proclaim, praise	√śaṃs √śaṅs	1	praise	pa √saṃs	praśaṃs	praśaṃsati, praśaṃsana, praśaṃsat, praśaṃsitavya, na + praśaṃsati, praśaṃsya + tara, praśaṃsā, praśastatva, praśaṃsya +, praśaṃsamāna, praśaṃs, praśaṃsana, praśaṃsin, praśasta, praśaṃsanīya, praśaṃsita, praśaṃsya, praśaṃsaka, praśaṃs
+√saṃs 2	1	a	wish, desire	√śaṃs	1	praise	ā √saṃs	āśaṃs	āśaṃsamāna, āśaṃsa
 √sā	1	a	complete, accomplish	√so	4	destroy, kill, finish	√sā		sāyam, sāya
 √sā	1	a	complete, accomplish	√so	4	destroy, kill, finish	adhi ava √sā		adhyavaso, adhyavasyati, na + adhyavasāya, adhyavaso, adhyavasāya, na + adhyavaso, adhyavasāya, adhyavasāya, na + adhyavasita (bsk), adhyavasita (bsk)
 √sā	1	a	complete, accomplish	√so	4	destroy, kill, finish	abhi vi ava √sā		
