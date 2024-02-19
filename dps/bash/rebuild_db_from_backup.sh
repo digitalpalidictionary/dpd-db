@@ -2,7 +2,11 @@
 
 # build dpd.db from scratch using dps backup_tsv and making goldendict
 
-git pull
+git fetch
+
+git checkout origin/main -- backup_tsv/dpd_headwords.tsv
+
+git checkout origin/main -- backup_tsv/dpd_roots.tsv
 
 set -e
 test -e dpd.db || touch dpd.db

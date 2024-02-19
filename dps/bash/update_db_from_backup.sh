@@ -2,7 +2,11 @@
 
 # update data in dpd.db from from dps backup_tsv
 
-git pull
+git fetch
+
+git checkout origin/main -- backup_tsv/dpd_headwords.tsv
+
+git checkout origin/main -- backup_tsv/dpd_roots.tsv
 
 set -e
 
