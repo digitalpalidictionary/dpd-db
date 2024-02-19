@@ -64,6 +64,7 @@ def make_tab_edit_dpd(db_session, sg, username):
                 "", key="id", size=(20, 1),
                 background_color="black",
                 tooltip="A unique id.\n"),
+            sg.Button("Get Next ID", key="get_next_id_button", font=(None, 13)),
             sg.Text(
                 "", key="id_error", size=(50, 1), text_color="red")
         ],
@@ -300,6 +301,17 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                     tooltip="Family compounds, seperated by space.")),
             sg.Text(
                 "", key="family_compound_error",
+                size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("family_idioms*", size=(15, 1)),
+            sg.pin(
+                sg.Input(
+                    key="family_idioms", size=(50, 1),
+                    enable_events=True,
+                    tooltip="Family idioms, seperated by space.")),
+            sg.Text(
+                "", key="family_idioms_error",
                 size=(50, 1), text_color="red")
         ],
         [
@@ -657,6 +669,9 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 "Update Sandhi", key="update_sandhi_button",
                 tooltip="Update list of words with sandhi apostophes"),
             sg.Button(
+                "Refresh Db Session", key="refresh_db_session_button",
+                tooltip="Refresh the db session after making external changes."),
+            sg.Button(
                 "Log", key="open_corrections_button",
                 tooltip="open corrections tsv in code",
                 visible=username == "deva"),
@@ -666,6 +681,9 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
             sg.Text("gui buttons", size=(15, 1)),
             sg.Button(
                 "Open Tests", key="open_tests_button",
+                tooltip="Open TSV file of internal tests"),
+            sg.Button(
+                "Sk Roots", key="open_sanskrit_roots_button",
                 tooltip="Open TSV file of internal tests"),
             sg.Button(
                 "Debug", key="debug_button",

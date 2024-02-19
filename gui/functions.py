@@ -34,7 +34,7 @@ from tools.pali_alphabet import pali_alphabet
 from tools.pos import INDECLINABLES
 from tools.source_sutta_example import find_source_sutta_example
 
-nltk.download('punkt')
+# nltk.download('punkt')
 
 
 
@@ -48,6 +48,7 @@ class Flags:
         self.root_sign = True
         self.root_base = True
         self.family_compound = True
+        self.family_idioms = True
         self.construction = True
         self.construction_line2 = True
         self.suffix = True
@@ -482,6 +483,7 @@ def clear_values(values, window, username):
     window["root_base"].update(values=[])
     window["origin"].update(origin)
     window["root_info"].update("")
+    window["search_for"].update("")
 
 
 def find_commentary_defintions(sg, values, db_session):
@@ -914,6 +916,22 @@ def test_family_compound(values, window, family_compound_values):
     else:
         window["family_compound_error"].update("")
         window["family_compound"].update(text_color="darkgray")
+
+
+def test_family_idioms(values, window, family_idiom_values):
+    family_idioms = values["family_idioms"].split()
+    error_string = ""
+    for idiom_part in family_idioms:
+        if idiom_part not in family_idiom_values:
+            error_string += f"{idiom_part} "
+
+    if error_string:
+        window["family_idioms_error"].update(
+            error_string, text_color="red")
+        window["family_idioms"].update(text_color="red")
+    else:
+        window["family_idioms_error"].update("")
+        window["family_idioms"].update(text_color="darkgray")
 
 
 def remove_word_to_add(values, window, words_to_add_list):

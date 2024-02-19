@@ -3,6 +3,7 @@
 """Main program to run the GUI."""
 
 import json
+import subprocess
 import PySimpleGUI as sg
 import re
 import pickle
@@ -26,6 +27,7 @@ from functions_db import delete_word
 from functions_db import get_root_info
 from functions_db import fetch_id_or_lemma_1
 from functions_db import get_family_compound_values
+from functions_db import get_family_idioms_values
 from functions_db import del_syns_if_pos_meaning_changed
 
 from functions import sandhi_ok
@@ -52,6 +54,7 @@ from functions import add_stem_pattern
 from functions import Flags, reset_flags
 from functions import display_summary
 from functions import test_family_compound
+from functions import test_family_idioms
 from functions import remove_word_to_add
 from functions import add_to_word_to_add
 from functions import save_gui_state
@@ -140,7 +143,7 @@ from dps.tools.paths_dps import DPSPaths
 
 
 def main():
-    pth = ProjectPaths()
+    pth: ProjectPaths = ProjectPaths()
     dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
     username = test_username(sg)
@@ -148,6 +151,7 @@ def main():
     pali_word_original2 = None
     
     family_compound_values = get_family_compound_values(db_session)
+    family_idioms_values = get_family_idioms_values(db_session)
     sandhi_dict = make_sandhi_contraction_dict(db_session)
 
     with open(pth.hyphenations_dict_path) as f:
@@ -379,6 +383,9 @@ def main():
                 focus.set_focus()
 
         # add word events
+        
+        if event == "get_next_id_button":
+            get_next_ids(db_session, window)
 
         # copy lemma_1 to lemma_2
         if event == "lemma_1_tab":
@@ -506,6 +513,17 @@ def main():
                 FAMILY_ROOT_VALUES = get_family_root_values(db_session, root_key)
                 window["family_root"].update(values=FAMILY_ROOT_VALUES)
                 flags.family_root = False
+
+                # get root_sign and root_base if they are empty
+                if not values["root_sign"]:
+                    ROOT_SIGN_VALUES = get_root_sign_values(db_session, root_key)
+                    window["root_sign"].update(values=ROOT_SIGN_VALUES)
+                    flags.root_sign = False
+                if not values["root_base"]:
+                    ROOT_BASE_VALUES = get_root_base_values(db_session, root_key)
+                    window["root_base"].update(values=ROOT_BASE_VALUES)
+                    flags.root_base = False
+
             else:
                 window["messages"].update(
                     value="no root_key selected", text_color="red")
@@ -555,26 +573,34 @@ def main():
             else:
                 test_family_compound(values, window, family_compound_values)
 
+        elif event == "family_idioms":
+            if (
+                flags.family_idioms and
+                not values["family_idioms"] and
+                not values["root_key"]
+            ):
+                window["family_idioms"].update(values["lemma_1"])
+                flags.family_idioms = False
+            else:
+                test_family_idioms(values, window, family_idioms_values)
+
         elif event == "construction":
             if flags.construction and not values["construction"]:
                 construction = make_construction(values)
                 window["construction"].update(value=construction)
                 flags.construction = False
-            
-            # newline in construction
-            elif (
-                flags.construction_line2
-                and "\n" in values["construction"]
-            ):
-                lemma_clean = make_lemma_clean(values)
-                window["construction"].update(
-                    value=f"{values['construction']}{lemma_clean}")
-                flags.construction_line2 = False
-
 
             # test construciton for missing headwords
             if not values["root_key"]:
                 test_construction(values, window, lemma_clean_list)
+
+        # auto-add construction_line2
+        if event == "construction_enter":
+            if flags.construction_line2:
+                lemma_clean = make_lemma_clean(values)
+                window["construction"].update(
+                    value=f"{values['construction']}\n{lemma_clean}")
+                flags.construction_line2 = False
 
         elif (
             event == "add_construction_enter" or
@@ -915,9 +941,18 @@ def main():
 
         elif event == "open_tests_button":
             open_internal_tests(pth)
+        
+        elif event == "open_sanskrit_roots_button":
+            subprocess.Popen(
+                ["libreoffice", pth.root_families_sanskrit_path])
 
         elif event == "update_sandhi_button":
             sandhi_dict = make_sandhi_contraction_dict(db_session)
+
+
+        elif event == "refresh_db_session_button":
+            db_session.close()
+            db_session = get_db_session(pth.dpd_db_path)
 
         elif (
             event == "update_db_button1"

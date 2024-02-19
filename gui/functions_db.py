@@ -18,7 +18,7 @@ dpd_values_list = [
     "id", "lemma_1", "lemma_2", "pos", "grammar", "derived_from",
     "neg", "verb", "trans", "plus_case", "meaning_1", "meaning_lit",
     "meaning_2", "non_ia", "sanskrit", "root_key", "root_sign", "root_base",
-    "family_root", "family_word", "family_compound", "family_set",
+    "family_root", "family_word", "family_compound", "family_idioms", "family_set",
     "construction", "derivative", "suffix", "phonetic", "compound_type",
     "compound_construction", "non_root_in_comps", "source_1", "sutta_1",
     "example_1", "source_2", "sutta_2", "example_2", "antonym", "synonym",
@@ -324,6 +324,18 @@ def get_family_compound_values(db_session):
     family_compound_values = sorted(
         set(family_compound_values), key=pali_sort_key)
     return family_compound_values
+
+
+def get_family_idioms_values(db_session):
+    results = db_session.query(DpdHeadwords).all()
+    family_idioms_values = []
+    for i in results:
+        i: DpdHeadwords
+        family_idioms_values.extend(i.family_idioms_list)
+
+    family_idioms_values = sorted(
+        set(family_idioms_values), key=pali_sort_key)
+    return family_idioms_values
 
 
 # print(get_family_compound_values())

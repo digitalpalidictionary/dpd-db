@@ -228,5 +228,8 @@ def window_layout(dpspth, db_session, username):
     window.bind('<Alt-c>', 'alt_c')  # clone word
     window.bind('<Alt-e>', 'alt_e')  # edit word
 
+    # construction line 2
+    window['construction'].bind("<Return>", "_enter")
+
 
     return window
