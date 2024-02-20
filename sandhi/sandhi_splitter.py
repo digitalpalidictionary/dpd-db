@@ -719,6 +719,9 @@ def main():
     for counter, word in enumerate(unmatched_set.copy()):
         if len(word) <= max_word_length and word not in problem_children:
 
+            if not word.endswith(("tissa", "tissā")):
+                continue
+
             bip()
             logging.info(word)
 
@@ -773,6 +776,9 @@ def main():
             # tā ttā tāya
             if d.word.endswith(("tā", "ttā", "tāya")):
                 d = remove_tta(d)
+            
+            if d.word.endswith(("tissa", "tissā")):
+                d = remove_tissa(d)
 
             time_dict[word] = bop()
 
@@ -893,6 +899,9 @@ def recursive_removal(d: DotDict) -> None:
                     # tā ttā
                     if d.word.endswith(("tā", "ttā", "tāya")):
                         d = remove_tta(d)
+
+                if d.word.endswith(("tissa", "tissā")):
+                    d = remove_tissa(d)
 
 
 def remove_neg(d: DotDict) -> DotDict:
@@ -1121,6 +1130,45 @@ def remove_tta(d: DotDict) -> DotDict:
 
         else:
             d.comm = "recursing tta"
+            recursive_removal(d)
+
+        d = DotDict(d_orig)
+
+    return d_orig
+
+
+def remove_tissa(d: DotDict) -> DotDict:
+    """find tissa or tissā in last place then
+    1. match 2. recurse or 3. pass through.
+    This fixes the problem of 'iti + assa / assā' being taken as tissa / tissā,
+    very common in the commentaries."""
+
+    d_orig = DotDict(d)
+
+    if comp(d) not in w.matches and len(d.word) > 3:
+        d.path += " > tissa"
+        if d.word.endswith("tissa"):
+            d.back = f"{d.back} + iti + assa"
+            d.word = d.word[:-5]
+            d.rules_back = f"tissa,{d.rules_back}"
+
+        if d.word.endswith("tissā"):
+            d.back = f"{d.back} + iti + assā"
+            d.word = d.word[:-5]
+            d.rules_back = f"tissa,{d.rules_back}"
+
+        if d.word in all_inflections_set:
+            d.comm = "tissa"
+
+            if comp(d) not in w.matches:
+                matches_dict[d.init] += [
+                    (comp(d), "xword-tissa", "tissa", d.path)]
+                w.matches.add(comp(d))
+                d.matches.add(comp(d))
+                unmatched_set.discard(d.init)
+
+        else:
+            d.comm = "recursing tissa"
             recursive_removal(d)
 
         d = DotDict(d_orig)

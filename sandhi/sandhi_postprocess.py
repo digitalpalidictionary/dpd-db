@@ -61,6 +61,9 @@ def process_matches(ADD_DO, pth: ProjectPaths, neg_inflections_set):
     print("adding manual")
     matches_df["manual"] = matches_df["process"].str.count("manual")
 
+    print("adding tissa")
+    matches_df["tissa"] = matches_df["process"].str.count(r"tissa|tissā")
+
     print("adding splitcount")
     matches_df["splitcount"] = matches_df["split"].str.count(r" \+ ")
 
@@ -96,9 +99,9 @@ def process_matches(ADD_DO, pth: ProjectPaths, neg_inflections_set):
 
     print("sorting df values")
     matches_df.sort_values(
-        by=["manual", "splitcount", "lettercount", "ratio", "neg_count"],
+        by=["manual", "tissa", "splitcount", "lettercount", "ratio", "neg_count"],
         axis=0,
-        ascending=[False, True, True, False, True],
+        ascending=[False, False, True, True, False, True],
         inplace=True,
         ignore_index=True,
     )
