@@ -41,6 +41,7 @@ def make_cst_text_set(
 
     words_list: List[str] = []
 
+
     for book in cst_texts_list:
         with open(pth.cst_txt_dir.joinpath(book), "r") as f:
             text_string = f.read()
@@ -54,6 +55,8 @@ def make_cst_text_set(
                     text_string, niggahita=niggahita, remove_hyphen=True)
 
             words_list.extend(text_string.split())
+    
+    words_list = list(set(words_list))
     
     if add_hyphenated_parts:
         for index, word in enumerate(words_list):
@@ -253,7 +256,7 @@ def make_sc_text_set(pth, books: List[str], niggahita="ṃ") -> Set[str]:
                     for __title__, text in sc_text_dict.items():
                         clean_text = clean_machine(text, niggahita=niggahita)
                         words_list.extend(clean_text.split())
-
+    
     return set(words_list)
 
 

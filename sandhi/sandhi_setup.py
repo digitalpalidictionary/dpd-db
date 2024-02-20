@@ -2,15 +2,11 @@
 
 """Setup for compound deconstruction."""
 
-import os
 from typing import Dict, List, Set, Tuple
 import pandas as pd
 import pickle
 import re
-import shutil
-import zipfile
 
-from pathlib import Path
 from rich import print
 
 from books_to_include import limited_texts, all_texts
@@ -27,26 +23,24 @@ from tools.paths import ProjectPaths
 from tools.configger import config_test
 
 
-def main():
+def setup_deconstructor():
     """Prepare all the necessary parts for deconstructor locally
     or in the cloud."""
-    tic()
 
     # Read configurations from config.ini
     if config_test("deconstructor", "run_on_cloud", "yes"):
-        run_on_cloud = True
         print("[green]setting up to run [cyan]on cloud")
     else:
-        run_on_cloud = False
         print("[green]setting up to run [cyan]locally")
+    
     if config_test("deconstructor", "all_texts", "yes"):
         texts_to_include = all_texts
         print("[green]including [cyan]all texts")
+    
     elif config_test("deconstructor", "all_texts", "no"):
         texts_to_include = limited_texts
         print("[green]including [cyan]limited texts")
     
-
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
@@ -135,12 +129,6 @@ def main():
         print(f"[white]{'ok':>10}")
 
     make_matches_dict(pth)
-
-    if run_on_cloud:
-        zip_for_cloud()
-        move_zip()
-
-    toc()
 
 
 def make_spelling_mistakes_set(pth: ProjectPaths) -> Tuple[Set[str], Set[str]]:
@@ -342,51 +330,8 @@ def make_neg_inflections_set(db_session: Session, sandhi_exceptions_set: Set[str
     return neg_inflections_set
 
 
-def zip_for_cloud():
-    print(f"[green]{'zipping for cloud':<35}", end="")
-
-    include = [
-        "poetry.lock",
-        "poetry.toml",
-        "pyproject.toml",
-        "README.md",
-        "db",
-        "sandhi/assets",
-        "sandhi/sandhi_related",
-        "sandhi/books_to_include.py",
-        "sandhi/helpers.py",
-        "sandhi/sandhi_postprocess.py",
-        "sandhi/sandhi_setup.py",
-        "sandhi/sandhi_splitter.py",
-        "sandhi/sandhi.sh",
-        "tools"
-    ]
-
-    zip_path = Path("./")
-    zipfile_name = Path("sandhi.zip")
-
-    def zipdir(path, ziph, include):
-        for root, __dirs__, files in os.walk(path):
-            for file in files:
-                if not any(
-                        os.path.relpath(
-                            os.path.join(root, file), path).startswith(i) for i in include):
-                    continue
-                ziph.write(os.path.join(root, file))
-
-    with zipfile.ZipFile(zipfile_name, "w", zipfile.ZIP_DEFLATED) as zipf:
-        zipdir(zip_path, zipf, include)
-
-    print(f"[white]{'ok':>10}")
-
-
-def move_zip():
-    print(f"[green]{'moving zip':<35}", end="")
-    shutil.move("sandhi.zip", "sandhi/sandhi.zip")
-    print(f"[white]{'ok':>10}")
-
-
 if __name__ == "__main__":
+    tic()
     print("[bright_yellow]setting up for sandhi splitting")
     if (
         config_test("exporter", "make_deconstructor", "yes") or 
@@ -394,6 +339,7 @@ if __name__ == "__main__":
         config_test("exporter", "make_ebook", "yes") or 
         config_test("regenerate", "db_rebuild", "yes")
     ):
-        main()
+        setup_deconstructor()
     else:
         print("generating is disabled in the config")
+    toc()
