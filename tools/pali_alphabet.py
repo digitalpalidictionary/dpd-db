@@ -25,6 +25,14 @@ consonants = [
     "y", "r", "l", "s", "v", "h", "ḷ", "ṃ"
     ]
 
+double_consonants = [
+    "kk", "kkh", "gg", "ggh",
+    "cc", "cch", "jj", "jjh",
+    "ṭṭ", "ṭṭh", "ḍḍ", "ḍḍh"
+    "tt", "tth", "dd", "ddh"
+    "pp", "pph", "bb", "bbh",
+]
+
 unaspirated = [
     "k", "g",
     "c", "j",

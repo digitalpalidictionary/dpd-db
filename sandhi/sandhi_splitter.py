@@ -12,7 +12,7 @@ from rich import print
 from typing import Optional, Set, TypedDict, Union, Self
 from os import popen
 
-from tools.pali_alphabet import vowels
+from tools.pali_alphabet import vowels, double_consonants
 from tools.tic_toc import tic, toc, bip, bop
 from tools.paths import ProjectPaths
 from tools.configger import config_test
@@ -719,9 +719,6 @@ def main():
     for counter, word in enumerate(unmatched_set.copy()):
         if len(word) <= max_word_length and word not in problem_children:
 
-            if not word.endswith(("tissa", "tissā")):
-                continue
-
             bip()
             logging.info(word)
 
@@ -865,6 +862,11 @@ def recursive_removal(d: DotDict) -> None:
                 # api eva iti
                 if re.findall("(pi|va|ti)$", d.word) != []:
                     d = remove_apievaiti(d)
+                
+                # double consonants
+                dc_str = "|".join(double_consonants)
+                if re.findall(f"^({dc_str})|({dc_str})$", d.word):
+                    d = remove_double_consonants(d)
 
                 if not w.matches:
 
@@ -1174,6 +1176,45 @@ def remove_tissa(d: DotDict) -> DotDict:
         d = DotDict(d_orig)
 
     return d_orig
+
+
+def remove_double_consonants(d: DotDict) -> DotDict:
+    """find double consontant at the start or end and remove
+    1. match 2. recurse or 3. pass through.
+    """
+
+    d_orig = DotDict(d)
+
+    if comp(d) not in w.matches and len(d.word) > 3:
+        d.path += " > dc"
+        if any(d.word.startswith(dc) for dc in double_consonants):
+            d.word = d.word[1:]
+            d.rules_front += "dc,"
+
+        if any(d.word.endswith(dc) for dc in double_consonants):
+            d.word = d.word[:-1]
+            d.rules_back = f"dc,{d.rules_back}"
+
+        if d.word in all_inflections_set:
+            d.comm = "dc"
+
+            if comp(d) not in w.matches:
+                matches_dict[d.init] += [
+                    (comp(d), "xword-dc", "dc", d.path)]
+                w.matches.add(comp(d))
+                d.matches.add(comp(d))
+                unmatched_set.discard(d.init)
+
+        else:
+            d.comm = "recursing dc"
+            recursive_removal(d)
+
+        d = DotDict(d_orig)
+
+    return d_orig
+
+
+
 
 
 def remove_apievaiti(d: DotDict) -> DotDict:
