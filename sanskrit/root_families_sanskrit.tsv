@@ -966,19 +966,19 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √jal 2	8	*e	hide, conceal	√jal	10	cover up	√jal		jambāla, jīrṇa, jālaka, jālin, jāla, jhallikā, jamba, jāla + -tā, jala, jalaukā, jalūkā, jalaukas, raktapā
 √jāgar 1	1	a	be awake, watchful	√jāgṛ √gṛ	1, 2, 3	wake	√jāgar		jāgaraṇa, jāgaryā, jāgramāṇa, jāgarti, jāgarita, jāgara, jāgrat
 √jāgar 2	7	o	be awake, watchful	√jāgṛ √gṛ	1, 2, 3	wake	pati √jāgar		pratijāgarti
-√ji 1	1	*āpaya	conquer	√ji	1, 2	conquer	√ji		jitvā, jaya, jayat, jayati, cikīrṣā, jeṣyati, jetṛ, jayet, jigīṣat, jīyate, ajeya, ji, jayanta, ajaiṣīt, na + jāpayat, jigīṣati, jāpayati, jigīṣu, jigīṣamāṇa, jigīṣita
-√ji 1	1	a	conquer	√ji	1, 2	conquer	abhi √ji		abhijita
-√ji 1	1	a	conquer	√ji	1, 2	conquer	ud √ji		ujjayana
-√ji 1	1	sa	conquer	√ji	1, 2	conquer	ni √ji		ni + jigīṣamāṇa +, ni + jigīṣati, ni + jigīṣamāṇa
-√ji 1	1	a	conquer	√ji	1, 2	conquer	parā √ji		parājaya, parājaiṣṭa, pārājika (bsk),  pārājayaka (< parājaya), aparājita, parāji, parājayat, parājita
-√ji 1	1	a	conquer	√ji	1, 2	conquer	vi √ji		vijītvā, vijaya, vijayā, vijītya, vijayati
-√ji 1	1	a	conquer	√ji	1, 2	conquer	saṃ √ji		sṛñjaya / saṃjaya, saṃjaya
-√ji 2	5	nā	conquer	√ji √jyā	9	conquer	√ji		ajāyi, na + jinat, jina, jayet, jinat, ajaiṣīt, jita, ajita, jayati, jetum, jayitum, ji
-√ji 2	5	nā	conquer	√ji √jyā	9	conquer	apa √ji		ajaya
+√ji 1	1	*āpaya	conquer	√ji	1, 2	conquer	√ji	ji	jitvā, jaya, jayat, jayati, cikīrṣā, jeṣyati, jetṛ, jayet, jigīṣat, jīyate, ajeya, ji, jayanta, ajaiṣīt, na + jāpayat, jigīṣati, jāpayati, jigīṣu, jigīṣamāṇa, jigīṣita
+√ji 1	1	a	conquer	√ji	1, 2	conquer	abhi √ji	abhiji	abhijita
+√ji 1	1	a	conquer	√ji	1, 2	conquer	ud √ji	ujji	ujjayana
+√ji 1	1	sa	conquer	√ji	1, 2	conquer	ni √ji	niji	ni + jigīṣamāṇa +, ni + jigīṣati, ni + jigīṣamāṇa
+√ji 1	1	a	conquer	√ji	1, 2	conquer	parā √ji	parāji	parājaya, parājaiṣṭa, pārājika (bsk),  pārājayaka (< parājaya), aparājita, parāji, parājayat, parājita
+√ji 1	1	a	conquer	√ji	1, 2	conquer	vi √ji	viji	vijītvā, vijaya, vijayā, vijītya, vijayati
+√ji 1	1	a	conquer	√ji	1, 2	conquer	saṃ √ji	saṃji	sṛñjaya / saṃjaya, saṃjaya
+√ji 2	5	nā	conquer	√ji √jyā	9	conquer	√ji	ji	ajāyi, na + jinat, jina, jayet, jinat, ajaiṣīt, jita, ajita, jayati, jetum, jayitum, ji
+√ji 2	5	nā	conquer	√ji √jyā	9	conquer	apa √ji	apaji	ajaya
 √ji 2	5	nā	conquer	√ji √jyā	9	conquer	abhi vi √ji		abhivijīta, abhivijītya, abhivijināti, abhivijītvā
-√ji 2	5	nā	conquer	√ji √jyā	9	conquer	ava √ji		na + avajīyate
-√ji 2	5	nā	conquer	√ji √jyā	9	conquer	parā √ji		parāji, parājayate
-√ji 2	5	nā	conquer	√ji √jyā	9	conquer	vi √ji		na + vijita, viji, vijināti, vijitavān, vijitya, vijita
+√ji 2	5	nā	conquer	√ji √jyā	9	conquer	ava √ji	avaji	na + avajīyate
+√ji 2	5	nā	conquer	√ji √jyā	9	conquer	parā √ji	parāji	parāji, parājayate
+√ji 2	5	nā	conquer	√ji √jyā	9	conquer	vi √ji	viji	na + vijita, viji, vijināti, vijitavān, vijitya, vijita
 √jī	3	ya	age, decay	√jṝ √jṛ	1, 4, 6, 9	waste away	√jī		jīryati, jṝ, jīrṇa, ajeya, ajīryamāṇa, jīryamāṇa
 √jī	3	ya	age, decay	√jṝ √jṛ	1, 4, 6, 9	waste away	ava √jī		
 √jīr	1	a	grow old, decay	√jṝ √jṛ	1, 4, 6, 9	waste away	√jīr		jīrṇatā, ajīrṇa, jīrṇaka, jarayat, jīryati, na + jṛṇāti, na + jāraṇa, jīrṇa, ajārīt, ajarat, ajīrṇa (na + jīrṇa), jīryamāṇa, jṛṇāti
@@ -1971,9 +1971,9 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √maṇḍ	1	a	adorn	√maṇḍ	1	deck	√maṇḍ		maṇḍayati, maṇḍanāya, na + maṇḍana, maṇḍita +, maṇḍana, maṇḍita, maṇḍa
 √maṇḍ	1	a	adorn	√maṇḍ	1	deck	ā √maṇḍ		
 √maṇḍ	1	a	adorn	√maṇḍ	1	deck	pati √maṇḍ		pratimaṇḍita
-√math	1	a	churn, stir	√math √manth	1, 9	shake	√math		manthayati, māthayati, math, mathita, mantha
-√math	1	a	churn, stir	√math √manth	1, 9	shake	nī √math		nirmathana, nirmanthana (rubbing), nirmathita, nimath
-√math	1	a	churn, stir	√math √manth	1, 9	shake	pa √math		
+√math	1	a	churn, stir	√math √manth	1, 9	shake	√math	math	manthayati, māthayati, math, mathita, mantha
+√math	1	a	churn, stir	√math √manth	1, 9	shake	nī √math	nirmath	nirmathana, nirmanthana (rubbing), nirmathita, nimath
+√math	1	a	churn, stir	√math √manth	1, 9	shake	pa √math	pramath	
 √mad	3	ya	be mad, intoxicated	√mad	1, 2, 3, 4	be exhilarated	√mad	mad	mattaka, madana, māra, kāmadeva, madana, mādyati, manda, mārttika, mādayitvā, mandatā, mada, nis + mādayat, su + matta, mandra, manda +, madeta, madanīya, madya, māndya, na + madya, matta, nirmada, madāya, mṛṣṭa, na + matta
 √mad	3	ya	be mad, intoxicated	√mad	1, 2, 3, 4	be exhilarated	ati √mad		ati + matta
 √mad	3	ya	be mad, intoxicated	√mad	1, 2, 3, 4	be exhilarated	ud √mad	unmad	ummadayati / ummādayati, na + unmattaka, ummādana, unmattaka, unmāda, unmāditā, unmatta, unmādinī
@@ -3021,22 +3021,22 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √sid 1	3	ya	sweat, steam	√svid	1, 4	sweat	saṃ √sid		saṃsveda
 √sid 2	1	a	be cool	√śyai √śyā	1	congeal, freeze	√sid		śīna, śīta, su + śīna, śītala
 √sid 2	1	a	be cool	√śyai √śyā	1	congeal, freeze	ati √sid		atiśīta, nātiśīta
-√sidh 1	1	a	prevent, prohibit	√sidh	1	repel	ni √sidh		niṣedha
-√sidh 1	1	*e	prevent, prohibit	√sidh	1	repel	pati √sidh		pratiṣedha, prati + sidhita, prati + sedhayati, prati + sedhayitum, na + prati + asedhīt, prati + sidhayya, apratiṣiddha, prati + asedhīt, prati + sidhayitvā
-√sidh 2	3	ya	succeed, be accomplished	√sidh	4	succeed	√sidh		siddhi, sidhyamāna, asaitsīt, siddha, sidhyati
-√sidh 2	3		succeed, be accomplished	√sidh	4	succeed	pa √sidh		a + prasiddha
+√sidh 1	1	a	prevent, prohibit	√sidh	1	repel	ni √sidh	niṣidh	niṣedha
+√sidh 1	1	*e	prevent, prohibit	√sidh	1	repel	pati √sidh	pratiṣidh	pratiṣedha, prati + sidhita, prati + sedhayati, prati + sedhayitum, na + prati + asedhīt, prati + sidhayya, apratiṣiddha, prati + asedhīt, prati + sidhayitvā
+√sidh 2	3	ya	succeed, be accomplished	√sidh	4	succeed	√sidh	sidh	siddhi, sidhyamāna, asaitsīt, siddha, sidhyati
+√sidh 2	3		succeed, be accomplished	√sidh	4	succeed	pa √sidh	prasidh	a + prasiddha
 √sidh 2	3	ya	succeed, be accomplished	√sidh	4	succeed	pati √sidh		
-√sidh 2	3	ya	succeed, be accomplished	√sidh	4	succeed	saṃ √sidh		
-√sinā	1	a	bathe	√snā	2, 4	bathe	√sinā		snāti, snāyati, snāta, snātum, snāna
-√silāgh	1	a	boast	√ślāgh	1	extol	√silāgh		ślāghate, aślāghiṣṭa
-√silis	3	ya	embrace, cling	√śliṣ	4	clasp	√silis		śliṣṭa +, śleṣa (sticking), śleṣman, śliṣṭa
-√silis	3	ya	embrace, cling	√śliṣ	4	clasp	upa √silis		aupaśleṣika
-√silok	1	a	be famous	√ślok	1	compose	√silok		na + śloka, śloka +, śloka
-√siv 1	3	ya	sew	√siv √sīv	4	sew	√siv		sīvayati, sūtra, sīvyati, sevana, sevayitum, dus + syūta, sīvayat, sīvana, sūtraka, sūkta, sūtra (bsk), sīvanī, sevayitvā, sīvayitvā, sīvaka, siva + nī, syūta, siva + ini, sevayati, sīvayati, asiṣīvat, sīvyat, sūtrāt, syūtvā, sevitvā
-√siv 1	3	ya	sew	√siv √sīv	4	sew	pa √siv		prasevaka, prasiv, prasivta
-√siv 1	3	*āpe	sew	√siv √sīv	4	sew	vi √siv		viṣivtvā, visīvayitvā
-√siv 1	3	ya	sew	√siv √sīv	4	sew	saṃ √siv		saṃsyūta, saṃsīvyati
-√siv 2	3	*e	warm	√sriv	4	fail, dry	vi √siv		vitapana (bsk)
+√sidh 2	3	ya	succeed, be accomplished	√sidh	4	succeed	saṃ √sidh	saṃsidh	
+√sinā	1	a	bathe	√snā	2, 4	bathe	√sinā	snā	snāti, snāyati, snāta, snātum, snāna
+√silāgh	1	a	boast	√ślāgh	1	extol	√silāgh	ślāgh	ślāghate, aślāghiṣṭa
+√silis	3	ya	embrace, cling	√śliṣ	4	clasp	√silis	śliṣ	śliṣṭa +, śleṣa (sticking), śleṣman, śliṣṭa
+√silis	3	ya	embrace, cling	√śliṣ	4	clasp	upa √silis	upaśliṣ	aupaśleṣika
+√silok	1	a	be famous	√ślok	1	compose	√silok	ślok	na + śloka, śloka +, śloka
+√siv 1	3	ya	sew	√siv √sīv	4	sew	√siv	siv	sīvayati, sūtra, sīvyati, sevana, sevayitum, dus + syūta, sīvayat, sīvana, sūtraka, sūkta, sūtra (bsk), sīvanī, sevayitvā, sīvayitvā, sīvaka, siva + nī, syūta, siva + ini, sevayati, sīvayati, asiṣīvat, sīvyat, sūtrāt, syūtvā, sevitvā
+√siv 1	3	ya	sew	√siv √sīv	4	sew	pa √siv	prasiv	prasevaka, prasiv, prasivta
+√siv 1	3	*āpe	sew	√siv √sīv	4	sew	vi √siv	viṣiv	viṣivtvā, visīvayitvā
+√siv 1	3	ya	sew	√siv √sīv	4	sew	saṃ √siv	saṃsiv	saṃsyūta, saṃsīvyati
+√siv 2	3	*e	warm	√sriv	4	fail, dry	vi √siv	sriv	vitapana (bsk)
 √sis	8	*e	remain, distinguish	√śiṣ	7, 10	leave	√sis	śiṣ	aśeṣa, na + śeṣayitvā, aśeṣatas, niḥśeṣa, aśeṣam, śeṣa, śeṣa +
 √sis	8	*e	remain, distinguish	√śiṣ	7, 10	leave	ava √sis	avaśiṣ	avaśiṣṭa, sāvaśeṣa, avaśiṣyate, avaśiṣayitvā, na + avaśeṣam, na + avaśeṣa, avaśeṣa
 √sis	8	*e	remain, distinguish	√śiṣ	7, 10	leave	ud √sis	ucchiṣ	ucchiṣṭa, anucchiṣṭa

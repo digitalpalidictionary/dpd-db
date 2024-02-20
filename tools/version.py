@@ -79,6 +79,18 @@ def update_db_version(pth, version):
         website = DbInfo(
             key="website", value="https://digitalpalidictionary.github.io/")
         db_session.add(website)
+
+        github = DbInfo(
+            key="github", value="https://github.com/digitalpalidictionary/dpd-db")
+        db_session.add(github)
+
+        latest_release = DbInfo(
+            key="latest_release", value="https://github.com/digitalpalidictionary/digitalpalidictionary/releases")
+        db_session.add(latest_release)
+
+        ___ = DbInfo(
+            key="___", value="___")
+        db_session.add(___)
     
     db_session.commit()
     printer("dpd.db", "ok")

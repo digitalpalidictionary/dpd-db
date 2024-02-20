@@ -3,19 +3,19 @@
 # ctrl-shift-p ssh connect to host
 # root@ipaddress
 # bash sandhi.sh
-apt-get install unzip
-sudo add-apt-repository ppa:deadsnakes/ppa
+apt-get install -y unzip
+sudo add-apt-repository -y ppa:deadsnakes/ppa
 sudo apt update 
-sudo apt install python3.11
-sudo apt upgrade
+sudo apt install -y python3.11
+sudo apt upgrade -y
 
-apt install python3-pip
+apt install -y python3-pip
 pip install gdown
-apt install zip
+apt install -y zip
 
 unzip -o sandhi.zip
 rm sandhi.zip
-apt install python3-poetry
+apt install -y python3-poetry
 poetry install
 # poetry shell
 export PYTHONPATH=$PYTHONPATH:sandhi/tools
