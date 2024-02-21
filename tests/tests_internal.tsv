@@ -40,7 +40,6 @@ comp but contains root	meaning_1	is not empty	-	grammar	contains word	comp	root_
 comp in grammar, or delete comp constr	meaning_1	is not empty	-	compound_type	is not empty	-	grammar	does not contain word	comp	construction	does not contain	^(su |na |dur |nir |sa |ku )								lemma_1	grammar	meaning_1	[4520, 51237, 74259]	10
 comp verb contains root	grammar	contains	comp vb	root_key	is not empty															lemma_1	grammar	meaning_1	[22713, 51547, 62526]	10
 comp, + in construction	meaning_1	is not empty	-	construction	contains	\\+	derivative	is empty	-	grammar	does not contain word	comp								lemma_1	grammar	meaning_1	[]	5
-compound construction digu adj	meaning_1	is not empty	-	compound_type	contains	digu	pos	equals	adj											lemma_1	grammar	meaning_1	[]	10
 compound construction double vowel	compound_construction	contains	(a<b>a|ā<b>ā|i<b>i|ī<b>ī|e<b>e|o<b>o)																compound_construction	lemma_1	grammar	meaning_1	[]	10
 compound construction dvanda, no ca or vā	compound_type	contains	dvanda	compound_construction	does not contain word	ca|vā														lemma_1	grammar	compound_construction	[]	10
 compound construction is empty	meaning_1	is not empty	-	compound_type	is not empty	-	compound_construction	is empty	-	compound_type	does not contain	abyayībhāva|\?|2 number x number								lemma_1	grammar	meaning_1	[20536]	10
@@ -112,7 +111,7 @@ derivative is unusual	derivative	is not empty	-	derivative	does not contain	^(ki
 derived_from √ in gram	grammar	contains	from.*√																	lemma_1	grammar	meaning_1	[]	10
 derived_from contains neg	meaning_1	is not empty	-	derived_from	equals	neg														lemma_1	grammar	meaning_1	[]	5
 derived_from is empty	meaning_1	is not empty	-	grammar	contains word	(from|of)	grammar	does not contain word	comp	derived_from	is empty									lemma_1	grammar	meaning_1	[63686]	10
-derived_from is empty – nouns	meaning_1	is not empty	-	pos	contains	\b(masc|fem|nt)\b	derived_from	is empty	-	grammar	does not contain	\bcomp\b								lemma_1	grammar	meaning_1	"[""kasā"", ""daṇḍa 6"", ""karavīka"", ""kākola"", ""attha 3.2""]"	10
+derived_from is empty – nouns	meaning_1	is not empty	-	pos	contains	\b(masc|fem|nt)\b	derived_from	is empty	-	grammar	does not contain	\bcomp\b								lemma_1	grammar	meaning_1	"[""kasā"", ""daṇḍa 6"", ""karavīka"", ""kākola"", ""attha 3.2"", ""nisā""]"	10
 derived_from is empty – sa na	meaning_1	is not empty	-	construction	contains	^(sa|na) 	derived_from	is empty	-	grammar	does not contain	\bcomp\b								lemma_1	grammar	meaning_1	[]	10
 derived_from: adv comp no from	derived_from	is empty	-	pos	equals	ind	grammar	contains word	adv	grammar	does not contain word	comp	lemma_1	does not contain	hetu|paccayā	sutta_1	is not empty			lemma_1	grammar	meaning_1	[2209, 2211, 3014, 18053, 71986, 74032, 54013]	10
 desid in grammar and verb	grammar	contains	\bdesid\b	verb	contains	\bdesid\b														lemma_1	grammar	meaning_1	[]	10
@@ -224,7 +223,7 @@ meaning is empty	meaning_1	is empty	-	meaning_2	is empty														meaning_1	
 meaning is empty	meaning_1	is empty	-	meaning_2	is empty	-														lemma_1	grammar	meaning_1	[]	20
 meaning no ; before comm	meaning_1	contains	\w \(comm\)																	lemma_1	grammar	meaning_1	[]	5
 meaning_1 '</b>'	meaning_1	contains	'<\/b>'																	lemma_1	grammar	meaning_1	[]	10
-meaning_1 contains demon > daemon	meaning_1	contains	demon																	lemma_1	grammar	meaning_1	[]	10
+meaning_1 contains demon > daemon	meaning_1	contains	demon																	lemma_1	grammar	meaning_1	"[""ekakolāhala""]"	10
 meaning_1: no space after semicolon	meaning_1	contains	;\S																	lemma_1	grammar	meaning_1	[]	5
 meaning_1: plus_case, no (of, in, by, etc)	meaning_1	is not empty	-	plus_case	contains word	(instr|dat|abl|gen|loc)	meaning_1	does not contain	\(											lemma_1	grammar	meaning_1	"[1626, 1884, 2071, 72243, 2860, 2885, 2938, 3164, 3542, 4133, 4179, 4413, 4581, 4619, 4785, 4751, 4798, 5718, 5720, 5750, 5804, 5805, 5823, 5827, 6037, 6396, 6843, 71602, 8364, 10244, 10572, 72244, 15236, 15401, 15653, 15654, 15973, 16088, 17218, 17870, 19622, 72270, 21458, 22040, 23614, 24258, 24689, 26363, 30770, 30771, 30778, 32111, 32126, 32127, 32142, 32154, 32471, 32585, 32670, 32877, 33054, 33691, 33809, 35199, 36758, 36759, 36760, 36780, 36792, 37153, 37536, 37680, 40271, 40355, 40396, 40653, 40783, 41728, 42135, 42469, 42475, 42488, 43377, 44493, 44550, 45062, 45104, 45107, 45108, 45109, 45728, 45736, 45798, 46920, 46940, 46950, 46968, 47110, 49651, 50270, 50767, 51507, 52126, 54013, 55762, 55763, 65691, 66024, 66525, 66526, 68121, 70126, 57181, 58088, 58267, 58367, 58408, 59185, 59201, 59524, 59525, 59599, 59627, 59975, 60413, 60437, 60442, 60446, 60775, 61364, 61390, 61922, 63645, 65215, 71401, ""dassanakāma"", ""apagataṭṭhāna""]"	10
 meaning_1: space + semicolon	meaning_1	contains	 ;																	lemma_1	grammar	meaning_1	[]	5

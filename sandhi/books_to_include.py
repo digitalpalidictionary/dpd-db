@@ -9,9 +9,8 @@ limited_texts = [
     "an6", "an7", "an8",
     "an9", "an10", "an11",
     "kn1", "kn2", "kn3", "kn4", "kn5",
-    # "kn6", "kn7",
     "kn8", "kn9", 
-    # "kn10"
+    # "mna" # for testing
     ]
 
 

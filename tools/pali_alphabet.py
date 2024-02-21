@@ -28,8 +28,8 @@ consonants = [
 double_consonants = [
     "kk", "kkh", "gg", "ggh",
     "cc", "cch", "jj", "jjh",
-    "ṭṭ", "ṭṭh", "ḍḍ", "ḍḍh"
-    "tt", "tth", "dd", "ddh"
+    "ṭṭ", "ṭṭh", "ḍḍ", "ḍḍh",
+    "tt", "tth", "dd", "ddh",
     "pp", "pph", "bb", "bbh",
 ]
 

@@ -7,6 +7,7 @@ import logging
 import pandas as pd
 import pickle
 import re
+import time
 
 from rich import print
 from typing import Optional, Set, TypedDict, Union, Self
@@ -511,16 +512,22 @@ class Word:
         self.matches = set()
         self.front = ""
         self.back = ""
+        self.start_time = time.time()
 
     @property
     def comp(self):
         return self.front + self.word + self.back
+    
+    @property
+    def overtime(self):
+        return time.time() - self.start_time > 10
 
     def copy_class(self):
         word_copy = Word.__new__(Word)
         word_copy.__dict__.update(self.__dict__)
         word_copy.count = Word.count_value
         return word_copy
+    
 
 class DotDictInit(TypedDict):
     count: int
@@ -738,44 +745,17 @@ def main():
             # two word sandhi
             d = two_word_sandhi(d)
 
+            # iti + assa / assā
+            if d.word.endswith(("tissa", "tissā")):
+                d = remove_tissa(d)
+
             # three word sandhi
             if not w.matches:
                 d = three_word_sandhi(d)
 
-            # # four word sandhi
-            # if not w.matches :
-            #     d = four_word_sandhi(d)
-
             # # recursive removal
             if not w.matches:
                 recursive_removal(d)
-
-            # a na an nā
-            if d.word.startswith(("a", "na", "an", "nā")):
-                d = remove_neg(d)
-
-            # sa
-            elif d.word.startswith("sa"):
-                d = remove_sa(d)
-
-            # su
-            elif d.word.startswith("su"):
-                d = remove_su(d)
-
-            # dur
-            elif d.word.startswith("du"):
-                d = remove_dur(d)
-
-            # ati
-            if d.word.startswith("ati"):
-                d = remove_ati(d)
-
-            # tā ttā tāya
-            if d.word.endswith(("tā", "ttā", "tāya")):
-                d = remove_tta(d)
-            
-            if d.word.endswith(("tissa", "tissā")):
-                d = remove_tissa(d)
 
             time_dict[word] = bop()
 
@@ -826,6 +806,9 @@ def save_timer_dict(pth: ProjectPaths, time_dict):
 
 def recursive_removal(d: DotDict) -> None:
 
+    if w.overtime:
+        return
+
     d.processes += 1
 
     # global dampers
@@ -848,33 +831,6 @@ def recursive_removal(d: DotDict) -> None:
 
             else:
                 # recursion
-
-                # two word sandhi
-                if d.comm != "start":
-                    d = two_word_sandhi(d)
-
-                # ffc = lwff clean
-                d = remove_lwff_clean(d)
-
-                # fff = lwff fuzzy
-                d = remove_lwff_fuzzy(d)
-
-                # api eva iti
-                if re.findall("(pi|va|ti)$", d.word) != []:
-                    d = remove_apievaiti(d)
-                
-                # double consonants
-                dc_str = "|".join(double_consonants)
-                if re.findall(f"^({dc_str})|({dc_str})$", d.word):
-                    d = remove_double_consonants(d)
-
-                if not w.matches:
-
-                    # fbc = lwfb_clean
-                    d = remove_lwfb_clean(d)
-
-                    # fbf = lwfb fuzzy
-                    d = remove_lwfb_fuzzy(d)
 
                 if d.processes == 1:
 
@@ -902,8 +858,35 @@ def recursive_removal(d: DotDict) -> None:
                     if d.word.endswith(("tā", "ttā", "tāya")):
                         d = remove_tta(d)
 
-                if d.word.endswith(("tissa", "tissā")):
-                    d = remove_tissa(d)
+                    elif d.word.endswith(("tissa", "tissā")):
+                        d = remove_tissa(d)
+
+                # two word sandhi
+                if d.comm != "start":
+                    d = two_word_sandhi(d)
+
+                # ffc = lwff clean
+                d = remove_lwff_clean(d)
+
+                # fff = lwff fuzzy
+                d = remove_lwff_fuzzy(d)
+
+                # api eva iti
+                if re.findall("(pi|va|ti)$", d.word) != []:
+                    d = remove_apievaiti(d)
+
+                # double consonants at the beginning
+                dc_str = "|".join(double_consonants)
+                if re.findall(f"^({dc_str})", d.word):
+                    d = remove_double_consonants(d)
+
+                if not w.matches:
+                    # fbc = lwfb_clean
+                    d = remove_lwfb_clean(d)
+
+                    # fbf = lwfb fuzzy
+                    d = remove_lwfb_fuzzy(d)
+
 
 
 def remove_neg(d: DotDict) -> DotDict:
@@ -1040,7 +1023,6 @@ def remove_dur(d: DotDict) -> DotDict:
         else:
             d.word = d.word[2:]
         
-
         if d.word in all_inflections_set:
             d.comm = "dur"
 
@@ -1185,15 +1167,11 @@ def remove_double_consonants(d: DotDict) -> DotDict:
 
     d_orig = DotDict(d)
 
-    if comp(d) not in w.matches and len(d.word) > 3:
+    if comp(d) not in w.matches and len(d.word) > 4:
         d.path += " > dc"
         if any(d.word.startswith(dc) for dc in double_consonants):
             d.word = d.word[1:]
             d.rules_front += "dc,"
-
-        if any(d.word.endswith(dc) for dc in double_consonants):
-            d.word = d.word[:-1]
-            d.rules_back = f"dc,{d.rules_back}"
 
         if d.word in all_inflections_set:
             d.comm = "dc"
@@ -1212,9 +1190,6 @@ def remove_double_consonants(d: DotDict) -> DotDict:
         d = DotDict(d_orig)
 
     return d_orig
-
-
-
 
 
 def remove_apievaiti(d: DotDict) -> DotDict:
