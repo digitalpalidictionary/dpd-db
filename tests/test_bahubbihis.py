@@ -5,12 +5,16 @@
 # - a noun in the last place of the compound
 # - pos can be a noun or adjective
 # - often contains 'who', 'whose', 'which' in the meaning.
+# - adj with preffix sa- in the sense of "with"
+# - adj which has taddhita "ka|ika|aka"
 # Find possible candidates and assign them accordingly. 
 """
 
 import json
 import re
 import pyperclip
+import csv
+
 
 from rich import print
 
@@ -35,6 +39,8 @@ class ProgData:
         self.relative_pronouns = ["who", "whose", "which"]
         self.nouns_set: set
         self.pure_nouns_set: set
+        self.pp_set: set
+        self.adjectives_set: set
 
         self.bahubbihi_dict: dict[str, list[int]] = self.load_bahubbhihi_dict()
 
@@ -83,6 +89,7 @@ def make_set_of_all_nouns_list():
     nouns_set = set()
     adjectives_set = set()
     pp_set = set()
+    agent_set = set()
 
     for i in g.db:
         if i.pos in g.noun:
@@ -91,10 +98,14 @@ def make_set_of_all_nouns_list():
             adjectives_set.add(i.lemma_clean)
         if i.pos == "pp":
             pp_set.add(i.lemma_clean)
+        if "agent" in i.grammar:
+            agent_set.add(i.lemma_clean)
 
-    g.nouns_set = nouns_set
-    
-    g.pure_nouns_set = nouns_set - adjectives_set - pp_set
+    g.nouns_set = nouns_set - agent_set
+    g.adjectives_set = adjectives_set
+    g.pp_set = pp_set
+
+    g.pure_nouns_set = nouns_set - adjectives_set - pp_set - agent_set
 
     print(len(g.nouns_set), len(g.pure_nouns_set))
 
@@ -103,32 +114,149 @@ def find_bahubbihis():
     """Find possible bahubbīhi compounds."""
     print(f"[green]{'finding bahubbīhi compounds':<40}")
 
+    total_matches =  0
+    matching_lemmas = []
+
     for i in g.db:
+
+        #! check for adj with relative_pronouns in the meaning which ends on noun
+        # if (
+        #     i.meaning_1
+        #     and i.example_1
+        #     and i.pos == "adj"
+        #     and re.findall("\\bcomp\\b", i.grammar)
+        #     and "bahubbīhi" not in i.compound_type
+        #     and i.id not in g.bahubbihi_dict["no"]
+        #     and i.id not in g.bahubbihi_dict["maybe"]
+        # ):
+        #     # check if the last word of the construction is a noun
+        #     constr = clean_construction(i.construction)
+        #     constr_list = constr.split(" + ")
+
+        #     if constr_list[-1] in g.nouns_set:
+                
+                
+        #         # check if there is a relative prounoun
+        #         for rel_pr in g.relative_pronouns:
+        #             if re.findall(f"\\b{rel_pr}\\b", i.meaning_1):
+        #                 total_matches +=  1
+        #                 matching_lemmas.append(i.lemma_1)
+        #                 print_check_assign(i, constr)
+
+        #! check for adj with relative_pronouns in the meaning which ends on adj
+        # if (
+        #     i.meaning_1
+        #     and i.example_1
+        #     # and any (pos in i.pos for pos in g.noun_or_adjective )
+        #     and i.pos == "adj"
+        #     and re.findall("\\bcomp\\b", i.grammar)
+        #     and "bahubbīhi" not in i.compound_type
+        #     and i.id not in g.bahubbihi_dict["no"]
+        #     and i.id not in g.bahubbihi_dict["maybe"]
+        # ):
+        #     # check if the last word of the construction is a noun
+        #     constr = clean_construction(i.construction)
+        #     constr_list = constr.split(" + ")
+
+        #     if constr_list[-1] in g.adjectives_set:
+                
+        #         # check if there is a relative prounoun
+        #         for rel_pr in g.relative_pronouns:
+        #             if re.findall(f"\\b{rel_pr}\\b", i.meaning_1):
+        #                 total_matches +=  1
+        #                 matching_lemmas.append(i.lemma_1)
+        #                 print_check_assign(i, constr)
+
+        #! check for adj with relative_pronouns in the meaning which ends on pp
+        # if (
+        #     i.meaning_1
+        #     and i.example_1
+        #     and i.pos == "adj"
+        #     and re.findall("\\bcomp\\b", i.grammar)
+        #     and "bahubbīhi" not in i.compound_type
+        #     and i.id not in g.bahubbihi_dict["no"]
+        #     and i.id not in g.bahubbihi_dict["maybe"]
+        # ):
+        #     # check if the last word of the construction is a noun
+        #     constr = clean_construction(i.construction)
+        #     constr_list = constr.split(" + ")
+
+        #     if constr_list[-1] in g.pp_set:
+                
+        #         # check if there is a relative prounoun
+        #         for rel_pr in g.relative_pronouns:
+        #             if re.findall(f"\\b{rel_pr}\\b", i.meaning_1):
+        #                 total_matches +=  1
+        #                 matching_lemmas.append(i.lemma_1)
+        #                 print_check_assign(i, constr)
+
+        #! check for noun_or_adjective with taddhita "ka|ika|aka"
+        # if (
+        #     i.meaning_1
+        #     and i.example_1
+        #     and any (pos in i.pos for pos in g.noun_or_adjective)
+        #     and re.findall("\\bcomp\\b", i.grammar)
+        #     and "bahubbīhi" not in i.compound_type
+        #     and i.derivative == "taddhita"
+        #     and "ka" in i.suffix
+        #     and i.id not in g.bahubbihi_dict["no"]
+        #     and i.id not in g.bahubbihi_dict["maybe"]
+        #     and "name of" not in i.meaning_1
+        # ):
+            
+        #     # check if the last word of the construction is a noun
+        #     constr = clean_construction(i.construction)
+
+        #     total_matches +=  1
+        #     matching_lemmas.append(i.lemma_1)
+        #     print_check_assign(i, constr)
+
+        #! check for adjective comp with prefix "sa" for making them bahubbīhi
         if (
             i.meaning_1
             and i.example_1
             and i.pos == "adj"
             and re.findall("\\bcomp\\b", i.grammar)
             and "bahubbīhi" not in i.compound_type
+            and i.construction.startswith("sa +")
             and i.id not in g.bahubbihi_dict["no"]
-             and i.id not in g.bahubbihi_dict["maybe"]
+            and i.id not in g.bahubbihi_dict["maybe"]
         ):
+            
             # check if the last word of the construction is a noun
             constr = clean_construction(i.construction)
-            constr_list = constr.split(" + ")
 
-            # FIXME what about pos is noun?
-            # FIXME what about plurals ending in ' + ā' etc?
-            # FIXME what about noun in the first position, pp in the second eg. aggappatta
-            # FIXME what about noun in the first position, adj in the second, eg paññānirodhika 
-            # FIXME what about using g.nouns_set?
+            total_matches +=  1
+            matching_lemmas.append(i.lemma_1)
+            print_check_assign(i, constr)
 
-            if constr_list[-1] in g.pure_nouns_set:
-                
-                # check if there is a relative prounoun
-                for rel_pr in g.relative_pronouns:
-                    if re.findall(f"\\b{rel_pr}\\b", i.meaning_1):
-                        print_check_assign(i, constr)
+        #! check for adjective not comp with prefix "sa" for making them kammadhāraya > bahubbīhi 
+        # if (
+        #     i.meaning_1
+        #     and i.example_1
+        #     and i.pos == "adj"
+        #     and not re.findall("\\bcomp\\b", i.grammar)
+        #     and i.construction.startswith("sa +")
+        #     and i.id not in g.bahubbihi_dict["no"]
+        #     and i.id not in g.bahubbihi_dict["maybe"]
+        # ):
+            
+        #     # check if the last word of the construction is a noun
+        #     constr = clean_construction(i.construction)
+
+        #     total_matches +=  1
+        #     matching_lemmas.append(i.lemma_1)
+        #     print_check_assign(i, constr)
+
+    print(f"[green]Total matches found: {total_matches}")
+
+    # Write the list of matching lemmas to a CSV file
+    # with open('temp/find_bahubbihis.csv', 'w', newline='') as csvfile:
+    #     writer = csv.writer(csvfile)
+    #     writer.writerow(['Lemma'])  # Write the header
+    #     for lemma in matching_lemmas:
+    #         writer.writerow([lemma])  # Write each lemma on a new row
+
 
 
 def print_check_assign(i: DpdHeadwords, constr: str):

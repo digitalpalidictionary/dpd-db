@@ -30,10 +30,10 @@ def main():
 
             # debug check all sbs_class_anki which has not sbs.sbs_class
             # if (
-            #     word.sbs and 
-            #     word.sbs.sbs_class_anki and 
-            #     not word.sbs.sbs_class and
-            #     word.sbs.sbs_class_anki == 14
+            #     word.sbs 
+            #     and word.sbs.sbs_class_anki 
+            #     and not word.sbs.sbs_class
+            #     # and word.sbs.sbs_class_anki == 14
             # ):
             #     count += 1
             #     print(f"{count} for {word.lemma_1} || {word.sbs.sbs_class_anki} || {word.grammar} || 'stem': {word.stem}")
@@ -45,19 +45,20 @@ def main():
 
                 # debug check if have a new number but it is not the same as old
                 if (
-                    word.sbs and
-                    # word.sbs.sbs_class_anki and
-                    word.sbs.sbs_class != sbs_class
+                    word.sbs
+                    # and word.sbs.sbs_class_anki 
+                    and word.sbs.sbs_class
+                    and word.sbs.sbs_class != sbs_class
                 ):
                     count += 1
                     print(f"(changed) {count} for {word.lemma_1} || old sbs_class: {word.sbs.sbs_class} || new is {sbs_class}")
 
                 # debug for new words
-                if (
-                    not word.sbs
-                ):
-                    count += 1
-                    print(f"(added) {count} for {word.lemma_1} || old sbs_class: None || new is {sbs_class}")
+                # if (
+                #     not word.sbs
+                # ):
+                #     count += 1
+                #     print(f"(added) {count} for {word.lemma_1} || old sbs_class: None || new is {sbs_class}")
 
             
                 if word.sbs and not word.sbs.sbs_class:
@@ -92,7 +93,7 @@ def main():
 
 def determine_sbs_class(word) -> Optional[int]:
 
-    # BPC:
+    #! BPC:
 
     # filter inf kāma
     if (
@@ -289,7 +290,7 @@ def determine_sbs_class(word) -> Optional[int]:
                         # print(f"Pattern: atthi, Word: {word.lemma_1}")
                         return 4
                     else:
-                        #! think how to divide pr, imp for classes 3 and 4 based on root sign (1 8 4 5 6 - 3 class ; 2 3 7 - 4 class)
+                        #! TODO think how to divide pr, imp for classes 3 and 4 based on root sign (1 8 4 5 6 - 3 class ; 2 3 7 - 4 class)
                         if (
                             word.pos == "pr" and 
                             "brūti" not in word.pattern and 
@@ -596,6 +597,66 @@ def determine_sbs_class(word) -> Optional[int]:
         ):
             # print(f"Pattern: ptp, Word: {word.lemma_1}")
             return 14
+
+    #! IPC:
+    # sandhi
+    if (
+            word.pos == "sandhi"
+            and "ṃ +" not in word.construction
+        ):
+            # print(f"Pattern: vowel sandhi, Word: {word.lemma_1}")
+            return 16
+
+    elif (
+            word.pos == "sandhi"
+            and "ṃ +" in word.construction
+        ):
+            # print(f"Pattern: ṃ sandhi, Word: {word.lemma_1}")
+            return 17
+
+    # irreg nouns
+    if (
+            "comp," not in word.grammar
+            and "mano group" in word.grammar
+        ):
+            # print(f"Pattern: mano group, Word: {word.lemma_1}")
+            return 18
+
+    if (
+            word.pattern == "go masc"
+        ):
+            # print(f"Pattern: go masc, Word: {word.lemma_1}")
+            return 18
+
+    if (
+            "comp," not in word.grammar
+            and "atta group" in word.grammar
+        ):
+            # print(f"Pattern: atta group, Word: {word.lemma_1}")
+            return 18
+
+    # comp
+    if (
+            word.compound_type == "kammadhāraya"
+            or word.compound_type == "digu"
+            or (
+                "tappurisa" in word.compound_type 
+                and "bahubbīhi" not in word.compound_type 
+                and "abyayībhāva" not in word.compound_type
+                and "missaka" not in word.compound_type
+                )
+            or word.compound_type == "dvanda"
+        ):
+            # print(f"Pattern: comp 1st part, Word: {word.lemma_1}")
+            return 19
+
+    elif (
+            "abyayībhāva" in word.compound_type
+            or "bahubbīhi" in word.compound_type
+            or "missaka" in word.compound_type
+        ):
+            # print(f"Pattern: comp 2nd part, Word: {word.lemma_1}")
+            return 20
 
     # Return None if none of the conditions are met
     return None
