@@ -14,8 +14,8 @@ grammar_dict/grammar_dict.py
 exporter/exporter.py
 exporter/deconstructor_exporter.py
 
-exporter/tpr_exporter.py
-ebook/ebook_exporter.py
+# exporter/tpr_exporter.py
+# ebook/ebook_exporter.py
 
 dps/scripts/move_mdict.py
 

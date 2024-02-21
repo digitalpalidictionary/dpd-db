@@ -2,22 +2,17 @@
 
 # build dpd.db from scratch using backup_tsv with additions and corrections and making goldendict 
 
+set -e
+
 git fetch
 
 git checkout origin/main -- backup_tsv/dpd_headwords.tsv
 
 git checkout origin/main -- backup_tsv/dpd_roots.tsv
 
-# dps filenames
-FILENAMES=("sbs.tsv" "russian.tsv")
+dps/scripts/backup_all_dps.py
 
-# Copy files from dps/backup/ to backup_tsv/
-for file in "${FILENAMES[@]}"; do
-    cp -rf ./dps/backup/$file ./backup_tsv/$file
-done
-
-set -e
-test -e dpd.db || touch dpd.db
+scripts/backup_ru_sbs.py
 
 dps/scripts/move_new_words.py
 

@@ -8,15 +8,9 @@ git checkout origin/main -- backup_tsv/dpd_headwords.tsv
 
 git checkout origin/main -- backup_tsv/dpd_roots.tsv
 
-# dps filenames
-FILENAMES=("sbs.tsv" "russian.tsv")
+scripts/backup_ru_sbs.py
 
-# Copy files from dps/backup/ to backup_tsv/
-for file in "${FILENAMES[@]}"; do
-    cp -rf ./dps/backup/$file ./backup_tsv/$file
-done
-
-set -e
+dps/scripts/backup_all_dps.py
 
 dps/scripts/move_new_words.py
 

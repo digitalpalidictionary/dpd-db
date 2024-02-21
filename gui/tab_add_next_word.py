@@ -265,7 +265,7 @@ SN
             sg.Button(
                 "to simsapa", 
                 key="send_sutta_study_request_button",
-                tooltip="search word in the simsapa in the 'source' + /pli/ms", 
+                tooltip="search word in the simsapa in the 'sutta' + 'source', eg. 'pli-tv-kd1' + '/en/brahmali'", 
                 pad=((20, 0), (0, 5)),
                 visible=username == "deva",
             ),
