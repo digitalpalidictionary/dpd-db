@@ -119,6 +119,12 @@ def find_bahubbihis():
 
     for i in g.db:
 
+        # FIXME what about pos is noun?
+        # FIXME what about plurals ending in ' + ā' etc?
+        # FIXME what about noun in the first position, pp in the second eg. aggappatta
+        # FIXME what about noun in the first position, adj in the second, eg paññānirodhika 
+        # FIXME what about using g.nouns_set?
+
         #! check for adj with relative_pronouns in the meaning which ends on noun
         # if (
         #     i.meaning_1
