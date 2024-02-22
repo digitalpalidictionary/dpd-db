@@ -101,7 +101,7 @@ sanksrit_letter_to_number = {
     }
 
 
-def pali_list_sorter(words: list | set) -> list:
+def pali_list_sorter(words: list[str] | set[str]) -> list:
     """Sort a list or a set of words in Pāḷi alphabetical order.
     Usage:
     pali_list_sorter(list_of_pali_words)"""

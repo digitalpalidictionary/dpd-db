@@ -166,7 +166,8 @@ def render_pali_word_dpd_html(
 
     html += "<body>"
 
-    summary = render_dpd_definition_templ(pth, i, sbs, rd['make_link'], rd['show_id'], rd['show_ebt_count'], rd['dps_data'], tt.dpd_definition_templ)
+    summary = render_dpd_definition_templ(
+        pth, i, tt.dpd_definition_templ, rd['make_link'], rd['show_id'], rd['show_ebt_count'], rd['dps_data'], sbs)
     html += summary
     size_dict["dpd_summary"] += len(summary)
 
@@ -442,12 +443,12 @@ def render_header_templ(
 def render_dpd_definition_templ(
         __pth__: ProjectPaths,
         i: DpdHeadwords,
-        sbs: SBS,
+        dpd_definition_templ: Template,
         make_link: bool,
         show_id: bool,
         show_ebt_count: bool,
         dps_data: bool,
-        dpd_definition_templ: Template
+        sbs: SBS|None,
 ) -> str:
     """render the definition of a word's most relevant information:
     1. pos

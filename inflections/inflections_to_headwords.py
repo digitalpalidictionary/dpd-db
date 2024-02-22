@@ -4,7 +4,6 @@
 and matching corresponding headwords."""
 
 import csv
-import json
 
 from rich import print
 from tools.lookup_is_another_value import is_another_value
@@ -16,6 +15,7 @@ from tools.paths import ProjectPaths
 from tools.deconstructed_words import make_words_in_deconstructions
 from tools.headwords_clean_set import make_clean_headwords_set
 from tools.update_test_add import update_test_add
+from tools.pali_sort_key import pali_list_sorter
 
 
 def inflection_to_headwords(pth: ProjectPaths):
@@ -56,6 +56,7 @@ def inflection_to_headwords(pth: ProjectPaths):
     print(f"[green]{message:<30}", end="")
 
     i2h_dict = {}
+    i2h_dict_tpr = {}
 
     for i in dpd_db:
         inflections = i.inflections_list
@@ -63,21 +64,26 @@ def inflection_to_headwords(pth: ProjectPaths):
             if inflection in all_words_set:
                 if inflection not in i2h_dict:
                     i2h_dict[inflection] = [i.id]
+                    i2h_dict_tpr[inflection] = [i.lemma_1]
                 else:
                     i2h_dict[inflection].append(i.id)
+                    i2h_dict_tpr[inflection].append(i.lemma_1)
 
     print(f"{len(dpd_db):>10,}{bop():>10}")
 
     bip()
-    message = "saving to tsv"
+    message = "saving to tsv for tpr"
     print(f"[green]{message:<30}", end="")
     with open(pth.tpr_i2h_tsv_path, "w") as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerow(["inflection", "headwords"])
-        for headword, ids in i2h_dict.items():
-            ids = json.dumps(sorted(ids))
-            writer.writerow([headword, ids])
-    print(f"{len(i2h_dict):>10,}{bop():>10}")
+
+        for inflection, headwords in i2h_dict_tpr.items():
+            headwords = pali_list_sorter(headwords)
+            headwords = ",".join(headwords)
+            writer.writerow([inflection, headwords])
+    
+    print(f"{len(i2h_dict_tpr):>10,}{bop():>10}")
 
     add_i2h_to_db(db_session, i2h_dict)
     toc()
@@ -104,7 +110,7 @@ def add_i2h_to_db(db_session, i2h_dict):
 
     # add
     add_to_db = []
-    for inflection, ids in i2h_dict.items():
+    for inflection, ids in i2h_dict.items():    
         if inflection in add_set:
             add_me = Lookup()
             add_me.lookup_key = inflection
