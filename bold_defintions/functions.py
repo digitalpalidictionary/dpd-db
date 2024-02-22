@@ -325,7 +325,6 @@ useless_endings = ["  ti.", " ti.", "ti.", "'ti.", "nti.", "'nti.", "' nti.", ".
 def text_cleaner(text):
 	text = re.sub(" – ‘‘", ", ", text)
 	text = re.sub("^‘‘", "", text)
-	text = re.sub("^\\d*\\. ", "", text)
 	text = re.sub("’’", "'", text)
 	text = re.sub("‘", "", text)
 	text = re.sub("’", "'", text)
@@ -335,7 +334,6 @@ def text_cleaner(text):
 	text = re.sub("'", "'", text)
 	text = re.sub("'nti", "n'ti", text)
 	text = re.sub("…pe॰…", " …", text)
-	text = re.sub(" $", "", text)
 	text = re.sub(" – ", ", ", text)
 	text = re.sub(" \\.", ".", text)
 	text = re.sub(" ,", ",", text)
@@ -343,7 +341,6 @@ def text_cleaner(text):
 	text = re.sub("'\\.", ".", text)
 	text = re.sub("\\॰", ".", text)
 	text = re.sub("  ", " ", text)
-	# text = re.sub("'</b>", "</b>'", text)
 	return text.lower()
 
 
@@ -379,39 +376,19 @@ def get_bold_strings(bold):
 	bold_p = simplify_bold_tag(bold_p)
 	
 	# remove numbers at the beginning
-	bold_p = re.sub("^\\d*\\.d*\\.", "", bold_p)
-	bold_p = re.sub("^\\d*\\.", "", bold_p)
-	bold_p = re.sub("^\\d* ", "", bold_p)
-	bold_p = re.sub("^\\d*", "", bold_p)
-	
-	# remove beginning up to fullstop or semicolon 
-	# bold_p = re.sub("^.*(\\.|;) ", "", bold_p)
-	
+	bold_p = re.sub("^\\d+\\.d+\\.", "", bold_p)
+	bold_p = re.sub("^\\d+\\.", "", bold_p)
+	bold_p = re.sub("^\\d+ ", "", bold_p)
+	bold_p = re.sub("^\\d+", "", bold_p)
+
 	# remove useless_beginnings
 	bold_p = re.sub(f"^({useless_beginnings_str})", "", bold_p)
+	bold_p = re.sub("^ $", "", bold_p)
 
-	assert(not bold_p.startswith(" "))
-	assert(bold_p != " ")
-	assert(not re.match("^\\d", bold_p))
-
-	
 	non_letters = re.compile(" |,|\\.|;")
 	if re.match(non_letters, bold_text):
 		bold_text = bold_text[1:]
 		bold_p = f"{bold_p} "
-
-	# if bold starts with non letter, move to bold_p
-	bad_first_letters = re.compile(
-			"^(',|'\\.|, |\\. | ,|\\? |\\?|'|\\.|,|;| –| |-)")
-	
-	first_letters = re.findall(bad_first_letters, bold_clean)
-	if first_letters:
-		first_letter = first_letters[0]
-		bold_clean = bold_clean[len(first_letter):]
-		bold_text = re.sub(f"^<b>\\{first_letter}", "<b>", bold_text)
-		bold_p = f"{bold_p}{first_letter}"
-	
-	assert(not bold_text.startswith(" "))
 
 	# bold next sentence = bold_n
 	bold_n = ""
@@ -426,26 +403,9 @@ def get_bold_strings(bold):
 	bold_n = text_cleaner(bold_n)
 	bold_n = simplify_bold_tag(bold_n)
 
-	# remove dirty last letters from bold_text to bold_n
-	bad_last_letters = re.compile(
-			"(\\?'|\\. –|''|,'|',|'\\.|, |\\. | ,|\\? |\\?|'|\\.|,|;| –| |-)$")
-	
-	last_letters = re.findall(bad_last_letters, bold_clean)
-	if last_letters:
-		last_letter = last_letters[0]
-		bold_clean = bold_clean[:-len(last_letter)]
-		bold_text = re.sub(f"\\{last_letter}<\\/b>$", "</b>", bold_text)
-		bold_n = f"{last_letter}{bold_n}"
-	
 	# remove space before ti
 	bold_n = re.sub(" *(ti)( |\\.)", "\\1\\2", bold_n)
-	
-	# keep everything before the next fullstop, remove after
-	bold_n = re.sub("(.*\\.).*$", "\\1", bold_n)
-	
-	# remove sentences after first fullstop
-	bold_n = re.sub("(\\. .+?\\. .+?\\. .+?\\.).+", "\\1", bold_n)
-	
+
 	# remove useless
 	bold_n = re.sub(f"^({useless_beginnings})$", "", bold_n)
 	bold_n = bold_n.replace("[iti bhagavā]", "")
