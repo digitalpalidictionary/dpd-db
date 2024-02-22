@@ -22,11 +22,13 @@ from tools.paths import ProjectPaths
 
 def main():
     tic()
-    print("[bright_yellow]dpd lookup system")
+    print("[bright_yellow]dpd lookup system for TBW")
 
     pth = ProjectPaths()
 
+    # --------------------------------------------------
     # make a set of words in sutta central texts
+    # --------------------------------------------------
     
     print(f"[green]{'making sutta central ebts word list':<40}", end="")
     sc_text_list = [
@@ -43,7 +45,9 @@ def main():
     text_set: set = make_sc_text_set(pth, sc_text_list)
     print(f"{len(text_set):,}")
 
+    # --------------------------------------------------
     # get all the required info from the database
+    # --------------------------------------------------
     
     print(f"[green]{'making db searches':<40}", end="")
 
@@ -53,7 +57,9 @@ def main():
     deconstr_db = db_session.query(Lookup).filter(Lookup.deconstructor != "").all()
     print("OK")
 
+    # --------------------------------------------------
     # make a set of all words in deconstructed compounds
+    # --------------------------------------------------
     
     print(f"[green]{'making deconstructor splits set':<40}", end="")
     deconstr_splits_set: set = set()
@@ -66,7 +72,9 @@ def main():
                 deconstr_splits_set.update(deconstruction.split(" + "))
     print(f"{len(deconstr_splits_set):,}")
 
+    # --------------------------------------------------
     # make an inflections to headwords dictionary
+    # --------------------------------------------------
     
     print(f"[green]{'making inflections to headwords dict':<40}", end="")
     i2h: dict = {}
@@ -85,7 +93,9 @@ def main():
                     i2h[inflection] += [i.lemma_1]
     print(f"{len(i2h):,}")
 
-    # save inflections to headwords json
+    # --------------------------------------------------
+    # save inflections to headwords .js
+    # --------------------------------------------------
     
     print(f"[green]{'writing inflections to headwords json':<40}", end="")
     i2h_json_dump = json.dumps(i2h, ensure_ascii=False, indent=2)
@@ -93,13 +103,17 @@ def main():
         f.write(f"dpd_i2h = {i2h_json_dump}")
         print("OK")
 
+    # --------------------------------------------------
     # make a set of unmatched words
+    # --------------------------------------------------
     
     print(f"[green]{'making set of unmatched words':<40}", end="")
     unmatched = text_set - matched
     print(f"{len(unmatched):,}")
 
+    # --------------------------------------------------
     # make a set of headwords in ebts
+    # --------------------------------------------------
     
     print(f"[green]{'making headwords set':<40}", end="")
     headwords_set: set = set()
@@ -107,7 +121,9 @@ def main():
         headwords_set.update(values)
     print(f"{len(headwords_set):,}")
 
+    # --------------------------------------------------
     # make a dict of dpd data - only words in ebts
+    # --------------------------------------------------
     
     print(f"[green]{'making dpd ebts dict':<40}", end="")
     dpd_dict = {}
@@ -123,7 +139,9 @@ def main():
         sorted(dpd_dict.items(), key=lambda x: pali_sort_key(x[0])))
     print(f"{len(dpd_dict):,}")
 
-    # write dpd dict to json
+    # --------------------------------------------------
+    # write dpd dict to .js
+    # --------------------------------------------------
     
     print(f"[green]{'writing dpd ebts to json':<40}", end="")
     dpd_json_dump = json.dumps(dpd_dict, ensure_ascii=False, indent=2)
@@ -131,9 +149,11 @@ def main():
         f.write(f"let dpd_ebts = {dpd_json_dump}")
         print("OK")
 
+    # --------------------------------------------------
     # make a dict of all deconstructed compounds
+    # --------------------------------------------------
     
-    print(f"[green]{'making deconstructor dict':<40}", end="")
+    print(f"[green]{'making deconstructor dict':<40}")
     deconstr_dict = {}
     for i in deconstr_db:
         if (
@@ -144,11 +164,54 @@ def main():
             string = "<br>".join(deconstructions)
             deconstr_dict[i.lookup_key] = string
 
+
+    # --------------------------------------------------
+    # Add variant readings to decosntructor data
+    # --------------------------------------------------
+    
+    print("[green]compiling variants")
+    variants_db = db_session \
+        .query(Lookup) \
+        .filter(Lookup.variant != "") \
+        .all()
+
+    for i in variants_db:
+        if i.lookup_key in text_set:
+            variant_string = f"variant reading of <i>{i.variants_unpack[0]}</i>"
+            if i.lookup_key in deconstr_dict:
+                deconstr_dict[i.lookup_key] += f"<br>{variant_string}"
+            else:
+                deconstr_dict[i.lookup_key] = variant_string
+    
+    # --------------------------------------------------
+    # Add spelling mistakes to decosntructor data
+    # --------------------------------------------------
+
+    print("[green]{'compiling spelling mistakes':<40}", end="")
+    spelling_db = db_session \
+        .query(Lookup) \
+        .filter(Lookup.spelling != "") \
+        .all()
+
+    for i in spelling_db:
+        if i.lookup_key in text_set:
+            spelling_string = f"incorrect spelling of <i>{i.spelling_unpack[0]}</i>"
+            if i.lookup_key in deconstr_dict:
+                deconstr_dict[i.lookup_key] += f"<br>{spelling_string}"
+            else:
+                deconstr_dict[i.lookup_key] = spelling_string
+
+    # --------------------------------------------------
+    # sort deconstructor dict
+    # --------------------------------------------------
+
     deconstr_dict = dict(
         sorted(deconstr_dict.items(), key=lambda x: pali_sort_key(x[0])))
     print(f"{len(deconstr_dict):,}")
 
-    # save deconstr dict to json
+    # --------------------------------------------------
+    # save deconstr dict to .js
+    # --------------------------------------------------
     
     print(f"[green]{'writing deconstructor dict to json':<40}", end="")
     json_dump = json.dumps(deconstr_dict, ensure_ascii=False, indent=2)
