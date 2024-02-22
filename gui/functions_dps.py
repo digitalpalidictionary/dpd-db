@@ -538,14 +538,14 @@ def translate_to_russian_googletrans(meaning, suggestion, error_field, window):
         return error_string
 
 
-def replace_abbreviations(grammar_string, abbreviations_path):
+def replace_abbreviations(pth, grammar_string):
     # Clean the grammar string: Take portion before the first ','
     # cleaned_grammar_string = grammar_string.split(',')[0].strip()
 
     replacements = {}
 
     # Read abbreviations and their full forms into a dictionary
-    with open(abbreviations_path, 'r', encoding='utf-8') as file:
+    with open(pth.abbreviations_tsv_path, 'r', encoding='utf-8') as file:
         reader = csv.reader(file, delimiter='\t')
         next(reader)  # skip header
         for row in reader:
@@ -587,7 +587,7 @@ openai.api_key = load_openia_config()
 @timeout(15, timeout_exception=TimeoutDecoratorError)  # Setting a 15-second timeout
 def call_openai(messages):
     return openai.ChatCompletion.create(
-        model="gpt-3.5-turbo-1106",
+        model="gpt-3.5-turbo-0125",
         messages=messages
     )
 
@@ -623,7 +623,7 @@ def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, p
     grammar_orig = grammar
 
     # Replace abbreviations in grammar
-    grammar = replace_abbreviations(grammar, pth.abbreviations_tsv_path)
+    grammar = replace_abbreviations(pth, grammar)
 
     # Choosing example
 
@@ -681,7 +681,7 @@ def ru_notes_translate_with_openai(dpspth, pth, notes, lemma_1, grammar, suggest
     grammar_orig = grammar
 
     # Replace abbreviations in grammar
-    grammar = replace_abbreviations(grammar, pth.abbreviations_tsv_path)
+    grammar = replace_abbreviations(pth, grammar)
     
     # Generate the chat messages based on provided values
     messages = [
@@ -724,7 +724,7 @@ def en_translate_with_openai(dpspth, pth, lemma_1, grammar, example, suggestion_
     grammar_orig = grammar
 
     # Replace abbreviations in grammar
-    grammar = replace_abbreviations(grammar, pth.abbreviations_tsv_path)
+    grammar = replace_abbreviations(pth, grammar)
     
     # Generate the chat messages based on provided values
     messages = [

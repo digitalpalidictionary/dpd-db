@@ -244,9 +244,10 @@ def render_pali_word_dpd_html(
             for contraction in contractions:
                 if "'" in contraction:
                     synonyms.append(contraction)
-    synonyms += i.inflections_sinhala_list
-    synonyms += i.inflections_devanagari_list
-    synonyms += i.inflections_thai_list
+    if not dps_data:
+        synonyms += i.inflections_sinhala_list
+        synonyms += i.inflections_devanagari_list
+        synonyms += i.inflections_thai_list
     synonyms += i.family_set_list
     synonyms += [str(i.id)]
     

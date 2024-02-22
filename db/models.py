@@ -1063,6 +1063,7 @@ class Russian(Base):
     id: Mapped[int] = mapped_column(
         ForeignKey('dpd_headwords.id'), primary_key=True)
     ru_meaning: Mapped[str] = mapped_column(default="")
+    ru_meaning_raw: Mapped[str] = mapped_column(default="")
     ru_meaning_lit: Mapped[str] = mapped_column(default="")
     ru_notes: Mapped[str] = mapped_column(default='')
 

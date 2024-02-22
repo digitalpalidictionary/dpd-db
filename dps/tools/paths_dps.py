@@ -34,6 +34,54 @@ class DPSPaths:
 
         self.sbs_pd_path = base_dir.joinpath(Path("dps/csvs/sbs_pd.csv"))
 
+        # /exporter_ru/share
+        self.share_dir = base_dir.joinpath(Path("exporter_ru/share"))
+        self.dpd_ru_zip_path = base_dir.joinpath(Path("exporter_ru/share/dpd_ru.zip"))
+        self.mdict_mdx_path = base_dir.joinpath(Path("exporter_ru/share/dpd-ru-mdict.mdx"))
+        # self.grammar_dict_zip_path = base_dir.joinpath(Path("exporter_ru/share/dpd-grammar.zip"))
+        # self.grammar_dict_mdict_path = base_dir.joinpath(Path("exporter_ru/share/dpd-grammar-mdict.mdx"))
+        # self.dpd_mobi_path = base_dir.joinpath(Path("exporter_ru/share/dpd-kindle.mobi"))
+        # self.dpd_epub_path = base_dir.joinpath(Path("exporter_ru/share/dpd-kindle.epub"))
+        # self.deconstructor_zip_path = base_dir.joinpath(Path("exporter_ru/share/dpd-deconstructor.zip"))
+        # self.deconstructor_mdict_mdx_path = base_dir.joinpath(Path("exporter_ru/share/dpd-deconstructor-mdict.mdx"))
+        # self.dpd_goldendict_zip_path = base_dir.joinpath(Path("exporter_ru/share/dpd-goldendict.zip"))
+        # self.dpd_mdict_zip_path = base_dir.joinpath(Path("exporter_ru/share/dpd-mdict.zip"))
+
+        # /exporter_ru/templates
+        self.templates_dir = base_dir.joinpath(Path("exporter_ru/templates"))
+        self.header_templ_path = base_dir.joinpath(Path("exporter_ru/templates/header.html"))
+        self.dpd_ru_definition_templ_path = base_dir.joinpath(Path("exporter/templates/dpd_ru_defintion.html"))
+        self.button_box_templ_path = base_dir.joinpath(Path("exporter_ru/templates/dpd_ru_button_box.html"))
+        self.grammar_templ_path = base_dir.joinpath(Path("exporter_ru/templates/dpd_ru_grammar.html"))
+        self.example_templ_path = base_dir.joinpath(Path("exporter_ru/templates/dpd_ru_example.html"))
+        self.inflection_templ_path = base_dir.joinpath(Path("exporter_ru/templates/dpd_ru_inflection.html"))
+        self.family_root_templ_path = base_dir.joinpath(Path("exporter_ru/templates/dpd_ru_family_root.html"))
+        self.family_word_templ_path = base_dir.joinpath(Path("exporter_ru/templates/dpd_ru_family_word.html"))
+        self.family_compound_templ_path = base_dir.joinpath(Path("exporter_ru/templates/dpd_ru_family_compound.html"))
+        self.family_idiom_templ_path = base_dir.joinpath(Path("exporter_ru/templates/dpd_ru_family_idiom.html"))
+        self.family_set_templ_path = base_dir.joinpath(Path("exporter_ru/templates/dpd_ru_family_set.html"))
+        self.frequency_templ_path = base_dir.joinpath(Path("exporter_ru/templates/dpd_ru_frequency.html"))
+        self.feedback_templ_path = base_dir.joinpath(Path("exporter_ru/templates/dpd_ru_feedback.html"))
+        self.variant_templ_path = base_dir.joinpath(Path("exporter_ru/templates/dpd_ru_variant_reading.html"))
+        self.spelling_templ_path = base_dir.joinpath(Path("exporter_ru/templates/dpd_ru_spelling_mistake.html"))
+        
+        # # root templates
+        self.root_definition_templ_path = base_dir.joinpath(Path("exporter_ru/templates/root_definition.html"))
+        self.root_button_templ_path = base_dir.joinpath(Path("exporter_ru/templates/root_buttons.html"))
+        self.root_info_templ_path = base_dir.joinpath(Path("exporter_ru/templates/root_info.html"))
+        self.root_matrix_templ_path = base_dir.joinpath(Path("exporter_ru/templates/root_matrix.html"))
+        self.root_families_templ_path = base_dir.joinpath(Path("exporter_ru/templates/root_families.html"))
+
+        # # other templates
+        self.rpd_templ_path = base_dir.joinpath(Path("exporter_ru/templates/rpd.html"))
+        # self.deconstructor_templ_path = base_dir.joinpath(Path("exporter_ru/templates/deconstructor.html"))
+        self.abbrev_templ_path = base_dir.joinpath(Path("exporter_ru/templates/help_abbrev.html"))
+        self.help_templ_path = base_dir.joinpath(Path("exporter_ru/templates/help_help.html"))
+
+        # self.header_deconstructor_templ_path = base_dir.joinpath(Path("exporter_ru/templates/header_deconstructor.html"))
+        # self.header_grammar_dict_templ_path = base_dir.joinpath(Path("exporter_ru/templates/header_grammar_dict.html"))
+
+
         # /tests
         self.dps_internal_tests_path = base_dir.joinpath(Path("dps/csvs/dps_internal_tests.tsv"))
         self.dps_internal_tests_replaced_path = base_dir.joinpath(Path("dps/csvs/dps_internal_tests_replaced.tsv"))

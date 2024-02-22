@@ -5,15 +5,23 @@
             <td>${i.lemma_2}</td>
         </tr>
         % if dps_data:
-            % if ru and ru.ru_meaning:
-            <tr>
-                <th>Русский</th>
-                <td>${ru.ru_meaning}
-                    % if ru.ru_meaning_lit:
-                    ; досл. ${ru.ru_meaning_lit}
-                    % endif
-                </td>
-            </tr>
+            % if ru:
+                % if ru.ru_meaning:
+                <tr>
+                    <th>Русский</th>
+                    <td>${ru.ru_meaning}
+                        % if ru.ru_meaning_lit:
+                        ; досл. ${ru.ru_meaning_lit}
+                        % endif
+                    </td>
+                </tr>
+                % elif ru.ru_meaning_raw:
+                <tr>
+                    <th>Русский (AI)</th>
+                    <td>${ru.ru_meaning_raw}
+                    </td>
+                </tr>
+                % endif
             % endif
             % if sbs and sbs.sbs_meaning:
             <tr>
