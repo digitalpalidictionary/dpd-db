@@ -43,7 +43,7 @@ global max_recursions
 global profiler
 global profiler_on
 global max_word_length
-clean_list_max_length = 2
+clean_list_max_length = 3
 fuzzy_list_max_length = 4
 clean_word_min_length = 2
 fuzzy_word_min_length = 1
@@ -363,13 +363,13 @@ def recursive_removal(d: DotDict) -> None:
     # global dampers
     if d.processes < max_recursions and len(w.matches) < max_matches:
 
-        # add to matches
-
         if comp(d) not in w.tried:
             w.tried.add(comp(d))
             d.tried.add(comp(d))
 
             if d.word in all_inflections_set:
+                
+                # add to matches
                 if comp(d) not in w.matches:
                     matches_dict[d.init] += [(
                         comp(d), f"xword{d.comm}",
@@ -380,7 +380,6 @@ def recursive_removal(d: DotDict) -> None:
 
             else:
                 # recursion
-
                 if d.processes == 1:
 
                     # a na an nā
@@ -388,26 +387,26 @@ def recursive_removal(d: DotDict) -> None:
                         d = remove_neg(d)
 
                     # sa
-                    elif d.word.startswith("sa"):
+                    if d.word.startswith("sa"):
                         d = remove_sa(d)
 
                     # su
-                    elif d.word.startswith("su"):
+                    if d.word.startswith("su"):
                         d = remove_su(d)
 
                     # dur
-                    elif d.word.startswith("du"):
+                    if d.word.startswith("du"):
                         d = remove_dur(d)
 
                     # ati
-                    elif d.word.startswith("ati"):
+                    if d.word.startswith("ati"):
                         d = remove_ati(d)
 
                     # tā ttā
                     if d.word.endswith(("tā", "ttā", "tāya")):
                         d = remove_tta(d)
 
-                    elif d.word.endswith(("tissa", "tissā")):
+                    if d.word.endswith(("tissa", "tissā")):
                         d = remove_tissa(d)
 
                 # two word sandhi
@@ -435,7 +434,6 @@ def recursive_removal(d: DotDict) -> None:
 
                     # fbf = lwfb fuzzy
                     d = remove_lwfb_fuzzy(d)
-
 
 
 def remove_neg(d: DotDict) -> DotDict:
@@ -504,6 +502,7 @@ def remove_sa(d: DotDict) -> DotDict:
 
         else:
             d.word = d.word[2:]
+        
         if d.word in all_inflections_set:
             d.comm = "sa"
 
@@ -1461,17 +1460,13 @@ if __name__ == "__main__":
     else:
         print("generating is disabled in the config")
 
-# add ttā and its inflections to all inflections
 # Pathavīkasiṇasamāpattintiādi
 # dūteyyapahinagamanānuyogapabhedaṃ
 # bhāvanārāmāriyavaṃsaṃ
-# sahassanayapaṭimaṇḍitaṃ
 # suttantabhājanīyaabhidhammabhājanīyapañhapucchakanayānaṃ
 # anuttaradakkhiṇeyyatāuttamapūjanīyanamassanīyabhāvapūjananamassanakiriyāya
 # dukkhānupassanāvisesoyeva
 # sammāsambuddhantyādimāha
-# hetudukavissajjanasadisaṃ
-# tippakārāpi
 # vimissanavasena why na?
 
 # include neg count in post process

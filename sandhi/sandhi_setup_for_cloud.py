@@ -32,6 +32,7 @@ def zip_for_cloud():
 
     include = [
         "config.ini",
+        "README.md",
         "poetry.lock",
         "poetry.toml",
         "pyproject.toml",

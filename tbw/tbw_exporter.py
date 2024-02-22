@@ -166,10 +166,10 @@ def main():
 
 
     # --------------------------------------------------
-    # Add variant readings to decosntructor data
+    # add variant readings to decosntructor data
     # --------------------------------------------------
     
-    print("[green]compiling variants")
+    print("[green]adding variants")
     variants_db = db_session \
         .query(Lookup) \
         .filter(Lookup.variant != "") \
@@ -184,10 +184,10 @@ def main():
                 deconstr_dict[i.lookup_key] = variant_string
     
     # --------------------------------------------------
-    # Add spelling mistakes to decosntructor data
+    # add spelling mistakes to decosntructor data
     # --------------------------------------------------
 
-    print("[green]{'compiling spelling mistakes':<40}", end="")
+    print("[green]adding spelling mistakes")
     spelling_db = db_session \
         .query(Lookup) \
         .filter(Lookup.spelling != "") \
@@ -204,7 +204,8 @@ def main():
     # --------------------------------------------------
     # sort deconstructor dict
     # --------------------------------------------------
-
+    
+    print(f"[green]{'sorting deconstructor dict':<40}", end="")
     deconstr_dict = dict(
         sorted(deconstr_dict.items(), key=lambda x: pali_sort_key(x[0])))
     print(f"{len(deconstr_dict):,}")

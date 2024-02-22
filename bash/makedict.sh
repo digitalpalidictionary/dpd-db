@@ -16,6 +16,7 @@ exporter/deconstructor_exporter.py
 
 exporter/tpr_exporter.py
 ebook/ebook_exporter.py
+tbw/tbw_exporter.py
 
 scripts/zip_goldedict_mdict.py
 scripts/tarball_db.py

@@ -10,7 +10,7 @@ from tools.tic_toc import bip, bop, tic, toc
 
 def create_tarball_bz2(pth: ProjectPaths):
     bip()
-    print(f"[green]{'tarballing dbd.dp':<20}", end="")
+    print(f"[green]{'tarballing dpd.db':<20}", end="")
 
     tarball_name = "dpd.db.tar.bz2"
     source_file = pth.dpd_db_path
