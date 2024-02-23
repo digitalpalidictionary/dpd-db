@@ -51,7 +51,7 @@ CMA	Comprehensive Manual of Abhidhamma by Bhikkhu Bodhi			"<a class=""link"" hre
 CND	Cūḷaniddesa			Book 17 of the Khuddaka Nikāya; canonical commentary on the Pārāyanavagga of the Sutta Nipāta; lit. smaller detailed analysis		Чӯл̣аниддеса
 comm	commentary meaning			English summary from the commentary definition	комм	перевод комментария
 comp	compound	samāsa	yathābhūta; gahapati; sikkhāpada	When two or more words are combined to form a single unit	сост	"сложное слово ""самаса""; составное"
-comp vb	compound verb		etadavoca; manasikaroti; pāturahosi	When verb is combined with another word(s) to form a single unit	состгл	составной глагол
+comp vb	compound verb		etadavoca; manasikaroti; pāturahosi	When verb is combined with another word(s) to form a single unit	сост.гл	составной глагол
 compar	comparative adjective		anuttara; purima; paṇītatara	The comparative form of an adjective (e.g. higher, earlier, more sublime)	сравн	сравнительная форма
 comps	in compounds. word is only found as an element within compounds words					
 cond	conditional mood	kālātipatti; sattamī	abhavissa; agamissa	Imposing or depending on or containing a condition (e.g. if would be; if could have been; would have gone)	усл	условное наклонение
@@ -92,7 +92,7 @@ idiom	idiomatic expression	bhāsārītyanugata	app'eva nāma	A manner of speakin
 imp	imperative mood	pañcamī; idānaṃ	gaccha; atthu; hotu	Mood that expresses an intention to influence the listener's behavior or expresses wish. (e.g. begone! may there be! may it be!)	повелит	повелительное наклонение
 imperf	imperfect past tense	hiyyattanī; hīyattanī	addasā; ahuvā; accagamā	Past tense which is used for events which happened before yesterday, but were seen by the speaker.	имперф	имперфектное прошедшее время
 impers	impersonal	bhāva	paṭibhāti; kappati	Not relating to or responsive to individual persons (e.g. it occurs (to); it is suitable (for))	безличн	безличный глагол
-in comps	in compounds. word is only found in compounds words		anupassī; paṭisaṃvedī	Usually acts as part of a compoun	всоставе	в составе сложных слов
+in comps	in compounds. word is only found in compounds words		anupassī; paṭisaṃvedī	Usually acts as part of a compoun	в составе	в составе сложных слов
 ind	indeclinable word	nipāta; avyaya	api; pana; atha	It does not have declensions or conjugations.	несклон	несклоняемое слово
 inf	infinitive verb	tumanta; avyaya	kātuṃ; pahātuṃ; carituṃ	The uninflected form of the verb. It most commonly expresses a purpose.	неопр	инфинитив, неопределённая форма глагола
 instr	instrumental case	tatiyā, karaṇavacana	mayā - pron 1st <b>instr</b> sg of ahaṃ	shows the object or person with or by whom something is performed. (by, with or through)<br/>(e.g. by me, with me)	твор	творительный, инструментальный падеж

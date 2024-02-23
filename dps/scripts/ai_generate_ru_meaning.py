@@ -38,20 +38,32 @@ def main():
     conditions = [DpdHeadwords.source_1.like(f"%{comment}%") for comment in commentary_list]
     combined_condition = or_(*conditions)
 
+    #! for filling those which does not have Russian table and fill the conditions
+
+    # db = db_session.query(DpdHeadwords).outerjoin(
+    # Russian, DpdHeadwords.id == Russian.id
+    #     ).filter(
+    #         and_(
+    #             DpdHeadwords.meaning_1 != '',
+    #             DpdHeadwords.example_1 != '',
+    #             ~combined_condition,
+    #             or_(
+    #                 Russian.ru_meaning.is_(None),
+    #                 Russian.ru_meaning_raw.is_(None),
+    #                 Russian.id.is_(null())
+    #             )
+    #         )
+    #     ).order_by(DpdHeadwords.ebt_count.desc()).limit(1000).all()
+
+    #! for filling empty rows in Russian table
+
     db = db_session.query(DpdHeadwords).outerjoin(
-    Russian, DpdHeadwords.id == Russian.id
-        ).filter(
-            and_(
-                DpdHeadwords.meaning_1 != '',
-                DpdHeadwords.example_1 != '',
-                ~combined_condition,
-                or_(
-                    Russian.ru_meaning.is_(None),
-                    Russian.ru_meaning_raw.is_(None),
-                    Russian.id.is_(null())
-                )
-            )
-        ).order_by(DpdHeadwords.ebt_count.desc()).limit(1000).all()
+        Russian, DpdHeadwords.id == Russian.id
+            ).filter(
+                    Russian.id != '',
+                    Russian.ru_meaning == '',
+                    Russian.ru_meaning_raw == '',
+                    ).order_by(DpdHeadwords.ebt_count.desc()).limit(1000).all()
 
     row_count =  0
 
@@ -174,7 +186,7 @@ def translate_with_openai(pth, lemma_1, grammar, meaning, example):
     messages = [
         {
             "role": "system",
-            "content": "You are a helpful assistant that translates English text to Russian considering the context."
+            "content": "You are a helpful assistant that helps to develop Pali Russian dictionary enteries based on English Dictionary enteries. You help to translate English text to Russian considering the Pali context."
         },
         {
             "role": "user",
@@ -188,7 +200,7 @@ def translate_with_openai(pth, lemma_1, grammar, meaning, example):
 
                 **English Definition**: {meaning}
 
-                Please provide a few distinct Russian translations for the English definition, taking into account the Pali term and its grammatical context and Pali sentence. Separate each synonym with `;`. Avoid repeating the same word. Using Cyrillic script provide at least 4 Russian synonyms in the answer and nothing else.
+                Please provide a few distinct Russian translations for the English definition, taking into account the Pali term and its grammatical context and Pali sentence. Separate each synonym with `;`. Avoid repeating the same word. Using Cyrillic script provide only 3 Russian synonyms in the answer and nothing else.
                 ---
             """
         }

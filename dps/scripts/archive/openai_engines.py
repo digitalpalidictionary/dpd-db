@@ -52,13 +52,41 @@ def check_remaining_quota():
     print(f"Requests left for today: {rate_limit_remaining}")
     print(f"Reset time (UTC): {reset_time}")
 
-# Call the function to check the remaining quota
-check_remaining_quota()
 
-# Call the function to check the remaining quota
+def test_request():
+    query = """
+    
+    Use the below context please provide a few distinct Russian translations for the English definition, taking into account the Pali term and its grammatical context and Pali sentence. Separate each synonym with `;`. Avoid repeating the same word, even between main words and literal meanings. Provide a lot of Russian synonyms in the answer and nothing else."
+
+Grammatical context:
+\"\"\"
+                **Pali Term**: eṇijaṅgha
+
+                **Grammar Details**: adjective, compound
+
+                **Pali sentence**: eṇijaṅgho kho pana so bhavaṃ gotamo, idam'pi tassa bhoto gotamassa mahāpurisassa mahāpurisalakkhaṇaṃ bhavati.
+
+                **English Definition**: with calves like an antelope; with haunches like a deer; eighth of the thirty-two marks of a great man 
+\"\"\"
+
+"""
+
+    response = openai.ChatCompletion.create(
+        messages=[
+            {'role': 'system', 'content': 'You are a helpful assistant that translates English text to Russian considering the context.'},
+            {'role': 'user', 'content': query},
+        ],
+        model="gpt-3.5-turbo-0125",
+        temperature=0,
+    )
+
+    print(response.choices[0].message.content)
+
+
+# check_remaining_quota()
+
 # check_availible_engines()
 
-
-
+# test_request()
 
 

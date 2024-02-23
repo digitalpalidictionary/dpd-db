@@ -727,10 +727,11 @@ def en_translate_with_openai(dpspth, pth, lemma_1, grammar, example, suggestion_
     grammar = replace_abbreviations(pth, grammar)
     
     # Generate the chat messages based on provided values
+
     messages = [
         {
             "role": "system",
-            "content": "You are a sophisticated translation model specialized in Pāli to English translations, capable of considering context and grammatical details."
+            "content": "You are a sophisticated translation model specialized in Pali to English translations, capable of considering context and grammatical details."
         },
         {
             "role": "user",
@@ -742,7 +743,7 @@ def en_translate_with_openai(dpspth, pth, lemma_1, grammar, example, suggestion_
 
                 **Contextual Pali Sentences**: {example}
 
-                Given the details provided, list distinct English synonyms for the specified Pāli term, separated by `;`. For example: "word1; word2; word3". Ensure no repetition. In the answer please give only there few english synonyms and nothing else.
+                Given the grammatical and contextual details provided, list distinct English synonyms for the specified Pali term, separated by `;`. Ensure no repetition. In the answer please give a lot of related English synonyms and nothing else.
                 ---
             """
         }

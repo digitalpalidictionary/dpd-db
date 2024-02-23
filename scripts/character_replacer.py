@@ -38,7 +38,7 @@ def main():
         if find_char in old_field:
             new_field = old_field.replace(find_char, replace_char)
             
-            print(f"[white]{i.lemma_1:<40}")
+            print(f"[white]{i.id}  {i.lemma_1:<40}")
             print(f"[green]{old_field}")
             print(f"[light_green]{new_field}")
             print()

@@ -726,6 +726,7 @@ class AllowableCharacters():
     ru_data = [
         ("ru_meaning", ru_meaning_allowed),
         ("ru_meaning_lit", ru_meaning_allowed),
+        ("ru_meaning_raw", ru_meaning_allowed),
         ("ru_notes", ru_notes_allowed),
     ]
 
@@ -737,8 +738,10 @@ class AllowableCharacters():
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords)
-    # db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs), joinedload(DpdHeadwords.ru)).all()
+    if config_test("user", "username", "deva"):
+        db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs), joinedload(DpdHeadwords.ru)).all()
+    else:
+        db = db_session.query(DpdHeadwords)
 
     a = AllowableCharacters()
 
