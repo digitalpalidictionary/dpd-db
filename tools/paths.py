@@ -195,7 +195,7 @@ class ProjectPaths:
         self.dpr_gd_path = base_dir.joinpath(Path("other_dictionaries/goldendict/dpr.zip"))
         self.mw_gd_path = base_dir.joinpath(Path("other_dictionaries/goldendict/mw.zip"))
         self.peu_gd_path = base_dir.joinpath(Path("other_dictionaries/goldendict/peu.zip"))
-        self.pts_gd_path = base_dir.joinpath(Path("other_dictionaries/goldendict/pts.zip"))
+        self.simsapa_gd_path = base_dir.joinpath(Path("other_dictionaries/goldendict/simsapa.zip"))
         self.vri_gd_path = base_dir.joinpath(Path("other_dictionaries/goldendict/vri.zip"))
         self.whitney_gd_path = base_dir.joinpath(Path("other_dictionaries/goldendict/whitney.zip"))
 
@@ -205,17 +205,17 @@ class ProjectPaths:
         self.dpr_json_path = base_dir.joinpath(Path("other_dictionaries/json/dpr.json"))
         self.mw_json_path = base_dir.joinpath(Path("other_dictionaries/json/mw.json"))
         self.peu_json_path = base_dir.joinpath(Path("other_dictionaries/json/peu.json"))
-        self.pts_json_path = base_dir.joinpath(Path("other_dictionaries/json/pts.json"))
+        self.simsapa_json_path = base_dir.joinpath(Path("other_dictionaries/json/simsapa.json"))
         self.vri_json_path = base_dir.joinpath(Path("other_dictionaries/json/vri.json"))
         self.whitney_json_path = base_dir.joinpath(Path("other_dictionaries/json/whitney.json"))
 
         # mdict
-        self.dpr_mdict_path = base_dir.joinpath(Path("other_dictionaries/mdict/dpr.mdx"))
         self.bhs_mdict_path = base_dir.joinpath(Path("other_dictionaries/mdict/bhs.mdx"))
         self.cpd_mdict_path = base_dir.joinpath(Path("other_dictionaries/mdict/cpd.mdx"))
+        self.dpr_mdict_path = base_dir.joinpath(Path("other_dictionaries/mdict/dpr.mdx"))
         self.mw_mdict_path = base_dir.joinpath(Path("other_dictionaries/mdict/mw.mdx"))
         self.peu_mdict_path = base_dir.joinpath(Path("other_dictionaries/mdict/peu.mdx"))
-        self.pts_mdict_path = base_dir.joinpath(Path("other_dictionaries/mdict/pts.mdx"))
+        self.simsapa_mdict_path = base_dir.joinpath(Path("other_dictionaries/mdict/simsapa.mdx"))
         self.vri_mdict_path = base_dir.joinpath(Path("other_dictionaries/mdict/vri.mdx"))
         self.whitney_mdict_path = base_dir.joinpath(Path("other_dictionaries/mdict/whitney.mdx"))
 

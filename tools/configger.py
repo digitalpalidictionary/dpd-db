@@ -4,6 +4,7 @@
 config.ini file."""
 
 import configparser
+from typing import Optional
 from rich import print
 
 config = configparser.ConfigParser()
@@ -67,6 +68,12 @@ DEFAULT_CONFIG = {
         "update": "no",
         "db_path": "",
         "backup_path": ""
+    },
+    "simsapa": {
+        "db_path": ""
+    },
+    "tpr": {
+        "db_path": ""
     }
 }
 
@@ -81,12 +88,12 @@ def config_initialize() -> None:
                 config.set(section, option, value)
 
 
-def config_read(section: str, option: str, default_value=None) -> (str):
+def config_read(section: str, option: str, default_value: Optional[str]=None) -> str|None:
     """Read config.ini. If error, return a specified default value"""
     try:
         return config.get(section, option)
     except (configparser.NoSectionError, configparser.NoOptionError):
-        return ""
+        return default_value
 
 
 def config_write() -> None:
