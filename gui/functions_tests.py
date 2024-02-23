@@ -147,7 +147,7 @@ def run_individual_internal_tests(
 
         # try:
         if t.exceptions != {""}:
-            if values["lemma_1"] in t.exceptions:
+            if int(values["id"]) in t.exceptions:
                 print(f"[red]{counter}. {t.exceptions}")
                 continue
 
@@ -225,7 +225,7 @@ def run_individual_internal_tests(
                 elif event_popup == "Exception":
                     if username == "primary_user":
                         popup_win.close()
-                        internal_tests_list[counter].exceptions += [values['lemma_1']]
+                        internal_tests_list[counter].exceptions.append(int(values["id"]))
                         write_internal_tests_list(pth, internal_tests_list)
                         break
                     else:
@@ -330,8 +330,8 @@ def db_internal_tests(db_session, pth, sg, window, flags):
             test_results = get_db_test_results(t, i)
 
             if all(test_results.values()):
-                if i.lemma_1 not in t.exceptions:
-                    fail_list += [i.lemma_1]
+                if i.id not in t.exceptions:
+                    fail_list += [i.id]
 
                     if results_count < int(t.iterations):
                         test_results_display += [[
@@ -455,11 +455,11 @@ def db_internal_tests(db_session, pth, sg, window, flags):
         "internal db tests complete", text_color="white")
 
 
-def regex_fail_list(fail_list):
+def regex_fail_list(fail_list: list[int]):
     string = "/^("
-    for f in fail_list:
-        string += f
-        if f != fail_list[-1]:
+    for fail in fail_list:
+        string += str(fail)
+        if fail != fail_list[-1]:
             string += "|"
         else:
             string += ")$/"
@@ -558,17 +558,11 @@ def clear_tests(window):
 
 
 def clean_exceptions(dpd_db, internal_tests_list):
-    """Remove exceptions which are not headwords and
-    sort exceptions in pali alphabetical order."""
-
-    all_headwords: set = set([i.lemma_1 for i in dpd_db])
+    """Sort exceptions in numerical order."""
 
     for t in internal_tests_list:
         exceptions = t.exceptions
-        for exception in exceptions:
-            if exception not in all_headwords:
-                exceptions.remove(exception)
-        exceptions_sorted = sorted(exceptions, key=pali_sort_key)
+        exceptions_sorted = sorted(exceptions)
         if exceptions != exceptions_sorted:
             print(exceptions)
             print(exceptions_sorted)

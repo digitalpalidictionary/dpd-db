@@ -3,7 +3,7 @@
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import DpdHeadwords, PaliWord
+from db.models import DpdHeadwords # PaliWord
 from sqlalchemy.orm.session import make_transient
 
 from tools.paths import ProjectPaths
@@ -27,13 +27,8 @@ def main():
     added_count = 0
     for a in additions_list:
         a : Addition
-        p = a.pali_word
+        hw = a.pali_word
 
-        
-        if bool(type(p) == PaliWord):
-            hw = remap_pali_word_to_dpd_headword(p)
-            a.pali_word = hw
-    
         # check if it's added
         if not a.added_to_db:
 

@@ -41,6 +41,7 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
     window = make_window()
     db = None
+    corrections_list = load_corrections_tsv(pth)
     # _set_state(window, enabled=False)
 
     while True:
@@ -124,11 +125,7 @@ def main():
             combo = window[event.rstrip("_focus-out")]
             combo.hide_tooltip()
 
-        elif (
-            event == "tabgroup" and
-            values["tabgroup"] == "add_corrections_tab"
-        ):
-            corrections_list = load_corrections_tsv(pth)
+        if event == "next":
             index = find_next_correction(
                 db_session, corrections_list, window, values)
             values["add_approved"] = ""

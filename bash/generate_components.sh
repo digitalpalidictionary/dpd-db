@@ -9,7 +9,7 @@ set -e
 
 tools/version.py
 
-scripts/lookup_add_variants_and_spelling_mistakes.py
+lookup/variants_and_spelling_mistakes.py
 
 inflections/create_inflections_templates.py
 inflections/generate_inflection_tables.py

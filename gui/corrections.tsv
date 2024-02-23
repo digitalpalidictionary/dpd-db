@@ -800,14 +800,14 @@ buddho <b>tapati</b> tejasā."	duplicted changed		yes
 33649	source_1	SNa35.228	sutta_1	paṭhamasamuddasuttavaṇṇanā	example_1	yadi <b>duppūraṇ</b>'aṭṭhena yadi vā samuddan'aṭṭhena samuddo, cakkhum'eva samuddo.	missing		yes		
 33649	lemma_1	duppūraṇa					error in spelling		yes		
 12461	notes						error		yes		
-77806	family_set	names of arahants					housholder which later become arahant				
-77806	meaning_1	name of an arahant monk; one of the four friends of Yasa					housholder which later 				
-77814	source_1	VIN3.1.9	sutta_1	pabbajjūpasampadākathā	example_1	tena kho pana samayena bhikkhū nānādisā nānājanapadā pabbajj'āpekkhe ca <b>upasampad'āpekkhe</b> ca ānenti, bhagavā ne pabbājessati upasampādessatī'ti.	missing				
-77816	source_1	VIN3.1.9	sutta_1	pabbajjūpasampadākathā	example_1	paṭhamaṃ kesamassuṃ ohārāpetvā, kāsāyāni vatthāni acchādāpetvā, ek'aṃsaṃ uttar'āsaṅgaṃ kārāpetvā, bhikkhūnaṃ pāde vandāpetvā, ukkuṭikaṃ nisīdāpetvā, añjaliṃ <b>paggaṇhāpetvā</b>, evaṃ vadehī'ti vattabbo	missing				
-21988	meaning_1	what is the source?; what is the origin?					missing		
-28615	lemma_1	jīvitasaṅkhāra 1					added new meaning		
-53989	meaning_1	keeps going (by); continues to go (with); stays on the road (by)					missing		
-53989	source_1	SN47.9	sutta_1	gilānasuttaṃ	example_1	seyyathā'pi, ānanda, jajjarasakaṭaṃ veṭhamissakena <b>yāpeti</b>, evam'eva kho, ānanda, veṭhamissakena maññe tathāgatassa kāyo yāpeti.	missing		
-53989	trans	intrans					missing		
-53989	plus_case	+instr					missing		
-682	source_1		sutta_1		example_1		moved to masc (see CPD)		
+77806	family_set	names of arahants					housholder which later become arahant		yes		
+77806	meaning_1	name of an arahant monk; one of the four friends of Yasa					housholder which later 		yes		
+77814	source_1	VIN3.1.9	sutta_1	pabbajjūpasampadākathā	example_1	tena kho pana samayena bhikkhū nānādisā nānājanapadā pabbajj'āpekkhe ca <b>upasampad'āpekkhe</b> ca ānenti, bhagavā ne pabbājessati upasampādessatī'ti.	missing		yes		
+77816	source_1	VIN3.1.9	sutta_1	pabbajjūpasampadākathā	example_1	paṭhamaṃ kesamassuṃ ohārāpetvā, kāsāyāni vatthāni acchādāpetvā, ek'aṃsaṃ uttar'āsaṅgaṃ kārāpetvā, bhikkhūnaṃ pāde vandāpetvā, ukkuṭikaṃ nisīdāpetvā, añjaliṃ <b>paggaṇhāpetvā</b>, evaṃ vadehī'ti vattabbo	missing		yes		
+21988	meaning_1	what is the source?; what is the origin?					missing		yes		
+28615	lemma_1	jīvitasaṅkhāra 1					added new meaning		yes		
+53989	meaning_1	keeps going (by); continues to go (with); stays on the road (by)					missing		yes		
+53989	source_1	SN47.9	sutta_1	gilānasuttaṃ	example_1	seyyathā'pi, ānanda, jajjarasakaṭaṃ veṭhamissakena <b>yāpeti</b>, evam'eva kho, ānanda, veṭhamissakena maññe tathāgatassa kāyo yāpeti.	missing		yes		
+53989	trans	intrans					missing		yes		
+53989	plus_case	+instr					missing		yes		
+682	source_1		sutta_1		example_1		moved to masc (see CPD)		yes		

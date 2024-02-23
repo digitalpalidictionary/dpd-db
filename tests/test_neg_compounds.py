@@ -48,11 +48,14 @@ def main():
             i.meaning_1
             and i.neg
             and re.findall("^na ", i.construction)
-            and re.findall("\\bcomp\\b", i.grammar)
             and "kammadhāraya" not in i.compound_type
             and i.derivative != "taddhita"
-            and i.pos not in ["abs", "ind", "prefix", "aor", "pr"]
+            and i.pos not in [
+                "abs", "ind", "prefix", "aor", "pr", "idiom",
+                "inf", "ger", "opt", "sandhi", "cond", "perf", "imperf"]
             and i.id not in g.exceptions_list
+            and " pl," not in i.grammar
+            and not re.findall("\\b(nom|acc|instr|dat|abl|gen|loc|voc)\\b", i.grammar)
         ):
             print("[magenta1]_"*50)
             print()
@@ -68,7 +71,7 @@ def main():
             
             if route:
                 if route == "m":
-                    print("[light_coral]enter compound construciton ", end="")
+                    print("[light_coral]enter compound construction ", end="")
                     cc = input()
                     if cc:
                         i.compound_type = "kammadhāraya"
@@ -77,7 +80,7 @@ def main():
                         continue
                 elif route == "a":
                     i.compound_type = "kammadhāraya"
-                    i.compound_construction = auto_replace_na(i.lemma_clean)
+                    i.compound_construction = auto_replace_na(i)
                 elif route == "e":
                     add_exception(g, i.id)
                     continue
@@ -98,28 +101,38 @@ def main():
     toc()
 
 
-def auto_replace_na(lemma_clean: str) -> str:
-    if lemma_clean.startswith("na"):
+def auto_replace_na(i: DpdHeadwords) -> str:
+
+    if i.lemma_clean.startswith("na"):
         # check if there's a double consonant
-        if lemma_clean[2] == lemma_clean[3]:
-            return f"na + {lemma_clean[3:]}"
+        if i.lemma_clean[2] == i.lemma_clean[3]:
+            return f"na + {i.lemma_clean[3:]}"
         else:
-            return f"na + {lemma_clean[2:]}"
-    elif lemma_clean.startswith("an"):
-        print("[light_coral]an or a?", end=" ")
-        route = input()
-        if route == "an":
-            return f"na + {lemma_clean[2:]}"
-        else:
-            return f"na + {lemma_clean[1:]}"
-    elif lemma_clean.startswith("a"):
+            return f"na + {i.lemma_clean[2:]}"
+    
+    elif i.lemma_clean.startswith("an"):
+        if "na > a " in i.construction:
+            return f"na + {i.lemma_clean[1:]}"
+        elif "na > an " in i.construction:
+            return f"na + {i.lemma_clean[2:]}"
+    elif i.lemma_clean.startswith("a"):
         # check if there's a double consonant
-        if lemma_clean[1] == lemma_clean[2]:
-            return f"na + {lemma_clean[2:]}"
+        if i.lemma_clean[1] == i.lemma_clean[2]:
+            return f"na + {i.lemma_clean[2:]}"
         else:
-            return f"na + {lemma_clean[1:]}"
-    elif lemma_clean.startswith("nā"):
-        return f"na + a{lemma_clean[2:]}"
+            return f"na + {i.lemma_clean[1:]}"
+    elif i.lemma_clean.startswith("nā"):
+        if (
+            "na + a" in i.construction
+            or "na + √a" in i.construction
+        ):
+            return f"na + a{i.lemma_clean[2:]}"
+        else:
+            return f"na + {i.lemma_clean[1:]}"
+    elif i.lemma_clean.startswith("nu"):
+        return f"na + {i.lemma_clean[1:]}"
+    elif i.lemma_clean.startswith("nū"):
+        return f"na + u{i.lemma_clean[2:]}"
     else: 
         return ""
 
