@@ -3,11 +3,11 @@ Export to GoldenDict, MDict and JSON."""
 
 import json
 import sqlite3
+
 from bs4 import BeautifulSoup
-
 from rich import print
-from tools.configger import config_read
 
+from tools.configger import config_read
 from tools.mdict_exporter import export_to_mdict
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
@@ -89,10 +89,8 @@ def make_data_list(g: ProgData):
             else:
                 next_headword = "fin"
 
-
-            while (
-                headword == next_headword 
-            ):
+            # combine the data of identical headwords
+            while headword == next_headword:
                 headword, html, synonyms = g.simsapa_db[next_index]
                 html_comp += html
                 if synonyms:
@@ -100,19 +98,17 @@ def make_data_list(g: ProgData):
                 next_index = next_index + 1
                 next_headword = g.simsapa_db[next_index][0]
 
-
+            # remove all the "a" tags
             soup = BeautifulSoup(html_comp, "html.parser")
-
-            # remove all the "pb" tags
             ays = soup.find_all("a")
             for ay in ays:
                 ay.unwrap()
 
+            # normalize niggahitas and add to synonyms
             html_comp = str(soup)
-
-            headword = headword.replace("ṁ", "ṃ")
             html_comp = html_comp.replace("ṁ", "ṃ")
-
+            
+            headword = headword.replace("ṁ", "ṃ")
             if "ṃ" in headword:
                 synonyms_comp.update(add_niggahitas([headword], all=False))
 
@@ -151,7 +147,7 @@ def save_goldendict(g: ProgData):
 
 
 def save_mdict(g: ProgData):
-    """save as mdict"""
+    """Save as mdict"""
     print("[green]saving mdict")
 
     output_file = str(g.pth.simsapa_mdict_path)
