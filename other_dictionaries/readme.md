@@ -20,8 +20,16 @@ Pali Myanmar Abhidhan <a href="https://drive.google.com/uc?export=download&id=1F
 Simsapa Combined Dictionary* <a href="https://drive.google.com/uc?export=download&id=1Fj5JUessCAU8_tC0iwCiA3MZLXbtMWCK" target="_blank">simsapa</a>  
 Whitney's Roots <a href="https://drive.google.com/uc?export=download&id=1PRg6S55sXa70b71cIZxmXzpcWcDGhotn" target="_blank">whitney</a>  
 
-*Simsapa Combined Dictionary contains
+---
+
+Here are detailed instructions on how to install these MDict files on your [Android](https://digitalpalidictionary.github.io/install_android_dicttango.html) or [IOS](https://digitalpalidictionary.github.io/install_ios.html) device. 
+
+---
+
+* Simsapa Combined Dictionary contains
 - Pali Text Society's Pali English Dictionary (PTS)
 - Dictionary of Pali Proper Names (DPPN)
 - New Concise Pali English Dictionary (NCPED)
 - Nyanatiloka's Buddhist Dictionary
+
+---
