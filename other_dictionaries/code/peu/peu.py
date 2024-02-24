@@ -86,7 +86,7 @@ def main():
 
     bookname = "Pāḷi Myanmar Abhidhan"
     author = "Pāḷi Myanmar Abhidhan"
-    description = "<h3>Pali Myanmar Abhidhan</h3><p>Pali Myanmar Abhidhan is the world's largest Pali dictionary, a massive 23 volumes, with more than 200 000 words, a complete reference guide to the language of the root texts and commentaries.</p><p>There is a project underway to translate this into English, currently at about 80% human translated, the remainder is by Google.</p><p><a href='https://pm12e.pali.tools/'>Project Website</a></p><p>This dicitonary can be found in the Tipitaka Pali Projector project on <a href='https://github.com/bksubhuti/Tipitaka-Pali-Projector'>Github</a></p><p>Encoded by Bodhirasa 2024.</p>"
+    description = "<h3>Pali Myanmar Abhidhan</h3><p>Pali Myanmar Abhidhan is the world's largest Pali dictionary, a massive 23 volumes, with more than 200 000 words, a complete reference guide to the language of the root texts and commentaries.</p><p>There is a project underway to translate this into English, currently at about 80% human translated, the remainder is by Google.</p><p><a href='https://pm12e.pali.tools/'>Project Website</a></p><p>This dictionary can be found in the Tipitaka Pali Projector project on <a href='https://github.com/bksubhuti/Tipitaka-Pali-Projector'>Github</a></p><p>Encoded by Bodhirasa 2024.</p>"
     website = ""
 
     ifo = ifo_from_opts({

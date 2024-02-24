@@ -1,4 +1,4 @@
-"""Export Crital Pāḷi Dicitonary into GoldenDict, MDict and JSON formats."""
+"""Export Crital Pāḷi dictionary into GoldenDict, MDict and JSON formats."""
 
 import re
 import json

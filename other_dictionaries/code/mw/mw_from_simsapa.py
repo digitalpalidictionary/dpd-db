@@ -65,7 +65,7 @@ def main():
 
     # TODO find out more details, website etc
 
-    bookname = "Monier Williams Sanskrit English Dicitonary 1899"
+    bookname = "Monier Williams Sanskrit English Dictionary 1899"
     author = "Sir Monier Monier Williams"
     description = """<h3>Monier-Williams' Sanskrit-English dictionary 1899</h3><p>Etymologically and philologically arranged with special reference to cognate Indo-European languages, by Sir Monier Monier-Williams, M.A., K.C.I.E. Boden Professor of Sanskṛit, Hon. D.C.L. Oxon, Hon. L.L.D. Calcutta, Hon. Ph.D. Göttingen, Hon. fellow of University College and sometime fellow of Balliol College, Oxford.</p><p>New edition, greatly enlarged and improved with the collaboration of Professor E. Leumann, Ph.D. of the University of Strassburg, Professor C. Cappeller, Ph.D. of the University of Jena, and other scholars.</p><p>Published by Oxford at the the Clarendon Press, 1899.</p><p>For more Sanskrit dicitonaries please visit <a href="http://www.sanskrit-lexicon.uni-koeln.de">Cologne Sanskrit Lexicon</a> website.</p><p>Encoded by Bodhirasa 2024</p>"""
     website = ""

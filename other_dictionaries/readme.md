@@ -24,10 +24,16 @@ Here are detailed instructions on how to install these MDict files on your [Andr
 
 ---
 
-Simsapa Combined Dictionary contains
+### Simsapa Combined Dictionary 
+This is a composite dictionary which contains
 - Pali Text Society's Pali English Dictionary (PTS)
 - Dictionary of Pali Proper Names (DPPN)
 - New Concise Pali English Dictionary (NCPED)
 - Nyanatiloka's Buddhist Dictionary
 
----
+### Pali Myanmar Abhidhan / PEU
+Pali Myanmar Abhidhan is the world's largest Pali dictionary, a massive 23 volumes, with more than 200 000 words, a complete reference guide to the language of the root texts and commentaries.
+    
+There is a project underway to translate this into English, currently at about 80% human translated, the remainder is by Google. [Project Website](https://pm12e.pali.tools/)
+
+This dictionary can be found in the [Tipitaka Pali Projector project on Gihub](https://github.com/bksubhuti/Tipitaka-Pali-Projector)

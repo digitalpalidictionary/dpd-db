@@ -19,7 +19,7 @@ dpd release checklist
 # on the day
 - makedict
   
-- update github, taking not of all changes
+- update github, taking note of all changes
 - tipitaka pali projector pull request 
 - tpr extensions commit
   
