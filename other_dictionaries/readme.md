@@ -23,5 +23,5 @@ Whitney's Roots <a href="https://drive.google.com/uc?export=download&id=1PRg6S55
 *Simsapa Combined Dictionary contains
 - Pali Text Society's Pali English Dictionary (PTS)
 - Dictionary of Pali Proper Names (DPPN)
-- New Concide Pali English Dictionary (NCPED)
+- New Concise Pali English Dictionary (NCPED)
 - Nyanatiloka's Buddhist Dictionary
