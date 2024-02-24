@@ -15,6 +15,8 @@ inflections/create_inflections_templates.py
 inflections/generate_inflection_tables.py
 inflections/transliterate_inflections.py
 
+scripts/sanskrit_root_families_updater.py
+
 families/root_family.py
 families/word_family.py
 families/compound_family.py
