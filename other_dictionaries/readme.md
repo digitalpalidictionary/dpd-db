@@ -30,9 +30,10 @@ This is a composite dictionary which contains
 - Dictionary of Pali Proper Names (DPPN)
 - New Concise Pali English Dictionary (NCPED)
 - Nyanatiloka's Buddhist Dictionary
+
 For more information about the Simsapa Dhamma Reader, please visit [https://simsapa.github.io/](https://simsapa.github.io/) 
 
 ## Pali Myanmar Abhidhan / PEU
 Pali Myanmar Abhidhan is the world's largest Pali dictionary, a massive 23 volumes, with more than 200 000 words, a complete reference guide to the language of the root texts and commentaries.
     
-There is a project underway to translate this into English, currently at about 80% human translated, the remainder is by Google. [Project Website](https://pm12e.pali.tools/). This dictionary is integrated into [Tipitaka Pali Reader](https://github.com/bksubhuti/tipitaka-pali-reader)
+There is a project underway to translate this into English, currently at about 80% human translated, the remainder is by Google. You can find the [Project Website](https://pm12e.pali.tools/) here. PEU dictionary is integrated into [Tipitaka Pali Reader](https://github.com/bksubhuti/tipitaka-pali-reader).
