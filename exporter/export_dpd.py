@@ -41,8 +41,8 @@ from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
-from tools.pos import INDECLINABLES
-from tools.pos import EXCLUDE_FROM_FREQ
+# from tools.pos import INDECLINABLES
+# from tools.pos import EXCLUDE_FROM_FREQ
 from tools.sandhi_contraction import SandhiContractions
 from tools.superscripter import superscripter_uni
 from tools.tic_toc import bip, bop
@@ -512,6 +512,11 @@ def render_button_box_templ(
         'onclick="button_click(this)" '
         'data-target="{target}">{name}</a>')
 
+    button_link_html = (
+        '<a class="button" '
+        'href="{href}" '
+        'style="text-decoration: none;">{name}</a>')
+
     # grammar_button
     if i.needs_grammar_button or dps_data:
         grammar_button = button_html.format(
@@ -608,7 +613,8 @@ def render_button_box_templ(
 
     # feedback_button
     if dps_data:
-        feedback_button = ""
+        feedback_button = button_link_html.format(
+            href="https://digitalpalidictionary.github.io/", name="feedback")
     else:
         feedback_button = button_html.format(
             target=f"feedback_{i.lemma_1_}", name="feedback")

@@ -10,6 +10,8 @@ git checkout origin/main -- backup_tsv/dpd_roots.tsv
 
 set -e
 
+dps/scripts/backup_all_dps.py
+
 # Define filenames
 FILENAMES=("sbs.tsv" "russian.tsv" "dpd_roots.tsv" "dpd_headwords.tsv")
 

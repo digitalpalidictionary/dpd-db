@@ -17,7 +17,7 @@ def mdict_synonyms(all_items, item):
     return all_items
 
 
-def export_to_mdict(data_list: List[Dict], pth) -> None:
+def export_to_mdict(data_list: List[Dict], pth, description, title, dpspth = None) -> None:
     print("[green]converting to mdict")
 
     bip()
@@ -36,21 +36,20 @@ def export_to_mdict(data_list: List[Dict], pth) -> None:
 
     print("[white]writing mdict", end=" ")
 
-    description = """<p>Digital Pāḷi Dictionary by Bodhirasa</p>
-<p>For more infortmation, please visit
-<a href=\"https://digitalpalidictionary.github.io\">
-the Digital Pāḷi Dictionary website</a></p>"""
 
     bip()
     writer = MDictWriter(
         dpd_data,
-        title="Digital Pāḷi Dictionary",
+        title=title,
         description=description)
     print(bop())
 
     bip()
     print("[white]copying mdx file", end=" ")
-    outfile = open(pth.mdict_mdx_path, 'wb')
+    if dpspth is None:
+        outfile = open(pth.mdict_mdx_path, 'wb')
+    else:
+        outfile = open(dpspth.mdict_mdx_path, 'wb')
     writer.write(outfile)
     outfile.close()
     print(bop())

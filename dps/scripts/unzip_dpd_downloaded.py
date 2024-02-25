@@ -35,15 +35,19 @@ gd_dir = os.path.join(
 
 md_dir = os.path.join(
    software_dir, 
-   'MDict', 
-   'DPD'
+   'MDict'
+)
+
+kd_dir = os.path.join(
+   software_dir,
+   'Kindle Dictionaries'
 )
 
 dpd_kindle_mobi_src = os.path.join(downloads_dir, 'dpd-kindle.mobi')
-dpd_kindle_mobi_dest = os.path.join(software_dir, 'dpd-kindle.mobi')
+dpd_kindle_mobi_dest = os.path.join(kd_dir, 'dpd-kindle.mobi')
 
 dpd_kindle_epub_src = os.path.join(downloads_dir, 'dpd-kindle.epub')
-dpd_kindle_epub_dest = os.path.join(software_dir, 'dpd-kindle.epub')
+dpd_kindle_epub_dest = os.path.join(kd_dir, 'dpd-kindle.epub')
 
 dpd_goldendict_src = os.path.join(downloads_dir, 'dpd-goldendict.zip')
 dpd_mdict_src = os.path.join(downloads_dir, 'dpd-mdict.zip')

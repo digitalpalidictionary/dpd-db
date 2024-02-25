@@ -109,7 +109,14 @@ def main():
 
     if make_mdct:
         time_log.log("export_to_mdict()")
-        export_to_mdict(combined_data_list, pth)
+        description = """
+            <p>Digital Pāḷi Dictionary by Bodhirasa</p>
+            <p>For more infortmation, please visit
+            <a href=\"https://digitalpalidictionary.github.io\">
+            the Digital Pāḷi Dictionary website</a></p>
+        """
+        title= "Digital Pāḷi Dictionary"
+        export_to_mdict(combined_data_list, pth, description, title)
 
     toc()
     time_log.log("exporter.py::main() return")

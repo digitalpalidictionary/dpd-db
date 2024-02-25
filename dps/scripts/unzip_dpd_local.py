@@ -5,6 +5,7 @@
 from datetime import date
 from zipfile import ZipFile
 import os
+import shutil
 
 today = date.today()
 
@@ -21,9 +22,18 @@ software_dir = os.path.join(
    'share1', 
    'Sharing between users', 
    '1 For Everyone', 
-   'Software',
+   'Software'
+)
+
+gd_dir = os.path.join(
+   software_dir,
    'Golden Dictionary', 
    'Default'
+)
+
+mdict_dir = os.path.join(
+   software_dir,
+   'MDict'
 )
 
 
@@ -36,15 +46,23 @@ share_dir = os.path.join(
 )
 
 dpd_goldendict_src = os.path.join(share_dir, 'dpd.zip')
+dpd_mdict_src = os.path.join(share_dir, 'dpd-mdict.mdx')
 
 
 if os.path.exists(dpd_goldendict_src):
    # Unzip dpd_goldendict to the specified directory
    with ZipFile(dpd_goldendict_src, 'r') as zipObj:
       # Extract all the contents of zip file in current directory
-      zipObj.extractall(software_dir)
+      zipObj.extractall(gd_dir)
 
    # Print completion message in green color
    print("\033[1;32m dpd.zip has been unpacked to the server folder \033[0m")
+
+
+if os.path.exists(dpd_mdict_src):
+   shutil.copy2(dpd_mdict_src, mdict_dir)
+   print(f"\033[1;32m {dpd_mdict_src} copied to the server \033[0m")
+else:
+   print(f"\033[1;31m {dpd_mdict_src} is missing. Cannot proceed with moving. \033[0m")
 
 

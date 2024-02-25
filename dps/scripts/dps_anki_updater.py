@@ -78,14 +78,15 @@ def get_anki_collection() -> Collection|None:
     bip()
     print(f"[green]{'get anki collection':<20}", end="")
     anki_db_path = config_read("anki", "db_path")
-    try:
-        col = Collection(anki_db_path)
-        print(f"{'ok':>10} {bop()}")
-        return col
-    except DBError:
-        print("\n[red]Anki is currently open, ", end="")
-        print("close and try again.")
-        return None
+    if anki_db_path:
+        try:
+            col = Collection(anki_db_path)
+            print(f"{'ok':>10} {bop()}")
+            return col
+        except DBError:
+            print("\n[red]Anki is currently open, ", end="")
+            print("close and try again.")
+            return None
 
 def backup_anki_db(col) -> None:
     # backup anki db
@@ -450,7 +451,7 @@ def load_chant_index_map():
 
 
 def deck_selector(i):
-    if i.ru:
+    if i.ru and i.ru.ru_meaning:
         return "Пали Словарь"
     else:
         return None

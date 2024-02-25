@@ -26,15 +26,16 @@ if config_test("dictionary", "make_mdict", "yes"):
       deva_dir, 
       'Documents', 
       'dpd-db',
+      'dps',
       'exporter_ru',
       'share'
    )
 
-   dpd_mdict_src = os.path.join(share_dir, 'dpd-ru-mdict.mdx')
+   dpd_mdict_src = os.path.join(share_dir, 'ru-dpd-mdict.mdx')
    # dpd_grammar_mdict_src = os.path.join(share_dir, 'dpd-grammar-mdict.mdx')
    # dpd_deconstructor_mdict_src = os.path.join(share_dir, 'dpd-deconstructor-mdict.mdx')
 
-   dpd_mdict_dest = os.path.join(sync_mdict_dir, 'dpd-ru-mdict.mdx')
+   dpd_mdict_dest = os.path.join(sync_mdict_dir, 'ru-dpd-mdict.mdx')
    # dpd_grammar_mdict_dest = os.path.join(sync_mdict_dir, 'dpd-grammar-mdict.mdx')
    # dpd_deconstructor_mdict_dest = os.path.join(sync_mdict_dir, 'dpd-deconstructor-mdict.mdx')
 
@@ -42,9 +43,9 @@ if config_test("dictionary", "make_mdict", "yes"):
    # Move each file if it exists
    if os.path.exists(dpd_mdict_src):
       shutil.copy2(dpd_mdict_src, dpd_mdict_dest)
-      print("\033[1;32m dpd-mdict.mdx moved to Sync folder \033[0m")
+      print("\033[1;32m ru-dpd-mdict.mdx copied to Sync folder \033[0m")
    else:
-      print("\033[1;31m dpd-mdict.mdx is missing. Cannot proceed with moving. \033[0m")
+      print("\033[1;31m ru-dpd-mdict.mdx is missing. Cannot proceed with moving. \033[0m")
 
    # if os.path.exists(dpd_grammar_mdict_src):
    #    shutil.copy2(dpd_grammar_mdict_src, dpd_grammar_mdict_dest)
