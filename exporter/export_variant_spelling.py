@@ -23,32 +23,30 @@ def generate_variant_spelling_html(pth: ProjectPaths, dpspth: Optional[DPSPaths]
 
     rendered_sizes = []
 
-    if dpspth is None:
+    header_templ = Template(filename=str(pth.header_templ_path))
+    variant_dict = test_and_make_variant_dict(pth)
+    spelling_dict = test_and_make_spelling_dict(pth)
 
-        header_templ = Template(filename=str(pth.header_templ_path))
-
-        variant_dict = test_and_make_variant_dict(pth)
+    if not dpspth:
+        
         variant_data_list, sizes = generate_variant_data_list(pth, variant_dict, header_templ)
         rendered_sizes.append(sizes)
 
-        spelling_dict = test_and_make_spelling_dict(pth)
         spelling_data_list, sizes = generate_spelling_data_list(pth, spelling_dict, header_templ)
         rendered_sizes.append(sizes)
 
-        variant_spelling_data_list = variant_data_list + spelling_data_list
+    elif dpspth:
 
-    else:
-        header_templ = Template(filename=str(dpspth.header_templ_path))
-
-        variant_dict = test_and_make_variant_dict(pth)
         variant_data_list, sizes = generate_variant_data_list(pth, variant_dict, header_templ, dpspth)
         rendered_sizes.append(sizes)
 
-        spelling_dict = test_and_make_spelling_dict(pth)
         spelling_data_list, sizes = generate_spelling_data_list(pth, spelling_dict, header_templ, dpspth)
         rendered_sizes.append(sizes)
 
-    variant_spelling_data_list = variant_data_list + spelling_data_list
+    # add here another language elif ...
+
+    if variant_data_list:
+        variant_spelling_data_list = variant_data_list + spelling_data_list
 
     return variant_spelling_data_list, sum_rendered_sizes(rendered_sizes)
 
@@ -88,13 +86,13 @@ def generate_variant_data_list(
 
     size_dict = default_rendered_sizes()
 
-    if dpspth is None:
+    if not dpspth:
         variant_templ = Template(
             filename=str(pth.variant_templ_path))
-
-    else:
+    elif dpspth:
         variant_templ = Template(
             filename=str(dpspth.variant_templ_path))
+    # add here another language elif ...
 
     with open(pth.variant_spelling_css_path) as f:
         variant_css = f.read()
@@ -174,12 +172,13 @@ def generate_spelling_data_list(
 
     size_dict = default_rendered_sizes()
 
-    if dpspth is None:
+    if not dpspth:
         spelling_templ = Template(
             filename=str(pth.spelling_templ_path))
-    else:
+    elif dpspth:
         spelling_templ = Template(
             filename=str(dpspth.spelling_templ_path))
+    # add here another language elif ...
 
     with open(pth.variant_spelling_css_path) as f:
         spelling_css = f.read()

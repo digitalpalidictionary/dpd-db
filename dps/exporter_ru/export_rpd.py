@@ -8,9 +8,8 @@ from minify_html import minify
 from rich import print
 from sqlalchemy.orm import Session
 from typing import List, Tuple
-from dps.tools.paths_dps import DPSPaths
 
-from export_dpd_ru import render_header_templ
+from export_dpd import render_header_templ
 from export_epd import extract_sutta_numbers, update_epd
 
 from db.models import DpdHeadwords
@@ -23,7 +22,7 @@ from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes
 from sqlalchemy.orm import joinedload
 
 
-def generate_rpd_html(db_session: Session, pth: ProjectPaths, dpspth: DPSPaths) -> Tuple[List[RenderResult], RenderedSizes]:
+def generate_rpd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[RenderResult], RenderedSizes]:
     """generate html for russian to pali dictionary"""
 
     size_dict = default_rendered_sizes()
@@ -45,7 +44,7 @@ def generate_rpd_html(db_session: Session, pth: ProjectPaths, dpspth: DPSPaths) 
 
     epd_css = css_minify(epd_css)
 
-    header_templ = Template(filename=str(dpspth.header_templ_path))
+    header_templ = Template(filename=str(pth.header_templ_path))
     header = render_header_templ(
         pth, css=epd_css, js="", header_templ=header_templ)
 

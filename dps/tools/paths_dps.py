@@ -74,11 +74,11 @@ class DPSPaths:
         self.spelling_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/dpd_ru_spelling_mistake.html"))
         
         # # root templates_ru
-        self.root_definition_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/root_ru_definition.html"))
-        self.root_button_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/root_ru_buttons.html"))
-        self.root_info_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/root_ru_info.html"))
-        self.root_matrix_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/root_ru_matrix.html"))
-        self.root_families_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/root_ru_families.html"))
+        self.root_definition_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/root_definition_ru.html"))
+        self.root_button_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/root_buttons_ru.html"))
+        self.root_info_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/root_info_ru.html"))
+        self.root_matrix_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/root_matrix_ru.html"))
+        self.root_families_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/root_families_ru.html"))
 
         # # other templates_ru
         self.rpd_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/rpd.html"))

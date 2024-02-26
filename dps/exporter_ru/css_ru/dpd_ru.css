@@ -82,6 +82,28 @@ p.sutta_ru {
     padding: 0px 0px 7px 0px;
 }
 
+table.inflection {
+    width: 100%;
+    padding: 0 0 5px 0px;
+}
+
+table.inflection td,
+table.inflection th {
+    border: 1px solid gray;
+    border-radius: 7px;
+    line-height: 150%;
+    padding: 5px 5px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.inflection th {
+    border: 1px solid #00A4CC;
+    color: #00A4CC;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
 span.gray {
     color: gray;
 }
@@ -92,23 +114,23 @@ a.jump_ru {
     font-weight: bold;
 }
 
-table.family_ru td,
-table.family_ru th {
+table.family td,
+table.family th {
     text-align: left;
     vertical-align: top;
 }
 
-table.family_ru th {
-    color: #358109;
+table.family th {
+    color: #00A4CC;
     font-weight: 700;
     white-space: nowrap;
 }
 
-table.family_ru td {
+table.family td {
     padding-right: 7px;
 }
 
-table.family_ru b {
+table.family b {
     font-weight: 700;
 }
 
@@ -161,6 +183,23 @@ a.button_ru:hover {
 
 .hidden {
     display: none;
+}
+
+table.freq th,
+table.freq td {
+    vertical-align: middle;
+}
+
+table.freq thead th {
+    text-align: center;
+}
+
+table.freq tbody th {
+    border: 1px solid #00A4CC;
+    border-radius: 7px;
+    padding: 5px;
+    text-align: center;
+    width: auto;
 }
 
 .vertical-text {

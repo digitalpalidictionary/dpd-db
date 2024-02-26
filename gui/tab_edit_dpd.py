@@ -191,11 +191,12 @@ Leave empty for long compounds."),
         ],
         [
             sg.Text("suggestion", visible=username == "deva", size=(15, 1)),
-            sg.Button("GPT", visible=username == "deva", key="online_suggestion_button"),
+            sg.Button("AI.3", visible=username == "deva", key="online_suggestion_button_1"),
+            sg.Button("AI.4", visible=username == "deva", key="online_suggestion_button_2"),
             sg.Multiline(
                 key="online_suggestion",
                 visible=username == "deva",
-                size=(45, 2),
+                size=(39, 2),
                 enable_events=True,
             ),
             sg.Text(

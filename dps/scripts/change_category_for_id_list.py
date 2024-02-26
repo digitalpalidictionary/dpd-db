@@ -138,7 +138,7 @@ def main():
     console.print("[bold blue]Update sbs_category for words from an ID list based on specific conditions")
 
     # input source eg "sn56" or "mn107" or "sn22" or "sn35"
-    source = "sn47"
+    source = "sn46"
 
     # !Update sbs_category based on all examples
     update_sbs_category(source, condition_check_all_examples, "Checking if all examples are present", True)

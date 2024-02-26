@@ -13,12 +13,13 @@ from rich import print
 from sqlalchemy.orm import Session
 
 from export_dpd_ru import generate_dpd_html
-from export_roots import generate_root_html
 from export_rpd import generate_rpd_html
 from export_help_ru import generate_help_html
 
+from export_roots import generate_root_html
 from helpers import make_roots_count_dict
 from mdict_exporter import export_to_mdict
+from export_variant_spelling import generate_variant_spelling_html
 
 from db.get_db_session import get_db_session
 from tools.cache_load import load_cf_set, load_idioms_set
@@ -33,7 +34,7 @@ from tools.tic_toc import tic, toc, bip, bop
 from tools.utils import RenderedSizes, sum_rendered_sizes
 from tools import time_log
 
-from export_variant_spelling import generate_variant_spelling_html
+
 
 
 def main():
@@ -79,7 +80,7 @@ def main():
     rendered_sizes.append(sizes)
 
     time_log.log("generate_epd_html()")
-    epd_data_list, sizes = generate_rpd_html(db_session, pth, dpspth)
+    epd_data_list, sizes = generate_rpd_html(db_session, pth)
     rendered_sizes.append(sizes)
 
     time_log.log("generate_help_html()")
@@ -121,7 +122,7 @@ def main():
             Digital Pāḷi Dictionary</a></p>
         """
         title= "Электронный Пали Словарь"
-        export_to_mdict(combined_data_list, pth, description, title, dpspth)
+        export_to_mdict(combined_data_list, dpspth, description, title)
 
     toc()
     time_log.log("exporter.py::main() return")

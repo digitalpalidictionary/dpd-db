@@ -78,6 +78,8 @@ def populate_dps_tab(dpspth, values, window, dpd_word, ru_word, sbs_word):
     window["dps_dpd_id"].update(dpd_word.id)
     window["dps_lemma_1"].update(dpd_word.lemma_1)
     window["dps_id_or_lemma_1"].update(dpd_word.lemma_1)
+    if ru_word and ru_word.ru_meaning_raw:
+        window["dps_ru_online_suggestion"].update(ru_word.ru_meaning_raw)
 
     # copy dpd values for tests
 
@@ -585,18 +587,26 @@ openai.api_key = load_openia_config()
 
 
 @timeout(15, timeout_exception=TimeoutDecoratorError)  # Setting a 15-second timeout
-def call_openai(messages):
-    return openai.ChatCompletion.create(
-        model="gpt-3.5-turbo-0125",
-        messages=messages
-    )
+def call_openai(model_version, messages):
+    if model_version == "4":
+        return openai.ChatCompletion.create(
+            model="gpt-4-1106-preview",
+            messages=messages
+        )
+    elif model_version == "3":
+        return openai.ChatCompletion.create(
+            model="gpt-3.5-turbo-0125",
+            messages=messages
+        )
+    else:
+        print("Invalid model version")
 
-def handle_openai_response(messages, suggestion_field, error_field, window):
+def handle_openai_response(messages, suggestion_field, error_field, window, model_version="3"):
     error_string = ""
 
     try:
         # Request translation from OpenAI's GPT chat model
-        response = call_openai(messages)
+        response = call_openai(model_version, messages)
         suggestion = response.choices[0].message['content'].strip() # type: ignore
         window[suggestion_field].update(suggestion, text_color="Aqua")
 
@@ -615,8 +625,7 @@ def handle_openai_response(messages, suggestion_field, error_field, window):
         window[error_field].update(error_string)
         return error_string
 
-
-def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, pth, meaning, lemma_1, grammar, suggestion_field, error_field, window):
+def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, pth, meaning, lemma_1, grammar, suggestion_field, error_field, window, model_version):
     window[error_field].update("")
 
     # keep original grammar
@@ -626,7 +635,6 @@ def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, p
     grammar = replace_abbreviations(pth, grammar)
 
     # Choosing example
-
     if number == "0":
         example = dps_ex_1
     if number == "1":
@@ -647,22 +655,16 @@ def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, p
         {
             "role": "user",
             "content": f"""
-                ---
                 **Pali Term**: {lemma_1}
-
                 **Grammar Details**: {grammar}
-
                 **Pali sentence**: {example}
-
                 **English Definition**: {meaning}
-
-                Please provide a few distinct Russian translations for the English definition, taking into account the Pali term and its grammatical context and Pali sentence. Separate each synonym with `;`. Avoid repeating the same word, even between main words and literal meanings. Provide a lot of Russian synonyms in the answer and nothing else.
-                ---
+                Please provide a few distinct Russian translations for the English definition, considering the Pali term and its grammatical context and Pali sentence. Separate each synonym with `;`. Avoid repeating the same word.
             """
         }
     ]
 
-    suggestion = handle_openai_response(messages, suggestion_field, error_field, window).lower()
+    suggestion = handle_openai_response(messages, suggestion_field, error_field, window, model_version).lower()
 
     # Save to CSV
     if suggestion != "Timed out":
@@ -687,20 +689,15 @@ def ru_notes_translate_with_openai(dpspth, pth, notes, lemma_1, grammar, suggest
     messages = [
         {
             "role": "system",
-            "content": "You are a sophisticated translation model specialized in translating English notes to Russian, particularly in the context of Pāli terms and their grammatical nuances. "        
+            "content": "You are a helpful assistant that translates English text to Russian considering the context."        
         },
         {
             "role": "user",
             "content": f"""
-                ---
                 **Pali Term**: {lemma_1}
-
                 **Grammar Details**: {grammar}
-
                 **English Notes**: {notes}
-
-                Translate the English notes into Russian. Make sure to take into account that these notes pertain to the Pāli term mentioned, and consider the provided grammatical context. In the answer please give only russian translation and nothing else. 
-                ---
+                Please provide Russian translation for the English notes, considering the Pali term and its grammatical context. 
             """
         }
     ]
@@ -717,7 +714,7 @@ def ru_notes_translate_with_openai(dpspth, pth, notes, lemma_1, grammar, suggest
     return suggestion
 
 
-def en_translate_with_openai(dpspth, pth, lemma_1, grammar, example, suggestion_field, error_field, window):
+def en_translate_with_openai(dpspth, pth, lemma_1, grammar, example, suggestion_field, error_field, window, model_version):
     window[error_field].update("")
 
     # keep original grammar
@@ -731,25 +728,20 @@ def en_translate_with_openai(dpspth, pth, lemma_1, grammar, example, suggestion_
     messages = [
         {
             "role": "system",
-            "content": "You are a sophisticated translation model specialized in Pali to English translations, capable of considering context and grammatical details."
+            "content": "You are a helpful assistant that translates Pali to English considering the context."
         },
         {
             "role": "user",
             "content": f"""
-                ---
                 **Pali Term**: {lemma_1}
-
                 **Grammar Details**: {grammar}
-
                 **Contextual Pali Sentences**: {example}
-
-                Given the grammatical and contextual details provided, list distinct English synonyms for the specified Pali term, separated by `;`. Ensure no repetition. In the answer please give a lot of related English synonyms and nothing else.
-                ---
+                Given the grammatical and contextual details provided, list distinct English synonyms for the specified Pali term, separated by `;`. Avoid repeating the same word.
             """
         }
     ]
-    
-    suggestion = handle_openai_response(messages, suggestion_field, error_field, window)
+  
+    suggestion = handle_openai_response(messages, suggestion_field, error_field, window, model_version)
 
     # Save to CSV
     if suggestion != "Timed out":
@@ -865,7 +857,7 @@ def ru_check_spelling(dpspth, field, error_field, values, window):
 def get_spelling_suggestions(text, return_original=False):
     suggestions = []
     try:
-        response = requests.post(YANDEX_SPELLER_API, data={'text': text}, timeout=10)  # Adding a timeout for the request
+        response = requests.post(YANDEX_SPELLER_API, data={'text': text}, timeout=3)  # Adding a timeout for the request
         response.raise_for_status()  # This will raise an error if the HTTP request returned an unsuccessful status code
         result = response.json()
 

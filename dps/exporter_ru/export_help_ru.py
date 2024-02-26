@@ -12,7 +12,7 @@ from typing import List, Dict, Tuple
 from sqlalchemy.orm import Session
 from dps.tools.paths_dps import DPSPaths
 
-from export_dpd_ru import render_header_templ
+from export_dpd import render_header_templ
 from export_help import Abbreviation, Help
 from export_help import add_bibliographhy, add_thanks
 
@@ -71,7 +71,7 @@ def generate_help_html(__db_session__: Session,
         css = f.read()
     css = css_minify(css)
 
-    header_templ = Template(filename=str(dpspth.header_templ_path))
+    header_templ = Template(filename=str(pth.header_templ_path))
     header = render_header_templ(
         pth, css=css, js="", header_templ=header_templ)
 

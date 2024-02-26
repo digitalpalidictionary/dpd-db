@@ -18,6 +18,7 @@ from sqlalchemy.orm.session import Session
 
 
 from helpers import TODAY
+from export_dpd import render_header_templ
 
 from tools import time_log
 
@@ -50,7 +51,7 @@ from dps.tools.tools_for_dps_exporter import make_ru_meaning_html, replace_abbre
 
 class RuDpdHeadwordsTemplates:
     def __init__(self, pth: ProjectPaths, dpspth: DPSPaths):
-        self.header_templ = Template(filename=str(dpspth.header_templ_path))
+        self.header_templ = Template(filename=str(pth.header_templ_path))
         self.dpd_ru_definition_templ = Template(filename=str(dpspth.dpd_ru_definition_templ_path))
         self.button_box_templ = Template(filename=str(dpspth.button_box_templ_path))
         self.grammar_templ = Template(filename=str(dpspth.grammar_templ_path))
@@ -355,16 +356,6 @@ def generate_dpd_html(
     print(f"html render time: {bop()}")
     return dpd_data_list, total_sizes
 
-
-def render_header_templ(
-        pth: ProjectPaths,
-        css: str,
-        js: str,
-        header_templ: Template
-) -> str:
-    """render the html header with css and js"""
-
-    return str(header_templ.render(css=css, js=js))
 
 
 def render_dpd_ru_definition_templ(

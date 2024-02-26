@@ -17,7 +17,7 @@ def mdict_synonyms(all_items, item):
     return all_items
 
 
-def export_to_mdict(data_list: List[Dict], pth, description, title, dpspth = None) -> None:
+def export_to_mdict(data_list: List[Dict], pth, description, title) -> None:
     print("[green]converting to mdict")
 
     bip()
@@ -46,10 +46,7 @@ def export_to_mdict(data_list: List[Dict], pth, description, title, dpspth = Non
 
     bip()
     print("[white]copying mdx file", end=" ")
-    if dpspth is None:
-        outfile = open(pth.mdict_mdx_path, 'wb')
-    else:
-        outfile = open(dpspth.mdict_mdx_path, 'wb')
+    outfile = open(pth.mdict_mdx_path, 'wb')
     writer.write(outfile)
     outfile.close()
     print(bop())

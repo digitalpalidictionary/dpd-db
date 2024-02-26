@@ -3,6 +3,13 @@
 import configparser
 import openai
 
+from googletrans import Translator
+
+
+import json
+from timeout_decorator import timeout, TimeoutError as TimeoutDecoratorError
+
+
 
 def load_openia_config(filename="config.ini"):
     config = configparser.ConfigParser()
@@ -28,59 +35,67 @@ def check_availible_engines():
         print(engine["id"])
 
 
-def check_remaining_quota():
-
-    # Make a request to the OpenAI API to get the rate limit information
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo-0125",
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": "Translate the following English text to French: 'Hello, how are you?'"}
-        ]
-    )
-
-    # Extract rate limit information from the response headers
-    rate_limit_limit = response.http_response.headers['X-RateLimit-Limit']
-    rate_limit_remaining = response.http_response.headers['X-RateLimit-Remaining']
-    rate_limit_reset = response.http_response.headers['X-RateLimit-Reset']
-
-    # Convert the reset time from epoch seconds to a human-readable format
-    from datetime import datetime
-    reset_time = datetime.utcfromtimestamp(int(rate_limit_reset)).strftime('%Y-%m-%d %H:%M:%S')
-
-    print(f"Limit for today: {rate_limit_limit}")
-    print(f"Requests left for today: {rate_limit_remaining}")
-    print(f"Reset time (UTC): {reset_time}")
-
-
+@timeout(10, timeout_exception=TimeoutDecoratorError)  # Setting a 10-second timeout
 def test_request():
-    query = """
-    
-    Use the below context please provide a few distinct Russian translations for the English definition, taking into account the Pali term and its grammatical context and Pali sentence. Separate each synonym with `;`. Avoid repeating the same word, even between main words and literal meanings. Provide a lot of Russian synonyms in the answer and nothing else."
+    messages = [
+        {
+            "role": "system",
+            "content": "You are a helpful assistant that translates English text to Russian considering the context."
 
-Grammatical context:
-\"\"\"
-                **Pali Term**: eṇijaṅgha
+        },
+        {
+            "role": "user",
+            "content": """
+                **Pali Term**: dissati
+                **Grammar Details**: present tense, passive of   √dis, intransitive
+                **Pali sentence**: seyyathā'pi, bhikkhave, palagaṇḍassa vā palagaṇḍ'antevāsissa vā vāsijaṭe <b>dissent</b>'eva aṅgulipadāni dissati aṅguṭṭhapadaṃ.
+                **English Definition**: appears; lit. is seen
+                Please provide a few distinct Russian translations for the English definition, considering the Pali term and its grammatical context and Pali sentence. Separate each synonym with `;`. Avoid repeating the same word.
 
-                **Grammar Details**: adjective, compound
+            """
+        }
+    ]
 
-                **Pali sentence**: eṇijaṅgho kho pana so bhavaṃ gotamo, idam'pi tassa bhoto gotamassa mahāpurisassa mahāpurisalakkhaṇaṃ bhavati.
+    try:
 
-                **English Definition**: with calves like an antelope; with haunches like a deer; eighth of the thirty-two marks of a great man 
-\"\"\"
+        response = openai.ChatCompletion.create(
+            messages=messages,  # Pass the list of dictionaries directly
+            model="gpt-4-1106-preview",
+            temperature=0,
+        )
 
-"""
+        print(response.choices[0].message.content)
 
-    response = openai.ChatCompletion.create(
-        messages=[
-            {'role': 'system', 'content': 'You are a helpful assistant that translates English text to Russian considering the context.'},
-            {'role': 'user', 'content': query},
-        ],
-        model="gpt-3.5-turbo-0125",
-        temperature=0,
-    )
+    except TimeoutError:
+        print("The request timed out.")
 
-    print(response.choices[0].message.content)
+# Please provide a few distinct Russian translations for the English definition, taking into account the Pali term and its grammatical context and Pali sentence. Separate each synonym with `;`. Avoid repeating the same word, even between main words and literal meanings. Provide a lot of Russian synonyms in the answer and nothing else.
+
+
+@timeout(10, timeout_exception=TimeoutDecoratorError)  # Setting a  10-second timeout
+def translate_to_russian_googletrans():
+    meaning = "factor; component; element; quality; aspect; lit. part"
+
+    try:
+        translator = Translator()
+        translation = translator.translate(meaning, dest='ru')
+        dps_ru_online_suggestion = translation.text.lower()
+
+        # Add spaces after semicolons and lit. for better readability
+        dps_ru_online_suggestion = dps_ru_online_suggestion.replace(";", "; ")
+        dps_ru_online_suggestion = dps_ru_online_suggestion.replace("|", "| ")
+
+        print(dps_ru_online_suggestion)
+
+    except TimeoutDecoratorError:
+        # Handle any exceptions that occur
+        error_string = "Timed out"
+        print(error_string)
+
+    except Exception as e:
+        # Handle any other exceptions that occur
+        error_string = f"Error: {e} "
+        print(error_string)
 
 
 # check_remaining_quota()
@@ -88,5 +103,7 @@ Grammatical context:
 # check_availible_engines()
 
 # test_request()
+
+# translate_to_russian_googletrans()
 
 

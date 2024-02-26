@@ -43,10 +43,7 @@ def generate_root_html(db_session: Session,
         buttons_js = f.read()
     buttons_js = js_minify(buttons_js)
 
-    if dpspth is None:
-        header_templ = Template(filename=str(pth.header_templ_path))
-    else:
-        header_templ = Template(filename=str(dpspth.header_templ_path))
+    header_templ = Template(filename=str(pth.header_templ_path))
 
     header = render_header_templ(
         pth, css=roots_css, js=buttons_js, header_templ=header_templ)
@@ -69,40 +66,47 @@ def generate_root_html(db_session: Session,
         html = header
         html += "<body>"
 
-        if dpspth is None:
+        if not dpspth:
             definition = render_root_definition_templ(pth, r, roots_count_dict)
-        else:
-            definition = render_root_definition_templ(pth, r, roots_count_dict, dpspth)
+        elif dpspth:
+            definition = render_root_definition_templ(dpspth, r, roots_count_dict)
+        # add here another language elif ...
 
         html += definition
         size_dict["root_definition"] += len(definition)
 
-        if dpspth is None:
+        if not dpspth:
             root_buttons = render_root_buttons_templ(pth, r, db_session)
-        else:
-            root_buttons = render_root_buttons_templ(pth, r, db_session, dpspth)
+        elif dpspth:
+            root_buttons = render_root_buttons_templ(dpspth, r, db_session)
+        # add here another language elif ...
+
         html += root_buttons
         size_dict["root_buttons"] += len(root_buttons)
 
-        if dpspth is None:
+        if not dpspth:
             root_info = render_root_info_templ(pth, r)
             html += root_info
-        else:
-            root_info = render_root_info_templ(pth, r, dpspth)
+        elif dpspth:
+            root_info = render_root_info_templ(dpspth, r)
+        # add here another language elif ...
+
         html += root_info
         size_dict["root_info"] += len(root_info)
 
-        if dpspth is None:
+        if not dpspth:
             root_matrix = render_root_matrix_templ(pth, r, roots_count_dict)
-        else:
-            root_matrix = render_root_matrix_templ(pth, r, roots_count_dict, dpspth)
+        elif dpspth:
+            root_matrix = render_root_matrix_templ(dpspth, r, roots_count_dict)
         html += root_matrix
         size_dict["root_matrix"] += len(root_matrix)
 
-        if dpspth is None:
+        if not dpspth:
             root_families = render_root_families_templ(pth, r, db_session)
-        else:
-            root_families = render_root_families_templ(pth, r, db_session, dpspth)
+        elif dpspth:
+            root_families = render_root_families_templ(dpspth, r, db_session)
+        # add here another language elif ...
+
         html += root_families
         size_dict["root_families"] += len(root_families)
 
@@ -142,13 +146,11 @@ def generate_root_html(db_session: Session,
     return root_data_list, size_dict
 
 
-def render_root_definition_templ(pth: ProjectPaths, r: DpdRoots, roots_count_dict, dpspth: Optional[DPSPaths] = None):
+def render_root_definition_templ(_pth_, r: DpdRoots, roots_count_dict):
     """render html of main root info"""
 
-    if dpspth is None:
-        root_definition_templ = Template(filename=str(pth.root_definition_templ_path))
-    else:
-        root_definition_templ = Template(filename=str(dpspth.root_definition_templ_path))
+
+    root_definition_templ = Template(filename=str(_pth_.root_definition_templ_path))
 
     count = roots_count_dict[r.root]
 
@@ -159,13 +161,10 @@ def render_root_definition_templ(pth: ProjectPaths, r: DpdRoots, roots_count_dic
             today=TODAY))
 
 
-def render_root_buttons_templ(pth: ProjectPaths, r: DpdRoots, db_session: Session, dpspth: Optional[DPSPaths] = None):
+def render_root_buttons_templ(_pth_, r: DpdRoots, db_session: Session):
     """render html of root buttons"""
-
-    if dpspth is None:
-        root_buttons_templ = Template(filename=str(pth.root_button_templ_path))
-    else:
-        root_buttons_templ = Template(filename=str(dpspth.root_button_templ_path))
+    
+    root_buttons_templ = Template(filename=str(_pth_.root_button_templ_path))
 
     frs = db_session.query(
         FamilyRoot
@@ -180,13 +179,10 @@ def render_root_buttons_templ(pth: ProjectPaths, r: DpdRoots, db_session: Sessio
             frs=frs))
 
 
-def render_root_info_templ(pth: ProjectPaths, r: DpdRoots, dpspth: Optional[DPSPaths] = None):
+def render_root_info_templ(_pth_, r: DpdRoots):
     """render html of root grammatical info"""
 
-    if dpspth is None:
-        root_info_templ = Template(filename=str(pth.root_info_templ_path))
-    else:
-        root_info_templ = Template(filename=str(dpspth.root_info_templ_path))
+    root_info_templ = Template(filename=str(_pth_.root_info_templ_path))
 
     return str(
         root_info_templ.render(
@@ -194,13 +190,10 @@ def render_root_info_templ(pth: ProjectPaths, r: DpdRoots, dpspth: Optional[DPSP
             today=TODAY))
 
 
-def render_root_matrix_templ(pth: ProjectPaths, r: DpdRoots, roots_count_dict, dpspth: Optional[DPSPaths] = None):
+def render_root_matrix_templ(_pth_, r: DpdRoots, roots_count_dict):
     """render html of root matrix"""
 
-    if dpspth is None:
-        root_matrix_templ = Template(filename=str(pth.root_matrix_templ_path))
-    else:
-        root_matrix_templ = Template(filename=str(dpspth.root_matrix_templ_path))
+    root_matrix_templ = Template(filename=str(_pth_.root_matrix_templ_path))
 
     count = roots_count_dict[r.root]
 
@@ -211,13 +204,10 @@ def render_root_matrix_templ(pth: ProjectPaths, r: DpdRoots, roots_count_dict, d
             today=TODAY))
 
 
-def render_root_families_templ(pth: ProjectPaths, r: DpdRoots, db_session: Session, dpspth: Optional[DPSPaths] = None):
+def render_root_families_templ(_pth_, r: DpdRoots, db_session: Session):
     """render html of root families"""
 
-    if dpspth is None:
-        root_families_templ = Template(filename=str(pth.root_families_templ_path))
-    else:
-        root_families_templ = Template(filename=str(dpspth.root_families_templ_path))
+    root_families_templ = Template(filename=str(_pth_.root_families_templ_path))
 
     frs = db_session.query(
         FamilyRoot

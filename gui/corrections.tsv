@@ -811,3 +811,10 @@ buddho <b>tapati</b> tejasā."	duplicted changed		yes
 53989	trans	intrans					missing		yes		
 53989	plus_case	+instr					missing		yes		
 682	source_1		sutta_1		example_1		moved to masc (see CPD)		yes		
+39818	source_1	SN35.241	sutta_1	paṭhamadārukkhandhopamasuttaṃ	example_1	ayaṃ vuccati, bhikkhu, amanussaggāho. āvaṭṭaggāho'ti kho, bhikkhu, <b>pañcann</b>'etaṃ kāmaguṇānaṃ adhivacanaṃ.	missing				
+39818	meaning_1	to five; for five					missing				
+51947	source_1	SN35.246	sutta_1	vīṇopamasuttaṃ	example_1	so evaṃ vadeyya, alaṃ me, bho, tāya vīṇāya, tam'eva me saddaṃ āharathā'ti. tam'enaṃ evaṃ vadeyyuṃ, ayaṃ kho, bhante, vīṇā nāma anekasambhārā <b>mahāsambhārā</b>.	missing		
+51947	sanskrit	mahant + sambhāra					missing		
+55643	construction	labheyyaṃ + ahaṃ					error		
+61735	meaning_1	closely associated (with); involved (with)					add		
+61735	source_2	SN35.241	sutta_2	paṭhamadārukkhandhopamasuttaṃ	example_2	katamo ca, bhikkhu, manussaggāho? idha, bhikkhu, gihīhi <b>saṃsaṭṭho</b> viharati, sahanandī sahasokī, sukhitesu sukhito, dukkhitesu dukkhito, uppannesu kiccakaraṇīyesu attanā tesu yogaṃ āpajjati.	missing		

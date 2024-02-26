@@ -186,22 +186,16 @@ def translate_with_openai(pth, lemma_1, grammar, meaning, example):
     messages = [
         {
             "role": "system",
-            "content": "You are a helpful assistant that helps to develop Pali Russian dictionary enteries based on English Dictionary enteries. You help to translate English text to Russian considering the Pali context."
+            "content": "You are a helpful assistant that translates English text to Russian considering the context."
         },
         {
             "role": "user",
             "content": f"""
-                ---
                 **Pali Term**: {lemma_1}
-
                 **Grammar Details**: {grammar}
-
                 **Pali sentence**: {example}
-
                 **English Definition**: {meaning}
-
-                Please provide a few distinct Russian translations for the English definition, taking into account the Pali term and its grammatical context and Pali sentence. Separate each synonym with `;`. Avoid repeating the same word. Using Cyrillic script provide 3 Russian synonyms in the answer and nothing else.
-                ---
+                Please provide a few distinct Russian translations for the English definition, considering the Pali term and its grammatical context and Pali sentence. Separate each synonym with `;`. Avoid repeating the same word.
             """
         }
     ]
