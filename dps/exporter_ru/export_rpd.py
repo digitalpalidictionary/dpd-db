@@ -9,11 +9,12 @@ from rich import print
 from sqlalchemy.orm import Session
 from typing import List, Tuple
 
-from export_dpd import render_header_templ
-from export_epd import extract_sutta_numbers, update_epd
+# in the make_ru_dpd.sh it mentioned "export PYTHONPATH=/home/deva/Documents/dpd-db/exporter:$PYTHONPATH"
+from export_dpd import render_header_templ # type: ignore
+from export_epd import extract_sutta_numbers, update_epd # type: ignore
 
 from db.models import DpdHeadwords
-# from db.models import DpdRoots
+from db.models import DpdRoots
 from tools.tic_toc import bip, bop
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
@@ -33,8 +34,8 @@ def generate_rpd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[Rend
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
     dpd_db_length = len(dpd_db)
 
-    # roots_db: list = db_session.query(DpdRoots).all()
-    # roots_db_length = len(roots_db)
+    roots_db: list = db_session.query(DpdRoots).all()
+    roots_db_length = len(roots_db)
 
     epd: dict = {}
     pos_exclude_list = ["abbrev", "cs", "letter", "root", "suffix", "ve"]
@@ -103,27 +104,25 @@ def generate_rpd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[Rend
             print(f"{counter:>10,} / {dpd_db_length:<10,} {i.lemma_1[:20]:<20} {bop():>10}")
             bip()
 
-    # TODO after adding ru meaning for roots incluad them here
+    print("[green]adding roots to rpd")
 
-    # print("[green]adding roots to epd")
+    for counter, i in enumerate(roots_db):
 
-    # for counter, i in enumerate(roots_db):
+        root_ru_meanings_list: list = i.root_ru_meaning.split(", ")
 
-    #     root_meanings_list: list = i.root_meaning.split(", ")
+        for root_ru_meaning in root_ru_meanings_list:
+            if root_ru_meaning in epd.keys():
+                epd_string = f"{epd[root_ru_meaning]}<br><b class = 'epd'>{i.root}</b> root. {i.root_ru_meaning}"
+                epd[root_ru_meaning] = epd_string
 
-    #     for root_meaning in root_meanings_list:
-    #         if root_meaning in epd.keys():
-    #             epd_string = f"{epd[root_meaning]}<br><b class = 'epd'>{i.root}</b> root. {i.root_meaning}"
-    #             epd[root_meaning] = epd_string
+            if root_ru_meaning not in epd.keys():
+                epd_string = f"<b class = 'epd'>{i.root}</b> root. {i.root_ru_meaning}"
+                epd.update(
+                    {root_ru_meaning: epd_string})
 
-    #         if root_meaning not in epd.keys():
-    #             epd_string = f"<b class = 'epd'>{i.root}</b> root. {i.root_meaning}"
-    #             epd.update(
-    #                 {root_meaning: epd_string})
-
-    #     if counter % 250 == 0:
-    #         print(f"{counter:>10,} / {roots_db_length:<10,} {i.root:<20} {bop():>10}")
-    #         bip()
+        if counter % 250 == 0:
+            print(f"{counter:>10,} / {roots_db_length:<10,} {i.root:<20} {bop():>10}")
+            bip()
 
     print("[green]compiling epd html")
 

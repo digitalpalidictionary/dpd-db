@@ -275,7 +275,8 @@ def generate_dpd_html(
         pth: ProjectPaths,
         sandhi_contractions: SandhiContractions,
         cf_set: Set[str],
-        idioms_set: set[str]
+        idioms_set: set[str],
+        dps_data=False
         ) -> Tuple[List[RenderResult], RenderedSizes]:
     
     time_log.log("generate_dpd_html()")
@@ -305,11 +306,6 @@ def generate_dpd_html(
         show_ebt_count: bool = True
     else:
         show_ebt_count: bool = False
-
-    if config_test("dictionary", "show_dps_data", "yes"):
-        dps_data: bool = True
-    else:
-        dps_data: bool = False
 
     dpd_data_list: List[RenderResult] = []
 

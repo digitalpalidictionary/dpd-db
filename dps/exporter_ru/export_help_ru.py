@@ -12,9 +12,11 @@ from typing import List, Dict, Tuple
 from sqlalchemy.orm import Session
 from dps.tools.paths_dps import DPSPaths
 
-from export_dpd import render_header_templ
-from export_help import Abbreviation, Help
-from export_help import add_bibliographhy, add_thanks
+# in the make_ru_dpd.sh it mentioned "export PYTHONPATH=/home/deva/Documents/dpd-db/exporter:$PYTHONPATH"
+from export_dpd import render_header_templ # type: ignore
+from export_help import Abbreviation, Help # type: ignore
+from export_help import add_bibliographhy, add_thanks # type: ignore
+from export_help import add_abbrev_html # type: ignore
 
 from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
@@ -24,38 +26,9 @@ from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes
 # from tools.configger import config_test
 
 
-# class Abbreviation:
-#     """defining the abbreviations.tsv columns"""
-
-#     def __init__(self, abbrev, meaning, pali, example, information, ru_abbrev, ru_meaning):
-#         self.abbrev = abbrev
-#         self.meaning = meaning
-#         self.pali = pali
-#         self.example = example
-#         self.information = information
-#         self.ru_abbrev = ru_abbrev
-#         self.ru_meaning = ru_meaning
-
-#     def __repr__(self) -> str:
-#         return f"Abbreviation: {self.abbrev} {self.meaning} {self.pali} ..."
-
-
-# class Help:
-#     """defining the help.tsv columns"""
-
-#     def __init__(self, help, meaning, ru_help, ru_meaning):
-#         self.help = help
-#         self.meaning = meaning
-#         self.ru_help = ru_help
-#         self.ru_meaning = ru_meaning
-
-#     def __repr__(self) -> str:
-#         return f"Help: {self.help} {self.meaning}  ..."
-
-
 def generate_help_html(__db_session__: Session,
-                       pth: ProjectPaths,
-                       dpspth: DPSPaths) -> Tuple[List[RenderResult], RenderedSizes]:
+                        pth: ProjectPaths,
+                        dpspth: DPSPaths) -> Tuple[List[RenderResult], RenderedSizes]:
     """generating html of all help files used in the dictionary"""
     print("[green]generating help html")
 
@@ -77,8 +50,12 @@ def generate_help_html(__db_session__: Session,
 
     help_data_list: List[RenderResult] = []
 
-    abbrev = add_abbrev_html(pth, dpspth, header)
+    abbrev = add_abbrev_html(pth, header)
     help_data_list.extend(abbrev)
+    size_dict["help"] += len(str(abbrev))
+
+    abbrev_ru = add_abbrev_ru_html(pth, dpspth, header)
+    help_data_list.extend(abbrev_ru)
     size_dict["help"] += len(str(abbrev))
 
     help_html = add_help_html(pth, dpspth, header)
@@ -96,7 +73,7 @@ def generate_help_html(__db_session__: Session,
     return help_data_list, size_dict
 
 
-def add_abbrev_html(pth: ProjectPaths, dpspth: DPSPaths,
+def add_abbrev_ru_html(pth: ProjectPaths, dpspth: DPSPaths,
                     header: str) -> List[RenderResult]:
     bip()
     print("adding abbreviations", end=" ")
@@ -194,11 +171,6 @@ def add_help_html(pth: ProjectPaths, dpspth: DPSPaths,
 
     print(f"{bop():>43}")
     return help_data_list
-
-
-
-
-
 
 
 def render_abbrev_templ(dpspth: DPSPaths, i: Abbreviation) -> str:

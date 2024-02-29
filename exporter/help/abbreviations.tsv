@@ -145,7 +145,7 @@ patr	patronymic		kassapa; bhāradvāja; kaccāna	A name derived from a paternal 
 PDB	Princeton Dictionary of Buddhism					Словарь Буддизма Принстонского университета
 PED	Pāli English Dictionary, published by the Pāli Text Society			"<a class=""link"" href=""https://dsal.uchicago.edu/dictionaries/pali/"">web-link</a>"		Пали Английский Словарь Общества Палийских Текстов
 perf	perfect past tense	parokkhā	āha; āhaṃsu; pāva	express something that happened a long time ago, a completed action, something you personally did not witness.	перф	перфектное прошлое время
-Perniola	Pali Grammar by V.Perniola			"<a class=""link"" href=""https://archive.org/details/PaliGrammarVitoPerniola"">read online</a>"		Грамматика Пали, В. Перниола
+Perniola	Pali Grammar by V.Perniola			"<a class=""link"" href=""https://archive.org/details/PaliGrammarVitoPerniola"">read online</a>"	Перниола	Грамматика Пали, В. Перниола
 pl	plural number	bahuvacana	tumhe - pron, 2nd nom <b>pl</b> of tvaṃ	The form of a word that is used to denote more than one	мн	множественное число
 PM	Paṭisambhidā Magga			Book 18 of the Khuddaka Nikāya; Path to Analytical Knowledge		Пат̣исамбхида̄ Магга
 PMa	Paṭisambhidāmagga aṭṭhakathā, Saddhammappakāsinī					
@@ -160,9 +160,9 @@ prk	Prakrit			Any of the vernacular indic languages of north and central india (
 pron	pronoun, pronominal adjective	sabbanāma	so; etaṃ; añña; sabba	A function word that is used in place of a noun or noun phrase (he; this; another; all)	местоим	местоимение
 prp	present participle	missakiriya	passanta; viharanta; jānanta	Verbal adjective, which describes the action that a noun is doing. (seeing; dwelling; knowing)	прич.наст	причастие настоящего времени
 PRS	Padarūpasiddhi					Падарупасиддхи
-PTH	Paṭṭhānapāḷi	kicca	karaṇīya; veditabba; sikkhitabba	Verbal adjectives, they give more information about the noun they are describing. (e.g. ought to be done; can be known; should be practised)		
+PTH	Paṭṭhānapāḷi					
 PTP	Peṭakopadesapāḷi					
-ptp	potential particle, future passive participle				прич.буд	причастие будущего времени
+ptp	potential particle, future passive participle	kicca	karaṇīya; veditabba; sikkhitabba	Verbal adjectives, they give more information about the noun they are describing. (e.g. ought to be done; can be known; should be practised)	прич.буд	причастие будущего времени
 PV	Petavatthu			Book 7 of the Khuddaka Nikāya; lit. story about ghosts		Пета Ваттху
 PVa	Petavatthu Aṭṭhakathā, Paramatthadīpanī					
 PYt	Pācityādiyojanāpāḷi, Vinaya sub-commentary					
@@ -211,4 +211,4 @@ VVUt	Vinayavinicchaya Uttaravinicchayo, Vinaya sub-commentary
 wrt	with regard to					по отношению к
 x	no gender		pañca - card, <b>x</b> pl	Word does not have any specific gender		не имеет рода
 YAM	Yamakapāḷi					
-Kacc	Kaccāyana		<b>Kacc</b> 507, 501	name of a famous grammatical treatise, and the classical school of Pāḷi grammar which ascribes to it		
+Kacc	Kaccāyana		<b>Kacc</b> 507, 501	name of a famous grammatical treatise, and the classical school of Pāḷi grammar which ascribes to it	Качч	

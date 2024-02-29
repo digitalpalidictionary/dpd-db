@@ -2,7 +2,7 @@ import re
 import pyperclip
 from rich import print
 from db.get_db_session import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadwords, DpdRoots
 
 from tools.db_search_string import db_search_string
 from tools.pali_alphabet import pali_alphabet
@@ -47,6 +47,8 @@ class AllowableCharacters():
     cyrillic_capitals = [
         "А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "Й", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ы", "Ь", "Э", "Ю", "Я"
         ]
+
+    number_ru = ['№']
 
     # digits
     digits = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
@@ -551,7 +553,14 @@ class AllowableCharacters():
         root + 
         equals +
         ampersand +
-        dash
+        dash +
+        number_ru
+    )
+
+    root_meaning_ru_allowed = (
+        cyrillic_characters +
+        space +
+        comma 
     )
 
     ru_notes_allowed = (
@@ -559,7 +568,7 @@ class AllowableCharacters():
         pali_capitals +
         cyrillic_characters +
         cyrillic_capitals +
-        # english_alphabet +
+        english_alphabet +
         english_capitals +
         sanskrit_alphabet +
         sanskrit_capitals +
@@ -585,7 +594,9 @@ class AllowableCharacters():
         brackets +
         bold + 
         italic +
-        section
+        section +
+        number_ru +
+        niggahitas
     )
 
 
@@ -730,10 +741,15 @@ class AllowableCharacters():
         ("ru_notes", ru_notes_allowed),
     ]
 
+    roots_data = [
+        ("sanskrit_root_ru_meaning", root_meaning_ru_allowed),
+        ("root_ru_meaning", root_meaning_ru_allowed)
+    ]
+
     dps_tests_data = sbs_data + ru_data
 
     if config_test("user", "username", "deva"):
-        tests_data = tests_data + dps_tests_data
+        tests_data = dps_tests_data
 
 def main():
     pth = ProjectPaths()
@@ -859,6 +875,55 @@ def test_allowable_characters_gui_dps(values: dict[str, str]) -> dict[str, str]:
     return error_dict
 
 
+def check_root_db():
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
+    db = db_session.query(DpdRoots)
+
+    a = AllowableCharacters()
+
+    debug = False
+    error_list = []
+
+    for root_data in a.roots_data:
+        # setup variables
+        column, allowed = root_data
+        print(f"[green]{column:<40}", end="")
+        allowed = join_allowed(allowed)
+        if debug:
+            print()
+            print(allowed)
+        remainder = "" 
+        
+        for i in db:    
+            # grab the text from the column
+            text = getattr(i, column)
+            
+            # remove all allowable characters
+            oops = re.sub(allowed, "", text)
+            
+            # compile the remaining characters
+            if oops:
+                if debug:
+                    print(f"{i.root} '{oops}'")
+                remainder += oops
+                error_list += [i.root]
+
+        print(f"[white]{[char for char in set(remainder)]}", end=" ")
+
+        # unicode numbers for obscure characters
+        unicode_remainder = [ord(char) for char in set(remainder)]
+        for error in unicode_remainder:
+            print("\\u{:04x}".format(error), end=" ")
+        print()    
+
+        if debug:
+            # print db serach string
+            error_search_string = db_search_string(error_list)
+            pyperclip.copy(error_search_string)
+            print("[green]db search string copied to clipboard")
+
+
 def join_allowed(allowed: list) -> str:
     """Turn a list into a compiled string for regex 
     find and replace."""
@@ -866,6 +931,8 @@ def join_allowed(allowed: list) -> str:
 
 if __name__ == "__main__":
     main()
+    if config_test("user", "username", "deva"):
+        check_root_db()
 
     # x = test_allowable_characters_gui({"lemma_1": "®±²£¥"})
     # print(x)

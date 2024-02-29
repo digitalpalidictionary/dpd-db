@@ -341,8 +341,10 @@ def update_note_values(note, i):
     if i.root_key:
         note["sanskrit_root"] = str(i.rt.sanskrit_root)
         note["sanskrit_root_meaning"] = str(i.rt.sanskrit_root_meaning)
+        note["sanskrit_root_ru_meaning"] = str(i.rt.sanskrit_root_ru_meaning)
         note["sanskrit_root_class"] = str(i.rt.sanskrit_root_class)
         note["root_meaning"] = str(i.rt.root_meaning)
+        note["root_ru_meaning"] = str(i.rt.root_ru_meaning)
         note["root_has_verb"] = str(i.rt.root_has_verb)
         note["root_group"] = str(i.rt.root_group)
     note["construction"] = str(i.construction).replace("\n", "<br>")

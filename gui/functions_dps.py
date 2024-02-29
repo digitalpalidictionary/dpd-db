@@ -814,6 +814,11 @@ def ru_check_spelling(dpspth, field, error_field, values, window):
     if ru_misspelled:
         # Confirm with Yandex Speller
         yandex_checked_words = get_spelling_suggestions(' '.join(ru_misspelled), return_original=True)
+
+        # Check if yandex_checked_words is an error message
+        if isinstance(yandex_checked_words, str):
+            window[error_field].update(yandex_checked_words)
+            return
         
         # Filter out words that are confirmed as correct by Yandex Speller
         truly_misspelled = [word for word in ru_misspelled if word in yandex_checked_words]
@@ -857,7 +862,7 @@ def ru_check_spelling(dpspth, field, error_field, values, window):
 def get_spelling_suggestions(text, return_original=False):
     suggestions = []
     try:
-        response = requests.post(YANDEX_SPELLER_API, data={'text': text}, timeout=3)  # Adding a timeout for the request
+        response = requests.post(YANDEX_SPELLER_API, data={'text': text}, timeout=4)  # Adding a timeout for the request
         response.raise_for_status()  # This will raise an error if the HTTP request returned an unsuccessful status code
         result = response.json()
 

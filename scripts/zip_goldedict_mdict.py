@@ -21,7 +21,11 @@ def main():
 
 def rezip_goldendict(pth: ProjectPaths):
     
-    if pth.dpd_zip_path.exists():
+    if (
+        pth.dpd_zip_path.exists()
+        and pth.grammar_dict_zip_path.exists()
+        and pth.deconstructor_zip_path.exists()
+    ):
         input_zip_files = [pth.dpd_zip_path,
                         pth.grammar_dict_zip_path,
                         pth.deconstructor_zip_path]
@@ -53,7 +57,11 @@ def rezip_goldendict(pth: ProjectPaths):
 
 def rezip_mdict(pth: ProjectPaths):
 
-    if pth.mdict_mdx_path.exists():
+    if (
+        pth.mdict_mdx_path.exists() 
+        and pth.deconstructor_mdict_mdx_path.exists() 
+        and pth.grammar_dict_mdict_path.exists()
+    ):
         mdict_files = [pth.deconstructor_mdict_mdx_path,
                     pth.grammar_dict_mdict_path,
                     pth.mdict_mdx_path]

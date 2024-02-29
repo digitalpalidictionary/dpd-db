@@ -25,7 +25,7 @@
         <tr>
             <th>Корень</th>
             <td>${i.root_clean}<sup>${rt.root_has_verb}</sup>${rt.root_group}
-                ${i.root_sign} (${rt.root_meaning})
+                ${i.root_sign} (${rt.root_ru_meaning} - ${rt.root_meaning})
             </td>
         </tr>
         % if rt.root_in_comps:
@@ -94,6 +94,12 @@
             <th>Заметки</th>
             <td>${ru.ru_notes}</td>
         </tr>
+            % if "[пер. ИИ]" in ru.ru_notes and i.notes:
+                <tr>
+                    <th>Notes</th>
+                    <td>${i.notes}</td>
+                </tr>
+            % endif
         % elif i.notes:
         <tr>
             <th>Notes</th>
@@ -127,12 +133,12 @@
         </tr>
         % endif
         % if i.root_key:
-        % if rt.sanskrit_root:
+        % if rt.sanskrit_root and rt.sanskrit_root != "-": 
         <tr>
             <th>Санск. Корень</th>
             <td>
                 <i>
-                    ${rt.sanskrit_root} ${rt.sanskrit_root_class} (${rt.sanskrit_root_meaning})
+                    ${rt.sanskrit_root} ${rt.sanskrit_root_class} (${rt.sanskrit_root_ru_meaning} - ${rt.sanskrit_root_meaning})
                 </i>
             </td>
         </tr>

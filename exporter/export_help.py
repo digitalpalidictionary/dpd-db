@@ -18,7 +18,6 @@ from tools.tic_toc import bip, bop
 from tools.tsv_read_write import read_tsv_dict
 from tools.tsv_read_write import read_tsv_dot_dict
 from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes
-from tools.configger import config_test
 
 
 class Abbreviation:
@@ -50,8 +49,11 @@ class Help:
         return f"Help: {self.help} {self.meaning}  ..."
 
 
-def generate_help_html(__db_session__: Session,
-                       pth: ProjectPaths) -> Tuple[List[RenderResult], RenderedSizes]:
+def generate_help_html(
+                __db_session__: Session,
+                pth: ProjectPaths,
+                dps_data=False
+                ) -> Tuple[List[RenderResult], RenderedSizes]:
     """generating html of all help files used in the dictionary"""
     print("[green]generating help html")
 
@@ -61,11 +63,6 @@ def generate_help_html(__db_session__: Session,
     # 2. contextual help
     # 3. thank yous
     # 4. bibliography
-
-    if config_test("dictionary", "show_dps_data", "yes"):
-        dps_data: bool = True
-    else:
-        dps_data: bool = False
 
     with open(pth.help_css_path) as f:
         css = f.read()
@@ -96,9 +93,11 @@ def generate_help_html(__db_session__: Session,
     return help_data_list, size_dict
 
 
-def add_abbrev_html(pth: ProjectPaths,
-                    header: str,
-                    dps_data:bool) -> List[RenderResult]:
+def add_abbrev_html(
+            pth: ProjectPaths,
+            header: str,
+            dps_data=False
+            ) -> List[RenderResult]:
     bip()
     print("adding abbreviations", end=" ")
 
@@ -148,9 +147,11 @@ def add_abbrev_html(pth: ProjectPaths,
     return help_data_list
 
 
-def add_help_html(pth: ProjectPaths,
-                  header: str,
-                  dps_data:bool) -> List[RenderResult]:
+def add_help_html(
+            pth: ProjectPaths,
+            header: str,
+            dps_data:bool
+            ) -> List[RenderResult]:
     bip()
     print("adding help", end=" ")
 
@@ -198,8 +199,10 @@ def add_help_html(pth: ProjectPaths,
     return help_data_list
 
 
-def add_bibliographhy(pth: ProjectPaths,
-                      header: str) -> List[RenderResult]:
+def add_bibliographhy(
+                pth: ProjectPaths,
+                header: str
+                ) -> List[RenderResult]:
 
     print("adding bibliography", end=" ")
 
@@ -269,8 +272,10 @@ def add_bibliographhy(pth: ProjectPaths,
     return help_data_list
 
 
-def add_thanks(pth: ProjectPaths,
-               header: str) -> List[RenderResult]:
+def add_thanks(
+        pth: ProjectPaths,
+        header: str
+        ) -> List[RenderResult]:
 
     print("adding thanks", end=" ")
 

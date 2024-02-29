@@ -60,16 +60,21 @@ def main():
     else:
         copy_unzip: bool = False
 
+    if config_test("dictionary", "show_dps_data", "yes"):
+        dps_data: bool = True
+    else:
+        dps_data: bool = False
+
     time_log.log("make_roots_count_dict()")
     roots_count_dict = make_roots_count_dict(db_session)
 
     time_log.log("generate_dpd_html()")
     dpd_data_list, sizes = generate_dpd_html(
-        db_session, pth, sandhi_contractions, cf_set, idioms_set)
+        db_session, pth, sandhi_contractions, cf_set, idioms_set, dps_data)
     rendered_sizes.append(sizes)
 
     time_log.log("generate_root_html()")
-    root_data_list, sizes = generate_root_html(db_session, pth, roots_count_dict)
+    root_data_list, sizes = generate_root_html(db_session, pth, roots_count_dict, dps_data)
     rendered_sizes.append(sizes)
 
     time_log.log("generate_variant_spelling_html()")
@@ -77,7 +82,7 @@ def main():
     rendered_sizes.append(sizes)
 
     time_log.log("generate_epd_html()")
-    epd_data_list, sizes = generate_epd_html(db_session, pth)
+    epd_data_list, sizes = generate_epd_html(db_session, pth, dps_data)
     rendered_sizes.append(sizes)
 
     time_log.log("generate_help_html()")

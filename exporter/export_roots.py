@@ -23,10 +23,13 @@ from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes
 from typing import Optional
 
 
-def generate_root_html(db_session: Session,
-                        pth: ProjectPaths,
-                        roots_count_dict: Dict[str, int],
-                        dpspth: Optional[DPSPaths] = None) -> Tuple[List[RenderResult], RenderedSizes]:
+def generate_root_html(
+                db_session: Session,
+                pth: ProjectPaths,
+                roots_count_dict: Dict[str, int],
+                dps_data=False,
+                dpspth: Optional[DPSPaths] = None
+                ) -> Tuple[List[RenderResult], RenderedSizes]:
     """compile html componenents for each pali root"""
 
     print("[green]generating roots html")
@@ -67,9 +70,9 @@ def generate_root_html(db_session: Session,
         html += "<body>"
 
         if not dpspth:
-            definition = render_root_definition_templ(pth, r, roots_count_dict)
+            definition = render_root_definition_templ(pth, r, roots_count_dict, dps_data)
         elif dpspth:
-            definition = render_root_definition_templ(dpspth, r, roots_count_dict)
+            definition = render_root_definition_templ(dpspth, r, roots_count_dict, dps_data)
         # add here another language elif ...
 
         html += definition
@@ -146,7 +149,12 @@ def generate_root_html(db_session: Session,
     return root_data_list, size_dict
 
 
-def render_root_definition_templ(_pth_, r: DpdRoots, roots_count_dict):
+def render_root_definition_templ(
+                        _pth_,
+                        r: DpdRoots, 
+                        roots_count_dict, 
+                        dps_data
+                        ):
     """render html of main root info"""
 
 
@@ -158,7 +166,8 @@ def render_root_definition_templ(_pth_, r: DpdRoots, roots_count_dict):
         root_definition_templ.render(
             r=r,
             count=count,
-            today=TODAY))
+            today=TODAY,
+            dps_data=dps_data))
 
 
 def render_root_buttons_templ(_pth_, r: DpdRoots, db_session: Session):

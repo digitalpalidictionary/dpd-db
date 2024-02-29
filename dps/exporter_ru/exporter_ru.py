@@ -16,10 +16,11 @@ from export_dpd_ru import generate_dpd_html
 from export_rpd import generate_rpd_html
 from export_help_ru import generate_help_html
 
-from export_roots import generate_root_html
-from helpers import make_roots_count_dict
-from mdict_exporter import export_to_mdict
-from export_variant_spelling import generate_variant_spelling_html
+# in the make_ru_dpd.sh it mentioned "export PYTHONPATH=/home/deva/Documents/dpd-db/exporter:$PYTHONPATH"
+from export_roots import generate_root_html # type: ignore
+from helpers import make_roots_count_dict # type: ignore
+from mdict_exporter import export_to_mdict # type: ignore
+from export_variant_spelling import generate_variant_spelling_html # type: ignore
 
 from db.get_db_session import get_db_session
 from tools.cache_load import load_cf_set, load_idioms_set
@@ -72,7 +73,7 @@ def main():
     rendered_sizes.append(sizes)
 
     time_log.log("generate_root_html()")
-    root_data_list, sizes = generate_root_html(db_session, pth, roots_count_dict, dpspth)
+    root_data_list, sizes = generate_root_html(db_session, pth, roots_count_dict, False, dpspth)
     rendered_sizes.append(sizes)
 
     time_log.log("generate_variant_spelling_html()")

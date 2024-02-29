@@ -45,6 +45,9 @@
             <th>Root</th>
             <td>${i.root_clean}<sup>${rt.root_has_verb}</sup>${rt.root_group}
                 ${i.root_sign} (${rt.root_meaning})
+                % if dps_data:
+                    (${rt.root_ru_meaning})
+                % endif
             </td>
         </tr>
         % if rt.root_in_comps:
@@ -157,12 +160,15 @@
         </tr>
         % endif
         % if i.root_key:
-        % if rt.sanskrit_root:
+        % if rt.sanskrit_root and rt.sanskrit_root != "-":
         <tr>
             <th>Sanskrit Root</th>
             <td>
                 <i>
                     ${rt.sanskrit_root} ${rt.sanskrit_root_class} (${rt.sanskrit_root_meaning})
+                    % if dps_data:
+                        (${rt.sanskrit_root_ru_meaning})
+                    % endif
                 </i>
             </td>
         </tr>

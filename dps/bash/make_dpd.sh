@@ -14,8 +14,8 @@ grammar_dict/grammar_dict.py
 exporter/exporter.py
 exporter/deconstructor_exporter.py
 
-# exporter/tpr_exporter.py
-# ebook/ebook_exporter.py
+exporter/tpr_exporter.py
+ebook/ebook_exporter.py
 
 dps/scripts/move_mdict.py
 
@@ -25,8 +25,8 @@ if python -c "from tools.configger import config_test; result = config_test('dic
     echo 'scripts/zip_goldedict_mdict.py and frequency/ebt_calculation.py are disabled'
 else
     # Run if the condition is True
-    python scripts/zip_goldedict_mdict.py
-    python frequency/ebt_calculation.py
+    scripts/zip_goldedict_mdict.py
+    frequency/ebt_calculation.py
 fi
 
 # Update the show_ebt_count setting to 'no' if it was 'yes'
@@ -37,3 +37,5 @@ if python -c "from tools.configger import config_test; exit(not config_test('dic
 fi
 
 git checkout -- pyproject.toml
+
+git checkout -- sanskrit/root_families_sanskrit.tsv

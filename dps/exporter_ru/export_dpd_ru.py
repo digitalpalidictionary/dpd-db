@@ -16,9 +16,9 @@ from typing import List, Set, TypedDict, Tuple
 
 from sqlalchemy.orm.session import Session
 
-
-from helpers import TODAY
-from export_dpd import render_header_templ
+# in the make_ru_dpd.sh it mentioned "export PYTHONPATH=/home/deva/Documents/dpd-db/exporter:$PYTHONPATH"
+from helpers import TODAY # type: ignore
+from export_dpd import render_header_templ # type: ignore
 
 from tools import time_log
 

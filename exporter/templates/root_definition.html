@@ -1,3 +1,6 @@
 <div class='root_content'>
-    <p>root. <b>${r.root_clean}</b><sup>${r.root_has_verb}</sup>${r.root_group} ${r.root_sign} (${r.root_meaning}) ${count}</p>
+    <p>root. <b>${r.root_clean}</b><sup>${r.root_has_verb}</sup>${r.root_group} ${r.root_sign} (${r.root_meaning}) ${count}</p> 
+        % if dps_data:
+        <p>${r.root_ru_meaning} sk:(${r.sanskrit_root_ru_meaning} - ${r.sanskrit_root_meaning})</p>
+        % endif
 </div>

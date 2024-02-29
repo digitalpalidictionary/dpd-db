@@ -97,6 +97,9 @@ class DpdRoots(Base):
     root_info: Mapped[str] = mapped_column(default='')
     root_matrix: Mapped[str] = mapped_column(default='')
 
+    root_ru_meaning: Mapped[str] = mapped_column(default='')
+    sanskrit_root_ru_meaning: Mapped[str] = mapped_column(default='')
+
     created_at: Mapped[Optional[DateTime]] = mapped_column(
         DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[Optional[DateTime]] = mapped_column(

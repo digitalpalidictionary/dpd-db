@@ -10,7 +10,7 @@ def make_tab_edit_dps(dpspth, sg):
     anki_class_list = [str(i) for i in range(1, 60)]
     class_list = [str(i) for i in range(2, 30)]
     sbs_example_number = [str(i) for i in range(1, 5)]
-    dps_category_list = ["sn47", "sn12", "sn35", "sn22", "sn56", "mn107"]
+    dps_category_list = ["sn12", "sn22", "sn35", "sn43", "sn45", "sn46", "sn47", "sn56", "mn107"]
 
     dpd_background = "#1c1e23"
     dpd_text = "#0a9ce4"

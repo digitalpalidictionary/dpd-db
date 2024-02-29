@@ -20,7 +20,11 @@ from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes
 from sqlalchemy.orm import joinedload
 
 
-def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[RenderResult], RenderedSizes]:
+def generate_epd_html(
+    db_session: Session, 
+    pth: ProjectPaths, 
+    dps_data=False
+    ) -> Tuple[List[RenderResult], RenderedSizes]:
     """generate html for english to pali dictionary"""
 
     size_dict = default_rendered_sizes()
@@ -32,11 +36,6 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[Rend
         make_link: bool = True
     else:
         make_link: bool = False
-
-    if config_test("dictionary", "show_dps_data", "yes"):
-        dps_data: bool = True
-    else:
-        dps_data: bool = False
 
     dpd_db: list = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.ru)).all()
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
@@ -173,6 +172,27 @@ def generate_epd_html(db_session: Session, pth: ProjectPaths) -> Tuple[List[Rend
         if counter % 250 == 0:
             print(f"{counter:>10,} / {roots_db_length:<10,} {i.root:<20} {bop():>10}")
             bip()
+
+    if dps_data:
+        print("[green]adding ru roots")
+
+        for counter, i in enumerate(roots_db):
+
+            root_ru_meanings_list: list = i.root_ru_meaning.split(", ")
+
+            for root_ru_meaning in root_ru_meanings_list:
+                if root_ru_meaning in epd.keys():
+                    epd_string = f"{epd[root_ru_meaning]}<br><b class = 'epd'>{i.root}</b> root. {i.root_ru_meaning}"
+                    epd[root_ru_meaning] = epd_string
+
+                if root_ru_meaning not in epd.keys():
+                    epd_string = f"<b class = 'epd'>{i.root}</b> root. {i.root_ru_meaning}"
+                    epd.update(
+                        {root_ru_meaning: epd_string})
+
+            if counter % 250 == 0:
+                print(f"{counter:>10,} / {roots_db_length:<10,} {i.root:<20} {bop():>10}")
+                bip()
 
     print("[green]compiling epd html")
 
