@@ -29,7 +29,7 @@ def make_pali_to_id_dict():
     pd.pali_to_id_dict = pali_to_id_dict
 
 def get_pass2_dict():
-    with open(pd.pth.pass2_dict, "rb") as file:
+    with open(pd.pth.pass2_checked_path, "rb") as file:
         pd.pass2_dict = pickle.load(file)
 
 

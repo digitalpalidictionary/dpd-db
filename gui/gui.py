@@ -125,6 +125,9 @@ from functions_tests_dps import dps_db_internal_tests
 from functions_tests_dps import check_repetition
 from functions_tests_dps import dps_dpd_db_internal_tests
 
+from pass2 import pass2_gui, Pass2Data
+from pass2 import start_from_where_gui
+
 from db.get_db_session import get_db_session
 from scripts.backup_dpd_headwords_and_roots import backup_dpd_headwords_and_roots
 from scripts.backup_ru_sbs import backup_ru_sbs
@@ -337,6 +340,23 @@ def main():
                 words_to_add_list = remove_word_to_add(
                     values, window, words_to_add_list)
                 window["words_to_add_length"].update(value=len(words_to_add_list))
+        
+        elif event == "pass2_button" or event == "pass2_button0":
+            if flags.pass2_start:
+                if values["book_to_add"]:
+                    book = values["book_to_add"]
+                    window["messages"].update(
+                        value="loading pass2 data...", text_color="white")
+                    p2d = Pass2Data(pth, db_session, book)
+                    start_from_where_gui(window, p2d, flags)
+                    wd = pass2_gui(p2d)
+                else:
+                    window["messages"].update(
+                        value="which book?", text_color="red")
+            else:
+                wd = pass2_gui(p2d)
+
+            
 
         # DPD edit tab
 

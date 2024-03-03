@@ -369,6 +369,15 @@ SN
             ),
         ],
         [
+            sg.Button(
+                "pass 2",
+                key="pass2_button",
+                size=(50, 1),
+                enable_events=True,
+                pad=((100, 0), (0, 0))
+            ),
+        ],
+        [
             sg.Text(
                 "load GUI",
                 text_color="white", 

@@ -38,10 +38,6 @@ class ProjectPaths:
         self.bold_defintions_tsv_path = base_dir.joinpath(Path("bold_defintions/bold_defintions.tsv"))
         self.bold_defintions_json_path = base_dir.joinpath(Path("bold_defintions/bold_defintions.json"))
  
-        # corrections & additions
-        self.corrections_tsv_path = base_dir.joinpath(Path("gui/corrections.tsv"))
-        self.additions_pickle_path = base_dir.joinpath(Path("gui/additions"))
-
         # /definitions/
         self.defintions_csv_path = base_dir.joinpath(Path("definitions/definitions.csv"))
 
@@ -161,6 +157,12 @@ class ProjectPaths:
         self.grammar_dict_output_html_dir = base_dir.joinpath(Path("grammar_dict/output/html"))
         self.grammar_dict_pickle_path = base_dir.joinpath(Path("grammar_dict/output/grammar_dict_pickle"))
         self.grammar_dict_tsv_path = base_dir.joinpath(Path("grammar_dict/output/grammar_dict.tsv"))
+
+        # gui
+        self.pass2_checked_path = base_dir.joinpath(Path("gui/pass2_checked.json"))
+        self.corrections_tsv_path = base_dir.joinpath(Path("gui/corrections.tsv"))
+        self.additions_pickle_path = base_dir.joinpath(Path("gui/additions"))
+
 
         # /gui/stash
         self.stash_dir = base_dir.joinpath(Path("gui/stash/"))
@@ -322,9 +324,7 @@ class ProjectPaths:
 
         # tools
         self.user_dict_path = base_dir.joinpath(Path("tools/user_dictionary.txt"))
-        
-        # scripts
-        self.pass2_dict = base_dir.joinpath(Path("scripts/pass2.json"))
+    
 
         # .. external
         self.bibliography_md_path = base_dir.joinpath(Path("../digitalpalidictionary-website-source/src/bibliography.md"))

@@ -673,6 +673,9 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 "Refresh Db Session", key="refresh_db_session_button",
                 tooltip="Refresh the db session after making external changes."),
             sg.Button(
+                "Pass 2", key="pass2_button",
+                tooltip="Add sutta examples to words in DB."),
+            sg.Button(
                 "Log", key="open_corrections_button",
                 tooltip="open corrections tsv in code",
                 visible=username == "deva"),

@@ -223,14 +223,14 @@ class Lookup(Base):
 
     # headwords pack unpack
     
-    def headwords_pack(self, list: list[str]) -> None:
+    def headwords_pack(self, list: list[int]) -> None:
         if list:
             self.headwords = json.dumps(list, ensure_ascii=False) 
         else:
             raise ValueError("A list must be provided to pack.")
 
     @property
-    def headwords_unpack(self) -> list[str]:
+    def headwords_unpack(self) -> list[int]:
         if self.headwords:
             return json.loads(self.headwords)
         else:

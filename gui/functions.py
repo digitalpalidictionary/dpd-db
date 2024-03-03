@@ -2,7 +2,6 @@
 
 import re
 import csv
-import nltk
 import os
 import shutil
 
@@ -62,6 +61,7 @@ class Flags:
         self.tested = False
         self.test_next = False
         self.spelling_ok = False
+        self.pass2_start = True
 
 
 def reset_flags(flags):
@@ -85,6 +85,7 @@ def reset_flags(flags):
     flags.stem = True
     flags.tested = False
     flags.test_next = False
+    flags.pass2_start = True
 
 
 def add_sandhi_correction(pth, window, values: dict) -> None:
