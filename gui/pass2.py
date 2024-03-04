@@ -12,7 +12,7 @@ from sqlalchemy.orm import Session
 
 from db.get_db_session import get_db_session
 from db.models import DpdHeadwords, Lookup
-from functions import load_gui_config
+from functions import Flags, load_gui_config
 
 
 from tools.paths import ProjectPaths
@@ -29,14 +29,20 @@ class Pass2Data():
             self,
             pth: ProjectPaths,
             db_session: Session,
-            book: str
+            window,
+            values: dict[str, str],
+            book: str,
         ) -> None:
         self.pth: ProjectPaths = pth
         self.db_session = db_session
+        self.main_window = window
+        self.values: dict[str, str] = values
         self.book = book
         self.tried_dict: dict = self.load_tried_dict()
+        self.last_word = self.tried_dict["last_word"][self.book]
         self.word_list: List[str] = make_text_list(self.pth, self.book)
         self.word_list_length = len(self.word_list)
+        self.word_list_index: int = self.word_list.index(self.last_word)
         self.commentary_list: List[str] = [
             "VINa", "VINt", "DNa", "MNa", "SNa", "SNt", "ANa", 
             "KHPa", "KPa", "DHPa", "UDa", "ITIa", "SNPa", "VVa", "VVt",
@@ -50,7 +56,7 @@ class Pass2Data():
             "buddhavandana"
             ]
         self.exceptions: List[int] = [6664]
-        self.continue_flag: bool = True
+        self.continue_flag: str = ""
         self.pass2_window: sg.Window
         self.pass2_layout: list
         
@@ -77,13 +83,11 @@ class Pass2Data():
         self.save_tried_dict()
     
     def update_last_word(self, wd) -> None:
-        self.tried_dict["last_word"] = wd.word
+        self.tried_dict["last_word"][self.book] = wd.word
+        self.last_word = wd.word
         self.save_tried_dict()
-        index = self.word_list.index(wd.word)
-        total = len(self.word_list)
-        counter = f"{index+1} / {total+12}"
-        print("-"*50)
-        print(f"[cyan]{counter:<12}[green]last word saved: [white]{wd.word}")
+        self.pass2_window["pass2_last_saved"].update(
+            value=f"{self.word_list_index} / {self.word_list_length} {wd.word}")
 
 
 class WordData():
@@ -91,7 +95,11 @@ class WordData():
         self.word: str = word
         self.subword: str
         self.search_pattern: str = fr"(^|\[|\{{|\s)({self.word})(\s|[.,;:!?]|\]|\}}$)"
+        self.sutta_examples: List[tuple[str, str, str]]
+        self.sutta_examples_count: int 
+        self.sutta_examples_total: int
         self.sutta_example: List[str]
+
         self.source: str
         self.sutta: str
         self.example: str
@@ -104,19 +112,9 @@ class WordData():
         self.source = sutta_example[0]
         self.sutta = sutta_example[1]
         self.example = sutta_example[2]
-        parts = self.example.split(self.word, 1)
+        parts = re.split(fr"\b{self.word}\b", self.example)
         self.example_start = parts[0]
         self.example_end = parts[1]
-
-    def _example_to_print(self):
-        self.example_print: str = self.example\
-            .replace("[", "{")\
-            .replace("]", "}")
-        self.replace: str = fr"\1[cyan]{self.word}[/cyan]\3"
-        self.example_print: str = re.sub(
-            self.search_pattern,
-            self.replace,
-            self.example_print)
 
     def update_headword(self, headword):
         self.headword: str = headword
@@ -125,7 +123,7 @@ class WordData():
         self.id: str = str(id)
 
 
-def start_from_where_gui(window, p2d, flags):
+def start_from_where_gui(p2d: Pass2Data):
     """
     Where to start running pass2 from?
     1. Start from the beginning
@@ -157,41 +155,38 @@ def start_from_where_gui(window, p2d, flags):
             
             # start from the beginning
             if user_input == "1":
-                flags.pass2_start = False
-                window["messages"].update(
+                p2d.word_list_index = 0
+                p2d.main_window["messages"].update(
                         value="starting from the beginning", text_color="white")
                 break
             
             # start from the last saved word
             elif user_input == "2":
-                last_word = p2d.tried_dict["last_word"]
+                last_word = p2d.tried_dict["last_word"][p2d.book]
                 try:
-                    index = p2d.word_list.index(last_word)
-                    p2d.word_list = p2d.word_list[index:]
-                    flags.pass2_start = False
-                    window["messages"].update(
+                    p2d.word_list_index = p2d.word_list.index(last_word)
+                    p2d.main_window["messages"].update(
                         value=f"starting from the last saved word: {last_word}",
                         text_color="white")
                     break
                 except ValueError:
                     sg.popup(f"{last_word} is not in the word list")
-                    start_from_where_gui(window, p2d, flags)
+                    start_from_where_gui(p2d)
             
             # start from a specific word
             elif user_input:
                 try:
-                    index = p2d.word_list.index(user_input)
-                    p2d.word_list = p2d.word_list[index:]
-                    flags.pass2_start = False
-                    window["messages"].update(
+                    p2d.word_list_index = p2d.word_list.index(user_input)
+                    p2d.main_window["messages"].update(
                         value=f"starting from {user_input}",
                         text_color="white")
                     break
                 except ValueError:
                     sg.popup(f"{user_input} is not in the word list")
-                    start_from_where_gui(start_window, p2d, flags)
-                
+                    start_from_where_gui(p2d)
+    
     start_window.close()
+    
 
 
 def window_options(p2d: Pass2Data):
@@ -221,8 +216,14 @@ def window_options(p2d: Pass2Data):
             sg.Text("", size = (15,1)),
         ],
         [
+            sg.Text("examples", size = (15,1)),
+            sg.Text("", key="pass2_examples_count", size=(50,1))    
+        ],
+        [
             sg.Text("source", size = (15,1)),
-            sg.Multiline("", key="pass2_source", no_scrollbar=True, size=(50,1))    
+            sg.Multiline(
+                "", key="pass2_source", no_scrollbar=True, size=(50,1),
+                enable_events=True, autoscroll=False, auto_refresh=True)    
         ],
         [
             sg.Text("sutta", size = (15,1)),
@@ -234,8 +235,7 @@ def window_options(p2d: Pass2Data):
                 "",
                 key="pass2_example",
                 size = (50,10),
-                autoscroll=False,
-                focus=True),
+                no_scrollbar=True),
         ],
         [
             sg.Text("", size = (15,1)),
@@ -270,9 +270,17 @@ def window_options(p2d: Pass2Data):
             sg.Button("Yes", key="pass2_yes"),
             sg.Button("No", key="pass2_no"),
             sg.Button("Pass", key="pass2_pass"),
+            sg.Button("Skip", key="pass2_skip"),
             sg.Button("Exit", key="pass2_exit")
-        
-        ]
+        ],
+        [
+            sg.Text("", size = (15,1)),
+        ],
+        [
+            sg.Text("last word", size = (15,1)),
+            sg.Multiline("", key="pass2_last_saved", no_scrollbar=True, size=(50,1)),
+        ],
+
     ]
 
     screen_width, screen_height = sg.Window.get_screen_size()
@@ -289,17 +297,23 @@ def window_options(p2d: Pass2Data):
 
 
 
-def pass2_gui(p2d: Pass2Data):
+def pass2_gui(p2d: Pass2Data) -> tuple[Pass2Data, WordData]:
     """GUI for pass2"""
 
     window_options(p2d)
 
     for index, word in enumerate(p2d.word_list):
+        
+        # reset the flag 
+        p2d.continue_flag = ""
+        
+        # dont bother with words before the last index
+        if index < p2d.word_list_index:
+            continue
+
         wd = WordData(word)
 
-        if p2d.continue_flag == False:
-            return wd
-        
+        # update the gui
         p2d.pass2_window["pass2_index"].update(value=f"{index} / {p2d.word_list_length}")
         p2d.pass2_window["pass2_word"].update(value=word)
         p2d.pass2_window.refresh()
@@ -308,26 +322,43 @@ def pass2_gui(p2d: Pass2Data):
             p2d.pth, p2d.book, wd.search_pattern)
         
         if sutta_examples:
-            for sutta_example in sutta_examples:
+            wd.sutta_examples = sutta_examples
+            wd.sutta_examples_total = len(sutta_examples)
+            
+            for count, sutta_example in enumerate(sutta_examples):
+                wd.sutta_examples_count = count
                 wd.update_sutta_example(list(sutta_example))
+
                 headwords_list = get_headwords(p2d, word)
                 if headwords_list:
                     check_example_headword(p2d, wd, headwords_list)
-                    if p2d.continue_flag == False:
-                        return wd
+                    if p2d.continue_flag == "yes":
+                        update_main_window(p2d, wd)
+                        return p2d, wd
+                    elif p2d.continue_flag == "exit":
+                        return p2d, wd
+                    elif p2d.continue_flag == "skip":
+                        break
 
                 # check for words in deconstructions with no examples
                 headwords_list = get_deconstruction_headwords(p2d, word)
                 if headwords_list:
                     check_example_headword(p2d, wd, headwords_list)
-                    if p2d.continue_flag == False:
-                        return wd
-                
+                    if p2d.continue_flag == "yes":
+                        update_main_window(p2d, wd)
+                        return p2d, wd
+                    elif p2d.continue_flag == "exit":
+                        return p2d, wd
+                    elif p2d.continue_flag == "skip":
+                        break
+
             p2d.update_last_word(wd)
         
         else:
             print(f"[red]{'-'*50}")
             print(f"[red]no sutta example found for [bright_red]{word}")
+    
+    return p2d, wd
 
 
 def get_headwords(        
@@ -386,6 +417,14 @@ def check_example_headword(
 
     if id_list:
         for id in id_list:
+
+            if p2d.continue_flag == "yes":
+                return
+            elif p2d.continue_flag == "exit":
+                return
+            elif p2d.continue_flag == "skip":
+                break
+
             wd.update_id(id)
             dpd_headword = p2d.db_session \
                 .query(DpdHeadwords) \
@@ -415,14 +454,13 @@ def check_example_headword(
 
                 if test1 and (test2 or test3) and test4:
                     choose_route(p2d, wd, dpd_headword)
-                    if p2d.continue_flag == False:
-                        return wd
+
+                    if p2d.continue_flag in ["exit", "yes"]:
+                        return
             
             else:
-                # if "√" not in id:
-                    id = DpdHeadwords()
-                    print(id_list)
-                    print(f"[red]{id} not found")
+                print(id_list)
+                print(f"[red]{id} not found")
 
             if id and dpd_headword:
                 test_words_in_construction(p2d, wd, dpd_headword)
@@ -454,10 +492,11 @@ def update_gui(
     """
     Update the gui with word info.
     """
-    open_in_goldendict(headword.lemma_1)
 
     p2d.pass2_window["pass2_word"].update(value=wd.word)
     p2d.pass2_window["pass2_source"].update(value=wd.source)
+    p2d.pass2_window["pass2_examples_count"].update(
+        value=f"{wd.sutta_examples_count+1} / {wd.sutta_examples_total}")
     p2d.pass2_window["pass2_sutta"].update(value=wd.sutta)
 
     p2d.pass2_window["pass2_example"].update(value="")
@@ -496,29 +535,38 @@ def choose_route(
     Handle the user response and take necessary action.
     """
     
+    open_in_goldendict(headword.lemma_1)
+    update_gui(p2d, wd, headword)
+    p2d.pass2_window.refresh()
+
     while True:
         event, values = p2d.pass2_window.read() #type:ignore
-        update_gui(p2d, wd, headword)
+
         print(event)
         print(values)
+
         if event == sg.WINDOW_CLOSED or event == "pass2_exit":
             p2d.pass2_window.close()
-            p2d.continue_flag = False
+            p2d.continue_flag = "exit"
             break
         if event == "pass2_start":
             pass
         if event == "pass2_yes":
-            p2d.continue_flag = False
+            p2d.continue_flag = "yes"
             p2d.pass2_window.close()
             pyperclip.copy(headword.id)
             break
         if event == "pass2_no":
-            p2d.continue_flag = True
+            p2d.continue_flag = "no"
             p2d.update_tried_dict(wd)
             break
         if event == "pass2_pass":
-            p2d.continue_flag = True
+            p2d.continue_flag = "pass"
             break
+        if event == "pass2_skip":
+            p2d.continue_flag = "skip"
+            break
+
 
 
 def test_words_in_construction(
@@ -540,6 +588,13 @@ def test_words_in_construction(
             headwords_list = get_headwords(p2d, word)
             if headwords_list:
                 check_example_headword(p2d, wd, headwords_list)
+                if p2d.continue_flag == "yes":
+                    update_main_window(p2d, wd)
+                    return
+                elif p2d.continue_flag == "exit":
+                    return
+                elif p2d.continue_flag == "skip":
+                    break
     
 
 def make_text_list(
@@ -559,8 +614,34 @@ def make_text_list(
     return sorted(text_set, key=lambda x: full_text_list.index(x))
 
 
+def update_main_window(p2d: Pass2Data, wd: WordData):
+    headword = p2d.db_session \
+        .query(DpdHeadwords) \
+        .filter(DpdHeadwords.id == wd.id) \
+        .first()
+    if headword:
+        attrs = headword.__dict__
+        for key in attrs.keys():
+            if key in p2d.values:
+                p2d.main_window[key].update(attrs[key])
+
+        # move the commentary to example2
+        if headword.example_1:
+            p2d.main_window["source_2"].update(value=headword.source_1)
+            p2d.main_window["sutta_2"].update(value=headword.sutta_1)
+            p2d.main_window["example_2"].update(value=headword.example_1)
+
+        # update example 1, commentary and bold
+        p2d.main_window["source_1"].update(value=wd.source)
+        p2d.main_window["sutta_1"].update(value=wd.sutta)
+        p2d.main_window["example_1"].update(value=wd.example)
+        p2d.main_window["bold_1"].update(value=headword.lemma_clean)
+        p2d.main_window["search_for"].update(headword.lemma_clean[:-1])
+
+
 if __name__ == "__main__":
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    p2d = Pass2Data(pth, db_session, "mn1")
+    window = sg.Window("", [])  # just a placeholder
+    p2d = Pass2Data(pth, db_session, window, {}, "mn1")
     pass2_gui(p2d)

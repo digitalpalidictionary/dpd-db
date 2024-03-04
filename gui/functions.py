@@ -85,7 +85,7 @@ def reset_flags(flags):
     flags.stem = True
     flags.tested = False
     flags.test_next = False
-    flags.pass2_start = True
+    # flags.pass2_start must remain for the session
 
 
 def add_sandhi_correction(pth, window, values: dict) -> None:

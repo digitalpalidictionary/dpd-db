@@ -176,7 +176,7 @@ def main():
             text_color="white")
         words_to_add_list = []
 
-    flags = Flags()
+    flags: Flags = Flags()
     dps_flags = Flags_dps()
     if username == "primary_user":
         get_next_ids(db_session, window)
@@ -341,22 +341,23 @@ def main():
                     values, window, words_to_add_list)
                 window["words_to_add_length"].update(value=len(words_to_add_list))
         
+        # pass2
         elif event == "pass2_button" or event == "pass2_button0":
             if flags.pass2_start:
                 if values["book_to_add"]:
                     book = values["book_to_add"]
                     window["messages"].update(
                         value="loading pass2 data...", text_color="white")
-                    p2d = Pass2Data(pth, db_session, book)
-                    start_from_where_gui(window, p2d, flags)
-                    wd = pass2_gui(p2d)
+                    p2d = Pass2Data(pth, db_session, window, values, book)
+                    start_from_where_gui(p2d)
+                    flags.pass2_start = False
+                    p2d, wd = pass2_gui(p2d)
                 else:
                     window["messages"].update(
                         value="which book?", text_color="red")
             else:
-                wd = pass2_gui(p2d)
+                p2d, wd = pass2_gui(p2d)
 
-            
 
         # DPD edit tab
 

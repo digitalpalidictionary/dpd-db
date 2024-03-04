@@ -2106,3 +2106,6 @@ requisites
 layperson
 emancipating
 abstains
+Majjhima
+Nikāya
+MN2
