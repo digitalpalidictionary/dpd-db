@@ -342,7 +342,11 @@ def main():
                 window["words_to_add_length"].update(value=len(words_to_add_list))
         
         # pass2
-        elif event == "pass2_button" or event == "pass2_button0":
+        elif (
+            event == "pass2_button"
+            or event == "pass2_button0"
+            or event == "control_p"
+        ):
             if flags.pass2_start:
                 if values["book_to_add"]:
                     book = values["book_to_add"]
@@ -356,6 +360,7 @@ def main():
                     window["messages"].update(
                         value="which book?", text_color="red")
             else:
+                p2d.db_session = db_session
                 p2d, wd = pass2_gui(p2d)
 
 
@@ -1068,10 +1073,7 @@ def main():
         ):
             unstasher(pth, window)
 
-        elif (
-            event == "split_button"
-            or event == "control_p"
-        ):
+        elif event == "split_button":
             lemma_1_old, lemma_1_new = increment_lemma_1(values)
             if username == "deva":
                 # add number 1 to lemma_1 for old word if there is no digit

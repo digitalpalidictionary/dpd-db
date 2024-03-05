@@ -218,7 +218,7 @@ def window_layout(dpspth, db_session, username):
     window.bind('<Control-t>', 'control_t')  # internal tests
     window.bind('<Control-u>', 'control_u')  # update db
     window.bind('<Control-q>', 'control_q')  # quit
-    window.bind('<Control-p>', 'control_p')  # split
+    window.bind('<Control-p>', 'control_p')  # pass2
     window.bind('<Control-l>', 'control_l')  # clear 
     window.bind('<Control-a>', 'control_a')  # add a word to word_to_add 
 

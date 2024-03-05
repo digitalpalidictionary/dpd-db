@@ -88,6 +88,7 @@ class Pass2Data():
         self.save_tried_dict()
         self.pass2_window["pass2_last_saved"].update(
             value=f"{self.word_list_index} / {self.word_list_length} {wd.word}")
+        self.word_list_index = self.word_list.index(self.last_word)
 
 
 class WordData():
@@ -269,6 +270,7 @@ def window_options(p2d: Pass2Data):
             sg.Button("Start", key="pass2_start"),
             sg.Button("Yes", key="pass2_yes"),
             sg.Button("No", key="pass2_no"),
+            sg.Button("No All", key="pass2_no_all"),
             sg.Button("Pass", key="pass2_pass"),
             sg.Button("Skip", key="pass2_skip"),
             sg.Button("Exit", key="pass2_exit")
@@ -304,7 +306,7 @@ def pass2_gui(p2d: Pass2Data) -> tuple[Pass2Data, WordData]:
 
     for index, word in enumerate(p2d.word_list):
         
-        # reset the flag 
+        # reset the flag
         p2d.continue_flag = ""
         
         # dont bother with words before the last index
@@ -453,7 +455,12 @@ def check_example_headword(
                 test4 = dpd_headword.id not in p2d.exceptions
 
                 if test1 and (test2 or test3) and test4:
-                    choose_route(p2d, wd, dpd_headword)
+
+                    # dont go to the gui window if no_all
+                    if p2d.continue_flag == "no_all":
+                        p2d.update_tried_dict(wd)
+                    else:
+                        choose_route(p2d, wd, dpd_headword)
 
                     if p2d.continue_flag in ["exit", "yes"]:
                         return
@@ -541,32 +548,34 @@ def choose_route(
 
     while True:
         event, values = p2d.pass2_window.read() #type:ignore
-
         print(event)
         print(values)
-
+        
         if event == sg.WINDOW_CLOSED or event == "pass2_exit":
             p2d.pass2_window.close()
             p2d.continue_flag = "exit"
             break
-        if event == "pass2_start":
+        elif event == "pass2_start":
             pass
-        if event == "pass2_yes":
+        elif event == "pass2_yes":
             p2d.continue_flag = "yes"
             p2d.pass2_window.close()
             pyperclip.copy(headword.id)
             break
-        if event == "pass2_no":
+        elif event == "pass2_no":
             p2d.continue_flag = "no"
             p2d.update_tried_dict(wd)
             break
-        if event == "pass2_pass":
+        elif event == "pass2_no_all":
+            p2d.continue_flag = "no_all"
+            p2d.update_tried_dict(wd)
+            break
+        elif event == "pass2_pass":
             p2d.continue_flag = "pass"
             break
-        if event == "pass2_skip":
+        elif event == "pass2_skip":
             p2d.continue_flag = "skip"
             break
-
 
 
 def test_words_in_construction(
