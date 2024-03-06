@@ -55,7 +55,7 @@ class Pass2Data():
             "bālāvatāra", "kaccāyana", "saddanīti", "padarūpasiddhi",
             "buddhavandana"
             ]
-        self.exceptions: List[int] = [6664, 18055, 18054]
+        self.exceptions: List[int] = [6664, 18055, 18054]   # irrelevant words which appear freqently
         self.continue_flag: str = ""
         self.pass2_window: sg.Window
         self.pass2_layout: list
