@@ -55,7 +55,7 @@ class Pass2Data():
             "bālāvatāra", "kaccāyana", "saddanīti", "padarūpasiddhi",
             "buddhavandana"
             ]
-        self.exceptions: List[int] = [6664]
+        self.exceptions: List[int] = [6664, 18055, 18054]
         self.continue_flag: str = ""
         self.pass2_window: sg.Window
         self.pass2_layout: list
@@ -612,6 +612,11 @@ def make_text_list(
         ) -> List[str]:
     cst_text_list = make_cst_text_list(pth, [book])
     sc_text_list = make_sc_text_list(pth, [book])
+    
+    # reverse for better results (temporary)
+    cst_text_list.reverse()
+    sc_text_list.reverse()
+    
     full_text_list = cst_text_list + sc_text_list
 
     # sp_mistakes_list = make_sp_mistakes_list(pth)
@@ -644,8 +649,8 @@ def update_main_window(p2d: Pass2Data, wd: WordData):
         p2d.main_window["source_1"].update(value=wd.source)
         p2d.main_window["sutta_1"].update(value=wd.sutta)
         p2d.main_window["example_1"].update(value=wd.example)
-        p2d.main_window["bold_1"].update(value=headword.lemma_clean)
-        p2d.main_window["search_for"].update(headword.lemma_clean[:-1])
+        p2d.main_window["bold_1"].update(value=wd.word)
+        p2d.main_window["search_for"].update(wd.word[:-1])
 
 
 if __name__ == "__main__":
