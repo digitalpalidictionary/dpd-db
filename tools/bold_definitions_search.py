@@ -13,6 +13,12 @@ from tools.paths import ProjectPaths
 
 def search_bold_defintions(db_session, search1, search2):
     print("[green]search_bold_defintions_gui")
+
+    # remove problem characters
+    if search1.endswith("\\"):
+        search1 = search1.replace("\\", "")
+    if search2.endswith("\\"):
+        search2 = search2.replace("\\", "")
     
     search_results = db_session \
         .query(BoldDefintion) \
@@ -71,7 +77,7 @@ def plain_search(db, search1, search2) -> list[BoldDefintion]:
 if __name__ == "__main__":
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    search1 = "dadh"
-    search2 = "ñ"
+    search1 = input("enter search1: ")
+    search2 = input("enter search2: ")
     search_results = search_bold_defintions(db_session, search1, search2)
 

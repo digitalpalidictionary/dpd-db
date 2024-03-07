@@ -12,7 +12,7 @@ from sqlalchemy.orm import Session
 
 from db.get_db_session import get_db_session
 from db.models import DpdHeadwords, Lookup
-from functions import Flags, load_gui_config
+from functions import load_gui_config
 
 
 from tools.paths import ProjectPaths
@@ -55,7 +55,8 @@ class Pass2Data():
             "bālāvatāra", "kaccāyana", "saddanīti", "padarūpasiddhi",
             "buddhavandana"
             ]
-        self.exceptions: List[int] = [6664, 18055, 18054]   # irrelevant words which appear freqently
+        self.exceptions: List[int] = [
+            6664, 18055, 18054, 19159, 19162]   # irrelevant words which appear freqently
         self.continue_flag: str = ""
         self.pass2_window: sg.Window
         self.pass2_layout: list

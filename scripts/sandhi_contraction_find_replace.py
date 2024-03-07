@@ -173,9 +173,6 @@ def replace_instances(pd):
                         print(f"[red]{e}")
                         replace_instances(pd)
 
-
-                    
-                
                 elif route == "x":
                     break
                 
@@ -184,7 +181,6 @@ def replace_instances(pd):
 
 if __name__ == "__main__":
     main()
-
 
 
 
