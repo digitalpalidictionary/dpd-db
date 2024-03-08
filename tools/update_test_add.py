@@ -8,6 +8,8 @@ def update_test_add(lookup_table, dict: dict) -> tuple[set[str], set[str], set[s
     3. add_set = All words only in the Lookup table - dict
     """
 
+    # FIXME use four lists: add update clear delete
+
     #keys of the dict       
     dict_keys = set([key for key in dict])
 

@@ -20,6 +20,7 @@ acc
 accekacīvara
 accessorized
 acchidaṃ
+accordant
 accurses
 acerifolium
 Aciravatī
@@ -1116,6 +1117,7 @@ MN48
 MN49
 MN5
 MN50
+MN51
 Moggallāna
 Moggallāna's
 Moggallānabyākaraṇa

@@ -348,17 +348,13 @@ def main():
             or event == "control_p"
         ):
             if flags.pass2_start:
-                if values["book_to_add"]:
-                    book = values["book_to_add"]
-                    window["messages"].update(
-                        value="loading pass2 data...", text_color="white")
-                    p2d = Pass2Data(pth, db_session, window, values, book)
-                    start_from_where_gui(p2d)
-                    flags.pass2_start = False
-                    p2d, wd = pass2_gui(p2d)
-                else:
-                    window["messages"].update(
-                        value="which book?", text_color="red")
+                book = values["book_to_add"]
+                window["messages"].update(
+                    value="loading pass2 data...", text_color="white")
+                p2d = Pass2Data(pth, db_session, window, values, book)
+                start_from_where_gui(p2d)
+                flags.pass2_start = False
+                p2d, wd = pass2_gui(p2d)
             else:
                 p2d.db_session = db_session
                 p2d, wd = pass2_gui(p2d)

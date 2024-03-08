@@ -1,7 +1,6 @@
 """Go thru each word and its components in a text to find missing examples."""
 
 import json
-import pyperclip
 import re
 
 import PySimpleGUI as sg
@@ -13,6 +12,7 @@ from sqlalchemy.orm import Session
 from db.get_db_session import get_db_session
 from db.models import DpdHeadwords, Lookup
 from functions import load_gui_config
+from tools.pali_sort_key import pali_list_sorter
 
 
 from tools.paths import ProjectPaths
@@ -37,11 +37,18 @@ class Pass2Data():
         self.db_session = db_session
         self.main_window = window
         self.values: dict[str, str] = values
-        self.book = book
+        if book:
+            self.book: str = book
+        else:
+            self.book: str = self.get_book()
         self.tried_dict: dict = self.load_tried_dict()
-        self.last_word = self.tried_dict["last_word"][self.book]
+        self.phrase_exceptions_set: set = set(self.tried_dict["phrase_exceptions"])
         self.word_list: List[str] = make_text_list(self.pth, self.book)
         self.word_list_length = len(self.word_list)
+        try:
+            self.last_word = self.tried_dict["last_word"][self.book]
+        except KeyError:
+            self.last_word = self.word_list[0]
         self.word_list_index: int = self.word_list.index(self.last_word)
         self.commentary_list: List[str] = [
             "VINa", "VINt", "DNa", "MNa", "SNa", "SNt", "ANa", 
@@ -61,7 +68,14 @@ class Pass2Data():
         self.pass2_window: sg.Window
         self.pass2_layout: list
         
-        
+    def get_book(self):
+        while True:
+            book = sg.popup_get_text(
+            "which book?", default_text="", location=(400, 400))
+            if book:
+                break
+        return book
+            
     def load_tried_dict(self):
         try:
             with open(self.pth.pass2_checked_path, "r") as f:
@@ -81,6 +95,11 @@ class Pass2Data():
         if wd.id not in self.tried_dict[self.book][wd.word]:
             self.tried_dict[self.book][wd.word][wd.id] = []
         self.tried_dict[self.book][wd.word][wd.id].append(wd.sutta_example)
+        self.save_tried_dict()
+    
+    def update_phrase_exceptions(self, phrase_exception: str) -> None:
+        self.phrase_exceptions_set.add(phrase_exception)
+        self.tried_dict["phrase_exceptions"] = pali_list_sorter(self.phrase_exceptions_set)
         self.save_tried_dict()
     
     def update_last_word(self, wd) -> None:
@@ -267,6 +286,15 @@ def window_options(p2d: Pass2Data):
             sg.Text("", size = (15,1)),
         ],
         [
+            sg.Text("phrase exception", size = (15,1)),
+            sg.Input(
+                "", key="pass2_phrase_exception", size=(46,1)),
+            sg.Button("Add", key="pass2_phrase_exception_button")
+        ],
+        [
+            sg.Text("", size = (15,1)),
+        ],
+        [
             sg.Text("", size = (15,1)),
             sg.Button("Start", key="pass2_start"),
             sg.Button("Yes", key="pass2_yes"),
@@ -294,7 +322,8 @@ def window_options(p2d: Pass2Data):
         "Pass2",
         pass2_layout,
         size=(width, height),
-        finalize=True)
+        finalize=True,
+        resizable=True)
     p2d.pass2_window = pass2_window
     p2d.pass2_layout = pass2_layout
 
@@ -331,6 +360,9 @@ def pass2_gui(p2d: Pass2Data) -> tuple[Pass2Data, WordData]:
             for count, sutta_example in enumerate(sutta_examples):
                 wd.sutta_examples_count = count
                 wd.update_sutta_example(list(sutta_example))
+
+                if is_phrase_exception(p2d, wd):
+                    continue 
 
                 headwords_list = get_headwords(p2d, word)
                 if headwords_list:
@@ -427,6 +459,8 @@ def check_example_headword(
                 return
             elif p2d.continue_flag == "skip":
                 break
+            if is_phrase_exception(p2d, wd):
+                break 
 
             wd.update_id(id)
             dpd_headword = p2d.db_session \
@@ -561,7 +595,6 @@ def choose_route(
         elif event == "pass2_yes":
             p2d.continue_flag = "yes"
             p2d.pass2_window.close()
-            pyperclip.copy(headword.id)
             break
         elif event == "pass2_no":
             p2d.continue_flag = "no"
@@ -576,6 +609,11 @@ def choose_route(
             break
         elif event == "pass2_skip":
             p2d.continue_flag = "skip"
+            break
+        elif event == "pass2_phrase_exception_button":
+            p2d.update_phrase_exceptions(values["pass2_phrase_exception"])
+            p2d.pass2_window["pass2_phrase_exception"].update(value="")
+            p2d.continue_flag = "phrase_exception"
             break
 
 
@@ -615,8 +653,8 @@ def make_text_list(
     sc_text_list = make_sc_text_list(pth, [book])
     
     # reverse for better results (temporary)
-    cst_text_list.reverse()
-    sc_text_list.reverse()
+    # cst_text_list.reverse()
+    # sc_text_list.reverse()
     
     full_text_list = cst_text_list + sc_text_list
 
@@ -654,9 +692,18 @@ def update_main_window(p2d: Pass2Data, wd: WordData):
         p2d.main_window["search_for"].update(wd.word[:-1])
 
 
+def is_phrase_exception(p2d, wd):
+    for phrase_exception in p2d.phrase_exceptions_set:
+        if (
+            wd.word in phrase_exception
+            and phrase_exception in wd.example
+        ):
+            return True
+    return False
+
 if __name__ == "__main__":
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     window = sg.Window("", [])  # just a placeholder
-    p2d = Pass2Data(pth, db_session, window, {}, "mn1")
+    p2d = Pass2Data(pth, db_session, window, {}, "mn2")
     pass2_gui(p2d)
