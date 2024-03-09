@@ -655,7 +655,7 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 "Test", key="test_internal_button",
                 tooltip="Run internal tests"),
             sg.Button(
-                "Update db", key="update_db_button1",
+                "Update DB", key="update_db_button1",
                 tooltip="Add a new word or update existing word in the db",
                 visible=username == "primary_user"),
             sg.Button(
@@ -667,13 +667,13 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 tooltip="Delete a word from the db. Careful!",
                 mouseover_colors="red"),
             sg.Button(
-                "Update Sandhi", key="update_sandhi_button",
+                "Sandhi", key="update_sandhi_button",
                 tooltip="Update list of words with sandhi apostophes"),
             sg.Button(
-                "Refresh Db Session", key="refresh_db_session_button",
+                "Refresh DB", key="refresh_db_session_button",
                 tooltip="Refresh the db session after making external changes."),
             sg.Button(
-                "Pass 2", key="pass2_button",
+                "Pass2", key="pass2_button",
                 tooltip="Add sutta examples to words in DB."),
             sg.Button(
                 "Log", key="open_corrections_button",
