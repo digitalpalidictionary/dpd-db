@@ -48,6 +48,10 @@ class AllowableCharacters():
         "А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "Й", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ы", "Ь", "Э", "Ю", "Я"
         ]
 
+    cyrillic_pali = [
+        "а̄", "ӣ", "ӯ", "н̇", "н̃", "т̣", "т̣х", "д̣", "д̣х", "н̣", "л̣", "м̣"
+    ]
+
     number_ru = ['№']
 
     # digits
@@ -527,11 +531,12 @@ class AllowableCharacters():
         # letters
         cyrillic_characters +
         cyrillic_capitals +
-        pali_alphabet +
-        pali_capitals +
-        niggahitas +
-        sanskrit_capitals +
-        greek_characters +
+        cyrillic_pali +
+        # pali_alphabet +
+        # pali_capitals +
+        # niggahitas +
+        # sanskrit_capitals +
+        # greek_characters +
         
         # digits
         digits +
@@ -568,7 +573,6 @@ class AllowableCharacters():
         pali_capitals +
         cyrillic_characters +
         cyrillic_capitals +
-        english_alphabet +
         english_capitals +
         sanskrit_alphabet +
         sanskrit_capitals +

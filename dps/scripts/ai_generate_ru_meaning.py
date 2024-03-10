@@ -391,7 +391,7 @@ def translate_pali_roots(root, root_meaning, root_example):
                 **Pali Root**: {root}
                 **Pali word example**: {root_example}
                 **English Definition**: {root_meaning}
-                Please provide 2 distinct Russian translations for the English definition, considering the Pali root and its Pali word example. Ensure that the translations are in the infinitive forms of the verb, avoiding repetition. In the answer give only 2 Russian words weparated by `,` in one line and nothing else. 
+                Please provide Russian translation for the English definition, considering the Pali root and its Pali word example. Ensure that the translation is in the infinitive form of the verb, avoiding repetition. In the answer give only Russian words in one line and nothing else. 
             """
         }
     ]
@@ -414,7 +414,7 @@ def translate_sk_roots(sk_root, sk_root_meaning):
             "content": f"""
                 **Sanskrit Root**: {sk_root}
                 **English Definition**: {sk_root_meaning}
-                Please provide Russian translation for the English definition, considering the Sanskrit root. Ensure that the translation is in the infinitive form of the verb, avoiding repetition. In the ansywer give only Russian words in one line and nothing else.
+                Please provide Russian translation for the English definition, considering the Sanskrit root. Ensure that the translation is in the infinitive form of the verb, avoiding repetition. In the answer give only Russian words in one line and nothing else.
             """
         }
     ]
@@ -425,9 +425,9 @@ def translate_sk_roots(sk_root, sk_root_meaning):
 
 
 if __name__ == "__main__":
-    ru_meaning_generating()
+    # ru_meaning_generating()
 
-    # roots_meaning_generating("pali")
+    roots_meaning_generating("pali")
 
     # ru_notes_generating()
 

@@ -39,9 +39,14 @@ def make_ru_meaning_html(i: DpdHeadwords, ru: Russian) -> str:
             return f"<b>{ru.ru_meaning_raw}</b>"
 
 
-def replace_abbreviations(value, pth: ProjectPaths):
+def replace_abbreviations(value, pth: ProjectPaths, kind = "meaning"):
     # Perform basic replacements
-    value = value.replace(' or ', ' или ').replace(', from', ', от').replace(' of ', ' от ')
+    if kind == "meaning":
+        value = value.replace(' or ', ' или ').replace(', from', ', от').replace(' of ', ' от ')
+    elif kind == "inflect":
+        value = value.replace(' is ', ' это ').replace('conjugation', 'класс спряжения').replace('declension', 'класс склонения').replace('like ', 'как ').replace('reflexive', 'возвратный').replace('irregular', 'неправильный')
+    elif kind == "root":
+        value = value.replace('Root', 'Корень').replace('Bases', 'Основы').replace('Base', 'Основа').replace('in Compounds', 'в Составе').replace('adverbs', 'наречия').replace('verbs', 'глаголы').replace('participles', 'причастия').replace('nouns', 'существительные').replace('adjectives', 'прилагательные')
     # Step  1: Read the TSV file and parse it
     abbreviations = {}
     with open(pth.abbreviations_tsv_path, 'r', encoding='utf-8') as file:
@@ -63,6 +68,13 @@ def replace_abbreviations(value, pth: ProjectPaths):
         # Replace the abbreviation with its Russian equivalent
         value = re.sub(pattern, russian, value)
 
+    return value
+
+
+def replace_english(value, kind = "freq"):
+    # Perform basic replacements
+    if kind == "freq":
+        value = value.replace('in the Chaṭṭha Saṅgāyana corpus', 'в версии текстов Чаттха Сангаяна').replace('Exact matches of the word', 'График частоты слова').replace('Exact matches of', 'График частоты').replace('and its', 'и его форм').replace('declensions', 'склонений').replace('conjugations', 'спряжений')
     return value
 
 

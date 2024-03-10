@@ -86,7 +86,7 @@ def main():
     rendered_sizes.append(sizes)
 
     time_log.log("generate_help_html()")
-    help_data_list, sizes = generate_help_html(db_session, pth)
+    help_data_list, sizes = generate_help_html(db_session, pth, dps_data)
     rendered_sizes.append(sizes)
 
     db_session.close()

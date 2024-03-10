@@ -47,7 +47,7 @@ from tools.superscripter import superscripter_uni
 from tools.tic_toc import bip, bop
 from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, list_into_batches, sum_rendered_sizes
 
-from dps.tools.tools_for_dps_exporter import make_ru_meaning_html, replace_abbreviations, ru_make_grammar_line
+from dps.tools.tools_for_dps_exporter import make_ru_meaning_html, replace_abbreviations, replace_english, ru_make_grammar_line
 
 class RuDpdHeadwordsTemplates:
     def __init__(self, pth: ProjectPaths, dpspth: DPSPaths):
@@ -588,10 +588,12 @@ def render_inflection_templ(
 ) -> str:
     """inflection or conjugation table"""
 
+    table: str = replace_abbreviations(i.inflections_html, pth, "inflect")
+
     return str(
         inflection_templ.render(
             i=i,
-            table=i.inflections_html,
+            table=table,
             today=TODAY,
             declensions=DECLENSIONS,
             conjugations=CONJUGATIONS))
@@ -684,10 +686,13 @@ def render_frequency_templ(
 ) -> str:
     """render html tempalte of freqency table"""
 
+    freq = replace_english(i.freq_html)
+
     return str(
         frequency_templ.render(
             i=i,
-            today=TODAY))
+            today=TODAY,
+            freq=freq))
 
 
 def render_feedback_templ(

@@ -22,6 +22,8 @@ from tools.tic_toc import bip, bop
 from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes
 from typing import Optional
 
+from dps.tools.tools_for_dps_exporter import replace_abbreviations
+
 
 def generate_root_html(
                 db_session: Session,
@@ -91,7 +93,7 @@ def generate_root_html(
             root_info = render_root_info_templ(pth, r)
             html += root_info
         elif dpspth:
-            root_info = render_root_info_templ(dpspth, r)
+            root_info = render_root_info_templ(pth, r, dpspth)
         # add here another language elif ...
 
         html += root_info
@@ -100,7 +102,7 @@ def generate_root_html(
         if not dpspth:
             root_matrix = render_root_matrix_templ(pth, r, roots_count_dict)
         elif dpspth:
-            root_matrix = render_root_matrix_templ(dpspth, r, roots_count_dict)
+            root_matrix = render_root_matrix_templ(pth, r, roots_count_dict, dpspth)
         html += root_matrix
         size_dict["root_matrix"] += len(root_matrix)
 
@@ -188,21 +190,43 @@ def render_root_buttons_templ(_pth_, r: DpdRoots, db_session: Session):
             frs=frs))
 
 
-def render_root_info_templ(_pth_, r: DpdRoots):
+def render_root_info_templ(
+                pth, 
+                r: DpdRoots, 
+                dpspth: Optional[DPSPaths] = None
+            ):
     """render html of root grammatical info"""
 
-    root_info_templ = Template(filename=str(_pth_.root_info_templ_path))
+    if not dpspth:
+        root_info_templ = Template(filename=str(pth.root_info_templ_path))
+        root_info = ""
+    elif dpspth:
+        root_info_templ = Template(filename=str(dpspth.root_info_templ_path))
+        root_info = replace_abbreviations(r.root_info, pth, "root")
+    # add here another language elif ...
 
     return str(
         root_info_templ.render(
             r=r,
+            root_info=root_info,
             today=TODAY))
 
 
-def render_root_matrix_templ(_pth_, r: DpdRoots, roots_count_dict):
+def render_root_matrix_templ(
+                pth, 
+                r: DpdRoots, 
+                roots_count_dict, 
+                dpspth: Optional[DPSPaths] = None
+            ):
     """render html of root matrix"""
 
-    root_matrix_templ = Template(filename=str(_pth_.root_matrix_templ_path))
+    if not dpspth:
+        root_matrix_templ = Template(filename=str(pth.root_matrix_templ_path))
+        root_matrix = ""
+    elif dpspth:
+        root_matrix_templ = Template(filename=str(dpspth.root_matrix_templ_path))
+        root_matrix = replace_abbreviations(r.root_matrix, pth, "root")
+    # add here another language elif ...
 
     count = roots_count_dict[r.root]
 
@@ -210,10 +234,15 @@ def render_root_matrix_templ(_pth_, r: DpdRoots, roots_count_dict):
         root_matrix_templ.render(
             r=r,
             count=count,
+            root_matrix=root_matrix,
             today=TODAY))
 
 
-def render_root_families_templ(_pth_, r: DpdRoots, db_session: Session):
+def render_root_families_templ(
+                _pth_,
+                r: DpdRoots, 
+                db_session: Session
+            ):
     """render html of root families"""
 
     root_families_templ = Template(filename=str(_pth_.root_families_templ_path))
