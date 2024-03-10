@@ -141,6 +141,7 @@ api
 api
 appanā
 apperceived
+apportions
 appositional
 apprehendable
 āra
@@ -302,6 +303,7 @@ Bos
 Boselaphus
 Boswellia
 botheration
+boundlessness
 bowmanship
 Brahma
 Brahmā
@@ -571,6 +573,7 @@ embryopteris
 emmeshed
 enclitic
 encourager
+endlessness
 endurer
 Eṇi
 ennead
@@ -973,6 +976,7 @@ Licchavis
 lickable
 likhā
 limbed
+limitlessness
 linch-pin
 Lindica
 Linum
@@ -1118,6 +1122,10 @@ MN49
 MN5
 MN50
 MN51
+MN52
+MN53
+MN54
+MN55
 Moggallāna
 Moggallāna's
 Moggallānabyākaraṇa
@@ -2133,8 +2141,3 @@ yojanas
 yoking
 zizanioides
 Ziziphus
-MN52
-endlessness
-boundlessness
-limitlessness
-MN53

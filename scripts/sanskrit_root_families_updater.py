@@ -11,7 +11,7 @@ from db.models import DpdHeadwords
 from db.get_db_session import get_db_session
 
 from tools.paths import ProjectPaths
-from tools.pali_sort_key import pali_sort_key
+from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 from tools.tic_toc import tic, toc
 
 # the root == the word
@@ -73,7 +73,7 @@ def write_to_tsv(pth, root_dict) -> None:
                     "sanskrit_root_meaning": i.sanskrit_root_meaning,
                     "pali_root_family": i.pali_root_family,
                     "sanskrit_root_family": i.sanskrit_root_family,
-                    "sanskrit_dump": ", ".join(filter(None, i.sanskrit_dump))
+                    "sanskrit_dump": ", ".join(filter(None, pali_list_sorter(i.sanskrit_dump)))
                 })
 
 
