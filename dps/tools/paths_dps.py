@@ -90,7 +90,7 @@ class DPSPaths:
         # self.header_grammar_dict_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/header_grammar_dict.html"))
 
         # /icon
-        self.icon_path = base_dir.joinpath(Path("icon/favicon.ico"))
+        self.icon_path = base_dir.joinpath(Path("exporter/goldendict/icon//favicon.ico"))
         self.icon_bmp_path = base_dir.joinpath(Path("dps/exporter_ru/icon/book.bmp"))
 
         # /tests

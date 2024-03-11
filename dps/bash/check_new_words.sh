@@ -22,7 +22,7 @@ read -p "${bold}${yellow}Did you apply all changes? (y/n): ${reset}" confirmatio
 if [ "$confirmation" == "y" ]; then
 
     # Copy dpd_headwords
-    cp -rf backup_tsv/dpd_headwords.tsv dps/backup/for_compare/dpd_headwords.tsv
+    cp -rf db/backup_tsv/dpd_headwords.tsv dps/backup/for_compare/dpd_headwords.tsv
 
     echo "${bold}${green}The job is done${reset}"
 else

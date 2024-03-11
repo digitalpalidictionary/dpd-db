@@ -7,8 +7,8 @@
 3. Install [nodejs](https://nodejs.org/en/download) 
 4. Install [poetry](https://python-poetry.org/docs/)
 5. `poetry install`
-6. `poetry run bash bash/initial_setup_run_once.sh`
-7. `poetry run bash bash/build_db.sh`
+6. `poetry run bash scripts/bash/initial_setup_run_once.sh`
+7. `poetry run bash scripts/bash/build_db.sh`
 8. To be able to run database tests you may need to install some of [these packages.](https://pyperclip.readthedocs.io/en/latest/index.html#not-implemented-error)
 
 That should create an SQLite database `./dpd.db` which can be accessed by [DB Browser](https://sqlitebrowser.org/),  [DBeaver](https://dbeaver.io/), through [SQLAlechmy](https://www.sqlalchemy.org/) or your preferred method. 
@@ -17,7 +17,7 @@ For a quick tutorial on how to access any information in the db with SQLAlchemy,
 
 ## Build a complete database locally and extract all dictionaries
 
-⚠️ WARNING: When `sandhi/sandhi_splitter.py` runs with the config option `deconstructor.all_texts = yes`, it will take several hours to complete.
+⚠️ WARNING: When `db/deconstructor/sandhi_splitter.py` runs with the config option `deconstructor.all_texts = yes`, it will take several hours to complete.
 
 Starting with a fresh clone of the tip:
 
@@ -26,7 +26,7 @@ git clone --depth=1 https://github.com/digitalpalidictionary/dpd-db.git
 cd dpd-db
 git submodule init && git submodule update
 poetry install
-poetry run bash bash/build_and_make_all.sh
+poetry run bash scripts/bash/build_and_make_all.sh
 ```
 
 This creates the `dpd.db` SQLite database. Also it extract all dictionaries see folder `exporter/share`

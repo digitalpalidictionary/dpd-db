@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# move rows which ahve a bigger id from dps/backup/dpd_headwords.tsv into backup_tsv/dpd_headwords.tsv
+# move rows which ahve a bigger id from dps/backup/dpd_headwords.tsv into db/backup_tsv/dpd_headwords.tsv
 
 import csv
 import os

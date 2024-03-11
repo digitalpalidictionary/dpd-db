@@ -15,7 +15,7 @@ def main():
     pth = ProjectPaths()
 
     # setup sanskrit dict
-    df = pd.read_excel("sanskrit/DPD Sanskrit Updates v1.xlsx", index_col=0)
+    df = pd.read_excel("db/sanskrit/DPD Sanskrit Updates v1.xlsx", index_col=0)
     df = df.fillna("")
     df = df.rename(columns={"sanskrit": "sanskrit_old", "sanskrit2": "sanskrit_new"})
     sk_dict = df[["lemma_1", "sanskrit_old", "sanskrit_new"]].to_dict(orient="index")
@@ -36,7 +36,7 @@ def main():
             # print(f"{counter:<5}{i.id:<10}{sk_dict[i.id]['sanskrit_old']:<30}{i.sanskrit:}")
             counter += 1
 
-    with open("sanskrit/sanskrit_update_1", "wb") as f:
+    with open("db/sanskrit/sanskrit_update_1", "wb") as f:
         pickle.dump(sk_dict, f)
     
     db_session.commit()

@@ -84,7 +84,7 @@ def backup_dpd_roots(db_session: Session, pth: ProjectPaths, custom_path: str = 
 def git_commit():
     repo = Repo("./")
     index = repo.index
-    index.add(["backup_tsv/dpd_roots.tsv", "backup_tsv/dpd_headwords.tsv"])
+    index.add(["db/backup_tsv/dpd_roots.tsv", "db/backup_tsv/dpd_headwords.tsv"])
     index.commit("pali update")
 
 

@@ -33,10 +33,10 @@ jobs:
       shell: /usr/bin/bash -e {0}
 
     - name: Run initial setup script
-      run: poetry run bash bash/initial_setup_run_once.sh
+      run: poetry run bash scripts/bash/initial_setup_run_once.sh
 
     - name: Build the database
-      run: poetry run bash bash/build_db.sh
+      run: poetry run bash scripts/bash/build_db.sh
 
     - name: Zip the database file
       run: zip dpd-db.zip ./dpd.db

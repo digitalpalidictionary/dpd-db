@@ -1,6 +1,4 @@
-
-import cProfile
-import sys
+"""Flask app for browswer-based DPD lookup."""
 
 from flask import Flask, render_template
 from markupsafe import Markup
@@ -114,10 +112,4 @@ def safe_getattr(obj, attr, default=None):
     return value
 
 
-print("Before profiling")
-sys.stdout = open('profiler_output.txt', 'w')
-cProfile.run('run_app()')
-sys.stdout.close()
-sys.stdout = sys.__stdout__
-print("After profiling")
-  
+run_app()

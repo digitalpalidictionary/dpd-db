@@ -5,7 +5,7 @@ from rich import print
 def make_word_count_dict():
     """Count the length of words to find the problem cases."""
 
-    with open("sandhi/assets/unmatched_set", "rb") as f:
+    with open("db/deconstructor/assets/unmatched_set", "rb") as f:
         unmatched_set = pickle.load(f)
 
     wc_dict = {}

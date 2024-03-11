@@ -27,7 +27,7 @@ def git_commit():
     try:
         repo = Repo("./")
         
-        files_to_check = ["gui/corrections.tsv", "gui/additions", "sandhi/sandhi_related/manual_corrections.tsv", "sandhi/sandhi_related/sandhi_ok.csv"]
+        files_to_check = ["gui/corrections.tsv", "gui/additions", "db/deconstructor/sandhi_related/manual_corrections.tsv", "db/deconstructor/sandhi_related/sandhi_ok.csv"]
 
         # Check for changes in specific files
         if not are_files_modified(repo, files_to_check):
@@ -35,7 +35,7 @@ def git_commit():
             return False
 
         index = repo.index
-        index.add(["gui/corrections.tsv", "gui/additions", "sandhi/sandhi_related/manual_corrections.tsv", "sandhi/sandhi_related/sandhi_ok.csv"])
+        index.add(["gui/corrections.tsv", "gui/additions", "db/deconstructor/sandhi_related/manual_corrections.tsv", "db/deconstructor/sandhi_related/sandhi_ok.csv"])
         commit = index.commit("Backup corrections & additions")
 
         print("[blue]Commit Details:")

@@ -11,17 +11,17 @@ export PYTHONPATH=/home/deva/Documents/dpd-db/exporter:$PYTHONPATH
 # to avoid warning py pyright add to .vscode/settings.json:
 # { "python.analysis.extraPaths": ["/home/deva/Documents/dpd-db/exporter"] }
 
-# bash/generate_components.sh
+# scripts/bash/generate_components.sh
 
 # dps/scripts/change_ebt_count.py
 
-# grammar_dict/grammar_dict.py
+# exporter/grammar_dict/grammar_dict.py
 
 dps/exporter_ru/exporter_ru.py
 
-# exporter/deconstructor_exporter.py
+# exporter/deconstructor/deconstructor_exporter.py
 
-# exporter/tpr_exporter.py
-# ebook/ebook_exporter.py
+# exporter/tpr/tpr_exporter.py
+# exporter/ebook/ebook_exporter.py
 
 dps/scripts/move_mdict_ru.py

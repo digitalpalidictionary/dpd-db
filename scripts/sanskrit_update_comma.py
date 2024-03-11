@@ -19,7 +19,7 @@ def main():
     db = db_session.query(DpdHeadwords).all()
 
     # load ram's changes to exclude    # 
-    with open("sanskrit/sanskrit_update_1_backup", "rb") as f:
+    with open("db/sanskrit/sanskrit_update_1_backup", "rb") as f:
         sk_dict = pickle.load(f)
 
     counter = 0

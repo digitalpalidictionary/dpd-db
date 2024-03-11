@@ -82,7 +82,7 @@
 ### sanskrit	
 
 - Closest Sanskrit cognate of the headword
-- See [explisit guide](https://github.com/digitalpalidictionary/dpd-db/blob/main/sanskrit/sanskrit_style_guide.md)
+- See [explicit guide](https://github.com/digitalpalidictionary/dpd-db/blob/main/db/db/sanskrit/sanskrit_style_guide.md)
 
 ### root_key
 
@@ -219,7 +219,7 @@
 ### pattern
 
 - Pattern by which the word changes its inflected forms.
-- All patterns can be found in the [inflection_templates.xlsx](https://github.com/digitalpalidictionary/dpd-db/raw/main/inflections/inflection_templates.xlsx)
+- All patterns can be found in the [inflection_templates.xlsx](https://github.com/digitalpalidictionary/dpd-db/raw/main/db/inflections/inflection_templates.xlsx)
 
 
 

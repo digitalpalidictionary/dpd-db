@@ -29,33 +29,33 @@ jobs:
         poetry install
 
     - name: Run initial setup script
-      run: poetry run bash bash/initial_setup_run_once.sh
+      run: poetry run bash scripts/bash/initial_setup_run_once.sh
 
     - name: Build the database
-      run: poetry run bash bash/build_db.sh
+      run: poetry run bash scripts/bash/build_db.sh
 
     - name: Config settings for all texts
       run: poetry run scripts/db_all_text_setup.py
 
     - name: Deconstruction Setup
-      run: poetry run python sandhi/sandhi_setup.py
+      run: poetry run python db/deconstructor/sandhi_setup.py
         
     - name: Deconstruction Splitter
-      run: poetry run python sandhi/sandhi_splitter.py
+      run: poetry run python db/deconstructor/sandhi_splitter.py
 
     - name: Deconstruction Postporocess setup
-      run: poetry run python sandhi/sandhi_postprocess.py
+      run: poetry run python db/deconstructor/sandhi_postprocess.py
 
-    - name: Zip sandhi/output directory
+    - name: Zip db/deconstructor/output directory
       run: |
-        cd sandhi/output
+        cd db/deconstructor/output
         zip -r ../output.zip .
       working-directory: ./sandhi
 
     - name: Archive production artifacts
       uses: actions/upload-artifact@v2
       with:
-        path: ./sandhi/output.zip
+        path: ./db/deconstructor/output.zip
         continue-on-error: true
     
 

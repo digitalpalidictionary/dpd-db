@@ -132,7 +132,7 @@ from db.get_db_session import get_db_session
 from scripts.backup_dpd_headwords_and_roots import backup_dpd_headwords_and_roots
 from scripts.backup_ru_sbs import backup_ru_sbs
 
-from exporter.i2html import make_html
+from gui.i2html import make_html
 from tests.test_allowable_characters import test_allowable_characters_gui
 from tests.test_allowable_characters import test_allowable_characters_gui_dps
 

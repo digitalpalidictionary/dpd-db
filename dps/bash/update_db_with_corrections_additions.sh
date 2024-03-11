@@ -4,9 +4,9 @@
 
 git fetch
 
-git checkout origin/main -- backup_tsv/dpd_headwords.tsv
+git checkout origin/main -- db/backup_tsv/dpd_headwords.tsv
 
-git checkout origin/main -- backup_tsv/dpd_roots.tsv
+git checkout origin/main -- db/backup_tsv/dpd_roots.tsv
 
 scripts/backup_ru_sbs.py
 
@@ -22,4 +22,4 @@ mkdpd.sh
 
 git checkout -- pyproject.toml
 
-git checkout -- backup_tsv/dpd_headwords.tsv
+git checkout -- db/backup_tsv/dpd_headwords.tsv

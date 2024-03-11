@@ -74,7 +74,7 @@ def backup_sbs(db_session: Session, pth: ProjectPaths, custom_path: str = ""):
 def git_commit():
     repo = Repo("./")
     index = repo.index
-    index.add(["backup_tsv/russian.tsv", "backup_tsv/sbs.tsv"])
+    index.add(["db/backup_tsv/russian.tsv", "db/backup_tsv/sbs.tsv"])
     index.commit("backup russian & sbs")
 
 

@@ -38,7 +38,7 @@ from functions import make_sandhi_ok_list
 from functions import make_variant_list
 
 from functions_daily_record import daily_record_update
-from exporter.i2html import make_html
+from gui.i2html import make_html
 
 from rich import print
 from sqlalchemy import not_, or_
