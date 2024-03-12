@@ -16,9 +16,7 @@ from typing import List, Set, TypedDict, Tuple
 
 from sqlalchemy.orm.session import Session
 
-
-from exporter.goldendict.helpers import TODAY
-
+from helpers import TODAY
 from tools import time_log
 
 from db.models import DpdHeadwords, FamilyIdiom

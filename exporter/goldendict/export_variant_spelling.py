@@ -1,19 +1,19 @@
 """Compile HTML data for variants and spelling mistakes."""
 
 import csv
-from typing import List, Tuple, Optional
 
 from css_html_js_minify import css_minify
 from mako.template import Template
 from minify_html import minify
 from rich import print
+from typing import List, Tuple, Optional
 
-from exporter.goldendict.export_dpd import render_header_templ
+from export_dpd import render_header_templ
 
+from dps.tools.paths_dps import DPSPaths
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, sum_rendered_sizes
-from dps.tools.paths_dps import DPSPaths
 
 def generate_variant_spelling_html(pth: ProjectPaths, dpspth: Optional[DPSPaths] = None) -> Tuple[List[RenderResult], RenderedSizes]:
     """Generate html for variant readings and spelling corrections."""

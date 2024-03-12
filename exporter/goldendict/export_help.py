@@ -11,7 +11,7 @@ from typing import List, Dict, Tuple
 
 from sqlalchemy.orm import Session
 
-from exporter.goldendict.export_dpd import render_header_templ
+from export_dpd import render_header_templ
 
 from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop

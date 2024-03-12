@@ -49,7 +49,7 @@ for file in "${FILENAMES[@]}"; do
     mv -f ./temp/$file ./db/backup_tsv/$file
 done
 
-exporter/goldendict/exporter.py
+exporter/goldendict/export_gd_mdict.py
 
 git checkout -- pyproject.toml
 

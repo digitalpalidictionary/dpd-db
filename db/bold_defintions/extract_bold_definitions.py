@@ -9,13 +9,13 @@ from rich import print
 from db.models import BoldDefintion
 from db.get_db_session import get_db_session
 
-from bold_defintions.functions import useless_endings
-from bold_defintions.functions import file_list
-from bold_defintions.functions import defintion_to_dict
-from bold_defintions.functions import dissolve_empty_siblings
-from bold_defintions.functions import get_nikaya_headings_div
-from bold_defintions.functions import get_headings_no_div
-from bold_defintions.functions import get_bold_strings
+from db.bold_defintions.functions import useless_endings
+from db.bold_defintions.functions import file_list
+from db.bold_defintions.functions import defintion_to_dict
+from db.bold_defintions.functions import dissolve_empty_siblings
+from db.bold_defintions.functions import get_nikaya_headings_div
+from db.bold_defintions.functions import get_headings_no_div
+from db.bold_defintions.functions import get_bold_strings
 
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc

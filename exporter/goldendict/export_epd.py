@@ -6,18 +6,18 @@ from css_html_js_minify import css_minify
 from mako.template import Template
 from minify_html import minify
 from rich import print
+from sqlalchemy.orm import joinedload
 from sqlalchemy.orm import Session
 from typing import List, Tuple
 
-from exporter.goldendict.export_dpd import render_header_templ
+from export_dpd import render_header_templ
 
 from db.models import DpdHeadwords, DpdRoots
-from tools.tic_toc import bip, bop
+from tools.configger import config_test
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from tools.configger import config_test
+from tools.tic_toc import bip, bop
 from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes
-from sqlalchemy.orm import joinedload
 
 
 def generate_epd_html(

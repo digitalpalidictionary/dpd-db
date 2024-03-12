@@ -6,23 +6,21 @@ from css_html_js_minify import css_minify, js_minify
 from mako.template import Template
 from minify_html import minify
 from rich import print
-from typing import Dict, Tuple, List
-
 from sqlalchemy.orm import Session
+from typing import Dict, Tuple, List
+from typing import Optional
 
-from exporter.goldendict.export_dpd import render_header_templ
+from export_dpd import render_header_templ
+from helpers import TODAY
 
-from exporter.goldendict.helpers import TODAY
 from db.models import DpdRoots, FamilyRoot
+from dps.tools.paths_dps import DPSPaths
+from dps.tools.tools_for_dps_exporter import replace_abbreviations
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from dps.tools.paths_dps import DPSPaths
 from tools.tic_toc import bip, bop
 from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes
-from typing import Optional
-
-from dps.tools.tools_for_dps_exporter import replace_abbreviations
 
 
 def generate_root_html(
