@@ -9,7 +9,7 @@ from typing import Optional, Tuple
 from db.models import SBS, DpdHeadwords, DpdRoots, InflectionTemplates, Russian
 from functions_daily_record import daily_record_update
 
-from gui.i2html import make_html
+from tools.i2html import make_html
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 

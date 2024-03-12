@@ -78,7 +78,7 @@ exporter/other_dictionaries/goldendict/
 exporter/other_dictionaries/json/
 exporter/other_dictionaries/mdict/
 exporter/share/
-exporter/tpr
+exporter/tpr/output/
 gui/icons/
 gui/stash/
 gui/window_layout.py

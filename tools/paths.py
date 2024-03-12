@@ -134,10 +134,10 @@ class ProjectPaths:
 
         # /exporter/tpr
         self.tpr_dir = base_dir.joinpath(Path("exporter/tpr"))
-        self.tpr_sql_file_path = base_dir.joinpath(Path("exporter/tpr/dpd.sql"))
-        self.tpr_dpd_tsv_path = base_dir.joinpath(Path("exporter/tpr/dpd.tsv"))
-        self.tpr_i2h_tsv_path = base_dir.joinpath(Path("exporter/tpr/i2h.tsv"))
-        self.tpr_deconstructor_tsv_path = base_dir.joinpath(Path("exporter/tpr/deconstructor.tsv"))
+        self.tpr_sql_file_path = base_dir.joinpath(Path("exporter/tpr/output/dpd.sql"))
+        self.tpr_dpd_tsv_path = base_dir.joinpath(Path("exporter/tpr/output/dpd.tsv"))
+        self.tpr_i2h_tsv_path = base_dir.joinpath(Path("exporter/tpr/output/i2h.tsv"))
+        self.tpr_deconstructor_tsv_path = base_dir.joinpath(Path("exporter/tpr/output/deconstructor.tsv"))
 
         # /db/frequency/output
         self.frequency_output_dir = base_dir.joinpath(Path("db/frequency/output/"))
