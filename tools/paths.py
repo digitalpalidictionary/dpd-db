@@ -133,7 +133,7 @@ class ProjectPaths:
         self.header_grammar_dict_templ_path = base_dir.joinpath(Path("exporter/goldendict/templates/header_grammar_dict.html"))
 
         # /exporter/tpr
-        self.tpr_dir = base_dir.joinpath(Path("exporter/tpr"))
+        self.tpr_output_dir = base_dir.joinpath(Path("exporter/tpr/output"))
         self.tpr_sql_file_path = base_dir.joinpath(Path("exporter/tpr/output/dpd.sql"))
         self.tpr_dpd_tsv_path = base_dir.joinpath(Path("exporter/tpr/output/dpd.tsv"))
         self.tpr_i2h_tsv_path = base_dir.joinpath(Path("exporter/tpr/output/i2h.tsv"))
@@ -337,7 +337,7 @@ class ProjectPaths:
         for d in [
             self.anki_csvs_dir,
             self.share_dir,
-            self.tpr_dir,
+            self.tpr_output_dir,
             self.epub_text_dir,
             self.frequency_output_dir,
             self.grammar_dict_output_dir,
