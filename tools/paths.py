@@ -16,29 +16,17 @@ class ProjectPaths:
         self.dpd_db_path = base_dir.joinpath(Path("dpd.db"))
         self.pyproject_path = base_dir.joinpath(Path("pyproject.toml"))
 
-        # /anki_csvs
-        self.anki_csvs_dir = base_dir.joinpath(Path("anki_csvs/"))
-        self.vocab_csv_path = base_dir.joinpath(Path("anki_csvs/vocab.csv"))
-        self.dpd_full_path = base_dir.joinpath(Path("anki_csvs/dpd-full.csv"))
-        self.commentary_csv_path = base_dir.joinpath(Path("anki_csvs/commentary.csv"))
-        self.pass1_csv_path = base_dir.joinpath(Path("anki_csvs/pass1.csv"))
-        self.roots_csv_path = base_dir.joinpath(Path("anki_csvs/roots.csv"))
-        self.family_compound_tsv_path = base_dir.joinpath(Path("anki_csvs/family_compound.tsv"))
-        self.family_root_tsv_path = base_dir.joinpath(Path("anki_csvs/family_root.tsv"))
-        self.family_word_tsv_path = base_dir.joinpath(Path("anki_csvs/family_word.tsv"))
-        self.root_matrix_tsv_path = base_dir.joinpath(Path("anki_csvs/root_matrix.tsv"))
-
-        # /backup_tsv
+        # backup_tsv
         self.pali_word_path = base_dir.joinpath(Path("db/backup_tsv/dpd_headwords.tsv"))
         self.pali_root_path = base_dir.joinpath(Path("db/backup_tsv/dpd_roots.tsv"))
         self.russian_path = base_dir.joinpath(Path("db/backup_tsv/russian.tsv"))
         self.sbs_path = base_dir.joinpath(Path("db/backup_tsv/sbs.tsv"))
 
-        # /bold_definitions
+        # db/bold_definitions
         self.bold_defintions_tsv_path = base_dir.joinpath(Path("db/bold_defintions/bold_defintions.tsv"))
         self.bold_defintions_json_path = base_dir.joinpath(Path("db/bold_defintions/bold_defintions.json"))
  
-        # ebook
+        # exporter/ebook/
         self.epub_dir = base_dir.joinpath(Path("exporter/ebook/epub/"))
         self.epub_dir = base_dir.joinpath(Path("exporter/ebook/epub/"))
         self.kindlegen_path = base_dir.joinpath(Path("exporter/ebook/kindlegen"))
@@ -49,7 +37,7 @@ class ProjectPaths:
         self.epub_abbreviations_path = base_dir.joinpath(Path("exporter/ebook/epub/OEBPS/Text/abbreviations.xhtml"))
         self.epub_titlepage_path = base_dir.joinpath(Path("exporter/ebook/epub/OEBPS/Text/titlepage.xhtml"))
 
-        # /exporter/ebook/templates
+        # exporter/ebook/templates
         self.ebook_letter_templ_path = base_dir.joinpath(Path("exporter/ebook/templates/ebook_letter.html"))
         self.ebook_entry_templ_path = base_dir.joinpath(Path("exporter/ebook/templates/ebook_entry.html"))
         self.ebook_deconstructor_templ_path = base_dir.joinpath(Path("exporter/ebook/templates/ebook_deconstructor_entry.html"))
@@ -59,7 +47,7 @@ class ProjectPaths:
         self.ebook_title_page_templ_path = base_dir.joinpath(Path("exporter/ebook/templates/ebook_titlepage.html"))
         self.ebook_content_opf_templ_path = base_dir.joinpath(Path("exporter/ebook/templates/ebook_content_opf.html"))
 
-        # /exporter/css
+        # exporter/css
         self.dpd_css_path = base_dir.joinpath(Path("exporter/goldendict/css/dpd.css"))
         self.roots_css_path = base_dir.joinpath(Path("exporter/goldendict/css/roots.css"))
         self.deconstructor_css_path = base_dir.joinpath(Path("exporter/goldendict/css/deconstructor.css"))
@@ -68,17 +56,17 @@ class ProjectPaths:
         self.grammar_css_path = base_dir.joinpath(Path("exporter/goldendict/css/grammar.css"))
         self.variant_spelling_css_path = base_dir.joinpath(Path("exporter/goldendict/css/variant_spelling.css"))
 
-        # /exporter/goldendict/help/
+        # exporter/goldendict/help/
         self.abbreviations_tsv_path = base_dir.joinpath(Path("exporter/goldendict/help//abbreviations.tsv"))
         self.help_tsv_path = base_dir.joinpath(Path("exporter/goldendict/help//help.tsv"))
         self.bibliography_tsv_path = base_dir.joinpath(Path("exporter/goldendict/help//bibliography.tsv"))
         self.thanks_tsv_path = base_dir.joinpath(Path("exporter/goldendict/help//thanks.tsv"))
 
-        # /exporter/goldendict/javascript/
+        # exporter/goldendict/javascript/
         self.buttons_js_path = base_dir.joinpath(Path("exporter/goldendict/javascript//buttons.js"))
         self.sorter_js_path = base_dir.joinpath(Path("exporter/goldendict/javascript//sorter.js"))
 
-        # /exporter/share
+        # exporter/share
         self.share_dir = base_dir.joinpath(Path("exporter/share"))
         self.dpd_zip_path = base_dir.joinpath(Path("exporter/share/dpd.zip"))
         self.mdict_mdx_path = base_dir.joinpath(Path("exporter/share/dpd-mdict.mdx"))
@@ -91,7 +79,7 @@ class ProjectPaths:
         self.dpd_goldendict_zip_path = base_dir.joinpath(Path("exporter/share/dpd-goldendict.zip"))
         self.dpd_mdict_zip_path = base_dir.joinpath(Path("exporter/share/dpd-mdict.zip"))
 
-        # /exporter/templates
+        # exporter/templates
         self.templates_dir = base_dir.joinpath(Path("exporter/templates"))
         self.header_templ_path = base_dir.joinpath(Path("exporter/goldendict/templates/header.html"))
         self.dpd_definition_templ_path = base_dir.joinpath(Path("exporter/goldendict/templates/dpd_defintion.html"))
@@ -116,14 +104,14 @@ class ProjectPaths:
         self.temp_html_file_path = base_dir.joinpath(Path("temp/temp_html_file.html"))
 
 
-        # # root templates
+        # exporter/goldendict/templates - root
         self.root_definition_templ_path = base_dir.joinpath(Path("exporter/goldendict/templates/root_definition.html"))
         self.root_button_templ_path = base_dir.joinpath(Path("exporter/goldendict/templates/root_buttons.html"))
         self.root_info_templ_path = base_dir.joinpath(Path("exporter/goldendict/templates/root_info.html"))
         self.root_matrix_templ_path = base_dir.joinpath(Path("exporter/goldendict/templates/root_matrix.html"))
         self.root_families_templ_path = base_dir.joinpath(Path("exporter/goldendict/templates/root_families.html"))
 
-        # # other templates
+        # exporter/goldendict/templates - other
         self.epd_templ_path = base_dir.joinpath(Path("exporter/goldendict/templates/epd.html"))
         self.deconstructor_templ_path = base_dir.joinpath(Path("exporter/goldendict/templates/deconstructor.html"))
         self.abbrev_templ_path = base_dir.joinpath(Path("exporter/goldendict/templates/help_abbrev.html"))
@@ -132,14 +120,14 @@ class ProjectPaths:
         self.header_deconstructor_templ_path = base_dir.joinpath(Path("exporter/goldendict/templates/header_deconstructor.html"))
         self.header_grammar_dict_templ_path = base_dir.joinpath(Path("exporter/goldendict/templates/header_grammar_dict.html"))
 
-        # /exporter/tpr
+        # exporter/tpr
         self.tpr_output_dir = base_dir.joinpath(Path("exporter/tpr/output"))
         self.tpr_sql_file_path = base_dir.joinpath(Path("exporter/tpr/output/dpd.sql"))
         self.tpr_dpd_tsv_path = base_dir.joinpath(Path("exporter/tpr/output/dpd.tsv"))
         self.tpr_i2h_tsv_path = base_dir.joinpath(Path("exporter/tpr/output/i2h.tsv"))
         self.tpr_deconstructor_tsv_path = base_dir.joinpath(Path("exporter/tpr/output/deconstructor.tsv"))
 
-        # /db/frequency/output
+        # db/frequency/output
         self.frequency_output_dir = base_dir.joinpath(Path("db/frequency/output/"))
         self.raw_text_dir = base_dir.joinpath(Path("db/frequency/output/raw_text/"))
         self.freq_html_dir = base_dir.joinpath(Path("db/frequency/output/html/"))
@@ -149,7 +137,7 @@ class ProjectPaths:
         self.ebt_raw_text_path = base_dir.joinpath(Path("db/frequency/output/raw_text/ebts.txt"))
         self.ebt_word_count_path = base_dir.joinpath(Path("db/frequency/output/word_count/ebts.csv"))
 
-        # /exporter/grammar_dict/output
+        # exporter/grammar_dict/output
         self.grammar_dict_output_dir = base_dir.joinpath(Path("exporter/grammar_dict/output"))
         self.grammar_dict_output_html_dir = base_dir.joinpath(Path("exporter/grammar_dict/output/html"))
         self.grammar_dict_pickle_path = base_dir.joinpath(Path("exporter/grammar_dict/output/grammar_dict_pickle"))
@@ -161,19 +149,18 @@ class ProjectPaths:
         self.additions_pickle_path = base_dir.joinpath(Path("gui/additions"))
 
 
-        # /gui/stash
+        # gui/stash
         self.stash_dir = base_dir.joinpath(Path("gui/stash/"))
         self.stash_path = base_dir.joinpath(Path("gui/stash/stash"))
         self.save_state_path = base_dir.joinpath(Path("gui/stash/gui_state"))
         self.daily_record_path = base_dir.joinpath(Path("gui/stash/daily_record"))
 
-        # /icon
+        # exporter/goldendict/icon
         self.icon_path = base_dir.joinpath(Path("exporter/goldendict/icon//favicon.ico"))
         self.icon_bmp_path = base_dir.joinpath(Path("exporter/goldendict/icon//dpd.bmp"))
 
-        # /db/inflections/
+        # db/inflections/
         self.inflection_templates_path = base_dir.joinpath(Path("db/inflections/inflection_templates.xlsx"))
-
 
         # exporter/other_dictionaries/css
         self.whitney_css_dir = base_dir.joinpath(Path("exporter/other_dictionaries/code/whitney/whitney.css/"))
@@ -208,7 +195,7 @@ class ProjectPaths:
         self.vri_json_path = base_dir.joinpath(Path("exporter/other_dictionaries/json/vri.json"))
         self.whitney_json_path = base_dir.joinpath(Path("exporter/other_dictionaries/json/whitney.json"))
 
-        # mdict
+        # exporter/other_dictionaries/mdict
         self.bhs_mdict_path = base_dir.joinpath(Path("exporter/other_dictionaries/mdict/bhs.mdx"))
         self.cpd_mdict_path = base_dir.joinpath(Path("exporter/other_dictionaries/mdict/cpd.mdx"))
         self.dpr_mdict_path = base_dir.joinpath(Path("exporter/other_dictionaries/mdict/dpr.mdx"))
@@ -218,7 +205,7 @@ class ProjectPaths:
         self.vri_mdict_path = base_dir.joinpath(Path("exporter/other_dictionaries/mdict/vri.mdx"))
         self.whitney_mdict_path = base_dir.joinpath(Path("exporter/other_dictionaries/mdict/whitney.mdx"))
 
-        # /resources/tipitaka-xml
+        # resources/tipitaka-xml
         self.cst_txt_dir = base_dir.joinpath(Path("resources/tipitaka-xml/roman_txt/"))
         self.cst_xml_dir = base_dir.joinpath(Path("resources/tipitaka-xml/deva/"))
         self.cst_xml_roman_dir = base_dir.joinpath(Path("resources/tipitaka-xml/romn/"))
@@ -226,15 +213,15 @@ class ProjectPaths:
         # resources/resources/other_pali_texts
         self.other_pali_texts_dir = base_dir.joinpath(Path("resources/other_pali_texts"))
 
-        # /resources/sutta_central
+        # resources/sutta_central
         self.sc_dir = base_dir.joinpath(Path("resources/sutta_central/ms/"))
 
-        # /resources/tpr
+        # resources/tpr
         self.tpr_download_list_path = base_dir.joinpath(Path("resources/tpr_downloads/download_source_files/download_list.json"))
         self.tpr_release_path = base_dir.joinpath(Path("resources/tpr_downloads/release_zips/dpd.zip"))
         self.tpr_beta_path = base_dir.joinpath(Path("resources/tpr_downloads/release_zips/dpd_beta.zip"))
 
-        # /db/deconstructor/assets
+        # db/deconstructor/assets
         self.sandhi_assests_dir = base_dir.joinpath(Path("db/deconstructor/assets"))
         self.unmatched_set_path = base_dir.joinpath(Path("db/deconstructor/assets/unmatched_set"))
         self.all_inflections_set_path = base_dir.joinpath(Path("db/deconstructor/assets/all_inflections_set"))
@@ -242,7 +229,7 @@ class ProjectPaths:
         self.neg_inflections_set_path = base_dir.joinpath(Path("db/deconstructor/assets/neg_inflections_set"))
         self.matches_dict_path = base_dir.joinpath(Path("db/deconstructor/assets/matches_dict"))
 
-        # /db/deconstructor/output
+        # db/deconstructor/output
         self.sandhi_output_dir = base_dir.joinpath(Path("db/deconstructor/output/"))
         self.sandhi_output_do_dir = base_dir.joinpath(Path("db/deconstructor/output_do/"))
         self.matches_do_path = base_dir.joinpath(Path("db/deconstructor/output_do/matches.tsv"))
@@ -256,10 +243,10 @@ class ProjectPaths:
         self.rule_counts_path = base_dir.joinpath(Path("db/deconstructor/output/rule_counts/rule_counts.tsv"))
         self.sandhi_log_path = base_dir.joinpath(Path("db/deconstructor/output/logfile.log"))
 
-        # /db/deconstructor/output/rule_counts
+        # db/deconstructor/output/rule_counts
         self.rule_counts_dir = base_dir.joinpath(Path("db/deconstructor/output/rule_counts/"))
 
-        # /db/deconstructor/output/letters
+        # db/deconstructor/output/letters
         self.letters_dir = base_dir.joinpath(Path("db/deconstructor/output/letters/"))
         self.letters = base_dir.joinpath(Path("db/deconstructor/output/letters/letters.tsv"))
         self.letters1 = base_dir.joinpath(Path("db/deconstructor/output/letters/letters1.tsv"))
@@ -273,7 +260,7 @@ class ProjectPaths:
         self.letters9 = base_dir.joinpath(Path("db/deconstructor/output/letters/letters9.tsv"))
         self.letters10 = base_dir.joinpath(Path("db/deconstructor/output/letters/letters10plus.tsv"))
 
-        # /db/deconstructor/sandhi_related/
+        # db/deconstructor/sandhi_related/
         self.sandhi_ok_path = base_dir.joinpath(Path("db/deconstructor/sandhi_related/sandhi_ok.csv"))
         self.sandhi_exceptions_path = base_dir.joinpath(Path("db/deconstructor/sandhi_related/sandhi_exceptions.tsv"))
         self.spelling_mistakes_path = base_dir.joinpath(Path("db/deconstructor/sandhi_related/spelling_mistakes.tsv"))
@@ -282,10 +269,10 @@ class ProjectPaths:
         self.manual_corrections_path = base_dir.joinpath(Path("db/deconstructor/sandhi_related/manual_corrections.tsv"))
         self.shortlist_path = base_dir.joinpath(Path("db/deconstructor/sandhi_related/shortlist.tsv"))
 
-        # sanskrit
+        # db/sanskrit
         self.root_families_sanskrit_path = base_dir.joinpath(Path("db/sanskrit/root_families_sanskrit.tsv"))
         
-        # /share
+        # share
         self.all_tipitaka_words_path = base_dir.joinpath(Path("share/all_tipitaka_words"))
         self.template_changed_path = base_dir.joinpath(Path("share/changed_templates"))
         self.changed_headwords_path = base_dir.joinpath(Path("share/changed_headwords"))
@@ -304,7 +291,7 @@ class ProjectPaths:
         # temp
         self.temp_dir = base_dir.joinpath(Path("temp/"))
 
-        # /tests
+        # tests/
         self.antonym_dict_path = base_dir.joinpath(Path("tests/test_antonyms.json"))
         self.bahubbihi_dict_path = base_dir.joinpath(Path("tests/test_bahubbihis.json"))        
         self.compound_type_path = base_dir.joinpath(Path("tests/add_compound_type.tsv"))
@@ -321,7 +308,6 @@ class ProjectPaths:
 
         # tools
         self.user_dict_path = base_dir.joinpath(Path("tools/user_dictionary.txt"))
-    
 
         # .. external
         self.bibliography_md_path = base_dir.joinpath(Path("../digitalpalidictionary-website-source/src/bibliography.md"))
@@ -335,7 +321,6 @@ class ProjectPaths:
 
     def create_dirs(self):
         for d in [
-            self.anki_csvs_dir,
             self.share_dir,
             self.tpr_output_dir,
             self.epub_text_dir,

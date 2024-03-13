@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 from typing import Dict, Tuple, List
 
 from export_dpd import render_header_templ
-from helpers import TODAY
+from exporter.goldendict.helpers import TODAY
 
 from db.models import DpdRoots, FamilyRoot
 from exporter.ru_components.tools.paths_ru import RuPaths

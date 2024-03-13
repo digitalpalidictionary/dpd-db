@@ -604,7 +604,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √gaṇ	8	*e	calculate, group	√gaṇ	10	count	saṃ √gaṇ		saṃgaṇana, saṃgaṇanā, saṃgaṇikā
 √gad	1	a	speak	√gad	1	say	√gad		gada
 √gadh	1	a	bind, tie	√grath	1, 7, 9	tie	√gadh		grathita, na + grathita
-√ganth	8	*e	tie, bind	√granth √grath	1, 7, 9	tie	√ganth	granth	grath, grathita, grathita, grathita +, grathnāti, granth, granthanīya, grantha, granthati, grathnāti, grathati, granthayati, granthi, granthi +, granthitvā, na + grathita, nighaṇṭu, nirgranthi, sa + nighaṇṭu
+√ganth	8	*e	tie, bind	√granth √grath	1, 7, 9	tie	√ganth	granth	grath, grathita, grathita, grathita +, grathnāti, grantha, granthati, grathnāti, grathati, granthanīya, granthayati, granthi, granthi +, granthitvā, na + grathita, nighaṇṭu, nirgranthi, sa + nighaṇṭu
 √ganth	8	*e	tie, bind	√granth √grath	1, 7, 9	tie	ni √ganth	nigranth	nirgrantha, nirgranthi
 √gandh	8	*e	hurt, harm	√gandh	10	injure, hurt	√gandh		gandhana
 √gabbh	1	a	be bold, daring	√galbh	1	dare	√gabbh		
@@ -2701,14 +2701,14 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √vij	3	*e	shake, be afraid, be in awe	√vij	1, 6	tremble	√vij		vaijayanta, vega, vega +, vegena
 √vij	3	ya	shake, be afraid, be in awe	√vij	1, 6	tremble	ud √vij		udvigna, udvega, udvejayitṛ, na + udvigna
 √vij	3	ya	shake, be afraid, be in awe	√vij	1, 6	tremble	saṃ √vij		saṃ + vegin, saṃvigna, saṃvij, saṃvijate, saṃvega, saṃvejana, saṃvejanīya, saṃvejayati, saṃvejita (bsk)
-√vid 1	8	*e	know, sense, feel	√vid	1, 2, 6	know	√vid	vid	avidat, avidita, avidvas, avedana, na + vidita, vedayita (bsk), vid, vid, avīvidat, vid, avedīt, vidita, vedayita (bsk), viditvā, vidyate, vettṛ, vedanatā, vedanā, vedanāvat, vedanīya, vedayat, vedayati, vedayamāna, vedayita, veditavya, vedin, vedya, sa + vedanīya, savedana
-√vid 1	8	*aya	know, sense, feel	√vid	1, 2, 6	know	pati √vid	prativid	prativid, prativedayati
-√vid 1	8	*e	know, sense, feel	√vid	1, 2, 6	know	pati saṃ √vid	pratisaṃvid	na + pratisaṃvid, na + pratisaṃvedayati, pratisaṃvid, pratisaṃvedana, pratisaṃvedayati, pratisaṃvedayitvā, pratisaṃvedin
+√vid 1	8	*e	know, sense, feel	√vid	1, 2, 6	know	√vid	vid	avidat, avidita, avidvas, avīvidat, avedana, avedīt, na + vidita, vedayita (bsk), vidita, vedayita (bsk), viditvā, vidyate, vettṛ, vedanatā, vedanā, vedanāvat, vedanīya, vedayat, vedayati, vedayamāna, vedayita, veditavya, vedin, vedya, sa + vedanīya, savedana
+√vid 1	8	*aya	know, sense, feel	√vid	1, 2, 6	know	pati √vid	prativid	prativedayati
+√vid 1	8	*e	know, sense, feel	√vid	1, 2, 6	know	pati saṃ √vid	pratisaṃvid	na +, na + pratisaṃvedayati, pratisaṃvedana, pratisaṃvedayati, pratisaṃvedayitvā, pratisaṃvedin
 √vid 1	8	*e	know, sense, feel	√vid	1, 2, 6	know	pari √vid	parivid	parivittvā
-√vid 2	1	a	know	√vid	1, 2, 6	know	√vid	vid	akovida (na + kovida), avidvas, kovida, vid, vidita, viditvā, vidu, vidvas, veda, vedas, suvidita
+√vid 2	1	a	know	√vid	1, 2, 6	know	√vid	vid	akovida (na + kovida), avidvas, kovida, vidita, viditvā, vidu, vidvas, veda, vedas, suvidita
 √vid 2	1	*e	know	√vid	1, 2, 6	know	ni √vid	nivid	nivedita, nivedita +
-√vid 2	1	*e	know	√vid	1, 2, 6	know	pa √vid	pravid	dus + pravedita, pravid, pravid, pravedana, pravedana, pravedayat, pravedayati, pravedayamāna, pravedita, supravedita
-√vid 2	1	a	know	√vid	1, 2, 6	know	pati √vid	prativid	na + prativid, prativid, pratividita, prativedita, su + pratividita
+√vid 2	1	*e	know	√vid	1, 2, 6	know	pa √vid	pravid	dus + pravedita, pravedana, pravedayat, pravedayati, pravedayamāna, pravedita, supravedita
+√vid 2	1	a	know	√vid	1, 2, 6	know	pati √vid	prativid	na +, pratividita, prativedita, su + pratividita
 √vid 2	1	a	know	√vid	1, 2, 6	know	saṃ √vid	saṃvid	saṃvida, saṃvidāna, saṃvidita
 √vid 3	2	ṃa	feel, like	√vid	2, 6	find	√vid	vid	vindat, vindati, vindamāna
 √vid 3	2	ṃa	feel, like	√vid	2, 6	find	anu √vid	anuvid	na +

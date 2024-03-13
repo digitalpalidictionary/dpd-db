@@ -7,7 +7,7 @@ fi
 
 set -e
 
-# tools/version.py
+tools/version.py
 
 db/lookup/variants_and_spelling_mistakes.py
 

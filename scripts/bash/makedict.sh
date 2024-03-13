@@ -10,7 +10,6 @@ fi
 scripts/bash/generate_components.sh
 
 exporter/grammar_dict/grammar_dict.py
-
 exporter/goldendict/export_gd_mdict.py
 exporter/deconstructor/deconstructor_exporter.py
 

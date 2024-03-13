@@ -17,7 +17,7 @@ from typing import Union
 
 from sqlalchemy.orm.session import Session
 
-from helpers import TODAY
+from exporter.goldendict.helpers import TODAY
 from tools import time_log
 
 from db.models import DpdHeadwords, FamilyIdiom
