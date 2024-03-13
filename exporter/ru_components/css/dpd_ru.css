@@ -114,24 +114,24 @@ a.jump_ru {
     font-weight: bold;
 }
 
-table.family td,
-table.family th {
+table.family_ru td,
+table.family_ru th {
     text-align: left;
     vertical-align: top;
 }
 
-table.family th {
-    color: #00A4CC;
-    font-weight: 700;
+table.family_ru th {
+    color: #358109;
+    font-weight: 400;
     white-space: nowrap;
 }
 
-table.family td {
+table.family_ru td {
     padding-right: 7px;
 }
 
-table.family b {
-    font-weight: 700;
+table.family_ru b {
+    font-weight: 400;
 }
 
 input {
@@ -158,6 +158,8 @@ a.button_ru {
     text-decoration: none;
     user-select: none;
 }
+
+
 
 a.button_ru.close {
     float: right;

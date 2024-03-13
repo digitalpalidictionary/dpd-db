@@ -130,7 +130,7 @@ def compile_cf_html(dpd_db, cf_dict, lang="en"):
 
                     if lang == "ru" and i.ru:
                         if not cf_dict[cf]["html_ru"]:
-                            html_string = "<table class='family'>"
+                            html_string = "<table class='family_ru'>"
                         else:
                             html_string = cf_dict[cf]["html_ru"]
 

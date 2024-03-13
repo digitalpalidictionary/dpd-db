@@ -55,24 +55,19 @@ def make_ru_meaning_html(i: DpdHeadwords, ru: Russian) -> str:
     ru_meaning in <b>bold</b>"""
 
     if ru is None:
-        return make_meaning(i)
+        ru_meaning: str = make_meaning(i)
+        return ru_meaning
 
     elif ru.ru_meaning:
         ru_meaning: str = f"<b>{ru.ru_meaning}</b>"
         if ru.ru_meaning_lit:
             ru_meaning += f"; досл. {ru.ru_meaning_lit}"
         return ru_meaning
+    elif ru.ru_meaning_raw:
+        ru_meaning: str = ru.ru_meaning_raw
+        return ru_meaning
     else:
-        # add bold to ru_meaning_raw, keep досл. plain
-        if "; досл." in ru.ru_meaning_raw:
-            return re.sub("(.+)(; досл.+)", "<b>\\1</b>\\2", ru.ru_meaning_raw)
-        elif ru.ru_meaning_lit:
-            ru_meaning = f"<b>{ru.ru_meaning_raw}</b>; досл. {ru.ru_meaning_lit}"
-            ru_meaning: str = f"[пер. ИИ] {ru.ru_meaning_raw}"
-            return ru_meaning
-        else:
-            ru_meaning: str = f"[пер. ИИ] {ru.ru_meaning_raw}"
-            return f"<b>{ru_meaning}</b>"
+        return ""
 
 
 abbreviations_dict = None

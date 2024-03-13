@@ -107,7 +107,7 @@ def compile_sf_html(sets_db, sets_dict, lang="en"):
 
                     if lang == "ru" and i.ru:
                         if not sets_dict[sf]["html_ru"]:
-                            html_string = "<table class='family'>"
+                            html_string = "<table class='family_ru'>"
                         else:
                             html_string = sets_dict[sf]["html_ru"]
 

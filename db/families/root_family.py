@@ -146,7 +146,7 @@ def compile_rf_html(dpd_db, rf_dict, lang="en"):
 
             if lang == "ru" and i.ru:
                 if not rf_dict[family]["html_ru"]:
-                    html_string = "<table class='family'>"
+                    html_string = "<table class='family_ru'>"
                 else:
                     html_string = rf_dict[family]["html_ru"]
 

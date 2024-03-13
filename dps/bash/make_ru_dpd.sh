@@ -13,6 +13,8 @@ db/families/compound_family.py
 db/families/sets.py
 db/families/idioms.py
 
+echo "exporting RU DPD"
+
 exporter/goldendict/export_gd_mdict.py
 
 python -c "from tools.configger import config_update; config_update('exporter', 'language', 'en')"

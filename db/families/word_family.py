@@ -112,7 +112,7 @@ def compile_wf_html(wf_db, wf_dict, lang="en"):
             if lang == "ru" and i.ru:
 
                 if not wf_dict[wf]["html_ru"]:
-                    html_string = "<table class='family'>"
+                    html_string = "<table class='family_ru'>"
                 else:
                     html_string = wf_dict[wf]["html_ru"]
 

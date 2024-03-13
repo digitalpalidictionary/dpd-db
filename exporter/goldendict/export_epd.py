@@ -221,8 +221,8 @@ def generate_epd_html(
     return epd_data_list, size_dict
 
 
-# Extract sutta number from i.meaning_2
 def extract_sutta_numbers(meaning_2):
+    # Extract sutta number from i.meaning_2
     unified_pattern = r"\(([A-Z]+)\s?([\d\.]+)(-\d+)?\)|([A-Z]+)[\s]?([\d\.]+)(-\d+)?"
     match = re.finditer(unified_pattern, meaning_2)
     combined_numbers = []
@@ -244,8 +244,9 @@ def extract_sutta_numbers(meaning_2):
 
     return combined_numbers
 
-# Use sutta number as key in epd
+
 def update_epd(epd, combined_numbers, i, make_link=True):
+    # Use sutta number as key in epd
     for combined_number in combined_numbers:
         if combined_number:
             number_link = i.source_link_sutta
