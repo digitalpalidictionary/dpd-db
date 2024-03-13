@@ -12,6 +12,7 @@ from multiprocessing.managers import ListProxy
 from multiprocessing import Process, Manager
 from rich import print
 from typing import List, Set, TypedDict, Tuple
+from typing import Union
 
 
 from sqlalchemy.orm.session import Session
@@ -37,57 +38,60 @@ from tools.meaning_construction import summarize_construction
 from tools.meaning_construction import degree_of_completion
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
+from exporter.ru_components.tools.paths_ru import RuPaths
 from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
-# from tools.pos import INDECLINABLES
-# from tools.pos import EXCLUDE_FROM_FREQ
 from tools.sandhi_contraction import SandhiContractions
 from tools.superscripter import superscripter_uni
 from tools.tic_toc import bip, bop
 from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, list_into_batches, sum_rendered_sizes
 
+from exporter.ru_components.tools.tools_for_ru_exporter import make_ru_meaning_html, ru_replace_abbreviations, replace_english, ru_make_grammar_line, read_set_ru_from_tsv
+
 
 class DpdHeadwordsTemplates:
-    def __init__(self, pth: ProjectPaths):
-        self.header_templ = Template(filename=str(pth.header_templ_path))
-        self.dpd_definition_templ = Template(filename=str(pth.dpd_definition_templ_path))
-        self.button_box_templ = Template(filename=str(pth.button_box_templ_path))
-        self.grammar_templ = Template(filename=str(pth.grammar_templ_path))
-        self.example_templ = Template(filename=str(pth.example_templ_path))
-        self.sbs_example_templ = Template(filename=str(pth.sbs_example_templ_path))
-        self.inflection_templ = Template(filename=str(pth.inflection_templ_path))
-        self.family_root_templ = Template(filename=str(pth.family_root_templ_path))
-        self.family_word_templ = Template(filename=str(pth.family_word_templ_path))
-        self.family_compound_templ = Template(filename=str(pth.family_compound_templ_path))
-        self.family_idiom_templ = Template(filename=str(pth.family_idiom_templ_path))
-        self.family_set_templ = Template(filename=str(pth.family_set_templ_path))
-        self.frequency_templ = Template(filename=str(pth.frequency_templ_path))
-        self.feedback_templ = Template(filename=str(pth.feedback_templ_path))
+    def __init__(self, paths, lang):
+        self.paths = paths
+        self.lang = lang
+        self.header_templ = Template(filename=str(paths.header_templ_path))
+        self.dpd_definition_templ = Template(filename=str(paths.dpd_definition_templ_path))
+        self.button_box_templ = Template(filename=str(paths.button_box_templ_path))
+        self.grammar_templ = Template(filename=str(paths.grammar_templ_path))
+        self.example_templ = Template(filename=str(paths.example_templ_path))
+        self.sbs_example_templ = Template(filename=str(paths.sbs_example_templ_path))
+        self.inflection_templ = Template(filename=str(paths.inflection_templ_path))
+        self.family_root_templ = Template(filename=str(paths.family_root_templ_path))
+        self.family_word_templ = Template(filename=str(paths.family_word_templ_path))
+        self.family_compound_templ = Template(filename=str(paths.family_compound_templ_path))
+        self.family_idiom_templ = Template(filename=str(paths.family_idiom_templ_path))
+        self.family_set_templ = Template(filename=str(paths.family_set_templ_path))
+        self.frequency_templ = Template(filename=str(paths.frequency_templ_path))
+        self.feedback_templ = Template(filename=str(paths.feedback_templ_path))
 
-        with open(pth.dpd_css_path) as f:
+        with open(paths.dpd_css_path) as f:
             dpd_css = f.read()
 
         self.dpd_css = css_minify(dpd_css)
 
-        with open(pth.buttons_js_path) as f:
+        with open(paths.buttons_js_path) as f:
             button_js = f.read()
         self.button_js = js_minify(button_js)
 
 DpdHeadwordsDbRowItems = Tuple[DpdHeadwords, FamilyRoot, FamilyWord, SBS, Russian]
 
 class DpdHeadwordsDbParts(TypedDict):
-   pali_word: DpdHeadwords
-   pali_root: DpdRoots
-   sbs: SBS
-   ru: Russian
-   family_root: FamilyRoot
-   family_word: FamilyWord
-   family_compounds: List[FamilyCompound]
-   family_idioms: List[FamilyIdiom]
-   family_set: List[FamilySet]
+    pali_word: DpdHeadwords
+    pali_root: DpdRoots
+    sbs: SBS
+    ru: Russian
+    family_root: FamilyRoot
+    family_word: FamilyWord
+    family_compounds: List[FamilyCompound]
+    family_idioms: List[FamilyIdiom]
+    family_set: List[FamilySet]
 
 class DpdHeadwordsRenderData(TypedDict):
-    pth: ProjectPaths
+    pth: Union[ProjectPaths, RuPaths]
     word_templates: DpdHeadwordsTemplates
     sandhi_contractions: SandhiContractions
     cf_set: Set[str]
@@ -97,10 +101,14 @@ class DpdHeadwordsRenderData(TypedDict):
     show_ebt_count: bool
     dps_data: bool
 
+
 def render_pali_word_dpd_html(
-        extended_synonyms, dps_data, 
         db_parts: DpdHeadwordsDbParts,
-        render_data: DpdHeadwordsRenderData) -> Tuple[RenderResult, RenderedSizes]:
+        render_data: DpdHeadwordsRenderData,
+        lang="en",
+        extended_synonyms=False, 
+        dps_data=False
+        ) -> Tuple[RenderResult, RenderedSizes]:
     rd = render_data
     size_dict = default_rendered_sizes()
 
@@ -139,7 +147,7 @@ def render_pali_word_dpd_html(
         i.example_1 = i.example_1.replace("\n", "<br>")
     if i.example_2:
         i.example_2 = i.example_2.replace("\n", "<br>")
-    if dps_data and sbs:
+    if lang != "ru" and dps_data and sbs:
         if sbs.sbs_sutta_1:
             sbs.sbs_sutta_1 = sbs.sbs_sutta_1.replace("\n", "<br>")
         if sbs.sbs_sutta_2:
@@ -165,27 +173,27 @@ def render_pali_word_dpd_html(
     html += "<body>"
 
     summary = render_dpd_definition_templ(
-        pth, i, tt.dpd_definition_templ, rd['make_link'], rd['show_id'], rd['show_ebt_count'], rd['dps_data'], sbs)
+        pth, i, tt.dpd_definition_templ, sbs, ru, rd['make_link'], rd['show_id'], rd['show_ebt_count'], rd['dps_data'], lang)
     html += summary
     size_dict["dpd_summary"] += len(summary)
 
     button_box = render_button_box_templ(
-        pth, i, sbs, rd['dps_data'], rd['cf_set'], rd['idioms_set'], tt.button_box_templ)
+        pth, i, sbs, rd['cf_set'], rd['idioms_set'], tt.button_box_templ, lang, rd['dps_data'])
     html += button_box
     size_dict["dpd_button_box"] += len(button_box)
 
     if i.needs_grammar_button or dps_data:
-        grammar = render_grammar_templ(pth, i, rt, sbs, ru, rd['dps_data'], tt.grammar_templ)
+        grammar = render_grammar_templ(pth, i, rt, sbs, ru, tt.grammar_templ, lang, rd['dps_data'])
         html += grammar
         size_dict["dpd_grammar"] += len(grammar)
 
     if i.needs_example_button or i.needs_examples_button:
-        example = render_example_templ(pth, i, rd['make_link'], tt.example_templ)
+        example = render_example_templ(pth, i, tt.example_templ, rd['make_link'])
         html += example
         size_dict["dpd_example"] += len(example)
 
     if i.needs_conjugation_button or i.needs_declension_button:
-        inflection_table = render_inflection_templ(pth, i, tt.inflection_templ)
+        inflection_table = render_inflection_templ(pth, i, tt.inflection_templ, lang)
         html += inflection_table
         size_dict["dpd_inflection_table"] += len(inflection_table)
 
@@ -217,16 +225,16 @@ def render_pali_word_dpd_html(
         size_dict["dpd_family_sets"] += len(family_sets)
 
     if i.needs_frequency_button:
-        frequency = render_frequency_templ(pth, i, tt.frequency_templ)
+        frequency = render_frequency_templ(pth, i, tt.frequency_templ, lang)
         html += frequency
         size_dict["dpd_frequency"] += len(frequency)
 
-    if dps_data and sbs:
-        sbs_example = render_sbs_example_templ(pth, i, sbs, rd['make_link'], tt.sbs_example_templ)
+    if lang == "en" and dps_data and sbs:
+        sbs_example = render_sbs_example_templ(pth, i, sbs, tt.sbs_example_templ, rd['make_link'])
         html += sbs_example
         size_dict["sbs_example"] += len(sbs_example)
 
-    if not dps_data:
+    if lang == "en":
         feedback = render_feedback_templ(pth, i, tt.feedback_templ)
         html += feedback
         size_dict["dpd_feedback"] += len(feedback)
@@ -242,11 +250,18 @@ def render_pali_word_dpd_html(
             for contraction in contractions:
                 if "'" in contraction:
                     synonyms.append(contraction)
-    if not dps_data:
+    if lang == "en" and not dps_data:
         synonyms += i.inflections_sinhala_list
         synonyms += i.inflections_devanagari_list
         synonyms += i.inflections_thai_list
     synonyms += i.family_set_list
+    if lang == "ru":
+        set_ru_dict = read_set_ru_from_tsv()
+        ru_set_list = []
+        for english_word in i.family_set_list:
+            if english_word in set_ru_dict:
+                ru_set_list.append(set_ru_dict[english_word])
+        synonyms += ru_set_list
     synonyms += [str(i.id)]
     
 
@@ -271,10 +286,13 @@ def render_pali_word_dpd_html(
 def generate_dpd_html(
         db_session: Session,
         pth: ProjectPaths,
+        rupth: RuPaths,
         sandhi_contractions: SandhiContractions,
         cf_set: Set[str],
         idioms_set: set[str],
-        dps_data=False
+        make_link=False,
+        dps_data=False,
+        lang="en"
         ) -> Tuple[List[RenderResult], RenderedSizes]:
     
     time_log.log("generate_dpd_html()")
@@ -282,13 +300,12 @@ def generate_dpd_html(
     print("[green]generating dpd html")
     bip()
 
-    word_templates = DpdHeadwordsTemplates(pth)
+    if lang == "en":
+        paths = pth
+    elif lang == "ru":
+        paths = rupth
 
-    # check config
-    if config_test("dictionary", "make_link", "yes"):
-        make_link: bool = True
-    else:
-        make_link: bool = False
+    word_templates = DpdHeadwordsTemplates(paths, lang)
 
     if config_test("dictionary", "extended_synonyms", "yes"):
         extended_synonyms: bool = True
@@ -307,10 +324,17 @@ def generate_dpd_html(
 
     dpd_data_list: List[RenderResult] = []
 
-    pali_words_count = db_session \
-        .query(func.count(DpdHeadwords.id)) \
-        .scalar()
-
+    if lang == "en":
+        pali_words_count = db_session \
+            .query(func.count(DpdHeadwords.id)) \
+            .scalar()
+    elif lang == "ru":
+        pali_words_count = db_session \
+            .query(func.count(DpdHeadwords.id)) \
+            .join(Russian, DpdHeadwords.id == Russian.id) \
+            .filter(Russian.id.isnot(None)) \
+            .scalar()
+        
     # If the work items per loop are too high, low-memory systems will slow down
     # when multi-threading.
     #
@@ -334,21 +358,28 @@ def generate_dpd_html(
 
     while offset <= pali_words_count:
 
-        dpd_db = db_session.query(
-            DpdHeadwords, FamilyRoot, FamilyWord, SBS, Russian
-        ).outerjoin(
-            SBS,
-            DpdHeadwords.id == SBS.id
-        ).outerjoin(
-            Russian,
-            DpdHeadwords.id == Russian.id
-        ).outerjoin(
-            FamilyRoot,
-            DpdHeadwords.root_family_key == FamilyRoot.root_family_key
-        ).outerjoin(
-            FamilyWord,
-            DpdHeadwords.family_word == FamilyWord.word_family
-        ).limit(limit).offset(offset).all()
+        dpd_db_query = db_session.query(
+                DpdHeadwords, FamilyRoot, FamilyWord, SBS, Russian
+            ).outerjoin(
+                FamilyRoot,
+                DpdHeadwords.root_family_key == FamilyRoot.root_family_key
+            ).outerjoin(
+                FamilyWord,
+                DpdHeadwords.family_word == FamilyWord.word_family
+            ).outerjoin(
+                Russian,
+                DpdHeadwords.id == Russian.id
+            ).outerjoin(
+                    SBS,
+                    DpdHeadwords.id == SBS.id
+            )
+
+        if lang == "ru":
+            dpd_db_query = dpd_db_query.filter(
+                    Russian.id.isnot(None)
+                )
+
+        dpd_db = dpd_db_query.limit(limit).offset(offset).all()
 
         def _add_parts(i: DpdHeadwordsDbRowItems) -> DpdHeadwordsDbParts:
             pw: DpdHeadwords
@@ -392,7 +423,7 @@ def generate_dpd_html(
 
         def _parse_batch(batch: List[DpdHeadwordsDbParts]):
             res: List[Tuple[RenderResult, RenderedSizes]] = \
-                [render_pali_word_dpd_html(extended_synonyms, dps_data, i, render_data) for i in batch]
+                [render_pali_word_dpd_html(i, render_data, lang, extended_synonyms, dps_data) for i in batch]
 
             for i, j in res:
                 dpd_data_results_list.append(i)
@@ -406,6 +437,10 @@ def generate_dpd_html(
 
         for p in processes:
             p.join()
+        
+        if offset % limit == 0:
+            print(f"{offset:>10,} / {pali_words_count:<10,} {bop():>10}")
+            bip()
 
         offset += limit
 
@@ -420,12 +455,11 @@ def generate_dpd_html(
 
     time_log.log("generate_dpd_html() return")
     
-    print(f"html render time: {bop()}")
     return dpd_data_list, total_sizes
 
 
 def render_header_templ(
-        __pth__: ProjectPaths,
+        __pth__: Union[ProjectPaths, RuPaths],
         css: str,
         js: str,
         header_templ: Template
@@ -436,14 +470,16 @@ def render_header_templ(
 
 
 def render_dpd_definition_templ(
-        __pth__: ProjectPaths,
+        __pth__: Union[ProjectPaths, RuPaths],
         i: DpdHeadwords,
         dpd_definition_templ: Template,
-        make_link: bool,
-        show_id: bool,
-        show_ebt_count: bool,
-        dps_data: bool,
         sbs: SBS|None,
+        ru: Russian|None,
+        make_link = False,
+        show_id = False,
+        show_ebt_count = False,
+        dps_data = False,
+        lang="en"
 ) -> str:
     """render the definition of a word's most relevant information:
     1. pos
@@ -453,14 +489,32 @@ def render_dpd_definition_templ(
     5. degree of completition"""
 
     # pos
-    pos: str = i.pos
+    if lang == "en":
+        pos: str = i.pos
+    elif lang == "ru":
+        pos: str = ru_replace_abbreviations(i.pos)
 
     # plus_case
     plus_case: str = ""
     if i.plus_case is not None and i.plus_case:
-        plus_case: str = i.plus_case
-
-    meaning = make_meaning_html(i)
+        if lang == "en":
+            plus_case: str = i.plus_case
+        elif lang == "ru":
+            plus_case: str = ru_replace_abbreviations(i.plus_case)
+    
+    # meaning
+    if lang == "en":
+        meaning = make_meaning_html(i)
+    elif lang == "ru":
+        if ru:
+            ru_meaning = make_ru_meaning_html(i, ru)
+            if ru_meaning:
+                meaning = ru_meaning
+            else:
+                meaning = make_meaning_html(i)
+        else:
+            meaning = make_meaning_html(i)
+    
     summary = summarize_construction(i)
     complete = degree_of_completion(i)
 
@@ -490,51 +544,78 @@ def render_dpd_definition_templ(
 
 
 def render_button_box_templ(
-        __pth__: ProjectPaths,
+        __pth__: Union[ProjectPaths, RuPaths],
         i: DpdHeadwords,
         sbs: SBS,
-        dps_data: bool,
         cf_set: Set[str],
         idioms_set: Set[str],
-        button_box_templ: Template
+        button_box_templ: Template,
+        lang="en",
+        dps_data=False
 ) -> str:
     """render buttons for each section of the dictionary"""
 
-    button_html = (
-        '<a class="button" '
+    if lang == "en":
+        button_html = (
+            '<a class="button" '
+            'href="javascript:void(0);" '
+            'onclick="button_click(this)" '
+            'data-target="{target}">{name}</a>')
+
+        button_link_html = (
+            '<a class="button" '
+            'href="{href}" '
+            'style="text-decoration: none;">{name}</a>')
+
+    elif lang == "ru":
+        button_html = (
+        '<a class="button_ru" '
         'href="javascript:void(0);" '
         'onclick="button_click(this)" '
         'data-target="{target}">{name}</a>')
 
-    button_link_html = (
-        '<a class="button" '
-        'href="{href}" '
-        'style="text-decoration: none;">{name}</a>')
+        button_link_html = (
+            '<a class="button_ru" '
+            'href="{href}" '
+            'style="text-decoration: none;">{name}</a>')
 
     # grammar_button
     if i.needs_grammar_button or dps_data:
-        grammar_button = button_html.format(
-            target=f"grammar_{i.lemma_1_}", name="grammar")
+        if lang == "en":
+            grammar_button = button_html.format(
+                target=f"grammar_{i.lemma_1_}", name="grammar")
+        elif lang == "ru":
+            grammar_button = button_html.format(
+                target=f"ru_grammar_{i.lemma_1_}", name="грамматика")
     else:
         grammar_button = ""
 
     # example_button
     if i.needs_example_button:
-        example_button = button_html.format(
-            target=f"example_{i.lemma_1_}", name="example")
+        if lang == "en":
+            example_button = button_html.format(
+                target=f"example_{i.lemma_1_}", name="example")
+        elif lang == "ru":
+            example_button = button_html.format(
+                target=f"ru_example_{i.lemma_1_}", name="пример")
     else:
         example_button = ""
 
     # examples_button
     if i.needs_examples_button:
-        examples_button = button_html.format(
-            target=f"examples_{i.lemma_1_}", name="examples")
+        if lang == "en":
+            examples_button = button_html.format(
+                target=f"examples_{i.lemma_1_}", name="examples")
+        elif lang == "ru":
+            examples_button = button_html.format(
+                target=f"ru_examples_{i.lemma_1_}", name="примеры")
     else:
         examples_button = ""
 
     # sbs_example_button
     sbs_example_button = ""
     if (
+        lang != "ru" and
         dps_data and
         sbs and
         (sbs.needs_sbs_example_button or sbs.needs_sbs_examples_button)
@@ -544,74 +625,119 @@ def render_button_box_templ(
 
     # conjugation_button
     if i.needs_conjugation_button:
-        conjugation_button = button_html.format(
-            target=f"conjugation_{i.lemma_1_}", name="conjugation")
+        if lang == "en":
+            conjugation_button = button_html.format(
+                target=f"conjugation_{i.lemma_1_}", name="conjugation")
+        elif lang == "ru":
+            conjugation_button = button_html.format(
+                target=f"ru_conjugation_{i.lemma_1_}", name="спряжения")
     else:
         conjugation_button = ""
 
     # declension_button
     if i.needs_declension_button:
-        declension_button = button_html.format(
-            target=f"declension_{i.lemma_1_}", name="declension")
+        if lang == "en":
+            declension_button = button_html.format(
+                target=f"declension_{i.lemma_1_}", name="declension")
+        elif lang == "ru":
+            declension_button = button_html.format(
+                target=f"ru_declension_{i.lemma_1_}", name="склонения")
     else:
         declension_button = ""
 
     # root_family_button
     if i.needs_root_family_button:
-        root_family_button = button_html.format(
-            target=f"root_family_{i.lemma_1_}", name="root family")
+        if lang == "en":
+            root_family_button = button_html.format(
+                target=f"root_family_{i.lemma_1_}", name="root family")
+        elif lang == "ru":
+            root_family_button = button_html.format(
+                target=f"ru_root_family_{i.lemma_1_}", name="семья корня")
     else:
         root_family_button = ""
 
     # word_family_button
     if i.needs_word_family_button:
-        word_family_button = button_html.format(
-            target=f"word_family_{i.lemma_1_}", name="word family")
+        if lang == "en":
+            word_family_button = button_html.format(
+                target=f"word_family_{i.lemma_1_}", name="word family")
+        elif lang == "ru":
+            word_family_button = button_html.format(
+                target=f"ru_word_family_{i.lemma_1_}", name="семья слова")
     else:
         word_family_button = ""
 
     # compound_family_button
     if i.needs_compound_family_button:
-        compound_family_button = button_html.format(
-            target=f"compound_family_{i.lemma_1_}", name="compound family")
+        if lang == "en":
+            compound_family_button = button_html.format(
+                target=f"compound_family_{i.lemma_1_}", name="compound family")
+        elif lang == "ru":
+            compound_family_button = button_html.format(
+                target=f"ru_compound_family_{i.lemma_1_}", name="семья составного")
 
     elif i.needs_compound_families_button:
-        compound_family_button = button_html.format(
-            target=f"compound_families_{i.lemma_1_}", name="compound familes")
+        if lang == "en":
+            compound_family_button = button_html.format(
+                target=f"compound_families_{i.lemma_1_}", name="compound familes")
+        elif lang == "ru":
+            compound_family_button = button_html.format(
+                target=f"ru_compound_families_{i.lemma_1_}", name="семья составных")
     else:
         compound_family_button = ""
 
     # idioms button
     if i.needs_idioms_button:
-        idioms_button = button_html.format(
-            target=f"idioms_{i.lemma_1_}", name="idioms")
+        if lang == "en":
+            idioms_button = button_html.format(
+                target=f"idioms_{i.lemma_1_}", name="idioms")
+        elif lang == "ru":
+            idioms_button = button_html.format(
+                target=f"ru_idioms_{i.lemma_1_}", name="идиомы")
     else:
         idioms_button = ""
 
     # set_family_button
     if i.needs_set_button:
-        set_family_button = button_html.format(
-            target=f"set_family_{i.lemma_1_}", name="set")
+        if lang == "en":
+            set_family_button = button_html.format(
+                target=f"set_family_{i.lemma_1_}", name="set")
+        elif lang == "ru":
+            set_family_button = button_html.format(
+                target=f"ru_set_family_{i.lemma_1_}", name="группа")
+
     elif i.needs_sets_button:
-        set_family_button = button_html.format(
-            target=f"set_families_{i.lemma_1_}", name="sets")
+        if lang == "en":
+            set_family_button = button_html.format(
+                target=f"set_families_{i.lemma_1_}", name="sets")
+        elif lang == "ru":
+            set_family_button = button_html.format(
+                target=f"ru_set_families_{i.lemma_1_}", name="группы")
     else:
         set_family_button = ""
 
     # frequency_button
     if i.needs_frequency_button:
-        frequency_button = button_html.format(
-            target=f"frequency_{i.lemma_1_}", name="frequency")
+        if lang == "en":
+            frequency_button = button_html.format(
+                target=f"frequency_{i.lemma_1_}", name="frequency")
+        elif lang == "ru":
+            frequency_button = button_html.format(
+                target=f"ru_frequency_{i.lemma_1_}", name="частота")
     else:
         frequency_button = ""
 
     # feedback_button
-    if dps_data:
+    if lang == "en":
+        if dps_data:
+            feedback_button = button_link_html.format(
+                href="https://digitalpalidictionary.github.io/", name="feedback")
+        else:
+            feedback_button = button_html.format(
+                target=f"feedback_{i.lemma_1_}", name="feedback")
+    elif lang == "ru":
         feedback_button = button_link_html.format(
-            href="https://digitalpalidictionary.github.io/", name="feedback")
-    else:
-        feedback_button = button_html.format(
-            target=f"feedback_{i.lemma_1_}", name="feedback")
+                href="https://devamitta.github.io/pali/pali_dict.html", name="о словаре")
 
     return str(
         button_box_templ.render(
@@ -631,13 +757,14 @@ def render_button_box_templ(
 
 
 def render_grammar_templ(
-        __pth__: ProjectPaths,
+        __pth__: Union[ProjectPaths, RuPaths],
         i: DpdHeadwords,
         rt: DpdRoots,
         sbs: SBS,
         ru: Russian,
-        dps_data: bool,
-        grammar_templ: Template
+        grammar_templ: Template,
+        lang="en",
+        dps_data=False
 ) -> str:
     """html table of grammatical information"""
 
@@ -647,7 +774,10 @@ def render_grammar_templ(
         else:
             i.construction = ""
 
-    grammar = make_grammar_line(i)
+    if lang == "en":
+        grammar = make_grammar_line(i)
+    elif lang == "ru":
+        grammar = ru_make_grammar_line(i)
     meaning = f"{make_meaning_html(i)}"
 
     return str(
@@ -663,10 +793,10 @@ def render_grammar_templ(
 
 
 def render_example_templ(
-        __pth__: ProjectPaths,
+        __pth__: Union[ProjectPaths, RuPaths],
         i: DpdHeadwords,
-        make_link: bool,
-        example_templ: Template
+        example_templ: Template,
+        make_link=False
 ) -> str:
     """render sutta examples html"""
 
@@ -678,11 +808,11 @@ def render_example_templ(
 
 
 def render_sbs_example_templ(
-        __pth__: ProjectPaths,
+        __pth__: Union[ProjectPaths, RuPaths],
         i: DpdHeadwords,
         sbs: SBS,
-        make_link: bool,
-        sbs_example_templ: Template
+        sbs_example_templ: Template,
+        make_link=False
 ) -> str:
     """render sbs examples html"""
 
@@ -697,23 +827,29 @@ def render_sbs_example_templ(
 
 
 def render_inflection_templ(
-        __pth__: ProjectPaths,
+        __pth__: Union[ProjectPaths, RuPaths],
         i: DpdHeadwords,
-        inflection_templ:Template
+        inflection_templ:Template,
+        lang="en"
 ) -> str:
     """inflection or conjugation table"""
+
+    if lang == "en":
+        table=i.inflections_html
+    elif lang == "ru":
+        table: str = ru_replace_abbreviations(i.inflections_html, "inflect")
 
     return str(
         inflection_templ.render(
             i=i,
-            table=i.inflections_html,
+            table=table,
             today=TODAY,
             declensions=DECLENSIONS,
             conjugations=CONJUGATIONS))
 
 
 def render_family_root_templ(
-        __pth__: ProjectPaths,
+        __pth__: Union[ProjectPaths, RuPaths],
         i: DpdHeadwords,
         fr: FamilyRoot,
         family_root_templ
@@ -728,7 +864,7 @@ def render_family_root_templ(
 
 
 def render_family_word_templ(
-        __pth__: ProjectPaths,
+        __pth__: Union[ProjectPaths, RuPaths],
         i: DpdHeadwords,
         fw: FamilyWord,
         family_word_templ: Template
@@ -743,7 +879,7 @@ def render_family_word_templ(
 
 
 def render_family_compound_templ(
-        __pth__: ProjectPaths,
+        __pth__: Union[ProjectPaths, RuPaths],
         i: DpdHeadwords,
         fc: List[FamilyCompound],
         cf_set: Set[str],
@@ -760,7 +896,7 @@ def render_family_compound_templ(
 
 
 def render_family_idioms_templ(
-        __pth__: ProjectPaths,
+        __pth__: Union[ProjectPaths, RuPaths],
         i: DpdHeadwords,
         fi: List[FamilyIdiom],
         idioms_set: Set[str],
@@ -777,7 +913,7 @@ def render_family_idioms_templ(
 
 
 def render_family_set_templ(
-        __pth__: ProjectPaths,
+        __pth__: Union[ProjectPaths, RuPaths],
         i: DpdHeadwords,
         fs: List[FamilySet],
         family_set_templ: Template
@@ -793,20 +929,27 @@ def render_family_set_templ(
 
 
 def render_frequency_templ(
-        __pth__: ProjectPaths,
+        __pth__: Union[ProjectPaths, RuPaths],
         i: DpdHeadwords,
-        frequency_templ: Template
+        frequency_templ: Template,
+        lang="en"
 ) -> str:
     """render html tempalte of freqency table"""
+
+    freq = ""
+
+    if lang == "ru":
+        freq = replace_english(i.freq_html)
 
     return str(
         frequency_templ.render(
             i=i,
-            today=TODAY))
+            today=TODAY,
+            freq=freq))
 
 
 def render_feedback_templ(
-        __pth__: ProjectPaths,
+        __pth__: Union[ProjectPaths, RuPaths],
         i: DpdHeadwords,
         feedback_templ: Template
 ) -> str:

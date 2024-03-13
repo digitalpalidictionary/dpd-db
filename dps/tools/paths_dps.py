@@ -34,64 +34,6 @@ class DPSPaths:
 
         self.sbs_pd_path = base_dir.joinpath(Path("dps/csvs/sbs_pd.csv"))
 
-        # dps/exporter_ru/css_ru
-        self.dpd_css_path = base_dir.joinpath(Path("dps/exporter_ru/css_ru/dpd_ru.css"))
-        # self.roots_css_path = base_dir.joinpath(Path("dps/exporter_ru/css_ru/roots.css"))
-        # self.deconstructor_css_path = base_dir.joinpath(Path("dps/exporter_ru/css_ru/deconstructor.css"))
-        # self.help_css_path = base_dir.joinpath(Path("dps/exporter_ru/css_ru/help.css"))
-        # self.grammar_css_path = base_dir.joinpath(Path("dps/exporter_ru/css_ru/grammar.css"))
-        # self.variant_spelling_css_path = base_dir.joinpath(Path("dps/exporter_ru/css_ru/variant_spelling.css"))
-
-        # /dps/exporter_ru/share
-        self.share_dir = base_dir.joinpath(Path("dps/exporter_ru/share"))
-        self.dpd_ru_zip_path = base_dir.joinpath(Path("dps/exporter_ru/share/ru-dpd.zip"))
-        self.mdict_mdx_path = base_dir.joinpath(Path("dps/exporter_ru/share/ru-dpd-mdict.mdx"))
-        # self.grammar_dict_zip_path = base_dir.joinpath(Path("dps/exporter_ru/share/dpd-grammar.zip"))
-        # self.grammar_dict_mdict_path = base_dir.joinpath(Path("dps/exporter_ru/share/dpd-grammar-mdict.mdx"))
-        # self.dpd_mobi_path = base_dir.joinpath(Path("dps/exporter_ru/share/dpd-kindle.mobi"))
-        # self.dpd_epub_path = base_dir.joinpath(Path("dps/exporter_ru/share/dpd-kindle.epub"))
-        # self.deconstructor_zip_path = base_dir.joinpath(Path("dps/exporter_ru/share/dpd-deconstructor.zip"))
-        # self.deconstructor_mdict_mdx_path = base_dir.joinpath(Path("dps/exporter_ru/share/dpd-deconstructor-mdict.mdx"))
-        # self.dpd_goldendict_zip_path = base_dir.joinpath(Path("dps/exporter_ru/share/dpd-goldendict.zip"))
-        # self.dpd_mdict_zip_path = base_dir.joinpath(Path("dps/exporter_ru/share/dpd-mdict.zip"))
-
-        # /dps/exporter_ru/templates_ru
-        self.templates_ru_dir = base_dir.joinpath(Path("dps/exporter_ru/templates_ru"))
-        self.header_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/header_ru.html"))
-        self.dpd_ru_definition_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/dpd_ru_defintion.html"))
-        self.button_box_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/dpd_ru_button_box.html"))
-        self.grammar_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/dpd_ru_grammar.html"))
-        self.example_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/dpd_ru_example.html"))
-        self.inflection_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/dpd_ru_inflection.html"))
-        self.family_root_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/dpd_ru_family_root.html"))
-        self.family_word_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/dpd_ru_family_word.html"))
-        self.family_compound_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/dpd_ru_family_compound.html"))
-        self.family_idiom_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/dpd_ru_family_idiom.html"))
-        self.family_set_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/dpd_ru_family_set.html"))
-        self.frequency_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/dpd_ru_frequency.html"))
-        self.feedback_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/dpd_ru_feedback.html"))
-        self.variant_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/dpd_ru_variant_reading.html"))
-        self.spelling_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/dpd_ru_spelling_mistake.html"))
-        
-        # # root templates_ru
-        self.root_definition_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/root_definition_ru.html"))
-        self.root_button_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/root_buttons_ru.html"))
-        self.root_info_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/root_info_ru.html"))
-        self.root_matrix_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/root_matrix_ru.html"))
-        self.root_families_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/root_families_ru.html"))
-
-        # # other templates_ru
-        self.rpd_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/rpd.html"))
-        # self.deconstructor_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/deconstructor.html"))
-        self.abbrev_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/help_abbrev.html"))
-        self.help_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/help_help.html"))
-
-        # self.header_deconstructor_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/header_deconstructor.html"))
-        # self.header_grammar_dict_templ_path = base_dir.joinpath(Path("dps/exporter_ru/templates_ru/header_grammar_dict.html"))
-
-        # /icon
-        self.icon_path = base_dir.joinpath(Path("exporter/goldendict/icon//favicon.ico"))
-        self.icon_bmp_path = base_dir.joinpath(Path("dps/exporter_ru/icon/book.bmp"))
 
         # /tests
         self.dps_internal_tests_path = base_dir.joinpath(Path("dps/csvs/dps_internal_tests.tsv"))
@@ -137,8 +79,6 @@ class DPSPaths:
                 self.for_compare_dir,
                 self.temp_csv_backup_dir,
                 self.csvs_for_audio_dir,
-                self.templates_ru_dir,
-                self.share_dir
             ]:
                 d.mkdir(parents=True, exist_ok=True)
 

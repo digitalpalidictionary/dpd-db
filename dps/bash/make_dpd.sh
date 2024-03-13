@@ -5,6 +5,8 @@
 set -e
 python -c "from tools.configger import print_config_settings; print_config_settings(['dictionary', 'goldendict', 'exporter'])"
 
+python -c "from tools.configger import config_update; config_update('exporter', 'language', 'en')"
+
 scripts/bash/generate_components.sh
 
 dps/scripts/change_ebt_count.py
@@ -14,7 +16,7 @@ exporter/grammar_dict/grammar_dict.py
 exporter/goldendict/export_gd_mdict.py
 exporter/deconstructor/deconstructor_exporter.py
 
-exporter/tpr/tpr_exporter.py
+# exporter/tpr/tpr_exporter.py
 exporter/ebook/ebook_exporter.py
 
 dps/scripts/move_mdict.py

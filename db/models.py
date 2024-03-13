@@ -36,6 +36,7 @@ from dps.tools.sbs_table_functions import SBS_table_tools
 class Base(DeclarativeBase):
     pass
 
+
 class DbInfo(Base):
     """Storing general key-value data such as dpd_release_version and cached
     values, e.g. cf_set and so on."""
@@ -165,6 +166,7 @@ class FamilyRoot(Base):
     html: Mapped[str] = mapped_column(default='')
     data: Mapped[str] = mapped_column(default='')
     count: Mapped[int] = mapped_column(default=0)
+    html_ru: Mapped[str] = mapped_column(default='')
 
     __table_args__ = (
         ForeignKeyConstraint(
@@ -871,6 +873,7 @@ class FamilyCompound(Base):
     html: Mapped[str] = mapped_column(default='')
     data: Mapped[str] = mapped_column(default='')
     count: Mapped[int] = mapped_column(default=0)
+    html_ru: Mapped[str] = mapped_column(default='')
 
     # family_compound pack unpack
     def data_pack(self, list: list[str]) -> None:
@@ -890,6 +893,7 @@ class FamilyWord(Base):
     html: Mapped[str] = mapped_column(default='')
     data: Mapped[str] = mapped_column(default='')
     count: Mapped[int] = mapped_column(default=0)
+    html_ru: Mapped[str] = mapped_column(default='')
 
     dpd_headwords: Mapped[List["DpdHeadwords"]] = relationship("DpdHeadwords", back_populates="fw")
 
@@ -904,7 +908,8 @@ class FamilySet(Base):
     html: Mapped[str] = mapped_column(default='')
     data: Mapped[str] = mapped_column(default='')
     count: Mapped[int] = mapped_column(default=0)
-
+    set_ru: Mapped[str] = mapped_column(default='')
+    html_ru: Mapped[str] = mapped_column(default='')
 
     # family_set pack unpack
     def data_pack(self, list: list[str]) -> None:
@@ -924,7 +929,7 @@ class FamilyIdiom(Base):
     html: Mapped[str] = mapped_column(default='')
     data: Mapped[str] = mapped_column(default='')
     count: Mapped[int] = mapped_column(default=0)
-
+    html_ru: Mapped[str] = mapped_column(default='')
 
     # idioms data pack unpack
     def data_pack(self, list: list[str]) -> None:
@@ -936,8 +941,6 @@ class FamilyIdiom(Base):
 
     def __repr__(self) -> str:
         return f"FamilySet: {self.idiom} {self.count}"
-
-
 
 
 class SBS(Base):
@@ -1072,7 +1075,6 @@ class Russian(Base):
 
     def __repr__(self) -> str:
         return f"Russian: {self.id} {self.ru_meaning}"
-
 
 
 class BoldDefintion(Base):

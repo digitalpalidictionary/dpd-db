@@ -1,27 +1,21 @@
 #!/usr/bin/env bash
 
-# generate dictionaries
+# generate ru dpd
 
 set -e
 python -c "from tools.configger import print_config_settings; print_config_settings(['dictionary', 'goldendict', 'exporter'])"
 
-# allow exporter_ru.py use functions from exporter.py
-export PYTHONPATH=/home/deva/Documents/dpd-db/exporter:$PYTHONPATH
+python -c "from tools.configger import config_update; config_update('exporter', 'language', 'ru')"
 
-# to avoid warning py pyright add to .vscode/settings.json:
-# { "python.analysis.extraPaths": ["/home/deva/Documents/dpd-db/exporter"] }
+db/families/root_family.py
+db/families/word_family.py
+db/families/compound_family.py
+db/families/sets.py
+db/families/idioms.py
 
-# scripts/bash/generate_components.sh
+exporter/goldendict/export_gd_mdict.py
 
-# dps/scripts/change_ebt_count.py
-
-# exporter/grammar_dict/grammar_dict.py
-
-dps/exporter_ru/exporter_ru.py
-
-# exporter/deconstructor/deconstructor_exporter.py
-
-# exporter/tpr/tpr_exporter.py
-# exporter/ebook/ebook_exporter.py
+python -c "from tools.configger import config_update; config_update('exporter', 'language', 'en')"
 
 dps/scripts/move_mdict_ru.py
+

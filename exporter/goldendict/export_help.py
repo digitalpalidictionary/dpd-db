@@ -14,6 +14,7 @@ from sqlalchemy.orm import Session
 from export_dpd import render_header_templ
 
 from tools.paths import ProjectPaths
+from exporter.ru_components.tools.paths_ru import RuPaths
 from tools.tic_toc import bip, bop
 from tools.tsv_read_write import read_tsv_dict
 from tools.tsv_read_write import read_tsv_dot_dict
@@ -52,6 +53,8 @@ class Help:
 def generate_help_html(
                 __db_session__: Session,
                 pth: ProjectPaths,
+                rupth: RuPaths,
+                lang="en",
                 dps_data=False
                 ) -> Tuple[List[RenderResult], RenderedSizes]:
     """generating html of all help files used in the dictionary"""
@@ -74,11 +77,11 @@ def generate_help_html(
 
     help_data_list: List[RenderResult] = []
 
-    abbrev = add_abbrev_html(pth, header, dps_data)
+    abbrev = add_abbrev_html(pth, header, rupth, lang, dps_data)
     help_data_list.extend(abbrev)
     size_dict["help"] += len(str(abbrev))
 
-    help_html = add_help_html(pth, header, dps_data)
+    help_html = add_help_html(pth, header, rupth, lang, dps_data)
     help_data_list.extend(help_html)
     size_dict["help"] += len(str(help_html))
 
@@ -96,6 +99,8 @@ def generate_help_html(
 def add_abbrev_html(
             pth: ProjectPaths,
             header: str,
+            rupth: RuPaths,
+            lang="en",
             dps_data=False
             ) -> List[RenderResult]:
     bip()
@@ -129,13 +134,21 @@ def add_abbrev_html(
     for i in items:
         html = header
         html += "<body>"
-        html += render_abbrev_templ(dps_data, pth, i)
+        html += render_abbrev_templ(pth, i, rupth, lang, dps_data)
         html += "</body></html>"
 
         html = minify(html)
 
+        if lang == "en":
+            word = i.abbrev
+        elif lang == "ru":
+            if i.ru_abbrev:
+                word = i.ru_abbrev
+            else:
+                word = i.abbrev
+
         res = RenderResult(
-            word = i.abbrev,
+            word = word,
             definition_html = html,
             definition_plain = "",
             synonyms = [],
@@ -150,7 +163,9 @@ def add_abbrev_html(
 def add_help_html(
             pth: ProjectPaths,
             header: str,
-            dps_data:bool
+            rupth: RuPaths,
+            lang="en",
+            dps_data=False
             ) -> List[RenderResult]:
     bip()
     print("adding help", end=" ")
@@ -181,13 +196,18 @@ def add_help_html(
     for i in items:
         html = header
         html += "<body>"
-        html += render_help_templ(dps_data, pth, i)
+        html += render_help_templ(pth, i, rupth, lang, dps_data)
         html += "</body></html>"
 
         html = minify(html)
 
+        if lang == "en":
+            word = i.help
+        elif lang == "ru":
+            word = i.ru_help
+
         res = RenderResult(
-            word = i.help,
+            word = word,
             definition_html = html,
             definition_plain = "",
             synonyms = [],
@@ -336,17 +356,35 @@ def add_thanks(
     return help_data_list
 
 
-def render_abbrev_templ(dps_data, pth: ProjectPaths, i: Abbreviation) -> str:
+def render_abbrev_templ( 
+            pth: ProjectPaths, 
+            i: Abbreviation,
+            rupth: RuPaths,
+            lang="en",
+            dps_data=False
+            ) -> str:
     """render html of abbreviations"""
 
-    abbrev_templ = Template(filename=str(pth.abbrev_templ_path))
+    if lang == "en":
+        abbrev_templ = Template(filename=str(pth.abbrev_templ_path))
+    elif lang == "ru":
+        abbrev_templ = Template(filename=str(rupth.abbrev_templ_path))
 
     return str(abbrev_templ.render(i=i, dps_data=dps_data))
 
 
-def render_help_templ(dps_data, pth: ProjectPaths, i: Help) -> str:
+def render_help_templ( 
+            pth: ProjectPaths, 
+            i: Help,
+            rupth: RuPaths,
+            lang="en",
+            dps_data=False
+            ) -> str:
     """render html of help"""
 
-    help_templ = Template(filename=str(pth.help_templ_path))
+    if lang == "en":
+        help_templ = Template(filename=str(pth.help_templ_path))
+    elif lang == "ru":
+        help_templ = Template(filename=str(rupth.help_templ_path))
 
     return str(help_templ.render(i=i, dps_data=dps_data))

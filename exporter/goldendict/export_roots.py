@@ -8,14 +8,13 @@ from minify_html import minify
 from rich import print
 from sqlalchemy.orm import Session
 from typing import Dict, Tuple, List
-from typing import Optional
 
 from export_dpd import render_header_templ
 from helpers import TODAY
 
 from db.models import DpdRoots, FamilyRoot
-from dps.tools.paths_dps import DPSPaths
-from dps.tools.tools_for_dps_exporter import replace_abbreviations
+from exporter.ru_components.tools.paths_ru import RuPaths
+from exporter.ru_components.tools.tools_for_ru_exporter import ru_replace_abbreviations
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
@@ -27,8 +26,9 @@ def generate_root_html(
                 db_session: Session,
                 pth: ProjectPaths,
                 roots_count_dict: Dict[str, int],
-                dps_data=False,
-                dpspth: Optional[DPSPaths] = None
+                rupth: RuPaths,
+                lang="en",
+                dps_data=False
                 ) -> Tuple[List[RenderResult], RenderedSizes]:
     """compile html componenents for each pali root"""
 
@@ -69,47 +69,23 @@ def generate_root_html(
         html = header
         html += "<body>"
 
-        if not dpspth:
-            definition = render_root_definition_templ(pth, r, roots_count_dict, dps_data)
-        elif dpspth:
-            definition = render_root_definition_templ(dpspth, r, roots_count_dict, dps_data)
-        # add here another language elif ...
-
+        definition = render_root_definition_templ(pth, r, roots_count_dict, rupth, lang, dps_data)
         html += definition
         size_dict["root_definition"] += len(definition)
 
-        if not dpspth:
-            root_buttons = render_root_buttons_templ(pth, r, db_session)
-        elif dpspth:
-            root_buttons = render_root_buttons_templ(dpspth, r, db_session)
-        # add here another language elif ...
-
+        root_buttons = render_root_buttons_templ(pth, r, db_session, rupth, lang)
         html += root_buttons
         size_dict["root_buttons"] += len(root_buttons)
 
-        if not dpspth:
-            root_info = render_root_info_templ(pth, r)
-            html += root_info
-        elif dpspth:
-            root_info = render_root_info_templ(pth, r, dpspth)
-        # add here another language elif ...
-
+        root_info = render_root_info_templ(pth, r, rupth, lang)
         html += root_info
         size_dict["root_info"] += len(root_info)
 
-        if not dpspth:
-            root_matrix = render_root_matrix_templ(pth, r, roots_count_dict)
-        elif dpspth:
-            root_matrix = render_root_matrix_templ(pth, r, roots_count_dict, dpspth)
+        root_matrix = render_root_matrix_templ(pth, r, roots_count_dict, rupth, lang)
         html += root_matrix
         size_dict["root_matrix"] += len(root_matrix)
 
-        if not dpspth:
-            root_families = render_root_families_templ(pth, r, db_session)
-        elif dpspth:
-            root_families = render_root_families_templ(dpspth, r, db_session)
-        # add here another language elif ...
-
+        root_families = render_root_families_templ(pth, r, db_session, rupth, lang)
         html += root_families
         size_dict["root_families"] += len(root_families)
 
@@ -150,15 +126,20 @@ def generate_root_html(
 
 
 def render_root_definition_templ(
-                        _pth_,
+                        pth: ProjectPaths,
                         r: DpdRoots, 
-                        roots_count_dict, 
-                        dps_data
-                        ):
+                        roots_count_dict,
+                        rupth: RuPaths,
+                        lang="en", 
+                        dps_data=False
+                    ):
     """render html of main root info"""
 
-
-    root_definition_templ = Template(filename=str(_pth_.root_definition_templ_path))
+    if lang == "en":
+        root_definition_templ = Template(filename=str(pth.root_definition_templ_path))
+    elif lang == "ru":
+        root_definition_templ = Template(filename=str(rupth.root_definition_templ_path))
+    # add here another language elif ...
 
     count = roots_count_dict[r.root]
 
@@ -170,10 +151,20 @@ def render_root_definition_templ(
             dps_data=dps_data))
 
 
-def render_root_buttons_templ(_pth_, r: DpdRoots, db_session: Session):
+def render_root_buttons_templ(
+                        pth: ProjectPaths,
+                        r: DpdRoots, 
+                        db_session: Session,
+                        rupth: RuPaths,
+                        lang="en",
+                    ):
     """render html of root buttons"""
     
-    root_buttons_templ = Template(filename=str(_pth_.root_button_templ_path))
+    if lang == "en":
+        root_buttons_templ = Template(filename=str(pth.root_button_templ_path))
+    elif lang == "ru":
+        root_buttons_templ = Template(filename=str(rupth.root_button_templ_path))
+    # add here another language elif ...
 
     frs = db_session.query(
         FamilyRoot
@@ -189,18 +180,19 @@ def render_root_buttons_templ(_pth_, r: DpdRoots, db_session: Session):
 
 
 def render_root_info_templ(
-                pth, 
+                pth: ProjectPaths, 
                 r: DpdRoots, 
-                dpspth: Optional[DPSPaths] = None
+                rupth: RuPaths,
+                lang="en"
             ):
     """render html of root grammatical info"""
 
-    if not dpspth:
+    if lang == "en":
         root_info_templ = Template(filename=str(pth.root_info_templ_path))
         root_info = ""
-    elif dpspth:
-        root_info_templ = Template(filename=str(dpspth.root_info_templ_path))
-        root_info = replace_abbreviations(r.root_info, pth, "root")
+    elif lang == "ru":
+        root_info_templ = Template(filename=str(rupth.root_info_templ_path))
+        root_info = ru_replace_abbreviations(r.root_info, "root")
     # add here another language elif ...
 
     return str(
@@ -211,19 +203,20 @@ def render_root_info_templ(
 
 
 def render_root_matrix_templ(
-                pth, 
+                pth: ProjectPaths, 
                 r: DpdRoots, 
                 roots_count_dict, 
-                dpspth: Optional[DPSPaths] = None
+                rupth: RuPaths,
+                lang="en"
             ):
     """render html of root matrix"""
 
-    if not dpspth:
+    if lang == "en":
         root_matrix_templ = Template(filename=str(pth.root_matrix_templ_path))
         root_matrix = ""
-    elif dpspth:
-        root_matrix_templ = Template(filename=str(dpspth.root_matrix_templ_path))
-        root_matrix = replace_abbreviations(r.root_matrix, pth, "root")
+    elif lang == "ru":
+        root_matrix_templ = Template(filename=str(rupth.root_matrix_templ_path))
+        root_matrix = ru_replace_abbreviations(r.root_matrix, "root")
     # add here another language elif ...
 
     count = roots_count_dict[r.root]
@@ -237,13 +230,19 @@ def render_root_matrix_templ(
 
 
 def render_root_families_templ(
-                _pth_,
+                pth: ProjectPaths,
                 r: DpdRoots, 
-                db_session: Session
+                db_session: Session, 
+                rupth: RuPaths,
+                lang="en"
             ):
     """render html of root families"""
 
-    root_families_templ = Template(filename=str(_pth_.root_families_templ_path))
+    if lang == "en":
+        root_families_templ = Template(filename=str(pth.root_families_templ_path))
+    elif lang == "ru":
+        root_families_templ = Template(filename=str(rupth.root_families_templ_path))
+    # add here another language elif ...
 
     frs = db_session.query(
         FamilyRoot

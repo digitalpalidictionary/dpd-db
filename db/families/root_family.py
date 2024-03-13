@@ -28,6 +28,10 @@ from tools.superscripter import superscripter_uni
 from tools.tic_toc import tic, toc
 from tools.update_test_add import update_test_add
 
+from exporter.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations
+
+from sqlalchemy.orm import joinedload
+
 
 def main():
     tic()
@@ -35,8 +39,21 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    dpd_db = db_session.query(DpdHeadwords).filter(
-        DpdHeadwords.family_root != "").all()
+    if config_test("exporter", "language", "en"):
+        lang = "en"
+    elif config_test("exporter", "language", "ru"):
+        lang = "ru"
+    # add another lang here "elif ..." and 
+    # add conditions if lang = "{your_language}" in every instance in the code.
+
+    if lang == "en":
+        dpd_db = db_session.query(DpdHeadwords).filter(
+            DpdHeadwords.family_root != "").all()
+    elif lang == "ru":
+        dpd_db = db_session.query(DpdHeadwords).options(
+            joinedload(DpdHeadwords.ru)).filter(
+            DpdHeadwords.family_root != "").all()
+            
     dpd_db = sorted(
         dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
@@ -45,7 +62,7 @@ def main():
         roots_db, key=lambda x: pali_sort_key(x.root))
 
     rf_dict, bases_dict = make_roots_family_dict_and_bases_dict(dpd_db)
-    rf_dict = compile_rf_html(dpd_db, rf_dict)
+    rf_dict = compile_rf_html(dpd_db, rf_dict, lang)
     add_rf_to_db(db_session, rf_dict)
     update_lookup_table(db_session)
     generate_root_info_html(db_session, roots_db, bases_dict)
@@ -82,8 +99,10 @@ def make_roots_family_dict_and_bases_dict(dpd_db):
                 "root_meaning": i.rt.root_meaning,
                 "headwords": [i.lemma_1],
                 "html": "",
+                "html_ru": "",
                 "count": 1,
                 "meaning": i.rt.root_meaning,
+                "meaning_ru": i.rt.root_ru_meaning,
                 "data": [],
                 "anki": []
             }
@@ -104,7 +123,7 @@ def make_roots_family_dict_and_bases_dict(dpd_db):
     return rf_dict, bases_dict
 
 
-def compile_rf_html(dpd_db, rf_dict):
+def compile_rf_html(dpd_db, rf_dict, lang="en"):
     print("[green]compiling html")
 
     for __counter__, i in enumerate(dpd_db):
@@ -125,6 +144,22 @@ def compile_rf_html(dpd_db, rf_dict):
 
             rf_dict[family]["html"] = html_string
 
+            if lang == "ru" and i.ru:
+                if not rf_dict[family]["html_ru"]:
+                    html_string = "<table class='family'>"
+                else:
+                    html_string = rf_dict[family]["html_ru"]
+
+                ru_meaning = make_short_ru_meaning(i, i.ru)
+                pos = ru_replace_abbreviations(i.pos)
+                html_string += "<tr>"
+                html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
+                html_string += f"<td><b>{pos}</b></td>"
+                html_string += f"<td>{ru_meaning} {degree_of_completion(i)}</td>"
+                html_string += "</tr>"
+
+                rf_dict[family]["html_ru"] = html_string
+
             # data
             rf_dict[family]["data"].append(
                 (i.lemma_1, i.pos, meaning))
@@ -141,6 +176,9 @@ def compile_rf_html(dpd_db, rf_dict):
     for rf in rf_dict:
         header = make_root_header(rf_dict, rf)
         rf_dict[rf]["html"] = header + rf_dict[rf]["html"] + "</table>"
+        if lang == "ru":
+            header_ru = make_root_header_ru(rf_dict, rf)
+            rf_dict[rf]["html_ru"] = header_ru + rf_dict[rf]["html_ru"] + "</table>"
     return rf_dict
 
 
@@ -151,6 +189,16 @@ def make_root_header(rf_dict, rf):
     else:
         header += f"<b>{rf_dict[rf]['count']}</b> words belong to the root family "
     header += f"<b>{rf_dict[rf]['root_family']}</b> ({rf_dict[rf]['meaning']})</p>"
+    return header
+
+
+def make_root_header_ru(rf_dict, rf):
+    header = "<p class='heading underlined'>"
+    if rf_dict[rf]["count"] == 1:
+        header += "<b>1</b> слово принадлежащее к семье корня "
+    else:
+        header += f"<b>{rf_dict[rf]['count']}</b> слова принадлежащие к семье корня "
+    header += f"<b>{rf_dict[rf]['root_family']}</b> ({rf_dict[rf]['meaning_ru']})</p>"
     return header
 
 
@@ -167,6 +215,7 @@ def add_rf_to_db(db_session, rf_dict):
             root_family=rf_dict[rf]["root_family"],
             root_meaning=rf_dict[rf]["root_meaning"],
             html=rf_dict[rf]["html"],
+            html_ru=rf_dict[rf]["html_ru"],
             count=len(rf_dict[rf]["headwords"]))
         root_family.data_pack(rf_dict[rf]["data"])
 

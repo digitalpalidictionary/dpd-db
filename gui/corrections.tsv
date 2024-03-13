@@ -910,11 +910,45 @@ buddho <b>tapati</b> tejasā."	duplicted changed		yes
 30072	meaning_1	three (3) (object)					missing				
 34149	meaning_1	divine power					missing				
 23035	meaning_1	seniormost of the five ascetics; first monk-disciple of the Buddha					missing				
-15402	source_1	SN47.9	sutta_1	gilānasuttaṃ	example_1	evaṃ, bhante'ti kho te bhikkhū bhagavato paṭissutvā samantā vesāliyā yathāmittaṃ yathāsandiṭṭhaṃ yathāsambhattaṃ vassaṃ <b>upagacchuṃ</b>.	missing		
-75249	root_sign	ya + *aya					missing		
-60376	meaning_lit	is caused to stretch forward					pass caus, same as nissārīyati ; and by the way to the tests maybe add exseption - caus pass can be intrans		
-60376	commentary	(VISMa) <b>na sampasāriyatī</b>'ti na visarati, abhirativasena na pakkhandatī'ti attho.					missing		
-29006	source_1	VIN1.4.2.8	sutta_1	rūpiyasikkhāpadaṃ	example_1	yaṃ tasmiṃ kule uppajjati khādanīyaṃ vā bhojanīyaṃ vā tato āyasmato upanandassa sakyaputtassa paṭiviso <b>ṭhapiyyati</b>.	missing		
-29006	meaning_lit	is caused to stand					caus pass but not pass caus pass		
-29006	commentary	-					missing		
-5354	meaning_lit	is caused to hear along					caus pass but not pass caus pass		
+15402	source_1	SN47.9	sutta_1	gilānasuttaṃ	example_1	evaṃ, bhante'ti kho te bhikkhū bhagavato paṭissutvā samantā vesāliyā yathāmittaṃ yathāsandiṭṭhaṃ yathāsambhattaṃ vassaṃ <b>upagacchuṃ</b>.	missing				
+75249	root_sign	ya + *aya					missing				
+60376	meaning_lit	is caused to stretch forward					pass caus, same as nissārīyati ; and by the way to the tests maybe add exseption - caus pass can be intrans				
+60376	commentary	(VISMa) <b>na sampasāriyatī</b>'ti na visarati, abhirativasena na pakkhandatī'ti attho.					missing				
+29006	source_1	VIN1.4.2.8	sutta_1	rūpiyasikkhāpadaṃ	example_1	yaṃ tasmiṃ kule uppajjati khādanīyaṃ vā bhojanīyaṃ vā tato āyasmato upanandassa sakyaputtassa paṭiviso <b>ṭhapiyyati</b>.	missing				
+29006	meaning_lit	is caused to stand					caus pass but not pass caus pass				
+29006	commentary	-					missing				
+5354	meaning_lit	is caused to hear along					caus pass but not pass caus pass				
+68741	meaning_1	having the flavour of freedom; with the taste of liberation; with the essence of emancipation					same as loṇarasa and ekarasa				
+68741	meaning_lit	taste of liberation					missing				
+68741	pos	adj					missing				
+68741	stem	vimuttiras	pattern	a adj			missing				
+68741	lemma_2	vimuttirasa					missing				
+68741	grammar	adj, comp					missing				
+68741	compound_type	chaṭṭhī tappurisa > bahubbīhi	compound_construction	vimutt<b>ino</b> + rasa			missing				
+17638	compound_type	digu > bahubbīhi	compound_construction	eka + rasa			missing				
+71873	compound_type	chaṭṭhī tappurisa > bahubbīhi	compound_construction	loṇ<b>assa</b> + rasa			missing				
+67337	meaning_1	without drowsiness, free from sluggishness					or maybe it is a noun - yāvata assa vigatamiddho - as long as there is freedom from drowsiness for him				
+67337	meaning_lit	stiffness gone					missing				
+67337	family_compound	vigata middha					missing				
+67337	commentary	-					missing				
+51141	source_1	MN152	sutta_1	indriyabhāvanāsuttaṃ	example_1	puna caparaṃ, ānanda, bhikkhuno jivhāya rasaṃ sāyitvā uppajjati <b>manāpaṃ</b> uppajjati amanāpaṃ uppajjati manāp'āmanāpaṃ	missing				
+56427	grammar	ind, adv, from sakkoti					it is not always interr (in the first example)				
+56077	source_2		sutta_2		example_2		since it is in the lona 2				
+58370	verb	caus, pass					caus pass				
+58370	root_base	√dis + *e + iya > diseiya > dassiya (caus, pass, irreg)					caus pass				
+58370	meaning_lit	being caused to be seen together					caus pass				
+58370	root_sign	*e + iya					caus pass				
+5285	meaning_lit	being caused to be heard along					consistency with other caus pass				
+5355	meaning_lit	being caused to be heard along					consistency				
+50034	meaning_lit	being caused to fear					consistency				
+76497	meaning_lit	being caused to be ascended									
+76498	meaning_lit	being caused to be ascended									
+30171	meaning_1	(vinaya) verdict of recalcitrance; verdict of intractability					typo		
+54798	compound_type	kammadhāraya > bahubbīhi	compound_construction	rāga eva dosa			missing		
+40127	compound_type	kammadhāraya > bahubbīhi	compound_construction	pañña eva uttara			missing		
+62102	source_1	SN3.11	sutta_1	sattajaṭilasuttaṃ	example_1	tena kho pana samayena satta ca jaṭilā satta ca nigaṇṭhā satta ca acelakā satta ca eka<b>sāṭakā</b> satta ca paribbājakā parūḷhakacchanakhalomā khārivividham'ādāya bhagavato avidūre atikkamanti.	sutta example		
+53399	meaning_1	playing dumb; pretending not to know					move to lit		
+53399	meaning_lit	causing confusion					missing		
+23617	meaning_1	edible food; raw food; non-staple food; (e.g. vegetables, sweets)					so it will be good for epd		
+76893	meaning_1	edible food; raw food; non-staple food; (e.g. vegetables, sweets)					so it will be good for epd		
+13607	meaning_1	in this case; here					missing		

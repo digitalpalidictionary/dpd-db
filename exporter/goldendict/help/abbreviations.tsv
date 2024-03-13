@@ -88,7 +88,7 @@ gen	genitive case	chaṭṭhī, sāmivacana, sambandha	me - pron, 1st <b>gen</b>
 gen abs	genitive absolute construction		me sato; tassa jānato passato	When a noun or a pronoun in the genitive case is used with a participle in the same case as itself, the construction is called genitive absolute. It can be translated as when, while, since, or as. Sometimes it also has the meaning of since, although, even if, despite, in spite of, notwithstanding.	род.абс	родительный падеж абсолютная конструкция
 ger	gerund. a verb, often ending in -ing, expressing ongoing action	avyaya; bhāvapada	upasampajja; pahāya; ādāya	A verb (or verbal adjective), often ending in -ing, expressing ongoing action (eg. doing; making; going).	деепр.сов	деепричастие совершенного вида
 gram	grammatical term, technical term		padasandhi		грам	грамматический термин
-idiom	idiomatic expression	bhāsārītyanugata	app'eva nāma	A manner of speaking that is natural to native speakers of a language or an expression whose meanings cannot be inferred from the meanings of the words that make it up	идиом	идиома; фразеологизм
+idiom	idiomatic expression	bhāsārītyanugata	app'eva nāma	A manner of speaking that is natural to native speakers of a language or an expression whose meanings cannot be inferred from the meanings of the words that make it up	идиома	идиома; фразеологизм
 imp	imperative mood	pañcamī; idānaṃ	gaccha; atthu; hotu	Mood that expresses an intention to influence the listener's behavior or expresses wish. (e.g. begone! may there be! may it be!)	повелит	повелительное наклонение
 imperf	imperfect past tense	hiyyattanī; hīyattanī	addasā; ahuvā; accagamā	Past tense which is used for events which happened before yesterday, but were seen by the speaker.	имперф	имперфектное прошедшее время
 impers	impersonal	bhāva	paṭibhāti; kappati	Not relating to or responsive to individual persons (e.g. it occurs (to); it is suitable (for))	безличн	безличный глагол
@@ -150,7 +150,7 @@ pl	plural number	bahuvacana	tumhe - pron, 2nd nom <b>pl</b> of tvaṃ	The form o
 PM	Paṭisambhidā Magga			Book 18 of the Khuddaka Nikāya; Path to Analytical Knowledge		Пат̣исамбхида̄ Магга
 PMa	Paṭisambhidāmagga aṭṭhakathā, Saddhammappakāsinī					
 pos	part of speech	pada		One of the traditional categories of words intended to reflect their functions in a grammatical context		часть речи
-pp	past participle	krudanta	vutta; nisinna; suta	Verbal adjective which describes the action that a noun did (in the past) (e.g. have said; have seated; have heard)	прич.прош.страд	причастие прошедшего времени страдательного залога
+pp	past participle	krudanta	vutta; nisinna; suta	Verbal adjective which describes the action that a noun did (in the past) (e.g. have said; have seated; have heard)	прич.прош	причастие прошедшего времени страдательного залога
 PP	Puggalapaññattipāḷi					
 PPa	Puggalapaññatti aṭṭhakathā			Commentary to Puggalapaññatti		Комментарий к Пат̣исамбхида̄ Магга
 pr	present tense	vattamānā; vattamānakāla	viharati; uppajjati; passati	A verb tense that expresses actions or states at the time of speaking (e.g. lives; appears; sees)	наст	настоящее время

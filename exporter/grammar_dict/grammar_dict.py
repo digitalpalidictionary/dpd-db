@@ -205,7 +205,7 @@ def generate_grammar_dict(pd):
     html_header = render_header_templ(
         pd.pth, css=grammar_css, js=sorter_js, header_templ=header_templ)
     html_header += "<body><div class='grammar_dict'><table class='grammar_dict'>"
-    html_header += "<thead><tr><th id='col1'>pos ⇅</th><th id='col2'>grammar ⇅</th><th id='col3'></th><th id='col4'>word ⇅</th></tr></thead><tbody>"
+    html_header += "<thead><tr><th id='col1'>pos ⇅</th><th id='col2'>⇅</th><th id='col3'>⇅</th><th id='col4'>⇅</th><th id='col5'></th><th id='col6'>word ⇅</th></tr></thead><tbody>"
     
     html_table_header = "<body><div class='grammar_dict'><table class='grammar_dict'>"
 
@@ -221,9 +221,26 @@ def generate_grammar_dict(pd):
         if i.stem == "*":
             i.stem = ""
         
-        # words with '-' in stem are indecliables and should be ignored
+        # process indeclinables
         if i.stem == "-":
-            pass
+            data_line = (i.lemma_1, i.pos, "indeclineable")
+            html_line = f"<tr><td><b>{i.pos}</b></td><td colspan='5'>indeclineable</td></tr>"
+
+            # grammar_dict update
+            if i.lemma_clean not in grammar_dict:
+                grammar_dict[i.lemma_clean] = [data_line]
+            else:
+                if data_line not in grammar_dict[i.lemma_clean]:
+                    grammar_dict[i.lemma_clean].append(data_line)
+
+            # grammar_dict_html update
+            if i.lemma_clean not in grammar_dict_html:
+                grammar_dict_html[i.lemma_clean] = f"{html_header}{html_line}"
+                grammar_dict_table[i.lemma_clean] = f"{html_table_header}{html_line}"
+            else:
+                if html_line not in grammar_dict_html[i.lemma_clean]:
+                    grammar_dict_html[i.lemma_clean] += html_line
+                    grammar_dict_table[i.lemma_clean] += html_line
 
         # all other words need an inflection table generated 
         # to find out their grammatical category, i.e. masc nom sg
@@ -264,7 +281,22 @@ def generate_grammar_dict(pd):
                                         data_line = (i.lemma_1, i.pos, grammar)
                                         html_line = "<tr>"
                                         html_line += f"<td><b>{i.pos}</b></td>"
-                                        html_line += f"<td>{grammar}</td>"
+                                        # get grammatical_categories from grammar
+                                        grammatical_categories = []
+                                        if grammar.startswith("reflx"):
+                                            grammatical_categories.append(grammar.split()[0] + " " + grammar.split()[1])
+                                            grammatical_categories += grammar.split()[2:]
+                                            for grammatical_category in grammatical_categories:
+                                                html_line += f"<td>{grammatical_category}</td>"
+                                        elif grammar.startswith("in comps"):
+                                            html_line += f"<td colspan='3'>{grammar}</td>"
+                                        else:
+                                            grammatical_categories = grammar.split()
+                                            # adding empty values if there are less than 3
+                                            while len(grammatical_categories) < 3:
+                                                grammatical_categories.append("")
+                                            for grammatical_category in grammatical_categories:
+                                                html_line += f"<td>{grammatical_category}</td>"
                                         html_line += "<td>of</td>"
                                         html_line += f"<td>{i.lemma_clean}</td>"
                                         html_line += "</tr>"

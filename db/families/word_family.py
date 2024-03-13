@@ -18,6 +18,10 @@ from tools.paths import ProjectPaths
 from tools.superscripter import superscripter_uni
 from tools.tic_toc import tic, toc
 
+from exporter.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations
+
+from sqlalchemy.orm import joinedload
+
 
 
 
@@ -27,12 +31,25 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    wf_db = db_session.query(
-        DpdHeadwords).filter(DpdHeadwords.family_word != "").all()
+    if config_test("exporter", "language", "en"):
+        lang = "en"
+    elif config_test("exporter", "language", "ru"):
+        lang = "ru"
+    # add another lang here "elif ..." and 
+    # add conditions if lang = "{your_language}" in every instance in the code.
+
+    if lang == "en":
+        wf_db = db_session.query(DpdHeadwords).filter(
+            DpdHeadwords.family_word != "").all()
+    elif lang == "ru":
+        wf_db = db_session.query(DpdHeadwords).options(
+            joinedload(DpdHeadwords.ru)).filter(
+            DpdHeadwords.family_word != "").all()
+
     wf_db = sorted(wf_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     wf_dict = make_word_fam_dict(wf_db)
-    wf_dict = compile_wf_html(wf_db, wf_dict)
+    wf_dict = compile_wf_html(wf_db, wf_dict, lang)
     errors_list = add_wf_to_db(db_session, wf_dict)
     print_errors_list(errors_list)
 
@@ -65,13 +82,14 @@ def make_word_fam_dict(wf_db):
             wf_dict[wf] = {
                 "headwords": [i.lemma_1],
                 "html": "",
+                "html_ru": "",
                 "data": []}
 
     print(len(wf_dict))
     return wf_dict
 
 
-def compile_wf_html(wf_db, wf_dict):
+def compile_wf_html(wf_db, wf_dict, lang="en"):
     print("[green]compiling html")
 
     for __counter__, i in enumerate(wf_db):
@@ -91,6 +109,23 @@ def compile_wf_html(wf_db, wf_dict):
 
             wf_dict[wf]["html"] = html_string
 
+            if lang == "ru" and i.ru:
+
+                if not wf_dict[wf]["html_ru"]:
+                    html_string = "<table class='family'>"
+                else:
+                    html_string = wf_dict[wf]["html_ru"]
+
+                ru_meaning = make_short_ru_meaning(i, i.ru)
+                pos = ru_replace_abbreviations(i.pos)
+                html_string += "<tr>"
+                html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
+                html_string += f"<td><b>{pos}</b></td>"
+                html_string += f"<td>{ru_meaning} {degree_of_completion(i)}</td>"
+                html_string += "</tr>"
+
+                wf_dict[wf]["html_ru"] = html_string
+            
             # anki data
             construction = clean_construction(
                 i.construction) if i.meaning_1 else ""
@@ -99,6 +134,8 @@ def compile_wf_html(wf_db, wf_dict):
 
     for i in wf_dict:
         wf_dict[i]["html"] += "</table>"
+        if lang == "ru":
+            wf_dict[i]["html_ru"] += "</table>"
 
     return wf_dict
 
@@ -116,6 +153,7 @@ def add_wf_to_db(db_session, wf_dict):
         wf_data = FamilyWord(
             word_family=wf,
             html=wf_dict[wf]["html"],
+            html_ru=wf_dict[wf]["html_ru"],
             count=len(wf_dict[wf]["headwords"]))
         add_to_db.append(wf_data)
 

@@ -22,6 +22,10 @@ from tools.paths import ProjectPaths
 from tools.superscripter import superscripter_uni
 from tools.tic_toc import tic, toc
 
+from exporter.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations
+
+from sqlalchemy.orm import joinedload
+
 
 def main():
     tic()
@@ -29,12 +33,25 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    dpd_db = db_session.query(
-        DpdHeadwords).filter(DpdHeadwords.family_compound != "").all()
+    if config_test("exporter", "language", "en"):
+        lang = "en"
+    elif config_test("exporter", "language", "ru"):
+        lang = "ru"
+    # add another lang here "elif ..." and 
+    # add conditions if lang = "{your_language}" in every instance in the code.
+
+    if lang == "en":
+        dpd_db = db_session.query(
+            DpdHeadwords).filter(DpdHeadwords.family_compound != "").all()
+    elif lang == "ru":
+        dpd_db = db_session.query(
+            DpdHeadwords).options(joinedload(DpdHeadwords.ru)
+            ).filter(DpdHeadwords.family_compound != "").all()
+    
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     cf_dict = create_comp_fam_dict(dpd_db)
-    cf_dict = compile_cf_html(dpd_db, cf_dict)
+    cf_dict = compile_cf_html(dpd_db, cf_dict, lang)
     add_cf_to_db(db_session, cf_dict)
     update_db_cache(db_session, cf_dict)
 
@@ -81,6 +98,7 @@ def create_comp_fam_dict(dpd_db):
                         "headwords": [i.lemma_1],
                         "html": "",
                         "data": [],
+                        "html_ru": "",
                         "anki": []
                     }
 
@@ -88,7 +106,7 @@ def create_comp_fam_dict(dpd_db):
     return cf_dict
 
 
-def compile_cf_html(dpd_db, cf_dict):
+def compile_cf_html(dpd_db, cf_dict, lang="en"):
     print("[green]compiling html")
 
     for __counter__, i in enumerate(dpd_db):
@@ -110,6 +128,22 @@ def compile_cf_html(dpd_db, cf_dict):
 
                     cf_dict[cf]["html"] = html_string
 
+                    if lang == "ru" and i.ru:
+                        if not cf_dict[cf]["html_ru"]:
+                            html_string = "<table class='family'>"
+                        else:
+                            html_string = cf_dict[cf]["html_ru"]
+
+                        ru_meaning = make_short_ru_meaning(i, i.ru)
+                        pos = ru_replace_abbreviations(i.pos)
+                        html_string += "<tr>"
+                        html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
+                        html_string += f"<td><b>{pos}</b></td>"
+                        html_string += f"<td>{ru_meaning} {degree_of_completion(i)}</td>"
+                        html_string += "</tr>"
+
+                        cf_dict[cf]["html_ru"] = html_string
+
                     # data
                     if i.meaning_1:
                         cf_dict[cf]["data"].append(
@@ -124,6 +158,8 @@ def compile_cf_html(dpd_db, cf_dict):
 
     for i in cf_dict:
         cf_dict[i]["html"] += "</table>"
+        if lang == "ru":
+            cf_dict[i]["html_ru"] += "</table>"
 
     return cf_dict
 
@@ -137,6 +173,7 @@ def add_cf_to_db(db_session, cf_dict):
         cf_data = FamilyCompound(
             compound_family=cf,
             html=cf_dict[cf]["html"],
+            html_ru=cf_dict[cf]["html_ru"],
             count=len(cf_dict[cf]["headwords"]))
         cf_data.data_pack(cf_dict[cf]["data"])
         add_to_db.append(cf_data)

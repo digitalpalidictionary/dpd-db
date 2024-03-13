@@ -55,6 +55,7 @@ DEFAULT_CONFIG = {
         "show_dps_data": "no"
     },
     "exporter" : {
+        "language": "en",
         "make_dpd": "yes",
         "make_deconstructor": "no",
         "make_grammar": "no",

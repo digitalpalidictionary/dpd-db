@@ -27,11 +27,14 @@ from tools.cache_load import load_cf_set, load_idioms_set
 from tools.configger import config_test
 from tools.goldendict_path import goldedict_path
 from tools.paths import ProjectPaths
+from exporter.ru_components.tools.paths_ru import RuPaths
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.tic_toc import tic, toc, bip, bop
 from tools.utils import RenderedSizes, sum_rendered_sizes
 from tools import time_log
+
+from exporter.ru_components.tools.tools_for_ru_exporter import mdict_ru_title, mdict_ru_description, gdict_ru_info
 
 tic()
 
@@ -41,6 +44,7 @@ def main():
     time_log.log("exporter.py::main()")
 
     pth = ProjectPaths()
+    rupth = RuPaths()
     db_session: Session = get_db_session(pth.dpd_db_path)
     sandhi_contractions = make_sandhi_contraction_dict(db_session)
 
@@ -60,33 +64,46 @@ def main():
     else:
         copy_unzip: bool = False
 
+    # check config
+    if config_test("dictionary", "make_link", "yes"):
+        make_link: bool = True
+    else:
+        make_link: bool = False
+
     if config_test("dictionary", "show_dps_data", "yes"):
         dps_data: bool = True
     else:
         dps_data: bool = False
+
+    if config_test("exporter", "language", "en"):
+        lang = "en"
+    elif config_test("exporter", "language", "ru"):
+        lang = "ru"
+    # add another lang here "elif ..." and 
+    # add conditions if lang = "{your_language}" in every instance in the code.
 
     time_log.log("make_roots_count_dict()")
     roots_count_dict = make_roots_count_dict(db_session)
 
     time_log.log("generate_dpd_html()")
     dpd_data_list, sizes = generate_dpd_html(
-        db_session, pth, sandhi_contractions, cf_set, idioms_set, dps_data)
+        db_session, pth, rupth, sandhi_contractions, cf_set, idioms_set, make_link, dps_data, lang)
     rendered_sizes.append(sizes)
 
     time_log.log("generate_root_html()")
-    root_data_list, sizes = generate_root_html(db_session, pth, roots_count_dict, dps_data)
+    root_data_list, sizes = generate_root_html(db_session, pth, roots_count_dict, rupth, lang, dps_data)
     rendered_sizes.append(sizes)
 
     time_log.log("generate_variant_spelling_html()")
-    variant_spelling_data_list, sizes = generate_variant_spelling_html(pth)
+    variant_spelling_data_list, sizes = generate_variant_spelling_html(pth, rupth, lang)
     rendered_sizes.append(sizes)
 
     time_log.log("generate_epd_html()")
-    epd_data_list, sizes = generate_epd_html(db_session, pth, dps_data)
+    epd_data_list, sizes = generate_epd_html(db_session, pth, make_link, dps_data, lang)
     rendered_sizes.append(sizes)
 
     time_log.log("generate_help_html()")
-    help_data_list, sizes = generate_help_html(db_session, pth, dps_data)
+    help_data_list, sizes = generate_help_html(db_session, pth, rupth, lang, dps_data)
     rendered_sizes.append(sizes)
 
     db_session.close()
@@ -106,52 +123,68 @@ def main():
     write_size_dict(pth, sum_rendered_sizes(rendered_sizes))
 
     time_log.log("export_to_goldendict()")
-    export_to_goldendict(pth, combined_data_list)
+    if lang == "en":
+        export_to_goldendict(pth, combined_data_list, lang)
+    elif lang == "ru":
+        export_to_goldendict(rupth, combined_data_list, lang)
 
     if copy_unzip:
         time_log.log("goldendict_unzip_and_copy()")
-        goldendict_unzip_and_copy(pth)
+        if lang == "en":
+            goldendict_unzip_and_copy(pth)
+        elif lang == "ru":
+            goldendict_unzip_and_copy(rupth)
 
     if make_mdct:
         time_log.log("export_to_mdict()")
-        description = """
-            <p>Digital Pāḷi Dictionary by Bodhirasa</p>
-            <p>For more infortmation, please visit
-            <a href=\"https://digitalpalidictionary.github.io\">
-            the Digital Pāḷi Dictionary website</a></p>
-        """
-        title= "Digital Pāḷi Dictionary"
-        export_to_mdict(combined_data_list, pth, description, title)
+        if lang == "en":
+            description = """
+                <p>Digital Pāḷi Dictionary by Bodhirasa</p>
+                <p>For more infortmation, please visit
+                <a href=\"https://digitalpalidictionary.github.io\">
+                the Digital Pāḷi Dictionary website</a></p>
+            """
+            title= "Digital Pāḷi Dictionary"
+            export_to_mdict(combined_data_list, pth, description, title)
+
+        elif lang == "ru":
+            description = mdict_ru_description
+            title= mdict_ru_title
+            export_to_mdict(combined_data_list, rupth, description, title)
 
     toc()
     time_log.log("exporter.py::main() return")
 
 
-def export_to_goldendict(pth: ProjectPaths, data_list: list) -> None:
+def export_to_goldendict(_pth_, data_list: list, lang="en") -> None:
     """generate goldedict zip"""
     bip()
 
     print("[green]generating goldendict zip", end=" ")
 
-    ifo = ifo_from_opts(
-        {"bookname": "DPD",
-            "author": "Bodhirasa",
-            "description": "",
-            "website": "https://digitalpalidictionary.github.io/", }
-    )
+    if lang == "en":
+        ifo = ifo_from_opts(
+            {"bookname": "DPD",
+                "author": "Bodhirasa",
+                "description": "",
+                "website": "https://digitalpalidictionary.github.io/", }
+        )
+    elif lang == "ru":
+        ifo = ifo_from_opts(gdict_ru_info)
 
-    export_words_as_stardict_zip(data_list, ifo, pth.dpd_zip_path, pth.icon_path)
+    export_words_as_stardict_zip(data_list, ifo, _pth_.dpd_zip_path, _pth_.icon_path)
 
-    # add bmp icon for android
-    with zipfile.ZipFile(pth.dpd_zip_path, 'a') as zipf:
-        source_path = pth.icon_bmp_path
-        destination = 'dpd/android.bmp'
-        zipf.write(source_path, destination)
+    if lang == "en":
+        # add bmp icon for android
+        with zipfile.ZipFile(_pth_.dpd_zip_path, 'a') as zipf:
+            source_path = _pth_.icon_bmp_path
+            destination = 'dpd/android.bmp'
+            zipf.write(source_path, destination)
 
     print(f"{bop():>29}")
 
 
-def goldendict_unzip_and_copy(pth: ProjectPaths) -> None:
+def goldendict_unzip_and_copy(_pth_) -> None:
     """unzip and copy to goldendict folder"""
 
     goldendict_path: (Path |str) = goldedict_path()
@@ -160,7 +193,7 @@ def goldendict_unzip_and_copy(pth: ProjectPaths) -> None:
 
     if goldendict_path and goldendict_path.exists():
         try:
-            with Popen(f'unzip -o {pth.dpd_zip_path} -d "{goldendict_path}"', shell=True, stdout=PIPE, stderr=PIPE) as process:
+            with Popen(f'unzip -o {_pth_.dpd_zip_path} -d "{goldendict_path}"', shell=True, stdout=PIPE, stderr=PIPE) as process:
                 stdout, stderr = process.communicate()
 
                 if process.returncode == 0:

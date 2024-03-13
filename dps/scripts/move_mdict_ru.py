@@ -26,8 +26,7 @@ if config_test("dictionary", "make_mdict", "yes"):
       deva_dir, 
       'Documents', 
       'dpd-db',
-      'dps',
-      'exporter_ru',
+      'exporter',
       'share'
    )
 

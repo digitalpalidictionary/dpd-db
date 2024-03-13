@@ -127,7 +127,11 @@
             % endif
             % if ru and ru.ru_notes:
             <tr>
-                <th>Заметки</th>
+                <th>Заметки
+                    % if "[пер. ИИ]" in ru.ru_notes:
+                        <a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform" target="_blank">отзыв</a>
+                    % endif
+                </th>
                 <td>${ru.ru_notes}</td>
             </tr>
             % endif

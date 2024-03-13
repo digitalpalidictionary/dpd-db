@@ -13,31 +13,34 @@ from typing import List, Tuple
 from export_dpd import render_header_templ
 
 from db.models import DpdHeadwords, DpdRoots
-from tools.configger import config_test
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
 from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes
 
+from exporter.ru_components.tools.tools_for_ru_exporter import ru_replace_abbreviations
+
 
 def generate_epd_html(
     db_session: Session, 
     pth: ProjectPaths, 
-    dps_data=False
+    make_link=False,
+    dps_data=False,
+    lang="en"
     ) -> Tuple[List[RenderResult], RenderedSizes]:
-    """generate html for english to pali dictionary"""
+    """generate html for english/{lang} to pali dictionary
+    """
 
     size_dict = default_rendered_sizes()
 
     print("[green]generating epd html")
 
-    # check config
-    if config_test("dictionary", "make_link", "yes"):
-        make_link: bool = True
-    else:
-        make_link: bool = False
+    if lang == "en" and not dps_data:
+        dpd_db: list = db_session.query(DpdHeadwords).all()
+    if lang == "ru" or dps_data:
+        dpd_db: list = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.ru)).all()
+    # another language
 
-    dpd_db: list = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.ru)).all()
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
     dpd_db_length = len(dpd_db)
 
@@ -58,52 +61,54 @@ def generate_epd_html(
 
     bip()
     for counter, i in enumerate(dpd_db):
-        meanings_list = []
-        i.meaning_1 = re.sub(r"\?\?", "", i.meaning_1)
+        # generate eng-pali
+        if lang == "en":
+            meanings_list = []
+            i.meaning_1 = re.sub(r"\?\?", "", i.meaning_1)
 
-        if (i.meaning_1 and
-                i.pos not in pos_exclude_list):
+            if (i.meaning_1 and
+                    i.pos not in pos_exclude_list):
 
-            # remove all space brackets
-            meanings_clean = re.sub(r" \(.+?\)", "", i.meaning_1)
-            # remove all brackets space
-            meanings_clean = re.sub(r"\(.+?\) ", "", meanings_clean)
-            # remove space at start and fin
-            meanings_clean = re.sub(r"(^ | $)", "", meanings_clean)
-            # remove double spaces
-            meanings_clean = re.sub(r"  ", " ", meanings_clean)
-            # remove space around ;
-            meanings_clean = re.sub(r" ;|; ", ";", meanings_clean)
-            # remove i.e.
-            meanings_clean = re.sub(r"i\.e\. ", "", meanings_clean)
-            # remove !
-            meanings_clean = re.sub(r"!", "", meanings_clean)
-            # remove ?
-            meanings_clean = re.sub(r"\\?", "", meanings_clean)
-            meanings_list = meanings_clean.split(";")
+                # remove all space brackets
+                meanings_clean = re.sub(r" \(.+?\)", "", i.meaning_1)
+                # remove all brackets space
+                meanings_clean = re.sub(r"\(.+?\) ", "", meanings_clean)
+                # remove space at start and fin
+                meanings_clean = re.sub(r"(^ | $)", "", meanings_clean)
+                # remove double spaces
+                meanings_clean = re.sub(r"  ", " ", meanings_clean)
+                # remove space around ;
+                meanings_clean = re.sub(r" ;|; ", ";", meanings_clean)
+                # remove i.e.
+                meanings_clean = re.sub(r"i\.e\. ", "", meanings_clean)
+                # remove !
+                meanings_clean = re.sub(r"!", "", meanings_clean)
+                # remove ?
+                meanings_clean = re.sub(r"\\?", "", meanings_clean)
+                meanings_list = meanings_clean.split(";")
 
-            for meaning in meanings_list:
-                if meaning in epd.keys() and not i.plus_case:
-                    epd_string = f"{epd[meaning]}<br><b class = 'epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1}"
-                    epd[meaning] = epd_string
+                for meaning in meanings_list:
+                    if meaning in epd.keys() and not i.plus_case:
+                        epd_string = f"{epd[meaning]}<br><b class = 'epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1}"
+                        epd[meaning] = epd_string
 
-                if meaning in epd.keys() and i.plus_case:
-                    epd_string = f"{epd[meaning]}<br><b class = 'epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
-                    epd[meaning] = epd_string
+                    if meaning in epd.keys() and i.plus_case:
+                        epd_string = f"{epd[meaning]}<br><b class = 'epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
+                        epd[meaning] = epd_string
 
-                if meaning not in epd.keys() and not i.plus_case:
-                    epd_string = f"<b class = 'epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1}"
-                    epd.update(
-                        {meaning: epd_string})
+                    if meaning not in epd.keys() and not i.plus_case:
+                        epd_string = f"<b class = 'epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1}"
+                        epd.update(
+                            {meaning: epd_string})
 
-                if meaning not in epd.keys() and i.plus_case:
-                    epd_string = f"<b class = 'epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
-                    epd.update(
-                        {meaning: epd_string})
+                    if meaning not in epd.keys() and i.plus_case:
+                        epd_string = f"<b class = 'epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
+                        epd.update(
+                            {meaning: epd_string})
 
-        # Generate ru-pali
+        # generate ru-pali
         if (
-            dps_data and
+            ((dps_data and lang == "en") or lang == "ru") and
             i.ru and
             i.ru.ru_meaning and 
             i.pos not in pos_exclude_list
@@ -129,13 +134,15 @@ def generate_epd_html(
             ru_meanings_clean = re.sub(r"\\?", "", ru_meanings_clean)
             ru_meanings_list = ru_meanings_clean.split(";")
 
+            pos: str = ru_replace_abbreviations(i.pos)
+
             for ru_meaning in ru_meanings_list:
                 if ru_meaning in epd.keys():
-                    epd_string = f"{epd[ru_meaning]}<br><b class = 'epd'>{i.lemma_clean}</b> {i.pos}. {i.ru.ru_meaning}"
+                    epd_string = f"{epd[ru_meaning]}<br><b class = 'epd'>{i.lemma_clean}</b> {pos}. {i.ru.ru_meaning}"
                     epd[ru_meaning] = epd_string
 
                 if ru_meaning not in epd.keys():
-                    epd_string = f"<b class = 'epd'>{i.lemma_clean}</b> {i.pos}. {i.ru.ru_meaning}"
+                    epd_string = f"<b class = 'epd'>{i.lemma_clean}</b> {pos}. {i.ru.ru_meaning}"
                     epd.update(
                         {ru_meaning: epd_string})
 
@@ -156,43 +163,36 @@ def generate_epd_html(
     print("[green]adding roots to epd")
 
     for counter, i in enumerate(roots_db):
+        if lang == "en":
+            root_meanings_list: list = i.root_meaning.split(", ")
 
-        root_meanings_list: list = i.root_meaning.split(", ")
+            for root_meaning in root_meanings_list:
+                if root_meaning in epd.keys():
+                    epd_string = f"{epd[root_meaning]}<br><b class = 'epd'>{i.root}</b> root. {i.root_meaning}"
+                    epd[root_meaning] = epd_string
 
-        for root_meaning in root_meanings_list:
-            if root_meaning in epd.keys():
-                epd_string = f"{epd[root_meaning]}<br><b class = 'epd'>{i.root}</b> root. {i.root_meaning}"
-                epd[root_meaning] = epd_string
+                if root_meaning not in epd.keys():
+                    epd_string = f"<b class = 'epd'>{i.root}</b> root. {i.root_meaning}"
+                    epd.update(
+                        {root_meaning: epd_string})
 
-            if root_meaning not in epd.keys():
-                epd_string = f"<b class = 'epd'>{i.root}</b> root. {i.root_meaning}"
-                epd.update(
-                    {root_meaning: epd_string})
-
-        if counter % 250 == 0:
-            print(f"{counter:>10,} / {roots_db_length:<10,} {i.root:<20} {bop():>10}")
-            bip()
-
-    if dps_data:
-        print("[green]adding ru roots")
-
-        for counter, i in enumerate(roots_db):
+        if (dps_data and lang == "en") or lang == "ru":
 
             root_ru_meanings_list: list = i.root_ru_meaning.split(", ")
 
             for root_ru_meaning in root_ru_meanings_list:
                 if root_ru_meaning in epd.keys():
-                    epd_string = f"{epd[root_ru_meaning]}<br><b class = 'epd'>{i.root}</b> root. {i.root_ru_meaning}"
+                    epd_string = f"{epd[root_ru_meaning]}<br><b class = 'epd'>{i.root}</b> корень. {i.root_ru_meaning}"
                     epd[root_ru_meaning] = epd_string
 
                 if root_ru_meaning not in epd.keys():
-                    epd_string = f"<b class = 'epd'>{i.root}</b> root. {i.root_ru_meaning}"
+                    epd_string = f"<b class = 'epd'>{i.root}</b> корень. {i.root_ru_meaning}"
                     epd.update(
                         {root_ru_meaning: epd_string})
 
-            if counter % 250 == 0:
-                print(f"{counter:>10,} / {roots_db_length:<10,} {i.root:<20} {bop():>10}")
-                bip()
+        if counter % 250 == 0:
+            print(f"{counter:>10,} / {roots_db_length:<10,} {i.root:<20} {bop():>10}")
+            bip()
 
     print("[green]compiling epd html")
 
