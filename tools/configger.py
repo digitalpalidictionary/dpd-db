@@ -60,7 +60,10 @@ DEFAULT_CONFIG = {
         "make_deconstructor": "no",
         "make_grammar": "no",
         "make_tpr": "no",
-        "make_ebook": "no"
+        "make_ebook": "no",
+        "make_tbw": "no",
+        "tarball_db": "no",
+        "summary": "no"
     },
     "openia": {
         "key": ""

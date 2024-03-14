@@ -2196,6 +2196,20 @@ files = [
 ]
 
 [[package]]
+name = "pyglossary"
+version = "4.6.1"
+description = "A tool for converting dictionary files aka glossaries."
+optional = false
+python-versions = ">=3.9.0"
+files = [
+    {file = "pyglossary-4.6.1-py3-none-any.whl", hash = "sha256:1d4a3a2ba43ead36afd1c3efe5dfc44f1a486312ebb422b0ba8e80d18e5c6895"},
+    {file = "pyglossary-4.6.1.tar.gz", hash = "sha256:b7dbb4904dfbd1ba5af4b443b32d2c5cc45fd37256fa44a89185cce3d330d443"},
+]
+
+[package.extras]
+full = ["PyICU", "PyYAML", "beautifulsoup4", "html5lib", "libzim", "lxml", "marisa-trie", "python-lzo"]
+
+[[package]]
 name = "pygments"
 version = "2.17.2"
 description = "Pygments is a syntax highlighting package written in Python."
@@ -3165,4 +3179,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "0a7d92abd6456f00fede76847c0d9af745e9683fc1353353ee8c5dcd647c1481"
+content-hash = "bd790b8a0b808446b9b1ab799ccf1dc770340b9876f5aac6bca5da9a556f84a4"

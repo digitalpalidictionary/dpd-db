@@ -172,9 +172,11 @@ class ProjectPaths:
         self.dpr_source_path = base_dir.joinpath(Path("exporter/other_dictionaries/code/dpr/source/dpr.json"))
         self.mw_source_path = base_dir.joinpath(Path("exporter/other_dictionaries/code/mw/source/mw_from_simsapa.json"))
         self.peu_source_path = base_dir.joinpath(Path("exporter/other_dictionaries/code/peu/source/latest.json"))
+        self.eng_sin_source_path = base_dir.joinpath(Path("exporter/other_dictionaries/code/sin_eng/source/english-sinhala.tab"))
+        self.sin_eng_source_path = base_dir.joinpath(Path("exporter/other_dictionaries/code/sin_eng/source/sinhala-english.tab"))
         self.vri_source_path = base_dir.joinpath(Path("exporter/other_dictionaries/code/vri/source/vri.csv"))
         self.whitney_source_dir = base_dir.joinpath(Path("exporter/other_dictionaries/code/whitney/source/"))
-
+        
         # exporter/other_dictionaries/goldendict
         self.bhs_gd_path = base_dir.joinpath(Path("exporter/other_dictionaries/goldendict/bhs.zip"))
         self.cpd_gd_path = base_dir.joinpath(Path("exporter/other_dictionaries/goldendict/cpd.zip"))
@@ -182,6 +184,7 @@ class ProjectPaths:
         self.mw_gd_path = base_dir.joinpath(Path("exporter/other_dictionaries/goldendict/mw.zip"))
         self.peu_gd_path = base_dir.joinpath(Path("exporter/other_dictionaries/goldendict/peu.zip"))
         self.simsapa_gd_path = base_dir.joinpath(Path("exporter/other_dictionaries/goldendict/simsapa.zip"))
+        self.sin_eng_sin_gd_path = base_dir.joinpath(Path("exporter/other_dictionaries/goldendict/sin_eng_sin.zip"))
         self.vri_gd_path = base_dir.joinpath(Path("exporter/other_dictionaries/goldendict/vri.zip"))
         self.whitney_gd_path = base_dir.joinpath(Path("exporter/other_dictionaries/goldendict/whitney.zip"))
 
@@ -192,6 +195,7 @@ class ProjectPaths:
         self.mw_json_path = base_dir.joinpath(Path("exporter/other_dictionaries/json/mw.json"))
         self.peu_json_path = base_dir.joinpath(Path("exporter/other_dictionaries/json/peu.json"))
         self.simsapa_json_path = base_dir.joinpath(Path("exporter/other_dictionaries/json/simsapa.json"))
+        self.sin_eng_sin_json_path = base_dir.joinpath(Path("exporter/other_dictionaries/json/sin_eng_sin.json"))
         self.vri_json_path = base_dir.joinpath(Path("exporter/other_dictionaries/json/vri.json"))
         self.whitney_json_path = base_dir.joinpath(Path("exporter/other_dictionaries/json/whitney.json"))
 
@@ -202,6 +206,7 @@ class ProjectPaths:
         self.mw_mdict_path = base_dir.joinpath(Path("exporter/other_dictionaries/mdict/mw.mdx"))
         self.peu_mdict_path = base_dir.joinpath(Path("exporter/other_dictionaries/mdict/peu.mdx"))
         self.simsapa_mdict_path = base_dir.joinpath(Path("exporter/other_dictionaries/mdict/simsapa.mdx"))
+        self.sin_eng_sin_mdict_path = base_dir.joinpath(Path("exporter/other_dictionaries/mdict/sin_eng_sin.mdx"))
         self.vri_mdict_path = base_dir.joinpath(Path("exporter/other_dictionaries/mdict/vri.mdx"))
         self.whitney_mdict_path = base_dir.joinpath(Path("exporter/other_dictionaries/mdict/whitney.mdx"))
 

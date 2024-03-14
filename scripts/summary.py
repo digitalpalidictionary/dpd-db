@@ -6,47 +6,52 @@ from rich import print
 
 from db.get_db_session import get_db_session
 from db.models import DpdHeadwords, DpdRoots, Lookup
-from tools.pali_sort_key import pali_sort_key
-from tools.tic_toc import tic, toc
 from tools.configger import config_read, config_update
+from tools.configger import config_test
+from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
+from tools.tic_toc import tic, toc
 from tools.uposatha_day import uposatha_today
 
 
 def main():
     tic()
     print("[bright_yellow]summary")
-    print("[green]reading db tables")
+    if config_test("exporter", "summary", "yes"):
 
-    pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(DpdHeadwords).all()
-    roots_db = db_session.query(DpdRoots).all()
-    deconstructor_db = db_session.query(Lookup).filter(Lookup.deconstructor != "").all()
-    last_count = config_read("uposatha", "count", default_value=74657)
+        print("[green]reading db tables")
 
-    print("[green]summarizing data")
-    line1, line5, root_families = dpd_size(dpd_db)
-    line2 = root_size(roots_db, root_families)
-    line3 = deconstructor_size(deconstructor_db)
-    line4 = inflection_size(dpd_db)
-    line6 = root_data(roots_db)
-    new_words_string = new_words(db_session, last_count)
+        pth = ProjectPaths()
+        db_session = get_db_session(pth.dpd_db_path)
+        dpd_db = db_session.query(DpdHeadwords).all()
+        roots_db = db_session.query(DpdRoots).all()
+        deconstructor_db = db_session.query(Lookup).filter(Lookup.deconstructor != "").all()
+        last_count = config_read("uposatha", "count", default_value=74657)
 
-    print()
-    print(line1)
-    print(line2)
-    print(line3)
-    print(line4)
-    print(line5)
-    print(line6)
-    print("- 100% dictionary recognition up to and including ")
-    print()
-    print(f"new words include: {new_words_string}")
+        print("[green]summarizing data")
+        line1, line5, root_families = dpd_size(dpd_db)
+        line2 = root_size(roots_db, root_families)
+        line3 = deconstructor_size(deconstructor_db)
+        line4 = inflection_size(dpd_db)
+        line6 = root_data(roots_db)
+        new_words_string = new_words(db_session, last_count)
 
-    if uposatha_today():
-        print("[green]updating uposatha count")
-        config_update("uposatha", "count", len(dpd_db))
+        print()
+        print(line1)
+        print(line2)
+        print(line3)
+        print(line4)
+        print(line5)
+        print(line6)
+        print("- 100% dictionary recognition up to and including ")
+        print()
+        print(f"new words include: {new_words_string}")
+
+        if uposatha_today():
+            print("[green]updating uposatha count")
+            config_update("uposatha", "count", len(dpd_db))
+    else:
+        print("[green]disabled in config.ini")
 
     toc()
 

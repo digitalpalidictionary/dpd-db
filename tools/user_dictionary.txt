@@ -202,6 +202,7 @@ aṭṭhakathā
 Aṭṭhakavagga
 atthi
 auricle
+austerities
 autonomously
 Avanti
 Avantins
@@ -333,6 +334,7 @@ Caesalpina
 Cāla
 calamus
 Calophyllum
+Calotropis
 Campā
 caṇḍāla
 capucapu
@@ -658,6 +660,7 @@ ghaṃsati
 ghaṭ
 Ghosita's
 gi
+gigantea
 Ginginianus
 glabra
 Glabrā
@@ -1050,6 +1053,8 @@ Mallan
 Mallans
 Mallas
 malodorousness
+Mālukya
+Māluṅkya
 maṃ
 Mamordica
 Mānakāmasutta
@@ -1126,6 +1131,15 @@ MN52
 MN53
 MN54
 MN55
+MN56
+MN57
+MN58
+MN59
+MN60
+MN61
+MN62
+MN63
+MN64
 Moggallāna
 Moggallāna's
 Moggallānabyākaraṇa
@@ -1403,6 +1417,7 @@ preparer
 prideless
 prionitis
 pro-rata
+procures
 prognosticative
 proliferating
 properness
@@ -2141,10 +2156,3 @@ yojanas
 yoking
 zizanioides
 Ziziphus
-MN56
-austerities
-MN57
-MN58
-MN59
-MN60
-MN61

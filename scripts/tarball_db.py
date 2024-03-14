@@ -6,6 +6,7 @@ import os
 from rich import print
 from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop, tic, toc
+from tools.configger import config_test
 
 
 def create_tarball_bz2(pth: ProjectPaths):
@@ -32,8 +33,11 @@ def create_tarball_bz2(pth: ProjectPaths):
 def main():
     tic()
     print("[bright_yellow]compressing db to share")
-    pth = ProjectPaths()
-    create_tarball_bz2(pth)
+    if config_test("exporter", "tarball_db", "yes"):
+        pth = ProjectPaths()
+        create_tarball_bz2(pth)
+    else:
+        print("[green]diabled in config.ini")
     toc()
     
 

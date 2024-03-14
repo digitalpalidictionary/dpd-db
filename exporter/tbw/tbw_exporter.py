@@ -12,6 +12,7 @@ from rich import print
 
 from db.get_db_session import get_db_session
 from db.models import DpdHeadwords, Lookup
+from tools.configger import config_test
 from tools.pali_sort_key import pali_sort_key
 from tools.tic_toc import tic, toc
 from tools.cst_sc_text_sets import make_sc_text_set
@@ -20,9 +21,7 @@ from tools.meaning_construction import summarize_construction
 from tools.paths import ProjectPaths
 
 
-def main():
-    tic()
-    print("[bright_yellow]dpd lookup system for TBW")
+def exporte_tbw():
 
     pth = ProjectPaths()
 
@@ -220,6 +219,14 @@ def main():
         f.write(f"let dpd_deconstructor = {json_dump}")
         print("OK")
 
+
+def main():
+    tic()
+    print("[bright_yellow]dpd lookup system for TBW")
+    if config_test("exporter", "make_tbw", "yes"):
+        exporte_tbw()
+    else:
+        print("[green]disabled in config.ini")
     toc()
 
 
