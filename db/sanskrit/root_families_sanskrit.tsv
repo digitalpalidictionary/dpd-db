@@ -237,7 +237,6 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kaṇ	1	a	make sound	√kaṇ	1	sound, cry	√kaṇ		kaṅka, kaṇṭha, kāka, kaṅka (heron)
 √kaṇḍ	8	*e	break, pierce	√kaḍ √kaṇḍ	10	separate, destroy	√kaṇḍ		kaṇḍū, kaṇḍū, kaṇḍūti, kaṇḍūyat, kaṇḍūyati, kaṇḍūyana, kaṇḍūyamāṇa, kaṇḍūyamāna, kaṇḍūyitavya, kāṇḍa
 √kaṇḍ	8	*e	break, pierce	√kaḍ √kaṇḍ	10	separate, destroy	ud √kaṇḍ		utkhaṇḍita (broken)
-√kaṇḍ	8	*e	break, pierce	√kaḍ √kaṇḍ	10	separate, destroy	vi √kaṇḍ		
 √kat	2	ṃa	cut	√kṛt	1, 6	cut	√kat	kṛt	akaṇṭaka (na + kaṇṭaka), kaṇṭaka, kaṇṭakin, kartana, kartitvā, karttum, kṛṇtati, kṛtta, niṣkaṇṭaka, sakaṇṭaka
 √kat	2	ṃa	cut	√kṛt	1, 6	cut	anu √kat	anukṛt	anukartana, anukṛṃtati
 √kat	2	ṃa	cut	√kṛt	1, 6	cut	apa √kat	apakṛt	
@@ -742,7 +741,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	ā √ghaṭ	āhan	anāghāta, āghāta, āghāta +, āghātana
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	ud √ghaṭ	uddhan	udghaṭayati, udghāṭita, udghātin
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	upa √ghaṭ	upahan	upaghāṭayati, upaghāta, upaghātaka, upaghātin, na + upaghāta, sa + upaghāta, sa + upaghātaka
-√ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	ni √ghaṭ	nihan	nighātin
+√ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	ni √ghaṭ	nihan	nighāta, nighātin
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	nī √ghaṭ	nirhan	nirghātana, nirghātayati
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	pati √ghaṭ	pratihan	apratigha, apratigha + vat, pratigha, pratigha + vat, pratighāta, satpratigraha
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	pari √ghaṭ	parihan	parigha
@@ -1057,7 +1056,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ṭhā	1	a	stand	√sthā	1	stand	pari saṃ √ṭhā		na + parisaṃsthita
 √ṭhā	1	*āpe	stand	√sthā	1	stand	vi ava √ṭhā	vyavasthā	vyavasthāna, vyavasthāpayat, vyavasthāpayati, vyavasthāpita, vyavasthāpya
 √ṭhā	1	a	stand	√sthā	1	stand	vi saṃ √ṭhā		visaṃsthita
-√ṭhā	1	a	stand	√sthā	1	stand	saṃ √ṭhā	saṃsthā	dus + saṃsthāna, dus + saṃsthita, na + saṃsthāna, na + saṃsthita +, samutthāt, saṃtiṣṭhat, saṃtiṣṭhati, saṃtiṣṭhate, saṃstha, saṃsthāna, saṃsthāpayati, saṃsthāpayitavya, saṃsthāyat, saṃsthita, saṃsthita +, saṃsthetum, susaṃsthāna, susaṃsthita, sthāpayitvā, ṣaṇṭha?
+√ṭhā	1	a	stand	√sthā	1	stand	saṃ √ṭhā	saṃsthā	dus + saṃsthāna, dus + saṃsthita, na + saṃsthāna, na + saṃsthita +, samutthāt, saṃtiṣṭhat, saṃtiṣṭhati, saṃtiṣṭhate, saṃstha, saṃsthāna, saṃsthāpayati, saṃsthāpayitavya, saṃsthāyat, saṃsthita, saṃsthita +, saṃsthetum, susaṃsthāna, susaṃsthita, sthāpayitvā
 √ṭhā	1	a	stand	√sthā	1	stand	saṃ ava √ṭhā	samavasthā	samavasthita
 √ṭhā	1	*āpaya	stand	√sthā	1	stand	saṃ ud √ṭhā	samutthā	dus + samutthāpya, samanuṣṭhita, samuttiṣṭhati, samutthāt, samutthāna, samutthāna +, samutthāpaka, samutthāpayati, samutthāpita, samutthāpya, samutthāmāna, samupasthita, su + samutthāpya
 √ṭhā	1	a	stand	√sthā	1	stand	saṃ ni √ṭhā		saṃ + ni + sthāna
@@ -2248,15 +2247,15 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √raṇ	1	a	conflict, make war	√raṇ	1	sound	√raṇ		araṇa, raṇa, saraṇa
 √randh 1	8	*e	cook	√radh √randh	2, 4	be or make subject	√randh		randhayati, randhita
 √randh 2	1	a	hurt, wound	√radh √randh	2, 4	be or make subject	√randh		randh, randhra
-√rabh 1	1	a	begin	√rabh	1	take hold	ā √rabh		anārambha, ārabdha, ārabh, ārabh, ārabdhvā, ārabh, ārabhate, ārabhat, ārabhate, ārabhya, ārabhyatva, ārambha, ārambhi, na + ārabhate, nirārambha (not working)
+√rabh 1	1	a	begin	√rabh	1	take hold	ā √rabh	ārabh	anārambha, ārabdha, ārabh, ārabh, ārabdhvā, ārabh, ārabhate, ārabhat, ārabhate, ārabhya, ārabhyatva, ārambha, ārambhi, na + ārabhate, nirārambha (not working)
 √rabh 1	1	a	begin	√rabh	1	take hold	vi ā √rabh		vi +  + ārambha
-√rabh 1	1	a	begin	√rabh	1	take hold	saṃ ā √rabh		samārabdha, samārabh, samārabhate, samārambha, samārabdha, susamārabdha
-√rabh 2	1	a	be aroused, violent	√rabh	1	take hold	√rabh		
-√rabh 2	1	a	be aroused, violent	√rabh	1	take hold	ā √rabh		anārambha (non-commencement), ārabh, ārabhate, ārabhamāṇa, ārabhyamāṇa, ārambha, nirārambha (not working), saṃrabdha, sārambha (angry talk)
-√rabh 2	1	a	be aroused, violent	√rabh	1	take hold	upa ā √rabh		upārambha, upārambha (bsk)
+√rabh 1	1	a	begin	√rabh	1	take hold	saṃ ā √rabh	samārabh	samārabdha, samārabh, samārabhate, samārambha, samārabdha, susamārabdha
+√rabh 2	1	a	be aroused, violent	√rabh	1	take hold	√rabh	rabh	
+√rabh 2	1	a	be aroused, violent	√rabh	1	take hold	ā √rabh	ārabh	anārambha (non-commencement), ārabh, ārabhate, ārabhamāṇa, ārabhyamāṇa, ārambha, nirārambha (not working), saṃrabdha, sārambha (angry talk)
+√rabh 2	1	a	be aroused, violent	√rabh	1	take hold	upa ā √rabh	upālabh	upārambha, upārambha (bsk)
 √rabh 2	1	a	be aroused, violent	√rabh	1	take hold	vi √rabh		vairambha
-√rabh 2	1	a	be aroused, violent	√rabh	1	take hold	saṃ √rabh		na + saṃrabdha, na + saṃrambha, saṃrabdha, saṃrambha
-√rabh 2	1	a	be aroused, violent	√rabh	1	take hold	saṃ ā √rabh		samārabdha, samārabh, samālambha, samālambha, samārambha, ālambha, ārambha
+√rabh 2	1	a	be aroused, violent	√rabh	1	take hold	saṃ √rabh	saṃrabh	na + saṃrabdha, na + saṃrambha, saṃrabdha, saṃrambha
+√rabh 2	1	a	be aroused, violent	√rabh	1	take hold	saṃ ā √rabh	samārabh	samārabdha, samārabh, samālambha, samālambha, samārambha, ālambha, ārambha
 √ram 1	1	a	delight, please	√ram	1	be or make content	√ram	ram	arati, arati +, dus + rama, na + arati, na + ratī, rata, rati, ratvā / rantvā, ratha, rama, ramaṇīya, ramate, ramamāṇa, ramayate, ramasva, ramita, ramya, ramyaka, ramyaka , vasanta, rāma, rāmaṇīya, rāmaṇīyaka, su + ramya, sūrata
 √ram 1	1	a	delight, please	√ram	1	be or make content	adhi ā √ram		adhi + ārāma
 √ram 1	1	a	delight, please	√ram	1	be or make content	abhi √ram	abhiram	abhirata, abhirati, abhiramaṇa, abhiramat, abhiramate, abhiramamāna, abhiramayitum, abhiramitum, abhirāma, abhirāmayati, du + abhirāma, na + abhirata, na + abhirati, na + abhiramat, na + abhiramate
@@ -2422,7 +2421,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √lip	2	ṃa + *e	coat, smear	√lip	6	smear	ā √lip		ālimpat, ālimpati, ālimpayat, ālepa, ālepana, ālepana / lepana, ālepayati
 √lip	2	ṃa	coat, smear	√lip	6	smear	ud √lip		ālipta
 √lip	2	ṃa	coat, smear	√lip	6	smear	upa √lip		anupalipta, upalip, upalipta, upalimpati, upalimpana, upalepa, upalepana, upalepayati, na + upalipta, na + upalipyate
-√lip	2	ṃa	coat, smear	√lip	6	smear	pa √lip		palita, pralipta
+√lip	2	ṃa	coat, smear	√lip	6	smear	pa √lip		palita, pralipta, pralepana
 √lip	2	ṃa	coat, smear	√lip	6	smear	vi √lip		vilip, vilipta, vilimpati, vilepana, vilepayati, su + vilipta
 √lip	2	ṃa	coat, smear	√lip	6	smear	saṃ √lip		saṃ + lipta, saṃ + lipta, samālipta
 √lis	3	ya	be small	√liś	4	be small	√lis		leśa, leśa (particle)
