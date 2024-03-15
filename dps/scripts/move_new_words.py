@@ -10,6 +10,8 @@ from dps.tools.paths_dps import DPSPaths
 
 def move_new_words():
 
+    print("adding additions from dps backup to db/backup/dpd_headwords.tsv")
+
     pth = ProjectPaths()
     dpspth = DPSPaths()
 
@@ -27,9 +29,14 @@ def move_new_words():
         reader = csv.reader(dps_file, delimiter='\t')
         writer = csv.writer(new_file, delimiter='\t', quotechar='"', quoting=csv.QUOTE_ALL)
         next(reader)  # Skip the header row
+        added_rows_count = 0
         for row in reader:
             if int(row[0]) > max_id:
                 writer.writerow(row)
+                added_rows_count += 1
+                print(f" {added_rows_count}: {row[0]}, {row[1]}, {row[4]}, {row[10]}")
+
+    print(f"Total rows added: {added_rows_count}")
 
 
 move_new_words()

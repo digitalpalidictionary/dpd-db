@@ -5,6 +5,7 @@
 import copy
 import csv
 import os
+import datetime
 
 from anki.collection import Collection
 from anki.errors import DBError
@@ -22,11 +23,16 @@ from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
 from tools.tic_toc import tic, toc, bip, bop
 
-from tools.date_and_time import day
+# from tools.date_and_time import day
+
+
+
 
 from sqlalchemy.orm import joinedload
 
-date = day()
+# date = day()
+
+current_date = datetime.date.today().strftime("%d-%m-%y")
 
 dpspth = DPSPaths()
 
@@ -358,7 +364,7 @@ def update_note_values(note, i):
     note["variant"] = str(i.variant)
     note["commentary"] = str(i.commentary).replace("\n", "<br>")
     note["notes"] = str(i.notes).replace("\n", "<br>")
-    # note["test"] = str(date)
+    note["test"] = str(current_date)
 
     # 'link' field
     if i.link:
@@ -420,7 +426,7 @@ def update_note_values(note, i):
     note["sbs_audio"] = sbs_audio
 
     # Logic for feedback
-    feedback_url = f'Нашли ошибку? <a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={i.lemma_1}&entry.1433863141=Anki\">Пожалуйста сообщите</a>.'
+    feedback_url = f'Нашли ошибку? <a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={i.lemma_1}&entry.1433863141=Anki-{current_date}\">Пожалуйста сообщите</a>.'
     note["feedback"] = feedback_url
 
     is_updated = None
@@ -453,7 +459,15 @@ def load_chant_index_map():
 
 
 def deck_selector(i):
-    if i.ru and i.ru.ru_meaning:
+    if (i.ru and i.ru.ru_meaning 
+    and i.sbs 
+    and(
+            i.sbs.sbs_example_1 or 
+            i.sbs.sbs_example_2 or 
+            i.sbs.sbs_example_3 or 
+            i.sbs.sbs_example_4
+        )
+    ):
         return "Пали Словарь"
     else:
         return None

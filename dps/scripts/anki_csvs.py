@@ -4,14 +4,18 @@
 
 import pandas as pd
 import os
-from dps.tools.paths_dps import DPSPaths
+import datetime
 
 from rich.console import Console
+
+from dps.tools.paths_dps import DPSPaths
 from tools.tic_toc import tic, toc
 
 console = Console()
 
 dpspth = DPSPaths()
+
+current_date = datetime.date.today().strftime("%d-%m-%y")
 
 # Dictionary of functions and whether they are enabled
 function_status = {
@@ -74,7 +78,17 @@ def main():
     # Iterate over the functions
     for function_name, (function, params) in function_mapping.items():
         if function_status.get(function_name, False):
-            function(df.copy(), *params)
+            df_result = function(df.copy(), *params)
+            if function_name == 'parittas':
+                for index, row in df_result.iterrows():
+                    if row['sbs_example_1'] == "":
+                        console.print(f"[bold red]no example for ID: {row['id']}")
+            else:
+                # Check if any of the sbs_example columns are empty for each row
+                for index, row in df_result.iterrows():
+                    if row['sbs_example_1'] == "" and row['sbs_example_2'] == "" and row['sbs_example_3'] == "" and row['sbs_example_4'] == "":
+                        console.print(f"[bold red]no example for ID: {row['id']}")
+
 
     toc()
 
@@ -88,7 +102,7 @@ def sbs_per(df, sbs_ped_link):
     df.reset_index(drop=True, inplace=True)
 
     df['feedback'] = df.apply(lambda row: (
-        f"""{sbs_ped_link}={row['pali_1']}&entry.1433863141=SBS">Fix it here</a>"""
+        f"""{sbs_ped_link}={row['pali_1']}&entry.1433863141=SBS-{current_date}">Fix it here</a>"""
     ), axis=1)
 
     # Change the value of 'ru_meaning' and 'ru_meaning_lit' columns to an empty string
@@ -155,7 +169,7 @@ def sbs_per(df, sbs_ped_link):
     else:
         console.print("[bold red]no path to sbs_anki_style_dir")
 
-    return None
+    return filtered_df
 
 
 def parittas(df, sbs_ped_link):
@@ -195,7 +209,7 @@ def parittas(df, sbs_ped_link):
     filtered_df.reset_index(drop=True, inplace=True)
 
     filtered_df['feedback'] = filtered_df.apply(lambda row: (
-        f"""{sbs_ped_link}={row['pali_1']}&entry.1433863141=Parittas">Fix it here</a>"""
+        f"""{sbs_ped_link}={row['pali_1']}&entry.1433863141=Parittas-{current_date}">Fix it here</a>"""
     ), axis=1)
 
     # Select the columns to keep in the DataFrame
@@ -223,7 +237,7 @@ def parittas(df, sbs_ped_link):
     else:
         console.print("[bold red]no path to sbs_anki_style_dir")
 
-    return None
+    return filtered_df
 
 
 def dps(df, dps_link):
@@ -234,12 +248,16 @@ def dps(df, dps_link):
     # Create the 'Feedback' column using string formatting with the specified content
     df.reset_index(drop=True, inplace=True)
 
-    df['feedback'] = df.apply(
-        lambda row: (
-            f"""{dps_link}={row['pali_1']}&entry.1433863141=Anki">Пожалуйста сообщите</a>."""
-        ), 
-        axis=1
-    )
+    df = df[df['ru_meaning'] != ""].copy()
+
+
+    # Filter rows where at least one of the sbs_example columns is not empty
+    df = df[df[['sbs_example_1', 'sbs_example_2', 'sbs_example_3', 'sbs_example_4']].apply(lambda row: row.ne("").any(), axis=1)]
+
+
+    df.loc[:, 'feedback'] = df.apply(lambda row: (
+            f"""{dps_link}={row['pali_1']}&entry.1433863141=SBS-{current_date}">Fix it here</a>"""
+        ), axis=1)
 
     # Select the columns to keep in the DataFrame
     columns_to_keep = ['id', 'pali_1', 'sbs_class_anki', 'sbs_category', 'sbs_class', 'grammar', 
@@ -278,7 +296,7 @@ def dps(df, dps_link):
     else:
         console.print("[bold red]no path to sbs_anki_style_dir")
 
-    return None
+    return df
 
 
 def dhp(df, sbs_ped_link):
@@ -346,7 +364,7 @@ def dhp(df, sbs_ped_link):
     filtered_df.reset_index(drop=True, inplace=True)
 
     filtered_df.loc[:, 'feedback'] = filtered_df.apply(lambda row: (
-        f"""{sbs_ped_link}={row['pali_1']}&entry.1433863141=Parittas">Fix it here</a>"""
+        f"""{sbs_ped_link}={row['pali_1']}&entry.1433863141=Parittas-{current_date}">Fix it here</a>"""
     ), axis=1)
 
     # Select the columns to keep in the filtered DataFrame
@@ -382,13 +400,16 @@ def dhp(df, sbs_ped_link):
     else:
         console.print("[bold red]no path to sbs_anki_style_dir")
 
-    return None
+    return filtered_df
 
 
 def classes(df, sbs_ped_link):
 
     # Print starting message in green color
     console.print("[bold green]making classes.csvs.")
+
+    # Filter DataFrame with 'sbs_class_anki' not empty
+    # df = df[df['sbs_class_anki'] != ""]
 
     # Create a mask for rows where 'ru_meaning_lit' is not an empty string
     mask = df['ru_meaning_lit'].apply(lambda x: x != "")
@@ -407,7 +428,7 @@ def classes(df, sbs_ped_link):
     df.reset_index(drop=True, inplace=True)
 
     df['feedback'] = df.apply(lambda row: (
-        f"""{sbs_ped_link}={row['pali_1']}&entry.1433863141=Vocab">Fix it here</a>"""
+        f"""{sbs_ped_link}={row['pali_1']}&entry.1433863141=Vocab-{current_date}">Fix it here</a>"""
     ), axis=1)
 
     # Get unique values in 'sbs_class_anki' column
@@ -533,7 +554,7 @@ def classes(df, sbs_ped_link):
     else:
         console.print("[bold red]no path to sbs_anki_style_dir")
 
-    return None
+    return all_class_df
 
 
 def suttas_class(df, sbs_ped_link):
@@ -545,7 +566,7 @@ def suttas_class(df, sbs_ped_link):
     df.reset_index(drop=True, inplace=True)
 
     df['feedback'] = df.apply(lambda row: (
-        f"""{sbs_ped_link}={row['pali_1']}&entry.1433863141=Suttas">Fix it here</a>"""
+        f"""{sbs_ped_link}={row['pali_1']}&entry.1433863141=Suttas-{current_date}">Fix it here</a>"""
     ), axis=1)
 
     # Change the value of 'ru_meaning' column to an empty string
@@ -564,7 +585,11 @@ def suttas_class(df, sbs_ped_link):
         'notes', 'sbs_notes', 'link', 'sbs_audio', 'test', 'feedback']
 
     # Create a separate DataFrame with 'sbs_category' not empty
-    df_with_category = df[df['sbs_category'] != ""]
+
+    df_with_category = df[df['sbs_category'] != ""].copy()
+
+    # Filter those without examples
+    df_with_category = df_with_category[df_with_category['sbs_category'].str.contains('_') == False]
 
     df_with_category = df_with_category[columns_to_keep]
 
@@ -601,7 +626,7 @@ def suttas_class(df, sbs_ped_link):
     else:
         console.print("[bold red]no path to sbs_anki_style_dir")
 
-    return None
+    return df_with_category
 
 
 def root_phonetic_class(df, sbs_ped_link):
@@ -613,7 +638,7 @@ def root_phonetic_class(df, sbs_ped_link):
     df.reset_index(drop=True, inplace=True)
 
     df['feedback'] = df.apply(lambda row: (
-        f"""{sbs_ped_link}={row['pali_1']}&entry.1433863141=Roots">Fix it here</a>"""
+        f"""{sbs_ped_link}={row['pali_1']}&entry.1433863141=Roots-{current_date}">Fix it here</a>"""
     ), axis=1)
 
     # Change the value of 'ru_meaning' and 'ru_meaning_lit' columns to an empty string
@@ -667,7 +692,7 @@ def root_phonetic_class(df, sbs_ped_link):
     else:
         console.print("[bold red]no path to sbs_anki_style_dir")
         
-    return None
+    return root_df
 
 
 if __name__ == "__main__":

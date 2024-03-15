@@ -2,6 +2,8 @@
 
 # update data in dpd.db from from backup_tsv with additions and corrections
 
+set -e
+
 git fetch
 
 git checkout origin/main -- db/backup_tsv/dpd_headwords.tsv
@@ -13,12 +15,12 @@ dps/scripts/backup_all_dps.py
 # Define filenames
 FILENAMES=("sbs.tsv" "russian.tsv" "dpd_roots.tsv")
 
-# Copy files from dps/backup/ to backup_tsv/
+# Copy files from dps/backup/ to db/backup_tsv/
 for file in "${FILENAMES[@]}"; do
-    cp -rf ./dps/backup/$file ./backup_tsv/$file
+    cp -rf ./dps/backup/$file ./db/backup_tsv/$file
 done
 
-# dps/scripts/move_new_words.py
+dps/scripts/move_new_words.py
 
 scripts/db_update_from_tsv.py
 

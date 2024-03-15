@@ -406,6 +406,9 @@ def update_corrections_tsv(values, corrections_list, index):
 def apply_all_suggestions():
 
     corrections_list = load_corrections_tsv()
+
+    added_lines_count = 0
+
     for correction in corrections_list:
         if not correction.approved:
             db = db_session.query(DpdHeadwords).filter(
@@ -421,17 +424,23 @@ def apply_all_suggestions():
 
                 if field1 and value1 is not None:
                     setattr(db, field1, value1)
-                    print(f"{id}: {field1} with {value1}")
+                    added_lines_count += 1
+                    print(f"{added_lines_count} {id}: {field1} with {value1}")
                 if field2 and value2 is not None:
                     setattr(db, field2, value2)
-                    print(f"{id}: {field2} with {value2}")
+                    added_lines_count += 1
+                    print(f"{added_lines_count} {id}: {field2} with {value2}")
                 if field3 and value3 is not None:
                     setattr(db, field3, value3)
-                    print(f"{id}: {field3} with {value3}")
+                    added_lines_count += 1
+                    print(f"{added_lines_count} {id}: {field3} with {value3}")
                 
                 db_session.commit()
             else:
                 print(f"Entry with ID {correction.id} not found.")
+
+    print(f"Total number of applied corrections: {added_lines_count}")
+
 
 
 if __name__ == "__main__":

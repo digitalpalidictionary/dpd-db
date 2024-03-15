@@ -41,7 +41,7 @@ def main():
     dps(dpspth, dpd_db)
     toc()
     
-    full_db(dpspth, dpd_db)
+    # full_db(dpspth, dpd_db)
     
 
 def get_header():

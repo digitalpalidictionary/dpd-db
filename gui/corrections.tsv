@@ -943,13 +943,42 @@ buddho <b>tapati</b> tejasā."	duplicted changed		yes
 50034	meaning_lit	being caused to fear					consistency				
 76497	meaning_lit	being caused to be ascended									
 76498	meaning_lit	being caused to be ascended									
-30171	meaning_1	(vinaya) verdict of recalcitrance; verdict of intractability					typo		
-54798	compound_type	kammadhāraya > bahubbīhi	compound_construction	rāga eva dosa			missing		
-40127	compound_type	kammadhāraya > bahubbīhi	compound_construction	pañña eva uttara			missing		
-62102	source_1	SN3.11	sutta_1	sattajaṭilasuttaṃ	example_1	tena kho pana samayena satta ca jaṭilā satta ca nigaṇṭhā satta ca acelakā satta ca eka<b>sāṭakā</b> satta ca paribbājakā parūḷhakacchanakhalomā khārivividham'ādāya bhagavato avidūre atikkamanti.	sutta example		
-53399	meaning_1	playing dumb; pretending not to know					move to lit		
-53399	meaning_lit	causing confusion					missing		
-23617	meaning_1	edible food; raw food; non-staple food; (e.g. vegetables, sweets)					so it will be good for epd		
-76893	meaning_1	edible food; raw food; non-staple food; (e.g. vegetables, sweets)					so it will be good for epd		
-13607	meaning_1	in this case; here					missing		
-53501	meaning_1	just whatever; just which; whatsoever					error		
+30171	meaning_1	(vinaya) verdict of recalcitrance; verdict of intractability					typo				
+54798	compound_type	kammadhāraya > bahubbīhi	compound_construction	rāga eva dosa			missing				
+40127	compound_type	kammadhāraya > bahubbīhi	compound_construction	pañña eva uttara			missing				
+62102	source_1	SN3.11	sutta_1	sattajaṭilasuttaṃ	example_1	tena kho pana samayena satta ca jaṭilā satta ca nigaṇṭhā satta ca acelakā satta ca eka<b>sāṭakā</b> satta ca paribbājakā parūḷhakacchanakhalomā khārivividham'ādāya bhagavato avidūre atikkamanti.	sutta example				
+53399	meaning_1	playing dumb; pretending not to know					move to lit				
+53399	meaning_lit	causing confusion					missing				
+23617	meaning_1	edible food; raw food; non-staple food; (e.g. vegetables, sweets)					so it will be good for epd				
+76893	meaning_1	edible food; raw food; non-staple food; (e.g. vegetables, sweets)					so it will be good for epd				
+13607	meaning_1	in this case; here					missing				
+53501	meaning_1	just whatever; just which; whatsoever					error				
+2121	meaning_lit	overcoming					missing				
+68934	meaning_lit	obstructed					typo				
+51357	source_2		sutta_2		example_2		wrong example				
+57513	source_1	MN20	sutta_1	vitakkasaṇṭhānasuttaṃ	example_1	yaṃnūn'āhaṃ <b>saṇikaṃ</b> gaccheyyan'ti. so <b>saṇikaṃ</b> gaccheyya. tassa evam'assa, kiṃ nu kho ahaṃ <b>saṇikaṃ</b> gacchāmi? yaṃnūn'āhaṃ tiṭṭheyyan'ti.	bold				
+45584	source_1	DHP127	sutta_1	pāpavaggo	example_1	"na antalikkhe na samuddamajjhe,
+na pabbatānaṃ vivaraṃ pavissa,
+na vijjati so jagatippadeso,
+yatthaṭṭhito mucceyya <b>pāpakammā</b>."	wrong vagga				
+27767	source_1	DHP127	sutta_1	pāpavaggo	example_1	"na antalikkhe na samuddamajjhe,
+na pabbatānaṃ vivaraṃ pavissa,
+na vijjati so <b>jagati</b>ppadeso,
+yatthaṭṭhito mucceyya pāpakammā."	wrong vagga				
+50576	source_1	DHP249	sutta_1	malavaggo	example_1	"dadāti ve yathāsaddhaṃ,
+yathāpasādanaṃ jano,
+tattha yo <b>maṅku bhavati</b>,
+paresaṃ pānabhojane,
+na so divā vā rattiṃ vā,
+samādhim'adhigacchati."	bold				
+68325	source_1		sutta_1		example_1		wrong example				
+40765	meaning_1	living in a suitable place; dwelling in an appropriate region					missing				
+5421	source_2	MN105	sutta_2	sunakkhattasuttaṃ	example_2	lok'āmis'ādhimuttassa kho, sunakkhatta, purisapuggalassa tappatirūpī c'eva kathā saṇṭhāti, tadanudhammañ'ca anuvitakketi, <b>anuvicāreti</b>, tañ'ca purisaṃ bhajati, tena ca vittiṃ āpajjati	bold				
+14658	source_1	DN23.20	sutta_1	pāyāsisuttaṃ	example_1	atha kho pāyāsi rājañño <b>uttaraṃ</b> māṇavaṃ āmantāpetvā etadavoca, saccaṃ kira tvaṃ, tāta <b>uttara</b>, dānaṃ datvā evaṃ anuddisasi	bold				
+20149	source_2		sutta_2		example_2		this is ex from kappeti 2				
+65333	phonetic	u > o					Since sobhasī exists separately maybe remove notes 		
+1776	meaning_1	arranged in eight ways; plaited eightfold					missing		
+6162	meaning_1	who has not achieved one's aim; who has not fulfilled one's intention; (comm) not reached the state of arahant					missing		
+2276	meaning_1	surplus; excess; leftover; too much					this is a meaning of atireka 2		
+12812	meaning_1	discharge; suppuration; outflow; effluent; (comm) defilement					missing		
+65235	source_2	VIN4.4.8	sutta_2	samathakkhandhakaṃ, adhikaraṇaṃ	example_2	tattha katamaṃ āpatti no adhikaraṇaṃ? <b>sotāpatti</b> samāpatti, ayaṃ āpatti no adhikaraṇaṃ.	different example		
