@@ -21,6 +21,7 @@ class ProjectPaths:
         self.pali_root_path = base_dir.joinpath(Path("db/backup_tsv/dpd_roots.tsv"))
         self.russian_path = base_dir.joinpath(Path("db/backup_tsv/russian.tsv"))
         self.sbs_path = base_dir.joinpath(Path("db/backup_tsv/sbs.tsv"))
+        self.ru_root_path = base_dir.joinpath(Path("db/backup_tsv/ru_roots.tsv"))
 
         # db/bold_definitions
         self.bold_defintions_tsv_path = base_dir.joinpath(Path("db/bold_defintions/bold_defintions.tsv"))

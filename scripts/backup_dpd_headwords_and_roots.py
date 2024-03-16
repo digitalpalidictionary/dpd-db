@@ -65,7 +65,9 @@ def backup_dpd_roots(db_session: Session, pth: ProjectPaths, custom_path: str = 
     with open(pali_root_path, 'w', newline='') as tsvfile:
         exclude_columns = [
             "created_at", "updated_at",
-            "root_info", "root_matrix"]
+            "root_info", "root_matrix",
+            "root_ru_meaning", "sanskrit_root_ru_meaning"
+            ]
         csvwriter = csv.writer(
             tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL)
         column_names = [

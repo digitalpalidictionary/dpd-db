@@ -51,6 +51,7 @@ def main():
     make_pali_word_table_data(pth, db_session)
     make_pali_root_table_data(pth, db_session)
     make_russian_table_data(pth, db_session)
+    make_ru_root_table_data(pth, db_session)
     make_sbs_table_data(pth, db_session)
 
     print("[green]committing to db")
@@ -85,7 +86,8 @@ def make_pali_root_table_data(pth: ProjectPaths, db_session: Session):
             for col_name, value in zip(columns, row):
                 if col_name not in (
                     "created_at", "updated_at",
-                        "root_info", "root_matrix"):
+                        "root_info", "root_matrix",
+                        "root_ru_meaning", "sanskrit_root_ru_meaning"):
                     data[col_name] = value
             db_session.add(DpdRoots(**data))
 
@@ -101,6 +103,25 @@ def make_russian_table_data(pth: ProjectPaths, db_session: Session):
             for col_name, value in zip(columns, row):
                 data[col_name] = value
             db_session.add(Russian(**data))
+
+
+def make_ru_root_table_data(pth: ProjectPaths, db_session: Session):
+    """Read TSV and return ru columns from DpdRoots."""
+    print("[green]populating ru columns in DpdRoots table")
+    with open(pth.ru_root_path, 'r', newline='') as tsvfile:
+        csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
+        columns = next(csvreader)
+        for row in csvreader:
+            data = {}
+            for col_name, value in zip(columns, row):
+                # Include 'root' in the data dictionary
+                data[col_name] = value
+            existing_record = db_session.query(DpdRoots).filter_by(root=data['root']).first()
+            if existing_record:
+                for key, value in data.items():
+                    setattr(existing_record, key, value)
+            else:
+                db_session.add(DpdRoots(**data))
 
 
 def make_sbs_table_data(pth: ProjectPaths, db_session: Session):
