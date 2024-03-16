@@ -24,6 +24,19 @@ from sqlalchemy.orm import joinedload
 
 
 def main():
+    tic()
+    print("[bright_yellow]idioms generator")
+
+    if not (
+        config_test("exporter", "make_dpd", "yes") or 
+        config_test("regenerate", "db_rebuild", "yes") or 
+        config_test("exporter", "make_tpr", "yes") or 
+        config_test("exporter", "make_ebook", "yes")
+    ):
+        print("[green]disabled in config.ini")
+        toc()
+        return
+    
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
@@ -48,6 +61,8 @@ def main():
     idioms_dict = compile_idioms_html(dpd_db, idioms_dict, lang)
     add_idioms_to_db(db_session, idioms_dict)
     update_db_cache(db_session, idioms_dict)
+    
+    toc()
 
 
 def sync_idiom_numbers_with_family_compound(db_session):
@@ -209,17 +224,4 @@ def update_db_cache(db_session, idioms_dict):
 
 
 if __name__ == "__main__":
-    tic()
-    print("[bright_yellow]idioms generator")
-
-    if (
-        config_test("exporter", "make_dpd", "yes") or 
-        config_test("regenerate", "db_rebuild", "yes") or 
-        config_test("exporter", "make_tpr", "yes") or 
-        config_test("exporter", "make_ebook", "yes")
-    ):
-        main()
-    else:
-        print("generating is disabled in the config")
-    
-    toc()
+    main()

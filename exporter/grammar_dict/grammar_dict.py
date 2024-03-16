@@ -107,8 +107,8 @@ def config_tests(pd) -> bool:
     """
     print("[green]running config tests")
 
-    if config_test("exporter", "make_grammar", "no"):
-        print("generating is disabled in the config")
+    if not config_test("exporter", "make_grammar", "yes"):
+        print("[green]disabled in config.ini")
         return False
 
     if config_test("dictionary", "make_mdict", "yes"):

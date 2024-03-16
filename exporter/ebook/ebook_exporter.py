@@ -396,7 +396,7 @@ def main():
         zip_epub(pth)
         make_mobi(pth)
     else:
-        print("generating is disabled in the config")
+        print("[green]disabled in config.ini")
     toc()
 
 

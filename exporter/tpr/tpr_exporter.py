@@ -51,6 +51,13 @@ class ProgData():
 def main():
 
     tic()
+    print("[bright_yellow]generate tpr data")
+
+    if not config_test("exporter", "make_tpr", "yes"):
+        print("[green]disabled in config.ini")
+        toc()
+        return
+        
     g = ProgData()
 
     if g.pth.tpr_release_path.exists():
@@ -548,8 +555,5 @@ def copy_zip_to_tpr_downloads(g: ProgData):
 
 
 if __name__ == "__main__":
-    print("[bright_yellow]generate tpr data")
-    if config_test("exporter", "make_tpr", "yes"):
-        main()
-    else:
-        print("generating is disabled in the config")
+    main()
+

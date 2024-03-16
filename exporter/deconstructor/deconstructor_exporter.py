@@ -66,7 +66,7 @@ def main():
             make_mdict(pth, decon_data_list, m)
       
     else:
-        print("generating is disabled in the config")
+        print("[green]disabled in config.ini")
     toc()
     
 

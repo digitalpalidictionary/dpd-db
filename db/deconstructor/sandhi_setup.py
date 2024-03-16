@@ -27,6 +27,18 @@ def setup_deconstructor():
     """Prepare all the necessary parts for deconstructor locally
     or in the cloud."""
 
+    tic()
+    print("[bright_yellow]setting up for sandhi splitting")
+    if not (
+        config_test("exporter", "make_deconstructor", "yes") or 
+        config_test("exporter", "make_tpr", "yes") or 
+        config_test("exporter", "make_ebook", "yes") or 
+        config_test("regenerate", "db_rebuild", "yes")
+    ):
+        
+        print("[green]disabled in config.ini")
+        toc()
+
     # Read configurations from config.ini
     if config_test("deconstructor", "run_on_cloud", "yes"):
         print("[green]setting up to run [cyan]on cloud")
@@ -129,6 +141,8 @@ def setup_deconstructor():
         print(f"[white]{'ok':>10}")
 
     make_matches_dict(pth)
+
+    toc()
 
 
 def make_spelling_mistakes_set(pth: ProjectPaths) -> Tuple[Set[str], Set[str]]:
@@ -331,15 +345,5 @@ def make_neg_inflections_set(db_session: Session, sandhi_exceptions_set: Set[str
 
 
 if __name__ == "__main__":
-    tic()
-    print("[bright_yellow]setting up for sandhi splitting")
-    if (
-        config_test("exporter", "make_deconstructor", "yes") or 
-        config_test("exporter", "make_tpr", "yes") or 
-        config_test("exporter", "make_ebook", "yes") or 
-        config_test("regenerate", "db_rebuild", "yes")
-    ):
-        setup_deconstructor()
-    else:
-        print("generating is disabled in the config")
-    toc()
+
+    setup_deconstructor()

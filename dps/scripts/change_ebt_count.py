@@ -15,7 +15,12 @@ from tools.configger import config_test
 
 def main():
     tic()
-
+    print("[bright_yellow] mark all which have sbs_category changing ebt_count")
+    
+    if not config_test("dictionary", "show_ebt_count", "yes"):
+        print("[green]disabled in config.ini")
+        toc()
+        return
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -33,15 +38,10 @@ def main():
 
 
     db_session.commit()
-
     db_session.close()
 
     toc()
 
 
 if __name__ == "__main__":
-    print("[bright_yellow] mark all which have sbs_category changing ebt_count")
-    if config_test("dictionary", "show_ebt_count", "yes"):
-        main()
-    else:
-        print("generating is disabled in the config")
+    main()

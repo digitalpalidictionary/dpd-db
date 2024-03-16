@@ -24,6 +24,17 @@ from tools.configger import config_test
 
 def main():
     tic()
+    print("[bright_yellow]post-processing sandhi-splitter")
+    
+    if not (
+        config_test("exporter", "make_deconstructor", "yes")
+        or config_test("exporter", "make_tpr", "yes")
+        or config_test("exporter", "make_ebook", "yes")
+        or config_test("regenerate", "db_rebuild", "yes")
+    ):
+        print("[green]disabled in config.ini")
+        return
+        toc()
 
     if config_test("deconstructor", "include_cloud", "yes"):
         ADD_DO = True
@@ -227,13 +238,4 @@ def letter_counts(pth: ProjectPaths, df):
 
 
 if __name__ == "__main__":
-    print("[bright_yellow]post-processing sandhi-splitter")
-    if (
-        config_test("exporter", "make_deconstructor", "yes")
-        or config_test("exporter", "make_tpr", "yes")
-        or config_test("exporter", "make_ebook", "yes")
-        or config_test("regenerate", "db_rebuild", "yes")
-    ):
-        main()
-    else:
-        print("generating is disabled in the config")
+    main()

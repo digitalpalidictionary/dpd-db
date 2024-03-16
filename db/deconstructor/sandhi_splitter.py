@@ -249,6 +249,16 @@ def make_all_inflections_nfl_nll(all_inflections_set):
 
 def main():
     tic()
+    print("[bright_yellow]sandhi splitter")
+    if not (
+        config_test("exporter", "make_deconstructor", "yes") or 
+        config_test("exporter", "make_tpr", "yes") or 
+        config_test("exporter", "make_ebook", "yes") or 
+        config_test("regenerate", "db_rebuild", "yes")
+    ):
+        print("[green]disabled in config.ini")
+        toc()
+        return
 
     global profiler
     if profiler_on:
@@ -1449,16 +1459,7 @@ def summary(pth: ProjectPaths):
 
 
 if __name__ == "__main__":
-    print("[bright_yellow]sandhi splitter")
-    if (
-        config_test("exporter", "make_deconstructor", "yes") or 
-        config_test("exporter", "make_tpr", "yes") or 
-        config_test("exporter", "make_ebook", "yes") or 
-        config_test("regenerate", "db_rebuild", "yes")
-    ):
-        main()
-    else:
-        print("generating is disabled in the config")
+    main()
 
 # Pathavīkasiṇasamāpattintiādi
 # dūteyyapahinagamanānuyogapabhedaṃ

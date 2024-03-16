@@ -28,6 +28,18 @@ from tools.utils import list_into_batches
 
 def main():
     tic()
+    print("[bright_yellow]mapmaker")
+    
+    if not (
+        config_test("exporter", "make_dpd", "yes") or 
+        config_test("regenerate", "db_rebuild", "yes") or 
+        config_test("exporter", "make_tpr", "yes") or 
+        config_test("exporter", "make_ebook", "yes")
+    ):
+        print("[green]disabled in config.ini")
+        toc()
+        return
+
     # check config
     if (
         config_test("regenerate", "freq_maps", "yes")
@@ -60,8 +72,11 @@ def main():
     make_data_dict_and_html(pth, db_session, dicts, num_logical_cores, regenerate_all)
     db_session.close()
 
+    # reset config
     if regenerate_all:
         config_update("regenerate", "freq_maps", "no")
+    if config_test("regenerate", "db_rebuild", "yes"):
+            config_update("regenerate", "db_rebuild", "no")
 
     toc()
 
@@ -479,16 +494,5 @@ def make_data_dict_and_html(
 
 
 if __name__ == "__main__":
-    print("[bright_yellow]mapmaker")
-    if (
-        config_test("exporter", "make_dpd", "yes") or 
-        config_test("regenerate", "db_rebuild", "yes") or 
-        config_test("exporter", "make_tpr", "yes") or 
-        config_test("exporter", "make_ebook", "yes")
-    ):
-        main()
-        if config_test("regenerate", "db_rebuild", "yes"):
-            config_update("regenerate", "db_rebuild", "no")
-    else:
-        print("generating is disabled in the config")
+    main()
 

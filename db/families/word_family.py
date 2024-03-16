@@ -27,6 +27,17 @@ from sqlalchemy.orm import joinedload
 
 def main():
     tic()
+    print("[bright_yellow]word families generator")
+    
+    if not (
+        config_test("exporter", "make_dpd", "yes") or 
+        config_test("regenerate", "db_rebuild", "yes") or 
+        config_test("exporter", "make_tpr", "yes") or 
+        config_test("exporter", "make_ebook", "yes")
+    ):
+        print("[green]disabled in config.ini")
+        toc()
+        return
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -200,13 +211,4 @@ def make_anki_data(wf_dict):
 
 
 if __name__ == "__main__":
-    print("[bright_yellow]word families generator")
-    if (
-        config_test("exporter", "make_dpd", "yes") or 
-        config_test("regenerate", "db_rebuild", "yes") or 
-        config_test("exporter", "make_tpr", "yes") or 
-        config_test("exporter", "make_ebook", "yes")
-    ):
-        main()
-    else:
-        print("generating is disabled in the config")
+    main()

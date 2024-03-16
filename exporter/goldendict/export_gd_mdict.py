@@ -36,9 +36,14 @@ from tools import time_log
 
 from exporter.ru_components.tools.tools_for_ru_exporter import mdict_ru_title, mdict_ru_description, gdict_ru_info
 
-tic()
 
 def main():
+    tic()
+    print("[bright_yellow]exporting dpd")
+    if not config_test("exporter", "make_dpd", "yes"):
+        print("[green]disabled in config.ini")
+        toc()
+        return
 
     time_log.start(start_new=True)
     time_log.log("exporter.py::main()")
@@ -235,8 +240,4 @@ def write_limited_datalist(combined_data_list):
 
 
 if __name__ == "__main__":
-    print("[bright_yellow]exporting dpd")
-    if config_test("exporter", "make_dpd", "yes"):
-        main()
-    else:
-        print("generating is disabled in the config")
+    main()
