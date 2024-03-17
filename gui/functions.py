@@ -1012,6 +1012,8 @@ def replace_sandhi(
     
     text = "".join(splits)
 
+    # replace ṁ with ṃ
+    text = text.replace("ṁ", "ṃ")
     # fix bold 'ti
     text = text.replace("</b>ti", "</b>'ti")
     # fix bold 'ti

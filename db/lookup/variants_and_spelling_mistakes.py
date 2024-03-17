@@ -50,7 +50,7 @@ def add_variants(pd: ProgData):
         .filter(Lookup.lookup_key.in_(update_set)) \
         .all()
     
-    # FIXME no longer testing!
+    
 
     # update test
     if update_set:
@@ -58,6 +58,8 @@ def add_variants(pd: ProgData):
             if i.lookup_key in update_set:
                 sorted_variant = pali_list_sorter(pd.variants_dict[i.lookup_key])
                 i.variants_pack(sorted_variant)
+            
+            # FIXME no longer testing!
             # elif i.lookup_key in test_set:
             #     if is_another_value(i, "variant"):
             #         i.variant = ""
@@ -95,7 +97,7 @@ def load_spelling_dict(pd: ProgData):
 
 
 def add_spellings(pd: ProgData):
-    print(f"[green]{'adding spelling mistakes to db':<30}", end="")
+    print(f"[green]{'adding spelling mistakes to db':<30}")
 
     update_set, test_set, add_set = update_test_add(pd.lookup_table, pd.spellings_dict)
 
@@ -104,7 +106,8 @@ def add_spellings(pd: ProgData):
         .filter(Lookup.lookup_key.in_(update_set)) \
         .all()
     
-    # FIXME no longer testing!
+
+    print(f"[green]{'update_set':<30}", end="")
 
     # update test add
     if update_set:
@@ -112,6 +115,8 @@ def add_spellings(pd: ProgData):
             if i.lookup_key in update_set:
                 sorted_spelling = pali_list_sorter(pd.spellings_dict[i.lookup_key])
                 i.spelling_pack(sorted_spelling)
+            
+            # FIXME no longer testing!
             # elif i.lookup_key in test_set:
             #     if is_another_value(i, "spelling"):
             #         i.spelling = ""
@@ -119,8 +124,12 @@ def add_spellings(pd: ProgData):
             #         pd.db_session.delete(i)    
         
         pd.db_session.commit()
+    
+    print(f"{len(update_set):>10,}")
 
     # add
+    print(f"[green]{'add set':<30}", end="")
+
     if add_set:
         add_to_db = []
         for mistake, correction in pd.spellings_dict.items():
@@ -133,7 +142,7 @@ def add_spellings(pd: ProgData):
         pd.db_session.add_all(add_to_db)
         pd.db_session.commit()
 
-    print(f"{len(pd.spellings_dict):>10,}")
+    print(f"{len(add_set):>10,}")
 
 
 def main():

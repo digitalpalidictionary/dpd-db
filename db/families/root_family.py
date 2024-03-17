@@ -331,4 +331,4 @@ def make_anki_matrix_data(pth: ProjectPaths, html_dict, db_session):
 
 
 if __name__ == "__main__":
-
+    main()

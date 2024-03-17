@@ -347,7 +347,10 @@ def main():
             or event == "pass2_button0"
             or event == "control_p"
         ):
-            if flags.pass2_start:
+            if (
+                flags.pass2_start
+                or event == "pass2_button"
+            ):
                 book = values["book_to_add"]
                 window["messages"].update(
                     value="loading pass2 data...", text_color="white")

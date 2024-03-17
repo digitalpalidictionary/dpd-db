@@ -175,6 +175,7 @@ Asaṅkhatasaṃyuttaṃ
 āsavas
 asceticism
 Asiatica
+asiaticus
 asobhattha
 asobhittha
 Asoka
@@ -238,6 +239,7 @@ BD
 bdellium
 beautifies
 become-one-ness
+bedstead
 befooled
 befools
 beggings
@@ -258,6 +260,7 @@ bestower
 bewails
 bh
 bha
+Bhaddāli
 Bhaddasārī
 Bhaddekarattasutta
 Bhadraka's
@@ -369,6 +372,7 @@ Chrysopogon
 chunam
 cicciṭa
 ciliata
+Cinnyris
 circumambulates
 circumambulation
 cit
@@ -398,6 +402,7 @@ compassionlessness
 conches
 concilated
 concomitance
+confutes
 congee
 conglomerations
 conjee
@@ -557,6 +562,7 @@ ear-les
 earthless
 Echinochloa
 educatable
+effacer
 effluents
 effortful
 effortfully
@@ -628,6 +634,8 @@ from-ness
 frondos
 frondosa
 frowny
+fruition
+fruitions
 frumentaceum
 fuelless
 gadflies
@@ -1140,6 +1148,8 @@ MN61
 MN62
 MN63
 MN64
+MN65
+MN66
 Moggallāna
 Moggallāna's
 Moggallānabyākaraṇa
@@ -1420,6 +1430,7 @@ pro-rata
 procures
 prognosticative
 proliferating
+promulgates
 properness
 Prutitus
 Pterospermum
@@ -1718,6 +1729,7 @@ summum
 Sunakkhatta
 Sunāparanta
 suṇāti
+sunbird
 Sunidha
 Sunīdha
 Sunn
@@ -1824,6 +1836,7 @@ tradable
 tragocamelus
 training rule
 transmigrated
+transmigrates
 trilobata
 trilobus
 trisulphide
@@ -1954,6 +1967,7 @@ unoppressed
 unowned
 unpeaceful
 unpenetrated
+unperformed
 unpervaded
 unpierced
 unpresumed
@@ -2156,9 +2170,3 @@ yojanas
 yoking
 zizanioides
 Ziziphus
-confutes
-MN65
-Bhaddāli
-transmigrates
-fruitions
-fruition
