@@ -4,7 +4,6 @@
 and matching corresponding headwords."""
 
 from collections import defaultdict
-from operator import or_
 from rich import print
 from sqlalchemy.orm import Session
 from typing import DefaultDict
@@ -22,10 +21,10 @@ from tools.update_test_add import update_test_add
 
 class ProgData():
     pth: ProjectPaths = ProjectPaths()
-    variants_dict: DefaultDict[str, set]
-    spellings_dict: DefaultDict[str, set]
+    variants_dict: DefaultDict[str, set[str]]
+    spellings_dict: DefaultDict[str, set[str]]
     db_session: Session = get_db_session(pth.dpd_db_path)
-    lookup_table: list[Lookup] = (db_session.query(Lookup).all())
+    lookup_table: list[Lookup] = db_session.query(Lookup).all()
 
 
 def load_variant_dict(pd):
@@ -41,7 +40,6 @@ def load_variant_dict(pd):
 
 
 def add_variants(pd: ProgData):
-    print(f"[green]{'adding variants to db':<30}", end="")
 
     update_set, test_set, add_set = update_test_add(pd.lookup_table, pd.variants_dict)
 
@@ -50,7 +48,7 @@ def add_variants(pd: ProgData):
         .filter(Lookup.lookup_key.in_(update_set)) \
         .all()
     
-    
+    print(f"[green]{'update_set':<30}", end="")
 
     # update test
     if update_set:
@@ -59,16 +57,18 @@ def add_variants(pd: ProgData):
                 sorted_variant = pali_list_sorter(pd.variants_dict[i.lookup_key])
                 i.variants_pack(sorted_variant)
             
-            # FIXME no longer testing!
-            # elif i.lookup_key in test_set:
-            #     if is_another_value(i, "variant"):
-            #         i.variant = ""
-            #     else:
-            #         pd.db_session.delete(i)    
-        
-        pd.db_session.commit()
+            # test_set
+            elif i.lookup_key in test_set:
+                if is_another_value(i, "variant"):
+                    i.variant = ""
+                else:
+                    pd.db_session.delete(i)    
+    
+    print(f"{len(update_set):>10,}")
 
     # add
+    print(f"[green]{'add set':<30}", end="")
+
     if add_set:
         add_to_db = []
         for variant, main in pd.variants_dict.items():
@@ -79,9 +79,8 @@ def add_variants(pd: ProgData):
                 add_to_db.append(add_me)
 
         pd.db_session.add_all(add_to_db)
-        pd.db_session.commit()
 
-    print(f"{len(pd.variants_dict):>10,}")
+    print(f"{len(add_set):>10,}")
 
 
 def load_spelling_dict(pd: ProgData):
@@ -97,7 +96,6 @@ def load_spelling_dict(pd: ProgData):
 
 
 def add_spellings(pd: ProgData):
-    print(f"[green]{'adding spelling mistakes to db':<30}")
 
     update_set, test_set, add_set = update_test_add(pd.lookup_table, pd.spellings_dict)
 
@@ -106,7 +104,6 @@ def add_spellings(pd: ProgData):
         .filter(Lookup.lookup_key.in_(update_set)) \
         .all()
     
-
     print(f"[green]{'update_set':<30}", end="")
 
     # update test add
@@ -116,14 +113,12 @@ def add_spellings(pd: ProgData):
                 sorted_spelling = pali_list_sorter(pd.spellings_dict[i.lookup_key])
                 i.spelling_pack(sorted_spelling)
             
-            # FIXME no longer testing!
-            # elif i.lookup_key in test_set:
-            #     if is_another_value(i, "spelling"):
-            #         i.spelling = ""
-            #     else:
-            #         pd.db_session.delete(i)    
-        
-        pd.db_session.commit()
+            # test_set
+            elif i.lookup_key in test_set:
+                if is_another_value(i, "spelling"):
+                    i.spelling = ""
+                else:
+                    pd.db_session.delete(i)    
     
     print(f"{len(update_set):>10,}")
 
@@ -140,7 +135,6 @@ def add_spellings(pd: ProgData):
                 add_to_db.append(add_me)
 
         pd.db_session.add_all(add_to_db)
-        pd.db_session.commit()
 
     print(f"{len(add_set):>10,}")
 
@@ -153,6 +147,7 @@ def main():
     add_variants(pd)
     load_spelling_dict(pd)
     add_spellings(pd)
+    pd.db_session.commit()
     pd.db_session.close()
     toc()
     

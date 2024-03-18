@@ -1,6 +1,9 @@
 """Test what to updare, test or delete when using the lookup table"""
 
-def update_test_add(lookup_table, dict: dict) -> tuple[set[str], set[str], set[str]]:
+from db.models import Lookup
+
+
+def update_test_add(lookup_table: list[Lookup], the_dict: dict[str, set[str]]) -> tuple[set[str], set[str], set[str]]:
     """Input a db_session and a dictionary.
     Return three sets:
     1. update_set = all words in the Lookup table & dict
@@ -11,7 +14,7 @@ def update_test_add(lookup_table, dict: dict) -> tuple[set[str], set[str], set[s
     # FIXME use four lists: add update clear delete
 
     #keys of the dict       
-    dict_keys = set([key for key in dict])
+    dict_keys = set([key for key in the_dict])
 
     # keys of the Lookup table
     lookup_keys = set([i.lookup_key for i in lookup_table])
