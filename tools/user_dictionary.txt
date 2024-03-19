@@ -349,6 +349,7 @@ Cariyāpiṭaka
 Cartaeva
 catechu
 Catukkanipāta
+Cātumā
 caul
 ceiba
 centered
@@ -615,6 +616,7 @@ feelable
 felloe
 felly
 fetcher
+fickleness
 fidgetiness
 firma
 firstness
@@ -923,6 +925,7 @@ kinnara
 Kisa
 Kisakas
 kita
+Kīṭāgiri
 kiyādigaṇa
 knotless
 ko
@@ -1150,6 +1153,8 @@ MN63
 MN64
 MN65
 MN66
+MN67
+MN70
 Moggallāna
 Moggallāna's
 Moggallānabyākaraṇa
@@ -1178,6 +1183,7 @@ murumuru
 musth
 muṭṭhi
 my-ness
+myrobalan
 Mysore
 ñ
 ṅ
@@ -1432,6 +1438,8 @@ prognosticative
 proliferating
 promulgates
 properness
+propitiate
+propitiated
 Prutitus
 Pterospermum
 PTS
@@ -1976,6 +1984,7 @@ unproficient
 unproliferated
 unquantifiable
 unrehabilitatable
+unreliability
 unremovable
 unrent
 unrepelled
@@ -1995,6 +2004,7 @@ unsnarled
 unsplittable
 unstartled
 unstated
+unsteadiness
 unstealable
 unstitch
 unsuffused
@@ -2170,11 +2180,3 @@ yojanas
 yoking
 zizanioides
 Ziziphus
-MN67
-Cātumā
-myrobalan
-propitiate
-propitiated
-unsteadiness
-unreliability
-fickleness

@@ -1,5 +1,35 @@
 # Digital Pāḷi Database
 
+## Using the DB
+1. Clone this repo
+2. Download **dpd.db.tar.bz2** from [this page](https://github.com/digitalpalidictionary/digitalpalidictionary/releases), 
+3. Unzip and place it in the root of the project folder
+4. Install [poetry](https://python-poetry.org/docs/)
+5. In the terminal, run `poetry install`
+6. See `scripts/db_search_example.py` for a quick tutorial on how to use the database with SQLAlchemy
+
+
+## Code Structure
+There are four main parts to the code:
+1. Create the database and build up the tables of derived data.
+2. Add new words, edit and update the db with a GUI. 
+3. Run data integrity tests on the db.
+4. Compile all the parts and export into various dictionary formats.
+
+## About the database
+- `DpdHeadwords` and `DpdRoots` tables are the heart of the db, everything else gets derived from those.  
+- They have a relationship `DpdHeadwords.rt.` to access any root information. For example, `DpdHeadwords.rt.root_meaning`
+- There are also lots of `@properties` in `db/models.py` to access useful derived information.  
+- `DpdHeadwords` table also contains lists of inflections of every word in multiple scripts, as well as html inflection tables.
+- `FamilyCompound` table is html of all the compound words which contain a specific word.  
+- `FamilyRoot` table is html of all the words with the same prefix and root.  
+- `FamilySet` table is html of all the words which belong to the same set, e.g. names of monks.  
+- `FamilyWord` table is html of all the words which are derived from a common word without a root.  
+- `InflectionTemplates` table are the templates from which all the inflection tables are derived.  
+<!-- - `Sandhi` table is all the deconstructed compounds which have been split by code.   -->
+
+
+
 ## Building the DB
 1. Download this repo
 2. Get [tipitaka-xml](https://github.com/VipassanaTech/tipitaka-xml) with `git
@@ -30,22 +60,3 @@ poetry run bash scripts/bash/build_and_make_all.sh
 ```
 
 This creates the `dpd.db` SQLite database. Also it extract all dictionaries see folder `exporter/share`
-
-## Code Structure
-There are four parts to the code:
-1. Create the database and build up the tables of derived data.
-2. Add new words, edit and update the db with a GUI. 
-3. Run data integrity tests on the db.
-4. Compile all the parts and export into various dictionary formats.
-
-## About the database
-- `DpdHeadwords` and `DpdRoots` tables are the heart of the db, everything else gets derived from those.  
-- They have a relationship `DpdHeadwords.rt.` to access any root information. For example, `DpdHeadwords.rt.root_meaning`
-- There are also lots of `@properties` in `db/models.py` to access useful derived information.  
-- `DpdHeadwords` table also contains lists of inflections of every word in multiple scripts, as well as html inflection tables.
-- `FamilyCompound` table is html of all the compound words which contain a specific word.  
-- `FamilyRoot` table is html of all the words with the same prefix and root.  
-- `FamilySet` table is html of all the words which belong to the same set, e.g. names of monks.  
-- `FamilyWord` table is html of all the words which are derived from a common word without a root.  
-- `InflectionTemplates` table are the templates from which all the inflection tables are derived.  
-<!-- - `Sandhi` table is all the deconstructed compounds which have been split by code.   -->
