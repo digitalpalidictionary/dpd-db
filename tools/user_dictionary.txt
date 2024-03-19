@@ -928,6 +928,7 @@ kita
 Kīṭāgiri
 kiyādigaṇa
 knotless
+Knowledges
 ko
 Kokanada
 Koliyan
@@ -975,6 +976,7 @@ Lakkhaṇasaṃyuttaṃ
 latfolia
 latifolia
 layerings
+laylife
 layperson
 layperson's
 laywoman
@@ -1155,6 +1157,8 @@ MN65
 MN66
 MN67
 MN70
+MN71
+MN72
 Moggallāna
 Moggallāna's
 Moggallānabyākaraṇa
@@ -2044,6 +2048,7 @@ Uyana
 vā
 vac
 Vaccha
+Vacchagotta
 vad
 Vaḍḍhamātar
 vagga
