@@ -642,7 +642,7 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
             # db buttons
             sg.Text("db buttons", size=(15, 1)),
             sg.Button(
-                "Clone", tooltip="Clone a word from the db"),
+                "Clone", tooltip="Clone a word from the db", font=(None, 10)),
             sg.Input(
                 key="word_to_clone_edit",
                 size=(15, 1),
@@ -650,71 +650,88 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 tooltip="Enter id or lemma_1"
             ),
             sg.Button(
-                "Edit", key="edit_button", tooltip="Edit a word in the db"),
+                "Edit", key="edit_button", tooltip="Edit a word in the db", font=(None, 10)),
             sg.Button(
                 "Test", key="test_internal_button",
-                tooltip="Run internal tests"),
+                tooltip="Run internal tests", font=(None, 10)),
             sg.Button(
                 "Update DB", key="update_db_button1",
                 tooltip="Add a new word or update existing word in the db",
-                visible=username == "primary_user"),
+                visible=username == "primary_user",
+                font=(None, 10)),
             sg.Button(
                 "Update DB", key="update_db_button2",
                 tooltip="Add a new word or update existing word in the db",
-                visible=username == "deva"),
+                visible=username == "deva",
+                font=(None, 10)),
             sg.Button(
                 "Delete", key="delete_button",
                 tooltip="Delete a word from the db. Careful!",
-                mouseover_colors="red"),
+                mouseover_colors="red",
+                font=(None, 10)),
             sg.Button(
                 "Sandhi", key="update_sandhi_button",
-                tooltip="Update list of words with sandhi apostophes"),
+                tooltip="Update list of words with sandhi apostophes",
+                font=(None, 10)),
             sg.Button(
                 "Refresh DB", key="refresh_db_session_button",
-                tooltip="Refresh the db session after making external changes."),
+                tooltip="Refresh the db session after making external changes.",
+                font=(None, 10)),
             sg.Button(
                 "Pass2", key="pass2_button",
-                tooltip="Add sutta examples to words in DB."),
+                tooltip="Add sutta examples to words in DB.",
+                font=(None, 10)),
             sg.Button(
                 "Log", key="open_corrections_button",
                 tooltip="open corrections tsv in code",
-                visible=username == "deva"),
+                visible=username == "deva",
+                font=(None, 10)),
         ],
         [
             # gui buttons
             sg.Text("gui buttons", size=(15, 1)),
             sg.Button(
                 "Open Tests", key="open_tests_button",
-                tooltip="Open TSV file of internal tests"),
+                tooltip="Open TSV file of internal tests",
+                font=(None, 10)),
             sg.Button(
                 "Sk Roots", key="open_sanskrit_roots_button",
-                tooltip="Open TSV file of internal tests"),
+                tooltip="Open TSV file of internal tests",
+                font=(None, 10)),
             sg.Button(
                 "Debug", key="debug_button",
-                tooltip="Print the current values in the terminal"),
+                tooltip="Print the current values in the terminal",
+                font=(None, 10)),
             sg.Button(
                 "Stash", key="stash_button",
-                tooltip="Stash the word to edit it again later"),
+                tooltip="Stash the word to edit it again later",
+                font=(None, 10)),
             sg.Button(
                 "Unstash", key="unstash_button",
                 tooltip="Unstash a word to edit it again",
-                mouseover_colors="red"),
+                mouseover_colors="red",
+                font=(None, 10)),
             sg.Button(
                 "Split", key="split_button",
                 tooltip="Stash the word and open a copy to edit",
-                mouseover_colors="red"),
+                mouseover_colors="red",
+                font=(None, 10)),
             sg.Button(
                 "HTML", key="html_summary_button",
-                tooltip="See a html summary of a word in db"),
+                tooltip="See a html summary of a word in db",
+                font=(None, 10)),
             sg.Button(
                 "Save", key="save_state_button",
                 visible=username == "primary_user",
-                tooltip="Save the current state of the GUI"),
+                tooltip="Save the current state of the GUI",
+                font=(None, 10)),
             sg.Button(
-                "Clear", key="clear_button", tooltip="Clear all the fields"),
+                "Clear", key="clear_button", tooltip="Clear all the fields",
+                font=(None, 10)),
             sg.Button(
                 "Save and Close", key="save_and_close_button",
-                tooltip="Save the current state, backup to tsv and close"),
+                tooltip="Save the current state, backup to tsv and close",
+                font=(None, 10)),
         ]
     ]
 
