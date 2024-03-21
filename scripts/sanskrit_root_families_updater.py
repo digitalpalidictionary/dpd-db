@@ -15,7 +15,15 @@ from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 from tools.tic_toc import tic, toc
 
 # the root == the word
-exceptions = ["saṃjñā", "śraddhā", "prajñā", "ājñā", "pratijñā"]
+exceptions = [
+    "saṃjñā",
+    "śraddhā",
+    "prajñā",
+    "ājñā",
+    "pratijñā",
+    "pratipad",
+    
+    ]
 
 
 class RootFamily():
