@@ -9,8 +9,6 @@ set -e
 
 tools/version.py
 
-db/lookup/variants_and_spelling_mistakes.py
-
 db/inflections/create_inflections_templates.py
 db/inflections/generate_inflection_tables.py
 db/inflections/transliterate_inflections.py
@@ -30,6 +28,7 @@ db/deconstructor/sandhi_splitter.py
 db/deconstructor/sandhi_postprocess.py
 db/inflections/inflections_to_headwords.py
 
+db/lookup/variants_and_spelling_mistakes.py
 db/lookup/transliterate_lookup_table.py
 db/lookup/help_abbrev_add_to_lookup.py
 
