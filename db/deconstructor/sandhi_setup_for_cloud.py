@@ -36,7 +36,6 @@ def zip_for_cloud():
         "poetry.lock",
         "poetry.toml",
         "pyproject.toml",
-        "db",
         "db/deconstructor/assets",
         "db/deconstructor/sandhi_related",
         "db/deconstructor/books_to_include.py",
