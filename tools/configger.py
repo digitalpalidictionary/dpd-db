@@ -52,7 +52,9 @@ DEFAULT_CONFIG = {
         "extended_synonyms": "no",
         "show_id": "no",
         "show_ebt_count": "no",
-        "show_dps_data": "no"
+        "show_dps_data": "no",
+        "data_limit": "0",
+        "external_css": "no",
     },
     "exporter" : {
         "language": "en",

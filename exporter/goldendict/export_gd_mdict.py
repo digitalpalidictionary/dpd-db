@@ -24,7 +24,7 @@ from mdict_exporter import export_to_mdict
 from db.get_db_session import get_db_session
 from tools.cache_load import load_cf_set, load_idioms_set
 
-from tools.configger import config_test
+from tools.configger import config_read, config_test
 from tools.goldendict_path import goldedict_path
 from tools.paths import ProjectPaths
 from exporter.ru_components.tools.paths_ru import RuPaths
@@ -86,30 +86,44 @@ def main():
         lang = "ru"
     # add another lang here "elif ..." and 
     # add conditions if lang = "{your_language}" in every instance in the code.
+    
+    data_limit = int(config_read("dictionary", "data_limit")) #type:ignore
 
     time_log.log("make_roots_count_dict()")
     roots_count_dict = make_roots_count_dict(db_session)
 
     time_log.log("generate_dpd_html()")
     dpd_data_list, sizes = generate_dpd_html(
-        db_session, pth, rupth, sandhi_contractions, cf_set, idioms_set, make_link, dps_data, lang)
+        db_session, pth, rupth, sandhi_contractions, cf_set, idioms_set, make_link, dps_data, lang, data_limit)
     rendered_sizes.append(sizes)
 
-    time_log.log("generate_root_html()")
-    root_data_list, sizes = generate_root_html(db_session, pth, roots_count_dict, rupth, lang, dps_data)
-    rendered_sizes.append(sizes)
+    if data_limit == 0:
+        time_log.log("generate_root_html()")
+        root_data_list, sizes = generate_root_html(db_session, pth, roots_count_dict, rupth, lang, dps_data)
+        rendered_sizes.append(sizes)
+    else:
+        root_data_list = []
 
-    time_log.log("generate_variant_spelling_html()")
-    variant_spelling_data_list, sizes = generate_variant_spelling_html(pth, rupth, lang)
-    rendered_sizes.append(sizes)
+    if data_limit == 0:
+        time_log.log("generate_variant_spelling_html()")
+        variant_spelling_data_list, sizes = generate_variant_spelling_html(pth, rupth, lang)
+        rendered_sizes.append(sizes)
+    else:
+        variant_spelling_data_list = []
 
-    time_log.log("generate_epd_html()")
-    epd_data_list, sizes = generate_epd_html(db_session, pth, make_link, dps_data, lang)
-    rendered_sizes.append(sizes)
-
-    time_log.log("generate_help_html()")
-    help_data_list, sizes = generate_help_html(db_session, pth, rupth, lang, dps_data)
-    rendered_sizes.append(sizes)
+    if data_limit == 0:
+        time_log.log("generate_epd_html()")
+        epd_data_list, sizes = generate_epd_html(db_session, pth, make_link, dps_data, lang)
+        rendered_sizes.append(sizes)
+    else:
+        epd_data_list = []
+    
+    if data_limit == 0:
+        time_log.log("generate_help_html()")
+        help_data_list, sizes = generate_help_html(db_session, pth, rupth, lang, dps_data)
+        rendered_sizes.append(sizes)
+    else:
+        help_data_list = []
 
     db_session.close()
 
@@ -161,7 +175,7 @@ def main():
     time_log.log("exporter.py::main() return")
 
 
-def export_to_goldendict(_pth_, data_list: list, lang="en") -> None:
+def export_to_goldendict(_pth_: ProjectPaths, data_list: list, lang="en") -> None:
     """generate goldedict zip"""
     bip()
 
@@ -179,12 +193,18 @@ def export_to_goldendict(_pth_, data_list: list, lang="en") -> None:
 
     export_words_as_stardict_zip(data_list, ifo, _pth_.dpd_zip_path, _pth_.icon_path)
 
+    # add bmp icon for android
     if lang == "en":
-        # add bmp icon for android
         with zipfile.ZipFile(_pth_.dpd_zip_path, 'a') as zipf:
             source_path = _pth_.icon_bmp_path
             destination = 'dpd/android.bmp'
             zipf.write(source_path, destination)
+    
+    # add external css
+    if config_test("dictionary", "external_css", "yes"):
+        with zipfile.ZipFile(_pth_.dpd_zip_path, 'a') as zipf:
+            zipf.write(_pth_.dpd_css_path, "dpd/res/dpd.css")
+            zipf.write(_pth_.buttons_js_path, "dpd/res/button.js")
 
     print(f"{bop():>29}")
 
@@ -202,7 +222,7 @@ def goldendict_unzip_and_copy(_pth_) -> None:
                 stdout, stderr = process.communicate()
 
                 if process.returncode == 0:
-                    print("[green]Unzipping and copying [blue]ok")
+                    print("[green]Unzipping and copying [blue]ok", end="")
                 else:
                     print("[red]Error during unzip and copy:")
                     print(f"Exit Code: {process.returncode}")
@@ -213,7 +233,7 @@ def goldendict_unzip_and_copy(_pth_) -> None:
     else:
         print("[red]local GoldenDict directory not found")
 
-    print(f"{bop():>23}")
+    print(f"{bop():>31}")
 
 
 def write_size_dict(pth: ProjectPaths, size_dict):

@@ -68,14 +68,21 @@ class DpdHeadwordsTemplates:
         self.frequency_templ = Template(filename=str(paths.frequency_templ_path))
         self.feedback_templ = Template(filename=str(paths.feedback_templ_path))
 
-        with open(paths.dpd_css_path) as f:
-            dpd_css = f.read()
+        # internal or extrenal css and js
+        if config_test("dictionary", "external_css", "no"):
+            
+            with open(paths.dpd_css_path) as f:
+                dpd_css = f.read()
+                self.dpd_css = css_minify(dpd_css)
 
-        self.dpd_css = css_minify(dpd_css)
+            with open(paths.buttons_js_path) as f:
+                button_js = f.read()
+                self.button_js = js_minify(button_js)
+        
+        else:
+            self.dpd_css = ""
+            self.button_js = ""
 
-        with open(paths.buttons_js_path) as f:
-            button_js = f.read()
-        self.button_js = js_minify(button_js)
 
 DpdHeadwordsDbRowItems = Tuple[DpdHeadwords, FamilyRoot, FamilyWord, SBS, Russian]
 
@@ -292,8 +299,9 @@ def generate_dpd_html(
         idioms_set: set[str],
         make_link=False,
         dps_data=False,
-        lang="en"
-        ) -> Tuple[List[RenderResult], RenderedSizes]:
+        lang="en",
+        data_limit:int = 0
+    ) -> Tuple[List[RenderResult], RenderedSizes]:
     
     time_log.log("generate_dpd_html()")
 
@@ -334,6 +342,10 @@ def generate_dpd_html(
             .join(Russian, DpdHeadwords.id == Russian.id) \
             .filter(Russian.id.isnot(None)) \
             .scalar()
+    
+    # limit the data size for testing purposes
+    if data_limit != 0:
+        pali_words_count = data_limit
         
     # If the work items per loop are too high, low-memory systems will slow down
     # when multi-threading.

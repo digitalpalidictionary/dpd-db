@@ -2,13 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <style>
-        ${css}
-    </style>
+    
+    % if css:
+        <style>${css}</style>
+    % else:
+        <link rel="stylesheet" href="dpd.css">
+    % endif
+    
     % if js:
-    <script>
-        ${js}
-    </script>
+        <script>${js}</script>
+    % else:
+        <script src="button.js"></script>
     % endif
     <title>Digital Pāḷi Dictionary</title>
 </head>
