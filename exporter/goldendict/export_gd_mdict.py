@@ -39,7 +39,7 @@ from exporter.ru_components.tools.tools_for_ru_exporter import mdict_ru_title, m
 
 def main():
     tic()
-    print("[bright_yellow]exporting dpd")
+    print("[bright_yellow]exporting dpd to goldendict and mdict")
     if not config_test("exporter", "make_dpd", "yes"):
         print("[green]disabled in config.ini")
         toc()
@@ -86,6 +86,11 @@ def main():
         lang = "ru"
     # add another lang here "elif ..." and 
     # add conditions if lang = "{your_language}" in every instance in the code.
+        
+    if config_test("dictionary", "external_css", "yes"):
+        external_css = True
+    else:
+        external_css = False
     
     data_limit = int(config_read("dictionary", "data_limit")) #type:ignore
 
@@ -143,7 +148,7 @@ def main():
 
     time_log.log("export_to_goldendict()")
     if lang == "en":
-        export_to_goldendict(pth, combined_data_list, lang)
+        export_to_goldendict(pth, combined_data_list, lang, external_css=external_css)
     elif lang == "ru":
         export_to_goldendict(rupth, combined_data_list, lang)
 
@@ -164,18 +169,27 @@ def main():
                 the Digital Pāḷi Dictionary website</a></p>
             """
             title= "Digital Pāḷi Dictionary"
-            export_to_mdict(combined_data_list, pth, description, title)
+            export_to_mdict(
+                combined_data_list, pth,
+                description, title,
+                external_css=external_css)
 
         elif lang == "ru":
             description = mdict_ru_description
             title= mdict_ru_title
-            export_to_mdict(combined_data_list, rupth, description, title)
+            export_to_mdict(
+                combined_data_list, rupth, description, title, external_css=external_css)
 
     toc()
     time_log.log("exporter.py::main() return")
 
 
-def export_to_goldendict(_pth_: ProjectPaths, data_list: list, lang="en") -> None:
+def export_to_goldendict(
+        _pth_: ProjectPaths,
+        data_list: list,
+        lang="en",
+        external_css=False
+    ) -> None:
     """generate goldedict zip"""
     bip()
 
@@ -201,7 +215,7 @@ def export_to_goldendict(_pth_: ProjectPaths, data_list: list, lang="en") -> Non
             zipf.write(source_path, destination)
     
     # add external css
-    if config_test("dictionary", "external_css", "yes"):
+    if external_css is True:
         with zipfile.ZipFile(_pth_.dpd_zip_path, 'a') as zipf:
             zipf.write(_pth_.dpd_css_path, "dpd/res/dpd.css")
             zipf.write(_pth_.buttons_js_path, "dpd/res/button.js")
@@ -252,11 +266,11 @@ def write_size_dict(pth: ProjectPaths, size_dict):
 def write_limited_datalist(combined_data_list):
     """A limited dataset for troubleshooting purposes"""
 
-    limited_data_list = [
-        item for item in combined_data_list if item["word"].startswith("ab")]
+    # limited_data_list = [
+    #     item for item in combined_data_list if item["word"].startswith("ab")]
 
     with open("temp/limited_data_list", "wb") as file:
-        pickle.dump(limited_data_list, file)
+        pickle.dump(combined_data_list, file)
 
 
 if __name__ == "__main__":

@@ -71,6 +71,7 @@ class ProjectPaths:
         self.share_dir = base_dir.joinpath(Path("exporter/share"))
         self.dpd_zip_path = base_dir.joinpath(Path("exporter/share/dpd.zip"))
         self.mdict_mdx_path = base_dir.joinpath(Path("exporter/share/dpd-mdict.mdx"))
+        self.mdict_mdd_path = base_dir.joinpath(Path("exporter/share/dpd-mdict.mdd"))
         self.grammar_dict_zip_path = base_dir.joinpath(Path("exporter/share/dpd-grammar.zip"))
         self.grammar_dict_mdict_path = base_dir.joinpath(Path("exporter/share/dpd-grammar-mdict.mdx"))
         self.dpd_mobi_path = base_dir.joinpath(Path("exporter/share/dpd-kindle.mobi"))

@@ -5,6 +5,7 @@
 from functools import reduce
 from rich import print
 from typing import List, Dict
+from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
 from tools.writemdict.writemdict import MDictWriter
 from pathlib import Path
@@ -45,7 +46,14 @@ def mdict_synonyms(all_items, item):
     return all_items
 
 
-def export_to_mdict(data_list: List[Dict], pth, description, title) -> None:
+def export_to_mdict(
+        data_list: List[Dict],
+        pth: ProjectPaths,
+        description,
+        title,
+        external_css = False
+    ) -> None:
+    
     print("[green]converting to mdict")
 
     bip()
@@ -62,34 +70,38 @@ def export_to_mdict(data_list: List[Dict], pth, description, title) -> None:
     del data_list
     print(bop())
 
-    print("[white]writing mdict", end=" ")
-
-
     bip()
+    print("[white]writing mdx file", end=" ")
+
     writer = MDictWriter(
         dpd_data,
         title=title,
         description=description)
-    print(bop())
 
-    bip()
-    print("[white]copying mdx file", end=" ")
-    outfile = open(pth.mdict_mdx_path, 'wb')
-    writer.write(outfile)
-    outfile.close()
-    print(bop())
-
-
-    # create assets mdd file, adding all files in the folder 'assets/' (recursively)
-    assets = get_all_files('exporter/goldendict/css/')
-    assets += get_all_files('exporter/goldendict/javascript/')
-    assets += get_all_files('exporter/goldendict/icon/')
-    writer = MDictWriter(
-        assets,
-        title=title,
-        description=description,
-        is_mdd=True)
-    # write the assets .mdd file
-    with open(pth.mdict_mdx_path[:-1]+'d', "wb") as outfile:
+    with  open(pth.mdict_mdx_path, 'wb') as outfile:
         writer.write(outfile)
+        outfile.close()
+    
+    print(bop())
+
+    if external_css is True:
+        bip()
+        print("[white]writing mdd file", end=" ")
+
+        # create assets mdd file, adding all files in the folder 'assets/' (recursively)
+        assets = get_all_files('exporter/goldendict/css/')
+        assets += get_all_files('exporter/goldendict/javascript/')
+        assets += get_all_files('exporter/goldendict/icon/')
+
+        writer = MDictWriter(
+            assets,
+            title=title,
+            description=description,
+            is_mdd=True)
+    
+        # write the assets .mdd file
+        with open(pth.mdict_mdd_path, "wb") as outfile:
+            writer.write(outfile)
+        
+        print(bop())
 
