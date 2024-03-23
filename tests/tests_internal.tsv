@@ -111,7 +111,7 @@ derivative is unusual	derivative	is not empty	-	derivative	does not contain	^(ki
 derived_from √ in gram	grammar	contains	from.*√																	lemma_1	grammar	meaning_1	[]	10
 derived_from contains neg	meaning_1	is not empty	-	derived_from	equals	neg														lemma_1	grammar	meaning_1	[]	5
 derived_from is empty	meaning_1	is not empty	-	grammar	contains word	(from|of)	grammar	does not contain word	comp	derived_from	is empty									lemma_1	grammar	meaning_1	[63686]	10
-derived_from is empty – nouns	meaning_1	is not empty	-	pos	contains	\b(masc|fem|nt)\b	derived_from	is empty	-	grammar	does not contain	\bcomp\b								lemma_1	grammar	meaning_1	[45994, 69316, 63012, 57482, 20758, 54690, 31550, 66668, 48626, 22132, 1855, 22021, 77918, 77919, 23153, 19395, 25069, 41847, 29247, 23569, 28501, 295, 77941, 64943, 36508, 29248, 49373, 77962, 77967, 55569, 23316, 36755, 16918, 44477, 17381, 25397, 25134, 46586, 51505, 46440, 69084, 30312, 63904]	10
+derived_from is empty – nouns	meaning_1	is not empty	-	pos	contains	\b(masc|fem|nt)\b	derived_from	is empty	-	grammar	does not contain	\bcomp\b								lemma_1	grammar	meaning_1	[45994, 69316, 63012, 57482, 20758, 54690, 31550, 66668, 48626, 22132, 1855, 22021, 77918, 77919, 23153, 19395, 25069, 41847, 29247, 23569, 28501, 295, 77941, 64943, 36508, 29248, 49373, 77962, 77967, 55569, 23316, 36755, 16918, 44477, 17381, 25397, 25134, 46586, 51505, 46440, 69084, 30312, 63904, 52643]	10
 derived_from is empty – sa na	meaning_1	is not empty	-	construction	contains	^(sa|na) 	derived_from	is empty	-	grammar	does not contain	\bcomp\b	pos	does not contain	sandhi|idiom					lemma_1	grammar	meaning_1	[3444, 3445]	10
 derived_from: adv comp no from	derived_from	is empty	-	pos	equals	ind	grammar	contains word	adv	grammar	does not contain word	comp	lemma_1	does not contain	hetu|paccayā	sutta_1	is not empty			lemma_1	grammar	meaning_1	[2209, 2211, 3014, 18053, 54013, 71986, 74032, 67430, 30371, 45413, 61365]	10
 desid in grammar and verb	grammar	contains	\bdesid\b	verb	contains	\bdesid\b														lemma_1	grammar	meaning_1	[]	10
@@ -348,7 +348,7 @@ pos prp not in pattern	pos	equals	prp	pattern	does not contain word	prp									
 pos ptp not in pattern	pos	equals	ptp	pattern	does not contain word	ptp													pattern	lemma_1	pos	pattern	[62454]	10
 pos sandhi not in pattern	pos	equals	sandhi	stem	does not equal	-													pattern	lemma_1	pos	pattern	[]	10
 pos suffix not in pattern	pos	equals	suffix	stem	does not equal	-													pattern	lemma_1	pos	pattern	[]	10
-pos: adj could be pp	meaning_1	is not empty	-	pos	equals	adj	grammar	contains word	pp	neg	equals	neg								lemma_1	grammar	meaning_1	[]	20
+pos: adj could be pp	meaning_1	is not empty	-	pos	equals	adj	grammar	contains word	pp	neg	equals	neg								lemma_1	grammar	meaning_1	[5640]	20
 pp adj no lit	meaning_1	is not empty	-	pos	equals	adj	grammar	contains	\bpp\b	meaning_lit	is empty									lemma_1	grammar	meaning_1	[]	10
 pp no ta or na	meaning_1	is not empty	-	grammar	contains word	pp	suffix	does not contain	na|ta	grammar	does not contain word	(app|comp)	pos	does not contain word	(sandhi|idiom)					lemma_1	grammar	meaning_1	[24205]	10
 pp nt no lit	meaning_1	is not empty	-	pos	equals	nt	grammar	contains	\bpp\b	meaning_lit	is empty									lemma_1	grammar	meaning_1	[]	10
@@ -400,7 +400,7 @@ sanskrit no space	sanskrit	contains	(\S\+|\+\S|\S>|>\S|\S√|\S\[)	meaning_1	is 
 sanskrit no space	sanskrit	contains	(\S\+|\+\S|\S>|>\S|\S√|\S\[)	sanskrit	does not contain	<i>|<b>														lemma_1	grammar	sanskrit	[]	20
 sanskrit prp	meaning_1	is not empty	-	sanskrit	does not contain	(āna|āṇa|māna|māṇa|at|ṣṭhāt|yāt)\b	pos	equals	prp	grammar	does not contain word	(nom|acc|instr|dat|abl|gen|loc|voc)								lemma_1	grammar	meaning_1	[2850, 3964, 11592, 11593, 14502, 15519, 60475, 68206, 73895, 74486, 75065, 75079, 76707, 76916, 77153]	10
 sanskrit starts with [	meaning_1	is not empty	-	sanskrit	contains	^\[	pos	does not equal	aor											lemma_1	meaning_1	sanskrit	[]	10
-sanskrit: add na +	meaning_1	is not empty	-	sanskrit	does not contain	^(na|nir|niṣ|nis|a|vi)	neg	contains	neg	sanskrit	is not empty	-								lemma_1	meaning_1	sanskrit	[38912, 77957]	10
+sanskrit: add na +	meaning_1	is not empty	-	sanskrit	does not contain	^(na|nir|niṣ|nis|a|vi)	neg	contains	neg	sanskrit	is not empty	-								lemma_1	meaning_1	sanskrit	[38912, 77957, 35533]	10
 semi-colon in eg1	meaning_1	is not empty	-	example_1	contains	;	pos	does not equal	abbrev											lemma_1	grammar	meaning_1	[]	10
 semi-colon in eg2	meaning_1	is not empty	-	example_2	contains	;	pos	does not equal	abbrev											lemma_1	grammar	meaning_1	[]	10
 set place names, meaning_1 does not start with name	family_set	contains	place_names	meaning_1	does not contain	^name														lemma_1	family_set	meaning_1	[]	10

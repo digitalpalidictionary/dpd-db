@@ -6,6 +6,7 @@ from typing import List
 import zipfile
 import csv
 import pickle
+import pyglossary
 
 from subprocess import Popen, PIPE
 from pathlib import Path
@@ -31,7 +32,7 @@ from exporter.ru_components.tools.paths_ru import RuPaths
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.tic_toc import tic, toc, bip, bop
-from tools.utils import RenderedSizes, sum_rendered_sizes
+from tools.utils import RenderResult, RenderedSizes, sum_rendered_sizes
 from tools import time_log
 
 from exporter.ru_components.tools.tools_for_ru_exporter import mdict_ru_title, mdict_ru_description, gdict_ru_info
@@ -148,9 +149,12 @@ def main():
 
     time_log.log("export_to_goldendict()")
     if lang == "en":
-        export_to_goldendict(pth, combined_data_list, lang, external_css=external_css)
+        if external_css:
+            export_to_goldendict_pyglossary(pth, combined_data_list, lang, external_css=external_css)
+        else:
+            export_to_goldendict_simsapa(pth, combined_data_list, lang, external_css=external_css)
     elif lang == "ru":
-        export_to_goldendict(rupth, combined_data_list, lang)
+        export_to_goldendict_simsapa(rupth, combined_data_list, lang)
 
     if copy_unzip:
         time_log.log("goldendict_unzip_and_copy()")
@@ -184,7 +188,7 @@ def main():
     time_log.log("exporter.py::main() return")
 
 
-def export_to_goldendict(
+def export_to_goldendict_simsapa(
         _pth_: ProjectPaths,
         data_list: list,
         lang="en",
@@ -217,10 +221,54 @@ def export_to_goldendict(
     # add external css
     if external_css is True:
         with zipfile.ZipFile(_pth_.dpd_zip_path, 'a') as zipf:
-            zipf.write(_pth_.dpd_css_path, "dpd/res/dpd.css")
+            zipf.write(_pth_.dpd_css_path, "dpd/res/common.css")
             zipf.write(_pth_.buttons_js_path, "dpd/res/button.js")
 
     print(f"{bop():>29}")
+
+
+def export_to_goldendict_pyglossary(
+        _pth_: ProjectPaths,
+        data_list: list[RenderResult],
+        lang="en",
+        external_css=False
+    ) -> None:
+    """generate goldedict zip"""
+
+    from pyglossary import Glossary
+    Glossary.init()
+    glos = Glossary()
+
+    glos.setInfo("bookname", "DPD")
+    glos.setInfo("author", "Bodhirasa")
+    glos.setInfo("description", "")
+    glos.setInfo("website", "https://digitalpalidictionary.github.io/")
+    glos.setInfo("language", "pi")
+    glos.setInfo("targetlanguage", "en")
+    # synonyms
+    # wordcount
+    # dpdversion
+
+    # add css
+    with open(_pth_.dpd_css_path, "rb") as f:
+        css = f.read()
+        glos.addEntry(glos.newDataEntry("dpd.css", css))
+
+    # add dpd data
+    for i in data_list:
+        new_word = glos.newEntry(
+            i["word"],
+            i["definition_html"],
+            defiFormat="h")
+        new_word.l_word.extend(i["synonyms"])
+        glos.addEntry(new_word)
+    
+    glos.write("temp/my_dictionary/my_dictionary.ifo", format="Stardict")
+
+    # FIXME isuues so far are
+    # No synonyms
+    # CSS not working
+
 
 
 def goldendict_unzip_and_copy(_pth_) -> None:

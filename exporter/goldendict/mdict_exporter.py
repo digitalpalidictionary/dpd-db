@@ -78,7 +78,7 @@ def export_to_mdict(
         title=title,
         description=description)
 
-    with  open(pth.mdict_mdx_path, 'wb') as outfile:
+    with open(pth.mdict_mdx_path, 'wb') as outfile:
         writer.write(outfile)
         outfile.close()
     
