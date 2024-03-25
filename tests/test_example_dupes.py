@@ -10,7 +10,7 @@ from db.get_db_session import get_db_session
 from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 
-threshold=0.83
+threshold=0.82
 
 def main():
     print("[bright_yellow]find duplicate or similar examples")

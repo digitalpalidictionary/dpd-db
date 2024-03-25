@@ -188,12 +188,15 @@ def make_window():
         ],
         [
             sg.Text("field1", size=(15, 1)),
-            sg.Input(key="add_field1", size=(50, 1), text_color="#00bfff")
+            sg.Input(
+                key="add_field1", size=(50, 1), text_color="#00bfff",
+                enable_events=True)
         ],
         [
             sg.Text("value1_new", size=(15, 1)),
             sg.Multiline(
-                "", key="add_value1_new", size=(50, 2)),
+                "", key="add_value1_new", size=(50, 2),
+                enable_events=True),
             sg.Text("old", size=(5, 1), justification="right"),
             sg.Multiline(
                 "", key="add_value1_old", size=(50, 2), disabled=True,
@@ -201,12 +204,15 @@ def make_window():
         ],
         [
             sg.Text("field2", size=(15, 1)),
-            sg.Input(key="add_field2", size=(50, 1), text_color="#00bfff")
+            sg.Input(
+                key="add_field2", size=(50, 1), text_color="#00bfff",
+                enable_events=True)
         ],
         [
             sg.Text("value2_new", size=(15, 1)),
             sg.Multiline(
-                key="add_value2_new", size=(50, 2)),
+                key="add_value2_new", size=(50, 2),
+                enable_events=True),
             sg.Text("old", size=(5, 1), justification="right"),
             sg.Multiline(
                 "", key="add_value2_old", size=(50, 2), disabled=True,
@@ -214,12 +220,14 @@ def make_window():
         ],
         [
             sg.Text("field3", size=(15, 1)),
-            sg.Input(key="add_field3", size=(50, 1), text_color="#00bfff"),
+            sg.Input(
+                key="add_field3", size=(50, 1), text_color="#00bfff",
+                enable_events=True),
         ],
         [
             sg.Text("value3_new", size=(15, 1)),
             sg.Multiline(
-                key="add_value3_new", size=(50, 4)),
+                key="add_value3_new", size=(50, 4), enable_events=True),
             sg.Text("old", size=(5, 1), justification="right"),
             sg.Multiline(
                 key="add_value3_old", size=(50, 4), disabled=True,
@@ -228,7 +236,7 @@ def make_window():
         [
             sg.Text("comment", size=(15, 1)),
             sg.Input(
-                "", key="add_comment", size=(50, 1)),
+                "", key="add_comment", size=(50, 1), enable_events=True),
         ],
         [
             sg.Text("", size=(15, 1)),
@@ -236,7 +244,7 @@ def make_window():
         [
             sg.Text("feedback", size=(15, 1)),
             sg.Input(
-                "", key="add_feedback", size=(50, 1)),
+                "", key="add_feedback", size=(50, 1), enable_events=True),
         ],
         [
             sg.Text("", size=(15, 1)),

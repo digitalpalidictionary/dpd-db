@@ -20,8 +20,8 @@ dpd release checklist
 - makedict
   
 - update github, taking note of all changes
-- tipitaka pali projector pull request 
 - tpr extensions commit
+- tbw commit
   
 - make new github release
 - - copy data from old form

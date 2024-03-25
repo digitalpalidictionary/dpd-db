@@ -19,7 +19,7 @@ from tools.db_search_string import db_search_string
 
 class ProgData():
     def __init__(self) -> None:
-        self.max_length: int = 34
+        self.max_length: int = 33
         
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
