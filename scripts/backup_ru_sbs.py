@@ -73,8 +73,8 @@ def backup_sbs(db_session: Session, pth: ProjectPaths, custom_path: str = ""):
 
 
 def backup_ru_roots(db_session: Session, pth: ProjectPaths, custom_path: str = ""):
-    """Backup Ru from DpdRoots table to TSV."""
-    print("[green]writing Ru DpdRoots table")
+    """Backup Ru columns from the DpdRoots to TSV."""
+    print("[green]writing Ru columns from the DpdRoots table")
     db = db_session.query(DpdRoots).all()
 
     # Check for rows where root.sanskrit_root is not "-" and root_sanskrit_root_ru_meaning is empty

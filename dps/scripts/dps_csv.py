@@ -16,13 +16,14 @@ from tools.pali_sort_key import pali_sort_key
 from dps.tools.paths_dps import DPSPaths
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
-from tools.date_and_time import day
+import datetime
 
 from sqlalchemy.orm import joinedload
 
 from dps.tools.sbs_table_functions import SBS_table_tools
 
-date = day()
+current_date = datetime.date.today().strftime("%d-%m-%y")
+
 console = Console()
 
 
@@ -229,7 +230,7 @@ def pali_row(dpspth, i: DpdHeadwords, output="anki") -> List[str]:
         i.stem,
         i.pattern,
         i.meaning_2,
-        date,
+        current_date,
         i.sbs.sbs_index if i.sbs else None
     ])
 

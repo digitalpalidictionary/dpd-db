@@ -48,7 +48,7 @@ def mdict_synonyms(all_items, item):
 
 def export_to_mdict(
         data_list: List[Dict],
-        pth: ProjectPaths,
+        pth,
         description,
         title,
         external_css = False

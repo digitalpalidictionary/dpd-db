@@ -93,8 +93,8 @@ def main():
     else:
         external_css = False
     
-    data_limit = int(config_read("dictionary", "data_limit")) #type:ignore
-
+    data_limit = int(config_read("dictionary", "data_limit") or "0")
+    
     time_log.log("make_roots_count_dict()")
     roots_count_dict = make_roots_count_dict(db_session)
 
@@ -189,7 +189,7 @@ def main():
 
 
 def export_to_goldendict_simsapa(
-        _pth_: ProjectPaths,
+        _pth_,
         data_list: list,
         lang="en",
         external_css=False
