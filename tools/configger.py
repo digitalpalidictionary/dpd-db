@@ -65,7 +65,8 @@ DEFAULT_CONFIG = {
         "make_ebook": "no",
         "make_tbw": "no",
         "tarball_db": "no",
-        "summary": "no"
+        "summary": "no",
+        "update_simsapa_db": "no"
     },
     "openia": {
         "key": ""
@@ -76,6 +77,7 @@ DEFAULT_CONFIG = {
         "backup_path": ""
     },
     "simsapa": {
+        "app_path": "",
         "db_path": ""
     },
     "tpr": {

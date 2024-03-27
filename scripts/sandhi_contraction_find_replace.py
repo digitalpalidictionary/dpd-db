@@ -16,21 +16,26 @@ from tools.db_search_string import db_search_string
 from tools.paths import ProjectPaths
 
 class ProgData():
-    def __init__(self, db_session) -> None:
-        self.db_session = db_session
+    def __init__(self) -> None:
+        self.pth = ProjectPaths()
+        self.db_session = get_db_session(self.pth.dpd_db_path)
         self.find_me: str
         self.replace_me: str
+    
+    def refresh_session(self):
+        db_session = get_db_session(self.pth.dpd_db_path)
+        self.db_session = db_session
+
 
     
 def main():
     print("[bright_yellow]find and replace sandhi contractions")
-    pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
-    pd = ProgData(db_session)
-    input_word(pd)
+    input_word()
 
 
-def input_word(pd):
+def input_word():
+    pd = ProgData()
+
     print("-"*50)
     print()
     print(f"[green]{'word to find':<40}", end="")
@@ -53,7 +58,7 @@ def input_word(pd):
     route = input()
     print()
     if route == "n":
-        input_word(pd)
+        input_word()
     elif route == "b":
         find_instances_in_bold(pd)
     elif route == "x":
@@ -123,7 +128,7 @@ def find_instances_in_bold(pd):
     input()
     print()
 
-    input_word(pd)
+    input_word()
     
 
 def replace_instances(pd):
@@ -176,7 +181,7 @@ def replace_instances(pd):
                 elif route == "x":
                     break
                 
-    input_word(pd)
+    input_word()
             
 
 if __name__ == "__main__":
@@ -235,4 +240,4 @@ def replace_instances_regex(pd):
                     break
             
                 
-    input_word(pd)
+    input_word()

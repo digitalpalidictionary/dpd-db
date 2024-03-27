@@ -21,3 +21,4 @@ exporter/tbw/tbw_exporter.py
 scripts/zip_goldedict_mdict.py
 scripts/tarball_db.py
 scripts/summary.py
+scripts/simsapa_db_update.py

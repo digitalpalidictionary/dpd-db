@@ -576,6 +576,7 @@ Ekādasakanipāta
 Ekakanipāta
 Elengi
 Eleusine
+elucidation
 emancipating
 emblic
 Emblica
@@ -608,10 +609,12 @@ exhorter
 expectance
 experienceable
 experientially
+exposition
 eyya
 fadedness
 falsa
 father's
+fathomable
 fault-finding
 favourite
 feelable
@@ -733,6 +736,7 @@ hetu
 hexad
 highroad
 hillcrest
+hindrances
 Hiptage
 hitman
 Holarrhena
@@ -1085,8 +1089,8 @@ manu
 Manu
 Māra
 Mara's
-Māra's
 Mara’s
+Māra's
 Māra’s
 Māradhītusuttaṃ
 Māras
@@ -1161,6 +1165,9 @@ MN67
 MN70
 MN71
 MN72
+MN73
+MN74
+MN76
 Moggallāna
 Moggallāna's
 Moggallānabyākaraṇa
@@ -1595,6 +1602,7 @@ saṃyutta
 Saṃyutta
 Sanaṅkumāra
 Sañcaya
+Sandaka
 sandhi
 Sandhi
 saṅgha
@@ -1606,6 +1614,7 @@ sannayhi
 Sanseveria
 Sappan
 Sappurisasuttaṃ
+sapwood
 Sarabhū
 Sāratthadīpanīṭīkā
 saravanaṃ
@@ -2093,6 +2102,7 @@ Vebhāra
 Vedanāsaṃyuttaṃ
 Vedas
 Vedehi
+Vedic
 veena
 Vehapphala
 Vejayanta
@@ -2191,7 +2201,3 @@ yojanas
 yoking
 zizanioides
 Ziziphus
-hindrances
-fathomable
-exposition
-elucidation
