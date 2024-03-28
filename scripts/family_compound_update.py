@@ -19,8 +19,8 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadwords).all()
 
-    find: str = "saṅkhalikā"
-    replace: str ="saṅkhalā"
+    find: str = "sampadā"
+    replace: str ="sampadā1"
 
     for i in db:
         if re.findall(fr"\b{find}\b", str(i.family_compound)):

@@ -225,6 +225,7 @@ Bālaka
 balamattena
 Balasaṃyuttaṃ
 balcooa
+bald-headedness
 Bambusa
 Bandhumatī
 barbery
@@ -407,6 +408,7 @@ concomitance
 confutes
 congee
 conglomerations
+conjectured
 conjee
 conjugational
 contiguously
@@ -1006,6 +1008,7 @@ līyati
 LKR
 loc
 lodhra
+logician
 Lohicca's
 lomā
 long-tasseled
@@ -1638,6 +1641,7 @@ Sāvatthī
 scandens
 Scholaris
 scourer
+scrutinizer
 scrutinizingly
 Sekhasutta
 Sekhasuttaṃ
@@ -2008,6 +2012,7 @@ unremovable
 unrent
 unrepelled
 unrinsed
+unripened
 unrippled
 unrooted
 unsatisfiable
