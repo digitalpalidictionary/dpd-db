@@ -380,8 +380,8 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kās 1	1	a	shine, be visible	√kāś	1	appear, make a show	vi √kās		vikāśamāna, vikāśya
 √kās 1	1	a	shine, be visible	√kāś	1	appear, make a show	saṃ √kās		saṃkāśa
 √kās 1	1	a	shine, be visible	√kāś	1	appear, make a show	saṃ ni √kās		
-√kās 2	1	a	cough	√kās	1	cough	√kās		kās
-√kās 2	1	a	cough	√kās	1	cough	ud √kās		utkās, utkāsate, utkāstvā
+√kās 2	1	a	cough	√kās	1	cough	√kās	kās	kās
+√kās 2	1	a	cough	√kās	1	cough	ud √kās	utkās	utkās, utkāsate, utkāstvā
 √kit 1	1	sa	heal, cure	√cit	1	perceive, know, appear	√kit		cikitsaka, cikitsat, cikitsati, cikitsana, cikitsā, cikitsitum, cikitsya, cikitsanīya, na + cikitsā, sa + cikitsā
 √kit 2	1	a	live	√cit	1	perceive, know, appear	√kit		keta
 √kit 2	1	a	live	√cit	1	perceive, know, appear	ni √kit		aniketa, niketa
@@ -3047,8 +3047,8 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √sis	8	*e	remain, distinguish	√śiṣ	7, 10	leave	vi √sis	viśiṣ	aviśeṣa, na + viśiṣṭatva, nirviśeṣa, viśiṣṭa, viśiṣṭatā, viśiṣṭatva, viśeṣa, viśeṣaka, viśeṣaṇa, viśeṣatara, viśeṣatas, viśeṣatva, viśeṣin, viśeṣena, saviśeṣa
 √siḷ	8	*e	whistle	-	-	-	√siḷ		-
 √siḷ	8	*e	whistle	-	-	-	ud √siḷ		-
-√siṃs	1	a	hope, wish	√śaṃs	1	praise	ā √siṃs		āśaṃs, āśaṃsamāna, āśaṃsat, āśaṃsati, āśaṃsana, āśaṃsamāna, āśaṃsayati, āśaṃsita, āśis, na + āśaṃs, āśaṃsamāna, na + āśaṃsati, śaṃs
-√siṃs	1	a	hope, wish	√śaṃs	1	praise	pati ā √siṃs		na + pratyāśaṃs, pratyāśaṃs, pratyāśaṃsat, pratyāśaṃsati, pratyāśaṃsate, pratyāśaṃsamāna, pratyāśaṃsita, pratyāśaṃsitavya
+√siṃs	1	a	hope, wish	√śaṃs	1	praise	ā √siṃs	āśaṃs	āśaṃs, āśaṃsamāna, āśaṃsat, āśaṃsati, āśaṃsana, āśaṃsamāna, āśaṃsayati, āśaṃsita, āśis, na + āśaṃs, āśaṃsamāna, na + āśaṃsati, śaṃs
+√siṃs	1	a	hope, wish	√śaṃs	1	praise	pati ā √siṃs	pratyāśaṃs	na + pratyāśaṃs, pratyāśaṃs, pratyāśaṃsat, pratyāśaṃsati, pratyāśaṃsate, pratyāśaṃsamāna, pratyāśaṃsita, pratyāśaṃsitavya
 √sī	1	a	lie, sleep	√śī	1, 2	lie	√sī	śī	aśayiṣi, aśayiṣṭa, aśāyi, śaya, śayat, śayana, śayāna, śayita, śayita (reposed), śayita +, śayitvā, śaye, śayyamāna, śayyā, śāyayati, śāyikā, śete
 √sī	1	a	lie, sleep	√śī	1, 2	lie	ati √sī	atiśī	atiśaya, atiśayena
 √sī	1	a	lie, sleep	√śī	1, 2	lie	adhi √sī	adhiśī	adhiśayati, adhiśeti

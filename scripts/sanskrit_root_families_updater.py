@@ -22,7 +22,7 @@ exceptions = [
     "ājñā",
     "pratijñā",
     "pratipad",
-    
+    "adhiprajñā",
     ]
 
 

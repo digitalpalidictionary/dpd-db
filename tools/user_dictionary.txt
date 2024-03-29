@@ -354,6 +354,7 @@ Catukkanipāta
 Cātumā
 caul
 ceiba
+censures
 centered
 centeredness
 Ceta
@@ -747,6 +748,7 @@ Hordeum
 Horner
 horripilation
 hortative
+hospitably
 hoti
 houseless
 how-many-eth
@@ -1004,6 +1006,7 @@ limitlessness
 linch-pin
 Lindica
 Linum
+litigated
 līyati
 LKR
 loc
@@ -1171,6 +1174,7 @@ MN72
 MN73
 MN74
 MN76
+MN77
 Moggallāna
 Moggallāna's
 Moggallānabyākaraṇa
@@ -1504,6 +1508,7 @@ Raṭṭhapāla
 rattinuṭṭhānadassinā
 rebecoming
 rebirths
+rebukes
 redescription
 refutable
 regardful
@@ -1529,6 +1534,7 @@ retaliator
 retroflex
 Revata
 reverable
+revilement
 Ṛg
 Ricinus
 rightness
@@ -1567,6 +1573,7 @@ Sakka
 Sakka's
 Sakka’s
 Sakkasaṃyuttaṃ
+Sakuludāyī
 Sakya
 Sākya
 Sakyan
