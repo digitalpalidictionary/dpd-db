@@ -428,6 +428,7 @@ cowdung
 cowpat
 cowpath
 cpds
+craftman's
 creatress
 cremates
 cristatus
@@ -1175,6 +1176,7 @@ MN73
 MN74
 MN76
 MN77
+MN78
 Moggallāna
 Moggallāna's
 Moggallānabyākaraṇa
@@ -2033,6 +2035,7 @@ unskilled-ness
 unsmeared
 unsnarled
 unsplittable
+unspotted
 unstartled
 unstated
 unsteadiness
@@ -2176,6 +2179,7 @@ VV
 wainwright
 wainwright's
 wainwrights
+warbled
 washroom
 waveless
 waylayer
