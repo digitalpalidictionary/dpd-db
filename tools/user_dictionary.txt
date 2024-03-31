@@ -1177,6 +1177,9 @@ MN74
 MN76
 MN77
 MN78
+MN79
+MN80
+MN81-90
 Moggallāna
 Moggallāna's
 Moggallānabyākaraṇa
@@ -2121,6 +2124,7 @@ Vedic
 veena
 Vehapphala
 Vejayanta
+Vekhanasa
 velāsikāpi
 Velthuis
 Veḷuva

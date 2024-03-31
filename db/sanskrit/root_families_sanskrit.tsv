@@ -2111,14 +2111,14 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √mūl	1	a	support	√mūl	1	be rooted	ud √mūl	unmūl	unmūla
 √medh 1	1	a	be wise	medhā	-	wisdom	√medh		durmedha, dus + medhā, dus + medhin, medhas, medhā, medhāvin, medhāvinī, sumedhas, sumedhā (bsk)
 √medh 2	1	a	hurt, harm	√mith	1	alternate, altercate	√medh		a + medhya, methana, medha, medhya
-√mokkh	1	a	be freed	√mokṣ	1, 10	release	√mokkh		mokṣa, mokṣaka, mokṣate
+√mokkh	1	a	be freed	√mokṣ	1, 10	release	√mokkh	vipramokṣa	mokṣa, mokṣaka, mokṣate
 √mokkh	1	a	be freed	√mokṣ	1, 10	release	adhi √mokkh		adhimokṣa
 √mokkh	1	a	be freed	√mokṣ	1, 10	release	ni √mokkh		nirmokṣa
-√mokkh	1	a	be freed	√mokṣ	1, 10	release	pa √mokkh		pramokṣa, mokṣate
+√mokkh	1	a	be freed	√mokṣ	1, 10	release	pa √mokkh	pramokṣ	pramokṣa, mokṣate
 √mokkh	1	a	be freed	√mokṣ	1, 10	release	pa ati √mokkh		pratimokṣa
-√mokkh	1	a	be freed	√mokṣ	1, 10	release	pati √mokkh		prātimokṣa
-√mokkh	1	a	be freed	√mokṣ	1, 10	release	vi √mokkh		vimokṣa
-√mokkh	1	a	be freed	√mokṣ	1, 10	release	vi pa √mokkh		
+√mokkh	1	a	be freed	√mokṣ	1, 10	release	pati √mokkh	pratimokṣ	prātimokṣa
+√mokkh	1	a	be freed	√mokṣ	1, 10	release	vi √mokkh	vimokṣ	vimokṣa
+√mokkh	1	a	be freed	√mokṣ	1, 10	release	vi pa √mokkh	vipramokṣ	
 √mhi	1	a	smile	√smi	1	smile	√mhi		na + smaya
 √mhi	1	a	smile	√smi	1	smile	vi √mhi		vismaya, vismāpayati, vismāpya, vismāyayati, vismita
 √yakkh	8	*e	worship	√yakṣ	1, 10	press on	√yakkh		yakṣa, yakṣiṇī, yakṣī
@@ -2606,7 +2606,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √vam	1	a	eject, vomit	√vam	1, 2	vomit	ava √vam		vamitvā
 √vam	1	a	eject, vomit	√vam	1, 2	vomit	ā √vam		ā + vamati, āvamitum
 √vam	1	a	eject, vomit	√vam	1, 2	vomit	pati ā √vam		prati + ā + vamati
-√vambh	8	*aya	despise	vi√ḍamb	10	mock	√vambh		viḍambaka, viḍambanā, viḍambayati, viḍambayitum, viḍambita, viḍambin
+√vambh	8	*aya	despise	vi√ḍamb	10	mock	√vambh	viḍamb	viḍambaka, viḍambanā, viḍambayati, viḍambayitum, viḍambita, viḍambin
 √var 1	1	a	cover, dress, restrain	√vṛ	1, 5, 9	cover	√var	vṛ	avāvarīt, avīvarat, durvarṇa, durvarṇatā, na + suvarṇa, vaṭa, varaṇa, varatrā, varṇa, varṇa +, varṇaka, varṇatā, varṇavat, varṇavattā, varṇin, varman, vāṭa, vāra, vāraka, vāraṇa, vāraṇāvata, vārayat, vārayati, vārayamāṇa, vārayitvā, vṛta, vṛti, vṛti +, vṛti, vāri, vārya, savarṇa, suvarṇa, suvarṇa, svarṇa, suvarṇaka, suvarṇatā
 √var 1	1	a	cover, dress, restrain	√vṛ	1, 5, 9	cover	adhi ā √var		adhyāvara
 √var 1	1	*e	cover, dress, restrain	√vṛ	1, 5, 9	cover	anu pari √var		anu + parivārayati, anu + parivṛ
