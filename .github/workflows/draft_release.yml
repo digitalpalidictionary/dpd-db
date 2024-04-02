@@ -28,6 +28,9 @@ jobs:
         poetry config virtualenvs.in-project true
         poetry install
 
+    - name: Create dpd.db
+      run: touch dpd.db
+
     - name: Run initial setup script
       run: poetry run bash scripts/bash/initial_setup_run_once.sh
 
