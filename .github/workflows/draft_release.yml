@@ -14,6 +14,20 @@ jobs:
       with:
         submodules: 'recursive'
 
+    - name: Install gdown
+      run: pip install gdown
+
+    - name: Download and unzip output_do.zip
+      run: |
+          # Replace 'your-file-id' with the actual ID of your file on Google Drive
+          gdown --id '10bU9okbFmNKpCGF2sooQ5Bjh84qNkt9g' --output 'db/deconstructor/output_do.zip'
+          unzip db/deconstructor/output_do.zip -d db/deconstructor
+
+    - name: Test deconstructor/output/do
+      run: |
+          tree db/deconstructor || echo "tree command not found, using ls instead"
+          ls -R db/deconstructor
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
