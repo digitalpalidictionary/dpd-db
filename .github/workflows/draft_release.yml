@@ -93,6 +93,18 @@ jobs:
     - name: Deconstructor Postprocess setup
       run: poetry run python db/deconstructor/sandhi_postprocess.py
 
+    - name: Inflections to Headwords
+      run: poetry run python db/inflections/inflections_to_headwords.py
+
+    - name: Lookup Variants and Spelling Mistakes 
+      run: poetry run python db/lookup/variants_and_spelling_mistakes.py
+
+    - name: Lookup Transliterate
+      run: poetry run python db/lookup/transliterate_lookup_table.py
+
+    - name: Lookup Help and Abbreviations
+      run: poetry run python db/lookup/help_abbrev_add_to_lookup.py
+
     - name: Add Frequency
       run: poetry run python db/frequency/mapmaker.py
 
@@ -119,15 +131,42 @@ jobs:
            
     - name: Summary
       run: poetry run python scripts/summary.py
- 
+
+    - name: Read Summary from File
+      id: read_summary
+      run: |
+        echo "::set-output name=summary::$(cat exporter/share/summary.md)"
+
+    - name: Set Release Date
+      id: set_release_date
+      run: |
+        echo "::set-output name=release_date::$(date +'%Y-%m-%d')"
+
+    - name: Set Release Tag
+      id: set_release_tag
+      run: |
+        echo "::set-output name=version::$(python scripts/version_print.py)"
+    
     - name: Create Draft Release
       id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GH_PAT }}
       with:
-        tag_name: "v0.0"
-        release_name: "Draft Release"
+        tag_name: ${{ steps.set_release_tag.outputs.version }}
+        release_name: ${{ steps.set_release_date.outputs.release_date }}
+        body: |
+          Digital Pāḷi Dictionary is a feature-rich Pāḷi dictionary which runs in GoldenDict, MDict and on Kindle, or any other application which supports these formats. 
+
+          It is a work in progress, made available for testing and feedback purposes.
+
+          More information about installation, setup and features can be found [on the website](https://digitalpalidictionary.github.io/)
+
+          This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>
+
+          <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />
+
+          ${{ steps.read_summary.outputs.summary }}
         draft: true
         prerelease: false
 

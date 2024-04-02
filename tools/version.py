@@ -62,7 +62,7 @@ def update_db_version(pth, version):
     if db_info:
         db_info.value = version
     
-    # add the dpd_release_version and author info if it doesnt exist
+    # add the dpd_release_version and author info if it doesn't exist
     else:
         dpd_release_version = DbInfo(
             key="dpd_release_version", value=version)

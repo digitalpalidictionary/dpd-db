@@ -80,7 +80,8 @@ class ProjectPaths:
         self.deconstructor_mdict_mdx_path = base_dir.joinpath(Path("exporter/share/dpd-deconstructor-mdict.mdx"))
         self.dpd_goldendict_zip_path = base_dir.joinpath(Path("exporter/share/dpd-goldendict.zip"))
         self.dpd_mdict_zip_path = base_dir.joinpath(Path("exporter/share/dpd-mdict.zip"))
-
+        self.summary_md_path = base_dir.joinpath(Path("exporter/share/summary.md"))
+        
         # exporter/templates
         self.templates_dir = base_dir.joinpath(Path("exporter/templates"))
         self.header_templ_path = base_dir.joinpath(Path("exporter/goldendict/templates/header.html"))

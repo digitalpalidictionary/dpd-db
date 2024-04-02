@@ -47,6 +47,23 @@ def main():
         print()
         print(f"new words include: {new_words_string}")
 
+        summary_text = f"""
+**Change-log**:
+{line1}
+{line2}
+{line3}
+{line4}
+{line5}
+{line6}
+- 100% dictionary recognition in the early texts
+- xyz
+- numerous additions and corrections based on user feedback
+
+**new words include**: {new_words_string}
+"""
+        with open(pth.summary_md_path, "w") as f:
+            f.write(summary_text)
+
         if uposatha_today():
             print("[green]updating uposatha count")
             config_update("uposatha", "count", len(dpd_db))
