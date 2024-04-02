@@ -746,7 +746,7 @@ def render_button_box_templ(
                 target=f"feedback_{i.lemma_1_}", name="feedback")
     elif lang == "ru":
         feedback_button = button_link_html.format(
-                href="https://devamitta.github.io/pali/pali_dict.html", name="о словаре")
+                href="https://digitalpalidictionary.github.io/rus/", name="о словаре")
 
     return str(
         button_box_templ.render(

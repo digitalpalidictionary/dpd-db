@@ -87,6 +87,9 @@ def main():
         lang = "ru"
     # add another lang here "elif ..." and 
     # add conditions if lang = "{your_language}" in every instance in the code.
+    else:
+        raise ValueError("Invalid language parameter")
+
         
     if config_test("dictionary", "external_css", "yes"):
         external_css = True

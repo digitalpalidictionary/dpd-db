@@ -52,7 +52,7 @@ def make_short_ru_meaning(i: DpdHeadwords, ru: Russian) -> str:
 
 def make_ru_meaning_html(i: DpdHeadwords, ru: Russian) -> str:
     """Compile html of ru_meaning and literal meaning, or return ru_meaning_raw.
-    ru_meaning in <b>bold</b>"""
+    ru_meaning in <b>bold</b>, or return english meaning"""
 
     if ru is None:
         ru_meaning: str = make_meaning(i)
@@ -70,20 +70,27 @@ def make_ru_meaning_html(i: DpdHeadwords, ru: Russian) -> str:
         return ""
 
 
+def make_ru_meaning_for_ebook(i: DpdHeadwords, ru: Russian) -> str:
+    """Compile html of ru_meaning and literal meaning, or return ru_meaning_raw with spesial mark.
+    ru_meaning in <b>bold</b>, or return english meaning"""
+
+    if ru is None:
+        ru_meaning: str = make_meaning(i)
+        return ru_meaning
+
+    elif ru.ru_meaning:
+        ru_meaning: str = f"<b>{ru.ru_meaning}</b>"
+        if ru.ru_meaning_lit:
+            ru_meaning += f"; досл. {ru.ru_meaning_lit}"
+        return ru_meaning
+    elif ru.ru_meaning_raw:
+        ru_meaning: str = f"[пер. ИИ] {ru.ru_meaning_raw}"
+        return ru_meaning
+    else:
+        return ""
+
+
 abbreviations_dict = None
-
-
-def load_abbreviations_dict(tsv_file_path):
-    global abbreviations_dict
-    if abbreviations_dict is None:
-        abbreviations_dict = {}
-        with open(tsv_file_path, 'r', encoding='utf-8') as file:
-            reader = csv.reader(file, delimiter='\t')
-            for row in reader:
-                if len(row) >= 6 and row[5]: # Check if the row has a Russian equivalent
-                    abbreviations_dict[row[0]] = row[5]
-        # Optionally, sort the abbreviations by length in descending order for efficiency
-        abbreviations_dict = dict(sorted(abbreviations_dict.items(), key=lambda x: len(x[0]), reverse=True))
 
 
 def ru_replace_abbreviations(value, kind = "meaning"):
@@ -91,15 +98,19 @@ def ru_replace_abbreviations(value, kind = "meaning"):
     global abbreviations_dict
 
     if abbreviations_dict is None:
-        load_abbreviations_dict(pth.abbreviations_tsv_path)
+        # load_abbreviations_dict(pth.abbreviations_tsv_path)
+        abbreviations_dict = load_abbreviations_dict(pth.abbreviations_tsv_path)
 
     # Perform basic replacements
     if kind == "meaning":
-        value = value.replace(' or ', ' или ').replace(', from', ', от').replace(' of ', ' от ')
+        value = value.replace(' or ', ' или ').replace(', from', ', от').replace(' of ', ' от ').replace('letter', 'буква')
     elif kind == "inflect":
         value = value.replace(' is ', ' это ').replace('conjugation', 'класс спряжения').replace('declension', 'класс склонения').replace('like ', 'как ').replace('reflexive', 'возвратный').replace('irregular', 'неправильный')
     elif kind == "root":
-        value = value.replace('Root', 'Корень').replace('Bases', 'Основы').replace('Base', 'Основа').replace('in Compounds', 'в Составе').replace('adverbs', 'наречия').replace('verbs', 'глаголы').replace('participles', 'причастия').replace('nouns', 'существительные').replace('adjectives', 'прилагательные')
+        value = value.replace('Pāḷi Root', 'Корень Пали').replace('Sanskrit Root', 'Корень Санскр.').replace('Bases', 'Основы').replace('Base', 'Основа').replace('in Compounds', 'в Составе').replace('adverbs', 'наречия').replace('verbs', 'глаголы').replace('participles', 'причастия').replace('nouns', 'существительные').replace('adjectives', 'прилагательные')
+    elif kind == "gram":
+        value = value.replace('word', 'слово').replace('letter', 'буква').replace('indeclinable', 'несклоняемое').replace('of', 'от')
+    
 
     # Step   3: Replace abbreviations in value
     # Use regex to match abbreviations, considering variations like "+acc" or "loc abs"
@@ -115,10 +126,26 @@ def ru_replace_abbreviations(value, kind = "meaning"):
     return value
 
 
+def load_abbreviations_dict(tsv_file_path):
+    """Load abbreviations from a TSV file."""
+    global abbreviations_dict
+    if abbreviations_dict is None:
+        abbreviations_dict = {}
+        with open(tsv_file_path, 'r', encoding='utf-8') as file:
+            reader = csv.reader(file, delimiter='\t')
+            for row in reader:
+                if len(row) >= 6 and row[5]: # Check if the row has a Russian equivalent
+                    abbreviations_dict[row[0]] = row[5]
+        # Optionally, sort the abbreviations by length in descending order for efficiency
+        abbreviations_dict = dict(sorted(abbreviations_dict.items(), key=lambda x: len(x[0]), reverse=True))
+    return abbreviations_dict
+
+
+
 def replace_english(value, kind = "freq"):
     # Perform basic replacements
     if kind == "freq":
-        value = value.replace('in the Chaṭṭha Saṅgāyana corpus', 'в версии текстов Чаттха Сангаяна').replace('Exact matches of the word', 'График частоты слова').replace('Exact matches of', 'График частоты').replace('and its', 'и его форм').replace('declensions', 'склонений').replace('conjugations', 'спряжений')
+        value = value.replace('in the Chaṭṭha Saṅgāyana corpus', 'в версии текстов Chaṭṭha Saṅgāyana').replace('Exact matches of the word', 'График частоты слова').replace('Exact matches of', 'График частоты').replace('and its', 'и его форм').replace('declensions', 'склонений').replace('conjugations', 'спряжений')
     return value
 
 

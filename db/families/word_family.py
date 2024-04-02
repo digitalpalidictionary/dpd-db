@@ -18,7 +18,7 @@ from tools.paths import ProjectPaths
 from tools.superscripter import superscripter_uni
 from tools.tic_toc import tic, toc
 
-from exporter.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations
+from exporter.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations, make_short_meaning
 
 from sqlalchemy.orm import joinedload
 
@@ -42,12 +42,20 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
+    if config_test("dictionary", "show_dps_data", "yes"):
+        dps_data = True
+    else:
+        dps_data = False
+
     if config_test("exporter", "language", "en"):
         lang = "en"
     elif config_test("exporter", "language", "ru"):
         lang = "ru"
     # add another lang here "elif ..." and 
     # add conditions if lang = "{your_language}" in every instance in the code.
+    else:
+        raise ValueError("Invalid language parameter")
+
 
     if lang == "en":
         wf_db = db_session.query(DpdHeadwords).filter(
@@ -60,7 +68,7 @@ def main():
     wf_db = sorted(wf_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     wf_dict = make_word_fam_dict(wf_db)
-    wf_dict = compile_wf_html(wf_db, wf_dict, lang)
+    wf_dict = compile_wf_html(wf_db, wf_dict, lang, dps_data)
     errors_list = add_wf_to_db(db_session, wf_dict)
     print_errors_list(errors_list)
 
@@ -100,7 +108,7 @@ def make_word_fam_dict(wf_db):
     return wf_dict
 
 
-def compile_wf_html(wf_db, wf_dict, lang="en"):
+def compile_wf_html(wf_db, wf_dict, lang="en", dps_data=False):
     print("[green]compiling html")
 
     for __counter__, i in enumerate(wf_db):
@@ -111,7 +119,10 @@ def compile_wf_html(wf_db, wf_dict, lang="en"):
             else:
                 html_string = wf_dict[wf]["html"]
 
-            meaning = make_meaning(i)
+            if not dps_data:
+                meaning = make_meaning(i)
+            else:
+                meaning = make_short_meaning(i)
             html_string += "<tr>"
             html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
             html_string += f"<td><b>{i.pos}</b></td>"

@@ -6,7 +6,7 @@ import os
 import sys
 
 from pathlib import Path
-from typing import List, Dict
+from typing import List, Dict, Union
 
 from css_html_js_minify import css_minify
 from mako.template import Template
@@ -26,6 +26,8 @@ from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.tic_toc import tic, toc, bip, bop
 
+from exporter.ru_components.tools.paths_ru import RuPaths
+
 
 sys.path.insert(1, 'tools/writemdict')
 
@@ -35,6 +37,14 @@ class Metadata:
     author: str = "Bodhirasa"
     description: str = "<h3>DPD Deconstructor by Bodhirasa</h3><p>Automated compound deconstruction and sandhi-splitting of all words in <b>Chaṭṭha Saṅgāyana Tipitaka</b> and <b>Sutta Central</b> texts.</p><p>For more information please visit the <a href='https://digitalpalidictionary.github.io/deconstructor.html'>Deconstrutor page</a> on the <a href='https://digitalpalidictionary.github.io/'>DPD website</a>.</p>"
     website: str = "https://digitalpalidictionary.github.io/"
+
+
+class RuMetadata:
+    """Russian Metadata for Dictionary Info file."""
+    title: str = "DPD Деконструктор"
+    author: str = "Дост. Бодхираса"
+    description: str = "<h3>DPD Деконструктор от Дост. Бодхирасы</h3><p>Автоматизированное разложение сложных слов и разделение сандхи для всех слов в текстах Типитаки <b>Chaṭṭha Saṅgāyana</b> и на <b>Sutta Central</b>.</p><p>Дополнительную информацию можно найти на странице <a href='https://digitalpalidictionary.github.io/rus/deconstructor.html'>Деконструктора</a> на сайте <a href='https://digitalpalidictionary.github.io/rus'>DPD</a>.</p>"
+    website: str = "https://digitalpalidictionary.github.io/rus"
 
 
 def main():
@@ -54,23 +64,41 @@ def main():
         else:
             copy_unzip: bool = False
 
+        if config_test("exporter", "language", "ru"):
+            lang = "ru"
+        elif config_test("exporter", "language", "en"):
+            lang = "en"    
+        else:
+            raise ValueError("Invalid language parameter")
+            
         pth = ProjectPaths()
-        m = Metadata()
-        decon_data_list = make_decon_data_list(pth)
-        make_golden_dict(pth, decon_data_list, m)
+        rupth = RuPaths()
+        if lang == "en":
+            m = Metadata()
+        elif lang == "ru":
+            m = RuMetadata()
 
-        if copy_unzip:
-            unzip_and_copy(pth)
+        decon_data_list = make_decon_data_list(pth, rupth, lang)
 
-        if make_mdct:
-            make_mdict(pth, decon_data_list, m)
-      
+        if lang == "en":
+            make_golden_dict(pth, decon_data_list, m)
+            if copy_unzip:
+                unzip_and_copy(pth)
+            if make_mdct:
+                make_mdict(pth, decon_data_list, m)
+        elif lang == "ru":
+            make_golden_dict(rupth, decon_data_list, m)
+            if copy_unzip:
+                unzip_and_copy(rupth)
+            if make_mdct:
+                make_mdict(rupth, decon_data_list, m)
+
     else:
         print("[green]disabled in config.ini")
     toc()
     
 
-def make_decon_data_list(pth: ProjectPaths):
+def make_decon_data_list(pth: ProjectPaths, rupth: RuPaths, lang="en"):
     """Prepare data set for GoldenDict of deconstructions and synonyms."""
 
     print(f"[green]{'making deconstructor data list':<40}")
@@ -88,7 +116,10 @@ def make_decon_data_list(pth: ProjectPaths):
     header_templ = Template(filename=str(pth.header_deconstructor_templ_path))
     decon_header = str(header_templ.render(css=decon_css, js=""))
 
-    decon_templ = Template(filename=str(pth.deconstructor_templ_path))
+    if lang == "en":
+        decon_templ = Template(filename=str(pth.deconstructor_templ_path))
+    elif lang == "ru":
+        decon_templ = Template(filename=str(rupth.deconstructor_templ_path))
 
     bip()
     for counter, i in enumerate(decon_db):
@@ -106,9 +137,10 @@ def make_decon_data_list(pth: ProjectPaths):
 
         # make synonyms list
         synonyms = add_niggahitas([i.lookup_key], all=False)
-        synonyms.extend(i.sinhala_unpack)
-        synonyms.extend(i.devanagari_unpack)
-        synonyms.extend(i.thai_unpack)
+        if lang != "ru":
+            synonyms.extend(i.sinhala_unpack)
+            synonyms.extend(i.devanagari_unpack)
+            synonyms.extend(i.thai_unpack)
         if i.lookup_key in sandhi_contractions:
             contractions = sandhi_contractions[i.lookup_key]["contractions"]
             synonyms.extend(contractions)
@@ -127,7 +159,7 @@ def make_decon_data_list(pth: ProjectPaths):
     return decon_data_list
 
 
-def make_golden_dict(pth, decon_data_list, m: Metadata):
+def make_golden_dict(pth: Union[ProjectPaths, RuPaths], decon_data_list, m: Union[Metadata, RuMetadata]):
     """Export GoldenDict."""
     print(f"[green]{'generating goldendict':<22}", end="")
     zip_path = pth.deconstructor_zip_path
@@ -145,7 +177,7 @@ def make_golden_dict(pth, decon_data_list, m: Metadata):
     print(f"{len(decon_data_list):,}")
 
 
-def unzip_and_copy(pth):
+def unzip_and_copy(pth: Union[ProjectPaths, RuPaths]):
     """Unzip and copy GoldenDict to a local folder."""
     local_goldendict_path: (Path |str) = goldedict_path()
 
@@ -160,14 +192,14 @@ def unzip_and_copy(pth):
         print("[red]local GoldenDict directory not found")
 
 
-def make_mdict(pth, decon_data_list: List[Dict], m: Metadata):
+def make_mdict(pth: Union[ProjectPaths, RuPaths], decon_data_list: List[Dict], m: Union[Metadata, RuMetadata]):
     """Export MDict."""
 
     print(f"[green]{'exporting mdct':<22}")
 
     export_to_mdict(
         decon_data_list,
-        pth.deconstructor_mdict_mdx_path,
+        str(pth.deconstructor_mdict_mdx_path),
         m.title,
         m.description)
 

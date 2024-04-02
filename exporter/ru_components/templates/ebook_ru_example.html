@@ -1,0 +1,13 @@
+% if i.example_1 and i.example_2:
+    <p class="example_heading">Примеры</p>
+% elif i.example_1 and not i.example_2:
+    <p class="example_heading">Пример</p>
+% endif
+% if i.example_1:
+    <p class="example">${i.example_1}</p>
+    <p class="sutta">${i.source_1} ${i.sutta_1}</p>
+% endif
+% if i.example_2:
+    <p class="example">${i.example_2}</p>
+    <p class="sutta">${i.source_2} ${i.sutta_2}</p>
+% endif

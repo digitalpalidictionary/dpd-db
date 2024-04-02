@@ -14,7 +14,7 @@ from tools.meaning_construction import degree_of_completion as doc
 from tools.paths import ProjectPaths
 from tools.configger import config_test
 
-from exporter.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations, populate_set_ru_and_check_errors
+from exporter.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations, populate_set_ru_and_check_errors, make_short_meaning
  
 from sqlalchemy.orm import joinedload
 
@@ -36,12 +36,20 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
+    if config_test("dictionary", "show_dps_data", "yes"):
+        dps_data = True
+    else:
+        dps_data = False
+
     if config_test("exporter", "language", "en"):
         lang = "en"
     elif config_test("exporter", "language", "ru"):
         lang = "ru"
     # add another lang here "elif ..." and 
     # add conditions if lang = "{your_language}" in every instance in the code.
+    else:
+        raise ValueError("Invalid language parameter")
+
 
     if lang == "en":
         sets_db = db_session.query(DpdHeadwords).filter(
@@ -53,7 +61,7 @@ def main():
     sets_db = sorted(sets_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     sets_dict = make_sets_dict(sets_db)
-    sets_dict = compile_sf_html(sets_db, sets_dict, lang)
+    sets_dict = compile_sf_html(sets_db, sets_dict, lang, dps_data)
     errors_list = add_sf_to_db(db_session, sets_dict)
     print_errors_list(errors_list)
     toc()
@@ -92,7 +100,7 @@ def make_sets_dict(sets_db):
     return sets_dict
 
 
-def compile_sf_html(sets_db, sets_dict, lang="en"):
+def compile_sf_html(sets_db, sets_dict, lang="en", dps_data=False):
     print("[green]compiling html")
 
     if lang == "ru":
@@ -108,7 +116,10 @@ def compile_sf_html(sets_db, sets_dict, lang="en"):
                     else:
                         html_string = sets_dict[sf]["html"]
 
-                    meaning = make_meaning(i)
+                    if not dps_data:
+                        meaning = make_meaning(i)
+                    else:
+                        meaning = make_short_meaning(i)
                     html_string += "<tr>"
                     html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
                     html_string += f"<td><b>{i.pos}</b></td>"

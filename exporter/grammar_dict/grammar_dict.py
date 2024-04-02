@@ -29,15 +29,21 @@ from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.tic_toc import tic, toc
+from tools.tic_toc import bip, bop
 from tools.update_test_add import update_test_add
+
+from exporter.ru_components.tools.paths_ru import RuPaths
+from exporter.ru_components.tools.tools_for_ru_exporter import ru_replace_abbreviations
 
 
 class ProgData():
     def __init__(self) -> None:
         self.make_mdct: bool
         self.copy_unzip: bool
+        self.lang: str
 
         self.pth = ProjectPaths()
+        self.rupth = RuPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
         self.db = self.load_db()
         self.headwords_list: list[str] = [i.lemma_1 for i in self.db]
@@ -90,11 +96,20 @@ def main():
         save_pickle_and_tsv(pd)
         add_to_lookup_table(pd)
         make_data_lists(pd)
-        make_goldendict(pd)
+        if pd.lang == "en":
+            make_goldendict(pd)
+        elif pd.lang == "ru":
+            make_goldendict_ru(pd)
         if pd.copy_unzip:
-            unzip_and_copy_goldendict(pd)
+            if pd.lang == "en":
+                unzip_and_copy_goldendict(pd.pth)
+            elif pd.lang == "ru":
+                unzip_and_copy_goldendict(pd.rupth)
         if pd.make_mdct:
-            make_mdict(pd)
+            if pd.lang == "en":
+                make_mdict(pd)
+            elif pd.lang == "ru":
+                make_mdict_ru(pd)
 
     toc()
 
@@ -120,6 +135,14 @@ def config_tests(pd) -> bool:
         pd.copy_unzip = True
     else:
         pd.copy_unzip = False
+
+    if config_test("exporter", "language", "ru"):
+        pd.lang = "ru"
+    elif config_test("exporter", "language", "en"):
+        pd.lang = "en"
+    else:
+        raise ValueError("Invalid language parameter")
+
 
     return True
 
@@ -210,6 +233,7 @@ def generate_grammar_dict(pd):
     html_table_header = "<body><div class='grammar_dict'><table class='grammar_dict'>"
 
     # process the inflections of each word in DpdHeadwords
+    bip()
     for counter, i in enumerate(pd.db):
 
         # words with ! in the stem are inflected forms 
@@ -223,8 +247,8 @@ def generate_grammar_dict(pd):
         
         # process indeclinables
         if i.stem == "-":
-            data_line = (i.lemma_1, i.pos, "indeclineable")
-            html_line = f"<tr><td><b>{i.pos}</b></td><td colspan='5'>indeclineable</td></tr>"
+            data_line = (i.lemma_1, i.pos, "indeclinable")
+            html_line = f"<tr><td><b>{i.pos}</b></td><td colspan='5'>indeclinable</td></tr>"
 
             # grammar_dict update
             if i.lemma_clean not in grammar_dict:
@@ -318,7 +342,33 @@ def generate_grammar_dict(pd):
                                                 grammar_dict_table[inflected_word] += html_line
 
         if counter % 5000 == 0:
-            print(f"{counter:>10,} / {len(pd.db):<10,}{i.lemma_1}")
+            print(f"{counter:>10,} / {len(pd.db):<10,} {i.lemma_1[:20]:<20} {bop():>10}") 
+            bip()
+
+    if pd.lang == "ru":
+
+        # !!! FIXME very slow!
+
+        print_counter = 0
+        print("[green]replacing abbreviations: en > ru")
+        for inflected_word, html_content in grammar_dict_html.items():
+            # Replace abbreviations in each HTML line
+            html_lines = html_content.split('<tr>')
+            for i, line in enumerate(html_lines):
+                if line:
+                    # Replace abbreviations in the line
+                    line = ru_replace_abbreviations(line, kind="gram")
+                    # Update the HTML lines with the modified line
+                    html_lines[i] = line
+            # Join the modified lines back into a single HTML string
+            grammar_dict_html[inflected_word] = '<tr>'.join(html_lines)
+
+            print_counter += 1
+            if print_counter % 5000 == 0:
+                print(f"{print_counter:>10,} / {len(grammar_dict_html):<10,}{inflected_word[:20]:<20} {bop():>10}")
+                bip()
+
+
 
     # FIXME what about using Jinja tempalte here?
 
@@ -430,7 +480,29 @@ def make_goldendict(pd):
     print(f"{'ok':>10}")
 
 
-def unzip_and_copy_goldendict(pd):
+def make_goldendict_ru(pd):
+    """Export Russian into GoldenDict / Stardict forwat using Simsapa"""
+    print(f"[green]{'making goldendict ru':<40}", end="")
+
+    zip_path = pd.rupth.grammar_dict_zip_path
+
+    pd.bookname = "DPD Грамматика"
+    pd.author = "Дост. Бодхираса"
+    pd.description = "<h3>DPD Грамматика</h3><p>Таблица всех грамматических возможностей, которыми может обладать определенное слово в склонении или спряжении. Для получения дополнительной информации посетите <a href='https://digitalpalidictionary.github.io/rus/grammardict.html' target='_blank'>веб-сайт DPD</a>.</p>"
+    pd.website = "thtps://digitalpalidictionary.github.io/rus/grammardict.html"
+
+    ifo = ifo_from_opts({
+        "bookname": pd.bookname,
+        "author": pd.author,
+        "description": pd.description,
+        "website": pd.website
+    })
+
+    export_words_as_stardict_zip(pd.gd_data_list, ifo, zip_path)
+    print(f"{'ok':>10}")
+
+
+def unzip_and_copy_goldendict(_pth_):
     """Copy the GoldenDict file to a local folder defined in config.ini."""
     print(f"[green]{'unzipping and copying to GD folder':<40}", end="")
 
@@ -438,7 +510,7 @@ def unzip_and_copy_goldendict(pd):
 
     if goldendict_path and goldendict_path.exists():
         try:
-            with Popen(f'unzip -o {pd.pth.grammar_dict_zip_path} -d "{goldendict_path}"', shell=True, stdout=PIPE, stderr=PIPE) as process:
+            with Popen(f'unzip -o {_pth_.grammar_dict_zip_path} -d "{goldendict_path}"', shell=True, stdout=PIPE, stderr=PIPE) as process:
                 stdout, stderr = process.communicate()
 
                 if process.returncode == 0:
@@ -461,6 +533,19 @@ def make_mdict(pd):
     export_to_mdict(
         pd.gd_data_list,
         pd.pth.grammar_dict_mdict_path, 
+        pd.bookname,
+        pd.description,
+        h3_header=True
+        )
+
+
+def make_mdict_ru(pd):
+    """Make an MDict Russian version for OS and Android devices."""
+    print(f"[green]{'making mdict ru':<40}")
+
+    export_to_mdict(
+        pd.gd_data_list,
+        pd.rupth.grammar_dict_mdict_path, 
         pd.bookname,
         pd.description,
         h3_header=True

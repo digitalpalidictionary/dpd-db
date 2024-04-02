@@ -1,0 +1,28 @@
+<idx:entry name="Pali" scriptable="yes" spell="yes" id="${counter}">
+    <idx:short>
+        % if i['ru_abbrev']:
+        <idx:orth value="${i['ru_abbrev']}"><b>${i['ru_abbrev']}</b></idx:orth>
+        % else:
+        <idx:orth value="${i['abbrev']}"><b>${i['abbrev']}</b></idx:orth>
+        % endif
+        <p class="body-space">
+            % if i['ru_meaning']:
+                ${i['ru_meaning']}.
+            % endif
+            % if i['ru_abbrev']:
+                ${i['abbrev']}.
+            % endif
+            ${i['meaning']}.
+            % if i['explanation']:
+                ${i['explanation']}. 
+            % endif
+            % if i['pāli']:
+                <i>${i['pāli']}</i> на Пали. 
+            % endif
+            % if i['example']:
+                Например: ${i['example']}. 
+            % endif
+        </p>
+    </idx:short>
+</idx:entry>
+<hr/>

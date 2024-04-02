@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns:math="http://exslt.org/math"
+    xmlns:tl="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
+    xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:cx="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:mbp="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
+    xmlns:mmc="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
+    xmlns:idx="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
+    xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops"
+    lang="ru" xml:lang="ru">
+
+<head>
+    <title>${letter}</title>
+        <link href="../Styles/dpd_kindle.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    % if letter == "a":
+        <h1 class="heading1">Пали-Русский</h1>
+        <h2 class="heading2" id="toc_id_a">a</h2>
+    % else:
+        <h2 class="heading2">${letter}</h2>
+    % endif
+    <mbp:frameset>
+        ${entries}
+    </mbp:frameset>
+</body>
+
+</html>
