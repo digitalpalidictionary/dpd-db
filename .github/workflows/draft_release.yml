@@ -28,17 +28,14 @@ jobs:
         poetry config virtualenvs.in-project true
         poetry install
 
-    - name: Create dpd.db
-      run: touch dpd.db
-
-    - name: Run initial setup script
-      run: poetry run bash scripts/bash/initial_setup_run_once.sh
-
     - name: Config for Gitub release
       run: poetry run python scripts/config_github_release.py
 
     - name: Build the database
       run: poetry run python scripts/db_rebuild_from_tsv.py
+
+    - name: Run initial setup script
+      run: poetry run bash scripts/bash/initial_setup_run_once.sh
     
     - name: Create version
       run: poetry run python tools/version.py
