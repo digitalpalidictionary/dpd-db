@@ -2,7 +2,6 @@
 
 """Print the version number"""
 
-from rich import print
 from tools.configger import config_read
 
 def main():

@@ -132,8 +132,8 @@ jobs:
     - name: Summary
       run: poetry run python scripts/summary.py
 
-    - name: Read Summary from File
-      id: read_summary
+    - name: Set Summary from File
+      id: set_summary
       run: |
         echo "::set-output name=summary::$(cat exporter/share/summary.md)"
 
@@ -145,7 +145,7 @@ jobs:
     - name: Set Release Tag
       id: set_release_tag
       run: |
-        echo "::set-output name=version::$(python scripts/version_print.py)"
+        echo "::set-output name=version::$(poetry run python scripts/version_print.py)"
     
     - name: Create Draft Release
       id: create_release
@@ -166,7 +166,7 @@ jobs:
 
           <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />
 
-          ${{ steps.read_summary.outputs.summary }}
+          ${{ steps.set_summary.outputs.summary }}
         draft: true
         prerelease: false
 
@@ -219,4 +219,3 @@ jobs:
         asset_path: exporter/share/dpd.db.tar.bz2
         asset_name: dpd.db.tar.bz2
         asset_content_type: application/zip
-
