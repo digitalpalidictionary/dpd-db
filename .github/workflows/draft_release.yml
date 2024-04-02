@@ -31,6 +31,9 @@ jobs:
     - name: Config for Gitub release
       run: poetry run python scripts/config_github_release.py
 
+    - name: Create dpd.db
+      run: touch dpd.db
+
     - name: Build the database
       run: poetry run python scripts/db_rebuild_from_tsv.py
 

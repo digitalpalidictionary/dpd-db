@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Rebuild the databse from scratch from files in backup_tsv folder."""
+"""Rebuild the database from scratch from files in backup_tsv folder."""
 
 import csv
 import sys
@@ -28,11 +28,11 @@ def main():
 
     if pth.dpd_db_path.exists():
         print("[red]this will destroy your current database!")
-        response = input("are you sure you would like to rebuild the db? [y/n] ")
-        if response != "y":
-            return
-        else:
-            pth.dpd_db_path.unlink()
+        # response = input("are you sure you would like to rebuild the db? [y/n] ")
+        # if response != "y":
+        #     return
+        # else:
+        pth.dpd_db_path.unlink()
 
     create_db_if_not_exists(pth.dpd_db_path)
 
