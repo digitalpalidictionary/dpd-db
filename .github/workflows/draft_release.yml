@@ -21,7 +21,7 @@ jobs:
       run: |
           # Replace 'your-file-id' with the actual ID of your file on Google Drive
           gdown --id '10bU9okbFmNKpCGF2sooQ5Bjh84qNkt9g' --output 'db/deconstructor/output_do.zip'
-          unzip db/deconstructor/output_do.zip -d db/deconstructor
+          unzip db/deconstructor/output_do.zip -d db/deconstructor/output_do
 
     - name: Test deconstructor/output/do
       run: |
