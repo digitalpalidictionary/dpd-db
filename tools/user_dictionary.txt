@@ -524,6 +524,7 @@ Diospyros
 discoloured
 discriminatively
 disembarks
+disentangled
 disfiguration
 disjoined
 dismounts
@@ -1180,6 +1181,7 @@ MN78
 MN79
 MN80
 MN81-90
+MN82
 Moggallāna
 Moggallāna's
 Moggallānabyākaraṇa
@@ -1847,6 +1849,7 @@ Therīgāthā
 Thespesia
 third-ish
 ṭhiti
+Thūlakoṭṭhika
 Thuna
 Thūṇa
 Thuna 
@@ -2047,6 +2050,7 @@ unstitch
 unsuffused
 unsurpassable
 unswept
+untwisted
 unusability
 unvirtuous
 unwieldliness

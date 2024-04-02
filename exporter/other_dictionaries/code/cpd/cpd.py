@@ -45,15 +45,15 @@ def main():
         html = clean_text(html)
 
         if "ṃ" in headword:
-            synoyms = add_niggahitas([headword])
+            synonyms = add_niggahitas([headword])
         else:
-            synoyms = []
+            synonyms = []
 
         cpd_data_list.append({
             "word": headword, 
             "definition_html": html,
             "definition_plain": "",
-            "synonyms": synoyms            
+            "synonyms": synonyms            
             })
     
     # sort into pali alphabetical order

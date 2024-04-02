@@ -150,13 +150,13 @@ class ProjectPaths:
         self.corrections_tsv_path = base_dir.joinpath(Path("gui/corrections.tsv"))
         self.additions_pickle_path = base_dir.joinpath(Path("gui/additions"))
 
-
         # gui/stash
         self.stash_dir = base_dir.joinpath(Path("gui/stash/"))
         self.stash_path = base_dir.joinpath(Path("gui/stash/stash"))
         self.save_state_path = base_dir.joinpath(Path("gui/stash/gui_state"))
         self.daily_record_path = base_dir.joinpath(Path("gui/stash/daily_record"))
-
+        self.example_stash_path = base_dir.joinpath(Path("gui/stash/example"))
+        
         # exporter/goldendict/icon
         self.icon_path = base_dir.joinpath(Path("exporter/goldendict/icon//favicon.ico"))
         self.icon_bmp_path = base_dir.joinpath(Path("exporter/goldendict/icon//dpd.bmp"))

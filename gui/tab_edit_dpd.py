@@ -542,14 +542,33 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
             sg.Input(
                 key="bold_1", size=(20, 1),
                 tooltip="Bold the word"),
-            sg.Button("Bold", key="bold_1_button", font=(None, 13)),
             sg.Button(
-                "Another Eg",
+                "Bold", key="bold_1_button", font=(None, 13),
+                tooltip="Bold the word in example_1"),
+            sg.Button(
+                "Eg1",
                 key="another_eg_1",
                 tooltip="Find another sutta example",
                 font=(None, 13)),
-            sg.Button("Lower", key="example_1_lower", font=(None, 13)),
-            sg.Button("Clean", key="example_1_clean", font=(None, 13)),
+            sg.Button(
+                "Lwr", key="example_1_lower", font=(None, 13),
+                tooltip="Lowercase example_1"),
+            sg.Button(
+                "Clean", key="example_1_clean", font=(None, 13),
+                tooltip="Clean example_1"),
+            sg.Button(
+                "S", key="example_1_save", font=(None, 13),
+                tooltip="Save example_1"),
+            sg.Button(
+                "L", key="example_1_load", font=(None, 13),
+                tooltip="Load into example_1"),
+            sg.Button(
+                "Cl", key="example_1_clear", font=(None, 13),
+                tooltip="Clear example_1"),
+            sg.Button(
+                "Sw", key="example_swap", font=(None, 13),
+                tooltip="Swap example_1 and example_2"),
+
             sg.Text("", key="bold_1_error", size=(50, 1), text_color="red")
         ],
         [
@@ -586,15 +605,30 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                     key="bold_2", size=(20, 1),
                     tooltip="Bold the word")),
             sg.pin(
-                sg.Button("Bold", key="bold_2_button", font=(None, 13))),
+                sg.Button(
+                    "Bold", key="bold_2_button", font=(None, 13),
+                    tooltip="Bold the word in example_2")),
             sg.pin(
                 sg.Button(
-                    "Another Eg", key="another_eg_2", font=(None, 13),
+                    "Eg2", key="another_eg_2", font=(None, 13),
                     tooltip="Find another sutta example")),
             sg.pin(
-                sg.Button("Lower", key="example_2_lower", font=(None, 13))),
+                sg.Button(
+                    "Lwr", key="example_2_lower", font=(None, 13),
+                    tooltip="Lowercase example_2")),
             sg.pin(
-                sg.Button("Clean", key="example_2_clean", font=(None, 13))),
+                sg.Button(
+                    "Clean", key="example_2_clean", font=(None, 13),
+                    tooltip="Clean example_2")),
+            sg.Button(
+                "S", key="example_2_save", font=(None, 13),
+                tooltip="Save example_2"),
+            sg.Button(
+                "L", key="example_2_load", font=(None, 13),
+                tooltip="Load into example_2"),
+            sg.Button(
+                "Cl", key="example_2_clear", font=(None, 13),
+                tooltip="Clear example_2"),
             sg.Text("", key="bold_2_error", size=(50, 1), text_color="red")
         ],
         [

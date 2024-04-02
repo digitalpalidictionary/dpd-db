@@ -24,10 +24,10 @@ dps/scripts/move_mdict.py
 # Check if the configuration setting
 if python -c "from tools.configger import config_test; result = config_test('dictionary', 'show_ebt_count', 'no'); print('show_ebt_count is False') if result == 'no' else exit(not result)"; then
     # Do nothing if the condition is False
-    echo 'scripts/zip_goldedict_mdict.py and db/frequency/ebt_calculation.py are disabled'
+    echo 'scripts/zip_goldendict_mdict.py and db/frequency/ebt_calculation.py are disabled'
 else
     # Run if the condition is True
-    scripts/zip_goldedict_mdict.py
+    scripts/zip_goldendict_mdict.py
     db/frequency/ebt_calculation.py
 fi
 

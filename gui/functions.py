@@ -30,6 +30,7 @@ from tools.cst_sc_text_sets import make_cst_text_list
 from tools.cst_sc_text_sets import make_sc_text_list
 from tools.pali_text_files import cst_texts
 from tools.pali_alphabet import pali_alphabet
+from tools.paths import ProjectPaths
 from tools.pos import INDECLINABLES
 from tools.source_sutta_example import find_source_sutta_example
 
@@ -52,7 +53,7 @@ class Flags:
         self.construction_line2 = True
         self.suffix = True
         self.compound_construction = True
-        self.synoyms = True
+        self.synonyms = True
         self.commentary = True
         self.sanskrit = True
         self.example_1 = True
@@ -77,7 +78,7 @@ def reset_flags(flags):
     flags.construction_line2 = True
     flags.suffix = True
     flags.compound_construction = True
-    flags.synoyms = True
+    flags.synonyms = True
     flags.commentary = True
     flags.sanskrit = True
     flags.example_1 = True
@@ -1364,3 +1365,41 @@ def make_has_values_list(values: dict) -> list[str]:
         if value:
             has_value_list.append(key)
     return has_value_list
+
+
+def example_save(
+        pth: ProjectPaths,
+        values: dict[str, str],
+        window,
+        example_no: str) -> None:
+    """Save source sutta examples as a pickle file."""
+    if example_no == "1":
+        source_sutta_example = (
+            values["source_1"],
+            values["sutta_1"],
+            values["example_1"],)
+    elif example_no == "2":
+        source_sutta_example: tuple[str, str, str] = (
+            values["source_2"],
+            values["sutta_2"],
+            values["example_2"],)
+    with open(pth.example_stash_path, "wb") as f:
+        pickle.dump(source_sutta_example, f)
+
+
+def example_load(pth: ProjectPaths, window, example_no: str) -> None:
+    """Load the example back into the window"""
+    try:
+        with open(pth.example_stash_path, "rb") as f:
+            source, sutta, example = pickle.load(f)
+        if example_no == "1":
+            window["source_1"].update(value=source)
+            window["sutta_1"].update(value=sutta)
+            window["example_1"].update(value=example)
+        elif example_no == "2":
+            window["source_2"].update(value=source)
+            window["sutta_2"].update(value=sutta)
+            window["example_2"].update(value=example)
+    except Exception:
+        window["messages"].update(
+            value="no sutta examples saved", text_color="red")

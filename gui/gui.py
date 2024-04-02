@@ -68,7 +68,8 @@ from functions import increment_lemma_1
 from functions import make_compound_construction
 from functions import make_construction
 from functions import make_lemma_clean
-from functions import make_has_values_list
+from functions import example_load
+from functions import example_save
 
 from functions_tests import individual_internal_tests
 from functions_tests import open_internal_tests
@@ -761,6 +762,28 @@ def main():
             replace_sandhi(
                 values["bold_1"], "bold_1", 
                 sandhi_dict, hyphenations_dict, window)
+        
+        elif event == "example_1_save":
+            example_save(pth, values, window, "1")
+        
+        elif event == "example_1_load":
+            example_load(pth, window, "1")
+
+        elif event == "example_1_clear":
+            window["source_1"].update(value="")
+            window["sutta_1"].update(value="")
+            window["example_1"].update(value="")
+
+        elif event == "example_swap":
+            new_source_1 = values["source_2"]
+            new_sutta_1 = values["sutta_2"]
+            new_example_1 = values["example_2"]
+            window["source_2"].update(value=values["source_1"])
+            window["sutta_2"].update(value=values["sutta_1"])
+            window["example_2"].update(value=values["example_1"])
+            window["source_1"].update(value=new_source_1)
+            window["sutta_1"].update(value=new_sutta_1)
+            window["example_1"].update(value=new_example_1)
 
         elif event == "example_2_clean":
             replace_sandhi(
@@ -769,6 +792,17 @@ def main():
             replace_sandhi(
                 values["bold_2"], "bold_2", 
                 sandhi_dict, hyphenations_dict, window)
+
+        elif event == "example_2_save":
+            example_save(pth, values, window, "2")
+        
+        elif event == "example_2_load":
+            example_load(pth, window, "2")
+
+        elif event == "example_2_clear":
+            window["source_2"].update(value="")
+            window["sutta_2"].update(value="")
+            window["example_2"].update(value="")
 
         elif event == "commentary_clean":
             replace_sandhi(
@@ -820,12 +854,12 @@ def main():
             window["example_2"].update(values["example_2"])
 
         elif event == "synonym":
-            if flags.synoyms:
-                synoyms = get_synonyms(
+            if flags.synonyms:
+                synonyms = get_synonyms(
                     db_session, values["pos"], values["meaning_1"], values["lemma_1"])
-                window["synonym"].update(value=synoyms)
+                window["synonym"].update(value=synonyms)
                 window["messages"].update(value="synonyms updated")
-                flags.synoyms = False
+                flags.synonyms = False
 
         elif event == "search_for":
             if not values["search_for"]:
@@ -1431,11 +1465,11 @@ def main():
                         value="not a valid id or lemma_1", text_color="red")
 
         elif event == "dps_synonym":
-            if dps_flags.synoyms:
+            if dps_flags.synonyms:
                 error_field = "dps_synonym_error"
-                synoyms = dps_get_synonyms(db_session, values["dps_pos"], values["dps_meaning"], window, error_field)
-                window["dps_synonym"].update(value=synoyms)
-                dps_flags.synoyms = False
+                synonyms = dps_get_synonyms(db_session, values["dps_pos"], values["dps_meaning"], window, error_field)
+                window["dps_synonym"].update(value=synonyms)
+                dps_flags.synonyms = False
 
         # buttons for sbs_ex_1
         # search sbs_ex1

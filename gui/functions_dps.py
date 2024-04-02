@@ -50,7 +50,7 @@ from tools.pali_sort_key import pali_sort_key
 
 class Flags_dps:
     def __init__(self):
-        self.synoyms = True
+        self.synonyms = True
         self.sbs_example_1 = True
         self.sbs_example_2 = False
         self.sbs_example_3 = False
@@ -61,7 +61,7 @@ class Flags_dps:
 
 
 def dps_reset_flags(flags_dps):
-    flags_dps.synoyms = True
+    flags_dps.synonyms = True
     flags_dps.sbs_example_1 = True
     flags_dps.sbs_example_2 = False
     flags_dps.sbs_example_3 = False
