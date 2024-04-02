@@ -11,135 +11,121 @@ jobs:
 
     - name: Checkout repository
       uses: actions/checkout@v2
-      with:
-        submodules: 'recursive'
+      # with:
+      #   submodules: 'recursive'
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.11
+    # - name: Set up Python
+    #   uses: actions/setup-python@v2
+    #   with:
+    #     python-version: 3.11
 
-    - name: Install Poetry
-      run: |
-        curl -sSL https://install.python-poetry.org | python -
+    # - name: Install Poetry
+    #   run: |
+    #     curl -sSL https://install.python-poetry.org | python -
 
-    - name: Install dependencies
-      run: |
-        poetry config virtualenvs.in-project true
-        poetry install
+    # - name: Install dependencies
+    #   run: |
+    #     poetry config virtualenvs.in-project true
+    #     poetry install
 
-    - name: Config for Gitub release
-      run: poetry run python scripts/config_github_release.py
+    # - name: Config for Gitub release
+    #   run: poetry run python scripts/config_github_release.py
 
-    - name: Create dpd.db
-      run: touch dpd.db
+    # - name: Create dpd.db
+    #   run: touch dpd.db
 
-    - name: Build the database
-      run: poetry run python scripts/db_rebuild_from_tsv.py
+    # - name: Build the database
+    #   run: poetry run python scripts/db_rebuild_from_tsv.py
 
-    - name: Run initial setup script
-      run: poetry run bash scripts/bash/initial_setup_run_once.sh
+    # - name: Run initial setup script
+    #   run: poetry run bash scripts/bash/initial_setup_run_once.sh
     
-    - name: Create version
-      run: poetry run python tools/version.py
+    # - name: Create version
+    #   run: poetry run python tools/version.py
 
-    - name: Create Inflections Templates
-      run: poetry run python db/inflections/create_inflections_templates.py
+    # - name: Create Inflections Templates
+    #   run: poetry run python db/inflections/create_inflections_templates.py
 
-    - name: Create Inflection Tables
-      run: poetry run python db/inflections/generate_inflection_tables.py
+    # - name: Create Inflection Tables
+    #   run: poetry run python db/inflections/generate_inflection_tables.py
 
-    - name: Transliterate Inflections
-      run: poetry run python db/inflections/transliterate_inflections.py
+    # - name: Transliterate Inflections
+    #   run: poetry run python db/inflections/transliterate_inflections.py
 
-    - name: Update Sanskrit Family Roots
-      run: poetry run python scripts/sanskrit_root_families_updater.py
+    # - name: Update Sanskrit Family Roots
+    #   run: poetry run python scripts/sanskrit_root_families_updater.py
 
-    - name: Add Root Families
-      run: poetry run python db/families/root_family.py
+    # - name: Add Root Families
+    #   run: poetry run python db/families/root_family.py
 
-    - name: Add Word Families
-      run: poetry run db/families/word_family.py
+    # - name: Add Word Families
+    #   run: poetry run db/families/word_family.py
     
-    - name: Add Compound Families
-      run: poetry run python db/families/compound_family.py
+    # - name: Add Compound Families
+    #   run: poetry run python db/families/compound_family.py
 
-    - name: Add Sets
-      run: poetry run python db/families/sets.py
+    # - name: Add Sets
+    #   run: poetry run python db/families/sets.py
 
-    - name: Add Idioms
-      run: poetry run python db/families/idioms.py
+    # - name: Add Idioms
+    #   run: poetry run python db/families/idioms.py
 
-    - name: Deconstructor Setup
-      run: poetry run python db/deconstructor/sandhi_setup.py
+    # - name: Deconstructor Setup
+    #   run: poetry run python db/deconstructor/sandhi_setup.py
         
-    - name: Deconstructor Splitter
-      run: poetry run python db/deconstructor/sandhi_splitter.py
+    # - name: Deconstructor Splitter
+    #   run: poetry run python db/deconstructor/sandhi_splitter.py
 
-    - name: Deconstructor Postprocess setup
-      run: poetry run python db/deconstructor/sandhi_postprocess.py
+    # - name: Deconstructor Postprocess setup
+    #   run: poetry run python db/deconstructor/sandhi_postprocess.py
 
-    - name: Add Frequency
-      run: poetry run python db/frequency/mapmaker.py
+    # - name: Add Frequency
+    #   run: poetry run python db/frequency/mapmaker.py
 
-    - name: Test Dealbreakers
-      run: poetry run python scripts/dealbreakers.py
+    # - name: Test Dealbreakers
+    #   run: poetry run python scripts/dealbreakers.py
            
-    - name: Export Grammar Dictionary
-      run: poetry run python exporter/grammar_dict/grammar_dict.py
+    # - name: Export Grammar Dictionary
+    #   run: poetry run python exporter/grammar_dict/grammar_dict.py
     
-    - name: Export GoldenDict & MDict
-      run: poetry run python exporter/goldendict/export_gd_mdict.py
+    # - name: Export GoldenDict & MDict
+    #   run: poetry run python exporter/goldendict/export_gd_mdict.py
 
-    - name: Export Deconstructor
-      run: poetry run python exporter/deconstructor/deconstructor_exporter.py
+    # - name: Export Deconstructor
+    #   run: poetry run python exporter/deconstructor/deconstructor_exporter.py
 
-    - name: Export Kindle & ePub
-      run: poetry run python exporter/ebook/ebook_exporter.py
+    # - name: Export Kindle & ePub
+    #   run: poetry run python exporter/ebook/ebook_exporter.py
 
-    - name: Zip GoldenDict & Mdict
-      run: poetry run python scripts/zip_goldendict_mdict.py
+    # - name: Zip GoldenDict & Mdict
+    #   run: poetry run python scripts/zip_goldendict_mdict.py
            
-    - name: Tarball DB
-      run: poetry run python scripts/tarball_db.py
+    # - name: Tarball DB
+    #   run: poetry run python scripts/tarball_db.py
            
-    - name: Summary
-      run: poetry run python scripts/summary.py
+    # - name: Summary
+    #   run: poetry run python scripts/summary.py
  
     - name: Create Draft Release
       id: create_release
-      uses: actions/github-script@v5
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
       with:
-        github-token: ${{ secrets.GH_PAT }}
-        script: |
-          const release = await github.rest.repos.createRelease({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            name: 'Draft Release',
-            tag_name: '',
-            draft: true,
-            prerelease: false,
-          });
-          return release.data.upload_url;
+          tag_name: ""
+          release_name: "Draft Release"
+          draft: true
+          prerelease: false
 
-    - name: Upload Assets to Draft Release
-      uses: actions/github-script@v5
+    - name: Upload .config.ini to Draft Release
+      uses: actions/upload-release-asset@v1
+      env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
       with:
-        github-token: ${{ secrets.GH_PAT }}
-        script: |
-          const uploadUrl = steps.create_release.outputs.result;
-          const filesToUpload = ['dpd-mdict.zip', 'dpd-goldendict.zip', 'dpd.db.tar.bz2', 'dpd-kindle.mobi', 'dpd-kindle.epub'];
-          const files = fs.readdirSync('exporter/share');
-          for (const file of filesToUpload) {
-            const filePath = `exporter/share/${file}`;
-            const fileContent = fs.readFileSync(filePath);
-            await github.rest.repos.uploadReleaseAsset({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              release_id: release.id,
-              name: file,
-              data: fileContent,
-            });
-          }
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./config.ini
+          asset_name: config.ini
+          asset_content_type: text/plain
+
      
 
