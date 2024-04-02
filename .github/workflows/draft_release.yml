@@ -112,7 +112,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GH_PAT }}
       with:
-          tag_name: ""
+          tag_name: "v0.0"
           release_name: "Draft Release"
           draft: true
           prerelease: false
