@@ -123,8 +123,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
       with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./config.ini
-          asset_name: config.ini
+          asset_path: scripts/bash/build_db.sh
+          asset_name: build_db.sh
           asset_content_type: text/plain
 
      
