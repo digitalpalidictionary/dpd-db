@@ -13,7 +13,7 @@ set -e
 dps/scripts/backup_all_dps.py
 
 # Define filenames
-FILENAMES=("sbs.tsv" "russian.tsv" "dpd_roots.tsv" "dpd_headwords.tsv")
+FILENAMES=("sbs.tsv" "russian.tsv" "dpd_roots.tsv" "dpd_headwords.tsv" "ru_roots")
 
 # Copy files from db/backup_tsv/ to temp/
 for file in "${FILENAMES[@]}"; do

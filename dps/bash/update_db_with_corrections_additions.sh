@@ -13,7 +13,7 @@ git checkout origin/main -- db/backup_tsv/dpd_headwords.tsv
 dps/scripts/backup_all_dps.py
 
 # Define filenames
-FILENAMES=("sbs.tsv" "russian.tsv" "dpd_roots.tsv")
+FILENAMES=("sbs.tsv" "russian.tsv" "ru_roots.tsv")
 
 # Copy files from dps/backup/ to db/backup_tsv/
 for file in "${FILENAMES[@]}"; do

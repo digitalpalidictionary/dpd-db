@@ -28,7 +28,7 @@ else
 fi
 
 # Define filenames
-FILENAMES=("sbs.tsv" "russian.tsv" "dpd_roots.tsv" "dpd_headwords.tsv")
+FILENAMES=("sbs.tsv" "russian.tsv" "dpd_roots.tsv" "dpd_headwords.tsv" "ru_roots.tsv")
 
 # Copy files from db/backup_tsv/ to temp/
 for file in "${FILENAMES[@]}"; do
