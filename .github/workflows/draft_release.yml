@@ -129,18 +129,11 @@ jobs:
     # - name: Tarball DB
     #   run: poetry run python scripts/tarball_db.py
            
-    - name: Summary
-      run: poetry run python scripts/summary.py
-
-    - name: Set Summary from File
-      id: set_summary
-      run: |
-        echo "SUMMARY=$(cat exporter/share/summary.md)" >> $GITHUB_ENV
-
-    - name: Make Summary into Variable
+    - name: Set Summary
       id: make_summary
       run: |
-        echo "::set-output name=summary::$(echo -e "$SUMMARY")"
+        poetry run python scripts/summary.py
+        echo "::set-output name=summary::$(cat exporter/share/summary.md)"
 
     - name: Set Release Date
       id: set_release_date
