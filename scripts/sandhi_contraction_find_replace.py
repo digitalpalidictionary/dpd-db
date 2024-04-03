@@ -26,7 +26,6 @@ class ProgData():
         db_session = get_db_session(self.pth.dpd_db_path)
         self.db_session = db_session
 
-
     
 def main():
     print("[bright_yellow]find and replace sandhi contractions")

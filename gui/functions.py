@@ -1377,12 +1377,12 @@ def example_save(
         source_sutta_example = (
             values["source_1"],
             values["sutta_1"],
-            values["example_1"],)
+            values["example_1"].replace("<b>", "").replace("</b>", ""),)
     elif example_no == "2":
         source_sutta_example: tuple[str, str, str] = (
             values["source_2"],
             values["sutta_2"],
-            values["example_2"],)
+            values["example_2"].replace("<b>", "").replace("</b>", ""),)
     with open(pth.example_stash_path, "wb") as f:
         pickle.dump(source_sutta_example, f)
 

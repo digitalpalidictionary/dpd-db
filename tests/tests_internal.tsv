@@ -462,3 +462,4 @@ word family and comp in grammar	family_word	is not empty	-	grammar	contains	\bco
 word family and family	family_word	is not empty	-	family_root	is not empty	-														lemma_1	grammar	meaning_1	[]	10
 meaning_lit double passives	meaning_1	is not empty	-	meaning_lit	contains	was caused.+to be|is caused.+to be														lemma_1	grammar	meaning_lit	[]	10
 family compound empty neg	meaning_1	is not empty	-	family_compound	is empty	-	neg	contains	neg											lemma_1	grammar	meaning_1	[]	10
+grammar: verb or participle, no ‘of’	meaning_1	is not empty	-	pos	contains	\b(prp|ptp|pp|aor|fut|imperf|ger)\b	grammar	does not contain	 of 											lemma_1	grammar	meaning_1	[]	10
