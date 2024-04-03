@@ -133,7 +133,8 @@ jobs:
       id: make_summary
       run: |
         poetry run python scripts/summary.py
-        echo "::set-output name=summary::$(cat exporter/share/summary.md)"
+        summary=$(cat exporter/share/summary.md | sed 's/\\n/\n/g')
+        echo "::set-output name=summary::$summary"
 
     - name: Set Release Date
       id: set_release_date

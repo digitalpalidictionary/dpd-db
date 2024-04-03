@@ -47,7 +47,7 @@ def main():
         print()
         print(f"new words include: {new_words_string}")
 
-        summary_text = f"""**Change-log**:\n{line1}\n{line2}\n{line3}\n{line4}\n{line5}\n{line6}\n- 100% dictionary recognition in the early texts\n- xyz\n- numerous additions and corrections based on user feedback\n\n**new words include**: {new_words_string}"""
+        summary_text = f"""**Change-log**:\\n{line1}\\n{line2}\\n{line3}\\n{line4}\\n{line5}\\n{line6}\\n- 100% dictionary recognition in the early texts\\n- xyz\\n- numerous additions and corrections based on user feedback\\n\\n**new words include**: {new_words_string}"""
         with open(pth.summary_md_path, "w") as f:
             f.write(summary_text)
 
