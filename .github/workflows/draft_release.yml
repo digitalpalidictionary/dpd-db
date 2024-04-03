@@ -53,87 +53,87 @@ jobs:
     - name: Build the database
       run: poetry run python scripts/db_rebuild_from_tsv.py
 
-    # - name: Run initial setup script
-    #   run: poetry run bash scripts/bash/initial_setup_run_once.sh
+    - name: Run initial setup script
+      run: poetry run bash scripts/bash/initial_setup_run_once.sh
     
-    # - name: Create version
-    #   run: poetry run python tools/version.py
+    - name: Create version
+      run: poetry run python tools/version.py
 
-    # - name: Create Inflections Templates
-    #   run: poetry run python db/inflections/create_inflections_templates.py
+    - name: Create Inflections Templates
+      run: poetry run python db/inflections/create_inflections_templates.py
 
-    # - name: Create Inflection Tables
-    #   run: poetry run python db/inflections/generate_inflection_tables.py
+    - name: Create Inflection Tables
+      run: poetry run python db/inflections/generate_inflection_tables.py
 
-    # - name: Transliterate Inflections
-    #   run: poetry run python db/inflections/transliterate_inflections.py
+    - name: Transliterate Inflections
+      run: poetry run python db/inflections/transliterate_inflections.py
 
-    # - name: Update Sanskrit Family Roots
-    #   run: poetry run python scripts/sanskrit_root_families_updater.py
+    - name: Update Sanskrit Family Roots
+      run: poetry run python scripts/sanskrit_root_families_updater.py
 
-    # - name: Add Root Families
-    #   run: poetry run python db/families/root_family.py
+    - name: Add Root Families
+      run: poetry run python db/families/root_family.py
 
-    # - name: Add Word Families
-    #   run: poetry run db/families/word_family.py
+    - name: Add Word Families
+      run: poetry run db/families/word_family.py
     
-    # - name: Add Compound Families
-    #   run: poetry run python db/families/compound_family.py
+    - name: Add Compound Families
+      run: poetry run python db/families/compound_family.py
 
-    # - name: Add Sets
-    #   run: poetry run python db/families/sets.py
+    - name: Add Sets
+      run: poetry run python db/families/sets.py
 
-    # - name: Add Idioms
-    #   run: poetry run python db/families/idioms.py
+    - name: Add Idioms
+      run: poetry run python db/families/idioms.py
 
-    # - name: Deconstructor Setup
-    #   run: poetry run python db/deconstructor/sandhi_setup.py
+    - name: Deconstructor Setup
+      run: poetry run python db/deconstructor/sandhi_setup.py
         
-    # - name: Deconstructor Splitter
-    #   run: poetry run python db/deconstructor/sandhi_splitter.py
+    - name: Deconstructor Splitter
+      run: poetry run python db/deconstructor/sandhi_splitter.py
 
-    # - name: Deconstructor Postprocess setup
-    #   run: poetry run python db/deconstructor/sandhi_postprocess.py
+    - name: Deconstructor Postprocess setup
+      run: poetry run python db/deconstructor/sandhi_postprocess.py
 
-    # - name: Inflections to Headwords
-    #   run: poetry run python db/inflections/inflections_to_headwords.py
+    - name: Inflections to Headwords
+      run: poetry run python db/inflections/inflections_to_headwords.py
 
-    # - name: Lookup Variants and Spelling Mistakes 
-    #   run: poetry run python db/lookup/variants_and_spelling_mistakes.py
+    - name: Lookup Variants and Spelling Mistakes 
+      run: poetry run python db/lookup/variants_and_spelling_mistakes.py
 
-    # - name: Lookup Transliterate
-    #   run: poetry run python db/lookup/transliterate_lookup_table.py
+    - name: Lookup Transliterate
+      run: poetry run python db/lookup/transliterate_lookup_table.py
 
-    # - name: Lookup Help and Abbreviations
-    #   run: poetry run python db/lookup/help_abbrev_add_to_lookup.py
+    - name: Lookup Help and Abbreviations
+      run: poetry run python db/lookup/help_abbrev_add_to_lookup.py
 
-    # - name: Add Frequency
-    #   run: poetry run python db/frequency/mapmaker.py
+    - name: Add Frequency
+      run: poetry run python db/frequency/mapmaker.py
 
-    # - name: Test Dealbreakers
-    #   run: poetry run python scripts/dealbreakers.py
+    - name: Test Dealbreakers
+      run: poetry run python scripts/dealbreakers.py
 
     # ----------------------------------------
     # Exporter
     # ----------------------------------------
            
-    # - name: Export Grammar Dictionary
-    #   run: poetry run python exporter/grammar_dict/grammar_dict.py
+    - name: Export Grammar Dictionary
+      run: poetry run python exporter/grammar_dict/grammar_dict.py
     
-    # - name: Export GoldenDict & MDict
-    #   run: poetry run python exporter/goldendict/export_gd_mdict.py
+    - name: Export GoldenDict & MDict
+      run: poetry run python exporter/goldendict/export_gd_mdict.py
 
-    # - name: Export Deconstructor
-    #   run: poetry run python exporter/deconstructor/deconstructor_exporter.py
+    - name: Export Deconstructor
+      run: poetry run python exporter/deconstructor/deconstructor_exporter.py
 
-    # - name: Export Kindle & ePub
-    #   run: poetry run python exporter/ebook/ebook_exporter.py
+    - name: Export Kindle & ePub
+      run: poetry run python exporter/ebook/ebook_exporter.py
 
-    # - name: Zip GoldenDict & Mdict
-    #   run: poetry run python scripts/zip_goldendict_mdict.py
+    - name: Zip GoldenDict & Mdict
+      run: poetry run python scripts/zip_goldendict_mdict.py
            
-    # - name: Tarball DB
-    #   run: poetry run python scripts/tarball_db.py
+    - name: Tarball DB
+      run: poetry run python scripts/tarball_db.py
            
     - name: Summary
       run: poetry run python scripts/summary.py
@@ -141,36 +141,6 @@ jobs:
     # ----------------------------------------
     # Upload Artifacts
     # ----------------------------------------
-
-    # - name: Upload GoldenDict as Artifact
-    #   uses: actions/upload-artifact@v3
-    #   with:
-    #     name: dpd-goldendict.zip
-    #     path: exporter/share/dpd-goldendict.zip
-
-    # - name: Upload MDict as Artifact
-    #   uses: actions/upload-artifact@v3
-    #   with:
-    #     name: dpd-mdict.zip
-    #     path: exporter/share/dpd-mdict.zip
-        
-    # - name: Upload Mobi as Artifact
-    #   uses: actions/upload-artifact@v3
-    #   with:
-    #     name: dpd-kindle.mobi
-    #     path: exporter/share/dpd-kindle.mobi
-
-    # - name: Upload ePub as Artifact
-    #   uses: actions/upload-artifact@v3
-    #   with:
-    #     name: dpd-kindle.epub
-    #     path: exporter/share/dpd-kindle.epub
-
-    # - name: Upload Database as Artifact
-    #   uses: actions/upload-artifact@v3
-    #   with:
-    #     name: dpd.db.tar.bz2
-    #     path: exporter/share/dpd.db.tar.bz2
 
     - name: Upload Summary as Artifact
       uses: actions/upload-artifact@v3
@@ -215,52 +185,52 @@ jobs:
     # Update Release Assets
     # ----------------------------------------
 
-    # - name: Upload Asset dpd-goldendict.zip
-    #   uses: actions/upload-release-asset@v1
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-    #   with:
-    #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-    #     asset_path: exporter/share/dpd-goldendict.zip
-    #     asset_name: dpd-goldendict.zip
-    #     asset_content_type: application/zip
+    - name: Upload Asset dpd-goldendict.zip
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: exporter/share/dpd-goldendict.zip
+        asset_name: dpd-goldendict.zip
+        asset_content_type: application/zip
 
-    # - name: Upload Asset dpd-mdict.zip
-    #   uses: actions/upload-release-asset@v1
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-    #   with:
-    #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-    #     asset_path: exporter/share/dpd-mdict.zip
-    #     asset_name: dpd-mdict.zip
-    #     asset_content_type: application/zip
+    - name: Upload Asset dpd-mdict.zip
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: exporter/share/dpd-mdict.zip
+        asset_name: dpd-mdict.zip
+        asset_content_type: application/zip
 
-    # - name: Upload Asset dpd-kindle.epub
-    #   uses: actions/upload-release-asset@v1
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-    #   with:
-    #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-    #     asset_path: exporter/share/dpd-kindle.epub
-    #     asset_name: dpd-kindle.epub
-    #     asset_content_type: application/zip
+    - name: Upload Asset dpd-kindle.epub
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: exporter/share/dpd-kindle.epub
+        asset_name: dpd-kindle.epub
+        asset_content_type: application/zip
 
-    # - name: Upload Asset dpd-kindle.mobi
-    #   uses: actions/upload-release-asset@v1
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-    #   with:
-    #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-    #     asset_path: exporter/share/dpd-kindle.mobi
-    #     asset_name: dpd-kindle.mobi
-    #     asset_content_type: application/zip
+    - name: Upload Asset dpd-kindle.mobi
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: exporter/share/dpd-kindle.mobi
+        asset_name: dpd-kindle.mobi
+        asset_content_type: application/zip
 
-    # - name: Upload Asset dpd.db.tar.bz2
-    #   uses: actions/upload-release-asset@v1
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-    #   with:
-    #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-    #     asset_path: exporter/share/dpd.db.tar.bz2
-    #     asset_name: dpd.db.tar.bz2
-    #     asset_content_type: application/zip
+    - name: Upload Asset dpd.db.tar.bz2
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: exporter/share/dpd.db.tar.bz2
+        asset_name: dpd.db.tar.bz2
+        asset_content_type: application/zip
