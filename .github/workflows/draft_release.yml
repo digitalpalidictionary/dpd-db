@@ -9,8 +9,12 @@ jobs:
 
     steps:
 
+    # ----------------------------------------
+    # Setup
+    # ----------------------------------------
+
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         submodules: 'recursive'
 
@@ -19,17 +23,11 @@ jobs:
 
     - name: Download and unzip output_do.zip
       run: |
-          # Replace 'your-file-id' with the actual ID of your file on Google Drive
           gdown --id '10bU9okbFmNKpCGF2sooQ5Bjh84qNkt9g' --output 'db/deconstructor/output_do.zip'
           unzip db/deconstructor/output_do.zip -d db/deconstructor/output_do
 
-    - name: Test deconstructor/output/do
-      run: |
-          tree db/deconstructor || echo "tree command not found, using ls instead"
-          ls -R db/deconstructor
-
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v3
       with:
         python-version: 3.11
 
@@ -41,6 +39,10 @@ jobs:
       run: |
         poetry config virtualenvs.in-project true
         poetry install
+
+    # ----------------------------------------
+    # Build Database
+    # ----------------------------------------
 
     - name: Config for GitHub release
       run: poetry run python scripts/config_github_release.py
@@ -110,6 +112,10 @@ jobs:
 
     # - name: Test Dealbreakers
     #   run: poetry run python scripts/dealbreakers.py
+
+    # ----------------------------------------
+    # Exporter
+    # ----------------------------------------
            
     # - name: Export Grammar Dictionary
     #   run: poetry run python exporter/grammar_dict/grammar_dict.py
@@ -132,30 +138,66 @@ jobs:
     - name: Summary
       run: poetry run python scripts/summary.py
     
+    # ----------------------------------------
+    # Upload Artifacts
+    # ----------------------------------------
+
+    # - name: Upload GoldenDict as Artifact
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: dpd-goldendict.zip
+    #     path: exporter/share/dpd-goldendict.zip
+
+    # - name: Upload MDict as Artifact
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: dpd-mdict.zip
+    #     path: exporter/share/dpd-mdict.zip
+        
+    # - name: Upload Mobi as Artifact
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: dpd-kindle.mobi
+    #     path: exporter/share/dpd-kindle.mobi
+
+    # - name: Upload ePub as Artifact
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: dpd-kindle.epub
+    #     path: exporter/share/dpd-kindle.epub
+
+    # - name: Upload Database as Artifact
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: dpd.db.tar.bz2
+    #     path: exporter/share/dpd.db.tar.bz2
+
     - name: Upload Summary as Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
-         name: summary
+         name: summary.md
          path: exporter/share/summary.md
+
+    # ----------------------------------------
+    # Create Draft Release
+    # ----------------------------------------
 
     - name: Set Release Date
       id: set_release_date
-      run: |
-        echo "::set-output name=release_date::$(date +'%Y-%m-%d')"
+      run: echo "RELEASE_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
     - name: Set Release Tag
       id: set_release_tag
-      run: |
-        echo "::set-output name=version::$(poetry run python scripts/version_print.py)"
-    
+      run: echo "RELEASE_TAG=$(poetry run python scripts/version_print.py)" >> $GITHUB_ENV
+
     - name: Create Draft Release
       id: create_release
-      uses: actions/create-release@v1
+      uses: actions/create-release@v2
       env:
         GITHUB_TOKEN: ${{ secrets.GH_PAT }}
       with:
-        tag_name: ${{ steps.set_release_tag.outputs.version }}
-        release_name: ${{ steps.set_release_date.outputs.release_date }}
+        tag_name: ${{ env.RELEASE_TAG }}"
+        release_name: ${{ env.RELEASE_DATE }}"
         body: |
           Digital Pāḷi Dictionary is a feature-rich Pāḷi dictionary which runs in GoldenDict, MDict and on Kindle, or any other application which supports these formats. 
 
@@ -168,6 +210,10 @@ jobs:
           <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />
         draft: true
         prerelease: false
+
+    # ----------------------------------------
+    # Update Release Assets
+    # ----------------------------------------
 
     # - name: Upload Asset dpd-goldendict.zip
     #   uses: actions/upload-release-asset@v1
