@@ -129,13 +129,14 @@ jobs:
     # - name: Tarball DB
     #   run: poetry run python scripts/tarball_db.py
            
-    - name: Set Summary
-      id: make_summary
-      run: |
-        poetry run python scripts/summary.py
-        summary=$(cat exporter/share/summary.md)
-        formatted_summary=$(echo "$summary" | sed 's/\\n/\n/g')
-        echo "::set-output name=summary::$formatted_summary"
+    - name: Summary
+      run: poetry run python scripts/summary.py
+    
+    - name: Upload Summary as Artifact
+      uses: actions/upload-artifact@v2
+      with:
+         name: summary
+         path: exporter/share/summary.md
 
     - name: Set Release Date
       id: set_release_date
@@ -165,57 +166,55 @@ jobs:
           This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>
 
           <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />
-
-          ${{ steps.make_summary.outputs.summary }}
         draft: true
         prerelease: false
 
-    - name: Upload Asset dpd-goldendict.zip
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: exporter/share/dpd-goldendict.zip
-        asset_name: dpd-goldendict.zip
-        asset_content_type: application/zip
+    # - name: Upload Asset dpd-goldendict.zip
+    #   uses: actions/upload-release-asset@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+    #   with:
+    #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+    #     asset_path: exporter/share/dpd-goldendict.zip
+    #     asset_name: dpd-goldendict.zip
+    #     asset_content_type: application/zip
 
-    - name: Upload Asset dpd-mdict.zip
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: exporter/share/dpd-mdict.zip
-        asset_name: dpd-mdict.zip
-        asset_content_type: application/zip
+    # - name: Upload Asset dpd-mdict.zip
+    #   uses: actions/upload-release-asset@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+    #   with:
+    #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+    #     asset_path: exporter/share/dpd-mdict.zip
+    #     asset_name: dpd-mdict.zip
+    #     asset_content_type: application/zip
 
-    - name: Upload Asset dpd-kindle.epub
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: exporter/share/dpd-kindle.epub
-        asset_name: dpd-kindle.epub
-        asset_content_type: application/zip
+    # - name: Upload Asset dpd-kindle.epub
+    #   uses: actions/upload-release-asset@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+    #   with:
+    #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+    #     asset_path: exporter/share/dpd-kindle.epub
+    #     asset_name: dpd-kindle.epub
+    #     asset_content_type: application/zip
 
-    - name: Upload Asset dpd-kindle.mobi
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: exporter/share/dpd-kindle.mobi
-        asset_name: dpd-kindle.mobi
-        asset_content_type: application/zip
+    # - name: Upload Asset dpd-kindle.mobi
+    #   uses: actions/upload-release-asset@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+    #   with:
+    #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+    #     asset_path: exporter/share/dpd-kindle.mobi
+    #     asset_name: dpd-kindle.mobi
+    #     asset_content_type: application/zip
 
-    - name: Upload Asset dpd.db.tar.bz2
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: exporter/share/dpd.db.tar.bz2
-        asset_name: dpd.db.tar.bz2
-        asset_content_type: application/zip
+    # - name: Upload Asset dpd.db.tar.bz2
+    #   uses: actions/upload-release-asset@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+    #   with:
+    #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+    #     asset_path: exporter/share/dpd.db.tar.bz2
+    #     asset_name: dpd.db.tar.bz2
+    #     asset_content_type: application/zip
