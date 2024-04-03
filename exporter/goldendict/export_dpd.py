@@ -44,7 +44,10 @@ from tools.pos import DECLENSIONS
 from tools.sandhi_contraction import SandhiContractions
 from tools.superscripter import superscripter_uni
 from tools.tic_toc import bip, bop
-from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, list_into_batches, sum_rendered_sizes
+from tools.utils import (
+    RenderResult, RenderedSizes, default_rendered_sizes, list_into_batches,
+    sum_rendered_sizes, squash_whitespaces
+)
 
 from exporter.ru_components.tools.tools_for_ru_exporter import make_ru_meaning_html, ru_replace_abbreviations, replace_english, ru_make_grammar_line, read_set_ru_from_tsv
 
@@ -69,7 +72,10 @@ class DpdHeadwordsTemplates:
         self.feedback_templ = Template(filename=str(paths.feedback_templ_path))
 
         # internal or extrenal css
-        if config_test("dictionary", "external_css", "no"):
+        if config_test("dictionary", "external_css", "yes"):
+            self.dpd_css = ""
+            self.button_js = ""
+        else:
             with open(paths.dpd_css_path) as f:
                 dpd_css = f.read()
                 self.dpd_css = css_minify(dpd_css)
@@ -77,9 +83,6 @@ class DpdHeadwordsTemplates:
             with open(paths.buttons_js_path) as f:
                 button_js = f.read()
                 self.button_js = js_minify(button_js)
-        else:
-            self.dpd_css = ""
-            self.button_js = ""
 
 DpdHeadwordsDbRowItems = Tuple[DpdHeadwords, FamilyRoot, FamilyWord, SBS, Russian]
 
@@ -170,10 +173,6 @@ def render_pali_word_dpd_html(
             sbs.sbs_example_4 = sbs.sbs_example_4.replace("\n", "<br>")
 
     html: str = ""
-    header = render_header_templ(pth, tt.dpd_css, tt.button_js, tt.header_templ)
-    html += header
-    size_dict["dpd_header"] += len(header)
-
     html += "<body>"
 
     summary = render_dpd_definition_templ(
@@ -244,7 +243,13 @@ def render_pali_word_dpd_html(
         size_dict["dpd_feedback"] += len(feedback)
 
     html += "</body></html>"
-    html = minify(html)
+
+    # FIXME No need to render the same header for every file
+    header = render_header_templ(pth, tt.dpd_css, tt.button_js, tt.header_templ)
+    size_dict["dpd_header"] += len(header)
+
+    # "Soft" minification for header to preserve links
+    html = squash_whitespaces(header) + minify(html)
 
     synonyms: List[str] = i.inflections_list
     synonyms = add_niggahitas(synonyms)
@@ -267,7 +272,7 @@ def render_pali_word_dpd_html(
                 ru_set_list.append(set_ru_dict[english_word])
         synonyms += ru_set_list
     synonyms += [str(i.id)]
-    
+
 
     if extended_synonyms:
         # Split i.lemma_clean only if it contains a space

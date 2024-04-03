@@ -6,12 +6,12 @@ from typing import List
 import zipfile
 import csv
 import pickle
-import pyglossary
 
-from subprocess import Popen, PIPE
 from pathlib import Path
+from pyglossary import Glossary
 from rich import print
 from sqlalchemy.orm import Session
+from subprocess import Popen, PIPE
 
 from export_dpd import generate_dpd_html
 from export_roots import generate_root_html
@@ -231,31 +231,32 @@ def export_to_goldendict_simsapa(
 
 
 def export_to_goldendict_pyglossary(
-        _pth_: ProjectPaths,
-        data_list: list[RenderResult],
-        lang="en",
-        external_css=False
-    ) -> None:
+    _pth_: ProjectPaths,
+    data_list: list[RenderResult],
+    lang="en",
+    external_css=False
+) -> None:
     """generate goldedict zip"""
 
-    from pyglossary import Glossary
     Glossary.init()
     glos = Glossary()
 
     glos.setInfo("bookname", "DPD")
     glos.setInfo("author", "Bodhirasa")
-    glos.setInfo("description", "")
+    # FIXME glos.setInfo("description", "")
     glos.setInfo("website", "https://digitalpalidictionary.github.io/")
     glos.setInfo("language", "pi")
     glos.setInfo("targetlanguage", "en")
-    # synonyms
-    # wordcount
-    # dpdversion
+    # TODO synonyms
+    # TODO wordcount
+    # TODO dpdversion
 
     # add css
     with open(_pth_.dpd_css_path, "rb") as f:
         css = f.read()
         glos.addEntry(glos.newDataEntry("dpd.css", css))
+
+    # TODO Add button.js
 
     # add dpd data
     for i in data_list:
@@ -267,11 +268,6 @@ def export_to_goldendict_pyglossary(
         glos.addEntry(new_word)
     
     glos.write("temp/my_dictionary/my_dictionary.ifo", format="Stardict")
-
-    # FIXME isuues so far are
-    # No synonyms
-    # CSS not working
-
 
 
 def goldendict_unzip_and_copy(_pth_) -> None:

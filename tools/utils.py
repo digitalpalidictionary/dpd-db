@@ -99,3 +99,13 @@ def list_into_batches(input_list: List, num_batches: int) -> List[List]:
         return [input_list]
 
     return [input_list[i:i + batch_size] for i in range(0, len(input_list), batch_size)]
+
+
+def squash_whitespaces(string: str) -> str:
+    """
+    Delete whitespace and newline chars from both sides of an every line of string
+    """
+    result = []
+    for i in string.split("\n"):
+        result.append(i.strip())
+    return ''.join(result)
