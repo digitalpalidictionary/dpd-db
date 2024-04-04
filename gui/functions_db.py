@@ -12,6 +12,7 @@ from functions_daily_record import daily_record_update
 from tools.i2html import make_html
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
+from tools.tsv_read_write import write_tsv_list
 
 
 dpd_values_list = [
@@ -492,6 +493,13 @@ def get_lemma_clean_list(db_session):
 def delete_word(pth, db_session, values, window):
     try:
         word_id = values["id"]
+        word_lemma = values["lemma_1"]
+
+        # Write the data to a TSV file
+        header = ["word_id", "word_lemma"]
+        data = [[word_id, word_lemma]]
+        write_tsv_list(pth.delated_words_history_pth, header, data)
+
         db_session.query(DpdHeadwords).filter(word_id == DpdHeadwords.id).delete()
         db_session.commit()
         

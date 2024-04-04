@@ -150,6 +150,7 @@ class ProjectPaths:
         self.pass2_checked_path = base_dir.joinpath(Path("gui/pass2_checked.json"))
         self.corrections_tsv_path = base_dir.joinpath(Path("gui/corrections.tsv"))
         self.additions_pickle_path = base_dir.joinpath(Path("gui/additions"))
+        self.delated_words_history_pth = base_dir.joinpath(Path("gui/delated_words_history.tsv"))
 
         # gui/stash
         self.stash_dir = base_dir.joinpath(Path("gui/stash/"))
