@@ -423,6 +423,7 @@ coreless
 coronated
 correctness
 cortege
+cossetted
 courageless
 cowdung
 cowpat
@@ -467,6 +468,7 @@ decad
 decayless
 Deccan
 decoction
+decrepitude
 defilement
 defilements
 dehorned
@@ -678,6 +680,7 @@ geomancy
 gh
 ghaṃsati
 ghaṭ
+Ghaṭikāra
 Ghosita's
 gi
 gigantea
@@ -692,6 +695,7 @@ Godāvarī
 Godhāvarī
 goiter
 GoldenDict
+goldwork
 goo-gooing
 goodness
 Gopaka
@@ -1513,6 +1517,7 @@ ratana
 rathareṇu
 Raṭṭhapāla
 rattinuṭṭhānadassinā
+reasoner
 rebecoming
 rebirths
 rebukes
@@ -1850,6 +1855,7 @@ Thespesia
 third-ish
 ṭhiti
 Thūlakoṭṭhika
+Thullakoṭṭhika
 Thuna
 Thūṇa
 Thuna 
