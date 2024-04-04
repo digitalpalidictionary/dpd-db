@@ -216,14 +216,14 @@ def export_to_goldendict_simsapa(
 
     # add bmp icon for android
     if lang == "en":
-        with zipfile.ZipFile(_pth_.dpd_zip_path, 'a') as zipf:
+        with zipfile.ZipFile(_pth_.dpd_zip_path, "a") as zipf:
             source_path = _pth_.icon_bmp_path
-            destination = 'dpd/android.bmp'
+            destination = "dpd/android.bmp"
             zipf.write(source_path, destination)
     
     # add external css
     if external_css is True:
-        with zipfile.ZipFile(_pth_.dpd_zip_path, 'a') as zipf:
+        with zipfile.ZipFile(_pth_.dpd_zip_path, "a") as zipf:
             zipf.write(_pth_.dpd_css_path, "dpd/res/common.css")
             zipf.write(_pth_.buttons_js_path, "dpd/res/button.js")
 
@@ -239,16 +239,14 @@ def export_to_goldendict_pyglossary(
     """generate goldedict zip"""
 
     Glossary.init()
-    glos = Glossary()
-
-    glos.setInfo("bookname", "DPD")
-    glos.setInfo("author", "Bodhirasa")
-    # FIXME glos.setInfo("description", "")
-    glos.setInfo("website", "https://digitalpalidictionary.github.io/")
-    glos.setInfo("language", "pi")
-    glos.setInfo("targetlanguage", "en")
-    # TODO synonyms
-    # TODO wordcount
+    glos = Glossary(info={
+        "bookname": "DPD",
+        "author": "Bodhirasa",
+        "description": "Digital Pāḷi Dictionary — the feature-rich Pāḷi dictionary",
+        "website": "https://digitalpalidictionary.github.io/",
+        "sourceLang": "pi",  # A full name "Pali" also may be used
+        "targetLang": lang,
+    })
     # TODO dpdversion
 
     # add css
@@ -261,13 +259,28 @@ def export_to_goldendict_pyglossary(
     # add dpd data
     for i in data_list:
         new_word = glos.newEntry(
-            i["word"],
-            i["definition_html"],
+            word=[i["word"]] + i["synonyms"],
+            defi=i["definition_html"],
             defiFormat="h")
-        new_word.l_word.extend(i["synonyms"])
         glos.addEntry(new_word)
-    
-    glos.write("temp/my_dictionary/my_dictionary.ifo", format="Stardict")
+
+    output_path = "temp/my_dictionary/my_dictionary.ifo"
+    # *.syn file compression expected in next after v4.6.1 PyGlossary release
+    glos.write(
+        filename=output_path,
+        format="Stardict",
+        dictzip=True,
+        merge_syns=True,  # Include synonyms in compressed main file rather than *.syn when True
+        sametypesequence="h",
+        sqlite=False,  # More RAM, but faster when False
+    )
+
+    # May be deleted, just shows metadata
+    glos = Glossary()
+    glos.directRead(output_path)
+    print("Stardict info:")
+    for k in glos.infoKeys():
+        print(f"  - {k}: {glos.getInfo(k)}")
 
 
 def goldendict_unzip_and_copy(_pth_) -> None:
