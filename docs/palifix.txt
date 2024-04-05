@@ -1,14 +1,13 @@
 Corrections
-Website update with new dict downloads
 TPR include var spelling mistakes sambhireva
 CPD remove line breaks
-correct whitney? dhvaṅs > dhvaṃś
 Bhs css, find all tags
-parasenapaccatthikesu decons
 Join dhar roots
 
+samosaraṇa is poked grammar examples declensions inside each other 
+test evāyaṃ has no compound family
 
-santhā cf
+santhā sk cf
 desetvā 1 sk tvā, desetvā 2
 vinayitvā sk tvā
 vināsetvā 1 sk tvā

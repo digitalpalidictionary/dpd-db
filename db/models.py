@@ -940,7 +940,7 @@ class FamilyIdiom(Base):
         return json.loads(self.data)
 
     def __repr__(self) -> str:
-        return f"FamilySet: {self.idiom} {self.count}"
+        return f"FamilyIdiom: {self.idiom} {self.count}"
 
 
 class SBS(Base):

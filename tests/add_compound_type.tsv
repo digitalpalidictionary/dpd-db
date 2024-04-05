@@ -1,4 +1,14 @@
 word	pos	position	type	exceptions
+aḍḍha	any	first	chaṭṭhī	aḍḍhakumbhūpama, aḍḍhakula, aḍḍhakosakāhāra, aḍḍhaṭṭhama, aḍḍhateyya, aḍḍhatelasa, aḍḍhamāsikaṃ, aḍḍhullikhita, aḍḍhaṭṭha, aḍḍharatanika
+ṭha	adj	last	sattamī	ekaṭṭha, kappaṭṭha, kūṭaṭṭha
+sāmaññagata	any	last	tatiyā	diṭṭhisāmaññagata, samādhisāmaññagata, paññāsāmaññagata, sīlasāmaññagata
+upapatti	fem	last	sattamī	kāmūpapatti 1, tatrupapatti, tatrūpapatti, bhavūpapatti, saṅkhārupapatti, sukhupapatti, jimhupapatti, ujupapatti
+kasāva	any	last	chaṭṭhī	aniddhantakasāva, aninnītakasāva, niddhantakasāva, ninnītakasāva, nihatakasāva, vantakasāva
+kūṭa	any	first	kammadhāraya	kūṭaninna, kūṭapabbhāra, kūṭapoṇa, kūṭasamugghāta, kūṭasamosaraṇa, kūṭavāda
+vipāka	masc	last	chaṭṭhī	phalavipāka, yaṃvipāka
+cūḷa	any	first	kammadhāraya	cūḷagopālakasutta, cūḷagosiṅgasutta, cūḷataṇhāsaṅkhayasutta, cūḷadukkhakkhandhasutta, cūḷasaccakasutta, cūḷasāropamasutta, cūḷasīhanādasutta, 
+āsā	fem	last	sattamī	
+nava	any	first	digu	navakammika 2, navaṅgavasena, navacchadana, navanavutiya, navanīta, navapabbajita, navapurāṇa, navaphala, navambu, navalokuttaradhammasannissita, navasassa, navasivathikapabba, navavāda 1, navavāda 2, navuti, nāvutika, navānukampita, navoropita
 uddesa	masc	last	chaṭṭhī	dasuddesa, samaṇuddesa, vitthāruddesa
 samuṭṭhāna	any	last	pañcamī	ekasamuṭṭhāna, catusamuṭṭhāna 1, tisamuṭṭhāna 1, diṭṭhisamuṭṭhāna, dvisamuṭṭhāna
 matta	nt	last	chaṭṭhī	

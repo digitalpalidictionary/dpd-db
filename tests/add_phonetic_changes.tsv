@@ -1,4 +1,6 @@
 initial	final	correct	wrong	without	exceptions
+
+-
 xa + u	o	au > o	u > o	o	anoka 1, anoka 2, anoka 3, anodaka, odarika,	need more rules
 a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant
 a + ṭ	iṭ	a > i	x	a + ṭh	x
@@ -8,6 +10,7 @@ adhi + a	jjh	dhi > dhy > jjh	adhi > adhy > ajjh	adhi + ā	x
 adhi + ā	jjh	dhi > dhy > jjh	x	adhi + a	x
 anu + ā	nnā	uā > nā	anu > ann	n + ā	
 abhi + a	abbh	bhi > bhy > bbh	x	x	x
+am + ta	ata	mt > t	x	nt	abhikkantatara, santatara
 ava	o	ava > o	x	o	ponobbhavika, ponobhavika, anavabodha, bhavamūlopagāmī
 xaṃ + a	ā	aṃa > ā	x	ā	x	need more exclusions
 
@@ -165,6 +168,7 @@ vi + ā	veyyā	vi > veyy (Kacc 401, 375)	vy > veyy	veyy
 
 
 s + t	ṭṭh	st > ṭṭh	x	x	x
+s + m	ss	sm > ss	s > m	ss	
 s + y	ss	sy > ss	y > s	x	x
 s + s	cch	ss > cch	x	x	x
 snih +	sini	snih > sinih (epenthesis)	x	x	x

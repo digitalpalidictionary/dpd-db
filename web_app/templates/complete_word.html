@@ -117,6 +117,14 @@
         compound families</a>
     {% endif %}
 
+    {% if d.i.needs_idioms_button %}
+        <a class="button" 
+        href="javascript:void(0);" 
+        onclick="button_click(this)" 
+        data-target="idioms_{{d.i.lemma_1_}}">
+        idioms</a>
+    {% endif %}
+
     {% if d.i.needs_set_button %}
         <a class="button" 
         href="javascript:void(0);" 
@@ -542,8 +550,8 @@
 
 {% if d.i.needs_declension_button %}
     <div id="declension_{{d.i.lemma_1_}}" class="content hidden">
-        {{d.i.html_table|safe}}
-    {% if "gray" in d.i.html_table %}
+        {{d.i.inflections_html|safe}}
+    {% if "gray" in d.i.inflections_html %}
         <p>
             Inflections not found in the Chaṭṭha Saṅgāyana corpus, or within processed sandhi compounds are <span class='gray'>grayed out</span>. They might still occur elsewhere, within compounds or in other versions of the Pāḷi texts.
         </p>
@@ -613,8 +621,8 @@
             <b>{{d.i.family_word}}</b> 
             family
         </p>
+        {{d.i.fw.html|safe}}
         <p class='footer'>
-            {{d.i.fw.html}}
             Something out of place? 
             <a class="link" 
             href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Word+Family&entry.1433863141={{d.app_name}}+{{d.date}}" 
@@ -694,6 +702,39 @@
     </p>
 </div>
 {% endif %}
+
+<!-- idioms -->
+
+{% if d.i.needs_idioms_button %}
+<div id="idioms_{{d.i.lemma_1_}}" class="content hidden">
+    {% for f in d.fi %}
+        {% if loop.index == 1 %}
+            <p class="heading underlined">
+        {% else %}
+            <p class="heading underlined overlined">
+        {% endif %}
+        {% if f.count == 1 %}
+            <b>{{f.count}}</b> 
+            idiomatic expression which contains
+            <b>{{f.idiom}}</b>
+        {% else %}
+            <b>{{f.count}}</b> 
+            idiomatic expression which contains
+            <b>{{f.idiom}}</b>
+        {% endif %}
+        </p>
+        {{f.html|safe}}
+    {% endfor %}
+    <p class='footer'>
+        Please add more idioms 
+        <a class="link" 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Idioms&entry.1433863141={{d.app_name}}+{{d.date}}" 
+            target="_blank">
+            here</a>.
+    </p>
+    </div>
+{% endif %}
+
 
 <!-- set -->
 

@@ -4,6 +4,7 @@
             <th>Pāḷi</th>
             <td>${i.lemma_2}</td>
         </tr>
+        
         % if dps_data:
             % if ru:
                 % if ru.ru_meaning:
@@ -30,16 +31,19 @@
             </tr>
             % endif
         % endif        
+        
         <tr>
             <th>Grammar</th>
             <td>${grammar}</td>
         </tr>
+        
         % if i.family_root:
         <tr>
             <th>Root Family</th>
             <td>${i.family_root}</td>
         </tr>
         % endif
+        
         % if i.root_key:
         <tr>
             <th>Root</th>
@@ -57,60 +61,70 @@
         </tr>
         % endif
         % endif
+        
         % if i.root_base:
         <tr>
             <th>Base</th>
             <td>${i.root_base}</td>
         </tr>
         % endif
+        
         % if i.construction:
         <tr>
             <th>Construction</th>
             <td>${i.construction}</td>
         </tr>
         % endif
+        
         % if i.derivative:
         <tr>
             <th>Derivative</th>
             <td>${i.derivative} (${i.suffix})</td>
         </tr>
         % endif
+        
         % if i.phonetic:
         <tr>
             <th>Phonetic Change</th>
             <td>${i.phonetic}</td>
         </tr>
         % endif
+        
         % if i.compound_type:
         <tr>
             <th>Compound</th>
             <td>${i.compound_type} (${i.compound_construction})</td>
         </tr>
         % endif
+        
         % if i.antonym:
         <tr>
             <th>Antonym</th>
             <td>${i.antonym}</td>
         </tr>
         % endif
+        
         % if i.synonym:
         <tr>
             <th>Synonym</th>
             <td>${i.synonym}</td>
         </tr>
         % endif
+        
         % if i.variant:
         <tr>
             <th>Variant</th>
             <td>${i.variant}</td>
         </tr>
         % endif
+        
         % if i.commentary and i.commentary != "-":
         <tr>
             <th>Commentary</th>
             <td>${i.commentary}</td>
         </tr>
         % endif
+        
         % if i.notes:
         <tr>
             <th>Notes</th>
@@ -143,6 +157,7 @@
             <td>${i.cognate}</td>
         </tr>
         % endif
+        
         % if i.link:
         <tr>
             <th>Web Link</th>
@@ -151,18 +166,21 @@
             </td>
         </tr>
         % endif
+        
         % if i.non_ia:
         <tr>
             <th>Non IA</th>
             <td><i>${i.non_ia}</i></td>
         </tr>
         % endif
+        
         % if i.sanskrit:
         <tr>
             <th>Sanskrit</th>
             <td><i>${i.sanskrit}</i></td>
         </tr>
         % endif
+        
         % if i.root_key:
         % if rt.sanskrit_root and rt.sanskrit_root != "-":
         <tr>
@@ -178,6 +196,7 @@
         </tr>
         % endif
         % endif
+    
     </table>
     <p class='footer'>
         Did you spot a mistake? <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Grammar&entry.1433863141=GoldenDict+${today}" target="_blank">Correct it here</a>. 

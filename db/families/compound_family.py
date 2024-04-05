@@ -102,12 +102,10 @@ def create_comp_fam_dict(dpd_db):
                 print("[bright_red]ERROR: + found please remove!")
 
             test1 = re.findall(r"\bcomp\b", i.grammar) != []
-            test2 = "sandhi" in i.pos
-            test3 = "idiom" in i.pos
-            test4 = len(re.sub(r" \d.*$", "", i.lemma_1)) < 30
-            test5 = i.meaning_1
+            test2 = len(re.sub(r" \d.*$", "", i.lemma_1)) < 30
+            test3 = i.meaning_1
 
-            if (test1 or test2 or test3) and test4 and test5:
+            if test1 and test2 and test3:
 
                 if cf in cf_dict:
                     cf_dict[cf]["headwords"] += [i.lemma_1]

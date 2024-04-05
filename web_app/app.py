@@ -12,6 +12,7 @@ from rich import print
 
 from tools.configger import config_test
 from tools.exporter_functions import get_family_compounds
+from tools.exporter_functions import get_family_idioms
 from tools.exporter_functions import get_family_set
 from tools.meaning_construction import summarize_construction
 from tools.meaning_construction import make_meaning_html
@@ -22,7 +23,7 @@ from tools.date_and_time import year_month_day_dash
 
 
 class HeadwordData():
-    def __init__(self, js, i, fc, fs, sbs, ru):
+    def __init__(self, js, i, fc, fi, fs, sbs, ru):
         # self.css = css
         self.js = js
         self.meaning = make_meaning_html(i)
@@ -31,6 +32,7 @@ class HeadwordData():
         self.grammar = make_grammar_line(i)
         self.i = self.convert_newlines(i)
         self.fc = fc
+        self.fi = fi
         self.fs = fs
         self.app_name = "Jinja"
         self.date = year_month_day_dash()
@@ -48,7 +50,10 @@ class HeadwordData():
     @staticmethod
     def convert_newlines(obj):
         for attr_name in dir(obj):
-            if not attr_name.startswith('_'):  # skip private and protected attributes
+            if (
+                not attr_name.startswith('_')
+                and "html" not in attr_name
+            ):  # skip private and protected attributes
                 attr_value = getattr(obj, attr_name)
                 if isinstance(attr_value, str):
                     try:
@@ -79,6 +84,9 @@ def home():
             .filter(Lookup.lookup_key==(query))\
             .first()
         if result:
+
+            # add roots, deconstruction, variants, epd, etc etc
+            
             headwords = result.headwords_unpack
             results = db.session\
                 .query(DpdHeadwords)\
@@ -86,10 +94,11 @@ def home():
                 .all()
             for i in results:
                 fc = get_family_compounds(i)
+                fi = get_family_idioms(i)
                 fs = get_family_set(i)
                 sbs = db.session.query(SBS).filter_by(id=i.id).first()
                 ru = db.session.query(Russian).filter_by(id=i.id).first()
-                d = HeadwordData(js, i, fc, fs, sbs, ru)
+                d = HeadwordData(js, i, fc, fi, fs, sbs, ru)
                 html += render_template("complete_word.html", d=d)
             return render_template("home.html", html=html)
 
