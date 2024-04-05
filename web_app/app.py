@@ -61,7 +61,51 @@ class HeadwordData():
                     except AttributeError:
                         continue  # skip attributes that don't have a setter
         return obj
-        
+
+class DeconstructorData():
+    def __init__(self, result: Lookup):
+        self.headword = result.lookup_key
+        self.deconstructions = result.deconstructor_unpack
+        self.app_name = "Jinja"
+        self.date = year_month_day_dash()
+
+
+class VariantData():
+    def __init__(self, result: Lookup):
+        self.headword = result.lookup_key
+        self.variants = result.variants_unpack
+        self.app_name = "Jinja"
+        self.date = year_month_day_dash()
+
+
+class SpellingData():
+    def __init__(self, result: Lookup):
+        self.headword = result.lookup_key
+        self.spellings = result.spelling_unpack
+        self.app_name = "Jinja"
+        self.date = year_month_day_dash()
+
+
+class GrammarData():
+    def __init__(self, result: Lookup):
+        self.headword = result.lookup_key
+        self.grammar = result.grammar_unpack
+
+
+class HelpData():
+    def __init__(self, result: Lookup):
+        self.headword = result.lookup_key
+        self.help = result.help_unpack
+
+
+class AbbreviationsData():
+    def __init__(self, result: Lookup):
+        data = result.abbrev_unpack
+        self.headword = result.lookup_key
+        self.meaning = data["meaning"]
+        self.pali = data["pāli"]
+        self.example = data["example"]
+        self.explanation = data["explanation"]
 
 pth = ProjectPaths()
 app = Flask(__name__)
@@ -85,28 +129,58 @@ def home():
             .first()
         if result:
 
-            # add roots, deconstruction, variants, epd, etc etc
+            # headwords
+            if result.headwords:
+                headwords = result.headwords_unpack
+                results = db.session\
+                    .query(DpdHeadwords)\
+                    .filter(DpdHeadwords.id.in_(headwords))\
+                    .all()
+                for i in results:
+                    fc = get_family_compounds(i)
+                    fi = get_family_idioms(i)
+                    fs = get_family_set(i)
+                    sbs = db.session.query(SBS).filter_by(id=i.id).first()
+                    ru = db.session.query(Russian).filter_by(id=i.id).first()
+                    d = HeadwordData(js, i, fc, fi, fs, sbs, ru)
+                    html += render_template("complete_word.html", d=d)
             
-            headwords = result.headwords_unpack
-            results = db.session\
-                .query(DpdHeadwords)\
-                .filter(DpdHeadwords.id.in_(headwords))\
-                .all()
-            for i in results:
-                fc = get_family_compounds(i)
-                fi = get_family_idioms(i)
-                fs = get_family_set(i)
-                sbs = db.session.query(SBS).filter_by(id=i.id).first()
-                ru = db.session.query(Russian).filter_by(id=i.id).first()
-                d = HeadwordData(js, i, fc, fi, fs, sbs, ru)
-                html += render_template("complete_word.html", d=d)
+            # roots
+
+            # deconstructor
+            if result.deconstructor:
+                d = DeconstructorData(result)
+                html += render_template("deconstructor.html", d=d)
+
+            # variant
+            if result.variant:
+                d = VariantData(result)
+                html += render_template("variant.html", d=d)
+
+            # spelling mistake
+            if result.spelling:
+                d = SpellingData(result)
+                html += render_template("spelling.html", d=d)
+
+            if result.grammar:
+                d = GrammarData(result)
+                html += render_template("grammar.html", d=d)
+            
+            if result.help:
+                d = HelpData(result)
+                html += render_template("help.html", d=d)
+
+            if result.abbrev:
+                d = AbbreviationsData(result)
+                html += render_template("abbreviations.html", d=d)
+
             return render_template("home.html", html=html)
 
     return render_template("home.html", html="")
 
 
 def clean_query(query):
-    return query.replace("'", "").lower()
+    return query.replace("'", "")
 
 def run_app():
     app.run(debug=True, port=8000)

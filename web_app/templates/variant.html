@@ -1,0 +1,11 @@
+<h3>variant: {{d.headword}}</h3>
+<div class='variant'>
+    <p class='variant'>
+        {% for variant in d.variants: %}
+        variant reading of <b><i>{{variant}}</i></b>
+        {% if not loop.last: %}
+            <br>
+        {% endif %}
+        {% endfor %}
+    </p>
+</div>

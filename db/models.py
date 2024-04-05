@@ -326,7 +326,7 @@ class Lookup(Base):
 
     @property
     def help_unpack(self) -> str:
-        if self.abbrev:
+        if self.help:
             return json.loads(self.help)
         else:
             return ""

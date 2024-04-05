@@ -1,5 +1,5 @@
 .query-box {
-    width: 200px;
+    width: 500px;
     height: 30px;
     padding: 5px;
     font-size: 16px;
@@ -9,7 +9,7 @@
  }
 
 body {
-    max-width: 500px;
+    max-width: 800px;
     width: 100%;
     margin: 0 auto;
     background-color: #221A0F;

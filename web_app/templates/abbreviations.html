@@ -1,0 +1,53 @@
+<h3>abbreviation: {{d.headword}}</h3>
+<div class="help">
+    <table class="help">
+        <tr>
+            <th>
+                Abbreviation
+            </th>
+            <td>
+                <b>{{d.headword}}</b>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Meaning
+            </th>
+            <td>
+                {{d.meaning}}
+            </td>
+        </tr>
+        {% if d.pali: %}
+        <tr>
+            <th>
+                Pāḷi
+            </th>
+            <td>
+                {{d.pali}}
+            </td>
+        </tr>
+        {% endif %}
+        
+        {% if d.example: %}
+        <tr>
+            <th>
+                Example
+            </th>
+            <td>
+                {{d.example}}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.information: %}
+        <tr>
+            <th>
+                Information
+            </th>
+            <td>
+                {{d.information}}
+            </td>
+        </tr>
+        {% endif %}
+    </table>
+</div>

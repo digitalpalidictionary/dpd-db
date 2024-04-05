@@ -288,3 +288,128 @@ td.gr10 {
     color: #fff;
 }
 
+/* deconstructor */
+
+div.deconstructor {
+    border: 2px solid #ffd700;
+    border-radius: 7px;
+    line-height: 150%;
+    margin: 0px 0px;
+    overflow: auto;
+    padding: 3px 7px;
+    text-align: left;
+}
+
+p.deconstructor {
+    line-height: 150%;
+    margin: 0px 0px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+a.deconstructor_feedback {
+    float: right;
+    text-decoration: none;
+    margin: 1px;
+    vertical-align: top;
+}
+
+p.deconstructor_footer {
+    border-top: 1px solid #ffd700;
+    font-size: 0.8em;
+    margin: 5px 0 0 0;
+    padding: 5px 0px;
+    
+}
+
+
+/* variant */
+
+div.variant {
+    border: 2px solid #ff0055;
+    border-radius: 7px;
+    line-height: 150%;
+    margin: 0px 0px;
+    overflow: auto;
+    padding: 3px 7px;
+    text-align: left;
+}
+
+p.variant {
+    line-height: 150%;
+    margin: 2px 0px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+/* grammar dict */
+
+div.grammar_dict {
+    border: 2px solid #468b7c;
+    border-collapse: collapse;
+    border-radius: 7px;
+    line-height: 150%;
+    overflow: auto;
+    text-align: left;
+}
+
+table.grammar_dict {
+    border: 2px solid transparent;
+    /* border-right: 1px #468b7c; */
+    border-collapse: collapse;
+    border-radius: 5px;
+    line-height: 150%;
+    overflow: auto;
+    margin: 2px;
+    text-align: center;
+    vertical-align: center;
+    /* white-space: nowrap; */
+    width: 99%;
+}
+
+table.grammar_dict td {
+    padding: 2px 5px;
+    border: 1px solid #468b7c;
+    border-collapse: collapse;
+    
+}
+
+/* help */
+
+
+div.help {
+    border: 2px solid #0ab33d;
+    border-radius: 7px;
+    line-height: 150%;
+    margin: 0px 0px;
+    overflow: auto;
+    padding: 3px 5px;
+    text-align: left;
+}
+
+
+span.gray {
+    color: gray
+}
+
+table.help {
+    border: none;
+    width: 100%;
+}
+
+table.help td,
+table.help th {
+    line-height: 150%;
+    padding: 0px 5px 0px 0px;
+    text-align: left;
+    vertical-align: top;
+}
+
+table.help th {
+    color: #0ab33d;
+    font-weight: 700;
+}
+
+table.help b {
+    font-weight: 700;
+}

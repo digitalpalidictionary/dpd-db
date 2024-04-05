@@ -247,7 +247,7 @@ def generate_grammar_dict(pd):
         
         # process indeclinables
         if i.stem == "-":
-            data_line = (i.lemma_1, i.pos, "indeclinable")
+            data_line = (i.lemma_clean, i.pos, "indeclinable")
             html_line = f"<tr><td><b>{i.pos}</b></td><td colspan='5'>indeclinable</td></tr>"
 
             # grammar_dict update
@@ -302,7 +302,7 @@ def generate_grammar_dict(pd):
                                     inflected_word = f"{i.stem}{inflection}"
                                     if inflected_word in pd.all_words_set:
 
-                                        data_line = (i.lemma_1, i.pos, grammar)
+                                        data_line = (i.lemma_clean, i.pos, grammar)
                                         html_line = "<tr>"
                                         html_line += f"<td><b>{i.pos}</b></td>"
                                         # get grammatical_categories from grammar
