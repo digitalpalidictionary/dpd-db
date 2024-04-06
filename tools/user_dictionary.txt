@@ -434,12 +434,14 @@ creatress
 cremates
 cristatus
 criticises
+crookedness
 crores
 Crotalaria
 crus-galli
 Cuculus
 Cucumis
 Cūḷaniddesa
+Cūḷapuṇṇamasutta
 cūḷavagga
 Cunda
 curādigaṇa
@@ -528,6 +530,7 @@ discriminatively
 disembarks
 disentangled
 disfiguration
+dishevelling
 disjoined
 dismounts
 disownment
@@ -644,6 +647,7 @@ fortnights
 foundationless
 four-way
 fowlers
+fraudulence
 from-ness
 frondos
 frondosa
@@ -1042,6 +1046,7 @@ magga
 Maggasaṃyuttaṃ
 Magghadeva's
 Māgha
+Maghadeva
 Maghadeva's
 Mahābhārata
 mahābhūta
@@ -1141,8 +1146,11 @@ mis-meditates
 Mithil
 Mithila
 Mithilā
+MN110
 MN2
 MN3
+MN31
+MN34
 MN39
 MN4
 MN40
@@ -1186,6 +1194,7 @@ MN79
 MN80
 MN81-90
 MN82
+MN83
 Moggallāna
 Moggallāna's
 Moggallānabyākaraṇa
@@ -1212,6 +1221,7 @@ Muricatus
 Murray
 Murraya
 murumuru
+mussing
 musth
 muṭṭhi
 my-ness
@@ -1412,6 +1422,7 @@ pentaphylla
 Pentaptera
 percipient
 pericarp
+perplexity
 pers
 perturbance
 Peṭakopadesa
@@ -2231,11 +2242,3 @@ yojanas
 yoking
 zizanioides
 Ziziphus
-MN34
-MN31
-MN110
-Cūḷapuṇṇamasutta
-crookedness
-fraudulence
-mussing
-dishevelling

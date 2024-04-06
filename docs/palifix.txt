@@ -4,7 +4,6 @@ CPD remove line breaks
 Bhs css, find all tags
 Join dhar roots
 
-samosaraṇa is poked grammar examples declensions inside each other 
 test evāyaṃ has no compound family
 
 santhā sk cf
@@ -17,7 +16,7 @@ akatakappa 2 (of a robe) without a distinguishing dirty mark
 antonyms
 add krubbanta
 add khāditapubba
-sagaṇa
+
 
 
 SANDHI to TEST
@@ -25,7 +24,6 @@ suvisuddhajjhānābhiññāparivāraṃ
 saccānuddayakāruññakhantisamannāgatā
 mārāpemahanti
 sacchandarāgaparibhogarasāva
-tat'āgacchi tato
 padhānadhaññabhāvadassan'atthañcettha
 vivaṭṭ'ūpanissitaṃ aṃ
 paribrūhanavasena  na in front
