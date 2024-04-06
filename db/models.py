@@ -807,6 +807,8 @@ class DpdHeadwords(Base):
         return bool(
             self.meaning_1
             and " " not in self.family_compound
+            and "sandhi" not in self.pos
+            and "idiom" not in self.pos
             and(
                 any(item in self.cf_set for item in self.family_compound_list) or
                 self.lemma_clean in self.cf_set #type:ignore
@@ -826,6 +828,8 @@ class DpdHeadwords(Base):
         return bool(
             self.meaning_1
             and " " in self.family_compound
+            and "sandhi" not in self.pos
+            and "idiom" not in self.pos
             and(
                 any(item in self.cf_set for item in self.family_compound_list)
                 or self.lemma_clean in self.cf_set)) #type:ignore

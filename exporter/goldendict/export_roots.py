@@ -141,7 +141,11 @@ def render_root_definition_templ(
         root_definition_templ = Template(filename=str(rupth.root_definition_templ_path))
     # add here another language elif ...
 
-    count = roots_count_dict[r.root]
+    try:
+        count = roots_count_dict[r.root]
+    except KeyError:
+        count = 0
+        print(f"[bright_red]!!! ERROR: {r.root}[red] does not exist, seriously consider deleting it")
 
     return str(
         root_definition_templ.render(
@@ -219,7 +223,11 @@ def render_root_matrix_templ(
         root_matrix = ru_replace_abbreviations(r.root_matrix, "root")
     # add here another language elif ...
 
-    count = roots_count_dict[r.root]
+    try:
+        count = roots_count_dict[r.root]
+    except KeyError:
+        count = 0
+        print(f"[bright_red]!!!ERROR: {r.root}[red] does not exist, seriously consider deleting it")
 
     return str(
         root_matrix_templ.render(

@@ -1392,7 +1392,11 @@ def generate_root_matrix(db_session):
     print("[green]adding to db", end= " ")
     roots_db = db_session.query(DpdRoots).all()
     for counter, i in enumerate(roots_db):
-        i.root_matrix = html_dict[i.root]
+        try:
+            i.root_matrix = html_dict[i.root]
+        except KeyError:
+            print(f"[bright_red]!!! ERROR: {i.root} [red]does not exist, consider deleting it.", end=" ")
+            i.root_matrix = ""
 
     print(f"[green]{counter}")
 
