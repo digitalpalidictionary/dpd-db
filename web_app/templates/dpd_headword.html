@@ -570,13 +570,13 @@
 {% endif %}
 
 
-<!-- conjuagtion -->
+<!-- conjugation -->
 
 
 {% if d.i.needs_conjugation_button %}
     <div id="conjugation_{{d.i.lemma_1_}}" class="content hidden">
-        {{d.i.html_table|safe}}
-    {% if "gray" in d.i.html_table %}
+        {{d.i.inflections_html|safe}}
+    {% if "gray" in d.i.inflections_html %}
         <p>
             Inflections not found in the Chaṭṭha Saṅgāyana corpus, or within processed sandhi compounds are <span class='gray'>grayed out</span>. They might still occur elsewhere, within compounds or in other versions of the Pāḷi texts.
         </p>

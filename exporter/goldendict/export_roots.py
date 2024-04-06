@@ -170,10 +170,9 @@ def render_root_buttons_templ(
         root_buttons_templ = Template(filename=str(rupth.root_button_templ_path))
     # add here another language elif ...
 
-    frs = db_session.query(
-        FamilyRoot
-        ).filter(
-            FamilyRoot.root_key == r.root)
+    frs = db_session \
+        .query(FamilyRoot) \
+        .filter(FamilyRoot.root_key == r.root)
 
     frs = sorted(frs, key=lambda x: pali_sort_key(x.root_family))
 
