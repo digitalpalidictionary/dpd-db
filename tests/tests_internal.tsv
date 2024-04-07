@@ -355,7 +355,7 @@ pos prp not in pattern	pos	equals	prp	pattern	does not contain word	prp									
 pos ptp not in pattern	pos	equals	ptp	pattern	does not contain word	ptp													pattern	lemma_1	pos	pattern	[62454]	10
 pos sandhi not in pattern	pos	equals	sandhi	stem	does not equal	-													pattern	lemma_1	pos	pattern	[]	10
 pos sandhi or idiom, contains family compound	meaning_1	is not empty	-	pos	contains	sandhi|idiom	family_compound	is not empty	-											lemma_1	grammar	meaning_1	[]	10
-pos sandhi or idiom, family idiom empty	meaning_1	is not empty	-	pos	contains	sandhi|idiom	family_idiom	is empty	-											lemma_1	grammar	meaning_1	[]	10
+pos sandhi or idiom, family idiom empty	meaning_1	is not empty	-	pos	contains	sandhi|idiom	family_idioms	is empty	-											lemma_1	grammar	meaning_1	[]	10
 pos suffix not in pattern	pos	equals	suffix	stem	does not equal	-													pattern	lemma_1	pos	pattern	[]	10
 pos: adj could be pp	meaning_1	is not empty	-	pos	equals	adj	grammar	contains word	pp	neg	equals	neg								lemma_1	grammar	meaning_1	[5640]	20
 pp adj no lit	meaning_1	is not empty	-	pos	equals	adj	grammar	contains	\bpp\b	meaning_lit	is empty									lemma_1	grammar	meaning_1	[]	10

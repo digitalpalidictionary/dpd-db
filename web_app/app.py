@@ -155,7 +155,7 @@ def clean_query(query):
 
 
 def run_app():
-    app.run(debug=True, port=8000)
+    app.run(debug=True, port=8888)
 
 
 @app.template_filter('safe_getattr')

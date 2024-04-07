@@ -7,6 +7,7 @@ from tools.meaning_construction import make_grammar_line
 from tools.meaning_construction import degree_of_completion
 from tools.date_and_time import year_month_day_dash
 
+
 class HeadwordData():
     def __init__(self, i, fc, fi, fs, sbs, ru):
         self.meaning = make_meaning_html(i)
@@ -44,6 +45,7 @@ class HeadwordData():
                     except AttributeError:
                         continue  # skip attributes that don't have a setter
         return obj
+
 
 class RootsData():
     def __init__(self, r, frs, roots_count_dict) -> None:
