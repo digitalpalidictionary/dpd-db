@@ -9,11 +9,11 @@ python -c "from tools.configger import config_update; config_update('exporter', 
 
 # scripts/bash/generate_components.sh
 
-# db/families/root_family.py
-# db/families/word_family.py
-# db/families/compound_family.py
-# db/families/sets.py
-# db/families/idioms.py
+db/families/root_family.py
+db/families/word_family.py
+db/families/compound_family.py
+db/families/sets.py
+db/families/idioms.py
 
 echo "exporting RU DPD"
 

@@ -12,7 +12,7 @@ from functions_daily_record import daily_record_update
 from tools.i2html import make_html
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from tools.tsv_read_write import write_tsv_list
+from tools.tsv_read_write import append_tsv_list
 
 
 dpd_values_list = [
@@ -495,21 +495,31 @@ def delete_word(pth, db_session, values, window):
         word_id = values["id"]
         word_lemma = values["lemma_1"]
 
-        # Write the data to a TSV file
-        header = ["word_id", "word_lemma"]
-        data = [[word_id, word_lemma]]
-        write_tsv_list(pth.delated_words_history_pth, header, data)
-
         db_session.query(DpdHeadwords).filter(word_id == DpdHeadwords.id).delete()
         db_session.commit()
         
-        # also delete from Russian and SBS tables
+        # also delete from Russian table
         try:
             db_session.query(Russian).filter(word_id == Russian.id).delete()
         except Exception:
             print("[red]no Russian word found")
+
+        # also delete from SBS table
         try:
-            db_session.query(SBS).filter(word_id == SBS.id).delete()
+            sbs_record = db_session.query(SBS).filter(word_id == SBS.id).first()
+            if sbs_record:
+                # Check if any sbs_example_* fields are not empty
+                sbs_examples = [sbs_record.sbs_example_1, sbs_record.sbs_example_2, sbs_record.sbs_example_3, sbs_record.sbs_example_4]
+                non_empty_examples = [example for example in sbs_examples if example]
+                
+                if non_empty_examples:
+                    # Save all non-empty sbs_example_* and id to TSV
+                    sbs_header = ["word_id", "word_lemma"] + [f"sbs_example_{i+1}" for i in range(len(non_empty_examples))]
+                    sbs_data = [[sbs_record.id, word_lemma] + non_empty_examples]
+                    append_tsv_list(pth.delated_words_history_pth, sbs_header, sbs_data)
+                    
+                    # Delete the SBS record
+                    db_session.query(SBS).filter(word_id == SBS.id).delete()
         except Exception:
             print("[red]no SBS word found")
 

@@ -62,6 +62,24 @@ def write_tsv_list(
                 writer.writerow(row)
 
 
+def append_tsv_list(
+        file_path: str,
+        header: List[str],
+        data: List[List[str]]) -> None:
+    # Check if the file exists and if it's empty
+    file_exists = Path(file_path).exists()
+    file_empty = False if file_exists else True
+
+    with open(file_path, "a", newline="") as file:
+        writer = csv.writer(file, delimiter="\t")
+        # Write the header only if the file is empty
+        if file_empty and header:
+            writer.writerow(header)
+        for row in data:
+            if row[0]:
+                writer.writerow(row)
+
+
 def read_tsv_as_dict(file_path: Path) -> dict:
     dict = {}
     with open(file_path) as tsv_file:
