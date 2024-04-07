@@ -24,7 +24,7 @@ dpd_values_list = [
     "compound_construction", "non_root_in_comps", "source_1", "sutta_1",
     "example_1", "source_2", "sutta_2", "example_2", "antonym", "synonym",
     "variant", "commentary", "notes", "cognate", "link", "origin", "stem",
-    "pattern", "created_at", "updated_at"]
+    "pattern", "created_at", "updated_at", "online_suggestion"]
 
 
 class Word:

@@ -1046,7 +1046,7 @@ def fetch_matching_words_from_db(path, db_session) -> list:
     return matching_words
 
 
-def fetch_matching_words_from_db_with_conditions(dpspth, db_session, attribute_name) -> list:
+def fetch_matching_words_from_db_with_conditions(dpspth, db_session, attribute_name, source) -> list:
 
     ordered_ids = read_ids_from_tsv(dpspth.id_to_add_path)
     ordered_ids = remove_duplicates(ordered_ids)
@@ -1056,7 +1056,7 @@ def fetch_matching_words_from_db_with_conditions(dpspth, db_session, attribute_n
         word = db_session.query(DpdHeadwords).filter(DpdHeadwords.id == word_id).first()
         if word and word.sbs:
             attr_value = getattr(word.sbs, attribute_name, None)
-            if not attr_value:
+            if attr_value == source or (attr_value is None and source in ["", None]):
                 matching_words.append(word.lemma_1)
         if word and not word.sbs:
             matching_words.append(word.lemma_1)

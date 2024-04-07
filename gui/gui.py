@@ -1086,7 +1086,8 @@ def main():
                         remove_word_to_add(values, window, words_to_add_list)
                         window["words_to_add_length"].update(
                             value=len(words_to_add_list))
-                        # open_in_goldendict(values["lemma_1"])
+                        pyperclip.copy(values["lemma_1"])
+                        open_in_goldendict(values["lemma_1"])
                         window["tab_edit_dps"].select()  # type: ignore
                         
         
@@ -2044,6 +2045,7 @@ def main():
                     original_values = dps_get_original_values(values, dpd_word, ru_word, sbs_word)
                     last_button = display_dps_summary(values, window, sg, original_values)
                     if last_button == "dps_ok_button":
+                        pyperclip.copy(values["dps_id_or_lemma_1"])
                         open_in_goldendict(values["dps_id_or_lemma_1"])
                         dps_update_db(pth, db_session, values, window, dpd_word, ru_word, sbs_word)
                         clear_dps(values, window)
@@ -2248,7 +2250,7 @@ def main():
 
         # add words from id list
         elif event == "dps_word_from_id_list_button":
-            words_to_add_list = fetch_matching_words_from_db_with_conditions(dpspth, db_session, values["field_for_id_list"])
+            words_to_add_list = fetch_matching_words_from_db_with_conditions(dpspth, db_session, values["field_for_id_list"], values["source_to_add"])
 
             if words_to_add_list != []:
                 values["word_to_add"] = [words_to_add_list[0]]

@@ -113,7 +113,7 @@ SN
             ),
             sg.Input(
                 key="sutta_to_add",
-                tooltip="name of the 'sutta' from which we are adding words",
+                tooltip="The name of the 'sutta' from which we are adding words.",
                 size=(20, 1), 
                 pad=((0, 0), (0, 20)),
                 visible=username == "deva",
@@ -125,7 +125,7 @@ SN
             ),
             sg.Input(
                 key="source_to_add",
-                tooltip="'source' from which we are adding words",
+                tooltip="The 'source' from which we are adding words.",
                 size=(10, 1), 
                 pad=((0, 0), (0, 20)),
                 visible=username == "deva",
@@ -138,7 +138,7 @@ SN
             sg.Input(
                 key="field_for_id_list", 
                 visible=username == "deva", 
-                tooltip="'field' which needs to be updated or checked",
+                tooltip="The 'field' that requires updating or verification.",
                 size=(15, 1), 
                 pad=((0, 0), (0, 20)),
             ),
@@ -147,7 +147,7 @@ SN
             sg.Button(
                 "from sutta", 
                 key="sutta_to_add_button",
-                tooltip="add words from 'sutta' full db", 
+                tooltip="Add words from 'sutta' full db", 
                 pad=((100, 0), (0, 20)),
                 visible=username == "deva",
             ),
@@ -159,21 +159,21 @@ SN
             sg.Button(
                 "from sutta", 
                 key="dps_sutta_to_add_button",
-                tooltip="add words from 'sutta' only in dps db", 
+                tooltip="Add words from 'sutta' only in dps db", 
                 visible=username == "deva",
                 pad=((10, 0), (0, 20)),
             ),
             sg.Button(
                 "from source", 
                 key="dps_add_from_source",
-                tooltip="add words from 'source' only in dps db", 
+                tooltip="Add words from 'source' only in dps db", 
                 visible=username == "deva",
                 pad=((10, 0), (0, 20)),
             ),
             sg.Button(
                 "source in field", 
                 key="dps_source_in_field",
-                tooltip="add words which has 'source' in sbs_'field'", 
+                tooltip="Add words that have 'source' in the corresponding 'field'", 
                 visible=username == "deva",
                 pad=((10, 0), (0, 20)),
             )
@@ -206,14 +206,14 @@ SN
             sg.Button(
                 "No source", 
                 key="dps_from_txt_to_add_considering_source_button",
-                tooltip="show all words from text.txt that do not have a source in sbs_source(s), using the 'source to add'",
+                tooltip="Display all words from text.txt that don't have a 'source' in sbs_source(s)",
                 visible=username == "deva",
                 pad=((10, 0), (0, 20)),
             ),
             sg.Button(
                 "No field", 
                 key="dps_from_txt_to_add_considering_field_button",
-                tooltip="show all words from text.txt that do not have anything in field",
+                tooltip="Display all words from text.txt where the 'field' is empty.",
                 visible=username == "deva",
                 pad=((10, 0), (0, 20)),
             )
@@ -227,7 +227,7 @@ SN
             sg.Button(
                 "from id_to_add", 
                 key="dps_word_from_id_list_button", 
-                tooltip="show all words from the id_to_add.csv file that have an empty 'field'",
+                tooltip="Display words from id_to_add.csv where 'field' is empty if 'source' is empty, or where 'field' matches 'source' if 'source' is not empty.",
                 visible=username == "deva",
                 pad=((10, 0), (0, 20)),
             ),

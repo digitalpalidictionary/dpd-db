@@ -6,6 +6,7 @@ import copy
 import csv
 import os
 import datetime
+import sys
 
 from anki.collection import Collection
 from anki.errors import DBError
@@ -23,16 +24,12 @@ from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
 from tools.tic_toc import tic, toc, bip, bop
 
-# from tools.date_and_time import day
-
-
-
-
 from sqlalchemy.orm import joinedload
 
-# date = day()
+# Check if 'test' argument is provided
+update_test_field = 'test' in sys.argv
 
-current_date = datetime.date.today().strftime("%d-%m-%y")
+current_date = datetime.date.today().strftime("%m-%d")
 
 dpspth = DPSPaths()
 
@@ -364,7 +361,8 @@ def update_note_values(note, i):
     note["variant"] = str(i.variant)
     note["commentary"] = str(i.commentary).replace("\n", "<br>")
     note["notes"] = str(i.notes).replace("\n", "<br>")
-    note["test"] = str(current_date)
+    if update_test_field:
+        note["test"] = str(current_date)
 
     # 'link' field
     if i.link:
