@@ -21,6 +21,8 @@ import idzip
 import re
 from enum import Enum
 
+from tools.date_and_time import make_timestamp
+
 
 class QueryType(str, Enum):
     suttas = "suttas"
@@ -678,7 +680,7 @@ def export_words_as_stardict_zip(words: List[DictEntry],
     ifo['version'] = '3.0.0'
     ifo['wordcount'] = f"{len(words)}"
     ifo['sametypesequence'] = 'h'
-    ifo['date'] = datetime.datetime.utcnow().replace(microsecond=0).isoformat()
+    ifo['date'] = make_timestamp()
 
     res = write_words(words, paths)
 

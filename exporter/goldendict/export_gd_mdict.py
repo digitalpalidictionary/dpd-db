@@ -24,6 +24,7 @@ from mdict_exporter import export_to_mdict
 
 from db.get_db_session import get_db_session
 from tools.cache_load import load_cf_set, load_idioms_set
+from tools.date_and_time import make_timestamp
 
 from tools.configger import config_read, config_test
 from tools.goldendict_path import goldedict_path
@@ -220,7 +221,7 @@ def export_to_goldendict_simsapa(
             source_path = _pth_.icon_bmp_path
             destination = "dpd/android.bmp"
             zipf.write(source_path, destination)
-    
+
     # add external css
     if external_css is True:
         with zipfile.ZipFile(_pth_.dpd_zip_path, "a") as zipf:
@@ -246,15 +247,13 @@ def export_to_goldendict_pyglossary(
         "website": "https://digitalpalidictionary.github.io/",
         "sourceLang": "pi",  # A full name "Pali" also may be used
         "targetLang": lang,
+        "date": make_timestamp(),
     })
-    # TODO dpdversion
 
     # add css
     with open(_pth_.dpd_css_path, "rb") as f:
         css = f.read()
         glos.addEntry(glos.newDataEntry("dpd.css", css))
-
-    # TODO Add button.js
 
     # add dpd data
     for i in data_list:

@@ -19,3 +19,9 @@ def hour_minute():
 
 def day():
     return now.strftime("%d")
+
+
+def make_timestamp() -> str:
+    """ Make current time iso-formatted UTC datetime string """
+    now = datetime.utcnow().replace(microsecond=0)
+    return now.isoformat()
