@@ -255,6 +255,11 @@ def export_to_goldendict_pyglossary(
         css = f.read()
         glos.addEntry(glos.newDataEntry("dpd.css", css))
 
+    # Add buttons script
+    buttons_path = _pth_.buttons_js_path
+    with open(buttons_path, "rb") as f:
+        glos.addEntry(glos.newDataEntry(buttons_path.name, f.read()))
+
     # add dpd data
     for i in data_list:
         new_word = glos.newEntry(
