@@ -1600,7 +1600,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √path 1	1	a	go, move	√path √panth	1	go	pari √path		paripantham
 √path 1	1	a	go, move	√path √panth	1	go	vi ā √path		vyāpṛti (activity), ??
 √path 2	1	a	expand	√prath √pṛth	1, 10	spread	√path	pṛth	na + pṛthivī, pṛthivitva, pṛthivī, pṛthivīśa, pṛthivyāḥ, pṛthivyāḥ, pṛthiveḥ
-√pad	3	ya	go, step	√pad	4	go	√pad	pad	apada, apādaka, apādi, patti, pattinaḥ, pathika, pada, padaka, padatva, padam, padasā, padaśas, padika, padya, padyate, padyā, pāda, pādaka, pādatā, pādī, pādukā, prāpti
+√pad	3	ya	go, step	√pad	4	go	√pad	pad	apada, apādaka, apādi, patti, pattika, pattinaḥ, pathika, pada, padaka, padatva, padam, padasā, padaśas, padika, padya, padyate, padyā, pāda, pādaka, pādatā, pādī, pādukā, prāpti
 √pad	3	ya	go, step	√pad	4	go	ati √pad	atipad	atipanna
 √pad	3	ya	go, step	√pad	4	go	adhi √pad	abhipad	abhipadyate, abhipanna
 √pad	3	ya	go, step	√pad	4	go	adhi ava √pad		adhyāpanna, na + adhyāpanna
@@ -1816,9 +1816,9 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √budh	3	ya	know, wake up	√budh	4, 1	know, wake	saṃ √budh	sambudh	asambodha, sambuddha, sambuddhimat, sambodha, sambodhi, sambodhitum, su + sambuddha
 √buh	1	a	pluck out, uproot	√bṛh √vṛh	6	tear, pluck	apa √buh		
 √buh	1	a	pluck out, uproot	√bṛh √vṛh	6	tear, pluck	ā √buh	āvṛh	ābṛḍha, ābṛh, ābṛh, ābarhayitvā, ābṛhati, āvarhaṇa, āvarhayati, āvarhīt, āvṛhati, āvṛhet, āvṛhya
-√brah	1	a	increase	√bṛh √bṛṃh	1, 6	make big or strong	√brah		abrāhmaṇa, abrāhmaṇya, abrāhmaṇyatā, na + brāhma, brahma, brahmaṇā, brahmatva, brahmasya, brahmāya, brāhmaṇa, brāhmaṇī, brāhmaṇya, brāhmaṇyatā (bsk), bṛhat, bṛhanta, sabrahmaka, su + brahma
-√brū	1	a	say	√brū	2, 6	say	√brū		abravam, abravīt (imperf), abruvan (imperf), uktvā, bravīti, bravīṣi, bruvanti, brū, brūhi
-√brū	1	a	say	√brū	2, 6	say	pa √brū		prabravīti
+√brah	1	a	increase	√bṛh √bṛṃh	1, 6	make big or strong	√brah	bṛh	abrāhmaṇa, abrāhmaṇya, abrāhmaṇyatā, na + brāhma, brahma, brahmaṇā, brahmatva, brahmasya, brahmāya, brāhmaṇa, brāhmaṇī, brāhmaṇya, brāhmaṇyatā (bsk), bṛhat, bṛhanta, sabrahmaka, su + brahma
+√brū	1	a	say	√brū	2, 6	say	√brū	brū	abravam, abravīt (imperf), abruvan (imperf), uktvā, bravīti, bravīṣi, bruvanti, brū, brūhi
+√brū	1	a	say	√brū	2, 6	say	pa √brū	prabrū	prabravīti
 √brūh	1	a	increase	√bṛh √bṛṃh √vṛṃh	1, 6	make big or strong	√brūh		bṛṃhaṇa, bṛṃhayat, bṛṃhayati, bṛṃhayitavya, bṛṃhayitṛ, vṛmhayamāṇa
 √brūh	1	a	increase	√bṛh √bṛṃh √vṛṃh	1, 6	make big or strong	anu √brūh		anu + bṛṃh, anubṛṃhayat (bsk), anu + bṛṃhati, anubṛṃh, anubṛṃhat, anubṛṃhati, anubṛṃhayati, anubṛṃhayamāna
 √brūh	1	a	increase	√bṛh √bṛṃh √vṛṃh	1, 6	make big or strong	upa √brūh		upavyūha?, upavṛmhayamāṇa
@@ -2004,7 +2004,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √man	3	ya	think	√man	3, 4, 8	think	saṃ √man	samman	na + sammata, na + sammāna, sammata, sammanitavya, sammanitum, sammanta, sammantvā, sammanyate, sammāna, sammānayati
 √man	3	ya	think	√man	3, 4, 8	think	saṃ anu √man	samanuman	samanumanyate
 √mant	8	*e	counsel, invite	√mantr	10	speak	√mant	mantr	durmantrita, durmantrin, maitrāyaṇī, mantra, mantrayat, mantrayati, mantrayate, mantrayamāṇa, mantrayitum, mantrayitvā, mantravat, mantrin
-√mant	8	*e	counsel, invite	√mantr	10	speak	abhi ni √mant	abhinimantr	abhi + nimantraṇa
+√mant	8	*e	counsel, invite	√mantr	10	speak	abhi ni √mant	abhinimantr	abhi + nimantraṇa, abhinimantrayati
 √mant	8	*e	counsel, invite	√mantr	10	speak	ā √mant	āmantr	āmantraṇa, āmantraṇā, āmantrayate, āmantrita, na +, na + āmantrya
 √mant	8	*e	counsel, invite	√mantr	10	speak	ni √mant	nimantr	na + nimantrita, naimantraṇaka, nimantraṇa, nimantrayat, nimantrayati, nimantrayitum, nimantrayitvā, nimantrita, nimantrya, nimantryamāṇa
 √mant	8	*e	counsel, invite	√mantr	10	speak	pati √mant	pratimantr	pratimanta, pratimantraṇa, pratimantrayati, pratimantṛ
@@ -2335,7 +2335,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ruh	1	a	ascend, grow	√ruh	1	ascend	ud √ruh		ud + rūḍha + vat
 √ruh	1	a	ascend, grow	√ruh	1	ascend	ni √ruh	niruh	nyagrodha, nyagrodha (nyak + rodha)
 √ruh	1	a	ascend, grow	√ruh	1	ascend	pa √ruh	praruh	prarūḍha, prāroha
-√ruh	1	a	ascend, grow	√ruh	1	ascend	pati ava √ruh	pratyavaruh	pratyavarohaṇa
+√ruh	1	a	ascend, grow	√ruh	1	ascend	pati ava √ruh	pratyavaruh	pratyavarūḍhvā, pratyavarohaṇa
 √ruh	1	*e	ascend, grow	√ruh	1	ascend	pati ā √ruh	pratyāruh	pratyāropayati
 √ruh	1	a	ascend, grow	√ruh	1	ascend	pati vi √ruh		+ rūḍha, prati + virohati
 √ruh	1	a	ascend, grow	√ruh	1	ascend	vi √ruh	viruh	avirūḍha, na + virūḍhi, virūḍha, virūḍhi, virohaṇa, virohat, virohati

@@ -237,7 +237,10 @@ def export_to_goldendict_pyglossary(
     lang="en",
     external_css=False
 ) -> None:
-    """generate goldedict zip"""
+    """generate goldendict zip"""
+
+    bip()
+    print("[green]exporting goldendict with pyglossary", end="")
 
     Glossary.init()
     glos = Glossary(info={
@@ -268,13 +271,13 @@ def export_to_goldendict_pyglossary(
             defiFormat="h")
         glos.addEntry(new_word)
 
-    output_path = "temp/my_dictionary/my_dictionary.ifo"
+    output_path = "temp/dpd_test/dpd_test.ifo"
     # *.syn file compression expected in next after v4.6.1 PyGlossary release
     glos.write(
         filename=output_path,
         format="Stardict",
         dictzip=True,
-        merge_syns=True,  # Include synonyms in compressed main file rather than *.syn when True
+        merge_syns=False,  # Include synonyms in compressed main file rather than *.syn when True
         sametypesequence="h",
         sqlite=False,  # More RAM, but faster when False
     )
@@ -285,6 +288,8 @@ def export_to_goldendict_pyglossary(
     print("Stardict info:")
     for k in glos.infoKeys():
         print(f"  - {k}: {glos.getInfo(k)}")
+    
+    print(f"{bop():>31}")
 
 
 def goldendict_unzip_and_copy(_pth_) -> None:

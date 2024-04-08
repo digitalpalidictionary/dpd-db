@@ -226,7 +226,7 @@ def render_root_matrix_templ(
         count = roots_count_dict[r.root]
     except KeyError:
         count = 0
-        print(f"[bright_red]!!!ERROR: {r.root}[red] does not exist, seriously consider deleting it")
+        print(f"[bright_red]!!! ERROR: {r.root}[red] does not exist, seriously consider deleting it")
 
     return str(
         root_matrix_templ.render(
