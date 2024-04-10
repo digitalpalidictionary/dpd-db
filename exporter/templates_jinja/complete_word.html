@@ -221,6 +221,9 @@
                 {{d.i.root_clean}}<sup>{{d.i.rt.root_has_verb}}</sup>{{d.i.rt.root_group}} 
                 {{d.i.root_sign}} 
                 ({{d.i.rt.root_meaning}})
+                {% if d.dps_data %}
+                ({{d.i.rt.root_ru_meaning}})
+                {% endif %}
             </td>
         </tr>
         {% endif %}
@@ -431,6 +434,9 @@
                     {{d.i.rt.sanskrit_root}} 
                     {{d.i.rt.sanskrit_root_class}} 
                     ({{d.i.rt.sanskrit_root_meaning}})
+                    {% if d.dps_data %}
+                    ({{d.i.rt.sanskrit_root_ru_meaning}})
+                    {% endif %}
                 </i>
             </td>
         </tr>
