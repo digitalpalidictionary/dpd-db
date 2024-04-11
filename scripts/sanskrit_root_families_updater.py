@@ -23,6 +23,7 @@ exceptions = [
     "pratijñā",
     "pratipad",
     "adhiprajñā",
+    "hrī",
     ]
 
 
@@ -47,8 +48,11 @@ def import_tsv_to_dict(pth):
     with open(pth.root_families_sanskrit_path, newline="") as csvfile:
         reader = csv.DictReader(csvfile, delimiter="\t")
         for row in reader:
-            key = f"{row['root_key']} {row['pali_root_family']}"
-            tsv_dict[key] = row["sanskrit_root_family"]
+            try:
+                key = f"{row['root_key']} {row['pali_root_family']}"
+                tsv_dict[key] = row["sanskrit_root_family"]
+            except KeyError:
+                print(f"[red]!!! ERROR: {row}")
     return tsv_dict
 
 

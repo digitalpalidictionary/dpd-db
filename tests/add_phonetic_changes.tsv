@@ -1,6 +1,4 @@
 initial	final	correct	wrong	without	exceptions
-
--
 xa + u	o	au > o	u > o	o	anoka 1, anoka 2, anoka 3, anodaka, odarika,	need more rules
 a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant
 a + ṭ	iṭ	a > i	x	a + ṭh	x
@@ -89,6 +87,7 @@ d + ī	jj	dy > jj	x	x	x
 d + y	jj	dy > jj	d > j	x	x
 d + c	cc	dc > cc	d > c	d + ch	x
 d + ch	cch	dch > cch	d > c	x	x
+d + ch	cch	dch > cch	dc > cc	x	x
 d + j	jj	dj > jj	d > j	d + jh	x
 d + jh	jjh	djh > jjh	d > j	x	x
 d + k	kk	dk > kk	d > k	d + kh	x
@@ -135,7 +134,7 @@ m + t	nt	mt > nt	m > n	m + th	x
 m + th	nth	mth > nth	m > n	x	x
 m + y	mm	my > mm	y > m	x	x
 man + man	vī	man > vī	m > v	x	x
-mā + nā	min	mā > mi (Kacc 502, 493)	x	x	x
+mā + nā	min	mā > mi (Kacc 502, 493)	ā > i	x	x
 mb	mm	mb > mm	x	mm	x
 
 r + k	kk	rk > kk	r > k	r + kh	x
@@ -197,6 +196,7 @@ h + y	yh	hy > yh (metathesis)	hy > yh	x	x
 ṃ + gh	ṅgh	ṃgh > ṅgh	ṃ > ṅ	x	x
 ṃ + c	ñc	ṃc > ñc	ṃ > ñ	ṃ + ch	x
 ṃ + ch	ñch	ṃch > ñch	ṃ > ñ	x	x
+ṃ + ch	ñch	ṃch > ñch	ṃc > ñc	x	x
 ṃ + j	ñj	ṃj > ñj	ṃ > ñ	ṃ + jh	x
 ṃ + jh	ñjh	ṃjh > ñjh	ṃ > ñ	x	x
 ṃ + ñ	ññ	ṃñ > ññ	ṃ > ñ	x	x

@@ -39,7 +39,7 @@ it allows:
 
 - db/frequency/mapmaker.py
 
-- exporter/goldendict/export_gd_mdict.py
+- exporter/goldendict/main.py
 
 ### "exporter" - "make_deconstructor" :
 

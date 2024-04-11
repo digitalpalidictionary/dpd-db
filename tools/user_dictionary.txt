@@ -272,6 +272,7 @@ Bhaggans
 Bhaggava
 Bhaggu
 bhaṅga
+Bhañña
 Bharatas
 bheke
 bheraṇḍakaṃyeva
@@ -534,6 +535,7 @@ dishevelling
 disjoined
 dismounts
 disownment
+disparagement
 dispassion
 dispeller
 disputable
@@ -1198,6 +1200,8 @@ MN80
 MN81-90
 MN82
 MN83
+MN84
+MN85
 Moggallāna
 Moggallāna's
 Moggallānabyākaraṇa
@@ -1707,6 +1711,7 @@ Sikhī
 sīla
 Silāyūpasuttaṃ
 Silāyūpasuttaṃ
+sīma
 Simsapa
 siṃsapāvane
 Sinapis
@@ -1754,6 +1759,7 @@ spontaneum
 spritzed
 Sri
 ssa
+stabilises
 step-by-step
 stick-less
 stinginess
@@ -1936,6 +1942,7 @@ ugghāṭeti
 Ujjenī
 Ujuññā
 ūkā
+Ukkala
 Ukkala
 Ukkaṭṭhā
 uṃ
@@ -2136,6 +2143,7 @@ vārita
 vas
 vassa
 Vassa
+Vassa
 Vassakāra
 Vasu's
 Vasudatta
@@ -2246,5 +2254,3 @@ yojanas
 yoking
 zizanioides
 Ziziphus
-MN84
-MN85

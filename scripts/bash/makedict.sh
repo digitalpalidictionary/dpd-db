@@ -11,7 +11,7 @@ scripts/config_uposatha_day.py
 scripts/bash/generate_components.sh
 
 exporter/grammar_dict/grammar_dict.py
-exporter/goldendict/export_gd_mdict.py
+exporter/goldendict/main.py
 exporter/deconstructor/deconstructor_exporter.py
 
 exporter/tpr/tpr_exporter.py

@@ -121,7 +121,7 @@ jobs:
       run: poetry run python exporter/grammar_dict/grammar_dict.py
     
     - name: Export GoldenDict & MDict
-      run: poetry run python exporter/goldendict/export_gd_mdict.py
+      run: poetry run python exporter/goldendict/main.py
 
     - name: Export Deconstructor
       run: poetry run python exporter/deconstructor/deconstructor_exporter.py

@@ -394,7 +394,7 @@ def _parse_item(i: DpdHeadwords, dicts: List[dict]) -> ParsedResult:
         map_html += str(template.render(d=d))
 
     else:
-        map_html += f"""<p class="heading">There are no exact matches of <b>{superscripter_uni(i.lemma_1)} or it's inflections</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
+        map_html += f"""<p class="heading">There are no exact matches of <b>{superscripter_uni(i.lemma_1)} or its inflections</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
 
     return ParsedResult(id=i.id, freq_html=map_html)
 

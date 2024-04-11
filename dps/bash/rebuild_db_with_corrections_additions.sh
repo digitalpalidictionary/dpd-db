@@ -28,7 +28,7 @@ dps/scripts/add_combined_view.py
 
 python -c "from gui.corrections_check_feedback import apply_all_suggestions; apply_all_suggestions()"
 
-# exporter/goldendict/export_gd_mdict.py
+# exporter/goldendict/main.py
 
 git checkout -- pyproject.toml
 

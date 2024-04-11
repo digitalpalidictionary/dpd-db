@@ -1,4 +1,8 @@
 word	pos	position	type	exceptions
+paṇḍita	any	first	kammadhāraya	paṇḍitatara, paṇḍitanimitta, paṇḍitabālalakkhaṇa, paṇḍitalakkhaṇa, paṇḍitavedanīya, paṇḍitavatthu
+apasādanā	any	last	chaṭṭhī	x
+apūti	any	first	kammadhāraya	
+pūti	any	first	kammadhāraya	pūtidehasaya
 sampanna	any	last	tatiyā	anākappasampanna
 aḍḍha	any	first	chaṭṭhī	aḍḍhakumbhūpama, aḍḍhakula, aḍḍhakosakāhāra, aḍḍhaṭṭhama, aḍḍhateyya, aḍḍhatelasa, aḍḍhamāsikaṃ, aḍḍhullikhita, aḍḍhaṭṭha, aḍḍharatanika
 ṭha	adj	last	sattamī	ekaṭṭha, kappaṭṭha, kūṭaṭṭha

@@ -19,7 +19,7 @@ echo "exporting RU DPD"
 
 exporter/grammar_dict/grammar_dict.py
 
-exporter/goldendict/export_gd_mdict.py
+exporter/goldendict/main.py
 
 exporter/deconstructor/deconstructor_exporter.py
 

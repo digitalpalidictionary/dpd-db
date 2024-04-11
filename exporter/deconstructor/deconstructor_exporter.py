@@ -1,16 +1,12 @@
 #!/usr/bin/env python3
 
-"""Export Deconstrutor To GoldenDict and MDict formats."""
+"""Export Deconstructor To GoldenDict and MDict formats."""
 
-import os
 import sys
 
-from pathlib import Path
 from typing import List, Dict, Union
 
-from css_html_js_minify import css_minify
 from mako.template import Template
-from minify_html import minify
 from rich import print
 from exporter.goldendict.helpers import TODAY
 
@@ -18,13 +14,12 @@ from db.get_db_session import get_db_session
 from db.models import Lookup
 
 from tools.configger import config_test
-from tools.goldendict_path import goldedict_path
 from tools.mdict_exporter import export_to_mdict
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.sandhi_contraction import make_sandhi_contraction_dict
-from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.tic_toc import tic, toc, bip, bop
+from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables, export_to_goldendict_pyglossary
 
 from exporter.ru_components.tools.paths_ru import RuPaths
 
@@ -59,10 +54,6 @@ def main():
             make_mdct: bool = True
         else:
             make_mdct: bool = False    
-        if config_test("goldendict", "copy_unzip", "yes"):
-            copy_unzip: bool = True
-        else:
-            copy_unzip: bool = False
 
         if config_test("exporter", "language", "ru"):
             lang = "ru"
@@ -73,25 +64,17 @@ def main():
             
         pth = ProjectPaths()
         rupth = RuPaths()
-        if lang == "en":
-            m = Metadata()
-        elif lang == "ru":
-            m = RuMetadata()
 
-        decon_data_list = make_decon_data_list(pth, rupth, lang)
+        data_list = make_decon_data_list(pth, rupth, lang)
 
         if lang == "en":
-            make_golden_dict(pth, decon_data_list, m)
-            if copy_unzip:
-                unzip_and_copy(pth)
+            make_goldendict_pyglossary(pth, data_list, lang)
             if make_mdct:
-                make_mdict(pth, decon_data_list, m)
+                make_mdict(pth, data_list, dict_info)
         elif lang == "ru":
-            make_golden_dict(rupth, decon_data_list, m)
-            if copy_unzip:
-                unzip_and_copy(rupth)
+            make_goldendict_pyglossary(pth, data_list, lang)
             if make_mdct:
-                make_mdict(rupth, decon_data_list, m)
+                make_mdict(rupth, data_list, dict_info)
 
     else:
         print("[green]disabled in config.ini")
@@ -109,12 +92,12 @@ def make_decon_data_list(pth: ProjectPaths, rupth: RuPaths, lang="en"):
     sandhi_contractions: dict = make_sandhi_contraction_dict(db_session)
     decon_data_list: list = []
 
-    with open(pth.deconstructor_css_path) as f:
-        decon_css = f.read()
-        decon_css = css_minify(decon_css)
+    # with open(pth.deconstructor_css_path) as f:
+    #     decon_css = f.read()
+    #     decon_css = css_minify(decon_css)
 
     header_templ = Template(filename=str(pth.header_deconstructor_templ_path))
-    decon_header = str(header_templ.render(css=decon_css, js=""))
+    decon_header = str(header_templ.render(css="", js=""))
 
     if lang == "en":
         decon_templ = Template(filename=str(pth.deconstructor_templ_path))
@@ -133,7 +116,7 @@ def make_decon_data_list(pth: ProjectPaths, rupth: RuPaths, lang="en"):
             today=TODAY))
 
         html_string += "</body></html>"
-        html_string = minify(html_string)
+        # html_string = minify(html_string)
 
         # make synonyms list
         synonyms = add_niggahitas([i.lookup_key], all=False)
@@ -145,51 +128,48 @@ def make_decon_data_list(pth: ProjectPaths, rupth: RuPaths, lang="en"):
             contractions = sandhi_contractions[i.lookup_key]["contractions"]
             synonyms.extend(contractions)
 
-        decon_data_list += [{
-            "word": i.lookup_key,
-            "definition_html": html_string,
-            "definition_plain": "",
-            "synonyms": synonyms}]
+        decon_data_list += [DictEntry(
+            word=i.lookup_key,
+            definition_html=html_string,
+            definition_plain="",
+            synonyms=synonyms
+        )]
 
         if counter % 50000 == 0:
             print(
-                f"{counter:>10,} / {decon_db_length:<10,} {i.lookup_key[:20]:<20} {bop():>10}")
+                f"{counter:>10,} / {decon_db_length:<10,} {i.lookup_key[:20]:<20}{bop():>10}")
             bip()
 
     return decon_data_list
 
 
-def make_golden_dict(pth: Union[ProjectPaths, RuPaths], decon_data_list, m: Union[Metadata, RuMetadata]):
-    """Export GoldenDict."""
-    print(f"[green]{'generating goldendict':<22}", end="")
-    zip_path = pth.deconstructor_zip_path
+def make_goldendict_pyglossary(
+    pth: ProjectPaths,
+    data_list: list[DictEntry],
+    lang: str
+) -> None:
+    
+    """Prepare data to export to GoldenDict using pyglossary."""
 
+    info = DictInfo(
+        bookname="DPD Deconstructor",
+        author="Bodhirasa",
+        description="<h3>DPD Deconstructor</h3>",
+        website="https://digitalpalidictionary.github.io/",
+        source_lang="pa",
+        target_lang="en"
+    )
+    if lang == "ru":
+        info.target_lang="ru"
 
-    ifo = ifo_from_opts({
-        "bookname": m.title,
-        "author": m.author,
-        "description": m.description,
-        "website": m.website
-        })
+    vars = DictVariables(
+        css_path=pth.deconstructor_css_path,
+        output_path=pth.share_dir,
+        dict_name="dpd-deconstructor",
+        icon_path=pth.icon_path
+    )
 
-    export_words_as_stardict_zip(decon_data_list, ifo, zip_path)
-
-    print(f"{len(decon_data_list):,}")
-
-
-def unzip_and_copy(pth: Union[ProjectPaths, RuPaths]):
-    """Unzip and copy GoldenDict to a local folder."""
-    local_goldendict_path: (Path |str) = goldedict_path()
-
-    if (
-        local_goldendict_path and 
-        local_goldendict_path.exists()
-        ):
-        print(f"[green]unzipping and copying to [blue]{local_goldendict_path}")
-        os.popen(
-            f'unzip -o {pth.deconstructor_zip_path} -d "{local_goldendict_path}"')
-    else:
-        print("[red]local GoldenDict directory not found")
+    export_to_goldendict_pyglossary(info, vars, data_list)
 
 
 def make_mdict(pth: Union[ProjectPaths, RuPaths], decon_data_list: List[Dict], m: Union[Metadata, RuMetadata]):

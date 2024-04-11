@@ -20,6 +20,8 @@ add khāditapubba
 
 
 SANDHI to TEST
+apāyasampāpakattā
+savaṃsavasena
 suvisuddhajjhānābhiññāparivāraṃ
 saccānuddayakāruññakhantisamannāgatā
 mārāpemahanti
@@ -36,6 +38,7 @@ iṭṭhāniṭṭhaviparītānubhavanalakkhaṇā
 iṭṭhāniṭṭha + viparītā + nu + bhavana + lakkhaṇā
 
 PALI
+
 sudhā 2 √dhe drink
 chaḍḍesi threw away got rid of
 kapotakassa pigeon

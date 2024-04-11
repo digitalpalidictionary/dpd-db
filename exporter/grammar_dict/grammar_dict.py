@@ -21,7 +21,7 @@ from db.models import Lookup
 
 from tools.configger import config_test
 from tools.deconstructed_words import make_words_in_deconstructions
-from tools.goldendict_path import goldedict_path
+from tools.goldendict_path import make_goldendict_path
 from tools.lookup_is_another_value import is_another_value
 from tools.mdict_exporter import export_to_mdict
 from tools.niggahitas import add_niggahitas
@@ -506,7 +506,7 @@ def unzip_and_copy_goldendict(_pth_):
     """Copy the GoldenDict file to a local folder defined in config.ini."""
     print(f"[green]{'unzipping and copying to GD folder':<40}", end="")
 
-    goldendict_path: (Path |str) = goldedict_path()
+    goldendict_path: (Path |str) = make_goldendict_path()
 
     if goldendict_path and goldendict_path.exists():
         try:

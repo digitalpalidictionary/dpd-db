@@ -11,7 +11,7 @@ from tools.configger import (
     config_read)
 
 
-def goldedict_path() -> Path:
+def make_goldendict_path() -> Path:
     """Add a Goldendict path if one doesn't exist,
     or return the path if it does."""
 
@@ -26,4 +26,4 @@ def goldedict_path() -> Path:
 
 
 if __name__ == "__main__":
-    print(Path(goldedict_path()))
+    print(Path(make_goldendict_path()))

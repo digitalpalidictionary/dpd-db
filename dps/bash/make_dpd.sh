@@ -13,7 +13,7 @@ dps/scripts/change_ebt_count.py
 
 exporter/grammar_dict/grammar_dict.py
 
-exporter/goldendict/export_gd_mdict.py
+exporter/goldendict/main.py
 exporter/deconstructor/deconstructor_exporter.py
 
 # exporter/tpr/tpr_exporter.py

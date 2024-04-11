@@ -79,6 +79,7 @@ class ProjectPaths:
         self.deconstructor_zip_path = base_dir / "exporter/share/dpd-deconstructor.zip"
         self.deconstructor_mdict_mdx_path = base_dir / "exporter/share/dpd-deconstructor-mdict.mdx"
         self.dpd_goldendict_zip_path = base_dir / "exporter/share/dpd-goldendict.zip"
+        self.dpd_goldendict_pyglossary_dir = base_dir / "exporter/share/dpd/"
         self.dpd_mdict_zip_path = base_dir / "exporter/share/dpd-mdict.zip"
         self.summary_md_path = base_dir / "exporter/share/summary.md"
 
