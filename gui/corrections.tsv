@@ -1332,12 +1332,62 @@ sot'<b>āpatti</b>phalaṃ varaṃ."	'
 30767	construction	tiriyaṃ + gama					missing				
 30767	meaning_1	going sideways; moving across; going horizontally					missing				
 30767	grammar	adj, comp					missing				
-18459	source_2	SN12.55	sutta_2	mahārukkhasuttaṃ	example_2	seyyathā'pi, bhikkhave, mahārukkho. tassa yāni c'eva mūlāni adhogamāni, yāni ca tiriyaṅ'gamāni, sabbāni tāni uddhaṃ <b>ojaṃ</b> abhiharanti.	missing		
-22329	meaning_1	hoe and basket; shovel and basket					missing		
-17094	derived_from						comp		
-17094	compound_type	dvanda	compound_construction	usīra ca nāḷi ca			missing		
-17094	family_compound	usīra nāḷa					missing		
-17094	source_1	SN12.55	sutta_1	mahārukkhasuttaṃ	example_1	so taṃ rukkhaṃ mūle chindeyya, mūlaṃ chinditvā palikhaṇeyya, palikhaṇitvā mūlāni uddhareyya antamaso <b>usīranāḷi</b>mattāni'pi.	missing		
-17094	construction	usīra + nāḷi					missing		
-17094	meaning_1	root and stalk					missing		
-17094	grammar	fem, comp					missing		
+18459	source_2	SN12.55	sutta_2	mahārukkhasuttaṃ	example_2	seyyathā'pi, bhikkhave, mahārukkho. tassa yāni c'eva mūlāni adhogamāni, yāni ca tiriyaṅ'gamāni, sabbāni tāni uddhaṃ <b>ojaṃ</b> abhiharanti.	missing				
+22329	meaning_1	hoe and basket; shovel and basket					missing				
+17094	derived_from						comp				
+17094	compound_type	dvanda	compound_construction	usīra ca nāḷi ca			missing				
+17094	family_compound	usīra nāḷa					missing				
+17094	source_1	SN12.55	sutta_1	mahārukkhasuttaṃ	example_1	so taṃ rukkhaṃ mūle chindeyya, mūlaṃ chinditvā palikhaṇeyya, palikhaṇitvā mūlāni uddhareyya antamaso <b>usīranāḷi</b>mattāni'pi.	missing				
+17094	construction	usīra + nāḷi					missing				
+17094	meaning_1	root and stalk					missing				
+17094	grammar	fem, comp					missing				
+12482	compound_type	tatiyā tappurisa	compound_construction	ārām<b>ena</b> + sampanna			missing				
+12482	sanskrit	ārāma + sampanna					missing				
+12482	source_1	SN12.65	sutta_1	nagarasuttaṃ	example_1	tam'anugacchanto addasaṃ purāṇaṃ nagaraṃ purāṇaṃ rājadhāniṃ pubbakehi manussehi ajjhāvuṭṭhaṃ <b>ārāmasampannaṃ</b> vanasampannaṃ pokkharaṇīsampannaṃ uddhāpavantaṃ ramaṇīyaṃ.	missing				
+66215	compound_type	tatiyā tappurisa	compound_construction	van<b>ena</b> + sampanna			missing				
+66215	sanskrit	vana + sampanna					missing				
+66215	source_1	SN12.65	sutta_1	nagarasuttaṃ	example_1	tam'anugacchanto addasaṃ purāṇaṃ nagaraṃ purāṇaṃ rājadhāniṃ pubbakehi manussehi ajjhāvuṭṭhaṃ ārāmasampannaṃ <b>vanasampannaṃ</b> pokkharaṇīsampannaṃ uddhāpavantaṃ ramaṇīyaṃ.	missing				
+47392	compound_type	tatiyā tappurisa	compound_construction	pokkharaṇ<b>iyā</b> + sampanna			missing				
+47392	sanskrit	puṣkariṇī + sampanna					missing				
+47392	source_1	SN12.65	sutta_1	nagarasuttaṃ	example_1	tam'anugacchanto addasaṃ purāṇaṃ nagaraṃ purāṇaṃ rājadhāniṃ pubbakehi manussehi ajjhāvuṭṭhaṃ ārāmasampannaṃ vanasampannaṃ <b>pokkharaṇīsampannaṃ</b> uddhāpavantaṃ ramaṇīyaṃ.	missing				
+15255	source_1	SN12.65	sutta_1	nagarasuttaṃ	example_1	tam'anugacchanto addasaṃ purāṇaṃ nagaraṃ purāṇaṃ rājadhāniṃ pubbakehi manussehi ajjhāvuṭṭhaṃ ārāmasampannaṃ vanasampannaṃ pokkharaṇīsampannaṃ <b>uddhāpavantaṃ</b> ramaṇīyaṃ.	missing				
+70102	sanskrit	vṛddhi + vaipulya + prāpta					missing		
+70102	compound_type	dutiyā tappurisa	compound_construction	vuddhivepull<b>aṃ</b> + patta			missing		
+70102	source_1	SN12.65	sutta_1	nagarasuttaṃ	example_1	tad'assa nagaraṃ aparena samayena iddhañ'c'eva phītañ'ca bāhujaññaṃ ākiṇṇamanussaṃ <b>vuddhivepullappattaṃ</b>.	missing		
+4378	source_1	SN12.65	sutta_1	nagarasuttaṃ	example_1	yagghe, bhante, jāneyyāsi, ahaṃ addasaṃ araññe pavane caramāno purāṇaṃ maggaṃ purāṇ'añjasaṃ pubbakehi manussehi anuyātaṃ tam<b>anugacchiṃ</b>.	missing		
+30013	sanskrit	tam + [anugam]					missing		
+30013	source_1	SN12.65	sutta_1	nagarasuttaṃ	example_1	yagghe, bhante, jāneyyāsi, ahaṃ addasaṃ araññe pavane caramāno purāṇaṃ maggaṃ purāṇ'añjasaṃ pubbakehi manussehi anuyātaṃ <b>tam'anugacchiṃ</b>.	missing		
+11337	source_2	SN12.65	sutta_2	nagarasuttaṃ	example_2	tad'abhiññā <b>ācikkhiṃ</b> bhikkhūnaṃ bhikkhunīnaṃ upāsakānaṃ upāsikānaṃ. ta'y'idaṃ, bhikkhave, brahmacariyaṃ iddhañ'c'eva phītañ'ca vitthārikaṃ bāhujaññaṃ puthubhūtaṃ yāva devamanussehi suppakāsitan'ti.	missing		
+64127	source_2	SN12.65	sutta_2	nagarasuttaṃ	example_2	ta'y'idaṃ, bhikkhave, brahmacariyaṃ iddhañ'c'eva phītañ'ca vitthārikaṃ bāhujaññaṃ puthubhūtaṃ yāva devamanussehi <b>suppakāsitan</b>'ti.	missing		
+15686	compound_type	pañcamī tappurisa	compound_construction	upadh<b>imhā</b> + jātika			missing		
+15686	sanskrit	upadhi + jātīya					missing		
+15686	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	idaṃ kho dukkhaṃ upadhinidānaṃ upadhisamudayaṃ <b>upadhijātikaṃ</b> upadhipabhavaṃ, upadhismiṃ sati jarāmaraṇaṃ hoti, upadhismiṃ asati jarāmaraṇaṃ na hotī'ti.	missing		
+15695	sanskrit	upadhi + prabhava					missing		
+15695	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	idaṃ kho dukkhaṃ upadhinidānaṃ upadhisamudayaṃ upadhijātikaṃ <b>upadhipabhavaṃ</b>, upadhismiṃ sati jarāmaraṇaṃ hoti, upadhismiṃ asati jarāmaraṇaṃ na hotī'ti.	missing		
+15690	sanskrit	upadhi + nirodha					missing		
+15690	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	so upadhiñca pajānāti upadhisamudayañ'ca pajānāti <b>upadhinirodhañ</b>'ca pajānāti yā ca upadhinirodhasāruppagāminī paṭipadā tañ'ca pajānāti.	missing		
+15691	sanskrit	upadhi + nirodha + sārūpya + gāmin					missing		
+15691	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	so upadhiñca pajānāti upadhisamudayañ'ca pajānāti upadhinirodhañ'ca pajānāti yā ca <b>upadhinirodhasāruppagāminī</b> paṭipadā tañ'ca pajānāti.	missing		
+65863	source_2	SN12.66	sutta_2	sammasasuttaṃ	example_2	te taṇhaṃ <b>vaḍḍhenti</b>. ye taṇhaṃ <b>vaḍḍhenti</b> te upadhiṃ <b>vaḍḍhenti</b>.	missing		
+27591	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	sace ākaṅkhasi piva. pivato hi kho taṃ <b>chādessati</b> vaṇṇena'pi gandhena'pi rasena'pi, pivitvā ca pana tatonidānaṃ maraṇaṃ vā nigacchasi maraṇamattaṃ vā dukkhan'ti.	different example		
+27591	meaning_1	(of food or drink) pleases; gives pleasure (to); is agreeable (to)					fit SN 12.66		
+27591	commentary	(MNa) <b>chādessatī</b>'ti tañ'hi halāhalavisaṃ yattha yattha pakkhittaṃ hoti, tassa tass'eva rasaṃ deti.					missing		
+6844	source_2	SN12.66	sutta_2	sammasasuttaṃ	example_2	so taṃ āpānīyakaṃsaṃ sahasā <b>appaṭisaṅkhā</b> piveyya, nappaṭinissajjeyya. so tatonidānaṃ maraṇaṃ vā nigaccheyya maraṇamattaṃ vā dukkhaṃ.	missing		
+6844	family_compound	paṭisaṅkhā					missing		
+39689	source_2	SN12.66	sutta_2	sammasasuttaṃ	example_2	ye ca kho keci, bhikkhave, atītam'addhānaṃ samaṇā vā brāhmaṇā vā yaṃ loke piyarūpaṃ sātarūpaṃ taṃ aniccato addakkhuṃ dukkhato addakkhuṃ anattato addakkhuṃ rogato addakkhuṃ bhayato addakkhuṃ, te taṇhaṃ <b>pajahiṃsu</b>. ye taṇhaṃ <b>pajahiṃsu</b> te upadhiṃ <b>pajahiṃsu</b>.	canonical example		
+39689	commentary	(ANa) <b>pajahiṃsū</b>'ti pajahanti.					missing		
+64367	compound_type	catutthī tappurisa	compound_construction	sur<b>āya</b> + pipāsita			missing		
+64367	sanskrit	surā + pipāsita + ā					missing		
+64367	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	atha kho, bhikkhave, tassa purisassa evam'assa, sakkā kho me ayaṃ <b>surāpipāsitā</b> pānīyena vā vinetuṃ dadhimaṇḍakena vā vinetuṃ bhaṭṭhaloṇikāya.	missing		
+68252	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	atha kho, bhikkhave, tassa purisassa evam'assa, sakkā kho me ayaṃ surāpipāsitā pānīyena vā <b>vinetuṃ</b> dadhimaṇḍakena vā <b>vinetuṃ</b> bhaṭṭhaloṇikāya.	missing		
+31861	sanskrit	dadhi + maṇḍa + ka					missing		
+31861	family_compound	dadhi maṇḍa					missing		
+31861	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	atha kho, bhikkhave, tassa purisassa evam'assa, sakkā kho me ayaṃ surāpipāsitā pānīyena vā vinetuṃ <b>dadhimaṇḍakena</b> vā vinetuṃ bhaṭṭhaloṇikāya.	missing		
+31861	construction	"dadhi + maṇḍa + ka
+dadhimaṇḍa + ka"					missing		
+31861	meaning_1	whey					missing		
+31861	grammar	nt, comp					missing		
+31861	commentary	(SNa) <b>dadhimaṇḍakenā</b>'ti dadhimaṇḍanamattena.					missing		
+49225	sanskrit	bhraṣṭā + lavaṇa + ā					missing		
+49225	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	atha kho, bhikkhave, tassa purisassa evam'assa, sakkā kho me ayaṃ surāpipāsitā pānīyena vā vinetuṃ dadhimaṇḍakena vā vinetuṃ <b>bhaṭṭhaloṇikāya</b>.	missing		
+49222	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	atha kho, bhikkhave, tassa purisassa evam'assa, sakkā kho me ayaṃ surāpipāsitā pānīyena vā vinetuṃ dadhimaṇḍakena vā vinetuṃ <b>bhaṭṭha</b>loṇikāya.	missing		

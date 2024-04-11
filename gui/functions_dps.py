@@ -1250,7 +1250,7 @@ def dps_update_db(
     db_session.commit()
 
     window["messages"].update(
-    f"'{values['dps_id_or_lemma_1']}' updated in db",
+    f"'{values['dps_id_or_lemma_1']}' updated in dps db",
     text_color="Lime")
     daily_record_update(window, pth, "edit", word_id)
     make_html(pth, [values["dps_lemma_1"]])
