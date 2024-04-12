@@ -53,7 +53,7 @@ from exporter.ru_components.tools.tools_for_ru_exporter import make_ru_meaning_h
 
 
 class DpdHeadwordsTemplates:
-    def __init__(self, paths, lang):
+    def __init__(self, paths: ProjectPaths, lang):
         self.paths = paths
         self.lang = lang
         self.header_templ = Template(filename=str(paths.header_templ_path))
@@ -71,7 +71,7 @@ class DpdHeadwordsTemplates:
         self.frequency_templ = Template(filename=str(paths.frequency_templ_path))
         self.feedback_templ = Template(filename=str(paths.feedback_templ_path))
 
-        # internal or extrenal css
+        # internal or external css
         if config_test("dictionary", "external_css", "yes"):
             self.dpd_css = ""
             self.button_js = ""

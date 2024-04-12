@@ -56,7 +56,8 @@ class RuPaths:
         # /exporter/ru_components/templates
         self.templates_dir = base_dir.joinpath(Path("exporter/ru_components/templates"))
         self.header_templ_path = base_dir.joinpath(Path("exporter/ru_components/templates/header_ru.html"))
-        self.dpd_definition_templ_path = base_dir.joinpath(Path("exporter/ru_components/templates/dpd_ru_defintion.html"))
+        self.header_plain_templ_path = base_dir.joinpath(Path("exporter/ru_components/templates/header_plain_ru.html"))
+        self.dpd_definition_templ_path = base_dir.joinpath(Path("exporter/ru_components/templates/dpd_ru_definition.html"))
         self.button_box_templ_path = base_dir.joinpath(Path("exporter/ru_components/templates/dpd_ru_button_box.html"))
         self.grammar_templ_path = base_dir.joinpath(Path("exporter/ru_components/templates/dpd_ru_grammar.html"))
         self.example_templ_path = base_dir.joinpath(Path("exporter/ru_components/templates/dpd_ru_example.html"))

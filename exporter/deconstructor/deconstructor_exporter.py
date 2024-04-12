@@ -4,10 +4,11 @@
 
 import sys
 
+from mako.template import Template
+from minify_html import minify
+from rich import print
 from typing import List, Dict, Union
 
-from mako.template import Template
-from rich import print
 from exporter.goldendict.helpers import TODAY
 
 from db.get_db_session import get_db_session
@@ -22,24 +23,10 @@ from tools.tic_toc import tic, toc, bip, bop
 from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables, export_to_goldendict_pyglossary
 
 from exporter.ru_components.tools.paths_ru import RuPaths
+from tools.utils import squash_whitespaces
 
 
 sys.path.insert(1, 'tools/writemdict')
-
-class Metadata:
-    """Metadata for Dictionary Info file."""
-    title: str = "DPD Deconstructor"
-    author: str = "Bodhirasa"
-    description: str = "<h3>DPD Deconstructor by Bodhirasa</h3><p>Automated compound deconstruction and sandhi-splitting of all words in <b>Chaṭṭha Saṅgāyana Tipitaka</b> and <b>Sutta Central</b> texts.</p><p>For more information please visit the <a href='https://digitalpalidictionary.github.io/deconstructor.html'>Deconstrutor page</a> on the <a href='https://digitalpalidictionary.github.io/'>DPD website</a>.</p>"
-    website: str = "https://digitalpalidictionary.github.io/"
-
-
-class RuMetadata:
-    """Russian Metadata for Dictionary Info file."""
-    title: str = "DPD Деконструктор"
-    author: str = "Дост. Бодхираса"
-    description: str = "<h3>DPD Деконструктор от Дост. Бодхирасы</h3><p>Автоматизированное разложение сложных слов и разделение сандхи для всех слов в текстах Типитаки <b>Chaṭṭha Saṅgāyana</b> и на <b>Sutta Central</b>.</p><p>Дополнительную информацию можно найти на странице <a href='https://digitalpalidictionary.github.io/rus/deconstructor.html'>Деконструктора</a> на сайте <a href='https://digitalpalidictionary.github.io/rus'>DPD</a>.</p>"
-    website: str = "https://digitalpalidictionary.github.io/rus"
 
 
 def main():
@@ -92,10 +79,6 @@ def make_decon_data_list(pth: ProjectPaths, rupth: RuPaths, lang="en"):
     sandhi_contractions: dict = make_sandhi_contraction_dict(db_session)
     decon_data_list: list = []
 
-    # with open(pth.deconstructor_css_path) as f:
-    #     decon_css = f.read()
-    #     decon_css = css_minify(decon_css)
-
     header_templ = Template(filename=str(pth.header_deconstructor_templ_path))
     decon_header = str(header_templ.render(css="", js=""))
 
@@ -108,7 +91,7 @@ def make_decon_data_list(pth: ProjectPaths, rupth: RuPaths, lang="en"):
     for counter, i in enumerate(decon_db):
         deconstructions = i.deconstructor_unpack
 
-        html_string: str = decon_header
+        html_string: str = ""
         html_string += "<body>"
         html_string += str(decon_templ.render(
             i=i,
@@ -116,7 +99,8 @@ def make_decon_data_list(pth: ProjectPaths, rupth: RuPaths, lang="en"):
             today=TODAY))
 
         html_string += "</body></html>"
-        # html_string = minify(html_string)
+        
+        html_string = squash_whitespaces(decon_header) + minify(html_string)
 
         # make synonyms list
         synonyms = add_niggahitas([i.lookup_key], all=False)
@@ -151,37 +135,41 @@ def make_goldendict_pyglossary(
     
     """Prepare data to export to GoldenDict using pyglossary."""
 
-    info = DictInfo(
+    dict_info = DictInfo(
         bookname="DPD Deconstructor",
         author="Bodhirasa",
-        description="<h3>DPD Deconstructor</h3>",
-        website="https://digitalpalidictionary.github.io/",
+        description="<h3>DPD Deconstructor by Bodhirasa</h3><p>Automated compound deconstruction and sandhi-splitting of all words in <b>Chaṭṭha Saṅgāyana Tipitaka</b> and <b>Sutta Central</b> texts.</p><p>For more information please visit the <a href='https://digitalpalidictionary.github.io/deconstructor.html'>Deconstrutor page</a> on the <a href='https://digitalpalidictionary.github.io/'>DPD website</a>.</p>",
+        website="https://digitalpalidictionary.github.io/deconstructor/",
         source_lang="pa",
         target_lang="en"
     )
     if lang == "ru":
-        info.target_lang="ru"
+        dict_info.bookname = "DPD Деконструктор"
+        dict_info.author = "Дост. Бодхираса"
+        dict_info.description = "<h3>DPD Деконструктор от Дост. Бодхирасы</h3><p>Автоматизированное разложение сложных слов и разделение сандхи для всех слов в текстах Типитаки <b>Chaṭṭha Saṅgāyana</b> и на <b>Sutta Central</b>.</p><p>Дополнительную информацию можно найти на странице <a href='https://digitalpalidictionary.github.io/rus/deconstructor.html'>Деконструктора</a> на сайте <a href='https://digitalpalidictionary.github.io/rus'>DPD</a>.</p>"
+        dict_info.website = "https://digitalpalidictionary.github.io/rus"
+        dict_info.target_lang = "ru"
 
-    vars = DictVariables(
+    dict_vars = DictVariables(
         css_path=pth.deconstructor_css_path,
         output_path=pth.share_dir,
         dict_name="dpd-deconstructor",
         icon_path=pth.icon_path
     )
 
-    export_to_goldendict_pyglossary(info, vars, data_list)
+    export_to_goldendict_pyglossary(dict_info, dict_vars, data_list)
 
 
-def make_mdict(pth: Union[ProjectPaths, RuPaths], decon_data_list: List[Dict], m: Union[Metadata, RuMetadata]):
-    """Export MDict."""
+# def make_mdict(pth: Union[ProjectPaths, RuPaths], decon_data_list: List[Dict], m: Union[Metadata, RuMetadata]):
+#     """Export MDict."""
 
-    print(f"[green]{'exporting mdct':<22}")
+#     print(f"[green]{'exporting mdct':<22}")
 
-    export_to_mdict(
-        decon_data_list,
-        str(pth.deconstructor_mdict_mdx_path),
-        m.title,
-        m.description)
+#     export_to_mdict(
+#         decon_data_list,
+#         str(pth.deconstructor_mdict_mdx_path),
+#         m.title,
+#         m.description)
 
 
 if __name__ == "__main__":

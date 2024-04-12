@@ -2,7 +2,6 @@
 
 import csv
 
-from css_html_js_minify import css_minify
 from mako.template import Template
 from minify_html import minify
 from rich import print
@@ -13,7 +12,7 @@ from export_dpd import render_header_templ
 from exporter.ru_components.tools.paths_ru import RuPaths
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
-from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, sum_rendered_sizes
+from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, squash_whitespaces, sum_rendered_sizes
 
 
 def generate_variant_spelling_html(
@@ -28,7 +27,7 @@ def generate_variant_spelling_html(
 
     rendered_sizes = []
 
-    header_templ = Template(filename=str(pth.header_templ_path))
+    header_templ = Template(filename=str(pth.header_plain_templ_path))
     variant_dict = test_and_make_variant_dict(pth)
     spelling_dict = test_and_make_spelling_dict(pth)
 
@@ -88,21 +87,18 @@ def generate_variant_data_list(
             filename=str(rupth.variant_templ_path))
     # add here another language elif ...
 
-    with open(pth.variant_spelling_css_path) as f:
-        variant_css = f.read()
-    variant_css = css_minify(variant_css)
-
-    header = render_header_templ(pth, css=variant_css, js="", header_templ=header_templ)
+    header = render_header_templ(pth, css="", js="", header_templ=header_templ)
 
     variant_data_list: List[RenderResult] = []
 
     for __counter__, (variant, main) in enumerate(variant_dict.items()):
 
-        html = header
+        html = ""
         html += "<body>"
         html += render_variant_templ(main, variant_templ)
         html += "</body></html>"
-        html = minify(html)
+
+        squash_whitespaces
 
         size_dict["variant_readings"] += len(html)
         synonyms = add_niggahitas([variant])
@@ -175,21 +171,18 @@ def generate_spelling_data_list(
             filename=str(rupth.spelling_templ_path))
     # add here another language elif ...
 
-    with open(pth.variant_spelling_css_path) as f:
-        spelling_css = f.read()
-    spelling_css = css_minify(spelling_css)
-
-    header = render_header_templ(pth, css=spelling_css, js="", header_templ=header_templ)
+    header = render_header_templ(pth, css="", js="", header_templ=header_templ)
 
     spelling_data_list: List[RenderResult] = []
 
     for __counter__, (mistake, correction) in enumerate(spelling_dict.items()):
 
-        html = header
+        html = ""
         html += "<body>"
         html += render_spelling_templ(correction, spelling_templ)
         html += "</body></html>"
-        html = minify(html)
+
+        html = squash_whitespaces(header) + minify(html)
 
         size_dict["spelling_mistakes"] += len(html)
         synonyms = add_niggahitas([mistake])

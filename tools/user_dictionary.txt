@@ -484,6 +484,7 @@ denominativ
 denominative
 dento-labial
 deodar
+depopulated
 deprecation
 derides
 desiderative
@@ -1202,6 +1203,7 @@ MN82
 MN83
 MN84
 MN85
+MN86
 Moggallāna
 Moggallāna's
 Moggallānabyākaraṇa

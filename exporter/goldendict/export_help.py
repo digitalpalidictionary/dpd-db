@@ -3,7 +3,6 @@
 import csv
 import html2text
 
-from css_html_js_minify import css_minify
 from mako.template import Template
 from minify_html import minify
 from rich import print
@@ -18,7 +17,7 @@ from exporter.ru_components.tools.paths_ru import RuPaths
 from tools.tic_toc import bip, bop
 from tools.tsv_read_write import read_tsv_dict
 from tools.tsv_read_write import read_tsv_dot_dict
-from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes
+from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, squash_whitespaces
 
 
 class Abbreviation:
@@ -67,13 +66,9 @@ def generate_help_html(
     # 3. thank yous
     # 4. bibliography
 
-    with open(pth.help_css_path) as f:
-        css = f.read()
-    css = css_minify(css)
-
-    header_templ = Template(filename=str(pth.header_templ_path))
+    header_templ = Template(filename=str(pth.header_plain_templ_path))
     header = render_header_templ(
-        pth, css=css, js="", header_templ=header_templ)
+        pth, css="", js="", header_templ=header_templ)
 
     help_data_list: List[RenderResult] = []
 
@@ -132,12 +127,12 @@ def add_abbrev_html(
     items = list(map(_csv_row_to_abbreviations, rows))
 
     for i in items:
-        html = header
+        html = ""
         html += "<body>"
         html += render_abbrev_templ(pth, i, rupth, lang, dps_data)
         html += "</body></html>"
 
-        html = minify(html)
+        html = squash_whitespaces(header) + minify(html)
 
         if lang == "en":
             word = i.abbrev
@@ -194,12 +189,12 @@ def add_help_html(
     items = list(map(_csv_row_to_help, rows))
 
     for i in items:
-        html = header
+        html = ""
         html += "<body>"
         html += render_help_templ(pth, i, rupth, lang, dps_data)
         html += "</body></html>"
 
-        html = minify(html)
+        html = squash_whitespaces(header) + minify(html)
 
         if lang == "en":
             word = i.help
@@ -231,7 +226,7 @@ def add_bibliographhy(
     file_path = pth.bibliography_tsv_path
     bibliography_dict = read_tsv_dot_dict(file_path)
 
-    html = header
+    html = ""
     html += "<body>"
     html += "<div class='help'>"
     html += "<h2>Bibliography</h1>"
@@ -268,7 +263,8 @@ def add_bibliographhy(
             html += "</ul>"
 
     html += "</div></body></html>"
-    html = minify(html)
+
+    html = squash_whitespaces(header) + minify(html)
 
     synonyms = ["dpd bibliography", "bibliography", "bib"]
 
@@ -304,7 +300,7 @@ def add_thanks(
     file_path = pth.thanks_tsv_path
     thanks = read_tsv_dot_dict(file_path)
 
-    html = header
+    html = ""
     html += "<body>"
     html += "<div class='help'>"
 
@@ -333,7 +329,8 @@ def add_thanks(
             html += "</ul>"
 
     html += "</div></body></html>"
-    html = minify(html)
+
+    html = squash_whitespaces(header) + minify(html)
 
     synonyms = ["dpd thanks", "thankyou", "thanks", "anumodana"]
 

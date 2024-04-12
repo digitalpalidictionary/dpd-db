@@ -140,10 +140,6 @@ table.family b {
     font-weight: 700;
 }
 
-input {
-    display: none;
-}
-
 div.button-box {
     font-size: 0px;
     margin: 2px 0px 3px 0px;
@@ -292,4 +288,229 @@ td.gr10 {
     background-color: #00008f;
     border-color: #00008f;
     color: #fff;
+}
+
+/* variant */
+
+div.variant {
+    border: 2px solid #ff0055;
+    border-radius: 7px;
+    line-height: 150%;
+    margin: 0px 0px;
+    overflow: auto;
+    padding: 3px 7px;
+    text-align: left;
+}
+
+p.variant {
+    line-height: 150%;
+    margin: 2px 0px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+/* help */
+
+
+div.help {
+    border: 2px solid #0ab33d;
+    border-radius: 7px;
+    line-height: 150%;
+    margin: 0px 0px;
+    overflow: auto;
+    padding: 3px 5px;
+    text-align: left;
+}
+
+
+table.help {
+    border: none;
+    width: 100%;
+}
+
+table.help td,
+table.help th {
+    line-height: 150%;
+    padding: 0px 5px 0px 0px;
+    text-align: left;
+    vertical-align: top;
+}
+
+table.help th {
+    color: #0ab33d;
+    font-weight: 700;
+}
+
+table.help b {
+    font-weight: 700;
+}
+
+/* roots */
+
+div.root_content {
+    border: 2px solid #AB3C00;
+    border-radius: 7px;
+    line-height: 150%;
+    margin: 0px 0px;
+    overflow: auto;
+    padding: 3px 7px;
+    text-align: left;
+}
+
+
+
+.root_underlined {
+    border-bottom: 1px solid #AB3C00;
+    margin-bottom: 5px;
+}
+
+.root_overlined {
+    border-top: 1px solid #AB3C00;
+    margin-top: 5px;
+}
+
+p.root_heading b {
+    font-weight: 700;
+    color: inherit;
+}
+
+p.root_footer {
+    border-top: 1px solid #AB3C00;
+    font-size: 0.8em;
+    padding: 5px 0px;
+}
+
+
+table.root_info {
+    border: none;
+}
+
+table.root_info td,
+table.root_info th {
+    text-align: left;
+    vertical-align: top;
+    padding: 0px 0px;
+}
+
+table.root_info th {
+    color: #AB3C00;
+    font-weight: 700;
+    white-space: normal;
+    padding: 0px 5px 2px 0px 
+}
+
+table.root_info b {
+    font-weight: 700;
+}
+
+table.root_family td,
+table.root_family th {
+    text-align: left;
+    vertical-align: top;
+}
+
+table.root_family th {
+    color: #AB3C00;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+table.root_family b {
+    font-weight: 700;
+}
+
+div.root_button_box {
+    font-size: 0px;
+    margin: 2px 0px 3px 0px;
+}
+
+a.root_button {
+    background-color: #F95700;
+    border-radius: 7px;
+    box-shadow: 0 4px 4px -2px #888888;
+    color: #000;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 400;
+    margin: 0px 1px 2px 0px;
+    padding: 3px 5px;
+    text-decoration: none;
+    user-select: none;
+}
+
+a.root_button.close {
+    float: right;
+    margin: 10px;
+}
+
+a.root_button.active {
+    background-color: #AB3C00;
+    color: black;
+    user-select: none;
+}
+
+a.root_button:hover {
+    background-color: #AB3C00;
+    color: white;
+    user-select: none;
+}
+
+.root_link {
+    color: #AB3C00;
+    font-weight: 700;
+}
+
+table.root_matrix {
+    width: 100%;
+}
+
+table.root_matrix th,
+table.root_matrix td {
+    border-radius: 5px;
+    line-height: 150%;
+    vertical-align: top;
+    padding: 5px 5px;
+    overflow: auto;
+}
+
+table.root_matrix th {
+    border: 1px solid #AB3C00;
+    color: #F95700;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+}
+
+table.root_matrix td {
+    border: 1px solid gray;
+    text-align: left;
+}
+
+table.root_matrix td b {
+    color: #AB3C00;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+span.colour {
+    color: #AB3C00;
+    font-weight: 700;
+}
+
+/* epd */
+
+div.epd {
+    border: 2px solid #8B008B;
+    border-radius: 7px;
+    line-height: 150%;
+    margin: 0px 0px;
+    overflow: auto;
+    padding: 3px 7px;
+    text-align: left;
+}
+
+b.epd {
+    color:#8B008B;
+    font-weight: 700;
 }

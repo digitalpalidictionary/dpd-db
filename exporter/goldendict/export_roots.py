@@ -2,7 +2,6 @@
 
 import re
 
-from css_html_js_minify import css_minify, js_minify
 from mako.template import Template
 from minify_html import minify
 from rich import print
@@ -19,7 +18,7 @@ from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
-from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes
+from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, squash_whitespaces
 
 
 def generate_root_html(
@@ -38,18 +37,10 @@ def generate_root_html(
 
     root_data_list: List[RenderResult] = []
 
-    with open(pth.roots_css_path) as f:
-        roots_css = f.read()
-    roots_css = css_minify(roots_css)
-
-    with open(pth.buttons_js_path) as f:
-        buttons_js = f.read()
-    buttons_js = js_minify(buttons_js)
-
     header_templ = Template(filename=str(pth.header_templ_path))
 
     header = render_header_templ(
-        pth, css=roots_css, js=buttons_js, header_templ=header_templ)
+        pth, css="", js="", header_templ=header_templ)
 
     roots_db = db_session.query(DpdRoots).all()
     root_db_length = len(roots_db)
@@ -66,7 +57,7 @@ def generate_root_html(
         if r.panini_english:
             r.panini_english = r.panini_english.replace("\n", "<br>")
 
-        html = header
+        html = ""
         html += "<body>"
 
         definition = render_root_definition_templ(pth, r, roots_count_dict, rupth, lang, dps_data)
@@ -90,8 +81,8 @@ def generate_root_html(
         size_dict["root_families"] += len(root_families)
 
         html += "</body></html>"
-
-        html = minify(html)
+        
+        html = squash_whitespaces(header) + minify(html)
 
         synonyms: set = set()
         synonyms.add(r.root_clean)

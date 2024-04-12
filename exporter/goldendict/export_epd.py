@@ -2,7 +2,6 @@
 
 import re
 
-from css_html_js_minify import css_minify
 from mako.template import Template
 from minify_html import minify
 from rich import print
@@ -16,7 +15,7 @@ from db.models import DpdHeadwords, DpdRoots
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
-from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes
+from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, squash_whitespaces
 
 from exporter.ru_components.tools.tools_for_ru_exporter import ru_replace_abbreviations
 
@@ -50,14 +49,9 @@ def generate_epd_html(
     epd: dict = {}
     pos_exclude_list = ["abbrev", "cs", "letter", "root", "suffix", "ve"]
 
-    with open(pth.epd_css_path) as f:
-        epd_css: str = f.read()
-
-    epd_css = css_minify(epd_css)
-
-    header_templ = Template(filename=str(pth.header_templ_path))
+    header_templ = Template(filename=str(pth.header_plain_templ_path))
     header = render_header_templ(
-        pth, css=epd_css, js="", header_templ=header_templ)
+        pth, css="", js="", header_templ=header_templ)
 
     bip()
     for counter, i in enumerate(dpd_db):
@@ -199,15 +193,15 @@ def generate_epd_html(
     epd_data_list: List[RenderResult] = []
 
     for counter, (word, html_string) in enumerate(epd.items()):
-        html = header
-        size_dict["epd_header"] += len(header)
-
+        html = ""
         html += "<body>"
         html += f"<div class ='epd'><p>{html_string}</p></div>"
         html += "</body></html>"
-        size_dict["epd"] += len(html) - len(header)
-
-        html = minify(html)
+        
+        size_dict["epd"] += len(html)
+        size_dict["epd_header"] += len(squash_whitespaces(header))
+        
+        html = squash_whitespaces(header) + minify(html)
 
         res = RenderResult(
             word = word,

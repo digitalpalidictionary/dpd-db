@@ -112,33 +112,21 @@ def main():
         db_session, pth, rupth, sandhi_contractions, cf_set, idioms_set, make_link, dps_data, lang, data_limit)
     rendered_sizes.append(sizes)
 
-    if data_limit == 0:
-        time_log.log("generate_root_html()")
-        root_data_list, sizes = generate_root_html(db_session, pth, roots_count_dict, rupth, lang, dps_data)
-        rendered_sizes.append(sizes)
-    else:
-        root_data_list = []
+    time_log.log("generate_root_html()")
+    root_data_list, sizes = generate_root_html(db_session, pth, roots_count_dict, rupth, lang, dps_data)
+    rendered_sizes.append(sizes)
 
-    if data_limit == 0:
-        time_log.log("generate_variant_spelling_html()")
-        variant_spelling_data_list, sizes = generate_variant_spelling_html(pth, rupth, lang)
-        rendered_sizes.append(sizes)
-    else:
-        variant_spelling_data_list = []
+    time_log.log("generate_variant_spelling_html()")
+    variant_spelling_data_list, sizes = generate_variant_spelling_html(pth, rupth, lang)
+    rendered_sizes.append(sizes)
 
-    if data_limit == 0:
-        time_log.log("generate_epd_html()")
-        epd_data_list, sizes = generate_epd_html(db_session, pth, make_link, dps_data, lang)
-        rendered_sizes.append(sizes)
-    else:
-        epd_data_list = []
+    time_log.log("generate_epd_html()")
+    epd_data_list, sizes = generate_epd_html(db_session, pth, make_link, dps_data, lang)
+    rendered_sizes.append(sizes)
     
-    if data_limit == 0:
-        time_log.log("generate_help_html()")
-        help_data_list, sizes = generate_help_html(db_session, pth, rupth, lang, dps_data)
-        rendered_sizes.append(sizes)
-    else:
-        help_data_list = []
+    time_log.log("generate_help_html()")
+    help_data_list, sizes = generate_help_html(db_session, pth, rupth, lang, dps_data)
+    rendered_sizes.append(sizes)
 
     db_session.close()
 
@@ -236,7 +224,7 @@ def export_to_goldendict_simsapa(
     # add external css
     if external_css is True:
         with zipfile.ZipFile(_pth_.dpd_zip_path, "a") as zipf:
-            zipf.write(_pth_.dpd_css_path, "dpd/res/common.css")
+            zipf.write(_pth_.dpd_css_path, "dpd/res/dpd.css")
             zipf.write(_pth_.buttons_js_path, "dpd/res/button.js")
 
     print(f"{bop():>29}")
