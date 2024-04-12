@@ -34,7 +34,7 @@ db/lookup/help_abbrev_add_to_lookup.py
 
 db/frequency/mapmaker.py
 
-db/bold_defintions/update_bold_defintions_db.py
+db/bold_definitions/update_bold_definitions_db.py
 
 scripts/dealbreakers.py
 status=$?

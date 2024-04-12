@@ -21,7 +21,7 @@ from functions_db import make_all_inflections_set
 from functions_db import values_to_pali_word
 
 from tools.addition_class import Addition
-from tools.bold_definitions_search import search_bold_defintions
+from tools.bold_definitions_search import search_bold_definitions
 from tools.configger import config_test_option
 from tools.configger import config_update
 from tools.configger import config_test
@@ -488,7 +488,7 @@ def clear_values(values, window, username):
     window["search_for"].update("")
 
 
-def find_commentary_defintions(sg, values, db_session):
+def find_commentary_definitions(sg, values, db_session):
 
     config = load_gui_config()
 
@@ -499,7 +499,7 @@ def find_commentary_defintions(sg, values, db_session):
     window_width = int(screen_width * config["screen_fraction_width"])
     window_height = int(screen_height * config["screen_fraction_height"])
     
-    search_results = search_bold_defintions(
+    search_results = search_bold_definitions(
         db_session, values["search_for"], values["contains"])
 
     layout_elements = []
@@ -568,7 +568,7 @@ def find_commentary_defintions(sg, values, db_session):
     ]
 
     window = sg.Window(
-        "Find Commentary Defintions",
+        "Find Commentary Definitions",
         layout,
         resizable=True,
         size=(window_width, window_height),

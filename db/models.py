@@ -1081,8 +1081,8 @@ class Russian(Base):
         return f"Russian: {self.id} {self.ru_meaning}"
 
 
-class BoldDefintion(Base):
-    __tablename__ = "bold_defintions"
+class BoldDefinition(Base):
+    __tablename__ = "bold_definitions"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     file_name: Mapped[str] = mapped_column(default='')
@@ -1095,7 +1095,7 @@ class BoldDefintion(Base):
     bold_end: Mapped[str] = mapped_column(default='')
     commentary: Mapped[str] = mapped_column(default='')
 
-    def update_bold_defintion(
+    def update_bold_definition(
         self, file_name, ref_code, nikaya, book, title, subhead,
 			bold, bold_end, commentary):
         self.file_name = file_name

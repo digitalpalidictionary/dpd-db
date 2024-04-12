@@ -4,7 +4,7 @@
 
 from rich import print
 from db.get_db_session import get_db_session
-from db.models import BoldDefintion
+from db.models import BoldDefinition
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 from tools.tsv_read_write import read_tsv_dot_dict
@@ -12,19 +12,19 @@ from tools.tsv_read_write import read_tsv_dot_dict
 
 def main():
     tic()
-    print("[bright_yellow]adding bold defintions to db")
+    print("[bright_yellow]adding bold definitions to db")
     pth = ProjectPaths()
 
     print("[green]reading tsv", end=" ")
-    bold_defintions = read_tsv_dot_dict(pth.bold_defintions_tsv_path)
+    bold_definitions = read_tsv_dot_dict(pth.bold_definitions_tsv_path)
     print("ok")
 
     print("[green]processing tsv")
     db_session = get_db_session(pth.dpd_db_path)
     add_to_db = []
-    for count, i in enumerate(bold_defintions):
-        bd = BoldDefintion()
-        bd.update_bold_defintion(
+    for count, i in enumerate(bold_definitions):
+        bd = BoldDefinition()
+        bd.update_bold_definition(
             i.file_name,
             i.ref_code,
             i.nikaya,
@@ -38,10 +38,10 @@ def main():
         add_to_db.append(bd)
 
         if count % 50000 == 0:
-            print(f"{count:>8} / {len(bold_defintions):<8}{i.bold}")
+            print(f"{count:>8} / {len(bold_definitions):<8}{i.bold}")
     
     print("[green]adding to db", end=" ")
-    db_session.execute(BoldDefintion.__table__.delete()) # type: ignore
+    db_session.execute(BoldDefinition.__table__.delete()) # type: ignore
     db_session.add_all(add_to_db)
     db_session.commit()
     db_session.close()

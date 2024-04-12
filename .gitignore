@@ -9,8 +9,8 @@ __pycache__/
 *~lock.*
 anki_csvs/
 config.ini
-db/bold_defintions/bold_defintions.json
-db/bold_defintions/bold_defintions.tsv
+db/bold_definitions/bold_definitions.json
+db/bold_definitions/bold_definitions.tsv
 db/deconstructor/assets/
 db/deconstructor/do_output.zip
 db/deconstructor/output_do_old/

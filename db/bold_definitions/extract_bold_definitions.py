@@ -6,16 +6,16 @@ import re
 from bs4 import BeautifulSoup
 from rich import print
 
-from db.models import BoldDefintion
+from db.models import BoldDefinition
 from db.get_db_session import get_db_session
 
-from db.bold_defintions.functions import useless_endings
-from db.bold_defintions.functions import file_list
-from db.bold_defintions.functions import defintion_to_dict
-from db.bold_defintions.functions import dissolve_empty_siblings
-from db.bold_defintions.functions import get_nikaya_headings_div
-from db.bold_defintions.functions import get_headings_no_div
-from db.bold_defintions.functions import get_bold_strings
+from db.bold_definitions.functions import useless_endings
+from db.bold_definitions.functions import file_list
+from db.bold_definitions.functions import definition_to_dict
+from db.bold_definitions.functions import dissolve_empty_siblings
+from db.bold_definitions.functions import get_nikaya_headings_div
+from db.bold_definitions.functions import get_headings_no_div
+from db.bold_definitions.functions import get_bold_strings
 
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
@@ -24,12 +24,12 @@ from tools.tsv_read_write import write_tsv_dot_dict
 
 def main():
     tic()
-    print("[bright_yellow]building database of bolded defintions")
+    print("[bright_yellow]building database of bolded definitions")
     
     pth = ProjectPaths()
-    bold_defintions = extract_bold_definitions(pth)
-    update_db(pth, bold_defintions)
-    export_json(pth, bold_defintions)
+    bold_definitions = extract_bold_definitions(pth)
+    update_db(pth, bold_definitions)
+    export_json(pth, bold_definitions)
     toc()
 
 
@@ -122,7 +122,7 @@ def extract_bold_definitions(pth):
                                 no_meaning_count += 1
                                 continue
                             else:
-                                bold_definitions_list += [defintion_to_dict(
+                                bold_definitions_list += [definition_to_dict(
                                     file_name, ref_code, nikaya, book, 
                                     title, subhead, bold, bold_e, 
                                     bold_comp)]
@@ -158,7 +158,7 @@ def extract_bold_definitions(pth):
                             no_meaning_count += 1
                             continue
                         else:
-                            bold_definitions_list += [defintion_to_dict(
+                            bold_definitions_list += [definition_to_dict(
                                     file_name, ref_code, nikaya, book, 
                                     title, subhead, bold, bold_e, 
                                     bold_comp)]
@@ -174,29 +174,29 @@ def extract_bold_definitions(pth):
     return bold_definitions_list
 
 
-def export_json(pth, bold_defintions_list):
+def export_json(pth, bold_definitions_list):
     """convert to tsv and json for rebuilding the db and external use."""
 
-    file_path = pth.bold_defintions_tsv_path
-    write_tsv_dot_dict(file_path, bold_defintions_list)
+    file_path = pth.bold_definitions_tsv_path
+    write_tsv_dot_dict(file_path, bold_definitions_list)
 
-    file_path = pth.bold_defintions_json_path
+    file_path = pth.bold_definitions_json_path
     with open(file_path, "w") as file:
-        json.dump(bold_defintions_list, file)
+        json.dump(bold_definitions_list, file)
 
     print("[white]ok")
 
 
-def update_db(pth, bold_defintions):
-    """Add bold defintions to dpd.db."""
+def update_db(pth, bold_definitions):
+    """Add bold definitions to dpd.db."""
 
-    print("[green]adding defintions to db")
+    print("[green]adding definitions to db")
     db_session = get_db_session(pth.dpd_db_path)
     add_to_db = []
 
-    for i in bold_defintions:
-        bd = BoldDefintion()
-        bd.update_bold_defintion(
+    for i in bold_definitions:
+        bd = BoldDefinition()
+        bd.update_bold_definition(
             i["file_name"],
             i["ref_code"],
             i["nikaya"],
@@ -209,7 +209,7 @@ def update_db(pth, bold_defintions):
         
         add_to_db.append(bd)
     
-    db_session.execute(BoldDefintion.__table__.delete()) # type: ignore
+    db_session.execute(BoldDefinition.__table__.delete()) # type: ignore
     db_session.add_all(add_to_db)
     db_session.commit()
 

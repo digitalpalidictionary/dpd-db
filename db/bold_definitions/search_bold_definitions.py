@@ -1,34 +1,34 @@
 #!/usr/bin/env python3
 
-"""Search bold_defintions using vanilla find or regex."""
+"""Search bold_definitions using vanilla find or regex."""
 
 import re
 
 from rich import print
 
 from db.get_db_session import get_db_session
-from db.models import BoldDefintion
+from db.models import BoldDefinition
 from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
 
 
 def main():
     bip()
-    print("[bright_yellow]searching bold defintions")
-    bold_defintions_db = fetch_db()
-    request_search_terms(bold_defintions_db)
+    print("[bright_yellow]searching bold definitions")
+    bold_definitions_db = fetch_db()
+    request_search_terms(bold_definitions_db)
 
 
 def fetch_db():
     print("[green]fetching db results", end=" ")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(BoldDefintion).all()
+    db = db_session.query(BoldDefinition).all()
     print(bop())
     return db
     
 def request_search_terms(db):
-    print("[light_green]search for the defintion of:[yellow]", end=" ")
+    print("[light_green]search for the definition of:[yellow]", end=" ")
     search1 = input()
     print("[light_green]containing:[yellow]", end=" ")
     search2 = input()

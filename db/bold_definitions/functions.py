@@ -3,7 +3,7 @@ import re
 from typing import Dict
 
 
-def defintion_to_dict(
+def definition_to_dict(
 		file_name, ref_code, nikaya, book, title, subhead,
 			bold, bold_end, commentary) -> Dict[str, str]:
 		dict = {

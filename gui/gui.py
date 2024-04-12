@@ -44,7 +44,7 @@ from functions import open_sandhi_exceptions
 from functions import open_sandhi_ok
 from functions import open_inflection_tables
 from functions import find_sutta_example
-from functions import find_commentary_defintions
+from functions import find_commentary_definitions
 from functions import check_spelling
 from functions import add_spelling
 from functions import edit_spelling
@@ -869,19 +869,19 @@ def main():
 
         elif (
             event == "search_for_enter" or
-            event == "defintions_search_button"
+            event == "definitions_search_button"
         ):
-            commentary_defintions = None
+            commentary_definitions = None
             try:
-                commentary_defintions = find_commentary_defintions(
+                commentary_definitions = find_commentary_definitions(
                     sg, values, db_session)
             except NameError as e:
                 window["messages"].update(
                     value=f"turn on the definitions db! {e}", text_color="red")
 
-            if commentary_defintions:
+            if commentary_definitions:
                 commentary = ""
-                for c in commentary_defintions:
+                for c in commentary_definitions:
                     commentary += f"({c.ref_code}) {c.commentary}\n"
                 commentary = commentary.rstrip("\n")
                 window["commentary"].update(value=commentary)

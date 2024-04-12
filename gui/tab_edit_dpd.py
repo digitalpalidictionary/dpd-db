@@ -455,7 +455,7 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 "", key="contains", size=(17, 1),
                 tooltip="Search for not BOLD words in commentaries"),
             sg.Button(
-                "Search", key="defintions_search_button", font=(None, 13)),
+                "Search", key="definitions_search_button", font=(None, 13)),
             sg.Button(
                 "Clean", key="commentary_clean", font=(None, 13)),
             sg.Text(

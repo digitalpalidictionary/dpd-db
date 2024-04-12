@@ -24,8 +24,8 @@ class ProjectPaths:
         self.ru_root_path = base_dir / "db/backup_tsv/ru_roots.tsv"
 
         # db/bold_definitions
-        self.bold_defintions_tsv_path = base_dir / "db/bold_defintions/bold_defintions.tsv"
-        self.bold_defintions_json_path = base_dir / "db/bold_defintions/bold_defintions.json"
+        self.bold_definitions_tsv_path = base_dir / "db/bold_definitions/bold_definitions.tsv"
+        self.bold_definitions_json_path = base_dir / "db/bold_definitions/bold_definitions.json"
 
         # exporter/ebook/
         self.epub_dir = base_dir / "exporter/ebook/epub/"
@@ -50,12 +50,12 @@ class ProjectPaths:
 
         # exporter/css
         self.dpd_css_path = base_dir / "exporter/goldendict/css/dpd.css"
-        self.roots_css_path = base_dir / "exporter/goldendict/css/roots.css"
         self.deconstructor_css_path = base_dir / "exporter/goldendict/css/deconstructor.css"
-        self.epd_css_path = base_dir / "exporter/goldendict/css/epd.css"
-        self.help_css_path = base_dir / "exporter/goldendict/css/help.css"
         self.grammar_css_path = base_dir / "exporter/goldendict/css/grammar.css"
-        self.variant_spelling_css_path = base_dir / "exporter/goldendict/css/variant_spelling.css"
+        # self.roots_css_path = base_dir / "exporter/goldendict/css/roots.css"
+        # self.epd_css_path = base_dir / "exporter/goldendict/css/epd.css"
+        # self.help_css_path = base_dir / "exporter/goldendict/css/help.css"
+        # self.variant_spelling_css_path = base_dir / "exporter/goldendict/css/variant_spelling.css"
 
         # exporter/goldendict/help/
         self.abbreviations_tsv_path = base_dir / "exporter/goldendict/help//abbreviations.tsv"
@@ -86,7 +86,8 @@ class ProjectPaths:
         # exporter/templates
         self.templates_dir = base_dir / "exporter/templates"
         self.header_templ_path = base_dir / "exporter/goldendict/templates/header.html"
-        self.dpd_definition_templ_path = base_dir / "exporter/goldendict/templates/dpd_defintion.html"
+        self.header_plain_templ_path = base_dir / "exporter/goldendict/templates/header_plain.html"
+        self.dpd_definition_templ_path = base_dir / "exporter/goldendict/templates/dpd_definition.html"
         self.button_box_templ_path = base_dir / "exporter/goldendict/templates/dpd_button_box.html"
         self.grammar_templ_path = base_dir / "exporter/goldendict/templates/dpd_grammar.html"
         self.example_templ_path = base_dir / "exporter/goldendict/templates/dpd_example.html"
