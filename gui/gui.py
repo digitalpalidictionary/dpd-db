@@ -1106,16 +1106,20 @@ def main():
         elif (event == "unstash_button"
             or event == "alt_u"
         ):
-            unstasher(pth, window)
+            if username == "deva":
+                if sg.popup_yes_no('unshash?') == 'Yes':
+                    unstasher(pth, window)
+            else:
+                unstasher(pth, window)
 
         elif event == "split_button":
             lemma_1_old, lemma_1_new = increment_lemma_1(values)
             if username == "deva":
                 # add number 1 to lemma_1 for old word if there is no digit
                 lemma_1 = values['lemma_1']
-                if not re.search(r'\d', lemma_1):
-                # Execute code here when lemma_1 doesn't contain any digit
-                    if sg.popup_yes_no(f'change lemma_1 of original word to {lemma_1} 1 ?') == 'Yes':
+                if sg.popup_yes_no(f'change lemma_1 of original word to {lemma_1} 1 ?') == 'Yes':
+                    if not re.search(r'\d', lemma_1):
+                    # Execute code here when lemma_1 doesn't contain any digit
                         id_old = values["id"]
                         add_number_to_pali(pth, db_session, id_old, lemma_1_old)
             window["lemma_1"].update(value=lemma_1_old)

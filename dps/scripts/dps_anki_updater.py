@@ -425,7 +425,8 @@ def update_note_values(note, i):
 
     # Logic for feedback
     feedback_url = f'Нашли ошибку? <a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={i.lemma_1}&entry.1433863141=Anki-{current_date}\">Пожалуйста сообщите</a>.'
-    note["feedback"] = feedback_url
+    if update_test_field:
+        note["feedback"] = feedback_url
 
     is_updated = None
     if note.fields == old_fields:
