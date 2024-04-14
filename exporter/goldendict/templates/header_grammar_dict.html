@@ -2,13 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <style>
-        ${css}
-    </style>
-    % if js:
+% if css:
+    <style>${css}</style>
+% else:
+    <link href="grammar.css" rel="stylesheet">
+% endif
+
+% if js:
+    <script>${js}</script>
+% else:
+    <link id="bttn_pre" href="sorter.js" rel="preload">
     <script>
-        ${js}
+    {
+        let s=document.createElement('script');
+        s.src=document.getElementById('bttn_pre').getAttribute('href');
+        document.head.appendChild(s);
+    }
     </script>
-    % endif
+% endif
     <title>DPD Grammar</title>
 </head>

@@ -1,7 +1,7 @@
 """Functions for:
-1. Summarizating ru meaning and literal meaning,
+1. Summarizing ru meaning and literal meaning,
 2. Extract first synonym from ru meaning
-3. Replace abreviations eng to rus
+3. Replace abbreviations eng to rus
 4. Russianize other parts of html for ru_exporter
 5. assume corresponding ru names for sets from the tsv
 """
@@ -18,6 +18,7 @@ from tools.meaning_construction import make_meaning
 
 pth = ProjectPaths()
 rupth = RuPaths()
+
 
 def make_ru_meaning(i: DpdHeadwords, ru: Russian) -> str:
     """Compile ru_meaning and literal meaning, or return ru_meaning_raw"""

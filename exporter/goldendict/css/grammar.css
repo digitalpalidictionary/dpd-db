@@ -36,6 +36,6 @@ table.grammar_dict td {
     border-collapse: collapse;
 }
 
-th {
-    cursor: pointer; /* Show pointer cursor on hover */
+table.grammar_dict th {
+    cursor: pointer;
 }  

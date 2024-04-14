@@ -132,7 +132,7 @@ def add_css(glos: Glossary, dict_var: DictVariables) -> Glossary:
                     dict_var.css_path.name, css))
             print(f"[blue]{'ok':<10}", end="")
     else:
-        print(f"[red]{'no':<10}")
+        print(f"[red]{'no':<10}", end="")
     
     print(f"{bop():>10}")
     return glos
@@ -197,19 +197,22 @@ def zip_synfile(dict_var: DictVariables) -> None:
     """ Compress .syn file into dictzip format """
     
     bip()
-    print(f"[white]{'':<5}{'zipping synonyms':<40}", end="")
-
-    with open(dict_var.synfile, "rb") as input_f, open(dict_var.synfile_zip, 'wb') as output_f:
-        input_info = fstat(input_f.fileno())
-        idzip.compressor.compress(
-            input_f,
-            input_info.st_size,
-            output_f,
-            dict_var.synfile.name,
-            int(input_info.st_mtime))
-
-    dict_var.synfile.unlink()
+    print(f"[white]{'':<5}{'zipping synonyms':<30}", end="")
+    try:
+        with open(dict_var.synfile, "rb") as input_f, open(dict_var.synfile_zip, 'wb') as output_f:
+            input_info = fstat(input_f.fileno())
+            idzip.compressor.compress(
+                input_f,
+                input_info.st_size,
+                output_f,
+                dict_var.synfile.name,
+                int(input_info.st_mtime))
+            dict_var.synfile.unlink()
+            print(f"[blue]{'ok':<10}", end="")
+    except FileNotFoundError:
+        print(f"[red]{'error':<10}")
     print(f"{bop():>10}")
+
 
 
 def add_icon(v: DictVariables) -> None:
