@@ -1478,5 +1478,210 @@ vigaticchāna namo <b>karomase</b>'ti."	missing
 18707	phonetic	u > o					missing				
 32805	meaning_1	illustrating; explaining					missing				
 32805	grammar	adj, from dīpeti					missing				
-28048	meaning_1	source of old age and death; arising of ageing and dying					synonym		
-52724	lemma_1	missa 1					added new meaning		
+28048	meaning_1	source of old age and death; arising of ageing and dying					synonym				
+52724	lemma_1	missa 1					added new meaning				
+35012	source_1	ITIa3.5.1	sutta_1	aggappasādasuttavaṇṇanā	example_1	tattha <b>dharamānaṃ</b> bhagavantaṃ catūhi paccayehi upaṭṭhahantā pūjentā sakkarontā parinibbutañ'ca bhagavantaṃ uddissa dhātucetiyādike upaṭṭhahantā pūjentā sakkarontā buddhe dānaṃ dadan'ti nāma.	missing				
+35012	meaning_1	lasting; continuing; living					missing				
+35012	meaning_lit	carrying					missing				
+35012	commentary	(DNt) <b>bhagavati dharamāne</b>'ti dharamānassa bhagavato santike.					missing				
+41534	source_1	APAa1	sutta_1	ganthārambhakathā	example_1	"katena tassa etassa,
+<b>paṇāmena</b> visesato.
+ratanattaye visesena,
+visesassādarena me."	missing				
+41534	meaning_1	salutation; bending; adoration; bowing down					missing				
+41534	phonetic	a > ā					missing				
+42606	derived_from	pabhāveti					missing				
+42606	verb	caus					missing				
+42606	source_1	JA546	sutta_1	umaṅgajātakaṃ	example_1	"etādisehi parikkhitto,
+n'atthi mokkho ito tava.
+<b>pabhāvaṃ</b> te na passāmi,
+yena tvaṃ mithilaṃ vaje"	missing				
+42606	construction	pa + bhāve + a					missing				
+42606	meaning_1	might; power; strength; majesty; dignity					missing				
+42606	root_base	√bhū + *e > bhāve (caus)					missing				
+42606	grammar	masc, from pabhāveti					missing				
+42606	commentary	(JAa) <b>pabhāvaṃ te</b>'ti idāni te rājānubhāvaṃ na passāmi, yena tvaṃ mithilaṃ gamissasi khippaṃ, jāle paviṭṭhamaccho viya jātosī'ti.					missing				
+42606	root_sign	*e					missing				
+45339	meaning_1	passage; text; recitation					missing				
+49236	source_1	SN10.6	sutta_1	piyaṅkarasuttaṃ	example_1	"pāṇesu ca saṃyamāmase,
+sampajānamusā na <b>bhaṇāmase</b>,
+sikkhema susīlyamattano,
+api muccema pisācayoniyā'ti."	missing				
+49236	meaning_1	we must speak; say; we must tell; let us chant; let us proclaim					missing				
+51575	compound_type	kammadhāraya	compound_construction	mahā + aṇṇava			missing				
+51575	sanskrit	mahant + arṇava					missing				
+51575	synonym	mahāudakaṇṇava					missing				
+51575	source_1	SN14.16	sutta_1	sagāthāsuttaṃ	example_1	"saṃsaggā vanatho jāto,
+asaṃsaggena chijjati,
+parittaṃ dārumāruyha,
+yathā sīde <b>mahaṇṇave</b>."	missing				
+51575	meaning_1	great sea; great ocean; great body of water					missing				
+51575	commentary	(JAa) <b>mahaṇṇave</b>'ti gambhīraputhule udake.					missing				
+57464	source_1	KHPa3.1	sutta_1	asubhabhāvanā	example_1	tato paraṃ sarīrassa abbhantare yakana<b>saññitaṃ</b> yamakamaṃsapiṇḍaṃ vaṇṇato rattaṃ rattakumudabāhirapattapiṭṭhivaṇṇan'ti vavatthapeti.	missing				
+57464	commentary	(VINt) ya-lopena pana <b>saññitā</b>'ti vuttaṃ, karaṇ'atthe vā paccattavacanaṃ.					missing				
+57464	meaning_1	so-called; named; so-to-speak; known; perceived					missing				
+64506	source_1	APA324	sutta_1	pulinapūjakattheraapadānaṃ	example_1	"<b>susuddhaṃ</b> pulinaṃ gayha,
+gatamagge samokiriṃ,
+ucchaṅgena gahetvāna,
+vipassissa mah'esino."	missing				
+64506	meaning_1	very clean; thoroughly pure					missing				
+66099	sanskrit	vastu + traya					missing				
+66099	source_1	VINa6.3.1	sutta_1	pācittiyādipañhāvaṇṇanā	example_1	titthiyo hi vattaṃ pūrayamāno titthiyānaṃ vaṇṇe bhaññamāne kuddho ārādhako hoti, <b>vatthuttayassa</b> vaṇṇe bhaññamāne kuddho gārayho hotī'ti tatthevassā vitthāro vutto.	missing				
+66099	meaning_1	triple gem (the Buddha, the Dhamma and the Saṅgha)					missing				
+66099	commentary	(VAt) <b>vatthuttayaṃ namassitvā</b>'ti iminā ratanattayapaṇāmo vutto paṇāmetabbapaṇāmaatthadassanato.					missing				
+66252	pos	pp					missing				
+66252	stem	vandayat	pattern	a pp			missing				
+66252	meaning_1	respected; reverenced; worthy					missing				
+66252	derivative	kita	suffix	ta			missing				
+66252	grammar	pp of vandayati					missing				
+75715	source_1	DN5	sutta_1	kūṭadantasuttaṃ	example_1	alaṃ, bho, mamāpidaṃ pahūtaṃ sāpateyyaṃ dhammikena balinā <b>abhisaṅkhataṃ</b>, tañ'ca vo hotu, ito ca bhiyyo harathāti.	missing				
+75715	meaning_1	prepared; arranged; accumulated					missing				
+75715	meaning_lit	extremely done					missing				
+34673	compound_type	catutthī tappurisa	compound_construction	dhamm<b>āya</b> + gārava			missing				
+34673	source_1	SN35.133	sutta_1	verahaccānisuttaṃ	example_1	tathā hi pana tvaṃ, bho'ti, pādukā ārohitvā ucce āsane nisīditvā sīsaṃ oguṇṭhitvā etad'avoca, bhaṇa, samaṇa, dhamman'ti. dhammagaruno hi te bhavanto <b>dhammagāravā</b>'ti.	missing				
+49739	source_1	VISM2.14	sutta_1	kamādivinicchayakathā	example_1	saṅkhepato hi pañc'upādānakkhandhā āsīvisūpame vuttanayena ukkhittāsikapaccatthikato, <b>bhārasutta</b>vasena bhārato, khajjanīyapariyāyavasena khādakato, yamakasuttavasena aniccadukkhānattasaṅkhatavadhakato daṭṭhabbā.	missing				
+49739	meaning_1	Saṃyutta Nikāya 22.22 (SN22.22)					missing				
+44830	source_1	DNa1.1.1	sutta_1	paribbājakakathāvaṇṇanā	example_1	seyyath'idaṃ, cūḷarāhulovādasuttaṃ, mahārāhulovādasuttaṃ, dhammacakkap<b>pavattanaṃ</b>, dhātuvibhaṅgasuttanti evam'ādīni, tesaṃ parajjhāsayo nikkhepo.	missing				
+44830	meaning_1	turning; setting in motion; move forward					missing				
+49655	source_1	JAa537	sutta_1	mahāsutasomajātakavaṇṇanā	example_1	ahaṃ kho pan'assa tiyojanasate kururaṭṭhe sattayojanike indapatthanagare rajjaṃ dātuṃ pahomi, atthi nu khv'assa rajjaṃ kāretuṃ <b>bhāgyan</b>'ti	missing				
+49655	meaning_1	good luck; fortune					missing				
+49655	commentary	(APt) iṭṭhāniṭṭhavipākabhāgo yattha atthī'ti <b>bhāgyaṃ</b>.					missing				
+49655	phonetic	j > g					missing				
+33603	source_1	BVa2.2	sutta_1	avidūrenidānakathā	example_1	"evaṃpakāraṃ asivaṃ aniṭṭhaṃ,
+ākāsagaṃ bhūmigatañ'ca ghoraṃ.
+anekarūpaṃ kira <b>dunnimittaṃ</b>,
+ahosi mārāgamane samantā."	missing				
+33603	meaning_1	bad omen; bad sign					missing				
+33603	derivative	kita	suffix	ta			missing				
+33603	root_sign	nā					missing				
+33603	phonetic	ā > i					missing				
+46002	sanskrit	piṭaka + traya					missing				
+46002	source_1	VINa1.0	sutta_1	pasannākārakathā	example_1	appaṭikūlaṃ madhuramimaṃ paguṇaṃ suvibhattanti <b>piṭakattayena</b> vibhattā sabbadhammakkhandhāti.	missing				
+46002	meaning_1	three collections of Buddhist scripture; Vinaya, Sutta and Abhidhamma					missing				
+10479	sanskrit	vikṣipta + citta					missing				
+10479	source_1	AN5.151	sutta_1	paṭhamasammattaniyāmasuttaṃ	example_1	na kathaṃ paribhoti, na kathikaṃ paribhoti, na attānaṃ paribhoti, <b>avikkhittacitto</b> dhammaṃ suṇāti, ek'aggacitto yoniso ca manasi karoti.	missing				
+10478	compound_type	kammadhāraya	compound_construction	na + vikkhitta			missing				
+10478	antonym	vikkhitta					missing				
+10478	family_compound	vikkhitta					missing				
+10478	source_1	AN5.151	sutta_1	paṭhamasammattaniyāmasuttaṃ	example_1	na kathaṃ paribhoti, na kathikaṃ paribhoti, na attānaṃ paribhoti, <b>avikkhitta</b>citto dhammaṃ suṇāti, ek'aggacitto yoniso ca manasi karoti.	missing				
+10478	construction	na > a + vi + √khip + ta					missing				
+10478	meaning_1	not scattered; not confused					missing				
+10478	grammar	pp of na vikkhipati					missing				
+10478	commentary	(DNt) <b>avikkhittacitto</b>'ti yathāvuttamanasikāradvayapubbakāya cittapaṭipāṭiyā ekārammaṇe ṭhapanavasena anuddhatacitto hutvā.					missing				
+29307	meaning_1	declivity of a mountain; side of a hill; precipice					missing				
+47567	source_1	TH220	sutta_1	nhātakamunittheragāthā	example_1	"pītisukhena vipulena,
+<b>pharitvāna</b> samussayaṃ,
+lūkham'pi abhisambhonto,
+viharissāmi kānane."	missing				
+47567	meaning_1	having filled; having suffused; having pervaded					missing				
+47567	grammar	abs of pharati					missing				
+60166	construction	"sa + √mitt > mett + *ā + a
+samettā + a"					>				
+60166	meaning_1	friendly; benevolent; kind; with goodwill					missing				
+60166	phonetic	i > e					missing				
+28685	meaning_1	conqueror; victor					missing				
+42130	derived_from	padāleti					correction				
+42130	grammar	adj, from padāleti					corr				
+42130	construction	pa + √dal > dāl + *a					>				
+42130	meaning_1	breaking; destroying; splitting; tearing					missing				
+42130	phonetic	a > ā					missing				
+45682	meaning_1	helped; brought (to); led (to)					missing				
+68258	meaning_1	fit to be trained; tamable					missing				
+68258	derivative	kicca	suffix	*ya			missing				
+68258	meaning_lit	to be led					missing				
+68046	source_1	APA133	sutta_1	sobhitattheraapadānaṃ	example_1	"dhamma<b>vidhiṃ</b> ṭhapetvāna,
+buddho kāruṇiko isi,
+bhikkhusaṅghe nisīditvā,
+imā gāthā abhāsatha."	missing				
+68046	meaning_1	act; action; performance; method					missing				
+68046	derivative	kita	suffix	i			missing				
+68046	commentary	(VAt) <b>vidhin</b>'ti etassa visesanaṃ. idha vakkhamānacatukoṇasaṇṭhānato aññaṃ aṭṭhakoṇādikaṃ nāma.					missing				
+7965	meaning_1	affected; oppressed; crushed; squeezed					missing				
+49235	trans	trans					missing				
+49235	plus_case	+acc					missing				
+49235	meaning_1	having caused to recite; having caused to proclaime					missing				
+49235	grammar	abs of bhaṇāpeti					missing				
+52831	source_1	VIN1.2.1	sutta_1	vinītavatthu	example_1	tena kho pana samayena aññatarassa bhikkhuno uccāraṃ karontassa asuci <b>mucci</b>.	missing				
+52831	meaning_1	became free (from); was released (from); was liberated (from)					missing				
+60932	trans	trans					missing				
+60932	plus_case	+acc					missing				
+60932	meaning_1	having rejoiced; having delighted					missing				
+60932	source_1	DNa3.11	sutta_1	dasuttarasuttavaṇṇanā	example_1	bhagavā tehi saddhiṃ <b>sammoditvā</b> kasmā, bhikkhave, upakaṭṭhāya vass'ūpanāyikāya vicarathāti pucchati.	missing				
+62172	meaning_1	affectionately; showing regard; with consideration					missing				
+33850	source_1	JAa77	sutta_1	mahāsupinajātakavaṇṇanā	example_1	mayā evarūpā <b>dussupinā</b> diṭṭhā, brāhmaṇā, tiṇṇaṃ antarāyānaṃ aññataro paññāyatī'ti vatvā, tesaṃ paṭighātāya yaññaṃ yajissāmā'ti vatvā punappunaṃ sañcarantī'ti.	missing				
+33850	meaning_1	bad dream; nightmare					missing				
+33850	derivative	kita	suffix	ina			missing				
+33850	grammar	nt, from dur supati					missing				
+32924	compound_type	dutiyā tappurisa	compound_construction	dukkh<b>aṃ</b> + patta			missing				
+32924	sanskrit	duḥkha + prāpta					missing				
+32924	source_1	JAa375	sutta_1	kapotajātakavaṇṇanā	example_1	idāni maṃ edisaṃ evaṃ <b>dukkhappattaṃ</b> disvā tava alaṃ hasituṃ, mā edise kāle parihāsakeḷiṃ karohī'ti.	missing				
+32924	meaning_1	being in suffering; afflicted with pain					missing				
+37730	antonym	bhaya					missing				
+37730	source_1	JAa530	sutta_1	saṃkiccajātakavaṇṇanā	example_1	evaṃ addhāne gate bodhisatto, rājā maṃ sarati, mayā tattha gantvā tassa dhammaṃ desetvā taṃ <b>nibbhayaṃ</b> katvā āgantuṃ vaṭṭatī'ti	missing				
+37730	meaning_1	free from fear; fearless; unafraid					missing				
+37730	root_sign	a					missing				
+37730	phonetic	ī > ay					missing				
+38358	antonym	soka					missing				
+38358	family_compound	soka					missing				
+38358	source_1	JAa467	sutta_1	kāmajātakavaṇṇanā	example_1	satthā asukaṃ nāma brāhmaṇaṃ sokasallasamappitaṃ <b>nissokaṃ</b> katvā sot'āpattiphale patiṭṭhāpesī'ti	missing				
+38358	meaning_1	free from sorrow; without grief; not mourning					missing				
+47994	compound_type	dutiyā tappurisa	compound_construction	bal<b>aṃ</b> + patta			missing				
+47994	sanskrit	bala + prāpta					missing				
+47994	source_1	DN16	sutta_1	mahāparinibbānasuttaṃ	example_1	"sabb'eva nikkhipissanti,
+bhūtā loke samussayaṃ,
+et'ādiso satthā,
+loke appaṭipuggalo,
+tathāgato <b>balappatto</b>,
+sambuddho parinibbuto'ti."	missing				
+47994	meaning_1	come into power; grown strong					missing				
+47994	commentary	(DNa) <b>balappatto</b>'ti dasavidhañāṇabalaṃ patto.					missing				
+6251	source_1	SN12.69	sutta_1	upayantisuttaṃ	example_1	mahāsamuddo, bhikkhave, <b>apayanto</b> mahānadiyo apayāpeti, mahānadiyo <b>apayantiyo</b> kunnadiyo apayāpenti, kunnadiyo <b>apayantiyo</b> mahāsobbhe apayāpenti, mahāsobbhā <b>apayantā</b> kusobbhe apayāpenti.	missing				
+6251	meaning_1	going away; retreating					missing				
+6251	grammar	prp of apayati					missing				
+6251	commentary	(SNa) <b>apayanto</b>'ti apagacchanto osaranto.					missing				
+7769	source_1	BVa1.2	sutta_1	sumedhapatthanākathāvaṇṇanā	example_1	ahū'ti ahani, athā'ti attho. ayam'eva vā pāṭho. kapil'avhayā'ti kapil'āvhayā <b>abhidhānā</b>. rammā'ti ramaṇīyato. padhānan'ti vīriyaṃ. ehitī'ti essati gamissati. sesagāthāsu uttānam'evā'ti.	missing				
+7769	meaning_1	name; appellation					missing				
+8061	meaning_1	making war; fighting					missing				
+8061	grammar	pp of abhiyujjhati					missing				
+15048	derived_from	vadati					from √vad 1				
+15048	root_key	√vad 1					from √vad 1				
+15048	construction	√vad > ud + ita					from √vad 1				
+15048	meaning_1	spoken; proclaimed; uttered					from √vad 1				
+15048	grammar	pp of vadati					from √vad 1				
+15048	meaning_lit						from √vad 1				
+15048	family_root	√vad					from √vad 1				
+15048	phonetic	"va > u
+dt > tt"					from √vad 1				
+38478	source_1	API158	sutta_1	mahāpajāpatigotamītherīapadānaṃ	example_1	"tadā āmantayī satthā,
+ānandaṃ sutasāgaraṃ,
+gacchānanda <b>nivedehi</b>,
+bhikkhūnaṃ mātu nibbutiṃ."	missing		
+38478	meaning_1	communicates; makes known; tells; reports; announces					missing		
+41929	compound_type	dutiyā tappurisa	compound_construction	patt<b>iṃ</b> + dāna			missing		
+41929	sanskrit	prāpti + dāna					missing		
+41929	source_1	VVa1.4.6	sutta_1	vihāravimānavaṇṇanā	example_1	imaṃ evarūpaṃ pāsādaṃ kārentiyā yaṃ mayā puññaṃ pasutaṃ, taṃ anumodatha, <b>pattidānaṃ</b> vo dammī'ti.	missing		
+41929	meaning_1	sharing of merit; giving of profit					missing		
+75756	derived_from	pamāṇa					missing		
+75756	compound_type	kammadhāraya	compound_construction	na + ppamāṇaka			missing		
+75756	neg	neg					missing		
+75756	antonym	pamāṇaka					missing		
+75756	construction	"na > a + pa + √mā + aṇa + ka
+na + pamāṇaka"					missing		
+75756	meaning_1	immeasurable; unlimited; limitless; boundless					missing		
+75756	derivative	taddhita	suffix	ka			missing		
+75756	grammar	adj, from na pamāṇa					missing		
+75756	root_sign	nā					missing		
+75757	sanskrit	yonika					missing		
+75757	source_1	AN10.177	sutta_1	jāṇussoṇisuttaṃ	example_1	so kāyassa bhedā paraṃ maraṇā tiracchānayoniṃ upapajjati. yo tiracchāna<b>yonikānaṃ</b> sattānaṃ āhāro, tena so tattha yāpeti, tena so tattha tiṭṭhati.	missing		
+75757	construction	"√yu > yo + *ni + ka
+yoni + ka"					missing		
+75757	lemma_2	yoniko					masc		
+75757	meaning_1	place of birth; realm of existence					missing		
+56003	compound_type	chaṭṭhī tappurisa	compound_construction	lok<b>assa</b> + pāla			missing		
+56003	sanskrit	loka + pāla					missing		
+56003	source_1	JA194	sutta_1	maṇicorajātakaṃ	example_1	"na santi devā pavasanti nūna,
+na hi nūna santi idha <b>lokapālā</b>,
+sahasā karontānam'asaññatānaṃ,
+na hi nūna santī paṭisedhitāro."	missing		
+56003	meaning_1	guardian of the world; world-protector					missing		
+56003	commentary	(JAa) <b>lokapālā</b>'ti evarūpānaṃ sīlavantīnaṃ patidevatānaṃ pālakā lokapālā nūna idha loke na santī'ti					missing		
