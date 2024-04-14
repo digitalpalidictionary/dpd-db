@@ -20,7 +20,7 @@ def printer(message):
     print(f"{'':<5}[white]{message:20}", end="")
 
 
-def export_to_mdict(
+def export_to_mdict_old(
         data_list: List[Dict], 
         output_file: str,
         title: str,

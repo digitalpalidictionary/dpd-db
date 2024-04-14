@@ -8,7 +8,7 @@ import re
 from bs4 import BeautifulSoup
 from rich import print
 
-from tools.mdict_exporter import export_to_mdict
+from tools.mdict_exporter import export_to_mdict_old
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import sanskrit_sort_key
 from tools.paths import ProjectPaths
@@ -106,7 +106,7 @@ def main():
 	print("[green]saving mdict")
 	output_file = str(pth.whitney_mdict_path)
 	
-	export_to_mdict(
+	export_to_mdict_old(
 		whitney_data_list,
 		output_file,
 		bookname,

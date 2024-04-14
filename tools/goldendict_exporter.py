@@ -15,6 +15,7 @@ from typing import Optional
 from tools.date_and_time import make_timestamp
 from tools.goldendict_path import make_goldendict_path
 from tools.tic_toc import bip, bop
+from tools.utils import DictEntry
 
 
 class DictInfo():
@@ -42,6 +43,7 @@ class DictVariables():
     def __init__(
             self,
             css_path: Optional[Path],
+            js_path: Optional[Path],
             output_path: Path,
             dict_name: str,
             icon_path: Optional[Path],
@@ -50,6 +52,7 @@ class DictVariables():
         """icon_path can be a .ico or .bmp"""
         
         self.css_path: Optional[Path] = css_path
+        self.js_path: Optional[Path] = js_path
         self.output_path: Path = \
             output_path.joinpath(dict_name)
         self.output_name: Path = \
@@ -58,6 +61,14 @@ class DictVariables():
             self.output_path \
                 .joinpath(dict_name) \
                 .with_suffix(".ifo")
+        self.mdict_mdx_path: Path = \
+            self.output_path \
+                .with_stem(f"{dict_name}-mdict") \
+                .with_suffix(".mdx")
+        self.mdict_mdd_path: Path = \
+            self.output_path \
+                .with_stem(f"{dict_name}-mdict") \
+                .with_suffix(".mdd")
         self.synfile: Path = \
             self.output_path_name.with_suffix(".syn")
         self.synfile_zip: Path = \
@@ -65,169 +76,173 @@ class DictVariables():
         self.icon_source_path: Optional[Path] = icon_path
         if icon_path:
             self.icon_target_path = self.output_path_name.with_suffix(".ico")
+        
 
-
-class DictEntry():
-    """Data for an individual dictionary entry."""
-    def __init__(
-            self,
-            word,
-            definition_html,
-            definition_plain,
-            synonyms,
-    ) -> None:
-        self.word: str = word
-        self.definition_html: str = definition_html
-        self.definition_plain: str = definition_plain
-        self.synonyms: list[str] = synonyms
-        if definition_html:
-            self.format: str = "h"
-        else:
-            self.format: str = "m"
-
-
-def export_to_goldendict_pyglossary(
-    i: DictInfo,
-    v: DictVariables,
-    data_list: list[DictEntry]
+def export_to_goldendict_with_pyglossary(
+    dict_info: DictInfo,
+    dict_var: DictVariables,
+    dict_data: list[DictEntry]
 ) -> None:
     
     """Export to GoldenDict using Pyglossary."""
     
-    bip()
-    print(f"[green]{'exporting goldendict with pyglossary':<40}")
+    print(f"[green]{'exporting to goldendict with pyglossary':<40}")
+
+    glos = create_glossary(dict_info)
+    glos = add_css(glos, dict_var)
+    glos = add_js(glos, dict_var)
+    glos = add_data(glos, dict_data)
+    write_to_file(glos, dict_var)
+    add_icon(dict_var)
+    zip_synfile(dict_var)
+    copy_dir(dict_var)
     
+
+def create_glossary(dict_info: DictInfo) -> Glossary:
+    """Create Glossary."""
+
+    bip()
+    print(f"[white]{'':<5}{'creating glossary':<40}", end="")
+
     Glossary.init()
     glos = Glossary(info={
-        "bookname": i.bookname,
-        "author": i.author,
-        "description": i.description,
-        "website": i.website,
-        "sourceLang": i.source_lang,
-        "targetLang": i.target_lang,
-        "date": i.date,
-    })
+        "bookname": dict_info.bookname,
+        "author": dict_info.author,
+        "description": dict_info.description,
+        "website": dict_info.website,
+        "sourceLang": dict_info.source_lang,
+        "targetLang": dict_info.target_lang,
+        "date": dict_info.date})
+    
+    print(f"{bop():>10}")
+    return glos
 
 
-    # add css
+def add_css(glos: Glossary, dict_var: DictVariables) -> Glossary:
+    """Add CSS file."""
+
     bip()
-    print(f"[white]    {'adding css':<40}", end="")
-    if v.css_path and v.css_path.exists():
-        with open(v.css_path, "rb") as f:
+    print(f"[white]{'':<5}{'adding css':<30}", end="")
+    
+    if dict_var.css_path and dict_var.css_path.exists():
+        with open(dict_var.css_path, "rb") as f:
             css = f.read()
-            glos.addEntry(glos.newDataEntry(v.css_path.name, css))
+            glos.addEntry(
+                glos.newDataEntry(
+                    dict_var.css_path.name, css))
+            print(f"[blue]{'ok':<10}", end="")
+    else:
+        print(f"[red]{'no':<10}")
+    
     print(f"{bop():>10}")
+    return glos
 
-    # add data
+
+def add_js(glos: Glossary, dict_var: DictVariables) -> Glossary:
+    """Add JS file."""
+    
     bip()
-    print(f"[white]    {'compiling data':<40}", end="")
-    for d in data_list:
-        new_word = glos.newEntry(
-            word=[d.word] + d.synonyms, # type: ignore
-            defi=d.definition_html,
-            defiFormat=d.format)
-        glos.addEntry(new_word)
+    print(f"[white]{'':<5}{'adding js':<30}", end="")
+    
+    if dict_var.js_path and dict_var.js_path.exists():
+        with open(dict_var.js_path, "rb") as f:
+            js = f.read()
+            glos.addEntry(
+                glos.newDataEntry(
+                    dict_var.js_path.name, js))
+            print(f"[blue]{'ok':<10}", end="")
+    else:
+        print(f"[red]{'no':<10}")
+    
     print(f"{bop():>10}")
+    return glos
 
-    # write file
+
+def add_data(glos: Glossary, dict_data: list[DictEntry]) -> Glossary:
+    """Add dictionary data to glossary."""
+    
     bip()
-    print(f"[white]    {'writing goldendict file':<40}", end="")
+    print(f"[white]{'':<5}{'compiling data':<40}", end="")
+    
+    for d in dict_data:
+        glos.addEntry(
+            glos.newEntry(
+                word=[d["word"]] + d["synonyms"],
+                defi=d["definition_html"],
+                defiFormat="h"))
+    
+    print(f"{bop():>10}")
+    return glos
+
+
+def write_to_file(glos: Glossary, dict_var: DictVariables) -> None:
+    """Write output files."""
+
+    bip()
+    print(f"[white]{'':<5}{'writing goldendict file':<40}", end="")
+    
     glos.write(
-        filename=str(v.output_path_name),
+        filename=str(dict_var.output_path_name),
         format="Stardict",
         dictzip=True,
         merge_syns=False,       # when True, include synonyms in compressed main file rather than *.syn
         sametypesequence="h",
         sqlite=False,           # when False, more RAM but faster 
     )
+    
     print(f"{bop():>10}")
 
-    # dictzip the .syn file
-    dictzip(v)
 
-    # copy the .ico file
-    copy_icon(v)
-
-    # copy to goldendict folder
-    goldendict_copy_dir(v)
-
-
-def dictzip(v: DictVariables) -> None:
+def zip_synfile(dict_var: DictVariables) -> None:
     """ Compress .syn file into dictzip format """
+    
+    bip()
+    print(f"[white]{'':<5}{'zipping synonyms':<40}", end="")
 
-    print(f"[white]    {'zipping synonyms':<40}", end="")
-
-    with open(v.synfile, "rb") as input_f, open(v.synfile_zip, 'wb') as output_f:
+    with open(dict_var.synfile, "rb") as input_f, open(dict_var.synfile_zip, 'wb') as output_f:
         input_info = fstat(input_f.fileno())
         idzip.compressor.compress(
             input_f,
             input_info.st_size,
             output_f,
-            v.synfile.name,
+            dict_var.synfile.name,
             int(input_info.st_mtime))
 
-    v.synfile.unlink()
+    dict_var.synfile.unlink()
     print(f"{bop():>10}")
 
 
-def copy_icon(v: DictVariables) -> None:
+def add_icon(v: DictVariables) -> None:
     """Copy the icon if provided."""
     
     bip()
+    print(f"[white]{'':<5}{'copying icon':<30}", end="")
     
     if v.icon_source_path is not None and v.icon_source_path.exists():
-        print(f"[white]    {'copying icon':<30}", end="")
         try:
             Popen(
                 ["cp", v.icon_source_path, v.icon_target_path])
             print(f"[blue]{'ok':<10}", end="")
         except Exception:
-            print(f"[red]{'failed':<10}", end="")
-        print(f"{bop():>10}")
+            print(f"[red]{'no':<10}", end="")
+    
+    print(f"{bop():>10}")
 
 
-def goldendict_copy_dir(v: DictVariables) -> None:
+def copy_dir(v: DictVariables) -> None:
     "Copy to Goldendict dir "
 
     bip()
+    print(f"[white]{'':<5}{'copying to GoldenDict dir':<30}", end="")
+
     goldendict_pth: (Path |str) = make_goldendict_path()
     if goldendict_pth and goldendict_pth.exists():
-        print(f"[white]    {'copying to GoldenDict dir':<30}", end="")
         try:
             Popen(
                 ["cp", "-r", v.output_path, "-t", goldendict_pth])
             print(f"[blue]{'ok':<10}", end="")
-            print(f"{bop():>10}")
         except Exception:
-            print(f"[red]{'failed':<10}", end="")
-            print(f"{bop():>10}")
-
-
-if __name__ == "__main__":
-    i = DictInfo(
-        bookname="test",
-        author="test",
-        description="a test dictionary",
-        website="no website",
-        source_lang="en",
-        target_lang="en"
-    )
-
-    v = DictVariables(
-        css_path=None,
-        output_path=Path("exporter/share"),
-        dict_name="tester",
-        icon_path=None
-    )
-
-    d = [
-        DictEntry(
-        word="hello",
-        definition_html="well <b>hello</b> there!",
-        definition_plain="",
-        synonyms=["hello", "well", "there"]
-    )]
-
-    export_to_goldendict_pyglossary(i, v, d)
+            print(f"[red]{'no':<10}", end="")
     
-    # TODO make separate functions for every action
+    print(f"{bop():>10}")
+

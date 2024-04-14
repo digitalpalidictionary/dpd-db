@@ -5,7 +5,7 @@ import json
 
 from rich import print
 
-from tools.mdict_exporter import export_to_mdict
+from tools.mdict_exporter import export_to_mdict_old
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
@@ -85,7 +85,7 @@ def main():
     print("[green]saving mdict")
     output_path = str(pth.cpd_mdict_path)
 
-    export_to_mdict(
+    export_to_mdict_old(
         cpd_data_list,
         output_path,
         bookname,

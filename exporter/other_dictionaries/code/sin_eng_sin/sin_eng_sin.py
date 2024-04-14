@@ -5,7 +5,7 @@ import json
 
 from rich import print
 
-from tools.mdict_exporter import export_to_mdict
+from tools.mdict_exporter import export_to_mdict_old
 from tools.paths import ProjectPaths
 from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.tic_toc import tic, toc
@@ -93,7 +93,7 @@ def export_mdict(g: ProgData):
     print("[green]saving mdict")
 
     
-    export_to_mdict(
+    export_to_mdict_old(
         g.data_list,
         str(g.pth.sin_eng_sin_mdict_path),
         g.bookname,

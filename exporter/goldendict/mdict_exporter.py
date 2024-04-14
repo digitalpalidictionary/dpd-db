@@ -4,12 +4,10 @@
 
 from functools import reduce
 from rich import print
-from typing import List, Dict
-from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
 from tools.writemdict.writemdict import MDictWriter
+from tools.utils import DictEntry
 from pathlib import Path
-
 
 
 def get_all_files(directory):
@@ -38,6 +36,7 @@ def get_all_files(directory):
 
     return files_list
 
+
 def mdict_synonyms(all_items, item):
     all_items.append((item['word'], item['definition_html']))
     for word in item['synonyms']:
@@ -47,13 +46,13 @@ def mdict_synonyms(all_items, item):
 
 
 def export_to_mdict(
-        data_list: List[Dict],
-        pth,
-        description,
-        title,
-        external_css = False
-    ) -> None:
-    
+    data_list: list[DictEntry],
+    pth,
+    description,
+    title,
+    external_css = False
+) -> None:
+
     print("[green]converting to mdict")
 
     bip()
@@ -61,7 +60,8 @@ def export_to_mdict(
     for i in data_list:
         i['definition_html'] = i['definition_html'].replace(
             "GoldenDict", "MDict")
-        i['definition_html'] = f"<h3>{i['word']}</h3>{i['definition_html']}"
+        i['definition_html'] = \
+            f"<h3>{i['word']}</h3>{i['definition_html']}"
     print(bop())
 
     bip()

@@ -1,6 +1,6 @@
 from typing import List, TypedDict
 
-class RenderResult(TypedDict):
+class DictEntry(TypedDict):
     word: str
     definition_html: str
     definition_plain: str

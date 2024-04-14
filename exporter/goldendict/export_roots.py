@@ -18,24 +18,24 @@ from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
-from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, squash_whitespaces
+from tools.utils import DictEntry, RenderedSizes, default_rendered_sizes, squash_whitespaces
 
 
 def generate_root_html(
-                db_session: Session,
-                pth: ProjectPaths,
-                roots_count_dict: Dict[str, int],
-                rupth: RuPaths,
-                lang="en",
-                dps_data=False
-                ) -> Tuple[List[RenderResult], RenderedSizes]:
+    db_session: Session,
+    pth: ProjectPaths,
+    roots_count_dict: Dict[str, int],
+    rupth: RuPaths,
+    lang="en",
+    dps_data=False
+) -> Tuple[List[DictEntry], RenderedSizes]:
     """compile html componenents for each pali root"""
 
     print("[green]generating roots html")
 
     size_dict = default_rendered_sizes()
 
-    root_data_list: List[RenderResult] = []
+    root_data_list: List[DictEntry] = []
 
     header_templ = Template(filename=str(pth.header_templ_path))
 
@@ -99,7 +99,7 @@ def generate_root_html(
         synonyms = set(add_niggahitas(list(synonyms)))
         size_dict["root_synonyms"] += len(str(synonyms))
 
-        res = RenderResult(
+        res = DictEntry(
             word = r.root,
             definition_html = html,
             definition_plain = "",

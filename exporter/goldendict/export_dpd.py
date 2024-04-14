@@ -32,10 +32,11 @@ from db.models import SBS
 from tools.configger import config_test
 from tools.exporter_functions import get_family_compounds, get_family_idioms
 from tools.exporter_functions import get_family_set
-from tools.meaning_construction import make_meaning_html
-from tools.meaning_construction import make_grammar_line
-from tools.meaning_construction import summarize_construction
-from tools.meaning_construction import degree_of_completion
+from tools.meaning_construction import (
+    make_meaning_html,
+    make_grammar_line,
+    summarize_construction,
+    degree_of_completion)
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from exporter.ru_components.tools.paths_ru import RuPaths
@@ -45,10 +46,12 @@ from tools.sandhi_contraction import SandhiContractions
 from tools.superscripter import superscripter_uni
 from tools.tic_toc import bip, bop
 from tools.utils import (
-    RenderResult, RenderedSizes, default_rendered_sizes, list_into_batches,
-    sum_rendered_sizes, squash_whitespaces
-)
-
+    DictEntry,
+    RenderedSizes,
+    default_rendered_sizes,
+    list_into_batches,
+    sum_rendered_sizes,
+    squash_whitespaces)
 from exporter.ru_components.tools.tools_for_ru_exporter import make_ru_meaning_html, ru_replace_abbreviations, replace_english, ru_make_grammar_line, read_set_ru_from_tsv
 
 
@@ -115,7 +118,7 @@ def render_pali_word_dpd_html(
         lang="en",
         extended_synonyms=False, 
         dps_data=False
-        ) -> Tuple[RenderResult, RenderedSizes]:
+) -> Tuple[DictEntry, RenderedSizes]:
     rd = render_data
     size_dict = default_rendered_sizes()
 
@@ -283,7 +286,7 @@ def render_pali_word_dpd_html(
 
     size_dict["dpd_synonyms"] += len(str(synonyms))
 
-    res = RenderResult(
+    res = DictEntry(
         word = i.lemma_1,
         definition_html = html,
         definition_plain = "",
@@ -303,7 +306,7 @@ def generate_dpd_html(
         dps_data=False,
         lang="en",
         data_limit:int = 0
-    ) -> Tuple[List[RenderResult], RenderedSizes]:
+) -> Tuple[List[DictEntry], RenderedSizes]:
     
     time_log.log("generate_dpd_html()")
 
@@ -332,7 +335,7 @@ def generate_dpd_html(
     else:
         show_ebt_count: bool = False
 
-    dpd_data_list: List[RenderResult] = []
+    dpd_data_list: List[DictEntry] = []
 
     if lang == "en":
         pali_words_count = db_session \
@@ -372,22 +375,19 @@ def generate_dpd_html(
 
     while offset <= pali_words_count:
 
-        dpd_db_query = db_session.query(
-                DpdHeadwords, FamilyRoot, FamilyWord, SBS, Russian
-            ).outerjoin(
-                FamilyRoot,
-                DpdHeadwords.root_family_key == FamilyRoot.root_family_key
-            ).outerjoin(
-                FamilyWord,
-                DpdHeadwords.family_word == FamilyWord.word_family
-            ).outerjoin(
-                Russian,
-                DpdHeadwords.id == Russian.id
-            ).outerjoin(
-                    SBS,
-                    DpdHeadwords.id == SBS.id
-            )
-
+        dpd_db_query = db_session \
+            .query(
+                DpdHeadwords, FamilyRoot, FamilyWord, SBS, Russian) \
+            .outerjoin(
+                FamilyRoot, DpdHeadwords.root_family_key == FamilyRoot.root_family_key) \
+            .outerjoin(
+                FamilyWord, DpdHeadwords.family_word == FamilyWord.word_family) \
+            .outerjoin(
+                Russian, DpdHeadwords.id == Russian.id) \
+            .outerjoin(
+                SBS, DpdHeadwords.id == SBS.id) \
+            .order_by(DpdHeadwords.lemma_1) \
+        
         if lang == "ru":
             dpd_db_query = dpd_db_query.filter(
                     Russian.id.isnot(None)
@@ -436,7 +436,7 @@ def generate_dpd_html(
         )
 
         def _parse_batch(batch: List[DpdHeadwordsDbParts]):
-            res: List[Tuple[RenderResult, RenderedSizes]] = \
+            res: List[Tuple[DictEntry, RenderedSizes]] = \
                 [render_pali_word_dpd_html(i, render_data, lang, extended_synonyms, dps_data) for i in batch]
 
             for i, j in res:

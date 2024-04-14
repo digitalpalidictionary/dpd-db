@@ -23,7 +23,7 @@ from tools.configger import config_test
 from tools.deconstructed_words import make_words_in_deconstructions
 from tools.goldendict_path import make_goldendict_path
 from tools.lookup_is_another_value import is_another_value
-from tools.mdict_exporter import export_to_mdict
+from tools.mdict_exporter import export_to_mdict_old
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
@@ -530,7 +530,7 @@ def make_mdict(pd):
     """Make an MDict version for OS and Android devices."""
     print(f"[green]{'making mdict':<40}")
 
-    export_to_mdict(
+    export_to_mdict_old(
         pd.gd_data_list,
         pd.pth.grammar_dict_mdict_path, 
         pd.bookname,
@@ -543,7 +543,7 @@ def make_mdict_ru(pd):
     """Make an MDict Russian version for OS and Android devices."""
     print(f"[green]{'making mdict ru':<40}")
 
-    export_to_mdict(
+    export_to_mdict_old(
         pd.gd_data_list,
         pd.rupth.grammar_dict_mdict_path, 
         pd.bookname,

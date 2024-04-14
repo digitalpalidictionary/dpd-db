@@ -69,7 +69,9 @@ Albizia
 āḷhaka
 Allahabad
 Allakappa
+allayed
 allayment
+alleviator
 alli
 allness
 allusory
@@ -744,6 +746,7 @@ headfirst
 heartwood
 Hedyotis
 heedfulness
+heedlessness
 heirless
 Helleborus
 Hemidactylus
@@ -1204,6 +1207,7 @@ MN83
 MN84
 MN85
 MN86
+MN87
 Moggallāna
 Moggallāna's
 Moggallānabyākaraṇa
@@ -1431,6 +1435,7 @@ pentaphylla
 Pentaptera
 percipient
 pericarp
+perpetration
 perplexity
 pers
 perturbance
@@ -1764,6 +1769,7 @@ ssa
 stabilises
 step-by-step
 stick-less
+stiller
 stinginess
 stinkiness
 strategized

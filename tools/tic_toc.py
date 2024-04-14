@@ -13,7 +13,7 @@ def tic():
     ticx = datetime.now()
 
 
-def toc():
+def toc() -> None:
     "Stop the clock and print a line and elapsed time."
     tocx = datetime.now()
     tictoc = (tocx - ticx)
@@ -22,29 +22,27 @@ def toc():
     print()
 
 
-def bip():
+def bip() -> None:
     """Start a mini clock."""
     global start_time
     start_time = time.time()
 
 
-def bop():
+def bop() -> str:
     "End the mini clock and return elapsed time."
     elapsed_time = time.time() - start_time
     return f"{elapsed_time:.3f}"
-    # return round(elapsed_time, 3)
 
 
-def pbop():
+def pbop() -> None:
     "End the mini clock and print elapsed time."
     elapsed_time = time.time() - start_time
     print(f"{elapsed_time:.3f}")
-    # return round(elapsed_time, 3)
 
 
-def today():
+def today() -> str:
     now = datetime.now()
     today = now.strftime("%d")
     return today
 
-# timeis()
+

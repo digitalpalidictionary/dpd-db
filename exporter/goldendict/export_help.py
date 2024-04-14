@@ -17,7 +17,7 @@ from exporter.ru_components.tools.paths_ru import RuPaths
 from tools.tic_toc import bip, bop
 from tools.tsv_read_write import read_tsv_dict
 from tools.tsv_read_write import read_tsv_dot_dict
-from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, squash_whitespaces
+from tools.utils import DictEntry, RenderedSizes, default_rendered_sizes, squash_whitespaces
 
 
 class Abbreviation:
@@ -50,12 +50,12 @@ class Help:
 
 
 def generate_help_html(
-                __db_session__: Session,
-                pth: ProjectPaths,
-                rupth: RuPaths,
-                lang="en",
-                dps_data=False
-                ) -> Tuple[List[RenderResult], RenderedSizes]:
+    __db_session__: Session,
+    pth: ProjectPaths,
+    rupth: RuPaths,
+    lang="en",
+    dps_data=False
+) -> Tuple[List[DictEntry], RenderedSizes]:
     """generating html of all help files used in the dictionary"""
     print("[green]generating help html")
 
@@ -70,7 +70,7 @@ def generate_help_html(
     header = render_header_templ(
         pth, css="", js="", header_templ=header_templ)
 
-    help_data_list: List[RenderResult] = []
+    help_data_list: List[DictEntry] = []
 
     abbrev = add_abbrev_html(pth, header, rupth, lang, dps_data)
     help_data_list.extend(abbrev)
@@ -92,12 +92,12 @@ def generate_help_html(
 
 
 def add_abbrev_html(
-            pth: ProjectPaths,
-            header: str,
-            rupth: RuPaths,
-            lang="en",
-            dps_data=False
-            ) -> List[RenderResult]:
+    pth: ProjectPaths,
+    header: str,
+    rupth: RuPaths,
+    lang="en",
+    dps_data=False
+) -> List[DictEntry]:
     bip()
     print("adding abbreviations", end=" ")
 
@@ -142,7 +142,7 @@ def add_abbrev_html(
             else:
                 word = i.abbrev
 
-        res = RenderResult(
+        res = DictEntry(
             word = word,
             definition_html = html,
             definition_plain = "",
@@ -156,12 +156,12 @@ def add_abbrev_html(
 
 
 def add_help_html(
-            pth: ProjectPaths,
-            header: str,
-            rupth: RuPaths,
-            lang="en",
-            dps_data=False
-            ) -> List[RenderResult]:
+    pth: ProjectPaths,
+    header: str,
+    rupth: RuPaths,
+    lang="en",
+    dps_data=False
+) -> List[DictEntry]:
     bip()
     print("adding help", end=" ")
 
@@ -201,7 +201,7 @@ def add_help_html(
         elif lang == "ru":
             word = i.ru_help
 
-        res = RenderResult(
+        res = DictEntry(
             word = word,
             definition_html = html,
             definition_plain = "",
@@ -215,9 +215,9 @@ def add_help_html(
 
 
 def add_bibliographhy(
-                pth: ProjectPaths,
-                header: str
-                ) -> List[RenderResult]:
+    pth: ProjectPaths,
+    header: str
+) -> List[DictEntry]:
 
     print("adding bibliography", end=" ")
 
@@ -268,7 +268,7 @@ def add_bibliographhy(
 
     synonyms = ["dpd bibliography", "bibliography", "bib"]
 
-    res = RenderResult(
+    res = DictEntry(
         word = "bibliography",
         definition_html = html,
         definition_plain = "",
@@ -289,9 +289,9 @@ def add_bibliographhy(
 
 
 def add_thanks(
-        pth: ProjectPaths,
-        header: str
-        ) -> List[RenderResult]:
+    pth: ProjectPaths,
+    header: str
+) -> List[DictEntry]:
 
     print("adding thanks", end=" ")
 
@@ -334,7 +334,7 @@ def add_thanks(
 
     synonyms = ["dpd thanks", "thankyou", "thanks", "anumodana"]
 
-    res = RenderResult(
+    res = DictEntry(
         word = "thanks",
         definition_html = html,
         definition_plain = "",

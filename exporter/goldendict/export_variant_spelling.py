@@ -12,16 +12,16 @@ from export_dpd import render_header_templ
 from exporter.ru_components.tools.paths_ru import RuPaths
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
-from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, squash_whitespaces, sum_rendered_sizes
+from tools.utils import DictEntry, RenderedSizes, default_rendered_sizes, squash_whitespaces, sum_rendered_sizes
 
 
 def generate_variant_spelling_html(
-                    pth: ProjectPaths, 
-                    rupth: RuPaths, 
-                    lang="en"
-                    ) -> Tuple[List[RenderResult], RenderedSizes]:
+    pth: ProjectPaths, 
+    rupth: RuPaths, 
+    lang="en"
+) -> Tuple[List[DictEntry], RenderedSizes]:
+    
     """Generate html for variant readings and spelling corrections."""
-
     
     print("[green]generating variants html")
 
@@ -71,11 +71,12 @@ def test_and_make_variant_dict(pth: ProjectPaths) -> dict:
 
 
 def generate_variant_data_list(
-        pth: ProjectPaths,
-        variant_dict: dict,
-        header_templ:Template, 
-        rupth: RuPaths,
-        lang="en") -> Tuple[List[RenderResult], RenderedSizes]:
+    pth: ProjectPaths,
+    variant_dict: dict,
+    header_templ:Template, 
+    rupth: RuPaths,
+    lang="en"
+) -> Tuple[List[DictEntry], RenderedSizes]:
 
     size_dict = default_rendered_sizes()
 
@@ -89,7 +90,7 @@ def generate_variant_data_list(
 
     header = render_header_templ(pth, css="", js="", header_templ=header_templ)
 
-    variant_data_list: List[RenderResult] = []
+    variant_data_list: List[DictEntry] = []
 
     for __counter__, (variant, main) in enumerate(variant_dict.items()):
 
@@ -98,14 +99,14 @@ def generate_variant_data_list(
         html += render_variant_templ(main, variant_templ)
         html += "</body></html>"
 
-        squash_whitespaces
+        html = squash_whitespaces(header) + minify(html)
 
         size_dict["variant_readings"] += len(html)
         synonyms = add_niggahitas([variant])
 
         size_dict["variant_synonyms"] += len(str(synonyms))
 
-        res = RenderResult(
+        res = DictEntry(
             word = variant,
             definition_html = html,
             definition_plain = "",
@@ -119,9 +120,7 @@ def generate_variant_data_list(
 
 def render_variant_templ(main: str, variant_templ) -> str:
     """Render html for variant readings"""
-    return str(
-        variant_templ.render(
-            main=main))
+    return str(variant_templ.render(main=main))
 
 
 def test_and_make_spelling_dict(pth: ProjectPaths) -> dict:
@@ -155,11 +154,12 @@ def test_and_make_spelling_dict(pth: ProjectPaths) -> dict:
 
 
 def generate_spelling_data_list(
-        pth: ProjectPaths,
-        spelling_dict: dict,
-        header_templ:Template,
-        rupth: RuPaths,
-        lang="en") -> Tuple[List[RenderResult], RenderedSizes]:
+    pth: ProjectPaths,
+    spelling_dict: dict,
+    header_templ:Template,
+    rupth: RuPaths,
+    lang="en"
+) -> Tuple[List[DictEntry], RenderedSizes]:
 
     size_dict = default_rendered_sizes()
 
@@ -173,7 +173,7 @@ def generate_spelling_data_list(
 
     header = render_header_templ(pth, css="", js="", header_templ=header_templ)
 
-    spelling_data_list: List[RenderResult] = []
+    spelling_data_list: List[DictEntry] = []
 
     for __counter__, (mistake, correction) in enumerate(spelling_dict.items()):
 
@@ -189,7 +189,7 @@ def generate_spelling_data_list(
 
         size_dict["spelling_synonyms"] += len(str(synonyms))
 
-        res = RenderResult(
+        res = DictEntry(
             word = mistake,
             definition_html = html,
             definition_plain = "",
@@ -203,6 +203,4 @@ def generate_spelling_data_list(
 
 def render_spelling_templ(correction: str, spelling_templ) -> str:
     """Render html for spelling mistakes"""
-    return str(
-        spelling_templ.render(
-            correction=correction))
+    return str(spelling_templ.render(correction=correction))

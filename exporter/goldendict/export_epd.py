@@ -15,7 +15,7 @@ from db.models import DpdHeadwords, DpdRoots
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
-from tools.utils import RenderResult, RenderedSizes, default_rendered_sizes, squash_whitespaces
+from tools.utils import DictEntry, RenderedSizes, default_rendered_sizes, squash_whitespaces
 
 from exporter.ru_components.tools.tools_for_ru_exporter import ru_replace_abbreviations
 
@@ -26,7 +26,7 @@ def generate_epd_html(
     make_link=False,
     dps_data=False,
     lang="en"
-    ) -> Tuple[List[RenderResult], RenderedSizes]:
+) -> Tuple[List[DictEntry], RenderedSizes]:
     """generate html for english/{lang} to pali dictionary
     """
 
@@ -190,7 +190,7 @@ def generate_epd_html(
 
     print("[green]compiling epd html")
 
-    epd_data_list: List[RenderResult] = []
+    epd_data_list: List[DictEntry] = []
 
     for counter, (word, html_string) in enumerate(epd.items()):
         html = ""
@@ -203,7 +203,7 @@ def generate_epd_html(
         
         html = squash_whitespaces(header) + minify(html)
 
-        res = RenderResult(
+        res = DictEntry(
             word = word,
             definition_html = html,
             definition_plain = "",

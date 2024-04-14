@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 from rich import print
 
 from tools.configger import config_read
-from tools.mdict_exporter import export_to_mdict
+from tools.mdict_exporter import export_to_mdict_old
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
@@ -152,7 +152,7 @@ def save_mdict(g: ProgData):
 
     output_file = str(g.pth.simsapa_mdict_path)
     
-    export_to_mdict(
+    export_to_mdict_old(
         g.simsapa_data_list,
         output_file,
         g.bookname,
