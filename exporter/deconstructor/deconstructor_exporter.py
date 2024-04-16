@@ -137,10 +137,12 @@ def prepare_and_export_to_gd_mdict(g: ProgData) -> None:
         icon_path=g.pth.icon_path
     )
 
-    export_to_goldendict_with_pyglossary(dict_info, dict_vars, g.dict_data)
+    export_to_goldendict_with_pyglossary(
+        dict_info, dict_vars, g.dict_data)
     
     if g.make_mdict:
-        export_to_mdict(dict_info, dict_vars, g.dict_data)
+        export_to_mdict(
+            dict_info, dict_vars, g.dict_data)
 
 
 def main():

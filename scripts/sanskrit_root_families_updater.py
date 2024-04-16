@@ -94,6 +94,7 @@ def printer(counter, i, printer_on):
         sanksrit_print = i.sanskrit.replace("[", r"\[")
         print(f"{counter:<10}{i.lemma_1:<20}{i.family_root:<20}{sanksrit_print}")
 
+
 def main():
     tic()
     print("[bright_yellow]update sanskrit root families")
@@ -127,27 +128,29 @@ def main():
             sanskrit_root_family = root_dict[i.root_family_key].sanskrit_root_family
 
             if sanskrit_root_family:
-                printer(counter, i, printer_on)
-
-                # first clean the square brackets
-                i.sanskrit = i.sanskrit_clean
-                printer(counter, i, printer_on)
-
-                # remove existing sanskrit root family
-                if sanskrit_root_family and sanskrit_root_family not in exceptions:
-                    escaped_sanskrit_root_family = sanskrit_root_family.replace('+', '\\+')
-                    search_pattern = fr"(^|, ||\b){escaped_sanskrit_root_family}($|, )"
-                    i.sanskrit = re.sub(search_pattern, "", i.sanskrit)
+                if sanskrit_root_family != "-":
+                        
                     printer(counter, i, printer_on)
 
-                # add new value                    
-                if i.sanskrit:
-                    i.sanskrit = f"{i.sanskrit.strip()} [{sanskrit_root_family}]"
-                else:
-                    i.sanskrit = f"[{sanskrit_root_family}]"
-                printer(counter, i, printer_on)
+                    # first clean the square brackets
+                    i.sanskrit = i.sanskrit_clean
+                    printer(counter, i, printer_on)
 
-                counter += 1
+                    # remove existing sanskrit root family
+                    if sanskrit_root_family and sanskrit_root_family not in exceptions:
+                        escaped_sanskrit_root_family = sanskrit_root_family.replace('+', '\\+')
+                        search_pattern = fr"(^|, ||\b){escaped_sanskrit_root_family}($|, )"
+                        i.sanskrit = re.sub(search_pattern, "", i.sanskrit)
+                        printer(counter, i, printer_on)
+
+                    # add new value                    
+                    if i.sanskrit:
+                        i.sanskrit = f"{i.sanskrit.strip()} [{sanskrit_root_family}]"
+                    else:
+                        i.sanskrit = f"[{sanskrit_root_family}]"
+                    printer(counter, i, printer_on)
+
+                    counter += 1
             
     db_session.commit()
     write_to_tsv(pth, root_dict)

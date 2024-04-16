@@ -74,18 +74,8 @@ class DpdHeadwordsTemplates:
         self.frequency_templ = Template(filename=str(paths.frequency_templ_path))
         self.feedback_templ = Template(filename=str(paths.feedback_templ_path))
 
-        # internal or external css
-        if config_test("dictionary", "external_css", "yes"):
-            self.dpd_css = ""
-            self.button_js = ""
-        else:
-            with open(paths.dpd_css_path) as f:
-                dpd_css = f.read()
-                self.dpd_css = css_minify(dpd_css)
-
-            with open(paths.buttons_js_path) as f:
-                button_js = f.read()
-                self.button_js = js_minify(button_js)
+        self.dpd_css = ""
+        self.button_js = ""
 
 DpdHeadwordsDbRowItems = Tuple[DpdHeadwords, FamilyRoot, FamilyWord, SBS, Russian]
 
@@ -500,7 +490,7 @@ def render_dpd_definition_templ(
     2. case
     3 meaning
     4. summary
-    5. degree of completition"""
+    5. degree of completion"""
 
     # pos
     if lang == "en":

@@ -54,7 +54,6 @@ DEFAULT_CONFIG = {
         "show_ebt_count": "no",
         "show_dps_data": "no",
         "data_limit": "0",
-        "external_css": "no",
     },
     "exporter" : {
         "language": "en",
