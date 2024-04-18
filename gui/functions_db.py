@@ -500,7 +500,14 @@ def delete_word(pth, db_session, values, window):
         
         # also delete from Russian table
         try:
-            db_session.query(Russian).filter(word_id == Russian.id).delete()
+            ru_record = db_session.query(Russian).filter(word_id == Russian.id).first()
+            if ru_record:
+                # Save all ru to TSV
+                ru_header = ["word_id", "word_lemma"]
+                ru_data = [[ru_record.id, word_lemma]]
+                append_tsv_list(pth.delated_words_history_pth, ru_header, ru_data)
+                # Delete the Russian record
+                db_session.query(Russian).filter(word_id == Russian.id).delete()
         except Exception:
             print("[red]no Russian word found")
 
