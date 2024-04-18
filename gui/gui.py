@@ -138,7 +138,7 @@ from tools.i2html import make_html
 from tests.test_allowable_characters import test_allowable_characters_gui
 from tests.test_allowable_characters import test_allowable_characters_gui_dps
 
-from tools.goldedict_tools import open_in_goldendict
+from tools.goldendict_tools import open_in_goldendict
 from tools.paths import ProjectPaths
 from tools.pos import DECLENSIONS, VERBS
 from tools.pos import POS

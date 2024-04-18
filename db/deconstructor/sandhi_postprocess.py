@@ -4,6 +4,7 @@
 Postprocess the results, find top five most likely candidates and save to database.
 """
 
+from sys import exception
 import numpy as np
 import pandas as pd
 import pickle
@@ -226,7 +227,11 @@ def letter_counts(pth: ProjectPaths, df):
         if len(word) >= 10:
             letters[10].append(word)
         else:
-            letters[len(word)].append(word)
+            try:
+                letters[len(word)].append(word)
+            except KeyError:
+                print(f"[red][underline]{word}[/underline] is causing problems")
+
 
     for i in range(1, 11):
         letters_df = pd.DataFrame(letters[i])

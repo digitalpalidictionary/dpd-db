@@ -3,16 +3,14 @@
 import pickle
 from rich import print
 
-filepath = "gui/additions"
+filepath = "temp/limited_data_list"
 with open(filepath, "rb") as file:
     listy = pickle.load(file)
-    for i in listy:
-        dict = vars(i[0])
-        for k, v in dict.items():
-            if v:
-                print(f"{k:<20}:{v}")
-        print("-"*50)
-        
+
+    # for i in listy:
+    #     print(i)
+    with open("temp/limited_data.txt", "w") as f:
+        f.write(str(listy[:10]))
         
 print(len(listy))
 

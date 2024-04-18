@@ -14,7 +14,7 @@ from db.get_db_session import get_db_session
 from db.models import DpdHeadwords, FamilyIdiom, Lookup
 from tools.meaning_construction import clean_construction, make_meaning
 from tools.paths import ProjectPaths
-from tools.goldedict_tools import open_in_goldendict
+from tools.goldendict_tools import open_in_goldendict
 
 class ProgData():
     pth: ProjectPaths = ProjectPaths()

@@ -10,7 +10,7 @@ from rich import print
 
 from db.get_db_session import get_db_session
 from db.models import DpdHeadwords
-from tools.goldedict_tools import open_in_goldendict
+from tools.goldendict_tools import open_in_goldendict
 from tools.paths import ProjectPaths
 
 

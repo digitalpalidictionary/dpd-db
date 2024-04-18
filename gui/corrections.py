@@ -4,11 +4,11 @@
 
 import csv
 import PySimpleGUI as sg
-from sqlalchemy import inspect
+
 
 from rich import print
 
-from tools.goldedict_tools import open_in_goldendict
+from tools.goldendict_tools import open_in_goldendict
 from db.get_db_session import get_db_session
 from db.models import DpdHeadwords
 
@@ -18,31 +18,17 @@ from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_dot_dict, write_tsv_dot_dict
 
 
-ENABLE_LIST = \
-    [f"field{i}" for i in range(1, 4)] + \
-    [f"clear{i}" for i in range(1, 4)] + \
-    ["submit", "clear_all"]
-
-
-def get_column_names():
-    inspector = inspect(DpdHeadwords)
-    column_names = [column.name for column in inspector.columns]
-    column_names = sorted(column_names)
-    return column_names
-
-
-# def _set_state(window: sg.Window, enabled=True) -> None:
-#     for i in ENABLE_LIST:
-#         window[i].update(disabled=not enabled)
-
+class ProgData():
+    def __init__(self) -> None:
+        self.pth = ProjectPaths()
+        self.db_session = get_db_session(self.pth.dpd_db_path)
+        self.corrections_list = load_corrections_tsv(self.pth)
+        self.headword: DpdHeadwords = DpdHeadwords()
+        self.index: int
 
 def main():
-    pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
     window = make_window()
-    db = None
-    corrections_list = load_corrections_tsv(pth)
-    # _set_state(window, enabled=False)
+    g = ProgData()
 
     while True:
         event, values = window.read()
@@ -54,64 +40,65 @@ def main():
 
         if event == "id_enter":
             id_val = values["id"]
-            db = db_session.query(DpdHeadwords)\
-                .filter(DpdHeadwords.id == id_val).first()
-            if db:
-                summary = make_summary(db)
-                window["id_info"].update(summary)
-                # _set_state(window, enabled=True)
+            headword = g.db_session \
+                .query(DpdHeadwords) \
+                .filter(DpdHeadwords.id == id_val) \
+                .first()
+            if headword:
+                g.headword = headword
+                summary = make_summary(g)
+                window["id_info"].update(value=summary)
             else:
-                # _set_state(window, enabled=False)
-                sg.popup_error(f"No entry whith id {id_val}")
+                sg.popup_error(f"No entry with id {id_val}")
 
         elif event == "field1":
-            val = getattr(db, values["field1"])
+            val = getattr(g.headword, values["field1"])
             window["value1_old"].update(val)
             window["value1_new"].update(val)
 
             if values["field1"] == "source_1":
                 print("!")
-                window["field2"].update("sutta_1")
+                window["field2"].update(value="sutta_1")
                 window["value2_old"].update(
-                    getattr(db, "sutta_1"))
-                window["field3"].update("example_1")
+                    getattr(g.headword, "sutta_1"))
+                window["field3"].update(value="example_1")
                 window["value3_old"].update(
-                    getattr(db, "example_1"))
+                    getattr(g.headword, "example_1"))
 
             if values["field1"] == "source_2":
                 print("!")
-                window["field2"].update("sutta_2")
+                window["field2"].update(value="sutta_2")
                 window["value2_old"].update(
-                    getattr(db, "sutta_2"))
-                window["field3"].update("example_2")
+                    getattr(g.headword, "sutta_2"))
+                window["field3"].update(value="example_2")
                 window["value3_old"].update(
-                    getattr(db, "example_2"))
+                    getattr(g.headword, "example_2"))
 
         elif event == "field2":
             window["value2_old"].update(
-                getattr(db, values["field2"]))
+                getattr(g.headword, values["field2"]))
             window["value2_new"].update(
-                getattr(db, values["field2"]))
+                getattr(g.headword, values["field2"]))
 
         elif event == "field3":
             window["value3_old"].update(
-                getattr(db, values["field3"]))
+                getattr(g.headword, values["field3"]))
             window["value3_new"].update(
-                getattr(db, values["field3"]))
+                getattr(g.headword, values["field3"]))
 
         elif event == "clear_all":
             clear_all(values, window)
 
         elif event == "submit":
-            save_corections_tsv(values, pth)
+            save_corrections_tsv(values, g)
             clear_all(values, window)
 
         elif event.startswith("clear") and event[5:].isdigit():
-            index = event.lstrip("clear")
-            window["field" + index].reset()
+            win_index = event.lstrip("clear")
+            window["field" + win_index].reset()
             for value in values:
-                if index in value:
-                    window[value].update("")
+                if win_index in value:
+                    window[value].update(value="")
 
         elif event.endswith("_key") and event.startswith("field"):
             combo = window[event.rstrip("_key")]
@@ -125,26 +112,23 @@ def main():
             combo = window[event.rstrip("_focus-out")]
             combo.hide_tooltip()
 
-        if event == "next":
-            index = find_next_correction(
-                db_session, corrections_list, window, values)
+        if event == "start":
+            find_next_correction(g, window, values)
             values["add_approved"] = ""
 
         elif event == "approve_button":
-            write_to_db(db_session, values)
+            write_to_db(g, values)
             values["add_approved"] = "yes"
-            update_corrections_tsv(pth, values, corrections_list, index)
+            update_corrections_tsv(g, values)
             clear_all_add_tab(values, window)
-            index = find_next_correction(
-                db_session, corrections_list, window, values)
+            find_next_correction(g, window, values)
 
         elif event == "reject_button":
             if values["add_feedback"]:
                 values["add_approved"] = "no"
-                update_corrections_tsv(pth, values, corrections_list, index)
+                update_corrections_tsv(g, values)
                 clear_all_add_tab(values, window)
-                index = find_next_correction(
-                    db_session, corrections_list, window, values)
+                find_next_correction(g, window, values)
             else:
                 sg.popup(
                     "Warning!", "Can't reject without feedback!",
@@ -153,8 +137,7 @@ def main():
         elif event == "pass_button":
             values["add_approved"] = ""
             clear_all_add_tab(values, window)
-            index = find_next_correction(
-                db_session, corrections_list, window, values)
+            find_next_correction(g, window, values)
 
     window.close()
 
@@ -173,12 +156,14 @@ def make_window():
 
     add_corrections_tab = [
         [
+            sg.Text("remaining", size=(15, 1)),
+            sg.Text("", key="remaining"),
+        ],
+        [
             sg.Text("id", size=(15, 1)),
             sg.Input("", key="add_id", size=(20, 1)),
             sg.Button(
-                "Previous", key="previous", font=(None, 13)),
-            sg.Button(
-                "Next", key="next", font=(None, 13)),
+                "Start", key="start", font=(None, 13)),
         ],
         [
             sg.Text("summary", size=(15, 1)),
@@ -195,11 +180,11 @@ def make_window():
         [
             sg.Text("value1_new", size=(15, 1)),
             sg.Multiline(
-                "", key="add_value1_new", size=(50, 2),
+                "", key="add_value1_new", size=(50, 4),
                 enable_events=True),
             sg.Text("old", size=(5, 1), justification="right"),
             sg.Multiline(
-                "", key="add_value1_old", size=(50, 2), disabled=True,
+                "", key="add_value1_old", size=(50, 4), disabled=True,
                 background_color="black"),
         ],
         [
@@ -211,11 +196,11 @@ def make_window():
         [
             sg.Text("value2_new", size=(15, 1)),
             sg.Multiline(
-                key="add_value2_new", size=(50, 2),
+                key="add_value2_new", size=(50, 4),
                 enable_events=True),
             sg.Text("old", size=(5, 1), justification="right"),
             sg.Multiline(
-                "", key="add_value2_old", size=(50, 2), disabled=True,
+                "", key="add_value2_old", size=(50, 4), disabled=True,
                 background_color="black"),
         ],
         [
@@ -288,15 +273,15 @@ def make_window():
     return window
 
 
-def make_summary(db):
-    word = db.lemma_1
-    pos = db.pos
-    meaning = make_meaning(db)
-    construction = summarize_construction(db)
+def make_summary(g: ProgData):
+    word = g.headword.lemma_1
+    pos = g.headword.pos
+    meaning = make_meaning(g.headword)
+    construction = summarize_construction(g.headword)
     return f"{word}: {pos}. {meaning} [{construction}]"
 
 
-def save_corections_tsv(values, pth: ProjectPaths):
+def save_corrections_tsv(values, g: ProgData):
     headings = [
         "id",
         "field1", "value1_new",
@@ -305,12 +290,12 @@ def save_corections_tsv(values, pth: ProjectPaths):
         "comment", "feedback", "approved"
     ]
 
-    if not pth.corrections_tsv_path.exists():
-        with open(pth.corrections_tsv_path, "w", newline="") as file:
+    if not g.pth.corrections_tsv_path.exists():
+        with open(g.pth.corrections_tsv_path, "w", newline="") as file:
             writer = csv.writer(file, delimiter="\t")
             writer.writerow(headings)
 
-    with open(pth.corrections_tsv_path, "a") as file:
+    with open(g.pth.corrections_tsv_path, "a") as file:
         writer = csv.writer(file, delimiter="\t")
         new_row = [str(values.get(heading, "")) for heading in headings]
         writer.writerow(new_row)
@@ -341,74 +326,73 @@ def load_corrections_tsv(pth: ProjectPaths):
     return corrections_list
 
 
-def find_next_correction(db_session, corrections_list, window, values):
-    for index, c in enumerate(corrections_list):
+def find_next_correction(g: ProgData, window, values):
+    for index, correction in enumerate(g.corrections_list):
         if (
-            (c.field1 and not c.approved) or
-            (c.field2 and not c.approved) or
-            (c.field3 and not c.approved)
+            (correction.field1 and not correction.approved)
+            or (correction.field2 and not correction.approved)
+            or (correction.field3 and not correction.approved)
         ):
-            print(c)
-            load_next_correction(db_session, c, window, values)
-            return index
+            print(correction)
+            load_next_correction(g, correction, window)
+            open_in_goldendict(correction.id)
+            g.index = index
+            break
 
 
-def load_next_correction(db_session, c, window, __values__):
-    db = db_session.query(DpdHeadwords) \
-        .filter(c.id == DpdHeadwords.id) \
+def load_next_correction(g: ProgData, correction, window):
+    headword = g.db_session \
+        .query(DpdHeadwords) \
+        .filter(correction.id == DpdHeadwords.id) \
         .first()
-    if db:
-        open_in_goldendict(c.id)
-        window["add_id"].update(c.id)
-        window["add_summary"].update(make_summary(db))
+    if headword:
+        g.headword = headword
+        window["remaining"].update(get_remaining_corrections(g))
+        window["add_id"].update(correction.id)
+        window["add_summary"].update(make_summary(g))
         # field1
-        if c.field1:
-            window["add_field1"].update(c.field1)
-            window["add_value1_old"].update(getattr(db, c.field1))
-            window["add_value1_new"].update(c.value1)
+        if correction.field1:
+            window["add_field1"].update(correction.field1)
+            window["add_value1_old"].update(getattr(headword, correction.field1))
+            window["add_value1_new"].update(correction.value1)
         # field2
-        if c.field2:
-            window["add_field2"].update(c.field2)
-            window["add_value2_old"].update(getattr(db, c.field2))
-            window["add_value2_new"].update(c.value2)
+        if correction.field2:
+            window["add_field2"].update(correction.field2)
+            window["add_value2_old"].update(getattr(headword, correction.field2))
+            window["add_value2_new"].update(correction.value2)
         # field3
-        if c.field3:
-            window["add_field3"].update(c.field3)
-            window["add_value3_old"].update(getattr(db, c.field3))
-            window["add_value3_new"].update(c.value3)
-        window["add_comment"].update(c.comment)
+        if correction.field3:
+            window["add_field3"].update(correction.field3)
+            window["add_value3_old"].update(getattr(headword, correction.field3))
+            window["add_value3_new"].update(correction.value3)
+        window["add_comment"].update(correction.comment)
     else:
-        message = f"{c.id} not found"
+        message = f"{correction.id} not found"
         window["add_summary"].update(message, text_color="red")
 
 
-def write_to_db(db_session, values):
-    db = db_session.query(DpdHeadwords).filter(
-        values["add_id"] == DpdHeadwords.id).first()
+def write_to_db(g: ProgData, values):
+    if g.headword:
+        field1 = values["add_field1"]
+        field2 = values["add_field2"]
+        field3 = values["add_field3"]
+        value1 = values["add_value1_new"]
+        value2 = values["add_value2_new"]
+        value3 = values["add_value3_new"]
 
-    field1 = values["add_field1"]
-    field2 = values["add_field2"]
-    field3 = values["add_field3"]
-    value1 = values["add_value1_new"]
-    value2 = values["add_value2_new"]
-    value3 = values["add_value3_new"]
-
-    if field1:
-        setattr(db, field1, value1)
-        print(f'{db.id} {db.lemma_1} [yellow]{field1} \
-[white]updated to [yellow]{value1}')
-    if field2:
-        setattr(db, field2, value2)
-        print(f'{db.id} {db.lemma_1} [yellow]{field2} \
-[white]updated to [yellow]{value2}')
-    if field3:
-        setattr(db, field3, value3)
-        print(f'{db.id} {db.lemma_1} [yellow]{field3} \
-[white]updated to [yellow]{value3}')
-    db_session.commit()
+        if field1:
+            setattr(g.headword, field1, value1)
+            print(f'{g.headword.id} {g.headword.lemma_1} [yellow]{field1} [white]updated to [yellow]{value1}')
+        if field2:
+            setattr(g.headword, field2, value2)
+            print(f'{g.headword.id} {g.headword.lemma_1} [yellow]{field2} [white]updated to [yellow]{value2}')
+        if field3:
+            setattr(g.headword, field3, value3)
+            print(f'{g.headword.id} {g.headword.lemma_1} [yellow]{field3} [white]updated to [yellow]{value3}')
+        g.db_session.commit()
 
 
-def update_corrections_tsv(pth: ProjectPaths, values, corrections_list, index):
+def update_corrections_tsv(g: ProgData, values):
     fields = [
         "add_id",
         "add_field1", "add_value1_new",
@@ -417,19 +401,24 @@ def update_corrections_tsv(pth: ProjectPaths, values, corrections_list, index):
         "add_comment", "add_feedback", "add_approved"
     ]
 
-    c = corrections_list[index]
+    correction = g.corrections_list[g.index]
     for field in fields:
         new_field = field.replace("add_", "").replace("_new", "")
         print(field, new_field)
-        setattr(c, new_field, values[field])
-        print(new_field, getattr(c, new_field))
+        setattr(correction, new_field, values[field])
+        print(new_field, getattr(correction, new_field))
 
-    file_path = pth.corrections_tsv_path
-    write_tsv_dot_dict(file_path, corrections_list)
+    file_path = g.pth.corrections_tsv_path
+    write_tsv_dot_dict(file_path, g.corrections_list)
+
+
+def get_remaining_corrections(g):
+    return len([x for x in g.corrections_list if x.approved == ""])
 
 
 if __name__ == "__main__":
     main()
+
     # pth = ProjectPaths()
     # corrections = load_corrections_tsv(pth)
     # print(corrections)
