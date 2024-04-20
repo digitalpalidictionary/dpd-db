@@ -1655,61 +1655,61 @@ sambuddho parinibbuto'ti."	missing		yes
 38478	source_1	API158	sutta_1	mahāpajāpatigotamītherīapadānaṃ	example_1	"tadā āmantayī satthā,
 ānandaṃ sutasāgaraṃ,
 gacch'ānanda <b>nivedehi</b>,
-bhikkhūnaṃ mātu nibbutiṃ."	missing	please mark sandhi. gacch'ānanda	yes				
-38478	meaning_1	communicates; makes known; tells; reports; announces (something to someone)					missing		yes				
-41929	compound_type	chaṭṭhī tappurisa	compound_construction	patt<b>iyā</b> + dāna			missing	more and more i see commentaries gloassing these as noun with gen, or verb with acc	yes				
-41929	sanskrit	prāpti + dāna					missing		yes				
-41929	source_1	VVa1.4.6	sutta_1	vihāravimānavaṇṇanā	example_1	imaṃ evarūpaṃ pāsādaṃ kārentiyā yaṃ mayā puññaṃ pasutaṃ, taṃ anumodatha, <b>pattidānaṃ</b> vo dammī'ti.	missing		yes				
-41929	meaning_1	sharing of merit; giving of profit					missing		yes				
-75756	derived_from	pamāṇa					missing		yes				
-75756	compound_type	kammadhāraya	compound_construction	na + pamāṇaka			missing		yes				
-75756	neg	neg					missing		yes				
-75756	antonym	pamāṇaka					missing		yes				
+bhikkhūnaṃ mātu nibbutiṃ."	missing	please mark sandhi. gacch'ānanda	yes		
+38478	meaning_1	communicates; makes known; tells; reports; announces (something to someone)					missing		yes		
+41929	compound_type	chaṭṭhī tappurisa	compound_construction	patt<b>iyā</b> + dāna			missing	more and more i see commentaries gloassing these as noun with gen, or verb with acc	yes		
+41929	sanskrit	prāpti + dāna					missing		yes		
+41929	source_1	VVa1.4.6	sutta_1	vihāravimānavaṇṇanā	example_1	imaṃ evarūpaṃ pāsādaṃ kārentiyā yaṃ mayā puññaṃ pasutaṃ, taṃ anumodatha, <b>pattidānaṃ</b> vo dammī'ti.	missing		yes		
+41929	meaning_1	sharing of merit; giving of profit					missing		yes		
+75756	derived_from	pamāṇa					missing		yes		
+75756	compound_type	kammadhāraya	compound_construction	na + pamāṇaka			missing		yes		
+75756	neg	neg					missing		yes		
+75756	antonym	pamāṇaka					missing		yes		
 75756	construction	"na > a + pa + √mā + aṇa + ka
-appamāṇa + ka"					missing	show taddhita in the second line of construction	yes				
-75756	meaning_1	immeasurable; unlimited; limitless; boundless					missing		yes				
-75756	derivative	taddhita	suffix	ka			missing		yes				
-75756	grammar	adj, from na pamāṇa					missing		yes				
-75756	root_sign	nā					missing		yes				
-75757	sanskrit	yoni					missing		yes				
-75757	source_1	AN10.177	sutta_1	jāṇussoṇisuttaṃ	example_1	so kāyassa bhedā paraṃ maraṇā tiracchānayoniṃ upapajjati. yo tiracchāna<b>yonikānaṃ</b> sattānaṃ āhāro, tena so tattha yāpeti, tena so tattha tiṭṭhati.	missing		yes				
+appamāṇa + ka"					missing	show taddhita in the second line of construction	yes		
+75756	meaning_1	immeasurable; unlimited; limitless; boundless					missing		yes		
+75756	derivative	taddhita	suffix	ka			missing		yes		
+75756	grammar	adj, from na pamāṇa					missing		yes		
+75756	root_sign	nā					missing		yes		
+75757	sanskrit	yoni					missing		yes		
+75757	source_1	AN10.177	sutta_1	jāṇussoṇisuttaṃ	example_1	so kāyassa bhedā paraṃ maraṇā tiracchānayoniṃ upapajjati. yo tiracchāna<b>yonikānaṃ</b> sattānaṃ āhāro, tena so tattha yāpeti, tena so tattha tiṭṭhati.	missing		yes		
 75757	construction	"√yu > yo + *ni + ka
-yoni + ka"					missing		yes				
-75757	lemma_2	yonika					masc	its adj	no				
-75757	meaning_1	with a (certain kind of) birth; related to a realm of existence					missing	adj meaning	yes				
-56003	compound_type	chaṭṭhī tappurisa	compound_construction	lok<b>assa</b> + pāla			missing		yes				
-56003	sanskrit	loka + pāla					missing		yes				
+yoni + ka"					missing		yes		
+75757	lemma_2	yonika					masc	its adj	no		
+75757	meaning_1	with a (certain kind of) birth; related to a realm of existence					missing	adj meaning	yes		
+56003	compound_type	chaṭṭhī tappurisa	compound_construction	lok<b>assa</b> + pāla			missing		yes		
+56003	sanskrit	loka + pāla					missing		yes		
 56003	source_1	JA194	sutta_1	maṇicorajātakaṃ	example_1	"na santi devā pavasanti nūna,
 na hi nūna santi idha <b>lokapālā</b>,
 sahasā karontānam'asaññatānaṃ,
-na hi nūna santī paṭisedhitāro."	missing		yes				
-56003	meaning_1	guardian of the world; world-protector					missing		yes				
-56003	commentary	(JAa) <b>lokapālā</b>'ti evarūpānaṃ sīlavantīnaṃ patidevatānaṃ pālakā lokapālā nūna idha loke na santī'ti					missing		yes				
-70448	sanskrit	vaira, vairaka					missing		yes				
-70448	source_1	VINa4.1.1	sutta_1	theyyasaṃvāsakavatthukathā	example_1	aparassa eko <b>veriko</b> kuddho hoti, ghātetu'kāmo naṃ vicarati, so, evaṃ me sotthi bhavissatī'ti sayam'eva liṅgaṃ gahetvā palāyati.	missing	mark sandhi with '. ghātetu'kāmo	yes				
-70448	meaning_1	unfriendly; inimical; hostile					missing		yes				
-70448	phonetic	ī > e					missing		yes				
-64414	meaning_1	easily gets; obtains without difficulty; receives without effort					missing	edited english	yes				
-51485	trans	intrans					missing		yes				
+na hi nūna santī paṭisedhitāro."	missing		yes		
+56003	meaning_1	guardian of the world; world-protector					missing		yes		
+56003	commentary	(JAa) <b>lokapālā</b>'ti evarūpānaṃ sīlavantīnaṃ patidevatānaṃ pālakā lokapālā nūna idha loke na santī'ti					missing		yes		
+70448	sanskrit	vaira, vairaka					missing		yes		
+70448	source_1	VINa4.1.1	sutta_1	theyyasaṃvāsakavatthukathā	example_1	aparassa eko <b>veriko</b> kuddho hoti, ghātetu'kāmo naṃ vicarati, so, evaṃ me sotthi bhavissatī'ti sayam'eva liṅgaṃ gahetvā palāyati.	missing	mark sandhi with '. ghātetu'kāmo	yes		
+70448	meaning_1	unfriendly; inimical; hostile					missing		yes		
+70448	phonetic	ī > e					missing		yes		
+64414	meaning_1	easily gets; obtains without difficulty; receives without effort					missing	edited english	yes		
+51485	trans	intrans					missing		yes		
 51485	source_1	PV18	sutta_1	kaṇhapetavatthu	example_1	"na yaṃ labbhā manussena,
 amanussena vā pana,
 jāto me mā <b>mari</b> putto,
-kuto labbhā alabbhiyaṃ."	missing		yes				
-51485	construction	√mar + i					missing		yes				
-51485	meaning_1	died					missing	was killed is caus	yes				
-48578	compound_type	chaṭṭhī tappurisa	compound_construction	buddh<b>assa</b> + ānubhāva			missing		yes				
+kuto labbhā alabbhiyaṃ."	missing		yes		
+51485	construction	√mar + i					missing		yes		
+51485	meaning_1	died					missing	was killed is caus	yes		
+48578	compound_type	chaṭṭhī tappurisa	compound_construction	buddh<b>assa</b> + ānubhāva			missing		yes		
 48578	source_1	APA119	sutta_1	buddhasaññakattheraapadānaṃ	example_1	"<b>buddh'ānubhāvaṃ</b> kittetvā,
 kappaṃ saggamhi mod'ahaṃ,
 avasesesu kappesu,
-kusalaṃ caritaṃ mayā."	missing		yes				
-48578	meaning_1	majestic power of the Buddha; splendour of the Awakened One					missing	edited english	yes				
-68027	neg	neg					missing		yes				
-68027	family_compound	dhava					missing		yes				
-68027	construction	vi + dhava + ā					MW		yes				
-68027	derivative	taddhita	suffix	ā			missing		yes				
-68027	grammar	fem, from dhava					MW		yes				
-68027	meaning_lit	without husband					MW		yes				
-68027	derived_from	dhava					missing		yes				
+kusalaṃ caritaṃ mayā."	missing		yes		
+48578	meaning_1	majestic power of the Buddha; splendour of the Awakened One					missing	edited english	yes		
+68027	neg	neg					missing		yes		
+68027	family_compound	dhava					missing		yes		
+68027	construction	vi + dhava + ā					MW		yes		
+68027	derivative	taddhita	suffix	ā			missing		yes		
+68027	grammar	fem, from dhava					MW		yes		
+68027	meaning_lit	without husband					MW		yes		
+68027	derived_from	dhava					missing		yes		
 26283	variant	carapire					missing				
 46558	compound_type	kammadhāraya	compound_construction	puñña + abhisaṅkhāra			missing				
 46558	source_1	SN12.51	sutta_1	parivīmaṃsanasuttaṃ	example_1	yato kho, bhikkhave, bhikkhuno avijjā pahīnā hoti vijjā uppannā, so avijjāvirāgā vijj'uppādā n'eva <b>puññ'ābhisaṅkhāraṃ</b> abhisaṅkharoti na apuññ'ābhisaṅkhāraṃ abhisaṅkharoti na āneñj'ābhisaṅkhāraṃ abhisaṅkharoti.	bold				
@@ -1735,12 +1735,171 @@ kusalaṃ caritaṃ mayā."	missing		yes
 32577	source_1	API127	sutta_1	abhayattheraapadānaṃ	example_1	"tadā catasso gāthāyo,
 ganthayitvā subyañjanā,
 santhavitvā tilokaggaṃ,
-desayissaṃ <b>dine</b> <b>dine</b>."	missing		
-32577	meaning_1	day					missing		
-33056	meaning_1	taking hold of wrongly; bad seizing					missing		
-1236	variant	ajjappabbhuti					missing		
-1236	notes						var in notes		
-65380	notes						wrong place		
-49539	notes	synonym with sassata-diṭṭhi					correct diecritic		
-7339	notes						same as in meaning_1		
-71817	notes	memorizer					in the meaning_1		
+desayissaṃ <b>dine</b> <b>dine</b>."	missing				
+32577	meaning_1	day					missing				
+33056	meaning_1	taking hold of wrongly; bad seizing					missing				
+1236	variant	ajjappabbhuti					missing				
+1236	notes						var in notes				
+65380	notes						wrong place				
+49539	notes	synonym with sassata-diṭṭhi					correct diecritic				
+7339	notes						same as in meaning_1				
+71817	notes	memorizer					in the meaning_1				
+19168	notes						no need since MN21 in examples				
+3554	grammar	masc, loc sg, atta group					missing				
+13479	phonetic	ia > i					missing				
+38823	phonetic	ae > e					missing				
+64953	phonetic	"ey > eyy
+āa > ā"					missing				
+21727	phonetic	ṃi > ni					missing				
+30379	phonetic	ae > e					missing				
+53888	phonetic	aa > ā					missing				
+31220	phonetic	aa > a					missing				
+39184	phonetic	oe > e					missing				
+53767	phonetic	"ṃn > nn
+aa > ā"					missing				
+18049	phonetic	"ṃa > ma
+oa > o"					missing				
+13796	phonetic	au > u					missing				
+26341	phonetic	aa > a					missing				
+53801	phonetic	ṃa > ma					missing				
+21655	phonetic	"ṃc > ñc
+aa > ā"					missing				
+30174	phonetic	aa > ā					missing				
+59009	phonetic	ie > e					missing				
+64954	phonetic	"ey > eyy
+āi > i"					missing				
+71431	phonetic	ie > e					missing				
+18047	phonetic	"oe > e
+aa > a"					missing				
+18114	phonetic	ṃa > ma					missing				
+42312	phonetic	ai > i					missing				
+17831	phonetic	oe > o					missing				
+26130	phonetic	oi > o					missing				
+26516	phonetic	aa > ā					missing				
+27077	phonetic	ee > e					missing				
+27164	phonetic	ea > e					missing				
+29631	phonetic	ai > i					missing				
+30195	phonetic	ae > e					missing				
+31376	phonetic	"e > y (Kacc 17, 19)
+ya > yā"					missing				
+34490	phonetic	ei > e					missing				
+36583	phonetic	aa > ā					missing				
+38818	phonetic	"ae > e
+oa > o
+ṃa > ma"					missing				
+38824	phonetic	ae > e					missing				
+42297	phonetic	aa > ā					missing				
+42308	phonetic	aa > ā					missing				
+42335	phonetic	ae > e					missing				
+50993	phonetic	ea > a					missing				
+51454	phonetic	aa > o					missing				
+53293	phonetic	ee > e					missing				
+53633	phonetic	āa > ā					missing				
+53847	phonetic	oa > a					missing				
+54291	phonetic	oi > o					missing				
+57120	phonetic	ea > e					missing				
+57723	phonetic	aa > a					missing				
+63878	phonetic	ui > u					missing				
+65494	phonetic	"o > v (Kacc 18, 20)
+va > vā"					missing				
+66829	phonetic	āa > ā					missing				
+71304	phonetic	ia > i					missing				
+8752	phonetic	ṃa > ma					missing				
+10843	phonetic	"ṃ > ññ
+ae > e"					missing				
+13806	phonetic	aṃa > ā					missing				
+17619	phonetic	"ṃi > mi
+aṃa > ā"					missing				
+18063	phonetic	"ṃc > ñc
+ee > e"					missing				
+18211	phonetic	aṃa > ā					missing				
+21673	phonetic	ṃh > ñh					missing				
+27251	phonetic	oa > o					missing				
+29492	phonetic	ṃa > ma					missing				
+31599	phonetic	oa > o					missing				
+33371	phonetic	ṃa > ma					missing				
+48309	phonetic	oa > o					missing				
+50176	phonetic	aṃa > ā					missing				
+53162	phonetic	oa > o					missing				
+53501	phonetic	"ṃy > ññ
+ṃ > d"					missing				
+53890	phonetic	āa > ā					missing				
+4492	phonetic	aā > a					missing				
+51391	phonetic	aa > a					missing				
+52135	phonetic	āa > ā					missing				
+52254	phonetic	aṃ > ā					missing				
+56420	phonetic	tk > kk					missing				
+54409	phonetic	aa > a					missing				
+14535	phonetic	aā > ā					missing				
+17692	phonetic	aa > a					missing				
+31236	phonetic	au > u					missing				
+24636	phonetic	aa > a					missing				
+36536	phonetic	aa > ā					missing				
+37153	phonetic	aa > a					missing				
+5738	phonetic	aa > ā					missing				
+36537	phonetic	aa > ā					missing				
+53848	phonetic	aa > a					missing				
+13715	phonetic	ae > e					missing				
+52316	phonetic	āa > ā					missing				
+55451	phonetic	aa > a					missing				
+35540	phonetic	"st > tth
+aa > a"					missing				
+35541	phonetic	"st > tth
+aa > a"					missing				
+40123	phonetic	āi > i					missing				
+25730	phonetic	ui > u					missing				
+74577	phonetic	ui > u					missing				
+1251	phonetic	au > u					missing				
+42293	phonetic	aa > a					missing				
+1747	phonetic	aa > a					missing				
+49296	phonetic	aa > a					missing				
+34234	phonetic	aa > a					missing				
+21094	phonetic	aā > ā					missing				
+54177	phonetic	aā > ā					missing				
+23763	phonetic	aā > ā					missing				
+64914	phonetic	aā > ā					missing				
+64915	phonetic	aā > ā					missing				
+39947	phonetic	ai > i					missing				
+49842	phonetic	ai > i					missing				
+45650	phonetic	ai > i					missing				
+69932	phonetic	ai > i					missing				
+47108	phonetic	au > u					missing				
+32228	phonetic	au > u					missing				
+1222	phonetic	ae > e					missing				
+69593	phonetic	ae > e					missing				
+27180	phonetic	ee > e					missing				
+27181	phonetic	ae > e					missing				
+27182	phonetic	ae > e					missing				
+27183	phonetic	ae > e					missing				
+29643	phonetic	ae > e					missing				
+8482	phonetic	ao > o					missing				
+14929	phonetic	ao > o					missing				
+10551	phonetic	āā > ā					missing				
+31982	phonetic	āā > ā					missing				
+51768	phonetic	āā > ā					missing				
+52354	phonetic	āā > ā					missing				
+52047	phonetic	āi > i					missing				
+52054	phonetic	āi > i					missing				
+40123	phonetic	āi > i					missing				
+30917	phonetic	ii > i					missing				
+59641	phonetic	ii > i					missing				
+57623	phonetic	ii > i					missing				
+13638	phonetic	ie > e					missing				
+59043	phonetic	ie > e					missing				
+58307	phonetic	ie > e					missing				
+71300	phonetic	io > o					missing				
+49913	phonetic	īu > u					missing				
+35492	phonetic	ua > a					missing				
+60161	phonetic	uā > ā					missing				
+25716	phonetic	uā > ā					missing				
+62209	phonetic	uā > ā					missing				
+39895	phonetic	uu > u					missing				
+55689	phonetic	"ṃ > d (Kacc 34, 52)
+uu > u"					missing				
+50994	phonetic	ea > a					missing				
+59041	phonetic	ee > e					missing				
+46940	phonetic	ee > e					missing				
+27076	phonetic	ee > e					missing				
+30065	phonetic	oa > a					missing				
+29543	phonetic	ou > u					missing				
+22293	phonetic	oe > e					missing				

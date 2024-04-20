@@ -86,7 +86,7 @@ def main():
                         count += 1
                         print(f"(removed) {count} for {word.lemma_1} || old sbs_class: {word.sbs.sbs_class} || new is {sbs_class}")
 
-    # db_session.commit()
+    db_session.commit()
 
     db_session.close()
     toc()
@@ -601,62 +601,124 @@ def determine_sbs_class(word) -> Optional[int]:
     #! IPC:
     # sandhi
     if (
-            word.pos == "sandhi"
-            and "ṃ +" not in word.construction
-        ):
-            # print(f"Pattern: vowel sandhi, Word: {word.lemma_1}")
-            return 16
+        word.pos == "sandhi"
+        and "ṃ +" not in word.construction
+        and "tad +" not in word.construction
+        and "ṃ >" not in word.construction
+    ):
+        # print(f"Pattern: vowel sandhi, Word: {word.lemma_1}")
+        return 16
 
     elif (
-            word.pos == "sandhi"
-            and "ṃ +" in word.construction
-        ):
-            # print(f"Pattern: ṃ sandhi, Word: {word.lemma_1}")
-            return 17
+        word.pos == "sandhi" and
+        (
+            "ṃ +" in word.construction or 
+            "tad +" in word.construction or
+            "ṃ >" in word.construction
+        )
+    ):
+        # print(f"Pattern: ṃ sandhi, Word: {word.lemma_1}")
+        return 17
+
+    if (
+        (", comp" in word.grammar or "comp vb" in word.grammar) and
+        "compar" not in word.grammar and
+        word.compound_type == "" and
+        ("ṃ +" in word.construction or "tad +" in word.construction)
+    ):
+        # print(f"Pattern: ṃ sandhi, Word: {word.lemma_1}")
+        return 17
+
+    if (
+        (", comp" in word.grammar or "comp vb" in word.grammar) and
+        "compar" not in word.grammar and
+        word.compound_type == "" and
+        (
+            "√bhū" in word.phonetic
+            or "√kar" in word.phonetic
+        )
+    ):
+        # print(f"Pattern: √bhū and √kar a > i, Word: {word.lemma_1}")
+        return 19
+
+    if (
+        (", comp" in word.grammar or "comp vb" in word.grammar) and
+        "compar" not in word.grammar and
+        word.compound_type == "" and
+        (
+            "aa > a" in word.phonetic
+            or "aa > ā" in word.phonetic
+            or "aa > o" in word.phonetic
+            or "āa > ā" in word.phonetic
+            or "aā > a" in word.phonetic
+            or "āi > i" in word.phonetic
+            or "ai > i" in word.phonetic
+            or "ae > e" in word.phonetic
+            or "au > u" in word.phonetic
+            or "oe > e" in word.phonetic
+            or "oe > o" in word.phonetic
+            or "oa > o" in word.phonetic
+            or "oa > a" in word.phonetic
+            or "oi > o" in word.phonetic
+            or "ie > e" in word.phonetic
+            or "ia > i" in word.phonetic
+            or "ee > e" in word.phonetic
+            or "ea > e" in word.phonetic
+            or "ea > a" in word.phonetic
+            or "ei > e" in word.phonetic
+            or "ui > u" in word.phonetic
+            or "ya > yā" in word.phonetic
+            or "va > vā" in word.phonetic
+            or "+" in word.phonetic
+        )
+    ):
+        # print(f"Pattern: vowel sandhi comp, Word: {word.lemma_1}")
+        return 16
 
     # irreg nouns
     if (
-            "comp," not in word.grammar
-            and "mano group" in word.grammar
-        ):
-            # print(f"Pattern: mano group, Word: {word.lemma_1}")
-            return 18
+        "comp," not in word.grammar
+        and "mano group" in word.grammar
+    ):
+        # print(f"Pattern: mano group, Word: {word.lemma_1}")
+        return 18
 
     if (
-            word.pattern == "go masc"
-        ):
-            # print(f"Pattern: go masc, Word: {word.lemma_1}")
-            return 18
+        word.pattern == "go masc"
+    ):
+        # print(f"Pattern: go masc, Word: {word.lemma_1}")
+        return 18
 
     if (
-            "comp," not in word.grammar
-            and "atta group" in word.grammar
-        ):
-            # print(f"Pattern: atta group, Word: {word.lemma_1}")
-            return 18
+        "comp," not in word.grammar
+        and "atta group" in word.grammar
+        and "brahma" not in word.pattern
+    ):
+        # print(f"Pattern: atta group, Word: {word.lemma_1}")
+        return 18
 
     # comp
     if (
-            word.compound_type == "kammadhāraya"
-            or word.compound_type == "digu"
-            or (
-                "tappurisa" in word.compound_type 
-                and "bahubbīhi" not in word.compound_type 
-                and "abyayībhāva" not in word.compound_type
-                and "missaka" not in word.compound_type
-                )
-            or word.compound_type == "dvanda"
-        ):
-            # print(f"Pattern: comp 1st part, Word: {word.lemma_1}")
-            return 19
+        word.compound_type == "kammadhāraya"
+        or word.compound_type == "digu"
+        or (
+            "tappurisa" in word.compound_type 
+            and "bahubbīhi" not in word.compound_type 
+            and "abyayībhāva" not in word.compound_type
+            and "missaka" not in word.compound_type
+            )
+        or word.compound_type == "dvanda"
+    ):
+        # print(f"Pattern: comp 1st part, Word: {word.lemma_1}")
+        return 19
 
     elif (
-            "abyayībhāva" in word.compound_type
-            or "bahubbīhi" in word.compound_type
-            or "missaka" in word.compound_type
-        ):
-            # print(f"Pattern: comp 2nd part, Word: {word.lemma_1}")
-            return 20
+        "abyayībhāva" in word.compound_type
+        or "bahubbīhi" in word.compound_type
+        or "missaka" in word.compound_type
+    ):
+        # print(f"Pattern: comp 2nd part, Word: {word.lemma_1}")
+        return 20
 
     # Return None if none of the conditions are met
     return None
