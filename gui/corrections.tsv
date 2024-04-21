@@ -1781,7 +1781,11 @@ aa > a"					missing
 29631	phonetic	ai > i					missing				
 30195	phonetic	ae > e					missing				
 31376	phonetic	"e > y (Kacc 17, 19)
-ya > yā"					missing				
+ya > yā"					missing			
+31375	phonetic	"e > y (Kacc 17, 19)
+ya > yā"					missing			
+31374	phonetic	"e > y (Kacc 17, 19)
+ya > yā"					missing		
 34490	phonetic	ei > e					missing				
 36583	phonetic	aa > ā					missing				
 38818	phonetic	"ae > e
@@ -1802,6 +1806,8 @@ oa > o
 63878	phonetic	ui > u					missing				
 65494	phonetic	"o > v (Kacc 18, 20)
 va > vā"					missing				
+59603	phonetic	"o > v (Kacc 18, 20)
+va > vā"					missing		
 66829	phonetic	āa > ā					missing				
 71304	phonetic	ia > i					missing				
 8752	phonetic	ṃa > ma					missing				
@@ -1903,3 +1909,127 @@ uu > u"					missing
 30065	phonetic	oa > a					missing				
 29543	phonetic	ou > u					missing				
 22293	phonetic	oe > e					missing				
+10594	phonetic	dv > dd					missing				
+38738	phonetic	ae > e					missing				
+23994	phonetic	"o > v (Kacc 18, 20)
+va > vā"					missing				
+13070	phonetic	ae > e					missing				
+21669	phonetic	"ṃc > ñc
+ae > e"					missing				
+13485	phonetic	ai > a					missing				
+62631	phonetic	āe > ā					missing				
+13484	phonetic	ia > i					missing				
+14605	phonetic	ua > u					missing				
+63877	phonetic	ui > u					missing				
+38668	phonetic	ue > u					missing				
+31244	phonetic	ea > e					missing				
+65318	phonetic	oa > o					missing				
+45476	phonetic	oe > o					missing				
+29624	phonetic	aa > ā					missing				
+26444	phonetic	aa > ā					missing				
+59166	phonetic	aa > ā					missing								
+62162	construction	"sa + √ar + tha
+sa + attha"					missing		
+62162	phonetic	"aa > ā
+rth > tth"					missing		
+63744	phonetic	aa > ā					missing				
+62628	phonetic	āa > ā					missing				
+62629	phonetic	āa > ā					missing				
+51111	phonetic	āa > ā					missing				
+9390	phonetic	ia > ā					missing				
+13633	phonetic	ia > ā					missing				
+57099	phonetic	ea > ā					missing				
+66830	phonetic	ea > ā					missing				
+62687	phonetic	oa > ā					missing				
+77174	phonetic	āa > ā					missing				
+58110	phonetic	āi > ī					missing				
+53978	phonetic	ii > ī					missing				
+902	phonetic	au > ū					missing				
+34261	phonetic	au > ū					missing				
+19723	phonetic	au > ū					missing				
+13713	phonetic	au > ū					missing				
+29724	phonetic	āu > ū					missing				
+48222	phonetic	uu > ū					missing				
+34448	phonetic	ia > ī					missing				
+30938	phonetic	ia > ī					missing				
+22019	phonetic	ui > ū					missing				
+1590	phonetic	ai > e					missing				
+52091	phonetic	āi > e					missing				
+52093	phonetic	āī > e					missing				
+52094	phonetic	āi > e					missing				
+52095	phonetic	āe > e					missing				
+45547	phonetic	au > o					missing				
+38909	phonetic	"au > o
+i > e"					missing						
+42740	phonetic	ia > ya					missing				
+57932	phonetic	ia > ya					missing				
+65498	phonetic	"o > v (Kacc 18, 20)
+va > vā"					missing			
+53565	phonetic	"o > v (Kacc 18, 20)
+va > vā"					missing			
+54345	phonetic	"o > v (Kacc 18, 20)
+va > vā"					missing			
+21445	phonetic	ae > e					missing				
+70049	phonetic	"aa > a
++n (Kacc 35, 34)"					missing			
+51400	phonetic	aa > a					missing				
+71240	phonetic	ii > i					missing				
+13707	phonetic	aā > ā					missing				
+33908	phonetic	oe > o					missing				
+18033	phonetic	oa > ā					missing				
+13379	phonetic	ia > a					missing				
+52704	phonetic	"+m (Kacc 35, 34)
+ae > e"					missing			
+55764	phonetic	īa > ī					missing				
+52356	phonetic	āa > ā					missing				
+52357	phonetic	āa > ā					missing				
+29620	phonetic	"aa > ā
+iā > ā"					missing			
+31373	phonetic	"e > y (Kacc 17, 19)
+ya > yā"					missing			
+23991	phonetic	"o > v (Kacc 18, 20)
+va > vā"					missing			
+23992	phonetic	"o > v (Kacc 18, 20)
+va > vā"					missing
+39770	phonetic	kh > kkh (sk sk)					missing				
+29352	phonetic	kh > kkh (sk kṣ)					missing				
+46947	phonetic	kh > kkh (sk kṣ)					missing				
+46948	phonetic	kh > kkh (sk kṣ)					missing				
+46949	phonetic	kh > kkh (sk kṣ)					missing				
+46950	phonetic	kh > kkh (sk kṣ)					missing				
+46951	phonetic	kh > kkh (sk kṣ)					missing				
+76425	phonetic	kh > kkh (sk kṣ)					missing				
+78009	phonetic	kh > kkh (sk kṣ)					missing				
+25881	phonetic	g > gg (sk r)					missing				
+56364	phonetic	g > gg (sk gh)					missing				
+17415	phonetic	g > gg					missing				
+67316	phonetic	ch > cch					missing				
+64858	phonetic	ch > cch					missing				
+46680	phonetic	j > jj (sk k)					missing				
+58828	phonetic	ñ > ññ (sk jñ)					missing				
+26764	phonetic	ṭh > ṭṭh (sk sth)					missing				
+27355	phonetic	t > tt (sk tr)					missing				
+25964	phonetic	d > dd (sk r)					missing				
+25963	phonetic	d > dd (sk r)					missing				
+65421	phonetic	dh > ddh (sk dhv)					missing				
+13543	phonetic	n > nn (sk m)					missing				
+12298	phonetic	p > pp (sk pr)					missing				
+24932	phonetic	b > bb (sk vr)					missing				
+24933	phonetic	b > bb (sk vr)					missing				
+27494	phonetic	b > bb (sk ṣ)					missing				
+67657	phonetic	l > ll					missing				
+32470	phonetic	s > ss (sk śr)					missing				
+60700	phonetic	āg > agg					missing				
+60701	phonetic	āg > agg					missing				
+51609	phonetic	āp > app					missing				
+51613	phonetic	āb > abb					missing				
+51614	phonetic	āb > abb					missing				
+29352	phonetic	kh > kkh (sk kṣ)					missing				
+10522	phonetic	kh > kkh (sk sk)					missing				
+22489	phonetic	m > mm					missing				
+22350	phonetic	n > nn					missing				
+25997	phonetic	v > vv > bb					missing				
+54217	phonetic	kh > kkh (sk kṣ)					missing				
+48164	phonetic	v > vv > bb (sk vr)					missing				
+26778	phonetic	p > pp (sk pr)					missing				
+34952	phonetic	p > pp (sk pr)					missing				
