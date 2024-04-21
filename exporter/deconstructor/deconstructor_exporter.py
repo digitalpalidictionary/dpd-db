@@ -120,8 +120,8 @@ def prepare_and_export_to_gd_mdict(g: ProgData) -> None:
         author="Bodhirasa",
         description="<h3>DPD Deconstructor by Bodhirasa</h3><p>Automated compound deconstruction and sandhi-splitting of all words in <b>Chaṭṭha Saṅgāyana Tipitaka</b> and <b>Sutta Central</b> texts.</p><p>For more information please visit the <a href='https://digitalpalidictionary.github.io/deconstructor.html'>Deconstrutor page</a> on the <a href='https://digitalpalidictionary.github.io/'>DPD website</a>.</p>",
         website="https://digitalpalidictionary.github.io/deconstructor/",
-        source_lang="pa",
-        target_lang="pa"
+        source_lang="pi",
+        target_lang="pi"
     )
     if g.lang == "ru":
         dict_info.bookname = "DPD Деконструктор"

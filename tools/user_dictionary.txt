@@ -474,6 +474,7 @@ de-illusionment
 decad
 decayless
 Deccan
+declivity
 decoction
 decrepitude
 defilement
@@ -482,6 +483,7 @@ dehorned
 dehusked
 dejection
 deludedly
+demeritorious
 denigrates
 denigration
 denominativ
@@ -595,6 +597,7 @@ Elengi
 Eleusine
 elucidation
 emancipating
+embankments
 emblic
 Emblica
 embroidered
@@ -746,6 +749,7 @@ Hatthi
 Hatthisāriputta
 haughtiness
 headfirst
+healthiness
 heartwood
 Hedyotis
 heedfulness
@@ -790,6 +794,7 @@ impalpability
 impercipient
 iṃsu
 in-front-ness
+inarticulately
 incises
 incompliant
 inconstance
@@ -816,6 +821,7 @@ Indus
 inexpertise
 infeminine
 inophyllum
+insignificantly
 instructable
 instructible
 interestedness
@@ -1100,6 +1106,7 @@ Malla
 Mallan
 Mallans
 Mallas
+malnourishment
 malodorousness
 Mālukya
 Māluṅkya

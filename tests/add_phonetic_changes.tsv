@@ -1,4 +1,5 @@
 initial	final	correct	wrong	without	exceptions
+
 -
 xa + u	o	au > o	u > o	o	anoka 1, anoka 2, anoka 3, anodaka, odarika,	need more rules
 a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant
@@ -7,7 +8,7 @@ a + ṭh	iṭṭh	a > i	x	x	x
 ati +	acc	ti > ty > cc	x	gacch	pacchājāta, gatikālādipaccayantarasamavāya
 adhi + a	jjh	dhi > dhy > jjh	adhi > adhy > ajjh	adhi + ā	x
 adhi + ā	jjh	dhi > dhy > jjh	x	adhi + a	x
-anu + ā	nnā	uā > nā	anu > ann	n + ā	
+anu + ā	nnā	uā > nā	anu > ann	n + ā
 abhi + a	abbh	bhi > bhy > bbh	x	x	x
 am + ta	ata	mt > t	x	nt	abhikkantatara, santatara
 ava	o	ava > o	x	o	ponobbhavika, ponobhavika, anavabodha, bhavamūlopagāmī
@@ -45,12 +46,12 @@ xū + a	av	ū > av	x	x	x	so many exceptions
 e + a	aya	e > ay	x	x	x
 
 c + a	ka	c > k (Kacc 623, 554)	c > k	k	avaṅka 1, avaṅkatta, pallaṅka 1, pallaṅka 2, sampavaṅka, sampavaṅkatā, savaṅkatta, vaṅka 1, vaṅka 2, vaṅka 3, vaṅka 6, vaṅkatta
-
 c + t	kk	ct > kk (Kacc 623, 554)	c > k	ñc + t	x
 c + t	kk	ct > kk (Kacc 623, 554)	ct > kk	ñc + t	x
 c + t	tt	ct > tt	c > t	c + th	x
 c + th	tth	cth > tth	c > t	x	x
 c + ṃ	ñc	cṃ > ñc (metathesis)	x	x	x
+ch + ta	ṭṭh	cht > ṭṭh	x	x	x
 
 g + y	gg	gy > gg	x	x	x
 
@@ -105,7 +106,7 @@ xd + bh	bbh	dbh > bbh	d > b	x	x	need to exlude roots starting with v
 d + m	mm	dm > mm	d > m	x	x
 xd + y	bb	dy > bb	x	abhi	x	exclude tings
 d + y	yy	dy > yy	d > y	yy	x
-d + l	ll	dl > ll	d > l	ll	
+d + l	ll	dl > ll	d > l	ll
 d + v	bb	dv > bb	d > b	x	x
 d + s	ss	ds > ss	d > s	x	x
 d + s	cch	ds > cch	d > c	x	x
@@ -155,6 +156,7 @@ r + bh	bbh	rbh > bbh	r > b	x	x
 r + m	mm	rm > mm	r > m	x	x
 r + v	bb	rv > vv > bb	v > b	x	x
 r + v	bb	rv > vv > bb	rv > bb	x	x
+r + s	ss	rs > ss	r > s	x	x
 ri + a	lla	ri > li > ly > ll	x	x	x
 
 l + y	ll	ly > ll	y > l	x	x
@@ -163,12 +165,12 @@ la + y	ll	ly > ll	y > l	x	x
 v + t	t	vt > t	v > t	v + th	x
 v + t	tt	vt > tt	v > t	v + th	x
 v + th	th	vth > th	x	x	x
-vi +	by	vi > vy > by	vi > by	x	x
-vi + ā	veyyā	vi > veyy (Kacc 401, 375)	vy > veyy	veyy	
+vi +	by	vi > vy > by	vi > by	x	vedhabyā
+vi + ā	veyyā	vi > veyy (Kacc 401, 375)	vy > veyy	veyy
 
 
 s + t	ṭṭh	st > ṭṭh	x	x	x
-s + m	ss	sm > ss	s > m	ss	
+s + m	ss	sm > ss	s > m	ss
 s + y	ss	sy > ss	y > s	x	x
 s + s	cch	ss > cch	x	x	x
 snih +	sini	snih > sinih (epenthesis)	x	x	x
@@ -221,3 +223,4 @@ h + y	yh	hy > yh (metathesis)	hy > yh	x	x
 ṃ + y	ññ	ṃy > ññ	x	x	x
 ṃ + l	ll	ṃl > ll	ṃ > l	x	x
 ṃs + t	st	ṃst > st	x	x	x
+ṃs + t	ṭṭh	ṃst > ṭṭh	st > ṭṭh	x	x

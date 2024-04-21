@@ -52,18 +52,20 @@ def add_update_phonetic(db_session, db, csv):
 				base_clean = re.sub("\\*", "", base_clean)
 
 				# test construction
-				if ((c.initial in construction_clean or
-					 c.initial in base_clean
-					) and
-					c.final in i.lemma_clean and
-					c.correct not in i.phonetic and not
-					(c.without in construction_clean or
-					 c.without in base_clean)
+				if (
+					(
+						c.initial in construction_clean
+	  					or c.initial in base_clean)
+					and c.final in i.lemma_clean
+					and c.correct not in i.phonetic
+					and not (
+						c.without in construction_clean
+					 	or c.without in base_clean)
 				):
 					# auto update wrong to correct
 					if (
-						c.wrong and
-						c.wrong in i.phonetic
+						c.wrong
+						and c.wrong in i.phonetic
 					):
 						i.phonetic = re.sub(
 							f"\\b{c.wrong}\\b", str(c.correct), str(i.phonetic))
