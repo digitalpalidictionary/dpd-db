@@ -69,19 +69,27 @@ class ProjectPaths:
 
         # exporter/share
         self.share_dir = base_dir / "exporter/share"
-        self.dpd_zip_path = base_dir / "exporter/share/dpd.zip"
-        self.mdict_mdx_path = base_dir / "exporter/share/dpd-mdict.mdx"
-        self.mdict_mdd_path = base_dir / "exporter/share/dpd-mdict.mdd"
-        self.grammar_dict_zip_path = base_dir / "exporter/share/dpd-grammar.zip"
-        self.grammar_dict_mdict_path = base_dir / "exporter/share/dpd-grammar-mdict.mdx"
+        
+        self.dpd_goldendict_dir = base_dir / "exporter/share/dpd/"
+        self.grammar_dict_goldendict_dir = base_dir / "exporter/share/dpd-grammar/"
+        self.deconstructor_goldendict_dir = base_dir / "exporter/share/dpd-deconstructor/"
+        
         self.dpd_mobi_path = base_dir / "exporter/share/dpd-kindle.mobi"
         self.dpd_epub_path = base_dir / "exporter/share/dpd-kindle.epub"
-        self.deconstructor_zip_path = base_dir / "exporter/share/dpd-deconstructor.zip"
-        self.deconstructor_mdict_mdx_path = base_dir / "exporter/share/dpd-deconstructor-mdict.mdx"
+        
         self.dpd_goldendict_zip_path = base_dir / "exporter/share/dpd-goldendict.zip"
-        self.dpd_goldendict_pyglossary_dir = base_dir / "exporter/share/dpd/"
         self.dpd_mdict_zip_path = base_dir / "exporter/share/dpd-mdict.zip"
         self.summary_md_path = base_dir / "exporter/share/summary.md"
+
+        # exporter/share/mdict
+        self.mdict_mdx_path = base_dir / "exporter/share/dpd-mdict.mdx"
+        self.mdict_mdd_path = base_dir / "exporter/share/dpd-mdict.mdd"
+        self.grammar_dict_mdx_path = base_dir / "exporter/share/dpd-grammar-mdict.mdx"
+        self.grammar_dict_mdd_path = base_dir / "exporter/share/dpd-grammar-mdict.mdd"
+        self.deconstructor_mdx_path = base_dir / "exporter/share/dpd-deconstructor-mdict.mdx"
+        self.deconstructor_mdd_path = base_dir / "exporter/share/dpd-deconstructor-mdict.mdd"
+
+
 
         # exporter/templates
         self.templates_dir = base_dir / "exporter/templates"

@@ -8,22 +8,9 @@ from tools.goldendict_exporter import DictInfo, DictVariables
 from tools.tic_toc import bip, bop
 from tools.utils import DictEntry
 from tools.writemdict.writemdict import MDictWriter
+from tools.printer import p_green, p_white, p_yes, p_no
 
 
-def printer(message):
-    print(f"{'':<5}[white]{message:<30}", end="")
-
-
-def printer_ok():
-    print(f"[blue]{'ok':<10}", end="")
-
-
-def printer_no():
-    print(f"[red]{'no':<10}", end="")
-
-
-def printer_bop():
-    print(f"{bop():>10}")
 
 
 def make_synonyms(all_items, item):
@@ -73,32 +60,30 @@ def export_to_mdict(
 
     """Export to MDict"""
 
-    print(f"[green]{'exporting to mdict'}")
+    p_green("exporting to mdict")
 
     bip()
-    printer("adding 'mdict' and h3 tag")
+    p_white("adding 'mdict' and h3 tag")
     if h3_header:
         for i in dict_data:
             i['definition_html'] = \
                 i['definition_html'].replace("GoldenDict", "MDict")
             i['definition_html'] = \
                 f"<h3>{i['word']}</h3>{i['definition_html']}"
-        printer_ok()
+        p_yes("ok")
     else:
-        printer_no()    
-    printer_bop()
+        p_no("error")    
 
     bip()
-    printer("reducing synonyms")
+    p_white("reducing synonyms")
     try:
         data = reduce(make_synonyms, dict_data, [])
-        printer_ok()
+        p_yes("ok")
     except Exception:
-        printer_no()
-    printer_bop()
+        p_no("error")
 
     bip()
-    printer("writing .mdx file")
+    p_white("writing .mdx file")
     try:
         writer = MDictWriter(
             data,
@@ -106,22 +91,20 @@ def export_to_mdict(
             description=dict_info.description)
         with open(dict_var.mdict_mdx_path, 'wb') as outfile:
             writer.write(outfile)
-        printer_ok()
+        p_yes("ok")
     except Exception:
-        printer_no()
-    printer_bop()
+        p_no("error")
 
     bip()
-    printer("compiling css and js assets")
+    p_white("compiling css and js assets")
     try:
         assets = add_css_js(dict_var)
-        printer_ok()
+        p_yes("ok")
     except Exception:
-        printer_no()
-    printer_bop()
+        p_no("error")
 
     bip()
-    printer("writing .mdd file")
+    p_white("writing .mdd file")
     try:
         writer = MDictWriter(
             assets,
@@ -130,8 +113,6 @@ def export_to_mdict(
             is_mdd=True)
         with open(dict_var.mdict_mdd_path, "wb") as f:
             writer.write(f)
-        printer_ok()
+        p_yes("ok")
     except Exception:
-        printer_no()
-    printer_bop()
-
+        p_no("error")

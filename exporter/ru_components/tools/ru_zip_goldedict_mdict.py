@@ -22,13 +22,13 @@ def main():
 def rezip_goldendict_ru(rupth: RuPaths):
     
     if (
-        rupth.dpd_zip_path.exists()
-        and rupth.grammar_dict_zip_path.exists()
-        and rupth.deconstructor_zip_path.exists()
+        rupth.dpd_output_dir.exists()
+        and rupth.grammar_dict_dir.exists()
+        and rupth.deconstructor_output_dir.exists()
     ):
-        input_zip_files = [rupth.dpd_zip_path,
-                        rupth.grammar_dict_zip_path,
-                        rupth.deconstructor_zip_path]
+        input_zip_files = [rupth.dpd_output_dir,
+                        rupth.grammar_dict_dir,
+                        rupth.deconstructor_output_dir]
 
         output_zip_file = rupth.dpd_goldendict_zip_path
 

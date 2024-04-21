@@ -2,85 +2,91 @@
 
 """Rezip the three files DPD into one:
 1. dpd.zip, 2. dpd-grammar.zip, 3. dpd-deconstructor.zip
-1. dpd.mdx, 2. dpd-grammar.mdx, 3. dpd-deconstructor.mdx"""
+1. dpd.mdx .mdd, 2. dpd-grammar.mdx .mdd, 3. dpd-deconstructor.mdx .mdd"""
 
 import os
-from rich import print
 from zipfile import ZipFile, ZIP_DEFLATED
 from tools.paths import ProjectPaths
-from tools.tic_toc import tic, toc
-
-def main():
-    tic()
-    print("[bright_yellow]rezipping goldendict and mdict")
-    pth = ProjectPaths()
-    rezip_goldendict(pth)
-    rezip_mdict(pth)
-    toc()
+from tools.tic_toc import bip, tic, toc
+from tools.printer import p_title, p_green, p_red, p_yes, p_no
 
 
-def rezip_goldendict(pth: ProjectPaths):
+def zip_goldendict(pth: ProjectPaths):
+    """Zip up the three dirs for goldendict"""
+    p_green("zipping goldendict")
+    bip()
     
     if (
-        pth.dpd_zip_path.exists()
-        and pth.grammar_dict_zip_path.exists()
-        and pth.deconstructor_zip_path.exists()
+        pth.dpd_goldendict_dir.exists()
+        and pth.grammar_dict_goldendict_dir.exists()
+        and pth.deconstructor_goldendict_dir.exists()
     ):
-        input_zip_files = [pth.dpd_zip_path,
-                        pth.grammar_dict_zip_path,
-                        pth.deconstructor_zip_path]
+        input_dirs = [
+            (pth.dpd_goldendict_dir, "dpd"),
+            (pth.grammar_dict_goldendict_dir, "dpd-grammar"),
+            (pth.deconstructor_goldendict_dir, "dpd-deconstructor")]
 
         output_zip_file = pth.dpd_goldendict_zip_path
 
-        with ZipFile(output_zip_file, "w",
-                    compression=ZIP_DEFLATED,
-                    compresslevel=5) as output_zip:
-            for input_zip_file in input_zip_files:
-                with ZipFile(input_zip_file, "r") as input_zip:
-                    for file_info in input_zip.infolist():
-                        file_content = input_zip.read(file_info.filename)
+        with ZipFile(output_zip_file, "w", compression=ZIP_DEFLATED, compresslevel=5) as output_zip:
+            for input_dir, dir_name in input_dirs:
+                for root, dirs, files in os.walk(input_dir):
+                    for file in files:
+                        file_path = os.path.join(root, file)
+                        # Calculate the relative path from the root of the input directory
+                        relative_path = os.path.relpath(file_path, input_dir)
+                        # Prepend the directory name to the relative path
+                        archive_name = os.path.join(dir_name, relative_path)
+                        output_zip.write(file_path, archive_name)
 
-                        # Extract the subdirectory name (e.g., 'dpd-grammar')
-                        subdirectory_name = os.path.dirname(file_info.filename)
-                        
-                        # Construct the output path to include only the file's name with the subdirectory
-                        output_path = f"{subdirectory_name}/{os.path.basename(file_info.filename)}"
-
-                        # Add the file to the output zip
-                        output_zip.writestr(output_path, file_content)
-
-        print(f"{output_zip_file.name} created successfully.")
-    
+        p_yes("ok")
     else:
-        print("[red]no dpd.zip file found")
+        p_no("error")
+        p_red("no dpd dir file found")
 
 
-def rezip_mdict(pth: ProjectPaths):
+def zip_mdict(pth: ProjectPaths):
+    """Zipping up MDict files for sharing."""
 
-    if (
-        pth.mdict_mdx_path.exists() 
-        and pth.deconstructor_mdict_mdx_path.exists() 
-        and pth.grammar_dict_mdict_path.exists()
-    ):
-        mdict_files = [pth.deconstructor_mdict_mdx_path,
-                    pth.grammar_dict_mdict_path,
-                    pth.mdict_mdx_path]
+    p_green("zipping mdict")
+    bip()
 
-        output_mdict_zip = pth.dpd_mdict_zip_path
+    mdict_files = [
+        pth.mdict_mdx_path,
+        pth.mdict_mdd_path,
+        pth.deconstructor_mdx_path,
+        pth.deconstructor_mdd_path,
+        pth.grammar_dict_mdx_path,
+        pth.grammar_dict_mdd_path
+    ]
 
-        with ZipFile(
-            output_mdict_zip, "w",
-            compression=ZIP_DEFLATED,
-            compresslevel=5
-        ) as mdict_zip:
-            for mdict_file in mdict_files:
-                file_content = mdict_file.read_bytes()
-                mdict_zip.writestr(mdict_file.name, file_content)
-
-        print(f"{output_mdict_zip.name} created successfully.")
+    for file in mdict_files:
+        if not file.exists():
+            p_no("error")
+            p_red("mdict file found")
+            return
     
-    else:
-        print("[red]no mdict file found")
+    output_mdict_zip = pth.dpd_mdict_zip_path
+
+    with ZipFile(
+        output_mdict_zip, "w",
+        compression=ZIP_DEFLATED,
+        compresslevel=5
+    ) as mdict_zip:
+        for mdict_file in mdict_files:
+            file_content = mdict_file.read_bytes()
+            mdict_zip.writestr(mdict_file.name, file_content)
+
+    p_yes("ok")
+
+
+def main():
+    tic()
+    p_title("rezipping goldendict and mdict")
+    pth = ProjectPaths()
+    zip_goldendict(pth)
+    zip_mdict(pth)
+    toc()
 
 
 if __name__ == "__main__":

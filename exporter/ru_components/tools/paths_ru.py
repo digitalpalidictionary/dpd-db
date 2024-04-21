@@ -42,11 +42,11 @@ class RuPaths:
 
         # /exporter/share
         self.share_dir = base_dir.joinpath(Path("exporter/share"))
-        self.dpd_zip_path = base_dir.joinpath(Path("exporter/share/ru-dpd.zip"))
+        self.dpd_output_dir = base_dir.joinpath(Path("exporter/share/ru-dpd.zip"))
         self.mdict_mdx_path = base_dir.joinpath(Path("exporter/share/ru-dpd-mdict.mdx"))
-        self.grammar_dict_zip_path = base_dir.joinpath(Path("exporter/share/ru-dpd-grammar.zip"))
+        self.grammar_dict_dir = base_dir.joinpath(Path("exporter/share/ru-dpd-grammar.zip"))
         self.grammar_dict_mdict_path = base_dir.joinpath(Path("exporter/share/ru-dpd-grammar-mdict.mdx"))
-        self.deconstructor_zip_path = base_dir.joinpath(Path("exporter/share/ru-dpd-deconstructor.zip"))
+        self.deconstructor_output_dir = base_dir.joinpath(Path("exporter/share/ru-dpd-deconstructor.zip"))
         self.deconstructor_mdict_mdx_path = base_dir.joinpath(Path("exporter/share/ru-dpd-deconstructor-mdict.mdx"))
         self.dpd_goldendict_zip_path = base_dir.joinpath(Path("exporter/share/ru-dpd-goldendict.zip"))
         self.dpd_mdict_zip_path = base_dir.joinpath(Path("exporter/share/ru-dpd-mdict.zip"))
