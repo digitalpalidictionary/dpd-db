@@ -21,6 +21,9 @@ jobs:
     - name: Install gdown
       run: pip install gdown
 
+    - name: Install dictzip
+      run: sudo apt-get update && sudo apt-get install -y dictzip
+
     - name: Download and unzip output_do.zip
       run: |
           gdown --id '10bU9okbFmNKpCGF2sooQ5Bjh84qNkt9g' --output 'db/deconstructor/output_do.zip'

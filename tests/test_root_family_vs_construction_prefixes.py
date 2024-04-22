@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Test if root family prefix == construciton prefixes"""
+"""Test if root family prefix == construction prefixes"""
 
 
 import re

@@ -566,6 +566,7 @@ doṇas
 donax
 doṇi
 downcastness
+doziness
 DPD
 DPR
 dreadlocked
@@ -593,6 +594,8 @@ eightfold
 eightfold
 Ekādasakanipāta
 Ekakanipāta
+elate
+elates
 Elengi
 Eleusine
 elucidation
@@ -653,6 +656,7 @@ fleshlessness
 fletching
 fly's
 fodder-ish
+footless
 footlessness
 forestless
 fortnights
@@ -911,6 +915,7 @@ karuṇā
 Kāsi
 Kāsi
 Kāsian
+Kāsians
 kasina
 kasiṇa
 Kassapa
@@ -1755,6 +1760,7 @@ siyanti
 sk
 sk 
 skilled-ness
+slackness
 slanderousness
 slayed
 śloka

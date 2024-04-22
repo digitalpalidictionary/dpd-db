@@ -2053,12 +2053,12 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √milā	3	ya	shrink, wither	√mlā √mlai	2, 4	relax	saṃ √milā		saṃ + mlāta
 √mis	1	a	wink, blink	√miṣ	6	wink	ud √mis		
 √mis	1	a	wink, blink	√miṣ	6	wink	ni √mis		a + nimiṣa, animiṣat, nimiṣa, nimeṣa
-√miss	8	*e	mix, mingle	√miśr √mikṣ	1, 10	mix	√miss		a + miśrita, amiśra, na + miśrayati, miśr, miśra, miśraka, miśraka +, miśrayati, miśrita
-√miss	8	*e	mix, mingle	√miśr √mikṣ	1, 10	mix	vi √miss		vimiśra, vimiśrita
-√miss	8	*e	mix, mingle	√miśr √mikṣ	1, 10	mix	vi ati √miss		vyatimiśra
-√miss	8	*e	mix, mingle	√miśr √mikṣ	1, 10	mix	vi ava √miss		
-√miss	8	*e	mix, mingle	√miśr √mikṣ	1, 10	mix	vi ā √miss		na + vyāmiśra, na + vyāmiśratā
-√miss	8	*e	mix, mingle	√miśr √mikṣ	1, 10	mix	saṃ √miss		na + sammiśra, sammiśra, sammiśra +
+√miss	8	*e	mix, mingle	√miśr √mikṣ	1, 10	mix	√miss	miśr	a + miśrita, amiśra, na + miśrayati, miśr, miśra, miśraka, miśraka +, miśrayati, miśrita
+√miss	8	*e	mix, mingle	√miśr √mikṣ	1, 10	mix	vi √miss	vimiśr	vimiśra, vimiśrita
+√miss	8	*e	mix, mingle	√miśr √mikṣ	1, 10	mix	vi ati √miss	-	vyatimiśra
+√miss	8	*e	mix, mingle	√miśr √mikṣ	1, 10	mix	vi ava √miss	-	
+√miss	8	*e	mix, mingle	√miśr √mikṣ	1, 10	mix	vi ā √miss	-	na + vyāmiśra, na + vyāmiśratā
+√miss	8	*e	mix, mingle	√miśr √mikṣ	1, 10	mix	saṃ √miss	sammikṣ	na + sammiśra, sammiśra, sammiśra +
 √mih 1	1	a	urinate, excrete	√mih	1	urinate	√mih		mīḍha, mīḍha +, meha
 √mih 1	1	a	urinate, excrete	√mih	1	urinate	ud √mih		
 √mih 2	1	a	smile, chuckle	√smi	1	smile	√mih		smita
@@ -3096,7 +3096,8 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √sudh	3	ya	be pure	√śudh	4	purify	vi √sudh	viśudh	aviśuddha, na + suviśuddha, viśuddha, viśuddhatā, viśuddhi, viśudhya, viśudhyati, viśodhana, viśodhayati, viśodhayitvā, viśodhita, su + viśodhita, suviśuddha
 √sudh	3	ya	be pure	√śudh	4	purify	saṃ √sudh	saṃśudh	sam + śodhaka, saṃśuddha, saṃśuddhi, saṃśodhayat, saṃśodhayati
 √sup	1	a	lie down, sleep	√svap	1, 2	sleep	√sup	svap	asvāpsīt, duḥsvapna, supta, suptvā, supyate, supyamāna, svapat, svapati, svapitum, svapitṛ, svaptum, svapna
-√sup	1	a	lie down, sleep	√svap	1, 2	sleep	pati √sup		pratisupta
+√sup	1	a	lie down, sleep	√svap	1, 2	sleep	pa √sup	prasvap	
+√sup	1	a	lie down, sleep	√svap	1, 2	sleep	pati √sup	-	pratisupta
 √subh	1	*a	shine, adorn	√śubh	1, 6	beautify	√subh	śubh	aśubha, aśubha +, aśubhāt, aśobhat, śubha, śubhā, śobha, śobhat, śobhate, śobhana, śobhamāna, śobhayat, śobhayati, śobhase, śobhita, śobhitum, śobhin
 √subh	1	*a	shine, adorn	√śubh	1, 6	beautify	abhi √subh	abhiśubh	abhiśobhita
 √subh	1	*a	shine, adorn	√śubh	1, 6	beautify	upa √subh	upaśubh	upaśobhate, upaśobhayat, upaśobhayati, upaśobhayamāna, upaśobhita

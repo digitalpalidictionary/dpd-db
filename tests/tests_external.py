@@ -182,7 +182,7 @@ def construction_line1_does_not_match_lemma_1(searches: dict) -> tuple:
         "nāsiṃsatī", "nāsīsatī", "natthī", "paralokavajjabhayadassāvine",
         "paresa", "pariññā 2", "paṭivadeyyu", "phuseyyu", "sabbadhammāna",
         "saḷ", "sat 1", "sat 2", "upādā", "vijaññā", "visesi", "govinda",
-        "sivathikā", "sīvathikā", "sakad", "bahulī"]
+        "sivathikā", "sīvathikā", "sakad", "bahulī", "abhyati", "pasayhā"]
 
     for i in searches["dpd_headword"]:
         if i.lemma_1 not in exceptions:

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Find anomolies in the headword numbering.
+"""Find anomalies in the headword numbering.
 Looks for words with different roots or words families."""
 
 import re
