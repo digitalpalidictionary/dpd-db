@@ -31,6 +31,24 @@ mismatched_notes_rows = merged_notes[merged_notes['_merge'] != 'both']
 # Read the backup_ru file into a DataFrame
 backup_ru = pd.read_csv(pth.russian_path, sep='\t')
 
+backup_dps_ru_pth = os.path.join(dpspth.dps_backup_dir, 'russian.tsv')
+backup_dps_ru = pd.read_csv(backup_dps_ru_pth, sep='\t', low_memory=False)
+
+# Step 1: Combine the IDs from both DataFrames
+all_ids = pd.concat([backup_ru['id'], backup_dps_ru['id']])
+
+# Step 2: Identify IDs that are unique to each DataFrame
+unique_to_ru = backup_ru[~backup_ru['id'].isin(backup_dps_ru['id'])]['id']
+unique_to_dps = backup_dps_ru[~backup_dps_ru['id'].isin(backup_ru['id'])]['id']
+
+# Step 3: Combine these unique IDs into a single list
+unique_ids = pd.concat([unique_to_ru, unique_to_dps])
+
+# Step 4: Save this list of unique IDs into a TSV file
+unique_ids.to_csv(os.path.join(dpspth.for_compare_dir, 'ru_unique_ids.tsv'), sep='\t', index=False)
+
+print(f"{len(unique_ids)} IDs that do not exist in both backup_ru and backup_dps_ru saved to unique_ids.tsv")
+
 # Merge the mismatched_rows DataFrame with the backup_ru DataFrame on 'id'
 merged_with_ru = pd.merge(mismatched_rows, backup_ru, on='id', how='inner')
 merged_notes_with_ru = pd.merge(mismatched_notes_rows, backup_ru, on='id', how='inner')

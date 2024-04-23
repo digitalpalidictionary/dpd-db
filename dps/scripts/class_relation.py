@@ -86,7 +86,7 @@ def main():
                         count += 1
                         print(f"(removed) {count} for {word.lemma_1} || old sbs_class: {word.sbs.sbs_class} || new is {sbs_class}")
 
-    db_session.commit()
+    # db_session.commit()
 
     db_session.close()
     toc()
@@ -641,39 +641,54 @@ def determine_sbs_class(word) -> Optional[int]:
         # print(f"Pattern: √bhū and √kar a > i, Word: {word.lemma_1}")
         return 19
 
+    vowel_sandhi_patterns = {
+    "aa > a", "aa > ā", "aa > o", "aā > ā", "āa > ā", "āā > ā", "ai > a", "ai > ā", "ai > i", 
+    "ai > e", "aī > e", "au > u", "au > ū", "au > o", "aū > o", "ae > e", "ao > o", "āi > ā", 
+    "āi > i", "āi > ī", "āi > e", "āu > ū", "āe > ā", "ia > a", "ia > ā", "ia > i", "ia > ī", 
+    "ia > ya", "iā > yā", "ii > i", "ii > ī", "iu > o", "ie > e", "io > o", "īa > yā", "īu > u", 
+    "īi > ī", "ua > u", "ua > va", "ua > vā", "uā > ā", "uā > vā", "ui > u", "ui > ū", "uu > u", 
+    "uu > ū", "ue > u", "ue > ve", "ūa > ū", "ea > a", "ea > ā", "ea > e", "ea > ya", "ea > yā", 
+    "eā > ā", "ei > e", "ee > e", "oa > a", "oa > ā", "oa > o", "oa > va", "oa > vā", "oe > e", 
+    "oe > o", "oi > o", "ou > u", "ya > yā", "va > vā", "+"
+    }
+
+
     if (
-        (", comp" in word.grammar or "comp vb" in word.grammar) and
+        (
+            ", comp" in word.grammar or 
+            "comp vb" in word.grammar or 
+            word.pos == "ind" or
+            word.pos == "idiom" 
+            ) and
         "compar" not in word.grammar and
         word.compound_type == "" and
-        (
-            "aa > a" in word.phonetic
-            or "aa > ā" in word.phonetic
-            or "aa > o" in word.phonetic
-            or "āa > ā" in word.phonetic
-            or "aā > a" in word.phonetic
-            or "āi > i" in word.phonetic
-            or "ai > i" in word.phonetic
-            or "ae > e" in word.phonetic
-            or "au > u" in word.phonetic
-            or "oe > e" in word.phonetic
-            or "oe > o" in word.phonetic
-            or "oa > o" in word.phonetic
-            or "oa > a" in word.phonetic
-            or "oi > o" in word.phonetic
-            or "ie > e" in word.phonetic
-            or "ia > i" in word.phonetic
-            or "ee > e" in word.phonetic
-            or "ea > e" in word.phonetic
-            or "ea > a" in word.phonetic
-            or "ei > e" in word.phonetic
-            or "ui > u" in word.phonetic
-            or "ya > yā" in word.phonetic
-            or "va > vā" in word.phonetic
-            or "+" in word.phonetic
-        )
+        any(pattern in word.phonetic for pattern in vowel_sandhi_patterns)
     ):
         # print(f"Pattern: vowel sandhi comp, Word: {word.lemma_1}")
         return 16
+
+    cons_patterns = {
+        "tk > kk", "st > tth", "dv > dd", "rth > tth", "kh > kkh", "g > gg", "ch > cch", 
+        "j > jj", "ñ > ññ", "ṭh > ṭṭh", "t > tt", "d > dd", "dh > ddh", "n > nn", 
+        "p > pp", "b > bb", "l > ll", "s > ss", "āg > agg", "āp > app", "āb > abb", 
+        "m > mm", "rv > vv > bb", "pi > py > pp", "tk > kk", "bh > bbh", "tp > pp", 
+        "ṭh > ṭṭh"
+    }
+
+    if (
+        (
+            ", comp" in word.grammar or 
+            "comp vb" in word.grammar or 
+            word.pos == "ind" or
+            word.pos == "idiom"
+            ) and
+        "compar" not in word.grammar and
+        word.compound_type == "" and
+        any(pattern in word.phonetic for pattern in cons_patterns)
+    ):
+        # print(f"Pattern: cons sandhi comp, Word: {word.lemma_1}")
+        return 17
+
 
     # irreg nouns
     if (
