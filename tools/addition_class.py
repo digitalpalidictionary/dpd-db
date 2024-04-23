@@ -14,14 +14,14 @@ pth = ProjectPaths()
 
 class Addition:
     def __init__(
-            self,
-            pali_word: DpdHeadwords,
-            comment: str,
-            date_created: Optional[str] = None,
-            old_id: Optional[int] = None,
-            new_id: Optional[int] = None,
-            added_to_db: bool = False,
-            added_date: Optional[str] = None
+        self,
+        pali_word: DpdHeadwords,
+        comment: str,
+        date_created: Optional[str] = None,
+        old_id: Optional[int] = None,
+        new_id: Optional[int] = None,
+        added_to_db: bool = False,
+        added_date: Optional[str] = None
     ):
         self.pali_word = pali_word
         self.comment = comment

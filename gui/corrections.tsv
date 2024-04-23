@@ -1710,326 +1710,217 @@ kusalaṃ caritaṃ mayā."	missing		yes
 68027	grammar	fem, from dhava					MW		yes		
 68027	meaning_lit	without husband					MW		yes		
 68027	derived_from	dhava					missing		yes		
-26283	variant	carapire					missing				
-46558	compound_type	kammadhāraya	compound_construction	puñña + abhisaṅkhāra			missing				
-46558	source_1	SN12.51	sutta_1	parivīmaṃsanasuttaṃ	example_1	yato kho, bhikkhave, bhikkhuno avijjā pahīnā hoti vijjā uppannā, so avijjāvirāgā vijj'uppādā n'eva <b>puññ'ābhisaṅkhāraṃ</b> abhisaṅkharoti na apuññ'ābhisaṅkhāraṃ abhisaṅkharoti na āneñj'ābhisaṅkhāraṃ abhisaṅkharoti.	bold				
-12551	meaning_lit	causes to shine					pr				
-12552	meaning_lit	causes to shine					pr				
-15655	source_1	PTP7	sutta_1	hārasampātabhūmi	example_1	ye sattā uccakulino, te imaṃ dhammadesanaṃ sutvā bhiyyoso mattāya kusale dhamme samādāya vattissantī'ti. ayaṃ catubyūho hāro. bhūmiyaṃ <b>upadeso</b>.	missing				
-15655	meaning_1	indication; instruction; advice					missing				
-15655	meaning_lit	pointing towards					missing				
-15655	commentary	(DNt) <b>upadeso</b> nāma savisesaṃ sattannaṃ ratanānaṃ vicāraṇavasena pavatto kathābandho.					missing				
-15655	phonetic	i > e					missing				
-24234	meaning_1	speech; sentence; words					missing				
-32410	commentary	(ADHt) yathā kathaṃ viyā'ti āha <b>dāvaggi viyā</b>'ti. so hi vanaghaṭeyeva uppanno tam'eva dahati.					missing				
-32410	source_1	JAa35	sutta_1	ajagarapetavatthu	example_1	satthā mahābhikkhusaṅghaparivāro aññatarasmiṃ padese aṭṭhāsi. <b>dāvaggi</b> abhibhavanto viya viravanto āgacchati.	missing				
-32410	meaning_1	forest-fire; conflagration					missing				
-28464	source_1	APAa1.7.4	sutta_1	parappasādakattherāpadānavaṇṇanā	example_1	visesena kilesakhandhamārādayo māre <b>jitavā</b>'ti vijitāvī, taṃ vijitāvinaṃ sambuddhaṃ.	missing				
-28464	construction	√ji + tvā > tavā					missing				
-28464	phonetic	+a					missing				
-28464	notes	Thai pronunciation of Pāli, insertsion the letter 'a' between two consonants					missing				
-28464	trans	trans					missing				
-28464	plus_case	+acc					missing				
-28464	meaning_1	having conquered; having subdued					missing				
-28464	grammar	abs of jināti					missing				
+26283	variant	carapire					missing		yes		
+46558	compound_type	kammadhāraya	compound_construction	puñña + abhisaṅkhāra			missing		yes		
+46558	source_1	SN12.51	sutta_1	parivīmaṃsanasuttaṃ	example_1	yato kho, bhikkhave, bhikkhuno avijjā pahīnā hoti vijjā uppannā, so avijjāvirāgā vijj'uppādā n'eva <b>puññ'ābhisaṅkhāraṃ</b> abhisaṅkharoti na apuññ'ābhisaṅkhāraṃ abhisaṅkharoti na āneñj'ābhisaṅkhāraṃ abhisaṅkharoti.	bold		yes		
+12551	meaning_lit	causes to shine					pr		yes		
+12552	meaning_lit	causes to shine					pr		yes		
+15655	source_1	PTP7	sutta_1	hārasampātabhūmi	example_1	ye sattā uccakulino, te imaṃ dhammadesanaṃ sutvā bhiyyoso mattāya kusale dhamme samādāya vattissantī'ti. ayaṃ catubyūho hāro. bhūmiyaṃ <b>upadeso</b>.	missing		yes		
+15655	meaning_1	indication; instruction; advice					missing		yes		
+15655	meaning_lit	pointing towards					missing		yes		
+15655	commentary	(DNt) <b>upadeso</b> nāma savisesaṃ sattannaṃ ratanānaṃ vicāraṇavasena pavatto kathābandho.					missing		yes		
+15655	phonetic	i > e					missing		yes		
+24234	meaning_1	speech; sentence; words					missing		yes		
+32410	commentary	(ADHt) yathā kathaṃ viyā'ti āha <b>dāvaggi viyā</b>'ti. so hi vanaghaṭe'y'eva uppanno tam'eva dahati.					missing	please mark sandhi. vanaghaṭe'y'eva	yes		
+32410	source_1	JAa35	sutta_1	ajagarapetavatthu	example_1	satthā mahābhikkhusaṅghaparivāro aññatarasmiṃ padese aṭṭhāsi. <b>dāv'aggi</b> abhibhavanto viya viravanto āgacchati.	missing	please mark sandhi. dāv'aggi	yes		
+32410	meaning_1	forest-fire; conflagration					missing		yes		
+28464	source_1	APAa1.7.4	sutta_1	parappasādakattherāpadānavaṇṇanā	example_1	visesena kilesakhandhamārādayo māre <b>jitavā</b>'ti vijitāvī, taṃ vijitāvinaṃ sambuddhaṃ.	missing		yes		
+28464	construction	√ji + tvā > tavā					missing		yes		
+28464	phonetic	tvā > tavā (epenthesis)					missing		yes		
+28464	notes	Thai pronunciation of Pāli, insertsion of the letter <b>-a-</b> between two consonants					missing		yes		
+28464	trans	trans					missing		yes		
+28464	plus_case	+acc					missing		yes		
+28464	meaning_1	having conquered; having subdued					missing		yes		
+28464	grammar	abs of jināti					missing		yes		
 32577	source_1	API127	sutta_1	abhayattheraapadānaṃ	example_1	"tadā catasso gāthāyo,
 ganthayitvā subyañjanā,
 santhavitvā tilokaggaṃ,
-desayissaṃ <b>dine</b> <b>dine</b>."	missing				
-32577	meaning_1	day					missing				
-33056	meaning_1	taking hold of wrongly; bad seizing					missing				
-1236	variant	ajjappabbhuti					missing				
-1236	notes						var in notes				
-65380	notes						wrong place				
-49539	notes	synonym with sassata-diṭṭhi					correct diecritic				
-7339	notes						same as in meaning_1				
-71817	notes	memorizer					in the meaning_1				
-19168	notes						no need since MN21 in examples				
-3554	grammar	masc, loc sg, atta group					missing				
-13479	phonetic	ia > i					missing				
-38823	phonetic	ae > e					missing				
-64953	phonetic	"ey > eyy
-āa > ā"					missing				
-21727	phonetic	ṃi > ni					missing				
-30379	phonetic	ae > e					missing				
-53888	phonetic	aa > ā					missing				
-31220	phonetic	aa > a					missing				
-39184	phonetic	oe > e					missing				
+desayissaṃ <b>dine</b> <b>dine</b>."	missing		yes		
+32577	meaning_1	day					missing		yes		
+33056	meaning_1	taking hold of wrongly; incorrect grasp					missing		yes		
+1236	variant	ajjappabbhuti					missing		yes		
+1236	notes						var in notes		yes		
+65380	notes						wrong place		yes		
+49539	notes	synonym with <i>sassatadiṭṭhi</i>					correct diecritic	please italicize pali words in notes. <i>sassatadiṭṭhi</i>	yes		
+7339	notes						same as in meaning_1		yes		
+71817	notes	memorizer					in the meaning_1		yes		
+19168	notes						no need since MN21 in examples		yes		
+3554	grammar	masc, loc sg of na atta, atta group					missing		yes		
+13479	phonetic	ia > i					missing		yes		
+38823	phonetic	ae > e					missing		yes		
+64953	phonetic	āa > ā					missing		yes		
+21727	phonetic	ṃi > ni					missing		yes		
+30379	phonetic	ae > e					missing		yes		
+53888	phonetic	aa > ā					missing		yes		
+31220	phonetic	aa > a					missing		yes		
+39184	phonetic	oe > e					missing		yes		
 53767	phonetic	"ṃn > nn
-aa > ā"					missing				
+aa > ā"					missing		yes		
 18049	phonetic	"ṃa > ma
-oa > o"					missing				
-13796	phonetic	au > u					missing				
-26341	phonetic	aa > a					missing				
-53801	phonetic	ṃa > ma					missing				
+oa > o"					missing		yes		
+13796	phonetic	au > u					missing		yes		
+26341	phonetic	aa > a					missing		yes		
+53801	phonetic	ṃa > ma					missing		yes		
 21655	phonetic	"ṃc > ñc
-aa > ā"					missing				
-30174	phonetic	aa > ā					missing				
-59009	phonetic	ie > e					missing				
+aa > ā"					missing		yes		
+30174	phonetic	aa > a					missing	> a not ā	yes		
+59009	phonetic	ie > e					missing		yes		
 64954	phonetic	"ey > eyy
-āi > i"					missing				
-71431	phonetic	ie > e					missing				
+āi > i"					missing		yes		
+71431	phonetic	ie > e					missing		yes		
 18047	phonetic	"oe > e
-aa > a"					missing				
-18114	phonetic	ṃa > ma					missing				
-42312	phonetic	ai > i					missing				
-17831	phonetic	oe > o					missing				
-26130	phonetic	oi > o					missing				
-26516	phonetic	aa > ā					missing				
-27077	phonetic	ee > e					missing				
-27164	phonetic	ea > e					missing				
-29631	phonetic	ai > i					missing				
-30195	phonetic	ae > e					missing				
+aa > a"					missing		yes		
+18114	phonetic	ṃa > ma					missing		yes		
+42312	phonetic	ai > i					missing		yes		
+17831	phonetic	oe > o					missing		yes		
+26130	phonetic	oi > o					missing		yes		
+26516	phonetic	aa > ā					missing		yes		
+27077	phonetic	ee > e					missing		yes		
+27164	phonetic	ea > e					missing		yes		
+29631	phonetic	ai > i					missing		yes		
+30195	phonetic	ae > e					missing		yes		
 31376	phonetic	"e > y (Kacc 17, 19)
-ya > yā"					missing			
+ya > yā"					missing		yes		
 31375	phonetic	"e > y (Kacc 17, 19)
-ya > yā"					missing			
+ya > yā"					missing		yes		
 31374	phonetic	"e > y (Kacc 17, 19)
-ya > yā"					missing		
-34490	phonetic	ei > e					missing				
-36583	phonetic	aa > ā					missing				
+ya > yā"					missing		yes		
+34490	phonetic	ei > e					missing		yes		
+36583	phonetic	aa > ā					missing		yes		
 38818	phonetic	"ae > e
 oa > o
-ṃa > ma"					missing				
-38824	phonetic	ae > e					missing				
-42297	phonetic	aa > ā					missing				
-42308	phonetic	aa > ā					missing				
-42335	phonetic	ae > e					missing				
-50993	phonetic	ea > a					missing				
-51454	phonetic	aa > o					missing				
-53293	phonetic	ee > e					missing				
-53633	phonetic	āa > ā					missing				
-53847	phonetic	oa > a					missing				
-54291	phonetic	oi > o					missing				
-57120	phonetic	ea > e					missing				
-57723	phonetic	aa > a					missing				
-63878	phonetic	ui > u					missing				
+ṃa > ma"					missing		yes		
+38824	phonetic	ae > e					missing		yes		
+42297	phonetic	aa > ā					missing		yes		
+42308	phonetic	aa > ā					missing		yes		
+42335	phonetic	ae > e					missing		yes		
+50993	phonetic	ea > a					missing		yes		
+51454	phonetic	oa > o					missing		yes		
+53293	phonetic	ee > e					missing		yes		
+53633	phonetic	āa > ā					missing		yes		
+53847	phonetic	oa > a					missing		yes		
+54291	phonetic	oi > o					missing		yes		
+57120	phonetic	ea > e					missing		yes		
+57723	phonetic	aa > a					missing		yes		
+63878	phonetic	ui > u					missing		yes		
 65494	phonetic	"o > v (Kacc 18, 20)
-va > vā"					missing				
+va > vā"					missing		yes		
 59603	phonetic	"o > v (Kacc 18, 20)
-va > vā"					missing		
-66829	phonetic	āa > ā					missing				
-71304	phonetic	ia > i					missing				
-8752	phonetic	ṃa > ma					missing				
+va > vā"					missing		yes		
+66829	phonetic	āa > ā					missing		yes		
+71304	phonetic	ia > i					missing		yes		
+8752	phonetic	ṃa > ma					missing		yes		
 10843	phonetic	"ṃ > ññ
-ae > e"					missing				
-13806	phonetic	aṃa > ā					missing				
+ae > e"					missing		yes		
+13806	phonetic	aṃa > ā					missing		yes		
 17619	phonetic	"ṃi > mi
-aṃa > ā"					missing				
+aṃa > ā"					missing		yes		
 18063	phonetic	"ṃc > ñc
-ee > e"					missing				
-18211	phonetic	aṃa > ā					missing				
-21673	phonetic	ṃh > ñh					missing				
-27251	phonetic	oa > o					missing				
-29492	phonetic	ṃa > ma					missing				
-31599	phonetic	oa > o					missing				
-33371	phonetic	ṃa > ma					missing				
-48309	phonetic	oa > o					missing				
-50176	phonetic	aṃa > ā					missing				
-53162	phonetic	oa > o					missing				
-53501	phonetic	"ṃy > ññ
-ṃ > d"					missing				
-53890	phonetic	āa > ā					missing				
-4492	phonetic	aā > a					missing				
-51391	phonetic	aa > a					missing				
-52135	phonetic	āa > ā					missing				
-52254	phonetic	aṃ > ā					missing				
-56420	phonetic	tk > kk					missing				
-54409	phonetic	aa > a					missing				
-14535	phonetic	aā > ā					missing				
-17692	phonetic	aa > a					missing				
-31236	phonetic	au > u					missing				
-24636	phonetic	aa > a					missing				
-36536	phonetic	aa > ā					missing				
-37153	phonetic	aa > a					missing				
-5738	phonetic	aa > ā					missing				
-36537	phonetic	aa > ā					missing				
-53848	phonetic	aa > a					missing				
-13715	phonetic	ae > e					missing				
-52316	phonetic	āa > ā					missing				
-55451	phonetic	aa > a					missing				
+ee > e"					missing		yes		
+18211	phonetic	aṃa > ā					missing		yes		
+21673	phonetic	ṃh > ñh					missing		yes		
+27251	phonetic	oa > o					missing		yes		
+29492	phonetic	ṃa > ma					missing		yes		
+31599	phonetic	oa > o					missing		yes		
+33371	phonetic	ṃa > ma					missing		yes		
+48309	phonetic	oa > o					missing		yes		
+50176	phonetic	aṃa > ā					missing		yes		
+53162	phonetic	oa > o					missing		yes		
+53501	phonetic	ṃy > ññ					missing		yes		
+53890	phonetic	āa > ā					missing		yes		
+4492	phonetic	aā > a					missing	looks more like sāsana + rakkha. ārakkha seems unlikely	no		
+51391	phonetic	aa > a					missing		yes		
+52135	phonetic	āa > ā					missing		yes		
+52254	phonetic	aṃ > ā					missing		yes		
+56420	phonetic	tk > kk					missing		yes		
+54409	phonetic	aa > a					missing		yes		
+14535	phonetic	aā > ā					missing		yes		
+17692	phonetic	aa > a					missing		yes		
+31236	phonetic	au > u					missing		yes		
+24636	phonetic	aa > a					missing		yes		
+36536	phonetic	aa > ā					missing		yes		
+37153	phonetic	aa > a					missing		yes		
+5738	phonetic	aa > ā					missing		yes		
+36537	phonetic	aa > ā					missing		yes		
+53848	phonetic	aa > a					missing		yes		
+13715	phonetic	ae > e					missing		yes		
+52316	phonetic	āa > ā					missing		yes		
+55451	phonetic	aa > a					missing		yes		
 35540	phonetic	"st > tth
-aa > a"					missing				
+aa > a"					missing		yes		
 35541	phonetic	"st > tth
-aa > a"					missing				
-40123	phonetic	āi > i					missing				
-25730	phonetic	ui > u					missing				
-74577	phonetic	ui > u					missing				
-1251	phonetic	au > u					missing				
-42293	phonetic	aa > a					missing				
-1747	phonetic	aa > a					missing				
-49296	phonetic	aa > a					missing				
-34234	phonetic	aa > a					missing				
-21094	phonetic	aā > ā					missing				
-54177	phonetic	aā > ā					missing				
-23763	phonetic	aā > ā					missing				
-64914	phonetic	aā > ā					missing				
-64915	phonetic	aā > ā					missing				
-39947	phonetic	ai > i					missing				
-49842	phonetic	ai > i					missing				
-45650	phonetic	ai > i					missing				
-69932	phonetic	ai > i					missing				
-47108	phonetic	au > u					missing				
-32228	phonetic	au > u					missing				
-1222	phonetic	ae > e					missing				
-69593	phonetic	ae > e					missing				
-27180	phonetic	ee > e					missing				
-27181	phonetic	ae > e					missing				
-27182	phonetic	ae > e					missing				
-27183	phonetic	ae > e					missing				
-29643	phonetic	ae > e					missing				
-8482	phonetic	ao > o					missing				
-14929	phonetic	ao > o					missing				
-10551	phonetic	āā > ā					missing				
-31982	phonetic	āā > ā					missing				
-51768	phonetic	āā > ā					missing				
-52354	phonetic	āā > ā					missing				
-52047	phonetic	āi > i					missing				
-52054	phonetic	āi > i					missing				
-40123	phonetic	āi > i					missing				
-30917	phonetic	ii > i					missing				
-59641	phonetic	ii > i					missing				
-57623	phonetic	ii > i					missing				
-13638	phonetic	ie > e					missing				
-59043	phonetic	ie > e					missing				
-58307	phonetic	ie > e					missing				
-71300	phonetic	io > o					missing				
-49913	phonetic	īu > u					missing				
-35492	phonetic	ua > a					missing				
-60161	phonetic	uā > ā					missing				
-25716	phonetic	uā > ā					missing				
-62209	phonetic	uā > ā					missing				
-39895	phonetic	uu > u					missing				
-55689	phonetic	"ṃ > d (Kacc 34, 52)
-uu > u"					missing				
-50994	phonetic	ea > a					missing				
-59041	phonetic	ee > e					missing				
-46940	phonetic	ee > e					missing				
-27076	phonetic	ee > e					missing				
-30065	phonetic	oa > a					missing				
-29543	phonetic	ou > u					missing				
-22293	phonetic	oe > e					missing				
-10594	phonetic	dv > dd					missing				
-38738	phonetic	ae > e					missing				
+aa > a"					missing		yes		
+40123	phonetic	āi > i					missing		yes		
+25730	phonetic	ui > u					missing		yes		
+74577	phonetic	ui > u					missing		yes		
+1251	phonetic	au > u					missing		yes		
+42293	phonetic	aa > a					missing		yes		
+1747	phonetic	aa > a					missing		yes		
+49296	phonetic	aa > a					missing		yes		
+34234	phonetic	aa > a					missing		yes		
+21094	phonetic	aā > ā					missing		yes		
+54177	phonetic	aā > ā					missing		yes		
+23763	phonetic	aā > ā					missing		yes		
+64914	phonetic	aā > ā					missing		yes		
+64915	phonetic	aā > ā					missing		yes		
+39947	phonetic	ai > i					missing		yes		
+49842	phonetic	ai > i					missing		yes		
+45650	phonetic	ai > i					missing		yes		
+69932	phonetic	ai > i					missing		yes		
+47108	phonetic	au > u					missing		yes		
+32228	phonetic	au > u					missing		yes		
+1222	phonetic	ae > e					missing		yes		
+69593	phonetic	ae > e					missing		yes		
+27180	phonetic	ee > e					missing		yes		
+27181	phonetic	ae > e					missing		yes		
+27182	phonetic	ae > e					missing		yes		
+27183	phonetic	ae > e					missing		yes		
+29643	phonetic	ae > e					missing		yes		
+8482	phonetic	ao > o					missing		yes		
+14929	phonetic	ao > o					missing		yes		
+10551	phonetic	āā > ā					missing		yes		
+31982	phonetic	āā > ā					missing		yes		
+51768	phonetic	āā > ā					missing		yes		
+52354	phonetic	āā > ā					missing		yes		
+52047	phonetic	āi > i					missing		yes		
+52054	phonetic	āi > i					missing		yes		
+40123	phonetic	āi > i					missing		yes		
+30917	phonetic	ii > i					missing		yes		
+59641	phonetic	ii > i					missing		yes		
+57623	phonetic	ii > i					missing		yes		
+13638	phonetic	ie > e					missing		yes		
+59043	phonetic	ie > e					missing		yes		
+58307	phonetic	ie > e					missing		yes		
+71300	phonetic	io > o					missing		yes		
+49913	phonetic	īu > u					missing		yes		
+35492	phonetic	ua > a					missing		yes		
+60161	phonetic	uā > ā					missing		yes		
+25716	phonetic	uā > ā					missing		yes		
+62209	phonetic	uā > ā					missing		yes		
+39895	phonetic	uu > u					missing		yes		
+55689	phonetic	uu > u					missing	no ṃ > d (Kacc 34, 52)	yes		
+50994	phonetic	ea > a					missing		yes		
+59041	phonetic	ee > e					missing		yes		
+46940	phonetic	ee > e					missing		yes		
+27076	phonetic	ae > e					missing	ae not ee	yes		
+30065	phonetic	oa > a					missing	no sandhi here	no		
+29543	phonetic	ou > u					missing		yes		
+22293	phonetic	oe > e					missing		yes		
+10594	phonetic	dv > dd					missing		yes		
+38738	phonetic	ae > e					missing		yes		
 23994	phonetic	"o > v (Kacc 18, 20)
-va > vā"					missing				
-13070	phonetic	ae > e					missing				
+va > vā"					missing		yes		
+13070	phonetic	ae > e					missing		yes		
 21669	phonetic	"ṃc > ñc
-ae > e"					missing				
-13485	phonetic	ai > a					missing				
-62631	phonetic	āe > ā					missing				
-13484	phonetic	ia > i					missing				
-14605	phonetic	ua > u					missing				
-63877	phonetic	ui > u					missing				
-38668	phonetic	ue > u					missing				
-31244	phonetic	ea > e					missing				
-65318	phonetic	oa > o					missing				
-45476	phonetic	oe > o					missing				
-29624	phonetic	aa > ā					missing				
-26444	phonetic	aa > ā					missing				
-59166	phonetic	aa > ā					missing								
-62162	construction	"sa + √ar + tha
-sa + attha"					missing		
-62162	phonetic	"aa > ā
-rth > tth"					missing		
-63744	phonetic	aa > ā					missing				
-62628	phonetic	āa > ā					missing				
-62629	phonetic	āa > ā					missing				
-51111	phonetic	āa > ā					missing				
-9390	phonetic	ia > ā					missing				
-13633	phonetic	ia > ā					missing				
-57099	phonetic	ea > ā					missing				
-66830	phonetic	ea > ā					missing				
-62687	phonetic	oa > ā					missing				
-77174	phonetic	āa > ā					missing				
-58110	phonetic	āi > ī					missing				
-53978	phonetic	ii > ī					missing				
-902	phonetic	au > ū					missing				
-34261	phonetic	au > ū					missing				
-19723	phonetic	au > ū					missing				
-13713	phonetic	au > ū					missing				
-29724	phonetic	āu > ū					missing				
-48222	phonetic	uu > ū					missing				
-34448	phonetic	ia > ī					missing				
-30938	phonetic	ia > ī					missing				
-22019	phonetic	ui > ū					missing				
-1590	phonetic	ai > e					missing				
-52091	phonetic	āi > e					missing				
-52093	phonetic	āī > e					missing				
-52094	phonetic	āi > e					missing				
-52095	phonetic	āe > e					missing				
-45547	phonetic	au > o					missing				
-38909	phonetic	"au > o
-i > e"					missing						
-42740	phonetic	ia > ya					missing				
-57932	phonetic	ia > ya					missing				
-65498	phonetic	"o > v (Kacc 18, 20)
-va > vā"					missing			
-53565	phonetic	"o > v (Kacc 18, 20)
-va > vā"					missing			
-54345	phonetic	"o > v (Kacc 18, 20)
-va > vā"					missing			
-21445	phonetic	ae > e					missing				
-70049	phonetic	"aa > a
-+n (Kacc 35, 34)"					missing			
-51400	phonetic	aa > a					missing				
-71240	phonetic	ii > i					missing				
-13707	phonetic	aā > ā					missing				
-33908	phonetic	oe > o					missing				
-18033	phonetic	oa > ā					missing				
-13379	phonetic	ia > a					missing				
-52704	phonetic	"+m (Kacc 35, 34)
-ae > e"					missing			
-55764	phonetic	īa > ī					missing				
-52356	phonetic	āa > ā					missing				
-52357	phonetic	āa > ā					missing				
-29620	phonetic	"aa > ā
-iā > ā"					missing			
-31373	phonetic	"e > y (Kacc 17, 19)
-ya > yā"					missing			
-23991	phonetic	"o > v (Kacc 18, 20)
-va > vā"					missing			
-23992	phonetic	"o > v (Kacc 18, 20)
-va > vā"					missing
-39770	phonetic	kh > kkh (sk sk)					missing				
-29352	phonetic	kh > kkh (sk kṣ)					missing				
-46947	phonetic	kh > kkh (sk kṣ)					missing				
-46948	phonetic	kh > kkh (sk kṣ)					missing				
-46949	phonetic	kh > kkh (sk kṣ)					missing				
-46950	phonetic	kh > kkh (sk kṣ)					missing				
-46951	phonetic	kh > kkh (sk kṣ)					missing				
-76425	phonetic	kh > kkh (sk kṣ)					missing				
-78009	phonetic	kh > kkh (sk kṣ)					missing				
-25881	phonetic	g > gg (sk r)					missing				
-56364	phonetic	g > gg (sk gh)					missing				
-17415	phonetic	g > gg					missing				
-67316	phonetic	ch > cch					missing				
-64858	phonetic	ch > cch					missing				
-46680	phonetic	j > jj (sk k)					missing				
-58828	phonetic	ñ > ññ (sk jñ)					missing				
-26764	phonetic	ṭh > ṭṭh (sk sth)					missing				
-27355	phonetic	t > tt (sk tr)					missing				
-25964	phonetic	d > dd (sk r)					missing				
-25963	phonetic	d > dd (sk r)					missing				
-65421	phonetic	dh > ddh (sk dhv)					missing				
-13543	phonetic	n > nn (sk m)					missing				
-12298	phonetic	p > pp (sk pr)					missing				
-24932	phonetic	b > bb (sk vr)					missing				
-24933	phonetic	b > bb (sk vr)					missing				
-27494	phonetic	b > bb (sk ṣ)					missing				
-67657	phonetic	l > ll					missing				
-32470	phonetic	s > ss (sk śr)					missing				
-60700	phonetic	āg > agg					missing				
-60701	phonetic	āg > agg					missing				
-51609	phonetic	āp > app					missing				
-51613	phonetic	āb > abb					missing				
-51614	phonetic	āb > abb					missing				
-29352	phonetic	kh > kkh (sk kṣ)					missing				
-10522	phonetic	kh > kkh (sk sk)					missing				
-22489	phonetic	m > mm					missing				
-22350	phonetic	n > nn					missing				
-25997	phonetic	v > vv > bb					missing				
-54217	phonetic	kh > kkh (sk kṣ)					missing				
-48164	phonetic	v > vv > bb (sk vr)					missing				
-26778	phonetic	p > pp (sk pr)					missing				
-34952	phonetic	p > pp (sk pr)					missing				
+ae > e"					missing		yes		
+13485	phonetic	ai > a					missing		yes		
+62631	phonetic	āe > ā					missing		yes		
+13484	phonetic	ia > i					missing		yes		
+14605	phonetic	ua > u					missing		yes		
+63877	phonetic	ui > u					missing		yes		
+38668	phonetic	ue > u					missing		yes		
+31244	phonetic	ea > e					missing		yes		
+65318	phonetic	oa > o					missing		yes		
+45476	phonetic	oe > o					missing		yes		
+29624	phonetic	aa > ā					missing		yes		
+26444	phonetic	aa > ā					missing		yes		

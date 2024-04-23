@@ -5,7 +5,7 @@ def p_title(title: str) -> None:
     print(f"[bright_yellow]{title}")
 
 def p_green(message: str) -> None:
-    print(f"[green]{message:<35}", end="")
+    print(f"[green]{message:<35}")
 
 def p_white(message):
     print(f"{'':<5}[white]{message:<30}", end="")
