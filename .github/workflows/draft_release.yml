@@ -172,7 +172,7 @@ jobs:
         tag_name: ${{ env.RELEASE_TAG }}"
         release_name: ${{ env.RELEASE_DATE }}"
         body: |
-          Digital Pāḷi Dictionary is a feature-rich Pāḷi dictionary which runs in GoldenDict, MDict and on Kindle, or any other application which supports these formats. 
+          Digital Pāḷi Dictionary is a feature-rich Pāḷi dictionary which runs in GoldenDict, MDict, Kindle, ePub and SQLite, or any other application which supports these formats. 
 
           It is a work in progress, made available for testing and feedback purposes.
 

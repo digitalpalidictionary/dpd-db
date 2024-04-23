@@ -530,7 +530,7 @@ def copy_zip_to_tpr_downloads(g: ProgData):
                 "size": f"{filesize} MB"
             }
 
-            download_list[6] = dpd_info
+            download_list[7] = dpd_info
 
         if version == "beta":
             print("[green]upating beta version")
@@ -548,7 +548,7 @@ def copy_zip_to_tpr_downloads(g: ProgData):
                 "size": f"{filesize} MB"
             }
 
-            download_list[14] = dpd_beta_info
+            download_list[15] = dpd_beta_info
 
         with open(g.pth.tpr_download_list_path, "w") as f:
             f.write(json.dumps(download_list, indent=4, ensure_ascii=False))
