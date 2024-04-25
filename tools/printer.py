@@ -11,11 +11,11 @@ def p_white(message):
     print(f"{'':<5}[white]{message:<30}", end="")
 
 def p_yes(message):
-    print(f"[blue]{message:<10}", end="")
+    print(f"[blue]{message:>10}", end="")
     p_bop()
 
 def p_no(message):
-    print(f"[red]{message:<10}", end="")
+    print(f"[red]{message:>10}", end="")
     p_bop()
 
 def p_red(message):

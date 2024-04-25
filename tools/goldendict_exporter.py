@@ -7,14 +7,14 @@ import idzip
 from os import fstat
 from pathlib import Path
 from pyglossary import Glossary
-from rich import print
 from subprocess import Popen
 from typing import Optional
 
 
 from tools.date_and_time import make_timestamp
 from tools.goldendict_path import make_goldendict_path
-from tools.tic_toc import bip, bop
+from tools.printer import p_green, p_no, p_white, p_yes
+from tools.tic_toc import bip
 from tools.utils import DictEntry
 
 
@@ -81,12 +81,13 @@ class DictVariables():
 def export_to_goldendict_with_pyglossary(
     dict_info: DictInfo,
     dict_var: DictVariables,
-    dict_data: list[DictEntry]
+    dict_data: list[DictEntry],
+    zip_synonyms: bool = True
 ) -> None:
     
     """Export to GoldenDict using Pyglossary."""
     
-    print(f"[green]{'exporting to goldendict with pyglossary':<40}")
+    p_green("exporting to goldendict with pyglossary")
 
     glos = create_glossary(dict_info)
     glos = add_css(glos, dict_var)
@@ -94,7 +95,8 @@ def export_to_goldendict_with_pyglossary(
     glos = add_data(glos, dict_data)
     write_to_file(glos, dict_var)
     add_icon(dict_var)
-    zip_synfile(dict_var)
+    if zip_synonyms:
+        zip_synfile(dict_var)
     copy_dir(dict_var)
     
 
@@ -102,7 +104,7 @@ def create_glossary(dict_info: DictInfo) -> Glossary:
     """Create Glossary."""
 
     bip()
-    print(f"[white]{'':<5}{'creating glossary':<40}", end="")
+    p_white("creating glossary")
 
     Glossary.init()
     glos = Glossary(info={
@@ -114,7 +116,7 @@ def create_glossary(dict_info: DictInfo) -> Glossary:
         "targetLang": dict_info.target_lang,
         "date": dict_info.date})
     
-    print(f"{bop():>10}")
+    p_yes("ok")
     return glos
 
 
@@ -122,7 +124,7 @@ def add_css(glos: Glossary, dict_var: DictVariables) -> Glossary:
     """Add CSS file."""
 
     bip()
-    print(f"[white]{'':<5}{'adding css':<30}", end="")
+    p_white("adding css")
     
     if dict_var.css_path and dict_var.css_path.exists():
         with open(dict_var.css_path, "rb") as f:
@@ -130,11 +132,9 @@ def add_css(glos: Glossary, dict_var: DictVariables) -> Glossary:
             glos.addEntry(
                 glos.newDataEntry(
                     dict_var.css_path.name, css))
-            print(f"[blue]{'ok':<10}", end="")
+            p_yes("ok")
     else:
-        print(f"[red]{'no':<10}", end="")
-    
-    print(f"{bop():>10}")
+        p_yes("no")
     return glos
 
 
@@ -142,7 +142,7 @@ def add_js(glos: Glossary, dict_var: DictVariables) -> Glossary:
     """Add JS file."""
     
     bip()
-    print(f"[white]{'':<5}{'adding js':<30}", end="")
+    p_white("adding js")
     
     if dict_var.js_path and dict_var.js_path.exists():
         with open(dict_var.js_path, "rb") as f:
@@ -150,11 +150,10 @@ def add_js(glos: Glossary, dict_var: DictVariables) -> Glossary:
             glos.addEntry(
                 glos.newDataEntry(
                     dict_var.js_path.name, js))
-            print(f"[blue]{'ok':<10}", end="")
+            p_yes("ok")
     else:
-        print(f"[red]{'no':<10}")
-    
-    print(f"{bop():>10}")
+        p_yes("no")
+
     return glos
 
 
@@ -162,7 +161,7 @@ def add_data(glos: Glossary, dict_data: list[DictEntry]) -> Glossary:
     """Add dictionary data to glossary."""
     
     bip()
-    print(f"[white]{'':<5}{'compiling data':<40}", end="")
+    p_white("compiling data")
     
     for d in dict_data:
         glos.addEntry(
@@ -171,7 +170,7 @@ def add_data(glos: Glossary, dict_data: list[DictEntry]) -> Glossary:
                 defi=d["definition_html"],
                 defiFormat="h"))
     
-    print(f"{bop():>10}")
+    p_yes("ok")
     return glos
 
 
@@ -179,7 +178,7 @@ def write_to_file(glos: Glossary, dict_var: DictVariables) -> None:
     """Write output files."""
 
     bip()
-    print(f"[white]{'':<5}{'writing goldendict file':<40}", end="")
+    p_white("writing goldendict file")
     
     glos.write(
         filename=str(dict_var.output_path_name),
@@ -189,15 +188,14 @@ def write_to_file(glos: Glossary, dict_var: DictVariables) -> None:
         sametypesequence="h",
         sqlite=False,           # when False, more RAM but faster 
     )
-    
-    print(f"{bop():>10}")
+    p_yes("ok")
 
 
 def zip_synfile(dict_var: DictVariables) -> None:
     """ Compress .syn file into dictzip format """
     
     bip()
-    print(f"[white]{'':<5}{'zipping synonyms':<30}", end="")
+    p_white("zipping synonyms")
     try:
         with open(dict_var.synfile, "rb") as input_f, open(dict_var.synfile_zip, 'wb') as output_f:
             input_info = fstat(input_f.fileno())
@@ -208,10 +206,9 @@ def zip_synfile(dict_var: DictVariables) -> None:
                 dict_var.synfile.name,
                 int(input_info.st_mtime))
             dict_var.synfile.unlink()
-            print(f"[blue]{'ok':<10}", end="")
+            p_yes("ok")
     except FileNotFoundError:
-        print(f"[red]{'error':<10}")
-    print(f"{bop():>10}")
+        p_no("no")
 
 
 
@@ -219,33 +216,34 @@ def add_icon(v: DictVariables) -> None:
     """Copy the icon if provided."""
     
     bip()
-    print(f"[white]{'':<5}{'copying icon':<30}", end="")
+    p_white("copying icon")
     
-    if v.icon_source_path is not None and v.icon_source_path.exists():
-        try:
-            Popen(
-                ["cp", v.icon_source_path, v.icon_target_path])
-            print(f"[blue]{'ok':<10}", end="")
-        except Exception:
-            print(f"[red]{'no':<10}", end="")
-    
-    print(f"{bop():>10}")
+    if v.icon_source_path is not None:
+        if v.icon_source_path.exists():
+            try:
+                Popen(
+                    ["cp", v.icon_source_path, v.icon_target_path])
+                p_yes("ok")
+            except Exception:
+                p_no("error")
+    else:
+        p_yes("no")
 
 
 def copy_dir(v: DictVariables) -> None:
     "Copy to Goldendict dir "
 
     bip()
-    print(f"[white]{'':<5}{'copying to GoldenDict dir':<30}", end="")
+    p_white("copying to GoldenDict dir")
 
     goldendict_pth: (Path |str) = make_goldendict_path()
-    if goldendict_pth and goldendict_pth.exists():
-        try:
-            Popen(
-                ["cp", "-r", v.output_path, "-t", goldendict_pth])
-            print(f"[blue]{'ok':<10}", end="")
-        except Exception:
-            print(f"[red]{'no':<10}", end="")
-    
-    print(f"{bop():>10}")
-
+    if goldendict_pth:
+        if goldendict_pth.exists():
+            try:
+                Popen(
+                    ["cp", "-r", v.output_path, "-t", goldendict_pth])
+                p_yes("ok")
+            except Exception:
+                p_no("error")
+    else:
+        p_yes("no")
