@@ -1,7 +1,7 @@
 % if i.pos in declensions:
-    <div id="ru_declension_${i.lemma_1_}" class="content_ru hidden">
+    <div id="declension_ru_${i.lemma_1_}" class="content_ru hidden">
 % elif i.pos in conjugations:
-    <div id="ru_conjugation_${i.lemma_1_}" class="content_ru hidden">
+    <div id="conjugation_ru_${i.lemma_1_}" class="content_ru hidden">
 % endif
 ${table}
 % if "gray" in table:
@@ -13,9 +13,9 @@ ${table}
 <p>
 % endif
 % if i.pos in declensions:
-    Ошибка в таблице склонений? Что-то упущено? <a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Склонения+или+спряжения&entry.1433863141=GoldenDict+${today}" target="_blank">Пожалуйста сообщите.</a>
+    Ошибка в таблице склонений? Что-то упущено? <a class="link_ru" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Склонения+или+спряжения&entry.1433863141=GoldenDict+${today}" target="_blank">Пожалуйста сообщите.</a>
 % elif i.pos in conjugations:
-Ошибка в таблице спряжений? Что-то упущено? <a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Склонения+или+спряжения&entry.1433863141=GoldenDict+${today}" target="_blank">Пожалуйста сообщите.</a>
+Ошибка в таблице спряжений? Что-то упущено? <a class="link_ru" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Склонения+или+спряжения&entry.1433863141=GoldenDict+${today}" target="_blank">Пожалуйста сообщите.</a>
 
 
 % endif

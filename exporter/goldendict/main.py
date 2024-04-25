@@ -108,7 +108,7 @@ def main():
     g.rendered_sizes.append(sizes)
 
     time_log.log("generate_epd_html()")
-    epd_data_list, sizes = generate_epd_html(g.db_session, g.pth, g.make_link, g.dps_data, g.lang)
+    epd_data_list, sizes = generate_epd_html(g.db_session, g.pth, g.rupth, g.make_link, g.dps_data, g.lang)
     g.rendered_sizes.append(sizes)
     
     time_log.log("generate_help_html()")
@@ -142,11 +142,11 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
     """Prepare info and variables for export."""
 
     description = """
-<p>Digital Pāḷi Dictionary by Bodhirasa</p>
-<p>For more information, please visit
-<a href=\"https://digitalpalidictionary.github.io\">
-the Digital Pāḷi Dictionary website</a></p>
-"""
+    <p>Digital Pāḷi Dictionary by Bodhirasa</p>
+    <p>For more information, please visit
+    <a href=\"https://digitalpalidictionary.github.io\">
+    the Digital Pāḷi Dictionary website</a></p>
+    """
 
     dict_info = DictInfo(
         bookname="Digital Pāḷi Dictionary",
@@ -157,19 +157,22 @@ the Digital Pāḷi Dictionary website</a></p>
         target_lang="en"
     )
 
-    # TODO Devamitta please check!!!
+    dict_name="dpd"
+
     if g.lang == "ru":
         dict_info.bookname = mdict_ru_title
         dict_info.author = "Bodhirasa, переведено Devamitta"
         dict_info.description = mdict_ru_description
-        dict_info.website = "https://devamitta.github.io/pali/pali_dict.html"
+        dict_info.website = "https://digitalpalidictionary.github.io/rus"
+        dict_info.source_lang = "pi"
         dict_info.target_lang = "ru"
+        dict_name = "ru-dpd"
     
     dict_var = DictVariables(
         css_path=g.paths.dpd_css_path,
         js_path=g.paths.buttons_js_path,
         output_path=g.paths.share_dir,
-        dict_name="dpd",
+        dict_name=dict_name,
         icon_path=g.paths.icon_path
     )
 

@@ -5,33 +5,35 @@ import psutil
 from sqlalchemy.sql import func
 
 
-from css_html_js_minify import css_minify, js_minify
+# from css_html_js_minify import css_minify, js_minify
 from mako.template import Template
 from minify_html import minify
 from multiprocessing.managers import ListProxy
 from multiprocessing import Process, Manager
 from rich import print
-from typing import List, Set, TypedDict, Tuple
-from typing import Union
-
+from typing import List, Set, TypedDict, Tuple, Union
 
 from sqlalchemy.orm.session import Session
 
 from exporter.goldendict.helpers import TODAY
 from tools import time_log
 
-from db.models import DpdHeadwords, FamilyIdiom
-from db.models import DpdRoots
-from db.models import FamilyCompound
-from db.models import FamilyRoot
-from db.models import FamilySet
-from db.models import FamilyWord
-from db.models import Russian
-from db.models import SBS
+from db.models import (
+    DpdHeadwords, 
+    FamilyIdiom,
+    DpdRoots,
+    FamilyCompound,
+    FamilyRoot,
+    FamilySet,
+    FamilyWord,
+    Russian,
+    SBS)
 
 from tools.configger import config_test
-from tools.exporter_functions import get_family_compounds, get_family_idioms
-from tools.exporter_functions import get_family_set
+from tools.exporter_functions import (
+    get_family_compounds, 
+    get_family_idioms,
+    get_family_set)
 from tools.meaning_construction import (
     make_meaning_html,
     make_grammar_line,
@@ -40,8 +42,7 @@ from tools.meaning_construction import (
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from exporter.ru_components.tools.paths_ru import RuPaths
-from tools.pos import CONJUGATIONS
-from tools.pos import DECLENSIONS
+from tools.pos import CONJUGATIONS, DECLENSIONS
 from tools.sandhi_contraction import SandhiContractions
 from tools.superscripter import superscripter_uni
 from tools.tic_toc import bip, bop
@@ -52,11 +53,17 @@ from tools.utils import (
     list_into_batches,
     sum_rendered_sizes,
     squash_whitespaces)
-from exporter.ru_components.tools.tools_for_ru_exporter import make_ru_meaning_html, ru_replace_abbreviations, replace_english, ru_make_grammar_line, read_set_ru_from_tsv
+
+from exporter.ru_components.tools.tools_for_ru_exporter import (
+    make_ru_meaning_html, 
+    ru_replace_abbreviations, 
+    replace_english, 
+    ru_make_grammar_line, 
+    read_set_ru_from_tsv)
 
 
 class DpdHeadwordsTemplates:
-    def __init__(self, paths: ProjectPaths, lang):
+    def __init__(self, paths: Union[ProjectPaths, RuPaths], lang):
         self.paths = paths
         self.lang = lang
         self.header_templ = Template(filename=str(paths.header_templ_path))
@@ -147,6 +154,8 @@ def render_pali_word_dpd_html(
         i.example_1 = i.example_1.replace("\n", "<br>")
     if i.example_2:
         i.example_2 = i.example_2.replace("\n", "<br>")
+    if i.notes:
+        i.notes = i.notes.replace("\n", "<br>")
     if lang != "ru" and dps_data and sbs:
         if sbs.sbs_sutta_1:
             sbs.sbs_sutta_1 = sbs.sbs_sutta_1.replace("\n", "<br>")
@@ -590,7 +599,7 @@ def render_button_box_templ(
                 target=f"grammar_{i.lemma_1_}", name="grammar")
         elif lang == "ru":
             grammar_button = button_html.format(
-                target=f"ru_grammar_{i.lemma_1_}", name="грамматика")
+                target=f"grammar_ru_{i.lemma_1_}", name="грамматика")
     else:
         grammar_button = ""
 
@@ -601,7 +610,7 @@ def render_button_box_templ(
                 target=f"example_{i.lemma_1_}", name="example")
         elif lang == "ru":
             example_button = button_html.format(
-                target=f"ru_example_{i.lemma_1_}", name="пример")
+                target=f"example_ru_{i.lemma_1_}", name="пример")
     else:
         example_button = ""
 
@@ -612,7 +621,7 @@ def render_button_box_templ(
                 target=f"examples_{i.lemma_1_}", name="examples")
         elif lang == "ru":
             examples_button = button_html.format(
-                target=f"ru_examples_{i.lemma_1_}", name="примеры")
+                target=f"examples_ru_{i.lemma_1_}", name="примеры")
     else:
         examples_button = ""
 
@@ -634,7 +643,7 @@ def render_button_box_templ(
                 target=f"conjugation_{i.lemma_1_}", name="conjugation")
         elif lang == "ru":
             conjugation_button = button_html.format(
-                target=f"ru_conjugation_{i.lemma_1_}", name="спряжения")
+                target=f"conjugation_ru_{i.lemma_1_}", name="спряжения")
     else:
         conjugation_button = ""
 
@@ -645,7 +654,7 @@ def render_button_box_templ(
                 target=f"declension_{i.lemma_1_}", name="declension")
         elif lang == "ru":
             declension_button = button_html.format(
-                target=f"ru_declension_{i.lemma_1_}", name="склонения")
+                target=f"declension_ru_{i.lemma_1_}", name="склонения")
     else:
         declension_button = ""
 
@@ -656,7 +665,7 @@ def render_button_box_templ(
                 target=f"root_family_{i.lemma_1_}", name="root family")
         elif lang == "ru":
             root_family_button = button_html.format(
-                target=f"ru_root_family_{i.lemma_1_}", name="семья корня")
+                target=f"root_family_ru_{i.lemma_1_}", name="семья корня")
     else:
         root_family_button = ""
 
@@ -667,7 +676,7 @@ def render_button_box_templ(
                 target=f"word_family_{i.lemma_1_}", name="word family")
         elif lang == "ru":
             word_family_button = button_html.format(
-                target=f"ru_word_family_{i.lemma_1_}", name="семья слова")
+                target=f"word_family_ru_{i.lemma_1_}", name="семья слова")
     else:
         word_family_button = ""
 
@@ -678,7 +687,7 @@ def render_button_box_templ(
                 target=f"compound_family_{i.lemma_1_}", name="compound family")
         elif lang == "ru":
             compound_family_button = button_html.format(
-                target=f"ru_compound_family_{i.lemma_1_}", name="семья составного")
+                target=f"compound_family_ru_{i.lemma_1_}", name="семья составного")
 
     elif i.needs_compound_families_button:
         if lang == "en":
@@ -686,7 +695,7 @@ def render_button_box_templ(
                 target=f"compound_families_{i.lemma_1_}", name="compound familes")
         elif lang == "ru":
             compound_family_button = button_html.format(
-                target=f"ru_compound_families_{i.lemma_1_}", name="семья составных")
+                target=f"compound_families_ru_{i.lemma_1_}", name="семья составных")
     else:
         compound_family_button = ""
 
@@ -697,7 +706,7 @@ def render_button_box_templ(
                 target=f"idioms_{i.lemma_1_}", name="idioms")
         elif lang == "ru":
             idioms_button = button_html.format(
-                target=f"ru_idioms_{i.lemma_1_}", name="идиомы")
+                target=f"idioms_ru_{i.lemma_1_}", name="идиомы")
     else:
         idioms_button = ""
 
@@ -708,7 +717,7 @@ def render_button_box_templ(
                 target=f"set_family_{i.lemma_1_}", name="set")
         elif lang == "ru":
             set_family_button = button_html.format(
-                target=f"ru_set_family_{i.lemma_1_}", name="группа")
+                target=f"set_family_ru_{i.lemma_1_}", name="группа")
 
     elif i.needs_sets_button:
         if lang == "en":
@@ -716,7 +725,7 @@ def render_button_box_templ(
                 target=f"set_families_{i.lemma_1_}", name="sets")
         elif lang == "ru":
             set_family_button = button_html.format(
-                target=f"ru_set_families_{i.lemma_1_}", name="группы")
+                target=f"set_families_ru_{i.lemma_1_}", name="группы")
     else:
         set_family_button = ""
 
@@ -727,7 +736,7 @@ def render_button_box_templ(
                 target=f"frequency_{i.lemma_1_}", name="frequency")
         elif lang == "ru":
             frequency_button = button_html.format(
-                target=f"ru_frequency_{i.lemma_1_}", name="частота")
+                target=f"frequency_ru_{i.lemma_1_}", name="частота")
     else:
         frequency_button = ""
 
@@ -784,6 +793,14 @@ def render_grammar_templ(
         grammar = ru_make_grammar_line(i)
     meaning = f"{make_meaning_html(i)}"
 
+    ru_base = ""
+    if lang == "ru":
+        ru_base = ru_replace_abbreviations(i.root_base, "base")
+
+    ru_phonetic = ""
+    if lang == "ru":
+        ru_phonetic = ru_replace_abbreviations(i.phonetic, "phonetic")
+
     return str(
         grammar_templ.render(
             i=i,
@@ -793,6 +810,8 @@ def render_grammar_templ(
             dps_data=dps_data,
             grammar=grammar,
             meaning=meaning,
+            ru_base=ru_base,
+            ru_phonetic=ru_phonetic,
             today=TODAY))
 
 

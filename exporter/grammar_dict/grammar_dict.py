@@ -6,7 +6,7 @@ every inflected word-form."""
 import csv
 import pickle
 
-from css_html_js_minify import css_minify, js_minify
+# from css_html_js_minify import css_minify, js_minify
 from json import loads
 from mako.template import Template
 from rich import print
@@ -418,6 +418,7 @@ def prepare_gd_mdict_and_export(g: ProgData):
             source_lang = "pi",
             target_lang = "en"
         )
+        dict_name = "dpd-grammar"
     
     elif g.lang == "ru":
         dict_info = DictInfo(
@@ -428,12 +429,13 @@ def prepare_gd_mdict_and_export(g: ProgData):
             source_lang = "pi",
             target_lang = "ru"
         )
+        dict_name = "ru-dpd-grammar"
 
     dict_vars = DictVariables(
         css_path = g.pth.grammar_css_path,
         js_path = g.pth.sorter_js_path,
         output_path = g.pth.share_dir,
-        dict_name= "dpd-grammar",
+        dict_name= dict_name,
         icon_path = g.pth.icon_path
     )
 

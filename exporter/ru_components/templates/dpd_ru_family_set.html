@@ -1,7 +1,7 @@
 % if i.needs_set_button:
-    <div id="ru_set_family_${i.lemma_1_}" class="content_ru hidden">
+    <div id="set_family_ru_${i.lemma_1_}" class="content_ru hidden">
 % elif i.needs_sets_button:
-    <div id="ru_set_families_${i.lemma_1_}" class="content_ru hidden">
+    <div id="set_families_ru_${i.lemma_1_}" class="content_ru hidden">
     <p id="${i.lemma_1_}_set_ru_top" class="heading">перейти к: 
     % for f in fs:
         <a class="jump_ru" href="#${i.lemma_1_}_set_ru_${f.set}">${superscripter_uni(f.set_ru)}</a>. 
@@ -23,7 +23,7 @@
     ${f.html_ru}
 % endfor
     <p class='footer_ru'>
-        Заметили ошибку? Можете предложить новую группу? <a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lemma_1_}&entry.326955045=Группа&entry.1433863141=GoldenDict+${today}" target="_blank">Опишите здесь.</a>
+        Заметили ошибку? Можете предложить новую группу? <a class="link_ru" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lemma_1_}&entry.326955045=Группа&entry.1433863141=GoldenDict+${today}" target="_blank">Опишите здесь.</a>
         % if " " in i.family_compound:
             <a class="jump_ru" href="#${i.lemma_1_}_set_ru_top"> ⤴</a>
         % endif

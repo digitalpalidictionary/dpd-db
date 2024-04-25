@@ -66,7 +66,11 @@ def generate_help_html(
     # 3. thank yous
     # 4. bibliography
 
-    header_templ = Template(filename=str(pth.header_plain_templ_path))
+    if lang == "en":
+        header_templ = Template(filename=str(pth.header_plain_templ_path))
+    elif lang == "ru":
+        header_templ = Template(filename=str(rupth.header_plain_templ_path))
+
     header = render_header_templ(
         pth, css="", js="", header_templ=header_templ)
 

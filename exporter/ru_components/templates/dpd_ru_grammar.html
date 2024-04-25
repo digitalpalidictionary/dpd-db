@@ -1,4 +1,4 @@
-<div id="ru_grammar_${i.lemma_1_}" class="content_ru hidden">
+<div id="grammar_ru_${i.lemma_1_}" class="content_ru hidden">
     <table class = "grammar_ru">
         <tr>
             <th>Пали</th>
@@ -35,10 +35,10 @@
         </tr>
         % endif
         % endif
-        % if i.root_base:
+        % if ru_base:
         <tr>
             <th>Основа</th>
-            <td>${i.root_base}</td>
+            <td>${ru_base}</td>
         </tr>
         % endif
         % if i.construction:
@@ -53,10 +53,10 @@
             <td>${i.derivative} (${i.suffix})</td>
         </tr>
         % endif
-        % if i.phonetic:
+        % if ru_phonetic:
         <tr>
             <th>Фонетика</th>
-            <td>${i.phonetic}</td>
+            <td>${ru_phonetic}</td>
         </tr>
         % endif
         % if i.compound_type:
@@ -116,7 +116,7 @@
         <tr>
             <th>Ссылка</th>
             <td>
-                <a href="${i.link}">${i.link}</a>
+                <a class="link_ru" href="${i.link}">${i.link}</a>
             </td>
         </tr>
         % endif
@@ -146,7 +146,7 @@
         % endif
     </table>
     <p class='footer_ru'>
-        Заметили ошибку? <a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Грамматика&entry.1433863141=GoldenDict+${today}" target="_blank">Исправьте здесь</a>. 
-        <br>Отсутствует какое-то слово в словаре? <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSfResxEUiRCyFITWPkzoQ2HhHEvUS5fyg68Rl28hFH6vhHlaA/viewform?usp=pp_url&entry.1433863141=GoldenDict+${today}" target="_blank">Добавьте его здесь</a>.
+        Заметили ошибку? <a class="link_ru" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Грамматика&entry.1433863141=GoldenDict+${today}" target="_blank">Исправьте здесь</a>. 
+        <br>Отсутствует какое-то слово в словаре? <a class="link_ru" href="https://docs.google.com/forms/d/e/1FAIpQLSfResxEUiRCyFITWPkzoQ2HhHEvUS5fyg68Rl28hFH6vhHlaA/viewform?usp=pp_url&entry.1433863141=GoldenDict+${today}" target="_blank">Добавьте его здесь</a>.
     </p>
 </div>

@@ -27,7 +27,11 @@ def generate_variant_spelling_html(
 
     rendered_sizes = []
 
-    header_templ = Template(filename=str(pth.header_plain_templ_path))
+    if lang == "en":
+        header_templ = Template(filename=str(pth.header_plain_templ_path))
+    elif lang == "ru":
+        header_templ = Template(filename=str(rupth.header_plain_templ_path))
+
     variant_dict = test_and_make_variant_dict(pth)
     spelling_dict = test_and_make_spelling_dict(pth)
 

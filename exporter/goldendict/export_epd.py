@@ -14,6 +14,7 @@ from export_dpd import render_header_templ
 from db.models import DpdHeadwords, DpdRoots
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
+from exporter.ru_components.tools.paths_ru import RuPaths
 from tools.tic_toc import bip, bop
 from tools.utils import DictEntry, RenderedSizes, default_rendered_sizes, squash_whitespaces
 
@@ -22,7 +23,8 @@ from exporter.ru_components.tools.tools_for_ru_exporter import ru_replace_abbrev
 
 def generate_epd_html(
     db_session: Session, 
-    pth: ProjectPaths, 
+    pth: ProjectPaths,
+    rupth: RuPaths,
     make_link=False,
     dps_data=False,
     lang="en"
@@ -49,7 +51,10 @@ def generate_epd_html(
     epd: dict = {}
     pos_exclude_list = ["abbrev", "cs", "letter", "root", "suffix", "ve"]
 
-    header_templ = Template(filename=str(pth.header_plain_templ_path))
+    if lang == "en":
+        header_templ = Template(filename=str(pth.header_plain_templ_path))
+    if lang == "ru":
+        header_templ = Template(filename=str(rupth.header_plain_templ_path))
     header = render_header_templ(
         pth, css="", js="", header_templ=header_templ)
 
@@ -132,11 +137,11 @@ def generate_epd_html(
 
             for ru_meaning in ru_meanings_list:
                 if ru_meaning in epd.keys():
-                    epd_string = f"{epd[ru_meaning]}<br><b class = 'epd'>{i.lemma_clean}</b> {pos}. {i.ru.ru_meaning}"
+                    epd_string = f"{epd[ru_meaning]}<br><b class = 'rpd'>{i.lemma_clean}</b> {pos}. {i.ru.ru_meaning}"
                     epd[ru_meaning] = epd_string
 
                 if ru_meaning not in epd.keys():
-                    epd_string = f"<b class = 'epd'>{i.lemma_clean}</b> {pos}. {i.ru.ru_meaning}"
+                    epd_string = f"<b class = 'rpd'>{i.lemma_clean}</b> {pos}. {i.ru.ru_meaning}"
                     epd.update(
                         {ru_meaning: epd_string})
 
@@ -148,7 +153,7 @@ def generate_epd_html(
             i.family_set == "chapters of the Saṃyutta Nikāya")
         ):
             combined_numbers = extract_sutta_numbers(i.meaning_2)
-            update_epd(epd, combined_numbers, i, make_link) 
+            update_epd(epd, combined_numbers, i, make_link, lang) 
 
         if counter % 10000 == 0:
             print(f"{counter:>10,} / {dpd_db_length:<10,} {i.lemma_1[:20]:<20} {bop():>10}")
@@ -176,11 +181,11 @@ def generate_epd_html(
 
             for root_ru_meaning in root_ru_meanings_list:
                 if root_ru_meaning in epd.keys():
-                    epd_string = f"{epd[root_ru_meaning]}<br><b class = 'epd'>{i.root}</b> корень. {i.root_ru_meaning}"
+                    epd_string = f"{epd[root_ru_meaning]}<br><b class = 'rpd'>{i.root}</b> корень. {i.root_ru_meaning}"
                     epd[root_ru_meaning] = epd_string
 
                 if root_ru_meaning not in epd.keys():
-                    epd_string = f"<b class = 'epd'>{i.root}</b> корень. {i.root_ru_meaning}"
+                    epd_string = f"<b class = 'rpd'>{i.root}</b> корень. {i.root_ru_meaning}"
                     epd.update(
                         {root_ru_meaning: epd_string})
 
@@ -195,7 +200,10 @@ def generate_epd_html(
     for counter, (word, html_string) in enumerate(epd.items()):
         html = ""
         html += "<body>"
-        html += f"<div class ='epd'><p>{html_string}</p></div>"
+        if lang == "en":
+            html += f"<div class ='epd'><p>{html_string}</p></div>"
+        elif lang == "ru":
+            html += f"<div class ='rpd'><p>{html_string}</p></div>"
         html += "</body></html>"
         
         size_dict["epd"] += len(html)
@@ -239,16 +247,22 @@ def extract_sutta_numbers(meaning_2):
     return combined_numbers
 
 
-def update_epd(epd, combined_numbers, i, make_link=True):
+def update_epd(epd, combined_numbers, i, make_link=True, lang="en"):
     # Use sutta number as key in epd
     for combined_number in combined_numbers:
         if combined_number:
             number_link = i.source_link_sutta
             if make_link and number_link:
                 anchor_link = f'<a href="{number_link}">link</a>'
-                epd_string = f"<b class='epd'>{i.lemma_clean}</b>. {i.meaning_2} {anchor_link}"
+                if lang == "en":
+                    epd_string = f"<b class='epd'>{i.lemma_clean}</b>. {i.meaning_2} {anchor_link}"
+                elif lang == "ru":
+                    epd_string = f"<b class='rpd'>{i.lemma_clean}</b>. {i.meaning_2} {anchor_link}"
             else:
-                epd_string = f"<b class='epd'>{i.lemma_clean}</b>. {i.meaning_2}"
+                if lang == "en":
+                    epd_string = f"<b class='epd'>{i.lemma_clean}</b>. {i.meaning_2}"
+                elif lang == "ru":
+                    epd_string = f"<b class='rpd'>{i.lemma_clean}</b>. {i.meaning_2}"
 
             if combined_number in epd.keys():
                 epd[combined_number] += f"<br>{epd_string}"

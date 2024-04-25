@@ -123,17 +123,20 @@ def prepare_and_export_to_gd_mdict(g: ProgData) -> None:
         source_lang="pi",
         target_lang="pi"
     )
+    dict_name = "dpd-deconstructor"
     if g.lang == "ru":
         dict_info.bookname = "DPD Деконструктор"
         dict_info.author = "Дост. Бодхираса"
         dict_info.description = "<h3>DPD Деконструктор от Дост. Бодхирасы</h3><p>Автоматизированное разложение сложных слов и разделение сандхи для всех слов в текстах Типитаки <b>Chaṭṭha Saṅgāyana</b> и на <b>Sutta Central</b>.</p><p>Дополнительную информацию можно найти на странице <a href='https://digitalpalidictionary.github.io/rus/deconstructor.html'>Деконструктора</a> на сайте <a href='https://digitalpalidictionary.github.io/rus'>DPD</a>.</p>"
         dict_info.website = "https://digitalpalidictionary.github.io/rus"
 
+        dict_name = "ru-dpd-deconstructor"
+
     dict_vars = DictVariables(
         css_path=g.pth.deconstructor_css_path,
         js_path=None,
         output_path=g.pth.share_dir,
-        dict_name="dpd-deconstructor",
+        dict_name=dict_name,
         icon_path=g.pth.icon_path
     )
 

@@ -39,7 +39,7 @@ def make_ru_meaning(i: DpdHeadwords, ru: Russian) -> str:
 def make_short_ru_meaning(i: DpdHeadwords, ru: Russian) -> str:
     """Extract first synonym from ru_meaning or ru_meaning_raw"""
     if ru is None:
-        return ""
+        return make_short_meaning(i)
     elif ru.ru_meaning:
         ru_meaning: str = ru.ru_meaning
         first_synonym = get_first_synonym(ru_meaning)
@@ -108,15 +108,25 @@ def ru_replace_abbreviations(value, kind = "meaning"):
     elif kind == "inflect":
         value = value.replace(' is ', ' это ').replace('conjugation', 'класс спряжения').replace('declension', 'класс склонения').replace('like ', 'как ').replace('reflexive', 'возвратный').replace('irregular', 'неправильный')
     elif kind == "root":
-        value = value.replace('Pāḷi Root', 'Корень Пали').replace('Sanskrit Root', 'Корень Санскр.').replace('Bases', 'Основы').replace('Base', 'Основа').replace('in Compounds', 'в Составе').replace('adverbs', 'наречия').replace('verbs', 'глаголы').replace('participles', 'причастия').replace('nouns', 'существительные').replace('adjectives', 'прилагательные')
+        value = value.replace('Pāḷi Root', 'Корень Пали').replace('Sanskrit Root', 'Корень Санскр.').replace('Bases', 'Основы').replace('Base', 'Основа').replace('in Compounds', 'в Составе').replace('Notes', 'Заметки').replace('adverbs', 'наречия').replace('verbs', 'глаголы').replace('participles', 'причастия').replace('nouns', 'существительные').replace('adjectives', 'прилагательные').replace('root_info', 'root_info_ru').replace('root_matrix', 'root_matrix_ru')
     elif kind == "gram":
         value = value.replace('word', 'слово').replace('letter', 'буква').replace('indeclinable', 'несклоняемое').replace('of', 'от')
-    
+    elif kind == "base":
+        value = value.replace('pass,', 'страд,').replace('pass)', 'страд)').replace('caus', 'понудит').replace('irreg', 'неправ').replace('desid', 'дезид').replace('deno', 'отымённ').replace('intens', 'усил')
+        return value
+    elif kind == "phonetic":
+        value = value.replace('metathesis', 'метатеза').replace('with metrically', 'с метрически').replace('lengthened', 'удлиненным').replace('doubled', 'удвоенным').replace('shortened', 'укороченным').replace('Kacc', 'Качч').replace('contraction', 'сокращение').replace('expansion', 'расширение').replace('under the influence of', 'под влиянием').replace('before', 'перед').replace('nasalization', 'назализация').replace('a vowel', 'гласным').replace('a consonant', 'согласным').replace('aphesis', 'афезис')
+        return value
+
 
     # Step   3: Replace abbreviations in value
     # Use regex to match abbreviations, considering variations like "+acc" or "loc abs"
     if abbreviations_dict is not None:
         for abbr, russian in abbreviations_dict.items():
+            # Skip replacement for "pass" if kind is "inflect"
+            if kind == "inflect" and abbr == "pass":
+                continue
+
             # Escape special characters in the abbreviation
             escaped_abbr = re.escape(abbr)
             # Adjust the regex pattern to match abbreviations with optional "+" prefix and spaces
@@ -217,9 +227,9 @@ def populate_set_ru_and_check_errors(sets_dict):
 
 mdict_ru_description = """
 
-    <p>Электронный Пали Словарь Дост. Бодхираса</p>
+    <p>Электронный Словарь Пали Дост. Бодхираса</p>
     <p>Переведен на русский Бхиккху Дэвамитта</p>
-    <p>Для более детальной информации можено посетить сайт Пали Словаря
+    <p>Для более детальной информации можено посетить
     <a href=\"https://devamitta.github.io/pali/pali_dict.html\">
     сайт Пали Словаря</a></p>
     и оригинальный сайт <a href=\"https://digitalpalidictionary.github.io\">
@@ -227,13 +237,13 @@ mdict_ru_description = """
 
 """
 
-mdict_ru_title = "Электронный Пали Словарь"
+mdict_ru_title = "Электронный Словарь Пали"
 
 gdict_ru_info = {
     "bookname": "Пали Словарь",
     "author": "Bodhirasa, переведено Devamitta",
     "description": "",
-    "website": "https://devamitta.github.io/pali/pali_dict.html", 
+    "website": "https://digitalpalidictionary.github.io/rus", 
     }
 
 

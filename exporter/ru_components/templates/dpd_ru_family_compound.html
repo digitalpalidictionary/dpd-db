@@ -1,7 +1,7 @@
 % if i.needs_compound_family_button:
-    <div id="ru_compound_family_${i.lemma_1_}" class="content_ru hidden">
+    <div id="compound_family_ru_${i.lemma_1_}" class="content_ru hidden">
 % elif i.needs_compound_families_button:
-    <div id="ru_compound_families_${i.lemma_1_}" class="content_ru hidden">
+    <div id="compound_families_ru_${i.lemma_1_}" class="content_ru hidden">
     <p id="${i.lemma_1_}_cf_top_ru" class="heading">перейти к: 
     % for cf in i.family_compound_list:
         <a class="jump_ru" href="#${i.lemma_1_}_cf_ru_${cf}">${superscripter_uni(cf)} </a>
@@ -29,7 +29,7 @@
     ${f.html_ru}
 % endfor
 <p class='footer_ru'>
-    <a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Семья+составных&entry.1433863141=GoldenDict+${today}" target="_blank">Пожалуйста, сообщите об ошибке</a>.
+    <a class="link_ru" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Семья+составных&entry.1433863141=GoldenDict+${today}" target="_blank">Пожалуйста, сообщите об ошибке</a>.
     % if " " in i.family_compound:
         <a class="jump_ru" href="#${i.lemma_1_}_cf_top_ru"> ⤴</a>
     % endif
