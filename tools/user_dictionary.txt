@@ -319,8 +319,10 @@ Brahmā
 Brahman
 Brāhmaṇasaṃyuttaṃ
 brahmanhood
+Brahmanical
 Brahmas
 Brahmasaṃyuttaṃ
+Brahmāyu
 Brassica
 brayonia
 brinjal
@@ -649,6 +651,7 @@ felly
 fetcher
 fickleness
 fidgetiness
+fineness
 firma
 firstness
 flambeau
@@ -903,6 +906,7 @@ kaṃsa
 kanak
 Kandaraka
 kaṇikāra
+Kaṇṇakatthala
 Kaṇṭaka
 kaṇṭakāvāṭampi
 Kapila
@@ -1061,6 +1065,7 @@ Macchikā's
 mad
 Madhura
 Madhurā
+madhurasuttaṃ
 Magadha
 Magadhan
 Magadhans
@@ -1222,11 +1227,14 @@ MN81-90
 MN82
 MN83
 MN84
+MN84
 MN85
 MN86
 MN87
 MN88
 MN89
+MN90
+MN91
 Moggallāna
 Moggallāna's
 Moggallānabyākaraṇa
@@ -1484,6 +1492,7 @@ Pisum
 Piṭaka
 Piṭakas
 pitbull
+piyajātikasuttaṃ
 pl
 plantlife
 Podiceps
@@ -2183,6 +2192,7 @@ Vasudatta
 Vatsas
 vāyo
 Vebhāra
+Veda
 Vedanāsaṃyuttaṃ
 Vedas
 Vedehi
