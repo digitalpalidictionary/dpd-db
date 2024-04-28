@@ -22,6 +22,7 @@ accessorized
 acchidaṃ
 accordant
 accurses
+accusative
 acerifolium
 Aciravatī
 Acorus
@@ -185,6 +186,7 @@ Asoka
 Asoka's
 assailable
 Assaji
+Assalāyana
 Assapura
 asura
 asuras
@@ -320,6 +322,7 @@ Brahman
 Brāhmaṇasaṃyuttaṃ
 brahmanhood
 Brahmanical
+Brahmans
 Brahmas
 Brahmasaṃyuttaṃ
 Brahmāyu
@@ -347,6 +350,7 @@ Calophyllum
 Calotropis
 Campā
 caṇḍāla
+Caṅkī
 capucapu
 capucapu soun
 Carandas
@@ -364,6 +368,7 @@ censures
 centered
 centeredness
 ceramicist
+cerasoides
 Ceta
 Cetan
 ch
@@ -517,6 +522,7 @@ Dhamma-related
 dhammakaraka
 Dhammapada
 dhaṃs
+Dhanañjāni
 dhaññamāsa
 dhanu
 dharaṇas
@@ -699,6 +705,7 @@ Gayā
 Gayā's
 gayal
 gelder
+genitive
 genitrix
 geomancy
 gh
@@ -706,6 +713,7 @@ ghaṃsati
 ghaṭ
 Ghaṭikāra
 Ghosita's
+Ghoṭamukha
 gi
 gigantea
 Ginginianus
@@ -893,6 +901,7 @@ Kalanda's
 Kaḷāramaṭṭaka
 Kāliṅga
 Kāḷudāyi
+Kamboja
 kamma
 kamma-originated
 kamma-process
@@ -1235,6 +1244,11 @@ MN88
 MN89
 MN90
 MN91
+MN92
+MN93
+MN94
+MN95
+MN97
 Moggallāna
 Moggallāna's
 Moggallānabyākaraṇa
@@ -1357,6 +1371,7 @@ one's
 one's
 one's
 oojeinensis
+Opāsāda
 optative
 ordaining
 Orissa
@@ -1465,6 +1480,7 @@ pericarp
 perpetration
 perplexity
 pers
+Persians
 perturbance
 Peṭakopadesa
 Petavatthu
@@ -1526,6 +1542,7 @@ promulgates
 properness
 propitiate
 propitiated
+Prunus
 Prutitus
 Pterospermum
 PTS
