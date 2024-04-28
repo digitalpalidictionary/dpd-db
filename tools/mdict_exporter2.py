@@ -8,7 +8,7 @@ from tools.goldendict_exporter import DictInfo, DictVariables
 from tools.tic_toc import bip, bop
 from tools.utils import DictEntry
 from tools.writemdict.writemdict import MDictWriter
-from tools.printer import p_green, p_white, p_yes, p_no
+from tools.printer import p_green_title, p_white, p_yes, p_no
 
 
 
@@ -60,7 +60,7 @@ def export_to_mdict(
 
     """Export to MDict"""
 
-    p_green("exporting to mdict")
+    p_green_title("exporting to mdict")
 
     bip()
     p_white("adding 'mdict' and h3 tag")

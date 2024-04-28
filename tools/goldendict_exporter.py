@@ -13,7 +13,7 @@ from typing import Optional
 
 from tools.date_and_time import make_timestamp
 from tools.goldendict_path import make_goldendict_path
-from tools.printer import p_green, p_no, p_white, p_yes
+from tools.printer import p_green_title, p_no, p_white, p_yes
 from tools.tic_toc import bip
 from tools.utils import DictEntry
 
@@ -87,7 +87,7 @@ def export_to_goldendict_with_pyglossary(
     
     """Export to GoldenDict using Pyglossary."""
     
-    p_green("exporting to goldendict with pyglossary")
+    p_green_title("exporting to goldendict with pyglossary")
 
     glos = create_glossary(dict_info)
     glos = add_css(glos, dict_var)

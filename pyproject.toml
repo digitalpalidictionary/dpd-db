@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dpd-db"
-version = "v0.1.20240423"
+version = "v0.1.20240428"
 description = ""
 authors = ["Your Name <you@example.com>"]
 readme = "README.md"
@@ -40,6 +40,8 @@ flask-sqlalchemy = "^3.1.1"
 googletrans = "^3.0.0"
 tomlkit = "^0.12.3"
 pyglossary = "^4.6.1"
+fastapi = "^0.110.2"
+uvicorn = "^0.29.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"

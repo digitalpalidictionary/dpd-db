@@ -8,12 +8,12 @@ import os
 from zipfile import ZipFile, ZIP_DEFLATED
 from exporter.ru_components.tools.paths_ru import RuPaths
 from tools.tic_toc import bip, tic, toc
-from tools.printer import p_title, p_green, p_red, p_yes, p_no
+from tools.printer import p_title, p_green_title, p_red, p_yes, p_no
 
 
 def zip_goldendict(rupth: RuPaths):
     """Zip up the three dirs for goldendict"""
-    p_green("zipping ru goldendict")
+    p_green_title("zipping ru goldendict")
     bip()
     
     if (
@@ -48,7 +48,7 @@ def zip_goldendict(rupth: RuPaths):
 def zip_mdict(rupth: RuPaths):
     """Zipping up MDict files for sharing."""
 
-    p_green("zipping mdict")
+    p_green_title("zipping mdict")
     bip()
 
     mdict_files = [

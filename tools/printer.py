@@ -4,6 +4,9 @@ from tools.tic_toc import bop
 def p_title(title: str) -> None:
     print(f"[bright_yellow]{title}")
 
+def p_green_title(message: str) -> None:
+    print(f"[green]{message}")
+
 def p_green(message: str) -> None:
     print(f"[green]{message:<35}")
 
