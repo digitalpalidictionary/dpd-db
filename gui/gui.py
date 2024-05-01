@@ -143,6 +143,11 @@ from tools.paths import ProjectPaths
 from tools.pos import DECLENSIONS, VERBS
 from tools.pos import POS
 from tools.sandhi_contraction import make_sandhi_contraction_dict
+from tools.fast_api_utils import (
+    start_dpd_server,
+    start_bold_def_server,
+    request_dpd_server,
+    request_bold_def_server)
 
 from dps.tools.paths_dps import DPSPaths
 
@@ -154,6 +159,9 @@ def main():
     username = test_username(sg)
     pali_word_original = None
     pali_word_original2 = None
+
+    start_dpd_server()
+    start_bold_def_server()
     
     family_compound_values = get_family_compound_values(db_session)
     family_idioms_values = get_family_idioms_values(db_session)
@@ -885,6 +893,13 @@ def main():
                     commentary += f"({c.ref_code}) {c.commentary}\n"
                 commentary = commentary.rstrip("\n")
                 window["commentary"].update(value=commentary)
+        
+        elif event == "bold_definitions_server":
+            request_bold_def_server(
+                values["search_for"],
+                values["contains"],
+                "regex"
+            )
 
         elif (
             event == "notes_italic_button"
@@ -1146,7 +1161,7 @@ def main():
                 window[c].update(value="")
 
         elif event == "html_summary_button":
-            make_html(pth, [values["lemma_1"]])
+            request_dpd_server(values["id"])
 
         elif (
             event == "save_state_button"

@@ -1,0 +1,84 @@
+<!-- definition -->
+
+<h3>root: {{d.r.root}}</h3>
+<div class='root_content'>
+    <p>
+        root. 
+        <b>{{d.r.root_clean}}</b>
+        <sup>
+            {{d.r.root_has_verb}}
+        </sup>
+        {{d.r.root_group}} 
+        {{d.r.root_sign}} 
+        ({{d.r.root_meaning}}) 
+        {{count}}
+    </p> 
+</div>
+
+<!-- root buttons -->
+
+<div class="root_button_box">
+    <a class="root_button" href="javascript:void(0);" onclick="button_click(this)" data-target="root_info_{{d.r.root_}}">root info</a>
+    <a class="root_button" href="javascript:void(0);" onclick="button_click(this)" data-target="root_matrix_{{d.r.root_}}">root matrix</a>
+    {% for fr in d.frs: %}
+        <a class="root_button" href="javascript:void(0);" onclick="button_click(this)" data-target="root_family_{{d.r.root_}}_{{fr.root_family_}}">{{fr.root_family}}</a>
+    {% endfor %}
+</div>
+
+<!-- root info -->
+
+<div id="root_info_{{d.r.root_}}" class="root_content hidden">
+    {{d.r.root_info|safe}}
+    <p class="root_footer">
+        Something out of place? <a class="root_link" href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.r.root_link}}&entry.326955045=Root+Info&entry.1433863141={{d.app_name}}+{{d.date}}" target="_blank">Report it here</a>.
+    </p>
+</div>
+
+<!-- root matrix -->
+
+<div id="root_matrix_{{d.r.root_}}" class="root_content hidden">
+    <p>
+        {% if d.count <= 1: %}
+        <b>{{d.count}}</b> word is derived from the root 
+        {% else: %}
+        <b>{{d.count}}</b> words are derived from the root 
+        {% endif %}
+        <b>
+            {{d.r.root_clean}}
+        </b>
+        <sup>
+            {{d.r.root_has_verb}}
+        </sup>
+        {{d.r.root_group}} 
+        {{d.r.root_sign}} 
+        ({{d.r.root_meaning}})
+    </p>
+    {{d.r.root_matrix|safe}}
+    <p class="root_footer">
+        Did you spot a mistake? 
+        <a class="root_link" 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.r.root_link}}&entry.326955045=Root+Matrix&entry.1433863141={{d.app_name}}+{{d.date}}" 
+            target="_blank">
+            Log it here.
+        </a>
+    </p>
+</div>
+
+<!-- root families -->
+
+{% for fr in d.frs: %}
+    <div 
+    id="root_family_{{d.r.root_}}_{{fr.root_family_}}" 
+    class="root_content hidden">
+        {{fr.html.replace("class='family'", "class='root_family'")|safe}}
+        <p class='root_footer'>
+            Does something look wrong? 
+            <a 
+            class="root_link" 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.r.root_link}}_{{fr.root_family_link}}&entry.326955045=Root+Family&entry.1433863141={{d.app_name}}+{{d.date}}" 
+            target="_blank">
+            Report it here
+        </a>.
+        </p>
+    </div>
+{% endfor %}

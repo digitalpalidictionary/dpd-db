@@ -1,0 +1,15 @@
+<h3>deconstructor: {{d.headword}}</h3>
+<div class='deconstructor'>
+    <p class='deconstructor'>
+        {% for deconstruction in d.deconstructions: %}
+            {{deconstruction}}
+        {% if not loop.last: %}
+            <br>
+        {% endif %}
+        {% endfor %}
+    </p>
+    <p class='deconstructor_footer'>
+        These word breakups are code-generated. <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.lookup_key}}&entry.326955045=Deconstructor&entry.1433863141={{d.app_name}}+{{d.date}}" target="_blank">Please suggest any improvements here.</a>
+        <br>Mistakes in deconstruction are usually caused by a word missing from the dictionary. <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSfResxEUiRCyFITWPkzoQ2HhHEvUS5fyg68Rl28hFH6vhHlaA/viewform?usp=pp_url&entry.1433863141={{d.app_name}}+{{d.date}}" target="_blank">Add missing words here</a>.
+    </p>
+</div>

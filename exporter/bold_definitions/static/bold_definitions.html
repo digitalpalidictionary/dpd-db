@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.5">
+    <title>Pāḷi Bold Definitions</title>
+    <link rel="stylesheet" type="" href="/static/bold_definitions.css">
+    <link rel="icon" type="image/png" href="/static/bold_definitions.ico">
+
+</head>
+
+
+<body>
+    <div class="fixed-header">
+        <h2 class="title" id="title-clear">
+            Pāḷi Bold Definitions Search
+        </h2>
+        <h4 class="subtitle" id="subtitle">
+            Search for bold defined terms in Vinaya, late Khuddaka Nikāya,
+            Aṭṭhakathā, Ṭīkā and Aññā.
+        </h4>
+        <button class="floating-button" id="showSidebar">☰</button>
+        <form action="/search" method="get" id="search-form">
+            <div class="searchbar">
+                Search for definitions of the term
+                <input type="text" name="search_1" id="search-box1" value="{{ search_1 }}" autocomplete="off">
+                which contain
+                <input type="text" name="search_2" id="search-box2" value="{{ search_2 }}" autocomplete="off">
+                within them.
+
+            </div>
+            <div class="search-options">
+                <input type="radio" id="option1" name="option" value="starts_with">
+                <label for="option1">start with</label><br>
+                <input type="radio" id="option2" name="option" value="regex" checked>
+                <label for="option2">regex</label><br>
+                <input type="radio" id="option3" name="option" value="fuzzy">
+                <label for="option3">fuzzy</label><br>
+            </div>
+        </form>
+
+
+    </div>
+    <div class="main">
+
+        <!-- history -->
+        <div id="sidebar" style="display: none;">
+            <div id="history">
+                <h4 class="history">History</h4>
+                {% for item in history %}
+                {{ loop.index }}. {{ item.0 }} {{ item.1 }}
+                <br>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="message">
+            {{ message|safe }}
+        </div>
+        <table id="search-results">
+            {% for r in results %}
+            <tr>
+                <th>
+                    {{ loop.index }}. <b>{{ r.bold|safe }}</b>{{ r.bold_end|safe }}
+                </th>
+                <td>
+                    ({{ r.ref_code }}) {{ r.commentary|safe }}
+                    <br>
+                    <span class='info'>{{ r.nikaya}} {{ r.book }} {{ r.title }} {{ r.subhead }}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="footer" id="footer">
+        <a href="https://digitalpalidictionary.github.io/" target="_blank">Built for DPD</a>
+    </div>
+    <script type="module" src="static/bold_definitions.js"></script>
+</body>
+
+</html>

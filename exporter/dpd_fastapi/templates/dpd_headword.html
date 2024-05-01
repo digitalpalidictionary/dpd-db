@@ -1,0 +1,770 @@
+<!-- summary -->
+
+<h3>{{d.i.lemma_1}}</h3>
+<div class='content summary'>
+    <p>
+        {{d.i.pos}}.
+        {% if d.i.plus_case %}
+            ({{d.i.plus_case}})
+        {% endif %}
+        {{d.meaning|safe}}
+        {% if d.summary %}
+            [{{d.summary}}]
+        {% endif %}
+        {{d.complete|safe}}
+    </p>
+</div>
+
+
+<!-- button box -->
+
+
+<div class="button-box">
+    {% if d.i.needs_grammar_button %}
+        <a class="button" 
+        href="javascript:void(0);" 
+        onclick="button_click(this)" 
+        data-target="grammar_{{d.i.lemma_1_}}">
+        grammar</a>
+    {% endif %}
+
+    {% if d.i.needs_example_button %}
+        <a class="button" 
+        href="javascript:void(0);" 
+        onclick="button_click(this)" 
+        data-target="example_{{d.i.lemma_1_}}">
+        example</a>
+    {% endif %}
+
+    {% if d.i.needs_examples_button %}
+        <a class="button" 
+        href="javascript:void(0);" 
+        onclick="button_click(this)" 
+        data-target="examples_{{d.i.lemma_1_}}">
+        examples</a>
+    {% endif %}
+
+    {% if d.i.needs_conjugation_button %}
+        <a class="button" 
+        href="javascript:void(0);" 
+        onclick="button_click(this)" 
+        data-target="conjugation_{{d.i.lemma_1_}}">
+        conjugation</a>
+    {% endif %}
+
+    {% if d.i.needs_declension_button %}
+        <a class="button" 
+        href="javascript:void(0);" 
+        onclick="button_click(this)" 
+        data-target="declension_{{d.i.lemma_1_}}">
+        declension</a>
+    {% endif %}
+
+    {% if d.i.needs_root_family_button %}
+        <a class="button" 
+        href="javascript:void(0);" 
+        onclick="button_click(this)" 
+        data-target="root_family_{{d.i.lemma_1_}}">
+        root family</a>
+    {% endif %}
+
+    {% if d.i.needs_word_family_button %}
+        <a class="button" 
+        href="javascript:void(0);" 
+        onclick="button_click(this)" 
+        data-target="word_family_{{d.i.lemma_1_}}">
+        word family</a>
+    {% endif %}
+
+    {% if d.i.needs_compound_family_button %}
+        <a class="button" 
+        href="javascript:void(0);" 
+        onclick="button_click(this)" 
+        data-target="compound_family_{{d.i.lemma_1_}}">
+        compound family</a>
+    {% endif %}
+
+    {% if d.i.needs_compound_families_button %}
+        <a class="button" 
+        href="javascript:void(0);" 
+        onclick="button_click(this)" 
+        data-target="compound_families_{{d.i.lemma_1_}}">
+        compound families</a>
+    {% endif %}
+
+    {% if d.i.needs_idioms_button %}
+        <a class="button" 
+        href="javascript:void(0);" 
+        onclick="button_click(this)" 
+        data-target="idioms_{{d.i.lemma_1_}}">
+        idioms</a>
+    {% endif %}
+
+    {% if d.i.needs_set_button %}
+        <a class="button" 
+        href="javascript:void(0);" 
+        onclick="button_click(this)" 
+        data-target="set_{{d.i.lemma_1_}}">
+        set</a>
+    {% endif %}
+
+    {% if d.i.needs_sets_button %}
+        <a class="button" 
+        href="javascript:void(0);" 
+        onclick="button_click(this)" 
+        data-target="sets_{{d.i.lemma_1_}}">
+        sets</a>
+    {% endif %}
+
+    {% if d.i.needs_frequency_button %}
+        <a class="button" 
+        href="javascript:void(0);" 
+        onclick="button_click(this)" 
+        data-target="frequency_{{d.i.lemma_1_}}">
+        frequency</a>
+    {% endif %}
+
+    <a class="button" 
+    href="javascript:void(0);" 
+    onclick="button_click(this)" 
+    data-target="feedback_{{d.i.lemma_1_}}">
+    feedback</a>
+</div>
+
+
+<!-- grammar -->
+
+
+{% if d.i.needs_grammar_button %}
+<div id="grammar_{{d.i.lemma_1_}}" class="content hidden">
+    <table class="grammar">
+        <tr>
+            <th>
+                Pāḷi
+            </th>
+            <td>
+                {{d.i.lemma_2}}
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                Grammar
+            </th>
+            <td>
+                {{d.grammar}}
+            </td> 
+        </tr>
+
+        {% if d.i.family_root %}
+        <tr>
+            <th>
+                Root Family
+            </th>
+            <td>
+                {{d.i.family_root}}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.root_key %}
+        <tr>
+            <th>
+                Root
+            </th>
+            <td>
+                {{d.i.root_clean}}<sup>{{d.i.rt.root_has_verb}}</sup>{{d.i.rt.root_group}} 
+                {{d.i.root_sign}} 
+                ({{d.i.rt.root_meaning}})
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.rt.root_in_comps %}
+        <tr>
+            <th>
+                √ In Comps
+            </th>
+            <td>
+                {{d.i.rt.root_in_comps}}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.root_base %}
+        <tr>
+            <th>
+                Base
+            </th>
+            <td>
+                {{d.i.root_base}}
+            </td>
+        </tr>    
+        {% endif %}
+
+        {% if d.i.construction %}
+        <tr>
+            <th>
+                Construction
+            </th>
+            <td>
+                {{d.i.construction|safe}}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.derivative %}
+        <tr>
+            <th>
+                Derivative
+            </th>
+            <td>
+                {{d.i.derivative}} 
+                ({{d.i.suffix}})
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.phonetic %}
+        <tr>
+            <th>
+                Phonetic Change
+            </th>
+            <td>
+                {{d.i.phonetic|safe}}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.compound_type %}
+        <tr>
+            <th>
+                Compound
+            </th>
+            <td>
+                {{d.i.compound_type}} 
+                ({{d.i.compound_construction|safe}})
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.antonym %}
+        <tr>
+            <th>
+                Antonym
+            </th>
+            <td>
+                {{d.i.antonym}}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.synonym %}
+        <tr>
+            <th>
+                Synonym
+            </th>
+            <td>
+                {{d.i.synonym}}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.variant %}
+        <tr>
+            <th>
+                Variant
+            </th>
+            <td>
+                {{d.i.variant}}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.commentary and d.i.commentary !="-" %}
+        <tr>
+            <th>
+                Commentary
+            </th>
+            <td>
+                {{d.i.commentary|safe}}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.notes %}
+        <tr>
+            <th>
+                Notes
+            </th>
+            <td>
+                {{d.i.notes|safe}}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.cognate %}
+        <tr>
+            <th>
+                Cognate
+            </th>
+            <td>
+                {{d.i.cognate}}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.link %}
+        <tr>
+            <th>
+                Web Link
+            </th>
+            <td>
+                <a href="{{d.i.link}}">{{d.i.link}}</a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.non_ia %}
+        <tr>
+            <th>
+                Non IA
+            </th>
+            <td>
+                {{d.i.non_ia}}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.sanskrit %}
+        <tr>
+            <th>
+                Sanskrit
+            </th>
+            <td>
+                <i>
+                    {{d.i.sanskrit}}
+                </i>
+                
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.rt.sanskrit_root %}
+        <tr>
+            <th>
+                Sanskrit Root
+            </th>
+            <td>
+                <i>
+                    {{d.i.rt.sanskrit_root}} 
+                    {{d.i.rt.sanskrit_root_class}} 
+                    ({{d.i.rt.sanskrit_root_meaning}})
+                </i>
+            </td>
+        </tr>
+        {% endif %}
+    </table>
+    <p class='footer'>
+        Did you spot a mistake? 
+        <a class="link" 
+        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Grammar&entry.1433863141={{d.app_name}}+{{d.date}}" 
+        target="_blank">
+        Correct it here.</a>
+    </p>
+</div>
+{% endif %}
+
+<!-- examples -->
+
+{% if d.i.needs_example_button %}
+<div id="example_{{d.i.lemma_1_}}" class="content hidden">
+
+{% elif d.i.needs_examples_button %}
+<div id="examples_{{d.i.lemma_1_}}" class="content hidden">
+{% endif %}
+
+{% if d.i.example_1 %}
+<p>
+    {{d.i.example_1|safe}}
+</p>
+<p class="sutta">
+    {% if d.make_link and d.i.source_link_1 %}
+        <a href="{{d.i.source_link_1}}" 
+        target="_blank">
+            {{d.i.source_1}}</a>
+    {% else %}
+        {{d.i.source_1}}
+    {% endif %}
+    {{d.i.sutta_1|safe}}
+</p>
+
+{% if d.i.example_2 %}
+<p>
+    {{d.i.example_2|safe}}
+</p>
+<p class="sutta">
+    {% if d.make_link and d.i.source_link_2 %}
+        <a href="{{d.i.source_link_2}}" 
+        target="_blank">
+            {{d.i.source_2}}</a>
+    {% else %}
+        {{d.i.source_2}}
+    {% endif %}
+    {{d.i.sutta_2|safe}}
+</p>
+{% endif %}
+
+<p class='footer'>
+    Can you think of a better example? 
+    <a class="link" 
+    href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Examples&entry.1433863141={{d.app_name}}+{{d.date}}" 
+    target="_blank">
+        Add it here.</a>
+</p>
+
+</div>
+{% endif %}
+
+<!-- declension -->
+
+{% if d.i.needs_declension_button %}
+    <div id="declension_{{d.i.lemma_1_}}" class="content hidden">
+        {{d.i.inflections_html|safe}}
+    {% if "gray" in d.i.inflections_html %}
+        <p>
+            Inflections not found in the Chaṭṭha Saṅgāyana corpus, or within processed sandhi compounds are <span class='gray'>grayed out</span>. They might still occur elsewhere, within compounds or in other versions of the Pāḷi texts.
+        </p>
+        <p class='footer'>
+    {% else %}
+        <p>
+    {% endif %}
+            Did you spot a mistake in the declension table? 
+            Something missing? 
+            <a class="link" 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfKUBx-icfRCWmhHqUwzX60BVQE21s_NERNfU2VvbjEfE371A/viewform?usp=pp_url&entry.1370304754={{d.i.lemma_link}}&entry.1433863141={{d.app_name}}+{{d.date}}" 
+            target="_blank">
+            Report it here.</a>
+        </p>
+    </div>
+{% endif %}
+
+
+<!-- conjugation -->
+
+
+{% if d.i.needs_conjugation_button %}
+    <div id="conjugation_{{d.i.lemma_1_}}" class="content hidden">
+        {{d.i.inflections_html|safe}}
+    {% if "gray" in d.i.inflections_html %}
+        <p>
+            Inflections not found in the Chaṭṭha Saṅgāyana corpus, or within processed sandhi compounds are <span class='gray'>grayed out</span>. They might still occur elsewhere, within compounds or in other versions of the Pāḷi texts.
+        </p>
+        <p class='footer'>
+    {% else %}
+        <p>
+    {% endif %}
+            Did you spot a mistake in the conjugation table? 
+            Something missing? 
+            <a class="link" 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSdAL2PzavyrtXgGmtNrZAMyh3hV6g3fU0chxhWFxunQEZtH0g/viewform?usp=pp_url&entry.1932605469={{d.i.lemma_link}}&entry.1433863141={{d.app_name}}+{{d.date}}" 
+            target="_blank">
+            Report it here.</a>
+        </p>
+    </div>
+{% endif %}
+
+
+<!-- root family -->
+
+
+{% if d.i.needs_root_family_button %}
+    <div id="root_family_{{d.i.lemma_1_}}" class="content hidden">
+        {{d.i.fr.html|safe}}
+        <p class='footer'>
+            Something out of place? 
+            <a class="link" 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Root+Family&entry.1433863141={{d.app_name}}+{{d.date}}" 
+            target="_blank">
+            Report it here</a>.
+        </p> 
+    </div>    
+{% endif %}
+
+<!-- word family -->
+
+{% if d.i.needs_word_family_button %}
+    <div id="word_family_{{d.i.lemma_1_}}" class="content hidden">
+        <p class="heading underlined">
+            <b>{{d.i.fw.count}}</b> 
+            words which belong to the 
+            <b>{{d.i.family_word}}</b> 
+            family
+        </p>
+        {{d.i.fw.html|safe}}
+        <p class='footer'>
+            Something out of place? 
+            <a class="link" 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Word+Family&entry.1433863141={{d.app_name}}+{{d.date}}" 
+            target="_blank">
+            Report it here</a>.
+        </p> 
+    </div>    
+{% endif %}
+
+<!-- compound family -->
+
+{% if d.i.needs_compound_family_button %}
+    <div id="compound_family_{{d.i.lemma_1_}}" class="content hidden">
+        <p class="heading underlined">
+            <b>
+                {{d.fc[0].count}}
+            </b>
+            compounds which contains 
+            <b>
+                {{d.fc[0].compound_family}}
+            </b>
+            {{d.fc[0].html|safe}}
+        </p>
+    </div>
+{% endif %}
+
+<!-- compound families -->
+
+{% if d.i.needs_compound_families_button %}
+<div id="compound_families_{{d.i.lemma_1_}}" class="content hidden">
+    <p id="{{d.i.lemma_1_}}cf_top" class="heading">jump to: 
+    {% for f in d.fc%}
+    <a class="jump" 
+        href="#{{d.i.lemma_1_}}cf_{{f.compound_family}}">
+        {% if not loop.last %}
+            {{f.compound_family}},
+        {% else%}
+            {{f.compound_family}}
+        {% endif %} 
+    </a>
+    {% endfor %}
+    </p>
+    
+    {% for f in d.fc %}
+        {% if loop.index == 0 %}
+            <p class="heading underlined overlined">
+        {% else %}
+            <p id="{{d.i.lemma_1_}}cf_{{f.compound_family}}" 
+                class="heading underlined overlined">
+        {% endif %}
+        {% if f.count == 1 %}
+            <b>{{f.count}}</b> 
+            compound which contains 
+            <b>{{f.compound_family}}</b>
+        {% else %}
+            <b>{{f.count}}</b> 
+            compounds which contain 
+            <b>{{f.compound_family}}</b>
+            <a class="jump" 
+                href="#{{d.i.lemma_1_}}cf_top"> ⤴
+            </a>
+        {% endif %}
+        </p>
+        {{f.html|safe}}
+    {% endfor %}
+    <p class="underline overlined">
+        Back to the top 
+        <a class="jump" 
+        href="#{{d.i.lemma_1_}}cf_top">⤴</a>
+    </p>
+    <p class='footer'>
+        Spot a mistake? 
+        <a class="link" 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Compound+Family&entry.1433863141={{d.app_name}}+{{d.date}}" 
+            target="_blank">
+            Fix it here</a>.
+    </p>
+</div>
+{% endif %}
+
+<!-- idioms -->
+
+{% if d.i.needs_idioms_button %}
+<div id="idioms_{{d.i.lemma_1_}}" class="content hidden">
+    {% for f in d.fi %}
+        {% if loop.index == 1 %}
+            <p class="heading underlined">
+        {% else %}
+            <p class="heading underlined overlined">
+        {% endif %}
+        {% if f.count == 1 %}
+            <b>{{f.count}}</b> 
+            idiomatic expression which contains
+            <b>{{f.idiom}}</b>
+        {% else %}
+            <b>{{f.count}}</b> 
+            idiomatic expression which contains
+            <b>{{f.idiom}}</b>
+        {% endif %}
+        </p>
+        {{f.html|safe}}
+    {% endfor %}
+    <p class='footer'>
+        Please add more idioms 
+        <a class="link" 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Idioms&entry.1433863141={{d.app_name}}+{{d.date}}" 
+            target="_blank">
+            here</a>.
+    </p>
+    </div>
+{% endif %}
+
+
+<!-- set -->
+
+{% if d.i.needs_set_button %}
+<div id="set_{{d.i.lemma_1_}}" class="content hidden">
+    {% for f in d.fs %}
+    <p class="heading underlined">
+        <b>{{d.i.lemma_clean}}</b> 
+        belongs to the set of 
+        <b>{{f.set}}</b>
+    </p>
+    {{f.html|safe}}
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- sets -->
+
+{% if d.i.needs_sets_button %}
+<div id="sets_{{d.i.lemma_1_}}" class="content hidden">
+    <p id="{{d.i.lemma_1_}}sets_top" class="heading">jump to: 
+    {% for set in d.i.family_set_list %}
+    <a class="jump" 
+        href="#{{d.i.lemma_1_}}sets_{{set}}">
+    {% if not loop.last %}
+        {{set|safe}},
+    {% else%}
+        {{set|safe}}
+    {% endif %}
+         
+    </a>
+    {% endfor %}
+    </p>
+    
+    {% for f in d.fs %}
+        {% if loop.index0 == 0 %}
+            <p class="heading underlined overlined">
+        {% else %}
+            <p id="{{d.i.lemma_1_}}sets_{{f.set}}" 
+                class="heading underlined overlined">
+        {% endif %}
+        <b>{{d.i.lemma_clean}}</b> 
+        belongs to the set of 
+        <b>{{f.set}}</b>
+        {% if loop.index0 > 0 %}
+        <a class="jump" href="#{{d.i.lemma_1_}}sets_top"> ⤴</a>
+        {% endif %}
+        </p>
+        {{f.html|safe}}
+    {% endfor %}
+    <p class="underline overlined">
+        Back to the top 
+        <a class="jump" 
+        href="#{{d.i.lemma_1_}}sets_top">⤴</a>
+    </p>
+    <p class='footer'>
+        Spot a mistake? 
+        <a class="link" 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Set&entry.1433863141={{d.app_name}}+{{d.date}}" 
+            target="_blank">
+            Fix it here</a>.
+    </p>
+</div>
+{% endif %}
+
+{% if d.i.needs_sets_button %}
+<div id="sets_{{d.i.lemma_1_}}" class="content hidden">
+    {% for f in d.fs %}
+    {% if loop.index0 == 0 %}
+    <p class="heading underlined">
+    {% else %}
+    <p class="heading underlined overlined">
+    {% endif %}
+        <b>{{d.i.lemma_clean}}</b> 
+        belongs to the set of 
+        <b>{{f.set}}</b>
+    </p>
+    {{f.html|safe}}
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- frequency -->
+
+{% if d.i.needs_frequency_button %}
+<div id="frequency_{{d.i.lemma_1_}}" class="content hidden">
+    {{d.i.freq_html|safe}}
+    <p>
+        For a detailed explanation of how this word frequency chart is calculated, it's accuracies and inaccuracies, please refer to <a class="link" href="https://digitalpalidictionary.github.io/frequency.html">this webpage</a>.
+    </p>
+    <p class='footer'>
+        If something looks out of place, 
+        <a class="link" 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Frequency&entry.1433863141={{d.app_name}}+{{d.date}}"
+            target="_blank">
+            log it here.
+        </a>
+    </p>
+</div>
+{% endif %}
+
+<!-- feedback -->
+
+<div id="feedback_{{d.i.lemma_1_}}" class="content hidden">
+    <p>
+        ID <b>{{d.i.id}}</b>
+    </p>
+    <p>
+        Digital Pāḷi Dictionary is a work in progress, made available for testing and feedback purposes.
+    </p>
+    <p>
+        <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.1433863141={{d.app_name}}+{{d.date}}" target="_blank">Correct a mistake</a><span>. Did you spot a mistake in the dictionary? Have something to add? Please report it. It generally takes less than a minute and your corrections and suggestions help to improve the quality of this dictionary for everyone who uses it.</span>
+    </p>
+    <p>
+        <a class="link" 
+            href="https://github.com/digitalpalidictionary/digitalpalidictionary/releases">
+            Get updated
+        </a>
+        <span>. 
+            You are using DPD GoldenDict updated on <b>{{date}}</b>. 
+            Check for an update every full moon uposatha day.
+        </span>
+    </p>
+    <p>
+        <a class="link" 
+            href="https://digitalpalidictionary.github.io/">
+            Visit the website
+        </a>
+        <span>
+            . Get more detailed information about installation and upgrades, advanced settings and features.
+        </span>
+    </p>
+    <p>
+        <a class="link" 
+            href="mailto:digitalpalidictionary@gmail.com?subject=I%20want%20to%20help!&body=Please%20let%20me%20know%20how%20I%20can%20get%20involved%20with%20the%20development%20of%20DPD.">
+            Get involved
+        </a>
+        <span>
+            . If you're a Pāḷi nerd or a coder, or would like to contribute to the project in any way, please get in touch.
+        </span>
+    </p>
+    <p>
+        <a class="link" 
+            href="mailto:digitalpalidictionary@gmail.com?subject=Keep%20me%20updated!&body=Please%20let%20me%20know%20about%20new%20features%20and%20updates%20as%20soon%20as%20they%20are%20available.">
+            Join the mailing list
+        </a>
+        <span>
+            . Get notified of updates and new features as soon as they become available.
+        </span>
+    </p>
+</div>
+
+<!-- fin -->

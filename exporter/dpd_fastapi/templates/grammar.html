@@ -1,0 +1,47 @@
+<h3>grammar: {{d.headword}}</h3>
+<div class='grammar_dict'>
+    <table class='grammar_dict'>
+        <thead>
+            <tr>
+                <th id='col1'>pos</th>
+                <th id='col2'>grammar</th>
+                <th id='col3'></th>
+                <th id='col4'>word</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in d.grammar: %}
+            {% if item[2] == "indeclinable" %}
+            <tr>
+                <td>
+                    <b>{{item[1]}}</b>
+                </td>
+                <td>
+                    {{item[2]}}
+                </td>
+                <td colspan="2">
+
+                </td>
+            </tr>
+            {% else %}
+            
+            <tr>
+                <td>
+                    <b>{{item[1]}}</b>
+                </td>
+                <td>
+                    {{item[2]}}
+                </td>
+                <td>
+                    of
+                </td>
+                <td>
+                    {{item[0]}}
+                </td>
+            </tr>
+            {% endif %}
+            {%  endfor %}
+        
+        </tbody>
+    </table>
+</div>

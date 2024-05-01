@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.5">
+    <title>Digital Pāḷi Dictionary</title>
+    <link rel="stylesheet" type="" href="/static/home.css">
+    <link rel="stylesheet" type="" href="/static/dpd.css">
+    <link rel="icon" type="image/png" href="/static/dpd.ico">
+    <link id="bttn_pre" href="static/dpd.js" rel="preload" as="script">
+    <script>
+        {
+            let s = document.createElement('script');
+            s.src = document.getElementById('bttn_pre').getAttribute('href');
+            document.head.appendChild(s);
+        }
+    </script>
+
+</head>
+
+
+<body>
+    <script type="module" src="static/dpd.js"></script>
+    <div class="header">
+        <h2 class="title" id="title-clear">Digital Pāḷi Dictionary</h2>
+        <form action="/search" method="get" id="search-form">
+            <input class="entry-box" type="text" name="search" id="search-box" value="{{ search }}" autocomplete="off">
+        </form>
+    </div>
+    <div class="main-pane" id="main-pane">
+        <div class="history-pane">
+            <h3>History</h3>
+            {% for item in history %}
+            {{ loop.index }}. {{ item }}
+            <br>
+            {% endfor %}
+        </div>
+        <div class=dpd-pane>
+            {{ dpd_results|safe }}
+        </div>
+    </div>
+
+
+</body>
+
+</html>

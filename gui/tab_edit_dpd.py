@@ -448,16 +448,18 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
         [
             sg.Text("search for", size=(15, 1)),
             sg.Input(
-                "", key="search_for", size=(20, 1),
+                "", key="search_for", size=(16, 1),
                 enable_events=True,
                 tooltip="Search for BOLD words in commentaries"),
             sg.Input(
-                "", key="contains", size=(17, 1),
+                "", key="contains", size=(16, 1),
                 tooltip="Search for not BOLD words in commentaries"),
             sg.Button(
                 "Search", key="definitions_search_button", font=(None, 13)),
             sg.Button(
                 "Clean", key="commentary_clean", font=(None, 13)),
+            sg.Button(
+                "HTML", key="bold_definitions_server", font=(None, 13)),
             sg.Text(
                 "", key="search_for_error", size=(50, 1), text_color="red")
         ],
