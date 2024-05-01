@@ -755,6 +755,7 @@ gutturo-labial
 gutturo-palatal
 hā
 hairclip
+handsomeness
 Happy's
 har
 hāsupañño
@@ -1047,6 +1048,7 @@ Licchavis
 lickable
 likhā
 limbed
+limitlessly
 limitlessness
 linch-pin
 Lindica
@@ -1535,10 +1537,12 @@ preparer
 prideless
 prionitis
 pro-rata
+proclaimer
 procures
 prognosticative
 proliferating
 promulgates
+propagator
 properness
 propitiate
 propitiated
@@ -1868,6 +1872,7 @@ suppuration
 Surasena
 Sūrasena
 surpassable
+surpassingly
 surusuru
 surusuru soun
 Susumāragira
