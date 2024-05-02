@@ -13,7 +13,6 @@ from tools.paths import ProjectPaths
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="exporter/bold_definitions/static"), name="static")
 pth: ProjectPaths = ProjectPaths()
-db_session = get_db_session(pth.dpd_db_path)
 templates = Jinja2Templates(directory="exporter/bold_definitions/static")
 history_list: list[tuple[str, str, str]] = []
 
@@ -34,6 +33,7 @@ def home_page(request: Request):
 
 @app.get("/search", response_class=HTMLResponse)
 def db_search(request: Request, search_1: str, search_2: str, option: str):
+    db_session = get_db_session(pth.dpd_db_path)
 
     # no search
     if not search_1 and not search_2:
@@ -64,6 +64,8 @@ def db_search(request: Request, search_1: str, search_2: str, option: str):
             .filter(BoldDefinition.commentary.regexp_match(search_2_fuzzy)) \
             .all()
         message = f"{len(results)}results found"
+    
+    db_session.close()
 
     if results:
         message = f"<b>{len(results)}</b> results found"
@@ -86,6 +88,8 @@ def db_search(request: Request, search_1: str, search_2: str, option: str):
         "search_option": option,
         "message": message,
         "history": history_list})
+
+    
 
 
 def fuzzy_replace(string: str) -> str:

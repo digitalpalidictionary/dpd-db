@@ -37,6 +37,7 @@ app.mount("/static", StaticFiles(directory="exporter/dpd_fastapi/static"), name=
 pth: ProjectPaths = ProjectPaths()
 db_session = get_db_session(pth.dpd_db_path)
 roots_count_dict = make_roots_count_dict(db_session)
+db_session.close()
 templates = Jinja2Templates(directory="exporter/dpd_fastapi/templates")
 history_list: list[str] = []
 
@@ -55,6 +56,7 @@ def home_page(request: Request):
 @app.get("/search")
 def db_search(request: Request, search: str):
 
+    db_session = get_db_session(pth.dpd_db_path)
     html = ""
     search = search.replace("'", "")
     global history_list
@@ -145,16 +147,19 @@ def db_search(request: Request, search: str):
                 .filter(DpdHeadwords.id == search_int)\
                 .first()
             if headword_results:
-                history_list = update_history(headword_results.lemma_1)
+                history_list = update_history(
+                    f"{headword_results.lemma_1} ({headword_results.id})")
                 fc = get_family_compounds(headword_results)
                 fi = get_family_idioms(headword_results)
                 fs = get_family_set(headword_results)
                 d = HeadwordData(headword_results, fc, fi, fs)
                 html += templates.get_template(
                     "dpd_headword.html").render(d=d)
-    
+
     if not html:
         html = "no results found"
+    
+    db_session.close()
             
     return templates.TemplateResponse(
     "home.html", {
@@ -164,13 +169,12 @@ def db_search(request: Request, search: str):
     "dpd_results": html})
         
 
-
 def update_history(search: str) -> list[str]:
     global history_list
     if search in history_list:
         history_list.remove(search)
     history_list.insert(0, search)
-    return history_list[:30]
+    return history_list
 
 
 if __name__ == "__main__":

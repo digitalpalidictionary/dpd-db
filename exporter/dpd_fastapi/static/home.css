@@ -2,13 +2,15 @@
     --background: rgb(7, 2, 28);
     --foreground: rgb(226, 235, 237);
     --gray: gray;
+    --colour1: #00A4CC;
+    --colour2: #65DBFF;
 }
 
 body {
     background-color: var(--background);
     color: var(--foreground);
     height: 100%;
-}
+    font-family: "Dejavu Sans";
 
 .header {
     display: flex;
@@ -72,5 +74,18 @@ h3 {
 
 .dpd-pane::-webkit-scrollbar-thumb {
     border-radius: 5px;
-    background-color: var(--foreground);
+    background-color: var(--gray);
+}
+
+.history-pane::-webkit-scrollbar {
+    width: 10px;
+}
+
+.history-pane::-webkit-scrollbar-track {
+    background-color: var(--background);
+}
+
+.history-pane::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: var(--gray);
 }

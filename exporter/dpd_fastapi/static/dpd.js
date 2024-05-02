@@ -48,19 +48,11 @@ searchBox.addEventListener('keydown', function(event) {
 // trigger search by click
 
 mainPane.addEventListener("dblclick", function() {
-    var selection = window.getSelection().toString().toLowerCase();
+    var selection = window.getSelection().toString();
 	c(selection)
     searchBox.value = selection;
     searchForm.submit();
 });
-
-// document.addEventListener('DOMContentLoaded', function() {
-// 	document.body.addEventListener('dblclick', function() {
-// 	var selection = window.getSelection().toString().toLowerCase();
-// 	searchBox.value = selection;
-// 	searchForm.submit()
-// 	});
-// });
 
 
 // text to unicode

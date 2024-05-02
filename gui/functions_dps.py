@@ -38,7 +38,7 @@ from functions import make_sandhi_ok_list
 from functions import make_variant_list
 
 from functions_daily_record import daily_record_update
-from tools.i2html import make_html
+from tools.fast_api_utils import request_dpd_server
 
 from rich import print
 from sqlalchemy import not_, or_
@@ -1253,7 +1253,7 @@ def dps_update_db(
     f"'{values['dps_id_or_lemma_1']}' updated in dps db",
     text_color="Lime")
     daily_record_update(window, pth, "edit", word_id)
-    make_html(pth, [values["dps_lemma_1"]])
+    request_dpd_server(values["id"])
 
 
 def dps_get_synonyms(db_session, pos: str, string_of_meanings: str, window, error_field) -> Optional[str]:

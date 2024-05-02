@@ -134,7 +134,6 @@ from db.get_db_session import get_db_session
 from scripts.backup_dpd_headwords_and_roots import backup_dpd_headwords_and_roots
 from scripts.backup_ru_sbs import backup_ru_sbs
 
-from tools.i2html import make_html
 from tests.test_allowable_characters import test_allowable_characters_gui
 from tests.test_allowable_characters import test_allowable_characters_gui_dps
 
@@ -2129,7 +2128,7 @@ def main():
                     value="not a valid id or lemma_1", text_color="red")
 
         elif event == "dps_html_summary_button":
-            make_html(pth, [values["dps_lemma_1"]])
+            request_dpd_server(values["id"])
 
 
         # dps in word to add tab

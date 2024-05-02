@@ -9,10 +9,10 @@ from typing import Optional, Tuple
 from db.models import SBS, DpdHeadwords, DpdRoots, InflectionTemplates, Russian
 from functions_daily_record import daily_record_update
 
-from tools.i2html import make_html
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import append_tsv_list
+from tools.fast_api_utils import request_dpd_server
 
 
 dpd_values_list = [
@@ -142,7 +142,7 @@ def udpate_word_in_db(
                 f"'{values['lemma_1']}' added to db",
                 text_color="white")
             daily_record_update(window, pth, "add", word_id)
-            make_html(pth, [values["lemma_1"]])
+            request_dpd_server(values["id"])
             return True, "added"
 
         except Exception as e:
@@ -162,7 +162,7 @@ def udpate_word_in_db(
                 f"'{values['lemma_1']}' updated in db",
                 text_color="white")
             daily_record_update(window, pth, "edit", word_id)
-            make_html(pth, [values["lemma_1"]])
+            request_dpd_server(values["id"])
             return True, "updated"
 
         except Exception as e:
