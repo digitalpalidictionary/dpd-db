@@ -1065,6 +1065,7 @@ long-tasseled
 longfolia
 longifolia
 longum
+loots
 Luffa
 ṁ
 ṃ
@@ -1251,6 +1252,7 @@ MN93
 MN94
 MN95
 MN97
+MN98
 Moggallāna
 Moggallāna's
 Moggallānabyākaraṇa
@@ -1497,6 +1499,7 @@ phylums
 phymosis
 pictorius
 Pilinda's
+pillages
 Pilotika
 pingo
 pingo-basket
@@ -2205,6 +2208,7 @@ Varanasi
 variegata
 vārita
 vas
+Vāseṭṭha
 vassa
 Vassa
 Vassa
