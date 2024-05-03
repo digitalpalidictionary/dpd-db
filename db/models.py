@@ -300,7 +300,7 @@ class Lookup(Base):
     
     # grammar pack unpack
     # TODO add a method to unpack to html
-
+    
     def grammar_pack(self, list: list[tuple[str]]) -> None:
         if list:
             self.grammar = json.dumps(list, ensure_ascii=False)
@@ -331,6 +331,7 @@ class Lookup(Base):
         else:
             return ""
 
+
     # abbreviations pack unpack
 
     def abbrev_pack(self, dict: dict[str, str]) -> None:
@@ -347,6 +348,22 @@ class Lookup(Base):
         else:
             return {}
 
+    # epd pack unpack
+
+    def epd_pack(self, list: list[tuple[str, str, str]]) -> None:
+        if dict:
+            self.epd = json.dumps(
+                list, ensure_ascii=False, indent=1)
+        else:
+            raise ValueError("A dict must be provided to pack.")
+
+    @property
+    def epd_unpack(self) -> list[tuple[str, str, str]]:
+        if self.epd:
+            return json.loads(self.epd)
+        else:
+            return []
+    
     # pack unpack sinhala
     
     def sinhala_pack(self, list: list[str]) -> None:

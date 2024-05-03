@@ -1,18 +1,28 @@
 :root {
-    --background: rgb(7, 2, 28);
-    --foreground: rgb(226, 235, 237);
+    --background-dark: rgb(226, 235, 237);
+    --foreground-dark: rgb(7, 2, 28);
+    --background-dark: rgb(7, 2, 28);
+    --foreground-dark: rgb(226, 235, 237);
     --gray: gray;
     --colour1: #00A4CC;
     --colour2: #65DBFF;
 }
 
+.dark-mode {
+    background-color: var(--background-dark);
+    color: var(--foreground-dark);
+
+}
+
 body {
-    background-color: var(--background);
-    color: var(--foreground);
+    background-color: var(--background-dark);
+    color: var(--foreground-dark);
     height: 100%;
     font-family: "Dejavu Sans";
+    font-size: 1em;
+}
 
-.header {
+.header-pane {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -20,22 +30,50 @@ body {
     height: 30px;
 }
 
+.header-pane button {
+    background-color: var(--background-dark);
+    border: var(--colour2) 2px solid;
+    color: var(--foreground-dark);
+    border-radius: 7px;
+    margin: 5px;
+    height: 30px;
+    padding: 2px 10px;
+}
+
+h2 {
+    font-size: 150%;
+    margin: 5px;
+}
+
+h3 {
+    font-size: 130%;
+    margin-top: 5px;
+}
+
 .title {
-    margin: 10px;
+    margin: 5px;
 }
 
 .entry-box {
-    margin: 10px;
-    width: 300px;
+    background-color:var(--background-dark) ;
+    border-color: var(--colour2);
+    border-radius: 7px;
+    color: var(--foreground-dark);
+    font-family: "Dejavu Sans";
+    font-size: 130%;
     height: 30px;
-    font-size: 20px;
+    margin: 5px;
+    padding: 2px 10px;
+    width: 300px;
 }
 
 .main-pane {
     display: flex;
     flex-direction: row;
-    height: 93vh;
-    margin: 10px;
+    height: 90vb;
+    margin: 5px;
+    overflow-y: clip;
+    justify-content: center;
 }
 
 .history-pane {
@@ -43,38 +81,11 @@ body {
     border: 2px solid var(--gray);
     flex-direction: column;
     flex: 1;
-    font-size: 130%;
-    margin: 2px;
+    margin: 5px;
     padding: 5px 30px;
-}
-
-
-h3 {
-    font-size: 130%;
-    margin-top: 10px;
-    margin-bottom: 1px;
-}
-
-.dpd-pane {
-    border-radius: 7px;
-    border: 2px solid var(--gray);
-    flex: 2;
-    padding: 5px 30px;
-    overflow-y: auto;
-    margin: 2px;
-}
-
-.dpd-pane::-webkit-scrollbar {
-    width: 10px;
-}
-
-.dpd-pane::-webkit-scrollbar-track {
-    background-color: var(--background);
-}
-
-.dpd-pane::-webkit-scrollbar-thumb {
-    border-radius: 5px;
-    background-color: var(--gray);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    white-space: nowrap;
 }
 
 .history-pane::-webkit-scrollbar {
@@ -82,10 +93,72 @@ h3 {
 }
 
 .history-pane::-webkit-scrollbar-track {
-    background-color: var(--background);
+    background-color: var(--background-dark);
 }
 
 .history-pane::-webkit-scrollbar-thumb {
     border-radius: 5px;
     background-color: var(--gray);
+}
+
+.dpd-pane {
+    border-radius: 7px;
+    border: 2px solid var(--gray);
+    flex: 3;
+    padding: 5px 30px;
+    overflow-y: auto;
+    margin: 5px;
+}
+
+.message {
+    margin: 5px;
+    margin-top: 30px;
+}
+
+.dpd-pane::-webkit-scrollbar {
+    width: 10px;
+}
+
+.dpd-pane::-webkit-scrollbar-track {
+    background-color: var(--background-dark);
+}
+
+.dpd-pane::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: var(--gray);
+}
+
+.preferences-pane {
+    border-radius: 7px;
+    border: 2px solid var(--gray);
+    flex-direction: column;
+    flex: 1;
+    margin: 5px;
+    padding: 5px 30px;
+}
+
+.preferences-pane p {
+    padding: 5px;
+}
+
+.pref-button {
+    padding: 10px;
+    margin-right: 5px;
+    color: var(--foreground-dark);
+    background-color: var(--colour1);
+    width: 20px;
+    border-radius: 7px;
+    vertical-align: middle;
+}
+
+.footer-pane {
+    border-radius: 7px;
+    border: var(--gray) 2px solid;
+    color: var(--foreground-dark);
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+    padding: 10px;
+    text-align: center;
+    width: 98%;
 }

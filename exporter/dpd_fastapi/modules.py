@@ -98,3 +98,8 @@ class AbbreviationsData():
         self.pali = data["pāli"]
         self.example = data["example"]
         self.explanation = data["explanation"]
+
+class EpdData():
+    def __init__(self, result: Lookup):
+        self.headword = result.lookup_key
+        self.epd = result.epd_unpack

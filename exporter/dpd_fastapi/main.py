@@ -1,42 +1,59 @@
 
+from fastapi.responses import HTMLResponse
 import uvicorn
+import difflib
 from fastapi import FastAPI
 from fastapi import Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from sqlalchemy.orm import Session
 
-from .modules import (
-    HeadwordData,
-    RootsData,
-    DeconstructorData,
-    VariantData,
-    SpellingData,
-    GrammarData,
-    HelpData,
-    AbbreviationsData)
+from modules import AbbreviationsData
+from modules import DeconstructorData
+from modules import EpdData
+from modules import GrammarData
+from modules import HeadwordData
+from modules import HelpData
+from modules import RootsData
+from modules import SpellingData
+from modules import VariantData
 
 from db.get_db_session import get_db_session
-from db.models import (
-    DpdHeadwords,
-    DpdRoots,
-    Lookup,
-    FamilyRoot
-    )
+from db.models import DpdHeadwords
+from db.models import DpdRoots
+from db.models import FamilyRoot
+from db.models import Lookup
 
 from exporter.goldendict.helpers import make_roots_count_dict
 
-from tools.exporter_functions import (
-    get_family_compounds,
-    get_family_idioms,
-    get_family_set)
+from tools.exporter_functions import get_family_compounds
+from tools.exporter_functions import get_family_idioms
+from tools.exporter_functions import get_family_set
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
+
+
+def make_headwords_clean_set(db_session: Session) -> set[str]:
+    """Make a set of Pāḷi headwords and English meanings."""
+    
+    # add headwords
+    results = db_session.query(DpdHeadwords).all()
+    headwords_clean_set = set([i.lemma_clean for i in results])
+
+    # add all english meanings
+    results = db_session \
+        .query(Lookup) \
+        .filter(Lookup.epd != "") \
+        .all()
+    headwords_clean_set.update([i.lookup_key for i in results])
+    return headwords_clean_set
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="exporter/dpd_fastapi/static"), name="static")
 pth: ProjectPaths = ProjectPaths()
 db_session = get_db_session(pth.dpd_db_path)
 roots_count_dict = make_roots_count_dict(db_session)
+headwords_clean_set = make_headwords_clean_set(db_session)
 db_session.close()
 templates = Jinja2Templates(directory="exporter/dpd_fastapi/templates")
 history_list: list[str] = []
@@ -51,13 +68,12 @@ def home_page(request: Request):
         "dpd_results": ""})
 
 
-
-# @app.get("/search", response_class=HTMLResponse)
-@app.get("/search")
+@app.get("/search", response_class=HTMLResponse)
 def db_search(request: Request, search: str):
 
     db_session = get_db_session(pth.dpd_db_path)
     html = ""
+    message = ""
     search = search.replace("'", "")
     global history_list
 
@@ -68,12 +84,6 @@ def db_search(request: Request, search: str):
             lookup_results = db_session.query(Lookup) \
                 .filter(Lookup.lookup_key==(search)) \
                 .first()
-            
-            if not lookup_results:
-                search = search.lower()
-                lookup_results = db_session.query(Lookup) \
-                    .filter(Lookup.lookup_key==(search)) \
-                    .first()
             
             if lookup_results:
                 # headwords
@@ -139,7 +149,16 @@ def db_search(request: Request, search: str):
                     d = AbbreviationsData(lookup_results)
                     html += templates.get_template(
                             "abbreviations.html").render(d=d)
-        
+
+                if lookup_results.epd:
+                    d = EpdData(lookup_results)
+                    html += templates.get_template(
+                            "epd.html").render(d=d)
+
+            # return closest matches
+            if not lookup_results:
+                message = find_closest_matches(search)
+
         else:
             search_int = int(search)
             headword_results = db_session\
@@ -156,8 +175,9 @@ def db_search(request: Request, search: str):
                 html += templates.get_template(
                     "dpd_headword.html").render(d=d)
 
-    if not html:
-        html = "no results found"
+            # return closest matches
+            if not headword_results:
+                message = find_closest_matches(search)
     
     db_session.close()
             
@@ -166,6 +186,7 @@ def db_search(request: Request, search: str):
     "request": request,
     "search": search,
     "history": history_list,
+    "message": message,
     "dpd_results": html})
         
 
@@ -177,6 +198,24 @@ def update_history(search: str) -> list[str]:
     return history_list
 
 
+def find_closest_matches(search) -> str:
+    global headwords_clean_set
+    global lookup_set
+    closest_headword_matches =  \
+        difflib.get_close_matches(
+            search, headwords_clean_set,
+            n=10,
+            cutoff=0.7)
+    
+    string = "<h3>No results found. "
+    if closest_headword_matches:
+        string += "The closest matches are:</h3><br>"
+        for match in closest_headword_matches:
+            string += f"<a>{match}</a><br>"
+    else:
+        string += "</h3>"
+    return string
+
 if __name__ == "__main__":
     uvicorn.run(
         "main:app",
@@ -184,3 +223,4 @@ if __name__ == "__main__":
         port=8080,
         reload=True)
 
+# uvicorn exporter.dpd_fastapi.main:app --host 127.1.1.1 --port 8080 --reload --reload-dir exporter/dpd_fastapi

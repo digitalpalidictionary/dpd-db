@@ -17,6 +17,7 @@ div.content {
     overflow: auto;
     padding: 3px 7px;
     text-align: left;
+
 }
 
 p {
@@ -148,7 +149,7 @@ a.button {
     color: #000;
     cursor: pointer;
     display: inline-block;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 400;
     margin: 0px 1px 2px 0px;
     padding: 3px 5px;
@@ -493,7 +494,7 @@ a.root_button {
     color: #000;
     cursor: pointer;
     display: inline-block;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 400;
     margin: 0px 1px 2px 0px;
     padding: 3px 5px;
@@ -559,3 +560,26 @@ span.colour {
     color: #AB3C00;
     font-weight: 700;
 }
+
+div.epd {
+    border: 2px solid #8B008B;
+    border-radius: 7px;
+    line-height: 150%;
+    margin: 0px 0px;
+    overflow: auto;
+    padding: 3px 7px;
+    text-align: left;
+}
+
+.epd p {
+    line-height: 150%;
+    margin: 0px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.epd b {
+    color:#8B008B;
+    font-weight: 700;
+}
+

@@ -1,17 +1,20 @@
 from rich import print
-from tools.tic_toc import bop
+from tools.tic_toc import bip, bop
 
 def p_title(title: str) -> None:
     print(f"[bright_yellow]{title}")
 
 def p_green_title(message: str) -> None:
     print(f"[green]{message}")
+    bip()
 
 def p_green(message: str) -> None:
-    print(f"[green]{message:<35}")
+    print(f"[green]{message:<35}", end="")
+    bip()
 
 def p_white(message):
     print(f"{'':<5}[white]{message:<30}", end="")
+    bip()
 
 def p_yes(message):
     print(f"[blue]{message:>10}", end="")
@@ -26,3 +29,7 @@ def p_red(message):
 
 def p_bop():
     print(f"{bop():>10}")
+
+def p_counter(counter: int, total:int, word):
+    print(f"{counter:>10,} / {total:<10,} {word[:20]:<20} {bop():>10}")
+    bip()

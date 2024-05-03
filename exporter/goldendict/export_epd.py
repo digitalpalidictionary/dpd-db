@@ -9,6 +9,7 @@ from sqlalchemy.orm import joinedload
 from sqlalchemy.orm import Session
 from typing import List, Tuple
 
+from db.get_db_session import get_db_session
 from export_dpd import render_header_templ
 
 from db.models import DpdHeadwords, DpdRoots
@@ -268,3 +269,10 @@ def update_epd(epd, combined_numbers, i, make_link=True, lang="en"):
                 epd[combined_number] += f"<br>{epd_string}"
             else:
                 epd.update({combined_number: epd_string})
+
+
+if __name__ == "__main__":
+    pth = ProjectPaths()
+    rupth = RuPaths()
+    db_session = get_db_session(pth.dpd_db_path)
+    generate_epd_html(db_session, pth, rupth)

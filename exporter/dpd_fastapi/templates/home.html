@@ -7,14 +7,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.5">
     <title>Digital Pāḷi Dictionary</title>
     <link rel="stylesheet" type="" href="/static/home.css">
+    <link rel="stylesheet" type="" href="/static/switch.css">
     <link rel="stylesheet" type="" href="/static/dpd.css">
     <link rel="icon" type="image/png" href="/static/dpd.ico">
     <link id="bttn_pre" href="static/dpd.js" rel="preload" as="script">
+
     <script>
         {
             let s = document.createElement('script');
             s.src = document.getElementById('bttn_pre').getAttribute('href');
             document.head.appendChild(s);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+        loadToggleState('theme-toggle');
+        loadToggleState('sans-serif-toggle');
+        loadToggleState('niggahita-toggle');
+        loadToggleState('grammar-toggle');
+        loadToggleState('example-toggle');
+        loadToggleState('summary-toggle');
+        });
+
+        function loadToggleState(id) {
+            var savedState = localStorage.getItem(id);
+            if (savedState !== null) {
+                document.getElementById(id).checked = JSON.parse(savedState);
+            }
         }
     </script>
 
@@ -23,11 +41,13 @@
 
 <body>
     <script type="module" src="static/dpd.js"></script>
-    <div class="header">
+    <script type="module" src="static/home.js"></script>
+    <div class="header-pane">
         <h2 class="title" id="title-clear">Digital Pāḷi Dictionary</h2>
         <form action="/search" method="get" id="search-form">
             <input class="entry-box" type="text" name="search" id="search-box" value="{{ search }}" autocomplete="off">
         </form>
+        <button>search</button>
     </div>
     <div class="main-pane" id="main-pane">
         <div class="history-pane">
@@ -38,8 +58,51 @@
             {% endfor %}
         </div>
         <div class=dpd-pane>
+            <p class="message">{{ message|safe }}</p>
             {{ dpd_results|safe }}
         </div>
+        <div class=preferences-pane>
+            <h3>Preferences</h3>
+            <p>
+                <label class="switch">
+                    <input type="checkbox" id="theme-toggle"><span class="slider round"></span>
+                </label>
+                light / dark theme
+            </p>
+            <p>
+                <label class="switch">
+                    <input type="checkbox" id="sans-serif-toggle"><span class="slider round"></span>
+                </label>
+                serif / sans font
+            </p>
+            <p>
+                <label class="switch">
+                    <input type="checkbox" id="niggahita-toggle"><span class="slider round"></span>
+                </label>
+                ṃ / ṁ niggahīta
+            </p>
+            <p>
+                <label class="switch">
+                    <input type="checkbox" id="grammar-toggle"><span class="slider round"></span>
+                </label>
+                grammar open / closed
+            </p>
+            <p>
+                <label class="switch">
+                    <input type="checkbox" id="example-toggle"><span class="slider round"></span>
+                </label>
+                examples open / closed
+            </p>
+            <p>
+                <label class="switch">
+                    <input type="checkbox" id="summary-toggle"><span class="slider round"></span>
+                </label>
+                summary off / on
+            </p>
+        </div>
+    </div>
+    <div class="footer-pane">
+        for more information, please visit the <a href="https://digitalpalidictionary.github.io/">DPD website</a>
     </div>
 
 
