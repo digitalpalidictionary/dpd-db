@@ -1,5 +1,5 @@
 
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 import uvicorn
 import difflib
 from fastapi import FastAPI
@@ -8,15 +8,15 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 
-from modules import AbbreviationsData
-from modules import DeconstructorData
-from modules import EpdData
-from modules import GrammarData
-from modules import HeadwordData
-from modules import HelpData
-from modules import RootsData
-from modules import SpellingData
-from modules import VariantData
+from exporter.dpd_fastapi.modules import AbbreviationsData
+from exporter.dpd_fastapi.modules import DeconstructorData
+from exporter.dpd_fastapi.modules import EpdData
+from exporter.dpd_fastapi.modules import GrammarData
+from exporter.dpd_fastapi.modules import HeadwordData
+from exporter.dpd_fastapi.modules import HelpData
+from exporter.dpd_fastapi.modules import RootsData
+from exporter.dpd_fastapi.modules import SpellingData
+from exporter.dpd_fastapi.modules import VariantData
 
 from db.get_db_session import get_db_session
 from db.models import DpdHeadwords
@@ -56,147 +56,149 @@ roots_count_dict = make_roots_count_dict(db_session)
 headwords_clean_set = make_headwords_clean_set(db_session)
 db_session.close()
 templates = Jinja2Templates(directory="exporter/dpd_fastapi/templates")
-history_list: list[str] = []
 
 
 @app.get("/")
-def home_page(request: Request):
+def home_page(request: Request, response_class=HTMLResponse):
     return templates.TemplateResponse(
         "home.html", {
         "request": request,
-        "history": history_list,
         "dpd_results": ""})
 
 
-@app.get("/search", response_class=HTMLResponse)
-def db_search(request: Request, search: str):
 
+@app.get("/search_html", response_class=HTMLResponse)
+def db_search_html(request: Request, search: str):
+
+    dpd_html, summary_html = make_dpd_html(search)
+
+    return templates.TemplateResponse(
+        "home.html", {
+        "request": request,
+        "search": search,
+        "dpd_results": dpd_html,
+        })
+
+
+@app.get("/search_json", response_class=JSONResponse)
+def db_search_json(request: Request, search: str):
+
+    dpd_html, summary_html = make_dpd_html(search)
+    response_data = {
+        "summary_html": summary_html,
+        "dpd_html": dpd_html}
+
+    return JSONResponse(content=response_data)
+
+
+
+def make_dpd_html(search: str) -> tuple[str, str]:
     db_session = get_db_session(pth.dpd_db_path)
-    html = ""
-    message = ""
-    search = search.replace("'", "")
-    global history_list
+    dpd_html = ""
+    summary_html = ""
+    search = search.replace("'", "").replace("ṁ", "ṃ")
 
-    if search:
-        if not search.isnumeric():
-            history_list = update_history(str(search))
-
-            lookup_results = db_session.query(Lookup) \
-                .filter(Lookup.lookup_key==(search)) \
-                .first()
+    if not search.isnumeric():
+        lookup_results = db_session.query(Lookup) \
+            .filter(Lookup.lookup_key==(search)) \
+            .first()
+        
+        if lookup_results:
+            # headwords
+            if lookup_results.headwords:
+                headwords = lookup_results.headwords_unpack
+                headword_results = db_session\
+                    .query(DpdHeadwords)\
+                    .filter(DpdHeadwords.id.in_(headwords))\
+                    .all()
+                for i in headword_results:
+                    fc = get_family_compounds(i)
+                    fi = get_family_idioms(i)
+                    fs = get_family_set(i)
+                    d = HeadwordData(i, fc, fi, fs)
+                    summary_html += templates.get_template("dpd_summary.html").render(d=d)
+                    dpd_html += templates.get_template("dpd_headword.html").render(d=d)
             
-            if lookup_results:
-                # headwords
-                if lookup_results.headwords:
-                    headwords = lookup_results.headwords_unpack
-                    headword_results = db_session\
-                        .query(DpdHeadwords)\
-                        .filter(DpdHeadwords.id.in_(headwords))\
-                        .all()
-                    for i in headword_results:
-                        fc = get_family_compounds(i)
-                        fi = get_family_idioms(i)
-                        fs = get_family_set(i)
-                        d = HeadwordData(i, fc, fi, fs)
-                        html += templates.get_template(
-                            "dpd_headword.html").render(d=d)
-                
-                # roots
-                if lookup_results.roots:
-                    roots_list = lookup_results.roots_unpack
-                    root_results = db_session \
-                        .query(DpdRoots) \
-                        .filter(DpdRoots.root.in_(roots_list))\
-                        .all()
-                    for r in root_results:
-                        frs = db_session \
-                            .query(FamilyRoot) \
-                            .filter(FamilyRoot.root_key == r.root)
-                        frs = sorted(frs, key=lambda x: pali_sort_key(x.root_family))
-                        d = RootsData(r, frs, roots_count_dict)
-                        html += templates.get_template(
-                            "root.html").render(d=d)
+            # roots
+            if lookup_results.roots:
+                roots_list = lookup_results.roots_unpack
+                root_results = db_session \
+                    .query(DpdRoots) \
+                    .filter(DpdRoots.root.in_(roots_list))\
+                    .all()
+                for r in root_results:
+                    frs = db_session \
+                        .query(FamilyRoot) \
+                        .filter(FamilyRoot.root_key == r.root)
+                    frs = sorted(frs, key=lambda x: pali_sort_key(x.root_family))
+                    d = RootsData(r, frs, roots_count_dict)
+                    dpd_html += templates.get_template(
+                        "root.html").render(d=d)
 
-                # deconstructor
-                if lookup_results.deconstructor:
-                    d = DeconstructorData(lookup_results)
-                    html += templates.get_template(
-                            "deconstructor.html").render(d=d)
+            # deconstructor
+            if lookup_results.deconstructor:
+                d = DeconstructorData(lookup_results)
+                dpd_html += templates.get_template(
+                        "deconstructor.html").render(d=d)
 
-                # variant
-                if lookup_results.variant:
-                    d = VariantData(lookup_results)
-                    html += templates.get_template(
-                            "variant.html").render(d=d)
+            # variant
+            if lookup_results.variant:
+                d = VariantData(lookup_results)
+                dpd_html += templates.get_template(
+                        "variant.html").render(d=d)
 
-                # spelling mistake
-                if lookup_results.spelling:
-                    d = SpellingData(lookup_results)
-                    html += templates.get_template(
-                            "spelling.html").render(d=d)
+            # spelling mistake
+            if lookup_results.spelling:
+                d = SpellingData(lookup_results)
+                dpd_html += templates.get_template(
+                        "spelling.html").render(d=d)
 
-                if lookup_results.grammar:
-                    d = GrammarData(lookup_results)
-                    html += templates.get_template(
-                            "grammar.html").render(d=d)
-                                    
-                if lookup_results.help:
-                    d = HelpData(lookup_results)
-                    html += templates.get_template(
-                            "help.html").render(d=d)
+            if lookup_results.grammar:
+                d = GrammarData(lookup_results)
+                dpd_html += templates.get_template(
+                        "grammar.html").render(d=d)
+                                
+            if lookup_results.help:
+                d = HelpData(lookup_results)
+                dpd_html += templates.get_template(
+                        "help.html").render(d=d)
 
-                if lookup_results.abbrev:
-                    d = AbbreviationsData(lookup_results)
-                    html += templates.get_template(
-                            "abbreviations.html").render(d=d)
+            if lookup_results.abbrev:
+                d = AbbreviationsData(lookup_results)
+                dpd_html += templates.get_template(
+                        "abbreviations.html").render(d=d)
 
-                if lookup_results.epd:
-                    d = EpdData(lookup_results)
-                    html += templates.get_template(
-                            "epd.html").render(d=d)
+            if lookup_results.epd:
+                d = EpdData(lookup_results)
+                dpd_html += templates.get_template(
+                        "epd.html").render(d=d)
 
-            # return closest matches
-            if not lookup_results:
-                message = find_closest_matches(search)
-
+        # return closest matches
         else:
-            search_int = int(search)
-            headword_results = db_session\
-                .query(DpdHeadwords)\
-                .filter(DpdHeadwords.id == search_int)\
-                .first()
-            if headword_results:
-                history_list = update_history(
-                    f"{headword_results.lemma_1} ({headword_results.id})")
-                fc = get_family_compounds(headword_results)
-                fi = get_family_idioms(headword_results)
-                fs = get_family_set(headword_results)
-                d = HeadwordData(headword_results, fc, fi, fs)
-                html += templates.get_template(
-                    "dpd_headword.html").render(d=d)
+            dpd_html = find_closest_matches(search)
 
-            # return closest matches
-            if not headword_results:
-                message = find_closest_matches(search)
+    else:
+        search_int = int(search)
+        headword_results = db_session\
+            .query(DpdHeadwords)\
+            .filter(DpdHeadwords.id == search_int)\
+            .first()
+        if headword_results:
+            fc = get_family_compounds(headword_results)
+            fi = get_family_idioms(headword_results)
+            fs = get_family_set(headword_results)
+            d = HeadwordData(headword_results, fc, fi, fs)
+            dpd_html += templates.get_template(
+                "dpd_headword.html").render(d=d)
+
+        # return closest matches
+        else:
+            dpd_html = find_closest_matches(search)
     
     db_session.close()
-            
-    return templates.TemplateResponse(
-    "home.html", {
-    "request": request,
-    "search": search,
-    "history": history_list,
-    "message": message,
-    "dpd_results": html})
-        
+    return dpd_html, summary_html
 
-def update_history(search: str) -> list[str]:
-    global history_list
-    if search in history_list:
-        history_list.remove(search)
-    history_list.insert(0, search)
-    return history_list
-
+    
 
 def find_closest_matches(search) -> str:
     global headwords_clean_set
@@ -211,7 +213,7 @@ def find_closest_matches(search) -> str:
     if closest_headword_matches:
         string += "The closest matches are:</h3><br>"
         for match in closest_headword_matches:
-            string += f"<a>{match}</a><br>"
+            string += f"{match} "
     else:
         string += "</h3>"
     return string
@@ -219,8 +221,14 @@ def find_closest_matches(search) -> str:
 if __name__ == "__main__":
     uvicorn.run(
         "main:app",
-        host="127.1.1.1",
-        port=8080,
-        reload=True)
+        # host="127.1.1.1",
+        # port=8080,
+        host="0.0.0.0",
+        reload=True,
+        reload_dirs="exporter/dpd_fastapi")
 
 # uvicorn exporter.dpd_fastapi.main:app --host 127.1.1.1 --port 8080 --reload --reload-dir exporter/dpd_fastapi
+
+
+# TODO make help popup tooltips and a toggle to turn them off
+# TODO delete unicode toggle, just always on

@@ -15,7 +15,7 @@ def start_bold_def_server():
 
 
 def request_dpd_server(search: str|int):
-    base_url = "http://127.1.1.1:8080/search"
+    base_url = "http://127.1.1.1:8080/search_html"
     search_params = {"search": search}
     url = f"{base_url}?{urllib.parse.urlencode(search_params)}"
     webbrowser.open(url)

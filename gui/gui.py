@@ -142,11 +142,10 @@ from tools.paths import ProjectPaths
 from tools.pos import DECLENSIONS, VERBS
 from tools.pos import POS
 from tools.sandhi_contraction import make_sandhi_contraction_dict
-from tools.fast_api_utils import (
-    start_dpd_server,
-    start_bold_def_server,
-    request_dpd_server,
-    request_bold_def_server)
+from tools.fast_api_utils import start_dpd_server
+from tools.fast_api_utils import start_bold_def_server
+from tools.fast_api_utils import request_dpd_server
+from tools.fast_api_utils import request_bold_def_server
 
 from dps.tools.paths_dps import DPSPaths
 

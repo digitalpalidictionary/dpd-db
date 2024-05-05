@@ -18,80 +18,68 @@
             s.src = document.getElementById('bttn_pre').getAttribute('href');
             document.head.appendChild(s);
         }
-
-        document.addEventListener('DOMContentLoaded', function() {
-        loadToggleState('theme-toggle');
-        loadToggleState('sans-serif-toggle');
-        loadToggleState('niggahita-toggle');
-        loadToggleState('grammar-toggle');
-        loadToggleState('example-toggle');
-        loadToggleState('summary-toggle');
-        });
-
-        function loadToggleState(id) {
-            var savedState = localStorage.getItem(id);
-            if (savedState !== null) {
-                document.getElementById(id).checked = JSON.parse(savedState);
-            }
-        }
     </script>
-
 </head>
 
 
 <body>
-    <script type="module" src="static/dpd.js"></script>
-    <script type="module" src="static/home.js"></script>
     <div class="header-pane">
-        <h2 class="title" id="title-clear">Digital Pāḷi Dictionary</h2>
-        <form action="/search" method="get" id="search-form">
-            <input class="entry-box" type="text" name="search" id="search-box" value="{{ search }}" autocomplete="off">
+        <div class="logo-title">
+            <img src="static/dpd.ico" alt="dpd logo" id="header-image" class="header-image">
+            <h2 class="title" id="title-clear">Digital Pāḷi Dictionary</h2>
+        </div>
+        <form id="search-form">
+            <input 
+                class="search-box" type="text" name="search" id="search-box" value="{{ search }}" 
+                autocomplete="off" inputmode="text" autocapitalize="off">
+            <button class="search-button" id="search-button">search</button>
         </form>
-        <button>search</button>
     </div>
     <div class="main-pane" id="main-pane">
-        <div class="history-pane">
-            <h3>History</h3>
-            {% for item in history %}
-            {{ loop.index }}. {{ item }}
-            <br>
-            {% endfor %}
+        <div class="history-pane" id="history-pane"">
+            <h3>History</h3>          
+            <button id="clear-history-button" class="clear-history-button">x</button>  
+            <div class="history-list-pane" id="history-list-pane">
+            </div>
+            
         </div>
-        <div class=dpd-pane>
-            <p class="message">{{ message|safe }}</p>
-            {{ dpd_results|safe }}
+        <div class=dpd-pane id="dpd-pane">
+            <div class="summary-results" id="summary-results"></div>
+            <div class="dpd-results" id="dpd-results">
+                {{ dpd_results|safe }}
+            </div>    
         </div>
-        <div class=preferences-pane>
-            <h3>Preferences</h3>
+        <div class=settings-pane>
+            <h3>Settings</h3>
             <p>
                 <label class="switch">
                     <input type="checkbox" id="theme-toggle"><span class="slider round"></span>
                 </label>
-                light / dark theme
+                light / dark mode
             </p>
             <p>
                 <label class="switch">
                     <input type="checkbox" id="sans-serif-toggle"><span class="slider round"></span>
                 </label>
-                serif / sans font
+                sans / serif font
             </p>
             <p>
                 <label class="switch">
                     <input type="checkbox" id="niggahita-toggle"><span class="slider round"></span>
                 </label>
-                ṃ / ṁ niggahīta
+                niggahīta ṃ / ṁ 
             </p>
             <p>
                 <label class="switch">
-                    <input type="checkbox" id="grammar-toggle"><span class="slider round"></span>
+                    <input type="checkbox" id="grammar-toggle" checked><span class="slider round"></span>
                 </label>
-                grammar open / closed
+                grammar button closed / open
             </p>
             <p>
                 <label class="switch">
                     <input type="checkbox" id="example-toggle"><span class="slider round"></span>
                 </label>
-                examples open / closed
+                example button closed / open
             </p>
             <p>
                 <label class="switch">
@@ -102,10 +90,11 @@
         </div>
     </div>
     <div class="footer-pane">
-        for more information, please visit the <a href="https://digitalpalidictionary.github.io/">DPD website</a>
+        For more information, please read the &nbsp;
+        <a href="https://digitalpalidictionary.github.io/" target="_blank">DPD docs website</a>
     </div>
-
-
+    <script type="module" src="static/home.js"></script>
+    <script type="module" src="static/dpd.js"></script>
 </body>
 
 </html>
