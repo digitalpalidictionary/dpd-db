@@ -838,6 +838,7 @@ Indriyasaṃyuttaṃ
 Indus
 inexpertise
 infeminine
+inhered
 inophyllum
 insignificantly
 instructable
@@ -1254,6 +1255,7 @@ MN94
 MN95
 MN97
 MN98
+MN99
 Moggallāna
 Moggallāna's
 Moggallānabyākaraṇa
@@ -2064,6 +2066,7 @@ undeluded
 undependability
 underbodice
 underbrush
+underlain
 undersheet
 undiminishable
 undiscoverable
