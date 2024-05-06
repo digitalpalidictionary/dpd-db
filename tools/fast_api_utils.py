@@ -4,13 +4,25 @@ import webbrowser
 
 def start_dpd_server():
     "uvicorn exporter.dpd_fastapi.main:app --host 127.1.1.1 --port 8080 --reload --reload-dir exporter/dpd_fastapi"
-    command = ["uvicorn", "exporter.dpd_fastapi.main:app", "--host", "127.1.1.1", "--port", "8080"]
+    command = [
+        "uvicorn",
+        "exporter.dpd_fastapi.main:app",
+        "--host", "127.1.1.1",
+        "--port", "8080",
+        "--reload"
+        "--reload-dir", "exporter/dpd_fastapi"]
     subprocess.Popen(command)
 
 
 def start_bold_def_server():
     "uvicorn exporter.bold_definitions.main:app --host 127.1.1.2 --port 8080 --reload-dir exporter/bold_definitions "
-    command = ["uvicorn", "exporter.bold_definitions.main:app", "--host", "127.1.1.2", "--port", "8080"]
+    command = [
+        "uvicorn",
+        "exporter.bold_definitions.main:app",
+        "--host", "127.1.1.2",
+        "--port", "8080",
+        "--reload"
+        "--reload-dir", "exporter/bold_definitions"]
     subprocess.Popen(command)
 
 

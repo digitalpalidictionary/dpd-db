@@ -24,6 +24,41 @@ const grammarToggle = document.getElementById("grammar-toggle");
 const exampleToggle = document.getElementById("example-toggle");
 const summaryToggle = document.getElementById("summary-toggle");
 
+
+//// load state
+
+function loadToggleState(id) {
+    var savedState = localStorage.getItem(id);
+    if (savedState !== null) {
+        document.getElementById(id).checked = JSON.parse(savedState);
+    }
+}
+
+//// Page load
+
+const startMessage = `
+<p class="message">Search for Pāḷi or English words above using Unicode or Velthuis characters.</p>
+<p class="message">Double click on any word to search for it.</p>
+<p class="message">Adjust the settings to your preference.</p>
+<p class="message">Hover over any element to get help.</p>
+`
+
+document.addEventListener("DOMContentLoaded", function() {
+    applySavedTheme()
+    populateHistoryBody()
+    loadToggleState("theme-toggle");
+    loadToggleState("sans-serif-toggle");
+    loadToggleState("niggahita-toggle");
+    loadToggleState("grammar-toggle");
+    loadToggleState("example-toggle");
+    loadToggleState("summary-toggle");
+    toggleClearHistoryButton()
+    swopSansSerif()
+    if (dpdResults.innerHTML.trim() == "") {
+        dpdResults.innerHTML = startMessage
+    } 
+});
+
 //// listeners
 
 //// trigger title clear - go home
@@ -116,6 +151,10 @@ async function handleFormSubmit(event) {
                 top: 0,
                 behavior: "smooth"
             });
+            dpdPane.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
             
             
         } catch (error) {
@@ -125,7 +164,6 @@ async function handleFormSubmit(event) {
 }
 
 //// populate history
-
 
 function addToHistory(word) {
     let historyList = JSON.parse(localStorage.getItem("history-list")) || [];
@@ -173,41 +211,6 @@ function toggleClearHistoryButton() {
     }
 }
 
-
-
-//// load state
-
-function loadToggleState(id) {
-    var savedState = localStorage.getItem(id);
-    if (savedState !== null) {
-        document.getElementById(id).checked = JSON.parse(savedState);
-    }
-}
-
-//// Page load
-
-const startMessage = `
-<p class="message">Search for Pāḷi or English words above using Unicode or Velthuis characters.</p>
-<p class="message">Double click on any word to search for it.</p>
-<p class="message">Adjust the settings to your preference.</p>
-<p class="message">Hover over any element to get help.</p>
-`
-
-document.addEventListener("DOMContentLoaded", function() {
-    applySavedTheme()
-    populateHistoryBody()
-    loadToggleState("theme-toggle");
-    loadToggleState("sans-serif-toggle");
-    loadToggleState("niggahita-toggle");
-    loadToggleState("grammar-toggle");
-    loadToggleState("example-toggle");
-    loadToggleState("summary-toggle");
-    toggleClearHistoryButton()
-    swopSansSerif()
-    if (dpdResults.innerHTML.trim() == "") {
-        dpdResults.innerHTML = startMessage
-    } 
-});
 
 //// save settings on toggle
 

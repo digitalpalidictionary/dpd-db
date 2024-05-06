@@ -53,7 +53,8 @@ def compile_headwords_data(g: ProgData):
             for meaning in meanings_list:
                 meaning_plus_case = make_meaning_plus_case(i)
                 epd_data = (i.lemma_clean, i.pos, meaning_plus_case)
-                if meaning in g.epd_data_dict.keys():    
+                   
+                if meaning and meaning in g.epd_data_dict.keys():    
                     g.epd_data_dict[meaning].append(epd_data)
                 else:
                     g.epd_data_dict[meaning] = [epd_data]

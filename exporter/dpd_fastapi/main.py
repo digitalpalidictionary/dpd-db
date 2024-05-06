@@ -57,6 +57,14 @@ headwords_clean_set = make_headwords_clean_set(db_session)
 db_session.close()
 templates = Jinja2Templates(directory="exporter/dpd_fastapi/templates")
 
+with open("exporter/dpd_fastapi/static/dpd.css") as f:
+    dpd_css = f.read()
+
+with open("exporter/dpd_fastapi/static/dpd.js") as f:
+    dpd_js = f.read()
+
+with open("exporter/dpd_fastapi/static/home_simple.css") as f:
+    home_simple_css = f.read()
 
 @app.get("/")
 def home_page(request: Request, response_class=HTMLResponse):
@@ -91,6 +99,24 @@ def db_search_json(request: Request, search: str):
     return JSONResponse(content=response_data)
 
 
+@app.get("/gd", response_class=HTMLResponse)
+def db_search_gd(request: Request, search: str):
+
+    dpd_html, summary_html = make_dpd_html(search)
+    global dpd_css, dpd_js, home_simple_css
+
+    return templates.TemplateResponse(
+        "home_simple.html", {
+        "request": request,
+        "search": search,
+        "dpd_results": dpd_html,
+        "summary": summary_html,
+        "dpd_css": dpd_css,
+        "dpd_js": dpd_js,
+        "home_simple_css": home_simple_css,
+        })
+    
+
 
 def make_dpd_html(search: str) -> tuple[str, str]:
     db_session = get_db_session(pth.dpd_db_path)
@@ -111,6 +137,8 @@ def make_dpd_html(search: str) -> tuple[str, str]:
                     .query(DpdHeadwords)\
                     .filter(DpdHeadwords.id.in_(headwords))\
                     .all()
+                headword_results = sorted(
+                    headword_results, key=lambda x: pali_sort_key(x.lemma_1))
                 for i in headword_results:
                     fc = get_family_compounds(i)
                     fi = get_family_idioms(i)
@@ -179,15 +207,15 @@ def make_dpd_html(search: str) -> tuple[str, str]:
 
     else:
         search_int = int(search)
-        headword_results = db_session\
+        headword_result = db_session\
             .query(DpdHeadwords)\
             .filter(DpdHeadwords.id == search_int)\
             .first()
-        if headword_results:
-            fc = get_family_compounds(headword_results)
-            fi = get_family_idioms(headword_results)
-            fs = get_family_set(headword_results)
-            d = HeadwordData(headword_results, fc, fi, fs)
+        if headword_result:
+            fc = get_family_compounds(headword_result)
+            fi = get_family_idioms(headword_result)
+            fs = get_family_set(headword_result)
+            d = HeadwordData(headword_result, fc, fi, fs)
             dpd_html += templates.get_template(
                 "dpd_headword.html").render(d=d)
 
@@ -231,4 +259,4 @@ if __name__ == "__main__":
 
 
 # TODO make help popup tooltips and a toggle to turn them off
-# TODO delete unicode toggle, just always on
+# TODO include mw, cpd, dppn, etc. 

@@ -25,6 +25,7 @@ def p_no(message):
     p_bop()
 
 def p_red(message):
+    print()
     print(f"[red]{message}")
 
 def p_bop():

@@ -24,7 +24,8 @@ exceptions = [
     "pratipad",
     "adhiprajñā",
     "hrī",
-    "pariṣad"
+    "pariṣad",
+    "abhibhū"
     ]
 
 

@@ -175,6 +175,7 @@ h3 {
 .summary-results hr {
     margin-top: 20px;
     margin-bottom: 20px;
+    border-color: var(--gray);
 }
 
 .summary-link {
