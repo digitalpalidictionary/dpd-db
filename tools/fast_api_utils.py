@@ -9,20 +9,20 @@ def start_dpd_server():
         "exporter.dpd_fastapi.main:app",
         "--host", "127.1.1.1",
         "--port", "8080",
-        "--reload"
-        "--reload-dir", "exporter/dpd_fastapi"]
+        "--reload",
+        "--reload-dir", "exporter/dpd_fastapi",]
     subprocess.Popen(command)
 
 
 def start_bold_def_server():
-    "uvicorn exporter.bold_definitions.main:app --host 127.1.1.2 --port 8080 --reload-dir exporter/bold_definitions "
+    "uvicorn exporter.bold_definitions.main:app --host 127.1.1.2 --port 8080"
     command = [
         "uvicorn",
         "exporter.bold_definitions.main:app",
         "--host", "127.1.1.2",
         "--port", "8080",
-        "--reload"
-        "--reload-dir", "exporter/bold_definitions"]
+        "--reload",
+        "--reload-dir", "exporter/bold_definitions",]
     subprocess.Popen(command)
 
 

@@ -66,13 +66,13 @@ with open("exporter/dpd_fastapi/static/dpd.js") as f:
 with open("exporter/dpd_fastapi/static/home_simple.css") as f:
     home_simple_css = f.read()
 
+
 @app.get("/")
 def home_page(request: Request, response_class=HTMLResponse):
     return templates.TemplateResponse(
         "home.html", {
         "request": request,
         "dpd_results": ""})
-
 
 
 @app.get("/search_html", response_class=HTMLResponse)
@@ -116,7 +116,6 @@ def db_search_gd(request: Request, search: str):
         "home_simple_css": home_simple_css,
         })
     
-
 
 def make_dpd_html(search: str) -> tuple[str, str]:
     db_session = get_db_session(pth.dpd_db_path)
@@ -259,4 +258,8 @@ if __name__ == "__main__":
 
 
 # TODO make help popup tooltips and a toggle to turn them off
-# TODO include mw, cpd, dppn, etc. 
+# TODO include mw, cpd, dppn, etc.
+# TODO dropdown search
+# TODO summary of roots, deconstructor etc
+# TODO history forward and backwards buttons
+# TODO 

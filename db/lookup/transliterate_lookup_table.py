@@ -51,7 +51,7 @@ def _parse_batch(
         if (
             not i.sinhala
             or regenerate_all
-            and is_another_value(i, "epd")
+            and not is_another_value(i, "epd")  # dont transliterate pure english words
         ):
             lookup_key: str = i.lookup_key
             translit_index_dict[counter] = lookup_key
