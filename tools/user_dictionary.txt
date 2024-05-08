@@ -399,6 +399,7 @@ Citta
 citta-vīthi
 cittalatā
 Clarias
+climbable
 clinged
 Clitoria
 cluelessness
@@ -664,6 +665,7 @@ firstness
 flambeau
 flaviviridis
 fleshlessness
+fletched
 fletching
 fly's
 fodder-ish
@@ -1191,6 +1193,7 @@ mis-meditates
 Mithil
 Mithila
 Mithilā
+MN100
 MN110
 MN2
 MN3
@@ -1265,6 +1268,7 @@ Mollugo
 monastics
 monkhood
 Monosperma
+mountable
 movie
 Mucana
 muddleheadedness
@@ -1710,6 +1714,7 @@ Sañcaya
 Sandaka
 sandhi
 Sandhi
+Saṅgārava
 saṅgha
 saṅghādisesa
 Sañjaya
@@ -1963,6 +1968,8 @@ Tissa
 Tissā
 tissametteyya-māṇava-pucchā
 Tissametteyyamāṇava
+Todeyya
+Todeyya's
 tolerator
 tomentosa
 Tomentosa
@@ -2328,7 +2335,3 @@ yojanas
 yoking
 zizanioides
 Ziziphus
-Todeyya's
-Todeyya
-MN100
-Saṅgārava
