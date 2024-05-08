@@ -105,6 +105,7 @@ def make_cst_text_list(
             text_string = f.read()
             # remove all brackets
             text_string = re.sub(r"\(.+\)", "", text_string)
+            # FIXME text_string = re.sub(r"\(.+?\)", "", text_string)
             
             if add_hyphenated_parts:
                 # dont remove the hyphen, deal with it later

@@ -25,7 +25,8 @@ exceptions = [
     "adhiprajñā",
     "hrī",
     "pariṣad",
-    "abhibhū"
+    "abhibhū",
+    "vidyut"
     ]
 
 

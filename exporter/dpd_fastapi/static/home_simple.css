@@ -14,17 +14,16 @@ body {
     background-color: var(--background-light);
     color: var(--foreground-light);
     font-family: "sans";
-    font-size: 1em;
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; */
 }
 
 h2 {
-    font-size: 150%;
+    /* font-size: 150%; */
     margin: 5px;
 }
 
 h3 {
-    font-size: 130%;
+    /* font-size: 130%; */
     margin-top: 5px;
 }
 

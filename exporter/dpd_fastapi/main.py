@@ -123,7 +123,7 @@ def make_dpd_html(search: str) -> tuple[str, str]:
     summary_html = ""
     search = search.replace("'", "").replace("ṁ", "ṃ")
 
-    if not search.isnumeric():
+    if search.isalpha(): # eg kata
         lookup_results = db_session.query(Lookup) \
             .filter(Lookup.lookup_key==(search)) \
             .first()
@@ -204,11 +204,28 @@ def make_dpd_html(search: str) -> tuple[str, str]:
         else:
             dpd_html = find_closest_matches(search)
 
-    else:
-        search_int = int(search)
+    elif search.isnumeric(): # eg 78654
+        search_term = int(search)
         headword_result = db_session\
             .query(DpdHeadwords)\
-            .filter(DpdHeadwords.id == search_int)\
+            .filter(DpdHeadwords.id == search_term)\
+            .first()
+        if headword_result:
+            fc = get_family_compounds(headword_result)
+            fi = get_family_idioms(headword_result)
+            fs = get_family_set(headword_result)
+            d = HeadwordData(headword_result, fc, fi, fs)
+            dpd_html += templates.get_template(
+                "dpd_headword.html").render(d=d)
+
+        # return closest matches
+        else:
+            dpd_html = find_closest_matches(search)
+
+    elif search.isalnum():  # eg kata 5
+        headword_result = db_session\
+            .query(DpdHeadwords)\
+            .filter(DpdHeadwords.lemma_1 == search)\
             .first()
         if headword_result:
             fc = get_family_compounds(headword_result)

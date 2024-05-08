@@ -663,19 +663,8 @@ def make_text_list(
         ) -> List[str]:
     cst_text_list = make_cst_text_list(pth, [book])
     sc_text_list = make_sc_text_list(pth, [book])
-    
-    # reverse for better results (temporary)
-    # cst_text_list.reverse()
-    # sc_text_list.reverse()
-    
     full_text_list = cst_text_list + sc_text_list
-
-    # sp_mistakes_list = make_sp_mistakes_list(pth)
-    # variant_list = make_variant_list(pth)
-
-    text_set = set(cst_text_list) | set(sc_text_list)
-    # text_set = text_set - set(sp_mistakes_list)
-    # text_set = text_set - set(variant_list)
+    text_set = set(cst_text_list) | set(sc_text_list)    
     return sorted(text_set, key=lambda x: full_text_list.index(x))
 
 
@@ -730,3 +719,7 @@ if __name__ == "__main__":
     window = sg.Window("", [])  # just a placeholder
     p2d = Pass2Data(pth, db_session, window, {}, "mn2")
     pass2_gui(p2d)
+
+    # text_list = make_text_list(pth, "mn2")
+    # print(text_list.index("paṇītasaṅkhātataraṃ"))
+    
