@@ -132,12 +132,22 @@ def clean_construction(construction):
     return construction
 
 
-def degree_of_completion(i):
+def degree_of_completion(i, html=True):
     """Return html styled symbol of a word data degree of completion."""
     if i.meaning_1:
         if i.source_1:
-            return """<span class="gray">✓</span>"""
+            if html:
+                return """<span class="gray">✓</span>"""
+            else:
+                return "✓"
+                 
         else:
-            return """<span class="gray">~</span>"""
+            if html:
+                return """<span class="gray">~</span>"""
+            else:
+                return "~"
     else:
-        return """<span class="gray">✗</span>"""
+        if html:
+            return """<span class="gray">✗</span>"""
+        else:
+            return "✗"

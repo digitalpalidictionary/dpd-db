@@ -918,6 +918,13 @@ class FamilyWord(Base):
 
     dpd_headwords: Mapped[List["DpdHeadwords"]] = relationship("DpdHeadwords", back_populates="fw")
 
+    # family_word pack unpack
+    def data_pack(self, list: list[str]) -> None:
+        self.data = json.dumps(list, ensure_ascii=False, indent=1)
+
+    @property
+    def data_unpack(self) -> list[str]:
+        return json.loads(self.data)
 
     def __repr__(self) -> str:
         return f"FamilyWord: {self.word_family} {self.count}"
@@ -957,7 +964,7 @@ class FamilyIdiom(Base):
         self.data = json.dumps(list, ensure_ascii=False, indent=1)
 
     @property
-    def unpack_idioms_data(self) -> list[str]:
+    def data_unpack(self) -> list[str]:
         return json.loads(self.data)
 
     def __repr__(self) -> str:

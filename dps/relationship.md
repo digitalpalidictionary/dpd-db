@@ -17,10 +17,10 @@ it allows:
 - db/deconstructor/sandhi_splitter.py
 - db/deconstructor/sandhi_postprocess.py
 
-- db/families/root_family.py
-- db/families/word_family.py
-- db/families/compound_family.py
-- db/families/sets.py
+- db/families/family_root.py
+- db/families/family_word.py
+- db/families/family_compound.py
+- db/families/family_set.py
 
 - db/frequency/mapmaker.py
 
@@ -32,10 +32,10 @@ default: `yes`
 
 it allows:
 
-- db/families/root_family.py
-- db/families/word_family.py
-- db/families/compound_family.py
-- db/families/sets.py
+- db/families/family_root.py
+- db/families/family_word.py
+- db/families/family_compound.py
+- db/families/family_set.py
 
 - db/frequency/mapmaker.py
 
@@ -71,10 +71,10 @@ it allows:
 - db/deconstructor/sandhi_splitter.py
 - db/deconstructor/sandhi_postprocess.py
 
-- db/families/root_family.py
-- db/families/word_family.py
-- db/families/compound_family.py
-- db/families/sets.py
+- db/families/family_root.py
+- db/families/family_word.py
+- db/families/family_compound.py
+- db/families/family_set.py
 
 - db/frequency/mapmaker.py
 
@@ -90,10 +90,10 @@ it allows:
 - db/deconstructor/sandhi_splitter.py
 - db/deconstructor/sandhi_postprocess.py
 
-- db/families/root_family.py
-- db/families/word_family.py
-- db/families/compound_family.py
-- db/families/sets.py
+- db/families/family_root.py
+- db/families/family_word.py
+- db/families/family_compound.py
+- db/families/family_set.py
 
 - db/frequency/mapmaker.py
 

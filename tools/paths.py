@@ -67,6 +67,13 @@ class ProjectPaths:
         self.buttons_js_path = base_dir / "exporter/goldendict/javascript//buttons.js"
         self.sorter_js_path = base_dir / "exporter/goldendict/javascript//sorter.js"
 
+        # exporter/goldendict/json/
+        self.family_compound_json = base_dir / "exporter/goldendict/json/family_compound.json"
+        self.family_idiom_json = base_dir / "exporter/goldendict/json/family_idiom.json"
+        self.family_root_json = base_dir / "exporter/goldendict/json/family_root.json"
+        self.family_set_json = base_dir / "exporter/goldendict/json/family_set.json"
+        self.family_word_json = base_dir / "exporter/goldendict/json/family_word.json"
+
         # exporter/share
         self.share_dir = base_dir / "exporter/share"
         

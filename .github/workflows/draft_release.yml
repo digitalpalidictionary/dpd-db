@@ -75,19 +75,19 @@ jobs:
       run: poetry run python scripts/sanskrit_root_families_updater.py
 
     - name: Add Root Families
-      run: poetry run python db/families/root_family.py
+      run: poetry run python db/families/family_root.py
 
     - name: Add Word Families
-      run: poetry run db/families/word_family.py
+      run: poetry run db/families/family_word.py
     
     - name: Add Compound Families
-      run: poetry run python db/families/compound_family.py
+      run: poetry run python db/families/family_compound.py
 
     - name: Add Sets
-      run: poetry run python db/families/sets.py
+      run: poetry run python db/families/family_set.py
 
     - name: Add Idioms
-      run: poetry run python db/families/idioms.py
+      run: poetry run python db/families/family_idiom.py
 
     - name: Deconstructor Setup
       run: poetry run python db/deconstructor/sandhi_setup.py
