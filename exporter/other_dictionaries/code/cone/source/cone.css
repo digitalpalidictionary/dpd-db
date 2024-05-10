@@ -1,0 +1,663 @@
+ 
+div.spread {
+    display: flex;
+    padding-left: 1em;
+    padding-right: 1em;
+    position: fixed;
+    width: 97%;
+    height: 720px;
+/*    bottom: 25px; *//*Handled differently on Firefox between Ubuntu and Windows */
+  }
+  
+  div.gd3list {
+    position: fixed;
+    top: 166px;
+    padding-top: 5px;
+    margin-top: 4px;
+    bottom: 25px;
+    left: 1em;
+    width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* background-color: white; */
+  }
+
+  div.gd3definition {
+    width: 100%;
+    height: 80%;
+    /* background: white; */
+    text-align: left;
+    padding: 5px;
+    overflow-y: auto;
+  }
+
+  div.leftpanel {
+    flex: 1;
+    display: inline-block;        
+    padding: 4px 0px 4px 0px;
+    height: 100%;
+    width: 200px;
+    min-width: 150px;
+    max-width: 200px;
+    border-right: 1px solid #a5a5a5;
+  }
+
+  div.rightpanel {
+    flex: 1;
+    display: inline-block;        
+    padding: 4px 0px 4px 8px;
+    vertical-align: top;
+    height: 100%;
+    width: 70%;
+    min-width: 100px;
+    max-width: 800px;
+  }
+
+@media only screen and (max-device-width: 480px) {
+  div.leftpanel {
+    width: 25%;
+    min-width: 100px;
+    max-width: 200px;
+  }
+}
+
+  @media only screen and (max-device-width: 480px) {
+  div.gd3list {
+    top: 120px;
+    width: 100px;
+    font-size: 10pt;    
+  }
+  div.gd3definition {
+    top: 120px;
+    left: 110px;
+    font-size: 11pt;
+    /* background-color: white; */
+  }
+}
+
+  div.morphology {
+    font-size: 10pt;
+  }
+  
+  div.loading {
+    background: #aaaaaa;
+  }
+  
+  div.buttonPanel {
+    padding: 4px 8px 4px 4px;
+    /* background: white; */
+    display: block;        
+    text-align: center;          
+    height: 200px;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  div.button2cols {
+    display: block;        
+    column-count: 2;
+  }
+
+  div.button3cols {
+    column-count: 3;
+  }
+
+  .readonlybutton {
+    -webkit-column-break-inside:avoid;
+    -moz-column-break-inside:avoid;
+    -o-column-break-inside:avoid;
+    -ms-column-break-inside:avoid;
+    /* column-break-inside:avoid; */
+    border-color: #656565;
+    border-style: solid;
+    border-width: 1px;
+    /* background-color: #e5e5e5; */
+    /* color: black; */
+    height: 14pt;
+    margin-bottom: 3px;
+    padding: 3px;
+    width: 98%;
+    font-size: 9pt;
+    text-decoration: none;
+    line-height: 14pt;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .button {
+    -webkit-column-break-inside:avoid;
+    -moz-column-break-inside:avoid;
+    -o-column-break-inside:avoid;
+    -ms-column-break-inside:avoid;
+    column-break-inside:avoid;
+    border-color: #0d3673;
+    border-style: solid;
+    border-width: 1px;
+    /* background-color: #656565; */
+    /* color: white; */
+    height: 14pt;
+    margin-bottom: 3px;
+    padding: 3px;
+    cursor: pointer;
+    width: 98%;
+    font-size: 9pt;
+    text-decoration: none;
+    line-height: 14pt;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .button:hover{
+    background: #e6ebf1;
+    /* color: black; */
+  }
+
+  div.gd3quote {
+    border-top: 1px solid #a5a5a5;
+    border-bottom: 1px solid #a5a5a5;
+    position: fixed;
+    top: 40%;
+    left: 12%;
+    right: 12%;
+    min-height: 120px;
+    /* background-color: white; */
+    /* color: black; */
+    padding: 5px;
+    white-space: normal;
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
+  div.quoteHeader {
+    font-size: 16pt;
+    font-variant: small-caps;
+    padding-bottom: 12pt;
+  }
+  
+  div.loadingQuote {
+    border-top: 1px solid #a5a5a5;
+    border-bottom: 1px solid #a5a5a5;
+    /* background: #aaaaaa; */
+    position: fixed;
+    top: 40%;
+    left: 15%;
+    right: 15%;
+    height: 120px;
+    white-space: normal;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: center;
+    min-height: 100px;
+    cursor: wait;
+  }
+    
+  div.gd3quoteleft {
+    position: absolute;
+    text-align: left;
+    top: 0px;
+    left: 5px;
+    height: 15pt;
+    width: 10em;
+    font-size: 12pt;
+  }
+
+  div.gd3quoteright {
+    position: absolute;
+    text-align: right;
+    top: 0px;
+    right: 5px;
+    height: 15pt;
+    width: 10em;
+    font-size: 12pt;
+  }
+
+  div.gd3quotecenter {
+    position: relative;
+    left: 25%;
+    right: 25%;
+    width: 50%;
+    text-align: center;
+  }
+
+  div.gd3comment {
+    border: 1px solid #a5a5a5;
+    position: fixed;
+    padding: 4px 8px 4px 8px;
+    top: 46%;
+    bottom: 3%;
+    left: 3%;
+    right: 29%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 5;
+  }
+
+  div.pagecol {
+    position: absolute;
+    text-align: right;
+    top: 0px;
+    right: 0px;
+    padding: 5px;
+    font-size: 12pt;
+    line-height: 18pt;
+  }
+
+  div.quotation {
+    top: 15%;
+    left: 10%;
+    right: 10%;
+    text-align: left;
+  }
+
+  div.listblur {
+    /* background: black; */
+    position: fixed;
+    padding: 4px 8px 4px 8px;
+    top: 46%;
+    bottom: 3%;
+    left: 3%;
+    right: 29%;
+    opacity: 0.2;
+    z-index: 3;
+  }
+
+  div.lemma {
+    /* font-size: 15pt; */
+    line-height: 17pt;
+    font-weight: 600;
+    color: orange;
+  }
+
+  div.comment {
+    margin-top: 12pt;
+    /* color: #999999; */
+  }
+
+  div.selected {
+    /* background: #e5e5e5; */
+    cursor: pointer;
+  }
+
+  div.selected:hover {
+    background: #a5a5a5;
+  }
+
+  div.unselected {
+    cursor: pointer;
+    width: 100%;
+  }
+
+  div.unselected:hover {
+    background: #c5c5c5;
+  }
+
+  div.dictionaryswitcher {
+    position: absolute;
+    /* background-color: black; */
+    /* color: white; */
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    padding-top: 15px;
+    font-size: 16pt;
+    font-weight: lighter;
+    cursor: pointer;
+  }
+
+  div.bibliography {
+    text-indent: -20px;
+    padding: 80px 20px 20px 40px;
+    text-align: justify;
+  }
+  
+  div.fntext {
+    display: none;
+    position: absolute;
+    text-indent: 0em;
+    border : 1px solid black;
+    /* background-color: #fffbf0; */
+    padding: 3pt;
+    font-size: small;
+    text-align: left;
+  }
+
+  a.biblnk {
+    text-decoration: none;
+    /* color: black; */
+    cursor: pointer;
+  }
+  
+  a.biblnk:hover {
+    color: #ba4200;
+    text-decoration: underline;
+  }
+
+  a.alphabet {
+    /* color: white; */
+    letter-spacing: 2pt;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  a.alphabet:hover {
+    color: #ba4200;
+    text-decoration: underline;
+  }
+
+  a.titlelink {
+    float: right;
+    /* color: white; */
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  a.titlelink:hover {
+    color: #ba4200;
+    text-decoration: underline;
+  }
+
+  p.bibfilter {
+    font-size: 16pt;
+    font-weight: lighter;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  p.dictionarylink {
+    font-size: 16pt;
+    font-weight: lighter;
+    padding-left: 15px;
+    cursor: pointer;
+  }
+
+  p.dictionarylink:hover {
+    color: #ba4200;
+    text-decoration: underline;
+  }
+
+  p.right {
+    float: right;
+  }
+
+  h3 {
+    font-size: 13pt;
+    font-weight: bold;
+  }
+
+  .submenu_left {
+    padding-left: 3px;
+    float: left;
+    cursor: pointer;
+  }
+  
+  .submenu_right {
+    padding-right: 3px;
+    float: right;
+    cursor: pointer;
+  }
+
+  span.dim {
+    /* color: #648cc8; */
+  }
+
+  span.next:hover {
+    color: #ba4200;
+    text-decoration: underline;
+  }
+  
+  span.lemsuper {
+    font-size: 10pt;
+    letter-spacing: 2px;
+    position: relative;
+    bottom: 5pt;
+  }
+
+  span.kharShow {
+    font-family: "Segoe UI Historic", "Kharosthi Unicode", "Noto Sans Kharoshthi";
+    unicode-bidi: isolate;
+    letter-spacing: 1px;
+  }
+
+  span.kharHide {
+    display: none;
+  }
+
+  span.deva {
+    font-family: "Sanskrit Text", "Kokila";
+  }
+
+  span.cognate {
+    font-style: italic;
+  }
+
+  span.italic {
+    font-style: italic;
+  }
+
+  span.smallcaps {
+    font-variant: small-caps;
+  }
+
+  span.txtref {
+    cursor: pointer;
+  }
+
+  span.attestedform {
+    font-weight: 600;
+  }
+
+  span.green {
+    color: green;
+  }
+  
+  span.lime {
+    color: lime;
+  }
+  
+  span.orange {
+    color: #ba4200;
+  }
+  
+  span.red {
+   color: red;
+  }
+
+  span.purple {
+   color: purple;
+  }
+
+  span.morph {
+    font-style: italic;
+  }
+
+  span.id {
+    /* color: #656565; */
+    font-size: 10pt;
+  }
+
+  div.transcription {
+    text-align: left;
+    margin-top: 6pt;
+    padding-left: 4em;
+    text-indent: -1.6em;
+  }
+
+  span.partside {
+    font-weight: 600;
+  }
+
+  span.lineref {
+    /* color: black; */
+    font-weight: 600;
+  }
+  
+  span.padaref {
+    /* color: #a5a5a5; */
+    font-weight: 600;
+  }
+  
+  .link {
+      /* color: black; */
+      text-decoration: none;
+      cursor: pointer;
+  }
+
+  .link:hover {
+    color: #ba4200;
+    text-decoration: underline;
+  }
+
+  span.gd3tagged {
+    color: green;
+  }
+
+  span.gd3untagged {
+    /* color: black; */
+  }
+
+  span.qsuper {
+    font-size: 10pt;
+    letter-spacing: 1px;
+    position: relative;
+    bottom: 4pt;
+  }
+    
+  input.editboxHL{
+    height: 20px;
+    font-size: 16pt;
+  }
+
+  select.filter {
+    font-size: 14pt;
+    font-weight: lighter;
+    border: 1px solid #a5a5a5;
+    height: 20pt;
+    width: 6em;
+  }
+
+  textarea.editarea {
+    border: 1px solid #a5a5a5;
+    width: 95%;
+    height: 7em;
+    margin-top: 6pt;
+    margin-bottom: 6pt;
+    box-shadow: 2px 2px 5px #888888;
+  }
+
+  table.stats {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  span.pagecol {
+    padding: 5px;
+    font-size: 12pt;
+    line-height: 18pt;
+  }
+  
+@media only screen and (max-device-width: 480px) {
+  span.pagecol {
+    display: none;
+  }
+}
+
+/*
+  span.link {
+    font-weight: bold;
+    color: #0d3673;
+    cursor: pointer;
+  }
+  
+  span.link:hover {
+    color: #ba4200;
+ }
+*/
+
+span.quoteTitle {
+  font-size: 16pt;
+  line-height: 18pt;
+  font-variant: small-caps;
+}
+
+span.more {
+    color: gray;
+    font-style: italic;
+    font-size: 12pt;
+}
+
+span.message {
+    white-space: normal;
+    overflow: auto;
+}
+
+span.s {
+  font-style: italic;
+}
+
+span.sb {
+  font-weight: 600;
+}
+
+span.cref {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+span.cref:hover{
+  color: #ba4200;
+}
+
+.svglist {
+  max-height: 14pt;
+  max-width: 2em;
+}
+
+div.H2 {
+  position: relative;
+  display: block;
+  left: 1em;
+}
+
+.arab {
+  font-family: "Calibri";
+}
+
+.gd3form_def {
+  padding-bottom: 10px;
+}
+
+.subsense {
+  display: block;
+  padding-bottom: 2px;
+  padding-top: 2px;
+}
+
+.subsense b {
+  color: orange;
+}
+
+/* .subsense:hover {
+  background-color: #e5e5e5;  
+}*/
+
+.highlight {
+  background-color: #fbff00;
+  color: black;
+}
+
+.highlight b {
+  color: rgb(128, 70, 0);
+}
+
+td {
+  vertical-align: top;
+}  

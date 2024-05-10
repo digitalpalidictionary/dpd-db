@@ -501,6 +501,7 @@ denominative
 dento-labial
 deodar
 depopulated
+deprecated
 deprecation
 derides
 desiderative
@@ -556,6 +557,7 @@ disownment
 disparagement
 dispassion
 dispeller
+disproof
 disputable
 disrobed
 dissed

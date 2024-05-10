@@ -164,6 +164,9 @@ def add_data(glos: Glossary, dict_data: list[DictEntry]) -> Glossary:
     p_white("compiling data")
     
     for d in dict_data:
+        # word_list: list[str] = []
+        # word_list.append(d["word"])
+        # word_list.extend(d["synonyms"])
         glos.addEntry(
             glos.newEntry(
                 word=[d["word"]] + d["synonyms"],
