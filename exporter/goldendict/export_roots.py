@@ -18,8 +18,8 @@ from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
-from tools.utils import DictEntry, RenderedSizes, default_rendered_sizes, squash_whitespaces
-
+from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces
+from tools.goldendict_exporter import DictEntry
 
 def generate_root_html(
     db_session: Session,

@@ -2,25 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-
-    % if css:
-    <style>${css}</style>
-    % else:
     <link href="dpd.css" rel="stylesheet">
-    % endif
-
-    % if js:
-    <script>${js}</script>
-    % else:
-    <link id="bttn_pre" href="buttons.js" rel="preload">
-    ## squash_whitespaces() will join text in one line and does not handle comments
+    <link id="js_main" href="main.js" org="main.js">
     <script>
-    {
-        let s=document.createElement('script');
-        s.src=document.getElementById('bttn_pre').getAttribute('href');
-        document.head.appendChild(s);
-    }
-    </script>
-    % endif
+        {
+            if (typeof data === 'undefined') { var data = {'init': 1}}
+            data["${i.lemma_1_}"] = {
+                "id": ${i.id},
+                "link": "${i.lemma_1_}",
+                "date": "${date}",
+                "root": "${i.root_family_key}",
+                "compounds": ${i.family_compound_list}            
+            };
+        
+            if (typeof js_init_done === 'undefined' || js_init_done !== 1)  {
+                var js_init_done = 1;
+                const js_file1 = document.createElement('script');
+                js_file1.src = document.getElementById('js_main').getAttribute('href');
+                document.getElementsByTagName("head")[0].appendChild(js_file1);
+            } 
+        }
+        </script>
     <title>Digital Pāḷi Dictionary</title>
 </head>

@@ -58,12 +58,16 @@ def main():
 
 
     if lang == "en":
-        wf_db = db_session.query(DpdHeadwords).filter(
-            DpdHeadwords.family_word != "").all()
+        wf_db: list[DpdHeadwords] = db_session\
+            .query(DpdHeadwords) \
+            .filter(DpdHeadwords.family_word != "") \
+            .all()
     elif lang == "ru":
-        wf_db = db_session.query(DpdHeadwords).options(
-            joinedload(DpdHeadwords.ru)).filter(
-            DpdHeadwords.family_word != "").all()
+        wf_db = db_session \
+            .query(DpdHeadwords) \
+            .options(joinedload(DpdHeadwords.ru)) \
+            .filter(DpdHeadwords.family_word != "") \
+            .all()
 
     wf_db = sorted(wf_db, key=lambda x: pali_sort_key(x.lemma_1))
 
@@ -81,7 +85,7 @@ def main():
     toc()
 
 
-def make_word_fam_dict(wf_db):
+def make_word_fam_dict(wf_db: list[DpdHeadwords]):
     print("[green]extracting word families", end=" ")
 
     # create a dict of all word families

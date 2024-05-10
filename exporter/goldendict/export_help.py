@@ -17,8 +17,8 @@ from exporter.ru_components.tools.paths_ru import RuPaths
 from tools.tic_toc import bip, bop
 from tools.tsv_read_write import read_tsv_dict
 from tools.tsv_read_write import read_tsv_dot_dict
-from tools.utils import DictEntry, RenderedSizes, default_rendered_sizes, squash_whitespaces
-
+from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces
+from tools.goldendict_exporter import DictEntry
 
 class Abbreviation:
     """defining the abbreviations.tsv columns"""

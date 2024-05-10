@@ -3,7 +3,9 @@
 """Export DPD for GoldenDict and MDict."""
 
 import csv
+from pathlib import Path
 import pickle
+import shutil
 
 from rich import print
 from sqlalchemy.orm import Session
@@ -18,24 +20,20 @@ from export_help import generate_help_html
 from helpers import make_roots_count_dict
 
 from db.get_db_session import get_db_session
-from tools.cache_load import load_cf_set, load_idioms_set
-
-from tools.configger import config_read, config_test
-from tools.goldendict_exporter import (
-    DictInfo,
-    DictVariables,
-    export_to_goldendict_with_pyglossary)
-from tools.paths import ProjectPaths
 from exporter.ru_components.tools.paths_ru import RuPaths
+from tools.cache_load import load_cf_set, load_idioms_set
+from tools.configger import config_read, config_test
+from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables
+from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
+from tools.mdict_exporter2 import export_to_mdict
+from tools.paths import ProjectPaths
+from tools.printer import p_green_title
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.tic_toc import tic, toc, bip, bop
-from tools.utils import DictEntry, RenderedSizes, sum_rendered_sizes
-from tools import time_log
-from tools.mdict_exporter2 import export_to_mdict
+from tools.utils import RenderedSizes, sum_rendered_sizes
 
-from exporter.ru_components.tools.tools_for_ru_exporter import (
-    mdict_ru_title,
-    mdict_ru_description)
+from exporter.ru_components.tools.tools_for_ru_exporter import \
+    mdict_ru_title, mdict_ru_description
 
 
 class ProgData():
@@ -89,53 +87,61 @@ def main():
         return
     
     g = ProgData()
-
-    time_log.start(start_new=True)
-    time_log.log("exporter.py::main()")
     
-
-    time_log.log("generate_dpd_html()")
     dpd_data_list, sizes = generate_dpd_html(
         g.db_session, g.pth, g.rupth, g.sandhi_contractions, g.cf_set, g.idioms_set, g.make_link, g.dps_data, g.lang, g.data_limit)
     g.rendered_sizes.append(sizes)
 
-    time_log.log("generate_root_html()")
     root_data_list, sizes = generate_root_html(g.db_session, g.pth, g.roots_count_dict, g.rupth, g.lang, g.dps_data)
     g.rendered_sizes.append(sizes)
 
-    time_log.log("generate_variant_spelling_html()")
     variant_spelling_data_list, sizes = generate_variant_spelling_html(g.pth, g.rupth, g.lang)
     g.rendered_sizes.append(sizes)
 
-    time_log.log("generate_epd_html()")
     epd_data_list, sizes = generate_epd_html(g.db_session, g.pth, g.rupth, g.make_link, g.dps_data, g.lang)
     g.rendered_sizes.append(sizes)
     
-    time_log.log("generate_help_html()")
     help_data_list, sizes = generate_help_html(g.db_session, g.pth, g.rupth, g.lang, g.dps_data)
     g.rendered_sizes.append(sizes)
 
     g.db_session.close()
 
     g.dict_data = (
-        dpd_data_list +
+        dpd_data_list + 
         root_data_list +
         variant_spelling_data_list +
         epd_data_list +
         help_data_list
     )
 
-    time_log.log("write_limited_datalist()")
     write_limited_datalist(g)
-
-    time_log.log("write_size_dict()")
     write_size_dict(g.pth, sum_rendered_sizes(g.rendered_sizes))
-
-    time_log.log("export_to_goldendict()")
     prepare_export_to_goldendict_mdict(g)
 
+    # FIXME delete once done
+    copy_css_js_to_temp_dir()
+
     toc()
-    time_log.log("exporter.py::main() return")
+
+# FIXME delete once done
+def copy_css_js_to_temp_dir():
+    p_green_title("copy files to temp dir")
+    files_to_copy = [
+        "exporter/goldendict/css/dpd.css",
+        "exporter/goldendict/javascript/family_compound_json.js",
+        "exporter/goldendict/javascript/family_idiom_json.js",
+        "exporter/goldendict/javascript/family_root_json.js",
+        "exporter/goldendict/javascript/family_set_json.js",
+        "exporter/goldendict/javascript/family_word_json.js",
+        "exporter/goldendict/javascript/main.js",
+        "exporter/goldendict/javascript/json_templates.js",
+        "exporter/goldendict/javascript/template.js",
+    ]
+    
+    destination_dir = "temp/dpd_test"
+
+    for file_path in files_to_copy:
+        shutil.copy(file_path, destination_dir)
 
 
 def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
@@ -168,9 +174,19 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
         dict_info.target_lang = "ru"
         dict_name = "ru-dpd"
     
+    # FIXME add all the js to paths
     dict_var = DictVariables(
         css_path=g.paths.dpd_css_path,
-        js_path=g.paths.buttons_js_path,
+        js_paths=[
+            g.paths.family_compound_json,
+            g.paths.family_idiom_json,
+            g.paths.family_root_json,
+            g.paths.family_set_json,
+            g.paths.family_word_json,
+            Path("exporter/goldendict/javascript/json_templates.js"),
+            Path("exporter/goldendict/javascript/main.js"),
+            Path("exporter/goldendict/javascript/template.js"),
+        ],
         output_path=g.paths.share_dir,
         dict_name=dict_name,
         icon_path=g.paths.icon_path

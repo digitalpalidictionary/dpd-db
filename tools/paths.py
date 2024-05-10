@@ -68,11 +68,11 @@ class ProjectPaths:
         self.sorter_js_path = base_dir / "exporter/goldendict/javascript//sorter.js"
 
         # exporter/goldendict/json/
-        self.family_compound_json = base_dir / "exporter/goldendict/json/family_compound.json"
-        self.family_idiom_json = base_dir / "exporter/goldendict/json/family_idiom.json"
-        self.family_root_json = base_dir / "exporter/goldendict/json/family_root.json"
-        self.family_set_json = base_dir / "exporter/goldendict/json/family_set.json"
-        self.family_word_json = base_dir / "exporter/goldendict/json/family_word.json"
+        self.family_compound_json = base_dir / "exporter/goldendict/javascript/family_compound_json.js"
+        self.family_idiom_json = base_dir / "exporter/goldendict/javascript/family_idiom_json.js"
+        self.family_root_json = base_dir / "exporter/goldendict/javascript/family_root_json.js"
+        self.family_set_json = base_dir / "exporter/goldendict/javascript/family_set_json.js"
+        self.family_word_json = base_dir / "exporter/goldendict/javascript/family_word_json.js"
 
         # exporter/share
         self.share_dir = base_dir / "exporter/share"
@@ -118,6 +118,7 @@ class ProjectPaths:
         self.variant_templ_path = base_dir / "exporter/goldendict/templates/dpd_variant_reading.html"
         self.spelling_templ_path = base_dir / "exporter/goldendict/templates/dpd_spelling_mistake.html"
 
+        # FIXME delete these and whatever uses them
         # exporter/jinja templates 
         self.jinja_templates_dir = base_dir / "exporter/templates_jinja/"
         self.complete_word_templ_path = base_dir / "exporter/templates_jinja/dpd_complete_word.html"

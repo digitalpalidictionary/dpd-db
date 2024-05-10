@@ -1,0 +1,37 @@
+% if i.needs_compound_family_button:
+    <div id="compound_family_${i.lemma_1_}" class="content hidden">
+% elif i.needs_compound_families_button:
+    <div id="compound_families_${i.lemma_1_}" class="content hidden">
+    <p id="${i.lemma_1_}_cf_top" class="heading">jump to: 
+    % for cf in i.family_compound_list:
+        <a class="jump" href="#${i.lemma_1_}_cf_${cf}">${superscripter_uni(cf)} </a>
+    % endfor
+    </p>
+% endif
+
+% for counter, f in enumerate(fc):
+    % if counter == 0 and " " not in i.family_compound:
+        <p class="heading underlined">
+    % else:
+        <p id="${i.lemma_1_}_cf_${f.compound_family}" class="heading underlined overlined">
+    % endif
+    % if f.count == 0:
+        <b>ERROR! ${f.count}</b> compounds contain <b>${superscripter_uni(f.compound_family)}</b>: Sort it out!!!
+    % elif f.count == 1:
+        <b>${f.count}</b> compound which contains <b>${superscripter_uni(f.compound_family)}</b>
+    % else:
+        <b>${f.count}</b> compounds which contain <b>${superscripter_uni(f.compound_family)}</b>
+        % if " " in i.family_compound:
+            <a class="jump" href="#${i.lemma_1_}_cf_top"> ⤴</a>
+        % endif
+    % endif
+    </p>
+    ${f.html}
+% endfor
+<p class='footer'>
+    Spot a mistake? <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Compound+Family&entry.1433863141=GoldenDict+${today}" target="_blank">Fix it here</a>.
+    % if " " in i.family_compound:
+        <a class="jump" href="#${i.lemma_1_}_cf_top"> ⤴</a>
+    % endif
+</p>
+</div>

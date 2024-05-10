@@ -1,10 +1,11 @@
 import csv
 import re
 from pathlib import Path
-from tools.goldendict_exporter import DictInfo, DictVariables, export_to_goldendict_with_pyglossary
+from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables
+from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
 from tools.printer import p_title, p_white, p_yes
 from tools.tic_toc import bip, tic, toc
-from tools.utils import DictEntry
+
 
 
 def main():
@@ -49,7 +50,7 @@ def main():
 
     dict_vars = DictVariables(
         css_path = None,
-        js_path = None,
+        js_paths = None,
         output_path = Path("exporter/other_dictionaries/goldendict/"),
         dict_name= "abt-glossary",
         icon_path = None

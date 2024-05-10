@@ -12,8 +12,8 @@ from export_dpd import render_header_templ
 from exporter.ru_components.tools.paths_ru import RuPaths
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
-from tools.utils import DictEntry, RenderedSizes, default_rendered_sizes, squash_whitespaces, sum_rendered_sizes
-
+from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces, sum_rendered_sizes
+from tools.goldendict_exporter import DictEntry
 
 def generate_variant_spelling_html(
     pth: ProjectPaths, 

@@ -1,0 +1,31 @@
+% if i.needs_set_button:
+    <div id="set_family_${i.lemma_1_}" class="content hidden">
+% elif i.needs_sets_button:
+    <div id="set_families_${i.lemma_1_}" class="content hidden">
+    <p id="${i.lemma_1_}_set_top" class="heading">jump to: 
+    % for f in fs:
+        <a class="jump" href="#${i.lemma_1_}_set_${f.set}">${superscripter_uni(f.set)}</a>. 
+    % endfor
+        </p>
+% endif
+
+% for counter, f in enumerate(fs):
+    % if counter == 0 and ";" not in i.family_set:
+        <p class="heading underlined">
+    % else:
+        <p id="${i.lemma_1_}_set_${f.set}" class="heading underlined overlined">
+    % endif
+    <b>${i.lemma_clean}</b> belongs to the set of <b>${f.set}</b>
+    % if ";" in i.family_set:
+        <a class="jump" href="#${i.lemma_1_}_set_top"> ⤴</a>
+    % endif
+    </p>
+    ${f.html}
+% endfor
+    <p class='footer'>
+        Spot a mistake? Can you think of a set you'd like to see here? <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500=${i.lemma_1_}&entry.326955045=Set&entry.1433863141=GoldenDict+${today}" target="_blank">Note it here</a>.
+        % if " " in i.family_compound:
+            <a class="jump" href="#${i.lemma_1_}_set_top"> ⤴</a>
+        % endif
+    </p>
+</div>

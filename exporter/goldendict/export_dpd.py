@@ -16,51 +16,35 @@ from typing import List, Set, TypedDict, Tuple, Union
 from sqlalchemy.orm.session import Session
 
 from exporter.goldendict.helpers import TODAY
-from tools import time_log
 
-from db.models import (
-    DpdHeadwords, 
-    FamilyIdiom,
-    DpdRoots,
-    FamilyCompound,
-    FamilyRoot,
-    FamilySet,
-    FamilyWord,
-    Russian,
-    SBS)
+from db.models import DpdHeadwords
+from db.models import DpdRoots
+from db.models import FamilyCompound
+from db.models import FamilyIdiom
+from db.models import FamilyRoot
+from db.models import FamilySet
+from db.models import FamilyWord
+from db.models import Russian
+from db.models import SBS
 
 from tools.configger import config_test
-from tools.exporter_functions import (
-    get_family_compounds, 
-    get_family_idioms,
-    get_family_set)
-from tools.meaning_construction import (
-    make_meaning_html,
-    make_grammar_line,
-    summarize_construction,
-    degree_of_completion)
+from tools.date_and_time import year_month_day_dash
+from tools.exporter_functions import get_family_compounds, get_family_idioms, get_family_set
+from tools.goldendict_exporter import DictEntry
+from tools.meaning_construction import make_meaning_html, make_grammar_line
+from tools.meaning_construction import summarize_construction, degree_of_completion
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
-from exporter.ru_components.tools.paths_ru import RuPaths
 from tools.pos import CONJUGATIONS, DECLENSIONS
 from tools.sandhi_contraction import SandhiContractions
 from tools.superscripter import superscripter_uni
 from tools.tic_toc import bip, bop
-from tools.utils import (
-    DictEntry,
-    RenderedSizes,
-    default_rendered_sizes,
-    list_into_batches,
-    sum_rendered_sizes,
-    squash_whitespaces)
+from tools.utils import RenderedSizes, default_rendered_sizes, list_into_batches
+from tools.utils import sum_rendered_sizes, squash_whitespaces
 
-from exporter.ru_components.tools.tools_for_ru_exporter import (
-    make_ru_meaning_html, 
-    ru_replace_abbreviations, 
-    replace_english, 
-    ru_make_grammar_line, 
-    read_set_ru_from_tsv)
-
+from exporter.ru_components.tools.paths_ru import RuPaths
+from exporter.ru_components.tools.tools_for_ru_exporter import make_ru_meaning_html, ru_replace_abbreviations
+from exporter.ru_components.tools.tools_for_ru_exporter import replace_english, ru_make_grammar_line, read_set_ru_from_tsv
 
 class DpdHeadwordsTemplates:
     def __init__(self, paths: Union[ProjectPaths, RuPaths], lang):
@@ -128,6 +112,7 @@ def render_pali_word_dpd_html(
     fc: List[FamilyCompound] = db_parts["family_compounds"]
     fi: List[FamilyIdiom] = db_parts["family_idioms"]
     fs: List[FamilySet] = db_parts["family_set"]
+    date: str = year_month_day_dash()
 
     tt = rd['word_templates']
     pth = rd['pth']
@@ -247,11 +232,13 @@ def render_pali_word_dpd_html(
     html += "</body></html>"
 
     # FIXME No need to render the same header for every file
-    header = render_header_templ(pth, tt.dpd_css, tt.button_js, tt.header_templ)
+    header = render_header_templ(pth, i, date, tt.header_templ)
     size_dict["dpd_header"] += len(header)
 
+    # FIXME bring back squash_whitespaces once done
     # "Soft" minification for header to preserve links
-    html = squash_whitespaces(header) + minify(html)
+    # html = squash_whitespaces(header) + minify(html)
+    html = header + minify(html)
 
     synonyms: List[str] = i.inflections_list
     synonyms = add_niggahitas(synonyms)
@@ -292,6 +279,10 @@ def render_pali_word_dpd_html(
         synonyms = synonyms,
     )
 
+    # FIXME delete once done
+    with open(f"temp/dpd_test/{i.lemma_1_}.html", "w") as f:
+        f.write(html)
+
     return (res, size_dict)
 
 def generate_dpd_html(
@@ -306,8 +297,6 @@ def generate_dpd_html(
         lang="en",
         data_limit:int = 0
 ) -> Tuple[List[DictEntry], RenderedSizes]:
-    
-    time_log.log("generate_dpd_html()")
 
     print("[green]generating dpd html")
     bip()
@@ -369,8 +358,6 @@ def generate_dpd_html(
     rendered_sizes_results_list: ListProxy = manager.list()
     num_logical_cores = psutil.cpu_count()
     print(f"num_logical_cores {num_logical_cores}")
-
-    time_log.log("while offset <= pali_words_count:")
 
     while offset <= pali_words_count:
 
@@ -457,29 +444,22 @@ def generate_dpd_html(
 
         offset += limit
 
-    time_log.log("dpd_data_list = list...")
     dpd_data_list = list(dpd_data_results_list)
-
-    time_log.log("rendered_sizes = list...")
     rendered_sizes = list(rendered_sizes_results_list)
-
-    time_log.log("total_sizes = sum_ren...")
     total_sizes = sum_rendered_sizes(rendered_sizes)
-
-    time_log.log("generate_dpd_html() return")
     
     return dpd_data_list, total_sizes
 
 
 def render_header_templ(
         __pth__: Union[ProjectPaths, RuPaths],
-        css: str,
-        js: str,
+        i: DpdHeadwords,
+        date: str,
         header_templ: Template
 ) -> str:
-    """render the html header with css and js"""
+    """render the html header with variables"""
 
-    return str(header_templ.render(css=css, js=js))
+    return str(header_templ.render(i=i, date=date))
 
 
 def render_dpd_definition_templ(

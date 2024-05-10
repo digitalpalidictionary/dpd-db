@@ -17,8 +17,8 @@ from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from exporter.ru_components.tools.paths_ru import RuPaths
 from tools.tic_toc import bip, bop
-from tools.utils import DictEntry, RenderedSizes, default_rendered_sizes, squash_whitespaces
-
+from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces
+from tools.goldendict_exporter import DictEntry
 from exporter.ru_components.tools.tools_for_ru_exporter import ru_replace_abbreviations
 
 

@@ -1,0 +1,19 @@
+<div id="idioms_${i.lemma_1_}" class="content hidden">
+% for counter, f in enumerate(fi):
+% if counter == 0:
+        <p class="heading underlined">
+    % else:
+        <p class="heading underlined overlined">
+    % endif
+    % if len(fi) == 1:
+        <b>${f.count}</b> idiomatic expression which contains <b>${superscripter_uni(f.idiom)}</b>
+    % else:
+        <b>${f.count}</b> idiomatic expressions which contain <b>${superscripter_uni(f.idiom)}</b>
+    % endif
+        </p>
+    ${f.html}
+% endfor
+<p class='footer'>
+    Please add more idioms <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Idioms&entry.1433863141=GoldenDict+${today}" target="_blank">here</a>.
+</p>
+</div>

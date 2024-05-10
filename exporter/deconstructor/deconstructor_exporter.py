@@ -16,7 +16,7 @@ from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.tic_toc import tic, toc, bip, bop
-from tools.utils import DictEntry
+from tools.goldendict_exporter import DictEntry
 from tools.goldendict_exporter import DictInfo, DictVariables, export_to_goldendict_with_pyglossary
 from tools.mdict_exporter2 import export_to_mdict
 
@@ -134,7 +134,7 @@ def prepare_and_export_to_gd_mdict(g: ProgData) -> None:
 
     dict_vars = DictVariables(
         css_path=g.pth.deconstructor_css_path,
-        js_path=None,
+        js_paths=None,
         output_path=g.pth.share_dir,
         dict_name=dict_name,
         icon_path=g.pth.icon_path

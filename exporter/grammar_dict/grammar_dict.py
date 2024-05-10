@@ -22,7 +22,8 @@ from exporter.ru_components.tools.tools_for_ru_exporter import ru_replace_abbrev
 
 from tools.configger import config_test
 from tools.deconstructed_words import make_words_in_deconstructions
-from tools.goldendict_exporter import DictInfo, DictVariables, export_to_goldendict_with_pyglossary
+from tools.goldendict_exporter import DictInfo, DictVariables, DictEntry
+from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
 from tools.lookup_is_another_value import is_another_value
 from tools.mdict_exporter2 import export_to_mdict
 from tools.niggahitas import add_niggahitas
@@ -31,7 +32,7 @@ from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
 from tools.tic_toc import tic, toc
 from tools.update_test_add import update_test_add
-from tools.utils import DictEntry
+
 
 
 class ProgData():
@@ -433,7 +434,7 @@ def prepare_gd_mdict_and_export(g: ProgData):
 
     dict_vars = DictVariables(
         css_path = g.pth.grammar_css_path,
-        js_path = g.pth.sorter_js_path,
+        js_paths = [g.pth.sorter_js_path],
         output_path = g.pth.share_dir,
         dict_name= dict_name,
         icon_path = g.pth.icon_path

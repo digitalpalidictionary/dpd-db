@@ -34,9 +34,10 @@ def main():
 
 
 def json_dumper(filepath: Path, dict: dict[str, str]):
+    js_content = f"""var {filepath.stem} = {json.dumps(dict, ensure_ascii=False, indent=1)}"""
+
     with open(filepath, "w") as f:
-        json.dump(dict, f, ensure_ascii=False, indent=1)
-    
+        f.write(js_content)    
 
 def export_family_compound(g: ProgData):
     p_green("exporting family_compound.json")

@@ -3,21 +3,22 @@
 """Generic MDict exporter."""
 
 from functools import reduce
-from rich import print
-from tools.goldendict_exporter import DictInfo, DictVariables
-from tools.tic_toc import bip, bop
-from tools.utils import DictEntry
-from tools.writemdict.writemdict import MDictWriter
+from pathlib import Path
+from tools.goldendict_exporter import DictEntry
+from tools.goldendict_exporter import DictInfo
+from tools.goldendict_exporter import DictVariables
 from tools.printer import p_green_title, p_white, p_yes, p_no
+from tools.tic_toc import bip, bop
+from tools.writemdict.writemdict import MDictWriter
 
 
 
 
-def make_synonyms(all_items, item):
-    all_items.append((item['word'], item['definition_html']))
-    for word in item['synonyms']:
-        if word != item['word']:
-            all_items.append((word, f"""@@@LINK={item["word"]}"""))
+def make_synonyms(all_items, item: DictEntry):
+    all_items.append((item.word, item.definition_html))
+    for word in item.synonyms:
+        if word != item.word:
+            all_items.append((word, f"""@@@LINK={item.word}"""))
     return all_items
 
 
@@ -26,8 +27,10 @@ def add_css_js(dict_var: DictVariables) -> list:
     (file_path, file_content_binary)"""
     
     assets = []
-
-    for file in [dict_var.css_path, dict_var.js_path]:
+    file_list = [dict_var.css_path] if dict_var.css_path else []
+    file_list += dict_var.js_paths if dict_var.js_paths else []
+    
+    for file in file_list:
         
         if (
             file
@@ -66,14 +69,14 @@ def export_to_mdict(
     p_white("adding 'mdict' and h3 tag")
     if h3_header:
         for i in dict_data:
-            i['definition_html'] = \
-                i['definition_html'].replace("GoldenDict", "MDict")
-            i['definition_html'] = \
-                f"<h3>{i['word']}</h3>{i['definition_html']}"
+            i.definition_html = \
+                i.definition_html.replace("GoldenDict", "MDict")
+            i.definition_html = \
+                f"<h3>{i.word}</h3>{i.definition_html}"
         p_yes("ok")
     else:
-        p_no("error")    
-
+        p_no("error")
+    
     bip()
     p_white("reducing synonyms")
     try:
@@ -81,6 +84,7 @@ def export_to_mdict(
         p_yes("ok")
     except Exception:
         p_no("error")
+
 
     bip()
     p_white("writing .mdx file")

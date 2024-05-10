@@ -15,7 +15,15 @@ from tools.date_and_time import make_timestamp
 from tools.goldendict_path import make_goldendict_path
 from tools.printer import p_green_title, p_no, p_white, p_yes
 from tools.tic_toc import bip
-from tools.utils import DictEntry
+
+
+class DictEntry():
+    """Data for a single dictionary entry """
+    def __init__(self, word, definition_html, definition_plain, synonyms) -> None:
+        self.word: str = word
+        self.definition_html: str = definition_html
+        self.definition_plain: str = definition_plain
+        self.synonyms: list[str] = synonyms
 
 
 class DictInfo():
@@ -43,7 +51,7 @@ class DictVariables():
     def __init__(
             self,
             css_path: Optional[Path],
-            js_path: Optional[Path],
+            js_paths: Optional[list[Path]],
             output_path: Path,
             dict_name: str,
             icon_path: Optional[Path],
@@ -52,27 +60,20 @@ class DictVariables():
         """icon_path can be a .ico or .bmp"""
         
         self.css_path: Optional[Path] = css_path
-        self.js_path: Optional[Path] = js_path
-        self.output_path: Path = \
-            output_path.joinpath(dict_name)
-        self.output_name: Path = \
-            Path(dict_name).with_suffix(".ifo")
-        self.output_path_name: Path = \
-            self.output_path \
+        self.js_paths: Optional[list[Path]] = js_paths
+        self.output_path: Path = output_path.joinpath(dict_name)
+        self.output_name: Path = Path(dict_name).with_suffix(".ifo")
+        self.output_path_name: Path = self.output_path \
                 .joinpath(dict_name) \
                 .with_suffix(".ifo")
-        self.mdict_mdx_path: Path = \
-            self.output_path \
+        self.mdict_mdx_path: Path = self.output_path \
                 .with_stem(f"{dict_name}-mdict") \
                 .with_suffix(".mdx")
-        self.mdict_mdd_path: Path = \
-            self.output_path \
+        self.mdict_mdd_path: Path = self.output_path \
                 .with_stem(f"{dict_name}-mdict") \
                 .with_suffix(".mdd")
-        self.synfile: Path = \
-            self.output_path_name.with_suffix(".syn")
-        self.synfile_zip: Path = \
-            self.synfile.with_suffix(".syn.dz")
+        self.synfile: Path = self.output_path_name.with_suffix(".syn")
+        self.synfile_zip: Path = self.synfile.with_suffix(".syn.dz")
         self.icon_source_path: Optional[Path] = icon_path
         if icon_path:
             self.icon_target_path = self.output_path_name.with_suffix(".ico")
@@ -144,13 +145,14 @@ def add_js(glos: Glossary, dict_var: DictVariables) -> Glossary:
     bip()
     p_white("adding js")
     
-    if dict_var.js_path and dict_var.js_path.exists():
-        with open(dict_var.js_path, "rb") as f:
-            js = f.read()
-            glos.addEntry(
-                glos.newDataEntry(
-                    dict_var.js_path.name, js))
-            p_yes("ok")
+    if dict_var.js_paths:
+        for js_path in dict_var.js_paths:
+            if js_path and js_path.exists():
+                with open(js_path, "rb") as f:
+                    js = f.read()
+                    glos.addEntry(
+                        glos.newDataEntry(js_path.name, js))
+        p_yes("ok")
     else:
         p_yes("no")
 
@@ -164,13 +166,10 @@ def add_data(glos: Glossary, dict_data: list[DictEntry]) -> Glossary:
     p_white("compiling data")
     
     for d in dict_data:
-        # word_list: list[str] = []
-        # word_list.append(d["word"])
-        # word_list.extend(d["synonyms"])
         glos.addEntry(
             glos.newEntry(
-                word=[d["word"]] + d["synonyms"],
-                defi=d["definition_html"],
+                word=[d.word] + d.synonyms,
+                defi=d.definition_html,
                 defiFormat="h"))
     
     p_yes("ok")

@@ -644,7 +644,7 @@ class DpdHeadwords(Base):
         if self.family_compound:
             return self.family_compound.split(" ")
         else:
-            return [self.family_compound]
+            return [self.lemma_clean]
 
     @property
     def family_idioms_list(self) -> list:

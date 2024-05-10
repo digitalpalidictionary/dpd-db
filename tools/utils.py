@@ -1,11 +1,5 @@
 from typing import List, TypedDict
 
-class DictEntry(TypedDict):
-    word: str
-    definition_html: str
-    definition_plain: str
-    synonyms: List[str]
-
 class RenderedSizes(TypedDict):
     dpd_header: int
     dpd_summary: int
