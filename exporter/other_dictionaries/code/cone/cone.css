@@ -109,7 +109,7 @@ div.bibliography {
   }
 
   span.dim {
-    /* color: #648cc8; */
+    color: #648cc8;
   }
 
   span.next:hover {
@@ -224,7 +224,7 @@ div.bibliography {
   }
 
   span.gd3untagged {
-    /* color: black; */
+    color: black;
   }
 
   span.qsuper {
@@ -339,7 +339,7 @@ div.H2 {
 }
 
 .subsense {
-  display: block;
+  display: inline;
   padding-bottom: 2px;
   padding-top: 2px;
 }
@@ -401,6 +401,10 @@ span.title {
   font-weight: bold;
 }
 
+span.blue {
+  color: rgb(0, 115, 177);
+}
+
 @media only screen and (max-device-width: 480px) {
 div.title {
   padding-top: 20px;
@@ -416,7 +420,6 @@ span.title {
 div.byline {
   position: static;
   display: block;
-  vertical-align: top;
   padding-top: 5px;
   padding-bottom: 30px;
   font-size: 14pt;    
@@ -788,10 +791,6 @@ span.super {
   letter-spacing: 1px;
   position: relative;
   bottom: 3pt;
-}
-
-span.flourish {
-  <!-- see PTSD p. 5 Agha2, always in J P T S -->
 }
 
 span.subscript {
