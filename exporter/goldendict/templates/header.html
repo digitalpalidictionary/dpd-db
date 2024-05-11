@@ -11,8 +11,11 @@
                 "id": ${i.id},
                 "link": "${i.lemma_1_}",
                 "date": "${date}",
-                "root": "${i.root_family_key}",
-                "compounds": ${i.family_compound_list}            
+                "family_root": "${i.root_family_key}",
+                "family_compounds": ${i.family_compound_list},
+                "family_idioms": ${i.family_idioms_list},
+                "family_word": "${i.family_word}",
+                "family_sets": ${i.family_set_list}  
             };
         
             if (typeof js_init_done === 'undefined' || js_init_done !== 1)  {

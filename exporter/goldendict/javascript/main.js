@@ -39,7 +39,6 @@ function init() {
         
         // js files to be loaded on page load (written in the global header of the dict entry)
         const files = [
-            // "main.js",
             "template.js",
             "json_templates.js",
             "family_compound_json.js",

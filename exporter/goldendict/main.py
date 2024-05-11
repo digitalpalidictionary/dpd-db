@@ -92,26 +92,28 @@ def main():
         g.db_session, g.pth, g.rupth, g.sandhi_contractions, g.cf_set, g.idioms_set, g.make_link, g.dps_data, g.lang, g.data_limit)
     g.rendered_sizes.append(sizes)
 
-    root_data_list, sizes = generate_root_html(g.db_session, g.pth, g.roots_count_dict, g.rupth, g.lang, g.dps_data)
-    g.rendered_sizes.append(sizes)
+    # FIXME uncomment when finshed testing
+    # root_data_list, sizes = generate_root_html(g.db_session, g.pth, g.roots_count_dict, g.rupth, g.lang, g.dps_data)
+    # g.rendered_sizes.append(sizes)
 
-    variant_spelling_data_list, sizes = generate_variant_spelling_html(g.pth, g.rupth, g.lang)
-    g.rendered_sizes.append(sizes)
+    # variant_spelling_data_list, sizes = generate_variant_spelling_html(g.pth, g.rupth, g.lang)
+    # g.rendered_sizes.append(sizes)
 
-    epd_data_list, sizes = generate_epd_html(g.db_session, g.pth, g.rupth, g.make_link, g.dps_data, g.lang)
-    g.rendered_sizes.append(sizes)
+    # epd_data_list, sizes = generate_epd_html(g.db_session, g.pth, g.rupth, g.make_link, g.dps_data, g.lang)
+    # g.rendered_sizes.append(sizes)
     
-    help_data_list, sizes = generate_help_html(g.db_session, g.pth, g.rupth, g.lang, g.dps_data)
-    g.rendered_sizes.append(sizes)
+    # help_data_list, sizes = generate_help_html(g.db_session, g.pth, g.rupth, g.lang, g.dps_data)
+    # g.rendered_sizes.append(sizes)
 
     g.db_session.close()
 
     g.dict_data = (
-        dpd_data_list + 
-        root_data_list +
-        variant_spelling_data_list +
-        epd_data_list +
-        help_data_list
+        dpd_data_list
+        # dpd_data_list + 
+        # root_data_list +
+        # variant_spelling_data_list +
+        # epd_data_list +
+        # help_data_list
     )
 
     write_limited_datalist(g)
@@ -193,9 +195,10 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
     )
 
     export_to_goldendict_with_pyglossary(dict_info, dict_var, g.dict_data)
-    
-    if g.make_mdict:
-        export_to_mdict(dict_info, dict_var, g.dict_data)
+
+    # FIXME turn on again    
+    # if g.make_mdict:
+    #     export_to_mdict(dict_info, dict_var, g.dict_data)
 
 
 def write_size_dict(pth: ProjectPaths, size_dict):
@@ -215,7 +218,7 @@ def write_limited_datalist(g: ProgData):
     """A limited dataset for troubleshooting purposes"""
 
     limited_data = [
-        item for item in g.dict_data if item["word"].startswith("ab")]
+        item for item in g.dict_data if item.word.startswith("ab")]
 
     with open("temp/limited_data_list", "wb") as file:
         pickle.dump(limited_data, file)

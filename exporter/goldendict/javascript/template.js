@@ -1,76 +1,111 @@
+
+// button_click() calls this function to check if a root, compound or feedback Tab needs to be generated
+//  + generate and place it
+function generateTemplateFromJson(target_id){
 	
-	// button_click() calls this function to check if a root, compound or feedback Tab needs to be generated
-	//  + generate and place it
-	function generateTemplateFromJson(target_id){
-		
-		// root family tab generation + insert:
-		if (target_id.indexOf('root_family_') !== -1) {
-			// get target element
-			const el2 = document.getElementById(target_id);
-			// create only once, than save in DOM
-			if (el2.getAttribute('loaded') != "1") {
-				// get dictionary entry name
-				const w = target_id.replace('root_family_', '');
-				// generate the template from the json root data & json_template.js file
-				//  data is the global variable from the <script> tag in the dictionary entry
-				const root_name = data[w]['root'];
-				el2.innerHTML = renderTemplate(template["root"], family_root_json[root_name]);
-				// mark that this tab has already been generated
-				el2.setAttribute('loaded', '1');
-			}
-		}		
-		
-		// compound family tab generation + insert:
-		if (target_id.indexOf('compound_family_') !== -1) {
-			// get target element
-			const el2 = document.getElementById(target_id);			
-			// create only once, than save in DOM
-			if (el2.getAttribute('loaded') != "1") {
-				// get dictionary entry name
-				const w = target_id.replace('compound_family_', '');				
-				// small workaround to add compund_name to json, or its not visible in the template
-				//  data is the global variable from the <script> tag in the dictionary entry
-				const compounds = data[w]['compounds'];
-				
-				// generate the compound_sub template 
-				var compound_sub = '';
-				for (var i = 0; i < compounds.length; i++) {					
-					const vPass = merge_obj(family_compound_json[compounds[i]], {'compound_name': compounds[i], 'link':data[w]['link']});  // workaround because compound entries have the compound name only in the variable key
-					compound_sub = compound_sub + renderTemplate(template["compound_sub"], vPass) + '\n';
-				}
-				
-				// add some additional variables for the template
-				data[w]['compound_sub'] = compound_sub;
-				data[w]['compound_len'] =  data[w]['compounds'].length
-				// generate the template from the json compound data & json_template.js file
-				el2.innerHTML = renderTemplate(template["compound"], data[w]);
-				// mark that this tab has already been generated
-				el2.setAttribute('loaded', '1');
-			}
+	// root family tab generation + insert:
+	if (target_id.indexOf('root_family_') !== -1) {
+		// get target element
+		const el2 = document.getElementById(target_id);
+		// create only once, than save in DOM
+		if (el2.getAttribute('loaded') != "1") {
+			// get dictionary entry name
+			const w = target_id.replace('root_family_', '');
+			// generate the template from the json root data & json_template.js file
+			//  data is the global variable from the <script> tag in the dictionary entry
+			const root_name = data[w]['family_root'];
+			el2.innerHTML = renderTemplate(template["family_root"], family_root_json[root_name]);
+			// mark that this tab has already been generated
+			el2.setAttribute('loaded', '1');
 		}
-
-
-
-		// feedback tab generation + insert:
-		if (target_id.indexOf('feedback_') !== -1) {
-			// get target element
-			const el2 = document.getElementById(target_id);
-			// create only once, than save in DOM
-			if (el2.getAttribute('loaded') != "1") {
-				// get dictionary entry name
-				const w = target_id.replace('feedback_', '');
-				// generate the template from the json_template.js file
-				//  data is the global variable from the <script> tag in the dictionary entry
-				el2.innerHTML = renderTemplate(template["feedback"], data[w]);
-				// mark that this tab has already been generated
-				el2.setAttribute('loaded', '1');
-			}			
+	}		
+	
+	// compound family tab generation + insert:
+	if (target_id.indexOf('compound_family_') !== -1) {
+		// get target element
+		const el2 = document.getElementById(target_id);			
+		// create only once, than save in DOM
+		if (el2.getAttribute('loaded') != "1") {
+			// get dictionary entry name
+			const w = target_id.replace('compound_family_', '');				
+			// small workaround to add compund_name to json, or its not visible in the template
+			//  data is the global variable from the <script> tag in the dictionary entry
+			const compounds = data[w]['family_compounds'];
+			
+			// generate the compound_sub template 
+			var compound_sub = '';
+			for (var i = 0; i < compounds.length; i++) {					
+				const vPass = merge_obj(family_compound_json[compounds[i]], {'compound_name': compounds[i], 'link':data[w]['link']});  // workaround because compound entries have the compound name only in the variable key
+				compound_sub = compound_sub + renderTemplate(template["compound_sub"], vPass) + '\n';
+			}
+			
+			// add some additional variables for the template
+			data[w]['compound_sub'] = compound_sub;
+			data[w]['compound_len'] =  data[w]['family_compounds'].length
+			// generate the template from the json compound data & json_template.js file
+			el2.innerHTML = renderTemplate(template["family_compounds"], data[w]);
+			// mark that this tab has already been generated
+			el2.setAttribute('loaded', '1');
 		}
-
-		
 	}
-	
-	
+
+	// compound families tab generation + insert:
+	if (target_id.indexOf('compound_families_') !== -1) {
+		const el2 = document.getElementById(target_id);			
+		if (el2.getAttribute('loaded') != "1") {
+			const w = target_id.replace('compound_families_', '');				
+			const compounds = data[w]['compounds'];
+			var compound_sub = '';
+			for (var i = 0; i < compounds.length; i++) {					
+				const vPass = merge_obj(family_compound_json[compounds[i]], {'compound_name': compounds[i], 'link':data[w]['link']});
+				compound_sub = compound_sub + renderTemplate(template["compound_sub"], vPass) + '\n';
+			}
+			
+			data[w]['compound_sub'] = compound_sub;
+			data[w]['compound_len'] =  data[w]['compounds'].length
+			el2.innerHTML = renderTemplate(template["family_compounds"], data[w]);
+			el2.setAttribute('loaded', '1');
+		}
+	}
+
+	// idiom families tab generation + insert:
+	if (target_id.indexOf('idioms_') !== -1) {
+		const el2 = document.getElementById(target_id);			
+		if (el2.getAttribute('loaded') != "1") {
+			const w = target_id.replace('idioms_', '');				
+			const idioms = data[w]['idioms'];
+			var idiom_sub = '';
+			for (var i = 0; i < idioms.length; i++) {					
+				const vPass = merge_obj(family_idiom_json[idioms[i]], {'idiom_name': idiom[i], 'link':data[w]['link']});
+				idiom_sub = idiom_sub + renderTemplate(template["idiom_sub"], vPass) + '\n';
+			}
+			
+			data[w]['idiom_sub'] = idiom_sub;
+			data[w]['idiom_len'] =  data[w]['idioms'].length
+			el2.innerHTML = renderTemplate(template["family_idioms"], data[w]);
+			el2.setAttribute('loaded', '1');
+		}
+	}
+
+
+	// feedback tab generation + insert:
+	if (target_id.indexOf('feedback_') !== -1) {
+		// get target element
+		const el2 = document.getElementById(target_id);
+		// create only once, than save in DOM
+		if (el2.getAttribute('loaded') != "1") {
+			// get dictionary entry name
+			const w = target_id.replace('feedback_', '');
+			// generate the template from the json_template.js file
+			//  data is the global variable from the <script> tag in the dictionary entry
+			el2.innerHTML = renderTemplate(template["feedback"], data[w]);
+			// mark that this tab has already been generated
+			el2.setAttribute('loaded', '1');
+		}			
+	}
+}
+
+
 // -------------- template function - with (hopefully) friedly support from perplexity.ia ------------------------	
 // ** takes a template string and populates all {{variables}} with real data **
 
