@@ -1,0 +1,1022 @@
+
+div.gd3definition {
+  width: 100%;
+  height: 80%;
+  /* background: white; */
+  text-align: left;
+  padding: 5px;
+  overflow-y: auto;
+}
+
+
+div.lemma {
+  font-size: 15pt;
+  line-height: 17pt;
+  font-weight: 600;
+  color: orange;
+}
+
+div.bibliography {
+  text-indent: -20px;
+  padding: 80px 20px 20px 40px;
+  text-align: justify;
+}
+  
+  div.fntext {
+    display: none;
+    position: absolute;
+    text-indent: 0em;
+    border : 1px solid black;
+    /* background-color: #fffbf0; */
+    padding: 3pt;
+    font-size: small;
+    text-align: left;
+  }
+
+  a.biblnk {
+    text-decoration: none;
+    /* color: black; */
+    cursor: pointer;
+  }
+  
+  a.biblnk:hover {
+    color: #ba4200;
+    text-decoration: underline;
+  }
+
+  a.alphabet {
+    /* color: white; */
+    letter-spacing: 2pt;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  a.alphabet:hover {
+    color: #ba4200;
+    text-decoration: underline;
+  }
+
+  a.titlelink {
+    float: right;
+    /* color: white; */
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  a.titlelink:hover {
+    color: #ba4200;
+    text-decoration: underline;
+  }
+
+  p.bibfilter {
+    font-size: 16pt;
+    font-weight: lighter;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  p.dictionarylink {
+    font-size: 16pt;
+    font-weight: lighter;
+    padding-left: 15px;
+    cursor: pointer;
+  }
+
+  p.dictionarylink:hover {
+    color: #ba4200;
+    text-decoration: underline;
+  }
+
+  p.right {
+    float: right;
+  }
+
+  h3 {
+    font-size: 13pt;
+    font-weight: bold;
+  }
+
+  .submenu_left {
+    padding-left: 3px;
+    float: left;
+    cursor: pointer;
+  }
+  
+  .submenu_right {
+    padding-right: 3px;
+    float: right;
+    cursor: pointer;
+  }
+
+  span.dim {
+    /* color: #648cc8; */
+  }
+
+  span.next:hover {
+    color: #ba4200;
+    text-decoration: underline;
+  }
+  
+  span.lemsuper {
+    font-size: 10pt;
+    letter-spacing: 2px;
+    position: relative;
+    bottom: 5pt;
+  }
+
+  span.kharShow {
+    font-family: "Segoe UI Historic", "Kharosthi Unicode", "Noto Sans Kharoshthi";
+    unicode-bidi: isolate;
+    letter-spacing: 1px;
+  }
+
+  span.kharHide {
+    display: none;
+  }
+
+  span.deva {
+    font-family: "Sanskrit Text", "Kokila";
+  }
+
+  span.cognate {
+    font-style: italic;
+  }
+
+  span.italic {
+    font-style: italic;
+  }
+
+  span.smallcaps {
+    font-variant: small-caps;
+  }
+
+  span.txtref {
+    cursor: pointer;
+  }
+
+  span.attestedform {
+    font-weight: 600;
+  }
+
+  span.green {
+    color: green;
+  }
+  
+  span.lime {
+    color: lime;
+  }
+  
+  span.orange {
+    color: #ba4200;
+  }
+  
+  span.red {
+   color: red;
+  }
+
+  span.purple {
+   color: purple;
+  }
+
+  span.morph {
+    font-style: italic;
+  }
+
+  span.id {
+    /* color: #656565; */
+    font-size: 10pt;
+  }
+
+  div.transcription {
+    text-align: left;
+    margin-top: 6pt;
+    padding-left: 4em;
+    text-indent: -1.6em;
+  }
+
+  span.partside {
+    font-weight: 600;
+  }
+
+  span.lineref {
+    /* color: black; */
+    font-weight: 600;
+  }
+  
+  span.padaref {
+    /* color: #a5a5a5; */
+    font-weight: 600;
+  }
+  
+  .link {
+      /* color: black; */
+      text-decoration: none;
+      cursor: pointer;
+  }
+
+  .link:hover {
+    color: #ba4200;
+    text-decoration: underline;
+  }
+
+  span.gd3tagged {
+    color: green;
+  }
+
+  span.gd3untagged {
+    /* color: black; */
+  }
+
+  span.qsuper {
+    font-size: 10pt;
+    letter-spacing: 1px;
+    position: relative;
+    bottom: 4pt;
+  }
+    
+  input.editboxHL{
+    height: 20px;
+    font-size: 16pt;
+  }
+
+  select.filter {
+    font-size: 14pt;
+    font-weight: lighter;
+    border: 1px solid #a5a5a5;
+    height: 20pt;
+    width: 6em;
+  }
+
+  textarea.editarea {
+    border: 1px solid #a5a5a5;
+    width: 95%;
+    height: 7em;
+    margin-top: 6pt;
+    margin-bottom: 6pt;
+    box-shadow: 2px 2px 5px #888888;
+  }
+
+  table.stats {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  span.pagecol {
+    padding: 5px;
+    font-size: 12pt;
+    line-height: 18pt;
+  }
+  
+@media only screen and (max-device-width: 480px) {
+  span.pagecol {
+    display: none;
+  }
+}
+
+/*
+  span.link {
+    font-weight: bold;
+    color: #0d3673;
+    cursor: pointer;
+  }
+  
+  span.link:hover {
+    color: #ba4200;
+ }
+*/
+
+span.quoteTitle {
+  font-size: 16pt;
+  line-height: 18pt;
+  font-variant: small-caps;
+}
+
+span.more {
+    color: gray;
+    font-style: italic;
+    font-size: 12pt;
+}
+
+span.message {
+    white-space: normal;
+    overflow: auto;
+}
+
+span.s {
+  font-style: italic;
+}
+
+span.sb {
+  font-weight: 600;
+}
+
+span.cref {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+span.cref:hover{
+  color: #ba4200;
+}
+
+.svglist {
+  max-height: 14pt;
+  max-width: 2em;
+}
+
+div.H2 {
+  position: relative;
+  display: block;
+  left: 1em;
+}
+
+.arab {
+  font-family: "Calibri";
+}
+
+.gd3form_def {
+  padding-bottom: 10px;
+}
+
+.subsense {
+  display: block;
+  padding-bottom: 2px;
+  padding-top: 2px;
+}
+
+.subsense b {
+  color: orange;
+}
+
+/* .subsense:hover {
+  background-color: #e5e5e5;  
+}*/
+
+.highlight {
+  background-color: #fbff00;
+  color: black;
+}
+
+.highlight b {
+  color: rgb(128, 70, 0);
+}
+
+td {
+  vertical-align: top;
+}  
+
+
+/* --------common css-------------- */
+
+ 
+@font-face {
+  font-family: 'GandhariPlugins';
+  src:    url("../resources/guplug.ttf"); 
+}
+
+body {
+  /* color: black;
+  background-color: white; */
+  font-family: "DejaVu Sans", "Noto Sans", "Segoe UI", sans-serif, "Gandhari Unicode";
+  line-height: 160%;
+  margin: 0px;
+}
+
+@media only screen and (max-device-width: 480px) {
+body {
+  line-height: 140%;
+}
+}
+
+div.title {
+  position: static;
+  display: block;
+  text-align: center;
+  padding-top: 10px;
+}
+
+span.title {
+  font-style: normal;
+  font-size: 17pt;    
+  font-weight: bold;
+}
+
+@media only screen and (max-device-width: 480px) {
+div.title {
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+span.title {
+  font-size: 12pt;    
+}
+}
+
+div.byline {
+  position: static;
+  display: block;
+  vertical-align: top;
+  padding-top: 5px;
+  padding-bottom: 30px;
+  font-size: 14pt;    
+  font-variant: small-caps;
+  text-align:center;
+}
+
+@media only screen and (max-device-width: 480px) {
+div.byline {
+  padding-top: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 15px;
+  font-size: 12pt;    
+}
+}
+
+div.fixedBottomLeft {
+  background-color: white;
+  position: fixed;
+  left: 0px;
+  padding-left: 20px;
+  right: 34%;
+  bottom: 0px;
+  height: 25px;
+  padding-top: 1pt;
+  font-size: 8pt;
+}
+
+div.fixedBottomCenter {
+  background-color: white;
+  position: fixed;
+  left: 35%;
+  right: 35%;
+  bottom: 0px;
+  height: 25px;
+  text-align: center;
+  padding-top: 1pt;
+  font-size: 8pt;
+}
+
+div.fixedBottomRight {
+  background-color: white;
+  position: fixed;
+  right: 0px;
+  padding-right: 20px;
+  bottom: 0px;
+  height: 25px;
+  left: 66%;
+  text-align: right;
+  padding-top: 1pt;
+  font-size: 8pt;
+}
+
+ span.scaps {
+  font-variant: small-caps;
+}
+
+span.notsmallcaps {
+  font-variant: normal;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+div.content {
+  top: 0px;
+  bottom: 25px;
+  left: 0px;
+  right: 0px;
+  padding-top: 80px;
+  text-align: justify;
+  font-size: 12.5pt;
+}
+
+@media only screen and (max-device-width: 480px) {
+div.content {
+  bottom: 15px;
+  padding-top: 50px;
+  font-size: 11pt;
+}
+}
+
+div.preface {
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+div.dismisslayer {
+  position: fixed;
+  top: 29pt;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  cursor: pointer;
+  background: black;
+  opacity: 0.5;
+}
+
+div.busy {
+  cursor: wait;
+}
+
+.editable {
+  cursor: pointer;
+}
+
+.editable:hover {
+  color: #2db578;
+}
+
+.longpressed {
+  -webkit-animation: 1s longpress;
+          animation: 1s longpress;
+}
+
+@-webkit-keyframes longpress {
+    0%, 20% { background-color: #656565; }
+    100% { background: green; }
+}
+
+@keyframes longpress {
+    0%, 20% { background-color: #656565; }
+    100% { background: green; }
+}
+
+div.table {
+  display: table;
+  width: 95%;    
+  margin-left: auto;
+  margin-right: auto;
+  left: 0px;
+  right: 0px;
+  text-align: left;
+}
+
+div.subtable {
+  display: table;
+  width: 100%;
+}
+
+div.rowhead {
+  display: table-header-group;
+  border: 1px solid #d5d5d5;
+  background-color: #d5d5d5;
+  font-weight: bold;
+}
+
+div.row {
+  display: table-row;
+  border: 1px solid #d5d5d5;
+  background-color: #f5f5f5;
+  cursor: pointer;    
+}
+
+div.subrow {
+  display: table-row;
+  background-color: #e5e5e5;
+  cursor: pointer;    
+}
+
+div.sylbrow:nth-child(3n+0) {
+  background-color: #e5e5e5;
+}
+
+div.catrow:nth-child(4n+0) {
+  background-color: #e5e5e5;
+}
+
+div.catrow:hover {
+  background-color: #a5a5a5;
+}
+
+div.cell {
+  vertical-align: top;
+  display: table-cell;
+  text-align: left;
+  padding: 3px;
+}
+
+div.selectedrow {
+  font-weight: bold;
+  background-color: #a5a5a5;
+}
+
+div.crossref {
+  display: table-cell;
+  padding: 3px;
+  background-color: #e9f1f5;
+}
+
+div.metadata {
+  position: fixed;
+  top: 150px;
+  left: 15%;
+  right: 15%;
+  background-color: white;
+  color: black;
+  padding: 22px 8px 10px 8px;
+  height: 60%;
+  max-height: 70%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+div.metadataCKN {
+  display: table-cell;
+  padding: 3px;
+  font-size: 12pt;
+  font-style: normal;
+  font-weight: bold;
+  width: 14%;
+  text-align: left;
+  vertical-align: middle;
+}
+
+div.metadataHeading {    
+  display: table-cell;
+  font-weight: bold;
+  font-style: normal;
+  height: 30px;
+  width: 80%;
+  vertical-align: middle;
+}
+
+div.textmd {
+  background-color: #94b1d4;
+}
+
+div.metadataTitle {    
+  float: left;
+  padding: 3px;
+  font-size: 17pt;
+  font-weight: bold;
+  font-style: normal;
+  text-align: left;
+  vertical-align: middle;
+}
+
+div.metadataNav {    
+  float: right;
+  padding: 3px;
+  font-size: 17pt;
+  font-style: normal;
+  font-weight: lighter;
+  text-align: center;
+  width: 20px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+div.disabledNav {    
+  float: right;
+  padding: 3px;
+  color: #a5a5a5;
+  font-size: 17pt;
+  font-style: normal;
+  font-weight: lighter;
+  text-align: center;
+  width: 20px;
+  vertical-align: middle;
+  cursor: default;
+}
+
+div.metadataNav:hover {
+  text-decoration: underline;
+  color: #ba4200;
+}
+
+div.preview {    
+  background-color: #ececec;
+}
+
+div.metadataSubHead {    
+  vertical-align: top;
+  display: table-cell;
+  padding: 3px;
+  font-size: 12pt;
+  font-weight: 500;
+  height: 30px;
+  text-align: left;
+}
+
+div.metadataLabel {    
+  vertical-align: top;
+  display: table-cell;
+  padding: 3px;
+  font-size: 12pt;
+  font-style: normal;
+  height: 30px;
+  text-align: left;
+  width: 30%;
+}
+
+div.metadataValue {    
+  display: table-cell;
+  padding: 3px;
+  font-size: 12pt;
+  font-style: normal;
+  text-align: left;
+}
+
+@media only screen and (max-device-width: 480px) {
+div.metadata {
+  position: fixed;
+  top: 120px;
+  left: 5%;
+  right: 5%;
+}
+div.metadataCKN {
+  font-size: 11pt;
+}
+div.metadataTitle {    
+  font-size: 11pt;
+}
+div.metadataNav {    
+  font-size: 11pt;
+}
+div.metadataLabel {    
+  font-size: 10pt;
+}
+div.metadataValue {    
+  font-size: 10pt;
+}
+}
+
+div.icon {
+  font-family: GandhariPlugins;
+  font-size: 18pt;
+  text-align: center;
+  font-weight: normal;
+  font-style: normal;    
+}
+
+div.icon:hover {
+  text-decoration: underline;
+  color: #ba4200;
+}
+
+div.disabledicon {
+  font-family: GandhariPlugins;
+  font-size: 18pt;
+  text-align: center;
+  font-weight: normal;
+  font-style: normal;    
+  color: #a5a5a5;
+}
+
+div.errormsg {
+  color: #850b0b;
+}
+
+span.themedark {
+  color: #94b1d4;
+}
+
+span.bold {
+  font-weight: bold;
+}
+
+span.txtabbrev {
+  font-weight: 400;
+  font-variant: small-caps;
+}
+
+span.super {
+  font-size: 8pt;
+  letter-spacing: 1px;
+  position: relative;
+  bottom: 3pt;
+}
+
+span.flourish {
+  <!-- see PTSD p. 5 Agha2, always in J P T S -->
+}
+
+span.subscript {
+  font-size: 8pt;
+  letter-spacing: 1px;
+  position: relative;
+  bottom: -3pt;
+}
+
+.link:hover {
+  text-decoration: underline;
+  color: #ba4200;
+}
+
+div.subtable {
+  display: table;
+  width: 95%;    
+}
+
+div.subrow {
+  display: table-row;
+  border: 1px solid #d5d5d5;
+  background-color: #f5f5f5;
+  cursor: pointer;    
+}
+
+div.subrow:hover {
+  background-color: #a5a5a5;
+}
+
+input.editTitle {
+  font-size: 15pt;
+  font-weight: bold;
+  border: solid black 1pt;
+  margin-top: 4px;
+  padding-left: 3px;
+  width: 75%;
+  height: 22pt;
+  box-sizing: border-box;
+}
+
+input.editBox {
+  width: 100%;
+}
+
+textarea.editArea {
+  width: 100%;
+  font-family: "DejaVu Sans", "Noto Sans", "Segoe UI", sans-serif, "Gandhari Unicode";
+  font-size: 12pt;
+}
+
+select.selectbox {
+  width: 100%;
+}
+
+input.submitBtnTitle {
+  font-size: 14pt;
+  border: solid black 1pt;
+  margin-top: 4px;
+  background-color: green;
+  color: white;
+  height: 22pt;
+  padding-left: 5px;
+  padding-right: 5px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+input.submitBtnReg {
+  font-size: 10pt;
+  font-weight: bold;
+  border: solid black 1pt;
+  background-color: green;
+  color: white;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+input.uploadBtnReg {
+  font-size: 10pt;
+  font-weight: bold;
+  border: solid black 1pt;
+  background-color: green;
+  color: green;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+input.cancelBtnReg {
+  font-size: 10pt;
+  font-weight: bold;
+  border: solid black 1pt;
+  background-color: #bf7e03;
+  color: white;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+input.red {
+  color: #850b0b;
+}
+
+input.submitBtnDisabled {
+  font-size: 10pt;
+  font-weight: bold;
+  border: solid black 1pt;
+  background-color: #a5a5a5;
+  color: white;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+span.addBtnReg {
+  font-size: 10pt;
+  border: solid black 1pt;
+  background-color: green;
+  color: white;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+input.deleteBtnReg {
+  font-size: 10pt;
+  border: solid black 1pt;
+  background-color: #850b0b;
+  color: white;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+span.attneds {
+  display: none;
+}
+
+span.easian {
+  font-variant: small-caps;
+}
+
+span.biblink {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
+span.biblink:hover {
+  text-decoration: underline;
+  color: #ba4200;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+span.egyp {
+  font-family: "eot";
+}
+
+span.egypShow {
+  font-family: "eot";
+  font-size: 34pt;
+  line-height: 44pt
+}
+
+img.thumbnail {
+  border: 1px solid #d5d5d5;
+  max-height: 150px;
+}
+
+img.minithumbnail {
+  border: 1px solid #d5d5d5;
+  width: 70px;
+}
+
+img.preview {
+  border: 1px solid #d5d5d5;
+  max-width: 70px;
+  max-height: 70px;
+}
+
+div.imagecell {
+  width: 125px;
+  max-height: 125px;
+}
+
+div.citeascontainer {
+  position: absolute;
+  display: block;
+  float: right;
+  right: 0px;
+  margin-right: 24px;
+  text-align: center;
+}
+
+span.citeas {
+  font-size: 9pt;
+  font-weight: 400;
+  line-height: 14pt;
+  font-variant: normal;
+  color: #a5a5a5;
+  border: 1px solid #a5a5a5;
+  border-radius: 5px;
+  padding-left: 4px;
+  padding-right: 4px;
+  cursor: pointer;
+}
+
+span.citeas:hover {
+  color: #ba4200;
+  border: 1px solid #ba4200;
+}  
+
+div.msgbox {
+  background-color: white;
+  border-radius: 4px;
+  position: fixed;
+  text-align: left;
+  top: 80px;
+  right: 24px;
+  width: 60%;
+  background-color: #e6ebf1;
+  color: black;
+  padding: 16px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+
+

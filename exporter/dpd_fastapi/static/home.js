@@ -23,7 +23,9 @@ const niggahitaToggle = document.getElementById("niggahita-toggle");
 const grammarToggle = document.getElementById("grammar-toggle");
 const exampleToggle = document.getElementById("example-toggle");
 const summaryToggle = document.getElementById("summary-toggle");
+const sandhiToggle = document.getElementById("sandhi-toggle");
 
+let dpdResultsContent = "";
 
 //// load state
 
@@ -52,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
     loadToggleState("grammar-toggle");
     loadToggleState("example-toggle");
     loadToggleState("summary-toggle");
+    loadToggleState("sandhi-toggle");
     toggleClearHistoryButton()
     swopSansSerif()
     if (dpdResults.innerHTML.trim() == "") {
@@ -142,8 +145,12 @@ async function handleFormSubmit(event) {
                     div.classList.remove("hidden");
                 });
             };
-    
+
             dpdResults.innerHTML = dpdDiv.innerHTML;
+            dpdResultsContent = dpdDiv.innerHTML
+
+            //// sandhi button toggle
+            showHideSandhi()
             
             populateHistoryBody();
             dpdPane.focus();
@@ -220,6 +227,7 @@ niggahitaToggle.addEventListener("change", saveToggleState);
 grammarToggle.addEventListener("change", saveToggleState);
 exampleToggle.addEventListener("change", saveToggleState);
 summaryToggle.addEventListener("change", saveToggleState);
+sandhiToggle.addEventListener("change", saveToggleState);
 
 function saveToggleState(event) {
     localStorage.setItem(event.target.id, event.target.checked);
@@ -342,6 +350,21 @@ function showHideSummery() {
         summaryResults.style.display = "block";
     } else {
         summaryResults.style.display = "none";
+    }
+}
+
+//// sandhi ' toggle
+
+sandhiToggle.addEventListener("change", function() {
+    showHideSandhi()
+});
+
+function showHideSandhi() {
+    if (sandhiToggle.checked) {
+        dpdResults.innerHTML = dpdResultsContent;
+    } else {
+        dpdResults.innerHTML = dpdResultsContent.replace(/'/g, "");
+        
     }
 }
 

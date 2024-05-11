@@ -5,6 +5,7 @@ import re
 from bs4 import BeautifulSoup
 from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
 from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables
+from tools.mdict_exporter2 import export_to_mdict
 from tools.printer import p_green, p_title, p_yes
 from tools.tic_toc import tic, toc
 
@@ -16,8 +17,9 @@ def main():
     
     p_green("making dict data")
     dict_data = []
-    for key, html_body in cone_dict.items():
+    bulk_dump_html = "" # FIXME delete when done testing css for classes
 
+    for key, html_body in cone_dict.items():
         html_body = html_body.replace(" — ", "")
 
         if "href" in html_body:
@@ -43,9 +45,19 @@ def main():
                 synonyms=make_synonyms_list(key),
             )
             dict_data.append(dict_entry)
+
+            bulk_dump_html += html
     
+    # FIXME add front_matter, abbreviations etc
+
+    # FIXME delete when done testing css
+    with open("exporter/other_dictionaries/code/cone/bulk_dump_html.html", "w") as f:
+        f.write(bulk_dump_html)
+
+
+    # FIXME update
     dict_info = DictInfo(
-        bookname="Cone Test",
+        bookname="Dictionary of Pāli by Margaret Cone",
         author="Margaret Cone",
         description="",
         website="",
@@ -53,11 +65,12 @@ def main():
         target_lang="en",
     )
 
+    # FIXME add to paths
     dict_var = DictVariables(
-        css_path=Path("exporter/other_dictionaries/code/cone/source/cone.css"),
+        css_path=Path("exporter/other_dictionaries/code/cone/cone.css"),
         js_path=None,
         output_path=Path("exporter/other_dictionaries/code/cone"),
-        dict_name="Dictionary of Pāli by Margaret Cone",
+        dict_name="cone",
         icon_path=None
     )
     p_yes("")
@@ -68,6 +81,11 @@ def main():
         dict_data,
         zip_synonyms=False
     )
+
+    export_to_mdict(
+        dict_info,
+        dict_var,
+        dict_data)
 
     toc()
             
@@ -96,13 +114,15 @@ def make_synonyms_list(word):
 
 def remove_links(html):
     # return html
-    soup = BeautifulSoup(html, 'lxml')
+    soup = BeautifulSoup(html, 'html.parser')
     for a in soup.find_all('a'):
         span = soup.new_tag('span', style='color: blue;')
         if a.string: 
             span.string = a.string
         a.replace_with(span)
     return str(soup)
+
+    # FIXME also remove <br> and space at end
 
 
 if __name__ == "__main__":
