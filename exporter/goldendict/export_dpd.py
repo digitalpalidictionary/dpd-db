@@ -50,7 +50,7 @@ class DpdHeadwordsTemplates:
     def __init__(self, paths: Union[ProjectPaths, RuPaths], lang):
         self.paths = paths
         self.lang = lang
-        self.header_templ = Template(filename=str(paths.header_templ_path))
+        self.header_templ = Template(filename=str(paths.dpd_header_templ_path))
         self.dpd_definition_templ = Template(filename=str(paths.dpd_definition_templ_path))
         self.button_box_templ = Template(filename=str(paths.button_box_templ_path))
         self.grammar_templ = Template(filename=str(paths.grammar_templ_path))
@@ -228,6 +228,30 @@ def render_pali_word_dpd_html(
         feedback = render_feedback_templ(pth, i, tt.feedback_templ)
         html += feedback
         size_dict["dpd_feedback"] += len(feedback)
+    
+    # add scripts to bottom of body
+    if i.needs_root_family_button:
+        html += """<script src="family_root_json.js"></script>"""
+        html += """<script src="family_root_template.js"></script>"""
+
+    if i.needs_word_family_button:
+        html += """<script src="family_word_json.js"></script>"""
+        html += """<script src="family_word_template.js"></script>"""
+
+    if i.needs_compound_family_button or i.needs_compound_families_button:
+        html += """<script src="family_compound_json.js"></script>"""
+        html += """<script src="family_compound_template.js"></script>"""
+    
+    if i.needs_idioms_button:
+        html += """<script src="family_idiom_json.js"></script>"""
+        html += """<script src="family_idiom_template.js"></script>"""
+
+    if i.needs_set_button or i.needs_sets_button:
+        html += """<script src="family_set_json.js"></script>"""
+        html += """<script src="family_set_template.js"></script>"""
+    
+    html += """<script src="feedback_template.js"></script>"""
+    html += """<script src="main.js"></script>"""
 
     html += "</body></html>"
 
@@ -238,7 +262,7 @@ def render_pali_word_dpd_html(
     # FIXME bring back squash_whitespaces once done
     # "Soft" minification for header to preserve links
     # html = squash_whitespaces(header) + minify(html)
-    html = header + minify(html)
+    html = header + html
 
     synonyms: List[str] = i.inflections_list
     synonyms = add_niggahitas(synonyms)
@@ -280,8 +304,9 @@ def render_pali_word_dpd_html(
     )
 
     # FIXME delete once done
-    with open(f"temp/dpd_test/{i.lemma_1_}.html", "w") as f:
-        f.write(html)
+    if i.lemma_clean in ["abhidhamma", "abala", "abbh", "abhidhammakathā"]:
+        with open(f"dpd_js_test/{i.lemma_1_}.html", "w") as f:
+            f.write(html)
 
     return (res, size_dict)
 
@@ -551,8 +576,7 @@ def render_button_box_templ(
     if lang == "en":
         button_html = (
             '<a class="button" '
-            'href="javascript:void(0);" '
-            'onclick="button_click(this)" '
+            'href="#" '
             'data-target="{target}">{name}</a>')
 
         button_link_html = (
@@ -563,8 +587,7 @@ def render_button_box_templ(
     elif lang == "ru":
         button_html = (
         '<a class="button_ru" '
-        'href="javascript:void(0);" '
-        'onclick="button_click(this)" '
+        'href="#" '
         'data-target="{target}">{name}</a>')
 
         button_link_html = (
@@ -642,10 +665,10 @@ def render_button_box_templ(
     if i.needs_root_family_button:
         if lang == "en":
             root_family_button = button_html.format(
-                target=f"root_family_{i.lemma_1_}", name="root family")
+                target=f"family_root_{i.lemma_1_}", name="root family")
         elif lang == "ru":
             root_family_button = button_html.format(
-                target=f"root_family_ru_{i.lemma_1_}", name="семья корня")
+                target=f"family_root_ru_{i.lemma_1_}", name="семья корня")
     else:
         root_family_button = ""
 
@@ -653,10 +676,10 @@ def render_button_box_templ(
     if i.needs_word_family_button:
         if lang == "en":
             word_family_button = button_html.format(
-                target=f"word_family_{i.lemma_1_}", name="word family")
+                target=f"family_word_{i.lemma_1_}", name="word family")
         elif lang == "ru":
             word_family_button = button_html.format(
-                target=f"word_family_ru_{i.lemma_1_}", name="семья слова")
+                target=f"family_word_ru_{i.lemma_1_}", name="семья слова")
     else:
         word_family_button = ""
 
@@ -664,18 +687,18 @@ def render_button_box_templ(
     if i.needs_compound_family_button:
         if lang == "en":
             compound_family_button = button_html.format(
-                target=f"compound_family_{i.lemma_1_}", name="compound family")
+                target=f"family_compound_{i.lemma_1_}", name="compound family")
         elif lang == "ru":
             compound_family_button = button_html.format(
-                target=f"compound_family_ru_{i.lemma_1_}", name="семья составного")
+                target=f"family_compound_ru_{i.lemma_1_}", name="семья составного")
 
     elif i.needs_compound_families_button:
         if lang == "en":
             compound_family_button = button_html.format(
-                target=f"compound_families_{i.lemma_1_}", name="compound familes")
+                target=f"family_compound_{i.lemma_1_}", name="compound familes")
         elif lang == "ru":
             compound_family_button = button_html.format(
-                target=f"compound_families_ru_{i.lemma_1_}", name="семья составных")
+                target=f"family_compound_ru_{i.lemma_1_}", name="семья составных")
     else:
         compound_family_button = ""
 
@@ -683,10 +706,10 @@ def render_button_box_templ(
     if i.needs_idioms_button:
         if lang == "en":
             idioms_button = button_html.format(
-                target=f"idioms_{i.lemma_1_}", name="idioms")
+                target=f"family_idiom_{i.lemma_1_}", name="idioms")
         elif lang == "ru":
             idioms_button = button_html.format(
-                target=f"idioms_ru_{i.lemma_1_}", name="идиомы")
+                target=f"family_idiom_ru_{i.lemma_1_}", name="идиомы")
     else:
         idioms_button = ""
 
@@ -694,18 +717,18 @@ def render_button_box_templ(
     if i.needs_set_button:
         if lang == "en":
             set_family_button = button_html.format(
-                target=f"set_family_{i.lemma_1_}", name="set")
+                target=f"family_set_{i.lemma_1_}", name="set")
         elif lang == "ru":
             set_family_button = button_html.format(
-                target=f"set_family_ru_{i.lemma_1_}", name="группа")
+                target=f"family_set_ru_{i.lemma_1_}", name="группа")
 
     elif i.needs_sets_button:
         if lang == "en":
             set_family_button = button_html.format(
-                target=f"set_families_{i.lemma_1_}", name="sets")
+                target=f"family_set_{i.lemma_1_}", name="sets")
         elif lang == "ru":
             set_family_button = button_html.format(
-                target=f"set_families_ru_{i.lemma_1_}", name="группы")
+                target=f"family_set_ru_{i.lemma_1_}", name="группы")
     else:
         set_family_button = ""
 

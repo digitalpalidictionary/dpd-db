@@ -38,7 +38,7 @@ def generate_root_html(
     root_data_list: List[DictEntry] = []
 
     if lang == "en":
-        header_templ = Template(filename=str(pth.header_templ_path))
+        header_templ = Template(filename=str(pth.dpd_header_templ_path))
     elif lang == "ru":
         header_templ = Template(filename=str(rupth.header_templ_path))
 

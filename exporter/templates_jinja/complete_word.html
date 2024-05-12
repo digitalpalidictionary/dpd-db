@@ -38,24 +38,21 @@
 <div class="button-box">
     {% if d.i.needs_grammar_button %}
         <a class="button active" 
-        href="javascript:void(0);" 
-        onclick="button_click(this)" 
+        href="#" 
         data-target="grammar_{{d.i.lemma_1_}}">
         grammar</a>
     {% endif %}
 
     {% if d.i.needs_example_button %}
         <a class="button active" 
-        href="javascript:void(0);" 
-        onclick="button_click(this)" 
+        href="#" 
         data-target="example_{{d.i.lemma_1_}}">
         example</a>
     {% endif %}
 
     {% if d.i.needs_examples_button %}
         <a class="button active" 
-        href="javascript:void(0);" 
-        onclick="button_click(this)" 
+        href="#" 
         data-target="examples_{{d.i.lemma_1_}}">
         examples</a>
     {% endif %}
@@ -63,8 +60,7 @@
     {% if d.dps_data %}
         {% if d.sbs.needs_sbs_example_button or d.sbs.needs_sbs_examples_button %}
         <a class="button active" 
-        href="javascript:void(0);" 
-        onclick="button_click(this)" 
+        href="#" 
         data-target="dps_example_{{d.i.lemma_1_}}">
         dps</a>
         {% endif %}
@@ -72,79 +68,69 @@
 
     {% if d.i.needs_conjugation_button %}
         <a class="button" 
-        href="javascript:void(0);" 
-        onclick="button_click(this)" 
+        href="#" 
         data-target="conjugation_{{d.i.lemma_1_}}">
         conjugation</a>
     {% endif %}
 
     {% if d.i.needs_declension_button %}
         <a class="button" 
-        href="javascript:void(0);" 
-        onclick="button_click(this)" 
+        href="#" 
         data-target="declension_{{d.i.lemma_1_}}">
         declension</a>
     {% endif %}
 
     {% if d.i.needs_root_family_button %}
         <a class="button" 
-        href="javascript:void(0);" 
-        onclick="button_click(this)" 
+        href="#" 
         data-target="root_family_{{d.i.lemma_1_}}">
         root family</a>
     {% endif %}
 
     {% if d.i.needs_word_family_button %}
         <a class="button" 
-        href="javascript:void(0);" 
-        onclick="button_click(this)" 
+        href="#" 
         data-target="word_family_{{d.i.lemma_1_}}">
         word family</a>
     {% endif %}
 
     {% if d.i.needs_compound_family_button %}
         <a class="button" 
-        href="javascript:void(0);" 
-        onclick="button_click(this)" 
+        href="#" 
         data-target="compound_family_{{d.i.lemma_1_}}">
         compound family</a>
     {% endif %}
 
     {% if d.i.needs_compound_families_button %}
         <a class="button" 
-        href="javascript:void(0);" 
-        onclick="button_click(this)" 
+        href="#" 
         data-target="compound_families_{{d.i.lemma_1_}}">
         compound families</a>
     {% endif %}
 
     {% if d.i.needs_set_button %}
         <a class="button" 
-        href="javascript:void(0);" 
-        onclick="button_click(this)" 
+        href="#" 
         data-target="set_{{d.i.lemma_1_}}">
         set</a>
     {% endif %}
 
     {% if d.i.needs_sets_button %}
         <a class="button" 
-        href="javascript:void(0);" 
-        onclick="button_click(this)" 
+        href="#" 
         data-target="sets_{{d.i.lemma_1_}}">
         sets</a>
     {% endif %}
 
     {% if d.i.needs_frequency_button %}
         <a class="button" 
-        href="javascript:void(0);" 
-        onclick="button_click(this)" 
+        href="#" 
         data-target="frequency_{{d.i.lemma_1_}}">
         frequency</a>
     {% endif %}
 
     <a class="button" 
-    href="javascript:void(0);" 
-    onclick="button_click(this)" 
+    href="#" 
     data-target="feedback_{{d.i.lemma_1_}}">
     feedback</a>
 </div>

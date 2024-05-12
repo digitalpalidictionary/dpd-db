@@ -1,7 +1,7 @@
 <div class="root_button_ru_box">
-    <a class="root_button_ru" href="javascript:void(0);" onclick="button_click(this)" data-target="root_info_ru_${r.root_}">инфо корня</a>
-    <a class="root_button_ru" href="javascript:void(0);" onclick="button_click(this)" data-target="root_matrix_ru_${r.root_}">матрица корня</a>
+    <a class="root_button_ru" href="#" data-target="root_info_ru_${r.root_}">инфо корня</a>
+    <a class="root_button_ru" href="#" data-target="root_matrix_ru_${r.root_}">матрица корня</a>
     % for fr in frs:
-        <a class="root_button_ru" href="javascript:void(0);" onclick="button_click(this)" data-target="root_family_ru_${r.root_}_${fr.root_family_}">${fr.root_family}</a>
+        <a class="root_button_ru" href="#" data-target="family_root_ru_${r.root_}_${fr.root_family_}">${fr.root_family}</a>
     % endfor
 </div>

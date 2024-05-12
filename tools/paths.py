@@ -100,7 +100,7 @@ class ProjectPaths:
 
         # exporter/templates
         self.templates_dir = base_dir / "exporter/templates"
-        self.header_templ_path = base_dir / "exporter/goldendict/templates/header.html"
+        self.dpd_header_templ_path = base_dir / "exporter/goldendict/templates/dpd_header.html"
         self.header_plain_templ_path = base_dir / "exporter/goldendict/templates/header_plain.html"
         self.dpd_definition_templ_path = base_dir / "exporter/goldendict/templates/dpd_definition.html"
         self.button_box_templ_path = base_dir / "exporter/goldendict/templates/dpd_button_box.html"

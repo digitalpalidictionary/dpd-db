@@ -651,14 +651,14 @@ class DpdHeadwords(Base):
         if self.family_idioms:
             return self.family_idioms.split(" ")
         else:
-            return [self.family_idioms]
+            return [self.lemma_clean]
 
     @property
     def family_set_list(self) -> list:
         if self.family_set:
             return self.family_set.split("; ")
         else:
-            return [self.family_set]
+            return []
 
     @property
     def root_count(self) -> int:
@@ -689,21 +689,21 @@ class DpdHeadwords(Base):
         if self.antonym:
             return self.antonym.split(", ")
         else:
-            return [self.antonym]
+            return []
 
     @property
     def synonym_list(self) -> list:
         if self.synonym:
             return self.synonym.split(", ")
         else:
-            return [self.synonym]
+            return []
 
     @property
     def variant_list(self) -> list:
         if self.variant:
             return self.variant.split(", ")
         else:
-            return [self.variant]
+            return []
 
     @property
     def source_link_1(self) -> str:

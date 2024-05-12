@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta data_key="data_${i.lemma_1_}">
+    <title>Digital Pāḷi Dictionary</title>
+    <link href="dpd.css" rel="stylesheet">
+    <link href="main.js" rel="preload">
+    <script>
+        var data_${i.lemma_1_} = {
+            "id": ${i.id},
+            "lemma": "${i.lemma_1_}",
+            "date": "${date}",
+            "family_root": "${i.root_family_key}",
+            % if i.needs_compound_family_button or i.needs_compound_families_button:
+            "family_compounds": ${i.family_compound_list},
+            % else:
+            "family_compounds": [],
+            % endif
+            % if i.needs_idioms_button:
+            "family_idioms": ${i.family_idioms_list},
+            % else:
+            "family_idioms": [],
+            % endif
+            "family_word": "${i.family_word}",
+            % if i.needs_set_button or i.needs_sets_button:
+            "family_sets": ${i.family_set_list}
+            %else:
+            "family_sets": []
+            % endif
+        };
+    </script>
+</head>

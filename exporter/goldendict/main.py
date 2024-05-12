@@ -131,16 +131,20 @@ def copy_css_js_to_temp_dir():
     files_to_copy = [
         "exporter/goldendict/css/dpd.css",
         "exporter/goldendict/javascript/family_compound_json.js",
+        "exporter/goldendict/javascript/family_compound_template.js",
         "exporter/goldendict/javascript/family_idiom_json.js",
+        "exporter/goldendict/javascript/family_idiom_template.js",
         "exporter/goldendict/javascript/family_root_json.js",
+        "exporter/goldendict/javascript/family_root_template.js",
         "exporter/goldendict/javascript/family_set_json.js",
+        "exporter/goldendict/javascript/family_set_template.js",
         "exporter/goldendict/javascript/family_word_json.js",
+        "exporter/goldendict/javascript/family_word_template.js",
+        "exporter/goldendict/javascript/feedback_template.js",
         "exporter/goldendict/javascript/main.js",
-        "exporter/goldendict/javascript/json_templates.js",
-        "exporter/goldendict/javascript/template.js",
     ]
     
-    destination_dir = "temp/dpd_test"
+    destination_dir = "dpd_js_test"
 
     for file_path in files_to_copy:
         shutil.copy(file_path, destination_dir)
@@ -165,7 +169,7 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
         target_lang="en"
     )
 
-    dict_name="dpd"
+    dict_name="dpd-test"
 
     if g.lang == "ru":
         dict_info.bookname = mdict_ru_title
@@ -177,17 +181,22 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
         dict_name = "ru-dpd"
     
     # FIXME add all the js to paths
+
     dict_var = DictVariables(
         css_path=g.paths.dpd_css_path,
         js_paths=[
             g.paths.family_compound_json,
+            Path("exporter/goldendict/javascript/family_compound_template.js"),
             g.paths.family_idiom_json,
+            Path("exporter/goldendict/javascript/family_idiom_template.js"),
             g.paths.family_root_json,
+            Path("exporter/goldendict/javascript/family_root_template.js"),
             g.paths.family_set_json,
+            Path("exporter/goldendict/javascript/family_set_template.js"),
             g.paths.family_word_json,
-            Path("exporter/goldendict/javascript/json_templates.js"),
+            Path("exporter/goldendict/javascript/family_word_template.js"),
+            Path("exporter/goldendict/javascript/feedback_template.js"),
             Path("exporter/goldendict/javascript/main.js"),
-            Path("exporter/goldendict/javascript/template.js"),
         ],
         output_path=g.paths.share_dir,
         dict_name=dict_name,
@@ -196,9 +205,8 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
 
     export_to_goldendict_with_pyglossary(dict_info, dict_var, g.dict_data)
 
-    # FIXME turn on again    
-    # if g.make_mdict:
-    #     export_to_mdict(dict_info, dict_var, g.dict_data)
+    if g.make_mdict:
+        export_to_mdict(dict_info, dict_var, g.dict_data)
 
 
 def write_size_dict(pth: ProjectPaths, size_dict):
