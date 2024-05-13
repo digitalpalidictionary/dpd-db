@@ -1,7 +1,5 @@
 
-function makeFamilyRootHtml(data) {
-
-    fr = family_root_json[data.family_root]
+function makeFamilyRootHtml(data, fr, source) {
 
     //// header
     
@@ -15,9 +13,13 @@ function makeFamilyRootHtml(data) {
 
     //// table
 
-    html += `
-        <table class="family"><tbody>
-    `;
+    if (source == "root") {
+        html += `<table class="root_family"><tbody>`;
+    } else {
+        html += `<table class="family"><tbody>`;
+    }
+
+
 
     fr.data.forEach(item => {
         html += `
@@ -37,7 +39,19 @@ function makeFamilyRootHtml(data) {
 
     //// footer
 
-    html += `
+    if (source == "root") {
+        html += `
+        <p class="footer">
+        Something out of place? 
+        <a class="root_link" 
+        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&amp;entry.438735500=${data.lemma}&amp;entry.326955045=Root+Family&amp;entry.1433863141=GoldenDict+${data.date}" 
+        target="_blank">
+        Report it here
+        </a>.
+        </p>
+    `;
+    } else {
+        html += `
         <p class="footer">
         Something out of place? 
         <a class="link" 
@@ -47,6 +61,8 @@ function makeFamilyRootHtml(data) {
         </a>.
         </p>
     `;
+    }
+
 
     return html
 }

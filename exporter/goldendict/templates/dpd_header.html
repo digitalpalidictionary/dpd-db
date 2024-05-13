@@ -4,8 +4,30 @@
     <meta charset="utf-8">
     <meta data_key="data_${i.lemma_1_}">
     <title>Digital Pāḷi Dictionary</title>
-    <link href="dpd.css" rel="stylesheet">
-    <link href="main.js" rel="preload">
+    <link href="dpd.css" rel="stylesheet" >
+    % if i.needs_compound_family_button or i.needs_compound_families_button:
+    <link href="family_compound_json.js" class="load_js" rel="preload" as="script">
+    <link href="family_compound_template.js" class="load_js" rel="preload" as="script">
+    % endif
+    % if i.needs_idioms_button:
+    <link href="family_idiom_json.js" class="load_js" rel="preload" as="script">
+    <link href="family_idiom_template.js" class="load_js" rel="preload" as="script">
+    % endif
+    % if i.needs_root_family_button:
+    <link href="family_root_json.js" class="load_js" rel="preload" as="script">
+    <link href="family_root_template.js" class="load_js" rel="preload" as="script">
+    % endif
+    % if i.needs_set_button or i.needs_sets_button:
+    <link href="family_set_json.js" class="load_js" rel="preload" as="script">
+    <link href="family_set_template.js" class="load_js" rel="preload" as="script">
+    % endif
+    % if i.needs_word_family_button:
+    <link href="family_word_json.js" class="load_js" rel="preload" as="script">
+    <link href="family_word_template.js" class="load_js" rel="preload" as="script">
+    % endif
+    <link href="feedback_template.js" class="load_js" rel="preload" as="script">
+    <link href="main.js" class="load_js" rel="preload" as="script" as="script">
+
     <script>
         var data_${i.lemma_1_} = {
             "id": ${i.id},
@@ -22,12 +44,25 @@
             % else:
             "family_idioms": [],
             % endif
+            % if i.needs_word_family_button:
             "family_word": "${i.family_word}",
+            % endif
             % if i.needs_set_button or i.needs_sets_button:
             "family_sets": ${i.family_set_list}
             %else:
             "family_sets": []
             % endif
         };
+    </script>
+    <script>
+      var el = document.getElementsByClassName("load_js");
+      if (typeof js_already_loaded === "undefined") {
+	      var js_already_loaded = true;
+	      for (var i = 0; i < el.length; i++) {
+		      var s = document.createElement("script");
+		      s.src = el[i].getAttribute("href");
+		      document.head.appendChild(s);
+	      };
+      }
     </script>
 </head>

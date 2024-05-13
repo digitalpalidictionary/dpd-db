@@ -229,30 +229,6 @@ def render_pali_word_dpd_html(
         html += feedback
         size_dict["dpd_feedback"] += len(feedback)
     
-    # add scripts to bottom of body
-    if i.needs_root_family_button:
-        html += """<script src="family_root_json.js"></script>"""
-        html += """<script src="family_root_template.js"></script>"""
-
-    if i.needs_word_family_button:
-        html += """<script src="family_word_json.js"></script>"""
-        html += """<script src="family_word_template.js"></script>"""
-
-    if i.needs_compound_family_button or i.needs_compound_families_button:
-        html += """<script src="family_compound_json.js"></script>"""
-        html += """<script src="family_compound_template.js"></script>"""
-    
-    if i.needs_idioms_button:
-        html += """<script src="family_idiom_json.js"></script>"""
-        html += """<script src="family_idiom_template.js"></script>"""
-
-    if i.needs_set_button or i.needs_sets_button:
-        html += """<script src="family_set_json.js"></script>"""
-        html += """<script src="family_set_template.js"></script>"""
-    
-    html += """<script src="feedback_template.js"></script>"""
-    html += """<script src="main.js"></script>"""
-
     html += "</body></html>"
 
     # FIXME No need to render the same header for every file
@@ -304,7 +280,13 @@ def render_pali_word_dpd_html(
     )
 
     # FIXME delete once done
-    if i.lemma_clean in ["abhidhamma", "abala", "abbh", "abhidhammakathā"]:
+    if i.lemma_clean in [
+        "abhidhamma",
+        "abala",
+        "abhūta",
+        "abbh",
+        "abhidhammakathā",
+    ]:
         with open(f"dpd_js_test/{i.lemma_1_}.html", "w") as f:
             f.write(html)
 

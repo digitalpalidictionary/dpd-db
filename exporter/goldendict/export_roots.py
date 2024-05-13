@@ -6,9 +6,8 @@ from mako.template import Template
 from minify_html import minify
 from rich import print
 from sqlalchemy.orm import Session
-from typing import Dict, Tuple, List
+from typing import Dict, Tuple, List, Union
 
-from export_dpd import render_header_templ
 from exporter.goldendict.helpers import TODAY
 
 from db.models import DpdRoots, FamilyRoot
@@ -29,21 +28,16 @@ def generate_root_html(
     lang="en",
     dps_data=False
 ) -> Tuple[List[DictEntry], RenderedSizes]:
-    """compile html componenents for each pali root"""
+    """compile html components for each pali root"""
 
     print("[green]generating roots html")
-
     size_dict = default_rendered_sizes()
-
     root_data_list: List[DictEntry] = []
 
     if lang == "en":
-        header_templ = Template(filename=str(pth.dpd_header_templ_path))
+        header_templ = Template(filename=str(pth.root_header_templ_path))
     elif lang == "ru":
-        header_templ = Template(filename=str(rupth.header_templ_path))
-
-    header = render_header_templ(
-        pth, css="", js="", header_templ=header_templ)
+        header_templ = Template(filename=str(rupth.header_templ_path)) # FIXME roots has new header
 
     roots_db = db_session.query(DpdRoots).all()
     root_db_length = len(roots_db)
@@ -62,6 +56,9 @@ def generate_root_html(
 
         html = ""
         html += "<body>"
+
+        root_header = render_root_header_templ(
+            pth, r=r, date=str(TODAY), header_templ=header_templ)
 
         definition = render_root_definition_templ(pth, r, roots_count_dict, rupth, lang, dps_data)
         html += definition
@@ -83,9 +80,15 @@ def generate_root_html(
         html += root_families
         size_dict["root_families"] += len(root_families)
 
+        # add scripts to bottom of body
+        html += """<script src="family_root_json.js"></script>"""
+        html += """<script src="family_root_template.js"></script>"""
+        html += """<script src="main.js"></script>"""
         html += "</body></html>"
         
-        html = squash_whitespaces(header) + minify(html)
+        # FIXME replace once done testing
+        # html = squash_whitespaces(root_header) + minify(html)
+        html = root_header + html
 
         synonyms: set = set()
         synonyms.add(r.root_clean)
@@ -115,18 +118,34 @@ def generate_root_html(
             print(
                 f"{counter:>10,} / {root_db_length:<10,}{r.root:<20} {bop():>10}")
             bip()
+        
+        # FIXME delete once done
+        if r.root in ["√kar", "√dis 1", "√bhū"]:
+            with open(f"dpd_js_test/{r.root}.html", "w") as f:
+                f.write(html)
 
     return root_data_list, size_dict
 
 
+def render_root_header_templ(
+    __pth__: Union[ProjectPaths, RuPaths],
+    r: DpdRoots,
+    date: str,
+    header_templ: Template
+) -> str:
+    """render the html header with variables"""
+
+    return str(header_templ.render(r=r, date=date))
+
+
 def render_root_definition_templ(
-                        pth: ProjectPaths,
-                        r: DpdRoots, 
-                        roots_count_dict,
-                        rupth: RuPaths,
-                        lang="en", 
-                        dps_data=False
-                    ):
+    pth: ProjectPaths,
+    r: DpdRoots, 
+    roots_count_dict,
+    rupth: RuPaths,
+    lang="en", 
+    dps_data=False
+):
     """render html of main root info"""
 
     if lang == "en":
@@ -150,12 +169,12 @@ def render_root_definition_templ(
 
 
 def render_root_buttons_templ(
-                        pth: ProjectPaths,
-                        r: DpdRoots, 
-                        db_session: Session,
-                        rupth: RuPaths,
-                        lang="en",
-                    ):
+    pth: ProjectPaths,
+    r: DpdRoots, 
+    db_session: Session,
+    rupth: RuPaths,
+    lang="en",
+):
     """render html of root buttons"""
     
     if lang == "en":
@@ -177,11 +196,11 @@ def render_root_buttons_templ(
 
 
 def render_root_info_templ(
-                pth: ProjectPaths, 
-                r: DpdRoots, 
-                rupth: RuPaths,
-                lang="en"
-            ):
+    pth: ProjectPaths, 
+    r: DpdRoots, 
+    rupth: RuPaths,
+    lang="en"
+):
     """render html of root grammatical info"""
 
     if lang == "en":
@@ -200,12 +219,12 @@ def render_root_info_templ(
 
 
 def render_root_matrix_templ(
-                pth: ProjectPaths, 
-                r: DpdRoots, 
-                roots_count_dict, 
-                rupth: RuPaths,
-                lang="en"
-            ):
+    pth: ProjectPaths, 
+    r: DpdRoots, 
+    roots_count_dict, 
+    rupth: RuPaths,
+    lang="en"
+):
     """render html of root matrix"""
 
     if lang == "en":
@@ -231,12 +250,12 @@ def render_root_matrix_templ(
 
 
 def render_root_families_templ(
-                pth: ProjectPaths,
-                r: DpdRoots, 
-                db_session: Session, 
-                rupth: RuPaths,
-                lang="en"
-            ):
+    pth: ProjectPaths,
+    r: DpdRoots, 
+    db_session: Session, 
+    rupth: RuPaths,
+    lang="en"
+):
     """render html of root families"""
 
     if lang == "en":

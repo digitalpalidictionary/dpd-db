@@ -121,7 +121,14 @@ class DpdRoots(Base):
 
     @property
     def root_(self) -> str:
+        """Replace whitespace with underscores"""
         return self.root.replace(" ", "_")
+
+    @property
+    def root_no_sign_(self) -> str:
+        """Remove root sign and replace whitespace with underscores.
+        Useful for html links."""
+        return self.root.replace(" ", "_").replace("√", "")
 
     @property
     def root_link(self) -> str:

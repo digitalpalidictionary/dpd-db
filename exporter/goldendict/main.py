@@ -92,10 +92,10 @@ def main():
         g.db_session, g.pth, g.rupth, g.sandhi_contractions, g.cf_set, g.idioms_set, g.make_link, g.dps_data, g.lang, g.data_limit)
     g.rendered_sizes.append(sizes)
 
-    # FIXME uncomment when finshed testing
-    # root_data_list, sizes = generate_root_html(g.db_session, g.pth, g.roots_count_dict, g.rupth, g.lang, g.dps_data)
-    # g.rendered_sizes.append(sizes)
+    root_data_list, sizes = generate_root_html(g.db_session, g.pth, g.roots_count_dict, g.rupth, g.lang, g.dps_data)
+    g.rendered_sizes.append(sizes)
 
+    # FIXME simple headers for all these
     # variant_spelling_data_list, sizes = generate_variant_spelling_html(g.pth, g.rupth, g.lang)
     # g.rendered_sizes.append(sizes)
 
@@ -107,10 +107,10 @@ def main():
 
     g.db_session.close()
 
+    # FIXME
     g.dict_data = (
-        dpd_data_list
-        # dpd_data_list + 
-        # root_data_list +
+        dpd_data_list + 
+        root_data_list
         # variant_spelling_data_list +
         # epd_data_list +
         # help_data_list
@@ -124,30 +124,6 @@ def main():
     copy_css_js_to_temp_dir()
 
     toc()
-
-# FIXME delete once done
-def copy_css_js_to_temp_dir():
-    p_green_title("copy files to temp dir")
-    files_to_copy = [
-        "exporter/goldendict/css/dpd.css",
-        "exporter/goldendict/javascript/family_compound_json.js",
-        "exporter/goldendict/javascript/family_compound_template.js",
-        "exporter/goldendict/javascript/family_idiom_json.js",
-        "exporter/goldendict/javascript/family_idiom_template.js",
-        "exporter/goldendict/javascript/family_root_json.js",
-        "exporter/goldendict/javascript/family_root_template.js",
-        "exporter/goldendict/javascript/family_set_json.js",
-        "exporter/goldendict/javascript/family_set_template.js",
-        "exporter/goldendict/javascript/family_word_json.js",
-        "exporter/goldendict/javascript/family_word_template.js",
-        "exporter/goldendict/javascript/feedback_template.js",
-        "exporter/goldendict/javascript/main.js",
-    ]
-    
-    destination_dir = "dpd_js_test"
-
-    for file_path in files_to_copy:
-        shutil.copy(file_path, destination_dir)
 
 
 def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
@@ -231,6 +207,49 @@ def write_limited_datalist(g: ProgData):
     with open("temp/limited_data_list", "wb") as file:
         pickle.dump(limited_data, file)
 
+
+# FIXME delete once done
+def copy_css_js_to_temp_dir():
+    p_green_title("copy files to temp dir")
+    files_to_copy = [
+        "exporter/goldendict/css/dpd.css",
+        "exporter/goldendict/javascript/family_compound_json.js",
+        "exporter/goldendict/javascript/family_compound_template.js",
+        "exporter/goldendict/javascript/family_idiom_json.js",
+        "exporter/goldendict/javascript/family_idiom_template.js",
+        "exporter/goldendict/javascript/family_root_json.js",
+        "exporter/goldendict/javascript/family_root_template.js",
+        "exporter/goldendict/javascript/family_set_json.js",
+        "exporter/goldendict/javascript/family_set_template.js",
+        "exporter/goldendict/javascript/family_word_json.js",
+        "exporter/goldendict/javascript/family_word_template.js",
+        "exporter/goldendict/javascript/feedback_template.js",
+        "exporter/goldendict/javascript/main.js",
+    ]
+    
+    destination_dir = "dpd_js_test"
+
+    for file_path in files_to_copy:
+        shutil.copy(file_path, destination_dir)
+    
+    # goldendict
+    shutil.copytree(
+        "exporter/share/dpd-test/",
+        "dpd_js_test/goldendict",
+        dirs_exist_ok=True)
+
+    # mdict
+    files_to_copy = [
+        "exporter/share/dpd-test-mdict.mdx", 
+        "exporter/share/dpd-test-mdict.mdd"
+    ]
+    destination_dir = "dpd_js_test/mdict"
+    for file_path in files_to_copy:
+        shutil.copy(file_path, destination_dir)
+
+    destination_dir = "/home/bodhirasa/Documents/GoldenDict"
+    for file_path in files_to_copy:
+        shutil.copy(file_path, destination_dir)
 
 if __name__ == "__main__":
     main()
