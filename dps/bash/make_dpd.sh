@@ -19,6 +19,8 @@ exporter/deconstructor/deconstructor_exporter.py
 # exporter/tpr/tpr_exporter.py
 exporter/ebook/ebook_exporter.py
 
+scripts/zip_goldendict_mdict.py
+
 dps/scripts/move_mdict.py
 
 # Check if the configuration setting

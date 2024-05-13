@@ -3,6 +3,21 @@
 <h3 id="{{ d.i.lemma_1_ }}">{{d.i.lemma_1}}</h3>
 <div class='content summary'>
     <p>
+        {% if d.dps_data and d.i.sbs %}
+            {% if d.i.sbs.sbs_class_anki %}
+                <a href="{{d.i.sbs.sbs_class_link}}"
+                target="_blank"><i>(cl.{{d.i.sbs.sbs_class_anki}})</i></a>
+                {% if d.i.sbs.sbs_class %}
+                    <span class="gray"><i>{{d.i.sbs.sbs_class}}</i></span>
+                {% endif %}
+                <span class="gray"> | </span>
+            {% endif %}
+            {% if d.i.sbs.sbs_category %}
+                <a href="{{d.i.sbs.sbs_sutta_link}}"
+                target="_blank"><i>({{d.i.sbs.sbs_category}})</i></a> | 
+            {% endif %}
+        {% endif %}
+
         {{d.i.pos}}.
         {% if d.i.plus_case %}
             ({{d.i.plus_case}})
@@ -42,6 +57,16 @@
         onclick="button_click(this)" 
         data-target="examples_{{d.i.lemma_1_}}">
         examples</a>
+    {% endif %}
+
+    {% if d.dps_data and d.i.sbs %}
+        {% if d.i.sbs.needs_sbs_example_button or d.i.sbs.needs_sbs_examples_button %}
+        <a class="button active" name="example-button" 
+        href="javascript:void(0);" 
+        onclick="button_click(this)" 
+        data-target="dps_example_{{d.i.lemma_1_}}">
+        dps</a>
+        {% endif %}
     {% endif %}
 
     {% if d.i.needs_conjugation_button %}
@@ -146,6 +171,33 @@
                 {{d.i.lemma_2}}
             </td>
         </tr>
+
+        {% if d.dps_data %}
+
+            {% if d.i.ru and d.i.ru.ru_meaning %}
+            <tr>
+                <th>
+                    Русский
+                </th>
+                <td>
+                    {{d.i.ru.ru_meaning}}{% if d.i.ru.ru_meaning_lit %}; досл. {{d.i.ru.ru_meaning_lit}}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endif %}
+
+            {% if d.i.sbs and d.i.sbs.sbs_meaning %}
+            <tr>
+                <th>
+                    SBS
+                </th>
+                <td>
+                    {{d.i.sbs.sbs_meaning}}
+                </td>
+            </tr>
+            {% endif %}
+
+        {% endif %}
 
         <tr>
             <th>
@@ -303,6 +355,32 @@
         </tr>
         {% endif %}
 
+        {% if d.dps_data %}
+
+            {% if d.i.sbs and d.i.sbs.sbs_notes %}
+            <tr>
+                <th>
+                    SBS Notes
+                </th>
+                <td>
+                    {{d.i.sbs.sbs_notes|safe}}
+                </td>
+            </tr>
+            {% endif %}
+
+            {% if d.i.ru and d.i.ru.ru_notes %}
+            <tr>
+                <th>
+                    Заметки
+                </th>
+                <td>
+                    {{d.i.ru.ru_notes|safe}}
+                </td>
+            </tr>
+            {% endif %}
+
+        {% endif %}
+
         {% if d.i.cognate %}
         <tr>
             <th>
@@ -425,6 +503,46 @@
 
 </div>
 {% endif %}
+
+<!-- sbs examples -->
+
+{% if d.dps_data %}
+    {% if d.i.sbs.needs_sbs_example_button or d.i.sbs.needs_sbs_examples_button %}
+        <div id="dps_example_{{ d.i.lemma_1 }}" class="content hidden">
+            {% for index in range(1, 5) %}
+                {% set example_attr = 'sbs_example_' ~ index %}
+                {% set source_attr = 'sbs_source_' ~ index %}
+                {% set source_link_attr = 'sbs_source_link_' ~ index %}
+                {% set sutta_attr = 'sbs_sutta_' ~ index %}
+                {% set chapter_attr = 'sbs_chapter_' ~ index %}
+                {% set chant_pali_attr = 'sbs_chant_pali_' ~ index %}
+                {% set chant_link_attr = 'sbs_chant_link_' ~ index %}
+                {% set chant_eng_attr = 'sbs_chant_eng_' ~ index %}
+                
+                {% if d.i.sbs[example_attr] is defined %}
+                    <p>{{ d.i.sbs[example_attr] }}</p>
+                    <p class="sutta">
+                        {% if d.make_link and d.i.sbs[source_link_attr] %}
+                            <a href="{{ d.i.sbs[source_link_attr] }}" target="_blank">{{ d.i.sbs[source_attr] }}</a>
+                        {% else %}
+                            {{ d.i.sbs[source_attr] }}
+                        {% endif %}
+                        {{ d.i.sbs[sutta_attr] }}
+                    </p>
+                    {% if d.i.sbs[chapter_attr] %}
+                        <p class="sutta">
+                            {{ d.i.sbs[chapter_attr] }} <a href="{{ d.i.sbs[chant_link_attr] }}" target="_blank">{{ d.i.sbs[chant_pali_attr] }}</a>
+                            {% if d.i.sbs[chant_eng_attr] %}
+                                {{ d.i.sbs[chant_eng_attr] }}
+                            {% endif %}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endif %}
+
 
 <!-- declension -->
 

@@ -2127,7 +2127,7 @@ def main():
                     value="not a valid id or lemma_1", text_color="red")
 
         elif event == "dps_html_summary_button":
-            request_dpd_server(values["id"])
+            request_dpd_server(values["dps_dpd_id"])
 
 
         # dps in word to add tab

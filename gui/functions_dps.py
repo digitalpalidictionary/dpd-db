@@ -1253,7 +1253,7 @@ def dps_update_db(
     f"'{values['dps_id_or_lemma_1']}' updated in dps db",
     text_color="Lime")
     daily_record_update(window, pth, "edit", word_id)
-    request_dpd_server(values["id"])
+    request_dpd_server(values["dps_dpd_id"])
 
 
 def dps_get_synonyms(db_session, pos: str, string_of_meanings: str, window, error_field) -> Optional[str]:

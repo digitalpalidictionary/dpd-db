@@ -1924,11 +1924,11 @@ ae > e"					missing		yes
 45476	phonetic	oe > o					missing		yes		
 29624	phonetic	aa > ā					missing		yes		
 26444	phonetic	aa > ā					missing		yes		
-59166	phonetic	aa > ā					missing								
+59166	phonetic	aa > ā					missing				
 62162	construction	"sa + √ar + tha
-sa + attha"					missing		
+sa + attha"					missing				
 62162	phonetic	"aa > ā
-rth > tth"					missing		
+rth > tth"					missing				
 63744	phonetic	aa > ā					missing				
 62628	phonetic	āa > ā					missing				
 62629	phonetic	āa > ā					missing				
@@ -1957,18 +1957,18 @@ rth > tth"					missing
 52095	phonetic	āe > e					missing				
 45547	phonetic	au > o					missing				
 38909	phonetic	"au > o
-i > e"					missing						
+i > e"					missing				
 42740	phonetic	ia > ya					missing				
 57932	phonetic	ia > ya					missing				
 65498	phonetic	"o > v (Kacc 18, 20)
-va > vā"					missing			
+va > vā"					missing				
 53565	phonetic	"o > v (Kacc 18, 20)
-va > vā"					missing			
+va > vā"					missing				
 54345	phonetic	"o > v (Kacc 18, 20)
-va > vā"					missing			
+va > vā"					missing				
 21445	phonetic	ae > e					missing				
 70049	phonetic	"aa > a
-+n (Kacc 35, 34)"					missing			
++n (Kacc 35, 34)"					missing				
 51400	phonetic	aa > a					missing				
 71240	phonetic	ii > i					missing				
 13707	phonetic	aā > ā					missing				
@@ -1976,18 +1976,18 @@ va > vā"					missing
 18033	phonetic	oa > ā					missing				
 13379	phonetic	ia > a					missing				
 52704	phonetic	"+m (Kacc 35, 34)
-ae > e"					missing			
+ae > e"					missing				
 55764	phonetic	īa > ī					missing				
 52356	phonetic	āa > ā					missing				
 52357	phonetic	āa > ā					missing				
 29620	phonetic	"aa > ā
-iā > ā"					missing			
+iā > ā"					missing				
 31373	phonetic	"e > y (Kacc 17, 19)
-ya > yā"					missing			
+ya > yā"					missing				
 23991	phonetic	"o > v (Kacc 18, 20)
-va > vā"					missing			
+va > vā"					missing				
 23992	phonetic	"o > v (Kacc 18, 20)
-va > vā"					missing
+va > vā"					missing				
 39770	phonetic	kh > kkh (sk sk)					missing				
 29352	phonetic	kh > kkh (sk kṣ)					missing				
 46947	phonetic	kh > kkh (sk kṣ)					missing				
@@ -2043,15 +2043,15 @@ va > vā"					missing
 7131	phonetic	pi > py > pp					missing				
 7133	phonetic	pi > py > pp					missing				
 73908	phonetic	"pi > py > pp
-ai > i"					missing			
+ai > i"					missing				
 77892	phonetic	"pi > py > pp
-āa > ā"					missing			
+āa > ā"					missing				
 9819	phonetic	oa > a					missing				
 56386	phonetic	tk > kk					missing				
 22487	phonetic	au > ū					missing				
 31234	phonetic	au > u					missing				
 26419	phonetic	"m > mm (sk r)
-a > ā"					missing			
+a > ā"					missing				
 46891	phonetic	aa > ā					missing				
 8667	phonetic	aa > a					missing				
 19351	phonetic	aa > a					missing				
@@ -2088,7 +2088,7 @@ a > ā"					missing
 17776	phonetic	au > u					missing				
 20982	phonetic	ch > cch					missing				
 39950	phonetic	"au > u
-kh > kkh (sk sk)"					missing			
+kh > kkh (sk sk)"					missing				
 46739	phonetic	p > pp					missing				
 2415	phonetic	aa > ā					missing				
 3406	phonetic	āā > ā					missing				
@@ -2106,8 +2106,8 @@ kh > kkh (sk sk)"					missing
 34288	phonetic	t > tt (sk tr)					missing				
 34289	phonetic	t > tt (sk tr)					missing				
 2592	phonetic	au > u					missing				
-3180	construction	adhicittaṃ + anuyutta					alutta		
-3180	compound_type	alutta dutiyā tappurisa	compound_construction	adhicitt<b>aṃ</b> + anuyutta			alutta		
+3180	construction	adhicittaṃ + anuyutta					alutta				
+3180	compound_type	alutta dutiyā tappurisa	compound_construction	adhicitt<b>aṃ</b> + anuyutta			alutta				
 3180	phonetic	ṃa > ma					missing				
 17749	phonetic	aā > ā					missing				
 17748	phonetic	aā > ā					missing				
@@ -2122,7 +2122,7 @@ kh > kkh (sk sk)"					missing
 7928	phonetic	aa > ā					missing				
 15955	phonetic	au > u					missing				
 15956	phonetic	"au > u
-aa > ā"					missing			
+aa > ā"					missing				
 25792	phonetic	aa > ā					missing				
 42249	phonetic	kh > kkh (sk kṣ)					missing				
 30349	phonetic	aa > ā					missing				
@@ -2194,10 +2194,10 @@ aa > ā"					missing
 33019	phonetic	au > ū					missing				
 3513	phonetic	"ñ > ññ (sk jñ)
 ii > ī
-ii > i"					missing
+ii > i"					missing				
 9416	phonetic	s > ss (sk śr)					missing				
 29306	phonetic	"ṃh > ñh
-ia > i"					missing			
+ia > i"					missing				
 30196	phonetic	ae > e					missing				
 48931	phonetic	aa > ā					missing				
 52364	phonetic	aa > a					missing				
@@ -2206,16 +2206,17 @@ ia > i"					missing
 54173	phonetic	aa > a					missing				
 73909	phonetic	au > ū					missing				
 10777	phonetic	p > pp (sk pr)					missing				
-22417	source_1	VIN4.8.202	sutta_1	jīvakavatthu	example_1	atha kho rājagahako negamo sālavatiṃ <b>kumāriṃ</b> gaṇikaṃ vuṭṭhāpesi.	canonical		
-22417	source_2	AN5.58	sutta_2	licchavikumārakasuttaṃ	example_2	ime, bhante, licchavikumārakā caṇḍā pharusā apajahā... kul'itthīnam'pi kula<b>kumārīnam</b>'pi pacchāliyaṃ khipanti.	canonical		
+22417	source_1	VIN4.8.202	sutta_1	jīvakavatthu	example_1	atha kho rājagahako negamo sālavatiṃ <b>kumāriṃ</b> gaṇikaṃ vuṭṭhāpesi.	canonical				
+22417	source_2	AN5.58	sutta_2	licchavikumārakasuttaṃ	example_2	ime, bhante, licchavikumārakā caṇḍā pharusā apajahā... kul'itthīnam'pi kula<b>kumārīnam</b>'pi pacchāliyaṃ khipanti.	canonical				
 78104	source_2	SNP13	sutta_2	"ratanasuttaṃ
 cūḷavaggo 1"	example_2	"khīṇaṃ <b>purāṇaṃ</b> navaṃ n'atthi sambhavaṃ,
 virattacitt'āyatike bhavasmiṃ. 
 te khīṇabījā avirūḷhichandā,
-nibbanti dhīrā yath'āyaṃ padīpo."	missing		
-4492	compound_type	chaṭṭhī tappurisa	compound_construction	sāsan<b>assa</b> + ārakkha			missing		
-4492	stem	sāsanārakkh	pattern	a masc			correct spelling		
-4492	lemma_1	sāsanārakkha					correct spelling		
-4492	lemma_2	sāsanārakkho					correct spelling		
-4492	phonetic	aā > ā					missing		
-21337	meaning_lit	causing to do					lit		
+nibbanti dhīrā yath'āyaṃ padīpo."	missing				
+4492	compound_type	chaṭṭhī tappurisa	compound_construction	sāsan<b>assa</b> + ārakkha			missing				
+4492	stem	sāsanārakkh	pattern	a masc			correct spelling				
+4492	lemma_1	sāsanārakkha					correct spelling				
+4492	lemma_2	sāsanārakkho					correct spelling				
+4492	phonetic	aā > ā					missing				
+21337	meaning_lit	causing to do					lit				
+7464	notes						from comm				

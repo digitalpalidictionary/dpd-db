@@ -42,35 +42,35 @@ def ru_meaning_generating():
     conditions = [DpdHeadwords.source_1.like(f"%{comment}%") for comment in commentary_list]
     combined_condition = or_(*conditions)
 
+    row_count =  0
+
     #! for filling those which does not have Russian table and fill the conditions
 
-    # db = db_session.query(DpdHeadwords).outerjoin(
-    # Russian, DpdHeadwords.id == Russian.id
-    #     ).filter(
-    #         and_(
-    #             DpdHeadwords.meaning_1 != '',
-    #             # DpdHeadwords.example_1 != '',
-    #             # ~combined_condition,
-    #             or_(
-    #                 Russian.ru_meaning.is_(None),
-    #                 Russian.ru_meaning_raw.is_(None),
-    #                 Russian.id.is_(null())
-    #             )
+    db = db_session.query(DpdHeadwords).outerjoin(
+    Russian, DpdHeadwords.id == Russian.id
+        ).filter(
+            and_(
+                DpdHeadwords.meaning_1 != '',
+                # DpdHeadwords.example_1 != '',
+                # ~combined_condition,
+                or_(
+                    Russian.ru_meaning.is_(None),
+                    Russian.ru_meaning_raw.is_(None),
+                    Russian.id.is_(null())
+                )
 
-    #         )
-    #     ).order_by(DpdHeadwords.ebt_count.desc()).limit(10000).all()
+            )
+        ).order_by(DpdHeadwords.ebt_count.desc()).limit(10000).all()
 
     #! for filling empty rows in Russian table
 
-    db = db_session.query(DpdHeadwords).outerjoin(
-        Russian, DpdHeadwords.id == Russian.id
-            ).filter(
-                    Russian.id != '',
-                    Russian.ru_meaning == '',
-                    Russian.ru_meaning_raw == '',
-                    ).order_by(DpdHeadwords.ebt_count.desc()).limit(3000).all()
-
-    row_count =  0
+    # db = db_session.query(DpdHeadwords).outerjoin(
+    #     Russian, DpdHeadwords.id == Russian.id
+    #         ).filter(
+    #                 Russian.id != '',
+    #                 Russian.ru_meaning == '',
+    #                 Russian.ru_meaning_raw == '',
+    #                 ).order_by(DpdHeadwords.ebt_count.desc()).limit(3000).all()
 
     # Print the db
     print("Details of filtered words")
@@ -357,7 +357,7 @@ def translate_notes(pth, lemma_1, grammar, notes):
                 **Pali Term**: {lemma_1}
                 **Grammar Details**: {grammar}
                 **English Notes**: {notes}
-                Please provide Russian translation for the English notes, considering the Pali term and its grammatical context. In the answer give only Russian translation in one line and nothing else.
+                Please provide Russian translation for the English notes, considering the Pali term and its grammatical context. In the answer give only Russian translation in one line and nothing else. But keep Pali or Sanskrit terms in roman script.
             """
         }
     ]
@@ -425,9 +425,12 @@ def translate_sk_roots(sk_root, sk_root_meaning):
 
 
 if __name__ == "__main__":
+
+    print("Translationg with the help of AI")
+
     # ru_meaning_generating()
 
-    roots_meaning_generating("pali")
+    # roots_meaning_generating("pali")
 
     # ru_notes_generating()
 

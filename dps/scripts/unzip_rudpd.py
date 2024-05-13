@@ -51,18 +51,8 @@ kd_dir = os.path.join(
    'Kindle Dictionaries'
 )
 
-dpd_src = os.path.join(share_dir, 'ru-dpd.zip')
-dpd_deconstructor_src = os.path.join(share_dir, 'ru-dpd-deconstructor.zip')
-dpd_grammar_src = os.path.join(share_dir, 'ru-dpd-grammar.zip')
-
-dpd_mdict_src = os.path.join(share_dir, 'ru-dpd-mdict.mdx')
-dpd_mdict_dest = os.path.join(md_dir, 'ru-dpd-mdict.mdx')
-
-dpd_deconstructor_mdict_src = os.path.join(share_dir, 'ru-dpd-deconstructor-mdict.mdx')
-dpd_deconstructor_mdict_dest = os.path.join(md_dir, 'ru-dpd-deconstructor-mdict.mdx')
-
-dpd_grammar_mdict_src = os.path.join(share_dir, 'ru-dpd-grammar-mdict.mdx')
-dpd_grammar_mdict_dest = os.path.join(md_dir, 'ru-dpd-grammar-mdict.mdx')
+dpd_src = os.path.join(share_dir, 'ru-dpd-goldendict.zip')
+dpd_mdict_src = os.path.join(share_dir, 'ru-dpd-mdict.zip')
 
 dpd_kindle_mobi_src = os.path.join(share_dir, 'ru-dpd-kindle.mobi')
 dpd_kindle_mobi_dest = os.path.join(kd_dir, 'ru-dpd-kindle.mobi')
@@ -80,46 +70,15 @@ if os.path.exists(dpd_src):
 else:
    print("\033[1;31m ru_dpd.zip is missing. Cannot proceed with moving. \033[0m")
 
-if os.path.exists(dpd_deconstructor_src):
-   # Unzip dpd_deconstructor to the specified directory
-   with ZipFile(dpd_deconstructor_src, 'r') as zipObj:
-      # Extract all the contents of zip file in current directory
-      zipObj.extractall(gd_dir)
-   # Print completion message in green color
-   print("\033[1;32m ru_dpd_deconstructor.zip has been unpacked to the server folder \033[0m")
-else:
-   print("\033[1;31m ru_dpd_deconstructor.zip is missing. Cannot proceed with moving. \033[0m")
-
-if os.path.exists(dpd_grammar_src):
-   # Unzip dpd_grammar to the specified directory
-   with ZipFile(dpd_grammar_src, 'r') as zipObj:
-      # Extract all the contents of zip file in current directory
-      zipObj.extractall(gd_dir)
-   # Print completion message in green color
-   print("\033[1;32m ru_dpd_grammar.zip has been unpacked to the server folder \033[0m")
-else:
-   print("\033[1;31m ru_dpd_grammar.zip is missing. Cannot proceed with moving. \033[0m")
-
-# Copy dpd_mdict to the specified directory
 if os.path.exists(dpd_mdict_src):
-   shutil.copy2(dpd_mdict_src, dpd_mdict_dest)
-   print("\033[1;32m dpd_mdict copied to the server \033[0m")
+   # Unzip dpd_mdict to the specified directory
+   with ZipFile(dpd_mdict_src, 'r') as zipObj:
+      # Extract all the contents of zip file in current directory
+      zipObj.extractall(md_dir)
+   # Print completion message in green color
+   print("\033[1;32m ru_dpd_mdict.zip has been unpacked to the server folder \033[0m")
 else:
-   print("\033[1;31m dpd_mdict is missing. Cannot proceed with moving. \033[0m")
-
-# Copy dpd_deconstructor_mdict to the specified directory
-if os.path.exists(dpd_deconstructor_mdict_src):
-   shutil.copy2(dpd_deconstructor_mdict_src, dpd_deconstructor_mdict_dest)
-   print("\033[1;32m dpd_deconstructor_mdict copied to the server \033[0m")
-else:
-   print("\033[1;31m dpd_deconstructor_mdict is missing. Cannot proceed with moving. \033[0m")
-
-# Copy dpd_grammar_mdict to the specified directory
-if os.path.exists(dpd_grammar_mdict_src):
-   shutil.copy2(dpd_grammar_mdict_src, dpd_grammar_mdict_dest)
-   print("\033[1;32m dpd_grammar_mdict copied to the server \033[0m")
-else:
-   print("\033[1;31m dpd_grammar_mdict is missing. Cannot proceed with moving. \033[0m")
+   print("\033[1;31m ru_dpd_mdict.zip is missing. Cannot proceed with moving. \033[0m")
 
 # Copy dpd-kindle.mobi to the specified directory
 if os.path.exists(dpd_kindle_mobi_src):

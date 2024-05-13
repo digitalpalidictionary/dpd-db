@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 
-# move mdict ru to the Sync folder.
+# unpack mdict ru to the Sync folder.
 
 from datetime import date
 import os
-import shutil
 from tools.configger import config_test
+from zipfile import ZipFile
 
 today = date.today()
 
 # Print completion message in green color
-print("\033[1;33m moving mdict ru from exporter_ru/ \033[0m")
+print("\033[1;33m unpacking mdict ru from exporter_ru/ \033[0m")
 
 
 # check config
@@ -30,33 +30,18 @@ if config_test("dictionary", "make_mdict", "yes"):
       'share'
    )
 
-   dpd_mdict_src = os.path.join(share_dir, 'ru-dpd-mdict.mdx')
-   dpd_grammar_mdict_src = os.path.join(share_dir, 'ru-dpd-grammar-mdict.mdx')
-   dpd_deconstructor_mdict_src = os.path.join(share_dir, 'ru-dpd-deconstructor-mdict.mdx')
+   dpd_mdict_src = os.path.join(share_dir, 'ru-dpd-mdict.zip')
 
-   dpd_mdict_dest = os.path.join(sync_mdict_dir, 'ru-dpd-mdict.mdx')
-   dpd_grammar_mdict_dest = os.path.join(sync_mdict_dir, 'ru-dpd-grammar-mdict.mdx')
-   dpd_deconstructor_mdict_dest = os.path.join(sync_mdict_dir, 'ru-dpd-deconstructor-mdict.mdx')
-
-
-   # Move each file if it exists
    if os.path.exists(dpd_mdict_src):
-      shutil.copy2(dpd_mdict_src, dpd_mdict_dest)
-      print("\033[1;32m ru-dpd-mdict.mdx copied to Sync folder \033[0m")
-   else:
-      print("\033[1;31m ru-dpd-mdict.mdx is missing. Cannot proceed with moving. \033[0m")
+      # Unzip dpd_goldendict to the specified directory
+      with ZipFile(dpd_mdict_src, 'r') as zipObj:
+         # Extract all the contents of zip file in current directory
+         zipObj.extractall(sync_mdict_dir)
 
-   if os.path.exists(dpd_grammar_mdict_src):
-      shutil.copy2(dpd_grammar_mdict_src, dpd_grammar_mdict_dest)
-      print("\033[1;32m ru-dpd-grammar-mdict.mdx moved to Sync folder \033[0m")
+      # Print completion message in green color
+      print("\033[1;32m ru-dpd-mdict.zip has been unpacked to the sync folder \033[0m")
    else:
-      print("\033[1;31m ru-dpd-grammar-mdict.mdx is missing. Cannot proceed with moving. \033[0m")
-
-   if os.path.exists(dpd_deconstructor_mdict_src):
-      shutil.copy2(dpd_deconstructor_mdict_src, dpd_deconstructor_mdict_dest)
-      print("\033[1;32m ru-dpd-deconstructor-mdict.mdx moved to Sync folder \033[0m")
-   else:
-      print("\033[1;31m ru-dpd-deconstructor-mdict.mdx is missing. Cannot proceed with moving. \033[0m")
+      print("\033[1;31m ru-dpd-mdict.zip is missing. Cannot proceed with moving. \033[0m")
 
 else:
    print("moving is disabled in the config")
