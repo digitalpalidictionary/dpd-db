@@ -520,14 +520,14 @@
                 {% set chant_eng_attr = 'sbs_chant_eng_' ~ index %}
                 
                 {% if d.i.sbs[example_attr] is defined %}
-                    <p>{{ d.i.sbs[example_attr] }}</p>
+                    <p>{{ d.i.sbs[example_attr]|safe }}</p>
                     <p class="sutta">
                         {% if d.make_link and d.i.sbs[source_link_attr] %}
                             <a href="{{ d.i.sbs[source_link_attr] }}" target="_blank">{{ d.i.sbs[source_attr] }}</a>
                         {% else %}
                             {{ d.i.sbs[source_attr] }}
                         {% endif %}
-                        {{ d.i.sbs[sutta_attr] }}
+                        {{ d.i.sbs[sutta_attr]|safe }}
                     </p>
                     {% if d.i.sbs[chapter_attr] %}
                         <p class="sutta">

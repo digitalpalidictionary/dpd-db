@@ -46,7 +46,7 @@ def main():
                 # debug check if have a new number but it is not the same as old
                 if (
                     word.sbs
-                    # and word.sbs.sbs_class_anki 
+                    and word.sbs.sbs_class_anki 
                     and word.sbs.sbs_class
                     and word.sbs.sbs_class != sbs_class
                 ):
@@ -604,6 +604,7 @@ def determine_sbs_class(word) -> Optional[int]:
         word.pos == "sandhi"
         and "ṃ +" not in word.construction
         and "tad +" not in word.construction
+        and "yad +" not in word.construction
         and "ṃ >" not in word.construction
     ):
         # print(f"Pattern: vowel sandhi, Word: {word.lemma_1}")
@@ -614,6 +615,7 @@ def determine_sbs_class(word) -> Optional[int]:
         (
             "ṃ +" in word.construction or 
             "tad +" in word.construction or
+            "yad +" in word.construction or
             "ṃ >" in word.construction
         )
     ):
@@ -621,10 +623,15 @@ def determine_sbs_class(word) -> Optional[int]:
         return 17
 
     if (
-        (", comp" in word.grammar or "comp vb" in word.grammar) and
+        (
+            ", comp" in word.grammar or 
+            "comp vb" in word.grammar) and
         "compar" not in word.grammar and
         word.compound_type == "" and
-        ("ṃ +" in word.construction or "tad +" in word.construction)
+        (
+            "ṃ +" in word.construction or 
+            "tad +" in word.construction or 
+            "yad +" in word.construction)
     ):
         # print(f"Pattern: ṃ sandhi, Word: {word.lemma_1}")
         return 17

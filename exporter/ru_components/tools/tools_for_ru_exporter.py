@@ -104,7 +104,7 @@ def ru_replace_abbreviations(value, kind = "meaning"):
 
     # Perform basic replacements
     if kind == "meaning":
-        value = value.replace(' or ', ' или ').replace(', from', ', от').replace(' of ', ' от ').replace('letter', 'буква')
+        value = value.replace(' or ', ' или ').replace(', from', ', от').replace(' of ', ' от ').replace('letter', 'буква').replace('form', 'форма').replace('normally', 'обычно')
     elif kind == "inflect":
         value = value.replace(' is ', ' это ').replace('conjugation', 'класс спряжения').replace('declension', 'класс склонения').replace('like ', 'как ').replace('reflexive', 'возвратный').replace('irregular', 'неправильный')
     elif kind == "root":
