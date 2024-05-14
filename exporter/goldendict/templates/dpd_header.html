@@ -55,14 +55,14 @@
         };
     </script>
     <script>
-      var el = document.getElementsByClassName("load_js");
-      if (typeof js_already_loaded === "undefined") {
-	      var js_already_loaded = true;
-	      for (var i = 0; i < el.length; i++) {
-		      var s = document.createElement("script");
-		      s.src = el[i].getAttribute("href");
-		      document.head.appendChild(s);
-	      };
-      }
+        const el = document.getElementsByClassName("load_js");
+        if (typeof js_already_loaded === "undefined") {
+          let js_already_loaded = true;
+          Array.from(el).forEach((el) => {
+            const s = document.createElement("script");
+            s.src = el.getAttribute("href");
+            document.head.appendChild(s);
+          });
+        }
     </script>
 </head>

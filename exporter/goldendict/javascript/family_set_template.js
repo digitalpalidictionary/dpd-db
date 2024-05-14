@@ -14,31 +14,32 @@ function makeFamilySets(data) {
         html += `</p>`;
     };
 
-    familySetList.forEach(item => {
-        fc = family_set_json[item]
-        item = item.replace(/ /g, "_")
+    familySetList.forEach(setName => {
+        fc = family_set_json[setName]
+        const set_link = setName.replace(/ /g, "_")
 
         if (familySetList.length > 1) {
             html += `<p class="heading underlined overlined" `
-            html += `id=${lemma}_set_${item}>`;
-            html += `<b>${lemma}</b> belongs to the set of <b>${item}</b>`;
+            html += `id=${lemma}_set_${set_link}>`;
+            html += `<b>${lemma}</b> belongs to the set of <b>${setName}</b>`;
             html += `<a class="jump" href="#${lemma}_set_top"> ⤴</a></p>`;
         } else if (familySetList.length == 1) {
             html += `<p class="heading underlined" `
             html += `id=${lemma}_set_top>`;
-            html += `<b>${lemma}</b> belongs to the set of <b>${item}</b>`;
+            html += `<b>${lemma}</b> belongs to the set of <b>${setName}</b>`;
         };
         
         //// table
 
         html += `<table class="family"><tbody>`;
         fc.data.forEach(data => {
+            const [word, pos, meaning, complete] = data
             html += `
                 <tr>
-                <th>${data[0]}</th>
-                <td><b>${data[1]}</b></td>
-                <td>${data[2]}</td>
-                <td><span class="gray">${data[3]}</span</td>
+                <th>${word}</th>
+                <td><b>${pos}</b></td>
+                <td>${meaning}</td>
+                <td><span class="gray">${complete}</span</td>
                 </tr>`;
         });
 

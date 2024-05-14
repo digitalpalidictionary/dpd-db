@@ -36,12 +36,13 @@ function makeFamilyCompoundHtml(data) {
 
         html += `<table class="family"><tbody>`;
         fc.data.forEach(data => {
+            const [word, pos, meaning, complete] = data
             html += `
                 <tr>
-                <th>${data[0]}</th>
-                <td><b>${data[1]}</b></td>
-                <td>${data[2]}</td>
-                <td><span class="gray">${data[3]}</span</td>
+                <th>${word}</th>
+                <td><b>${pos}</b></td>
+                <td>${meaning}</td>
+                <td><span class="gray">${complete}</span</td>
                 </tr>`;
         });
 
