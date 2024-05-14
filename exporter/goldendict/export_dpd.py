@@ -10,7 +10,6 @@ from mako.template import Template
 from minify_html import minify
 from multiprocessing.managers import ListProxy
 from multiprocessing import Process, Manager
-from rich import print
 from typing import List, Set, TypedDict, Tuple, Union
 
 from sqlalchemy.orm.session import Session
@@ -36,9 +35,9 @@ from tools.meaning_construction import summarize_construction, degree_of_complet
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.pos import CONJUGATIONS, DECLENSIONS
+from tools.printer import p_counter, p_green_title
 from tools.sandhi_contraction import SandhiContractions
 from tools.superscripter import superscripter_uni
-from tools.tic_toc import bip, bop
 from tools.utils import RenderedSizes, default_rendered_sizes, list_into_batches
 from tools.utils import sum_rendered_sizes, squash_whitespaces
 
@@ -301,8 +300,7 @@ def generate_dpd_html(
         data_limit:int = 0
 ) -> Tuple[List[DictEntry], RenderedSizes]:
 
-    print("[green]generating dpd html")
-    bip()
+    p_green_title("generating dpd html")
 
     if lang == "en":
         paths = pth
@@ -360,7 +358,7 @@ def generate_dpd_html(
     dpd_data_results_list: ListProxy = manager.list()
     rendered_sizes_results_list: ListProxy = manager.list()
     num_logical_cores = psutil.cpu_count()
-    print(f"num_logical_cores {num_logical_cores}")
+    p_green_title(f"running with {num_logical_cores} cores")
 
     while offset <= pali_words_count:
 
@@ -442,8 +440,7 @@ def generate_dpd_html(
             p.join()
         
         if offset % limit == 0:
-            print(f"{offset:>10,} / {pali_words_count:<10,} {bop():>10}")
-            bip()
+            p_counter(offset, pali_words_count, batch[0]["pali_word"].lemma_1)
 
         offset += limit
 

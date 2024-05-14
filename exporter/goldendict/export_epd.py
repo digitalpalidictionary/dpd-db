@@ -4,7 +4,6 @@ import re
 
 from mako.template import Template
 from minify_html import minify
-from rich import print
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm import Session
 from typing import List, Tuple
@@ -15,7 +14,7 @@ from db.models import DpdHeadwords, DpdRoots
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from exporter.ru_components.tools.paths_ru import RuPaths
-from tools.tic_toc import bip, bop
+from tools.printer import p_counter, p_green_title, p_title
 from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces
 from tools.goldendict_exporter import DictEntry
 from exporter.ru_components.tools.tools_for_ru_exporter import ru_replace_abbreviations
@@ -34,18 +33,18 @@ def generate_epd_html(
 
     size_dict = default_rendered_sizes()
 
-    print("[green]generating epd html")
+    p_title("generating epd html")
 
     if lang == "en" and not dps_data:
-        dpd_db: list = db_session.query(DpdHeadwords).all()
+        dpd_db: list[DpdHeadwords] = db_session.query(DpdHeadwords).all()
     if lang == "ru" or dps_data:
-        dpd_db: list = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.ru)).all()
+        dpd_db: list[DpdHeadwords] = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.ru)).all()
     # another language
 
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
     dpd_db_length = len(dpd_db)
 
-    roots_db: list = db_session.query(DpdRoots).all()
+    roots_db: list[DpdRoots] = db_session.query(DpdRoots).all()
     roots_db_length = len(roots_db)
 
     epd: dict = {}
@@ -58,7 +57,6 @@ def generate_epd_html(
     
     header = str(header_templ.render())
 
-    bip()
     for counter, i in enumerate(dpd_db):
         # generate eng-pali
         if lang == "en":
@@ -156,10 +154,9 @@ def generate_epd_html(
             update_epd(epd, combined_numbers, i, make_link, lang) 
 
         if counter % 10000 == 0:
-            print(f"{counter:>10,} / {dpd_db_length:<10,} {i.lemma_1[:20]:<20} {bop():>10}")
-            bip()
+            p_counter(counter, dpd_db_length, i.lemma_1)
 
-    print("[green]adding roots to epd")
+    p_green_title("adding roots to epd")
 
     for counter, i in enumerate(roots_db):
         if lang == "en":
@@ -190,10 +187,9 @@ def generate_epd_html(
                         {root_ru_meaning: epd_string})
 
         if counter % 250 == 0:
-            print(f"{counter:>10,} / {roots_db_length:<10,} {i.root:<20} {bop():>10}")
-            bip()
+            p_counter(counter, roots_db_length, i.root)
 
-    print("[green]compiling epd html")
+    p_green_title("compiling epd html")
 
     epd_data_list: List[DictEntry] = []
 

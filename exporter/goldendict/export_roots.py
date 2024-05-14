@@ -4,7 +4,6 @@ import re
 
 from mako.template import Template
 from minify_html import minify
-from rich import print
 from sqlalchemy.orm import Session
 from typing import Dict, Tuple, List, Union
 
@@ -16,7 +15,7 @@ from exporter.ru_components.tools.tools_for_ru_exporter import ru_replace_abbrev
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from tools.tic_toc import bip, bop
+from tools.printer import p_counter, p_green_title, p_red
 from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces
 from tools.goldendict_exporter import DictEntry
 
@@ -30,7 +29,7 @@ def generate_root_html(
 ) -> Tuple[List[DictEntry], RenderedSizes]:
     """compile html components for each pali root"""
 
-    print("[green]generating roots html")
+    p_green_title("generating roots html")
     size_dict = default_rendered_sizes()
     root_data_list: List[DictEntry] = []
 
@@ -41,8 +40,6 @@ def generate_root_html(
 
     roots_db = db_session.query(DpdRoots).all()
     root_db_length = len(roots_db)
-
-    bip()
 
     for counter, r in enumerate(roots_db):
 
@@ -113,9 +110,7 @@ def generate_root_html(
         root_data_list.append(res)
 
         if counter % 100 == 0:
-            print(
-                f"{counter:>10,} / {root_db_length:<10,}{r.root:<20} {bop():>10}")
-            bip()
+            p_counter(counter, root_db_length, r.root)
         
         # FIXME delete once done
         if r.root in ["√kar", "√dis 1", "√bhū"]:
@@ -156,7 +151,7 @@ def render_root_definition_templ(
         count = roots_count_dict[r.root]
     except KeyError:
         count = 0
-        print(f"[bright_red]!!! ERROR: {r.root}[red] does not exist, seriously consider deleting it")
+        p_red(f"!!! ERROR: {r.root}[red] does not exist, seriously consider deleting it")
 
     return str(
         root_definition_templ.render(
@@ -237,7 +232,7 @@ def render_root_matrix_templ(
         count = roots_count_dict[r.root]
     except KeyError:
         count = 0
-        print(f"[bright_red]!!! ERROR: {r.root}[red] does not exist, seriously consider deleting it")
+        p_red(f"!!! ERROR: {r.root}[red] does not exist, seriously consider deleting it")
 
     return str(
         root_matrix_templ.render(

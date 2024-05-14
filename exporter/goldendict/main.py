@@ -7,7 +7,6 @@ from pathlib import Path
 import pickle
 import shutil
 
-from rich import print
 from sqlalchemy.orm import Session
 from typing import List
 
@@ -27,9 +26,9 @@ from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables
 from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
 from tools.mdict_exporter2 import export_to_mdict
 from tools.paths import ProjectPaths
-from tools.printer import p_green_title
+from tools.printer import p_green, p_green_title, p_title, p_yes
 from tools.sandhi_contraction import make_sandhi_contraction_dict
-from tools.tic_toc import tic, toc, bip, bop
+from tools.tic_toc import tic, toc
 from tools.utils import RenderedSizes, sum_rendered_sizes
 
 from exporter.ru_components.tools.tools_for_ru_exporter import \
@@ -79,10 +78,10 @@ class ProgData():
 
 def main():
     tic()
-    print("[bright_yellow]exporting dpd to goldendict and mdict")
+    p_title("exporting dpd to goldendict and mdict")
     
     if not config_test("exporter", "make_dpd", "yes"):
-        print("[green]disabled in config.ini")
+        p_green_title("disabled in config.ini")
         toc()
         return
     
@@ -185,8 +184,7 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
 
 
 def write_size_dict(pth: ProjectPaths, size_dict):
-    bip()
-    print("[green]writing size_dict", end=" ")
+    p_green("writing size_dict")
     filename = pth.temp_dir.joinpath("size_dict.tsv")
 
     with open(filename, "w", newline="") as csvfile:
@@ -194,7 +192,7 @@ def write_size_dict(pth: ProjectPaths, size_dict):
         for key, value in size_dict.items():
             writer.writerow([key, value])
 
-    print(f"{bop():>37}")
+    p_yes("ok")
 
 
 def write_limited_datalist(g: ProgData):

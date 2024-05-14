@@ -4,12 +4,12 @@ import csv
 
 from mako.template import Template
 from minify_html import minify
-from rich import print
 from typing import List, Tuple
 
 from exporter.ru_components.tools.paths_ru import RuPaths
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
+from tools.printer import p_green_title, p_red
 from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces, sum_rendered_sizes
 from tools.goldendict_exporter import DictEntry
 
@@ -22,7 +22,7 @@ def generate_variant_spelling_html(
     
     """Generate html for variant readings and spelling corrections."""
     
-    print("[green]generating variants html")
+    p_green_title("generating variants html")
 
     rendered_sizes = []
 
@@ -60,11 +60,11 @@ def test_and_make_variant_dict(pth: ProjectPaths) -> dict:
 
             # test if variant equals main reading
             if variant == main:
-                print(f"[red]variant==main! {variant}: {main}")
+                p_red(f"ERROR: variant==main! {variant}: {main}")
 
             # test if variant occurs twice
             if variant in variant_dict:
-                print(f"[red]dupes! {variant}")
+                p_red("ERROR: dupes! {variant}")
 
             # all ok then add
             else:
@@ -136,11 +136,11 @@ def test_and_make_spelling_dict(pth: ProjectPaths) -> dict:
 
             # test if mistake equals correction
             if mistake == correction:
-                print(f"[red]mistake==correction! {mistake}: {correction}")
+                p_red(f"ERROR: mistake==correction! {mistake}: {correction}")
 
             # test if variant occurs twice
             if mistake in spelling_dict:
-                print(f"[red]dupes! {mistake}")
+                p_red(f"ERROR: dupes! {mistake}")
 
             # all ok then add
             else:

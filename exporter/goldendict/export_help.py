@@ -5,14 +5,13 @@ import html2text
 
 from mako.template import Template
 from minify_html import minify
-from rich import print
 from typing import List, Dict, Tuple
 
 from sqlalchemy.orm import Session
 
 from tools.paths import ProjectPaths
 from exporter.ru_components.tools.paths_ru import RuPaths
-from tools.tic_toc import bip, bop
+from tools.printer import p_green, p_green_title, p_yes
 from tools.tsv_read_write import read_tsv_dict
 from tools.tsv_read_write import read_tsv_dot_dict
 from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces
@@ -55,7 +54,7 @@ def generate_help_html(
     dps_data=False
 ) -> Tuple[List[DictEntry], RenderedSizes]:
     """generating html of all help files used in the dictionary"""
-    print("[green]generating help html")
+    p_green_title("generating help html")
 
     size_dict = default_rendered_sizes()
 
@@ -99,8 +98,8 @@ def add_abbrev_html(
     lang="en",
     dps_data=False
 ) -> List[DictEntry]:
-    bip()
-    print("adding abbreviations", end=" ")
+
+    p_green("adding abbreviations")
 
     help_data_list = []
 
@@ -152,7 +151,7 @@ def add_abbrev_html(
 
         help_data_list.append(res)
 
-    print(f"{bop():>34}")
+    p_yes(len(help_data_list))
     return help_data_list
 
 
@@ -163,8 +162,8 @@ def add_help_html(
     lang="en",
     dps_data=False
 ) -> List[DictEntry]:
-    bip()
-    print("adding help", end=" ")
+
+    p_green("adding help")
 
     help_data_list = []
 
@@ -211,7 +210,7 @@ def add_help_html(
 
         help_data_list.append(res)
 
-    print(f"{bop():>43}")
+    p_yes(len(help_data_list))
     return help_data_list
 
 
@@ -220,7 +219,7 @@ def add_bibliography(
     header: str
 ) -> List[DictEntry]:
 
-    print("adding bibliography", end=" ")
+    p_green("adding bibliography")
 
     help_data_list = []
 
@@ -285,7 +284,7 @@ def add_bibliography(
         with open(pth.bibliography_md_path, "w") as file:
             file.write(md)
 
-    print(f"{bop():>35}")
+    p_yes(len(help_data_list))
     return help_data_list
 
 
@@ -294,7 +293,7 @@ def add_thanks(
     header: str
 ) -> List[DictEntry]:
 
-    print("adding thanks", end=" ")
+    p_green("adding thanks")
 
     help_data_list = []
 
@@ -350,7 +349,7 @@ def add_thanks(
         with open(pth.thanks_md_path, "w") as file:
             file.write(md)
 
-    print(f"{bop():>41}")
+    p_yes(len(help_data_list))
     return help_data_list
 
 
