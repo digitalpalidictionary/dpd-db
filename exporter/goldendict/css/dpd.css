@@ -514,3 +514,8 @@ b.epd {
     color:#8B008B;
     font-weight: 700;
 }
+
+sup {
+    font-size: 0.6em;
+    vertical-align: super;
+}

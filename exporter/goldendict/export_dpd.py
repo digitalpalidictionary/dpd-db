@@ -231,14 +231,9 @@ def render_pali_word_dpd_html(
     
     html += "</body></html>"
 
-    # FIXME No need to render the same header for every file
-    header = render_header_templ(pth, i, date, tt.header_templ)
+    header = str(tt.header_templ.render(i=i, date=date))
     size_dict["dpd_header"] += len(header)
-
-    # FIXME bring back squash_whitespaces once done
-    # "Soft" minification for header to preserve links
-    # html = squash_whitespaces(header) + minify(html)
-    html = header + html
+    html = squash_whitespaces(header) + minify(html)
 
     synonyms: List[str] = i.inflections_list
     synonyms = add_niggahitas(synonyms)
@@ -286,6 +281,7 @@ def render_pali_word_dpd_html(
         "abhūta",
         "abbh",
         "abhidhammakathā",
+        "assa",
     ]:
         with open(f"dpd_js_test/{i.lemma_1_}.html", "w") as f:
             f.write(html)
@@ -456,17 +452,6 @@ def generate_dpd_html(
     total_sizes = sum_rendered_sizes(rendered_sizes)
     
     return dpd_data_list, total_sizes
-
-
-def render_header_templ(
-        __pth__: Union[ProjectPaths, RuPaths],
-        i: DpdHeadwords,
-        date: str,
-        header_templ: Template
-) -> str:
-    """render the html header with variables"""
-
-    return str(header_templ.render(i=i, date=date))
 
 
 def render_dpd_definition_templ(

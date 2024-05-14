@@ -22,13 +22,13 @@ function makeFamilyCompoundHtml(data) {
             html += `<p class="heading underlined overlined" `
             html += `id=${lemma}_cf_${item}>`;
             html += `<b>${fc.count}</b> compounds which contain `;
-            html += `<b>${item}</b>`;
+            html += `<b>${superScripter(item)}</b>`;
             html += `<a class="jump" href="#${lemma}_cf_top"> ⤴</a></p>`;
         } else if (familyCompoundList.length == 1) {
             html += `<p class="heading underlined" `
             html += `id=${lemma}_cf_top>`;
             html += `<b>${fc.count}</b> compound which contains `;
-            html += `<b>${item}</b></p>`;
+            html += `<b>${superScripter(item)}</b>`;
         };
         
         

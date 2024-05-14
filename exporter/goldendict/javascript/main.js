@@ -77,7 +77,9 @@ function loadButtonContent(data) {
 
     //// family root
 
-    if (data.family_root != "") {
+    if (data.family_root != ""
+        && typeof family_root_json !== "undefined"
+    ) {
         const fr = family_root_json[data.family_root];
         const familyRootHtml = makeFamilyRootHtml(data, fr);
         const familyRootElement = document.getElementById(`family_root_${data.lemma}`);
@@ -112,7 +114,7 @@ function loadButtonContent(data) {
 
     if (
         data.family_word
-        && family_word_json[data.family_word]
+        && typeof family_word_json !== "undefined"
     ) {
         const familyWordHtml = makeFamilyWordHtml(data);
         const familyWordElement = document.getElementById(`family_word_${data.lemma}`)
@@ -134,3 +136,8 @@ function loadRootButtonContent(data) {
         familyRootElement.innerHTML = familyRootHtml
     })
 };
+
+function superScripter(text) {
+    const regex = /\d/g;
+    return text.replace(regex, match => `&hairsp;<sup>${match}</sup>`);
+}

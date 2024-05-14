@@ -19,8 +19,6 @@ function makeFamilyRootHtml(data, fr, source) {
         html += `<table class="family"><tbody>`;
     }
 
-
-
     fr.data.forEach(item => {
         html += `
             <tr>

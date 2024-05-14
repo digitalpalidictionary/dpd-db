@@ -37,7 +37,7 @@ def generate_root_html(
     if lang == "en":
         header_templ = Template(filename=str(pth.root_header_templ_path))
     elif lang == "ru":
-        header_templ = Template(filename=str(rupth.header_templ_path)) # FIXME roots has new header
+        header_templ = Template(filename=str(rupth.root_header_templ_path))
 
     roots_db = db_session.query(DpdRoots).all()
     root_db_length = len(roots_db)
@@ -85,10 +85,8 @@ def generate_root_html(
         html += """<script src="family_root_template.js"></script>"""
         html += """<script src="main.js"></script>"""
         html += "</body></html>"
-        
-        # FIXME replace once done testing
-        # html = squash_whitespaces(root_header) + minify(html)
-        html = root_header + html
+
+        html = squash_whitespaces(root_header) + minify(html)
 
         synonyms: set = set()
         synonyms.add(r.root_clean)

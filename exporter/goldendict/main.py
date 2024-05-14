@@ -95,25 +95,23 @@ def main():
     root_data_list, sizes = generate_root_html(g.db_session, g.pth, g.roots_count_dict, g.rupth, g.lang, g.dps_data)
     g.rendered_sizes.append(sizes)
 
-    # FIXME simple headers for all these
-    # variant_spelling_data_list, sizes = generate_variant_spelling_html(g.pth, g.rupth, g.lang)
-    # g.rendered_sizes.append(sizes)
+    variant_spelling_data_list, sizes = generate_variant_spelling_html(g.pth, g.rupth, g.lang)
+    g.rendered_sizes.append(sizes)
 
-    # epd_data_list, sizes = generate_epd_html(g.db_session, g.pth, g.rupth, g.make_link, g.dps_data, g.lang)
-    # g.rendered_sizes.append(sizes)
+    epd_data_list, sizes = generate_epd_html(g.db_session, g.pth, g.rupth, g.make_link, g.dps_data, g.lang)
+    g.rendered_sizes.append(sizes)
     
-    # help_data_list, sizes = generate_help_html(g.db_session, g.pth, g.rupth, g.lang, g.dps_data)
-    # g.rendered_sizes.append(sizes)
+    help_data_list, sizes = generate_help_html(g.db_session, g.pth, g.rupth, g.lang, g.dps_data)
+    g.rendered_sizes.append(sizes)
 
     g.db_session.close()
 
-    # FIXME
     g.dict_data = (
         dpd_data_list + 
-        root_data_list
-        # variant_spelling_data_list +
-        # epd_data_list +
-        # help_data_list
+        root_data_list +
+        variant_spelling_data_list +
+        epd_data_list +
+        help_data_list
     )
 
     write_limited_datalist(g)
@@ -121,7 +119,7 @@ def main():
     prepare_export_to_goldendict_mdict(g)
 
     # FIXME delete once done
-    copy_css_js_to_temp_dir()
+    # copy_css_js_to_temp_dir()
 
     toc()
 
@@ -145,6 +143,7 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
         target_lang="en"
     )
 
+    # FIXME
     dict_name="dpd-test"
 
     if g.lang == "ru":
@@ -232,24 +231,24 @@ def copy_css_js_to_temp_dir():
     for file_path in files_to_copy:
         shutil.copy(file_path, destination_dir)
     
-    # goldendict
-    shutil.copytree(
-        "exporter/share/dpd-test/",
-        "dpd_js_test/goldendict",
-        dirs_exist_ok=True)
+    # # goldendict
+    # shutil.copytree(
+    #     "exporter/share/dpd-test/",
+    #     "dpd_js_test/goldendict",
+    #     dirs_exist_ok=True)
 
-    # mdict
-    files_to_copy = [
-        "exporter/share/dpd-test-mdict.mdx", 
-        "exporter/share/dpd-test-mdict.mdd"
-    ]
-    destination_dir = "dpd_js_test/mdict"
-    for file_path in files_to_copy:
-        shutil.copy(file_path, destination_dir)
+    # # mdict
+    # files_to_copy = [
+    #     "exporter/share/dpd-test-mdict.mdx", 
+    #     "exporter/share/dpd-test-mdict.mdd"
+    # ]
+    # destination_dir = "dpd_js_test/mdict"
+    # for file_path in files_to_copy:
+    #     shutil.copy(file_path, destination_dir)
 
-    destination_dir = "/home/bodhirasa/Documents/GoldenDict"
-    for file_path in files_to_copy:
-        shutil.copy(file_path, destination_dir)
+    # destination_dir = "/home/bodhirasa/Documents/GoldenDict"
+    # for file_path in files_to_copy:
+    #     shutil.copy(file_path, destination_dir)
 
 if __name__ == "__main__":
     main()

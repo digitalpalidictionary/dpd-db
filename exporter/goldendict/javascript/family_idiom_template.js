@@ -21,12 +21,12 @@ function makeFamilyIdioms(data) {
         if (familyIdiomList.length > 1) {
             html += `<p class="heading underlined overlined" `
             html += `id=${lemma}_idiom_${item}>`;
-            html += `<b>${fi.count}</b> idiomatic expression which contains <b>${item}</b>`;
+            html += `<b>${fi.count}</b> idiomatic expression which contains <b>${superScripter(item)}</b>`;
             html += `<a class="jump" href="#${lemma}_idiom_top"> ⤴</a></p>`;
         } else if (familyIdiomList.length == 1) {
             html += `<p class="heading underlined" `
             html += `id=${lemma}_idiom_top>`;
-            html += `<b>${fi.count}</b> idiomatic expression which contains <b>${item}</b>`;
+            html += `<b>${fi.count}</b> idiomatic expression which contains <b>${superScripter(item)}</b>`;
         };
         
         //// table

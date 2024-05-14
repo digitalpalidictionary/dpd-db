@@ -10,8 +10,6 @@ from typing import List, Dict, Tuple
 
 from sqlalchemy.orm import Session
 
-from export_dpd import render_header_templ
-
 from tools.paths import ProjectPaths
 from exporter.ru_components.tools.paths_ru import RuPaths
 from tools.tic_toc import bip, bop
@@ -67,12 +65,11 @@ def generate_help_html(
     # 4. bibliography
 
     if lang == "en":
-        header_templ = Template(filename=str(pth.header_plain_templ_path))
+        header_templ = Template(filename=str(pth.dpd_header_plain_templ_path))
     elif lang == "ru":
         header_templ = Template(filename=str(rupth.header_plain_templ_path))
 
-    header = render_header_templ(
-        pth, css="", js="", header_templ=header_templ)
+    header = str(header_templ.render())
 
     help_data_list: List[DictEntry] = []
 
@@ -84,7 +81,7 @@ def generate_help_html(
     help_data_list.extend(help_html)
     size_dict["help"] += len(str(help_html))
 
-    bibliography = add_bibliographhy(pth, header)
+    bibliography = add_bibliography(pth, header)
     help_data_list.extend(bibliography)
     size_dict["help"] += len(str(bibliography))
 
@@ -218,7 +215,7 @@ def add_help_html(
     return help_data_list
 
 
-def add_bibliographhy(
+def add_bibliography(
     pth: ProjectPaths,
     header: str
 ) -> List[DictEntry]:

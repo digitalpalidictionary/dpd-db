@@ -63,7 +63,7 @@ def make_deconstructor_dict_data(g: ProgData) -> None:
     sandhi_contractions: dict = make_sandhi_contraction_dict(db_session)
     dict_data: list = []
 
-    header_templ = Template(filename=str(g.pth.header_deconstructor_templ_path))
+    header_templ = Template(filename=str(g.pth.deconstructor_header_templ_path))
     deconstructor_header = str(header_templ.render(css="", js=""))
 
     if g.lang == "en":

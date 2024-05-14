@@ -7,13 +7,12 @@ from minify_html import minify
 from rich import print
 from typing import List, Tuple
 
-from export_dpd import render_header_templ
-
 from exporter.ru_components.tools.paths_ru import RuPaths
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces, sum_rendered_sizes
 from tools.goldendict_exporter import DictEntry
+
 
 def generate_variant_spelling_html(
     pth: ProjectPaths, 
@@ -28,7 +27,7 @@ def generate_variant_spelling_html(
     rendered_sizes = []
 
     if lang == "en":
-        header_templ = Template(filename=str(pth.header_plain_templ_path))
+        header_templ = Template(filename=str(pth.dpd_header_plain_templ_path))
     elif lang == "ru":
         header_templ = Template(filename=str(rupth.header_plain_templ_path))
 
@@ -92,7 +91,7 @@ def generate_variant_data_list(
             filename=str(rupth.variant_templ_path))
     # add here another language elif ...
 
-    header = render_header_templ(pth, css="", js="", header_templ=header_templ)
+    header = str(header_templ.render())
 
     variant_data_list: List[DictEntry] = []
 
@@ -100,7 +99,7 @@ def generate_variant_data_list(
 
         html = ""
         html += "<body>"
-        html += render_variant_templ(main, variant_templ)
+        html += str(variant_templ.render(main=main))
         html += "</body></html>"
 
         html = squash_whitespaces(header) + minify(html)
@@ -120,11 +119,6 @@ def generate_variant_data_list(
         variant_data_list.append(res)
 
     return variant_data_list, size_dict
-
-
-def render_variant_templ(main: str, variant_templ) -> str:
-    """Render html for variant readings"""
-    return str(variant_templ.render(main=main))
 
 
 def test_and_make_spelling_dict(pth: ProjectPaths) -> dict:
@@ -175,7 +169,7 @@ def generate_spelling_data_list(
             filename=str(rupth.spelling_templ_path))
     # add here another language elif ...
 
-    header = render_header_templ(pth, css="", js="", header_templ=header_templ)
+    header = str(header_templ.render())
 
     spelling_data_list: List[DictEntry] = []
 
@@ -183,7 +177,7 @@ def generate_spelling_data_list(
 
         html = ""
         html += "<body>"
-        html += render_spelling_templ(correction, spelling_templ)
+        html += str(spelling_templ.render(correction=correction))
         html += "</body></html>"
 
         html = squash_whitespaces(header) + minify(html)
@@ -203,8 +197,3 @@ def generate_spelling_data_list(
         spelling_data_list.append(res)
 
     return spelling_data_list, size_dict
-
-
-def render_spelling_templ(correction: str, spelling_templ) -> str:
-    """Render html for spelling mistakes"""
-    return str(spelling_templ.render(correction=correction))

@@ -9,7 +9,7 @@ function makeFamilyWordHtml(data) {
         <p class="heading underlined">
             <b>${fw.count}</b> 
             words belong to the 
-            <b>${data.family_word}</b> 
+            <b>${superScripter(data.family_word)}</b> 
             family
         </p>
     `;

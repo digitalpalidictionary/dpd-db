@@ -10,7 +10,6 @@ from sqlalchemy.orm import Session
 from typing import List, Tuple
 
 from db.get_db_session import get_db_session
-from export_dpd import render_header_templ
 
 from db.models import DpdHeadwords, DpdRoots
 from tools.pali_sort_key import pali_sort_key
@@ -53,11 +52,11 @@ def generate_epd_html(
     pos_exclude_list = ["abbrev", "cs", "letter", "root", "suffix", "ve"]
 
     if lang == "en":
-        header_templ = Template(filename=str(pth.header_plain_templ_path))
+        header_templ = Template(filename=str(pth.dpd_header_plain_templ_path))
     if lang == "ru":
         header_templ = Template(filename=str(rupth.header_plain_templ_path))
-    header = render_header_templ(
-        pth, css="", js="", header_templ=header_templ)
+    
+    header = str(header_templ.render())
 
     bip()
     for counter, i in enumerate(dpd_db):

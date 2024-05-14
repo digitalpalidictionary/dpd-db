@@ -172,7 +172,7 @@ def generate_grammar_dict(g: ProgData):
     grammar_dict_html = {}
 
     # create the header from a template
-    header_templ = Template(filename=str(g.pth.header_grammar_dict_templ_path))
+    header_templ = Template(filename=str(g.pth.grammar_dict_header_templ_path))
     html_header = render_header_templ(
         g.pth, css="", js="", header_templ=header_templ)
     html_header += "<body><div class='grammar_dict'><table class='grammar_dict'>"

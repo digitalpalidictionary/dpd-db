@@ -96,13 +96,14 @@ class ProjectPaths:
         self.deconstructor_mdx_path = base_dir / "exporter/share/dpd-deconstructor-mdict.mdx"
         self.deconstructor_mdd_path = base_dir / "exporter/share/dpd-deconstructor-mdict.mdd"
 
-
-
         # exporter/templates
         self.templates_dir = base_dir / "exporter/templates"
         self.dpd_header_templ_path = base_dir / "exporter/goldendict/templates/dpd_header.html"
+        self.dpd_header_plain_templ_path = base_dir / "exporter/goldendict/templates/dpd_header_plain.html"
         self.root_header_templ_path = base_dir / "exporter/goldendict/templates/root_header.html"
-        self.header_plain_templ_path = base_dir / "exporter/goldendict/templates/header_plain.html"
+        self.deconstructor_header_templ_path = base_dir / "exporter/goldendict/templates/deconstructor_header.html"
+        self.grammar_dict_header_templ_path = base_dir / "exporter/goldendict/templates/grammar_dict_header.html"
+
         self.dpd_definition_templ_path = base_dir / "exporter/goldendict/templates/dpd_definition.html"
         self.button_box_templ_path = base_dir / "exporter/goldendict/templates/dpd_button_box.html"
         self.grammar_templ_path = base_dir / "exporter/goldendict/templates/dpd_grammar.html"
@@ -138,9 +139,6 @@ class ProjectPaths:
         self.deconstructor_templ_path = base_dir / "exporter/goldendict/templates/deconstructor.html"
         self.abbrev_templ_path = base_dir / "exporter/goldendict/templates/help_abbrev.html"
         self.help_templ_path = base_dir / "exporter/goldendict/templates/help_help.html"
-
-        self.header_deconstructor_templ_path = base_dir / "exporter/goldendict/templates/header_deconstructor.html"
-        self.header_grammar_dict_templ_path = base_dir / "exporter/goldendict/templates/header_grammar_dict.html"
 
         # exporter/tpr
         self.tpr_output_dir = base_dir / "exporter/tpr/output"
