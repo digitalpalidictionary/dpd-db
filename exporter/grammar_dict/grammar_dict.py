@@ -433,11 +433,12 @@ def prepare_gd_mdict_and_export(g: ProgData):
         dict_name = "ru-dpd-grammar"
 
     dict_vars = DictVariables(
-        css_path = g.pth.grammar_css_path,
-        js_paths = [g.pth.sorter_js_path],
-        output_path = g.pth.share_dir,
-        dict_name= dict_name,
-        icon_path = g.pth.icon_path
+        css_path=g.pth.grammar_css_path,
+        js_paths=[g.pth.sorter_js_path],
+        gd_path=g.pth.share_dir,
+        md_path=g.pth.share_dir,
+        dict_name=dict_name,
+        icon_path=g.pth.icon_path
     )
 
     export_to_goldendict_with_pyglossary(dict_info, dict_vars, g.dict_data)

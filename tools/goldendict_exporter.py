@@ -2,19 +2,19 @@
 
 """Generic GoldenDict exporter using pyglossary."""
 
+import shutil
 import idzip
+import os
 
-from os import fstat
 from pathlib import Path
 from pyglossary import Glossary
 from subprocess import Popen
 from typing import Optional
-
+from zipfile import ZipFile, ZIP_DEFLATED
 
 from tools.date_and_time import make_timestamp
 from tools.goldendict_path import make_goldendict_path
-from tools.printer import p_green_title, p_no, p_white, p_yes
-from tools.tic_toc import bip
+from tools.printer import p_green_title, p_no, p_red, p_white, p_yes
 
 
 class DictEntry():
@@ -52,32 +52,71 @@ class DictVariables():
             self,
             css_path: Optional[Path],
             js_paths: Optional[list[Path]],
-            output_path: Path,
+            gd_path: Path,
+            md_path: Path,
             dict_name: str,
             icon_path: Optional[Path],
+            zip_up: bool = False,
+            delete_original: bool = False,
     ) -> None:
         
-        """icon_path can be a .ico or .bmp"""
+        """
+        Usage.
+
+        dict_vars = DictVariables(
+            css_path = css_path,
+            js_paths = js_paths,
+            gd_path = gd_path,
+            md_path = md_path,
+            dict_name = dict_name,
+            icon_path = None,
+            zip_up = False
+            delete_original = False
+        """
         
         self.css_path: Optional[Path] = css_path
         self.js_paths: Optional[list[Path]] = js_paths
-        self.output_path: Path = output_path.joinpath(dict_name)
-        self.output_name: Path = Path(dict_name).with_suffix(".ifo")
-        self.output_path_name: Path = self.output_path \
+        
+        self.gd_path: Path = gd_path.joinpath(dict_name)
+        self.gd_name_name: Path = Path(dict_name).with_suffix(".ifo")
+        self.gd_path_name: Path = self.gd_path \
                 .joinpath(dict_name) \
                 .with_suffix(".ifo")
-        self.mdict_mdx_path: Path = self.output_path \
-                .with_stem(f"{dict_name}-mdict") \
-                .with_suffix(".mdx")
-        self.mdict_mdd_path: Path = self.output_path \
-                .with_stem(f"{dict_name}-mdict") \
-                .with_suffix(".mdd")
-        self.synfile: Path = self.output_path_name.with_suffix(".syn")
+        self.synfile: Path = self.gd_path_name.with_suffix(".syn")
         self.synfile_zip: Path = self.synfile.with_suffix(".syn.dz")
-        self.icon_source_path: Optional[Path] = icon_path
-        if icon_path:
-            self.icon_target_path = self.output_path_name.with_suffix(".ico")
         
+        self.mdict_mdx_path: Path = md_path \
+                .joinpath(f"{dict_name}-mdict") \
+                .with_suffix(".mdx")
+        self.mdict_mdd_path: Path = md_path \
+                .joinpath(f"{dict_name}-mdict") \
+                .with_suffix(".mdd")
+        self.icon_source_path: Optional[Path] = icon_path
+        
+        if icon_path:
+            self.icon_target_path = self.gd_path_name.with_suffix(".ico")
+        
+        if zip_up:
+            self.zip_up = zip_up
+        else:
+            self.zip_up = False
+        
+        if delete_original:
+            self.delete_original = delete_original
+        else:
+            self.delete_original = False
+        
+        if gd_path.samefile(md_path):
+            self.gd_zip_path = gd_path \
+                .joinpath(f"{dict_name}-goldendict").with_suffix(".zip")
+            self.md_zip_path = md_path \
+                .joinpath(f"{dict_name}-mdict").with_suffix(".zip")
+        else:
+            self.gd_zip_path = gd_path \
+                .joinpath(dict_name).with_suffix(".zip")
+            self.md_zip_path = md_path \
+                .joinpath(dict_name).with_suffix(".zip")
+
 
 def export_to_goldendict_with_pyglossary(
     dict_info: DictInfo,
@@ -87,7 +126,6 @@ def export_to_goldendict_with_pyglossary(
 ) -> None:
     
     """Export to GoldenDict using Pyglossary."""
-    
     p_green_title("exporting to goldendict with pyglossary")
 
     glos = create_glossary(dict_info)
@@ -99,12 +137,14 @@ def export_to_goldendict_with_pyglossary(
     if zip_synonyms:
         zip_synfile(dict_var)
     copy_dir(dict_var)
-    
+    if dict_var.zip_up:
+        zip_folder(dict_var)
+    if dict_var.delete_original:
+        delete_original(dict_var)
+
 
 def create_glossary(dict_info: DictInfo) -> Glossary:
     """Create Glossary."""
-
-    bip()
     p_white("creating glossary")
 
     Glossary.init()
@@ -123,8 +163,6 @@ def create_glossary(dict_info: DictInfo) -> Glossary:
 
 def add_css(glos: Glossary, dict_var: DictVariables) -> Glossary:
     """Add CSS file."""
-
-    bip()
     p_white("adding css")
     
     if dict_var.css_path and dict_var.css_path.exists():
@@ -141,8 +179,6 @@ def add_css(glos: Glossary, dict_var: DictVariables) -> Glossary:
 
 def add_js(glos: Glossary, dict_var: DictVariables) -> Glossary:
     """Add JS file."""
-    
-    bip()
     p_white("adding js")
     
     if dict_var.js_paths:
@@ -161,8 +197,6 @@ def add_js(glos: Glossary, dict_var: DictVariables) -> Glossary:
 
 def add_data(glos: Glossary, dict_data: list[DictEntry]) -> Glossary:
     """Add dictionary data to glossary."""
-    
-    bip()
     p_white("compiling data")
     
     for d in dict_data:
@@ -178,12 +212,10 @@ def add_data(glos: Glossary, dict_data: list[DictEntry]) -> Glossary:
 
 def write_to_file(glos: Glossary, dict_var: DictVariables) -> None:
     """Write output files."""
-
-    bip()
     p_white("writing goldendict file")
     
     glos.write(
-        filename=str(dict_var.output_path_name),
+        filename=str(dict_var.gd_path_name),
         format="Stardict",
         dictzip=True,
         merge_syns=False,       # when True, include synonyms in compressed main file rather than *.syn
@@ -195,12 +227,10 @@ def write_to_file(glos: Glossary, dict_var: DictVariables) -> None:
 
 def zip_synfile(dict_var: DictVariables) -> None:
     """ Compress .syn file into dictzip format """
-    
-    bip()
-    p_white("zipping synonyms")
+    p_white("synzip")
     try:
         with open(dict_var.synfile, "rb") as input_f, open(dict_var.synfile_zip, 'wb') as output_f:
-            input_info = fstat(input_f.fileno())
+            input_info = os.fstat(input_f.fileno())
             idzip.compressor.compress(
                 input_f,
                 input_info.st_size,
@@ -216,8 +246,6 @@ def zip_synfile(dict_var: DictVariables) -> None:
 
 def add_icon(v: DictVariables) -> None:
     """Copy the icon if provided."""
-    
-    bip()
     p_white("copying icon")
     
     if v.icon_source_path is not None:
@@ -234,8 +262,6 @@ def add_icon(v: DictVariables) -> None:
 
 def copy_dir(v: DictVariables) -> None:
     "Copy to Goldendict dir "
-
-    bip()
     p_white("copying to GoldenDict dir")
 
     goldendict_pth: (Path |str) = make_goldendict_path()
@@ -243,9 +269,41 @@ def copy_dir(v: DictVariables) -> None:
         if goldendict_pth.exists():
             try:
                 Popen(
-                    ["cp", "-r", v.output_path, "-t", goldendict_pth])
+                    ["cp", "-r", v.gd_path, "-t", goldendict_pth])
                 p_yes("ok")
             except Exception:
                 p_no("error")
     else:
         p_yes("no")
+
+
+def zip_folder(dict_var: DictVariables):
+    """Zip up the gd and md files."""
+    p_white("zipping directory")
+
+    # zip goldendict 
+    with ZipFile(dict_var.gd_zip_path, "w", ZIP_DEFLATED) as zipf:
+        for root, dirs, files in os.walk(dict_var.gd_path):
+            for file in files:
+                file_path = os.path.join(root, file)
+                relative_path = os.path.relpath(file_path, dict_var.gd_path)
+                zipf.write(file_path, relative_path)
+    p_yes("ok")
+
+
+def delete_original(dict_var: DictVariables):
+    """Delete the original output folder"""
+
+    p_white("deleting folder")
+
+    try:
+        shutil.rmtree(dict_var.gd_path)
+        p_yes("ok")
+    except Exception as e:
+        p_no("error")
+        p_red(e)
+        
+
+
+
+    

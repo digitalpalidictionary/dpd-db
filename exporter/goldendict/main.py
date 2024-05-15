@@ -172,10 +172,13 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
             Path("exporter/goldendict/javascript/feedback_template.js"),
             Path("exporter/goldendict/javascript/main.js"),
         ],
-        output_path=g.paths.share_dir,
+        gd_path=g.paths.share_dir,
+        md_path=g.paths.share_dir,
         dict_name=dict_name,
-        icon_path=g.paths.icon_path
-    )
+        icon_path=g.paths.icon_path,
+        zip_up=False,
+        delete_original=False
+    )   
 
     export_to_goldendict_with_pyglossary(dict_info, dict_var, g.dict_data)
 
@@ -228,7 +231,7 @@ def copy_css_js_to_temp_dir():
 
     for file_path in files_to_copy:
         shutil.copy(file_path, destination_dir)
-    
+
     # # goldendict
     # shutil.copytree(
     #     "exporter/share/dpd-test/",

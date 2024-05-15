@@ -51,7 +51,8 @@ def main():
     dict_vars = DictVariables(
         css_path = None,
         js_paths = None,
-        output_path = Path("exporter/other_dictionaries/goldendict/"),
+        gd_path = Path("exporter/other_dictionaries/goldendict/"),
+        md_path = Path("exporter/other_dictionaries/mdict/"),
         dict_name= "abt-glossary",
         icon_path = None
     )
