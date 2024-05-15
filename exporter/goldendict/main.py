@@ -3,9 +3,7 @@
 """Export DPD for GoldenDict and MDict."""
 
 import csv
-from pathlib import Path
 import pickle
-import shutil
 
 from sqlalchemy.orm import Session
 from typing import List
@@ -117,9 +115,6 @@ def main():
     write_size_dict(g.pth, sum_rendered_sizes(g.rendered_sizes))
     prepare_export_to_goldendict_mdict(g)
 
-    # FIXME delete once done
-    copy_css_js_to_temp_dir()
-
     toc()
 
 
@@ -142,8 +137,7 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
         target_lang="en"
     )
 
-    # FIXME
-    dict_name="dpd-test"
+    dict_name="dpd"
 
     if g.lang == "ru":
         dict_info.bookname = mdict_ru_title
@@ -154,23 +148,21 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
         dict_info.target_lang = "ru"
         dict_name = "ru-dpd"
     
-    # FIXME add all the js to paths
-
     dict_var = DictVariables(
         css_path=g.paths.dpd_css_path,
         js_paths=[
             g.paths.family_compound_json,
-            Path("exporter/goldendict/javascript/family_compound_template.js"),
+            g.paths.family_compound_template_js,
             g.paths.family_idiom_json,
-            Path("exporter/goldendict/javascript/family_idiom_template.js"),
+            g.paths.family_idiom_template_js,
             g.paths.family_root_json,
-            Path("exporter/goldendict/javascript/family_root_template.js"),
+            g.paths.family_root_template_js,
             g.paths.family_set_json,
-            Path("exporter/goldendict/javascript/family_set_template.js"),
+            g.paths.family_set_template_js,
             g.paths.family_word_json,
-            Path("exporter/goldendict/javascript/family_word_template.js"),
-            Path("exporter/goldendict/javascript/feedback_template.js"),
-            Path("exporter/goldendict/javascript/main.js"),
+            g.paths.family_word_template_js,
+            g.paths.feedback_template_js,
+            g.paths.main_js_path,
         ],
         gd_path=g.paths.share_dir,
         md_path=g.paths.share_dir,
@@ -207,49 +199,6 @@ def write_limited_datalist(g: ProgData):
     with open("temp/limited_data_list", "wb") as file:
         pickle.dump(limited_data, file)
 
-
-# FIXME delete once done
-def copy_css_js_to_temp_dir():
-    p_green_title("copy files to temp dir")
-    files_to_copy = [
-        "exporter/goldendict/css/dpd.css",
-        "exporter/goldendict/javascript/family_compound_json.js",
-        "exporter/goldendict/javascript/family_compound_template.js",
-        "exporter/goldendict/javascript/family_idiom_json.js",
-        "exporter/goldendict/javascript/family_idiom_template.js",
-        "exporter/goldendict/javascript/family_root_json.js",
-        "exporter/goldendict/javascript/family_root_template.js",
-        "exporter/goldendict/javascript/family_set_json.js",
-        "exporter/goldendict/javascript/family_set_template.js",
-        "exporter/goldendict/javascript/family_word_json.js",
-        "exporter/goldendict/javascript/family_word_template.js",
-        "exporter/goldendict/javascript/feedback_template.js",
-        "exporter/goldendict/javascript/main.js",
-    ]
-    
-    destination_dir = "dpd_js_test"
-
-    for file_path in files_to_copy:
-        shutil.copy(file_path, destination_dir)
-
-    # # goldendict
-    # shutil.copytree(
-    #     "exporter/share/dpd-test/",
-    #     "dpd_js_test/goldendict",
-    #     dirs_exist_ok=True)
-
-    # mdict
-    files_to_copy = [
-        "exporter/share/dpd-test-mdict.mdx", 
-        "exporter/share/dpd-test-mdict.mdd"
-    ]
-    # destination_dir = "dpd_js_test/mdict"
-    # for file_path in files_to_copy:
-    #     shutil.copy(file_path, destination_dir)
-
-    destination_dir = "/home/bodhirasa/Documents/GoldenDict"
-    for file_path in files_to_copy:
-        shutil.copy(file_path, destination_dir)
 
 if __name__ == "__main__":
     main()

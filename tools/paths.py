@@ -58,21 +58,28 @@ class ProjectPaths:
         # self.variant_spelling_css_path = base_dir / "exporter/goldendict/css/variant_spelling.css"
 
         # exporter/goldendict/help/
-        self.abbreviations_tsv_path = base_dir / "exporter/goldendict/help//abbreviations.tsv"
-        self.help_tsv_path = base_dir / "exporter/goldendict/help//help.tsv"
-        self.bibliography_tsv_path = base_dir / "exporter/goldendict/help//bibliography.tsv"
-        self.thanks_tsv_path = base_dir / "exporter/goldendict/help//thanks.tsv"
+        self.abbreviations_tsv_path = base_dir / "exporter/goldendict/help/abbreviations.tsv"
+        self.help_tsv_path = base_dir / "exporter/goldendict/help/help.tsv"
+        self.bibliography_tsv_path = base_dir / "exporter/goldendict/help/bibliography.tsv"
+        self.thanks_tsv_path = base_dir / "exporter/goldendict/help/thanks.tsv"
 
         # exporter/goldendict/javascript/
-        self.buttons_js_path = base_dir / "exporter/goldendict/javascript//buttons.js"
-        self.sorter_js_path = base_dir / "exporter/goldendict/javascript//sorter.js"
+        self.main_js_path = base_dir / "exporter/goldendict/javascript/main.js"
+        self.buttons_js_path = base_dir / "exporter/goldendict/javascript/buttons.js"
+        self.sorter_js_path = base_dir / "exporter/goldendict/javascript/sorter.js"
 
-        # exporter/goldendict/json/
         self.family_compound_json = base_dir / "exporter/goldendict/javascript/family_compound_json.js"
         self.family_idiom_json = base_dir / "exporter/goldendict/javascript/family_idiom_json.js"
         self.family_root_json = base_dir / "exporter/goldendict/javascript/family_root_json.js"
         self.family_set_json = base_dir / "exporter/goldendict/javascript/family_set_json.js"
         self.family_word_json = base_dir / "exporter/goldendict/javascript/family_word_json.js"
+
+        self.family_compound_template_js = base_dir / "exporter/goldendict/javascript/family_compound_template.js"
+        self.family_idiom_template_js = base_dir / "exporter/goldendict/javascript/family_idiom_template.js"
+        self.family_root_template_js = base_dir / "exporter/goldendict/javascript/family_root_template.js"
+        self.family_set_template_js = base_dir / "exporter/goldendict/javascript/family_set_template.js"
+        self.family_word_template_js = base_dir / "exporter/goldendict/javascript/family_word_template.js"
+        self.feedback_template_js = base_dir / "exporter/goldendict/javascript/feedback_template.js"
 
         # exporter/share
         self.share_dir = base_dir / "exporter/share"
@@ -177,8 +184,8 @@ class ProjectPaths:
         self.example_stash_path = base_dir / "gui/stash/example"
 
         # exporter/goldendict/icon
-        self.icon_path = base_dir / "exporter/goldendict/icon//favicon.ico"
-        self.icon_bmp_path = base_dir / "exporter/goldendict/icon//dpd.bmp"
+        self.icon_path = base_dir / "exporter/goldendict/icon/favicon.ico"
+        self.icon_bmp_path = base_dir / "exporter/goldendict/icon/dpd.bmp"
 
         # db/inflections/
         self.inflection_templates_path = base_dir / "db/inflections/inflection_templates.xlsx"

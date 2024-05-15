@@ -104,11 +104,6 @@ def generate_root_html(
 
         root_data_list.append(res)
 
-        # FIXME delete once done
-        if r.root in ["√kar", "√dis 1", "√bhū"]:
-            with open(f"dpd_js_test/{r.root}.html", "w") as f:
-                f.write(html)
-
     p_yes(len(root_data_list))
     return root_data_list, size_dict
 

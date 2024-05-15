@@ -273,18 +273,6 @@ def render_pali_word_dpd_html(
         synonyms = synonyms,
     )
 
-    # FIXME delete once done
-    if i.lemma_clean in [
-        "abhidhamma",
-        "abala",
-        "abhūta",
-        "abbh",
-        "abhidhammakathā",
-        "assa",
-    ]:
-        with open(f"dpd_js_test/{i.lemma_1_}.html", "w") as f:
-            f.write(html)
-
     return (res, size_dict)
 
 def generate_dpd_html(
@@ -659,7 +647,7 @@ def render_button_box_templ(
     elif i.needs_compound_families_button:
         if lang == "en":
             compound_family_button = button_html.format(
-                target=f"family_compound_{i.lemma_1_}", name="compound familes")
+                target=f"family_compound_{i.lemma_1_}", name="compound families")
         elif lang == "ru":
             compound_family_button = button_html.format(
                 target=f"family_compound_ru_{i.lemma_1_}", name="семья составных")
@@ -923,8 +911,8 @@ def render_frequency_templ(
         i: DpdHeadwords,
         frequency_templ: Template,
         lang="en"
-) -> str:
-    """render html tempalte of freqency table"""
+) -> str:   
+    """render html template of frequency table"""
 
     freq = ""
 
