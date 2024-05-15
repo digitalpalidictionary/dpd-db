@@ -30,6 +30,7 @@ class DPSPaths:
         self.id_to_add_path = base_dir.joinpath(Path("dps/csvs/id_to_add.csv"))
         self.id_temp_list_path = base_dir.joinpath(Path("dps/csvs/id_temp_list.csv"))
         self.csvs_for_audio_dir = base_dir.joinpath(Path("dps/csvs/csvs_for_audio/"))
+        self.ai_translated_dir = base_dir.joinpath(Path("dps/csvs/ai_translated"))
 
 
         self.sbs_pd_path = base_dir.joinpath(Path("dps/csvs/sbs_pd.csv"))

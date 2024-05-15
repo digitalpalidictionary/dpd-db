@@ -10,6 +10,7 @@ from rich.prompt import Prompt
 from db.get_db_session import get_db_session
 from db.models import DpdHeadwords, DpdRoots, Russian
 from tools.paths import ProjectPaths
+from dps.tools.paths_dps import DPSPaths    
 from tools.meaning_construction import make_meaning
 
 from sqlalchemy import and_, or_, null
@@ -21,46 +22,50 @@ from timeout_decorator import timeout, TimeoutError as TimeoutDecoratorError
 from tools.configger import config_test_option, config_read, config_update
 
 pth = ProjectPaths()
+dpspth = DPSPaths()
 db_session = get_db_session(pth.dpd_db_path)
 
+hight_model="gpt-4o"
+model="gpt-4o"
+# model="gpt-3.5-turbo-0125"
 
 def ru_meaning_generating():
 
-    commentary_list = [
-            "VINa", "VINt", "DNa", "MNa", "SNa", "SNt", "ANa", 
-            "KHPa", "KPa", "DHPa", "UDa", "ITIa", "SNPa", "VVa", "VVt",
-            "PVa", "THa", "THIa", "APAa", "APIa", "BVa", "CPa", "JAa",
-            "NIDD1", "NIDD2", "PMa", "NPa", "NPt", "PTP",
-            "DSa", "PPa", "VIBHa", "VIBHt", "ADHa", "ADHt",
-            "KVa", "VMVt", "VSa", "PYt", "SDt", "SPV", "VAt", "VBt",
-            "VISM", "VISMa",
-            "PRS", "SDM", "SPM",
-            "bālāvatāra", "kaccāyana", "saddanīti", "padarūpasiddhi",
-            "buddhavandana", "Thai", "Sri Lanka", "Trad", "PAT PK", "MJG"
-            ]
+    # commentary_list = [
+    #         "VINa", "VINt", "DNa", "MNa", "SNa", "SNt", "ANa", 
+    #         "KHPa", "KPa", "DHPa", "UDa", "ITIa", "SNPa", "VVa", "VVt",
+    #         "PVa", "THa", "THIa", "APAa", "APIa", "BVa", "CPa", "JAa",
+    #         "NIDD1", "NIDD2", "PMa", "NPa", "NPt", "PTP",
+    #         "DSa", "PPa", "VIBHa", "VIBHt", "ADHa", "ADHt",
+    #         "KVa", "VMVt", "VSa", "PYt", "SDt", "SPV", "VAt", "VBt",
+    #         "VISM", "VISMa",
+    #         "PRS", "SDM", "SPM",
+    #         "bālāvatāra", "kaccāyana", "saddanīti", "padarūpasiddhi",
+    #         "buddhavandana", "Thai", "Sri Lanka", "Trad", "PAT PK", "MJG"
+    #         ]
 
-    conditions = [DpdHeadwords.source_1.like(f"%{comment}%") for comment in commentary_list]
-    combined_condition = or_(*conditions)
+    # conditions = [DpdHeadwords.source_1.like(f"%{comment}%") for comment in commentary_list]
+    # combined_condition = or_(*conditions)
 
     row_count =  0
 
     #! for filling those which does not have Russian table and fill the conditions
 
-    db = db_session.query(DpdHeadwords).outerjoin(
-    Russian, DpdHeadwords.id == Russian.id
-        ).filter(
-            and_(
-                DpdHeadwords.meaning_1 != '',
-                # DpdHeadwords.example_1 != '',
-                # ~combined_condition,
-                or_(
-                    Russian.ru_meaning.is_(None),
-                    Russian.ru_meaning_raw.is_(None),
-                    Russian.id.is_(null())
-                )
+    # db = db_session.query(DpdHeadwords).outerjoin(
+    # Russian, DpdHeadwords.id == Russian.id
+    #     ).filter(
+    #         and_(
+    #             DpdHeadwords.meaning_1 != '',
+    #             # DpdHeadwords.example_1 != '',
+    #             # ~combined_condition,
+    #             or_(
+    #                 Russian.ru_meaning.is_(None),
+    #                 Russian.ru_meaning_raw.is_(None),
+    #                 Russian.id.is_(null())
+    #             )
 
-            )
-        ).order_by(DpdHeadwords.ebt_count.desc()).limit(10000).all()
+    #         )
+    #     ).order_by(DpdHeadwords.ebt_count.desc()).limit(1000).all()
 
     #! for filling empty rows in Russian table
 
@@ -70,7 +75,25 @@ def ru_meaning_generating():
     #                 Russian.id != '',
     #                 Russian.ru_meaning == '',
     #                 Russian.ru_meaning_raw == '',
-    #                 ).order_by(DpdHeadwords.ebt_count.desc()).limit(3000).all()
+    #                 ).order_by(DpdHeadwords.ebt_count.desc()).limit(1000).all()
+
+    #! for filling those which have lower model of gpt:
+
+    # Call the new function to read IDs from the TSV file to exclude
+    exclude_ids = read_exclude_ids_from_tsv(f"{dpspth.ai_translated_dir}/{hight_model}.tsv")
+
+    # Add the conditions to the query
+    db = db_session.query(DpdHeadwords).outerjoin(
+        Russian, DpdHeadwords.id == Russian.id
+        ).filter(
+            and_(
+                DpdHeadwords.meaning_1 != '',
+                Russian.ru_meaning_raw != '',
+                func.length(Russian.ru_meaning_raw) > 121,
+                Russian.ru_meaning == '',
+                ~DpdHeadwords.id.in_(exclude_ids)
+            )
+        ).order_by(DpdHeadwords.ebt_count.desc()).limit(1000).all()
 
     # Print the db
     print("Details of filtered words")
@@ -107,6 +130,18 @@ def ru_meaning_generating():
             db_session.commit()
 
             print(f"{counter +  1}. {i.id} {i.lemma_1} {ru_meaning_raw}")
+
+            with open(f'{dpspth.ai_translated_dir}/{model}.tsv', 'a', encoding='utf-8') as file:
+                file.write(f"{i.id}\t{i.lemma_1}\t{ru_meaning_raw}\n")
+
+
+def read_exclude_ids_from_tsv(file_path):
+    exclude_ids = set()
+    with open(file_path, "r", encoding="utf-8") as file:
+        for line in file:
+            id = line.split('\t')[0]
+            exclude_ids.add(id)
+    return exclude_ids
 
 
 def roots_meaning_generating(lang):
@@ -256,7 +291,7 @@ openai.api_key = load_openia_config()
 @timeout(10, timeout_exception=TimeoutDecoratorError)  # Setting a 10-second timeout
 def call_openai(messages):
     return openai.ChatCompletion.create(
-        model="gpt-3.5-turbo-0125",
+        model=model,
         messages=messages
     )
 
@@ -428,7 +463,7 @@ if __name__ == "__main__":
 
     print("Translationg with the help of AI")
 
-    # ru_meaning_generating()
+    ru_meaning_generating()
 
     # roots_meaning_generating("pali")
 

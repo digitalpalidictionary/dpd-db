@@ -508,7 +508,7 @@
 
 {% if d.dps_data %}
     {% if d.i.sbs.needs_sbs_example_button or d.i.sbs.needs_sbs_examples_button %}
-        <div id="dps_example_{{ d.i.lemma_1 }}" class="content hidden">
+        <div id="dps_example_{{ d.i.lemma_1 }}" name="example-div" class="content">
             {% for index in range(1, 5) %}
                 {% set example_attr = 'sbs_example_' ~ index %}
                 {% set source_attr = 'sbs_source_' ~ index %}

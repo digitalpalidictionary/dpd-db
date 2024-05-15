@@ -594,7 +594,7 @@ openai.api_key = load_openia_config()
 def call_openai(model_version, messages):
     if model_version == "4":
         return openai.ChatCompletion.create(
-            model="gpt-4-1106-preview",
+            model="gpt-4o",
             messages=messages
         )
     elif model_version == "3":
@@ -663,7 +663,7 @@ def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, p
                 **Grammar Details**: {grammar}
                 **Pali sentence**: {example}
                 **English Definition**: {meaning}
-                Please provide a few distinct Russian translations for the English definition, considering the Pali term and its grammatical context and Pali sentence. Separate each synonym with `;`. Avoid repeating the same word.
+                Please provide a few distinct Russian translations for the English definition, considering the Pali term and its grammatical context and Pali sentence. Separate each synonym with `;`. Avoid repeating the same word. In the answer avoid the capitalization unless it is a proper name.
             """
         }
     ]
