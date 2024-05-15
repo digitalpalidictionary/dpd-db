@@ -15,7 +15,7 @@ from exporter.ru_components.tools.tools_for_ru_exporter import ru_replace_abbrev
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from tools.printer import p_counter, p_green_title, p_red
+from tools.printer import p_green, p_yes
 from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces
 from tools.goldendict_exporter import DictEntry
 
@@ -29,7 +29,7 @@ def generate_root_html(
 ) -> Tuple[List[DictEntry], RenderedSizes]:
     """compile html components for each pali root"""
 
-    p_green_title("generating roots html")
+    p_green("generating roots html")
     size_dict = default_rendered_sizes()
     root_data_list: List[DictEntry] = []
 
@@ -39,7 +39,6 @@ def generate_root_html(
         header_templ = Template(filename=str(rupth.root_header_templ_path))
 
     roots_db = db_session.query(DpdRoots).all()
-    root_db_length = len(roots_db)
 
     for counter, r in enumerate(roots_db):
 
@@ -77,10 +76,6 @@ def generate_root_html(
         html += root_families
         size_dict["root_families"] += len(root_families)
 
-        # add scripts to bottom of body
-        html += """<script src="family_root_json.js"></script>"""
-        html += """<script src="family_root_template.js"></script>"""
-        html += """<script src="main.js"></script>"""
         html += "</body></html>"
 
         html = squash_whitespaces(root_header) + minify(html)
@@ -109,14 +104,12 @@ def generate_root_html(
 
         root_data_list.append(res)
 
-        if counter % 100 == 0:
-            p_counter(counter, root_db_length, r.root)
-        
         # FIXME delete once done
         if r.root in ["√kar", "√dis 1", "√bhū"]:
             with open(f"dpd_js_test/{r.root}.html", "w") as f:
                 f.write(html)
 
+    p_yes(len(root_data_list))
     return root_data_list, size_dict
 
 
@@ -151,7 +144,6 @@ def render_root_definition_templ(
         count = roots_count_dict[r.root]
     except KeyError:
         count = 0
-        p_red(f"!!! ERROR: {r.root}[red] does not exist, seriously consider deleting it")
 
     return str(
         root_definition_templ.render(
@@ -232,7 +224,6 @@ def render_root_matrix_templ(
         count = roots_count_dict[r.root]
     except KeyError:
         count = 0
-        p_red(f"!!! ERROR: {r.root}[red] does not exist, seriously consider deleting it")
 
     return str(
         root_matrix_templ.render(

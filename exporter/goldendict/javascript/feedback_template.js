@@ -4,10 +4,10 @@ function makeFeedback(data) {
     <p>Digital Pāḷi Dictionary is a work in progress, made available for testing and feedback purposes.</p>
     <p>
         <a class="link" 
-        href="https://docs.google.com/forms/d/e/1FAIpQLSfResxEUiRCyFITWPkzoQ2HhHEvUS5fyg68Rl28hFH6vhHlaA/viewform?usp=pp_url&amp;entry.1433863141=GoldenDict+${data.date}"
+        href="https://docs.google.com/forms/d/e/1FAIpQLSfResxEUiRCyFITWPkzoQ2HhHEvUS5fyg68Rl28hFH6vhHlaA/viewform?usp=pp_url&amp;entry.1433863141=${progName}+${data.date}"
         target="_blank">Add a missing word</a><span>. Please use this </span>
         <a class="link" 
-        href="https://docs.google.com/forms/d/e/1FAIpQLSfResxEUiRCyFITWPkzoQ2HhHEvUS5fyg68Rl28hFH6vhHlaA/viewform?usp=pp_url&amp;entry.1433863141=GoldenDict+${data.date}"
+        href="https://docs.google.com/forms/d/e/1FAIpQLSfResxEUiRCyFITWPkzoQ2HhHEvUS5fyg68Rl28hFH6vhHlaA/viewform?usp=pp_url&amp;entry.1433863141=${progName}+${data.date}"
         target="_blank">
         online form</a>
         to add missing words, especially from Vinaya, commentaries, and other later texts.
@@ -15,19 +15,18 @@ function makeFeedback(data) {
         <a class="link" download="true" 
         href="https://github.com/digitalpalidictionary/dpd-db/raw/main/docs/DPD%20Add%20Words.xlsx" 
         target="_blank">
-        spreadsheet to download
-        </a><span>, fill in and submit. </span>
+        spreadsheet to download</a><span>, fill in and submit. </span>
     </p>
     <p>
         <a class="link" 
-        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&amp;entry.438735500=${data.lemma}%201&amp;entry.1433863141=GoldenDict+${data.date}" 
+        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&amp;entry.438735500=${data.lemma}%201&amp;entry.1433863141=${progName}+${data.date}" 
         target="_blank">
         Correct a mistake</a><span>. Did you spot a mistake in the dictionary? Please report it. It generally takes less than a minute and your corrections and suggestions help to improve the quality of this dictionary for everyone who uses it.</span>
     </p>
     <p>
         <a class="link" 
         href="https://github.com/digitalpalidictionary/digitalpalidictionary/releases">
-        Get updated</a><span>. You are using DPD GoldenDict updated on <b>${data.date}</b>. Check for an update every full moon uposatha day.</span>
+        Get updated</a><span>. You are using <b>DPD ${progName}</b> updated on <b>${data.date}</b>. Check for an update every full moon uposatha day.</span>
     </p>
     <p>
         <a class="link" 

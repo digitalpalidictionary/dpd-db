@@ -11,7 +11,7 @@ from sqlalchemy.orm import Session
 
 from tools.paths import ProjectPaths
 from exporter.ru_components.tools.paths_ru import RuPaths
-from tools.printer import p_green, p_green_title, p_yes
+from tools.printer import p_green, p_yes
 from tools.tsv_read_write import read_tsv_dict
 from tools.tsv_read_write import read_tsv_dot_dict
 from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces
@@ -54,7 +54,7 @@ def generate_help_html(
     dps_data=False
 ) -> Tuple[List[DictEntry], RenderedSizes]:
     """generating html of all help files used in the dictionary"""
-    p_green_title("generating help html")
+    p_green("generating help html")
 
     size_dict = default_rendered_sizes()
 
@@ -88,6 +88,7 @@ def generate_help_html(
     help_data_list.extend(thanks)
     size_dict["help"] += len(str(thanks))
 
+    p_yes(len(help_data_list))
     return help_data_list, size_dict
 
 
@@ -98,8 +99,6 @@ def add_abbrev_html(
     lang="en",
     dps_data=False
 ) -> List[DictEntry]:
-
-    p_green("adding abbreviations")
 
     help_data_list = []
 
@@ -151,7 +150,6 @@ def add_abbrev_html(
 
         help_data_list.append(res)
 
-    p_yes(len(help_data_list))
     return help_data_list
 
 
@@ -162,8 +160,6 @@ def add_help_html(
     lang="en",
     dps_data=False
 ) -> List[DictEntry]:
-
-    p_green("adding help")
 
     help_data_list = []
 
@@ -210,7 +206,6 @@ def add_help_html(
 
         help_data_list.append(res)
 
-    p_yes(len(help_data_list))
     return help_data_list
 
 
@@ -218,8 +213,6 @@ def add_bibliography(
     pth: ProjectPaths,
     header: str
 ) -> List[DictEntry]:
-
-    p_green("adding bibliography")
 
     help_data_list = []
 
@@ -284,7 +277,6 @@ def add_bibliography(
         with open(pth.bibliography_md_path, "w") as file:
             file.write(md)
 
-    p_yes(len(help_data_list))
     return help_data_list
 
 
@@ -292,8 +284,6 @@ def add_thanks(
     pth: ProjectPaths,
     header: str
 ) -> List[DictEntry]:
-
-    p_green("adding thanks")
 
     help_data_list = []
 
@@ -349,7 +339,6 @@ def add_thanks(
         with open(pth.thanks_md_path, "w") as file:
             file.write(md)
 
-    p_yes(len(help_data_list))
     return help_data_list
 
 

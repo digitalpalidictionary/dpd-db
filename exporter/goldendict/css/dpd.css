@@ -339,6 +339,11 @@ table.help th {
 table.help th {
     color: #0ab33d;
     font-weight: 700;
+    width: 10%;
+}
+
+table.help td {
+    width: 90%;
 }
 
 table.help b {

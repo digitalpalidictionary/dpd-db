@@ -14,7 +14,7 @@ from db.models import DpdHeadwords, DpdRoots
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from exporter.ru_components.tools.paths_ru import RuPaths
-from tools.printer import p_counter, p_green_title, p_title
+from tools.printer import p_green, p_yes
 from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces
 from tools.goldendict_exporter import DictEntry
 from exporter.ru_components.tools.tools_for_ru_exporter import ru_replace_abbreviations
@@ -28,12 +28,11 @@ def generate_epd_html(
     dps_data=False,
     lang="en"
 ) -> Tuple[List[DictEntry], RenderedSizes]:
-    """generate html for english/{lang} to pali dictionary
-    """
+    """generate html for english/{lang} to pali dictionary"""
 
     size_dict = default_rendered_sizes()
-
-    p_title("generating epd html")
+    
+    p_green("generating epd html")
 
     if lang == "en" and not dps_data:
         dpd_db: list[DpdHeadwords] = db_session.query(DpdHeadwords).all()
@@ -153,11 +152,6 @@ def generate_epd_html(
             combined_numbers = extract_sutta_numbers(i.meaning_2)
             update_epd(epd, combined_numbers, i, make_link, lang) 
 
-        if counter % 10000 == 0:
-            p_counter(counter, dpd_db_length, i.lemma_1)
-
-    p_green_title("adding roots to epd")
-
     for counter, i in enumerate(roots_db):
         if lang == "en":
             root_meanings_list: list = i.root_meaning.split(", ")
@@ -186,11 +180,6 @@ def generate_epd_html(
                     epd.update(
                         {root_ru_meaning: epd_string})
 
-        if counter % 250 == 0:
-            p_counter(counter, roots_db_length, i.root)
-
-    p_green_title("compiling epd html")
-
     epd_data_list: List[DictEntry] = []
 
     for counter, (word, html_string) in enumerate(epd.items()):
@@ -215,6 +204,8 @@ def generate_epd_html(
         )
 
         epd_data_list.append(res)
+
+    p_yes(len(epd_data_list))
 
     return epd_data_list, size_dict
 

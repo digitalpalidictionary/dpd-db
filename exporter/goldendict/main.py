@@ -118,7 +118,7 @@ def main():
     prepare_export_to_goldendict_mdict(g)
 
     # FIXME delete once done
-    # copy_css_js_to_temp_dir()
+    copy_css_js_to_temp_dir()
 
     toc()
 
@@ -235,18 +235,18 @@ def copy_css_js_to_temp_dir():
     #     "dpd_js_test/goldendict",
     #     dirs_exist_ok=True)
 
-    # # mdict
-    # files_to_copy = [
-    #     "exporter/share/dpd-test-mdict.mdx", 
-    #     "exporter/share/dpd-test-mdict.mdd"
-    # ]
+    # mdict
+    files_to_copy = [
+        "exporter/share/dpd-test-mdict.mdx", 
+        "exporter/share/dpd-test-mdict.mdd"
+    ]
     # destination_dir = "dpd_js_test/mdict"
     # for file_path in files_to_copy:
     #     shutil.copy(file_path, destination_dir)
 
-    # destination_dir = "/home/bodhirasa/Documents/GoldenDict"
-    # for file_path in files_to_copy:
-    #     shutil.copy(file_path, destination_dir)
+    destination_dir = "/home/bodhirasa/Documents/GoldenDict"
+    for file_path in files_to_copy:
+        shutil.copy(file_path, destination_dir)
 
 if __name__ == "__main__":
     main()

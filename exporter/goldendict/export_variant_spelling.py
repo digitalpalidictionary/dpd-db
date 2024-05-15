@@ -9,7 +9,7 @@ from typing import List, Tuple
 from exporter.ru_components.tools.paths_ru import RuPaths
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
-from tools.printer import p_green_title, p_red
+from tools.printer import p_green, p_red, p_yes
 from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces, sum_rendered_sizes
 from tools.goldendict_exporter import DictEntry
 
@@ -22,7 +22,7 @@ def generate_variant_spelling_html(
     
     """Generate html for variant readings and spelling corrections."""
     
-    p_green_title("generating variants html")
+    p_green("generating variants html")
 
     rendered_sizes = []
 
@@ -43,6 +43,7 @@ def generate_variant_spelling_html(
     if variant_data_list:
         variant_spelling_data_list = variant_data_list + spelling_data_list
 
+    p_yes(len(variant_spelling_data_list))
     return variant_spelling_data_list, sum_rendered_sizes(rendered_sizes)
 
 

@@ -7,7 +7,7 @@ from pathlib import Path
 from tools.goldendict_exporter import DictEntry
 from tools.goldendict_exporter import DictInfo
 from tools.goldendict_exporter import DictVariables
-from tools.printer import p_green_title, p_white, p_yes, p_no
+from tools.printer import p_green_title, p_red, p_white, p_yes, p_no
 from tools.tic_toc import bip, bop
 from tools.writemdict.writemdict import MDictWriter
 
@@ -64,29 +64,26 @@ def export_to_mdict(
     """Export to MDict"""
 
     p_green_title("exporting to mdict")
-
-    bip()
     p_white("adding 'mdict' and h3 tag")
-    if h3_header:
-        for i in dict_data:
-            i.definition_html = \
-                i.definition_html.replace("GoldenDict", "MDict")
-            i.definition_html = \
-                f"<h3>{i.word}</h3>{i.definition_html}"
-        p_yes("ok")
-    else:
-        p_no("error")
     
-    bip()
+    for i in dict_data:
+        i.definition_html = i.definition_html.replace(
+            "GoldenDict", "MDict")
+        
+        if h3_header:
+            i.definition_html = f"<h3>{i.word}</h3>{i.definition_html}"
+        
+    p_yes("ok")
+    
     p_white("reducing synonyms")
     try:
         data = reduce(make_synonyms, dict_data, [])
         p_yes("ok")
-    except Exception:
+    except Exception as e:
         p_no("error")
+        p_red(e)
 
 
-    bip()
     p_white("writing .mdx file")
     try:
         writer = MDictWriter(
@@ -96,19 +93,20 @@ def export_to_mdict(
         with open(dict_var.mdict_mdx_path, 'wb') as outfile:
             writer.write(outfile)
         p_yes("ok")
-    except Exception:
+    except Exception as e:
         p_no("error")
+        p_red(e)
 
-    bip()
     p_white("compiling css and js assets")
     try:
         assets = add_css_js(dict_var)
         p_yes("ok")
-    except Exception:
+    except Exception as e:
         p_no("error")
+        p_red(e)
 
-    bip()
     p_white("writing .mdd file")
+    
     try:
         writer = MDictWriter(
             assets,
@@ -118,5 +116,6 @@ def export_to_mdict(
         with open(dict_var.mdict_mdd_path, "wb") as f:
             writer.write(f)
         p_yes("ok")
-    except Exception:
+    except Exception as e:
         p_no("error")
+        p_red(e)

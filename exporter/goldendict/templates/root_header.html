@@ -1,28 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta data_key="rootdata_${r.root_no_sign_}">
+
     <title>Digital Pāḷi Dictionary</title>
-    <link href="dpd.css" rel="stylesheet" as="style">
+
+    <link href="dpd.css" rel="stylesheet">
+
+    <link href="family_compound_json.js" class="load_js" rel="preload" as="script">
+    <link href="family_compound_template.js" class="load_js" rel="preload" as="script">
+    <link href="family_idiom_json.js" class="load_js" rel="preload" as="script">
+    <link href="family_idiom_template.js" class="load_js" rel="preload" as="script">
     <link href="family_root_json.js" class="load_js" rel="preload" as="script">
     <link href="family_root_template.js" class="load_js" rel="preload" as="script">
+    <link href="family_set_json.js" class="load_js" rel="preload" as="script">
+    <link href="family_set_template.js" class="load_js" rel="preload" as="script">
+    <link href="family_word_json.js" class="load_js" rel="preload" as="script">
+    <link href="family_word_template.js" class="load_js" rel="preload" as="script">
+    <link href="feedback_template.js" class="load_js" rel="preload" as="script">
     <link href="main.js" class="load_js" rel="preload" as="script" as="script">
+
     <script>
-        var rootdata_${r.root_no_sign_} = {
+        var rootdata_${ r.root_no_sign_ } = {
             "root": "${r.root}",
             "date": "${date}",
         };
     </script>
+
     <script>
-        var el = document.getElementsByClassName("load_js");
+        var els2load = document.getElementsByClassName("load_js");
         if (typeof js_already_loaded === "undefined") {
             var js_already_loaded = true;
-            for (var i = 0; i < el.length; i++) {
+            var elsArray = Array.from(els2load);
+            elsArray.forEach(el => { 
                 var s = document.createElement("script");
-                s.src = el[i].getAttribute("href");
+                var elName = el.getAttribute("href");
+                s.src = elName;
                 document.head.appendChild(s);
-            };
-        }
-      </script>
+            });
+        };
+    </script>
+
 </head>

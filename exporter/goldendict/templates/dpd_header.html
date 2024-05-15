@@ -1,46 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta data_key="data_${i.lemma_1_}">
+
     <title>Digital Pāḷi Dictionary</title>
-    <link href="dpd.css" rel="stylesheet" >
-    % if i.needs_compound_family_button or i.needs_compound_families_button:
+
+    <link href="dpd.css" rel="stylesheet">
+
     <link href="family_compound_json.js" class="load_js" rel="preload" as="script">
     <link href="family_compound_template.js" class="load_js" rel="preload" as="script">
-    % endif
-    % if i.needs_idioms_button:
     <link href="family_idiom_json.js" class="load_js" rel="preload" as="script">
     <link href="family_idiom_template.js" class="load_js" rel="preload" as="script">
-    % endif
-    % if i.needs_root_family_button:
     <link href="family_root_json.js" class="load_js" rel="preload" as="script">
     <link href="family_root_template.js" class="load_js" rel="preload" as="script">
-    % endif
-    % if i.needs_set_button or i.needs_sets_button:
     <link href="family_set_json.js" class="load_js" rel="preload" as="script">
     <link href="family_set_template.js" class="load_js" rel="preload" as="script">
-    % endif
-    % if i.needs_word_family_button:
     <link href="family_word_json.js" class="load_js" rel="preload" as="script">
     <link href="family_word_template.js" class="load_js" rel="preload" as="script">
-    % endif
     <link href="feedback_template.js" class="load_js" rel="preload" as="script">
     <link href="main.js" class="load_js" rel="preload" as="script" as="script">
 
     <script>
-        var data_${i.lemma_1_} = {
-            "id": ${i.id},
+        var data_${ i.lemma_1_ } = {
+            "id": ${ i.id },
             "lemma": "${i.lemma_1_}",
             "date": "${date}",
             "family_root": "${i.root_family_key}",
             % if i.needs_compound_family_button or i.needs_compound_families_button:
-            "family_compounds": ${i.family_compound_list},
+            "family_compounds": ${ i.family_compound_list },
             % else:
             "family_compounds": [],
             % endif
             % if i.needs_idioms_button:
-            "family_idioms": ${i.family_idioms_list},
+            "family_idioms": ${ i.family_idioms_list },
             % else:
             "family_idioms": [],
             % endif
@@ -48,21 +42,31 @@
             "family_word": "${i.family_word}",
             % endif
             % if i.needs_set_button or i.needs_sets_button:
-            "family_sets": ${i.family_set_list}
+            "family_sets": ${ i.family_set_list }
             %else:
             "family_sets": []
             % endif
         };
     </script>
+
     <script>
-        const el = document.getElementsByClassName("load_js");
-        if (typeof js_already_loaded === "undefined") {
-          let js_already_loaded = true;
-          Array.from(el).forEach((el) => {
-            const s = document.createElement("script");
-            s.src = el.getAttribute("href");
-            document.head.appendChild(s);
-          });
+        if (typeof progName == "undefined") {
+            var progName = "GoldenDict"
         }
     </script>
+    
+    <script>
+        var els2load = document.getElementsByClassName("load_js");
+        if (typeof js_already_loaded === "undefined") {
+            var js_already_loaded = true;
+            var elsArray = Array.from(els2load);
+            elsArray.forEach(el => { 
+                var s = document.createElement("script");
+                var elName = el.getAttribute("href");
+                s.src = elName;
+                document.head.appendChild(s);
+            });
+        };
+    </script>
+
 </head>
