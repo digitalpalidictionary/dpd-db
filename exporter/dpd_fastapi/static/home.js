@@ -110,9 +110,8 @@ async function handleFormSubmit(event) {
             } else {
                 summaryResults.innerHTML = ""
             }
-            showHideSummery()
+            showHideSummary()
 
-            
             //// add dpd_html
             const dpdDiv = document.createElement("div");
             dpdDiv.innerHTML += data.dpd_html;
@@ -319,6 +318,7 @@ grammarToggle.addEventListener("change", function() {
 });
 
 //// examples button toggle
+
 exampleToggle.addEventListener("change", function() {
     const exampleButtons = document.getElementsByName("example-button");
     const exampleDivs = document.getElementsByName("example-div");
@@ -342,10 +342,10 @@ exampleToggle.addEventListener("change", function() {
 //// summary 
 
 summaryToggle.addEventListener("change", function() {
-    showHideSummery()
+    showHideSummary()
 });
 
-function showHideSummery() {
+function showHideSummary() {
     if (summaryToggle.checked) {
         summaryResults.style.display = "block";
     } else {

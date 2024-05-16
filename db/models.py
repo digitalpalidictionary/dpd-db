@@ -863,14 +863,15 @@ class DpdHeadwords(Base):
         return bool(
             self.meaning_1
             and(
-                any(item in self.idioms_set for item in self.family_idioms_list) or
-                self.lemma_clean in self.idioms_set #type:ignore
+                any(
+                    item in self.idioms_set
+                    for item in self.family_idioms_list
+                )
+                or (
+                    not self.family_idioms_list
+                    and self.lemma_clean in self.idioms_set
+                )
             ))
-
-    # alternative logix
-    # if ((i.meaning_1 and i.lemma_clean in idioms_set) 
-    #     or (i.family_idioms and any(item in idioms_set 
-    #             for item in i.family_idioms_list)))
 
     @property
     def needs_set_button(self) -> bool:

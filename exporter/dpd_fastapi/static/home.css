@@ -274,7 +274,7 @@ h3 {
     color: var(--colour0);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 750px) {
 
     .header-pane {
         flex-direction: column;
@@ -329,12 +329,16 @@ h3 {
     }
     
     .history-list-pane ul {
-        padding-left: 0; /* Remove default padding */
-        list-style-type: none; /* Remove bullets */
+        padding-left: 0;
+        list-style-type: none;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap; 
-        gap: 10px;
+        gap: 0.3em;
+    }
+
+    li:not(:last-child)::after {
+        content: ", ";
     }
 
     .settings-pane {
@@ -345,10 +349,6 @@ h3 {
         box-sizing: border-box;
         width: 100%;
     }
-
-    /* .settings-pane p {
-        text-align: center;
-    } */
 
     .settings-pane h3 {
         text-align: center;

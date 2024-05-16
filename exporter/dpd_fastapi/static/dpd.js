@@ -1,20 +1,36 @@
-function button_click(el) {
-    const target_id=el.getAttribute('data-target');
 
-    target = document.getElementById(target_id);
-    target.classList.toggle('hidden');
+//// listen for button clicks
 
-    if (el.classList.contains('close')) {
-        // close button should toggle active highlight on the button which controls the same target
-        target_control = document.querySelector('a.button[data-target="'+target_id+'"]');
-        target_control.classList.toggle('active');
-    } else {
-        // close button doesn't need active highlight
-        el.classList.toggle('active');
+document.addEventListener("click", function(event) {
+    var target = event.target;
+    const classNames = ["button", "root_button"]
+    if (classNames.some(className => target.classList.contains(className))) {
+        button_click(target);
+        event.preventDefault();
     }
-    // Prevent default
-    target.focus()
-    return false;
+});
+
+//// handle button clicks
+
+function button_click(el) {
+    const target_id = el.getAttribute("data-target");
+    var target = document.getElementById(target_id);
+    if (target) {
+
+        if (target.textContent.includes("loading...")) {
+            loadData()
+        };
+
+        target.classList.toggle("hidden");
+        if (el.classList.contains("close")) {
+            var target_control = document.querySelector('a.button[data-target="' + target_id + '"]');
+            if (target_control) {
+                target_control.classList.toggle("active");
+            }
+        } else {
+            el.classList.toggle("active");
+        }
+    }
 }
 
 

@@ -61,6 +61,5 @@ function makeFamilyRootHtml(data, fr, source) {
     `;
     }
 
-
     return html
 }

@@ -20,6 +20,7 @@ db/families/family_word.py
 db/families/family_compound.py
 db/families/family_set.py
 db/families/family_idiom.py
+scripts/families_to_json.py
 
 scripts/anki_updater.py
 

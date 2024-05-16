@@ -583,7 +583,7 @@
 
 
 {% if d.i.needs_root_family_button %}
-    <div id="root_family_{{d.i.lemma_1_}}" class="content hidden">
+    <div id="family_root_{{d.i.lemma_1_}}" class="content hidden">
         {{d.i.fr.html|safe}}
         <p class='footer'>
             Something out of place? 
@@ -598,7 +598,7 @@
 <!-- word family -->
 
 {% if d.i.needs_word_family_button %}
-    <div id="word_family_{{d.i.lemma_1_}}" class="content hidden">
+    <div id="family_word_{{d.i.lemma_1_}}" class="content hidden">
         <p class="heading underlined">
             <b>{{d.i.fw.count}}</b> 
             words which belong to the 
@@ -619,7 +619,7 @@
 <!-- compound family -->
 
 {% if d.i.needs_compound_family_button %}
-    <div id="compound_family_{{d.i.lemma_1_}}" class="content hidden">
+    <div id="family_compound_{{d.i.lemma_1_}}" class="content hidden">
         <p class="heading underlined">
             <b>
                 {{d.fc[0].count}}
@@ -636,7 +636,7 @@
 <!-- compound families -->
 
 {% if d.i.needs_compound_families_button %}
-<div id="compound_families_{{d.i.lemma_1_}}" class="content hidden">
+<div id="family_compound_{{d.i.lemma_1_}}" class="content hidden">
     <p id="{{d.i.lemma_1_}}cf_top" class="heading">jump to: 
     {% for f in d.fc%}
     <a class="jump" 
@@ -690,7 +690,7 @@
 <!-- idioms -->
 
 {% if d.i.needs_idioms_button %}
-<div id="idioms_{{d.i.lemma_1_}}" class="content hidden">
+<div id="family_idiom_{{d.i.lemma_1_}}" class="content hidden">
     {% for f in d.fi %}
         {% if loop.index == 1 %}
             <p class="heading underlined">
@@ -723,7 +723,7 @@
 <!-- set -->
 
 {% if d.i.needs_set_button %}
-<div id="set_{{d.i.lemma_1_}}" class="content hidden">
+<div id="family_set_{{d.i.lemma_1_}}" class="content hidden">
     {% for f in d.fs %}
     <p class="heading underlined">
         <b>{{d.i.lemma_clean}}</b> 

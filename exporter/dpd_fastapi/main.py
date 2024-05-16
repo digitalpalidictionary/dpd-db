@@ -256,8 +256,7 @@ def find_closest_matches(search) -> str:
     string = "<h3>No results found. "
     if closest_headword_matches:
         string += "The closest matches are:</h3><br>"
-        for match in closest_headword_matches:
-            string += f"{match} "
+        string += ", ".join(closest_headword_matches)
     else:
         string += "</h3>"
     return string
@@ -265,18 +264,17 @@ def find_closest_matches(search) -> str:
 if __name__ == "__main__":
     uvicorn.run(
         "main:app",
-        # host="127.1.1.1",
-        # port=8080,
         host="0.0.0.0",
+        # host="127.1.1.1",
+        port=8080,
         reload=True,
         reload_dirs="exporter/dpd_fastapi")
 
+# run in terminal: 
 # uvicorn exporter.dpd_fastapi.main:app --host 127.1.1.1 --port 8080 --reload --reload-dir exporter/dpd_fastapi
 
-
 # TODO make help popup tooltips and a toggle to turn them off
-# TODO include mw, cpd, dppn, etc.
-# TODO dropdown search
-# TODO summary of roots, deconstructor etc
+# TODO dropdown menu when searching
+# TODO summary of roots
 # TODO history forward and backwards buttons
-# TODO option remove '
+# TODO include mw, cpd, dppn, cone, etc.
