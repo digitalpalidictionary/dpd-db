@@ -14,6 +14,7 @@ from db.models import Lookup
 from tools.configger import config_test
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
+from tools.printer import p_green, p_title, p_yes
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.tic_toc import tic, toc, bip, bop
 from tools.goldendict_exporter import DictEntry
@@ -52,7 +53,7 @@ class ProgData():
 def make_deconstructor_dict_data(g: ProgData) -> None:
     """Prepare data set for GoldenDict of deconstructions and synonyms."""
 
-    print(f"[green]{'making deconstructor data list':<40}")
+    p_green("making deconstructor data list")
 
     db_session = get_db_session(g.pth.dpd_db_path)
     deconstructor_db = db_session \
@@ -71,7 +72,6 @@ def make_deconstructor_dict_data(g: ProgData) -> None:
     elif g.lang == "ru":
         deconstructor_templ = Template(filename=str(g.rupth.deconstructor_templ_path))
 
-    bip()
     for counter, i in enumerate(deconstructor_db):
         deconstructions = i.deconstructor_unpack
 
@@ -109,6 +109,7 @@ def make_deconstructor_dict_data(g: ProgData) -> None:
             bip()
 
     g.dict_data = dict_data
+    p_yes(len(dict_data))
 
 
 def prepare_and_export_to_gd_mdict(g: ProgData) -> None:
@@ -133,29 +134,35 @@ def prepare_and_export_to_gd_mdict(g: ProgData) -> None:
         dict_name = "ru-dpd-deconstructor"
 
     dict_vars = DictVariables(
-        css_path=g.pth.deconstructor_css_path,
-        js_paths=None,
-        gd_path=g.pth.share_dir,
-        md_path=g.pth.share_dir,
-        dict_name=dict_name,
-        icon_path=g.pth.icon_path
+        css_path = g.pth.deconstructor_css_path,
+        js_paths = None,
+        gd_path = g.pth.share_dir,
+        md_path = g.pth.share_dir,
+        dict_name = dict_name,
+        icon_path = g.pth.icon_path,
+        zip_up = False,
+        delete_original=False,
     )
 
     export_to_goldendict_with_pyglossary(
-        dict_info, dict_vars, g.dict_data)
+        dict_info,
+        dict_vars,
+        g.dict_data)
     
     if g.make_mdict:
         export_to_mdict(
-            dict_info, dict_vars, g.dict_data)
+            dict_info,
+            dict_vars,
+            g.dict_data)
 
 
 def main():
-    tic()   
-    print("[bright_yellow]dpd deconstructor")
+    tic()
+    p_title("dpd deconstructor")   
     
     # should the program run?
     if not config_test("exporter", "make_deconstructor", "yes"):
-        print("[green]disabled in config.ini")
+        p_green("disabled in config.ini")
         return
 
     g = ProgData()

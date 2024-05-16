@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-"""Compile HTML table of all grammatical possibilities of
-every inflected word-form."""
+"""Compile HTML table of all grammatical possibilities of every inflected word-form."""
 
 import csv
 import pickle
@@ -9,8 +8,6 @@ import pickle
 # from css_html_js_minify import css_minify, js_minify
 from json import loads
 from mako.template import Template
-from rich import print
-
 
 from db.get_db_session import get_db_session
 from db.models import DpdHeadwords
@@ -29,10 +26,9 @@ from tools.mdict_exporter2 import export_to_mdict
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from tools.tic_toc import bip, bop
+from tools.printer import p_counter, p_green, p_title, p_yes
 from tools.tic_toc import tic, toc
 from tools.update_test_add import update_test_add
-
 
 
 class ProgData():
@@ -61,8 +57,8 @@ class ProgData():
         self.all_words_set: set
 
         # the grammar dictionaries
-        self.grammar_dict: dict[str, tuple[str, str, str]]
-        self.grammar_dict_table: dict[str, tuple[str, str, str]]
+        self.grammar_dict: dict[str, list[tuple[str, str, str]]]
+        self.grammar_dict_table: dict[str, list[tuple[str, str, str]]]
         self.grammar_dict_html: dict[str, str]
 
         # goldendict and mdict data_list
@@ -81,10 +77,10 @@ class ProgData():
 
 def main():
     tic()
-    print("[bright_yellow]grammar dictionary")
+    p_title("exporting grammar dictionary")
 
     if not config_test("exporter", "make_grammar", "yes"):
-        print("[green]disabled in config.ini")
+        p_green("disabled in config.ini")
         return
     
     g = ProgData()
@@ -131,21 +127,21 @@ def make_sets_of_words(g: ProgData):
     all words in the tipitaka + all the words in deconstructed compounds"""
 
     # tipitaka word set
-    print(f"[green]{'all tipitaka words':<40}", end="")
+    p_green("all tipitaka words")
     with open(g.pth.tipitaka_word_count_path) as f:
         reader = csv.reader(f, delimiter="\t")
         tipitaka_word_set = set([row[0] for row in reader])
-    print(f"{len(tipitaka_word_set):>10,}")
+    p_yes(len(tipitaka_word_set))
 
     # word in deconstructed compounds
-    print(f"[green]{'all words in deconstructions':<40}", end="")
+    p_green("all words in deconstructions")
     words_in_deconstructions_set = make_words_in_deconstructions(g.db_session)
-    print(f"{len(words_in_deconstructions_set):>10,}")
+    p_yes(len(words_in_deconstructions_set))
 
     # all words set
-    print(f"[green]{'all words set':<40}", end="")
+    p_green("all words set")
     g.all_words_set = tipitaka_word_set | words_in_deconstructions_set
-    print(f"{len(g.all_words_set):>10,}")
+    p_yes(len(g.all_words_set))
 
 
 def render_header_templ(
@@ -160,7 +156,7 @@ def render_header_templ(
 
 
 def generate_grammar_dict(g: ProgData):
-    print("[green]generating grammar dictionary")
+    p_green("generating grammar dictionary")
 
     # three grammar dicts will be generated here at the same time. 
     # 1. grammar_dict is pure data {inflection: [(headword, pos, grammar)]}
@@ -181,7 +177,6 @@ def generate_grammar_dict(g: ProgData):
     html_table_header = "<body><div class='grammar_dict'><table class='grammar_dict'>"
 
     # process the inflections of each word in DpdHeadwords
-    bip()
     for counter, i in enumerate(g.db):
 
         # words with ! in the stem are inflected forms 
@@ -292,15 +287,14 @@ def generate_grammar_dict(g: ProgData):
                                                 grammar_dict_table[inflected_word] += html_line
 
         if counter % 5000 == 0:
-            print(f"{counter:>10,} / {len(g.db):<10,} {i.lemma_1[:20]:<20} {bop():>10}") 
-            bip()
+            p_counter(counter, len(g.db), i.lemma_1)
 
     if g.lang == "ru":
 
         # !!! FIXME very slow!
 
         print_counter = 0
-        print("[green]replacing abbreviations: en > ru")
+        p_green("replacing abbreviations: en > ru")
         for inflected_word, html_content in grammar_dict_html.items():
             # Replace abbreviations in each HTML line
             html_lines = html_content.split('<tr>')
@@ -315,21 +309,19 @@ def generate_grammar_dict(g: ProgData):
 
             print_counter += 1
             if print_counter % 5000 == 0:
-                print(f"{print_counter:>10,} / {len(grammar_dict_html):<10,}{inflected_word[:20]:<20} {bop():>10}")
-                bip()
+                p_counter(print_counter, len(grammar_dict_html), inflected_word)
 
-
-
-    # FIXME what about using Jinja template here?
 
     # clean up the html
+    # FIXME what about using Jinja template here?
+
     for item in grammar_dict_html:
         grammar_dict_html[item] += "</table></div></body></html>"
 
     for item in grammar_dict_table:
         grammar_dict_table[item] += "</table></div>"
 
-    # !!! FIXME find out how to remove headings from table with only 1 row
+    # FIXME find out how to remove headings from table with only 1 row
 
     for item in grammar_dict_table:
         grammar_dict_table[item] += "</tbody></table></div>"
@@ -338,29 +330,31 @@ def generate_grammar_dict(g: ProgData):
     g.grammar_dict_table = grammar_dict_table
     g.grammar_dict_html = grammar_dict_html
 
+    p_yes(len(g.grammar_dict))
+
 
 def save_pickle_and_tsv(g: ProgData):
     """Save in pickle and tsv formats for external use."""
 
-    print(f"[green]{'saving pickle and tsv':<40}{len(g.grammar_dict):>10,}")
-
     # save pickle file
-    print(f"[green]{'saving grammar_dict pickle':<40}{len(g.grammar_dict):>10,}")
+    p_green("saving grammar_dict pickle")
     with open(g.pth.grammar_dict_pickle_path, "wb") as f:
         pickle.dump(g.grammar_dict, f)
+    p_yes("ok")
     
     # save tsv of inflection and table
-    print(f"[green]{'saving grammar_dict tsv':<40}{len(g.grammar_dict_table):>10,}")
+    p_green("saving grammar_dict tsv")
     with open(g.pth.grammar_dict_tsv_path, "w") as f:
         f.write("inflection\thtml\n")
         for inflection, table in g.grammar_dict_table.items():
             f.write(f"{inflection}\t{table}\n")
+    p_yes("ok")
 
 
 def add_to_lookup_table(g: ProgData):
     """Add the grammar dict items to the Lookup table."""
 
-    print(f"[green]{'saving to Lookup table':<40}{len(g.grammar_dict):>10,}")
+    p_green("saving to Lookup table")
 
     lookup_table = g.db_session.query(Lookup).all()
     results = update_test_add(lookup_table, g.grammar_dict)
@@ -389,10 +383,13 @@ def add_to_lookup_table(g: ProgData):
 
     g.db_session.add_all(add_to_db)
     g.commit_db()
+    p_yes("ok")
 
 
 def make_data_lists(g: ProgData):
     """Make the data_lists to be consumed by GoldenDict and MDict"""
+    p_green("making data lists")
+
     dict_data: list[DictEntry] = []
     for word, html in g.grammar_dict_html.items():
         synonyms = add_niggahitas([word])
@@ -405,6 +402,7 @@ def make_data_lists(g: ProgData):
         )]
 
     g.dict_data = dict_data
+    p_yes("ok")
 
 
 def prepare_gd_mdict_and_export(g: ProgData):
@@ -438,7 +436,9 @@ def prepare_gd_mdict_and_export(g: ProgData):
         gd_path=g.pth.share_dir,
         md_path=g.pth.share_dir,
         dict_name=dict_name,
-        icon_path=g.pth.icon_path
+        icon_path=g.pth.icon_path,
+        zip_up=False,
+        delete_original=False
     )
 
     export_to_goldendict_with_pyglossary(dict_info, dict_vars, g.dict_data)
@@ -446,7 +446,6 @@ def prepare_gd_mdict_and_export(g: ProgData):
     if g.make_mdict:
         export_to_mdict(dict_info, dict_vars, g.dict_data)
         
-
 
 if __name__ == "__main__":
     main()

@@ -308,7 +308,7 @@ class Lookup(Base):
     # grammar pack unpack
     # TODO add a method to unpack to html
     
-    def grammar_pack(self, list: list[tuple[str]]) -> None:
+    def grammar_pack(self, list: list[tuple[str, str, str]]) -> None:
         if list:
             self.grammar = json.dumps(list, ensure_ascii=False)
         else:
