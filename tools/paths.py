@@ -246,8 +246,9 @@ class ProjectPaths:
         # resources/resources/other_pali_texts
         self.other_pali_texts_dir = base_dir / "resources/other_pali_texts"
 
-        # resources/sutta_central
-        self.sc_dir = base_dir / "resources/sutta_central/ms/"
+        # resources/sc-data
+        self.sc_data_dir = base_dir / "resources/sc-data/sc_bilara_data/root/pli/ms/"
+        self.sc_data_dpd_dir = base_dir / "resources/sc-data/dpd/"
 
         # resources/tpr
         self.tpr_download_list_path = base_dir / "resources/tpr_downloads/download_source_files/download_list.json"

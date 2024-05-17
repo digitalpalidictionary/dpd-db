@@ -143,8 +143,12 @@ def make_dpd_html(search: str) -> tuple[str, str]:
                     fi = get_family_idioms(i)
                     fs = get_family_set(i)
                     d = HeadwordData(i, fc, fi, fs)
-                    summary_html += templates.get_template("dpd_summary.html").render(d=d)
-                    dpd_html += templates.get_template("dpd_headword.html").render(d=d)
+                    summary_html += templates \
+                        .get_template("dpd_summary.html") \
+                        .render(d=d)
+                    dpd_html += templates \
+                        .get_template("dpd_headword.html") \
+                        .render(d=d)
             
             # roots
             if lookup_results.roots:
@@ -159,46 +163,54 @@ def make_dpd_html(search: str) -> tuple[str, str]:
                         .filter(FamilyRoot.root_key == r.root)
                     frs = sorted(frs, key=lambda x: pali_sort_key(x.root_family))
                     d = RootsData(r, frs, roots_count_dict)
-                    dpd_html += templates.get_template(
-                        "root.html").render(d=d)
+                    dpd_html += templates \
+                        .get_template("root.html") \
+                        .render(d=d)
 
             # deconstructor
             if lookup_results.deconstructor:
                 d = DeconstructorData(lookup_results)
-                dpd_html += templates.get_template(
-                        "deconstructor.html").render(d=d)
+                dpd_html += templates \
+                    .get_template("deconstructor.html") \
+                    .render(d=d)
 
             # variant
             if lookup_results.variant:
                 d = VariantData(lookup_results)
-                dpd_html += templates.get_template(
-                        "variant.html").render(d=d)
+                dpd_html += templates \
+                    .get_template("variant.html") \
+                    .render(d=d)
 
             # spelling mistake
             if lookup_results.spelling:
                 d = SpellingData(lookup_results)
-                dpd_html += templates.get_template(
-                        "spelling.html").render(d=d)
+                dpd_html += templates \
+                    .get_template("spelling.html") \
+                    .render(d=d)
 
             if lookup_results.grammar:
                 d = GrammarData(lookup_results)
-                dpd_html += templates.get_template(
-                        "grammar.html").render(d=d)
+                dpd_html += templates \
+                    .get_template("grammar.html") \
+                    .render(d=d)
                                 
             if lookup_results.help:
                 d = HelpData(lookup_results)
-                dpd_html += templates.get_template(
-                        "help.html").render(d=d)
+                dpd_html += templates \
+                    .get_template("help.html") \
+                    .render(d=d)
 
             if lookup_results.abbrev:
                 d = AbbreviationsData(lookup_results)
-                dpd_html += templates.get_template(
-                        "abbreviations.html").render(d=d)
+                dpd_html += templates \
+                    .get_template("abbreviations.html") \
+                    .render(d=d)
 
             if lookup_results.epd:
                 d = EpdData(lookup_results)
-                dpd_html += templates.get_template(
-                        "epd.html").render(d=d)
+                dpd_html += templates \
+                    .get_template("epd.html") \
+                    .render(d=d)
 
         # return closest matches
         else:
@@ -215,8 +227,9 @@ def make_dpd_html(search: str) -> tuple[str, str]:
             fi = get_family_idioms(headword_result)
             fs = get_family_set(headword_result)
             d = HeadwordData(headword_result, fc, fi, fs)
-            dpd_html += templates.get_template(
-                "dpd_headword.html").render(d=d)
+            dpd_html += templates \
+                .get_template("dpd_headword.html") \
+                .render(d=d)
 
         # return closest matches
         else:
@@ -232,8 +245,9 @@ def make_dpd_html(search: str) -> tuple[str, str]:
             fi = get_family_idioms(headword_result)
             fs = get_family_set(headword_result)
             d = HeadwordData(headword_result, fc, fi, fs)
-            dpd_html += templates.get_template(
-                "dpd_headword.html").render(d=d)
+            dpd_html += templates \
+                .get_template("dpd_headword.html") \
+                .render(d=d)
 
         # return closest matches
         else:
@@ -264,8 +278,8 @@ def find_closest_matches(search) -> str:
 if __name__ == "__main__":
     uvicorn.run(
         "main:app",
-        host="0.0.0.0",
-        # host="127.1.1.1",
+        # host="0.0.0.0",
+        host="127.1.1.1",
         port=8080,
         reload=True,
         reload_dirs="exporter/dpd_fastapi")

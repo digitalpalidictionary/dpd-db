@@ -230,7 +230,11 @@ def make_cst_text_set_from_file(dpspth, niggahita="ṃ") -> Set[str]:
     return set(words_list)
 
 
-def make_sc_text_set(pth, books: List[str], niggahita="ṃ") -> Set[str]:
+def make_sc_text_set(
+        pth: ProjectPaths, 
+        books: List[str], 
+        niggahita="ṃ"
+) -> Set[str]:
     """Make a list of words in Sutta Central texts from a list of books.
     Optionally change the niggahita character.
     Return a list or a set."""
@@ -247,7 +251,7 @@ def make_sc_text_set(pth, books: List[str], niggahita="ṃ") -> Set[str]:
 
     words_list: List[str] = []
 
-    for root, __dirs__, files in sorted(os.walk(pth.sc_dir)):
+    for root, __dirs__, files in sorted(os.walk(pth.sc_data_dir)):
         for file in files:
             if file in sc_texts_list:
                 with open(os.path.join(root, file)) as f:
