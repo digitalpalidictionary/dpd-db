@@ -10,3 +10,7 @@
 [submodule "resources/bw2"]
 	path = resources/bw2
 	url = https://github.com/thebuddhaswords/BW2.git
+	
+[submodule "resources/sc-data"]
+	path = resources/sc-data
+	url = https://github.com/digitalpalidictionary/sc-data.git
