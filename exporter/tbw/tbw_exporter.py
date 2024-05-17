@@ -74,11 +74,8 @@ def main():
     deconstructor_dict_add_spelling_mistakes(g)
     sort_deconstructor_dict(g)
 
-    save_i2h_js(g)
-    save_dpd_dict_js(g)
-    save_deconstructor_js(g)
-
-    copy_js_to_sc_data(g)
+    save_js_files_for_tbw(g)
+    save_json_files_for_sc(g)
     toc()
 
 
@@ -235,57 +232,42 @@ def sort_deconstructor_dict(g: ProgData):
     p_yes(len(g.deconstructor_dict))
 
 
-def save_i2h_js(g: ProgData):
-    """saving i2h.js"""
+def save_js_files_for_tbw(g: ProgData):
+    """saving .js files for tbw"""
 
-    p_green("saving i2h.js")    
+    p_green("saving .js files for tbw")    
+    
     i2h_json_dump = json.dumps(g.i2h_dict, ensure_ascii=False, indent=2)
-    
-    with open(g.pth.i2h_js_path, "w") as f:
+    with open(g.pth.tbw_i2h_js_path, "w") as f:
         f.write(f"dpd_i2h = {i2h_json_dump}")
-    
-    p_yes("ok")
-
-
-def save_dpd_dict_js(g: ProgData):
-    """saving dpd_ebts.js"""
-    
-    p_green("saving dpd_ebts.js")
     
     dpd_json_dump = json \
         .dumps(g.dpd_dict, ensure_ascii=False, indent=2)
-    
-    with open(g.pth.dpd_ebts_js_path, "w") as f:
+    with open(g.pth.tbw_dpd_ebts_js_path, "w") as f:
         f.write(f"let dpd_ebts = {dpd_json_dump}")
     
-    p_yes("ok")
-
-
-def save_deconstructor_js(g: ProgData):
-    """saving dpd_deconstructor.js"""
-
-    p_green("saving dpd_deconstructor.js")    
+    
     json_dump = json.dumps \
         (g.deconstructor_dict, ensure_ascii=False, indent=2)
-
-    with open(g.pth.deconstructor_js_path, "w") as f:
+    with open(g.pth.tbw_deconstructor_js_path, "w") as f:
         f.write(f"let dpd_deconstructor = {json_dump}")
     
     p_yes("ok")
 
 
-def copy_js_to_sc_data(g: ProgData):
-    """Copy js files to sc-data dir"""
+def save_json_files_for_sc(g: ProgData):
+    """Copy json files to sc-data dir"""
 
-    p_green("copying js files to sc-data")
+    p_green("copying json files to sc-data")
 
-    for source_path in [
-        g.pth.dpd_ebts_js_path,
-        g.pth.i2h_js_path,
-        g.pth.deconstructor_js_path,
-    ]:  
-        dest_path = g.pth.sc_data_dpd_dir.joinpath(source_path.name)
-        shutil.copy(source_path, dest_path)
+    with open(g.pth.sc_i2h_json_path, "w") as f:
+        json.dump(g.i2h_dict, f, ensure_ascii=False, indent=2)
+
+    with open(g.pth.sc_dpd_ebts_json_path, "w") as f:
+        json.dump(g.dpd_dict, f, ensure_ascii=False, indent=2)
+
+    with open(g.pth.sc_deconstructor_json_path, "w") as f:
+        json.dump(g.deconstructor_dict, f, ensure_ascii=False, indent=2)
     
     p_yes("ok")
 

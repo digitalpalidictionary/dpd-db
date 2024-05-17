@@ -318,9 +318,22 @@ class ProjectPaths:
         self.inflections_from_translit_json_path = base_dir / "share/inflections_from_translit.json"
 
         # resources/bw/js
-        self.i2h_js_path = base_dir / "resources/bw2/js/dpd_i2h.js"
-        self.dpd_ebts_js_path = base_dir / "resources/bw2/js/dpd_ebts.js"
-        self.deconstructor_js_path = base_dir / "resources/bw2/js/dpd_deconstructor.js"
+        self.tbw_i2h_js_path = base_dir / "resources/bw2/js/dpd_i2h.js"
+        self.tbw_dpd_ebts_js_path = base_dir / "resources/bw2/js/dpd_ebts.js"
+        self.tbw_deconstructor_js_path = base_dir / "resources/bw2/js/dpd_deconstructor.js"
+
+        # resources/sc-data
+        self.sc_data_dir = base_dir / "resources/sc-data/sc_bilara_data/root/pli/ms/"
+        self.sc_data_dpd_dir = base_dir / "resources/sc-data/dpd/"
+        
+        self.sc_i2h_js_path = base_dir / "resources/sc-data/dpd/dpd_i2h.js"
+        self.sc_i2h_json_path = base_dir / "resources/sc-data/dpd/dpd_i2h.json"
+        
+        self.sc_dpd_ebts_js_path = base_dir / "resources/sc-data/dpd/dpd_ebts.js"
+        self.sc_dpd_ebts_json_path = base_dir / "resources/sc-data/dpd/dpd_ebts.json"
+        
+        self.sc_deconstructor_js_path = base_dir / "resources/sc-data/dpd/dpd_deconstructor.js"
+        self.sc_deconstructor_json_path = base_dir / "resources/sc-data/dpd/dpd_deconstructor.json"
 
         # temp
         self.temp_dir = base_dir / "temp/"
