@@ -1,6 +1,4 @@
 initial	final	correct	wrong	without	exceptions
-
--
 xa + u	o	au > o	u > o	o	anoka 1, anoka 2, anoka 3, anodaka, odarika,	need more rules
 a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant
 a + ṭ	iṭ	a > i	x	a + ṭh	x
@@ -8,7 +6,7 @@ a + ṭh	iṭṭh	a > i	x	x	x
 ati +	acc	ti > ty > cc	x	gacch	pacchājāta, gatikālādipaccayantarasamavāya
 adhi + a	jjh	dhi > dhy > jjh	adhi > adhy > ajjh	adhi + ā	x
 adhi + ā	jjh	dhi > dhy > jjh	x	adhi + a	x
-anu + ā	nnā	uā > nā	anu > ann	n + ā
+anu + ā	nnā	uā > nā	anu > ann	n + ā	x
 abhi + a	abbh	bhi > bhy > bbh	x	x	x
 am + ta	ata	mt > t	x	nt	abhikkantatara, santatara
 ava	o	ava > o	x	o	ponobbhavika, ponobhavika, anavabodha, bhavamūlopagāmī
@@ -45,7 +43,7 @@ xū + a	av	ū > av	x	x	x	so many exceptions
 
 e + a	aya	e > ay	x	x	x
 
-c + a	ka	c > k (Kacc 623, 554)	c > k	k	avaṅka 1, avaṅkatta, pallaṅka 1, pallaṅka 2, sampavaṅka, sampavaṅkatā, savaṅkatta, vaṅka 1, vaṅka 2, vaṅka 3, vaṅka 6, vaṅkatta
+c + a	ka	c > k (Kacc 623, 554)	c > k	k	avaṅkata, avaṅka 1, avaṅkatta, pallaṅka 1, pallaṅka 2, sampavaṅka, sampavaṅkatā, savaṅkatta, vaṅka 1, vaṅka 2, vaṅka 3, vaṅka 6, vaṅkatta
 c + t	kk	ct > kk (Kacc 623, 554)	c > k	ñc + t	x
 c + t	kk	ct > kk (Kacc 623, 554)	ct > kk	ñc + t	x
 c + t	tt	ct > tt	c > t	c + th	x
@@ -59,7 +57,7 @@ j + t	tt	jt > tt	j > t	j + th	vissaṭṭhatta, duttitikkha
 j + t	bb	jt > bb	x	x	ubbigga 1, ubbigga 2, anubbigga
 j + t	ṭṭh	jt > ṭṭh	x	j + th	x
 j + th	tth	jth > tth	j > t	x	x
-j + y	jj	jy > jj	y > j	jj + y	x
+j + y	jj	jy > jj	y > j	jj + y	verajjaka
 j + s	kkh	js > kkh	x	x	x
 
 ja + y	jj	jy > jj	x	x	x
@@ -106,7 +104,7 @@ xd + bh	bbh	dbh > bbh	d > b	x	x	need to exlude roots starting with v
 d + m	mm	dm > mm	d > m	x	x
 xd + y	bb	dy > bb	x	abhi	x	exclude tings
 d + y	yy	dy > yy	d > y	yy	x
-d + l	ll	dl > ll	d > l	ll
+d + l	ll	dl > ll	d > l	ll	x
 d + v	bb	dv > bb	d > b	x	x
 d + s	ss	ds > ss	d > s	x	x
 d + s	cch	ds > cch	d > c	x	x
@@ -166,11 +164,11 @@ v + t	t	vt > t	v > t	v + th	x
 v + t	tt	vt > tt	v > t	v + th	x
 v + th	th	vth > th	x	x	x
 vi +	by	vi > vy > by	vi > by	x	vedhabyā
-vi + ā	veyyā	vi > veyy (Kacc 401, 375)	vy > veyy	veyy
+vi + ā	veyyā	vi > veyy (Kacc 401, 375)	vy > veyy	veyy	x
 
 
 s + t	ṭṭh	st > ṭṭh	x	x	x
-s + m	ss	sm > ss	s > m	ss
+s + m	ss	sm > ss	s > m	ss	x
 s + y	ss	sy > ss	y > s	x	x
 s + s	cch	ss > cch	x	x	x
 snih +	sini	snih > sinih (epenthesis)	x	x	x

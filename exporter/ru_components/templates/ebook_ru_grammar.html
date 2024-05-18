@@ -51,7 +51,7 @@
         <td>${i.phonetic}</td>
     </tr>
     % endif
-    % if i.compound_type:
+    % if i.compound_type and "?" not in i.compound_type:
     <tr>
         <td class='th'>Составное</td>
         <td>${i.compound_type} (${i.compound_construction})</td>

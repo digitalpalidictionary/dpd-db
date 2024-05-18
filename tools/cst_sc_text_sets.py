@@ -20,7 +20,8 @@ from tools.paths import ProjectPaths
 
 
 def make_cst_text_set(
-        pth, books: List[str], 
+        pth: ProjectPaths,
+        books: List[str], 
         niggahita="ṃ", 
         add_hyphenated_parts=True,
     ) -> Set[str]:
@@ -74,7 +75,7 @@ def make_cst_text_set(
 
 
 def make_cst_text_list(
-        pth, 
+        pth: ProjectPaths, 
         books: List[str], 
         niggahita="ṃ",
         dedupe=True,
@@ -186,7 +187,12 @@ def extract_sutta_from_file(sutta_name: str, text_string: str, books: List[str])
 
 
 def make_cst_text_set_sutta(
-        pth, sutta_name: str, books: List[str], niggahita="ṃ") -> Set[str]:
+        pth: ProjectPaths,
+        sutta_name: str,
+        books: List[str],
+        niggahita="ṃ"
+) -> Set[str]:
+    
     """Make a list of words in CST texts from a list of books.
     Optionally change the niggahita character.
     Return a list or a set."""
@@ -210,7 +216,11 @@ def make_cst_text_set_sutta(
     return set(words_list)
 
 
-def make_cst_text_set_from_file(dpspth, niggahita="ṃ") -> Set[str]:
+def make_cst_text_set_from_file(
+        dpspth,
+        niggahita="ṃ"
+) -> Set[str]:
+
     """Make a list of words in CST texts from a list of books.
     Optionally change the niggahita character.
     Return a list or a set."""
@@ -235,6 +245,7 @@ def make_sc_text_set(
         books: List[str], 
         niggahita="ṃ"
 ) -> Set[str]:
+    
     """Make a list of words in Sutta Central texts from a list of books.
     Optionally change the niggahita character.
     Return a list or a set."""
@@ -265,10 +276,11 @@ def make_sc_text_set(
 
 
 def make_sc_text_list(
-        pth,
+        pth: ProjectPaths,
         books: List[str],
         niggahita="ṃ",
-        deduped=True) -> List[str]:
+        deduped=True
+) -> List[str]:
     
     """
     Make a list of words in Sutta Central texts from a list of books.
@@ -288,7 +300,7 @@ def make_sc_text_list(
 
     words_list: List[str] = []
 
-    for root, __dirs__, files in sorted(os.walk(pth.sc_dir)):
+    for root, __dirs__, files in sorted(os.walk(pth.sc_data_dir)):
         for file in files:
             if file in sc_texts_list:
                 with open(os.path.join(root, file)) as f:
@@ -310,7 +322,11 @@ def make_sc_text_list(
         return deduped_list
 
 
-def make_bjt_text_set(pth, include: List[str]) -> Set[str]:
+def make_bjt_text_set(
+        pth: ProjectPaths,
+        include: List[str]
+) -> Set[str]:
+    
     """This is not currently used. BJT texts are an unedit digital mess."""
     bjt_texts_list: List[str] = []
     for i in include:
@@ -330,7 +346,7 @@ def make_bjt_text_set(pth, include: List[str]) -> Set[str]:
     return bjt_text_set
 
 
-def make_mula_words_set(pth) -> Set[str]:
+def make_mula_words_set(pth: ProjectPaths) -> Set[str]:
     """Returns a set of all words in CST & Sutta Cental mūla texts.
     Usage: mula_word_set = make_mula_words_set()"""
     cst_word_set = make_cst_text_set(pth, mula_books)
@@ -339,7 +355,7 @@ def make_mula_words_set(pth) -> Set[str]:
     return mula_word_set
 
 
-def make_all_words_set(pth) -> Set[str]:
+def make_all_words_set(pth: ProjectPaths) -> Set[str]:
     """Returns a set of all words in CST & Sutta Cental texts.
     Usage: all_words_set = make_all_words_set()"""
     cst_word_set = make_cst_text_set(pth, all_books)
@@ -348,7 +364,7 @@ def make_all_words_set(pth) -> Set[str]:
     return all_words_set
 
 
-def make_other_pali_texts_set(pth) -> Set[str]:
+def make_other_pali_texts_set(pth: ProjectPaths) -> Set[str]:
     """Compile a set of all words in other pali texts, chanting books, etc."""
     other_pali_texts_set: Set[str] = set()
 

@@ -274,7 +274,7 @@
         </tr>
         {% endif %}
 
-        {% if d.i.compound_type %}
+        {% if d.i.compound_type and "?" not in d.i.compound_type %}
         <tr>
             <th>
                 Compound

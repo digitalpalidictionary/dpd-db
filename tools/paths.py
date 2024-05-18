@@ -193,9 +193,14 @@ class ProjectPaths:
         # exporter/other_dictionaries/css
         self.whitney_css_dir = base_dir / "exporter/other_dictionaries/code/whitney/whitney.css/"
         self.dpr_css_path = base_dir / "exporter/other_dictionaries/code/dpr/dpr.css/"
+        self.cone_css_path = base_dir / "exporter/other_dictionaries/code/cone/cone.css"
 
         # exporter/other_dictionaries/source
         self.bhs_source_path = base_dir / "exporter/other_dictionaries/code/bhs/source/bhs.xml"
+        
+        self.cone_source_path = base_dir / "exporter/other_dictionaries/code/cone/source/cone_dict.json"
+        self.cone_front_matter_path = base_dir / "exporter/other_dictionaries/code/cone/source/cone_front_matter.json"
+        
         self.cpd_source_path = base_dir / "exporter/other_dictionaries/code/cpd/source/en-critical.json"
         self.dpr_source_path = base_dir / "exporter/other_dictionaries/code/dpr/source/dpr.json"
         self.mw_source_path = base_dir / "exporter/other_dictionaries/code/mw/source/mw_from_simsapa.json"
@@ -207,6 +212,7 @@ class ProjectPaths:
 
         # exporter/other_dictionaries/goldendict
         self.bhs_gd_path = base_dir / "exporter/other_dictionaries/goldendict/bhs.zip"
+        self.cone_gd_path = base_dir / "exporter/other_dictionaries/goldendict/"
         self.cpd_gd_path = base_dir / "exporter/other_dictionaries/goldendict/cpd.zip"
         self.dpr_gd_path = base_dir / "exporter/other_dictionaries/goldendict/dpr.zip"
         self.mw_gd_path = base_dir / "exporter/other_dictionaries/goldendict/mw.zip"
@@ -218,6 +224,7 @@ class ProjectPaths:
 
         # exporter/other_dictionaries/json
         self.bhs_json_path = base_dir / "exporter/other_dictionaries/json/bhs.json"
+        self.cone_json_path = base_dir / "exporter/other_dictionaries/json/cone.json"
         self.cpd_json_path = base_dir / "exporter/other_dictionaries/json/cpd.json"
         self.dpr_json_path = base_dir / "exporter/other_dictionaries/json/dpr.json"
         self.mw_json_path = base_dir / "exporter/other_dictionaries/json/mw.json"
@@ -229,6 +236,7 @@ class ProjectPaths:
 
         # exporter/other_dictionaries/mdict
         self.bhs_mdict_path = base_dir / "exporter/other_dictionaries/mdict/bhs.mdx"
+        self.cone_mdict_path = base_dir / "exporter/other_dictionaries/mdict/"
         self.cpd_mdict_path = base_dir / "exporter/other_dictionaries/mdict/cpd.mdx"
         self.dpr_mdict_path = base_dir / "exporter/other_dictionaries/mdict/dpr.mdx"
         self.mw_mdict_path = base_dir / "exporter/other_dictionaries/mdict/mw.mdx"

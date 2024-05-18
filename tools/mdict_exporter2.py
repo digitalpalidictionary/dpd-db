@@ -38,15 +38,20 @@ def export_to_mdict(
 
     p_green_title("exporting to mdict")
     g = ProgData(dict_info, dict_var, dict_data, h3_header)
+    
     replace_goldendict(g)
+    
     if h3_header:
         add_h3_header(g)
+    
     reduce_synonyms(g)
     write_mdx_file(g)
     compile_css_js_assets(g)
     write_mdd_file(g)
+    
     if dict_var.zip_up:
         zip_files(g)
+    
     if dict_var.delete_original:
         delete_original(g)
 
@@ -180,7 +185,7 @@ def delete_original(g: ProgData) -> None:
     try:
         g.dict_var.mdict_mdd_path.unlink()
         g.dict_var.mdict_mdx_path.unlink()
-        p_yes("deleted")
+        p_yes("ok")
     
     except Exception as e:
         p_no("error")
