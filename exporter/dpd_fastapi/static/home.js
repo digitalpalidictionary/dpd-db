@@ -22,6 +22,7 @@ const sansSerifToggle = document.getElementById("sans-serif-toggle");
 const niggahitaToggle = document.getElementById("niggahita-toggle");
 const grammarToggle = document.getElementById("grammar-toggle");
 const exampleToggle = document.getElementById("example-toggle");
+const sbsexampleToggle = document.getElementById("sbs-example-toggle");
 const summaryToggle = document.getElementById("summary-toggle");
 const sandhiToggle = document.getElementById("sandhi-toggle");
 
@@ -53,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
     loadToggleState("niggahita-toggle");
     loadToggleState("grammar-toggle");
     loadToggleState("example-toggle");
+    loadToggleState("sbs-example-toggle");
     loadToggleState("summary-toggle");
     loadToggleState("sandhi-toggle");
     toggleClearHistoryButton()
@@ -145,6 +147,18 @@ async function handleFormSubmit(event) {
                 });
             };
 
+            //// sbs example button toggle
+            if (sbsexampleToggle.checked) {
+                const sbsexampleButtons = dpdDiv.querySelectorAll('[name="sbs-example-button"]');
+                const sbsexampleDivs = dpdDiv.querySelectorAll('[name="sbs-example-div"]');
+                sbsexampleButtons.forEach(button => {
+                    button.classList.add("active");
+                });
+                sbsexampleDivs.forEach(div => {
+                    div.classList.remove("hidden");
+                });
+            };
+
             dpdResults.innerHTML = dpdDiv.innerHTML;
             dpdResultsContent = dpdDiv.innerHTML
 
@@ -225,6 +239,7 @@ sansSerifToggle.addEventListener("change", saveToggleState);
 niggahitaToggle.addEventListener("change", saveToggleState);
 grammarToggle.addEventListener("change", saveToggleState);
 exampleToggle.addEventListener("change", saveToggleState);
+sbsexampleToggle.addEventListener("change", saveToggleState);
 summaryToggle.addEventListener("change", saveToggleState);
 sandhiToggle.addEventListener("change", saveToggleState);
 
@@ -334,6 +349,27 @@ exampleToggle.addEventListener("change", function() {
             button.classList.remove("active");
         });
         exampleDivs.forEach(div => {
+            div.classList.add("hidden");
+        });
+    }
+});
+
+//// sbs examples button toggle
+sbsexampleToggle.addEventListener("change", function() {
+    const sbsexampleButtons = document.getElementsByName("sbs-example-button");
+    const sbsexampleDivs = document.getElementsByName("sbs-example-div");
+    if (this.checked) {
+        sbsexampleButtons.forEach(button => {
+            button.classList.add("active");
+        });
+        sbsexampleDivs.forEach(div => {
+            div.classList.remove("hidden");
+        });
+    } else {
+        sbsexampleButtons.forEach(button => {
+            button.classList.remove("active");
+        });
+        sbsexampleDivs.forEach(div => {
             div.classList.add("hidden");
         });
     }

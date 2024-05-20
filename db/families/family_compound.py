@@ -44,10 +44,10 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    if config_test("dictionary", "show_dps_data", "yes"):
-        dps_data = True
+    if config_test("dictionary", "show_sbs_data", "yes"):
+        show_sbs_data = True
     else:
-        dps_data = False
+        show_sbs_data = False
 
     if config_test("exporter", "language", "en"):
         lang = "en"
@@ -69,8 +69,8 @@ def main():
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     cf_dict = create_comp_fam_dict(dpd_db)
-    cf_dict = compile_cf_html(dpd_db, cf_dict, lang, dps_data)
-    add_cf_to_db(db_session, cf_dict)
+    cf_dict = compile_cf_html(dpd_db, cf_dict, lang, show_sbs_data)
+    add_cf_to_db(db_session, cf_dict, lang)
     update_db_cache(db_session, cf_dict)
 
     # update anki
@@ -115,6 +115,7 @@ def create_comp_fam_dict(dpd_db):
                         "html": "",
                         "data": [],
                         "html_ru": "",
+                        "data_ru": [],
                         "anki": []
                     }
 
@@ -122,7 +123,7 @@ def create_comp_fam_dict(dpd_db):
     return cf_dict
 
 
-def compile_cf_html(dpd_db, cf_dict, lang="en", dps_data=False):
+def compile_cf_html(dpd_db, cf_dict, lang="en", show_sbs_data=False):
     print("[green]compiling html")
 
     for __counter__, i in enumerate(dpd_db):
@@ -135,7 +136,7 @@ def compile_cf_html(dpd_db, cf_dict, lang="en", dps_data=False):
                     else:
                         html_string = cf_dict[cf]["html"]
 
-                    if not dps_data:
+                    if not show_sbs_data:
                         meaning = make_meaning(i)
                     else:
                         meaning = make_short_meaning(i)
@@ -172,6 +173,14 @@ def compile_cf_html(dpd_db, cf_dict, lang="en", dps_data=False):
                             degree_of_completion(i, html=False)
                         ))
 
+                        if lang == "ru" and i.ru:
+                            cf_dict[cf]["data_ru"].append((
+                            i.lemma_1,
+                            pos,
+                            ru_meaning,
+                            degree_of_completion(i, html=False)
+                        ))
+
                     # anki data
                     if i.meaning_1:
                         construction = clean_construction(
@@ -187,7 +196,7 @@ def compile_cf_html(dpd_db, cf_dict, lang="en", dps_data=False):
     return cf_dict
 
 
-def add_cf_to_db(db_session, cf_dict):
+def add_cf_to_db(db_session, cf_dict, lang):
     print("[green]adding to db", end=" ")
 
     add_to_db = []
@@ -199,6 +208,8 @@ def add_cf_to_db(db_session, cf_dict):
             html_ru=cf_dict[cf]["html_ru"],
             count=len(cf_dict[cf]["headwords"]))
         cf_data.data_pack(cf_dict[cf]["data"])
+        if lang == "ru":
+            cf_data.data_ru_pack(cf_dict[cf]["data_ru"])
         add_to_db.append(cf_data)
 
     db_session.execute(FamilyCompound.__table__.delete()) # type: ignore

@@ -8,7 +8,7 @@ git fetch
 
 git checkout origin/main -- db/backup_tsv/dpd_headwords.tsv
 
-# git checkout origin/main -- db/backup_tsv/dpd_roots.tsv
+git checkout origin/main -- db/backup_tsv/dpd_roots.tsv
 
 dps/scripts/backup_all_dps.py
 

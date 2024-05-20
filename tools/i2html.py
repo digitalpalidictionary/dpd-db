@@ -43,10 +43,10 @@ class HeadwordData():
             self.make_link = True
         else:
             self.make_link = False
-        if config_test("dictionary", "show_dps_data", "yes"):
-            self.dps_data = True
+        if config_test("dictionary", "show_sbs_data", "yes"):
+            self.show_sbs_data = True
         else:
-            self.dps_data = False
+            self.show_sbs_data = False
         
 
     @staticmethod

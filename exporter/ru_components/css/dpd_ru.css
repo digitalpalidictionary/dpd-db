@@ -333,6 +333,11 @@ table.help_ru th {
 table.help_ru th {
     color: #00899b;
     font-weight: 700;
+    width: 10%;
+}
+
+table.help_ru td {
+    width: 90%;
 }
 
 table.help_ru b {
@@ -413,7 +418,7 @@ table.root_family_ru b {
     font-weight: 700;
 }
 
-div.root_button_ru_box {
+div.root_button_box {
     font-size: 0px;
     margin: 2px 0px 3px 0px;
 }
@@ -507,4 +512,9 @@ div.rpd {
 b.rpd {
     color:#358109;
     font-weight: 700;
+}
+
+sup {
+    font-size: 0.6em;
+    vertical-align: super;
 }

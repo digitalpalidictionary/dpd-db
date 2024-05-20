@@ -1,19 +1,3 @@
-<div id="idioms_ru_${i.lemma_1_}" class="content_ru hidden">
-% for counter, f in enumerate(fi):
-% if counter == 0:
-        <p class="heading underlined_ru">
-    % else:
-        <p class="heading underlined_ru overlined_ru">
-    % endif
-    % if len(fi) == 1:
-        <b>${f.count}</b> идиоматическое выражение, которое содержит <b>${superscripter_uni(f.idiom)}</b>
-    % else:
-        <b>${f.count}</b> идиоматических выражений, которые содержат <b>${superscripter_uni(f.idiom)}</b>
-    % endif
-        </p>
-    ${f.html_ru}
-% endfor
-<p class='footer_ru'>
-    Пожалуйста, добавьте больше идиом <a class="link_ru" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Идиомы&entry.1433863141=GoldenDict+${today}" target="_blank">здесь</a>.
-</p>
+<div id="family_idiom_ru_${i.lemma_1_}" class="content hidden">
+    idioms loading...
 </div>

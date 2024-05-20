@@ -10,7 +10,7 @@ from zipfile import ZipFile
 today = date.today()
 
 # Print completion message in green color
-print("\033[1;33m unpacking mdict ru from exporter_ru/ \033[0m")
+print("\033[1;33m unpacking mdict ru from exporter/share \033[0m")
 
 
 # check config

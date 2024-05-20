@@ -25,14 +25,14 @@ def check_username():
 class ProgData():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dps_data: bool = check_username()
-    if dps_data:
+    show_sbs_data: bool = check_username()
+    if show_sbs_data:
         db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs)).all()
     else:
         db = db_session.query(DpdHeadwords).all()
     pali_alphabet: list[str] = pali_alphabet
     i: DpdHeadwords
-    if dps_data:
+    if show_sbs_data:
         fields: list[str] = ["sbs_example_1", "sbs_example_2", "sbs_example_3", "sbs_example_4"]
     else:
         fields: list[str] = ["example_1", "example_2"]
@@ -53,7 +53,7 @@ def main():
             # search in a list of fields
             for field in g.fields:
                 g.field = field
-                if g.dps_data:
+                if g.show_sbs_data:
                     find_all_bold_words_sbs(g)
                 else:
                     find_all_bold_words(g)

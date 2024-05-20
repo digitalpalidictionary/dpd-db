@@ -173,7 +173,9 @@ class FamilyRoot(Base):
     html: Mapped[str] = mapped_column(default='')
     data: Mapped[str] = mapped_column(default='')
     count: Mapped[int] = mapped_column(default=0)
+    root_ru_meaning: Mapped[str] = mapped_column(default='')
     html_ru: Mapped[str] = mapped_column(default='')
+    data_ru: Mapped[str] = mapped_column(default='')
 
     __table_args__ = (
         ForeignKeyConstraint(
@@ -186,9 +188,16 @@ class FamilyRoot(Base):
     def data_pack(self, list: list[str]) -> None:
         self.data = json.dumps(list, ensure_ascii=False, indent=1)
 
+    def data_ru_pack(self, list: list[str]) -> None:
+        self.data_ru = json.dumps(list, ensure_ascii=False, indent=1)
+
     @property
     def data_unpack(self) -> list[str]:
         return json.loads(self.data)
+
+    @property
+    def data_ru_unpack(self) -> list[str]:
+        return json.loads(self.data_ru)
 
     @property
     def root_family_link(self) -> str:
@@ -904,14 +913,22 @@ class FamilyCompound(Base):
     data: Mapped[str] = mapped_column(default='')
     count: Mapped[int] = mapped_column(default=0)
     html_ru: Mapped[str] = mapped_column(default='')
+    data_ru: Mapped[str] = mapped_column(default='')
 
     # family_compound pack unpack
     def data_pack(self, list: list[str]) -> None:
         self.data = json.dumps(list, ensure_ascii=False, indent=1)
 
+    def data_ru_pack(self, list: list[str]) -> None:
+        self.data_ru = json.dumps(list, ensure_ascii=False, indent=1)
+
     @property
     def data_unpack(self) -> list[str]:
         return json.loads(self.data)
+
+    @property
+    def data_ru_unpack(self) -> list[str]:
+        return json.loads(self.data_ru)
 
     def __repr__(self) -> str:
         return f"FamilyCompound: {self.compound_family} {self.count}"
@@ -924,6 +941,7 @@ class FamilyWord(Base):
     data: Mapped[str] = mapped_column(default='')
     count: Mapped[int] = mapped_column(default=0)
     html_ru: Mapped[str] = mapped_column(default='')
+    data_ru: Mapped[str] = mapped_column(default='')
 
     dpd_headwords: Mapped[List["DpdHeadwords"]] = relationship("DpdHeadwords", back_populates="fw")
 
@@ -931,9 +949,16 @@ class FamilyWord(Base):
     def data_pack(self, list: list[str]) -> None:
         self.data = json.dumps(list, ensure_ascii=False, indent=1)
 
+    def data_ru_pack(self, list: list[str]) -> None:
+        self.data_ru = json.dumps(list, ensure_ascii=False, indent=1)
+
     @property
     def data_unpack(self) -> list[str]:
         return json.loads(self.data)
+
+    @property
+    def data_ru_unpack(self) -> list[str]:
+        return json.loads(self.data_ru)
 
     def __repr__(self) -> str:
         return f"FamilyWord: {self.word_family} {self.count}"
@@ -947,14 +972,22 @@ class FamilySet(Base):
     count: Mapped[int] = mapped_column(default=0)
     set_ru: Mapped[str] = mapped_column(default='')
     html_ru: Mapped[str] = mapped_column(default='')
+    data_ru: Mapped[str] = mapped_column(default='')
 
     # family_set pack unpack
     def data_pack(self, list: list[str]) -> None:
         self.data = json.dumps(list, ensure_ascii=False, indent=1)
 
+    def data_ru_pack(self, list: list[str]) -> None:
+        self.data_ru = json.dumps(list, ensure_ascii=False, indent=1)
+
     @property
     def data_unpack(self) -> list[str]:
         return json.loads(self.data)
+
+    @property
+    def data_ru_unpack(self) -> list[str]:
+        return json.loads(self.data_ru)
 
     def __repr__(self) -> str:
         return f"FamilySet: {self.set} {self.count}"
@@ -967,14 +1000,22 @@ class FamilyIdiom(Base):
     data: Mapped[str] = mapped_column(default='')
     count: Mapped[int] = mapped_column(default=0)
     html_ru: Mapped[str] = mapped_column(default='')
+    data_ru: Mapped[str] = mapped_column(default='')
 
     # idioms data pack unpack
     def data_pack(self, list: list[str]) -> None:
         self.data = json.dumps(list, ensure_ascii=False, indent=1)
 
+    def data_ru_pack(self, list: list[str]) -> None:
+        self.data_ru = json.dumps(list, ensure_ascii=False, indent=1)
+
     @property
     def data_unpack(self) -> list[str]:
         return json.loads(self.data)
+
+    @property
+    def data_ru_unpack(self) -> list[str]:
+        return json.loads(self.data_ru)
 
     def __repr__(self) -> str:
         return f"FamilyIdiom: {self.idiom} {self.count}"

@@ -42,10 +42,10 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    if config_test("dictionary", "show_dps_data", "yes"):
-        dps_data = True
+    if config_test("dictionary", "show_sbs_data", "yes"):
+        show_sbs_data = True
     else:
-        dps_data = False
+        show_sbs_data = False
 
     if config_test("exporter", "language", "en"):
         lang = "en"
@@ -72,8 +72,8 @@ def main():
     wf_db = sorted(wf_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     wf_dict = make_word_fam_dict(wf_db)
-    wf_dict = compile_wf_html(wf_db, wf_dict, lang, dps_data)
-    errors_list = add_wf_to_db(db_session, wf_dict)
+    wf_dict = compile_wf_html(wf_db, wf_dict, lang, show_sbs_data)
+    errors_list = add_wf_to_db(db_session, wf_dict, lang)
     print_errors_list(errors_list)
 
     if config_test("anki", "update", "yes"):
@@ -107,13 +107,15 @@ def make_word_fam_dict(wf_db: list[DpdHeadwords]):
                 "html": "",
                 "html_ru": "",
                 "anki": [],
-                "data": []}
+                "data": [],
+                "data_ru": [],
+                }
 
     print(len(wf_dict))
     return wf_dict
 
 
-def compile_wf_html(wf_db, wf_dict, lang="en", dps_data=False):
+def compile_wf_html(wf_db, wf_dict, lang="en", show_sbs_data=False):
     print("[green]compiling html")
 
     for __counter__, i in enumerate(wf_db):
@@ -124,7 +126,7 @@ def compile_wf_html(wf_db, wf_dict, lang="en", dps_data=False):
             else:
                 html_string = wf_dict[wf]["html"]
 
-            if not dps_data:
+            if not show_sbs_data:
                 meaning = make_meaning(i)
             else:
                 meaning = make_short_meaning(i)
@@ -167,6 +169,14 @@ def compile_wf_html(wf_db, wf_dict, lang="en", dps_data=False):
                 degree_of_completion(i, html=False)
             ))
 
+            if lang == "ru" and i.ru:
+                wf_dict[wf]["data_ru"].append((
+                    i.lemma_1,
+                    pos,
+                    ru_meaning,
+                    degree_of_completion(i, html=False)
+                ))
+
     for i in wf_dict:
         wf_dict[i]["html"] += "</table>"
         if lang == "ru":
@@ -175,7 +185,7 @@ def compile_wf_html(wf_db, wf_dict, lang="en", dps_data=False):
     return wf_dict
 
 
-def add_wf_to_db(db_session, wf_dict):
+def add_wf_to_db(db_session, wf_dict, lang):
     print("[green]adding to db", end=" ")
 
     add_to_db = []
@@ -191,6 +201,8 @@ def add_wf_to_db(db_session, wf_dict):
             html_ru=wf_dict[wf]["html_ru"],
             count=len(wf_dict[wf]["headwords"]))
         wf_data.data_pack(wf_dict[wf]["data"])
+        if lang == "ru":
+            wf_data.data_ru_pack(wf_dict[wf]["data_ru"])
         add_to_db.append(wf_data)
 
     db_session.execute(FamilyWord.__table__.delete()) # type: ignore

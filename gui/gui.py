@@ -115,7 +115,6 @@ from functions_dps import update_field
 from functions_dps import update_field_with_change
 from functions_dps import words_in_db_from_source
 from functions_dps import get_next_ids_dps
-from functions_dps import add_number_to_pali
 from functions_dps import read_tsv_words
 from functions_dps import save_gui_state_dps
 from functions_dps import load_gui_state_dps
@@ -1127,24 +1126,10 @@ def main():
 
         elif event == "split_button":
             lemma_1_old, lemma_1_new = increment_lemma_1(values)
-            if username == "deva":
-                # add number 1 to lemma_1 for old word if there is no digit
-                lemma_1 = values['lemma_1']
-                if sg.popup_yes_no(f'change lemma_1 of original word to {lemma_1} 1 ?') == 'Yes':
-                    if not re.search(r'\d', lemma_1):
-                    # Execute code here when lemma_1 doesn't contain any digit
-                        id_old = values["id"]
-                        add_number_to_pali(pth, db_session, id_old, lemma_1_old)
             window["lemma_1"].update(value=lemma_1_old)
             values["lemma_1"] = lemma_1_old
             stasher(pth, values, window)
-            if username == "primary_user":
-                get_next_ids(db_session, window)
-            elif username == "deva":
-                get_next_ids_dps(db_session, window)
-            else:
-                # Perform actions for other usernames
-                get_next_ids(db_session, window)
+            get_next_ids(db_session, window)
             window["lemma_1"].update(value=lemma_1_new)
             reset_flags(flags)
 
@@ -1836,10 +1821,6 @@ def main():
             field = "dps_ru_meaning_lit"
             error_field = "dps_ru_meaning_lit_error"
             ru_check_spelling(dpspth, field, error_field, values, window)
-            
-            field = "dps_ru_notes"
-            error_field = "dps_ru_notes_error"
-            ru_check_spelling(dpspth, field, error_field, values, window)
 
             field = "dps_sbs_meaning"
             error_field = "dps_sbs_meaning_error"
@@ -2019,16 +2000,8 @@ def main():
                 error_field = "dps_ru_meaning_lit_error"
                 ru_check_spelling(dpspth, field, error_field, values, window)
 
-                field = "dps_ru_notes"
-                error_field = "dps_ru_notes_error"
-                ru_check_spelling(dpspth, field, error_field, values, window)
-
                 field = "dps_sbs_meaning"
                 error_field = "dps_sbs_meaning_error"
-                flags = check_spelling(pth, field, error_field, values, window, flags)
-
-                field = "dps_sbs_notes"
-                error_field = "dps_sbs_notes_error"
                 flags = check_spelling(pth, field, error_field, values, window, flags)
 
                 # dps repetition check

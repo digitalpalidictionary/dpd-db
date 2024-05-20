@@ -89,7 +89,7 @@ class DpdHeadwordsRenderData(TypedDict):
     make_link: bool
     show_id: bool
     show_ebt_count: bool
-    dps_data: bool
+    show_sbs_data: bool
 
 
 def render_pali_word_dpd_html(
@@ -97,7 +97,7 @@ def render_pali_word_dpd_html(
         render_data: DpdHeadwordsRenderData,
         lang="en",
         extended_synonyms=False, 
-        dps_data=False
+        show_sbs_data=False
 ) -> Tuple[DictEntry, RenderedSizes]:
     rd = render_data
     size_dict = default_rendered_sizes()
@@ -140,7 +140,7 @@ def render_pali_word_dpd_html(
         i.example_2 = i.example_2.replace("\n", "<br>")
     if i.notes:
         i.notes = i.notes.replace("\n", "<br>")
-    if lang != "ru" and dps_data and sbs:
+    if show_sbs_data and sbs:
         if sbs.sbs_sutta_1:
             sbs.sbs_sutta_1 = sbs.sbs_sutta_1.replace("\n", "<br>")
         if sbs.sbs_sutta_2:
@@ -162,17 +162,17 @@ def render_pali_word_dpd_html(
     html += "<body>"
 
     summary = render_dpd_definition_templ(
-        pth, i, tt.dpd_definition_templ, sbs, ru, rd['make_link'], rd['show_id'], rd['show_ebt_count'], rd['dps_data'], lang)
+        pth, i, tt.dpd_definition_templ, sbs, ru, rd['make_link'], rd['show_id'], rd['show_ebt_count'], rd['show_sbs_data'], lang)
     html += summary
     size_dict["dpd_summary"] += len(summary)
 
     button_box = render_button_box_templ(
-        pth, i, sbs, rd['cf_set'], rd['idioms_set'], tt.button_box_templ, lang, rd['dps_data'])
+        pth, i, sbs, rd['cf_set'], rd['idioms_set'], tt.button_box_templ, lang, rd['show_sbs_data'])
     html += button_box
     size_dict["dpd_button_box"] += len(button_box)
 
-    if i.needs_grammar_button or dps_data:
-        grammar = render_grammar_templ(pth, i, rt, sbs, ru, tt.grammar_templ, lang, rd['dps_data'])
+    if i.needs_grammar_button or show_sbs_data:
+        grammar = render_grammar_templ(pth, i, rt, sbs, ru, tt.grammar_templ, lang, rd['show_sbs_data'])
         html += grammar
         size_dict["dpd_grammar"] += len(grammar)
 
@@ -218,15 +218,14 @@ def render_pali_word_dpd_html(
         html += frequency
         size_dict["dpd_frequency"] += len(frequency)
 
-    if lang == "en" and dps_data and sbs:
+    if show_sbs_data and sbs:
         sbs_example = render_sbs_example_templ(pth, i, sbs, tt.sbs_example_templ, rd['make_link'])
         html += sbs_example
         size_dict["sbs_example"] += len(sbs_example)
 
-    if lang == "en":
-        feedback = render_feedback_templ(pth, i, tt.feedback_templ)
-        html += feedback
-        size_dict["dpd_feedback"] += len(feedback)
+    feedback = render_feedback_templ(pth, i, tt.feedback_templ)
+    html += feedback
+    size_dict["dpd_feedback"] += len(feedback)
     
     html += "</body></html>"
 
@@ -242,7 +241,7 @@ def render_pali_word_dpd_html(
             for contraction in contractions:
                 if "'" in contraction:
                     synonyms.append(contraction)
-    if lang == "en" and not dps_data:
+    if lang == "en" and not show_sbs_data:
         synonyms += i.inflections_sinhala_list
         synonyms += i.inflections_devanagari_list
         synonyms += i.inflections_thai_list
@@ -283,7 +282,7 @@ def generate_dpd_html(
         cf_set: Set[str],
         idioms_set: set[str],
         make_link=False,
-        dps_data=False,
+        show_sbs_data=False,
         lang="en",
         data_limit:int = 0
 ) -> Tuple[List[DictEntry], RenderedSizes]:
@@ -407,12 +406,12 @@ def generate_dpd_html(
             make_link = make_link,
             show_id = show_id,
             show_ebt_count = show_ebt_count,
-            dps_data = dps_data
+            show_sbs_data = show_sbs_data
         )
 
         def _parse_batch(batch: List[DpdHeadwordsDbParts]):
             res: List[Tuple[DictEntry, RenderedSizes]] = \
-                [render_pali_word_dpd_html(i, render_data, lang, extended_synonyms, dps_data) for i in batch]
+                [render_pali_word_dpd_html(i, render_data, lang, extended_synonyms, show_sbs_data) for i in batch]
 
             for i, j in res:
                 dpd_data_results_list.append(i)
@@ -448,7 +447,7 @@ def render_dpd_definition_templ(
         make_link = False,
         show_id = False,
         show_ebt_count = False,
-        dps_data = False,
+        show_sbs_data = False,
         lang="en"
 ) -> str:
     """render the definition of a word's most relevant information:
@@ -507,7 +506,7 @@ def render_dpd_definition_templ(
             id=id,
             show_id=show_id,
             show_ebt_count=show_ebt_count,
-            dps_data=dps_data,
+            show_sbs_data=show_sbs_data,
             ebt_count=ebt_count,
             )
         )
@@ -521,7 +520,7 @@ def render_button_box_templ(
         idioms_set: Set[str],
         button_box_templ: Template,
         lang="en",
-        dps_data=False
+        show_sbs_data=False
 ) -> str:
     """render buttons for each section of the dictionary"""
 
@@ -531,24 +530,14 @@ def render_button_box_templ(
             'href="#" '
             'data-target="{target}">{name}</a>')
 
-        button_link_html = (
-            '<a class="button" '
-            'href="{href}" '
-            'style="text-decoration: none;">{name}</a>')
-
     elif lang == "ru":
         button_html = (
-        '<a class="button_ru" '
-        'href="#" '
-        'data-target="{target}">{name}</a>')
-
-        button_link_html = (
             '<a class="button_ru" '
-            'href="{href}" '
-            'style="text-decoration: none;">{name}</a>')
+            'href="#" '
+            'data-target="{target}">{name}</a>')
 
     # grammar_button
-    if i.needs_grammar_button or dps_data:
+    if i.needs_grammar_button or show_sbs_data:
         if lang == "en":
             grammar_button = button_html.format(
                 target=f"grammar_{i.lemma_1_}", name="grammar")
@@ -583,13 +572,12 @@ def render_button_box_templ(
     # sbs_example_button
     sbs_example_button = ""
     if (
-        lang != "ru" and
-        dps_data and
+        show_sbs_data and
         sbs and
         (sbs.needs_sbs_example_button or sbs.needs_sbs_examples_button)
     ):
         sbs_example_button = button_html.format(
-            target=f"sbs_example_{i.lemma_1_}", name="<b>SBS</b>")
+            target=f"sbs_example_{i.lemma_1_}", name="SBS")
 
     # conjugation_button
     if i.needs_conjugation_button:
@@ -697,15 +685,11 @@ def render_button_box_templ(
 
     # feedback_button
     if lang == "en":
-        if dps_data:
-            feedback_button = button_link_html.format(
-                href="https://digitalpalidictionary.github.io/", name="feedback")
-        else:
-            feedback_button = button_html.format(
-                target=f"feedback_{i.lemma_1_}", name="feedback")
+        feedback_button = button_html.format(
+            target=f"feedback_{i.lemma_1_}", name="feedback")
     elif lang == "ru":
-        feedback_button = button_link_html.format(
-                href="https://digitalpalidictionary.github.io/rus/", name="о словаре")
+        feedback_button = button_html.format(
+            target=f"feedback_ru_{i.lemma_1_}", name="о словаре")
 
     return str(
         button_box_templ.render(
@@ -732,11 +716,11 @@ def render_grammar_templ(
         ru: Russian,
         grammar_templ: Template,
         lang="en",
-        dps_data=False
+        show_sbs_data=False
 ) -> str:
     """html table of grammatical information"""
 
-    if (i.meaning_1 is not None and i.meaning_1) or dps_data:
+    if (i.meaning_1 is not None and i.meaning_1) or show_sbs_data:
         if i.construction is not None and i.construction:
             i.construction = i.construction.replace("\n", "<br>")
         else:
@@ -762,7 +746,7 @@ def render_grammar_templ(
             rt=rt,
             sbs=sbs,
             ru=ru,
-            dps_data=dps_data,
+            show_sbs_data=show_sbs_data,
             grammar=grammar,
             meaning=meaning,
             ru_base=ru_base,
@@ -794,7 +778,7 @@ def render_sbs_example_templ(
 ) -> str:
     """render sbs examples html"""
 
-    if sbs.sbs_example_1 or sbs.sbs_example_2 or sbs.sbs_example_3 or sbs.sbs_example_4:
+    if any(getattr(sbs, f'sbs_example_{n}') for n in range(1, 5)):
         return str(
             sbs_example_templ.render(
                 i=i,

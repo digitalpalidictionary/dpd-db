@@ -3,7 +3,7 @@
 <h3>{{d.i.lemma_1}}</h3>
 <div class='content summary'>
     <p>
-        {% if d.dps_data %}
+        {% if d.show_sbs_data %}
             {% if d.sbs.sbs_class_anki %}
                 <a href="{{d.sbs.sbs_class_link}}"
                 target="_blank"><i>(cl.{{d.sbs.sbs_class_anki}})</i></a>
@@ -57,7 +57,7 @@
         examples</a>
     {% endif %}
 
-    {% if d.dps_data %}
+    {% if d.show_sbs_data %}
         {% if d.sbs.needs_sbs_example_button or d.sbs.needs_sbs_examples_button %}
         <a class="button active" 
         href="#" 
@@ -151,7 +151,7 @@
             </td>
         </tr>
 
-        {% if d.dps_data %}
+        {% if d.show_sbs_data %}
 
             {% if d.ru.ru_meaning %}
             <tr>
@@ -207,7 +207,7 @@
                 {{d.i.root_clean}}<sup>{{d.i.rt.root_has_verb}}</sup>{{d.i.rt.root_group}} 
                 {{d.i.root_sign}} 
                 ({{d.i.rt.root_meaning}})
-                {% if d.dps_data %}
+                {% if d.show_sbs_data %}
                 ({{d.i.rt.root_ru_meaning}})
                 {% endif %}
             </td>
@@ -337,7 +337,7 @@
         </tr>
         {% endif %}
 
-        {% if d.dps_data %}
+        {% if d.show_sbs_data %}
 
             {% if d.sbs.sbs_notes %}
             <tr>
@@ -420,7 +420,7 @@
                     {{d.i.rt.sanskrit_root}} 
                     {{d.i.rt.sanskrit_root_class}} 
                     ({{d.i.rt.sanskrit_root_meaning}})
-                    {% if d.dps_data %}
+                    {% if d.show_sbs_data %}
                     ({{d.i.rt.sanskrit_root_ru_meaning}})
                     {% endif %}
                 </i>
@@ -491,7 +491,7 @@
 
 <!-- sbs_examples -->
 
-{% if d.dps_data %}
+{% if d.show_sbs_data %}
     {% if d.sbs.needs_sbs_example_button or d.sbs.needs_sbs_examples_button %}
 
         <div id="dps_example_{{d.i.lemma_1_}}" class="content">

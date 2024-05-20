@@ -54,7 +54,7 @@ class DPSPaths:
         self.freq_db_path = base_dir.joinpath(Path("dps/freq.db"))
 
         # txt
-        self.ru_user_dict_path = base_dir.joinpath(Path("dps/tools/ru_user_dictionary.txt"))
+        self.ru_user_dict_path = base_dir.joinpath(Path("dps/russian_words/russian_words.txt"))
         self.text_to_add_path = base_dir.joinpath(Path("temp/text.txt"))
         self.dpd_dps_concise_txt_path = base_dir.joinpath(Path("temp/dpd_dps_concise.txt"))
 

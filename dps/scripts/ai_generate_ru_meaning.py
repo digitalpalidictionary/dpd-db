@@ -89,11 +89,11 @@ def ru_meaning_generating():
             and_(
                 DpdHeadwords.meaning_1 != '',
                 Russian.ru_meaning_raw != '',
-                func.length(Russian.ru_meaning_raw) > 121,
+                # func.length(Russian.ru_meaning_raw) > 20,
                 Russian.ru_meaning == '',
                 ~DpdHeadwords.id.in_(exclude_ids)
             )
-        ).order_by(DpdHeadwords.ebt_count.desc()).limit(1000).all()
+        ).order_by(DpdHeadwords.ebt_count.desc()).limit(10000).all()
 
     # Print the db
     print("Details of filtered words")
@@ -129,7 +129,7 @@ def ru_meaning_generating():
             # Commit changes after all updates/additions
             db_session.commit()
 
-            print(f"{counter +  1}. {i.id} {i.lemma_1} {ru_meaning_raw}")
+            print(f"{counter +  1}. {i.id}, {i.ebt_count} {i.lemma_1} {ru_meaning_raw}")
 
             with open(f'{dpspth.ai_translated_dir}/{model}.tsv', 'a', encoding='utf-8') as file:
                 file.write(f"{i.id}\t{i.lemma_1}\t{ru_meaning_raw}\n")
@@ -270,7 +270,7 @@ def ru_notes_generating():
             # Commit changes after all updates/additions
             db_session.commit()
 
-            print(f"{counter +  1}. {i.id} {i.lemma_1} {ru_meaning_raw}")
+            print(f"{counter +  1}. {i.id}, {i.ebt_count} {i.lemma_1} {ru_meaning_raw}")
 
 
 
@@ -365,7 +365,7 @@ def translate_meaning(pth, lemma_1, grammar, meaning, example):
                 **Grammar Details**: {grammar}
                 **Pali sentence**: {example}
                 **English Definition**: {meaning}
-                Please provide distinct Russian translation for the English definition, considering the Pali term and its grammatical context and Pali sentence. In the answer give only Russian translation in Cyrillic script in one line and nothing else. 
+                Please provide distinct Russian translation for the English definition, considering the Pali term and its grammatical context and Pali sentence. In the answer give only Russian translation in Cyrillic script in one line and nothing else. Do not start with capitalization, unless it is a proper name. 
             """
         }
     ]

@@ -703,7 +703,7 @@ class AllowableCharacters():
         ("pattern", pattern_allowed), 
     ]
 
-    sbs_data = [
+    show_sbs_data = [
         ("sbs_meaning", meaning_1_allowed),
         ("sbs_category", sbs_category_allowed),
         
@@ -750,7 +750,7 @@ class AllowableCharacters():
         ("root_ru_meaning", root_meaning_ru_allowed)
     ]
 
-    dps_tests_data = sbs_data + ru_data
+    dps_tests_data = show_sbs_data + ru_data
 
     if config_test("user", "username", "deva"):
         tests_data = dps_tests_data

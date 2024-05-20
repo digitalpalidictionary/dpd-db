@@ -53,9 +53,7 @@ class ProgData():
         self.make_link: bool = False
         if config_test("dictionary", "make_link", "yes"):
             self.make_link: bool = True
-        self.dps_data: bool = False
-        if config_test("dictionary", "show_dps_data", "yes"):
-            self.dps_data: bool = True
+        self.show_sbs_data: bool = False
         
         # language
         if config_test("exporter", "language", "en"):
@@ -66,6 +64,9 @@ class ProgData():
         # add conditions if lang = "{your_language}" in every instance in the code.
         else:
             raise ValueError("Invalid language parameter")
+
+        if config_test("dictionary", "show_sbs_data", "yes") and self.lang == "en":
+            self.show_sbs_data: bool = True
         
         # paths
         if self.lang == "en":
@@ -86,19 +87,19 @@ def main():
     g = ProgData()
     
     dpd_data_list, sizes = generate_dpd_html(
-        g.db_session, g.pth, g.rupth, g.sandhi_contractions, g.cf_set, g.idioms_set, g.make_link, g.dps_data, g.lang, g.data_limit)
+        g.db_session, g.pth, g.rupth, g.sandhi_contractions, g.cf_set, g.idioms_set, g.make_link, g.show_sbs_data, g.lang, g.data_limit)
     g.rendered_sizes.append(sizes)
 
-    root_data_list, sizes = generate_root_html(g.db_session, g.pth, g.roots_count_dict, g.rupth, g.lang, g.dps_data)
+    root_data_list, sizes = generate_root_html(g.db_session, g.pth, g.roots_count_dict, g.rupth, g.lang, g.show_sbs_data)
     g.rendered_sizes.append(sizes)
 
     variant_spelling_data_list, sizes = generate_variant_spelling_html(g.pth, g.rupth, g.lang)
     g.rendered_sizes.append(sizes)
 
-    epd_data_list, sizes = generate_epd_html(g.db_session, g.pth, g.rupth, g.make_link, g.dps_data, g.lang)
+    epd_data_list, sizes = generate_epd_html(g.db_session, g.pth, g.rupth, g.make_link, g.show_sbs_data, g.lang)
     g.rendered_sizes.append(sizes)
     
-    help_data_list, sizes = generate_help_html(g.db_session, g.pth, g.rupth, g.lang, g.dps_data)
+    help_data_list, sizes = generate_help_html(g.db_session, g.pth, g.rupth, g.lang, g.show_sbs_data)
     g.rendered_sizes.append(sizes)
 
     g.db_session.close()

@@ -522,8 +522,8 @@ def delete_word(pth, db_session, values, window):
                 if non_empty_examples:
                     # Save all non-empty sbs_example_* and id to TSV
                     sbs_header = ["word_id", "word_lemma"] + [f"sbs_example_{i+1}" for i in range(len(non_empty_examples))]
-                    sbs_data = [[sbs_record.id, word_lemma] + non_empty_examples]
-                    append_tsv_list(pth.delated_words_history_pth, sbs_header, sbs_data)
+                    show_sbs_data = [[sbs_record.id, word_lemma] + non_empty_examples]
+                    append_tsv_list(pth.delated_words_history_pth, sbs_header, show_sbs_data)
                     
                     # Delete the SBS record
                     db_session.query(SBS).filter(word_id == SBS.id).delete()

@@ -37,8 +37,20 @@ class RuPaths:
         self.dpd_css_path = base_dir / "exporter/ru_components/css/dpd_ru.css"
 
         # /exporter/goldendict/javascript/
-        self.buttons_js_path = base_dir / "exporter/goldendict/javascript//buttons.js"
-        self.sorter_js_path = base_dir / "exporter/goldendict/javascript//sorter.js"
+        self.main_js_path = base_dir / "exporter/ru_components/javascript/main.js"
+
+        self.family_compound_json = base_dir / "exporter/ru_components/javascript/family_compound_json.js"
+        self.family_idiom_json = base_dir / "exporter/ru_components/javascript/family_idiom_json.js"
+        self.family_root_json = base_dir / "exporter/ru_components/javascript/family_root_json.js"
+        self.family_set_json = base_dir / "exporter/ru_components/javascript/family_set_json.js"
+        self.family_word_json = base_dir / "exporter/ru_components/javascript/family_word_json.js"
+
+        self.family_compound_template_js = base_dir / "exporter/ru_components/javascript/family_compound_template.js"
+        self.family_idiom_template_js = base_dir / "exporter/ru_components/javascript/family_idiom_template.js"
+        self.family_root_template_js = base_dir / "exporter/ru_components/javascript/family_root_template.js"
+        self.family_set_template_js = base_dir / "exporter/ru_components/javascript/family_set_template.js"
+        self.family_word_template_js = base_dir / "exporter/ru_components/javascript/family_word_template.js"
+        self.feedback_template_js = base_dir / "exporter/ru_components/javascript/feedback_template.js"
 
         # exporter/share
         self.share_dir = base_dir / "exporter/share"
@@ -65,8 +77,13 @@ class RuPaths:
 
         # exporter/ru_components/templates
         self.templates_dir = base_dir / "exporter/ru_components/templates"
-        self.header_templ_path = base_dir / "exporter/ru_components/templates/header_ru.html"
-        self.header_plain_templ_path = base_dir / "exporter/ru_components/templates/header_plain_ru.html"
+
+        self.dpd_header_templ_path = base_dir / "exporter/ru_components/templates/dpd_ru_header.html"
+        self.dpd_header_plain_templ_path = base_dir / "exporter/ru_components/templates/dpd_ru_header_plain.html"
+        self.root_header_templ_path = base_dir / "exporter/ru_components/templates/root_header_ru.html"
+        self.deconstructor_header_templ_path = base_dir / "exporter/goldendict/templates/deconstructor_header.html"
+        self.grammar_dict_header_templ_path = base_dir / "exporter/goldendict/templates/grammar_dict_header.html"
+
         self.dpd_definition_templ_path = base_dir / "exporter/ru_components/templates/dpd_ru_definition.html"
         self.button_box_templ_path = base_dir / "exporter/ru_components/templates/dpd_ru_button_box.html"
         self.grammar_templ_path = base_dir / "exporter/ru_components/templates/dpd_ru_grammar.html"

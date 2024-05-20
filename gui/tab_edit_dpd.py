@@ -749,6 +749,7 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 font=(None, 10)),
             sg.Button(
                 "Split", key="split_button",
+                visible=username == "primary_user",
                 tooltip="Stash the word and open a copy to edit",
                 mouseover_colors="red",
                 font=(None, 10)),

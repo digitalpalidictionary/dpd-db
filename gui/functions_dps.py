@@ -790,56 +790,45 @@ def copy_and_split_content(sugestion_key, meaning_key, lit_meaning_key, error_fi
     window[meaning_key].update(content)
 
 
-YANDEX_SPELLER_API = "https://speller.yandex.net/services/spellservice.json/checkText"
+class SpellCheck:
+    def __init__(self, serialized_dict_path):
+        self.ru_spell = SpellChecker(language='ru')
+        self.load_custom_dictionary(serialized_dict_path)
 
+    # def load_custom_dictionary(self, path):
+    #     with open(path, 'rb') as f:
+    #         custom_words = pickle.load(f)
+    #     self.custom_words = custom_words
+    #     self.ru_spell.word_frequency.load_words(custom_words)
 
-def ru_check_spelling(dpspth, field, error_field, values, window):
+    def load_custom_dictionary(self, path):
+        with open(path, 'r', encoding='utf-8') as f:
+            custom_words = set(f.read().splitlines())
+        self.custom_words = custom_words
+        self.ru_spell.word_frequency.load_words(custom_words)
 
-    window[error_field].update("")
-    window[error_field].set_size((50, 1))
+    def check_spelling(self, field_value):
+        ru_sentence = field_value
+        ru_words = word_tokenize(ru_sentence)
+        ru_misspelled = self.ru_spell.unknown(ru_words)
 
-    ru_spell = SpellChecker(language='ru')
-    ru_spell.word_frequency.load_text_file(str(dpspth.ru_user_dict_path))
-    
-    ru_sentence = values[field]
-    ru_words = word_tokenize(ru_sentence) 
-    ru_misspelled = ru_spell.unknown(ru_words)
+        if ru_misspelled:
+            print(f"offline ru_misspelled {ru_misspelled}")
 
-    if ru_misspelled:
-        print(f"offline ru_misspelled {ru_misspelled}")
-
-    # Load custom dictionary words
-    with open(dpspth.ru_user_dict_path, 'r', encoding='utf-8') as f:
-        custom_words = set(f.read().splitlines())
-
-    # Filter out words that are in the custom dictionary
-    ru_misspelled = [word for word in ru_misspelled if word not in custom_words]
-
-    if ru_misspelled:
-        # Confirm with Yandex Speller
-        yandex_checked_words = get_spelling_suggestions(' '.join(ru_misspelled), return_original=True)
-
-        # Check if yandex_checked_words is an error message
-        if isinstance(yandex_checked_words, str):
-            window[error_field].update(yandex_checked_words)
-            return
-        
-        # Filter out words that are confirmed as correct by Yandex Speller
-        truly_misspelled = [word for word in ru_misspelled if word in yandex_checked_words]
+        # Check custom dictionary only for misspelled words
+        truly_misspelled = [word for word in ru_misspelled if word not in self.custom_words]
 
         if truly_misspelled:
-            print(f"yandex truly_misspelled {truly_misspelled}")  
-
-            # For the truly misspelled words, obtain suggestions from Yandex Speller and the local spellchecker
+            # For the truly misspelled words, obtain suggestions from the local spellchecker
             suggestions = []
             for word in truly_misspelled:
-                suggestions.extend(get_spelling_suggestions(word))
+                candidates = self.ru_spell.candidates(word)
+                if candidates:  # Ensure candidates is not None
+                    suggestions.extend(candidates)
 
             # If no suggestions were found, display a custom message
             if not suggestions:
-                custom_message = "?"
-                window[error_field].update(custom_message)
-                return
+                return "?"
 
             # Else process and display the suggestions
             # Joining the flattened list
@@ -847,49 +836,23 @@ def ru_check_spelling(dpspth, field, error_field, values, window):
 
             # Wrap the correction_text and join it into a multiline string
             wrapped_correction = "\n".join(textwrap.wrap(correction_text, width=30))  # Assuming width of 30 characters
+            return wrapped_correction
 
-            num_lines = len(wrapped_correction.split('\n'))
-
-            window[error_field].set_size((50, num_lines))  # Adjust the size of the Text element based on the number of lines
-            window[error_field].update(wrapped_correction)  
-
-        # If Yandex Speller does not recognize them as errors, clear the error field
         else:
-            window[error_field].update("")
-            return
-        
+            return ""
+
+
+def ru_check_spelling(dpspth, field, error_field, values, window):
+    spell_checker = SpellCheck(dpspth.ru_user_dict_path)
+    correction = spell_checker.check_spelling(values[field])
+    
+    if correction:
+        num_lines = min(len(correction.split('\n')), 5)
+        window[error_field].set_size((50, num_lines))  # Adjust the size of the Text element based on the number of lines
+        window[error_field].update(correction)
     else:
         window[error_field].set_size((50, 1))  # Reset to default size
         window[error_field].update("")
-
-
-def get_spelling_suggestions(text, return_original=False):
-    suggestions = []
-    try:
-        response = requests.post(YANDEX_SPELLER_API, data={'text': text}, timeout=4)  # Adding a timeout for the request
-        response.raise_for_status()  # This will raise an error if the HTTP request returned an unsuccessful status code
-        result = response.json()
-
-        for word in result:
-            if return_original:
-                suggestions.append(word['word'])
-            elif word['s']:  # Ensure there are suggestions
-                if isinstance(word['s'], list):  # Check if 's' is a list
-                    suggestions.extend(word['s'])  # Add all suggestions for the misspelled word
-                else:
-                    suggestions.append(word['s'])  # Directly add the string
-
-    except requests.ConnectionError:
-        print("Failed to connect to Yandex Speller. Please check your internet connection.")
-        suggestions = "No connection"
-    except requests.Timeout:
-        print("Request to Yandex Speller timed out. Please try again later.")
-        suggestions = "Timed out"
-    except requests.RequestException as e:  # This will catch any other exception from the `requests` library
-        print(f"An error occurred while connecting to Yandex Speller: {e}")
-        suggestions = "Some error"
-
-    return suggestions
 
 
 def ru_add_spelling(dpspth, word):
@@ -1386,36 +1349,6 @@ def get_next_ids_dps(db_session, window):
     print(next_id)
 
     window["id"].update(next_id)
-
-
-def add_number_to_pali(pth, db_session, word_id, word_lemma_1):
-    # save into corrections.tsv
-    correction = [
-        word_id,
-        "lemma_1",
-        word_lemma_1,
-        "",
-        "",
-        "",
-        "",
-        "added new meaning",
-        "", ""
-    ]
-
-    with open(pth.corrections_tsv_path, "a") as file:
-        writer = csv.writer(file, delimiter="\t")
-        writer.writerow(correction)
-
-    # udpate lemma_1 in db
-    word_to_update = db_session.query(DpdHeadwords).filter_by(id=word_id).first()
-
-    if word_to_update:
-            word_to_update.lemma_1 = word_lemma_1
-
-            db_session.commit()
-            print(f"Updated lemma_1 for id {word_id} to '{word_lemma_1}'")
-    else:
-        print(f"No record found with id {word_id}")
 
 
 def save_gui_state_dps(dpspth, values, words_to_add_list):

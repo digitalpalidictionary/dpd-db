@@ -51,7 +51,7 @@ def generate_help_html(
     pth: ProjectPaths,
     rupth: RuPaths,
     lang="en",
-    dps_data=False
+    show_sbs_data=False
 ) -> Tuple[List[DictEntry], RenderedSizes]:
     """generating html of all help files used in the dictionary"""
     p_green("generating help html")
@@ -66,17 +66,17 @@ def generate_help_html(
     if lang == "en":
         header_templ = Template(filename=str(pth.dpd_header_plain_templ_path))
     elif lang == "ru":
-        header_templ = Template(filename=str(rupth.header_plain_templ_path))
+        header_templ = Template(filename=str(rupth.dpd_header_plain_templ_path))
 
     header = str(header_templ.render())
 
     help_data_list: List[DictEntry] = []
 
-    abbrev = add_abbrev_html(pth, header, rupth, lang, dps_data)
+    abbrev = add_abbrev_html(pth, header, rupth, lang, show_sbs_data)
     help_data_list.extend(abbrev)
     size_dict["help"] += len(str(abbrev))
 
-    help_html = add_help_html(pth, header, rupth, lang, dps_data)
+    help_html = add_help_html(pth, header, rupth, lang, show_sbs_data)
     help_data_list.extend(help_html)
     size_dict["help"] += len(str(help_html))
 
@@ -97,7 +97,7 @@ def add_abbrev_html(
     header: str,
     rupth: RuPaths,
     lang="en",
-    dps_data=False
+    show_sbs_data=False
 ) -> List[DictEntry]:
 
     help_data_list = []
@@ -128,7 +128,7 @@ def add_abbrev_html(
     for i in items:
         html = ""
         html += "<body>"
-        html += render_abbrev_templ(pth, i, rupth, lang, dps_data)
+        html += render_abbrev_templ(pth, i, rupth, lang, show_sbs_data)
         html += "</body></html>"
 
         html = squash_whitespaces(header) + minify(html)
@@ -158,7 +158,7 @@ def add_help_html(
     header: str,
     rupth: RuPaths,
     lang="en",
-    dps_data=False
+    show_sbs_data=False
 ) -> List[DictEntry]:
 
     help_data_list = []
@@ -187,7 +187,7 @@ def add_help_html(
     for i in items:
         html = ""
         html += "<body>"
-        html += render_help_templ(pth, i, rupth, lang, dps_data)
+        html += render_help_templ(pth, i, rupth, lang, show_sbs_data)
         html += "</body></html>"
 
         html = squash_whitespaces(header) + minify(html)
@@ -347,7 +347,7 @@ def render_abbrev_templ(
             i: Abbreviation,
             rupth: RuPaths,
             lang="en",
-            dps_data=False
+            show_sbs_data=False
             ) -> str:
     """render html of abbreviations"""
 
@@ -356,7 +356,7 @@ def render_abbrev_templ(
     elif lang == "ru":
         abbrev_templ = Template(filename=str(rupth.abbrev_templ_path))
 
-    return str(abbrev_templ.render(i=i, dps_data=dps_data))
+    return str(abbrev_templ.render(i=i, show_sbs_data=show_sbs_data))
 
 
 def render_help_templ( 
@@ -364,7 +364,7 @@ def render_help_templ(
             i: Help,
             rupth: RuPaths,
             lang="en",
-            dps_data=False
+            show_sbs_data=False
             ) -> str:
     """render html of help"""
 
@@ -373,4 +373,4 @@ def render_help_templ(
     elif lang == "ru":
         help_templ = Template(filename=str(rupth.help_templ_path))
 
-    return str(help_templ.render(i=i, dps_data=dps_data))
+    return str(help_templ.render(i=i, show_sbs_data=show_sbs_data))

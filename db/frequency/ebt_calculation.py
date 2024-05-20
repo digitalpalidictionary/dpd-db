@@ -12,7 +12,7 @@ from tools.paths import ProjectPaths
 
 
 def make_dicts(pth: ProjectPaths):
-    print("[green]making word count dict of ebt wit vinaya ")
+    print("[green]making word count dict of ebt with vinaya ")
 
     wc_dir = pth.word_count_dir
 

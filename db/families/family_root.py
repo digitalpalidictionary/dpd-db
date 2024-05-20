@@ -50,10 +50,10 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    if config_test("dictionary", "show_dps_data", "yes"):
-        dps_data = True
+    if config_test("dictionary", "show_sbs_data", "yes"):
+        show_sbs_data = True
     else:
-        dps_data = False
+        show_sbs_data = False
 
     if config_test("exporter", "language", "en"):
         lang = "en"
@@ -81,8 +81,8 @@ def main():
         roots_db, key=lambda x: pali_sort_key(x.root))
 
     rf_dict, bases_dict = make_roots_family_dict_and_bases_dict(dpd_db)
-    rf_dict = compile_rf_html(dpd_db, rf_dict, lang, dps_data)
-    add_rf_to_db(db_session, rf_dict)
+    rf_dict = compile_rf_html(dpd_db, rf_dict, lang, show_sbs_data)
+    add_rf_to_db(db_session, rf_dict, lang)
     update_lookup_table(db_session)
     generate_root_info_html(db_session, roots_db, bases_dict)
     html_dict = generate_root_matrix(db_session)
@@ -116,6 +116,7 @@ def make_roots_family_dict_and_bases_dict(dpd_db):
                 "root_key": i.root_key,
                 "root_family": i.family_root,
                 "root_meaning": i.rt.root_meaning,
+                "root_ru_meaning": i.rt.root_ru_meaning,
                 "headwords": [i.lemma_1],
                 "html": "",
                 "html_ru": "",
@@ -123,6 +124,7 @@ def make_roots_family_dict_and_bases_dict(dpd_db):
                 "meaning": i.rt.root_meaning,
                 "meaning_ru": i.rt.root_ru_meaning,
                 "data": [],
+                "data_ru": [],
                 "anki": []
             }
         else:
@@ -142,7 +144,7 @@ def make_roots_family_dict_and_bases_dict(dpd_db):
     return rf_dict, bases_dict
 
 
-def compile_rf_html(dpd_db, rf_dict, lang="en", dps_data=False):
+def compile_rf_html(dpd_db, rf_dict, lang="en", show_sbs_data=False):
     print("[green]compiling html")
 
     for __counter__, i in enumerate(dpd_db):
@@ -154,7 +156,7 @@ def compile_rf_html(dpd_db, rf_dict, lang="en", dps_data=False):
             else:
                 html_string = rf_dict[family]["html"]
 
-            if not dps_data:
+            if not show_sbs_data:
                 meaning = make_meaning(i)
             else:
                 meaning = make_short_meaning(i)
@@ -187,6 +189,14 @@ def compile_rf_html(dpd_db, rf_dict, lang="en", dps_data=False):
                 i.lemma_1,
                 i.pos,
                 meaning,
+                degree_of_completion(i, html=False)
+            ))
+
+            if lang == "ru":
+                rf_dict[family]["data_ru"].append((
+                i.lemma_1,
+                pos,
+                ru_meaning,
                 degree_of_completion(i, html=False)
             ))
 
@@ -228,7 +238,7 @@ def make_root_header_ru(rf_dict, rf):
     return header
 
 
-def add_rf_to_db(db_session, rf_dict):
+def add_rf_to_db(db_session, rf_dict, lang):
     print("[green]adding to db", end=" ")
 
     add_to_db = []
@@ -240,10 +250,13 @@ def add_rf_to_db(db_session, rf_dict):
             root_key=rf_dict[rf]["root_key"],
             root_family=rf_dict[rf]["root_family"],
             root_meaning=rf_dict[rf]["root_meaning"],
+            root_ru_meaning=rf_dict[rf]["root_ru_meaning"],
             html=rf_dict[rf]["html"],
             html_ru=rf_dict[rf]["html_ru"],
             count=len(rf_dict[rf]["headwords"]))
         root_family.data_pack(rf_dict[rf]["data"])
+        if lang == "ru":
+            root_family.data_ru_pack(rf_dict[rf]["data_ru"])
 
         add_to_db.append(root_family)
 

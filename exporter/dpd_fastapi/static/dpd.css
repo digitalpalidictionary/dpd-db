@@ -1,6 +1,7 @@
 :root {
     --colour1: #00A4CC;
     --colour2: #65DBFF;
+    --colour3: #ab7b38;
 }
 
 h3 {
@@ -80,6 +81,12 @@ table.grammar b {
 
 p.sutta {
     color: var(--colour1);
+    font-style: italic;
+    padding: 0px 0px 7px 0px;
+}
+
+p.sbs_sutta {
+    color: var(--colour3);
     font-style: italic;
     padding: 0px 0px 7px 0px;
 }

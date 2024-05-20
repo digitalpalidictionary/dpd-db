@@ -25,7 +25,7 @@ def generate_epd_html(
     pth: ProjectPaths,
     rupth: RuPaths,
     make_link=False,
-    dps_data=False,
+    show_sbs_data=False,
     lang="en"
 ) -> Tuple[List[DictEntry], RenderedSizes]:
     """generate html for english/{lang} to pali dictionary"""
@@ -34,17 +34,15 @@ def generate_epd_html(
     
     p_green("generating epd html")
 
-    if lang == "en" and not dps_data:
+    if lang == "en" and not show_sbs_data:
         dpd_db: list[DpdHeadwords] = db_session.query(DpdHeadwords).all()
-    if lang == "ru" or dps_data:
+    if lang == "ru" or show_sbs_data:
         dpd_db: list[DpdHeadwords] = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.ru)).all()
     # another language
 
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
-    dpd_db_length = len(dpd_db)
 
     roots_db: list[DpdRoots] = db_session.query(DpdRoots).all()
-    roots_db_length = len(roots_db)
 
     epd: dict = {}
     pos_exclude_list = ["abbrev", "cs", "letter", "root", "suffix", "ve"]
@@ -52,7 +50,7 @@ def generate_epd_html(
     if lang == "en":
         header_templ = Template(filename=str(pth.dpd_header_plain_templ_path))
     if lang == "ru":
-        header_templ = Template(filename=str(rupth.header_plain_templ_path))
+        header_templ = Template(filename=str(rupth.dpd_header_plain_templ_path))
     
     header = str(header_templ.render())
 
@@ -104,7 +102,7 @@ def generate_epd_html(
 
         # generate ru-pali
         if (
-            ((dps_data and lang == "en") or lang == "ru") and
+            (show_sbs_data or lang == "ru") and
             i.ru and
             i.ru.ru_meaning and 
             i.pos not in pos_exclude_list
@@ -166,7 +164,7 @@ def generate_epd_html(
                     epd.update(
                         {root_meaning: epd_string})
 
-        if (dps_data and lang == "en") or lang == "ru":
+        if show_sbs_data or lang == "ru":
 
             root_ru_meanings_list: list = i.root_ru_meaning.split(", ")
 

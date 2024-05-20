@@ -5,7 +5,7 @@
             <td>${i.lemma_2}</td>
         </tr>
         
-        % if dps_data:
+        % if show_sbs_data:
             % if ru:
                 % if ru.ru_meaning:
                 <tr>
@@ -49,7 +49,7 @@
             <th>Root</th>
             <td>${i.root_clean}<sup>${rt.root_has_verb}</sup>${rt.root_group}
                 ${i.root_sign} (${rt.root_meaning})
-                % if dps_data:
+                % if show_sbs_data:
                     (${rt.root_ru_meaning})
                 % endif
             </td>
@@ -132,7 +132,7 @@
         </tr>
         % endif
 
-        % if dps_data:
+        % if show_sbs_data:
             % if sbs and sbs.sbs_notes:
             <tr>
                 <th>SBS Notes</th>
@@ -188,7 +188,7 @@
             <td>
                 <i>
                     ${rt.sanskrit_root} ${rt.sanskrit_root_class} (${rt.sanskrit_root_meaning})
-                    % if dps_data:
+                    % if show_sbs_data:
                         (${rt.sanskrit_root_ru_meaning})
                     % endif
                 </i>
