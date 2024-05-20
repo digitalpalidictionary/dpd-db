@@ -25,9 +25,9 @@ exporter/deconstructor/deconstructor_exporter.py
 
 exporter/ebook/ebook_exporter.py
 
-dps/scripts/move_mdict_ru.py
+exporter/ru_components/tools/ru_zip_goldendict_mdict.py
 
-exporter/ru_components/tools/ru_zip_goldedict_mdict.py
+dps/scripts/move_mdict_ru.py
 
 python -c "from tools.configger import config_update; config_update('exporter', 'language', 'en')"
 
