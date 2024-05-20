@@ -1,0 +1,41 @@
+#toc {
+    display: none;
+}
+
+#landmarks {
+    display: none;
+}
+
+#page-list {
+    display:none;
+}
+
+h1 {
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: normal;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  text-align: left;
+}
+
+ol {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 1.5em;
+}
+
+li {
+  font-size: 1em;
+  font-weight: normal;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+  text-align: left;
+  text-indent: -1.5em;
+}
+
+/* Character Classes */
+a {
+  color: initial;
+  text-decoration-line: underline;
+}
