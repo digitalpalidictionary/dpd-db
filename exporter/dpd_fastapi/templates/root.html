@@ -68,7 +68,7 @@
 
 {% for fr in d.frs: %}
     <div 
-    id="root_family_{{d.r.root_}}_{{fr.root_family_}}" 
+    id="family_root_{{d.r.root_}}_{{fr.root_family_}}" 
     class="root_content hidden">
         {{fr.html.replace("class='family'", "class='root_family'")|safe}}
         <p class='root_footer'>

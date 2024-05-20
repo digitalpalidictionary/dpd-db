@@ -246,17 +246,31 @@ class ProjectPaths:
         self.vri_mdict_path = base_dir / "exporter/other_dictionaries/mdict/vri.mdx"
         self.whitney_mdict_path = base_dir / "exporter/other_dictionaries/mdict/whitney.mdx"
 
+        # resources/bw/js
+        self.tbw_i2h_js_path = base_dir / "resources/bw2/js/dpd_i2h.js"
+        self.tbw_dpd_ebts_js_path = base_dir / "resources/bw2/js/dpd_ebts.js"
+        self.tbw_deconstructor_js_path = base_dir / "resources/bw2/js/dpd_deconstructor.js"
+
+        # resources/sc-data
+        self.sc_data_dir = base_dir / "resources/sc-data/sc_bilara_data/root/pli/ms/"
+        self.sc_data_dpd_dir = base_dir / "resources/sc-data/dpd/"
+        
+        self.sc_i2h_js_path = base_dir / "resources/sc-data/dpd/dpd_i2h.js"
+        self.sc_i2h_json_path = base_dir / "resources/sc-data/dpd/dpd_i2h.json"
+        
+        self.sc_dpd_ebts_js_path = base_dir / "resources/sc-data/dpd/dpd_ebts.js"
+        self.sc_dpd_ebts_json_path = base_dir / "resources/sc-data/dpd/dpd_ebts.json"
+        
+        self.sc_deconstructor_js_path = base_dir / "resources/sc-data/dpd/dpd_deconstructor.js"
+        self.sc_deconstructor_json_path = base_dir / "resources/sc-data/dpd/dpd_deconstructor.json"
+
         # resources/tipitaka-xml
         self.cst_txt_dir = base_dir / "resources/tipitaka-xml/roman_txt/"
         self.cst_xml_dir = base_dir / "resources/tipitaka-xml/deva/"
         self.cst_xml_roman_dir = base_dir / "resources/tipitaka-xml/romn/"
 
-        # resources/resources/other_pali_texts
+        # resources/other_pali_texts
         self.other_pali_texts_dir = base_dir / "resources/other_pali_texts"
-
-        # resources/sc-data
-        self.sc_data_dir = base_dir / "resources/sc-data/sc_bilara_data/root/pli/ms/"
-        self.sc_data_dpd_dir = base_dir / "resources/sc-data/dpd/"
 
         # resources/tpr
         self.tpr_download_list_path = base_dir / "resources/tpr_downloads/download_source_files/download_list.json"
@@ -324,24 +338,6 @@ class ProjectPaths:
         self.headword_stem_pattern_dict_path = base_dir / "share/headword_stem_pattern_dict"
         self.inflections_to_translit_json_path = base_dir / "share/inflections_to_translit.json"
         self.inflections_from_translit_json_path = base_dir / "share/inflections_from_translit.json"
-
-        # resources/bw/js
-        self.tbw_i2h_js_path = base_dir / "resources/bw2/js/dpd_i2h.js"
-        self.tbw_dpd_ebts_js_path = base_dir / "resources/bw2/js/dpd_ebts.js"
-        self.tbw_deconstructor_js_path = base_dir / "resources/bw2/js/dpd_deconstructor.js"
-
-        # resources/sc-data
-        self.sc_data_dir = base_dir / "resources/sc-data/sc_bilara_data/root/pli/ms/"
-        self.sc_data_dpd_dir = base_dir / "resources/sc-data/dpd/"
-        
-        self.sc_i2h_js_path = base_dir / "resources/sc-data/dpd/dpd_i2h.js"
-        self.sc_i2h_json_path = base_dir / "resources/sc-data/dpd/dpd_i2h.json"
-        
-        self.sc_dpd_ebts_js_path = base_dir / "resources/sc-data/dpd/dpd_ebts.js"
-        self.sc_dpd_ebts_json_path = base_dir / "resources/sc-data/dpd/dpd_ebts.json"
-        
-        self.sc_deconstructor_js_path = base_dir / "resources/sc-data/dpd/dpd_deconstructor.js"
-        self.sc_deconstructor_json_path = base_dir / "resources/sc-data/dpd/dpd_deconstructor.json"
 
         # temp
         self.temp_dir = base_dir / "temp/"

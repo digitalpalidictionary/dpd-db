@@ -4117,6 +4117,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "visodhita 3",
+    "pp",
+    "(gram) (of a text) corrected; lit. purified",
+    "✓"
+   ],
+   [
     "visodhitapada",
     "nt",
     "(gram) corrected word; lit. purified word",
@@ -4741,7 +4747,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 766
+  "count": 767
  },
  "prefixes": {
   "data": [
@@ -8521,7 +8527,7 @@ var family_set_json = {
    [
     "vāmaka",
     "masc",
-    "name of a Vedic sage; lit. left handed",
+    "name of a Vedic sage; lit. left handed; (comm) well spoken; (or) dwafish",
     "✓"
    ],
    [
@@ -25200,7 +25206,7 @@ var family_set_json = {
    [
     "salaḷa",
     "nt",
-    "fragrant scented tree; Boswellia serrata",
+    "Indian frankincense tree; Boswellia serrata",
     "✓"
    ],
    [
@@ -31216,7 +31222,7 @@ var family_set_json = {
    [
     "salaḷa",
     "nt",
-    "fragrant scented tree; Boswellia serrata",
+    "Indian frankincense tree; Boswellia serrata",
     "✓"
    ],
    [

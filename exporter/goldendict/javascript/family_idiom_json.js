@@ -5176,7 +5176,7 @@ var family_idiom_json = {
    [
     "tato sīsaṃ katvā",
     "idiom",
-    "having pointed the head in that direction",
+    "having pointed the head in that direction; lit. from that having made the head",
     "✓"
    ],
    [
@@ -25109,7 +25109,7 @@ var family_idiom_json = {
    [
     "tato sīsaṃ katvā",
     "idiom",
-    "having pointed the head in that direction",
+    "having pointed the head in that direction; lit. from that having made the head",
     "✓"
    ],
    [
@@ -25138,7 +25138,7 @@ var family_idiom_json = {
    [
     "tato sīsaṃ katvā",
     "idiom",
-    "having pointed the head in that direction",
+    "having pointed the head in that direction; lit. from that having made the head",
     "✓"
    ]
   ]

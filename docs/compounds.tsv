@@ -1,12 +1,15 @@
-word	pos	example	type
-ante	masc	antevāsī	
+ante	masc	antevāsī	type
 atthāya	ind	puññatthāya	
+evaṃ	adj	evaṃpaṭipanna	
 hetu	ind	micchāpaṭipattādhikaraṇahetu	
 hetu	ind	pāricariyāhetu, brūhanāhetu, pīṇanāhetu, kucchihetu	
 jātika	adj	chandajātika	
+kara	adj	puññakara	
+karaṇīya	nt	saṅghakaraṇīya	
 maya	adj	jātarūpamaya	
 nānā	noun	nānādāru	
 nidāna	adj	jātinidāna	
+niyata	adj	micchattaniyata	
 pabhava	adj	upadhipabhava	
 samudaya	adj	upadhisamudaya	
 sāruppagāmī	adj	jātinirodhasāruppagāmī	
@@ -14,10 +17,7 @@ tathā	adj	tathāpaṭipanna, tathāpahīna, tathāsaññī, tathākārī
 uccā	adj	uccākulīna	
 upari	masc	uparikokanadapāsāda	
 upasampanna	adj	vassasatūpasampanna, tadahupasampanna	
-kara	adj	puññakara	
-niyata	adj	micchattaniyata	
-karaṇīya	nt	saṅghakaraṇīya	
-evaṃ	adj	evaṃpaṭipanna	
+word	pos	example	
 			
 			
 -	-	-	
@@ -28,11 +28,18 @@ gerund + adj	adj	vibhajjavāda
 indeclinable in first position	adj	nānājacca, uparikokanadapāsāda	
 kāla	masc	yānakāla	
 kammadhāraya + taddhita	fem, nt	appātaṅkatā, appābādhatta	
+khattuṃ	ind	atirekachakkhattuṃ, dvattikkhattuṃ	
+khattuṃ	fem	sattakkhattuparamatā	
+kiṃ	adj	"kiṃmṃlaka, kiṃcitta, kiṃpamukha, kiṃkata, kiṃpahotika, kiṃnidṃna, kiṃparama, kiṃjṃtika, kiṃpariyosṃna"""	
+missing word (ṭhapita)	nt	dvārabhatta	
 more words required for the sense	nt	dvārabhatta	
 numbers (addition)	card	bāvīsati, dvattiṃsati	
 numbers (multiplication)	card	tiṃsati	
 numbers (subtraction)	adj	aḍḍhuḍḍha, aḍḍhateḷasa	
 repeated words	adj	saṅghasaṅghī	
 superlatives and comparitives	adj	paṇītasaṅkhātatara	
+taddhita *ī	fem	ghoṭamukhī	
+taddjita *ika	adj	subhagavanika	
+tiro	ind	tirojanapadā, tiropabbataṃ, tiropākāraṃ, tiroraṭṭhā	
+tiro	noun	tirokaraṇī, tirokuṭṭa	
 two indedeclinables	ind	ahovatā	
-missing word (ṭhapita)	nt	dvārabhatta	

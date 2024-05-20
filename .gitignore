@@ -70,6 +70,22 @@ exporter/ebook/epub/OEBPS/Text/8_k.xhtml
 exporter/ebook/epub/OEBPS/Text/9_kh.xhtml
 exporter/ebook/epub/OEBPS/Text/abbreviations.xhtml
 exporter/ebook/epub/OEBPS/Text/titlepage.xhtml
+exporter/ebook/output/
+exporter/grammar_dict/output/
+exporter/other_dictionaries/code/cone/bulk_dump_html.html
+exporter/other_dictionaries/code/cone/cone-gd.zip
+exporter/other_dictionaries/code/cone/cone-mdict.mdd
+exporter/other_dictionaries/code/cone/cone-mdict.mdx
+exporter/other_dictionaries/code/cone/cone-mdict.zip
+exporter/other_dictionaries/code/cone/cone/
+exporter/other_dictionaries/code/cone/Dictionary of Pāli by Margaret Cone/
+exporter/other_dictionaries/code/cone/source/cone_dict.json
+exporter/other_dictionaries/code/cone/source/cone_front_matter.json
+exporter/other_dictionaries/code/cpd/output
+exporter/other_dictionaries/code/peu/source/peu_dump_2024_02_16.js
+exporter/other_dictionaries/goldendict/
+exporter/other_dictionaries/json/
+exporter/other_dictionaries/mdict/
 exporter/ru_components/ebook/epub/OEBPS/content.opf
 exporter/ru_components/ebook/epub/OEBPS/Text/0_a.xhtml
 exporter/ru_components/ebook/epub/OEBPS/Text/1_a.xhtml
@@ -114,13 +130,6 @@ exporter/ru_components/ebook/epub/OEBPS/Text/8_k.xhtml
 exporter/ru_components/ebook/epub/OEBPS/Text/9_kh.xhtml
 exporter/ru_components/ebook/epub/OEBPS/Text/abbreviations.xhtml
 exporter/ru_components/ebook/epub/OEBPS/Text/titlepage.xhtml
-exporter/ebook/output/
-exporter/grammar_dict/output/
-exporter/other_dictionaries/code/cpd/output
-exporter/other_dictionaries/code/peu/source/peu_dump_2024_02_16.js
-exporter/other_dictionaries/goldendict/
-exporter/other_dictionaries/json/
-exporter/other_dictionaries/mdict/
 exporter/share/
 exporter/tpr/output/
 gui/icons/
@@ -144,10 +153,3 @@ tests/test_theragatha_filler
 time_log.dat
 time_log.png
 tmp/
-exporter/other_dictionaries/code/cone/Dictionary of Pāli by Margaret Cone/
-exporter/other_dictionaries/code/cone/bulk_dump_html.html
-exporter/other_dictionaries/code/cone/cone-mdict.mdd
-exporter/other_dictionaries/code/cone/cone-mdict.mdx
-exporter/other_dictionaries/code/cone/cone-gd.zip
-exporter/other_dictionaries/code/cone/cone-mdict.zip
-exporter/other_dictionaries/code/cone/cone/

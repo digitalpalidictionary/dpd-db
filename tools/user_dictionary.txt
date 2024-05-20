@@ -180,6 +180,7 @@ asceticism
 Asclepias syriaca
 Asiatica
 asiaticus
+Asita
 asobhattha
 asobhittha
 Asoka
@@ -512,6 +513,7 @@ deva
 Deva
 deva-king
 devadattiya
+Devala
 Devaputtasaṃyuttaṃ
 devas
 Devatāsaṃyuttaṃ
@@ -711,6 +713,7 @@ Gayā's
 gayal
 gelder
 genitive
+genitor
 genitrix
 geomancy
 gh
@@ -1148,6 +1151,7 @@ maned
 Mangifera
 mano
 Manonivāraṇasutta
+manservants
 Mantāṇī
 Mantāṇiputta
 manu
@@ -2337,4 +2341,3 @@ yojanas
 yoking
 zizanioides
 Ziziphus
-manservants

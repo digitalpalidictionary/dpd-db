@@ -17423,7 +17423,7 @@ var family_word_json = {
    [
     "opamañña 1",
     "masc",
-    "man of the Upamañña clan",
+    "man of the Upamañña family clan",
     "✓"
    ],
    [
@@ -20974,7 +20974,7 @@ var family_word_json = {
    [
     "kosala 2",
     "adj",
-    "from the kingdom of Kosala; of Kosala",
+    "from the kingdom of Kosala; of Kosala; Kosalan",
     "✓"
    ],
    [
@@ -21277,7 +21277,7 @@ var family_word_json = {
    [
     "khīra 2",
     "nt",
-    "(of trees) milk-like juice; sap",
+    "(of trees) milky sap; white juice",
     "✓"
    ],
    [
@@ -21909,13 +21909,19 @@ var family_word_json = {
  "ghoṭa": {
   "data": [
    [
-    "ghoṭa",
+    "ghoṭa 1",
     "masc",
     "horse",
     "✓"
+   ],
+   [
+    "ghoṭa 2",
+    "masc",
+    "beard",
+    "~"
    ]
   ],
-  "count": 1
+  "count": 2
  },
  "c": {
   "data": [
@@ -26101,7 +26107,7 @@ var family_word_json = {
    [
     "patthaṇḍila",
     "masc",
-    "ascetic hermitage",
+    "ascetic compound; lit. hard ground in front",
     "✓"
    ]
   ],
@@ -29976,7 +29982,7 @@ var family_word_json = {
    [
     "vāmaka",
     "masc",
-    "name of a Vedic sage; lit. left handed",
+    "name of a Vedic sage; lit. left handed; (comm) well spoken; (or) dwafish",
     "✓"
    ],
    [

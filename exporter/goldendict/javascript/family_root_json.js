@@ -13640,13 +13640,13 @@ var family_root_json = {
    [
     "cāvetuṃ 2",
     "inf",
-    "to make shift; to cause to move (from)",
+    "to make shift; to cause to move (from); lit. to cause to fall",
     "~"
    ],
    [
     "cāvetuṃ 3",
     "inf",
-    "(of meditation) to disturb; to distract (from)",
+    "(of meditation) to disturb; to distract (from); lit. to cause to fall",
     "✓"
    ],
    [
@@ -17942,7 +17942,7 @@ var family_root_json = {
    [
     "jāleti 2",
     "pr",
-    "(of a fire) kindles; lights; lit. causes to burn",
+    "(of a fire) kindles; lights; sets on fire; lit. causes to burn",
     "~"
    ],
    [
@@ -18786,7 +18786,7 @@ var family_root_json = {
    [
     "ñāpetuṃ 2",
     "inf",
-    "to convince; to persuade",
+    "to convince; to persuade; lit. to cause to know",
     "✓"
    ],
    [
@@ -40308,7 +40308,7 @@ var family_root_json = {
    [
     "svānussuta",
     "adj",
-    "correctly heard; correctly transmitted by tradition; lit. well heard along",
+    "correctly heard; well transmitted by tradition; lit. well heard along",
     "✓"
    ]
   ]
@@ -47490,7 +47490,7 @@ var family_root_json = {
    [
     "mārī 1",
     "adj",
-    "dead; dying; who has died",
+    "dead; who has died",
     "✓"
    ],
    [
@@ -59022,7 +59022,7 @@ var family_root_json = {
    [
     "sānuggaha",
     "adj",
-    "with a reason; having a cause",
+    "with a reason; having a cause; lit. with support",
     "✓"
    ]
   ]
@@ -66742,7 +66742,7 @@ var family_root_json = {
    [
     "upādāna 3",
     "adj",
-    "related to fuel; with fuel; lit. taking near",
+    "with fuel; having fuel; lit. taking near",
     "✓"
    ],
    [
@@ -68636,7 +68636,7 @@ var family_root_json = {
    [
     "anurakkhatā",
     "fem",
-    "guarding; protecting; preserving",
+    "guarding; protecting; preserving; lit. guarding state",
     "✓"
    ],
    [
@@ -70422,67 +70422,67 @@ var family_root_json = {
    [
     "anussada",
     "adj",
-    "not arrogant; humble; lit. not swelling",
+    "not arrogant; humble; lit. not sinking up",
     "✓"
    ],
    [
     "anussādetvā",
     "abs",
-    "having not praised; having not flattered; lit. having not caused to sit up",
+    "having not praised; having not flattered; lit. having not caused to sink up",
     "~"
    ],
    [
     "ussa",
     "adj",
-    "excellent; superior",
+    "excellent; superior; lit. sinking up",
     "✓"
    ],
    [
     "ussada 1",
     "adj",
-    "full of; covered with; abundant; excessive; lit. sinking up; swelling",
+    "full of; covered with; abundant; excessive; lit. sinking up",
     "✓"
    ],
    [
     "ussada 2",
     "masc",
-    "arrogance; conceit; self-importance; lit. sinking up; swelling",
+    "arrogance; conceit; self-importance; lit. sinking up",
     "✓"
    ],
    [
     "ussada 3",
     "masc",
-    "distinction; qualification; prominence; lit. sinking up; swelling",
+    "distinction; qualification; prominence; lit. sinking up",
     "✓"
    ],
    [
     "ussada 4",
     "masc",
-    "auxiliary hell; lit. sinking up; swelling",
+    "auxiliary hell; lit. sinking up",
     "✓"
    ],
    [
     "ussada 5",
     "adj",
-    "supplementary; auxiliary; subsidiary; lit. sinking up; swelling",
+    "supplementary; auxiliary; subsidiary; lit. sinking up",
     "~"
    ],
    [
     "ussada 6",
     "adj",
-    "with a bulge; having a protuberance; with a prominent bodily feature; lit. sitting up",
+    "with a bulge; having a protuberance; with a prominent bodily feature; lit. sinking up",
     "✓"
    ],
    [
     "ussadaka",
     "adj",
-    "excessive; overflowing; lit. sinking up; swelling",
+    "excessive; overflowing; lit. sinking up",
     "✓"
    ],
    [
     "ussanna",
     "pp",
-    "excessive; abundant; plentiful; copious; lit. raised up",
+    "excessive; abundant; plentiful; copious; lit. sinking up",
     "~"
    ],
    [
@@ -70494,7 +70494,7 @@ var family_root_json = {
    [
     "ussannatta",
     "nt",
-    "fact of being widespread; fact of being prevalent",
+    "fact of being widespread; fact of being prevalent; lit. sunk up state",
     "~"
    ],
    [
@@ -70506,7 +70506,7 @@ var family_root_json = {
    [
     "ussādana",
     "nt",
-    "praise; elevation; raising up; bigging up; flattery",
+    "praise; elevation; raising up; bigging up; flattery; lit. sinking up",
     "✓"
    ],
    [
@@ -70554,25 +70554,25 @@ var family_root_json = {
    [
     "ussādeti",
     "pr",
-    "praises; elevates; raises up; bigs up; flatters; lit. causes to raise up",
+    "praises; elevates; raises up; bigs up; flatters; lit. causes to sink up",
     "✓"
    ],
    [
     "ussādetvā",
     "abs",
-    "having raised up (onto); having elevated (onto); lit. having caused to sit up",
+    "having raised up (onto); having elevated (onto); lit. having caused to sink up",
     "✓"
    ],
    [
     "ussādenta",
     "prp",
-    "praising; elevating; raising up; flattering; lit. causing to raise up",
+    "praising; elevating; raising up; flattering; lit. causing to sink up",
     "~"
    ],
    [
     "ussīdati",
     "pr",
-    "rises up (onto); washes up (onto); runs aground (on)",
+    "rises up (onto); washes up (onto); runs aground (on); lit. is sunk up",
     "✓"
    ]
   ]
@@ -89094,7 +89094,7 @@ var family_root_json = {
    [
     "supākaṭa",
     "adj",
-    "very famous; well known; widely known; very common",
+    "very famous; well known; very common",
     "~"
    ]
   ]
@@ -112706,7 +112706,7 @@ var family_root_json = {
    [
     "abhisapati 1",
     "pr",
-    "curses; damns to hell; puts a hex (on)",
+    "curses; puts a hex (on); damns to hell",
     "✓"
    ],
    [
@@ -122263,8 +122263,8 @@ var family_root_json = {
    ],
    [
     "ropima 3",
-    "nt",
-    "kind of arrow shaft; lit. cultivated",
+    "adj",
+    "(of an arrow shaft) custom grown; cultivated; lit. cultivated",
     "✓"
    ],
    [
@@ -126893,7 +126893,7 @@ var family_root_json = {
   "root_key": "√vatt",
   "root_family": "√vatt",
   "root_meaning": "be, proceed",
-  "count": 48,
+  "count": 49,
   "data": [
    [
     "avattana",
@@ -126930,6 +126930,12 @@ var family_root_json = {
     "nt",
     "duty; responsibility",
     "✓"
+   ],
+   [
+    "vatta 1.4",
+    "nt",
+    "service, function",
+    "✗"
    ],
    [
     "vattaka",
@@ -131136,7 +131142,7 @@ var family_root_json = {
    [
     "vaṇṇī 2",
     "adj",
-    "related to a caste; regarding a social class",
+    "related to castes; regarding social classes",
     "✓"
    ],
    [
@@ -139386,7 +139392,7 @@ var family_root_json = {
    [
     "visodhita 1",
     "pp",
-    "cleaned; removed",
+    "cleaned; removed; lit. purified",
     "✓"
    ],
    [
@@ -139398,7 +139404,7 @@ var family_root_json = {
    [
     "visodhita 3",
     "pp",
-    "(of a text) corrected",
+    "(gram) (of a text) corrected; lit. purified",
     "✓"
    ],
    [
@@ -144206,7 +144212,7 @@ var family_root_json = {
    [
     "susaddahita",
     "adj",
-    "with perfect faith (in); with complete confidence (in); trusting completely (in); with complete conviction (in)",
+    "completely believed; totally trusted; lit. well trusted",
     "✓"
    ]
   ]
@@ -151194,7 +151200,7 @@ var family_root_json = {
    [
     "saṃsatta",
     "pp",
-    "attached; clung together; clasped onto; bunched together",
+    "attached; clung together; clasped onto; bunched together; lit. stuck together",
     "✓"
    ]
   ]
@@ -180868,7 +180874,7 @@ var family_root_json = {
    [
     "sunijjhāyita",
     "adj",
-    "carefully considered; well thought out",
+    "carefully considered; well thought out; well reasoned",
     "✓"
    ]
   ]
@@ -193794,7 +193800,7 @@ var family_root_json = {
    [
     "saparisa",
     "adj",
-    "together with one's retinue; along with one's entourage",
+    "together with one's retinue; along with one's entourage; with one's following",
     "✓"
    ],
    [
@@ -202709,13 +202715,19 @@ var family_root_json = {
   "root_key": "√thī",
   "root_family": "vi √thī",
   "root_meaning": "be dense, be compact",
-  "count": 2,
+  "count": 3,
   "data": [
    [
     "vitthāyi",
     "aor",
     "froze; hesitated; lit. became stiff",
     "✓"
+   ],
+   [
+    "vitthāyita",
+    "pp",
+    "hesitated; froze; lit. frozen state",
+    "~"
    ],
    [
     "vitthāyitatta",
@@ -209772,8 +209784,8 @@ var family_root_json = {
    [
     "sajjenta",
     "prp",
-    "preparing",
-    "✗"
+    "preparing; arranging",
+    "~"
    ],
    [
     "sajjesi",
@@ -218451,7 +218463,7 @@ var family_root_json = {
     "saṃvaṇṇanā 1",
     "fem",
     "commentary; explanation; lit. praising",
-    "✓"
+    "~"
    ],
    [
     "saṃvaṇṇanā 2",
