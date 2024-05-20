@@ -26,8 +26,10 @@ mkdir -p "$DEST"
 echo "------ Local Backup Script Started at $(date) ------"
 
 for SOURCE in "${SOURCES[@]}"; do
-    SOURCE_NAME=$(basename "$SOURCE")
-    DESTINATION="${DEST}/${SOURCE_NAME}"
+    # SOURCE_NAME=$(basename "$SOURCE")
+    # DESTINATION="${DEST}/${SOURCE_NAME}"
+    DESTINATION="${DEST}"
+
 
     echo "Backing up ${SOURCE} to ${DESTINATION}"
     

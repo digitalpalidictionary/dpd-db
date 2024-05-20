@@ -1,0 +1,137 @@
+<table class="grammar">
+    <tr>
+        <td class='th'>English</td>
+        <td>${meaning}</td>
+    </tr>
+    <tr>
+        <td class='th'>Грамматика</td>
+        <td>${grammar}</td>
+    </tr>
+    % if i.family_root:
+    <tr>
+        <td class='th'>Семья Корня</td>
+        <td>${i.family_root}</td>
+    </tr>
+    % endif
+    % if i.root_key:
+    <tr>
+        <td class='th'>Корень</td>
+        <td>${i.root_clean}<sup>${i.rt.root_has_verb}</sup>${i.rt.root_group} 
+            ${i.root_sign} (${i.rt.root_ru_meaning})
+        </td>
+    </tr>
+    % if i.rt.root_in_comps:
+    <tr>
+        <td class='th'>√ В сочет.</td>
+        <td>${i.rt.root_in_comps}</td>
+    </tr>
+    % endif
+    % endif
+    % if i.root_base:
+    <tr>
+        <td class='th'>Основа</td>
+        <td>${i.root_base}</td>
+    </tr>
+    % endif
+    % if i.construction:
+    <tr>
+        <td class='th'>Образование</td>
+        <td>${i.construction}</td>
+    </tr>
+    % endif
+    % if i.derivative:
+    <tr>
+        <td class='th'>Производное</td>
+        <td>${i.derivative} (${i.suffix})</td>
+    </tr>
+    % endif
+    % if i.phonetic:
+    <tr>
+        <td class='th'>Фонетика</td>
+        <td>${i.phonetic}</td>
+    </tr>
+    % endif
+    % if i.compound_type and "?" not in i.compound_type:
+    <tr>
+        <td class='th'>Составное</td>
+        <td>${i.compound_type} (${i.compound_construction})</td>
+    </tr>
+    % endif
+    % if i.antonym:
+    <tr>
+        <td class='th'>Антоним</td>
+        <td>${i.antonym}</td>
+    </tr>
+    % endif
+    % if i.synonym:
+    <tr>
+        <td class='th'>Синоним</td>
+        <td>${i.synonym}</td>
+    </tr>
+    % endif
+    % if i.variant:
+    <tr>
+        <td class='th'>Вариант</td>
+        <td>${i.variant}</td>
+    </tr>
+    % endif
+    % if (i.commentary and i.commentary != "-"):
+    <tr>
+        <td class='th'>Комментарий</td>
+        <td>${i.commentary}</td>
+    </tr>
+    % endif
+    % if i.ru and i.ru.ru_notes:
+    <tr>
+        <td class='th'>Заметки</td>
+        <td>${i.ru.ru_notes}</td>
+    </tr>
+        % if "[пер. ИИ]" in i.ru.ru_notes and i.notes:
+            <tr>
+                <td class='th'>Notes</td>
+                <td>${i.notes}</td>
+            </tr>
+        % endif
+    % elif i.notes:
+    <tr>
+        <td class='th'>Notes</td>
+        <td>${i.notes}</td>
+    </tr>
+    % endif
+    % if i.cognate:
+    <tr>
+        <td class='th'>English Cognate</td>
+        <td>${i.cognate}</td>
+    </tr>
+    % endif
+    % if i.link:
+    <tr>
+        <td class='th'>Ссылка</td>
+        <td>${i.link}</td>
+    </tr>
+    % endif
+    % if i.non_ia:
+    <tr>
+        <td class='th'>Не Индоевроп</td>
+        <td><i>${i.non_ia}</i></td>
+    </tr>
+    % endif
+    % if i.sanskrit:
+    <tr>
+        <td class='th'>Санскрит</td>
+        <td><i>${i.sanskrit}</i></td>
+    </tr>
+    % endif
+    % if i.root_key:
+    % if i.rt.sanskrit_root and i.rt.sanskrit_root != "-":
+    <tr>
+        <td class='th'>Санск. Корень</td>
+        <td>
+            <i>
+                ${i.rt.sanskrit_root} ${i.rt.sanskrit_root_class} (${i.rt.sanskrit_root_ru_meaning})
+            </i>
+        </td>
+    </tr>
+    % endif
+    % endif
+</table>
