@@ -50,7 +50,7 @@ jobs:
     # ----------------------------------------
 
     - name: Config for GitHub release
-      run: poetry run python exporter/ru_components/tools/ru_config_github_release.py
+      run: poetry run python exporter/goldendict/ru_components/tools/ru_config_github_release.py
 
     - name: Create dpd.db
       run: touch dpd.db
@@ -135,7 +135,7 @@ jobs:
       run: poetry run python exporter/ebook/ebook_exporter.py
 
     - name: Zip GoldenDict & Mdict
-      run: poetry run python exporter/ru_components/tools/ru_zip_goldendict_mdict.py
+      run: poetry run python exporter/goldendict/ru_components/tools/ru_zip_goldendict_mdict.py
     
     # ----------------------------------------
     # Upload Artifacts

@@ -25,7 +25,7 @@ exporter/deconstructor/deconstructor_exporter.py
 
 exporter/ebook/ebook_exporter.py
 
-exporter/ru_components/tools/ru_zip_goldendict_mdict.py
+exporter/goldendict/ru_components/tools/ru_zip_goldendict_mdict.py
 
 dps/scripts/move_mdict_ru.py
 
