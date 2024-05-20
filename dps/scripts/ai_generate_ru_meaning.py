@@ -51,21 +51,21 @@ def ru_meaning_generating():
 
     #! for filling those which does not have Russian table and fill the conditions
 
-    # db = db_session.query(DpdHeadwords).outerjoin(
-    # Russian, DpdHeadwords.id == Russian.id
-    #     ).filter(
-    #         and_(
-    #             DpdHeadwords.meaning_1 != '',
-    #             # DpdHeadwords.example_1 != '',
-    #             # ~combined_condition,
-    #             or_(
-    #                 Russian.ru_meaning.is_(None),
-    #                 Russian.ru_meaning_raw.is_(None),
-    #                 Russian.id.is_(null())
-    #             )
+    db = db_session.query(DpdHeadwords).outerjoin(
+    Russian, DpdHeadwords.id == Russian.id
+        ).filter(
+            and_(
+                DpdHeadwords.meaning_1 != '',
+                # DpdHeadwords.example_1 != '',
+                # ~combined_condition,
+                or_(
+                    Russian.ru_meaning.is_(None),
+                    Russian.ru_meaning_raw.is_(None),
+                    Russian.id.is_(null())
+                )
 
-    #         )
-    #     ).order_by(DpdHeadwords.ebt_count.desc()).limit(1000).all()
+            )
+        ).order_by(DpdHeadwords.ebt_count.desc()).limit(1000).all()
 
     #! for filling empty rows in Russian table
 
@@ -80,20 +80,20 @@ def ru_meaning_generating():
     #! for filling those which have lower model of gpt:
 
     # Call the new function to read IDs from the TSV file to exclude
-    exclude_ids = read_exclude_ids_from_tsv(f"{dpspth.ai_translated_dir}/{hight_model}.tsv")
+    # exclude_ids = read_exclude_ids_from_tsv(f"{dpspth.ai_translated_dir}/{hight_model}.tsv")
 
-    # Add the conditions to the query
-    db = db_session.query(DpdHeadwords).outerjoin(
-        Russian, DpdHeadwords.id == Russian.id
-        ).filter(
-            and_(
-                DpdHeadwords.meaning_1 != '',
-                Russian.ru_meaning_raw != '',
-                # func.length(Russian.ru_meaning_raw) > 20,
-                Russian.ru_meaning == '',
-                ~DpdHeadwords.id.in_(exclude_ids)
-            )
-        ).order_by(DpdHeadwords.ebt_count.desc()).limit(10000).all()
+    # # Add the conditions to the query
+    # db = db_session.query(DpdHeadwords).outerjoin(
+    #     Russian, DpdHeadwords.id == Russian.id
+    #     ).filter(
+    #         and_(
+    #             DpdHeadwords.meaning_1 != '',
+    #             Russian.ru_meaning_raw != '',
+    #             # func.length(Russian.ru_meaning_raw) > 20,
+    #             Russian.ru_meaning == '',
+    #             ~DpdHeadwords.id.in_(exclude_ids)
+    #         )
+    #     ).order_by(DpdHeadwords.ebt_count.desc()).limit(10000).all()
 
     # Print the db
     print("Details of filtered words")

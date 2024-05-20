@@ -68,7 +68,7 @@ function loadButtonContent_ru(data) {
     if (
         data.family_compounds
         && data.family_compounds.length > 0
-        && typeof family_compound_json !== "undefined"
+        && typeof ru_family_compound_json !== "undefined"
     ) {
         const familyCompoundHtml = makeFamilyCompoundHtml_ru(data)
         const familyCompoundElement = document.getElementById(`family_compound_ru_${data.lemma}`)
@@ -78,9 +78,9 @@ function loadButtonContent_ru(data) {
     //// family root
 
     if (data.family_root != ""
-        && typeof family_root_json !== "undefined"
+        && typeof ru_family_root_json !== "undefined"
     ) {
-        const fr = family_root_json[data.family_root];
+        const fr = ru_family_root_json[data.family_root];
         const familyRootHtml = makeFamilyRootHtml_ru(data, fr);
         const familyRootElement = document.getElementById(`family_root_ru_${data.lemma}`);
         familyRootElement.innerHTML = familyRootHtml;
@@ -91,7 +91,7 @@ function loadButtonContent_ru(data) {
     if (
         data.family_idioms
         && data.family_idioms.length > 0
-        && typeof family_idiom_json !== "undefined"
+        && typeof ru_family_idiom_json !== "undefined"
     ) {
         const familyIdiomHtml = makeFamilyIdioms_ru(data)
         const familyIdiomElement = document.getElementById(`family_idiom_ru_${data.lemma}`)
@@ -103,7 +103,7 @@ function loadButtonContent_ru(data) {
     if (
         data.family_sets 
         && data.family_sets.length > 0
-        && typeof family_set_json !== "undefined"
+        && typeof ru_family_set_json !== "undefined"
     ) {
         const familySetHtml = makeFamilySets_ru(data)
         const familySetElement = document.getElementById(`family_set_ru_${data.lemma}`)
@@ -114,7 +114,7 @@ function loadButtonContent_ru(data) {
 
     if (
         data.family_word
-        && typeof family_word_json !== "undefined"
+        && typeof ru_family_word_json !== "undefined"
     ) {
         const familyWordHtml = makeFamilyWordHtml_ru(data);
         const familyWordElement = document.getElementById(`family_word_ru_${data.lemma}`)
@@ -130,7 +130,7 @@ function loadRootButtonContent_ru(data) {
     familyRootArray.forEach(item => {
         const key_id = item.id
         const key_clean = item.id.replace("family_root_ru_", "").replace(/_/g, " ")
-        const fr = family_root_json[key_clean]
+        const fr = ru_family_root_json[key_clean]
         const familyRootHtml = makeFamilyRootHtml_ru(data, fr, "root");
         const familyRootElement = document.getElementById(key_id)
         familyRootElement.innerHTML = familyRootHtml

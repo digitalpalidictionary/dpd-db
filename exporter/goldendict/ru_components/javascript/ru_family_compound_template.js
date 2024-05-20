@@ -15,7 +15,7 @@ function makeFamilyCompoundHtml_ru(data) {
     };
 
     familyCompoundList.forEach(item => {
-        fc = family_compound_json[item]
+        fc = ru_family_compound_json[item]
         item = item.replace(/ /g, "_")
 
         if (familyCompoundList.length > 1) {

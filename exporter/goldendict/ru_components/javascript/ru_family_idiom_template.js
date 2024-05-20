@@ -15,7 +15,7 @@ function makeFamilyIdioms_ru(data) {
     };
 
     familyIdiomList.forEach(item => {
-        fi = family_idiom_json[item]
+        fi = ru_family_idiom_json[item]
         item = item.replace(/ /g, "_")
 
         if (familyIdiomList.length > 1) {
