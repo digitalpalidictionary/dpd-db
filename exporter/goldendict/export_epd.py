@@ -13,11 +13,11 @@ from db.get_db_session import get_db_session
 from db.models import DpdHeadwords, DpdRoots
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from exporter.ru_components.tools.paths_ru import RuPaths
+from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
 from tools.printer import p_green, p_yes
 from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces
 from tools.goldendict_exporter import DictEntry
-from exporter.ru_components.tools.tools_for_ru_exporter import ru_replace_abbreviations
+from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import ru_replace_abbreviations
 
 
 def generate_epd_html(

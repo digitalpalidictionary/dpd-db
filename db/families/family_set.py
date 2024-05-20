@@ -14,7 +14,7 @@ from tools.meaning_construction import degree_of_completion as doc
 from tools.paths import ProjectPaths
 from tools.configger import config_test
 
-from exporter.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations, populate_set_ru_and_check_errors, make_short_meaning
+from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations, populate_set_ru_and_check_errors, make_short_meaning
  
 from sqlalchemy.orm import joinedload
 

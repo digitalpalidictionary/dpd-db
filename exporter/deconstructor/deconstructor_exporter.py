@@ -21,7 +21,7 @@ from tools.goldendict_exporter import DictEntry
 from tools.goldendict_exporter import DictInfo, DictVariables, export_to_goldendict_with_pyglossary
 from tools.mdict_exporter2 import export_to_mdict
 
-from exporter.ru_components.tools.paths_ru import RuPaths
+from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
 from tools.utils import squash_whitespaces
 
 

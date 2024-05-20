@@ -1,0 +1,19 @@
+<div class='content_ru'>
+    <p>
+        ${pos}. 
+        % if plus_case:
+            (${plus_case}) 
+        % endif
+        % if not i.ru.ru_meaning and i.ru.ru_meaning_raw:
+        <a class="link_ru" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform" target="_blank">[пер. ИИ]</a>
+        % endif
+        ${meaning} 
+        % if summary:
+            [${summary}] 
+        % endif
+        % if i.source_link_sutta:
+        <a href="${i.source_link_sutta}">link</a>
+        % endif
+        ${complete} 
+    </p>
+</div>

@@ -7,7 +7,7 @@ python -c "from tools.configger import print_config_settings; print_config_setti
 
 python -c "from tools.configger import config_update; config_update('exporter', 'language', 'ru')"
 
-scripts/bash/generate_components.sh
+# scripts/bash/generate_components.sh
 
 # db/families/family_root.py
 # db/families/family_word.py

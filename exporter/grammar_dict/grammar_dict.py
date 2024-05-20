@@ -14,8 +14,8 @@ from db.models import DpdHeadwords
 from db.models import InflectionTemplates
 from db.models import Lookup
 
-from exporter.ru_components.tools.paths_ru import RuPaths
-from exporter.ru_components.tools.tools_for_ru_exporter import ru_replace_abbreviations
+from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
+from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import ru_replace_abbreviations
 
 from tools.configger import config_test
 from tools.deconstructed_words import make_words_in_deconstructions

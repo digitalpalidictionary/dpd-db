@@ -10,7 +10,7 @@ from typing import List, Dict, Tuple
 from sqlalchemy.orm import Session
 
 from tools.paths import ProjectPaths
-from exporter.ru_components.tools.paths_ru import RuPaths
+from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
 from tools.printer import p_green, p_yes
 from tools.tsv_read_write import read_tsv_dict
 from tools.tsv_read_write import read_tsv_dot_dict

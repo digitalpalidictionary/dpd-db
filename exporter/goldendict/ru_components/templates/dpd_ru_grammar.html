@@ -1,0 +1,152 @@
+<div id="grammar_ru_${i.lemma_1_}" class="content_ru hidden">
+    <table class = "grammar_ru">
+        <tr>
+            <th>Пали</th>
+            <td>${i.lemma_2}</td>
+        </tr>
+        % if meaning:
+            <tr>
+                <th>English</th>
+                <td>${meaning}
+                </td>
+            </tr> 
+        % endif        
+        <tr>
+            <th>Грамматика</th>
+            <td>${grammar}</td>
+        </tr>
+        % if i.family_root:
+        <tr>
+            <th>Семья корня</th>
+            <td>${i.family_root}</td>
+        </tr>
+        % endif
+        % if i.root_key:
+        <tr>
+            <th>Корень</th>
+            <td>${i.root_clean}<sup>${rt.root_has_verb}</sup>${rt.root_group}
+                ${i.root_sign} (${rt.root_ru_meaning})
+            </td>
+        </tr>
+        % if rt.root_in_comps:
+        <tr>
+            <th>√ в сочетании</th>
+            <td>${rt.root_in_comps}</td>
+        </tr>
+        % endif
+        % endif
+        % if ru_base:
+        <tr>
+            <th>Основа</th>
+            <td>${ru_base}</td>
+        </tr>
+        % endif
+        % if i.construction:
+        <tr>
+            <th>Образование</th>
+            <td>${i.construction}</td>
+        </tr>
+        % endif
+        % if i.derivative:
+        <tr>
+            <th>Производное</th>
+            <td>${i.derivative} (${i.suffix})</td>
+        </tr>
+        % endif
+        % if ru_phonetic:
+        <tr>
+            <th>Фонетика</th>
+            <td>${ru_phonetic}</td>
+        </tr>
+        % endif
+        % if i.compound_type and "?" not in i.compound_type:
+        <tr>
+            <th>Составное</th>
+            <td>${i.compound_type} (${i.compound_construction})</td>
+        </tr>
+        % endif
+        % if i.antonym:
+        <tr>
+            <th>Антоним</th>
+            <td>${i.antonym}</td>
+        </tr>
+        % endif
+        % if i.synonym:
+        <tr>
+            <th>Синоним</th>
+            <td>${i.synonym}</td>
+        </tr>
+        % endif
+        % if i.variant:
+        <tr>
+            <th>Вариант</th>
+            <td>${i.variant}</td>
+        </tr>
+        % endif
+        % if i.commentary and i.commentary != "-":
+        <tr>
+            <th>Комментарий</th>
+            <td>${i.commentary}</td>
+        </tr>
+        % endif
+        % if ru.ru_notes:
+        <tr>
+            <th>Заметки</th>
+            <td>${ru.ru_notes}</td>
+        </tr>
+            % if "[пер. ИИ]" in ru.ru_notes and i.notes:
+                <tr>
+                    <th>Notes</th>
+                    <td>${i.notes}</td>
+                </tr>
+            % endif
+        % elif i.notes:
+        <tr>
+            <th>Notes</th>
+            <td>${i.notes}</td>
+        </tr>
+        % endif
+        % if i.cognate:
+        <tr>
+            <th>English Cognate</th>
+            <td>${i.cognate}</td>
+        </tr>
+        % endif
+        % if i.link:
+        <tr>
+            <th>Ссылка</th>
+            <td>
+                <a class="link_ru" href="${i.link}">${i.link}</a>
+            </td>
+        </tr>
+        % endif
+        % if i.non_ia:
+        <tr>
+            <th>Не Индоевроп</th>
+            <td><i>${i.non_ia}</i></td>
+        </tr>
+        % endif
+        % if i.sanskrit:
+        <tr>
+            <th>Санскрит</th>
+            <td><i>${i.sanskrit}</i></td>
+        </tr>
+        % endif
+        % if i.root_key:
+        % if rt.sanskrit_root and rt.sanskrit_root != "-": 
+        <tr>
+            <th>Санск. Корень</th>
+            <td>
+                <i>
+                    ${rt.sanskrit_root} ${rt.sanskrit_root_class} (${rt.sanskrit_root_ru_meaning})
+                </i>
+            </td>
+        </tr>
+        % endif
+        % endif
+    </table>
+    <p class='footer_ru'>
+        Заметили ошибку? <a class="link_ru" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Грамматика&entry.1433863141=GoldenDict+${today}" target="_blank">Исправьте здесь</a>. 
+        <br>Отсутствует какое-то слово в словаре? <a class="link_ru" href="https://docs.google.com/forms/d/e/1FAIpQLSfResxEUiRCyFITWPkzoQ2HhHEvUS5fyg68Rl28hFH6vhHlaA/viewform?usp=pp_url&entry.1433863141=GoldenDict+${today}" target="_blank">Добавьте его здесь</a>.
+    </p>
+</div>

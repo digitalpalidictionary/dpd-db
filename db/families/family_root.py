@@ -28,7 +28,7 @@ from tools.superscripter import superscripter_uni
 from tools.tic_toc import tic, toc
 from tools.update_test_add import update_test_add
 
-from exporter.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations, make_short_meaning
+from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations, make_short_meaning
 
 from sqlalchemy.orm import joinedload
 

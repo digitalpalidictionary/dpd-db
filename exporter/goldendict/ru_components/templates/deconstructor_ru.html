@@ -1,0 +1,14 @@
+<div class='deconstructor'>
+    <p class='deconstructor'>
+        % for deconstruction in deconstructions:
+            ${deconstruction}
+        % if not loop.last:
+            <br>
+        % endif
+        % endfor
+    </p>
+    <p class='deconstructor_footer'>
+        Эти разбиения слов создаются автоматически. <a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lookup_key}&entry.326955045=Деконструктор&entry.1433863141=GoldenDict%20${today}" target="_blank">Предложения приветствуются здесь.</a>
+        <br>Ошибки в деконструкции обычно вызваны отсутствием слова в словаре. <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSfResxEUiRCyFITWPkzoQ2HhHEvUS5fyg68Rl28hFH6vhHlaA/viewform?usp=pp_url&entry.1433863141=GoldenDict+${today}" target="_blank">Добавьте отсутствующие слова здесь</a>.
+    </p>
+</div>

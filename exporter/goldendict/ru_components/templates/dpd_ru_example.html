@@ -1,0 +1,29 @@
+% if i.example_1 and i.example_2:
+<div id="examples_ru_${i.lemma_1_}" class="content_ru hidden">
+% elif  i.example_1 and not i.example_2:
+<div id="example_ru_${i.lemma_1_}" class="content_ru hidden">
+% endif
+    % if i.example_1:
+    <p>${i.example_1}</p>
+    <p class="sutta_ru">
+        % if i.source_link_1:
+        <a href="${i.source_link_1}">${i.source_1}</a>
+        % else:
+        ${i.source_1}
+        % endif
+        ${i.sutta_1}</p>
+    % endif
+    % if i.example_2:
+    <p>${i.example_2}</p>
+    <p class="sutta_ru">
+        % if i.source_link_2:
+        <a href="${i.source_link_2}">${i.source_2}</a>
+        % else:
+        ${i.source_2}
+        % endif 
+        ${i.sutta_2}</p>
+    % endif
+    <p class='footer_ru'>
+        Пожалуйста, подскажите более подходящий <a class="link_ru" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Примеры&entry.1433863141=GoldenDict+${today}" target="_blank">пример.</a>
+    </p>
+</div>

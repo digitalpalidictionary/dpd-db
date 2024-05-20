@@ -10,8 +10,8 @@ from typing import Dict, Tuple, List, Union
 from exporter.goldendict.helpers import TODAY
 
 from db.models import DpdRoots, FamilyRoot
-from exporter.ru_components.tools.paths_ru import RuPaths
-from exporter.ru_components.tools.tools_for_ru_exporter import ru_replace_abbreviations
+from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
+from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import ru_replace_abbreviations
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths

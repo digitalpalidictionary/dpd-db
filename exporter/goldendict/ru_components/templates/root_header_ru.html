@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta data_key="rootdata_ru_${r.root_no_sign_}">
+
+    <title>Электронный Словарь Пали</title>
+
+    <link href="dpd_ru.css" rel="stylesheet">
+
+    <link href="ru_family_compound_json.js" class="load_js_ru" rel="preload" as="script">
+    <link href="ru_family_compound_template.js" class="load_js_ru" rel="preload" as="script">
+    <link href="ru_family_idiom_json.js" class="load_js_ru" rel="preload" as="script">
+    <link href="ru_family_idiom_template.js" class="load_js_ru" rel="preload" as="script">
+    <link href="ru_family_root_json.js" class="load_js_ru" rel="preload" as="script">
+    <link href="ru_family_root_template.js" class="load_js_ru" rel="preload" as="script">
+    <link href="ru_family_set_json.js" class="load_js_ru" rel="preload" as="script">
+    <link href="ru_family_set_template.js" class="load_js_ru" rel="preload" as="script">
+    <link href="ru_family_word_json.js" class="load_js_ru" rel="preload" as="script">
+    <link href="ru_family_word_template.js" class="load_js_ru" rel="preload" as="script">
+    <link href="ru_feedback_template.js" class="load_js_ru" rel="preload" as="script">
+    <link href="ru_main.js" class="load_js_ru" rel="preload" as="script">
+
+    <script>
+        var rootdata_ru_${ r.root_no_sign_ } = {
+            "root": "${r.root}",
+            "date": "${date}",
+        };
+    </script>
+
+    <script>
+        var els2load = document.getElementsByClassName("load_js_ru");
+        if (typeof js_already_loaded_ru === "undefined") {
+            var js_already_loaded_ru = true;
+            var elsArray = Array.from(els2load);
+            elsArray.forEach(el => { 
+                var s = document.createElement("script");
+                var elName = el.getAttribute("href");
+                s.src = elName;
+                document.head.appendChild(s);
+            });
+        };
+    </script>
+
+</head>

@@ -37,8 +37,8 @@ from tools.tsv_read_write import read_tsv_dict
 
 from sqlalchemy.orm import joinedload
 
-from exporter.ru_components.tools.paths_ru import RuPaths
-from exporter.ru_components.tools.tools_for_ru_exporter import make_ru_meaning_for_ebook, ru_replace_abbreviations, ru_make_grammar_line
+from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
+from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import make_ru_meaning_for_ebook, ru_replace_abbreviations, ru_make_grammar_line
 
 
 def render_xhtml(pth: ProjectPaths, rupth: RuPaths, lang="en"):

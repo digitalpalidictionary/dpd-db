@@ -8,7 +8,7 @@ from pathlib import Path
 from db.get_db_session import get_db_session
 from db.models import FamilyCompound, FamilyIdiom, FamilyRoot, FamilySet, FamilyWord
 from tools.paths import ProjectPaths
-from exporter.ru_components.tools.paths_ru import RuPaths
+from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
 from tools.printer import p_green, p_title, p_yes
 from tools.tic_toc import tic, toc
 from tools.configger import config_test

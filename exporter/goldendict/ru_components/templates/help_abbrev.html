@@ -1,0 +1,42 @@
+<div class="help_ru">
+    <table class="help_ru">
+        % if i.ru_abbrev:
+        <tr>
+            <th>Сокращение</th>
+            <td>${i.ru_abbrev}</td>
+        </tr>
+        % endif
+        % if i.ru_meaning:
+        <tr>
+            <th>Смысл</th>
+            <td>${i.ru_meaning}</td>
+        </tr>
+        % endif
+        <tr>
+            <th>Abbreviation</th>
+            <td><b>${i.abbrev}</b></td>
+        </tr>
+        <tr>
+            <th>Meaning</th>
+            <td>${i.meaning}</td>
+        </tr>
+        %if i.pali:
+        <tr>
+            <th>Pāḷi</th>
+            <td>${i.pali}</td>
+        </tr>
+        % endif
+        %if i.example:
+        <tr>
+            <th>Пример</th>
+            <td>${i.example}</td>
+        </tr>
+        % endif
+        % if i.information:
+        <tr>
+            <th>Information</th>
+            <td>${i.information}</td>
+        </tr>
+        % endif
+    </table>
+</div>
