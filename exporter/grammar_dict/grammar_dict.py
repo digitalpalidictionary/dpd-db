@@ -26,7 +26,7 @@ from tools.mdict_exporter2 import export_to_mdict
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from tools.printer import p_counter, p_green, p_title, p_yes
+from tools.printer import p_counter, p_green, p_green_title, p_title, p_yes
 from tools.tic_toc import tic, toc
 from tools.update_test_add import update_test_add
 
@@ -156,7 +156,7 @@ def render_header_templ(
 
 
 def generate_grammar_dict(g: ProgData):
-    p_green("generating grammar dictionary")
+    p_green_title("generating grammar dictionary")
 
     # three grammar dicts will be generated here at the same time. 
     # 1. grammar_dict is pure data {inflection: [(headword, pos, grammar)]}

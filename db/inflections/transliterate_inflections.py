@@ -215,7 +215,7 @@ def main():
     else:
         regenerate_all: bool = False
 
-    print(f"[green]{'regenerate all':<20}[white]{regenerate_all:>10}")
+    print(f"[green]{'regenerate all':<20}[white]{bool(regenerate_all):>10}")
 
     num_logical_cores = psutil.cpu_count()
     batches: List[List[DpdHeadwords]] = list_into_batches(dpd_db, num_logical_cores)

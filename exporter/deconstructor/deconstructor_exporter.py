@@ -14,7 +14,7 @@ from db.models import Lookup
 from tools.configger import config_test
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
-from tools.printer import p_green, p_title, p_yes
+from tools.printer import p_green, p_green_title, p_title, p_yes
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.tic_toc import tic, toc, bip, bop
 from tools.goldendict_exporter import DictEntry
@@ -53,7 +53,7 @@ class ProgData():
 def make_deconstructor_dict_data(g: ProgData) -> None:
     """Prepare data set for GoldenDict of deconstructions and synonyms."""
 
-    p_green("making deconstructor data list")
+    p_green_title("making deconstructor data list")
 
     db_session = get_db_session(g.pth.dpd_db_path)
     deconstructor_db = db_session \

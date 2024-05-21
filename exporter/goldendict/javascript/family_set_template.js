@@ -26,7 +26,7 @@ function makeFamilySets(data) {
         } else if (familySetList.length == 1) {
             html += `<p class="heading underlined" `
             html += `id=${lemma}_set_top>`;
-            html += `<b>${lemma}</b> belongs to the set of <b>${setName}</b>`;
+            html += `<b>${lemma.replace(/_*/g, "")}</b> belongs to the set of <b>${setName}</b>`;
         };
         
         //// table

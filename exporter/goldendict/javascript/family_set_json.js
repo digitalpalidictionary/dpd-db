@@ -3019,6 +3019,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "padapūraṇa",
+    "nt",
+    "(gram) filler word; decorative word; lit. filling word",
+    "~"
+   ],
+   [
     "padavibhāga 1",
     "masc",
     "(gram) parsing of words; breaking up of compound words",
@@ -4747,7 +4753,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 767
+  "count": 768
  },
  "prefixes": {
   "data": [
@@ -8257,7 +8263,7 @@ var family_set_json = {
    [
     "ghoṭamukha",
     "masc",
-    "name of a Brahman; lit. horse face",
+    "name of a Brahman; lit. horse face; (or) goatee",
     "✓"
    ],
    [
@@ -9467,7 +9473,7 @@ var family_set_json = {
    [
     "ajjhāyaka 1.2",
     "masc",
-    "who studies the Vedas",
+    "student of the Vedas",
     "✓"
    ],
    [
@@ -10077,7 +10083,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "pessaka",
+    "pessaka 1",
     "masc",
     "messenger; lit. who is sent",
     "✓"
@@ -10612,7 +10618,7 @@ var family_set_json = {
    [
     "ghoṭamukhī",
     "fem",
-    "name of a hall in Pāṭaliputta; lit. of horse face",
+    "name of a hall in Pāṭaliputta; lit. Ghoṭamukha's",
     "✓"
    ],
    [
@@ -18905,7 +18911,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "sakulā",
+    "sakulā 1",
     "fem",
     "name of an arahant nun; lit. one's own family",
     "✓"
@@ -19469,7 +19475,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "somā",
+    "somā 1",
     "fem",
     "name of an arahant nun; lit. soma",
     "✓"
@@ -19548,7 +19554,7 @@ var family_set_json = {
    [
     "kambojā",
     "masc",
-    "people of Kamboja; Persians",
+    "people of Kamboja; Kambojans; Persians; Iranians",
     "✓"
    ],
    [
@@ -21765,9 +21771,9 @@ var family_set_json = {
     "~"
    ],
    [
-    "asita",
+    "asita 3.2",
     "masc",
-    "name of an ascetic; Asita Devala; lit. not white",
+    "name of an ascetic; Asita Devala; previous incarnation of the Buddha; lit. not white",
     "✓"
    ],
    [
@@ -25821,7 +25827,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "sakulā",
+    "sakulā 1",
     "fem",
     "name of an arahant nun; lit. one's own family",
     "✓"
@@ -25959,7 +25965,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "somā",
+    "somā 1",
     "fem",
     "name of an arahant nun; lit. soma",
     "✓"

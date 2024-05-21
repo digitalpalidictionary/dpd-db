@@ -2572,7 +2572,7 @@ var family_idiom_json = {
    [
     "tadevettha",
     "sandhi",
-    "that in this case; lit. that just here",
+    "that in this case; in this situation, that; lit. that just here",
     "✓"
    ],
    [
@@ -9458,7 +9458,7 @@ var family_idiom_json = {
     "✓"
    ],
    [
-    "nāmāyaṃ",
+    "nāmāyaṃ 1",
     "sandhi",
     "name (of) this",
     "✓"
@@ -12060,7 +12060,7 @@ var family_idiom_json = {
    [
     "tadevettha",
     "sandhi",
-    "that in this case; lit. that just here",
+    "that in this case; in this situation, that; lit. that just here",
     "✓"
    ],
    [
@@ -12090,7 +12090,7 @@ var family_idiom_json = {
    [
     "nālamettha",
     "sandhi",
-    "it is not suitable (to); it is not appropriate (to)",
+    "it is not suitable; it is not appropriate; it is not enough (to)",
     "✓"
    ],
    [
@@ -13588,7 +13588,7 @@ var family_idiom_json = {
    [
     "nālamettha",
     "sandhi",
-    "it is not suitable (to); it is not appropriate (to)",
+    "it is not suitable; it is not appropriate; it is not enough (to)",
     "✓"
    ],
    [
@@ -14954,7 +14954,7 @@ var family_idiom_json = {
     "✓"
    ],
    [
-    "nāmāyaṃ",
+    "nāmāyaṃ 1",
     "sandhi",
     "name (of) this",
     "✓"
@@ -18688,9 +18688,9 @@ var family_idiom_json = {
     "✓"
    ],
    [
-    "saṃvāsaṃ kappeti",
+    "saṃvāsaṃ kappeti 2",
     "idiom",
-    "has sex (with); permforms sexual intercourse (with)",
+    "cohabits (with); sleeps (with); has intercourse (with)",
     "✓"
    ],
    [
@@ -22045,29 +22045,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "ka": {
-  "count": 3,
-  "data": [
-   [
-    "ko nu",
-    "idiom",
-    "what?; why?; what for?; who?",
-    "✓"
-   ],
-   [
-    "ko nu kho",
-    "idiom",
-    "who on earth!?; who indeed!?",
-    "✓"
-   ],
-   [
-    "ko pana vādo",
-    "idiom",
-    "what to say of; how much more; no need to talk about",
-    "✓"
-   ]
-  ]
- },
  "kaṅkhati2": {
   "count": 1,
   "data": [
@@ -22896,7 +22873,7 @@ var family_idiom_json = {
    ]
   ]
  },
- "kāya": {
+ "kāya1": {
   "count": 7,
   "data": [
    [
@@ -23683,6 +23660,29 @@ var family_idiom_json = {
     "yāvatakvassa",
     "sandhi",
     "as long as his; as much as his",
+    "✓"
+   ]
+  ]
+ },
+ "ka": {
+  "count": 3,
+  "data": [
+   [
+    "ko nu",
+    "idiom",
+    "what?; why?; what for?; who?",
+    "✓"
+   ],
+   [
+    "ko nu kho",
+    "idiom",
+    "who on earth!?; who indeed!?",
+    "✓"
+   ],
+   [
+    "ko pana vādo",
+    "idiom",
+    "what to say of; how much more; no need to talk about",
     "✓"
    ]
   ]
@@ -24994,7 +24994,7 @@ var family_idiom_json = {
    [
     "tadevettha",
     "sandhi",
-    "that in this case; lit. that just here",
+    "that in this case; in this situation, that; lit. that just here",
     "✓"
    ]
   ]
@@ -26598,7 +26598,7 @@ var family_idiom_json = {
     "✓"
    ],
    [
-    "saṃvāsamanvāya",
+    "saṃvāsamanvāya 1",
     "sandhi",
     "due to living together",
     "✓"
@@ -26610,9 +26610,9 @@ var family_idiom_json = {
     "✓"
    ],
    [
-    "saṃvāsaṃ kappeti",
+    "saṃvāsaṃ kappeti 2",
     "idiom",
-    "has sex (with); permforms sexual intercourse (with)",
+    "cohabits (with); sleeps (with); has intercourse (with)",
     "✓"
    ]
   ]
@@ -31481,7 +31481,7 @@ var family_idiom_json = {
     "✓"
    ],
    [
-    "saṃvāsamanvāya",
+    "saṃvāsamanvāya 1",
     "sandhi",
     "due to living together",
     "✓"

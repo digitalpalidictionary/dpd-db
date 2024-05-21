@@ -1134,7 +1134,7 @@ var family_word_json = {
    [
     "akhudda",
     "adj",
-    "not small; not mean; not inferior",
+    "great; excellent; superior; lit. not small",
     "✓"
    ],
    [
@@ -2533,7 +2533,7 @@ var family_word_json = {
     "✗"
    ],
    [
-    "antarikā",
+    "antarikā 1",
     "fem",
     "intermediate space; interstice; space in-between",
     "✓"
@@ -10606,7 +10606,7 @@ var family_word_json = {
    [
     "pacchima 8",
     "masc",
-    "last man; person behind",
+    "last person; man behind",
     "✓"
    ],
    [
@@ -15359,6 +15359,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "saṃ 3.1",
+    "ind",
+    "own; personal; self-",
+    "✓"
+   ],
+   [
     "sāni",
     "pron",
     "one's own things; one's possessions",
@@ -15389,7 +15395,7 @@ var family_word_json = {
     "✗"
    ]
   ],
-  "count": 18
+  "count": 19
  },
  "saki": {
   "data": [
@@ -17207,7 +17213,13 @@ var family_word_json = {
    [
     "utu 5",
     "masc",
-    "menses",
+    "menstruation; period",
+    "✗"
+   ],
+   [
+    "utu 6",
+    "masc",
+    "fertile time following menstruation",
     "✗"
    ],
    [
@@ -17219,7 +17231,7 @@ var family_word_json = {
    [
     "utuni",
     "adj",
-    "menstruating",
+    "menstruating; fertile",
     "✓"
    ],
    [
@@ -17229,7 +17241,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 8
+  "count": 9
  },
  "tiṇa": {
   "data": [
@@ -19566,7 +19578,7 @@ var family_word_json = {
    [
     "kambojā",
     "masc",
-    "people of Kamboja; Persians",
+    "people of Kamboja; Kambojans; Persians; Iranians",
     "✓"
    ]
   ],
@@ -21129,7 +21141,7 @@ var family_word_json = {
  "khatta": {
   "data": [
    [
-    "khatta",
+    "khatta 1",
     "nt",
     "political science, that which belonging to Khattiyas",
     "✗"
@@ -32866,7 +32878,7 @@ var family_word_json = {
     "~"
    ],
    [
-    "somā",
+    "somā 1",
     "fem",
     "name of an arahant nun; lit. soma",
     "✓"
