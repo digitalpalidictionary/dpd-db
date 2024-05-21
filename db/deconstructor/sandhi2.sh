@@ -70,5 +70,8 @@ export PYTHONPATH=$PYTHONPATH:db/deconstructor/tools
 # Run
 nohup poetry run python3.11 db/deconstructor/sandhi_splitter.py &
 
+# View Progress
 # cat nohup.out
+
+# Zip output
 # zip -j -r output_do.zip db/deconstructor/output/ && zip output_do nohup.out

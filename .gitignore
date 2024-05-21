@@ -153,3 +153,4 @@ tests/test_theragatha_filler
 time_log.dat
 time_log.png
 tmp/
+db/deconstructor/output_do_old.zip
