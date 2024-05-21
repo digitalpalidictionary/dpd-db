@@ -15,7 +15,9 @@ echo "${bold}${yellow}Filter the list of words${reset}"
 
 dps/scripts/compare_changed_id.py
 
-libreoffice dps/backup/for_compare/mismatched_rows.tsv
+libreoffice dps/backup/for_compare/added_another_meaning.tsv
+
+libreoffice dps/backup/for_compare/changed_notes.tsv
 
 # Ask the user for confirmation
 read -p "${bold}${yellow}Did you apply all changes? (y/n): ${reset}" confirmation
