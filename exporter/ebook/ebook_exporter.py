@@ -3,12 +3,13 @@
 The word set is limited to  
 - CST EBTS
 - Sutta Central EBTS
-- words in deconstruted compounds."""
+- words in deconstructed compounds."""
 
 import os
 import subprocess
 
 from datetime import datetime
+from html import escape
 from mako.template import Template
 from rich import print
 from typing import Dict, Union
@@ -31,8 +32,8 @@ from tools.pali_alphabet import pali_alphabet
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 from tools.paths import ProjectPaths
 from tools.deconstructed_words import make_words_in_deconstructions
+from tools.printer import p_counter, p_green, p_green_title, p_title, p_yes
 from tools.tic_toc import tic, toc
-from tools.tic_toc import bip, bop
 from tools.tsv_read_write import read_tsv_dict
 
 from sqlalchemy.orm import joinedload
@@ -43,15 +44,14 @@ from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import make_r
 
 def render_xhtml(pth: ProjectPaths, rupth: RuPaths, lang="en"):
 
-    print(f"[green]{'querying dpd db':<40}", end="")
-    db_sesssion = get_db_session(pth.dpd_db_path)
+    p_green("querying dpd db")
+    db_session = get_db_session(pth.dpd_db_path)
     if lang == "en":
-        dpd_db = db_sesssion.query(DpdHeadwords).all()
+        dpd_db = db_session.query(DpdHeadwords).all()
     elif lang == "ru":
-        dpd_db = db_sesssion.query(DpdHeadwords).options(joinedload(DpdHeadwords.ru)).all()
+        dpd_db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.ru)).all()
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
-    print(f"{len(dpd_db):>10,}")
-
+    p_yes(len(dpd_db))
 
     # limit the extent of the dictionary to an ebt text set
     ebt_books = [
@@ -66,36 +66,35 @@ def render_xhtml(pth: ProjectPaths, rupth: RuPaths, lang="en"):
         ]
 
     # all words in cst and sc texts
-    print(f"[green]{'making cst text set':<40}", end="")
+    p_green("making cst text set")
     cst_text_set = make_cst_text_set(pth, ebt_books)
-    print(f"{len(cst_text_set):>10,}")
+    p_yes(len(cst_text_set))
 
-    print(f"[green]{'making sc text set':<40}", end="")
+    p_green("making sc text set")
     sc_text_set = make_sc_text_set(pth, ebt_books)
-    print(f"{len(sc_text_set):>10,}")
+    p_yes(len(sc_text_set))
     combined_text_set = cst_text_set | sc_text_set
 
 
     # words in deconstructor in cst_text_set & sc_text_set
-    print(f"[green]{'querying lookup table for deconstructor':<40}", end="")
-    deconstructor_db = db_sesssion \
+    p_green("querying lookup for deconstructor")
+    deconstructor_db = db_session \
         .query(Lookup) \
         .filter(
             Lookup.deconstructor != "", 
             Lookup.lookup_key.in_(combined_text_set)) \
         .all()
-        
-    words_in_deconstructor_set = make_words_in_deconstructions(db_sesssion)
-    print(f"{len(words_in_deconstructor_set):>10,}")
+    words_in_deconstructor_set = make_words_in_deconstructions(db_session)
+    p_yes(len(words_in_deconstructor_set))
 
 
-    # all_words_set = cst_text_set + sc_text_set + words in deconstrutor compounds
+    # all_words_set = cst_text_set + sc_text_set + words in deconstructor compounds
+    p_green("making all words set")
     all_words_set = combined_text_set | words_in_deconstructor_set
-    print(f"[green]{'all_words_set':<40}{len(all_words_set):>10,}")
-
+    p_yes(len(all_words_set))
 
     # only include inflections which exist in all_words_set
-    print(f"[green]{'creating inflections dict':<40}", end="")
+    p_green("creating inflections dict")
 
     inflections_dict: Dict[int, list[str]] = {}
     inflections_counter = 0
@@ -116,20 +115,17 @@ def render_xhtml(pth: ProjectPaths, rupth: RuPaths, lang="en"):
         inflections_dict[i.id] = inflections_sorted
         inflections_counter += len(inflections_sorted)
 
-    print(f"{inflections_counter:>10,}")
-
+    p_yes(inflections_counter)
 
     # a dictionary for entries of each letter of the alphabet
-    print(f"[green]{'initialising letter dict':<40}")
+    
+    p_green_title("creating letter dict entries")
     letter_dict: dict = {}
     for letter in pali_alphabet:
         letter_dict[letter] = []
 
-
     # add all words
-    print("[green]creating entries")
     id_counter = 1
-    bip()
     for counter, i in enumerate(dpd_db):
         inflection_list: list = inflections_dict[i.id]
         first_letter = find_first_letter(i.lemma_1)
@@ -138,12 +134,10 @@ def render_xhtml(pth: ProjectPaths, rupth: RuPaths, lang="en"):
         id_counter += 1
 
         if counter % 5000 == 0:
-            print(f"{counter:>10,} / {len(dpd_db):<10,} {i.lemma_1[:20]:<20} {bop():>10}")
-            bip() 
-
+            p_counter(counter, len(dpd_db), i.lemma_1)
 
     # add deconstructor words which are in all_words_set
-    print("[green]add deconstructor words")
+    p_green_title("add deconstructor words")
     for counter, i in enumerate(deconstructor_db):
         if bool(set(i.lookup_key) & all_words_set):
             first_letter = find_first_letter(i.lookup_key)
@@ -152,12 +146,10 @@ def render_xhtml(pth: ProjectPaths, rupth: RuPaths, lang="en"):
             id_counter += 1
 
         if counter % 5000 == 0:
-            print(f"{counter:>10,} / {len(deconstructor_db):<10,} {i.lookup_key[:20]:<20} {bop():>10}")
-            bip()
-
+            p_counter(counter, len(deconstructor_db), i.lookup_key)
 
     # save to a single file for each letter of the alphabet
-    print(f"[green]{'saving entries xhtml':<40}", end="")
+    p_green("saving entries xhtml")
     total = 0
 
     for counter, (letter, entries) in enumerate(letter_dict.items()):
@@ -177,9 +169,9 @@ def render_xhtml(pth: ProjectPaths, rupth: RuPaths, lang="en"):
         with open(output_path, "w") as f:
             f.write(xhtml)
 
-    print(f"{total:>10,}")
+    p_yes(total)
 
-    db_sesssion.close()
+    db_session.close()
     return id_counter+1
 
 # --------------------------------------------------------------------------------------
@@ -189,6 +181,25 @@ def render_xhtml(pth: ProjectPaths, rupth: RuPaths, lang="en"):
 def render_ebook_entry(
         pth: ProjectPaths, rupth:RuPaths, counter: int, i: DpdHeadwords, inflections: list, lang="en") -> str:
     """Render single word entry."""
+
+    # clean up html line breaks and < >
+    for attr_name in [
+        "root_base",
+        "construction",
+        "sanskrit",
+        "compound_type",
+        "phonetic",
+        "example_1",
+        "example_2",
+        "sutta_1",
+        "sutta_2",
+        "commentary",
+        "notes",
+        "cognate",
+    ]:
+        attr_value = getattr(i, attr_name)
+        if isinstance(attr_value, str):
+            setattr(i, attr_name, html_friendly(attr_value))
 
     summary = f"{i.pos}. "
     if i.plus_case:
@@ -236,13 +247,7 @@ def render_grammar_templ(pth: ProjectPaths, rupth:RuPaths, i: DpdHeadwords, lang
     """html table of grammatical information"""
 
     if i.meaning_1:
-        if i.construction is not None:
-            i.construction = i.construction.replace("\n", "<br/>")
-        if i.phonetic is not None:
-            i.phonetic = i.phonetic.replace("\n", "<br/>")
-        if i.commentary is not None:
-            i.commentary = i.commentary.replace("\n", "<br/>")
-
+                
         if lang == "en":
             grammar = make_grammar_line(i)
         elif lang == "ru":
@@ -267,14 +272,6 @@ def render_grammar_templ(pth: ProjectPaths, rupth:RuPaths, i: DpdHeadwords, lang
 
 def render_example_templ(pth: ProjectPaths, rupth:RuPaths, i: DpdHeadwords, lang="en") -> str:
     """render sutta examples html"""
-    if i.example_1 is not None:
-        i.example_1 = i.example_1.replace("\n", "<br/>")
-    if i.example_2 is not None:
-        i.example_2 = i.example_2.replace("\n", "<br/>")
-    if i.sutta_1 is not None:
-        i.sutta_1 = i.sutta_1.replace("\n", "<br/>")
-    if i.sutta_2 is not None:
-        i.sutta_2 = i.sutta_2.replace("\n", "<br/>")
 
     if lang == "en":
         ebook_example_templ = Template(filename=str(pth.ebook_example_templ_path))
@@ -282,9 +279,7 @@ def render_example_templ(pth: ProjectPaths, rupth:RuPaths, i: DpdHeadwords, lang
         ebook_example_templ = Template(filename=str(rupth.ebook_example_templ_path))
 
     if i.meaning_1 and i.example_1:
-        return str(
-            ebook_example_templ.render(
-                i=i))
+        return str(ebook_example_templ.render(i=i))
     else:
         return ""
 
@@ -316,8 +311,9 @@ def render_ebook_letter_templ(
 
 
 def save_abbreviations_xhtml_page(pth: ProjectPaths, rupth:RuPaths, id_counter, lang="en"):
-    """Render xhtml of all DPD abbreviaitons and save as a page."""
-    print(f"[green]{'saving abbrev xhtml':<40}", end="")
+    """Render xhtml of all DPD abbreviations and save as a page."""
+
+    p_green("saving abbrev xhtml")
     abbreviations_list = []
 
     file_path = pth.abbreviations_tsv_path
@@ -325,6 +321,8 @@ def save_abbreviations_xhtml_page(pth: ProjectPaths, rupth:RuPaths, id_counter, 
 
     abbreviation_entries = []
     for i in abbreviations_list:
+        for key, value in i.items():    # cleanup html
+            i[key] = escape(value)          
         abbreviation_entries += [
             render_abbreviation_entry(pth, rupth, id_counter, i, lang)]
         id_counter += 1
@@ -340,7 +338,7 @@ def save_abbreviations_xhtml_page(pth: ProjectPaths, rupth:RuPaths, id_counter, 
         with open(rupth.epub_abbreviations_path, "w") as f:
             f.write(xhtml)
 
-    print(f"{len(abbreviations_list):>10,}")
+    p_yes(len(abbreviations_list))
 
 
 def render_abbreviation_entry(pth: ProjectPaths, rupth:RuPaths, counter: int, i: dict, lang="en") -> str:
@@ -360,7 +358,7 @@ def render_abbreviation_entry(pth: ProjectPaths, rupth:RuPaths, counter: int, i:
 
 def save_title_page_xhtml(pth: ProjectPaths, rupth:RuPaths, lang="en"):
     """Save date and time in title page xhtml."""
-    print(f"[green]{'saving titlepage xhtml':<40}", end="")
+    p_green("saving titlepage xhtml")
     current_datetime = datetime.now()
     date = current_datetime.strftime("%Y-%m-%d")
     time = current_datetime.strftime("%H:%M")
@@ -383,14 +381,14 @@ def save_title_page_xhtml(pth: ProjectPaths, rupth:RuPaths, lang="en"):
         with open(rupth.epub_titlepage_path, "w") as f:
             f.write(xhtml)
 
-    print(f"{'OK':>10}")
+    p_yes("OK")
 
     save_content_opf_xhtml(pth, rupth, current_datetime, lang)
 
 
 def save_content_opf_xhtml(pth: ProjectPaths, rupth:RuPaths, current_datetime, lang="en"):
     """Save date and time in content.opf."""
-    print(f"[green]{'saving content.opf':<40}", end="")
+    p_green("saving content.opf")
 
     date_time_zulu = current_datetime.strftime("%Y-%m-%dT%H:%M:%SZ")
 
@@ -411,22 +409,23 @@ def save_content_opf_xhtml(pth: ProjectPaths, rupth:RuPaths, current_datetime, l
         with open(rupth.epub_content_opf_path, "w") as f:
             f.write(content)
 
-    print(f"{'OK':>10}")
+    p_yes("OK")
 
 
 def zip_epub(pth: Union[ProjectPaths, RuPaths]):
     """Zip up the epub dir and name it dpd-kindle.epub."""
-    print("[green]zipping up epub")
+    p_green("zipping up epub")
     with ZipFile(pth.dpd_epub_path, "w", ZIP_DEFLATED) as zipf:
         for root, _, files in os.walk(pth.epub_dir):
             for file in files:
                 file_path = os.path.join(root, file)
                 zipf.write(file_path, os.path.relpath(file_path, pth.epub_dir))
+    p_yes("OK")
 
 
 def make_mobi(pth: Union[ProjectPaths, RuPaths]):
     """Run kindlegen to convert epub to mobi."""
-    print("[green]converting epub to mobi")
+    p_green_title("converting epub to mobi")
 
     process = subprocess.Popen(
         [str(pth.kindlegen_path), str(pth.dpd_epub_path)],
@@ -438,9 +437,16 @@ def make_mobi(pth: Union[ProjectPaths, RuPaths]):
     process.wait()
 
 
+def html_friendly(text: str):
+    try:
+        text = text.replace("\n", "<br/>")
+        return escape(text)
+    except Exception:
+        return text
+
 def main():
     tic()
-    print("[bright_yellow]rendering dpd for ebook")
+    p_title("rendering dpd for ebook")
     if config_test("exporter", "make_ebook", "yes"):
         if config_test("exporter", "language", "ru"):
             lang = "ru"
@@ -460,7 +466,7 @@ def main():
             zip_epub(rupth)
             make_mobi(rupth)
     else:
-        print("[green]disabled in config.ini")
+        p_green_title("disabled in config.ini")
     toc()
 
 

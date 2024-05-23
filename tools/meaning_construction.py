@@ -1,8 +1,8 @@
 """Functions for:
-1. Summarizating meaning and literal meaning,
-2. Summarizating construction,
+1. Summarizing meaning and literal meaning,
+2. Summarizing construction,
 3. Cleaning construction of all brackets and phonetic changes,
-4. Creating an HTML styled symbol of a word data's degree of complettion."""
+4. Creating an HTML styled symbol of a word data's degree of completion."""
 
 import re
 from db.models import DpdHeadwords
@@ -56,7 +56,8 @@ def make_grammar_line(i: DpdHeadwords) -> str:
 
 def summarize_construction(i: DpdHeadwords) -> str:
     """Create a summary of a word's construction,
-    exlucing brackets and phonetic changes."""
+    excluding brackets and phonetic changes."""
+    
     if "<b>" in i.construction:
         i.construction = i.construction.replace("<b>", "").replace("</b>", "")
 

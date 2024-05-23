@@ -1,4 +1,4 @@
-"""Datebase model for use by SQLAlchemy."""
+"""Database model for use by SQLAlchemy."""
 import json
 import re
 
@@ -54,7 +54,7 @@ class InflectionTemplates(Base):
     like: Mapped[str] = mapped_column(default='')
     data: Mapped[str] = mapped_column(default='')
 
-    # infletcion templates pack unpack
+    # inflection templates pack unpack
     def inflection_template_pack(self, list: list[str]) -> None:
         self.data = json.dumps(list, ensure_ascii=False)
 
@@ -592,10 +592,11 @@ class DpdHeadwords(Base):
 
     # family_root
     fr = relationship(
-        FamilyRoot, 
+        FamilyRoot,
         primaryjoin=and_(
             root_key==FamilyRoot.root_key, 
-            family_root==FamilyRoot.root_family),
+            family_root==FamilyRoot.root_family
+        ), 
         uselist=False 
     )
 
@@ -605,7 +606,7 @@ class DpdHeadwords(Base):
     # sbs
     sbs = relationship("SBS", uselist=False)
 
-    # russion
+    # russian
     ru = relationship("Russian", uselist=False)
 
     # inflection templates
@@ -848,7 +849,7 @@ class DpdHeadwords(Base):
                 self.lemma_clean in self.cf_set #type:ignore
             ))
 
-        # alternative logix
+        # alternative logic
         # i.meaning_1
         # and i.lemma_clean in cf_set) 
         # or (

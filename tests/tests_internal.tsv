@@ -478,3 +478,5 @@ example_2: wrong punc	meaning_1	is not empty	-	example_2	contains	\.,|,\.							
 grammar: ind adv, no comma	meaning_1	is not empty	-	grammar	contains	ind adv														lemma_1	grammar	meaning_1	[]	10
 grammar: abstr, lit. no state	meaning_1	is not empty	-	grammar	contains	abstr	meaning_lit	does not contain	state	derivative	contains	taddhita	suffix	contains	tā|tta|ya|iya					lemma_1	grammar	meaning_1	[]	10
 grammar: contains comp, comp	meaning_1	is not empty	-	grammar	contains	comp, comp														lemma_1	grammar	meaning_1	[]	10
+compound_construction: no closing bold tag	compound_construction	contains	<b>	compound_construction	does not contain	<\/b>														lemma_1	grammar	meaning_1	[]	10
+compound_construction: no opening bold tag	compound_construction	contains	<\/b>	compound_construction	does not contain	<b>														lemma_1	grammar	meaning_1	[]	10
