@@ -9,7 +9,6 @@ import pandas as pd
 import re
 import sqlite3
 
-from rich import print
 from mako.template import Template
 from sqlalchemy.orm import Session
 from zipfile import ZipFile, ZIP_DEFLATED
@@ -20,9 +19,10 @@ from exporter.goldendict.export_dpd import render_dpd_definition_templ
 from tools.configger import config_test
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
+from tools.printer import p_green, p_green_title, p_red, p_title, p_white, p_yes
 from tools.tic_toc import tic, toc
 from tools.headwords_clean_set import make_clean_headwords_set
-from tools.tsv_read_write import read_tsv, read_tsv_as_dict, read_tsv_dict
+from tools.tsv_read_write import read_tsv
 from tools.uposatha_day import uposatha_today
 from exporter.goldendict.helpers import TODAY
 
@@ -41,7 +41,7 @@ class ProgData():
         
         self.tpr_df: pd.DataFrame
         self.i2h_df: pd.DataFrame
-        self.deconstr_df: pd.DataFrame
+        self.deconstructor_df: pd.DataFrame
     
     def make_dpd_db(self):
         dpd_db = self.db_session.query(DpdHeadwords).all()
@@ -51,10 +51,11 @@ class ProgData():
 def main():
 
     tic()
-    print("[bright_yellow]generate tpr data")
+    
+    p_title("generate tpr data")
 
     if not config_test("exporter", "make_tpr", "yes"):
-        print("[green]disabled in config.ini")
+        p_green_title("disabled in config.ini")
         toc()
         return
         
@@ -74,20 +75,17 @@ def main():
         toc()
     
     else:
-        print("[red]tpr_downloads directory does not exist")
-        print("it's not essential to create the dictionary")
+        p_red("[red]tpr_downloads directory does not exist")
+        p_red("it's not essential to create the dictionary")
 
 
 def generate_tpr_data(g: ProgData):
-    print("[green]compiling dpd headword data")
+    p_green("compiling dpd headword data")
     dpd_length = len(g.dpd_db)
     tpr_data_list = []
     dpd_definition_templ = Template(filename=str(g.pth.dpd_definition_templ_path))
 
     for counter, i in enumerate(g.dpd_db):
-
-        if counter % 5000 == 0 or counter % dpd_length == 0:
-            print(f"{counter:>10,} / {dpd_length:<10,}{i.lemma_1:<10}")
 
         # headword
         html_string = render_dpd_definition_templ(
@@ -229,9 +227,10 @@ def generate_tpr_data(g: ProgData):
             "word": i.lemma_1,
             "definition": f"<p>{html_string}</p>",
             "book_id": 11}]
+    p_yes(dpd_length)
 
     # add roots
-    print("[green]compiling roots data")
+    p_green("compiling roots data")
 
     roots_db = g.db_session.query(DpdRoots).all()
     roots_db = sorted(roots_db, key=lambda x: pali_sort_key(x.root))
@@ -266,20 +265,21 @@ def generate_tpr_data(g: ProgData):
             new_root = True
 
     g.tpr_data_list = tpr_data_list
+    p_yes(counter)
 
 
 def generate_deconstructor_data(g: ProgData):
-    """Compile decontructor data."""
-    print("[green]compiling deconstructor data")
+    """Compile deconstructor data."""
+    p_green("compiling deconstructor data")
 
-    decon_db = g.db_session.query(Lookup) \
+    deconstructor_db = g.db_session.query(Lookup) \
         .filter(Lookup.deconstructor != "") \
         .all()
-    decon_db = sorted(
-        decon_db, key=lambda x: pali_sort_key(x.lookup_key))
+    deconstructor_db = sorted(
+        deconstructor_db, key=lambda x: pali_sort_key(x.lookup_key))
     deconstructor_data_list = []
 
-    for counter, i in enumerate(decon_db):
+    for counter, i in enumerate(deconstructor_db):
 
         if i.lookup_key not in g.all_headwords_clean:
             deconstruction = ",".join(i.deconstructor_unpack)
@@ -287,16 +287,14 @@ def generate_deconstructor_data(g: ProgData):
             deconstructor_data_list += [{
                 "word": i.lookup_key,
                 "breakup": deconstruction}]
-
-        if counter % 50000 == 0:
-            print(f"{counter:>10,} / {len(decon_db):<10,}{i.lookup_key:<10}")
     
     g.deconstructor_data_list = deconstructor_data_list
+    p_yes(counter)
 
 
 def add_variants(g):
-    """Add variant readings to decosntructor data"""
-    print("[green]compiling variants")
+    """Add variant readings to deconstructor data"""
+    p_green("compiling variants")
     
     variants_db = g.db_session \
         .query(Lookup) \
@@ -310,11 +308,13 @@ def add_variants(g):
         g.deconstructor_data_list += [{
             "word": i.lookup_key,
             "breakup": variant}]
+    
+    p_yes(len(variants_db))
 
 
 def add_spelling_mistakes(g):
-    """Add spelling mistakes to decosntructor data"""
-    print("[green]compiling spelling mistakes")
+    """Add spelling mistakes to deconstructor data"""
+    p_green("compiling spelling mistakes")
     
 
     spelling_db = g.db_session \
@@ -329,11 +329,13 @@ def add_spelling_mistakes(g):
         g.deconstructor_data_list += [{
             "word": i.lookup_key,
             "breakup": spelling}]
+    
+    p_yes(len(spelling_db))
 
 
 def add_roots_to_i2h(g):
     """Add roots to inflections to headwords"""
-    print("[green]adding roots to lookup")
+    p_green("adding roots to lookup")
 
     i2h_data = read_tsv(g.pth.tpr_i2h_tsv_path)
     i2h_dict = {}
@@ -363,12 +365,13 @@ def add_roots_to_i2h(g):
                 })
     
     g.i2h_data_list = i2h_data_list
+    p_yes(len(roots_db))
 
 
 
 def write_tsvs(g: ProgData):
     """Write TSV files of dpd, deconstructor."""
-    print("[green]writing tsv files")
+    p_green("writing tsv files")
 
     # write dpd_tsv
     with open(g.pth.tpr_dpd_tsv_path, "w") as f:
@@ -382,15 +385,16 @@ def write_tsvs(g: ProgData):
         writer = csv.DictWriter(f, fieldnames=field_names, delimiter="\t")
         writer.writeheader()
         writer.writerows(g.deconstructor_data_list)
+    p_yes("OK")
 
 
 def copy_to_sqlite_db(g: ProgData):
-    print("[green]copying data_list to tpr db", end=" ")
+    p_green("copying data_list to tpr db")
 
     # data frames
     tpr_df = pd.DataFrame(g.tpr_data_list)
     i2h_df = pd.DataFrame(g.i2h_data_list)
-    deconstr_df = pd.DataFrame(g.deconstructor_data_list)
+    deconstructor_df = pd.DataFrame(g.deconstructor_data_list)
 
     try:
         conn = sqlite3.connect(
@@ -414,25 +418,25 @@ def copy_to_sqlite_db(g: ProgData):
         c.execute("DROP TABLE if exists dpd_word_split")
         c.execute(
             "CREATE TABLE dpd_word_split (word, breakup)")
-        deconstr_df.to_sql(
+        deconstructor_df.to_sql(
             'dpd_word_split',
             conn, if_exists='append', index=False)
-        print("[white]ok")
+        p_yes("OK")
 
         conn.close()
 
     except Exception as e:
-        print("[red] an error occurred copying to db")
-        print(f"[red]{e}")
+        p_red("an error occurred copying to db")
+        p_red(e)
 
     g.tpr_df = tpr_df
     g.i2h_df = i2h_df
-    g.deconstr_df = deconstr_df
+    g.deconstructor_df = deconstructor_df
 
 
 
 def tpr_updater(g: ProgData):
-    print("[green]making tpr sql updater")
+    p_green("making tpr sql updater")
 
     sql_string = ""
     sql_string += "BEGIN TRANSACTION;\n"
@@ -442,52 +446,41 @@ def tpr_updater(g: ProgData):
     sql_string += "COMMIT;\n"
     sql_string += "BEGIN TRANSACTION;\n"
 
-    print("writing inflections to headwords")
-
     for row in range(len(g.i2h_df)):
         inflection = g.i2h_df.iloc[row, 0]
         headword = g.i2h_df.iloc[row, 1]
         headword = headword.replace("'", "''")  #type:ignore
-        if row % 50000 == 0:
-            print(f"{row:>10,} / {len(g.i2h_df):<10,}{inflection:<10}")
         sql_string += f"""INSERT INTO "dpd_inflections_to_headwords" \
 ("inflection", "headwords") VALUES ('{inflection}', '{headword}');\n"""
-
-    print("writing dpd")
 
     for row in range(len(g.tpr_df)):
         word = g.tpr_df.iloc[row, 0]
         definition = g.tpr_df.iloc[row, 1]
         definition = definition.replace("'", "''") #type:ignore
         book_id = g.tpr_df.iloc[row, 2]
-        if row % 50000 == 0:
-            print(f"{row:>10,} / {len(g.tpr_df):<10,}{word:<10}")
         sql_string += f"""INSERT INTO "dpd" ("word","definition","book_id")\
  VALUES ('{word}', '{definition}', {book_id});\n"""
 
-    print("writing deconstructor")
-
-    for row in range(len(g.deconstr_df)):
-        word = g.deconstr_df.iloc[row, 0]
-        breakup = g.deconstr_df.iloc[row, 1]
-        if row % 50000 == 0:
-            print(f"{row:>10,} / {len(g.deconstr_df):<10,}{word:<10}")
+    for row in range(len(g.deconstructor_df)):
+        word = g.deconstructor_df.iloc[row, 0]
+        breakup = g.deconstructor_df.iloc[row, 1]
         sql_string += f"""INSERT INTO "dpd_word_split" ("word","breakup")\
  VALUES ('{word}', '{breakup}');\n"""
-
+    
     sql_string += "COMMIT;\n"
 
     with open(g.pth.tpr_sql_file_path, "w") as f:
         f.write(sql_string)
+    p_yes("OK")
 
 
 def copy_zip_to_tpr_downloads(g: ProgData):
-    print("upating tpr_downlaods")
+    p_green("updating tpr_downloads")
 
     if not g.pth.tpr_download_list_path.exists():
-        print("[red]tpr_downloads repo does not exist, download")
-        print("[red]https://github.com/bksubhuti/tpr_downloads")
-        print("[red]to /resources/ folder")
+        p_red("tpr_downloads repo does not exist, download")
+        p_red("https://github.com/bksubhuti/tpr_downloads")
+        p_red("to /resources/ folder")
     else:
         with open(g.pth.tpr_download_list_path) as f:
             download_list = json.load(f)
@@ -515,7 +508,6 @@ def copy_zip_to_tpr_downloads(g: ProgData):
             return filesize
 
         if version == "release":
-            print("[green]upating release version")
 
             output_file = g.pth.tpr_release_path
             _zip_it_up(file_path, file_name, output_file)
@@ -533,7 +525,6 @@ def copy_zip_to_tpr_downloads(g: ProgData):
             download_list[7] = dpd_info
 
         if version == "beta":
-            print("[green]upating beta version")
 
             output_file = g.pth.tpr_beta_path
             _zip_it_up(file_path, file_name, output_file)
@@ -552,6 +543,8 @@ def copy_zip_to_tpr_downloads(g: ProgData):
 
         with open(g.pth.tpr_download_list_path, "w") as f:
             f.write(json.dumps(download_list, indent=4, ensure_ascii=False))
+    
+    p_yes(version)
 
 
 if __name__ == "__main__":
