@@ -28,6 +28,8 @@ exceptions = [
     "abhibhū",
     "vidyut",
     "kṣudh",
+    "anupādā",
+    
     ]
 
 

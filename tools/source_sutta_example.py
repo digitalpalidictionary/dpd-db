@@ -3,7 +3,6 @@ import time
 
 from bs4 import BeautifulSoup
 from nltk import sent_tokenize
-from rich import print
 from typing import Tuple, List
 
 from tools.paths import ProjectPaths
@@ -75,9 +74,8 @@ def find_source_sutta_example(
         "sn1", "sn2", "sn3", "sn4", "sn5",
         "an1", "an2", "an3", "an4", "an5",
         "an6", "an7", "an8", "an9", "an10", "an11"]
+    
     for p in ps:
-        
-        
         if book in four_nikayas:
             if p["rend"] == "subhead":
                 if "suttaṃ" in p.text:
@@ -110,6 +108,7 @@ def find_source_sutta_example(
 
                 # remove the digits and the dot in sutta name
                 sutta = re.sub(r"\d*\. ", "", p.text)
+                sutta = re.sub(r" \[.*?\]", "", sutta)
             
         # vin3 vin4 mahāvagga & culavagga
         if (
@@ -421,6 +420,10 @@ def clean_example(text):
     text = text.replace("  ", " ")
     text = text.replace("..", ".")
     text = text.replace(" ,", ",")
+    
+    # remove abbreviations in brackets, no more than 20 characters
+    text = re.sub(r" \([^)]{0,20}\.\)", "", text)
+    
     return text
 
 # FIXME remove clean_gatha from functions
@@ -436,7 +439,9 @@ def clean_gatha(text):
 
 if __name__ == "__main__":
     pth = ProjectPaths()
-    book = "an3"
-    text_to_find = "jarā"
+    book = "mn3"
+    text_to_find = "santi"
     sutta_examples = find_source_sutta_example(pth, book, text_to_find)
-    print(sutta_examples)
+    for sutta_example in sutta_examples:
+        print(sutta_example)
+        input()
