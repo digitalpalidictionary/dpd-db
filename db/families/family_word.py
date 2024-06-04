@@ -18,7 +18,7 @@ from tools.paths import ProjectPaths
 from tools.superscripter import superscripter_uni
 from tools.tic_toc import tic, toc
 
-from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations, make_short_meaning
+from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations
 
 from sqlalchemy.orm import joinedload
 
@@ -41,11 +41,6 @@ def main():
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-
-    if config_test("dictionary", "show_sbs_data", "yes"):
-        show_sbs_data = True
-    else:
-        show_sbs_data = False
 
     if config_test("exporter", "language", "en"):
         lang = "en"
@@ -72,7 +67,7 @@ def main():
     wf_db = sorted(wf_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     wf_dict = make_word_fam_dict(wf_db)
-    wf_dict = compile_wf_html(wf_db, wf_dict, lang, show_sbs_data)
+    wf_dict = compile_wf_html(wf_db, wf_dict, lang)
     errors_list = add_wf_to_db(db_session, wf_dict, lang)
     print_errors_list(errors_list)
 
@@ -115,7 +110,7 @@ def make_word_fam_dict(wf_db: list[DpdHeadwords]):
     return wf_dict
 
 
-def compile_wf_html(wf_db, wf_dict, lang="en", show_sbs_data=False):
+def compile_wf_html(wf_db, wf_dict, lang="en"):
     print("[green]compiling html")
 
     for __counter__, i in enumerate(wf_db):
@@ -126,10 +121,8 @@ def compile_wf_html(wf_db, wf_dict, lang="en", show_sbs_data=False):
             else:
                 html_string = wf_dict[wf]["html"]
 
-            if not show_sbs_data:
-                meaning = make_meaning(i)
-            else:
-                meaning = make_short_meaning(i)
+            meaning = make_meaning(i)
+
             html_string += "<tr>"
             html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
             html_string += f"<td><b>{i.pos}</b></td>"

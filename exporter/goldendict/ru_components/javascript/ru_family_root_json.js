@@ -6242,7 +6242,7 @@ var ru_family_root_json = {
  "√kham √kham": {
   "root_key": "√kham",
   "root_family": "√kham",
-  "root_meaning": "терпеть",
+  "root_meaning": "терпеть, выдерживать",
   "count": 47,
   "data": [
    [
@@ -7782,7 +7782,7 @@ var ru_family_root_json = {
     "✓"
    ],
    [
-    "khemiyā",
+    "khemiyā 1",
     "муж",
     "name of a group of deities",
     "✗"
@@ -10914,7 +10914,7 @@ var ru_family_root_json = {
  "√gidh √gidh": {
   "root_key": "√gidh",
   "root_family": "√gidh",
-  "root_meaning": "жадеть",
+  "root_meaning": "жадничать",
   "count": 17,
   "data": [
    [
@@ -11082,7 +11082,7 @@ var ru_family_root_json = {
     "~"
    ],
    [
-    "gopa",
+    "gopa 1",
     "муж",
     "пастух",
     "✓"
@@ -13075,7 +13075,7 @@ var ru_family_root_json = {
   "root_key": "√car 1",
   "root_family": "√car",
   "root_meaning": "двигаться",
-  "count": 64,
+  "count": 65,
   "data": [
    [
     "acari 2.1",
@@ -13249,6 +13249,12 @@ var ru_family_root_json = {
     "carita 2.2",
     "прич.прош",
     "гулявший",
+    "~"
+   ],
+   [
+    "carita 2.3",
+    "прич.прош",
+    "жил",
     "✓"
    ],
    [
@@ -15298,7 +15304,7 @@ var ru_family_root_json = {
  "√dā 2 ati ava √dā": {
   "root_key": "√dā 2",
   "root_family": "ati ava √dā",
-  "root_meaning": "становиться чистым",
+  "root_meaning": "очищаться",
   "count": 3,
   "data": [
    [
@@ -15466,7 +15472,7 @@ var ru_family_root_json = {
     "~"
    ],
    [
-    "chādana",
+    "chādana 1",
     "ср",
     "покрытие",
     "✓"
@@ -16638,7 +16644,7 @@ var ru_family_root_json = {
  "√chaḍḍ √chaḍḍ": {
   "root_key": "√chaḍḍ",
   "root_family": "√chaḍḍ",
-  "root_meaning": "избавлять, оставить",
+  "root_meaning": "избавляться, оставлять",
   "count": 28,
   "data": [
    [
@@ -17540,7 +17546,7 @@ var ru_family_root_json = {
    [
     "ajaras",
     "муж",
-    "не стареющий",
+    "не старость",
     "✓"
    ],
    [
@@ -22918,7 +22924,7 @@ var ru_family_root_json = {
    [
     "aṭṭhāsi 2",
     "аор",
-    "остался",
+    "упорствовал",
     "✓"
    ],
    [
@@ -26740,7 +26746,7 @@ var ru_family_root_json = {
  "√thūl ati √thūl": {
   "root_key": "√thūl",
   "root_family": "ati √thūl",
-  "root_meaning": "толстеть",
+  "root_meaning": "толстеть, загрубеть",
   "count": 3,
   "data": [
    [
@@ -27656,7 +27662,7 @@ var ru_family_root_json = {
    [
     "atireka 2",
     "прил",
-    "больший чем",
+    "больший (чем)",
     "✓"
    ],
    [
@@ -27714,7 +27720,7 @@ var ru_family_root_json = {
  "√lubh 1 ati √lubh": {
   "root_key": "√lubh 1",
   "root_family": "ati √lubh",
-  "root_meaning": "жадеть",
+  "root_meaning": "жадничать",
   "count": 1,
   "data": [
    [
@@ -33446,7 +33452,7 @@ var ru_family_root_json = {
  "√thūl √thūl": {
   "root_key": "√thūl",
   "root_family": "√thūl",
-  "root_meaning": "толстеть",
+  "root_meaning": "толстеть, загрубеть",
   "count": 12,
   "data": [
    [
@@ -34588,7 +34594,7 @@ var ru_family_root_json = {
  "√dhuv √dhuv": {
   "root_key": "√dhuv",
   "root_family": "√dhuv",
-  "root_meaning": "укрепить",
+  "root_meaning": "укрепляться, твердеть",
   "count": 8,
   "data": [
    [
@@ -36458,7 +36464,7 @@ var ru_family_root_json = {
  "√yas adhi pa √yas": {
   "root_key": "√yas",
   "root_family": "adhi pa √yas",
-  "root_meaning": "стремиться",
+  "root_meaning": "стремиться, напрягаться",
   "count": 1,
   "data": [
    [
@@ -37601,7 +37607,7 @@ var ru_family_root_json = {
   "root_key": "√dhū",
   "root_family": "√dhū",
   "root_meaning": "трясти, дыметь",
-  "count": 27,
+  "count": 28,
   "data": [
    [
     "adhosi",
@@ -37662,6 +37668,12 @@ var ru_family_root_json = {
     "наст",
     "стряхивает",
     "✓"
+   ],
+   [
+    "dhunāti 3",
+    "наст",
+    "освобождается от",
+    "~"
    ],
    [
     "dhuni",
@@ -38588,7 +38600,7 @@ var ru_family_root_json = {
  "√gidh anu √gidh": {
   "root_key": "√gidh",
   "root_family": "anu √gidh",
-  "root_meaning": "жадеть",
+  "root_meaning": "жадничать",
   "count": 6,
   "data": [
    [
@@ -42811,7 +42823,7 @@ var ru_family_root_json = {
   "root_key": "√kar",
   "root_family": "abhi saṃ √kar",
   "root_meaning": "делать, выполнять",
-  "count": 22,
+  "count": 23,
   "data": [
    [
     "anabhisaṅkhacca",
@@ -42836,6 +42848,12 @@ var ru_family_root_json = {
     "деепр.сов",
     "конструируя",
     "✓"
+   ],
+   [
+    "abhisaṅkhacca 2",
+    "деепр.сов",
+    "приготовление пищи",
+    "~"
    ],
    [
     "abhisaṅkhaṭa",
@@ -48248,7 +48266,7 @@ var ru_family_root_json = {
  "√yas ā √yas": {
   "root_key": "√yas",
   "root_family": "ā √yas",
-  "root_meaning": "стремиться",
+  "root_meaning": "стремиться, напрягаться",
   "count": 4,
   "data": [
    [
@@ -48408,7 +48426,7 @@ var ru_family_root_json = {
  "√rabh 2 ā √rabh": {
   "root_key": "√rabh 2",
   "root_family": "ā √rabh",
-  "root_meaning": "возбужать",
+  "root_meaning": "возбудиться, вспылить",
   "count": 13,
   "data": [
    [
@@ -48420,7 +48438,7 @@ var ru_family_root_json = {
    [
     "anārambha 1.1",
     "прил",
-    "без травм",
+    "без вреда",
     "✓"
    ],
    [
@@ -49032,7 +49050,7 @@ var ru_family_root_json = {
     "✓"
    ],
    [
-    "āruhitvā",
+    "āruhitvā 1",
     "деепр.несов",
     "having ascended",
     "✗"
@@ -61208,8 +61226,8 @@ var ru_family_root_json = {
    [
     "vācayanta",
     "прич.наст",
-    "making speak",
-    "✗"
+    "учащий",
+    "~"
    ],
    [
     "vācasika 1",
@@ -66870,7 +66888,7 @@ var ru_family_root_json = {
  "√yas upa ā √yas": {
   "root_key": "√yas",
   "root_family": "upa ā √yas",
-  "root_meaning": "стремиться",
+  "root_meaning": "стремиться, напрягаться",
   "count": 7,
   "data": [
    [
@@ -72504,7 +72522,7 @@ var ru_family_root_json = {
  "√rabh 2 upa ā √rabh": {
   "root_key": "√rabh 2",
   "root_family": "upa ā √rabh",
-  "root_meaning": "возбужать",
+  "root_meaning": "возбудиться, вспылить",
   "count": 6,
   "data": [
    [
@@ -72839,13 +72857,19 @@ var ru_family_root_json = {
   "root_key": "√lok",
   "root_family": "ava √lok",
   "root_meaning": "смотреть",
-  "count": 18,
+  "count": 19,
   "data": [
    [
     "anolokana",
     "ср",
     "not looking (at)",
     "✗"
+   ],
+   [
+    "anoloketvā",
+    "деепр.несов",
+    "не посмотрев",
+    "~"
    ],
    [
     "avalokayati",
@@ -76257,7 +76281,7 @@ var ru_family_root_json = {
   "root_key": "√ñā",
   "root_family": "pa √ñā",
   "root_meaning": "знать",
-  "count": 118,
+  "count": 119,
   "data": [
    [
     "apañña 1",
@@ -76728,9 +76752,15 @@ var ru_family_root_json = {
     "✗"
    ],
    [
-    "paññāpayamāna",
+    "paññāpayamāna 1",
     "прич.наст",
     "подготавливающие",
+    "✓"
+   ],
+   [
+    "paññāpayamāna 2",
+    "прич.наст",
+    "определяя как",
     "✓"
    ],
    [
@@ -80116,7 +80146,7 @@ var ru_family_root_json = {
  "√dā 2 apa √dā": {
   "root_key": "√dā 2",
   "root_family": "apa √dā",
-  "root_meaning": "становиться чистым",
+  "root_meaning": "очищаться",
   "count": 4,
   "data": [
    [
@@ -83036,7 +83066,7 @@ var ru_family_root_json = {
    [
     "pāricariyā",
     "жен",
-    "прислуживание (для)",
+    "ухаживание (за)",
     "✓"
    ]
   ]
@@ -86298,7 +86328,7 @@ var ru_family_root_json = {
  "√dā 2 pari ava √dā": {
   "root_key": "√dā 2",
   "root_family": "pari ava √dā",
-  "root_meaning": "становиться чистым",
+  "root_meaning": "очищаться",
   "count": 11,
   "data": [
    [
@@ -89311,7 +89341,7 @@ var ru_family_root_json = {
   "root_key": "√var 1",
   "root_family": "pa ā √var",
   "root_meaning": "покрывать, одевать, сдерживать",
-  "count": 25,
+  "count": 26,
   "data": [
    [
     "apāruta 2.1",
@@ -89438,6 +89468,12 @@ var ru_family_root_json = {
     "муж",
     "имя мирянина, который предложил монастырь Будде",
     "✓"
+   ],
+   [
+    "pāvāreti",
+    "наст",
+    "покрывает",
+    "~"
    ],
    [
     "pāvuraṇa 1",
@@ -92086,7 +92122,7 @@ var ru_family_root_json = {
     "✓"
    ],
    [
-    "pessaka",
+    "pessaka 1",
     "муж",
     "посыльный",
     "✓"
@@ -96814,7 +96850,7 @@ var ru_family_root_json = {
     "✗"
    ],
    [
-    "patiṭṭhāpenta",
+    "patiṭṭhāpenta 1",
     "прич.наст",
     "causing to establish",
     "✗"
@@ -98847,7 +98883,7 @@ var ru_family_root_json = {
   "root_key": "√saṃs 1",
   "root_family": "pa √saṃs",
   "root_meaning": "прославлять",
-  "count": 24,
+  "count": 25,
   "data": [
    [
     "appasattha 2.1",
@@ -98980,6 +99016,12 @@ var ru_family_root_json = {
     "прил",
     "более похвальный",
     "✓"
+   ],
+   [
+    "pāsaṃsiya",
+    "прич.буд",
+    "достойный похвалы",
+    "~"
    ],
    [
     "pāsaṃsiyatā",
@@ -100508,7 +100550,7 @@ var ru_family_root_json = {
     "~"
    ],
    [
-    "phālenta",
+    "phālenta 1",
     "прич.наст",
     "раскалывающий",
     "~"
@@ -105854,7 +105896,7 @@ var ru_family_root_json = {
  "√bhaj 2 √bhaj": {
   "root_key": "√bhaj 2",
   "root_family": "√bhaj",
-  "root_meaning": "ассоциировать, общаться",
+  "root_meaning": "взаимодействовать, общаться",
   "count": 26,
   "data": [
    [
@@ -109144,7 +109186,7 @@ var ru_family_root_json = {
  "√gidh abhi √gidh": {
   "root_key": "√gidh",
   "root_family": "abhi √gidh",
-  "root_meaning": "жадеть",
+  "root_meaning": "жадничать",
   "count": 5,
   "data": [
    [
@@ -113439,7 +113481,7 @@ var ru_family_root_json = {
   "root_key": "√bhuj 1",
   "root_family": "√bhuj",
   "root_meaning": "использовать, есть, наслаждаться",
-  "count": 109,
+  "count": 108,
   "data": [
    [
     "abhuñjanta",
@@ -113661,12 +113703,6 @@ var ru_family_root_json = {
     "bhuñjamāna",
     "прич.наст",
     "кушающий",
-    "✓"
-   ],
-   [
-    "bhuñjamāna 2",
-    "прич.наст",
-    "наслаждающийся",
     "✓"
    ],
    [
@@ -116364,7 +116400,7 @@ var ru_family_root_json = {
     "✗"
    ],
    [
-    "mantā",
+    "mantā 1",
     "жен",
     "мудрость",
     "✓"
@@ -119820,7 +119856,7 @@ var ru_family_root_json = {
    [
     "yonika",
     "прил",
-    "место рождения",
+    "с (определённым видом) рождения",
     "✓"
    ],
    [
@@ -122269,7 +122305,7 @@ var ru_family_root_json = {
    ],
    [
     "ropima 3",
-    "ср",
+    "прил",
     "вид стрелы",
     "✓"
    ],
@@ -123015,7 +123051,7 @@ var ru_family_root_json = {
   "root_key": "√labh",
   "root_family": "√labh",
   "root_meaning": "получить",
-  "count": 81,
+  "count": 83,
   "data": [
    [
     "alattha 1",
@@ -123210,6 +123246,12 @@ var ru_family_root_json = {
     "✓"
    ],
    [
+    "nālattha 2",
+    "аор",
+    "не донёс (что-то) до (кого-то)",
+    "✓"
+   ],
+   [
     "nālatthaṃ",
     "аор",
     "я не получил",
@@ -123370,6 +123412,12 @@ var ru_family_root_json = {
     "наст",
     "допустимо",
     "~"
+   ],
+   [
+    "labhati 3",
+    "наст",
+    "достигает",
+    "✓"
    ],
    [
     "labhate",
@@ -124842,7 +124890,7 @@ var ru_family_root_json = {
  "√lubh 1 √lubh": {
   "root_key": "√lubh 1",
   "root_family": "√lubh",
-  "root_meaning": "жадеть",
+  "root_meaning": "жадничать",
   "count": 18,
   "data": [
    [
@@ -126186,7 +126234,7 @@ var ru_family_root_json = {
  "√vañc 2 √vañc": {
   "root_key": "√vañc 2",
   "root_family": "√vañc",
-  "root_meaning": "обманывать",
+  "root_meaning": "двигаться вокруг",
   "count": 1,
   "data": [
    [
@@ -126899,7 +126947,7 @@ var ru_family_root_json = {
   "root_key": "√vatt",
   "root_family": "√vatt",
   "root_meaning": "быть, продолжать",
-  "count": 48,
+  "count": 49,
   "data": [
    [
     "avattana",
@@ -126936,6 +126984,12 @@ var ru_family_root_json = {
     "ср",
     "долг",
     "✓"
+   ],
+   [
+    "vatta 1.4",
+    "ср",
+    "service, function",
+    "✗"
    ],
    [
     "vattaka",
@@ -128441,6 +128495,44 @@ var ru_family_root_json = {
     "vāna 1.1",
     "ср",
     "craving",
+    "✗"
+   ]
+  ]
+ },
+ "√nadh ava √nadh": {
+  "root_key": "√nadh",
+  "root_family": "ava √nadh",
+  "root_meaning": "обмотать, скрутить",
+  "count": 5,
+  "data": [
+   [
+    "avanaddha",
+    "прич.прош",
+    "окутанный (чем-либо)",
+    "~"
+   ],
+   [
+    "onaddha",
+    "прич.прош",
+    "окутанный",
+    "✓"
+   ],
+   [
+    "onandhati",
+    "наст",
+    "binds, covers up, wraps over",
+    "✗"
+   ],
+   [
+    "onandhi",
+    "аор",
+    "bound, covered up, wrapped over",
+    "✗"
+   ],
+   [
+    "onandhitvā",
+    "деепр.несов",
+    "having covered",
     "✗"
    ]
   ]
@@ -137361,6 +137453,62 @@ var ru_family_root_json = {
    ]
   ]
  },
+ "√yuj vi √yuj": {
+  "root_key": "√yuj",
+  "root_family": "vi √yuj",
+  "root_meaning": "соединять, сочетать",
+  "count": 8,
+  "data": [
+   [
+    "aviyoga",
+    "муж",
+    "несепарация",
+    "~"
+   ],
+   [
+    "viyatta 2.1",
+    "прич.прош",
+    "разделенный",
+    "✓"
+   ],
+   [
+    "viyutta",
+    "прич.прош",
+    "отделённый от",
+    "~"
+   ],
+   [
+    "viyoga 1",
+    "муж",
+    "separation",
+    "✗"
+   ],
+   [
+    "viyoga 2",
+    "муж",
+    "(gram) disjunction",
+    "✗"
+   ],
+   [
+    "viyojayati",
+    "наст",
+    "разъединяет (от)",
+    "✓"
+   ],
+   [
+    "viyojita",
+    "прич.прош",
+    "разделенный",
+    "~"
+   ],
+   [
+    "viyojeti",
+    "наст",
+    "separates",
+    "✗"
+   ]
+  ]
+ },
  "√rādh vi √rādh": {
   "root_key": "√rādh",
   "root_family": "vi √rādh",
@@ -137965,7 +138113,7 @@ var ru_family_root_json = {
   "root_key": "√lup",
   "root_family": "vi √lup",
   "root_meaning": "обрывать, грабить",
-  "count": 13,
+  "count": 14,
   "data": [
    [
     "avilutta",
@@ -138007,6 +138155,12 @@ var ru_family_root_json = {
     "vilumpamāna",
     "прич.наст",
     "грабящий",
+    "~"
+   ],
+   [
+    "vilumpāpeti",
+    "наст",
+    "заставляет грабить",
     "~"
    ],
    [
@@ -138364,7 +138518,7 @@ var ru_family_root_json = {
   "count": 18,
   "data": [
    [
-    "avivitta",
+    "avivitta 1",
     "прич.прош",
     "неразделённый",
     "~"
@@ -138388,7 +138542,7 @@ var ru_family_root_json = {
     "~"
    ],
    [
-    "vivitta",
+    "vivitta 1",
     "прич.прош",
     "отделенный",
     "✓"
@@ -140394,7 +140548,7 @@ var ru_family_root_json = {
  "√dā 2 vi ava √dā": {
   "root_key": "√dā 2",
   "root_family": "vi ava √dā",
-  "root_meaning": "становиться чистым",
+  "root_meaning": "очищаться",
   "count": 14,
   "data": [
    [
@@ -152218,7 +152372,7 @@ var ru_family_root_json = {
  "√rabh 2 saṃ √rabh": {
   "root_key": "√rabh 2",
   "root_family": "saṃ √rabh",
-  "root_meaning": "возбужать",
+  "root_meaning": "возбудиться, вспылить",
   "count": 4,
   "data": [
    [
@@ -153133,6 +153287,44 @@ var ru_family_root_json = {
    ]
   ]
  },
+ "√si 2 √si": {
+  "root_key": "√si 2",
+  "root_family": "√si",
+  "root_meaning": "связывать",
+  "count": 5,
+  "data": [
+   [
+    "asita 2.1",
+    "прич.прош",
+    "оторванный",
+    "✓"
+   ],
+   [
+    "asita 2.2",
+    "прич.прош",
+    "шаткие",
+    "✓"
+   ],
+   [
+    "asita 2.3",
+    "муж",
+    "имя пробудившегося Будды",
+    "~"
+   ],
+   [
+    "sita 3.1",
+    "прич.прош",
+    "связаны (с)",
+    "✓"
+   ],
+   [
+    "setu",
+    "муж",
+    "мост",
+    "✓"
+   ]
+  ]
+ },
  "√sit √sit": {
   "root_key": "√sit",
   "root_family": "√sit",
@@ -153140,15 +153332,15 @@ var ru_family_root_json = {
   "count": 9,
   "data": [
    [
-    "asita",
-    "муж",
-    "имя отшельника",
-    "✓"
-   ],
-   [
     "asita 3.1",
     "прил",
     "чёрный",
+    "✓"
+   ],
+   [
+    "asita 3.2",
+    "муж",
+    "имя отшельника",
     "✓"
    ],
    [
@@ -153192,44 +153384,6 @@ var ru_family_root_json = {
     "ср",
     "факт белизны",
     "~"
-   ]
-  ]
- },
- "√si 2 √si": {
-  "root_key": "√si 2",
-  "root_family": "√si",
-  "root_meaning": "связывать",
-  "count": 5,
-  "data": [
-   [
-    "asita 2.1",
-    "прич.прош",
-    "оторванный",
-    "✓"
-   ],
-   [
-    "asita 2.2",
-    "прич.прош",
-    "шаткие",
-    "✓"
-   ],
-   [
-    "asita 2.3",
-    "муж",
-    "имя пробудившегося Будды",
-    "~"
-   ],
-   [
-    "sita 3.1",
-    "прич.прош",
-    "связаны (с)",
-    "✓"
-   ],
-   [
-    "setu",
-    "муж",
-    "мост",
-    "✓"
    ]
   ]
  },
@@ -158918,7 +159072,7 @@ var ru_family_root_json = {
     "~"
    ],
    [
-    "ābhāsati",
+    "ābhāsati 2.1",
     "наст",
     "shines",
     "✗"
@@ -158929,12 +159083,18 @@ var ru_family_root_json = {
   "root_key": "√bhās 1",
   "root_family": "ā √bhās",
   "root_meaning": "говорить",
-  "count": 2,
+  "count": 3,
   "data": [
    [
     "ābhāsa 2.1",
     "прил",
     "говорящий",
+    "~"
+   ],
+   [
+    "ābhāsati 1",
+    "наст",
+    "обращается",
     "~"
    ],
    [
@@ -162560,7 +162720,7 @@ var ru_family_root_json = {
  "√chaḍḍ ud √chaḍḍ": {
   "root_key": "√chaḍḍ",
   "root_family": "ud √chaḍḍ",
-  "root_meaning": "избавлять, оставить",
+  "root_meaning": "избавляться, оставлять",
   "count": 2,
   "data": [
    [
@@ -164006,7 +164166,7 @@ var ru_family_root_json = {
   "count": 2,
   "data": [
    [
-    "uddhana",
+    "uddhana 1",
     "ср",
     "кузнечный огонь",
     "~"
@@ -167578,13 +167738,13 @@ var ru_family_root_json = {
    [
     "uppaṇḍiyamāna",
     "прич.наст",
-    "подвергаться дразнению",
+    "подвергаемый дразнению",
     "~"
    ],
    [
     "uppaṇḍīyamāna",
     "прич.наст",
-    "дразнимый",
+    "подвергаемый дразнению",
     "~"
    ],
    [
@@ -169902,7 +170062,7 @@ var ru_family_root_json = {
  "√dā 2 ava √dā": {
   "root_key": "√dā 2",
   "root_family": "ava √dā",
-  "root_meaning": "становиться чистым",
+  "root_meaning": "очищаться",
   "count": 6,
   "data": [
    [
@@ -169991,38 +170151,6 @@ var ru_family_root_json = {
     "odhūta",
     "прич.прош",
     "shaken off",
-    "✗"
-   ]
-  ]
- },
- "√nadh ava √nadh": {
-  "root_key": "√nadh",
-  "root_family": "ava √nadh",
-  "root_meaning": "обмотать, скрутить",
-  "count": 4,
-  "data": [
-   [
-    "onaddha",
-    "прич.прош",
-    "окутанный",
-    "✓"
-   ],
-   [
-    "onandhati",
-    "наст",
-    "binds, covers up, wraps over",
-    "✗"
-   ],
-   [
-    "onandhi",
-    "аор",
-    "bound, covered up, wrapped over",
-    "✗"
-   ],
-   [
-    "onandhitvā",
-    "деепр.несов",
-    "having covered",
     "✗"
    ]
   ]
@@ -176730,7 +176858,7 @@ var ru_family_root_json = {
  "√tij 3 √tij": {
   "root_key": "√tij 3",
   "root_family": "√tij",
-  "root_meaning": "вытерпеть",
+  "root_meaning": "терпеть",
   "count": 9,
   "data": [
    [
@@ -182990,7 +183118,7 @@ var ru_family_root_json = {
  "√yas nī √yas": {
   "root_key": "√yas",
   "root_family": "nī √yas",
-  "root_meaning": "стремиться",
+  "root_meaning": "стремиться, напрягаться",
   "count": 1,
   "data": [
    [
@@ -184862,7 +184990,7 @@ var ru_family_root_json = {
  "√gidh pa √gidh": {
   "root_key": "√gidh",
   "root_family": "pa √gidh",
-  "root_meaning": "жадеть",
+  "root_meaning": "жадничать",
   "count": 2,
   "data": [
    [
@@ -186792,7 +186920,7 @@ var ru_family_root_json = {
  "√gidh pati √gidh": {
   "root_key": "√gidh",
   "root_family": "pati √gidh",
-  "root_meaning": "жадеть",
+  "root_meaning": "жадничать",
   "count": 3,
   "data": [
    [
@@ -194342,7 +194470,7 @@ var ru_family_root_json = {
  "√gidh pari √gidh": {
   "root_key": "√gidh",
   "root_family": "pari √gidh",
-  "root_meaning": "жадеть",
+  "root_meaning": "жадничать",
   "count": 1,
   "data": [
    [
@@ -194506,7 +194634,7 @@ var ru_family_root_json = {
  "√lubh 1 pa √lubh": {
   "root_key": "√lubh 1",
   "root_family": "pa √lubh",
-  "root_meaning": "жадеть",
+  "root_meaning": "жадничать",
   "count": 4,
   "data": [
    [
@@ -195819,12 +195947,18 @@ var ru_family_root_json = {
   "root_key": "√sup",
   "root_family": "pa √sup",
   "root_meaning": "лежать, спать",
-  "count": 1,
+  "count": 2,
   "data": [
    [
     "pasupati 2.1",
     "наст",
     "засыпает",
+    "~"
+   ],
+   [
+    "passupi",
+    "аор",
+    "уснул",
     "~"
    ]
   ]
@@ -196450,7 +196584,7 @@ var ru_family_root_json = {
     "✗"
    ],
    [
-    "pāhuna",
+    "pāhuna 1",
     "муж",
     "гость",
     "~"
@@ -196666,7 +196800,7 @@ var ru_family_root_json = {
     "✗"
    ],
    [
-    "pīṇetuṃ",
+    "pīṇetuṃ 1",
     "неопр",
     "to refresh",
     "✗"
@@ -197086,7 +197220,7 @@ var ru_family_root_json = {
  "√phaṇ √phaṇ": {
   "root_key": "√phaṇ",
   "root_family": "√phaṇ",
-  "root_meaning": "пенять",
+  "root_meaning": "скользить",
   "count": 1,
   "data": [
    [
@@ -199394,7 +199528,7 @@ var ru_family_root_json = {
  "√yas √yas": {
   "root_key": "√yas",
   "root_family": "√yas",
-  "root_meaning": "стремиться",
+  "root_meaning": "стремиться, напрягаться",
   "count": 1,
   "data": [
    [
@@ -199510,7 +199644,7 @@ var ru_family_root_json = {
  "√rabh 2 √rabh": {
   "root_key": "√rabh 2",
   "root_family": "√rabh",
-  "root_meaning": "возбужать",
+  "root_meaning": "возбудиться, вспылить",
   "count": 1,
   "data": [
    [
@@ -202038,7 +202172,7 @@ var ru_family_root_json = {
  "√chaḍḍ vi √chaḍḍ": {
   "root_key": "√chaḍḍ",
   "root_family": "vi √chaḍḍ",
-  "root_meaning": "избавлять, оставить",
+  "root_meaning": "избавляться, оставлять",
   "count": 2,
   "data": [
    [
@@ -205349,56 +205483,6 @@ var ru_family_root_json = {
    ]
   ]
  },
- "√yuj vi √yuj": {
-  "root_key": "√yuj",
-  "root_family": "vi √yuj",
-  "root_meaning": "соединять, сочетать",
-  "count": 7,
-  "data": [
-   [
-    "viyatta 2.1",
-    "прич.прош",
-    "разделенный",
-    "✓"
-   ],
-   [
-    "viyutta",
-    "прич.прош",
-    "отделённый от",
-    "~"
-   ],
-   [
-    "viyoga 1",
-    "муж",
-    "separation",
-    "✗"
-   ],
-   [
-    "viyoga 2",
-    "муж",
-    "(gram) disjunction",
-    "✗"
-   ],
-   [
-    "viyojayati",
-    "наст",
-    "разъединяет (от)",
-    "✓"
-   ],
-   [
-    "viyojita",
-    "прич.прош",
-    "разделенный",
-    "~"
-   ],
-   [
-    "viyojeti",
-    "наст",
-    "separates",
-    "✗"
-   ]
-  ]
- },
  "√cikkh vi ā √cikkh": {
   "root_key": "√cikkh",
   "root_family": "vi ā √cikkh",
@@ -207960,7 +208044,7 @@ var ru_family_root_json = {
  "√rabh 2 vi √rabh": {
   "root_key": "√rabh 2",
   "root_family": "vi √rabh",
-  "root_meaning": "возбужать",
+  "root_meaning": "возбудиться, вспылить",
   "count": 1,
   "data": [
    [
@@ -209784,7 +209868,7 @@ var ru_family_root_json = {
    [
     "sajjenta",
     "прич.наст",
-    "preparing",
+    "готовя",
     "~"
    ],
    [
@@ -210921,7 +211005,7 @@ var ru_family_root_json = {
   "root_key": "√tajj",
   "root_family": "saṃ √tajj",
   "root_meaning": "пугать",
-  "count": 8,
+  "count": 9,
   "data": [
    [
     "santajjana 1",
@@ -210970,6 +211054,12 @@ var ru_family_root_json = {
     "аор",
     "frightened",
     "✗"
+   ],
+   [
+    "saṃtajjaka",
+    "прил",
+    "устрашающий",
+    "~"
    ]
   ]
  },
@@ -213736,7 +213826,7 @@ var ru_family_root_json = {
  "√rabh 2 saṃ ā √rabh": {
   "root_key": "√rabh 2",
   "root_family": "saṃ ā √rabh",
-  "root_meaning": "возбужать",
+  "root_meaning": "возбудиться, вспылить",
   "count": 5,
   "data": [
    [
@@ -216554,7 +216644,7 @@ var ru_family_root_json = {
  "√vañc 2 saṃ pa √vañc": {
   "root_key": "√vañc 2",
   "root_family": "saṃ pa √vañc",
-  "root_meaning": "обманывать",
+  "root_meaning": "двигаться вокруг",
   "count": 2,
   "data": [
    [
@@ -217422,7 +217512,7 @@ var ru_family_root_json = {
  "√bhaj 2 saṃ √bhaj": {
   "root_key": "√bhaj 2",
   "root_family": "saṃ √bhaj",
-  "root_meaning": "ассоциировать, общаться",
+  "root_meaning": "взаимодействовать, общаться",
   "count": 3,
   "data": [
    [
@@ -219593,13 +219683,19 @@ var ru_family_root_json = {
   "root_key": "√sidh 2",
   "root_family": "√sidh",
   "root_meaning": "достигать, преуспевать",
-  "count": 10,
+  "count": 11,
   "data": [
    [
-    "sijjhati",
+    "sijjhati 1",
     "наст",
     "успешен",
-    "✓"
+    "~"
+   ],
+   [
+    "sijjhati 2",
+    "наст",
+    "вступает в половую связь (с)",
+    "~"
    ],
    [
     "sijjhana",
@@ -219883,8 +219979,14 @@ var ru_family_root_json = {
   "root_key": "√su 4",
   "root_family": "√su",
   "root_meaning": "порождать",
-  "count": 1,
+  "count": 2,
   "data": [
+   [
+    "suta 2.1",
+    "муж",
+    "son",
+    "✗"
+   ],
    [
     "sutā",
     "жен",

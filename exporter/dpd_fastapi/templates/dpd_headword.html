@@ -35,7 +35,7 @@
 
 
 <div class="button-box">
-    {% if d.i.needs_grammar_button %}
+    {% if d.i.needs_grammar_button or d.show_sbs_data %}
         <a class="button active" name="grammar-button"
         href="#" 
         data-target="grammar_{{d.i.lemma_1_}}">
@@ -145,7 +145,7 @@
 <!-- grammar -->
 
 
-{% if d.i.needs_grammar_button %}
+{% if d.i.needs_grammar_button or d.show_sbs_data %}
 <div id="grammar_{{d.i.lemma_1_}}" name="grammar-div" class="content">
     <table class="grammar">
         <tr>
@@ -213,6 +213,9 @@
                 {{d.i.root_clean}}<sup>{{d.i.rt.root_has_verb}}</sup>{{d.i.rt.root_group}} 
                 {{d.i.root_sign}} 
                 ({{d.i.rt.root_meaning}})
+                {% if d.show_sbs_data %}
+                    ({{d.i.rt.root_ru_meaning}})
+                {% endif %}
             </td>
         </tr>
         {% endif %}
@@ -423,6 +426,9 @@
                     {{d.i.rt.sanskrit_root}} 
                     {{d.i.rt.sanskrit_root_class}} 
                     ({{d.i.rt.sanskrit_root_meaning}})
+                    {% if d.show_sbs_data %}
+                        ({{d.i.rt.sanskrit_root_ru_meaning}})
+                    {% endif %}
                 </i>
             </td>
         </tr>

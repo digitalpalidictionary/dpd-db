@@ -18,7 +18,7 @@ from tools.paths import ProjectPaths
 from tools.superscripter import superscripter_uni
 from tools.tic_toc import tic, toc
 
-from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations, make_short_meaning
+from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations
 
 from sqlalchemy.orm import joinedload
 
@@ -40,11 +40,6 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    if config_test("dictionary", "show_sbs_data", "yes"):
-        show_sbs_data = True
-    else:
-        show_sbs_data = False
-
     if config_test("exporter", "language", "en"):
         lang = "en"
     elif config_test("exporter", "language", "ru"):
@@ -65,7 +60,7 @@ def main():
 
     sync_idiom_numbers_with_family_compound(db_session)
     idioms_dict = create_idioms_dict(dpd_db)
-    idioms_dict = compile_idioms_html(dpd_db, idioms_dict, lang, show_sbs_data)
+    idioms_dict = compile_idioms_html(dpd_db, idioms_dict, lang)
     add_idioms_to_db(db_session, idioms_dict, lang)
     update_db_cache(db_session, idioms_dict)
     
@@ -129,7 +124,7 @@ def create_idioms_dict(dpd_db):
     return idioms_dict
 
 
-def compile_idioms_html(dpd_db, idioms_dict, lang="en", show_sbs_data=False):
+def compile_idioms_html(dpd_db, idioms_dict, lang="en"):
     print("[green]compiling html")
 
     for i in dpd_db:
@@ -145,10 +140,8 @@ def compile_idioms_html(dpd_db, idioms_dict, lang="en", show_sbs_data=False):
                     else:
                         html_string = idioms_dict[word]["html"]
 
-                    if not show_sbs_data:
-                        meaning = make_meaning(i)
-                    else:
-                        meaning = make_short_meaning(i)
+                    meaning = make_meaning(i)
+
                     html_string += "<tr>"
                     html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
                     html_string += f"<td><b>{i.pos}</b></td>"

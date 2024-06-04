@@ -28,7 +28,7 @@ from tools.superscripter import superscripter_uni
 from tools.tic_toc import tic, toc
 from tools.update_test_add import update_test_add
 
-from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations, make_short_meaning
+from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations
 
 from sqlalchemy.orm import joinedload
 
@@ -49,11 +49,6 @@ def main():
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-
-    if config_test("dictionary", "show_sbs_data", "yes"):
-        show_sbs_data = True
-    else:
-        show_sbs_data = False
 
     if config_test("exporter", "language", "en"):
         lang = "en"
@@ -81,7 +76,7 @@ def main():
         roots_db, key=lambda x: pali_sort_key(x.root))
 
     rf_dict, bases_dict = make_roots_family_dict_and_bases_dict(dpd_db)
-    rf_dict = compile_rf_html(dpd_db, rf_dict, lang, show_sbs_data)
+    rf_dict = compile_rf_html(dpd_db, rf_dict, lang)
     add_rf_to_db(db_session, rf_dict, lang)
     update_lookup_table(db_session)
     generate_root_info_html(db_session, roots_db, bases_dict)
@@ -144,7 +139,7 @@ def make_roots_family_dict_and_bases_dict(dpd_db):
     return rf_dict, bases_dict
 
 
-def compile_rf_html(dpd_db, rf_dict, lang="en", show_sbs_data=False):
+def compile_rf_html(dpd_db, rf_dict, lang="en"):
     print("[green]compiling html")
 
     for __counter__, i in enumerate(dpd_db):
@@ -156,10 +151,8 @@ def compile_rf_html(dpd_db, rf_dict, lang="en", show_sbs_data=False):
             else:
                 html_string = rf_dict[family]["html"]
 
-            if not show_sbs_data:
-                meaning = make_meaning(i)
-            else:
-                meaning = make_short_meaning(i)
+            meaning = make_meaning(i)
+
             html_string += "<tr>"
             html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
             html_string += f"<td><b>{i.pos}</b></td>"

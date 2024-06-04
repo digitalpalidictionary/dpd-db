@@ -22,7 +22,7 @@ from tools.paths import ProjectPaths
 from tools.superscripter import superscripter_uni
 from tools.tic_toc import tic, toc
 
-from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations, make_short_meaning
+from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations
 
 from sqlalchemy.orm import joinedload
 
@@ -44,11 +44,6 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    if config_test("dictionary", "show_sbs_data", "yes"):
-        show_sbs_data = True
-    else:
-        show_sbs_data = False
-
     if config_test("exporter", "language", "en"):
         lang = "en"
     elif config_test("exporter", "language", "ru"):
@@ -69,7 +64,7 @@ def main():
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     cf_dict = create_comp_fam_dict(dpd_db)
-    cf_dict = compile_cf_html(dpd_db, cf_dict, lang, show_sbs_data)
+    cf_dict = compile_cf_html(dpd_db, cf_dict, lang)
     add_cf_to_db(db_session, cf_dict, lang)
     update_db_cache(db_session, cf_dict)
 
@@ -123,7 +118,7 @@ def create_comp_fam_dict(dpd_db):
     return cf_dict
 
 
-def compile_cf_html(dpd_db, cf_dict, lang="en", show_sbs_data=False):
+def compile_cf_html(dpd_db, cf_dict, lang="en"):
     print("[green]compiling html")
 
     for __counter__, i in enumerate(dpd_db):
@@ -136,10 +131,8 @@ def compile_cf_html(dpd_db, cf_dict, lang="en", show_sbs_data=False):
                     else:
                         html_string = cf_dict[cf]["html"]
 
-                    if not show_sbs_data:
-                        meaning = make_meaning(i)
-                    else:
-                        meaning = make_short_meaning(i)
+                    meaning = make_meaning(i)
+                    
                     html_string += "<tr>"
                     html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
                     html_string += f"<td><b>{i.pos}</b></td>"
