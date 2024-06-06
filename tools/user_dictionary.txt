@@ -257,6 +257,7 @@ belovedness
 Beḷuva
 Benares
 benedictive
+benefactor
 Bengalis
 benghalensis
 benjamin
@@ -364,6 +365,7 @@ catechu
 Catukkanipāta
 Cātumā
 caul
+cauterizing
 ceiba
 censurable
 censures
@@ -512,6 +514,7 @@ Desmostachya
 deva
 Deva
 deva-king
+Devadaha
 devadattiya
 Devala
 Devaputtasaṃyuttaṃ
@@ -687,6 +690,7 @@ frondosa
 frowny
 fruition
 fruitions
+frumentacea
 frumentaceum
 fuelless
 gadflies
@@ -812,6 +816,7 @@ ideational
 illuminator
 im
 iṃ
+immateriality
 immediate
 immediately
 immerged
@@ -1149,6 +1154,7 @@ mānatta
 Maṇḍikā
 maned
 Mangifera
+manifoldness
 mano
 Manonivāraṇasutta
 manservants
@@ -1200,6 +1206,10 @@ Mithil
 Mithila
 Mithilā
 MN100
+MN101
+MN102
+MN103
+MN104
 MN110
 MN2
 MN3
@@ -1695,6 +1705,7 @@ Sāli
 Sāma
 samadhi
 samādhi
+Sāmagāma
 samaṇa
 sāmaṇera
 Samantapāsādikā
@@ -1941,6 +1952,7 @@ th
 tha
 ṭhā
 ṭhāna
+theorizes
 Thera
 Theragāthā
 Therāpadāna
@@ -2094,6 +2106,7 @@ unestablished
 unexperienced
 unfabricated
 unfashioned
+unfeelable
 unfightable
 unfragmented
 unfreed
@@ -2180,6 +2193,7 @@ uppāda
 uppala-count
 uppaṭṭetha
 upphālesi
+uproots
 upsetness
 Uraria
 urger
@@ -2296,6 +2310,7 @@ viyavajjena
 viyāyāma
 voidness
 vokāra
+volitional
 vuddhi
 vulgare
 vulgaris
@@ -2341,14 +2356,3 @@ yojanas
 yoking
 zizanioides
 Ziziphus
-MN101
-Devadaha
-uproots
-cauterizing
-unfeelable
-MN102
-theorizes
-immateriality
-manifoldness
-volitional
-MN103

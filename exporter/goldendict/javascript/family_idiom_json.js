@@ -9304,7 +9304,7 @@ var family_idiom_json = {
    [
     "ayamuddeso",
     "sandhi",
-    "this is the summary; this is the introduction",
+    "this is the summary; this is the introduction (of)",
     "✓"
    ],
    [
@@ -11655,7 +11655,7 @@ var family_idiom_json = {
   ]
  },
  "eka": {
-  "count": 32,
+  "count": 34,
   "data": [
    [
     "athekadivasaṃ",
@@ -11757,6 +11757,18 @@ var family_idiom_json = {
     "ekaṃyeva",
     "sandhi",
     "only one; just one",
+    "✓"
+   ],
+   [
+    "ekaṃsaṃ uttarāsaṅgaṃ karitvā",
+    "idiom",
+    "having arranged one's robe over one shoulder",
+    "✓"
+   ],
+   [
+    "ekaṃsaṃ cīvaraṃ katvā",
+    "idiom",
+    "having arranged one's robe over one shoulder",
     "✓"
    ],
    [
@@ -16104,7 +16116,7 @@ var family_idiom_json = {
    [
     "ayamuddeso",
     "sandhi",
-    "this is the summary; this is the introduction",
+    "this is the summary; this is the introduction (of)",
     "✓"
    ],
    [
@@ -21047,7 +21059,7 @@ var family_idiom_json = {
    ]
   ]
  },
- "ekaṃsa": {
+ "aṃsa2": {
   "count": 2,
   "data": [
    [
@@ -31393,12 +31405,24 @@ var family_idiom_json = {
   ]
  },
  "saṅkhāra": {
-  "count": 3,
+  "count": 5,
   "data": [
    [
     "saṅkhāranirodhagāminī paṭipadā",
     "idiom",
     "path of practice leading to the end of intention",
+    "✓"
+   ],
+   [
+    "saṅkhāraṃ padahati",
+    "idiom",
+    "makes an intentional effort; strives with determination; lit. puts forward intention",
+    "✓"
+   ],
+   [
+    "saṅkhāraṃ padahanta",
+    "idiom",
+    "making an intentional effort; striving with determination; lit. putting forward intention",
     "✓"
    ],
    [
@@ -31745,6 +31769,28 @@ var family_idiom_json = {
     "saggakāyamagamaṃ",
     "sandhi",
     "I went to the heavenly host",
+    "✓"
+   ]
+  ]
+ },
+ "padahati": {
+  "count": 1,
+  "data": [
+   [
+    "saṅkhāraṃ padahati",
+    "idiom",
+    "makes an intentional effort; strives with determination; lit. puts forward intention",
+    "✓"
+   ]
+  ]
+ },
+ "padahanta": {
+  "count": 1,
+  "data": [
+   [
+    "saṅkhāraṃ padahanta",
+    "idiom",
+    "making an intentional effort; striving with determination; lit. putting forward intention",
     "✓"
    ]
   ]

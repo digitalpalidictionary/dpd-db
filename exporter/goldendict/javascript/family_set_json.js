@@ -427,7 +427,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "anantara 1",
+    "anantara 4",
     "adj",
     "(gram) contiguous; adjoining; immediately following; lit. no space in-between",
     "✓"
@@ -3337,7 +3337,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "byañjana 4",
+    "byañjana 5",
     "nt",
     "(gram) consonant; lit. distinguishing",
     "✓"
@@ -5374,6 +5374,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "cūḷava",
+    "abbrev",
+    "abbreviation of Cūḷavagga",
+    "✓"
+   ],
+   [
     "ja 3.1",
     "abbrev",
     "abbreviation of Jātaka",
@@ -5578,7 +5584,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 43
+  "count": 44
  },
  "pronouns": {
   "data": [
@@ -10859,7 +10865,7 @@ var family_set_json = {
     "pisinārā",
     "fem",
     "name of an area",
-    "~"
+    "✓"
    ],
    [
     "pubbakoṭṭhaka",
@@ -11069,7 +11075,7 @@ var family_set_json = {
     "vepulla 2",
     "masc",
     "name of a mountain near to Rājagaha; lit. massive",
-    "~"
+    "✓"
    ],
    [
     "veḷuvana",
@@ -12610,6 +12616,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kintisutta",
+    "nt",
+    "Majjhima Nikāya 103 (MN103); Discourse on What (Do You Think of Me)",
+    "✓"
+   ],
+   [
     "kīṭāgirisutta",
     "nt",
     "Majjhima Nikāya 70 (MN70); Discourse at Kīṭāgiri",
@@ -12796,6 +12808,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "devadahasutta 1",
+    "nt",
+    "Majjhima Nikāya 101 (MN101); Discourse at Devadaha",
+    "✓"
+   ],
+   [
     "dvedhāvitakkasutta",
     "nt",
     "Majjhima Nikāya 19; Discourse on Two Kinds of Thoughts (MN19)",
@@ -12832,10 +12850,10 @@ var family_set_json = {
     "~"
    ],
    [
-    "pañcāyatanasutta",
+    "pañcattayasutta",
     "nt",
-    "Majjhima Nikāya 102 (MN102)",
-    "~"
+    "Majjhima Nikāya 102 (MN102); Discourse on Five and Three",
+    "✓"
    ],
    [
     "pāsarāsisutta",
@@ -13174,6 +13192,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "sāmagāmasutta",
+    "nt",
+    "Majjhima Nikāya 104 (MN104); Discourse at Sāmagāma",
+    "✓"
+   ],
+   [
     "sāleyyakasutta",
     "nt",
     "Majjhima Nikāya 41; Discourse to the People of Sāla (MN41)",
@@ -13198,7 +13222,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 116
+  "count": 119
  },
  "family names": {
   "data": [
@@ -13629,8 +13653,8 @@ var family_set_json = {
    [
     "ānanda 3",
     "masc",
-    "name of a privately awakened Buddha",
-    "~"
+    "name of four privately awakened Buddhas",
+    "✓"
    ],
    [
     "uccaṅgamāya",
@@ -14026,7 +14050,7 @@ var family_set_json = {
     "satthar 2",
     "masc",
     "name of a privately awakened Buddha; lit. teacher",
-    "~"
+    "✓"
    ],
    [
     "santacitta 2",
@@ -15000,6 +15024,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "cunda 3",
+    "masc",
+    "name of a monk; Cunda the Novice; (comm) Sāriputta's youngest brother",
+    "✓"
+   ],
+   [
     "cullapanthaka",
     "masc",
     "name of a monk; great disciple of the Buddha; foremost in creating a mind made body",
@@ -15038,8 +15068,8 @@ var family_set_json = {
    [
     "channa 2.3",
     "masc",
-    "name of an arahant monk",
-    "~"
+    "name of an arahant monk who committed suicide",
+    "✓"
    ],
    [
     "jambuka 2",
@@ -16860,7 +16890,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 452
+  "count": 453
  },
  "names of arahants": {
   "data": [
@@ -17671,8 +17701,8 @@ var family_set_json = {
    [
     "channa 2.3",
     "masc",
-    "name of an arahant monk",
-    "~"
+    "name of an arahant monk who committed suicide",
+    "✓"
    ],
    [
     "jambuka 2",
@@ -27430,7 +27460,7 @@ var family_set_json = {
     "pāvā",
     "fem",
     "name of a city of the Mallas",
-    "~"
+    "✓"
    ],
    [
     "pippalivana",
@@ -27778,7 +27808,7 @@ var family_set_json = {
     "sāmagāma",
     "masc",
     "name of a village",
-    "~"
+    "✓"
    ],
    [
     "sāmagāmaka",
@@ -31412,7 +31442,7 @@ var family_set_json = {
    [
     "jetavana",
     "nt",
-    "name of a monastery in Sāvatthī; lit. victor's wood",
+    "name of a monastery in Sāvatthī; lit. Victor's wood",
     "✓"
    ],
    [
@@ -32738,7 +32768,7 @@ var family_set_json = {
     "vepulla 2",
     "masc",
     "name of a mountain near to Rājagaha; lit. massive",
-    "~"
+    "✓"
    ],
    [
     "saṅkheyyaka",
@@ -33697,7 +33727,7 @@ var family_set_json = {
     "saddanīti",
     "fem",
     "comprehensive grammatical treatise written by Aggavaṃsa in the twelfth century; lit. principles of grammar",
-    "~"
+    "✓"
    ],
    [
     "samantapāsādikā",
@@ -33839,7 +33869,7 @@ var family_set_json = {
     "saddanīti",
     "fem",
     "comprehensive grammatical treatise written by Aggavaṃsa in the twelfth century; lit. principles of grammar",
-    "~"
+    "✓"
    ],
    [
     "saddanītidhātumālā",

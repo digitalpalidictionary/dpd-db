@@ -1176,7 +1176,7 @@ var family_word_json = {
     "agada",
     "nt",
     "medicine; drug; antidote; lit. no disease",
-    "~"
+    "✓"
    ],
    [
     "gada 1.1",
@@ -2337,26 +2337,26 @@ var family_word_json = {
    [
     "anantara 1",
     "adj",
-    "(gram) contiguous; adjoining; immediately following; lit. no space in-between",
+    "immediately following; lit. no space in-between",
     "✓"
    ],
    [
     "anantara 2",
     "adj",
-    "immediately following; lit. no space in-between",
-    "✓"
-   ],
-   [
-    "anantara 3",
-    "adj",
     "next",
     "✗"
    ],
    [
-    "anantara 4",
+    "anantara 3",
     "nt",
     "no secret teaching",
     "✗"
+   ],
+   [
+    "anantara 4",
+    "adj",
+    "(gram) contiguous; adjoining; immediately following; lit. no space in-between",
+    "✓"
    ],
    [
     "anantaratta",
@@ -2697,8 +2697,8 @@ var family_word_json = {
    [
     "nānantavant",
     "adj",
-    "not endless; not infinite",
-    "✗"
+    "not endless; not infinite; lit. not not having end quality",
+    "✓"
    ],
    [
     "nirantara",
@@ -3625,6 +3625,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "ettakaṃ",
+    "ind",
+    "so much; for so long",
+    "✓"
+   ],
+   [
     "ettāvatā",
     "ind",
     "to this extent; to such a degree; so far",
@@ -3709,7 +3715,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 80
+  "count": 81
  },
  "atta": {
   "data": [
@@ -7346,6 +7352,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "dvedhika",
+    "adj",
+    "in two parts; in two factions",
+    "✓"
+   ],
+   [
     "dveḷhaka",
     "nt",
     "ambiguity; doubt; uncertainty; lit. two-way-ness",
@@ -7358,7 +7370,7 @@ var family_word_json = {
     "~"
    ]
   ],
-  "count": 46
+  "count": 47
  },
  "amu": {
   "data": [
@@ -9749,6 +9761,12 @@ var family_word_json = {
     "✗"
    ],
    [
+    "ussukkāpana",
+    "nt",
+    "applying effort",
+    "✗"
+   ],
+   [
     "ussukkāpeti",
     "pr",
     "entices, arouses",
@@ -9773,7 +9791,7 @@ var family_word_json = {
     "✗"
    ]
   ],
-  "count": 9
+  "count": 10
  },
  "ūna": {
   "data": [
@@ -15805,7 +15823,7 @@ var family_word_json = {
     "nāsassata",
     "adj",
     "nor not eternal; nor not endless; nor not perpetual",
-    "~"
+    "✓"
    ],
    [
     "sassata",
@@ -21278,31 +21296,14 @@ var family_word_json = {
   ],
   "count": 3
  },
- "khīra": {
-  "data": [
-   [
-    "khīra 1",
-    "nt",
-    "milk",
-    "✓"
-   ],
-   [
-    "khīra 2",
-    "nt",
-    "(of trees) milky sap; white juice",
-    "✓"
-   ],
-   [
-    "khīrikā",
-    "fem",
-    "tree Buchanania Latifolia",
-    "✗"
-   ]
-  ],
-  "count": 3
- },
  "khīla": {
   "data": [
+   [
+    "khila 2.1",
+    "masc",
+    "post; pole",
+    "✓"
+   ],
    [
     "khīla 1.1",
     "masc",
@@ -21328,7 +21329,30 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 4
+  "count": 5
+ },
+ "khīra": {
+  "data": [
+   [
+    "khīra 1",
+    "nt",
+    "milk",
+    "✓"
+   ],
+   [
+    "khīra 2",
+    "nt",
+    "(of trees) milky sap; white juice",
+    "✓"
+   ],
+   [
+    "khīrikā",
+    "fem",
+    "tree Buchanania Latifolia",
+    "✗"
+   ]
+  ],
+  "count": 3
  },
  "kheḷa": {
   "data": [
@@ -22500,6 +22524,12 @@ var family_word_json = {
     "✗"
    ],
    [
+    "cunda 3",
+    "masc",
+    "name of a monk; Cunda the Novice; (comm) Sāriputta's youngest brother",
+    "✓"
+   ],
+   [
     "cundaka",
     "masc",
     "name of a monk",
@@ -22512,7 +22542,7 @@ var family_word_json = {
     "~"
    ]
   ],
-  "count": 4
+  "count": 5
  },
  "cūḷa": {
   "data": [
@@ -24121,6 +24151,23 @@ var family_word_json = {
   ],
   "count": 4
  },
+ "thaṇḍila": {
+  "data": [
+   [
+    "thaṇḍila",
+    "nt",
+    "bare ground; hard ground",
+    "✓"
+   ],
+   [
+    "patthaṇḍila",
+    "masc",
+    "ascetic compound; lit. hard ground in front",
+    "✓"
+   ]
+  ],
+  "count": 2
+ },
  "thūpa": {
   "data": [
    [
@@ -24290,6 +24337,17 @@ var family_word_json = {
    ]
   ],
   "count": 3
+ },
+ "daha": {
+  "data": [
+   [
+    "daha",
+    "masc",
+    "lake; pool; pond",
+    "✓"
+   ]
+  ],
+  "count": 1
  },
  "dahara": {
   "data": [
@@ -26114,17 +26172,6 @@ var family_word_json = {
   ],
   "count": 3
  },
- "thaṇḍila": {
-  "data": [
-   [
-    "patthaṇḍila",
-    "masc",
-    "ascetic compound; lit. hard ground in front",
-    "✓"
-   ]
-  ],
-  "count": 1
- },
  "paduma": {
   "data": [
    [
@@ -26738,7 +26785,7 @@ var family_word_json = {
     "pāvā",
     "fem",
     "name of a city of the Mallas",
-    "~"
+    "✓"
    ],
    [
     "pāveyyaka",
@@ -29752,7 +29799,7 @@ var family_word_json = {
    [
     "vāṇijja",
     "nt",
-    "trade; trading; business; commerce",
+    "trade; business deal; commercial activity; lit. merchant state",
     "✓"
    ]
   ],
@@ -31734,6 +31781,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "sāma 1.3",
+    "masc",
+    "Indian millet; Echinochloa frumentacea; lit. brown",
+    "✓"
+   ],
+   [
     "sāmaka",
     "adj",
     "about the village of Sāma",
@@ -31776,7 +31829,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 9
+  "count": 10
  },
  "sāmīci": {
   "data": [
@@ -32834,17 +32887,6 @@ var family_word_json = {
    ]
   ],
   "count": 2
- },
- "soṇī": {
-  "data": [
-   [
-    "soṇī 2.1",
-    "fem",
-    "hips; waist; buttocks",
-    "✓"
-   ]
-  ],
-  "count": 1
  },
  "sobbha": {
   "data": [

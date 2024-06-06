@@ -182,6 +182,28 @@ def render_ebook_entry(
         pth: ProjectPaths, rupth:RuPaths, counter: int, i: DpdHeadwords, inflections: list, lang="en") -> str:
     """Render single word entry."""
 
+    summary = f"{i.pos}. "
+    if i.plus_case:
+        summary += f"({i.plus_case}) "
+    if lang == "ru":
+        summary = ru_replace_abbreviations(summary)
+        summary += make_ru_meaning_for_ebook(i, i.ru)
+    elif lang == "en":
+        summary += make_meaning_html(i)
+
+    construction = summarize_construction(i)
+    if construction:
+        summary += f" [{construction}]"
+
+    summary += f" {degree_of_completion(i)}"
+
+    if "&" in summary:
+        if lang == "en":
+            # pass
+            summary = summary.replace(" & ", " &amp; ")
+        elif lang == "ru":
+            summary = summary.replace(" & ", " и ")
+
     # clean up html line breaks and < >
     for attr_name in [
         "root_base",
@@ -201,33 +223,12 @@ def render_ebook_entry(
         if isinstance(attr_value, str):
             setattr(i, attr_name, html_friendly(attr_value))
 
-    summary = f"{i.pos}. "
-    if i.plus_case:
-        summary += f"({i.plus_case}) "
-    if lang == "ru":
-        summary = ru_replace_abbreviations(summary)
-        summary += make_ru_meaning_for_ebook(i, i.ru)
-    elif lang == "en":
-        summary += make_meaning_html(i)
-
-    construction = summarize_construction(i)
-    if construction:
-        summary += f" [{construction}]"
-
-    summary += f" {degree_of_completion(i)}"
-
-    if "&" in summary:
-        if lang == "en":
-            summary = summary.replace("&", "and")
-        elif lang == "ru":
-            summary = summary.replace("&", "и")
-
     grammar_table = render_grammar_templ(pth, rupth, i, lang)
     if "&" in grammar_table:
         if lang == "en":
-            grammar_table = grammar_table.replace("&", "and")
+            grammar_table = grammar_table.replace(" & ", " &amp; ")
         elif lang == "ru":
-            grammar_table = grammar_table.replace("&", "и")
+            grammar_table = grammar_table.replace(" & ", " и ")
 
     examples = render_example_templ(pth, rupth, i, lang)
 
@@ -321,14 +322,17 @@ def save_abbreviations_xhtml_page(pth: ProjectPaths, rupth:RuPaths, id_counter, 
 
     abbreviation_entries = []
     for i in abbreviations_list:
-        for key, value in i.items():    # cleanup html
-            i[key] = escape(value)          
+        # cleanup html
+        for key, value in i.items():    
+            i[key] = html_friendly(value)
+            if key == ">":
+                i["&gt;"] = html_friendly(value)
         abbreviation_entries += [
-            render_abbreviation_entry(pth, rupth, id_counter, i, lang)]
+            render_abbreviation_entry(pth, rupth, id_counter, i, lang)
+        ]
         id_counter += 1
 
     entries = "".join(abbreviation_entries)
-    entries = entries.replace(" > ", " &gt; ")
     if lang == "en":
         xhtml = render_ebook_letter_templ(pth, "Abbreviations", entries)
         with open(pth.epub_abbreviations_path, "w") as f:
@@ -440,7 +444,9 @@ def make_mobi(pth: Union[ProjectPaths, RuPaths]):
 def html_friendly(text: str):
     try:
         text = text.replace("\n", "<br/>")
-        return escape(text)
+        text = text.replace(" > ", " &gt; ")
+        text = text.replace(" < ", " &lt; ")
+        return text
     except Exception:
         return text
 
