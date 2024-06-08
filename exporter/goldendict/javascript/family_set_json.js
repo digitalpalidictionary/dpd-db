@@ -13204,6 +13204,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "sunakkhattasutta",
+    "nt",
+    "Majjhima Nikāya 105 (MN105); Discourse with Sunakkhatta",
+    "✓"
+   ],
+   [
     "subhasutta 1",
     "nt",
     "Majjhima Nikāya 99 (MN99); Discourse with Subha",
@@ -13222,7 +13228,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 119
+  "count": 120
  },
  "family names": {
   "data": [
@@ -14038,7 +14044,7 @@ var family_set_json = {
     "saṅgha 3",
     "masc",
     "name of a privately awakened Buddha; lit. group",
-    "~"
+    "✓"
    ],
    [
     "saccanāma 2",

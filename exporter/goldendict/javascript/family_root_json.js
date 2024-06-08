@@ -14243,7 +14243,7 @@ var family_root_json = {
     "acodita",
     "pp",
     "not accused; not rebuked; not charged; not blamed",
-    "~"
+    "✓"
    ],
    [
     "acodiyamāna",
@@ -27956,8 +27956,8 @@ var family_root_json = {
    [
     "ativeṭheti",
     "pr",
-    "presses the issue; lit. twists too much",
-    "~"
+    "presses the issue; turns the screw; lit. twists too much",
+    "✓"
    ]
   ]
  },
@@ -32229,7 +32229,7 @@ var family_root_json = {
   "root_key": "√dū",
   "root_family": "√dū",
   "root_meaning": "go, run",
-  "count": 29,
+  "count": 30,
   "data": [
    [
     "adabba",
@@ -32307,6 +32307,12 @@ var family_root_json = {
     "davatta 2",
     "nt",
     "(of a horse) going long distances; (comm) charging; lit. running state",
+    "✓"
+   ],
+   [
+    "davā",
+    "ind",
+    "in jest; for fun; rashly; lit. from play",
     "✓"
    ],
    [
@@ -77543,7 +77549,7 @@ var family_root_json = {
   "root_key": "√ñā",
   "root_family": "pati √ñā",
   "root_meaning": "know",
-  "count": 35,
+  "count": 36,
   "data": [
    [
     "apaṭiññā",
@@ -77573,7 +77579,7 @@ var family_root_json = {
     "napaṭijānāti",
     "pr",
     "does not admit; does not acknowledge",
-    "~"
+    "✓"
    ],
    [
     "paccaññāsi",
@@ -77608,32 +77614,38 @@ var family_root_json = {
    [
     "paṭijānāti 1",
     "pr",
-    "agrees; acknowledges; admits; assents; confirms",
+    "agrees; assents; confirms; lit. knows back",
     "✓"
    ],
    [
     "paṭijānāti 2",
     "pr",
-    "promises",
+    "acknowledges; admits; confesses; lit. knows back",
     "✓"
    ],
    [
     "paṭijānāti 3",
     "pr",
-    "makes the claim (of); claims (to be)",
+    "promises; lit. knows back",
     "✓"
    ],
    [
     "paṭijānāti 4",
     "pr",
-    "(logic) makes a logical proposition",
-    "✗"
+    "makes the claim (of); claims (to be); lit. knows back",
+    "✓"
    ],
    [
     "paṭijānāti 5",
     "pr",
     "possesses self-awareness; knows one's own existence; lit. knows back",
     "✓"
+   ],
+   [
+    "paṭijānāti 6",
+    "pr",
+    "(logic) makes a logical proposition",
+    "✗"
    ],
    [
     "paṭijānāpetvā",
@@ -85161,7 +85173,7 @@ var family_root_json = {
     "byattatara",
     "adj",
     "more experienced; more learned; more competent",
-    "~"
+    "✓"
    ],
    [
     "byatti 1",
@@ -103672,8 +103684,8 @@ var family_root_json = {
    [
     "bhinne",
     "pp",
-    "broken; cracked; damaged; destroyed",
-    "✗"
+    "broken; cracked; damaged",
+    "✓"
    ],
    [
     "bhecchati",
@@ -104615,7 +104627,7 @@ var family_root_json = {
     "byākāsi 2",
     "aor",
     "stated; declared; announced; lit. made distinct",
-    "~"
+    "✓"
    ],
    [
     "viyākata",
@@ -126922,8 +126934,8 @@ var family_root_json = {
    [
     "vuḍḍhatara",
     "adj",
-    "elder, older",
-    "✗"
+    "older; more senior",
+    "✓"
    ],
    [
     "vuḍḍhi",
@@ -138787,7 +138799,7 @@ var family_root_json = {
   "root_key": "√sajj 1",
   "root_family": "vi √sajj",
   "root_meaning": "relinquish, let loose",
-  "count": 55,
+  "count": 56,
   "data": [
    [
     "avisajjetvā",
@@ -138836,6 +138848,12 @@ var family_root_json = {
     "pp",
     "(of speech) distinct; clear; well enunciated; lit. emitted",
     "✓"
+   ],
+   [
+    "visaṭṭha 2",
+    "pp",
+    "free; unobstructed; lit. emitted",
+    "~"
    ],
    [
     "visaṭṭhi",
@@ -177089,13 +177107,19 @@ var family_root_json = {
   "root_key": "√tim",
   "root_family": "√tim",
   "root_meaning": "be wet",
-  "count": 13,
+  "count": 14,
   "data": [
    [
     "tinta",
     "pp",
     "wet; moist; soggy; lit. moistened",
     "~"
+   ],
+   [
+    "tinna",
+    "pp",
+    "wet; soaked",
+    "✓"
    ],
    [
     "temati",
@@ -183369,7 +183393,7 @@ var family_root_json = {
   "root_key": "√ru",
   "root_family": "√ru",
   "root_meaning": "cry, howl",
-  "count": 16,
+  "count": 17,
   "data": [
    [
     "nirava",
@@ -183418,6 +183442,12 @@ var family_root_json = {
     "prp",
     "making a noise, crying",
     "✗"
+   ],
+   [
+    "ravā",
+    "ind",
+    "blurtingly; speaking without thinking; lit. from noise",
+    "✓"
    ],
    [
     "ravi 1.1",
@@ -195274,8 +195304,8 @@ var family_root_json = {
    [
     "pavutte",
     "pp",
-    "shed; cast off; dropped; fallen",
-    "✗"
+    "shed; cast off; dropped; fallen (from)",
+    "✓"
    ]
   ]
  },
@@ -200600,8 +200630,8 @@ var family_root_json = {
    [
     "vante",
     "pp",
-    "vomited; cast off",
-    "✗"
+    "vomited",
+    "✓"
    ],
    [
     "vamati 1",
@@ -209693,7 +209723,7 @@ var family_root_json = {
     "saṅgha 3",
     "masc",
     "name of a privately awakened Buddha; lit. group",
-    "~"
+    "✓"
    ],
    [
     "saṅghaṭita",

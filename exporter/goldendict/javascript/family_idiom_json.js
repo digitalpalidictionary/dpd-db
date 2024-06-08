@@ -1853,7 +1853,7 @@ var family_idiom_json = {
   ]
  },
  "eva": {
-  "count": 246,
+  "count": 247,
   "data": [
    [
     "aṅganteva",
@@ -3270,6 +3270,12 @@ var family_idiom_json = {
     "sandhi",
     "for whoever with; for one with",
     "~"
+   ],
+   [
+    "sādhukameva",
+    "sandhi",
+    "very well; exactly; lit. just well",
+    "✓"
    ],
    [
     "sāyeva",
@@ -6285,7 +6291,7 @@ var family_idiom_json = {
    [
     "atthaṃ ājānāti",
     "idiom",
-    "understands the meaning (of)",
+    "understands the meaning; comprehends the sense (of)",
     "✓"
    ],
    [
@@ -9067,7 +9073,7 @@ var family_idiom_json = {
   ]
  },
  "atthi1": {
-  "count": 18,
+  "count": 19,
   "data": [
    [
     "atthaññaṃ",
@@ -9163,6 +9169,12 @@ var family_idiom_json = {
     "yadatthi",
     "sandhi",
     "whatever there is; whichever there are",
+    "✓"
+   ],
+   [
+    "santetthekacce",
+    "sandhi",
+    "there are some here",
     "✓"
    ],
    [
@@ -9697,7 +9709,7 @@ var family_idiom_json = {
    [
     "atthaṃ ājānāti",
     "idiom",
-    "understands the meaning (of)",
+    "understands the meaning; comprehends the sense (of)",
     "✓"
    ]
   ]
@@ -10111,7 +10123,7 @@ var family_idiom_json = {
   ]
  },
  "ekacca": {
-  "count": 6,
+  "count": 7,
   "data": [
    [
     "atthekaccāni",
@@ -10147,6 +10159,12 @@ var family_idiom_json = {
     "midhekacco",
     "sandhi",
     "here a certain; in this case a",
+    "✓"
+   ],
+   [
+    "santetthekacce",
+    "sandhi",
+    "there are some here",
     "✓"
    ]
   ]
@@ -11893,7 +11911,7 @@ var family_idiom_json = {
   ]
  },
  "ettha": {
-  "count": 50,
+  "count": 51,
   "data": [
    [
     "athettha",
@@ -12181,6 +12199,12 @@ var family_idiom_json = {
     "santettha",
     "sandhi",
     "here there are; in this case they are",
+    "✓"
+   ],
+   [
+    "santetthekacce",
+    "sandhi",
+    "there are some here",
     "✓"
    ],
    [
@@ -27076,7 +27100,7 @@ var family_idiom_json = {
   ]
  },
  "sādhu": {
-  "count": 3,
+  "count": 4,
   "data": [
    [
     "na hi sādhu",
@@ -27094,6 +27118,12 @@ var family_idiom_json = {
     "sādhāvuso",
     "sandhi",
     "that's good friend; it is good brothers",
+    "✓"
+   ],
+   [
+    "sādhukameva",
+    "sandhi",
+    "very well; exactly; lit. just well",
     "✓"
    ]
   ]

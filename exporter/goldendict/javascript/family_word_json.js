@@ -4615,7 +4615,7 @@ var family_word_json = {
    [
     "atatha",
     "nt",
-    "untruth; not fact",
+    "untruth; falsehood; not fact",
     "✓"
    ],
    [
@@ -4741,8 +4741,8 @@ var family_word_json = {
    [
     "tatha 2",
     "nt",
-    "truth",
-    "✗"
+    "truth; actuality",
+    "✓"
    ],
    [
     "tatha 3",
@@ -12136,7 +12136,7 @@ var family_word_json = {
    [
     "purisa 1",
     "masc",
-    "man; person",
+    "man; male; person",
     "✓"
    ],
    [
