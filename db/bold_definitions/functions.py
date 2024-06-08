@@ -154,9 +154,20 @@ file_list = {
    	"e0103n.att.xml": "VISMa",
 	"e0104n.att.xml": "VISMa",
 
+	# kaccāyana
+	"e0802n.nrf.xml": "Kacc",
+
+	# saddanīti
+	"e0803n.nrf.xml": "SPM",
+	"e0804n.nrf.xml": "SDM",
+
+	# padarūpasiddhi
+	"e0805n.nrf.xml": "PRS",
+
     # abhidhānappadīpikā
 	"e0809n.nrf.xml": "APP",
 	"e0810n.nrf.xml": "APt",
+
 }
 
 def dissolve_empty_siblings(para, bolds):
@@ -301,7 +312,18 @@ def get_headings_no_div(para, file_name, nikaya, book, title, subhead):
 		if para["rend"] == "subsubhead":
 			title = para.string
 
-	aññā = ["e0101n.mul.xml", "e0102n.mul.xml", "e0103n.att.xml", "e0104n.att.xml", "e0809n.nrf.xml", "e0810n.nrf.xml"]
+	aññā = [
+		"e0101n.mul.xml",
+		"e0102n.mul.xml",
+		"e0103n.att.xml",
+		"e0104n.att.xml",
+		"e0802n.nrf.xml",
+		"e0803n.nrf.xml",
+		"e0804n.nrf.xml",
+		"e0805n.nrf.xml",
+		"e0809n.nrf.xml",
+		"e0810n.nrf.xml",
+		]
 	if file_name in aññā:
 		nikaya = "aññā"
 	
