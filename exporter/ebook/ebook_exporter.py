@@ -9,7 +9,6 @@ import os
 import subprocess
 
 from datetime import datetime
-from html import escape
 from mako.template import Template
 from rich import print
 from typing import Dict, Union
@@ -322,11 +321,10 @@ def save_abbreviations_xhtml_page(pth: ProjectPaths, rupth:RuPaths, id_counter, 
 
     abbreviation_entries = []
     for i in abbreviations_list:
-        # cleanup html
         for key, value in i.items():    
+            if value == ">":
+                value = "&gt;"
             i[key] = html_friendly(value)
-            if key == ">":
-                i["&gt;"] = html_friendly(value)
         abbreviation_entries += [
             render_abbreviation_entry(pth, rupth, id_counter, i, lang)
         ]
