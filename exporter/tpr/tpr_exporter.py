@@ -138,7 +138,7 @@ def generate_tpr_data(g: ProgData):
                 html_string += """</tr>"""
 
                 if i.rt.root_in_comps:
-                    html_string += """<tr><th valign="top">√ in comps</th>"""
+                    html_string += """<tr><th valign="top">√ In Sandhi</th>"""
                     html_string += f"""<td>{i.rt.root_in_comps}</td></tr>"""
 
                 if i.root_base:
