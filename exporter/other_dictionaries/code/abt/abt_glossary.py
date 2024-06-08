@@ -18,10 +18,9 @@ def main():
 
     dict_data: list[DictEntry] = []
 
-    with open(
-        "exporter/other_dictionaries/code/abt/CPED, Abbr and Titles.csv",
-        newline="") as csvfile:
+    source_file = "exporter/other_dictionaries/code/abt/CPED.csv"
 
+    with open(source_file, newline="") as csvfile:
         csv_reader = csv.reader(csvfile, delimiter='|')
         for i in csv_reader:
             word = i[0].strip()
@@ -40,10 +39,10 @@ def main():
             dict_data.append(dict_entry)
     
     dict_info = DictInfo(
-        bookname = "ABT Glossary", 
-        author = "Ānandajoti Bhikkhu",	
-        description = "ABT Glossary: Titles and Vocabulary",	
-        website = "https://ancient-buddhist-texts.net",	
+        bookname = "Concise Pali English Dictionary",
+        author = "Ven. A. P. Buddhadatta",
+        description = "Modified from the Original",
+        website = "ancient-buddhist-texts.net",
         source_lang = "pi",
         target_lang = "en"
     )
@@ -53,8 +52,10 @@ def main():
         js_paths = None,
         gd_path = Path("exporter/other_dictionaries/goldendict/"),
         md_path = Path("exporter/other_dictionaries/mdict/"),
-        dict_name= "abt-glossary",
-        icon_path = None
+        dict_name= "cped",
+        icon_path = None,
+        zip_up=True,
+        delete_original=True
     )
 
     p_yes(len(dict_data))
