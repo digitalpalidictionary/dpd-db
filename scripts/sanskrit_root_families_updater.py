@@ -16,20 +16,20 @@ from tools.tic_toc import tic, toc
 
 # the root == the word
 exceptions = [
-    "saṃjñā",
-    "śraddhā",
-    "prajñā",
+    "abhibhū",
+    "adhiprajñā",
     "ājñā",
+    "anupādā",
+    "hrī",
+    "kṣudh",
+    "pariṣad",
+    "prajñā",
     "pratijñā",
     "pratipad",
-    "adhiprajñā",
-    "hrī",
-    "pariṣad",
-    "abhibhū",
+    "saṃjñā",
+    "śraddhā",
+    "upamā",
     "vidyut",
-    "kṣudh",
-    "anupādā",
-    
     ]
 
 

@@ -131,9 +131,14 @@ function loadRootButtonContent(data) {
         const key_id = item.id
         const key_clean = item.id.replace("family_root_", "").replace(/_/g, " ")
         const fr = family_root_json[key_clean]
-        const familyRootHtml = makeFamilyRootHtml(data, fr, "root");
-        const familyRootElement = document.getElementById(key_id)
-        familyRootElement.innerHTML = familyRootHtml
+        if (fr !==undefined ){
+            const familyRootHtml = makeFamilyRootHtml(data, fr, "root");
+            const familyRootElement = document.getElementById(key_id)
+            familyRootElement.innerHTML = familyRootHtml
+        } else {
+            console.log(`${key_clean} not found in family_root_json.js`)
+        }
+
     })
 };
 

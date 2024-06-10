@@ -3021,7 +3021,7 @@ var family_set_json = {
    [
     "padapūraṇa",
     "nt",
-    "(gram) filler word; decorative word; lit. filling word",
+    "(gram) filling up the meter; completing a verse; lit. filling word",
     "~"
    ],
    [
@@ -32351,6 +32351,17 @@ var family_set_json = {
    ]
   ],
   "count": 12
+ },
+ "previous incarnations of the Buddha": {
+  "data": [
+   [
+    "asita 3.2",
+    "masc",
+    "name of an ascetic; Asita Devala; previous incarnation of the Buddha; lit. not white",
+    "✓"
+   ]
+  ],
+  "count": 1
  },
  "seven treasures": {
   "data": [

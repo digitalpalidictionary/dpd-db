@@ -24338,17 +24338,6 @@ var family_word_json = {
   ],
   "count": 3
  },
- "daha": {
-  "data": [
-   [
-    "daha",
-    "masc",
-    "lake; pool; pond",
-    "✓"
-   ]
-  ],
-  "count": 1
- },
  "dahara": {
   "data": [
    [

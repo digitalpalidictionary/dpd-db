@@ -20226,7 +20226,7 @@ var family_root_json = {
    [
     "ajjhupekkhati",
     "pr",
-    "looks on doing nothing; disregards; is indifferent (to); ignores",
+    "looks on doing nothing; disregards; is indifferent (to); ignores; observes disinterestedly",
     "✓"
    ],
    [
@@ -20238,7 +20238,7 @@ var family_root_json = {
    [
     "ajjhupekkhanatā",
     "fem",
-    "fact of being indifferent; fact of disregarding; fact of being unconcerned",
+    "fact of being indifferent; fact of disregarding; fact of being unconcerned; fact of observing disinterestedly",
     "✓"
    ],
    [
@@ -20250,31 +20250,31 @@ var family_root_json = {
    [
     "ajjhupekkhanta",
     "prp",
-    "looking on doing nothing; disregarding; being indifferent (to); ignoring",
+    "looking on doing nothing; disregarding; being indifferent (to); ignoring; observing disinterestedly",
     "✓"
    ],
    [
     "ajjhupekkhi",
     "aor",
-    "looked on doing nothing; disregarded; was indifferent (to); ignored",
+    "looked on doing nothing; disregarded; was indifferent (to); ignored; observed disinterestedly",
     "✓"
    ],
    [
     "ajjhupekkhitabba",
     "ptp",
-    "should be regarded indifferently; should be disregarded; should be unconcerned with; lit. to be looked upon",
+    "should be regarded indifferently; should be disregarded; should be unconcerned with; should observe disinterestedly; lit. to be looked upon",
     "✓"
    ],
    [
     "ajjhupekkhitar",
     "masc",
-    "equanimous observer (of); who looks on indifferently (at)",
+    "equanimous observer (of); who observes indifferently",
     "✓"
    ],
    [
     "ajjhupekkhitvā",
     "abs",
-    "having looked on doing nothing; having disregarded; having been indifferent (to); having ignored",
+    "having looked on doing nothing; having disregarded; having been indifferent (to); having ignored; having observed disinterestedly",
     "✓"
    ],
    [
@@ -42900,7 +42900,7 @@ var family_root_json = {
    [
     "abhisaṅkhacca 2",
     "ger",
-    "(of food) preparing; cooking",
+    "(of food) preparing; readying",
     "~"
    ],
    [
@@ -44057,7 +44057,7 @@ var family_root_json = {
   "root_key": "√lī 1",
   "root_family": "ā √lī",
   "root_meaning": "stick, hide",
-  "count": 16,
+  "count": 17,
   "data": [
    [
     "anallīyamāna",
@@ -44118,6 +44118,12 @@ var family_root_json = {
     "nt",
     "depending; relying",
     "~"
+   ],
+   [
+    "allīyāpeti",
+    "pr",
+    "causes to stick (to); causes to cling (to); makes adhere (to); makes attache (to)",
+    "✓"
    ],
    [
     "ālaya 1",
@@ -61310,7 +61316,7 @@ var family_root_json = {
    [
     "vācayanta",
     "prp",
-    "teaching; making speak; making recite; lit. causing to speak",
+    "teaching; making recite; lit. causing to speak",
     "~"
    ],
    [
@@ -65127,7 +65133,7 @@ var family_root_json = {
   "root_key": "√mā",
   "root_family": "upa √mā",
   "root_meaning": "measure",
-  "count": 22,
+  "count": 21,
   "data": [
    [
     "anupama",
@@ -65172,16 +65178,10 @@ var family_root_json = {
     "✓"
    ],
    [
-    "upamā 1",
+    "upamā",
     "fem",
-    "simile; comparison; parallel; lit. measuring near",
+    "simile; comparison; parallel; example; illustration; lit. measuring near",
     "✓"
-   ],
-   [
-    "upamā 2",
-    "fem",
-    "example; illustration; lit. measuring near",
-    "~"
    ],
    [
     "upamāna",
@@ -72398,7 +72398,7 @@ var family_root_json = {
    [
     "odahati 3",
     "pr",
-    "(of medicine) applies (onto); inserts (into); places (in); lit. places down",
+    "(of medicine) applies; inserts; puts (onto); lit. places down",
     "✓"
    ],
    [
@@ -75558,7 +75558,7 @@ var family_root_json = {
    [
     "paccāgamanaka",
     "adj",
-    "replying; responding; refuting; lit. returning",
+    "replying; responding; refuting; lit. coming back",
     "~"
    ],
    [
@@ -102476,7 +102476,7 @@ var family_root_json = {
    [
     "abbuhi",
     "aor",
-    "pulled out; plucked out; drew out; extracted; uprooted",
+    "pulled out; plucked out; drew out; extracted; uprooted; removed",
     "✓"
    ],
    [
@@ -122295,7 +122295,7 @@ var family_root_json = {
   "root_key": "√ruh",
   "root_family": "√ruh",
   "root_meaning": "ascend, grow",
-  "count": 45,
+  "count": 46,
   "data": [
    [
     "aropita 1",
@@ -122478,10 +122478,16 @@ var family_root_json = {
     "✗"
    ],
    [
-    "ropī",
+    "ropī 1",
     "adj",
     "causing to grow",
     "~"
+   ],
+   [
+    "ropī 2",
+    "adj",
+    "healing; curing; lit. causing to grow",
+    "✓"
    ],
    [
     "ropetabba",
@@ -123578,7 +123584,7 @@ var family_root_json = {
    [
     "labhati 3",
     "pr",
-    "gets through (to); makes (you) understand; lit. gets",
+    "gets through (to somebody); makes (somebody) understand; lit. gets",
     "✓"
    ],
    [
@@ -124812,8 +124818,8 @@ var family_root_json = {
    [
     "ālimpeti 2.1",
     "pr",
-    "smears, anoints",
-    "✗"
+    "(of medicine) applies; smears; rubs (onto)",
+    "✓"
    ],
    [
     "ālimpenta",
@@ -134812,7 +134818,7 @@ var family_root_json = {
    [
     "avedanīya",
     "ptp",
-    "unfeelable; which should not be experienced; lit. not to be felt",
+    "unfeelable; unexperienceable; lit. not to be felt",
     "✓"
    ],
    [
@@ -135046,7 +135052,7 @@ var family_root_json = {
    [
     "savedanīya",
     "adj",
-    "to be felt; which must be experienced",
+    "to be felt; experienceable",
     "✓"
    ]
   ]
@@ -140234,8 +140240,8 @@ var family_root_json = {
    [
     "aviheṭhaka",
     "adj",
-    "not hurting or harassing",
-    "✗"
+    "not hurting; not harming; not harassing; not troubling",
+    "✓"
    ],
    [
     "aviheṭhana",
@@ -142356,7 +142362,7 @@ var family_root_json = {
    [
     "saṅgatika",
     "adj",
-    "related to circumstance; concerned with fortune",
+    "related to circumstance; concerned with fortune; -fated",
     "✓"
    ],
    [
@@ -145635,7 +145641,7 @@ var family_root_json = {
     "sappāya 2",
     "masc",
     "something beneficial; wholesome thing; something supportive",
-    "~"
+    "✓"
    ],
    [
     "sappāyatā",
@@ -151855,7 +151861,7 @@ var family_root_json = {
     "saṃhāra 1",
     "masc",
     "bringing together; collection; accumulation",
-    "✓"
+    "~"
    ],
    [
     "saṃhāra 2",
@@ -189338,7 +189344,7 @@ var family_root_json = {
    [
     "patissayamāna",
     "prp",
-    "depending (on); taking refuge (in); relying (on)",
+    "depending (on); resorting (to); relying (on)",
     "✓"
    ]
   ]
