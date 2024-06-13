@@ -134,7 +134,7 @@ example_1 peyyāla	example_1	contains	…pe…																	lemma_1	meaning_1
 example_1 space comma	example_1	contains	 ,																	lemma_1	meaning_1	example_1	[]	10
 example_1 space comma	example_1	contains	 ,$| , 																	lemma_1	pos	example_1	[]	10
 example_1 space fullstop	example_1	contains	 \.$| \. 																	lemma_1	pos	example_1	[]	10
-example_1 starts with non-letter	meaning_1	is not empty	-	example_1	contains	^(\d|\W|\s)	example_1	does not contain	^<											lemma_1	meaning_1	example_1	[157, 160, 1567, 2191, 2437, 2502, 3105, 3444, 4522, 5036, 16010, 45762, 45963, 47447, 51483, 51484, 56689, 62466, 31387, 31386, 39386, 61857, 69363, 69362, 8208, 13455, 66987, 45338, 61755, 62096, 77889, 1724, 61286, 66908, 67943, 3683, 45342, 69968, 61756, 27001, 29988, 61525, 78451]	10
+example_1 starts with non-letter	meaning_1	is not empty	-	example_1	contains	^(\d|\W|\s)	example_1	does not contain	^<											lemma_1	meaning_1	example_1	[157, 160, 1567, 2191, 2437, 2502, 3105, 3444, 4522, 5036, 16010, 45762, 45963, 47447, 51483, 51484, 56689, 62466, 31387, 31386, 39386, 61857, 69363, 69362, 8208, 13455, 66987, 45338, 61755, 62096, 77889, 1724, 61286, 66908, 67943, 3683, 45342, 69968, 61756, 27001, 29988, 61525, 78451, 78453]	10
 example_1: contains :	example_1	contains	:																	lemma_1	grammar	meaning_1	[]	10
 example_1: wrong punc	meaning_1	is not empty	-	example_1	contains	\.,|,\.														lemma_1	grammar	meaning_1	[]	10
 example_2  'n<	example_2	contains	'n<																	lemma_1	grammar	example_2	[]	10

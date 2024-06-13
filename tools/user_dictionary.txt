@@ -307,6 +307,7 @@ bipinnata
 blamableness
 blameworthy
 blibber-blabber
+blurtingly
 Bodhi
 Bodhi's
 Bodhisatta
@@ -556,6 +557,7 @@ disembarks
 disentangled
 disfiguration
 dishevelling
+disinterestedly
 disjoined
 dismounts
 disownment
@@ -803,6 +805,7 @@ horripilation
 hortative
 hospitably
 hoti
+householders
 houseless
 how-many-eth
 hū
@@ -822,6 +825,7 @@ immediately
 immerged
 impalpability
 impercipient
+imperturbable
 iṃsu
 in-front-ness
 inarticulately
@@ -1047,6 +1051,7 @@ latfolia
 latifolia
 layerings
 laylife
+laypeople
 layperson
 layperson's
 laywoman
@@ -1210,6 +1215,7 @@ MN101
 MN102
 MN103
 MN104
+MN105
 MN110
 MN2
 MN3
@@ -1848,6 +1854,7 @@ spritzed
 Sri
 ssa
 stabilises
+steamrolls
 step-by-step
 stick-less
 stiller
@@ -1875,6 +1882,7 @@ suchness
 Sudatta
 Sudinna
 Sudinna's
+suffering
 suffuses
 sugata-span
 Sujā's
@@ -2103,6 +2111,7 @@ unenquired
 unentangled
 unenveloped
 unestablished
+unexperienceable
 unexperienced
 unfabricated
 unfashioned
@@ -2154,6 +2163,7 @@ unrinsed
 unripened
 unrippled
 unrooted
+unsatisfactoriness
 unsatisfiable
 unscattered
 unscorched
@@ -2356,11 +2366,3 @@ yojanas
 yoking
 zizanioides
 Ziziphus
-blurtingly
-laypeople
-householders
-MN105
-imperturbable
-unexperienceable
-steamrolls
-disinterestedly
