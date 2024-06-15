@@ -765,28 +765,28 @@ class DpdHeadwords(Base):
     # derived data properties
 
     @property
-    def inflections_list(self) -> list:
+    def inflections_list(self) -> list[str]:
         if self.inflections:
             return self.inflections.split(",")
         else:
             return []
 
     @property
-    def inflections_sinhala_list(self) -> list:
+    def inflections_sinhala_list(self) -> list[str]:
         if self.inflections_sinhala:
             return self.inflections_sinhala.split(",")
         else:
             return []
 
     @property
-    def inflections_devanagari_list(self) -> list:
+    def inflections_devanagari_list(self) -> list[str]:
         if self.inflections_devanagari:
             return self.inflections_devanagari.split(",")
         else:
             return []
 
     @property
-    def inflections_thai_list(self) -> list:
+    def inflections_thai_list(self) -> list[str]:
         if self.inflections_thai:
             return self.inflections_thai.split(",")
         else:

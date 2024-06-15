@@ -83,7 +83,7 @@ def _parse_batch(
         "IASTPali",
         "Sinhala",
         lookup_to_transliterate_string,
-        post_options=["SinhalaPali"],
+        post_options=["SinhalaPali", "SinhalaConjuncts"],
     )  # type:ignore
 
     devanagari: str = transliterate.process(

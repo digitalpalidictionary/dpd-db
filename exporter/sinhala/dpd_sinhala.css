@@ -1,0 +1,51 @@
+body {
+    font-family: "Noto Sans", "DejaVu Serif", "Verajja Serif";
+}
+
+h3 {
+    font-size: 130%;
+    margin-top: 10px;
+    margin-bottom: 1px
+}
+
+div.dpd_sinhala {
+    border: 2px solid #8D153A;
+    border-radius: 7px;
+    line-height: 150%;
+    margin: 0px 0px;
+    overflow: auto;
+    padding: 3px 7px;
+    text-align: left;
+}
+
+p.sinhala {
+    line-height: 150%;
+    margin: 0px 0px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+p.english {
+    color: gray;
+    line-height: 150%;
+    margin: 0px 0px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+p.sinhala_footer {
+    border-top: 1px solid #8D153A;
+    font-size: 0.8em;
+    margin: 5px 0 0 0;
+    padding: 5px 0px;
+    
+}
+
+.link {
+    color: #FFBE29;
+    font-weight: 700;
+}
+
+span.error {
+    color: red;
+}

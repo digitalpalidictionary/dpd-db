@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-"""Transliterate all inflections into Sinhala, Devanagari and Thai.
+"""
+Transliterate all inflections into Sinhala, Devanagari and Thai.
 - Regenerate from scratch OR
 - Update if stem & pattern has changed or inflection template has changed.
 Save into database.
@@ -12,7 +13,6 @@ import json
 import pickle
 
 from aksharamukha import transliterate
-from rich import print
 from subprocess import check_output
 from typing import Dict, List, TypedDict
 
@@ -24,6 +24,7 @@ from db.get_db_session import get_db_session
 from db.models import DpdHeadwords
 
 from tools.configger import config_test
+from tools.printer import p_green, p_no, p_title, p_yes
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 from tools.utils import list_into_batches
@@ -89,7 +90,7 @@ def _parse_batch(
         "IASTPali",
         "Sinhala",
         inflections_to_transliterate_string,
-        post_options=["SinhalaPali"],
+        post_options=["SinhalaPali", "SinhalaConjuncts"],
     )  # type:ignore
 
     # print("[green]transliterating devanagari with aksharamukha")
@@ -155,7 +156,7 @@ def _parse_batch(
         )
         # print(f"[green]{output}")
     except Exception as e:
-        print(f"[bright_red]{e}")
+        p_no(e)
 
     # re-import path nirvana transliterations
 
@@ -205,7 +206,9 @@ def main():
         changed_templates: list = pickle.load(f)
 
     tic()
-    print("[bright_yellow]transliterating inflections")
+    p_title("transliterating inflections")
+    
+    p_green("regenerate all")
 
     # check config
     if config_test("regenerate", "transliterations", "yes") or config_test(
@@ -214,8 +217,9 @@ def main():
         regenerate_all: bool = True
     else:
         regenerate_all: bool = False
+    p_yes(str(regenerate_all))
 
-    print(f"[green]{'regenerate all':<20}[white]{bool(regenerate_all):>10}")
+    p_green("transliterating")
 
     num_logical_cores = psutil.cpu_count()
     batches: List[List[DpdHeadwords]] = list_into_batches(dpd_db, num_logical_cores)
@@ -251,10 +255,10 @@ def main():
     for i in results_translit_dict:
         for k, v in i.items():
             translit_dict[k] = v
+    p_yes(len(translit_dict))
 
     # write back into database
-    print(f"[green]{'writing to db':<20}", end="")
-
+    p_green("writing to db")
 
     translit_counter = 0
     for i in dpd_db:
@@ -266,10 +270,9 @@ def main():
             i.inflections_thai = ",".join(list(translit_dict[i.lemma_1]["thai"]))
             translit_counter += 1
 
-    print(f"{translit_counter:>10,}")
-
     db_session.commit()
     db_session.close()
+    p_yes(translit_counter)
 
     toc()
 

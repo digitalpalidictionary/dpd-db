@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="utf-8">
+    <link href="dpd_sinhala.css" rel="stylesheet">
+    <title>DPD Sinhala</title>
+</head>
+
+<div class='dpd_sinhala'>
+    <p class='sinhala'>
+        
+        {% if matching_lemma %}
+        {{ s.lemma_1 }}:
+        {% else %}
+        <span class="error">
+            !{{ s.lemma_1 }}!:
+        </span>
+        {% endif %}
+        
+        {{ s.pos }}. 
+        <b>
+            {{ s.meaning}}
+        </b>
+    </p>
+    <hr>
+    <p class='english'>
+        
+        {% if matching_lemma %}
+        {{ dpd.lemma_1 }}:
+        {% else %}
+        <span class="error">
+            !{{ dpd.lemma_1 }}!:
+        </span>
+        {% endif %}
+
+        {{ dpd.pos }}. 
+        {{ english_meaning }}
+    </p>
+    <p class='sinhala_footer'>
+        <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{ s.meaning }}&entry.1433863141=GoldenDict%20{{ date }}" target="_blank">Google forms link goes here</a>
+    </p>
+</div>
