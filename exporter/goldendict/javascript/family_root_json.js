@@ -7653,7 +7653,7 @@ var family_root_json = {
   "root_key": "√khi",
   "root_family": "√khi",
   "root_meaning": "live, abide peacefully",
-  "count": 26,
+  "count": 27,
   "data": [
    [
     "akkhema",
@@ -7804,6 +7804,12 @@ var family_root_json = {
     "adj",
     "at peace; safe; secure",
     "✓"
+   ],
+   [
+    "dukkhetta",
+    "nt",
+    "poor, infertile land",
+    "✗"
    ],
    [
     "sukhetta",
@@ -9188,7 +9194,7 @@ var family_root_json = {
    [
     "agaṇhanta",
     "prp",
-    "not taking",
+    "not taking; lit. not grasping",
     "✓"
    ],
    [
@@ -9218,13 +9224,13 @@ var family_root_json = {
    [
     "agahita",
     "pp",
-    "not taken; not seized",
+    "not taken; not seized; lit. not grasped",
     "~"
    ],
    [
     "agāhita",
     "pp",
-    "not taken; not seized; not confiscated; lit. not caused to take",
+    "not taken; not seized; not confiscated; lit. not caused to grasp",
     "~"
    ],
    [
@@ -9236,19 +9242,19 @@ var family_root_json = {
    [
     "aggaṇhanta",
     "prp",
-    "not taking; not holding",
+    "not taking; not holding; lit. not grasping",
     "✓"
    ],
    [
     "aggahaṇa",
     "nt",
-    "not taking",
+    "not taking; lit. not grasping",
     "~"
    ],
    [
     "aggahi",
     "aor",
-    "took",
+    "took; lit. grasped",
     "✓"
    ],
    [
@@ -9272,97 +9278,97 @@ var family_root_json = {
    [
     "aggahetvā 2",
     "abs",
-    "(as an example) having not taken; having not used",
+    "(as an example) having not taken; having not used; lit. having not grasped",
     "~"
    ],
    [
     "aggahesi 1",
     "aor",
-    "took; kept",
+    "took; kept; lit. grasped",
     "✓"
    ],
    [
     "aggahesi 2",
     "aor",
-    "seized; caught; grabbed hold (of)",
+    "seized; caught; grabbed hold (of); lit. grasped",
     "✓"
    ],
    [
     "aggahesi 3",
     "aor",
-    "arrested",
+    "arrested; lit. grasped",
     "~"
    ],
    [
     "gaṇha 1",
     "masc",
-    "grasp; grip; hold",
+    "grasp; grip; hold; lit. grasp",
     "~"
    ],
    [
     "gaṇha 2",
     "adj",
-    "holding; wielding",
+    "holding; wielding; lit. grasp",
     "~"
    ],
    [
     "gaṇhati 1",
     "pr",
-    "grabs hold (of); seizes; takes",
+    "grabs hold (of); seizes; takes; lit. grasps",
     "✓"
    ],
    [
     "gaṇhati 2",
     "pr",
-    "takes; accepts; receives",
+    "takes; accepts; receives; lit. grasps",
     "✓"
    ],
    [
     "gaṇhanta",
     "prp",
-    "taking; holding",
+    "taking; holding; lit. grasping",
     "✓"
    ],
    [
     "gaṇhamāna",
     "prp",
-    "grabbing; seizing",
+    "grabbing; seizing; lit. grasping",
     "~"
    ],
    [
     "gaṇhāti 1",
     "pr",
-    "grabs hold (of); seizes; takes",
+    "grabs hold (of); seizes; takes; lit. grasps",
     "✓"
    ],
    [
     "gaṇhāti 2",
     "pr",
-    "takes back; reclaims",
+    "takes back; reclaims; lit. grasps",
     "✓"
    ],
    [
     "gaṇhāti 3",
     "pr",
-    "(of precepts) undertakes; takes; observes; lit. holds",
+    "(of precepts) undertakes; takes; observes; lit. grasps",
     "✓"
    ],
    [
     "gaṇhāti 4",
     "pr",
-    "(of a container) holds; takes",
+    "(of a container) holds; takes; lit. grasps",
     "✓"
    ],
    [
     "gaṇhāti 5",
     "pr",
-    "(of an animal or fish) catches; captures",
+    "(of an animal or fish) catches; captures; lit. grasps",
     "✓"
    ],
    [
     "gaṇhāti 6",
     "pr",
-    "takes; accepts; receives",
+    "takes; accepts; receives; lit. grasps",
     "✓"
    ],
    [
@@ -9410,13 +9416,13 @@ var family_root_json = {
    [
     "gaṇhi 2",
     "aor",
-    "took hold (of); claimed",
+    "took hold (of); claimed; lit. grasped",
     "✓"
    ],
    [
     "gaṇhi 3",
     "aor",
-    "(of fish) caught",
+    "(of fish) caught; lit. grasped",
     "~"
    ],
    [
@@ -9434,13 +9440,13 @@ var family_root_json = {
    [
     "gaṇhitvā",
     "abs",
-    "having grabbed hold (of); having seized; having taken",
+    "having grabbed hold (of); having seized; having taken; lit. having grasped",
     "✓"
    ],
    [
     "gaṇhiya",
     "ger",
-    "grasping; grabbing hold (of)",
+    "grasping; grabbing hold (of); lit. grasping",
     "✓"
    ],
    [
@@ -9464,7 +9470,7 @@ var family_root_json = {
    [
     "gayhaka 1",
     "masc",
-    "captive; prisoner; hostage; lit. who is seized",
+    "captive; prisoner; hostage; lit. who is grasped",
     "~"
    ],
    [
@@ -9488,7 +9494,7 @@ var family_root_json = {
    [
     "gayhamāna",
     "prp",
-    "being taken; being seized; being caught (by)",
+    "being taken; being seized; being caught (by); lit. being grasped",
     "~"
    ],
    [
@@ -9500,19 +9506,19 @@ var family_root_json = {
    [
     "gaha 1",
     "masc",
-    "grip; grabbing; seizing; holding",
+    "grip; grabbing; seizing; holding; lit. what is grasped",
     "✓"
    ],
    [
     "gaha 2",
     "nt",
-    "house",
+    "house; lit. what is grasped",
     "✓"
    ],
    [
     "gaha 3",
     "masc",
-    "planet; lit. house",
+    "planet; lit. what is grasped",
     "~"
    ],
    [
@@ -9536,19 +9542,19 @@ var family_root_json = {
    [
     "gahaṇa 1",
     "nt",
-    "grabbing; seizing; clutching",
+    "grabbing; seizing; clutching; lit. grasping",
     "✓"
    ],
    [
     "gahaṇa 2",
     "nt",
-    "taking; accepting; receiving",
+    "taking; accepting; receiving; lit. grasping",
     "~"
    ],
    [
     "gahaṇa 3",
     "nt",
-    "(gram) (of a word or particle) employing; taking; using",
+    "(gram) (of a word or particle) employing; taking; using; lit. grasping",
     "✓"
    ],
    [
@@ -9566,7 +9572,7 @@ var family_root_json = {
    [
     "gahaṇika 1",
     "adj",
-    "related to womb; concerning conception",
+    "related to womb; concerning conception; lit. related to grasping",
     "✓"
    ],
    [
@@ -9602,25 +9608,25 @@ var family_root_json = {
    [
     "gahana 1",
     "adj",
-    "thick; dense; lit. grabbing",
+    "thick; dense; lit. grasping",
     "✓"
    ],
    [
     "gahana 2",
     "nt",
-    "tangle; thicket; impenetrable jungle; dense forest; lit. grabbing",
+    "tangle; thicket; impenetrable jungle; dense forest; lit. grasping",
     "✓"
    ],
    [
     "gahana 3",
     "nt",
-    "complicated mess; intricate tangle; impenetrable complexity; lit. grabbing",
+    "complicated mess; intricate tangle; impenetrable complexity; lit. grasping",
     "✓"
    ],
    [
     "gahāpita",
     "pp",
-    "caused to take",
+    "caused to take; lit. caused to be grasped",
     "~"
    ],
    [
@@ -9662,25 +9668,25 @@ var family_root_json = {
    [
     "gahīta",
     "pp",
-    "taken; seized; captured",
+    "taken; seized; captured; lit. grasped",
     "~"
    ],
    [
     "gahetabba 1",
     "ptp",
-    "(gram) should be employed; should be used; should be adopted; lit. to be taken",
+    "(gram) should be employed; should be used; should be adopted; lit. to be grasped",
     "✓"
    ],
    [
     "gahetabba 2",
     "ptp",
-    "should be taken (from); lit. to be taken",
+    "should be taken (from); lit. to be grasped",
     "~"
    ],
    [
     "gahetabba 3",
     "ptp",
-    "should be held; must be clutched; lit. to be taken",
+    "should be held; must be clutched; lit. to be grasped",
     "~"
    ],
    [
@@ -9692,7 +9698,7 @@ var family_root_json = {
    [
     "gahetuṃ 2",
     "inf",
-    "to hold; to grab; to take",
+    "to hold; to grab; to take; lit. to grasp",
     "~"
    ],
    [
@@ -9704,43 +9710,43 @@ var family_root_json = {
    [
     "gahetvā 1",
     "abs",
-    "having taken; having held",
+    "having taken; having held; lit. having grasped",
     "✓"
    ],
    [
     "gahetvā 2",
     "abs",
-    "having grabbed hold (of); having seized",
+    "having grabbed hold (of); having seized; lit. having grasped",
     "✓"
    ],
    [
     "gahetvā 3",
     "abs",
-    "having taken control (of); having seized power",
+    "having taken control (of); having seized power; lit. having grasped",
     "✓"
    ],
    [
     "gahetvā 4",
     "abs",
-    "(of strength) having regained",
+    "(of strength) having regained; lit. having grasped",
     "✓"
    ],
    [
     "gahetvā 5",
     "abs",
-    "having arrested; having taken prisoner",
+    "having arrested; having taken prisoner; lit. having grasped",
     "✓"
    ],
    [
     "gahetvā 6",
     "abs",
-    "with; together with",
+    "with; together with; lit. having grasped",
     "✓"
    ],
    [
     "gahetvāna 1",
     "abs",
-    "having taken; having brought",
+    "having taken; having brought; lit. having grasped",
     "✓"
    ],
    [
@@ -9752,19 +9758,19 @@ var family_root_json = {
    [
     "gahessati",
     "fut",
-    "will grab; will seize",
+    "will grab; will seize; lit. will grasp",
     "✓"
    ],
    [
     "gāha 1.1",
     "adj",
-    "holding; taking hold (of); grabbing; clutching",
+    "holding; taking hold (of); grabbing; clutching; lit. grasp",
     "✓"
    ],
    [
     "gāha 1.2",
     "masc",
-    "capture; seizure; being caught by",
+    "capture; seizure; being caught by; lit. grasp",
     "✓"
    ],
    [
@@ -9782,31 +9788,31 @@ var family_root_json = {
    [
     "gāhaka 1",
     "masc",
-    "carrier; bearer; holder",
+    "carrier; bearer; holder; lit. who grasps",
     "✓"
    ],
    [
     "gāhaka 2",
     "adj",
-    "receiving; accepting",
+    "receiving; accepting; lit. grasping",
     "~"
    ],
    [
     "gāhayati",
     "pr",
-    "seizes (on); grabs hold (of); lit. causes to grab",
+    "seizes (on); grabs hold (of); lit. caues to grasp",
     "✓"
    ],
    [
     "gāhāpaka",
     "masc",
-    "confiscator; seizer; lit. who causes to take",
+    "confiscator; seizer; lit. who casues to grasp",
     "~"
    ],
    [
     "gāhāpana",
     "nt",
-    "causing to take; making seize",
+    "causing to take; making seize; lit. causing to grasp",
     "~"
    ],
    [
@@ -9824,25 +9830,25 @@ var family_root_json = {
    [
     "gāhāpeti 1",
     "pr",
-    "causes to take; makes grab",
+    "causes to take; makes grab; lit. causes to grasp",
     "✓"
    ],
    [
     "gāhāpeti 2",
     "pr",
-    "makes learn; makes understand; causes to grasp",
+    "makes learn; makes understand; causes to grasp; lit. causes to grasp",
     "~"
    ],
    [
     "gāhāpetuṃ",
     "inf",
-    "to cause to take; to make grasp",
+    "to cause to take; to make grasp; lit. to cause to grasp",
     "~"
    ],
    [
     "gāhāpetvā",
     "abs",
-    "having caused to take; having had grabbed",
+    "having caused to take; having had grabbed; lit. having caused to grasp",
     "✓"
    ],
    [
@@ -9860,13 +9866,13 @@ var family_root_json = {
    [
     "gāhika",
     "adj",
-    "grabbing; holding; clinging (onto)",
+    "grabbing; holding; clinging (onto); lit. grasping",
     "✓"
    ],
    [
     "gāhita",
     "pp",
-    "taken; seized; confiscated; lit. caused to take",
+    "taken; seized; confiscated; lit. caused to be grasped",
     "~"
    ],
    [
@@ -9878,31 +9884,31 @@ var family_root_json = {
    [
     "gāhī 1",
     "adj",
-    "grasping after; grabbing hold (of)",
+    "grasping after; grabbing hold (of); lit. grasping",
     "✓"
    ],
    [
     "gāhī 2",
     "adj",
-    "mentally grasping; remembering; retaining",
+    "mentally grasping; remembering; retaining; lit. grasping",
     "✓"
    ],
    [
     "gāhetabba",
     "ptp",
-    "should be confiscated; lit. to cause to be taken",
+    "should be confiscated; lit. to cause to be grasped",
     "~"
    ],
    [
     "gāheti",
     "pr",
-    "(of strength) regains; recovers; gets back; lit. causes to take",
+    "(of strength) regains; recovers; gets back; lit. causes to grasp",
     "✓"
    ],
    [
     "gāhetvā 1",
     "abs",
-    "(of strength) having regained; having recovered; having got back; lit. having caused to take",
+    "(of strength) having regained; having recovered; having got back; lit. having caused to grasp",
     "✓"
    ],
    [
@@ -9944,13 +9950,13 @@ var family_root_json = {
    [
     "geha",
     "nt",
-    "house; dwelling",
+    "house; dwelling; lit. what is grasped",
     "✓"
    ],
    [
     "gheppati",
     "pr",
-    "grabs hold (of); seizes; takes",
+    "grabs hold (of); seizes; takes; lit. grasps",
     "~"
    ],
    [
@@ -9980,19 +9986,19 @@ var family_root_json = {
    [
     "duggāha",
     "masc",
-    "taking hold of wrongly; incorrect grasp",
+    "taking hold of wrongly; incorrect grasp; lit. wrong grasping",
     "~"
    ],
    [
     "sagaha",
     "adj",
-    "full of fierce animals; lit. with grabbers",
+    "full of fierce animals; lit. with graspers",
     "✓"
    ],
    [
     "sagahana",
     "adj",
-    "impenetrable; impassable; inaccessible; lit. with thick forest",
+    "impenetrable; impassable; inaccessible; lit. with grasping",
     "✓"
    ],
    [
@@ -10004,13 +10010,13 @@ var family_root_json = {
    [
     "suggahita 1",
     "adj",
-    "well grasped; correctly understood; well learned; taken in the right way",
+    "well grasped; correctly understood; well learned; taken in the right way; lit. well grasped",
     "✓"
    ],
    [
     "suggahita 2",
     "adj",
-    "tightly grasped; held firmly",
+    "tightly grasped; held firmly; lit. well grasped",
     "✓"
    ],
    [
@@ -10534,7 +10540,7 @@ var family_root_json = {
    [
     "garahi",
     "aor",
-    "criticises; abuses; blames",
+    "criticised; abused; blamed",
     "✓"
    ],
    [
@@ -18325,7 +18331,7 @@ var family_root_json = {
     "aññāṇa 1.2",
     "adj",
     "not knowing; ignorant; witless",
-    "✓"
+    "~"
    ],
    [
     "aññāṇaka",
@@ -29737,7 +29743,7 @@ var family_root_json = {
     "atthara 2",
     "masc",
     "carpet; rug; lit. spread",
-    "✓"
+    "~"
    ],
    [
     "attharaka 1",
@@ -30886,7 +30892,7 @@ var family_root_json = {
    [
     "diṭṭheyya",
     "ptp",
-    "could be seen (by); visible (by); lit. to be seen",
+    "could be seen; visible (by); lit. to be seen",
     "✓"
    ],
    [
@@ -50895,7 +50901,7 @@ var family_root_json = {
   "root_key": "√har 1",
   "root_family": "ā √har",
   "root_meaning": "carry",
-  "count": 42,
+  "count": 43,
   "data": [
    [
     "anāhaṭa",
@@ -50924,7 +50930,13 @@ var family_root_json = {
    [
     "āhaṭa 2",
     "pp",
-    "produced; delivered; brought up",
+    "(of a simile) brought up; quoted",
+    "~"
+   ],
+   [
+    "āhaṭa 3",
+    "pp",
+    "produced; delivered",
     "✗"
    ],
    [
@@ -66711,7 +66723,7 @@ var family_root_json = {
   "root_key": "√har 1",
   "root_family": "upa √har",
   "root_meaning": "carry",
-  "count": 7,
+  "count": 8,
   "data": [
    [
     "anupahāra",
@@ -66741,12 +66753,18 @@ var family_root_json = {
     "upahāra 1",
     "masc",
     "giving; provision; supply; adding (of); lit. bringing near",
-    "✓"
+    "~"
    ],
    [
     "upahāra 2",
     "masc",
     "offering; service; attendance; lit. bringing near",
+    "✓"
+   ],
+   [
+    "upahāra 3",
+    "masc",
+    "display; manifestation; show (of); lit. bringing near",
     "✓"
    ],
    [
@@ -68833,8 +68851,8 @@ var family_root_json = {
    ]
   ]
  },
- "√rañj 1 anu √rañj": {
-  "root_key": "√rañj 1",
+ "√rañj anu √rañj": {
+  "root_key": "√rañj",
   "root_family": "anu √rañj",
   "root_meaning": "dye, desire",
   "count": 5,
@@ -72440,7 +72458,7 @@ var family_root_json = {
    [
     "odahi 3",
     "aor",
-    "(of medicine) applied (on); put (on); lit. placed down",
+    "(of medicine) applied; put (something onto something); lit. placed down",
     "✓"
    ],
    [
@@ -83138,7 +83156,7 @@ var family_root_json = {
    [
     "paricāreti 2",
     "pr",
-    "surrounds oneself (with); lit. causes to go around",
+    "surrounds oneself; amuses oneself (with); lit. causes to go around",
     "✓"
    ],
    [
@@ -85142,7 +85160,7 @@ var family_root_json = {
    [
     "byañjanato",
     "ind",
-    "with regard to ways of phrasing; in expression; lit. from word",
+    "with regard to ways of phrasing; in expression; in letter; lit. from word",
     "✓"
    ],
    [
@@ -86030,25 +86048,25 @@ var family_root_json = {
    [
     "apariyādāna",
     "nt",
-    "not obsessing; not overpowering; not occupying; not controlling; lit. not completely seizing",
+    "not obsessing; not overpowering; not occupying; not controlling; lit. not taking all around",
     "~"
    ],
    [
     "apariyādiṇṇa",
     "pp",
-    "not used up; not exhausted; not consumed; not reached the end",
+    "not used up; not exhausted; not consumed; not reached the end; lit. not taken all around",
     "✓"
    ],
    [
     "apariyādinna 1",
     "pp",
-    "not used up; not exhausted; not consumed; not run out",
+    "not used up; not exhausted; not consumed; not run out; lit. not taken all around",
     "✓"
    ],
    [
     "apariyādinna 2",
     "pp",
-    "not overwhelmed; not overpowered; not under the control of; lit. not completely taken",
+    "not overwhelmed; not overpowered; not under the control of; lit. not taken all around",
     "✓"
    ],
    [
@@ -86060,13 +86078,13 @@ var family_root_json = {
    [
     "pariyādātuṃ",
     "inf",
-    "to exhaust; to use up",
+    "to exhaust; to use up; lit. to take all around",
     "~"
    ],
    [
     "pariyādāna 1",
     "nt",
-    "using up (of); exhausting (of); consuming (of); depleting (of)",
+    "using up (of); exhausting (of); consuming (of); depleting (of); lit. taking all around",
     "✓"
    ],
    [
@@ -86078,43 +86096,43 @@ var family_root_json = {
    [
     "pariyādāpetvā",
     "abs",
-    "having become obsessed; having become fixated; having grasped excessively",
+    "having become obsessed; having become fixated; having grasped excessively; lit. having caused to take all around",
     "✓"
    ],
    [
     "pariyādāya 1",
     "ger",
-    "wearing away; deteriorating; exhausting",
+    "wearing away; deteriorating; exhausting; lit. taking all around",
     "✓"
    ],
    [
     "pariyādāya 2",
     "ger",
-    "obsessing; overpowering; occupying; controlling; lit. completely seizing",
+    "obsessing; overpowering; occupying; controlling; lit. taking all around",
     "✓"
    ],
    [
     "pariyādiṇṇa",
     "pp",
-    "used up; exhausted; consumed; lit. completely taken",
+    "used up; exhausted; consumed; lit. taken all around",
     "✓"
    ],
    [
     "pariyādinna 1",
     "pp",
-    "used up; exhausted; consumed",
+    "used up; exhausted; consumed; lit. taken all around",
     "✓"
    ],
    [
     "pariyādinna 2",
     "pp",
-    "overwhelmed; overpowered; under the control of; lit. completely taken",
+    "overwhelmed; overpowered; under the control of; lit. taken all around",
     "✓"
    ],
    [
     "pariyādiyati 1",
     "pr",
-    "overcomes; overpowers; overwhelms; controls; lit. completely seizes",
+    "overcomes; overpowers; overwhelms; controls; lit. takes all around",
     "✓"
    ],
    [
@@ -86132,7 +86150,7 @@ var family_root_json = {
    [
     "pariyādiyitvā 1",
     "abs",
-    "having overcome; having overpowered; having overwhelmed",
+    "having overcome; having overpowered; having overwhelmed; lit. having taken all around",
     "~"
    ],
    [
@@ -102488,7 +102506,7 @@ var family_root_json = {
    [
     "abbuheti",
     "pr",
-    "pulls out; plucks out; uproots; lit. having caused to pluck out",
+    "pulls out; plucks out; uproots; removes; lit. having caused to pluck out",
     "✓"
    ],
    [
@@ -104878,31 +104896,31 @@ var family_root_json = {
    [
     "abyāpajja 1",
     "adj",
-    "without ill will; kind; friendly",
+    "without ill will; kind; friendly; lit. not gone wrong state",
     "✓"
    ],
    [
     "abyāpajja 2",
     "nt",
-    "kindness; benevolence; good-heartedness; harmlessness",
+    "kindness; benevolence; good-heartedness; harmlessness; lit. not gone wrong state",
     "✓"
    ],
    [
     "abyāpajjamāna",
     "prp",
-    "unhindered; unobstructed; lit. not being obstructed",
+    "unhindered; unobstructed; lit. not going wrong",
     "✓"
    ],
    [
     "abyāpajjha 2.1",
     "masc",
-    "kindness; benevolence; good-heartedness; harmlessness; lit. non ill-will",
+    "kindness; benevolence; good-heartedness; harmlessness; lit. not gone wrong state",
     "✓"
    ],
    [
     "abyāpajjha 2.2",
     "adj",
-    "free from ill will; not malicious; kind-hearted",
+    "free from ill will; not malicious; kind-hearted; lit. not gone wrong state",
     "✓"
    ],
    [
@@ -104914,7 +104932,7 @@ var family_root_json = {
    [
     "abyāpāda",
     "masc",
-    "goodwill; kindness; friendliness; benevolence; lit. not ill-will",
+    "goodwill; kindness; friendliness; benevolence; lit. not going wrong",
     "✓"
    ],
    [
@@ -104926,7 +104944,7 @@ var family_root_json = {
    [
     "abyābajjha 2.1",
     "adj",
-    "without ill-will; with goodwill; benevolent",
+    "without ill-will; with goodwill; benevolent; lit. not gone wrong state",
     "✓"
    ],
    [
@@ -104938,37 +104956,37 @@ var family_root_json = {
    [
     "byāpajjati 1",
     "pr",
-    "hates; dislikes; is repelled (by); is hostile (to)",
+    "hates; dislikes; is repelled (by); is hostile (to); lit. goes wrong",
     "✓"
    ],
    [
     "byāpajjati 2",
     "pr",
-    "hurts; harms; injures",
+    "hurts; harms; injures; lit. goes wrong",
     "✓"
    ],
    [
     "byāpajjati 3",
     "pr",
-    "goes the wrong way; gets lost",
+    "goes the wrong way; gets lost; lit. goes wrong",
     "~"
    ],
    [
     "byāpajjati 4",
     "pr",
-    "is killed; dies; perishes",
+    "is killed; dies; perishes; lit. goes wrong",
     "~"
    ],
    [
     "byāpajji",
     "aor",
-    "hated; disliked; had ill-will (towards); was repelled (by); was hostile (to)",
+    "hated; disliked; had ill-will (towards); was repelled (by); was hostile (to); lit. went wrong",
     "✓"
    ],
    [
     "byāpatti",
     "fem",
-    "failure; disaster; misfortune",
+    "failure; disaster; misfortune; lit. going wrong state",
     "✓"
    ],
    [
@@ -104992,7 +105010,7 @@ var family_root_json = {
    [
     "viyāpanna",
     "pp",
-    "failed; gone wrong; spoiled; corrupted",
+    "failed; gone wrong; spoiled; corrupted; lit. gone wrong",
     "✓"
    ],
    [
@@ -105034,7 +105052,7 @@ var family_root_json = {
    [
     "sabyāpajja 1",
     "adj",
-    "afflicted; distressed; oppressed",
+    "afflicted; distressed; oppressed; lit. with going wrong state",
     "✓"
    ],
    [
@@ -120593,8 +120611,8 @@ var family_root_json = {
    ]
   ]
  },
- "√rañj 1 √rañj": {
-  "root_key": "√rañj 1",
+ "√rañj √rañj": {
+  "root_key": "√rañj",
   "root_family": "√rañj",
   "root_meaning": "dye, desire",
   "count": 21,
@@ -121416,7 +121434,7 @@ var family_root_json = {
    [
     "rahāyati",
     "pr",
-    "wants solitude; seeks privacy",
+    "seeks privacy; goes into solitude",
     "✓"
    ],
    [
@@ -131468,7 +131486,7 @@ var family_root_json = {
    [
     "vāra 2",
     "masc",
-    "instance; repetition; time; case",
+    "instance; repetition; case",
     "✓"
    ],
    [
@@ -142338,7 +142356,7 @@ var family_root_json = {
    [
     "saṅgata 1",
     "pp",
-    "met; came together; gathered together; lit. went together",
+    "met; gathered together; assembled; lit. went together",
     "✓"
    ],
    [
@@ -158940,7 +158958,7 @@ var family_root_json = {
    [
     "āpāṇa",
     "masc",
-    "life; lit. breathing",
+    "life; lit. breath",
     "✓"
    ]
   ]
@@ -159989,10 +160007,10 @@ var family_root_json = {
    ]
   ]
  },
- "√rañj 2 ā √rañj": {
-  "root_key": "√rañj 2",
+ "√rañj ā √rañj": {
+  "root_key": "√rañj",
   "root_family": "ā √rañj",
-  "root_meaning": "scratch",
+  "root_meaning": "dye, desire",
   "count": 2,
   "data": [
    [
@@ -167681,7 +167699,7 @@ var family_root_json = {
   "root_key": "√vatt",
   "root_family": "upa ati √vatt",
   "root_meaning": "be, proceed",
-  "count": 4,
+  "count": 5,
   "data": [
    [
     "upātivatta",
@@ -167699,6 +167717,12 @@ var family_root_json = {
     "upātivattati 2",
     "pr",
     "goes beyond; escapes; gets out (of)",
+    "✓"
+   ],
+   [
+    "upātivattanta",
+    "prp",
+    "going beyond; surpassing; transcending",
     "✓"
    ],
    [
@@ -184006,7 +184030,7 @@ var family_root_json = {
    [
     "nisevita 3",
     "nt",
-    "track; trace; imprint; scratch; abrasion; lit. frequented; visited",
+    "track; trace; imprint; scratch; abrasion; (comm) place of abrasion; lit. frequented; visited",
     "✓"
    ],
    [
@@ -203766,7 +203790,7 @@ var family_root_json = {
    [
     "vinikkhepa",
     "masc",
-    "disconnecting; separating; parting; lit. throwing apart",
+    "disconnection; separation; partition; lit. throwing apart",
     "✓"
    ]
   ]

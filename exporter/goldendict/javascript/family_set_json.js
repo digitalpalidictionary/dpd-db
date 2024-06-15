@@ -1809,7 +1809,7 @@ var family_set_json = {
    [
     "gahaṇa 3",
     "nt",
-    "(gram) (of a word or particle) employing; taking; using",
+    "(gram) (of a word or particle) employing; taking; using; lit. grasping",
     "✓"
    ],
    [
@@ -1827,7 +1827,7 @@ var family_set_json = {
    [
     "gahetabba 1",
     "ptp",
-    "(gram) should be employed; should be used; should be adopted; lit. to be taken",
+    "(gram) should be employed; should be used; should be adopted; lit. to be grasped",
     "✓"
    ],
    [
@@ -5530,6 +5530,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "mahāva 2",
+    "abbrev",
+    "abbreviation of Mahāvagga",
+    "✓"
+   ],
+   [
     "rū 2",
     "abbrev",
     "abbreviation of rūpāvacara",
@@ -5584,7 +5590,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 44
+  "count": 45
  },
  "pronouns": {
   "data": [

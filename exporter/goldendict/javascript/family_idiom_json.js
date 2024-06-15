@@ -3967,7 +3967,7 @@ var family_idiom_json = {
    [
     "ajjuposatho",
     "sandhi",
-    "today is the observance day",
+    "today is the observance day; the Uposatha is today",
     "✓"
    ],
    [
@@ -4043,7 +4043,7 @@ var family_idiom_json = {
    [
     "ajjuposatho",
     "sandhi",
-    "today is the observance day",
+    "today is the observance day; the Uposatha is today",
     "✓"
    ],
    [
@@ -16781,6 +16781,23 @@ var family_idiom_json = {
    ]
   ]
  },
+ "lohita": {
+  "count": 2,
+  "data": [
+   [
+    "mittāmaccā ñātisālohitā",
+    "idiom",
+    "friends, colleagues, family and blood relatives",
+    "✓"
+   ],
+   [
+    "lohitaṃ uppādeti",
+    "idiom",
+    "causes blood to spill; sheds blood; lit. causes blood to arise",
+    "✓"
+   ]
+  ]
+ },
  "okāsa": {
   "count": 4,
   "data": [
@@ -24876,23 +24893,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "lohita": {
-  "count": 2,
-  "data": [
-   [
-    "mittāmaccā ñātisālohitā",
-    "idiom",
-    "friends, colleagues, family and blood relatives",
-    "✓"
-   ],
-   [
-    "lohitaṃ uppādeti",
-    "idiom",
-    "causes blood to spill; sheds blood; lit. causes blood to arise",
-    "✓"
-   ]
-  ]
- },
  "vijjati": {
   "count": 2,
   "data": [
@@ -31589,6 +31589,28 @@ var family_idiom_json = {
     "vihāraṃ kappayanta",
     "idiom",
     "leading one's life; spending one's time; fashioning one's lifestyle; lit. arranging one's dwelling",
+    "✓"
+   ]
+  ]
+ },
+ "vihārī": {
+  "count": 1,
+  "data": [
+   [
+    "vihārimātāpiṃ",
+    "sandhi",
+    "living ardently; remaining persistent; making continuous effort",
+    "✓"
+   ]
+  ]
+ },
+ "ātāpī": {
+  "count": 1,
+  "data": [
+   [
+    "vihārimātāpiṃ",
+    "sandhi",
+    "living ardently; remaining persistent; making continuous effort",
     "✓"
    ]
   ]

@@ -29863,6 +29863,23 @@ var family_word_json = {
   ],
   "count": 5
  },
+ "vammī": {
+  "data": [
+   [
+    "vammika",
+    "masc",
+    "ant-hill",
+    "✓"
+   ],
+   [
+    "vammī 2.1",
+    "fem",
+    "ant",
+    "~"
+   ]
+  ],
+  "count": 2
+ },
  "varāha": {
   "data": [
    [
