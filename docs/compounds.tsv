@@ -1,5 +1,7 @@
-ante	masc	antevāsī	type
+COMMOON WORDS IN COMPOUNDS			type
+ante	masc	antevāsī	
 atthāya	ind	puññatthāya	
+aṭṭhika	nt	jaṅghaṭṭhika	
 evaṃ	adj	evaṃpaṭipanna	
 hetu	ind	micchāpaṭipattādhikaraṇahetu	
 hetu	ind	pāricariyāhetu, brūhanāhetu, pīṇanāhetu, kucchihetu	
@@ -11,26 +13,34 @@ nānā	noun	nānādāru
 nidāna	adj	jātinidāna	
 niyata	adj	micchattaniyata	
 pabhava	adj	upadhipabhava	
+paro	card	parosahassa	
 samudaya	adj	upadhisamudaya	
 sāruppagāmī	adj	jātinirodhasāruppagāmī	
 tathā	adj	tathāpaṭipanna, tathāpahīna, tathāsaññī, tathākārī	
 uccā	adj	uccākulīna	
 upari	masc	uparikokanadapāsāda	
 upasampanna	adj	vassasatūpasampanna, tadahupasampanna	
-word	pos	example	
+yāva	ind	yāvatatiyakaṃ	
+gata (meaning type)	nt	mānagata, ākāsagata, āpogata, pubbagata, viññāṇagata, tiracchānagata(?), vāyogata, kheḷagata, gūthagata	
+anudiṭṭhi	fem	pubbantānudiṭṭhi, attānudiṭṭhi, aparantānudiṭṭhi	
+khīṇa	adj	khīṇatiracchānayoni, khīṇaniraya, khīṇapunabbhava	
+atthara	nt	hatthatthara	
 			
-			
--	-	-	
+GENERAL CASES	-	-	
 adhi	ind	adhideve, adhibrahmānaṃ	
 adverb in first postion	noun	divākathika, tiroraṭṭhā, tirojanapadā, rattiṃvikālabhojana, kāmaṅgama	
+adverb in first postion	adj	idhāgata	
 adverbs in cases	adv	appasaddena	
 gerund + adj	adj	vibhajjavāda	
+gerund + noun	masc	anupādāvimokkha	
 indeclinable in first position	adj	nānājacca, uparikokanadapāsāda	
+infintive	adj	yujjhitukāma	
 kāla	masc	yānakāla	
 kammadhāraya + taddhita	fem, nt	appātaṅkatā, appābādhatta	
 khattuṃ	ind	atirekachakkhattuṃ, dvattikkhattuṃ	
 khattuṃ	fem	sattakkhattuparamatā	
-kiṃ	adj	"kiṃmṃlaka, kiṃcitta, kiṃpamukha, kiṃkata, kiṃpahotika, kiṃnidṃna, kiṃparama, kiṃjṃtika, kiṃpariyosṃna"""	
+kiṃ	adj	kiṃmṃlaka, kiṃcitta, kiṃpamukha, kiṃkata, kiṃpahotika, kiṃnidṃna, kiṃparama, kiṃjṃtika, kiṃpariyosṃna, kāmālaya	
+maya	masc	mattikāpatta, dārukuḍḍika	
 missing word (ṭhapita)	nt	dvārabhatta	
 more words required for the sense	nt	dvārabhatta	
 numbers (addition)	card	bāvīsati, dvattiṃsati	
@@ -43,4 +53,8 @@ taddjita *ika	adj	subhagavanika
 tiro	ind	tirojanapadā, tiropabbataṃ, tiropākāraṃ, tiroraṭṭhā	
 tiro	noun	tirokaraṇī, tirokuṭṭa	
 two indedeclinables	ind	ahovatā	
-gerund + noun	masc	anupādāvimokkha	
+			
+INDIVIDUAL WORDS			
+vaḷabhīratha	masc		
+saṅkhārārammaṇa	adj		
+surāmerayamajjapamādaṭṭhānapaccayā	ind		

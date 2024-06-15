@@ -1,4 +1,9 @@
 word	pos	position	type	exceptions
+pāṭikaṅkhī	any	last	dutiyā	x
+gandha	any	last	chaṭṭhī	avītagandha, ekagandha, nirāmagandha, sucigandha, vaṇṇagandha, savanagandha
+paṭisaṃvedī	any	last	dutiyā	x
+phala	nt	last	chaṭṭhī	tatiyaphala, ariyaphala, tiphala, navaphala, maggaphala, madhuraphala, rukkhaphala, sukhapphala, kiṃphala 2, puttaphala
+saṃyojana	any	last	chaṭṭhī	ajjhattasaṃyojana, khīṇasaṃyojana, parikkhīṇabhavasaṃyojana, sabbasaṃyojana, ekasaṃyojana
 ādāna	nt	last	chaṭṭhī	x	
 karaṇīya	nt	last	catutthī	aggikaraṇīya, uttarikaraṇīya, uttariṃkaraṇīya, kiṅkaraṇīya, kiccakaraṇīya, kiṃkaraṇīya, tirokaraṇīya, dhanakaraṇīya, saṅghakaraṇīya, satuppādakaraṇīya, sattāhakaraṇīya, samaṇakaraṇīya, sārakaraṇīya, saṃghakaraṇīya
 da	any	last	dutiyā	x	
