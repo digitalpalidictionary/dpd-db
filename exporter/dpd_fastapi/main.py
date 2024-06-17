@@ -286,6 +286,8 @@ if __name__ == "__main__":
 
 # run in terminal: 
 # uvicorn exporter.dpd_fastapi.main:app --host 127.1.1.1 --port 8080 --reload --reload-dir exporter/dpd_fastapi
+# uvicorn exporter.dpd_fastapi.main:app --host 0.0.0.0 --port 8080 --reload --reload-dir exporter/dpd_fastapi
+
 
 # TODO make help popup tooltips and a toggle to turn them off
 # TODO dropdown menu when searching

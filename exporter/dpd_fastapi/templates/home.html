@@ -24,6 +24,24 @@
                 class="search-box" type="text" name="search" id="search-box" value="{{ search }}" 
                 autocomplete="off" inputmode="text" autocapitalize="off">
             <button class="search-button" id="search-button">search</button>
+            <button class="help small-button" id="search-help-button">
+                ?
+                <span class="tooltip velthuis">
+                    <b>
+                        Velthuis typing:
+                    </b><br><br>
+                    aa > ā<br>
+                    ii > ī<br>
+                    uu > ū<br>
+                    "n > ṅ<br>
+                    .t > ṭ<br>
+                    .d > ḍ<br>
+                    .n > ṇ<br>
+                    .m > ṃ<br>
+                    .l > ḷ
+                </span>
+            </button>
+
         </form>
     </div>
     <div class="main-pane" id="main-pane">
@@ -42,6 +60,11 @@
         </div>
         <div class=settings-pane>
             <h3>Settings</h3>
+            <p>
+                <button class="small-button" id="font-size-down">-</button>
+                <button class="small-button" id="font-size-up">+</button>
+                font size
+            </p>
             <p>
                 <label class="switch">
                     <input type="checkbox" id="theme-toggle"><span class="slider round"></span>

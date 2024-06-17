@@ -25,6 +25,9 @@ const exampleToggle = document.getElementById("example-toggle");
 const sbsexampleToggle = document.getElementById("sbs-example-toggle");
 const summaryToggle = document.getElementById("summary-toggle");
 const sandhiToggle = document.getElementById("sandhi-toggle");
+var fontSize
+const fontSizeUp = document.getElementById("font-size-up");
+const fontSizeDown = document.getElementById("font-size-down");
 
 let dpdResultsContent = "";
 
@@ -57,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
     loadToggleState("sbs-example-toggle");
     loadToggleState("summary-toggle");
     loadToggleState("sandhi-toggle");
+    loadFontSize()
     toggleClearHistoryButton()
     swopSansSerif()
     if (dpdResults.innerHTML.trim() == "") {
@@ -84,6 +88,42 @@ function processSelection() {
         handleFormSubmit();
     }
 };
+
+//// font size ////
+
+function loadFontSize() {
+    fontSize = localStorage.getItem("fontSize");
+    if (fontSize === null) {
+        bodyStyle = window.getComputedStyle(document.body);
+        fontSize = parseInt(bodyStyle.getPropertyValue('font-size'), 10);
+    } else {
+        setFontSize()
+    }
+}
+
+function saveFontSize() {
+    localStorage.setItem("fontSize", fontSize);
+}
+
+function setFontSize() {
+    document.body.style.fontSize = fontSize + "px"
+}
+
+fontSizeUp.addEventListener("click", increaseFontSize)
+fontSizeDown.addEventListener("click", decreaseFontSize)
+
+function increaseFontSize() {
+    fontSize = parseInt(fontSize, 10) + 1
+    setFontSize()
+    saveFontSize()
+}
+
+function decreaseFontSize() {
+    fontSize = parseInt(fontSize, 10) - 1
+    setFontSize()
+    saveFontSize()
+}
+
 
 //// enter or click button to search 
 

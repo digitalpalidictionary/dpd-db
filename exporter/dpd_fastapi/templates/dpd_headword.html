@@ -36,21 +36,21 @@
 
 <div class="button-box">
     {% if d.i.needs_grammar_button or d.show_sbs_data %}
-        <a class="button active" name="grammar-button"
+        <a class="button" name="grammar-button"
         href="#" 
         data-target="grammar_{{d.i.lemma_1_}}">
         grammar</a>
     {% endif %}
 
     {% if d.i.needs_example_button %}
-        <a class="button active" name="example-button"
+        <a class="button" name="example-button"
         href="#" 
         data-target="example_{{d.i.lemma_1_}}">
         example</a>
     {% endif %}
 
     {% if d.i.needs_examples_button %}
-        <a class="button active" name="example-button"
+        <a class="button" name="example-button"
         href="#" 
         data-target="examples_{{d.i.lemma_1_}}">
         examples</a>
@@ -146,7 +146,7 @@
 
 
 {% if d.i.needs_grammar_button or d.show_sbs_data %}
-<div id="grammar_{{d.i.lemma_1_}}" name="grammar-div" class="content">
+<div id="grammar_{{d.i.lemma_1_}}" name="grammar-div" class="content hidden">
     <table class="grammar">
         <tr>
             <th>
@@ -447,10 +447,10 @@
 <!-- examples -->
 
 {% if d.i.needs_example_button %}
-<div id="example_{{d.i.lemma_1_}}" name="example-div" class="content">
+<div id="example_{{d.i.lemma_1_}}" name="example-div" class="content hidden">
 
 {% elif d.i.needs_examples_button %}
-<div id="examples_{{d.i.lemma_1_}}" name="example-div" class="content">
+<div id="examples_{{d.i.lemma_1_}}" name="example-div" class="content hidden">
 {% endif %}
 
 {% if d.i.example_1 and d.i.meaning_1 %}
