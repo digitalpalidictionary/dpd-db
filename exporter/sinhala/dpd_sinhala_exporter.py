@@ -52,6 +52,13 @@ def main():
     for count, row in g.df.iterrows():
         s = SinhalaDataRow(row.to_list())
         matching_lemma = True
+
+        sinhala_lemma_roman: str = transliterate.process(
+            "Sinhala", "IASTPali", s.lemma_1) #type:ignore
+        sinhala_lemma_roman = sinhala_lemma_roman \
+            .replace("ĕ", "e") \
+            .replace("ŏ", "o") \
+            .replace("ü", "u")
         
         # get dpd entry
 
@@ -61,16 +68,10 @@ def main():
         
         if not dpd:
             # find missing headwords
-            error_list.append(f"{s.id}: {s.lemma_1} != xxx")
+            error_list.append(f"{s.id}: {sinhala_lemma_roman} != xxx")
         
         else:
             # find changed headwords
-            sinhala_lemma_roman: str = transliterate.process(
-                "Sinhala", "IASTPali", s.lemma_1) #type:ignore
-            sinhala_lemma_roman = sinhala_lemma_roman \
-                .replace("ĕ", "e") \
-                .replace("ŏ", "o") \
-                .replace("ü", "u")
 
             if dpd.lemma_1 != sinhala_lemma_roman:
                 # print(dpd.lemma_1)
