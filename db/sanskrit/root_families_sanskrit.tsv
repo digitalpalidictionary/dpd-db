@@ -1651,9 +1651,9 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √pāl	8	*e	protect	√pāl	10	watch	abhi √pāl		
 √pāl	8	*e	protect	√pāl	10	watch	pari √pāl		paripālana
 √piṭ	1	a	collect	√piṭ	1	assemble	√piṭ		piṭaka
-√piṇḍ	8	*e	collect	√piṇḍ	1, 10	roll	√piṇḍ		piṇḍa, piṇḍaka, piṇḍāya, piṇḍikā, piṇḍita, piṇḍī, piṇḍola, piṇḍoli +
-√piṇḍ	8	*e	collect	√piṇḍ	1, 10	roll	pati √piṇḍ		piṇḍa
-√piṇḍ	8	*e	collect	√piṇḍ	1, 10	roll	saṃ √piṇḍ		
+√piṇḍ	8	*e	collect	√piṇḍ	1, 10	roll	√piṇḍ	piṇḍ	piṇḍa, piṇḍaka, piṇḍāya, piṇḍikā, piṇḍita, piṇḍī, piṇḍola, piṇḍoli +
+√piṇḍ	8	*e	collect	√piṇḍ	1, 10	roll	pati √piṇḍ	-	piṇḍa
+√piṇḍ	8	*e	collect	√piṇḍ	1, 10	roll	saṃ √piṇḍ	sampiṇḍ	
 √pis 1	8	*aya	send	√pis √preṣ	1	go	√pis	preṣ	na + preṣita, pis, preṣaka, preṣaṇa, preṣaṇīya, preṣayati, preṣita, preṣya, preṣya +
 √pis 1	8	*e	send	√pis √preṣ	1	go	anu √pis	anupreṣ	
 √pis 1	8	*e	send	√pis √preṣ	1	go	pati √pis		paripreṣ
@@ -3079,12 +3079,12 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √su 2	1	a	flow	√sru	1	flow	anu ā √su		anu + āsravati, na + anu + āsravati
 √su 2	1	*e	flow	√sru	1	flow	anu saṃ √su		anu + saṃsrvayitvā
 √su 2	1	a	flow	√sru	1	flow	abhi √su	adhisru	abhisravati
-√su 2	1	a	flow	√sru	1	flow	ava √su		ava + sravaṇa, avasruta, na + avasrava, na + avasruta
-√su 2	1	a	flow	√sru	1	flow	ā √su	avasru	anāsrava, āsrava, āsravaṇa, āsravati, āsrāva, āsrāvin, na + āsrāvin, sāsrava
-√su 2	1	a	flow	√sru	1	flow	ud √su		ud + srāva
+√su 2	1	a	flow	√sru	1	flow	ava √su	avasru	ava + sravaṇa, avasruta, na + avasrava, na + avasruta
+√su 2	1	a	flow	√sru	1	flow	ā √su	āsru	anāsrava, āsrava, āsravaṇa, āsravati, āsrāva, āsrāvin, na + āsrāvin, sāsrava
+√su 2	1	a	flow	√sru	1	flow	ud √su	-	ud + srāva
 √su 2	1	a	flow	√sru	1	flow	nī √su	niḥsru	nisruta, nisruta +
 √su 2	1	a	flow	√sru	1	flow	pa √su	prasru	prasavin, prasavinī, prasravat, prasravati, prasrāva
-√su 2	1	a	flow	√sru	1	flow	pati √su		pratisrota, pratisrotam
+√su 2	1	a	flow	√sru	1	flow	pati √su	-	pratisrota, pratisrotam
 √su 2	1	*e	flow	√sru	1	flow	pari √su	parisru	na + parisrava +, parisrava (streaming), pariśraya (bsk), parisravati, parisravayati, parisrāvaṇa, parisrvayitvā, parisrvita, sa + pariśraya (bsk)
 √su 2	1	a	flow	√sru	1	flow	vi √su	visru	
 √su 3	1	a	extract, distil	√su	5	press out, extract	√su		surā
