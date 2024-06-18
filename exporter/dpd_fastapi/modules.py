@@ -18,7 +18,7 @@ class HeadwordData():
         self.fc = fc
         self.fi = fi
         self.fs = fs
-        self.app_name = "Jinja"
+        self.app_name = "dpdict.net"
         self.date = year_month_day_dash()
         if config_test("dictionary", "make_link", "yes"):
             self.make_link = True
@@ -49,7 +49,7 @@ class RootsData():
     def __init__(self, r, frs, roots_count_dict) -> None:
         self.r: DpdRoots = r
         self.frs = frs
-        self.app_name = "Jinja"
+        self.app_name = "dpdict.net"
         self.date = year_month_day_dash()
         self.count = roots_count_dict[self.r.root]
     
@@ -58,7 +58,7 @@ class DeconstructorData():
     def __init__(self, result: Lookup):
         self.headword = result.lookup_key
         self.deconstructions = result.deconstructor_unpack
-        self.app_name = "Jinja"
+        self.app_name = "dpdict.net"
         self.date = year_month_day_dash()
 
 
@@ -66,7 +66,7 @@ class VariantData():
     def __init__(self, result: Lookup):
         self.headword = result.lookup_key
         self.variants = result.variants_unpack
-        self.app_name = "Jinja"
+        self.app_name = "dpdict.net"
         self.date = year_month_day_dash()
 
 
@@ -74,7 +74,7 @@ class SpellingData():
     def __init__(self, result: Lookup):
         self.headword = result.lookup_key
         self.spellings = result.spelling_unpack
-        self.app_name = "Jinja"
+        self.app_name = "dpdict.net"
         self.date = year_month_day_dash()
 
 

@@ -48,7 +48,7 @@ DEFAULT_CONFIG = {
     "dictionary": {
         "make_mdict": "yes",
         "link_url": "https://www.thebuddhaswords.net/",
-        "make_link": "no",
+        "make_link": "yes",
         "extended_synonyms": "no",
         "show_id": "no",
         "show_ebt_count": "no",

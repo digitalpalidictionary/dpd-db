@@ -49,7 +49,7 @@ p.heading b {
 
 p.footer {
     border-top: 1px solid var(--colour1);
-    font-size: 0.8em;
+    font-size: 0.8rem;
     padding: 5px 0px;
 }
 
@@ -156,7 +156,7 @@ a.button {
     color: #000;
     cursor: pointer;
     display: inline-block;
-    font-size: 12px;
+    font-size: 0.8rem;
     font-weight: 400;
     margin: 0px 1px 2px 0px;
     padding: 3px 5px;
@@ -321,7 +321,7 @@ a.deconstructor_feedback {
 
 p.deconstructor_footer {
     border-top: 1px solid #ffd700;
-    font-size: 0.8em;
+    font-size: 0.8rem;
     margin: 5px 0 0 0;
     padding: 5px 0px;
     
@@ -446,7 +446,7 @@ p.root_heading b {
 
 p.root_footer {
     border-top: 1px solid #AB3C00;
-    font-size: 0.8em;
+    font-size: 0.8rem;
     padding: 5px 0px;
 }
 
@@ -501,7 +501,7 @@ a.root_button {
     color: #000;
     cursor: pointer;
     display: inline-block;
-    font-size: 12px;
+    font-size: 0.8rem;
     font-weight: 400;
     margin: 0px 1px 2px 0px;
     padding: 3px 5px;
