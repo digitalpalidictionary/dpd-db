@@ -24,7 +24,7 @@ from db.db_helpers import get_column_names
 from db.models import Russian, SBS, DpdHeadwords
 
 from tools.meaning_construction import make_meaning
-from tools.tsv_read_write import read_tsv_dot_dict
+from tools.tsv_read_write import read_tsv_dot_dict, read_tsv_dict, write_tsv_dot_dict
 
 from tools.configger import config_test_option, config_read, config_update
 
@@ -1408,3 +1408,33 @@ def send_sutta_study_request(word, sutta, source):
 
     except RequestException as e:
         print(f"An error occurred while sending the request: {e}")
+
+
+def add_word_from_csv(dpspth, window):
+    # read csv file and fill lemma_1, meaning_1, pos, construction and notes
+
+    word_data = read_tsv_dict(dpspth.vinaya_tsv_path)
+
+    # Find the first row with an empty "proceed" column and update it to "y"
+    for row in word_data:
+        if row.get("proceed") == "":
+            row["proceed"] = "y"
+            # Update the GUI 'values' dict with new values from the TSV dict
+            window["lemma_1"].update(row.get("lemma_1", ""))
+            window["meaning_1"].update(row.get("meaning_1", ""))
+            window["pos"].update(row.get("pos", ""))
+            window["construction"].update(row.get("construction", ""))
+            window["notes"].update(row.get("notes", ""))
+
+            original_word = row.get("missing word", "")
+            break
+
+    # Write the updated data back to the TSV file
+    write_tsv_dot_dict(dpspth.vinaya_tsv_path, word_data)
+
+    return original_word
+
+
+
+
+

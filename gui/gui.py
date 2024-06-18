@@ -118,7 +118,8 @@ from functions_dps import get_next_ids_dps
 from functions_dps import read_tsv_words
 from functions_dps import save_gui_state_dps
 from functions_dps import load_gui_state_dps
-from functions_dps import send_sutta_study_request
+from functions_dps import add_word_from_csv
+
 
 from functions_tests_dps import dps_open_internal_tests
 from functions_tests_dps import dps_individual_internal_tests
@@ -1189,6 +1190,10 @@ def main():
             elif username == "deva":
                 backup_ru_sbs()
             break
+
+        elif event == "add_word_from_csv":
+            original_word = add_word_from_csv(dpspth, window)
+            open_in_goldendict(original_word)
 
         # fix sandhi events
 
