@@ -93,6 +93,7 @@ def config_initialize() -> None:
         for option, value in options.items():
             if not config.has_option(section, option):
                 config.set(section, option, value)
+    config_write()
 
 
 def config_read(section: str, option: str, default_value: Optional[str]=None) -> str|None:

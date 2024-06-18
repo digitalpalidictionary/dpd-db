@@ -60,3 +60,9 @@ poetry run bash scripts/bash/build_and_make_all.sh
 ```
 
 This creates the `dpd.db` SQLite database. Also it extract all dictionaries see folder `exporter/share`
+
+
+## Additional configuration
+
+1. install dictzip, [link for Linux](https://linux-packages.com/ubuntu-24-04/package/dictzip)
+2. install tkinter, [link for Linux](https://www.pythonguis.com/installation/install-tkinter-linux/)
