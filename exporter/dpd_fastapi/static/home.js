@@ -22,6 +22,7 @@ const sansSerifToggle = document.getElementById("sans-serif-toggle");
 const niggahitaToggle = document.getElementById("niggahita-toggle");
 const grammarToggle = document.getElementById("grammar-toggle");
 const exampleToggle = document.getElementById("example-toggle");
+const oneButtonToggle = document.getElementById("one-button-toggle");
 const sbsexampleToggle = document.getElementById("sbs-example-toggle");
 const summaryToggle = document.getElementById("summary-toggle");
 const sandhiToggle = document.getElementById("sandhi-toggle");
@@ -57,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
     loadToggleState("niggahita-toggle");
     loadToggleState("grammar-toggle");
     loadToggleState("example-toggle");
+    loadToggleState("one-button-toggle")
     loadToggleState("sbs-example-toggle");
     loadToggleState("summary-toggle");
     loadToggleState("sandhi-toggle");
@@ -279,6 +281,7 @@ sansSerifToggle.addEventListener("change", saveToggleState);
 niggahitaToggle.addEventListener("change", saveToggleState);
 grammarToggle.addEventListener("change", saveToggleState);
 exampleToggle.addEventListener("change", saveToggleState);
+oneButtonToggle.addEventListener("change", saveToggleState);
 sbsexampleToggle.addEventListener("change", saveToggleState);
 summaryToggle.addEventListener("change", saveToggleState);
 sandhiToggle.addEventListener("change", saveToggleState);
@@ -393,6 +396,7 @@ exampleToggle.addEventListener("change", function() {
         });
     }
 });
+
 
 //// sbs examples button toggle
 sbsexampleToggle.addEventListener("change", function() {
