@@ -29,6 +29,7 @@ const sandhiToggle = document.getElementById("sandhi-toggle");
 var fontSize
 const fontSizeUp = document.getElementById("font-size-up");
 const fontSizeDown = document.getElementById("font-size-down");
+var fontSizeDisplay = document.getElementById("font-size-display");
 
 let dpdResultsContent = "";
 
@@ -109,6 +110,7 @@ function saveFontSize() {
 
 function setFontSize() {
     document.body.style.fontSize = fontSize + "px"
+    fontSizeDisplay.innerHTML =`${fontSize}px`
 }
 
 fontSizeUp.addEventListener("click", increaseFontSize)

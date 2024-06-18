@@ -25,7 +25,7 @@ function button_click(el) {
         //// only open one button at a time
 
         if (oneButtonToggleEnabled) {
-            var allButtons = document.querySelectorAll('.button');
+            var allButtons = document.querySelectorAll('.button, .root_button');
             allButtons.forEach(function(button) {
                 if (button!== el) { // Exclude the target button
                     button.classList.remove("active");

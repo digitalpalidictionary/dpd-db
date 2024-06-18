@@ -49,7 +49,7 @@ p.heading b {
 
 p.footer {
     border-top: 1px solid var(--colour1);
-    font-size: 0.8rem;
+    font-size: 80%;
     padding: 5px 0px;
 }
 
@@ -144,27 +144,27 @@ table.family b {
 }
 
 div.button-box {
-    font-size: 0px;
     margin: 2px 0px 3px 0px;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 
 }
 
 a.button {
     background-color: var(--colour2);
     border-radius: 7px;
-    box-shadow: 0px 4px 4px -2px #888888;
+    box-shadow: 1px 1px 1px 0 #888888;
     color: #000;
     cursor: pointer;
     display: inline-block;
-    font-size: 0.8rem;
+    font-size: 80%;
     font-weight: 400;
-    margin: 0px 1px 2px 0px;
+    margin: 1px 1px 2px 1px;
     padding: 3px 5px;
     text-decoration: none;
     user-select: none;
 }
-
-
 
 a.button.close {
     float: right;
@@ -212,8 +212,7 @@ table.freq tbody th {
 .vertical-text {
     writing-mode: vertical-lr;
     text-orientation: upright;
-    /* inline-size: fit-content;
-    transform: rotate(-90deg); */
+    inline-size: fit-content;
 }
 
 table.freq td {
@@ -321,7 +320,7 @@ a.deconstructor_feedback {
 
 p.deconstructor_footer {
     border-top: 1px solid #ffd700;
-    font-size: 0.8rem;
+    font-size: 80%;
     margin: 5px 0 0 0;
     padding: 5px 0px;
     
@@ -446,7 +445,7 @@ p.root_heading b {
 
 p.root_footer {
     border-top: 1px solid #AB3C00;
-    font-size: 0.8rem;
+    font-size: 80%;
     padding: 5px 0px;
 }
 
@@ -490,20 +489,22 @@ table.root_family b {
 }
 
 div.root_button_box {
-    font-size: 0px;
     margin: 2px 0px 3px 0px;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
 
 a.root_button {
     background-color: #F95700;
     border-radius: 7px;
-    box-shadow: 0 4px 4px -2px #888888;
+    box-shadow: 1px 1px 1px 0 #888888;
     color: #000;
     cursor: pointer;
     display: inline-block;
-    font-size: 0.8rem;
+    font-size: 80%;
     font-weight: 400;
-    margin: 0px 1px 2px 0px;
+    margin: 1px 1px 2px 1px;
     padding: 3px 5px;
     text-decoration: none;
     user-select: none;

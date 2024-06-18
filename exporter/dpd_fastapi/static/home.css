@@ -236,8 +236,6 @@ h3 {
     transition: background-color 1s;
 }
 
-
-
 .settings-pane {
     border-radius: 7px;
     border: 2px solid var(--transparent);
@@ -257,10 +255,11 @@ h3 {
 
 .small-button {
     background-color: var(--colour2);
-    height: 22px;
-    width: 22px;
-    border-radius: 25px;
+    height: 1.3em;
+    width: 1.3em;
+    border-radius: 1em;
     border-width: 0;
+    font-size: 1em;
 }
 
 .small-button:active {
