@@ -119,6 +119,7 @@ from functions_dps import read_tsv_words
 from functions_dps import save_gui_state_dps
 from functions_dps import load_gui_state_dps
 from functions_dps import add_word_from_csv
+from functions_dps import send_sutta_study_request
 
 
 from functions_tests_dps import dps_open_internal_tests

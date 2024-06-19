@@ -1427,6 +1427,7 @@ def add_word_from_csv(dpspth, window):
             window["notes"].update(row.get("notes", ""))
 
             original_word = row.get("missing word", "")
+            print(original_word)
             break
 
     # Write the updated data back to the TSV file
