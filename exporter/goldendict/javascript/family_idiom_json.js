@@ -13635,6 +13635,29 @@ var family_idiom_json = {
    ]
   ]
  },
+ "āgata": {
+  "count": 3,
+  "data": [
+   [
+    "āgatamha",
+    "sandhi",
+    "we have come; we have arrived; lit. we are come",
+    "✓"
+   ],
+   [
+    "āgatosi",
+    "sandhi",
+    "you have come",
+    "✓"
+   ],
+   [
+    "iccassa evamāgataṃ hoti",
+    "idiom",
+    "it would thus follow; it could be concluded; it would be correct to say",
+    "~"
+   ]
+  ]
+ },
  "anāgata": {
   "count": 1,
   "data": [
@@ -14203,6 +14226,35 @@ var family_idiom_json = {
     "okamokata",
     "sandhi",
     "from (its) home in the water; lit. from water home",
+    "✓"
+   ]
+  ]
+ },
+ "okāsa": {
+  "count": 4,
+  "data": [
+   [
+    "okāsakammaṃ kataṃ",
+    "idiom",
+    "granted permission (by); allowed (by); lit. made making space",
+    "✓"
+   ],
+   [
+    "okāsaṃ karoti",
+    "idiom",
+    "grants permission (to); gives an opportunity (to); gives consent (to); lit. makes space",
+    "✓"
+   ],
+   [
+    "okāsaṃ kāretvā",
+    "idiom",
+    "having gained permission (to); having been given consent (to); lit. having caused to make space",
+    "~"
+   ],
+   [
+    "okāsaṃ yācati",
+    "idiom",
+    "asks for the opportunity (to); requests permission (to)",
     "✓"
    ]
   ]
@@ -16798,35 +16850,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "okāsa": {
-  "count": 4,
-  "data": [
-   [
-    "okāsakammaṃ kataṃ",
-    "idiom",
-    "granted permission (by); allowed (by); lit. made making space",
-    "✓"
-   ],
-   [
-    "okāsaṃ karoti",
-    "idiom",
-    "grants permission (to); gives an opportunity (to); gives consent (to); lit. makes space",
-    "✓"
-   ],
-   [
-    "okāsaṃ kāretvā",
-    "idiom",
-    "having gained permission (to); having been given consent (to); lit. having caused to make space",
-    "~"
-   ],
-   [
-    "okāsaṃ yācati",
-    "idiom",
-    "asks for the opportunity (to); requests permission (to)",
-    "✓"
-   ]
-  ]
- },
  "avoca": {
   "count": 3,
   "data": [
@@ -18142,29 +18165,6 @@ var family_idiom_json = {
     "sandhi",
     "(comm) alien; another; not one of us",
     "✓"
-   ]
-  ]
- },
- "āgata": {
-  "count": 3,
-  "data": [
-   [
-    "āgatamha",
-    "sandhi",
-    "we have come; we have arrived; lit. we are come",
-    "✓"
-   ],
-   [
-    "āgatosi",
-    "sandhi",
-    "you have come",
-    "✓"
-   ],
-   [
-    "iccassa evamāgataṃ hoti",
-    "idiom",
-    "it would thus follow; it could be concluded; it would be correct to say",
-    "~"
    ]
   ]
  },

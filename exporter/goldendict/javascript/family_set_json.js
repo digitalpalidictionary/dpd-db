@@ -1471,13 +1471,13 @@ var family_set_json = {
     "✓"
    ],
    [
-    "kattar 3",
+    "kattar 6",
     "masc",
     "(gram) agent; subject of the verb; lit. doer; maker",
     "✓"
    ],
    [
-    "kattar 4",
+    "kattar 7",
     "masc",
     "(gram) active voice",
     "✓"
@@ -1999,7 +1999,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "ṭhāna 07",
+    "ṭhāna 11",
     "nt",
     "(gram) suitable place; right point; lit. standing",
     "✓"
@@ -14816,8 +14816,8 @@ var family_set_json = {
    [
     "kolita",
     "masc",
-    "name of a monk",
-    "~"
+    "name of a monk; Mahāmoggallāna's first name; Kolita Moggallāna",
+    "✓"
    ],
    [
     "kosalavihāritthera",
@@ -17477,6 +17477,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kolita",
+    "masc",
+    "name of a monk; Mahāmoggallāna's first name; Kolita Moggallāna",
+    "✓"
+   ],
+   [
     "kosalavihāritthera",
     "masc",
     "name of an arahant monk; lit. elder living in Kosala",
@@ -19559,7 +19565,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 441
+  "count": 442
  },
  "people": {
   "data": [

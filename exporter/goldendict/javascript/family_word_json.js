@@ -16,8 +16,8 @@ var family_word_json = {
    [
     "kakkassa",
     "nt",
-    "roughness; harshness",
-    "✗"
+    "roughness; harshness; crudeness; lit. rough state",
+    "✓"
    ],
    [
     "sakakkasa",
@@ -626,8 +626,8 @@ var family_word_json = {
    [
     "kasāva 2",
     "masc",
-    "defect; imperfection; lit. impurity",
-    "~"
+    "impurity; defect; imperfection",
+    "✓"
    ],
    [
     "kasāva 3",

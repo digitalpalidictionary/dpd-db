@@ -1028,31 +1028,31 @@ var family_root_json = {
    [
     "kattar 3",
     "masc",
-    "(gram) agent; subject of the verb; lit. doer; maker",
+    "author; composer; writer; lit. doer",
     "✓"
    ],
    [
     "kattar 4",
     "masc",
-    "(gram) active voice",
+    "who makes",
     "✓"
    ],
    [
     "kattar 5",
     "masc",
-    "who makes",
-    "✓"
-   ],
-   [
-    "kattar 6",
-    "masc",
     "doer",
     "✗"
    ],
    [
+    "kattar 6",
+    "masc",
+    "(gram) agent; subject of the verb; lit. doer; maker",
+    "✓"
+   ],
+   [
     "kattar 7",
     "masc",
-    "author; composer; writer; lit. doer",
+    "(gram) active voice",
     "✓"
    ],
    [
@@ -17742,8 +17742,8 @@ var family_root_json = {
    [
     "jappa 2",
     "masc",
-    "idle talk, chatter",
-    "✗"
+    "idle talk; frivolous chatter; gossip",
+    "✓"
    ],
    [
     "jappa 3",
@@ -23350,31 +23350,31 @@ var family_root_json = {
    [
     "ṭhāna 07",
     "nt",
-    "(gram) suitable place; right point; lit. standing",
+    "context; circumstance; setting; situation; lit. standing",
     "✓"
    ],
    [
     "ṭhāna 08",
     "nt",
-    "context; circumstance; setting; situation; lit. standing",
+    "(in debate) one's position; premise; lit. standing",
     "✓"
    ],
    [
     "ṭhāna 09",
     "nt",
-    "(in debate) one's position; premise; lit. standing",
+    "stance; position; lit. standing",
     "✓"
    ],
    [
     "ṭhāna 10",
     "nt",
-    "stance; position; lit. standing",
+    "possibility; case; (comm) reason; lit. standing",
     "✓"
    ],
    [
     "ṭhāna 11",
     "nt",
-    "possibility; case; (comm) reason; lit. standing",
+    "(gram) suitable place; right point; lit. standing",
     "✓"
    ],
    [
@@ -40257,6 +40257,50 @@ var family_root_json = {
    ]
   ]
  },
+ "√suc 1 anu √suc": {
+  "root_key": "√suc 1",
+  "root_family": "anu √suc",
+  "root_meaning": "grieve",
+  "count": 6,
+  "data": [
+   [
+    "ananusociya",
+    "ptp",
+    "should not be sorrowed; should not be mourned; should not be grieved; lit. not to be grieved",
+    "✓"
+   ],
+   [
+    "anusocati",
+    "pr",
+    "sorrows (over); mourns (over); grieves (over)",
+    "✓"
+   ],
+   [
+    "anusocana",
+    "nt",
+    "bewailing, mourning",
+    "✗"
+   ],
+   [
+    "anusocanā",
+    "fem",
+    "regretting; mourning (for)",
+    "✓"
+   ],
+   [
+    "anusoci",
+    "aor",
+    "bewailed",
+    "✗"
+   ],
+   [
+    "nānusocati",
+    "pr",
+    "does not regret; does not sorrow; does not mourn (over)",
+    "✓"
+   ]
+  ]
+ },
  "√su 1 anu √su": {
   "root_key": "√su 1",
   "root_family": "anu √su",
@@ -44197,7 +44241,7 @@ var family_root_json = {
   "root_key": "√kās 1",
   "root_family": "ava √kās",
   "root_meaning": "shine, be visible",
-  "count": 11,
+  "count": 12,
   "data": [
    [
     "anavakāsa",
@@ -44216,6 +44260,12 @@ var family_root_json = {
     "adj",
     "having no opportunity, space or time",
     "✗"
+   ],
+   [
+    "anokāsa 2",
+    "masc",
+    "wrong place; unsuitable place; lit. not a space",
+    "✓"
    ],
    [
     "avakāsa",
@@ -47341,7 +47391,7 @@ var family_root_json = {
   "root_key": "√mar",
   "root_family": "√mar",
   "root_meaning": "die",
-  "count": 58,
+  "count": 59,
   "data": [
    [
     "anāmata",
@@ -47365,6 +47415,12 @@ var family_root_json = {
     "amata 1.3",
     "nt",
     "ambrosia; drink of immortality; devine nectar; lit. not dead",
+    "~"
+   ],
+   [
+    "amata 1.4",
+    "pp",
+    "alive; living; lit. not dead",
     "~"
    ],
    [
@@ -52875,7 +52931,7 @@ var family_root_json = {
   "root_key": "√car 1",
   "root_family": "nī √car",
   "root_meaning": "move, walk",
-  "count": 18,
+  "count": 19,
   "data": [
    [
     "anicchāretvā",
@@ -52886,8 +52942,8 @@ var family_root_json = {
    [
     "niccharaṇa",
     "nt",
-    "emanation, sending out, uttering",
-    "✗"
+    "emitting; emanating; issuing out; radiating; lit. coming out",
+    "✓"
    ],
    [
     "niccharati 1",
@@ -52935,6 +52991,12 @@ var family_root_json = {
     "nicchāraka",
     "adj",
     "sticking out; lit. causing to move out",
+    "✓"
+   ],
+   [
+    "nicchāraṇa",
+    "adj",
+    "emitting; speaking out; uttering; lit. causing to come out",
     "✓"
    ],
    [
@@ -56390,7 +56452,7 @@ var family_root_json = {
    [
     "niraṃkatvā",
     "abs",
-    "having spurned; having rejected; having disregarded",
+    "having rejected; having spurned; having gots rid (of)",
     "✓"
    ],
    [
@@ -57396,8 +57458,8 @@ var family_root_json = {
    [
     "anisāmaya",
     "ger",
-    "not considering; not minding; not paying attention",
-    "✗"
+    "not considering; not minding; not paying attention (to)",
+    "✓"
    ],
    [
     "nisantī",
@@ -60117,7 +60179,7 @@ var family_root_json = {
   "root_key": "√ṭhā",
   "root_family": "ud √ṭhā",
   "root_meaning": "stand",
-  "count": 92,
+  "count": 94,
   "data": [
    [
     "anuṭṭhahati",
@@ -60238,6 +60300,12 @@ var family_root_json = {
     "abs",
     "having lifted up; having raised; lit. having stood up",
     "✓"
+   ],
+   [
+    "uṭṭhātabba",
+    "ptp",
+    "should stand up; should rise (from); lit. to be stood up",
+    "~"
    ],
    [
     "uṭṭhātar",
@@ -60465,6 +60533,12 @@ var family_root_json = {
     "vuṭṭhahitvāna",
     "abs",
     "having risen (from)",
+    "✓"
+   ],
+   [
+    "vuṭṭhātabba",
+    "ptp",
+    "should stand up; should rise (from); lit. to be stood up",
     "✓"
    ],
    [
@@ -70558,44 +70632,6 @@ var family_root_json = {
     "prp",
     "being jealous; being envious",
     "~"
-   ]
-  ]
- },
- "√suc 1 anu √suc": {
-  "root_key": "√suc 1",
-  "root_family": "anu √suc",
-  "root_meaning": "grieve",
-  "count": 5,
-  "data": [
-   [
-    "anusocati",
-    "pr",
-    "sorrows (over); mourns (over); grieves (over)",
-    "✓"
-   ],
-   [
-    "anusocana",
-    "nt",
-    "bewailing, mourning",
-    "✗"
-   ],
-   [
-    "anusocanā",
-    "fem",
-    "regretting; mourning (for)",
-    "✓"
-   ],
-   [
-    "anusoci",
-    "aor",
-    "bewailed",
-    "✗"
-   ],
-   [
-    "nānusocati",
-    "pr",
-    "does not regret; does not sorrow; does not mourn (over)",
-    "✓"
    ]
   ]
  },
@@ -104849,7 +104885,7 @@ var family_root_json = {
   "root_key": "√i 1",
   "root_family": "vi √i",
   "root_meaning": "come, go",
-  "count": 17,
+  "count": 18,
   "data": [
    [
     "abyaya",
@@ -104927,6 +104963,12 @@ var family_root_json = {
     "vīta 1.1",
     "pp",
     "without; free from; lit. gone away",
+    "✓"
+   ],
+   [
+    "vīta 1.2",
+    "nt",
+    "departed; dead; lit. gone away",
     "✓"
    ],
    [
@@ -137328,8 +137370,8 @@ var family_root_json = {
    [
     "vibhāvī 1",
     "adj",
-    "intelligent",
-    "✗"
+    "intelligent; wise; lit. who makes clear",
+    "✓"
    ],
    [
     "vibhāvī 2",
@@ -138481,7 +138523,7 @@ var family_root_json = {
   "root_key": "√var 1",
   "root_family": "vi √var",
   "root_meaning": "cover, dress, restrain",
-  "count": 33,
+  "count": 34,
   "data": [
    [
     "avivaṭa",
@@ -138658,7 +138700,13 @@ var family_root_json = {
     "✓"
    ],
    [
-    "vivariyamāna",
+    "vivariyamāna 1",
+    "prp",
+    "being opened; being uncovered",
+    "✓"
+   ],
+   [
+    "vivariyamāna 2",
     "prp",
     "being clarified (by); being cleared up (by); being elucidated (by); lit. being uncovered",
     "✓"
@@ -150147,7 +150195,7 @@ var family_root_json = {
     "salila",
     "nt",
     "water; lit. flowing",
-    "~"
+    "✓"
    ],
    [
     "sāra 1",
@@ -155191,7 +155239,7 @@ var family_root_json = {
   "root_key": "√sis",
   "root_family": "√sis",
   "root_meaning": "remain, distinguish",
-  "count": 15,
+  "count": 16,
   "data": [
    [
     "asesa",
@@ -155245,6 +155293,12 @@ var family_root_json = {
     "sesa 2",
     "masc",
     "leftovers; remains; remainder; remnant",
+    "✓"
+   ],
+   [
+    "sesa 3",
+    "nt",
+    "rest; remainder",
     "✓"
    ],
    [
@@ -160136,7 +160190,7 @@ var family_root_json = {
     "✓"
    ],
    [
-    "āramati",
+    "āramati 1.1",
     "pr",
     "ceases, stops; leaves off; keeps away (from)",
     "✗"
@@ -160161,7 +160215,7 @@ var family_root_json = {
   "root_key": "√ram 1",
   "root_family": "ā √ram",
   "root_meaning": "delight, please",
-  "count": 10,
+  "count": 11,
   "data": [
    [
     "āramaṇa 1",
@@ -160174,6 +160228,12 @@ var family_root_json = {
     "nt",
     "act of shunning, shrinking",
     "✗"
+   ],
+   [
+    "āramati 2.1",
+    "pr",
+    "takes pleasure (in); delights (in)",
+    "✓"
    ],
    [
     "ārāma 1",
@@ -208834,8 +208894,8 @@ var family_root_json = {
    [
     "sakāsa 1",
     "masc",
-    "presence",
-    "✗"
+    "presence; vicinity (of)",
+    "✓"
    ],
    [
     "sakāsa 2",
