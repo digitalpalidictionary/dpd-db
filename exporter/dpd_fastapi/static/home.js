@@ -23,7 +23,7 @@ const niggahitaToggle = document.getElementById("niggahita-toggle");
 const grammarToggle = document.getElementById("grammar-toggle");
 const exampleToggle = document.getElementById("example-toggle");
 const oneButtonToggle = document.getElementById("one-button-toggle");
-const sbsexampleToggle = document.getElementById("sbs-example-toggle");
+// const sbsexampleToggle = document.getElementById("sbs-example-toggle");
 const summaryToggle = document.getElementById("summary-toggle");
 const sandhiToggle = document.getElementById("sandhi-toggle");
 var fontSize
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
     loadToggleState("grammar-toggle");
     loadToggleState("example-toggle");
     loadToggleState("one-button-toggle")
-    loadToggleState("sbs-example-toggle");
+    // loadToggleState("sbs-example-toggle");
     loadToggleState("summary-toggle");
     loadToggleState("sandhi-toggle");
     loadFontSize()
@@ -191,17 +191,17 @@ async function handleFormSubmit(event) {
                 });
             };
 
-            //// sbs example button toggle
-            if (sbsexampleToggle.checked) {
-                const sbsexampleButtons = dpdDiv.querySelectorAll('[name="sbs-example-button"]');
-                const sbsexampleDivs = dpdDiv.querySelectorAll('[name="sbs-example-div"]');
-                sbsexampleButtons.forEach(button => {
-                    button.classList.add("active");
-                });
-                sbsexampleDivs.forEach(div => {
-                    div.classList.remove("hidden");
-                });
-            };
+            // //// sbs example button toggle
+            // if (sbsexampleToggle.checked) {
+            //     const sbsexampleButtons = dpdDiv.querySelectorAll('[name="sbs-example-button"]');
+            //     const sbsexampleDivs = dpdDiv.querySelectorAll('[name="sbs-example-div"]');
+            //     sbsexampleButtons.forEach(button => {
+            //         button.classList.add("active");
+            //     });
+            //     sbsexampleDivs.forEach(div => {
+            //         div.classList.remove("hidden");
+            //     });
+            // };
 
             dpdResults.innerHTML = dpdDiv.innerHTML;
             dpdResultsContent = dpdDiv.innerHTML
@@ -284,7 +284,7 @@ niggahitaToggle.addEventListener("change", saveToggleState);
 grammarToggle.addEventListener("change", saveToggleState);
 exampleToggle.addEventListener("change", saveToggleState);
 oneButtonToggle.addEventListener("change", saveToggleState);
-sbsexampleToggle.addEventListener("change", saveToggleState);
+// sbsexampleToggle.addEventListener("change", saveToggleState);
 summaryToggle.addEventListener("change", saveToggleState);
 sandhiToggle.addEventListener("change", saveToggleState);
 
@@ -400,26 +400,26 @@ exampleToggle.addEventListener("change", function() {
 });
 
 
-//// sbs examples button toggle
-sbsexampleToggle.addEventListener("change", function() {
-    const sbsexampleButtons = document.getElementsByName("sbs-example-button");
-    const sbsexampleDivs = document.getElementsByName("sbs-example-div");
-    if (this.checked) {
-        sbsexampleButtons.forEach(button => {
-            button.classList.add("active");
-        });
-        sbsexampleDivs.forEach(div => {
-            div.classList.remove("hidden");
-        });
-    } else {
-        sbsexampleButtons.forEach(button => {
-            button.classList.remove("active");
-        });
-        sbsexampleDivs.forEach(div => {
-            div.classList.add("hidden");
-        });
-    }
-});
+// //// sbs examples button toggle
+// sbsexampleToggle.addEventListener("change", function() {
+//     const sbsexampleButtons = document.getElementsByName("sbs-example-button");
+//     const sbsexampleDivs = document.getElementsByName("sbs-example-div");
+//     if (this.checked) {
+//         sbsexampleButtons.forEach(button => {
+//             button.classList.add("active");
+//         });
+//         sbsexampleDivs.forEach(div => {
+//             div.classList.remove("hidden");
+//         });
+//     } else {
+//         sbsexampleButtons.forEach(button => {
+//             button.classList.remove("active");
+//         });
+//         sbsexampleDivs.forEach(div => {
+//             div.classList.add("hidden");
+//         });
+//     }
+// });
 
 //// summary 
 
