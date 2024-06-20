@@ -16718,7 +16718,7 @@ var family_idiom_json = {
    [
     "yāva tāva",
     "idiom",
-    "as long as … then",
+    "as long as … then; as far as ... that much; until ... to that extent",
     "✓"
    ]
   ]
@@ -30498,7 +30498,7 @@ var family_idiom_json = {
    [
     "yāva tāva",
     "idiom",
-    "as long as … then",
+    "as long as … then; as far as ... that much; until ... to that extent",
     "✓"
    ],
    [

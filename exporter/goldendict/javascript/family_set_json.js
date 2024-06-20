@@ -10289,7 +10289,7 @@ var family_set_json = {
    [
     "rathakāra 1",
     "masc",
-    "chariot maker; carpenter; car mechanic",
+    "chariot maker; carpenter; mechanic; (comm) leatherworker",
     "✓"
    ],
    [
@@ -13615,12 +13615,6 @@ var family_set_json = {
     "~"
    ],
    [
-    "athassumegha",
-    "masc",
-    "name of a privately awakened Buddha",
-    "~"
-   ],
-   [
     "anāsava 2",
     "masc",
     "name of a privately awakened Buddha; lit. free from effluents",
@@ -13661,6 +13655,12 @@ var family_set_json = {
     "masc",
     "name of a privately awakened Buddha; lit. untied",
     "~"
+   ],
+   [
+    "assumegha",
+    "masc",
+    "name of a privately awakened Buddha; lit. cloud of tears",
+    "✓"
    ],
    [
     "ānanda 3",
@@ -13711,10 +13711,10 @@ var family_set_json = {
     "~"
    ],
    [
-    "upariṭṭha 2",
+    "upariṭṭha 2.1",
     "masc",
-    "name of a privately awakened Buddha; lit. standing above",
-    "~"
+    "name of a privately awakened Buddha; lit. descendent of Ariṭṭha",
+    "✓"
    ],
    [
     "upasikhi",
@@ -13773,8 +13773,8 @@ var family_set_json = {
    [
     "ketumbharāga",
     "masc",
-    "name of a privately awakened Buddha; lit. going carrying a flag",
-    "~"
+    "name of a privately awakened Buddha; lit. going carrying a flag; (or) cloud coloured",
+    "✓"
    ],
    [
     "kesī 3",
@@ -13863,8 +13863,8 @@ var family_set_json = {
    [
     "dabbila",
     "masc",
-    "name of a privately awakened Buddha",
-    "~"
+    "name of a privately awakened Buddha; lit. ladeler",
+    "✓"
    ],
    [
     "durannaya 2",
@@ -13935,14 +13935,14 @@ var family_set_json = {
    [
     "piṇḍola 1",
     "masc",
-    "name of a privately awakened Buddha; lit. almsman",
+    "name of a privately awakened Buddha; lit. who collects alms",
     "~"
    ],
    [
     "piyadassī",
     "masc",
-    "name of a privately awakened Buddha; lit. dear to see",
-    "~"
+    "name of a privately awakened Buddha; lit. dear to see; (or) who looks fondly",
+    "✓"
    ],
    [
     "bandhumant 2",
@@ -14097,8 +14097,8 @@ var family_set_json = {
    [
     "sīdarī",
     "masc",
-    "name of a privately awakened Buddha",
-    "~"
+    "name of a privately awakened Buddha; lit. from the Sīdā river; (or) cold",
+    "✓"
    ],
    [
     "sutavant 3",
@@ -15460,6 +15460,12 @@ var family_set_json = {
     "masc",
     "name of an arahant",
     "~"
+   ],
+   [
+    "piṇḍola 3",
+    "masc",
+    "name of monk; lit. who collects alms",
+    "✓"
    ],
    [
     "piṇḍolabhāradvāja",
@@ -16902,7 +16908,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 453
+  "count": 454
  },
  "names of arahants": {
   "data": [
@@ -21760,6 +21766,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "sīdā",
+    "fem",
+    "name of a Himalayan river; lit. cold",
+    "✓"
+   ],
+   [
     "sutanu 2",
     "masc",
     "name of a river; lit. well thin",
@@ -21772,7 +21784,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 36
+  "count": 37
  },
  "names of ascetics": {
   "data": [
@@ -22496,12 +22508,6 @@ var family_set_json = {
     "~"
    ],
    [
-    "ghaṭī",
-    "fem",
-    "name of a deity; lit. water pot; large earthen water-jar",
-    "✓"
-   ],
-   [
     "ghaṭīkāra",
     "masc",
     "name of a deity; lit. water pot maker",
@@ -22990,7 +22996,7 @@ var family_set_json = {
    [
     "rohitassa",
     "masc",
-    "pravious name of a deity; lit. red horse",
+    "previous name of a deity; lit. red horse",
     "✓"
    ],
    [
@@ -23336,7 +23342,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 176
+  "count": 175
  },
  "animals": {
   "data": [
@@ -34403,6 +34409,23 @@ var family_set_json = {
   ],
   "count": 7
  },
+ "suttas of the Saṃyutta Nikāya": {
+  "data": [
+   [
+    "ghaṭī",
+    "masc",
+    "in reference to Ghaṭīkārasutta (SN2.24)",
+    "✓"
+   ],
+   [
+    "bhārasutta",
+    "nt",
+    "Saṃyutta Nikāya 22.22 (SN22.22)",
+    "✓"
+   ]
+  ],
+  "count": 2
+ },
  "Sri Lanka": {
   "data": [
    [
@@ -34719,17 +34742,6 @@ var family_set_json = {
     "masc",
     "name of a small weight; lit. cat's foot",
     "~"
-   ]
-  ],
-  "count": 1
- },
- "suttas of the Saṃyutta Nikāya": {
-  "data": [
-   [
-    "bhārasutta",
-    "nt",
-    "Saṃyutta Nikāya 22.22 (SN22.22)",
-    "✓"
    ]
   ],
   "count": 1

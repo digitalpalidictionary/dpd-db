@@ -686,7 +686,7 @@ var family_word_json = {
    [
     "sakasāvatta",
     "nt",
-    "defectiveness; imperfection; degeneracy; lit. impure state",
+    "defectiveness; imperfection; degeneracy (of); lit. impure state",
     "✓"
    ]
   ],
@@ -6871,6 +6871,12 @@ var family_word_json = {
     "✗"
    ],
    [
+    "daṇḍayati",
+    "pr",
+    "beats; punishes",
+    "✓"
+   ],
+   [
     "daṇḍāpesi",
     "aor",
     "punished; chastised",
@@ -6881,6 +6887,12 @@ var family_word_json = {
     "adj",
     "having a stick",
     "✗"
+   ],
+   [
+    "daṇḍeti",
+    "pr",
+    "beats; punishes",
+    "✓"
    ],
    [
     "paṭidaṇḍa",
@@ -6907,7 +6919,7 @@ var family_word_json = {
     "✗"
    ]
   ],
-  "count": 21
+  "count": 23
  },
  "danta": {
   "data": [
@@ -7872,7 +7884,7 @@ var family_word_json = {
    [
     "chavi 2",
     "adj",
-    "with skin; with a certain type of skin",
+    "with skin; with a certain type of skin; with a complexion",
     "✓"
    ],
    [
@@ -9562,7 +9574,7 @@ var family_word_json = {
    [
     "usabha 2",
     "masc",
-    "formost; finest example; leader; lit. stud bull",
+    "foremost; finest example; leader; lit. stud bull",
     "✓"
    ],
    [
@@ -10790,7 +10802,7 @@ var family_word_json = {
    [
     "paṇḍitatara",
     "adj",
-    "wiser; more intelligent; more astute; cleverer",
+    "wiser; more intelligent; more astute; cleverer (than)",
     "✓"
    ]
   ],
@@ -13253,6 +13265,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "māṇava 4",
+    "masc",
+    "man; human; human being",
+    "✓"
+   ],
+   [
     "māṇavaka",
     "masc",
     "(typically of a Brahman) youngster; young lad; young boy",
@@ -13337,7 +13355,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 32
+  "count": 33
  },
  "mama": {
   "data": [
@@ -16919,7 +16937,7 @@ var family_word_json = {
    [
     "ittara 5",
     "adj",
-    "low; inferior; poor",
+    "low; inferior; poor; despised",
     "✓"
    ]
   ],
@@ -17237,8 +17255,8 @@ var family_word_json = {
    [
     "utu 6",
     "masc",
-    "fertile time following menstruation",
-    "✗"
+    "fertile window; time around ovulation; lit. season",
+    "✓"
    ],
    [
     "utuka",
@@ -21909,9 +21927,15 @@ var family_word_json = {
     "masc",
     "knot of wood",
     "✗"
+   ],
+   [
+    "ghaṭī",
+    "masc",
+    "in reference to Ghaṭīkārasutta (SN2.24)",
+    "✓"
    ]
   ],
-  "count": 4
+  "count": 5
  },
  "ghana": {
   "data": [
@@ -24197,7 +24221,7 @@ var family_word_json = {
     "thoka 1",
     "adj",
     "little; tiny; minute",
-    "✓"
+    "~"
    ],
    [
     "thoka 2",
@@ -24971,7 +24995,7 @@ var family_word_json = {
     "naraka 2",
     "masc",
     "hell; place of torment",
-    "✓"
+    "~"
    ]
   ],
   "count": 2

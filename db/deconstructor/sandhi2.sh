@@ -60,6 +60,10 @@ unzip -o sandhi.zip && rm sandhi.zip
 
 # Install Poetry using the official installer
 curl -sSL https://install.python-poetry.org | python3 -
+export PATH="/root/.local/bin:$PATH"
+alias python=python3.11
+source ~/.bashrc
+poetry self update
 
 # Install project dependencies
 poetry install

@@ -1,10 +1,7 @@
 Corrections
-TPR include var spelling mistakes sambhireva
 CPD remove line breaks
 Bhs css, find all tags
 Join dhar roots
-
-test evāyaṃ has no compound family
 
 santhā sk cf
 desetvā 1 sk tvā, desetvā 2
