@@ -47,7 +47,7 @@ function loadToggleState(id) {
 const startMessage = `
 <p class="message">Search for Pāḷi or English words above using <b>Unicode</b> or <b>Velthuis</b> characters.</p>
 <p class="message"><b>Double click</b> on any word to search for it.</p>
-<p class="message">Adjust the <b>settings</b> below to suit your preferences.</p>
+<p class="message">Adjust the <b>settings</b> to suit your preferences.</p>
 <p class="message"><b>Refresh</b> the page if you experience any problems.</p>
 <p class="message">
     <a href="https://digitalpalidictionary.github.io/dpdict.html" 
