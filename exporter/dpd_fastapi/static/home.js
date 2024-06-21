@@ -45,10 +45,20 @@ function loadToggleState(id) {
 //// Page load
 
 const startMessage = `
-<p class="message">Search for Pāḷi or English words above using Unicode or Velthuis characters.</p>
-<p class="message">Double click on any word to search for it.</p>
-<p class="message">Adjust the settings to your preference.</p>
-<p class="message">Hover over any element to get help.</p>
+<p class="message">Search for Pāḷi or English words above using <b>Unicode</b> or <b>Velthuis</b> characters.</p>
+<p class="message"><b>Double click</b> on any word to search for it.</p>
+<p class="message">Adjust the <b>settings</b> below to suit your preferences.</p>
+<p class="message"><b>Refresh</b> the page if you experience any problems.</p>
+<p class="message">
+    <a href="https://digitalpalidictionary.github.io/dpdict.html" 
+    target="_blank">
+    Click here</a> 
+    for more details about this website or 
+    <a href="https://digitalpalidictionary.github.io/titlepage.html" 
+    target="_blank">
+    more information</a> 
+    about DPD in general.
+</p>
 `
 
 document.addEventListener("DOMContentLoaded", function() {

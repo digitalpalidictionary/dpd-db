@@ -52,6 +52,10 @@ h3 {
     margin-top: 5px;
 }
 
+a {
+    color: var(--colour1);
+}
+
 .title {
     margin: 5px;
 }
@@ -183,8 +187,11 @@ h3 {
     background-color: red;
 }
 
-.message {
+p.message {
     text-align: center;
+    line-height: 150%;
+    padding: 1%;
+    
 }
 
 .summary-results b {
