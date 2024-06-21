@@ -491,6 +491,7 @@ Deccan
 declivity
 decoction
 decrepitude
+defectiveness
 defilement
 defilements
 dehorned
@@ -1188,6 +1189,7 @@ Mātugāmasaṃyuttaṃ
 MDict
 meditator
 mendaciously
+mendicants
 menses
 Meru
 mettā
@@ -1564,6 +1566,7 @@ prakṛti
 praṇāśa
 pranking
 Precatorius
+preceptor
 preeminent
 preparer
 prideless
@@ -1598,6 +1601,7 @@ Pūraṇa
 Pūraṇa
 Purāṇas
 putoḷi
+putridness
 PV
 q.v
 qualia
@@ -1654,6 +1658,7 @@ retroflex
 Revata
 reverable
 revilement
+reviles
 Ṛg
 Ricinus
 rightness
@@ -1842,6 +1847,7 @@ Soṇadaṇḍa
 Soṇadaṇḍa's
 sonant
 Sophora
+sorrowed
 sorrowless
 sorrowlessness
 sotāpanna
@@ -1900,6 +1906,7 @@ sunbird
 Sunidha
 Sunīdha
 Sunn
+sunned
 sunshade
 supernormal
 supportless
@@ -2171,6 +2178,7 @@ unsews
 unshakability
 unshareable
 unsheathes
+unskilful
 unskilled-ness
 unsmeared
 unsnarled
@@ -2366,8 +2374,3 @@ yojanas
 yoking
 zizanioides
 Ziziphus
-unskilful
-mendicants
-defectiveness
-putridness
-sorrowed

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Modules for initilizing, reading, writing, updatingand testing
+"""Modules for initializing, reading, writing, updating and testing
 config.ini file."""
 
 import configparser

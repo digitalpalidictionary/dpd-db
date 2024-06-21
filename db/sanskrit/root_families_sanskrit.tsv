@@ -337,18 +337,18 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	vi pa √kar	viprakṛ	viprakṛta (thwarted)
 √kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	vi saṃ √kar		vi + saṃskāra, vi + saṃskṛta
 √kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	saṃ √kar	saṃskṛ	asaṃskāra, asaṃskṛta, na + saṃ + kurvāṇa, sa + saṃskāra, sa + saṃskāreṇa, saṃkāra, saṃkurvat, saṃkriyate, saṃkṛ, saṃkṛti, saṃkṛtvā, saṃskaroti, saṃskāra, saṃskāratā, saṃskāravat, saṃskṛta, saṃskṛta +, saṃskṛti, sāṃkṛtya, susaṃskṛta
-√kal 1	8	*e	spend time	√kal	10	drive, produce	√kal		akāla (na + kāla), akālika, akāle (na + kāle), akālena, kāla, kālāḥ, kālika, kāle, kālena
-√kal 1	8	*e	spend time	√kal	10	drive, produce	ati √kal		atikalyam, na + atikalyam
-√kal 1	8	*e	spend time	√kal	10	drive, produce	ati vi √kal		ati + vikāla
-√kal 1	8	*e	spend time	√kal	10	drive, produce	vi √kal		vikāla
-√kal 2	8	a	accomplish	√kal	10	drive, produce	√kal		akalya, akalya (na + kalya), kalita, kalya, kalya +, kalyatā, kalyatva
-√kal 2	8	a	accomplish	√kal	10	drive, produce	vi √kal		na + vaikalya, na + vaikalyatā, vaikalyatā < vaikalya < vikala, vikala
-√kal 3	1	a	calculate, add	√kal	10	drive, produce	√kal		kalā, sakala, śakalika, śakalī
-√kal 3	1	a	calculate, add	√kal	10	drive, produce	saṃ √kal		saṃkal, saṃkalita
-√kalah	1	a	argue	√galh √garh	1, 10	chide	√kalah		kalaha
+√kal 1	8	*e	spend time	√kal	10	drive, produce	√kal	kal	akāla (na + kāla), akālika, akāle (na + kāle), akālena, kāla, kālāḥ, kālika, kāle, kālena
+√kal 1	8	*e	spend time	√kal	10	drive, produce	ati √kal	-	atikalyam, na + atikalyam
+√kal 1	8	*e	spend time	√kal	10	drive, produce	ati vi √kal	-	ati + vikāla
+√kal 1	8	*e	spend time	√kal	10	drive, produce	vi √kal	-	vikāla
+√kal 2	8	a	accomplish	√kal	10	drive, produce	√kal	kal	akalya, akalya (na + kalya), kalita, kalya, kalya +, kalyatā, kalyatva
+√kal 2	8	a	accomplish	√kal	10	drive, produce	vi √kal	-	na + vaikalya, na + vaikalyatā, vaikalyatā < vaikalya < vikala, vikala
+√kal 3	1	a	calculate, add	√kal	10	drive, produce	√kal	kal	kalā, sakala, śakalika, śakalī
+√kal 3	1	a	calculate, add	√kal	10	drive, produce	saṃ √kal	saṃkal	saṃkal, saṃkalita
+√kalah	1	a	argue	√galh √garh	1, 10	chide	√kalah	galh	kalaha
 √kas 1	1	a	drag, draw	√kṛṣ	1, 6	drag, plough	√kas	kṛṣ	akṛṣṭa, karṣa, karṣat, karṣati, karṣamāṇa, karṣayitavya, karṣayitum, karṣū, kārṣi, kṛṣi, kṛṣṭa, kṛṣṭa, kṛṣṭvā, kṛṣyate
-√kas 1	1	a	drag, draw	√kṛṣ	1, 6	drag, plough	ati ava √kas		ati + avakṛṣṭa
-√kas 1	1	a	drag, draw	√kṛṣ	1, 6	drag, plough	ati ud √kas		ati + utkṛṣṭa
+√kas 1	1	a	drag, draw	√kṛṣ	1, 6	drag, plough	ati ava √kas	avakṛṣ	ati + avakṛṣṭa
+√kas 1	1	a	drag, draw	√kṛṣ	1, 6	drag, plough	ati ud √kas	utkṛṣ	ati + utkṛṣṭa
 √kas 1	1	a	drag, draw	√kṛṣ	1, 6	drag, plough	apa √kas	apakṛṣ	apakṛṣṭa
 √kas 1	1	a	drag, draw	√kṛṣ	1, 6	drag, plough	ava √kas	avakṛṣ	ati + avakṛṣṭa, apakarṣa, avakṛṣya
 √kas 1	1	a	drag, draw	√kṛṣ	1, 6	drag, plough	ud √kas	utkṛṣ	utkarṣa, utkarṣaka, utkarṣaṇa, utkarṣati, utkarṣayati, utkṛṣṭa, utkṛṣṭā
@@ -358,19 +358,19 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kas 1	1	ya	drag, draw	√kṛṣ	1, 6	drag, plough	pari √kas	parikṛṣ	parikṛśyate, parikṛṣṭa, parikṛṣyate
 √kas 1	1	a	drag, draw	√kṛṣ	1, 6	drag, plough	vi √kas	vikṛṣ	vikasya, vikṛṣṭa
 √kas 1	1	ya	drag, draw	√kṛṣ	1, 6	drag, plough	vi apa √kas	vyapakṛṣ	vyapakarṣa (exception), vyapakarṣitum, vyapakṛṣyate
-√kas 1	1	a	drag, draw	√kṛṣ	1, 6	drag, plough	vi upa √kas		na + vyapakṛṣṭa, vyavakṛṣṭa (bsk), vyapakarṣayitum, vyapakṛṣṭa, vyavakṛṣṭa (bsk), vyavakarṣaṇa, vyavakarṣayati
+√kas 1	1	a	drag, draw	√kṛṣ	1, 6	drag, plough	vi upa √kas	upakṛṣ	na + vyapakṛṣṭa, vyavakṛṣṭa (bsk), vyapakarṣayitum, vyapakṛṣṭa, vyavakṛṣṭa (bsk), vyavakarṣaṇa, vyavakarṣayati
 √kas 1	1	a	drag, draw	√kṛṣ	1, 6	drag, plough	saṃ ud √kas	samutkṛṣ	sam + utkṛṣṭa, samutkarṣati, samutkarṣayati, sāmutkarṣika
-√kas 2	1	a	hurt, trouble	√kaṣ	1	scratch	√kas		akṛcchra (na + kṛcchra), kṛcchra, kṛcchreṇa
-√kas 2	1	a	hurt, trouble	√kaṣ	1	scratch	pa √kas		
-√kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	√kass		kṛṣaka
-√kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	anu √kass		
-√kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	apa √kass		apakṛṣṭvā, apakṛṣya, apākarṣati
-√kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	ava √kass		avakarṣayati
-√kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	ava pa √kass		
-√kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	ā √kass		
-√kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	pati √kass		prati + karṣaṇa, prati + kṛṣ
-√kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	pari √kass		parikarśati
-√kā	3	ya	makes sound	√gā	4	sing	√kā		
+√kas 2	1	a	hurt, trouble	√kaṣ	1	scratch	√kas	kaṣ	akṛcchra (na + kṛcchra), kṛcchra, kṛcchreṇa
+√kas 2	1	a	hurt, trouble	√kaṣ	1	scratch	pa √kas	-	
+√kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	√kass	kṛṣ	kṛṣaka
+√kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	anu √kass	anukṛṣ	
+√kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	apa √kass	apakṛṣ	apakṛṣṭvā, apakṛṣya, apākarṣati
+√kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	ava √kass	avakṛṣ	avakarṣayati
+√kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	ava pa √kass	prakṛṣ	
+√kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	ā √kass	ākṛṣ	
+√kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	pati √kass	pratyākṛṣ	prati + karṣaṇa, prati + kṛṣ
+√kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	pari √kass	parikṛṣ	parikarśati
+√kā	3	ya	makes sound	√gā	4	sing	√kā	gā	
 √kās 1	1	a	shine, be visible	√kāś	1	appear, make a show	√kās	kāś	sakāśa
 √kās 1	1	a	shine, be visible	√kāś	1	appear, make a show	adhi ava √kās	avakāś	abhyavakāśa, abhyavakāśe
 √kās 1	1	a	shine, be visible	√kāś	1	appear, make a show	abhi ava √kās	avakāś	abhyavakāśa, abhyavakāśika, abhyavakāśikatva
@@ -1489,8 +1489,8 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √nam	1	*e	bend	√nam	1	bend, bow	ati √nam	atinam	atināmayati, na + atināmayati
 √nam	1	a	bend	√nam	1	bend, bow	apa √nam	apanam	apanata, apanamati, apanamayati
 √nam	1	a	bend	√nam	1	bend, bow	abhi √nam	abhinam	abhi + anaṃsīt, abhinata, na + abhinata
-√nam	1	a	bend	√nam	1	bend, bow	abhi ud √nam		abhyunnata, abhyunnamayya, abhyunnamya
-√nam	1	*e	bend	√nam	1	bend, bow	abhi nī √nam		abhinirṇāmayati
+√nam	1	a	bend	√nam	1	bend, bow	abhi ud √nam	unnam	abhyunnata, abhyunnamayya, abhyunnamya
+√nam	1	*e	bend	√nam	1	bend, bow	abhi nī √nam	nirṇam	abhinirṇāmayati
 √nam	1	a	bend	√nam	1	bend, bow	ava √nam	avanam	avanata, avanati, avanamat, avanamati, avanāma, avanāmayati, na + avanāma
 √nam	1	a	bend	√nam	1	bend, bow	ud √nam	unnam	anunnata, unnata, unnati, unnamati, unnamayati, unnamayitum, unnamya, unnāma, unnāmayati, unnāmya, na + unnāma, namayat
 √nam	1	a	bend	√nam	1	bend, bow	upa √nam	upanam	+ nāmita, upa + anaṃsīt, upanamat, upanāmayat, upanāmayati, upanāmayitavya
@@ -1703,9 +1703,9 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √puṇ	1	a	be skilful, be precise	√puṇ	6	act piously	ati ni √puṇ	-	
 √puṇ	1	a	be skilful, be precise	√puṇ	6	act piously	ni √puṇ	-	nipuṇa (bsk), su + nipuṇa
 √puth	1	a	expand	√prath √pṛth	1	spread	√puth		prathāt, pṛthak, pṛthivī, pṛthu, pṛthak, pṛthuka, pṛthutva, pṛthula, pṛthula +
-√pupph	1	a	flower, expand	√puṣp	4	open, expand, bloom	√pupph		puṣpa, puṣpita, puṣpin, puṣpita, supuṣpita
-√pupph	1	a	flower, expand	√puṣp	4	open, expand, bloom	pa √pupph		pra + puṣpaka
-√pupph	1	a	flower, expand	√puṣp	4	open, expand, bloom	saṃ √pupph		saṃ + puṣpita
+√pupph	1	a	flower, expand	√puṣp	4	open, expand, bloom	√pupph	puṣpa	puṣpa, puṣpita, puṣpin, puṣpita, supuṣpita
+√pupph	1	a	flower, expand	√puṣp	4	open, expand, bloom	pa √pupph	puṣpa	pra + puṣpaka
+√pupph	1	a	flower, expand	√puṣp	4	open, expand, bloom	saṃ √pupph	puṣpa	saṃ + puṣpita
 √pul	8	*e	increase	√pul	1, 6, 10	be great	ati vi √pul	pul	ati + vaipulya +
 √pul	8	*e	increase	√pul	1, 6, 10	be great	vi √pul	pul	vaipulya, vaipulya +, vipula, vipula, vaipulya, vipulatā < vipula
 √pus	1	*a	nourish, take care	√puṣ	1, 4, 9	thrive	√pus	puṣ	apoṣi, duṣpoṣa, duṣpoṣatā, puṣṭa, puṣṭim, pota, potaka, potikā, poṣa, poṣaka, poṣaṇa, poṣaṇa +, poṣaṇīya, poṣat, poṣati, poṣayat, poṣayati, poṣayita, poṣita, poṣitavya, poṣin, supoṣa, supoṣatā
@@ -1856,7 +1856,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √bhaṇ	1	a	talk, speak	√bhaṇ	1	speak	pati √bhaṇ	pratibhaṇ	na + pratibhāna, pratibhāna, pratibhāna +, pratibhānavat
 √bhaṇḍ	1	a	blame, accuse	√bhaṇḍ	1	reprove	√bhaṇḍ		na + bhaṇḍat, bhaṇḍat, bhaṇḍate, bhaṇḍana, bhaṇḍayat, bhaṇḍayate, bhaṇḍitum, bhaṇḍitvā
 √bhaṇḍ	1	a	blame, accuse	√bhaṇḍ	1	reprove	pati √bhaṇḍ		prati + bhaṇḍate
-√bhad	1	a	be good, be lucky	√bhand	1	be bright	√bhad		a + bhadra, na + bhadraka, bhadanta, bhaddālin, bhadra, bhadraka, bhadravat, bhadravatī, bhadravatī +, bhadrā, bhadrika, bhallika, su + bhadraka, subhadra, subhadrā
+√bhad	1	a	be good, be lucky	√bhand	1	be bright	√bhad	bhand	a + bhadra, na + bhadraka, bhadanta, bhaddālin, bhadra, bhadraka, bhadravat, bhadravatī, bhadravatī +, bhadrā, bhadrika, bhallika, su + bhadraka, subhadra, subhadrā
 √bham	1	a	turn, revolve, buzz	√bhram	1, 4	wander	√bham		a + bhrānta, bhram, bhrāmayati, bhramati, bhramara, bhramaraka, bhramasva, bhrami, bhramita, bhrāntvā
 √bham	1	a	turn, revolve, buzz	√bhram	1, 4	wander	pari √bham		paribhramati
 √bham	1	a	turn, revolve, buzz	√bhram	1, 4	wander	vi √bham		vibhramya, vibhrānta, vibhrānta +, sambhramati

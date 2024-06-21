@@ -124,7 +124,7 @@ class AllowableCharacters():
     phonetic_terms = [
         "Kacc", "with metrically", "lengthened", "shortened",
         "before", "vowel", "under the influence of", "expansion",
-        "contraction", "sk ṛ", "nasalization"]
+        "contraction", "sk ṛ", "sk kṣ", "sk śr", "nasalization"]
     
     compound_types = [
         "abyayībhāva", "digu", "tappurisa", "dvanda", "kammadhāraya",
