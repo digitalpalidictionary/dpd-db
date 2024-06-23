@@ -13,7 +13,7 @@ from copy import deepcopy
 from rich import print
 
 from window_layout import window_layout
-from functions_db import udpate_word_in_db
+from functions_db import update_word_in_db
 from functions_db import get_next_ids
 from functions_db import get_family_root_values
 from functions_db import get_root_sign_values
@@ -1049,7 +1049,7 @@ def main():
             
             if last_button == "ok_button":
                 
-                success, action = udpate_word_in_db(
+                success, action = update_word_in_db(
                     pth, db_session, window, values)
                 
                 if success:
@@ -1081,7 +1081,7 @@ def main():
             ):
                 last_button = display_summary(values, window, sg, pali_word_original2)
                 if last_button == "ok_button":
-                    success, action = udpate_word_in_db(
+                    success, action = update_word_in_db(
                         pth, db_session, window, values)
                     if success:
                         book_to_add = values["book_to_add"]

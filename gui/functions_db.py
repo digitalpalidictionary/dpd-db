@@ -95,19 +95,9 @@ def print_pos_list(db_session):
 
 def get_next_ids(db_session, window):
 
-    used_ids = db_session.query(DpdHeadwords.id).order_by(DpdHeadwords.id).all()
-
-    def find_missing_or_next_id():
-        counter = 1
-        for used_id in used_ids:
-            if counter != int(used_id.id):
-                return counter
-            else:
-                counter += 1
-        return counter
-
-    next_id = find_missing_or_next_id()
-    print(next_id)
+    db = db_session.query(DpdHeadwords.id).order_by(DpdHeadwords.id).all()
+    max_id = max(used_id.id for used_id in db)
+    next_id = max_id + 1
 
     window["id"].update(next_id)
 
@@ -121,7 +111,7 @@ def values_to_pali_word(values):
     return word_to_add
 
 
-def udpate_word_in_db(
+def update_word_in_db(
         pth: ProjectPaths,
         db_session,
         window,
