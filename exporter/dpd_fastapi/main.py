@@ -1,12 +1,15 @@
-
-from fastapi.responses import HTMLResponse, JSONResponse
 import uvicorn
 import difflib
+from unidecode import unidecode
+
+from collections import defaultdict
 from fastapi import FastAPI
 from fastapi import Request
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
+
 
 from exporter.dpd_fastapi.modules import AbbreviationsData
 from exporter.dpd_fastapi.modules import DeconstructorData
@@ -29,7 +32,7 @@ from exporter.goldendict.helpers import make_roots_count_dict
 from tools.exporter_functions import get_family_compounds
 from tools.exporter_functions import get_family_idioms
 from tools.exporter_functions import get_family_set
-from tools.pali_sort_key import pali_sort_key
+from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 from tools.paths import ProjectPaths
 
 
@@ -48,12 +51,36 @@ def make_headwords_clean_set(db_session: Session) -> set[str]:
     headwords_clean_set.update([i.lookup_key for i in results])
     return headwords_clean_set
 
+
+def make_ascii_to_unicode_dict(db_session: Session) -> dict[str, list[str]]:
+    """Key is ASCII value of all headwords, value is Unicode."""
+
+    results = db_session.query(DpdHeadwords).all()
+    headwords_clean_set: set[str] = set()
+    for i in results:
+        headwords_clean_set.add(i.lemma_clean)
+        headwords_clean_set.add(i.lemma_2)
+    headwords_sorted_list = pali_list_sorter(headwords_clean_set)
+
+    ascii_to_unicode_dict = defaultdict(list)
+    for headword in headwords_sorted_list:
+        headword_ascii = unidecode(headword)
+        if (
+            headword_ascii != headword
+            and headword not in ascii_to_unicode_dict[headword_ascii]
+        ):
+            ascii_to_unicode_dict[headword_ascii].append(headword)
+
+    return ascii_to_unicode_dict
+
+
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="exporter/dpd_fastapi/static"), name="static")
 pth: ProjectPaths = ProjectPaths()
 db_session = get_db_session(pth.dpd_db_path)
 roots_count_dict = make_roots_count_dict(db_session)
 headwords_clean_set = make_headwords_clean_set(db_session)
+ascii_to_unicode_dict = make_ascii_to_unicode_dict(db_session)
 db_session.close()
 templates = Jinja2Templates(directory="exporter/dpd_fastapi/templates")
 
@@ -259,8 +286,8 @@ def make_dpd_html(search: str) -> tuple[str, str]:
     
 
 def find_closest_matches(search) -> str:
-    global headwords_clean_set
-    global lookup_set
+
+    ascii_matches = ascii_to_unicode_dict[search]
     closest_headword_matches =  \
         difflib.get_close_matches(
             search, headwords_clean_set,
@@ -268,18 +295,25 @@ def find_closest_matches(search) -> str:
             cutoff=0.7)
     
     string = "<h3>No results found. "
-    if closest_headword_matches:
+    if (ascii_matches or closest_headword_matches):
         string += "The closest matches are:</h3><br>"
-        string += ", ".join(closest_headword_matches)
     else:
         string += "</h3>"
+
+    if ascii_matches:
+        string += ", ".join(ascii_matches)
+        if closest_headword_matches:
+            string += ", "
+    if closest_headword_matches:
+        string += ", ".join(closest_headword_matches)
+
     return string
 
 if __name__ == "__main__":
     uvicorn.run(
         "main:app",
-        # host="0.0.0.0",
-        host="127.1.1.1",
+        host="0.0.0.0",
+        # host="127.1.1.1",
         port=8080,
         reload=True,
         reload_dirs="exporter/dpd_fastapi")
