@@ -174,7 +174,7 @@ var family_root_json = {
    [
     "akathitatta",
     "nt",
-    "fact of not being said; fact of not being mentioned",
+    "fact of not being said; fact of not being mentioned; lit. not said state",
     "~"
    ],
    [
@@ -2904,7 +2904,7 @@ var family_root_json = {
     "~"
    ],
    [
-    "kaṇḍaka",
+    "kaṇḍaka 1",
     "adj",
     "thorny-stemmed; prickly-stemmed",
     "✓"
@@ -8542,7 +8542,7 @@ var family_root_json = {
    [
     "gatimant 1",
     "adj",
-    "(of memory) retentive; having ability to store",
+    "(of memory) retentive; having ability to store; lit. having going quality",
     "✓"
    ],
    [
@@ -9302,7 +9302,7 @@ var family_root_json = {
    [
     "gaṇha 1",
     "masc",
-    "grasp; grip; hold; lit. grasp",
+    "grasp; grip; hold",
     "~"
    ],
    [
@@ -9446,7 +9446,7 @@ var family_root_json = {
    [
     "gaṇhiya",
     "ger",
-    "grasping; grabbing hold (of); lit. grasping",
+    "grasping; grabbing hold (of)",
     "✓"
    ],
    [
@@ -9836,7 +9836,7 @@ var family_root_json = {
    [
     "gāhāpeti 2",
     "pr",
-    "makes learn; makes understand; causes to grasp; lit. causes to grasp",
+    "makes learn; makes understand; causes to grasp",
     "~"
    ],
    [
@@ -10010,7 +10010,7 @@ var family_root_json = {
    [
     "suggahita 1",
     "adj",
-    "well grasped; correctly understood; well learned; taken in the right way; lit. well grasped",
+    "well grasped; correctly understood; well learned; taken in the right way",
     "✓"
    ],
    [
@@ -10286,7 +10286,7 @@ var family_root_json = {
    [
     "gandhavant",
     "adj",
-    "fragrant; scented; good smelling",
+    "fragrant; scented; good smelling; lit. having smell quality",
     "~"
    ],
    [
@@ -12168,7 +12168,7 @@ var family_root_json = {
    [
     "aṅgatā",
     "fem",
-    "fact of having limbs; having of having parts",
+    "fact of having limbs; having of having parts; lit. limb state",
     "~"
    ],
    [
@@ -18282,7 +18282,7 @@ var family_root_json = {
    [
     "ajānanatā",
     "fem",
-    "fact of not knowing; fact of ignorance",
+    "fact of not knowing; fact of ignorance; lit. not knowing state",
     "~"
    ],
    [
@@ -18354,7 +18354,7 @@ var family_root_json = {
    [
     "aññāṇatta",
     "nt",
-    "fact of not knowing; ignorance",
+    "fact of not knowing; ignorance; lit. not knowing state",
     "~"
    ],
    [
@@ -22936,7 +22936,7 @@ var family_root_json = {
    [
     "aṭṭhānatā",
     "fem",
-    "impossibility",
+    "impossibility; lit. not standing state",
     "~"
    ],
    [
@@ -26423,185 +26423,17 @@ var family_root_json = {
    ]
   ]
  },
- "√tul √tul": {
+ "√tul ati √tul": {
   "root_key": "√tul",
-  "root_family": "√tul",
+  "root_family": "ati √tul",
   "root_meaning": "weigh",
-  "count": 29,
+  "count": 1,
   "data": [
    [
     "atitula",
     "adj",
     "beyond compare; beyond measure; matchless",
     "✓"
-   ],
-   [
-    "atula 1",
-    "masc",
-    "name of a man; lit. immeasurable; uncountable",
-    "✓"
-   ],
-   [
-    "atula 2",
-    "adj",
-    "immeasurable; inestimable; incomparable; unequalled",
-    "✓"
-   ],
-   [
-    "atulita",
-    "pp",
-    "not examined; not deliberated; lit. not weighed",
-    "✗"
-   ],
-   [
-    "atuliya",
-    "ptp",
-    "unequalled; incomparable; immeasurable; lit. not to be weighed",
-    "✓"
-   ],
-   [
-    "atulya 1",
-    "ptp",
-    "unequalled; incomparable",
-    "✗"
-   ],
-   [
-    "atulya 2",
-    "masc",
-    "name of several emperors; lit. incomparable",
-    "✗"
-   ],
-   [
-    "atulla",
-    "ptp",
-    "unequalled; incomparable",
-    "✗"
-   ],
-   [
-    "tulana",
-    "nt",
-    "weighing, rating, deliberation",
-    "✗"
-   ],
-   [
-    "tulanā",
-    "fem",
-    "weighing; measuring; comparing; judging; deliberating",
-    "✓"
-   ],
-   [
-    "tulayati",
-    "pr",
-    "weighs; measures; compares; judges; deliberates",
-    "~"
-   ],
-   [
-    "tulayanta",
-    "prp",
-    "weighing; measuring; comparing; judging; deliberating",
-    "~"
-   ],
-   [
-    "tulayitabba",
-    "ptp",
-    "should be weighed; should be measured; should be compared; should be judged; lit. to be weighed",
-    "~"
-   ],
-   [
-    "tulayitvā",
-    "abs",
-    "having weighed; having measured; having compared; having judged; having deliberated",
-    "✓"
-   ],
-   [
-    "tulayitvāna",
-    "abs",
-    "having compared (something with something)",
-    "✓"
-   ],
-   [
-    "tulā 1",
-    "fem",
-    "scale; balance; measure; lit. weight",
-    "✓"
-   ],
-   [
-    "tulā 2",
-    "fem",
-    "measure (of); portion (of); lit. weight",
-    "✓"
-   ],
-   [
-    "tulā 3",
-    "fem",
-    "rafter",
-    "✗"
-   ],
-   [
-    "tulita",
-    "pp",
-    "weighed",
-    "✓"
-   ],
-   [
-    "tuliya 1",
-    "ger",
-    "weighing; measuring; comparing",
-    "✗"
-   ],
-   [
-    "tuliya 2",
-    "masc",
-    "flying fox",
-    "✗"
-   ],
-   [
-    "tuletabba",
-    "ptp",
-    "to be weighed, examined; to be compared; to be deliberated",
-    "✗"
-   ],
-   [
-    "tuleti",
-    "pr",
-    "weighs; measures; compares; judges; deliberates",
-    "✓"
-   ],
-   [
-    "tuletuṃ",
-    "inf",
-    "to weigh; to measure; to judge; to deliberate",
-    "~"
-   ],
-   [
-    "tuletvā",
-    "abs",
-    "having weighed, having examined, having compared; having deliberated",
-    "✗"
-   ],
-   [
-    "tulenta",
-    "prp",
-    "examining, comparing",
-    "✗"
-   ],
-   [
-    "tulesi",
-    "aor",
-    "weighed, examined, compared, deliberated",
-    "✗"
-   ],
-   [
-    "tulya",
-    "adj",
-    "equal; similar; of the same kind; lit. balancing",
-    "✓"
-   ],
-   [
-    "tulyatā",
-    "fem",
-    "equality",
-    "✗"
    ]
   ]
  },
@@ -28583,6 +28415,182 @@ var family_root_json = {
     "turitaṃ",
     "ind",
     "quickly, in a hurry",
+    "✗"
+   ]
+  ]
+ },
+ "√tul √tul": {
+  "root_key": "√tul",
+  "root_family": "√tul",
+  "root_meaning": "weigh",
+  "count": 28,
+  "data": [
+   [
+    "atula 1",
+    "masc",
+    "name of a man; lit. immeasurable; uncountable",
+    "✓"
+   ],
+   [
+    "atula 2",
+    "adj",
+    "immeasurable; inestimable; incomparable; unequalled",
+    "✓"
+   ],
+   [
+    "atulita",
+    "pp",
+    "not examined; not deliberated; lit. not weighed",
+    "✗"
+   ],
+   [
+    "atuliya",
+    "ptp",
+    "unequalled; incomparable; immeasurable; lit. not to be weighed",
+    "✓"
+   ],
+   [
+    "atulya 1",
+    "ptp",
+    "unequalled; incomparable",
+    "✗"
+   ],
+   [
+    "atulya 2",
+    "masc",
+    "name of several emperors; lit. incomparable",
+    "✗"
+   ],
+   [
+    "atulla",
+    "ptp",
+    "unequalled; incomparable",
+    "✗"
+   ],
+   [
+    "tulana",
+    "nt",
+    "weighing, rating, deliberation",
+    "✗"
+   ],
+   [
+    "tulanā",
+    "fem",
+    "weighing; measuring; comparing; judging; deliberating",
+    "✓"
+   ],
+   [
+    "tulayati",
+    "pr",
+    "weighs; measures; compares; judges; deliberates",
+    "~"
+   ],
+   [
+    "tulayanta",
+    "prp",
+    "weighing; measuring; comparing; judging; deliberating",
+    "~"
+   ],
+   [
+    "tulayitabba",
+    "ptp",
+    "should be weighed; should be measured; should be compared; should be judged; lit. to be weighed",
+    "~"
+   ],
+   [
+    "tulayitvā",
+    "abs",
+    "having weighed; having measured; having compared; having judged; having deliberated",
+    "✓"
+   ],
+   [
+    "tulayitvāna",
+    "abs",
+    "having compared (something with something)",
+    "✓"
+   ],
+   [
+    "tulā 1",
+    "fem",
+    "scale; balance; measure; lit. weight",
+    "✓"
+   ],
+   [
+    "tulā 2",
+    "fem",
+    "measure (of); portion (of); lit. weight",
+    "✓"
+   ],
+   [
+    "tulā 3",
+    "fem",
+    "rafter",
+    "✗"
+   ],
+   [
+    "tulita",
+    "pp",
+    "weighed",
+    "✓"
+   ],
+   [
+    "tuliya 1",
+    "ger",
+    "weighing; measuring; comparing",
+    "✗"
+   ],
+   [
+    "tuliya 2",
+    "masc",
+    "flying fox",
+    "✗"
+   ],
+   [
+    "tuletabba",
+    "ptp",
+    "to be weighed, examined; to be compared; to be deliberated",
+    "✗"
+   ],
+   [
+    "tuleti",
+    "pr",
+    "weighs; measures; compares; judges; deliberates",
+    "✓"
+   ],
+   [
+    "tuletuṃ",
+    "inf",
+    "to weigh; to measure; to judge; to deliberate",
+    "~"
+   ],
+   [
+    "tuletvā",
+    "abs",
+    "having weighed, having examined, having compared; having deliberated",
+    "✗"
+   ],
+   [
+    "tulenta",
+    "prp",
+    "examining, comparing",
+    "✗"
+   ],
+   [
+    "tulesi",
+    "aor",
+    "weighed, examined, compared, deliberated",
+    "✗"
+   ],
+   [
+    "tulya",
+    "adj",
+    "equal; similar; of the same kind; lit. balancing",
+    "✓"
+   ],
+   [
+    "tulyatā",
+    "fem",
+    "equality",
     "✗"
    ]
   ]
@@ -31688,7 +31696,7 @@ var family_root_json = {
    [
     "dātar 1",
     "masc",
-    "giver; donor",
+    "giver; donor (of)",
     "✓"
    ],
    [
@@ -35350,7 +35358,7 @@ var family_root_json = {
    [
     "dhuravant",
     "adj",
-    "responsible; doing one's duty; lit. burden quality",
+    "responsible; doing one's duty; lit. having burden quality",
     "~"
    ],
    [
@@ -35736,7 +35744,7 @@ var family_root_json = {
     "✗"
    ],
    [
-    "dhāretvā",
+    "dhāretvā 1",
     "abs",
     "having borne, having held, having worn",
     "✗"
@@ -39242,7 +39250,7 @@ var family_root_json = {
     "✓"
    ],
    [
-    "anuppatti 1",
+    "anuppatti 1.1",
     "fem",
     "arrival; attainment; realization (of); lit. going along",
     "✓"
@@ -40102,8 +40110,8 @@ var family_root_json = {
    [
     "ananusāsiyamāna",
     "prp",
-    "not being taught (by); not being advised (by)",
-    "~"
+    "not being taught; not being advised (by)",
+    "✓"
    ],
    [
     "anusāsa",
@@ -41487,7 +41495,7 @@ var family_root_json = {
   "root_key": "√ikkh",
   "root_family": "apa √ikkh",
   "root_meaning": "see, mark",
-  "count": 32,
+  "count": 33,
   "data": [
    [
     "anapekkha 1",
@@ -41667,6 +41675,12 @@ var family_root_json = {
     "nirapekha",
     "adj",
     "indifferent, heedless, disregarding",
+    "✗"
+   ],
+   [
+    "sapekkha",
+    "adj",
+    "having a longing (for); with longing",
     "✗"
    ],
    [
@@ -42966,7 +42980,7 @@ var family_root_json = {
     "✓"
    ],
    [
-    "abhisaṅkhacca",
+    "abhisaṅkhacca 1",
     "ger",
     "constructing; generating; fabricating; formulating",
     "✓"
@@ -44256,7 +44270,7 @@ var family_root_json = {
     "~"
    ],
    [
-    "anokāsa",
+    "anokāsa 1",
     "adj",
     "having no opportunity, space or time",
     "✗"
@@ -48205,7 +48219,7 @@ var family_root_json = {
     "netvāna",
     "abs",
     "having carried; having taken",
-    "~"
+    "✓"
    ],
    [
     "nenta",
@@ -53806,7 +53820,7 @@ var family_root_json = {
    [
     "nidahitabba",
     "ptp",
-    "should be laid aside; lit. to be placed down",
+    "should be placed; should be set down; should be laid aside; lit. to be placed down",
     "✓"
    ],
    [
@@ -57086,7 +57100,7 @@ var family_root_json = {
    [
     "nivāretabba",
     "ptp",
-    "should stop; lit. to be caused to restrain",
+    "should be stopped; should be restrained; lit. to cause to be restrained",
     "✓"
    ],
    [
@@ -62634,13 +62648,13 @@ var family_root_json = {
    [
     "uddharitvā 2",
     "abs",
-    "having scooped up (from); lit. having carried up",
+    "having scooped up (something from); lit. having carried up",
     "~"
    ],
    [
     "uddharitvā 3",
     "abs",
-    "having pulled out; having withdrawn (from); lit. having carried up",
+    "having pulled out; having withdrawn (something from); lit. having carried up",
     "~"
    ],
    [
@@ -63282,7 +63296,7 @@ var family_root_json = {
    [
     "upagacchi 1",
     "aor",
-    "took as; accepted as; regarded as; lit. went towards",
+    "took; accepted; regarded (something as something); lit. went towards",
     "✓"
    ],
    [
@@ -63480,7 +63494,7 @@ var family_root_json = {
   "count": 11,
   "data": [
    [
-    "anupaghāta",
+    "anupaghāta 1",
     "adj",
     "not hurtful; not harmful; non-violent",
     "✓"
@@ -63932,7 +63946,7 @@ var family_root_json = {
    [
     "upaṭṭhahi 2",
     "aor",
-    "provided (with); lit. stood near",
+    "provided (soembody with something); lit. stood near",
     "✓"
    ],
    [
@@ -67522,7 +67536,7 @@ var family_root_json = {
     "✗"
    ],
    [
-    "anuppatti 2",
+    "anuppatti 2.1",
     "fem",
     "non-arising; non-appearance",
     "✗"
@@ -73275,7 +73289,7 @@ var family_root_json = {
   "root_key": "√vad 1",
   "root_family": "ava √vad",
   "root_meaning": "say, speak",
-  "count": 25,
+  "count": 26,
   "data": [
    [
     "anovadana",
@@ -73288,6 +73302,12 @@ var family_root_json = {
     "prp",
     "not advising; not instructing; not admonishing",
     "~"
+   ],
+   [
+    "anovadiyamāna",
+    "prp",
+    "not being admonished; not being instructed",
+    "✓"
    ],
    [
     "anovādī",
@@ -73426,464 +73446,6 @@ var family_root_json = {
     "adj",
     "giving advice; instructing",
     "✗"
-   ]
-  ]
- },
- "√vad 1 √vad": {
-  "root_key": "√vad 1",
-  "root_family": "√vad",
-  "root_meaning": "say, speak",
-  "count": 75,
-  "data": [
-   [
-    "anovadiyamāna",
-    "prp",
-    "not being admonished; not being instructed",
-    "~"
-   ],
-   [
-    "avattabba",
-    "ptp",
-    "should not be said; should not be told; should not be spoken",
-    "✗"
-   ],
-   [
-    "avatvā 1",
-    "abs",
-    "having not said; having not spoken (about)",
-    "~"
-   ],
-   [
-    "avatvā 2",
-    "abs",
-    "having not explicitly stated; having not said outright; lit. having not said",
-    "~"
-   ],
-   [
-    "avada",
-    "masc",
-    "unspeakable words; curse words",
-    "✗"
-   ],
-   [
-    "avadanta",
-    "prp",
-    "not speaking; not saying",
-    "✓"
-   ],
-   [
-    "avadamāna 1",
-    "prp",
-    "not speaking",
-    "✗"
-   ],
-   [
-    "avadamāna 2",
-    "prp",
-    "cursing; speaking coarsely",
-    "✗"
-   ],
-   [
-    "avādita",
-    "pp",
-    "not played; lit. not caused to speak",
-    "✗"
-   ],
-   [
-    "ujja",
-    "ptp",
-    "should be said; lit. to be spoken",
-    "✓"
-   ],
-   [
-    "udita",
-    "pp",
-    "spoken; said; uttered",
-    "~"
-   ],
-   [
-    "pāva",
-    "perf",
-    "spoke (about); told (of); boasted (about); revealed",
-    "✓"
-   ],
-   [
-    "vajja 1.1",
-    "ptp",
-    "speaking; saying; lit. to be said",
-    "✓"
-   ],
-   [
-    "vajja 1.2",
-    "opt",
-    "you could say; you should tell",
-    "✓"
-   ],
-   [
-    "vajja 1.3",
-    "nt",
-    "musical instrument",
-    "✗"
-   ],
-   [
-    "vajjati",
-    "pr",
-    "(of a musical instrument) is played",
-    "✓"
-   ],
-   [
-    "vajjaṃ",
-    "opt",
-    "I myself could say",
-    "✓"
-   ],
-   [
-    "vajjā",
-    "opt",
-    "should say; could speak",
-    "✓"
-   ],
-   [
-    "vajjuṃ",
-    "opt",
-    "they could say",
-    "✓"
-   ],
-   [
-    "vattabba",
-    "ptp",
-    "should be said; should be told; should be spoken (to); lit. to be spoken",
-    "✓"
-   ],
-   [
-    "vattabbatā",
-    "fem",
-    "fact of being said",
-    "~"
-   ],
-   [
-    "vattave",
-    "inf",
-    "to speak; to talk",
-    "~"
-   ],
-   [
-    "vattuṃ",
-    "inf",
-    "to speak; to talk",
-    "✓"
-   ],
-   [
-    "vatvā",
-    "abs",
-    "having said; having spoken (about)",
-    "✓"
-   ],
-   [
-    "vatvāna",
-    "abs",
-    "having said; having spoken",
-    "✓"
-   ],
-   [
-    "vada 1",
-    "adj",
-    "speaking; who talks",
-    "✓"
-   ],
-   [
-    "vada 2",
-    "root",
-    "(gram) √vad (say, speak)",
-    "✓"
-   ],
-   [
-    "vadati 1",
-    "pr",
-    "says (to); speaks (to); tells (to)",
-    "✓"
-   ],
-   [
-    "vadati 2",
-    "pr",
-    "disputes; argues; debates; lit. speaks",
-    "✓"
-   ],
-   [
-    "vadati 3",
-    "pr",
-    "(of a musical instrument) plays; makes sound; lit. speaks",
-    "✓"
-   ],
-   [
-    "vadati 4",
-    "pr",
-    "advises; instructs; lit. speaks",
-    "✓"
-   ],
-   [
-    "vadati 5",
-    "pr",
-    "(of a text) says; means; lit. speaks",
-    "~"
-   ],
-   [
-    "vadate",
-    "pr",
-    "one speaks of oneself (as)",
-    "✓"
-   ],
-   [
-    "vadana 1",
-    "nt",
-    "speaking; talking; saying",
-    "✓"
-   ],
-   [
-    "vadana 2",
-    "nt",
-    "face; countenance; lit. speaking",
-    "✓"
-   ],
-   [
-    "vadanta",
-    "prp",
-    "speaking; saying",
-    "✓"
-   ],
-   [
-    "vadamāna",
-    "prp",
-    "speaking; saying",
-    "✓"
-   ],
-   [
-    "vadassū",
-    "imp",
-    "you yourself must speak (to); you yourself should argue (with)",
-    "✓"
-   ],
-   [
-    "vadāna",
-    "prp",
-    "speaking; saying; asserting; professing",
-    "✓"
-   ],
-   [
-    "vadāpana",
-    "nt",
-    "causing to speak",
-    "✗"
-   ],
-   [
-    "vadāpita",
-    "pp",
-    "made somebody spoken or said",
-    "✗"
-   ],
-   [
-    "vadāpeti",
-    "pr",
-    "makes somebody speaks or says",
-    "✗"
-   ],
-   [
-    "vadāpetvā",
-    "abs",
-    "having made somebody spoken or said",
-    "✗"
-   ],
-   [
-    "vadāpesi",
-    "aor",
-    "made (someone) say; caused (someone) to speak",
-    "~"
-   ],
-   [
-    "vadāmi",
-    "pr",
-    "I say; I speak; I tell",
-    "✓"
-   ],
-   [
-    "vadi",
-    "aor",
-    "spoke, said, told",
-    "✗"
-   ],
-   [
-    "vaditvā",
-    "abs",
-    "having spoken, having said, having told",
-    "✗"
-   ],
-   [
-    "vadū",
-    "adj",
-    "speaking; talking; saying",
-    "~"
-   ],
-   [
-    "vade",
-    "opt",
-    "should say; should speak",
-    "✓"
-   ],
-   [
-    "vadeti 1",
-    "pr",
-    "say; speaks; calls; describes (as)",
-    "✓"
-   ],
-   [
-    "vadeti 2",
-    "pr",
-    "makes sound; lit. cause to speak",
-    "~"
-   ],
-   [
-    "vadenta",
-    "prp",
-    "saying; speaking",
-    "~"
-   ],
-   [
-    "vadeyya",
-    "opt",
-    "would say; could speak; could tell",
-    "✓"
-   ],
-   [
-    "vadesi",
-    "aor",
-    "said; stated; replied",
-    "✓"
-   ],
-   [
-    "vāda 1",
-    "adj",
-    "holding a belief; having a doctrine",
-    "✓"
-   ],
-   [
-    "vāda 2",
-    "masc",
-    "speech; statement; assertion; what is said",
-    "✓"
-   ],
-   [
-    "vāda 3",
-    "masc",
-    "debate; argument; disputation",
-    "✓"
-   ],
-   [
-    "vāda 4",
-    "masc",
-    "saying; mentioning",
-    "✓"
-   ],
-   [
-    "vāda 5",
-    "masc",
-    "declaration; statement; assertion; claim",
-    "✓"
-   ],
-   [
-    "vāda 6",
-    "masc",
-    "doctrine; religious belief; belief system",
-    "✓"
-   ],
-   [
-    "vādaka 1",
-    "masc",
-    "proponent; adherent; speaker",
-    "✓"
-   ],
-   [
-    "vādaka 2",
-    "adj",
-    "speaking; talking; saying",
-    "✓"
-   ],
-   [
-    "vādaka 3",
-    "masc",
-    "musician",
-    "✗"
-   ],
-   [
-    "vādana",
-    "nt",
-    "sounding of a musical instrument",
-    "✗"
-   ],
-   [
-    "vādayati",
-    "pr",
-    "disputes; argues; debates",
-    "✓"
-   ],
-   [
-    "vādita 1",
-    "nt",
-    "instrumental music; lit. caused to speak",
-    "✓"
-   ],
-   [
-    "vādita 2",
-    "pp",
-    "played; sounded; lit. caused to speak",
-    "✓"
-   ],
-   [
-    "vādita 3",
-    "nt",
-    "words; speech",
-    "✗"
-   ],
-   [
-    "vāditar",
-    "masc",
-    "speaker; sayer",
-    "✓"
-   ],
-   [
-    "vādiyaka",
-    "adj",
-    "holding a belief; having a doctrine",
-    "~"
-   ],
-   [
-    "vādī 1",
-    "adj",
-    "speaking; saying; telling",
-    "✓"
-   ],
-   [
-    "vādī 2",
-    "masc",
-    "who professes a doctrine; adherent; lit. speaking",
-    "✓"
-   ],
-   [
-    "vādeti",
-    "pr",
-    "sounds a musical instrument",
-    "✗"
-   ],
-   [
-    "vādetvā",
-    "abs",
-    "having played a musical instrument",
-    "✗"
-   ],
-   [
-    "vādenta",
-    "prp",
-    "playing musical instruments; lit. causing to speak",
-    "~"
    ]
   ]
  },
@@ -80522,7 +80084,7 @@ var family_root_json = {
     "✗"
    ],
    [
-    "patthana",
+    "patthana 1",
     "nt",
     "intending; wishing; aspiring; praying; longing",
     "~"
@@ -82026,7 +81588,7 @@ var family_root_json = {
    [
     "pamāṇavant",
     "adj",
-    "finite; measurable; limited",
+    "finite; measurable; limited; lit. having measure quality",
     "✓"
    ],
    [
@@ -86756,13 +86318,13 @@ var family_root_json = {
    [
     "apariyāpuṭa",
     "pp",
-    "not studied; not thoroughly learned; not mastered",
+    "not studied; not thoroughly learned; not mastered; lit. not attained all around",
     "✓"
    ],
    [
     "pariyāpuṭa",
     "pp",
-    "studied; thoroughly learned; mastered",
+    "studied; thoroughly learned; mastered; lit. attained all around",
     "✓"
    ],
    [
@@ -86780,31 +86342,31 @@ var family_root_json = {
    [
     "pariyāpuṇāti",
     "pr",
-    "studies well; learns thoroughly; masters; lit. reaches",
+    "studies well; learns thoroughly; masters; lit. attains all around",
     "✓"
    ],
    [
     "pariyāpuṇi",
     "aor",
-    "studied well; learned thoroughly; mastered",
+    "studied well; learned thoroughly; mastered; lit. attained all around",
     "✓"
    ],
    [
     "pariyāpuṇitabba",
     "ptp",
-    "should be mastered; should be studied; should be thoroughly learned; lit. to be reached",
+    "should be mastered; should be studied; should be thoroughly learned; lit. to be attained all around",
     "✓"
    ],
    [
     "pariyāpuṇituṃ",
     "inf",
-    "to study well; to learn thoroughly; to master; lit. reaches",
+    "to study well; to learn thoroughly; to master; lit. to attain all around",
     "✓"
    ],
    [
     "pariyāpuṇitvā",
     "abs",
-    "having mastered; having studied; having thoroughly learned",
+    "having mastered; having studied; having thoroughly learned; lit. having attained all around",
     "✓"
    ],
    [
@@ -87060,7 +86622,7 @@ var family_root_json = {
     "✗"
    ],
    [
-    "pariyodapeti",
+    "pariyodapeti 1",
     "pr",
     "cleanses (from); refines (from); purifies (from); lit. causes to be pure",
     "✓"
@@ -93980,7 +93542,7 @@ var family_root_json = {
    [
     "paṭighavant",
     "adj",
-    "aversive; resistant; lit. with striking against quality",
+    "aversive; resistant; lit. having striking against quality",
     "✓"
    ],
    [
@@ -97076,7 +96638,7 @@ var family_root_json = {
     "✗"
    ],
    [
-    "paṭihāra",
+    "paṭihāra 1",
     "masc",
     "escort; bodyguard; door-keeper",
     "~"
@@ -104124,8 +103686,8 @@ var family_root_json = {
    [
     "bhijjamāna",
     "prp",
-    "breaking, destroying",
-    "✗"
+    "being broked; being destroyed",
+    "✓"
    ],
    [
     "bhijji",
@@ -105576,7 +105138,7 @@ var family_root_json = {
    [
     "viyāpanna",
     "pp",
-    "failed; gone wrong; spoiled; corrupted; lit. gone wrong",
+    "failed; gone wrong; spoiled; corrupted",
     "✓"
    ],
    [
@@ -108464,7 +108026,7 @@ var family_root_json = {
     "✗"
    ],
    [
-    "bhassanta 1",
+    "bhassanta 1.1",
     "prp",
     "falling down",
     "✗"
@@ -109240,7 +108802,7 @@ var family_root_json = {
    [
     "bhāṇumant",
     "masc",
-    "sun; lit. ray quality",
+    "sun; lit. having ray quality",
     "~"
    ],
    [
@@ -114446,7 +114008,7 @@ var family_root_json = {
     "✓"
    ],
    [
-    "bhuñjamāna",
+    "bhuñjamāna 1",
     "prp",
     "eating; consuming",
     "✓"
@@ -123998,7 +123560,7 @@ var family_root_json = {
     "✓"
    ],
    [
-    "nālattha",
+    "nālattha 1",
     "aor",
     "did not get; did not obtain; did not receive",
     "✓"
@@ -128005,6 +127567,458 @@ var family_root_json = {
     "sovattika",
     "adj",
     "with good conduct; having good customs",
+    "~"
+   ]
+  ]
+ },
+ "√vad 1 √vad": {
+  "root_key": "√vad 1",
+  "root_family": "√vad",
+  "root_meaning": "say, speak",
+  "count": 74,
+  "data": [
+   [
+    "avattabba",
+    "ptp",
+    "should not be said; should not be told; should not be spoken",
+    "✗"
+   ],
+   [
+    "avatvā 1",
+    "abs",
+    "having not said; having not spoken (about)",
+    "~"
+   ],
+   [
+    "avatvā 2",
+    "abs",
+    "having not explicitly stated; having not said outright; lit. having not said",
+    "~"
+   ],
+   [
+    "avada",
+    "masc",
+    "unspeakable words; curse words",
+    "✗"
+   ],
+   [
+    "avadanta",
+    "prp",
+    "not speaking; not saying",
+    "✓"
+   ],
+   [
+    "avadamāna 1",
+    "prp",
+    "not speaking",
+    "✗"
+   ],
+   [
+    "avadamāna 2",
+    "prp",
+    "cursing; speaking coarsely",
+    "✗"
+   ],
+   [
+    "avādita",
+    "pp",
+    "not played; lit. not caused to speak",
+    "✗"
+   ],
+   [
+    "ujja",
+    "ptp",
+    "should be said; lit. to be spoken",
+    "✓"
+   ],
+   [
+    "udita",
+    "pp",
+    "spoken; said; uttered",
+    "~"
+   ],
+   [
+    "pāva",
+    "perf",
+    "spoke (about); told (of); boasted (about); revealed",
+    "✓"
+   ],
+   [
+    "vajja 1.1",
+    "ptp",
+    "speaking; saying; lit. to be said",
+    "✓"
+   ],
+   [
+    "vajja 1.2",
+    "opt",
+    "you could say; you should tell",
+    "✓"
+   ],
+   [
+    "vajja 1.3",
+    "nt",
+    "musical instrument",
+    "✗"
+   ],
+   [
+    "vajjati",
+    "pr",
+    "(of a musical instrument) is played",
+    "✓"
+   ],
+   [
+    "vajjaṃ",
+    "opt",
+    "I myself could say",
+    "✓"
+   ],
+   [
+    "vajjā",
+    "opt",
+    "should say; could speak",
+    "✓"
+   ],
+   [
+    "vajjuṃ",
+    "opt",
+    "they could say",
+    "✓"
+   ],
+   [
+    "vattabba",
+    "ptp",
+    "should be said; should be told; should be spoken (to); lit. to be spoken",
+    "✓"
+   ],
+   [
+    "vattabbatā",
+    "fem",
+    "fact of being said",
+    "~"
+   ],
+   [
+    "vattave",
+    "inf",
+    "to speak; to talk",
+    "~"
+   ],
+   [
+    "vattuṃ",
+    "inf",
+    "to speak; to talk",
+    "✓"
+   ],
+   [
+    "vatvā",
+    "abs",
+    "having said; having spoken (about)",
+    "✓"
+   ],
+   [
+    "vatvāna",
+    "abs",
+    "having said; having spoken",
+    "✓"
+   ],
+   [
+    "vada 1",
+    "adj",
+    "speaking; who talks",
+    "✓"
+   ],
+   [
+    "vada 2",
+    "root",
+    "(gram) √vad (say, speak)",
+    "✓"
+   ],
+   [
+    "vadati 1",
+    "pr",
+    "says (to); speaks (to); tells (to)",
+    "✓"
+   ],
+   [
+    "vadati 2",
+    "pr",
+    "disputes; argues; debates; lit. speaks",
+    "✓"
+   ],
+   [
+    "vadati 3",
+    "pr",
+    "(of a musical instrument) plays; makes sound; lit. speaks",
+    "✓"
+   ],
+   [
+    "vadati 4",
+    "pr",
+    "advises; instructs; lit. speaks",
+    "✓"
+   ],
+   [
+    "vadati 5",
+    "pr",
+    "(of a text) says; means; lit. speaks",
+    "~"
+   ],
+   [
+    "vadate",
+    "pr",
+    "one speaks of oneself (as)",
+    "✓"
+   ],
+   [
+    "vadana 1",
+    "nt",
+    "speaking; talking; saying",
+    "✓"
+   ],
+   [
+    "vadana 2",
+    "nt",
+    "face; countenance; lit. speaking",
+    "✓"
+   ],
+   [
+    "vadanta",
+    "prp",
+    "speaking; saying",
+    "✓"
+   ],
+   [
+    "vadamāna",
+    "prp",
+    "speaking; saying",
+    "✓"
+   ],
+   [
+    "vadassū",
+    "imp",
+    "you yourself must speak (to); you yourself should argue (with)",
+    "✓"
+   ],
+   [
+    "vadāna",
+    "prp",
+    "speaking; saying; asserting; professing",
+    "✓"
+   ],
+   [
+    "vadāpana",
+    "nt",
+    "causing to speak",
+    "✗"
+   ],
+   [
+    "vadāpita",
+    "pp",
+    "made somebody spoken or said",
+    "✗"
+   ],
+   [
+    "vadāpeti",
+    "pr",
+    "makes somebody speaks or says",
+    "✗"
+   ],
+   [
+    "vadāpetvā",
+    "abs",
+    "having made somebody spoken or said",
+    "✗"
+   ],
+   [
+    "vadāpesi",
+    "aor",
+    "made (someone) say; caused (someone) to speak",
+    "~"
+   ],
+   [
+    "vadāmi",
+    "pr",
+    "I say; I speak; I tell",
+    "✓"
+   ],
+   [
+    "vadi",
+    "aor",
+    "spoke, said, told",
+    "✗"
+   ],
+   [
+    "vaditvā",
+    "abs",
+    "having spoken, having said, having told",
+    "✗"
+   ],
+   [
+    "vadū",
+    "adj",
+    "speaking; talking; saying",
+    "~"
+   ],
+   [
+    "vade",
+    "opt",
+    "should say; should speak",
+    "✓"
+   ],
+   [
+    "vadeti 1",
+    "pr",
+    "say; speaks; calls; describes (as)",
+    "✓"
+   ],
+   [
+    "vadeti 2",
+    "pr",
+    "makes sound; lit. cause to speak",
+    "~"
+   ],
+   [
+    "vadenta",
+    "prp",
+    "saying; speaking",
+    "~"
+   ],
+   [
+    "vadeyya",
+    "opt",
+    "would say; could speak; could tell",
+    "✓"
+   ],
+   [
+    "vadesi",
+    "aor",
+    "said; stated; replied",
+    "✓"
+   ],
+   [
+    "vāda 1",
+    "adj",
+    "holding a belief; having a doctrine",
+    "✓"
+   ],
+   [
+    "vāda 2",
+    "masc",
+    "speech; statement; assertion; what is said",
+    "✓"
+   ],
+   [
+    "vāda 3",
+    "masc",
+    "debate; argument; disputation",
+    "✓"
+   ],
+   [
+    "vāda 4",
+    "masc",
+    "saying; mentioning",
+    "✓"
+   ],
+   [
+    "vāda 5",
+    "masc",
+    "declaration; statement; assertion; claim",
+    "✓"
+   ],
+   [
+    "vāda 6",
+    "masc",
+    "doctrine; religious belief; belief system",
+    "✓"
+   ],
+   [
+    "vādaka 1",
+    "masc",
+    "proponent; adherent; speaker",
+    "✓"
+   ],
+   [
+    "vādaka 2",
+    "adj",
+    "speaking; talking; saying",
+    "✓"
+   ],
+   [
+    "vādaka 3",
+    "masc",
+    "musician",
+    "✗"
+   ],
+   [
+    "vādana",
+    "nt",
+    "sounding of a musical instrument",
+    "✗"
+   ],
+   [
+    "vādayati",
+    "pr",
+    "disputes; argues; debates",
+    "✓"
+   ],
+   [
+    "vādita 1",
+    "nt",
+    "instrumental music; lit. caused to speak",
+    "✓"
+   ],
+   [
+    "vādita 2",
+    "pp",
+    "played; sounded; lit. caused to speak",
+    "✓"
+   ],
+   [
+    "vādita 3",
+    "nt",
+    "words; speech",
+    "✗"
+   ],
+   [
+    "vāditar",
+    "masc",
+    "speaker; sayer",
+    "✓"
+   ],
+   [
+    "vādiyaka",
+    "adj",
+    "holding a belief; having a doctrine",
+    "~"
+   ],
+   [
+    "vādī 1",
+    "adj",
+    "speaking; saying; telling",
+    "✓"
+   ],
+   [
+    "vādī 2",
+    "masc",
+    "who professes a doctrine; adherent; lit. speaking",
+    "✓"
+   ],
+   [
+    "vādeti",
+    "pr",
+    "sounds a musical instrument",
+    "✗"
+   ],
+   [
+    "vādetvā",
+    "abs",
+    "having played a musical instrument",
+    "✗"
+   ],
+   [
+    "vādenta",
+    "prp",
+    "playing musical instruments; lit. causing to speak",
     "~"
    ]
   ]
@@ -137060,7 +137074,7 @@ var family_root_json = {
     "✓"
    ],
    [
-    "avibhatta",
+    "avibhatta 1",
     "pp",
     "not analysed in detail; lit. not divided",
     "✓"
@@ -139000,7 +139014,7 @@ var family_root_json = {
     "✓"
    ],
    [
-    "visaṭṭha",
+    "visaṭṭha 1",
     "pp",
     "(of speech) distinct; clear; well enunciated; lit. emitted",
     "✓"
@@ -150850,7 +150864,7 @@ var family_root_json = {
    [
     "dahati 1.2",
     "pr",
-    "places on; sets on; lit. puts",
+    "places; sets (on); lit. puts",
     "✓"
    ],
    [
@@ -163766,13 +163780,13 @@ var family_root_json = {
    [
     "uttāseti 1.1",
     "pr",
-    "impales (on)",
+    "impales (somebody on something)",
     "✓"
    ],
    [
     "uttāsenta",
     "prp",
-    "impaling (on)",
+    "impaling (somebody on something)",
     "~"
    ],
    [
@@ -165988,7 +166002,7 @@ var family_root_json = {
    [
     "upanikkhipitabba",
     "ptp",
-    "should deposit near; should place down close; lit. to be thrown down near",
+    "should be deposit near; should be place down close; lit. to be thrown down near",
     "✓"
    ],
    [
@@ -170414,7 +170428,7 @@ var family_root_json = {
    [
     "otāpetabba",
     "ptp",
-    "should be dried; should be sunned; lit. to be caused to burn",
+    "should be sunned; should be warmed (in); lit. to cause to be burned down",
     "✓"
    ],
    [
@@ -182050,7 +182064,7 @@ var family_root_json = {
    [
     "ninnādavant",
     "adj",
-    "reverberating; resonating",
+    "reverberating; resonating; lit. having sound quality",
     "~"
    ],
    [
@@ -187889,20 +187903,6 @@ var family_root_json = {
    ]
   ]
  },
- "√vas 2 paṭi ni √vas": {
-  "root_key": "√vas 2",
-  "root_family": "paṭi ni √vas",
-  "root_meaning": "wear, dress",
-  "count": 1,
-  "data": [
-   [
-    "paṭinivāsana",
-    "nt",
-    "lower robe given in return",
-    "✓"
-   ]
-  ]
- },
  "√saj 2 pati nī √saj": {
   "root_key": "√saj 2",
   "root_family": "pati nī √saj",
@@ -190732,7 +190732,7 @@ var family_root_json = {
    [
     "papupphaka",
     "nt",
-    "garland; wreath; (comm) three realms of cyclical existence",
+    "garland; wreath; (comm) spinning in the three realms of cyclical existence",
     "✓"
    ]
   ]

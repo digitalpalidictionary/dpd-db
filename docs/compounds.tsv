@@ -1,13 +1,17 @@
 COMMOON WORDS IN COMPOUNDS			type
 ante	masc	antevāsī	
+anudiṭṭhi	fem	pubbantānudiṭṭhi, attānudiṭṭhi, aparantānudiṭṭhi	
+atthara	nt	hatthatthara	
 atthāya	ind	puññatthāya	
 aṭṭhika	nt	jaṅghaṭṭhika	
 evaṃ	adj	evaṃpaṭipanna	
+gata (meaning type)	nt	mānagata, ākāsagata, āpogata, pubbagata, viññāṇagata, tiracchānagata(?), vāyogata, kheḷagata, gūthagata	
 hetu	ind	micchāpaṭipattādhikaraṇahetu	
 hetu	ind	pāricariyāhetu, brūhanāhetu, pīṇanāhetu, kucchihetu	
 jātika	adj	chandajātika	
 kara	adj	puññakara	
 karaṇīya	nt	saṅghakaraṇīya	
+khīṇa	adj	khīṇatiracchānayoni, khīṇaniraya, khīṇapunabbhava	
 maya	adj	jātarūpamaya	
 nānā	noun	nānādāru	
 nidāna	adj	jātinidāna	
@@ -15,19 +19,15 @@ niyata	adj	micchattaniyata
 pabhava	adj	upadhipabhava	
 paro	card	parosahassa	
 samudaya	adj	upadhisamudaya	
+saññī (as)	adj	appaṭikūlasaññī	
 sāruppagāmī	adj	jātinirodhasāruppagāmī	
 tathā	adj	tathāpaṭipanna, tathāpahīna, tathāsaññī, tathākārī	
 uccā	adj	uccākulīna	
+upa (descendednt of)	masc	upariṭṭha, upananda	
 upari	masc	uparikokanadapāsāda	
 upasampanna	adj	vassasatūpasampanna, tadahupasampanna	
 yāva	ind	yāvatatiyakaṃ	
-gata (meaning type)	nt	mānagata, ākāsagata, āpogata, pubbagata, viññāṇagata, tiracchānagata(?), vāyogata, kheḷagata, gūthagata	
-anudiṭṭhi	fem	pubbantānudiṭṭhi, attānudiṭṭhi, aparantānudiṭṭhi	
-khīṇa	adj	khīṇatiracchānayoni, khīṇaniraya, khīṇapunabbhava	
-atthara	nt	hatthatthara	
-upa (descendednt of)	masc	upariṭṭha, upananda	
-			
-			
+sa	adj	sapubbadeva	
 			
 			
 			
@@ -66,3 +66,5 @@ INDIVIDUAL WORDS
 vaḷabhīratha	masc		
 saṅkhārārammaṇa	adj		
 surāmerayamajjapamādaṭṭhānapaccayā	ind		
+mihitapubbaṃ	ind		
+jaṅghabala	nt		

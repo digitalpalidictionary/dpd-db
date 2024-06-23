@@ -1,4 +1,164 @@
 var family_idiom_json = {
+ "kaṅkhā": {
+  "count": 2,
+  "data": [
+   [
+    "kaṅkhaṃ vitarati",
+    "idiom",
+    "dispels doubt; removes uncertainty",
+    "✓"
+   ],
+   [
+    "kaṅkhaṃ vinayati",
+    "idiom",
+    "dispels doubt; removes uncertainty",
+    "✓"
+   ]
+  ]
+ },
+ "kaci": {
+  "count": 23,
+  "data": [
+   [
+    "kañcideva",
+    "sandhi",
+    "something; just some",
+    "✓"
+   ],
+   [
+    "kiñcideva",
+    "sandhi",
+    "someone; some person; something",
+    "✓"
+   ],
+   [
+    "kismiñcideva",
+    "sandhi",
+    "in whatever; in whichever",
+    "✓"
+   ],
+   [
+    "kecideva",
+    "sandhi",
+    "some even",
+    "~"
+   ],
+   [
+    "kecime",
+    "sandhi",
+    "whoever of these; whichever of these",
+    "✓"
+   ],
+   [
+    "kenacideva karaṇīyena",
+    "idiom",
+    "on some business; lit. with something to be done",
+    "✓"
+   ],
+   [
+    "kenacideva 1",
+    "sandhi",
+    "just with some",
+    "✓"
+   ],
+   [
+    "kenacideva 2",
+    "sandhi",
+    "with anything at all; with anyone whatsoever",
+    "~"
+   ],
+   [
+    "kocañño",
+    "sandhi",
+    "someone else; anyone else",
+    "✓"
+   ],
+   [
+    "kocideva",
+    "sandhi",
+    "even some; just some; some or other",
+    "✓"
+   ],
+   [
+    "kocideso",
+    "sandhi",
+    "some matter; some point; some detail",
+    "✓"
+   ],
+   [
+    "na kiñcana",
+    "idiom",
+    "none whatsoever; none at all",
+    "✓"
+   ],
+   [
+    "na kiñci",
+    "idiom",
+    "not one; none; no-one; not any; nothing",
+    "✓"
+   ],
+   [
+    "na koci",
+    "idiom",
+    "no one; not one; none; nobody; nothing",
+    "✓"
+   ],
+   [
+    "nakassaci",
+    "idiom",
+    "not to someone; not for anyone; not to anything",
+    "✓"
+   ],
+   [
+    "no koci",
+    "idiom",
+    "no one; not one; none; nobody",
+    "✓"
+   ],
+   [
+    "yassa kassaci",
+    "idiom",
+    "for anybody whatsoever; lit. for whichever whatsoever",
+    "✓"
+   ],
+   [
+    "yaṃ kiñci",
+    "idiom",
+    "whatever; any whatsoever; everything; all",
+    "✓"
+   ],
+   [
+    "yā kāci",
+    "idiom",
+    "whatever; any whatsoever; everything; all",
+    "✓"
+   ],
+   [
+    "yā kācimā",
+    "idiom",
+    "all these; any of these things",
+    "✓"
+   ],
+   [
+    "ye keci",
+    "idiom",
+    "whatever; any whatsoever; everything; all; all those",
+    "✓"
+   ],
+   [
+    "ye kecime",
+    "idiom",
+    "whichever of these; all of these",
+    "✓"
+   ],
+   [
+    "yesaṃ kesañci",
+    "idiom",
+    "of any whatsoever",
+    "~"
+   ]
+  ]
+ },
  "kata": {
   "count": 8,
   "data": [
@@ -49,6 +209,101 @@ var family_idiom_json = {
     "idiom",
     "(vinaya) done within arm's length",
     "✓"
+   ]
+  ]
+ },
+ "katvā": {
+  "count": 15,
+  "data": [
+   [
+    "añjaliṃ katvā",
+    "idiom",
+    "having paid respect (to) with palms together; having reverently saluted",
+    "✓"
+   ],
+   [
+    "aṭṭhiṃ katvā",
+    "idiom",
+    "having focused; having paid attention; lit. having made important",
+    "✓"
+   ],
+   [
+    "antaraṃ katvā",
+    "idiom",
+    "having given priority to; lit. having made within",
+    "✓"
+   ],
+   [
+    "abhinīhāraṃ katvā",
+    "idiom",
+    "having made the aspiration (for); having made set the intention (to)",
+    "✓"
+   ],
+   [
+    "ādiṃ katvā",
+    "idiom",
+    "beginning with; starting from; lit. having made first",
+    "✓"
+   ],
+   [
+    "ekaṃsaṃ cīvaraṃ katvā",
+    "idiom",
+    "having arranged one's robe over one shoulder",
+    "✓"
+   ],
+   [
+    "kālaṃ katvā",
+    "idiom",
+    "having died; lit. having done time",
+    "✓"
+   ],
+   [
+    "cittiṃ katvāna",
+    "idiom",
+    "having given value; having given importance; having given high regard",
+    "✓"
+   ],
+   [
+    "tato sīsaṃ katvā",
+    "idiom",
+    "having pointed the head in that direction; lit. from that having made the head",
+    "✓"
+   ],
+   [
+    "padakkhiṇaṃ katvā",
+    "idiom",
+    "having gone around a person to the right out of respect; having circled around to the right",
+    "✓"
+   ],
+   [
+    "pādakaṃ katvā",
+    "idiom",
+    "having made a basis; having created a supporting condition",
+    "~"
+   ],
+   [
+    "piṭṭhito katvā",
+    "idiom",
+    "having turned one's back on",
+    "~"
+   ],
+   [
+    "maṅgalaṃ katvā",
+    "idiom",
+    "having married; lit. having made auspicious ceremony",
+    "✓"
+   ],
+   [
+    "manasi katvā",
+    "idiom",
+    "having paid attention; having applied the mind; lit. having made in mind",
+    "✓"
+   ],
+   [
+    "sadisaṃ katvā",
+    "idiom",
+    "having drawn a comparison (with); having noticed the similarity (to)",
+    "~"
    ]
   ]
  },
@@ -312,149 +567,6 @@ var family_idiom_json = {
     "sandhi",
     "where without difficulty; where easily; where without hardship",
     "✓"
-   ]
-  ]
- },
- "kaci": {
-  "count": 23,
-  "data": [
-   [
-    "kañcideva",
-    "sandhi",
-    "something; just some",
-    "✓"
-   ],
-   [
-    "kiñcideva",
-    "sandhi",
-    "someone; some person; something",
-    "✓"
-   ],
-   [
-    "kismiñcideva",
-    "sandhi",
-    "in whatever; in whichever",
-    "✓"
-   ],
-   [
-    "kecideva",
-    "sandhi",
-    "some even",
-    "~"
-   ],
-   [
-    "kecime",
-    "sandhi",
-    "whoever of these; whichever of these",
-    "✓"
-   ],
-   [
-    "kenacideva karaṇīyena",
-    "idiom",
-    "on some business; lit. with something to be done",
-    "✓"
-   ],
-   [
-    "kenacideva 1",
-    "sandhi",
-    "just with some",
-    "✓"
-   ],
-   [
-    "kenacideva 2",
-    "sandhi",
-    "with anything at all; with anyone whatsoever",
-    "~"
-   ],
-   [
-    "kocañño",
-    "sandhi",
-    "someone else; anyone else",
-    "✓"
-   ],
-   [
-    "kocideva",
-    "sandhi",
-    "even some; just some; some or other",
-    "✓"
-   ],
-   [
-    "kocideso",
-    "sandhi",
-    "some matter; some point; some detail",
-    "✓"
-   ],
-   [
-    "na kiñcana",
-    "idiom",
-    "none whatsoever; none at all",
-    "✓"
-   ],
-   [
-    "na kiñci",
-    "idiom",
-    "not one; none; no-one; not any; nothing",
-    "✓"
-   ],
-   [
-    "na koci",
-    "idiom",
-    "no one; not one; none; nobody; nothing",
-    "✓"
-   ],
-   [
-    "nakassaci",
-    "idiom",
-    "not to someone; not for anyone; not to anything",
-    "✓"
-   ],
-   [
-    "no koci",
-    "idiom",
-    "no one; not one; none; nobody",
-    "✓"
-   ],
-   [
-    "yassa kassaci",
-    "idiom",
-    "for anybody whatsoever; lit. for whichever whatsoever",
-    "✓"
-   ],
-   [
-    "yaṃ kiñci",
-    "idiom",
-    "whatever; any whatsoever; everything; all",
-    "✓"
-   ],
-   [
-    "yā kāci",
-    "idiom",
-    "whatever; any whatsoever; everything; all",
-    "✓"
-   ],
-   [
-    "yā kācimā",
-    "idiom",
-    "all these; any of these things",
-    "✓"
-   ],
-   [
-    "ye keci",
-    "idiom",
-    "whatever; any whatsoever; everything; all; all those",
-    "✓"
-   ],
-   [
-    "ye kecime",
-    "idiom",
-    "whichever of these; all of these",
-    "✓"
-   ],
-   [
-    "yesaṃ kesañci",
-    "idiom",
-    "of any whatsoever",
-    "~"
    ]
   ]
  },
@@ -5125,101 +5237,6 @@ var family_idiom_json = {
     "idiom",
     "having stretched out the hands in reverential salutation towards",
     "✓"
-   ]
-  ]
- },
- "katvā": {
-  "count": 15,
-  "data": [
-   [
-    "añjaliṃ katvā",
-    "idiom",
-    "having paid respect (to) with palms together; having reverently saluted",
-    "✓"
-   ],
-   [
-    "aṭṭhiṃ katvā",
-    "idiom",
-    "having focused; having paid attention; lit. having made important",
-    "✓"
-   ],
-   [
-    "antaraṃ katvā",
-    "idiom",
-    "having given priority to; lit. having made within",
-    "✓"
-   ],
-   [
-    "abhinīhāraṃ katvā",
-    "idiom",
-    "having made the aspiration (for); having made set the intention (to)",
-    "✓"
-   ],
-   [
-    "ādiṃ katvā",
-    "idiom",
-    "beginning with; starting from; lit. having made first",
-    "✓"
-   ],
-   [
-    "ekaṃsaṃ cīvaraṃ katvā",
-    "idiom",
-    "having arranged one's robe over one shoulder",
-    "✓"
-   ],
-   [
-    "kālaṃ katvā",
-    "idiom",
-    "having died; lit. having done time",
-    "✓"
-   ],
-   [
-    "cittiṃ katvāna",
-    "idiom",
-    "having given value; having given importance; having given high regard",
-    "✓"
-   ],
-   [
-    "tato sīsaṃ katvā",
-    "idiom",
-    "having pointed the head in that direction; lit. from that having made the head",
-    "✓"
-   ],
-   [
-    "padakkhiṇaṃ katvā",
-    "idiom",
-    "having gone around a person to the right out of respect; having circled around to the right",
-    "✓"
-   ],
-   [
-    "pādakaṃ katvā",
-    "idiom",
-    "having made a basis; having created a supporting condition",
-    "~"
-   ],
-   [
-    "piṭṭhito katvā",
-    "idiom",
-    "having turned one's back on",
-    "~"
-   ],
-   [
-    "maṅgalaṃ katvā",
-    "idiom",
-    "having married; lit. having made auspicious ceremony",
-    "✓"
-   ],
-   [
-    "manasi katvā",
-    "idiom",
-    "having paid attention; having applied the mind; lit. having made in mind",
-    "✓"
-   ],
-   [
-    "sadisaṃ katvā",
-    "idiom",
-    "having drawn a comparison (with); having noticed the similarity (to)",
-    "~"
    ]
   ]
  },
@@ -18168,6 +18185,23 @@ var family_idiom_json = {
    ]
   ]
  },
+ "aṃsa2": {
+  "count": 2,
+  "data": [
+   [
+    "ekaṃsaṃ uttarāsaṅgaṃ karitvā",
+    "idiom",
+    "having arranged one's robe over one shoulder",
+    "✓"
+   ],
+   [
+    "ekaṃsaṃ cīvaraṃ katvā",
+    "idiom",
+    "having arranged one's robe over one shoulder",
+    "✓"
+   ]
+  ]
+ },
  "āgacchati": {
   "count": 3,
   "data": [
@@ -21100,23 +21134,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "aṃsa2": {
-  "count": 2,
-  "data": [
-   [
-    "ekaṃsaṃ uttarāsaṅgaṃ karitvā",
-    "idiom",
-    "having arranged one's robe over one shoulder",
-    "✓"
-   ],
-   [
-    "ekaṃsaṃ cīvaraṃ katvā",
-    "idiom",
-    "having arranged one's robe over one shoulder",
-    "✓"
-   ]
-  ]
- },
  "cīvara": {
   "count": 3,
   "data": [
@@ -22105,23 +22122,6 @@ var family_idiom_json = {
     "kālaṃ kaṅkhati",
     "idiom",
     "waits for death; expects death; lit. awaits time",
-    "✓"
-   ]
-  ]
- },
- "kaṅkhā": {
-  "count": 2,
-  "data": [
-   [
-    "kaṅkhaṃ vitarati",
-    "idiom",
-    "dispels doubt; removes uncertainty",
-    "✓"
-   ],
-   [
-    "kaṅkhaṃ vinayati",
-    "idiom",
-    "dispels doubt; removes uncertainty",
     "✓"
    ]
   ]

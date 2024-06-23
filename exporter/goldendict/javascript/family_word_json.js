@@ -8,9 +8,15 @@ var family_word_json = {
     "✓"
    ],
    [
-    "kakkasa",
+    "kakkasa 1",
     "adj",
     "rough; harsh; (comm) rotten",
+    "✓"
+   ],
+   [
+    "kakkasa 2",
+    "nt",
+    "roughness; harshness; crudeness",
     "✓"
    ],
    [
@@ -26,7 +32,7 @@ var family_word_json = {
     "~"
    ]
   ],
-  "count": 4
+  "count": 5
  },
  "kaci": {
   "data": [
@@ -3261,7 +3267,7 @@ var family_word_json = {
    [
     "ajjatā",
     "fem",
-    "the present time; this day",
+    "the present time; this day; lit. today state",
     "✓"
    ],
    [
@@ -3631,6 +3637,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "ettakena",
+    "ind",
+    "by so much; to such an extent",
+    "✗"
+   ],
+   [
     "ettāvatā",
     "ind",
     "to this extent; to such a degree; so far",
@@ -3715,7 +3727,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 81
+  "count": 82
  },
  "atta": {
   "data": [
@@ -4609,7 +4621,7 @@ var family_word_json = {
    [
     "ataccha 2",
     "nt",
-    "falsehood; untruth",
+    "falsehood; untruth; lit. not true state",
     "✓"
    ],
    [
@@ -6873,7 +6885,7 @@ var family_word_json = {
    [
     "daṇḍayati",
     "pr",
-    "beats; punishes",
+    "beats; harms; punishes",
     "✓"
    ],
    [
@@ -6891,7 +6903,7 @@ var family_word_json = {
    [
     "daṇḍeti",
     "pr",
-    "beats; punishes",
+    "beats; harms; punishes",
     "✓"
    ],
    [
@@ -7492,9 +7504,15 @@ var family_word_json = {
     "masc",
     "of time",
     "✓"
+   ],
+   [
+    "anaddhaniya",
+    "adj",
+    "not long-lasting; not enduring for a long time; lit. not fit for a time",
+    "~"
    ]
   ],
-  "count": 8
+  "count": 9
  },
  "addhā": {
   "data": [
@@ -12326,7 +12344,7 @@ var family_word_json = {
    [
     "bālavant",
     "adj",
-    "foolish; ignorant; stupid; immature",
+    "foolish; ignorant; stupid; immature; lit. having fool quality",
     "~"
    ],
    [
@@ -13267,7 +13285,7 @@ var family_word_json = {
    [
     "māṇava 4",
     "masc",
-    "man; human; human being",
+    "person; human; human being",
     "✓"
    ],
    [
@@ -16563,6 +16581,17 @@ var family_word_json = {
    ]
   ],
   "count": 3
+ },
+ "aṃsa2": {
+  "data": [
+   [
+    "aṃsa 2.2",
+    "adj",
+    "with shoulders; having shoulder-blades",
+    "✓"
+   ]
+  ],
+  "count": 1
  },
  "cīra": {
   "data": [
@@ -20692,6 +20721,29 @@ var family_word_json = {
   ],
   "count": 2
  },
+ "kūpa": {
+  "data": [
+   [
+    "kūpa 1",
+    "masc",
+    "pore; follicle",
+    "✓"
+   ],
+   [
+    "kūpa 2",
+    "masc",
+    "hole; pit; trench",
+    "✓"
+   ],
+   [
+    "kūpa 3",
+    "masc",
+    "well",
+    "✗"
+   ]
+  ],
+  "count": 3
+ },
  "keṭubha": {
   "data": [
    [
@@ -21434,6 +21486,23 @@ var family_word_json = {
    ]
   ],
   "count": 4
+ },
+ "gaccha": {
+  "data": [
+   [
+    "gaccha 2.1",
+    "masc",
+    "tree; wild bush",
+    "~"
+   ],
+   [
+    "gaccha 2.2",
+    "adj",
+    "(of an arrow shaft) grown wild; uncultivated; lit. shrub",
+    "✓"
+   ]
+  ],
+  "count": 2
  },
  "gandhabba": {
   "data": [
@@ -29707,6 +29776,17 @@ var family_word_json = {
    ]
   ],
   "count": 2
+ },
+ "vaccas": {
+  "data": [
+   [
+    "vacchasī",
+    "adj",
+    "lustrous; glorious; splendid",
+    "✓"
+   ]
+  ],
+  "count": 1
  },
  "vajira": {
   "data": [

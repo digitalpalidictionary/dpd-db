@@ -433,7 +433,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "anāgatattha 2",
+    "anāgatattha 2.1",
     "masc",
     "(gram) word with a future meaning",
     "~"
@@ -5398,6 +5398,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "thera 2.1",
+    "abbrev",
+    "abbreviation of Therāpadāna",
+    "~"
+   ],
+   [
     "theragā",
     "abbrev",
     "abbreviation of Theragāthā",
@@ -5449,6 +5455,12 @@ var family_set_json = {
     "paṭi",
     "abbrev",
     "abbreviation of Paṭisambhidā (Magga)",
+    "~"
+   ],
+   [
+    "pari 2",
+    "abbrev",
+    "abbreviation of Parivāra",
     "~"
    ],
    [
@@ -5524,7 +5536,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "mahāva",
+    "mahāva 1",
     "abbrev",
     "abbreviation of Mahāvaṃsa",
     "✓"
@@ -5542,6 +5554,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "va 5.1",
+    "abbrev",
+    "abbreviation of (Vimāna)vatthu",
+    "~"
+   ],
+   [
     "vi 2.1",
     "abbrev",
     "abbreviation of vissajjanā; response",
@@ -5551,6 +5569,18 @@ var family_set_json = {
     "vi 2.2",
     "abbrev",
     "abbreviation of Vimānavatthu",
+    "~"
+   ],
+   [
+    "vibh",
+    "abbrev",
+    "abbreviation of Vibhaṅga; 2nd book of the Abhidhamma",
+    "~"
+   ],
+   [
+    "vibha",
+    "abbrev",
+    "abbreviation of Vibhaṅga Aṭṭhakathā",
     "~"
    ],
    [
@@ -5590,7 +5620,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 45
+  "count": 50
  },
  "pronouns": {
   "data": [
@@ -14816,7 +14846,7 @@ var family_set_json = {
    [
     "kolita",
     "masc",
-    "name of a monk; Mahāmoggallāna's first name; Kolita Moggallāna",
+    "Mahāmoggallāna's first name; Kolita Moggallāna",
     "✓"
    ],
    [
@@ -17479,7 +17509,7 @@ var family_set_json = {
    [
     "kolita",
     "masc",
-    "name of a monk; Mahāmoggallāna's first name; Kolita Moggallāna",
+    "Mahāmoggallāna's first name; Kolita Moggallāna",
     "✓"
    ],
    [
@@ -34424,13 +34454,31 @@ var family_set_json = {
     "✓"
    ],
    [
+    "dutiyaaputtakasutta",
+    "nt",
+    "Saṃyutta Nikāya 3.20 (SN3.20)",
+    "~"
+   ],
+   [
+    "paṭhamaaputtakasutta",
+    "nt",
+    "Saṃyutta Nikāya 3.19 (SN3.19)",
+    "~"
+   ],
+   [
     "bhārasutta",
     "nt",
     "Saṃyutta Nikāya 22.22 (SN22.22)",
     "✓"
+   ],
+   [
+    "verocanaasurindasutta",
+    "nt",
+    "Saṃyutta Nikāya 11.8 (SN11.8)",
+    "~"
    ]
   ],
-  "count": 2
+  "count": 5
  },
  "Sri Lanka": {
   "data": [
