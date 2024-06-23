@@ -294,18 +294,20 @@ def find_closest_matches(search) -> str:
             n=10,
             cutoff=0.7)
     
+    combined_list = []
+    combined_list.extend(ascii_matches)
+    combined_list.extend([
+        item 
+        for item in closest_headword_matches
+        if item not in ascii_matches
+    ])
+
     string = "<h3>No results found. "
-    if (ascii_matches or closest_headword_matches):
+    if combined_list:
         string += "The closest matches are:</h3><br>"
+        string += ", ".join(combined_list)
     else:
         string += "</h3>"
-
-    if ascii_matches:
-        string += ", ".join(ascii_matches)
-        if closest_headword_matches:
-            string += ", "
-    if closest_headword_matches:
-        string += ", ".join(closest_headword_matches)
 
     return string
 
