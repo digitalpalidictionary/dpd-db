@@ -305,7 +305,9 @@ def find_closest_matches(search) -> str:
     string = "<h3>No results found. "
     if combined_list:
         string += "The closest matches are:</h3><br>"
+        string += "<p>"
         string += ", ".join(combined_list)
+        string += "</p>"
     else:
         string += "</h3>"
 

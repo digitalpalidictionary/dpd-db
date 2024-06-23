@@ -50,15 +50,21 @@ const startMessage = `
 <p class="message">Adjust the <b>settings</b> to suit your preferences.</p>
 <p class="message"><b>Refresh</b> the page if you experience any problems.</p>
 <p class="message">
-    <a href="https://digitalpalidictionary.github.io/dpdict.html" 
+    <a href="https://docs.dpdict.net/dpdict.html" 
     target="_blank">
     Click here</a> 
     for more details about this website or 
-    <a href="https://digitalpalidictionary.github.io/titlepage.html" 
+    <a href="https://docs.dpdict.net/titlepage.html" 
     target="_blank">
     more information</a> 
     about DPD in general.
 </p>
+<p class="message">Start by <b>double clicking</b> on any word in the sentence below:</p>
+<p class="message">
+    atthi, bhikkhave, ajātaṃ abhūtaṃ akataṃ asaṅkhataṃ. no cetaṃ, bhikkhave, abhavissa ajātaṃ abhūtaṃ akataṃ asaṅkhataṃ, nayidha jātassa bhūtassa katassa saṅkhatassa nissaraṇaṃ paññāyetha. 
+    yasmā ca kho, bhikkhave, atthi ajātaṃ abhūtaṃ akataṃ asaṅkhataṃ, tasmā jātassa bhūtassa katassa saṅkhatassa nissaraṇaṃ paññāyatīti.
+</p>
+
 `
 
 document.addEventListener("DOMContentLoaded", function() {
