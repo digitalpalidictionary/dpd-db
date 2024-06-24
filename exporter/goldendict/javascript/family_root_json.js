@@ -29849,7 +29849,7 @@ var family_root_json = {
   "root_key": "√thambh",
   "root_family": "√thambh",
   "root_meaning": "support, be stiff",
-  "count": 20,
+  "count": 21,
   "data": [
    [
     "atthaddha",
@@ -29879,6 +29879,12 @@ var family_root_json = {
     "thaddha 2",
     "pp",
     "stubborn; obstinate; obdurate; (comm) stiff with anger and conceit; lit. stiff",
+    "✓"
+   ],
+   [
+    "thaddha 3",
+    "pp",
+    "proud (of); conceited (about); lit. stiff",
     "✓"
    ],
    [
@@ -63734,7 +63740,7 @@ var family_root_json = {
    [
     "anupatati 1",
     "pr",
-    "falls (into); falls down (in)",
+    "falls (into); falls down (in); tumbles (into)",
     "✓"
    ],
    [
@@ -132296,8 +132302,8 @@ var family_root_json = {
    [
     "vikala 2",
     "adj",
-    "in want of, being without",
-    "✗"
+    "devoid (of); lacking (in); deficient (in); without",
+    "✓"
    ],
    [
     "vekalla",
@@ -141736,13 +141742,13 @@ var family_root_json = {
    [
     "asaṅkiṇṇa 1",
     "pp",
-    "unique; singular; solitary; alone; lit. not mixed",
+    "unique; singular; solitary; alone; lit. not sprinkled together",
     "✓"
    ],
    [
     "asaṅkiṇṇa 2",
     "pp",
-    "unmixed; uncombined; distinct",
+    "unmixed; uncombined; distinct; lit. not sprinkled together",
     "✓"
    ],
    [
@@ -141754,13 +141760,13 @@ var family_root_json = {
    [
     "asaṃkiṇṇa 1",
     "pp",
-    "unmixed; uncombined; distinct",
+    "unmixed; uncombined; distinct; lit. not sprinkled together",
     "✓"
    ],
    [
     "asaṃkiṇṇa 2",
     "pp",
-    "uncorrupted; unadulterated; unsullied; lit. not mixed",
+    "uncorrupted; unadulterated; unsullied; lit. not sprinkled together",
     "✓"
    ],
    [
@@ -141778,7 +141784,7 @@ var family_root_json = {
    [
     "saṅkiyati 2.1",
     "pr",
-    "is mixed",
+    "is mixed; lit. is sprinkled together",
     "~"
    ],
    [
@@ -141790,19 +141796,19 @@ var family_root_json = {
    [
     "saṅkīyati 1.1",
     "pr",
-    "is mixed",
+    "is mixed; lit. is sprinkled together",
     "✓"
    ],
    [
     "samkiṇṇa",
     "pp",
-    "filled up; covered in; lit. mixed",
+    "filled up; covered in; lit. sprinkled together",
     "✓"
    ],
    [
     "saṃkiṇṇa",
     "pp",
-    "filled up; covered in; lit. scattered together",
+    "filled up; covered in; lit. sprinkled together",
     "✓"
    ],
    [
@@ -141820,7 +141826,7 @@ var family_root_json = {
    [
     "saṃkiyati",
     "pr",
-    "is adulterated; is corrupted; is impure; lit. is mixed",
+    "is adulterated; is corrupted; is impure; lit. is sprinkled together",
     "✓"
    ],
    [
@@ -141832,7 +141838,7 @@ var family_root_json = {
    [
     "saṃkīyati",
     "pr",
-    "is mixed",
+    "is mixed; lit. is sprinkled together",
     "~"
    ]
   ]
@@ -150551,7 +150557,7 @@ var family_root_json = {
   "root_key": "√hā 2",
   "root_family": "√hā",
   "root_meaning": "decrease",
-  "count": 43,
+  "count": 44,
   "data": [
    [
     "asahāna",
@@ -150786,6 +150792,12 @@ var family_root_json = {
     "pp",
     "diminished, dwindled, wasted away",
     "✗"
+   ],
+   [
+    "hīna 7",
+    "pp",
+    "devoid (of); deficient (in); lacking (in)",
+    "✓"
    ],
    [
     "hīnatara",
@@ -151656,19 +151668,19 @@ var family_root_json = {
    [
     "saṃsagga 1",
     "masc",
-    "association; mingling; mixing; lit. sticking together",
+    "association; mingling; mixing (with); lit. sticking together",
     "✓"
    ],
    [
     "saṃsagga 2",
     "masc",
-    "entanglement; intertwining; lit. sticking together",
+    "entanglement; intertwining (with); lit. sticking together",
     "✓"
    ],
    [
     "saṃsagga 3",
     "masc",
-    "contact; connection; intimacy; touch; lit. sticking together",
+    "contact; connection; intimacy; (with); lit. sticking together",
     "✓"
    ],
    [
@@ -195068,7 +195080,7 @@ var family_root_json = {
    [
     "paluddha 3",
     "pp",
-    "deluded; fooled",
+    "led on; deluded; fooled",
     "✓"
    ],
    [
@@ -197872,7 +197884,7 @@ var family_root_json = {
    [
     "varatara 1",
     "adj",
-    "better (to) (than); even better (to) (than)",
+    "better; even better (to do something than something else)",
     "✓"
    ],
    [
@@ -200792,7 +200804,7 @@ var family_root_json = {
    [
     "vuddha 2",
     "pp",
-    "increased; developed; fulfilled",
+    "increased; developed; fulfilled (with)",
     "✓"
    ],
    [
@@ -219088,7 +219100,7 @@ var family_root_json = {
    [
     "saṃvattanika 1",
     "adj",
-    "leading (to); headed (to); conducive (to)",
+    "leading (to); headed (to); conducive (to); suitable (for)",
     "✓"
    ],
    [

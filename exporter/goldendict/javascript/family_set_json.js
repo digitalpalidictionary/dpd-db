@@ -3487,6 +3487,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "majjhapadalopa",
+    "masc",
+    "(gram) elision of the middle word; dropping the word between",
+    "~"
+   ],
+   [
     "majjhima 7",
     "adj",
     "(gram) 2nd (person) (you; you all); lit. middle",
@@ -4753,7 +4759,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 768
+  "count": 769
  },
  "prefixes": {
   "data": [
@@ -27999,7 +28005,7 @@ var family_set_json = {
     "ekūnatiṃsa",
     "ordin",
     "twenty-ninth (29th)",
-    "~"
+    "✓"
    ],
    [
     "ekūnavīsa",
