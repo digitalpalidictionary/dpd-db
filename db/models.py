@@ -24,6 +24,7 @@ from sqlalchemy.orm import object_session
 from sqlalchemy.sql import func
 
 from tools.cache_load import load_cf_set, load_idioms_set
+from tools.lemma_traditional import make_lemma_trad
 from tools.link_generator import generate_link
 from tools.pali_sort_key import pali_sort_key
 from tools.pos import CONJUGATIONS
@@ -637,6 +638,10 @@ class DpdHeadwords(Base):
     @property
     def lemma_clean(self) -> str:
         return re.sub(r" \d.*$", "", self.lemma_1)
+    
+    @property
+    def lemma_trad(self) -> str:
+        return make_lemma_trad(self)
 
     @property
     def root_clean(self) -> str:
