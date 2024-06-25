@@ -4,11 +4,6 @@
 
 import re
 
-from db.get_db_session import get_db_session
-from db.models import DpdHeadwords
-from tools.paths import ProjectPaths
-
-
 lemma_trad_dict: dict[str, str] = {
     "ant adj": "antu",          # like sīlavant
     "ant masc": "antu",         # like bhagavant
@@ -20,7 +15,7 @@ lemma_trad_dict: dict[str, str] = {
     "bhavant masc": "bhavantu", # like bhavant
 }
 
-def find_space_digits(i: DpdHeadwords) -> str:
+def find_space_digits(i) -> str:
     pattern = r"\s\d.*"
     match = re.search(pattern, i.lemma_1)
     if match:
@@ -28,7 +23,7 @@ def find_space_digits(i: DpdHeadwords) -> str:
     else:
         return ""
 
-def make_lemma_trad(i: DpdHeadwords) -> str:
+def make_lemma_trad(i) -> str:
     """Return a traditional noun or adj ending, rather than the DPD ending."""
 
     if (
@@ -44,11 +39,3 @@ def make_lemma_trad(i: DpdHeadwords) -> str:
         return lemma_trad
     else:
         return i.lemma_1
-
-
-if __name__ == "__main__":
-    pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
-    for counter, i in enumerate(db):
-        make_lemma_trad(i)
