@@ -162,7 +162,14 @@
         <tr>
             <th>Web Link</th>
             <td>
-                <a href="${i.link}">${i.link}</a>
+                % for website in i.link.split(" "):
+                    <a href="${website}" target="_blank">
+                        ${website}
+                    </a>
+                    % if not loop.last:
+                        <br/>
+                    % endif
+                % endfor
             </td>
         </tr>
         % endif

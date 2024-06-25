@@ -92,7 +92,16 @@
     % if i.link:
     <tr>
         <td class='th'>Web Link</td>
-        <td>${i.link}</td>
+        <td>
+            % for website in i.link.split(" "):
+                <a href="${website}" target="_blank">
+                    ${website}
+                </a>
+                % if not loop.last:
+                    <br/>
+                % endif
+            % endfor
+        </td>
     </tr>
     % endif
     % if i.non_ia:
