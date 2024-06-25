@@ -1,0 +1,36 @@
+The basic methodology of DPD is descriptive not prescriptive, i.e. it aims to represent the form of words found in in current digital Pāḷi texts, not an idealized, sanitized form of the language, often found in grammar books. If a variant form of any word is phonetically viable, it will be included. Truly inexplicable forms will be listed as variant readings for the sake of inclusion. 
+
+Unlike other Pāḷi dictionaries, verbal forms are listen under the primary form from which their inflection table can be programmatically generated from a base form and inflected suffixes. In practice that means that the future, optative, imperative of a verb will be found under the present tense, but aorists, and other irregular forms will be listed individually as their inflection table can be generated from the same base and pattern. 
+
+Or 
+
+From a present tense verb with a base, the optative, imperative, and future can be successfully derived computationally. Forms of the verb built on a different base, for example the aorist, irregular optatives and futures, are included as separate headwords. 
+
+DPD aims to digitally represent 100% of words found in the Dhamma Vinaya mūla texts, This is easier said than done, considering the complexities of inflected forms, combined with sandhi compounds. The basic strategy is to represent each coherent spectrum of inflected forms with a headword, from which a declension or inflection table is computationally generated. Any inflected form which is part of the spectrum is considered to belong to the headword. Secondary meanings are always included - if you find one missing [please report it!](link). 
+
+The root family represents all attested forms belonging to a specific prefix and root combination. 
+
+There are basically three types of Pāḷi words
+1. words derived from roots
+2. words without roots, the indeclinable particles and non-IA loan words. 
+3. compounds composed of 1 & 2.
+
+Every word that can be inflected included its own inflection table, be it a declension or conjugation. 
+
+Sandhi compounds are resolved computationally [using this code](link) and then checked manually. The end result aims to be a fluid reading / clicking experience where 100% of mūla words are recognizable by the dictionary.
+
+The complexities of compounds found in the commentaries are touched upon, but a comprehensive enumeration of all those words would take at least another lifetime or two. As an example the Myanmar Abhidhān aims to complete that task, has national funding, and a large team of highly educated specialists has yet to complete that work after 70 years. 
+
+In comparison I am a solitary monk working on a borrowed laptop. Luckily I know a little Python which helps to do the data crunching of a whole team of people. 
+
+The method is to use digital tools to the maximum extent possible to do all the things that machines can do easily, like generating a million and a half inflected forms of words, recognizing those forms in texts and producing lists of unrecognized words which need to be added to the dictionary. 
+
+Full use is also made of digital searching capabilities, both for finding words in texts and bolded definitions in commentaries. And as the dictionary grows, it also becomes a powerful tool for quickly looking uo important technical details about each word. All the digital tools feedback into one another allowing one human to do as much as a large team. 
+
+Data is stored digitally in a basic matrix database format. The data structure is cellular with only one relevant datum per cell. This allows for information processing using the tools of data science, especially pandas, and natural language processing, namely ntlk and spacey. 
+
+Actually this happened by accident. Story about learning Pāḷi with Anki. 
+
+How to represent language in a digital form, especially the nuanced of an inflected and compounded language like Pāḷi?
+
+All of this with a simple purpose in mind. for those that want to put in the few years years of effort required to learn the language that the Buddha's words are preserved in, make that encounter with the message within the words as easy and joy-filled experience as possible.   

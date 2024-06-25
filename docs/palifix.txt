@@ -3,6 +3,11 @@ CPD remove line breaks
 Bhs css, find all tags
 Join dhar roots
 
+Grammar word heading must not be clickable
+
+sāvakohamasmi add from mn2
+uggañchi is the example. find meaning_1 with (xyz) ... (xyz) 
+
 ekena adhikā dasa ekādasa
 
 catutthītappuriso. atthebhikkhusaṅghassatthāya vihāro bhikkhusaṅghattho vihāro, bhikkhusaṅghatthā yāgu, bhikkhusaṅghatthaṃ cīvaraṃ. yassatthāya yadattho, yadatthā, yadatthaṃ. evaṃ tadattho, tadatthā. tadatthaṃ. etadattho vāyāmo, etadatthā kathā, etadatthaṃ sotāvadhānaṃ. kimatthaṃ, attatthaṃ, paratthaṃ, vinayo saṃvaratthāya, sukhaṃ samādhatthāya, nibbidā virāgatthāya, virāgo vimuttatthāya. tathā lokassa hito lokahito, buddhassa deyyaṃ buddhadeyyaṃ, pupphaṃ. saṅghadeyyaṃ, cīvaraṃ. idha na bhavati, saṅghassa dātabbaṃ, saṅghassa dātuṃ iccādi.
