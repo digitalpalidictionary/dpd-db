@@ -429,7 +429,7 @@ var family_root_json = {
   "root_key": "√kar",
   "root_family": "√kar",
   "root_meaning": "do, make",
-  "count": 367,
+  "count": 368,
   "data": [
    [
     "akaṭa 1",
@@ -492,10 +492,16 @@ var family_root_json = {
     "✓"
    ],
    [
-    "akattabba",
+    "akattabba 1",
     "ptp",
     "should not be done",
     "✗"
+   ],
+   [
+    "akattabba 2",
+    "nt",
+    "something which should not be done; lit. not to be done",
+    "~"
    ],
    [
     "akattha",
@@ -4553,7 +4559,7 @@ var family_root_json = {
   "root_key": "√kilis 1",
   "root_family": "√kilis",
   "root_meaning": "be dirty, be molested",
-  "count": 21,
+  "count": 22,
   "data": [
    [
     "akiliṭṭha",
@@ -4680,6 +4686,12 @@ var family_root_json = {
     "adj",
     "free from depravity, unstained",
     "✗"
+   ],
+   [
+    "sakilesa",
+    "adj",
+    "defiled; impure; unwholesome",
+    "✓"
    ]
   ]
  },
@@ -25387,7 +25399,7 @@ var family_root_json = {
   "root_key": "√tas 1",
   "root_family": "√tas",
   "root_meaning": "tremble, fear",
-  "count": 15,
+  "count": 16,
   "data": [
    [
     "atasitāya",
@@ -25478,6 +25490,12 @@ var family_root_json = {
     "aor",
     "made tremble, frightened",
     "✗"
+   ],
+   [
+    "nittasa",
+    "adj",
+    "fearless; lit. not shaking",
+    "✓"
    ]
   ]
  },
@@ -28353,7 +28371,7 @@ var family_root_json = {
     "toseti 2",
     "pr",
     "pleases",
-    "✗"
+    "✓"
    ],
    [
     "tosetvā",
@@ -33813,7 +33831,7 @@ var family_root_json = {
   "root_key": "√dubbh",
   "root_family": "√dubbh",
   "root_meaning": "deceive, be treacherous",
-  "count": 16,
+  "count": 17,
   "data": [
    [
     "adubbha",
@@ -33838,6 +33856,12 @@ var family_root_json = {
     "prp",
     "not betraying; not deceiving; not plotting against",
     "~"
+   ],
+   [
+    "addubbha",
+    "adj",
+    "not betraying; not deceiving; not cheating",
+    "✓"
    ],
    [
     "addūbha",
@@ -36814,7 +36838,7 @@ var family_root_json = {
    [
     "adhimutti 1",
     "fem",
-    "disposition; inclination; tendency; propensity",
+    "disposition; inclination; tendency; propensity (towards)",
     "~"
    ],
    [
@@ -36826,7 +36850,7 @@ var family_root_json = {
    [
     "adhimutti 3",
     "fem",
-    "conviction; belief; theory",
+    "conviction; belief; theory (about)",
     "✓"
    ],
    [
@@ -56392,7 +56416,7 @@ var family_root_json = {
    [
     "assāda",
     "masc",
-    "enjoyment; satisfaction; pleasure; gratification; (comm) sweetness; lit. taste",
+    "enjoyment; satisfaction; pleasure; gratification (in); (comm) sweetness; lit. taste",
     "✓"
    ],
    [
@@ -83477,7 +83501,7 @@ var family_root_json = {
   "root_key": "√chad",
   "root_family": "pari √chad",
   "root_meaning": "cover, conceal",
-  "count": 7,
+  "count": 9,
   "data": [
    [
     "aparicchanna",
@@ -83519,6 +83543,18 @@ var family_root_json = {
     "pārichatta",
     "masc",
     "name of a type of tree; Bauhinia variegata; lit. sunshade all around",
+    "✓"
+   ],
+   [
+    "pārichattaka",
+    "masc",
+    "name of a type of tree; Bauhinia variegata; lit. umbrella all around",
+    "✓"
+   ],
+   [
+    "pārichattaka 2",
+    "masc",
+    "name of a tree in Tāvatiṃsa heaven; lit. umbrella all around",
     "✓"
    ]
   ]
@@ -87413,7 +87449,7 @@ var family_root_json = {
     "saparivāra 1",
     "adj",
     "accompanied by an entourage; together with a retinue",
-    "~"
+    "✓"
    ],
    [
     "saparivāra 2",
@@ -150918,7 +150954,7 @@ var family_root_json = {
    [
     "dhātī",
     "fem",
-    "nurse; maid; nursemaid; lit. supporter",
+    "nurse; maid; nanny; nursemaid; lit. supporter",
     "✓"
    ],
    [
@@ -178848,7 +178884,7 @@ var family_root_json = {
    [
     "samuṭṭhita 1",
     "pp",
-    "arisen; originated",
+    "arisen; originated (from)",
     "✓"
    ],
    [

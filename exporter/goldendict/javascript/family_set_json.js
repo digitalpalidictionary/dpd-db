@@ -1951,12 +1951,6 @@ var family_set_json = {
     "✓"
    ],
    [
-    "jinavacana",
-    "nt",
-    "(gram) Buddha's word; lit. word of the conqueror",
-    "✓"
-   ],
-   [
     "jinavacanānurūpa",
     "adj",
     "(gram) in conformity with the Buddha's word; lit. according to the conqueror's speech",
@@ -3257,6 +3251,12 @@ var family_set_json = {
     "adj",
     "(gram) in front; coming first; preceded by",
     "✓"
+   ],
+   [
+    "pubbapada",
+    "nt",
+    "(gram) first member of a compound; lit. first word",
+    "~"
    ],
    [
     "pubbabyañjana",
@@ -12612,8 +12612,8 @@ var family_set_json = {
    [
     "alagaddūpamasutta",
     "nt",
-    "Discourse on the Simile of the Water Snake; Majjhima Nikāya 22",
-    "~"
+    "Discourse on the Simile of the Water Snake; Majjhima Nikāya 22 (MN22)",
+    "✓"
    ],
    [
     "assalāyanasutta",
@@ -13888,7 +13888,7 @@ var family_set_json = {
     "tadādhimutta",
     "masc",
     "name of a privately awakened Buddha; lit. intent on that",
-    "~"
+    "✓"
    ],
    [
     "tissūpatissā",
@@ -15280,6 +15280,12 @@ var family_set_json = {
     "masc",
     "generic monk's name used in vinaya examples; lit. protected by the Dhamma",
     "~"
+   ],
+   [
+    "dhammaruci 2",
+    "masc",
+    "name of a monk; lit. who likes the Dhamma",
+    "✓"
    ],
    [
     "dhammasava",
@@ -16944,7 +16950,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 454
+  "count": 455
  },
  "names of arahants": {
   "data": [
@@ -23523,7 +23529,7 @@ var family_set_json = {
    [
     "gokaṇṇa",
     "masc",
-    "nilgai; large antelope; Boselaphus tragocamelus; lit. cow ear",
+    "nilgai; Boselaphus tragocamelus; (or) sambar; Rusa unicolor; lit. cow ear",
     "~"
    ],
    [
@@ -24931,7 +24937,7 @@ var family_set_json = {
     "pārichattaka",
     "masc",
     "name of a type of tree; Bauhinia variegata; lit. umbrella all around",
-    "~"
+    "✓"
    ],
    [
     "pilakkha",
@@ -31181,7 +31187,7 @@ var family_set_json = {
     "pārichattaka",
     "masc",
     "name of a type of tree; Bauhinia variegata; lit. umbrella all around",
-    "~"
+    "✓"
    ],
    [
     "pilakkha",
@@ -33162,6 +33168,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "taṭataṭāyi",
+    "aor",
+    "made a racket; made a rat-a-tat-tat sound",
+    "✓"
+   ],
+   [
     "daddabhāyati",
     "pr",
     "makes a heavy thud noise; lit. makes a daddabha sound",
@@ -33240,7 +33252,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 30
+  "count": 31
  },
  "books of the Aṅguttara Nikāya": {
   "data": [

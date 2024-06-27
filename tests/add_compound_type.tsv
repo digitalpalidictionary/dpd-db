@@ -1,4 +1,25 @@
 word	pos	position	type	exceptions
+vāsa	any	last	sattamī	antevāsīvāsa, abrahmacariyavāsa
+dhutta	any	last	sattamī	x
+assāda	any	last	sattamī	appassāda, evamassāda, bāhirassāda, mahassāda, rittassāda, madhurassāda
+abhirati	any	last	sattamī	x
+abhirata	any	last	sattamī	x
+adhimutta	any	last	sattamī	x
+adhimutti	any	last	sattamī	ajjhāsayādhimutti
+nirutti	any	last	sattamī	janapadanirutti, lokanirutti
+gāravatā	any	last	sattamī	x
+gārava	any	last	sattamī	adhammagārava, tibbagārava
+saññā	any	last	sattamī	akusalasaññā 1
+apagata	any	last	pañcamī	x
+cuta	any	last	pañcamī	x
+ja	adj	last	pañcamī	ekaja, dvija 1, pubbaja, sahaja 1, anutuja
+mokkha	any	last	pañcamī	aññamokkha, saggamokkha
+niggata	any	last	pañcamī	x
+apagata	any	last	pañcamī	x
+apeto	any	last	pañcamī	x
+nikkhanta	any	last	pañcamī	bahunikkhanta
+virati	any	last	pañcamī	x
+patita	any	last	pañcamī	upalepapatita, chamāpatita
 āruḷha	any	last	dutiyā	suttāruḷha
 ārūḷha	any	last	dutiyā	x
 sammissa	any	last	tatiyā	x
@@ -59,7 +80,6 @@ samuṭṭhāna	any	last	pañcamī	ekasamuṭṭhāna, catusamuṭṭhāna 1, ti
 matta	nt	last	chaṭṭhī
 ābādha	masc	last	chaṭṭhī	visabhāgābādha, veriyakkhābādha
 ṭhapana	nt	last	chaṭṭhī
-ja	adj	last	pañcamī
 adhigata	adj	last	tatiyā	amatamadhigata, ekodibhāvādhigata
 apaṇṇaka	any	first	kammadhāraya
 mala	nt	last	chaṭṭhī	kilesamala, timala 2

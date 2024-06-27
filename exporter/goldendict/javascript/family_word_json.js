@@ -13544,6 +13544,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "māyāvitā",
+    "fem",
+    "deception; fraudulence; lit. deceit state",
+    "✓"
+   ],
+   [
     "māyāvī 1",
     "adj",
     "deceitful; hypocritical; fraudulent",
@@ -13562,7 +13568,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 11
+  "count": 12
  },
  "miñja": {
   "data": [
@@ -15225,6 +15231,29 @@ var family_word_json = {
    ]
   ],
   "count": 5
+ },
+ "vāka": {
+  "data": [
+   [
+    "avāka",
+    "masc",
+    "aquatic plant; Blyxa aubertii; lit. barkless",
+    "✓"
+   ],
+   [
+    "vāka 1",
+    "nt",
+    "bark",
+    "✓"
+   ],
+   [
+    "vāka 2",
+    "nt",
+    "wood fibre; plant fibre",
+    "✓"
+   ]
+  ],
+  "count": 3
  },
  "sarada": {
   "data": [
@@ -23437,15 +23466,15 @@ var family_word_json = {
     "✗"
    ],
    [
+    "taṭataṭāyi",
+    "aor",
+    "made a racket; made a rat-a-tat-tat sound",
+    "✓"
+   ],
+   [
     "taṭatatāyati",
     "pr",
     "makes the sound tat tat",
-    "✗"
-   ],
-   [
-    "taṭatatāyāyi",
-    "aor",
-    "made the sound tat tat",
     "✗"
    ]
   ],
@@ -30099,23 +30128,6 @@ var family_word_json = {
    ]
   ],
   "count": 7
- },
- "vāka": {
-  "data": [
-   [
-    "vāka 1",
-    "nt",
-    "bark",
-    "✓"
-   ],
-   [
-    "vāka 2",
-    "nt",
-    "wood fibre; plant fibre",
-    "✓"
-   ]
-  ],
-  "count": 2
  },
  "vāgurā": {
   "data": [
