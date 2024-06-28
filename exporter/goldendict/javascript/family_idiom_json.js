@@ -21852,7 +21852,7 @@ var family_idiom_json = {
   ]
  },
  "rūpa": {
-  "count": 5,
+  "count": 6,
   "data": [
    [
     "evarūpāpi",
@@ -21870,6 +21870,12 @@ var family_idiom_json = {
     "evarūpepi 2",
     "sandhi",
     "even when such",
+    "✓"
+   ],
+   [
+    "kathaṃ rūpaṃ",
+    "idiom",
+    "what kind of?; lit. what form?",
     "✓"
    ],
    [
@@ -22640,7 +22646,7 @@ var family_idiom_json = {
   ]
  },
  "kathaṃ": {
-  "count": 13,
+  "count": 14,
   "data": [
    [
     "kathañca",
@@ -22688,6 +22694,12 @@ var family_idiom_json = {
     "kathaṃ nu",
     "idiom",
     "how?; how indeed!?",
+    "✓"
+   ],
+   [
+    "kathaṃ rūpaṃ",
+    "idiom",
+    "what kind of?; lit. what form?",
     "✓"
    ],
    [
@@ -27464,6 +27476,17 @@ var family_idiom_json = {
     "nisinnomhi",
     "sandhi",
     "I am seated",
+    "✓"
+   ]
+  ]
+ },
+ "nissāya": {
+  "count": 1,
+  "data": [
+   [
+    "nissāya nissāya",
+    "idiom",
+    "depending on successive supports; relying on one thing after the next; lit. leaning leaning",
     "✓"
    ]
   ]

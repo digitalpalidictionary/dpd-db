@@ -11969,7 +11969,7 @@ var family_root_json = {
   "root_key": "√añc",
   "root_family": "√añc",
   "root_meaning": "bend",
-  "count": 25,
+  "count": 26,
   "data": [
    [
     "aṅka 1",
@@ -12032,9 +12032,15 @@ var family_root_json = {
     "✗"
    ],
    [
-    "aṅguṭṭha",
+    "aṅguṭṭha 1",
     "masc",
-    "big toe; thumb",
+    "big toe",
+    "✓"
+   ],
+   [
+    "aṅguṭṭha 2",
+    "masc",
+    "thumb",
     "✓"
    ],
    [
@@ -21912,8 +21918,8 @@ var family_root_json = {
    [
     "ajjhosituṃ",
     "inf",
-    "to fixate on; to cling to",
-    "~"
+    "to fixate (on); to cling (onto)",
+    "✓"
    ],
    [
     "ajjhossa",
@@ -42308,7 +42314,7 @@ var family_root_json = {
    [
     "abhinandituṃ",
     "inf",
-    "to approve (of); to be pleased (with)",
+    "to approve (of); to be pleased (with); to take delight (in)",
     "✓"
    ],
    [
@@ -42879,7 +42885,7 @@ var family_root_json = {
     "abhivadituṃ",
     "inf",
     "to welcome; to be hospitable (to)",
-    "~"
+    "✓"
    ],
    [
     "abhivādana",
@@ -53353,7 +53359,7 @@ var family_root_json = {
   "root_key": "√tar 1",
   "root_family": "nī √tar",
   "root_meaning": "cross",
-  "count": 18,
+  "count": 19,
   "data": [
    [
     "anittiṇṇa",
@@ -53384,6 +53390,12 @@ var family_root_json = {
     "nt",
     "overcoming, finishing",
     "✗"
+   ],
+   [
+    "nittharaṇā",
+    "fem",
+    "crossing over; getting across; traversing (of)",
+    "✓"
    ],
    [
     "nittharati",
@@ -90177,7 +90189,7 @@ var family_root_json = {
     "pasīdati 4",
     "pr",
     "settles down; subsides; calms down",
-    "~"
+    "✓"
    ],
    [
     "pasīdana",
@@ -115169,7 +115181,7 @@ var family_root_json = {
   "root_key": "√man",
   "root_family": "√man",
   "root_meaning": "think",
-  "count": 122,
+  "count": 123,
   "data": [
    [
     "amaññamāna",
@@ -115614,6 +115626,12 @@ var family_root_json = {
     "nt",
     "notion, thought",
     "✗"
+   ],
+   [
+    "mānasa 4",
+    "adj",
+    "mental; mentally originated; mind-made",
+    "✓"
    ],
    [
     "mānasatta 1.1",
@@ -135934,8 +135952,8 @@ var family_root_json = {
    [
     "vineti 3",
     "pr",
-    "leads",
-    "✗"
+    "guides (in); leads (to)",
+    "✓"
    ],
    [
     "vineti 4",
@@ -156951,7 +156969,7 @@ var family_root_json = {
   "root_key": "√hū",
   "root_family": "√hū",
   "root_meaning": "be",
-  "count": 36,
+  "count": 37,
   "data": [
    [
     "ahu 1.1",
@@ -157161,6 +157179,12 @@ var family_root_json = {
     "homi 2",
     "imp",
     "may I be!; let me become!",
+    "✓"
+   ],
+   [
+    "hohi",
+    "imp",
+    "be!",
     "✓"
    ],
    [
@@ -215488,7 +215512,7 @@ var family_root_json = {
    [
     "samudācāra 1.2",
     "masc",
-    "interest; intercourse; involvement",
+    "interest; intercourse; involvement (in)",
     "✓"
    ],
    [

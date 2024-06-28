@@ -8293,7 +8293,7 @@ var family_set_json = {
    [
     "gaṇakamoggallāna",
     "masc",
-    "name of a Brahman accountant",
+    "name of a Brahman accountant; lit. Moggallāna the counter",
     "✓"
    ],
    [
@@ -8746,9 +8746,15 @@ var family_set_json = {
     "✓"
    ],
    [
-    "aṅguṭṭha",
+    "aṅguṭṭha 1",
     "masc",
-    "big toe; thumb",
+    "big toe",
+    "✓"
+   ],
+   [
+    "aṅguṭṭha 2",
+    "masc",
+    "thumb",
     "✓"
    ],
    [
@@ -9484,7 +9490,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 129
+  "count": 130
  },
  "occupations": {
   "data": [
@@ -12628,6 +12634,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "āneñjasappāyasutta",
+    "nt",
+    "Majjhima Nikāya 106 (MN106); Discourse On What Is Conducive To The Imperturbable State",
+    "✓"
+   ],
+   [
     "upālisutta 1",
     "nt",
     "Majjhima Nikāya 56; Discourse to Upāli (MN56)",
@@ -12685,7 +12697,7 @@ var family_set_json = {
     "gaṇakamoggallānasutta",
     "nt",
     "Discourse to Moggallāna the Accountant; Majjhima Nikāya 107 (MN107)",
-    "~"
+    "✓"
    ],
    [
     "gaṇakamoggallānasuttanta",
@@ -13270,7 +13282,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 120
+  "count": 121
  },
  "family names": {
   "data": [

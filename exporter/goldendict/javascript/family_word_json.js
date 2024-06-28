@@ -21162,8 +21162,8 @@ var family_word_json = {
    [
     "kvacini",
     "ind",
-    "somewhere; anywhere; in or regard to anything",
-    "✗"
+    "in something; in any place; in regard to something",
+    "✓"
    ]
   ],
   "count": 6
