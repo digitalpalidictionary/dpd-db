@@ -24,12 +24,13 @@ from sqlalchemy.orm import object_session
 from sqlalchemy.sql import func
 
 from tools.cache_load import load_cf_set, load_idioms_set
-from tools.lemma_traditional import make_lemma_trad
+from tools.lemma_traditional import make_lemma_trad, make_lemma_trad_si
 from tools.link_generator import generate_link
 from tools.pali_sort_key import pali_sort_key
 from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.pos import EXCLUDE_FROM_FREQ
+from tools.sinhala_pos import pos_to_si_pos, pos_to_si_pos_full
 
 from dps.tools.sbs_table_functions import SBS_table_tools
 
@@ -610,6 +611,9 @@ class DpdHeadwords(Base):
     # russian
     ru = relationship("Russian", uselist=False)
 
+    # sinhala
+    si = relationship("Sinhala", uselist=False)
+
     # inflection templates
     it: Mapped[InflectionTemplates] = relationship()
 
@@ -642,6 +646,10 @@ class DpdHeadwords(Base):
     @property
     def lemma_trad(self) -> str:
         return make_lemma_trad(self)
+    
+    @property
+    def lemma_trad_si(self) -> str:
+        return make_lemma_trad_si(self)
 
     @property
     def root_clean(self) -> str:
@@ -910,6 +918,16 @@ class DpdHeadwords(Base):
     def __repr__(self) -> str:
         return f"""DpdHeadwords: {self.id} {self.lemma_1} {self.pos} {
             self.meaning_1}"""
+    
+    # sinhala
+    
+    @property
+    def si_pos(self) -> str:
+        return pos_to_si_pos(self.pos)
+    
+    @property
+    def si_pos_full(self) -> str:
+        return pos_to_si_pos_full(self.pos)
 
 
 class FamilyCompound(Base):
@@ -1159,6 +1177,17 @@ class Russian(Base):
 
     def __repr__(self) -> str:
         return f"Russian: {self.id} {self.ru_meaning}"
+    
+
+class Sinhala(Base):
+    __tablename__ = "sinhala"
+
+    id: Mapped[int] = mapped_column(
+        ForeignKey('dpd_headwords.id'), primary_key=True)
+    si_meaning: Mapped[str] = mapped_column(default="")
+
+    def __repr__(self) -> str:
+        return f"Sinhala: {self.id} {self.si_meaning}"
 
 
 class BoldDefinition(Base):

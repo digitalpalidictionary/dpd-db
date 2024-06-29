@@ -3,6 +3,7 @@
 """Function to provide traditional lemma endings."""
 
 import re
+from aksharamukha import transliterate
 
 lemma_trad_dict: dict[str, str] = {
     "ant adj": "antu",          # like sīlavant
@@ -39,3 +40,14 @@ def make_lemma_trad(i) -> str:
         return lemma_trad
     else:
         return i.lemma_1
+
+
+def make_lemma_trad_si(i) -> str:
+    """Transcribe traditional lemma into Sinhala."""
+    lemma = make_lemma_trad(i)
+    return transliterate.process(
+        "IASTPali",
+        "Sinhala",
+        lemma,
+        post_options=["SinhalaPali", "SinhalaConjuncts"],
+    )  # type:ignore
