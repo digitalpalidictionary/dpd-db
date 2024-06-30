@@ -22,7 +22,7 @@ from tools.cst_sc_text_sets import make_cst_text_set
 from tools.cst_sc_text_sets import make_sc_text_set
 from tools.diacritics_cleaner import diacritics_cleaner
 from tools.first_letter import find_first_letter
-from tools.meaning_construction import make_meaning_html
+from tools.meaning_construction import make_meaning_combo_html
 from tools.meaning_construction import make_grammar_line
 from tools.meaning_construction import summarize_construction
 from tools.meaning_construction import degree_of_completion
@@ -188,7 +188,7 @@ def render_ebook_entry(
         summary = ru_replace_abbreviations(summary)
         summary += make_ru_meaning_for_ebook(i, i.ru)
     elif lang == "en":
-        summary += make_meaning_html(i)
+        summary += make_meaning_combo_html(i)
 
     construction = summarize_construction(i)
     if construction:
@@ -253,7 +253,7 @@ def render_grammar_templ(pth: ProjectPaths, rupth:RuPaths, i: DpdHeadwords, lang
         elif lang == "ru":
             grammar = ru_make_grammar_line(i)
 
-        meaning = f"{make_meaning_html(i)}"
+        meaning = f"{make_meaning_combo_html(i)}"
 
         if lang == "en":
             ebook_grammar_templ = Template(filename=str(pth.ebook_grammar_templ_path))

@@ -14,7 +14,7 @@ from rich import print
 from db.models import DpdHeadwords, Russian
 from tools.paths import ProjectPaths
 from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
-from tools.meaning_construction import make_meaning
+from tools.meaning_construction import make_meaning_combo
 
 pth = ProjectPaths()
 rupth = RuPaths()
@@ -23,7 +23,7 @@ rupth = RuPaths()
 def make_ru_meaning(i: DpdHeadwords, ru: Russian) -> str:
     """Compile ru_meaning and literal meaning, or return ru_meaning_raw"""
     if ru is None:
-        return make_meaning(i)
+        return make_meaning_combo(i)
     elif ru.ru_meaning:
         ru_meaning: str = ru.ru_meaning
         if ru.ru_meaning_lit:
@@ -56,7 +56,7 @@ def make_ru_meaning_html(i: DpdHeadwords, ru: Russian) -> str:
     ru_meaning in <b>bold</b>, or return english meaning"""
 
     if ru is None:
-        ru_meaning: str = make_meaning(i)
+        ru_meaning: str = make_meaning_combo(i)
         return ru_meaning
 
     elif ru.ru_meaning:
@@ -76,7 +76,7 @@ def make_ru_meaning_for_ebook(i: DpdHeadwords, ru: Russian) -> str:
     ru_meaning in <b>bold</b>, or return english meaning"""
 
     if ru is None:
-        ru_meaning: str = make_meaning(i)
+        ru_meaning: str = make_meaning_combo(i)
         return ru_meaning
 
     elif ru.ru_meaning:

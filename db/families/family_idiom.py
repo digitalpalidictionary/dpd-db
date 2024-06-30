@@ -12,7 +12,7 @@ from db.models import DbInfo, DpdHeadwords, FamilyIdiom
 
 from tools.configger import config_test
 from tools.meaning_construction import degree_of_completion
-from tools.meaning_construction import make_meaning
+from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.superscripter import superscripter_uni
@@ -140,7 +140,7 @@ def compile_idioms_html(dpd_db, idioms_dict, lang="en"):
                     else:
                         html_string = idioms_dict[word]["html"]
 
-                    meaning = make_meaning(i)
+                    meaning = make_meaning_combo(i)
 
                     html_string += "<tr>"
                     html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"

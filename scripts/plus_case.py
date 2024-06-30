@@ -15,7 +15,7 @@ from db.models import DpdHeadwords
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import write_tsv_list
-from tools.meaning_construction import make_meaning
+from tools.meaning_construction import make_meaning_combo
 
 
 def main():
@@ -28,7 +28,7 @@ def main():
 
     for i in dpd_db:
         if i.plus_case and i.meaning_1:
-            meaning = make_meaning(i)
+            meaning = make_meaning_combo(i)
             if " or " in i.plus_case:
                 first_case = re.sub(" or.+", "", i.plus_case)
                 second_case = re.sub(".+ or ", "", i.plus_case)

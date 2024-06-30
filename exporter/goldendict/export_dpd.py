@@ -30,7 +30,7 @@ from tools.configger import config_test
 from tools.date_and_time import year_month_day_dash
 from tools.exporter_functions import get_family_compounds, get_family_idioms, get_family_set
 from tools.goldendict_exporter import DictEntry
-from tools.meaning_construction import make_meaning_html, make_grammar_line
+from tools.meaning_construction import make_meaning_combo_html, make_grammar_line
 from tools.meaning_construction import summarize_construction, degree_of_completion
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
@@ -473,16 +473,16 @@ def render_dpd_definition_templ(
     
     # meaning
     if lang == "en":
-        meaning = make_meaning_html(i)
+        meaning = make_meaning_combo_html(i)
     elif lang == "ru":
         if ru:
             ru_meaning = make_ru_meaning_html(i, ru)
             if ru_meaning:
                 meaning = ru_meaning
             else:
-                meaning = make_meaning_html(i)
+                meaning = make_meaning_combo_html(i)
         else:
-            meaning = make_meaning_html(i)
+            meaning = make_meaning_combo_html(i)
     
     summary = summarize_construction(i)
     complete = degree_of_completion(i)
@@ -730,7 +730,7 @@ def render_grammar_templ(
         grammar = make_grammar_line(i)
     elif lang == "ru":
         grammar = ru_make_grammar_line(i)
-    meaning = f"{make_meaning_html(i)}"
+    meaning = f"{make_meaning_combo_html(i)}"
 
     ru_base = ""
     if lang == "ru":

@@ -16,7 +16,7 @@ from tools.exporter_functions import get_family_compounds
 from tools.exporter_functions import get_family_set
 from tools.paths import ProjectPaths
 from tools.meaning_construction import summarize_construction
-from tools.meaning_construction import make_meaning_html
+from tools.meaning_construction import make_meaning_combo_html
 from tools.meaning_construction import make_grammar_line
 from tools.meaning_construction import degree_of_completion
 from tools.date_and_time import year_month_day_dash
@@ -28,7 +28,7 @@ class HeadwordData():
     def __init__(self, css, js, i, fc, fs, sbs, ru):
         self.css = css
         self.js = js
-        self.meaning = make_meaning_html(i)
+        self.meaning = make_meaning_combo_html(i)
         self.summary = summarize_construction(i)
         self.complete = degree_of_completion(i)
         self.grammar = make_grammar_line(i)

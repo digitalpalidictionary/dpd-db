@@ -23,7 +23,7 @@ from timeout_decorator import timeout, TimeoutError as TimeoutDecoratorError
 from db.db_helpers import get_column_names
 from db.models import Russian, SBS, DpdHeadwords
 
-from tools.meaning_construction import make_meaning
+from tools.meaning_construction import make_meaning_combo
 from tools.tsv_read_write import read_tsv_dot_dict, read_tsv_dict, write_tsv_dot_dict
 
 from tools.configger import config_test_option, config_read, config_update
@@ -110,7 +110,7 @@ def populate_dps_tab(dpspth, values, window, dpd_word, ru_word, sbs_word):
     window["dps_grammar"].update(dps_grammar)
 
     # meaning
-    meaning = make_meaning(dpd_word)
+    meaning = make_meaning_combo(dpd_word)
     if dpd_word.meaning_1:
         window["dps_meaning"].update(meaning)
     else:

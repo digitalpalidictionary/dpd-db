@@ -14,7 +14,7 @@ from db.get_db_session import get_db_session
 from db.models import DpdHeadwords
 
 from tools.db_search_string import db_search_string
-from tools.meaning_construction import make_meaning
+from tools.meaning_construction import make_meaning_combo
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_dot_dict
 
@@ -74,7 +74,7 @@ def main():
 			search_in = f"{i.construction}"
 			if re.findall(pattern, search_in):
 				search_list += [i.lemma_1]
-				meaning = make_meaning(i)
+				meaning = make_meaning_combo(i)
 				i_counter += 1
 				pyperclip.copy(i.lemma_1)
 				printer(i, meaning)

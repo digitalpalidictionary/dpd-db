@@ -15,7 +15,7 @@ from tools.paths import ProjectPaths
 from tools.cst_sc_text_sets import make_cst_text_list
 from tools.cst_sc_text_sets import make_sc_text_list
 from tools.source_sutta_example import find_source_sutta_example
-from tools.meaning_construction import make_meaning
+from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_list_sorter
 
 
@@ -297,7 +297,7 @@ def print_to_terminal(pd: ProgData,
     print(f"[green]{wd.source} [dark_green]{wd.sutta}")
     print(f"[white]{wd.example_print}")
     print()
-    print(f"[cyan]{pali_word.id} {pali_word.lemma_1}: [blue3]{pali_word.pos}. [blue1]{make_meaning(pali_word)}")
+    print(f"[cyan]{pali_word.id} {pali_word.lemma_1}: [blue3]{pali_word.pos}. [blue1]{make_meaning_combo(pali_word)}")
     print()
     print("[white]y[grey54]es / [white]n[grey54]o / e[white]x[grey54]it: ", end="")
     pyperclip.copy(wd.word)

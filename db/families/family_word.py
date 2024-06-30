@@ -12,7 +12,7 @@ from scripts.anki_updater import family_updater
 from tools.configger import config_test
 from tools.meaning_construction import clean_construction
 from tools.meaning_construction import degree_of_completion
-from tools.meaning_construction import make_meaning
+from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.superscripter import superscripter_uni
@@ -121,7 +121,7 @@ def compile_wf_html(wf_db, wf_dict, lang="en"):
             else:
                 html_string = wf_dict[wf]["html"]
 
-            meaning = make_meaning(i)
+            meaning = make_meaning_combo(i)
 
             html_string += "<tr>"
             html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"

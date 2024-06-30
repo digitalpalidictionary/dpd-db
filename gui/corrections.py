@@ -12,7 +12,7 @@ from tools.goldendict_tools import open_in_goldendict
 from db.get_db_session import get_db_session
 from db.models import DpdHeadwords
 
-from tools.meaning_construction import make_meaning
+from tools.meaning_construction import make_meaning_combo
 from tools.meaning_construction import summarize_construction
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_dot_dict, write_tsv_dot_dict
@@ -276,7 +276,7 @@ def make_window():
 def make_summary(g: ProgData):
     word = g.headword.lemma_1
     pos = g.headword.pos
-    meaning = make_meaning(g.headword)
+    meaning = make_meaning_combo(g.headword)
     construction = summarize_construction(g.headword)
     return f"{word}: {pos}. {meaning} [{construction}]"
 

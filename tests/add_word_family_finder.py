@@ -13,7 +13,7 @@ from sqlalchemy.orm.session import Session
 
 from db.get_db_session import get_db_session
 from db.models import DpdHeadwords
-from tools.meaning_construction import make_meaning
+from tools.meaning_construction import make_meaning_combo
 from tools.paths import ProjectPaths
 
 
@@ -106,7 +106,7 @@ def find_in_family_compound(pth: ProjectPaths, db_session: Session, word_family_
                 headword = db_session.query(
                         DpdHeadwords).filter(DpdHeadwords.lemma_1 == x).first()
                 if headword is not None and headword.lemma_1 not in exceptions_list:
-                    meaning = make_meaning(headword)
+                    meaning = make_meaning_combo(headword)
                     query = Prompt.ask(f"{x}: [green]{headword.pos}. [light_green]{meaning} ")
                     if query == "c":
                         headword.grammar += ", comp"

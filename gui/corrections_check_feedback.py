@@ -12,7 +12,7 @@ from tools.goldendict_tools import open_in_goldendict
 from db.get_db_session import get_db_session
 from db.models import DpdHeadwords
 
-from tools.meaning_construction import make_meaning
+from tools.meaning_construction import make_meaning_combo
 from tools.meaning_construction import summarize_construction
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_dot_dict, write_tsv_dot_dict
@@ -285,7 +285,7 @@ def open_corrections():
 def make_summary(db):
     word = db.lemma_1
     pos = db.pos
-    meaning = make_meaning(db)
+    meaning = make_meaning_combo(db)
     construction = summarize_construction(db)
     return f"{word}: {pos}. {meaning} [{construction}]"
 

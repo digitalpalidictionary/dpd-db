@@ -8,7 +8,7 @@ from db.get_db_session import get_db_session
 from db.models import DpdHeadwords, FamilySet
 from tools.tic_toc import tic, toc
 from tools.superscripter import superscripter_uni
-from tools.meaning_construction import degree_of_completion, make_meaning
+from tools.meaning_construction import degree_of_completion, make_meaning_combo
 from tools.pali_sort_key import pali_sort_key
 from tools.meaning_construction import degree_of_completion as doc
 from tools.paths import ProjectPaths
@@ -113,7 +113,7 @@ def compile_sf_html(sets_db, sets_dict, lang="en"):
                     else:
                         html_string = sets_dict[sf]["html"]
 
-                    meaning = make_meaning(i)
+                    meaning = make_meaning_combo(i)
 
                     html_string += "<tr>"
                     html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"

@@ -11,7 +11,7 @@ from db.get_db_session import get_db_session
 from db.models import DpdHeadwords, DpdRoots, Russian
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths    
-from tools.meaning_construction import make_meaning
+from tools.meaning_construction import make_meaning_combo
 
 from sqlalchemy import and_, or_, null
 from sqlalchemy import func
@@ -105,7 +105,7 @@ def ru_meaning_generating():
 
 
     for counter, i in enumerate(db):
-        meaning = make_meaning(i)
+        meaning = make_meaning_combo(i)
 
         if i.example_1:
             example = i.example_1

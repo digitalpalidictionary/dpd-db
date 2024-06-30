@@ -8,7 +8,7 @@ from rich import print
 from db.get_db_session import get_db_session
 from db.models import DpdHeadwords
 
-from tools.meaning_construction import clean_construction, make_meaning
+from tools.meaning_construction import clean_construction, make_meaning_combo
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import write_tsv_list, read_tsv_dot_dict, write_tsv_dot_dict
 
@@ -97,7 +97,7 @@ def write_to_tsv():
     for i in g.db:
         if i.lemma_1 in g.cardinal_in_construction_set:
             data_list.append(
-                [i.lemma_1, i.pos, make_meaning(i), i.construction, i.compound_type, i.compound_construction])
+                [i.lemma_1, i.pos, make_meaning_combo(i), i.construction, i.compound_type, i.compound_construction])
     
     write_tsv_list(str(g.pth.digu_path), header, data_list)
 

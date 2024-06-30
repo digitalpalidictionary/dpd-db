@@ -18,7 +18,7 @@ from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 from tools.printer import p_green, p_green_title, p_title, p_yes
 from tools.tic_toc import tic, toc
 from tools.cst_sc_text_sets import make_sc_text_set
-from tools.meaning_construction import make_meaning_html
+from tools.meaning_construction import make_meaning_combo_html
 from tools.meaning_construction import summarize_construction
 from tools.paths import ProjectPaths
 
@@ -163,7 +163,7 @@ def generate_dpd_ebt_dict(g: ProgData):
     for i in g.dpd_db:
         if i.lemma_1 in g.headwords_set:
             string = f"{i.pos}. "
-            string += make_meaning_html(i)
+            string += make_meaning_combo_html(i)
             if i.construction:
                 string += f" [{summarize_construction(i)}]"
             g.dpd_dict[i.lemma_1] = string

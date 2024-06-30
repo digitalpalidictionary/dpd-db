@@ -12,7 +12,7 @@ from db.get_db_session import get_db_session
 from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import write_tsv_list
-from tools.meaning_construction import make_meaning
+from tools.meaning_construction import make_meaning_combo
 from sqlalchemy import and_, or_
 
 from timeout_decorator import timeout, TimeoutError as TimeoutDecoratorError
@@ -49,7 +49,7 @@ def main():
 
     data = []
     for counter, i in enumerate(db):
-        meaning = make_meaning(i)
+        meaning = make_meaning_combo(i)
         if i.meaning_1:
             test = "✓"
         else:

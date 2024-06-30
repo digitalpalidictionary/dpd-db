@@ -20,7 +20,7 @@ from tools.paths import ProjectPaths
 from tools.cst_sc_text_sets import make_cst_text_list
 from tools.cst_sc_text_sets import make_sc_text_list
 from tools.source_sutta_example import find_source_sutta_example
-from tools.meaning_construction import make_meaning
+from tools.meaning_construction import make_meaning_combo
 from tools.goldendict_tools import open_in_goldendict
 
 
@@ -556,7 +556,7 @@ def update_gui(
     p2d.pass2_window["pass2_id"].update(value=headword.id)
     p2d.pass2_window["pass2_headword"].update(value=headword.lemma_1)
     p2d.pass2_window["pass2_pos"].update(value=headword.pos)
-    p2d.pass2_window["pass2_meaning"].update(value=f"{make_meaning(headword)}")
+    p2d.pass2_window["pass2_meaning"].update(value=f"{make_meaning_combo(headword)}")
     p2d.pass2_window.refresh()
 
 

@@ -21,7 +21,7 @@ from tools.configger import config_test
 from tools.lookup_is_another_value import is_another_value
 from tools.meaning_construction import degree_of_completion
 from tools.meaning_construction import clean_construction
-from tools.meaning_construction import make_meaning
+from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 from tools.paths import ProjectPaths
 from tools.superscripter import superscripter_uni
@@ -151,7 +151,7 @@ def compile_rf_html(dpd_db, rf_dict, lang="en"):
             else:
                 html_string = rf_dict[family]["html"]
 
-            meaning = make_meaning(i)
+            meaning = make_meaning_combo(i)
 
             html_string += "<tr>"
             html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"

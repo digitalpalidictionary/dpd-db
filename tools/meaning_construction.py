@@ -9,7 +9,7 @@ import re
 from db.models import DpdHeadwords
 
 
-def make_meaning(i: DpdHeadwords) -> str:
+def make_meaning_combo(i: DpdHeadwords) -> str:
 	"""Compile meaning_1 and literal meaning, or return meaning_2."""
 	if i.meaning_1:
 		meaning: str = i.meaning_1
@@ -21,7 +21,7 @@ def make_meaning(i: DpdHeadwords) -> str:
 	else:
 		return ""
 
-def make_meaning_html(i: DpdHeadwords) -> str:
+def make_meaning_combo_html(i: DpdHeadwords) -> str:
     """Compile html of meaning_1 and literal meaning, or return meaning_2.
     Meaning_1 in <b>bold</b>"""
 
