@@ -643,11 +643,16 @@ class DpdHeadwords(Base):
         return re.sub(r" \d.*$", "", self.lemma_1)
 
     # meaning construction
+
+    @property
+    def meaning_combo(self) -> str:
+        from tools.meaning_construction import make_meaning_combo
+        return make_meaning_combo(self)
     
     @property
-    def meaning_html(self) -> str:
-        from tools.meaning_construction import make_meaning_html
-        return make_meaning_html(self)
+    def meaning_combo_html(self) -> str:
+        from tools.meaning_construction import make_meaning_combo_html
+        return make_meaning_combo_html(self)
     
     @property
     def construction_summary(self) -> str:
@@ -1232,6 +1237,7 @@ class Sinhala(Base):
     id: Mapped[int] = mapped_column(
         ForeignKey('dpd_headwords.id'), primary_key=True)
     si_meaning: Mapped[str] = mapped_column(default="")
+    checked: Mapped[str] = mapped_column(default='')
 
     def __repr__(self) -> str:
         return f"Sinhala: {self.id} {self.si_meaning}"
