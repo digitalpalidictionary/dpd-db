@@ -8,35 +8,25 @@
 
 <div class='dpd_sinhala'>
     <p class='sinhala'>
-        
-        {% if matching_lemma %}
-        {{ s.lemma_1 }}:
-        {% else %}
-        <span class="error">
-            !{{ s.lemma_1 }}!:
-        </span>
+        {{ i.si_pos }}. 
+        {% if i.plus_case %}
+        ({{ i.si_plus_case }}) 
         {% endif %}
-        
-        {{ s.pos }}. 
-        <b>
-            {{ s.meaning}}
-        </b>
+        <b>{{ i.si_meaning }}</b>. 
+        [{{ i.si_construction_summary }}] 
+        {{ i.degree_of_completion_html }} 
     </p>
     <hr>
     <p class='english'>
-        
-        {% if matching_lemma %}
-        {{ dpd.lemma_1 }}:
-        {% else %}
-        <span class="error">
-            !{{ dpd.lemma_1 }}!:
-        </span>
+        {{ i.pos }}. 
+        {% if i.plus_case %}
+        ({{ i.plus_case }}) 
         {% endif %}
-
-        {{ dpd.pos }}. 
-        {{ english_meaning }}
-    </p>
+        {{ i.meaning_html }}. 
+        [{{ i.construction_summary }}] 
+        {{ i.degree_of_completion_html }} 
     <p class='sinhala_footer'>
-        <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{ s.meaning }}&entry.1433863141=GoldenDict%20{{ date }}" target="_blank">Google forms link goes here</a>
+        ID {{ i.id }}  
+        <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{ i.id }}%20{{ i.si_lemma }}&entry.1433863141=GoldenDict%20Sinhala%20{{ date }}" target="_blank">වැරැද්දක් නිවැරදි කරන්න</a>
     </p>
 </div>

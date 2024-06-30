@@ -25,6 +25,7 @@ from db.models import DpdHeadwords
 
 from tools.configger import config_test
 from tools.printer import p_green, p_no, p_title, p_yes
+from tools.sinhala_tools import si_translit
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 from tools.utils import list_into_batches
@@ -86,12 +87,7 @@ def _parse_batch(
 
     # print("[green]transliterating sinhala with aksharamukha")
 
-    sinhala: str = transliterate.process(
-        "IASTPali",
-        "Sinhala",
-        inflections_to_transliterate_string,
-        post_options=["SinhalaPali", "SinhalaConjuncts"],
-    )  # type:ignore
+    sinhala: str = si_translit(inflections_to_transliterate_string)
 
     # print("[green]transliterating devanagari with aksharamukha")
 

@@ -23,6 +23,7 @@ from db.models import Lookup
 from tools.lookup_is_another_value import is_another_value 
 from tools.configger import config_test, config_update
 from tools.printer import p_green, p_red, p_title, p_yes
+from tools.sinhala_tools import si_translit
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 from tools.utils import list_into_batches
@@ -79,12 +80,7 @@ def _parse_batch(
 
     # transliterating with aksharamukha
 
-    sinhala: str = transliterate.process(
-        "IASTPali",
-        "Sinhala",
-        lookup_to_transliterate_string,
-        post_options=["SinhalaPali", "SinhalaConjuncts"],
-    )  # type:ignore
+    sinhala: str = si_translit(lookup_to_transliterate_string)
 
     devanagari: str = transliterate.process(
         "IASTPali",

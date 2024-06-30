@@ -3,7 +3,8 @@
 """Function to provide traditional lemma endings."""
 
 import re
-from aksharamukha import transliterate
+from db.models import DpdHeadwords
+from tools.sinhala_tools import si_translit
 
 lemma_trad_dict: dict[str, str] = {
     "ant adj": "antu",          # like sīlavant
@@ -16,7 +17,7 @@ lemma_trad_dict: dict[str, str] = {
     "bhavant masc": "bhavantu", # like bhavant
 }
 
-def find_space_digits(i) -> str:
+def find_space_digits(i: DpdHeadwords) -> str:
     pattern = r"\s\d.*"
     match = re.search(pattern, i.lemma_1)
     if match:
@@ -24,7 +25,7 @@ def find_space_digits(i) -> str:
     else:
         return ""
 
-def make_lemma_trad(i) -> str:
+def make_lemma_trad(i: DpdHeadwords) -> str:
     """Return a traditional noun or adj ending, rather than the DPD ending."""
 
     if (
@@ -42,12 +43,7 @@ def make_lemma_trad(i) -> str:
         return i.lemma_1
 
 
-def make_lemma_trad_si(i) -> str:
+def make_lemma_trad_si(i: DpdHeadwords) -> str:
     """Transcribe traditional lemma into Sinhala."""
     lemma = make_lemma_trad(i)
-    return transliterate.process(
-        "IASTPali",
-        "Sinhala",
-        lemma,
-        post_options=["SinhalaPali", "SinhalaConjuncts"],
-    )  # type:ignore
+    return si_translit(lemma)

@@ -5,6 +5,7 @@
 4. Creating an HTML styled symbol of a word data's degree of completion."""
 
 import re
+
 from db.models import DpdHeadwords
 
 
@@ -133,7 +134,7 @@ def clean_construction(construction):
     return construction
 
 
-def degree_of_completion(i, html=True):
+def degree_of_completion(i: DpdHeadwords, html=True):
     """Return html styled symbol of a word data degree of completion."""
     if i.meaning_1:
         if i.source_1:

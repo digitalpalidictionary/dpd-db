@@ -24,13 +24,12 @@ from sqlalchemy.orm import object_session
 from sqlalchemy.sql import func
 
 from tools.cache_load import load_cf_set, load_idioms_set
-from tools.lemma_traditional import make_lemma_trad, make_lemma_trad_si
 from tools.link_generator import generate_link
 from tools.pali_sort_key import pali_sort_key
 from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.pos import EXCLUDE_FROM_FREQ
-from tools.sinhala_pos import pos_to_si_pos, pos_to_si_pos_full
+from tools.sinhala_tools import si_grammar, si_pos, si_pos_full, si_translit
 
 from dps.tools.sbs_table_functions import SBS_table_tools
 
@@ -642,14 +641,70 @@ class DpdHeadwords(Base):
     @property
     def lemma_clean(self) -> str:
         return re.sub(r" \d.*$", "", self.lemma_1)
+
+    # meaning construction
     
     @property
+    def meaning_html(self) -> str:
+        from tools.meaning_construction import make_meaning_html
+        return make_meaning_html(self)
+    
+    @property
+    def construction_summary(self) -> str:
+        from tools.meaning_construction import summarize_construction
+        return summarize_construction(self)
+    
+    @property
+    def construction_clean(self) -> str:
+        from tools.meaning_construction import clean_construction
+        return clean_construction(self.construction)
+    
+    @property
+    def degree_of_completion_html(self) -> str:
+        from tools.meaning_construction import degree_of_completion
+        return degree_of_completion(self)
+
+    @property
+    def degree_of_completion(self) -> str:
+        from tools.meaning_construction import degree_of_completion
+        return degree_of_completion(self, html=False)
+
+    # sinhala
+
+    @property
     def lemma_trad(self) -> str:
+        from tools.lemma_traditional import make_lemma_trad
         return make_lemma_trad(self)
     
     @property
-    def lemma_trad_si(self) -> str:
+    def si_lemma(self) -> str:
+        from tools.lemma_traditional import make_lemma_trad_si
         return make_lemma_trad_si(self)
+    
+    @property
+    def si_plus_case(self) -> str:
+        return si_grammar(self.plus_case)
+    
+    @property
+    def si_pos(self) -> str:
+        return si_pos(self.pos)
+    
+    @property
+    def si_pos_full(self) -> str:
+        return si_pos_full(self.pos)
+
+    @property
+    def si_meaning(self) -> str:
+        return self.si.si_meaning if self.si else ""
+    
+    @property
+    def si_construction_summary(self) -> str:
+        from tools.meaning_construction import summarize_construction
+        construction = summarize_construction(self)
+        construction = construction.replace("*", "ṇ")
+        return si_translit(construction)
+    
+    # root
 
     @property
     def root_clean(self) -> str:
@@ -919,15 +974,7 @@ class DpdHeadwords(Base):
         return f"""DpdHeadwords: {self.id} {self.lemma_1} {self.pos} {
             self.meaning_1}"""
     
-    # sinhala
-    
-    @property
-    def si_pos(self) -> str:
-        return pos_to_si_pos(self.pos)
-    
-    @property
-    def si_pos_full(self) -> str:
-        return pos_to_si_pos_full(self.pos)
+
 
 
 class FamilyCompound(Base):

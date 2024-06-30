@@ -49,3 +49,7 @@ p.sinhala_footer {
 span.error {
     color: red;
 }
+
+span.gray {
+    color: gray;
+}
