@@ -26,8 +26,8 @@ def main():
         "id",
         "si_lemma",
         "si_pos",
-        "si_meaning",
         "en_meaning",
+        "si_meaning",
         "checked" 
     ]
 
@@ -40,8 +40,8 @@ def main():
                 i.id,
                 i.si_lemma,
                 i.si_pos,
-                i.si.si_meaning,
                 i.meaning_combo,
+                i.si.si_meaning,
                 i.si.checked
             ))
         else:
@@ -49,8 +49,8 @@ def main():
                 i.id,
                 i.si_lemma,
                 i.si_pos,
-                "",
                 i.meaning_combo,
+                "",
                 "✗"
             ))
 
@@ -59,7 +59,7 @@ def main():
         
     p_green("making pandas df")
     df = pd.DataFrame(si_data, columns=column_names)
-    p_yes("ok")
+    p_yes(len(df))
 
     p_green("exporting to xlsx")
     df.to_excel(file_output, index=False)

@@ -4,6 +4,7 @@
 
 from jinja2 import Environment, FileSystemLoader
 from pathlib import Path
+from sqlalchemy.orm import joinedload
 
 from db.get_db_session import get_db_session
 from db.models import DpdHeadwords
@@ -21,7 +22,7 @@ class ProgData():
     def __init__(self) -> None:
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
-        self.db = self.db_session.query(DpdHeadwords).all()
+        self.db = self.db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.si)).all()
         self.env = Environment(loader=FileSystemLoader('.'))
         self.template = self.env.get_template("exporter/sinhala/dpd_sinhala_template.html") # TODO add to paths
 

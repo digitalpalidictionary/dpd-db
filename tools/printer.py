@@ -3,6 +3,7 @@ from tools.tic_toc import bip, bop
 
 def p_title(title: str) -> None:
     print(f"[bright_yellow]{title}")
+    bip()
 
 def p_green_title(message: str) -> None:
     print(f"[green]{message}")
