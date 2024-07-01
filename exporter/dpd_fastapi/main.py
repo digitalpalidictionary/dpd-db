@@ -4,6 +4,7 @@ from unidecode import unidecode
 
 from collections import defaultdict
 from fastapi import FastAPI
+from fastapi.middleware.gzip import GZipMiddleware
 from fastapi import Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -75,6 +76,11 @@ def make_ascii_to_unicode_dict(db_session: Session) -> dict[str, list[str]]:
 
 
 app = FastAPI()
+
+# Add this line to enable gzip compression
+app.add_middleware(GZipMiddleware, minimum_size=500)
+
+
 app.mount("/static", StaticFiles(directory="exporter/dpd_fastapi/static"), name="static")
 pth: ProjectPaths = ProjectPaths()
 db_session = get_db_session(pth.dpd_db_path)
@@ -122,8 +128,9 @@ def db_search_json(request: Request, search: str):
     response_data = {
         "summary_html": summary_html,
         "dpd_html": dpd_html}
+    headers = {"Accept-Encoding": "gzip"}
 
-    return JSONResponse(content=response_data)
+    return JSONResponse(content=response_data, headers=headers)
 
 
 @app.get("/gd", response_class=HTMLResponse)
@@ -332,3 +339,4 @@ if __name__ == "__main__":
 # TODO summary of roots
 # TODO history forward and backwards buttons
 # TODO include mw, cpd, dppn, cone, etc.
+
