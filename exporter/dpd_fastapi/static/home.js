@@ -488,5 +488,4 @@ function uniCoder(textInput) {
         .replace(/\.m/g, "ṃ")
         .replace(/\.l/g, "ḷ")
         .replace(/\.h/g, "ḥ")
-        .toLowerCase()
 };

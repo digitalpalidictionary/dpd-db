@@ -1,3 +1,4 @@
+import re
 import uvicorn
 import difflib
 from unidecode import unidecode
@@ -148,17 +149,20 @@ def make_dpd_html(search: str) -> tuple[str, str]:
     db_session = get_db_session(pth.dpd_db_path)
     dpd_html = ""
     summary_html = ""
-    search = search.replace("'", "").replace("ṁ", "ṃ")
+    search = search.replace("'", "").replace("ṁ", "ṃ").strip()
 
-    if search.isalpha(): # eg kata
-        lookup_results = db_session.query(Lookup) \
-            .filter(Lookup.lookup_key==(search)) \
-            .first()
+    lookup_results = db_session.query(Lookup) \
+        .filter(Lookup.lookup_key.ilike(search)) \
+        .all()
+    
+    # first try the lookup table, if no results, then try other options
+    
+    if lookup_results:
+        for lookup_result in lookup_results:
         
-        if lookup_results:
             # headwords
-            if lookup_results.headwords:
-                headwords = lookup_results.headwords_unpack
+            if lookup_result.headwords:
+                headwords = lookup_result.headwords_unpack
                 headword_results = db_session\
                     .query(DpdHeadwords)\
                     .filter(DpdHeadwords.id.in_(headwords))\
@@ -178,8 +182,8 @@ def make_dpd_html(search: str) -> tuple[str, str]:
                         .render(d=d)
             
             # roots
-            if lookup_results.roots:
-                roots_list = lookup_results.roots_unpack
+            if lookup_result.roots:
+                roots_list = lookup_result.roots_unpack
                 root_results = db_session \
                     .query(DpdRoots) \
                     .filter(DpdRoots.root.in_(roots_list))\
@@ -195,53 +199,54 @@ def make_dpd_html(search: str) -> tuple[str, str]:
                         .render(d=d)
 
             # deconstructor
-            if lookup_results.deconstructor:
-                d = DeconstructorData(lookup_results)
+            if lookup_result.deconstructor:
+                d = DeconstructorData(lookup_result)
                 dpd_html += templates \
                     .get_template("deconstructor.html") \
                     .render(d=d)
 
             # variant
-            if lookup_results.variant:
-                d = VariantData(lookup_results)
+            if lookup_result.variant:
+                d = VariantData(lookup_result)
                 dpd_html += templates \
                     .get_template("variant.html") \
                     .render(d=d)
 
             # spelling mistake
-            if lookup_results.spelling:
-                d = SpellingData(lookup_results)
+            if lookup_result.spelling:
+                d = SpellingData(lookup_result)
                 dpd_html += templates \
                     .get_template("spelling.html") \
                     .render(d=d)
 
-            if lookup_results.grammar:
-                d = GrammarData(lookup_results)
+            if lookup_result.grammar:
+                d = GrammarData(lookup_result)
                 dpd_html += templates \
                     .get_template("grammar.html") \
                     .render(d=d)
-                                
-            if lookup_results.help:
-                d = HelpData(lookup_results)
+
+            # help          
+            if lookup_result.help:
+                d = HelpData(lookup_result)
                 dpd_html += templates \
                     .get_template("help.html") \
                     .render(d=d)
 
-            if lookup_results.abbrev:
-                d = AbbreviationsData(lookup_results)
+            # abbreviations
+            if lookup_result.abbrev:
+                d = AbbreviationsData(lookup_result)
                 dpd_html += templates \
                     .get_template("abbreviations.html") \
                     .render(d=d)
 
-            if lookup_results.epd:
-                d = EpdData(lookup_results)
+            # epd 
+            if lookup_result.epd:
+                d = EpdData(lookup_result)
                 dpd_html += templates \
                     .get_template("epd.html") \
                     .render(d=d)
 
-        # return closest matches
-        else:
-            dpd_html = find_closest_matches(search)
+    # the two cases below search directly in the DpdHeadwords table
 
     elif search.isnumeric(): # eg 78654
         search_term = int(search)
@@ -262,10 +267,10 @@ def make_dpd_html(search: str) -> tuple[str, str]:
         else:
             dpd_html = find_closest_matches(search)
 
-    elif search.isalnum():  # eg kata 5
-        headword_result = db_session\
-            .query(DpdHeadwords)\
-            .filter(DpdHeadwords.lemma_1 == search)\
+    elif re.search(r"\s\d", search): # eg "kata 5"
+        headword_result = db_session \
+            .query(DpdHeadwords) \
+            .filter(DpdHeadwords.lemma_1 == search) \
             .first()
         if headword_result:
             fc = get_family_compounds(headword_result)
@@ -279,7 +284,12 @@ def make_dpd_html(search: str) -> tuple[str, str]:
         # return closest matches
         else:
             dpd_html = find_closest_matches(search)
+
+    # or finally return closest matches
     
+    else:
+        dpd_html = find_closest_matches(search)
+
     db_session.close()
     return dpd_html, summary_html
 
