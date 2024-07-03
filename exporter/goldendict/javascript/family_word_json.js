@@ -962,13 +962,19 @@ var family_word_json = {
     "✓"
    ],
    [
+    "keṭubhī",
+    "adj",
+    "treacherous; deceitful; fraudulent; dishonest; corrupt",
+    "✓"
+   ],
+   [
     "ketabī",
     "adj",
     "treacherous; deceitful; fraudulent; dishonest; corrupt",
     "✓"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "kevala": {
   "data": [
@@ -9502,10 +9508,16 @@ var family_word_json = {
     "✓"
    ],
    [
-    "pubbaṃ",
+    "pubbaṃ 1",
     "ind",
     "previously, earlier, before, formerly",
     "✗"
+   ],
+   [
+    "pubbaṃ 2",
+    "ind",
+    "firstly; in front; before",
+    "✓"
    ],
    [
     "pubbā",
@@ -9526,7 +9538,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 26
+  "count": 27
  },
  "poṅkha": {
   "data": [
@@ -9965,8 +9977,8 @@ var family_word_json = {
    [
     "ekacca 3",
     "adj",
-    "in part; partial",
-    "~"
+    "part of; partial",
+    "✓"
    ],
    [
     "ekacciya",
@@ -18436,7 +18448,7 @@ var family_word_json = {
     "eḷa",
     "masc",
     "sheep",
-    "~"
+    "✓"
    ],
    [
     "eḷaka 1.1",
@@ -23661,6 +23673,12 @@ var family_word_json = {
     "✗"
    ],
    [
+    "tāva 4",
+    "ind",
+    "now; at present; lit. this much",
+    "✓"
+   ],
+   [
     "tāvataka 1",
     "adj",
     "just this much; just so much",
@@ -23685,7 +23703,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 8
+  "count": 9
  },
  "tamas": {
   "data": [

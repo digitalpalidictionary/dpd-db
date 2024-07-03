@@ -1,3 +1,4 @@
+29th
 ā
 a deit
 aaaah
@@ -20,6 +21,7 @@ acc
 accekacīvara
 accessorized
 acchidaṃ
+accompaniments
 accordant
 accurses
 accusative
@@ -208,6 +210,7 @@ Aṭṭhakanipāta
 aṭṭhakathā
 Aṭṭhakavagga
 atthi
+aubertii
 auricle
 austerities
 autonomously
@@ -236,6 +239,7 @@ Bandhumatī
 barbery
 barihisa
 barihisatthāya
+barkless
 Barleria
 Barringtonia
 Bassia
@@ -308,6 +312,7 @@ blamableness
 blameworthy
 blibber-blabber
 blurtingly
+Blyxa
 Bodhi
 Bodhi's
 Bodhisatta
@@ -1218,8 +1223,13 @@ MN102
 MN103
 MN104
 MN105
+MN106
+MN107
+MN108
 MN110
 MN2
+MN22
+MN23
 MN3
 MN31
 MN34
@@ -1681,6 +1691,7 @@ rūpa
 rūpārammaṇaṃ
 Rūpasiddhi
 rūpāvacara
+Rusa
 s
 sa
 Saccaka
@@ -2028,6 +2039,7 @@ Turukkha
 Tusita
 Tuvaṭṭaka
 tvā
+twenty-ninth
 two-ness
 two-way-ness
 twofoldness
@@ -2134,6 +2146,7 @@ ungenerousness
 unground
 unharnessed
 unhesitant
+unicolour
 unicornis
 uninclined
 unincluded
@@ -2374,13 +2387,3 @@ yojanas
 yoking
 zizanioides
 Ziziphus
-twenty-ninth
-29th
-Rusa
-unicolor
-accompaniments
-Blyxa
-aubertii
-barkless
-MN106
-MN107

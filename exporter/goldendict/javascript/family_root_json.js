@@ -3327,7 +3327,7 @@ var family_root_json = {
   "root_key": "√kapp 1",
   "root_family": "√kapp",
   "root_meaning": "be fit, be suitable",
-  "count": 45,
+  "count": 46,
   "data": [
    [
     "akappayi",
@@ -3556,6 +3556,12 @@ var family_root_json = {
     "pr",
     "prepares, harnesses, trims, considers",
     "✗"
+   ],
+   [
+    "kappeti 5",
+    "pr",
+    "(of a sleeping posture) adopts; takes up; assumes",
+    "✓"
    ],
    [
     "kappetuṃ",
@@ -7003,7 +7009,7 @@ var family_root_json = {
   "root_key": "√khā",
   "root_family": "ā √khā",
   "root_meaning": "tell, announce",
-  "count": 19,
+  "count": 20,
   "data": [
    [
     "akkhāta",
@@ -7060,9 +7066,15 @@ var family_root_json = {
     "✓"
    ],
    [
-    "akkhāyī",
+    "akkhāyī 1",
     "adj",
-    "asserting; declaring; saying; telling",
+    "asserting; declaring; stating",
+    "✓"
+   ],
+   [
+    "akkhāyī 2",
+    "adj",
+    "saying; telling; stating",
     "✓"
    ],
    [
@@ -11055,7 +11067,7 @@ var family_root_json = {
   "root_key": "√gup 2",
   "root_family": "√gup",
   "root_meaning": "guard",
-  "count": 31,
+  "count": 32,
   "data": [
    [
     "agutta",
@@ -11134,6 +11146,12 @@ var family_root_json = {
     "masc",
     "cowherd",
     "✗"
+   ],
+   [
+    "gopaka 3",
+    "masc",
+    "superintendent; treasurer; lit. guardian",
+    "✓"
    ],
    [
     "gopana",
@@ -22925,7 +22943,7 @@ var family_root_json = {
   "root_key": "√ṭhā",
   "root_family": "√ṭhā",
   "root_meaning": "stand",
-  "count": 155,
+  "count": 156,
   "data": [
    [
     "aṭṭhapesi",
@@ -23152,7 +23170,7 @@ var family_root_json = {
    [
     "ṭhapita 1",
     "pp",
-    "placed; put down; lit. caused to stand",
+    "placed (in); put down (on); lit. caused to stand",
     "✓"
    ],
    [
@@ -23172,6 +23190,12 @@ var family_root_json = {
     "pp",
     "set down; written down",
     "✗"
+   ],
+   [
+    "ṭhapita 5",
+    "pp",
+    "appointed; designated; established (by); lit. caused to stand",
+    "✓"
    ],
    [
     "ṭhapiyyati",
@@ -34743,7 +34767,7 @@ var family_root_json = {
   "root_key": "√dvar",
   "root_family": "√dvar",
   "root_meaning": "obstruct, prohibit",
-  "count": 9,
+  "count": 10,
   "data": [
    [
     "advārika 1",
@@ -34774,6 +34798,12 @@ var family_root_json = {
     "nt",
     "door of action; i.e. body, speech or mind",
     "~"
+   ],
+   [
+    "dvāra 3",
+    "adj",
+    "having sense-doors; with the six sense fields",
+    "✓"
    ],
    [
     "dvāratā",
@@ -61464,7 +61494,7 @@ var family_root_json = {
    [
     "vāca",
     "adj",
-    "talking; speaking",
+    "talking; speaking; of speech",
     "✓"
    ],
    [
@@ -70076,8 +70106,8 @@ var family_root_json = {
    [
     "anusaññāyamāna",
     "prp",
-    "going around; inspecting; supervising",
-    "~"
+    "inspecting; supervising; managing; lit. going aroung together",
+    "✓"
    ],
    [
     "anusaṃyāyati",
@@ -96118,8 +96148,8 @@ var family_root_json = {
    [
     "sappaṭisaraṇa",
     "adj",
-    "having a refuge; with a resort",
-    "~"
+    "having a refuge; with a support",
+    "✓"
    ]
   ]
  },
@@ -98611,7 +98641,7 @@ var family_root_json = {
   "root_key": "√vatt",
   "root_family": "pa √vatt",
   "root_meaning": "be, proceed",
-  "count": 68,
+  "count": 69,
   "data": [
    [
     "appavatta 1",
@@ -98756,6 +98786,12 @@ var family_root_json = {
     "pr",
     "continues; lit. goes forward",
     "~"
+   ],
+   [
+    "pavattati 5",
+    "pr",
+    "(of the pātimokkha) is in memory; is in mind; is well rehearsed (for); lit. goes forward",
+    "✓"
    ],
    [
     "pavattatta",
@@ -149336,19 +149372,19 @@ var family_root_json = {
    [
     "sammata 1",
     "pp",
-    "supposed; thought to be; said to be; considered as; regarded as; agreed to be",
+    "supposed; thought to be; said to be; considered as; regarded as; agreed to be; lit. thought together",
     "✓"
    ],
    [
     "sammata 2",
     "pp",
-    "authorized; appointed; assigned; designated",
+    "authorized; appointed; assigned; designated (by); lit. thought together",
     "✓"
    ],
    [
     "sammata 3",
     "pp",
-    "honoured; renowned; revered; esteemed",
+    "honoured; renowned; revered; esteemed; lit. thought together",
     "~"
    ],
    [
@@ -161105,7 +161141,7 @@ var family_root_json = {
     "āsaṅkamāna",
     "prp",
     "suspecting; distrusting; being suspicious (of)",
-    "~"
+    "✓"
    ],
    [
     "āsaṅkā",
@@ -189110,8 +189146,8 @@ var family_root_json = {
    [
     "paṭisaṅkhārāpeti",
     "pr",
-    "fortifies",
-    "✗"
+    "fortifies; lit. causes to repair",
+    "✓"
    ],
    [
     "paṭisaṅkhārika",

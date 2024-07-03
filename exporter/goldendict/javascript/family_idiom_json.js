@@ -13296,7 +13296,7 @@ var family_idiom_json = {
   ]
  },
  "adho": {
-  "count": 2,
+  "count": 3,
   "data": [
    [
     "uddhaṃ adho tiriyañca",
@@ -13308,6 +13308,12 @@ var family_idiom_json = {
     "uddhaṃ adho tiriyaṃ",
     "idiom",
     "above below and across; in every direction",
+    "✓"
+   ],
+   [
+    "uddhaṃpādaṃ adhosiraṃ",
+    "idiom",
+    "feet up head down; upside down; head over heels",
     "✓"
    ]
   ]
@@ -14411,8 +14417,14 @@ var family_idiom_json = {
   ]
  },
  "pāda": {
-  "count": 5,
+  "count": 6,
   "data": [
+   [
+    "uddhaṃpādaṃ adhosiraṃ",
+    "idiom",
+    "feet up head down; upside down; head over heels",
+    "✓"
+   ],
    [
     "pādakaṃ katvā",
     "idiom",
@@ -15548,7 +15560,7 @@ var family_idiom_json = {
   ]
  },
  "magga": {
-  "count": 3,
+  "count": 4,
   "data": [
    [
     "ariyo aṭṭhaṅgiko maggo",
@@ -15560,6 +15572,12 @@ var family_idiom_json = {
     "maggakkhāyīhaṃ",
     "sandhi",
     "I am the guide; I show the way",
+    "✓"
+   ],
+   [
+    "maggaṃ deti",
+    "idiom",
+    "gives way; offers right of way; lit. gives road",
     "✓"
    ],
    [
@@ -18724,6 +18742,52 @@ var family_idiom_json = {
    ]
   ]
  },
+ "āsana": {
+  "count": 2,
+  "data": [
+   [
+    "āsanaṃ deti",
+    "idiom",
+    "offers a seat (to)",
+    "✓"
+   ],
+   [
+    "tasmiṃyeva āsane",
+    "idiom",
+    "in that very seat",
+    "✓"
+   ]
+  ]
+ },
+ "deti": {
+  "count": 4,
+  "data": [
+   [
+    "āsanaṃ deti",
+    "idiom",
+    "offers a seat (to)",
+    "✓"
+   ],
+   [
+    "nalāṭikaṃ deti",
+    "idiom",
+    "makes a gesture of approval; (comm) places the finger on the forehead",
+    "✓"
+   ],
+   [
+    "pahāraṃ deti",
+    "idiom",
+    "punches; strikes; beats; hits; lit. gives a blow",
+    "✓"
+   ],
+   [
+    "maggaṃ deti",
+    "idiom",
+    "gives way; offers right of way; lit. gives road",
+    "✓"
+   ]
+  ]
+ },
  "āsaya": {
   "count": 1,
   "data": [
@@ -20625,12 +20689,18 @@ var family_idiom_json = {
   ]
  },
  "uddha": {
-  "count": 2,
+  "count": 3,
   "data": [
    [
     "uddhaṃ adho tiriyañca",
     "idiom",
     "above below and across; in every direction",
+    "✓"
+   ],
+   [
+    "uddhaṃpādaṃ adhosiraṃ",
+    "idiom",
+    "feet up head down; upside down; head over heels",
     "✓"
    ],
    [
@@ -20722,6 +20792,29 @@ var family_idiom_json = {
     "uddhaṃ adho tiriyaṃ",
     "idiom",
     "above below and across; in every direction",
+    "✓"
+   ]
+  ]
+ },
+ "siras": {
+  "count": 3,
+  "data": [
+   [
+    "uddhaṃpādaṃ adhosiraṃ",
+    "idiom",
+    "feet up head down; upside down; head over heels",
+    "✓"
+   ],
+   [
+    "pāde sirasā vandati",
+    "idiom",
+    "worships with the head at the feet (of)",
+    "✓"
+   ],
+   [
+    "pādesu sirasā nipatitvā",
+    "idiom",
+    "having fallen at the feet with the head",
     "✓"
    ]
   ]
@@ -25682,17 +25775,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "āsana": {
-  "count": 1,
-  "data": [
-   [
-    "tasmiṃyeva āsane",
-    "idiom",
-    "in that very seat",
-    "✓"
-   ]
-  ]
- },
  "tassa": {
   "count": 23,
   "data": [
@@ -27273,23 +27355,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "deti": {
-  "count": 2,
-  "data": [
-   [
-    "nalāṭikaṃ deti",
-    "idiom",
-    "makes a gesture of approval; (comm) places the finger on the forehead",
-    "✓"
-   ],
-   [
-    "pahāraṃ deti",
-    "idiom",
-    "punches; strikes; beats; hits; lit. gives a blow",
-    "✓"
-   ]
-  ]
- },
  "nava2": {
   "count": 1,
   "data": [
@@ -28347,23 +28412,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "siras": {
-  "count": 2,
-  "data": [
-   [
-    "pāde sirasā vandati",
-    "idiom",
-    "worships with the head at the feet (of)",
-    "✓"
-   ],
-   [
-    "pādesu sirasā nipatitvā",
-    "idiom",
-    "having fallen at the feet with the head",
-    "✓"
-   ]
-  ]
- },
  "vandati": {
   "count": 1,
   "data": [
@@ -28682,12 +28730,24 @@ var family_idiom_json = {
   ]
  },
  "gahetvā": {
-  "count": 1,
+  "count": 3,
   "data": [
    [
     "balaṃ gahetvā",
     "idiom",
     "having regained one's strength",
+    "✓"
+   ],
+   [
+    "bāhāyaṃ gahetvā",
+    "idiom",
+    "having seized by the arm",
+    "✓"
+   ],
+   [
+    "rasmiyo gahetvā",
+    "idiom",
+    "having seized the reins",
     "✓"
    ]
   ]
@@ -28716,6 +28776,17 @@ var family_idiom_json = {
     "bahuneke",
     "sandhi",
     "some people with lots; lit. some with many",
+    "✓"
+   ]
+  ]
+ },
+ "bāhā": {
+  "count": 1,
+  "data": [
+   [
+    "bāhāyaṃ gahetvā",
+    "idiom",
+    "having seized by the arm",
     "✓"
    ]
   ]
@@ -30980,6 +31051,17 @@ var family_idiom_json = {
     "ramāmahaṃ",
     "sandhi",
     "I delight (in); I take pleasure (in)",
+    "✓"
+   ]
+  ]
+ },
+ "rasmi": {
+  "count": 1,
+  "data": [
+   [
+    "rasmiyo gahetvā",
+    "idiom",
+    "having seized the reins",
     "✓"
    ]
   ]

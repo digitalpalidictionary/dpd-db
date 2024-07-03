@@ -8300,7 +8300,7 @@ var family_set_json = {
     "gopakamoggallāna",
     "masc",
     "name of a Brahman; lit. Moggallāna the guardian",
-    "~"
+    "✓"
    ],
    [
     "govinda",
@@ -9795,6 +9795,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "gopaka 3",
+    "masc",
+    "superintendent; treasurer; lit. guardian",
+    "✓"
+   ],
+   [
     "gopāla 1",
     "masc",
     "cowherd; cowboy; lit. cow guard",
@@ -10461,7 +10467,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 161
+  "count": 162
  },
  "place names": {
   "data": [
@@ -12618,7 +12624,7 @@ var family_set_json = {
    [
     "alagaddūpamasutta",
     "nt",
-    "Discourse on the Simile of the Water Snake; Majjhima Nikāya 22 (MN22)",
+    "Majjhima Nikāya 22 (MN22); Discourse on the Simile of the Water Snake",
     "✓"
    ],
    [
@@ -12696,14 +12702,20 @@ var family_set_json = {
    [
     "gaṇakamoggallānasutta",
     "nt",
-    "Discourse to Moggallāna the Accountant; Majjhima Nikāya 107 (MN107)",
+    "Majjhima Nikāya 107 (MN107); Discourse to Moggallāna the Accountant",
     "✓"
    ],
    [
     "gaṇakamoggallānasuttanta",
     "masc",
-    "Discourse to Moggallāna the Accountant; Majjhima Nikāya 107 (MN107)",
+    "Majjhima Nikāya 107 (MN107); Discourse to Moggallāna the Accountant",
     "~"
+   ],
+   [
+    "gopakamoggallānasutta",
+    "nt",
+    "Majjhima Nikāya 108 (MN108); Discourse with Moggallāna the Guardian",
+    "✓"
    ],
    [
     "goliyānisutta",
@@ -13164,8 +13176,8 @@ var family_set_json = {
    [
     "vammikasutta",
     "nt",
-    "Discourse on the Anthill; Majjhima Nikāya 23",
-    "~"
+    "Majjhima Nikāya 23 (MN23); Discourse on the Anthill",
+    "✓"
    ],
    [
     "vāseṭṭhasutta 1",
@@ -13282,7 +13294,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 121
+  "count": 122
  },
  "family names": {
   "data": [
@@ -29357,6 +29369,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "tāva 4",
+    "ind",
+    "now; at present; lit. this much",
+    "✓"
+   ],
+   [
     "tu 1",
     "ind",
     "however; but; rather; rather than",
@@ -29777,7 +29795,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 119
+  "count": 120
  },
  "great disciples": {
   "data": [
