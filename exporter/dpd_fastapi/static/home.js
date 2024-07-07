@@ -59,10 +59,9 @@ const startMessage = `
     more information</a> 
     about DPD in general.
 </p>
-<p class="message">Start by <b>double clicking</b> on any word in the sentence below:</p>
+<p class="message">Start by <b>double clicking</b> on any word in the list below:</p>
 <p class="message">
-    atthi, bhikkhave, ajātaṃ abhūtaṃ akataṃ asaṅkhataṃ. no cetaṃ, bhikkhave, abhavissa ajātaṃ abhūtaṃ akataṃ asaṅkhataṃ, nayidha jātassa bhūtassa katassa saṅkhatassa nissaraṇaṃ paññāyetha. 
-    yasmā ca kho, bhikkhave, atthi ajātaṃ abhūtaṃ akataṃ asaṅkhataṃ, tasmā jātassa bhūtassa katassa saṅkhatassa nissaraṇaṃ paññāyatīti.
+    atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root ✓
 </p>
 
 `

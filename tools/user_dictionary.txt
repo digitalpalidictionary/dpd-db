@@ -135,6 +135,7 @@ anu
 aṇu
 Anurādha
 Anurādhapura
+Anurādhapura
 Anuruddha
 Anuruddhasaṃyuttaṃ
 anuseti
@@ -246,6 +247,7 @@ Bassia
 batrachus
 Bauhinia
 bayur
+BC
 BD
 bdellium
 beautifies
@@ -350,6 +352,7 @@ Budhanania
 burmanniana
 Butea
 byāyāma
+c.
 Cadamba
 caerulea
 Caesalpina
@@ -431,6 +434,7 @@ concilated
 concomitance
 confutes
 congee
+conglomeration
 conglomerations
 conjectured
 conjee
@@ -524,6 +528,7 @@ deva-king
 Devadaha
 devadattiya
 Devala
+Devānampiyatissa
 Devaputtasaṃyuttaṃ
 devas
 Devatāsaṃyuttaṃ
@@ -823,6 +828,7 @@ I.B
 Iddhipādasaṃyuttaṃ
 ideational
 illuminator
+illustriousness
 im
 iṃ
 immateriality
@@ -1053,6 +1059,7 @@ Lābhasakkārasaṃyuttaṃ
 Lacucha
 Lagopodioides
 Lakkhaṇasaṃyuttaṃ
+Lanka
 latfolia
 latifolia
 layerings
@@ -1226,7 +1233,9 @@ MN105
 MN106
 MN107
 MN108
+MN109
 MN110
+MN111
 MN2
 MN22
 MN23
@@ -1869,6 +1878,7 @@ Spondias
 spontaneum
 spritzed
 Sri
+Sri Lankan
 ssa
 stabilises
 steamrolls
@@ -2130,6 +2140,7 @@ unenquired
 unentangled
 unenveloped
 unestablished
+unethically
 unexperienceable
 unexperienced
 unfabricated

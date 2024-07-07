@@ -230,7 +230,7 @@ var family_idiom_json = {
    [
     "antaraṃ katvā",
     "idiom",
-    "having given priority to; lit. having made within",
+    "aving given priority (to); having focussed (on); lit. having made within",
     "✓"
    ],
    [
@@ -638,7 +638,7 @@ var family_idiom_json = {
   ]
  },
  "karitvā": {
-  "count": 10,
+  "count": 11,
   "data": [
    [
     "agaruṃ karitvā",
@@ -650,6 +650,12 @@ var family_idiom_json = {
     "anodhiṃ karitvā",
     "idiom",
     "completely; without exception; without qualification; without limit; lit. having made no limit",
+    "✓"
+   ],
+   [
+    "antaraṃ karitvā",
+    "idiom",
+    "having given priority (to); having focussed (on); lit. having made within",
     "✓"
    ],
    [
@@ -13380,12 +13386,18 @@ var family_idiom_json = {
   ]
  },
  "antara": {
-  "count": 8,
+  "count": 9,
   "data": [
    [
     "antaraṃ katvā",
     "idiom",
-    "having given priority to; lit. having made within",
+    "aving given priority (to); having focussed (on); lit. having made within",
+    "✓"
+   ],
+   [
+    "antaraṃ karitvā",
+    "idiom",
+    "having given priority (to); having focussed (on); lit. having made within",
     "✓"
    ],
    [
@@ -21251,8 +21263,14 @@ var family_idiom_json = {
   ]
  },
  "ekodi": {
-  "count": 2,
+  "count": 3,
   "data": [
+   [
+    "ekodi kātabba",
+    "idiom",
+    "should be unified; should be integrated; should be concentrated",
+    "✓"
+   ],
    [
     "ekodi hoti",
     "idiom",
@@ -21263,6 +21281,23 @@ var family_idiom_json = {
     "ekodiṃ karoti",
     "idiom",
     "integrates; unifies; collects; stabilizes",
+    "✓"
+   ]
+  ]
+ },
+ "kātabba": {
+  "count": 2,
+  "data": [
+   [
+    "ekodi kātabba",
+    "idiom",
+    "should be unified; should be integrated; should be concentrated",
+    "✓"
+   ],
+   [
+    "manasi kātabba",
+    "idiom",
+    "should be paid attention to; should be kept in mind; lit. to be made in mind",
     "✓"
    ]
   ]
@@ -22214,6 +22249,83 @@ var family_idiom_json = {
    ]
   ]
  },
+ "ka1": {
+  "count": 12,
+  "data": [
+   [
+    "kamatthamanubhoti",
+    "sandhi",
+    "what good does one achieve?; what benefit does one experience?; what advantage does one get?",
+    "✓"
+   ],
+   [
+    "kamettha",
+    "sandhi",
+    "who here; whoever here; in this case which person",
+    "✓"
+   ],
+   [
+    "kaṃsi",
+    "sandhi",
+    "(under) who are you (ordained)?",
+    "✓"
+   ],
+   [
+    "ko nāmeso",
+    "idiom",
+    "what is the name of this (person)?",
+    "✓"
+   ],
+   [
+    "kodha 2.1",
+    "sandhi",
+    "who here",
+    "✓"
+   ],
+   [
+    "konāmo",
+    "sandhi",
+    "of what name? called what?",
+    "✓"
+   ],
+   [
+    "kosi 1.1",
+    "sandhi",
+    "who are you?",
+    "✓"
+   ],
+   [
+    "kosu",
+    "sandhi",
+    "who definitely?; what certainly?",
+    "✓"
+   ],
+   [
+    "kosu nāma",
+    "idiom",
+    "who definitely?; who certainly?",
+    "✓"
+   ],
+   [
+    "kvattho",
+    "sandhi",
+    "(gram) what is meant (by)?; what is the purpose (of)?",
+    "✓"
+   ],
+   [
+    "kvettha",
+    "sandhi",
+    "who are you?; lit. who is here",
+    "✓"
+   ],
+   [
+    "yāvatakvassa",
+    "sandhi",
+    "as long as his; as much as his",
+    "✓"
+   ]
+  ]
+ },
  "kaṅkhati2": {
   "count": 1,
   "data": [
@@ -22892,29 +23004,6 @@ var family_idiom_json = {
     "kadāci karahaci 2",
     "idiom",
     "at some time or other; lit. sometimes seldom",
-    "✓"
-   ]
-  ]
- },
- "kaṃ": {
-  "count": 3,
-  "data": [
-   [
-    "kamatthamanubhoti",
-    "sandhi",
-    "what good does one achieve?; what benefit does one experience?; what advantage does one get?",
-    "✓"
-   ],
-   [
-    "kamettha",
-    "sandhi",
-    "who here; whoever here; in this case which person",
-    "✓"
-   ],
-   [
-    "kaṃsi",
-    "sandhi",
-    "(under) who are you (ordained)?",
     "✓"
    ]
   ]
@@ -23759,65 +23848,6 @@ var family_idiom_json = {
     "kesūdha",
     "sandhi",
     "among who here; in whom here",
-    "✓"
-   ]
-  ]
- },
- "ko": {
-  "count": 9,
-  "data": [
-   [
-    "ko nāmeso",
-    "idiom",
-    "what is the name of this (person)?",
-    "✓"
-   ],
-   [
-    "kodha 2.1",
-    "sandhi",
-    "who here",
-    "✓"
-   ],
-   [
-    "konāmo",
-    "sandhi",
-    "of what name? called what?",
-    "✓"
-   ],
-   [
-    "kosi 1.1",
-    "sandhi",
-    "who are you?",
-    "✓"
-   ],
-   [
-    "kosu",
-    "sandhi",
-    "who definitely?; what certainly?",
-    "✓"
-   ],
-   [
-    "kosu nāma",
-    "idiom",
-    "who definitely?; who certainly?",
-    "✓"
-   ],
-   [
-    "kvattho",
-    "sandhi",
-    "(gram) what is meant (by)?; what is the purpose (of)?",
-    "✓"
-   ],
-   [
-    "kvettha",
-    "sandhi",
-    "who are you?; lit. who is here",
-    "✓"
-   ],
-   [
-    "yāvatakvassa",
-    "sandhi",
-    "as long as his; as much as his",
     "✓"
    ]
   ]
@@ -29266,17 +29296,6 @@ var family_idiom_json = {
     "sajjhāyaṃ karonta",
     "idiom",
     "reciting; chanting; rehearsing; repeating; lit. making recitation together",
-    "✓"
-   ]
-  ]
- },
- "kātabba": {
-  "count": 1,
-  "data": [
-   [
-    "manasi kātabba",
-    "idiom",
-    "should be paid attention to; should be kept in mind; lit. to be made in mind",
     "✓"
    ]
   ]

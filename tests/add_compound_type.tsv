@@ -1,4 +1,6 @@
 word	pos	position	type	exceptions
+āsava	any	last	chaṭṭhī	khīṇāsava, pahātabbāsava, sabbāsava, pubbāsava
+khandha	any	last	chaṭṭhī	arūpakkhandha, uparikhandha, pañcakkhandha, pattakkhandha, pubbenivutthakkhandha, samavaṭṭakkhandha, samavaṭṭakhandha, vivattakkhandha, sañjātakhandha
 vāsa	any	last	sattamī	antevāsīvāsa, abrahmacariyavāsa
 dhutta	any	last	sattamī	x
 assāda	any	last	sattamī	appassāda, evamassāda, bāhirassāda, mahassāda, rittassāda, madhurassāda

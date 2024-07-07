@@ -6376,12 +6376,6 @@ var family_word_json = {
     "✗"
    ],
    [
-    "asahatthā",
-    "ind",
-    "not from one's own hand; impersonally",
-    "~"
-   ],
-   [
     "sāhatthika",
     "adj",
     "done with one's own hand",
@@ -6490,7 +6484,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 20
+  "count": 19
  },
  "heṭṭhā": {
   "data": [
@@ -17412,7 +17406,7 @@ var family_word_json = {
    [
     "upa 2",
     "prefix",
-    "descendent of; sibling of",
+    "descendent of; sibling of; son of",
     "✓"
    ],
    [
@@ -25373,25 +25367,25 @@ var family_word_json = {
    [
     "nāga 1",
     "masc",
+    "snake; serpent; cobra",
+    "✓"
+   ],
+   [
+    "nāga 12",
+    "masc",
     "noble person; great man; epithet of an arahant; epithet of the Buddha",
     "✓"
    ],
    [
     "nāga 2",
     "masc",
-    "tusker; bull elephant",
+    "dragon; drake; supernatural shape-shifting serpent",
     "✓"
    ],
    [
     "nāga 3",
     "masc",
-    "snake; serpent; cobra",
-    "✓"
-   ],
-   [
-    "nāga 4",
-    "masc",
-    "dragon; drake",
+    "tusker; bull elephant",
     "✓"
    ],
    [

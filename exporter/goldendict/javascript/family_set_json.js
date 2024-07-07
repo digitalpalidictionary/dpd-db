@@ -1221,7 +1221,7 @@ var family_set_json = {
    [
     "upa 2",
     "prefix",
-    "descendent of; sibling of",
+    "descendent of; sibling of; son of",
     "✓"
    ],
    [
@@ -4982,7 +4982,7 @@ var family_set_json = {
    [
     "upa 2",
     "prefix",
-    "descendent of; sibling of",
+    "descendent of; sibling of; son of",
     "✓"
    ],
    [
@@ -9792,7 +9792,7 @@ var family_set_json = {
     "gopaka 1",
     "masc",
     "guard; warden; watch-man",
-    "~"
+    "✓"
    ],
    [
     "gopaka 3",
@@ -10323,6 +10323,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "rakkhaka",
+    "masc",
+    "guardian; protector; sentry; watchman",
+    "✓"
+   ],
+   [
     "rajaka 1",
     "masc",
     "painter; artist; lit. who dyes or paints",
@@ -10467,7 +10473,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 162
+  "count": 163
  },
  "place names": {
   "data": [
@@ -11438,8 +11444,8 @@ var family_set_json = {
    [
     "upananda 1",
     "masc",
-    "name of the military general of Magadha; lit. son of Nanda",
-    "~"
+    "name of the military general of Magadha; lit. descendent of Nanda",
+    "✓"
    ],
    [
     "upāli 1",
@@ -12564,13 +12570,13 @@ var family_set_json = {
    [
     "aggivacchasutta",
     "nt",
-    "Majjhima Nikāya 72 (MN72); Discourse to Vaccha on Fire",
+    "Majjhima Nikāya 72; Discourse to Vaccha on Fire (MN72)",
     "✓"
    ],
    [
     "aṅgulimālasutta",
     "nt",
-    "Majjhima Nikāya 86 (MN86); Discourse about Aṅgulimāla",
+    "Majjhima Nikāya 86; Discourse about Aṅgulimāla (MN86)",
     "✓"
    ],
    [
@@ -12582,13 +12588,19 @@ var family_set_json = {
    [
     "aṭṭhakanāgarasutta 1",
     "nt",
-    "Majjhima Nikāya 52 (MN52); Discourse to the (Man from) Aṭṭhaka Town",
+    "Majjhima Nikāya 52; Discourse to the (Man from) Aṭṭhaka Town (MN52)",
     "✓"
    ],
    [
     "anaṅgaṇasutta",
     "nt",
     "Majjhima Nikāya 5; Discourse on Being Unblemished (MN5)",
+    "✓"
+   ],
+   [
+    "anupadasutta",
+    "nt",
+    "Majjhima Nikāya 111; The Sequential Discourse (MN111)",
     "✓"
    ],
    [
@@ -12618,19 +12630,19 @@ var family_set_json = {
    [
     "ariyapariyesanāsutta",
     "nt",
-    "Majjhima Nikāya 26; Discourse on the Noble Quest (MN26); (or) Discourse on the Heap of Snares",
+    "Majjhima Nikāya 26; Discourse on the Noble Quest; (or) Discourse on the Heap of Snares (MN26)",
     "~"
    ],
    [
     "alagaddūpamasutta",
     "nt",
-    "Majjhima Nikāya 22 (MN22); Discourse on the Simile of the Water Snake",
+    "Majjhima Nikāya 22; Discourse on the Simile of the Water Snake (MN22)",
     "✓"
    ],
    [
     "assalāyanasutta",
     "nt",
-    "Majjhima Nikāya 93 (MN93); Discourse to Assalāyana",
+    "Majjhima Nikāya 93; Discourse to Assalāyana (MN93)",
     "✓"
    ],
    [
@@ -12642,7 +12654,7 @@ var family_set_json = {
    [
     "āneñjasappāyasutta",
     "nt",
-    "Majjhima Nikāya 106 (MN106); Discourse On What Is Conducive To The Imperturbable State",
+    "Majjhima Nikāya 106; Discourse On What Is Conducive To The Imperturbable State (MN106)",
     "✓"
    ],
    [
@@ -12654,7 +12666,7 @@ var family_set_json = {
    [
     "esukārīsutta",
     "nt",
-    "Majjhima Nikāya 96 (MN96); Discourse with Esukārī",
+    "Majjhima Nikāya 96; Discourse with Esukārī (MN96)",
     "✓"
    ],
    [
@@ -12666,7 +12678,7 @@ var family_set_json = {
    [
     "kaṇṇakatthalasutta",
     "nt",
-    "Majjhima Nikāya 90 (MN90); Discourse in Kaṇṇakatthala",
+    "Majjhima Nikāya 90; Discourse in Kaṇṇakatthala (MN90)",
     "✓"
    ],
    [
@@ -12678,13 +12690,13 @@ var family_set_json = {
    [
     "kintisutta",
     "nt",
-    "Majjhima Nikāya 103 (MN103); Discourse on What (Do You Think of Me)",
+    "Majjhima Nikāya 103; Discourse on What (Do You Think of Me) (MN103)",
     "✓"
    ],
    [
     "kīṭāgirisutta",
     "nt",
-    "Majjhima Nikāya 70 (MN70); Discourse at Kīṭāgiri",
+    "Majjhima Nikāya 70; Discourse at Kīṭāgiri (MN70)",
     "✓"
    ],
    [
@@ -12702,49 +12714,49 @@ var family_set_json = {
    [
     "gaṇakamoggallānasutta",
     "nt",
-    "Majjhima Nikāya 107 (MN107); Discourse to Moggallāna the Accountant",
+    "Majjhima Nikāya 107; Discourse to Moggallāna the Accountant (MN107)",
     "✓"
    ],
    [
     "gaṇakamoggallānasuttanta",
     "masc",
-    "Majjhima Nikāya 107 (MN107); Discourse to Moggallāna the Accountant",
+    "Majjhima Nikāya 107; Discourse to Moggallāna the Accountant (MN107)",
     "~"
    ],
    [
     "gopakamoggallānasutta",
     "nt",
-    "Majjhima Nikāya 108 (MN108); Discourse with Moggallāna the Guardian",
+    "Majjhima Nikāya 108; Discourse with Moggallāna the Guardian (MN108)",
     "✓"
    ],
    [
     "goliyānisutta",
     "nt",
-    "Majjhima Nikāya 69 (MN69); Discourse with Goliyāni",
+    "Majjhima Nikāya 69; Discourse with Goliyāni (MN69)",
     "✓"
    ],
    [
     "ghaṭikārasutta",
     "nt",
-    "Majjhima Nikāya 81 (MN81); Discourse about Ghaṭikāra",
+    "Majjhima Nikāya 81; Discourse about Ghaṭikāra (MN81)",
     "✓"
    ],
    [
     "ghoṭamukhasutta",
     "nt",
-    "Majjhima Nikāya 94 (MN94); Discourse with Ghoṭamukha",
+    "Majjhima Nikāya 94; Discourse with Ghoṭamukha (MN94)",
     "✓"
    ],
    [
     "caṅkīsutta",
     "nt",
-    "Majjhima Nikāya 95 (MN95); Discourse about Caṅkī",
+    "Majjhima Nikāya 95; Discourse about Caṅkī (MN95)",
     "✓"
    ],
    [
     "cātumasutta",
     "nt",
-    "Majjhima Nikāya 67 (MN67); Discourse at Cātumā",
+    "Majjhima Nikāya 67; Discourse at Cātumā (MN67)",
     "✓"
    ],
    [
@@ -12790,9 +12802,15 @@ var family_set_json = {
     "✓"
    ],
    [
+    "cūḷapuṇṇamasutta",
+    "nt",
+    "Majjhima Nikāya 110; Shorter Discourse on the Full Moon Night (MN110)",
+    "✓"
+   ],
+   [
     "cūḷamālukyasutta",
     "nt",
-    "Majjhima Nikāya 63 (MN63); The Shorter Discourse to Mālukya",
+    "Majjhima Nikāya 63; The Shorter Discourse to Mālukya (MN63)",
     "✓"
    ],
    [
@@ -12810,7 +12828,7 @@ var family_set_json = {
    [
     "cūḷasakuludāyisutta",
     "nt",
-    "Majjhima Nikāya 79 (MN79); Shorter Discourse to Sakuludāyī",
+    "Majjhima Nikāya 79; Shorter Discourse to Sakuludāyī (MN79)",
     "✓"
    ],
    [
@@ -12864,19 +12882,19 @@ var family_set_json = {
    [
     "tevijjavacchasutta",
     "nt",
-    "Majjhima Nikāya 71 (MN71); Discourse to Vaccha on the Three Knowledges",
+    "Majjhima Nikāya 71; Discourse to Vaccha on the Three Knowledges (MN71)",
     "✓"
    ],
    [
     "dīghanakhasutta",
     "nt",
-    "Majjhima Nikāya 74 (MN74); Discourse with Long Nails",
+    "Majjhima Nikāya 74; Discourse with Long Nails (MN74)",
     "✓"
    ],
    [
     "devadahasutta 1",
     "nt",
-    "Majjhima Nikāya 101 (MN101); Discourse at Devadaha",
+    "Majjhima Nikāya 101; Discourse at Devadaha (MN101)",
     "✓"
    ],
    [
@@ -12888,13 +12906,13 @@ var family_set_json = {
    [
     "dhanañjānisutta",
     "nt",
-    "Majjhima Nikāya 97 (MN97); Discourse with Dhanañjāni",
+    "Majjhima Nikāya 97; Discourse with Dhanañjāni (MN97)",
     "✓"
    ],
    [
     "dhammacetiyasutta",
     "nt",
-    "Majjhima Nikāya 89 (MN89); Discourse about Monuments to the Dhamma",
+    "Majjhima Nikāya 89; Discourse about Monuments to the Dhamma (MN89)",
     "✓"
    ],
    [
@@ -12906,7 +12924,7 @@ var family_set_json = {
    [
     "naḷakapānasutta",
     "nt",
-    "Majjhima Nikāya 68 (MN68); Discourse at Naḷakapāna",
+    "Majjhima Nikāya 68; Discourse at Naḷakapāna (MN68)",
     "✓"
    ],
    [
@@ -12918,19 +12936,19 @@ var family_set_json = {
    [
     "pañcattayasutta",
     "nt",
-    "Majjhima Nikāya 102 (MN102); Discourse on Five and Three",
+    "Majjhima Nikāya 102; Discourse on Five and Three (MN102)",
     "✓"
    ],
    [
     "pāsarāsisutta",
     "nt",
-    "Majjhima Nikāya 26; Discourse on the Heap of Snares (MN26); (or) Discourse on the Noble Quest",
+    "Majjhima Nikāya 26; Discourse on the Heap of Snares; (or) Discourse on the Noble Quest (MN26)",
     "~"
    ],
    [
     "piyajātikasutta",
     "nt",
-    "Majjhima Nikāya 87 (MN87); Discourse about Born from Love",
+    "Majjhima Nikāya 87; Discourse about Born from Love (MN87)",
     "✓"
    ],
    [
@@ -12948,13 +12966,13 @@ var family_set_json = {
    [
     "bāhitikasutta",
     "nt",
-    "Majjhima Nikāya 88 (MN88); Discourse about the Cloak",
+    "Majjhima Nikāya 88; Discourse about the Cloak (MN88)",
     "✓"
    ],
    [
     "bodhirājakumārasutta",
     "nt",
-    "Majjhima Nikāya 85 (MN85); Discourse to Prince Bodhi",
+    "Majjhima Nikāya 85; Discourse to Prince Bodhi (MN85)",
     "✓"
    ],
    [
@@ -12966,13 +12984,13 @@ var family_set_json = {
    [
     "brahmāyusutta",
     "nt",
-    "Majjhima Nikāya 91 (MN91); Discourse about Brahmāyu",
+    "Majjhima Nikāya 91; Discourse about Brahmāyu (MN91)",
     "✓"
    ],
    [
     "bhaddālisutta",
     "nt",
-    "Majjhima Nikāya 65 (MN65); Discourse to Bhaddāli",
+    "Majjhima Nikāya 65; Discourse to Bhaddāli (MN65)",
     "✓"
    ],
    [
@@ -12990,7 +13008,7 @@ var family_set_json = {
    [
     "maghadevasutta",
     "nt",
-    "Majjhima Nikāya 83 (MN83); Discourse about Maghadeva",
+    "Majjhima Nikāya 83; Discourse about Maghadeva (MN83)",
     "✓"
    ],
    [
@@ -13002,7 +13020,7 @@ var family_set_json = {
    [
     "madhurasutta",
     "nt",
-    "Majjhima Nikāya 84 (MN84); Discourse at Madhurā",
+    "Majjhima Nikāya 84; Discourse at Madhurā (MN84)",
     "✓"
    ],
    [
@@ -13051,12 +13069,12 @@ var family_set_json = {
     "mahāpuṇṇamasutta",
     "nt",
     "Majjhima Nikāya 109; Discourse on the Great Full Moon Night (MN109)",
-    "~"
+    "✓"
    ],
    [
     "mahāmālukyasutta",
     "nt",
-    "Majjhima Nikāya 64 (MN64); Great Discourse to Mālukya",
+    "Majjhima Nikāya 64; Great Discourse to Mālukya (MN64)",
     "✓"
    ],
    [
@@ -13068,7 +13086,7 @@ var family_set_json = {
    [
     "mahāvacchasutta",
     "nt",
-    "Majjhima Nikāya 73 (MN73); Long Discourse with Vaccha",
+    "Majjhima Nikāya 73; Long Discourse with Vaccha (MN73)",
     "✓"
    ],
    [
@@ -13086,7 +13104,7 @@ var family_set_json = {
    [
     "mahāsakuludāyisutta",
     "nt",
-    "Majjhima Nikāya 77 (MN77); Long Discourse to Sakuludāyī",
+    "Majjhima Nikāya 77; Long Discourse to Sakuludāyī (MN77)",
     "✓"
    ],
    [
@@ -13122,7 +13140,7 @@ var family_set_json = {
    [
     "māgaṇḍiyasutta 1",
     "nt",
-    "Majjhima Nikāya 75 (MN75); Discourse with Māgaṇḍiya",
+    "Majjhima Nikāya 75; Discourse with Māgaṇḍiya (MN75)",
     "✓"
    ],
    [
@@ -13146,7 +13164,7 @@ var family_set_json = {
    [
     "raṭṭhapālasutta",
     "nt",
-    "Majjhima Nikāya 82 (MN82); Discourse about Raṭṭhapāla",
+    "Majjhima Nikāya 82; Discourse about Raṭṭhapāla (MN82)",
     "✓"
    ],
    [
@@ -13158,7 +13176,7 @@ var family_set_json = {
    [
     "laṭukikopamasutta",
     "nt",
-    "Majjhima Nikāya 66 (MN66); Discourse on the Simile of the Purple Sunbird",
+    "Majjhima Nikāya 66; Discourse on the Simile of the Purple Sunbird (MN66)",
     "✓"
    ],
    [
@@ -13176,20 +13194,20 @@ var family_set_json = {
    [
     "vammikasutta",
     "nt",
-    "Majjhima Nikāya 23 (MN23); Discourse on the Anthill",
+    "Majjhima Nikāya 23; Discourse on the Anthill (MN23)",
     "✓"
    ],
    [
     "vāseṭṭhasutta 1",
     "nt",
-    "Majjhima Nikāya 98 (MN98); Discourse with Vāseṭṭha",
+    "Majjhima Nikāya 98; Discourse with Vāseṭṭha (MN98)",
     "✓"
    ],
    [
     "vitakkasaṇṭhānasutta",
     "nt",
-    "Discourse on the Stilling of Thought; Majjhima Nikāya 20",
-    "~"
+    "Majjhima Nikāya 20; Discourse on the Stilling of Thought (MN20)",
+    "✓"
    ],
    [
     "vīmaṃsakasutta",
@@ -13200,7 +13218,7 @@ var family_set_json = {
    [
     "vekhanasasutta",
     "nt",
-    "Majjhima Nikāya 80 (MN80); Discourse to Vekhanasa",
+    "Majjhima Nikāya 80; Discourse to Vekhanasa (MN80)",
     "✓"
    ],
    [
@@ -13212,7 +13230,7 @@ var family_set_json = {
    [
     "saṅgāravasutta 1",
     "nt",
-    "Majjhima Nikāya 100 (MN100); Discourse with Saṅgārava",
+    "Majjhima Nikāya 100; Discourse with Saṅgārava (MN100)",
     "✓"
    ],
    [
@@ -13224,7 +13242,7 @@ var family_set_json = {
    [
     "sandakasutta",
     "nt",
-    "Majjhima Nikāya 76 (MN76); Discourse to Sandaka",
+    "Majjhima Nikāya 76; Discourse to Sandaka (MN76)",
     "✓"
    ],
    [
@@ -13236,7 +13254,7 @@ var family_set_json = {
    [
     "samaṇamuṇḍikasutta",
     "nt",
-    "Majjhima Nikāya 78 (MN78); Discourse to The Bald Ascetic",
+    "Majjhima Nikāya 78; Discourse to The Bald Ascetic (MN78)",
     "✓"
    ],
    [
@@ -13260,7 +13278,7 @@ var family_set_json = {
    [
     "sāmagāmasutta",
     "nt",
-    "Majjhima Nikāya 104 (MN104); Discourse at Sāmagāma",
+    "Majjhima Nikāya 104; Discourse at Sāmagāma (MN104)",
     "✓"
    ],
    [
@@ -13272,13 +13290,13 @@ var family_set_json = {
    [
     "sunakkhattasutta",
     "nt",
-    "Majjhima Nikāya 105 (MN105); Discourse with Sunakkhatta",
+    "Majjhima Nikāya 105; Discourse with Sunakkhatta (MN105)",
     "✓"
    ],
    [
     "subhasutta 1",
     "nt",
-    "Majjhima Nikāya 99 (MN99); Discourse with Subha",
+    "Majjhima Nikāya 99; Discourse with Subha (MN99)",
     "✓"
    ],
    [
@@ -13290,11 +13308,11 @@ var family_set_json = {
    [
     "selasutta 1",
     "nt",
-    "Majjhima Nikāya 92 (MN92); Discourse to Sela",
+    "Majjhima Nikāya 92; Discourse to Sela (MN92)",
     "✓"
    ]
   ],
-  "count": 122
+  "count": 124
  },
  "family names": {
   "data": [
@@ -13755,8 +13773,8 @@ var family_set_json = {
    [
     "upananda 2",
     "masc",
-    "name of a privately awakened Buddha; lit. son of Nanda",
-    "~"
+    "name of four privately awakened Buddhas; lit. descendent of Nanda",
+    "✓"
    ],
    [
     "upanīta 7",
@@ -14163,8 +14181,8 @@ var family_set_json = {
    [
     "sutavant 3",
     "masc",
-    "name of a privately awakened Buddha; lit. learned",
-    "~"
+    "name of a privately awakened Buddha; lit. having heard quality",
+    "✓"
    ],
    [
     "sudassana 5",
@@ -19935,7 +19953,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "nāga 1",
+    "nāga 12",
     "masc",
     "noble person; great man; epithet of an arahant; epithet of the Buddha",
     "✓"
@@ -23964,6 +23982,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kūṭakaṇṇa",
+    "masc",
+    "name of an ancient Sri Lankan king who reigned from 42 BC to 20 BC; lit. crooked ear",
+    "✓"
+   ],
+   [
     "korabya 1",
     "masc",
     "name of a King; lit. of the Kurus",
@@ -23980,6 +24004,12 @@ var family_set_json = {
     "fem",
     "name of a queen",
     "✓"
+   ],
+   [
+    "gajabāhu",
+    "masc",
+    "name of an ancient Sri Lankan king who reigned from c. 113 to c. 135; lit. arms like an elephant (trunk)",
+    "~"
    ],
    [
     "caṇḍapajjota",
@@ -24015,6 +24045,12 @@ var family_set_json = {
     "disampati",
     "masc",
     "name of a king; lit. lord of the directions",
+    "✓"
+   ],
+   [
+    "duṭṭhagāmaṇi",
+    "masc",
+    "name of a renowned ancient king in Sri Lanka who reigned from 161 BC to 137 BC; lit. corrupt chief",
     "✓"
    ],
    [
@@ -24138,6 +24174,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "vijayabāhu",
+    "masc",
+    "name of an ancient king in Sri Lanka who reigned from c. 1055 to 1110; lit. victory arm",
+    "~"
+   ],
+   [
     "vessantara 2",
     "masc",
     "name of a prince; previous incarnation of the Buddha; lit. crossing the universe; overcoming everything",
@@ -24204,7 +24246,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 60
+  "count": 64
  },
  "six ascetic teachers": {
   "data": [
@@ -32830,6 +32872,18 @@ var family_set_json = {
     "✓"
    ],
    [
+    "cittalapabbata",
+    "masc",
+    "name of an ancient mountain-top monastery in Sri Lanka",
+    "✓"
+   ],
+   [
+    "cetiyagiri",
+    "masc",
+    "name of a mountain shrine near Anurādhapura in Sri Lanka; legendary meeting place of Ven. Mahinda and King Devānampiyatissa; lit. pagoda mountain",
+    "~"
+   ],
+   [
     "nesādaka",
     "masc",
     "name of a mountain",
@@ -32890,7 +32944,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 14
+  "count": 16
  },
  "five hindrances": {
   "data": [
@@ -34276,6 +34330,59 @@ var family_set_json = {
   ],
   "count": 8
  },
+ "Sri Lanka": {
+  "data": [
+   [
+    "kūṭakaṇṇa",
+    "masc",
+    "name of an ancient Sri Lankan king who reigned from 42 BC to 20 BC; lit. crooked ear",
+    "✓"
+   ],
+   [
+    "gajabāhu",
+    "masc",
+    "name of an ancient Sri Lankan king who reigned from c. 113 to c. 135; lit. arms like an elephant (trunk)",
+    "~"
+   ],
+   [
+    "cittalapabbata",
+    "masc",
+    "name of an ancient mountain-top monastery in Sri Lanka",
+    "✓"
+   ],
+   [
+    "cetiyagiri",
+    "masc",
+    "name of a mountain shrine near Anurādhapura in Sri Lanka; legendary meeting place of Ven. Mahinda and King Devānampiyatissa; lit. pagoda mountain",
+    "~"
+   ],
+   [
+    "cetiyapabbata",
+    "masc",
+    "name of an area in Sri Lanka; Mihintale; lit. shrine mountain",
+    "~"
+   ],
+   [
+    "duṭṭhagāmaṇi",
+    "masc",
+    "name of a renowned ancient king in Sri Lanka who reigned from 161 BC to 137 BC; lit. corrupt chief",
+    "✓"
+   ],
+   [
+    "nāgadīpa",
+    "masc",
+    "name of a peninsula in northern Sri Lanka; lit. Nāga island",
+    "✓"
+   ],
+   [
+    "vijayabāhu",
+    "masc",
+    "name of an ancient king in Sri Lanka who reigned from c. 1055 to 1110; lit. victory arm",
+    "~"
+   ]
+  ],
+  "count": 8
+ },
  "epithets of Sakka": {
   "data": [
    [
@@ -34527,23 +34634,6 @@ var family_set_json = {
    ]
   ],
   "count": 5
- },
- "Sri Lanka": {
-  "data": [
-   [
-    "cetiyapabbata",
-    "masc",
-    "name of an area in Sri Lanka; Mihintale; lit. shrine mountain",
-    "~"
-   ],
-   [
-    "nāgadīpa",
-    "masc",
-    "name of a peninsula in northern Sri Lanka; lit. Nāga island",
-    "✓"
-   ]
-  ],
-  "count": 2
  },
  "five liberations": {
   "data": [
