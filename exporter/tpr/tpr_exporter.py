@@ -224,6 +224,7 @@ def generate_tpr_data(g: ProgData):
         html_string = re.sub("'", "’", html_string)
 
         tpr_data_list += [{
+            "id": i.id,
             "word": i.lemma_1,
             "definition": f"<p>{html_string}</p>",
             "book_id": 11}]
@@ -257,6 +258,7 @@ def generate_tpr_data(g: ProgData):
             html_string += """</p></div>"""
 
             tpr_data_list += [{
+                "id": "",
                 "word": r.root_clean,
                 "definition": f"{html_string}",
                 "book_id": 11}]
@@ -375,9 +377,9 @@ def write_tsvs(g: ProgData):
 
     # write dpd_tsv
     with open(g.pth.tpr_dpd_tsv_path, "w") as f:
-        f.write("word\tdefinition\tbook_id\n")
+        f.write("id\tword\tdefinition\tbook_id\n")
         for i in g.tpr_data_list:
-            f.write(f"{i['word']}\t{i['definition']}\t{i['book_id']}\n")
+            f.write(f"{i['id']}{i['word']}\t{i['definition']}\t{i['book_id']}\n")
 
     # write deconstructor tsv
     field_names = ["word", "breakup"]
@@ -403,7 +405,7 @@ def copy_to_sqlite_db(g: ProgData):
 
         # dpd table
         c.execute("DROP TABLE if exists dpd")
-        c.execute("CREATE TABLE dpd (word, definition, book_id)")
+        c.execute("CREATE TABLE dpd (id, word, definition, book_id)")
         tpr_df.to_sql('dpd', conn, if_exists='append', index=False)
 
         # inflection_to_headwords
