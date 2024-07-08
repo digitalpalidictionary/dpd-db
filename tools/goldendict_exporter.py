@@ -70,8 +70,8 @@ class DictVariables():
             md_path = md_path,
             dict_name = dict_name,
             icon_path = None,
-            zip_up = False
-            delete_original = False
+            zip_up = False,
+            delete_original = False,
         """
         
         self.css_path: Optional[Path] = css_path

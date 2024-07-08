@@ -11,7 +11,6 @@ tools/version.py
 
 db/inflections/create_inflections_templates.py
 db/inflections/generate_inflection_tables.py
-db/inflections/transliterate_inflections.py
 
 scripts/sanskrit_root_families_updater.py
 
@@ -27,6 +26,9 @@ scripts/anki_updater.py
 db/deconstructor/sandhi_setup.py
 db/deconstructor/sandhi_splitter.py
 db/deconstructor/sandhi_postprocess.py
+
+scripts/api_ca_evi_iti.py
+db/inflections/transliterate_inflections.py
 db/inflections/inflections_to_headwords.py
 
 db/lookup/variants_and_spelling_mistakes.py

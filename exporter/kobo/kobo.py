@@ -6,15 +6,11 @@ from db.get_db_session import get_db_session
 from db.models import DpdHeadwords
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from tools.printer import p_counter, p_green, p_green_title, p_red, p_title, p_white, p_yes
+from tools.printer import p_counter, p_green_title, p_title
 from tools.tic_toc import tic, toc
-from tools.headwords_clean_set import make_clean_headwords_set
-from tools.tsv_read_write import read_tsv
-from tools.uposatha_day import uposatha_today
-from exporter.goldendict.helpers import TODAY
 
 from pathlib import Path
-from tools.goldendict_exporter import DictEntry, DictInfo
+from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables, export_to_goldendict_with_pyglossary
 from tools.kobo_exporter import export_to_kobo_with_pyglossary, DictVariablesKobo
 
 
@@ -44,7 +40,7 @@ def compile_dict_data():
             synonyms = i.inflections_list)
         dict_data.append(dict_entry)
 
-        if count % 5000 == 0:
+        if count % 10000 == 0:
             p_counter(count, db_len, i.lemma_1)
 
 
@@ -65,11 +61,27 @@ def main():
 
     dict_vars = DictVariablesKobo(
         kobo_path = Path("exporter/share/"),
-        dict_name= "dpd-kobo",
+    )
+
+    dict_var_gd = DictVariables(
+        css_path = None, 
+        js_paths = None, 
+        gd_path = pth.share_dir, 
+        md_path = pth.share_dir, 
+        dict_name = "dpd-kobo", 
+        icon_path = None, 
+        zip_up = False,
+        delete_original = False
+
     )
 
     export_to_kobo_with_pyglossary(
-        dict_info, dict_vars, dict_data)
+        dict_info, dict_vars, dict_data
+    )
+    
+    # export_to_goldendict_with_pyglossary(
+    #     dict_info, dict_var_gd, dict_data
+    # )
 
     toc()
         
