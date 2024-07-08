@@ -36981,7 +36981,7 @@ var family_root_json = {
     "adhimokkha",
     "masc",
     "intention; resolve; fixed purpose",
-    "~"
+    "✓"
    ]
   ]
  },
@@ -47439,7 +47439,7 @@ var family_root_json = {
     "anābhoga 2.1",
     "masc",
     "disinclination; disinterest; lit. not bending towards",
-    "~"
+    "✓"
    ],
    [
     "ābhujati",
@@ -63737,7 +63737,7 @@ var family_root_json = {
     "anupada",
     "adj",
     "sequential; consecutive",
-    "~"
+    "✓"
    ],
    [
     "anupadaṃ 1",
@@ -68706,8 +68706,8 @@ var family_root_json = {
    [
     "anumoditabba",
     "ptp",
-    "in, who approves",
-    "✗"
+    "should be approved of; lit. to be happy",
+    "✓"
    ],
    [
     "anumoditar",
@@ -132829,7 +132829,7 @@ var family_root_json = {
   "root_key": "√gam",
   "root_family": "vi √gam",
   "root_meaning": "go",
-  "count": 19,
+  "count": 20,
   "data": [
    [
     "avigacchamāna",
@@ -132871,6 +132871,12 @@ var family_root_json = {
     "vigacchati",
     "pr",
     "disappears; is lost; is going to waste",
+    "✓"
+   ],
+   [
+    "vigacchana",
+    "nt",
+    "disappearing; vanishing",
     "✓"
    ],
    [
@@ -136843,7 +136849,7 @@ var family_root_json = {
   "root_key": "√dis 1",
   "root_family": "vi √dis",
   "root_meaning": "see",
-  "count": 15,
+  "count": 16,
   "data": [
    [
     "avipassaka",
@@ -136879,6 +136885,12 @@ var family_root_json = {
     "vipassati",
     "pr",
     "sees deeply (into); sees in detail; understands with insight; has insight into; lit. sees distinctly",
+    "✓"
+   ],
+   [
+    "vipassana",
+    "adj",
+    "realted to insight; regarding introspection; lit. about seeing distinctly",
     "✓"
    ],
    [
@@ -139992,8 +140004,8 @@ var family_root_json = {
    [
     "visodhana",
     "nt",
-    "cleaning, purifying",
-    "✗"
+    "cleaning; purifying; lit. causing to be pure",
+    "✓"
    ],
    [
     "visodhayati",
@@ -147771,7 +147783,7 @@ var family_root_json = {
     "susamūhata",
     "adj",
     "completely removed; totally eradicated; lit. well killed up together",
-    "~"
+    "✓"
    ],
    [
     "susamūhatatta",
@@ -157053,7 +157065,7 @@ var family_root_json = {
     "ahutvā 1",
     "abs",
     "having not been; having not existed",
-    "~"
+    "✓"
    ],
    [
     "ahutvā 2",
@@ -175993,7 +176005,7 @@ var family_root_json = {
   "root_key": "√ju",
   "root_family": "√ju",
   "root_meaning": "be fast",
-  "count": 11,
+  "count": 10,
   "data": [
    [
     "java 1",
@@ -176024,12 +176036,6 @@ var family_root_json = {
     "nt",
     "swift running series (of consciousness)",
     "~"
-   ],
-   [
-    "javana 3",
-    "nt",
-    "?? (Abhidhamma) impulsion; impulse mind moment",
-    "✗"
    ],
    [
     "javamāna",
@@ -189042,8 +189048,8 @@ var family_root_json = {
    [
     "paṭiveti",
     "pr",
-    "vanishes",
-    "✗"
+    "disappears; vanishes; lit. goes back away",
+    "✓"
    ]
   ]
  },
@@ -196532,8 +196538,8 @@ var family_root_json = {
    [
     "passaddhatta",
     "nt",
-    "fact of being calm; fact of tranquillity",
-    "~"
+    "fact of being calm; fact of tranquillity (of); lit. calmed state",
+    "✓"
    ],
    [
     "passaddhi",

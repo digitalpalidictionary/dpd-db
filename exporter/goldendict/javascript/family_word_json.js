@@ -5018,7 +5018,7 @@ var family_word_json = {
     "tāya 3",
     "pron",
     "from her; from that",
-    "✗"
+    "✓"
    ],
    [
     "tāyaṃ",

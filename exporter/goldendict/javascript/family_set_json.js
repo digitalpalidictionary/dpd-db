@@ -6807,6 +6807,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "tāya 3",
+    "pron",
+    "from her; from that",
+    "✓"
+   ],
+   [
     "tāyaṃ",
     "pron",
     "in that; on that; at that",
@@ -7713,7 +7719,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 347
+  "count": 348
  },
  "epithets of devas": {
   "data": [
@@ -12874,6 +12880,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "chabbisodhanasutta",
+    "nt",
+    "Majjhima Nikāya 112; Discourse on the Six-fold purification (MN112)",
+    "✓"
+   ],
+   [
     "jīvakasutta 1",
     "nt",
     "Majjhima Nikāya 55; Discourse to Jīvaka (MN55)",
@@ -13312,7 +13324,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 124
+  "count": 125
  },
  "family names": {
   "data": [
