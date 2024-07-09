@@ -65,7 +65,7 @@ def inflection_to_headwords(pth: ProjectPaths):
                 if inflection not in i2h_dict:
                     i2h_dict[inflection] = [i.id]
                     i2h_dict_tpr[inflection] = [i.lemma_1]
-                else:
+                elif i.id not in i2h_dict[inflection]:
                     i2h_dict[inflection].append(i.id)
                     i2h_dict_tpr[inflection].append(i.lemma_1)
 
@@ -114,7 +114,7 @@ def add_i2h_to_db(db_session, i2h_dict):
         if inflection in add_set:
             add_me = Lookup()
             add_me.lookup_key = inflection
-            add_me.headwords_pack(sorted(ids))
+            add_me.headwords_pack(sorted(set(ids)))
             add_to_db.append(add_me)
 
     db_session.add_all(add_to_db)

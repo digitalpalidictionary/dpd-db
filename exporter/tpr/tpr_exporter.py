@@ -258,7 +258,7 @@ def generate_tpr_data(g: ProgData):
             html_string += """</p></div>"""
 
             tpr_data_list += [{
-                "id": "",
+                "id": 0,
                 "word": r.root_clean,
                 "definition": f"{html_string}",
                 "book_id": 11}]
@@ -442,7 +442,7 @@ def tpr_updater(g: ProgData):
     sql_string = ""
     sql_string += "BEGIN TRANSACTION;\n"
     sql_string += "DROP TABLE IF EXISTS dpd;\n"
-    sql_string += "CREATE TABLE dpd (id INTEGER, word TEXT, definition TEXT, book_id INTEGER);\n"
+    sql_string += """CREATE TABLE dpd ("id" INTEGER, "word" TEXT, "definition" TEXT, "book_id" INTEGER);\n"""
     sql_string += "DELETE FROM dpd_inflections_to_headwords;\n"
     sql_string += "DELETE FROM dpd_word_split;\n"
     sql_string += "COMMIT;\n"
