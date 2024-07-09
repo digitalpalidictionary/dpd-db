@@ -21,22 +21,6 @@ function button_click(el) {
             loadData()
         };
 
-        //// only open one button at a time
-
-        var allButtons = document.querySelectorAll('.button, .root_button');
-        allButtons.forEach(function(button) {
-            if (button!== el) { // Exclude the target button
-                button.classList.remove("active");
-            }
-        });
-
-        var allContentAreas = document.querySelectorAll('.content');
-        allContentAreas.forEach(function(contentArea) {
-            if (contentArea!== target &&!contentArea.classList.contains("summary")) {
-                contentArea.classList.add("hidden");
-            }
-        });
-
         target.classList.toggle("hidden");
         if (el.classList.contains("close")) {
             var target_control = document.querySelector('a.button[data-target="' + target_id + '"]');

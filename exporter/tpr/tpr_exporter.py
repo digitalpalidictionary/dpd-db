@@ -379,7 +379,7 @@ def write_tsvs(g: ProgData):
     with open(g.pth.tpr_dpd_tsv_path, "w") as f:
         f.write("id\tword\tdefinition\tbook_id\n")
         for i in g.tpr_data_list:
-            f.write(f"{i['id']}{i['word']}\t{i['definition']}\t{i['book_id']}\n")
+            f.write(f"{i['id']}\t{i['word']}\t{i['definition']}\t{i['book_id']}\n")
 
     # write deconstructor tsv
     field_names = ["word", "breakup"]
@@ -436,13 +436,13 @@ def copy_to_sqlite_db(g: ProgData):
     g.deconstructor_df = deconstructor_df
 
 
-
 def tpr_updater(g: ProgData):
     p_green("making tpr sql updater")
 
     sql_string = ""
     sql_string += "BEGIN TRANSACTION;\n"
-    sql_string += "DELETE FROM dpd;\n"
+    sql_string += "DROP TABLE IF EXISTS dpd;\n"
+    sql_string += "CREATE TABLE dpd (id INTEGER, word TEXT, definition TEXT, book_id INTEGER);\n"
     sql_string += "DELETE FROM dpd_inflections_to_headwords;\n"
     sql_string += "DELETE FROM dpd_word_split;\n"
     sql_string += "COMMIT;\n"
@@ -456,17 +456,18 @@ def tpr_updater(g: ProgData):
 ("inflection", "headwords") VALUES ('{inflection}', '{headword}');\n"""
 
     for row in range(len(g.tpr_df)):
-        word = g.tpr_df.iloc[row, 0]
-        definition = g.tpr_df.iloc[row, 1]
+        id = g.tpr_df.iloc[row, 0]
+        word = g.tpr_df.iloc[row, 1]
+        definition = g.tpr_df.iloc[row, 2]
         definition = definition.replace("'", "''") #type:ignore
-        book_id = g.tpr_df.iloc[row, 2]
-        sql_string += f"""INSERT INTO "dpd" ("word","definition","book_id")\
- VALUES ('{word}', '{definition}', {book_id});\n"""
+        book_id = g.tpr_df.iloc[row, 3]
+        sql_string += f"""INSERT INTO "dpd" ("id", "word", "definition", "book_id")\
+ VALUES ({id}, '{word}', '{definition}', {book_id});\n"""
 
     for row in range(len(g.deconstructor_df)):
         word = g.deconstructor_df.iloc[row, 0]
         breakup = g.deconstructor_df.iloc[row, 1]
-        sql_string += f"""INSERT INTO "dpd_word_split" ("word","breakup")\
+        sql_string += f"""INSERT INTO "dpd_word_split" ("word", "breakup")\
  VALUES ('{word}', '{breakup}');\n"""
     
     sql_string += "COMMIT;\n"
