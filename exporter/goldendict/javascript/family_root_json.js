@@ -2324,14 +2324,14 @@ var family_root_json = {
    [
     "kutta 1",
     "nt",
-    "behaviour, coquetry",
-    "✗"
+    "behaviour; bearing; way of holding oneself; lit. made",
+    "✓"
    ],
    [
     "kutta 2",
     "pp",
-    "created; formed; fashioned",
-    "✗"
+    "created; formed; fashioned (by)",
+    "✓"
    ],
    [
     "kuttaka 1",
@@ -2378,8 +2378,8 @@ var family_root_json = {
    [
     "kubbamāna",
     "prp",
-    "doing, performing",
-    "✗"
+    "making; forming; creating",
+    "✓"
    ],
    [
     "kubbaye",
@@ -15576,8 +15576,8 @@ var family_root_json = {
    [
     "chādiya 2",
     "ptp",
-    "should be covered; should be concealed; should be hidden",
-    "✗"
+    "should be covered; should be concealed; should be hidden; lit. to be covered",
+    "✓"
    ],
    [
     "chādetabba",
@@ -21354,8 +21354,8 @@ var family_root_json = {
    [
     "jhāyituṃ",
     "inf",
-    "to meditate",
-    "✗"
+    "to meditate; to practice meditation",
+    "✓"
    ],
    [
     "jhāyitvā",
@@ -26506,8 +26506,8 @@ var family_root_json = {
    [
     "titta 2.1",
     "pp",
-    "contented, satisfied",
-    "✗"
+    "contented; satisfied",
+    "✓"
    ],
    [
     "titti 1.1",
@@ -35304,8 +35304,8 @@ var family_root_json = {
    [
     "dharaṇī",
     "fem",
-    "earth",
-    "✗"
+    "earth; world; lit. carrier",
+    "✓"
    ],
    [
     "dharati",
@@ -38274,8 +38274,8 @@ var family_root_json = {
    [
     "nata 2",
     "pp",
-    "bent, bowed down",
-    "✗"
+    "bowed; bent in homage; turned towards; (comm) inclined; lit. bent",
+    "✓"
    ],
    [
     "nati",
@@ -45872,8 +45872,8 @@ var family_root_json = {
    [
     "nahāpita 1",
     "masc",
-    "barber, hair-dresser",
-    "✗"
+    "barber; hair-dresser; bathing attendant; lit. caused to bath",
+    "✓"
    ],
    [
     "nahāpita 2",
@@ -46047,7 +46047,7 @@ var family_root_json = {
     "nhāpesi",
     "aor",
     "bathed; washed",
-    "~"
+    "✓"
    ],
    [
     "nhāyati",
@@ -54514,7 +54514,7 @@ var family_root_json = {
     "✗"
    ],
    [
-    "phalī",
+    "phalī 1",
     "masc",
     "fruit tree; fruit bearing tree",
     "✓"
@@ -58514,14 +58514,14 @@ var family_root_json = {
    [
     "nīhāra 2",
     "masc",
-    "carrying out",
-    "✗"
+    "bringing out; carrying; taking away",
+    "✓"
    ],
    [
     "nīhāra 3",
     "masc",
-    "way, manner",
-    "✗"
+    "way; method; manner; lit. carrying out",
+    "✓"
    ],
    [
     "nīhāra 4",
@@ -71903,6 +71903,80 @@ var family_root_json = {
     "anojagghati",
     "pr",
     "laughs at; mocks",
+    "✗"
+   ]
+  ]
+ },
+ "√tap ava √tap": {
+  "root_key": "√tap",
+  "root_family": "ava √tap",
+  "root_meaning": "burn, radiate heat",
+  "count": 11,
+  "data": [
+   [
+    "anotatta",
+    "masc",
+    "Anotatta lake; one of the great Himalayan lakes; lit. unheated",
+    "✓"
+   ],
+   [
+    "avatapati",
+    "pr",
+    "shines down; heats",
+    "~"
+   ],
+   [
+    "avatapanta",
+    "prp",
+    "heating",
+    "~"
+   ],
+   [
+    "otappati",
+    "pr",
+    "is heated; becomes warm",
+    "✗"
+   ],
+   [
+    "otāpayati",
+    "pr",
+    "warms; warms in the sun, dries; puts (in the sun) to dry",
+    "✗"
+   ],
+   [
+    "otāpayamāna",
+    "prp",
+    "warming; heating in the sun; lit. causing to heat down",
+    "~"
+   ],
+   [
+    "otāpita",
+    "pp",
+    "dried; sunned",
+    "✗"
+   ],
+   [
+    "otāpetabba",
+    "ptp",
+    "should be sunned; should be warmed (in); lit. to cause to be burned down",
+    "✓"
+   ],
+   [
+    "otāpeti",
+    "pr",
+    "dries; suns",
+    "✗"
+   ],
+   [
+    "otāpenta",
+    "prp",
+    "drying; sunning; drying in the sun",
+    "~"
+   ],
+   [
+    "otāpesi",
+    "aor",
+    "dried; sunned",
     "✗"
    ]
   ]
@@ -97642,8 +97716,8 @@ var family_root_json = {
    [
     "padussana 2",
     "nt",
-    "corrupting; rotting",
-    "✗"
+    "being corrupt; being rotten; being spoiled",
+    "✓"
    ],
    [
     "padussi",
@@ -108157,7 +108231,7 @@ var family_root_json = {
   "root_key": "√bhaj 1",
   "root_family": "√bhaj",
   "root_meaning": "divide, distribute",
-  "count": 74,
+  "count": 75,
   "data": [
    [
     "abhājita",
@@ -108320,6 +108394,12 @@ var family_root_json = {
     "nt",
     "biscuit (?)",
     "✗"
+   ],
+   [
+    "bhattaka",
+    "masc",
+    "cook",
+    "✓"
    ],
    [
     "bhattika 1.1",
@@ -148739,7 +148819,7 @@ var family_root_json = {
   "root_key": "√phus 1",
   "root_family": "saṃ √phus",
   "root_meaning": "touch",
-  "count": 19,
+  "count": 20,
   "data": [
    [
     "asamphuṭṭha",
@@ -148757,6 +148837,12 @@ var family_root_json = {
     "samphassa 2",
     "masc",
     "blow (from); stroke (from); hit (from); lit. contact",
+    "✓"
+   ],
+   [
+    "samphassatā",
+    "fem",
+    "fact of contact (with); fact of experiencing; lit. contact state",
     "✓"
    ],
    [
@@ -168978,8 +169064,8 @@ var family_root_json = {
    [
     "ummujjana",
     "nt",
-    "emergence",
-    "✗"
+    "emerging; coming out of water; breaking the surface",
+    "✓"
    ],
    [
     "ummujjanta",
@@ -170528,62 +170614,6 @@ var family_root_json = {
     "pp",
     "overspread; covered (with); lit. stretched down",
     "✓"
-   ]
-  ]
- },
- "√tap ava √tap": {
-  "root_key": "√tap",
-  "root_family": "ava √tap",
-  "root_meaning": "burn, radiate heat",
-  "count": 8,
-  "data": [
-   [
-    "otappati",
-    "pr",
-    "is heated; becomes warm",
-    "✗"
-   ],
-   [
-    "otāpayati",
-    "pr",
-    "warms; warms in the sun, dries; puts (in the sun) to dry",
-    "✗"
-   ],
-   [
-    "otāpayamāna",
-    "prp",
-    "warming; heating in the sun; lit. causing to heat down",
-    "~"
-   ],
-   [
-    "otāpita",
-    "pp",
-    "dried; sunned",
-    "✗"
-   ],
-   [
-    "otāpetabba",
-    "ptp",
-    "should be sunned; should be warmed (in); lit. to cause to be burned down",
-    "✓"
-   ],
-   [
-    "otāpeti",
-    "pr",
-    "dries; suns",
-    "✗"
-   ],
-   [
-    "otāpenta",
-    "prp",
-    "drying; sunning; drying in the sun",
-    "~"
-   ],
-   [
-    "otāpesi",
-    "aor",
-    "dried; sunned",
-    "✗"
    ]
   ]
  },
@@ -177342,8 +177372,8 @@ var family_root_json = {
    [
     "titta 1.1",
     "adj",
-    "bitter",
-    "✗"
+    "bitter; sharp",
+    "~"
    ],
    [
     "titta 1.2",
@@ -178521,7 +178551,7 @@ var family_root_json = {
   "root_key": "√duh",
   "root_family": "√duh",
   "root_meaning": "milk a cow",
-  "count": 17,
+  "count": 18,
   "data": [
    [
     "duddha 1",
@@ -178552,6 +178582,12 @@ var family_root_json = {
     "adj",
     "milking, yielding, granting",
     "✗"
+   ],
+   [
+    "duha 2",
+    "masc",
+    "milk",
+    "✓"
    ],
    [
     "duhati",
@@ -179574,8 +179610,8 @@ var family_root_json = {
    [
     "nāṭaka 1",
     "masc",
-    "dancer, actor",
-    "✗"
+    "dancer; actor; acrobat",
+    "✓"
    ],
    [
     "nāṭaka 2",
@@ -179656,8 +179692,8 @@ var family_root_json = {
    [
     "naddha 2.1",
     "pp",
-    "tied, bound, wrapped, twisted",
-    "✗"
+    "tied; bound; wrapped; twisted (with)",
+    "✓"
    ],
    [
     "nayhati",
@@ -180709,7 +180745,7 @@ var family_root_json = {
   "root_key": "√ci 1",
   "root_family": "ni √ci",
   "root_meaning": "gather, accumulate",
-  "count": 6,
+  "count": 7,
   "data": [
    [
     "nikāya 1",
@@ -180730,10 +180766,16 @@ var family_root_json = {
     "✓"
    ],
    [
-    "nicita",
+    "nicita 1",
     "pp",
-    "accumulated",
-    "✗"
+    "collected; gathered; accumulated; lit. gathered down",
+    "✓"
+   ],
+   [
+    "nicita 2",
+    "pp",
+    "(of hair) thick; piled up; lit. gathered down",
+    "✓"
    ],
    [
     "nekāyika",
@@ -183322,8 +183364,8 @@ var family_root_json = {
    [
     "nimujjana",
     "nt",
-    "diving, sinking, ducking",
-    "✗"
+    "diving; submerging into water; ducking under the surface",
+    "✓"
    ],
    [
     "nimujjamāna 1",
@@ -190713,12 +190755,12 @@ var family_root_json = {
     "panaṭṭha 1",
     "pp",
     "lost; disappeared; vanished",
-    "✗"
+    "✓"
    ],
    [
     "panaṭṭha 2",
     "pp",
-    "gone to ruin",
+    "gone to ruin; perished; destroyed; annihilated",
     "✗"
    ],
    [
@@ -197763,6 +197805,20 @@ var family_root_json = {
    ]
   ]
  },
+ "√phand √phal": {
+  "root_key": "√phand",
+  "root_family": "√phal",
+  "root_meaning": "shake, quiver",
+  "count": 1,
+  "data": [
+   [
+    "phalī 2",
+    "adj",
+    "bearing fruit; fruitful",
+    "✓"
+   ]
+  ]
+ },
  "√phaṇ √phaṇ": {
   "root_key": "√phaṇ",
   "root_family": "√phaṇ",
@@ -199308,8 +199364,8 @@ var family_root_json = {
    [
     "majjanta 1.1",
     "prp",
-    "polishing",
-    "✗"
+    "rubbing; wiping; polishing",
+    "✓"
    ],
    [
     "majji 1.1",

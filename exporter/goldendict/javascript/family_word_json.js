@@ -20180,8 +20180,8 @@ var family_word_json = {
    [
     "kiṅkaṇī 1",
     "fem",
-    "jingling bell",
-    "✗"
+    "small bell; lit. tinkler",
+    "✓"
    ],
    [
     "kiṅkaṇī 2",
@@ -25362,6 +25362,17 @@ var family_word_json = {
   ],
   "count": 3
  },
+ "nahuta": {
+  "data": [
+   [
+    "nahuta 1",
+    "card",
+    "ten thousand (10 000)",
+    "✓"
+   ]
+  ],
+  "count": 1
+ },
  "nāga": {
   "data": [
    [
@@ -26359,6 +26370,23 @@ var family_word_json = {
    ]
   ],
   "count": 10
+ },
+ "panasa": {
+  "data": [
+   [
+    "panasa 1",
+    "masc",
+    "bread-fruit tree",
+    "~"
+   ],
+   [
+    "panasa 2",
+    "nt",
+    "bread-fruit",
+    "✓"
+   ]
+  ],
+  "count": 2
  },
  "pabba": {
   "data": [

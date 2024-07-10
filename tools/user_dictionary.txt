@@ -129,6 +129,7 @@ annihilationist
 Anogeissus
 Anomasutta
 Anopamā
+Anotatta
 Anottatta
 antidysenterica
 anu
@@ -441,6 +442,7 @@ conjee
 conjugational
 contiguously
 cooed
+coquetry
 coracana
 cordifolia
 Cordifolia
@@ -1236,6 +1238,7 @@ MN108
 MN109
 MN110
 MN111
+MN112
 MN2
 MN22
 MN23
@@ -2015,6 +2018,7 @@ tight-fistedness
 Tikanipāta
 timbaru
 tinctoria
+tinkler
 Tinospora
 Tipiṭaka
 Tirhut
@@ -2156,6 +2160,7 @@ unfuelled
 ungenerousness
 unground
 unharnessed
+unheated
 unhesitant
 unicolour
 unicornis
@@ -2398,4 +2403,3 @@ yojanas
 yoking
 zizanioides
 Ziziphus
-MN112

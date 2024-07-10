@@ -10508,6 +10508,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "anotatta",
+    "masc",
+    "Anotatta lake; one of the great Himalayan lakes; lit. unheated",
+    "✓"
+   ],
+   [
     "andhavana",
     "nt",
     "name of a wood outside Sāvatthī; lit. dark wood; blind wood",
@@ -10734,6 +10740,12 @@ var family_set_json = {
     "masc",
     "name of an area in Sri Lanka; Mihintale; lit. shrine mountain",
     "~"
+   ],
+   [
+    "chaddanta 3",
+    "masc",
+    "name of a great lake; lit. six teeth; six tusks",
+    "✓"
    ],
    [
     "jātiyāvana",
@@ -11246,7 +11258,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 127
+  "count": 129
  },
  "holy sites": {
   "data": [
@@ -24490,6 +24502,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "usira",
+    "nt",
+    "fragrant root of vetiver grass",
+    "✓"
+   ],
+   [
     "usīra",
     "nt",
     "fragrant root of vetiver grass",
@@ -24955,6 +24973,18 @@ var family_set_json = {
     "paṇaka",
     "nt",
     "aquatic plant; water lettuce; Pistia",
+    "✓"
+   ],
+   [
+    "panasa 1",
+    "masc",
+    "bread-fruit tree",
+    "~"
+   ],
+   [
+    "panasa 2",
+    "nt",
+    "bread-fruit",
     "✓"
    ],
    [
@@ -25546,7 +25576,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 196
+  "count": 199
  },
  "names of nuns": {
   "data": [
@@ -26738,6 +26768,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "nahuta 1",
+    "card",
+    "ten thousand (10 000)",
+    "✓"
+   ],
+   [
     "nirabbuda 1",
     "card",
     "10⁶³",
@@ -26948,7 +26984,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 133
+  "count": 134
  },
  "villages, towns and cities": {
   "data": [
@@ -31232,6 +31268,18 @@ var family_set_json = {
     "✓"
    ],
    [
+    "panasa 1",
+    "masc",
+    "bread-fruit tree",
+    "~"
+   ],
+   [
+    "panasa 2",
+    "nt",
+    "bread-fruit",
+    "✓"
+   ],
+   [
     "palāsa 1.2",
     "masc",
     "bastard teak; Butea frondosa",
@@ -31466,7 +31514,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 73
+  "count": 75
  },
  "names of heavens": {
   "data": [
