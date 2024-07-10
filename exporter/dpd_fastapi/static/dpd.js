@@ -13,7 +13,12 @@ document.addEventListener("click", function(event) {
 //// handle button clicks
 
 function button_click(el) {
-    var oneButtonToggleEnabled = localStorage.getItem("one-button-toggle") === "true";
+    let oneButtonToggleEnabled = false;
+    try {
+        oneButtonToggleEnabled = localStorage.getItem("one-button-toggle") === "true";
+    } catch (e) {
+        console.log("LocalStorage is not available.");
+    }
     const target_id = el.getAttribute("data-target");
     var target = document.getElementById(target_id);
     

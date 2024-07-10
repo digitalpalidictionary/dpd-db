@@ -55,7 +55,7 @@ def make_headwords_clean_set(db_session: Session) -> set[str]:
 
 
 def make_ascii_to_unicode_dict(db_session: Session) -> dict[str, list[str]]:
-    """Key is ASCII value of all headwords, value is Unicode."""
+    """ASCII Key: Unicode Value."""
 
     results = db_session.query(DpdHeadwords).all()
     headwords_clean_set: set[str] = set()
