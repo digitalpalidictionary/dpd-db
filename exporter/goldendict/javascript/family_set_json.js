@@ -23922,6 +23922,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "alīnasatta",
+    "masc",
+    "name of a prince; lit. unstuck being?",
+    "✓"
+   ],
+   [
     "avantiputta",
     "masc",
     "name of a king of Madhurā; lit. son of Avanti",
@@ -24180,6 +24186,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "reṇu 2",
+    "masc",
+    "name of one the seven Bharata kings; lit. dust",
+    "✓"
+   ],
+   [
     "vajirī",
     "fem",
     "name of a princess; daughter of king Pasenadi; lit. diamond",
@@ -24270,7 +24282,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 64
+  "count": 66
  },
  "six ascetic teachers": {
   "data": [
@@ -24736,6 +24748,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "kosamba",
+    "masc",
+    "Himalayan mango; Mangifera sylvatica; lit. sheath mango",
+    "✓"
+   ],
+   [
     "kosātakī",
     "fem",
     "loofah gourd; angled gourd; Luffa acutangula",
@@ -24949,6 +24967,12 @@ var family_set_json = {
     "nicula",
     "masc",
     "tree; Barringtonia acutangula",
+    "✓"
+   ],
+   [
+    "nimba",
+    "masc",
+    "neem tree; margosa tree; Azadirachta Lindica",
     "✓"
    ],
    [
@@ -25576,7 +25600,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 199
+  "count": 201
  },
  "names of nuns": {
   "data": [
@@ -31160,6 +31184,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "kosamba",
+    "masc",
+    "Himalayan mango; Mangifera sylvatica; lit. sheath mango",
+    "✓"
+   ],
+   [
     "khadira",
     "masc",
     "acacia tree; Acacia catechu",
@@ -31265,6 +31295,12 @@ var family_set_json = {
     "nicula",
     "masc",
     "tree; Barringtonia acutangula",
+    "✓"
+   ],
+   [
+    "nimba",
+    "masc",
+    "neem tree; margosa tree; Azadirachta Lindica",
     "✓"
    ],
    [
@@ -31514,7 +31550,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 75
+  "count": 77
  },
  "names of heavens": {
   "data": [
@@ -32914,6 +32950,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kelāsa",
+    "masc",
+    "name of a Himalayan mountain; Mount Kailash",
+    "✓"
+   ],
+   [
     "gayāsīsa",
     "nt",
     "name of a rock hill near Gayā; lit. Gayā's head",
@@ -33004,7 +33046,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 16
+  "count": 17
  },
  "five hindrances": {
   "data": [

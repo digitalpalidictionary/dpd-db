@@ -20,14 +20,6 @@ class ProgData():
     no_lemma_1: set[str] = set()
 
 
-def main():
-    print("[bright_yellow]find family compounds with no meaning_1, lemma_1")
-    g = ProgData()
-    make_family_compound_set(g)
-    test_family_compounds_have_meaning_1(g)
-    display_missing_meanings(g)
-
-
 def make_family_compound_set(g):
     """Make a set of all the family compounds"""
     for i in g.db_fc:
@@ -68,13 +60,22 @@ def display_missing_meanings(g):
     for lemma_clean, data in g.no_meaning_dict.items():
 
         if not data["yes"]:
-            print(f"[green]{count+1} of {total+1}")
+            print(f"[green]{count+1} of {total}")
             print(f"[green]{'lemma_clean':20}[red]{lemma_clean}")
             print(f"[green]{'in headwords':<20}[white]{' '.join(data['no'])}")
             pyperclip.copy(lemma_clean)
             input("press enter to continue: ")
             print()
             count += 1
+
+
+def main():
+    print("[bright_yellow]find family compounds with no meaning_1, lemma_1")
+    g = ProgData()
+    make_family_compound_set(g)
+    test_family_compounds_have_meaning_1(g)
+    display_missing_meanings(g)
+
 
 if __name__ == "__main__":
     main()

@@ -5859,14 +5859,14 @@ var family_word_json = {
    [
     "pāmokkha 1",
     "adj",
-    "chief, first, eminent",
-    "✗"
+    "chief; foremost; leading; lit. facing forward",
+    "✓"
    ],
    [
     "pāmokkha 2",
     "masc",
-    "leader; chief; eminent; prominent",
-    "✗"
+    "leader; chief",
+    "✓"
    ],
    [
     "mukha 1",
@@ -22806,7 +22806,7 @@ var family_word_json = {
     "coḷaka",
     "nt",
     "piece of cloth; small rag",
-    "~"
+    "✓"
    ],
    [
     "coḷiya",
@@ -29522,8 +29522,8 @@ var family_word_json = {
    [
     "raṃsi",
     "fem",
-    "light, ray",
-    "✗"
+    "light; ray; beam",
+    "✓"
    ]
   ],
   "count": 3
