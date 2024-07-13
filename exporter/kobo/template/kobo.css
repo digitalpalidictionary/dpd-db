@@ -1,0 +1,16 @@
+div.content {
+    border: 2px solid #00A4CC;
+    border-radius: 7px;
+    line-height: 150%;
+    margin: 0px 0px;
+    overflow: auto;
+    padding: 3px 7px;
+    text-align: left;
+  }
+
+p {
+    line-height: 150%;
+    margin: 0px 0px;
+    vertical-align: middle;
+    text-align: left;
+}

@@ -1,0 +1,20 @@
+<html>
+<style>
+    {{ css }}
+</style>
+<body>
+<div class="content">
+    <p>
+    {{ i.pos }}. 
+    {% if i.plus_case %}
+    ({{ i.plus_case }}) 
+    {% endif %}
+    {{ i.meaning_combo_html | safe }}. 
+    {% if i.construction_summary %}
+    [{{ i.construction_summary | safe }}] 
+    {% endif %}
+    {{ i.degree_of_completion_html | safe }}
+</p>
+</div>
+</body>
+</html>

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 """Export simplified DPD data for Kobo Reader"""
+from jinja2 import Environment, FileSystemLoader
 
 from db.get_db_session import get_db_session
 from db.models import DpdHeadwords
@@ -10,13 +11,18 @@ from tools.printer import p_counter, p_green_title, p_title
 from tools.tic_toc import tic, toc
 
 from pathlib import Path
-from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables, export_to_goldendict_with_pyglossary
+from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables
+from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
 from tools.kobo_exporter import export_to_kobo_with_pyglossary, DictVariablesKobo
 
 
 pth = ProjectPaths()
 db_session = get_db_session(pth.dpd_db_path)
 dict_data: list[DictEntry] = []
+env = Environment(loader=FileSystemLoader("exporter/kobo/template"), autoescape=True)
+template = env.get_template("/kobo.html")
+with open("exporter/kobo/template/kobo.css") as f:
+    css = f.read()
 
 
 def compile_dict_data():
@@ -25,13 +31,16 @@ def compile_dict_data():
     db = sorted(db, key=lambda x: pali_sort_key(x.lemma_1))
     db_len = len(db)
     for count, i in enumerate(db):
-        html = "<html>"
-        html += f"{i.pos}. "
-        if i.plus_case:
-            html += f"({i.plus_case}) "
-        html += f"{i.meaning_combo_html}. "
-        html += f"[{i.construction_summary}] "
-        html += f"{i.degree_of_completion_html}"
+        html = template.render(
+            i=i,
+            css=css
+        )
+
+        # # testing
+        # with open("temp/kobo.html", "w") as f:
+        #     f.write(html)
+        # print(i.lemma_1)
+        # input()
 
         dict_entry = DictEntry(
             word = i.lemma_1,
@@ -79,9 +88,9 @@ def main():
         dict_info, dict_vars, dict_data
     )
     
-    # export_to_goldendict_with_pyglossary(
-    #     dict_info, dict_var_gd, dict_data
-    # )
+    export_to_goldendict_with_pyglossary(
+        dict_info, dict_var_gd, dict_data
+    )
 
     toc()
         

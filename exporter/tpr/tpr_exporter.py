@@ -114,6 +114,8 @@ def generate_tpr_data(g: ProgData):
             # grammar
             html_string += """<table><tr><th valign="top">Pāḷi</th>"""
             html_string += f"""<td>{i.lemma_2}</td></tr>"""
+            html_string += """<tr><th valign="top">IPA</th>"""
+            html_string += f"""<td>/{i.lemma_ipa}/</td></tr>"""
             html_string += """<tr><th valign="top">Grammar</th>"""
             html_string += f"""<td>{i.grammar}"""
 
