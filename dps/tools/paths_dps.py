@@ -32,7 +32,7 @@ class DPSPaths:
         self.csvs_for_audio_dir = base_dir.joinpath(Path("dps/csvs/csvs_for_audio/"))
         self.ai_translated_dir = base_dir.joinpath(Path("dps/csvs/ai_translated"))
         self.freqent_words_dir = base_dir.joinpath(Path("dps/csvs/freqent_words/"))
-        self.vinaya_tsv_path = base_dir.joinpath(Path("dps/csvs/vinaya.tsv"))
+        self.vinaya_tsv_path = base_dir.joinpath(Path("dps/sbs_csvs/vinaya.tsv"))
 
 
         self.sbs_pd_path = base_dir.joinpath(Path("dps/csvs/sbs_pd.csv"))
