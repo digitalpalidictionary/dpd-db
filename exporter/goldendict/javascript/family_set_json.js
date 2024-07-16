@@ -1513,7 +1513,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "kappa 1.4",
+    "kappa 1.8",
     "masc",
     "(gram) chapter; section",
     "✓"
@@ -9995,7 +9995,7 @@ var family_set_json = {
    [
     "nahāpaka",
     "masc",
-    "bath attendant",
+    "bath attendant; lit. who causes to bath",
     "✓"
    ],
    [
@@ -10678,7 +10678,7 @@ var family_set_json = {
    [
     "kelāsakūṭa",
     "nt",
-    "name of one of the five mountains surrounding lake Anotatta in the Himalayas; peak of Mount Kailash",
+    "name of one of the five mountains surrounding lake Anotatta in the Himalayas; Mount Kailash",
     "✓"
    ],
    [
@@ -14780,7 +14780,7 @@ var family_set_json = {
    [
     "kappitaka",
     "masc",
-    "name of a monk; lit. fashioned",
+    "name of a monk; lit. caused to be suitable",
     "~"
    ],
    [
@@ -24252,9 +24252,9 @@ var family_set_json = {
     "✓"
    ],
    [
-    "reṇu 2",
+    "reṇu 3",
     "masc",
-    "name of one the seven Bharata kings; lit. dust",
+    "name of a king; son of king Disampati; lit. dust",
     "✓"
    ],
    [
@@ -29365,7 +29365,7 @@ var family_set_json = {
    [
     "medhaṅkara",
     "masc",
-    "name of the 27th previous Buddha; lit. making wisdom; (or) making sacrifice",
+    "name of the 26th previous Buddha; lit. making wisdom; (or) making sacrifice",
     "~"
    ],
    [
@@ -29379,6 +29379,12 @@ var family_set_json = {
     "masc",
     "name of the 6th previous Buddha; lit. insightful; who sees distinctly",
     "✓"
+   ],
+   [
+    "vessabhū 1",
+    "masc",
+    "name of the 4th previous Buddha",
+    "~"
    ],
    [
     "saraṇaṅkara",
@@ -29401,7 +29407,7 @@ var family_set_json = {
    [
     "sujāta 3",
     "masc",
-    "names of the 13th previosus Buddha",
+    "name of the 13th previosus Buddha",
     "~"
    ],
    [
@@ -29413,7 +29419,7 @@ var family_set_json = {
    [
     "sumedha 4",
     "masc",
-    "names of the 14th previous Buddha",
+    "name of the 14th previous Buddha",
     "~"
    ],
    [
@@ -29423,7 +29429,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 26
+  "count": 27
  },
  "indeclinables": {
   "data": [
@@ -29724,7 +29730,7 @@ var family_set_json = {
    [
     "tāva 4",
     "ind",
-    "now; at present; lit. this much",
+    "now; at present; this time; lit. this much",
     "✓"
    ],
    [
@@ -33215,7 +33221,7 @@ var family_set_json = {
    [
     "kelāsakūṭa",
     "nt",
-    "name of one of the five mountains surrounding lake Anotatta in the Himalayas; peak of Mount Kailash",
+    "name of one of the five mountains surrounding lake Anotatta in the Himalayas; Mount Kailash",
     "✓"
    ],
    [

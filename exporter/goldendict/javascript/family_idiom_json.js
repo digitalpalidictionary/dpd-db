@@ -1439,7 +1439,7 @@ var family_idiom_json = {
    [
     "maggakkhāyīhaṃ",
     "sandhi",
-    "I am the guide; I show the way",
+    "I am the guide; I give directions",
     "✓"
    ],
    [
@@ -8802,7 +8802,7 @@ var family_idiom_json = {
    [
     "uttānī karoti",
     "idiom",
-    "explains; clarifies; elucidates; lit. make spread out",
+    "explains; clarifies; elucidates; lit. make spread up",
     "✓"
    ],
    [
@@ -13319,7 +13319,7 @@ var family_idiom_json = {
    [
     "uddhaṃpādaṃ adhosiraṃ",
     "idiom",
-    "feet up head down; upside down; head over heels",
+    "feet up, head down; upside down; head over heels",
     "✓"
    ]
   ]
@@ -14434,7 +14434,7 @@ var family_idiom_json = {
    [
     "uddhaṃpādaṃ adhosiraṃ",
     "idiom",
-    "feet up head down; upside down; head over heels",
+    "feet up, head down; upside down; head over heels",
     "✓"
    ],
    [
@@ -15583,7 +15583,7 @@ var family_idiom_json = {
    [
     "maggakkhāyīhaṃ",
     "sandhi",
-    "I am the guide; I show the way",
+    "I am the guide; I give directions",
     "✓"
    ],
    [
@@ -20673,7 +20673,7 @@ var family_idiom_json = {
    [
     "uttānī karoti",
     "idiom",
-    "explains; clarifies; elucidates; lit. make spread out",
+    "explains; clarifies; elucidates; lit. make spread up",
     "✓"
    ]
   ]
@@ -20712,7 +20712,7 @@ var family_idiom_json = {
    [
     "uddhaṃpādaṃ adhosiraṃ",
     "idiom",
-    "feet up head down; upside down; head over heels",
+    "feet up, head down; upside down; head over heels",
     "✓"
    ],
    [
@@ -20814,7 +20814,7 @@ var family_idiom_json = {
    [
     "uddhaṃpādaṃ adhosiraṃ",
     "idiom",
-    "feet up head down; upside down; head over heels",
+    "feet up, head down; upside down; head over heels",
     "✓"
    ],
    [
@@ -29072,7 +29072,7 @@ var family_idiom_json = {
    [
     "maggakkhāyīhaṃ",
     "sandhi",
-    "I am the guide; I show the way",
+    "I am the guide; I give directions",
     "✓"
    ]
   ]

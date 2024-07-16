@@ -7039,6 +7039,35 @@ var family_word_json = {
   ],
   "count": 6
  },
+ "dasā": {
+  "data": [
+   [
+    "adasaka",
+    "adj",
+    "without a fringe; with no border",
+    "✓"
+   ],
+   [
+    "dasā",
+    "fem",
+    "fringe; border; edge",
+    "✓"
+   ],
+   [
+    "dasika",
+    "nt",
+    "hem; fringe; border",
+    "✓"
+   ],
+   [
+    "sadasa",
+    "adj",
+    "fringed; with a border",
+    "✓"
+   ]
+  ],
+  "count": 4
+ },
  "dāsa": {
   "data": [
    [
@@ -13564,7 +13593,7 @@ var family_word_json = {
    [
     "māyāvitā",
     "fem",
-    "deception; fraudulence; lit. deceit state",
+    "deception; fraudulence; lit. deceitful state",
     "✓"
    ],
    [
@@ -20285,6 +20314,29 @@ var family_word_json = {
   ],
   "count": 3
  },
+ "kirāṭa": {
+  "data": [
+   [
+    "kirāṭa",
+    "masc",
+    "cheat; fraud; con-man",
+    "✓"
+   ],
+   [
+    "kerāṭika 2",
+    "masc",
+    "dishonest person; fraud; deceiver",
+    "✓"
+   ],
+   [
+    "kerāṭiya",
+    "nt",
+    "dishonesty; deceit; fraud; deception; lit. fraud state",
+    "✓"
+   ]
+  ],
+  "count": 3
+ },
  "kilañja": {
   "data": [
    [
@@ -23687,7 +23739,7 @@ var family_word_json = {
    [
     "tāva 4",
     "ind",
-    "now; at present; lit. this much",
+    "now; at present; this time; lit. this much",
     "✓"
    ],
    [
@@ -24466,29 +24518,6 @@ var family_word_json = {
    ]
   ],
   "count": 11
- },
- "dasā": {
-  "data": [
-   [
-    "dasā",
-    "fem",
-    "fringe; border; edge",
-    "✓"
-   ],
-   [
-    "dasika",
-    "nt",
-    "hem; fringe; border",
-    "✓"
-   ],
-   [
-    "sadasa",
-    "adj",
-    "fringed; with a border",
-    "✓"
-   ]
-  ],
-  "count": 3
  },
  "dahara": {
   "data": [
@@ -25387,9 +25416,15 @@ var family_word_json = {
     "card",
     "ten thousand (10 000)",
     "✓"
+   ],
+   [
+    "nahuta 2",
+    "card",
+    "10²⁸ (10 000 000 koṭippakoṭi = 1 nahuta)",
+    "✗"
    ]
   ],
-  "count": 1
+  "count": 2
  },
  "nāga": {
   "data": [
