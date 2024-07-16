@@ -1775,36 +1775,42 @@ var family_word_json = {
    ],
    [
     "guṇa 1.2",
-    "masc",
-    "tuning; pitch; tone; lit. string",
+    "nt",
+    "quality; virtue; characteristic",
     "✓"
    ],
    [
     "guṇa 1.3",
     "masc",
-    "subdivision; section; category; stage",
+    "tuning; pitch; tone; lit. string",
     "✓"
    ],
    [
     "guṇa 1.4",
     "masc",
-    "string; thread; tie",
+    "subdivision; section; category; stage",
     "✓"
    ],
    [
     "guṇa 1.5",
-    "nt",
-    "cord; rope; bond",
+    "masc",
+    "string; thread; tie",
     "✓"
    ],
    [
     "guṇa 1.6",
     "nt",
+    "cord; rope; bond",
+    "✓"
+   ],
+   [
+    "guṇa 1.7",
+    "nt",
     "bow-string",
     "✗"
    ],
    [
-    "guṇa 1.7",
+    "guṇa 1.8",
     "masc",
     "(gram) strong vowel gradation",
     "✗"
@@ -1900,7 +1906,7 @@ var family_word_json = {
     "~"
    ]
   ],
-  "count": 27
+  "count": 28
  },
  "agga": {
   "data": [
@@ -5017,7 +5023,7 @@ var family_word_json = {
    [
     "tāya 3",
     "pron",
-    "from her; from that",
+    "from that; from her",
     "✓"
    ],
    [
@@ -5859,13 +5865,13 @@ var family_word_json = {
    [
     "pāmokkha 1",
     "adj",
-    "chief; foremost; leading; lit. facing forward",
+    "chief; foremost; leading; eminent; lit. facing forward",
     "✓"
    ],
    [
     "pāmokkha 2",
     "masc",
-    "leader; chief",
+    "leader; chief; ruler",
     "✓"
    ],
    [
@@ -5991,14 +5997,20 @@ var family_word_json = {
    [
     "sammukha 1",
     "adj",
-    "face to face with",
-    "✗"
+    "face to face with; in the presence of; lit. with face",
+    "✓"
    ],
    [
     "sammukha 2",
     "adj",
     "confrontation",
     "✗"
+   ],
+   [
+    "sammukhatā",
+    "fem",
+    "fact of being face to face with; fact of being in the presence of; lit. with face state",
+    "✓"
    ],
    [
     "sammukhā",
@@ -6031,7 +6043,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 48
+  "count": 49
  },
  "visa": {
   "data": [
@@ -11028,7 +11040,7 @@ var family_word_json = {
     "parimaṇḍala 3",
     "adj",
     "well pronounced; good sounding; well rounded; lit. circle all around",
-    "~"
+    "✓"
    ],
    [
     "parimaṇḍala 4",
@@ -15353,9 +15365,15 @@ var family_word_json = {
     "✗"
    ],
    [
-    "vīci",
+    "vīci 1",
     "fem",
-    "wave, interval",
+    "wave; ripple",
+    "✓"
+   ],
+   [
+    "vīci 2",
+    "fem",
+    "interval",
     "✗"
    ],
    [
@@ -15365,7 +15383,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 4
+  "count": 5
  },
  "sa": {
   "data": [
@@ -17504,6 +17522,12 @@ var family_word_json = {
     "~"
    ],
    [
+    "tissa 2.8",
+    "masc",
+    "name of the 8th previous Buddha",
+    "~"
+   ],
+   [
     "tissaka",
     "masc",
     "name of a monk (in reference to Saṃyutta Nikāya 6.8 Katamodakatissasuttaṃ)",
@@ -17522,7 +17546,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 11
+  "count": 12
  },
  "upamañña": {
   "data": [
@@ -17705,29 +17729,23 @@ var family_word_json = {
    [
     "sikhī 1",
     "masc",
-    "name of the 20th previous Buddha; lit. with a crest",
-    "~"
-   ],
-   [
-    "sikhī 2",
-    "masc",
     "flame; fire; lit. with a crest",
     "✓"
    ],
    [
-    "sikhī 3",
+    "sikhī 2",
     "masc",
     "peacock",
     "✗"
    ],
    [
-    "sikhī 4",
+    "sikhī 3",
     "masc",
     "name of the 5th previous Buddha; lit. with a crest",
     "~"
    ],
    [
-    "sikhī 5",
+    "sikhī 4",
     "masc",
     "name of a privately awakened Buddha; lit. with a crest",
     "~"
@@ -17739,7 +17757,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 18
+  "count": 17
  },
  "uppala": {
   "data": [
@@ -26345,6 +26363,12 @@ var family_word_json = {
     "~"
    ],
    [
+    "paduma 7",
+    "masc",
+    "name of the 17th previous Buddha; lit. lotus",
+    "~"
+   ],
+   [
     "padumaka",
     "nt",
     "wild Himalayan cherry tree; sour cherry tree; Prunus cerasoides; lit. like lotus",
@@ -26369,20 +26393,20 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 10
+  "count": 11
  },
  "panasa": {
   "data": [
    [
     "panasa 1",
     "masc",
-    "bread-fruit tree",
+    "jack tree",
     "~"
    ],
    [
     "panasa 2",
     "nt",
-    "bread-fruit",
+    "jackfruit",
     "✓"
    ]
   ],
@@ -27629,13 +27653,19 @@ var family_word_json = {
     "~"
    ],
    [
+    "phussa 2.5",
+    "masc",
+    "name of the 7th previous Buddha",
+    "~"
+   ],
+   [
     "phussaka",
     "masc",
     "cuckoo; Cuculus micropterus; lit. related to the month Phussa",
     "~"
    ]
   ],
-  "count": 5
+  "count": 6
  },
  "pheṇa": {
   "data": [
@@ -31718,6 +31748,29 @@ var family_word_json = {
    ]
   ],
   "count": 6
+ },
+ "saḷala": {
+  "data": [
+   [
+    "salaḷa",
+    "nt",
+    "Indian frankincense tree; Boswellia serrata",
+    "✓"
+   ],
+   [
+    "sallakī",
+    "fem",
+    "Indian frankincense tree; Boswellia serrata",
+    "✓"
+   ],
+   [
+    "saḷala",
+    "masc",
+    "Indian frankincense tree; Boswellia serrata",
+    "✓"
+   ]
+  ],
+  "count": 3
  },
  "salāṭu": {
   "data": [

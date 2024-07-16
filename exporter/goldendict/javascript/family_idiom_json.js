@@ -655,7 +655,7 @@ var family_idiom_json = {
    [
     "antaraṃ karitvā",
     "idiom",
-    "having given priority (to); having focussed (on); lit. having made within",
+    "having given priority (to); having focussed (on); consumed (with); lit. having made within",
     "✓"
    ],
    [
@@ -13397,7 +13397,7 @@ var family_idiom_json = {
    [
     "antaraṃ karitvā",
     "idiom",
-    "having given priority (to); having focussed (on); lit. having made within",
+    "having given priority (to); having focussed (on); consumed (with); lit. having made within",
     "✓"
    ],
    [
@@ -21266,7 +21266,7 @@ var family_idiom_json = {
   "count": 3,
   "data": [
    [
-    "ekodi kātabba",
+    "ekodi kātabbaṃ",
     "idiom",
     "should be unified; should be integrated; should be concentrated",
     "✓"
@@ -21289,7 +21289,7 @@ var family_idiom_json = {
   "count": 2,
   "data": [
    [
-    "ekodi kātabba",
+    "ekodi kātabbaṃ",
     "idiom",
     "should be unified; should be integrated; should be concentrated",
     "✓"

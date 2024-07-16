@@ -1207,6 +1207,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "uttarapadalopa",
+    "masc",
+    "(gram) elision of the last word in a compound",
+    "✓"
+   ],
+   [
     "ud",
     "prefix",
     "up; upwards",
@@ -3283,6 +3289,18 @@ var family_set_json = {
     "✓"
    ],
    [
+    "purimapada",
+    "masc",
+    "(gram) first word in a compound",
+    "✓"
+   ],
+   [
+    "purimapadalopa",
+    "masc",
+    "(gram) elision of the first word in a compound",
+    "✓"
+   ],
+   [
     "purisa 3",
     "masc",
     "(gram) grammatical person; 3rd 2nd 1st person",
@@ -3487,10 +3505,16 @@ var family_set_json = {
     "✓"
    ],
    [
+    "majjhapada",
+    "nt",
+    "(gram) middle word in a compound",
+    "✓"
+   ],
+   [
     "majjhapadalopa",
     "masc",
-    "(gram) elision of the middle word; dropping the word between",
-    "~"
+    "(gram) elision of the middle word in a compound; dropping the word between",
+    "✓"
    ],
    [
     "majjhima 7",
@@ -4759,7 +4783,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 769
+  "count": 773
  },
  "prefixes": {
   "data": [
@@ -6809,7 +6833,7 @@ var family_set_json = {
    [
     "tāya 3",
     "pron",
-    "from her; from that",
+    "from that; from her",
     "✓"
    ],
    [
@@ -10628,6 +10652,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kāḷakūṭa",
+    "masc",
+    "name of one of the five mountains surrounding lake Anotatta in the Himalayas; lit. black peak",
+    "✓"
+   ],
+   [
     "kāḷasilā",
     "fem",
     "name of an ascetic's haunt on Mount Isigili; lit. black rock",
@@ -10646,6 +10676,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kelāsakūṭa",
+    "nt",
+    "name of one of the five mountains surrounding lake Anotatta in the Himalayas; peak of Mount Kailash",
+    "✓"
+   ],
+   [
     "kokanada 2",
     "masc",
     "name of Prince Bodhi's mansion; lit. red lotus",
@@ -10661,6 +10697,18 @@ var family_set_json = {
     "gaggarā",
     "fem",
     "name of a lotus pond near Campā; lit. gurgling",
+    "✓"
+   ],
+   [
+    "gandhamādana",
+    "masc",
+    "name of one of the five mountains surrounding lake Anotatta in the Himalayas; lit. intoxicating with fragrance",
+    "✓"
+   ],
+   [
+    "gandhamādanakūṭa",
+    "masc",
+    "name of one of the five mountains surrounding lake Anotatta in the Himalayas; lit. intoxicating with fragrance peak",
     "✓"
    ],
    [
@@ -10724,6 +10772,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "cittakūṭa",
+    "masc",
+    "name of one of the five mountains surrounding lake Anotatta in the Himalayas; lit. beautiful peak",
+    "✓"
+   ],
+   [
     "cittalatā",
     "fem",
     "name of a heavenly garden; lit. diverse creeper",
@@ -10744,7 +10798,7 @@ var family_set_json = {
    [
     "chaddanta 3",
     "masc",
-    "name of a great lake; lit. six teeth; six tusks",
+    "name of a Himalayan lake; lit. six teeth; six tusks",
     "✓"
    ],
    [
@@ -11204,6 +11258,18 @@ var family_set_json = {
     "✓"
    ],
    [
+    "sudassana 4",
+    "masc",
+    "name of one of the 5 mountains surrounding Lake Anottatta; lit. good to behold",
+    "✓"
+   ],
+   [
+    "sudassanakūṭa",
+    "masc",
+    "name of one of the five mountains surrounding lake Anotatta in the Himalayas; lit. good to behold peak",
+    "✓"
+   ],
+   [
     "sudhammasabhā",
     "fem",
     "name of the meeting hall of the gods; lit. justice hall",
@@ -11258,7 +11324,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 129
+  "count": 136
  },
  "holy sites": {
   "data": [
@@ -12894,7 +12960,7 @@ var family_set_json = {
    [
     "chabbisodhanasutta",
     "nt",
-    "Majjhima Nikāya 112; Discourse on the Six-fold purification (MN112)",
+    "Majjhima Nikāya 112; Discourse on the Six-fold Purification (MN112)",
     "✓"
    ],
    [
@@ -14071,12 +14137,6 @@ var family_set_json = {
     "~"
    ],
    [
-    "maṅgala 7",
-    "masc",
-    "name of a privately awakened Buddha",
-    "~"
-   ],
-   [
     "matula",
     "masc",
     "name of a privately awakened Buddha",
@@ -14191,7 +14251,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "sikhī 5",
+    "sikhī 4",
     "masc",
     "name of a privately awakened Buddha; lit. with a crest",
     "~"
@@ -14281,7 +14341,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 99
+  "count": 98
  },
  "names of monks": {
   "data": [
@@ -16628,7 +16688,7 @@ var family_set_json = {
    [
     "sāti",
     "masc",
-    "name of a monk",
+    "name of a monk; lit. the star Arcturus",
     "✓"
    ],
    [
@@ -18611,6 +18671,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "mahāpajāpatī",
+    "fem",
+    "name of an arahant nun; Buddha's foster-mother; first Bhikkhunī",
+    "✓"
+   ],
+   [
     "mahāpanthaka",
     "masc",
     "name of an arahant monk; great disciple of the Buddha; foremost in those skilled in the expansion of perception",
@@ -19673,7 +19739,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 442
+  "count": 443
  },
  "people": {
   "data": [
@@ -23924,7 +23990,7 @@ var family_set_json = {
    [
     "alīnasatta",
     "masc",
-    "name of a prince; lit. unstuck being?",
+    "name of a prince",
     "✓"
    ],
    [
@@ -24014,7 +24080,7 @@ var family_set_json = {
    [
     "kūṭakaṇṇa",
     "masc",
-    "name of an ancient Sri Lankan king who reigned from 42 BC to 20 BC; lit. crooked ear",
+    "name of an ancient Sri Lankan king who reigned from 42 to 20 BC; lit. crooked ear",
     "✓"
    ],
    [
@@ -24038,7 +24104,7 @@ var family_set_json = {
    [
     "gajabāhu",
     "masc",
-    "name of an ancient Sri Lankan king who reigned from c. 113 to c. 135; lit. arms like an elephant (trunk)",
+    "name of an ancient Sri Lankan king who reigned from 113 to  135 CE; lit. arms like an elephant (trunk)",
     "~"
    ],
    [
@@ -24080,7 +24146,7 @@ var family_set_json = {
    [
     "duṭṭhagāmaṇi",
     "masc",
-    "name of a renowned ancient king in Sri Lanka who reigned from 161 BC to 137 BC; lit. corrupt chief",
+    "name of a renowned ancient king in Sri Lanka who reigned from 161 to 137 BC; lit. corrupt chief",
     "✓"
    ],
    [
@@ -24212,7 +24278,7 @@ var family_set_json = {
    [
     "vijayabāhu",
     "masc",
-    "name of an ancient king in Sri Lanka who reigned from c. 1055 to 1110; lit. victory arm",
+    "name of an ancient king in Sri Lanka who reigned from 1055 to 1110 CE; lit. victory arm",
     "~"
    ],
    [
@@ -25002,13 +25068,13 @@ var family_set_json = {
    [
     "panasa 1",
     "masc",
-    "bread-fruit tree",
+    "jack tree",
     "~"
    ],
    [
     "panasa 2",
     "nt",
-    "bread-fruit",
+    "jackfruit",
     "✓"
    ],
    [
@@ -25446,8 +25512,14 @@ var family_set_json = {
    [
     "sallakī",
     "fem",
-    "Frankincense tree; Boswellia thurifera",
-    "~"
+    "Indian frankincense tree; Boswellia serrata",
+    "✓"
+   ],
+   [
+    "saḷala",
+    "masc",
+    "Indian frankincense tree; Boswellia serrata",
+    "✓"
    ],
    [
     "sāka 1",
@@ -25600,7 +25672,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 201
+  "count": 202
  },
  "names of nuns": {
   "data": [
@@ -25965,6 +26037,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "mahāpajāpatī",
+    "fem",
+    "name of an arahant nun; Buddha's foster-mother; first Bhikkhunī",
+    "✓"
+   ],
+   [
     "mittā 1",
     "fem",
     "name of an arahant nun; lit. friend",
@@ -26199,7 +26277,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 99
+  "count": 100
  },
  "cardinal numbers": {
   "data": [
@@ -29186,6 +29264,167 @@ var family_set_json = {
   ],
   "count": 4
  },
+ "previous Buddhas": {
+  "data": [
+   [
+    "atthadassī 2",
+    "masc",
+    "name of the 11th previous Buddha; lit. who sees the goal",
+    "~"
+   ],
+   [
+    "anomadassī 2",
+    "masc",
+    "name of the 18th previoud Buddha; lit. superior vision",
+    "~"
+   ],
+   [
+    "kakusandha",
+    "masc",
+    "name of the 3rd previous Buddha",
+    "✓"
+   ],
+   [
+    "kassapa 1",
+    "masc",
+    "name of the 1st previous Buddha; lit. descendant of Kassapa",
+    "✓"
+   ],
+   [
+    "koṇāgamana",
+    "masc",
+    "name of the 2nd previous Buddha",
+    "~"
+   ],
+   [
+    "koṇḍañña 3",
+    "masc",
+    "name of the 23rd previous Buddha",
+    "~"
+   ],
+   [
+    "taṇhaṅkara",
+    "masc",
+    "name of the 27th previous Buddha; lit. making craving?",
+    "~"
+   ],
+   [
+    "tissa 2.8",
+    "masc",
+    "name of the 8th previous Buddha",
+    "~"
+   ],
+   [
+    "dīpaṅkara",
+    "masc",
+    "name of the 24th previous Buddha; lit. illuminator; making light",
+    "✓"
+   ],
+   [
+    "dhammadassī",
+    "masc",
+    "name of the 10th previous Buddha; lit. who sees the nature of things",
+    "~"
+   ],
+   [
+    "nārada 2",
+    "masc",
+    "name of the 16th previous Buddha",
+    "~"
+   ],
+   [
+    "paduma 7",
+    "masc",
+    "name of the 17th previous Buddha; lit. lotus",
+    "~"
+   ],
+   [
+    "padumuttara 1",
+    "masc",
+    "name of the 15th previous Buddha; lit. ultimate lotus",
+    "✓"
+   ],
+   [
+    "piyadassī 2",
+    "masc",
+    "name of the 12th previous Buddha; lit. dear to see; (or) who looks fondly",
+    "~"
+   ],
+   [
+    "phussa 2.5",
+    "masc",
+    "name of the 7th previous Buddha",
+    "~"
+   ],
+   [
+    "maṅgala 7",
+    "masc",
+    "name of the 22nd previous Buddha; lit. auspicious",
+    "~"
+   ],
+   [
+    "medhaṅkara",
+    "masc",
+    "name of the 27th previous Buddha; lit. making wisdom; (or) making sacrifice",
+    "~"
+   ],
+   [
+    "revata 2",
+    "masc",
+    "name of the 20th previous Buddha",
+    "~"
+   ],
+   [
+    "vipassī 1",
+    "masc",
+    "name of the 6th previous Buddha; lit. insightful; who sees distinctly",
+    "✓"
+   ],
+   [
+    "saraṇaṅkara",
+    "masc",
+    "name of the 25th previous Buddha; lit. making a refuge",
+    "~"
+   ],
+   [
+    "sikhī 3",
+    "masc",
+    "name of the 5th previous Buddha; lit. with a crest",
+    "~"
+   ],
+   [
+    "siddhattha 4",
+    "masc",
+    "name of the 9th previous Buddha; lit. who has accomplished the goal",
+    "~"
+   ],
+   [
+    "sujāta 3",
+    "masc",
+    "names of the 13th previosus Buddha",
+    "~"
+   ],
+   [
+    "sumana 5",
+    "masc",
+    "name of the 21st previous Buddha; lit. good mind",
+    "~"
+   ],
+   [
+    "sumedha 4",
+    "masc",
+    "names of the 14th previous Buddha",
+    "~"
+   ],
+   [
+    "sobhita 5",
+    "masc",
+    "name of the 19th previous Buddha; lit. shone",
+    "~"
+   ]
+  ],
+  "count": 26
+ },
  "indeclinables": {
   "data": [
    [
@@ -31306,13 +31545,13 @@ var family_set_json = {
    [
     "panasa 1",
     "masc",
-    "bread-fruit tree",
+    "jack tree",
     "~"
    ],
    [
     "panasa 2",
     "nt",
-    "bread-fruit",
+    "jackfruit",
     "✓"
    ],
    [
@@ -31498,8 +31737,14 @@ var family_set_json = {
    [
     "sallakī",
     "fem",
-    "Frankincense tree; Boswellia thurifera",
-    "~"
+    "Indian frankincense tree; Boswellia serrata",
+    "✓"
+   ],
+   [
+    "saḷala",
+    "masc",
+    "Indian frankincense tree; Boswellia serrata",
+    "✓"
    ],
    [
     "sāka 2",
@@ -31550,7 +31795,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 77
+  "count": 78
  },
  "names of heavens": {
   "data": [
@@ -31665,6 +31910,12 @@ var family_set_json = {
     "ghositārāma",
     "masc",
     "name of a monastery in Kosambī; lit. Ghosita's park",
+    "✓"
+   ],
+   [
+    "cittalapabbata",
+    "masc",
+    "name of an ancient mountain-top monastery in Sri Lanka",
     "✓"
    ],
    [
@@ -31788,7 +32039,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 33
+  "count": 34
  },
  "foodstuff": {
   "data": [
@@ -32950,9 +33201,33 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kāḷakūṭa",
+    "masc",
+    "name of one of the five mountains surrounding lake Anotatta in the Himalayas; lit. black peak",
+    "✓"
+   ],
+   [
     "kelāsa",
     "masc",
-    "name of a Himalayan mountain; Mount Kailash",
+    "name of one of the five mountains surrounding lake Anotatta in the Himalayas; Mount Kailash",
+    "✓"
+   ],
+   [
+    "kelāsakūṭa",
+    "nt",
+    "name of one of the five mountains surrounding lake Anotatta in the Himalayas; peak of Mount Kailash",
+    "✓"
+   ],
+   [
+    "gandhamādana",
+    "masc",
+    "name of one of the five mountains surrounding lake Anotatta in the Himalayas; lit. intoxicating with fragrance",
+    "✓"
+   ],
+   [
+    "gandhamādanakūṭa",
+    "masc",
+    "name of one of the five mountains surrounding lake Anotatta in the Himalayas; lit. intoxicating with fragrance peak",
     "✓"
    ],
    [
@@ -32971,6 +33246,12 @@ var family_set_json = {
     "cālikāpabbata",
     "masc",
     "name of a mountain; lit. shaky mountain",
+    "✓"
+   ],
+   [
+    "cittakūṭa",
+    "masc",
+    "name of one of the five mountains surrounding lake Anotatta in the Himalayas; lit. beautiful peak",
     "✓"
    ],
    [
@@ -33040,13 +33321,25 @@ var family_set_json = {
     "✓"
    ],
    [
+    "sudassana 4",
+    "masc",
+    "name of one of the 5 mountains surrounding Lake Anottatta; lit. good to behold",
+    "✓"
+   ],
+   [
+    "sudassanakūṭa",
+    "masc",
+    "name of one of the five mountains surrounding lake Anotatta in the Himalayas; lit. good to behold peak",
+    "✓"
+   ],
+   [
     "seta 2",
     "masc",
     "name of a mountain peak in the Himalayas; lit. white",
     "✓"
    ]
   ],
-  "count": 17
+  "count": 24
  },
  "five hindrances": {
   "data": [
@@ -33883,59 +34176,6 @@ var family_set_json = {
   ],
   "count": 10
  },
- "previous Buddhas": {
-  "data": [
-   [
-    "kakusandha",
-    "masc",
-    "name of the 3rd previous Buddha",
-    "✓"
-   ],
-   [
-    "kassapa 1",
-    "masc",
-    "name of the 1st previous Buddha; lit. descendant of Kassapa",
-    "✓"
-   ],
-   [
-    "koṇāgamana",
-    "masc",
-    "name of the 2nd previous Buddha",
-    "~"
-   ],
-   [
-    "dīpaṅkara",
-    "masc",
-    "name of the 26th previous Buddha; lit. illuminator; making light",
-    "✓"
-   ],
-   [
-    "padumuttara 1",
-    "masc",
-    "name of a previous Buddha; lit. ultimate lotus",
-    "✓"
-   ],
-   [
-    "vipassī 1",
-    "masc",
-    "name of the 7th previous Buddha; lit. insightful; who sees distinctly",
-    "✓"
-   ],
-   [
-    "sikhī 1",
-    "masc",
-    "name of the 20th previous Buddha; lit. with a crest",
-    "~"
-   ],
-   [
-    "sikhī 4",
-    "masc",
-    "name of the 5th previous Buddha; lit. with a crest",
-    "~"
-   ]
-  ],
-  "count": 8
- },
  "names of books": {
   "data": [
    [
@@ -34437,13 +34677,13 @@ var family_set_json = {
    [
     "kūṭakaṇṇa",
     "masc",
-    "name of an ancient Sri Lankan king who reigned from 42 BC to 20 BC; lit. crooked ear",
+    "name of an ancient Sri Lankan king who reigned from 42 to 20 BC; lit. crooked ear",
     "✓"
    ],
    [
     "gajabāhu",
     "masc",
-    "name of an ancient Sri Lankan king who reigned from c. 113 to c. 135; lit. arms like an elephant (trunk)",
+    "name of an ancient Sri Lankan king who reigned from 113 to  135 CE; lit. arms like an elephant (trunk)",
     "~"
    ],
    [
@@ -34467,7 +34707,7 @@ var family_set_json = {
    [
     "duṭṭhagāmaṇi",
     "masc",
-    "name of a renowned ancient king in Sri Lanka who reigned from 161 BC to 137 BC; lit. corrupt chief",
+    "name of a renowned ancient king in Sri Lanka who reigned from 161 to 137 BC; lit. corrupt chief",
     "✓"
    ],
    [
@@ -34479,7 +34719,7 @@ var family_set_json = {
    [
     "vijayabāhu",
     "masc",
-    "name of an ancient king in Sri Lanka who reigned from c. 1055 to 1110; lit. victory arm",
+    "name of an ancient king in Sri Lanka who reigned from 1055 to 1110 CE; lit. victory arm",
     "~"
    ]
   ],
