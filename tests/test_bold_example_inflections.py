@@ -44,25 +44,6 @@ class ProgData():
     counter: int = 1
 
 
-
-def main():
-    g = ProgData
-    for i in g.db:
-        g.i = i
-        if i.pos not in ["idiom"]:
-            # search in a list of fields
-            for field in g.fields:
-                g.field = field
-                if g.show_sbs_data:
-                    find_all_bold_words_sbs(g)
-                else:
-                    find_all_bold_words(g)
-                get_inflections(g)
-                for bold_word in g.bold_words:
-                    g.bold_word = bold_word
-                    test1(g)
-
-
 def find_all_bold_words(g):
     """Get All the bold words from the string."""
     g.bold_words = re.findall("<b>.+?<\\/b>", getattr(g.i, g.field))
@@ -129,8 +110,7 @@ def test5(g):
         clean_bold_nasal = f"{g.clean_bold_word[:-1]}ṃ"
         if clean_bold_nasal in g.inflections_list:
             return
-        else:
-            test6(g)
+    test6(g)
 
 
 def test6(g):
@@ -151,8 +131,26 @@ def printer(g, message):
     print(p, end="")
     g.counter += 1
     pyperclip.copy(g.i.lemma_1)
-    # input("press enter to continue: ")
+    input("press enter to continue: ")
     print()
+
+
+def main():
+    g = ProgData
+    for i in g.db:
+        g.i = i
+        if i.pos not in ["idiom"]:
+            # search in a list of fields
+            for field in g.fields:
+                g.field = field
+                if g.show_sbs_data:
+                    find_all_bold_words_sbs(g)
+                else:
+                    find_all_bold_words(g)
+                get_inflections(g)
+                for bold_word in g.bold_words:
+                    g.bold_word = bold_word
+                    test1(g)
     
 
 if __name__ == "__main__":
