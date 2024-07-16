@@ -1,0 +1,173 @@
+section	unicode	ipa	ipa?	tts	unicode_eg	ipa_eg	tts_eg	comments
+vowels	a	ɐ	ə,a,æ	ɐ	anuppanno	ɐnʊ.pɐnno:	ɐnʊppɐnno:	katəŋ a for stressed, ə for unstressed
+	aa	əɐ		əɐ	akaṇhaasukka	ɐkɐɳhəɐsʊ.kə	ɐkɐɳhəɐsʊkkə	
+	aā	əɑ:		əɑ:	yāvaābādhā	jɑ:ʋəɑ:bɑ:dʰɑ:	jɑ:ʋəɑ:bɑ:dʰɑ:	
+	aṃ	əŋ			kataṃ	kɐtəŋ	kɐtəŋ	
+	āā	ɑ:ɑ:		ɑ:ɑ:	sammāājīvo	sɐmmɑ:ɑ:dʒi:ʋo:	sɐmmɑ:ɑ:ʝi:ʋo:	
+	ā	ɑ:	ɐ:	ɑ:	abhijānāmi	ɐbʰidʒɑ:nɑ:mi	ɐbʰiʝɑ:nɑ:mi	
+	i	i	ɪ	i	iti	iti	iti	ɪti ɪ for stressed, I for unstressed
+	ī	i:		i:	nandī	nɐndi:	nɐndi:	
+	u	ʊ	u	ʊ	uppajjanti	ʊ.pɐ.dʒɐnti	ʊppɐʝʝɐnti	
+	upa	ʊpə			upacarati	ʊpətʃɐrɐti	ʊpəcɐrɐti	
+	ū	u:	ʊː	u:	ūruṭṭhikaṃ	u:rʊ.ʈʰikəŋ	u:rʊʈʈʰikəŋ	
+	e	ɛ	e	ɛ	mettacitto	mɛ.tɐtʃi.to:	mɛttɐcitto:	
+	ē	e:	ẽ,eɪ	e:	evaṃdhammo	e:ʋəŋdʰɐmmo:	e:ʋəŋdʰɐmmo:	
+	o	ɒ	o	o	ottappamānā	ɒ.tɐ.pɐmɑ:nɑ:	ottɐppɐmɑ:nɑ:	
+	ō	o:	əʊ	o:	ojāpaharaṇiyo	o:dʒɑ:pɐhɐrɐɳijo:	o:ʝɑ:pɐhɐrɐɳijo:	
+								
+vaggas	k	k		k	kataṃ	kɐtəŋ	kɐtəŋ	
+	kk	.k		kk	sakkassa	sɐ.kɐssə	sɐkkɐssə	
+	kh	kʰ		kʰ	kho	kʰo:	kʰo:	
+	kkh	.kʰ		kkʰ	bhikkhu	bʰi.kʰʊ	bʰikkʰʊ	
+	g	ɡ		ɡ	gacchati	ɡɐ.tʃʰɐti	ɡɐccʰɐti	
+	gg	.g		gg	aggi	ɐ.gi	ɐggi	
+	gh	ɡʰ		ɡʰ	ghaṭato	ɡʰɐʈɐto:	ɡʰɐʈɐto:	
+	ggh	.ɡʰ		gɡʰ	pagghariṇī	pɐ.ɡʰɐriɳi:	pɐgɡʰɐriɳi:	
+	ṅ	ŋ		ŋ	atthaṅgamā	ɐ.tʰɐŋɡɐmɑ:	ɐttʰɐŋɡɐmɑ:	
+	ṅṅ	ŋŋ		ŋŋ	kaṅṅo	kɐŋŋo:	kɐŋŋo:	
+	c	tʃ	c,tɕ	c	cittaṃ	tʃi.təŋ	cittəŋ	
+	cc	.tʃ	cc,ttɕ	cc	paccā	pɐ.tʃɑ:	pɐccɑ:	
+	ch	tʃʰ	cʰ,tɕʰ	cʰ	chindanti	tʃʰindɐnti	cʰindɐnti	
+	cch	.tʃʰ	ccʰ,ttɕʰ	ccʰ	gaccheyya	ɡɐ.tʃʰɛjjə	ɡɐccʰɛjjə	
+	j	dʒ	ʝ	ʝ	jātiyo	dʒɑ:tijo:	ʝɑ:tijo:	
+	jj	.dʒ	ʝʝ	ʝʝ	upapajjamāne	ʊpəpɐ.dʒɐmɑ:ne:	ʊpəpɐʝʝɐmɑ:ne:	
+	jh	dʒʰ	ʝʰ	ʝʰ	jhānaṃ	dʒʰɑ:nəŋ	ʝʰɑ:nəŋ	
+	jjh	.dʒʰ	ʝʝʰ	ʝʝʰ	majjhe	mɐ.dʒʰe:	mɐʝʝʰe:	
+	ñ	ɲ		ɲ	ñāṇaṃ	ɲɑ:ɳəŋ	ɲɑ:ɳəŋ	
+	ññ	ɲɲ		ɲɲ	sāmaññaṃ	sɑ:mɐɲɲəŋ	sɑ:mɐɲɲəŋ	
+	ṭ	ʈ		ʈ	ṭīkā	ʈi:kɑ:	ʈi:kɑ:	
+	ṭṭ	.ʈ		ʈʈ	anāvaṭṭī	ɐnɑ:ʋɐ.ʈi:	ɐnɑ:ʋɐʈʈi:	
+	ṭh	ʈʰ		ʈʰ	ṭhānānaṃ	ʈʰɑ:nɑ:nəŋ	ʈʰɑ:nɑ:nəŋ	
+	ṭṭh	.ʈʰ		ʈʈʰ	niviṭṭho	niʋi.ʈʰo:	niʋiʈʈʰo:	
+	ḍ	ɖ		ɖ	ḍaheyya	ɖɐhɛjjə	ɖɐhɛjjə	
+	ḍḍ	.ɖ		ɖɖ	chaḍḍanīyadhammo	tʃʰɐ.ɖɐni:jɐdʰɐmmo:	cʰɐɖɖɐni:jɐdʰɐmmo:	
+	ḍh	ɖʰ		ɖʰ	voḍhūna	ʋo:ɖʰu:nə	ʋo:ɖʰu:nə	
+	ḍḍh	.ɖʰ		ɖɖʰ	abhivaḍḍhanti	ɐbʰiʋɐ.ɖʰɐnti	ɐbʰiʋɐɖɖʰɐnti	
+	ṇ	ɳ		ɳ	appāṇake	ɐ.pɑ:ɳɐke:	ɐppɑ:ɳɐke:	
+	ṇṇ	ɳɳ		ɳɳ	paripuṇṇo	pɐripʊɳɳo:	pɐripʊɳɳo:	
+	t	t		t	tena	te:nə	te:nə	
+	tt	.t		tt	putto	pʊ.to:	pʊtto:	
+	th	tʰ		tʰ	theto	tʰe:to:	tʰe:to:	
+	tth	.tʰ		ttʰ	jīvikatthā	dʒi:ʋikɐ.tʰɑ:	ʝi:ʋikɐttʰɑ:	
+	d	d		d	duppaññā	dʊ.pɐɲɲɑ:	dʊppɐɲɲɑ:	
+	dd	.d		dd	saddahāno	sɐ.dɐhɑ:no:	sɐddɐhɑ:no:	
+	dh	dʰ		dʰ	andhakāre	ɐndʰɐkɑ:re:	ɐndʰɐkɑ:re:	
+	ddh	.dʰ		ddʰ	saddhā	sɐ.dʰɑ:	sɐddʰɑ:	
+	n	n		n	nacirasseva	nɐtʃirɐsse:ʋə	nɐcirɐsse:ʋə	
+	nn	nn		nn	nisinno	nisinno:	nisinno:	
+	p	p		p	pahānaṃ	pɐhɑ:nəŋ	pɐhɑ:nəŋ	
+	pp	.p		pp	uppajjanti	ʊ.pɐ.dʒɐnti	ʊppɐʝʝɐnti	
+	ph	pʰ		ph	pharusavācā	pʰɐrʊsɐʋɑ:tʃɑ:	phɐrʊsɐʋɑ:cɑ:	
+	pph	.pʰ		pph	papphāsaṃ	pɐ.pʰɑ:səŋ	pɐpphɑ:səŋ	
+	b	b		b	bahiddhā	bɐhi.dʰɑ:	bɐhiddʰɑ:	
+	bb	.b		bb	phoṭṭhabbe	pʰɒ.ʈʰɐ.be:	phoʈʈʰɐbbe:	
+	bh	bʰ		bʰ	bhikkhave	bʰi.kʰɐʋe:	bʰikkʰɐʋe:	
+	bbh	.bʰ		bbʰ	ponobbhavikā	po:nɒ.bʰɐʋikɑ:	po:nobbʰɐʋikɑ:	
+	m	m		m	mano	mɐno:	mɐno:	
+	mm	mm		mm	dhammā	dʰɐmmɑ:	dʰɐmmɑ:	
+								
+semivowels	y	j		j	piyarūpaṃ	pijɐru:pəŋ	pijɐru:pəŋ	
+	yy	jj		jj	seyyathidaṃ	sɛjjɐtʰidəŋ	sɛjjɐtʰidəŋ	
+	r	r	ɻ,ɽ	r	rūpavicāro	ru:pɐʋitʃɑ:ro:	ru:pɐʋicɑ:ro:	
+	l	l		l	loke	lo:ke:	lo:ke:	
+	ll	ll		ll	vepullāya	ʋe:pʊllɑ:jə	ʋe:pʊllɑ:jə	
+	v	ʋ	v,w	ʋ	vinipātaṃ	ʋinipɑ:təŋ	ʋinipɑ:təŋ	
+	s	s		s	saggaṃ	sɐ.gəŋ	sɐggəŋ	
+	ss	ss		ss	kāyassa	kɑ:jɐssə	kɑ:jɐssə	
+	h	h		h	homi	ho:mi	ho:mi	
+	ḷ	ʟ̈	ɭ	ʟ̈	taḷākaṃ	tɐʟ̈ɑ:kəŋ	tɐʟ̈ɑ:kəŋ	
+	ḷh	ʟ̈ʰ	ɭʰ	ʟ̈ʰ	samārūḷho	sɐmɑ:ru:ʟ̈ʰo:	sɐmɑ:ru:ʟ̈ʰo:	
+	ṃ	ŋ		ŋ	taṃ	təŋ	təŋ	
+	ṁ	ŋ		ŋ	taṁ	tɐŋ	tɐŋ	
+								
+nasals	ṅk			ŋk	tenupasaṅkami	te:nʊpəsɐŋkɐmi	te:nʊpəsɐŋkɐmi	
+	ṅkh			ŋkʰ	saṅkhadhamo	sɐŋkʰɐdʰɐmo:	sɐŋkʰɐdʰɐmo:	
+	ṅg			ŋɡ	hadayaṅgamā	hɐdɐjɐŋɡɐmɑ:	hɐdɐjɐŋɡɐmɑ:	
+	ṅgh			ŋɡʰ	bhikkhusaṅghena	bʰi.kʰʊsɐŋɡʰe:nə	bʰikkʰʊsɐŋɡʰe:nə	
+	ṅh			ŋh	avaṅhoti	ɐʋɐŋho:ti	ɐʋɐŋho:ti	
+	ñc			ɲc	sañcayo	sɐɲtʃɐjo:	sɐɲcɐjo:	
+	ñch			ɲcʰ	upagañchi	ʊpəɡɐɲtʃʰi	ʊpəɡɐɲcʰi	
+	ñj			ɲʝ	bhuñjitvā	bʰʊɲdʒitʋɑ:	bʰʊɲʝitʋɑ:	
+	ñjh			ɲʝʰ	vañjho	ʋɐɲdʒʰo:	ʋɐɲʝʰo:	
+	ñh			ɲh	devapañhaṃ	de:ʋɐpɐɲhəŋ	de:ʋɐpɐɲhəŋ	
+	ṇṭ			ɳʈ	sakaṇṭako	sɐkɐɳʈɐko:	sɐkɐɳʈɐko:	
+	ṇṭh			ɳʈʰ	nigaṇṭho	niɡɐɳʈʰo:	niɡɐɳʈʰo:	
+	ṇḍ			ɳɖ	paṇḍito	pɐɳɖito:	pɐɳɖito:	
+	ṇḍh			ɳɖʰ				
+	ṇh			ɳh	uṇhīsaṃ	ʊɳhi:səŋ	ʊɳhi:səŋ	
+	nt			nt	cintetuṃ	tʃinte:tʊŋ	cinte:tʊŋ	
+	nth			ntʰ	paripanthe	pɐripɐntʰe:	pɐripɐntʰe:	
+	nd			nd	chindanto	tʃʰindɐnto:	cʰindɐnto:	
+	ndh			ndʰ	sandhāvitvā	sɐndʰɑ:ʋitʋɑ:	sɐndʰɑ:ʋitʋɑ:	
+	nh			nh	nhāpanaṃ	nhɑ:pɐnəŋ	nhɑ:pɐnəŋ	
+	mp			mp	ahampi	ɐhɐmpi	ɐhɐmpi	
+	mph			mpʰ	samphappalāpā	sɐmpʰɐ.pɐlɑ:pɑ:	sɐmpʰɐppɐlɑ:pɑ:	
+	mb			mb	sambāhanaṃ	sɐmbɑ:hɐnəŋ	sɐmbɑ:hɐnəŋ	
+	mbh			mbʰ	kumbha	kʊmbʰə	kʊmbʰə	
+	mh			mh	tamhā	tɐmhɑ:	tɐmhɑ:	
+								
+consonants	jv			ʝʋ	parajjve	pɐrɐ.dʒʋe:	pɐrɐʝʝʋe:	
+	dv			dʋ	bhāradvājo	bʰɑ:rɐdʋɑ:dʒo:	bʰɑ:rɐdʋɑ:ʝo:	
+	tv			tʋ	saṅkamitvā	sɐŋkɐmitʋɑ:	sɐŋkɐmitʋɑ:	
+	hm			hm	brāhmaṇo	brɑ:hmɐɳo:	brɑ:hmɐɳo:	
+								
+	kr			kr	vikrubbato	ʋikrʊ.bɐto:	ʋikrʊbbɐto:	
+	tr			tr	tatra	tɐtrə	tɐtrə	
+	dr			dr	indriyasaṃvaro	indrijɐsəŋʋɐro:	indrijɐsəŋʋɐro:	
+	pr			pr				
+	br			br	brahmā	brɐhmɑ:	brɐhmɑ:	
+								
+unused	aṅ	ɐŋ		ɐŋ				
+	añ	ɐɲ		ɐɲ				
+	aṇ	ɐɳ		ɐɳ				
+	an	ɐn		ɐn				
+	am	ɐm		ɐm				
+								
+	āṅ	ɑ:ŋ		ɑ:ŋ				
+	āñ	ɑ:ɲ		ɑ:ɲ				
+	āṇ	ɑ:ɳ		ɑ:ɳ				
+	ān	ɑ:n		ɑ:n				
+	ām	ɑ:m		ɑ:m				
+	āṃ	ɑ:ŋ		ɑ:ŋ				
+	iṅ	iŋ		iŋ				
+	iñ	iɲ		iɲ				
+	iṇ	iɳ		iɳ				
+	in	in		in				
+	im	im		im				
+	iṃ	iŋ		iŋ				
+	uṅ	uŋ		uŋ				
+	uñ	uɲ		uɲ				
+	uṇ	uɳ		uɳ				
+	un	un		un				
+	um	um		um				
+	uṃ	uŋ		uŋ				
+	ūṅ	u:ŋ		u:ŋ				
+	ūñ	u:ɲ		u:ɲ				
+	ūṇ	u:ɳ		u:ɳ				
+	ūn	u:n		u:n				
+	ūm	u:m		u:m				
+	ūṃ	u:ŋ		u:ŋ				
+	eṅ	e:ŋ		e:ŋ				
+	eñ	e:ɲ		e:ɲ				
+	eṇ	e:ɳ		e:ɳ				
+	en	e:n		e:n				
+	em	e:m		e:m				
+	eṃ	e:ŋ		e:ŋ				
+	e:ṅ	e::ŋ		e::ŋ				
+	e:ñ	e::ɲ		e::ɲ				
+	e:ṇ	e::ɳ		e::ɳ				
+	e:n	e::n		e::n				
+	e:m	e::m		e::m				
+	e:ṃ	e::ŋ		e::ŋ				
+	oṅ	o:ŋ		o:ŋ				
+	oñ	o:ɲ		o:ɲ				
+	oṇ	o:ɳ		o:ɳ				
+	on	o:n		o:n				
+	om	o:m		o:m				
+	oṃ	o:ŋ		o:ŋ				
+	o:ṅ	o::ŋ		o::ŋ				
+	o:ñ	o::ɲ		o::ɲ				
+	o:ṇ	o::ɳ		o::ɳ				
+	o:n	o::n		o::n				
+	o:m	o::m		o::m				
+	o:ṃ	o::ŋ		o::ŋ				

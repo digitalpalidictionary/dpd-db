@@ -10,7 +10,7 @@ from tools.tsv_read_write import write_tsv_dot_dict
 
 class ProgData():
     def __init__(self) -> None:
-        self.file_path: Path = Path("tools/unicode_ipa.tsv")
+        self.file_path: Path = Path("tools/ipa.tsv")
         self.tsv: list = read_tsv_dot_dict(self.file_path)
         self.uni_to_ipa_dict: dict = self.make_uni_to_ipa_dict(self.tsv)
         self.uni_to_tts_dict: dict = self.make_uni_to_tts_dict(self.tsv)
@@ -18,6 +18,8 @@ class ProgData():
     def make_uni_to_ipa_dict(self, tsv):
         dict = {}
         for i in tsv:
+            if i.section == "unused":
+                break
             if i.ipa:
                 dict[i.unicode] = i.ipa
         return dict
@@ -25,6 +27,8 @@ class ProgData():
     def make_uni_to_tts_dict(self, tsv):
         dict = {}
         for i in tsv:
+            if i.section == "unused":
+                break
             if i.tts:
                 dict[i.unicode] = i.tts
             else:
@@ -134,7 +138,7 @@ def convert_uni_to_ipa(text:str, ipa_or_tts: str):
 
 
 if __name__ == "__main__":
-    # update_tsv()
+    update_tsv()
     text = "yathā vā paneke bhonto samaṇabrāhmaṇā saddhādeyyāni bhojanāni bhuñjitvā te evarūpāya tiracchānavijjāya micchājīvena jīvitaṃ kappenti, seyyathidaṃ — santikammaṃ paṇidhikammaṃ bhūtakammaṃ bhūrikammaṃ vassakammaṃ vossakammaṃ vatthukammaṃ vatthuparikammaṃ ācamanaṃ nhāpanaṃ juhanaṃ vamanaṃ virecanaṃ uddhaṃvirecanaṃ adhovirecanaṃ sīsavirecanaṃ kaṇṇatelaṃ nettatappanaṃ natthukammaṃ añjanaṃ paccañjanaṃ sālākiyaṃ sallakattiyaṃ dārakatikicchā mūlabhesajjānaṃ anuppadānaṃ osadhīnaṃ paṭimokkho iti vā iti evarūpāya tiracchānavijjāya micchājīvā paṭivirato samaṇo gotamo’ti — iti vā hi, bhikkhave, puthujjano tathāgatassa vaṇṇaṃ vadamāno vadeyya."
     ipa = convert_uni_to_ipa(text, "ipa")
     tts = convert_uni_to_ipa(text, "tts")
