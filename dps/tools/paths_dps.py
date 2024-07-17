@@ -14,6 +14,8 @@ class DPSPaths:
 
         # csvs
         self.anki_csvs_dps_dir = base_dir.joinpath(Path("dps/csvs/anki_csvs/"))
+        self.pali_class_dir = base_dir.joinpath(Path("dps/csvs/anki_csvs/pali_class/"))
+        self.pali_class_grammar_dir = base_dir.joinpath(Path("dps/csvs/anki_csvs/pali_class/grammar/"))
         self.csv_dps_dir = base_dir.joinpath(Path("dps/csvs/"))
         self.dpd_dps_full_path = base_dir.joinpath(Path("dps/csvs/dpd_dps_full.csv"))
         self.dps_full_path = base_dir.joinpath(Path("dps/csvs/dps_full.csv"))
@@ -76,8 +78,10 @@ class DPSPaths:
 
     def create_dirs(self):
             for d in [
-                self.anki_csvs_dps_dir,
                 self.csv_dps_dir,
+                self.anki_csvs_dps_dir,
+                self.pali_class_dir,
+                self.pali_class_grammar_dir,
                 self.dps_backup_dir,
                 self.for_compare_dir,
                 self.temp_csv_backup_dir,
