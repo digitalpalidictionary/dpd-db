@@ -390,7 +390,12 @@ def db_internal_tests(db_session, pth, sg, window, flags):
                     break
 
                 if event == "test_add_exception_button":
-                    exception = int(values["test_add_exception"])
+                    try:
+                        exception = int(values["test_add_exception"])
+                    except ValueError:
+                        window["messages"].update(
+                            "[red]not a valid id")
+
                     internal_tests_list[test_counter].exceptions += [exception]
 
                     write_internal_tests_list(pth, internal_tests_list)
