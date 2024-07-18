@@ -33,6 +33,21 @@ var fontSizeDisplay = document.getElementById("font-size-display");
 
 let dpdResultsContent = "";
 
+//// uri utils
+
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split('&');
+
+    for (var i = 0; i < vars.length; i++) {
+      var pair = vars[i].split('=');
+
+      if (pair[0] === variable) {
+        return decodeURIComponent(pair[1].replace(/\+/g, '%20'));
+      }
+    }
+}
+
 //// load state
 
 function loadToggleState(id) {
@@ -82,11 +97,19 @@ document.addEventListener("DOMContentLoaded", function() {
     toggleClearHistoryButton()
     swopSansSerif()
     if (dpdResults.innerHTML.trim() == "") {
-        dpdResults.innerHTML = startMessage
-    } 
+        dpdResults.innerHTML = startMessage;
+    }
+    applyUrlQuery();
 });
 
 //// listeners
+
+//// back button
+
+window.onpopstate = function(e) {
+    searchBox.value = e.state.q;
+    handleFormSubmit().then();
+};
 
 //// trigger title clear - go home
 
@@ -242,6 +265,16 @@ async function handleFormSubmit(event) {
     }
 }
 
+//// url query param
+
+function applyUrlQuery() {
+    const query = getQueryVariable('q');
+    if(!query) return;
+    searchBox.value = query;
+    window.history.replaceState({'q': query}, '', '?q='+encodeURIComponent(query));
+    handleFormSubmit().then();
+}
+
 //// populate history
 
 function addToHistory(word) {
@@ -255,6 +288,9 @@ function addToHistory(word) {
         historyList.pop();
     }
     localStorage.setItem("history-list", JSON.stringify(historyList));
+    if (getQueryVariable('q') !== word) {
+        window.history.pushState({'q': word}, '', '?q='+encodeURIComponent(word));
+    }
     toggleClearHistoryButton()
 }
 
