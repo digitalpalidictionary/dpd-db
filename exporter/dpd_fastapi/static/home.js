@@ -48,41 +48,6 @@ function getQueryVariable(variable) {
     }
 }
 
-function updateQueryString(key, value, url) {
-    value = encodeURIComponent(value);
-    if (!url) url = window.location.href;
-    var re = new RegExp("([?&])" + key + "=.*?(&|#|$)(.*)", "gi"),
-        hash;
-
-    if (re.test(url)) {
-        if (typeof value !== 'undefined' && value !== null) {
-            return url.replace(re, '$1' + key + "=" + value + '$2$3');
-        } 
-        else {
-            hash = url.split('#');
-            url = hash[0].replace(re, '$1$3').replace(/(&|\?)$/, '');
-            if (typeof hash[1] !== 'undefined' && hash[1] !== null) {
-                url += '#' + hash[1];
-            }
-            return url;
-        }
-    }
-    else {
-        if (typeof value !== 'undefined' && value !== null) {
-            var separator = url.indexOf('?') !== -1 ? '&' : '?';
-            hash = url.split('#');
-            url = hash[0] + separator + key + '=' + value;
-            if (typeof hash[1] !== 'undefined' && hash[1] !== null) {
-                url += '#' + hash[1];
-            }
-            return url;
-        }
-        else {
-            return url;
-        }
-    }
-}
-
 //// load state
 
 function loadToggleState(id) {
@@ -132,12 +97,19 @@ document.addEventListener("DOMContentLoaded", function() {
     toggleClearHistoryButton()
     swopSansSerif()
     if (dpdResults.innerHTML.trim() == "") {
-        dpdResults.innerHTML = startMessage
+        dpdResults.innerHTML = startMessage;
     }
     applyUrlQuery();
 });
 
 //// listeners
+
+//// back button
+
+window.onpopstate = function(e) {
+    searchBox.value = e.state.q;
+    handleFormSubmit().then();
+};
 
 //// trigger title clear - go home
 
@@ -299,6 +271,7 @@ function applyUrlQuery() {
     const query = getQueryVariable('q');
     if(!query) return;
     searchBox.value = query;
+    window.history.replaceState({'q': query}, '', '?q='+encodeURIComponent(query));
     handleFormSubmit().then();
 }
 
@@ -315,6 +288,9 @@ function addToHistory(word) {
         historyList.pop();
     }
     localStorage.setItem("history-list", JSON.stringify(historyList));
+    if (getQueryVariable('q') !== word) {
+        window.history.pushState({'q': word}, '', '?q='+encodeURIComponent(word));
+    }
     toggleClearHistoryButton()
 }
 
