@@ -1,4 +1,7 @@
 word	pos	position	type	exceptions
+araha	any	last	chaṭṭhī	avaṇṇāraha, pādāraha, mahāraha
+vatta	any	last	sattamī	cakkavattiariyavatta, sīlavatta, gahaṭṭhavatta, vivekavatta
+cuta	any	last	pañcamī	x
 āsava	any	last	chaṭṭhī	khīṇāsava, pahātabbāsava, sabbāsava, pubbāsava
 khandha	any	last	chaṭṭhī	arūpakkhandha, uparikhandha, pañcakkhandha, pattakkhandha, pubbenivutthakkhandha, samavaṭṭakkhandha, samavaṭṭakhandha, vivattakkhandha, sañjātakhandha
 vāsa	any	last	sattamī	antevāsīvāsa, abrahmacariyavāsa
@@ -13,7 +16,6 @@ gāravatā	any	last	sattamī	x
 gārava	any	last	sattamī	adhammagārava, tibbagārava
 saññā	any	last	sattamī	akusalasaññā 1
 apagata	any	last	pañcamī	x
-cuta	any	last	pañcamī	x
 ja	adj	last	pañcamī	ekaja, dvija 1, pubbaja, sahaja 1, anutuja
 mokkha	any	last	pañcamī	aññamokkha, saggamokkha
 niggata	any	last	pañcamī	x
@@ -47,7 +49,6 @@ saṃyojana	any	last	chaṭṭhī	ajjhattasaṃyojana, khīṇasaṃyojana, pari
 karaṇīya	nt	last	catutthī	aggikaraṇīya, uttarikaraṇīya, uttariṃkaraṇīya, kiṅkaraṇīya, kiccakaraṇīya, kiṃkaraṇīya, tirokaraṇīya, dhanakaraṇīya, saṅghakaraṇīya, satuppādakaraṇīya, sattāhakaraṇīya, samaṇakaraṇīya, sārakaraṇīya, saṃghakaraṇīya
 da	any	last	dutiyā	x	
 uju	any	first	kammadhāraya	ujugata, ujumaggānusārī
-araha	any	last	chaṭṭhī	avaṇṇāraha, pādāraha, mahāraha
 paṭipanna	adj	last	dutiyā	ujupaṭipanna, ujuppaṭipanna, micchāpaṭipanna, yathāpaṭipanna, sammāpaṭipanna, sāmīcipaṭipanna
 rāga	any	last	sattamī	adhammarāga, avigatarāga, avītarāga, chandarāga, tibbarāga, nandirāga, nandīrāga, saṅkapparāga, vigatarāga, vītarāga 1, vītarāga 2
 gaṇanā	any	last	chaṭṭhī	x

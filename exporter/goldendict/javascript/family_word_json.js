@@ -2505,8 +2505,8 @@ var family_word_json = {
    [
     "antara 4",
     "nt",
-    "difference",
-    "✗"
+    "difference; distinction",
+    "✓"
    ],
    [
     "antarato",
@@ -6703,7 +6703,7 @@ var family_word_json = {
    [
     "attha 3.2",
     "masc",
-    "death; end",
+    "death; end; annihilation; destruction",
     "✓"
    ],
    [
@@ -7961,7 +7961,7 @@ var family_word_json = {
    [
     "chavī",
     "adj",
-    "with skin; with a complexion",
+    "with (a type of) skin; having (a certain) complexion",
     "✓"
    ],
    [
@@ -19945,8 +19945,14 @@ var family_word_json = {
    [
     "kaḷebara 3",
     "nt",
-    "stair; step; log",
+    "stair; step",
     "✓"
+   ],
+   [
+    "kaḷebara 4",
+    "nt",
+    "log",
+    "✗"
    ],
    [
     "kaḷevara 1",
@@ -19963,11 +19969,17 @@ var family_word_json = {
    [
     "kaḷevara 3",
     "nt",
-    "stair; step; log",
+    "stair; step",
     "✓"
+   ],
+   [
+    "kaḷevara 4",
+    "nt",
+    "log",
+    "✗"
    ]
   ],
-  "count": 7
+  "count": 9
  },
  "kasaṭa": {
   "data": [
@@ -23230,6 +23242,23 @@ var family_word_json = {
    ]
   ],
   "count": 4
+ },
+ "jaṭhara": {
+  "data": [
+   [
+    "jaṭṭhara",
+    "nt",
+    "stomach; belly",
+    "✓"
+   ],
+   [
+    "jaṭhara",
+    "nt",
+    "stomach; belly",
+    "~"
+   ]
+  ],
+  "count": 2
  },
  "jāṇu": {
   "data": [

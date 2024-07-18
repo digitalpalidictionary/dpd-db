@@ -9621,7 +9621,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "āruha",
+    "āruha 1",
     "masc",
     "rider; driver; lit. mounter; ascender",
     "✓"
@@ -11690,7 +11690,7 @@ var family_set_json = {
    [
     "jotika 2",
     "masc",
-    "name of a householder; lit. having light",
+    "name of a householder; lit. having shine",
     "~"
    ],
    [
@@ -14107,7 +14107,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "piyadassī",
+    "piyadassī 1",
     "masc",
     "name of a privately awakened Buddha; lit. dear to see; (or) who looks fondly",
     "✓"
@@ -15492,7 +15492,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "nārada",
+    "nārada 1",
     "masc",
     "name of a monk",
     "~"
@@ -16260,7 +16260,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "revata",
+    "revata 1",
     "masc",
     "name of a monk; great disciple of the Buddha; foremost disciple in forest dwelling",
     "✓"
@@ -24080,7 +24080,7 @@ var family_set_json = {
    [
     "kūṭakaṇṇa",
     "masc",
-    "name of an ancient Sri Lankan king who reigned from 42 to 20 BC; lit. crooked ear",
+    "name of an ancient Sri Lankan king who reigned from 42 to 20 BCE; lit. crooked ear",
     "✓"
    ],
    [
@@ -24104,7 +24104,7 @@ var family_set_json = {
    [
     "gajabāhu",
     "masc",
-    "name of an ancient Sri Lankan king who reigned from 113 to  135 CE; lit. arms like an elephant (trunk)",
+    "name of an ancient Sri Lankan king who reigned from 113 to 135 CE; lit. arms like an elephant (trunk)",
     "~"
    ],
    [
@@ -24146,7 +24146,7 @@ var family_set_json = {
    [
     "duṭṭhagāmaṇi",
     "masc",
-    "name of a renowned ancient king in Sri Lanka who reigned from 161 to 137 BC; lit. corrupt chief",
+    "name of a renowned ancient king in Sri Lanka who reigned from 161 to 137 BCE; lit. corrupt chief",
     "✓"
    ],
    [
@@ -25132,7 +25132,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "pārichattaka",
+    "pārichattaka 1",
     "masc",
     "name of a type of tree; Bauhinia variegata; lit. umbrella all around",
     "✓"
@@ -30399,7 +30399,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "revata",
+    "revata 1",
     "masc",
     "name of a monk; great disciple of the Buddha; foremost disciple in forest dwelling",
     "✓"
@@ -31597,7 +31597,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "pārichattaka",
+    "pārichattaka 1",
     "masc",
     "name of a type of tree; Bauhinia variegata; lit. umbrella all around",
     "✓"
@@ -33261,6 +33261,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "cittala",
+    "masc",
+    "name of a mountain in Sri Lanka",
+    "✓"
+   ],
+   [
     "cittalapabbata",
     "masc",
     "name of an ancient mountain-top monastery in Sri Lanka",
@@ -33345,7 +33351,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 24
+  "count": 25
  },
  "five hindrances": {
   "data": [
@@ -34683,14 +34689,20 @@ var family_set_json = {
    [
     "kūṭakaṇṇa",
     "masc",
-    "name of an ancient Sri Lankan king who reigned from 42 to 20 BC; lit. crooked ear",
+    "name of an ancient Sri Lankan king who reigned from 42 to 20 BCE; lit. crooked ear",
     "✓"
    ],
    [
     "gajabāhu",
     "masc",
-    "name of an ancient Sri Lankan king who reigned from 113 to  135 CE; lit. arms like an elephant (trunk)",
+    "name of an ancient Sri Lankan king who reigned from 113 to 135 CE; lit. arms like an elephant (trunk)",
     "~"
+   ],
+   [
+    "cittala",
+    "masc",
+    "name of a mountain in Sri Lanka",
+    "✓"
    ],
    [
     "cittalapabbata",
@@ -34713,7 +34725,7 @@ var family_set_json = {
    [
     "duṭṭhagāmaṇi",
     "masc",
-    "name of a renowned ancient king in Sri Lanka who reigned from 161 to 137 BC; lit. corrupt chief",
+    "name of a renowned ancient king in Sri Lanka who reigned from 161 to 137 BCE; lit. corrupt chief",
     "✓"
    ],
    [
@@ -34729,7 +34741,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 8
+  "count": 9
  },
  "epithets of Sakka": {
   "data": [

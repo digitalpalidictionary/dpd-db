@@ -13374,6 +13374,29 @@ var family_idiom_json = {
    ]
   ]
  },
+ "siras": {
+  "count": 3,
+  "data": [
+   [
+    "uddhaṃpādaṃ adhosiraṃ",
+    "idiom",
+    "feet up, head down; upside down; head over heels",
+    "✓"
+   ],
+   [
+    "pāde sirasā vandati",
+    "idiom",
+    "worships with the head at the feet (of)",
+    "✓"
+   ],
+   [
+    "pādesu sirasā nipatitvā",
+    "idiom",
+    "having fallen at the feet with the head",
+    "✓"
+   ]
+  ]
+ },
  "anta": {
   "count": 1,
   "data": [
@@ -20804,29 +20827,6 @@ var family_idiom_json = {
     "uddhaṃ adho tiriyaṃ",
     "idiom",
     "above below and across; in every direction",
-    "✓"
-   ]
-  ]
- },
- "siras": {
-  "count": 3,
-  "data": [
-   [
-    "uddhaṃpādaṃ adhosiraṃ",
-    "idiom",
-    "feet up, head down; upside down; head over heels",
-    "✓"
-   ],
-   [
-    "pāde sirasā vandati",
-    "idiom",
-    "worships with the head at the feet (of)",
-    "✓"
-   ],
-   [
-    "pādesu sirasā nipatitvā",
-    "idiom",
-    "having fallen at the feet with the head",
     "✓"
    ]
   ]
