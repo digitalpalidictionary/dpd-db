@@ -1,7 +1,7 @@
 name: Russian Release
 
 on: 
- workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -97,7 +97,7 @@ jobs:
     - name: Deconstructor Splitter
       run: poetry run python db/deconstructor/sandhi_splitter.py
 
-    - name: Deconstructor Postprocess
+    - name: Deconstructor Postprocess setup
       run: poetry run python db/deconstructor/sandhi_postprocess.py
 
     - name: Inflections to Headwords
@@ -121,7 +121,7 @@ jobs:
     # ----------------------------------------
     # Exporter
     # ----------------------------------------
-           
+
     - name: Export Grammar Dictionary
       run: poetry run python exporter/grammar_dict/grammar_dict.py
     
@@ -159,8 +159,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GH_PAT }}
       with:
-        tag_name: ${{ env.RELEASE_TAG }}
-        release_name: ${{ env.RELEASE_DATE }}
+        tag_name: ${{ env.RELEASE_TAG }}"
+        release_name: ${{ env.RELEASE_DATE }}"
         body: |
           ### [Цифровой Словарь Пали](https://digitalpalidictionary.github.io/rus/)
 
