@@ -501,6 +501,7 @@ class AllowableCharacters():
         colon +
         dash + 
         hash +
+        plus +
         percent +
         brackets +
         low_line +

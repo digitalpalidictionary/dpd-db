@@ -52,6 +52,10 @@ double_consonants = [
         "pp", "bb", "mm", 
         "yy", "rr", "ll", 
         "ss", "vv", "ḷḷ", 
+        "jv", "tv", "dv", 
+        "hm", 
+        "kr", "tr", "dr",
+        "pr", "br", 
 ]
 
 

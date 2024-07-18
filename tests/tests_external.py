@@ -861,7 +861,7 @@ def duplicate_words_meaning_lit(searches: dict) -> tuple:
         "suve suve", "yena yeneva", "samasamagati", "aggamagga 2.1",
         "antarantarā 1", "huṃhuṅkajātika", "huṃhuṅka", "huṃhuṅka",
         "nihuṃhuṅka", "nihuṃhuṅka", "sabhāvatta", "appappa", 
-        "nānantavant",
+        "nānantavant", "nissāya nissāya", 
     ]
 
     results = []
