@@ -83,8 +83,6 @@ def main():
             else:
                 i.inflections = i.lemma_clean
 
-
-
     db_session.commit()
 
     print("[green]adding to db")

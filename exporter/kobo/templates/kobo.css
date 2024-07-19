@@ -1,3 +1,9 @@
+h3 {
+  font-size: 130%;
+  margin-top: 10px;
+  margin-bottom: 1px;
+}
+
 div.content {
     border: 2px solid #00A4CC;
     border-radius: 7px;

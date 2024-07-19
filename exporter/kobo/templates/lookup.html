@@ -1,0 +1,38 @@
+<html>
+<style>
+    {{ css }}
+</style>
+<body>
+    
+{% if i.deconstructor %}
+<div class="content">
+    <p>
+    {% for dc in i.deconstructor_unpack %}
+    {{ dc }}<br>
+    {% endfor %}
+    </p>
+</div>
+{% endif %}
+
+{% if i.variant %}
+<div class="content">
+    <p>
+    {% for var in i.variant_unpack %}
+    variant reading of {{ var }}<br>
+    {% endfor %}
+    </p>
+</div>
+{% endif %}
+
+{% if i.spelling %}
+<div class="content">
+    <p>
+    {% for sp in i.spelling_unpack %}
+    incorrect spelling of {{ sp }}<br>
+    {% endfor %}
+    </p>
+</div>
+{% endif %}
+
+</body>
+</html>

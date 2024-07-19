@@ -56,6 +56,7 @@ double_consonants = [
         "hm", 
         "kr", "tr", "dr",
         "pr", "br", 
+        "nt", "mt", 
 ]
 
 
@@ -143,7 +144,7 @@ def convert_uni_to_ipa(text:str, ipa_or_tts: str):
 
 if __name__ == "__main__":
     update_tsv()
-    text = "yathā vā paneke bhonto samaṇabrāhmaṇā saddhādeyyāni bhojanāni bhuñjitvā te evarūpāya tiracchānavijjāya micchājīvena jīvitaṃ kappenti, seyyathidaṃ — santikammaṃ paṇidhikammaṃ bhūtakammaṃ bhūrikammaṃ vassakammaṃ vossakammaṃ vatthukammaṃ vatthuparikammaṃ ācamanaṃ nhāpanaṃ juhanaṃ vamanaṃ virecanaṃ uddhaṃvirecanaṃ adhovirecanaṃ sīsavirecanaṃ kaṇṇatelaṃ nettatappanaṃ natthukammaṃ añjanaṃ paccañjanaṃ sālākiyaṃ sallakattiyaṃ dārakatikicchā mūlabhesajjānaṃ anuppadānaṃ osadhīnaṃ paṭimokkho iti vā iti evarūpāya tiracchānavijjāya micchājīvā paṭivirato samaṇo gotamo’ti — iti vā hi, bhikkhave, puthujjano tathāgatassa vaṇṇaṃ vadamāno vadeyya."
+    text = "iti kira, vāseṭṭha, sapariggahā tevijjā brāhmaṇā apariggaho brahmā. api nu kho sapariggahānaṃ tevijjānaṃ brāhmaṇānaṃ apariggahena brahmunā saddhiṃ saṃsandati sametī”ti? “no hidaṃ, bho gotama”. “sādhu, vāseṭṭha, te vata, vāseṭṭha, sapariggahā tevijjā brāhmaṇā kāyassa bhedā paraṃ maraṇā apariggahassa brahmuno sahabyūpagā bhavissantī”ti, netaṃ ṭhānaṃ vijjati."
     ipa = convert_uni_to_ipa(text, "ipa")
     tts = convert_uni_to_ipa(text, "tts")
     print(f"[white]{text}")
