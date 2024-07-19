@@ -152,7 +152,7 @@ def suffix_does_not_match_lemma_1(searches: dict) -> tuple:
     results = []
     exceptions = [
         "adhipa", "bavh", "labbhā", "munī", "gatī", "visesi", "khantī",
-        "sāraṇī", "bahulī", "yānī 2", "yada", "sabbadhī"]
+        "sāraṇī", "bahulī", "yānī 2", "yada", "sabbadhī", "missī"]
 
     for i in searches["dpd_headword"]:
         if i.suffix and i.lemma_1 not in exceptions:
