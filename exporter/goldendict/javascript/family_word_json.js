@@ -3776,7 +3776,7 @@ var family_word_json = {
    [
     "attatā",
     "fem",
-    "selfhood; beingness; state of being",
+    "selfhood; beingness; state of being; lit. self state",
     "✓"
    ],
    [
@@ -6644,7 +6644,7 @@ var family_word_json = {
    [
     "atta 3",
     "nt",
-    "(gram) the negative prefix a",
+    "(gram) the negative prefix a; lit. na state",
     "✓"
    ],
    [
@@ -7185,7 +7185,7 @@ var family_word_json = {
    [
     "advejjha 1",
     "nt",
-    "non-ambiguity; certainty; non-dispute; lit. not two-way-ness",
+    "non-ambiguity; certainty; non-dispute; lit. not two-way state",
     "~"
    ],
    [
@@ -8158,7 +8158,7 @@ var family_word_json = {
    [
     "lomavant",
     "adj",
-    "hairy; hirsute",
+    "hairy; hirsute; lit. having hair quality",
     "~"
    ],
    [
@@ -14390,7 +14390,7 @@ var family_word_json = {
    [
     "yāvant",
     "adj",
-    "as many as; however many",
+    "as many as; however many; lit. having so much quality",
     "✓"
    ],
    [
@@ -16383,7 +16383,7 @@ var family_word_json = {
    [
     "sirīmant 1",
     "adj",
-    "fortunate; lucky",
+    "fortunate; lucky; lit. having luck quality",
     "~"
    ],
    [
@@ -22569,6 +22569,23 @@ var family_word_json = {
   ],
   "count": 5
  },
+ "caru": {
+  "data": [
+   [
+    "caru",
+    "masc",
+    "oblation to the gods; oblation bowl",
+    "~"
+   ],
+   [
+    "caruka",
+    "masc",
+    "jar; bowl; small container",
+    "✓"
+   ]
+  ],
+  "count": 2
+ },
  "cāpa": {
   "data": [
    [
@@ -23248,13 +23265,13 @@ var family_word_json = {
    [
     "jaṭṭhara",
     "nt",
-    "stomach; belly",
+    "stomach; belly; abdomen",
     "✓"
    ],
    [
     "jaṭhara",
     "nt",
-    "stomach; belly",
+    "stomach; belly; abdomen",
     "~"
    ]
   ],

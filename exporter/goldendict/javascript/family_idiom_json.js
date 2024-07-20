@@ -307,6 +307,47 @@ var family_idiom_json = {
    ]
   ]
  },
+ "kamma": {
+  "count": 6,
+  "data": [
+   [
+    "okāsakammaṃ kataṃ",
+    "idiom",
+    "granted permission (by); allowed (by); lit. made making space",
+    "✓"
+   ],
+   [
+    "kammakiliṭṭhamattano",
+    "sandhi",
+    "one's own dirty deeds; one's own corrupt actions",
+    "✓"
+   ],
+   [
+    "kammanirodhagāminī paṭipadā",
+    "idiom",
+    "path of practice leading to the end of intentional action",
+    "✓"
+   ],
+   [
+    "kammavisuddhimattano",
+    "sandhi",
+    "one's own pure deeds",
+    "✓"
+   ],
+   [
+    "kammassakomhi",
+    "idiom",
+    "I am the owner of my actions; my actions are my own property; lit. action property I am",
+    "✓"
+   ],
+   [
+    "kammaṃ karoti",
+    "idiom",
+    "does a deed (with); performs an action (with)",
+    "✓"
+   ]
+  ]
+ },
  "karaṇīya": {
   "count": 2,
   "data": [
@@ -12447,7 +12488,7 @@ var family_idiom_json = {
   ]
  },
  "hi": {
-  "count": 53,
+  "count": 54,
   "data": [
    [
     "aduñhi",
@@ -12525,6 +12566,12 @@ var family_idiom_json = {
     "kathañhi",
     "sandhi",
     "how indeed!?; why indeed!?",
+    "✓"
+   ],
+   [
+    "kathaṃ hi nāma",
+    "idiom",
+    "how on earth!?; how dare!?; how is it possible!?",
     "✓"
    ],
    [
@@ -12849,7 +12896,7 @@ var family_idiom_json = {
    [
     "idamavoca",
     "sandhi",
-    "one said this",
+    "one said this (to)",
     "✓"
    ],
    [
@@ -15055,7 +15102,7 @@ var family_idiom_json = {
   ]
  },
  "nāma": {
-  "count": 15,
+  "count": 16,
   "data": [
    [
     "appeva nāma",
@@ -15079,6 +15126,12 @@ var family_idiom_json = {
     "iddhimantāssunāmime",
     "sandhi",
     "truly they are supernormal!; they must have psychic powers!",
+    "✓"
+   ],
+   [
+    "kathaṃ hi nāma",
+    "idiom",
+    "how on earth!?; how dare!?; how is it possible!?",
     "✓"
    ],
    [
@@ -16926,7 +16979,7 @@ var family_idiom_json = {
    [
     "idamavoca",
     "sandhi",
-    "one said this",
+    "one said this (to)",
     "✓"
    ],
    [
@@ -22095,47 +22148,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "kamma": {
-  "count": 6,
-  "data": [
-   [
-    "okāsakammaṃ kataṃ",
-    "idiom",
-    "granted permission (by); allowed (by); lit. made making space",
-    "✓"
-   ],
-   [
-    "kammakiliṭṭhamattano",
-    "sandhi",
-    "one's own dirty deeds; one's own corrupt actions",
-    "✓"
-   ],
-   [
-    "kammanirodhagāminī paṭipadā",
-    "idiom",
-    "path of practice leading to the end of intentional action",
-    "✓"
-   ],
-   [
-    "kammavisuddhimattano",
-    "sandhi",
-    "one's own pure deeds",
-    "✓"
-   ],
-   [
-    "kammassakomhi",
-    "idiom",
-    "I am the owner of my actions; my actions are my own property; lit. action property I am",
-    "✓"
-   ],
-   [
-    "kammaṃ karoti",
-    "idiom",
-    "does a deed (with); performs an action (with)",
-    "✓"
-   ]
-  ]
- },
  "kāretvā": {
   "count": 3,
   "data": [
@@ -22851,7 +22863,7 @@ var family_idiom_json = {
   ]
  },
  "kathaṃ": {
-  "count": 14,
+  "count": 15,
   "data": [
    [
     "kathañca",
@@ -22911,6 +22923,12 @@ var family_idiom_json = {
     "kathaṃ vā te ettha hoti",
     "idiom",
     "or what do you think about this?; or how does this seem to you?; lit. or how is this matter for you?",
+    "✓"
+   ],
+   [
+    "kathaṃ hi nāma",
+    "idiom",
+    "how on earth!?; how dare!?; how is it possible!?",
     "✓"
    ],
    [

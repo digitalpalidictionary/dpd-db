@@ -327,7 +327,7 @@ var family_set_json = {
    [
     "atta 3",
     "nt",
-    "(gram) the negative prefix a",
+    "(gram) the negative prefix a; lit. na state",
     "✓"
    ],
    [
@@ -381,7 +381,7 @@ var family_set_json = {
    [
     "adhikāratta",
     "nt",
-    "(gram) fact of being under the governing rule which affects those that follow",
+    "(gram) fact of being under the governing rule which affects those that follow; lit. governing rule state",
     "~"
    ],
    [
@@ -4611,7 +4611,7 @@ var family_set_json = {
    [
     "sutivant",
     "adj",
-    "(gram) having sound; lit. hearing quality",
+    "(gram) having sound; lit. having hearing quality",
     "~"
    ],
    [
@@ -13413,7 +13413,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "ākāsa 6",
+    "ākāsa 2.1",
     "masc",
     "name of a family clan",
     "✓"
@@ -13702,7 +13702,7 @@ var family_set_json = {
    [
     "bhaddavatiya 2",
     "nt",
-    "name of region; lit. around Bhaddavatī",
+    "name of a region; lit. around Bhaddavatī",
     "~"
    ],
    [
@@ -16892,7 +16892,7 @@ var family_set_json = {
    [
     "subhūta",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. wellbeing",
     "~"
    ],
    [
@@ -19531,7 +19531,7 @@ var family_set_json = {
    [
     "subhūta",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. wellbeing",
     "~"
    ],
    [
@@ -24048,6 +24048,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kaṇhājinā",
+    "fem",
+    "name of a princess; daughter of Vessantara",
+    "✓"
+   ],
+   [
     "karakaṇḍa",
     "masc",
     "name of one of the sons of king Okkāka",
@@ -24124,6 +24130,12 @@ var family_set_json = {
     "masc",
     "name of a prince; lit. victorious army",
     "~"
+   ],
+   [
+    "jālī 2.3",
+    "masc",
+    "name of a prince; lit. blazing",
+    "✓"
    ],
    [
     "jetar 1",
@@ -24348,7 +24360,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 66
+  "count": 68
  },
  "six ascetic teachers": {
   "data": [
@@ -28762,6 +28774,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "kāsati 3.1",
+    "fut",
+    "will do; will make",
+    "✓"
+   ],
+   [
     "kāḷapakkha",
     "masc",
     "dark fortnight of the lunar month; waning moon; lit. dark side",
@@ -29002,7 +29020,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 60
+  "count": 61
  },
  "money": {
   "data": [
@@ -33108,7 +33126,7 @@ var family_set_json = {
    [
     "desetar",
     "masc",
-    "teacher; who preaches (to)",
+    "teacher; who preaches (something to someone)",
     "✓"
    ],
    [
