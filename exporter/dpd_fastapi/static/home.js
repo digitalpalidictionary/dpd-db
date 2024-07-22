@@ -522,13 +522,13 @@ function uniDecoder(textInput) {
         .replaceAll("ḍ", ".d")
         .replaceAll("ṇ", ".n")
         .replaceAll("ṃ", ".m")
-	.replaceAll("ṁ", ".m")
+        .replaceAll("ṁ", ".m")
         .replaceAll("ḷ", ".l")
         .replaceAll("ḥ", ".h")
 };
 
 function encodeQueryParam(query) {
-	return encodeURIComponent(uniDecoder(query));
+    return encodeURIComponent(uniDecoder(query));
 }
 
 function uniCoder(textInput) {
