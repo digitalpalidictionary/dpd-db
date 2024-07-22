@@ -50,7 +50,10 @@ cst_texts: Dict[str, List[str]] = {
     "kn11": ["s0510m2.mul.txt"],
     "kn12": ["s0511m.mul.txt"],
     "kn13": ["s0512m.mul.txt"],
-    "kn14": ["s0513m.mul.txt", "s0514m.mul.txt"],
+    "kn14": [
+        "s0513m.mul.txt",
+        "s0514m.mul.txt"
+    ],
     "kn15": ["s0515m.mul.txt"],
     "kn16": ["s0516m.mul.txt"],
     "kn17": ["s0517m.mul.txt"],
@@ -66,7 +69,8 @@ cst_texts: Dict[str, List[str]] = {
     "abh6": [
         "abh03m4.mul.txt",
         "abh03m5.mul.txt",
-        "abh03m6.mul.txt"],
+        "abh03m6.mul.txt"
+    ],
     "abh7": [
         "abh03m7.mul.txt",
         "abh03m8.mul.txt",
@@ -279,7 +283,6 @@ cst_texts: Dict[str, List[str]] = {
         "e1214n.nrf.txt",
         "e1215n.nrf.txt",
     ],
-
 }
 
 sc_texts: Dict[str, List[str]] = {
@@ -7823,63 +7826,436 @@ sc_texts: Dict[str, List[str]] = {
 
 bjt_texts = {
     "vin1": [
-        "vp-prj.txt", "vp-prj-2-3.txt", "vp-prj-3.txt", "vp-prj-3-4.txt",
-        "vp-prj-4.txt"],
+        "vp-prj.json",
+        "vp-prj-2-3.json",
+        "vp-prj-3.json",
+        "vp-prj-3-4.json",
+        "vp-prj-4.json"
+    ],
     "vin2": [
-        "vp-pct.txt", "vp-pct-1-1-5.txt", "vp-pct-1-2.txt", "vp-pct-2.txt",
-        "vp-pct-2-4-3.txt", "vp-pct-2-5.txt"],
+        "vp-pct.json",
+        "vp-pct-1-1-5.json",
+        "vp-pct-1-2.json",
+        "vp-pct-2.json",
+        "vp-pct-2-4.json",
+    ],
     "vin3": [
-        "vp-mv.txt", "vp-mv-2.txt", "vp-mv-4.txt", "vp-mv-6.txt",
-        "vp-mv-7.txt", "vp-mv-9.txt"],
+        "vp-mv.json",
+        "vp-mv-2.json",
+        "vp-mv-4.json",
+        "vp-mv-6.json",
+        "vp-mv-7.json",
+        "vp-mv-9.json"
+    ],
     "vin4": [
-        "vp-cv.txt", "vp-cv-3.txt", "vp-cv-5.txt", "vp-cv-8.txt"],
+        "vp-cv.json",
+        "vp-cv-3.json",
+        "vp-cv-5.json",
+        "vp-cv-8.json"
+    ],
     "vin5": [
-        "vp-pv.txt", "vp-pv-2.txt", "vp-pv-5.txt", "vp-pv-14.txt"],
+        "vp-pv.json",
+        "vp-pv-2.json",
+        "vp-pv-5.json",
+        "vp-pv-14.json"
+    ],
 
-    "dn1": ["dn-1.txt", "dn-1-3.txt", "dn-1-6.txt", "dn-1-11.txt"],
-    "dn2": ["dn-2.txt", "dn-2-3.txt", "dn-2-4.txt", "dn-2-7.txt"],
-    "dn3": ["dn-3.txt", "dn-3-10.txt", "dn-3-5.txt"],
+    # dīgha
 
+    "dn1": [
+        "dn-1.json",
+        "dn-1-3.json",
+        "dn-1-6.json",
+        "dn-1-11.json"
+    ],
+    "dn2": [
+        "dn-2.json",
+        "dn-2-3.json",
+        "dn-2-4.json",
+        "dn-2-7.json"
+    ],
+    "dn3": [
+        "dn-3.json",
+        "dn-3-5.json",
+        "dn-3-10.json",
+    ],
     "mn1": [
-        "mn-1-1.txt", "mn-1-2.txt", "mn-1-3.txt", "mn-1-4.txt", "mn-1-5.txt"],
+        "mn-1-1.json",
+        "mn-1-2.json",
+        "mn-1-3.json",
+        "mn-1-4.json",
+        "mn-1-5.json"
+    ],
     "mn2": [
-        "mn-2-1.txt", "mn-2-2.txt", "mn-2-3.txt", "mn-2-4.txt", "mn-2-5.txt"],
+        "mn-2-1.json",
+        "mn-2-2.json",
+        "mn-2-3.json",
+        "mn-2-4.json",
+        "mn-2-5.json"
+    ],
     "mn3": [
-        "mn-3-1.txt", "mn-3-2.txt", "mn-3-3.txt", "mn-3-4.txt", "mn-3-5.txt"],
-
-    "sn1": ["sn-1.txt", "sn-1-3.txt", "sn-1-7.txt"],
-    "sn2": ["sn-2.txt", "sn-2-1-5.txt", "sn-2-2.txt", "sn-2-5.txt"],
+        "mn-3-1.json",
+        "mn-3-2.json",
+        "mn-3-3.json",
+        "mn-3-4.json",
+        "mn-3-5.json"
+    ],
+    "sn1": [
+        "sn-1.json",
+        "sn-1-3.json",
+        "sn-1-7.json",
+    ],
+    "sn2": [
+        "sn-2.json",
+        "sn-2-1-5.json",
+        "sn-2-2.json",
+        "sn-2-5.json",
+    ],
     "sn3": [
-        "sn-3.txt", "sn-3-1-2.txt", "sn-3-1-3.txt", "sn-3-2.txt",
-        "sn-3-7.txt"],
-    "sn4": ["sn-4.txt", "sn-4-1-12.txt", "sn-4-2.txt", "sn-4-8.txt"],
+        "sn-3.json",
+        "sn-3-1-2.json",
+        "sn-3-1-3.json",
+        "sn-3-2.json",
+        "sn-3-7.json",
+    ],
+    "sn4": [
+        "sn-4.json",
+        "sn-4-1-12.json",
+        "sn-4-2.json",
+        "sn-4-8.json"
+    ],
     "sn5": [
-        "sn-5.txt", "sn-5-11.txt", "sn-5-12.txt", "sn-5-2.txt", "sn-5-3.txt",
-        "sn-5-4.txt", "sn-5-7.txt"],
-
+        "sn-5.json",
+        "sn-5-2.json",
+        "sn-5-3.json",
+        "sn-5-4.json",
+        "sn-5-7.json",
+        "sn-5-11.json",
+        "sn-5-12.json",
+    ],
     "an1": [
-        "an-1.txt"],
+        "an-1.json"
+    ],
     "an2": [
-        "an-2.txt"],
+        "an-2.json"
+    ],
     "an3": [
-        "an-3-2.txt", "an-3-3.txt", "an-3.txt"],
+        "an-3.json",
+        "an-3-2.json",
+        "an-3-3.json",
+    ],
     "an4": [
-        "an-4-2.txt", "an-4-3.txt", "an-4-4.txt", "an-4-5.txt", "an-4.txt"],
+        "an-4.json",
+        "an-4-2.json",
+        "an-4-3.json",
+        "an-4-4.json",
+        "an-4-5.json",
+    ],
     "an5": [
-        "an-5-2.txt", "an-5-3.txt", "an-5-4.txt", "an-5-5.txt", "an-5.txt"],
+        "an-5.json",
+        "an-5-2.json",
+        "an-5-3.json",
+        "an-5-4.json",
+        "an-5-5.json",
+    ],
     "an6": [
-        "an-6-2.txt", "an-6.txt"],
+        "an-6.json",
+        "an-6-2.json",
+    ],
     "an7": [
-        "an-7-2.txt", "an-7.txt"],
+        "an-7.json",
+        "an-7-2.json",
+    ],
     "an8": [
-        "an-8-2.txt", "an-8.txt"],
+        "an-8.json",
+        "an-8-2.json", 
+    ],
     "an9": [
-        "an-9.txt"],
+        "an-9.json",
+    ],
     "an10": [
-        "an-10-2.txt", "an-10-3.txt", "an-10-4.txt", "an-10-5.txt",
-        "an-10.txt"],
+        "an-10.json",
+        "an-10-2.json",
+        "an-10-3.json",
+        "an-10-4.json",
+        "an-10-5.json",
+    ],
     "an11": [
-        "an-11.txt"],
+        "an-11.json"
+    ],
+
+    # khuddaka nikaya
+    "kn1": [
+        "kn-khp.json",
+    ],
+    "kn2": [
+        "kn-dhp.json",
+    ],
+    "kn3": [
+        "kn-ud.json",
+    ],
+    "kn4": [
+        "kn-iti.json",
+    ],
+    "kn5": [
+        "kn-snp.json",
+        "kn-snp-2.json",
+        "kn-snp-3.json",
+        "kn-snp-4.json",
+        "kn-snp-5.json",
+    ],
+    "kn6": [
+        "kn-vv.json",
+    ],
+    "kn7": [
+        "kn-pv.json",
+    ],
+    "kn8": [
+        "kn-thag.json",
+        "kn-thag-11.json",
+    ],
+    "kn9": [
+        "kn-thig.json",
+    ],
+    "kn10": [
+        "kn-ap.json",
+        "kn-ap-1-5.json",
+        "kn-ap-1-19.json",
+        "kn-ap-1-33.json",
+        "kn-ap-1-41.json",
+        "kn-ap-1-45.json",
+        "kn-ap-1-53.json",
+    ],
+    "kn11": [
+        "kn-ap-2.json",
+    ],
+    "kn12": [
+        "kn-bv.json",
+    ],
+    "kn13": [
+        "kn-cp.json",
+    ],
+    "kn14": [
+        "kn-jat.json",
+        "kn-jat-5.json",
+        "kn-jat-11.json",
+        "kn-jat-15.json",
+        "kn-jat-18.json",
+        "kn-jat-22.json",
+        "kn-jat-22-6.json",
+        "kn-jat-22-10.json",
+    ],
+    "kn15": [
+        "kn-mn.json",
+        "kn-mn-6.json",
+        "kn-mn-14.json",
+    ],
+    "kn16": [
+        "kn-nc.json",
+        "kn-nc-5.json",
+        "kn-nc-18.json",
+    ],
+    "kn17": [
+        "kn-ps.json",
+        "kn-ps-1-1-17.json",
+        "kn-ps-1-2.json",
+        "kn-ps-1-3.json",
+        "kn-ps-1-4.json",
+        "kn-ps-1-5.json",
+        "kn-ps-1-6.json",
+        "kn-ps-2.json",
+        "kn-ps-3.json",
+    ],
+    "kn18": [
+    ],
+    "kn19": [
+        "kn-nett.json",
+        "kn-nett-3-3.json",
+    ],
+    "kn20": [
+        "kn-petk.json",
+        "kn-petk-6.json",
+    ],
+
+    # abhidhamma
+    "abh1": [
+        "ap-dhs.json",
+        "ap-dhs-3.json",
+        "ap-dhs-5.json",
+	],
+    "abh2": [
+        "ap-vbh.json",
+        "ap-vbh-2.json",
+        "ap-vbh-6.json",
+        "ap-vbh-10.json",
+        "ap-vbh-14.json",
+        "ap-vbh-17.json",
+	],
+    "abh3": [
+        "ap-dhk.json",
+	],
+    "abh4": [
+        "ap-pug.json",
+	],
+    "abh5": [
+        "ap-kvu.json",
+        "ap-kvu-1-2.json",
+        "ap-kvu-2.json",
+        "ap-kvu-3.json",
+        "ap-kvu-5.json",
+        "ap-kvu-8.json",
+        "ap-kvu-11.json",
+        "ap-kvu-15.json",
+        "ap-kvu-19.json",
+	],
+    "abh6": [
+        "ap-yam.json",
+        "ap-yam-3.json",
+        "ap-yam-4.json",
+        "ap-yam-6.json",
+        "ap-yam-7.json",
+        "ap-yam-7-5.json",
+        "ap-yam-8.json",
+        "ap-yam-10.json",
+        "ap-yam-10-3.json",
+        "ap-yam-10-3-4.json",
+        "ap-yam-10-4.json",
+    ],
+    "abh7": [
+        "ap-pat.json",
+        "ap-pat-1-12.json",
+        "ap-pat-2.json",
+        "ap-pat-2-47.json",
+        "ap-pat-2-83.json",
+        "ap-pat-3.json",
+        "ap-pat-4.json",
+    ],
+
+    # aṭṭhakathā
+
+    "vina": [
+        "atta-vp-prj.json",
+        "atta-vp-prj-2.json",
+        "atta-vp-prj-3.json",
+        "atta-vp-pct.json",
+        "atta-vp-mv.json",
+        "atta-vp-cv.json",
+        "atta-vp-pv.json",
+
+    ],
+    "dna": [
+        "atta-dn-1.json",
+        "atta-dn-1-2.json",
+        "atta-dn-2.json",
+        "atta-dn-2-4.json",
+        "atta-dn-3.json",
+    ],
+    "mna": [
+        "atta-mn-1.json",
+        "atta-mn-1-1-6.json",
+        "atta-mn-1-2.json",
+        "atta-mn-1-4.json",
+        "atta-mn-2.json",
+        "atta-mn-2-3.json",
+        "atta-mn-3.json",
+    ],
+    "sna": [
+        "atta-sn-1.json",
+        "atta-sn-1-5.json",
+        "atta-sn-2.json",
+        "atta-sn-3.json",
+        "atta-sn-4.json",
+        "atta-sn-5.json",
+
+    ],
+    "ana": [
+        "atta-an-1.json",
+        "atta-an-1-14-3.json",
+        "atta-an-1-15.json",
+        "atta-an-2.json",
+        "atta-an-3.json",
+        "atta-an-4.json",
+        "atta-an-5.json",
+        "atta-an-6.json",
+        "atta-an-7.json",
+        "atta-an-8.json",
+        "atta-an-9.json",
+        "atta-an-10.json",
+        "atta-an-11.json",
+    ],
+    "kna": [
+        "atta-kn-khp.json",
+        "atta-kn-dhp.json",
+        "atta-kn-dhp-4.json",
+        "atta-kn-dhp-9.json",
+        "atta-kn-dhp-19.json",
+        "atta-kn-ud.json",
+        "atta-kn-ud-4.json",
+        "atta-kn-iti.json",
+        "atta-kn-iti-3.json",
+        "atta-kn-snp.json",
+        "atta-kn-snp-2.json",
+        "atta-kn-snp-3.json",
+        "atta-kn-vv.json",
+        "atta-kn-vv-4.json",
+        "atta-kn-pv.json",
+        "atta-kn-thag.json",
+        "atta-kn-thag-2.json",
+        "atta-kn-thag-5.json",
+        "atta-kn-thag-15.json",
+        "atta-kn-thig.json",
+        "atta-kn-ap.json",
+        "atta-kn-ap-1-2.json",
+        "atta-kn-bv.json",
+        "atta-kn-cp.json",
+        "atta-kn-cp-3.json",
+        "atta-kn-jat.json",
+        "atta-kn-jat-1-6.json",
+        "atta-kn-jat-2.json",
+        "atta-kn-jat-3.json",
+        "atta-kn-jat-4.json",
+        "atta-kn-jat-6.json",
+        "atta-kn-jat-9.json",
+        "atta-kn-jat-14.json",
+        "atta-kn-jat-17.json",
+        "atta-kn-jat-21.json",
+        "atta-kn-jat-22.json",
+        "atta-kn-jat-22-5.json",
+        "atta-kn-jat-22-9.json",
+        "atta-kn-mn.json",
+        "atta-kn-mn-6.json",
+        "atta-kn-nc.json",
+        "atta-kn-ps.json",
+        "atta-kn-ps-1-1-2.json",
+        "atta-kn-ps-1-2.json",
+        "atta-kn-ps-2.json",
+        "atta-kn-nett.json",
+    ],
+    "abha": [
+        "atta-ap-dhs.json",
+        "atta-ap-dhs-3.json",
+        "atta-ap-vbh.json",
+        "atta-ap-vbh-8.json",
+        "atta-ap-dhk.json",
+        "atta-ap-pug.json",
+        "atta-ap-kvu.json",
+        "atta-ap-yam.json",
+        "atta-ap-pat.json",
+    ],
+    "vint": [],
+    "dnt": [],
+    "mnt": [],
+    "snt": [],
+    "ant": [],
+    "knt": [],
+    "abht": [],
+
+    "vism": [
+        "anya-vm-1.json",
+        "anya-vm-12.json",
+    ],
+    "anna": [],
+
 }
 
 ebts = [

@@ -1,74 +1,8 @@
 """Render tab to add the next missing word from a text."""
-
+from tooltips import sutta_codes, corresponding_quick_links
 
 def make_tab_add_next_word(sg, username):
 
-    sutta_codes = """VIN
-01. pārājika:\t\tvin1
-02. pācittiya:\t\tvin2
-03. mahāvagga:\t\tvin3
-04. cūḷavagga:\t\tvin4
-05. parivāra:\t\tvin5
-
-DN
-01. sīlakkhandhavagga:\tdn1
-02. mahāvagga:\t\tdn2
-03. pāthikavagga:\t\tdn3
-
-MN
-01. mūlapaṇṇāsa:\t\tmn1
-02. majjhimapaṇṇāsa:\tmn2
-03. uparipaṇṇāsa:\t\tmn3
-
-SN
-01. sagāthāvaggo:\t\tsn1
-02. nidānavaggo:\t\tsn2
-03. khandhavaggo:\t\tsn3
-04. saḷāyatanavaggo:\tsn4
-05. mahāvaggo:\t\tsn5
-
-AN
-01. ekakanipāta:\t\tan1
-02. dukanipāta:\t\tan2
-...
-11. ekādasakanipāta:\tan11
-
-KN
-01. khuddakapāṭha:\tkn1
-02. dhammapada:\t\tkn2
-03. udāna:\t\tkn3
-04. itivuttaka:\t\tkn4
-05. suttanipāta:\t\tkn5
-06. vimānavatthu:\t\tkn6
-07. petavatthu:\t\tkn7
-08. theragāthā:\t\tkn8
-09. therīgāthā:\t\tkn9
-10. therāpadāna:\t\tkn10
-11. therīapadāna:\t\tkn11
-12. buddhavaṃsa:\t\tkn12
-13. cariyāpiṭaka:\t\tkn13
-14. jātaka:\t\tkn14
-15. mahāniddesa:\t\tkn15
-16. cūḷaniddesa:\t\tkn16
-17. paṭisambhidāmagga:\tkn17
-18. milindapañha:\t\tkn18
-19. nettippakaraṇa:\t\tkn19
-20. peṭakopadesa:\t\tkn20
-"""
-
-    corresponding_quick_links = """
-DN
-01. sīlakkhandhavagga
-02. mahāvagga (>=DN14)
-03. pāthikavagga (>=DN24)
-
-SN
-01. sagāthāvagg
-02. nidānavaggo (>=SN12)
-03. khandhavaggo (>=SN22)
-04. saḷāyatanavaggo (>=SN35)
-05. mahāvaggo (>=SN45)
-"""
 
     tab_add_next_word = [
         [

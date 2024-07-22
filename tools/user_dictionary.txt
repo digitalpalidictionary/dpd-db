@@ -167,6 +167,7 @@ arjuna
 Arjuna
 Artha
 Arthavan
+articulately
 Artocarpus
 Arundo
 arūpins
@@ -287,12 +288,14 @@ Bhaggu
 bhaṅga
 Bhañña
 Bhāradvāja
+Bharata
 Bharatas
 bheke
 bheraṇḍakaṃyeva
 Bhesakalā's
 Bhesakaḷā's
 Bhikkhu
+Bhikkhunī
 Bhikkhunī
 Bhikkhupātimokkha
 Bhikkhus
@@ -423,8 +426,10 @@ coessential
 cognised
 cognising
 cognize
+cohering
 cojoined
 Coḷa
+collation
 collyrium
 colourist's
 commentarial
@@ -564,6 +569,7 @@ Dīghanikāya
 diguṇa
 dilemmatic
 Diospyros
+Disampati
 discoloured
 discriminatively
 disembarks
@@ -609,6 +615,7 @@ Dukanipāta
 dukkha
 dukkhudraya
 dus
+dustcloth
 duvaṅgika
 dvanda
 dvedhikajātā
@@ -648,6 +655,7 @@ ennead
 Entada
 enterer
 entwinings
+enumerates
 equanimously
 equipoise
 eraka
@@ -807,6 +815,8 @@ hetu
 hexad
 highroad
 hillcrest
+Himalayan
+Himalayas
 hindrances
 Hiptage
 hitman
@@ -870,6 +880,7 @@ inexpertise
 infeminine
 inhered
 inophyllum
+inscribing
 insignificantly
 instructable
 instructible
@@ -926,6 +937,7 @@ Kaccāyana
 kaccāyanabyākaraṇa
 Kadali
 kahāpaṇa
+Kailash
 Kakusandha
 Kāḷaka
 Kālāma
@@ -1174,6 +1186,7 @@ mānatta
 Maṇḍikā
 maned
 Mangifera
+Mangifera
 manifoldness
 mano
 Manonivāraṇasutta
@@ -1414,6 +1427,7 @@ Nymphaea
 o
 obdurance
 objectless
+observances
 obstinance
 obstinancy
 Ocimum
@@ -1649,6 +1663,7 @@ ratana
 rathareṇu
 Raṭṭhapāla
 rattinuṭṭhānadassinā
+readmission
 reasoner
 rebecoming
 rebirths
@@ -1763,6 +1778,8 @@ Saṃyutta
 Sanaṅkumāra
 Sañcaya
 Sandaka
+sandbank
+sandbar
 sandhi
 Sandhi
 Saṅgārava
@@ -1956,6 +1973,7 @@ svāgataṃ
 swallowable
 swops
 Syām
+sylvatica
 Symplocos
 syntactician
 Syzygium
@@ -2010,6 +2028,7 @@ Thullakoṭṭhika
 Thuna
 Thūṇa
 Thuna 
+thunderclouds
 thurifera
 ti
 tigerinus
@@ -2112,6 +2131,7 @@ uncelibacy
 uncharitableness
 unchastity
 unchewed
+unchurned
 uncleanable
 uncleaned
 uncloven
@@ -2318,6 +2338,7 @@ Verañjā
 Veroca
 Vesali
 Vesālī
+Vessantara
 Vessavaṇa
 Vessavaṇa's
 Vetaric
@@ -2403,22 +2424,3 @@ yojanas
 yoking
 zizanioides
 Ziziphus
-Himalayan
-Kailash
-Himalayas
-dustcloth
-sandbar
-sandbank
-enumerates
-Bharata
-Mangifera
-sylvatica
-cohering
-collation
-inscribing
-Bhikkhunī
-unchurned
-Disampati
-readmission
-Vessantara
-articulately

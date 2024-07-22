@@ -349,6 +349,7 @@ def make_bjt_text_set(
 def make_mula_words_set(pth: ProjectPaths) -> Set[str]:
     """Returns a set of all words in CST & Sutta Cental mūla texts.
     Usage: mula_word_set = make_mula_words_set()"""
+    
     cst_word_set = make_cst_text_set(pth, mula_books)
     sc_word_set = make_sc_text_set(pth, mula_books)
     mula_word_set = cst_word_set | sc_word_set
@@ -358,6 +359,7 @@ def make_mula_words_set(pth: ProjectPaths) -> Set[str]:
 def make_all_words_set(pth: ProjectPaths) -> Set[str]:
     """Returns a set of all words in CST & Sutta Cental texts.
     Usage: all_words_set = make_all_words_set()"""
+    
     cst_word_set = make_cst_text_set(pth, all_books)
     sc_word_set = make_sc_text_set(pth, all_books)
     all_words_set = cst_word_set | sc_word_set

@@ -36,8 +36,6 @@ from tools.source_sutta_example import find_source_sutta_example
 
 # nltk.download('punkt')
 
-
-
 class Flags:
     def __init__(self):
         self.show_fields = True

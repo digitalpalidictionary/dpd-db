@@ -8,10 +8,12 @@ from functions_db import get_family_word_values
 from functions_db import get_family_set_values
 from functions_db import get_compound_type_values
 from functions_db import get_patterns
+from tooltips import sutta_codes
 from tools.pos import POS
 
 
 def make_tab_edit_dpd(db_session, sg, username):
+    
 
     VERB_VALUES = get_verb_values(db_session)
     TRANS_VALUES = ["", "trans", "intrans", "ditrans"]
@@ -33,31 +35,6 @@ def make_tab_edit_dpd(db_session, sg, username):
 
 
     add_word_layout = [
-        [
-            sg.Text("show fields", size=(15, 1)),
-            sg.Radio(
-                "all", "group1",
-                key="show_fields_all",
-                enable_events=True,
-                tooltip="Show the fields relevant to the type of word"),
-            sg.Radio(
-                "root", "group1",
-                key="show_fields_root",
-                enable_events=True,
-                tooltip="Show the fields relevant to the type of word"),
-            sg.Radio(
-                "compound", "group1",
-                key="show_fields_compound",
-                enable_events=True,
-                tooltip="Show the fields relevant to the type of word"),
-            sg.Radio(
-                "word", "group1",
-                key="show_fields_word",
-                enable_events=True,
-                tooltip="Show the fields relevant to the type of word"),
-            sg.Text(
-                "", key="show_fields_error", size=(50, 1), text_color="red")
-        ],
         [
             sg.Text("id", size=(15, 1, )),
             sg.Input(
@@ -661,6 +638,39 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
         ]
 
     tab_edit_dpd = [
+        [
+            sg.Text("show fields", size=(15, 1)),
+            sg.Radio(
+                "all", "group1",
+                key="show_fields_all",
+                enable_events=True,
+                tooltip="Show the fields relevant to the type of word"),
+            sg.Radio(
+                "root", "group1",
+                key="show_fields_root",
+                enable_events=True,
+                tooltip="Show the fields relevant to the type of word"),
+            sg.Radio(
+                "compound", "group1",
+                key="show_fields_compound",
+                enable_events=True,
+                tooltip="Show the fields relevant to the type of word"),
+            sg.Radio(
+                "word", "group1",
+                key="show_fields_word",
+                enable_events=True,
+                tooltip="Show the fields relevant to the type of word"),
+            sg.Text(
+                "*sutta codes↓",
+                pad=(20, 0),
+                tooltip=sutta_codes
+            ),
+            sg.Text(
+                "", key="show_fields_error", size=(50, 1), text_color="red")
+        ],
+        [
+            sg.HSep(),
+        ],
         [
             sg.Column(
                 add_word_layout,

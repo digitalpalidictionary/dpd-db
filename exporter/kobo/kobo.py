@@ -80,17 +80,22 @@ def compile_lookup_data(g: GlobalData):
     db_len = len(db)
     
     for count, i in enumerate(db):
-        html = g.lookup_template.render(
-            i=i,
-            css=g.css
-        )
+        if (
+            i.deconstructor
+            or i.spelling
+            or i.variant
+        ):
+            html = g.lookup_template.render(
+                i=i,
+                css=g.css
+            )
 
-        dict_entry = DictEntry(
-            word = i.lookup_key,
-            definition_html = html,
-            definition_plain = "",
-            synonyms = [])
-        g.dict_data.append(dict_entry)
+            dict_entry = DictEntry(
+                word = i.lookup_key,
+                definition_html = html,
+                definition_plain = "",
+                synonyms = [i.lookup_key])
+            g.dict_data.append(dict_entry)
 
         if count % 10000 == 0:
             p_counter(count, db_len, i.lookup_key)
@@ -99,7 +104,7 @@ def compile_lookup_data(g: GlobalData):
 def main():
     """Export DPD for Kobo Reader"""
     tic()
-    p_title("exporting dpd for kob")
+    p_title("exporting dpd for kobo")
     g = GlobalData()
     compile_dict_data(g)
     compile_lookup_data(g)

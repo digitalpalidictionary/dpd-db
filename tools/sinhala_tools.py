@@ -135,13 +135,30 @@ def si_pos_full(pos: str):
     return pos_dict[pos]["si_pos_full"]
 
 
-def si_translit(text: str) -> str:
+def translit_ro_to_si(text: str) -> str:
     return transliterate.process(
         "IASTPali",
         "Sinhala",
         text,
         post_options=["SinhalaPali", "SinhalaConjuncts"],
     )  # type:ignore
+
+
+def translit_si_to_ro(text: str) -> str:
+    text_translit = transliterate.process(
+        "Sinhala",
+        "IASTPali",
+        text,
+        post_options=["SinhalaPali", "SinhalaConjuncts"],
+    )  # type:ignore
+    
+    text_translit = text_translit \
+        .replace("ï", "i") \
+        .replace("ü", "u") \
+        .replace("ĕ", "e") \
+        .replace("ŏ", "o") 
+    
+    return text_translit
 
 
 gram_dict = {

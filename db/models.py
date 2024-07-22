@@ -29,7 +29,7 @@ from tools.pali_sort_key import pali_sort_key
 from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.pos import EXCLUDE_FROM_FREQ
-from tools.sinhala_tools import si_grammar, si_pos, si_pos_full, si_translit
+from tools.sinhala_tools import si_grammar, si_pos, si_pos_full, translit_ro_to_si
 
 from dps.tools.sbs_table_functions import SBS_table_tools
 
@@ -717,7 +717,7 @@ class DpdHeadwords(Base):
         from tools.meaning_construction import summarize_construction
         construction = summarize_construction(self)
         construction = construction.replace("*", "ṇ")
-        return si_translit(construction)
+        return translit_ro_to_si(construction)
     
     # root
 
