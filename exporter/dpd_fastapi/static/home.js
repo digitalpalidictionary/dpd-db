@@ -268,10 +268,11 @@ async function handleFormSubmit(event) {
 //// url query param
 
 function applyUrlQuery() {
-    const query = getQueryVariable('q');
+    var query = getQueryVariable('q');
     if(!query) return;
+    query = uniCoder(query);
     searchBox.value = query;
-    window.history.replaceState({'q': query}, '', '?q='+encodeURIComponent(query));
+    window.history.replaceState({'q': query}, '', '?q='+encodeQueryParam(query));
     handleFormSubmit().then();
 }
 
@@ -289,7 +290,7 @@ function addToHistory(word) {
     }
     localStorage.setItem("history-list", JSON.stringify(historyList));
     if (getQueryVariable('q') !== word) {
-        window.history.pushState({'q': word}, '', '?q='+encodeURIComponent(word));
+        window.history.pushState({'q': word}, '', '?q='+encodeQueryParam(word));
     }
     toggleClearHistoryButton()
 }
@@ -508,6 +509,27 @@ searchBox.addEventListener("input", function() {
     let convertedText = uniCoder(textInput);
     searchBox.value = convertedText;
 });
+
+function uniDecoder(textInput) {
+	if (!textInput || textInput == "") return textInput
+	return textInput.normalize("NFC")
+        .replaceAll("ā", "aa")
+        .replaceAll("ī", "ii")
+        .replaceAll("ū", "uu")
+        .replaceAll("ṅ", "\"n")
+        .replaceAll("ñ", "~n")
+        .replaceAll("ṭ", ".t")
+        .replaceAll("ḍ", ".d")
+        .replaceAll("ṇ", ".n")
+        .replaceAll("ṃ", ".m")
+	.replaceAll("ṁ", ".m")
+        .replaceAll("ḷ", ".l")
+        .replaceAll("ḥ", ".h")
+};
+
+function encodeQueryParam(query) {
+	return encodeURIComponent(uniDecoder(query));
+}
 
 function uniCoder(textInput) {
 	if (!textInput || textInput == "") return textInput
