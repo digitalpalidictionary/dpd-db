@@ -1,7 +1,9 @@
 word	pos	position	type	exceptions
+ācikkhana	any	last	chaṭṭhī	x
+sama	adj	last	tatiyā	samasama 1
 abbhuggata	any	any	kammadhāraya	x
 araha	any	last	chaṭṭhī	avaṇṇāraha, pādāraha, mahāraha
-vatta	any	last	sattamī	cakkavattiariyavatta, sīlavatta, gahaṭṭhavatta, vivekavatta
+vatta	any	last	sattamī	cakkavattiariyavatta, sīlavatta, gahaṭṭhavatta, vivekavatta, cakkavattivatta, bhikkhācariyavatta
 cuta	any	last	pañcamī	x
 āsava	any	last	chaṭṭhī	khīṇāsava, pahātabbāsava, sabbāsava, pubbāsava
 khandha	any	last	chaṭṭhī	arūpakkhandha, uparikhandha, pañcakkhandha, pattakkhandha, pubbenivutthakkhandha, samavaṭṭakkhandha, samavaṭṭakhandha, vivattakkhandha, sañjātakhandha

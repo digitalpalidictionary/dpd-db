@@ -24228,6 +24228,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "maddī",
+    "fem",
+    "name of a princess; daughter of king Madda",
+    "✓"
+   ],
+   [
     "mandhāta",
     "masc",
     "name of a mythical king",
@@ -24360,7 +24366,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 68
+  "count": 69
  },
  "six ascetic teachers": {
   "data": [
@@ -28774,12 +28780,6 @@ var family_set_json = {
     "~"
    ],
    [
-    "kāsati 3.1",
-    "fut",
-    "will do; will make",
-    "✓"
-   ],
-   [
     "kāḷapakkha",
     "masc",
     "dark fortnight of the lunar month; waning moon; lit. dark side",
@@ -29020,7 +29020,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 61
+  "count": 60
  },
  "money": {
   "data": [

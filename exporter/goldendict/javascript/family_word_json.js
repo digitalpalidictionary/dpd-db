@@ -1663,7 +1663,7 @@ var family_word_json = {
    [
     "samagga 1",
     "adj",
-    "(vinaya) unified; united; in concord; harmonious; in agreement",
+    "(vinaya) unified; united; in concord; harmonious; in agreement; lit. together (in one) place",
     "✓"
    ],
    [
@@ -25991,6 +25991,17 @@ var family_word_json = {
   ],
   "count": 2
  },
+ "pacchi": {
+  "data": [
+   [
+    "pacchikā",
+    "fem",
+    "small basket; wicker stand",
+    "✓"
+   ]
+  ],
+  "count": 1
+ },
  "pañcāla": {
   "data": [
    [
@@ -28723,6 +28734,17 @@ var family_word_json = {
    ]
   ],
   "count": 7
+ },
+ "madda": {
+  "data": [
+   [
+    "maddī",
+    "fem",
+    "name of a princess; daughter of king Madda",
+    "✓"
+   ]
+  ],
+  "count": 1
  },
  "mandāru": {
   "data": [
