@@ -75,7 +75,15 @@ def clean_machine(text: str, niggahita="ṃ", remove_hyphen=True) -> str:
         .replace("\xa0", "")\
         .replace("\u0306", "")\
         .replace("&", "")\
-        .replace("°", "")
+        .replace("°", "")\
+        .replace("ġ", "g")\
+        .replace("ṟ", "r")\
+        .replace("ṉ", "n")\
+        .replace("ẏ", "y")\
+        .replace("\u0308", "")\
+        .replace("\u035f", "")\
+        .replace("\u0324", "")
+
     
     if remove_hyphen:
         text = text.replace("-", "")\

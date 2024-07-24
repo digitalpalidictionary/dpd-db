@@ -259,6 +259,10 @@ class ProjectPaths:
         self.cst_xml_dir = base_dir / "resources/tipitaka-xml/deva/"
         self.cst_xml_roman_dir = base_dir / "resources/tipitaka-xml/romn/"
 
+        # resources/tipitaka.lk
+        self.bjt_sinhala_dir = base_dir / "resources/tipitaka.lk/public/static/text/"
+        self.bjt_roman_dir = base_dir / "resources/tipitaka.lk/public/static/text_roman/"
+
         # resources/other_pali_texts
         self.other_pali_texts_dir = base_dir / "resources/other_pali_texts"
 

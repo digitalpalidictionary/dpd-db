@@ -112,10 +112,4 @@ def main():
 
 
 if __name__ == "__main__":
-    # main()
-    # x = extract_peu_from_data_dump()
-    x = extract_peu_from_tpr_database()
-    print(len(x))
-    print(type(x))
-    # for i in x:
-        # print(i)
+    main()
