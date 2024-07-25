@@ -496,7 +496,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kus 1	1	*a	call, insult	√kruś	1	cry out	pati ā √kus	pratyākruś	pratyākrośati
 √kus 2	1	*a	fill, enfold	√kuś	4	enfold	√kus	kuś	kauśika, kauśeya, kukṣi, kukṣi +, kukṣimatī, kośa, kośaka, kośin, koṣṭha, koṣṭha, koṣṭhaka, koṣṭha, koṣṭhaka, koṣṭhikā (bsk), koṣṭhaka, caṣaka
 √kus 3	1	*a	cut, tear	√kuṣ	6, 9	?	√kus	kuṣ	kuṣṭha, kuṣṭhin
-√kuh	8	*e	deceive	√kuh	10	cheat	√kuh	kuh	akuha, akuhaka, kuha, kuhaka, kuhanā, kuhayate, na + kuhanā
+√kuh	8	*e	deceive	√kuh	10	cheat	√kuh	kuh	akuha, akuhaka, kuha, kuhaka, kuhanā, kuhayate, kuhayanā, kuhita +, na + kuhanā
 √kūj	1	a	make sound	√kūj	1	hum	√kūj	kūj	akūjana, akūjīt, kūjat, kūjati, kūjana, kūjamāna, kūjita
 √kūj	1	a	make sound	√kūj	1	hum	abhi √kūj	abhikūj	kūjana, vikūjana
 √kūj	1	a	make sound	√kūj	1	hum	abhi ni √kūj		
@@ -2203,7 +2203,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √yuj	2	ṃa	yoke, join	√yuj	2, 7	join	ud √yuj	udyuj	udyukta, udyujyate, udyujyamāna, udyuñjat, udyunakti, udyoktum, udyoga, udyoga (undertaking), udyoga (exertion), udyojayati, udyojayitavya, udyojya, na + udyukta
 √yuj	2	ṃa	yoke, join	√yuj	2, 7	join	upa √yuj	upayuj	upayukta, upayoga
 √yuj	2	ṃa	yoke, join	√yuj	2, 7	join	ni √yuj	niyuj	niyunakti, niyoga, niyojaka, niyojayat, niyojayati
-√yuj	2	ṃa	yoke, join	√yuj	2, 7	join	pa √yuj	prayuj	aprayujyamāna, duṣprayukta, na + duṣprayukta, na + prayoga +, prayukta, prayujyamāna, prayuñjat, prayuñjāna, prayoga, prayoge, prayojaka, prayojayati, prayojayitā, saprayogena, suprayukta
+√yuj	2	ṃa	yoke, join	√yuj	2, 7	join	pa √yuj	prayuj	aprayujyamāna, duṣprayukta, na + duṣprayukta, na + prayoga +, prayukta, prayujyamāna, prayuñjat, prayuñjāna, prayoga, prayoge, prayojaka, prayojana, prayojayati, prayojayitā, saprayogena, suprayukta
 √yuj	2	ṃa	yoke, join	√yuj	2, 7	join	pati saṃ √yuj		prati + saṃyuj, pratisaṃyukta, pratisaṃyukta, pratisaṃyuj, pratisaṃyunakti
 √yuj	2	*e	yoke, join	√yuj	2, 7	join	pari √yuj		pariyoga
 √yuj	2	ṃa	yoke, join	√yuj	2, 7	join	vi √yuj	viyuj	aviyoga, viyukta, viyoga, viyojayati

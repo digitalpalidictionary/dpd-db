@@ -4954,7 +4954,7 @@ var family_root_json = {
    [
     "kuṭika 2",
     "adj",
-    "making a curving; bending",
+    "making a curve; bending",
     "✓"
    ],
    [
@@ -5533,7 +5533,7 @@ var family_root_json = {
   "root_key": "√kuh",
   "root_family": "√kuh",
   "root_meaning": "deceive",
-  "count": 13,
+  "count": 15,
   "data": [
    [
     "akuha",
@@ -5588,6 +5588,18 @@ var family_root_json = {
     "pr",
     "cheats; deceives; creates a false impression",
     "~"
+   ],
+   [
+    "kuhāyanā",
+    "fem",
+    "deception; fraudulence; creating a false impression",
+    "✓"
+   ],
+   [
+    "kuhitatta",
+    "nt",
+    "deception; fraudulence; lit. deceived state",
+    "✓"
    ],
    [
     "kuheti",
@@ -23176,7 +23188,7 @@ var family_root_json = {
    [
     "ṭhapanaka",
     "nt",
-    "stand; place to put something; lit. causing standing",
+    "stand; holder; rest; support; place to put something; lit. causing standing",
     "✓"
    ],
    [
@@ -33721,7 +33733,7 @@ var family_root_json = {
   "root_key": "√yuj",
   "root_family": "pa √yuj",
   "root_meaning": "yoke, join",
-  "count": 36,
+  "count": 37,
   "data": [
    [
     "aduppayutta",
@@ -33848,6 +33860,12 @@ var family_root_json = {
     "nt",
     "purpose",
     "✗"
+   ],
+   [
+    "payojana 3",
+    "adj",
+    "for the purpose (of); in order to achieve",
+    "✓"
    ],
    [
     "payojayati",
@@ -59464,7 +59482,7 @@ var family_root_json = {
    [
     "anuggahetabba",
     "ptp",
-    "should be supported; should taken care of; lit. to be grasped after",
+    "should be supported; should taken care of (by); lit. to be grasped after",
     "✓"
    ],
    [
@@ -119406,7 +119424,7 @@ var family_root_json = {
    [
     "yājeti",
     "pr",
-    "causes to sacrifices; makes offer",
+    "causes to sacrifice; makes offer",
     "✓"
    ],
    [
@@ -159572,7 +159590,7 @@ var family_root_json = {
    [
     "ādhāraka 1",
     "nt",
-    "stand; support for something",
+    "stand; holder; rest; support; place to put something",
     "✓"
    ],
    [
@@ -178005,7 +178023,7 @@ var family_root_json = {
   "root_key": "√tij 3",
   "root_family": "√tij",
   "root_meaning": "endure",
-  "count": 9,
+  "count": 10,
   "data": [
    [
     "titikkha",
@@ -178050,10 +178068,16 @@ var family_root_json = {
     "✗"
    ],
    [
-    "tītikkhā",
+    "tītikkhā 1",
     "fem",
-    "endurance; patience; forgiveness",
+    "endurance; patience",
     "✓"
+   ],
+   [
+    "tītikkhā 2",
+    "fem",
+    "forgiveness",
+    "✗"
    ],
    [
     "duttitikkha",
@@ -221312,7 +221336,7 @@ var family_root_json = {
    [
     "sūtikā",
     "fem",
-    "woman who has given birth",
+    "woman who has given birth; mother of a new-born child",
     "✓"
    ]
   ]

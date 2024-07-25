@@ -610,7 +610,7 @@ var family_set_json = {
     "antalopa",
     "masc",
     "(gram) elision of the final letter of a word",
-    "~"
+    "✓"
    ],
    [
     "anti",
@@ -4315,6 +4315,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "saddalopa",
+    "masc",
+    "(gram) elision of a word",
+    "~"
+   ],
+   [
     "saddasattha",
     "nt",
     "(gram) grammar; lit. science of words",
@@ -4783,7 +4789,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 773
+  "count": 774
  },
  "prefixes": {
   "data": [
@@ -32060,7 +32066,7 @@ var family_set_json = {
     "heṭṭhāmigāramātupāsāda",
     "masc",
     "below Migāra's Mother's Hall",
-    "~"
+    "✓"
    ]
   ],
   "count": 34
@@ -32241,10 +32247,16 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kaniṭṭhabhaginī",
+    "fem",
+    "younger sister; junior sister",
+    "✓"
+   ],
+   [
     "kaniṭṭhabhātar",
     "masc",
     "youngest brother",
-    "~"
+    "✓"
    ],
    [
     "kaniṭṭhabhātika",
@@ -32253,15 +32265,45 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kaniṭṭhā",
+    "fem",
+    "youngest sister; youngest female sibling",
+    "~"
+   ],
+   [
     "cūḷapitar",
     "masc",
-    "uncle; lit. smaller father",
-    "~"
+    "father's younger brother; uncle; lit. smaller father",
+    "✓"
+   ],
+   [
+    "cūḷamātar",
+    "fem",
+    "aunt; mother's younger sister; lit. small mother",
+    "✓"
    ],
    [
     "jananī 2",
     "fem",
     "mother; lit. creating",
+    "~"
+   ],
+   [
+    "jeṭṭhabhaginī",
+    "fem",
+    "eldest sister; senior sister",
+    "✓"
+   ],
+   [
+    "jeṭṭhabhātar",
+    "masc",
+    "eldest brother; senior brother",
+    "✓"
+   ],
+   [
+    "jeṭṭhā",
+    "fem",
+    "eldest sister; senior sister",
     "~"
    ],
    [
@@ -32304,6 +32346,12 @@ var family_set_json = {
     "pitāmaha 1",
     "masc",
     "paternal grandfather",
+    "✓"
+   ],
+   [
+    "pitucchā",
+    "fem",
+    "father's sister",
     "✓"
    ],
    [
@@ -32359,6 +32407,12 @@ var family_set_json = {
     "masc",
     "brother",
     "~"
+   ],
+   [
+    "mahāpitar",
+    "masc",
+    "father's elder brother",
+    "✓"
    ],
    [
     "mātari",
@@ -32439,7 +32493,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 34
+  "count": 42
  },
  "three daughters of Mara": {
   "data": [

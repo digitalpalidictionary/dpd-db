@@ -11736,12 +11736,6 @@ var family_word_json = {
     "✓"
    ],
    [
-    "pitucchā",
-    "fem",
-    "father's sister",
-    "✗"
-   ],
-   [
     "pettaṇika",
     "adj",
     "who lives on father's property",
@@ -11790,7 +11784,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 19
+  "count": 18
  },
  "pitta": {
   "data": [
@@ -12654,6 +12648,12 @@ var family_word_json = {
     "~"
    ],
    [
+    "kaniṭṭhā",
+    "fem",
+    "youngest sister; youngest female sibling",
+    "~"
+   ],
+   [
     "yuva",
     "masc",
     "youngster; youth; lad",
@@ -12678,7 +12678,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 6
+  "count": 7
  },
  "bhisaja": {
   "data": [
@@ -17710,7 +17710,7 @@ var family_word_json = {
    [
     "sikhara 4",
     "adj",
-    "with a tip; with a top; with a crest; lit. top",
+    "with a tip; with a top; with a crest; lit. crested",
     "✓"
    ],
    [
@@ -23437,13 +23437,19 @@ var family_word_json = {
     "✗"
    ],
    [
+    "jeṭṭhā",
+    "fem",
+    "eldest sister; senior sister",
+    "~"
+   ],
+   [
     "sajeṭṭhaka",
     "adj",
     "respectful; placing others first; lit. with foremost",
     "~"
    ]
   ],
-  "count": 8
+  "count": 9
  },
  "sāka": {
   "data": [
@@ -25996,7 +26002,7 @@ var family_word_json = {
    [
     "pacchikā",
     "fem",
-    "small basket; wicker stand",
+    "small basket; wicker bowl",
     "✓"
    ]
   ],
