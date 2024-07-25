@@ -134,8 +134,8 @@ def find_bjt_source_sutta_example(
 
 
 if __name__ == "__main__":
-    book = "an10"
-    search_term = "dve"
+    book = "mn3"
+    search_term = "aggatthik"
     source_sutta_examples = find_bjt_source_sutta_example(
         book,
         search_term)

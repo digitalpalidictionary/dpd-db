@@ -110,22 +110,22 @@ def home_page(request: Request, response_class=HTMLResponse):
 
 
 @app.get("/search_html", response_class=HTMLResponse)
-def db_search_html(request: Request, search: str):
+def db_search_html(request: Request, q: str):
 
-    dpd_html, summary_html = make_dpd_html(search)
+    dpd_html, summary_html = make_dpd_html(q)
 
     return templates.TemplateResponse(
         "home.html", {
         "request": request,
-        "search": search,
+        "q": q,
         "dpd_results": dpd_html,
         })
 
 
 @app.get("/search_json", response_class=JSONResponse)
-def db_search_json(request: Request, search: str):
+def db_search_json(request: Request, q: str):
 
-    dpd_html, summary_html = make_dpd_html(search)
+    dpd_html, summary_html = make_dpd_html(q)
     response_data = {
         "summary_html": summary_html,
         "dpd_html": dpd_html}
@@ -152,14 +152,14 @@ def db_search_gd(request: Request, search: str):
         })
     
 
-def make_dpd_html(search: str) -> tuple[str, str]:
+def make_dpd_html(q: str) -> tuple[str, str]:
     db_session = get_db_session(pth.dpd_db_path)
     dpd_html = ""
     summary_html = ""
-    search = search.replace("'", "").replace("ṁ", "ṃ").strip()
+    q = q.replace("'", "").replace("ṁ", "ṃ").strip()
 
     lookup_results = db_session.query(Lookup) \
-        .filter(Lookup.lookup_key.ilike(search)) \
+        .filter(Lookup.lookup_key.ilike(q)) \
         .all()
     
     # first try the lookup table, if no results, then try other options
@@ -255,8 +255,8 @@ def make_dpd_html(search: str) -> tuple[str, str]:
 
     # the two cases below search directly in the DpdHeadwords table
 
-    elif search.isnumeric(): # eg 78654
-        search_term = int(search)
+    elif q.isnumeric(): # eg 78654
+        search_term = int(q)
         headword_result = db_session\
             .query(DpdHeadwords)\
             .filter(DpdHeadwords.id == search_term)\
@@ -272,12 +272,12 @@ def make_dpd_html(search: str) -> tuple[str, str]:
 
         # return closest matches
         else:
-            dpd_html = find_closest_matches(search)
+            dpd_html = find_closest_matches(q)
 
-    elif re.search(r"\s\d", search): # eg "kata 5"
+    elif re.search(r"\s\d", q): # eg "kata 5"
         headword_result = db_session \
             .query(DpdHeadwords) \
-            .filter(DpdHeadwords.lemma_1 == search) \
+            .filter(DpdHeadwords.lemma_1 == q) \
             .first()
         if headword_result:
             fc = get_family_compounds(headword_result)
@@ -290,24 +290,24 @@ def make_dpd_html(search: str) -> tuple[str, str]:
 
         # return closest matches
         else:
-            dpd_html = find_closest_matches(search)
+            dpd_html = find_closest_matches(q)
 
     # or finally return closest matches
     
     else:
-        dpd_html = find_closest_matches(search)
+        dpd_html = find_closest_matches(q)
 
     db_session.close()
     return dpd_html, summary_html
 
     
 
-def find_closest_matches(search) -> str:
+def find_closest_matches(q) -> str:
 
-    ascii_matches = ascii_to_unicode_dict[search]
+    ascii_matches = ascii_to_unicode_dict[q]
     closest_headword_matches =  \
         difflib.get_close_matches(
-            search, headwords_clean_set,
+            q, headwords_clean_set,
             n=10,
             cutoff=0.7)
     
@@ -337,7 +337,9 @@ if __name__ == "__main__":
         # host="127.1.1.1",
         port=8080,
         reload=True,
-        reload_dirs="exporter/dpd_fastapi")
+        reload_dirs="exporter/dpd_fastapi/"
+    
+    )
 
 # run in terminal: 
 # uvicorn exporter.dpd_fastapi.main:app --host 127.1.1.1 --port 8080 --reload --reload-dir exporter/dpd_fastapi
@@ -349,3 +351,4 @@ if __name__ == "__main__":
 # TODO summary of roots
 # TODO history forward and backwards buttons
 # TODO include mw, cpd, dppn, cone, etc.
+

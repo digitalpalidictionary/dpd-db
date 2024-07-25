@@ -183,7 +183,7 @@ async function handleFormSubmit(event) {
     if (searchQuery.trim() !== "") {
         try {
             addToHistory(searchQuery)
-            const response = await fetch(`/search_json?search=${encodeURIComponent(searchQuery)}`);
+            const response = await fetch(`/search_json?q=${encodeURIComponent(searchQuery)}`);
             const data = await response.json(); 
 
             //// add the summary_html

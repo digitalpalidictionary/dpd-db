@@ -1,8 +1,34 @@
 #!/usr/bin/env python3
 
-"""Process Buddha Jayanti Triptitaka files from tipitaka.lk."""
+"""Process Buddha Jayanti Tripitaka files from tipitaka.lk.
+
+BJT texts are stored in individual JSON files
+with a basic structure of 
+```
+{
+    "filename": "an-1",
+    "pages": [
+        {
+            "pageNum": 2,
+            "pali": {
+                "entries": [ ... ],
+                "footnotes": [ ...]
+            },
+            "sinh": {
+                "entries": [ ... ],
+                "footnotes": [ ...]
+            }
+        }
+    ],
+    "bookId": 22,
+    "pageOffset": 0,
+    "collection": "mula"
+}
+```
+"""
 
 import json
+from pathlib import Path
 import re
 from rich import print
 
@@ -10,6 +36,7 @@ from tools.clean_machine import clean_machine
 from tools.list_deduper import dedupe_list
 from tools.pali_text_files import bjt_texts
 from tools.paths import ProjectPaths
+from tools.printer import p_green, p_title, p_yes
 
 
 def get_bjt_file_names(
@@ -83,42 +110,32 @@ def process_single_bjt_file(
     for page in pages:
         page_number = page["pageNum"]
         if show_page_numbers:
-            main_text.append(f"page {page_number}.")
+            main_text.append(f"\npage {page_number}.\n")
 
         pali = page["pali"]
         entries = pali["entries"]
         footnotes = pali["footnotes"]
 
         for entry in entries:
-            text = entry["text"]
+            text: str = f"""{entry["text"]}"""
             
             # replace ** with bold tags
             if convert_bold_tags:
-                text = re.sub(
-                    r"""
-                    (\*\*)              # find **   
-                    (.+?)               # capture whats in-between  
-                    (\*\*)              # find **   
-                    """, 
-                    "<b>\\2</b>",       # replace with bold + capture
-                    text, 
-                    flags=re.VERBOSE
-                )
+                text = convert_star_to_bold_tags(text)
 
             # put footnotes inline
             if footnotes_inline and footnotes:
-
                 text = replace_footnotes(
                     text, footnotes, file_name, page_number
                 )
 
-            
             # TODO add {*} footnotes
 
-            main_text.append(text.strip())
-        
+            main_text.append(f"{text.strip()}\n")
+
         if not footnotes_inline:
             if footnotes:
+                main_text.append("-"*25)
                 for footnote in footnotes:
                     text = footnote["text"]
                     main_text.append(text)
@@ -130,6 +147,21 @@ def process_single_bjt_file(
     return "\n".join(main_text)
 
 
+def convert_star_to_bold_tags(text :str) -> str:
+    """Convert ** to <b> tags </b>."""
+
+    return re.sub(
+        r"""
+        (\*\*)              # find **   
+        (.+?)               # capture whats in-between  
+        (\*\*)              # find **   
+        """, 
+        "<b>\\2</b>",       # replace with bold + capture
+        text, 
+        flags=re.VERBOSE
+    )
+
+
 def replace_footnotes(text, footnotes, file_name, page_number):
     footnote_links = re.findall(
         r"""\{(\d*)\}""", text)
@@ -137,13 +169,14 @@ def replace_footnotes(text, footnotes, file_name, page_number):
         num = int(fl)
         try:
             footnote_num = footnotes[num-1]["text"]
+            text = re.sub(
+                fr"""\{{{num}\}}""",
+                fr" [{footnote_num}]",
+                text, flags=re.DOTALL)
         except IndexError:
             print(f"[red]{file_name} page {page_number} footnote {num}")
-        text = re.sub(
-            fr"""\{{{num}\}}""",
-            fr" [{footnote_num}]",
-            text, flags=re.DOTALL)
     return text
+
 
 def make_bjt_text_list(
         books: list[str],
@@ -180,9 +213,38 @@ def make_bjt_text_list(
     else:
         return bjt_text_list 
 
+
+def save_books_to_text():
+    """Save each book in BJT to a text file."""
+
+    p_title("saving BJT books to text file")
+    file_dir = Path("resources/tipitaka.lk/public/static/books/")
+
+    for book in bjt_texts:
+        p_green(book)
+        bjt_file_names = get_bjt_file_names([book])
+        json_dicts = get_bjt_json(bjt_file_names)
+        bjt_text = ""
+        for json_dict in json_dicts:
+            bjt_text += process_single_bjt_file(
+                json_dict,
+                convert_bold_tags = False,
+                footnotes_inline = False,
+                show_page_numbers = True,
+                show_metadata = True)
+
+        file_path = file_dir \
+            .joinpath(book) \
+            .with_suffix(".txt") 
+        with open(file_path, "w") as f:
+            f.write(bjt_text)
+        p_yes("")
+
+
 if __name__ == "__main__":
-    bjt_list = make_bjt_text_list(["vin1"], "list_deduped")
-    print(bjt_list)
-    print(len(bjt_list))
+    save_books_to_text()
+    # bjt_list = make_bjt_text_list(["vin1"], "list_deduped")
+    # print(bjt_list)
+    # print(len(bjt_list))
 
 
