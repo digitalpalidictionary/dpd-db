@@ -19098,7 +19098,7 @@ var family_word_json = {
     "kakkhaḷa 2",
     "adj",
     "rough; harsh; unpleasant",
-    "~"
+    "✓"
    ],
    [
     "kakkhaḷa 3",
@@ -27877,6 +27877,12 @@ var family_word_json = {
  "baḷisa": {
   "data": [
    [
+    "balisa",
+    "nt",
+    "hook; fishing hook",
+    "✓"
+   ],
+   [
     "baḷisa 1",
     "nt",
     "fishing hook",
@@ -27901,7 +27907,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 4
+  "count": 5
  },
  "bāṇa": {
   "data": [

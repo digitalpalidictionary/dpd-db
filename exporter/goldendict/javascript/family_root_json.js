@@ -14594,25 +14594,25 @@ var family_root_json = {
    [
     "accagamā 1",
     "imperf",
-    "overcame; surmounted; conquered; transcended",
+    "overcame; surmounted; conquered; transcended; lit. went beyond",
     "✓"
    ],
    [
     "accagamā 2",
     "imperf",
-    "(of a fault) overcame",
+    "(of a fault) overcame; overtook; lit. went beyond",
     "✓"
    ],
    [
     "accagā",
     "imperf",
-    "overcame; surpassed; went past",
+    "overcame; surpassed; went past; lit. went beyond",
     "✓"
    ],
    [
     "atiga",
     "adj",
-    "overcoming; surmounting; crossing; going past; going beyond",
+    "overcoming; surmounting; crossing; going past; going beyond; lit. going beyong",
     "✓"
    ],
    [
@@ -14630,7 +14630,7 @@ var family_root_json = {
    [
     "atigata",
     "pp",
-    "surpassed; gone beyond; overcome; surmounted; transcended",
+    "surpassed; gone beyond; overcome; surmounted; transcended; lit. gone beyond",
     "~"
    ]
   ]
@@ -21833,7 +21833,7 @@ var family_root_json = {
   "root_key": "√thar",
   "root_family": "adhi ava √thar",
   "root_meaning": "spread, expand",
-  "count": 12,
+  "count": 13,
   "data": [
    [
     "ajjhotthaṭa",
@@ -21844,26 +21844,32 @@ var family_root_json = {
    [
     "ajjhottharaṇa",
     "nt",
-    "submerging; completely covering",
+    "submerging; completely covering; lit. spreading down over",
     "~"
    ],
    [
     "ajjhottharati 1",
     "pr",
-    "covers over; overlaps",
+    "covers over; overlaps; lit. spreads down over",
     "✓"
    ],
    [
     "ajjhottharati 2",
     "pr",
-    "embraces; smothers; lies on top of; lit. completely covers",
+    "embraces; smothers; lies on top of; lit. spreads down over",
     "~"
    ],
    [
     "ajjhottharati 3",
     "pr",
-    "overpowers; overwhelms",
+    "overpowers; overwhelms; lit. spreads down over",
     "✓"
+   ],
+   [
+    "ajjhottharati 4",
+    "pr",
+    "submerges; covers over",
+    "✗"
    ],
    [
     "ajjhottharamāna",
@@ -21880,19 +21886,19 @@ var family_root_json = {
    [
     "ajjhottharitar",
     "masc",
-    "who overcomes; who overpowers; who masters",
+    "who overcomes; who overpowers; who masters; (comm) crusher; lit. who spreads down over",
     "✓"
    ],
    [
     "ajjhottharitvā",
     "abs",
-    "having submerged; having completely covered",
+    "having submerged; having completely covered; lit. having spread down over",
     "~"
    ],
    [
     "ajjhotthariyamāna",
     "prp",
-    "being embraced; being smothered; being lain on top of; lit. being completely covered",
+    "being embraced; being smothered; being lain on top of; lit. being spread down over",
     "~"
    ],
    [
@@ -21904,7 +21910,7 @@ var family_root_json = {
    [
     "anajjhottharaṇīya",
     "ptp",
-    "unsubmergeable; undrownable; lit. not to be compltely covered",
+    "unsubmergeable; undrownable; lit. not to be spread down over",
     "~"
    ]
   ]
@@ -30322,8 +30328,8 @@ var family_root_json = {
    [
     "thakesi 1",
     "aor",
-    "closed, shut",
-    "✗"
+    "closed; shut; slammed",
+    "✓"
    ],
    [
     "thakesi 2",
@@ -42704,7 +42710,7 @@ var family_root_json = {
    [
     "abhibhavitar",
     "masc",
-    "who overpowers; who overwhelmes; who masters",
+    "who overpowers; who overcomes; who masters",
     "✓"
    ],
    [
@@ -48943,7 +48949,7 @@ var family_root_json = {
     "ārabhi 1.1",
     "aor",
     "began (to); started (to)",
-    "~"
+    "✓"
    ],
    [
     "ārabhi 1.2",
@@ -56671,7 +56677,7 @@ var family_root_json = {
   "root_key": "√kar",
   "root_family": "nī ā √kar",
   "root_meaning": "do, make",
-  "count": 10,
+  "count": 11,
   "data": [
    [
     "anirākata",
@@ -56720,6 +56726,12 @@ var family_root_json = {
     "abs",
     "having repudiated, having disregarded",
     "✗"
+   ],
+   [
+    "nirākaraṇa",
+    "nt",
+    "neglecting; spurning; rejecting",
+    "✓"
    ],
    [
     "nirākari",
@@ -88746,7 +88758,7 @@ var family_root_json = {
    [
     "palāpetuṃ",
     "inf",
-    "to put to flight; to make flee",
+    "to put to flight; to make flee; lit. to cause to run away",
     "✓"
    ],
    [
@@ -88758,8 +88770,8 @@ var family_root_json = {
    [
     "palāpesi",
     "aor",
-    "caused to put to flight",
-    "✗"
+    "made run away; caused to flee; lit. caused to run away",
+    "✓"
    ],
    [
     "palāyati",
@@ -100297,7 +100309,7 @@ var family_root_json = {
   "root_key": "√phar",
   "root_family": "√phar",
   "root_meaning": "suffuse, pervade",
-  "count": 22,
+  "count": 23,
   "data": [
    [
     "apphuṭa",
@@ -100400,6 +100412,12 @@ var family_root_json = {
     "pp",
     "pervaded, suffused, filled",
     "✗"
+   ],
+   [
+    "pharitabba",
+    "ptp",
+    "should be pervaded; should be suffused (with); lit. to be suffused",
+    "✓"
    ],
    [
     "pharituṃ",
@@ -102562,7 +102580,7 @@ var family_root_json = {
    [
     "abujjhi",
     "aor",
-    "understood; recognised; realised",
+    "understood; recognised; realised; woke up to",
     "✓"
    ],
    [
@@ -105986,7 +106004,7 @@ var family_root_json = {
    [
     "abyositatta",
     "nt",
-    "fact of not being perfected; fact of not being accomplished",
+    "fact of not being perfected; fact of not being accomplished; lit. not finished state",
     "✓"
    ],
    [
@@ -127385,7 +127403,7 @@ var family_root_json = {
   "root_key": "√vaḍḍh",
   "root_family": "√vaḍḍh",
   "root_meaning": "grow, increase",
-  "count": 54,
+  "count": 56,
   "data": [
    [
     "avaḍḍhana",
@@ -127502,6 +127520,12 @@ var family_root_json = {
     "✗"
    ],
    [
+    "vaḍḍhanaka 2",
+    "adj",
+    "warming; gladdening; lit. increasing",
+    "✓"
+   ],
+   [
     "vaḍḍhanta",
     "prp",
     "growing, prospering",
@@ -127613,6 +127637,12 @@ var family_root_json = {
     "vaḍḍhetabba",
     "ptp",
     "should be increased; should be developed; lit. to cause to be increased",
+    "✓"
+   ],
+   [
+    "vaḍḍhetar",
+    "masc",
+    "who develops; who grows; who multiplies; lit. who causes to increase",
     "✓"
    ],
    [
@@ -135429,7 +135459,7 @@ var family_root_json = {
   "root_key": "√thar",
   "root_family": "vi √thar",
   "root_meaning": "spread, expand",
-  "count": 23,
+  "count": 24,
   "data": [
    [
     "avitthārena",
@@ -135552,10 +135582,16 @@ var family_root_json = {
     "✗"
    ],
    [
-    "vitthāresi",
+    "vitthāresi 1",
     "aor",
-    "spread out, explained, expanded",
+    "spread out, expanded",
     "✗"
+   ],
+   [
+    "vitthāresi 2",
+    "aor",
+    "explained in detail; expanded on; lit. spraad out",
+    "✓"
    ],
    [
     "vitthiṇṇa",
@@ -136189,7 +136225,7 @@ var family_root_json = {
   "root_key": "√nas",
   "root_family": "vi √nas",
   "root_meaning": "be lost, disappear",
-  "count": 31,
+  "count": 32,
   "data": [
    [
     "avinaṭṭha",
@@ -136207,6 +136243,12 @@ var family_root_json = {
     "avināsikā",
     "fem",
     "(of a woman) not a squanderer; not a spendthrift; who does not waste money; lit. not causing to vanish",
+    "✓"
+   ],
+   [
+    "avināsita",
+    "pp",
+    "not lost; not ruined; not destroyed; lit. not caused to vanish",
     "✓"
    ],
    [
@@ -163818,8 +163860,8 @@ var family_root_json = {
    [
     "ugghosesi",
     "aor",
-    "shouted out, proclaimed",
-    "✗"
+    "shouted out; announced; lit. caused to shout up",
+    "✓"
    ]
   ]
  },
@@ -166064,25 +166106,25 @@ var family_root_json = {
    [
     "upaccagā 1",
     "imperf",
-    "passed by; escaped; went past",
+    "passed by; escaped; went past; lit. went beyond",
     "✓"
    ],
    [
     "upaccagā 2",
     "imperf",
-    "beat; worsted; defeated; lit. went past",
+    "beat; worsted; defeated; lit. went beyond",
     "✓"
    ],
    [
     "upaccagā 3",
     "imperf",
-    "overcame; transcended; lit. went past",
+    "overcame; transcended; lit. went beyond",
     "✓"
    ],
    [
     "upaccaguṃ",
     "imperf",
-    "they overcame; they transcended; lit. they went past",
+    "they overcame; they transcended; lit. they went beyond",
     "✓"
    ]
   ]
@@ -192202,7 +192244,7 @@ var family_root_json = {
    [
     "pāmojja",
     "nt",
-    "joy; happiness; gladness",
+    "joy; happiness; gladness; lit. happiness state",
     "✓"
    ]
   ]

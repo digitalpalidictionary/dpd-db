@@ -15336,6 +15336,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "tepiṭakacūḷanāgatthera",
+    "masc",
+    "name of a learned Sri Lankan monk; student of Sumana Thera; lit. three baskets young dragon elder",
+    "✓"
+   ],
+   [
     "telakāni",
     "masc",
     "name of an arahant monk",
@@ -16932,6 +16938,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "sumanatthera",
+    "masc",
+    "name of a learned Sri Lankan monk",
+    "✓"
+   ],
+   [
     "suyāmana",
     "masc",
     "name of an arahant monk",
@@ -17082,7 +17094,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 455
+  "count": 457
  },
  "names of arahants": {
   "data": [
@@ -28185,6 +28197,197 @@ var family_set_json = {
   ],
   "count": 178
  },
+ "types of monastics": {
+  "data": [
+   [
+    "aṭṭhakathācariya",
+    "masc",
+    "commentator; lit. commentary teacher",
+    "✓"
+   ],
+   [
+    "āraññika 1",
+    "masc",
+    "forest monk; forest dwelling ascetic",
+    "✓"
+   ],
+   [
+    "āruddhaka",
+    "masc",
+    "type of ascetic",
+    "~"
+   ],
+   [
+    "iddhimant",
+    "masc",
+    "who has psychic powers; possessing supernormal ability; lit. having power quality",
+    "✓"
+   ],
+   [
+    "iddhimantinī",
+    "fem",
+    "woman who has psychic powers",
+    "✓"
+   ],
+   [
+    "iddhimantī",
+    "fem",
+    "woman who has psychic powers",
+    "~"
+   ],
+   [
+    "upaṭṭhāka 1",
+    "masc",
+    "attendant; assistant; lit. who stands near",
+    "✓"
+   ],
+   [
+    "upaṭṭhāka 2",
+    "masc",
+    "nurse; nursing assistant; lit. who stands near",
+    "✓"
+   ],
+   [
+    "ovādaka 1",
+    "masc",
+    "advisor; teacher; instructor; encourager",
+    "✓"
+   ],
+   [
+    "khajjabhājaka",
+    "masc",
+    "distributor of food; food dispenser",
+    "✓"
+   ],
+   [
+    "gaṇī",
+    "masc",
+    "leader of a group; lit. one with a following",
+    "✓"
+   ],
+   [
+    "gotamaka 2",
+    "masc",
+    "disciple of Gotama",
+    "~"
+   ],
+   [
+    "jhāyi 1.1",
+    "masc",
+    "meditator; yogi",
+    "✓"
+   ],
+   [
+    "jhāyī 1",
+    "masc",
+    "meditator; yogi",
+    "✓"
+   ],
+   [
+    "tedaṇḍika",
+    "masc",
+    "ascetic who carries three staffs",
+    "~"
+   ],
+   [
+    "desaka",
+    "masc",
+    "teacher; explainer; who points out",
+    "✓"
+   ],
+   [
+    "desetar",
+    "masc",
+    "teacher; who preaches (something to someone)",
+    "✓"
+   ],
+   [
+    "dhammakathika",
+    "masc",
+    "Dhamma preacher; Dhamma teacher",
+    "✓"
+   ],
+   [
+    "phalabhājaka",
+    "masc",
+    "distributor of fruit; fruit dispenser",
+    "✓"
+   ],
+   [
+    "bhattuddesaka",
+    "masc",
+    "assigner of meals; manager of meal invitations",
+    "✓"
+   ],
+   [
+    "bhāṇaka 1",
+    "masc",
+    "(of scriptures) reciter; chanter",
+    "✓"
+   ],
+   [
+    "bhāṇikā",
+    "fem",
+    "(of scriptures) female reciter; chanter",
+    "~"
+   ],
+   [
+    "bhikkhunovādaka",
+    "masc",
+    "instructor of the nuns; exhorter of nuns",
+    "✓"
+   ],
+   [
+    "yāgubhājaka",
+    "masc",
+    "distributor of congee; rice gruel dispenser",
+    "✓"
+   ],
+   [
+    "yogāvacara",
+    "masc",
+    "spiritual practitioner; meditator",
+    "~"
+   ],
+   [
+    "yogī",
+    "masc",
+    "meditator; practitioner",
+    "✓"
+   ],
+   [
+    "vinayadhara",
+    "masc",
+    "expert in monastic law; lit. bearer of vinaya",
+    "✓"
+   ],
+   [
+    "satthar 1",
+    "masc",
+    "master; teacher",
+    "✓"
+   ],
+   [
+    "suttantika",
+    "masc",
+    "who has learned the discourses by heart; master of the suttas",
+    "✓"
+   ],
+   [
+    "sekha 1",
+    "masc",
+    "trainee; apprentice; learner; initiate; (comm) seven stages of a noble person before arahantship",
+    "✓"
+   ],
+   [
+    "senāsanapaññāpaka",
+    "masc",
+    "manager of lodgings; housing appointer; who assigns dwellings",
+    "✓"
+   ]
+  ],
+  "count": 31
+ },
  "ordinal numbers": {
   "data": [
    [
@@ -31979,6 +32182,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "dīpavihāra",
+    "masc",
+    "name of an ancient Sri Lankan monastery; lit. island monastery",
+    "✓"
+   ],
+   [
     "dhavajālikā",
     "fem",
     "name of a monastery; lit. with a net of axle-wood trees",
@@ -32069,7 +32278,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 34
+  "count": 35
  },
  "foodstuff": {
   "data": [
@@ -33084,191 +33293,6 @@ var family_set_json = {
    ]
   ],
   "count": 8
- },
- "types of monastics": {
-  "data": [
-   [
-    "āraññika 1",
-    "masc",
-    "forest monk; forest dwelling ascetic",
-    "✓"
-   ],
-   [
-    "āruddhaka",
-    "masc",
-    "type of ascetic",
-    "~"
-   ],
-   [
-    "iddhimant",
-    "masc",
-    "who has psychic powers; possessing supernormal ability; lit. having power quality",
-    "✓"
-   ],
-   [
-    "iddhimantinī",
-    "fem",
-    "woman who has psychic powers",
-    "✓"
-   ],
-   [
-    "iddhimantī",
-    "fem",
-    "woman who has psychic powers",
-    "~"
-   ],
-   [
-    "upaṭṭhāka 1",
-    "masc",
-    "attendant; assistant; lit. who stands near",
-    "✓"
-   ],
-   [
-    "upaṭṭhāka 2",
-    "masc",
-    "nurse; nursing assistant; lit. who stands near",
-    "✓"
-   ],
-   [
-    "ovādaka 1",
-    "masc",
-    "advisor; teacher; instructor; encourager",
-    "✓"
-   ],
-   [
-    "khajjabhājaka",
-    "masc",
-    "distributor of food; food dispenser",
-    "✓"
-   ],
-   [
-    "gaṇī",
-    "masc",
-    "leader of a group; lit. one with a following",
-    "✓"
-   ],
-   [
-    "gotamaka 2",
-    "masc",
-    "disciple of Gotama",
-    "~"
-   ],
-   [
-    "jhāyi 1.1",
-    "masc",
-    "meditator; yogi",
-    "✓"
-   ],
-   [
-    "jhāyī 1",
-    "masc",
-    "meditator; yogi",
-    "✓"
-   ],
-   [
-    "tedaṇḍika",
-    "masc",
-    "ascetic who carries three staffs",
-    "~"
-   ],
-   [
-    "desaka",
-    "masc",
-    "teacher; explainer; who points out",
-    "✓"
-   ],
-   [
-    "desetar",
-    "masc",
-    "teacher; who preaches (something to someone)",
-    "✓"
-   ],
-   [
-    "dhammakathika",
-    "masc",
-    "Dhamma preacher; Dhamma teacher",
-    "✓"
-   ],
-   [
-    "phalabhājaka",
-    "masc",
-    "distributor of fruit; fruit dispenser",
-    "✓"
-   ],
-   [
-    "bhattuddesaka",
-    "masc",
-    "assigner of meals; manager of meal invitations",
-    "✓"
-   ],
-   [
-    "bhāṇaka 1",
-    "masc",
-    "(of scriptures) reciter; chanter",
-    "✓"
-   ],
-   [
-    "bhāṇikā",
-    "fem",
-    "(of scriptures) female reciter; chanter",
-    "~"
-   ],
-   [
-    "bhikkhunovādaka",
-    "masc",
-    "instructor of the nuns; exhorter of nuns",
-    "✓"
-   ],
-   [
-    "yāgubhājaka",
-    "masc",
-    "distributor of congee; rice gruel dispenser",
-    "✓"
-   ],
-   [
-    "yogāvacara",
-    "masc",
-    "spiritual practitioner; meditator",
-    "~"
-   ],
-   [
-    "yogī",
-    "masc",
-    "meditator; practitioner",
-    "✓"
-   ],
-   [
-    "vinayadhara",
-    "masc",
-    "expert in monastic law; lit. bearer of vinaya",
-    "✓"
-   ],
-   [
-    "satthar 1",
-    "masc",
-    "master; teacher",
-    "✓"
-   ],
-   [
-    "suttantika",
-    "masc",
-    "who has learned the discourses by heart; master of the suttas",
-    "✓"
-   ],
-   [
-    "sekha 1",
-    "masc",
-    "trainee; apprentice; learner; initiate; (comm) seven stages of a noble person before arahantship",
-    "✓"
-   ],
-   [
-    "senāsanapaññāpaka",
-    "masc",
-    "manager of lodgings; housing appointer; who assigns dwellings",
-    "✓"
-   ]
-  ],
-  "count": 30
  },
  "names of mountains": {
   "data": [
@@ -34795,6 +34819,18 @@ var family_set_json = {
     "~"
    ],
    [
+    "tepiṭakacūḷanāgatthera",
+    "masc",
+    "name of a learned Sri Lankan monk; student of Sumana Thera; lit. three baskets young dragon elder",
+    "✓"
+   ],
+   [
+    "dīpavihāra",
+    "masc",
+    "name of an ancient Sri Lankan monastery; lit. island monastery",
+    "✓"
+   ],
+   [
     "duṭṭhagāmaṇi",
     "masc",
     "name of a renowned ancient king in Sri Lanka who reigned from 161 to 137 BCE; lit. corrupt chief",
@@ -34811,9 +34847,15 @@ var family_set_json = {
     "masc",
     "name of an ancient king in Sri Lanka who reigned from 1055 to 1110 CE; lit. victory arm",
     "~"
+   ],
+   [
+    "sumanatthera",
+    "masc",
+    "name of a learned Sri Lankan monk",
+    "✓"
    ]
   ],
-  "count": 9
+  "count": 12
  },
  "epithets of Sakka": {
   "data": [

@@ -236,7 +236,7 @@ var family_idiom_json = {
    [
     "abhinīhāraṃ katvā",
     "idiom",
-    "having made the aspiration (for); having made set the intention (to)",
+    "having made the aspiration (for); having set the intention (to)",
     "✓"
    ],
    [
@@ -15548,7 +15548,7 @@ var family_idiom_json = {
    [
     "abhinīhāraṃ katvā",
     "idiom",
-    "having made the aspiration (for); having made set the intention (to)",
+    "having made the aspiration (for); having set the intention (to)",
     "✓"
    ]
   ]
