@@ -28,16 +28,16 @@ with a basic structure of
 """
 
 import json
-from pathlib import Path
 import re
 from rich import print
 
+from scripts.transliterate_tipitaka_lk import get_file_names
 from tools.clean_machine import clean_machine
 from tools.list_deduper import dedupe_list
 from tools.pali_text_files import bjt_texts
 from tools.paths import ProjectPaths
 from tools.printer import p_green, p_title, p_yes
-
+pth = ProjectPaths()
 
 def get_bjt_file_names(
         books: list[str]
@@ -59,7 +59,6 @@ def get_bjt_json(bjt_file_names: list[str]) -> list[dict]:
     """Take the list of file names and 
     return a list of json dicts."""
 
-    pth = ProjectPaths()
     roman_dir = pth.bjt_roman_dir
     json_dicts = []
 
@@ -214,37 +213,11 @@ def make_bjt_text_list(
         return bjt_text_list 
 
 
-def save_books_to_text():
-    """Save each book in BJT to a text file."""
-
-    p_title("saving BJT books to text file")
-    file_dir = Path("resources/tipitaka.lk/public/static/books/")
-
-    for book in bjt_texts:
-        p_green(book)
-        bjt_file_names = get_bjt_file_names([book])
-        json_dicts = get_bjt_json(bjt_file_names)
-        bjt_text = ""
-        for json_dict in json_dicts:
-            bjt_text += process_single_bjt_file(
-                json_dict,
-                convert_bold_tags = False,
-                footnotes_inline = False,
-                show_page_numbers = True,
-                show_metadata = True)
-
-        file_path = file_dir \
-            .joinpath(book) \
-            .with_suffix(".txt") 
-        with open(file_path, "w") as f:
-            f.write(bjt_text)
-        p_yes("")
-
 
 if __name__ == "__main__":
-    save_books_to_text()
     # bjt_list = make_bjt_text_list(["vin1"], "list_deduped")
     # print(bjt_list)
     # print(len(bjt_list))
+    
 
 

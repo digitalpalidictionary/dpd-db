@@ -26,9 +26,9 @@ def start_bold_def_server():
     subprocess.Popen(command)
 
 
-def request_dpd_server(search: str|int):
+def request_dpd_server(q: str|int):
     base_url = "http://127.1.1.1:8080/search_html"
-    search_params = {"search": search}
+    search_params = {"q": q}
     url = f"{base_url}?{urllib.parse.urlencode(search_params)}"
     webbrowser.open(url)
 

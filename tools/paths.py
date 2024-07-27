@@ -260,9 +260,11 @@ class ProjectPaths:
         self.cst_xml_roman_dir = base_dir / "resources/tipitaka-xml/romn/"
 
         # resources/tipitaka.lk
+        self.bjt_dir = base_dir / "resources/tipitaka.lk/public/static/"
         self.bjt_sinhala_dir = base_dir / "resources/tipitaka.lk/public/static/text/"
         self.bjt_roman_dir = base_dir / "resources/tipitaka.lk/public/static/text_roman/"
-
+        self.bjt_books = base_dir / "resources/tipitaka.lk/public/static/books/"
+        
         # resources/other_pali_texts
         self.other_pali_texts_dir = base_dir / "resources/other_pali_texts"
 
@@ -357,7 +359,6 @@ class ProjectPaths:
 
         # .. external
         self.bibliography_md_path = base_dir / "../digitalpalidictionary-website-source/src/bibliography.md"
-        self.bjt_text_path = base_dir / "../../../../git/tipitaka.lk/public/static/text roman/"
         self.old_dpd_full_path = base_dir / "../csvs/dpd-full.csv"
         self.old_roots_csv_path = base_dir / "../csvs/roots.csv"
         self.thanks_md_path = base_dir / "../digitalpalidictionary-website-source/src/thanks.md"
