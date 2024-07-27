@@ -5592,7 +5592,7 @@ var family_root_json = {
    [
     "kuhāyanā",
     "fem",
-    "deception; fraudulence; creating a false impression",
+    "deceiving; creating a false impression",
     "✓"
    ],
    [
@@ -21833,7 +21833,7 @@ var family_root_json = {
   "root_key": "√thar",
   "root_family": "adhi ava √thar",
   "root_meaning": "spread, expand",
-  "count": 10,
+  "count": 12,
   "data": [
    [
     "ajjhotthaṭa",
@@ -21850,14 +21850,20 @@ var family_root_json = {
    [
     "ajjhottharati 1",
     "pr",
-    "submerges, overpowers",
-    "✗"
+    "covers over; overlaps",
+    "✓"
    ],
    [
     "ajjhottharati 2",
     "pr",
     "embraces; smothers; lies on top of; lit. completely covers",
     "~"
+   ],
+   [
+    "ajjhottharati 3",
+    "pr",
+    "overpowers; overwhelms",
+    "✓"
    ],
    [
     "ajjhottharamāna",
@@ -21870,6 +21876,12 @@ var family_root_json = {
     "aor",
     "submerged, overpowered",
     "✗"
+   ],
+   [
+    "ajjhottharitar",
+    "masc",
+    "who overcomes; who overpowers; who masters",
+    "✓"
    ],
    [
     "ajjhottharitvā",
@@ -42627,7 +42639,7 @@ var family_root_json = {
   "root_key": "√bhū",
   "root_family": "abhi √bhū",
   "root_meaning": "be, become",
-  "count": 22,
+  "count": 23,
   "data": [
    [
     "anabhibhuyya",
@@ -42688,6 +42700,12 @@ var family_root_json = {
     "ptp",
     "able to be defeated; vanquishable (by); lit. to be conquered",
     "~"
+   ],
+   [
+    "abhibhavitar",
+    "masc",
+    "who overpowers; who overwhelmes; who masters",
+    "✓"
    ],
    [
     "abhibhavitvā 1",
@@ -61309,7 +61327,7 @@ var family_root_json = {
   "root_key": "√vac",
   "root_family": "√vac",
   "root_meaning": "say, speak",
-  "count": 103,
+  "count": 104,
   "data": [
    [
     "anutta",
@@ -61496,6 +61514,12 @@ var family_root_json = {
     "fem",
     "unruliness; contumacy; stubbornness; obstinacy; lit. hard to talk to state",
     "✗"
+   ],
+   [
+    "nāvacāsi",
+    "aor",
+    "did not say; did not tell",
+    "✓"
    ],
    [
     "vakkhati 1",
@@ -88687,7 +88711,7 @@ var family_root_json = {
   "root_key": "√palā",
   "root_family": "√palā",
   "root_meaning": "run away, flee",
-  "count": 18,
+  "count": 19,
   "data": [
    [
     "apalāyana",
@@ -88718,6 +88742,12 @@ var family_root_json = {
     "pr",
     "causes to put to flight",
     "✗"
+   ],
+   [
+    "palāpetuṃ",
+    "inf",
+    "to put to flight; to make flee",
+    "✓"
    ],
    [
     "palāpetvā",
@@ -104126,7 +104156,7 @@ var family_root_json = {
    [
     "bhijjamāna",
     "prp",
-    "being broked; being destroyed",
+    "being broken; being destroyed",
     "✓"
    ],
    [
@@ -108758,7 +108788,7 @@ var family_root_json = {
    [
     "bhāgya",
     "nt",
-    "good luck; fortune",
+    "good luck; fortune; lit. luck state",
     "✓"
    ],
    [
@@ -110063,8 +110093,14 @@ var family_root_json = {
   "root_key": "√cit 1",
   "root_family": "abhi √cit",
   "root_meaning": "think, intend",
-  "count": 3,
+  "count": 4,
   "data": [
+   [
+    "abhicetas",
+    "masc",
+    "higher mental function; superior thought",
+    "✓"
+   ],
    [
     "abhicetasika",
     "adj",
@@ -143319,7 +143355,7 @@ var family_root_json = {
   "root_key": "√gah",
   "root_family": "saṃ √gah",
   "root_meaning": "grasp",
-  "count": 48,
+  "count": 49,
   "data": [
    [
     "asaṅgahita 1.1",
@@ -143530,6 +143566,12 @@ var family_root_json = {
     "abs",
     "having compiled, having collected",
     "✗"
+   ],
+   [
+    "saṅgahetvā 3",
+    "abs",
+    "having included; lit. having held together",
+    "✓"
    ],
    [
     "saṅgahesi",
@@ -166792,7 +166834,7 @@ var family_root_json = {
    [
     "upanikkhipitabba",
     "ptp",
-    "should be deposit near; should be place down close; lit. to be thrown down near",
+    "should be deposited near; should be placed down close; lit. to be thrown down near",
     "✓"
    ],
    [
@@ -183994,7 +184036,7 @@ var family_root_json = {
    [
     "nimujjana",
     "nt",
-    "diving; submerging into water; ducking under the surface",
+    "diving down; submerging; ducking under the surface",
     "✓"
    ],
    [

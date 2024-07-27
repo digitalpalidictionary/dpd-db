@@ -1218,6 +1218,7 @@ meditator
 mendaciously
 mendicants
 menses
+meritless
 Meru
 mettā
 Mettagū's
@@ -1398,7 +1399,6 @@ Nigrodha's
 nigrum
 nijigīṃsitar
 nijigīsanako
-Nikāya
 Nikāya
 nikkha
 nilgai
@@ -1876,6 +1876,7 @@ slanderousness
 slayed
 śloka
 sluggishness
+SN22.22
 soapberry
 sobhanaka
 socanan'ti
@@ -2424,4 +2425,3 @@ yojanas
 yoking
 zizanioides
 Ziziphus
-meritless

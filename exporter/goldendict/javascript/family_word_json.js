@@ -3367,6 +3367,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "itarathā",
+    "ind",
+    "otherwise; in another way; contrarily; lit. another place",
+    "✓"
+   ],
+   [
     "ito 1",
     "pron",
     "from this (person); from this (thing)",
@@ -3739,7 +3745,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 82
+  "count": 83
  },
  "atta": {
   "data": [

@@ -1264,7 +1264,7 @@ var family_set_json = {
     "uparipāṭha",
     "masc",
     "(gram) following variant reading",
-    "~"
+    "✓"
    ],
    [
     "upasagga 2.1",
@@ -32249,7 +32249,7 @@ var family_set_json = {
    [
     "kaniṭṭhabhaginī",
     "fem",
-    "younger sister; junior sister",
+    "younger sister; junior female sibling",
     "✓"
    ],
    [

@@ -1,4 +1,5 @@
 initial	final	correct	wrong	without	exceptions
+
 -
 xa + u	o	au > o	u > o	o	anoka 1, anoka 2, anoka 3, anodaka, odarika,	need more rules
 a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant
@@ -176,6 +177,7 @@ vi + ā	veyyā	vi > veyy (Kacc 401, 375)	vy > veyy	veyy	x
 s + t	ṭṭh	st > ṭṭh	x	x	x
 s + m	ss	sm > ss	s > m	ss	x
 s + y	ss	sy > ss	y > s	x	x
+sa + y	ss	sy > ss	y > s	x	x
 s + s	cch	ss > cch	x	x	x
 snih +	sini	snih > sinih (epenthesis)	x	x	x
 sud	sod	u > o	x	a + u	x
