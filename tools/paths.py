@@ -349,6 +349,7 @@ class ProjectPaths:
         self.internal_tests_path = base_dir / "tests/tests_internal.tsv"
         self.neg_compound_exceptions = base_dir / "tests/test_neg_compound_exceptions.json"
         self.phonetic_changes_path = base_dir / "tests/add_phonetic_changes.tsv"
+        self.phonetic_changes_vowels_path = base_dir / "tests/add_phonetic_changes_vowels.tsv"
         self.sukha_dukkha_finder_path = base_dir / "tests/test_sukha_dukkha_finder.json"
         self.syn_var_exceptions_old_path = base_dir / "tests/add_synonym_variant_exceptions"
         self.syn_var_exceptions_path = base_dir / "tests/add_synonym_variant.json"

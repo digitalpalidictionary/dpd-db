@@ -1,0 +1,53 @@
+initial	final	correct	wrong	without	exceptions
+
+-
+a a	a	aa > a	x	x	x
+a a	ā	aa > ā	a > ā	x	x
+a ā	ā	aā > ā	a > ā	x	x
+a i	i	ai > i	x	x	x
+a i	e	ai > e	i > e	na i	x
+a u	u	au > u	x	na u	x
+a u	ū	au > ū	u > ū	x	x
+a u	o	au > o	u > o	o	x
+a e	e	ae > e	x	x	x
+a o	o	ao > o	x	x	x
+aṃ a	ā	aṃa > ā	x	ā	x
+ā i	i	āi > i	ā > i	x	x
+i a	a	ia > a	i > a	x	x
+i a	ā	ia > ā	x	x	x
+i a	i	ia > i	a > i	x	x
+i a	ī	ia > ī	i > ī	x	x
+i a	e	ia > e	i > e	x	x
+i a	ya	ia > ya	i > y	x	x
+i ā	ā	iā > ā	x	x	x
+i i	i	ii > i	x	x	x	
+i u	ū	iu > ū	u > ū	x	x
+i e	e	ie > e	i > e	adhi e	x
+i o	o	io > o	i > o	x	x
+u a	va	ua > va	u > v	vā	x
+u ā	ā	uā > ā	x	x	x
+u ā	vā	uā > vā	x	x	x
+u i	ī	ui > ī	i > ī	x	x
+u i	u	ui > u	x	x	x
+u i	ū	ui > ū	u > ū	x	x
+u i	vi	ui > vi	x	x	x
+u u	u	uu > u	x	x	x
+u u	ū	uu > ū	x	x	x
+u e	u	ue > u	x	x	x
+ū a	av	ū > av	x	x	x
+e a	a	ea > a	x	x	x
+e a	ā	ea > ā	x	x	x
+e a	e	ea > e	x	x	x
+e i	e	ei > e	i > e	x	x
+e e	e	ee > e	x	x	x
+o a	a	oa > a	x	x	x
+o a	ā	oa > ā	a > ā	x	x
+o a	o	oa > o	x	x	x
+o i	o	oi > o	x	x	x
+o u	u	ou > u	x	x	x
+o e	e	oe > e	o > e	x	x
+ṃ i	n	ṃt > nt	ṃ > n	x	x
+
+
+
+

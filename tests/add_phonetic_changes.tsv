@@ -1,7 +1,6 @@
 initial	final	correct	wrong	without	exceptions
-
+d + a + y	jj	day > dy > jj	dy > jj	x	x
 -
-xa + u	o	au > o	u > o	o	anoka 1, anoka 2, anoka 3, anodaka, odarika,	need more rules
 a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant
 a + ṭ	iṭ	a > i	x	a + ṭh	x
 a + ṭh	iṭṭh	a > i	x	x	x
@@ -13,7 +12,6 @@ abhi + a	abbh	bhi > bhy > bbh	x	x	x
 am + ta	ata	mt > t	x	nt	abhikkantatara, santatara
 ar + t	āt	ar > ā	har > hā	x	sāttha, sātthaka 1, sātthaka 2, kātabba 1, kātabba 2, kātuna, kātuṃ 1, kātuṃ 2
 ava	o	ava > o	x	o	ponobbhavika, ponobhavika, anavabodha, bhavamūlopagāmī
-xaṃ + a	ā	aṃa > ā	x	ā	x	need more exclusions
 
 ā + ñ	aññ	āñ > aññ	x	x	vadaññutā, sāmaññatā 2.1
 xā + t	att	āt > att	x	tta, ā + th	atthacariyatā, nakkhattavijjātiracchānavijjā, vatthuvijjātiracchānavijjā, hatthaoṭṭhajivhātālu, atta 2.1, atta 2.2
@@ -23,7 +21,6 @@ xā + t	att	āt > att	x	tta, ā + th	atthacariyatā, nakkhattavijjātiracchānav
 ānaṃ	annaṃ	ān > ann	x	x	x
 
 i + u	ū	iu > ū	x	ū	payirūpāsanā
-xi + e	e	ia > e	i > e	x	x	needs more rules
 i + s	iṃs	is > iṃs	x	x	x
 i + s	īs	is > iṃs > īs	x	x	catuvīsatisatasahassa, diṭṭhisīsa, belaṭṭhisīsa, pacchisīsa
 
@@ -34,14 +31,12 @@ i + s	īs	is > iṃs > īs	x	x	catuvīsatisatasahassa, diṭṭhisīsa, belaṭ�
 ī + l	ill	īl > ill	x	x	x
 ī + v	ibb	īv > ivv > ibb	īv > ibb	ī + bh	x
 
-xu + a	va	ua > va	u > v	vā	x	need to p_exlude and c_eclude
 u + ā	vā	uā > vā	u > v	x	divādigaṇa, opilāpetvā, suvānaya 1, suvānaya 2, samannāharitvā, lavāpeti, lavāpetvā
 u + i	vay	ui > vi	x	x	x
 u + i + y	by	vy > by	x	x	x
 uṭ	oṭ	u > o	x	x	x
 ud + h	ūh	ud > ū before h	ud > ū	x	x
 
-xū + a	av	ū > av	x	x	x	so many exceptions
 ūy	ubb	ūy > ūv > uvv > ubb	x	x	x
 
 e + a	aya	e > ay	x	x	x
@@ -116,6 +111,7 @@ d + s	ss	ds > ss	d > s	x	x
 d + s	cch	ds > cch	d > c	x	x
 d + ṃ	nd	dṃ > nd (metathesis)	ṃ > n	x	x
 
+da + y	jj	day > dy > jj	dy > jj	x	x
 du	dū	u > ū	x	dur	dūpadhārita, ussāvabindūpama
 dh + t	ddh	dht > ddh	x	x	x
 dh + y	jjh	dhy > jjh	x	x	x

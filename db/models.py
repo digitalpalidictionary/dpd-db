@@ -663,6 +663,11 @@ class DpdHeadwords(Base):
     def meaning_combo_html(self) -> str:
         from tools.meaning_construction import make_meaning_combo_html
         return make_meaning_combo_html(self)
+
+    @property
+    def root_base_clean(self) -> str:
+        from tools.meaning_construction import clean_construction
+        return clean_construction(self.root_base)
     
     @property
     def construction_summary(self) -> str:

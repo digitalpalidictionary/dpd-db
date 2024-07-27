@@ -17,6 +17,7 @@ from tools.tic_toc import tic, toc
 # the root == the word
 exceptions = [
     "abhibhū",
+    "abhijñā"
     "adhiprajñā",
     "ājñā",
     "anupādā",
