@@ -6,7 +6,7 @@ import re
 from typing import Tuple, List
 from rich import print
 from tools.paths import ProjectPaths
-from tools.source_sutta_example import make_cst_soup
+from tools.cst_source_sutta_example import make_cst_soup
 
 
 

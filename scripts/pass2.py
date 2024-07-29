@@ -9,12 +9,12 @@ from rich import print
 from typing import List
 
 from db.get_db_session import get_db_session
-from db.models import DpdHeadwords, InflectionToHeadwords, Sandhi
+from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 
 from tools.cst_sc_text_sets import make_cst_text_list
 from tools.cst_sc_text_sets import make_sc_text_list
-from tools.source_sutta_example import find_source_sutta_example
+from tools.cst_source_sutta_example import find_source_sutta_example
 from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_list_sorter
 

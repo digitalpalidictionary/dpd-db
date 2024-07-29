@@ -32,7 +32,7 @@ from tools.pali_text_files import cst_texts
 from tools.pali_alphabet import pali_alphabet
 from tools.paths import ProjectPaths
 from tools.pos import INDECLINABLES
-from tools.source_sutta_example import find_source_sutta_example
+from tools.cst_source_sutta_example import find_source_sutta_example
 
 # nltk.download('punkt')
 

@@ -19,7 +19,7 @@ from tools.paths import ProjectPaths
 
 from tools.cst_sc_text_sets import make_cst_text_list
 from tools.cst_sc_text_sets import make_sc_text_list
-from tools.source_sutta_example import find_source_sutta_example
+from tools.cst_source_sutta_example import find_source_sutta_example
 from tools.meaning_construction import make_meaning_combo
 from tools.goldendict_tools import open_in_goldendict
 

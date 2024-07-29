@@ -31,12 +31,10 @@ import json
 import re
 from rich import print
 
-from scripts.transliterate_tipitaka_lk import get_file_names
 from tools.clean_machine import clean_machine
 from tools.list_deduper import dedupe_list
 from tools.pali_text_files import bjt_texts
 from tools.paths import ProjectPaths
-from tools.printer import p_green, p_title, p_yes
 pth = ProjectPaths()
 
 def get_bjt_file_names(
@@ -215,9 +213,9 @@ def make_bjt_text_list(
 
 
 if __name__ == "__main__":
-    # bjt_list = make_bjt_text_list(["vin1"], "list_deduped")
-    # print(bjt_list)
-    # print(len(bjt_list))
+    bjt_list = make_bjt_text_list(["vin1"], "list_deduped")
+    print(bjt_list)
+    print(len(bjt_list))
     
 
 
