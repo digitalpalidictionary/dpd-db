@@ -7673,7 +7673,7 @@ var family_word_json = {
     "anadhika",
     "adj",
     "not exceeding; not more; not in excess",
-    "✗"
+    "✓"
    ],
    [
     "samādhika",
@@ -9881,8 +9881,8 @@ var family_word_json = {
    [
     "anūna",
     "adj",
-    "not lacking; not wanting; not deficient; complete",
-    "~"
+    "not lacking; not too little; not wanting; not deficient; complete",
+    "✓"
    ],
    [
     "ūna 1",
@@ -21416,9 +21416,15 @@ var family_word_json = {
     "fem",
     "women of the ruling caste; noblewoman",
     "✓"
+   ],
+   [
+    "khatya",
+    "masc",
+    "man of the ruling caste; high caste man; nobleman",
+    "✓"
    ]
   ],
-  "count": 11
+  "count": 12
  },
  "khalu": {
   "data": [

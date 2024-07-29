@@ -28212,6 +28212,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "ārāmikapesaka",
+    "masc",
+    "monastery supervisor",
+    "✓"
+   ],
+   [
     "āruddhaka",
     "masc",
     "type of ascetic",
@@ -28308,6 +28314,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "pattaggāhāpaka",
+    "masc",
+    "bowl distributor; lit. bowl taker",
+    "✓"
+   ],
+   [
     "phalabhājaka",
     "masc",
     "distributor of fruit; fruit dispenser",
@@ -28368,6 +28380,18 @@ var family_set_json = {
     "✓"
    ],
    [
+    "sāṭiyaggāhāpaka",
+    "masc",
+    "rainsuit collector",
+    "✓"
+   ],
+   [
+    "sāmaṇerapesaka",
+    "masc",
+    "supervisor of novices",
+    "✓"
+   ],
+   [
     "suttantika",
     "masc",
     "who has learned the discourses by heart; master of the suttas",
@@ -28386,7 +28410,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 31
+  "count": 35
  },
  "ordinal numbers": {
   "data": [
@@ -33125,9 +33149,15 @@ var family_set_json = {
     "masc",
     "name of an ascetic; Asita Devala; previous incarnation of the Buddha; lit. not white",
     "✓"
+   ],
+   [
+    "mahāsudassana",
+    "masc",
+    "name of ancient king; previous incarnation of the Buddha",
+    "✓"
    ]
   ],
-  "count": 1
+  "count": 2
  },
  "seven treasures": {
   "data": [
