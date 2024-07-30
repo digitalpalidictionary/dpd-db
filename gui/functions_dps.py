@@ -599,7 +599,8 @@ def call_openai(model_version, messages):
         )
     elif model_version == "3":
         return openai.ChatCompletion.create(
-            model="gpt-3.5-turbo-0125",
+            model="gpt-4o-mini",
+            # model="gpt-3.5-turbo-0125",
             messages=messages
         )
     else:
@@ -1436,6 +1437,19 @@ def add_word_from_csv(dpspth, window):
     return original_word
 
 
+def get_next_word_ru(db_session):
+    # Query the database for the first word that meets the conditions
+    word = db_session.query(DpdHeadwords).join(Russian).filter(
+        DpdHeadwords.meaning_1 != "",
+        DpdHeadwords.example_1 != "",
+        Russian.ru_meaning == "",
+    ).first()
 
+    # Return the id of the word if found, otherwise return None
+    if word:
+        print(f"id = {word.id}")
+        return str(word.id)
+    else:
+        print("No words found in the database.")
 
 

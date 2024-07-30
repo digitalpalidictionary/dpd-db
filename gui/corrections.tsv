@@ -2009,7 +2009,7 @@ va > vā"					missing		yes
 25964	phonetic	d > dd (sk r)					missing		yes		
 25963	phonetic	d > dd (sk r)					missing		yes		
 65421	phonetic	dh > ddh (sk dhv)					missing		yes		
-13543	phonetic	n > nn (sk m)					missing	no just normal sandhi	no		
+13543	phonetic	n > nn (sk m)					missing	no just normal sandhi	no	yes	
 12298	phonetic	p > pp (sk pr)					missing		yes		
 24932	phonetic	b > bb (sk vr)					missing		yes		
 24933	phonetic	b > bb (sk vr)					missing		yes		
@@ -2176,7 +2176,7 @@ aa > ā"					missing		yes
 54110	phonetic	uā > ā					missing		yes		
 54202	phonetic	ui > ī					missing		yes		
 67853	phonetic	au > ū					missing		yes		
-73906	phonetic	ṃ > d					missing	i dont think these are necessary ṃ > d	no		
+73906	phonetic	ṃ > d					missing	i dont think these are necessary ṃ > d	no	yes	
 8511	phonetic	g > gg (sk gr)					missing		yes		
 12961	phonetic	g > gg (sk gr)					missing		yes		
 17749	phonetic	aā > ā					missing		yes		
@@ -2227,7 +2227,7 @@ nibbanti dhīrā yath'āyaṃ padīpo."	missing		yes
 41690	meaning_1	falls (on); lands (on)					repitition		yes		
 58464	meaning_lit	I ran along					missing I		yes		
 25894	phonetic	t > tt (sk rt)					missing		yes		
-2975	phonetic	d > dd (sk dṛ)					missing	no, the ṛ becomes the vowel not a consonant. ṛ is in the vowels in sk, not in the consonants like rrrrrussian	no		
+2975	phonetic	d > dd (sk dṛ)					missing	no, the ṛ becomes the vowel not a consonant. ṛ is in the vowels in sk, not in the consonants like rrrrrussian	no	yes	
 13543	phonetic	ṃn > nn					correct		yes		
 6981	phonetic	"p > pp (sk pr)
 a > ā"					missing	order ph according to word	yes		

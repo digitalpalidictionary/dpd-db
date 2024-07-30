@@ -27,7 +27,7 @@ db_session = get_db_session(pth.dpd_db_path)
 
 hight_model="gpt-4o"
 model="gpt-4o"
-# model="gpt-3.5-turbo-0125"
+# model="gpt-4o-mini"
 
 def ru_meaning_generating():
 
@@ -129,7 +129,7 @@ def ru_meaning_generating():
             # Commit changes after all updates/additions
             db_session.commit()
 
-            print(f"{counter +  1}. {i.id}, {i.ebt_count} {i.lemma_1} {ru_meaning_raw}")
+            print(f"{counter +  1} / {row_count}. {i.id}, {i.ebt_count} {i.lemma_1} {ru_meaning_raw}")
 
             with open(f'{dpspth.ai_translated_dir}/{model}.tsv', 'a', encoding='utf-8') as file:
                 file.write(f"{i.id}\t{i.lemma_1}\t{ru_meaning_raw}\n")
@@ -270,7 +270,7 @@ def ru_notes_generating():
             # Commit changes after all updates/additions
             db_session.commit()
 
-            print(f"{counter +  1}. {i.id}, {i.ebt_count} {i.lemma_1} {ru_meaning_raw}")
+            print(f"{counter +  1} / {row_count}. {i.id}, {i.ebt_count} {i.lemma_1} {ru_meaning_raw}")
 
 
 

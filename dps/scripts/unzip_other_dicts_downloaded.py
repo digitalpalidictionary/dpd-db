@@ -35,12 +35,14 @@ gd_dir = os.path.join(
 
 md_dir = os.path.join(
    software_dir, 
-   'MDict'
+   'MDict',
+   'various pali&sk'
+   
 )
 
 kd_dir = os.path.join(
    software_dir,
-   'Kindle Dictionaries'
+   'Ebook Readers Dictionary'
 )
 
 gd_local_dir = os.path.join(deva_dir, 'Documents', 'GoldenDict')

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# unzip dpd from local folder Download to the fileserver. And copy kindl version as well. 
+# unzip dpd from local folder Download to the fileserver. And copy kindle and kobo version as well. 
 
 from datetime import date
 from zipfile import ZipFile
@@ -35,12 +35,13 @@ gd_dir = os.path.join(
 
 md_dir = os.path.join(
    software_dir, 
-   'MDict'
+   'MDict', 
+   'dpd'
 )
 
 kd_dir = os.path.join(
    software_dir,
-   'Kindle Dictionaries'
+   'Ebook Readers Dictionary'
 )
 
 dpd_kindle_mobi_src = os.path.join(downloads_dir, 'dpd-kindle.mobi')
@@ -48,6 +49,9 @@ dpd_kindle_mobi_dest = os.path.join(kd_dir, 'dpd-kindle.mobi')
 
 dpd_kindle_epub_src = os.path.join(downloads_dir, 'dpd-kindle.epub')
 dpd_kindle_epub_dest = os.path.join(kd_dir, 'dpd-kindle.epub')
+
+dpd_kobo_src = os.path.join(downloads_dir, 'dpd-kobo.zip')
+dpd_kobo_dest = os.path.join(kd_dir, 'dpd-kobo.zip')
 
 dpd_goldendict_src = os.path.join(downloads_dir, 'dpd-goldendict.zip')
 dpd_mdict_src = os.path.join(downloads_dir, 'dpd-mdict.zip')
@@ -86,6 +90,12 @@ if os.path.exists(dpd_kindle_epub_src):
 else:
    print("\033[1;31m dpd_kindle is missing. Cannot proceed with moving. \033[0m")
 
+# Move dpd-kobo.zip to the specified directory
+if os.path.exists(dpd_kobo_src):
+   shutil.move(dpd_kobo_src, dpd_kobo_dest)
+   print("\033[1;32m dpd-kobo.zip moved to the server \033[0m")
+else:
+   print("\033[1;31m dpd-kobo.zip is missing. Cannot proceed with moving. \033[0m")
 
 
 

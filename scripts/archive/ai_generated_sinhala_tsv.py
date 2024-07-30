@@ -93,7 +93,7 @@ openai.api_key = load_openia_config()
 @timeout(10, timeout_exception=TimeoutDecoratorError)  # Setting a 10-second timeout
 def call_openai(messages):
     return openai.ChatCompletion.create(
-        model="gpt-3.5-turbo-0125",
+        model="gpt-4o-mini",
         messages=messages
     )
 

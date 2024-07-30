@@ -120,6 +120,7 @@ from functions_dps import save_gui_state_dps
 from functions_dps import load_gui_state_dps
 from functions_dps import add_word_from_csv
 from functions_dps import send_sutta_study_request
+from functions_dps import get_next_word_ru
 
 
 from functions_tests_dps import dps_open_internal_tests
@@ -2108,6 +2109,11 @@ def main():
         elif event == "dps_html_summary_button":
             request_dpd_server(values["dps_dpd_id"])
 
+        elif event == "dps_show_next_word_ru":
+            next_word_id = get_next_word_ru(db_session)
+            clear_dps(values, window)
+            window["dps_id_or_lemma_1"].update(
+                    value=next_word_id)
 
         # dps in word to add tab
 

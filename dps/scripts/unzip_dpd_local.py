@@ -32,7 +32,8 @@ gd_dir = os.path.join(
 
 mdict_dir = os.path.join(
    software_dir,
-   'MDict'
+   'MDict',
+   'dpd'
 )
 
 

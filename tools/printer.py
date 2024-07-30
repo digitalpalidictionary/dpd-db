@@ -25,7 +25,7 @@ def p_yes(message: int|str):
     p_bop()
 
 def p_no(message):
-    print(f"[red]{message:>10,}", end="")
+    print(f"[red]{message:>10}", end="")
     p_bop()
 
 def p_red(message):

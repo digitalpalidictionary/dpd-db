@@ -52,9 +52,9 @@ def main():
     make_pali_word_table_data(pth, db_session)
     make_pali_root_table_data(pth, db_session)
     make_russian_table_data(pth, db_session)
-    make_ru_root_table_data(pth, db_session)
     make_sbs_table_data(pth, db_session)
-
+    make_ru_root_table_data(pth, db_session)
+    
     p_green("committing to db")
     db_session.commit()
     db_session.close()
@@ -117,6 +117,22 @@ def make_russian_table_data(pth: ProjectPaths, db_session: Session):
     p_yes(counter)
 
 
+def make_sbs_table_data(pth: ProjectPaths, db_session: Session):
+    """Read TSV and return SBS table data."""
+    p_green("creating SBS table data")
+    counter = 0
+    with open(pth.sbs_path, 'r', newline='') as tsvfile:
+        csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
+        columns = next(csvreader)
+        for row in csvreader:
+            data = {}
+            for col_name, value in zip(columns, row):
+                data[col_name] = value
+            db_session.add(SBS(**data))
+            counter+=1
+    p_yes(counter)
+
+
 def make_ru_root_table_data(pth: ProjectPaths, db_session: Session):
     """Read TSV and return ru columns from DpdRoots."""
     p_green("filling ru in DpdRoots table")
@@ -135,22 +151,6 @@ def make_ru_root_table_data(pth: ProjectPaths, db_session: Session):
                     setattr(existing_record, key, value)
             else:
                 db_session.add(DpdRoots(**data))
-            counter+=1
-    p_yes(counter)
-
-
-def make_sbs_table_data(pth: ProjectPaths, db_session: Session):
-    """Read TSV and return SBS table data."""
-    p_green("creating SBS table data")
-    counter = 0
-    with open(pth.sbs_path, 'r', newline='') as tsvfile:
-        csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
-        columns = next(csvreader)
-        for row in csvreader:
-            data = {}
-            for col_name, value in zip(columns, row):
-                data[col_name] = value
-            db_session.add(SBS(**data))
             counter+=1
     p_yes(counter)
 

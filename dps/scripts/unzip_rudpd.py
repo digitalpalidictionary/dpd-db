@@ -35,7 +35,8 @@ gd_dir = os.path.join(
 
 md_dir = os.path.join(
    software_dir, 
-   'MDict'
+   'MDict',
+   'ru-dpd'
 )
 
 share_dir = os.path.join(
@@ -48,7 +49,7 @@ share_dir = os.path.join(
 
 kd_dir = os.path.join(
    software_dir,
-   'Kindle Dictionaries'
+   'Ebook Readers Dictionary'
 )
 
 dpd_src = os.path.join(share_dir, 'ru-dpd-goldendict.zip')

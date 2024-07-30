@@ -802,6 +802,11 @@ def make_tab_edit_dps(dpspth, sg):
                 key="dps_update_db_button",
                 tooltip="Add a sbs or ru info into the db"
                 ),
+            sg.Button(
+                "Next Ru", 
+                key="dps_show_next_word_ru",
+                tooltip="Show next word with meaning_1 and ru_meaning empty"
+                ),
         ],
         [
             # gui buttons
