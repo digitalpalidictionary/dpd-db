@@ -29,25 +29,25 @@ AN
 11. ekādasakanipāta\tan11
 
 KN
-01. khuddakapāṭha\tkn1
-02. dhammapada\t\tkn2
-03. udāna\t\tkn3
-04. itivuttaka\t\tkn4
-05. suttanipāta\t\tkn5
-06. vimānavatthu\t\tkn6
-07. petavatthu\t\tkn7
-08. theragāthā\t\tkn8
-09. therīgāthā\t\tkn9
-10. therāpadāna\t\tkn10
+01. khuddakapāṭha\tkn1\tkn1a
+02. dhammapada\t\tkn2\tkn2a
+03. udāna\t\tkn3\tkn3a
+04. itivuttaka\t\tkn4\tkn4a
+05. suttanipāta\t\tkn5\tkn5a
+06. vimānavatthu\t\tkn6\tkn6a
+07. petavatthu\t\tkn7\tkn7a
+08. theragāthā\t\tkn8\tkn8a
+09. therīgāthā\t\tkn9\tkn9a
+10. therāpadāna\t\tkn10\tkn10a
 11. therīapadāna\t\tkn11
-12. buddhavaṃsa\t\tkn12
-13. cariyāpiṭaka\t\tkn13
-14. jātaka\t\tkn14
-15. mahāniddesa\t\tkn15
-16. cūḷaniddesa\t\tkn16
-17. paṭisambhidāmagga\tkn17
+12. buddhavaṃsa\t\tkn12\tkn12a
+13. cariyāpiṭaka\t\tkn13\tkn13a
+14. jātaka\t\tkn14\tkn14a
+15. mahāniddesa\t\tkn15\tkn15a
+16. cūḷaniddesa\t\tkn16\tkn16a
+17. paṭisambhidāmagga\tkn17\tkn17a
 18. milindapañha\t\tkn18
-19. nettippakaraṇa\t\tkn19
+19. nettippakaraṇa\t\tkn19\tkn19a
 20. peṭakopadesa\t\tkn20
 """
 

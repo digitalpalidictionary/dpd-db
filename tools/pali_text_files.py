@@ -113,20 +113,22 @@ cst_texts: Dict[str, List[str]] = {
         "s0404a.att.txt"
     ],
 
-    "kna": [
-        "s0501a.att.txt",
-        "s0502a.att.txt",
-        "s0503a.att.txt",
-        "s0504a.att.txt",
-        "s0505a.att.txt",
-        "s0506a.att.txt",
-        "s0507a.att.txt",
+    "kn1a": ["s0501a.att.txt"],
+    "kn2a": ["s0502a.att.txt"],
+    "kn3a": ["s0503a.att.txt"],
+    "kn4a": ["s0504a.att.txt"],
+    "kn5a": ["s0505a.att.txt"],
+    "kn6a": ["s0506a.att.txt"],
+    "kn7a": ["s0507a.att.txt"],
+    "kn8a": [
         "s0508a1.att.txt",
-        "s0508a2.att.txt",
-        "s0509a.att.txt",
-        "s0510a.att.txt",
-        "s0511a.att.txt",
-        "s0512a.att.txt",
+        "s0508a2.att.txt"],
+    "kn9a": ["s0509a.att.txt"],
+    "kn10a": ["s0510a.att.txt"],
+    "kn11a": [],
+    "kn12a": ["s0511a.att.txt"],
+    "kn13a": ["s0512a.att.txt"],
+    "kn14a": [
         "s0513a1.att.txt",
         "s0513a2.att.txt",
         "s0513a3.att.txt",
@@ -134,11 +136,13 @@ cst_texts: Dict[str, List[str]] = {
         "s0514a1.att.txt",
         "s0514a2.att.txt",
         "s0514a3.att.txt",
-        "s0515a.att.txt",
-        "s0516a.att.txt",
-        "s0517a.att.txt",
-        "s0519a.att.txt",
-    ],
+        ],
+    "kn15a": ["s0515a.att.txt"],
+    "kn16a": ["s0516a.att.txt"],
+    "kn17a": ["s0517a.att.txt"],
+    # kn18a does not exist
+    "kn19a": ["s0519a.att.txt"],
+    # kn20a does not exist
 
     "abha": [
         "abh01a.att.txt",
@@ -7808,7 +7812,28 @@ sc_texts: Dict[str, List[str]] = {
     "mna": [],
     "sna": [],
     "ana": [],
-    "kna": [],
+    
+    "kn1a": [],
+    "kn2a": [],
+    "kn3a": [],
+    "kn4a": [],
+    "kn5a": [],
+    "kn6a": [],
+    "kn7a": [],
+    "kn8a": [],
+    "kn9a": [],
+    "kn10a": [],
+    "kn11a": [],
+    "kn12a": [],
+    "kn13a": [],
+    "kn14a": [],
+    "kn15a": [],
+    "kn16a": [],
+    "kn17a": [],
+    # kn18a does not exist
+    "kn19a": [],
+    # kn20a does not exist
+
     "abha": [],
 
     "vint": [],
@@ -7985,18 +8010,10 @@ bjt_texts = {
     ],
 
     # khuddaka nikaya
-    "kn1": [
-        "kn-khp.json",
-    ],
-    "kn2": [
-        "kn-dhp.json",
-    ],
-    "kn3": [
-        "kn-ud.json",
-    ],
-    "kn4": [
-        "kn-iti.json",
-    ],
+    "kn1": ["kn-khp.json"],
+    "kn2": ["kn-dhp.json"],
+    "kn3": ["kn-ud.json"],
+    "kn4": ["kn-iti.json"],
     "kn5": [
         "kn-snp.json",
         "kn-snp-2.json",
@@ -8004,19 +8021,13 @@ bjt_texts = {
         "kn-snp-4.json",
         "kn-snp-5.json",
     ],
-    "kn6": [
-        "kn-vv.json",
-    ],
-    "kn7": [
-        "kn-pv.json",
-    ],
+    "kn6": ["kn-vv.json"],
+    "kn7": ["kn-pv.json"],
     "kn8": [
         "kn-thag.json",
         "kn-thag-11.json",
     ],
-    "kn9": [
-        "kn-thig.json",
-    ],
+    "kn9": ["kn-thig.json"],
     "kn10": [
         "kn-ap.json",
         "kn-ap-1-5.json",
@@ -8026,15 +8037,9 @@ bjt_texts = {
         "kn-ap-1-45.json",
         "kn-ap-1-53.json",
     ],
-    "kn11": [
-        "kn-ap-2.json",
-    ],
-    "kn12": [
-        "kn-bv.json",
-    ],
-    "kn13": [
-        "kn-cp.json",
-    ],
+    "kn11": ["kn-ap-2.json"],
+    "kn12": ["kn-bv.json"],
+    "kn13": ["kn-cp.json"],
     "kn14": [
         "kn-jat.json",
         "kn-jat-5.json",
@@ -8066,8 +8071,7 @@ bjt_texts = {
         "kn-ps-2.json",
         "kn-ps-3.json",
     ],
-    "kn18": [
-    ],
+    "kn18": [],
     "kn19": [
         "kn-nett.json",
         "kn-nett-3-3.json",
@@ -8183,32 +8187,50 @@ bjt_texts = {
         "atta-an-10.json",
         "atta-an-11.json",
     ],
-    "kna": [
-        "atta-kn-khp.json",
+
+    "kn1a": ["atta-kn-khp.json"],
+    "kn2a": [
         "atta-kn-dhp.json",
         "atta-kn-dhp-4.json",
         "atta-kn-dhp-9.json",
         "atta-kn-dhp-19.json",
+    ],
+    "kn3a": [
         "atta-kn-ud.json",
         "atta-kn-ud-4.json",
+    ],
+    "kn4a": [
         "atta-kn-iti.json",
         "atta-kn-iti-3.json",
+    ],
+    "kn5a": [
         "atta-kn-snp.json",
         "atta-kn-snp-2.json",
         "atta-kn-snp-3.json",
+    ],
+    "kn6a": [
         "atta-kn-vv.json",
         "atta-kn-vv-4.json",
-        "atta-kn-pv.json",
+    ],
+    "kn7a": ["atta-kn-pv.json"],
+    "kn8a": [
         "atta-kn-thag.json",
         "atta-kn-thag-2.json",
         "atta-kn-thag-5.json",
         "atta-kn-thag-15.json",
-        "atta-kn-thig.json",
+    ],
+    "kn9a": ["atta-kn-thig.json"],
+    "kn10a": [
         "atta-kn-ap.json",
-        "atta-kn-ap-1-2.json",
-        "atta-kn-bv.json",
+        "atta-kn-ap-1-2.json"
+    ],
+    "kn11a": [],
+    "kn12a": ["atta-kn-bv.json"],
+    "kn13a": [
         "atta-kn-cp.json",
-        "atta-kn-cp-3.json",
+        "atta-kn-cp-3.json"
+    ],
+    "kn14a": [
         "atta-kn-jat.json",
         "atta-kn-jat-1-6.json",
         "atta-kn-jat-2.json",
@@ -8222,15 +8244,22 @@ bjt_texts = {
         "atta-kn-jat-22.json",
         "atta-kn-jat-22-5.json",
         "atta-kn-jat-22-9.json",
+    ],
+    "kn15a": [
         "atta-kn-mn.json",
         "atta-kn-mn-6.json",
-        "atta-kn-nc.json",
+    ],
+    "kn16a": ["atta-kn-nc.json"],
+    "kn17a": [
         "atta-kn-ps.json",
         "atta-kn-ps-1-1-2.json",
         "atta-kn-ps-1-2.json",
-        "atta-kn-ps-2.json",
-        "atta-kn-nett.json",
+        "atta-kn-ps-2.json"
     ],
+    # kn18a does not exist
+    "kn19a": ["atta-kn-nett.json"],
+    # kn20a does not exist
+
     "abha": [
         "atta-ap-dhs.json",
         "atta-ap-dhs-3.json",
@@ -8319,7 +8348,26 @@ atthakatha_books = [
     "mna",
     "sna",
     "ana",
-    "kna",
+    "kn1a",
+    "kn2a",
+    "kn3a",
+    "kn4a",
+    "kn5a",
+    "kn6a",
+    "kn7a",
+    "kn8a",
+    "kn9a",
+    "kn10a",
+    "kn11a",
+    "kn12a",
+    "kn13a",
+    "kn14a",
+    "kn15a",
+    "kn16a",
+    "kn17a",
+    # kn18a does not exist
+    "kn19a",
+    # kn20a does not exist
     "abha"
 ]
 
@@ -8357,7 +8405,26 @@ all_books = [
     "mna",
     "sna",
     "ana",
-    "kna",
+    "kn1a",
+    "kn2a",
+    "kn3a",
+    "kn4a",
+    "kn5a",
+    "kn6a",
+    "kn7a",
+    "kn8a",
+    "kn9a",
+    "kn10a",
+    "kn11a",
+    "kn12a",
+    "kn13a",
+    "kn14a",
+    "kn15a",
+    "kn16a",
+    "kn17a",
+    # kn18a oes not exist
+    "kn19a",
+    # kn20a does not exist
     "abha",
 
     "vint",

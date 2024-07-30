@@ -3,738 +3,16 @@ import time
 
 from bs4 import BeautifulSoup
 from nltk import sent_tokenize
+from rich import print
 from typing import Tuple, List
 
 from tools.paths import ProjectPaths
 from tools.pali_text_files import cst_texts
 
 
-def get_cst_filenames(books: list[str] | str)-> list[str]:
-    """Take a single book OR a list of books 
-    and return the relevant filenames."""
+sn_peyyalas = [
 
-    filenames: list[str] = []
-    
-    if type(books) is list:
-        for book in books:
-            if book in cst_texts:
-                filenames.extend(cst_texts[book])
-    
-    elif type(books) is str:
-        if books in cst_texts:
-                filenames.extend(cst_texts[books])
-
-    return filenames
-
-
-def make_cst_soup(
-        pth: ProjectPaths,
-        filenames: list[str],
-        unwrap_notes=True
-) -> list[BeautifulSoup]:
-    
-    """Take a list of filenames and return a list of soups."""
-    
-    soups: list[BeautifulSoup] = []
-
-    for filename in filenames:
-        filename = filename.replace(".txt", ".xml")
-
-        with open(
-            pth.cst_xml_roman_dir.joinpath(filename), "r", encoding="UTF-16"
-        ) as f:
-            xml = f.read()
-
-        soup = BeautifulSoup(xml, "xml")
-
-        # remove all the "pb" tags
-        pbs = soup.find_all("pb")
-        for pb in pbs:
-            pb.decompose()
-
-        if unwrap_notes:
-            # unwrap all the notes (variant readings)
-            notes = soup.find_all("note")
-            for note in notes:
-                note.replace_with(fr" [{note.text}] ")
-
-        # unwrap all the hi parunum dot tags (paragraphy numbers)
-        his = soup.find_all("hi", rend=["paranum", "dot"])
-        for hi in his:
-            hi.unwrap()
-
-        soups.append(soup)
-    
-    return soups
-
-
-def init_samyutta_counter(book: str) -> int:
-    """Initialize the start of the samyutta_counter for each book."""
-    if book == "sn2":
-        return 11
-    elif book == "sn3":
-        return 21
-    elif book == "sn4":
-        return 34
-    elif book == "sn5":
-        return 44
-    else:
-        return 0
-
-
-def find_source_sutta_example(
-        pth: ProjectPaths,
-        book: str, 
-        text_to_find: str
-        ) -> List[Tuple[str, str, str]]:
-
-    sutta_examples: List[Tuple[str, str, str]] = []
-
-    filenames: list[str] = get_cst_filenames(book)
-    soups = make_cst_soup(pth, filenames)
-
-    samyutta_counter = init_samyutta_counter(book)
-    sutta_counter = 0
-    kn_counter = 0
-
-    for soup_counter, soup in enumerate(soups):
-
-        ps = soup.find_all(["p", "head"])
-        
-        four_nikayas = [
-            "dn1", "dn2", "dn3",
-            "mn1", "mn2", "mn3",
-            "sn1", "sn2", "sn3", "sn4", "sn5",
-            "an1", "an2", "an3", "an4", "an5",
-            "an6", "an7", "an8", "an9", "an10", "an11"]
-        
-        # variables
-        source = None
-        sutta = None
-
-        chapter = None
-        chapter_num = None
-        vagga = None
-        title = None
-        title_no = None
-        subhead = None
-        rule = None
-        is_bhikkhuni = False
-        source_sutta_list = []
-        sutta_name = None
-        
-        for p in ps:
-            
-            # sutta example consist of either gāthas or sentences
-            # which need to be processed differently
- 
-            example = None
-            text = clean_example(p.text)
-
-            if text_to_find is not None and re.findall(text_to_find, text):
-
-                # compile gathas line by line
-
-                if "gatha" in p["rend"]:
-                    example = ""
-
-                    start_time = time.time()
-                    while True:
-                        if p.text == "\n":
-                            p = p.previous_sibling
-                        elif p["rend"] == "gatha1":
-                            break
-                        elif p["rend"] == "gatha2":
-                            p = p.previous_sibling
-                        elif p["rend"] == "gatha3":
-                            p = p.previous_sibling
-                        elif p["rend"] == "gathalast":
-                            p = p.previous_sibling
-                        if time.time() - start_time > 1:
-                            print(f"[bright_red]{text_to_find} [red]is stuck in a loop")
-                            break
-
-                    text = clean_gatha(p.text)
-                    example += text
-
-                    while True:
-                        try:
-                            if p is not None:
-                                p = p.next_sibling
-                                if p.text == "\n":
-                                    pass
-                                elif p["rend"] == "gatha2":
-                                    text = clean_gatha(p.text)
-                                    text = text.replace(".", ",")
-                                    example += text
-                                elif p["rend"] == "gatha3":
-                                    text = clean_gatha(p.text)
-                                    text = text.replace(".", ",")
-                                    example += text
-                                elif p["rend"] == "gathalast":
-                                    text = clean_gatha(p.text)
-                                    text = re.sub(",$", ".", text)
-                                    example += text
-                                    break
-                            else:
-                                break
-                        except AttributeError as e:
-                            print(f"[red]{e}")
-                            print(text_to_find)
-                            print(p)
-                            break
-
-                # or compile sentences
-
-                else:
-                    sentences = sent_tokenize(text)
-                    for i, sentence in enumerate(sentences):
-                        if re.findall(text_to_find, sentence):
-                            prev_sentence = sentences[i - 1] if i > 0 else ""
-                            next_sentence = sentences[i + 1] if i < len(sentences)-1 else ""
-                            example = f"{prev_sentence} {sentence} {next_sentence}"
-
-            # compile source and sutta
-
-            if (
-                book in four_nikayas
-                and book not in ["sn1", "sn2", "sn3", "sn4", "sn5"]
-            ):
-                if p["rend"] == "subhead":
-                    if "suttaṃ" in p.text:
-                        sutta_counter += 1
-                    source = book.upper()
-                    book_name = re.sub(r"\d", "", source)
-                    sutta_number = ""
-                    try:
-                        sutta_number = p.next_sibling.next_sibling["n"]
-                    except Exception as e:
-                        print(e)
-                        print(text_to_find)
-                        print(p)
-                        continue
-
-                    # choose which method to number suttas according to book
-                    if book.startswith("mn1"):
-                        source = f"{book_name}{sutta_counter}"
-                    elif book.startswith("mn2"):
-                        source = f"{book_name}{sutta_counter+50}"
-                    elif book.startswith("mn3"):
-                        source = f"{book_name}{sutta_counter+100}"
-                    elif book.startswith("an"):
-                        source = f"{source}.{sutta_number}"
-
-                    # remove the digits and the dot in sutta name
-                    sutta = re.sub(r"\d*\. ", "", p.text)
-                    sutta = re.sub(r" \[.*?\]", "", sutta)
-
-
-            # dn
-            if "dn" in book:
-                book_name = "DN"
-                if p.has_attr("rend") and p["rend"] == "subhead":
-                    # Find the previous "head" tag with "rend" attribute containing "chapter"
-                    chapter_head = p.find_previous("head", attrs={"rend": "chapter"})
-                    chapter_text = chapter_head.text
-                    pattern = r"^(\d+)\.\s+(.*)$"
-                    match = re.match(pattern, chapter_text)
-                    if match:
-                        if book == "dn1":
-                            source = f"{book_name}{match.group(1)}"
-                        if book == "dn2":
-                            # there are 13 suttas previously in dn1
-                            source = f"{book_name}{int(match.group(1))+13}"
-                        if book == "dn3":
-                            # there are 13+10 suttas previously in dn1 & dn2
-                            source = f"{book_name}{int(match.group(1))+23}"
-                        sutta = match.group(2)
-            
-            # TODO cleanup all 'chapter_head = p.find_previous'
-            # TODO clean up DN sutta counter
-            
-            # sn1-5
-            # Structure of Saṃyutta Nikaya is 
-            # main_vagga    <head rend="book">Sagāthāvaggo</head>
-            # samyutta      <head rend="chapter">1. Devatāsaṃyuttaṃ</head>
-            # vagga         <p rend="title">1. Naḷavaggo</p>
-            # sutta         <p rend="subhead">1. Oghataraṇasuttaṃ</p>
-
-            elif book in ["sn1", "sn2", "sn3", "sn4", "sn5"]:
-                book_name = "SN"
-
-                if p["rend"] == "chapter":
-                    samyutta = re.sub(r"^\d*\. ", "", p.text.lower())
-                    samyutta_counter += 1
-                    sutta_counter = 0
-                    sutta_name = ""
-
-                elif p["rend"] == "title":
-                    vagga = re.sub(r"^\d*\. ", "", p.text.lower())
-                    vagga_no = re.sub("\\. *.+", "", p.text)
-
-                elif (
-                    p["rend"] == "subhead"
-                    and re.findall(r"^\d", p.text)
-                    and "-" not in p.text                       # a "-" in the sutta means it contains multiple suttas
-                ):
-                    sutta_name = re.sub(r"^\d*\. ", "", p.text.lower())
-                    sutta_counter += 1
-                    sutta_counter_special = ""
-
-                # deal with peyyāla suttas individually
-                elif (
-                    p["rend"] == "subhead"
-                    and "-" in p.text                           # a "-" in the sutta means it contains multiple suttas
-                ):
-                    for peyyala in  peyyalas:
-                        p_samyutta_counter, p_sutta_name, p_start, p_end = peyyala
-                        if (
-                            p_samyutta_counter == samyutta_counter
-                            and p.text == p_sutta_name
-                            and sutta_counter == p_start-1
-                        ):
-                            sutta_name = re.sub(r"^\d.*\. ", "", p.text)
-                            sutta_counter_special = f"{p_start}-{p_end}"
-                            sutta_counter = p_end
-                            break
-                            
-                if sutta_name:
-                    if sutta_counter_special:
-                        source = f"{book_name}{samyutta_counter}.{sutta_counter_special}"
-                    else:
-                        source = f"{book_name}{samyutta_counter}.{sutta_counter}" 
-                    sutta = f"{samyutta}, {sutta_name}".lower()
-                    source_sutta = (source, sutta)
-                    if source_sutta not in source_sutta_list:
-                        source_sutta_list.append(source_sutta)
-                        print(source_sutta)
-                
-
-            # vin1 
-            # there are four subdivisions
-            # 1. chapter of rules = pārājika, saṅghādisesa, aniyata, nissaggiya, etc. 
-            # 2. vagga: in some cases, if more than 13 rules
-            # 3. rule: name of the rule
-            # 4. subhead: subsection of the rule
-            # and corresponding chapter, vagga and title numbers
-
-            elif book in ["vin1"]:
-                book_name = "VIN1"
-
-                if p["rend"] == "chapter":
-                    chapter = re.sub(r"^\d*\. ", "", p.text.lower()) 
-                    chapter_num = re.sub("\\. *.+", "", p.text)
-                    if chapter == "verañjakaṇḍaṃ":
-                        chapter_num = "0"
-                    
-                    title = ""                                          # reset everything on a new chapter
-                    title_no = ""
-                    vagga = ""
-                    vagga_no = ""
-
-                if p["rend"] == "title" and "vaggo" in p.text:
-                    vagga = re.sub(r"^\d*\. ", "", p.text.lower())
-                    vagga_no = re.sub("\\. *.+", "", p.text)
-                    title = ""                                          # reset title on a new vagga
-
-                if p["rend"] == "title" and "vaggo" not in p.text:
-                    title = re.sub(r"^\d*\. ", "", p.text.lower())
-                    title_no = re.sub("\\. *.+", "", p.text)
-                    subhead = ""                                        # reset the subhead on a new title
-
-                if p["rend"] == "subhead":
-                    subhead = p.text.lower()
-                
-                # make source numbering
-                if chapter_num and vagga_no and title_no:
-                    source = f"{book_name}.{chapter_num}.{vagga_no}.{title_no}"
-                elif chapter_num and vagga_no and not title_no:
-                    source = f"{book_name}.{chapter_num}.{vagga_no}"
-                elif chapter_num and not vagga_no and title_no:         # pārajika has no vaggas
-                    source = f"{book_name}.{chapter_num}.{title_no}"            
-                elif chapter_num and not vagga_no and not title_no:
-                    source = f"{book_name}.{chapter_num}"
-            
-                # make sutta title
-                if title and subhead:
-                    sutta = f"{title}, {subhead}"
-                elif title and not subhead:
-                    sutta = f"{title}"
-                elif not title and not subhead and vagga:
-                    sutta = f"{chapter}, {vagga}"
-                else:
-                    sutta = chapter
-
-            # vin2
-
-            elif book in ["vin2"]:
-
-                # this switches is_bhikkhuni to True at the start of the Bhikkhunīvibhaṅgo
-                # because bhikkhuni vinaya has its own logical sequence 
-
-                if (
-                    not is_bhikkhuni
-                    and p["rend"] == "book"
-                    and p.text == "Bhikkhunīvibhaṅgo"
-                ):
-                    is_bhikkhuni = True
-                    source = None
-                    sutta = None
-                    
-                if not is_bhikkhuni:
-                    book_name = "VIN2"
-
-                    if p["rend"] == "chapter":
-                        chapter = re.sub(r"^\d*\. ", "", p.text.lower()) 
-                        chapter_num = re.sub("\\. *.+", "", p.text)
-                        
-                        rule = ""                                          # reset everything on a new chapter
-                        rule_no = ""
-                        vagga = ""
-                        vagga_no = ""
-
-                    if p["rend"] == "title" and "vaggo" in p.text:
-                        vagga = re.sub(r"^\d*\. ", "", p.text.lower())
-                        vagga_no = re.sub("\\. *.+", "", p.text)
-                        rule = ""                                          # reset rule on a new vagga
-
-                    if p["rend"] == "title" and "vaggo" not in p.text:
-                        rule = re.sub(r"^\d*\. ", "", p.text.lower())
-                        rule_no = re.sub("\\. *.+", "", p.text)
-        
-
-                    if p["rend"] == "subhead":
-                        rule = re.sub(r"^\d*\. ", "", p.text.lower())
-                        rule_no = re.sub("\\. *.+", "", p.text)
-                    
-                    # make source numbering
-                    if chapter_num and vagga_no and rule_no:
-                        source = f"{book_name}.{chapter_num}.{vagga_no}.{rule_no}"
-                    elif chapter_num and vagga_no and not rule_no:
-                        source = f"{book_name}.{chapter_num}.{vagga_no}"
-                    elif chapter_num and not vagga_no and rule_no:         # pārājika has no vaggas
-                        source = f"{book_name}.{chapter_num}.{rule_no}"            
-                    elif chapter_num and not vagga_no and not rule_no:
-                        source = f"{book_name}.{chapter_num}"
-                
-                    # make sutta = rule
-                    if rule:
-                        sutta = rule
-                    elif not rule and vagga:
-                        sutta = f"{chapter}, {vagga}"
-                    else:
-                        sutta = chapter
-
-                # bhikkhuni vinaya
-
-                elif is_bhikkhuni:
-                    book_name = "BHI VIN"
-
-                    def bhikkhuni_cleaner(text):
-                        return text.replace(" (bhikkhunīvibhaṅgo)", "")
-
-                    if p["rend"] == "chapter":
-                        chapter = re.sub(r"^\d*\. ", "", p.text.lower())
-                        chapter = bhikkhuni_cleaner(chapter)
-                        chapter_num = re.sub("\\. *.+", "", p.text)
-                        
-                        rule = ""                                          # reset everything on a new chapter
-                        rule_no = ""
-                        vagga = ""
-                        vagga_no = ""
-
-                    if p["rend"] == "title" and "vaggo" in p.text:
-                        vagga = re.sub(r"^\d*\. ", "", p.text.lower())
-                        vagga_no = re.sub("\\. *.+", "", p.text)
-                        rule = ""                                          # reset rule on a new vagga
-
-                    if p["rend"] == "title" and "vaggo" not in p.text:
-                        rule = re.sub(r"^\d*\. ", "", p.text.lower())
-                        rule_no = re.sub("\\. *.+", "", p.text)
-        
-                    if p["rend"] == "subhead" and "vaggo" not in p.text:    # there's only one exception "1. Pattavaggo"
-                        rule = re.sub(r"^\d*\. ", "", p.text.lower())
-                        rule_no = re.sub("\\. *.+", "", p.text)
-                    
-                    # make source numbering
-                    if chapter_num and vagga_no and rule_no:
-                        source = f"{book_name}{chapter_num}.{vagga_no}.{rule_no}"
-                    elif chapter_num and vagga_no and not rule_no:
-                        source = f"{book_name}{chapter_num}.{vagga_no}"
-                    elif chapter_num and not vagga_no and rule_no:         # pārajika has no vaggas
-                        source = f"{book_name}{chapter_num}.{rule_no}"            
-                    elif chapter_num and not vagga_no and not rule_no:
-                        source = f"{book_name}{chapter_num}"
-                
-                    # make sutta = rule
-                    if chapter and vagga and rule:
-                        sutta = f"{vagga}, {rule}"
-                    elif chapter and not vagga and rule:
-                        sutta = f"{chapter}, {rule}"
-                    elif chapter and vagga and not rule:
-                        sutta = f"{chapter}, {vagga}"
-                    else:
-                        sutta = chapter
-
-
-            # vin3-4 mahāvagga & culavagga
-            elif book in ["vin3", "vin4"]:
-                if book == "vin3":
-                    book_name = "VIN3"
-                elif book == "vin4":
-                    book_name = "VIN4"
-
-                if p.has_attr("rend") and p["rend"] == "subhead":
-                    subhead = p.text.lower()
-
-                    bad_subheadings = [
-                        "soṇassa pabbajjā", "abhiññātānaṃ pabbajjā"]
-                    if subhead in bad_subheadings:
-                        continue
-
-                    # remove / keep digits 
-                    sub_num = re.sub("\\. *.+", "", subhead)
-                    sub_title = re.sub("\\d*\\. *", "", subhead)
-
-                    # if subnum not a digit, then remove
-                    if not sub_num[0].isnumeric():
-                        sub_num = ""
-                    
-                    # find the previous head + chapter
-                    chapter_head = p.find_previous("head", attrs={"rend": "chapter"}).text
-                    
-                    # remove / keep digits
-                    chapter_num = re.sub("\\. *.+", ".", chapter_head)
-                    chapter_title =  re.sub("\\d*\\. *", "", chapter_head)
-
-                    # construct the source if there's valid parts
-                    # if not, the previous source will be used
-                    if book_name and chapter_num and sub_num:
-                        source = f"{book_name}.{chapter_num}{sub_num}"
-
-                    # construct the sutta name
-                    sutta = f"{chapter_title}, {sub_title}"
-                    sutta = sutta.lower()
-
-            # kn1
-            elif book == "kn1":
-                book_name = "KHP"
-                chapter_text = None
-                if not chapter_text:
-                    chapter_div = p.find_parent("div", {"type": "chapter"})
-                    if chapter_div:
-                        chapter_text = chapter_div.find("head").get_text()
-                        pattern = r"^(\d+)\.\s+(.*)$"
-                        match = re.match(pattern, chapter_text)
-                        if match:
-                            source = f"{book_name}{match.group(1)}"
-                            sutta = match.group(2)
-                        
-
-            # kn2
-            elif book == "kn2":
-                book_name = "DHP"
-                if p.has_attr("rend") and p["rend"] == "hangnum":
-                    # Find the previous "head" tag with "rend" attribute containing "chapter"
-                    chapter_head = p.find_previous("head", attrs={"rend": "chapter"})
-                    if chapter_head is not None:
-                        chapter_text = chapter_head.string.strip()
-                        pattern = r"^(\d+)\.\s+(.*)$"
-                        match = re.match(pattern, chapter_text)
-                        if match:
-                            source = f"{book_name}{match.group(1)}"
-                            sutta = match.group(2)
-
-
-            elif book == "kn3":
-                book_name = "UD"
-                if p["rend"] == "subhead":
-                    kn_counter += 1
-                    source = f"{book_name}{kn_counter}"
-                    sutta = re.sub("\\d*\\. *", "", p.text)
-
-            elif book == "kn4":
-                book_name = "ITI"
-                if p["rend"] == "subhead":
-                    kn_counter += 1
-                    source = f"{book_name}{kn_counter}"
-                    sutta = re.sub("\\d*\\. *", "", p.text)
-
-            elif book == "kn5":
-                book_name = "SNP"
-                if p["rend"] == "subhead":
-                    kn_counter += 1
-                    source = f"{book_name}{kn_counter}"
-                    sutta = re.sub("\\d*\\. *", "", p.text)
-
-            elif book == "kn6":
-                book_name = "VV"
-                if p["rend"] == "subhead":
-                    kn_counter += 1
-                    source = f"{book_name}{kn_counter}"
-                    sutta = re.sub("\\d*\\. *", "", p.text)
-
-            elif book == "kn7":
-                book_name = "PV"
-                if p["rend"] == "subhead":
-                    kn_counter += 1
-                    source = f"{book_name}{kn_counter}"
-                    sutta = re.sub("\\d*\\. *", "", p.text)
-
-            elif book == "kn8":
-                book_name = "TH"
-                if p["rend"] == "subhead":
-                    kn_counter += 1
-                    source = f"{book_name}{kn_counter}"
-                    sutta = re.sub("\\d*\\. *", "", p.text)
-
-            elif book == "kn9":
-                book_name = "THI"
-                if p["rend"] == "subhead":
-                    kn_counter += 1
-                    source = f"{book_name}{kn_counter}"
-                    sutta = re.sub("\\d*\\. *", "", p.text)
-
-            elif book == "kn10":
-                book_name = "APA"
-                if p["rend"] == "subhead":
-                    kn_counter += 1
-                    source = f"{book_name}{kn_counter}"
-                    sutta = re.sub("\\d*\\. *", "", p.text)
-
-            elif book == "kn11":
-                book_name = "API"
-                if p["rend"] == "subhead":
-                    kn_counter += 1
-                    source = f"{book_name}{kn_counter}"
-                    sutta = re.sub("\\d*\\. *", "", p.text)
-
-            elif book == "kn12":
-                book_name = "BV"
-                if p.has_attr("rend") and p["rend"] == "hangnum":
-                    # Find the previous "head" tag with "rend" attribute containing "chapter"
-                    chapter_head = p.find_previous("head", attrs={"rend": "chapter"})
-                    if chapter_head is not None:
-                        chapter_text = chapter_head.string.strip()
-                        pattern = r"^(\d+)\.\s+(.*)$"
-                        match = re.match(pattern, chapter_text)
-                        if match:
-                            source = f"{book_name}{match.group(1)}"
-                            sutta = match.group(2)
-
-            elif book == "kn13":
-                book_name = "CP"
-                if p.has_attr("rend") and p["rend"] == "hangnum":
-                    # Find the previous "head" tag with "rend" attribute containing "chapter"
-                    chapter_head = p.find_previous("head", attrs={"rend": "chapter"})
-                    if chapter_head is not None:
-                        chapter_text = chapter_head.string.strip()
-                        pattern = r"^(\d+)\.\s+(.*)$"
-                        match = re.match(pattern, chapter_text)
-                        if match:
-                            source = f"{book_name}{match.group(1)}"
-                            sutta = match.group(2)
-
-            elif book == "kn14":
-                book_name = "JA"
-                if p["rend"] == "subhead":
-                    kn_counter += 1
-                    source = f"{book_name}{kn_counter}"
-                    sutta = re.sub(" .*$", "", sutta)
-
-            elif book == "kn15":
-                book_name = "NIDD1"
-                if p.has_attr("rend") and p["rend"] == "hangnum":
-                    # Find the previous "head" tag with "rend" attribute containing "chapter"
-                    chapter_head = p.find_previous("head", attrs={"rend": "chapter"})
-                    if chapter_head is not None:
-                        chapter_text = chapter_head.string.strip()
-                        pattern = r"^(\d+)\.\s+(.*)$"
-                        match = re.match(pattern, chapter_text)
-                        if match:
-                            source = f"{book_name}.{match.group(1)}"
-                            sutta = match.group(2)
-
-            elif book == "kn16":
-                book_name = "NIDD2"
-                if p["rend"] == "subhead":
-                    kn_counter += 1
-                    # 1-20 is the original pārayan verses and khaggavisāṇa
-                    # 21-37 is the cūḷaniddesa
-                    # 38-41 is the commentary on khaggavisāṇa
-                    if kn_counter < 21:
-                        source = f"{book_name}.{kn_counter}"
-                        sutta = re.sub(" .*$", "", sutta)
-                        print(f"{kn_counter} 1 {source:<10}{sutta:<10}")
-                    elif 21 <= kn_counter < 38:
-                        source = f"{book_name}.{kn_counter-20}"
-                        sutta = re.sub(" .*$", "", sutta)
-                        print(f"{kn_counter} 1 {source:<10}{sutta:<10}")
-                    elif kn_counter >=38:
-                        source = f"{book_name}.19"
-                        sutta = "Khaggavisāṇasuttaniddeso, " + re.sub(" .*$", "", sutta)
-                        print(f"{kn_counter} 1 {source:<10}{sutta:<10}")
-            
-            # commentaries
-
-            elif book == "mna":
-                book_name = "MNa"
-                subhead = ""
-                if (
-                    p["rend"] == "subhead"
-                ):
-                    if re.findall(r"^\d", p.text):                  # starts with a digit
-                        sutta_name = re.sub(r"\d*\. ", "", p.text)  # remove digits dot space
-                        subhead = ""                                # reset subhead
-                        sutta_counter += 1                          # increment sutta counter
-                    else:
-                        if not re.findall(r"^\(", p.text):          # if doesn't start with a bracket like (Dutiyo bhāgo)
-                            subhead = p.text
-                    source = f"{book_name}{sutta_counter}"
-                    if subhead:
-                        sutta = f"{sutta_name}, {subhead}"
-            
-            if source and sutta and example:
-                sutta_examples += [(source, sutta.lower(), example)]
-
-    return sutta_examples
-
-
-# FIXME remove clean_example from functions
-def clean_example(text):
-    text = text.strip()
-    text = text.lower()
-    text = text.replace("‘", "")
-    text = text.replace(" – ", ", ")
-    text = text.replace("’", "")
-    text = text.replace("…pe॰…", " … ")
-    text = text.replace("…pe…", " … ")
-    text = text.replace(";", ",")
-    text = text.replace("  ", " ")
-    text = text.replace("..", ".")
-    text = text.replace(" ,", ",")
-    
-    # remove abbreviations in brackets, no more than 20 characters
-    text = re.sub(r" \([^)]{0,20}\.\)", "", text)
-    
-    return text
-
-
-
-# FIXME remove clean_gatha from functions
-def clean_gatha(text):
-    text = clean_example(text)
-    text = text.strip()
-    text = text.replace(" ,", ",")
-    text = text.replace(" .", ".")
-    text = text.replace(", ", ",\n")
-    text = re.sub(",$", ",\n", text)
-    return text
-
-
-peyyalas = [
-
-    # payyalas is a list of tuples
+    # payyalas is a list of tuples of books found in saṃyutta nikāya
     # (samyutta_no, sutta, start_sutta_no, final sutta_no)
     # they all contain multiple suttas which mess up the 
     # sequential numbering system and need to be handled individually
@@ -856,12 +134,1048 @@ peyyalas = [
 ]
 
 
-if __name__ == "__main__":
-    book = "sn5"
-    text_to_find = "sammādiṭṭh"
+def get_cst_filenames(books: list[str] | str)-> list[str]:
+    """Take a single book OR a list of books 
+    and return the relevant filenames."""
+
+    filenames: list[str] = []
     
-    # FIXME why does it require ProjectPaths?
+    if type(books) is list:
+        for book in books:
+            if book in cst_texts:
+                filenames.extend(cst_texts[book])
+    
+    elif type(books) is str:
+        if books in cst_texts:
+                filenames.extend(cst_texts[books])
+
+    return filenames
+
+
+# FIXME remove clean_example from functions
+def clean_example(text):
+    text = text.strip()
+    text = text.lower()
+    text = text.replace("‘", "")
+    text = text.replace(" – ", ", ")
+    text = text.replace("’", "")
+    text = text.replace("…pe॰…", " … ")
+    text = text.replace("…pe…", " … ")
+    text = text.replace(";", ",")
+    text = text.replace("  ", " ")
+    text = text.replace("..", ".")
+    text = text.replace(" ,", ",")
+    
+    # remove abbreviations in brackets, no more than 20 characters
+    text = re.sub(r" \([^)]{0,20}\.\)", "", text)
+    
+    return text
+
+
+# FIXME remove clean_gatha from functions
+def clean_gatha(text):
+    text = clean_example(text)
+    text = text.strip()
+    text = text.replace(" ,", ",")
+    text = text.replace(" .", ".")
+    text = text.replace(", ", ",\n")
+    text = re.sub(",$", ",\n", text)
+    return text
+
+
+def make_cst_soup(
+        pth: ProjectPaths,
+        filenames: list[str],
+        unwrap_notes=True
+) -> list[BeautifulSoup]:
+    
+    """Take a list of filenames and return a list of soups."""
+    
+    soups: list[BeautifulSoup] = []
+
+    for filename in filenames:
+        filename = filename.replace(".txt", ".xml")
+
+        with open(
+            pth.cst_xml_roman_dir.joinpath(filename), "r", encoding="UTF-16"
+        ) as f:
+            xml = f.read()
+
+        soup = BeautifulSoup(xml, "xml")
+
+        # remove all the "pb" tags
+        pbs = soup.find_all("pb")
+        for pb in pbs:
+            pb.decompose()
+
+        if unwrap_notes:
+            # unwrap all the notes (variant readings)
+            notes = soup.find_all("note")
+            for note in notes:
+                note.replace_with(fr" [{note.text}] ")
+
+        # unwrap all the hi parunum dot tags (paragraphy numbers)
+        his = soup.find_all("hi", rend=["paranum", "dot"])
+        for hi in his:
+            hi.unwrap()
+
+        soups.append(soup)
+    
+    return soups
+
+
+def init_samyutta_counter(book: str) -> int:
+    """Initialize the start of the samyutta_counter for each book."""
+    if book == "sn2":
+        return 11
+    elif book == "sn3":
+        return 21
+    elif book == "sn4":
+        return 34
+    elif book == "sn5":
+        return 44
+    else:
+        return 0
+
+
+def find_source_sutta_example(
+        pth: ProjectPaths,
+        book: str, 
+        text_to_find: str
+        ) -> List[Tuple[str, str, str]]:
+
+    sutta_examples: List[Tuple[str, str, str]] = []
+
+    filenames: list[str] = get_cst_filenames(book)
+    soups: list[BeautifulSoup] = make_cst_soup(pth, filenames)
+
+    samyutta_counter = init_samyutta_counter(book)
+    sutta_counter = 0
+    kn_counter = 0
+    section_counter = 0
+    vagga_counter = 0
+
+    for soup_counter, soup in enumerate(soups):
+
+        ps = soup.find_all(["p", "head"])
+        
+        four_nikayas = [
+            "dn1", "dn2", "dn3",
+            "mn1", "mn2", "mn3",
+            "sn1", "sn2", "sn3", "sn4", "sn5",
+            "an1", "an2", "an3", "an4", "an5",
+            "an6", "an7", "an8", "an9", "an10", "an11"]
+        
+        # variables
+        source = None
+        sutta = None
+
+        chapter = None
+        chapter_num = None
+        vagga = None
+        title = None
+        title_no = None
+        subhead = None
+        rule = None
+        is_bhikkhuni = False
+        source_sutta_list = []
+        sutta_name = None
+        vagga = None
+        vagga_no = None
+        vatthu = None
+        vatthu_no = None
+        p_rend_list = []
+        sutta_no = None
+        subtitle = None
+        section = None
+        
+        for p in ps:
+
+            p_rend_list.append(p["rend"])
+            
+            # sutta examples consist of either gāthā verses or sentences
+            # which need to be processed differently
+ 
+            example = None
+            text = clean_example(p.text)
+
+            if text_to_find is not None and re.findall(text_to_find, text):
+
+                # compile gathas line by line
+                if "gatha" in p["rend"]:
+                    example = ""
+
+                    start_time = time.time()
+                    while True:
+                        if p.text == "\n":
+                            p = p.previous_sibling
+                        elif p["rend"] == "gatha1":
+                            break
+                        elif p["rend"] == "gatha2":
+                            p = p.previous_sibling
+                        elif p["rend"] == "gatha3":
+                            p = p.previous_sibling
+                        elif p["rend"] == "gathalast":
+                            p = p.previous_sibling
+                        if time.time() - start_time > 1:
+                            print(f"[bright_red]{text_to_find} [red]is stuck in a loop")
+                            break
+
+                    text = clean_gatha(p.text)
+                    example += text
+
+                    while True:
+                        try:
+                            if p is not None:
+                                p = p.next_sibling
+                                if p.text == "\n":
+                                    pass
+                                elif p["rend"] == "gatha2":
+                                    text = clean_gatha(p.text)
+                                    text = text.replace(".", ",")
+                                    example += text
+                                elif p["rend"] == "gatha3":
+                                    text = clean_gatha(p.text)
+                                    text = text.replace(".", ",")
+                                    example += text
+                                elif p["rend"] == "gathalast":
+                                    text = clean_gatha(p.text)
+                                    text = re.sub(",$", ".", text)
+                                    example += text
+                                    break
+                            else:
+                                break
+                        except AttributeError as e:
+                            print(f"[red]{e}")
+                            print(text_to_find)
+                            print(p)
+                            break
+
+                # compile sentences
+                else:
+                    sentences = sent_tokenize(text)
+                    for i, sentence in enumerate(sentences):
+                        if re.findall(text_to_find, sentence):
+                            prev_sentence = sentences[i - 1] if i > 0 else ""
+                            next_sentence = sentences[i + 1] if i < len(sentences)-1 else ""
+                            example = f"{prev_sentence} {sentence} {next_sentence}"
+
+            # compile source and sutta
+
+            if (
+                book in four_nikayas
+                and book not in ["sn1", "sn2", "sn3", "sn4", "sn5"]
+            ):
+                if p["rend"] == "subhead":
+                    if "suttaṃ" in p.text:
+                        sutta_counter += 1
+                    source = book.upper()
+                    book_name = re.sub(r"\d", "", source)
+                    sutta_number = ""
+                    try:
+                        sutta_number = p.next_sibling.next_sibling["n"]
+                    except Exception as e:
+                        print(e)
+                        print(text_to_find)
+                        print(p)
+                        continue
+
+                    # choose which method to number suttas according to book
+                    if book.startswith("mn1"):
+                        source = f"{book_name}{sutta_counter}"
+                    elif book.startswith("mn2"):
+                        source = f"{book_name}{sutta_counter+50}"
+                    elif book.startswith("mn3"):
+                        source = f"{book_name}{sutta_counter+100}"
+                    elif book.startswith("an"):
+                        source = f"{source}.{sutta_number}"
+
+                    # remove the digits and the dot in sutta name
+                    sutta = re.sub(r"\d*\. ", "", p.text)
+                    sutta = re.sub(r" \[.*?\]", "", sutta)
+
+
+            # dn
+            if "dn" in book:
+                book_name = "DN"
+                if p.has_attr("rend") and p["rend"] == "subhead":
+                    # Find the previous "head" tag with "rend" attribute containing "chapter"
+                    chapter_head = p.find_previous("head", attrs={"rend": "chapter"})
+                    chapter_text = chapter_head.text
+                    pattern = r"^(\d+)\.\s+(.*)$"
+                    match = re.match(pattern, chapter_text)
+                    if match:
+                        if book == "dn1":
+                            source = f"{book_name}{match.group(1)}"
+                        if book == "dn2":
+                            # there are 13 suttas previously in dn1
+                            source = f"{book_name}{int(match.group(1))+13}"
+                        if book == "dn3":
+                            # there are 13+10 suttas previously in dn1 & dn2
+                            source = f"{book_name}{int(match.group(1))+23}"
+                        sutta = match.group(2)
+            
+            # TODO cleanup all 'chapter_head = p.find_previous'
+            # TODO clean up DN sutta counter
+            
+            # sn1-5
+            # structure of Saṃyutta Nikaya is 
+            # main_vagga    <head rend="book">Sagāthāvaggo</head>
+            # samyutta      <head rend="chapter">1. Devatāsaṃyuttaṃ</head>
+            # vagga         <p rend="title">1. Naḷavaggo</p>
+            # sutta         <p rend="subhead">1. Oghataraṇasuttaṃ</p>
+
+            elif book in ["sn1", "sn2", "sn3", "sn4", "sn5"]:
+                book_name = "SN"
+
+                if p["rend"] == "chapter":
+                    samyutta = re.sub(r"^\d*\. ", "", p.text.lower())
+                    samyutta_counter += 1
+                    sutta_counter = 0
+                    sutta_name = ""
+
+                elif p["rend"] == "title":
+                    vagga = re.sub(r"^\d*\. ", "", p.text.lower())
+                    vagga_no = re.sub("\\. *.+", "", p.text)
+
+                elif (
+                    p["rend"] == "subhead"
+                    and re.findall(r"^\d", p.text)
+                    and "-" not in p.text                       # a "-" in the sutta means it contains multiple suttas
+                ):
+                    sutta_name = re.sub(r"^\d*\. ", "", p.text.lower())
+                    sutta_counter += 1
+                    sutta_counter_special = ""
+
+                # deal with peyyāla suttas individually
+                elif (
+                    p["rend"] == "subhead"
+                    and "-" in p.text                           # a "-" in the sutta means it contains multiple suttas
+                ):
+                    for peyyala in  sn_peyyalas:
+                        p_samyutta_counter, p_sutta_name, p_start, p_end = peyyala
+                        if (
+                            p_samyutta_counter == samyutta_counter
+                            and p.text == p_sutta_name
+                            and sutta_counter == p_start-1
+                        ):
+                            sutta_name = re.sub(r"^\d.*\. ", "", p.text)
+                            sutta_counter_special = f"{p_start}-{p_end}"
+                            sutta_counter = p_end
+                            break
+                            
+                if sutta_name:
+                    if sutta_counter_special:
+                        source = f"{book_name}{samyutta_counter}.{sutta_counter_special}"
+                    else:
+                        source = f"{book_name}{samyutta_counter}.{sutta_counter}" 
+                    sutta = f"{samyutta}, {sutta_name}".lower()
+                    source_sutta = (source, sutta)
+                    if source_sutta not in source_sutta_list:
+                        source_sutta_list.append(source_sutta)
+                        print(source_sutta)
+                
+
+            # vin1 
+            # there are four subdivisions
+            # 1. chapter of rules = pārājika, saṅghādisesa, aniyata, nissaggiya, etc. 
+            # 2. vagga: in some cases, if more than 13 rules
+            # 3. rule: name of the rule
+            # 4. subhead: subsection of the rule
+            # and corresponding chapter, vagga and title numbers
+
+            elif book in ["vin1"]:
+                book_name = "VIN1"
+
+                if p["rend"] == "chapter":
+                    chapter = re.sub(r"^\d*\. ", "", p.text.lower()) 
+                    chapter_num = re.sub("\\. *.+", "", p.text)
+                    if chapter == "verañjakaṇḍaṃ":
+                        chapter_num = "0"
+                    
+                    title = ""                                          # reset everything on a new chapter
+                    title_no = ""
+                    vagga = ""
+                    vagga_no = ""
+
+                if p["rend"] == "title" and "vaggo" in p.text:
+                    vagga = re.sub(r"^\d*\. ", "", p.text.lower())
+                    vagga_no = re.sub("\\. *.+", "", p.text)
+                    title = ""                                          # reset title on a new vagga
+
+                if p["rend"] == "title" and "vaggo" not in p.text:
+                    title = re.sub(r"^\d*\. ", "", p.text.lower())
+                    title_no = re.sub("\\. *.+", "", p.text)
+                    subhead = ""                                        # reset the subhead on a new title
+
+                if p["rend"] == "subhead":
+                    subhead = p.text.lower()
+                
+                # make source numbering
+                if chapter_num and vagga_no and title_no:
+                    source = f"{book_name}.{chapter_num}.{vagga_no}.{title_no}"
+                elif chapter_num and vagga_no and not title_no:
+                    source = f"{book_name}.{chapter_num}.{vagga_no}"
+                elif chapter_num and not vagga_no and title_no:         # pārajika has no vaggas
+                    source = f"{book_name}.{chapter_num}.{title_no}"            
+                elif chapter_num and not vagga_no and not title_no:
+                    source = f"{book_name}.{chapter_num}"
+            
+                # make sutta title
+                if title and subhead:
+                    sutta = f"{title}, {subhead}"
+                elif title and not subhead:
+                    sutta = f"{title}"
+                elif not title and not subhead and vagga:
+                    sutta = f"{chapter}, {vagga}"
+                else:
+                    sutta = chapter
+
+            # vin2
+            elif book in ["vin2"]:
+
+                # this switches is_bhikkhuni to True at the start of the Bhikkhunīvibhaṅgo
+                # because bhikkhuni vinaya has its own logical sequence 
+
+                if (
+                    not is_bhikkhuni
+                    and p["rend"] == "book"
+                    and p.text == "Bhikkhunīvibhaṅgo"
+                ):
+                    is_bhikkhuni = True
+                    source = None
+                    sutta = None
+                    
+                if not is_bhikkhuni:
+                    book_name = "VIN2"
+
+                    if p["rend"] == "chapter":
+                        chapter = re.sub(r"^\d*\. ", "", p.text.lower()) 
+                        chapter_num = re.sub("\\. *.+", "", p.text)
+                        
+                        rule = ""                                          # reset everything on a new chapter
+                        rule_no = ""
+                        vagga = ""
+                        vagga_no = ""
+
+                    if p["rend"] == "title" and "vaggo" in p.text:
+                        vagga = re.sub(r"^\d*\. ", "", p.text.lower())
+                        vagga_no = re.sub("\\. *.+", "", p.text)
+                        rule = ""                                          # reset rule on a new vagga
+
+                    if p["rend"] == "title" and "vaggo" not in p.text:
+                        rule = re.sub(r"^\d*\. ", "", p.text.lower())
+                        rule_no = re.sub("\\. *.+", "", p.text)
+        
+
+                    if p["rend"] == "subhead":
+                        rule = re.sub(r"^\d*\. ", "", p.text.lower())
+                        rule_no = re.sub("\\. *.+", "", p.text)
+                    
+                    # make source numbering
+                    if chapter_num and vagga_no and rule_no:
+                        source = f"{book_name}.{chapter_num}.{vagga_no}.{rule_no}"
+                    elif chapter_num and vagga_no and not rule_no:
+                        source = f"{book_name}.{chapter_num}.{vagga_no}"
+                    elif chapter_num and not vagga_no and rule_no:         # pārājika has no vaggas
+                        source = f"{book_name}.{chapter_num}.{rule_no}"            
+                    elif chapter_num and not vagga_no and not rule_no:
+                        source = f"{book_name}.{chapter_num}"
+                
+                    # make sutta = rule
+                    if rule:
+                        sutta = rule
+                    elif not rule and vagga:
+                        sutta = f"{chapter}, {vagga}"
+                    else:
+                        sutta = chapter
+
+                # bhikkhuni vinaya
+                elif is_bhikkhuni:
+                    book_name = "BHI VIN"
+
+                    def bhikkhuni_cleaner(text):
+                        return text.replace(" (bhikkhunīvibhaṅgo)", "")
+
+                    if p["rend"] == "chapter":
+                        chapter = re.sub(r"^\d*\. ", "", p.text.lower())
+                        chapter = bhikkhuni_cleaner(chapter)
+                        chapter_num = re.sub("\\. *.+", "", p.text)
+                        
+                        rule = ""                                          # reset everything on a new chapter
+                        rule_no = ""
+                        vagga = ""
+                        vagga_no = ""
+
+                    if p["rend"] == "title" and "vaggo" in p.text:
+                        vagga = re.sub(r"^\d*\. ", "", p.text.lower())
+                        vagga_no = re.sub("\\. *.+", "", p.text)
+                        rule = ""                                          # reset rule on a new vagga
+
+                    if p["rend"] == "title" and "vaggo" not in p.text:
+                        rule = re.sub(r"^\d*\. ", "", p.text.lower())
+                        rule_no = re.sub("\\. *.+", "", p.text)
+        
+                    if p["rend"] == "subhead" and "vaggo" not in p.text:    # there's only one exception "1. Pattavaggo"
+                        rule = re.sub(r"^\d*\. ", "", p.text.lower())
+                        rule_no = re.sub("\\. *.+", "", p.text)
+                    
+                    # make source numbering
+                    if chapter_num and vagga_no and rule_no:
+                        source = f"{book_name}{chapter_num}.{vagga_no}.{rule_no}"
+                    elif chapter_num and vagga_no and not rule_no:
+                        source = f"{book_name}{chapter_num}.{vagga_no}"
+                    elif chapter_num and not vagga_no and rule_no:         # pārajika has no vaggas
+                        source = f"{book_name}{chapter_num}.{rule_no}"            
+                    elif chapter_num and not vagga_no and not rule_no:
+                        source = f"{book_name}{chapter_num}"
+                
+                    # make sutta = rule
+                    if chapter and vagga and rule:
+                        sutta = f"{vagga}, {rule}"
+                    elif chapter and not vagga and rule:
+                        sutta = f"{chapter}, {rule}"
+                    elif chapter and vagga and not rule:
+                        sutta = f"{chapter}, {vagga}"
+                    else:
+                        sutta = chapter
+
+
+            # vin3-4 mahāvagga & culavagga
+            elif book in ["vin3", "vin4"]:
+                if book == "vin3":
+                    book_name = "VIN3"
+                elif book == "vin4":
+                    book_name = "VIN4"
+
+                if p.has_attr("rend") and p["rend"] == "subhead":
+                    subhead = p.text.lower()
+
+                    bad_subheadings = [
+                        "soṇassa pabbajjā", "abhiññātānaṃ pabbajjā"]
+                    if subhead in bad_subheadings:
+                        continue
+
+                    # remove / keep digits 
+                    sub_num = re.sub("\\. *.+", "", subhead)
+                    sub_title = re.sub("\\d*\\. *", "", subhead)
+
+                    # if subnum not a digit, then remove
+                    if not sub_num[0].isnumeric():
+                        sub_num = ""
+                    
+                    # find the previous head + chapter
+                    chapter_head = p.find_previous("head", attrs={"rend": "chapter"}).text
+                    
+                    # remove / keep digits
+                    chapter_num = re.sub("\\. *.+", ".", chapter_head)
+                    chapter_title =  re.sub("\\d*\\. *", "", chapter_head)
+
+                    # construct the source if there's valid parts
+                    # if not, the previous source will be used
+                    if book_name and chapter_num and sub_num:
+                        source = f"{book_name}.{chapter_num}{sub_num}"
+
+                    # construct the sutta name
+                    sutta = f"{chapter_title}, {sub_title}"
+                    sutta = sutta.lower()
+
+            # kn1 khuddakapāṭha
+            elif book == "kn1":
+                book_name = "KHP"
+                chapter_text = None
+                if not chapter_text:
+                    chapter_div = p.find_parent("div", {"type": "chapter"})
+                    if chapter_div:
+                        chapter_text = chapter_div.find("head").get_text()
+                        pattern = r"^(\d+)\.\s+(.*)$"
+                        match = re.match(pattern, chapter_text)
+                        if match:
+                            source = f"{book_name}{match.group(1)}"
+                            sutta = match.group(2)
+                        
+
+            # kn2 dhammapada
+            elif book == "kn2":
+                book_name = "DHP"
+                if p.has_attr("rend") and p["rend"] == "hangnum":
+                    # Find the previous "head" tag with "rend" attribute containing "chapter"
+                    chapter_head = p.find_previous("head", attrs={"rend": "chapter"})
+                    if chapter_head is not None:
+                        chapter_text = chapter_head.string.strip()
+                        pattern = r"^(\d+)\.\s+(.*)$"
+                        match = re.match(pattern, chapter_text)
+                        if match:
+                            source = f"{book_name}{match.group(1)}"
+                            sutta = match.group(2)
+
+            # kn3 udāna
+            elif book == "kn3":
+                book_name = "UD"
+                if p["rend"] == "subhead":
+                    kn_counter += 1
+                    source = f"{book_name}{kn_counter}"
+                    sutta = re.sub("\\d*\\. *", "", p.text)
+
+            # kn4 itivuttaka
+            elif book == "kn4":
+                book_name = "ITI"
+                if p["rend"] == "subhead":
+                    kn_counter += 1
+                    source = f"{book_name}{kn_counter}"
+                    sutta = re.sub("\\d*\\. *", "", p.text)
+
+            # kn5 suttanipāta
+            elif book == "kn5":
+                book_name = "SNP"
+                if p["rend"] == "subhead":
+                    kn_counter += 1
+                    source = f"{book_name}{kn_counter}"
+                    sutta = re.sub("\\d*\\. *", "", p.text)
+            
+            # kn6 vimānavatthu
+            elif book == "kn6":
+                book_name = "VV"
+                if p["rend"] == "subhead":
+                    kn_counter += 1
+                    source = f"{book_name}{kn_counter}"
+                    sutta = re.sub("\\d*\\. *", "", p.text)
+
+            # kn7 petavatthu
+            elif book == "kn7":
+                book_name = "PV"
+                if p["rend"] == "subhead":
+                    kn_counter += 1
+                    source = f"{book_name}{kn_counter}"
+                    sutta = re.sub("\\d*\\. *", "", p.text)
+
+            # kn8 theragāthā
+            elif book == "kn8":
+                book_name = "TH"
+                if p["rend"] == "subhead":
+                    kn_counter += 1
+                    source = f"{book_name}{kn_counter}"
+                    sutta = re.sub("\\d*\\. *", "", p.text)
+
+            # kn9 therīgāthā
+            elif book == "kn9":
+                book_name = "THI"
+                if p["rend"] == "subhead":
+                    kn_counter += 1
+                    source = f"{book_name}{kn_counter}"
+                    sutta = re.sub("\\d*\\. *", "", p.text)
+
+            # kn10 therāapadāna
+            elif book == "kn10":
+                book_name = "APA"
+                if p["rend"] == "subhead":
+                    kn_counter += 1
+                    source = f"{book_name}{kn_counter}"
+                    sutta = re.sub("\\d*\\. *", "", p.text)
+
+            # kn11 therīapadāna
+            elif book == "kn11":
+                book_name = "API"
+                if p["rend"] == "subhead":
+                    kn_counter += 1
+                    source = f"{book_name}{kn_counter}"
+                    sutta = re.sub("\\d*\\. *", "", p.text)
+
+            # kn12 buddhavaṃsa
+            elif book == "kn12":
+                book_name = "BV"
+                if p.has_attr("rend") and p["rend"] == "hangnum":
+                    # Find the previous "head" tag with "rend" attribute containing "chapter"
+                    chapter_head = p.find_previous("head", attrs={"rend": "chapter"})
+                    if chapter_head is not None:
+                        chapter_text = chapter_head.string.strip()
+                        pattern = r"^(\d+)\.\s+(.*)$"
+                        match = re.match(pattern, chapter_text)
+                        if match:
+                            source = f"{book_name}{match.group(1)}"
+                            sutta = match.group(2)
+
+            # kn13 cariyāpiṭaka
+            elif book == "kn13":
+                book_name = "CP"
+                if p.has_attr("rend") and p["rend"] == "hangnum":
+                    # Find the previous "head" tag with "rend" attribute containing "chapter"
+                    chapter_head = p.find_previous("head", attrs={"rend": "chapter"})
+                    if chapter_head is not None:
+                        chapter_text = chapter_head.string.strip()
+                        pattern = r"^(\d+)\.\s+(.*)$"
+                        match = re.match(pattern, chapter_text)
+                        if match:
+                            source = f"{book_name}{match.group(1)}"
+                            sutta = match.group(2)
+
+            # kn14 jataka
+            elif book == "kn14":
+                book_name = "JA"
+                if p["rend"] == "subhead":
+                    kn_counter += 1
+                    source = f"{book_name}{kn_counter}"
+                    sutta = re.sub(" .*$", "", sutta)
+
+            # kn15 mahāniddesa
+            elif book == "kn15":
+                book_name = "NIDD1"
+                if p.has_attr("rend") and p["rend"] == "hangnum":
+                    # Find the previous "head" tag with "rend" attribute containing "chapter"
+                    chapter_head = p.find_previous("head", attrs={"rend": "chapter"})
+                    if chapter_head is not None:
+                        chapter_text = chapter_head.string.strip()
+                        pattern = r"^(\d+)\.\s+(.*)$"
+                        match = re.match(pattern, chapter_text)
+                        if match:
+                            source = f"{book_name}.{match.group(1)}"
+                            sutta = match.group(2)
+
+            # kn16 cūḷaniddesa
+            elif book == "kn16":
+                book_name = "NIDD2"
+                if p["rend"] == "subhead":
+                    kn_counter += 1
+                    # 1-20 is the original pārayan verses and khaggavisāṇa
+                    # 21-37 is the cūḷaniddesa
+                    # 38-41 is the commentary on khaggavisāṇa
+                    if kn_counter < 21:
+                        source = f"{book_name}.{kn_counter}"
+                        sutta = re.sub(" .*$", "", sutta)
+                        print(f"{kn_counter} 1 {source:<10}{sutta:<10}")
+                    elif 21 <= kn_counter < 38:
+                        source = f"{book_name}.{kn_counter-20}"
+                        sutta = re.sub(" .*$", "", sutta)
+                        print(f"{kn_counter} 1 {source:<10}{sutta:<10}")
+                    elif kn_counter >=38:
+                        source = f"{book_name}.19"
+                        sutta = "Khaggavisāṇasuttaniddeso, " + re.sub(" .*$", "", sutta)
+                        print(f"{kn_counter} 1 {source:<10}{sutta:<10}")
+            
+            # kn17 paṭisambhidāmagga
+            # vagga         <head rend="chapter">1. Mahāvaggo</head>
+            # section       <p rend="title">1. Ñāṇakathā</p>
+            # sutta         <p rend="subhead">Mātikā</p>
+            # plus some subheads which needs to be pypassed
+
+            if book in ["kn17"]:
+                book_name = "PM"
+
+                if p["rend"] == "chapter":
+                    vagga = re.sub(r"^\d.*\. ", "", p.text)
+                    vagga_no = re.sub(r"\. .+", "", p.text)
+                    vagga_no = assert_type_int(vagga_no)
+                    section = ""
+                    section_no = "0"
+                    sutta_name = ""
+                    sutta_no = ""
+                
+                elif p["rend"] == "title":
+                    section = re.sub(r"^\d*\. ", "", p.text)
+                    section_no = re.sub(r"\. .+", "", p.text)
+                    section_no = assert_type_int(section_no)
+                    sutta_name = ""
+                    sutta_no = ""
+
+                elif (
+                    p["rend"] == "subhead"
+                    and p.text not in [
+                        "Paṭhamacchakkaṃ",
+                        "Dutiyacchakkaṃ",
+                        "Tatiyacchakkaṃ",
+                        "Paṭhamacatukkaniddeso",
+                        "Dutiyacatukkaniddeso",
+                        "Tatiyacatukkaniddeso",
+                        "Catutthacatukkaniddeso",
+                        "Ka. assādaniddeso",
+                        "Kha. ādīnavaniddeso",
+                        "Ga. nissaraṇaniddeso",
+                        "Ka. pabhedagaṇananiddeso",
+                        "Kha. cariyavāro",
+                        "Ga. cāravihāraniddeso",
+                        "Ka. ādhipateyyaṭṭhaniddeso",
+                        "Kha. ādivisodhanaṭṭhaniddeso",
+                        "Ga. adhimattaṭṭhaniddeso",
+                        "Gha. adhiṭṭhānaṭṭhaniddeso",
+                        "Ṅa. pariyādānaṭṭhaniddeso",
+                        "Ca. patiṭṭhāpakaṭṭhaniddeso",
+                        "Mūlamūlakādidasakaṃ",
+                        "Suttantaniddeso",
+                        "Dasaiddhiniddeso",
+                    ]
+                ):
+                    sutta_name = re.sub(r"^\d.*\. ", "", p.text)
+                    sutta_no = re.sub(r"\. .+", "", p.text)
+                
+                if vagga and section and sutta_name:
+                    source = f"{book_name}{vagga_no}.{section_no}.{sutta_no}"
+                    sutta = f"{section}, {sutta_name}".lower()
+                elif vagga and not section and sutta_name:
+                    source = f"{book_name}{vagga_no}.{section_no}"
+                    sutta = f"{vagga}, {sutta_name}".lower()
+                elif vagga and section and not sutta_name:
+                    source = f"{book_name}{vagga_no}.{section_no}"
+                    sutta = f"{vagga}, {section}".lower()
+                
+                source_sutta = (source, sutta)
+                if source_sutta not in source_sutta_list:
+                    source_sutta_list.append(source_sutta)
+                    print(source_sutta)
+
+
+
+            # kn18 milindapañha
+            
+            # section   <p rend="subsubhead">1. Bāhirakathā</p>
+            # section   <head rend="chapter">2-3. Milindapañho</head>
+            # vagga     <p rend="title">1. Mahāvaggo</p>
+            # sutta     <p rend="subhead">1. Paññattipañho</p>
+            # plus some stray cats which needs to be handled individually
+
+            if book in ["kn18"]:
+                book_name = "MIL"
+                if p["rend"] == "chapter":
+                    if p.text == "Milindapañhapāḷi":
+                        section = "Milindapañhapāḷi"
+                        vagga = "Ārambhakathā"
+                        section_counter += 1
+                        vagga_counter += 1
+                    else:
+                        section = re.sub(r"^\d.*\. ", "", p.text)
+                        section_counter += 1
+                        vagga = ""
+                        vagga_counter = 0
+                        sutta_name = ""
+                        sutta_counter = 0
+                
+                elif p["rend"] == "subsubhead":
+                        vagga = re.sub(r"^\d.*\. ", "", p.text)
+                        vagga_counter += 1
+                        sutta_name = ""
+                        sutta_counter = 0
+                
+                elif p["rend"] == "title":
+                    if p.text == "Meṇḍakapañhārambhakathā":
+                        section = p.text
+                        section_counter += 1
+                        vagga = ""
+                        vagga_counter = 0
+                        sutta_name = ""
+                        sutta_counter = 0
+                    else:
+                        vagga = re.sub(r"^\d.*\. ", "", p.text)
+                        vagga_counter += 1
+                        sutta_counter = 0
+                
+                elif p["rend"] == "subhead":
+                    sutta_name = re.sub(r"^\d.*\. ", "", p.text)
+                    sutta_counter += 1
+                
+                elif p["rend"] == "nikaya":
+                    if p.text == "Mātikā":
+                        vagga = p.text
+                    elif p.text == "Nigamanaṃ":
+                        section = p.text
+                        section_counter += 1
+                        vagga = ""
+                        vagga_counter = 0
+                        sutta_name = ""
+                        sutta_counter = 0
+
+                if section and not vagga and not sutta_name:
+                    source = f"{book_name}{section_counter}"
+                    sutta = section.lower()
+                elif section and vagga and not sutta_name:
+                    source = f"{book_name}{section_counter}.{vagga_counter}"
+                    sutta = f"{section}, {vagga}".lower()
+                elif section and not vagga and sutta_name:
+                    source = f"{book_name}{section_counter}.{sutta_counter}"
+                    sutta = f"{section}, {sutta_name}".lower()   
+                elif section and vagga and sutta_name:
+                    source = f"{book_name}{section_counter}.{vagga_counter}.{sutta_counter}"
+                    sutta = f"{section}, {vagga}, {sutta_name}".lower()
+                
+                source_sutta = (source, sutta)
+                if source_sutta not in source_sutta_list:
+                    source_sutta_list.append(source_sutta)
+                    print(source_sutta)
+
+            # TODO kn19 nettippakaraṇa
+            # TODO kn20 peṭakopadesa
+
+            # commentaries
+
+            # mna
+            elif book == "mna":
+                book_name = "MNa"
+                subhead = ""
+                if (
+                    p["rend"] == "subhead"
+                ):
+                    if re.findall(r"^\d", p.text):                  # starts with a digit
+                        sutta_name = re.sub(r"\d*\. ", "", p.text)  # remove digits dot space
+                        subhead = ""                                # reset subhead
+                        sutta_counter += 1                          # increment sutta counter
+                    else:
+                        if not re.findall(r"^\(", p.text):          # if doesn't start with a bracket like (Dutiyo bhāgo)
+                            subhead = p.text
+                    source = f"{book_name}{sutta_counter}"
+                    if subhead:
+                        sutta = f"{sutta_name}, {subhead}"
+            
+            # dhammapada commentary
+            elif book == "kn2a":
+                book_name = "DHPa"
+
+                if p["rend"] == "chapter":
+                    vagga = re.sub(r"^\d*\. ", "", p.text)
+                    vagga_no = re.sub(r"\. *.+", "", p.text)
+                    vatthu = ""
+
+                if p["rend"] == "subhead":
+                    vatthu = re.sub(r"^\d*\. ", "", p.text)
+                    vatthu_no = re.sub(r"\. *.+", "", p.text)
+                    if p.text == "Ganthārambhakathā":
+                        vagga = ""
+                    elif p.text == "Nigamanakathā":
+                        vagga = ""
+
+                if not vagga and vatthu:
+                    source = f"{book_name}"
+                    sutta = f"{vatthu}".lower()
+                elif vagga and vatthu:
+                    source = f"{book_name}{vagga_no}.{vatthu_no}"
+                    sutta = f"{vagga}, {vatthu}".lower()
+                
+                if source and sutta:
+                    source_sutta =  (source, sutta)
+                    if source_sutta not in source_sutta_list:
+                        source_sutta_list.append(source_sutta)
+                        print(source_sutta)
+            
+            # petavatthu commentary
+            # <p rend="chapter">1. Uragavaggo</p>
+            # <p rend="subhead">1. Khettūpamapetavatthuvaṇṇanā</p>
+
+            if book == "kn7a":
+                book_name = "PVa"
+            
+                if p["rend"] == "subsubhead":
+                    sutta_name = p.text
+                
+                elif p["rend"] == "chapter":
+                    vagga = re.sub(r"^\d*\. ", "", p.text)
+                    vagga_no = re.sub(r"\. *.+", "", p.text)
+                    sutta_name = ""
+                
+                elif p["rend"] == "subhead":
+                    if re.findall(r"^\d", p.text):
+                        sutta_name = re.sub(r"^\d*\. ", "", p.text)
+                        sutta_no = re.sub(r"\. *.+", "", p.text)      
+                    else:
+                        sutta_name = p.text
+                        vagga = ""
+                
+                if vagga and sutta_name:
+                    source = f"{book_name}{vagga_no}.{sutta_no}"
+                    sutta = sutta_name.lower()
+                elif not vagga and sutta_name:
+                    source = f"{book_name}"
+                    sutta = sutta_name.lower()
+                
+                source_sutta = (source, sutta)
+                if source_sutta not in source_sutta_list:
+                    source_sutta_list.append(source_sutta)
+                    print(source_sutta)
+            
+            # jātaka commentary
+            # 
+            # bhaga     <p rend="title">(Paṭhamo bhāgo)</p>
+            # nipāta    <p rend="chapter">1. Ekakanipāto</p>
+            # vagga     <p rend="title">1. Apaṇṇakavaggo</p>
+            # sutta     <p rend="bodytext"> 1. Apaṇṇakajātakavaṇṇanā</p>
+            # sutta     <p rend="subhead">[111] 1. Gadrabhapañhajātakavaṇṇanā</p>
+            # sutta     <p rend="subsubhead">Ganthārambhakathā</p>
+
+            elif book in ["kn14a"]:
+                book_name = "JAa"
+                
+                if (
+                    p["rend"] == "bodytext"
+                    and "jātakavaṇṇanā" in p.text 
+                ):
+                    sutta_name = p.text.strip()
+                    if sutta_name.startswith("["):  # most suttas start with [123]
+                        sutta_no = re.sub("^\[|].+", "", sutta_name)
+                        sutta_name = re.sub(r"^\[\d*\] \d*\. ", "", sutta_name).lower()
+                        subtitle = ""
+                    else:
+                        sutta_no = re.sub("\. .+", "", sutta_name)
+                        sutta_name = re.sub(r"^\d*\. ", "", sutta_name).lower()
+                
+                elif p["rend"] == "subhead":
+                    if "jātakavaṇṇanā" in p.text:
+                        sutta_no = re.sub("^\[|].+", "", p.text.strip())
+                        sutta_name = re.sub(r"^\[\d*\] \d*\. ", "", p.text.strip()).lower()
+                    else:
+                        if sutta_no:
+                            subtitle = re.sub(r"^\d*\. ", "", p.text).strip().lower()
+                        else:
+                            sutta_name = re.sub(r"^\d*\. ", "", p.text).strip().lower()
+                
+                elif p["rend"] == "subsubhead":
+                    sutta_name = p.text.strip()
+
+                sutta_no = assert_type_int(sutta_no)
+                sutta_name = assert_no_space(sutta_name)
+
+                if not sutta_no and sutta_name:
+                    source = book_name
+                    sutta = sutta_name
+                elif sutta_no and sutta_name and subtitle:
+                    source = f"{book_name}{sutta_no}"
+                    sutta = f"{sutta_name}, {subtitle}"
+                elif sutta_no and sutta_name and not subtitle:
+                    source = f"{book_name}{sutta_no}"
+                    sutta = f"{sutta_name}"
+                
+                source_sutta = (source, sutta)
+                if source_sutta not in source_sutta_list:
+                    source_sutta_list.append(source_sutta)
+                    # print(source_sutta) 
+
+            if source and sutta and example:
+                sutta_examples += [(source, sutta.lower(), example)]
+        
+        # print(f"{set(p_rend_list)}")
+    
+    return sutta_examples
+
+
+def assert_type_int(text):
+    try:
+        int(text)
+        return text
+    except (ValueError, TypeError):
+        return ""
+
+
+def assert_no_space(sutta_name: str):
+    try:
+        assert " " not in sutta_name
+        return sutta_name
+    except (TypeError, AssertionError):
+        return ""
+        
+
+
+if __name__ == "__main__":
+    book = "kn17"
+    text_to_find = "limp"
+    
+    # FIXME why does this require ProjectPaths from externally?
     pth = ProjectPaths() 
+
     sutta_examples = find_source_sutta_example(pth, book, text_to_find)
     for sutta_example in sutta_examples:
         print(sutta_example)
