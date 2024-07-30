@@ -808,6 +808,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "kiccha 3",
+    "adj",
+    "experiencing difficulty; having trouble; suffering",
+    "✓"
+   ],
+   [
     "kicchanta",
     "prp",
     "being troubled (with); having difficulty (with); (comm) growing weary (of)",
@@ -820,7 +826,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 6
+  "count": 7
  },
  "kusala": {
   "data": [
