@@ -3775,6 +3775,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "ruḷhīsadda",
+    "masc",
+    "(gram) word used in its conventional sense; conventional meaning of a word; lit. arisen sound",
+    "✓"
+   ],
+   [
     "rūpa 6",
     "nt",
     "(gram) form of a word",
@@ -4789,7 +4795,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 774
+  "count": 775
  },
  "prefixes": {
   "data": [
@@ -10889,7 +10895,7 @@ var family_set_json = {
     "nandanavana",
     "nt",
     "wood in Tāvatiṃsa heaven; lit. delighting wood",
-    "~"
+    "✓"
    ],
    [
     "nāgadīpa",
@@ -11156,6 +11162,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "missakavana",
+    "nt",
+    "name of a grove in Tāvatiṃsa heaven; lit. mixed wood",
+    "✓"
+   ],
+   [
     "mukheluvana",
     "nt",
     "name of a wood",
@@ -11330,7 +11342,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 136
+  "count": 137
  },
  "holy sites": {
   "data": [
@@ -24261,7 +24273,7 @@ var family_set_json = {
     "mandhātu",
     "masc",
     "name of a king",
-    "~"
+    "✓"
    ],
    [
     "mallikā 2",
@@ -33529,6 +33541,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "erāvaṇa",
+    "masc",
+    "name of Sakka's elephant",
+    "✓"
+   ],
+   [
     "girimekhala",
     "masc",
     "name of Māra's elephant; lit. mountain girdle",
@@ -33559,7 +33577,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 7
+  "count": 8
  },
  "types of elephants": {
   "data": [

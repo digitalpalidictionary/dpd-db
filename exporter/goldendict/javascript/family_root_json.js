@@ -27647,6 +27647,20 @@ var family_root_json = {
    ]
   ]
  },
+ "√ram 1 ati √ram": {
+  "root_key": "√ram 1",
+  "root_family": "ati √ram",
+  "root_meaning": "delight, please",
+  "count": 1,
+  "data": [
+   [
+    "atiramaṇīya",
+    "ptp",
+    "extremely beautiful; absolutely delightful; lit. to be pleased beyond",
+    "✓"
+   ]
+  ]
+ },
  "√ric ati √ric": {
   "root_key": "√ric",
   "root_family": "ati √ric",
@@ -56406,8 +56420,8 @@ var family_root_json = {
    [
     "niyyātesi 2",
     "aor",
-    "gave into charge, assigned, dedicated",
-    "✗"
+    "gave to; assigned to; handed into the charge (of)",
+    "✓"
    ],
    [
     "niyyādayati",
@@ -64071,7 +64085,7 @@ var family_root_json = {
     "anupatana",
     "nt",
     "falling on; attacking",
-    "~"
+    "✓"
    ],
    [
     "anupatita 1",
@@ -70353,7 +70367,7 @@ var family_root_json = {
   "root_key": "√yā",
   "root_family": "anu saṃ √yā",
   "root_meaning": "go",
-  "count": 5,
+  "count": 6,
   "data": [
    [
     "anusaññātuṃ",
@@ -70378,6 +70392,12 @@ var family_root_json = {
     "pr",
     "goes through, travels about; inspects, supervises; goes along with, escorts",
     "✗"
+   ],
+   [
+    "anusaṃyāyanta",
+    "prp",
+    "going around; travelling about",
+    "✓"
    ],
    [
     "anusaṃyāyitvā",
@@ -84813,13 +84833,19 @@ var family_root_json = {
   "root_key": "√ṭhā",
   "root_family": "pari ni √ṭhā",
   "root_meaning": "stand",
-  "count": 10,
+  "count": 11,
   "data": [
    [
     "apariniṭṭhita",
     "pp",
     "incomplete; unfinished; lit. not stood down all around",
     "~"
+   ],
+   [
+    "pariniṭṭhapenta",
+    "prp",
+    "bringing to an end; concluding; finishing; accomplishing",
+    "✓"
    ],
    [
     "pariniṭṭhāna",
@@ -95126,7 +95152,7 @@ var family_root_json = {
    [
     "paṭibāhituṃ",
     "inf",
-    "to opposes; to resist; to reject; to refuse",
+    "to opposes; to resist; to reject; to refuse (something with something)",
     "✓"
    ],
    [
@@ -120864,7 +120890,7 @@ var family_root_json = {
    [
     "rakkhati 1",
     "pr",
-    "protects; guards; watches over",
+    "protects; watches over; guards (something against something)",
     "✓"
    ],
    [
@@ -121747,7 +121773,7 @@ var family_root_json = {
   "root_key": "√ram 1",
   "root_family": "√ram",
   "root_meaning": "delight, please",
-  "count": 47,
+  "count": 48,
   "data": [
    [
     "arati 1",
@@ -121861,6 +121887,12 @@ var family_root_json = {
     "ramaṇīya 2",
     "ptp",
     "pleasing; delightful; charming; wonderful; lit. to be pleased",
+    "✓"
+   ],
+   [
+    "ramaṇīyatara",
+    "adj",
+    "more beautiful; more delightful; more charming; lit. to be pleased",
     "✓"
    ],
    [
@@ -132075,7 +132107,7 @@ var family_root_json = {
   "root_key": "√var 1",
   "root_family": "√var",
   "root_meaning": "cover, dress, restrain",
-  "count": 82,
+  "count": 83,
   "data": [
    [
     "avārita",
@@ -132483,6 +132515,12 @@ var family_root_json = {
     "vāreti",
     "pr",
     "prevents; obstructs; hinders",
+    "✓"
+   ],
+   [
+    "vāretuṃ",
+    "inf",
+    "to prevent; to prohibit; to obstruct",
     "✓"
    ],
    [
@@ -148354,8 +148392,8 @@ var family_root_json = {
    [
     "samucchinditvā",
     "abs",
-    "having extirpated, having abolished, having destroyed",
-    "✗"
+    "having completely cut off; having entirely abolished; lit. having cut up together",
+    "✓"
    ],
    [
     "samucchindiya",
@@ -184276,8 +184314,8 @@ var family_root_json = {
    [
     "nimmathati",
     "pr",
-    "suppresses, destroys, squeezes",
-    "✗"
+    "grinds down; crushes; destroys; lit. churns away",
+    "✓"
    ],
    [
     "nimmathana",
@@ -189938,8 +189976,8 @@ var family_root_json = {
    [
     "paṭivedeti",
     "pr",
-    "makes known, reforms, announces",
-    "✗"
+    "makes known; informs; announces",
+    "✓"
    ],
    [
     "paṭivedetvā",
@@ -204598,8 +204636,8 @@ var family_root_json = {
    [
     "viddhaṃsati",
     "pr",
-    "shakes off",
-    "✗"
+    "shakes off; scatters; disperses",
+    "✓"
    ],
    [
     "viddhaṃsana",
@@ -204740,8 +204778,8 @@ var family_root_json = {
    [
     "vidhāvita",
     "pp",
-    "wandered around; running; strayed; scattered",
-    "✗"
+    "dispersed; scattered (by); lit. run in different directions",
+    "✓"
    ],
    [
     "vidhāvitvā",
@@ -205203,6 +205241,50 @@ var family_root_json = {
    ]
   ]
  },
+ "√veṭh vi ni √veṭh": {
+  "root_key": "√veṭh",
+  "root_family": "vi ni √veṭh",
+  "root_meaning": "wind, twist",
+  "count": 6,
+  "data": [
+   [
+    "vinibbeṭhenta",
+    "prp",
+    "unravelling; untangling; untwisting",
+    "✓"
+   ],
+   [
+    "viniveṭhama",
+    "nt",
+    "disentangling",
+    "✗"
+   ],
+   [
+    "viniveṭhita",
+    "pp",
+    "disentangled, unwrapped",
+    "✗"
+   ],
+   [
+    "viniveṭheti",
+    "pr",
+    "disentangles, unwraps, frees oneself from",
+    "✗"
+   ],
+   [
+    "viniveṭhetvā",
+    "abs",
+    "having unwrapped; having untwisted",
+    "✓"
+   ],
+   [
+    "viniveṭhesi",
+    "aor",
+    "disentangled, unwrapped",
+    "✗"
+   ]
+  ]
+ },
  "√bhid vi ni √bhid": {
   "root_key": "√bhid",
   "root_family": "vi ni √bhid",
@@ -205418,44 +205500,6 @@ var family_root_json = {
     "masc",
     "attachment; adherence",
     "✓"
-   ]
-  ]
- },
- "√veṭh vi ni √veṭh": {
-  "root_key": "√veṭh",
-  "root_family": "vi ni √veṭh",
-  "root_meaning": "wind, twist",
-  "count": 5,
-  "data": [
-   [
-    "viniveṭhama",
-    "nt",
-    "disentangling",
-    "✗"
-   ],
-   [
-    "viniveṭhita",
-    "pp",
-    "disentangled, unwrapped",
-    "✗"
-   ],
-   [
-    "viniveṭheti",
-    "pr",
-    "disentangles, unwraps, frees oneself from",
-    "✗"
-   ],
-   [
-    "viniveṭhetvā",
-    "abs",
-    "having unwrapped; having untwisted",
-    "✓"
-   ],
-   [
-    "viniveṭhesi",
-    "aor",
-    "disentangled, unwrapped",
-    "✗"
    ]
   ]
  },
@@ -216447,7 +216491,7 @@ var family_root_json = {
   "root_key": "√car 2",
   "root_family": "saṃ ud ā √car",
   "root_meaning": "act, behave",
-  "count": 17,
+  "count": 18,
   "data": [
    [
     "samudācaraṇa 2.1",
@@ -216471,6 +216515,12 @@ var family_root_json = {
     "samudācarati 1.3",
     "pr",
     "behaves; acts",
+    "✓"
+   ],
+   [
+    "samudācarati 1.4",
+    "pr",
+    "expresses itself; happens; occurs",
     "✓"
    ],
    [
