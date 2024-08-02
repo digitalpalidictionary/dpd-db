@@ -15,7 +15,7 @@ console = Console()
 
 dpspth = DPSPaths()
 
-current_date = datetime.date.today().strftime("%d-%m-%y")
+current_date = datetime.date.today().strftime("%d-%m")
 
 # Dictionary of functions and whether they are enabled
 function_status = {

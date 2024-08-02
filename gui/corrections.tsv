@@ -2285,3 +2285,54 @@ ae > e"					correction		yes
 p > pp (sk pr)"					correction		yes		
 9885	source_2	UD78	sutta_2	visākhāsuttaṃ	example_2	yesaṃ ekaṃ piyaṃ, ekaṃ tesaṃ dukkhaṃ, yesaṃ n'atthi piyaṃ, n'atthi tesaṃ dukkhaṃ, <b>asokā</b> te virajā anupāyāsā'ti vadāmī'ti	not the same example		yes		
 54047	source_2		sutta_2		example_2		here it is yāva (see yāvañcidaṃ)		yes		
+34955	meaning_1	observing phenomena; who watches mental phenomena; (or) observing nature of things					as MN 118 suggests		
+57680	source_2		sutta_2		example_2		it is meaning of sattaka 2.1		
+1576	source_2	KHP9	sutta_2	karaṇīya mettasuttaṃ	example_2	"na paro paraṃ nikubbetha,
+n'ātimaññetha katthaci naṃ kañci,
+byārosanā, paṭīghasaññā,
+n'<b>āññam'aññassa</b> dukkham'iccheyya."	missing		
+1576	meaning_1	each other's; the one of the one; one to another					missing espesially from KHP9		
+52655	meaning_1	speaking in moderation; who is measured in speech					typo		
+45650	compound_type	kammadhāraya > bahubbīhi	compound_construction	pāpa + icchā			missing		
+48169	compound_type	kammadhāraya > bahubbīhi	compound_construction	bahu + bhāṇī			missing		
+32120	compound_type	tatiyā tappurisa > bahubbīhi	compound_construction	dassan<b>ena</b> + sampanna			missing		
+17683	compound_type	kammadhāraya > bahubbīhi	compound_construction	eka + vihārī			missing		
+21448	compound_type	tatiyā tappurisa > bahubbīhi	compound_construction	kāl<b>ena</b> + vādī			missing		
+19635	compound_type	kammadhāraya > bahubbīhi	compound_construction	kata + puñña			missing		
+7526	compound_type	kammadhāraya > bahubbīhi	compound_construction	na + bhāvitacitta			missing		
+49833	compound_type	kammadhāraya > bahubbīhi	compound_construction	bhāvita + citta			missing		
+7528	compound_type	kammadhāraya > bahubbīhi	compound_construction	na + bhāvitapañña			missing		
+49839	compound_type	kammadhāraya > bahubbīhi	compound_construction	bhāvita + pañña			missing		
+7529	compound_type	kammadhāraya > bahubbīhi	compound_construction	na + bhāvitasīla			missing		
+49840	compound_type	kammadhāraya > bahubbīhi	compound_construction	bhāvita + sīla			missing		
+13543	compound_type	kammadhāraya > bahubbīhi	compound_construction	itthaṃ + nāma			missing		
+60841	compound_type	kammadhāraya > bahubbīhi	compound_construction	sammā + samādhi			missing		
+22101	compound_type	dutiyā tappurisa > bahubbīhi	compound_construction	kukkucc<b>aṃ</b> + vūpasanta			missing		
+18155	compound_type	kammadhāraya > bahubbīhi	compound_construction	evaṃ + diṭṭhī			missing		
+18200	compound_type	kammadhāraya > bahubbīhi	compound_construction	evaṃ + vādī			missing		
+14370	compound_type	kammadhāraya > bahubbīhi	compound_construction	ucchinna + mūla			missing		
+61493	compound_type	kammadhāraya > bahubbīhi	compound_construction	sa + hirañña			missing		
+57621	compound_type	dvanda > bahubbīhi	compound_construction	sa tiṇa <b>ca</b> sakaṭṭha <b>ca</b> saudaka <b>ca</b>			typo		
+58118	compound_type	kammadhāraya > bahubbīhi	compound_construction	sa + dhana			missing		
+57968	compound_type	kammadhāraya > bahubbīhi	compound_construction	sa + dosa			missing		
+57969	compound_type	kammadhāraya > bahubbīhi	compound_construction	sa + dosa			missing		
+60207	compound_type	kammadhāraya > bahubbīhi	compound_construction	sa + moha			missing		
+56353	compound_type	kammadhāraya > bahubbīhi	compound_construction	sa + kiñcana			missing		
+58684	compound_type	kammadhāraya > bahubbīhi	compound_construction	sa + pabhāsa			missing		
+3050	compound_type	kammadhāraya > bahubbīhi	compound_construction	na + dhana			missing		
+3050	family_compound	dhana					missing		
+9100	compound_type	kammadhāraya > bahubbīhi	compound_construction	na + roga			missing		
+10788	compound_type	kammadhāraya > bahubbīhi	compound_construction	na + vera			missing		
+908	compound_type	kammadhāraya > bahubbīhi	compound_construction	na + cela			missing		
+6440	compound_type	kammadhāraya > bahubbīhi	compound_construction	na + parisesa			missing		
+3475	compound_type	kammadhāraya > bahubbīhi	compound_construction	na + aṅgaṇa			missing		
+59440	meaning_lit	caused to reach together					missing		
+18083	meaning_1	they should be spoken to thus; they should be replied to in this way					missing		
+68746	meaning_1	centred in liberation; with liberation is essence					adj		
+32220	meaning_1	firmly this; strongly this; vigorously this					;		
+75748	derived_from	andha					missing		
+75748	construction	ati + andha					missing		
+75748	meaning_1	thoroughly blind; absolutely sightless					missing		
+37589	source_2	SN48.42	sutta_2	uṇṇābhabrāhmaṇasuttaṃ	example_2	accayāsi, brāhmaṇa, pañhaṃ, n'āsakkhi pañhassa pariyantaṃ gahetuṃ. nibbān'ogadhañ'hi, brāhmaṇa, brahmacariyaṃ vussati nibbānaparāyaṇaṃ <b>nibbānapariyosānan</b>'ti.	bold		
+54253	notes	"the distance a yoke of oxen can travel in a day
+4 gāvuta = 1 yojana"					since lit. 'yoking' in literal meaning no need to duplicate in notes		

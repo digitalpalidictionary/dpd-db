@@ -1445,11 +1445,56 @@ def get_next_word_ru(db_session):
         Russian.ru_meaning == "",
     ).first()
 
+    # Query the database to count the total number of words fitting the criteria
+    total_words = db_session.query(DpdHeadwords).join(Russian).filter(
+        DpdHeadwords.meaning_1 != "",
+        DpdHeadwords.example_1 != "",
+        Russian.ru_meaning == "",
+    ).count()
+
     # Return the id of the word if found, otherwise return None
     if word:
         print(f"id = {word.id}")
-        return str(word.id)
+        total_words_message = f"words left: {total_words}"
+        print(total_words_message)
+        return str(word.id), total_words_message
     else:
-        print("No words found in the database.")
+        total_words_message = "no words"
+        print(total_words_message)
+        return 0, total_words_message
+
+
+def get_next_note_ru(db_session):
+    # Query the database for the first word that meets the conditions
+    word = db_session.query(DpdHeadwords).join(Russian).join(SBS).filter(
+        Russian.ru_notes.like("%ИИ%"),
+        or_(
+                SBS.sbs_class_anki != '',
+                SBS.sbs_category != '',
+                SBS.sbs_index != '',
+            )
+    ).first()
+
+    # Query the database to count the total number of words fitting the criteria
+    total_words = db_session.query(DpdHeadwords).join(Russian).join(SBS).filter(
+        Russian.ru_notes.like("%ИИ%"),
+        or_(
+                SBS.sbs_class_anki != '',
+                SBS.sbs_category != '',
+                SBS.sbs_index != '',
+            )
+    ).count()
+
+    # Return the id of the word if found, otherwise return None
+    if word:
+        print(f"id = {word.id}")
+        total_words_message = f"words left: {total_words}"
+        print(total_words_message)
+        return str(word.id), total_words_message
+    else:
+        total_words_message = "no words"
+        print(total_words_message)
+        return 0, total_words_message
+
 
 

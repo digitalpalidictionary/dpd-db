@@ -121,6 +121,7 @@ from functions_dps import load_gui_state_dps
 from functions_dps import add_word_from_csv
 from functions_dps import send_sutta_study_request
 from functions_dps import get_next_word_ru
+from functions_dps import get_next_note_ru
 
 
 from functions_tests_dps import dps_open_internal_tests
@@ -2110,10 +2111,20 @@ def main():
             request_dpd_server(values["dps_dpd_id"])
 
         elif event == "dps_show_next_word_ru":
-            next_word_id = get_next_word_ru(db_session)
+            word_id, total_words_message = get_next_word_ru(db_session)
             clear_dps(values, window)
             window["dps_id_or_lemma_1"].update(
-                    value=next_word_id)
+                    value=word_id)
+            window["messages"].update(
+                    value=total_words_message, text_color="SteelBlue")
+
+        elif event == "dps_show_next_note_ru":
+            word_id, total_words_message = get_next_note_ru(db_session)
+            clear_dps(values, window)
+            window["dps_id_or_lemma_1"].update(
+                    value=word_id)
+            window["messages"].update(
+                    value=total_words_message, text_color="SteelBlue")
 
         # dps in word to add tab
 

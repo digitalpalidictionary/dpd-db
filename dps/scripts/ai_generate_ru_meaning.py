@@ -237,7 +237,7 @@ def ru_notes_generating():
             joinedload(DpdHeadwords.ru)
         ).filter(
             and_(
-                DpdHeadwords.meaning_1 != '',
+                # DpdHeadwords.meaning_1 != '',
                 # DpdHeadwords.example_1 != '',
                 DpdHeadwords.notes != '',
                 Russian.ru_notes == ''
@@ -463,9 +463,9 @@ if __name__ == "__main__":
 
     print("Translationg with the help of AI")
 
-    ru_meaning_generating()
+    # ru_meaning_generating()
 
     # roots_meaning_generating("pali")
 
-    # ru_notes_generating()
+    ru_notes_generating()
 

@@ -807,6 +807,11 @@ def make_tab_edit_dps(dpspth, sg):
                 key="dps_show_next_word_ru",
                 tooltip="Show next word with meaning_1 and ru_meaning empty"
                 ),
+            sg.Button(
+                "Next Note", 
+                key="dps_show_next_note_ru",
+                tooltip="Show next word with notes and ru_notes empty"
+                ),
         ],
         [
             # gui buttons
