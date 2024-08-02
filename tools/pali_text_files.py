@@ -217,12 +217,15 @@ cst_texts: Dict[str, List[str]] = {
     "vism": [
         "e0101n.mul.txt",
         "e0102n.mul.txt",
+    ],
+
+    "visma": [
         "e0103n.att.txt",
         "e0104n.att.txt",
-        "e0105n.nrf.txt",
     ],
 
     "anna": [
+        "e0105n.nrf.txt",
         "e0201n.nrf.txt",
         "e0301n.nrf.txt",
         "e0401n.nrf.txt",
@@ -7845,6 +7848,7 @@ sc_texts: Dict[str, List[str]] = {
     "abht": [],
 
     "vism": [],
+    "visma": [],
     "anna": [],
 
 }
@@ -8283,6 +8287,7 @@ bjt_texts = {
         "anya-vm-1.json",
         "anya-vm-12.json",
     ],
+    "visma" : [],
     "anna": [],
 
 }
@@ -8383,6 +8388,7 @@ tika_books = [
 
 anna_books = [
     "vism",
+    "visma"
     "anna"
     ]
 
@@ -8436,5 +8442,6 @@ all_books = [
     "abht",
 
     "vism",
+    "visma"
     "anna",
     ]

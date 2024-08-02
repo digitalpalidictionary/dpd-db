@@ -351,7 +351,9 @@ def pass2_gui(p2d: Pass2Data) -> tuple[Pass2Data, WordData]:
         p2d.pass2_window.refresh()
 
         sutta_examples = find_source_sutta_example(
-            p2d.pth, p2d.book, wd.search_pattern)
+            p2d.book,
+            wd.search_pattern
+        )
         
         if sutta_examples:
             wd.sutta_examples = sutta_examples

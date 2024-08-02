@@ -619,7 +619,7 @@ def find_sutta_example(pth, sg, window, values: dict) -> Optional[Tuple[str, str
 
     book = values["book_to_add"]
     text_to_find = values["word_to_add"][0]
-    sutta_examples = find_source_sutta_example(pth, book, text_to_find)
+    sutta_examples = find_source_sutta_example(book, text_to_find)
 
     sentences_list = [sentence[2] for sentence in sutta_examples]
 

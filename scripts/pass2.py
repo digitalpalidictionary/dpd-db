@@ -146,7 +146,9 @@ def main():
     for word in pd.word_list:
         wd = WordData(word)   
         sutta_examples = find_source_sutta_example(
-            pd.pth, pd.book, wd.search_pattern)
+            pd.book,
+            wd.search_pattern
+        )
 
         if sutta_examples:
             for sutta_example in sutta_examples:

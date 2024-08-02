@@ -56,6 +56,7 @@ all_texts = [
     "knt",
     "abht",
     "vism",
+    "visma",
     "anna",
     ]
 
