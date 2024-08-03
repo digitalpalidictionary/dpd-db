@@ -20623,7 +20623,7 @@ var family_idiom_json = {
   ]
  },
  "uttama": {
-  "count": 4,
+  "count": 5,
   "data": [
    [
     "uttamatthassa pattiyā",
@@ -20647,6 +20647,12 @@ var family_idiom_json = {
     "santimuttamaṃ",
     "sandhi",
     "highest peace; supreme tranquillity; total calm",
+    "✓"
+   ],
+   [
+    "saraṇamuttamaṃ",
+    "sandhi",
+    "highest refuge; supreme shelter",
     "✓"
    ]
   ]
@@ -32581,8 +32587,14 @@ var family_idiom_json = {
   ]
  },
  "saraṇa": {
-  "count": 2,
+  "count": 3,
   "data": [
+   [
+    "saraṇamuttamaṃ",
+    "sandhi",
+    "highest refuge; supreme shelter",
+    "✓"
+   ],
    [
     "saraṇaṃ gacchati",
     "idiom",

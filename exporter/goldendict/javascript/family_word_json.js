@@ -9657,8 +9657,8 @@ var family_word_json = {
    [
     "usabha 3",
     "nt",
-    "measure of length; 140 cubits; approx 640 metres",
-    "~"
+    "measure of length; 140 cubits; approximately 640 metres",
+    "✓"
    ],
    [
     "usabha 4",
@@ -21596,6 +21596,12 @@ var family_word_json = {
  "gaggara": {
   "data": [
    [
+    "gaggara",
+    "masc",
+    "bellows; smith's bellows",
+    "✓"
+   ],
+   [
     "gaggarā",
     "fem",
     "name of a lotus pond near Campā; lit. gurgling",
@@ -21620,7 +21626,7 @@ var family_word_json = {
     "~"
    ]
   ],
-  "count": 4
+  "count": 5
  },
  "gaccha": {
   "data": [
@@ -24652,6 +24658,17 @@ var family_word_json = {
    ]
   ],
   "count": 4
+ },
+ "dīpi": {
+  "data": [
+   [
+    "dīpika 1",
+    "masc",
+    "leopard; panther",
+    "✓"
+   ]
+  ],
+  "count": 1
  },
  "dundubhi": {
   "data": [

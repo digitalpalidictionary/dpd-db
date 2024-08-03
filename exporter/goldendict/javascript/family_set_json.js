@@ -1621,13 +1621,13 @@ var family_set_json = {
     "✓"
    ],
    [
-    "kāriya 1",
+    "kāriya 3",
     "ptp",
     "(gram) could be done; possible to do; lit. to be done",
     "✓"
    ],
    [
-    "kāriya 3",
+    "kāriya 4",
     "nt",
     "(gram) morphological procedure; grammatical operation; lit. to be done",
     "✓"
@@ -3229,6 +3229,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "pikāra",
+    "masc",
+    "(gram) the word 'pi'",
+    "✓"
+   ],
+   [
     "pisadda",
     "masc",
     "(gram) the word 'api'; lit. pi sound",
@@ -4309,7 +4315,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "sadda 4",
+    "sadda 6",
     "masc",
     "(gram) word; part of a word; the word ' '; lit. sound",
     "✓"
@@ -4795,7 +4801,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 775
+  "count": 776
  },
  "prefixes": {
   "data": [
@@ -9897,9 +9903,27 @@ var family_set_json = {
     "✓"
    ],
    [
+    "cammayodhī",
+    "masc",
+    "armored warrior; knight; (comm) (or) who carries a shield; lit. leather soldier",
+    "✓"
+   ],
+   [
     "cara 3",
     "masc",
     "spy; lit. going around",
+    "✓"
+   ],
+   [
+    "calaka 1.1",
+    "masc",
+    "military officer; captain; major; lit. shaker",
+    "✓"
+   ],
+   [
+    "celaka",
+    "masc",
+    "standard bearer; ensign bearer; bannerman; lit. related to cloth",
     "✓"
    ],
    [
@@ -9987,6 +10011,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "dhanuggaha",
+    "masc",
+    "archer; (comm) teacher of archery; lit. holding a bow",
+    "✓"
+   ],
+   [
     "dhama",
     "masc",
     "blower; player; who sounds",
@@ -10050,6 +10080,12 @@ var family_set_json = {
     "nhāpakantevāsī",
     "masc",
     "bath attendant's assistant",
+    "✓"
+   ],
+   [
+    "pakkhandī 2",
+    "masc",
+    "bold soldier; mercenary; lit. jumping forward",
     "✓"
    ],
    [
@@ -10152,6 +10188,12 @@ var family_set_json = {
     "pāvārika 1",
     "masc",
     "wool dealer; cloak seller",
+    "✓"
+   ],
+   [
+    "piṇḍadāyaka 2",
+    "masc",
+    "mess cook; miltary chef; (comm) (or) assault troop; shock troop; lit. lump giver",
     "✓"
    ],
    [
@@ -10395,6 +10437,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "rathika",
+    "masc",
+    "charioteer; driver",
+    "✓"
+   ],
+   [
     "rūpūpajīvinī",
     "fem",
     "prostitute; sex worker; lit. living off her body",
@@ -10513,9 +10561,21 @@ var family_set_json = {
     "masc",
     "business executive; treasurer; wealthy man; lit. foremost",
     "✓"
+   ],
+   [
+    "hatthāroha 1",
+    "masc",
+    "elephant rider; mahout",
+    "✓"
+   ],
+   [
+    "hatthāroha 2",
+    "masc",
+    "elephant cavalryman; elephant warrior",
+    "✓"
    ]
   ],
-  "count": 163
+  "count": 172
  },
  "place names": {
   "data": [
@@ -20259,8 +20319,8 @@ var family_set_json = {
    [
     "usabha 3",
     "nt",
-    "measure of length; 140 cubits; approx 640 metres",
-    "~"
+    "measure of length; 140 cubits; approximately 640 metres",
+    "✓"
    ],
    [
     "gāvuta",
@@ -22443,6 +22503,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "saradatāpasa",
+    "masc",
+    "name of an ascetic",
+    "✓"
+   ],
+   [
     "sarabha 2",
     "masc",
     "name of a wandering ascetic",
@@ -22497,7 +22563,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 83
+  "count": 84
  },
  "names of deities": {
   "data": [
@@ -24264,13 +24330,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "mandhāta",
-    "masc",
-    "name of a mythical king",
-    "~"
-   ],
-   [
-    "mandhātu",
+    "mandhātar",
     "masc",
     "name of a king",
     "✓"
@@ -24396,7 +24456,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 69
+  "count": 68
  },
  "six ascetic teachers": {
   "data": [
@@ -24862,6 +24922,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "koviḷāra",
+    "masc",
+    "name of tree; Bauhinia variegata",
+    "✓"
+   ],
+   [
     "kosamba",
     "masc",
     "Himalayan mango; Mangifera sylvatica; lit. sheath mango",
@@ -25171,7 +25237,7 @@ var family_set_json = {
     "pāricchattaka",
     "masc",
     "coral tree; Erythrina indica",
-    "~"
+    "✓"
    ],
    [
     "pārichatta",
@@ -25720,7 +25786,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 202
+  "count": 203
  },
  "names of nuns": {
   "data": [
@@ -26339,7 +26405,7 @@ var family_set_json = {
     "aṭṭhacattālīsā",
     "card",
     "forty eight (48)",
-    "~"
+    "✓"
    ],
    [
     "aṭṭhatiṃsati",
@@ -28371,7 +28437,7 @@ var family_set_json = {
     "yogāvacara",
     "masc",
     "spiritual practitioner; meditator",
-    "~"
+    "✓"
    ],
    [
     "yogī",
@@ -28442,7 +28508,7 @@ var family_set_json = {
     "aṭṭhavīsa",
     "ordin",
     "twenty-eighth (28th)",
-    "~"
+    "✓"
    ],
    [
     "aṭṭhārasa 2",
@@ -30894,6 +30960,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "jātakapāḷi",
+    "fem",
+    "Books 14 and 15 of the Khuddaka Nikāya; Birth Stories; lit. birth text",
+    "~"
+   ],
+   [
     "theragāthā",
     "fem",
     "Book 8 of the Khuddaka Nikāya; lit. verses of the elder monks",
@@ -30972,7 +31044,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 18
+  "count": 19
  },
  "epithets of stream entry": {
   "data": [
@@ -31439,7 +31511,7 @@ var family_set_json = {
     "khuddakavāsi",
     "fem",
     "small sharp knife",
-    "~"
+    "✓"
    ],
    [
     "cāpa",
@@ -31692,6 +31764,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "koviḷāra",
+    "masc",
+    "name of tree; Bauhinia variegata",
+    "✓"
+   ],
+   [
     "kosamba",
     "masc",
     "Himalayan mango; Mangifera sylvatica; lit. sheath mango",
@@ -31851,7 +31929,7 @@ var family_set_json = {
     "pāricchattaka",
     "masc",
     "coral tree; Erythrina indica",
-    "~"
+    "✓"
    ],
    [
     "pārichatta",
@@ -32064,7 +32142,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 78
+  "count": 79
  },
  "names of heavens": {
   "data": [
@@ -33565,6 +33643,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "buddharakkhita 2",
+    "masc",
+    "name of a young parrot who practiced meditation on bones; lit. protected by the Buddha",
+    "✓"
+   ],
+   [
     "valāhaka 2",
     "masc",
     "name of a king Mahāsudassana's royal steed; lit. Thundercloud",
@@ -33577,7 +33661,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 8
+  "count": 9
  },
  "types of elephants": {
   "data": [
