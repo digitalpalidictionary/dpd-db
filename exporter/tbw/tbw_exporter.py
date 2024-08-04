@@ -116,7 +116,7 @@ def generate_i2h_dict(g: ProgData):
     
     p_green("making inflection2headwords dict")
     for __counter__, i in enumerate(g.dpd_db):
-        inflections = i.inflections_list
+        inflections = i.inflections_list_all # include api ca eva iti
         for inflection in inflections:
             test1 = (
                 inflection in g.word_set or

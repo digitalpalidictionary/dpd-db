@@ -59,7 +59,7 @@ def inflection_to_headwords(pth: ProjectPaths):
     i2h_dict_tpr = {}
 
     for i in dpd_db:
-        inflections = i.inflections_list
+        inflections = i.inflections_list_all # include api ca eva iti as well
         for inflection in inflections:
             if inflection in all_words_set:
                 if inflection not in i2h_dict:

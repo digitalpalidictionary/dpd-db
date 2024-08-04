@@ -233,7 +233,7 @@ def render_pali_word_dpd_html(
     size_dict["dpd_header"] += len(header)
     html = squash_whitespaces(header) + minify(html)
 
-    synonyms: List[str] = i.inflections_list
+    synonyms: List[str] = i.inflections_list_all # include api ca eva iti
     synonyms = add_niggahitas(synonyms)
     for synonym in synonyms:
         if synonym in sandhi_contractions:

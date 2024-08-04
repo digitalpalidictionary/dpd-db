@@ -349,7 +349,7 @@ class ParsedResult(TypedDict):
     freq_html: str
 
 def _parse_item(i: DpdHeadwords, dicts: List[dict]) -> ParsedResult:
-    inflections = i.inflections_list
+    inflections = i.inflections_list_all    # this include all api ca eva iti
 
     section = 1
     d = {}

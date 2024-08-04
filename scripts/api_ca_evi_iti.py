@@ -14,6 +14,7 @@ from db.models import DpdHeadwords, Lookup
 from tools.paths import ProjectPaths
 from tools.printer import p_counter, p_green, p_green_title, p_title, p_yes
 from tools.tic_toc import tic, toc
+from tools.pali_sort_key import pali_list_sorter
 
 
 class ProgData():
@@ -61,23 +62,25 @@ def add_apicaevaiti_to_inflections(g: ProgData):
 
     p_green_title("adding apicaevaiti to inflections")
 
-    updated_list: list[str] = []
+    updated_list: list[str] = [] # which headwords get updated?
     for counter, i in enumerate(g.headwords_db):
+
         inflection_list = i.inflections_list
-        inflection_list_original = i.inflections_list.copy()
-        for inflection in inflection_list_original:
+        api_ca_eva_iti_list = i.inflections_list_api_ca_eva_iti
+
+        for inflection in inflection_list:
             if (
                 g.apicaevaiti_dict[inflection] != []
-                and g.apicaevaiti_dict[inflection] not in inflection_list
+                and g.apicaevaiti_dict[inflection] not in api_ca_eva_iti_list
             ):
-                inflection_list.extend(g.apicaevaiti_dict[inflection])
+                api_ca_eva_iti_list.extend(g.apicaevaiti_dict[inflection])
 
-        if inflection_list != inflection_list_original:
-            i.inflections = ",".join(inflection_list)
-            updated_list.append(i.lemma_1)
+        api_ca_eva_iti_list = pali_list_sorter(set(api_ca_eva_iti_list))
+        i.inflections_api_ca_eva_iti = ",".join(api_ca_eva_iti_list)
+        updated_list.append(i.lemma_1)
             
         if counter % 10000 == 0:
-                p_counter(counter, g.headwords_db_len, i.lemma_1)
+            p_counter(counter, g.headwords_db_len, i.lemma_1)
 
     p_green("updating db")
     g.db_session.commit()

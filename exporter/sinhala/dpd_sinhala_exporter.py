@@ -42,7 +42,7 @@ def main():
         )
         
         # compile synonyms
-        synonyms = i.inflections_list # TODO remove this once finished testing ??
+        synonyms = i.inflections_list_all # TODO remove this once finished testing ??
         synonyms.extend(i.inflections_sinhala_list) 
         synonyms.append(str(i.id))
         

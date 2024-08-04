@@ -99,7 +99,7 @@ def render_xhtml(pth: ProjectPaths, rupth: RuPaths, lang="en"):
     inflections_counter = 0
     for i in dpd_db:
         # only add inflections in all words set
-        inflections_set: set[str] = set(i.inflections_list) & all_words_set
+        inflections_set: set[str] = set(i.inflections_list_all) & all_words_set # include api ca eva iti
 
         # # add one clean inflection without diacritics
         # inflections_set.add(diacritics_cleaner(i.lemma_clean))

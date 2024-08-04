@@ -58,7 +58,7 @@ def _parse_batch(
         test2 = i.lemma_1 in changed_headwords
 
         if test1 or test2 or regenerate_all:
-            inflections: list = i.inflections_list
+            inflections: list = i.inflections_list_all # include api ca eva iti
             inflections_index_dict[counter] = i.lemma_1
             inflections_for_json_dict[i.lemma_1] = {"inflections": inflections}
 

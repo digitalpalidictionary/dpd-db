@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Find a specific inflection in the derivated_data table."""
+"""Find a specific inflection in the derived_data table."""
 
 import re
 from rich import print

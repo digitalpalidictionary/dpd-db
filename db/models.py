@@ -581,6 +581,7 @@ class DpdHeadwords(Base):
     # derived data 
 
     inflections: Mapped[str] = mapped_column(default='')
+    inflections_api_ca_eva_iti: Mapped[str] = mapped_column(default='')
     inflections_sinhala: Mapped[str] = mapped_column(default='')
     inflections_devanagari: Mapped[str] = mapped_column(default='')
     inflections_thai: Mapped[str] = mapped_column(default='')
@@ -858,6 +859,20 @@ class DpdHeadwords(Base):
             return self.inflections.split(",")
         else:
             return []
+
+    @property
+    def inflections_list_api_ca_eva_iti(self) -> list[str]:
+        if self.inflections_api_ca_eva_iti:
+            return self.inflections_api_ca_eva_iti.split(",")
+        else:
+            return []
+
+    @property
+    def inflections_list_all(self) -> list[str]:
+        all_inflections = []
+        all_inflections.extend(self.inflections.split(","))
+        all_inflections.extend(self.inflections_api_ca_eva_iti.split(","))
+        return all_inflections
 
     @property
     def inflections_sinhala_list(self) -> list[str]:

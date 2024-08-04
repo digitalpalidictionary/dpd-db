@@ -62,7 +62,7 @@ def compile_dict_data(g: GlobalData):
             word = i.lemma_1,
             definition_html = html,
             definition_plain = "",
-            synonyms = i.inflections_list)
+            synonyms = i.inflections_list_all)
         g.dict_data.append(dict_entry)
 
         if count % 10000 == 0:

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
 """
-Postprocess the results, find top five most likely candidates and save to database.
+Postprocess the results, find top five 
+most likely candidates and save to database.
 """
 
-from sys import exception
 import numpy as np
 import pandas as pd
 import pickle
