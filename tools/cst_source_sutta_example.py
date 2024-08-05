@@ -288,7 +288,7 @@ def find_gatha_example(g: GlobalData):
         elif x["rend"] == "gathalast":
             x = x.previous_sibling
         if time.time() - start_time > 1:
-            print(f"[bright_red]{text_to_find} [red]is stuck in a loop")
+            print(f"[bright_red]{g.text_to_find} [red]is stuck in a loop")
             break
 
     text = clean_gatha(x.text)
@@ -317,7 +317,7 @@ def find_gatha_example(g: GlobalData):
                 break
         except AttributeError as e:
             print(f"[red]{e}")
-            print(text_to_find)
+            print(g.text_to_find)
             print(x)
             break
     

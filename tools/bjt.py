@@ -38,8 +38,11 @@ from tools.paths import ProjectPaths
 pth = ProjectPaths()
 
 def get_bjt_file_names(
-        books: list[str]
+        books: list[str] | str
 ) -> list[str]:
+
+    if type(books) is str:
+        books = [books]
     
     bjt_file_list = []
     if books == []:
@@ -107,7 +110,7 @@ def process_single_bjt_file(
     for page in pages:
         page_number = page["pageNum"]
         if show_page_numbers:
-            main_text.append(f"\npage {page_number}.\n")
+            main_text.append(f"page {page_number}.\n")
 
         pali = page["pali"]
         entries = pali["entries"]
@@ -136,6 +139,7 @@ def process_single_bjt_file(
                 for footnote in footnotes:
                     text = footnote["text"]
                     main_text.append(text)
+                main_text.append("")
 
     if show_metadata:
         main_text.append(f"filename: {dict['filename']}")
@@ -211,11 +215,28 @@ def make_bjt_text_list(
         return bjt_text_list 
 
 
+def save_bjṭ_text(books: list[str]) -> None:
+    """Save a .txt file of the book."""
+    bjt_file_names = get_bjt_file_names(books)
+    bjt_dicts = get_bjt_json(bjt_file_names)
+    bjt_text = ""
+    for bjt_dict in bjt_dicts:
+        bjt_text += process_single_bjt_file(
+            bjt_dict,
+            show_page_numbers=True,
+            show_metadata=True,
+            )
+
+    with open(f"temp/{books}.text", "w") as f:
+        f.write(bjt_text)
+
+
 
 if __name__ == "__main__":
-    bjt_list = make_bjt_text_list(["vin1"], "list_deduped")
-    print(bjt_list)
-    print(len(bjt_list))
+    # bjt_list = make_bjt_text_list(["vin1"], "list_deduped")
+    # print(bjt_list)
+    # print(len(bjt_list))
+    save_bjṭ_text("sn2")
     
 
 
