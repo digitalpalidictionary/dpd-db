@@ -9609,6 +9609,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "amacca 1",
+    "masc",
+    "councillor; consul; advisor",
+    "✓"
+   ],
+   [
     "assadammaka",
     "masc",
     "horse trainer; horse tamer",
@@ -9684,6 +9690,12 @@ var family_set_json = {
     "upaṭṭhākī",
     "fem",
     "nurse; nursing assistant; lit. who stands near",
+    "✓"
+   ],
+   [
+    "uparāja",
+    "masc",
+    "viceroy; crown prince",
     "✓"
    ],
    [
@@ -9999,6 +10011,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "doṇamāpaka",
+    "masc",
+    "who sets the official measures",
+    "✓"
+   ],
+   [
     "dovārika",
     "masc",
     "doorman; gatekeeper; bouncer",
@@ -10026,6 +10044,12 @@ var family_set_json = {
     "dhovaka",
     "masc",
     "washer; cleaner; rinser",
+    "✓"
+   ],
+   [
+    "nagarasobhinī",
+    "fem",
+    "town courtesan; prostitute",
     "✓"
    ],
    [
@@ -10209,6 +10233,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "purohita",
+    "masc",
+    "chief priest; royal advisor; lit. placed in front",
+    "✓"
+   ],
+   [
     "pesaka 2",
     "masc",
     "supervisor; organizer; arranger; lit. who sends",
@@ -10341,6 +10371,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "mahāmatta",
+    "masc",
+    "chief minister; chancellor; cabinet member",
+    "✓"
+   ],
+   [
     "māgadhamahāmatta",
     "masc",
     "chief minister of Magadha",
@@ -10356,6 +10392,12 @@ var family_set_json = {
     "māgavika",
     "masc",
     "hunter; deer hunter; game hunter",
+    "✓"
+   ],
+   [
+    "māpaka",
+    "masc",
+    "measurer; lit. who causes to measure",
     "✓"
    ],
    [
@@ -10425,6 +10467,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "rajjugāhaka",
+    "masc",
+    "land-surveyor; lit. rope carrier",
+    "✓"
+   ],
+   [
     "rathakāra 1",
     "masc",
     "chariot maker; carpenter; mechanic; (comm) leatherworker",
@@ -10459,6 +10507,12 @@ var family_set_json = {
     "masc",
     "reaper; cutter",
     "~"
+   ],
+   [
+    "vaṇṇadāsī",
+    "fem",
+    "courtesan; prostitute; lit. good looking female slave",
+    "✓"
    ],
    [
     "vadhaka 1",
@@ -10527,6 +10581,18 @@ var family_set_json = {
     "✓"
    ],
    [
+    "sārathi 1",
+    "masc",
+    "charioteer; driver",
+    "✓"
+   ],
+   [
+    "sārathi 2",
+    "masc",
+    "(horse or elephant) trainer",
+    "✓"
+   ],
+   [
     "sippika 1.1",
     "masc",
     "craftsman; artisan",
@@ -10557,6 +10623,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "seṭṭhi 1.1",
+    "masc",
+    "wealthy man; banker; treasurer; business executive; lit. foremost",
+    "✓"
+   ],
+   [
     "seṭṭhī",
     "masc",
     "business executive; treasurer; wealthy man; lit. foremost",
@@ -10575,7 +10647,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 172
+  "count": 184
  },
  "place names": {
   "data": [
@@ -12605,6 +12677,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "paṇḍaraṅga",
+    "masc",
+    "name of a Brahmanical sect; lit. white limbs",
+    "✓"
+   ],
+   [
     "parappavādī",
     "masc",
     "proponent of other belief systems; adherent of other doctrines; lit. speaking forward other",
@@ -12725,7 +12803,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 53
+  "count": 54
  },
  "suttas of the Majjhima Nikāya": {
   "data": [
@@ -13733,7 +13811,13 @@ var family_set_json = {
     "kaliṅga",
     "masc",
     "name of a country",
-    "~"
+    "✓"
+   ],
+   [
+    "kaliṅgaraṭṭha",
+    "nt",
+    "kingdom of Kaliṅga",
+    "✓"
    ],
    [
     "kāsi",
@@ -13826,7 +13910,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 22
+  "count": 23
  },
  "names of paccekabuddhas": {
   "data": [
@@ -14997,7 +15081,7 @@ var family_set_json = {
     "kuṇḍadhāna",
     "masc",
     "name of an arahant monk",
-    "~"
+    "✓"
    ],
    [
     "kuṇḍala 3",
@@ -15051,6 +15135,12 @@ var family_set_json = {
     "koṇḍañña 1",
     "masc",
     "name of a monk; seniormost of the five ascetics; first monastic disciple of the Buddha",
+    "✓"
+   ],
+   [
+    "koṇḍadhāna",
+    "masc",
+    "name of an arahant monk",
     "✓"
    ],
    [
@@ -17166,7 +17256,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 457
+  "count": 458
  },
  "names of arahants": {
   "data": [
@@ -17672,7 +17762,7 @@ var family_set_json = {
     "kuṇḍadhāna",
     "masc",
     "name of an arahant monk",
-    "~"
+    "✓"
    ],
    [
     "kuṇḍala 3",
@@ -17732,6 +17822,12 @@ var family_set_json = {
     "koṇḍañña 1",
     "masc",
     "name of a monk; seniormost of the five ascetics; first monastic disciple of the Buddha",
+    "✓"
+   ],
+   [
+    "koṇḍadhāna",
+    "masc",
+    "name of an arahant monk",
     "✓"
    ],
    [
@@ -19829,7 +19925,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 443
+  "count": 444
  },
  "people": {
   "data": [
@@ -20047,7 +20143,7 @@ var family_set_json = {
     "sovīrā",
     "masc",
     "name of a people",
-    "~"
+    "✓"
    ]
   ],
   "count": 36
@@ -24739,7 +24835,7 @@ var family_set_json = {
     "kakudha 2",
     "masc",
     "arjuna tree; Terminalia arjuna",
-    "~"
+    "✓"
    ],
    [
     "kaṅgu",
@@ -25720,6 +25816,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "sirīsaka",
+    "masc",
+    "name of a tree; Acacia sirissa",
+    "✓"
+   ],
+   [
     "siṃsapā",
     "fem",
     "Simsapa tree; Dalbergia tree; Indian Rosewood",
@@ -25786,7 +25888,72 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 203
+  "count": 204
+ },
+ "names of animals": {
+  "data": [
+   [
+    "añjanasannibha",
+    "masc",
+    "name of an elephant; lit. like collyrium",
+    "✓"
+   ],
+   [
+    "uposatha 3",
+    "masc",
+    "name of a king Mahāsudassana's royal elephant; lit. observance",
+    "✓"
+   ],
+   [
+    "ekapuṇḍarīka 3",
+    "masc",
+    "name of king Pasenadi's elephant; lit. one lotus",
+    "✓"
+   ],
+   [
+    "erāvaṇa",
+    "masc",
+    "name of Sakka's elephant",
+    "✓"
+   ],
+   [
+    "girimekhala",
+    "masc",
+    "name of Māra's elephant; lit. mountain girdle",
+    "~"
+   ],
+   [
+    "dhanapāla",
+    "masc",
+    "name of an elephant; lit. protector of wealth; guardian of treasure",
+    "✓"
+   ],
+   [
+    "dhanapālaka",
+    "masc",
+    "name of an elephant; lit. protector of wealth; guardian of treasure",
+    "~"
+   ],
+   [
+    "buddharakkhita 2",
+    "masc",
+    "name of a young parrot who practiced meditation on bones; lit. protected by the Buddha",
+    "✓"
+   ],
+   [
+    "valāhaka 2",
+    "masc",
+    "name of a king Mahāsudassana's royal steed; lit. Thundercloud",
+    "✓"
+   ],
+   [
+    "seta 3",
+    "masc",
+    "name of King Pasenadi's elephant; lit. white",
+    "✓"
+   ]
+  ],
+  "count": 10
  },
  "names of nuns": {
   "data": [
@@ -27682,7 +27849,7 @@ var family_set_json = {
     "dantapura",
     "nt",
     "name of a town; lit. tooth town",
-    "~"
+    "✓"
    ],
    [
     "devadaha",
@@ -27979,6 +28146,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "mahesaya",
+    "nt",
+    "name of a town",
+    "✓"
+   ],
+   [
     "migapathaka",
     "masc",
     "name of a village; lit. deer path",
@@ -28013,6 +28186,12 @@ var family_set_json = {
     "nt",
     "name of a town; lit. king's house town",
     "~"
+   ],
+   [
+    "roruka",
+    "nt",
+    "name of a town",
+    "✓"
    ],
    [
     "vaṅkahāra",
@@ -28273,7 +28452,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 178
+  "count": 180
  },
  "types of monastics": {
   "data": [
@@ -31695,7 +31874,7 @@ var family_set_json = {
     "kakudha 2",
     "masc",
     "arjuna tree; Terminalia arjuna",
-    "~"
+    "✓"
    ],
    [
     "kacchaka",
@@ -32124,6 +32303,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "sirīsaka",
+    "masc",
+    "name of a tree; Acacia sirissa",
+    "✓"
+   ],
+   [
     "siṃsapā",
     "fem",
     "Simsapa tree; Dalbergia tree; Indian Rosewood",
@@ -32142,7 +32327,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 79
+  "count": 80
  },
  "names of heavens": {
   "data": [
@@ -33604,65 +33789,6 @@ var family_set_json = {
   ],
   "count": 5
  },
- "names of animals": {
-  "data": [
-   [
-    "uposatha 3",
-    "masc",
-    "name of a king Mahāsudassana's royal elephant; lit. observance",
-    "✓"
-   ],
-   [
-    "ekapuṇḍarīka 3",
-    "masc",
-    "name of king Pasenadi's elephant; lit. one lotus",
-    "✓"
-   ],
-   [
-    "erāvaṇa",
-    "masc",
-    "name of Sakka's elephant",
-    "✓"
-   ],
-   [
-    "girimekhala",
-    "masc",
-    "name of Māra's elephant; lit. mountain girdle",
-    "~"
-   ],
-   [
-    "dhanapāla",
-    "masc",
-    "name of an elephant; lit. protector of wealth; guardian of treasure",
-    "✓"
-   ],
-   [
-    "dhanapālaka",
-    "masc",
-    "name of an elephant; lit. protector of wealth; guardian of treasure",
-    "~"
-   ],
-   [
-    "buddharakkhita 2",
-    "masc",
-    "name of a young parrot who practiced meditation on bones; lit. protected by the Buddha",
-    "✓"
-   ],
-   [
-    "valāhaka 2",
-    "masc",
-    "name of a king Mahāsudassana's royal steed; lit. Thundercloud",
-    "✓"
-   ],
-   [
-    "seta 3",
-    "masc",
-    "name of King Pasenadi's elephant; lit. white",
-    "✓"
-   ]
-  ],
-  "count": 9
- },
  "types of elephants": {
   "data": [
    [
@@ -33768,6 +33894,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "maṅgalahatthī",
+    "masc",
+    "state elephant",
+    "✓"
+   ],
+   [
     "hatthikula",
     "nt",
     "name of a type of elephant; species of elephant",
@@ -33780,7 +33912,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 19
+  "count": 20
  },
  "onomatopoeia": {
   "data": [

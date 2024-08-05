@@ -4851,7 +4851,7 @@ var family_root_json = {
     "kujjhitvā",
     "abs",
     "having become angry (with)",
-    "~"
+    "✓"
    ],
    [
     "kujjhiya",
@@ -30393,7 +30393,7 @@ var family_root_json = {
   "root_key": "√dis 1",
   "root_family": "√dis",
   "root_meaning": "see",
-  "count": 185,
+  "count": 186,
   "data": [
    [
     "adakkhi",
@@ -31346,14 +31346,20 @@ var family_root_json = {
    [
     "passi 1",
     "aor",
-    "saw, found, understood",
-    "✗"
+    "saw; observed",
+    "✓"
    ],
    [
     "passi 2",
     "masc",
     "name of a privately awakened Buddha; lit. he saw",
     "~"
+   ],
+   [
+    "passi 3",
+    "aor",
+    "found out; understood",
+    "✗"
    ],
    [
     "passita",
@@ -33807,7 +33813,7 @@ var family_root_json = {
   "root_key": "√yuj",
   "root_family": "pa √yuj",
   "root_meaning": "yoke, join",
-  "count": 37,
+  "count": 38,
   "data": [
    [
     "aduppayutta",
@@ -33990,9 +33996,15 @@ var family_root_json = {
     "✗"
    ],
    [
-    "payojetvā",
+    "payojetvā 1",
     "abs",
-    "having engaged in, having undertaken, having applied, having prepared, having employed, having taken into service, having challenged",
+    "(of work) having engaged (in); having undertaken; having applied oneself (to)",
+    "✓"
+   ],
+   [
+    "payojetvā 2",
+    "abs",
+    "having taken into service, having challenged",
     "✗"
    ],
    [
@@ -34147,7 +34159,7 @@ var family_root_json = {
   "root_key": "√gam",
   "root_family": "ā √gam",
   "root_meaning": "go",
-  "count": 76,
+  "count": 77,
   "data": [
    [
     "adurāgataṃ",
@@ -34562,6 +34574,12 @@ var family_root_json = {
     "masc",
     "not coming; not approaching; not arriving",
     "~"
+   ],
+   [
+    "nāgamāsi 2",
+    "aor",
+    "did not come back (to); did not return (to)",
+    "✓"
    ],
    [
     "sāgata 1",
@@ -35088,8 +35106,8 @@ var family_root_json = {
    [
     "dhamanta 2",
     "prp",
-    "kindling",
-    "✗"
+    "blowing; fanning; kindling",
+    "✓"
    ],
    [
     "dhamamāna",
@@ -47844,8 +47862,8 @@ var family_root_json = {
    [
     "maranta",
     "prp",
-    "dying",
-    "✗"
+    "dying; being killed",
+    "✓"
    ],
    [
     "maramāna",
@@ -73217,7 +73235,7 @@ var family_root_json = {
     "onata",
     "pp",
     "lowered; depressed; downcast; lit. bent down",
-    "~"
+    "✓"
    ],
    [
     "onamati",
@@ -88928,8 +88946,8 @@ var family_root_json = {
    [
     "palāpita",
     "pp",
-    "put to flight",
-    "✗"
+    "put to flight; made to run away; lit. caused to run away",
+    "✓"
    ],
    [
     "palāpeti",
@@ -99751,7 +99769,7 @@ var family_root_json = {
     "pavesana",
     "nt",
     "entering; going into",
-    "~"
+    "✓"
    ],
    [
     "pavesayi",
@@ -114495,7 +114513,7 @@ var family_root_json = {
   "root_key": "√bhuj 1",
   "root_family": "√bhuj",
   "root_meaning": "use, eat, enjoy",
-  "count": 109,
+  "count": 110,
   "data": [
    [
     "abhuñjanta",
@@ -114628,6 +114646,12 @@ var family_root_json = {
     "adj",
     "unfit to be eaten",
     "✗"
+   ],
+   [
+    "dubbhojana",
+    "nt",
+    "bad food; lit. bad eating",
+    "✓"
    ],
    [
     "nibbhoga 1",
@@ -116796,8 +116820,8 @@ var family_root_json = {
    [
     "māpaka",
     "masc",
-    "Creator, constructor",
-    "✗"
+    "measurer; lit. who causes to measure",
+    "✓"
    ],
    [
     "māpana",
@@ -116815,7 +116839,7 @@ var family_root_json = {
     "māpita",
     "pp",
     "built; constructed; lit. caused to measure",
-    "~"
+    "✓"
    ],
    [
     "māpitatta",
@@ -117806,8 +117830,8 @@ var family_root_json = {
    [
     "mahantatā",
     "fem",
-    "greatness; immensity; enormity",
-    "~"
+    "greatness; immensity; enormity; lit. great state",
+    "✓"
    ],
    [
     "mahantatta",
@@ -118093,7 +118117,7 @@ var family_root_json = {
   "root_key": "√milā",
   "root_family": "√milā",
   "root_meaning": "shrink, wither",
-  "count": 11,
+  "count": 12,
   "data": [
    [
     "amilāta 1",
@@ -118118,6 +118142,12 @@ var family_root_json = {
     "pp",
     "withered, faded, dried up",
     "✗"
+   ],
+   [
+    "milāta 2",
+    "pp",
+    "emaciated; atrophied; wasted",
+    "✓"
    ],
    [
     "milātā",
@@ -121660,8 +121690,8 @@ var family_root_json = {
    [
     "araṭṭha",
     "nt",
-    "destroyed country; lit. not a country",
-    "✗"
+    "destroyed country; wasteland; lit. not a country",
+    "✓"
    ],
    [
     "arāja",
@@ -127908,8 +127938,8 @@ var family_root_json = {
    [
     "vaḍḍhetvā 2",
     "abs",
-    "having increased, having cultivated, set into motion",
-    "✗"
+    "having developed; having grown; having multiplied",
+    "✓"
    ],
    [
     "vaḍḍhenta",
@@ -131254,8 +131284,8 @@ var family_root_json = {
    [
     "vassāpetvā",
     "abs",
-    "having rained",
-    "✗"
+    "having made it rain; having caused a downpour (of)",
+    "✓"
    ],
    [
     "vassāpesi",
@@ -131267,7 +131297,7 @@ var family_root_json = {
     "vassi 1.1",
     "aor",
     "rained",
-    "✗"
+    "✓"
    ],
    [
     "vassika 1",
@@ -141857,7 +141887,7 @@ var family_root_json = {
     "sovīrā",
     "masc",
     "name of a people",
-    "~"
+    "✓"
    ]
   ]
  },
@@ -146519,7 +146549,7 @@ var family_root_json = {
   "root_key": "√dham",
   "root_family": "saṃ √dham",
   "root_meaning": "blow, sound",
-  "count": 6,
+  "count": 7,
   "data": [
    [
     "asandhanta",
@@ -146544,6 +146574,12 @@ var family_root_json = {
     "pr",
     "blows, fans",
     "✗"
+   ],
+   [
+    "sandhamanta",
+    "prp",
+    "blowing on; fanning",
+    "✓"
    ],
    [
     "sandhami",
@@ -150923,7 +150959,7 @@ var family_root_json = {
   "root_key": "√sah 1",
   "root_family": "√sah",
   "root_meaning": "overcome, prevail",
-  "count": 34,
+  "count": 35,
   "data": [
    [
     "asayha 1",
@@ -151080,6 +151116,12 @@ var family_root_json = {
     "ptp",
     "to be endured",
     "✗"
+   ],
+   [
+    "sahituṃ",
+    "inf",
+    "to bear; to take; to tolerate; to endure",
+    "✓"
    ],
    [
     "sahitvā",
@@ -167820,8 +167862,8 @@ var family_root_json = {
    [
     "uparāja",
     "masc",
-    "viceroy",
-    "✗"
+    "viceroy; crown prince",
+    "✓"
    ],
    [
     "oparajja",
@@ -173694,10 +173736,10 @@ var family_root_json = {
     "✗"
    ],
    [
-    "keḷī",
+    "keḷi",
     "fem",
-    "sport, enjoyment",
-    "✗"
+    "joke; fun; sport; amusement",
+    "✓"
    ],
    [
     "khiḍḍā",
@@ -174055,7 +174097,7 @@ var family_root_json = {
   "root_key": "√kuṇḍ",
   "root_family": "√kuṇḍ",
   "root_meaning": "bend, mutilate",
-  "count": 16,
+  "count": 17,
   "data": [
    [
     "kuṇḍa 2.1",
@@ -174146,6 +174188,12 @@ var family_root_json = {
     "adj",
     "lame; maimed; mutilated; lit. bent",
     "~"
+   ],
+   [
+    "koṇḍa 2",
+    "masc",
+    "half-breed; bastard; mixed-breed; lit. mutilation",
+    "✓"
    ],
    [
     "koṇḍita",
@@ -177026,8 +177074,8 @@ var family_root_json = {
    [
     "javamāna",
     "prp",
-    "running, hurrying",
-    "✗"
+    "running; hurrying",
+    "✓"
    ],
    [
     "javi",
@@ -179952,8 +180000,8 @@ var family_root_json = {
    [
     "samuṭṭhāpeti",
     "pr",
-    "raises, produces, originates",
-    "✗"
+    "raises (oneself) up; establishes (oneself) in the world; lit. cause to stand up together",
+    "✓"
    ],
    [
     "samuṭṭhāpetvā",
@@ -188642,6 +188690,20 @@ var family_root_json = {
     "pp",
     "longed for, desired, became greedy",
     "✗"
+   ]
+  ]
+ },
+ "√gā pati √gā": {
+  "root_key": "√gā",
+  "root_family": "pati √gā",
+  "root_meaning": "sing",
+  "count": 1,
+  "data": [
+   [
+    "paṭigīta",
+    "nt",
+    "song in response; lit. sung back",
+    "✓"
    ]
   ]
  },
@@ -207633,7 +207695,7 @@ var family_root_json = {
   "root_key": "√rah",
   "root_family": "vi √rah",
   "root_meaning": "leave, desert",
-  "count": 6,
+  "count": 7,
   "data": [
    [
     "viraha 1",
@@ -207663,6 +207725,12 @@ var family_root_json = {
     "virahita",
     "adj",
     "devoid (of); free (from); completely lacking (in); without",
+    "✓"
+   ],
+   [
+    "virahitatā",
+    "fem",
+    "fact of being free (from); fact of being devoid (of); fact of being without; lit. deserted state",
     "✓"
    ],
    [

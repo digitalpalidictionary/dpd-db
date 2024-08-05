@@ -7796,83 +7796,6 @@ var family_word_json = {
   ],
   "count": 10
  },
- "nagara": {
-  "data": [
-   [
-    "anagara",
-    "nt",
-    "town which has disappeared; city no more; depopulated town; lit. not town",
-    "~"
-   ],
-   [
-    "upanagara",
-    "nt",
-    "suburb",
-    "✗"
-   ],
-   [
-    "upanagaraṃ",
-    "ind",
-    "near the city",
-    "✓"
-   ],
-   [
-    "nagara 1",
-    "nt",
-    "town; city",
-    "✓"
-   ],
-   [
-    "nagara 2",
-    "nt",
-    "fortress; citadel; stronghold; fortification",
-    "~"
-   ],
-   [
-    "nagaraka",
-    "nt",
-    "name of town; lit. small town",
-    "✓"
-   ],
-   [
-    "nāgara 1",
-    "adj",
-    "belonging to a town; from a city",
-    "✓"
-   ],
-   [
-    "nāgara 2",
-    "adj",
-    "urbane, polite",
-    "✗"
-   ],
-   [
-    "nāgara 3",
-    "masc",
-    "citizen",
-    "✗"
-   ],
-   [
-    "nāgarika 1",
-    "adj",
-    "urban; belonging to the city",
-    "~"
-   ],
-   [
-    "nāgarika 2",
-    "adj",
-    "urbane, polite",
-    "✗"
-   ],
-   [
-    "nāgarika 3",
-    "masc",
-    "citizen",
-    "✗"
-   ]
-  ],
-  "count": 12
- },
  "naṅgula": {
   "data": [
    [
@@ -17589,6 +17512,77 @@ var family_word_json = {
   ],
   "count": 12
  },
+ "nagara": {
+  "data": [
+   [
+    "upanagara",
+    "nt",
+    "suburb",
+    "✗"
+   ],
+   [
+    "upanagaraṃ",
+    "ind",
+    "near the city",
+    "✓"
+   ],
+   [
+    "nagara 1",
+    "nt",
+    "town; city",
+    "✓"
+   ],
+   [
+    "nagara 2",
+    "nt",
+    "fortress; citadel; stronghold; fortification",
+    "~"
+   ],
+   [
+    "nagaraka",
+    "nt",
+    "name of town; lit. small town",
+    "✓"
+   ],
+   [
+    "nāgara 1",
+    "adj",
+    "belonging to a town; from a city",
+    "✓"
+   ],
+   [
+    "nāgara 2",
+    "adj",
+    "urbane, polite",
+    "✗"
+   ],
+   [
+    "nāgara 3",
+    "masc",
+    "citizen",
+    "✗"
+   ],
+   [
+    "nāgarika 1",
+    "adj",
+    "urban; belonging to the city",
+    "~"
+   ],
+   [
+    "nāgarika 2",
+    "adj",
+    "urbane, polite",
+    "✗"
+   ],
+   [
+    "nāgarika 3",
+    "masc",
+    "citizen",
+    "✗"
+   ]
+  ],
+  "count": 11
+ },
  "upamañña": {
   "data": [
    [
@@ -19063,7 +19057,7 @@ var family_word_json = {
     "kakudha 2",
     "masc",
     "arjuna tree; Terminalia arjuna",
-    "~"
+    "✓"
    ],
    [
     "kakudha 3",
@@ -19573,13 +19567,19 @@ var family_word_json = {
     "~"
    ],
    [
+    "kapila 5",
+    "nt",
+    "brown cow",
+    "✓"
+   ],
+   [
     "kāpilānī",
     "fem",
     "descendent of Kapila; lit. related to tawny",
     "✓"
    ]
   ],
-  "count": 5
+  "count": 6
  },
  "kapota": {
   "data": [
@@ -19888,7 +19888,7 @@ var family_word_json = {
     "kaliṅga",
     "masc",
     "name of a country",
-    "~"
+    "✓"
    ],
    [
     "kāliṅga 1",
@@ -23404,8 +23404,8 @@ var family_word_json = {
    [
     "jāra",
     "masc",
-    "lover; paramour",
-    "~"
+    "lover; paramour; adulterer",
+    "✓"
    ],
    [
     "jārattana",
@@ -27197,9 +27197,15 @@ var family_word_json = {
     "nt",
     "small chair; little stool",
     "✓"
+   ],
+   [
+    "pīṭhikā",
+    "fem",
+    "small chair or bench",
+    "✗"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "pīta": {
   "data": [
@@ -32595,6 +32601,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "sirīsaka",
+    "masc",
+    "name of a tree; Acacia sirissa",
+    "✓"
+   ],
+   [
     "serīsaka 1",
     "adj",
     "made of sirīsa wood",
@@ -32607,7 +32619,7 @@ var family_word_json = {
     "~"
    ]
   ],
-  "count": 3
+  "count": 4
  },
  "silā": {
   "data": [
