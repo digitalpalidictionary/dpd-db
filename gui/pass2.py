@@ -513,8 +513,8 @@ def check_example_headword(
                 print(id_list)
                 print(f"[red]{id} not found")
 
-            if id and dpd_headword:
-                test_words_in_construction(p2d, wd, dpd_headword)
+            # if id and dpd_headword:
+            #     test_words_in_construction(p2d, wd, dpd_headword)
                 
 
 def has_no_meaning_or_example(

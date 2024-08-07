@@ -9,6 +9,8 @@ from tools.paths import ProjectPaths
 from tools.pali_text_files import cst_texts
 from tools.sentence_splitter import split_sentences
 
+"""This code relies completely on tools.pali_text_files."""
+
 sn_peyyalas = [
 
     # payyalas is a list of tuples of books found in saṃyutta nikāya
@@ -2174,6 +2176,82 @@ def vism_visuddhimagga_and_commentary(g: GlobalData):
 
 # TODO grammar books
 
+
+def ap_abhidhanapadipika(g: GlobalData):
+    # vagga         <p rend="subhead">Buddhappaṇāmo</p>
+    # kaṇḍa         <p rend="chapter">1. Saggakaṇḍa</p>
+    # vagga         <p rend="title">1. Bhūmivagga</p>
+
+    book = "AP"
+    x = g.x
+
+    if x["rend"] == "subhead":
+        sutta, sutta_no = get_text_and_number(x.text)
+        g.section = ""
+        g.section_counter = "0"
+        g.sutta_counter += 1
+        g.source = f"{book}{g.section_counter}.{g.sutta_counter}"
+        g.sutta = sutta.lower()
+    
+    elif x["rend"] == "chapter":
+        section, section_no = get_text_and_number(x.text)
+        g.section = section
+        g.section_counter = section_no
+        g.source = f"{book}{g.section_counter}"
+        g.sutta = section.lower()
+
+    elif x["rend"] == "title":
+        sutta, sutta_no = get_text_and_number(x.text)
+        g.sutta_counter = sutta_no
+        g.source = f"{book}{g.section_counter}.{g.sutta_counter}"
+        g.sutta = sutta.lower()
+
+
+def apt_abhidhanapadipikatika(g: GlobalData):
+    # sutta     <p rend="subsubhead">Ganthārambha</p>
+    # sutta     <p rend="subhead">Paṇāmādivaṇṇanā</p>
+    # kaṇḍa     <p rend="chapter">1. Saggakaṇḍavaṇṇanā</p>
+    # sutta     <p rend="title">2<hi rend="dot">.</hi> Puravaggavaṇṇanā</p>
+    # sutta     <p rend="subhead">Nigamanavaṇṇanā</p>
+
+
+    book = "APt"
+    x = g.x
+
+    book = "AP"
+    x = g.x
+
+    if x["rend"] == "subsubhead":
+        sutta, sutta_no = get_text_and_number(x.text)
+        g.section = ""
+        g.section_counter = "0"
+        g.sutta_counter = 0 
+        g.source = f"{book}"
+        g.sutta = sutta.lower()
+
+    elif x["rend"] == "subhead":
+        sutta, sutta_no = get_text_and_number(x.text)
+        g.section = ""
+        if x.text == "Paṇāmādivaṇṇanā":
+            g.source = f"{book}0"
+        else:
+            g.source = f"{book}"
+        g.sutta = sutta.lower()
+    
+    elif x["rend"] == "chapter":
+        section, section_no = get_text_and_number(x.text)
+        g.section = section
+        g.section_counter = section_no
+        g.source = f"{book}{g.section_counter}"
+        g.sutta = section.lower()
+
+    elif x["rend"] == "title":
+        sutta, sutta_no = get_text_and_number(x.text)
+        g.sutta_counter = sutta_no
+        g.source = f"{book}{g.section_counter}.{g.sutta_counter}"
+        g.sutta = sutta.lower()
+
+
 def find_source_sutta_example(
         book: str, 
         text_to_find: str
@@ -2298,6 +2376,11 @@ def find_source_sutta_example(
                     kn19a_netti_commentary(g)
                 case "vism" | "visma":
                     vism_visuddhimagga_and_commentary(g)
+                case "ap":
+                    ap_abhidhanapadipika(g)
+                case "apt":
+                    apt_abhidhanapadipikatika(g)
+
 
             if (
                 g.source and g.sutta
@@ -2323,7 +2406,7 @@ def find_source_sutta_example(
 
 
 if __name__ == "__main__":
-    book = "kn2a"
-    text_to_find = "yodhe"
+    book = "apt"
+    text_to_find = "pātālaṃ"
     sutta_examples = find_source_sutta_example(book, text_to_find)
     print(len(sutta_examples))

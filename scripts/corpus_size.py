@@ -57,6 +57,8 @@ all_texts = [
     "abht",
     "vism",
     "visma",
+    "ap",
+    "apt",
     "anna",
     ]
 

@@ -384,6 +384,19 @@ def make_other_pali_texts_set(pth: ProjectPaths) -> Set[str]:
 
 if __name__ == "__main__":
     pth = ProjectPaths()
-    cst_test_set = make_cst_text_list(pth, ["mn1"], add_hyphenated_parts=False)
-    print("ādhānaggāhi" in cst_test_set)
+    # TODO why does it need a path!?
 
+    cst_test_set = make_cst_text_list(
+        pth,
+        ["mna"],
+        dedupe=False,
+        add_hyphenated_parts=True)
+    print(type(cst_test_set))
+    print(len(cst_test_set))
+    print(cst_test_set[:10])
+
+    from collections import Counter
+    
+    c = Counter(cst_test_set)
+    most_common = c.most_common(100)
+    print(most_common)
