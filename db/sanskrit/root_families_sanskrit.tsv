@@ -254,7 +254,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kat	2	ṃa	cut	√kṛt	1, 6	cut	saṃ pari √kat		
 √katth	1	a	boast	√katth	1	boast	√katth	katth	akathyamāna (na + kathyamāna), vikatthana
 √katth	1	a	boast	√katth	1	boast	vi √katth	vikatth	avikatthin, vikatthaka < vikatthā, vikatthate, vikatthin, vikatthya
-√kath	8	*e	speak, narrate	√kath	10	talk	√kath	kath	akathayitvā (na + kathayitvā), akathita, akathita (na + kathita), akathitatva (na + kathitatva), akathya, akathanīya , akathanārha, acakathat, kathana, kathayat, kathayati, kathayamāna, kathayitavya, kathayitvā, kathā, kathika, kathita, kathita +, kathya, kathyate, kathyamāna, dviṣ + kathā, na + kathana, su + kathita
+√kath	8	*e	speak, narrate	√kath	10	talk	√kath	kath	akathayitvā (na + kathayitvā), akathita, akathita (na + kathita), akathitatva (na + kathitatva), akathya, akathanīya , akathanārha, acakathat, kathana, kathayat, kathayati, kathayamāna, kathayitavya, kathayitvā, kathā, kathika, kathita, kathita +, kathya, kathyate, kathyamāna, dus + kathita, dviṣ + kathā, na + kathana, su + kathita
 √kath	8	*e	speak, narrate	√kath	10	talk	pari √kath	parikath	
 √kath	8	*e	speak, narrate	√kath	10	talk	saṃ √kath	saṃkath	saṅkathayamāna, sāṃkathya
 √kan	1	a	shine, like	√kan	4	be pleased, enjoy	√kan		kanaka, kanyā, kānana
@@ -389,10 +389,10 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kit 2	1	a	live	√cit	1	perceive, know, appear	ni √kit		aniketa, niketa
 √kit 3	1	a	know, doubt	√cit	1	perceive, know, appear	√kit		kit, cit
 √kit 3	1	a	know, doubt	√cit	1	perceive, know, appear	saṃ √kit		saṃketa
-√kitt	8	*aya	make known	√kṝt √kīrt	10	mention	√kitt		akīrtayat, akīrtat, acikīrtat, acīkṛtat, kīrtayat, kīrtayati, kīrtayitvā, kīrti, kīrtita, kīrtitavya, kṝtayamāna, su + kīrtita
-√kitt	8	*e	make known	√kṝt √kīrt	10	mention	pa √kitt		prakīrtayat
-√kitt	8	*e	make known	√kṝt √kīrt	10	mention	pari √kitt		parikīrt, prakīrtana
-√kitt	8	*e	make known	√kṝt √kīrt	10	mention	saṃ √kitt		saṃkīrti
+√kitt	8	*aya	make known	√kṝt √kīrt	10	mention	√kitt	kīrt	akīrtayat, akīrtat, acikīrtat, acīkṛtat, kīrtayat, kīrtayati, kīrtayitvā, kīrti, kīrtita, kīrtitavya, kṝtayamāna, su + kīrtita
+√kitt	8	*e	make known	√kṝt √kīrt	10	mention	pa √kitt	prakīrt	prakīrtayat, prakīrtayati
+√kitt	8	*e	make known	√kṝt √kīrt	10	mention	pari √kitt	parikīrt	prakīrtana
+√kitt	8	*e	make known	√kṝt √kīrt	10	mention	saṃ √kitt	saṃkīrt	saṃkīrti
 √kir	1	a	scatter, sprinkle	√kṝ √kṛ	6	scatter	√kir	kṝ	ākārṣīt, ākirat, kiṇva, kira
 √kir	1	a	scatter, sprinkle	√kṝ √kṛ	6	scatter	adhi ava √kir	avakṝ	adhi +
 √kir	1	a	scatter, sprinkle	√kṝ √kṛ	6	scatter	anu √kir	anukṝ	
@@ -428,7 +428,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kī	5	nā	buy	√krī	9	buy	√kī	krī	kraya, krayitum, kriṇāti, krīta, krītva, krīvā, kretum
 √kī	5	nā	buy	√krī	9	buy	ava √kī	avakrī	avakraya
 √kī	5	nā	buy	√krī	9	buy	upa √kī	upakrī	krītaka
-√kī	5	nā	buy	√krī	9	buy	vi √kī	vikrī	vikraya, vikrayaka, vikrayaṇa, vikrayitavya, vikrayitum, vikrīṇāna, vikrīṇīte, vikrīta, vikrīya, vikrīyate, vikrīyamāṇa, vikretṛ
+√kī	5	nā	buy	√krī	9	buy	vi √kī	vikrī	vikraya, vikrayaka, vikrayaṇa, vikrayitavya, vikrayitum, vikrīṇāna, vikrīṇīte, vikrīta, vikrītvā, vikrīyate, vikrīyamāṇa, vikretṛ
 √kīḷ	1	a	play	√krīḍ	1	play	√kīḷ	krīḍ	akrīḍīt, keli, krīḍa, krīḍaka, krīḍat, krīḍanaka, krīḍanikā, krīḍāpanikā, krīḍayati, krīḍā, krīḍita, krīḍitvā, krīḷati
 √kīḷ	1	a	play	√krīḍ	1	play	ni √kīḷ	nikrīḍ	na +
 √kīḷ	1	a	play	√krīḍ	1	play	vi √kīḷ	vikrīḍ	vikrīḍ (play), vikrīḍanīya (to be played)
@@ -471,7 +471,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kudh	3	ya	be angry	√krudh	4	be angry	pati √kudh	pratikrudh	na + pratikrudhyat, pratikrudhyati
 √kudh	3	ya	be angry	√krudh	4	be angry	saṃ √kudh	saṃkrudh	
 √kunth	1	a	hurt, cause pain	√kunth	1	hurt	√kunth	kunth	kunta
-√kup	3	ya	shake, be angry	√kup	4	be angry	√kup	kup	akampatā, akupyat, akopa (na + kopa), kaupīna, kupayitvā, kupita, kupya, kupyate, kupyamāna, kopa, kopanīya, kopayati, kopayitum, kopita, kopin, kopyamāna, na + kupyamāna
+√kup	3	ya	shake, be angry	√kup	4	be angry	√kup	kup	akampatā, akupyat, akopa (na + kopa), kaupīna, kupayitvā, kupita, kupya, kupyate, kupyamāna, kopa, kopanīya, kopayati, kopayitum, kopita, kopin, kopyamāna, na + kupyamāna, na + kopayat
 √kup	3	ya	shake, be angry	√kup	4	be angry	pa √kup	prakup	prakupyat, prakupyati, prakopa, prakopana
 √kup	3		shake, be angry	√kup	4	be angry	pati √kup		
 √kup	3	ya	shake, be angry	√kup	4	be angry	pari √kup	parikup	na + parikupita, parikupita
@@ -489,7 +489,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kul	1	a	be close	√kul	1	accumulate	saṃ ā √kul		
 √kus 1	1	*a	call, insult	√kruś	1	cry out	√kus	kruś	]kruś]
 √kus 1	1	*a	call, insult	√kruś	1	cry out	ā √kus	ākruś	akrukṣat, ākruśyate, ākruśyamāna, ākruṣṭa, ākruṣṭvā, ākrośa, ākrośat, ākrośati, ākrośana, ākrośayati, ākrośayitṛ, ākrośitavya, na + ākrośat
-√kus 1	1	*a	call, insult	√kruś	1	cry out	ud √kus	utkruś	
+√kus 1	1	*a	call, insult	√kruś	1	cry out	ud √kus	utkruś	utkruṣṭa
 √kus 1	1	*a	call, insult	√kruś	1	cry out	upa √kus	upakruś	upakrośa, na + upakruṣṭa, na + upakruṣṭa, anupakruṣṭa (bsk)
 √kus 1	1	*a	call, insult	√kruś	1	cry out	pa √kus	prakruś	prakruṣṭa, prakruṣṭvā, prakrośati, prakrośāpayati, prakrośāpayitvā
 √kus 1	1	*a	call, insult	√kruś	1	cry out	pati √kus	pratyākruś	anupākruṣṭa, na +, na + pratyākruśya, na + pratyākruṣṭvā, na + pratyākroṣṭavya, prati, pratikruṣṭa, pratikṛṣṭa, pratikruṣṭa, pratikṛṣṭa, pratikruṣṭa +, pratyākruśya, pratyākroṣṭavya, pratykrośat, pratykrośati
@@ -616,7 +616,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √gam	1	a	go	√gam	1	go	adhi √gam	adhigam	adhigacchati, adhigata, adhigatatva, adhigantum, adhigantvā, adhigama, adhigamana, adhigamanīya, adhigamayati, adhigamitavya, adhigamiṣyati, adhigamya, anadhigata, ādhigamat, na +, na + adhigacchati, na + adhigatatva, na + adhigama, na + ādhigamat
 √gam	1	a	go	√gam	1	go	adhi upa √gam	abhyupagam	abhyupagata
 √gam	1	a	go	√gam	1	go	anu √gam	anugam	anuga, anugacchat, anugacchati, anugata, anugati, anugantum, anugantvā, anugamana, anvāgam, na + anugacchati, na + anugata
-√gam	1	a	go	√gam	1	go	anu ā √gam	anvāgam	anvāgata, anvāgamayati, na + anvāgamayati
+√gam	1	a	go	√gam	1	go	anu ā √gam	anvāgam	anvāgata, anvāgantvā, anvāgamayati, na + anvāgamayati
 √gam	1	a	go	√gam	1	go	anu pa √gam	pragam	anu + pragacchati, anu + pragatvā
 √gam	1	a	go	√gam	1	go	anu pari √gam	parigam	anu + parigacchat, anu + parigantum, anu + parigamya, anuparigā
 √gam	1	a	go	√gam	1	go	apa √gam	apagam	apagacchati, apagata, apagata +, apagama, apagamana, na + anapagata, na + apagata, na + apagama
@@ -752,7 +752,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	vi √ghaṭ	vihan	avighāta, avighāta +, avighāta + vat, vighāta, vighāta + vat, vighātaka, vighātya, sa + vighāta
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	vi ni √ghaṭ	vinihan	vighātin
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	saṃ √ghaṭ	saṃhan	saṃghāta, saṃhata
-√ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	saṃ ud √ghaṭ		samudghaṭ, samudghāta, samudghāta +, samudghātana
+√ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	saṃ ud √ghaṭ	samudghaṭ	samudghaṭ, samudghāta, samudghāta +, samudghātana
 √ghaṭ 2	1	a	join together	√ghaṭ	1	strive	√ghaṭ	ghaṭ	ghaṭanā, ghaṭayamāna, ghaṭikā (bsk), ghātayati, jhaṭyate, jhāṭa, han
 √ghaṭ 2	1	*e	join together	√ghaṭ	1	strive	anu √ghaṭ		
 √ghaṭ 2	1	a	join together	√ghaṭ	1	strive	ud √ghaṭ	udghaṭ	udghaṭayati, udghaṭayitvā, udghaṭita
@@ -1038,7 +1038,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ñā	5	nā	know	√jñā	9	know	pati √ñā	pratijñā	na +, na + pratijānāti, prati, pratijānat, pratijānāti, pratijānāna, pratijña, pratijñā, pratijñāta, prativijānāti, prativijñā
 √ñā	5	nā	know	√jñā	9	know	pati vi √ñā	prativijñā	prativijānat
 √ñā	5	nā	know	√jñā	9	know	pari √ñā	parijñā	na + parijānat, na + parijñāta, na + parijñāta +, na + parijñāya, parijānat, parijānāti, parijñāta, parijñāta +, parijñātavya, parijñātāvin (bsk), parijñātavān, parijñāna, parijñāya, parijñeya
-√ñā	5	nā	know	√jñā	9	know	vi √ñā	vijñā	avijānat, avijña, avijñāta, avijñāna, avijñāna (na + vijñāna), jñā, durvijñāna, durvijñeya, durvijñeya +, dus + vijñāpanīya, vijñāpya, na + vijñeya, vijānat, vijānatā, vijānāti, vijña, vijñapayat, vijñapayati, vijñapta, vijñāpita, vijñapti, vijñāta, vijñātavya, vijñātva, vijñātṛ, vijñāna, vijñāna +, vijñānatā, vijñānavat, vijñāpaka, vijñāpana, vijñāpana +, vijñāpanīya, vijñāpanīya, vijñāpya, vijñāpayati, vijñāpayitum, vijñāyamāna, vijñāyitavya, vijñāyeta, vijñāsyati, vijñetum, vijñeya, savijñāna, savijñānaka (bsk), su + vijñāpanīya, vijñāpya, suvijñāna, suvijñeya
+√ñā	5	nā	know	√jñā	9	know	vi √ñā	vijñā	avijānat, avijña, avijñāta, avijñāna, avijñāna (na + vijñāna), jñā, durvijñāna, durvijñeya, durvijñeya +, dus + vijñāpanīya, vijñāpya, na + vijñeya, vijānat, vijānatā, vijānāti, vijña, vijñatā, vijñapayat, vijñapayati, vijñapta, vijñāpita, vijñapti, vijñāta, vijñātavya, vijñātva, vijñātṛ, vijñāna, vijñāna +, vijñānatā, vijñānavat, vijñāpaka, vijñāpana, vijñāpana +, vijñāpanīya, vijñāpanīya, vijñāpya, vijñāpayati, vijñāpayitum, vijñāyamāna, vijñāyitavya, vijñāyeta, vijñāsyati, vijñetum, vijñeya, savijñāna, savijñānaka (bsk), su + vijñāpanīya, vijñāpya, suvijñāna, suvijñeya
 √ñā	5	nā	know	√jñā	9	know	vi saṃ √ñā		visaṃjña
 √ñā	5	nā	know	√jñā	9	know	saṃ √ñā	saṃjñā	asaṃjña, asaṃjñin, na +, na + saṃjānat, na + saṃjñātvā, sa + saṃjñin, sasaṃjña, saṃjānat, saṃjānāti, saṃjña, saṃjñin, saṃjñatā, saṃjñapta, saṃjñapti, saṃjñā, saṃjñāta, saṃjñātvā, saṃjñāna, saṃjñāpaka, saṃjñāpana, saṃjñāpayati, saṃjñāpayitum, saṃjñāya, saṃjñāvat, saṃjñin
 √ñā	5	nā	know	√jñā	9	know	saṃ anu √ñā	samanujñā	samanujānāti <, samanujñāta
@@ -1396,7 +1396,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	anu vi √dhā	anuvidhā	anuvidhāna, anuvidhīyate
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	anu saṃ √dhā	anusaṃdhā	anusaṃdadhāti, anusaṃdhi (bsk)
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	apa ni √dhā	apanidhā	apanidadhāti, apanidhatte, apanidhāpayati
-√dhā	1	īya	place, support	√dhā	1, 2, 3	put	api √dhā	apidhā	apidhāt, apidhāna, pidhānī, apidhāya, apidhīyate, pithita, pithita +, pidhātum, pidhāna, pidhāpayati, pidhāpayitvā
+√dhā	1	īya	place, support	√dhā	1, 2, 3	put	api √dhā	apidhā	apidhāt, apidhāna, pidhānī, apidhāya, apidhitvā, apidhīyate, pithita, pithita +, pidhātum, pidhāna, pidhāpayati, pidhāpayitvā
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	abhi √dhā	abhidhā	abhidhāna, abhidheya, abhidheya, nāmadheya
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	abhi sad √dhā	abhiśraddhā	abhiśraddadhat, abhiśraddadhāti, na + abhiśraddadhat
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	abhi saṃ √dhā	abhisaṃdhā	abhisaṃdhitvā
@@ -1539,7 +1539,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √nī	1	a	lead, carry	√nī	1, 2	lead	vi √nī	vinī	avinaya, avinīta, durvinīta, vaināśika, vaineya, vinaya, vinayati, vinayitum, vinayena, vināyaka, viniyat, vinīta, vinītvā, vinetṛ, vineya, vineya, vaineya, vineya, vaineya +, su + vaineya, suvinīta
 √nī	1	a	lead, carry	√nī	1, 2	lead	saṃ √nī	saṃnī	sannayitavya, sannayitum, saṃnayati, saṃniyat
 √nī	1	*aya	lead, carry	√nī	1, 2	lead	saṃ anu ā √nī		sam + anvānayati, sam + anvānayamāna, sam + anvānīta
-√nī	1	a	lead, carry	√nī	1, 2	lead	saṃ ā √nī	samānī	samānayati, samānayitum, samānīta
+√nī	1	a	lead, carry	√nī	1, 2	lead	saṃ ā √nī	samānī	samānayati, samānayitum, samānīta, samānītvā
 √nī	1	a	lead, carry	√nī	1, 2	lead	saṃ ud ā √nī		samudānetavya
 √nīl	1	a	be blue	nīla	-	blue	√nīl	nīl	na + nīlaka, aneḍaka (bsk), nīla, nīlaka, nīlī, sunīla
 √nīl	1	a	be blue	nīla	-	blue	abhi √nīl		abhinīla
@@ -1552,7 +1552,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √nud	1	*aya	drive out, reject	√nud	6	push	vi √nud	vinud	na + vinodayat, vinodana (bsk), vinodanena (bsk), vinodayat, vinodayati, vinodayitavya
 √nud	1	a	drive out, reject	√nud	6	push	vi apa √nud	vyapanud	vyapanudya
 √ness	1	a	take away	√neṣ	1	go, move	√ness	neṣ	neṣate
-√nhā	3	ya	bathe	√snā	2, 4	bathe	√nhā	snā	a + snāta, asnāsīt, susnāta, snāta, snāta +, snātaka, snātum, snātvā, snāna, snānīya, snāpaka, snāpana, snāpayat, snāpayati, snāpayitum, snāpayitṛ?, snāpita, snāyat, snāyati, snāsnapayitavya
+√nhā	3	ya	bathe	√snā	2, 4	bathe	√nhā	snā	a + snāta, asnāsīt, susnāta, snāta, snāta +, snātaka, snāti, snāyate, snātum, snātvā, snāna, snānīya, snāpaka, snāpana, snāpayat, snāpayati, snāpayitum, snāpayitṛ?, snāpita, snāyat, snāyati, snāsnapayitavya
 √nhā	3	ya	bathe	√snā	2, 4	bathe	ni √nhā		ni + snāya, niṣṇā, niṣṇāta, nisnāta, snāya
 √pac	1	a	cook, mature, ripen	√pac	1	cook	√pac	pac	a + pakva, apākṣat, apāci, na + pakva, na + pacat, paktvā, pakva, pacat, pacati, pacana, pacyate, pacyamāna, pāka, pākin, pācayat, pācayati
 √pac	1	a	cook, mature, ripen	√pac	1	cook	ud √pac	utpac	
@@ -1858,10 +1858,10 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √bhaṇḍ	1	a	blame, accuse	√bhaṇḍ	1	reprove	√bhaṇḍ		na + bhaṇḍat, bhaṇḍat, bhaṇḍate, bhaṇḍana, bhaṇḍayat, bhaṇḍayate, bhaṇḍitum, bhaṇḍitvā
 √bhaṇḍ	1	a	blame, accuse	√bhaṇḍ	1	reprove	pati √bhaṇḍ		prati + bhaṇḍate
 √bhad	1	a	be good, be lucky	√bhand	1	be bright	√bhad	bhand	a + bhadra, na + bhadraka, bhadanta, bhaddālin, bhadra, bhadraka, bhadravat, bhadravatī, bhadravatī +, bhadrā, bhadrika, bhallika, su + bhadraka, subhadra, subhadrā
-√bham	1	a	turn, revolve, buzz	√bhram	1, 4	wander	√bham		a + bhrānta, bhram, bhrāmayati, bhramati, bhramara, bhramaraka, bhramasva, bhrami, bhramita, bhrāntvā
-√bham	1	a	turn, revolve, buzz	√bhram	1, 4	wander	pari √bham		paribhramati
-√bham	1	a	turn, revolve, buzz	√bhram	1, 4	wander	vi √bham		vibhramya, vibhrānta, vibhrānta +, sambhramati
-√bham	1	a	turn, revolve, buzz	√bhram	1, 4	wander	saṃ √bham		vibhramati, sambhrama
+√bham	1	a	turn, revolve, buzz	√bhram	1, 4	wander	√bham	bhram	a + bhrānta, bhramati, bhramara, bhramaraka, bhramasva, bhrami, bhramita, bhrāntvā, bhrāmayati
+√bham	1	a	turn, revolve, buzz	√bhram	1, 4	wander	pari √bham	paribhram	paribhramati
+√bham	1	a	turn, revolve, buzz	√bhram	1, 4	wander	vi √bham	vibhram	vibhramati, vibhramya, vibhrānta, vibhrānta +, sambhramati
+√bham	1	a	turn, revolve, buzz	√bhram	1, 4	wander	saṃ √bham	sambhram	vibhramati, sambhrama
 √bhar	1	a	carry, support	√bhṛ	1	bear	√bhar	bhṛ	abhārika + tā, durbhara, durbhara +, bhara, bharaṇa, bharati, bharita, bharitavya, bhartuḥ, bhartre, bhartṛ, bhāra, bhāratara, bhārika, bhārya, bhāryā, bhṛta, bhṛtaka, bhṛti, bhṛtya, sa + bhāryā, su + bhāryā, subhara, subharatva (subhara + -tā), subhṛta
 √bhar	1	a	carry, support	√bhṛ	1	bear	ati √bhar		atibhāra, atibhrita, atibhṛ, atibhṛta
 √bhar	1	a	carry, support	√bhṛ	1	bear	ava √bhar	avabhṛ	avabhṛta
@@ -1918,7 +1918,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √bhid	2	ṃa	break, split	√bhid	1, 7	split	saṃ pari √bhid		sam + paribhinna
 √bhis	2	ṃa	fear	√bheṣ √bhyas	1	fear	√bhis	bheṣ	bhīṣaṇa, bhīṣaṇaka, bhīṣaṇatva, bhīṣā, bhīṣma, bhyas, bhyasayamāna, bhyāsayati
 √bhis	2	ṃa	fear	√bheṣ √bhyas	1	fear	vi √bhis		vibhīṣaṇa
-√bhī	1	a	fear	√bhī	1, 3, 10	fear	√bhī	bhī	abhaya, abhayā, abhāyi, abhaiṣīt, abhīta, abhītvā (na + bhītvā), abhīru, abhīruka (na + bhīruka), na + bibhyat, nirbhaya, bibheti, bhairava, bhaya, bhayānaka, bhayānaka + tara, bhāyayitvā, bhīta, bhīta +, bhīti, bhītvā, bhīma, bhīru, bhīruka, bhetavya, sa + bhīru, sabhaya, subhayānaka
+√bhī	1	a	fear	√bhī	1, 3, 10	fear	√bhī	bhī	abhaya, abhayā, abhāyi, abhaiṣīt, abhīta, abhītvā (na + bhītvā), abhīru, abhīruka (na + bhīruka), na + bibhyat, nirbhaya, bibheti, bhairava, bhaya, bhayānaka, bhayānaka + tara, bhāyayitvā, bhīta, bhīta +, bhīti, bhītvā, bhīma, bhīru, bhīruka, bhīrutā, bhetavya, sa + bhīru, sabhaya, subhayānaka
 √bhī	1		fear	√bhī	1, 3, 10	fear	pa √bhī	prabhī	prabhītaḷ
 √bhī	1	a	fear	√bhī	1, 3, 10	fear	pati √bhī	pratibhī	apratibhaya, sapratibhaya
 √bhī	1	a	fear	√bhī	1, 3, 10	fear	saṃ √bhī		na + sambhīta
@@ -1935,7 +1935,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √bhuj 2	1		bend	√bhuj	6	bend	vi nī √bhuj	vinirbhuj	vinirbhuktvā, vinirbhujat, vinirbhujati
 √bhus	3	ya	fall heavily	√bhṛś √bhraś √bhraṅś	1, 4	fall	√bhus		bhṛśa, bhṛśam
 √bhuss	1	a	bark	√bukk	10	bark	√bhuss		
-√bhū	1	a	be, become	√bhū	1	be	√bhū	bhū	abhava (nonexistence), abhaviṣyat, abhaviṣyan, abhavya, abhāva, abhāva + tā, abhāvita, abhāvyatā, abhūt, abhūta, abhūti, abhūvan, garbha, durbhauma, na  + bhūmi, na + bhāvayat, na + bhāvitatva, babhūva, bhauma, bhava, bhava +, bhavat, bhavata, bhavataḥ, bhavatā, bhavatām, bhavati, bhavate, bhavatha, bhavan, bhavan < bhavat, bhavana, bhavantaḥ, bhavamāna, bhavān, bhavāmahai, bhavāmaḥ, bhavitavya, bhavituṃ, bhaviṣyati, bhaviṣyantī, bhaviṣye, bhavet, bhavya, bhavyatā, bhāva, bhāvanayā, bhāvanā, bhāvanīya, bhāvanīya (not to be inferred), bhāvayat, bhāvayati, bhāvayate, bhāvayamāna, bhāvayitavya, bhāvayitvā, bhāvita, bhāvitatva, bhāvitum, bhāvin, bhāvyate, bhāvyamāna, bhūta, bhūtatva, bhūtāt, bhūte, bhūtvā, bhūma, bhūmi, bhūmika, bhūmikā, bhūmya, bhūyate, bhūyas, bhūyasya, bhūri, bhrūṇa, su + bhāvayati, subhūta, subhūti, subhūmi
+√bhū	1	a	be, become	√bhū	1	be	√bhū	bhū	abhava (nonexistence), abhaviṣyat, abhaviṣyan, abhavya, abhāva, abhāva + tā, abhāvita, abhāvyatā, abhūt, abhūta, abhūti, abhūvan, garbha, durbhauma, na  + bhūmi, na + bhāvayat, na + bhāvitatva, babhūva, bhauma, bhava, bhava +, bhavat, bhavata, bhavataḥ, bhavatā, bhavatām, bhavati, bhavate, bhavatha, bhavan, bhavan < bhavat, bhavana, bhavantaḥ, bhavamāna, bhavān, bhavāmahai, bhavāmaḥ, bhavitavya, bhavituṃ, bhaviṣyati, bhaviṣyantī, bhaviṣye, bhavet, bhavya, bhavyatā, bhāva, bhāvanayā, bhāvanā, bhāvanīya, bhāvanīya (not to be inferred), bhāvayat, bhāvayati, bhāvayate, bhāvayamāna, bhāvayitavya, bhāvayitvā, bhāvita, bhāvitatva, bhāvitum, bhāvin, bhāvyate, bhāvyamāna, bhūta, bhūtatva, bhūtāt, bhūte, bhūtvā, bhūma, bhūmi, bhūmika, bhūmika (bsk), bhūmikā, bhūmya, bhūyate, bhūyas, bhūyasya, bhūri, bhrūṇa, su + bhāvayati, subhūta, subhūti, subhūmi
 √bhū	1	a	be, become	√bhū	1	be	ati √bhū	atibhū	
 √bhū	1	a	be, become	√bhū	1	be	adhi √bhū	adhibhū	abhibhū, abhibhūta, abhibhūtvā, na + adhibhavati
 √bhū	1	a	be, become	√bhū	1	be	adhi ā √bhū	adhibhū	adhibhavayati, anabhibhūta, anabhibhūta
@@ -2046,7 +2046,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √mā	5	nā	measure	√mā √mi	2, 3, 4	measure	ni √mā	nimā	animitta, animittatva, durnimitta, naimittika, naimittikatā, nimitta, nimittatā, sa + nimitta
 √mā	5	nā	measure	√mā √mi	2, 3, 4	measure	nī √mā	nirmā	animitta, na + nirmātṛ, nimitta, nirmāṇa, nirmātṛ, nirmāya, nirmītvā, su + nimitta
 √mā	5		measure	√mā √mi	2, 3, 4	measure	pa √mā	pramā	a + pramāṇa, apramāṇa +, aprameya, dus + prameya, na + pramāṇa, na + prāmāṇika, pramāṇa, pramāṇaka, pramāṇatva, pramāṇavat, pramāpayitum, pramāya, pramita, pramimāt, pramimīte, prāmāṇika, su + prameya
-√mā	5	nā	measure	√mā √mi	2, 3, 4	measure	pati √mā	pratimā	
+√mā	5	nā	measure	√mā √mi	2, 3, 4	measure	pati √mā	pratimā	apratima
 √mā	5	nā	measure	√mā √mi	2, 3, 4	measure	pari √mā	parimā	a + parimeya, aparimāṇa, aparimita, aparimeya, parimāṇa, parimita
 √mā	5	nā	measure	√mā √mi	2, 3, 4	measure	vi √mā	vimā	vimātra, vimātratā, vimāna (chariot of the gods)
 √mā	5	nā	measure	√mā √mi	2, 3, 4	measure	saṃ √mā	sammā	sammita
@@ -2235,7 +2235,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √yūh	1	a	carry, bring	√ūh	1	remove	vi √yūh		vyūha, vyūhati, vyūḷha, vyūḍha
 √yūh	1	a	carry, bring	√ūh	1	remove	saṃ √yūh		samūḍha, samūh, samūha, samūhatā (samūha + tā), samūhati, samūhya
 √yūh	1	a	carry, bring	√ūh	1	remove	saṃ upa vi √yūh		sampr + vyūḍha, sampra + vyūḍha
-√rakkh	1	a	protect	√rakṣ	1	protect	√rakkh	rakṣ	arakṣita, arakṣīt, dus + rakṣa, dūrakṣya, rakśitum, rakṣa, rakṣaka, rakṣaṇa, rakṣat, rakṣati, rakṣamāṇa, rakṣā, rakṣita, rakṣitva, rakṣitṛ, rakṣin, rakṣya, rākṣasa, rākṣasa, rakṣas, surakṣita
+√rakkh	1	a	protect	√rakṣ	1	protect	√rakkh	rakṣ	arakṣita, arakṣīt, dus + rakṣa, dūrakṣya, rakśitum, rakṣa, rakṣaka, rakṣaṇa, rakṣat, rakṣati, rakṣamāṇa, rakṣā, rakṣita, rakṣitva, rakṣitṛ, rakṣin, rakṣya, rākṣasa, rākṣasa, rakṣas, rākṣasī, surakṣita
 √rakkh	1	a	protect	√rakṣ	1	protect	anu √rakkh	anurakṣ	anurakṣaṇa, anurakṣaṇatā (bsk), anurakṣaṇā (bsk), anurakṣamāṇa, anurakṣā (bsk), anurakṣitavya, anurakṣitum, anurakṣin
 √rakkh	1	a	protect	√rakṣ	1	protect	abhi √rakkh	abhimrakṣ	
 √rakkh	1	a	protect	√rakṣ	1	protect	ā √rakkh	ārakṣ	ārakṣa, ārakṣaka, ārakṣat, ārakṣati, ārakṣā, ārakṣita, sa + ārakṣita
@@ -2289,7 +2289,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √rāj	1	a	rule, shine	√rāj	1	be kingly	√rāj	rāj	arāṣṭra, rāja, rājan, rājanya, rājabhiḥ < rājan, rājānam, rājānaḥ, rājikā, rājñaḥ < rājan, rājñā < rājan, rājñe, rājñe < rājan, rājya, rājyatva, rāṣṭra, rāṣṭra + vat, rāṣṭrika, sarājan
 √rāj	1	a	rule, shine	√rāj	1	be kingly	adhi √rāj	adrirāj	adhirāja
 √rāj	1	a	rule, shine	√rāj	1	be kingly	abhi √rāj	abhirāj	abhirāja
-√rāj	1	a	rule, shine	√rāj	1	be kingly	upa √rāj	rāj	auparājika, uparāja
+√rāj	1	a	rule, shine	√rāj	1	be kingly	upa √rāj	rāj	auparājika, uparāja, uparāja +
 √rāj	1	a	rule, shine	√rāj	1	be kingly	pati √rāj	pratirāj	pratirājan (prati + rājan)
 √rāj	1	a	rule, shine	√rāj	1	be kingly	vi √rāj	virāj	vairājya
 √rādh	3	ya	succeed, please	√rādh	4, 5	succeed	√rādh	rādh	rādha
@@ -2355,10 +2355,10 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ruh	1	a	ascend, grow	√ruh	1	ascend	saṃ ā √ruh	samāruh	samārūḍha
 √ruh	1	a	ascend, grow	√ruh	1	ascend	saṃ vi √ruh	viruh	saṃ + virūḍha, su + saṃ + virūḍha
 √rūp	8	*e	form, produce	√rūp	10	form	√rūp	rūp	arūpa, arūpin, asarūpa, ārūpya (bsk), dūrūpa, na + arūpin, na + rūpya, na + sārūpya, rūpa, rūpaka, rūpatā, rūpavat, rūpin, rūpya, sarūpa, sārūpya, sārūpyatā, su + rūpin, surūpa, surūpatā
-√rūp	8	*e	form, produce	√rūp	10	form	anu √rūp		anurūpa
-√rūp	8	*e	form, produce	√rūp	10	form	abhi √rūp		abhirūpa, abhirūpa +
-√rūp	8	*e	form, produce	√rūp	10	form	nī √rūp		
-√rūp	8	*e	form, produce	√rūp	10	form	pati √rūp		apratirūpa, na + pratirūpa, pratirūpa, pratirūpaka, pratirūpaka +, pratirūpin, prātirūpika
+√rūp	8	*e	form, produce	√rūp	10	form	anu √rūp	rūp	anurūpa
+√rūp	8	*e	form, produce	√rūp	10	form	abhi √rūp	rūp	abhirūpa, abhirūpa +
+√rūp	8	*e	form, produce	√rūp	10	form	nī √rūp	rūp	
+√rūp	8	*e	form, produce	√rūp	10	form	pati √rūp	rūp	apratirūpa, na + pratirūpa, pratirūpa, pratirūpaka, pratirūpaka +, pratirūpin, prātirūpika
 √lakkh	8	*e	mark	√lakṣ	1, 10	mark	√lakkh	lakṣ	a + lakṣmī, alakṣmī, alakṣya (unmarked), na + lakṣaṇika, na + lakṣmī, lakṣaṇa, lakṣa, lakṣaṇa, lakṣaṇya
 √lakkh	8	*e	mark	√lakṣ	1, 10	mark	abhi √lakkh	abhilakṣ	abhilakṣita
 √lakkh	8	*e	mark	√lakṣ	1, 10	mark	ava √lakkh		
@@ -2548,7 +2548,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √vaḍḍh	1	a	grow, increase	√vṛdh	1	grow	vi √vaḍḍh	vivṛdh	
 √vaḍḍh	1	a	grow, increase	√vṛdh	1	grow	saṃ √vaḍḍh	saṃvṛdh	saṃvardhate, saṃvardhamāna, saṃvardhayati, saṃvardhita, saṃvṛddha
 √vaṇ	8	*e	injure, wound	√vraṇ	10	wound	√vaṇ		a + vraṇa, avraṇa (na + vraṇa), vraṇa
-√vaṇṇ	8	*e	praise	√varṇ	10	praise, extol	√vaṇṇ	varṇ	avarṇa, avarṇa, avarṇya, varṇa, varṇanā, varṇayat, varṇayati, varṇayitavya, varṇayitvā, varṇita, varṇya, śobhā
+√vaṇṇ	8	*e	praise	√varṇ	10	praise, extol	√vaṇṇ	varṇ	avarṇa, avarṇa, avarṇya, varṇa, varṇanā, varṇayat, varṇayati, varṇayitavya, varṇayitvā, varṇita, varṇya, varṇyate, śobhā
 √vaṇṇ	8	*aya	praise	√varṇ	10	praise, extol	abhi √vaṇṇ	-	
 √vaṇṇ	8	*aya	praise	√varṇ	10	praise, extol	pari √vaṇṇ	-	pari + avavarṇat
 √vaṇṇ	8	*e	praise	√varṇ	10	praise, extol	vi √vaṇṇ	vivarṇ	vivarṇaka (bsk), vivarṇayati, vivarṇayitum, vivarṇita, vivarṇya
@@ -2569,7 +2569,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √vatt	1	a	be, proceed	√vṛt	1	turn	upa ati √vatt		upa + ativartat, upa + ativṛt, upātivṛtta (bsk)
 √vatt	1	a	be, proceed	√vṛt	1	turn	upa ni √vatt	upanivṛt	upanivartate
 √vatt	1	a	be, proceed	√vṛt	1	turn	upa nī √vatt	upanirvṛt	
-√vatt	1	a	be, proceed	√vṛt	1	turn	ni √vatt	nivṛt	+ vartat, anivartana +, anivṛtti, anivṛtti +, na + nivartat, nivartat, nivartate, nivartana, nivartamāna, nivartayati, nivartayitum, nivartitum, nivṛta, nivṛtti, nivṛttvā, nivṛtya
+√vatt	1	a	be, proceed	√vṛt	1	turn	ni √vatt	nivṛt	+ vartat, anivartana +, anivṛtti, anivṛtti +, na + nivartat, na + nivartita, nivartat, nivartate, nivartana, nivartamāna, nivartayati, nivartayitum, nivartitum, nivṛta, nivṛtti, nivṛttvā, nivṛtya
 √vatt	1	a	be, proceed	√vṛt	1	turn	nī √vatt	nirvṛt	+ vartat, anirvṛtta, anirvṛtti, nirvartaka, nirvartate, nirvartana (completition), nirvartayati, nirvartayamāna, nirvartayitum, nirvṛtayitvā, nirvṛtta, nirvṛtta +, nirvṛtti, nivartita, nivartitvā, nivṛt, nivṛtyate, su + nirvṛtta
 √vatt	1	a	be, proceed	√vṛt	1	turn	pa √vatt	pravṛt	+ vartayat, a + pravartaka, a + pravartana, apravartana, apravṛtti, dus + pravartya, na + pravartate, na + pravartamāna, na + pravṛtti, pravartaka, pravartat, pravartate, pravartana, pravartana +, pravartamāna, pravartayati, pravartayamāna, pravartayitum, pravartayitṛ, pravartita, pravartitavya, pravartin, pravartya, pravṛtta, pravṛttatva, pravṛtti, pravṛtti +, pravṛttvā, pravṛtyamāna, su + pravartya, su + pravṛtta
 √vatt	1	a	be, proceed	√vṛt	1	turn	pati √vatt	prativṛt	+ vartayat, na + prativṛtya, parivṛt, parivartate, prativṛtta
@@ -3207,7 +3207,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √har 1	1	a	carry	√hṛ	1	take	vi saṃ √har	-	na + vi + saṃhṛta
 √har 1	1	a	carry	√hṛ	1	take	saṃ √har	saṃhṛ	asaṃhārya, saṃhara, saṃharaṇa, saṃharat, saṃharati, saṃharamāṇa, saṃharayati, saṃhartavya, saṃhartum, saṃhāra, saṃhāraka, saṃhārayati, saṃhrayitvā, saṃhriyate, saṃhṛta, saṃhṛtvā
 √har 1	1	a	carry	√hṛ	1	take	saṃ anu ā √har	-	sam + anvāharaṇa, samanvāharaṇa (bsk), samanvāharati (bsk)
-√har 1	1	a	carry	√hṛ	1	take	saṃ ā √har	samāhṛ	
+√har 1	1	a	carry	√hṛ	1	take	saṃ ā √har	samāhṛ	samāhāra
 √har 1	1	a	carry	√hṛ	1	take	saṃ ud ā √har	samudāhṛ	samudāharaṇa, samudāhāra
 √har 1	1	a	carry	√hṛ	1	take	saṃ pa √har	samprahṛ	samprahāra
 √har 1	1	a	carry	√hṛ	1	take	saṃ vi ava √har	saṃvyavahṛ	saṃvyavaharamāṇa, saṃvyavahāra

@@ -4459,6 +4459,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "samāhāra 1",
+    "masc",
+    "(gram) copulative compound with plural meaning and singular ending; lit. bringing here together",
+    "~"
+   ],
+   [
     "samīpūpacāra",
     "masc",
     "(gram) close metaphor; similar figure of speech",
@@ -4801,7 +4807,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 776
+  "count": 777
  },
  "prefixes": {
   "data": [
@@ -11150,12 +11156,6 @@ var family_set_json = {
     "✓"
    ],
    [
-    "pubbavideha",
-    "masc",
-    "name of the eastern continent",
-    "~"
-   ],
-   [
     "bahuputta 1",
     "nt",
     "name of a pagoda; lit. many sons",
@@ -11474,7 +11474,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 137
+  "count": 136
  },
  "holy sites": {
   "data": [
@@ -11694,6 +11694,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "kaṭāhakā",
+    "fem",
+    "name of a female slave; lit. having a small pot",
+    "✓"
+   ],
+   [
     "kaḷibha",
     "masc",
     "name of a lay disciple",
@@ -11745,6 +11751,12 @@ var family_set_json = {
     "kukkuṭa 2",
     "masc",
     "name of a lay disciple; lit. chicken",
+    "✓"
+   ],
+   [
+    "kukkuṭamitta",
+    "masc",
+    "name of a hunter; lit. chicken's friend ??",
     "✓"
    ],
    [
@@ -12270,6 +12282,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "satulakāyī",
+    "fem",
+    "name of Jotika's wife; lit. with a body like cotton wool ??",
+    "✓"
+   ],
+   [
     "sandhāna 1",
     "masc",
     "name of a lay disciple; lit. uniting",
@@ -12474,7 +12492,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 149
+  "count": 152
  },
  "types of ascetics": {
   "data": [
@@ -13871,7 +13889,7 @@ var family_set_json = {
     "bhārukaccha",
     "masc",
     "name of a country",
-    "~"
+    "✓"
    ],
    [
     "bhoja 1",
@@ -15606,6 +15624,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "naṅgalakula",
+    "masc",
+    "name of a monk in a Dhammapada commentary story; lit. family of the plough",
+    "✓"
+   ],
+   [
     "nadīkassapa",
     "masc",
     "name of an arahant monk",
@@ -15980,7 +16004,7 @@ var family_set_json = {
    [
     "belaṭṭhi",
     "masc",
-    "name of an arahnt monk",
+    "name of an arahant monk",
     "✓"
    ],
    [
@@ -17156,8 +17180,8 @@ var family_set_json = {
    [
     "seyyasaka",
     "masc",
-    "name of a monk infamous for Pācittiya 1",
-    "~"
+    "name of a monk infamous for Saṅghādisesa 1",
+    "✓"
    ],
    [
     "sela 4",
@@ -17256,7 +17280,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 458
+  "count": 459
  },
  "names of arahants": {
   "data": [
@@ -18655,7 +18679,7 @@ var family_set_json = {
    [
     "belaṭṭhi",
     "masc",
-    "name of an arahnt monk",
+    "name of an arahant monk",
     "✓"
    ],
    [
@@ -20187,6 +20211,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "dīghadassī",
+    "adj",
+    "far-seeing; visionary; epithet of the Buddha; (comm) seeing the future",
+    "✓"
+   ],
+   [
     "devīsi",
     "masc",
     "divine sage; heavenly seer; epithet of the Buddha",
@@ -20355,7 +20385,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 34
+  "count": 35
  },
  "books of the Suttapiṭaka": {
   "data": [
@@ -24354,6 +24384,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "dhanañcaya",
+    "masc",
+    "name of a Kuru king; lit. heap of wealth",
+    "✓"
+   ],
+   [
     "nimi",
     "masc",
     "name of a king; previous incarnation of the Buddha",
@@ -24552,7 +24588,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 68
+  "count": 69
  },
  "six ascetic teachers": {
   "data": [
@@ -27025,6 +27061,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "dasannaṃ 1",
+    "card",
+    "for ten; to ten",
+    "✓"
+   ],
+   [
     "dasannaṃ 2",
     "card",
     "of ten",
@@ -27367,7 +27409,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 134
+  "count": 135
  },
  "villages, towns and cities": {
   "data": [
@@ -27441,6 +27483,18 @@ var family_set_json = {
     "icchānaṅgala",
     "masc",
     "name of a Brahman village in Kosala",
+    "✓"
+   ],
+   [
+    "indapatta",
+    "nt",
+    "name of a city; capital of the Kurus; modern-day Delhi; lit. Indra's plain",
+    "✓"
+   ],
+   [
+    "indapattha",
+    "nt",
+    "name of a city; capital of the Kurus; modern Delhi; lit. Indra's plain",
     "✓"
    ],
    [
@@ -27540,10 +27594,22 @@ var family_set_json = {
     "~"
    ],
    [
+    "kaṭṭhanagara",
+    "nt",
+    "name of a town; lit. log town; (or) ploughed town",
+    "✓"
+   ],
+   [
     "kaṇṇakujja",
     "nt",
     "name of a town; lit. crooked ear",
     "~"
+   ],
+   [
+    "kapilapura",
+    "nt",
+    "name of the capital city of the Sakyans; Kapilavatthu; lit. Kapila's town",
+    "✓"
    ],
    [
     "kapilavatthu",
@@ -27592,6 +27658,12 @@ var family_set_json = {
     "fem",
     "name of a town",
     "~"
+   ],
+   [
+    "kāsipura",
+    "nt",
+    "capital of Kāsi; Bārāṇasī; modern Varanasi; lit. Kāsi town",
+    "✓"
    ],
    [
     "kimilā",
@@ -27804,6 +27876,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "takkasilā",
+    "fem",
+    "name of city in Gandāra with a well known university; Greek name Taxila",
+    "✓"
+   ],
+   [
     "telapanāḷi",
     "fem",
     "name of a town; lit. oil tube",
@@ -27849,6 +27927,12 @@ var family_set_json = {
     "dantapura",
     "nt",
     "name of a town; lit. tooth town",
+    "✓"
+   ],
+   [
+    "dīghalaṅghika",
+    "nt",
+    "name of a town; lit. with a long jump",
     "✓"
    ],
    [
@@ -28452,7 +28536,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 180
+  "count": 187
  },
  "types of monastics": {
   "data": [
@@ -28551,6 +28635,12 @@ var family_set_json = {
     "masc",
     "ascetic who carries three staffs",
     "~"
+   ],
+   [
+    "dahara 4",
+    "masc",
+    "very young monk; five year old monk",
+    "✓"
    ],
    [
     "desaka",
@@ -28667,7 +28757,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 35
+  "count": 36
  },
  "ordinal numbers": {
   "data": [
@@ -31225,6 +31315,35 @@ var family_set_json = {
   ],
   "count": 19
  },
+ "names of continents": {
+  "data": [
+   [
+    "aparagoyāna",
+    "masc",
+    "name of the western continent in Buddhist cosmology; lit. westen cow carriage",
+    "✓"
+   ],
+   [
+    "uttarakuru",
+    "masc",
+    "name of the northern continent in Buddhist cosmology; lit. north Kuru",
+    "✓"
+   ],
+   [
+    "jambudīpa",
+    "masc",
+    "India; name of the central continent in Buddhist cosmology; lit. rose-apple land",
+    "✓"
+   ],
+   [
+    "pubbavideha",
+    "masc",
+    "name of the eastern continent in Buddhist cosmology; lit. eastern Videha",
+    "✓"
+   ]
+  ],
+  "count": 4
+ },
  "epithets of stream entry": {
   "data": [
    [
@@ -33430,9 +33549,15 @@ var family_set_json = {
     "masc",
     "name of ancient king; previous incarnation of the Buddha",
     "✓"
+   ],
+   [
+    "mahiṃsakumāra",
+    "masc",
+    "name of a prince; previous incarnation of the Buddha; lit. prince buffalo",
+    "✓"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "seven treasures": {
   "data": [
@@ -34433,46 +34558,46 @@ var family_set_json = {
  "ten kinds of wives": {
   "data": [
    [
-    "obhaṭacumbaṭa",
-    "adj",
-    "removed the head pad",
-    "~"
+    "obhaṭacumbaṭā",
+    "fem",
+    "a wife acquired by removing the head pad",
+    "✓"
    ],
    [
     "kammakārī",
     "fem",
     "female worker; labourer",
-    "~"
+    "✓"
    ],
    [
-    "chandavāsī",
-    "adj",
-    "living together by choice",
-    "~"
+    "chandavāsinī",
+    "fem",
+    "a wife who lives with a man by choice; lit. living by choice",
+    "✓"
    ],
    [
-    "dhajāhaṭa",
-    "adj",
-    "captured in war; taken in a raid; lit. flag brought",
-    "~"
+    "dhajāhaṭā",
+    "fem",
+    "a wife captured in war; woman taken in a raid; lit. flag brought",
+    "✓"
    ],
    [
     "dhanakkīta",
     "adj",
-    "purchased with money; bought with cash",
-    "~"
+    "(of a wife or servant) purchased with money; bought with cash",
+    "✓"
    ],
    [
-    "paṭavāsī",
-    "adj",
-    "living together for clothes",
-    "~"
+    "paṭavāsinī",
+    "fem",
+    "a wife acquired by clothing; lit. living because of clothes",
+    "✓"
    ],
    [
-    "bhogavāsī",
-    "adj",
-    "living together for money",
-    "~"
+    "bhogavāsinī",
+    "fem",
+    "a wife acquired by wealth",
+    "✓"
    ],
    [
     "muhuttikā 1",
@@ -35373,6 +35498,17 @@ var family_set_json = {
   ],
   "count": 5
  },
+ "previous incarnations of Sāriputta": {
+  "data": [
+   [
+    "candakumāra",
+    "masc",
+    "name of a prince; previous incarnation of Sāriputta; lit. prince moon",
+    "✓"
+   ]
+  ],
+  "count": 1
+ },
  "five liberations": {
   "data": [
    [
@@ -35756,5 +35892,16 @@ var family_set_json = {
    ]
   ],
   "count": 3
+ },
+ "previous incarnations of Ānanda": {
+  "data": [
+   [
+    "sūriyakumāra",
+    "masc",
+    "name of a prince; previous incarnation of Ānanda; lit. prince sun",
+    "✓"
+   ]
+  ],
+  "count": 1
  }
 }

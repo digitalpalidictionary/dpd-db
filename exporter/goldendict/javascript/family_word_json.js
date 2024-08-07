@@ -1197,6 +1197,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "agada 2",
+    "masc",
+    "medicine; drug; antidote; lit. no disease",
+    "✓"
+   ],
+   [
     "gada 1.1",
     "masc",
     "illness; disease; sickness",
@@ -1209,7 +1215,7 @@ var family_word_json = {
     "✗"
    ]
   ],
-  "count": 3
+  "count": 4
  },
  "gabbha": {
   "data": [
@@ -11641,9 +11647,15 @@ var family_word_json = {
     "✓"
    ],
    [
-    "pitari",
+    "pitari 1",
     "masc",
     "in father; towards father",
+    "✓"
+   ],
+   [
+    "pitari 2",
+    "masc",
+    "when father; at the time father; lit. in father",
     "✓"
    ],
    [
@@ -11719,7 +11731,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 18
+  "count": 19
  },
  "pitta": {
   "data": [
@@ -19280,9 +19292,21 @@ var family_word_json = {
     "masc",
     "receptacle, nut-shell",
     "✗"
+   ],
+   [
+    "kaṭāhaka",
+    "masc",
+    "small pot; little pan; tiny cauldron",
+    "~"
+   ],
+   [
+    "kaṭāhakā",
+    "fem",
+    "name of a female slave; lit. having a small pot",
+    "✓"
    ]
   ],
-  "count": 2
+  "count": 4
  },
  "kaṭṭha": {
   "data": [
@@ -23792,7 +23816,7 @@ var family_word_json = {
     "tattaka",
     "adj",
     "that much; so much",
-    "~"
+    "✓"
    ],
    [
     "tāva 1",
@@ -24554,7 +24578,7 @@ var family_word_json = {
     "dasannaṃ 1",
     "card",
     "for ten; to ten",
-    "✗"
+    "✓"
    ],
    [
     "dasannaṃ 2",
@@ -24616,6 +24640,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "dahara 4",
+    "masc",
+    "very young monk; five year old monk",
+    "✓"
+   ],
+   [
     "daharaka",
     "adj",
     "young",
@@ -24628,7 +24658,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 5
+  "count": 6
  },
  "dāra": {
   "data": [
@@ -26201,7 +26231,7 @@ var family_word_json = {
     "paṇṇa 1.2",
     "nt",
     "letter; lit. leaf",
-    "~"
+    "✓"
    ],
    [
     "paṇṇa 1.3",
@@ -29058,8 +29088,8 @@ var family_word_json = {
    [
     "māḷaka",
     "masc",
-    "small hall; lodge",
-    "~"
+    "small hall; lodge; sometimes uses as a sīma",
+    "✓"
    ]
   ],
   "count": 2
@@ -29516,8 +29546,8 @@ var family_word_json = {
    [
     "yaṭṭhi 3",
     "fem",
-    "staff, walking stick",
-    "✗"
+    "staff; walking stick",
+    "✓"
    ],
    [
     "yaṭṭhi 4",

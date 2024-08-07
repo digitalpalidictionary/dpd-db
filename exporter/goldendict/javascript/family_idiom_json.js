@@ -213,7 +213,7 @@ var family_idiom_json = {
   ]
  },
  "katvā": {
-  "count": 15,
+  "count": 16,
   "data": [
    [
     "añjaliṃ katvā",
@@ -243,6 +243,12 @@ var family_idiom_json = {
     "ādiṃ katvā",
     "idiom",
     "beginning with; starting from; lit. having made first",
+    "✓"
+   ],
+   [
+    "ujuṃ katvā",
+    "idiom",
+    "having straightened out; having corrected",
     "✓"
    ],
    [
@@ -4186,8 +4192,14 @@ var family_idiom_json = {
   ]
  },
  "uju": {
-  "count": 1,
+  "count": 2,
   "data": [
+   [
+    "ujuṃ katvā",
+    "idiom",
+    "having straightened out; having corrected",
+    "✓"
+   ],
    [
     "ujuṃ karoti",
     "idiom",
@@ -6287,6 +6299,28 @@ var family_idiom_json = {
     "himavāvaññe",
     "sandhi",
     "like the Himalayas (outshines) other",
+    "✓"
+   ]
+  ]
+ },
+ "aññā": {
+  "count": 1,
+  "data": [
+   [
+    "aññaṃ byākaroti",
+    "idiom",
+    "declares awakening; announces arahantship",
+    "✓"
+   ]
+  ]
+ },
+ "byākaroti": {
+  "count": 1,
+  "data": [
+   [
+    "aññaṃ byākaroti",
+    "idiom",
+    "declares awakening; announces arahantship",
     "✓"
    ]
   ]
@@ -8543,6 +8577,23 @@ var family_idiom_json = {
    ]
   ]
  },
+ "ati": {
+  "count": 2,
+  "data": [
+   [
+    "atippageva",
+    "sandhi",
+    "too early in the morning; so early in the morning",
+    "✓"
+   ],
+   [
+    "atippagova",
+    "sandhi",
+    "too early; so early",
+    "✓"
+   ]
+  ]
+ },
  "pāto": {
   "count": 4,
   "data": [
@@ -8568,23 +8619,6 @@ var family_idiom_json = {
     "pātova",
     "sandhi",
     "very early in the morning",
-    "✓"
-   ]
-  ]
- },
- "ati": {
-  "count": 2,
-  "data": [
-   [
-    "atippageva",
-    "sandhi",
-    "too early in the morning; so early in the morning",
-    "✓"
-   ],
-   [
-    "atippagova",
-    "sandhi",
-    "too early; so early",
     "✓"
    ]
   ]
@@ -14443,7 +14477,7 @@ var family_idiom_json = {
   ]
  },
  "patta3": {
-  "count": 2,
+  "count": 3,
   "data": [
    [
     "patta yutta",
@@ -14455,6 +14489,12 @@ var family_idiom_json = {
     "pattakāyena",
     "sandhi",
     "when the body had become so; lit. attained by the body",
+    "✓"
+   ],
+   [
+    "viññutaṃ patto",
+    "idiom",
+    "reached puberty; grown up; lit. reached discerning state",
     "✓"
    ]
   ]
@@ -23729,13 +23769,19 @@ var family_idiom_json = {
   ]
  },
  "gaṇhi": {
-  "count": 1,
+  "count": 2,
   "data": [
    [
     "kūṭaṃ gaṇhi",
     "idiom",
     "reached the peak; reached a crescendo",
     "~"
+   ],
+   [
+    "paṭisandhiṃ gaṇhi",
+    "idiom",
+    "took rebirth; was reborn (in)",
+    "✓"
    ]
   ]
  },
@@ -26911,7 +26957,7 @@ var family_idiom_json = {
   ]
  },
  "rāja": {
-  "count": 7,
+  "count": 8,
   "data": [
    [
     "devarajjamakārayiṃ",
@@ -26932,7 +26978,7 @@ var family_idiom_json = {
     "✓"
    ],
    [
-    "rajjaṃ kārenta",
+    "rajjaṃ kārente",
     "idiom",
     "ruling; reigning; lit. causing to make a kingdom",
     "✓"
@@ -26941,6 +26987,12 @@ var family_idiom_json = {
     "rajjaṃ paṭipajjati",
     "idiom",
     "reigns; rules; governs; lit. follows rulership",
+    "✓"
+   ],
+   [
+    "rajjaṃ patvā",
+    "idiom",
+    "having taken power; having assumed rulership",
     "✓"
    ],
    [
@@ -27982,6 +28034,52 @@ var family_idiom_json = {
    ]
   ]
  },
+ "paṭisandhi": {
+  "count": 2,
+  "data": [
+   [
+    "paṭisandhiṃ gaṇhi",
+    "idiom",
+    "took rebirth; was reborn (in)",
+    "✓"
+   ],
+   [
+    "paṭisandhiṃ gahetvā",
+    "idiom",
+    "having been conceived (in); having been reborn (in)",
+    "✓"
+   ]
+  ]
+ },
+ "gahetvā": {
+  "count": 4,
+  "data": [
+   [
+    "paṭisandhiṃ gahetvā",
+    "idiom",
+    "having been conceived (in); having been reborn (in)",
+    "✓"
+   ],
+   [
+    "balaṃ gahetvā",
+    "idiom",
+    "having regained one's strength",
+    "✓"
+   ],
+   [
+    "bāhāyaṃ gahetvā",
+    "idiom",
+    "having seized by the arm",
+    "✓"
+   ],
+   [
+    "rasmiyo gahetvā",
+    "idiom",
+    "having seized the reins",
+    "✓"
+   ]
+  ]
+ },
  "vayas": {
   "count": 1,
   "data": [
@@ -28779,29 +28877,6 @@ var family_idiom_json = {
     "balavamhi balattho",
     "idiom",
     "might is right; lit. I am powerful, power is good",
-    "✓"
-   ]
-  ]
- },
- "gahetvā": {
-  "count": 3,
-  "data": [
-   [
-    "balaṃ gahetvā",
-    "idiom",
-    "having regained one's strength",
-    "✓"
-   ],
-   [
-    "bāhāyaṃ gahetvā",
-    "idiom",
-    "having seized by the arm",
-    "✓"
-   ],
-   [
-    "rasmiyo gahetvā",
-    "idiom",
-    "having seized the reins",
     "✓"
    ]
   ]
@@ -31069,9 +31144,20 @@ var family_idiom_json = {
   "count": 1,
   "data": [
    [
-    "rajjaṃ kārenta",
+    "rajjaṃ kārente",
     "idiom",
     "ruling; reigning; lit. causing to make a kingdom",
+    "✓"
+   ]
+  ]
+ },
+ "patvā": {
+  "count": 1,
+  "data": [
+   [
+    "rajjaṃ patvā",
+    "idiom",
+    "having taken power; having assumed rulership",
     "✓"
    ]
   ]
@@ -31495,6 +31581,17 @@ var family_idiom_json = {
     "viññāṇanirodhagāminī paṭipadā",
     "idiom",
     "path of practice leading to the cessation of consciousness",
+    "✓"
+   ]
+  ]
+ },
+ "viññū": {
+  "count": 1,
+  "data": [
+   [
+    "viññutaṃ patto",
+    "idiom",
+    "reached puberty; grown up; lit. reached discerning state",
     "✓"
    ]
   ]
