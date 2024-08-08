@@ -440,13 +440,15 @@ def check_spelling(pth, field, error_field, values, window, flags) -> Flags:
     
     if misspelled:
         window[field].update(text_color="red")
+        window["update_db_button1"].update(button_color="red")
         flags.spelling_ok = False
-        return flags
+    
     else:
         window[field].update(text_color="darkgray")
+        window["update_db_button1"].update(button_color="steel blue")
         window[error_field].update("")
         flags.spelling_ok = True
-        return flags
+    return flags
 
 
 def add_spelling(pth, word):

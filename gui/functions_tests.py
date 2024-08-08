@@ -197,6 +197,7 @@ def run_individual_internal_tests(
 
             window["messages"].update(
                 f"{test_message} - failed!", text_color="red")
+            window["update_db_button1"].update(button_color="red")
             
             def popup_window():
 
@@ -249,11 +250,13 @@ def run_individual_internal_tests(
         if next_flag is True:
             window["messages"].update(
                 "all tests passed!", text_color="white")
+            window["update_db_button1"].update(button_color="steel blue")
             flags.tested = True
             return flags
         else:
             window["messages"].update(
                 "test again", text_color="red")
+            window["update_db_button1"].update(button_color="red")
             return flags
 
 

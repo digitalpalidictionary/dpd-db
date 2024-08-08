@@ -995,14 +995,20 @@ def main():
             field = "meaning_1"
             error_field = "meaning_1_error"
             flags = check_spelling(pth, field, error_field, values, window, flags)
+            if flags.spelling_ok is False:
+                continue
 
             field = "meaning_lit"
             error_field = "meaning_lit_error"
             flags = check_spelling(pth, field, error_field, values, window, flags)
+            if flags.spelling_ok is False:
+                continue
 
             field = "meaning_2"
             error_field = "meaning_2_error"
             flags = check_spelling(pth, field, error_field, values, window, flags)
+            if flags.spelling_ok is False:
+                continue
 
             # check allowable characters
             error_dict = test_allowable_characters_gui(values)
@@ -1011,9 +1017,11 @@ def main():
                     if test_value:
                         window[f"{column}_error"].update(value=test_value, text_color="red")
                         window["messages"].update(value="fix bad characters", text_color="red")
+                        window["update_db_button1"].update(button_color="red")
                         flags.tested = False
                     else:
                         window[f"{column}_error"].update(value="", text_color="darkgray")
+                        window["update_db_button1"].update(button_color="steel blue")
 
         elif event == "open_tests_button":
             open_internal_tests(pth)
