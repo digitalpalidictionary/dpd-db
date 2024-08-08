@@ -219,7 +219,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kañc 1	1	a	bind, cover	√kac √kañc	1	bind	√kañc		kaṅkaṭa, kañcuka
 √kañc 1	1	a	bind, cover	√kac √kañc	1	bind	saṃ √kañc		kañculī, na + kañculī
 √kañc 2	1	a	shine	√kac √kañc √kānc	1	shine	√kañc		kāñcana
-√kaṭh 1	2	ṃa	live in distress	√kaṭh	1	live in distress	ud √kaṭh		utkaṇṭhat, utkaṇṭhati (bsk), utkaṇṭhita, udkaṇṭhā (bsk)
+√kaṭh 1	2	ṃa	live in distress	√kaṭh	1	live in distress	ud √kaṭh	kaṭh	utkaṇṭhat, utkaṇṭhati (bsk), utkaṇṭhita, udkaṇṭhā (bsk)
 √kaṭh 2	1	a	boil, burn	√kvath	1	boil	√kaṭh	kvath	
 √kaṭh 2	1	a	boil, burn	√kvath	1	boil	ud √kaṭh	utkvath	
 √kaṭh 2	1	a	boil, burn	√kvath	1	boil	pa √kaṭh		
@@ -752,7 +752,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	vi √ghaṭ	vihan	avighāta, avighāta +, avighāta + vat, vighāta, vighāta + vat, vighātaka, vighātya, sa + vighāta
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	vi ni √ghaṭ	vinihan	vighātin
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	saṃ √ghaṭ	saṃhan	saṃghāta, saṃhata
-√ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	saṃ ud √ghaṭ	samudghaṭ	samudghaṭ, samudghāta, samudghāta +, samudghātana
+√ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	saṃ ud √ghaṭ	samudghaṭ	samudghāta, samudghāta +, samudghātana
 √ghaṭ 2	1	a	join together	√ghaṭ	1	strive	√ghaṭ	ghaṭ	ghaṭanā, ghaṭayamāna, ghaṭikā (bsk), ghātayati, jhaṭyate, jhāṭa, han
 √ghaṭ 2	1	*e	join together	√ghaṭ	1	strive	anu √ghaṭ		
 √ghaṭ 2	1	a	join together	√ghaṭ	1	strive	ud √ghaṭ	udghaṭ	udghaṭayati, udghaṭayitvā, udghaṭita
@@ -1304,7 +1304,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √dis 2	1	a	point out, explain	√diś	3, 4, 6	point	ati √dis	atidiś	
 √dis 2	1	a	point out, explain	√diś	3, 4, 6	point	anu √dis	anudiś	anudiśati, anudiśyati, antaradiśā, vidiśā
 √dis 2	1	a	point out, explain	√diś	3, 4, 6	point	apa √dis	apadiś	anapadeśa, apadiśyati, apadeśa, sa + apadeśa, śākṣya, śākṣin
-√dis 2	1	a	point out, explain	√diś	3, 4, 6	point	abhi nī √dis	abhinirdiś	
+√dis 2	1	a	point out, explain	√diś	3, 4, 6	point	abhi nī √dis	abhinirdiś	abhinirdiśati
 √dis 2	1	a	point out, explain	√diś	3, 4, 6	point	ava √dis	avadiś	uddiśya, uddeśaka, na + uddiśya, uddeśa
 √dis 2	1	a	point out, explain	√diś	3, 4, 6	point	ā √dis	ādiś	ādeśa, ādeśana, ādṛśya
 √dis 2	1	a	point out, explain	√diś	3, 4, 6	point	ud √dis	uddiś	uddishat, uddiśat, uddiśati, uddiśamāna, uddiśet, uddiśya, uddiśyate, uddiṣṭa, uddeśa, uddeśaka, uddeśayat, uddeśayati, uddeśayitum, uddeśitavya, uddeśitum, uddeṣṭṛ, deṣṭum, na + uddiṣṭa, samuddeśa, su + uddiṣṭa
@@ -2812,7 +2812,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √sakk	1	a	move	√ṣvaṣk √ṣvakk	1	go, move	pati ava √sakk	ṣvaṣk	
 √sakk	1	a	move	√ṣvaṣk √ṣvakk	1	go, move	pari √sakk	ṣvaṣk	pari + ṣvaṣkati
 √sakk	1	a	move	√ṣvaṣk √ṣvakk	1	go, move	vi √sakk		viṣvak
-√saṅk	1	a	doubt, suspect	√śaṅk	1	doubt	√saṅk	śaṅk	śaṅkā, śaṅkya, śaṅkyate, śank
+√saṅk	1	a	doubt, suspect	√śaṅk	1	doubt	√saṅk	śaṅk	śaṅkate x, śaṅkā, śaṅkya, śaṅkyate, śank
 √saṅk	1	a	doubt, suspect	√śaṅk	1	doubt	ā √saṅk	āśaṅk	āśaṅkate, āśaṅkamāna, āśaṅkā, āśaṅkita, āśaṅkin, saśaṅka
 √saṅk	1	a	doubt, suspect	√śaṅk	1	doubt	ud √saṅk	-	
 √saṅk	1	a	doubt, suspect	√śaṅk	1	doubt	pari √saṅk	pariśaṅk	na + pariśaṅkita, pariśaṅkā, pariśaṅkita
@@ -2834,9 +2834,9 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √saj 2	1	a	relinquish, let loose	√sṛj	1, 6	send forth	nī ā √saj		niḥsṛjati
 √saj 2	1	a	relinquish, let loose	√sṛj	1, 6	send forth	pati nī √saj		pratiniḥsṛjati
 √saj 2	1	a	relinquish, let loose	√sṛj	1, 6	send forth	vi ava √saj		vyava + visṛṣṭa, vyavasṛjya
-√saj 3	1	a	embrace	√sañj √sajj	1	hang, cling	√saj		
-√saj 3	1	a	embrace	√sañj √sajj	1	hang, cling	pa √saj		sañj, sañjati
-√saj 3	1	a	embrace	√sañj √sajj	1	hang, cling	pari √saj		
+√saj 3	1	a	embrace	√sañj √sajj	1	hang, cling	√saj	sañj	
+√saj 3	1	a	embrace	√sañj √sajj	1	hang, cling	pa √saj	prasañj	sañj, sañjati
+√saj 3	1	a	embrace	√sañj √sajj	1	hang, cling	pari √saj	sañj	
 √sajj 1	1	a	relinquish, let loose	√sṛj	6	send forth	√sajj	sṛj	sarga
 √sajj 1	1	a	relinquish, let loose	√sṛj	6	send forth	abhi √sajj	abhisṛj	abhisartṛ, abhisṛjati
 √sajj 1	1	*e	relinquish, let loose	√sṛj	6	send forth	abhi nī √sajj	abhiniḥsṛj	abhiniḥsṛjayitvā

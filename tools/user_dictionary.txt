@@ -148,6 +148,7 @@ Apadāna
 api
 api
 appanā
+apparition
 apperceived
 apportions
 appositional
@@ -240,6 +241,7 @@ balcooa
 bald-headedness
 Bambusa
 Bandhumatī
+Bārāṇasī
 barbery
 barihisa
 barihisatthāya
@@ -316,6 +318,7 @@ Bimbisāra
 Bimbisāra's
 bipinnata
 blamableness
+blameworthiness
 blameworthy
 blibber-blabber
 blurtingly
@@ -448,6 +451,7 @@ conjee
 conjugational
 contiguously
 cooed
+copulative
 coquetry
 coracana
 cordifolia
@@ -483,6 +487,7 @@ Cunda
 curādigaṇa
 Cymbopogon
 Cyperus
+Cyprinus
 ḍ
 dā
 ḍa
@@ -508,6 +513,7 @@ Deccan
 declivity
 decoction
 decrepitude
+defames
 defectiveness
 defilement
 defilements
@@ -587,6 +593,7 @@ dispeller
 disproof
 disputable
 disrobed
+disrobes
 dissed
 disseminator
 disses
@@ -810,6 +817,7 @@ healthiness
 heartedness
 heartwood
 Hedyotis
+heedfully
 heedfulness
 heedlessness
 heirless
@@ -1080,6 +1088,7 @@ Lābhasakkārasaṃyuttaṃ
 Lacucha
 Lagopodioides
 Lakkhaṇasaṃyuttaṃ
+lambaste
 Lanka
 latfolia
 latifolia
@@ -1221,6 +1230,7 @@ math
 Mātikā
 Mātugāmasaṃyuttaṃ
 MDict
+measurer
 meditator
 mendaciously
 mendicants
@@ -1507,6 +1517,7 @@ paramāṇu
 Pārāsariya's
 Pārāsiriya's
 Pārāsiviya's
+parasol
 Pārāyana
 Pārāyanavagga
 parentless
@@ -1713,6 +1724,7 @@ rippled-nes
 rippled-ness
 robusta
 Rohaṇa
+rohitaka
 rotundus
 roxburghiana
 Roxburghii
@@ -2009,6 +2021,7 @@ Tathāgata
 Tavatimsa
 Tāvatimsa
 Tāvatiṃsa
+Taxila
 Tayana
 Tāyana
 Tectona
@@ -2438,14 +2451,3 @@ yojanas
 yoking
 zizanioides
 Ziziphus
-Cyprinus
-rohitaka
-measurer
-copulative
-Taxila
-Bārāṇasī
-heedfully
-disrobes
-apparition
-parasol
-defames

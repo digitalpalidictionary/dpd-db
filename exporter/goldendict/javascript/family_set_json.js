@@ -10019,7 +10019,7 @@ var family_set_json = {
    [
     "doṇamāpaka",
     "masc",
-    "who sets the official measures",
+    "name of a government official; lit. making the bucket measure",
     "✓"
    ],
    [
@@ -10475,7 +10475,7 @@ var family_set_json = {
    [
     "rajjugāhaka",
     "masc",
-    "land-surveyor; lit. rope carrier",
+    "name of a government official; lit. rope carrier",
     "✓"
    ],
    [
@@ -11892,6 +11892,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "tālapuṭa 2",
+    "masc",
+    "name of an actor; lit. palm leaf wrap",
+    "✓"
+   ],
+   [
     "tissamātar",
     "fem",
     "name of a laywoman; lit. Tissa's mother",
@@ -12492,7 +12498,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 152
+  "count": 153
  },
  "types of ascetics": {
   "data": [
@@ -13886,12 +13892,6 @@ var family_set_json = {
     "~"
    ],
    [
-    "bhārukaccha",
-    "masc",
-    "name of a country",
-    "✓"
-   ],
-   [
     "bhoja 1",
     "masc",
     "name of a country; lit. enjoying",
@@ -13928,7 +13928,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 23
+  "count": 22
  },
  "names of paccekabuddhas": {
   "data": [
@@ -28194,6 +28194,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "bhārukaccha",
+    "masc",
+    "name of a town; modern Broach",
+    "✓"
+   ],
+   [
     "makkarakaṭa",
     "nt",
     "name of a town; lit. made of cane",
@@ -28536,7 +28542,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 187
+  "count": 188
  },
  "types of monastics": {
   "data": [
@@ -34021,7 +34027,7 @@ var family_set_json = {
    [
     "maṅgalahatthī",
     "masc",
-    "state elephant",
+    "state elephant; lit. auspicious elephant",
     "✓"
    ],
    [
@@ -34560,7 +34566,7 @@ var family_set_json = {
    [
     "obhaṭacumbaṭā",
     "fem",
-    "a wife acquired by removing the head pad",
+    "wife acquired by removing the head pad",
     "✓"
    ],
    [
@@ -34572,13 +34578,13 @@ var family_set_json = {
    [
     "chandavāsinī",
     "fem",
-    "a wife who lives with a man by choice; lit. living by choice",
+    "wife who lives with a husband by choice; lit. living by choice",
     "✓"
    ],
    [
     "dhajāhaṭā",
     "fem",
-    "a wife captured in war; woman taken in a raid; lit. flag brought",
+    "wife captured in war; woman taken in a raid; lit. brought with the flag",
     "✓"
    ],
    [
@@ -34590,13 +34596,13 @@ var family_set_json = {
    [
     "paṭavāsinī",
     "fem",
-    "a wife acquired by clothing; lit. living because of clothes",
+    "wife acquired by clothing; lit. living because of clothes",
     "✓"
    ],
    [
     "bhogavāsinī",
     "fem",
-    "a wife acquired by wealth",
+    "wife acquired by wealth",
     "✓"
    ],
    [

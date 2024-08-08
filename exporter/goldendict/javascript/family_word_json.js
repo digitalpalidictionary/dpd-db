@@ -26230,7 +26230,7 @@ var family_word_json = {
    [
     "paṇṇa 1.2",
     "nt",
-    "letter; lit. leaf",
+    "letter; note; lit. leaf",
     "✓"
    ],
    [
