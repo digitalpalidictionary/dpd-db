@@ -6013,7 +6013,7 @@ var family_root_json = {
   "root_key": "√kus 1",
   "root_family": "ā √kus",
   "root_meaning": "call, insult",
-  "count": 15,
+  "count": 16,
   "data": [
    [
     "akkuṭṭha",
@@ -6073,6 +6073,12 @@ var family_root_json = {
     "akkositabba",
     "ptp",
     "should be insulted; should be abused; lit. to be called out",
+    "✓"
+   ],
+   [
+    "akkosituṃ",
+    "inf",
+    "to verbally abuse; to insult; to lambaste",
     "✓"
    ],
    [
@@ -10630,8 +10636,8 @@ var family_root_json = {
    [
     "garahanta",
     "prp",
-    "reproaching, blaming, scolding",
-    "✗"
+    "criticising; abusing; blaming",
+    "✓"
    ],
    [
     "garahamāna",
@@ -50375,7 +50381,7 @@ var family_root_json = {
     "āvajjenta 1",
     "prp",
     "musing; reflecting; pondering",
-    "✗"
+    "✓"
    ],
    [
     "āvajjenta 2",
@@ -58034,8 +58040,8 @@ var family_root_json = {
    [
     "nisedheti",
     "pr",
-    "prevents, prohibits, keeps off",
-    "✗"
+    "prevents; prohibits; puts a stop (to); forbids",
+    "✓"
    ],
    [
     "nisedhetvā",
@@ -60633,7 +60639,7 @@ var family_root_json = {
   "root_key": "√ṭhā",
   "root_family": "ud √ṭhā",
   "root_meaning": "stand",
-  "count": 97,
+  "count": 99,
   "data": [
    [
     "anuṭṭhahati",
@@ -61059,13 +61065,25 @@ var family_root_json = {
     "vuṭṭhāna 4",
     "nt",
     "making effort; exerting; initiative; activity; lit. standing up",
-    "✓"
+    "~"
    ],
    [
     "vuṭṭhāna 5",
     "nt",
     "(of a nun) giving higher ordination; lit. standing up",
     "~"
+   ],
+   [
+    "vuṭṭhāna 6",
+    "nt",
+    "(of an illness) getting better (from); recovery (from); lit. standing up",
+    "✓"
+   ],
+   [
+    "vuṭṭhāna 7",
+    "adj",
+    "rising above; moving beyond; lit. standing up",
+    "✓"
    ],
    [
     "vuṭṭhānaka",
@@ -77157,7 +77175,7 @@ var family_root_json = {
   "root_key": "√ñā",
   "root_family": "pa √ñā",
   "root_meaning": "know",
-  "count": 120,
+  "count": 121,
   "data": [
    [
     "apañña 1",
@@ -77349,6 +77367,12 @@ var family_root_json = {
     "nappaññāyati",
     "pr",
     "is not clearly known; is not evident; is not discernable",
+    "✓"
+   ],
+   [
+    "nippañña",
+    "adj",
+    "devoid of wisdom; unwise; ignorant; stupid",
     "✓"
    ],
    [
@@ -82283,7 +82307,7 @@ var family_root_json = {
     "pamāyī",
     "adj",
     "evaluating; appraising; judging; estimating; lit. measuring",
-    "~"
+    "✓"
    ],
    [
     "pamiṇāti",
@@ -82319,7 +82343,7 @@ var family_root_json = {
     "paminanta",
     "prp",
     "evaluating; appraising; judging; estimating; lit. measuring",
-    "~"
+    "✓"
    ],
    [
     "pametuṃ",
@@ -82605,7 +82629,7 @@ var family_root_json = {
   "root_key": "√rādh",
   "root_family": "apa √rādh",
   "root_meaning": "succeed, please",
-  "count": 20,
+  "count": 21,
   "data": [
    [
     "aparajjhati",
@@ -82634,8 +82658,14 @@ var family_root_json = {
    [
     "aparajjhitvā",
     "abs",
-    "having offended against, having done wrong",
-    "✗"
+    "having offended against; having done wrong (to)",
+    "✓"
+   ],
+   [
+    "aparajjhitvāna",
+    "abs",
+    "having offended against; having done wrong (to)",
+    "✓"
    ],
    [
     "aparaddha 1",
@@ -86161,7 +86191,7 @@ var family_root_json = {
   "root_key": "√bhās 1",
   "root_family": "pari √bhās",
   "root_meaning": "speak",
-  "count": 17,
+  "count": 18,
   "data": [
    [
     "aparibhāsaneyya",
@@ -86245,6 +86275,12 @@ var family_root_json = {
     "paribhāsitabba",
     "ptp",
     "should be abused; should be reviled; should be insulted; should be badmouthed; lit. to be spoken around",
+    "✓"
+   ],
+   [
+    "paribhāsituṃ",
+    "inf",
+    "to abuse; to revile; to insult; to badmouth",
     "✓"
    ],
    [
@@ -97053,7 +97089,7 @@ var family_root_json = {
     "paṭisedhetuṃ",
     "inf",
     "to prevent; to obstruct; to oppose; to put a stop to",
-    "~"
+    "✓"
    ],
    [
     "paṭisedhetvā",
@@ -97076,8 +97112,8 @@ var family_root_json = {
    [
     "paṭisedhesi 2",
     "aor",
-    "warded off, prevented, prohibited",
-    "✗"
+    "warned; prevented; prohibited; put a stop (to)",
+    "✓"
    ]
   ]
  },
@@ -152093,7 +152129,7 @@ var family_root_json = {
   "root_key": "√dhā",
   "root_family": "√dhā",
   "root_meaning": "place, support",
-  "count": 52,
+  "count": 53,
   "data": [
    [
     "asahita",
@@ -152226,6 +152262,12 @@ var family_root_json = {
     "fem",
     "one of the eighteen components of perceptual experience, corresponding to the six sense organs, their associated external field and corresponding consciousness",
     "✓"
+   ],
+   [
+    "dhātu 8",
+    "masc",
+    "(gram) verbal root",
+    "~"
    ],
    [
     "dhātuka 1",
@@ -159216,8 +159258,8 @@ var family_root_json = {
    [
     "āgametabba 1",
     "ptp",
-    "should be waited; lit. to be waited",
-    "~"
+    "should be waited for; lit. to be waited",
+    "✓"
    ],
    [
     "āgametabba 2",
@@ -166387,8 +166429,14 @@ var family_root_json = {
   "root_key": "√guh",
   "root_family": "upa √guh",
   "root_meaning": "hide, conceal",
-  "count": 4,
+  "count": 5,
   "data": [
+   [
+    "upaguhati",
+    "pr",
+    "hugs; embraces",
+    "✓"
+   ],
    [
     "upagūhati",
     "pr",
@@ -168655,7 +168703,7 @@ var family_root_json = {
   "root_key": "√sajj 1",
   "root_family": "upa √sajj",
   "root_meaning": "relinquish, let loose",
-  "count": 6,
+  "count": 7,
   "data": [
    [
     "upasagga 1.1",
@@ -168692,6 +168740,12 @@ var family_root_json = {
     "pp",
     "released; poured onto; lit. let loose near",
     "~"
+   ],
+   [
+    "sopasagga",
+    "adj",
+    "(gram) with a prefix; having a preposition",
+    "✓"
    ]
   ]
  },
@@ -196220,8 +196274,8 @@ var family_root_json = {
    [
     "parissajati",
     "pr",
-    "embraces",
-    "✗"
+    "embraces; clasps; clings; lit. embraces all around",
+    "✓"
    ],
    [
     "parissajana",
@@ -211810,8 +211864,8 @@ var family_root_json = {
    [
     "sajati",
     "pr",
-    "embraces",
-    "✗"
+    "attaches; embraces; clings; sticks; adheres",
+    "✓"
    ],
    [
     "sajana 2.1",

@@ -2521,6 +2521,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "dhātu 8",
+    "masc",
+    "(gram) verbal root",
+    "~"
+   ],
+   [
     "dhātugaṇa",
     "masc",
     "(gram) root group",
@@ -4675,6 +4681,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "sopasagga",
+    "adj",
+    "(gram) with a prefix; having a preposition",
+    "✓"
+   ],
+   [
     "svādi",
     "nt",
     "(gram) √su etc.; group 4 roots which take the conjugational sign ṇu ṇā uṇā",
@@ -4807,7 +4819,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 777
+  "count": 779
  },
  "prefixes": {
   "data": [
@@ -7885,6 +7897,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "catusaccabuddha",
+    "masc",
+    "who has understood the four truths; epithet of an arahant",
+    "✓"
+   ],
+   [
     "dantabhūmi",
     "fem",
     "level of mastery; epithet of an arahant; lit. tamed ground",
@@ -8017,7 +8035,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 31
+  "count": 32
  },
  "epithets of Nibbāna": {
   "data": [
@@ -23851,6 +23869,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "garuḷa",
+    "masc",
+    "name of a mythical bird",
+    "✓"
+   ],
+   [
     "gava",
     "masc",
     "cow; cattle",
@@ -24169,7 +24193,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 70
+  "count": 71
  },
  "names of royalty": {
   "data": [
@@ -33793,6 +33817,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "cittakūṭapabbata",
+    "masc",
+    "name of one of the five mountains surrounding lake Anotatta in the Himalayas; lit. beautiful peak mountain",
+    "✓"
+   ],
+   [
     "cittala",
     "masc",
     "name of a mountain in Sri Lanka",
@@ -33883,7 +33913,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 25
+  "count": 26
  },
  "five hindrances": {
   "data": [

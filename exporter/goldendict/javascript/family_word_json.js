@@ -547,6 +547,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "kalyāṇaka",
+    "adj",
+    "good; auspicious; virtuous; blessed",
+    "✓"
+   ],
+   [
     "kalyāṇatara",
     "adj",
     "better; more virtuous",
@@ -589,7 +595,7 @@ var family_word_json = {
     "✗"
    ]
   ],
-  "count": 13
+  "count": 14
  },
  "kasāya": {
   "data": [
@@ -827,6 +833,23 @@ var family_word_json = {
    ]
   ],
   "count": 7
+ },
+ "kissavā": {
+  "data": [
+   [
+    "akissava",
+    "adj",
+    "(comm) without wisdom",
+    "✓"
+   ],
+   [
+    "kissavā",
+    "fem",
+    "(comm) wisdom",
+    "✓"
+   ]
+  ],
+  "count": 2
  },
  "kusala": {
   "data": [
@@ -8771,9 +8794,15 @@ var family_word_json = {
     "masc",
     "pit trap for catching animals",
     "~"
+   ],
+   [
+    "āvāṭaka",
+    "masc",
+    "small hole; little pit",
+    "✓"
    ]
   ],
-  "count": 3
+  "count": 4
  },
  "āḷinda": {
   "data": [
@@ -30992,6 +31021,17 @@ var family_word_json = {
    ]
   ],
   "count": 2
+ },
+ "vinatā": {
+  "data": [
+   [
+    "venateyya",
+    "masc",
+    "descendant of Vinatā",
+    "✓"
+   ]
+  ],
+  "count": 1
  },
  "verañjā": {
   "data": [
