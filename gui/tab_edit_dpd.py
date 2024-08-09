@@ -573,6 +573,7 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
             sg.pin(
                 sg.Multiline(
                     key="example_2", size=(49, 5),
+                    enable_events=True,
                     tooltip="Sutta example. Add all sandhi apostrophes.")),
             sg.Text(
                 "", key="example_2_error", size=(50, 1), text_color="red")

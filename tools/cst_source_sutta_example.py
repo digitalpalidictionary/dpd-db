@@ -2406,7 +2406,7 @@ def find_source_sutta_example(
 
 
 if __name__ == "__main__":
-    book = "apt"
-    text_to_find = "pātālaṃ"
+    book = "sn3"
+    text_to_find = "ṭhitikusalo hoti"
     sutta_examples = find_source_sutta_example(book, text_to_find)
     print(len(sutta_examples))

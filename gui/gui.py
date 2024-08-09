@@ -205,9 +205,7 @@ def main():
     while True:
         event, values = window.read() # type: ignore
 
-        if event:
-            print(f"{event}")
-            # print(f"{values}")
+        print(f"{event}")
 
         if event == sg.WIN_CLOSED:
             break
@@ -2437,11 +2435,31 @@ def main():
                 window["messages"].update(value="previously saved state (2) not found. select a book to add",
                     text_color="white")
                 words_to_add_list = []
+        
+        # length of examples must be less than 300
 
+        if len(values["example_1"]) > 250:
+            window["example_1"].update(text_color="red")
+            
+        elif len(values["example_1"]) <= 250:
+            window["example_1"].update(text_color="white")
+            window["update_db_button1"].update(button_color="steel blue")
+        
+        if len(values["example_2"]) > 250:
+            window["example_2"].update(text_color="red")
+            
+        elif len(values["example_2"]) <= 250:
+            window["example_2"].update(text_color="white")
+            
+        if len(values["example_1"]) > 250 or len(values["example_2"]) > 250:
+            window["update_db_button1"].update(button_color="red")
+        else:
+            window["update_db_button1"].update(button_color="steel blue")
+            
 
         # test db tab                
 
-        elif event == "ru_test_db_internal":
+        if event == "ru_test_db_internal":
             dps_dpd_db_internal_tests(dpspth, db_session, pth, sg, window, flags)
 
         # dps test tab
