@@ -19,7 +19,7 @@ exporter/goldendict/main.py
 exporter/deconstructor/deconstructor_exporter.py
 
 # exporter/tpr/tpr_exporter.py
-exporter/ebook/ebook_exporter.py
+exporter/kindle/ebook_exporter.py
 
 scripts/zip_goldendict_mdict.py
 

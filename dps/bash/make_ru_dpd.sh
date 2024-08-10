@@ -23,7 +23,7 @@ exporter/goldendict/main.py
 
 exporter/deconstructor/deconstructor_exporter.py
 
-exporter/ebook/ebook_exporter.py
+exporter/kindle/ebook_exporter.py
 
 exporter/goldendict/ru_components/tools/ru_zip_goldendict_mdict.py
 

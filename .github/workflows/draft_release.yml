@@ -130,7 +130,7 @@ jobs:
       run: poetry run python exporter/deconstructor/deconstructor_exporter.py
 
     - name: Export Kindle & ePub
-      run: poetry run python exporter/ebook/ebook_exporter.py
+      run: poetry run python exporter/kindle/ebook_exporter.py
 
     - name: Zip GoldenDict & Mdict
       run: poetry run python scripts/zip_goldendict_mdict.py

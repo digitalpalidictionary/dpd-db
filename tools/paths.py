@@ -27,25 +27,25 @@ class ProjectPaths:
         self.bold_definitions_json_path = base_dir / "db/bold_definitions/bold_definitions.json"
         self.bold_definitions_tsv_path = base_dir / "db/bold_definitions/bold_definitions.tsv"
 
-        # exporter/ebook/
-        self.epub_dir = base_dir / "exporter/ebook/epub/"
-        self.kindlegen_path = base_dir / "exporter/ebook/kindlegen"
+        # exporter/kindle/
+        self.epub_dir = base_dir / "exporter/kindle/epub/"
+        self.kindlegen_path = base_dir / "exporter/kindle/kindlegen"
 
-        # exporter/ebook/epub
-        self.epub_abbreviations_path = base_dir / "exporter/ebook/epub/OEBPS/Text/abbreviations.xhtml"
-        self.epub_content_opf_path = base_dir / "exporter/ebook/epub/OEBPS/content.opf"
-        self.epub_text_dir = base_dir / "exporter/ebook/epub/OEBPS/Text"
-        self.epub_titlepage_path = base_dir / "exporter/ebook/epub/OEBPS/Text/titlepage.xhtml"
+        # exporter/kindle/epub
+        self.epub_abbreviations_path = base_dir / "exporter/kindle/epub/OEBPS/Text/abbreviations.xhtml"
+        self.epub_content_opf_path = base_dir / "exporter/kindle/epub/OEBPS/content.opf"
+        self.epub_text_dir = base_dir / "exporter/kindle/epub/OEBPS/Text"
+        self.epub_titlepage_path = base_dir / "exporter/kindle/epub/OEBPS/Text/titlepage.xhtml"
 
-        # exporter/ebook/templates
-        self.ebook_abbrev_entry_templ_path = base_dir / "exporter/ebook/templates/ebook_abbreviation_entry.html"
-        self.ebook_content_opf_templ_path = base_dir / "exporter/ebook/templates/ebook_content_opf.html"
-        self.ebook_deconstructor_templ_path = base_dir / "exporter/ebook/templates/ebook_deconstructor_entry.html"
-        self.ebook_entry_templ_path = base_dir / "exporter/ebook/templates/ebook_entry.html"
-        self.ebook_example_templ_path = base_dir / "exporter/ebook/templates/ebook_example.html"
-        self.ebook_grammar_templ_path = base_dir / "exporter/ebook/templates/ebook_grammar.html"
-        self.ebook_letter_templ_path = base_dir / "exporter/ebook/templates/ebook_letter.html"
-        self.ebook_title_page_templ_path = base_dir / "exporter/ebook/templates/ebook_titlepage.html"
+        # exporter/kindle/templates
+        self.ebook_abbrev_entry_templ_path = base_dir / "exporter/kindle/templates/ebook_abbreviation_entry.html"
+        self.ebook_content_opf_templ_path = base_dir / "exporter/kindle/templates/ebook_content_opf.html"
+        self.ebook_deconstructor_templ_path = base_dir / "exporter/kindle/templates/ebook_deconstructor_entry.html"
+        self.ebook_entry_templ_path = base_dir / "exporter/kindle/templates/ebook_entry.html"
+        self.ebook_example_templ_path = base_dir / "exporter/kindle/templates/ebook_example.html"
+        self.ebook_grammar_templ_path = base_dir / "exporter/kindle/templates/ebook_grammar.html"
+        self.ebook_letter_templ_path = base_dir / "exporter/kindle/templates/ebook_letter.html"
+        self.ebook_title_page_templ_path = base_dir / "exporter/kindle/templates/ebook_titlepage.html"
 
         # exporter/css
         self.dpd_css_path = base_dir / "exporter/goldendict/css/dpd.css"
