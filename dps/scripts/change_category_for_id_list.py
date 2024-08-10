@@ -7,7 +7,7 @@ Update sbs_category for words from an ID list based on specific conditions
 from db.models import DpdHeadwords, SBS
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from rich.console import Console
 import csv
 from tools.tic_toc import tic, toc

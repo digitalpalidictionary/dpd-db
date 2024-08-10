@@ -16,7 +16,7 @@ from anki.cards import Card
 from rich import print
 from typing import List, Dict
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords
 
 from tools.configger import config_read

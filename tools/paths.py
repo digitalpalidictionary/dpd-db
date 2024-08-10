@@ -255,7 +255,7 @@ class ProjectPaths:
         self.sc_deconstructor_json_path = base_dir / "resources/sc-data/dpd/dpd_deconstructor.json"
 
         # resources/tipitaka-xml
-        self.cst_txt_dir = base_dir / "resources/tipitaka-xml/roman_txt/"
+        self.cst_txt_dir = base_dir / "resources/tipitaka-xml/romn_txt/"
         self.cst_xml_dir = base_dir / "resources/tipitaka-xml/deva/"
         self.cst_xml_roman_dir = base_dir / "resources/tipitaka-xml/romn/"
 
@@ -325,15 +325,15 @@ class ProjectPaths:
         self.root_families_sanskrit_path = base_dir / "db/sanskrit/root_families_sanskrit.tsv"
 
         # share
-        self.all_tipitaka_words_path = base_dir / "share/all_tipitaka_words"
-        self.changed_headwords_path = base_dir / "share/changed_headwords"
-        self.headword_stem_pattern_dict_path = base_dir / "share/headword_stem_pattern_dict"
-        self.inflection_templates_pickle_path = base_dir / "share/inflection_templates"
-        self.inflections_from_translit_json_path = base_dir / "share/inflections_from_translit.json"
-        self.inflections_to_translit_json_path = base_dir / "share/inflections_to_translit.json"
-        self.lookup_from_translit_path = base_dir / "share/lookup_from_translit.json"
-        self.lookup_to_translit_path = base_dir / "share/lookup_to_translit.json"
-        self.template_changed_path = base_dir / "share/changed_templates"
+        self.all_tipitaka_words_path = base_dir / "shared_data/all_tipitaka_words"
+        self.changed_headwords_path = base_dir / "shared_data/changed_headwords"
+        self.headword_stem_pattern_dict_path = base_dir / "shared_data/headword_stem_pattern_dict"
+        self.inflection_templates_pickle_path = base_dir / "shared_data/inflection_templates"
+        self.inflections_from_translit_json_path = base_dir / "shared_data/inflections_from_translit.json"
+        self.inflections_to_translit_json_path = base_dir / "shared_data/inflections_to_translit.json"
+        self.lookup_from_translit_path = base_dir / "shared_data/lookup_from_translit.json"
+        self.lookup_to_translit_path = base_dir / "shared_data/lookup_to_translit.json"
+        self.template_changed_path = base_dir / "shared_data/changed_templates"
 
         # temp
         self.temp_dir = base_dir / "temp/"

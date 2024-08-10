@@ -9,7 +9,7 @@ import pyperclip
 from typing import Dict, Optional
 from rich import print
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdRoots
 from db.models import DpdHeadwords
 from db.models import FamilyCompound

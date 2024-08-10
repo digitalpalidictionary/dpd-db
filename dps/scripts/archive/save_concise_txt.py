@@ -7,7 +7,7 @@ from rich.console import Console
 from typing import List
 
 from db.models import DpdHeadwords
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 
 from tools.pali_sort_key import pali_sort_key
 from dps.tools.paths_dps import DPSPaths

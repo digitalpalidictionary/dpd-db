@@ -8,7 +8,7 @@ from jinja2 import Environment, FileSystemLoader
 from rich import print
 from typing import List
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords, SBS, Russian
 
 from tools.configger import config_test

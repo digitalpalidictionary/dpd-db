@@ -6,7 +6,7 @@ import json
 import pandas as pd
 from rich import print
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords, Sinhala
 from tools.paths import ProjectPaths
 from tools.printer import p_green, p_no, p_title, p_yes
@@ -27,13 +27,13 @@ def main():
 
     for i in si_df.iterrows():
         si_id = i[1][0]
-        si_meaning = i[1][2]
+        meaning_si = i[1][2]
         si_checked = i[1][3]
         db = db_session.query(DpdHeadwords).filter(DpdHeadwords.id == si_id).first()
         if db:
             si_word = Sinhala()
             si_word.id = db.id
-            si_word.si_meaning = si_meaning
+            si_word.meaning_si = meaning_si
             si_word.checked = si_checked
             db_session.add(si_word)
         else:
@@ -41,7 +41,7 @@ def main():
                 si_word = Sinhala()
                 new_id = id_dict[si_id]
                 si_word.id = new_id
-                si_word.si_meaning = si_meaning
+                si_word.meaning_si = meaning_si
                 si_word.checked = si_checked
                 db_session.add(si_word)
                 print(f"[green]id updated from {si_id} to {new_id}")

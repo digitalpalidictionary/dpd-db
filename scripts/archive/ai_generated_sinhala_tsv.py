@@ -8,7 +8,7 @@ import csv
 import re
 from rich.prompt import Prompt
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import write_tsv_list

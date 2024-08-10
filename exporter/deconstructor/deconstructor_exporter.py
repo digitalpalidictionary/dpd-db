@@ -8,7 +8,7 @@ from rich import print
 
 from exporter.goldendict.helpers import TODAY
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import Lookup
 
 from tools.configger import config_test

@@ -6,7 +6,7 @@ import json
 import pandas as pd
 from rich import print
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 
@@ -21,16 +21,16 @@ def main():
     eng_sing_pos_dict = {}
     for i in df.iterrows():
         si_id = i[1][0]
-        si_pos = i[1][4]
-        si_pos_full = i[1][5]
-        if si_pos not in done:
+        pos_si = i[1][4]
+        pos_si_full = i[1][5]
+        if pos_si not in done:
             db = db_session.query(DpdHeadwords.pos).filter(DpdHeadwords.id == si_id).first()
             if db:
                 eng_pos = db[0]
                 eng_sing_pos_dict[eng_pos] = {
-                    "si_pos": si_pos,
-                    "si_pos_full": si_pos_full}
-                done.append(si_pos)
+                    "pos_si": pos_si,
+                    "pos_si_full": pos_si_full}
+                done.append(pos_si)
     
     print(eng_sing_pos_dict)
 

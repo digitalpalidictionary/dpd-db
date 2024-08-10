@@ -4,13 +4,12 @@
 
 import pandas as pd
 import re
-import json
 
 from typing import List
 from pathlib import Path
 from rich import print
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import InflectionTemplates
 from tools.pali_sort_key import pali_list_sorter
 from tools.paths import ProjectPaths

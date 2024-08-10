@@ -9,7 +9,7 @@ import pickle
 from json import loads
 from mako.template import Template
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords
 from db.models import InflectionTemplates
 from db.models import Lookup

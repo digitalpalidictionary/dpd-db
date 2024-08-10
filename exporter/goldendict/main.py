@@ -16,7 +16,7 @@ from export_help import generate_help_html
 
 from helpers import make_roots_count_dict
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
 from tools.cache_load import load_cf_set, load_idioms_set
 from tools.configger import config_read, config_test

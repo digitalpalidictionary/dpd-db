@@ -14,7 +14,7 @@ from books_to_include import limited_texts, all_texts
 from sqlalchemy.orm.session import Session
 
 from db.models import DpdHeadwords
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from tools.cst_sc_text_sets import make_cst_text_set
 from tools.cst_sc_text_sets import make_sc_text_set
 from tools.cst_sc_text_sets import make_other_pali_texts_set

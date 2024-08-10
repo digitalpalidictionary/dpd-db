@@ -9,7 +9,7 @@ so in those cases, just show the actual inflected word itself first, then the de
 import re
 from collections import defaultdict
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords, Lookup
 from tools.paths import ProjectPaths
 from tools.printer import p_counter, p_green, p_green_title, p_title, p_yes

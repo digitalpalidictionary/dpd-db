@@ -3,7 +3,7 @@
 import json
 from rich import print
 from db.models import DpdHeadwords
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
 

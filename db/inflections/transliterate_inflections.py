@@ -20,7 +20,7 @@ import psutil
 from multiprocessing.managers import ListProxy
 from multiprocessing import Process, Manager
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords
 
 from tools.configger import config_test

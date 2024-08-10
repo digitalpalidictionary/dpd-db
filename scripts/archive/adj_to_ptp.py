@@ -3,7 +3,7 @@
 """Convert part of speech - adj to ptp."""
 
 import re
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 

@@ -11,7 +11,7 @@ from rich.prompt import Prompt
 
 from sqlalchemy.orm.session import Session
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords
 from tools.meaning_construction import make_meaning_combo
 from tools.paths import ProjectPaths

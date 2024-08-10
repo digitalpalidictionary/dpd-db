@@ -11,7 +11,7 @@ Export to `TBW2` and `sc-data` repos
 import json
 import shutil
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords, Lookup
 from tools.configger import config_test
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key

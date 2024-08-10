@@ -17,7 +17,7 @@ import psutil
 from multiprocessing.managers import ListProxy
 from multiprocessing import Process, Manager
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import Lookup
 
 from tools.lookup_is_another_value import is_another_value 

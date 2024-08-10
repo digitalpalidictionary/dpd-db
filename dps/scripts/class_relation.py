@@ -5,7 +5,7 @@ import re
 
 from db.models import DpdHeadwords, SBS
 from tools.paths import ProjectPaths
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from rich.console import Console
 from tools.tic_toc import tic, toc
 from typing import Optional

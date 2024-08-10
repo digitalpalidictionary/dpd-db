@@ -16,7 +16,7 @@ from sqlalchemy.orm.session import Session
 from tools.lookup_is_another_value import is_another_value
 from tools.update_test_add import update_test_add
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import Lookup
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc

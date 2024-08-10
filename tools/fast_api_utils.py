@@ -3,14 +3,14 @@ import urllib.parse
 import webbrowser
 
 def start_dpd_server():
-    "uvicorn exporter.dpd_fastapi.main:app --host 127.1.1.1 --port 8080 --reload --reload-dir exporter/dpd_fastapi"
+    "uvicorn exporter.webapp.main:app --host 127.1.1.1 --port 8080 --reload --reload-dir exporter/webapp"
     command = [
         "uvicorn",
-        "exporter.dpd_fastapi.main:app",
+        "exporter.webapp.main:app",
         "--host", "127.1.1.1",
         "--port", "8080",
         "--reload",
-        "--reload-dir", "exporter/dpd_fastapi",]
+        "--reload-dir", "exporter/webapp",]
     subprocess.Popen(command)
 
 

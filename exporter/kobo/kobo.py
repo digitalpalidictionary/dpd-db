@@ -3,7 +3,7 @@
 """Export simplified DPD data for Kobo Reader"""
 from jinja2 import Environment, FileSystemLoader
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords, Lookup
 from tools.cst_sc_text_sets import make_cst_text_set, make_sc_text_set
 from tools.pali_sort_key import pali_sort_key

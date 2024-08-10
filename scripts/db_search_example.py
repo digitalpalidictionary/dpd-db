@@ -2,7 +2,7 @@
 make changes and commit them to the database."""
 
 # these are the imports you will always need
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from tools.paths import ProjectPaths
 
 # if you want to access any table, import its Class here.

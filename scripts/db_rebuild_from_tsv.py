@@ -9,7 +9,7 @@ from rich import print
 
 from sqlalchemy.orm.session import Session
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.db_helpers import create_db_if_not_exists
 from db.models import DpdHeadwords, DpdRoots, Russian, SBS
 from tools.printer import p_green, p_green_title, p_red, p_title, p_yes

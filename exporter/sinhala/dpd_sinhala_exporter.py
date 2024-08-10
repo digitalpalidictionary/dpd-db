@@ -6,7 +6,7 @@ from jinja2 import Environment, FileSystemLoader
 from pathlib import Path
 from sqlalchemy.orm import joinedload
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords
 from tools.date_and_time import year_month_day_dash
 from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables, export_to_goldendict_with_pyglossary
@@ -47,7 +47,7 @@ def main():
         synonyms.append(str(i.id))
         
         dict_entry = DictEntry(
-            word = i.si_lemma,
+            word = i.lemma_si,
             definition_html = html,
             definition_plain = "",
             synonyms = synonyms

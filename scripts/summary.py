@@ -4,7 +4,7 @@
 
 from rich import print
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords, DpdRoots, Lookup
 from tools.configger import config_read, config_update
 from tools.configger import config_test

@@ -11,7 +11,7 @@ from pathlib import Path
 
 from db.models import DpdHeadwords, DpdRoots
 from db.db_helpers import create_db_if_not_exists
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 

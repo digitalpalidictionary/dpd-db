@@ -7,7 +7,7 @@ from rich.console import Console
 
 import os
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths

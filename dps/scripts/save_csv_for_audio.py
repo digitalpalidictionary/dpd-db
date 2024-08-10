@@ -8,7 +8,7 @@ import csv
 import os
 import re
 from db.models import DpdHeadwords, SBS
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from tools.paths import ProjectPaths
 from rich.console import Console
 from dps.tools.paths_dps import DPSPaths

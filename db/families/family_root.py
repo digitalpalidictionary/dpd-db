@@ -12,7 +12,7 @@ from rich import print
 from root_matrix import generate_root_matrix
 from root_info import generate_root_info_html
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdRoots, DpdHeadwords, FamilyRoot, Lookup
 
 from scripts.anki_updater import family_updater

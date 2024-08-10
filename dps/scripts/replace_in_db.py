@@ -8,7 +8,7 @@ from sqlalchemy.orm.attributes import InstrumentedAttribute
 
 from db.models import DpdHeadwords, SBS
 from tools.paths import ProjectPaths
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from rich.console import Console
 
 import re

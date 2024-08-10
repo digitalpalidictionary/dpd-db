@@ -12,7 +12,7 @@ from typing import Dict, List
 from sqlalchemy.orm import Session
 
 from db.models import Russian, SBS, DpdHeadwords
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
 from tools.tic_toc import tic, toc

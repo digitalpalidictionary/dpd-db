@@ -13,7 +13,7 @@ from mako.template import Template
 from sqlalchemy.orm import Session
 from zipfile import ZipFile, ZIP_DEFLATED
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords, DpdRoots, Lookup
 from exporter.goldendict.export_dpd import render_dpd_definition_templ
 from tools.configger import config_test

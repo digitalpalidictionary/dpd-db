@@ -133,7 +133,7 @@ from functions_tests_dps import dps_dpd_db_internal_tests
 from pass2 import pass2_gui, Pass2Data
 from pass2 import start_from_where_gui
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from scripts.backup_dpd_headwords_and_roots import backup_dpd_headwords_and_roots
 from scripts.backup_ru_sbs import backup_ru_sbs
 

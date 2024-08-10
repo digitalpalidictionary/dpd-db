@@ -3,7 +3,7 @@
 from pathlib import Path
 from rich import print
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_dot_dict

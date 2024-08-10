@@ -5,7 +5,7 @@ import tomlkit
 from rich import print
 
 from db.models import DbInfo
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from tools.configger import config_update
 from tools.date_and_time import year_month_day
 from tools.paths import ProjectPaths

@@ -4,7 +4,7 @@
 """Get cf_set and idioms_set from the DbInfo cache."""
 
 import json
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from tools.paths import ProjectPaths
 
 pth = ProjectPaths()

@@ -9,7 +9,7 @@ import pyperclip
 from sqlalchemy import or_
 from rich import print
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords
 
 from tools.db_search_string import db_search_string

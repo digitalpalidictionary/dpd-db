@@ -8,7 +8,7 @@ import pyperclip
 
 from rich import print
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords
 from tools.goldendict_tools import open_in_goldendict
 from tools.paths import ProjectPaths

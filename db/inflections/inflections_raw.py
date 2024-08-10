@@ -4,7 +4,7 @@
 
 import json
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import InflectionTemplates
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths

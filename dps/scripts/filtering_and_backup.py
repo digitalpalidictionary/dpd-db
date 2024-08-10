@@ -9,7 +9,7 @@ from sqlalchemy.orm.session import Session
 import csv
 import os
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords, DpdRoots, Russian, SBS
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths

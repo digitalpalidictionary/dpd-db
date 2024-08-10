@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from rich import print
 
 from db.models import BoldDefinition
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 
 from db.bold_definitions.functions import useless_endings
 from db.bold_definitions.functions import file_list

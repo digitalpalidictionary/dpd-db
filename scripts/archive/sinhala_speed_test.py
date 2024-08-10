@@ -5,7 +5,7 @@
 from rich import print
 from sqlalchemy import outerjoin
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords, Sinhala
 from tools.paths import ProjectPaths
 from tools.printer import p_counter, p_green, p_green_title, p_title
@@ -21,7 +21,7 @@ def test_relationship():
     db = db_session.query(DpdHeadwords).all()
     dict = {}
     for counter, i in enumerate(db):
-        dict[i.si_lemma] = i.si.si_meaning
+        dict[i.lemma_si] = i.si.meaning_si
         if counter % 10000 == 0:
             p_counter(counter, len(db), i.lemma_1)
         if counter == 40000:
@@ -37,7 +37,7 @@ def test_outerjoin():
     db = db_session.query(DpdHeadwords).outerjoin(Sinhala, DpdHeadwords.id == Sinhala.id).all()
     dict = {}
     for counter, i in enumerate(db):
-        dict[i.si_lemma] = i.si.si_meaning
+        dict[i.lemma_si] = i.si.meaning_si
         if counter % 10000 == 0:
             p_counter(counter, len(db), i.lemma_1)
         if counter == 40000:
@@ -54,7 +54,7 @@ def test_joinedload():
     db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.si)).all()
     dict = {}
     for counter, i in enumerate(db):
-        dict[i.si_lemma] = i.si.si_meaning
+        dict[i.lemma_si] = i.si.meaning_si
         if counter % 10000 == 0:
             p_counter(counter, len(db), i.lemma_1)
         if counter == 40000:

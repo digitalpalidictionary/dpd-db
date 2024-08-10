@@ -9,7 +9,7 @@ from rich import print
 from tools.lookup_is_another_value import is_another_value
 
 from tools.tic_toc import tic, toc, bip, bop
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords, Lookup
 from tools.paths import ProjectPaths
 from tools.deconstructed_words import make_words_in_deconstructions

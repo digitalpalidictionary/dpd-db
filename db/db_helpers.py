@@ -1,12 +1,19 @@
 """DB related functions:
 1. Create db if doesn't already exist,
-2. Get column names,
-3. Print column names."""
+2. Create db Session
+3. Get column names,
+4. Print column names.
+"""
+
+import os
+import sys
 
 from pathlib import Path
 from sqlalchemy import create_engine
 from sqlalchemy import inspect
 from sqlalchemy_utils import database_exists
+from sqlalchemy.orm import sessionmaker, Session
+
 from db.models import Base
 
 
@@ -15,6 +22,27 @@ def create_db_if_not_exists(db_path: Path):
     engine = create_engine(f"sqlite+pysqlite:///{db_path}", echo=False)
     if not database_exists(engine.url):
         Base.metadata.create_all(bind=engine)
+
+
+def get_db_session(db_path: Path) -> Session:
+    """Get the db session, used ubiquitously."""
+    if not os.path.isfile(db_path):
+        print(f"Database file doesn't exist: {db_path}")
+        sys.exit(1)
+
+    try:
+        db_eng = create_engine(f"sqlite+pysqlite:///{db_path}", echo=False)
+        # db_conn = db_eng.connect()
+
+        Session = sessionmaker(db_eng)
+        Session.configure(bind=db_eng)
+        db_sess = Session()
+
+    except Exception as e:
+        print(f"Can't connect to database: {e}")
+        sys.exit(1)
+
+    return db_sess
 
 
 def print_column_names(tables_name):

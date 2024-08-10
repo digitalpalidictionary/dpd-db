@@ -5,7 +5,7 @@
 import re
 from sqlalchemy.orm import Session
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords, DpdRoots, Lookup
 from tools.configger import config_test
 from tools.lookup_is_another_value import is_another_value

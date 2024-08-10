@@ -4,7 +4,7 @@
 
 import pandas as pd
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 from tools.printer import p_counter, p_green, p_green_title, p_title, p_yes
@@ -24,10 +24,10 @@ def main():
 
     column_names = [
         "id",
-        "si_lemma",
-        "si_pos",
+        "lemma_si",
+        "pos_si",
         "en_meaning",
-        "si_meaning",
+        "meaning_si",
         "checked" 
     ]
 
@@ -38,17 +38,17 @@ def main():
         if i.si:
             si_data.append((
                 i.id,
-                i.si_lemma,
-                i.si_pos,
+                i.lemma_si,
+                i.pos_si,
                 i.meaning_combo,
-                i.si.si_meaning,
+                i.si.meaning_si,
                 i.si.checked
             ))
         else:
             si_data.append((
                 i.id,
-                i.si_lemma,
-                i.si_pos,
+                i.lemma_si,
+                i.pos_si,
                 i.meaning_combo,
                 "",
                 "✗"

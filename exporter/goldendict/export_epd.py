@@ -8,7 +8,7 @@ from sqlalchemy.orm import joinedload
 from sqlalchemy.orm import Session
 from typing import List, Tuple
 
-from db.get_db_session import get_db_session
+from db.db_helpers import get_db_session
 
 from db.models import DpdHeadwords, DpdRoots
 from tools.pali_sort_key import pali_sort_key

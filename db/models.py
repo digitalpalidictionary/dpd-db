@@ -29,7 +29,7 @@ from tools.pali_sort_key import pali_sort_key
 from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.pos import EXCLUDE_FROM_FREQ
-from tools.sinhala_tools import si_grammar, si_pos, si_pos_full, translit_ro_to_si
+from tools.sinhala_tools import si_grammar, pos_si, pos_si_full, translit_ro_to_si
 
 from dps.tools.sbs_table_functions import SBS_table_tools
 
@@ -698,28 +698,28 @@ class DpdHeadwords(Base):
         return make_lemma_trad(self)
     
     @property
-    def si_lemma(self) -> str:
+    def lemma_si(self) -> str:
         from tools.lemma_traditional import make_lemma_trad_si
         return make_lemma_trad_si(self)
     
     @property
-    def si_plus_case(self) -> str:
+    def plus_case_si(self) -> str:
         return si_grammar(self.plus_case)
     
     @property
-    def si_pos(self) -> str:
-        return si_pos(self.pos)
+    def pos_si(self) -> str:
+        return pos_si(self.pos)
     
     @property
-    def si_pos_full(self) -> str:
-        return si_pos_full(self.pos)
+    def pos_si_full(self) -> str:
+        return pos_si_full(self.pos)
 
     @property
-    def si_meaning(self) -> str:
-        return self.si.si_meaning if self.si else ""
+    def meaning_si(self) -> str:
+        return self.si.meaning_si if self.si else ""
     
     @property
-    def si_construction_summary(self) -> str:
+    def construction_summary_si(self) -> str:
         from tools.meaning_construction import summarize_construction
         construction = summarize_construction(self)
         construction = construction.replace("*", "ṇ")
@@ -1266,11 +1266,11 @@ class Sinhala(Base):
 
     id: Mapped[int] = mapped_column(
         ForeignKey('dpd_headwords.id'), primary_key=True)
-    si_meaning: Mapped[str] = mapped_column(default="")
+    meaning_si: Mapped[str] = mapped_column(default="")
     checked: Mapped[str] = mapped_column(default='')
 
     def __repr__(self) -> str:
-        return f"Sinhala: {self.id} {self.si_meaning}"
+        return f"Sinhala: {self.id} {self.meaning_si}"
 
 
 class BoldDefinition(Base):

@@ -1,5 +1,1 @@
-# db
-Database related code for
-1. Models
-2. Session
-3. Helpers
+please see [docs folder](../docs/project_folder_structure.md)
