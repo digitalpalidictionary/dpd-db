@@ -1,33 +1,22 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-import json
 
-from rich import print
-
-from tools.mdict_exporter import export_to_mdict_old
+from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables
+from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
+from tools.mdict_exporter import export_to_mdict
 from tools.paths import ProjectPaths
-from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.tic_toc import tic, toc
+from tools.printer import p_title, p_green, p_yes
 
-class ProgData():
-    def __init__(self) -> None:
-        self.pth = ProjectPaths()
-        self.data_list: list[dict[str, str]]
+class GlobalVars():
+    pth = ProjectPaths()
+    dict_data: list[DictEntry] = []
 
-        self.bookname = "Sinhala-English English-Sinhala"
-        self.author = "University of Colombo School of Computing"
-        self.description = """Sinhala-English / English-Sinhala Dictionary"""
-        self.website = "https://ucsc.cmb.ac.lk/ltrl/projects/EnSiTip/"
-
-
-
-
-
-def convert_tab_to_dict(g: ProgData):
+def convert_tab_to_dict(g: GlobalVars):
     """Open .tab files and make python dict."""
 
-    data_list = []
+    p_green("english - sinhala")
 
     # english_sinhala
     with open(g.pth.eng_sin_source_path, "r") as f:
@@ -39,12 +28,19 @@ def convert_tab_to_dict(g: ProgData):
                 key, value = line.split("\t", 1)
             except ValueError:
                 pass
-            data_list.append({
-                "word": key,
-                "definition_html": value,
-                "definition_plain": "",
-                "synonyms": ""
-            })
+            
+            dict_entry = DictEntry(
+                word = key,
+                definition_html = value,
+                definition_plain = "",
+                synonyms = []
+            )
+            g.dict_data.append(dict_entry)
+    
+    len_eng_sin = len(g.dict_data)
+    p_yes(len_eng_sin)
+
+    p_green("sinhala - english")
 
     # sinhala_english
     with open(g.pth.sin_eng_source_path, "r") as f:
@@ -56,60 +52,61 @@ def convert_tab_to_dict(g: ProgData):
                 key, value = line.split("\t", 1)
             except ValueError:
                 pass
-            data_list.append({
-                "word": key,
-                "definition_html": value,
-                "definition_plain": "",
-                "synonyms": ""
-            })
 
-    g.data_list = data_list
+            dict_entry = DictEntry(
+                word = key,
+                definition_html = value,
+                definition_plain = "",
+                synonyms = []
+            )
+            g.dict_data.append(dict_entry)
 
-
-def save_json(g: ProgData):
-    """Save as json."""
-    print("[green]saving json")
-    with open(g.pth.sin_eng_sin_json_path, "w") as file:
-        json.dump(g.data_list, file, indent=4, ensure_ascii=False)
+    p_yes(len(g.dict_data)-len_eng_sin)
 
 
-def export_golden_dict(g: ProgData):
-    """Save as goldendict."""
-    print("[green]saving goldendict")
-
-    ifo = ifo_from_opts({
-            "bookname": g.bookname,
-            "author": g.author,
-            "description": g.description,
-            "website": g.website,
-    })
-
-    export_words_as_stardict_zip(
-        g.data_list, ifo, g.pth.sin_eng_sin_gd_path)    # type:ignore
-
-
-def export_mdict(g: ProgData):
-    """Save as mdict"""
-    print("[green]saving mdict")
-
+def export_goldendict_and_mdict(g: GlobalVars):
     
-    export_to_mdict_old(
-        g.data_list,
-        str(g.pth.sin_eng_sin_mdict_path),
-        g.bookname,
-        g.description,
-        h3_header=True)
+    dict_info = DictInfo(
+        bookname = "Sinhala-English English-Sinhala",
+        author = "University of Colombo School of Computing",
+        description = """Sinhala-English / English-Sinhala Dictionary""",
+        website = "https://ucsc.cmb.ac.lk/ltrl/projects/EnSiTip/",
+        source_lang = "si",
+        target_lang = "en",
+    )
+    
+    dict_vars = DictVariables(
+        css_path = None,
+        js_paths = None,
+        gd_path = g.pth.sin_eng_sin_gd_path,
+        md_path = g.pth.sin_eng_sin_mdict_path,
+        dict_name= "si-en-si",
+        icon_path = None,
+        zip_up = True,
+        delete_original = True
+    )
+
+    # save goldendict
+    export_to_goldendict_with_pyglossary(
+        dict_info, 
+        dict_vars,
+        g.dict_data,
+    )
+
+    # save as mdict
+    export_to_mdict(
+        dict_info, 
+        dict_vars,
+        g.dict_data
+    )
 
 
 def main():
     tic()
-    print("[bright_yellow]exporting sinhala-english-sinahal to gd, mdict & json")
-    print("[green]preparing data")
-    g = ProgData()
+    p_title("exporting sinhala-english-sinhala to GoldenDict and MDict")
+    g = GlobalVars()
     convert_tab_to_dict(g)
-    save_json(g)
-    export_golden_dict(g)
-    export_mdict(g)
+    export_goldendict_and_mdict(g)
     toc()
 
 

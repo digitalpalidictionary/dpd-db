@@ -1,32 +1,26 @@
 """Extract PTS PED from Simsapa.
 Export to GoldenDict, MDict and JSON."""
 
-import json
 import sqlite3
 
 from bs4 import BeautifulSoup
-from rich import print
 
 from tools.configger import config_read
-from tools.mdict_exporter import export_to_mdict_old
+from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables
+from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
+from tools.mdict_exporter import export_to_mdict
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.tic_toc import tic, toc
+from tools.printer import p_title, p_green, p_yes
 
 
 class ProgData():
-    def __init__(self) -> None:
-        self.pth = ProjectPaths()
-        self.simsapa_db_path = config_read("simsapa", "db_path")
-        self.simsapa_db: list[tuple[str, str, str]]
-        self.simsapa_data_list: list[dict[str, str]]
-
-        self.bookname = "Simsapa Combined Pali-English Dictionary"
-        self.author = ""
-        self.description = "<h3>Simsapa Combined Pali-English Dictionary</h3><p>Nyanatiloka's Buddhist Dictionary</p><p>Dictionary of Pali Proper Names (DPPN)</p><p>New Concise Pali - English Dictionary (NCPED)</p><p>Pali Text Society Pali - English Dictionary (PTS)</p><p>Reformatted for the <a href='https://github.com/simsapa/simsapa'>Simsapa Dhamma Reader.</a></p><p>Encoded by Bodhirasa 2024.</p>"
-        self.website = "https://simsapa.github.io/"
+    pth = ProjectPaths()
+    simsapa_db_path = config_read("simsapa", "db_path")
+    simsapa_db: list[tuple[str, str, str]]
+    dict_data: list[DictEntry]
 
 
 def extract_simsapa_db_data(g: ProgData):
@@ -36,7 +30,7 @@ def extract_simsapa_db_data(g: ProgData):
     - 10. New Concise Pali - English Dictionary (NCPED)
     - 11. Pali Text Society Pali - English Dictionary (PTS)."""
     
-    print("[green]querying simspa db")
+    p_green("querying simspa db")
 
     if g.simsapa_db_path:
         conn = sqlite3.connect(g.simsapa_db_path)
@@ -52,23 +46,12 @@ def extract_simsapa_db_data(g: ProgData):
         simsapa_db = sorted(simsapa_db, key=lambda x: pali_sort_key(x[0]))
 
     g.simsapa_db = simsapa_db
-
-def main():
-    tic()
-    print("[bright_yellow]exporting Simsapa Combined to GoldenDict, MDict and JSON")
-    g = ProgData()
-    extract_simsapa_db_data(g)
-    make_data_list(g)
-    save_json(g)
-    save_goldendict(g)
-    save_mdict(g)
-    toc()
+    p_yes(len(simsapa_db))
 
 
 def make_data_list(g: ProgData):
-
-    print("[green]making data list")
-    simsapa_data_list = []
+    p_green("making data list")
+    dict_data: list[DictEntry] = []
     processed_headwords = set()
 
     index = 0
@@ -112,52 +95,64 @@ def make_data_list(g: ProgData):
             if "ṃ" in headword:
                 synonyms_comp.update(add_niggahitas([headword], all=False))
 
-            simsapa_data_list.append({
-                "word": headword, 
-                "definition_html": html_comp,
-                "definition_plain": "",
-                "synonyms": list(synonyms_comp)           
-                })
+            dict_entry = DictEntry(
+                word = headword,
+                definition_html = html_comp,
+                definition_plain = "",
+                synonyms = list(synonyms_comp)
+            )
+            dict_data.append(dict_entry)
 
-    # sort into pali alphabetical order
-    simsapa_data_list = sorted(simsapa_data_list, key=lambda x: pali_sort_key(x["word"]))
-    g.simsapa_data_list = simsapa_data_list
-
-
-def save_json(g: ProgData):
-    """save as json"""
-    print("[green]saving json")
-    
-    with open(g.pth.simsapa_json_path, "w") as file:
-        json.dump(g.simsapa_data_list, file, indent=4, ensure_ascii=False)
+    g.dict_data = dict_data
+    p_yes(len(dict_data))
 
 
-def save_goldendict(g: ProgData):
+def save_goldendict_and_mdict(g: ProgData):
     """Save as Goldendict"""
-    print("[green]saving goldendict")
-
-    ifo = ifo_from_opts({
-            "bookname": g.bookname,
-            "author": g.author,
-            "description": g.description,
-            "website": g.website
-            })
-
-    export_words_as_stardict_zip(g.simsapa_data_list, ifo, g.pth.simsapa_gd_path) #type:ignore
-
-
-def save_mdict(g: ProgData):
-    """Save as mdict"""
-    print("[green]saving mdict")
-
-    output_file = str(g.pth.simsapa_mdict_path)
     
-    export_to_mdict_old(
-        g.simsapa_data_list,
-        output_file,
-        g.bookname,
-        g.description)
+    dict_info = DictInfo(
+        bookname = "Simsapa Combined Pali-English Dictionary",
+        author = "",
+        description = "<h3>Simsapa Combined Pali-English Dictionary</h3><p>Nyanatiloka's Buddhist Dictionary</p><p>Dictionary of Pali Proper Names (DPPN)</p><p>New Concise Pali - English Dictionary (NCPED)</p><p>Pali Text Society Pali - English Dictionary (PTS)</p><p>Reformatted for the <a href='https://github.com/simsapa/simsapa'>Simsapa Dhamma Reader.</a></p><p>Encoded by Bodhirasa 2024.</p>",
+        website = "https://simsapa.github.io/",
+        source_lang = "pa",
+        target_lang = "en",
+    )
+    
+    dict_vars = DictVariables(
+        css_path = None,
+        js_paths = None,
+        gd_path = g.pth.simsapa_gd_path,
+        md_path = g.pth.simsapa_mdict_path,
+        dict_name= "simsapa",
+        icon_path = None,
+        zip_up = True,
+        delete_original = True
+    )
 
+    # save goldendict
+    export_to_goldendict_with_pyglossary(
+        dict_info, 
+        dict_vars,
+        g.dict_data,
+    )
+
+    # save as mdict
+    export_to_mdict(
+        dict_info, 
+        dict_vars,
+        g.dict_data
+    )
+
+
+def main():
+    tic()
+    p_title("exporting Simsapa Combined to GoldenDict and MDict")
+    g = ProgData()
+    extract_simsapa_db_data(g)
+    make_data_list(g)
+    save_goldendict_and_mdict(g)
+    toc()
 
 if __name__ == "__main__":
     main()

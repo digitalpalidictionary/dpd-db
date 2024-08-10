@@ -9,13 +9,12 @@ import sqlite3
 
 from rich import print
 
-from tools.mdict_exporter import export_to_mdict_old
+from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables
+from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
+from tools.mdict_exporter import export_to_mdict
 from tools.niggahitas import add_niggahitas
-from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from tools.stardict import export_words_as_stardict_zip, ifo_from_opts
 from tools.tic_toc import tic, toc
-
 
 
 def extract_peu_from_tpr_database():
@@ -31,6 +30,7 @@ def extract_peu_from_tpr_database():
     peu_data = c.fetchall()
 
     return peu_data
+
 
 def extract_peu_from_data_dump():
     """Latest data from https://pm12e.pali.tools/dump"""
@@ -48,12 +48,14 @@ def extract_peu_from_data_dump():
 
 def main():
     tic()
-    print("[bright_yellow]extracting peu data from tpr db")
+    print("[bright_yellow]extracting peu data from TPR db")
 
     pth = ProjectPaths()
     peu_data = extract_peu_from_tpr_database()
 
-    peu_data_list = []
+    # peu_data_list = []
+    dict_data: list[DictEntry] = []
+
     for i in peu_data:
         headword, html, book_id = i
         headword = headword.replace("ṁ", "ṃ")
@@ -63,50 +65,53 @@ def main():
             synonyms = add_niggahitas([headword])
         else:
             synonyms = []
-
-        peu_data_list.append({
-            "word": headword, 
-            "definition_html": html,
-            "definition_plain": "",
-            "synonyms": synonyms            
-            })
-
-    # sort into pali alphabetical order
-    peu_data_list = sorted(peu_data_list, key=lambda x: pali_sort_key(x["word"]))
-
-    # save as json
-    print("[green]saving json")
-    with open(pth.peu_json_path, "w") as file:
-        json.dump(peu_data_list, file, indent=4, ensure_ascii=False)
+        
+        dict_entry = DictEntry(
+            word = headword,
+            definition_html = html,
+            definition_plain = "",
+            synonyms = synonyms
+        )
+        dict_data.append(dict_entry)
 
     # save as goldendict
     print("[green]saving goldendict")
 
-    # TODO find out more details, website etc
+    dict_info = DictInfo(
+        bookname = "Pali English Ultimate",
+        author = "Pali Myanmar Abhidhan",
+        description = """<h3>Pali Myanmar Abhidhan</h3><p>Pali Myanmar Abhidhan is the world's largest Pali dictionary, a massive 23 volumes, with more than 200 000 words, a complete reference guide to the language of the root texts and commentaries.</p><p>There is a project underway to translate this into English, currently at about 80% human translated, the remainder is by Google.</p><p><a href='https://pm12e.pali.tools/'>Project Website</a></p><p>This dictionary can be found in the Tipitaka Pali Projector project on <a href='https://github.com/bksubhuti/Tipitaka-Pali-Projector'>Github</a></p><p>Encoded by Bodhirasa 2024.</p>""",
+        website = "https://pm12e.pali.tools/",
+        source_lang = "pa",
+        target_lang = "en",
+    )
+    
+    dict_vars = DictVariables(
+        css_path = None,
+        js_paths = None,
+        gd_path = pth.peu_gd_path,
+        md_path = pth.peu_mdict_path,
+        dict_name= "peu",
+        icon_path = None,
+        zip_up=True,
+        delete_original=True
+    )
 
-    bookname = "Pāḷi Myanmar Abhidhan"
-    author = "Pāḷi Myanmar Abhidhan"
-    description = "<h3>Pali Myanmar Abhidhan</h3><p>Pali Myanmar Abhidhan is the world's largest Pali dictionary, a massive 23 volumes, with more than 200 000 words, a complete reference guide to the language of the root texts and commentaries.</p><p>There is a project underway to translate this into English, currently at about 80% human translated, the remainder is by Google.</p><p><a href='https://pm12e.pali.tools/'>Project Website</a></p><p>This dictionary can be found in the Tipitaka Pali Projector project on <a href='https://github.com/bksubhuti/Tipitaka-Pali-Projector'>Github</a></p><p>Encoded by Bodhirasa 2024.</p>"
-    website = ""
-
-    ifo = ifo_from_opts({
-            "bookname": bookname,
-            "author": author,
-            "description": description,
-            "website": website
-            })
-
-    export_words_as_stardict_zip(peu_data_list, ifo, pth.peu_gd_path)
+    export_to_goldendict_with_pyglossary(
+        dict_info, 
+        dict_vars,
+        dict_data, 
+        zip_synonyms=False
+    )
 
     # save as mdict
     print("[green]saving mdict")
-    output_path = str(pth.peu_mdict_path)
 
-    export_to_mdict_old(
-        peu_data_list,
-        output_path,
-        bookname,
-        description)
+    export_to_mdict(
+        dict_info, 
+        dict_vars,
+        dict_data
+    )
 
     toc()
 

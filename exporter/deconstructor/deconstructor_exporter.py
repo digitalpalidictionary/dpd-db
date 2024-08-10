@@ -19,7 +19,7 @@ from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.tic_toc import tic, toc, bip, bop
 from tools.goldendict_exporter import DictEntry
 from tools.goldendict_exporter import DictInfo, DictVariables, export_to_goldendict_with_pyglossary
-from tools.mdict_exporter2 import export_to_mdict
+from tools.mdict_exporter import export_to_mdict
 
 from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
 from tools.utils import squash_whitespaces

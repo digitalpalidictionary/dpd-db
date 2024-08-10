@@ -10,7 +10,7 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadwords
 from tools.date_and_time import year_month_day_dash
 from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables, export_to_goldendict_with_pyglossary
-from tools.mdict_exporter2 import export_to_mdict
+from tools.mdict_exporter import export_to_mdict
 from tools.paths import ProjectPaths
 from tools.printer import p_counter, p_green, p_green_title, p_title, p_yes
 from tools.tic_toc import tic, toc

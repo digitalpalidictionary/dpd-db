@@ -22,7 +22,7 @@ from tools.deconstructed_words import make_words_in_deconstructions
 from tools.goldendict_exporter import DictInfo, DictVariables, DictEntry
 from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
 from tools.lookup_is_another_value import is_another_value
-from tools.mdict_exporter2 import export_to_mdict
+from tools.mdict_exporter import export_to_mdict
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths

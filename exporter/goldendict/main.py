@@ -22,7 +22,7 @@ from tools.cache_load import load_cf_set, load_idioms_set
 from tools.configger import config_read, config_test
 from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables
 from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
-from tools.mdict_exporter2 import export_to_mdict
+from tools.mdict_exporter import export_to_mdict
 from tools.paths import ProjectPaths
 from tools.printer import p_green, p_green_title, p_title, p_yes
 from tools.sandhi_contraction import make_sandhi_contraction_dict

@@ -4,7 +4,7 @@ import re
 
 from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
 from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables
-from tools.mdict_exporter2 import export_to_mdict
+from tools.mdict_exporter import export_to_mdict
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.printer import p_counter, p_green, p_green_title, p_red, p_title, p_yes

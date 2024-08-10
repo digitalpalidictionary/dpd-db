@@ -9,7 +9,8 @@ from tools.tic_toc import bip, tic, toc
 
 
 def main():
-    """Export Ven. Ānandajoti's ABT Glossary to Goldendict"""
+    """Export Ven. Ānandajoti's Ancient BUddhist Texts Glossary to Goldendict"""
+
     tic()
     p_title("exporting ancient buddhist texts glossary")
     
@@ -62,7 +63,11 @@ def main():
 
 
     export_to_goldendict_with_pyglossary(
-        dict_info, dict_vars, dict_data, zip_synonyms=False)
+        dict_info, 
+        dict_vars,
+        dict_data, 
+        zip_synonyms=False
+    )
 
     toc()
         
