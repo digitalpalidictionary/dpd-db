@@ -2438,20 +2438,19 @@ def main():
         
         # length of examples must be less than 300
 
-        if len(values["example_1"]) > 250:
+        if len(values["example_1"]) > 280:
             window["example_1"].update(text_color="red")
             
-        elif len(values["example_1"]) <= 250:
-            window["example_1"].update(text_color="white")
-            window["update_db_button1"].update(button_color="steel blue")
+        elif len(values["example_1"]) <= 280:
+            window["example_1"].update(text_color="darkgray")
         
-        if len(values["example_2"]) > 250:
+        if len(values["example_2"]) > 280:
             window["example_2"].update(text_color="red")
             
-        elif len(values["example_2"]) <= 250:
-            window["example_2"].update(text_color="white")
+        elif len(values["example_2"]) <= 280:
+            window["example_2"].update(text_color="darkgray")
             
-        if len(values["example_1"]) > 250 or len(values["example_2"]) > 250:
+        if len(values["example_1"]) > 280 or len(values["example_2"]) > 280:
             window["update_db_button1"].update(button_color="red")
         else:
             window["update_db_button1"].update(button_color="steel blue")

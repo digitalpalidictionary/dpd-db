@@ -17,6 +17,7 @@ from tools.clean_machine import clean_machine
 from tools.pali_text_files import sc_texts, cst_texts, bjt_texts
 from tools.pali_text_files import mula_books, all_books
 from tools.paths import ProjectPaths
+from tools.printer import p_green, p_yes
 
 
 def make_cst_text_set(
@@ -33,7 +34,7 @@ def make_cst_text_set(
     - Optionally add the parts of hyphenated word (add_hyphenated_parts=True)
     - Return a disordered set.
     """
-
+    p_green("making cst text set")
     cst_texts_list: List[str] = []
 
     for i in books:
@@ -71,6 +72,7 @@ def make_cst_text_set(
                 for h_word in hyphenated_words.__reversed__():
                     words_list.insert(index + 1, h_word)
     
+    p_yes(len(set(words_list)))
     return set(words_list)
 
 
@@ -250,6 +252,8 @@ def make_sc_text_set(
     Optionally change the niggahita character.
     Return a list or a set."""
 
+    p_green("making sc text set")
+
     # make a list of file names of included books
     sc_texts_list: List[str] = []
     for i in books:
@@ -257,7 +261,7 @@ def make_sc_text_set(
             if sc_texts[i]:
                 sc_texts_list += sc_texts[i]
         except KeyError as e:
-            print(f"[red]book does not exist: {e}")
+            p_red(f"book does not exist: {e}")
             return set()
 
     words_list: List[str] = []
@@ -272,6 +276,7 @@ def make_sc_text_set(
                         clean_text = clean_machine(text, niggahita=niggahita)
                         words_list.extend(clean_text.split())
     
+    p_yes(len(set(words_list)))
     return set(words_list)
 
 
@@ -295,7 +300,7 @@ def make_sc_text_list(
             if sc_texts[i]:
                 sc_texts_list += sc_texts[i]
         except KeyError as e:
-            print(f"[red]book does not exist: {e}")
+            p_red(f"book does not exist: {e}")
             return []
 
     words_list: List[str] = []
@@ -327,7 +332,9 @@ def make_bjt_text_set(
         include: List[str]
 ) -> Set[str]:
     
-    """This is not currently used. BJT texts are an unedit digital mess."""
+    """This is not currently used."""
+
+    p_green("make bjt text set")
     bjt_texts_list: List[str] = []
     for i in include:
         if bjt_texts[i]:
@@ -342,7 +349,7 @@ def make_bjt_text_set(
     bjt_text_string = clean_machine(bjt_text_string)
     bjt_text_set = set(bjt_text_string.split())
 
-    print(f"[white]{len(bjt_text_set):>10,}")
+    p_yes(len(bjt_text_set)
     return bjt_text_set
 
 
@@ -368,6 +375,8 @@ def make_all_words_set(pth: ProjectPaths) -> Set[str]:
 
 def make_other_pali_texts_set(pth: ProjectPaths) -> Set[str]:
     """Compile a set of all words in other pali texts, chanting books, etc."""
+
+    p_green("making set of other pali texts")
     other_pali_texts_set: Set[str] = set()
 
     dir_path = pth.other_pali_texts_dir
@@ -379,6 +388,7 @@ def make_other_pali_texts_set(pth: ProjectPaths) -> Set[str]:
                 text_string = clean_machine(text_string)
                 other_pali_texts_set.update(text_string.split())
 
+    p_yes(len(other_pali_texts_set))
     return other_pali_texts_set
 
 

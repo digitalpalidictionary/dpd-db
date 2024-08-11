@@ -47,7 +47,19 @@ class DictInfo():
 
 
 class DictVariables():
-    """All relevant dictionary variables."""
+    """All relevant dictionary variables.
+    Usage:
+    dict_vars = DictVariables(
+        css_path = css_path,
+        js_paths = js_paths,
+        gd_path = gd_path,
+        md_path = md_path,
+        dict_name = dict_name,
+        icon_path = None,
+        zip_up = False,
+        delete_original = False,
+    """
+    
     def __init__(
             self,
             css_path: Optional[Path],
@@ -60,20 +72,6 @@ class DictVariables():
             delete_original: bool = False,
     ) -> None:
         
-        """
-        Usage.
-
-        dict_vars = DictVariables(
-            css_path = css_path,
-            js_paths = js_paths,
-            gd_path = gd_path,
-            md_path = md_path,
-            dict_name = dict_name,
-            icon_path = None,
-            zip_up = False,
-            delete_original = False,
-        """
-        
         self.css_path: Optional[Path] = css_path
         self.js_paths: Optional[list[Path]] = js_paths
         
@@ -84,6 +82,10 @@ class DictVariables():
                 .with_suffix(".ifo")
         self.synfile: Path = self.gd_path_name.with_suffix(".syn")
         self.synfile_zip: Path = self.synfile.with_suffix(".syn.dz")
+
+        self.slob_path_name: Path = gd_path \
+            .joinpath(dict_name) \
+            .with_suffix(".slob")
         
         self.mdict_mdx_path: Path = md_path \
                 .joinpath(f"{dict_name}-mdict") \
@@ -122,12 +124,21 @@ def export_to_goldendict_with_pyglossary(
     dict_info: DictInfo,
     dict_var: DictVariables,
     dict_data: list[DictEntry],
-    zip_synonyms: bool = True
+    zip_synonyms: bool = True,
+    include_slob=False
 ) -> None:
-    
-    """Export to GoldenDict using Pyglossary."""
-    p_green_title("exporting to goldendict with pyglossary")
 
+    """Usage:
+    export_to_goldendict_with_pyglossary(
+        dict_info,
+        dict_var,
+        dict_data,
+        zip_synonyms = True,
+        include_slob = False
+    )
+    """
+
+    p_green_title("exporting to goldendict with pyglossary")
     glos = create_glossary(dict_info)
     glos = add_css(glos, dict_var)
     glos = add_js(glos, dict_var)
@@ -141,12 +152,14 @@ def export_to_goldendict_with_pyglossary(
         zip_folder(dict_var)
     if dict_var.delete_original:
         delete_original(dict_var)
+    if include_slob:
+        write_to_slob(glos, dict_var)
 
 
 def create_glossary(dict_info: DictInfo) -> Glossary:
     """Create Glossary."""
+    
     p_white("creating glossary")
-
     Glossary.init()
     glos = Glossary(info={
         "bookname": dict_info.bookname,
@@ -163,8 +176,8 @@ def create_glossary(dict_info: DictInfo) -> Glossary:
 
 def add_css(glos: Glossary, dict_var: DictVariables) -> Glossary:
     """Add CSS file."""
-    p_white("adding css")
     
+    p_white("adding css")
     if dict_var.css_path and dict_var.css_path.exists():
         with open(dict_var.css_path, "rb") as f:
             css = f.read()
@@ -179,8 +192,8 @@ def add_css(glos: Glossary, dict_var: DictVariables) -> Glossary:
 
 def add_js(glos: Glossary, dict_var: DictVariables) -> Glossary:
     """Add JS file."""
-    p_white("adding js")
     
+    p_white("adding js")
     if dict_var.js_paths:
         for js_path in dict_var.js_paths:
             if js_path and js_path.exists():
@@ -197,8 +210,8 @@ def add_js(glos: Glossary, dict_var: DictVariables) -> Glossary:
 
 def add_data(glos: Glossary, dict_data: list[DictEntry]) -> Glossary:
     """Add dictionary data to glossary."""
-    p_white("compiling data")
     
+    p_white("compiling data")
     for d in dict_data:
         glos.addEntry(
             glos.newEntry(
@@ -212,8 +225,8 @@ def add_data(glos: Glossary, dict_data: list[DictEntry]) -> Glossary:
 
 def write_to_file(glos: Glossary, dict_var: DictVariables) -> None:
     """Write output files."""
-    p_white("writing goldendict file")
     
+    p_white("writing goldendict file")
     glos.write(
         filename=str(dict_var.gd_path_name),
         format="Stardict",
@@ -225,8 +238,23 @@ def write_to_file(glos: Glossary, dict_var: DictVariables) -> None:
     p_yes("ok")
 
 
+def write_to_slob(glos: Glossary, dict_var: DictVariables) -> None:
+    """Write to slob format files."""
+    
+    p_white("writing slob file")
+    glos.write(
+        filename=str(dict_var.slob_path_name),
+        format="Aard2Slob",
+        compression="", # "", "bz2", "zlib", "lzma2"
+        content_type="text/html; charset=utf-8",
+        word_title=True
+    )
+    p_yes("ok")
+
+
 def zip_synfile(dict_var: DictVariables) -> None:
     """ Compress .syn file into dictzip format """
+    
     p_white("synzip")
     try:
         with open(dict_var.synfile, "rb") as input_f, open(dict_var.synfile_zip, 'wb') as output_f:
@@ -243,11 +271,10 @@ def zip_synfile(dict_var: DictVariables) -> None:
         p_no("no")
 
 
-
 def add_icon(v: DictVariables) -> None:
     """Copy the icon if provided."""
-    p_white("copying icon")
     
+    p_white("copying icon")
     if v.icon_source_path is not None:
         if v.icon_source_path.exists():
             try:
@@ -262,8 +289,8 @@ def add_icon(v: DictVariables) -> None:
 
 def copy_dir(v: DictVariables) -> None:
     "Copy to Goldendict dir "
+    
     p_white("copying to GoldenDict dir")
-
     goldendict_pth: (Path |str) = make_goldendict_path()
     if goldendict_pth:
         if goldendict_pth.exists():
@@ -279,9 +306,8 @@ def copy_dir(v: DictVariables) -> None:
 
 def zip_folder(dict_var: DictVariables):
     """Zip up the gd and md files."""
+    
     p_white("zipping directory")
-
-    # zip goldendict 
     with ZipFile(dict_var.gd_zip_path, "w", ZIP_DEFLATED) as zipf:
         for root, dirs, files in os.walk(dict_var.gd_path):
             for file in files:
@@ -295,15 +321,9 @@ def delete_original(dict_var: DictVariables):
     """Delete the original output folder"""
 
     p_white("deleting folder")
-
     try:
         shutil.rmtree(dict_var.gd_path)
         p_yes("ok")
     except Exception as e:
         p_no("error")
         p_red(e)
-        
-
-
-
-    

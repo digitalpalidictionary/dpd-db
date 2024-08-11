@@ -97,5 +97,5 @@ it allows:
 
 - db/frequency/mapmaker.py
 
-- exporter/kindle/ebook_exporter.py
+- exporter/kindle/kindle_exporter.py
 

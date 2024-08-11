@@ -13,11 +13,14 @@ db/bold_definitions/bold_definitions.json
 db/bold_definitions/bold_definitions.tsv
 db/deconstructor/assets/
 db/deconstructor/do_output.zip
+db/deconstructor/output_do_old.zip
 db/deconstructor/output_do_old/
 db/deconstructor/output_do.zip
 db/deconstructor/output_do/
 db/deconstructor/output/
 db/frequency/output/
+db/sinhala/dpd sinhala 1.1.xlsx
+db/sinhala/dpd sinhala 1.2.xlsx
 definitions/
 dpd.db-journal
 dpd/
@@ -26,6 +29,12 @@ dps/backup
 dps/csvs
 dps/exporter_ru/share/
 dps/tools/config.py
+exporter/goldendict/javascript/family_compound_json.js
+exporter/goldendict/javascript/family_idiom_json.js
+exporter/goldendict/javascript/family_root_json.js
+exporter/goldendict/javascript/family_set_json.js
+exporter/goldendict/javascript/family_word_json.js
+exporter/grammar_dict/output/
 exporter/kindle/epub/OEBPS/content.opf
 exporter/kindle/epub/OEBPS/Text/0_a.xhtml
 exporter/kindle/epub/OEBPS/Text/1_a.xhtml
@@ -71,21 +80,6 @@ exporter/kindle/epub/OEBPS/Text/9_kh.xhtml
 exporter/kindle/epub/OEBPS/Text/abbreviations.xhtml
 exporter/kindle/epub/OEBPS/Text/titlepage.xhtml
 exporter/kindle/output/
-exporter/grammar_dict/output/
-exporter/other_dictionaries/code/cone/bulk_dump_html.html
-exporter/other_dictionaries/code/cone/cone-gd.zip
-exporter/other_dictionaries/code/cone/cone-mdict.mdd
-exporter/other_dictionaries/code/cone/cone-mdict.mdx
-exporter/other_dictionaries/code/cone/cone-mdict.zip
-exporter/other_dictionaries/code/cone/cone/
-exporter/other_dictionaries/code/cone/Dictionary of Pāli by Margaret Cone/
-exporter/other_dictionaries/code/cone/source/cone_dict.json
-exporter/other_dictionaries/code/cone/source/cone_front_matter.json
-exporter/other_dictionaries/code/cpd/output
-exporter/other_dictionaries/code/peu/source/peu_dump_2024_02_16.js
-exporter/other_dictionaries/goldendict/
-exporter/other_dictionaries/json/
-exporter/other_dictionaries/mdict/
 exporter/kindle/ru_componentskindlek/epub/OEBPS/content.opf
 exporter/kindle/ru_componentskindlek/epub/OEBPS/Text/0_a.xhtml
 exporter/kindle/ru_componentskindlek/epub/OEBPS/Text/1_a.xhtml
@@ -130,21 +124,39 @@ exporter/kindle/ru_componentskindlek/epub/OEBPS/Text/8_k.xhtml
 exporter/kindle/ru_componentskindlek/epub/OEBPS/Text/9_kh.xhtml
 exporter/kindle/ru_componentskindlek/epub/OEBPS/Text/abbreviations.xhtml
 exporter/kindle/ru_componentskindlek/epub/OEBPS/Text/titlepage.xhtml
+exporter/other_dictionaries/code/cone/bulk_dump_html.html
+exporter/other_dictionaries/code/cone/cone-gd.zip
+exporter/other_dictionaries/code/cone/cone-mdict.mdd
+exporter/other_dictionaries/code/cone/cone-mdict.mdx
+exporter/other_dictionaries/code/cone/cone-mdict.zip
+exporter/other_dictionaries/code/cone/cone/
+exporter/other_dictionaries/code/cone/Dictionary of Pāli by Margaret Cone/
+exporter/other_dictionaries/code/cone/source/cone_dict.json
+exporter/other_dictionaries/code/cone/source/cone_front_matter.json
+exporter/other_dictionaries/code/cpd/output
+exporter/other_dictionaries/code/peu/source/peu_dump_2024_02_16.js
+exporter/other_dictionaries/goldendict/
+exporter/other_dictionaries/json/
+exporter/other_dictionaries/mdict/
 exporter/share/
+exporter/sinhala/dpd sinhala test 1.1.xlsx
 exporter/tpr/output/
 gui/icons/
 gui/stash/
 gui/window_layout.py
 resources/thai_mahachula/
+resources/tipitaka.lk/
 sandhi.zip
-share/changed_headwords
-share/changed_templates
-share/headword_stem_pattern_dict
-share/inflection_templates
-share/inflections_from_translit.json
-share/inflections_to_translit.json
-share/lookup_from_translit.json
-share/lookup_to_translit.json
+scracthpad.ipynb
+shared_data/changed_headwords
+shared_data/changed_templates
+shared_data/headword_stem_pattern_dict
+shared_data/headword_stem_pattern_dict
+shared_data/inflection_templates
+shared_data/inflections_from_translit.json
+shared_data/inflections_to_translit.json
+shared_data/lookup_from_translit.json
+shared_data/lookup_to_translit.json
 temp/
 tests/add_synonym_variant_exceptions
 tests/add_word_family_exceptions
@@ -153,17 +165,6 @@ tests/test_theragatha_filler
 time_log.dat
 time_log.png
 tmp/
-db/deconstructor/output_do_old.zip
-exporter/goldendict/javascript/family_compound_json.js
-exporter/goldendict/javascript/family_idiom_json.js
-exporter/goldendict/javascript/family_root_json.js
-exporter/goldendict/javascript/family_set_json.js
-exporter/goldendict/javascript/family_word_json.js
-exporter/sinhala/dpd sinhala test 1.1.xlsx
-scracthpad.ipynb
-db/sinhala/dpd sinhala 1.1.xlsx
-db/sinhala/dpd sinhala 1.2.xlsx
-resources/tipitaka.lk/
 exporter/kindle/epub/OEBPS/content.opf
 exporter/kindle/epub/OEBPS/Text/0_a.xhtml
 exporter/kindle/epub/OEBPS/Text/1_a.xhtml

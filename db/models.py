@@ -23,7 +23,6 @@ from sqlalchemy.orm import declared_attr
 from sqlalchemy.orm import object_session
 from sqlalchemy.sql import func
 
-from tools.cache_load import load_cf_set, load_idioms_set
 from tools.link_generator import generate_link
 from tools.pali_sort_key import pali_sort_key
 from tools.pos import CONJUGATIONS
@@ -933,10 +932,12 @@ class DpdHeadwords(Base):
 
     @property
     def cf_set(self) -> set[str]:
+        from tools.cache_load import load_cf_set
         return load_cf_set()
 
     @property
     def idioms_set(self) -> set[str]:
+        from tools.cache_load import load_idioms_set
         return load_idioms_set( )
     
     @property
@@ -1266,11 +1267,11 @@ class Sinhala(Base):
 
     id: Mapped[int] = mapped_column(
         ForeignKey('dpd_headwords.id'), primary_key=True)
-    meaning_si: Mapped[str] = mapped_column(default="")
+    si_meaning: Mapped[str] = mapped_column(default="")
     checked: Mapped[str] = mapped_column(default='')
 
     def __repr__(self) -> str:
-        return f"Sinhala: {self.id} {self.meaning_si}"
+        return f"Sinhala: {self.id} {self.si_meaning}"
 
 
 class BoldDefinition(Base):

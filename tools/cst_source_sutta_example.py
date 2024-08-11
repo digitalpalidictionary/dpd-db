@@ -2182,7 +2182,7 @@ def ap_abhidhanapadipika(g: GlobalData):
     # kaṇḍa         <p rend="chapter">1. Saggakaṇḍa</p>
     # vagga         <p rend="title">1. Bhūmivagga</p>
 
-    book = "AP"
+    book = "APP"
     x = g.x
 
     if x["rend"] == "subhead":

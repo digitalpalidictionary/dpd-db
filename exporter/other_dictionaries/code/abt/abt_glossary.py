@@ -66,7 +66,8 @@ def main():
         dict_info, 
         dict_vars,
         dict_data, 
-        zip_synonyms=False
+        zip_synonyms=False,
+        include_slob=True
     )
 
     toc()
