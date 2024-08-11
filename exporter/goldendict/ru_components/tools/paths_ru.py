@@ -38,6 +38,7 @@ class RuPaths:
 
         # /goldendict/ru_components/javascript/
         self.main_js_path = base_dir / "exporter/goldendict/ru_components/javascript/ru_main.js"
+        self.buttons_js_path = base_dir / "exporter/goldendict/javascript/buttons.js"
 
         self.family_compound_json = base_dir / "exporter/goldendict/ru_components/javascript/ru_family_compound_json.js"
         self.family_idiom_json = base_dir / "exporter/goldendict/ru_components/javascript/ru_family_idiom_json.js"

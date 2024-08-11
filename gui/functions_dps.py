@@ -851,6 +851,8 @@ def ru_check_spelling(dpspth, field, error_field, values, window):
         num_lines = min(len(correction.split('\n')), 5)
         window[error_field].set_size((50, num_lines))  # Adjust the size of the Text element based on the number of lines
         window[error_field].update(correction)
+        window["messages"].update(value="ru spelling", text_color="red")
+
     else:
         window[error_field].set_size((50, 1))  # Reset to default size
         window[error_field].update("")
