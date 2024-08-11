@@ -2524,7 +2524,7 @@ var family_set_json = {
     "dhātu 8",
     "masc",
     "(gram) verbal root",
-    "~"
+    "✓"
    ],
    [
     "dhātugaṇa",
@@ -4333,6 +4333,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "saddattha",
+    "masc",
+    "(gram) meaning of a word",
+    "✓"
+   ],
+   [
     "saddalopa",
     "masc",
     "(gram) elision of a word",
@@ -4819,7 +4825,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 779
+  "count": 780
  },
  "prefixes": {
   "data": [
@@ -7898,7 +7904,7 @@ var family_set_json = {
    ],
    [
     "catusaccabuddha",
-    "masc",
+    "adj",
     "who has understood the four truths; epithet of an arahant",
     "✓"
    ],
@@ -9719,7 +9725,7 @@ var family_set_json = {
    [
     "uparāja",
     "masc",
-    "viceroy; crown prince",
+    "viceroy; crown prince; lit. near king",
     "✓"
    ],
    [
@@ -22132,6 +22138,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "vinatā 2",
+    "fem",
+    "name of a river; lit. bent; bowed",
+    "✓"
+   ],
+   [
     "vetaraṇī",
     "fem",
     "name of a river in hell; lit. crossing over",
@@ -22198,7 +22210,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 37
+  "count": 38
  },
  "names of ascetics": {
   "data": [
@@ -23090,6 +23102,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "dhataraṭṭha 1",
+    "masc",
+    "name of one of the four great kings; ruler of the east; lit. help up the kingdom",
+    "✓"
+   ],
+   [
     "nanda 1",
     "masc",
     "name of a deity; lit. happy",
@@ -23468,6 +23486,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "vinatā 1",
+    "fem",
+    "mother of the Garuda race; lit. bent; bowed",
+    "✓"
+   ],
+   [
     "virūḷha 2",
     "masc",
     "name of one of the Four Great Kings; lit. grown; developed; increased",
@@ -23520,6 +23544,12 @@ var family_set_json = {
     "masc",
     "name of a group of deities",
     "~"
+   ],
+   [
+    "venateyya",
+    "masc",
+    "descendant of Vinatā",
+    "✓"
    ],
    [
     "vessavaṇa",
@@ -23762,7 +23792,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 175
+  "count": 178
  },
  "animals": {
   "data": [
@@ -23960,6 +23990,12 @@ var family_set_json = {
    ],
    [
     "dīpi",
+    "masc",
+    "leopard; panther",
+    "✓"
+   ],
+   [
+    "dīpī",
     "masc",
     "leopard; panther",
     "✓"
@@ -24193,7 +24229,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 71
+  "count": 72
  },
  "names of royalty": {
   "data": [
@@ -25997,7 +26033,7 @@ var family_set_json = {
    [
     "buddharakkhita 2",
     "masc",
-    "name of a young parrot who practiced meditation on bones; lit. protected by the Buddha",
+    "name of a young parrot who practiced Satipaṭṭhāna meditation; lit. protected by the Buddha",
     "✓"
    ],
    [
@@ -29014,6 +29050,18 @@ var family_set_json = {
     "✓"
    ],
    [
+    "pañcamaka 1",
+    "ordin",
+    "fifth (5th)",
+    "✓"
+   ],
+   [
+    "pañcamaka 2",
+    "adj",
+    "having (something) as the fifth",
+    "✓"
+   ],
+   [
     "pañcavīsa",
     "ordin",
     "twenty-fifth (25th)",
@@ -29110,7 +29158,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 53
+  "count": 55
  },
  "commentaries": {
   "data": [
@@ -34096,6 +34144,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kiri 2",
+    "ind",
+    "tweet; chirp; squawk; sound of bird",
+    "✓"
+   ],
+   [
     "kulala",
     "masc",
     "bird of prey; eagle; hawk; osprey",
@@ -34264,7 +34318,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 31
+  "count": 32
  },
  "books of the Aṅguttara Nikāya": {
   "data": [

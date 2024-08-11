@@ -10930,6 +10930,18 @@ var family_word_json = {
     "✓"
    ],
    [
+    "pañcamaka 1",
+    "ordin",
+    "fifth (5th)",
+    "✓"
+   ],
+   [
+    "pañcamaka 2",
+    "adj",
+    "having (something) as the fifth",
+    "✓"
+   ],
+   [
     "pañcamī 1",
     "fem",
     "(gram) imperative or benedictive mood",
@@ -10972,7 +10984,7 @@ var family_word_json = {
     "~"
    ]
   ],
-  "count": 21
+  "count": 23
  },
  "pabbhāra": {
   "data": [
@@ -12095,8 +12107,8 @@ var family_word_json = {
    [
     "puretaraṃ",
     "ind",
-    "before any one else, most early",
-    "✗"
+    "before any one else; very first of all",
+    "✓"
    ],
    [
     "puro",
@@ -13991,7 +14003,7 @@ var family_word_json = {
     "aya 2.1",
     "nt",
     "iron",
-    "~"
+    "✓"
    ],
    [
     "ayas",
@@ -24721,13 +24733,25 @@ var family_word_json = {
  "dīpi": {
   "data": [
    [
+    "dīpi",
+    "masc",
+    "leopard; panther",
+    "✓"
+   ],
+   [
     "dīpika 1",
+    "masc",
+    "leopard; panther",
+    "✓"
+   ],
+   [
+    "dīpī",
     "masc",
     "leopard; panther",
     "✓"
    ]
   ],
-  "count": 1
+  "count": 3
  },
  "dundubhi": {
   "data": [
@@ -31022,17 +31046,6 @@ var family_word_json = {
   ],
   "count": 2
  },
- "vinatā": {
-  "data": [
-   [
-    "venateyya",
-    "masc",
-    "descendant of Vinatā",
-    "✓"
-   ]
-  ],
-  "count": 1
- },
  "verañjā": {
   "data": [
    [
@@ -31582,8 +31595,8 @@ var family_word_json = {
    [
     "hadaya 3",
     "adj",
-    "with a heart; having a heart",
-    "~"
+    "with a heart; having a heart; -hearted",
+    "✓"
    ]
   ],
   "count": 11

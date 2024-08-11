@@ -753,6 +753,7 @@ genitive
 genitor
 genitrix
 geomancy
+gesticulating
 gh
 ghaṃsati
 ghaṭ
@@ -1385,6 +1386,7 @@ Naḷa
 Nālaka
 Naḷeru's
 nāḷi
+nāma
 Ñāṇatusita's
 Nanda
 ṇāpaya
@@ -1499,6 +1501,7 @@ paluddho
 pāṇamatipātayato
 Pañcakanipāta
 Pañcala
+Pañcasālā
 Pañcasikha's
 pandal
 Paṇḍitaudāyi
@@ -2384,6 +2387,7 @@ vījeti
 vikāra-rūpa
 vimānas
 Vimānavatthu
+Vinatā
 vinaya
 viññatti
 vinyapiṭaka
@@ -2451,4 +2455,3 @@ yojanas
 yoking
 zizanioides
 Ziziphus
-Vinatā
