@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 
-"""Setup config for uposatha day release or any other day."""
+"""If today is an uposatha day, update the config.ini 
+for creating a release."""
 
-from rich import print
 
 from tools.configger import config_update
 from tools.tic_toc import tic, toc
 from tools.uposatha_day import uposatha_today
-
+from tools.printer import p_title, p_green_title, p_green, p_yes
 
 def uposatha_day_configger():
     tic()
-    print("[bright_yellow]uposatha day config options")
+    p_title("uposatha day config")
     
     if uposatha_today():
-        print("[green]today is an uposatha day")
+        p_green("updating config.ini")
 
         config_update("regenerate", "db_rebuild", "yes")
 
@@ -36,7 +36,9 @@ def uposatha_day_configger():
         config_update("exporter", "summary", "yes")
 
         config_update("goldendict", "copy_unzip", "yes")
-    
+        p_yes("ok")
+    else:
+        p_green_title("today is not an uposatha")
     toc()
 
 

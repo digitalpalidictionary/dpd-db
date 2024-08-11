@@ -21,8 +21,6 @@ def main():
     config_update("deconstructor", "run_on_cloud", "no")
     config_update("deconstructor", "include_cloud", "yes")
 
-    config_update("uposatha", "count", "78406")
-
     config_update("dictionary", "make_mdict", "yes")
     config_update("dictionary", "make_link", "yes")
     config_update("dictionary", "link_url", "https://thebuddhaswords.net/")

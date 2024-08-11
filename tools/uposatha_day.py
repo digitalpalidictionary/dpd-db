@@ -1,13 +1,17 @@
+import configparser
 from datetime import date
-from tools.configger import config_update
 
-"""Dictionary releases are on full moon updatha days.
-Modules for testing whether today is an updatha day and
+from rich import print
+
+from tools.paths import ProjectPaths
+
+"""Dictionary releases are on full moon uposatha days.
+Modules for testing whether today is an uposatha day and
 saving the db count on uposatha day."""
 
 
 def uposatha_today():
-    """"Test whether today is an uposatha day and return a bool."""
+    """Test whether today is an uposatha day and return a bool."""
     TODAY = date.today()
 
     uposathas = [
@@ -24,7 +28,6 @@ def uposatha_today():
         date(2023, 10, 29),
         date(2023, 11, 27),
         date(2023, 12, 27),
-        
         date(2024, 1, 26),
         date(2024, 2, 24),
         date(2024, 3, 24),
@@ -37,12 +40,15 @@ def uposatha_today():
         date(2024, 10, 17),
         date(2024, 11, 15),
         date(2024, 12, 15),
-        ]
+    ]
 
     def print_diff():
-        for i in range(len(uposathas)-1):
-            diff = uposathas[i+1] - uposathas[i]
-            print(f"The difference between {uposathas[i]} and {uposathas[i+1]} is {diff.days} days.")
+        for i in range(len(uposathas) - 1):
+            diff = uposathas[i + 1] - uposathas[i]
+            print(
+                f"The difference between {uposathas[i]} and {uposathas[i+1]} is {diff.days} days."
+            )
+
     # print_diff()
 
     if TODAY in uposathas:
@@ -51,15 +57,27 @@ def uposatha_today():
         return False
 
 
-# print(uposatha_today())
-
-
-def uposatha_count(value: int):
+def write_uposatha_count(new_value: int):
     """Save the DpdHeadwords count on uposatha day."""
-    config_update("uposatha", "count", str(value))
+
+    pth = ProjectPaths()
+    config = configparser.ConfigParser()
+    config.read(pth.uposatha_day_ini)
+    config.set("uposatha", "count", str(new_value))
+    with open(pth.uposatha_day_ini, "w") as f:
+        config.write(f)
 
 
-# uposatha_count(74657)
-    
+def read_uposatha_count():
+    """Read the DpdHeadwords count from the last uposatha day."""
+
+    pth = ProjectPaths()
+    config = configparser.ConfigParser()
+    config.read(pth.uposatha_day_ini)
+    return config.get("uposatha", "count")
 
 
+if __name__ == "__main__":
+    print(uposatha_today())
+    print(read_uposatha_count())
+    # write_uposatha_count(78807)

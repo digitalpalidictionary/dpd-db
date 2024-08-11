@@ -357,6 +357,7 @@ class ProjectPaths:
 
         # tools
         self.user_dict_path = base_dir / "tools/user_dictionary.txt"
+        self.uposatha_day_ini = base_dir / "tools/uposatha_day.ini"
 
         # .. external
         self.bibliography_md_path = base_dir / "../digitalpalidictionary-website-source/src/bibliography.md"

@@ -6,87 +6,60 @@ from rich import print
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadwords, DpdRoots, Lookup
-from tools.configger import config_read, config_update
 from tools.configger import config_test
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
-from tools.uposatha_day import uposatha_today
+from tools.uposatha_day import uposatha_today, write_uposatha_count, read_uposatha_count
+from tools.printer import p_title, p_green, p_green_title, p_yes
 
 
-def main():
+class GlobalVars():
     tic()
-    print("[bright_yellow]summary")
-    if config_test("exporter", "summary", "yes"):
+    p_title("making summary")
+    p_green("preparing data")
 
-        print("[green]reading db tables")
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
+    dpd_db = db_session.query(DpdHeadwords).all()
+    roots_db = db_session.query(DpdRoots).all()
+    deconstructor_db = db_session.query(Lookup) \
+        .filter(Lookup.deconstructor != "") \
+        .all()
+    
+    last_id = read_uposatha_count()
+    new_words_db = db_session.query(DpdHeadwords) \
+        .filter(DpdHeadwords.id > last_id) \
+        .all()
 
-        pth = ProjectPaths()
-        db_session = get_db_session(pth.dpd_db_path)
-        dpd_db = db_session.query(DpdHeadwords).all()
-        roots_db = db_session.query(DpdRoots).all()
-        deconstructor_db = db_session.query(Lookup).filter(Lookup.deconstructor != "").all()
-        last_count = config_read("uposatha", "count", default_value=74657)
-
-        print("[green]summarizing data")
-        line1, line5, root_families = dpd_size(dpd_db)
-        line2 = root_size(roots_db, root_families)
-        line3 = deconstructor_size(deconstructor_db)
-        line4 = inflection_size(dpd_db)
-        line6 = root_data(roots_db)
-        new_words_string = new_words(db_session, last_count)
-
-        print()
-        print(line1)
-        print(line2)
-        print(line3)
-        print(line4)
-        print(line5)
-        print(line6)
-        print("- 100% dictionary recognition up to and including ")
-        print()
-        print(f"new words include: {new_words_string}")
-
-        summary_text = f"""
-**Change-log**:
-{line1}
-{line2}
-{line3}
-{line4}
-{line5}
-{line6}
-- 100% dictionary recognition in the early texts
-- xyz
-- numerous additions and corrections based on user feedback
-
-**new words include**: {new_words_string}
-"""
-        
-        with open(pth.summary_md_path, "w") as f:
-            f.write(summary_text)
-
-        if uposatha_today():
-            print("[green]updating uposatha count")
-            config_update("uposatha", "count", len(dpd_db))
-    else:
-        print("[green]disabled in config.ini")
-
-    toc()
+    root_families: dict[str, int]
+    line_1: str
+    line_2: str
+    line_3: str
+    line_4: str
+    line_5: str
+    line_6: str
+    line_7: str
+    summary: str
+    
+    p_yes("ok")
 
 
-def dpd_size(dpd_db):
-    total_headwords = len(dpd_db)
+def dpd_size(g: GlobalVars):
+    """Summary of dpd_headwords table"""
+
+    total_headwords = len(g.dpd_db)
     total_complete = 0
     total_partially_complete = 0
     total_incomplete = 0
-    root_families: dict = {}
+    root_families: dict[str, int] = {}
     total_data = 0
 
     columns = DpdHeadwords.__table__.columns
     column_names = [c.name for c in columns]
     exceptions = ["id", "created_at", "updated_at"]
 
-    for i in dpd_db:
+    for i in g.dpd_db:
         if i.meaning_1:
             if i.example_1:
                 total_complete += 1
@@ -116,31 +89,20 @@ def dpd_size(dpd_db):
 
     line5 = f"- {total_data:_} cells of Pāḷi word data"
     line5 = line5.replace("_", " ")
-    return line1, line5, root_families
+
+    g.line_1 = line1
+    g.line_5 = line5
+    g.root_families = root_families
 
 
-def new_words(db_session, last_count):
-    db = db_session.query(DpdHeadwords).filter(DpdHeadwords.id > last_count).all()
+def root_size(g: GlobalVars):
+    """Summary of root families."""
 
-    new_words = [i.lemma_1 for i in db]
-    new_words = sorted(new_words, key=pali_sort_key)
-    new_words_string = ""
-    for nw in new_words:
-        if nw != new_words[-1]:
-            new_words_string += f"{nw}, "
-        else:
-            new_words_string += f"{nw} "
-    new_words_string += f"[{len(new_words)}]"
-
-    return new_words_string
-
-
-def root_size(roots_db, root_families):
-    total_roots = len(roots_db)
-    total_root_families = len(root_families)
+    total_roots = len(g.roots_db)
+    total_root_families = len(g.root_families)
     total_derived_from_roots = 0
-    for family in root_families:
-        total_derived_from_roots += root_families[family]
+    for family in g.root_families:
+        total_derived_from_roots += g.root_families[family]
 
     line2 = "- "
     line2 += f"{total_roots:_} roots, "
@@ -148,41 +110,45 @@ def root_size(roots_db, root_families):
     line2 += f"{total_derived_from_roots:_} words derived from roots"
     line2 = line2.replace("_", " ")
 
-    return line2
+    g.line_2 = line2
 
 
-def deconstructor_size(deconstuctor_db):
-    total_deconstructions = len(deconstuctor_db)
+def deconstructor_size(g: GlobalVars):
+    """Summary of deconstructor"""
+
+    total_deconstructions = len(g.deconstructor_db)
     line3 = f"- {total_deconstructions:_} deconstructed compounds"
     line3 = line3.replace("_", " ")
-    return line3
+    
+    g.line_3 = line3
 
 
-def inflection_size(derived_db):
+def inflection_size(g: GlobalVars):
+    """"Summarize inflections."""
+
     total_inflections = 0
     all_inflection_set = set()
 
-    for i in derived_db:
+    for i in g.dpd_db:
         inflections = i.inflections_list
         total_inflections += len(inflections)
         all_inflection_set.update(inflections)
 
-    # print(total_inflections)
-    # print(len(all_inflection_set))
-
     line4 = f"- {total_inflections:_} unique inflected forms recognised"
     line4 = line4.replace("_", " ")
 
-    return line4
+    g.line_4 = line4
 
 
-def root_data(roots_db):
+def root_data(g: GlobalVars):
+    """Summarize dpd_roots table"""
+    
     columns = DpdRoots.__table__.columns
     column_names = [c.name for c in columns]
     exceptions = ["root_info", "root_matrix", "created_at", "updated_at"]
     total_roots_data = 0
 
-    for i in roots_db:
+    for i in g.roots_db:
         for column in column_names:
             if column not in exceptions:
                 cell_value = getattr(i, column)
@@ -192,8 +158,77 @@ def root_data(roots_db):
     line6 = f"- {total_roots_data:_} cells of Pāḷi root data"
     line6 = line6.replace("_", " ")
 
-    return line6
+    g.line_6 = line6
 
+
+def new_words(g: GlobalVars):
+    """New words since the last uposatha day."""
+
+    new_words = [i.lemma_1 for i in g.new_words_db]
+    new_words = sorted(new_words, key=pali_sort_key)
+    new_words_string = "**new words include:** "
+    for nw in new_words:
+        # comma on all words except the last
+        if nw != new_words[-1]:
+            new_words_string += f"{nw}, "
+        else: 
+            new_words_string += f"{nw} "
+    new_words_string += f"[{len(new_words)}]"
+
+    g.line_7 = new_words_string
+
+
+def make_summary_string(g: GlobalVars):
+    """Make a summary string for printing and saving to .md file."""
+
+    g.summary = f"""
+**Change-log**:
+{g.line_1}
+{g.line_2}
+{g.line_3}
+{g.line_4}
+{g.line_5}
+{g.line_6}
+- 100% dictionary recognition in the early texts
+- xyz
+- numerous additions and corrections based on user feedback
+
+{g.line_7}
+"""
+
+
+def main():
+
+    if not config_test("exporter", "summary", "yes"):
+        p_green_title("disabled in config.ini")
+        toc()
+
+    else:
+        p_green("summarizing data")
+
+        g = GlobalVars()
+        dpd_size(g)
+        root_size(g)
+        deconstructor_size(g)
+        inflection_size(g)
+        root_data(g)
+        new_words(g)
+        make_summary_string(g)
+        
+        with open(g.pth.summary_md_path, "w") as f:
+            f.write(g.summary)
+        
+        p_yes("ok")
+
+        if uposatha_today():
+            p_green("updating uposatha count")
+            last_id = g.dpd_db[-1].id
+            write_uposatha_count(last_id)
+            p_yes(last_id)
+        
+        toc()
+
+        print(g.summary)
 
 if __name__ == "__main__":
     main()
