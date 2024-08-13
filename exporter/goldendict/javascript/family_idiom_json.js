@@ -5803,7 +5803,7 @@ var family_idiom_json = {
   ]
  },
  "iti": {
-  "count": 74,
+  "count": 75,
   "data": [
    [
     "aññathāsmīti",
@@ -5965,6 +5965,12 @@ var family_idiom_json = {
     "itipi",
     "sandhi",
     "(item being named); it is so; thus; just like this",
+    "✓"
+   ],
+   [
+    "itipetaṃ",
+    "sandhi",
+    "thus this (is); for this reason this (is)",
     "✓"
    ],
    [
@@ -6503,8 +6509,8 @@ var family_idiom_json = {
    [
     "tassattho",
     "sandhi",
-    "the meaning of that is",
-    "~"
+    "the meaning of that; the sense is",
+    "✓"
    ],
    [
     "pamādattha",
@@ -6575,7 +6581,7 @@ var family_idiom_json = {
   ]
  },
  "api": {
-  "count": 150,
+  "count": 151,
   "data": [
    [
     "aññāṇatthampi",
@@ -6803,6 +6809,12 @@ var family_idiom_json = {
     "itipi",
     "sandhi",
     "(item being named); it is so; thus; just like this",
+    "✓"
+   ],
+   [
+    "itipetaṃ",
+    "sandhi",
+    "thus this (is); for this reason this (is)",
     "✓"
    ],
    [
@@ -7694,7 +7706,7 @@ var family_idiom_json = {
   ]
  },
  "etaṃ": {
-  "count": 67,
+  "count": 68,
   "data": [
    [
     "aṭṭhānametaṃ",
@@ -7749,6 +7761,12 @@ var family_idiom_json = {
     "idiom",
     "so it was said; thus it is said",
     "~"
+   ],
+   [
+    "itipetaṃ",
+    "sandhi",
+    "thus this (is); for this reason this (is)",
+    "✓"
    ],
    [
     "itihetaṃ",
@@ -24933,12 +24951,29 @@ var family_idiom_json = {
   ]
  },
  "jīvikā": {
-  "count": 1,
+  "count": 2,
   "data": [
    [
     "jīvikaṃ kappeti",
     "idiom",
     "makes a living; earns one's livelihood",
+    "✓"
+   ],
+   [
+    "jīvikaṃ kappenta",
+    "idiom",
+    "supporting oneself; sustaining one's life; making a living (by)",
+    "✓"
+   ]
+  ]
+ },
+ "kappenta": {
+  "count": 1,
+  "data": [
+   [
+    "jīvikaṃ kappenta",
+    "idiom",
+    "supporting oneself; sustaining one's life; making a living (by)",
     "✓"
    ]
   ]
@@ -25899,8 +25934,8 @@ var family_idiom_json = {
    [
     "tassattho",
     "sandhi",
-    "the meaning of that is",
-    "~"
+    "the meaning of that; the sense is",
+    "✓"
    ],
    [
     "tassapi",

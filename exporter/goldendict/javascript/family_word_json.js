@@ -1214,7 +1214,7 @@ var family_word_json = {
  "gada": {
   "data": [
    [
-    "agada",
+    "agada 1",
     "nt",
     "medicine; drug; antidote; lit. no disease",
     "✓"
@@ -2652,6 +2652,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "apaccanta",
+    "adj",
+    "not outlying; not remote",
+    "~"
+   ],
+   [
     "apariyanta",
     "adj",
     "unlimited; infinite",
@@ -3036,7 +3042,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 115
+  "count": 116
  },
  "acchara": {
   "data": [
@@ -3161,8 +3167,8 @@ var family_word_json = {
    [
     "ajimhatā",
     "fem",
-    "fact of being straight; non-crookedness",
-    "✗"
+    "fact of being straight; non-crookedness; lit. not crooked state",
+    "✓"
    ],
    [
     "jimha 1",
@@ -10938,7 +10944,7 @@ var family_word_json = {
    [
     "pañcamaka 2",
     "adj",
-    "having (something) as the fifth",
+    "having (something) as the fifth component",
     "✓"
    ],
    [
@@ -11666,8 +11672,8 @@ var family_word_json = {
    [
     "apetteyya",
     "adj",
-    "not respecting one's father",
-    "~"
+    "not honouring one's father; not respecting one's father",
+    "✓"
    ],
    [
     "apetteyyatā",
@@ -11762,8 +11768,8 @@ var family_word_json = {
    [
     "petteyya",
     "adj",
-    "respecting one's own father",
-    "✗"
+    "honouring one's father; respecting one's own father",
+    "✓"
    ],
    [
     "petteyyatā",
@@ -12918,6 +12924,12 @@ var family_word_json = {
     "✗"
    ],
    [
+    "amatteyya",
+    "adj",
+    "not honouring one's mother; not respecting one's mother",
+    "✓"
+   ],
+   [
     "amātika",
     "adj",
     "motherless",
@@ -12944,8 +12956,8 @@ var family_word_json = {
    [
     "matteyya",
     "adj",
-    "respecting one's mother",
-    "✗"
+    "honouring one's mother; respecting one's mother",
+    "✓"
    ],
    [
     "matteyyatā",
@@ -13080,7 +13092,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 28
+  "count": 29
  },
  "madhu": {
   "data": [
@@ -16655,13 +16667,19 @@ var family_word_json = {
  "aṃsa2": {
   "data": [
    [
+    "aṃsa 2.1",
+    "masc",
+    "shoulder; shoulder-blade",
+    "✓"
+   ],
+   [
     "aṃsa 2.2",
     "adj",
     "with shoulders; having shoulder-blades",
     "✓"
    ]
   ],
-  "count": 1
+  "count": 2
  },
  "cīra": {
   "data": [
@@ -20412,6 +20430,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "kerāṭika 1",
+    "adj",
+    "deceitful, hypocritical",
+    "✗"
+   ],
+   [
     "kerāṭika 2",
     "masc",
     "dishonest person; fraud; deceiver",
@@ -20424,7 +20448,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 3
+  "count": 4
  },
  "kilañja": {
   "data": [
@@ -26118,13 +26142,19 @@ var family_word_json = {
  "pacchi": {
   "data": [
    [
+    "pacchi",
+    "fem",
+    "wicker basket; hand-basket",
+    "✓"
+   ],
+   [
     "pacchikā",
     "fem",
     "small basket; wicker bowl",
     "✓"
    ]
   ],
-  "count": 1
+  "count": 2
  },
  "pañcāla": {
   "data": [
@@ -27995,9 +28025,9 @@ var family_word_json = {
  "baḷisa": {
   "data": [
    [
-    "balisa",
+    "balisa 1",
     "nt",
-    "hook; fishing hook",
+    "hook; meat hook",
     "✓"
    ],
    [
@@ -30118,13 +30148,19 @@ var family_word_json = {
  "vaccas": {
   "data": [
    [
+    "vaccasī",
+    "adj",
+    "lustrous; glorious; splendid",
+    "✓"
+   ],
+   [
     "vacchasī",
     "adj",
     "lustrous; glorious; splendid",
     "✓"
    ]
   ],
-  "count": 1
+  "count": 2
  },
  "vajira": {
   "data": [
@@ -31696,7 +31732,7 @@ var family_word_json = {
     "sabbatthakaṃ",
     "ind",
     "everywhere; in every single place",
-    "~"
+    "✓"
    ],
    [
     "sabbatthatā",
