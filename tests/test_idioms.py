@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Find super long words and hyphenate them."""
+"""Test idioms to see that their component words contain the correct family idiom."""
 
 from collections import defaultdict
 import json

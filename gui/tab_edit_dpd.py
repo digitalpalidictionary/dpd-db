@@ -729,6 +729,10 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 tooltip="Add sutta examples to words in DB.",
                 font=(None, 10)),
             sg.Button(
+                "Open Last", key="open_last_word",
+                tooltip="open the last word edited",
+                font=(None, 10)),
+            sg.Button(
                 "Log", key="open_corrections_button",
                 tooltip="open corrections tsv in code",
                 visible=username == "deva",

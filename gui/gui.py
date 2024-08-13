@@ -149,6 +149,7 @@ from tools.fast_api_utils import start_dpd_server
 from tools.fast_api_utils import start_bold_def_server
 from tools.fast_api_utils import request_dpd_server
 from tools.fast_api_utils import request_bold_def_server
+from tools.missing_meanings import find_missing_meanings
 
 from dps.tools.paths_dps import DPSPaths
 
@@ -160,6 +161,7 @@ def main():
     username = test_username(sg)
     pali_word_original = None
     pali_word_original2 = None
+    last_word_id = None
 
     start_dpd_server()
     start_bold_def_server()
@@ -370,8 +372,7 @@ def main():
             else:
                 p2d.db_session = db_session
                 p2d, wd = pass2_gui(p2d)
-
-
+        
         # DPD edit tab
 
         # tabs jumps to next field in multiline
@@ -720,15 +721,15 @@ def main():
                 if book_to_add:
                     values["book_to_add"] = book_to_add
 
-            if values["word_to_add"] == []:
-                default_text = re.sub(r" \d.*$", "", values["lemma_1"])
-                word_to_add = sg.popup_get_text(
-                    "What word?", default_text=default_text[:-1],
-                    title=None,
-                    location=(400, 400))
-                if word_to_add:
-                    values["word_to_add"] = [word_to_add]
-                    window["word_to_add"].update(values=[word_to_add])
+            # if values["word_to_add"] == []:
+            default_text = re.sub(r" \d.*$", "", values["lemma_1"])
+            word_to_add = sg.popup_get_text(
+                "What word?", default_text=default_text[:-1],
+                title=None,
+                location=(400, 400))
+            if word_to_add:
+                values["word_to_add"] = [word_to_add]
+                window["word_to_add"].update(values=[word_to_add])
 
             if (
                 test_book_to_add(values, window) and
@@ -824,14 +825,13 @@ def main():
                     location=(400, 400))
                 values["book_to_add"] = book_to_add
 
-            if values["word_to_add"] == []:
-                default_text = re.sub(r" \d.*$", "", values["lemma_1"])
-                word_to_add = sg.popup_get_text(
-                    "What word?", default_text=default_text[:-1],
-                    title=None,
-                    location=(400, 400))
-                values["word_to_add"] = [word_to_add]
-                window["word_to_add"].update(values=[word_to_add])
+            default_text = re.sub(r" \d.*$", "", values["lemma_1"])
+            word_to_add = sg.popup_get_text(
+                "What word?", default_text=default_text[:-1],
+                title=None,
+                location=(400, 400))
+            values["word_to_add"] = [word_to_add]
+            window["word_to_add"].update(values=[word_to_add])
 
             source_sutta_example = find_sutta_example(pth, sg, window, values)
 
@@ -961,6 +961,17 @@ def main():
                 window["word_to_clone_edit"].update(value="")
             else:
                 window["messages"].update(value="No word to edit!", text_color="red")
+        
+        elif event == "open_last_word":
+            if last_word_id:
+                values["word_to_clone_edit"] = last_word_id
+            if values["word_to_clone_edit"]:
+                pali_word_original = edit_word_in_db(db_session, values, window)
+                pali_word_original2 = deepcopy(pali_word_original)
+                open_in_goldendict(values["word_to_clone_edit"])
+                window["word_to_clone_edit"].update(value="")
+            else:
+                window["messages"].update(value="No word to edit!", text_color="red")
 
         # gui buttons
 
@@ -1058,9 +1069,11 @@ def main():
             if last_button == "ok_button":
                 
                 success, action = update_word_in_db(
-                    pth, db_session, window, values)
+                    pth, db_session, window, values
+                )
                 
                 if success:
+                    last_word_id = values["id"]
                     del_syns_if_pos_meaning_changed(db_session, values, pali_word_original2)
                     clear_errors(window)
                     clear_values(values, window, username)
@@ -1075,6 +1088,18 @@ def main():
                     remove_word_to_add(values, window, words_to_add_list)
                     window["words_to_add_length"].update(
                         value=len(words_to_add_list))
+
+            # add missing meanings            
+            example_1_and_2 = f"""{values["example_1"]} {values["example_2"]}"""
+            missing_meanings = find_missing_meanings(db_session, example_1_and_2)
+            if missing_meanings:
+                missing_meanings_reduced = [
+                    i 
+                    for i in missing_meanings 
+                    if i not in words_to_add_list
+                ]
+                words_to_add_list.extend(missing_meanings_reduced)
+                window["word_to_add"].update(values=words_to_add_list)
 
         elif event == "update_db_button2":
             tests_failed = None

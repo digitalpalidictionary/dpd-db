@@ -349,7 +349,7 @@ def make_bjt_text_set(
     bjt_text_string = clean_machine(bjt_text_string)
     bjt_text_set = set(bjt_text_string.split())
 
-    p_yes(len(bjt_text_set)
+    p_yes(len(bjt_text_set))
     return bjt_text_set
 
 

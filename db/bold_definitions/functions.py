@@ -1,6 +1,8 @@
 import re
 
+from rich import print
 from typing import Dict
+from copy import deepcopy
 
 
 def definition_to_dict(
@@ -370,7 +372,7 @@ def get_bold_strings(bold):
 	"""get bold strings previous next and cleanup"""
 
 	# bold_p are the previous sentences which may contain 
-	# relavant information, especially in ṭīkā
+	# relevant information, especially in ṭīkā
 	# should start clean after a . or ; or )
 
 	def simplify_bold_tag(text):
@@ -396,6 +398,7 @@ def get_bold_strings(bold):
 	
 	bold_p = text_cleaner(bold_p)
 	bold_p = simplify_bold_tag(bold_p)
+	bold_p = bold_p.strip()
 	
 	# remove numbers at the beginning
 	bold_p = re.sub("^\\d+\\.d+\\.", "", bold_p)
@@ -411,6 +414,15 @@ def get_bold_strings(bold):
 	if re.match(non_letters, bold_text):
 		bold_text = bold_text[1:]
 		bold_p = f"{bold_p} "
+	
+	bold_p_original = deepcopy(bold_p)
+	if bold_p:
+		bold_p = bold_p_trimmer(bold_p)
+		# if bold_p != bold_p_original:
+		# 	print(f"[green]{bold_p_original}")
+		# 	print(f"[cyan]{bold_p}")
+		# 	print(bold_text)
+		# 	print()
 
 	# bold next sentence = bold_n
 	bold_n = ""
@@ -431,6 +443,16 @@ def get_bold_strings(bold):
 	# remove useless
 	bold_n = re.sub(f"^({useless_beginnings})$", "", bold_n)
 	bold_n = bold_n.replace("[iti bhagavā]", "")
+	bold_n = bold_n.strip()
+
+	if bold_n:
+		bold_n_original = deepcopy(bold_n)
+		bold_n = bold_n_trimmer(bold_n)
+		# if bold_n != bold_n_original:
+		# 	print(bold_text)
+		# 	print(f"[cyan]{bold_n}")
+		# 	print(f"[green]{bold_n_original}")
+		# 	print()
 
 	# bold end
 	bold_e = str(bold_n)
@@ -440,7 +462,151 @@ def get_bold_strings(bold):
 	bold_e = bold_e.replace("[iti bhagavā]", "")
 	bold_e = text_cleaner(bold_e)
 
-	bold_comp = f"{bold_p}{bold_text}{bold_n}"
+	bold_comp = f"{bold_p} {bold_text} {bold_n}"
 
 	return bold_clean, bold_e, bold_comp, bold_n
 
+
+def debugger(para, bold):
+    print(f"{'para':<40}{para}")
+    print(f"{'bold':<40}{para}")
+    print(f"{'bold.next_sibling':<40}{bold.next_sibling}")
+    print(f"{'bold.next_sibling.next_sibling':<40}{bold.next_sibling.next_sibling}")
+
+
+def debug_p_n(
+	bold_p_original, bold_p, bold_n_original, bold_n, bold_text
+):
+
+	print(f"[green]{bold_p_original}")
+	print(f"[cyan]{bold_p}")
+	print(bold_text)
+	print(f"[cyan]{bold_n}")
+	print(f"[green]{bold_n_original}")
+	print()
+
+
+def bold_p_trimmer(text):
+	"""
+	Find the last complete sentence with bold and 
+	trim everything before that.
+	"""
+	
+	i = len(text)
+
+	is_fullstop = False
+	is_bold = False
+	is_bold_passed = False
+	is_bracket = False
+
+
+	while i > 0:
+		i -= 1
+		current_letter = text[i]
+		previous2 = text[i-1:i+1]
+		previous3 = text[i-2:i+1]
+		previous4 = text[i-3:i+1]
+
+		if (
+			previous2 == ". "
+			or i == 0
+		):
+			is_fullstop = True
+		else:
+			is_fullstop = False
+
+		if previous3 == "<b>":
+			is_bold = False
+			is_bold_passed = True
+		if previous4 == "</b>":
+			is_bold = True
+		if current_letter == "(":
+			is_bracket = False
+		if current_letter == ")":
+			is_bracket = True
+
+		if (
+			is_fullstop is True
+			and is_bold is False
+			and is_bold_passed is True
+			and is_bracket is False
+		):
+			return text[i:].strip()
+
+		elif (
+			is_fullstop is True
+			and is_bold is True
+			and is_bracket is False
+		):
+			return f"<b>{text[i+1:]}".strip()
+		
+		elif i == 0:
+			return text.strip()
+
+
+def bold_n_trimmer(text):
+	"""
+	Find the first complete sentence with 
+	1. bold has passed
+	2. no open brackets
+	3. fullstop
+	and trim everything after that.
+	"""
+	
+	i = 0
+	text_len = len(text)
+	is_fullstop = False
+	is_bold = False
+	is_bold_passed = False
+	is_bracket = False
+
+	while i < text_len:
+		current_letter = text[i]
+		next2 = text[i:i+2]
+		next3 = text[i:i+3]
+		next4 = text[i:i+4]
+
+		if (
+			next2 == ". "
+			or i == text_len
+		):
+			is_fullstop = True
+		else:
+			is_fullstop = False
+
+		if next3 == "<b>":
+			is_bold = True
+		if next4 == "</b>":
+			is_bold = False
+			is_bold_passed = True
+		if current_letter == "(":
+			is_bracket = True
+		if current_letter == ")":
+			is_bracket = False
+
+		if (
+			is_fullstop is True
+			and is_bold is False
+			and is_bold_passed is True
+			and is_bracket is False
+		):
+			return text[:i+1]
+
+		elif (
+			is_fullstop is True
+			and is_bold is True
+			and is_bracket is False
+		):
+			return f"{text[:i+1]}</b>"
+		
+		elif i == text_len-1:
+			return text
+		
+		i += 1
+
+
+
+if __name__ == "__main__":
+	text = """<b>ākāro jānitabbo</b>ti saṅgho ākārato jānitabbo, gaṇo ākārato jānitabbo, puggalo ākārato jānitabbo, codako ākārato jānitabbo, cuditako ākārato  <b>jānitabbo. saṅgho ākārato jānitabbo</b>ti paṭibalo (sa. ni. 346) nu kho ayaṃ saṅgho imaṃ adhikaraṇaṃ vūpasametuṃ dhammena vinayena satthusāsanena udāhu noti, evaṃ saṅgho ākārato jānitabbo"""
+	
+	print(bold_n_trimmer(text))

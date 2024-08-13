@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+"""Extract bold defined words from the CST corpus and ad to database."""
+
 import json
 import re
 
@@ -20,17 +22,7 @@ from db.bold_definitions.functions import get_bold_strings
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 from tools.tsv_read_write import write_tsv_dot_dict
-
-
-def main():
-    tic()
-    print("[bright_yellow]building database of bolded definitions")
-    
-    pth = ProjectPaths()
-    bold_definitions = extract_bold_definitions(pth)
-    update_db(pth, bold_definitions)
-    export_json(pth, bold_definitions)
-    toc()
+from tools.printer import p_title, p_green, p_green_title, p_yes
 
 
 def debugger(para, bold):
@@ -43,16 +35,14 @@ def debugger(para, bold):
 def extract_bold_definitions(pth):
     """extract commentary definitions from xml."""
 
-    bold_definitions_list = []
+    p_green_title("extracting bold definitions")
 
-    # log_file = "log/log.tsv"
-    # log = open (log_file, "a")
+    bold_definitions_list = []
 
     bold_total = 0
 
     for file_name, ref_code in file_list.items():
         print(f"{file_name}\t{ref_code}", end="\t")
-        # log.write(f"\t{file_name}\t{ref_code}\t")
 
         bold_count1 = 0
         bold_count2 = 0
@@ -88,7 +78,6 @@ def extract_bold_definitions(pth):
         # grab the headings for suttas pitaka
         if soup.div is not None:
             print("has div", end="\t")
-            # log.write("has div\t")
 
             nikaya = soup.find_all("p", rend="nikaya")[0].string
             book = soup.find_all("head", rend="book")[0].string
@@ -105,7 +94,8 @@ def extract_bold_definitions(pth):
 
                 for para in paras:
                     title, subhead = get_nikaya_headings_div(
-                        file_name, div, para, subhead)
+                        file_name,div, para, subhead
+                    )
                     
                     bolds = para.find_all("hi", rend=["bold"])
                     bolds = dissolve_empty_siblings(para, bolds)
@@ -129,14 +119,12 @@ def extract_bold_definitions(pth):
                                 bold_count2 += 1
 
             print(f"{bold_count1}\t{bold_count2}\t{no_meaning_count}")
-            # log.write(f"{bold_count1}\t{bold_count2}\t{no_meaning_count}\n")
 
             bold_total += bold_count2
                                 
         # for vinaya, khuddaka nikaya, vism
         elif soup.div is None:
             print("no div", end="\t")
-            # log.write("no div\t")
 
             paras = soup.find_all("p")
 
@@ -148,7 +136,7 @@ def extract_bold_definitions(pth):
 
                 for bold in bolds:
                     if bold.next_sibling is not None:
-                        bold, bold_e, bold_comp, bold_n  = get_bold_strings(bold)
+                        bold, bold_e, bold_comp, bold_n = get_bold_strings(bold)
 
                         # only write substantial examples
                         bold_comp_clean = re.sub("\\<b\\>|\\</b\\>", "", bold_comp)
@@ -165,17 +153,17 @@ def extract_bold_definitions(pth):
                             bold_count2 += 1
     
             print(f"{bold_count1}\t{bold_count2}\t{no_meaning_count}")
-            # log.write(f"{bold_count1}\t{bold_count2}\t{no_meaning_count}\n")
             bold_total+= bold_count2
     
-    print(f"bold_total {bold_total}")
-    # log.close()
-
+    p_green("bold_total")
+    p_yes(len(bold_definitions_list))
     return bold_definitions_list
 
 
 def export_json(pth, bold_definitions_list):
     """convert to tsv and json for rebuilding the db and external use."""
+
+    p_green("saving json")
 
     file_path = pth.bold_definitions_tsv_path
     write_tsv_dot_dict(file_path, bold_definitions_list)
@@ -184,13 +172,13 @@ def export_json(pth, bold_definitions_list):
     with open(file_path, "w") as file:
         json.dump(bold_definitions_list, file)
 
-    print("[white]ok")
+    p_yes("ok")
 
 
 def update_db(pth, bold_definitions):
     """Add bold definitions to dpd.db."""
 
-    print("[green]adding definitions to db")
+    p_green("adding definitions to db")
     db_session = get_db_session(pth.dpd_db_path)
     add_to_db = []
 
@@ -212,6 +200,18 @@ def update_db(pth, bold_definitions):
     db_session.execute(BoldDefinition.__table__.delete()) # type: ignore
     db_session.add_all(add_to_db)
     db_session.commit()
+    p_yes(len(add_to_db))
+
+
+def main():
+    tic()
+    p_title("building database of bolded definitions")
+    
+    pth = ProjectPaths()
+    bold_definitions = extract_bold_definitions(pth)
+    update_db(pth, bold_definitions)
+    export_json(pth, bold_definitions)
+    toc()
 
 
 if __name__ == "__main__":
