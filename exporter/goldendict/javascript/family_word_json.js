@@ -22575,13 +22575,19 @@ var family_word_json = {
     "✓"
    ],
    [
+    "caṇḍāla 3",
+    "nt",
+    "(comm) a game with iron balls; (or) the game of 'hemp washing'",
+    "✓"
+   ],
+   [
     "caṇḍālī",
     "fem",
     "caṇḍāla woman",
     "✗"
    ]
   ],
-  "count": 3
+  "count": 4
  },
  "cāṭu": {
   "data": [
@@ -30438,8 +30444,8 @@ var family_word_json = {
    [
     "vaṃsa 2",
     "masc",
-    "acrobatics; lit. bamboo",
-    "~"
+    "acrobatics; (comm) playing with a raised bamboo pole; lit. bamboo",
+    "✓"
    ],
    [
     "vaṃsa 3",
@@ -31605,6 +31611,12 @@ var family_word_json = {
     "✗"
    ],
    [
+    "suhadaya",
+    "adj",
+    "with a good heart; kindhearted; affectionate (towards)",
+    "✓"
+   ],
+   [
     "hajja",
     "adj",
     "related to the heart; dear",
@@ -31635,7 +31647,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 11
+  "count": 12
  },
  "saddala": {
   "data": [
@@ -32307,6 +32319,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "sāmā 5",
+    "fem",
+    "name of a courtesan in a Jātaka story; lit. brown",
+    "✓"
+   ],
+   [
     "sāmāvatī 1",
     "fem",
     "name of a female lay disciple; foremost among those living in a state of friendliness; lit. of dark complexion",
@@ -32319,7 +32337,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 10
+  "count": 11
  },
  "sāmīci": {
   "data": [

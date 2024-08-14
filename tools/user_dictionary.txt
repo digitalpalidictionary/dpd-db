@@ -1,4 +1,6 @@
+…
 10,000
+18th
 29th
 ā
 a deit
@@ -79,6 +81,7 @@ alleviator
 alli
 allness
 allusory
+almsman
 Alstonia
 altilis
 ām
@@ -127,6 +130,7 @@ anna
 annaṭṭhikassa
 annihilationism
 annihilationist
+annointed
 Anogeissus
 Anomasutta
 Anopamā
@@ -170,6 +174,7 @@ Arjuna
 Artha
 Arthavan
 articulately
+artificer
 Artocarpus
 Arundo
 arūpins
@@ -248,6 +253,7 @@ barihisatthāya
 barkless
 Barleria
 Barringtonia
+barters
 Bassia
 batrachus
 Bauhinia
@@ -401,6 +407,7 @@ Champaka
 chank
 charantia
 charnel
+charoli
 chebula
 chicklet
 chitter-chatter
@@ -442,6 +449,7 @@ compassionlessness
 conches
 concilated
 concomitance
+conformance
 confutes
 congee
 conglomeration
@@ -464,6 +472,7 @@ correctness
 cortege
 cossetted
 courageless
+covetousness
 cowdung
 cowpat
 cowpath
@@ -612,6 +621,7 @@ doṇa
 doṇas
 donax
 doṇi
+doorkeeper
 downcastness
 doziness
 DPD
@@ -741,6 +751,7 @@ Gandhāra
 Gandharan
 gapless
 Garuda
+gatekeeper
 gaub
 Gavesī
 gāvuta
@@ -790,6 +801,7 @@ govela
 Govinda
 Govinda's
 grabhold
+grammarian
 grandis
 grassless
 gratissimum
@@ -801,6 +813,7 @@ guḷavālakāni
 gutturo-labial
 gutturo-palatal
 hā
+hagiography
 hairclip
 handsomeness
 Happy's
@@ -826,6 +839,7 @@ Helleborus
 Hemidactylus
 hemorrhage
 hemorrhoids
+hennaed
 hetu
 hexad
 highroad
@@ -901,6 +915,7 @@ instructable
 instructible
 interdependence
 interestedness
+intractability
 invertedness
 irrefusable
 irrefutability
@@ -1138,6 +1153,7 @@ mā
 Maccha
 Macchikā's
 mad
+Madda
 Madhura
 Madhurā
 madhurasuttaṃ
@@ -1158,6 +1174,7 @@ Mahāgovinda
 Mahāgovinda's
 mahākappina
 Mahākassapa
+Mahākoṭṭhika
 Mahāmoggallāna
 Mahāmoggallāna's
 Mahānāma
@@ -1169,6 +1186,7 @@ Mahāsudassana's
 Mahāthera
 mahāvagga
 Mahāvaṃsa
+Mahāvijita
 Mahāvijita's
 Mahavira
 Mahāvīra
@@ -1248,6 +1266,7 @@ Michelia
 micropterus
 middlemost
 Migāra
+Migāra's
 Migāra's
 Mihintale
 Millettia
@@ -1348,6 +1367,7 @@ monkhood
 Monosperma
 mountable
 movie
+mucalinda
 Mucana
 muddleheadedness
 muditā
@@ -1690,6 +1710,7 @@ reasoner
 rebecoming
 rebirths
 rebukes
+recalcitrance
 redescription
 refutable
 regardful
@@ -1933,6 +1954,8 @@ stick-less
 stiller
 stinginess
 stinkiness
+straightforwardness
+straightness
 strategized
 stratiotes
 Strychnos
@@ -1977,6 +2000,7 @@ Sunn
 sunned
 sunshade
 supernormal
+Suppiya
 supportless
 suppurating
 suppuration
@@ -2029,6 +2053,7 @@ Tayana
 Tāyana
 Tectona
 tegument
+Tepiṭakacūḷanāgatthera
 Terminalia
 ternatea
 terra
@@ -2051,6 +2076,7 @@ Therīgāthā
 Thespesia
 third-ish
 ṭhiti
+thousand-spoked
 Thūlakoṭṭhika
 Thullakoṭṭhika
 Thuna
@@ -2395,6 +2421,7 @@ Vipassī
 virens
 visāci
 Visākhā
+Visākhā
 Visākha's
 visālakkha
 visionless
@@ -2407,6 +2434,7 @@ Vitex
 Vitis
 viyavajjena
 viyāyāma
+vocative
 voidness
 vokāra
 volitional
@@ -2455,19 +2483,3 @@ yojanas
 yoking
 zizanioides
 Ziziphus
-conformance
-doorkeeper
-gatekeeper
-covetousness
-18th
-Tepiṭakacūḷanāgatthera
-grammarian
-Suppiya
-vocative
-Madda
-Visākhā
-Migāra's
-straightness
-straightforwardness
-artificer
-barters

@@ -12593,6 +12593,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "sāmā 5",
+    "fem",
+    "name of a courtesan in a Jātaka story; lit. brown",
+    "✓"
+   ],
+   [
     "sāmāvatī 1",
     "fem",
     "name of a female lay disciple; foremost among those living in a state of friendliness; lit. of dark complexion",
@@ -12761,7 +12767,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 153
+  "count": 154
  },
  "types of ascetics": {
   "data": [
@@ -14125,6 +14131,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kekakebhi",
+    "masc",
+    "name of a country",
+    "✓"
+   ],
+   [
     "kosala 1",
     "masc",
     "name of a kingdom",
@@ -14191,7 +14203,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 22
+  "count": 23
  },
  "names of paccekabuddhas": {
   "data": [
@@ -15775,7 +15787,7 @@ var family_set_json = {
    [
     "tissatthera 2",
     "masc",
-    "generic monk's name used in examples",
+    "generic monk's name used in examples; Venerable Tissa",
     "✓"
    ],
    [
@@ -18120,7 +18132,7 @@ var family_set_json = {
    [
     "koṭṭhika 2",
     "masc",
-    "name of an arahant monk; great disciple of the Buddha; foremost disciple in analytical understanding",
+    "name of an arahant monk; great disciple of the Buddha; foremost disciple in analytical understanding; Mahākoṭṭhika",
     "✓"
    ],
    [
@@ -32102,15 +32114,9 @@ var family_set_json = {
     "pp",
     "innumerable; measureless; endless; lit. not measured",
     "✓"
-   ],
-   [
-    "amitayasa",
-    "adj",
-    "of infinite fame; world-renowned; (comm) with an infinite retinue",
-    "✓"
    ]
   ],
-  "count": 2
+  "count": 1
  },
  "trees": {
   "data": [
@@ -33764,6 +33770,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kumbhathūṇa",
+    "nt",
+    "name of a drum; (comm) four sided drum; (or) the sound of water pots",
+    "✓"
+   ],
+   [
     "ḍiṇḍima",
     "masc",
     "drum; tom-tom",
@@ -33818,7 +33830,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 10
+  "count": 11
  },
  "medicines": {
   "data": [
