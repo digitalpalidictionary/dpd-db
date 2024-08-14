@@ -347,6 +347,7 @@ class ProjectPaths:
         self.hyphenations_scratchpad_path = base_dir / "tests/test_hyphenations.txt"
         self.idioms_exceptions_dict = base_dir / "tests/test_idioms.json"
         self.internal_tests_path = base_dir / "tests/tests_internal.tsv"
+        self.maha_exceptions_list = base_dir / "tests/test_maha_exceptions.json"
         self.neg_compound_exceptions = base_dir / "tests/test_neg_compound_exceptions.json"
         self.phonetic_changes_path = base_dir / "tests/add_phonetic_changes.tsv"
         self.phonetic_changes_vowels_path = base_dir / "tests/add_phonetic_changes_vowels.tsv"

@@ -287,7 +287,7 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 sg.Input(
                     key="family_idioms", size=(50, 1),
                     enable_events=True,
-                    tooltip="Family idioms, seperated by space.")),
+                    tooltip="Family idioms, separated by space.")),
             sg.Text(
                 "", key="family_idioms_error",
                 size=(50, 1), text_color="red")

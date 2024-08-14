@@ -14,7 +14,6 @@ from typing import Optional, Tuple, List
 from spellchecker import SpellChecker
 from aksharamukha import transliterate
 from rich import print
-from nltk import word_tokenize
 
 from db.models import DpdHeadwords
 from functions_db import make_all_inflections_set
@@ -22,17 +21,18 @@ from functions_db import values_to_pali_word
 
 from tools.addition_class import Addition
 from tools.bold_definitions_search import search_bold_definitions
+from tools.configger import config_read
+from tools.configger import config_test
 from tools.configger import config_test_option
 from tools.configger import config_update
-from tools.configger import config_test
-from tools.configger import config_read
 from tools.cst_sc_text_sets import make_cst_text_list
 from tools.cst_sc_text_sets import make_sc_text_list
-from tools.pali_text_files import cst_texts
+from tools.cst_source_sutta_example import find_source_sutta_example
 from tools.pali_alphabet import pali_alphabet
+from tools.pali_text_files import cst_texts
 from tools.paths import ProjectPaths
 from tools.pos import INDECLINABLES
-from tools.cst_source_sutta_example import find_source_sutta_example
+from tools.tokenizer import split_words
 
 # nltk.download('punkt')
 
@@ -429,7 +429,7 @@ def check_spelling(pth, field, error_field, values, window, flags) -> Flags:
     spell.word_frequency.load_text_file(str(pth.user_dict_path))
 
     sentence = values[field].replace("-", " ")
-    words = word_tokenize(sentence)
+    words = split_words(sentence)
 
     misspelled = spell.unknown(words)
 

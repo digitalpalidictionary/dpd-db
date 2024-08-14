@@ -7,7 +7,7 @@ from typing import Tuple, List
 
 from tools.paths import ProjectPaths
 from tools.pali_text_files import cst_texts
-from tools.sentence_splitter import split_sentences
+from tools.tokenizer import split_sentences
 
 """This code relies completely on tools.pali_text_files."""
 

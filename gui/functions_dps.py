@@ -15,7 +15,6 @@ import shutil
 from requests.exceptions import RequestException
 
 from spellchecker import SpellChecker
-from nltk import word_tokenize
 from googletrans import Translator
 
 from timeout_decorator import timeout, TimeoutError as TimeoutDecoratorError
@@ -23,15 +22,14 @@ from timeout_decorator import timeout, TimeoutError as TimeoutDecoratorError
 from db.db_helpers import get_column_names
 from db.models import Russian, SBS, DpdHeadwords
 
-from tools.meaning_construction import make_meaning_combo
-from tools.tsv_read_write import read_tsv_dot_dict, read_tsv_dict, write_tsv_dot_dict
-
 from tools.configger import config_test_option, config_read, config_update
-
 from tools.cst_sc_text_sets import make_cst_text_set
-from tools.cst_sc_text_sets import make_cst_text_set_sutta
 from tools.cst_sc_text_sets import make_cst_text_set_from_file
+from tools.cst_sc_text_sets import make_cst_text_set_sutta
 from tools.cst_sc_text_sets import make_sc_text_set
+from tools.meaning_construction import make_meaning_combo
+from tools.tokenizer import split_words
+from tools.tsv_read_write import read_tsv_dot_dict, read_tsv_dict, write_tsv_dot_dict
 
 from functions import make_sp_mistakes_list
 from functions import make_sandhi_ok_list
@@ -810,7 +808,7 @@ class SpellCheck:
 
     def check_spelling(self, field_value):
         ru_sentence = field_value
-        ru_words = word_tokenize(ru_sentence)
+        ru_words = split_words(ru_sentence)
         ru_misspelled = self.ru_spell.unknown(ru_words)
 
         if ru_misspelled:

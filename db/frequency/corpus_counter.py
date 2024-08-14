@@ -11,7 +11,7 @@ from rich import print
 from tools.clean_machine import clean_machine
 from tools.pali_text_files import ebts
 from tools.paths import ProjectPaths
-nltk.download('punkt')
+from tools.tokenizer import split_words
 
 
 def main():
@@ -348,7 +348,7 @@ def make_raw_text_csv(pth: ProjectPaths, tipitaka_dict):
 
 def make_word_count_df(text):
     """Tokenize the words and count frequency."""
-    words = nltk.word_tokenize(text)
+    words = split_words(text)
     freq = nltk.FreqDist(words).most_common()
     word_count_df = pd.DataFrame(freq)
     return word_count_df

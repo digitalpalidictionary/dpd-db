@@ -610,12 +610,14 @@ def main():
 
         elif event == "family_idioms":
             if (
-                flags.family_idioms and
-                not values["family_idioms"] and
-                not values["root_key"]
+                flags.family_idioms
+                and not values["family_idioms"]
+                and "comp" not in values["grammar"] 
             ):
-                window["family_idioms"].update(values["lemma_1"])
+                window["family_idioms"].update(values["family_compound"])
                 flags.family_idioms = False
+                if values["pos"] in ["idiom", "sandhi"]:
+                    window["family_compound"].update(value="")
             else:
                 test_family_idioms(values, window, family_idioms_values)
 

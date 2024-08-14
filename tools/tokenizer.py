@@ -28,7 +28,43 @@ def split_sentences(text: str) -> list[str]:
         i += 1
     return sentences
 
+
+dirty_clean_dict: dict[str, str] = {
+    ";": "",
+    ",": "",
+    " '": " ",
+    "!": "",
+    "%": "",
+    "&": "",
+    "(": "",
+    ")": "",
+    "*": "",
+    "-": "",
+    ".": "",
+    "/": "",
+    ";": "",
+    "=": "",
+    "?": "",
+    "…": "",
+    "√": "",
+}
+
+def remove_dirty_characters(text):
+    for dirty, clean in dirty_clean_dict.items():
+        text = text.replace(dirty, clean)
+    return text
+
+
+def split_words(text: str) -> list[str]:
+    text = remove_dirty_characters(text)
+    return text.split()
+
+
 if __name__ == "__main__":
     example = "saṅkhepato hi pañcupādānakkhandhā āsīvisūpame (saṃ. ni. 4.238) vuttanayena ukkhittāsikapaccatthikato, bhārasuttavasena (saṃ. ni. 3.22) bhārato, khajjanīyapariyāyavasena (saṃ. ni. 3.79) khādakato, yamakasuttavasena (saṃ. ni. 3.85) aniccadukkhānattasaṅkhatavadhakato daṭṭhabbā. vitthārato panettha pheṇapiṇḍo viya rūpaṃ daṭṭhabbaṃ, parimaddanāsahanato. udakapubbuḷaṃ"
-    x = split_sentences(example)
-    print(x)
+    # x = split_sentences(example)
+
+    text = "can i have an example of a sentence with one's and twos and 12ths ant 47th"
+    text = split_words(example)
+    print(text)
+
