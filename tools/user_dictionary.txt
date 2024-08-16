@@ -1,7 +1,11 @@
 …
 10,000
+10pm
 18th
 29th
+2am
+6am
+6pm
 ā
 a deit
 aaaah
@@ -810,6 +814,7 @@ Grewia
 grunniens
 guh
 guḷavālakāni
+gustatory
 gutturo-labial
 gutturo-palatal
 hā
@@ -933,6 +938,7 @@ Itivuttaka
 iva
 īya
 JA
+jackstraws
 Jain's
 Jambolana
 Jambu
@@ -1181,6 +1187,7 @@ Mahānāma
 Mahāniddesa
 Mahāpuṇṇamasuttaṃ
 Mahāsatipaṭṭhānasuttaṃ
+Mahāsīhanādasutta
 Mahāsudassana
 Mahāsudassana's
 Mahāthera
@@ -1290,6 +1297,7 @@ MN109
 MN110
 MN111
 MN112
+MN12
 MN2
 MN22
 MN23
@@ -1489,6 +1497,8 @@ Oroflylum
 Oryza
 otāretabba
 otāriyamāna
+others'
+others' 
 Oṭṭhaddha
 Ougeinia
 outcaste
@@ -1712,6 +1722,7 @@ rebirths
 rebukes
 recalcitrance
 redescription
+reduplicated
 refutable
 regardful
 rehabilitatable
@@ -1939,6 +1950,8 @@ sorrowless
 sorrowlessness
 sotāpanna
 Sotāpattisaṃyuttaṃ
+spellicans
+spillikins
 spinosa
 splooshing
 Spondias

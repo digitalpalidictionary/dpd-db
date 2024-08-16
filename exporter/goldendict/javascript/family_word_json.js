@@ -2919,7 +2919,7 @@ var family_word_json = {
     "santikā 2.1",
     "fem",
     "(a game variously called) jackstraws; spillikins; spellicans; pick-up-sticks",
-    "~"
+    "✓"
    ],
    [
     "santike 1",
@@ -13207,7 +13207,7 @@ var family_word_json = {
    [
     "madhuvant",
     "adj",
-    "sweet; as sweet as honey; lit. having honey quality",
+    "sweet tasting; as sweet as honey; lit. having honey quality",
     "✓"
    ],
    [
@@ -13721,6 +13721,35 @@ var family_word_json = {
    ]
   ],
   "count": 8
+ },
+ "ambaṇa": {
+  "data": [
+   [
+    "ambaṇa",
+    "nt",
+    "kind of coin",
+    "✗"
+   ],
+   [
+    "ambaṇa 2",
+    "nt",
+    "water tank",
+    "~"
+   ],
+   [
+    "ambaṇa 3",
+    "nt",
+    "measure of volume",
+    "~"
+   ],
+   [
+    "ambaṇaka",
+    "nt",
+    "percussive musical instrument",
+    "✓"
+   ]
+  ],
+  "count": 4
  },
  "ahaṃ": {
   "data": [
@@ -17758,6 +17787,35 @@ var family_word_json = {
   ],
   "count": 3
  },
+ "vāḷa": {
+  "data": [
+   [
+    "upavāḷa",
+    "masc",
+    "name of a monk; lit. descendent of wild animal",
+    "✓"
+   ],
+   [
+    "vāla 2.1",
+    "adj",
+    "fierce, malicious",
+    "✗"
+   ],
+   [
+    "vāḷa 1.1",
+    "masc",
+    "wild animal; beast of prey",
+    "✓"
+   ],
+   [
+    "vāḷatta",
+    "nt",
+    "viciousness; cruelty; brutality",
+    "✓"
+   ]
+  ],
+  "count": 4
+ },
  "sikhā": {
   "data": [
    [
@@ -21734,6 +21792,17 @@ var family_word_json = {
   ],
   "count": 2
  },
+ "gaṇḍūsa": {
+  "data": [
+   [
+    "gaṇḍūsa 1",
+    "masc",
+    "(of water) mouthful; cupped handful",
+    "✓"
+   ]
+  ],
+  "count": 1
+ },
  "gandhabba": {
   "data": [
    [
@@ -23726,6 +23795,17 @@ var family_word_json = {
    ]
   ],
   "count": 5
+ },
+ "taṭṭa": {
+  "data": [
+   [
+    "taṭṭaka",
+    "masc",
+    "platter; tray",
+    "✓"
+   ]
+  ],
+  "count": 1
  },
  "taṇḍula": {
   "data": [
@@ -30606,29 +30686,6 @@ var family_word_json = {
    ]
   ],
   "count": 5
- },
- "vāḷa": {
-  "data": [
-   [
-    "vāla 2.1",
-    "adj",
-    "fierce, malicious",
-    "✗"
-   ],
-   [
-    "vāḷa 1.1",
-    "masc",
-    "wild animal; beast of prey",
-    "✓"
-   ],
-   [
-    "vāḷatta",
-    "nt",
-    "viciousness; cruelty; brutality",
-    "✓"
-   ]
-  ],
-  "count": 3
  },
  "vālikā": {
   "data": [

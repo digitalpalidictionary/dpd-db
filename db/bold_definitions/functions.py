@@ -443,7 +443,6 @@ def get_bold_strings(bold):
 	# remove useless
 	bold_n = re.sub(f"^({useless_beginnings})$", "", bold_n)
 	bold_n = bold_n.replace("[iti bhagavā]", "")
-	bold_n = bold_n.strip()
 
 	if bold_n:
 		bold_n_original = deepcopy(bold_n)
@@ -462,7 +461,7 @@ def get_bold_strings(bold):
 	bold_e = bold_e.replace("[iti bhagavā]", "")
 	bold_e = text_cleaner(bold_e)
 
-	bold_comp = f"{bold_p} {bold_text} {bold_n}"
+	bold_comp = f"{bold_p} {bold_text}{bold_n}"
 
 	return bold_clean, bold_e, bold_comp, bold_n
 

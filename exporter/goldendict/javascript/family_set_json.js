@@ -3056,9 +3056,9 @@ var family_set_json = {
    ],
    [
     "padasandhikara",
-    "masc",
+    "adj",
     "(gram) helping the joining of words; supporting the combination of words",
-    "~"
+    "✓"
    ],
    [
     "padasandhimatta",
@@ -7966,7 +7966,7 @@ var family_set_json = {
     "mahaggata 2",
     "adj",
     "epithet of an arahant; lit. become great",
-    "~"
+    "✓"
    ],
    [
     "mahānāga 1",
@@ -11367,7 +11367,7 @@ var family_set_json = {
    [
     "pavatta 6",
     "nt",
-    "name of a mountain; lit. occurring",
+    "name of a mountain; lit. proceeding forward",
     "✓"
    ],
    [
@@ -13719,6 +13719,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "lomahaṃsanapariyāya",
+    "masc",
+    "hair-raising discourse; in reference to MN12 Mahāsīhanādasutta",
+    "✓"
+   ],
+   [
     "vatthasutta 1",
     "nt",
     "Majjhima Nikāya 7; Discourse on the Cloth (MN7)",
@@ -13851,7 +13857,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 125
+  "count": 126
  },
  "family names": {
   "data": [
@@ -14131,12 +14137,6 @@ var family_set_json = {
     "✓"
    ],
    [
-    "kekakebhi",
-    "masc",
-    "name of a country",
-    "✓"
-   ],
-   [
     "kosala 1",
     "masc",
     "name of a kingdom",
@@ -14203,7 +14203,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 23
+  "count": 22
  },
  "names of paccekabuddhas": {
   "data": [
@@ -15081,6 +15081,12 @@ var family_set_json = {
     "masc",
     "name of a monk; attendant of the Buddha",
     "~"
+   ],
+   [
+    "upavāḷa",
+    "masc",
+    "name of a monk; lit. descendent of wild animal",
+    "✓"
    ],
    [
     "upasena",
@@ -16493,6 +16499,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "mahānāga 5",
+    "masc",
+    "name of a Sri Lankan monk; lit. great dragon",
+    "✓"
+   ],
+   [
     "mahānāma 3",
     "masc",
     "name of an arahant monk; lit. great name",
@@ -17167,8 +17179,8 @@ var family_set_json = {
    [
     "sāgata 2",
     "masc",
-    "name of a monk; lit. welcome",
-    "~"
+    "name of a monk; foremost in the fire element; lit. welcome",
+    "✓"
    ],
    [
     "sāṭimattiya",
@@ -17573,7 +17585,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 462
+  "count": 464
  },
  "names of arahants": {
   "data": [
@@ -20313,6 +20325,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kekakebhi",
+    "masc",
+    "name of a people",
+    "✓"
+   ],
+   [
     "koliya",
     "masc",
     "name of a clan neighbouring the Sakyans",
@@ -20469,7 +20487,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 37
+  "count": 38
  },
  "epithets of the Buddha": {
   "data": [
@@ -28063,7 +28081,7 @@ var family_set_json = {
    [
     "kururaghara",
     "nt",
-    "name of a town in Avanti; lit. vicious home",
+    "name of a town in Avanti; lit. blood house",
     "✓"
    ],
    [
@@ -29898,6 +29916,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "ambaṇa 3",
+    "nt",
+    "measure of volume",
+    "~"
+   ],
+   [
     "āḷhaka 1",
     "masc",
     "measure of volume",
@@ -29946,7 +29970,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 10
+  "count": 11
  },
  "four modes of generation": {
   "data": [
@@ -31599,6 +31623,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "maggasampadā",
+    "fem",
+    "attaining the path; finding the way; (comm) stream entry; lit. path success",
+    "✓"
+   ],
+   [
     "vigatakathaṃkatha",
     "adj",
     "without doubt; free from confusion; lit. without asking how?",
@@ -31641,7 +31671,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 25
+  "count": 26
  },
  "nine types of suttas": {
   "data": [
@@ -32671,6 +32701,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kāḷavallimaṇḍapa",
+    "masc",
+    "name of a Sri Lankan monastery; lit. black creeper pavilion",
+    "✓"
+   ],
+   [
     "kukkuṭārāma",
     "masc",
     "name of a monastery near Pāṭaliputta; (comm) monastery built by Kukkuṭa; lit. cockerel park",
@@ -32851,7 +32887,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 35
+  "count": 36
  },
  "foodstuff": {
   "data": [
@@ -35188,6 +35224,95 @@ var family_set_json = {
   ],
   "count": 10
  },
+ "Sri Lanka": {
+  "data": [
+   [
+    "kāḷavallimaṇḍapa",
+    "masc",
+    "name of a Sri Lankan monastery; lit. black creeper pavilion",
+    "✓"
+   ],
+   [
+    "kūṭakaṇṇa",
+    "masc",
+    "name of an ancient Sri Lankan king who reigned from 42 to 20 BCE; lit. crooked ear",
+    "✓"
+   ],
+   [
+    "gajabāhu",
+    "masc",
+    "name of an ancient Sri Lankan king who reigned from 113 to 135 CE; lit. arms like an elephant (trunk)",
+    "~"
+   ],
+   [
+    "cittala",
+    "masc",
+    "name of a mountain in Sri Lanka",
+    "✓"
+   ],
+   [
+    "cittalapabbata",
+    "masc",
+    "name of an ancient mountain-top monastery in Sri Lanka",
+    "✓"
+   ],
+   [
+    "cūḷanāga",
+    "masc",
+    "name of a learned Sri Lankan monk; student of Sumana Thera; also known as Tepiṭakacūḷanāgatthera; lit. young dragon",
+    "✓"
+   ],
+   [
+    "cetiyagiri",
+    "masc",
+    "name of a mountain shrine near Anurādhapura in Sri Lanka; legendary meeting place of Ven. Mahinda and King Devānampiyatissa; lit. pagoda mountain",
+    "~"
+   ],
+   [
+    "cetiyapabbata",
+    "masc",
+    "name of an area in Sri Lanka; Mihintale; lit. shrine mountain",
+    "~"
+   ],
+   [
+    "dīpavihāra",
+    "masc",
+    "name of an ancient Sri Lankan monastery; lit. island monastery",
+    "✓"
+   ],
+   [
+    "duṭṭhagāmaṇi",
+    "masc",
+    "name of a renowned ancient king in Sri Lanka who reigned from 161 to 137 BCE; lit. corrupt chief",
+    "✓"
+   ],
+   [
+    "nāgadīpa",
+    "masc",
+    "name of a peninsula in northern Sri Lanka; lit. Nāga island",
+    "✓"
+   ],
+   [
+    "mahānāga 5",
+    "masc",
+    "name of a Sri Lankan monk; lit. great dragon",
+    "✓"
+   ],
+   [
+    "vijayabāhu",
+    "masc",
+    "name of an ancient king in Sri Lanka who reigned from 1055 to 1110 CE; lit. victory arm",
+    "~"
+   ],
+   [
+    "sumanatthera",
+    "masc",
+    "name of a learned Sri Lankan monk",
+    "✓"
+   ]
+  ],
+  "count": 14
+ },
  "root groups": {
   "data": [
    [
@@ -35342,89 +35467,18 @@ var family_set_json = {
   ],
   "count": 8
  },
- "Sri Lanka": {
-  "data": [
-   [
-    "kūṭakaṇṇa",
-    "masc",
-    "name of an ancient Sri Lankan king who reigned from 42 to 20 BCE; lit. crooked ear",
-    "✓"
-   ],
-   [
-    "gajabāhu",
-    "masc",
-    "name of an ancient Sri Lankan king who reigned from 113 to 135 CE; lit. arms like an elephant (trunk)",
-    "~"
-   ],
-   [
-    "cittala",
-    "masc",
-    "name of a mountain in Sri Lanka",
-    "✓"
-   ],
-   [
-    "cittalapabbata",
-    "masc",
-    "name of an ancient mountain-top monastery in Sri Lanka",
-    "✓"
-   ],
-   [
-    "cūḷanāga",
-    "masc",
-    "name of a learned Sri Lankan monk; student of Sumana Thera; also known as Tepiṭakacūḷanāgatthera; lit. young dragon",
-    "✓"
-   ],
-   [
-    "cetiyagiri",
-    "masc",
-    "name of a mountain shrine near Anurādhapura in Sri Lanka; legendary meeting place of Ven. Mahinda and King Devānampiyatissa; lit. pagoda mountain",
-    "~"
-   ],
-   [
-    "cetiyapabbata",
-    "masc",
-    "name of an area in Sri Lanka; Mihintale; lit. shrine mountain",
-    "~"
-   ],
-   [
-    "dīpavihāra",
-    "masc",
-    "name of an ancient Sri Lankan monastery; lit. island monastery",
-    "✓"
-   ],
-   [
-    "duṭṭhagāmaṇi",
-    "masc",
-    "name of a renowned ancient king in Sri Lanka who reigned from 161 to 137 BCE; lit. corrupt chief",
-    "✓"
-   ],
-   [
-    "nāgadīpa",
-    "masc",
-    "name of a peninsula in northern Sri Lanka; lit. Nāga island",
-    "✓"
-   ],
-   [
-    "vijayabāhu",
-    "masc",
-    "name of an ancient king in Sri Lanka who reigned from 1055 to 1110 CE; lit. victory arm",
-    "~"
-   ],
-   [
-    "sumanatthera",
-    "masc",
-    "name of a learned Sri Lankan monk",
-    "✓"
-   ]
-  ],
-  "count": 12
- },
  "epithets of Sakka": {
   "data": [
    [
     "kosiya 2",
     "masc",
     "family name of Sakka; lit. from a cocoon",
+    "✓"
+   ],
+   [
+    "gandhabbarāja",
+    "masc",
+    "king of the demigods; epithet of Sakka",
     "✓"
    ],
    [
@@ -35482,7 +35536,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 10
+  "count": 11
  },
  "books of the Vinayapiṭaka": {
   "data": [
