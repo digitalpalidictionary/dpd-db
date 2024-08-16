@@ -38,18 +38,29 @@ class Base(DeclarativeBase):
 
 
 class DbInfo(Base):
-    """Storing general key-value data such as dpd_release_version and cached
-    values, e.g. cf_set and so on."""
-    __tablename__ = "db_info"
+    """
+    Store general key-value data such as
+    1. dpd_db info, release_version, etc 
+    2. cached values, cf_set, etc.
+    """
 
+    __tablename__ = "db_info"
     id: Mapped[int] = mapped_column(primary_key=True)
     key: Mapped[str] = mapped_column(unique=True)
     value: Mapped[str] = mapped_column(default='')
 
+    # value pack unpack
+    def value_pack(self, data) -> None:
+        self.value = json.dumps(data, ensure_ascii=False)
+
+    @property
+    def value_unpack(self) -> list[str]:
+        return json.loads(self.value)
 
 class InflectionTemplates(Base):
-    __tablename__ = "inflection_templates"
+    """Inflection templates for generating html tables."""
 
+    __tablename__ = "inflection_templates"
     pattern: Mapped[str] = mapped_column(primary_key=True)
     like: Mapped[str] = mapped_column(default='')
     data: Mapped[str] = mapped_column(default='')

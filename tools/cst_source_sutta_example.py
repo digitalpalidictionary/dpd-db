@@ -180,6 +180,7 @@ class GlobalData():
         self.samyutta: str = ""
         self.samyutta_counter: int = self.init_samyutta_counter()
         self.anguttara_counter: int = 0
+        self.vin_book: str
         
         self.section = ""
         self.section_counter: int = 0
@@ -433,6 +434,16 @@ def assert_type_int(text):
         return text
     except (ValueError, TypeError):
         return ""
+
+
+def is_int(text):
+    try:
+        if isinstance(int(text), int):
+            return True
+        else:
+            return False
+    except:
+        return False
 
 
 def assert_no_space(sutta_name: str):
@@ -1312,11 +1323,126 @@ def kn20_petakopadesa(g: GlobalData):
 
 # TODO abhidhamma books
 
-# TODO vinaya commentary
 
 def vina_commentary(g: GlobalData):
-    pass
+    # <p rend="subsubhead">Ganthārambhakathā</p>
+    # section   <p rend="chapter">Verañjakaṇḍavaṇṇanā</p>
+    # section   <p rend="chapter">4. Nissaggiyakaṇḍaṃ</p>
+    # vagga     <p rend="title">1. Paṭhamapārājikaṃ</p>
+    # vagga     <p rend="title">1. Cīvaravaggo</p>
+    # <p rend="subhead">Sudinnabhāṇavāravaṇṇanā</p>
+
+    # book = "VINa"
+    x = g.x
+
+    if x["rend"] == "book":
+        if x.text == "Pārājikakaṇḍa-aṭṭhakathā (paṭhamo bhāgo)":
+            g.vin_book = "VINa1"
+        elif x.text == "Pācittiya-aṭṭhakathā":
+            g.vin_book = "VINa2"
+        elif x.text == "Bhikkhunīvibhaṅgavaṇṇanā":
+            g.vin_book = "BHI VINa"
+            g.section_counter = 0
+        elif x.text == "Mahāvagga-aṭṭhakathā":
+            g.vin_book = "VINa3"
+            g.section_counter = 0
+        elif x.text == "Cūḷavagga-aṭṭhakathā":
+            g.vin_book = "VINa4"
+            g.section_counter = 0
+        elif x.text == "Parivāra-aṭṭhakathā":
+            g.vin_book = "VINa5"
+            g.section_counter = 0
+
+    if x["rend"] in ["chapter", "subsubhead"]:
+        section, section_no = get_text_and_number(x.text)
+        g.section = section
+        g.section_counter += 1
+        
+        g.source = f"{g.vin_book}.{g.section_counter}"
+        g.sutta = section.lower()
+        
+        g.sutta_counter = 0
+        g.vagga = ""
+        g.vagga_counter = 0
+
+        # exceptions
+        if x.text in [
+            "Verañjakaṇḍavaṇṇanā",
+            "Ganthārambhakathā"
+        ]:
+            g.section_counter = 0
+            g.vagga_counter += 1
+            g.source = f"{g.vin_book}.{g.section_counter}"
+            
+        if "bhikkhunīvibhaṅgavaṇṇanā" in x.text:
+            section = section.replace(" (bhikkhunīvibhaṅgavaṇṇanā)", "")
+            g.source = f"{g.vin_book}{g.section_counter}"
+            g.sutta = section.lower()
+        
     
+    elif x["rend"] == "title":
+        vagga, vagga_no = get_text_and_number(x.text)
+        g.vagga = vagga
+        
+        if is_int(vagga_no):
+            g.vagga_counter = vagga_no
+        
+        g.source = f"{g.vin_book}.{g.section_counter}.{g.vagga_counter}"
+        g.sutta = g.vagga.lower()
+        g.sutta_counter = 0
+
+        # exceptions
+        if g.vin_book == "BHI VINa":
+            g.source = f"{g.vin_book}{g.section_counter}.{g.vagga_counter}"
+        if x.text == "Bāhiranidānakathā":
+            g.source = f"{g.vin_book}.0"
+        if x.text == "Nigamanakathā":
+            g.source = f"{g.vin_book}"
+    
+    elif x["rend"] == "subhead":
+        if "(" not in x.text:
+            sutta, sutta_no = get_text_and_number(x.text)
+        else:
+            sutta, sutta_no = get_text_and_number_with_brackets1(x.text)
+
+        if g.vin_book != "BHI VINa":
+            if is_int(sutta_no):
+                g.sutta_counter = int(sutta_no)
+                
+                if g.vagga_counter:
+                    g.source = f"{g.vin_book}.{g.section_counter}.{g.vagga_counter}.{g.sutta_counter}"
+                    g.sutta = f"{g.vagga}, {sutta}".lower()
+                
+                else:
+                    g.source = f"{g.vin_book}.{g.section_counter}.{g.sutta_counter}"
+                    g.sutta = f"{g.section}, {sutta}".lower()
+            
+            else:
+                if g.vin_book == "VINa1":
+                    
+                    # intro
+                    if g.section_counter == 0: 
+                        g.source = f"{g.vin_book}.{g.section_counter}"
+                        g.sutta = sutta.lower()
+                    
+                    # pārājika
+                    elif g.section_counter == 1: 
+                        g.source = f"{g.vin_book}.{g.section_counter}.{g.vagga_counter}"
+                        g.sutta = f"{g.vagga}, {sutta}".lower()
+                
+                else:
+                    g.sutta_counter += 1
+                    g.source = f"{g.vin_book}.{g.section_counter}.{g.sutta_counter}"
+                    g.sutta = f"{g.section}, {sutta}".lower()
+        
+        else:
+            g.sutta_counter += 1
+            g.source = f"{g.vin_book}{g.section_counter}.{g.sutta_counter}"
+            g.sutta = sutta.lower()
+            if g.vagga_counter:
+                g.source = f"{g.vin_book}{g.section_counter}.{g.vagga_counter}.{sutta_no}"
+                g.sutta = f"{g.vagga}, {g.sutta}".lower()
+
 
 def dna_digha_nikaya_commentary(g: GlobalData):
     # vagga   <head rend="subsubhead">Ganthārambhakathā</head>
@@ -2406,7 +2532,7 @@ def find_source_sutta_example(
 
 
 if __name__ == "__main__":
-    book = "sn3"
-    text_to_find = "ṭhitikusalo hoti"
+    book = "vina"
+    text_to_find = "ambaṇ"
     sutta_examples = find_source_sutta_example(book, text_to_find)
     print(len(sutta_examples))

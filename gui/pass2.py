@@ -508,6 +508,9 @@ def check_example_headword(
 
                     if p2d.continue_flag in ["exit", "yes", "new"]:
                         return
+
+                    if id and dpd_headword:
+                        test_words_in_construction(p2d, wd, dpd_headword)
             
             else:
                 print(id_list)

@@ -78,10 +78,11 @@ def find_missing_meanings(db_session: Session, text: str):
     for g.word in g.text_list:
         check_in_lookup(g)
         if g.lookup:
-            if g.lookup.headwords:
-                check_in_dpd_headwords(g)
-            if g.lookup.deconstructor:
-                check_in_deconstructor(g)
+            pass
+            # if g.lookup.headwords:
+            #     check_in_dpd_headwords(g)
+            # if g.lookup.deconstructor:
+            #     check_in_deconstructor(g)
         else:
             g.missing_meanings.append(g.word)
 

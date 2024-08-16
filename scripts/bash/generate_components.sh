@@ -9,7 +9,7 @@ set -e
 
 tools/version.py
 
-db/inflections/create_inflections_templates.py
+db/inflections/create_inflection_templates.py
 db/inflections/generate_inflection_tables.py
 
 scripts/sanskrit_root_families_updater.py

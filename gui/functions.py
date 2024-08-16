@@ -34,7 +34,6 @@ from tools.paths import ProjectPaths
 from tools.pos import INDECLINABLES
 from tools.tokenizer import split_words
 
-# nltk.download('punkt')
 
 class Flags:
     def __init__(self):

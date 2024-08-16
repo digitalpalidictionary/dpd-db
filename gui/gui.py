@@ -967,6 +967,8 @@ def main():
         elif event == "open_last_word":
             if last_word_id:
                 values["word_to_clone_edit"] = last_word_id
+            else:
+                values["word_to_clone_edit"] = str(int(values["id"])-1)
             if values["word_to_clone_edit"]:
                 pali_word_original = edit_word_in_db(db_session, values, window)
                 pali_word_original2 = deepcopy(pali_word_original)
@@ -1092,8 +1094,8 @@ def main():
                         value=len(words_to_add_list))
 
             # add missing meanings            
-            example_1_and_2 = f"""{values["example_1"]} {values["example_2"]}"""
-            missing_meanings = find_missing_meanings(db_session, example_1_and_2)
+            example_1_2_commentary = f"""{values["example_1"]} {values["example_2"]} {values["commentary"]}"""
+            missing_meanings = find_missing_meanings(db_session, example_1_2_commentary)
             if missing_meanings:
                 missing_meanings_reduced = [
                     i 
