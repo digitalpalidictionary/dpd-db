@@ -375,6 +375,14 @@ def get_text_and_number_with_brackets_end(text: str):
     clean, clean_no = get_text_and_number(text)
     return clean, clean_no
 
+def get_text_and_number_with_brackets_abhidhamma(text: str):
+    """
+    '(26. Ka) dovacassatā' > ('dovacassatā', 26)
+
+    """
+    clean = re.sub(r"^\(.*\) *", "", text)
+    clean_no = re.sub(r"\(|[^0-9]|\).+", "", text)
+    return clean, clean_no
 
 def get_text_and_number_ana(text: str):
     sutta = re.sub(r"^.+\. ", "", text)
@@ -1321,7 +1329,121 @@ def kn20_petakopadesa(g: GlobalData):
     #     g.sutta = f"{g.section}, {sutta}".lower()
            
 
+
+
+def abh1_dhammasangani(g: GlobalData):
+    # <p rend="chapter">Mātikā</p>
+    # <p rend="chapter">1. Cittuppādakaṇḍaṃ</p>
+    # <p rend="title">Kāmāvacarakusalaṃ</p>
+    # <p rend="subhead">Padabhājanī</p>
+    # <p rend="subhead">1. Tikamātikā</p>
+
+    book = "DHS"
+    x = g.x
+
+    if x["rend"] == "chapter":
+        section, section_no = get_text_and_number(x.text)
+        g.section = section
+        
+        if is_int(section_no):
+            g.section_counter = section_no
+        else:
+            g.section_counter = 0
+        
+        g.source = f"{book}{g.section_counter}"
+        g.sutta = section.lower()
+
+        # reset vagga
+        g.vagga = ""
+        g.vagga_counter = 0
+    
+    elif x["rend"] == "title":
+        vagga, vagga_no = get_text_and_number(x.text)
+        g.vagga = vagga
+        g.vagga_counter += 1
+
+        g.source = f"{book}{g.section_counter}.{g.vagga_counter}"
+        g.sutta = f"{g.section}, {g.vagga}".lower()
+
+        g.sutta_counter = 0
+    
+    elif x["rend"] == "subhead":
+        sutta, sutta_no = get_text_and_number(x.text)
+        g.sutta_counter += 1
+
+        g.source = f"{book}{g.section_counter}.{g.vagga_counter}.{g.sutta_counter}"
+        if not g.vagga:
+            g.sutta = f"{g.section}, {sutta}".lower()
+        else:
+            g.sutta = f"{g.vagga}, {sutta}".lower()
+
+
+def abh2_vibhanga(g: GlobalData):
+    # <p rend="chapter">1. Khandhavibhaṅgo</p>
+    # <p rend="title">1. Suttantabhājanīyaṃ</p>
+    # <p rend="subhead">1. Rūpakkhandho</p>
+
+    book = "VIBH"
+    x = g.x
+
+    if x["rend"] == "chapter":
+        section, section_no = get_text_and_number(x.text)
+        g.section = section
+        
+        g.section_counter = section_no
+        g.source = f"{book}{g.section_counter}"
+        g.sutta = section.lower()
+
+        # reset vagga
+        g.vagga = ""
+        g.vagga_counter = 0
+
+    elif x["rend"] == "title":
+        vagga, vagga_no = get_text_and_number(x.text)
+        g.vagga = vagga
+        g.vagga_counter += 1
+
+        g.source = f"{book}{g.section_counter}.{g.vagga_counter}"
+        g.sutta = f"{g.section}, {g.vagga}".lower()
+
+        g.sutta_counter = 0
+
+
+    elif x["rend"] == "subhead":
+        if "(" in x.text:
+            sutta, sutta_no = get_text_and_number_with_brackets_abhidhamma(x.text)
+            if re.findall(r"\d", sutta_no):
+                g.sutta_counter = sutta_no
+                g.source = f"{book}{g.section_counter}.{g.vagga_counter}.{g.sutta_counter}"
+                g.sutta = f"{g.section}, {g.vagga}, {sutta}".lower()
+            else:
+                g.sutta = f"{g.section}, {g.vagga}, {sutta}".lower()
+        else:
+            sutta, sutta_no = get_text_and_number(x.text)
+            g.sutta_counter += 1
+
+            g.source = f"{book}{g.section_counter}.{g.vagga_counter}.{g.sutta_counter}"
+            if not g.vagga:
+                g.sutta = f"xxxxxxx, {sutta}".lower()
+            else:
+                g.sutta = f"{g.section}, {g.vagga}, {sutta}".lower()
+
 # TODO abhidhamma books
+
+def abh3_dhatukatha(g: GlobalData):
+    pass
+
+def abh4_puggalapannati(g: GlobalData):
+    pass
+
+def abh5_kathavatthu(g: GlobalData):
+    pass
+
+def abh6_yamaka(g: GlobalData):
+    pass
+
+def abh7_patthana(g: GlobalData):
+    pass
 
 
 def vina_commentary(g: GlobalData):
@@ -2412,6 +2534,7 @@ def find_source_sutta_example(
                     vin2_pacittiya(g)
                 case "vin3" | "vin4":
                     vin3_vin4_maha_culavagga(g)
+                
                 case "dn1" | "dn2" | "dn3":
                     dn_digha_nikaya(g)
                 case "mn1" | "mn2" | "mn3":
@@ -2457,6 +2580,22 @@ def find_source_sutta_example(
                     kn19_netti(g)
                 case "kn20":
                     kn20_petakopadesa(g)
+                
+                case "abh1":
+                    abh1_dhammasangani(g)
+                case "abh2":
+                    abh2_vibhanga(g)
+                case "abh3":
+                    abh3_dhatukatha(g)
+                case "abh4":
+                    abh4_puggalapannati(g)
+                case "abh5":
+                    abh5_kathavatthu(g)
+                case "abh6":
+                    abh6_yamaka(g)
+                case "abh7":
+                    abh7_patthana(g)
+
                 case "vina":
                     vina_commentary(g)
                 case "dna":
@@ -2500,6 +2639,7 @@ def find_source_sutta_example(
                     kn17a_patisambhidamagga_commentary(g)
                 case "kn19a":
                     kn19a_netti_commentary(g)
+                
                 case "vism" | "visma":
                     vism_visuddhimagga_and_commentary(g)
                 case "ap":
@@ -2532,7 +2672,7 @@ def find_source_sutta_example(
 
 
 if __name__ == "__main__":
-    book = "vina"
-    text_to_find = "ambaṇ"
+    book = "abh2"
+    text_to_find = "dandhābhiñña"
     sutta_examples = find_source_sutta_example(book, text_to_find)
     print(len(sutta_examples))

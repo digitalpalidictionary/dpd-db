@@ -1,10 +1,12 @@
-"""The filenames corresponding to various sections of the Pāḷi canon in
-Chaṭṭha Saṅgāyana (CST) texts, Sutta Central (SC) texts,
-and Buddha Jayanti Tripitaka (BTJ) texts (unused)."""
+"""
+The filenames corresponding to various sections of the Pāḷi canon in
+1. Chaṭṭha Saṅgāyana (CST) texts,
+2. Sutta Central (SC) texts,
+3. Buddha Jayanti Tripitaka (BTJ) texts (unused).
+"""
 
-from typing import Dict, List
+cst_texts: dict[str, list[str]] = {
 
-cst_texts: Dict[str, List[str]] = {
     "vin1": ["vin01m.mul.txt"],
     "vin2": ["vin02m1.mul.txt"],
     "vin3": ["vin02m2.mul.txt"],
@@ -293,7 +295,8 @@ cst_texts: Dict[str, List[str]] = {
     ],
 }
 
-sc_texts: Dict[str, List[str]] = {
+sc_texts: dict[str, list[str]] = {
+
     "vin1": [
         "pli-tv-bu-vb-pj1_root-pli-ms.json",
         "pli-tv-bu-vb-pj2_root-pli-ms.json",
@@ -7856,7 +7859,8 @@ sc_texts: Dict[str, List[str]] = {
 
 }
 
-bjt_texts = {
+bjt_texts: dict[str, [list[str]]] = {
+    
     "vin1": [
         "vp-prj.json",
         "vp-prj-2-3.json",
