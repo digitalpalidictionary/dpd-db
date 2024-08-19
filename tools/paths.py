@@ -163,6 +163,7 @@ class ProjectPaths:
         self.grammar_dict_tsv_path = base_dir / "exporter/grammar_dict/output/grammar_dict.tsv"
 
         # gui
+        self.additions_tsv_path = base_dir / "gui/additions.tsv"
         self.additions_pickle_path = base_dir / "gui/additions"
         self.corrections_tsv_path = base_dir / "gui/corrections.tsv"
         self.delated_words_history_pth = base_dir / "gui/delated_words_history.tsv"

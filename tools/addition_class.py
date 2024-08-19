@@ -78,12 +78,12 @@ class Addition:
         return f"""
 {'comment':<20}{self.comment}
 {'date_created':<20}{self.date_created}
-{'pali_word':<20}{self.pali_word}
 {'old_id':<20}{self.old_id}
 {'new_id':<20}{self.new_id}
 {'added_to_db':<20}{self.added_to_db}
 {'added_date':<20}{self.added_date}
 """
+# {'pali_word':<20}{self.pali_word}
 
 if __name__ == "__main__":
     additions_list = Addition.load_additions()
