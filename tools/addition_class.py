@@ -1,100 +1,106 @@
 """A class to handle all data relevant to adding user additions to the db."""
 
-import pickle
-import pandas as pd
-
 from datetime import datetime
 from rich import print
-from typing import Optional
 
 from db.models import DpdHeadwords
+from db.db_helpers import get_db_session
 from tools.paths import ProjectPaths
+from tools.tsv_read_write import read_tsv_dot_dict, write_tsv_dot_dict
+from tools.configger import config_read
 
 pth = ProjectPaths()
 
-class Addition:
+# When secondary user adds new words to their db > save it to the Additions TSV
+# When secondary user updates a word in their db > update the Additions TVS
+# When primary user adds the Additions to their database, save the new id and comments 
+# TODO Process to add new Additions one by one.
+
+
+class Additions():
+
     def __init__(
         self,
-        pali_word: DpdHeadwords,
-        comment: str,
-        date_created: Optional[str] = None,
-        old_id: Optional[int] = None,
-        new_id: Optional[int] = None,
-        added_to_db: bool = False,
-        added_date: Optional[str] = None
+        headword: DpdHeadwords,
     ):
-        self.pali_word = pali_word
-        self.comment = comment
-        if date_created is None:
-            self.date_created = datetime.now().strftime('%Y-%m-%d')
-        else:
-            self.date_created = date_created
-        self.old_id = pali_word.id
-        self.new_id = new_id
-        self.added_to_db = added_to_db
-        self.added_date = added_date
-
-    def update(
-            self,
-            new_id: int,
-            added_to_db: bool = True,
-            added_date: Optional[str] = None):
-        self.new_id = new_id
-        self.added_to_db = added_to_db
-        if added_date is None:
-            self.added_date = datetime.now().strftime('%Y-%m-%d')
-        else:
-            self.added_date = added_date
-
-    @ staticmethod
-    def load_additions():
-        with open(pth.additions_pickle_path, "rb") as file:
-            additions_list = pickle.load(file)
-        return additions_list
-
-    @ staticmethod
-    def save_additions(additions_list):
-        with open(pth.additions_pickle_path, "wb") as file:
-            pickle.dump(additions_list, file)
-
-
-    def replace_id_in_file(self, file_path, checking_data):
+        self.headword: DpdHeadwords = headword
+        self.additions_list: list[dict] = self.load_additions_tsv()
+        self.add_me = {
+            "new_id": "",
+            "comment": "",
+            "date_created": str(datetime.now().strftime('%Y-%m-%d')),
+            "added_to_db": "",
+            "date_added_to_db": "",
+            "name": config_read("user", "username")
+        }
+        self.add_me.update(headword.__dict__)
+        self.add_me.pop("_sa_instance_state")
         try:
-            df = pd.read_csv(file_path, sep='\t', header=None, low_memory=False, on_bad_lines='skip')
-        except Exception as e:
-            print(f"Error reading file {file_path}: {e}")
-            return
+            self.add_me.pop("updated_at")
+            self.add_me.pop("created_at")
+        except KeyError:
+            pass
+        self.is_new_addition = self.test_id()
+        if self.add_me["added_to_db"]:
+            self.needs_updating = False
+        else:
+            if self.is_new_addition:
+                self.needs_updating = False
+            else:
+                self.needs_updating = True
 
-        if (
-            self.new_id is not None and
-            self.added_date is not None and
-            datetime.strptime(self.added_date, '%Y-%m-%d') >= datetime.strptime(checking_data, '%Y-%m-%d')
-        ):
-            df[0] = df[0].apply(lambda x: (print(f"Old ID: {x}, New ID: {self.new_id} in {file_path}") or str(self.new_id)) if str(x) == str(self.old_id) else x)
-            df.to_csv(file_path, sep='\t', index=False, header=False)
 
+    def load_additions_tsv(self):
+        try:
+            return read_tsv_dot_dict(pth.additions_tsv_path)
+        except FileNotFoundError:
+            return []
 
-    def __repr__(self):
+    def save_additions_tsv(self):
+        write_tsv_dot_dict(pth.additions_tsv_path, self.additions_list)
+    
+    def test_id(self):
+        self.id_index: int | None = None
+        for counter, add_list in enumerate(self.additions_list):
+            if str(add_list["id"]) == str(self.add_me["id"]):
+                
+                # pop and add if it exists
+                self.additions_list.pop(counter)
+                return False
+
+        return True
+
+    def update(self, comment: str):
+        self.add_me["comment"] = comment
+        self.additions_list.append(self.add_me)
+        self.save_additions_tsv()
+
+    def __repr__(self) -> str:
         return f"""
-{'comment':<20}{self.comment}
-{'date_created':<20}{self.date_created}
-{'old_id':<20}{self.old_id}
-{'new_id':<20}{self.new_id}
-{'added_to_db':<20}{self.added_to_db}
-{'added_date':<20}{self.added_date}
+{"id":<20}: {self.add_me["id"]}
+{"lemma_1":<20}: {self.add_me["lemma_1"]}
+{"comment":<20}: {self.add_me["comment"]}
+{"new_id":<20}: {self.add_me["new_id"]}
+{"date_created":<20}: {self.add_me["date_created"]}
+{"added_to_db":<20}: {self.add_me["added_to_db"]}
+{"date_added_to_db":<20}: {self.add_me["date_added_to_db"]}
 """
-# {'pali_word':<20}{self.pali_word}
+
+    
+
+    # def convert_old_format_to_new():
+    #     with open(pth.additions_pickle_path, "rb") as f:
+    #         old_additions_list = pickle.load(f)
+    #         for i in old_additions_list:
+    #             print(i)
+
+
 
 if __name__ == "__main__":
-    additions_list = Addition.load_additions()
-    print([a for a in additions_list])
 
-    # from this added_date onward we going to replace old_id with new_id
-    checking_data = "2024-02-14"
-
-    # for addition in additions_list:
-    #     addition.replace_id_in_file(pth.corrections_tsv_path, checking_data)
-    #     addition.replace_id_in_file(pth.sbs_path, checking_data)
-    #     addition.replace_id_in_file(pth.russian_path, checking_data)
-
-
+    db_session = get_db_session(pth.dpd_db_path)
+    headword = db_session.query(DpdHeadwords).filter_by(id=45673).first()
+    if headword:
+        new_addition = Additions(headword)
+        print(new_addition.needs_updating)
+        new_addition.update("oh yes!")

@@ -19,7 +19,7 @@ from db.models import DpdHeadwords
 from functions_db import make_all_inflections_set
 from functions_db import values_to_pali_word
 
-from tools.addition_class import Addition
+from tools.addition_class import Additions
 from tools.bold_definitions_search import search_bold_definitions
 from tools.configger import config_read
 from tools.configger import config_test
@@ -1064,13 +1064,22 @@ def test_username(sg):
 
 def compare_differences(
         book_to_add, pth, values: dict, sg, pali_word_original: Optional[DpdHeadwords], action):
-    """Comapre the differences between original and new word.
+    """Compare the differences between original and new word.
     Save to corrections or additions TSV."""
 
+    pali_word = values_to_pali_word(values)
+    new_addition = Additions(pali_word)
+
+    # two possibilities
+    # 1. its an update of an existing word which is not in the additions list
+    # 2. its an addition or an update of a word in the additions list
+
     if (
-        action == "updated" and
-        pali_word_original
+        action == "updated"
+        and pali_word_original
+        and not new_addition.needs_updating
     ):
+        
         # check what's changed
         got_comment = set()
         fields = pali_word_original.__dict__
@@ -1179,39 +1188,19 @@ def compare_differences(
                             writer.writerow(correction)
 
     elif (
-        action == "added" or
-        not pali_word_original
+        action == "added"
+        or not pali_word_original
+        or new_addition.needs_updating
     ):
         while True:
-            prompt = "Please comment on this new word."
+            prompt = "Please comment on this word."
             comment = sg.popup_get_text(
                 prompt, default_text=f'{book_to_add}', title="comment", location=(400, 400))
             if comment:
                 break
 
-        pali_word = values_to_pali_word(values)
-        if pth.additions_pickle_path.exists():
-            additions_list = Addition.load_additions()
-        else:
-            additions_list = []
-        addition = Addition(pali_word, comment)
+        new_addition.update(comment)  
 
-        additions_list.append(addition)
-        Addition.save_additions(additions_list)
-
-
-def additions_load(pth) -> List[Tuple]:
-    """Load the list of word to add to db from pickle file."""
-    with open(pth.additions_pickle_path, "rb") as file:
-        additions = pickle.load(file)
-        print(additions)
-        return additions
-
-
-def additions_save(pth, additions):
-    """Save the list of word to add to db to pickle file."""
-    with open(pth.additions_pickle_path, "wb") as file:
-        pickle.dump(additions, file)
 
 
 def load_gui_config(filename="config.ini"):
