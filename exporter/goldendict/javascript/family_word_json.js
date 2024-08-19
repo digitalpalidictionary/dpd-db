@@ -5804,7 +5804,7 @@ var family_word_json = {
    [
     "abhimukha 1",
     "adj",
-    "facing; directed towards",
+    "facing; directed (towards)",
     "✓"
    ],
    [
@@ -8829,9 +8829,15 @@ var family_word_json = {
     "masc",
     "verandah; porch; terrace",
     "✓"
+   ],
+   [
+    "āḷindaka",
+    "masc",
+    "name of a Sri Lankan monastery",
+    "✓"
    ]
   ],
-  "count": 3
+  "count": 4
  },
  "āḷhaka": {
   "data": [
@@ -24167,13 +24173,19 @@ var family_word_json = {
    [
     "tumhehi 1",
     "pron",
-    "by you all",
+    "by you all; with you all",
     "✓"
    ],
    [
     "tumhehi 2",
     "pron",
     "from you all",
+    "✓"
+   ],
+   [
+    "tumhehi 3",
+    "pron",
+    "(royal plural) by you; with you; lit. with you all",
     "✓"
    ],
    [
@@ -24285,7 +24297,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 37
+  "count": 38
  },
  "taluna": {
   "data": [

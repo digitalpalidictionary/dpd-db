@@ -1,11 +1,37 @@
+
 …
 10,000
 10pm
+10th
+11th
+12th
+13th
+13th
+14th
+15th
+16th
+17th
 18th
+19th
+20th
+21st
+22nd
+23rd
+25th
+26th
+27th
 29th
 2am
+2nd
+40th
+4th
+5th
 6am
 6pm
+6th
+7th
+8th
+9th
 ā
 a deit
 aaaah
@@ -43,6 +69,7 @@ adj
 adjectival
 admonishable
 admonishable;
+adverbial
 adversative
 Aegle
 afflictive
@@ -266,6 +293,7 @@ BC
 BD
 bdellium
 beautifies
+beautifulness
 become-one-ness
 bedstead
 befooled
@@ -476,6 +504,7 @@ correctness
 cortege
 cossetted
 courageless
+courteousness
 covetousness
 cowdung
 cowpat
@@ -501,6 +530,7 @@ curādigaṇa
 Cymbopogon
 Cyperus
 Cyprinus
+d
 ḍ
 dā
 ḍa
@@ -533,6 +563,7 @@ defilements
 dehorned
 dehusked
 dejection
+delicateness
 deludedly
 demeritorious
 denigrates
@@ -968,6 +999,7 @@ jujuba
 Jumna
 juncea
 just-so-much-ness
+k
 Kaasi
 Kacc
 Kaccāyana
@@ -1103,6 +1135,7 @@ kuṭi
 kuṭis
 Kuvera
 Kuvera's
+ḷ
 ḷ
 laager
 labh
@@ -1677,6 +1710,7 @@ pucchā
 Puggalapaññatti
 Pukkusa
 pulcherrima
+pummels
 Punabbasuka
 puṇḍarika-count
 puṅgava
@@ -1741,10 +1775,12 @@ renunciants
 renunciate
 renunciates
 reprimandable
+reproved
 requisites
 rereturn
 resthouse
 retaliator
+retroflex
 retroflex
 Revata
 reverable
@@ -1881,6 +1917,7 @@ Sekhiya
 Sekhuniya's
 Sela
 sellable
+semi-vowel
 Senagiri
 seniormost
 sensorial
@@ -1976,6 +2013,7 @@ studly
 stupa
 su
 sū
+suavity
 sub-commentary
 subbaṭṭitaṃ
 Subha
@@ -2122,6 +2160,7 @@ tonsured
 Toona
 tope
 Tora
+towelled
 townsperson
 tradable
 tragocamelus

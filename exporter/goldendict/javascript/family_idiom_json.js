@@ -3682,6 +3682,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "udaka": {
+  "count": 1,
+  "data": [
+   [
+    "cudakā",
+    "sandhi",
+    "and from the water",
+    "✓"
+   ]
+  ]
+ },
  "accharā1": {
   "count": 1,
   "data": [
@@ -14416,17 +14427,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "udaka": {
-  "count": 1,
-  "data": [
-   [
-    "cudakā",
-    "sandhi",
-    "and from the water",
-    "✓"
-   ]
-  ]
- },
  "odhi": {
   "count": 1,
   "data": [
@@ -17148,6 +17148,17 @@ var family_idiom_json = {
     "vaṇṇaṃ bhāsati",
     "idiom",
     "speaks in praise (of); extols the virtues (of)",
+    "✓"
+   ]
+  ]
+ },
+ "vassanta": {
+  "count": 1,
+  "data": [
+   [
+    "deve vassante",
+    "idiom",
+    "when it is raining",
     "✓"
    ]
   ]
@@ -27062,17 +27073,6 @@ var family_idiom_json = {
     "devānumodanti",
     "sandhi",
     "the gods rejoice; the deities appreciate",
-    "✓"
-   ]
-  ]
- },
- "vassanta": {
-  "count": 1,
-  "data": [
-   [
-    "deve vassante",
-    "idiom",
-    "when it is raining",
     "✓"
    ]
   ]

@@ -1,5 +1,10 @@
 word	pos	position	type	exceptions
-gata	adj	last	dutiyā	aghagata, aṭṭhānagata, anāpāthagata, antogata 1, antogata 2, apattagata, abahigata, amahaggata, ākāsagata 3, evaṅgata, evaṃgata, ñātimajjhagata, tejogata, nāvāsagata
+nipuṇa	any	last	tatiyā	x
+disa	adj	last	alutta dutiyā	netādisa, nedisa
+abhimukha	adj	last	tatiyā	x
+ānisaṃsa	adj	last	kammadhāraya	x
+ānisaṃsa	masc	last	sattamī	x
+gata	adj	last	dutiyā	aghagata, aṭṭhānagata, anāpāthagata, antogata 1, antogata 2, apattagata, abahigata, amahaggata, ākāsagata 3, evaṅgata, evaṃgata, ñātimajjhagata, tejogata, nāvāsagata, parahatthagata 1, pūgamajjhagata, bahigata 1
 gāmaṇi	masc	last	chaṭṭhī	duṭṭhagāmaṇi
 saṃyata	adj	last	sattamī	x
 lobha	masc	last	sattamī	agiddhilobha, icchālobha, giddhilobha, visamalobha
@@ -45,7 +50,6 @@ patita	any	last	pañcamī	upalepapatita, chamāpatita
 āruḷha	any	last	dutiyā	suttāruḷha
 ārūḷha	any	last	dutiyā	x
 sammissa	any	last	tatiyā	x
-nipuṇa	any	last	tatiyā	x
 kappa	adj	last	tatiyā	akatakappa
 vuddha	any	last	tatiyā	x
 sadisa	any	last	tatiyā	visadisa
@@ -144,7 +148,6 @@ bojī	any	last	dutiyā
 mada	any	last	tatiyā	uppannamada, vigatamada, vītamada
 paricariyā	fem	last	sattamī
 sikkhā	any	last	sattamī	anupubbasikkhā
-ānisaṃsa	any	last	sattamī
 saṃgha	any	last	chaṭṭhī
 saṅgha	any	last	chaṭṭhī
 missa	any	last	tatiyā
