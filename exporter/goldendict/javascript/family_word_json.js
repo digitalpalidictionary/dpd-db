@@ -2966,8 +2966,8 @@ var family_word_json = {
    [
     "samanantarā 2",
     "ind",
-    "just after",
-    "✗"
+    "immediately following; right after",
+    "✓"
    ],
    [
     "samanta 1",
@@ -6092,6 +6092,131 @@ var family_word_json = {
   ],
   "count": 49
  },
+ "lahu": {
+  "data": [
+   [
+    "atilahuṃ",
+    "ind",
+    "too quickly; too fast; too readily",
+    "✓"
+   ],
+   [
+    "lahu 1",
+    "adj",
+    "quick; fast; swift; lit. light",
+    "✓"
+   ],
+   [
+    "lahu 2",
+    "adj",
+    "light",
+    "✗"
+   ],
+   [
+    "lahu 3",
+    "adj",
+    "(gram) short (vowel) e.g. a i u; lit. light",
+    "✓"
+   ],
+   [
+    "lahuka 1",
+    "adj",
+    "quick; fast; swift; lit. light",
+    "~"
+   ],
+   [
+    "lahuka 2",
+    "adj",
+    "light; light-weight",
+    "✓"
+   ],
+   [
+    "lahuka 3",
+    "adj",
+    "trifling; unimportant; negligible",
+    "~"
+   ],
+   [
+    "lahuka 4",
+    "adj",
+    "buoyant",
+    "✗"
+   ],
+   [
+    "lahukatara",
+    "adj",
+    "lighter; more light-weight",
+    "~"
+   ],
+   [
+    "lahukatarika",
+    "adj",
+    "lighter; less severe; less intense",
+    "✓"
+   ],
+   [
+    "lahukatta",
+    "nt",
+    "fact of being light; lightness",
+    "~"
+   ],
+   [
+    "lahukaṃ",
+    "ind",
+    "quickly",
+    "✗"
+   ],
+   [
+    "lahutara",
+    "adj",
+    "lighter",
+    "~"
+   ],
+   [
+    "lahutā",
+    "fem",
+    "(abhidhamma) lightness; buoyancy",
+    "~"
+   ],
+   [
+    "lahusa 1",
+    "adj",
+    "light; unimportant; insignificant",
+    "~"
+   ],
+   [
+    "lahusa 2",
+    "adj",
+    "touchy; over-reactive; lit. light",
+    "~"
+   ],
+   [
+    "lahuso",
+    "ind",
+    "quickly",
+    "✗"
+   ],
+   [
+    "lahuṃ",
+    "ind",
+    "quickly; swiftly",
+    "✓"
+   ],
+   [
+    "sallahuka 1",
+    "adj",
+    "frugal; light",
+    "✓"
+   ],
+   [
+    "sallahuka 2",
+    "adj",
+    "light-weight",
+    "~"
+   ]
+  ],
+  "count": 20
+ },
  "visa": {
   "data": [
    [
@@ -6285,7 +6410,7 @@ var family_word_json = {
     "atisīghaṃ",
     "ind",
     "very fast; very quickly",
-    "✗"
+    "✓"
    ],
    [
     "nātisīghaṃ",
@@ -9920,6 +10045,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "anekakkhattuṃ",
+    "ind",
+    "many times; on countless occasions; lit. not one time",
+    "✓"
+   ],
+   [
     "eka 1",
     "card",
     "one (1)",
@@ -10208,7 +10339,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 49
+  "count": 50
  },
  "eḷā": {
   "data": [
@@ -15636,9 +15767,9 @@ var family_word_json = {
    ],
    [
     "asabbhī",
-    "masc",
-    "wicked, vulgar",
-    "✗"
+    "adj",
+    "vulgar; uncivilised; impolite; rude; lit. not fit for the assembly",
+    "✓"
    ],
    [
     "sabhā 1",
@@ -16457,10 +16588,40 @@ var family_word_json = {
  "suṇḍa": {
   "data": [
    [
+    "asoṇḍa",
+    "adj",
+    "not drinking alcohol; not a drunkard",
+    "✓"
+   ],
+   [
     "asoṇḍī",
     "fem",
     "sober woman; not a drunk",
     "✓"
+   ],
+   [
+    "soṇḍa",
+    "adj",
+    "addicted to",
+    "✗"
+   ],
+   [
+    "soṇḍa 2",
+    "masc",
+    "alcoholic; drunkard; who is addicted to drink",
+    "✓"
+   ],
+   [
+    "soṇḍaka",
+    "adj",
+    "addicted to",
+    "✗"
+   ],
+   [
+    "soṇḍā 2",
+    "fem",
+    "woman addicted to drink, etc.",
+    "✗"
    ],
    [
     "soṇḍika",
@@ -16481,7 +16642,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 4
+  "count": 9
  },
  "assa": {
   "data": [
@@ -16767,6 +16928,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "cīvara 2",
+    "adj",
+    "with a robe; regarding cloth; about robe-cloth; lit. rags",
+    "✓"
+   ],
+   [
     "sacīvara 1",
     "adj",
     "wearing a monk's robe",
@@ -16779,7 +16946,7 @@ var family_word_json = {
     "~"
    ]
   ],
-  "count": 10
+  "count": 11
  },
  "āṭānāṭā": {
   "data": [
@@ -17552,7 +17719,7 @@ var family_word_json = {
    [
     "tissa 2.1",
     "masc",
-    "generic monk's name used in vinaya examples",
+    "generic monk's name used in vinaya examples; lit. constellation of Cancer",
     "~"
    ],
    [
@@ -17576,26 +17743,26 @@ var family_word_json = {
    [
     "tissa 2.5",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. constellation of Cancer",
     "✓"
    ],
    [
     "tissa 2.6",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. constellation of Cancer",
     "~"
    ],
    [
     "tissa 2.7",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. constellation of Cancer",
     "~"
    ],
    [
     "tissa 2.8",
     "masc",
-    "name of the 8th previous Buddha",
-    "~"
+    "name of the 8th previous Buddha; lit. constellation of Cancer",
+    "✓"
    ],
    [
     "tissaka",
@@ -17912,7 +18079,7 @@ var family_word_json = {
     "sikhī 3",
     "masc",
     "name of the 5th previous Buddha; lit. with a crest",
-    "~"
+    "✓"
    ],
    [
     "sikhī 4",
@@ -18196,6 +18363,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "sasenaka",
+    "adj",
+    "together with one's army; commanding an army",
+    "✓"
+   ],
+   [
     "seṇiya",
     "masc",
     "guild-master",
@@ -18238,7 +18411,7 @@ var family_word_json = {
     "✗"
    ]
   ],
-  "count": 16
+  "count": 17
  },
  "e": {
   "data": [
@@ -23633,7 +23806,7 @@ var family_word_json = {
    [
     "jeṭṭhā",
     "fem",
-    "eldest sister; senior sister",
+    "eldest sister; senior female sibling",
     "~"
    ],
    [
@@ -23932,7 +24105,7 @@ var family_word_json = {
     "tidhā",
     "ind",
     "in three ways",
-    "✗"
+    "✓"
    ],
    [
     "tisso",
@@ -26229,13 +26402,19 @@ var family_word_json = {
     "~"
    ],
    [
+    "pasura",
+    "adj",
+    "much; many; abundant; plentiful",
+    "✓"
+   ],
+   [
     "sampacura",
     "adj",
     "very many; lots of; plentiful; abundant",
     "~"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "pacchi": {
   "data": [
@@ -26710,7 +26889,7 @@ var family_word_json = {
     "paduma 7",
     "masc",
     "name of the 17th previous Buddha; lit. lotus",
-    "~"
+    "✓"
    ],
    [
     "padumaka",
@@ -27981,7 +28160,7 @@ var family_word_json = {
    [
     "phussa 2.1",
     "masc",
-    "name of a lunar month; December-January",
+    "name of a lunar month; December-January; lit. constellation of Cancer",
     "✓"
    ],
    [
@@ -27999,14 +28178,14 @@ var family_word_json = {
    [
     "phussa 2.4",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. constellation of Cancer",
     "~"
    ],
    [
     "phussa 2.5",
     "masc",
-    "name of the 7th previous Buddha",
-    "~"
+    "name of the 7th previous Buddha; lit. constellation of Cancer",
+    "✓"
    ],
    [
     "phussaka",
@@ -29890,7 +30069,7 @@ var family_word_json = {
    [
     "ratanika",
     "adj",
-    "cubit wide or long",
+    "measuring a cubit; cubit-long",
     "✓"
    ],
    [
@@ -30049,125 +30228,6 @@ var family_word_json = {
    ]
   ],
   "count": 2
- },
- "lahu": {
-  "data": [
-   [
-    "lahu 1",
-    "adj",
-    "quick; fast; swift; lit. light",
-    "✓"
-   ],
-   [
-    "lahu 2",
-    "adj",
-    "light",
-    "✗"
-   ],
-   [
-    "lahu 3",
-    "adj",
-    "(gram) short (vowel) e.g. a i u; lit. light",
-    "✓"
-   ],
-   [
-    "lahuka 1",
-    "adj",
-    "quick; fast; swift; lit. light",
-    "~"
-   ],
-   [
-    "lahuka 2",
-    "adj",
-    "light; light-weight",
-    "✓"
-   ],
-   [
-    "lahuka 3",
-    "adj",
-    "trifling; unimportant; negligible",
-    "~"
-   ],
-   [
-    "lahuka 4",
-    "adj",
-    "buoyant",
-    "✗"
-   ],
-   [
-    "lahukatara",
-    "adj",
-    "lighter; more light-weight",
-    "~"
-   ],
-   [
-    "lahukatarika",
-    "adj",
-    "lighter; less severe; less intense",
-    "✓"
-   ],
-   [
-    "lahukatta",
-    "nt",
-    "fact of being light; lightness",
-    "~"
-   ],
-   [
-    "lahukaṃ",
-    "ind",
-    "quickly",
-    "✗"
-   ],
-   [
-    "lahutara",
-    "adj",
-    "lighter",
-    "~"
-   ],
-   [
-    "lahutā",
-    "fem",
-    "(abhidhamma) lightness; buoyancy",
-    "~"
-   ],
-   [
-    "lahusa 1",
-    "adj",
-    "light; unimportant; insignificant",
-    "~"
-   ],
-   [
-    "lahusa 2",
-    "adj",
-    "touchy; over-reactive; lit. light",
-    "~"
-   ],
-   [
-    "lahuso",
-    "ind",
-    "quickly",
-    "✗"
-   ],
-   [
-    "lahuṃ",
-    "ind",
-    "quickly; swiftly",
-    "✓"
-   ],
-   [
-    "sallahuka 1",
-    "adj",
-    "frugal; light",
-    "✓"
-   ],
-   [
-    "sallahuka 2",
-    "adj",
-    "light-weight",
-    "~"
-   ]
-  ],
-  "count": 19
  },
  "lumbini": {
   "data": [
@@ -31395,7 +31455,7 @@ var family_word_json = {
    [
     "sakhila",
     "adj",
-    "kind; friendly",
+    "(of speech) kind; friendly",
     "✓"
    ],
    [

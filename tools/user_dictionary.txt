@@ -642,6 +642,7 @@ dissed
 disseminator
 disses
 dissing
+distiller
 distinctness
 disunited
 ditransitive
@@ -688,6 +689,7 @@ eightfold
 eightfold
 Ekādasakanipāta
 Ekakanipāta
+Ekarāja
 elate
 elates
 Elengi
@@ -904,6 +906,7 @@ husband's
 I.B
 Iddhipādasaṃyuttaṃ
 ideational
+ill-omened
 illuminator
 illustriousness
 im
@@ -1751,6 +1754,7 @@ rattinuṭṭhānadassinā
 readmission
 readmits
 reasoner
+reassociated
 rebecoming
 rebirths
 rebukes
@@ -2089,6 +2093,7 @@ Tacchakas
 taddhita
 tajjāri
 tajjārī
+tamable
 tanādigaṇa
 tapojigucchāvādā
 tappurisa
@@ -2439,6 +2444,7 @@ Velthuis
 Veḷuva
 venerable’s
 venerables
+venerates
 venerating
 Vepulla
 Verahaccāni

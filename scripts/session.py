@@ -14,7 +14,8 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadwords).all()
     for counter, i in enumerate(db):
-        print(counter, i.lemma_1)
+        if counter % 10000 == 0:
+            print(counter, i.lemma_1)
 
 
 if __name__ == "__main__":

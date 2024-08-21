@@ -50,6 +50,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kakāra",
+    "masc",
+    "(gram) letter k; 9th letter of the alphabet; first consonant of the alphabet; guttural consonant",
+    "✓"
+   ],
+   [
     "ca 1.1",
     "letter",
     "(gram) letter c; 14th letter of the alphabet; palatal consonant",
@@ -76,6 +82,12 @@ var family_set_json = {
    [
     "da 2.1",
     "letter",
+    "(gram) letter d; 26th letter of the alphabet; dental consonant",
+    "✓"
+   ],
+   [
+    "dakāra",
+    "masc",
     "(gram) letter d; 26th letter of the alphabet; dental consonant",
     "✓"
    ],
@@ -146,7 +158,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 24
+  "count": 26
  },
  "grammatical terms": {
   "data": [
@@ -1459,6 +1471,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kakāra",
+    "masc",
+    "(gram) letter k; 9th letter of the alphabet; first consonant of the alphabet; guttural consonant",
+    "✓"
+   ],
+   [
     "kaṇṭhaja",
     "adj",
     "(gram) guttural; lit. born from throat",
@@ -2343,6 +2361,12 @@ var family_set_json = {
    [
     "da 2.1",
     "letter",
+    "(gram) letter d; 26th letter of the alphabet; dental consonant",
+    "✓"
+   ],
+   [
+    "dakāra",
+    "masc",
     "(gram) letter d; 26th letter of the alphabet; dental consonant",
     "✓"
    ],
@@ -4849,7 +4873,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 783
+  "count": 785
  },
  "prefixes": {
   "data": [
@@ -15799,19 +15823,19 @@ var family_set_json = {
    [
     "tissa 2.5",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. constellation of Cancer",
     "✓"
    ],
    [
     "tissa 2.6",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. constellation of Cancer",
     "~"
    ],
    [
     "tissa 2.7",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. constellation of Cancer",
     "~"
    ],
    [
@@ -16273,13 +16297,13 @@ var family_set_json = {
    [
     "phussa 2.4",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. constellation of Cancer",
     "~"
    ],
    [
     "phussadeva",
     "masc",
-    "name of a Sri Lankan monk who was learned in Vinaya",
+    "name of a Sri Lankan monk learned in Vinaya, famous for never abandoning his theme of meditation",
     "✓"
    ],
    [
@@ -18498,19 +18522,19 @@ var family_set_json = {
    [
     "tissa 2.5",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. constellation of Cancer",
     "✓"
    ],
    [
     "tissa 2.6",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. constellation of Cancer",
     "~"
    ],
    [
     "tissa 2.7",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. constellation of Cancer",
     "~"
    ],
    [
@@ -18960,7 +18984,7 @@ var family_set_json = {
    [
     "phussa 2.4",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. constellation of Cancer",
     "~"
    ],
    [
@@ -24911,6 +24935,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "vāmagotta",
+    "masc",
+    "name of a prince in a Jātaka story; previous incarnation of Mahākassapa",
+    "✓"
+   ],
+   [
     "vāsabhā",
     "fem",
     "name of a king Pasenadi's second queen; lit. belonging to the stud bull",
@@ -24995,7 +25025,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 69
+  "count": 70
  },
  "six ascetic teachers": {
   "data": [
@@ -29686,7 +29716,7 @@ var family_set_json = {
    [
     "phussa 2.1",
     "masc",
-    "name of a lunar month; December-January",
+    "name of a lunar month; December-January; lit. constellation of Cancer",
     "✓"
    ],
    [
@@ -30078,7 +30108,7 @@ var family_set_json = {
     "atthadassī 2",
     "masc",
     "name of the 11th previous Buddha; lit. who sees the goal",
-    "~"
+    "✓"
    ],
    [
     "anomadassī 2",
@@ -30102,25 +30132,25 @@ var family_set_json = {
     "koṇāgamana",
     "masc",
     "name of the 2nd previous Buddha",
-    "~"
+    "✓"
    ],
    [
     "koṇḍañña 3",
     "masc",
     "name of the 23rd previous Buddha",
-    "~"
+    "✓"
    ],
    [
     "taṇhaṅkara",
     "masc",
-    "name of the 27th previous Buddha; lit. making craving?",
-    "~"
+    "name of the 27th previous Buddha",
+    "✓"
    ],
    [
     "tissa 2.8",
     "masc",
-    "name of the 8th previous Buddha",
-    "~"
+    "name of the 8th previous Buddha; lit. constellation of Cancer",
+    "✓"
    ],
    [
     "dīpaṅkara",
@@ -30132,19 +30162,19 @@ var family_set_json = {
     "dhammadassī",
     "masc",
     "name of the 10th previous Buddha; lit. who sees the nature of things",
-    "~"
+    "✓"
    ],
    [
     "nārada 2",
     "masc",
     "name of the 16th previous Buddha",
-    "~"
+    "✓"
    ],
    [
     "paduma 7",
     "masc",
     "name of the 17th previous Buddha; lit. lotus",
-    "~"
+    "✓"
    ],
    [
     "padumuttara 1",
@@ -30156,31 +30186,31 @@ var family_set_json = {
     "piyadassī 2",
     "masc",
     "name of the 12th previous Buddha; lit. dear to see; (or) who looks fondly",
-    "~"
+    "✓"
    ],
    [
     "phussa 2.5",
     "masc",
-    "name of the 7th previous Buddha",
-    "~"
+    "name of the 7th previous Buddha; lit. constellation of Cancer",
+    "✓"
    ],
    [
     "maṅgala 7",
     "masc",
     "name of the 22nd previous Buddha; lit. auspicious",
-    "~"
+    "✓"
    ],
    [
     "medhaṅkara",
     "masc",
-    "name of the 26th previous Buddha; lit. making wisdom; (or) making sacrifice",
-    "~"
+    "name of the 26th previous Buddha; lit. making wisdom; (or) performing the sacrifice",
+    "✓"
    ],
    [
     "revata 2",
     "masc",
     "name of the 20th previous Buddha",
-    "~"
+    "✓"
    ],
    [
     "vipassī 1",
@@ -30192,49 +30222,49 @@ var family_set_json = {
     "vessabhū 1",
     "masc",
     "name of the 4th previous Buddha",
-    "~"
+    "✓"
    ],
    [
     "saraṇaṅkara",
     "masc",
     "name of the 25th previous Buddha; lit. making a refuge",
-    "~"
+    "✓"
    ],
    [
     "sikhī 3",
     "masc",
     "name of the 5th previous Buddha; lit. with a crest",
-    "~"
+    "✓"
    ],
    [
     "siddhattha 4",
     "masc",
     "name of the 9th previous Buddha; lit. who has accomplished the goal",
-    "~"
+    "✓"
    ],
    [
     "sujāta 3",
     "masc",
-    "name of the 13th previosus Buddha",
-    "~"
+    "name of the 13th previous Buddha; lit. well born",
+    "✓"
    ],
    [
     "sumana 5",
     "masc",
     "name of the 21st previous Buddha; lit. good mind",
-    "~"
+    "✓"
    ],
    [
     "sumedha 4",
     "masc",
-    "name of the 14th previous Buddha",
-    "~"
+    "name of the 14th previous Buddha; lit. good wisdom",
+    "✓"
    ],
    [
     "sobhita 5",
     "masc",
     "name of the 19th previous Buddha; lit. shone",
-    "~"
+    "✓"
    ]
   ],
   "count": 27
@@ -31563,6 +31593,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "abhisami",
+    "aor",
+    "completely realised; completely understood; fully grasped",
+    "✓"
+   ],
+   [
     "abhisamita",
     "pp",
     "realised; understood; penetrated",
@@ -31713,7 +31749,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 26
+  "count": 27
  },
  "nine types of suttas": {
   "data": [
@@ -33169,7 +33205,7 @@ var family_set_json = {
    [
     "jeṭṭhā",
     "fem",
-    "eldest sister; senior sister",
+    "eldest sister; senior female sibling",
     "~"
    ],
    [
@@ -33745,7 +33781,7 @@ var family_set_json = {
    [
     "phussa 2.1",
     "masc",
-    "name of a lunar month; December-January",
+    "name of a lunar month; December-January; lit. constellation of Cancer",
     "✓"
    ],
    [
@@ -34046,7 +34082,7 @@ var family_set_json = {
    [
     "phussadeva",
     "masc",
-    "name of a Sri Lankan monk who was learned in Vinaya",
+    "name of a Sri Lankan monk learned in Vinaya, famous for never abandoning his theme of meditation",
     "✓"
    ],
    [
@@ -36099,6 +36135,17 @@ var family_set_json = {
   ],
   "count": 1
  },
+ "previous incarnations of Moggallāna": {
+  "data": [
+   [
+    "bhaddasena",
+    "masc",
+    "name of a prince in a Jātaka story; son of king Ekarāja; previous incarnation of Moggallāna; lit. having a good army",
+    "✓"
+   ]
+  ],
+  "count": 1
+ },
  "books of the Majjhima Nikāya": {
   "data": [
    [
@@ -36156,6 +36203,28 @@ var family_set_json = {
    ]
   ],
   "count": 5
+ },
+ "previous incarnations of Mahākassapa": {
+  "data": [
+   [
+    "vāmagotta",
+    "masc",
+    "name of a prince in a Jātaka story; previous incarnation of Mahākassapa",
+    "✓"
+   ]
+  ],
+  "count": 1
+ },
+ "jātaka characters": {
+  "data": [
+   [
+    "vāmagotta",
+    "masc",
+    "name of a prince in a Jātaka story; previous incarnation of Mahākassapa",
+    "✓"
+   ]
+  ],
+  "count": 1
  },
  "chief disciples": {
   "data": [
