@@ -68,17 +68,17 @@ def check_in_deconstructor(g: GlobalVars):
             g.append_to_text_list(word)
 
 
-def find_missing_meanings(db_session: Session, text: str, level: int):
+def find_missing_meanings(db_session: Session, text: str, level: int = 1):
     """Take a sentence
     1. clean it up, remove all punctuation
     2. split into words
     3. find if those words have meaning_1 or example_1
 
-    level 1: find all not recognized
+    level 1: find all words not recognized
     level 2: find all words with missing meaning_1 (and level 1)
     level 3: find all words with missing example_2 (and level 1 and 2)
     """
-    g = GlobalVars(db_session, text, level)
+    g = GlobalVars(db_session, text, level=1)
     make_clean_word_list(g)
 
     for g.word in g.text_list:

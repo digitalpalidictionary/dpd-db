@@ -1,5 +1,6 @@
 initial	final	correct	wrong	without	exceptions
 
+-
 a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant
 a + ṭ	iṭ	a > i	x	a + ṭh	x
 a + ṭh	iṭṭh	a > i	x	x	x
@@ -68,7 +69,8 @@ j + ṃ	ñj	jṃ > ñj (metathesis)	jṃ > ñj	x	x
 
 ṭh + ṃ	ṇṭh	ṭhṃ > ṇṭh (metathesis)	ṭhṃ > ṇṭh	x	x
 
-ṇa + y	ññ	ṇy > ññ	x	x	x
+ṇ + y	ññ	ṇy > ññ	ṇ > ñ	x	x
+ṇa + y	ññ	ṇy > ññ	ṇ > ñ	x	x
 
 t + ṃ	nt	tṃ > nt (metathesis)	x	x	x
 t + y	cc	ty > cc	x	x	x
@@ -126,6 +128,8 @@ pā + pā	pi	pā > pi	x	x	x
 plu	pil	pl > pil (epenthesis)	x	x	x
 
 bh + y	bbh	bhy > bbh	x	x	x
+bha + y	bbh	bhy > bbh	x	x	x
+bhā + y	bbh	bhy > bbh	x	x	x
 
 m + k	ṅk	mk > ṅk	m > ṅ	m + kh	x
 m + kh	ṅkh	mkh > ṅkh	m > ṅ	x	x

@@ -56,6 +56,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "gakāra",
+    "masc",
+    "letter g; 11th letter of the alphabet; guttural consonant",
+    "✓"
+   ],
+   [
     "ca 1.1",
     "letter",
     "(gram) letter c; 14th letter of the alphabet; palatal consonant",
@@ -158,7 +164,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 26
+  "count": 27
  },
  "grammatical terms": {
   "data": [
@@ -1816,6 +1822,12 @@ var family_set_json = {
     "khapaccaya",
     "masc",
     "(gram) kha suffix; used to form desiderative verbs",
+    "✓"
+   ],
+   [
+    "gakāra",
+    "masc",
+    "letter g; 11th letter of the alphabet; guttural consonant",
     "✓"
    ],
    [
@@ -3799,6 +3811,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "yojja",
+    "ptp",
+    "(gram) should be included; lit. to cause to be yoked",
+    "~"
+   ],
+   [
     "ra",
     "letter",
     "(gram) letter r; 35th letter of the alphabet; retroflex semi-vowel",
@@ -4873,7 +4891,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 785
+  "count": 787
  },
  "prefixes": {
   "data": [
@@ -6834,7 +6852,7 @@ var family_set_json = {
     "tasmiṃ 5",
     "pron",
     "under that; under him",
-    "~"
+    "✓"
    ],
    [
     "tassa 1",
@@ -10280,6 +10298,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "jūtakara",
+    "masc",
+    "gambler; lit. making gambling",
+    "✓"
+   ],
+   [
     "tacchaka",
     "masc",
     "carpenter; woodworker; lit. cutter",
@@ -10832,6 +10856,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "vaḍḍhakī",
+    "masc",
+    "carpenter; lit. increaser",
+    "✓"
+   ],
+   [
     "vaṇṇadāsī",
     "fem",
     "courtesan; prostitute; lit. good looking female slave",
@@ -10970,7 +11000,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 184
+  "count": 186
  },
  "place names": {
   "data": [
@@ -14427,7 +14457,7 @@ var family_set_json = {
     "uppala 4",
     "masc",
     "name of a privately awakened Buddha; lit. lotus",
-    "~"
+    "✓"
    ],
    [
     "usabha 4",
@@ -14439,7 +14469,7 @@ var family_set_json = {
     "kaṇha 4",
     "masc",
     "name of a privately awakened Buddha; lit. black",
-    "~"
+    "✓"
    ],
    [
     "kāḷūpakāḷā",
@@ -14493,7 +14523,7 @@ var family_set_json = {
     "jayanta 2",
     "masc",
     "name of a privately awakened Buddha; lit. conquering",
-    "~"
+    "✓"
    ],
    [
     "jālī 2.2",
@@ -14511,7 +14541,7 @@ var family_set_json = {
     "jeta",
     "masc",
     "name of a privately awakened Buddha; lit. conqueror",
-    "~"
+    "✓"
    ],
    [
     "tagarasikhī",
@@ -14589,19 +14619,19 @@ var family_set_json = {
     "paduma 5",
     "masc",
     "name of a privately awakened Buddha; lit. lotus",
-    "~"
+    "✓"
    ],
    [
     "padumuttara 2",
     "masc",
     "name of a privately awakened Buddha; lit. ultimate lotus",
-    "~"
+    "✓"
    ],
    [
     "pabbata 4",
     "masc",
-    "name of a privately awakened Buddha",
-    "~"
+    "name of a privately awakened Buddha; lit. mountain",
+    "✓"
    ],
    [
     "pavattar 2",
@@ -14685,7 +14715,7 @@ var family_set_json = {
     "mānatthaddha 2",
     "masc",
     "name of a privately awakened Buddha; lit. stiff with conceit",
-    "~"
+    "✓"
    ],
    [
     "methula",
@@ -14703,7 +14733,7 @@ var family_set_json = {
     "rakkhita 2",
     "masc",
     "name of a privately awakened Buddha; lit. protected",
-    "~"
+    "✓"
    ],
    [
     "lomahaṃsa 2",
@@ -14835,7 +14865,7 @@ var family_set_json = {
     "sobhita 3",
     "masc",
     "name of a privately awakened Buddha; lit. shone",
-    "~"
+    "✓"
    ],
    [
     "sorata 2",
@@ -24360,6 +24390,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "taracchi",
+    "masc",
+    "hyena",
+    "✓"
+   ],
+   [
     "dīpi",
     "masc",
     "leopard; panther",
@@ -24600,7 +24636,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 72
+  "count": 73
  },
  "names of royalty": {
   "data": [
@@ -26420,13 +26456,19 @@ var family_set_json = {
     "✓"
    ],
    [
+    "sālaka 1",
+    "masc",
+    "name of a monkey in a Jātaka story",
+    "✓"
+   ],
+   [
     "seta 3",
     "masc",
     "name of King Pasenadi's elephant; lit. white",
     "✓"
    ]
   ],
-  "count": 10
+  "count": 11
  },
  "names of nuns": {
   "data": [
@@ -29522,6 +29564,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "asaḷha",
+    "masc",
+    "month of the lunar calendar; June-July",
+    "✓"
+   ],
+   [
     "asāḷha",
     "masc",
     "month of the lunar calendar; June-July",
@@ -29798,7 +29846,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "sāvana",
+    "sāvana 2",
     "masc",
     "name of a lunar month, July-August",
     "~"
@@ -29807,10 +29855,10 @@ var family_set_json = {
     "sukkapakkha 1",
     "masc",
     "bright half of the month; waxing moon; full moon",
-    "~"
+    "✓"
    ],
    [
-    "sukkavāra",
+    "sukkavāra 2",
     "masc",
     "Friday; lit. day of Venus",
     "~"
@@ -29834,7 +29882,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 60
+  "count": 61
  },
  "money": {
   "data": [
@@ -31447,7 +31495,7 @@ var family_set_json = {
    [
     "itivutta",
     "nt",
-    "Book 4 of the Khuddaka Nikāya; Quotations; Thus Said; one of the nine kinds of suttas",
+    "Book 4 of the Khuddaka Nikāya; lit. thus said",
     "~"
    ],
    [
@@ -31459,14 +31507,26 @@ var family_set_json = {
    [
     "udāna 2",
     "masc",
-    "Book 3 of the Khuddaka Nikāya; Inspired Sayings; lit. breath up; sigh",
-    "~"
+    "Book 3 of the Khuddaka Nikāya; lit. inspired utterance; breathing up; sigh",
+    "✓"
+   ],
+   [
+    "khuddakapāṭha",
+    "masc",
+    "Book 1 of the Khuddaka Nikāya; lit. small text",
+    "✓"
+   ],
+   [
+    "cariyāpiṭaka",
+    "nt",
+    "Book 13 of the Khuddaka Nikāya; lit. basket of conduct",
+    "✓"
    ],
    [
     "jātaka 2",
     "nt",
-    "Books 14 and 15 of the Khuddaka Nikāya; Birth Stories; one of the nine kinds of suttas",
-    "~"
+    "Books 14 and 15 of the Khuddaka Nikāya; lit. birth stories",
+    "✓"
    ],
    [
     "jātakapāḷi",
@@ -31478,82 +31538,106 @@ var family_set_json = {
     "theragāthā",
     "fem",
     "Book 8 of the Khuddaka Nikāya; lit. verses of the elder monks",
-    "~"
+    "✓"
    ],
    [
     "theragāthāpāḷi",
     "fem",
-    "Book 8 of the Khuddaka Nikāya; Canonical Text of the Verses of the Elder Monks",
+    "Book 8 of the Khuddaka Nikāya; lit. canonical text of the verses of the elder monks",
     "~"
    ],
    [
     "therāpadāna",
     "nt",
-    "Book 10 of the Khuddaka Nikāya; Legends of the Elder Monks",
+    "Book 10 of the Khuddaka Nikāya; lit. legends of the elder monks",
     "~"
    ],
    [
     "therigāthā",
     "fem",
-    "Book 9 of the Khuddaka Nikāya; Verses of the Elder Nuns",
+    "Book 9 of the Khuddaka Nikāya; lit. verses of the elder nuns",
     "~"
    ],
    [
     "therīapadāna",
     "nt",
-    "Book 11 of the Khuddaka Nikāya; Legends of the Elder Nuns",
+    "Book 11 of the Khuddaka Nikāya; lit. legends of the elder nuns",
     "~"
    ],
    [
     "therīgāthā",
     "fem",
     "Book 9 of the Khuddaka Nikāya; Verses of the Elder Nuns",
-    "~"
+    "✓"
    ],
    [
     "therīgāthāpāḷi",
     "fem",
-    "Book 9 of the Khuddaka Nikāya; Canonical Text of the Verses of the Elder Nuns",
+    "Book 9 of the Khuddaka Nikāya; lit. canonical text of the verses of the elder nuns",
     "~"
    ],
    [
     "dhammapada 3",
     "nt",
-    "Book 2 of the Khuddaka Nikāya; Dhamma Verses",
-    "~"
+    "Book 2 of the Khuddaka Nikāya; lit. Dhamma verses",
+    "✓"
+   ],
+   [
+    "niddesa 2",
+    "masc",
+    "Books 14 and 15 of the Khuddaka Nikāya; Mahāniddesa and Cūḷaniddesa; lit. pointing out",
+    "✓"
    ],
    [
     "nettipāḷi",
     "fem",
-    "Book 19 of the Khuddaka Nikāya; Canonical Text of the Guide Book",
+    "Book 19 of the Khuddaka Nikāya; lit. canonical text of the guide (book)",
     "~"
    ],
    [
     "paṭisambhidā 2",
     "fem",
-    "Book 18 of the Khuddaka Nikāya; Paṭisambhidā Magga",
+    "Book 18 of the Khuddaka Nikāya; lit. (path of) penetrating insight",
     "~"
    ],
    [
     "paṭisambhidāmagga",
     "masc",
     "Book 18 of the Khuddaka Nikāya; lit. path to penetrating insight; way to analytical knowledge",
-    "~"
+    "✓"
+   ],
+   [
+    "petavatthu",
+    "nt",
+    "Book 7 of the Khuddaka Nikāya; lit. ghost stories",
+    "✓"
+   ],
+   [
+    "buddhavaṃsa",
+    "masc",
+    "Book 12 of the Khuddaka Nikāya; lit. lineage of Buddhas",
+    "✓"
    ],
    [
     "milindapañha",
     "masc",
-    "Books 20 of the Khuddaka Nikāya; The Questions of Milinda",
-    "~"
+    "Books 20 of the Khuddaka Nikāya; lit. Milinda's questions",
+    "✓"
+   ],
+   [
+    "vimānavatthu",
+    "nt",
+    "Book 6 of the Khuddaka Nikāya; lit. stories about heavenly mansions",
+    "✓"
    ],
    [
     "suttanipāta",
     "masc",
-    "Book 5 of the Khuddaka Nikāya; Irregular Discourses",
-    "~"
+    "Book 5 of the Khuddaka Nikāya; lit. irregular discourses",
+    "✓"
    ]
   ],
-  "count": 19
+  "count": 25
  },
  "names of continents": {
   "data": [
@@ -31760,12 +31844,6 @@ var family_set_json = {
     "✓"
    ],
    [
-    "itivutta",
-    "nt",
-    "Book 4 of the Khuddaka Nikāya; Quotations; Thus Said; one of the nine kinds of suttas",
-    "~"
-   ],
-   [
     "itivuttaka",
     "nt",
     "Book 4 of the Khuddaka Nikāya; Quotations; Thus Said; one of the nine kinds of suttas",
@@ -31796,12 +31874,6 @@ var family_set_json = {
     "✓"
    ],
    [
-    "jātaka 2",
-    "nt",
-    "Books 14 and 15 of the Khuddaka Nikāya; Birth Stories; one of the nine kinds of suttas",
-    "~"
-   ],
-   [
     "vedalla",
     "nt",
     "questions-and-answers; catechism; one of the nine kinds of suttas; lit. to be split apart",
@@ -31820,7 +31892,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 11
+  "count": 9
  },
  "32 marks of a great man": {
   "data": [
@@ -32214,17 +32286,6 @@ var family_set_json = {
    ]
   ],
   "count": 5
- },
- "mita": {
-  "data": [
-   [
-    "amita",
-    "pp",
-    "innumerable; measureless; endless; lit. not measured",
-    "✓"
-   ]
-  ],
-  "count": 1
  },
  "trees": {
   "data": [
@@ -33737,6 +33798,12 @@ var family_set_json = {
  "months of the lunar year": {
   "data": [
    [
+    "asaḷha",
+    "masc",
+    "month of the lunar calendar; June-July",
+    "✓"
+   ],
+   [
     "asāḷha",
     "masc",
     "month of the lunar calendar; June-July",
@@ -33803,13 +33870,13 @@ var family_set_json = {
     "✓"
    ],
    [
-    "sāvana",
+    "sāvana 2",
     "masc",
     "name of a lunar month, July-August",
     "~"
    ]
   ],
-  "count": 12
+  "count": 13
  },
  "previous incarnations of the Buddha": {
   "data": [
@@ -35772,7 +35839,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "sukkavāra",
+    "sukkavāra 2",
     "masc",
     "Friday; lit. day of Venus",
     "~"
@@ -36222,9 +36289,15 @@ var family_set_json = {
     "masc",
     "name of a prince in a Jātaka story; previous incarnation of Mahākassapa",
     "✓"
+   ],
+   [
+    "sālaka 1",
+    "masc",
+    "name of a monkey in a Jātaka story",
+    "✓"
    ]
   ],
-  "count": 1
+  "count": 2
  },
  "chief disciples": {
   "data": [

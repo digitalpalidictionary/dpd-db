@@ -27507,6 +27507,23 @@ var family_idiom_json = {
    ]
   ]
  },
+ "ajjhagā": {
+  "count": 2,
+  "data": [
+   [
+    "nevajjhagā",
+    "sandhi",
+    "one never found; one cannot find; (comm) one does not get",
+    "✓"
+   ],
+   [
+    "yadajjhagā",
+    "sandhi",
+    "which he attained; which he experienced",
+    "✓"
+   ]
+  ]
+ },
  "āsadi": {
   "count": 1,
   "data": [
@@ -27777,23 +27794,6 @@ var family_idiom_json = {
     "neva kammantā paṭibhanti",
     "idiom",
     "has no desire to work; loses all interest in business; lit. work does not come to mind",
-    "✓"
-   ]
-  ]
- },
- "ajjhagā": {
-  "count": 2,
-  "data": [
-   [
-    "nevajjhagā",
-    "sandhi",
-    "one never found; one cannot find; (comm) one does not get",
-    "✓"
-   ],
-   [
-    "yadajjhagā",
-    "sandhi",
-    "which he attained; which he experienced",
     "✓"
    ]
   ]

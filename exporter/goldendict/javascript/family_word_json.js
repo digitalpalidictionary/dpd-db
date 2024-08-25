@@ -410,7 +410,7 @@ var family_word_json = {
     "kaṇha 4",
     "masc",
     "name of a privately awakened Buddha; lit. black",
-    "~"
+    "✓"
    ],
    [
     "kaṇhāyana",
@@ -4963,7 +4963,7 @@ var family_word_json = {
     "tasmiṃ 5",
     "pron",
     "under that; under him",
-    "~"
+    "✓"
    ],
    [
     "tassa 1",
@@ -16507,8 +16507,8 @@ var family_word_json = {
    [
     "siri 2",
     "fem",
-    "glory, splendour",
-    "✗"
+    "fortune; beauty; glory; splendour",
+    "✓"
    ],
    [
     "siri 3",
@@ -16930,7 +16930,7 @@ var family_word_json = {
    [
     "cīvara 2",
     "adj",
-    "with a robe; regarding cloth; about robe-cloth; lit. rags",
+    "with a robe; having a robe; lit. rags",
     "✓"
    ],
    [
@@ -18120,7 +18120,7 @@ var family_word_json = {
     "uppala 4",
     "masc",
     "name of a privately awakened Buddha; lit. lotus",
-    "~"
+    "✓"
    ],
    [
     "uppalinī",
@@ -24104,7 +24104,7 @@ var family_word_json = {
    [
     "tidhā",
     "ind",
-    "in three ways",
+    "in three ways; in three places; for the third time; triply",
     "✓"
    ],
    [
@@ -24471,6 +24471,23 @@ var family_word_json = {
    ]
   ],
   "count": 38
+ },
+ "taraccha": {
+  "data": [
+   [
+    "taraccha",
+    "masc",
+    "hyena",
+    "✓"
+   ],
+   [
+    "taracchi",
+    "masc",
+    "hyena",
+    "✓"
+   ]
+  ],
+  "count": 2
  },
  "taluna": {
   "data": [
@@ -26877,7 +26894,7 @@ var family_word_json = {
     "paduma 5",
     "masc",
     "name of a privately awakened Buddha; lit. lotus",
-    "~"
+    "✓"
    ],
    [
     "paduma 6",
@@ -26987,8 +27004,8 @@ var family_word_json = {
    [
     "pabbata 4",
     "masc",
-    "name of a privately awakened Buddha",
-    "~"
+    "name of a privately awakened Buddha; lit. mountain",
+    "✓"
    ],
    [
     "pabbatāyati",
@@ -28931,7 +28948,7 @@ var family_word_json = {
     "majjhatta 2",
     "adj",
     "neutral; impartial; indifferent; disinterested; mentally balanced",
-    "~"
+    "✓"
    ],
    [
     "majjhattatā 1",
@@ -32543,6 +32560,23 @@ var family_word_json = {
    ]
   ],
   "count": 8
+ },
+ "sālaka": {
+  "data": [
+   [
+    "sālaka 1",
+    "masc",
+    "name of a monkey in a Jātaka story",
+    "✓"
+   ],
+   [
+    "sālaka 2",
+    "adj",
+    "(of a worm) hairy",
+    "✓"
+   ]
+  ],
+  "count": 2
  },
  "sāli": {
   "data": [

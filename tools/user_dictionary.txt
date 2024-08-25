@@ -4,6 +4,7 @@
 10pm
 10th
 11th
+12am
 12th
 13th
 13th
@@ -490,6 +491,7 @@ conjectured
 conjee
 conjugational
 contiguously
+contradistinction
 cooed
 copulative
 coquetry
@@ -700,6 +702,7 @@ embankments
 emblic
 Emblica
 embroidered
+embroiderer
 embryopteris
 emmeshed
 enclitic
@@ -724,12 +727,14 @@ euphonic
 eva
 evaṃ
 everythingness
+excretions
 exfoliant
 exhorter
 expectance
 experienceable
 experientially
 exposition
+expounder
 expounds
 extirpated
 extols
@@ -773,6 +778,7 @@ fruitions
 frumentacea
 frumentaceum
 fuelless
+g
 gadflies
 Gaertnera
 gah
@@ -866,6 +872,8 @@ Hatthisāriputta
 haughtiness
 headfirst
 healthiness
+hearer
+hearer
 heartedness
 heartwood
 Hedyotis
@@ -926,6 +934,7 @@ incompliant
 inconstance
 incontrovertibility
 incontrovertibility
+increaser
 inculpable
 inculpableness
 Inda
@@ -1312,6 +1321,7 @@ Migāra
 Migāra's
 Migāra's
 Mihintale
+Milinda's
 Millettia
 Mimusops
 mindfully
@@ -1759,6 +1769,7 @@ rebecoming
 rebirths
 rebukes
 recalcitrance
+reciter
 redescription
 reduplicated
 refutable
@@ -2174,6 +2185,7 @@ transmigrated
 transmigrates
 trilobata
 trilobus
+triply
 trisulphide
 Triticum
 tta
