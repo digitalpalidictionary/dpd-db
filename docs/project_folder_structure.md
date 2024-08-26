@@ -2,42 +2,42 @@
 Where are all the parts of the project located?
 
 ## Tree
-. 	
-├── db 	
-│   ├── backup_tsv 	
-│   ├── bold_definitions 	
-│   ├── deconstructor 	
-│   ├── epd 	
-│   ├── families 	
-│   ├── frequency 	
-│   ├── inflections 	
-│   ├── lookup 	
-│   ├── sanskrit 	
-│   └── sinhala 	
-├── docs 	
-├── dps 	
-├── exporter 	
-│   ├── bold_definitions 	
-│   ├── deconstructor 	
-│   ├── ebook 	
-│   ├── goldendict 	
-│   ├── grammar_dict 	
-│   ├── kobo 	
-│   ├── other_dictionaries 	
-│   ├── share 	
-│   ├── sinhala 	
-│   ├── tbw 	
-│   ├── tpr 	
-│   └── webapp 	
-├── gui 	
-├── resources 	
-├── scripts 	
-│   ├── archive 	
-│   ├── bash 	
-├── shared_data 	
-├── temp 	
-├── tests 	
-└── tools 	
+.  
+├── db  
+│   ├── backup_tsv  
+│   ├── bold_definitions  
+│   ├── deconstructor  
+│   ├── epd  
+│   ├── families  
+│   ├── frequency  
+│   ├── inflections  
+│   ├── lookup  
+│   ├── sanskrit  
+│   └── sinhala  
+├── docs  
+├── dps  
+├── exporter  
+│   ├── bold_definitions  
+│   ├── deconstructor  
+│   ├── ebook  
+│   ├── goldendict  
+│   ├── grammar_dict  
+│   ├── kobo  
+│   ├── other_dictionaries  
+│   ├── share  
+│   ├── sinhala  
+│   ├── tbw  
+│   ├── tpr  
+│   └── webapp  
+├── gui  
+├── resources  
+├── scripts  
+│   ├── archive  
+│   ├── bash  
+├── shared_data  
+├── temp  
+├── tests  
+└── tools  
 
 ## Folder details
 
