@@ -212,3 +212,8 @@ exporter/kindle/epub/OEBPS/Text/titlepage.xhtml
 shared_data/changed_headwords
 shared_data/headword_stem_pattern_dict
 shared_data/inflection_templates
+exporter/goldendict/ru_components/javascript/ru_family_compound_json.js
+exporter/goldendict/ru_components/javascript/ru_family_idiom_json.js
+exporter/goldendict/ru_components/javascript/ru_family_root_json.js
+exporter/goldendict/ru_components/javascript/ru_family_set_json.js
+exporter/goldendict/ru_components/javascript/ru_family_word_json.js

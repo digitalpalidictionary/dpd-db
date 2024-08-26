@@ -29,8 +29,18 @@ def backup_ru_sbs():
 
 def backup_russian(db_session: Session, pth: ProjectPaths, custom_path: str = ""):
     """Backup Russian table to TSV."""
-    print("[green]writing Russian table")
+    print("[green]Checking Russian table")
+
+    # Query the Russian table
     db = db_session.query(Russian).all()
+
+    # Check if the table is empty
+    if not db:
+        print("[red]Error: The Russian table is empty. Backup aborted.")
+        return
+
+    # Proceed with backup if the table is not empty
+    print("[green]Writing Russian table")
 
     # Use the custom path if provided, otherwise use the default path
     russian_path = custom_path if custom_path else pth.russian_path
@@ -51,8 +61,18 @@ def backup_russian(db_session: Session, pth: ProjectPaths, custom_path: str = ""
 
 def backup_sbs(db_session: Session, pth: ProjectPaths, custom_path: str = ""):
     """Backup SBS tables to TSV."""
-    print("[green]writing SBS table")
+    print("[green]Checking SBS table")
+
+    # Query the SBS table
     db = db_session.query(SBS).all()
+
+    # Check if the table is empty
+    if not db:
+        print("[red]Error: The SBS table is empty. Backup aborted.")
+        return
+
+    # Proceed with backup if the table is not empty
+    print("[green]writing SBS table")
 
     # Use the custom path if provided, otherwise use the default path
     sbs_path = custom_path if custom_path else pth.sbs_path
@@ -74,8 +94,18 @@ def backup_sbs(db_session: Session, pth: ProjectPaths, custom_path: str = ""):
 
 def backup_ru_roots(db_session: Session, pth: ProjectPaths, custom_path: str = ""):
     """Backup Ru columns from the DpdRoots to TSV."""
-    print("[green]writing Ru columns from the DpdRoots table")
+    print("[green]Checking DpdRoots table")
+
+    # Query DpdRoots table
     db = db_session.query(DpdRoots).all()
+
+    # Check if the table is empty
+    if not db:
+        print("[red]Error: DpdRoots table is empty. Backup aborted.")
+        return
+
+    # Proceed with backup if the table is not empty
+    print("[green]writing Ru columns from the DpdRoots table")
 
     # Check for rows where root.sanskrit_root is not "-" and root_sanskrit_root_ru_meaning is empty
     for record in db:

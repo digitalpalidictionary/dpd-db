@@ -67,6 +67,11 @@ def main():
         dpd_db = db_session.query(DpdHeadwords).options(
             joinedload(DpdHeadwords.ru)).filter(
             DpdHeadwords.family_root != "").all()
+
+    if config_test("dictionary", "show_sbs_data", "yes") or lang == "ru":
+        show_ru_data = True
+    else:
+        show_ru_data = False
             
     dpd_db = sorted(
         dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
@@ -79,7 +84,7 @@ def main():
     rf_dict = compile_rf_html(dpd_db, rf_dict, lang)
     add_rf_to_db(db_session, rf_dict, lang)
     update_lookup_table(db_session)
-    generate_root_info_html(db_session, roots_db, bases_dict)
+    generate_root_info_html(db_session, roots_db, bases_dict, show_ru_data)
     html_dict = generate_root_matrix(db_session)
     db_session.close()
 

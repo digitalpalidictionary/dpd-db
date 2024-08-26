@@ -20,7 +20,7 @@ for file in "${FILENAMES[@]}"; do
     cp -rf ./dps/backup/$file ./db/backup_tsv/$file
 done
 
-dps/scripts/move_new_words.py
+# dps/scripts/move_new_words.py
 
 scripts/bash/build_db.sh
 

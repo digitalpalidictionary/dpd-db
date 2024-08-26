@@ -64,3 +64,12 @@ SN
 04. saḷāyatanavaggo (>=SN35)
 05. mahāvaggo (>=SN45)
 """
+
+types_of_comp = """
+acc - dutiyā
+instr - tatiyā
+dat - catutthā
+abl - pañcamī
+gen - chaṭṭhī
+loc - sattamī
+"""

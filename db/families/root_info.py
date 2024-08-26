@@ -2,7 +2,7 @@ import re
 from rich import print
 
 
-def generate_root_info_html(db_session, roots_db, bases_dict):
+def generate_root_info_html(db_session, roots_db, bases_dict, show_ru_data=False):
     """Create an html table of all info specfic to a pali root."""
     print("[green]compiling root info")
 
@@ -21,6 +21,9 @@ def generate_root_info_html(db_session, roots_db, bases_dict):
         html_string += f"<sup>{i.root_has_verb}</sup>"
         html_string += f"{i.root_group} {root_group_pali} + {i.root_sign}"
         html_string += f" ({i.root_meaning})</td></tr>"
+
+        if show_ru_data:
+            html_string += f"<tr><th>Russian:</th><td>{i.root_ru_meaning}</td></tr>"
 
         if re.findall(",", bases):
             html_string += f"<tr><th>Bases:</th><td>{bases}</td></tr>"
@@ -63,7 +66,10 @@ def generate_root_info_html(db_session, roots_db, bases_dict):
         html_string += "<tr><th>Sanskrit Root:</th>"
         html_string += f"<td><span class='gray'>{i.sanskrit_root} "
         html_string += f"{i.sanskrit_root_class} "
-        html_string += f"({i.sanskrit_root_meaning})</span></td></tr>"
+        html_string += f"({i.sanskrit_root_meaning})"
+        if show_ru_data:
+            html_string += f" ({i.sanskrit_root_ru_meaning})"
+        html_string += "</span></td></tr>"
 
         # Pāṇinīya Dhātupāṭha
         if i.panini_root != "-":

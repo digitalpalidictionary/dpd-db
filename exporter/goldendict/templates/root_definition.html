@@ -1,11 +1,3 @@
 <div class='root_content'>
     <p>root. <b>${r.root_clean}</b><sup>${r.root_has_verb}</sup>${r.root_group} ${r.root_sign} (${r.root_meaning}) ${count}</p> 
-        % if show_sbs_data:
-        <p>
-            ${r.root_ru_meaning} 
-            % if r.sanskrit_root and r.sanskrit_root != "-":
-                <b>sk:</b> ${r.sanskrit_root_ru_meaning} - ${r.sanskrit_root_meaning}
-            % endif
-        </p>
-        % endif
 </div>

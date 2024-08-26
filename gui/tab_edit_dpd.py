@@ -8,7 +8,7 @@ from functions_db import get_family_word_values
 from functions_db import get_family_set_values
 from functions_db import get_compound_type_values
 from functions_db import get_patterns
-from tooltips import sutta_codes
+from tooltips import sutta_codes, types_of_comp
 from tools.pos import POS
 
 
@@ -665,6 +665,12 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 "*sutta codes↓",
                 pad=(20, 0),
                 tooltip=sutta_codes
+            ),
+            sg.Text(
+                "**↓",
+                pad=(2, 0),
+                tooltip=types_of_comp,
+                visible=username == "deva",
             ),
             sg.Text(
                 "", key="show_fields_error", size=(50, 1), text_color="red")
