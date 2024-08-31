@@ -2379,3 +2379,25 @@ n'<b>āññam'aññassa</b> dukkham'iccheyya."	missing
 20749	source_1	VIN3.1.31	sutta_1	mahākhandhako, kasāhatavatthu	example_1	bhagavato etam'atthaṃ ārocesuṃ. na, bhikkhave, <b>kasāhato</b> katadaṇḍakammo pabbājetabbo. yo pabbājeyya, āpatti dukkaṭassā'ti.	missing		
 20749	construction	kasā + hata					missing		
 20749	meaning_1	one being whipped; one being flogged					missing		
+51010	source_1	AN4.34	sutta_1	cakkavaggo, aggappasādasuttaṃ	example_1	yāvatā, bhikkhave, dhammā saṅkhatā vā asaṅkhatā vā, virāgo tesaṃ aggam'akkhāyati, yadidaṃ <b>madanimmadano</b> pipāsavinayo ālayasamugghāto vaṭṭupacchedo taṇhākkhayo virāgo nirodho nibbānaṃ.	missing		
+46154	meaning_1	removal of thirst; dispelling of craving					missing		
+46154	source_1	AN4.34	sutta_1	cakkavaggo, aggappasādasuttaṃ	example_1	yāvatā, bhikkhave, dhammā saṅkhatā vā asaṅkhatā vā, virāgo tesaṃ aggam'akkhāyati, yadidaṃ madanimmadano <b>pipāsavinayo</b> ālayasamugghāto vaṭṭ'upacchedo taṇhākkhayo virāgo nirodho nibbānaṃ.	sutta example		
+46154	commentary	(VINa) yasmā ca taṃ āgamma sabbā'pi kāmapipāsā vinayaṃ abbhatthaṃ yā'ti, tasmā <b>pipāsavinayo</b>'ti vuccati.					missing		
+46154	compound_type	dutiyā tappurisa	compound_construction	pipās<b>aṃ</b> + vinaya			missing		
+46154	sanskrit	pipāsā + vinaya					missing		
+46154	family_compound	pipāsa vinaya					missing		
+37830	source_1	AN4.34	sutta_1	cakkavaggo, aggappasādasuttaṃ	example_1	yāvatā, bhikkhave, dhammā saṅkhatā vā asaṅkhatā vā, virāgo tesaṃ aggam'akkhāyati, yadidaṃ mada<b>nimmadano</b> pipāsavinayo ālayasamugghāto vaṭṭupacchedo taṇhākkhayo virāgo nirodho nibbānaṃ.	missing		
+37830	compound_type	kammadhāraya	compound_construction	nir + madana			missing		
+37830	antonym	madana					missing		
+37830	family_compound	madana					missing		
+37830	construction	"nir + √mad + ana
+nir + madana"					missing		
+65819	meaning_1	breaking off cycle of existence; complete stopping round of rebirth					missing		
+65819	source_1	AN4.34	sutta_1	cakkavaggo, aggappasādasuttaṃ	example_1	yāvatā, bhikkhave, dhammā saṅkhatā vā asaṅkhatā vā, virāgo tesaṃ aggam'akkhāyati, yadidaṃ madanimmadano pipāsavinayo ālayasamugghāto <b>vaṭṭ'upacchedo</b> taṇhākkhayo virāgo nirodho nibbānaṃ.	sutta ex		
+65819	commentary	(VINa) yasmā ca taṃ āgamma tebhūmakavaṭṭaṃ upacchijjati, tasmā <b>vaṭṭupacchedo</b>'ti vuccati.					missing		
+65819	compound_type	dutiyā tappurisa	compound_construction	vaṭṭ<b>aṃ</b> + upaccheda			missing		
+65819	sanskrit	vṛtta + uccheda					missing		
+65819	family_compound	vaṭṭa upaccheda					missing		
+4298	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	taṃ suṇātha. katamañ'ca, bhikkhave, <b>anītikadhammaṃ</b> … nibbānañ'ca vo, bhikkhave, desessāmi nibbānagāmiñca maggaṃ. taṃ suṇātha.	missing		
+4298	compound_type	kammadhāraya	compound_construction	anītika + dhamma			missing		
+4298	sanskrit	anīti + dharma					missing		
