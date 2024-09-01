@@ -2401,3 +2401,9 @@ nir + madana"					missing
 4298	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	taṃ suṇātha. katamañ'ca, bhikkhave, <b>anītikadhammaṃ</b> … nibbānañ'ca vo, bhikkhave, desessāmi nibbānagāmiñca maggaṃ. taṃ suṇātha.	missing		
 4298	compound_type	kammadhāraya	compound_construction	anītika + dhamma			missing		
 4298	sanskrit	anīti + dharma					missing		
+476	meaning_1	non-destination; absence of future destination; epithet of Nibbāna					antonim of gati 4		
+8467	source_1	VISM1.11.1	sutta_1	āhārepaṭikkūlabhāvanā	example_1	imaṃ pana paṭipattiṃ nissāya diṭṭh'eva dhamme <b>amatapariyosānataṃ</b> anabhisambhuṇanto sugatiparāyano hotī'ti.	missing		
+8467	commentary	(VISMa) <b>amatapariyosānatan</b>'ti nibbānaniṭṭhitaṃ āhāre paṭikkūlasaññābhāvanāsaṅkhātaṃ upacārajjhānaṃ pādakaṃ katvā vipassanaṃ vaḍḍhetvā nibbānādhigamanti attho.					missing		
+8467	compound_type	dutiyā tappurisa	compound_construction	amat<b>aṃ</b> + pariyosāna + tā			missing		
+48956	source_1	SN12.13	sutta_1	nidānasaṃyuttaṃ, samaṇabrāhmaṇasuttaṃ	example_1	na ca pana te āyasmanto sāmaññ'atthaṃ vā <b>brahmaññatthaṃ</b> vā diṭṭh'eva dhamme sayaṃ abhiññā sacchikatvā upasampajja viharanti.	missing		
+48956	compound_type	chaṭṭhī tappurisa	compound_construction	brahmaññ<b>assa</b> + attha			missing		
