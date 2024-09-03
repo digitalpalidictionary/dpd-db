@@ -2,6 +2,7 @@
 
 """Setup for compound deconstruction."""
 
+import json
 import pandas as pd
 import pickle
 import re
@@ -100,15 +101,23 @@ def setup_deconstructor():
 
         with open(pth.unmatched_set_path, "wb") as f:
             pickle.dump(unmatched_set, f)
+        with open("db/deconstructor/assets/unmatched_set.json", "w") as f:
+            json.dump(list(unmatched_set), f, ensure_ascii=False, indent=0)
 
         with open(pth.all_inflections_set_path, "wb") as f:
             pickle.dump(all_inflections_set, f)
+        with open("db/deconstructor/assets/all_inflections_set.json", "w") as f:
+            json.dump(list(all_inflections_set), f, ensure_ascii=False, indent=0)
 
         with open(pth.text_set_path, "wb") as f:
             pickle.dump(text_set, f)
+        with open("db/deconstructor/assets/text_set.json", "w") as f:
+            json.dump(list(text_set), f, ensure_ascii=False, indent=0)
 
         with open(pth.neg_inflections_set_path, "wb") as f:
             pickle.dump(neg_inflections_set, f)
+        with open("db/deconstructor/assets/neg_inflections_set.json", "w") as f:
+            json.dump(list(neg_inflections_set), f, ensure_ascii=False, indent=0)
 
         p_yes("ok")
 
@@ -122,6 +131,9 @@ def setup_deconstructor():
 
         with open(pth.matches_dict_path, "wb") as f:
             pickle.dump(matches_dict, f)
+        with open("db/deconstructor/assets/matches_dict.json", "w") as f:
+            json.dump(matches_dict, f, ensure_ascii=False, indent=0)
+
         p_yes("ok")
 
     make_matches_dict(pth)

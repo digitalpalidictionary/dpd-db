@@ -7927,6 +7927,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "adhicetas",
+    "masc",
+    "who has heightened mental faculties; (comm) arahant; lit. higher mind",
+    "✓"
+   ],
+   [
     "anantajina",
     "masc",
     "infinite conqueror; universal victor; Ājīvaka term for an arahant",
@@ -8119,7 +8125,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 33
+  "count": 34
  },
  "epithets of Nibbāna": {
   "data": [
@@ -11379,7 +11385,7 @@ var family_set_json = {
    [
     "nandanavana",
     "nt",
-    "wood in Tāvatiṃsa heaven; lit. delighting wood",
+    "name of a wood in Tāvatiṃsa heaven; lit. delighting wood",
     "✓"
    ],
    [
@@ -11428,6 +11434,12 @@ var family_set_json = {
     "paṇḍavapabbata",
     "masc",
     "name of a mountain near Rājagaha; lit. white mountain",
+    "✓"
+   ],
+   [
+    "paṇḍukambalasilā",
+    "fem",
+    "name of a place in Tāvatiṃsa heaven; lit. rock spread with a pale coloured woollen cloth",
     "✓"
    ],
    [
@@ -11500,6 +11512,12 @@ var family_set_json = {
     "pubbakoṭṭhaka",
     "masc",
     "name of a bathing place outside Sāvatthī; lit. east wall",
+    "✓"
+   ],
+   [
+    "phārusakavana",
+    "nt",
+    "name of a wood in Tāvatiṃsa heaven",
     "✓"
    ],
    [
@@ -11821,7 +11839,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 136
+  "count": 138
  },
  "holy sites": {
   "data": [
@@ -15761,6 +15779,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "cundaka",
+    "masc",
+    "name of a monk",
+    "✓"
+   ],
+   [
     "cullapanthaka",
     "masc",
     "name of a monk; great disciple of the Buddha; foremost in creating a mind made body",
@@ -17681,7 +17705,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 465
+  "count": 466
  },
  "names of arahants": {
   "data": [
@@ -28405,7 +28429,7 @@ var family_set_json = {
    [
     "dantapura",
     "nt",
-    "name of a town; lit. tooth town",
+    "name of a town in Kāliṅga; lit. tooth town",
     "✓"
    ],
    [
@@ -30039,7 +30063,7 @@ var family_set_json = {
     "ambaṇa 3",
     "nt",
     "measure of volume",
-    "~"
+    "✓"
    ],
    [
     "āḷhaka 1",
@@ -30051,6 +30075,12 @@ var family_set_json = {
     "āḷhaka 2",
     "nt",
     "measure of volume",
+    "✓"
+   ],
+   [
+    "tumba 2",
+    "masc",
+    "measure used for rice and grain; lit. gourd",
     "✓"
    ],
    [
@@ -30090,7 +30120,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 11
+  "count": 12
  },
  "four modes of generation": {
   "data": [

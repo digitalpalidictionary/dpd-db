@@ -582,6 +582,7 @@ desiderative
 desireless
 desirelessness
 Desmostachya
+detesting
 deva
 Deva
 deva-king
@@ -698,6 +699,7 @@ Elengi
 Eleusine
 elucidation
 emancipating
+emancipations
 embankments
 emblic
 Emblica
@@ -736,6 +738,7 @@ experientially
 exposition
 expounder
 expounds
+extinguishment
 extirpated
 extols
 eyya
@@ -1170,6 +1173,7 @@ leatherworker
 lebbeck
 leprotic
 liberating
+liberations
 liberative
 Libra
 Licchavi
@@ -1287,6 +1291,7 @@ Mara's
 Mara’s
 Māra's
 Māra’s
+Māradhītusuttaṃ
 Māradhītusuttaṃ
 Māras
 Mārasaṃyuttaṃ
@@ -1986,6 +1991,9 @@ slayed
 śloka
 sluggishness
 SN22.22
+SN4
+SN4.25
+SN4.25
 soapberry
 sobhanaka
 socanan'ti
@@ -2308,11 +2316,13 @@ unheated
 unhesitant
 unicolour
 unicornis
+unimpelled
 uninclined
 unincluded
 uninflated
 uninspected
 uninstructable
+uninstructed
 uninstructible
 unjudgeable
 unlimted
@@ -2365,6 +2375,7 @@ unstitch
 unsuffused
 unsurpassable
 unswept
+untaught
 untruthfully
 untwisted
 untwisting

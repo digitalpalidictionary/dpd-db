@@ -273,7 +273,7 @@ def main():
         format='%(asctime)s - %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S')
 
-    # make globally accessable vaiables
+    # make globally accessible variables
     setup(pth)
 
     global matches_dict
@@ -325,7 +325,7 @@ def main():
             except KeyError:
                 pass
             matches_dict = {}
-            time_dict = {}
+            time_dict = {}     
 
     save_matches(pth, matches_dict)
 
@@ -469,7 +469,7 @@ def remove_neg(d: DotDict) -> DotDict:
             d.word = d.word[2:]
 
         elif d.word.startswith("na"):
-            if d.word[1] == d.word[2]:
+            if d.word[2] == d.word[3]:
                 d.word = d.word[3:]
             else:
                 d.word = d.word[2:]

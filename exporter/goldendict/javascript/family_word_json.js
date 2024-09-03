@@ -13877,7 +13877,7 @@ var family_word_json = {
     "ambaṇa 3",
     "nt",
     "measure of volume",
-    "~"
+    "✓"
    ],
    [
     "ambaṇaka",
@@ -21472,6 +21472,17 @@ var family_word_json = {
   ],
   "count": 5
  },
+ "kolamba": {
+  "data": [
+   [
+    "kolamba",
+    "masc",
+    "big jar; (comm) wide-mouthed pot",
+    "✓"
+   ]
+  ],
+  "count": 1
+ },
  "koliya": {
   "data": [
    [
@@ -23127,7 +23138,7 @@ var family_word_json = {
     "cundaka",
     "masc",
     "name of a monk",
-    "✗"
+    "✓"
    ],
    [
     "cundī",
@@ -24720,8 +24731,8 @@ var family_word_json = {
    [
     "tumba 2",
     "masc",
-    "measure used for grain",
-    "✗"
+    "measure used for rice and grain; lit. gourd",
+    "✓"
    ],
    [
     "tumba 3",
@@ -25521,6 +25532,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "ratta 1.2",
+    "nt",
+    "time period; season",
+    "✓"
+   ],
+   [
     "rattā",
     "fem",
     "time; lit. night",
@@ -25551,7 +25568,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 8
+  "count": 9
  },
  "nattar": {
   "data": [

@@ -382,6 +382,23 @@ var family_idiom_json = {
    ]
   ]
  },
+ "kalla": {
+  "count": 2,
+  "data": [
+   [
+    "kallaṃ vacanāya",
+    "idiom",
+    "it is suitable to say; it is correct to say",
+    "✓"
+   ],
+   [
+    "kallosi",
+    "sandhi",
+    "you are clever; you are smart",
+    "✓"
+   ]
+  ]
+ },
  "kāraṇa": {
   "count": 2,
   "data": [
@@ -8606,6 +8623,23 @@ var family_idiom_json = {
    ]
   ]
  },
+ "dūra": {
+  "count": 2,
+  "data": [
+   [
+    "dūratopi",
+    "sandhi",
+    "from far away; from afar",
+    "✓"
+   ],
+   [
+    "dūratova",
+    "sandhi",
+    "from far away; from afar",
+    "✓"
+   ]
+  ]
+ },
  "ati": {
   "count": 2,
   "data": [
@@ -14479,6 +14513,65 @@ var family_idiom_json = {
     "antogadhāvāssa",
     "sandhi",
     "included within one; contained within one",
+    "✓"
+   ]
+  ]
+ },
+ "pañca": {
+  "count": 9,
+  "data": [
+   [
+    "pañca balāni",
+    "idiom",
+    "five (mental) powers",
+    "✓"
+   ],
+   [
+    "pañcamattehi bhikkhusatehi",
+    "idiom",
+    "with five hundred monks; lit. with five measures of one hundred monks",
+    "✓"
+   ],
+   [
+    "pañcamettha",
+    "sandhi",
+    "fifth here; in this case a fifth",
+    "✓"
+   ],
+   [
+    "pañcasupādānakkhandhesu",
+    "sandhi",
+    "in the five heaps that are clung to; in the five appropriated groups",
+    "✓"
+   ],
+   [
+    "pañcahaṅgehi",
+    "sandhi",
+    "with five factors; with five qualities",
+    "✓"
+   ],
+   [
+    "pañcimā",
+    "sandhi",
+    "these five",
+    "✓"
+   ],
+   [
+    "pañcimāni",
+    "sandhi",
+    "these five",
+    "✓"
+   ],
+   [
+    "pañcime",
+    "sandhi",
+    "these five",
+    "✓"
+   ],
+   [
+    "pañcete",
+    "sandhi",
+    "these five",
     "✓"
    ]
   ]
@@ -23156,23 +23249,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "kalla": {
-  "count": 2,
-  "data": [
-   [
-    "kallaṃ vacanāya",
-    "idiom",
-    "it is suitable to say; it is correct to say",
-    "✓"
-   ],
-   [
-    "kallosi",
-    "sandhi",
-    "you are clever; you are smart",
-    "✓"
-   ]
-  ]
- },
  "kāma": {
   "count": 4,
   "data": [
@@ -26938,23 +27014,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "dūra": {
-  "count": 2,
-  "data": [
-   [
-    "dūratopi",
-    "sandhi",
-    "from far away; from afar",
-    "✓"
-   ],
-   [
-    "dūratova",
-    "sandhi",
-    "from far away; from afar",
-    "✓"
-   ]
-  ]
- },
  "deva": {
   "count": 7,
   "data": [
@@ -27895,65 +27954,6 @@ var family_idiom_json = {
     "pacchimā janatā",
     "idiom",
     "later generations; people of the future",
-    "✓"
-   ]
-  ]
- },
- "pañca": {
-  "count": 9,
-  "data": [
-   [
-    "pañca balāni",
-    "idiom",
-    "five (mental) powers",
-    "✓"
-   ],
-   [
-    "pañcamattehi bhikkhusatehi",
-    "idiom",
-    "with five hundred monks; lit. with five measures of one hundred monks",
-    "✓"
-   ],
-   [
-    "pañcamettha",
-    "sandhi",
-    "fifth here; in this case a fifth",
-    "✓"
-   ],
-   [
-    "pañcasupādānakkhandhesu",
-    "sandhi",
-    "in the five heaps that are clung to; in the five appropriated groups",
-    "✓"
-   ],
-   [
-    "pañcahaṅgehi",
-    "sandhi",
-    "with five factors; with five qualities",
-    "✓"
-   ],
-   [
-    "pañcimā",
-    "sandhi",
-    "these five",
-    "✓"
-   ],
-   [
-    "pañcimāni",
-    "sandhi",
-    "these five",
-    "✓"
-   ],
-   [
-    "pañcime",
-    "sandhi",
-    "these five",
-    "✓"
-   ],
-   [
-    "pañcete",
-    "sandhi",
-    "these five",
     "✓"
    ]
   ]
