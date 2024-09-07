@@ -30,6 +30,7 @@ def main():
                 COALESCE(sbs.sbs_class, '') AS class,
                 COALESCE(sbs.sbs_class_anki, '') AS anki,
                 COALESCE(sbs.sbs_category, '') AS categ,
+                COALESCE(sbs.sbs_patimokkha, '') AS pat,
                 COALESCE(sbs.sbs_index, '') AS PER,
                 COALESCE(dpd_headwords.lemma_1, '') AS lemma_1, 
                 COALESCE(dpd_headwords.lemma_2, '') AS lemma_2,  

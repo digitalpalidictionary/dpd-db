@@ -6,13 +6,13 @@
         % if show_sbs_data and sbs:
             % if sbs.sbs_class_anki:
                 <a href="${sbs.sbs_class_link}"><i>(cl.${sbs.sbs_class_anki})</i></a>
-                % if sbs.sbs_class:
-                    <span class="gray"><i>${sbs.sbs_class}</i></span>
-                % endif
                 <span class="gray"> | </span>
             % endif
             % if sbs.sbs_category:
                 <a href="${sbs.sbs_sutta_link}"><i>(${sbs.sbs_category})</i></a> | 
+            % endif
+            % if sbs.sbs_patimokkha:
+                <a href="${sbs.sbs_patimokkha_link}"><i>(${sbs.sbs_patimokkha})</i></a> | 
             % endif
         % endif
         ${pos}. 

@@ -1233,6 +1233,11 @@ class SBS(Base):
     def sbs_sutta_link(self):
         sutta_link_map = SBS_table_tools().load_sutta_link_map()
         return sutta_link_map.get(self.sbs_category, "")
+
+    @property
+    def sbs_patimokkha_link(self):
+        patimokkha_link_map = SBS_table_tools().load_sutta_link_map()
+        return patimokkha_link_map.get(self.sbs_patimokkha, "")
     
     @property
     def sbs_source_link_1(self) -> str:

@@ -11,6 +11,7 @@ def make_tab_edit_dps(dpspth, sg):
     class_list = [str(i) for i in range(2, 30)]
     sbs_example_number = [str(i) for i in range(1, 5)]
     dps_category_list = ["sn12", "sn22", "sn35", "sn43", "sn45", "sn46", "sn47", "sn56", "mn107"]
+    dps_patimokkha_list = ["pat", "vib"]
 
     dpd_background = "#1c1e23"
     dpd_text = "#0a9ce4"
@@ -32,8 +33,6 @@ def make_tab_edit_dps(dpspth, sg):
                 key="dps_show_fields_no_sbs",
                 enable_events=True,
                 tooltip="Show the fields relevant to the type of word"),
-            sg.Text(
-                "", key="dps_show_fields_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("id and lemma_1", size=(15, 1)),
@@ -138,8 +137,6 @@ def make_tab_edit_dps(dpspth, sg):
             sg.Button("Add", key="dps_ru_add_spelling_button", font=(None, 13)),
             sg.Button("Edit", key="dps_ru_edit_spelling_button", font=(None, 13)),
             sg.Button("Check", key="dps_ru_check_spelling_button", font=(None, 13)),
-            sg.Text(
-                "", key="dps_ru_add_spelling_error", size=(40, 1), text_color="red")
         ],
         [
             sg.Text("russian lit", size=(15, 1)),
@@ -292,14 +289,6 @@ def make_tab_edit_dps(dpspth, sg):
             sg.Button("sbs_ex_2", key="dps_copy_ex_1_to_2_button", font=(None, 13)),
             sg.Button("sbs_ex_3", key="dps_copy_ex_1_to_3_button", font=(None, 13)),
             sg.Button("sbs_ex_4", key="dps_copy_ex_1_to_4_button", font=(None, 13)),
-            sg.Text(
-                "", key="dps_copy_ex_1_to_1_error", size=(50, 1), text_color="red"),
-            sg.Text(
-                "", key="dps_copy_ex_1_to_2_error", size=(50, 1), text_color="red"),
-            sg.Text(
-                "", key="dps_copy_ex_1_to_3_error", size=(50, 1), text_color="red"),
-            sg.Text(
-                "", key="dps_copy_ex_1_to_4_error", size=(50, 1), text_color="red"),
         ],
         [
             sg.Text("dpd_source_2", size=(15, 1)),
@@ -328,14 +317,6 @@ def make_tab_edit_dps(dpspth, sg):
             sg.Button("sbs_ex_2", key="dps_copy_ex_2_to_2_button", font=(None, 13)),
             sg.Button("sbs_ex_3", key="dps_copy_ex_2_to_3_button", font=(None, 13)),
             sg.Button("sbs_ex_4", key="dps_copy_ex_2_to_4_button", font=(None, 13)),
-            sg.Text(
-                "", key="dps_copy_ex_2_to_1_error", size=(50, 1), text_color="red"),
-            sg.Text(
-                "", key="dps_copy_ex_2_to_2_error", size=(50, 1), text_color="red"),
-            sg.Text(
-                "", key="dps_copy_ex_2_to_3_error", size=(50, 1), text_color="red"),
-            sg.Text(
-                "", key="dps_copy_ex_2_to_4_error", size=(50, 1), text_color="red"),
         ],
         [
             sg.Text("sbs_source_1", size=(15, 1)),
@@ -407,8 +388,6 @@ def make_tab_edit_dps(dpspth, sg):
                 tooltip="",
                 text_color=sbs_text,
                 background_color=sbs_background),
-            sg.Text(
-                "", key="dps_sbs_chant_eng_1_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("sbs_chapter_1", size=(15, 1)),
@@ -419,8 +398,6 @@ def make_tab_edit_dps(dpspth, sg):
                 text_color=sbs_text,
                 background_color=sbs_background,
                 tooltip=""),
-            sg.Text(
-                "", key="dps_sbs_chapter_1_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("ex_1 swap with", size=(15, 1)),
@@ -481,7 +458,6 @@ def make_tab_edit_dps(dpspth, sg):
                 font=(None, 13)),
             sg.Button("Lower", key="dps_example_2_lower", font=(None, 13)),
             sg.Button("Clean", key="dps_example_2_clean", font=(None, 13)),
-            sg.Text("", key="dps_bold_2_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("sbs_chant_pali_2", size=(15, 1)),
@@ -503,8 +479,6 @@ def make_tab_edit_dps(dpspth, sg):
                 tooltip="",
                 text_color=sbs_text,
                 background_color=sbs_background),
-            sg.Text(
-                "", key="dps_sbs_chant_eng_2_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("sbs_chapter_2", size=(15, 1)),
@@ -515,8 +489,6 @@ def make_tab_edit_dps(dpspth, sg):
                 tooltip="",
                 text_color=sbs_text,
                 background_color=sbs_background),
-            sg.Text(
-                "", key="dps_sbs_chapter_2_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("ex_2 swap with", size=(15, 1)),
@@ -577,7 +549,6 @@ def make_tab_edit_dps(dpspth, sg):
                 font=(None, 13)),
             sg.Button("Lower", key="dps_example_3_lower", font=(None, 13)),
             sg.Button("Clean", key="dps_example_3_clean", font=(None, 13)),
-            sg.Text("", key="dps_bold_3_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("sbs_chant_pali_3", size=(15, 1)),
@@ -599,8 +570,6 @@ def make_tab_edit_dps(dpspth, sg):
                 tooltip="",
                 text_color=sbs_text,
                 background_color=sbs_background),
-            sg.Text(
-                "", key="dps_sbs_chant_eng_3_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("sbs_chapter_3", size=(15, 1)),
@@ -611,8 +580,6 @@ def make_tab_edit_dps(dpspth, sg):
                 tooltip="",
                 text_color=sbs_text,
                 background_color=sbs_background),
-            sg.Text(
-                "", key="dps_sbs_chapter_3_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("ex_3 swap with", size=(15, 1)),
@@ -673,7 +640,6 @@ def make_tab_edit_dps(dpspth, sg):
                 font=(None, 13)),
             sg.Button("Lower", key="dps_example_4_lower", font=(None, 13)),
             sg.Button("Clean", key="dps_example_4_clean", font=(None, 13)),
-            sg.Text("", key="dps_bold_4_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("sbs_chant_pali_4", size=(15, 1)),
@@ -695,8 +661,6 @@ def make_tab_edit_dps(dpspth, sg):
                 tooltip="",
                 text_color=sbs_text,
                 background_color=sbs_background),
-            sg.Text(
-                "", key="dps_sbs_chant_eng_4_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("sbs_chapter_4", size=(15, 1)),
@@ -707,8 +671,6 @@ def make_tab_edit_dps(dpspth, sg):
                 text_color=sbs_text,
                 background_color=sbs_background,
                 tooltip=""),
-            sg.Text(
-                "", key="dps_sbs_chapter_4_error", size=(50, 1), text_color="red")
         ],
         [
             sg.Text("ex_4 swap with", size=(15, 1)),
@@ -732,7 +694,7 @@ def make_tab_edit_dps(dpspth, sg):
                 text_color=sbs_text,
                 background_color=sbs_background,
                 tooltip="which class from Anki deck for Pāli Class"),
-            sg.Text("", size=(1, 1)),
+            sg.Text("", size=(6, 1)),
             sg.Text("sbs_class "),
             CompletionCombo(
                 class_list,
@@ -750,13 +712,22 @@ def make_tab_edit_dps(dpspth, sg):
                 dps_category_list,
                 key="dps_sbs_category",
                 default_value="",
-                size=(8, 1),
+                size=(6, 1),
                 enable_events=True,
                 text_color=sbs_text,
                 background_color=sbs_background,
                 tooltip="which sutta from sutta anki deck"),
-            sg.Text(
-                "", key="dps_sbs_category_error", size=(50, 1), text_color="red")
+            sg.Text("", size=(3, 1)),
+            sg.Text("sbs_patimokkha "),
+            CompletionCombo(
+                dps_patimokkha_list,
+                key="dps_sbs_patimokkha",
+                default_value="",
+                size=(4, 1),
+                enable_events=True,
+                text_color=sbs_text,
+                background_color=sbs_background,
+                tooltip="related to Bhikkhu Pātimokkha or Bhikkhu Vibhaṅga"),
         ],
         [
             sg.Text("", size=(55, 1))

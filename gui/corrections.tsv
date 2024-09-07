@@ -2407,3 +2407,39 @@ nir + madana"					missing
 8467	compound_type	dutiyā tappurisa	compound_construction	amat<b>aṃ</b> + pariyosāna + tā			missing		
 48956	source_1	SN12.13	sutta_1	nidānasaṃyuttaṃ, samaṇabrāhmaṇasuttaṃ	example_1	na ca pana te āyasmanto sāmaññ'atthaṃ vā <b>brahmaññatthaṃ</b> vā diṭṭh'eva dhamme sayaṃ abhiññā sacchikatvā upasampajja viharanti.	missing		
 48956	compound_type	chaṭṭhī tappurisa	compound_construction	brahmaññ<b>assa</b> + attha			missing		
+8758	meaning_1	this is the proper occasion herein; this is the right time in this case					missing		
+23328	source_1		sutta_1		example_1		not really fitting ex		
+25962	meaning_1	fourteen (14)					correct meaning		
+25962	source_1	SN7.10	sutta_1	brāhmaṇasaṃyuttaṃ, bahudhītarasuttaṃ	example_1	tena kho pana samayena aññatarassa bhāradvājagottassa brāhmaṇassa <b>catuddasa</b> balībaddā naṭṭhā honti.	real example		
+25962	grammar	card, x pl, comp					correction		
+25962	compound_type	dvanda	compound_construction	catu <b>ca</b> dasa <b>ca</b>			missing		
+25962	pos	card					correction		
+25962	stem	catuddas	pattern	a1 card			correction		
+64361	meaning_1	drinking liquor					missing		
+65604	meaning_1	venerable just one who can be spoken to					missing		
+65604	family_idioms	vacanīya eva āyasmant					missing		
+65755	meaning_1	should be avoided; should be abstained from					missing		
+67861	source_1		sutta_1		example_1		wrong ex		
+78692	meaning_1	(of a sleeping posture, or seat) adopts; takes up; assumes; lies down (in); sits (on)					add flavor from AN 1		
+78692	source_2	VIN PAT AN 1	sutta_2	paṭhamaaniyatasikkhāpadaṃ	example_2	yo pana bhikkhu mātugāmena saddhiṃ eko ekāya raho paṭicchanne āsane alaṃkammaniye <b>nisajjaṃ</b> kappeyya	missing		
+23515	source_1	VIN PAT SE	sutta_1	sekkhiyā	example_1	<b>khambhakatavaggo</b> tatiyo.	missing		
+23515	compound_type	kammadhāraya	compound_construction	khambhakata + vagga			missing		
+23515	sanskrit	skambhākṛta (bsk) + varga					missing		
+23212	source_1	VIN PAT NP	sutta_1	nissaggiyapācittiyā	example_1	<b>kosiyavaggo</b> dutiyo	missing		
+23212	compound_type	kammadhāraya	compound_construction	kosiya + vagga			missing		
+54527	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>ratanavaggo</b> navamo	missing		
+54527	compound_type	kammadhāraya	compound_construction	ratana + vagga			missing		
+54527	sanskrit	ratna + varga					missing		
+20166	source_1	VIN PAT SE	sutta_1	sekhiyā	example_1	<b>kabaḷavaggo</b> pañcamo.	missing		
+20166	compound_type	kammadhāraya	compound_construction	kabaḷa + vagga			missing		
+20166	sanskrit	kavala + varga					missing		
+50390	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>bhojanavaggo</b> catuttho.	missing		
+50390	compound_type	kammadhāraya	compound_construction	bhojana + vagga			missing		
+56392	source_1	VIN PAT SE	sutta_1	sekhiyā	example_1	<b>sakkaccavaggo</b> catuttho.	missing		
+56392	compound_type	kammadhāraya	compound_construction	sakkacca + vagga			missing		
+56392	sanskrit	satkṛtya + varga					missing		
+64364	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>surāpānavaggo</b> chaṭṭho.	missing		
+64364	compound_type	kammadhāraya	compound_construction	surāpāna + vagga			missing		
+182	source_2	VIN PAT SA 12	sutta_2	dubbacasikkhāpadaṃ	example_2	m'āyasmā attānaṃ avacanīyaṃ <b>akāsi</b>, vacanīyam'ev'āyasmā attānaṃ karotu, āyasmā'pi bhikkhū vadatu sahadhammena, bhikkhū'pi āyasmantaṃ vakkhanti sahadhammena	change comm example		
+918	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>acelakavaggo</b> pañcamo.	missing		
+918	compound_type	kammadhāraya	compound_construction	acelaka + vagga			missing		

@@ -7,14 +7,15 @@
             {% if d.i.sbs.sbs_class_anki %}
                 <a href="{{d.i.sbs.sbs_class_link}}"
                 target="_blank"><i>(cl.{{d.i.sbs.sbs_class_anki}})</i></a>
-                {% if d.i.sbs.sbs_class %}
-                    <span class="gray"><i>{{d.i.sbs.sbs_class}}</i></span>
-                {% endif %}
                 <span class="gray"> | </span>
             {% endif %}
             {% if d.i.sbs.sbs_category %}
                 <a href="{{d.i.sbs.sbs_sutta_link}}"
                 target="_blank"><i>({{d.i.sbs.sbs_category}})</i></a> | 
+            {% endif %}
+            {% if d.i.sbs.sbs_patimokkha %}
+                <a href="{{d.i.sbs.sbs_patimokkha_link}}"
+                target="_blank"><i>({{d.i.sbs.sbs_patimokkha}})</i></a> | 
             {% endif %}
         {% endif %}
 

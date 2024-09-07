@@ -7,7 +7,7 @@ import re
 
 from sqlalchemy.orm.attributes import InstrumentedAttribute
 from sqlalchemy.orm import aliased
-from sqlalchemy import and_, or_, null
+from sqlalchemy import and_, or_, null, not_
 from sqlalchemy import update
 from sqlalchemy.orm import joinedload
 
@@ -136,7 +136,52 @@ def update_notes():
         # db_session.commit()
 
 
+def update_column_for_some_criteria():
+    # Query the database to find the rows that match the conditions
+    rows_to_update = db_session.query(DpdHeadwords, SBS).join(
+        SBS, DpdHeadwords.id == SBS.id
+    ).filter(
+        and_(
+            or_(
+                DpdHeadwords.source_1.contains("PAT NID"),
+                DpdHeadwords.source_2.contains("PAT NID"),
+                SBS.sbs_source_1.contains("PAT NID"),
+                SBS.sbs_source_2.contains("PAT NID"),
+                SBS.sbs_source_3.contains("PAT NID"),
+                SBS.sbs_source_4.contains("PAT NID"),
+            ),
+            # not_(
+            #     or_(
+            #         DpdHeadwords.source_1.contains("PK"),
+            #         DpdHeadwords.source_2.contains("PK"),
+            #         SBS.sbs_source_1.contains("PK"),
+            #         SBS.sbs_source_2.contains("PK"),
+            #         SBS.sbs_source_3.contains("PK"),
+            #         SBS.sbs_source_4.contains("PK"),
+            #     )
+            # )
+        )
+    ).all()
 
+    count = 0
+
+    for __word__, sbs in rows_to_update:
+        old_value = sbs.sbs_patimokkha
+        if old_value != "pat":
+            sbs.sbs_patimokkha = "pat"
+
+            console.print(f"[bold bright_yellow]{__word__.id} SBS.sbs_patimokkha:")
+            print()
+            print(f"{old_value}")
+            print()
+            print(f"{sbs.sbs_patimokkha}")
+            print()
+
+            count += 1
+
+    console.print(f"[bold bright_green]Total count of occurrences: {count}")
+
+    # db_session.commit()
 
 
 column_to_filter = DpdHeadwords.meaning_1
@@ -151,4 +196,6 @@ value_to_update = "(грам) "
 
 # filter_and_add(column_to_filter, filter_value, related_table, related_column_to_update, value_to_update)
 
-update_notes()
+# update_notes()
+
+update_column_for_some_criteria()

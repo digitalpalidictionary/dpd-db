@@ -270,7 +270,7 @@ def edit_corrections(pth):
 def display_dps_summary(values, window, sg, original_values):
 
     dps_values_list = [
-    "dps_lemma_1", "dps_grammar", "dps_meaning", "dps_ru_meaning", "dps_ru_meaning_lit", "dps_sbs_meaning", "dps_root", "dps_base_or_comp", "dps_constr_or_comp_constr", "dps_synonym_antonym", "dps_notes", "dps_ru_notes", "dps_sbs_notes", "dps_sbs_source_1", "dps_sbs_sutta_1", "dps_sbs_example_1", "dps_sbs_chant_pali_1", "dps_sbs_chant_eng_1", "dps_sbs_chapter_1", "dps_sbs_source_2", "dps_sbs_sutta_2", "dps_sbs_example_2", "dps_sbs_chant_pali_2", "dps_sbs_chant_eng_2", "dps_sbs_chapter_2", "dps_sbs_source_3", "dps_sbs_sutta_3", "dps_sbs_example_3", "dps_sbs_chant_pali_3", "dps_sbs_chant_eng_3", "dps_sbs_chapter_3", "dps_sbs_source_4", "dps_sbs_sutta_4", "dps_sbs_example_4", "dps_sbs_chant_pali_4", "dps_sbs_chant_eng_4", "dps_sbs_chapter_4", "dps_sbs_class_anki", "dps_sbs_class", "dps_sbs_category"]
+    "dps_lemma_1", "dps_grammar", "dps_meaning", "dps_ru_meaning", "dps_ru_meaning_lit", "dps_sbs_meaning", "dps_root", "dps_base_or_comp", "dps_constr_or_comp_constr", "dps_synonym_antonym", "dps_notes", "dps_ru_notes", "dps_sbs_notes", "dps_sbs_source_1", "dps_sbs_sutta_1", "dps_sbs_example_1", "dps_sbs_chant_pali_1", "dps_sbs_chant_eng_1", "dps_sbs_chapter_1", "dps_sbs_source_2", "dps_sbs_sutta_2", "dps_sbs_example_2", "dps_sbs_chant_pali_2", "dps_sbs_chant_eng_2", "dps_sbs_chapter_2", "dps_sbs_source_3", "dps_sbs_sutta_3", "dps_sbs_example_3", "dps_sbs_chant_pali_3", "dps_sbs_chant_eng_3", "dps_sbs_chapter_3", "dps_sbs_source_4", "dps_sbs_sutta_4", "dps_sbs_example_4", "dps_sbs_chant_pali_4", "dps_sbs_chant_eng_4", "dps_sbs_chapter_4", "dps_sbs_class_anki", "dps_sbs_class", "dps_sbs_category", "dps_sbs_patimokkha"]
 
     summary = []
     excluded_fields = ["dps_grammar", "dps_meaning", "dps_root", "dps_base_or_comp", "dps_constr_or_comp_constr", "dps_synonym_antonym", "dps_notes"]
@@ -1438,19 +1438,19 @@ def add_word_from_csv(dpspth, window):
 
 
 def get_next_word_ru(db_session):
-    # Query the database for the first word that meets the conditions
-    word = db_session.query(DpdHeadwords).join(Russian).filter(
-        DpdHeadwords.meaning_1 != "",
-        DpdHeadwords.example_1 != "",
-        Russian.ru_meaning == "",
-    ).first()
+    def filter_words(meaning_1="", example_1="", ru_meaning=""):
+        return db_session.query(DpdHeadwords).join(Russian).join(SBS).filter(
+            DpdHeadwords.meaning_1 != meaning_1,
+            DpdHeadwords.example_1 != example_1,
+            SBS.sbs_patimokkha == "pat",
+            Russian.ru_meaning == ru_meaning,
+        )
+
+    # Query the database using the helper function
+    word = filter_words("", "", "").first()
 
     # Query the database to count the total number of words fitting the criteria
-    total_words = db_session.query(DpdHeadwords).join(Russian).filter(
-        DpdHeadwords.meaning_1 != "",
-        DpdHeadwords.example_1 != "",
-        Russian.ru_meaning == "",
-    ).count()
+    total_words = filter_words("", "", "").count()
 
     # Return the id of the word if found, otherwise return None
     if word:
