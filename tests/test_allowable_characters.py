@@ -64,6 +64,7 @@ class AllowableCharacters():
     # punctuation
     ampersand = ["&"]
     apostrophe = ["'"]                      #   FIXME this should get upgraded to quotation marks etc
+    quote = ['"']
     brackets = ["\\(", "\\)"]
     colon = [":"]
     comma = [","]
@@ -560,7 +561,8 @@ class AllowableCharacters():
         equals +
         ampersand +
         dash +
-        number_ru
+        number_ru +
+        quote
     )
 
     root_meaning_ru_allowed = (
@@ -601,7 +603,8 @@ class AllowableCharacters():
         italic +
         section +
         number_ru +
-        niggahitas
+        niggahitas + 
+        quote
     )
 
 

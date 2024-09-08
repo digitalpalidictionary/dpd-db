@@ -2443,3 +2443,29 @@ nir + madana"					missing
 182	source_2	VIN PAT SA 12	sutta_2	dubbacasikkhāpadaṃ	example_2	m'āyasmā attānaṃ avacanīyaṃ <b>akāsi</b>, vacanīyam'ev'āyasmā attānaṃ karotu, āyasmā'pi bhikkhū vadatu sahadhammena, bhikkhū'pi āyasmantaṃ vakkhanti sahadhammena	change comm example		
 918	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>acelakavaggo</b> pañcamo.	missing		
 918	compound_type	kammadhāraya	compound_construction	acelaka + vagga			missing		
+43877	compound_type	kammadhāraya	compound_construction	parimaṇḍala + vagga			missing		
+43877	sanskrit	parimaṇḍala + varga					missing		
+43877	source_1	VIN PAT SE	sutta_1	sekhiyā	example_1	<b>parimaṇḍalavaggo</b> paṭhamo.	missing		
+41912	compound_type	kammadhāraya	compound_construction	patta + vagga			missing		
+41912	sanskrit	pātra + varga					missing		
+41912	source_1	VIN PAT NP	sutta_1	nissaggiyapācittiyā	example_1	<b>pattavaggo</b> tatiyo.	missing		
+61396	compound_type	kammadhāraya	compound_construction	sahadhammika + vagga			missing		
+61396	sanskrit	sahadhārmika + varga					missing		
+61396	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>sahadhammikavaggo</b> aṭṭhamo.	missing		
+50163	compound_type	kammadhāraya	compound_construction	bhūtagāma + vagga			missing		
+50163	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>bhūtagāmavaggo</b> dutiyo.	missing		
+20643	compound_type	catutthī tappurisa	compound_construction	kalyāṇ<b>assa</b> + kamyatā			missing		
+20643	sanskrit	kalyāṇa + kāmyatva					missing		
+20643	source_1	VIN PAT NP 8	sutta_1	paṭhamaupakkhaṭasikkhāpadaṃ	example_1	sādhu vata maṃ āyasmā iminā cīvaracetāpannena evarūpaṃ vā evarūpaṃ vā cīvaraṃ cetāpetvā acchādehī'ti <b>kalyāṇakamyataṃ</b> upādāya, nissaggiyaṃ pācittiyaṃ.	missing		
+20697	source_1	VIN PAT NP 8	sutta_1	paṭhamaupakkhaṭasikkhāpadaṃ	example_1	sādhu vata maṃ āyasmā iminā cīvaracetāpannena evarūpaṃ vā evarūpaṃ vā cīvaraṃ cetāpetvā acchādehī'ti <b>kalyānakamyataṃ</b> upādāya, nissaggiyaṃ pācittiyaṃ.	typo in ex		
+53059	compound_type	kammadhāraya	compound_construction	musāvāda + vagga			missing		
+53059	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>musāvādavaggo</b> paṭhamo.	missing		
+19885	compound_type	kammadhāraya	compound_construction	kathina + vagga			missing		
+19885	sanskrit	kaṭhina + varga					missing		
+19885	source_1	VIN PAT NP	sutta_1	nissaggiyapācittiyā	example_1	<b>kathinavaggo</b> paṭhamo.	missing		
+14420	compound_type	kammadhāraya	compound_construction	ujjagghikā + vagga			missing		
+14420	sanskrit	ud + ghagh + varga					missing		
+14420	source_1	VIN PAT SE	sutta_1	sekhiyā	example_1	<b>ujjagghikavaggo</b> dutiyo.	missing		
+45536	compound_type	kammadhāraya	compound_construction	pāduka + vagga			missing		
+45536	sanskrit	pādukā + varga					missing		
+45536	source_1	VIN PAT SE	sutta_1	sekhiyā	example_1	<b>pādukavaggo</b> sattamo.	missing		

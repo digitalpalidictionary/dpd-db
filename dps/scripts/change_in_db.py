@@ -143,23 +143,23 @@ def update_column_for_some_criteria():
     ).filter(
         and_(
             or_(
-                DpdHeadwords.source_1.contains("PAT NID"),
-                DpdHeadwords.source_2.contains("PAT NID"),
-                SBS.sbs_source_1.contains("PAT NID"),
-                SBS.sbs_source_2.contains("PAT NID"),
-                SBS.sbs_source_3.contains("PAT NID"),
-                SBS.sbs_source_4.contains("PAT NID"),
+                DpdHeadwords.source_1.contains("PAT"),
+                DpdHeadwords.source_2.contains("PAT"),
+                SBS.sbs_source_1.contains("PAT"),
+                SBS.sbs_source_2.contains("PAT"),
+                SBS.sbs_source_3.contains("PAT"),
+                SBS.sbs_source_4.contains("PAT"),
             ),
-            # not_(
-            #     or_(
-            #         DpdHeadwords.source_1.contains("PK"),
-            #         DpdHeadwords.source_2.contains("PK"),
-            #         SBS.sbs_source_1.contains("PK"),
-            #         SBS.sbs_source_2.contains("PK"),
-            #         SBS.sbs_source_3.contains("PK"),
-            #         SBS.sbs_source_4.contains("PK"),
-            #     )
-            # )
+            not_(
+                or_(
+                    DpdHeadwords.source_1.contains("PK"),
+                    DpdHeadwords.source_2.contains("PK"),
+                    SBS.sbs_source_1.contains("PK"),
+                    SBS.sbs_source_2.contains("PK"),
+                    SBS.sbs_source_3.contains("PK"),
+                    SBS.sbs_source_4.contains("PK"),
+                )
+            )
         )
     ).all()
 
@@ -170,7 +170,7 @@ def update_column_for_some_criteria():
         if old_value != "pat":
             sbs.sbs_patimokkha = "pat"
 
-            console.print(f"[bold bright_yellow]{__word__.id} SBS.sbs_patimokkha:")
+            console.print(f"[bold bright_yellow]{__word__.id} {__word__.lemma_1} SBS.sbs_patimokkha:")
             print()
             print(f"{old_value}")
             print()
