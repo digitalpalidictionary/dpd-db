@@ -1416,6 +1416,14 @@ def add_word_from_csv(dpspth, window):
 
     word_data = read_tsv_dict(dpspth.vinaya_tsv_path)
 
+    # count fitting the criteria
+    count = 0
+    for row in word_data:
+        if row.get("proceed") == "":
+            count += 1
+
+    window["messages"].update(f"{count} words left", text_color="white")
+
     # Find the first row with an empty "proceed" column and update it to "y"
     for row in word_data:
         if row.get("proceed") == "":
@@ -1438,19 +1446,19 @@ def add_word_from_csv(dpspth, window):
 
 
 def get_next_word_ru(db_session):
-    def filter_words(meaning_1="", example_1="", ru_meaning=""):
+    def filter_words():
         return db_session.query(DpdHeadwords).join(Russian).join(SBS).filter(
-            DpdHeadwords.meaning_1 != meaning_1,
-            DpdHeadwords.example_1 != example_1,
-            SBS.sbs_patimokkha == "pat",
-            Russian.ru_meaning == ru_meaning,
+            DpdHeadwords.meaning_1 != "",
+            DpdHeadwords.example_1 != "",
+            # SBS.sbs_patimokkha == "pat",
+            Russian.ru_meaning == "",
         )
 
     # Query the database using the helper function
-    word = filter_words("", "", "").first()
+    word = filter_words().first()
 
     # Query the database to count the total number of words fitting the criteria
-    total_words = filter_words("", "", "").count()
+    total_words = filter_words().count()
 
     # Return the id of the word if found, otherwise return None
     if word:
@@ -1459,31 +1467,29 @@ def get_next_word_ru(db_session):
         print(total_words_message)
         return str(word.id), total_words_message
     else:
-        total_words_message = "no words"
+        total_words_message = "no words left, change filter in functions_dps"
         print(total_words_message)
         return 0, total_words_message
 
 
 def get_next_note_ru(db_session):
     # Query the database for the first word that meets the conditions
-    word = db_session.query(DpdHeadwords).join(Russian).join(SBS).filter(
-        Russian.ru_notes.like("%ИИ%"),
-        or_(
-                SBS.sbs_class_anki != '',
-                SBS.sbs_category != '',
-                SBS.sbs_index != '',
+    def filter_words():
+        return db_session.query(DpdHeadwords).join(Russian).join(SBS).filter(
+            Russian.ru_notes.like("%ИИ%"),
+            or_(
+                    SBS.sbs_class_anki != '',
+                    SBS.sbs_category != '',
+                    SBS.sbs_index != '',
+                    SBS.sbs_patimokkha != '',
+                )
             )
-    ).first()
+
+    # Query the database using the helper function
+    word = filter_words().first()
 
     # Query the database to count the total number of words fitting the criteria
-    total_words = db_session.query(DpdHeadwords).join(Russian).join(SBS).filter(
-        Russian.ru_notes.like("%ИИ%"),
-        or_(
-                SBS.sbs_class_anki != '',
-                SBS.sbs_category != '',
-                SBS.sbs_index != '',
-            )
-    ).count()
+    total_words = filter_words().count()
 
     # Return the id of the word if found, otherwise return None
     if word:
@@ -1492,7 +1498,7 @@ def get_next_note_ru(db_session):
         print(total_words_message)
         return str(word.id), total_words_message
     else:
-        total_words_message = "no words"
+        total_words_message = "no words left, change filter in functions_dps"
         print(total_words_message)
         return 0, total_words_message
 
