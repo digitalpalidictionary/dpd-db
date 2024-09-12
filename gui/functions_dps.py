@@ -592,7 +592,7 @@ openai.api_key = load_openia_config()
 def call_openai(model_version, messages):
     if model_version == "4":
         return openai.ChatCompletion.create(
-            model="gpt-4o",
+            model="gpt-4o-2024-08-06",
             messages=messages
         )
     elif model_version == "3":
@@ -1438,6 +1438,8 @@ def add_word_from_csv(dpspth, window):
             original_word = row.get("missing word", "")
             print(original_word)
             break
+        else:
+            original_word = ""
 
     # Write the updated data back to the TSV file
     write_tsv_dot_dict(dpspth.vinaya_tsv_path, word_data)

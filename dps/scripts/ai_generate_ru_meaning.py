@@ -25,9 +25,10 @@ pth = ProjectPaths()
 dpspth = DPSPaths()
 db_session = get_db_session(pth.dpd_db_path)
 
-hight_model="gpt-4o"
-model="gpt-4o"
+# hight_model="gpt-4o"
+# model="gpt-4o"
 # model="gpt-4o-mini"
+model="gpt-4o-2024-08-06"
 
 def ru_meaning_generating():
 
@@ -65,7 +66,7 @@ def ru_meaning_generating():
                 )
 
             )
-        ).order_by(DpdHeadwords.ebt_count.desc()).limit(1000).all()
+        ).order_by(DpdHeadwords.ebt_count.desc()).limit(5000).all()
 
     #! for filling empty rows in Russian table
 
