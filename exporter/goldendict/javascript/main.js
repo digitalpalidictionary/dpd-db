@@ -63,6 +63,12 @@ function loadButtonContent(data) {
     const feedbackElement = document.getElementById(`feedback_${data.lemma}`)
     feedbackElement.innerHTML = feedbackHTML
 
+    // frequency
+
+    const frequencyHTML = makeFrequency(data);
+    const frequencyElement = document.getElementById(`frequency_${data.lemma}`)
+    frequencyElement.innerHTML = frequencyHTML
+
     //// family compounds
 
     if (
