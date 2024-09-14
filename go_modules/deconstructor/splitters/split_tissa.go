@@ -1,0 +1,42 @@
+package splitters
+
+import (
+	"gm/deconstructor/data"
+	t "gm/tools"
+	"strings"
+)
+
+func SplitTissa(w data.WordData) {
+
+	if len(w.Middle) > 5 {
+
+		w.InitNewSplitter("tissa")
+		data.M.ProcessPlusOne(w)
+		word := w.Middle
+		w.RecurseFlag = true
+		processName := "tissa"
+
+		if strings.HasSuffix(string(word), "tissa") {
+			middle := word[:len(word)-5]
+			back := t.Str2Rune("iti + assa")
+			w.ToBack(middle, back)
+			processName = "tissa"
+
+		} else if strings.HasSuffix(string(word), "tissā") {
+			middle := word[:len(word)-5]
+			back := t.Str2Rune("iti + assā")
+			w.ToBack(middle, back)
+			processName = "tissā"
+		}
+
+		if data.G.IsInInflections(w.Middle) {
+			w.ToRuleBack("0")
+			w.AddWeight(2)
+			data.M.MakeMatch(processName, w)
+		} else {
+			w.ToRuleBack("0")
+			w.AddWeight(2)
+			SplitRecursive(w)
+		}
+	}
+}

@@ -1,0 +1,415 @@
+[
+    {
+        "vin1": [
+            "vin01m.mul.xml"
+        ]
+    },
+    {
+        "vin2": [
+            "vin02m1.mul.xml"
+        ]
+    },
+    {
+        "vin3": [
+            "vin02m2.mul.xml"
+        ]
+    },
+    {
+        "vin4": [
+            "vin02m3.mul.xml"
+        ]
+    },
+    {
+        "vin5": [
+            "vin02m4.mul.xml"
+        ]
+    },
+    {
+        "dn": [
+            "s0101m.mul.xml",
+            "s0102m.mul.xml",
+            "s0103m.mul.xml"
+        ]
+    },
+    {
+        "mn": [
+            "s0201m.mul.xml",
+            "s0202m.mul.xml",
+            "s0203m.mul.xml"
+        ]
+    },
+    {
+        "sn": [
+            "s0301m.mul.xml",
+            "s0302m.mul.xml",
+            "s0303m.mul.xml",
+            "s0304m.mul.xml",
+            "s0305m.mul.xml"
+        ]
+    },
+    {
+        "an": [
+            "s0401m.mul.xml",
+            "s0402m1.mul.xml",
+            "s0402m2.mul.xml",
+            "s0402m3.mul.xml",
+            "s0403m1.mul.xml",
+            "s0403m2.mul.xml",
+            "s0403m3.mul.xml",
+            "s0404m1.mul.xml",
+            "s0404m2.mul.xml",
+            "s0404m3.mul.xml",
+            "s0404m4.mul.xml"
+        ]
+    },
+    {
+        "kn1": [
+            "s0501m.mul.xml",
+            "s0502m.mul.xml",
+            "s0503m.mul.xml",
+            "s0504m.mul.xml",
+            "s0505m.mul.xml",
+            "s0508m.mul.xml",
+            "s0509m.mul.xml"
+        ]
+    },
+    {
+        "kn2": [
+            "s0506m.mul.xml",
+            "s0507m.mul.xml",
+            "s0510m1.mul.xml",
+            "s0510m2.mul.xml",
+            "s0511m.mul.xml",
+            "s0512m.mul.xml",
+            "s0513m.mul.xml",
+            "s0514m.mul.xml"
+        ]
+    },
+    {
+        "kn3": [
+            "s0515m.mul.xml",
+            "s0516m.mul.xml",
+            "s0517m.mul.xml",
+            "s0518m.nrf.xml",
+            "s0519m.mul.xml",
+            "s0520m.nrf.xml"
+        ]
+    },
+    {
+        "abh1": [
+            "abh01m.mul.xml"
+        ]
+    },
+    {
+        "abh2": [
+            "abh02m.mul.xml"
+        ]
+    },
+    {
+        "abh3": [
+            "abh03m1.mul.xml"
+        ]
+    },
+    {
+        "abh4": [
+            "abh03m2.mul.xml"
+        ]
+    },
+    {
+        "abh5": [
+            "abh03m3.mul.xml"
+        ]
+    },
+    {
+        "abh6": [
+            "abh03m4.mul.xml",
+            "abh03m5.mul.xml",
+            "abh03m6.mul.xml"
+        ]
+    },
+    {
+        "abh7": [
+            "abh03m7.mul.xml",
+            "abh03m8.mul.xml",
+            "abh03m9.mul.xml",
+            "abh03m10.mul.xml",
+            "abh03m11.mul.xml"
+        ]
+    },
+    {
+        "vin1a": [
+            "vin01a.att.xml"
+        ]
+    },
+    {
+        "vin2a": [
+            "vin02a1.att.xml"
+        ]
+    },
+    {
+        "vin3a": [
+            "vin02a2.att.xml"
+        ]
+    },
+    {
+        "vin4a": [
+            "vin02a3.att.xml"
+        ]
+    },
+    {
+        "vin5a": [
+            "vin02a4.att.xml"
+        ]
+    },
+    {
+        "dna": [
+            "s0101a.att.xml",
+            "s0102a.att.xml",
+            "s0103a.att.xml"
+        ]
+    },
+    {
+        "mna": [
+            "s0201a.att.xml",
+            "s0202a.att.xml",
+            "s0203a.att.xml"
+        ]
+    },
+    {
+        "sna": [
+            "s0301a.att.xml",
+            "s0302a.att.xml",
+            "s0303a.att.xml",
+            "s0304a.att.xml",
+            "s0305a.att.xml"
+        ]
+    },
+    {
+        "ana": [
+            "s0401a.att.xml",
+            "s0402a.att.xml",
+            "s0403a.att.xml",
+            "s0404a.att.xml"
+        ]
+    },
+    {
+        "kn1a": [
+            "s0501a.att.xml",
+            "s0502a.att.xml",
+            "s0503a.att.xml",
+            "s0504a.att.xml",
+            "s0505a.att.xml",
+            "s0508a1.att.xml",
+            "s0508a2.att.xml",
+            "s0509a.att.xml"
+        ]
+    },
+    {
+        "kn2a": [
+            "s0506a.att.xml",
+            "s0507a.att.xml",
+            "s0510a.att.xml",
+            "s0511a.att.xml",
+            "s0512a.att.xml",
+            "s0513a1.att.xml",
+            "s0513a2.att.xml",
+            "s0513a3.att.xml",
+            "s0513a4.att.xml",
+            "s0514a1.att.xml",
+            "s0514a2.att.xml",
+            "s0514a3.att.xml"
+        ]
+    },
+    {
+        "kn3a": [
+            "s0515a.att.xml",
+            "s0516a.att.xml",
+            "s0517a.att.xml",
+            "s0519a.att.xml"
+        ]
+    },
+    {
+        "abha": [
+            "abh01a.att.xml",
+            "abh02a.att.xml",
+            "abh03a.att.xml"
+        ]
+    },
+    {
+        "vism": [
+            "e0101n.mul.xml",
+            "e0102n.mul.xml"
+        ]
+    },
+    {
+        "vint": [
+            "vin01t1.tik.xml",
+            "vin01t2.tik.xml",
+            "vin02t.tik.xml",
+            "vin04t.nrf.xml",
+            "vin05t.nrf.xml",
+            "vin06t.nrf.xml",
+            "vin07t.nrf.xml",
+            "vin08t.nrf.xml",
+            "vin09t.nrf.xml",
+            "vin10t.nrf.xml",
+            "vin11t.nrf.xml",
+            "vin12t.nrf.xml",
+            "vin13t.nrf.xml"
+        ]
+    },
+    {
+        "dnt": [
+            "s0101t.tik.xml",
+            "s0102t.tik.xml",
+            "s0103t.tik.xml",
+            "s0104t.nrf.xml",
+            "s0105t.nrf.xml"
+        ]
+    },
+    {
+        "mnt": [
+            "s0201t.tik.xml",
+            "s0202t.tik.xml",
+            "s0203t.tik.xml"
+        ]
+    },
+    {
+        "snt": [
+            "s0301t.tik.xml",
+            "s0302t.tik.xml",
+            "s0303t.tik.xml",
+            "s0304t.tik.xml",
+            "s0305t.tik.xml"
+        ]
+    },
+    {
+        "ant": [
+            "s0401t.tik.xml",
+            "s0402t.tik.xml",
+            "s0403t.tik.xml",
+            "s0404t.tik.xml"
+        ]
+    },
+    {
+        "kn3t": [
+            "s0519t.tik.xml",
+            "s0501t.nrf.xml"
+        ]
+    },
+    {
+        "abht": [
+            "abh01t.tik.xml",
+            "abh02t.tik.xml",
+            "abh03t.tik.xml",
+            "abh04t.nrf.xml",
+            "abh05t.nrf.xml",
+            "abh06t.nrf.xml",
+            "abh07t.nrf.xml",
+            "abh08t.nrf.xml",
+            "abh09t.nrf.xml"
+        ]
+    },
+    {
+        "vismt": [
+            "e0103n.att.xml",
+            "e0104n.att.xml",
+            "e0105n.nrf.xml"
+        ]
+    },
+    {
+        "ledi": [
+            "e0201n.nrf.xml",
+            "e0301n.nrf.xml",
+            "e0401n.nrf.xml",
+            "e0501n.nrf.xml"
+        ]
+    },
+    {
+        "buva": [
+            "e0601n.nrf.xml",
+            "e0602n.nrf.xml",
+            "e0603n.nrf.xml",
+            "e0604n.nrf.xml",
+            "e0605n.nrf.xml",
+            "e0606n.nrf.xml",
+            "e0607n.nrf.xml",
+            "e0608n.nrf.xml"
+        ]
+    },
+    {
+        "vamsa": [
+            "e0701n.nrf.xml",
+            "e0702n.nrf.xml",
+            "e0703n.nrf.xml"
+        ]
+    },
+    {
+        "byak": [
+            "e0801n.nrf.xml",
+            "e0802n.nrf.xml",
+            "e0803n.nrf.xml",
+            "e0804n.nrf.xml",
+            "e0805n.nrf.xml",
+            "e0806n.nrf.xml",
+            "e0807n.nrf.xml",
+            "e0808n.nrf.xml",
+            "e0809n.nrf.xml",
+            "e0810n.nrf.xml",
+            "e0811n.nrf.xml",
+            "e0812n.nrf.xml",
+            "e0813n.nrf.xml",
+            "e1211n.nrf.xml",
+            "e1212n.nrf.xml",
+            "e1213n.nrf.xml",
+            "e1214n.nrf.xml"
+        ]
+    },
+    {
+        "puvi": [
+            "e0901n.nrf.xml",
+            "e0902n.nrf.xml",
+            "e0903n.nrf.xml",
+            "e0904n.nrf.xml",
+            "e0905n.nrf.xml",
+            "e0906n.nrf.xml",
+            "e0907n.nrf.xml"
+        ]
+    },
+    {
+        "niti": [
+            "e1001n.nrf.xml",
+            "e1002n.nrf.xml",
+            "e1003n.nrf.xml",
+            "e1004n.nrf.xml",
+            "e1005n.nrf.xml",
+            "e1006n.nrf.xml",
+            "e1007n.nrf.xml",
+            "e1008n.nrf.xml",
+            "e1009n.nrf.xml",
+            "e1010n.nrf.xml"
+        ]
+    },
+    {
+        "paki": [
+            "e1101n.nrf.xml",
+            "e1102n.nrf.xml",
+            "e1103n.nrf.xml"
+        ]
+    },
+    {
+        "siha": [
+            "e1201n.nrf.xml",
+            "e1202n.nrf.xml",
+            "e1203n.nrf.xml",
+            "e1204n.nrf.xml",
+            "e1205n.nrf.xml",
+            "e1206n.nrf.xml",
+            "e1207n.nrf.xml",
+            "e1208n.nrf.xml",
+            "e1209n.nrf.xml",
+            "e1210n.nrf.xml",
+            "e1215n.nrf.xml"
+        ]
+    }
+]

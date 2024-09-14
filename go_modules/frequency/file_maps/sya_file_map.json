@@ -1,0 +1,240 @@
+[
+    {
+        "vin1&2": [
+            "canon/01_Vinaya_Mahaavi_1.txt",
+            "canon/02_Vinaya_Mahaavi_2.txt",
+            "canon/03_Vinaya_Bhikkhunii.txt",
+            "commentary/70_Bhikkhupaatimokkhapaali.txt"
+        ]
+    },
+    {
+        "vin3": [
+            "canon/04_Vinaya_Mahaa_1.txt",
+            "canon/05_Vinaya_Mahaa_2.txt"
+        ]
+    },
+    {
+        "vin4": [
+            "canon/06_Vinaya_Culla_1.txt",
+            "canon/07_Vinaya_Culla_2.txt"
+        ]
+    },
+    {
+        "vin5": [
+            "canon/08_Vinaya_Parivaara.txt"
+        ]
+    },
+    {
+        "dn": [
+            "canon/09_Sutta_DN_Siilakhanda.txt",
+            "canon/10_Sutta_DN_Mahaa.txt",
+            "canon/11_Sutta_DN_Paatika.txt"
+        ]
+    },
+    {
+        "mn": [
+            "canon/12_Sutta_MN_Muu.txt",
+            "canon/13_Sutta_MN_Ma.txt",
+            "canon/14_Sutta_MN_U.txt"
+        ]
+    },
+    {
+        "sn": [
+            "canon/15_Sutta_SN_Sa.txt",
+            "canon/16_Sutta_SN_Ni.txt",
+            "canon/17_Sutta_SN_Kha.txt",
+            "canon/18_Sutta_SN_Sala.txt",
+            "canon/19_Sutta_SN_Ma.txt"
+        ]
+    },
+    {
+        "an": [
+            "canon/20_Sutta_AN_1.txt",
+            "canon/21_Sutta_AN_2.txt",
+            "canon/22_Sutta_AN_3.txt",
+            "canon/23_Sutta_AN_4.txt",
+            "canon/24_Sutta_AN_5.txt"
+        ]
+    },
+    {
+        "kn1": [
+            "canon/25_Sutta_Khu_Khu.txt"
+        ]
+    },
+    {
+        "kn2": [
+            "canon/26_Sutta_Khu_Vimana.txt",
+            "canon/27_Sutta_Khu_Jaa_1.txt",
+            "canon/28_Sutta_Khu_Jaa_2.txt",
+            "canon/32_Sutta_Khu_Apa_1.txt",
+            "canon/33_Sutta_Khu_Apa_2.txt"
+        ]
+    },
+    {
+        "kn3": [
+            "canon/29_Sutta_Khu_Ma.txt",
+            "canon/30_Sutta_Khu_Cuu.txt",
+            "canon/31_Sutta_Khu_Pati.txt",
+            "commentary/56_Milindapanha.txt"
+        ]
+    },
+    {
+        "abh1": [
+            "canon/34_Abhi_Dhs.txt"
+        ]
+    },
+    {
+        "abh2": [
+            "canon/35_Abhi_Vi.txt"
+        ]
+    },
+    {
+        "abh3": [
+            "canon/36_Abhi_Dhaa.txt"
+        ]
+    },
+    {
+        "abh4": []
+    },
+    {
+        "abh5": [
+            "canon/37_Abhi_Ka.txt"
+        ]
+    },
+    {
+        "abh6": [
+            "canon/38_Abhi_Ya_1.txt",
+            "canon/39_Abhi_Ya_2.txt"
+        ]
+    },
+    {
+        "abh7": [
+            "canon/40_Abhi_Pa_1.txt",
+            "canon/41_Abhi_Pa_2.txt",
+            "canon/42_Abhi_Pa_3.txt",
+            "canon/43_Abhi_Pa_4.txt",
+            "canon/44_Abhi_Pa_5.txt",
+            "canon/45_Abhi_Pa_6.txt"
+        ]
+    },
+    {
+        "vina": [
+            "commentary/01_Vinaya_A1.txt",
+            "commentary/02_Vinaya_A2.txt",
+            "commentary/03_Vinaya_A3.txt"
+        ]
+    },
+    {
+        "dna": [
+            "commentary/04_DN_A1.txt",
+            "commentary/05_DN_A2.txt",
+            "commentary/06_DN_A3.txt"
+        ]
+    },
+    {
+        "mna": [
+            "commentary/07_MN_A1.txt",
+            "commentary/08_MN_A2.txt",
+            "commentary/09_MN_A3.txt",
+            "commentary/10_MN_A4.txt"
+        ]
+    },
+    {
+        "sna": [
+            "commentary/11_SN_A1.txt",
+            "commentary/12_SN_A2.txt",
+            "commentary/13_SN_A3.txt"
+        ]
+    },
+    {
+        "ana": [
+            "commentary/14_AN_A1.txt",
+            "commentary/15_AN_A2.txt",
+            "commentary/16_AN_A3.txt"
+        ]
+    },
+    {
+        "kn1a": [
+            "commentary/17_Khuddaka_A.txt",
+            "commentary/18_Dha_A1.txt",
+            "commentary/19_Dha_A2.txt",
+            "commentary/20_Dha_A3.txt",
+            "commentary/21_Dha_A4.txt",
+            "commentary/22_Dha_A5.txt",
+            "commentary/23_Dha_A6.txt",
+            "commentary/24_Dha_A7.txt",
+            "commentary/25_Dha_A8.txt",
+            "commentary/26_U_A.txt",
+            "commentary/27_Iti_A.txt",
+            "commentary/28_Sutta_A1.txt",
+            "commentary/29_Sutta_A2.txt",
+            "commentary/32_Thera_A1.txt",
+            "commentary/33_Thera_A2.txt",
+            "commentary/34_Theri_A.txt",
+            "commentary/68_Mangalatthadiipanii_1.txt",
+            "commentary/69_Mangalatthadiipanii_2.txt"
+        ]
+    },
+    {
+        "kn2a": [
+            "commentary/30_Vimaana_A.txt",
+            "commentary/31_Peta_A.txt",
+            "commentary/49_Apa_A1.txt",
+            "commentary/50_Apa_A2.txt",
+            "commentary/51_Buddhavamsa_A.txt",
+            "commentary/52_Cariya_A.txt",
+            "commentary/35_Jaa_A1.txt",
+            "commentary/36_Jaa_A2.txt",
+            "commentary/37_Jaa_A3.txt",
+            "commentary/38_Jaa_A4.txt",
+            "commentary/39_Jaa_A5.txt",
+            "commentary/40_Jaa_A6.txt",
+            "commentary/41_Jaa_A7.txt",
+            "commentary/42_Jaa_A8.txt",
+            "commentary/43_Jaa_A9.txt",
+            "commentary/44_Jaa_A10.txt"
+        ]
+    },
+    {
+        "kn3a": [
+            "commentary/45_Nid_A1.txt",
+            "commentary/46_Nid_A2.txt",
+            "commentary/47_Patisam_A1.txt",
+            "commentary/48_Patisam_A2.txt"
+        ]
+    },
+    {
+        "abha": [
+            "commentary/53_Dhs_A.txt",
+            "commentary/54_Vibh_A.txt",
+            "commentary/55_Panca_A.txt"
+        ]
+    },
+    {
+        "vism": [
+            "commentary/57_Visuddhimagga_1.txt",
+            "commentary/58_Visuddhimagga_2.txt",
+            "commentary/59_Visuddhimagga_3.txt"
+        ]
+    },
+    {
+        "vint": [
+            "commentary/64_Vinaya_tika_1.txt",
+            "commentary/65_Vinaya_tika_2.txt",
+            "commentary/66_Vinaya_tika_3.txt",
+            "commentary/67_Vinaya_tika_4.txt"
+        ]
+    },
+    {
+        "abht": [
+            "commentary/60_Abhidh_s_vi.txt"
+        ]
+    },
+    {
+        "vismt": [
+            "commentary/61_Visuddhi_tika_1.txt",
+            "commentary/62_Visuddhi_tika_2.txt",
+            "commentary/63_Visuddhi_tika_3.txt"
+        ]
+    }
+]

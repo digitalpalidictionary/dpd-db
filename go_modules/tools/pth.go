@@ -1,0 +1,118 @@
+package tools
+
+var Pth = struct {
+	DpdBaseDir string
+
+	DpdDb  string
+	DpdCss string
+
+	VariantReadings        string
+	SpellingMistakes       string
+	DeconManualCorrections string
+	DeconExceptions        string
+	SandhiRules            string
+
+	AllInflectionsJson string
+	MatchesDict        string
+	NegInflections     string
+	TextSet            string
+	UnmatchedJson      string
+
+	CstTxtTextDir     string
+	ScJsonTextDir     string
+	BjtRomanJsonDir   string
+	BjtRomanTxtDir    string
+	SyaTextDir        string
+	OtherPaliTextsDir string
+
+	MatchesTsv   string
+	UnMatchedTsv string
+	StatsTsv     string
+	MatchesJson  string
+
+	CstFileFreqMap string
+	CstFreqMap     string
+	CstWordList    string
+
+	ScFileFreqMap string
+	ScFreqMap     string
+	ScWordList    string
+
+	BjtFileFreqMap string
+	BjtFreqMap     string
+	BjtWordList    string
+
+	SyaFileFreqMap string
+	SyaFreqMap     string
+	SyaWordList    string
+
+	CstFileMap string
+	ScFileMap  string
+	BjtFileMap string
+
+	CstTemplate      string
+	ScTemplate       string
+	BjtTemplate      string
+	CombinedTemplate string
+}{
+	// dpd base dir
+	DpdBaseDir: "../dpd-db/",
+	DpdDb:      "dpd.db",
+	DpdCss:     "exporter/goldendict/css/dpd.css",
+
+	// shared data/deconstructor
+	VariantReadings:        "shared_data/deconstructor/variant_readings.tsv",
+	SpellingMistakes:       "shared_data/deconstructor/spelling_mistakes.tsv",
+	DeconManualCorrections: "shared_data/deconstructor/manual_corrections.tsv",
+	DeconExceptions:        "shared_data/deconstructor/exceptions.tsv",
+	SandhiRules:            "shared_data/deconstructor/sandhi_rules.tsv",
+
+	// frequency maps
+	CstFileFreqMap: "shared_data/frequency/cst_file_freq.json",
+	CstFreqMap:     "shared_data/frequency/cst_freq.json",
+	CstWordList:    "shared_data/frequency/cst_wordlist.json",
+
+	ScFileFreqMap: "shared_data/frequency/sc_file_freq.json",
+	ScFreqMap:     "shared_data/frequency/sc_freq.json",
+	ScWordList:    "shared_data/frequency/sc_wordlist.json",
+
+	BjtFileFreqMap: "shared_data/frequency/bjt_file_freq.json",
+	BjtFreqMap:     "shared_data/frequency/bjt_freq.json",
+	BjtWordList:    "shared_data/frequency/bjt_wordlist.json",
+
+	SyaFileFreqMap: "shared_data/frequency/sya_file_freq.json",
+	SyaFreqMap:     "shared_data/frequency/sya_freq.json",
+	SyaWordList:    "shared_data/frequency/sya_wordlist.json",
+
+	// deconstructor assets
+	AllInflectionsJson: "db/deconstructor/assets/all_inflections_set.json",
+	MatchesDict:        "db/deconstructor/assets/matches_dict.json",
+	NegInflections:     "db/deconstructor/assets/neg_inflections_set.json",
+	TextSet:            "db/deconstructor/assets/text_set.json",
+	UnmatchedJson:      "db/deconstructor/assets/unmatched_set.json",
+
+	// Pali text files
+	CstTxtTextDir:     "resources/tipitaka-xml/romn_txt",
+	ScJsonTextDir:     "resources/sc-data/sc_bilara_data/root/pli/ms",
+	BjtRomanJsonDir:   "resources/tipitaka.lk/public/static/roman_json/",
+	BjtRomanTxtDir:    "resources/tipitaka.lk/public/static/roman_txt/",
+	SyaTextDir:        "resources/syāmaraṭṭha_1927",
+	OtherPaliTextsDir: "resources/other_pali_texts",
+
+	// file maps
+	CstFileMap: "frequency/file_maps/cst_file_map.json",
+	ScFileMap:  "frequency/file_maps/sc_file_map.json",
+	BjtFileMap: "frequency/file_maps/bjt_file_map.json",
+
+	// templates
+	CstTemplate:      "frequency/templates/cst_template.html",
+	ScTemplate:       "frequency/templates/sc_template.html",
+	BjtTemplate:      "frequency/templates/bjt_template.html",
+	CombinedTemplate: "frequency/templates/combined_template.html",
+
+	// deconstructor output
+	MatchesTsv:   "deconstructor/output/matches.tsv",
+	UnMatchedTsv: "deconstructor/output/unmatched.tsv",
+	MatchesJson:  "deconstructor/output/matches.json",
+	StatsTsv:     "deconstructor/output/stats.tsv",
+}
