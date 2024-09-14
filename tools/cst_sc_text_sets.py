@@ -61,19 +61,24 @@ def make_cst_text_set(
     words_list = list(set(words_list))
     
     if add_hyphenated_parts:
-        for index, word in enumerate(words_list):
-            if "-" in word:
-                # remove the dash and add the clean word back into the list
-                words_list[index] = word.replace("-", "")
-
-                # split on dashes and add each split back into the list
-                # in the correct order
-                hyphenated_words = word.split("-")
-                for h_word in hyphenated_words.__reversed__():
-                    words_list.insert(index + 1, h_word)
+        words_list = hyphenated_parts_adder(words_list)
     
     p_yes(len(set(words_list)))
     return set(words_list)
+
+
+def hyphenated_parts_adder(words_list: list[str]) -> list[str]:
+    for index, word in enumerate(words_list):
+        if "-" in word:
+            # remove the dash and add the clean word back into the list
+            words_list[index] = word.replace("-", "")
+
+            # split on dashes and add each split back into the list
+            # in the correct order
+            hyphenated_words = word.split("-")
+            for h_word in hyphenated_words.__reversed__():
+                words_list.insert(index + 1, h_word)
+    return words_list
 
 
 def make_cst_text_list(
@@ -245,7 +250,8 @@ def make_cst_text_set_from_file(
 def make_sc_text_set(
         pth: ProjectPaths, 
         books: List[str], 
-        niggahita="ṃ"
+        niggahita="ṃ",
+        add_hyphenated_parts=True
 ) -> Set[str]:
     
     """Make a list of words in Sutta Central texts from a list of books.
@@ -272,9 +278,20 @@ def make_sc_text_set(
                 with open(os.path.join(root, file)) as f:
                     # Sutta Cental texts are json dictionaries
                     sc_text_dict: dict = json.load(f)
-                    for __title__, text in sc_text_dict.items():
-                        clean_text = clean_machine(text, niggahita=niggahita)
-                        words_list.extend(clean_text.split())
+                    for __title__, text_string in sc_text_dict.items():
+                        if add_hyphenated_parts:
+                            # dont remove the hyphen, deal with it later
+                            text_string = clean_machine(
+                                text_string, niggahita=niggahita, remove_hyphen=False)
+                        else:
+                            # remove the hyphen immediately
+                            text_string = clean_machine(
+                                text_string, niggahita=niggahita, remove_hyphen=True)
+                            
+                        words_list.extend(text_string.split())
+    
+    if add_hyphenated_parts:
+        words_list = hyphenated_parts_adder(words_list)
     
     p_yes(len(set(words_list)))
     return set(words_list)
@@ -327,30 +344,30 @@ def make_sc_text_list(
         return deduped_list
 
 
-def make_bjt_text_set(
-        pth: ProjectPaths,
-        include: List[str]
-) -> Set[str]:
+# def make_bjt_text_set(
+#         pth: ProjectPaths,
+#         include: List[str]
+# ) -> Set[str]:
     
-    """This is not currently used."""
+#     """This is not currently used."""
 
-    p_green("make bjt text set")
-    bjt_texts_list: List[str] = []
-    for i in include:
-        if bjt_texts[i]:
-            bjt_texts_list += bjt_texts[i]
+#     p_green("make bjt text set")
+#     bjt_texts_list: List[str] = []
+#     for i in include:
+#         if bjt_texts[i]:
+#             bjt_texts_list += bjt_texts[i]
 
-    bjt_text_string = ""
+#     bjt_text_string = ""
 
-    for bjt_text in bjt_texts_list:
-        with open(pth.bjt_text_path.joinpath(bjt_text), "r") as f:
-            bjt_text_string += f.read()
+#     for bjt_text in bjt_texts_list:
+#         with open(pth.bjt_text_path.joinpath(bjt_text), "r") as f:
+#             bjt_text_string += f.read()
 
-    bjt_text_string = clean_machine(bjt_text_string)
-    bjt_text_set = set(bjt_text_string.split())
+#     bjt_text_string = clean_machine(bjt_text_string)
+#     bjt_text_set = set(bjt_text_string.split())
 
-    p_yes(len(bjt_text_set))
-    return bjt_text_set
+#     p_yes(len(bjt_text_set))
+#     return bjt_text_set
 
 
 def make_mula_words_set(pth: ProjectPaths) -> Set[str]:

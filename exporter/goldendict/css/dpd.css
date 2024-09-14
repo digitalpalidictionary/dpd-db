@@ -189,6 +189,31 @@ a.button:hover {
     display: none;
 }
 
+.freq-table-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.freq-table-wrapper {
+    flex: 1;
+    min-width: 300px;
+}
+
+.freq-table-wrapper p {
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .freq-table-container {
+        flex-direction: column;
+    }
+
+    .freq-table-wrapper {
+        width: 100%;
+    }
+}
+
 table.freq th,
 table.freq td {
     vertical-align: middle;
@@ -203,12 +228,14 @@ table.freq tbody th {
     border-radius: 7px;
     padding: 5px;
     text-align: center;
-    width: auto;
+    width: 12px;
+    white-space: nowrap;
 }
 
 .vertical-text {
     writing-mode: vertical-lr;
     text-orientation: upright;
+    width: 30px;
     /* inline-size: fit-content;
     transform: rotate(-90deg); */
 }
@@ -218,7 +245,8 @@ table.freq td {
     border-style: solid;
     border-radius: 7px;
     text-align: center;
-    width: 12%;
+    width: 30px;
+    min-width: 30px;
     white-space: nowrap;
 }
 
@@ -401,7 +429,7 @@ table.root_info th {
     color: #AB3C00;
     font-weight: 700;
     white-space: normal;
-    padding: 0px 5px 2px 0px 
+    padding: 0px 5px 2px 0px
 }
 
 table.root_info b {
@@ -516,7 +544,7 @@ div.epd {
 }
 
 b.epd {
-    color:#8B008B;
+    color: #8B008B;
     font-weight: 700;
 }
 

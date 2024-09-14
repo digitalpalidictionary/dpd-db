@@ -263,7 +263,8 @@ class ProjectPaths:
         # resources/tipitaka.lk
         self.bjt_dir = base_dir / "resources/tipitaka.lk/public/static/"
         self.bjt_sinhala_dir = base_dir / "resources/tipitaka.lk/public/static/text/"
-        self.bjt_roman_dir = base_dir / "resources/tipitaka.lk/public/static/text_roman/"
+        self.bjt_roman_json = base_dir / "resources/tipitaka.lk/public/static/roman_json/"
+        self.bjt_roman_txt = base_dir / "resources/tipitaka.lk/public/static/roman_txt/"
         self.bjt_books = base_dir / "resources/tipitaka.lk/public/static/books/"
         
         # resources/other_pali_texts
@@ -314,13 +315,12 @@ class ProjectPaths:
         self.letters10 = base_dir / "db/deconstructor/output/letters/letters10plus.tsv"
 
         # db/deconstructor/sandhi_related/
-        self.manual_corrections_path = base_dir / "db/deconstructor/sandhi_related/manual_corrections.tsv"
-        self.sandhi_exceptions_path = base_dir / "db/deconstructor/sandhi_related/sandhi_exceptions.tsv"
-        self.sandhi_ok_path = base_dir / "db/deconstructor/sandhi_related/sandhi_ok.csv"
-        self.sandhi_rules_path = base_dir / "db/deconstructor/sandhi_related/sandhi_rules.tsv"
-        self.shortlist_path = base_dir / "db/deconstructor/sandhi_related/shortlist.tsv"
-        self.spelling_mistakes_path = base_dir / "db/deconstructor/sandhi_related/spelling_mistakes.tsv"
-        self.variant_readings_path = base_dir / "db/deconstructor/sandhi_related/variant_readings.tsv"
+        self.decon_manual_corrections = base_dir / "shared_data/deconstructor/manual_corrections.tsv"
+        self.decon_exceptions = base_dir / "shared_data/deconstructor/exceptions.tsv"
+        self.decon_checked = base_dir / "shared_data/deconstructor/checked.csv"
+        self.sandhi_rules_path = base_dir / "shared_data/deconstructor/sandhi_rules.tsv"
+        self.spelling_mistakes_path = base_dir / "shared_data/deconstructor/spelling_mistakes.tsv"
+        self.variant_readings_path = base_dir / "shared_data/deconstructor/variant_readings.tsv"
 
         # db/sanskrit
         self.root_families_sanskrit_path = base_dir / "db/sanskrit/root_families_sanskrit.tsv"

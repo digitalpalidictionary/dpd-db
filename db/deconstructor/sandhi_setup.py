@@ -15,6 +15,7 @@ from books_to_include import limited_texts, all_texts
 from db.db_helpers import get_db_session
 from db.models import DpdHeadwords
 from tools.all_words_in_dpd import make_all_words_in_dpd_set
+from tools.bjt import make_bjt_text_list
 from tools.configger import config_test
 from tools.cst_sc_text_sets import make_cst_text_set
 from tools.cst_sc_text_sets import make_other_pali_texts_set
@@ -233,7 +234,7 @@ def make_manual_corrections_set(pth: ProjectPaths) -> Tuple[Set[str], Dict]:
     p_green("making manual corrections set")
 
     manual_corrections_df = pd.read_csv(
-        pth.manual_corrections_path, dtype=str, header=None, sep="\t"
+        pth.decon_manual_corrections, dtype=str, header=None, sep="\t"
     )
     manual_corrections_df.fillna("", inplace=True)
 
@@ -267,7 +268,7 @@ def make_manual_corrections_set(pth: ProjectPaths) -> Tuple[Set[str], Dict]:
 def make_exceptions_set(pth: ProjectPaths) -> Set[str]:
     p_green("making exceptions set")
 
-    sandhi_exceptions_df = pd.read_csv(pth.sandhi_exceptions_path, header=None)
+    sandhi_exceptions_df = pd.read_csv(pth.decon_exceptions, header=None)
     sandhi_exceptions_set: Set[str] = set(sandhi_exceptions_df[0].tolist())
 
     p_yes(len(sandhi_exceptions_set))
@@ -346,7 +347,6 @@ def make_neg_inflections_set(
     p_yes(len(neg_inflections_set))
 
     return neg_inflections_set
-
 
 if __name__ == "__main__":
     setup_deconstructor()

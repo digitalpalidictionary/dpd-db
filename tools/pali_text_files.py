@@ -664,6 +664,10 @@ sc_texts: dict[str, list[str]] = {
         "pli-tv-bi-vb-sk75_root-pli-ms.json",
 
         "pli-tv-bi-vb-as1-7_root-pli-ms.json",
+        
+        "pli-tv-bi-pm_root-pli-ms.json",
+        "pli-tv-bu-pm_root-pli-ms.json"
+
     ],
 
     "vin3": [

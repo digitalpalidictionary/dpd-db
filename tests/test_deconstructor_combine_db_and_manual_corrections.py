@@ -32,7 +32,7 @@ def main():
 
     print(len(sandhi_dict))
 
-    manual_data = read_tsv(pth.manual_corrections_path)
+    manual_data = read_tsv(pth.decon_manual_corrections)
     manual_dict = {}
     manual_dupes = []
     for i in manual_data:
@@ -71,7 +71,7 @@ def main():
 
     print(len(new_dict))
 
-    with open(pth.manual_corrections_path, "w") as file:
+    with open(pth.decon_manual_corrections, "w") as file:
         for word, breakups in new_dict.items():
             for breakup in breakups:
                 file.write(f"{word}\t{breakup}\n")

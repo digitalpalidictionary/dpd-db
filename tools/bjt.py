@@ -28,6 +28,7 @@ with a basic structure of
 """
 
 import json
+import os
 import re
 from rich import print
 
@@ -60,7 +61,7 @@ def get_bjt_json(bjt_file_names: list[str]) -> list[dict]:
     """Take the list of file names and 
     return a list of json dicts."""
 
-    roman_dir = pth.bjt_roman_dir
+    roman_dir = pth.bjt_roman_json
     json_dicts = []
 
     for file_name in bjt_file_names:
@@ -231,12 +232,25 @@ def save_bjṭ_text(books: list[str]) -> None:
         f.write(bjt_text)
 
 
+def save_all_bjt_texts() -> None:
+    "Save all BJT json to text files"
+
+    for root, dirs, files in os.walk(pth.bjt_roman_json):
+        for file in files:
+            bjt_dicts = get_bjt_json([file])
+            bjt_text = ""
+            for bjt_dict in bjt_dicts:
+                bjt_text += process_single_bjt_file(bjt_dict)
+            file_path = pth.bjt_roman_txt.joinpath(f"{file}.txt")
+            with open(file_path, "w") as f:
+                f.write(bjt_text)
+            print(file)
 
 if __name__ == "__main__":
     # bjt_list = make_bjt_text_list(["vin1"], "list_deduped")
     # print(bjt_list)
     # print(len(bjt_list))
-    save_bjṭ_text("sn2")
-    
+    # save_bjṭ_text("sn2")
+    save_all_bjt_texts()
 
 

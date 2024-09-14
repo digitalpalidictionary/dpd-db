@@ -13,7 +13,7 @@ from tools.tic_toc import tic, toc
 
 pth = ProjectPaths()
 sinhala_dir = pth.bjt_sinhala_dir
-roman_dir = pth.bjt_roman_dir
+roman_dir = pth.bjt_roman_json
 
 def main():
     tic()

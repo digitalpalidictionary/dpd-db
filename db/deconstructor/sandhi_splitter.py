@@ -148,9 +148,6 @@ def setup(pth: ProjectPaths):
     global rules
     rules = import_sandhi_rules(pth)
 
-    global shortlist_set
-    shortlist_set = make_shortlist_set(pth)
-
     global unmatched_set
     with open(pth.unmatched_set_path, "rb") as f:
         unmatched_set = pickle.load(f)
@@ -212,20 +209,6 @@ def import_sandhi_rules(pth: ProjectPaths):
         print("[white]ok")
 
     return sandhi_rules
-
-
-def make_shortlist_set(pth: ProjectPaths):
-
-    print("[green]making shortlist set", end=" ")
-
-    shortlist_df = pd.read_csv(
-        pth.shortlist_path, dtype=str, header=None, sep="\t")
-    shortlist_df.fillna("", inplace=True)
-
-    shortlist_set = set(shortlist_df[0].tolist())
-    print(f"[white]{len(shortlist_set)}")
-
-    return shortlist_set
 
 
 def make_all_inflections_nfl_nll(all_inflections_set):
