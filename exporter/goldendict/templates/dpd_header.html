@@ -20,6 +20,7 @@
     <link href="family_word_json.js" class="load_js" rel="preload" as="script">
     <link href="family_word_template.js" class="load_js" rel="preload" as="script">
     <link href="feedback_template.js" class="load_js" rel="preload" as="script">
+    <link href="frequency_template.js" class="load_js" rel="preload" as="script">
     <link href="main.js" class="load_js" rel="preload" as="script" as="script">
 
     <script>
@@ -28,23 +29,36 @@
             "lemma": "${i.lemma_1_}",
             "date": "${date}",
             "family_root": "${i.root_family_key}",
+            
             % if i.needs_compound_family_button or i.needs_compound_families_button:
             "family_compounds": ${ i.family_compound_list },
             % else:
             "family_compounds": [],
             % endif
+            
             % if i.needs_idioms_button:
             "family_idioms": ${ i.family_idioms_list },
             % else:
             "family_idioms": [],
             % endif
+            
             % if i.needs_word_family_button:
             "family_word": "${i.family_word}",
             % endif
+            
             % if i.needs_set_button or i.needs_sets_button:
-            "family_sets": ${ i.family_set_list }
-            %else:
-            "family_sets": []
+            "family_sets": ${ i.family_set_list },
+            % else:
+            "family_sets": [],
+            % endif
+            
+            % if i.needs_frequency_button:
+            "CstFreq": ${i.freq_data_unpack["CstFreq"]},
+            "CstGrad": ${i.freq_data_unpack["CstGrad"]},
+            "BjtFreq": ${i.freq_data_unpack["BjtFreq"]},
+            "BjtGrad": ${i.freq_data_unpack["BjtGrad"]},
+            "ScFreq": ${i.freq_data_unpack["ScFreq"]},
+            "ScGrad": ${i.freq_data_unpack["ScGrad"]}
             % endif
         };
     </script>

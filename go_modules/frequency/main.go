@@ -14,11 +14,7 @@ import (
 	"gorm.io/gorm"
 )
 
-var pf = fmt.Printf
-var pl = fmt.Println
-var spf = fmt.Sprintf
-
-var t = tools.Tic()
+var tic = tools.Tic()
 
 var templ = makeTemplate()
 
@@ -87,7 +83,7 @@ func main() {
 	}
 	wg.Wait()
 	updateDb(db, results)
-	t.Toc()
+	tic.Toc()
 }
 
 func makeTemplate() *template.Template {
@@ -109,7 +105,6 @@ func cloneTemplate() *template.Template {
 }
 
 type templateData struct {
-	Header  string
 	CstFreq []int
 	CstGrad []int
 	BjtFreq []int
@@ -139,7 +134,6 @@ func makeFreqTable(i dpdDb.DpdHeadword) {
 		tools.IsAllZero(BjtFreqList) &&
 		tools.IsAllZero(ScFreqList) {
 
-		td.Header = spf("<p>There are no exact matches of <b>%v</b> in any corpus of texts.</p>", i.Lemma1)
 		td.CstFreq = []int{}
 		td.CstGrad = []int{}
 		td.BjtFreq = []int{}
@@ -147,11 +141,10 @@ func makeFreqTable(i dpdDb.DpdHeadword) {
 		td.ScFreq = []int{}
 		td.ScGrad = []int{}
 
-		html = td.Header
+		html = ""
 
 	} else {
 
-		td.Header = makeHeaderString(i.Lemma1, i.POS)
 		td.CstFreq = CstFreqList
 		td.CstGrad = CstGradientList
 		td.BjtFreq = BjtFreqList
@@ -207,24 +200,6 @@ func htmlTemplater(td templateData) string {
 	return html
 }
 
-func makeHeaderString(word string, pos string) string {
-	posType := tools.TestPosType(pos)
-	var headerString string
-
-	switch posType {
-	case "indeclinable":
-		headerString = spf("Frequency of <b>%v</b>", word)
-	case "conjugation":
-		headerString = spf("Frequency of <b>%v</b> and its conjugations", word)
-	case "declension":
-		headerString = spf("Frequency of <b>%v</b> and its declensions", word)
-	default:
-		tools.PRed("some error occurred making the header string")
-	}
-
-	return headerString
-}
-
 func saveHtmlFile(html string) {
 	tools.PGreenTitle("saving html test")
 
@@ -232,7 +207,7 @@ func saveHtmlFile(html string) {
 	dpdCss, err := os.ReadFile(filepath.Join(tools.Pth.DpdBaseDir, tools.Pth.DpdCss))
 	tools.Check(err)
 
-	finalHtml := spf("<style>\n%v\n</style>\n<body>\n%v</body>\n", string(dpdCss), string(html))
+	finalHtml := fmt.Sprintf("<style>\n%v\n</style>\n<body>\n%v</body>\n", string(dpdCss), string(html))
 
 	saveFile, err := os.Create("htmlTest.html")
 	tools.Check(err)

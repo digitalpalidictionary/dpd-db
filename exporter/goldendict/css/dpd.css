@@ -192,12 +192,12 @@ a.button:hover {
 .freq-table-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
 }
 
 .freq-table-wrapper {
-    flex: 1;
+    flex: 1 1 auto;
     min-width: 300px;
+    box-sizing: border-box;
 }
 
 .freq-table-wrapper p {
@@ -217,6 +217,7 @@ a.button:hover {
 table.freq th,
 table.freq td {
     vertical-align: middle;
+    white-space: nowrap;
 }
 
 table.freq thead th {

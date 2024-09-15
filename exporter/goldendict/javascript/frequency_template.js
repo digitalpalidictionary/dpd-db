@@ -1,20 +1,15 @@
 function makeFrequency(data) {
     const html = `
-    <p class="heading underlined">
-    ${data.Header}
-</p>
 <div class="freq-table-container">
     <div class="freq-table-wrapper">
-        <p>
-            <b>
-                Chaṭṭha Saṅgāyana Tipiṭaka (Myanmar)
-            </b>
-        </p>
         <table class="freq">
             <thead>
                 <tr style="text-align: right;">
-                    <th></th>
-                    <th></th>
+                    <th colspan="2">
+                        <b>
+                            Chaṭṭha Saṅgāyana Tipiṭaka (Myanmar)
+                        </b>
+                    </th>
                     <th>M</th>
                     <th>A</th>
                     <th>Ṭ</th>
@@ -28,7 +23,7 @@ function makeFrequency(data) {
                     <th>Pārājika</th>
                     <td class="gr${data.CstGrad[0]}">${data.CstFreq[0]}</td>
                     <td class="gr${data.CstGrad[19]}">${data.CstFreq[19]}</td>
-                    <td class="gr${data.CstGrad[33]} rowspan="5"">${data.CstFreq[33]}</td>
+                    <td class="gr${data.CstGrad[33]}" rowspan="5">${data.CstFreq[33]}</td>
                 </tr>
                 <tr>
                     <th>Pācittiya</th>
@@ -102,8 +97,8 @@ function makeFrequency(data) {
                 <tr>
                     <th>Dhammasaṅgaṇī</th>
                     <td class="gr${data.CstGrad[12]}">${data.CstFreq[12]}</td>
-                    <td class="gr${data.CstGrad[31]} rowspan="7"">${data.CstFreq[31]}</td>
-                    <td class="gr${data.CstGrad[39]} rowspan="7"">${data.CstFreq[39]}</td>
+                    <td class="gr${data.CstGrad[31]}" rowspan="7">${data.CstFreq[31]}</td>
+                    <td class="gr${data.CstGrad[39]}" rowspan="7">${data.CstFreq[39]}</td>
                 </tr>
                 <tr>
                     <th>Vibhaṅga</th>
@@ -190,16 +185,14 @@ function makeFrequency(data) {
         </table>
     </div>
     <div class="freq-table-wrapper">
-        <p>
-            <b>
-                Buddha Jayanti Tipiṭaka (Sri Lanka)
-            </b>
-        </p>
         <table class="freq">
             <thead>
                 <tr style="text-align: right;">
-                    <th></th>
-                    <th></th>
+                    <th colspan="2">
+                        <b>
+                            Buddha Jayanti Tipiṭaka (Sri Lanka)
+                        </b>
+                    </th>
                     <th>M</th>
                     <th>A</th>
                 </tr>
@@ -321,17 +314,14 @@ function makeFrequency(data) {
         </table>
     </div>
     <div class="freq-table-wrapper">
-        <p>
-            <b>
-                Mahāsaṅgīti Tipiṭaka (Sutta Central)
-            </b>
-        </p>
-        </tr>
         <table class="freq">
             <thead>
                 <tr style="text-align: right;">
-                    <th></th>
-                    <th></th>
+                    <th colspan="2">
+                        <b>
+                            Mahāsaṅgīti Tipiṭaka (Sutta Central)
+                        </b>
+                    </th>
                     <th>M</th>
                 </tr>
             </thead>
@@ -425,8 +415,8 @@ function makeFrequency(data) {
         </table>
     </div>
 </div>
-    `
+`
     return html
 }
 
-    
+

@@ -17,7 +17,6 @@ var spf fmt.SPrintf
 # TODO Next
 - make []failedItem
 - split match processing into own function
-- add to database
 - index rules explicitly
 
 # TODO

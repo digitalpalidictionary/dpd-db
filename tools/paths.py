@@ -75,6 +75,7 @@ class ProjectPaths:
         self.family_word_json = base_dir / "exporter/goldendict/javascript/family_word_json.js"
         self.family_word_template_js = base_dir / "exporter/goldendict/javascript/family_word_template.js"
         self.feedback_template_js = base_dir / "exporter/goldendict/javascript/feedback_template.js"
+        self.frequency_template_js = base_dir / "exporter/goldendict/javascript/frequency_template.js"
         self.main_js_path = base_dir / "exporter/goldendict/javascript/main.js"
         self.sorter_js_path = base_dir / "exporter/goldendict/javascript/sorter.js"
 

@@ -905,6 +905,11 @@ class DpdHeadwords(Base):
             return self.inflections_thai.split(",")
         else:
             return []
+    
+    @property
+    def freq_data_unpack(self) -> dict[str, int]:
+        return json.loads(self.freq_data)
+
 
     # needs_button
 

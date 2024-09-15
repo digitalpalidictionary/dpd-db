@@ -163,6 +163,7 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
             g.paths.family_word_json,
             g.paths.family_word_template_js,
             g.paths.feedback_template_js,
+            g.paths.frequency_template_js,
             g.paths.main_js_path,
         ],
         gd_path=g.paths.share_dir,

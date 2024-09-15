@@ -14,9 +14,9 @@ func makeGradientList(s stepsStruct, freqList []int) []int {
 	gradientList := []int{}
 	for _, value := range freqList {
 
-		if value == 0 || value < s.s1 {
+		if value == 0 {
 			gradientList = append(gradientList, 0)
-		} else if value >= s.s1 && value < s.s2 {
+		} else if value >= 0 && value < s.s2 {
 			gradientList = append(gradientList, 1)
 		} else if value >= s.s2 && value < s.s3 {
 			gradientList = append(gradientList, 2)

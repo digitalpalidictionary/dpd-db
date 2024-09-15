@@ -67,7 +67,7 @@ function loadButtonContent(data) {
 
     const frequencyHTML = makeFrequency(data);
     const frequencyElement = document.getElementById(`frequency_${data.lemma}`)
-    frequencyElement.innerHTML = frequencyHTML
+    frequencyElement.innerHTML = frequencyElement.innerHTML.replace("frequency loading...", frequencyHTML)
 
     //// family compounds
 

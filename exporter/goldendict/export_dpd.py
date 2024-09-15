@@ -34,7 +34,7 @@ from tools.meaning_construction import make_meaning_combo_html, make_grammar_lin
 from tools.meaning_construction import summarize_construction, degree_of_completion
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
-from tools.pos import CONJUGATIONS, DECLENSIONS
+from tools.pos import CONJUGATIONS, DECLENSIONS, INDECLINABLES
 from tools.printer import p_counter, p_green_title
 from tools.sandhi_contraction import SandhiContractions
 from tools.superscripter import superscripter_uni
@@ -898,6 +898,22 @@ def render_frequency_templ(
 ) -> str:   
     """render html template of frequency table"""
 
+    # make header
+    if (
+        i.freq_data_unpack["CstFreq"] == []
+        and i.freq_data_unpack["BjtFreq"] == []
+        and i.freq_data_unpack["ScFreq"] == []
+    ):
+        header = f"There are no matches of <b>{i.lemma_1}</b> in any corpus."
+    
+    else:
+        if i.pos in INDECLINABLES:
+            header = f"Frequency of <b>{i.lemma_1}</b>."
+        elif i.pos in CONJUGATIONS:
+            header = f"Frequency of <b>{i.lemma_1}</b> and its conjugations."
+        elif i.pos in DECLENSIONS:
+            header = f"Frequency of <b>{i.lemma_1}</b> and its declensions."
+            
     freq = ""
 
     if lang == "ru":
@@ -906,6 +922,7 @@ def render_frequency_templ(
     return str(
         frequency_templ.render(
             i=i,
+            header=header,
             today=TODAY,
             freq=freq))
 
