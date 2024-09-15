@@ -59,7 +59,7 @@ func MakeUnmatched() {
 	makeCstWords()
 	makeBjtWords()
 	makeScWords()
-	// MakeSyaWords()
+	makeSyaWords()
 	makeOtherPaliTexts()
 	makeDpdWords()
 	makeSpellingMistakes()
@@ -74,7 +74,7 @@ func MakeUnmatched() {
 
 	ic.allWords = tools.MapUnion(ic.cstWords, ic.scWords)
 	ic.allWords = tools.MapUnion(ic.allWords, ic.bjtWords)
-	// ic.allWords = tools.MapUnion(ic.allWords, ic.syaWords)
+	ic.allWords = tools.MapUnion(ic.allWords, ic.syaWords)
 	ic.allWords = tools.MapUnion(ic.allWords, ic.otherPaliWords)
 	ic.allWords = tools.MapUnion(ic.allWords, ic.dpdWords)
 	ic.allWords = tools.MapUnion(ic.allWords, ic.spellingCorrections)

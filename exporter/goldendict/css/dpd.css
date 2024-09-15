@@ -257,6 +257,7 @@ td.void {
 
 td.gr0 {
     border: 1px solid #dbdbff;
+    color: transparent;
 }
 
 td.gr1 {

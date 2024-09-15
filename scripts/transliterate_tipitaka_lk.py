@@ -18,7 +18,6 @@ roman_dir = pth.bjt_roman_json
 def main():
     tic()
     p_title("transliterating tipitaka.lk")
-    # 
 
     for root, dirs, files in walk(sinhala_dir):
         for counter, file in enumerate(files, 1):

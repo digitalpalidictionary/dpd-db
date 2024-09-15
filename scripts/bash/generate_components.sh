@@ -7,34 +7,34 @@ fi
 
 set -e
 
-# tools/version.py
+tools/version.py
 
-# db/inflections/create_inflection_templates.py
-# db/inflections/generate_inflection_tables.py
+db/inflections/create_inflection_templates.py
+db/inflections/generate_inflection_tables.py
 
-# scripts/sanskrit_root_families_updater.py
+scripts/sanskrit_root_families_updater.py
 
-# db/families/family_root.py
-# db/families/family_word.py
-# db/families/family_compound.py
-# db/families/family_set.py
-# db/families/family_idiom.py
-# scripts/families_to_json.py
+db/families/family_root.py
+db/families/family_word.py
+db/families/family_compound.py
+db/families/family_set.py
+db/families/family_idiom.py
+scripts/families_to_json.py
 
-# scripts/anki_updater.py
+scripts/anki_updater.py
 
-# # db/deconstructor/sandhi_setup.py
-# # db/deconstructor/sandhi_splitter.py
-# # db/deconstructor/sandhi_postprocess.py
-# go run go_modules/deconstructor/main.go
+# db/deconstructor/sandhi_setup.py
+# db/deconstructor/sandhi_splitter.py
+# db/deconstructor/sandhi_postprocess.py
+go run go_modules/deconstructor/main.go
 
-# scripts/api_ca_evi_iti.py
-# db/inflections/transliterate_inflections.py
-# db/inflections/inflections_to_headwords.py
+scripts/api_ca_evi_iti.py
+db/inflections/transliterate_inflections.py
+db/inflections/inflections_to_headwords.py
 
-# db/lookup/variants_and_spelling_mistakes.py
-# db/lookup/transliterate_lookup_table.py
-# db/lookup/help_abbrev_add_to_lookup.py
+db/lookup/variants_and_spelling_mistakes.py
+db/lookup/transliterate_lookup_table.py
+db/lookup/help_abbrev_add_to_lookup.py
 
 # db/frequency/mapmaker.py
 go run go_modules/frequency/main.go 

@@ -36,7 +36,7 @@ func makeSyaFreq() {
 			tools.Check(err)
 
 			text := string(dataRead)
-			textClean := tools.CleanMachine(text, "ṃ", true, "sya")
+			textClean := tools.CleanMachine(text, "ṃ", false, "sya")
 			textList := strings.Split(textClean, " ")
 			freqMap := tools.ListCounter(textList)
 			fileFreqMap[fileName] = freqMap

@@ -115,51 +115,40 @@ func CleanMachine(text string, niggahita string, addHyphenatedWords bool, source
 		text = strings.Replace(text, string(rune('\u0308')), ` `, -1) // ̈
 		text = strings.Replace(text, string(rune('\u00A0')), ` `, -1) // NO BREAK SPACE
 
-		// text = strings.Replace(text, `<`, ``, -1)
-
-		// text = strings.Replace(text, string(rune(160)), ` `, -1) // \r
-
-		// // combining characters
-		//
-		// text = strings.Replace(text, `̆`, ``, -1)
-		// text = strings.Replace(text, `͟`, ``, -1)
-		// text = strings.Replace(text, `̤`, ``, -1)
-
 	case "sya":
-		// remove page
-		r, err = regexp.Compile(`[page.+?]`)
+
+		// remove pts ref and html markup
+		r := regexp.MustCompile(`<.+?>`)
+		text = r.ReplaceAllString(text, " ")
+
+		// remove words with crazy characters
+
+		fstring := fmt.Sprintf(`\S*(%v|%v|%v|%v|%v)\S*`,
+			string(rune(35303)), // 觧
+			string(rune(35053)), // 裭
+			string(rune(37114)), // 郺
+			string(rune(37267)), // 醓
+			string(rune(1912)),  // ݸ
+		)
+		r, err = regexp.Compile(fstring)
 		Check(err)
-		text = r.ReplaceAllString(text, "")
+		text = r.ReplaceAllString(text, " ")
 
-		text = strings.Replace(text, `footnote:`, ``, -1)
+		// replace letter
 		text = strings.Replace(text, `ḥ`, `h`, -1)
-		text = strings.Replace(text, `@`, `a`, -1)
+		text = strings.Replace(text, `@`, `ā`, -1)
 
+		// keep space
 		text = strings.Replace(text, `*`, ` `, -1)
-		text = strings.Replace(text, `>`, ` `, -1)
-		text = strings.Replace(text, `<`, ` `, -1)
-		text = strings.Replace(text, `#`, ` `, -1)
-		text = strings.Replace(text, `$`, ` `, -1)
-		text = strings.Replace(text, `=`, ` `, -1)
 		text = strings.Replace(text, `/`, ` `, -1)
+		text = strings.Replace(text, `#`, ` `, -1)
+		text = strings.Replace(text, `=`, ` `, -1)
+		text = strings.Replace(text, `$`, ` `, -1)
 
+		// no space
 		text = strings.Replace(text, `"`, ``, -1)
-		text = strings.Replace(text, `'`, ``, -1)
 		text = strings.Replace(text, "`", ``, -1)
-
-		text = strings.Replace(text, `ݮ`, ` `, -1)
-		text = strings.Replace(text, `ݸ`, ` `, -1)
-		text = strings.Replace(text, `觧`, ` `, -1)
-		text = strings.Replace(text, `篙`, ` `, -1)
-		text = strings.Replace(text, `竌`, ` `, -1)
-		text = strings.Replace(text, `產`, ` `, -1)
-		text = strings.Replace(text, `蘟`, ` `, -1)
-		text = strings.Replace(text, `醓`, ` `, -1)
-		text = strings.Replace(text, `裭`, ` `, -1)
-		text = strings.Replace(text, `郺`, ` `, -1)
-		text = strings.Replace(text, `莓`, ` `, -1)
-		text = strings.Replace(text, `詐`, ` `, -1)
-		text = strings.Replace(text, `瞐`, ` `, -1)
+		text = strings.Replace(text, `'`, ``, -1)
 
 		text = strings.Replace(text, string(rune(13)), ` `, -1) // \r
 
@@ -271,6 +260,7 @@ func characterTest(text string, textSet string) {
 		}
 	}
 
+	pl(text)
 	if len(errors) > 0 {
 		for _, e := range errors {
 			pf("error: %v string: %v char: %c unicode: %U \n", e, string(e), e, e)
