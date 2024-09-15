@@ -368,7 +368,7 @@ class ProjectPaths:
         self.thanks_md_path = base_dir / "../digitalpalidictionary-website-source/src/thanks.md"
 
         # go_modules
-        self.go_deconstructor_output_dir = base_dir / "go_modules/deconstructor/output",
+        self.go_deconstructor_output_dir = base_dir / "go_modules/deconstructor/output"
 
         if create_dirs:
             self.create_dirs()

@@ -20,7 +20,7 @@ Multi-threading built in, and all the tools that make it easy to manage, like Wa
 
 Structs and struct functions are cleaner, quicker and less abstract to write than Python or Javascript classes. 
 
-It's rare to need anything outside of the core library, so far only an ORM. 
+It's rare to need anything outside of the core library, so far only an ORM called Gorm.
 
 Compiles quickly to an executable binary which can run on any machine. 
 

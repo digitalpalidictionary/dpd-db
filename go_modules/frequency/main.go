@@ -35,7 +35,7 @@ var wg sync.WaitGroup
 var mu sync.Mutex
 
 func init() {
-	pl("frequency tables")
+	tools.PTitle("frequency tables")
 
 	// cst fileMap
 	filePath := tools.Pth.CstFileMap
@@ -73,12 +73,12 @@ func init() {
 }
 
 func main() {
-	pl("making html & data")
+	tools.PGreenTitle("making html & data")
 	var db, results = dpdDb.GetDpdHeadwords()
 
 	for index, i := range results {
 		if index%10000 == 0 {
-			pf("%v / %v %v\n", index, len(results), i.Lemma1)
+			tools.PCounter(index, len(results), i.Lemma1)
 		}
 		if i.POS != "idiom" {
 			wg.Add(1)
@@ -87,7 +87,7 @@ func main() {
 	}
 	wg.Wait()
 	updateDb(db, results)
-	t.Toc("total time: ")
+	t.Toc()
 }
 
 func makeTemplate() *template.Template {
@@ -133,6 +133,7 @@ func makeFreqTable(i dpdDb.DpdHeadword) {
 
 	// template data struct
 	td := templateData{}
+	html := ""
 
 	if tools.IsAllZero(CstFreqList) &&
 		tools.IsAllZero(BjtFreqList) &&
@@ -146,6 +147,8 @@ func makeFreqTable(i dpdDb.DpdHeadword) {
 		td.ScFreq = []int{}
 		td.ScGrad = []int{}
 
+		html = td.Header
+
 	} else {
 
 		td.Header = makeHeaderString(i.Lemma1, i.POS)
@@ -155,9 +158,9 @@ func makeFreqTable(i dpdDb.DpdHeadword) {
 		td.BjtGrad = BjtGradientList
 		td.ScFreq = ScFreqList
 		td.ScGrad = ScGradientList
-	}
 
-	html := htmlTemplater(td)
+		html = htmlTemplater(td)
+	}
 
 	jsonData := tools.JsonMarshall(td)
 
@@ -216,14 +219,14 @@ func makeHeaderString(word string, pos string) string {
 	case "declension":
 		headerString = spf("Frequency of <b>%v</b> and its declensions", word)
 	default:
-		pl("some error occurred making the header string")
+		tools.PRed("some error occurred making the header string")
 	}
 
 	return headerString
 }
 
 func saveHtmlFile(html string) {
-	pl("saving html test")
+	tools.PGreenTitle("saving html test")
 
 	// dpdCss
 	dpdCss, err := os.ReadFile(filepath.Join(tools.Pth.DpdBaseDir, tools.Pth.DpdCss))
@@ -237,7 +240,7 @@ func saveHtmlFile(html string) {
 }
 
 func updateDb(db *gorm.DB, results []dpdDb.DpdHeadword) {
-	pl("updating db")
+	tools.PGreenTitle("updating db")
 
 	updatedResults := []dpdDb.DpdHeadword{}
 

@@ -17,7 +17,12 @@ var spf = fmt.Sprintf
 
 var Wg = sync.WaitGroup{}
 
+var tic = tools.Tic()
+
 func init() {
+	tools.PTitle("Deconstructing compounds")
+	tools.PGreenTitle("splitting compounds")
+
 	// init globals
 	var di = importer.DeconImporter()
 	data.M.MatchedItems = di.MatchItemList
@@ -31,8 +36,7 @@ func init() {
 }
 
 func main() {
-	pl("Deconstructing compounds")
-
+	tools.PGreenTitle("splitting compounds")
 	testMap := map[string]string{
 		// "ādīnavānisaṃsadassanavidhi": "",
 	}
@@ -44,7 +48,7 @@ func main() {
 	counter := 1
 	for word := range data.G.Unmatched {
 		if counter%data.L.Counter == 0 {
-			pl(counter, "/", len(data.G.Unmatched), word)
+			tools.PCounter(counter, len(data.G.Unmatched), word)
 		}
 
 		w := data.InitWordData(tools.Str2Rune(word))
@@ -72,6 +76,8 @@ func main() {
 	data.M.SaveTopEntriesJson()
 	data.M.SaveToDb()
 	data.M.SaveStatsTsv()
+	tic.Toc()
+
 }
 
 func deconstruct(w data.WordData) {

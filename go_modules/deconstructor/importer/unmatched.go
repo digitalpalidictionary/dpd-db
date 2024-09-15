@@ -84,7 +84,6 @@ func MakeUnmatched() {
 	ic.allWords = tools.MapDifference(ic.allWords, ic.variantVariant)
 	ic.allWords = tools.MapDifference(ic.allWords, ic.abbreviations)
 	ic.allWords = tools.MapDifference(ic.allWords, ic.manualCorrections)
-	pf("allWords: %v\n", len(ic.allWords))
 
 	ic.unmatched1 = tools.MapDifference(ic.allWords, ic.allInflections)
 	ic.unmatched1 = tools.MapDifference(ic.unmatched1, ic.inflectionExceptions)
@@ -94,7 +93,6 @@ func MakeUnmatched() {
 	}
 
 	ic.unmatched2 = maps.Clone(ic.unmatched1)
-	pf("unmatched: %v\n", len(ic.unmatched1))
 }
 
 func reduceUnmatched() {

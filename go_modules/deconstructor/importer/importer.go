@@ -2,6 +2,7 @@ package importer
 
 import (
 	"dpd/go_modules/deconstructor/data"
+	"dpd/go_modules/tools"
 	"fmt"
 )
 
@@ -19,7 +20,7 @@ type DeconImports struct {
 }
 
 func DeconImporter() DeconImports {
-	pl("data imports")
+	tools.PGreenTitle("importing data")
 	di := DeconImports{}
 
 	di.MatchItemList = makeMatchItems()
