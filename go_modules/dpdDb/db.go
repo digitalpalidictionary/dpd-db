@@ -1,7 +1,7 @@
 package dpdDb
 
 import (
-	"gm/tools"
+	"dpd/go_modules/tools"
 	"path/filepath"
 
 	_ "github.com/mattn/go-sqlite3"

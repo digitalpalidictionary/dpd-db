@@ -1,12 +1,12 @@
 package main
 
 import (
+	"dpd/go_modules/deconstructor/data"
+	"dpd/go_modules/deconstructor/importer"
 	"fmt"
-	"gm/deconstructor/data"
-	"gm/deconstructor/importer"
 
-	"gm/deconstructor/splitters"
-	"gm/tools"
+	"dpd/go_modules/deconstructor/splitters"
+	"dpd/go_modules/tools"
 	"sync"
 )
 

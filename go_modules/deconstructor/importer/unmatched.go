@@ -1,9 +1,9 @@
 package importer
 
 import (
-	"gm/deconstructor/data"
-	"gm/dpdDb"
-	"gm/tools"
+	"dpd/go_modules/deconstructor/data"
+	"dpd/go_modules/dpdDb"
+	"dpd/go_modules/tools"
 	"maps"
 	"os"
 	"path/filepath"

@@ -56,9 +56,10 @@ var Pth = struct {
 	CombinedTemplate string
 }{
 	// dpd base dir
-	DpdBaseDir: "../dpd-db/",
-	DpdDb:      "dpd.db",
-	DpdCss:     "exporter/goldendict/css/dpd.css",
+	DpdBaseDir: "",
+
+	DpdDb:  "dpd.db",
+	DpdCss: "exporter/goldendict/css/dpd.css",
 
 	// shared data/deconstructor
 	VariantReadings:        "shared_data/deconstructor/variant_readings.tsv",
@@ -100,19 +101,19 @@ var Pth = struct {
 	OtherPaliTextsDir: "resources/other_pali_texts",
 
 	// file maps
-	CstFileMap: "frequency/file_maps/cst_file_map.json",
-	ScFileMap:  "frequency/file_maps/sc_file_map.json",
-	BjtFileMap: "frequency/file_maps/bjt_file_map.json",
+	CstFileMap: "go_modules/frequency/file_maps/cst_file_map.json",
+	ScFileMap:  "go_modules/frequency/file_maps/sc_file_map.json",
+	BjtFileMap: "go_modules/frequency/file_maps/bjt_file_map.json",
 
 	// templates
-	CstTemplate:      "frequency/templates/cst_template.html",
-	ScTemplate:       "frequency/templates/sc_template.html",
-	BjtTemplate:      "frequency/templates/bjt_template.html",
-	CombinedTemplate: "frequency/templates/combined_template.html",
+	CstTemplate:      "go_modules/frequency/templates/cst_template.html",
+	ScTemplate:       "go_modules/frequency/templates/sc_template.html",
+	BjtTemplate:      "go_modules/frequency/templates/bjt_template.html",
+	CombinedTemplate: "go_modules/frequency/templates/combined_template.html",
 
 	// deconstructor output
-	MatchesTsv:   "deconstructor/output/matches.tsv",
-	UnMatchedTsv: "deconstructor/output/unmatched.tsv",
-	MatchesJson:  "deconstructor/output/matches.json",
-	StatsTsv:     "deconstructor/output/stats.tsv",
+	MatchesTsv:   "go_modules/deconstructor/output/matches.tsv",
+	UnMatchedTsv: "go_modules/deconstructor/output/unmatched.tsv",
+	MatchesJson:  "go_modules/deconstructor/output/matches.json",
+	StatsTsv:     "go_modules/deconstructor/output/stats.tsv",
 }

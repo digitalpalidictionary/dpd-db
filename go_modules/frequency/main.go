@@ -2,10 +2,10 @@ package main
 
 import (
 	"bytes"
+	"dpd/go_modules/dpdDb"
+	"dpd/go_modules/frequency/gradient"
+	"dpd/go_modules/tools"
 	"fmt"
-	"gm/dpdDb"
-	"gm/frequency/gradient"
-	"gm/tools"
 	"os"
 	"path/filepath"
 	"sync"
@@ -69,7 +69,7 @@ func init() {
 		tools.Pth.BjtFileFreqMap,
 	)
 	BjtFileFreqMap = tools.ReadJsonMapStringMapStringInt(filePath, BjtFileFreqMap)
-	t.Toc("init time: ")
+
 }
 
 func main() {

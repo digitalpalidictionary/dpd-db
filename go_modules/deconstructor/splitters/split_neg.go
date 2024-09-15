@@ -1,8 +1,8 @@
 package splitters
 
 import (
-	"gm/deconstructor/data"
-	t "gm/tools"
+	"dpd/go_modules/deconstructor/data"
+	t "dpd/go_modules/tools"
 )
 
 func SplitNeg(w data.WordData) {

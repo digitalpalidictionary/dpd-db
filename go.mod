@@ -1,4 +1,4 @@
-module gm
+module dpd
 
 go 1.22.2
 

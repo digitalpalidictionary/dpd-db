@@ -1,7 +1,7 @@
 package main
 
 import (
-	"gm/tools"
+	"dpd/go_modules/tools"
 	"os"
 	"path/filepath"
 	"strings"

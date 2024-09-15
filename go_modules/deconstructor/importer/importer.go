@@ -1,8 +1,8 @@
 package importer
 
 import (
+	"dpd/go_modules/deconstructor/data"
 	"fmt"
-	"gm/deconstructor/data"
 )
 
 var pl = fmt.Println

@@ -1,7 +1,7 @@
 package splitters
 
 import (
-	"gm/deconstructor/data"
+	"dpd/go_modules/deconstructor/data"
 )
 
 func SplitSu(w data.WordData) {

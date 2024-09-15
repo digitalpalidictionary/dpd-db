@@ -1,8 +1,8 @@
 package splitters
 
 import (
-	"gm/deconstructor/data"
-	"gm/tools"
+	"dpd/go_modules/deconstructor/data"
+	"dpd/go_modules/tools"
 )
 
 /*

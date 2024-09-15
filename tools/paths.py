@@ -367,6 +367,9 @@ class ProjectPaths:
         self.old_roots_csv_path = base_dir / "../csvs/roots.csv"
         self.thanks_md_path = base_dir / "../digitalpalidictionary-website-source/src/thanks.md"
 
+        # go_modules
+        self.go_deconstructor_output_dir = base_dir / "go_modules/deconstructor/output",
+
         if create_dirs:
             self.create_dirs()
 
@@ -390,5 +393,6 @@ class ProjectPaths:
             self.temp_dir,
             self.tpr_output_dir,
             self.word_count_dir,
+            self.go_deconstructor_output_dir,
         ]:
             d.mkdir(parents=True, exist_ok=True)

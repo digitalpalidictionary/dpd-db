@@ -2,10 +2,10 @@ package data
 
 import (
 	"cmp"
+	"dpd/go_modules/dpdDb"
+	"dpd/go_modules/tools"
 	"encoding/json"
 	"fmt"
-	"gm/dpdDb"
-	"gm/tools"
 	"os"
 	"slices"
 	"strings"
