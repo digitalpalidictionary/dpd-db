@@ -908,7 +908,10 @@ class DpdHeadwords(Base):
     
     @property
     def freq_data_unpack(self) -> dict[str, int]:
-        return json.loads(self.freq_data)
+        if self.freq_data:
+            return json.loads(self.freq_data)
+        else:
+            return {}
 
 
     # needs_button

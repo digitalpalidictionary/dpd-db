@@ -35,6 +35,7 @@ class HeadwordData():
             if (
                 not attr_name.startswith('_')
                 and "html" not in attr_name
+                and "data" not in attr_name
             ):  # skip private and protected attributes
                 attr_value = getattr(obj, attr_name)
                 if isinstance(attr_value, str):

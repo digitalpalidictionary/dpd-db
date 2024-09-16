@@ -6,7 +6,7 @@ import (
 
 func SplitAti(w data.WordData) {
 
-	if len(w.Middle) > 3 {
+	if len(w.Middle) > 5 {
 
 		w.InitNewSplitter("ati")
 		data.M.ProcessPlusOne(w)
