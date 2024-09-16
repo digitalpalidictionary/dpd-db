@@ -55,7 +55,7 @@ func makeSyaFreq() {
 
 	WordList := makeWordList(freqMap)
 	filePath = filepath.Join(
-		tools.Pth.DpdBaseDir, tools.Pth.BjtWordList,
+		tools.Pth.DpdBaseDir, tools.Pth.SyaWordList,
 	)
 	saveWordList(filePath, WordList)
 }
