@@ -16,6 +16,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
       with:
+        repository: 'digitalpalidictionary/dpd-db'
+        ref: 'main'
         submodules: 'recursive'
 
     - name: Install gdown
@@ -68,9 +70,6 @@ jobs:
     - name: Create Inflection Tables
       run: poetry run python db/inflections/generate_inflection_tables.py
 
-    - name: Transliterate Inflections
-      run: poetry run python db/inflections/transliterate_inflections.py
-
     - name: Update Sanskrit Family Roots
       run: poetry run python scripts/sanskrit_root_families_updater.py
 
@@ -89,14 +88,23 @@ jobs:
     - name: Add Idioms
       run: poetry run python db/families/family_idiom.py
 
+    - name: Families to JSON
+      run: poetry run python scripts/families_to_json.py
+
     - name: Deconstructor Setup
       run: poetry run python db/deconstructor/sandhi_setup.py
         
     - name: Deconstructor Splitter
       run: poetry run python db/deconstructor/sandhi_splitter.py
 
-    - name: Deconstructor Postprocess setup
+    - name: Deconstructor Postprocess
       run: poetry run python db/deconstructor/sandhi_postprocess.py
+
+    - name: Add api ca eva iti to inflections 
+      run: poetry run python scripts/api_ca_evi_iti.py
+
+    - name: Transliterate Inflections
+      run: poetry run python db/inflections/transliterate_inflections.py
 
     - name: Inflections to Headwords
       run: poetry run python db/inflections/inflections_to_headwords.py
@@ -112,6 +120,12 @@ jobs:
 
     - name: Add Frequency
       run: poetry run python db/frequency/mapmaker.py
+
+    - name: Update Bold Defintions
+      run: poetry run python db/bold_definitions/update_bold_definitions_db.py
+
+    - name: Add EPD to Lookup Table
+      run: poetry run python db/epd/epd_to_lookup.py
 
     - name: Test Dealbreakers
       run: poetry run python scripts/dealbreakers.py
@@ -130,7 +144,10 @@ jobs:
       run: poetry run python exporter/deconstructor/deconstructor_exporter.py
 
     - name: Export Kindle & ePub
-      run: poetry run python exporter/kindle/kindle_exporter.py
+      run: poetry run python exporter/ebook/ebook_exporter.py
+
+    - name: Export Kobo
+      run: poetry run python exporter/kobo/kobo.py
 
     - name: Zip GoldenDict & Mdict
       run: poetry run python scripts/zip_goldendict_mdict.py
@@ -169,8 +186,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GH_PAT }}
       with:
-        tag_name: ${{ env.RELEASE_TAG }}"
-        release_name: ${{ env.RELEASE_DATE }}"
+        tag_name: ${{ env.RELEASE_TAG }}
+        release_name: ${{ env.RELEASE_DATE }}
         body: |
           Digital Pāḷi Dictionary is a feature-rich Pāḷi dictionary which runs in GoldenDict, MDict, Kindle, ePub and SQLite, or any other application which supports these formats. 
 
@@ -236,4 +253,14 @@ jobs:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: exporter/share/dpd.db.tar.bz2
         asset_name: dpd.db.tar.bz2
+        asset_content_type: application/zip
+
+    - name: Upload Asset dpd-kobo.zip
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: exporter/share/dicthtml-pi-en.zip
+        asset_name: dpd-kobo.zip
         asset_content_type: application/zip
