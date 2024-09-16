@@ -27,9 +27,6 @@ func PRed(error string) {
 }
 
 func PCounter(counter int, total int, word string) {
-	if len(word) > 20 {
-		word = word[:20]
-	}
 	cyan.Printf("%10d / %-10d ", counter, total)
 	white.Printf("%-20s\n", word)
 }

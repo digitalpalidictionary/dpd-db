@@ -19,6 +19,7 @@ var Pth = struct {
 	UnmatchedJson      string
 
 	CstTxtTextDir     string
+	CStXmlDir         string
 	ScJsonTextDir     string
 	BjtRomanJsonDir   string
 	BjtRomanTxtDir    string
@@ -94,6 +95,7 @@ var Pth = struct {
 
 	// Pali text files
 	CstTxtTextDir:     "resources/tipitaka-xml/romn_txt",
+	CStXmlDir:         "resources/tipitaka-xml/romn",
 	ScJsonTextDir:     "resources/sc-data/sc_bilara_data/root/pli/ms",
 	BjtRomanJsonDir:   "resources/tipitaka.lk/public/static/roman_json/",
 	BjtRomanTxtDir:    "resources/tipitaka.lk/public/static/roman_txt/",

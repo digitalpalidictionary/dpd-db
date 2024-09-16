@@ -23,14 +23,9 @@ func makeCstFreq() {
 	tools.Check(err)
 
 	fileFreqMap := map[string]map[string]int{}
-	for i, entry := range directory {
-		// if i == 10 {
-		// 	break
-		// }
+	for i, dirEntry := range directory {
 
-		tools.Check(err)
-
-		fileName := entry.Name()
+		fileName := dirEntry.Name()
 		fileNameClean, _ := strings.CutSuffix(fileName, ".txt")
 		fileNameClean = fileNameClean + ".xml"
 		filePath := filepath.Join(dirName, fileName)
@@ -50,23 +45,18 @@ func makeCstFreq() {
 	filePath := filepath.Join(
 		tools.Pth.DpdBaseDir, tools.Pth.CstFileFreqMap,
 	)
-
 	saveFileFreqMap(filePath, fileFreqMap)
 
 	freqMap := makeFreqMap(fileFreqMap)
-
 	filePath = filepath.Join(
 		tools.Pth.DpdBaseDir, tools.Pth.CstFreqMap,
 	)
-
 	saveFreqMap(filePath, freqMap)
 
 	WordList := makeWordList(freqMap)
-
 	filePath = filepath.Join(
 		tools.Pth.DpdBaseDir, tools.Pth.CstWordList,
 	)
-
 	saveWordList(filePath, WordList)
 
 }
