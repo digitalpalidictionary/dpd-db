@@ -1,68 +1,53 @@
-# Digital Pāḷi Database
+# Digital Pāḷi Dictionary
 
-## Using the DB
-1. Clone this repo
-2. Download **dpd.db.tar.bz2** from [this page](https://github.com/digitalpalidictionary/digitalpalidictionary/releases), 
-3. Unzip and place it in the root of the project folder
-4. Install [poetry](https://python-poetry.org/docs/)
-5. In the terminal, run `poetry install`
-6. See `scripts/db_search_example.py` for a quick tutorial on how to use the database with SQLAlchemy
+DPD is an open-source non-commercial project, proving hi-quality Pāḷi dictionary lookup in multiple formats.
 
+It is made available publicly through a  [Creative Commons Attribution-NonCommercial 4.0 International License](http://creativecommons.org/licenses/by-nc/4.0/)
 
-## Code Structure
-There are four main parts to the code:
-1. Create the database and build up the tables of derived data.
-2. Add new words, edit and update the db with a GUI. 
-3. Run data integrity tests on the db.
-4. Compile all the parts and export into various dictionary formats.
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />
 
-## About the database
-- `DpdHeadwords` and `DpdRoots` tables are the heart of the db, everything else gets derived from those.  
-- They have a relationship `DpdHeadwords.rt.` to access any root information. For example, `DpdHeadwords.rt.root_meaning`
-- There are also lots of `@properties` in `db/models.py` to access useful derived information.  
-- `DpdHeadwords` table also contains lists of inflections of every word in multiple scripts, as well as html inflection tables.
-- `FamilyCompound` table is html of all the compound words which contain a specific word.  
-- `FamilyRoot` table is html of all the words with the same prefix and root.  
-- `FamilySet` table is html of all the words which belong to the same set, e.g. names of monks.  
-- `FamilyWord` table is html of all the words which are derived from a common word without a root.  
-- `InflectionTemplates` table are the templates from which all the inflection tables are derived.  
-<!-- - `Sandhi` table is all the deconstructed compounds which have been split by code.   -->
+## Contributing
 
+[Contributing to the project](docs/contributing.md)
 
+## Technical
 
-## Building the DB
-1. Download this repo
-2. Get [tipitaka-xml](https://github.com/VipassanaTech/tipitaka-xml) with `git
-   submodule init && git submodule update` commands
-3. Install [nodejs](https://nodejs.org/en/download) 
-4. Install [poetry](https://python-poetry.org/docs/)
-5. `poetry install`
-6. `poetry run bash scripts/bash/initial_setup_run_once.sh`
-7. `poetry run bash scripts/bash/build_db.sh`
-8. To be able to run database tests you may need to install some of [these packages.](https://pyperclip.readthedocs.io/en/latest/index.html#not-implemented-error)
+[Build the database from scratch](docs/build_db.md)
 
-That should create an SQLite database `./dpd.db` which can be accessed by [DB Browser](https://sqlitebrowser.org/),  [DBeaver](https://dbeaver.io/), through [SQLAlechmy](https://www.sqlalchemy.org/) or your preferred method. 
+[Use the database with Python](docs/use_db.md)
 
-For a quick tutorial on how to access any information in the db with SQLAlchemy, see `scripts/db_search_example.py`.
+[Project folder structure](docs/project_folder_structure.md)
 
-## Build a complete database locally and extract all dictionaries
+[DPD Headwords table](docs/dpd_headwords_table.md)
 
-⚠️ WARNING: When `db/deconstructor/sandhi_splitter.py` runs with the config option `deconstructor.all_texts = yes`, it will take several hours to complete.
+[Style guide for DPD Headword entries](docs/style_guide_for_dpd_entries.md)
 
-Starting with a fresh clone of the tip:
+## Useful links
 
-``` shell
-git clone --depth=1 https://github.com/digitalpalidictionary/dpd-db.git
-cd dpd-db
-git submodule init && git submodule update
-poetry install
-poetry run bash scripts/bash/build_and_make_all.sh
-```
+- DPD is searchable online [www.dpdict.net](https://www.dpdict.net/)
 
-This creates the `dpd.db` SQLite database. Also it extract all dictionaries see folder `exporter/share`
+- You can always get the latest versions of DPD for your device directly from the [releases page](https://github.com/digitalpalidictionary/digitalpalidictionary/releases) on GitHub.
+
+- Here are detailed instructions on how to install DPD for [Win](https://docs.dpdict.net/install_win.html) /  [Mac](https://docs.dpdict.net/install_mac.html) / [Linux](https://docs.dpdict.net/install_linux.html) / [iOS](https://docs.dpdict.net/install_ios.html) / [Android](https://docs.dpdict.net/install_android_dicttango.html), and [update](https://docs.dpdict.net/update.html) thereafter.
+
+- Tired of downloading updates? Integrate DPD online data into [GoldenDict](https://digitalpalidictionary.github.io/dpdict_api_gd.html) or [DictTango](https://digitalpalidictionary.github.io/dpdict_api_dt.html).  
+
+- Do you have a __Kindle__? Here's how to [add DPD as a Kindle dictionary](https://digitalpalidictionary.github.io/kindle.html) or[ download the epub](https://github.com/digitalpalidictionary/digitalpalidictionary/releases) for Send-to-Kindle
+
+- DPD is easy to install on a [Kobo eReader](https://digitalpalidictionary.github.io/kobo.html)
+
+- DPD is integrated into Tipitaka Pali Reader ([Win](https://apps.microsoft.com/store/detail/tipitaka-pali-reader/9MTH9TD82TGR?hl=en-ms&gl=ms) / [Mac](https://apps.apple.com/us/app/tipitaka-pali-reader/id1541426949) / [Linux](https://github.com/bksubhuti/tipitaka-pali-reader/releases/) / [iOS](https://apps.apple.com/us/app/tipitaka-pali-reader/id1541426949) / [Android](https://play.google.com/store/apps/details?id=com.paauk.tipitakapalireader)). Here's how to get the latest version of DPD inside TPR.  
+
+- DPD is integrated into the [The Buddha's Words website](https://thebuddhaswords.net/home/index.html) for a smooth reading experience. 
+
+- DPD is integrated into the [Simsapa Dhamma Reader](https://simsapa.github.io/), an all-in-one desktop application for Pāḷi and Sanskrit study.
+
+- DPD is integrated into the [Sutta Central website](https://suttacentral.net/), a global resource for Pāḷi texts and translations.
+
+- More Pāḷi and Sanskrit dictionaries for GoldenDict and MDict are [available for download here](https://github.com/digitalpalidictionary/dpd-db/tree/main/exporter/other_dictionaries). 
+
+- The details of all this month's software developments and [change-log are here](https://digitalpalidictionary.github.io/changelog.html).
+
+- Anything else you need to know about DPD can be found on the [DPD website](https://digitalpalidictionary.github.io/titlepage.html).
 
 
-## Additional configuration
-
-1. install dictzip, [link for Linux](https://linux-packages.com/ubuntu-24-04/package/dictzip)
-2. install tkinter, [link for Linux](https://www.pythonguis.com/installation/install-tkinter-linux/)

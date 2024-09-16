@@ -39,6 +39,16 @@ Where are all the parts of the project located?
 ├── tests  
 └── tools  
 
+
+## Code Structure
+
+There are four main parts to the code:
+
+1. __db__: Create the database and build up the tables of derived data.
+2. __gui__: Add new words, edit and update the db with a GUI. 
+3. __tests__: Run data integrity tests on the db.
+4. __exporter__: Compile all the parts and export into various dictionary formats.
+
 ## Folder details
 
 - **db/** All code related to building and populating the various tables and columns of the database.
