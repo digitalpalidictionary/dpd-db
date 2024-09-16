@@ -1,0 +1,7 @@
+*.go linguist-language=Go
+*.py linguist-language=Python
+*.md linguist-documentation
+
+# Ignore
+/resources/* linguist-vendored
+/temp/* linguist-vendored
