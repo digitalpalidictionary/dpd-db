@@ -1,5 +1,5 @@
 """Render tab to add the next missing word from a text."""
-from tooltips import sutta_codes, corresponding_quick_links
+from tooltips import sutta_codes
 
 def make_tab_add_next_word(sg, username):
 
@@ -26,11 +26,6 @@ def make_tab_add_next_word(sg, username):
                 tooltip="only in dps db", 
                 visible=username == "deva",
                 pad=((10, 0), (20, 20))
-            ),
-            sg.Text(
-                "links",
-                tooltip=corresponding_quick_links,
-                visible=username == "deva",
             ),
             sg.Text(
                 "sutta codes",

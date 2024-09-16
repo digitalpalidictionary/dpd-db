@@ -51,20 +51,6 @@ KN
 20. peṭakopadesa\t\tkn20
 """
 
-corresponding_quick_links = """
-DN
-01. sīlakkhandhavagga
-02. mahāvagga (>=DN14)
-03. pāthikavagga (>=DN24)
-
-SN
-01. sagāthāvagg
-02. nidānavaggo (>=SN12)
-03. khandhavaggo (>=SN22)
-04. saḷāyatanavaggo (>=SN35)
-05. mahāvaggo (>=SN45)
-"""
-
 types_of_comp = """
 acc - dutiyā
 instr - tatiyā

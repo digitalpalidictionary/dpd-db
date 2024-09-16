@@ -101,13 +101,13 @@ def add_sandhi_correction(pth, window, values: dict) -> None:
     else:
 
         with open(
-                pth.manual_corrections_path, mode="a", newline="") as file:
+                pth.decon_manual_corrections, mode="a", newline="") as file:
             writer = csv.writer(file, delimiter="\t")
             writer.writerow([sandhi_to_correct, sandhi_correction])
         
         # also add to sandhi ok
         with open(
-                pth.sandhi_ok_path, mode="a", newline="") as file:
+                pth.decon_checked, mode="a", newline="") as file:
             writer = csv.writer(file, delimiter="\t")
             writer.writerow([sandhi_to_correct])
         
@@ -119,7 +119,7 @@ def add_sandhi_correction(pth, window, values: dict) -> None:
 
 def open_sandhi_corrections(pth):
     subprocess.Popen(
-        ["code", pth.manual_corrections_path])
+        ["code", pth.decon_manual_corrections])
 
 
 def add_sandhi_rule(pth, window, values: dict) -> None:
@@ -220,12 +220,12 @@ def open_variant_readings(pth):
 
 def open_sandhi_ok(pth):
     subprocess.Popen(
-        ["code", pth.sandhi_ok_path])
+        ["code", pth.decon_checked])
 
 
 def open_sandhi_exceptions(pth):
     subprocess.Popen(
-        ["code", pth.sandhi_exceptions_path])
+        ["code", pth.decon_exceptions])
 
 
 def add_stem_pattern(values, window):
@@ -799,7 +799,7 @@ def make_variant_list(pth):
 
 
 def make_sandhi_ok_list(pth):
-    with open(pth.sandhi_ok_path) as f:
+    with open(pth.decon_checked) as f:
         reader = csv.reader(f, delimiter="\t")
         sandhi_ok_list = [row[0] for row in reader]
 
@@ -813,7 +813,7 @@ def open_inflection_tables(pth):
 
 
 def sandhi_ok(pth, window, word,):
-    with open(pth.sandhi_ok_path, "a", newline="") as csvfile:
+    with open(pth.decon_checked, "a", newline="") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow([word])
     window["messages"].update(f"{word} added", text_color="white")
