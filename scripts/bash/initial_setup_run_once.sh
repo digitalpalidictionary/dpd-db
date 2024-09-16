@@ -4,9 +4,15 @@ set -e
 # setup config.ini file
 tools/configger.py
 
-# setup CST texts for frequency mapping
-db/frequency/cst4_xml_to_txt.py
-db/frequency/corpus_counter.py
+# convert CST xml to txt
+scripts/build/cst4_xml_to_txt.py
+
+# transliterate BJT files and save to json and txt
+scripts/build/transliterate_tipitaka_lk.py
+
+# make frequency maps of all the Pāḷi texts
+go run go_modules/frequency/setup/*.go
 
 # setup bold definitions database
 db/bold_definitions/extract_bold_definitions.py
+

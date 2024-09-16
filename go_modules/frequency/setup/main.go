@@ -1,5 +1,7 @@
 package main
 
+import "dpd/go_modules/tools"
+
 // Saves a JSON of
 //
 // 1. word frequency in every individual file of CST, SC & BJT
@@ -14,8 +16,14 @@ package main
 //
 // 3. every word in CST, SC & BJT
 func main() {
+	tools.PTitle("saving frequency files and word lists")
+
+	tic := tools.Tic()
+
 	makeCstFreq()
 	makeScFreq()
 	makeBjtFreq()
 	makeSyaFreq()
+
+	tic.Toc()
 }

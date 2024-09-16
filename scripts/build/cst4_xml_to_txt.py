@@ -9,18 +9,22 @@ from aksharamukha import transliterate
 from rich import print
 
 from tools.paths import ProjectPaths
+from tools.printer import p_counter, p_title
+from tools.tic_toc import tic, toc
 
 
 def main():
     """Run it."""
-    print("[bright_yellow]convert cst4 xml to txt")
+
+    tic()
+    p_title("convert cst4 xml to txt")
 
     pth = ProjectPaths()
 
+    counter = 1
     for filename in sorted(os.listdir(pth.cst_xml_dir)):
         if "xml" in filename and "toc" not in filename:
-            print(f"[green]{filename:<40}", end="")
-
+            p_counter(counter, 217, filename)
             try:
                 with open(
                         pth.cst_xml_dir.joinpath(filename), 'r',
@@ -43,13 +47,11 @@ def main():
                                 ".txt"), "w") as f:
                         f.write(text_translit)
 
-                    print("ok")
-
             except Exception:
                 print(f"[bright_red]ERROR: {filename} failed!")
-
-        # else:
-        #     print("[red]not .xml file: skipped")
+            
+            counter += 1
+    toc()
 
 
 if __name__ == "__main__":

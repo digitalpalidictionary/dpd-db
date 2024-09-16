@@ -12,7 +12,7 @@ var pl = fmt.Println
 var pf = fmt.Printf
 
 func makeCstFreq() {
-	pl("Save word frequency in cst to JSON")
+	tools.PGreenTitle("Save word frequency in CST to JSON")
 
 	dirName := filepath.Join(
 		tools.Pth.DpdBaseDir,
@@ -30,7 +30,7 @@ func makeCstFreq() {
 		fileNameClean = fileNameClean + ".xml"
 		filePath := filepath.Join(dirName, fileName)
 
-		pf("%v / %v %v\n", i+1, len(directory), filePath)
+		tools.PCounter(i+1, len(directory), filePath)
 
 		dataRead, err := os.ReadFile(filePath)
 		tools.Check(err)
@@ -62,16 +62,18 @@ func makeCstFreq() {
 }
 
 func saveFileFreqMap(filePath string, fileFreqMap map[string]map[string]int) {
-	pf("saving file freq json ")
+	tools.PGreen("saving file freq json")
 
 	ok := tools.SaveJson(filePath, fileFreqMap)
 	if ok {
-		pf("%v ok\n", len(fileFreqMap))
+		tools.POk(len(fileFreqMap))
+	} else {
+		tools.PRed("error while saving")
 	}
 }
 
 func makeFreqMap(fileFreqMap map[string]map[string]int) map[string]int {
-	pf("making freq map ")
+	tools.PGreen("making freq map")
 	freqMap := map[string]int{}
 
 	for _, FreqMap := range fileFreqMap {
@@ -79,33 +81,37 @@ func makeFreqMap(fileFreqMap map[string]map[string]int) map[string]int {
 			freqMap[word] = freqMap[word] + freq
 		}
 	}
-	pl(len(freqMap))
+	tools.POk(len(freqMap))
 	return freqMap
 }
 
 func saveFreqMap(filePath string, FreqMap map[string]int) {
-	pf("saving freq json ")
+	tools.PGreen("saving freq json ")
 	ok := tools.SaveJson(filePath, FreqMap)
 	if ok {
-		pf("%v ok\n", len(FreqMap))
+		tools.POk(len(FreqMap))
+	} else {
+		tools.PRed("error while saving")
 	}
 }
 
 func makeWordList(cstFreqMap map[string]int) []string {
-	pf("making wordlist ")
+	tools.PGreen("making wordlist ")
 	WordList := []string{}
 	for word := range cstFreqMap {
 		WordList = append(WordList, word)
 	}
-	pf("%v\n", len(WordList))
+	tools.POk(len(WordList))
 	return WordList
 }
 
 func saveWordList(filePath string, cstWordList []string) {
-	pf("saving wordlist json ")
+	tools.PGreen("saving wordlist json ")
 
 	ok := tools.SaveJson(filePath, cstWordList)
 	if ok {
-		pf("%v ok\n", len(cstWordList))
+		tools.POk(len(cstWordList))
+	} else {
+		tools.PRed("error while saving")
 	}
 }

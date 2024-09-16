@@ -10,7 +10,7 @@ import (
 )
 
 func makeScFreq() {
-	pl("Save word frequency in Sutta Central to JSON")
+	tools.PGreenTitle("Save word frequency in Sutta Central to JSON")
 
 	fileFreqMap := map[string]map[string]int{}
 
@@ -24,7 +24,9 @@ func makeScFreq() {
 
 	for i, fileName := range fileList {
 		filePath := filepath.Join(baseDir, fileName)
-		pf("%v / %v %v\n", i+1, len(fileList), filePath)
+		relPath, err := filepath.Rel(baseDir, filePath)
+		tools.Check(err)
+		tools.PCounter(i+1, len(fileList), relPath)
 
 		var jsonData map[string]string
 		jsonData = tools.ReadJsonMapStringString(filePath, jsonData)
@@ -80,7 +82,6 @@ func makeFileList(baseDir string) []string {
 				relativePath, err := filepath.Rel(baseDir, path)
 				tools.Check(err)
 				fileList = append(fileList, relativePath)
-				pl(relativePath)
 			}
 			return nil
 		})

@@ -49,18 +49,24 @@ func CleanMachine(text string, niggahita string, addHyphenatedWords bool, source
 	switch source {
 
 	case "cst":
+		// replace letters
+		text = strings.Replace(text, `t_`, `v`, -1) // ???
+		text = strings.Replace(text, `ï`, `i`, -1)
+		text = strings.Replace(text, `ü`, `u`, -1)
+
+		// no space
 		text = strings.Replace(text, `'`, ``, -1)
 		text = strings.Replace(text, "`", ``, -1)
+		text = strings.Replace(text, "_", ``, -1)
+
+		// needs space
 		text = strings.Replace(text, `+`, ` `, -1)
 		text = strings.Replace(text, `=`, ` `, -1)
 		text = strings.Replace(text, `^`, ` `, -1)
 		text = strings.Replace(text, `\`, ` `, -1)
 		text = strings.Replace(text, `§`, ` `, -1)
 		text = strings.Replace(text, ` - `, ` `, -1)
-		text = strings.Replace(text, `t_`, `v`, -1) // ???
 		text = strings.Replace(text, `॰`, ` `, -1)
-		text = strings.Replace(text, `ï`, `i`, -1)
-		text = strings.Replace(text, `ü`, `u`, -1)
 		text = strings.Replace(text, `ḥ`, ` `, -1)
 		text = strings.Replace(text, `ṛ`, ` `, -1)
 
@@ -260,7 +266,6 @@ func characterTest(text string, textSet string) {
 		}
 	}
 
-	pl(text)
 	if len(errors) > 0 {
 		for _, e := range errors {
 			pf("error: %v string: %v char: %c unicode: %U \n", e, string(e), e, e)

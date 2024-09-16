@@ -8,7 +8,7 @@ import (
 )
 
 func makeSyaFreq() {
-	pl("Save word frequency in Syam to JSON")
+	tools.PGreenTitle("Save word frequency in Thai texts to JSON")
 
 	fileFreqMap := map[string]map[string]int{}
 
@@ -19,6 +19,7 @@ func makeSyaFreq() {
 
 	folders := []string{"canon", "commentary"}
 
+	counter := 1
 	for _, folder := range folders {
 		dirName := filepath.Join(baseDir, folder)
 
@@ -29,8 +30,7 @@ func makeSyaFreq() {
 
 			fileName := file.Name()
 			filePath := filepath.Join(dirName, fileName)
-			// pf("%v / %v %v\n", i+1, len(directory), filePath)
-			pl(filepath.Rel(baseDir, filePath))
+			tools.PCounter(counter, 115, filePath)
 
 			dataRead, err := os.ReadFile(filePath)
 			tools.Check(err)
@@ -40,6 +40,7 @@ func makeSyaFreq() {
 			textList := strings.Split(textClean, " ")
 			freqMap := tools.ListCounter(textList)
 			fileFreqMap[fileName] = freqMap
+			counter++
 		}
 	}
 	filePath := filepath.Join(

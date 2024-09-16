@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 
-"""Transliterate tipitaka.lk texts from Sinhala to Roman script."""
+"""
+Transliterate tipitaka.lk texts from Sinhala to Roman script.
+Save as json and text as well as complete books"""
 
 import json
 from os import walk
+import os
 from tools.bjt import get_bjt_file_names, get_bjt_json, process_single_bjt_file
 from tools.pali_text_files import bjt_texts
 from tools.paths import ProjectPaths
-from tools.printer import p_green, p_title, p_yes
+from tools.printer import p_counter, p_green, p_green_title, p_title, p_yes
 from tools.sinhala_tools import translit_si_to_ro
 from tools.tic_toc import tic, toc
 
@@ -15,13 +18,13 @@ pth = ProjectPaths()
 sinhala_dir = pth.bjt_sinhala_dir
 roman_dir = pth.bjt_roman_json
 
-def main():
+def transliterate_json():
     tic()
-    p_title("transliterating tipitaka.lk")
+    p_title("transliterating tipitaka.lk json files")
 
     for root, dirs, files in walk(sinhala_dir):
         for counter, file in enumerate(files, 1):
-            p_green(f"{counter:<10}{file}")
+            p_counter(counter, 285, file)
             in_path = sinhala_dir.joinpath(file)
             out_path = roman_dir.joinpath(file)
             
@@ -32,8 +35,7 @@ def main():
             
             with open(out_path, "w") as f:
                 f.write(roman)
-            
-            p_yes("")
+    
     toc()
 
 
@@ -71,34 +73,6 @@ def test_file_names():
     p_yes(f"{x}")
 
 
-
-def save_books_to_text():
-    """Save each book in BJT to a text file."""
-
-    p_title("saving BJT books to text file")
-    file_dir = pth.bjt_books
-
-    for book in bjt_texts:
-        p_green(book)
-        bjt_file_names = get_bjt_file_names([book])
-        json_dicts = get_bjt_json(bjt_file_names)
-        bjt_text = ""
-        for json_dict in json_dicts:
-            bjt_text += process_single_bjt_file(
-                json_dict,
-                convert_bold_tags = False,
-                footnotes_inline = False,
-                show_page_numbers = True,
-                show_metadata = True)
-
-        file_path = file_dir \
-            .joinpath(book) \
-            .with_suffix(".txt") 
-        with open(file_path, "w") as f:
-            f.write(bjt_text)
-        p_yes("")
-
-
 def make_index():
     """Make an index of 
     ```
@@ -134,10 +108,60 @@ def make_index():
     save_path = pth.bjt_dir.joinpath("index.json")
     with open(save_path, "w") as f:
         json.dump(list_of_tuples, f, ensure_ascii=False, indent=1)
-        
+
+
+def save_books():
+    """Save each book in BJT to a text file."""
+
+    tic()
+
+    p_title("saving BJT books")
+    file_dir = pth.bjt_books
+
+    for counter, book in enumerate(bjt_texts):
+        p_counter(counter, len(bjt_texts), book)
+        bjt_file_names = get_bjt_file_names([book])
+        json_dicts = get_bjt_json(bjt_file_names)
+        bjt_text = ""
+        for json_dict in json_dicts:
+            bjt_text += process_single_bjt_file(
+                json_dict,
+                convert_bold_tags = False,
+                footnotes_inline = False,
+                show_page_numbers = True,
+                show_metadata = True)
+
+        file_path = file_dir \
+            .joinpath(book) \
+            .with_suffix(".txt") 
+        with open(file_path, "w") as f:
+            f.write(bjt_text)
+    toc()
+
+
+def save_text_files() -> None:
+    "Save all BJT json to text files"
+    
+    tic()
+    p_title("saving BJT to text files")
+
+    counter = 1
+    for root, dirs, files in os.walk(pth.bjt_roman_json):
+        for file in files:
+            bjt_dicts = get_bjt_json([file])
+            bjt_text = ""
+            for bjt_dict in bjt_dicts:
+                bjt_text += process_single_bjt_file(bjt_dict)
+            file_path = pth.bjt_roman_txt.joinpath(f"{file}.txt")
+            with open(file_path, "w") as f:
+                f.write(bjt_text)
+            p_counter(counter, 285, file)
+            counter += 1
+    toc()
+
 
 if __name__ == "__main__":
-    # main()
-    # test_file_names()
-    # save_books_to_text()
-    make_index()
+    transliterate_json()
+    save_books()
+    save_text_files()
+    

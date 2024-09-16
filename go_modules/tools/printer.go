@@ -1,6 +1,8 @@
 package tools
 
 import (
+	"fmt"
+
 	"github.com/fatih/color"
 )
 
@@ -11,6 +13,7 @@ var red = color.New(color.FgHiRed).Add(color.Bold)
 var white = color.New(color.FgWhite)
 
 func PTitle(title string) {
+	fmt.Println()
 	yellow.Println(title)
 }
 
@@ -19,11 +22,15 @@ func PGreenTitle(subtitle string) {
 }
 
 func PGreen(subtitle string) {
-	green.Printf(subtitle)
+	green.Printf("%-30s", subtitle)
 }
 
 func PRed(error string) {
 	red.Println(error)
+}
+
+func POk(text any) {
+	white.Println(text)
 }
 
 func PCounter(counter int, total int, word string) {

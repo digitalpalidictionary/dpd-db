@@ -8,7 +8,7 @@ import (
 )
 
 func makeBjtFreq() {
-	pl("Save word frequency in BJT to JSON")
+	tools.PGreenTitle("Save word frequency in BJT to JSON")
 
 	dirName := filepath.Join(
 		tools.Pth.DpdBaseDir,
@@ -23,7 +23,7 @@ func makeBjtFreq() {
 		fileName := file.Name()
 		fileNameClean := strings.TrimSuffix(fileName, ".txt")
 		filePath := filepath.Join(dirName, fileName)
-		pf("%v / %v %v\n", i+1, len(directory), filePath)
+		tools.PCounter(i+1, len(directory), filePath)
 
 		dataRead, err := os.ReadFile(filePath)
 		tools.Check(err)
