@@ -116,7 +116,7 @@ func makeDpdWords() {
 
 		comp := i.Example1 + " " + i.Example2 + " " + i.Commentary
 		compClean := tools.CleanMachine(comp, "ṃ", true, "dpd")
-		compCleanList := strings.Split(compClean, " ")
+		compCleanList := strings.Fields(compClean)
 		for _, word := range compCleanList {
 			ic.dpdWords[word] = ""
 		}
@@ -162,15 +162,15 @@ func makeSyaWords() {
 func makeOtherPaliTexts() {
 	filePath := filepath.Join(tools.Pth.DpdBaseDir, tools.Pth.OtherPaliTextsDir)
 	dir, err := os.ReadDir(filePath)
-	tools.Check(err)
+	tools.HardCheck(err)
 
 	for _, file := range dir {
 		fileName := filepath.Join(filePath, file.Name())
 		data, err := os.ReadFile(fileName)
-		tools.Check(err)
+		tools.HardCheck(err)
 
 		cleanText := tools.CleanMachine(string(data), "ṃ", true, "other")
-		for _, word := range strings.Split(cleanText, " ") {
+		for _, word := range strings.Fields(cleanText) {
 			ic.otherPaliWords[word] = ""
 		}
 	}
@@ -208,7 +208,7 @@ func makeAbbreviations() {
 	err := db.Select(columns).
 		Where("pos = ?", "abbrev").
 		Find(&results)
-	tools.Check(err.Error)
+	tools.HardCheck(err.Error)
 
 	for _, i := range results {
 		ic.abbreviations[i.LemmaClean()] = ""
@@ -241,7 +241,7 @@ func makeAllInflections() {
 	err := db.Select(columns).
 		Where("pos NOT IN ?", exceptionsList).
 		Find(&results)
-	tools.Check(err.Error)
+	tools.HardCheck(err.Error)
 
 	for _, i := range results {
 		for _, inflection := range i.InflectionsList() {

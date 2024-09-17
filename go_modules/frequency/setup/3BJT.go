@@ -16,7 +16,7 @@ func makeBjtFreq() {
 	)
 
 	directory, err := os.ReadDir(dirName)
-	tools.Check(err)
+	tools.HardCheck(err)
 
 	fileFreqMap := map[string]map[string]int{}
 	for i, file := range directory {
@@ -26,11 +26,11 @@ func makeBjtFreq() {
 		tools.PCounter(i+1, len(directory), filePath)
 
 		dataRead, err := os.ReadFile(filePath)
-		tools.Check(err)
+		tools.HardCheck(err)
 
 		text := string(dataRead)
 		textClean := tools.CleanMachine(text, "ṃ", true, "bjt")
-		textList := strings.Split(textClean, " ")
+		textList := strings.Fields(textClean)
 		freqMap := tools.ListCounter(textList)
 		fileFreqMap[fileNameClean] = freqMap
 	}

@@ -394,7 +394,7 @@ func (m MatchData) SaveToDb() {
 		_, exists := m.TopFive[l.Key]
 		if exists {
 			jsonData, err := json.Marshal(m.TopFive[l.Key])
-			tools.Check(err)
+			tools.HardCheck(err)
 			l.Deconstructor = string(jsonData)
 			updatedResults = append(updatedResults, l)
 			updatedCount++
@@ -417,7 +417,7 @@ func (m MatchData) SaveToDb() {
 			l := dpdDb.Lookup{}
 			l.Key = key
 			jsonData, err := json.Marshal(value)
-			tools.Check(err)
+			tools.HardCheck(err)
 			l.Deconstructor = string(jsonData)
 			updatedResults = append(updatedResults, l)
 			addedCount++

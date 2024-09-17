@@ -25,7 +25,7 @@ func makeScFreq() {
 	for i, fileName := range fileList {
 		filePath := filepath.Join(baseDir, fileName)
 		relPath, err := filepath.Rel(baseDir, filePath)
-		tools.Check(err)
+		tools.HardCheck(err)
 		tools.PCounter(i+1, len(fileList), relPath)
 
 		var jsonData map[string]string
@@ -37,7 +37,7 @@ func makeScFreq() {
 		}
 
 		textClean := tools.CleanMachine(compiledText, "ṃ", true, "sc")
-		textList := strings.Split(textClean, " ")
+		textList := strings.Fields(textClean)
 		freqMap := tools.ListCounter(textList)
 		fileFreqMap[fileName] = freqMap
 	}
@@ -73,19 +73,19 @@ func makeFileList(baseDir string) []string {
 	err := filepath.Walk(
 		baseDir,
 		func(path string, info fs.FileInfo, err error) error {
-			tools.Check(err)
+			tools.HardCheck(err)
 
 			if info.IsDir() && info.Name() == skipFolder {
 				return filepath.SkipDir
 			}
 			if !info.IsDir() {
 				relativePath, err := filepath.Rel(baseDir, path)
-				tools.Check(err)
+				tools.HardCheck(err)
 				fileList = append(fileList, relativePath)
 			}
 			return nil
 		})
-	tools.Check(err)
+	tools.HardCheck(err)
 	return fileList
 }
 
@@ -96,6 +96,6 @@ func writeFileList(fileList []string) {
 		fileString = fileString + file + "\n"
 	}
 	file, err := os.Create("temp.txt")
-	tools.Check(err)
+	tools.HardCheck(err)
 	file.Write([]byte(fileString))
 }

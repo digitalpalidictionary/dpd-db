@@ -20,7 +20,7 @@ func makeCstFreq() {
 	)
 
 	directory, err := os.ReadDir(dirName)
-	tools.Check(err)
+	tools.HardCheck(err)
 
 	fileFreqMap := map[string]map[string]int{}
 	for i, dirEntry := range directory {
@@ -33,11 +33,11 @@ func makeCstFreq() {
 		tools.PCounter(i+1, len(directory), filePath)
 
 		dataRead, err := os.ReadFile(filePath)
-		tools.Check(err)
+		tools.HardCheck(err)
 
 		text := string(dataRead)
 		textClean := tools.CleanMachine(text, "ṃ", true, "cst")
-		textList := strings.Split(textClean, " ")
+		textList := strings.Fields(textClean)
 		freqMap := tools.ListCounter(textList)
 		fileFreqMap[fileNameClean] = freqMap
 	}

@@ -8,6 +8,8 @@ require (
 	gorm.io/gorm v1.25.12
 )
 
+require gopkg.in/ini.v1 v1.67.0 // indirect
+
 require (
 	github.com/fatih/color v1.17.0 // direct
 	github.com/jinzhu/inflection v1.0.0 // indirect

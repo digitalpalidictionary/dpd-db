@@ -3,5 +3,5 @@
 *.md linguist-documentation
 
 # Ignore
-/resources/* linguist-vendored
-/temp/* linguist-vendored
+resources/* linguist-vendored
+temp/* linguist-vendored

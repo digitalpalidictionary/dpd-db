@@ -32,7 +32,7 @@ func SaveTsv(
 func ReadText(filePath string) []string {
 
 	data, err := os.ReadFile(filePath)
-	Check(err)
+	HardCheck(err)
 	return strings.Split((string(data)), "\n")
 }
 

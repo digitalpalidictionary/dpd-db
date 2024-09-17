@@ -50,6 +50,7 @@ var Pth = struct {
 	CstFileMap string
 	ScFileMap  string
 	BjtFileMap string
+	SyaFileMap string
 
 	CstTemplate      string
 	ScTemplate       string
@@ -106,6 +107,7 @@ var Pth = struct {
 	CstFileMap: "go_modules/frequency/file_maps/cst_file_map.json",
 	ScFileMap:  "go_modules/frequency/file_maps/sc_file_map.json",
 	BjtFileMap: "go_modules/frequency/file_maps/bjt_file_map.json",
+	SyaFileMap: "go_modules/frequency/file_maps/sya_file_map.json",
 
 	// templates
 	CstTemplate:      "go_modules/frequency/templates/cst_template.html",

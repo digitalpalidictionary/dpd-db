@@ -902,6 +902,7 @@ def render_frequency_templ(
     if (
         i.freq_data_unpack["CstFreq"] == []
         and i.freq_data_unpack["BjtFreq"] == []
+        and i.freq_data_unpack["SyaFreq"] == []
         and i.freq_data_unpack["ScFreq"] == []
     ):
         header = f"There are no matches of <b>{i.lemma_1}</b> in any corpus."

@@ -8,16 +8,8 @@ import (
 var pl = fmt.Println
 
 func main() {
-	t := tools.Tic()
-	tools.PTitle("this is the program")
-	tools.PGreenTitle("is does some stuff")
+	// x := tools.IniRead("deconstructor", "all_texts")
+	pl(tools.IniRead("deconstructor", "all_text"))
 
-	i := 10
-	for count := range i {
-		tools.PCounter(count, i, "some text")
-	}
-
-	tools.PGreenTitle("and then it finsihes")
-
-	t.Toc()
+	tools.IniSet("deconstructor", "all_texts", "yes")
 }

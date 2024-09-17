@@ -25,7 +25,7 @@ func GetDb() *gorm.DB {
 	db, err := gorm.Open(sqlite.Open(dbPath), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Error),
 	})
-	tools.Check(err)
+	tools.HardCheck(err)
 	return db
 }
 
@@ -45,7 +45,7 @@ func GetDpdHeadwords() (*gorm.DB, []DpdHeadword) {
 	db := GetDb()
 	var results []DpdHeadword
 	err := db.Find(&results)
-	tools.Check(err.Error)
+	tools.HardCheck(err.Error)
 	return db, results
 }
 
@@ -54,7 +54,7 @@ func GetColumns(columns []string) (*gorm.DB, []DpdHeadword) {
 
 	var results []DpdHeadword
 	err := db.Select(columns).Find(&results)
-	tools.Check(err.Error)
+	tools.HardCheck(err.Error)
 
 	return db, results
 }
@@ -67,7 +67,7 @@ func GetSelectWhere() (*gorm.DB, []DpdHeadword) {
 	err := db.Select("id", "lemma_1", "pos").
 		Where("pos = ?", "abbrev").
 		Find(&results)
-	tools.Check(err.Error)
+	tools.HardCheck(err.Error)
 
 	return db, results
 }
@@ -83,7 +83,7 @@ func GetLookup() (*gorm.DB, []Lookup) {
 	db := GetDb()
 	var results []Lookup
 	err := db.Find(&results)
-	tools.Check(err.Error)
+	tools.HardCheck(err.Error)
 	return db, results
 }
 

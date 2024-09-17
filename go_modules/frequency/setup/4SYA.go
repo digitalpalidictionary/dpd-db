@@ -24,22 +24,24 @@ func makeSyaFreq() {
 		dirName := filepath.Join(baseDir, folder)
 
 		directory, err := os.ReadDir(dirName)
-		tools.Check(err)
+		tools.HardCheck(err)
 
 		for _, file := range directory {
 
 			fileName := file.Name()
 			filePath := filepath.Join(dirName, fileName)
+			filePathRel, err := filepath.Rel(baseDir, filePath)
+			tools.HardCheck(err)
 			tools.PCounter(counter, 115, filePath)
 
 			dataRead, err := os.ReadFile(filePath)
-			tools.Check(err)
+			tools.HardCheck(err)
 
 			text := string(dataRead)
 			textClean := tools.CleanMachine(text, "ṃ", false, "sya")
-			textList := strings.Split(textClean, " ")
+			textList := strings.Fields(textClean)
 			freqMap := tools.ListCounter(textList)
-			fileFreqMap[fileName] = freqMap
+			fileFreqMap[filePathRel] = freqMap
 			counter++
 		}
 	}

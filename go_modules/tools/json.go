@@ -86,7 +86,7 @@ func ReadJsonBjt(
 	object map[string][]map[string]map[string][]map[string]string,
 ) map[string][]map[string]map[string][]map[string]string {
 	data, err := os.ReadFile(filePath)
-	Check(err)
+	HardCheck(err)
 
 	if !json.Valid(data) {
 		panic("invalid JSON!")
@@ -139,7 +139,7 @@ func JsonMarshall(data interface{}) string {
 	enc.SetIndent("", "")    // Set indentation to 0 spaces
 
 	err := enc.Encode(data)
-	Check(err)
+	HardCheck(err)
 
 	return buf.String()
 }

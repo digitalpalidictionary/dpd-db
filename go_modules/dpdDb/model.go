@@ -166,9 +166,17 @@ func (d DpdHeadword) InflectionsListApiCaEvaIti() []string {
 }
 
 func (d DpdHeadword) InflectionsListALl() []string {
+
 	inflectionsListAll := []string{}
-	inflectionsListAll = append(inflectionsListAll, d.InflectionsList()...)
-	inflectionsListAll = append(inflectionsListAll, d.InflectionsListApiCaEvaIti()...)
+
+	if list := d.InflectionsList(); len(list) > 0 {
+		inflectionsListAll = append(inflectionsListAll, list...)
+	}
+
+	if list := d.InflectionsListApiCaEvaIti(); len(list) > 0 {
+		inflectionsListAll = append(inflectionsListAll, list...)
+	}
+
 	return inflectionsListAll
 }
 
@@ -203,13 +211,13 @@ func (Lookup) TableName() string {
 
 func (l *Lookup) DeconstructorPack(deconList []string) {
 	deconJson, err := json.Marshal(deconList)
-	tools.Check(err)
+	tools.HardCheck(err)
 	l.Deconstructor = string(deconJson)
 }
 
 func (l Lookup) DeconstructorUnpack() []string {
 	deconList := []string{}
 	err := json.Unmarshal([]byte(l.Deconstructor), &deconList)
-	tools.Check(err)
+	tools.HardCheck(err)
 	return deconList
 }

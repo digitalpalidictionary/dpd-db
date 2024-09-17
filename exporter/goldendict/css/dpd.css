@@ -189,30 +189,6 @@ a.button:hover {
     display: none;
 }
 
-.freq-table-container {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.freq-table-wrapper {
-    flex: 1 1 auto;
-    min-width: 300px;
-    box-sizing: border-box;
-}
-
-.freq-table-wrapper p {
-    white-space: nowrap;
-}
-
-@media (max-width: 768px) {
-    .freq-table-container {
-        flex-direction: column;
-    }
-
-    .freq-table-wrapper {
-        width: 100%;
-    }
-}
 
 table.freq th,
 table.freq td {
@@ -253,6 +229,11 @@ table.freq td {
 
 td.void {
     border: 0px solid transparent;
+}
+
+td.gap {
+    border: 0px solid transparent;
+    width: 10px;
 }
 
 td.gr0 {

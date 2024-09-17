@@ -20,10 +20,12 @@ var templ = makeTemplate()
 
 var CstFileMap = []map[string][]string{}
 var CstFileFreqMap = map[string]map[string]int{}
-var ScFileMap = []map[string][]string{}
-var ScFileFreqMap = map[string]map[string]int{}
 var BjtFileMap = []map[string][]string{}
 var BjtFileFreqMap = map[string]map[string]int{}
+var SyaFileMap = []map[string][]string{}
+var SyaFileFreqMap = map[string]map[string]int{}
+var ScFileMap = []map[string][]string{}
+var ScFileFreqMap = map[string]map[string]int{}
 
 var htmlStash = map[int]string{}
 var dataStash = map[int]string{}
@@ -44,17 +46,6 @@ func init() {
 	)
 	CstFileFreqMap = tools.ReadJsonMapStringMapStringInt(filePath, CstFileFreqMap)
 
-	// sc fileMap
-	filePath = tools.Pth.ScFileMap
-	ScFileMap = tools.ReadJsonSliceMapStringSliceString(filePath, ScFileMap)
-
-	// sc fileFreqMap
-	filePath = filepath.Join(
-		tools.Pth.DpdBaseDir,
-		tools.Pth.ScFileFreqMap,
-	)
-	ScFileFreqMap = tools.ReadJsonMapStringMapStringInt(filePath, ScFileFreqMap)
-
 	// bjt fileMap
 	filePath = tools.Pth.BjtFileMap
 	BjtFileMap = tools.ReadJsonSliceMapStringSliceString(filePath, BjtFileMap)
@@ -65,6 +56,28 @@ func init() {
 		tools.Pth.BjtFileFreqMap,
 	)
 	BjtFileFreqMap = tools.ReadJsonMapStringMapStringInt(filePath, BjtFileFreqMap)
+
+	// sya fileMap
+	filePath = tools.Pth.SyaFileMap
+	SyaFileMap = tools.ReadJsonSliceMapStringSliceString(filePath, SyaFileMap)
+
+	// sya fileFreqMap
+	filePath = filepath.Join(
+		tools.Pth.DpdBaseDir,
+		tools.Pth.SyaFileFreqMap,
+	)
+	SyaFileFreqMap = tools.ReadJsonMapStringMapStringInt(filePath, SyaFileFreqMap)
+
+	// sc fileMap
+	filePath = tools.Pth.ScFileMap
+	ScFileMap = tools.ReadJsonSliceMapStringSliceString(filePath, ScFileMap)
+
+	// sc fileFreqMap
+	filePath = filepath.Join(
+		tools.Pth.DpdBaseDir,
+		tools.Pth.ScFileFreqMap,
+	)
+	ScFileFreqMap = tools.ReadJsonMapStringMapStringInt(filePath, ScFileFreqMap)
 
 }
 
@@ -90,17 +103,17 @@ func makeTemplate() *template.Template {
 	filePath := tools.Pth.CombinedTemplate
 
 	templateRead, err := os.ReadFile(filePath)
-	tools.Check(err)
+	tools.HardCheck(err)
 
 	templ, err := template.New("frequency").Parse(string(templateRead))
-	tools.Check(err)
+	tools.HardCheck(err)
 
 	return templ
 }
 
 func cloneTemplate() *template.Template {
 	templClone, err := templ.Clone()
-	tools.Check(err)
+	tools.HardCheck(err)
 	return templClone
 }
 
@@ -109,6 +122,8 @@ type templateData struct {
 	CstGrad []int
 	BjtFreq []int
 	BjtGrad []int
+	SyaFreq []int
+	SyaGrad []int
 	ScFreq  []int
 	ScGrad  []int
 }
@@ -122,6 +137,9 @@ func makeFreqTable(i dpdDb.DpdHeadword) {
 
 	BjtFreqList := freqFinder(wordList, BjtFileMap, BjtFileFreqMap)
 	BjtGradientList := gradient.MakeGradients(BjtFreqList)
+
+	SyaFreqList := freqFinder(wordList, SyaFileMap, SyaFileFreqMap)
+	SyaGradientList := gradient.MakeGradients(SyaFreqList)
 
 	ScFreqList := freqFinder(wordList, ScFileMap, ScFileFreqMap)
 	ScGradientList := gradient.MakeGradients(ScFreqList)
@@ -138,6 +156,8 @@ func makeFreqTable(i dpdDb.DpdHeadword) {
 		td.CstGrad = []int{}
 		td.BjtFreq = []int{}
 		td.BjtGrad = []int{}
+		td.SyaFreq = []int{}
+		td.SyaGrad = []int{}
 		td.ScFreq = []int{}
 		td.ScGrad = []int{}
 
@@ -149,6 +169,8 @@ func makeFreqTable(i dpdDb.DpdHeadword) {
 		td.CstGrad = CstGradientList
 		td.BjtFreq = BjtFreqList
 		td.BjtGrad = BjtGradientList
+		td.SyaFreq = SyaFreqList
+		td.SyaGrad = SyaGradientList
 		td.ScFreq = ScFreqList
 		td.ScGrad = ScGradientList
 
@@ -192,7 +214,7 @@ func htmlTemplater(td templateData) string {
 
 	htmlBuffer := bytes.Buffer{}
 	err := t.Execute(&htmlBuffer, td)
-	tools.Check(err)
+	tools.HardCheck(err)
 
 	html := htmlBuffer.String()
 	html = tools.CleanWhiteSpace(html)
@@ -205,12 +227,12 @@ func saveHtmlFile(html string) {
 
 	// dpdCss
 	dpdCss, err := os.ReadFile(filepath.Join(tools.Pth.DpdBaseDir, tools.Pth.DpdCss))
-	tools.Check(err)
+	tools.HardCheck(err)
 
 	finalHtml := fmt.Sprintf("<style>\n%v\n</style>\n<body>\n%v</body>\n", string(dpdCss), string(html))
 
 	saveFile, err := os.Create("htmlTest.html")
-	tools.Check(err)
+	tools.HardCheck(err)
 	saveFile.Write([]byte(finalHtml))
 }
 

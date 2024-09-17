@@ -21,17 +21,17 @@ func CleanMachine(text string, niggahita string, addHyphenatedWords bool, source
 
 	// remove digits
 	r, err := regexp.Compile(`\d`)
-	Check(err)
+	HardCheck(err)
 	text = r.ReplaceAllString(text, " ")
 
 	// remove tabs
 	r, err = regexp.Compile(`\t`)
-	Check(err)
+	HardCheck(err)
 	text = r.ReplaceAllString(text, " ")
 
 	// remove new lines
 	r, err = regexp.Compile(`\n`)
-	Check(err)
+	HardCheck(err)
 	text = r.ReplaceAllString(text, " ")
 
 	// standardize niggahitas
@@ -137,7 +137,7 @@ func CleanMachine(text string, niggahita string, addHyphenatedWords bool, source
 			string(rune(1912)),  // ݸ
 		)
 		r, err = regexp.Compile(fstring)
-		Check(err)
+		HardCheck(err)
 		text = r.ReplaceAllString(text, " ")
 
 		// replace letter
@@ -162,7 +162,7 @@ func CleanMachine(text string, niggahita string, addHyphenatedWords bool, source
 
 		// remove <b> tags
 		r, err = regexp.Compile(`<b>|</b>`)
-		Check(err)
+		HardCheck(err)
 		text = r.ReplaceAllString(text, "")
 
 		text = strings.Replace(text, `'`, ``, -1)
@@ -211,7 +211,7 @@ func CleanMachine(text string, niggahita string, addHyphenatedWords bool, source
 	// deal with hyphens
 	if addHyphenatedWords {
 		r, err = regexp.Compile(`.[^ ]*?-.*? `)
-		Check(err)
+		HardCheck(err)
 		hyphenatedList := r.FindAllString(text, -1)
 
 		text = strings.Replace(text, `-`, ``, -1)
@@ -228,7 +228,7 @@ func CleanMachine(text string, niggahita string, addHyphenatedWords bool, source
 
 	// remove extra spaces
 	r, err = regexp.Compile(` +`)
-	Check(err)
+	HardCheck(err)
 	text = r.ReplaceAllString(text, " ")
 
 	// check error
