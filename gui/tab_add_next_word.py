@@ -308,24 +308,25 @@ def make_tab_add_next_word(sg, username):
         ],
         [
             sg.Text(
-                "load GUI",
                 text_color="white", 
-                size=(10, 1),
+                size=(5, 1),
                 pad=((100, 0), (0, 0)),
                 visible=username == "deva"
             ),
             sg.Button(
-                "state (1)",
+                "load GUI state (1)",
                 key="dps_load_gui_state_1", 
                 size=(19, 1), 
                 visible=username == "deva",
+                button_color=("white", "#00008B"),
                 enable_events=True, 
             ),
             sg.Button(
-                "state (2)",
+                "load GUI state (2)",
                 key="dps_load_gui_state_2", 
                 size=(19, 1), 
                 visible=username == "deva",
+                button_color=("white", "#00008B"),
                 enable_events=True,
             ),
         ],

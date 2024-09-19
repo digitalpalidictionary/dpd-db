@@ -993,6 +993,7 @@ def main():
                 # Perform actions for other usernames
                 get_next_ids(db_session, window)
             reset_flags(flags)
+            dps_reset_flags(dps_flags)
             window["messages"].update(value="")
 
         elif (
@@ -1137,9 +1138,13 @@ def main():
                         remove_word_to_add(values, window, words_to_add_list)
                         window["words_to_add_length"].update(
                             value=len(words_to_add_list))
-                        pyperclip.copy(values["lemma_1"])
-                        open_in_goldendict(values["lemma_1"])
-                        window["tab_edit_dps"].select()  # type: ignore
+                        if dps_flags.next_word:
+                            original_word = add_word_from_csv(dpspth, window, dps_flags.next_word, "y")
+                            open_in_goldendict(original_word)
+                        else:
+                            pyperclip.copy(values["lemma_1"])
+                            open_in_goldendict(values["lemma_1"])
+                            window["tab_edit_dps"].select()  # type: ignore
                         
         
         elif event == "open_corrections_button":
@@ -1230,8 +1235,9 @@ def main():
             break
 
         elif event == "add_word_from_csv":
-            original_word = add_word_from_csv(dpspth, window)
+            original_word = add_word_from_csv(dpspth, window, dps_flags.next_word, "n")
             open_in_goldendict(original_word)
+            dps_flags.next_word = True
 
         # fix sandhi events
 

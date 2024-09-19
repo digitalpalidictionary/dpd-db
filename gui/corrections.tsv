@@ -2482,31 +2482,86 @@ nir + madana"					missing
 19102	sanskrit	avavāda + varga					missing				
 19102	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>ovādavaggo</b> tatiyo.	missing				
 7503	meaning_1	(if) they would have been; (if) those would be					from ex and as abhavissa				
-3512	source_2	AN5.152	sutta_2	dutiyasammattaniyāmasuttaṃ	example_2	katamehi pañcahi? kathaṃ paribhoti, kathikaṃ paribhoti, attānaṃ paribhoti, duppañño hoti jaḷo eḷamūgo, <b>anaññāte</b> aññātamānī hoti.	sutta ex		
-3512	family_compound	aññāta					missing		
-69696	compound_type	chaṭṭhī tappurisa	compound_construction	vihār<b>assa</b> + pacchāyā			missing		
-69696	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	atha kho bhagavā gilānā vuṭṭhito aciravuṭṭhito gelaññā vihārā nikkhamitvā <b>vihārapacchāyāyaṃ</b> paññatte āsane nisīdi.	missing		
-39631	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	atha kho bhagavā gilānā vuṭṭhito aciravuṭṭhito gelaññā vihārā nikkhamitvā vihāra<b>pacchāyāyaṃ</b> paññatte āsane nisīdi.	missing		
-40535	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	yaṃnūn'āhaṃ imaṃ ābādhaṃ vīriyena <b>paṭipaṇāmetvā</b> jīvitasaṅkhāraṃ adhiṭṭhāya vihareyyan'ti. atha kho bhagavā taṃ ābādhaṃ vīriyena <b>paṭipaṇāmetvā</b> jīvitasaṅkhāraṃ adhiṭṭhāya vihāsi.	missing		
-40535	meaning_1	(of an illness) having suppressed					missing		
-42295	source_1	SN47.41	sutta_1	satipaṭṭhānasaṃyuttaṃ, amatasuttaṃ	example_1	catūsu, bhikkhave, satipaṭṭhānesu suppatiṭṭhitacittā viharatha. mā vo amataṃ <b>panassa</b>. katamesu catūsu?	missing		
-42295	meaning_1	was lost; disappeared; went to ruin					missing		
-15721	grammar	masc, from upanayati					missing		
-15721	derivative	kita	suffix	*a			missing		
-15721	family_root	upa √nī					missing		
-15721	phonetic	ī > ay					missing		
-15721	derived_from	upanayati					missing		
-15721	root_sign	a					missing		
-15721	root_key	√nī					missing		
-15721	source_1	SNa1.20	sutta_1	samiddhisuttavaṇṇanā	example_1	ādittaṃ celaṃ vā sīsaṃ vā ajjhupekkhitvāpi bhāvan'āvasena attano citte <b>upanayaṃ</b> arahatī'ti opaneyyiko.	missing		
-15721	construction	upa + √nī > nay + *a					missing		
-15721	meaning_1	bringing near; application					missing		
-47728	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	yasmiṃ, ānanda, samaye tathāgato sabbanimittānaṃ amanasikārā ekaccānaṃ vedanānaṃ nirodhā animittaṃ cetosamādhiṃ upasampajja viharati, <b>phāsutaro</b>, ānanda, tasmiṃ samaye tathāgatassa kāyo hoti.	missing		
-47728	meaning_1	more comfortable; more at ease					missing		
-51070	source_2	SN47.9	sutta_2	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_2	api ca me, bhante, <b>madhurakajāto</b> viya kāyo, disāpi me na pakkhāyanti, dhammā'pi maṃ nappaṭibhanti bhagavato gelaññena.	missing		
-51414	compound_type	alutta chaṭṭhī tappurisa	compound_construction	mama + uddesika			missing		
-51414	sanskrit	mahyam + uddeśaka					missing		
-51414	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	yassa nūna, ānanda, evam'assa, ahaṃ bhikkhusaṅghaṃ pariharissāmī'ti vā, <b>mam'uddesiko</b> bhikkhusaṅgho'ti vā, so nūna, ānanda, bhikkhusaṅghaṃ ārabbha kiñ'ci'd'eva udāhareyya.	missing		
-51414	family_compound	mama uddesa					missing		
-51414	construction	mama + uddesika					missing		
-51414	meaning_1	meant for me; intended for me					missing		
+3512	source_2	AN5.152	sutta_2	dutiyasammattaniyāmasuttaṃ	example_2	katamehi pañcahi? kathaṃ paribhoti, kathikaṃ paribhoti, attānaṃ paribhoti, duppañño hoti jaḷo eḷamūgo, <b>anaññāte</b> aññātamānī hoti.	sutta ex				
+3512	family_compound	aññāta					missing				
+69696	compound_type	chaṭṭhī tappurisa	compound_construction	vihār<b>assa</b> + pacchāyā			missing				
+69696	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	atha kho bhagavā gilānā vuṭṭhito aciravuṭṭhito gelaññā vihārā nikkhamitvā <b>vihārapacchāyāyaṃ</b> paññatte āsane nisīdi.	missing				
+39631	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	atha kho bhagavā gilānā vuṭṭhito aciravuṭṭhito gelaññā vihārā nikkhamitvā vihāra<b>pacchāyāyaṃ</b> paññatte āsane nisīdi.	missing				
+40535	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	yaṃnūn'āhaṃ imaṃ ābādhaṃ vīriyena <b>paṭipaṇāmetvā</b> jīvitasaṅkhāraṃ adhiṭṭhāya vihareyyan'ti. atha kho bhagavā taṃ ābādhaṃ vīriyena <b>paṭipaṇāmetvā</b> jīvitasaṅkhāraṃ adhiṭṭhāya vihāsi.	missing				
+40535	meaning_1	(of an illness) having suppressed					missing				
+42295	source_1	SN47.41	sutta_1	satipaṭṭhānasaṃyuttaṃ, amatasuttaṃ	example_1	catūsu, bhikkhave, satipaṭṭhānesu suppatiṭṭhitacittā viharatha. mā vo amataṃ <b>panassa</b>. katamesu catūsu?	missing				
+42295	meaning_1	was lost; disappeared; went to ruin					missing				
+15721	grammar	masc, from upanayati					missing				
+15721	derivative	kita	suffix	*a			missing				
+15721	family_root	upa √nī					missing				
+15721	phonetic	ī > ay					missing				
+15721	derived_from	upanayati					missing				
+15721	root_sign	a					missing				
+15721	root_key	√nī					missing				
+15721	source_1	SNa1.20	sutta_1	samiddhisuttavaṇṇanā	example_1	ādittaṃ celaṃ vā sīsaṃ vā ajjhupekkhitvāpi bhāvan'āvasena attano citte <b>upanayaṃ</b> arahatī'ti opaneyyiko.	missing				
+15721	construction	upa + √nī > nay + *a					missing				
+15721	meaning_1	bringing near; application					missing				
+47728	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	yasmiṃ, ānanda, samaye tathāgato sabbanimittānaṃ amanasikārā ekaccānaṃ vedanānaṃ nirodhā animittaṃ cetosamādhiṃ upasampajja viharati, <b>phāsutaro</b>, ānanda, tasmiṃ samaye tathāgatassa kāyo hoti.	missing				
+47728	meaning_1	more comfortable; more at ease					missing				
+51070	source_2	SN47.9	sutta_2	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_2	api ca me, bhante, <b>madhurakajāto</b> viya kāyo, disāpi me na pakkhāyanti, dhammā'pi maṃ nappaṭibhanti bhagavato gelaññena.	missing				
+51414	compound_type	alutta chaṭṭhī tappurisa	compound_construction	mama + uddesika			missing				
+51414	sanskrit	mahyam + uddeśaka					missing				
+51414	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	yassa nūna, ānanda, evam'assa, ahaṃ bhikkhusaṅghaṃ pariharissāmī'ti vā, <b>mam'uddesiko</b> bhikkhusaṅgho'ti vā, so nūna, ānanda, bhikkhusaṅghaṃ ārabbha kiñ'ci'd'eva udāhareyya.	missing				
+51414	family_compound	mama uddesa					missing				
+51414	construction	mama + uddesika					missing				
+51414	meaning_1	meant for me; intended for me					missing				
+52380	compound_type	chaṭṭhī tappurisa	compound_construction	māraṇ<b>āya</b> + antika			missing				
+52380	sanskrit	māraṇa + antika					missing				
+52380	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	atha kho bhagavato vass'ūpagatassa kharo ābādho uppajji, bāḷhā vedanā vattanti <b>māraṇ'antikā</b>.	missing				
+52380	family_compound	māraṇa anta					missing				
+52380	construction	māraṇa + antika					missing				
+52380	meaning_1	close to death; deadly					missing				
+52725	source_2	SN47.9	sutta_2	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_2	seyyathā'pi, ānanda, jajjarasakaṭaṃ veḷa<b>missakena</b> yāpeti, evam'eva kho, ānanda, vedha<b>missakena</b> maññe tathāgatassa kāyo yāpeti.	missing				
+53663	compound_type	abyayībhāva	compound_construction	yathā + mitta + aṃ			missing				
+53663	sanskrit	yathā + mitra + aṃ					missing				
+53663	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	evaṃ, bhante'ti kho te bhikkhū bhagavato paṭissutvā samantā vesāliyā <b>yathāmittaṃ</b> yathāsandiṭṭhaṃ yathāsambhattaṃ vassaṃ upagacchuṃ.	missing				
+53663	construction	"yathā + mitta + aṃ
+yathāmitta + aṃ"					missing				
+53663	meaning_1	according to the friendship; wherever friends					missing				
+53690	compound_type	abyayībhāva	compound_construction	yathā + sandiṭṭha + aṃ			missing				
+53690	sanskrit	yathā + saṃdṛṣṭa + aṃ					missing				
+53690	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	evaṃ, bhante'ti kho te bhikkhū bhagavato paṭissutvā samantā vesāliyā yathāmittaṃ <b>yathāsandiṭṭhaṃ</b> yathāsambhattaṃ vassaṃ upagacchuṃ.	missing				
+53690	family_compound	yathā sandiṭṭha					missing				
+53690	construction	"yathā + sandiṭṭha + aṃ
+yathāsandiṭṭha + aṃ"					missing				
+53690	meaning_1	according to acquaintances; wherever friends					missing				
+53690	grammar	ind, adv, comp					missing				
+53697	compound_type	abyayībhāva	compound_construction	yathā + sambhatta + aṃ			missing				
+53697	sanskrit	yathā + sambhakta + aṃ					missing				
+53697	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	evaṃ, bhante'ti kho te bhikkhū bhagavato paṭissutvā samantā vesāliyā yathāmittaṃ yathāsandiṭṭhaṃ <b>yathāsambhattaṃ</b> vassaṃ upagacchuṃ.	missing				
+53697	family_compound	yathā sambhatta					missing				
+53697	construction	"yathā + sambhatta + aṃ
+yathāsambhatt + aṃ"					missing				
+53697	meaning_1	according to associates; wherever companions					missing				
+53697	grammar	ind, adv, comp					missing				
+59161	source_2	SN47.20	sutta_2	satipaṭṭhānasaṃyuttaṃ, janapadakalyāṇīsuttaṃ	example_2	tam'enaṃ evaṃ vadeyya, ayaṃ te, ambho purisa, samatittiko telapatto antarena ca mahā<b>samajjaṃ</b> antarena ca janapadakalyāṇiyā pariharitabbo.	missing		
+66597	source_2	SN47.9	sutta_2	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_2	atha kho bhagavato <b>vass'ūpagatassa</b> kharo ābādho uppajji, bāḷhā vedanā vattanti māraṇ'antikā.	missing		
+66651	source_2	SN47.19	sutta_2	satipaṭṭhānasaṃyuttaṃ, sedakasuttaṃ	example_2	tatra kho bhagavā bhikkhū āmantesi, bhūtapubbaṃ, bhikkhave, caṇḍālavaṃsiko caṇḍāla<b>vaṃsaṃ</b> ussāpetvā medakathālikaṃ antevāsiṃ āmantesi	missing		
+68493	source_1	SN47.4	sutta_1	satipaṭṭhānasaṃyuttaṃ, sālasuttaṃ	example_1	etha tumhe, āvuso, kāye kāyānupassino viharatha ātāpino sampajānā ekodibhūtā <b>vippasannacittā</b> samāhitā ekaggacittā, kāyassa yathābhūtaṃ ñāṇāya	missing		
+68493	compound_type	kammadhāraya	compound_construction	vippasanna + citta			missing		
+68493	sanskrit	viprasanna + citta					missing		
+70550	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	seyyathā'pi, ānanda, jajjarasakaṭaṃ <b>veḷumissakena</b> yāpeti, evam'eva kho, ānanda, vedhamissakena maññe tathāgatassa kāyo yāpeti.	missing		
+70550	meaning_1	relying on bindings; tied with straps					missing		
+70550	sanskrit	veṇu + miśraka					missing		
+70550	family_compound	veḷu missa					missing		
+2908	source_1	SN46.6	sutta_1	bojjhaṅgasaṃyuttaṃ, kuṇḍaliyasuttaṃ	example_1	cakkhunā kho pan'eva rūpaṃ disvā amanāpaṃ na maṅku hoti appatiṭṭhitacitto <b>adīnamānaso</b> abyāpannacetaso.	missing		
+6900	meaning_1	not mentally established; not stable in mind					missing		
+6900	source_1	SN46.6	sutta_1	bojjhaṅgasaṃyuttaṃ, kuṇḍaliyasuttaṃ	example_1	cakkhunā kho pan'eva rūpaṃ disvā amanāpaṃ na maṅku hoti <b>appatiṭṭhitacitto</b> adīnamānaso abyāpannacetaso.	missing		
+6900	compound_type	kammadhāraya	compound_construction	appatiṭṭhita + citta			missing		
+6900	sanskrit	na + pratiṣṭhita + citta					missing		
+6155	source_1	SN46.6	sutta_1	bojjhaṅgasaṃyuttaṃ, kuṇḍaliyasuttaṃ	example_1	cakkhunā kho pan'eva rūpaṃ disvā amanāpaṃ na maṅku hoti <b>apatitthīnacitto</b> adīnamānaso abyāpannacetaso.	missing		
+6155	compound_type	kammadhāraya	compound_construction	apatitthīna + citta			missing		
+6155	sanskrit	na + prati + styāna + citta					missing		
+7425	meaning_1	without ill-will; not averse					missing		
+7425	source_1	SN46.6	sutta_1	bojjhaṅgasaṃyuttaṃ, kuṇḍaliyasuttaṃ	example_1	cakkhunā kho pan'eva rūpaṃ disvā amanāpaṃ na maṅku hoti apatitthīnacitto adīnamānaso <b>abyāpannacetaso</b>.	missing		
+7425	compound_type	kammadhāraya	compound_construction	abyāpanna + cetasa			missing		
+7425	sanskrit	na + vyāpanna + cetaḥ					missing		
+12475	source_1	SN46.6	sutta_1	bojjhaṅgasaṃyuttaṃ, kuṇḍaliyasuttaṃ	example_1	aham'asmi, bho gotama, <b>ārāmanissayī</b> paris'āvacaro. tassa mayhaṃ, bho gotama, pacchābhattaṃ bhuttapātarāsassa ayamācāro hoti, ārāmena ārāmaṃ uyyānena uyyānaṃ anucaṅkamāmi anuvicarāmi.	missing		
+12475	compound_type	dutiyā tappurisa	compound_construction	ārām<b>aṃ</b> + nissayī			missing		
+12475	sanskrit	ārāma + niśraya					missing		
+22282	source_1	SN46.6	sutta_1	bojjhaṅgasaṃyuttaṃ, kuṇḍaliyasuttaṃ	example_1	so tattha passāmi eke samaṇabrāhmaṇe itivādappamokkh'ānisaṃsañ'c'eva kathaṃ kathente upārambh'ānisaṃsañc'a, bhavaṃ pana gotamo kim'ānisaṃso viharatī'ti? vijjāvimuttiphal'ānisaṃso kho, <b>kuṇḍaliya</b>, tathāgato viharatī'ti.	missing		

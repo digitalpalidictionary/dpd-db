@@ -787,7 +787,7 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 "Clear", key="clear_button", tooltip="Clear all the fields",
                 font=(None, 10)),
             sg.Button(
-                "Add Word", key="add_word_from_csv", tooltip="Add next word from csv file",
+                "Next Word", key="add_word_from_csv", tooltip="Add next new word from csv file",
                 visible=username == "deva",
                 font=(None, 10)),
             sg.Button(
