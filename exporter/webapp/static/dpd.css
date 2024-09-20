@@ -195,6 +195,7 @@ a.button:hover {
 table.freq th,
 table.freq td {
     vertical-align: middle;
+    white-space: nowrap;
 }
 
 table.freq thead th {
@@ -206,7 +207,8 @@ table.freq tbody th {
     border-radius: 7px;
     padding: 5px;
     text-align: center;
-    width: auto;
+    width: 12px;
+    white-space: nowrap;
 }
 
 .vertical-text {
@@ -220,7 +222,7 @@ table.freq td {
     border-style: solid;
     border-radius: 7px;
     text-align: center;
-    width: 12%;
+    width: 2.5em;
     white-space: nowrap;
 }
 
@@ -228,8 +230,14 @@ td.void {
     border: 0px solid transparent;
 }
 
+td.gap {
+    border: 0px solid transparent;
+    width: 10px;
+}
+
 td.gr0 {
     border: 1px solid #dbdbff;
+    color: transparent;
 }
 
 td.gr1 {

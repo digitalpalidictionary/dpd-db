@@ -1,415 +1,451 @@
-<div class="freq-table-container">
-    <div class="freq-table-wrapper">
-        <table class="freq">
-            <thead>
-                <tr style="text-align: right;">
-                    <th colspan="2">
-                        <b>
-                            Chaṭṭha Saṅgāyana Tipiṭaka (Myanmar)
-                        </b>
-                    </th>
-                    <th>M</th>
-                    <th>A</th>
-                    <th>Ṭ</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th class="vertical-text" rowspan="6">Vinaya</th>
-                </tr>
-                <tr>
-                    <th>Pārājika</th>
-                    <td class="gr{{ index .CstGrad 0}}">{{ index .CstFreq 0}}</td>
-                    <td class="gr{{ index .CstGrad 19}}">{{ index .CstFreq 19}}</td>
-                    <td class="gr{{ index .CstGrad 33}}" rowspan="5">{{ index .CstFreq 33}}</td>
-                </tr>
-                <tr>
-                    <th>Pācittiya</th>
-                    <td class="gr{{ index .CstGrad 1}}">{{ index .CstFreq 1}}</td>
-                    <td class="gr{{ index .CstGrad 20}}">{{ index .CstFreq 20}}</td>
-                </tr>
-                <tr>
-                    <th>Mahāvagga</th>
-                    <td class="gr{{ index .CstGrad 2}}">{{ index .CstFreq 2}}</td>
-                    <td class="gr{{ index .CstGrad 21}}">{{ index .CstFreq 21}}</td>
-                </tr>
-                <tr>
-                    <th>Cūḷavagga</th>
-                    <td class="gr{{ index .CstGrad 3}}">{{ index .CstFreq 3}}</td>
-                    <td class="gr{{ index .CstGrad 22}}">{{ index .CstFreq 22}}</td>
-                </tr>
-                <tr>
-                    <th>Parivāra</th>
-                    <td class="gr{{ index .CstGrad 4}}">{{ index .CstFreq 4}}</td>
-                    <td class="gr{{ index .CstGrad 23}}">{{ index .CstFreq 23}}</td>
-                </tr>
-                <tr>
-                    <th class="vertical-text" rowspan="8">Sutta</th>
-                </tr>
-                <tr>
-                    <th>Dīgha Nikāya</th>
-                    <td class="gr{{ index .CstGrad 5}}">{{ index .CstFreq 5}}</td>
-                    <td class="gr{{ index .CstGrad 24}}">{{ index .CstFreq 24}}</td>
-                    <td class="gr{{ index .CstGrad 34}}">{{ index .CstFreq 34}}</td>
-                </tr>
-                <tr>
-                    <th>Majjhima Nikāya</th>
-                    <td class="gr{{ index .CstGrad 6}}">{{ index .CstFreq 6}}</td>
-                    <td class="gr{{ index .CstGrad 25}}">{{ index .CstFreq 25}}</td>
-                    <td class="gr{{ index .CstGrad 35}}">{{ index .CstFreq 35}}</td>
-                </tr>
-                <tr>
-                    <th>Saṃyutta Nikāya</th>
-                    <td class="gr{{ index .CstGrad 7}}">{{ index .CstFreq 7}}</td>
-                    <td class="gr{{ index .CstGrad 26}}">{{ index .CstFreq 26}}</td>
-                    <td class="gr{{ index .CstGrad 36}}">{{ index .CstFreq 36}}</td>
-                </tr>
-                <tr>
-                    <th>Aṅguttara Nikāya</th>
-                    <td class="gr{{ index .CstGrad 8}}">{{ index .CstFreq 8}}</td>
-                    <td class="gr{{ index .CstGrad 27}}">{{ index .CstFreq 27}}</td>
-                    <td class="gr{{ index .CstGrad 37}}">{{ index .CstFreq 37}}</td>
-                </tr>
-                <tr>
-                    <th>Khuddaka Nikāya 1</th>
-                    <td class="gr{{ index .CstGrad 9}}">{{ index .CstFreq 9}}</td>
-                    <td class="gr{{ index .CstGrad 28}}">{{ index .CstFreq 28}}</td>
-                    <td class="void"></td>
-                </tr>
-                <tr>
-                    <th>Khuddaka Nikāya 2</th>
-                    <td class="gr{{ index .CstGrad 10}}">{{ index .CstFreq 10}}</td>
-                    <td class="gr{{ index .CstGrad 29}}">{{ index .CstFreq 29}}</td>
-                    <td class="void"></td>
-                </tr>
-                <tr>
-                    <th>Khuddaka Nikāya 3</th>
-                    <td class="gr{{ index .CstGrad 11}}">{{ index .CstFreq 11}}</td>
-                    <td class="gr{{ index .CstGrad 30}}">{{ index .CstFreq 30}}</td>
-                    <td class="gr{{ index .CstGrad 38}}">{{ index .CstFreq 38}}</td>
-                    <td class="void"></td>
-                </tr>
-                <tr>
-                    <th class="vertical-text" rowspan="8">Abhidhamma</th>
-                </tr>
-                <tr>
-                    <th>Dhammasaṅgaṇī</th>
-                    <td class="gr{{ index .CstGrad 12}}">{{ index .CstFreq 12}}</td>
-                    <td class="gr{{ index .CstGrad 31}}" rowspan="7">{{ index .CstFreq 31}}</td>
-                    <td class="gr{{ index .CstGrad 39}}" rowspan="7">{{ index .CstFreq 39}}</td>
-                </tr>
-                <tr>
-                    <th>Vibhaṅga</th>
-                    <td class="gr{{ index .CstGrad 13}}">{{ index .CstFreq 13}}</td>
-                </tr>
-                <tr>
-                    <th>Dhātukathā</th>
-                    <td class="gr{{ index .CstGrad 14}}">{{ index .CstFreq 14}}</td>
-                </tr>
-                <tr>
-                    <th>Puggalapaññatti</th>
-                    <td class="gr{{ index .CstGrad 15}}">{{ index .CstFreq 15}}</td>
-                </tr>
-                <tr>
-                    <th>Kathāvatthu</th>
-                    <td class="gr{{ index .CstGrad 16}}">{{ index .CstFreq 16}}</td>
-                </tr>
-                <tr>
-                    <th>Yamaka</th>
-                    <td class="gr{{ index .CstGrad 17}}">{{ index .CstFreq 17}}</td>
-                </tr>
-                <tr>
-                    <th>Paṭṭhāna</th>
-                    <td class="gr{{ index .CstGrad 18}}">{{ index .CstFreq 18}}</td>
-                </tr>
-                <tr>
-                    <th class="vertical-text" rowspan="10">Aññā</th>
-                </tr>
-                <tr>
-                    <th>Visuddhimagga</th>
-                    <td class="void"></td>
-                    <td class="gr{{ index .CstGrad 32}}">{{ index .CstFreq 32}}</td>
-                    <td class="gr{{ index .CstGrad 40}}">{{ index .CstFreq 40}}</td>
-                </tr>
-                <tr>
-                    <th>Leḍī Sayāḍo</th>
-                    <td class="void"></td>
-                    <td class="void"></td>
-                    <td class="gr{{ index .CstGrad 41}}">{{ index .CstFreq 41}}</td>
-                </tr>
-                <tr>
-                    <th>Buddhavandanā</th>
-                    <td class="void"></td>
-                    <td class="void"></td>
-                    <td class="gr{{ index .CstGrad 42}}">{{ index .CstFreq 42}}</td>
-                </tr>
-                <tr>
-                    <th>Vaṃsa</th>
-                    <td class="void"></td>
-                    <td class="void"></td>
-                    <td class="gr{{ index .CstGrad 43}}">{{ index .CstFreq 43}}</td>
-                </tr>
-                <tr>
-                    <th>Byākaraṇa</th>
-                    <td class="void"></td>
-                    <td class="void"></td>
-                    <td class="gr{{ index .CstGrad 44}}">{{ index .CstFreq 44}}</td>
-                </tr>
-                <tr>
-                    <th>Pucchavissajjanā</th>
-                    <td class="void"></td>
-                    <td class="void"></td>
-                    <td class="gr{{ index .CstGrad 45}}">{{ index .CstFreq 45}}</td>
-                </tr>
-                <tr>
-                    <th>Nīti</th>
-                    <td class="void"></td>
-                    <td class="void"></td>
-                    <td class="gr{{ index .CstGrad 46}}">{{ index .CstFreq 46}}</td>
-                </tr>
-                <tr>
-                    <th>Pakiṇṇaka</th>
-                    <td class="void"></td>
-                    <td class="void"></td>
-                    <td class="gr{{ index .CstGrad 47}}">{{ index .CstFreq 47}}</td>
-                </tr>
-                <tr>
-                    <th>Sihaḷa</th>
-                    <td class="void"></td>
-                    <td class="void"></td>
-                    <td class="gr{{ index .CstGrad 48}}">{{ index .CstFreq 48}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="freq-table-wrapper">
-        <table class="freq">
-            <thead>
-                <tr style="text-align: right;">
-                    <th colspan="2">
-                        <b>
-                            Buddha Jayanti Tipiṭaka (Sri Lanka)
-                        </b>
-                    </th>
-                    <th>M</th>
-                    <th>A</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th class="vertical-text" rowspan="6">Vinaya</th>
-                </tr>
-                <tr>
-                    <th>Pārājika</th>
-                    <td class={{ index .BjtGrad 0}}>{{ index .BjtFreq 0}}</td>
-                    <td class={{ index .BjtGrad 19}}>{{ index .BjtFreq 19}}</td>
-                </tr>
-                <tr>
-                    <th>Pācittiya</th>
-                    <td class={{ index .BjtGrad 1}}>{{ index .BjtFreq 1}}</td>
-                    <td class={{ index .BjtGrad 20}}>{{ index .BjtFreq 20}}</td>
-                </tr>
-                <tr>
-                    <th>Mahāvagga</th>
-                    <td class={{ index .BjtGrad 2}}>{{ index .BjtFreq 2}}</td>
-                    <td class={{ index .BjtGrad 21}}>{{ index .BjtFreq 21}}</td>
-                </tr>
-                <tr>
-                    <th>Cūḷavagga</th>
-                    <td class={{ index .BjtGrad 3}}>{{ index .BjtFreq 3}}</td>
-                    <td class={{ index .BjtGrad 22}}>{{ index .BjtFreq 22}}</td>
-                </tr>
-                <tr>
-                    <th>Parivāra</th>
-                    <td class={{ index .BjtGrad 4}}>{{ index .BjtFreq 4}}</td>
-                    <td class={{ index .BjtGrad 23}}>{{ index .BjtFreq 23}}</td>
-                </tr>
-                <tr>
-                    <th class="vertical-text" rowspan="8">Sutta</th>
-                </tr>
-                <tr>
-                    <th>Dīgha Nikāya</th>
-                    <td class={{ index .BjtGrad 5}}>{{ index .BjtFreq 5}}</td>
-                    <td class={{ index .BjtGrad 24}}>{{ index .BjtFreq 24}}</td>
-                </tr>
-                <tr>
-                    <th>Majjhima Nikāya</th>
-                    <td class={{ index .BjtGrad 6}}>{{ index .BjtFreq 6}}</td>
-                    <td class={{ index .BjtGrad 25}}>{{ index .BjtFreq 25}}</td>
-                </tr>
-                <tr>
-                    <th>Saṃyutta Nikāya</th>
-                    <td class={{ index .BjtGrad 7}}>{{ index .BjtFreq 7}}</td>
-                    <td class={{ index .BjtGrad 26}}>{{ index .BjtFreq 26}}</td>
-                </tr>
-                <tr>
-                    <th>Aṅguttara Nikāya</th>
-                    <td class={{ index .BjtGrad 8}}>{{ index .BjtFreq 8}}</td>
-                    <td class={{ index .BjtGrad 27}}>{{ index .BjtFreq 27}}</td>
-                </tr>
-                <tr>
-                    <th>Khuddaka Nikāya 1</th>
-                    <td class={{ index .BjtGrad 9}}>{{ index .BjtFreq 9}}</td>
-                    <td class={{ index .BjtGrad 28}}>{{ index .BjtFreq 28}}</td>
-                </tr>
-                <tr>
-                    <th>Khuddaka Nikāya 2</th>
-                    <td class={{ index .BjtGrad 10}}>{{ index .BjtFreq 10}}</td>
-                    <td class={{ index .BjtGrad 29}}>{{ index .BjtFreq 29}}</td>
-                </tr>
-                <tr>
-                    <th>Khuddaka Nikāya 3</th>
-                    <td class={{ index .BjtGrad 11}}>{{ index .BjtFreq 11}}</td>
-                    <td class={{ index .BjtGrad 30}}>{{ index .BjtFreq 30}}</td>
-                </tr>
-                <tr>
-                    <th class="vertical-text" rowspan="8">Abhidhamma</th>
-                </tr>
-                <tr>
-                    <th>Dhammasaṅgaṇī</th>
-                    <td class={{ index .BjtGrad 12}}>{{ index .BjtFreq 12}}</td>
-                    <td class={{ index .BjtGrad 31}}>{{ index .BjtFreq 31}}</td>
-                </tr>
-                <tr>
-                    <th>Vibhaṅga</th>
-                    <td class={{ index .BjtGrad 13}}>{{ index .BjtFreq 13}}</td>
-                    <td class={{ index .BjtGrad 32}}>{{ index .BjtFreq 32}}</td>
-                </tr>
-                <tr>
-                    <th>Dhātukathā</th>
-                    <td class={{ index .BjtGrad 14}}>{{ index .BjtFreq 14}}</td>
-                    <td class={{ index .BjtGrad 33}}>{{ index .BjtFreq 33}}</td>
-                </tr>
-                <tr>
-                    <th>Puggalapaññatti</th>
-                    <td class={{ index .BjtGrad 15}}>{{ index .BjtFreq 15}}</td>
-                    <td class={{ index .BjtGrad 34}}>{{ index .BjtFreq 34}}</td>
-                </tr>
-                <tr>
-                    <th>Kathāvatthu</th>
-                    <td class={{ index .BjtGrad 16}}>{{ index .BjtFreq 16}}</td>
-                    <td class={{ index .BjtGrad 35}}>{{ index .BjtFreq 35}}</td>
-                </tr>
-                <tr>
-                    <th>Yamaka</th>
-                    <td class={{ index .BjtGrad 17}}>{{ index .BjtFreq 17}}</td>
-                    <td class={{ index .BjtGrad 36}}>{{ index .BjtFreq 36}}</td>
-                </tr>
-                <tr>
-                    <th>Paṭṭhāna</th>
-                    <td class={{ index .BjtGrad 18}}>{{ index .BjtFreq 18}}</td>
-                    <td class={{ index .BjtGrad 37}}>{{ index .BjtFreq 37}}</td>
-                </tr>
-                <tr>
-                    <th class="vertical-text" rowspan="10"></th>
-                </tr>
-                <tr>
-                    <th>Visuddhimagga</th>
-                    <td class="void"></td>
-                    <td class={{ index .BjtGrad 38}}>{{ index .BjtFreq 38}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="freq-table-wrapper">
-        <table class="freq">
-            <thead>
-                <tr style="text-align: right;">
-                    <th colspan="2">
-                        <b>
-                            Mahāsaṅgīti Tipiṭaka (Sutta Central)
-                        </b>
-                    </th>
-                    <th>M</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th class="vertical-text" rowspan="6">Vinaya</th>
-                </tr>
-                <tr>
-                    <th>Pārājika</th>
-                    <td class={{ index .ScGrad 0}}>{{ index .ScFreq 0}}</td>
-                </tr>
-                <tr>
-                    <th>Pācittiya</th>
-                    <td class={{ index .ScGrad 1}}>{{ index .ScFreq 1}}</td>
-                </tr>
-                <tr>
-                    <th>Mahāvagga</th>
-                    <td class={{ index .ScGrad 2}}>{{ index .ScFreq 2}}</td>
-                </tr>
-                <tr>
-                    <th>Cūḷavagga</th>
-                    <td class={{ index .ScGrad 3}}>{{ index .ScFreq 3}}</td>
-                </tr>
-                <tr>
-                    <th>Parivāra</th>
-                    <td class={{ index .ScGrad 4}}>{{ index .ScFreq 4}}</td>
-                </tr>
-                <tr>
-                    <th class="vertical-text" rowspan="8">Sutta</th>
-                </tr>
-                <tr>
-                    <th>Dīgha Nikāya</th>
-                    <td class={{ index .ScGrad 5}}>{{ index .ScFreq 5}}</td>
-                </tr>
-                <tr>
-                    <th>Majjhima Nikāya</th>
-                    <td class={{ index .ScGrad 6}}>{{ index .ScFreq 6}}</td>
-                </tr>
-                <tr>
-                    <th>Saṃyutta Nikāya</th>
-                    <td class={{ index .ScGrad 7}}>{{ index .ScFreq 7}}</td>
-                </tr>
-                <tr>
-                    <th>Aṅguttara Nikāya</th>
-                    <td class={{ index .ScGrad 8}}>{{ index .ScFreq 8}}</td>
-                </tr>
-                <tr>
-                    <th>Khuddaka Nikāya 1</th>
-                    <td class={{ index .ScGrad 9}}>{{ index .ScFreq 9}}</td>
-                </tr>
-                <tr>
-                    <th>Khuddaka Nikāya 2</th>
-                    <td class={{ index .ScGrad 10}}>{{ index .ScFreq 10}}</td>
-                </tr>
-                <tr>
-                    <th>Khuddaka Nikāya 3</th>
-                    <td class={{ index .ScGrad 11}}>{{ index .ScFreq 11}}</td>
-                </tr>
-                <tr>
-                    <th class="vertical-text" rowspan="8">Abhidhamma</th>
-                </tr>
-                <tr>
-                    <th>Dhammasaṅgaṇī</th>
-                    <td class={{ index .ScGrad 12}}>{{ index .ScFreq 12}}</td>
-                </tr>
-                <tr>
-                    <th>Vibhaṅga</th>
-                    <td class={{ index .ScGrad 13}}>{{ index .ScFreq 13}}</td>
-                </tr>
-                <tr>
-                    <th>Dhātukathā</th>
-                    <td class={{ index .ScGrad 14}}>{{ index .ScFreq 14}}</td>
-                </tr>
-                <tr>
-                    <th>Puggalapaññatti</th>
-                    <td class={{ index .ScGrad 15}}>{{ index .ScFreq 15}}</td>
-                </tr>
-                <tr>
-                    <th>Kathāvatthu</th>
-                    <td class={{ index .ScGrad 16}}>{{ index .ScFreq 16}}</td>
-                </tr>
-                <tr>
-                    <th>Yamaka</th>
-                    <td class={{ index .ScGrad 17}}>{{ index .ScFreq 17}}</td>
-                </tr>
-                <tr>
-                    <th>Paṭṭhāna</th>
-                    <td class={{ index .ScGrad 18}}>{{ index .ScFreq 18}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+<table class="freq">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <th colspan="3">
+                <b>
+                    CST
+                </b>
+            </th>
+            <th></th>
+            <th colspan="2">
+                <b>
+                    BJT
+                </b>
+            </th>
+            <th></th>
+            <th colspan="2">
+                <b>
+                    SYA
+                </b>
+            </th>
+            <th></th>
+            <th colspan="1">
+                <b>
+                    MST
+                </b>
+            </th>
+        </tr>
+        <tr style="text-align: right;">
+            <th></th>
+            <th></th>
+            <!-- CST -->
+            <th>M</th>
+            <th>A</th>
+            <th>Ṭ</th>
+            <th></th>
+            <!-- BJT -->
+            <th>M</th>
+            <th>A</th>
+            <th></th>
+            <!-- SYA -->
+            <th>M</th>
+            <th>A</th>
+            <th></th>
+            <!-- SC -->
+            <th>M</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th class="vertical-text" rowspan="6">Vinaya</th>
+        </tr>
+        <tr>
+            <th>Pārājika</th>
+            <!-- CST -->
+            <td class="gr{{index .CstGrad 0}}">{{index .CstFreq 0}}</td>
+            <td class="gr{{index .CstGrad 19}}">{{index .CstFreq 19}}</td>
+            <td class="gr{{index .CstGrad 33}}" rowspan="5">{{index .CstFreq 33}}</td>
+            <td class="gap"></td>
+            <!-- BJT -->
+            <td class="gr{{index .BjtGrad 0}}">{{index .BjtFreq 0}}</td>
+            <td class="gr{{index .BjtGrad 19}}">{{index .BjtFreq 19}}</td>
+            <td class="gap"></td>
+            <!-- SYA -->
+            <td class="gr{{index .SyaGrad 0}}" rowspan="2">{{index .SyaFreq 0}}</td>
+            <td class="gr{{index .SyaGrad 17}}" rowspan="5">{{index .SyaFreq 17}}</td>
+            <td class="gap"></td>
+            <!-- SC -->
+            <td class="gr{{index .ScGrad 0}}">{{index .ScFreq 0}}</td>
+        </tr>
+        <tr>
+            <th>Pācittiya</th>
+            <!-- CST -->
+            <td class="gr{{index .CstGrad 1}}">{{index .CstFreq 1}}</td>
+            <td class="gr{{index .CstGrad 20}}">{{index .CstFreq 20}}</td>
+            <td class="gap"></td>
+            <!-- BJT -->
+            <td class="gr{{index .BjtGrad 1}}">{{index .BjtFreq 1}}</td>
+            <td class="gr{{index .BjtGrad 20}}">{{index .BjtFreq 20}}</td>
+            <td class="gap"></td>
+            <!-- SYA -->
+            <td class="gap"></td>
+            <!-- SC -->
+            <td class="gr{{index .ScGrad 1}}">{{index .ScFreq 1}}</td>
+        </tr>
+        <tr>
+            <th>Mahāvagga</th>
+            <!-- CST -->
+            <td class="gr{{index .CstGrad 2}}">{{index .CstFreq 2}}</td>
+            <td class="gr{{index .CstGrad 21}}">{{index .CstFreq 21}}</td>
+            <td class="gap"></td>
+            <!-- BJT -->
+            <td class="gr{{index .BjtGrad 2}}">{{index .BjtFreq 2}}</td>
+            <td class="gr{{index .BjtGrad 21}}">{{index .BjtFreq 21}}</td>
+            <td class="gap"></td>
+            <!-- SYA -->
+            <td class="gr{{index .SyaGrad 1}}">{{index .SyaFreq 1}}</td>
+            <td class="gap"></td>      
+            <!-- SC -->
+            <td class="gr{{index .ScGrad 2}}">{{index .ScFreq 2}}</td>
+        </tr>
+        <tr>
+            <th>Cūḷavagga</th>
+            <!-- CST -->
+            <td class="gr{{index .CstGrad 3}}">{{index .CstFreq 3}}</td>
+            <td class="gr{{index .CstGrad 22}}">{{index .CstFreq 22}}</td>
+            <td class="gap"></td>
+            <!-- BJT -->
+            <td class="gr{{index .BjtGrad 3}}">{{index .BjtFreq 3}}</td>
+            <td class="gr{{index .BjtGrad 22}}">{{index .BjtFreq 22}}</td>
+            <td class="gap"></td>
+            <!-- SYA -->
+            <td class="gr{{index .SyaGrad 2}}">{{index .SyaFreq 2}}</td>
+            <td class="gap"></td>     
+            <!-- SC -->
+            <td class="gr{{index .ScGrad 3}}">{{index .ScFreq 3}}</td>
+        </tr>
+        <tr>
+            <th>Parivāra</th>
+            <!-- CST -->
+            <td class="gr{{index .CstGrad 4}}">{{index .CstFreq 4}}</td>
+            <td class="gr{{index .CstGrad 23}}">{{index .CstFreq 23}}</td>
+            <td class="gap"></td>
+            <!-- BJT -->
+            <td class="gr{{index .BjtGrad 4}}">{{index .BjtFreq 4}}</td>
+            <td class="gr{{index .BjtGrad 23}}">{{index .BjtFreq 23}}</td>
+            <td class="gap"></td>
+            <!-- SYA -->
+            <td class="gr{{index .SyaGrad 3}}">{{index .SyaFreq 3}}</td>
+            <td class="gap"></td>          
+            <!-- SC -->
+            <td class="gr{{index .ScGrad 4}}">{{index .ScFreq 4}}</td>
+        </tr>
+        <tr>
+            <th class="vertical-text" rowspan="8">Sutta</th>
+        </tr>
+        <tr>
+            <th>Dīgha</th>
+            <!-- CST -->
+            <td class="gr{{index .CstGrad 5}}">{{index .CstFreq 5}}</td>
+            <td class="gr{{index .CstGrad 24}}">{{index .CstFreq 24}}</td>
+            <td class="gr{{index .CstGrad 34}}">{{index .CstFreq 34}}</td>
+            <td class="gap"></td>
+            <!-- BJT -->
+            <td class="gr{{index .BjtGrad 5}}">{{index .BjtFreq 5}}</td>
+            <td class="gr{{index .BjtGrad 24}}">{{index .BjtFreq 24}}</td>
+            <td class="gap"></td>
+            <!-- SYA -->
+            <td class="gr{{index .SyaGrad 4}}">{{index .SyaFreq 4}}</td>
+            <td class="gr{{index .SyaGrad 18}}">{{index .SyaFreq 18}}</td>  
+            <td class="gap"></td>          
+            <!-- SC -->
+            <td class="gr{{index .ScGrad 5}}">{{index .ScFreq 5}}</td>
+        </tr>
+        <tr>
+            <th>Majjhima</th>
+            <!-- CST -->
+            <td class="gr{{index .CstGrad 6}}">{{index .CstFreq 6}}</td>
+            <td class="gr{{index .CstGrad 25}}">{{index .CstFreq 25}}</td>
+            <td class="gr{{index .CstGrad 35}}">{{index .CstFreq 35}}</td>
+            <td class="gap"></td>
+            <!-- BJT -->
+            <td class="gr{{index .BjtGrad 6}}">{{index .BjtFreq 6}}</td>
+            <td class="gr{{index .BjtGrad 25}}">{{index .BjtFreq 25}}</td>
+            <td class="gap"></td>
+            <!-- SYA -->
+            <td class="gr{{index .SyaGrad 5}}">{{index .SyaFreq 5}}</td>
+            <td class="gr{{index .SyaGrad 19}}">{{index .SyaFreq 19}}</td>   
+            <td class="gap"></td>         
+            <!-- SC -->
+            <td class="gr{{index .ScGrad 6}}">{{index .ScFreq 6}}</td>
+        </tr>
+        <tr>
+            <th>Saṃyutta</th>
+            <!-- CST -->
+            <td class="gr{{index .CstGrad 7}}">{{index .CstFreq 7}}</td>
+            <td class="gr{{index .CstGrad 26}}">{{index .CstFreq 26}}</td>
+            <td class="gr{{index .CstGrad 36}}">{{index .CstFreq 36}}</td>
+            <td class="gap"></td>
+            <!-- BJT -->
+            <td class="gr{{index .BjtGrad 7}}">{{index .BjtFreq 7}}</td>
+            <td class="gr{{index .BjtGrad 26}}">{{index .BjtFreq 26}}</td>
+            <td class="gap"></td>
+            <!-- SYA -->
+            <td class="gr{{index .SyaGrad 6}}">{{index .SyaFreq 6}}</td>
+            <td class="gr{{index .SyaGrad 20}}">{{index .SyaFreq 20}}</td>  
+            <td class="gap"></td>          
+            <!-- SC -->
+            <td class="gr{{index .ScGrad 7}}">{{index .ScFreq 7}}</td>
+        </tr>
+        <tr>
+            <th>Aṅguttara</th>
+            <!-- CST -->
+            <td class="gr{{index .CstGrad 8}}">{{index .CstFreq 8}}</td>
+            <td class="gr{{index .CstGrad 27}}">{{index .CstFreq 27}}</td>
+            <td class="gr{{index .CstGrad 37}}">{{index .CstFreq 37}}</td>
+            <td class="gap"></td>
+            <!-- BJT -->
+            <td class="gr{{index .BjtGrad 8}}">{{index .BjtFreq 8}}</td>
+            <td class="gr{{index .BjtGrad 27}}">{{index .BjtFreq 27}}</td>
+            <td class="gap"></td>
+            <!-- SYA -->
+            <td class="gr{{index .SyaGrad 7}}">{{index .SyaFreq 7}}</td>
+            <td class="gr{{index .SyaGrad 21}}">{{index .SyaFreq 21}}</td>      
+            <td class="gap"></td>      
+            <!-- SC -->
+            <td class="gr{{index .ScGrad 8}}">{{index .ScFreq 8}}</td>
+        </tr>
+        <tr>
+            <th>Khuddaka 1</th>
+            <!-- CST -->
+            <td class="gr{{index .CstGrad 9}}">{{index .CstFreq 9}}</td>
+            <td class="gr{{index .CstGrad 28}}">{{index .CstFreq 28}}</td>
+            <td class="void"></td>
+            <td class="gap"></td>
+            <!-- BJT -->
+            <td class="gr{{index .BjtGrad 9}}">{{index .BjtFreq 9}}</td>
+            <td class="gr{{index .BjtGrad 28}}">{{index .BjtFreq 28}}</td>
+            <td class="gap"></td>
+            <!-- SYA -->
+            <td class="gr{{index .SyaGrad 8}}">{{index .SyaFreq 8}}</td>
+            <td class="gr{{index .SyaGrad 22}}">{{index .SyaFreq 22}}</td>  
+            <td class="gap"></td>          
+            <!-- SC -->
+            <td class="gr{{index .ScGrad 9}}">{{index .ScFreq 9}}</td>
+        </tr>
+        <tr>
+            <th>Khuddaka 2</th>
+            <!-- CST -->
+            <td class="gr{{index .CstGrad 10}}">{{index .CstFreq 10}}</td>
+            <td class="gr{{index .CstGrad 29}}">{{index .CstFreq 29}}</td>
+            <td class="void"></td>
+            <td class="gap"></td>
+            <!-- BJT -->
+            <td class="gr{{index .BjtGrad 10}}">{{index .BjtFreq 10}}</td>
+            <td class="gr{{index .BjtGrad 29}}">{{index .BjtFreq 29}}</td>
+            <td class="gap"></td>
+            <!-- SYA -->
+            <td class="gr{{index .SyaGrad 9}}">{{index .SyaFreq 9}}</td>
+            <td class="gr{{index .SyaGrad 23}}">{{index .SyaFreq 23}}</td>   
+            <td class="gap"></td>         
+            <!-- SC -->
+            <td class="gr{{index .ScGrad 10}}">{{index .ScFreq 10}}</td>
+        </tr>
+        <tr>
+            <th>Khuddaka 3</th>
+            <!-- CST -->
+            <td class="gr{{index .CstGrad 11}}">{{index .CstFreq 11}}</td>
+            <td class="gr{{index .CstGrad 30}}">{{index .CstFreq 30}}</td>
+            <td class="gr{{index .CstGrad 38}}">{{index .CstFreq 38}}</td>
+            <td class="gap"></td>
+            <!-- BJT -->
+            <td class="gr{{index .BjtGrad 11}}">{{index .BjtFreq 11}}</td>
+            <td class="gr{{index .BjtGrad 30}}">{{index .BjtFreq 30}}</td>
+            <td class="gap"></td>
+            <!-- SYA -->
+            <td class="gr{{index .SyaGrad 10}}">{{index .SyaFreq 10}}</td>
+            <td class="gr{{index .SyaGrad 24}}">{{index .SyaFreq 24}}</td>
+            <td class="gap"></td>            
+            <!-- SC -->
+            <td class="gr{{index .ScGrad 11}}">{{index .ScFreq 11}}</td>
+        </tr>
+        <tr>
+            <th class="vertical-text" rowspan="8">Abhidhamma</th>
+        </tr>
+        <tr>
+            <th>Dhammasaṅgaṇī</th>
+            <!-- CST -->
+            <td class="gr{{index .CstGrad 12}}">{{index .CstFreq 12}}</td>
+            <td class="gr{{index .CstGrad 31}}" rowspan="7">{{index .CstFreq 31}}</td>
+            <td class="gr{{index .CstGrad 39}}" rowspan="7">{{index .CstFreq 39}}</td>
+            <td class="gap"></td>
+            <!-- BJT -->
+            <td class="gr{{index .BjtGrad 12}}">{{index .BjtFreq 12}}</td>
+            <td class="gr{{index .BjtGrad 31}}">{{index .BjtFreq 31}}</td>
+            <td class="gap"></td>
+            <!-- SYA -->
+            <td class="gr{{index .SyaGrad 11}}">{{index .SyaFreq 11}}</td>
+            <td class="gr{{index .SyaGrad 25}}" rowspan="7">{{index .SyaFreq 25}}</td>       
+            <td class="gap"></td>     
+            <!-- SC -->
+            <td class="gr{{index .ScGrad 12}}">{{index .ScFreq 12}}</td>
+        </tr>
+        <tr>
+            <th>Vibhaṅga</th>
+            <!-- CST -->
+            <td class="gr{{index .CstGrad 13}}">{{index .CstFreq 13}}</td>
+            <td class="gap"></td>
+            <!-- BJT -->
+            <td class="gr{{index .BjtGrad 13}}">{{index .BjtFreq 13}}</td>
+            <td class="gr{{index .BjtGrad 32}}">{{index .BjtFreq 32}}</td>
+            <td class="gap"></td>
+            <!-- SYA -->
+            <td class="gr{{index .SyaGrad 12}}">{{index .SyaFreq 12}}</td>
+            <td class="gap"></td>          
+            <!-- SC -->
+            <td class="gr{{index .ScGrad 13}}">{{index .ScFreq 13}}</td>
+        </tr>
+        <tr>
+            <th>Dhātukathā</th>
+            <!-- CST -->
+            <td class="gr{{index .CstGrad 14}}">{{index .CstFreq 14}}</td>
+            <td class="gap"></td>
+            <!-- BJT -->
+            <td class="gr{{index .BjtGrad 14}}">{{index .BjtFreq 14}}</td>
+            <td class="gr{{index .BjtGrad 33}}">{{index .BjtFreq 33}}</td>
+            <td class="gap"></td>
+            <!-- SYA -->
+            <td class="gr{{index .SyaGrad 13}}" rowspan="2">{{index .SyaFreq 13}}</td>  
+            <td class="gap"></td>        
+            <!-- SC -->
+            <td class="gr{{index .ScGrad 14}}">{{index .ScFreq 14}}</td>
+        </tr>
+        <tr>
+            <th>Puggalapaññatti</th>
+            <!-- CST -->
+            <td class="gr{{index .CstGrad 15}}">{{index .CstFreq 15}}</td>
+            <td class="gap"></td>
+            <!-- BJT -->
+            <td class="gr{{index .BjtGrad 15}}">{{index .BjtFreq 15}}</td>
+            <td class="gr{{index .BjtGrad 34}}">{{index .BjtFreq 34}}</td>
+            <td class="gap"></td>
+            <!-- SYA -->
+            <!-- included in dhātukathā  -->
+            <td class="gap"></td>        
+            <!-- SC -->
+            <td class="gr{{index .ScGrad 15}}">{{index .ScFreq 15}}</td>
+        </tr>
+        <tr>
+            <th>Kathāvatthu</th>
+            <!-- CST -->
+            <td class="gr{{index .CstGrad 16}}">{{index .CstFreq 16}}</td>
+            <td class="gap"></td>
+            <!-- BJT -->
+            <td class="gr{{index .BjtGrad 16}}">{{index .BjtFreq 16}}</td>
+            <td class="gr{{index .BjtGrad 35}}">{{index .BjtFreq 35}}</td>
+            <td class="gap"></td>
+            <!-- SYA -->
+            <td class="gr{{index .SyaGrad 14}}">{{index .SyaFreq 14}}</td>
+            <td class="gap"></td>
+            <!-- SC -->
+            <td class="gr{{index .ScGrad 16}}">{{index .ScFreq 16}}</td>
+        </tr>
+        <tr>
+            <th>Yamaka</th>
+            <!-- CST -->
+            <td class="gr{{index .CstGrad 17}}">{{index .CstFreq 17}}</td>
+            <td class="gap"></td>
+            <!-- BJT -->
+            <td class="gr{{index .BjtGrad 17}}">{{index .BjtFreq 17}}</td>
+            <td class="gr{{index .BjtGrad 36}}">{{index .BjtFreq 36}}</td>
+            <td class="gap"></td>
+            <!-- SYA -->
+            <td class="gr{{index .SyaGrad 15}}">{{index .SyaFreq 15}}</td>
+            <td class="gap"></td>
+            <!-- SC -->
+            <td class="gr{{index .ScGrad 17}}">{{index .ScFreq 17}}</td>
+        </tr>
+        <tr>
+            <th>Paṭṭhāna</th>
+            <!-- CST -->
+            <td class="gr{{index .CstGrad 18}}">{{index .CstFreq 18}}</td>
+            <td class="gap"></td>
+            <!-- BJT -->
+            <td class="gr{{index .BjtGrad 18}}">{{index .BjtFreq 18}}</td>
+            <td class="gr{{index .BjtGrad 37}}">{{index .BjtFreq 37}}</td>
+            <td class="gap"></td>
+            <!-- SYA -->
+            <td class="gr{{index .SyaGrad 16}}">{{index .SyaFreq 16}}</td>
+            <td class="gap"></td>            
+            <!-- SC -->
+            <td class="gr{{index .ScGrad 18}}">{{index .ScFreq 18}}</td>
+        </tr>
+        <tr>
+            <th class="vertical-text" rowspan="10">Aññā</th>
+        </tr>
+        <tr>
+            <th>Visuddhimagga</th>
+            <!-- CST -->
+            <td class="void"></td>
+            <td class="gr{{index .CstGrad 32}}">{{index .CstFreq 32}}</td>
+            <td class="gr{{index .CstGrad 40}}">{{index .CstFreq 40}}</td>
+            <td class="gap"></td>
+            <!-- BJT -->
+            <td class="void"></td>
+            <td class="gr{{index .BjtGrad 38}}">{{index .BjtFreq 38}}</td>  
+            <td class="gap"></td>      
+            <!-- SYA -->
+            <td class="void"></td>
+            <td class="gr{{index .SyaGrad 26}}">{{index .SyaFreq 26}}</td> 
+            <td class="gap"></td>           
+            <!-- SC -->
+            <td class="void"></td>  
+        </tr>
+        <tr>
+            <th>Leḍī Sayāḍo</th>
+            <td class="void"></td>
+            <td class="void"></td>
+            <td class="gr{{index .CstGrad 41}}">{{index .CstFreq 41}}</td>
+        </tr>
+        <tr>
+            <th>Buddhavandanā</th>
+            <td class="void"></td>
+            <td class="void"></td>
+            <td class="gr{{index .CstGrad 42}}">{{index .CstFreq 42}}</td>
+        </tr>
+        <tr>
+            <th>Vaṃsa</th>
+            <td class="void"></td>
+            <td class="void"></td>
+            <td class="gr{{index .CstGrad 43}}">{{index .CstFreq 43}}</td>
+        </tr>
+        <tr>
+            <th>Byākaraṇa</th>
+            <td class="void"></td>
+            <td class="void"></td>
+            <td class="gr{{index .CstGrad 44}}">{{index .CstFreq 44}}</td>
+        </tr>
+        <tr>
+            <th>Pucchavissajjanā</th>
+            <td class="void"></td>
+            <td class="void"></td>
+            <td class="gr{{index .CstGrad 45}}">{{index .CstFreq 45}}</td>
+        </tr>
+        <tr>
+            <th>Nīti</th>
+            <td class="void"></td>
+            <td class="void"></td>
+            <td class="gr{{index .CstGrad 46}}">{{index .CstFreq 46}}</td>
+        </tr>
+        <tr>
+            <th>Pakiṇṇaka</th>
+            <td class="void"></td>
+            <td class="void"></td>
+            <td class="gr{{index .CstGrad 47}}">{{index .CstFreq 47}}</td>
+        </tr>
+        <tr>
+            <th>Sihaḷa</th>
+            <td class="void"></td>
+            <td class="void"></td>
+            <td class="gr{{index .CstGrad 48}}">{{index .CstFreq 48}}</td>
+        </tr>
+    </tbody>
+</table>
+<p>
+    CST = Chaṭṭha Saṅgāyana Tipiṭaka (Myanmar)<br>
+    BJT = Buddha Jayanti Tipiṭaka (Sri Lanka)<br>
+    SYA = Syāmaraṭṭha 1927 Royal Edition (Thailand)<br>    
+    MST = Mahāsaṅgīti Tipiṭaka (Sutta Central)
+</p>

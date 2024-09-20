@@ -1,0 +1,10 @@
+copy from 
+exporter/goldendict/javascript/frequency_template.js
+
+remove js header and footer
+
+find
+\$\{data(.+?)\[(\d*)\]\}
+
+replace
+{{index $1 $2}}
