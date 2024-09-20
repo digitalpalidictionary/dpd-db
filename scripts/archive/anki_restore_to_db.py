@@ -11,7 +11,7 @@ from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc, bip, bop
 
-from scripts.anki_updater import setup_anki_updater
+from scripts.build.anki_updater import setup_anki_updater
 
 def main():
     tic()

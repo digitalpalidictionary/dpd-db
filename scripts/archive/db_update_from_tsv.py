@@ -6,11 +6,11 @@ from rich import print
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadwords, DpdRoots, Russian, SBS
-from scripts.db_rebuild_from_tsv import make_pali_word_table_data
-from scripts.db_rebuild_from_tsv import make_pali_root_table_data
-from scripts.db_rebuild_from_tsv import make_russian_table_data
-from scripts.db_rebuild_from_tsv import make_sbs_table_data
-from scripts.db_rebuild_from_tsv import make_ru_root_table_data
+from scripts.build.db_rebuild_from_tsv import make_pali_word_table_data
+from scripts.build.db_rebuild_from_tsv import make_pali_root_table_data
+from scripts.build.db_rebuild_from_tsv import make_russian_table_data
+from scripts.build.db_rebuild_from_tsv import make_sbs_table_data
+from scripts.build.db_rebuild_from_tsv import make_ru_root_table_data
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 

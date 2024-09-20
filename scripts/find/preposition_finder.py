@@ -10,8 +10,6 @@ from db.models import DpdHeadwords
 from tools.paths import ProjectPaths
 from collections import Counter
 
-
-
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)

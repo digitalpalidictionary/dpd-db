@@ -12,8 +12,8 @@ from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
 
-from scripts.backup_dpd_headwords_and_roots import backup_dpd_headwords, backup_dpd_roots
-from scripts.backup_ru_sbs import backup_russian, backup_sbs, backup_ru_roots
+from scripts.backup.backup_dpd_headwords_and_roots import backup_dpd_headwords, backup_dpd_roots
+from scripts.backup.backup_ru_sbs import backup_russian, backup_sbs, backup_ru_roots
 
 console = Console()
 

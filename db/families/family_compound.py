@@ -10,7 +10,7 @@ from rich import print
 from db.db_helpers import get_db_session
 from db.models import DbInfo, DpdHeadwords, FamilyCompound
 
-from scripts.anki_updater import family_updater
+from scripts.build.anki_updater import family_updater
 
 
 from tools.configger import config_test

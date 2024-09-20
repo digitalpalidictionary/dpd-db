@@ -2,7 +2,8 @@
 
 """Find a random word
 - without meaning_1
-- without example_1"""
+- without example_1
+"""
 
 from random import randrange
 import pyperclip

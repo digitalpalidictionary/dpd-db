@@ -7,7 +7,7 @@ if [ ! -e "dpd.db" ]; then
     exit 1
 fi
 
-scripts/config_uposatha_day.py
+scripts/build/config_uposatha_day.py
 scripts/bash/generate_components.sh
 
 exporter/grammar_dict/grammar_dict.py
@@ -18,6 +18,6 @@ exporter/tpr/tpr_exporter.py
 exporter/kindle/kindle_exporter.py
 exporter/tbw/tbw_exporter.py
 
-scripts/zip_goldendict_mdict.py
-scripts/tarball_db.py
-scripts/summary.py
+scripts/build/zip_goldendict_mdict.py
+scripts/build/tarball_db.py
+scripts/build/summary.py

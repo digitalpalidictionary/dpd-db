@@ -23,7 +23,7 @@ def main():
             i.sutta_2 = i.sutta_2.replace(" ", "")
             print(i.sutta_2)
     
-    db_session.commit()
+    # db_session.commit()
 
 
 if __name__ == "__main__":

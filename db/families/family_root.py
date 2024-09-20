@@ -15,7 +15,7 @@ from root_info import generate_root_info_html
 from db.db_helpers import get_db_session
 from db.models import DpdRoots, DpdHeadwords, FamilyRoot, Lookup
 
-from scripts.anki_updater import family_updater
+from scripts.build.anki_updater import family_updater
 
 from tools.configger import config_test
 from tools.lookup_is_another_value import is_another_value

@@ -42,7 +42,7 @@ poetry run bash scripts/bash/build_db.sh
 
 That should create an SQLite database `dpd.db` in the root folder which can be accessed with [DB Browser](https://sqlitebrowser.org/), [DBeaver](https://dbeaver.io/), through [SQLAlechmy](https://www.sqlalchemy.org/) or your preferred method.
 
-For a quick tutorial on how to access any information in the db with SQLAlchemy, see [scripts/db_search_example.py](scripts/db_search_example.py)
+For a quick tutorial on how to access any information in the db with SQLAlchemy, see [scripts/tutorial/db_search_example.py](scripts/tutorial/db_search_example.py)
 
 ---
 
