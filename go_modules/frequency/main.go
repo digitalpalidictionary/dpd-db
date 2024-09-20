@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"slices"
 	"sync"
 	"text/template"
 
@@ -100,7 +101,7 @@ func main() {
 }
 
 func makeTemplate() *template.Template {
-	filePath := tools.Pth.CombinedTemplate
+	filePath := tools.Pth.FreqTemplateHtml
 
 	templateRead, err := os.ReadFile(filePath)
 	tools.HardCheck(err)
@@ -133,16 +134,20 @@ func makeFreqTable(i dpdDb.DpdHeadword) {
 	wordList := i.InflectionsListALl()
 
 	CstFreqList := freqFinder(wordList, CstFileMap, CstFileFreqMap)
-	CstGradientList := gradient.MakeGradients(CstFreqList)
-
 	BjtFreqList := freqFinder(wordList, BjtFileMap, BjtFileFreqMap)
-	BjtGradientList := gradient.MakeGradients(BjtFreqList)
-
 	SyaFreqList := freqFinder(wordList, SyaFileMap, SyaFileFreqMap)
-	SyaGradientList := gradient.MakeGradients(SyaFreqList)
-
 	ScFreqList := freqFinder(wordList, ScFileMap, ScFileFreqMap)
-	ScGradientList := gradient.MakeGradients(ScFreqList)
+
+	// colour the gradient of the entire list
+	AllFreqList := slices.Concat(
+		CstFreqList, BjtFreqList, SyaFreqList, ScFreqList)
+
+	min, max := gradient.MinMax(AllFreqList)
+
+	CstGradientList := gradient.MakeGradients(CstFreqList, min, max)
+	BjtGradientList := gradient.MakeGradients(BjtFreqList, min, max)
+	SyaGradientList := gradient.MakeGradients(SyaFreqList, min, max)
+	ScGradientList := gradient.MakeGradients(ScFreqList, min, max)
 
 	// template data struct
 	td := templateData{}

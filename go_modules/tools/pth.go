@@ -55,7 +55,7 @@ var Pth = struct {
 	CstTemplate      string
 	ScTemplate       string
 	BjtTemplate      string
-	CombinedTemplate string
+	FreqTemplateHtml string
 }{
 	// dpd base dir
 	DpdBaseDir: "",
@@ -110,10 +110,8 @@ var Pth = struct {
 	SyaFileMap: "go_modules/frequency/file_maps/sya_file_map.json",
 
 	// templates
-	CstTemplate:      "go_modules/frequency/templates/cst_template.html",
-	ScTemplate:       "go_modules/frequency/templates/sc_template.html",
-	BjtTemplate:      "go_modules/frequency/templates/bjt_template.html",
-	CombinedTemplate: "go_modules/frequency/templates/combined_template.html",
+
+	FreqTemplateHtml: "go_modules/frequency/templates/frequency_template.html",
 
 	// deconstructor output
 	MatchesTsv:   "go_modules/deconstructor/output/matches.tsv",

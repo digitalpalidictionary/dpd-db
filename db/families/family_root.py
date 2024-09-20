@@ -161,7 +161,8 @@ def compile_rf_html(dpd_db, rf_dict, lang="en"):
             html_string += "<tr>"
             html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
             html_string += f"<td><b>{i.pos}</b></td>"
-            html_string += f"<td>{meaning} {degree_of_completion(i)}</td>"
+            html_string += f"<td>{meaning}</td>"
+            html_string += f"<td>{degree_of_completion(i)}</td>"
             html_string += "</tr>"
 
             rf_dict[family]["html"] = html_string
@@ -177,7 +178,8 @@ def compile_rf_html(dpd_db, rf_dict, lang="en"):
                 html_string += "<tr>"
                 html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
                 html_string += f"<td><b>{pos}</b></td>"
-                html_string += f"<td>{ru_meaning} {degree_of_completion(i)}</td>"
+                html_string += f"<td>{ru_meaning}</td>"
+                html_string += f"<td>{degree_of_completion(i)}</td>"
                 html_string += "</tr>"
 
                 rf_dict[family]["html_ru"] = html_string

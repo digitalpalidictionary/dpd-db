@@ -3,24 +3,22 @@ package main
 import (
 	"dpd/go_modules/deconstructor/data"
 	"dpd/go_modules/deconstructor/importer"
-	"fmt"
-
 	"dpd/go_modules/deconstructor/splitters"
 	"dpd/go_modules/tools"
 	"sync"
 )
 
-// printers
-var pl = fmt.Println
-var pf = fmt.Printf
-var spf = fmt.Sprintf
-
-var Wg = sync.WaitGroup{}
-
 var tic = tools.Tic()
+var Wg = sync.WaitGroup{}
+var doNotRun = tools.IniTest("exporter", "make_deconstructor", "no")
 
 func init() {
 	tools.PTitle("deconstructing compounds")
+
+	if doNotRun {
+		tools.PGreenTitle("disabled in config.ini")
+		return
+	}
 
 	// init globals
 	var di = importer.DeconImporter()
@@ -35,6 +33,11 @@ func init() {
 }
 
 func main() {
+
+	if doNotRun {
+		return
+	}
+
 	tools.PGreenTitle("splitting compounds")
 	testMap := map[string]string{
 		// "ādīnavānisaṃsadassanavidhi": "",

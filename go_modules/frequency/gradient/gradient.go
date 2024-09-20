@@ -2,9 +2,8 @@ package gradient
 
 import "slices"
 
-func MakeGradients(freqList []int) []int {
+func MakeGradients(freqList []int, min int, max int) []int {
 
-	min, max := minMax(freqList)
 	s := makeStepsStruct(min, max)
 	gradientList := makeGradientList(s, freqList)
 	return gradientList
@@ -41,7 +40,7 @@ func makeGradientList(s stepsStruct, freqList []int) []int {
 	return gradientList
 }
 
-func minMax(freqList []int) (int, int) {
+func MinMax(freqList []int) (int, int) {
 	max := slices.Max(freqList)
 	min := slices.Min(freqList)
 	return min, max

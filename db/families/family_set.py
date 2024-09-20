@@ -10,7 +10,6 @@ from tools.tic_toc import tic, toc
 from tools.superscripter import superscripter_uni
 from tools.meaning_construction import degree_of_completion, make_meaning_combo
 from tools.pali_sort_key import pali_sort_key
-from tools.meaning_construction import degree_of_completion as doc
 from tools.paths import ProjectPaths
 from tools.configger import config_test
 
@@ -118,7 +117,8 @@ def compile_sf_html(sets_db, sets_dict, lang="en"):
                     html_string += "<tr>"
                     html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
                     html_string += f"<td><b>{i.pos}</b></td>"
-                    html_string += f"<td>{meaning} {doc(i)}</td>"
+                    html_string += f"<td>{meaning}</td>"
+                    html_string += f"<td>{degree_of_completion(i)}</td>"
                     html_string += "</tr>"
 
                     sets_dict[sf]["html"] = html_string
@@ -134,7 +134,8 @@ def compile_sf_html(sets_db, sets_dict, lang="en"):
                         html_string += "<tr>"
                         html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
                         html_string += f"<td><b>{pos}</b></td>"
-                        html_string += f"<td>{ru_meaning} {doc(i)}</td>"
+                        html_string += f"<td>{ru_meaning}</td>"
+                        html_string += f"<td>{degree_of_completion(i)}</td>"
                         html_string += "</tr>"
 
                         sets_dict[sf]["html_ru"] = html_string
