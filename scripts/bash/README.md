@@ -1,16 +1,20 @@
 # Bash
 Bash scripts to perform various procedures:
 
-`build_and_make_all.sh`: Build the database on all texts for the first time and export all dictionaries
+## Initial setup
 
-`build_db.sh`: Build the database for the first time or rebuild it from tsv
+`initial_setup_run_once.sh` Initial setup, only need to run once.
 
-`generate_components.sh`: Rebuild components for db
+## First build
 
-`initial_setup_run_once.sh` Initial setup
+`build_db.sh`: Build the database for the first time.
 
-`makedict.sh`: Export DPD into various formats
+`build_db_and_export_all.sh`: Build the database for the first time and export all dictionaries.
 
-`sandhi_zip_for_cloud.sh`: Setup deconstrutor to run in the cloud
+## Daily builds
 
-`update_db.sh`: Update the database from tsv
+`generate_components.sh`: Generate all the db components.
+
+`makedict.sh`: Generate all the db components and export DPD into various formats.
+
+`update_db.sh`: Update the database from tsv.

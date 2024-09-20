@@ -19,9 +19,9 @@ Where are all the parts of the project located?
 ├── exporter  
 │   ├── bold_definitions  
 │   ├── deconstructor  
-│   ├── ebook  
 │   ├── goldendict  
 │   ├── grammar_dict  
+│   ├── kindle
 │   ├── kobo  
 │   ├── other_dictionaries  
 │   ├── share  
@@ -29,16 +29,28 @@ Where are all the parts of the project located?
 │   ├── tbw  
 │   ├── tpr  
 │   └── webapp  
+├── go_modules  
+│   ├── deconstructor  
+│   ├── dpdDb  
+│   ├── frequency  
+│   ├── tools  
 ├── gui  
 ├── resources  
 ├── scripts  
+│   ├── add  
 │   ├── archive  
+│   ├── backup  
 │   ├── bash  
+│   ├── build  
+│   ├── export  
+│   ├── find  
+│   ├── fix  
+│   ├── info  
+│   ├── tutorial  
 ├── shared_data  
 ├── temp  
 ├── tests  
 └── tools  
-
 
 ## Code Structure
 
@@ -60,8 +72,6 @@ There are four main parts to the code:
     - **backup_tsv/** TSV backups of the database source tables
     
     - **bold_definitions/** Extract bold definitions from CST texts and compile for easy searching.
-    
-    - **deconstructor/** A lot of code to break up compounds words
 
 	- **db/epd/** Compile data for the English to Pāḷi dictionary.
 
@@ -107,17 +117,25 @@ There are four main parts to the code:
 
 	- **webapp/** A web application using the DPD database and FastApi, hosted at [www.dpdict.net](www.dpdict.net)
 
+- **go_modules/** When Python is too slow, write it in GO
+
+	- **deconstructor/** Breaking up a more than a million compound words
+
+	- **dpdDb/** Access the database using GORM
+
+	- **frequency/** Generate frequency tables and data lists for every word
+
+	- **tools/** GO packages used across the project
+
 - **gui/** A GUI for data capture and running database tests
 
 - **resources/** All external resources used by the project, imported as submodules
 
 - **scripts/** Useful scripts for project maintenance.
 
-	- **scripts/archive/** Once useful scripts now languishing in obscurity.
+	see [scripts readme](scripts/README.md) for more info.
 
-	- **scripts/bash/** Bash scripts used for building the database and exporting.
-
-- **shared_data/** Mostly pickle files used across the project.
+- **shared_data/** Data used across the project.
 
 - **tests/** Tests to ensure the completeness and accuracy of the database.
 
