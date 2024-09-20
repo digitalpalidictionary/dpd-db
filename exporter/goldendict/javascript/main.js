@@ -65,9 +65,11 @@ function loadButtonContent(data) {
 
     // frequency
 
-    const frequencyHTML = makeFrequency(data);
-    const frequencyElement = document.getElementById(`frequency_${data.lemma}`)
-    frequencyElement.innerHTML = frequencyElement.innerHTML.replace("frequency loading...", frequencyHTML)
+    if (data.CstFreq) {
+        const frequencyHTML = makeFrequency(data);
+        const frequencyElement = document.getElementById(`frequency_${data.lemma}`)
+        frequencyElement.innerHTML = frequencyElement.innerHTML.replace("frequency loading...", frequencyHTML)
+    };
 
     //// family compounds
 

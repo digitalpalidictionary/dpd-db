@@ -20,8 +20,7 @@ var Wg = sync.WaitGroup{}
 var tic = tools.Tic()
 
 func init() {
-	tools.PTitle("Deconstructing compounds")
-	tools.PGreenTitle("splitting compounds")
+	tools.PTitle("deconstructing compounds")
 
 	// init globals
 	var di = importer.DeconImporter()

@@ -1,10 +1,8 @@
 """A class to handle all data relevant to adding user additions to the db."""
 
 from datetime import datetime
-from rich import print
 
 from db.models import DpdHeadwords
-from db.db_helpers import get_db_session
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_dot_dict, write_tsv_dot_dict
 from tools.configger import config_read
@@ -86,21 +84,14 @@ class Additions():
 {"date_added_to_db":<20}: {self.add_me["date_added_to_db"]}
 """
 
-    
-
-    # def convert_old_format_to_new():
-    #     with open(pth.additions_pickle_path, "rb") as f:
-    #         old_additions_list = pickle.load(f)
-    #         for i in old_additions_list:
-    #             print(i)
-
-
 
 if __name__ == "__main__":
 
-    db_session = get_db_session(pth.dpd_db_path)
-    headword = db_session.query(DpdHeadwords).filter_by(id=45673).first()
-    if headword:
-        new_addition = Additions(headword)
-        print(new_addition.needs_updating)
-        new_addition.update("oh yes!")
+    # db_session = get_db_session(pth.dpd_db_path)
+    # headword = db_session.query(DpdHeadwords).filter_by(id=45673).first()
+    # if headword:
+    #     new_addition = Additions(headword)
+    #     print(new_addition.needs_updating)
+    #     new_addition.update("oh yes!")
+    # add_to_db()
+    pass

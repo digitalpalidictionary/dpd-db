@@ -50,13 +50,13 @@ jobs:
     # ----------------------------------------
 
     - name: Config for GitHub release
-      run: poetry run python scripts/config_github_release.py
+      run: poetry run python scripts/build/config_github_release.py
 
     - name: Create dpd.db
       run: touch dpd.db
 
     - name: Build the database
-      run: poetry run python scripts/db_rebuild_from_tsv.py
+      run: poetry run python scripts/build/db_rebuild_from_tsv.py
 
     - name: Run initial setup script
       run: poetry run bash scripts/bash/initial_setup_run_once.sh
@@ -71,7 +71,7 @@ jobs:
       run: poetry run python db/inflections/generate_inflection_tables.py
 
     - name: Update Sanskrit Family Roots
-      run: poetry run python scripts/sanskrit_root_families_updater.py
+      run: poetry run python scripts/build/sanskrit_root_families_updater.py
 
     - name: Add Root Families
       run: poetry run python db/families/family_root.py
@@ -89,7 +89,7 @@ jobs:
       run: poetry run python db/families/family_idiom.py
 
     - name: Families to JSON
-      run: poetry run python scripts/families_to_json.py
+      run: poetry run python scripts/build/families_to_json.py
 
     - name: Deconstructor Setup
       run: poetry run python db/deconstructor/sandhi_setup.py
@@ -101,7 +101,7 @@ jobs:
       run: poetry run python db/deconstructor/sandhi_postprocess.py
 
     - name: Add api ca eva iti to inflections 
-      run: poetry run python scripts/api_ca_evi_iti.py
+      run: poetry run python scripts/build/api_ca_evi_iti.py
 
     - name: Transliterate Inflections
       run: poetry run python db/inflections/transliterate_inflections.py
@@ -128,7 +128,7 @@ jobs:
       run: poetry run python db/epd/epd_to_lookup.py
 
     - name: Test Dealbreakers
-      run: poetry run python scripts/dealbreakers.py
+      run: poetry run python scripts/build/dealbreakers.py
 
     # ----------------------------------------
     # Exporter
@@ -150,13 +150,13 @@ jobs:
       run: poetry run python exporter/kobo/kobo.py
 
     - name: Zip GoldenDict & Mdict
-      run: poetry run python scripts/zip_goldendict_mdict.py
+      run: poetry run python scripts/build/zip_goldendict_mdict.py
            
     - name: Tarball DB
-      run: poetry run python scripts/tarball_db.py
+      run: poetry run python scripts/build/tarball_db.py
            
     - name: Summary
-      run: poetry run python scripts/summary.py
+      run: poetry run python scripts/build/summary.py
     
     # ----------------------------------------
     # Upload Artifacts
@@ -178,7 +178,7 @@ jobs:
 
     - name: Set Release Tag
       id: set_release_tag
-      run: echo "RELEASE_TAG=$(poetry run python scripts/version_print.py)" >> $GITHUB_ENV
+      run: echo "RELEASE_TAG=$(poetry run python scripts/build/version_print.py)" >> $GITHUB_ENV
 
     - name: Create Draft Release
       id: create_release

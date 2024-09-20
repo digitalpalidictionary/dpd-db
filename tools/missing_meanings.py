@@ -64,6 +64,7 @@ def check_in_dpd_headwords(g: GlobalVars):
 def check_in_deconstructor(g: GlobalVars):
     """"""
     for deconstruction in g.lookup.deconstructor_unpack:
+        deconstruction = re.sub(r" \[.+", "", deconstruction)
         for word in deconstruction.split(" + "):
             g.append_to_text_list(word)
 
