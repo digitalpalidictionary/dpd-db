@@ -11554,7 +11554,7 @@ var family_word_json = {
     "upapāramī",
     "fem",
     "higher perfection; greater perfection; lit. near perfection",
-    "~"
+    "✓"
    ],
    [
     "para 1",
@@ -13266,8 +13266,8 @@ var family_word_json = {
    [
     "madhu 4",
     "nt",
-    "wine made from the blossom of Bassia Latifolia",
-    "✗"
+    "Butter tree; Mahua; Bassia latifolia",
+    "✓"
    ],
    [
     "madhuka",
@@ -17203,6 +17203,17 @@ var family_word_json = {
    ]
   ],
   "count": 2
+ },
+ "ahundara": {
+  "data": [
+   [
+    "āhundarika",
+    "adj",
+    "crowded; blocked up",
+    "✓"
+   ]
+  ],
+  "count": 1
  },
  "iti": {
   "data": [
@@ -21479,9 +21490,15 @@ var family_word_json = {
     "masc",
     "big jar; (comm) wide-mouthed pot",
     "✓"
+   ],
+   [
+    "kolambaka",
+    "masc",
+    "jar; container",
+    "✓"
    ]
   ],
-  "count": 1
+  "count": 2
  },
  "koliya": {
   "data": [
@@ -24206,9 +24223,15 @@ var family_word_json = {
     "adj",
     "just this much; just so much",
     "✓"
+   ],
+   [
+    "tāvattaka",
+    "adj",
+    "that much; that many",
+    "✓"
    ]
   ],
-  "count": 9
+  "count": 10
  },
  "tamas": {
   "data": [
@@ -30027,6 +30050,17 @@ var family_word_json = {
    ]
   ],
   "count": 4
+ },
+ "yāva": {
+  "data": [
+   [
+    "yāvattaka",
+    "adj",
+    "however much; however many",
+    "✓"
+   ]
+  ],
+  "count": 1
  },
  "yona": {
   "data": [

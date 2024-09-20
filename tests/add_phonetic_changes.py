@@ -94,7 +94,7 @@ def add_update_phonetic(db_session, db, csv):
 		):
 			Prompt.ask("[yellow]Press any key to continue")
 
-	print(f"{'-'*40}\n")
+	# if auto_updated or auto_added:
 	commitment = Prompt.ask("[yellow]Press 'c' to commit")
 	if commitment == "c":
 		db_session.commit()
@@ -103,6 +103,7 @@ def add_update_phonetic(db_session, db, csv):
 		print("[red]Changes not committed to db")
 
 	db_session.close()
+
 
 
 def finder(db, csv, string):

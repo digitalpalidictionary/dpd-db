@@ -15305,6 +15305,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "kaṇṭaka 5",
+    "masc",
+    "name of a novice monk; lit. thorn",
+    "✓"
+   ],
+   [
     "kaṇhadinna",
     "masc",
     "name of an arahant monk",
@@ -17705,7 +17711,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 466
+  "count": 467
  },
  "names of arahants": {
   "data": [
@@ -26055,6 +26061,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "madhu 4",
+    "nt",
+    "Butter tree; Mahua; Bassia latifolia",
+    "✓"
+   ],
+   [
     "madhuka",
     "masc",
     "Butter tree; Mahua; Bassia latifolia",
@@ -26421,7 +26433,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 204
+  "count": 205
  },
  "names of animals": {
   "data": [
@@ -29149,7 +29161,7 @@ var family_set_json = {
     "cuddasama",
     "ordin",
     "fourteenth (14th)",
-    "~"
+    "✓"
    ],
    [
     "chaṭṭha",
@@ -29684,6 +29696,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "guru 3",
+    "masc",
+    "planet Jupiter; lit. heavy",
+    "~"
+   ],
+   [
     "guruvāra",
     "masc",
     "Thursday; lit. day of Jupiter",
@@ -29906,7 +29924,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 61
+  "count": 62
  },
  "money": {
   "data": [
@@ -32674,6 +32692,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "madhu 4",
+    "nt",
+    "Butter tree; Mahua; Bassia latifolia",
+    "✓"
+   ],
+   [
     "madhuka",
     "masc",
     "Butter tree; Mahua; Bassia latifolia",
@@ -32800,7 +32824,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 80
+  "count": 81
  },
  "names of heavens": {
   "data": [

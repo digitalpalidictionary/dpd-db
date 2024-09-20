@@ -11285,7 +11285,7 @@ var family_idiom_json = {
   ]
  },
  "assa4": {
-  "count": 79,
+  "count": 80,
   "data": [
    [
     "athassa 2",
@@ -11753,6 +11753,12 @@ var family_idiom_json = {
     "hissa 1",
     "sandhi",
     "indeed his; certainly of that; truly his",
+    "✓"
+   ],
+   [
+    "hissa 3",
+    "sandhi",
+    "indeed for him; certainly to that; truly to him",
     "✓"
    ],
    [
@@ -12585,7 +12591,7 @@ var family_idiom_json = {
   ]
  },
  "hi": {
-  "count": 54,
+  "count": 55,
   "data": [
    [
     "aduñhi",
@@ -12855,6 +12861,12 @@ var family_idiom_json = {
     "hissa 2",
     "sandhi",
     "certainly; truly; verily",
+    "✓"
+   ],
+   [
+    "hissa 3",
+    "sandhi",
+    "indeed for him; certainly to that; truly to him",
     "✓"
    ],
    [
@@ -15700,6 +15712,17 @@ var family_idiom_json = {
     "abhinīhāraṃ katvā",
     "idiom",
     "having made the aspiration (for); having set the intention (to)",
+    "✓"
+   ]
+  ]
+ },
+ "bhinna": {
+  "count": 1,
+  "data": [
+   [
+    "vācā bhinnā",
+    "idiom",
+    "it is expressly said; lit. speech is broken",
     "✓"
    ]
   ]
@@ -31515,17 +31538,6 @@ var family_idiom_json = {
     "vācaṃ nicchāreti",
     "idiom",
     "says; states; expresses; lit. emits words",
-    "✓"
-   ]
-  ]
- },
- "bhinna": {
-  "count": 1,
-  "data": [
-   [
-    "vācā bhinnā",
-    "idiom",
-    "it is expressly said; lit. speech is broken",
     "✓"
    ]
   ]

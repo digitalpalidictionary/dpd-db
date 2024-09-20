@@ -470,6 +470,7 @@ coessential
 cognised
 cognising
 cognize
+cohabiting
 cohering
 cojoined
 Coḷa
@@ -505,6 +506,7 @@ coronated
 correctness
 cortege
 cossetted
+cottonwool
 courageless
 courteousness
 covetousness
@@ -927,6 +929,7 @@ immediate
 immediately
 immerged
 impalpability
+impelling
 impercipient
 imperturbable
 iṃsu
@@ -1661,6 +1664,7 @@ petit
 Petrospermum
 ph
 Phaseolus
+phenomenological
 phoenicea
 Phussa
 Phyllanthus
@@ -1775,6 +1779,7 @@ rebirths
 rebukes
 recalcitrance
 reciter
+recompensated
 redescription
 reduplicated
 refutable
@@ -1926,6 +1931,7 @@ Savatth
 Sāvatthi
 Sāvatthī
 scandens
+schismatic
 Scholaris
 scourer
 scrutinizer
@@ -2021,6 +2027,7 @@ Sri
 Sri Lankan
 ssa
 stabilises
+stableman
 steamrolls
 step-by-step
 stick-less
@@ -2262,6 +2269,7 @@ uncelibacy
 uncharitableness
 unchastity
 unchewed
+unchopped
 unchurned
 uncleanable
 uncleaned

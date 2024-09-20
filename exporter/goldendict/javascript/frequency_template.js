@@ -66,7 +66,7 @@ function makeFrequency(data) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[0]}" rowspan="2">${data.SyaFreq[0]}</td>
-            <td class="gr${data.SyaGrad[18]}" rowspan="5">${data.SyaFreq[18]}</td>
+            <td class="gr${data.SyaGrad[17]}" rowspan="5">${data.SyaFreq[17]}</td>
             <td class="gap"></td>
             <!-- SC -->
             <td class="gr${data.ScGrad[0]}">${data.ScFreq[0]}</td>
@@ -150,7 +150,7 @@ function makeFrequency(data) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[4]}">${data.SyaFreq[4]}</td>
-            <td class="gr${data.SyaGrad[19]}">${data.SyaFreq[19]}</td>  
+            <td class="gr${data.SyaGrad[18]}">${data.SyaFreq[18]}</td>  
             <td class="gap"></td>          
             <!-- SC -->
             <td class="gr${data.ScGrad[5]}">${data.ScFreq[5]}</td>
@@ -168,7 +168,7 @@ function makeFrequency(data) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[5]}">${data.SyaFreq[5]}</td>
-            <td class="gr${data.SyaGrad[20]}">${data.SyaFreq[20]}</td>   
+            <td class="gr${data.SyaGrad[19]}">${data.SyaFreq[19]}</td>   
             <td class="gap"></td>         
             <!-- SC -->
             <td class="gr${data.ScGrad[6]}">${data.ScFreq[6]}</td>
@@ -186,7 +186,7 @@ function makeFrequency(data) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[6]}">${data.SyaFreq[6]}</td>
-            <td class="gr${data.SyaGrad[21]}">${data.SyaFreq[21]}</td>  
+            <td class="gr${data.SyaGrad[20]}">${data.SyaFreq[20]}</td>  
             <td class="gap"></td>          
             <!-- SC -->
             <td class="gr${data.ScGrad[7]}">${data.ScFreq[7]}</td>
@@ -204,7 +204,7 @@ function makeFrequency(data) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[7]}">${data.SyaFreq[7]}</td>
-            <td class="gr${data.SyaGrad[22]}">${data.SyaFreq[22]}</td>      
+            <td class="gr${data.SyaGrad[21]}">${data.SyaFreq[21]}</td>      
             <td class="gap"></td>      
             <!-- SC -->
             <td class="gr${data.ScGrad[8]}">${data.ScFreq[8]}</td>
@@ -222,7 +222,7 @@ function makeFrequency(data) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[8]}">${data.SyaFreq[8]}</td>
-            <td class="gr${data.SyaGrad[23]}">${data.SyaFreq[23]}</td>  
+            <td class="gr${data.SyaGrad[22]}">${data.SyaFreq[22]}</td>  
             <td class="gap"></td>          
             <!-- SC -->
             <td class="gr${data.ScGrad[9]}">${data.ScFreq[9]}</td>
@@ -240,7 +240,7 @@ function makeFrequency(data) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[9]}">${data.SyaFreq[9]}</td>
-            <td class="gr${data.SyaGrad[24]}">${data.SyaFreq[24]}</td>   
+            <td class="gr${data.SyaGrad[23]}">${data.SyaFreq[23]}</td>   
             <td class="gap"></td>         
             <!-- SC -->
             <td class="gr${data.ScGrad[10]}">${data.ScFreq[10]}</td>
@@ -258,7 +258,7 @@ function makeFrequency(data) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[10]}">${data.SyaFreq[10]}</td>
-            <td class="gr${data.SyaGrad[25]}">${data.SyaFreq[25]}</td>
+            <td class="gr${data.SyaGrad[24]}">${data.SyaFreq[24]}</td>
             <td class="gap"></td>            
             <!-- SC -->
             <td class="gr${data.ScGrad[11]}">${data.ScFreq[11]}</td>
@@ -279,7 +279,7 @@ function makeFrequency(data) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[11]}">${data.SyaFreq[11]}</td>
-            <td class="gr${data.SyaGrad[26]}" rowspan="7">${data.SyaFreq[26]}</td>       
+            <td class="gr${data.SyaGrad[25]}" rowspan="7">${data.SyaFreq[25]}</td>       
             <td class="gap"></td>     
             <!-- SC -->
             <td class="gr${data.ScGrad[12]}">${data.ScFreq[12]}</td>
@@ -309,7 +309,7 @@ function makeFrequency(data) {
             <td class="gr${data.BjtGrad[33]}">${data.BjtFreq[33]}</td>
             <td class="gap"></td>
             <!-- SYA -->
-            <td class="gr${data.SyaGrad[13]}">${data.SyaFreq[13]}</td>  
+            <td class="gr${data.SyaGrad[13]}" rowspan="2">${data.SyaFreq[13]}</td>  
             <td class="gap"></td>        
             <!-- SC -->
             <td class="gr${data.ScGrad[14]}">${data.ScFreq[14]}</td>
@@ -324,7 +324,7 @@ function makeFrequency(data) {
             <td class="gr${data.BjtGrad[34]}">${data.BjtFreq[34]}</td>
             <td class="gap"></td>
             <!-- SYA -->
-            <td class="gr${data.SyaGrad[14]}">${data.SyaFreq[14]}</td> 
+            <!-- included in Dhātukathā -->
             <td class="gap"></td>        
             <!-- SC -->
             <td class="gr${data.ScGrad[15]}">${data.ScFreq[15]}</td>
@@ -339,7 +339,7 @@ function makeFrequency(data) {
             <td class="gr${data.BjtGrad[35]}">${data.BjtFreq[35]}</td>
             <td class="gap"></td>
             <!-- SYA -->
-            <td class="gr${data.SyaGrad[15]}">${data.SyaFreq[15]}</td>
+            <td class="gr${data.SyaGrad[14]}">${data.SyaFreq[14]}</td>
             <td class="gap"></td>
             <!-- SC -->
             <td class="gr${data.ScGrad[16]}">${data.ScFreq[16]}</td>
@@ -354,7 +354,7 @@ function makeFrequency(data) {
             <td class="gr${data.BjtGrad[36]}">${data.BjtFreq[36]}</td>
             <td class="gap"></td>
             <!-- SYA -->
-            <td class="gr${data.SyaGrad[16]}">${data.SyaFreq[16]}</td>
+            <td class="gr${data.SyaGrad[15]}">${data.SyaFreq[15]}</td>
             <td class="gap"></td>
             <!-- SC -->
             <td class="gr${data.ScGrad[17]}">${data.ScFreq[17]}</td>
@@ -369,7 +369,7 @@ function makeFrequency(data) {
             <td class="gr${data.BjtGrad[37]}">${data.BjtFreq[37]}</td>
             <td class="gap"></td>
             <!-- SYA -->
-            <td class="gr${data.SyaGrad[17]}">${data.SyaFreq[17]}</td>
+            <td class="gr${data.SyaGrad[16]}">${data.SyaFreq[16]}</td>
             <td class="gap"></td>            
             <!-- SC -->
             <td class="gr${data.ScGrad[18]}">${data.ScFreq[18]}</td>
@@ -390,7 +390,7 @@ function makeFrequency(data) {
             <td class="gap"></td>      
             <!-- SYA -->
             <td class="void"></td>
-            <td class="gr${data.SyaGrad[27]}">${data.SyaFreq[27]}</td> 
+            <td class="gr${data.SyaGrad[26]}">${data.SyaFreq[26]}</td> 
             <td class="gap"></td>           
             <!-- SC -->
             <td class="void"></td>  
