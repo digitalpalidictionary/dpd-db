@@ -77,6 +77,7 @@ construction: ī before √kar √bhū, missing >	meaning_1	is not empty	-	phone
 construction: kita contains line2	meaning_1	is not empty	-	construction	contains	\n	derivative	equals	kita	pos	does not contain	pp|prp								lemma_1	grammar	meaning_1	[]	10
 construction: nir > ni	construction	contains	nir > ni	phonetic	does not contain	nir > ni														lemma_1	grammar	meaning_1	[]	10
 construction: ptp delete line 2	pos	equals	ptp	construction	contains	\n														lemma_1	grammar	construction	[]	10
+construction: su, no kammadhāraya	meaning_1	is not empty	-	construction	contains	^su 	compound_type	does not contain	kammadhāraya											lemma_1	grammar	meaning_1	[65271, 65275, 64414]	10
 construction: two roots	construction	contains	√.+√																	lemma_1	grammar	construction	[]	10
 construction: vi > vy	meaning_1	is not empty	-	lemma_1	contains	^(vy|avy)	construction	contains	\bvi\b	construction	does not contain	vi > vy								lemma_1	grammar	meaning_1	[]	10
 construction: vi > vy > by	meaning_1	is not empty	-	lemma_1	contains	^(by|aby)	construction	contains	\bvi\b	construction	does not contain	vi > vy > by								lemma_1	grammar	meaning_1	[]	10
@@ -219,6 +220,7 @@ intens in verb, not in base	meaning_1	is not empty	-	verb	contains	intens	root_b
 kicca wrong pos	derivative	contains	kicca	pos	does not contain	(ptp|masc|nt)	construction	does not contain	^(dur|su|sa) 											lemma_1	grammar	meaning_1	[55625, 62454, 78354]	20
 kita no root	meaning_1	is not empty	-	root_key	is empty	-	derivative	equals	kita	verb	does not contain	deno	grammar	does not contain	deno					lemma_1	grammar	meaning_1	[]	5
 kita wrong pos	derivative	contains	kita	pos	contains	\b(ger|inf|pr)\b														lemma_1	grammar	meaning_1	[]	10
+lemma contains ‘	lemma_1	contains	'																	lemma_1	grammar	meaning_1	[]	10
 lemma_1 contains '	lemma_1	contains	'																	lemma_1	grammar	meaning_1	[]	10
 lemma_1 is empty	lemma_1	is empty	-																lemma_1	lemma_1	grammar	meaning_1	[]	10
 lemma_1: adj with wrong ending	meaning_1	is not empty	-	pos	equals	adj	lemma_1	does not contain	(a|ā|u|ū|i|ī|ant)\b	grammar	does not contain word	(nom|acc|instr|dat|abl|gen|loc|voc)								lemma_1	grammar	meaning_1	[41146]	5
@@ -305,6 +307,8 @@ newline in variant	variant	contains	\n																	lemma_1	grammar	meaning_1
 newline in verb	verb	contains	\n																	lemma_1	grammar	meaning_1	[]	10
 nir no from	meaning_1	is not empty	-	construction	contains	nir 	grammar	does not contain	from |of 	construction	does not contain	\bnī\b								lemma_1	grammar	meaning_1	[36961, 71999]	10
 no suffix	meaning_1	is not empty	-	suffix	is empty	-	root_key	is not empty	-	pos	does not contain word	(pr|aor|inf|ind|root|abs|fut|opt|ger|imp|cond|perf|imperf)	grammar	does not contain word	(nom|acc|instr|dat|abl|gen|loc|voc|pl|mano group)					lemma_1	grammar	meaning_1	[1854, 23334, 26207, 33690, 35029, 76207]	10
+no sutta_1	source_1	is not empty	-	example_1	is not empty	-	sutta_1	is empty	-											lemma_1	grammar	meaning_1	[]	10
+no sutta_2	source_2	is not empty	-	example_2	is not empty	-	sutta_2	is empty	-											lemma_1	grammar	meaning_1	[]	10
 note: mano group	grammar	contains	mano group	notes	does not contain	mano-group nouns														lemma_1	grammar	notes	[]	10
 nt aṃ	meaning_1	is not empty	-	lemma_1	contains	a\b	pattern	equals	a nt	lemma_2	does not contain	aṃ\b	grammar	does not contain	(nom|acc|instr|dat|abl|gen|loc|voc)					lemma_1	grammar	meaning_1	[]	10
 nt no act no -ing in lit.	meaning_1	is not empty	-	pos	equals	nt	suffix	contains	\b(ana|aṇa|anā|aṇā)\b	grammar	does not contain word	act	meaning_lit	does not contain	ing				meaning_lit	lemma_1	meaning_1	meaning_lit	[6181, 6182, 6185, 8072, 21645, 21646, 24915, 28572, 34604, 46972, 46973, 54339, 65271, 78578]	10
@@ -463,6 +467,7 @@ sutta_2 is empty	example_2	is not empty	-	sutta_2	is empty	-													sutta_2
 sutta2 – Example 2	meaning_1	is not empty	-	source_2	is not empty	-	example_2	is empty	-											lemma_1	grammar	meaning_1	[]	10
 suttas	meaning_1	is not empty	-	meaning_1	contains	nikāy	family_set	does not contain	suttas											lemma_1	grammar	meaning_1	[28572, 42978, 78578]	5
 taddhita from no suffix	meaning_1	is not empty	-	grammar	contains word	from	root_key	is empty	-	derived_from	is empty	-								lemma_1	grammar	meaning_1	[48713, 50412]	5
+taddhita needs compound family	meaning_1	is not empty	-	derivative	equals	taddhita	family_compound	is empty	-											lemma_1	grammar	meaning_1	[]	10
 taddhita no from	meaning_1	is not empty	-	suffix	equals	taddhita	derived_from	is empty	-											lemma_1	grammar	meaning_1	[]	5
 taddhita no line2 – comp	meaning_1	is not empty	-	derivative	equals	taddhita	construction	does not contain	\n	grammar	contains word	comp	pos	does not contain	card|ordin	construction	does not contain	khattuṃ		lemma_1	grammar	meaning_1	[14709, 26393, 30386, 30387, 56553, 65672, 65685, 70425]	10
 taddhita no line2 – root	meaning_1	is not empty	-	derivative	equals	taddhita	construction	does not contain	\n	root_key	is not empty	-								lemma_1	grammar	meaning_1	[]	10
@@ -483,7 +488,3 @@ verb number comma	grammar	contains	(pr|aor|perf|imper|fut|cond|opt|imp), \d					
 verb values	verb	is not empty	-	verb	does not contain word	^(caus|caus, pass|deno|deno, caus|desid|desid, caus|desid, pass|impers|impers, pass|intens|inten|pass)$														lemma_1	verb	meaning_1	[]	10
 word family and comp in grammar	family_word	is not empty	-	grammar	contains	\bcomp\b														lemma_1	grammar	meaning_1	[1259, 1279, 2119, 73930]	10
 word family and family	family_word	is not empty	-	family_root	is not empty	-														lemma_1	grammar	meaning_1	[]	10
-no sutta_1	source_1	is not empty	-	example_1	is not empty	-	sutta_1	is empty	-											lemma_1	grammar	meaning_1	[]	10
-no sutta_2	source_2	is not empty	-	example_2	is not empty	-	sutta_2	is empty	-											lemma_1	grammar	meaning_1	[]	10
-construction: su, no kammadhāraya	meaning_1	is not empty	-	construction	contains	^su 	compound_type	does not contain	kammadhāraya											lemma_1	grammar	meaning_1	[65271, 65275, 64414]	10
-lemma contains ‘	lemma_1	contains	'																	lemma_1	grammar	meaning_1	[]	10

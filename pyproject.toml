@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dpd-db"
-version = "v0.1.20240919"
+version = "v0.1.20240920"
 description = ""
 authors = ["Your Name <you@example.com>"]
 readme = "README.md"

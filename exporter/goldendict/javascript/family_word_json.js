@@ -14554,6 +14554,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "yāvattaka",
+    "adj",
+    "however much; however many",
+    "✓"
+   ],
+   [
     "yāvant",
     "adj",
     "as many as; however many; lit. having so much quality",
@@ -14644,7 +14650,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 63
+  "count": 64
  },
  "ratha": {
   "data": [
@@ -17209,7 +17215,7 @@ var family_word_json = {
    [
     "āhundarika",
     "adj",
-    "crowded; blocked up",
+    "crowded; blocked up (with); full (of)",
     "✓"
    ]
   ],
@@ -21905,13 +21911,19 @@ var family_word_json = {
     "✓"
    ],
    [
+    "khīra 3",
+    "adj",
+    "related to milk; regarding milk",
+    "✓"
+   ],
+   [
     "khīrikā",
     "fem",
     "tree Buchanania Latifolia",
     "✗"
    ]
   ],
-  "count": 3
+  "count": 4
  },
  "kheḷa": {
   "data": [
@@ -30050,17 +30062,6 @@ var family_word_json = {
    ]
   ],
   "count": 4
- },
- "yāva": {
-  "data": [
-   [
-    "yāvattaka",
-    "adj",
-    "however much; however many",
-    "✓"
-   ]
-  ],
-  "count": 1
  },
  "yona": {
   "data": [

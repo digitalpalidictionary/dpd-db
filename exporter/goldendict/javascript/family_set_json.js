@@ -29788,7 +29788,7 @@ var family_set_json = {
    [
     "poṭṭhapāda 2",
     "masc",
-    "name of a lunar month; September-October",
+    "name of a lunar month; September-October; lit. constellation of Pegasus",
     "✓"
    ],
    [
@@ -33890,7 +33890,7 @@ var family_set_json = {
    [
     "poṭṭhapāda 2",
     "masc",
-    "name of a lunar month; September-October",
+    "name of a lunar month; September-October; lit. constellation of Pegasus",
     "✓"
    ],
    [

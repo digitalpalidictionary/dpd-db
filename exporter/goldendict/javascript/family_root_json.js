@@ -441,7 +441,7 @@ var family_root_json = {
   "root_key": "√kar",
   "root_family": "√kar",
   "root_meaning": "do, make",
-  "count": 373,
+  "count": 374,
   "data": [
    [
     "akaṭa 1",
@@ -1719,6 +1719,12 @@ var family_root_json = {
     "kāra 6",
     "adj",
     "doing; making; performing; effecting",
+    "✓"
+   ],
+   [
+    "kāra 7",
+    "masc",
+    "prison; jail",
     "✓"
    ],
    [
@@ -38595,7 +38601,7 @@ var family_root_json = {
   "root_key": "√nas",
   "root_family": "√nas",
   "root_meaning": "be lost, disappear",
-  "count": 30,
+  "count": 31,
   "data": [
    [
     "anaṭṭha",
@@ -38649,6 +38655,12 @@ var family_root_json = {
     "nassati 3",
     "pr",
     "is squandered; is wasted; comes to naught; lit. disappears; is lost",
+    "✓"
+   ],
+   [
+    "nassati 4",
+    "pr",
+    "disappears; vanishes; goes away; lit. disappears",
     "✓"
    ],
    [
@@ -74269,7 +74281,7 @@ var family_root_json = {
   "root_key": "√ruh",
   "root_family": "ava √ruh",
   "root_meaning": "ascend, grow",
-  "count": 33,
+  "count": 34,
   "data": [
    [
     "anoropita",
@@ -74344,10 +74356,16 @@ var family_root_json = {
     "✗"
    ],
    [
-    "oropana",
+    "oropana 1",
     "nt",
     "(of hair) removing; cutting off; shaving; lit. causing to descend",
     "✓"
+   ],
+   [
+    "oropana 2",
+    "nt",
+    "taking down, lowering, laying down",
+    "✗"
    ],
    [
     "oropanā",
@@ -77148,7 +77166,7 @@ var family_root_json = {
    [
     "paccāgantabba",
     "ptp",
-    "would come back; should return; lit. to be come back",
+    "should be returned; should come back; lit. to be come back",
     "✓"
    ],
    [
@@ -90082,14 +90100,14 @@ var family_root_json = {
    [
     "apalāḷetabba",
     "ptp",
-    "to be caressed, to be fondled",
-    "✗"
+    "should be lured away; should be enticed; lit. to cause to be moved away",
+    "✓"
    ],
    [
     "apalāḷeti",
     "pr",
-    "caresses, fondles",
-    "✗"
+    "lures away; entices",
+    "✓"
    ],
    [
     "apalāḷenta",
@@ -105692,7 +105710,7 @@ var family_root_json = {
    [
     "bhijjitvā",
     "abs",
-    "having broken off; having split off (from)",
+    "having broken off; having split off (from); lit. having been broken",
     "✓"
    ],
    [
@@ -146895,7 +146913,7 @@ var family_root_json = {
   "root_key": "√sar 2",
   "root_family": "√sar",
   "root_meaning": "remember",
-  "count": 38,
+  "count": 39,
   "data": [
    [
     "asati 2.1",
@@ -147100,6 +147118,12 @@ var family_root_json = {
     "pp",
     "reminded",
     "✗"
+   ],
+   [
+    "sārī 2.1",
+    "adj",
+    "remembering; recollecting; bringing to mind",
+    "✓"
    ],
    [
     "sāretabba",
@@ -153036,13 +153060,13 @@ var family_root_json = {
     "✓"
    ],
    [
-    "sārī 1",
+    "sārī 1.1",
     "adj",
     "wandering; going around; travelling",
     "✓"
    ],
    [
-    "sārī 2",
+    "sārī 1.2",
     "adj",
     "following; conforming to; adhering to",
     "✓"
@@ -193657,7 +193681,7 @@ var family_root_json = {
     "pappaṭikā",
     "fem",
     "dry outer bark; lit. splitting off",
-    "~"
+    "✓"
    ]
   ]
  },

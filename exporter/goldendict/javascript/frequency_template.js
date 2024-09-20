@@ -5,25 +5,25 @@ function makeFrequency(data) {
         <tr>
             <th></th>
             <th></th>
-            <th colspan="3">
+            <th colspan="3" title="Chaṭṭha Saṅgāyana Tipiṭaka (Myanmar)">
                 <b>
                     CST
                 </b>
             </th>
             <th></th>
-            <th colspan="2">
+            <th colspan="2" title="Buddha Jayanti Tipiṭaka (Sri Lanka)">
                 <b>
                     BJT
                 </b>
             </th>
             <th></th>
-            <th colspan="2">
+            <th colspan="2" title="Syāmaraṭṭha 1927 Royal Edition (Thailand)">
                 <b>
                     SYA
                 </b>
             </th>
             <th></th>
-            <th colspan="1">
+            <th colspan="1" title="Mahāsaṅgīti Tipiṭaka (Sutta Central)">
                 <b>
                     MST
                 </b>
@@ -33,20 +33,20 @@ function makeFrequency(data) {
             <th></th>
             <th></th>
             <!-- CST -->
-            <th>M</th>
-            <th>A</th>
-            <th>Ṭ</th>
+            <th title="mūla">M</th>
+            <th title="aṭṭhakathā">A</th>
+            <th title="ṭīkā">Ṭ</th>
             <th></th>
             <!-- BJT -->
-            <th>M</th>
-            <th>A</th>
+            <th title="mūla">M</th>
+            <th title="aṭṭhakathā">A</th>
             <th></th>
             <!-- SYA -->
-            <th>M</th>
-            <th>A</th>
+            <th title="mūla">M</th>
+            <th title="aṭṭhakathā">A</th>
             <th></th>
             <!-- SC -->
-            <th>M</th>
+            <th title="mūla">M</th>
         </tr>
     </thead>
     <tbody>
@@ -446,10 +446,16 @@ function makeFrequency(data) {
     </tbody>
 </table>
 <p>
-    CST = Chaṭṭha Saṅgāyana Tipiṭaka (Myanmar)<br>
-    BJT = Buddha Jayanti Tipiṭaka (Sri Lanka)<br>
-    SYA = Syāmaraṭṭha 1927 Royal Edition (Thailand)<br>    
-    MST = Mahāsaṅgīti Tipiṭaka (Sutta Central)
+    <b>CST</b>: Chaṭṭha Saṅgāyana Tipiṭaka (Myanmar)
+</p>
+<p>
+    <b>BJT</b>: Buddha Jayanti Tipiṭaka (Sri Lanka)
+</p>
+<p>
+    <b>SYA</b>: Syāmaraṭṭha 1927 Royal Edition (Thailand)
+</p>
+<p>
+    <b>MST</b>: Mahāsaṅgīti Tipiṭaka (Sutta Central)
 </p>
 `
     return html
