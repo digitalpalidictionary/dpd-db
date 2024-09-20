@@ -9,14 +9,14 @@ from typing import Dict, List
 from sqlalchemy.orm import Session
 from pathlib import Path
 
-from db.models import DpdHeadwords, DpdRoots
+from db.models import DpdHeadword, DpdRoot
 from db.db_helpers import create_db_if_not_exists
 from db.db_helpers import get_db_session
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 
 
-def _csv_row_to_root(x: Dict[str, str]) -> DpdRoots:
+def _csv_row_to_root(x: Dict[str, str]) -> DpdRoot:
     # Ignored columns:
     # 'Count'
     # 'Fin'
@@ -27,7 +27,7 @@ def _csv_row_to_root(x: Dict[str, str]) -> DpdRoots:
     # 'blanks'
     # 'same/diff'
 
-    return DpdRoots(
+    return DpdRoot(
         root=x['Root'],
         root_in_comps=x['In Comps'],
         root_has_verb=x['V'],
@@ -57,7 +57,7 @@ def _csv_row_to_root(x: Dict[str, str]) -> DpdRoots:
     )
 
 
-def _csv_row_to_pali_word(x: Dict[str, str]) -> DpdHeadwords:
+def _csv_row_to_pali_word(x: Dict[str, str]) -> DpdHeadword:
     # Ignored columns:
     # 'Fin'
     # 'Sk Root'
@@ -68,7 +68,7 @@ def _csv_row_to_pali_word(x: Dict[str, str]) -> DpdHeadwords:
     # 'Grp'
     # 'Root Meaning'
 
-    return DpdHeadwords(
+    return DpdHeadword(
         user_id=x['ID'],
         lemma_1=x['Pāli1'],
         lemma_2=x['Pāli2'],
@@ -132,7 +132,7 @@ def add_dpd_roots(db_session: Session, csv_path: Path):
         s = x['Count'].strip()
         return (not (s == "0" or s == "-" or s == ""))
 
-    items: List[DpdRoots] = list(map(
+    items: List[DpdRoot] = list(map(
         _csv_row_to_root, filter(_is_count_not_zero_or_empty, rows)))
 
     print("[green]adding to db")
@@ -140,7 +140,7 @@ def add_dpd_roots(db_session: Session, csv_path: Path):
         for i in items:
 
             # Check if item is a duplicate.
-            res = db_session.query(DpdRoots).filter_by(root=i.root).first()
+            res = db_session.query(DpdRoot).filter_by(root=i.root).first()
             if res:
                 print(f"[bright_red]Duplicate found, skipping!\n\
                     Already in DB:\n{res}\nConflicts with:\n{i}")
@@ -166,7 +166,7 @@ def add_dpd_headwords(db_session: Session, csv_path: Path):
                 row[key] = value.replace("<br>", "\n")
             rows.append(row)
 
-    items: List[DpdHeadwords] = list(map(_csv_row_to_pali_word, rows))
+    items: List[DpdHeadword] = list(map(_csv_row_to_pali_word, rows))
 
     print("[green]adding to db")
     try:

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""filtering words by some condition and make tsv of all tables DpdHeadwords, DpdRoots, Russian and SBS into the pth.temp_dir"""
+"""filtering words by some condition and make tsv of all tables DpdHeadword, DpdRoot, Russian and SBS into the pth.temp_dir"""
 
 from rich.console import Console
 
@@ -10,7 +10,7 @@ import csv
 import os
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, DpdRoots, Russian, SBS
+from db.models import DpdHeadword, DpdRoot, Russian, SBS
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 
@@ -23,8 +23,8 @@ def saving():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    # Fetch the ids and roots for DpdHeadwords table
-    word_records = db_session.query(DpdHeadwords.id, DpdHeadwords.root_key).filter(DpdHeadwords.source_1 == "MN 107").all()
+    # Fetch the ids and roots for DpdHeadword table
+    word_records = db_session.query(DpdHeadword.id, DpdHeadword.root_key).filter(DpdHeadword.source_1 == "MN 107").all()
     ids_to_saving = [record[0] for record in word_records]
     roots_to_saving = [record[1] for record in word_records]
 
@@ -37,9 +37,9 @@ def saving():
 
 
 def saving_paliwords(pth: ProjectPaths, db_session: Session, ids_to_saving):
-    """saving DpdHeadwords table to TSV."""
-    console.print("[bold green]writing DpdHeadwords table")
-    db = db_session.query(DpdHeadwords).filter(DpdHeadwords.id.in_(ids_to_saving)).all()
+    """saving DpdHeadword table to TSV."""
+    console.print("[bold green]writing DpdHeadword table")
+    db = db_session.query(DpdHeadword).filter(DpdHeadword.id.in_(ids_to_saving)).all()
 
 
     file_path = os.path.join(pth.temp_dir, 'dpd_headwords.tsv')
@@ -49,22 +49,22 @@ def saving_paliwords(pth: ProjectPaths, db_session: Session, ids_to_saving):
         csvwriter = csv.writer(
             tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL)
         column_names = [
-            column.name for column in DpdHeadwords.__mapper__.columns
+            column.name for column in DpdHeadword.__mapper__.columns
             if column.name not in exclude_columns]
         csvwriter.writerow(column_names)
 
         for i in db:
             row = [
                 getattr(i, column.name)
-                for column in DpdHeadwords.__mapper__.columns
+                for column in DpdHeadword.__mapper__.columns
                 if column.name not in exclude_columns]
             csvwriter.writerow(row)
 
 
 def saving_paliroots(pth: ProjectPaths, db_session: Session, roots_to_saving):
-    """saving DpdRoots table to TSV."""
-    console.print("[bold green]writing DpdRoots table")
-    db = db_session.query(DpdRoots).filter(DpdRoots.root.in_(roots_to_saving)).all()
+    """saving DpdRoot table to TSV."""
+    console.print("[bold green]writing DpdRoot table")
+    db = db_session.query(DpdRoot).filter(DpdRoot.root.in_(roots_to_saving)).all()
 
 
     file_path = os.path.join(pth.temp_dir, 'dpd_roots.tsv')
@@ -75,14 +75,14 @@ def saving_paliroots(pth: ProjectPaths, db_session: Session, roots_to_saving):
         csvwriter = csv.writer(
             tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL)
         column_names = [
-            column.name for column in DpdRoots.__mapper__.columns
+            column.name for column in DpdRoot.__mapper__.columns
             if column.name not in exclude_columns]
         csvwriter.writerow(column_names)
 
         for i in db:
             row = [
                 getattr(i, column.name)
-                for column in DpdRoots.__mapper__.columns
+                for column in DpdRoot.__mapper__.columns
                 if column.name not in exclude_columns]
             csvwriter.writerow(row)
 

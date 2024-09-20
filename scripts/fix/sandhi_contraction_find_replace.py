@@ -10,7 +10,7 @@ from sqlalchemy import or_
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 
 from tools.db_search_string import db_search_string
 from tools.paths import ProjectPaths
@@ -67,12 +67,12 @@ def input_word():
 
 
 def find_instances(pd):
-    db = pd.db_session.query(DpdHeadwords) \
+    db = pd.db_session.query(DpdHeadword) \
         .filter(
             or_(
-                DpdHeadwords.example_1.contains(pd.find_me),
-                DpdHeadwords.example_2.contains(pd.find_me),
-                DpdHeadwords.commentary.contains(pd.find_me))
+                DpdHeadword.example_1.contains(pd.find_me),
+                DpdHeadword.example_2.contains(pd.find_me),
+                DpdHeadword.commentary.contains(pd.find_me))
                 ).all()
    
     pd.db = db
@@ -94,7 +94,7 @@ def find_instances(pd):
 
 
 def find_instances_in_bold(pd):
-    db = pd.db_session.query(DpdHeadwords).all()
+    db = pd.db_session.query(DpdHeadword).all()
     pd.db = db
 
     print("[green]searching inside bold strings")

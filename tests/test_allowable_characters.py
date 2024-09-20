@@ -2,7 +2,7 @@ import re
 import pyperclip
 from rich import print
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, DpdRoots
+from db.models import DpdHeadword, DpdRoot
 
 from tools.db_search_string import db_search_string
 from tools.pali_alphabet import pali_alphabet
@@ -763,9 +763,9 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     if config_test("user", "username", "deva"):
-        db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs), joinedload(DpdHeadwords.ru)).all()
+        db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs), joinedload(DpdHeadword.ru)).all()
     else:
-        db = db_session.query(DpdHeadwords)
+        db = db_session.query(DpdHeadword)
 
     a = AllowableCharacters()
 
@@ -886,7 +886,7 @@ def test_allowable_characters_gui_dps(values: dict[str, str]) -> dict[str, str]:
 def check_root_db():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdRoots)
+    db = db_session.query(DpdRoot)
 
     a = AllowableCharacters()
 

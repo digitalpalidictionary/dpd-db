@@ -6,7 +6,7 @@ from collections import Counter
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.cst_sc_text_sets import make_cst_text_list
 from tools.goldendict_tools import open_in_goldendict_os
@@ -15,7 +15,7 @@ from tools.pali_text_files import atthakatha_books, mula_books
 def make_list_of_words_without_meaning(pth):
         
     db_session = get_db_session(pth.dpd_db_path)
-    db: list[DpdHeadwords] = db_session.query(DpdHeadwords).all()
+    db: list[DpdHeadword] = db_session.query(DpdHeadword).all()
     all_inflections_no_meanings_1 = set()
     all_inflection_with_meaning_1 = set()
     for counter, i in enumerate(db):

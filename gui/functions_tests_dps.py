@@ -13,7 +13,7 @@ from json import dumps, loads
 from typing import List, Tuple
 from rich import print
 
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tests.helpers import InternalTestRow
 # from tools.pali_sort_key import pali_sort_key
 from sqlalchemy.orm import joinedload
@@ -172,11 +172,11 @@ def is_valid_column(column_name):
 
     if "." in column_name:  # Check for nested attributes
         relationship_name, attr_name = column_name.split(".", 1)
-        if hasattr(DpdHeadwords, relationship_name):
-            related_class = getattr(DpdHeadwords, relationship_name).property.mapper.class_
+        if hasattr(DpdHeadword, relationship_name):
+            related_class = getattr(DpdHeadword, relationship_name).property.mapper.class_
             return hasattr(related_class, attr_name)
     else:  # Direct attribute
-        return column_name in [column.name for column in DpdHeadwords.__table__.columns]
+        return column_name in [column.name for column in DpdHeadword.__table__.columns]
     return False
 
 
@@ -197,7 +197,7 @@ def get_nested_attr(obj, attr_str, default=None):
 def test_the_tests(internal_tests_list, window):
 
     # Extract column names
-    column_names = [column.name for column in DpdHeadwords.__table__.columns]
+    column_names = [column.name for column in DpdHeadword.__table__.columns]
     column_names += [""]
 
     # Define logical operators
@@ -384,7 +384,7 @@ def dps_db_internal_tests(dpspth, pth, db_session, sg, window, flags_dps):
     window["messages"].update("running tests", text_color="white")
     window.refresh()
 
-    dpd_db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs), joinedload(DpdHeadwords.ru)).all()
+    dpd_db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs), joinedload(DpdHeadword.ru)).all()
     db_internal_tests_list = make_db_internal_tests_list(dpspth)
 
     db_internal_tests_list = clean_exceptions(dpd_db, db_internal_tests_list)
@@ -642,7 +642,7 @@ def dps_dpd_db_internal_tests(dpspth, db_session, pth, sg, window, flags):
     window["messages"].update("running tests", text_color="white")
     window.refresh()
 
-    dpd_db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs), joinedload(DpdHeadwords.ru)).all()
+    dpd_db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs), joinedload(DpdHeadword.ru)).all()
     db_internal_tests_list = make_dpd_db_internal_tests_list(pth)
 
     db_internal_tests_list = clean_exceptions(dpd_db, db_internal_tests_list)

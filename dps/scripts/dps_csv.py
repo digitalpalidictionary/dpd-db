@@ -9,7 +9,7 @@ from rich.console import Console
 
 from typing import List
 
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from db.db_helpers import get_db_session
 
 from tools.pali_sort_key import pali_sort_key
@@ -35,7 +35,7 @@ def main():
     dpspth = DPSPaths()
 
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs), joinedload(DpdHeadwords.ru)).all()
+    dpd_db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs), joinedload(DpdHeadword.ru)).all()
     dpd_db = sorted(
         dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
@@ -71,7 +71,7 @@ def get_header():
 def dps(dpspth, dpd_db):
     console.print("[bold green]making dps-full csv")
 
-    def _is_needed(i: DpdHeadwords):
+    def _is_needed(i: DpdHeadword):
         return (i.ru)
 
     header = get_header()   
@@ -86,7 +86,7 @@ def dps(dpspth, dpd_db):
         writer.writerows(rows)
 
 
-def pali_row(dpspth, i: DpdHeadwords, output="anki") -> List[str]:
+def pali_row(dpspth, i: DpdHeadword, output="anki") -> List[str]:
     fields = []
 
     fields.extend([ 

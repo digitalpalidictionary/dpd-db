@@ -10,7 +10,7 @@ def convert_old_format():
     additions_list = Addition.load_additions()
 
     for a in additions_list:
-        # there are two pieces of data, a DpdHeadwords and a comment
+        # there are two pieces of data, a DpdHeadword and a comment
         pali_word, comment = a
         if int(pali_word.id) >= 75577:
             a = Addition(pali_word, comment, date_created="2023-12-01")

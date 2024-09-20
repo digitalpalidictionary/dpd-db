@@ -14,7 +14,7 @@ from sqlalchemy.orm import Session
 from zipfile import ZipFile, ZIP_DEFLATED
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, DpdRoots, Lookup
+from db.models import DpdHeadword, DpdRoot, Lookup
 from exporter.goldendict.export_dpd import render_dpd_definition_templ
 from tools.configger import config_test
 from tools.pali_sort_key import pali_sort_key
@@ -44,7 +44,7 @@ class ProgData():
         self.deconstructor_df: pd.DataFrame
     
     def make_dpd_db(self):
-        dpd_db = self.db_session.query(DpdHeadwords).all()
+        dpd_db = self.db_session.query(DpdHeadword).all()
         dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
         return dpd_db
 
@@ -235,7 +235,7 @@ def generate_tpr_data(g: ProgData):
     # add roots
     p_green("compiling roots data")
 
-    roots_db = g.db_session.query(DpdRoots).all()
+    roots_db = g.db_session.query(DpdRoot).all()
     roots_db = sorted(roots_db, key=lambda x: pali_sort_key(x.root))
     html_string = ""
     new_root = True
@@ -347,7 +347,7 @@ def add_roots_to_i2h(g):
         inflection, headwords = i
         i2h_dict[inflection] = headwords.split(",")
 
-    roots_db = g.db_session.query(DpdRoots).all()
+    roots_db = g.db_session.query(DpdRoot).all()
 
     for r in roots_db:
 

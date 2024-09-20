@@ -21,7 +21,7 @@ from multiprocessing.managers import ListProxy
 from multiprocessing import Process, Manager
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 
 from tools.configger import config_test
 from tools.printer import p_green, p_no, p_title, p_yes
@@ -32,7 +32,7 @@ from tools.utils import list_into_batches
 
 
 def _parse_batch(
-    batch: List[DpdHeadwords],
+    batch: List[DpdHeadword],
     pth: ProjectPaths,
     changed_headwords: list,
     changed_templates: list,
@@ -193,7 +193,7 @@ def main():
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(DpdHeadwords).all()
+    dpd_db = db_session.query(DpdHeadword).all()
 
     with open(pth.changed_headwords_path, "rb") as f:
         changed_headwords: list = pickle.load(f)
@@ -218,7 +218,7 @@ def main():
     p_green("transliterating")
 
     num_logical_cores = psutil.cpu_count()
-    batches: List[List[DpdHeadwords]] = list_into_batches(dpd_db, num_logical_cores)
+    batches: List[List[DpdHeadword]] = list_into_batches(dpd_db, num_logical_cores)
 
     processes: List[Process] = []
     manager = Manager()

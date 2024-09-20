@@ -11,7 +11,7 @@ from rich import print
 from rich.prompt import Prompt
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 
 from tools.db_search_string import db_search_string
 from tools.meaning_construction import make_meaning_combo
@@ -24,7 +24,7 @@ def main():
 	csv = read_tsv_dot_dict(pth.compound_type_path)
 
 	db_session = get_db_session(pth.dpd_db_path)
-	db = db_session.query(DpdHeadwords).all()
+	db = db_session.query(DpdHeadword).all()
 
 	pos_exclusions = ["sandhi", "idiom", "aor"]
 	

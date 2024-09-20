@@ -8,7 +8,7 @@ import pyperclip
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.goldendict_tools import open_in_goldendict
 from tools.paths import ProjectPaths
 from tools.printer import p_green_title, p_title
@@ -18,7 +18,7 @@ def main():
     p_title("find sukha dukkha antonyms")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
     tried = read_tried(pth)
     sukha_counter = 0
     dukkha_counter = 0

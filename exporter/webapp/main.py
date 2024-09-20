@@ -26,8 +26,8 @@ from exporter.webapp.modules import SpellingData
 from exporter.webapp.modules import VariantData
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
-from db.models import DpdRoots
+from db.models import DpdHeadword
+from db.models import DpdRoot
 from db.models import FamilyRoot
 from db.models import Lookup
 
@@ -54,7 +54,7 @@ def make_headwords_clean_set(db_session: Session) -> set[str]:
     """Make a set of Pāḷi headwords and English meanings."""
     
     # add headwords
-    results = db_session.query(DpdHeadwords).all()
+    results = db_session.query(DpdHeadword).all()
     headwords_clean_set = set([i.lemma_clean for i in results])
 
     if lang == "en":
@@ -80,7 +80,7 @@ def make_headwords_clean_set(db_session: Session) -> set[str]:
 def make_ascii_to_unicode_dict(db_session: Session) -> dict[str, list[str]]:
     """ASCII Key: Unicode Value."""
 
-    results = db_session.query(DpdHeadwords).all()
+    results = db_session.query(DpdHeadword).all()
     headwords_clean_set: set[str] = set()
     for i in results:
         headwords_clean_set.add(i.lemma_clean)
@@ -198,9 +198,9 @@ def make_dpd_html(q: str) -> tuple[str, str]:
             if lookup_result.headwords:
                 headwords = lookup_result.headwords_unpack
                 headword_results = db_session\
-                    .query(DpdHeadwords)\
-                    .filter(DpdHeadwords.id.in_(headwords))\
-                    .options(joinedload(DpdHeadwords.ru))\
+                    .query(DpdHeadword)\
+                    .filter(DpdHeadword.id.in_(headwords))\
+                    .options(joinedload(DpdHeadword.ru))\
                     .all()
                 headword_results = sorted(
                     headword_results, key=lambda x: pali_sort_key(x.lemma_1))
@@ -220,8 +220,8 @@ def make_dpd_html(q: str) -> tuple[str, str]:
             if lookup_result.roots:
                 roots_list = lookup_result.roots_unpack
                 root_results = db_session \
-                    .query(DpdRoots) \
-                    .filter(DpdRoots.root.in_(roots_list))\
+                    .query(DpdRoot) \
+                    .filter(DpdRoot.root.in_(roots_list))\
                     .all()
                 for r in root_results:
                     frs = db_session \
@@ -293,9 +293,9 @@ def make_dpd_html(q: str) -> tuple[str, str]:
     elif q.isnumeric(): # eg 78654
         search_term = int(q)
         headword_result = db_session\
-            .query(DpdHeadwords)\
-            .filter(DpdHeadwords.id == search_term)\
-            .options(joinedload(DpdHeadwords.ru))\
+            .query(DpdHeadword)\
+            .filter(DpdHeadword.id == search_term)\
+            .options(joinedload(DpdHeadword.ru))\
             .first()
         if headword_result:
             fc = get_family_compounds(headword_result)
@@ -312,9 +312,9 @@ def make_dpd_html(q: str) -> tuple[str, str]:
 
     elif re.search(r"\s\d", q): # eg "kata 5"
         headword_result = db_session \
-            .query(DpdHeadwords) \
-            .filter(DpdHeadwords.lemma_1 == q) \
-            .options(joinedload(DpdHeadwords.ru))\
+            .query(DpdHeadword) \
+            .filter(DpdHeadword.lemma_1 == q) \
+            .options(joinedload(DpdHeadword.ru))\
             .first()
         if headword_result:
             fc = get_family_compounds(headword_result)

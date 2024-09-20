@@ -6,8 +6,8 @@ from db.db_helpers import get_db_session
 from tools.paths import ProjectPaths
 
 # if you want to access any table, import its Class here.
-# other options are DpdRoots, Sandhi, families etc.
-from db.models import DpdHeadwords
+# other options are DpdRoot, Sandhi, families etc.
+from db.models import DpdHeadword
 
 pth = ProjectPaths()
 # this connects to the db, use it once to access the db
@@ -15,9 +15,9 @@ db_session = get_db_session(pth.dpd_db_path)
 
 # this is how to search a table using a basic filter for
 # pos == "adj" and words starts with "abh"
-search_results = db_session.query(DpdHeadwords).filter(
-    DpdHeadwords.pos == "adj", DpdHeadwords.lemma_1.startswith("a")).all()
-# take note the results are returned as a [list] of DpdHeadwords class instances
+search_results = db_session.query(DpdHeadword).filter(
+    DpdHeadword.pos == "adj", DpdHeadword.lemma_1.startswith("a")).all()
+# take note the results are returned as a [list] of DpdHeadword class instances
 
 # then loop through the list of results
 for i in search_results:

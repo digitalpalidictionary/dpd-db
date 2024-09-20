@@ -6,7 +6,7 @@ import json
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, Lookup
+from db.models import DpdHeadword, Lookup
 from tools.paths import ProjectPaths
 
 

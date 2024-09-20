@@ -58,7 +58,7 @@ def uposatha_today():
 
 
 def write_uposatha_count(new_value: int):
-    """Save the DpdHeadwords count on uposatha day."""
+    """Save the DpdHeadword count on uposatha day."""
 
     pth = ProjectPaths()
     config = configparser.ConfigParser()
@@ -69,7 +69,7 @@ def write_uposatha_count(new_value: int):
 
 
 def read_uposatha_count():
-    """Read the DpdHeadwords count from the last uposatha day."""
+    """Read the DpdHeadword count from the last uposatha day."""
 
     pth = ProjectPaths()
     config = configparser.ConfigParser()

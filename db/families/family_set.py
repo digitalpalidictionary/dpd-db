@@ -5,7 +5,7 @@
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, FamilySet
+from db.models import DpdHeadword, FamilySet
 from tools.tic_toc import tic, toc
 from tools.superscripter import superscripter_uni
 from tools.meaning_construction import degree_of_completion, make_meaning_combo
@@ -47,12 +47,12 @@ def main():
 
 
     if lang == "en":
-        sets_db = db_session.query(DpdHeadwords).filter(
-            DpdHeadwords.family_set != "").all()
+        sets_db = db_session.query(DpdHeadword).filter(
+            DpdHeadword.family_set != "").all()
     elif lang == "ru":
-        sets_db = db_session.query(DpdHeadwords).options(
-            joinedload(DpdHeadwords.ru)).filter(
-            DpdHeadwords.family_set != "").all()
+        sets_db = db_session.query(DpdHeadword).options(
+            joinedload(DpdHeadword.ru)).filter(
+            DpdHeadword.family_set != "").all()
     sets_db = sorted(sets_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     sets_dict = make_sets_dict(sets_db)

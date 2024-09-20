@@ -5,7 +5,7 @@
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 
@@ -25,7 +25,7 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    dpd_db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs)).all()
+    dpd_db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs)).all()
 
     for word in dpd_db:
         if word.sbs:

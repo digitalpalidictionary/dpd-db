@@ -15,7 +15,7 @@ from rich import print
 from typing import List, Dict
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 
 from tools.configger import config_read
 from tools.paths import ProjectPaths
@@ -40,7 +40,7 @@ def main():
     print(f"[green]{'setup dbs':<20}", end="")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs), joinedload(DpdHeadwords.ru)).all()
+    db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs), joinedload(DpdHeadword.ru)).all()
     print(f"{len(db):>10}{bop():>10.2f}")
 
     decks = ["Pali DHP vocab", "Pali Parittas", "Phonetic Changes Pali Class", "Roots Pali Class", "SBS Pali-English Vocab", "Suttas Advanced Pali Class", "Vocab Pali Class"]

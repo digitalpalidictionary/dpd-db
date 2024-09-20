@@ -3,7 +3,7 @@
 import re
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.pali_sort_key import pali_list_sorter
 from tools.paths import ProjectPaths
 
@@ -11,7 +11,7 @@ from tools.paths import ProjectPaths
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(DpdHeadwords).all()
+    dpd_db = db_session.query(DpdHeadword).all()
 
     clean_headwords = set()
     for i in dpd_db:

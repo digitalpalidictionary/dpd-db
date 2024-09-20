@@ -3,7 +3,7 @@
 Most of the database functionality comes from the 
 
 ```
-class DpdHeadwords(Base):
+class DpdHeadword(Base):
     __tablename__ = "dpd_headwords"
 ```
 
@@ -246,7 +246,7 @@ Here is a quick overview:
 
 ## Database Relationships
 
-The `DpdHeadwords` class has direct access to other tables in the database through relationships.
+The `DpdHeadword` class has direct access to other tables in the database through relationships.
 
 - **.rt** connects to the `dpd_roots` table
 - **.fr** connects to the `family_roots` table

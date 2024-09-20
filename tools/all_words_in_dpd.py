@@ -7,14 +7,14 @@ import re
 from sqlalchemy.orm.session import Session
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.clean_machine import clean_machine
 from tools.goldendict_tools import open_in_goldendict_os
 from tools.printer import p_green, p_green_title, p_counter, p_yes
 
 
 class GlobalVars():
-    headword: DpdHeadwords
+    headword: DpdHeadword
     columns: list[str] = ["example_1", "example_2", "commentary"]
     column: str
     text: str
@@ -53,7 +53,7 @@ def make_all_words_in_dpd_set(
     """
 
     p_green("making set of all words in dpd")
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
     g = GlobalVars()
     for counter, g.headword in enumerate(db):
         for g.column in g.columns:

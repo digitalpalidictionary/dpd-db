@@ -8,7 +8,7 @@ import re
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DbInfo, DpdHeadwords, FamilyCompound
+from db.models import DbInfo, DpdHeadword, FamilyCompound
 
 from scripts.build.anki_updater import family_updater
 
@@ -55,11 +55,11 @@ def main():
 
     if lang == "en":
         dpd_db = db_session.query(
-            DpdHeadwords).filter(DpdHeadwords.family_compound != "").all()
+            DpdHeadword).filter(DpdHeadword.family_compound != "").all()
     elif lang == "ru":
         dpd_db = db_session.query(
-            DpdHeadwords).options(joinedload(DpdHeadwords.ru)
-            ).filter(DpdHeadwords.family_compound != "").all()
+            DpdHeadword).options(joinedload(DpdHeadword.ru)
+            ).filter(DpdHeadword.family_compound != "").all()
     
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 

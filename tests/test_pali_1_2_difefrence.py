@@ -9,7 +9,7 @@ import re
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.db_search_string import db_search_string
 from tools.paths import ProjectPaths
 from tools.pos import INDECLINABLES
@@ -30,7 +30,7 @@ def main():
     print("[bright_yellow]find differences in lemma_1, lemma_2, stem pattern")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
     error_list = []
     for i in db:
         

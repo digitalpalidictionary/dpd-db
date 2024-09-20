@@ -6,7 +6,7 @@ import re
 from typing import Tuple, List
 from rich import print
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.cst_source_sutta_example import make_cst_soup
 from tools.tsv_read_write import dotdict
@@ -128,7 +128,7 @@ def sutta_chapter_name_dict(name_list):
 def add_to_db(name_dict):
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
     count = 1
     test_set = set()
     for i in db:

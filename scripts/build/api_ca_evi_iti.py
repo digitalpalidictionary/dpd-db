@@ -10,7 +10,7 @@ import re
 from collections import defaultdict
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, Lookup
+from db.models import DpdHeadword, Lookup
 from tools.paths import ProjectPaths
 from tools.printer import p_counter, p_green, p_green_title, p_title, p_yes
 from tools.tic_toc import tic, toc
@@ -25,7 +25,7 @@ class ProgData():
         self.apicaevaiti_dict = defaultdict(list[str])
         self.lookup_db: list[Lookup] = self.db_session.query(Lookup).all()
         self.lookup_db_len: int = len(self.lookup_db)
-        self.headwords_db: list[DpdHeadwords] = self.db_session.query(DpdHeadwords).all()
+        self.headwords_db: list[DpdHeadword] = self.db_session.query(DpdHeadword).all()
         self.headwords_db_len: int = len(self.headwords_db)
         p_yes("ok")
 

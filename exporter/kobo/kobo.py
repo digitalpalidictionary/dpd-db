@@ -4,7 +4,7 @@
 from jinja2 import Environment, FileSystemLoader
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, Lookup
+from db.models import DpdHeadword, Lookup
 from tools.cst_sc_text_sets import make_cst_text_set, make_sc_text_set
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
@@ -49,7 +49,7 @@ class GlobalData():
 def compile_dict_data(g: GlobalData):
     p_green_title("compiling dict data")
     
-    db = g.db_session.query(DpdHeadwords).all()
+    db = g.db_session.query(DpdHeadword).all()
     db = sorted(db, key=lambda x: pali_sort_key(x.lemma_1))
     db_len = len(db)
     for count, i in enumerate(db):

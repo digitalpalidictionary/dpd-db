@@ -2,7 +2,7 @@ from sqlalchemy.orm import object_session
 
 from typing import List
 
-from db.models import DpdHeadwords, FamilyIdiom
+from db.models import DpdHeadword, FamilyIdiom
 from db.models import FamilyCompound
 from db.models import FamilySet
 
@@ -11,7 +11,7 @@ from tools.paths import ProjectPaths
 pth = ProjectPaths()
 
 
-def get_family_compounds(i: DpdHeadwords) -> List[FamilyCompound]:
+def get_family_compounds(i: DpdHeadword) -> List[FamilyCompound]:
     db_session = object_session(i)
     if db_session is None:
         raise Exception("No db_session")
@@ -37,7 +37,7 @@ def get_family_compounds(i: DpdHeadwords) -> List[FamilyCompound]:
     return fc
 
 
-def get_family_idioms(i: DpdHeadwords) -> List[FamilyIdiom]:
+def get_family_idioms(i: DpdHeadword) -> List[FamilyIdiom]:
     db_session = object_session(i)
     if db_session is None:
         raise Exception("No db_session")
@@ -63,7 +63,7 @@ def get_family_idioms(i: DpdHeadwords) -> List[FamilyIdiom]:
 
 
 
-def get_family_set(i: DpdHeadwords) -> List[FamilySet]:
+def get_family_set(i: DpdHeadword) -> List[FamilySet]:
     db_session = object_session(i)
     if db_session is None:
         raise Exception("No db_session")

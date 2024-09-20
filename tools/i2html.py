@@ -9,7 +9,7 @@ from rich import print
 from typing import List
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, SBS, Russian
+from db.models import DpdHeadword, SBS, Russian
 
 from tools.configger import config_test
 from tools.exporter_functions import get_family_compounds
@@ -104,8 +104,8 @@ def make_html(
     html = header_templ.render(css=css, js=js)
 
     # iterate over headwords
-    results = db_session.query(DpdHeadwords)\
-        .filter(DpdHeadwords.lemma_1.in_(headwords)).all()
+    results = db_session.query(DpdHeadword)\
+        .filter(DpdHeadword.lemma_1.in_(headwords)).all()
 
     for counter, i in enumerate(results):
         fc = get_family_compounds(i)

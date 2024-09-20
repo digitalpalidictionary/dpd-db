@@ -15,7 +15,7 @@ from typing import Dict, Union
 from zipfile import ZipFile, ZIP_DEFLATED
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, Lookup
+from db.models import DpdHeadword, Lookup
 
 from tools.configger import config_test
 from tools.cst_sc_text_sets import make_cst_text_set
@@ -46,9 +46,9 @@ def render_xhtml(pth: ProjectPaths, rupth: RuPaths, lang="en"):
     p_green("querying dpd db")
     db_session = get_db_session(pth.dpd_db_path)
     if lang == "en":
-        dpd_db = db_session.query(DpdHeadwords).all()
+        dpd_db = db_session.query(DpdHeadword).all()
     elif lang == "ru":
-        dpd_db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.ru)).all()
+        dpd_db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.ru)).all()
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
     p_yes(len(dpd_db))
 
@@ -178,7 +178,7 @@ def render_xhtml(pth: ProjectPaths, rupth: RuPaths, lang="en"):
 
 
 def render_ebook_entry(
-        pth: ProjectPaths, rupth:RuPaths, counter: int, i: DpdHeadwords, inflections: list, lang="en") -> str:
+        pth: ProjectPaths, rupth:RuPaths, counter: int, i: DpdHeadword, inflections: list, lang="en") -> str:
     """Render single word entry."""
 
     summary = f"{i.pos}. "
@@ -243,7 +243,7 @@ def render_ebook_entry(
             examples=examples))
 
 
-def render_grammar_templ(pth: ProjectPaths, rupth:RuPaths, i: DpdHeadwords, lang="en") -> str:
+def render_grammar_templ(pth: ProjectPaths, rupth:RuPaths, i: DpdHeadword, lang="en") -> str:
     """html table of grammatical information"""
 
     if i.meaning_1:
@@ -270,7 +270,7 @@ def render_grammar_templ(pth: ProjectPaths, rupth:RuPaths, i: DpdHeadwords, lang
         return ""
 
 
-def render_example_templ(pth: ProjectPaths, rupth:RuPaths, i: DpdHeadwords, lang="en") -> str:
+def render_example_templ(pth: ProjectPaths, rupth:RuPaths, i: DpdHeadword, lang="en") -> str:
     """render sutta examples html"""
 
     if lang == "en":

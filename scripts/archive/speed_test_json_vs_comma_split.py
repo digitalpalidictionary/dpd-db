@@ -2,7 +2,7 @@
 
 import json
 from rich import print
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from db.db_helpers import get_db_session
 from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
@@ -12,7 +12,7 @@ db_session = get_db_session(pth.dpd_db_path)
 
 
 def json_paliword_test():
-    db_query = db_session.query(DpdHeadwords).all()
+    db_query = db_session.query(DpdHeadword).all()
     bip()
     all_inflections = []
     for i in db_query:
@@ -22,7 +22,7 @@ def json_paliword_test():
 
 
 def json_dd_test():
-    db_query = db_session.query(DpdHeadwords).all()
+    db_query = db_session.query(DpdHeadword).all()
     bip()
     all_inflections = []
     for i in db_query:
@@ -34,7 +34,7 @@ def json_dd_test():
 
 
 def split_paliword_test():
-    db_query = db_session.query(DpdHeadwords).all()
+    db_query = db_session.query(DpdHeadword).all()
     bip()
     all_inflections = []
     for i in db_query:
@@ -44,7 +44,7 @@ def split_paliword_test():
 
 
 def split_dd_test():
-    db_query = db_session.query(DpdHeadwords).all()
+    db_query = db_session.query(DpdHeadword).all()
     bip()
     all_inflections = []
     for i in db_query:
@@ -56,7 +56,7 @@ def split_dd_test():
 
 
 def list_dd_test():
-    db_query = db_session.query(DpdHeadwords).all()
+    db_query = db_session.query(DpdHeadword).all()
     bip()
     all_inflections = []
     for i in db_query:
@@ -67,7 +67,7 @@ def list_dd_test():
 
 def html_paliword_test():
 
-    db_query = db_session.query(DpdHeadwords).all()
+    db_query = db_session.query(DpdHeadword).all()
     bip()
     all_tables = []
     for i in db_query:
@@ -78,7 +78,7 @@ def html_paliword_test():
 
 def html_dd_test():
 
-    db_query = db_session.query(DpdHeadwords).all()
+    db_query = db_session.query(DpdHeadword).all()
     bip()
     all_tables = []
     for i in db_query:
@@ -89,8 +89,8 @@ def html_dd_test():
 
 def zip_test():
 
-    pw = db_session.query(DpdHeadwords).all()
-    dd = db_session.query(DpdHeadwords).all()
+    pw = db_session.query(DpdHeadword).all()
+    dd = db_session.query(DpdHeadword).all()
 
     bip()
 

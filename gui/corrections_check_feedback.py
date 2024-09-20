@@ -10,7 +10,7 @@ from rich import print
 
 from tools.goldendict_tools import open_in_goldendict
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 
 from tools.meaning_construction import make_meaning_combo
 from tools.meaning_construction import summarize_construction
@@ -361,8 +361,8 @@ def find_next_commented(corrections_list, window, values):
 
 
 def load_next_correction(c, window, __values__):
-    db = db_session.query(DpdHeadwords).filter(
-        c.id == DpdHeadwords.id).first()
+    db = db_session.query(DpdHeadword).filter(
+        c.id == DpdHeadword.id).first()
     open_in_goldendict(c.id)
     window["add_id"].update(c.id)
     window["add_summary"].update(make_summary(db))
@@ -411,8 +411,8 @@ def apply_all_suggestions():
 
     for correction in corrections_list:
         if not correction.approved:
-            db = db_session.query(DpdHeadwords).filter(
-                correction.id == DpdHeadwords.id).first()
+            db = db_session.query(DpdHeadword).filter(
+                correction.id == DpdHeadword.id).first()
             if db:
                 id = correction.id
                 field1 = correction.field1

@@ -8,7 +8,7 @@ import re
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DbInfo, DpdHeadwords, FamilyIdiom
+from db.models import DbInfo, DpdHeadword, FamilyIdiom
 
 from tools.configger import config_test
 from tools.meaning_construction import degree_of_completion
@@ -51,11 +51,11 @@ def main():
 
     if lang == "en":
         dpd_db = db_session.query(
-            DpdHeadwords).filter(DpdHeadwords.family_idioms != "").all()
+            DpdHeadword).filter(DpdHeadword.family_idioms != "").all()
     elif lang == "ru":
         dpd_db = db_session.query(
-            DpdHeadwords).options(joinedload(DpdHeadwords.ru)
-            ).filter(DpdHeadwords.family_idioms != "").all()
+            DpdHeadword).options(joinedload(DpdHeadword.ru)
+            ).filter(DpdHeadword.family_idioms != "").all()
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     sync_idiom_numbers_with_family_compound(db_session)
@@ -78,7 +78,7 @@ def sync_idiom_numbers_with_family_compound(db_session):
     then copy that value to idioms.
     """
     print("[green]syncing idiom numbers with family compound", end=" ")
-    dpd_db: list[DpdHeadwords] = db_session.query(DpdHeadwords).all()
+    dpd_db: list[DpdHeadword] = db_session.query(DpdHeadword).all()
 
     count = 0
     for i in dpd_db:

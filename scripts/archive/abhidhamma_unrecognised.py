@@ -3,7 +3,7 @@ from pathlib import Path
 from json import loads
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 
 from tools.pali_text_files import cst_texts
 from tools.cst_sc_text_sets import make_sc_text_set
@@ -36,7 +36,7 @@ def main():
 def make_all_inflections_set():
 
     inflections_db = db_session.query(
-        DpdHeadwords.inflections
+        DpdHeadword.inflections
     ).all()
     all_inflections_set = set()
     for i in inflections_db:

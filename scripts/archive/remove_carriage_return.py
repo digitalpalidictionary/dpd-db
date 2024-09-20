@@ -5,7 +5,7 @@
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from db.db_helpers import get_column_names
 from tools.paths import ProjectPaths
 
@@ -13,8 +13,8 @@ from tools.paths import ProjectPaths
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
-    columns = get_column_names(DpdHeadwords)
+    db = db_session.query(DpdHeadword).all()
+    columns = get_column_names(DpdHeadword)
     r_columns = set()
     r_examples = set()
     for i in db:

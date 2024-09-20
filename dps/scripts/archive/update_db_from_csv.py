@@ -4,7 +4,7 @@
 from rich.console import Console
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
 from tools.tsv_read_write import read_tsv_dot_dict
@@ -38,8 +38,8 @@ for idx, i in enumerate(csv, start=1):  # start=1 will start the indexing from 1
     if i.sbs_class:
         # this find the dpd word which matches the id
         csv_id = i.id
-        db_entry = db_session.query(DpdHeadwords).filter(
-            DpdHeadwords.id == csv_id).first()
+        db_entry = db_session.query(DpdHeadword).filter(
+            DpdHeadword.id == csv_id).first()
 
         if db_entry and db_entry.sbs:
             # this updates the db entry with the csv value

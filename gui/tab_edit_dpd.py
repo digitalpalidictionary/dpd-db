@@ -1,4 +1,4 @@
-"""Render tab to edit DpdHeadwords table in the database."""
+"""Render tab to edit DpdHeadword table in the database."""
 
 from completion_combo import CompletionCombo
 from functions_db import get_verb_values
@@ -186,7 +186,7 @@ Leave empty for long compounds."),
                     ROOT_VALUES, key="root_key",
                     size=(10, 1),
                     auto_size_text=False,
-                    tooltip="Root key in DpdRootss table.\n\
+                    tooltip="Root key in DpdRoots table.\n\
 Select a value from the dropdown list.")),
             sg.Text(
                 "", key="root_info", text_color="white",

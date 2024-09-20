@@ -8,7 +8,7 @@ import re
 from rich import print
 from typing import Optional
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 
 from tools.meaning_construction import clean_construction
 from tools.paths import ProjectPaths
@@ -16,8 +16,8 @@ from tools.paths import ProjectPaths
 class ProgData():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
-    i: DpdHeadwords
+    db = db_session.query(DpdHeadword).all()
+    i: DpdHeadword
     constr_no_root_or_base: Optional[str]
     root_fam_prefix: Optional[str]
     construc_prefix: Optional[str]

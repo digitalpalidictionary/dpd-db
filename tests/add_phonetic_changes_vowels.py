@@ -11,7 +11,7 @@ from rich import print
 from rich.prompt import Prompt
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 
 from tools.db_search_string import db_search_string
 from tools.paths import ProjectPaths
@@ -54,7 +54,7 @@ def compile_previous_next(c, construction_clean, base_clean):
     return c_compiled, b_compiled
 
 
-def clean_construction_base(i: DpdHeadwords) -> tuple[str, str]:
+def clean_construction_base(i: DpdHeadword) -> tuple[str, str]:
     
     """Construction and base with
     1. no lines2
@@ -88,7 +88,7 @@ def add_update_phonetic(db_session, db, csv):
         manual_update = []
 
         for i_counter, i in enumerate(db):
-            i: DpdHeadwords
+            i: DpdHeadword
 
             if (
                 i.meaning_1 and
@@ -183,7 +183,7 @@ def main():
     pth = ProjectPaths()
     csv = read_tsv_dot_dict(pth.phonetic_changes_vowels_path)
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
     add_update_phonetic(db_session, db, csv)
 
 

@@ -7,7 +7,7 @@ import json
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 
@@ -16,17 +16,17 @@ class ProgData():
     def __init__(self) -> None:
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
-        self.db = self.db_session.query(DpdHeadwords).all()
+        self.db = self.db_session.query(DpdHeadword).all()
         self.antonym_dict: dict = self.load_antonym_dict()
         self.last_word: int = self.antonym_dict["last_word"]
         self.debug: bool = False
         
         # word in progress
-        self.w1: DpdHeadwords
+        self.w1: DpdHeadword
         self.w1_orig_antonym: str
 
         # word being checked
-        self.w2: DpdHeadwords
+        self.w2: DpdHeadword
         
         self.yes_no: str = "[white]y[green]es [white]n[green]o "
 
@@ -99,8 +99,8 @@ def check_w1(g):
         for w1_antonym in w1_antonyms:
             g.w1_orig_antonym = w1_antonym
             results = g.db_session \
-                .query(DpdHeadwords) \
-                .filter(DpdHeadwords.lemma_1.like(f"%{w1_antonym}%")) \
+                .query(DpdHeadword) \
+                .filter(DpdHeadword.lemma_1.like(f"%{w1_antonym}%")) \
                 .all()
             
             # FIXME here the results must test of the antonym is in the results
@@ -310,8 +310,8 @@ def update_w2(g):
 
 # def add_antonym_back(g):
 #     results = g.db_session \
-#         .query(DpdHeadwords) \
-#         .filter(DpdHeadwords.lemma_1.like(g.new_antonym))
+#         .query(DpdHeadword) \
+#         .filter(DpdHeadword.lemma_1.like(g.new_antonym))
     
 #     for r in results:
 #         print()

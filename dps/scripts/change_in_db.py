@@ -11,7 +11,7 @@ from sqlalchemy import and_, or_, null, not_
 from sqlalchemy import update
 from sqlalchemy.orm import joinedload
 
-from db.models import DpdHeadwords, SBS, Russian
+from db.models import DpdHeadword, SBS, Russian
 from tools.paths import ProjectPaths
 from db.db_helpers import get_db_session
 
@@ -34,8 +34,8 @@ def filter_and_update(
     related_alias = aliased(related_table)
 
     # Find the words that match the filter criteria
-    words_to_update = db_session.query(DpdHeadwords, related_alias).join(
-        related_alias, related_alias.id == DpdHeadwords.id
+    words_to_update = db_session.query(DpdHeadword, related_alias).join(
+        related_alias, related_alias.id == DpdHeadword.id
     ).filter(column_to_filter == filter_value).all()
 
     for __word__, related in words_to_update:
@@ -67,8 +67,8 @@ def filter_and_add(
     related_alias = aliased(related_table)
 
     # Find the words that match the filter criteria
-    words_to_update = db_session.query(DpdHeadwords, related_alias).join(
-        related_alias, related_alias.id == DpdHeadwords.id
+    words_to_update = db_session.query(DpdHeadword, related_alias).join(
+        related_alias, related_alias.id == DpdHeadword.id
     ).filter(
         and_(
             column_to_filter.contains(filter_value),
@@ -97,11 +97,11 @@ def filter_and_add(
 def update_notes():
 
     # "Kacc %" "see %" "or %"
-    db = db_session.query(DpdHeadwords).outerjoin(
-    Russian, DpdHeadwords.id == Russian.id
+    db = db_session.query(DpdHeadword).outerjoin(
+    Russian, DpdHeadword.id == Russian.id
         ).filter(
-            DpdHeadwords.notes.like("agent noun used verbally see Perniola §292"),
-        ).order_by(DpdHeadwords.ebt_count.desc()).all()
+            DpdHeadword.notes.like("agent noun used verbally see Perniola §292"),
+        ).order_by(DpdHeadword.ebt_count.desc()).all()
 
     for counter, i in enumerate(db):
 
@@ -138,13 +138,13 @@ def update_notes():
 
 def update_column_for_some_criteria():
     # Query the database to find the rows that match the conditions
-    rows_to_update = db_session.query(DpdHeadwords, SBS).join(
-        SBS, DpdHeadwords.id == SBS.id
+    rows_to_update = db_session.query(DpdHeadword, SBS).join(
+        SBS, DpdHeadword.id == SBS.id
     ).filter(
         and_(
             or_(
-                DpdHeadwords.source_1.contains("PAT"),
-                DpdHeadwords.source_2.contains("PAT"),
+                DpdHeadword.source_1.contains("PAT"),
+                DpdHeadword.source_2.contains("PAT"),
                 SBS.sbs_source_1.contains("PAT"),
                 SBS.sbs_source_2.contains("PAT"),
                 SBS.sbs_source_3.contains("PAT"),
@@ -152,8 +152,8 @@ def update_column_for_some_criteria():
             ),
             not_(
                 or_(
-                    DpdHeadwords.source_1.contains("PK"),
-                    DpdHeadwords.source_2.contains("PK"),
+                    DpdHeadword.source_1.contains("PK"),
+                    DpdHeadword.source_2.contains("PK"),
                     SBS.sbs_source_1.contains("PK"),
                     SBS.sbs_source_2.contains("PK"),
                     SBS.sbs_source_3.contains("PK"),
@@ -184,7 +184,7 @@ def update_column_for_some_criteria():
     # db_session.commit()
 
 
-column_to_filter = DpdHeadwords.meaning_1
+column_to_filter = DpdHeadword.meaning_1
 filter_value = "(gram)"
 related_table = Russian
 related_column_to_update = "ru_meaning_raw"

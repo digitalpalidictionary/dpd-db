@@ -5,9 +5,9 @@ from jinja2 import Environment, FileSystemLoader
 from modules import HeadwordData
 from db.db_helpers import get_db_session
 from db.models import (
-    DpdHeadwords,
+    DpdHeadword,
     Lookup,
-    DpdRoots,
+    DpdRoot,
     SBS,
     Russian)
 from tools.exporter_functions import (
@@ -36,8 +36,8 @@ def search(search_query: str|int, regex_search: bool=False):
     
     if search_query.isnumeric():
         headword = db_session\
-            .query(DpdHeadwords)\
-            .filter(DpdHeadwords.id == search_query)\
+            .query(DpdHeadword)\
+            .filter(DpdHeadword.id == search_query)\
             .first()
         if headword:
             print(headword)

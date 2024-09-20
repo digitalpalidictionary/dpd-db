@@ -13,7 +13,7 @@ from sqlalchemy.orm.session import Session
 from books_to_include import limited_texts, all_texts
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.all_words_in_dpd import make_all_words_in_dpd_set
 from tools.bjt import make_bjt_text_list
 from tools.configger import config_test
@@ -218,8 +218,8 @@ def make_abbreviations_set(db_session: Session) -> Set[str]:
     p_green("making abbreviations set")
     abbreviations_set: Set[str] = set()
 
-    abbreviations_db = db_session.query(DpdHeadwords).filter(
-        DpdHeadwords.pos == "abbrev"
+    abbreviations_db = db_session.query(DpdHeadword).filter(
+        DpdHeadword.pos == "abbrev"
     )
 
     for i in abbreviations_db:
@@ -287,15 +287,15 @@ def make_all_inflections_set(
     )
 
     no_exceptions = (
-        db_session.query(DpdHeadwords)
-        .filter(DpdHeadwords.pos.notin_(exceptions_list))
+        db_session.query(DpdHeadword)
+        .filter(DpdHeadword.pos.notin_(exceptions_list))
         .all()
     )
 
     all_headwords = [i.id for i in no_exceptions]
 
     all_inflections_db = (
-        db_session.query(DpdHeadwords).filter(DpdHeadwords.id.in_(all_headwords)).all()
+        db_session.query(DpdHeadword).filter(DpdHeadword.id.in_(all_headwords)).all()
     )
 
     for i in all_inflections_db:
@@ -323,16 +323,16 @@ def make_neg_inflections_set(
     )
 
     neg_headwords_db = (
-        db_session.query(DpdHeadwords)
-        .filter(DpdHeadwords.pos.notin_(exceptions_list))
-        .filter(DpdHeadwords.neg == "neg")
+        db_session.query(DpdHeadword)
+        .filter(DpdHeadword.pos.notin_(exceptions_list))
+        .filter(DpdHeadword.neg == "neg")
         .all()
     )
 
     neg_headwords = [i.id for i in neg_headwords_db]
 
     neg_inflections_db = (
-        db_session.query(DpdHeadwords).filter(DpdHeadwords.id.in_(neg_headwords)).all()
+        db_session.query(DpdHeadword).filter(DpdHeadword.id.in_(neg_headwords)).all()
     )
 
     for i in neg_inflections_db:

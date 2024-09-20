@@ -4,7 +4,7 @@
 import sys
 from rich import print
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 from tools.pos import POS
@@ -28,7 +28,7 @@ def pos_not_in_pos(db_session):
     print(f"[green]{'finding wrong pos':<30} ")
 
     ok = True
-    result = db_session.query(DpdHeadwords).all()
+    result = db_session.query(DpdHeadword).all()
     for r in result:
         if r.pos not in POS:
             print(f"[red]{'wrong pos found':<20}{r.pos:<10}[bright_red][white]{r.lemma_1}")
@@ -50,8 +50,8 @@ def apostrophe_in_key_fields(db_session):
 
     # lemma_1
     results = db_session \
-        .query(DpdHeadwords) \
-        .filter(DpdHeadwords.lemma_1.contains("'", )) \
+        .query(DpdHeadword) \
+        .filter(DpdHeadword.lemma_1.contains("'", )) \
         .all()
     for r in results:
         r.lemma_1 = r.lemma_1.replace("'", "")
@@ -59,8 +59,8 @@ def apostrophe_in_key_fields(db_session):
 
     # lemma_2
     results = db_session \
-        .query(DpdHeadwords) \
-        .filter(DpdHeadwords.lemma_2.contains("'", )) \
+        .query(DpdHeadword) \
+        .filter(DpdHeadword.lemma_2.contains("'", )) \
         .all()
     for r in results:
         r.lemma_2 = r.lemma_2.replace("'", "")
@@ -68,8 +68,8 @@ def apostrophe_in_key_fields(db_session):
 
     # stem
     results = db_session \
-        .query(DpdHeadwords) \
-        .filter(DpdHeadwords.stem.contains("'", )) \
+        .query(DpdHeadword) \
+        .filter(DpdHeadword.stem.contains("'", )) \
         .all()
     for r in results:
         r.stem = r.stem.replace("'", "")

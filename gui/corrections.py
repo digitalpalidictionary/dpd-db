@@ -10,7 +10,7 @@ from rich import print
 
 from tools.goldendict_tools import open_in_goldendict
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 
 from tools.meaning_construction import make_meaning_combo
 from tools.meaning_construction import summarize_construction
@@ -23,7 +23,7 @@ class ProgData():
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
         self.corrections_list = load_corrections_tsv(self.pth)
-        self.headword: DpdHeadwords = DpdHeadwords()
+        self.headword: DpdHeadword = DpdHeadword()
         self.index: int
 
 def main():
@@ -41,8 +41,8 @@ def main():
         if event == "id_enter":
             id_val = values["id"]
             headword = g.db_session \
-                .query(DpdHeadwords) \
-                .filter(DpdHeadwords.id == id_val) \
+                .query(DpdHeadword) \
+                .filter(DpdHeadword.id == id_val) \
                 .first()
             if headword:
                 g.headword = headword
@@ -342,8 +342,8 @@ def find_next_correction(g: ProgData, window, values):
 
 def load_next_correction(g: ProgData, correction, window):
     headword = g.db_session \
-        .query(DpdHeadwords) \
-        .filter(correction.id == DpdHeadwords.id) \
+        .query(DpdHeadword) \
+        .filter(correction.id == DpdHeadword.id) \
         .first()
     if headword:
         g.headword = headword

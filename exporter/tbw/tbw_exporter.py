@@ -12,7 +12,7 @@ import json
 import shutil
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, Lookup
+from db.models import DpdHeadword, Lookup
 from tools.configger import config_test
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 from tools.printer import p_green, p_green_title, p_title, p_yes
@@ -28,7 +28,7 @@ class ProgData():
         p_green("setting up data")
         self.pth: ProjectPaths = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
-        dpd_db = self.db_session.query(DpdHeadwords)
+        dpd_db = self.db_session.query(DpdHeadword)
         self.dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
         self.deconstructor_db = self.db_session \
             .query(Lookup) \

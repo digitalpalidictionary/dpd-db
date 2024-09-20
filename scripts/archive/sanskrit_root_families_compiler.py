@@ -6,13 +6,13 @@ import csv
 
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.pali_sort_key import pali_sort_key
 
 
 class RootFamily():
-    def __init__(self, i: DpdHeadwords) -> None:
+    def __init__(self, i: DpdHeadword) -> None:
         self.root_family_key = i.root_family_key
         self.root_key: str = i.root_key
         self.root_group: str = str(i.rt.root_group)
@@ -41,7 +41,7 @@ class RootFamily():
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
     db = sorted(
         db, key=lambda x: (pali_sort_key(x.root_key), pali_sort_key(x.family_root)))
 

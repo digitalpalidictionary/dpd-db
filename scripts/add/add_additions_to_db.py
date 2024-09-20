@@ -3,7 +3,7 @@
 """Add new additions to the database and update additions tsv."""
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.date_and_time import year_month_day_dash
 from tools.paths import ProjectPaths
 from tools.printer import p_title
@@ -19,7 +19,7 @@ def add_to_db():
     db_session = get_db_session(pth.dpd_db_path)
     add_to_db = []
     
-    last_id = max(db_session.query(DpdHeadwords.id).all())[0]
+    last_id = max(db_session.query(DpdHeadword.id).all())[0]
     next_id = last_id + 1
     print(f"{'last_id:':<20}{last_id:>10}")
     print(f"{'next_id:':<20}{next_id:>10}")
@@ -36,7 +36,7 @@ def add_to_db():
         if not a.added_to_db:
 
             # make new headword
-            hw = DpdHeadwords()
+            hw = DpdHeadword()
             hw.id = next_id
             hw.ebt_count = 0    # this needs to happen automatically!
 

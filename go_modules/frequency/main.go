@@ -83,7 +83,7 @@ func init() {
 
 func main() {
 	tools.PGreenTitle("making html & data")
-	var db, results = dpdDb.GetDpdHeadwords()
+	var db, results = dpdDb.GetDpdHeadword()
 
 	for index, i := range results {
 		if index%10000 == 0 {

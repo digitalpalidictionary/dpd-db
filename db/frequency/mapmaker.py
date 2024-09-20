@@ -16,7 +16,7 @@ from sqlalchemy import update
 from sqlalchemy.orm.session import Session
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 
 from tools.pos import INDECLINABLES, CONJUGATIONS, DECLENSIONS
 from tools.configger import config_test, config_update
@@ -120,18 +120,18 @@ def test_html_file_missing(db_session: Session):
     print("[green]test if html file is missing", end=" ")
 
     idioms_db = db_session.query(
-        DpdHeadwords.id, DpdHeadwords.pos
+        DpdHeadword.id, DpdHeadword.pos
     ).filter(
-        DpdHeadwords.pos == "idiom"
+        DpdHeadword.pos == "idiom"
     ).all()
 
     idioms_list = [i.id for i in idioms_db]
 
     missing_html_db = db_session.query(
-        DpdHeadwords.id, DpdHeadwords.freq_html
+        DpdHeadword.id, DpdHeadword.freq_html
     ).filter(
-        DpdHeadwords.freq_html == "",
-        DpdHeadwords.id.notin_(idioms_list)
+        DpdHeadword.freq_html == "",
+        DpdHeadword.id.notin_(idioms_list)
     ).all()
 
     global html_file_missing
@@ -348,7 +348,7 @@ class ParsedResult(TypedDict):
     id: int
     freq_html: str
 
-def _parse_item(i: DpdHeadwords, dicts: List[dict]) -> ParsedResult:
+def _parse_item(i: DpdHeadword, dicts: List[dict]) -> ParsedResult:
     inflections = i.inflections_list_all    # this include all api ca eva iti
 
     section = 1
@@ -407,9 +407,9 @@ def make_data_dict_and_html(
 ):
     print("[green]compiling data csvs and html")
 
-    dpd_db = db_session.query(DpdHeadwords).all()
+    dpd_db = db_session.query(DpdHeadword).all()
 
-    def _keep(i: DpdHeadwords) -> bool:
+    def _keep(i: DpdHeadword) -> bool:
         """Filter predicate function which returns whether an item should be kept.
         """
         return (i.pos != "idiom" and \
@@ -418,7 +418,7 @@ def make_data_dict_and_html(
                  i.id in html_file_missing or \
                  regenerate_all is True))
 
-    # Filter the DpdHeadwords and Derived data list, while keeping the related items together in a Tuple.
+    # Filter the DpdHeadword and Derived data list, while keeping the related items together in a Tuple.
     filtered_pairs: List = [i for i in dpd_db if _keep(i)]
 
     # Split the list into batches, each batch will be assigned to a Process() thread.
@@ -485,7 +485,7 @@ def make_data_dict_and_html(
 
     # Add the results to the database.
     print("[green]adding to db", end=" ")
-    db_session.execute(update(DpdHeadwords), add_to_db)
+    db_session.execute(update(DpdHeadword), add_to_db)
     db_session.commit()
     db_session.close()
     print(len(add_to_db))

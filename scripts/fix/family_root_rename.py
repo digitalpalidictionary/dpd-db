@@ -5,7 +5,7 @@
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, DpdRoots
+from db.models import DpdHeadword, DpdRoot
 from tools.paths import ProjectPaths
 from tools.printer import p_title
 
@@ -21,14 +21,14 @@ def main():
 
     # ----- rename dpd_roots table -----
     
-    roots_query = db_session.query(DpdRoots).filter_by(root=before).first()
+    roots_query = db_session.query(DpdRoot).filter_by(root=before).first()
     if roots_query:
         roots_query.root = after
         print(roots_query.root)
 
     # ----- rename dpd_headwords table -----
     
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
     for i in db:
         if i.root_key == before:
             i.root_key = after

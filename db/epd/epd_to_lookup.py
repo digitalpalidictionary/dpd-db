@@ -6,7 +6,7 @@ import re
 from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, DpdRoots, Lookup
+from db.models import DpdHeadword, DpdRoot, Lookup
 from tools.configger import config_test
 from tools.lookup_is_another_value import is_another_value
 from tools.pali_sort_key import pali_sort_key
@@ -23,11 +23,11 @@ class ProgData():
     pth: ProjectPaths = ProjectPaths()
     db_session: Session = get_db_session(pth.dpd_db_path)
     
-    dpd_db: list[DpdHeadwords] = db_session.query(DpdHeadwords).all()
+    dpd_db: list[DpdHeadword] = db_session.query(DpdHeadword).all()
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
     dpd_db_length = len(dpd_db)
     
-    roots_db: list = db_session.query(DpdRoots).all()
+    roots_db: list = db_session.query(DpdRoot).all()
     roots_db_length = len(roots_db)
 
     pos_exclude_list = ["abbrev", "cs", "letter", "root", "suffix", "ve"]
@@ -40,7 +40,7 @@ class ProgData():
     
 
 def compile_headwords_data(g: ProgData):
-    """Compile meanings and sutta names in DpdHeadwords."""
+    """Compile meanings and sutta names in DpdHeadword."""
     p_green_title("compiling headwords data")
 
     for counter, i in enumerate(g.dpd_db):
@@ -76,7 +76,7 @@ def compile_headwords_data(g: ProgData):
 
 
 def compile_roots_data(g: ProgData):
-    """Compile root meanings in DpdRoots."""
+    """Compile root meanings in DpdRoot."""
     p_green("compiling roots data")
 
     counter = 0
@@ -95,7 +95,7 @@ def compile_roots_data(g: ProgData):
     p_yes(counter)
 
 
-def make_clean_meaning_list(i: DpdHeadwords) -> list[str]:
+def make_clean_meaning_list(i: DpdHeadword) -> list[str]:
     "Cleanup meaning_1"
 
     # remove double ??
@@ -119,7 +119,7 @@ def make_clean_meaning_list(i: DpdHeadwords) -> list[str]:
     return meanings_clean.split(";")
 
 
-def make_meaning_plus_case(i: DpdHeadwords):
+def make_meaning_plus_case(i: DpdHeadword):
     """Return meaning and optionally (plus_case)"""
 
     if i.plus_case:
@@ -153,7 +153,7 @@ def extract_sutta_numbers(meaning_2) -> list[str]:
     return combined_numbers
 
 
-def update_epd_sutta(g:ProgData, combined_numbers, i:DpdHeadwords):
+def update_epd_sutta(g:ProgData, combined_numbers, i:DpdHeadword):
     """Use Sutta number as key in EPD"""
 
     for combined_number in combined_numbers:

@@ -10,8 +10,8 @@ from typing import Dict, Optional
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdRoots
-from db.models import DpdHeadwords
+from db.models import DpdRoot
+from db.models import DpdHeadword
 from db.models import FamilyCompound
 from tools.tic_toc import tic, toc
 from tools.pali_alphabet import consonants
@@ -90,10 +90,10 @@ def make_searches(db_session) -> Dict[str, list]:
 
     searches = {}
 
-    dpd_headword = db_session.query(DpdHeadwords).all()
+    dpd_headword = db_session.query(DpdHeadword).all()
     searches["dpd_headword"] = dpd_headword
 
-    dpd_roots = db_session.query(DpdRoots).all()
+    dpd_roots = db_session.query(DpdRoot).all()
     searches["dpd_roots"] = dpd_roots
 
     compound_families = db_session.query(FamilyCompound).all()

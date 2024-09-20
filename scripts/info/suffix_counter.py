@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
 """Compile and count all the instances of various kita, kicca and taddhita
-suffixes in the DpdHeadwords table and save to TSV."""
+suffixes in the DpdHeadword table and save to TSV."""
 
 
 import pandas as pd
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 
@@ -18,7 +18,7 @@ def main_pandas():
     print("[green]processing db")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(DpdHeadwords).all()
+    dpd_db = db_session.query(DpdHeadword).all()
 
     data = []
     for i in dpd_db:

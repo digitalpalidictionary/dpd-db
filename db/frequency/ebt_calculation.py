@@ -6,7 +6,7 @@ import pandas as pd
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 
@@ -60,7 +60,7 @@ def calculate_ebt_count():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    dpd_db = db_session.query(DpdHeadwords).all()
+    dpd_db = db_session.query(DpdHeadword).all()
 
     dicts = make_dicts(pth)
 

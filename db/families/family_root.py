@@ -13,7 +13,7 @@ from root_matrix import generate_root_matrix
 from root_info import generate_root_info_html
 
 from db.db_helpers import get_db_session
-from db.models import DpdRoots, DpdHeadwords, FamilyRoot, Lookup
+from db.models import DpdRoot, DpdHeadword, FamilyRoot, Lookup
 
 from scripts.build.anki_updater import family_updater
 
@@ -61,12 +61,12 @@ def main():
 
 
     if lang == "en":
-        dpd_db = db_session.query(DpdHeadwords).filter(
-            DpdHeadwords.family_root != "").all()
+        dpd_db = db_session.query(DpdHeadword).filter(
+            DpdHeadword.family_root != "").all()
     elif lang == "ru":
-        dpd_db = db_session.query(DpdHeadwords).options(
-            joinedload(DpdHeadwords.ru)).filter(
-            DpdHeadwords.family_root != "").all()
+        dpd_db = db_session.query(DpdHeadword).options(
+            joinedload(DpdHeadword.ru)).filter(
+            DpdHeadword.family_root != "").all()
 
     if config_test("dictionary", "show_sbs_data", "yes") or lang == "ru":
         show_ru_data = True
@@ -76,7 +76,7 @@ def main():
     dpd_db = sorted(
         dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
-    roots_db = db_session.query(DpdRoots).all()
+    roots_db = db_session.query(DpdRoot).all()
     roots_db = sorted(
         roots_db, key=lambda x: pali_sort_key(x.root))
 
@@ -270,7 +270,7 @@ def update_lookup_table(db_session):
     print("[green]adding roots to lookup table", end = " ")
 
     r2h_dict = defaultdict(set)
-    roots_db = db_session.query(DpdRoots).all()
+    roots_db = db_session.query(DpdRoot).all()
     for r in roots_db:
         r2h_dict[r.root_clean].add(r.root)
         r2h_dict[r.root_no_sign].add(r.root)
@@ -349,7 +349,7 @@ def make_anki_matrix_data(pth: ProjectPaths, html_dict, db_session):
     anki_data_list = []
 
     for family, html in html_dict.items():
-        db = db_session.query(DpdRoots).filter(DpdRoots.root == family).first()
+        db = db_session.query(DpdRoot).filter(DpdRoot.root == family).first()
         anki_name = f"{db.root_clean} {db.root_group} {db.root_meaning}"
         anki_data_list += [(anki_name, html)]
     

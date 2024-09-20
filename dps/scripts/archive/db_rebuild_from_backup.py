@@ -12,7 +12,7 @@ from sqlalchemy.orm.session import Session
 
 from db.db_helpers import get_db_session
 from db.db_helpers import create_db_if_not_exists
-from db.models import DpdHeadwords, DpdRoots, Russian, SBS
+from db.models import DpdHeadword, DpdRoot, Russian, SBS
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 from tools.configger import config_update, config_test
@@ -63,8 +63,8 @@ def main():
 
 
 def make_pali_word_table_data(dpspth, db_session: Session):
-    """Read TSV and return DpdHeadwords table data."""
-    print("[green]creating DpdHeadwords table data")
+    """Read TSV and return DpdHeadword table data."""
+    print("[green]creating DpdHeadword table data")
     pali_word_path = os.path.join(dpspth.dps_backup_dir, "dpd_headwords.tsv")
     with open(pali_word_path, 'r', newline='') as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
@@ -74,12 +74,12 @@ def make_pali_word_table_data(dpspth, db_session: Session):
             for col_name, value in zip(columns, row):
                 if col_name not in ("user_id", "created_at", "updated_at"):
                     data[col_name] = value
-            db_session.add(DpdHeadwords(**data))
+            db_session.add(DpdHeadword(**data))
 
 
 def make_pali_root_table_data(dpspth, db_session: Session):
-    """Read TSV and return DpdRoots table data."""
-    print("[green]creating DpdRoots table data")
+    """Read TSV and return DpdRoot table data."""
+    print("[green]creating DpdRoot table data")
     pali_root_path = os.path.join(dpspth.dps_backup_dir, "dpd_roots.tsv")
     with open(pali_root_path, 'r', newline='') as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
@@ -91,7 +91,7 @@ def make_pali_root_table_data(dpspth, db_session: Session):
                     "created_at", "updated_at",
                         "root_info", "root_matrix"):
                     data[col_name] = value
-            db_session.add(DpdRoots(**data))
+            db_session.add(DpdRoot(**data))
 
 
 def make_russian_table_data(dpspth, db_session: Session):

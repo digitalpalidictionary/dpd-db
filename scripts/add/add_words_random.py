@@ -10,7 +10,7 @@ import pyperclip
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.printer import p_title
 
@@ -25,7 +25,7 @@ def main():
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
 
     no_meaning: list = []
     no_example: list = []
@@ -45,7 +45,7 @@ def main():
     while user_input != "x":
         random_number = randrange(len(all_missing))
         random_id = all_missing[random_number]
-        word = db_session.query(DpdHeadwords).filter_by(id=random_id).first()
+        word = db_session.query(DpdHeadword).filter_by(id=random_id).first()
         pyperclip.copy(word.lemma_1)
         print(word)
         user_input = input()

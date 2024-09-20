@@ -4,7 +4,7 @@ import re
 from sqlalchemy import update
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 
 
@@ -12,7 +12,7 @@ def remove_space_in_family_word():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(
-        DpdHeadwords
+        DpdHeadword
     ).all()
 
     add_to_db = []
@@ -25,7 +25,7 @@ def remove_space_in_family_word():
             add_to_db += [{"id": i.id, "family_word": new_fw}]
 
     print(add_to_db)
-    db_session.execute(update(DpdHeadwords), add_to_db)
+    db_session.execute(update(DpdHeadword), add_to_db)
     db_session.commit()
     db_session.close()
 

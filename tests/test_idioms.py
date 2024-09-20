@@ -11,7 +11,7 @@ from rich import print
 from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, FamilyIdiom, Lookup
+from db.models import DpdHeadword, FamilyIdiom, Lookup
 from tools.meaning_construction import clean_construction, make_meaning_combo
 from tools.paths import ProjectPaths
 from tools.goldendict_tools import open_in_goldendict
@@ -21,7 +21,7 @@ class ProgData():
     db_session: Session = get_db_session(pth.dpd_db_path)
     idioms_table_list: list[str] = []
     words_in_idioms_dict: defaultdict = defaultdict(list[tuple[str, str, str]])
-    headwords_db: list[DpdHeadwords] = db_session.query(DpdHeadwords).all()
+    headwords_db: list[DpdHeadword] = db_session.query(DpdHeadword).all()
     exceptions_dict: dict[str, list[int]]
 
 
@@ -53,7 +53,7 @@ def make_idioms_table_list(g: ProgData):
         g.idioms_table_list.append(i.idiom)
 
 
-def tupler(i: DpdHeadwords):
+def tupler(i: DpdHeadword):
     meaning = make_meaning_combo(i)
     return (i.lemma_1, meaning, i.family_idioms, i.family_compound)
 
@@ -85,7 +85,7 @@ def make_words_in_idioms_dict(g: ProgData):
 
 
 def add_words_in_compounds(g: ProgData):
-    i: DpdHeadwords
+    i: DpdHeadword
     for i in g.headwords_db:
         if i.id in g.words_in_idioms_dict:
             if re.findall("\\bcomp\\b", i.grammar):

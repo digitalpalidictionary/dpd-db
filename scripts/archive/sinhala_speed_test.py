@@ -6,7 +6,7 @@ from rich import print
 from sqlalchemy import outerjoin
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, Sinhala
+from db.models import DpdHeadword, Sinhala
 from tools.paths import ProjectPaths
 from tools.printer import p_counter, p_green, p_green_title, p_title
 from tools.tic_toc import tic, toc
@@ -18,7 +18,7 @@ def test_relationship():
     p_green_title("relationship")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
     dict = {}
     for counter, i in enumerate(db):
         dict[i.lemma_si] = i.si.meaning_si
@@ -34,7 +34,7 @@ def test_outerjoin():
     p_green_title("outerjoin")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).outerjoin(Sinhala, DpdHeadwords.id == Sinhala.id).all()
+    db = db_session.query(DpdHeadword).outerjoin(Sinhala, DpdHeadword.id == Sinhala.id).all()
     dict = {}
     for counter, i in enumerate(db):
         dict[i.lemma_si] = i.si.meaning_si
@@ -51,7 +51,7 @@ def test_joinedload():
     p_green_title("joinedload")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.si)).all()
+    db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.si)).all()
     dict = {}
     for counter, i in enumerate(db):
         dict[i.lemma_si] = i.si.meaning_si

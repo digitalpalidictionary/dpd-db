@@ -7,7 +7,7 @@ import pandas as pd
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, Sinhala
+from db.models import DpdHeadword, Sinhala
 from tools.paths import ProjectPaths
 from tools.printer import p_green, p_no, p_title, p_yes
 from tools.tic_toc import tic, toc
@@ -29,7 +29,7 @@ def main():
         si_id = i[1][0]
         meaning_si = i[1][2]
         si_checked = i[1][3]
-        db = db_session.query(DpdHeadwords).filter(DpdHeadwords.id == si_id).first()
+        db = db_session.query(DpdHeadword).filter(DpdHeadword.id == si_id).first()
         if db:
             si_word = Sinhala()
             si_word.id = db.id

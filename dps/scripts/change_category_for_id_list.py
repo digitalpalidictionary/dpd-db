@@ -4,7 +4,7 @@
 Update sbs_category for words from an ID list based on specific conditions
 """
 
-from db.models import DpdHeadwords, SBS
+from db.models import DpdHeadword, SBS
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
 from db.db_helpers import get_db_session
@@ -107,7 +107,7 @@ def update_sbs_category(source, condition_func, message, update:bool):
 
     # 3. Iterate through the IDs and update the database
     for word_id in unique_ids:
-        word = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs)).filter(DpdHeadwords.id == word_id).first()
+        word = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs)).filter(DpdHeadword.id == word_id).first()
 
         if not word:
             continue

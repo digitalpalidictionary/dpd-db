@@ -2,7 +2,7 @@
 
 from datetime import datetime
 
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_dot_dict, write_tsv_dot_dict
 from tools.configger import config_read
@@ -19,9 +19,9 @@ class Additions():
 
     def __init__(
         self,
-        headword: DpdHeadwords,
+        headword: DpdHeadword,
     ):
-        self.headword: DpdHeadwords = headword
+        self.headword: DpdHeadword = headword
         self.additions_list: list[dict] = self.load_additions_tsv()
         self.add_me = {
             "new_id": "",
@@ -88,7 +88,7 @@ class Additions():
 if __name__ == "__main__":
 
     # db_session = get_db_session(pth.dpd_db_path)
-    # headword = db_session.query(DpdHeadwords).filter_by(id=45673).first()
+    # headword = db_session.query(DpdHeadword).filter_by(id=45673).first()
     # if headword:
     #     new_addition = Additions(headword)
     #     print(new_addition.needs_updating)

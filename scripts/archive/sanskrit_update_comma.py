@@ -8,7 +8,7 @@ import pickle
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 
 
@@ -16,7 +16,7 @@ def main():
     # setup db session
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
 
     # load ram's changes to exclude    # 
     with open("db/sanskrit/sanskrit_update_1_backup", "rb") as f:

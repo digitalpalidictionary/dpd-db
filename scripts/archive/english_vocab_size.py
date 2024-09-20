@@ -1,5 +1,5 @@
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.clean_machine import clean_machine
 from tools.paths import ProjectPaths
 
@@ -7,7 +7,7 @@ from tools.paths import ProjectPaths
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords)
+    db = db_session.query(DpdHeadword)
     english_vocab: set = set()
 
     for i in db:

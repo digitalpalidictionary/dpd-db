@@ -10,7 +10,7 @@ from tools.lookup_is_another_value import is_another_value
 
 from tools.tic_toc import tic, toc, bip, bop
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, Lookup
+from db.models import DpdHeadword, Lookup
 from tools.paths import ProjectPaths
 from tools.deconstructed_words import make_words_in_deconstructions
 from tools.headwords_clean_set import make_clean_headwords_set
@@ -25,7 +25,7 @@ def inflection_to_headwords(pth: ProjectPaths):
     bip()
     print(f"[green]{'querying db':<30}", end="")
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(DpdHeadwords).all()
+    dpd_db = db_session.query(DpdHeadword).all()
     print(f"{len(dpd_db):>10,}{bop():>10}")
 
     bip()

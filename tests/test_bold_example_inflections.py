@@ -7,7 +7,7 @@ import pyperclip
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.pali_alphabet import pali_alphabet
 from sqlalchemy.orm import joinedload
@@ -27,11 +27,11 @@ class ProgData():
     db_session = get_db_session(pth.dpd_db_path)
     show_sbs_data: bool = check_username()
     if show_sbs_data:
-        db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs)).all()
+        db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs)).all()
     else:
-        db = db_session.query(DpdHeadwords).all()
+        db = db_session.query(DpdHeadword).all()
     pali_alphabet: list[str] = pali_alphabet
-    i: DpdHeadwords
+    i: DpdHeadword
     if show_sbs_data:
         fields: list[str] = ["sbs_example_1", "sbs_example_2", "sbs_example_3", "sbs_example_4"]
     else:

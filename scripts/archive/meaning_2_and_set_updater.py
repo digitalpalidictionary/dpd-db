@@ -5,7 +5,7 @@
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_dot_dict
 
@@ -17,8 +17,8 @@ def main():
     count = 0
 
     for csv in csv_dict:
-        db = db_session.query(DpdHeadwords).filter(
-            DpdHeadwords.id == csv.id).first()
+        db = db_session.query(DpdHeadword).filter(
+            DpdHeadword.id == csv.id).first()
         if db.meaning_2 != csv.meaning_2:
             print(f"{db.lemma_1:<40}{db.meaning_2:<40} {csv.meaning_2}")
             db.meaning_2 = csv.meaning_2

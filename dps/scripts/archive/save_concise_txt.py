@@ -6,7 +6,7 @@ from rich.console import Console
 
 from typing import List
 
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from db.db_helpers import get_db_session
 
 from tools.pali_sort_key import pali_sort_key
@@ -26,7 +26,7 @@ def main():
     pth = ProjectPaths()
     dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(DpdHeadwords).all()
+    dpd_db = db_session.query(DpdHeadword).all()
     dpd_db = sorted(
         dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
@@ -42,7 +42,7 @@ def save_concise_txt(dpspth, dpd_db):
 
     header = ['lemma_1', 'grammar', 'meaning_1', 'meaning_lit', 'ru_meaning', 'ru_meaning_lit']
 
-    def row_to_string(i: DpdHeadwords) -> str:
+    def row_to_string(i: DpdHeadword) -> str:
         return " ,".join(map(str, pali_row(i)))
 
     rows = [" ,".join(map(str, header))]
@@ -52,7 +52,7 @@ def save_concise_txt(dpspth, dpd_db):
         f.write("\n".join(rows))
 
 
-def pali_row(i: DpdHeadwords, output="ai") -> List[str]:
+def pali_row(i: DpdHeadword, output="ai") -> List[str]:
     fields = []
 
     fields.extend([ 

@@ -9,7 +9,7 @@ import pyperclip
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.tic_toc import tic, toc
 from tools.meaning_construction import clean_construction
 from tools.paths import ProjectPaths
@@ -20,7 +20,7 @@ def main():
     print("[bright_yellow]finding missing family_compounds")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
     d: dict = make_dict_of_sets(db)
     failures = test_family_compound(d)
     add_to_db(failures)

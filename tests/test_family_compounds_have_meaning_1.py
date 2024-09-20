@@ -6,7 +6,7 @@ import pyperclip
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, FamilyCompound
+from db.models import DpdHeadword, FamilyCompound
 from tools.paths import ProjectPaths
 
 
@@ -14,7 +14,7 @@ class ProgData():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db_fc = db_session.query(FamilyCompound).all()
-    db_hw = db_session.query(DpdHeadwords).all()
+    db_hw = db_session.query(DpdHeadword).all()
     family_compound_set: set[str] = set()
     no_meaning_dict: dict[str, dict[str, str]]
     no_lemma_1: set[str] = set()

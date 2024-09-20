@@ -6,7 +6,7 @@ import re
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 
 
@@ -18,8 +18,8 @@ def main():
     search_term = f"( |^){lemma_clean}(,|$)"
 
     results = db_session \
-        .query(DpdHeadwords) \
-        .filter(DpdHeadwords.synonym.regexp_match(search_term)) \
+        .query(DpdHeadword) \
+        .filter(DpdHeadword.synonym.regexp_match(search_term)) \
         .all()
     
     for r in results:

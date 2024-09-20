@@ -12,7 +12,7 @@ from rich.prompt import Prompt
 from sqlalchemy.orm.session import Session
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.meaning_construction import make_meaning_combo
 from tools.paths import ProjectPaths
 
@@ -21,7 +21,7 @@ def main():
     print("[bright_yellow]finding word families")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(DpdHeadwords).all()
+    dpd_db = db_session.query(DpdHeadword).all()
 
     word_family_dict = build_word_family_dict(dpd_db)
     word_order = order_word_family_dict(word_family_dict)
@@ -104,7 +104,7 @@ def find_in_family_compound(pth: ProjectPaths, db_session: Session, word_family_
         for x in word_family_dict[word]:
             if x not in processed_words:
                 headword = db_session.query(
-                        DpdHeadwords).filter(DpdHeadwords.lemma_1 == x).first()
+                        DpdHeadword).filter(DpdHeadword.lemma_1 == x).first()
                 if headword is not None and headword.lemma_1 not in exceptions_list:
                     meaning = make_meaning_combo(headword)
                     query = Prompt.ask(f"{x}: [green]{headword.pos}. [light_green]{meaning} ")
@@ -161,7 +161,7 @@ def make_word_family_set(db_session):
 
     word_family_set = set()
 
-    wf_db = db_session.query(DpdHeadwords).all()
+    wf_db = db_session.query(DpdHeadword).all()
 
     for i in wf_db:
         try:

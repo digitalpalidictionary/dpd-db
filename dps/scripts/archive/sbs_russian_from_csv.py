@@ -11,7 +11,7 @@ from rich.console import Console
 from typing import Dict, List
 from sqlalchemy.orm import Session
 
-from db.models import Russian, SBS, DpdHeadwords
+from db.models import Russian, SBS, DpdHeadword
 from db.db_helpers import get_db_session
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
@@ -59,8 +59,8 @@ def add_dps_russian(dpspth, db_session: Session):
     duplicated_ids = set()  # Use a set to keep track of duplicated ids
 
     for r in rows:
-        id_search = db_session.query(DpdHeadwords.id).filter(
-            DpdHeadwords.id == r["id"]).first()
+        id_search = db_session.query(DpdHeadword.id).filter(
+            DpdHeadword.id == r["id"]).first()
 
         if id_search is not None:
             id = id_search[0]
@@ -131,8 +131,8 @@ def add_dps_sbs(dpspth, db_session: Session):
     unmatched_ids: List[str] = []  # Store unmatched IDs
 
     for r in rows:
-        id_search = db_session.query(DpdHeadwords.id).filter(
-            DpdHeadwords.id == r["id"]).first()
+        id_search = db_session.query(DpdHeadword.id).filter(
+            DpdHeadword.id == r["id"]).first()
 
         if id_search is not None:
             id = id_search[0]

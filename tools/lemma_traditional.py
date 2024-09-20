@@ -3,7 +3,7 @@
 """Function to provide traditional lemma endings."""
 
 import re
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.sinhala_tools import translit_ro_to_si
 
 lemma_trad_dict: dict[str, str] = {
@@ -17,7 +17,7 @@ lemma_trad_dict: dict[str, str] = {
     "bhavant masc": "bhavantu", # like bhavant
 }
 
-def find_space_digits(i: DpdHeadwords) -> str:
+def find_space_digits(i: DpdHeadword) -> str:
     pattern = r"\s\d.*"
     match = re.search(pattern, i.lemma_1)
     if match:
@@ -25,7 +25,7 @@ def find_space_digits(i: DpdHeadwords) -> str:
     else:
         return ""
 
-def make_lemma_trad(i: DpdHeadwords) -> str:
+def make_lemma_trad(i: DpdHeadword) -> str:
     """Return a traditional noun or adj ending, rather than the DPD ending."""
 
     if (
@@ -43,7 +43,7 @@ def make_lemma_trad(i: DpdHeadwords) -> str:
         return i.lemma_1
 
 
-def make_lemma_trad_si(i: DpdHeadwords) -> str:
+def make_lemma_trad_si(i: DpdHeadword) -> str:
     """Transcribe traditional lemma into Sinhala."""
     lemma = make_lemma_trad(i)
     return translit_ro_to_si(lemma)

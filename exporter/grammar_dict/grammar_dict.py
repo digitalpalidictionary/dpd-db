@@ -10,7 +10,7 @@ from json import loads
 from mako.template import Template
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from db.models import InflectionTemplates
 from db.models import Lookup
 
@@ -65,7 +65,7 @@ class ProgData():
         self.dict_data: list[DictEntry]
 
     def load_db(self):
-        db = self.db_session.query(DpdHeadwords).all()
+        db = self.db_session.query(DpdHeadword).all()
         return sorted(db, key=lambda x: pali_sort_key(x.lemma_1))
     
     def close_db(self):
@@ -176,7 +176,7 @@ def generate_grammar_dict(g: ProgData):
     
     html_table_header = "<body><div class='grammar_dict'><table class='grammar_dict'>"
 
-    # process the inflections of each word in DpdHeadwords
+    # process the inflections of each word in DpdHeadword
     for counter, i in enumerate(g.db):
 
         # words with ! in the stem are inflected forms 

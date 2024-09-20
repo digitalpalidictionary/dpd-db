@@ -6,10 +6,10 @@
 
 import re
 
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 
 
-def make_meaning_combo(i: DpdHeadwords) -> str:
+def make_meaning_combo(i: DpdHeadword) -> str:
 	"""Compile meaning_1 and literal meaning, or return meaning_2."""
 	if i.meaning_1:
 		meaning: str = i.meaning_1
@@ -21,7 +21,7 @@ def make_meaning_combo(i: DpdHeadwords) -> str:
 	else:
 		return ""
 
-def make_meaning_combo_html(i: DpdHeadwords) -> str:
+def make_meaning_combo_html(i: DpdHeadword) -> str:
     """Compile html of meaning_1 and literal meaning, or return meaning_2.
     Meaning_1 in <b>bold</b>"""
 
@@ -40,7 +40,7 @@ def make_meaning_combo_html(i: DpdHeadwords) -> str:
             return f"<b>{i.meaning_2}</b>"
 
 
-def make_grammar_line(i: DpdHeadwords) -> str:
+def make_grammar_line(i: DpdHeadword) -> str:
     """Compile grammar line"""
     
     grammar = i.grammar
@@ -55,7 +55,7 @@ def make_grammar_line(i: DpdHeadwords) -> str:
     return grammar
      
 
-def summarize_construction(i: DpdHeadwords) -> str:
+def summarize_construction(i: DpdHeadword) -> str:
     """Create a summary of a word's construction,
     excluding brackets and phonetic changes."""
     
@@ -134,7 +134,7 @@ def clean_construction(construction):
     return construction
 
 
-def degree_of_completion(i: DpdHeadwords, html=True):
+def degree_of_completion(i: DpdHeadword, html=True):
     """Return html styled symbol of a word data degree of completion."""
     if i.meaning_1:
         if i.source_1:

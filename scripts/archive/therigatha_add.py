@@ -5,7 +5,7 @@
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_dot_dict
 
@@ -19,8 +19,8 @@ def main():
 
     for theri in theris:
         # find any matching lemma_1 in the db
-        result = db_session.query(DpdHeadwords)\
-            .filter(DpdHeadwords.lemma_1==theri.lemma_1)\
+        result = db_session.query(DpdHeadword)\
+            .filter(DpdHeadword.lemma_1==theri.lemma_1)\
             .first()
         
         if theri.add != "n" and theri.add != "u":
@@ -56,8 +56,8 @@ def update_theri(db_session, theri, db):
 
 def add_theri(db_session, theri):
   
-    # create and populate DpdHeadwords
-    p = DpdHeadwords()
+    # create and populate DpdHeadword
+    p = DpdHeadword()
     for key, value in theri.items():
         setattr(p, key, value)
 
@@ -65,7 +65,7 @@ def add_theri(db_session, theri):
 
 
 def show_updates(db_session):
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
     for i in db:
         if i.id > 77232:
             print(i)

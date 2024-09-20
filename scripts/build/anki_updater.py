@@ -13,7 +13,7 @@ from rich import print
 from typing import List, Dict
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 
 from tools.configger import config_read, config_test
 from tools.paths import ProjectPaths
@@ -29,7 +29,7 @@ def main():
     print(f"[green]{'setup dbs':<20}", end="")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
     print(f"{'ok':>10}{bop():>10}")
 
     decks = ["Vocab", "Commentary", "Pass1"]

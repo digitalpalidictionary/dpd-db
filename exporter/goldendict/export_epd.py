@@ -10,7 +10,7 @@ from typing import List, Tuple
 
 from db.db_helpers import get_db_session
 
-from db.models import DpdHeadwords, DpdRoots
+from db.models import DpdHeadword, DpdRoot
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
@@ -35,14 +35,14 @@ def generate_epd_html(
     p_green("generating epd html")
 
     if lang == "en" and not show_sbs_data:
-        dpd_db: list[DpdHeadwords] = db_session.query(DpdHeadwords).all()
+        dpd_db: list[DpdHeadword] = db_session.query(DpdHeadword).all()
     if lang == "ru" or show_sbs_data:
-        dpd_db: list[DpdHeadwords] = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.ru)).all()
+        dpd_db: list[DpdHeadword] = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.ru)).all()
     # another language
 
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
-    roots_db: list[DpdRoots] = db_session.query(DpdRoots).all()
+    roots_db: list[DpdRoot] = db_session.query(DpdRoot).all()
 
     epd: dict = {}
     pos_exclude_list = ["abbrev", "cs", "letter", "root", "suffix", "ve"]

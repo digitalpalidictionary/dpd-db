@@ -15,7 +15,7 @@ from spellchecker import SpellChecker
 from aksharamukha import transliterate
 from rich import print
 
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from functions_db import make_all_inflections_set
 from functions_db import values_to_pali_word
 
@@ -1063,7 +1063,7 @@ def test_username(sg):
 
 
 def compare_differences(
-        book_to_add, pth, values: dict, sg, pali_word_original: Optional[DpdHeadwords], action):
+        book_to_add, pth, values: dict, sg, pali_word_original: Optional[DpdHeadword], action):
     """Compare the differences between original and new word.
     Save to corrections or additions TSV."""
 

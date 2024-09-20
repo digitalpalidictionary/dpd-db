@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc, bip, bop
@@ -22,7 +22,7 @@ def main():
     print(f"[green]{'setup dbs':<20}", end="")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
     print(f"{len(db):>10}{bop():>10.2f}")
 
     decks = ["Vocab", "Commentary", "Pass1"]
@@ -68,8 +68,8 @@ def main():
 
 def check_unique(db_session, i):
     # Check if id and lemma_1 already exist in the database
-    existing_word = db_session.query(DpdHeadwords)\
-        .filter((DpdHeadwords.id == i.id) | (DpdHeadwords.lemma_1 == i.lemma_1)).first()
+    existing_word = db_session.query(DpdHeadword)\
+        .filter((DpdHeadword.id == i.id) | (DpdHeadword.lemma_1 == i.lemma_1)).first()
     if existing_word is None:
         return True
     else:
@@ -77,7 +77,7 @@ def check_unique(db_session, i):
 
 
 def add_word(note, new_id):
-    i = DpdHeadwords()
+    i = DpdHeadword()
     for attr in dir(i): 
         if attr in note:
             field = note[attr]\
@@ -94,7 +94,7 @@ def upated_recently(note):
    return mod_time > two_days_ago
 
 
-def update_fields(id: str, i: DpdHeadwords, data_dict: dict):
+def update_fields(id: str, i: DpdHeadword, data_dict: dict):
     changed_flag = False
     for attr in dir(i): 
         if not attr.startswith('_'):

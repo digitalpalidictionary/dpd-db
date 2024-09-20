@@ -1,5 +1,5 @@
 # TSV Backups of database tables
-- DpdHeadwords
-- DpdRoots
+- DpdHeadword
+- DpdRoot
 - Russian
 - SBS 

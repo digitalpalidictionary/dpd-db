@@ -11,7 +11,7 @@ from rich.prompt import Prompt
 from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.db_search_string import db_search_string
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 from tools.paths import ProjectPaths
@@ -22,7 +22,7 @@ class ProgData():
     def __init__(self) -> None:
         self.pth = ProjectPaths()
         self.db_session: Session = get_db_session(self.pth.dpd_db_path)
-        self.dpd_db: list[DpdHeadwords] = self.db_session.query(DpdHeadwords).all()
+        self.dpd_db: list[DpdHeadword] = self.db_session.query(DpdHeadword).all()
         self.exceptions: list = self.load_exceptions()
         self.nouns = ["masc", "fem", "nt"]
         self.identical_meaning_dict: dict
@@ -121,8 +121,8 @@ def add_identical_meanings(g: ProgData):
         if len(headwords) > 1:
 
             db = g.db_session \
-                .query(DpdHeadwords) \
-                .filter(DpdHeadwords.lemma_1.in_(headwords)) \
+                .query(DpdHeadword) \
+                .filter(DpdHeadword.lemma_1.in_(headwords)) \
                 .all()
 
             # sorted lists of clean headwords, synonyms and variants
@@ -291,7 +291,7 @@ def add_dual_meanings(g: ProgData):
         # add individual words to synonyms or variants
 
         db = g.db_session.query(
-            DpdHeadwords).filter(DpdHeadwords.lemma_1.in_(word_list)).all()
+            DpdHeadword).filter(DpdHeadword.lemma_1.in_(word_list)).all()
 
         # sorted lists of clean headwords, synonyms and variants
         db = sorted(db, key=lambda x: pali_sort_key(x.lemma_1))

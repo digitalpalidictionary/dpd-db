@@ -7,7 +7,7 @@ from difflib import SequenceMatcher
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 
 threshold=0.82
@@ -16,7 +16,7 @@ def main():
     print("[bright_yellow]find duplicate or similar examples")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
     for i in db:
         if i.example_1 and i.example_2:
             

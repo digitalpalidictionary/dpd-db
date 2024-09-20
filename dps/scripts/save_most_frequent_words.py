@@ -2,7 +2,7 @@
 
 """ Filter most frequent words into csv with limiting the number. Also not incluading those which already has been filtered."""
 
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
 from db.db_helpers import get_db_session
@@ -27,10 +27,10 @@ def save_filtered_words():
     pth = ProjectPaths()
     dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(DpdHeadwords).filter(
-        DpdHeadwords.meaning_1 != "",
-        DpdHeadwords.ebt_count != "0",
-    ).order_by(DpdHeadwords.ebt_count.desc()).all()
+    dpd_db = db_session.query(DpdHeadword).filter(
+        DpdHeadword.meaning_1 != "",
+        DpdHeadword.ebt_count != "0",
+    ).order_by(DpdHeadword.ebt_count.desc()).all()
 
     # Read existing IDs from CSV files in the directory
     existing_ids = set()

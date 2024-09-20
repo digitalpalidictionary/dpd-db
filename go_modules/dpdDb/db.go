@@ -37,11 +37,11 @@ func Rollback(tx *gorm.DB) {
 
 // Usage:
 //
-//	db, results := db.GetDpdHeadwords()
+//	db, results := db.GetDpdHeadword()
 //	for index, i := range results {
 //		pl(index, i.ID, i.Lemma1)
 //	}
-func GetDpdHeadwords() (*gorm.DB, []DpdHeadword) {
+func GetDpdHeadword() (*gorm.DB, []DpdHeadword) {
 	db := GetDb()
 	var results []DpdHeadword
 	err := db.Find(&results)

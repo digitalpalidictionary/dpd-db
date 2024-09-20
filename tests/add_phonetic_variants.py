@@ -5,13 +5,13 @@
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.meaning_construction import clean_construction
 
 
 class PhoneticVariant():
-    def __init__(self, i: DpdHeadwords, dict):
+    def __init__(self, i: DpdHeadword, dict):
         self.lemma_1 = i.lemma_1
         self.lemma_clean = i.lemma_clean
         self.meaning = i.meaning_1
@@ -69,7 +69,7 @@ def printer(item) -> None:
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
     dict = {}
 
     # if construciton_clean not in dict, update dict

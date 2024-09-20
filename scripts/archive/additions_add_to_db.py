@@ -3,7 +3,7 @@
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords # PaliWord
+from db.models import DpdHeadword # PaliWord
 from sqlalchemy.orm.session import make_transient
 
 from tools.paths import ProjectPaths
@@ -16,7 +16,7 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
 
     # get the very last id number
-    last_id = max(db_session.query(DpdHeadwords.id).all())[0]
+    last_id = max(db_session.query(DpdHeadword.id).all())[0]
     next_id = last_id + 1
     print(f"{'last_id:':<20}{last_id:>10}")
     print(f"{'next_id:':<20}{next_id:>10}")
@@ -53,7 +53,7 @@ def main():
 def remap_pali_word_to_dpd_headword(p):
     make_transient(p)
 
-    hw = DpdHeadwords()
+    hw = DpdHeadword()
     hw.id = p.id
     hw.lemma_1 = p.pali_1
     hw.lemma_2 = p.pali_2
@@ -112,7 +112,7 @@ def test_pali(db_session, a):
 
     lemma_1 = a.pali_word.lemma_1
     
-    result = db_session.query(DpdHeadwords).filter_by(lemma_1=lemma_1).first() 
+    result = db_session.query(DpdHeadword).filter_by(lemma_1=lemma_1).first() 
     if result:
         print("[red]duplicate lemma_1 found: ", end="")
         print(f"[white]{a.pali_word}")

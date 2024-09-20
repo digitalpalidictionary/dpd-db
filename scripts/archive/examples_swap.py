@@ -5,7 +5,7 @@
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 
 
@@ -25,7 +25,7 @@ def main():
             break
 
         result = db_session \
-            .query(DpdHeadwords) \
+            .query(DpdHeadword) \
             .filter_by(lemma_1=headword) \
             .first()
         
@@ -66,7 +66,7 @@ def main():
             print("[red]ERROR: headword not found")
 
 
-def printer(hw: DpdHeadwords) -> None:
+def printer(hw: DpdHeadword) -> None:
 
     print(f"[chartreuse3]{hw.source_1} [sea_green3]{hw.sutta_1}")
     print(f"[aquamarine3]{hw.example_1}")

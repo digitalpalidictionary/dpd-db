@@ -7,7 +7,7 @@
 import csv
 import os
 import re
-from db.models import DpdHeadwords, SBS
+from db.models import DpdHeadword, SBS
 from db.db_helpers import get_db_session
 from tools.paths import ProjectPaths
 from rich.console import Console
@@ -46,7 +46,7 @@ def main():
 
 def save_words_to_csv(conditions, filename):
 
-    words = db_session.query(DpdHeadwords).join(SBS).filter(conditions).all()
+    words = db_session.query(DpdHeadword).join(SBS).filter(conditions).all()
 
     with open(os.path.join(dpspth.csvs_for_audio_dir, filename), 'w', newline='') as csvfile:
         fieldnames = ['pali']

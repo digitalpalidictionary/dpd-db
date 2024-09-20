@@ -7,8 +7,8 @@ from flask import request
 from flask_sqlalchemy import SQLAlchemy
 from db.db_helpers import get_db_session
 from db.models import (
-    DpdHeadwords,
-    DpdRoots,
+    DpdHeadword,
+    DpdRoot,
     FamilyRoot,
     Lookup,
     SBS,
@@ -73,8 +73,8 @@ def home():
                 if result.headwords:
                     headwords = result.headwords_unpack
                     results = db.session\
-                        .query(DpdHeadwords)\
-                        .filter(DpdHeadwords.id.in_(headwords))\
+                        .query(DpdHeadword)\
+                        .filter(DpdHeadword.id.in_(headwords))\
                         .all()
                     for i in results:
                         fc = get_family_compounds(i)
@@ -89,8 +89,8 @@ def home():
                 if result.roots:
                     roots_list = result.roots_unpack
                     root_results = db.session\
-                        .query(DpdRoots)\
-                        .filter(DpdRoots.root.in_(roots_list))\
+                        .query(DpdRoot)\
+                        .filter(DpdRoot.root.in_(roots_list))\
                         .all()
                     for r in root_results:
                         frs = db.session \
@@ -132,8 +132,8 @@ def home():
         else:
             query = int(query)
             headword = db.session\
-                .query(DpdHeadwords)\
-                .filter(DpdHeadwords.id == query)\
+                .query(DpdHeadword)\
+                .filter(DpdHeadword.id == query)\
                 .first()
             if headword:
                 print(headword)

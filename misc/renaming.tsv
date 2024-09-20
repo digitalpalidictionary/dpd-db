@@ -1,12 +1,12 @@
 data changes
 
-PaliWord	DpdHeadwords
+PaliWord	DpdHeadword
 pali_words	dpd_headwords
-PaliRoot	DpdRoots
+PaliRoot	DpdRoot
 pali_roots	dpd_roots
 pali_1	lemma_1
 pali_2	lemma_2
-DerivedData	DpdHeadwords
+DerivedData	DpdHeadword
 derived_data	dpd_headwords
 dd	i
 

@@ -1,4 +1,4 @@
-from db.models import DpdRoots, Lookup
+from db.models import DpdRoot, Lookup
 
 from tools.configger import config_test
 from tools.meaning_construction import summarize_construction
@@ -49,7 +49,7 @@ class HeadwordData():
 
 class RootsData():
     def __init__(self, r, frs, roots_count_dict) -> None:
-        self.r: DpdRoots = r
+        self.r: DpdRoot = r
         self.frs = frs
         self.app_name = "Jinja"
         self.date = year_month_day_dash()

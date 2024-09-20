@@ -13,7 +13,7 @@ from json import dumps, loads
 from typing import List, Tuple
 from rich import print
 
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tests.helpers import InternalTestRow
 from tools.pali_sort_key import pali_sort_key
 
@@ -59,7 +59,7 @@ def write_internal_tests_list(pth, internal_tests_list):
 
 
 def test_the_tests(internal_tests_list, window):
-    column_names = [column.name for column in DpdHeadwords.__table__.columns]
+    column_names = [column.name for column in DpdHeadword.__table__.columns]
     column_names += [""]
     logical_operators = [
         "",
@@ -263,7 +263,7 @@ def run_individual_internal_tests(
 
 def db_internal_tests_setup(db_session, pth):
 
-    dpd_db = db_session.query(DpdHeadwords).all()
+    dpd_db = db_session.query(DpdHeadword).all()
     internal_tests_list = make_internal_tests_list(pth)
 
     return dpd_db, internal_tests_list

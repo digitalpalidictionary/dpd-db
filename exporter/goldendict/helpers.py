@@ -5,7 +5,7 @@ from datetime import date
 
 from sqlalchemy.orm import Session
 
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 
 TODAY = date.today()
 
@@ -14,7 +14,7 @@ EXCLUDE_FROM_SETS: set = {
 
 
 def make_roots_count_dict(db_session: Session) -> Dict[str, int]:
-    roots_db = db_session.query(DpdHeadwords).all()
+    roots_db = db_session.query(DpdHeadword).all()
     roots_count_dict: Dict[str, int] = dict()
     for i in roots_db:
         if i.root_key is None:

@@ -5,7 +5,7 @@
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, DpdRoots, Lookup
+from db.models import DpdHeadword, DpdRoot, Lookup
 from tools.configger import config_test
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
@@ -21,15 +21,15 @@ class GlobalVars():
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(DpdHeadwords).all()
-    roots_db = db_session.query(DpdRoots).all()
+    dpd_db = db_session.query(DpdHeadword).all()
+    roots_db = db_session.query(DpdRoot).all()
     deconstructor_db = db_session.query(Lookup) \
         .filter(Lookup.deconstructor != "") \
         .all()
     
     last_id = read_uposatha_count()
-    new_words_db = db_session.query(DpdHeadwords) \
-        .filter(DpdHeadwords.id > last_id) \
+    new_words_db = db_session.query(DpdHeadword) \
+        .filter(DpdHeadword.id > last_id) \
         .all()
 
     root_families: dict[str, int]
@@ -55,7 +55,7 @@ def dpd_size(g: GlobalVars):
     root_families: dict[str, int] = {}
     total_data = 0
 
-    columns = DpdHeadwords.__table__.columns
+    columns = DpdHeadword.__table__.columns
     column_names = [c.name for c in columns]
     exceptions = ["id", "created_at", "updated_at"]
 
@@ -143,7 +143,7 @@ def inflection_size(g: GlobalVars):
 def root_data(g: GlobalVars):
     """Summarize dpd_roots table"""
     
-    columns = DpdRoots.__table__.columns
+    columns = DpdRoot.__table__.columns
     column_names = [c.name for c in columns]
     exceptions = ["root_info", "root_matrix", "created_at", "updated_at"]
     total_roots_data = 0

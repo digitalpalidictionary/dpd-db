@@ -8,7 +8,7 @@ import re
 from rich.prompt import Prompt
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, DpdRoots, Russian
+from db.models import DpdHeadword, DpdRoot, Russian
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths    
 from tools.meaning_construction import make_meaning_combo
@@ -45,19 +45,19 @@ def ru_meaning_generating():
     #         "buddhavandana", "Thai", "Sri Lanka", "Trad", "PAT PK", "MJG"
     #         ]
 
-    # conditions = [DpdHeadwords.source_1.like(f"%{comment}%") for comment in commentary_list]
+    # conditions = [DpdHeadword.source_1.like(f"%{comment}%") for comment in commentary_list]
     # combined_condition = or_(*conditions)
 
     row_count =  0
 
     #! for filling those which does not have Russian table and fill the conditions
 
-    db = db_session.query(DpdHeadwords).outerjoin(
-    Russian, DpdHeadwords.id == Russian.id
+    db = db_session.query(DpdHeadword).outerjoin(
+    Russian, DpdHeadword.id == Russian.id
         ).filter(
             and_(
-                DpdHeadwords.meaning_1 != '',
-                # DpdHeadwords.example_1 != '',
+                DpdHeadword.meaning_1 != '',
+                # DpdHeadword.example_1 != '',
                 # ~combined_condition,
                 or_(
                     Russian.ru_meaning.is_(None),
@@ -66,17 +66,17 @@ def ru_meaning_generating():
                 )
 
             )
-        ).order_by(DpdHeadwords.ebt_count.desc()).limit(5000).all()
+        ).order_by(DpdHeadword.ebt_count.desc()).limit(5000).all()
 
     #! for filling empty rows in Russian table
 
-    # db = db_session.query(DpdHeadwords).outerjoin(
-    #     Russian, DpdHeadwords.id == Russian.id
+    # db = db_session.query(DpdHeadword).outerjoin(
+    #     Russian, DpdHeadword.id == Russian.id
     #         ).filter(
     #                 Russian.id != '',
     #                 Russian.ru_meaning == '',
     #                 Russian.ru_meaning_raw == '',
-    #                 ).order_by(DpdHeadwords.ebt_count.desc()).limit(1000).all()
+    #                 ).order_by(DpdHeadword.ebt_count.desc()).limit(1000).all()
 
     #! for filling those which have lower model of gpt:
 
@@ -84,17 +84,17 @@ def ru_meaning_generating():
     # exclude_ids = read_exclude_ids_from_tsv(f"{dpspth.ai_translated_dir}/{hight_model}.tsv")
 
     # # Add the conditions to the query
-    # db = db_session.query(DpdHeadwords).outerjoin(
-    #     Russian, DpdHeadwords.id == Russian.id
+    # db = db_session.query(DpdHeadword).outerjoin(
+    #     Russian, DpdHeadword.id == Russian.id
     #     ).filter(
     #         and_(
-    #             DpdHeadwords.meaning_1 != '',
+    #             DpdHeadword.meaning_1 != '',
     #             Russian.ru_meaning_raw != '',
     #             # func.length(Russian.ru_meaning_raw) > 20,
     #             Russian.ru_meaning == '',
-    #             ~DpdHeadwords.id.in_(exclude_ids)
+    #             ~DpdHeadword.id.in_(exclude_ids)
     #         )
-    #     ).order_by(DpdHeadwords.ebt_count.desc()).limit(10000).all()
+    #     ).order_by(DpdHeadword.ebt_count.desc()).limit(10000).all()
 
     # Print the db
     print("Details of filtered words")
@@ -149,21 +149,21 @@ def roots_meaning_generating(lang):
 
     #! for filling those which does not have Russian root meaing
 
-    # Define a subquery that counts the related DpdHeadwords entries
+    # Define a subquery that counts the related DpdHeadword entries
     subquery = db_session.query(
-            DpdHeadwords.root_key,
-            func.count(DpdHeadwords.id).label('headword_count')
+            DpdHeadword.root_key,
+            func.count(DpdHeadword.id).label('headword_count')
         ).group_by(
-            DpdHeadwords.root_key
+            DpdHeadword.root_key
         ).subquery()
 
     if lang == "pali":
 
-        roots = db_session.query(DpdRoots).join(
-                subquery, DpdRoots.root == subquery.c.root_key
+        roots = db_session.query(DpdRoot).join(
+                subquery, DpdRoot.root == subquery.c.root_key
             ).filter(
                 and_(
-                    DpdRoots.root_ru_meaning == '',
+                    DpdRoot.root_ru_meaning == '',
                 )
             ).order_by(
                 subquery.c.headword_count.desc()
@@ -171,12 +171,12 @@ def roots_meaning_generating(lang):
 
     elif lang == "sk":
 
-        roots = db_session.query(DpdRoots).join(
-                subquery, DpdRoots.root == subquery.c.root_key
+        roots = db_session.query(DpdRoot).join(
+                subquery, DpdRoot.root == subquery.c.root_key
             ).filter(
                 and_(
-                    DpdRoots.sanskrit_root_ru_meaning == '',
-                    DpdRoots.sanskrit_root_ru_meaning != '-',
+                    DpdRoot.sanskrit_root_ru_meaning == '',
+                    DpdRoot.sanskrit_root_ru_meaning != '-',
                 )
             ).order_by(
                 subquery.c.headword_count.desc()
@@ -232,22 +232,22 @@ def ru_notes_generating():
 
     #! for filling those which has Russian table and does not have ru_notes
 
-    db = db_session.query(DpdHeadwords).outerjoin(
-    Russian, DpdHeadwords.id == Russian.id
+    db = db_session.query(DpdHeadword).outerjoin(
+    Russian, DpdHeadword.id == Russian.id
         ).options(
-            joinedload(DpdHeadwords.ru)
+            joinedload(DpdHeadword.ru)
         ).filter(
             and_(
-                # DpdHeadwords.meaning_1 != '',
-                # DpdHeadwords.example_1 != '',
-                DpdHeadwords.notes != '',
+                # DpdHeadword.meaning_1 != '',
+                # DpdHeadword.example_1 != '',
+                DpdHeadword.notes != '',
                 Russian.ru_notes == ''
             ),
             or_(
                     Russian.ru_meaning != '',
                     Russian.ru_meaning_raw != '',
                 )
-        ).order_by(DpdHeadwords.ebt_count.desc()).limit(1000).all()
+        ).order_by(DpdHeadword.ebt_count.desc()).limit(1000).all()
 
     row_count =  0
 

@@ -9,7 +9,7 @@ import re
 from rich.prompt import Prompt
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import write_tsv_list
 from tools.meaning_construction import make_meaning_combo
@@ -36,16 +36,16 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    conditions = [DpdHeadwords.source_1.like(f"%{comment}%") for comment in commentary_list]
+    conditions = [DpdHeadword.source_1.like(f"%{comment}%") for comment in commentary_list]
     combined_condition = or_(*conditions)
 
-    db = db_session.query(DpdHeadwords).filter(
+    db = db_session.query(DpdHeadword).filter(
             and_(
-                DpdHeadwords.meaning_1 != '',
-                DpdHeadwords.example_1 != '',
+                DpdHeadword.meaning_1 != '',
+                DpdHeadword.example_1 != '',
                 ~combined_condition
             )
-        ).order_by(DpdHeadwords.ebt_count.desc()).limit(1000).all()
+        ).order_by(DpdHeadword.ebt_count.desc()).limit(1000).all()
 
     data = []
     for counter, i in enumerate(db):

@@ -12,7 +12,7 @@ from rich import print
 from sqlalchemy.orm.session import Session
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, Lookup
+from db.models import DpdHeadword, Lookup
 from tools.paths import ProjectPaths
 from tools.clean_machine import clean_machine
 
@@ -50,7 +50,7 @@ def check_in_lookup(g: GlobalVars):
 def check_in_dpd_headwords(g: GlobalVars):
 
     for dpd_id in g.lookup.headwords_unpack:
-        headword = g.db_session.query(DpdHeadwords) \
+        headword = g.db_session.query(DpdHeadword) \
             .filter_by(id=dpd_id) \
             .first()
         if g.level == 2:

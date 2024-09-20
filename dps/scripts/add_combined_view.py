@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Add combined view into db which have DpdHeadwords, Russian, SBS tables and ebt_count together."""
+"""Add combined view into db which have DpdHeadword, Russian, SBS tables and ebt_count together."""
 
 from sqlalchemy import create_engine, text
 from tools.paths import ProjectPaths

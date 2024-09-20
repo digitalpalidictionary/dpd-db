@@ -9,7 +9,7 @@ from typing import Dict, Tuple, List, Union
 
 from exporter.goldendict.helpers import TODAY
 
-from db.models import DpdRoots, FamilyRoot
+from db.models import DpdRoot, FamilyRoot
 from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
 from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import ru_replace_abbreviations
 from tools.niggahitas import add_niggahitas
@@ -38,7 +38,7 @@ def generate_root_html(
     elif lang == "ru":
         header_templ = Template(filename=str(rupth.root_header_templ_path))
 
-    roots_db = db_session.query(DpdRoots).all()
+    roots_db = db_session.query(DpdRoot).all()
 
     for counter, r in enumerate(roots_db):
 
@@ -110,7 +110,7 @@ def generate_root_html(
 
 def render_root_header_templ(
     __pth__: Union[ProjectPaths, RuPaths],
-    r: DpdRoots,
+    r: DpdRoot,
     date: str,
     header_templ: Template
 ) -> str:
@@ -121,7 +121,7 @@ def render_root_header_templ(
 
 def render_root_definition_templ(
     pth: ProjectPaths,
-    r: DpdRoots, 
+    r: DpdRoot, 
     roots_count_dict,
     rupth: RuPaths,
     lang="en", 
@@ -150,7 +150,7 @@ def render_root_definition_templ(
 
 def render_root_buttons_templ(
     pth: ProjectPaths,
-    r: DpdRoots, 
+    r: DpdRoot, 
     db_session: Session,
     rupth: RuPaths,
     lang="en",
@@ -177,7 +177,7 @@ def render_root_buttons_templ(
 
 def render_root_info_templ(
     pth: ProjectPaths, 
-    r: DpdRoots, 
+    r: DpdRoot, 
     rupth: RuPaths,
     lang="en"
 ):
@@ -200,7 +200,7 @@ def render_root_info_templ(
 
 def render_root_matrix_templ(
     pth: ProjectPaths, 
-    r: DpdRoots, 
+    r: DpdRoot, 
     roots_count_dict, 
     rupth: RuPaths,
     lang="en"
@@ -230,7 +230,7 @@ def render_root_matrix_templ(
 
 def render_root_families_templ(
     pth: ProjectPaths,
-    r: DpdRoots, 
+    r: DpdRoot, 
     db_session: Session, 
     rupth: RuPaths,
     lang="en"

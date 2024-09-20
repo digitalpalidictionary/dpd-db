@@ -7,7 +7,7 @@
 import csv
 import os
 import pandas as pd
-from db.models import DpdHeadwords, SBS
+from db.models import DpdHeadword, SBS
 from db.db_helpers import get_db_session
 from tools.paths import ProjectPaths
 from rich.console import Console
@@ -40,7 +40,7 @@ def main():
 def save_words_to_csv(sbs_class: int, filename: str):
     # Get all words that meet the conditions
 
-    words = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs)).join(SBS).filter(
+    words = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs)).join(SBS).filter(
         SBS.sbs_class <= sbs_class,
         SBS.sbs_class_anki <= sbs_class
     ).all()

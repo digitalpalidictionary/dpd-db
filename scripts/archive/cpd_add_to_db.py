@@ -7,7 +7,7 @@ from pathlib import Path
 from rich import print
 from typing import Dict, List
 
-from db.models import DpdHeadwords, InflectionTemplates
+from db.models import DpdHeadword, InflectionTemplates
 from db.db_helpers import get_db_session
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_dot_dict
@@ -48,7 +48,7 @@ def main():
 
 
 def get_db_lists():
-    dpd_db = db_session.query(DpdHeadwords).all()
+    dpd_db = db_session.query(DpdHeadword).all()
     dpd_length = len(dpd_db)
     headwords = [i.lemma_1 for i in dpd_db]
     headwords_clean = [i.lemma_clean for i in dpd_db]
@@ -292,7 +292,7 @@ def add_to_db(cpd, dpd_length):
                 meaning_lit = ""
 
             if i.stem:
-                cpd_data = DpdHeadwords(
+                cpd_data = DpdHeadword(
                     lemma_1=i.lemma_1,
                     lemma_2=i.lemma_1,
                     pos=i.pos,

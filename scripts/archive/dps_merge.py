@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Merge DPS data into DpdHeadwords table."""
+"""Merge DPS data into DpdHeadword table."""
 
 import csv
 import pickle
@@ -10,7 +10,7 @@ from rich import print
 from rich.prompt import Prompt
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
 
@@ -26,7 +26,7 @@ def main():
     pth = ProjectPaths()
     dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(DpdHeadwords).all()
+    dpd_db = db_session.query(DpdHeadword).all()
 
     columns = [
         # "commentary",

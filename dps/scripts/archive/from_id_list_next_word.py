@@ -6,7 +6,7 @@ import csv
 from rich.console import Console
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
 
@@ -37,7 +37,7 @@ def remove_duplicates(ordered_ids):
 
 def fetch_matching_words_from_db(db_session, ordered_ids):
     for word_id in ordered_ids:
-        word = db_session.query(DpdHeadwords).filter(DpdHeadwords.id == word_id).first()
+        word = db_session.query(DpdHeadword).filter(DpdHeadword.id == word_id).first()
         if word and word.sbs:
             attr_value = getattr(word.sbs, WHAT_TO_UPDATE, None)
             if ORIGINAL_HAS_VALUE and attr_value:

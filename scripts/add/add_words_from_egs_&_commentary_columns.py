@@ -12,7 +12,7 @@ import pyperclip
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, Lookup
+from db.models import DpdHeadword, Lookup
 from tools.paths import ProjectPaths
 from tools.goldendict_tools import open_in_goldendict_os
 from tools.clean_machine import clean_machine
@@ -26,9 +26,9 @@ class GlobalData():
     route: int = 3 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db: list[DpdHeadwords] = db_session.query(DpdHeadwords).all()
+    db: list[DpdHeadword] = db_session.query(DpdHeadword).all()
     lookup: Lookup
-    i: DpdHeadwords
+    i: DpdHeadword
     word: str
     column: str
     text: str
@@ -79,7 +79,7 @@ def find_missing_meaning_1(g: GlobalData):
     dpd_ids = g.lookup.headwords_unpack
     if dpd_ids:
         for dpd_id in dpd_ids:
-            headword = g.db_session.query(DpdHeadwords).filter_by(id=dpd_id).first()
+            headword = g.db_session.query(DpdHeadword).filter_by(id=dpd_id).first()
             if headword.meaning_1:
                 needs_meaning_1 = False
         if needs_meaning_1:
@@ -93,7 +93,7 @@ def find_missing_eg(g: GlobalData):
     dpd_ids = g.lookup.headwords_unpack
     if dpd_ids:
         for dpd_id in dpd_ids:
-            headword = g.db_session.query(DpdHeadwords).filter_by(id=dpd_id).first()
+            headword = g.db_session.query(DpdHeadword).filter_by(id=dpd_id).first()
             if headword.meaning_1 and headword.example_1:
                 needs_eg = False
         if needs_eg:

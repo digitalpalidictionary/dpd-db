@@ -11,7 +11,7 @@ from sqlalchemy.orm.session import Session
 
 from db.db_helpers import get_db_session
 from db.db_helpers import create_db_if_not_exists
-from db.models import DpdHeadwords, DpdRoots, Russian, SBS
+from db.models import DpdHeadword, DpdRoot, Russian, SBS
 from tools.printer import p_green, p_green_title, p_red, p_title, p_yes
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
@@ -64,9 +64,9 @@ def main():
 
 
 def make_pali_word_table_data(pth: ProjectPaths, db_session: Session):
-    """Read TSV and return DpdHeadwords table data."""
+    """Read TSV and return DpdHeadword table data."""
 
-    p_green("creating DpdHeadwords table data")
+    p_green("creating DpdHeadword table data")
     counter=0
     with open(pth.pali_word_path, 'r', newline='') as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
@@ -76,14 +76,14 @@ def make_pali_word_table_data(pth: ProjectPaths, db_session: Session):
             for col_name, value in zip(columns, row):
                 if col_name not in ("user_id", "created_at", "updated_at"):
                     data[col_name] = value
-            db_session.add(DpdHeadwords(**data))
+            db_session.add(DpdHeadword(**data))
             counter+=1
     p_yes(counter)
 
 
 def make_pali_root_table_data(pth: ProjectPaths, db_session: Session):
-    """Read TSV and return DpdRoots table data."""
-    p_green("creating DpdRoots table data")
+    """Read TSV and return DpdRoot table data."""
+    p_green("creating DpdRoot table data")
     counter=0
     with open(pth.pali_root_path, 'r', newline='') as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
@@ -96,7 +96,7 @@ def make_pali_root_table_data(pth: ProjectPaths, db_session: Session):
                         "root_info", "root_matrix",
                         "root_ru_meaning", "sanskrit_root_ru_meaning"):
                     data[col_name] = value
-            db_session.add(DpdRoots(**data))
+            db_session.add(DpdRoot(**data))
             counter+=1
     p_yes(counter)
 
@@ -134,8 +134,8 @@ def make_sbs_table_data(pth: ProjectPaths, db_session: Session):
 
 
 def make_ru_root_table_data(pth: ProjectPaths, db_session: Session):
-    """Read TSV and return ru columns from DpdRoots."""
-    p_green("filling ru in DpdRoots table")
+    """Read TSV and return ru columns from DpdRoot."""
+    p_green("filling ru in DpdRoot table")
     counter=0
     with open(pth.ru_root_path, 'r', newline='') as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
@@ -145,12 +145,12 @@ def make_ru_root_table_data(pth: ProjectPaths, db_session: Session):
             for col_name, value in zip(columns, row):
                 # Include 'root' in the data dictionary
                 data[col_name] = value
-            existing_record = db_session.query(DpdRoots).filter_by(root=data['root']).first()
+            existing_record = db_session.query(DpdRoot).filter_by(root=data['root']).first()
             if existing_record:
                 for key, value in data.items():
                     setattr(existing_record, key, value)
             else:
-                db_session.add(DpdRoots(**data))
+                db_session.add(DpdRoot(**data))
             counter+=1
     p_yes(counter)
 

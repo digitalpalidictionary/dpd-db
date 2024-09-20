@@ -3,7 +3,7 @@
 
 import re
 
-from db.models import DpdHeadwords, SBS
+from db.models import DpdHeadword, SBS
 from tools.paths import ProjectPaths
 from db.db_helpers import get_db_session
 from rich.console import Console
@@ -24,8 +24,8 @@ def main():
 
     count = 0
 
-    # Iterate over all DpdHeadwords instances and update their sbs_class
-    for word in db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs)).all():
+    # Iterate over all DpdHeadword instances and update their sbs_class
+    for word in db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs)).all():
 
 
             # debug check all sbs_class_anki which has not sbs.sbs_class

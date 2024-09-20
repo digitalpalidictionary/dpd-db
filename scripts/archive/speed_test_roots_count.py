@@ -1,5 +1,5 @@
 from db.db_helpers import get_db_session
-from db.models import DpdRoots, DpdHeadwords
+from db.models import DpdRoot, DpdHeadword
 from tools.paths import ProjectPaths
 from tools.tic_toc import bip, bop
 from rich import print
@@ -13,7 +13,7 @@ def property_method():
     print("property_method")
     root_count: dict = {}
     roots_db = db_session.query(
-        DpdRoots
+        DpdRoot
         ).all()
 
     for i in roots_db:
@@ -26,14 +26,14 @@ def dict_method():
     print("dict_method")
     root_count: dict = {}
     roots_db = db_session.query(
-        DpdRoots
+        DpdRoot
     ).all()
 
     for i in roots_db:
         root_count[i.root] = db_session.query(
-            DpdHeadwords
+            DpdHeadword
         ).filter(
-            DpdHeadwords.root_key == i.root
+            DpdHeadword.root_key == i.root
         ).count()
 
     return bop(), len(root_count)
@@ -43,7 +43,7 @@ def dict_method():
 # print(dict_method())
 
 db = db_session.query(
-    DpdHeadwords
+    DpdHeadword
 ).all()
 
 
@@ -59,7 +59,7 @@ def root_key():
 
 def test_family_list():
     roots_db = db_session.query(
-        DpdRoots
+        DpdRoot
     ).all()
     for i in roots_db:
         print(i.root, i.root_family_list)

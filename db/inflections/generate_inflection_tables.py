@@ -7,7 +7,7 @@ import json
 import pickle
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, InflectionTemplates, DbInfo
+from db.models import DpdHeadword, InflectionTemplates, DbInfo
 
 from tools.configger import config_test, config_update
 from tools.tic_toc import tic, toc
@@ -23,14 +23,14 @@ class GlobalVars():
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(DpdHeadwords).all()
+    dpd_db = db_session.query(DpdHeadword).all()
     
     inflection_templates_db = tables = db_session.query(InflectionTemplates).all()
     inflection_patterns: list[str] = [t.pattern for t in inflection_templates_db]
 
-    wrong_pattern_db = db_session.query(DpdHeadwords) \
-        .filter(DpdHeadwords.pattern.notin_(inflection_patterns)) \
-        .filter(DpdHeadwords.pattern != "") \
+    wrong_pattern_db = db_session.query(DpdHeadword) \
+        .filter(DpdHeadword.pattern.notin_(inflection_patterns)) \
+        .filter(DpdHeadword.pattern != "") \
         .all()
 
     changed_templates_db: DbInfo = db_session \
@@ -56,7 +56,7 @@ class GlobalVars():
         regenerate_all: bool = False
 
     # current headword
-    i: DpdHeadwords
+    i: DpdHeadword
 
     # generated data
     inflections_html: str

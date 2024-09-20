@@ -6,7 +6,7 @@ import re
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.db_search_string import db_search_string
 
@@ -16,7 +16,7 @@ def main():
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
     
     print(f"[green]{'family_compound != family_idioms':<40}", end="")
     not_equal = []

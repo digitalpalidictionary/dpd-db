@@ -7,7 +7,7 @@
 import csv
 import re
 from rich import print
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from db.db_helpers import get_db_session
 
 from tools.paths import ProjectPaths
@@ -108,7 +108,7 @@ def main():
     print("[bright_yellow]update sanskrit root families")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
     db = sorted(
         db, key=lambda x: (pali_sort_key(x.root_family_key)))
 

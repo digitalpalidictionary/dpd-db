@@ -7,7 +7,7 @@ import pandas as pd
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 
 
@@ -24,7 +24,7 @@ def main():
         pos_si = i[1][4]
         pos_si_full = i[1][5]
         if pos_si not in done:
-            db = db_session.query(DpdHeadwords.pos).filter(DpdHeadwords.id == si_id).first()
+            db = db_session.query(DpdHeadword.pos).filter(DpdHeadword.id == si_id).first()
             if db:
                 eng_pos = db[0]
                 eng_sing_pos_dict[eng_pos] = {

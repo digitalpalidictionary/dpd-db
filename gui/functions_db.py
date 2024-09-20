@@ -6,7 +6,7 @@ from rich import print
 from sqlalchemy import or_
 from typing import Optional, Tuple
 
-from db.models import SBS, DpdHeadwords, DpdRoots, InflectionTemplates, Russian
+from db.models import SBS, DpdHeadword, DpdRoot, InflectionTemplates, Russian
 from functions_daily_record import daily_record_update
 
 from tools.pali_sort_key import pali_sort_key
@@ -85,9 +85,9 @@ class Word:
 
 def print_pos_list(db_session):
     pos_db = db_session.query(
-        DpdHeadwords.pos
+        DpdHeadword.pos
     ).group_by(
-        DpdHeadwords.pos
+        DpdHeadword.pos
     ).all()
     pos_list = sorted([i.pos for i in pos_db])
     print(pos_list, end=" ")
@@ -95,7 +95,7 @@ def print_pos_list(db_session):
 
 def get_next_ids(db_session, window):
 
-    db = db_session.query(DpdHeadwords.id).order_by(DpdHeadwords.id).all()
+    db = db_session.query(DpdHeadword.id).order_by(DpdHeadword.id).all()
     max_id = max(used_id.id for used_id in db)
     next_id = max_id + 1
 
@@ -103,7 +103,7 @@ def get_next_ids(db_session, window):
 
 
 def values_to_pali_word(values):
-    word_to_add = DpdHeadwords()
+    word_to_add = DpdHeadword()
     for attr in word_to_add.__table__.columns.keys():
         if attr in values:
             setattr(word_to_add, attr, values[attr])
@@ -120,8 +120,8 @@ def update_word_in_db(
     
     word_to_add = values_to_pali_word(values)
     word_id = values["id"]
-    pali_word_in_db = db_session.query(DpdHeadwords).filter(
-        values["id"] == DpdHeadwords.id).first()
+    pali_word_in_db = db_session.query(DpdHeadword).filter(
+        values["id"] == DpdHeadword.id).first()
 
     # add if word not in db
     if not pali_word_in_db:
@@ -215,9 +215,9 @@ def copy_word_from_db(db_session, values, window):
 
 def get_verb_values(db_session):
     results = db_session.query(
-        DpdHeadwords.verb
+        DpdHeadword.verb
     ).group_by(
-        DpdHeadwords.verb
+        DpdHeadword.verb
     ).all()
     verb_values = sorted([v[0] for v in results])
     return verb_values
@@ -227,9 +227,9 @@ def get_verb_values(db_session):
 
 def get_case_values(db_session):
     results = db_session.query(
-        DpdHeadwords.plus_case
+        DpdHeadword.plus_case
     ).group_by(
-        DpdHeadwords.plus_case
+        DpdHeadword.plus_case
     ).all()
     case_values = sorted([v[0] for v in results])
     return case_values
@@ -239,9 +239,9 @@ def get_case_values(db_session):
 
 def get_root_key_values(db_session):
     results = db_session.query(
-        DpdHeadwords.root_key
+        DpdHeadword.root_key
     ).group_by(
-        DpdHeadwords.root_key
+        DpdHeadword.root_key
     ).all()
     root_key_values = sorted([v[0] for v in results if v[0] is not None])
     return root_key_values
@@ -251,9 +251,9 @@ def get_root_key_values(db_session):
 
 def get_family_root_values(db_session, root_key):
     results = db_session.query(
-        DpdRoots
+        DpdRoot
     ).filter(
-        DpdRoots.root == root_key
+        DpdRoot.root == root_key
     ).first()
     if results is not None:
         family_root_values = results.root_family_list
@@ -266,11 +266,11 @@ def get_family_root_values(db_session, root_key):
 
 def get_root_sign_values(db_session, root_key):
     results = db_session.query(
-        DpdHeadwords.root_sign
+        DpdHeadword.root_sign
     ).filter(
-        DpdHeadwords.root_key == root_key
+        DpdHeadword.root_key == root_key
     ).group_by(
-        DpdHeadwords.root_sign
+        DpdHeadword.root_sign
     ).all()
     root_sign_values = sorted([v[0] for v in results])
     return root_sign_values
@@ -280,11 +280,11 @@ def get_root_sign_values(db_session, root_key):
 
 def get_root_base_values(db_session, root_key):
     results = db_session.query(
-        DpdHeadwords.root_base
+        DpdHeadword.root_base
     ).filter(
-        DpdHeadwords.root_key == root_key
+        DpdHeadword.root_key == root_key
     ).group_by(
-        DpdHeadwords.root_base
+        DpdHeadword.root_base
     ).all()
     root_base_values = sorted([v[0] for v in results])
     return root_base_values
@@ -295,9 +295,9 @@ def get_root_base_values(db_session, root_key):
 
 def get_family_word_values(db_session):
     results = db_session.query(
-        DpdHeadwords.family_word
+        DpdHeadword.family_word
     ).group_by(
-        DpdHeadwords.family_word
+        DpdHeadword.family_word
     ).all()
     family_word_values = sorted([v[0] for v in results if v[0] is not None])
     return family_word_values
@@ -307,7 +307,7 @@ def get_family_word_values(db_session):
 
 
 def get_family_compound_values(db_session):
-    results = db_session.query(DpdHeadwords).all()
+    results = db_session.query(DpdHeadword).all()
     family_compound_values = []
     for i in results:
         family_compound_values.extend(i.family_compound_list)
@@ -318,10 +318,10 @@ def get_family_compound_values(db_session):
 
 
 def get_family_idioms_values(db_session):
-    results = db_session.query(DpdHeadwords).all()
+    results = db_session.query(DpdHeadword).all()
     family_idioms_values = []
     for i in results:
-        i: DpdHeadwords
+        i: DpdHeadword
         family_idioms_values.extend(i.family_idioms_list)
 
     family_idioms_values = sorted(
@@ -334,9 +334,9 @@ def get_family_idioms_values(db_session):
 
 def get_derivative_values(db_session):
     results = db_session.query(
-        DpdHeadwords.derivative
+        DpdHeadword.derivative
     ).group_by(
-        DpdHeadwords.derivative
+        DpdHeadword.derivative
     ).all()
     derivative_values = sorted([v[0] for v in results])
     return derivative_values
@@ -347,9 +347,9 @@ def get_derivative_values(db_session):
 
 def get_compound_type_values(db_session):
     results = db_session.query(
-        DpdHeadwords.compound_type
+        DpdHeadword.compound_type
     ).group_by(
-        DpdHeadwords.compound_type
+        DpdHeadword.compound_type
     ).all()
     compound_type_values = sorted([v[0] for v in results])
     return compound_type_values
@@ -369,10 +369,10 @@ def get_synonyms(
 
     # search for similar meanings
     results = db_session.query(
-        DpdHeadwords
+        DpdHeadword
         ).filter(
-            DpdHeadwords.pos == pos,
-            or_(*[DpdHeadwords.meaning_1.like(
+            DpdHeadword.pos == pos,
+            or_(*[DpdHeadword.meaning_1.like(
                 f"%{meaning}%") for meaning in list_of_meanings])
         ).all()
 
@@ -415,8 +415,8 @@ def get_sanskrit(db_session, construction: str) -> str:
     sanskrit = ""
     already_added = []
     for constr_split in constr_splits:
-        results = db_session.query(DpdHeadwords)\
-            .filter(DpdHeadwords.lemma_1.like(f"%{constr_split}%"))\
+        results = db_session.query(DpdHeadword)\
+            .filter(DpdHeadword.lemma_1.like(f"%{constr_split}%"))\
             .all()
         for i in results:
             if i.lemma_clean == constr_split:
@@ -449,7 +449,7 @@ def get_patterns(db_session):
 
 def get_family_set_values(db_session):
     results = db_session.query(
-        DpdHeadwords.family_set
+        DpdHeadword.family_set
     ).all()
 
     family_sets = []
@@ -465,7 +465,7 @@ def get_family_set_values(db_session):
 
 def make_all_inflections_set(db_session):
 
-    inflections_db = db_session.query(DpdHeadwords).all()
+    inflections_db = db_session.query(DpdHeadword).all()
 
     all_inflections_set = set()
     for i in inflections_db:
@@ -476,7 +476,7 @@ def make_all_inflections_set(db_session):
 
 
 def get_lemma_clean_list(db_session):
-    results = db_session.query(DpdHeadwords).all()
+    results = db_session.query(DpdHeadword).all()
     return [i.lemma_clean for i in results]
 
 
@@ -485,7 +485,7 @@ def delete_word(pth, db_session, values, window):
         word_id = values["id"]
         word_lemma = values["lemma_1"]
 
-        db_session.query(DpdHeadwords).filter(word_id == DpdHeadwords.id).delete()
+        db_session.query(DpdHeadword).filter(word_id == DpdHeadword.id).delete()
         db_session.commit()
         
         # also delete from Russian table
@@ -530,8 +530,8 @@ def delete_word(pth, db_session, values, window):
 
 def get_root_info(db_session, root_key):
     r = db_session.query(
-        DpdRoots).filter(
-            DpdRoots.root == root_key
+        DpdRoot).filter(
+            DpdRoot.root == root_key
         ).first()
 
     if r:
@@ -539,7 +539,7 @@ def get_root_info(db_session, root_key):
         root_info += f"{r.root_sign} ({r.root_meaning})"
         return root_info
     else:
-        print("No matching DpdRoots found for given root_key.")
+        print("No matching DpdRoot found for given root_key.")
         return None
 
 
@@ -553,7 +553,7 @@ def remove_line_breaker(word):
         return word
 
 
-def fetch_id_or_lemma_1(db_session, values: dict, field: str) -> Optional[DpdHeadwords]:
+def fetch_id_or_lemma_1(db_session, values: dict, field: str) -> Optional[DpdHeadword]:
     """Get id or pali1 from db."""
     id_or_lemma_1 = values[field]
 
@@ -564,13 +564,13 @@ def fetch_id_or_lemma_1(db_session, values: dict, field: str) -> Optional[DpdHea
         
     first_character = id_or_lemma_1[0]
     if first_character.isalpha():
-        query = db_session.query(DpdHeadwords).filter(
-            DpdHeadwords.lemma_1 == id_or_lemma_1).first()
+        query = db_session.query(DpdHeadword).filter(
+            DpdHeadword.lemma_1 == id_or_lemma_1).first()
         if query:
             return query
     elif first_character.isdigit():
-        query = db_session.query(DpdHeadwords).filter(
-            DpdHeadwords.id == id_or_lemma_1).first()
+        query = db_session.query(DpdHeadword).filter(
+            DpdHeadword.id == id_or_lemma_1).first()
         if query:
             return query
 
@@ -578,7 +578,7 @@ def fetch_id_or_lemma_1(db_session, values: dict, field: str) -> Optional[DpdHea
 def del_syns_if_pos_meaning_changed(
         db_session,
         values: dict,
-        pali_word_original2: Optional[DpdHeadwords]
+        pali_word_original2: Optional[DpdHeadword]
 ):
         """Delete all occurences of the headword 
         in the synonms column of the db if
@@ -594,8 +594,8 @@ def del_syns_if_pos_meaning_changed(
                 search_term = f"(, |^){lemma_clean}(, |$)"
 
                 results = db_session \
-                    .query(DpdHeadwords) \
-                    .filter(DpdHeadwords.synonym.regexp_match(search_term)) \
+                    .query(DpdHeadword) \
+                    .filter(DpdHeadword.synonym.regexp_match(search_term)) \
                     .all()
 
                 for r in results:

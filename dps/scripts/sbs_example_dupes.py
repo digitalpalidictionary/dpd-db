@@ -6,7 +6,7 @@ import csv
 from difflib import SequenceMatcher
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
 
@@ -26,7 +26,7 @@ def main():
     pth = ProjectPaths()
     dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs)).all()
+    db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs)).all()
 
     ids_to_save = set()
 

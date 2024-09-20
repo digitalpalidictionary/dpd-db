@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
 """
-The filter_and_update function updates the DpdHeadwords database entries. For entries where lemma_1 ends with 'sikkhāpada' and meaning_2 is empty, it sets a new family set and updates meaning_2 based on patterns in meaning_1.
+The filter_and_update function updates the DpdHeadword database entries. For entries where lemma_1 ends with 'sikkhāpada' and meaning_2 is empty, it sets a new family set and updates meaning_2 based on patterns in meaning_1.
 """
 
 
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from db.db_helpers import get_db_session
 from rich.console import Console
@@ -19,9 +19,9 @@ def filter_and_update():
     db_session = get_db_session(pth.dpd_db_path)
 
     # Find the words that match the filter criteria
-    words_to_update = db_session.query(DpdHeadwords).filter(
-        DpdHeadwords.lemma_1.endswith('sikkhāpada'),
-        DpdHeadwords.meaning_2 == ""
+    words_to_update = db_session.query(DpdHeadword).filter(
+        DpdHeadword.lemma_1.endswith('sikkhāpada'),
+        DpdHeadword.meaning_2 == ""
     ).all()
 
     for word in words_to_update:
@@ -93,9 +93,9 @@ def filter_and_update_from_file(pth: ProjectPaths):
     db_session = get_db_session(pth.dpd_db_path)
 
     # Find the words that match the filter criteria of having family_set set to "bhikkhupātimokkha rules"
-    words_to_update = db_session.query(DpdHeadwords).filter(
-        DpdHeadwords.family_set == "bhikkhupātimokkha rules",
-        DpdHeadwords.meaning_2 == ""
+    words_to_update = db_session.query(DpdHeadword).filter(
+        DpdHeadword.family_set == "bhikkhupātimokkha rules",
+        DpdHeadword.meaning_2 == ""
     ).all()
 
     print("Number of words found:", len(words_to_update))  # Debug info
@@ -120,7 +120,7 @@ def filter_and_update_from_file(pth: ProjectPaths):
 
 def update_family_set_based_on_conditions(pth: ProjectPaths):
     """
-    This function will update the `family_set` attribute of `DpdHeadwords` objects based on certain conditions.
+    This function will update the `family_set` attribute of `DpdHeadword` objects based on certain conditions.
     
     Args:
     - session: This is the database session, assumed to be an SQLAlchemy session.
@@ -128,8 +128,8 @@ def update_family_set_based_on_conditions(pth: ProjectPaths):
 
     db_session = get_db_session(pth.dpd_db_path)
 
-    # Filtering DpdHeadwords objects where family_set is "bhikkhupātimokkha rules" and meaning_2 is empty
-    for word in db_session.query(DpdHeadwords).filter_by(family_set="bhikkhupātimokkha rules", meaning_2=""):
+    # Filtering DpdHeadword objects where family_set is "bhikkhupātimokkha rules" and meaning_2 is empty
+    for word in db_session.query(DpdHeadword).filter_by(family_set="bhikkhupātimokkha rules", meaning_2=""):
         word.family_set = ""
 
         print(f"id: {word.id}, meaning_2 : {word.meaning_2} family_set(new): {word.family_set}")

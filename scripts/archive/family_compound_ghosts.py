@@ -6,7 +6,7 @@ import pyperclip
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, FamilyCompound
+from db.models import DpdHeadword, FamilyCompound
 from tools.db_search_string import db_search_string
 from tools.paths import ProjectPaths
 
@@ -39,8 +39,8 @@ def get_all_family_compounds_in_table():
 def get_all_family_compounds_in_headwords():
 
     results = g.db_session \
-        .query(DpdHeadwords) \
-        .filter(DpdHeadwords.family_compound != "") \
+        .query(DpdHeadword) \
+        .filter(DpdHeadword.family_compound != "") \
         .all()
     
     g.fc_db_set = set()

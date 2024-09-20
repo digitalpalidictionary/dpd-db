@@ -19,7 +19,7 @@ import csv
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.meaning_construction import clean_construction
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
@@ -29,7 +29,7 @@ class ProgData:
     def __init__(self) -> None:
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
-        self.db = self.db_session.query(DpdHeadwords).all()
+        self.db = self.db_session.query(DpdHeadword).all()
 
         self.yes_no: str = "[white]y[green]es [white]n[green]o"
         self.yes_no_maybe: str = "[white]y[green]es [white]n[green]o [white]m[green]aybe"
@@ -265,7 +265,7 @@ def find_bahubbihis():
 
 
 
-def print_check_assign(i: DpdHeadwords, constr: str):
+def print_check_assign(i: DpdHeadword, constr: str):
     print()
     print(f"- [white]{i.lemma_1}")
     print(f"- [green]{i.pos}")

@@ -10,7 +10,7 @@ from typing import List, Optional
 from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords, Lookup
+from db.models import DpdHeadword, Lookup
 from functions import load_gui_config
 from tools.pali_sort_key import pali_list_sorter
 
@@ -473,7 +473,7 @@ def check_example_headword(
 
             wd.update_id(id)
             dpd_headword = p2d.db_session \
-                .query(DpdHeadwords) \
+                .query(DpdHeadword) \
                 .filter_by(id=wd.id) \
                 .first()
             
@@ -521,7 +521,7 @@ def check_example_headword(
                 
 
 def has_no_meaning_or_example(
-        headword: DpdHeadwords
+        headword: DpdHeadword
     ) -> bool:
     """"Test the pali_word"""
 
@@ -541,7 +541,7 @@ def has_no_meaning_or_example(
 def update_gui(
         p2d: Pass2Data,
         wd: WordData,
-        headword: DpdHeadwords
+        headword: DpdHeadword
     ):
     """
     Update the gui with word info.
@@ -583,7 +583,7 @@ def clear_gui(p2d: Pass2Data):
 def choose_route(
         p2d: Pass2Data,
         wd:WordData,
-        headword: DpdHeadwords
+        headword: DpdHeadword
     ):
     """
     Handle the user response and take necessary action.
@@ -634,7 +634,7 @@ def choose_route(
 def test_words_in_construction(
         p2d: Pass2Data,
         wd: WordData,
-        dpd_headword: DpdHeadwords
+        dpd_headword: DpdHeadword
     ) -> None:
 
     if (
@@ -686,8 +686,8 @@ def update_main_window(p2d: Pass2Data, wd: WordData):
 
     elif p2d.continue_flag == "yes":
         headword = p2d.db_session \
-            .query(DpdHeadwords) \
-            .filter(DpdHeadwords.id == wd.id) \
+            .query(DpdHeadword) \
+            .filter(DpdHeadword.id == wd.id) \
             .first()
         if headword:
             attrs = headword.__dict__

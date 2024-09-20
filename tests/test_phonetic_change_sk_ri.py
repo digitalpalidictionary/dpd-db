@@ -5,7 +5,7 @@
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 
 
@@ -14,7 +14,7 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
     
     results = db_session \
-        .query(DpdHeadwords) \
+        .query(DpdHeadword) \
         .all()
     
     reduced_results = []

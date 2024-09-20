@@ -4,7 +4,7 @@ import re
 import pickle
 
 from rich import print
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from db.db_helpers import get_db_session
 from tools.paths import ProjectPaths
 
@@ -21,8 +21,8 @@ pos_list = [
 def family_root_contains_plus():
     print("[green]family root contains plus")
 
-    filtered_db = db_session.query(DpdHeadwords).filter(
-        DpdHeadwords.family_root.contains("+")).all()
+    filtered_db = db_session.query(DpdHeadword).filter(
+        DpdHeadword.family_root.contains("+")).all()
 
     for i in filtered_db:
         i.family_root = re.sub(r" \+ ", " ", str(i.family_root))
@@ -31,8 +31,8 @@ def family_root_contains_plus():
 
 def family_compound_contains_plus():
     print("[green]family compound contains plus")
-    filtered_db = db_session.query(DpdHeadwords).filter(
-        DpdHeadwords.family_compound.contains("+")).all()
+    filtered_db = db_session.query(DpdHeadword).filter(
+        DpdHeadword.family_compound.contains("+")).all()
 
     for i in filtered_db:
         i.family_compound = re.sub(r" \+ ", " ", str(i.family_compound))
@@ -41,9 +41,9 @@ def family_compound_contains_plus():
 
 def family_root_missing():
     print("[green]family root missing")
-    filtered_db = db_session.query(DpdHeadwords).filter(
-        DpdHeadwords.family_root == "",
-        DpdHeadwords.root_key
+    filtered_db = db_session.query(DpdHeadword).filter(
+        DpdHeadword.family_root == "",
+        DpdHeadword.root_key
     ).all()
 
     if len(filtered_db) > 0:
@@ -62,9 +62,9 @@ def problem_patterns():
         inflection_templates_dict = pickle.load(p)
     patterns = inflection_templates_dict.keys()
 
-    filtered_db = db_session.query(DpdHeadwords).filter(
-        DpdHeadwords.pattern,
-        DpdHeadwords.pattern.notin_(patterns)
+    filtered_db = db_session.query(DpdHeadword).filter(
+        DpdHeadword.pattern,
+        DpdHeadword.pattern.notin_(patterns)
         ).all()
 
     if len(filtered_db) > 0:
@@ -77,8 +77,8 @@ def problem_patterns():
 def wrong_pos():
     print("[green]wrong pos")
 
-    filtered_db = db_session.query(DpdHeadwords).filter(
-        DpdHeadwords.pos.notin_(pos_list)).all()
+    filtered_db = db_session.query(DpdHeadword).filter(
+        DpdHeadword.pos.notin_(pos_list)).all()
     if len(filtered_db) > 0:
         for i in filtered_db:
             print(f"[bright_red]\t{i.id} {i.lemma_1} {i.pos}")

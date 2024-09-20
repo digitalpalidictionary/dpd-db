@@ -1,4 +1,4 @@
-"""Compile HTML data for DpdHeadwords."""
+"""Compile HTML data for DpdHeadword."""
 
 import psutil
 
@@ -16,8 +16,8 @@ from sqlalchemy.orm.session import Session
 
 from exporter.goldendict.helpers import TODAY
 
-from db.models import DpdHeadwords
-from db.models import DpdRoots
+from db.models import DpdHeadword
+from db.models import DpdRoot
 from db.models import FamilyCompound
 from db.models import FamilyIdiom
 from db.models import FamilyRoot
@@ -45,7 +45,7 @@ from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
 from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import make_ru_meaning_html, ru_replace_abbreviations
 from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import replace_english, ru_make_grammar_line, read_set_ru_from_tsv
 
-class DpdHeadwordsTemplates:
+class DpdHeadwordTemplates:
     def __init__(self, paths: Union[ProjectPaths, RuPaths], lang):
         self.paths = paths
         self.lang = lang
@@ -67,11 +67,11 @@ class DpdHeadwordsTemplates:
         self.dpd_css = ""
         self.button_js = ""
 
-DpdHeadwordsDbRowItems = Tuple[DpdHeadwords, FamilyRoot, FamilyWord, SBS, Russian]
+DpdHeadwordDbRowItems = Tuple[DpdHeadword, FamilyRoot, FamilyWord, SBS, Russian]
 
-class DpdHeadwordsDbParts(TypedDict):
-    pali_word: DpdHeadwords
-    pali_root: DpdRoots
+class DpdHeadwordDbParts(TypedDict):
+    pali_word: DpdHeadword
+    pali_root: DpdRoot
     sbs: SBS
     ru: Russian
     family_root: FamilyRoot
@@ -80,9 +80,9 @@ class DpdHeadwordsDbParts(TypedDict):
     family_idioms: List[FamilyIdiom]
     family_set: List[FamilySet]
 
-class DpdHeadwordsRenderData(TypedDict):
+class DpdHeadwordRenderData(TypedDict):
     pth: Union[ProjectPaths, RuPaths]
-    word_templates: DpdHeadwordsTemplates
+    word_templates: DpdHeadwordTemplates
     sandhi_contractions: SandhiContractions
     cf_set: Set[str]
     idioms_set: Set[str]
@@ -93,8 +93,8 @@ class DpdHeadwordsRenderData(TypedDict):
 
 
 def render_pali_word_dpd_html(
-        db_parts: DpdHeadwordsDbParts,
-        render_data: DpdHeadwordsRenderData,
+        db_parts: DpdHeadwordDbParts,
+        render_data: DpdHeadwordRenderData,
         lang="en",
         extended_synonyms=False, 
         show_sbs_data=False
@@ -102,8 +102,8 @@ def render_pali_word_dpd_html(
     rd = render_data
     size_dict = default_rendered_sizes()
 
-    i: DpdHeadwords = db_parts["pali_word"]
-    rt: DpdRoots = db_parts["pali_root"]
+    i: DpdHeadword = db_parts["pali_word"]
+    rt: DpdRoot = db_parts["pali_root"]
     sbs: SBS = db_parts["sbs"]
     ru: Russian = db_parts["ru"]
     fr: FamilyRoot = db_parts["family_root"]
@@ -294,7 +294,7 @@ def generate_dpd_html(
     elif lang == "ru":
         paths = rupth
 
-    word_templates = DpdHeadwordsTemplates(paths, lang)
+    word_templates = DpdHeadwordTemplates(paths, lang)
 
     if config_test("dictionary", "extended_synonyms", "yes"):
         extended_synonyms: bool = True
@@ -315,12 +315,12 @@ def generate_dpd_html(
 
     if lang == "en":
         pali_words_count = db_session \
-            .query(func.count(DpdHeadwords.id)) \
+            .query(func.count(DpdHeadword.id)) \
             .scalar()
     elif lang == "ru":
         pali_words_count = db_session \
-            .query(func.count(DpdHeadwords.id)) \
-            .join(Russian, DpdHeadwords.id == Russian.id) \
+            .query(func.count(DpdHeadword.id)) \
+            .join(Russian, DpdHeadword.id == Russian.id) \
             .filter(Russian.id.isnot(None)) \
             .scalar()
     
@@ -351,16 +351,16 @@ def generate_dpd_html(
 
         dpd_db_query = db_session \
             .query(
-                DpdHeadwords, FamilyRoot, FamilyWord, SBS, Russian) \
+                DpdHeadword, FamilyRoot, FamilyWord, SBS, Russian) \
             .outerjoin(
-                FamilyRoot, DpdHeadwords.root_family_key == FamilyRoot.root_family_key) \
+                FamilyRoot, DpdHeadword.root_family_key == FamilyRoot.root_family_key) \
             .outerjoin(
-                FamilyWord, DpdHeadwords.family_word == FamilyWord.word_family) \
+                FamilyWord, DpdHeadword.family_word == FamilyWord.word_family) \
             .outerjoin(
-                Russian, DpdHeadwords.id == Russian.id) \
+                Russian, DpdHeadword.id == Russian.id) \
             .outerjoin(
-                SBS, DpdHeadwords.id == SBS.id) \
-            .order_by(DpdHeadwords.lemma_1) \
+                SBS, DpdHeadword.id == SBS.id) \
+            .order_by(DpdHeadword.lemma_1) \
         
         if lang == "ru":
             dpd_db_query = dpd_db_query.filter(
@@ -369,15 +369,15 @@ def generate_dpd_html(
 
         dpd_db = dpd_db_query.limit(limit).offset(offset).all()
 
-        def _add_parts(i: DpdHeadwordsDbRowItems) -> DpdHeadwordsDbParts:
-            pw: DpdHeadwords
+        def _add_parts(i: DpdHeadwordDbRowItems) -> DpdHeadwordDbParts:
+            pw: DpdHeadword
             fr: FamilyRoot
             fw: FamilyWord
             sbs: SBS
             ru: Russian
             pw, fr, fw, sbs, ru = i
 
-            return DpdHeadwordsDbParts(
+            return DpdHeadwordDbParts(
                 pali_word = pw,
                 pali_root = pw.rt,
                 sbs = sbs,
@@ -393,11 +393,11 @@ def generate_dpd_html(
 
         rendered_sizes: List[RenderedSizes] = []
 
-        batches: List[List[DpdHeadwordsDbParts]] = list_into_batches(dpd_db_data, num_logical_cores)
+        batches: List[List[DpdHeadwordDbParts]] = list_into_batches(dpd_db_data, num_logical_cores)
 
         processes: List[Process] = []
 
-        render_data = DpdHeadwordsRenderData(
+        render_data = DpdHeadwordRenderData(
             pth = pth,
             word_templates = word_templates,
             sandhi_contractions = sandhi_contractions,
@@ -409,7 +409,7 @@ def generate_dpd_html(
             show_sbs_data = show_sbs_data
         )
 
-        def _parse_batch(batch: List[DpdHeadwordsDbParts]):
+        def _parse_batch(batch: List[DpdHeadwordDbParts]):
             res: List[Tuple[DictEntry, RenderedSizes]] = \
                 [render_pali_word_dpd_html(i, render_data, lang, extended_synonyms, show_sbs_data) for i in batch]
 
@@ -440,7 +440,7 @@ def generate_dpd_html(
 
 def render_dpd_definition_templ(
         __pth__: Union[ProjectPaths, RuPaths],
-        i: DpdHeadwords,
+        i: DpdHeadword,
         dpd_definition_templ: Template,
         sbs: SBS|None,
         ru: Russian|None,
@@ -514,7 +514,7 @@ def render_dpd_definition_templ(
 
 def render_button_box_templ(
         __pth__: Union[ProjectPaths, RuPaths],
-        i: DpdHeadwords,
+        i: DpdHeadword,
         sbs: SBS,
         cf_set: Set[str],
         idioms_set: Set[str],
@@ -710,8 +710,8 @@ def render_button_box_templ(
 
 def render_grammar_templ(
         __pth__: Union[ProjectPaths, RuPaths],
-        i: DpdHeadwords,
-        rt: DpdRoots,
+        i: DpdHeadword,
+        rt: DpdRoot,
         sbs: SBS,
         ru: Russian,
         grammar_templ: Template,
@@ -756,7 +756,7 @@ def render_grammar_templ(
 
 def render_example_templ(
         __pth__: Union[ProjectPaths, RuPaths],
-        i: DpdHeadwords,
+        i: DpdHeadword,
         example_templ: Template,
         make_link=False
 ) -> str:
@@ -771,7 +771,7 @@ def render_example_templ(
 
 def render_sbs_example_templ(
         __pth__: Union[ProjectPaths, RuPaths],
-        i: DpdHeadwords,
+        i: DpdHeadword,
         sbs: SBS,
         sbs_example_templ: Template,
         make_link=False
@@ -790,7 +790,7 @@ def render_sbs_example_templ(
 
 def render_inflection_templ(
         __pth__: Union[ProjectPaths, RuPaths],
-        i: DpdHeadwords,
+        i: DpdHeadword,
         inflection_templ:Template,
         lang="en"
 ) -> str:
@@ -812,7 +812,7 @@ def render_inflection_templ(
 
 def render_family_root_templ(
         __pth__: Union[ProjectPaths, RuPaths],
-        i: DpdHeadwords,
+        i: DpdHeadword,
         fr: FamilyRoot,
         family_root_templ
 ) -> str:
@@ -827,7 +827,7 @@ def render_family_root_templ(
 
 def render_family_word_templ(
         __pth__: Union[ProjectPaths, RuPaths],
-        i: DpdHeadwords,
+        i: DpdHeadword,
         fw: FamilyWord,
         family_word_templ: Template
 ) -> str:
@@ -842,7 +842,7 @@ def render_family_word_templ(
 
 def render_family_compound_templ(
         __pth__: Union[ProjectPaths, RuPaths],
-        i: DpdHeadwords,
+        i: DpdHeadword,
         fc: List[FamilyCompound],
         cf_set: Set[str],
         family_compound_templ: Template
@@ -859,7 +859,7 @@ def render_family_compound_templ(
 
 def render_family_idioms_templ(
         __pth__: Union[ProjectPaths, RuPaths],
-        i: DpdHeadwords,
+        i: DpdHeadword,
         fi: List[FamilyIdiom],
         idioms_set: Set[str],
         family_idioms_template: Template
@@ -876,7 +876,7 @@ def render_family_idioms_templ(
 
 def render_family_set_templ(
         __pth__: Union[ProjectPaths, RuPaths],
-        i: DpdHeadwords,
+        i: DpdHeadword,
         fs: List[FamilySet],
         family_set_templ: Template
 ) -> str:
@@ -892,7 +892,7 @@ def render_family_set_templ(
 
 def render_frequency_templ(
         __pth__: Union[ProjectPaths, RuPaths],
-        i: DpdHeadwords,
+        i: DpdHeadword,
         frequency_templ: Template,
         lang="en"
 ) -> str:   
@@ -927,7 +927,7 @@ def render_frequency_templ(
 
 def render_feedback_templ(
         __pth__: Union[ProjectPaths, RuPaths],
-        i: DpdHeadwords,
+        i: DpdHeadword,
         feedback_templ: Template
 ) -> str:
     """render html of feedback template"""

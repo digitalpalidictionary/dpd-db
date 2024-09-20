@@ -7,7 +7,7 @@ import pyperclip
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.bjt import make_bjt_text_list
 from tools.cst_sc_text_sets import make_cst_text_set, make_sc_text_set
 from tools.goldendict_tools import open_in_goldendict_os
@@ -41,7 +41,7 @@ def make_ebt_word_set():
 def make_dpd_missing_set():
     p_green("missing words in dpd")
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
     missing_words = []
     for i in db:
         if not i.meaning_1 or not i.example_1:

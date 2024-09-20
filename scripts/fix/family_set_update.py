@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
-"""Update the family_set column in DpdHeadwords with a new value."""
+"""Update the family_set column in DpdHeadword with a new value."""
 
 import re
 
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 
@@ -17,7 +17,7 @@ def main():
     print("[bright_yellow]update family set")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
 
     find: str = "nipāta"
     replace: str = "indeclinables"

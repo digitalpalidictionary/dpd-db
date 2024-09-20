@@ -6,7 +6,7 @@ so that they are all recognised in deconstructor."""
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 
 from tools.meaning_construction import clean_construction
 from tools.paths import ProjectPaths
@@ -15,7 +15,7 @@ from tools.tsv_read_write import read_tsv
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
     
     sandhi_dict = {}
     sandhi_dupes = []

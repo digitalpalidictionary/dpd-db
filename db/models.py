@@ -77,7 +77,7 @@ class InflectionTemplates(Base):
         return f"InflectionTemplates: {self.pattern} {self.like} {self.data}"
 
 
-class DpdRoots(Base):
+class DpdRoot(Base):
     __tablename__ = "dpd_roots"
 
     root: Mapped[str] = mapped_column(primary_key=True)
@@ -117,7 +117,7 @@ class DpdRoots(Base):
     updated_at: Mapped[Optional[DateTime]] = mapped_column(
         DateTime(timezone=True), onupdate=func.now())
 
-    pw: Mapped[List["DpdHeadwords"]] = relationship(
+    pw: Mapped[List["DpdHeadword"]] = relationship(
         back_populates="rt")
 
     @property
@@ -152,8 +152,8 @@ class DpdRoots(Base):
             raise Exception("No db_session")
 
         return db_session \
-            .query(DpdHeadwords) \
-            .filter(DpdHeadwords.root_key == self.root) \
+            .query(DpdHeadword) \
+            .filter(DpdHeadword.root_key == self.root) \
             .count()
 
     @property
@@ -163,16 +163,16 @@ class DpdRoots(Base):
             raise Exception("No db_session")
 
         results = db_session \
-            .query(DpdHeadwords) \
-            .filter(DpdHeadwords.root_key == self.root) \
-            .group_by(DpdHeadwords.family_root) \
+            .query(DpdHeadword) \
+            .filter(DpdHeadword.root_key == self.root) \
+            .group_by(DpdHeadword.family_root) \
             .all()
         family_list = [i.family_root for i in results if i.family_root is not None]
         family_list = sorted(family_list, key=lambda x: pali_sort_key(x))
         return family_list
 
     def __repr__(self) -> str:
-        return f"""DpdRoots: {self.root} {self.root_group} {self.root_sign} ({self.root_meaning})"""
+        return f"""DpdRoot: {self.root} {self.root_group} {self.root_sign} ({self.root_meaning})"""
 
 
 class FamilyRoot(Base):
@@ -536,7 +536,7 @@ thai:          {self.thai}
 #         DateTime(timezone=True), onupdate=func.now())
 
 
-class DpdHeadwords(Base):
+class DpdHeadword(Base):
     __tablename__ = "dpd_headwords"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -618,7 +618,7 @@ class DpdHeadwords(Base):
     ebt_count: Mapped[int] = mapped_column(default=0)
 
     # pali_root
-    rt: Mapped[DpdRoots] = relationship(uselist=False)
+    rt: Mapped[DpdRoot] = relationship(uselist=False)
 
     # family_root
     fr = relationship(
@@ -801,8 +801,8 @@ class DpdHeadwords(Base):
             raise Exception("No db_session")
 
         return db_session\
-            .query(DpdHeadwords.id)\
-            .filter(DpdHeadwords\
+            .query(DpdHeadword.id)\
+            .filter(DpdHeadword\
             .root_key == self.root_key)\
             .count()
 
@@ -813,8 +813,8 @@ class DpdHeadwords(Base):
             raise Exception("No db_session")
 
         pos_db = db_session \
-            .query(DpdHeadwords.pos) \
-            .group_by(DpdHeadwords.pos) \
+            .query(DpdHeadword.pos) \
+            .group_by(DpdHeadword.pos) \
             .all()
         return sorted([i.pos for i in pos_db])
 
@@ -1044,7 +1044,7 @@ class DpdHeadwords(Base):
         return bool(self.pos not in EXCLUDE_FROM_FREQ)
 
     def __repr__(self) -> str:
-        return f"""DpdHeadwords: {self.id} {self.lemma_1} {self.pos} {
+        return f"""DpdHeadword: {self.id} {self.lemma_1} {self.pos} {
             self.meaning_1}"""
     
 
@@ -1087,7 +1087,7 @@ class FamilyWord(Base):
     html_ru: Mapped[str] = mapped_column(default='')
     data_ru: Mapped[str] = mapped_column(default='')
 
-    dpd_headwords: Mapped[List["DpdHeadwords"]] = relationship("DpdHeadwords", back_populates="fw")
+    dpd_headwords: Mapped[List["DpdHeadword"]] = relationship("DpdHeadword", back_populates="fw")
 
     # family_word pack unpack
     def data_pack(self, list: list[str]) -> None:

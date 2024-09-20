@@ -20,7 +20,7 @@ from googletrans import Translator
 from timeout_decorator import timeout, TimeoutError as TimeoutDecoratorError
 
 from db.db_helpers import get_column_names
-from db.models import Russian, SBS, DpdHeadwords
+from db.models import Russian, SBS, DpdHeadword
 
 from tools.configger import config_test_option, config_read, config_update
 from tools.cst_sc_text_sets import make_cst_text_set
@@ -1133,7 +1133,7 @@ def fetch_matching_words_from_db(path, db_session) -> list:
 
     matching_words = []
     for word_id in ordered_ids:
-        word = db_session.query(DpdHeadwords).filter(DpdHeadwords.id == word_id).first()
+        word = db_session.query(DpdHeadword).filter(DpdHeadword.id == word_id).first()
         if word:
             matching_words.append(word.lemma_1)
 
@@ -1148,7 +1148,7 @@ def fetch_matching_words_from_db_with_conditions(dpspth, db_session, attribute_n
 
     matching_words = []
     for word_id in ordered_ids:
-        word = db_session.query(DpdHeadwords).filter(DpdHeadwords.id == word_id).first()
+        word = db_session.query(DpdHeadword).filter(DpdHeadword.id == word_id).first()
         if word and word.sbs:
             attr_value = getattr(word.sbs, attribute_name, None)
             if attr_value == source or (attr_value is None and source in ["", None]):
@@ -1171,7 +1171,7 @@ def update_words_value(dpspth, db_session, WHAT_TO_UPDATE, SOURCE):
     updated_count = 0
 
     for word_id in ordered_ids:
-        word = db_session.query(DpdHeadwords).filter(DpdHeadwords.id == word_id).first()
+        word = db_session.query(DpdHeadword).filter(DpdHeadword.id == word_id).first()
         if not word or not word.sbs:
             continue
 
@@ -1206,7 +1206,7 @@ def print_words_value(dpspth, db_session, WHAT_TO_UPDATE, SOURCE):
     print(SOURCE)
 
     for word_id in ordered_ids:
-        word = db_session.query(DpdHeadwords).filter(DpdHeadwords.id == word_id).first()
+        word = db_session.query(DpdHeadword).filter(DpdHeadword.id == word_id).first()
         if not word or not word.sbs:
             continue
 
@@ -1225,7 +1225,7 @@ def print_words_value(dpspth, db_session, WHAT_TO_UPDATE, SOURCE):
 
 def update_field(db_session, WHAT_TO_UPDATE, lemma_1, source):
 
-    word = db_session.query(DpdHeadwords).filter(DpdHeadwords.lemma_1 == lemma_1).first()
+    word = db_session.query(DpdHeadword).filter(DpdHeadword.lemma_1 == lemma_1).first()
 
     if word:
         if not word.sbs:
@@ -1238,7 +1238,7 @@ def update_field(db_session, WHAT_TO_UPDATE, lemma_1, source):
 
 def update_field_with_change(db_session, WHAT_TO_UPDATE, lemma_1, source):
 
-    word = db_session.query(DpdHeadwords).filter(DpdHeadwords.lemma_1 == lemma_1).first()
+    word = db_session.query(DpdHeadword).filter(DpdHeadword.lemma_1 == lemma_1).first()
 
     source = source + "_"
 
@@ -1252,7 +1252,7 @@ def update_field_with_change(db_session, WHAT_TO_UPDATE, lemma_1, source):
 
 
 def words_in_db_from_source(db_session, source):
-    dpd_db = db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.sbs)).all()
+    dpd_db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs)).all()
 
     matching_words = []
 
@@ -1276,7 +1276,7 @@ def words_in_db_with_value_in_field_sbs(db_session, field, source):
     # Ensure the SBS model has the specified field to avoid runtime errors
     if hasattr(SBS, field):
         # Modify the query to include a condition that checks if the field is not empty
-        dpd_db = db_session.query(DpdHeadwords).join(SBS, DpdHeadwords.id == SBS.id).filter(
+        dpd_db = db_session.query(DpdHeadword).join(SBS, DpdHeadword.id == SBS.id).filter(
             # Check if the field is not empty
             not_(getattr(SBS, field).is_(None)),
             not_(getattr(SBS, field) == ''),
@@ -1356,12 +1356,12 @@ def dps_get_synonyms(db_session, pos: str, string_of_meanings: str, window, erro
     string_of_meanings = re.sub(r" \(.*?\)|\(.*?\) ", "", string_of_meanings)
     list_of_meanings = string_of_meanings.split("; ")
 
-    results = db_session.query(DpdHeadwords).join(Russian).filter(
-            DpdHeadwords.pos == pos,
-            or_(*[DpdHeadwords.meaning_1.like(f"%{meaning}%") for meaning in list_of_meanings]),
+    results = db_session.query(DpdHeadword).join(Russian).filter(
+            DpdHeadword.pos == pos,
+            or_(*[DpdHeadword.meaning_1.like(f"%{meaning}%") for meaning in list_of_meanings]),
             Russian.ru_meaning.isnot(None),  # Ensure ru_meaning is not null
             Russian.ru_meaning != ""         # Ensure ru_meaning is not an empty string
-        ).options(joinedload(DpdHeadwords.ru)).all()
+        ).options(joinedload(DpdHeadword.ru)).all()
 
     meaning_dict = {}
     for i in results:
@@ -1396,8 +1396,8 @@ def dps_get_synonyms(db_session, pos: str, string_of_meanings: str, window, erro
 def dps_make_all_inflections_set(db_session):
     
     # Joining tables and filtering where Russian.ru_meaning is not empty
-    inflections_db = db_session.query(DpdHeadwords) \
-                            .join(Russian, DpdHeadwords.id == Russian.id) \
+    inflections_db = db_session.query(DpdHeadword) \
+                            .join(Russian, DpdHeadword.id == Russian.id) \
                             .filter((Russian.ru_meaning.isnot(None)) & 
                                     (Russian.ru_meaning != '')) \
                             .all()
@@ -1414,10 +1414,10 @@ def dps_make_all_inflections_set(db_session):
 def dps_make_filtered_inflections_set(db_session, source):
     
     # Begin the query
-    query = db_session.query(DpdHeadwords)
+    query = db_session.query(DpdHeadword)
     
     # Join tables
-    query = query.join(SBS, DpdHeadwords.id == SBS.id)
+    query = query.join(SBS, DpdHeadword.id == SBS.id)
     
     # Apply filters if 'source' contains in any of sbs_cource(s)
     query = query.filter(
@@ -1444,11 +1444,11 @@ def dps_make_filtered_inflections_set(db_session, source):
 def dps_make_no_field_inflections_set(db_session, field):
     
     # Begin the query
-    query = db_session.query(DpdHeadwords)
+    query = db_session.query(DpdHeadword)
     
     # Join tables
 
-    query = query.join(SBS, DpdHeadwords.id == SBS.id)
+    query = query.join(SBS, DpdHeadword.id == SBS.id)
     
     # Apply filters dynamically using the 'field' variable
     query = query.filter(
@@ -1469,7 +1469,7 @@ def dps_make_no_field_inflections_set(db_session, field):
 
 
 def get_next_ids_dps(db_session, window):
-    used_ids = db_session.query(DpdHeadwords.id).order_by(DpdHeadwords.id).all()
+    used_ids = db_session.query(DpdHeadword.id).order_by(DpdHeadword.id).all()
 
     def find_largest_id():
         return max(used_id.id for used_id in used_ids) if used_ids else 0
@@ -1596,9 +1596,9 @@ def add_word_from_csv(dpspth, window, flag_next_word, completion):
 
 def get_next_word_ru(db_session):
     def filter_words():
-        return db_session.query(DpdHeadwords).join(Russian).join(SBS).filter(
-            DpdHeadwords.meaning_1 != "",
-            DpdHeadwords.example_1 != "",
+        return db_session.query(DpdHeadword).join(Russian).join(SBS).filter(
+            DpdHeadword.meaning_1 != "",
+            DpdHeadword.example_1 != "",
             # SBS.sbs_patimokkha == "pat",
             Russian.ru_meaning == "",
         )
@@ -1624,7 +1624,7 @@ def get_next_word_ru(db_session):
 def get_next_note_ru(db_session):
     # Query the database for the first word that meets the conditions
     def filter_words():
-        return db_session.query(DpdHeadwords).join(Russian).join(SBS).filter(
+        return db_session.query(DpdHeadword).join(Russian).join(SBS).filter(
             Russian.ru_notes.like("%ИИ%"),
             or_(
                     SBS.sbs_class_anki != '',

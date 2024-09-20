@@ -11,7 +11,7 @@ import re
 import csv
 from rich import print
 
-from db.models import DpdHeadwords, Russian
+from db.models import DpdHeadword, Russian
 from tools.paths import ProjectPaths
 from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
 from tools.meaning_construction import make_meaning_combo
@@ -40,7 +40,7 @@ def make_ru_meaning(i: DpdHeadwords) -> str:
         return ""
 
 
-def make_short_ru_meaning(i: DpdHeadwords, ru: Russian) -> str:
+def make_short_ru_meaning(i: DpdHeadword, ru: Russian) -> str:
     """Extract first synonym from ru_meaning or ru_meaning_raw"""
     if ru is None:
         return make_short_meaning(i)
@@ -55,7 +55,7 @@ def make_short_ru_meaning(i: DpdHeadwords, ru: Russian) -> str:
         return ""
 
 
-def make_ru_meaning_html(i: DpdHeadwords, ru: Russian) -> str:
+def make_ru_meaning_html(i: DpdHeadword, ru: Russian) -> str:
     """Compile html of ru_meaning and literal meaning, or return ru_meaning_raw.
     ru_meaning in <b>bold</b>, or return english meaning"""
 
@@ -75,7 +75,7 @@ def make_ru_meaning_html(i: DpdHeadwords, ru: Russian) -> str:
         return ""
 
 
-def make_ru_meaning_for_ebook(i: DpdHeadwords, ru: Russian) -> str:
+def make_ru_meaning_for_ebook(i: DpdHeadword, ru: Russian) -> str:
     """Compile html of ru_meaning and literal meaning, or return ru_meaning_raw with spesial mark.
     ru_meaning in <b>bold</b>, or return english meaning"""
 
@@ -164,7 +164,7 @@ def replace_english(value, kind = "freq"):
     return value
 
 
-def ru_make_grammar_line(i: DpdHeadwords) -> str:
+def ru_make_grammar_line(i: DpdHeadword) -> str:
     """Compile grammar line and replace values with ru"""
     
     grammar = ru_replace_abbreviations(i.grammar)
@@ -185,7 +185,7 @@ def get_first_synonym(synonyms_str: str, delimiter: str = ';') -> str:
     return synonyms[0] if synonyms else ''
 
 
-def make_short_meaning(i: DpdHeadwords) -> str:
+def make_short_meaning(i: DpdHeadword) -> str:
 	"""Extract first synonim from meaning_1 or meaning_2."""
 	if i.meaning_1:
 		meaning: str = i.meaning_1

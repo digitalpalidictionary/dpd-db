@@ -6,7 +6,7 @@ import re
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 
 from tools.meaning_construction import clean_construction, make_meaning_combo
 from tools.paths import ProjectPaths
@@ -16,7 +16,7 @@ from tools.tsv_read_write import write_tsv_list, read_tsv_dot_dict, write_tsv_do
 class ProgData():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
     cardinal_set = set()
     cardinal_in_construction_set = set()
     all_parts_are_cardinal_set = set()

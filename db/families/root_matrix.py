@@ -3,7 +3,7 @@ import re
 
 from rich import print
 
-from db.models import DpdHeadwords, DpdRoots
+from db.models import DpdHeadword, DpdRoot
 from tools.superscripter import superscripter_uni
 
 
@@ -13,7 +13,7 @@ def generate_root_matrix(db_session):
     total_counter = 0
     word_counter = 0
 
-    dpd_db = db_session.query(DpdHeadwords).all()
+    dpd_db = db_session.query(DpdHeadword).all()
 
     for counter, i in enumerate(dpd_db):
 
@@ -1390,7 +1390,7 @@ def generate_root_matrix(db_session):
 
     # add back into db
     print("[green]adding to db", end= " ")
-    roots_db = db_session.query(DpdRoots).all()
+    roots_db = db_session.query(DpdRoot).all()
     for counter, i in enumerate(roots_db):
         try:
             i.root_matrix = html_dict[i.root]

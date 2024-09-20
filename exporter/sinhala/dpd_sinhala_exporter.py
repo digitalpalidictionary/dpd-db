@@ -7,7 +7,7 @@ from pathlib import Path
 from sqlalchemy.orm import joinedload
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.date_and_time import year_month_day_dash
 from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables, export_to_goldendict_with_pyglossary
 from tools.mdict_exporter import export_to_mdict
@@ -22,7 +22,7 @@ class ProgData():
     def __init__(self) -> None:
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
-        self.db = self.db_session.query(DpdHeadwords).options(joinedload(DpdHeadwords.si)).all()
+        self.db = self.db_session.query(DpdHeadword).options(joinedload(DpdHeadword.si)).all()
         self.env = Environment(loader=FileSystemLoader('.'))
         self.template = self.env.get_template("exporter/sinhala/dpd_sinhala_template.html") # TODO add to paths
 

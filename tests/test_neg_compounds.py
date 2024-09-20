@@ -8,7 +8,7 @@ import re
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 
@@ -16,7 +16,7 @@ from tools.tic_toc import tic, toc
 class ProgData():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
     exceptions_list: list[int]
 
 
@@ -101,7 +101,7 @@ def main():
     toc()
 
 
-def auto_replace_na(i: DpdHeadwords) -> str:
+def auto_replace_na(i: DpdHeadword) -> str:
 
     if i.lemma_clean.startswith("na"):
         # check if there's a double consonant

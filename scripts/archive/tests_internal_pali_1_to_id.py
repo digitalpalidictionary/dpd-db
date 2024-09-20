@@ -5,7 +5,7 @@
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadwords
+from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 
 from gui.functions_tests import make_internal_tests_list
@@ -14,7 +14,7 @@ from gui.functions_tests import write_internal_tests_list
 class ProgData():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadwords).all()
+    db = db_session.query(DpdHeadword).all()
     pali_to_id_dict: dict
     internal_tests_list: list
 
