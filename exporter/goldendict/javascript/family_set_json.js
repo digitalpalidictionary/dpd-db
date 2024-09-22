@@ -8190,6 +8190,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "amatadhātu",
+    "fem",
+    "deathless state; immortality; epithet of Nibbāna",
+    "✓"
+   ],
+   [
     "amatapariyosānatā",
     "fem",
     "state ending in the deathless; epithet of Nibbāna",
@@ -8298,7 +8304,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 28
+  "count": 29
  },
  "names of Brahmans": {
   "data": [

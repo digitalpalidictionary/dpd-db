@@ -656,6 +656,29 @@ var family_idiom_json = {
    ]
   ]
  },
+ "khaṇa": {
+  "count": 3,
+  "data": [
+   [
+    "khaṇe khaṇe",
+    "idiom",
+    "moment by moment; second by second",
+    "✓"
+   ],
+   [
+    "tasmiṃ khaṇe",
+    "idiom",
+    "at that moment",
+    "✓"
+   ],
+   [
+    "tena khaṇena",
+    "idiom",
+    "at that moment; lit. with that moment",
+    "✓"
+   ]
+  ]
+ },
  "abbhañjati": {
   "count": 1,
   "data": [
@@ -9876,7 +9899,7 @@ var family_idiom_json = {
   ]
  },
  "gacchati": {
-  "count": 24,
+  "count": 25,
   "data": [
    [
     "atthaṃ gacchati",
@@ -9894,6 +9917,12 @@ var family_idiom_json = {
     "ādāya gacchati",
     "idiom",
     "carries away; lit. taking goes",
+    "✓"
+   ],
+   [
+    "gacchānanda",
+    "sandhi",
+    "go, Ānanda!; leave, Ānanda!",
     "✓"
    ],
    [
@@ -18893,7 +18922,7 @@ var family_idiom_json = {
   ]
  },
  "ānanda": {
-  "count": 4,
+  "count": 5,
   "data": [
    [
     "āyāmānanda",
@@ -18911,6 +18940,12 @@ var family_idiom_json = {
     "kathañcānanda",
     "sandhi",
     "and what Ānanda?",
+    "✓"
+   ],
+   [
+    "gacchānanda",
+    "sandhi",
+    "go, Ānanda!; leave, Ānanda!",
     "✓"
    ],
    [
@@ -19542,7 +19577,7 @@ var family_idiom_json = {
     "sandhāyāha",
     "sandhi",
     "one said this with reference to",
-    "~"
+    "✓"
    ]
   ]
  },
@@ -24131,29 +24166,6 @@ var family_idiom_json = {
     "kvāssa",
     "sandhi",
     "where could it?; where would it?",
-    "✓"
-   ]
-  ]
- },
- "khaṇa": {
-  "count": 3,
-  "data": [
-   [
-    "khaṇe khaṇe",
-    "idiom",
-    "moment by moment; second by second",
-    "✓"
-   ],
-   [
-    "tasmiṃ khaṇe",
-    "idiom",
-    "at that moment",
-    "✓"
-   ],
-   [
-    "tena khaṇena",
-    "idiom",
-    "at that moment; lit. with that moment",
     "✓"
    ]
   ]
@@ -32482,7 +32494,7 @@ var family_idiom_json = {
     "sandhāyāha",
     "sandhi",
     "one said this with reference to",
-    "~"
+    "✓"
    ],
    [
     "sandhāyetaṃ",

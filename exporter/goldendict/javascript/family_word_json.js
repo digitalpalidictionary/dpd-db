@@ -1052,6 +1052,47 @@ var family_word_json = {
   ],
   "count": 7
  },
+ "khaṇa": {
+  "data": [
+   [
+    "akkhaṇa 2",
+    "masc",
+    "inappropriate time; wrong moment; inopportune occasion",
+    "✓"
+   ],
+   [
+    "khaṇa",
+    "masc",
+    "moment; instant; point in time; opportunity",
+    "✓"
+   ],
+   [
+    "khaṇika",
+    "adj",
+    "momentary; temporary; evanescent; changeable; lit. for a moment",
+    "✗"
+   ],
+   [
+    "khaṇikatta",
+    "nt",
+    "fact of being momentary; fact of being instantaneous",
+    "~"
+   ],
+   [
+    "khaṇena",
+    "ind",
+    "in a moment; in a split second",
+    "✓"
+   ],
+   [
+    "sukhaṇa",
+    "masc",
+    "precious moment",
+    "✓"
+   ]
+  ],
+  "count": 6
+ },
  "khara": {
   "data": [
    [
@@ -21650,41 +21691,6 @@ var family_word_json = {
    ]
   ],
   "count": 3
- },
- "khaṇa": {
-  "data": [
-   [
-    "khaṇa",
-    "masc",
-    "moment; instant; point in time; opportunity",
-    "✓"
-   ],
-   [
-    "khaṇika",
-    "adj",
-    "momentary; temporary; evanescent; changeable; lit. for a moment",
-    "✗"
-   ],
-   [
-    "khaṇikatta",
-    "nt",
-    "fact of being momentary; fact of being instantaneous",
-    "~"
-   ],
-   [
-    "khaṇena",
-    "ind",
-    "in a moment; in a split second",
-    "✓"
-   ],
-   [
-    "sukhaṇa",
-    "masc",
-    "precious moment",
-    "✓"
-   ]
-  ],
-  "count": 5
  },
  "khāṇu": {
   "data": [

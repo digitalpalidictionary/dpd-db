@@ -15843,7 +15843,7 @@ var family_root_json = {
   "root_key": "√ās",
   "root_family": "√ās",
   "root_meaning": "sit",
-  "count": 16,
+  "count": 17,
   "data": [
    [
     "acchati 1",
@@ -15855,6 +15855,12 @@ var family_root_json = {
     "acchati 2",
     "pr",
     "lives; stays; remains (in); lit. sits",
+    "✓"
+   ],
+   [
+    "acchati 3",
+    "pr",
+    "remains idle; does nothing; lit. sits",
     "✓"
    ],
    [
@@ -22108,7 +22114,7 @@ var family_root_json = {
    [
     "ajjhogāḷha",
     "pp",
-    "plunged (into); went deeply (into); immersed (in)",
+    "plunged (into); immersed (in); sunk (into)",
     "✓"
    ]
   ]
@@ -31935,7 +31941,7 @@ var family_root_json = {
     "adadi",
     "aor",
     "gave; offered; granted",
-    "✓"
+    "~"
    ],
    [
     "adaṃsu",
@@ -38660,7 +38666,7 @@ var family_root_json = {
    [
     "nassati 4",
     "pr",
-    "disappears; vanishes; goes away; lit. disappears",
+    "disappears; vanishes; goes away",
     "✓"
    ],
    [
@@ -63233,7 +63239,7 @@ var family_root_json = {
   "root_key": "√ud",
   "root_family": "√ud",
   "root_meaning": "be wet",
-  "count": 25,
+  "count": 26,
   "data": [
    [
     "anudaka",
@@ -63341,6 +63347,12 @@ var family_root_json = {
     "odana 2",
     "masc",
     "rice; boiled rice; food; lit. wet stuff; boiled in water",
+    "✓"
+   ],
+   [
+    "odana 3",
+    "adj",
+    "with rice; having boiled rice; with food; lit. with wet stuff; boiled in water",
     "✓"
    ],
    [
@@ -65211,7 +65223,7 @@ var family_root_json = {
   "root_key": "√ṭhā",
   "root_family": "upa √ṭhā",
   "root_meaning": "stand",
-  "count": 85,
+  "count": 86,
   "data": [
    [
     "anupaṭṭhāpetvā",
@@ -65338,6 +65350,12 @@ var family_root_json = {
     "pr",
     "understands",
     "✗"
+   ],
+   [
+    "upaṭṭhahana",
+    "nt",
+    "serving; attending (to); lit. standing near",
+    "✓"
    ],
    [
     "upaṭṭhahanta 1",
@@ -74388,7 +74406,7 @@ var family_root_json = {
    [
     "oropayitvā",
     "abs",
-    "having put down; having laid aside; having removed; having discarded; lit. causing to descend",
+    "having put down; having laid aside; having removed; having discarded; lit. having caused to descend\n",
     "✓"
    ],
    [
@@ -74400,7 +74418,7 @@ var family_root_json = {
    [
     "oropita 2",
     "pp",
-    "(of hair) cut; shaved; lit. taken down",
+    "(of hair) cut; shaved; lit. caused to descend",
     "✓"
    ],
    [
@@ -74412,7 +74430,7 @@ var family_root_json = {
    [
     "oropeti 1",
     "pr",
-    "makes climb down; forces to descend",
+    "makes climb down; forces to descend; lit. causes to descend",
     "~"
    ],
    [
@@ -75831,7 +75849,7 @@ var family_root_json = {
     "apaccāsi",
     "aor",
     "was cooked (in); was boiled (in); was roasted (in)",
-    "✓"
+    "~"
    ],
    [
     "apacci",
@@ -78951,7 +78969,7 @@ var family_root_json = {
     "appaṭiggahitaka",
     "adj",
     "(vinaya) not formally accepted; not received by a monastic; lit. not accepted",
-    "~"
+    "✓"
    ],
    [
     "nappaṭiggaṇhāti 1",
@@ -97510,7 +97528,7 @@ var family_root_json = {
    [
     "asaṅkheyya 1",
     "nt",
-    "incalculable; innumerable (period of time); lit. not to be counted",
+    "(of time) incalculable period; innumerable period; lit. not to be counted",
     "✓"
    ],
    [
@@ -97719,7 +97737,7 @@ var family_root_json = {
   "root_key": "√dhā",
   "root_family": "pati saṃ √dhā",
   "root_meaning": "place, support",
-  "count": 16,
+  "count": 17,
   "data": [
    [
     "appaṭisandhi",
@@ -97804,6 +97822,12 @@ var family_root_json = {
     "fem",
     "link; connection",
     "✗"
+   ],
+   [
+    "paṭisandhika",
+    "adj",
+    "regarding rebirth-linking; concerned with connection to the next existence; lit. with placing back together",
+    "✓"
    ],
    [
     "paṭisandhita",
@@ -101955,7 +101979,7 @@ var family_root_json = {
   "root_key": "√phus 1",
   "root_family": "√phus",
   "root_meaning": "touch",
-  "count": 85,
+  "count": 86,
   "data": [
    [
     "apphuṭṭha",
@@ -102022,6 +102046,12 @@ var family_root_json = {
     "adj",
     "intangible",
     "✗"
+   ],
+   [
+    "aphusana",
+    "nt",
+    "not touching; not contacting",
+    "✓"
    ],
    [
     "aphusanta",
@@ -133813,7 +133843,7 @@ var family_root_json = {
   "root_key": "√var 1",
   "root_family": "√var",
   "root_meaning": "cover, dress, restrain",
-  "count": 84,
+  "count": 85,
   "data": [
    [
     "avārita",
@@ -134198,6 +134228,12 @@ var family_root_json = {
     "pp",
     "obstructed, hindered",
     "✗"
+   ],
+   [
+    "vārita 3",
+    "pp",
+    "forbidden; prohibited; not allowed",
+    "✓"
    ],
    [
     "vāritta",
@@ -134776,8 +134812,8 @@ var family_root_json = {
    [
     "vekalla",
     "nt",
-    "deformity, deficiency",
-    "✗"
+    "deformity; impairment; defectiveness (of); lit. defective state",
+    "✓"
    ],
    [
     "vekallatā",
@@ -143989,6 +144025,26 @@ var family_root_json = {
    ]
   ]
  },
+ "√miss vi ava √miss": {
+  "root_key": "√miss",
+  "root_family": "vi ava √miss",
+  "root_meaning": "mix, mingle",
+  "count": 2,
+  "data": [
+   [
+    "avomissa",
+    "adj",
+    "unmixed; not combined (with)",
+    "✓"
+   ],
+   [
+    "vomissaka",
+    "adj",
+    "miscellaneous, mixed",
+    "✗"
+   ]
+  ]
+ },
  "√ruh vi ava √ruh": {
   "root_key": "√ruh",
   "root_family": "vi ava √ruh",
@@ -144343,7 +144399,7 @@ var family_root_json = {
     "asaṅkiṇṇa 1",
     "pp",
     "unique; singular; solitary; alone; lit. not sprinkled together",
-    "✓"
+    "~"
    ],
    [
     "asaṅkiṇṇa 2",
@@ -144354,8 +144410,8 @@ var family_root_json = {
    [
     "asaṅkiṇṇa 3",
     "pp",
-    "not crowded",
-    "✗"
+    "not crowded; lit. not sprinkled together",
+    "~"
    ],
    [
     "asaṃkiṇṇa 1",
@@ -145255,7 +145311,7 @@ var family_root_json = {
   "root_key": "√gah",
   "root_family": "saṃ √gah",
   "root_meaning": "grasp",
-  "count": 49,
+  "count": 50,
   "data": [
    [
     "asaṅgahita 1.1",
@@ -145444,10 +145500,16 @@ var family_root_json = {
     "✓"
    ],
    [
-    "saṅgahetabba",
+    "saṅgahetabba 1",
     "ptp",
-    "can be included; (of friendship) can be maintained; can be supported; lit. to be held together",
+    "(of friendship) can be maintained; can be supported; lit. to be held together",
     "✓"
+   ],
+   [
+    "saṅgahetabba 2",
+    "ptp",
+    "can be included",
+    "✗"
    ],
    [
     "saṅgahetuṃ",
@@ -146913,7 +146975,7 @@ var family_root_json = {
   "root_key": "√sar 2",
   "root_family": "√sar",
   "root_meaning": "remember",
-  "count": 39,
+  "count": 40,
   "data": [
    [
     "asati 2.1",
@@ -147135,6 +147197,12 @@ var family_root_json = {
     "sāreti 1.1",
     "pr",
     "reminds; makes remember; lit. causes to remember",
+    "✓"
+   ],
+   [
+    "sāretvā 2.1",
+    "abs",
+    "having reminded (about); lit. having caused to remember",
     "✓"
    ],
    [
@@ -153090,9 +153158,9 @@ var family_root_json = {
     "✓"
    ],
    [
-    "sāretvā",
+    "sāretvā 1.1",
     "abs",
-    "having reminded, having made move along",
+    "having made move along",
     "✗"
    ],
    [
@@ -200507,7 +200575,7 @@ var family_root_json = {
   "root_key": "√ikkh",
   "root_family": "pa √ikkh",
   "root_meaning": "see, mark",
-  "count": 17,
+  "count": 18,
   "data": [
    [
     "pekkha 1",
@@ -200586,6 +200654,12 @@ var family_root_json = {
     "pp",
     "seen, looked at",
     "✗"
+   ],
+   [
+    "pekkhitabba",
+    "ptp",
+    "should be looked at; should be seen (as); lit. to be seen",
+    "✓"
    ],
    [
     "pekkhitar",
@@ -211932,20 +212006,6 @@ var family_root_json = {
     "aor",
     "split open; cracked open",
     "✓"
-   ]
-  ]
- },
- "√miss vi ava √miss": {
-  "root_key": "√miss",
-  "root_family": "vi ava √miss",
-  "root_meaning": "mix, mingle",
-  "count": 1,
-  "data": [
-   [
-    "vomissaka",
-    "adj",
-    "miscellaneous, mixed",
-    "✗"
    ]
   ]
  },
