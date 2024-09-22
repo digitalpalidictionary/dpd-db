@@ -1,5 +1,12 @@
-function makeFrequency(data) {
-    const html = `
+function makeFrequency(data, lemma_link) {
+    var html = `
+<p class="heading underlined">
+        ${data.FreqHeading}
+    </p>
+`
+
+if (data.CstFreq[0] != undefined) {
+    html += `
 <table class="freq">
     <thead>
         <tr>
@@ -456,6 +463,24 @@ function makeFrequency(data) {
 </p>
 <p>
     <b>MST</b>: Mahāsaṅgīti Tipiṭaka (Sutta Central)
+</p>
+`
+} else {
+    html += `
+<p>
+    It probably only occurs in compounds.
+</p>
+`
+}
+html += `
+<p>
+    For a detailed explanation of how this word frequency chart is calculated, it's accuracies and inaccuracies,
+    please refer to <a class="link" href="https://digitalpalidictionary.github.io/frequency.html">this webpage</a>.
+</p>
+<p class='footer'>
+    If something looks out of place, <a class="link"
+        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500=${lemma_link}&entry.326955045=Frequency&entry.1433863141=GoldenDict+${data.date}"
+        target="_blank">log it here.</a>
 </p>
 `
     return html

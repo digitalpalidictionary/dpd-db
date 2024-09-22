@@ -40,7 +40,7 @@ func main() {
 
 	tools.PGreenTitle("splitting compounds")
 	testMap := map[string]string{
-		// "ādīnavānisaṃsadassanavidhi": "",
+		// "asisattikuntakalāpādiāyudhasippaṃ": "",
 	}
 	if len(testMap) > 0 {
 		data.G.Unmatched = testMap
@@ -67,7 +67,6 @@ func main() {
 				deconstruct(w)
 			}
 		}
-		data.M.SaveWordStats(w)
 		counter++
 	}
 
@@ -76,10 +75,13 @@ func main() {
 	data.M.SaveMatchedTsv()
 	data.M.SaveUnmatchedTsv()
 	data.M.SaveTopEntriesJson()
-	data.M.SaveToDb()
 	data.M.SaveStatsTsv()
-	tic.Toc()
 
+	if data.L.UnMatchedLimit == 0 {
+		data.M.SaveToDb()
+	}
+
+	tic.Toc()
 }
 
 func deconstruct(w data.WordData) {
@@ -87,4 +89,5 @@ func deconstruct(w data.WordData) {
 	splitters.Split3(w)
 	splitters.SplitRecursive(w)
 	Wg.Done()
+	data.M.SaveWordStats(w)
 }

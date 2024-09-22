@@ -1,4 +1,4 @@
-function makeFamilyCompoundHtml(data) {
+function makeFamilyCompoundHtml(data, lemma_link) {
     const familyCompoundList = data.family_compounds
     const lemma = data.lemma
     var html = "";
@@ -55,7 +55,7 @@ function makeFamilyCompoundHtml(data) {
         <p class="footer">
         Spot a mistake? 
         <a class="link" 
-        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&amp;entry.438735500=${lemma}&amp;entry.326955045=Compound+Family&amp;entry.1433863141=GoldenDict+${data.date}" 
+        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&amp;entry.438735500=${lemma_link}&amp;entry.326955045=Compound+Family&amp;entry.1433863141=GoldenDict+${data.date}" 
         target="_blank">
         Fix it here</a>.`; 
     

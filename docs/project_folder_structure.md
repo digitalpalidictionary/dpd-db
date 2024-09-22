@@ -14,6 +14,7 @@ Where are all the parts of the project located?
 │   ├── lookup  
 │   ├── sanskrit  
 │   └── sinhala  
+├── db_tests  
 ├── docs  
 ├── dps  
 ├── exporter  
@@ -49,7 +50,6 @@ Where are all the parts of the project located?
 │   ├── tutorial  
 ├── shared_data  
 ├── temp  
-├── tests  
 └── tools  
 
 ## Code Structure
@@ -57,8 +57,8 @@ Where are all the parts of the project located?
 There are four main parts to the code:
 
 1. __db__: Create the database and build up the tables of derived data.
-2. __gui__: Add new words, edit and update the db with a GUI. 
-3. __tests__: Run data integrity tests on the db.
+2. __db_tests__: Run data integrity tests on the db.
+3. __gui__: Add new words, edit and update the db with a GUI.  
 4. __exporter__: Compile all the parts and export into various dictionary formats.
 
 ## Folder details
@@ -86,6 +86,8 @@ There are four main parts to the code:
 	- **sanskrit/** Data used for updating the `sanskrit` column in the `dpd_headwords` table.
 
 	- **sinhala/** Data used to populate the `sinhala` table.
+
+- **db_tests/** Tests to ensure the completeness and accuracy of the Pāḷi database.
 
 - **docs/** Helpful project documentation.
 
@@ -136,8 +138,6 @@ There are four main parts to the code:
 	see [scripts readme](scripts/README.md) for more info.
 
 - **shared_data/** Data used across the project.
-
-- **tests/** Tests to ensure the completeness and accuracy of the database.
 
 - **tools/** Python modules used across the project.
 

@@ -2,6 +2,7 @@ package splitters
 
 import (
 	"dpd/go_modules/deconstructor/data"
+	"strings"
 )
 
 func SplitRecursive(w data.WordData) {
@@ -59,5 +60,11 @@ func SplitRecursive(w data.WordData) {
 		}
 	} else {
 		data.BlockedTries++
+	}
+}
+
+func Debugger(w data.WordData) {
+	if !strings.HasSuffix(w.MakeSplitString(), "paṃ") {
+		w.PrintSplitString()
 	}
 }

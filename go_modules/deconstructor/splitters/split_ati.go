@@ -8,7 +8,7 @@ func SplitAti(w data.WordData) {
 
 	if len(w.Middle) > 5 {
 
-		w.InitNewSplitter("ati")
+		w.InitNewSplitter()
 		data.M.ProcessPlusOne(w)
 		word := w.Middle
 		w.RecurseFlag = true
@@ -21,11 +21,13 @@ func SplitAti(w data.WordData) {
 		if word[3] == word[4] {
 			// ati followed by double consonant "atikkamati"
 			w.Middle = word[4:]
-			processName = "ati-dd"
+			processName = "ati1"
+			w.AddPath(processName)
 		} else {
 			// ati followed by single consonant "atikisa"
 			w.Middle = word[3:]
-			processName = "ati"
+			processName = "ati2"
+			w.AddPath(processName)
 		}
 
 		if data.G.IsInInflections(w.Middle) {

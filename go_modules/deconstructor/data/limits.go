@@ -14,14 +14,14 @@ type Limits struct {
 	LwCleanMinLen      int
 	LwFuzzyListMaxLen  int
 	LwFuzzyMinLen      int
-	DictLimit          int
+	TopDictLimit       int
 }
 
 func InitLimits() Limits {
 	var l = Limits{}           // defaults
 	l.Recursive = true         // true
 	l.IgnoreTried = false      // false
-	l.UnMatchedLimit = 0       // 0
+	l.UnMatchedLimit = 100     // 0
 	l.Counter = 25000          // 10000
 	l.MaxWordLength = 0        // 0
 	l.MaxProcessesSingle = 15  // 15-20
@@ -30,6 +30,6 @@ func InitLimits() Limits {
 	l.LwCleanMinLen = 3        // 4
 	l.LwFuzzyListMaxLen = 5    // 5
 	l.LwFuzzyMinLen = 2        // 4
-	l.DictLimit = 5            // 5 entries in GoldenDict
+	l.TopDictLimit = 5         // 5 entries in GoldenDict
 	return l
 }

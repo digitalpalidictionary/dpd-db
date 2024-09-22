@@ -56,17 +56,19 @@ function loadData() {
 //// load json data into buttons 
 
 function loadButtonContent(data) {
+
+    var lemma_link = data.lemma.replace("_", "%20")
     
     //// feedback
 
-    const feedbackHTML = makeFeedback(data);
+    const feedbackHTML = makeFeedback(data, lemma_link);
     const feedbackElement = document.getElementById(`feedback_${data.lemma}`)
     feedbackElement.innerHTML = feedbackHTML
 
     // frequency
 
-    if (data.CstFreq) {
-        const frequencyHTML = makeFrequency(data);
+    if (data.CstFreq != undefined) {
+        const frequencyHTML = makeFrequency(data, lemma_link);
         const frequencyElement = document.getElementById(`frequency_${data.lemma}`)
         frequencyElement.innerHTML = frequencyElement.innerHTML.replace("frequency loading...", frequencyHTML)
     };
@@ -78,7 +80,7 @@ function loadButtonContent(data) {
         && data.family_compounds.length > 0
         && typeof family_compound_json !== "undefined"
     ) {
-        const familyCompoundHtml = makeFamilyCompoundHtml(data)
+        const familyCompoundHtml = makeFamilyCompoundHtml(data, lemma_link)
         const familyCompoundElement = document.getElementById(`family_compound_${data.lemma}`)
         familyCompoundElement.innerHTML = familyCompoundHtml
     };
@@ -89,7 +91,7 @@ function loadButtonContent(data) {
         && typeof family_root_json !== "undefined"
     ) {
         const fr = family_root_json[data.family_root];
-        const familyRootHtml = makeFamilyRootHtml(data, fr);
+        const familyRootHtml = makeFamilyRootHtml(data, fr, lemma_link);
         const familyRootElement = document.getElementById(`family_root_${data.lemma}`);
         familyRootElement.innerHTML = familyRootHtml;
     };
@@ -101,7 +103,7 @@ function loadButtonContent(data) {
         && data.family_idioms.length > 0
         && typeof family_idiom_json !== "undefined"
     ) {
-        const familyIdiomHtml = makeFamilyIdioms(data)
+        const familyIdiomHtml = makeFamilyIdioms(data, lemma_link)
         const familyIdiomElement = document.getElementById(`family_idiom_${data.lemma}`)
         familyIdiomElement.innerHTML = familyIdiomHtml
     };
@@ -113,7 +115,7 @@ function loadButtonContent(data) {
         && data.family_sets.length > 0
         && typeof family_set_json !== "undefined"
     ) {
-        const familySetHtml = makeFamilySets(data)
+        const familySetHtml = makeFamilySets(data, lemma_link)
         const familySetElement = document.getElementById(`family_set_${data.lemma}`)
         familySetElement.innerHTML = familySetHtml
     };
@@ -124,7 +126,7 @@ function loadButtonContent(data) {
         data.family_word
         && typeof family_word_json !== "undefined"
     ) {
-        const familyWordHtml = makeFamilyWordHtml(data);
+        const familyWordHtml = makeFamilyWordHtml(data, lemma_link);
         const familyWordElement = document.getElementById(`family_word_${data.lemma}`)
         familyWordElement.innerHTML = familyWordHtml
     };

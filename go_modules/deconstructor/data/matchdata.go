@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
 	"slices"
 	"strings"
 	"sync"
@@ -64,7 +65,7 @@ func (m *MatchData) NotTriedYet(w WordData) bool {
 	if L.IgnoreTried {
 		return true
 	} else {
-		splitString := w.makeSplitString()
+		splitString := w.MakeSplitString()
 		Mu.Lock()
 		splitList := m.TriedMap[string(w.Word)]
 		Mu.Unlock()
@@ -248,7 +249,7 @@ func (m *MatchData) Summary() {
 func (m MatchData) SaveMatchedTsv() {
 	pf("saving matches:		")
 
-	filePath := tools.Pth.MatchesTsv
+	filePath := filepath.Join(tools.Pth.DpdBaseDir, tools.Pth.MatchesTsv)
 	separator := "\t"
 	header := []string{
 		"word",
@@ -325,19 +326,20 @@ func makeTopTenEntry(mi MatchItem) string {
 }
 
 func (m MatchData) SaveTopEntriesJson() {
-	pf("making top %v json:	", L.DictLimit)
+	pf("making top %v json:	", L.TopDictLimit)
 
-	topFive := map[string][]string{} // top five entries
-	topFivePC := map[string]int{}    // top five process count
+	topDict := map[string][]string{}   // top five entries
+	processCounter := map[string]int{} // process counter
+	extraCounter := map[string]int{}   // extra word counter
 
 	for _, mi := range m.MatchedItems {
 		// TODO add to learn_go
-		entryList, exists := topFive[mi.Word]
+		entryList, exists := topDict[mi.Word]
 		entry := makeTopTenEntry(mi)
 
 		if !exists {
-			topFive[mi.Word] = append(entryList, entry)
-			topFivePC[mi.Word] = mi.ProcessCount
+			topDict[mi.Word] = append(entryList, entry)
+			processCounter[mi.Word] = mi.ProcessCount // PC = Process Count
 
 		} else {
 			if slices.Contains(entryList, entry) {
@@ -345,21 +347,26 @@ func (m MatchData) SaveTopEntriesJson() {
 
 			} else {
 				// limit the Dictionary entries
-				if len(entryList) < L.DictLimit {
-					if mi.ProcessCount < topFivePC[mi.Word]+2 { // only allow words with 1 or 2 more ProcessCount
-						topFive[mi.Word] = append(entryList, entry)
+				if len(entryList) < L.TopDictLimit {
+					if mi.ProcessCount <= processCounter[mi.Word]+1 { // only allow words with 1 or 2 more ProcessCount
+						if extraCounter[mi.Word] < 2 { // only allow two more
+							topDict[mi.Word] = append(entryList, entry)
+						}
+						if mi.ProcessCount > processCounter[mi.Word] {
+							extraCounter[mi.Word] = extraCounter[mi.Word] + 1
+						}
 					}
 				}
 			}
 		}
 	}
 
-	M.TopFive = topFive
+	M.TopFive = topDict
 
 	filePath := tools.Pth.MatchesJson
-	tools.SaveJson(filePath, topFive)
+	tools.SaveJson(filePath, topDict)
 	fileInfo, _ := os.Stat(filePath)
-	pf("%v rows, %.1fMB\n", len(topFive), float64(fileInfo.Size())/1000/1000)
+	pf("%v rows, %.1fMB\n", len(topDict), float64(fileInfo.Size())/1000/1000)
 }
 
 // get the lookup db

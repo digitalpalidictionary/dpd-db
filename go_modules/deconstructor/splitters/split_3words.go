@@ -17,7 +17,7 @@ func Split3(w data.WordData) {
 		return
 	}
 
-	w.InitNewSplitter("Split3")
+	w.InitNewSplitter()
 	data.M.ProcessPlusOne(w)
 	word := w.Middle
 
@@ -41,8 +41,9 @@ func Split3(w data.WordData) {
 				w2.ToRuleFront("0")
 				w2.ToRuleBack("0")
 				w2.AddWeight(2)
+				w2.AddPath("3.1")
 				w2.ProcessCount++
-				data.M.MakeMatch("3Word-ABC", w2)
+				data.M.MakeMatch("3.1", w2)
 				continue
 			}
 
@@ -56,6 +57,7 @@ func Split3(w data.WordData) {
 				w2.ToFront(wordA, middle)
 				w2.ToRuleFront("0")
 				w2.AddWeight(2)
+				w2.AddPath("3.2")
 				Split2(w2)
 			}
 
@@ -68,6 +70,7 @@ func Split3(w data.WordData) {
 				w2.ToBack(middle, wordC)
 				w2.ToRuleBack("0")
 				w2.AddWeight(2)
+				w2.AddPath("3.3")
 				Split2(w2)
 			}
 
@@ -111,8 +114,9 @@ func Split3(w data.WordData) {
 								w2.ToRuleFront(srA.Index)
 								w2.ToRuleBack(srB.Index)
 								w2.AddWeight(srA.Weight + srB.Weight)
+								w2.AddPath("3.4")
 								w2.ProcessCount++
-								data.M.MakeMatch("3Word-123", w2)
+								data.M.MakeMatch("3.4", w2)
 							}
 
 						}

@@ -9,7 +9,7 @@ func SplitAdi(w data.WordData) {
 
 	if len(w.Middle) > 3 {
 
-		w.InitNewSplitter("ādi")
+		w.InitNewSplitter()
 		data.M.ProcessPlusOne(w)
 		word := w.Middle
 		w.RecurseFlag = true
@@ -39,6 +39,7 @@ func SplitAdi(w data.WordData) {
 					w2.ToBack(word1, word2)
 					w2.ToRuleBack(sr.Index)
 					w2.AddWeight(sr.Weight)
+					w2.AddPath("ādi")
 					data.M.MakeMatch(processName, w2)
 
 				} else if string(word2) == "ādi" {
@@ -47,6 +48,7 @@ func SplitAdi(w data.WordData) {
 					w2.ToBack(word1, word2)
 					w2.ToRuleBack(sr.Index)
 					w2.AddWeight(sr.Weight)
+					w2.AddPath("ādi")
 					SplitRecursive(w2)
 				}
 			}

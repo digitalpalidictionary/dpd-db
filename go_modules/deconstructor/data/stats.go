@@ -20,11 +20,12 @@ func (m *MatchData) SaveWordStats(w WordData) {
 	s := statistics{}
 	s.word = string(w.Word)
 	s.time = float64(time.Since(w.StartTime).Seconds())
-	if m.HasNoMatches(w) {
-		s.matched = "false"
-	} else {
-		s.matched = "true"
-	}
+
+	Mu.Lock()
+	_, exists := m.MatchedMap[string(w.Word)]
+	Mu.Unlock()
+	s.matched = spf("%v", exists)
+
 	s.processes = tools.Int2Str(m.ProcessCounter(w))
 	s.comment = ""
 	Mu.Lock()

@@ -908,7 +908,7 @@ def render_frequency_templ(
         header = f"There are no matches of <b>{i.lemma_1}</b> in any corpus."
     
     else:
-        if i.pos in INDECLINABLES:
+        if i.pos in INDECLINABLES or i.stem.startswith("!"):
             header = f"Frequency of <b>{i.lemma_1}</b>."
         elif i.pos in CONJUGATIONS:
             header = f"Frequency of <b>{i.lemma_1}</b> and its conjugations."

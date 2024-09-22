@@ -8,7 +8,7 @@ func SplitDur(w data.WordData) {
 
 	if len(w.Middle) > 3 {
 
-		w.InitNewSplitter("dur")
+		w.InitNewSplitter()
 		data.M.ProcessPlusOne(w)
 		word := w.Middle
 		w.RecurseFlag = true
@@ -21,11 +21,13 @@ func SplitDur(w data.WordData) {
 		if word[2] == word[3] {
 			// dur followed by double consonant "dubbhāsita"
 			w.Middle = word[3:]
-			processName = "dur-dd"
+			processName = "dur1"
+			w.AddPath(processName)
 		} else {
 			// dur followed by single vowel "dur-accaya"
 			w.Middle = word[3:]
-			processName = "dur"
+			processName = "dur2"
+			w.AddPath(processName)
 		}
 
 		// TODO How to handle "du-rakkhiya"?

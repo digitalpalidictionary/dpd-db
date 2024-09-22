@@ -14,7 +14,7 @@ from typing import List, Tuple
 from rich import print
 
 from db.models import DpdHeadword
-from tests.helpers import InternalTestRow
+from db_tests.helpers import InternalTestRow
 # from tools.pali_sort_key import pali_sort_key
 from sqlalchemy.orm import joinedload
 

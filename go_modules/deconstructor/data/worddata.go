@@ -1,6 +1,7 @@
 package data
 
 import (
+	"fmt"
 	"slices"
 	"strings"
 	"time"
@@ -42,22 +43,28 @@ type WordData struct {
 
 // Copy a word's data into new memory, not to mess with for loops
 func (w WordData) MakeCopy() WordData {
-	copy := WordData{}
-	copy.Word = w.Word
-	copy.ProcessCount = w.ProcessCount
-	copy.MatchFlag = w.MatchFlag
-	copy.RecurseFlag = w.RecurseFlag
-	copy.LwffLwfbFlag = w.LwffLwfbFlag
-	copy.Front = w.Front
-	copy.Middle = w.Middle
-	copy.Back = w.Back
-	copy.RuleFront = w.RuleFront
-	copy.RuleBack = w.RuleBack
-	copy.Weight = w.Weight
-	copy.Path = w.Path
-	copy.StartTime = w.StartTime
-	copy.TimeDuration = w.TimeDuration
-	return copy
+	w2 := WordData{}
+	w2.Word = append(w2.Word, w.Word...)
+	w2.ProcessCount = w.ProcessCount + 0
+	w2.MatchFlag = w.MatchFlag
+	w2.RecurseFlag = w.RecurseFlag
+	w2.LwffLwfbFlag = w.LwffLwfbFlag
+	w2.Front = []string{}
+	w2.Front = append(w2.Front, w.Front...)
+	w2.Middle = []rune{}
+	w2.Middle = append(w2.Middle, w.Middle...)
+	w2.Back = []string{}
+	w2.Back = append(w2.Back, w.Back...)
+	w2.RuleFront = []string{}
+	w2.RuleFront = append(w2.RuleFront, w.RuleFront...)
+	w2.RuleBack = []string{}
+	w2.RuleBack = append(w2.RuleBack, w.RuleBack...)
+	w2.Weight = w.Weight + 0
+	w2.Path = []string{}
+	w2.Path = append(w2.Path, w.Path...)
+	w2.StartTime = w.StartTime
+	w2.TimeDuration = w.TimeDuration
+	return w2
 }
 
 // Initialize a word with some default settings
@@ -75,9 +82,13 @@ func InitWordData(word []rune) WordData {
 // Function to run every time a word arrives at a new splitter
 //  1. Updates the matchFlag to false
 //  2. Updates the processName
-func (w *WordData) InitNewSplitter(processName string) {
+func (w *WordData) InitNewSplitter() {
 	w.MatchFlag = false
 	w.ProcessCount++
+
+}
+
+func (w *WordData) AddPath(processName string) {
 	w.Path = append(w.Path, processName)
 }
 
@@ -94,7 +105,7 @@ func (w WordData) ruleString() string {
 	return strings.Join(rulesList, "|")
 }
 
-// Append the word to the w.Front list.
+// Append the word to the end of the w.Front list.
 func (w *WordData) ToFront(front []rune, middle []rune) {
 	w.Front = append(w.Front, string(front))
 	w.Middle = middle
@@ -178,7 +189,7 @@ func (w *WordData) AddWeight(weight int) {
 }
 
 // Return a w.Front middle and back separated by " + "
-func (w WordData) makeSplitString() string {
+func (w WordData) MakeSplitString() string {
 	splitList := []string{}
 	for _, slice := range w.Front {
 		splitList = append(splitList, string(slice))
@@ -188,4 +199,8 @@ func (w WordData) makeSplitString() string {
 		splitList = append(splitList, string(slice))
 	}
 	return strings.Join(splitList, " + ")
+}
+
+func (w WordData) PrintSplitString() {
+	fmt.Println(w.MakeSplitString())
 }

@@ -17,7 +17,7 @@ func Split2(w data.WordData) {
 		return
 	}
 
-	w.InitNewSplitter("split2")
+	w.InitNewSplitter()
 	data.M.ProcessPlusOne(w)
 	word := w.Middle
 
@@ -35,7 +35,8 @@ func Split2(w data.WordData) {
 			w2.ToFront(wordA, wordB)
 			w2.ToRuleFront("0")
 			w2.AddWeight(2)
-			data.M.MakeMatch("2Word-AB", w2)
+			w2.AddPath("2.1")
+			data.M.MakeMatch("2.1", w2)
 		}
 
 		wordALasLetter := wordA[len(wordA)-1:]
@@ -58,7 +59,8 @@ func Split2(w data.WordData) {
 					w2.ToFront(word1, word2)
 					w2.ToRuleFront(sr.Index)
 					w2.AddWeight(sr.Weight)
-					data.M.MakeMatch("2Word-12", w2)
+					w2.AddPath("2.2")
+					data.M.MakeMatch("2.2", w2)
 				}
 			}
 		}

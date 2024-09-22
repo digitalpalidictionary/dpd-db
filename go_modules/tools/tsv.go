@@ -10,23 +10,18 @@ func SaveTsv(
 	filePath string, separator string, header []string, data [][]string) {
 
 	file, err := os.Create(filePath)
-	if err != nil {
-		panic(err)
-	} else {
-		defer file.Close()
-	}
+	HardCheck(err)
 
 	df := csv.NewWriter(file)
 	df.Comma = []rune(separator)[0]
 
 	err = df.Write(header)
-	if err != nil {
-		panic(err)
-	}
+	HardCheck(err)
+
 	err = df.WriteAll(data)
-	if err != nil {
-		panic(err)
-	}
+	HardCheck(err)
+
+	file.Close()
 }
 
 func ReadText(filePath string) []string {

@@ -9,7 +9,7 @@ func SplitNeg(w data.WordData) {
 
 	if len(w.Middle) > 3 {
 
-		w.InitNewSplitter("neg")
+		w.InitNewSplitter()
 		data.M.ProcessPlusOne(w)
 		word := w.Middle
 		w.Front = append(w.Front, "na")
@@ -21,32 +21,38 @@ func SplitNeg(w data.WordData) {
 			if word[2] == word[3] {
 				// na-ppahoti
 				w.Middle = word[3:]
-				processName = "neg-na-pp"
+				processName = "neg1"
+				w.AddPath(processName)
 			} else {
 				// na-khudda
 				w.Middle = word[2:]
-				processName = "neg-na"
+				processName = "neg2"
+				w.AddPath(processName)
 			}
 
 		} else if w.StartsWith("an") {
 			w.Middle = word[2:]
-			processName = "neg-an"
+			processName = "neg3"
+			w.AddPath(processName)
 
 		} else if w.StartsWith("nā") {
 			w.Middle = t.Str2Rune("a" + string(w.Middle[2:]))
-			processName = "neg-nā"
+			processName = "neg4"
+			w.AddPath(processName)
 
 		} else if w.StartsWith("a") {
 
 			if word[1] == word[2] {
 				// a-ññāṇa
 				w.Middle = word[2:]
-				processName = "neg-a-pp"
+				processName = "neg5"
+				w.AddPath(processName)
 
 			} else {
 				//  a-samaṇā
 				w.Middle = word[1:]
-				processName = "neg-a"
+				processName = "neg6"
+				w.AddPath(processName)
 			}
 		}
 

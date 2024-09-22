@@ -137,8 +137,8 @@ from db.db_helpers import get_db_session
 from scripts.backup.backup_dpd_headwords_and_roots import backup_dpd_headwords_and_roots
 from scripts.backup.backup_ru_sbs import backup_ru_sbs
 
-from tests.test_allowable_characters import test_allowable_characters_gui
-from tests.test_allowable_characters import test_allowable_characters_gui_dps
+from db_tests.test_allowable_characters import test_allowable_characters_gui
+from db_tests.test_allowable_characters import test_allowable_characters_gui_dps
 
 from tools.goldendict_tools import open_in_goldendict
 from tools.paths import ProjectPaths

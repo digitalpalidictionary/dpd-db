@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"slices"
+	"strings"
 	"sync"
 	"text/template"
 
@@ -119,14 +120,15 @@ func cloneTemplate() *template.Template {
 }
 
 type templateData struct {
-	CstFreq []int
-	CstGrad []int
-	BjtFreq []int
-	BjtGrad []int
-	SyaFreq []int
-	SyaGrad []int
-	ScFreq  []int
-	ScGrad  []int
+	FreqHeading string
+	CstFreq     []int
+	CstGrad     []int
+	BjtFreq     []int
+	BjtGrad     []int
+	SyaFreq     []int
+	SyaGrad     []int
+	ScFreq      []int
+	ScGrad      []int
 }
 
 func makeFreqTable(i dpdDb.DpdHeadword) {
@@ -157,6 +159,9 @@ func makeFreqTable(i dpdDb.DpdHeadword) {
 		tools.IsAllZero(BjtFreqList) &&
 		tools.IsAllZero(ScFreqList) {
 
+		heading := fmt.Sprintf("There are no exact matches of <b>%v</b>", i.Lemma1)
+
+		td.FreqHeading = heading
 		td.CstFreq = []int{}
 		td.CstGrad = []int{}
 		td.BjtFreq = []int{}
@@ -170,6 +175,20 @@ func makeFreqTable(i dpdDb.DpdHeadword) {
 
 	} else {
 
+		var heading string
+
+		if slices.Contains(tools.Indeclinables, i.POS) ||
+			strings.HasPrefix(i.Stem, "!") {
+			heading = fmt.Sprintf("Frequency of <b>%v</b>", i.Lemma1)
+
+		} else if slices.Contains(tools.Conjugations, i.POS) {
+			heading = fmt.Sprintf("Frequency of <b>%v</b> and its conjugations", i.Lemma1)
+
+		} else if slices.Contains(tools.Declensions, i.POS) {
+			heading = fmt.Sprintf("Frequency of <b>%v</b> and its declensions", i.Lemma1)
+		}
+
+		td.FreqHeading = heading
 		td.CstFreq = CstFreqList
 		td.CstGrad = CstGradientList
 		td.BjtFreq = BjtFreqList

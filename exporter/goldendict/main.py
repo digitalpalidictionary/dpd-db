@@ -90,19 +90,26 @@ def main():
         g.db_session, g.pth, g.rupth, g.sandhi_contractions, g.cf_set, g.idioms_set, g.make_link, g.show_sbs_data, g.lang, g.data_limit)
     g.rendered_sizes.append(sizes)
 
-    root_data_list, sizes = generate_root_html(g.db_session, g.pth, g.roots_count_dict, g.rupth, g.lang, g.show_sbs_data)
-    g.rendered_sizes.append(sizes)
+    if g.data_limit == 0:
+        root_data_list, sizes = generate_root_html(g.db_session, g.pth, g.roots_count_dict, g.rupth, g.lang, g.show_sbs_data)
+        g.rendered_sizes.append(sizes)
 
-    variant_spelling_data_list, sizes = generate_variant_spelling_html(g.pth, g.rupth, g.lang)
-    g.rendered_sizes.append(sizes)
+        variant_spelling_data_list, sizes = generate_variant_spelling_html(g.pth, g.rupth, g.lang)
+        g.rendered_sizes.append(sizes)
 
-    epd_data_list, sizes = generate_epd_html(g.db_session, g.pth, g.rupth, g.make_link, g.show_sbs_data, g.lang)
-    g.rendered_sizes.append(sizes)
+        epd_data_list, sizes = generate_epd_html(g.db_session, g.pth, g.rupth, g.make_link, g.show_sbs_data, g.lang)
+        g.rendered_sizes.append(sizes)
+        
+        help_data_list, sizes = generate_help_html(g.db_session, g.pth, g.rupth, g.lang, g.show_sbs_data)
+        g.rendered_sizes.append(sizes)
+
+        g.db_session.close()
     
-    help_data_list, sizes = generate_help_html(g.db_session, g.pth, g.rupth, g.lang, g.show_sbs_data)
-    g.rendered_sizes.append(sizes)
-
-    g.db_session.close()
+    else:
+        root_data_list =[]
+        variant_spelling_data_list = []
+        epd_data_list = []
+        help_data_list = []
 
     g.dict_data = (
         dpd_data_list + 
@@ -176,7 +183,7 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
 
     export_to_goldendict_with_pyglossary(dict_info, dict_var, g.dict_data)
 
-    if g.make_mdict:
+    if g.make_mdict and g.data_limit == 0:
         export_to_mdict(dict_info, dict_var, g.dict_data)
 
 

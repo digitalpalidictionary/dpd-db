@@ -8,7 +8,7 @@ func SplitSu(w data.WordData) {
 
 	if len(w.Middle) > 3 {
 
-		w.InitNewSplitter("su")
+		w.InitNewSplitter()
 		data.M.ProcessPlusOne(w)
 		word := w.Middle
 		w.Front = append(w.Front, "su")
@@ -18,11 +18,13 @@ func SplitSu(w data.WordData) {
 		if word[2] == word[3] {
 			// su followed by double consonant "succhanna"
 			w.Middle = word[3:]
-			processName = "su-dd"
+			processName = "su1"
+			w.AddPath(processName)
 		} else {
 			// su followed by single consonant "sucitti"
 			w.Middle = word[2:]
-			processName = "su"
+			processName = "su2"
+			w.AddPath(processName)
 		}
 
 		if data.G.IsInInflections(w.Middle) {
