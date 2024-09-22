@@ -119,16 +119,25 @@ def test6(g):
         clean_bold_nasal = f"{g.clean_bold_word[:-2]}ṃ"
         if clean_bold_nasal in g.inflections_list:
             return
-    printer(g, "test6")
+    test7(g)
+
+def test7(g):
+    """test 7, last position is sandhi."""
+
+    for inflection in g.inflections_list:
+        inflection_len = len(inflection)
+
+        if (
+            g.clean_bold_word[:inflection_len-1] == inflection[:-1]
+        ):
+            return
+    printer(g, "test7")
 
 
 def printer(g, message):
     """Print out the problem and up the tally."""
-    p = f"{g.counter:<4}{g.i.id:<8}{g.i.lemma_1:<40}"
-    p += f"[deep_sky_blue4]{g.field:<10}"
-    p += f"[chartreuse2]{g.clean_bold_word:<30}"
-    p += f"[light_sky_blue3]{message:<10}"
-    print(p, end="")
+    print(f"{g.counter:<20}{g.i.id:<20}{g.i.lemma_1:<20}")
+    print(f"[light_sky_blue3]{message:<20}[deep_sky_blue4]{g.field:<20}[chartreuse2]{g.clean_bold_word:<20}")
     g.counter += 1
     pyperclip.copy(g.i.lemma_1)
     input("press enter to continue: ")
