@@ -15,7 +15,7 @@ func SplitDur(w data.WordData) {
 		processName := "dur"
 
 		w.Front = append(w.Front, "dur")
-		w.ToRuleFront("0")
+		w.ToRuleFront(0)
 		w.AddWeight(2)
 
 		if word[2] == word[3] {

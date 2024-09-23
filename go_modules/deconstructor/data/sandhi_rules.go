@@ -1,7 +1,7 @@
 package data
 
 type SandhiRules struct {
-	Index  string
+	Index  int
 	ChA    []rune
 	ChB    []rune
 	Ch1    []rune

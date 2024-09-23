@@ -28,11 +28,11 @@ func SplitSu(w data.WordData) {
 		}
 
 		if data.G.IsInInflections(w.Middle) {
-			w.ToRuleFront("0")
+			w.ToRuleFront(0)
 			w.AddWeight(2)
 			data.M.MakeMatch(processName, w)
 		} else {
-			w.ToRuleFront("0")
+			w.ToRuleFront(0)
 			w.AddWeight(2)
 			SplitRecursive(w)
 		}

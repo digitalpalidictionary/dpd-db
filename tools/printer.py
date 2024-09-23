@@ -37,3 +37,6 @@ def p_bop():
 def p_counter(counter: int, total:int, word):
     print(f"{counter:>10,} / {total:<10,} {word[:20]:<20} {bop():>10}")
     bip()
+
+def p_summary(key, value):
+    print(f"[green]{key:<20}[/green]{value}")

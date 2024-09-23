@@ -62,22 +62,19 @@ func (m MatchData) HasNoMatches(w WordData) bool {
 
 // Has this word already been tried? If not, add to the triedMap.
 func (m *MatchData) NotTriedYet(w WordData) bool {
-	if L.IgnoreTried {
-		return true
+	splitString := w.MakeSplitString()
+	Mu.Lock()
+	splitList := m.TriedMap[string(w.Word)]
+	Mu.Unlock()
+	if slices.Contains(splitList, splitString) {
+		return false
 	} else {
-		splitString := w.MakeSplitString()
 		Mu.Lock()
-		splitList := m.TriedMap[string(w.Word)]
+		m.TriedMap[string(w.Word)] = append(splitList, splitString)
 		Mu.Unlock()
-		if slices.Contains(splitList, splitString) {
-			return false
-		} else {
-			Mu.Lock()
-			m.TriedMap[string(w.Word)] = append(splitList, splitString)
-			Mu.Unlock()
-			return true
-		}
+		return true
 	}
+
 }
 
 func (m MatchData) matchCount(w WordData) int {

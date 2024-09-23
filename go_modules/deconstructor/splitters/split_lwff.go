@@ -56,13 +56,13 @@ func SplitLwff(w data.WordData) {
 		if len(middle) >= data.L.LwCleanMinLen {
 			if data.G.IsInInflections(middle) {
 				w2.ToFront(lwffClean, middle)
-				w2.ToRuleFront("0")
+				w2.ToRuleFront(0)
 				w2.AddWeight(2)
 				w2.AddPath("lwff1")
 				data.M.MakeMatch("lwff1", w2)
 			} else {
 				w2.ToFront(lwffClean, middle)
-				w2.ToRuleFront("0")
+				w2.ToRuleFront(0)
 				w2.AddWeight(2)
 				w2.AddPath("lwff1")
 				SplitRecursive(w2)

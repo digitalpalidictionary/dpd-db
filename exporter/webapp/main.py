@@ -229,6 +229,9 @@ def make_dpd_html(q: str) -> tuple[str, str]:
                         .filter(FamilyRoot.root_key == r.root)
                     frs = sorted(frs, key=lambda x: pali_sort_key(x.root_family))
                     d = RootsData(r, frs, roots_count_dict)
+                    summary_html += templates \
+                        .get_template("root_summary.html") \
+                        .render(d=d)
                     dpd_html += templates \
                         .get_template("root.html") \
                         .render(d=d)

@@ -53,11 +53,11 @@ func SplitTta(w data.WordData) {
 		}
 
 		if data.G.IsInInflections(w.Middle) {
-			w.ToRuleBack("0")
+			w.ToRuleBack(0)
 			w.AddWeight(2)
 			data.M.MakeMatch(processName, w)
 		} else {
-			w.ToRuleBack("0")
+			w.ToRuleBack(0)
 			w.AddWeight(2)
 			SplitRecursive(w)
 		}

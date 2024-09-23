@@ -33,7 +33,7 @@ func Split2(w data.WordData) {
 			// add to matches
 			w2 := w.MakeCopy()
 			w2.ToFront(wordA, wordB)
-			w2.ToRuleFront("0")
+			w2.ToRuleFront(0)
 			w2.AddWeight(2)
 			w2.AddPath("2.1")
 			data.M.MakeMatch("2.1", w2)

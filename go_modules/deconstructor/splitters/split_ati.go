@@ -15,7 +15,7 @@ func SplitAti(w data.WordData) {
 		processName := "ati"
 
 		w.Front = append(w.Front, "ati")
-		w.ToRuleFront("0")
+		w.ToRuleFront(0)
 		w.AddWeight(2)
 
 		if word[3] == word[4] {

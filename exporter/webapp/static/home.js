@@ -107,8 +107,10 @@ document.addEventListener("DOMContentLoaded", function() {
 //// back button
 
 window.onpopstate = function(e) {
-    searchBox.value = e.state.q;
-    handleFormSubmit().then();
+    if (e.state !=null) {
+        searchBox.value = e.state.q;
+        handleFormSubmit().then();
+    }
 };
 
 //// trigger title clear - go home

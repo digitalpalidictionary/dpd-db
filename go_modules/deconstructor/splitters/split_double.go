@@ -14,12 +14,12 @@ func SplitDoubleLetter(w data.WordData) {
 	w.Middle = w.Middle[1:]
 
 	if data.G.IsInInflections(w.Middle) {
-		w.ToRuleFront("0")
+		w.ToRuleFront(0)
 		w.AddWeight(1)
 		w.AddPath(processName)
 		data.M.MakeMatch(processName, w)
 	} else {
-		w.ToRuleFront("0")
+		w.ToRuleFront(0)
 		w.AddWeight(2)
 		w.AddPath(processName)
 		SplitRecursive(w)

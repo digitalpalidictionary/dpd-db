@@ -8,6 +8,8 @@
     --colour0: #00718d;
     --colour1: #00A4CC;
     --colour2: #65DBFF;
+    --root-colour1: #AB3C00;
+    --root-colour2: #F95700;;
 }
 
 .dark-mode {
@@ -210,6 +212,12 @@ p.message {
 
 .summary-link {
     color: var(--colour1);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.root-summary-link {
+    color: var(--root-colour1);
     text-decoration: none;
     font-weight: bold;
 }

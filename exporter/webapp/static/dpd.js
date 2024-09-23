@@ -37,7 +37,7 @@ function button_click(el) {
                 }
             });
 
-            var allContentAreas = document.querySelectorAll('.content');
+            var allContentAreas = document.querySelectorAll('.content, .root_content');
             allContentAreas.forEach(function(contentArea) {
                 if (contentArea!== target &&!contentArea.classList.contains("summary")) {
                     contentArea.classList.add("hidden");

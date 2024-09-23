@@ -17,8 +17,8 @@ func makeSandhiRules() []data.SandhiRules {
 
 	sandhiRulesList := []data.SandhiRules{}
 
-	for count, value := range dat {
-		index := tools.Int2Str(count + 2)
+	for _, value := range dat {
+		index := tools.Str2Int(value["index"])
 		weight := tools.Str2Int(value["weight"])
 		sr := data.SandhiRules{
 			Index:  index,

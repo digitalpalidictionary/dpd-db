@@ -88,7 +88,7 @@ func MakeUnmatched() {
 	ic.unmatched1 = tools.MapDifference(ic.allWords, ic.allInflections)
 	ic.unmatched1 = tools.MapDifference(ic.unmatched1, ic.inflectionExceptions)
 
-	if data.L.UnMatchedLimit != 0 {
+	if data.L.WordLimit != 0 {
 		reduceUnmatched()
 	}
 
@@ -99,7 +99,7 @@ func reduceUnmatched() {
 	counter := 0
 	unmatchedReduced := map[string]string{}
 	for word := range ic.unmatched1 {
-		if counter >= data.L.UnMatchedLimit {
+		if counter >= data.L.WordLimit {
 			break
 		} else {
 			unmatchedReduced[word] = ""
@@ -124,7 +124,9 @@ func makeDpdWords() {
 }
 
 func makeCstWords() {
-	filePath := filepath.Join(tools.Pth.DpdBaseDir, tools.Pth.CstWordList)
+	filePath := filepath.Join(
+		tools.Pth.DpdBaseDir, tools.Pth.CstWordList,
+	)
 	CstWordList := []string{}
 	CstWordList = tools.ReadJsonSliceString(filePath, CstWordList)
 	for _, word := range CstWordList {
@@ -133,7 +135,9 @@ func makeCstWords() {
 }
 
 func makeBjtWords() {
-	filePath := filepath.Join(tools.Pth.DpdBaseDir, tools.Pth.BjtWordList)
+	filePath := filepath.Join(
+		tools.Pth.DpdBaseDir, tools.Pth.BjtWordList,
+	)
 	BjtWordList := []string{}
 	BjtWordList = tools.ReadJsonSliceString(filePath, BjtWordList)
 	for _, word := range BjtWordList {
@@ -142,7 +146,9 @@ func makeBjtWords() {
 }
 
 func makeScWords() {
-	filePath := filepath.Join(tools.Pth.DpdBaseDir, tools.Pth.ScWordList)
+	filePath := filepath.Join(
+		tools.Pth.DpdBaseDir, tools.Pth.ScWordList,
+	)
 	ScWordList := []string{}
 	ScWordList = tools.ReadJsonSliceString(filePath, ScWordList)
 	for _, word := range ScWordList {
@@ -151,7 +157,9 @@ func makeScWords() {
 }
 
 func makeSyaWords() {
-	filePath := filepath.Join(tools.Pth.DpdBaseDir, tools.Pth.SyaWordList)
+	filePath := filepath.Join(
+		tools.Pth.DpdBaseDir, tools.Pth.SyaWordList,
+	)
 	SyaWordList := []string{}
 	SyaWordList = tools.ReadJsonSliceString(filePath, SyaWordList)
 	for _, word := range SyaWordList {
@@ -160,7 +168,9 @@ func makeSyaWords() {
 }
 
 func makeOtherPaliTexts() {
-	filePath := filepath.Join(tools.Pth.DpdBaseDir, tools.Pth.OtherPaliTextsDir)
+	filePath := filepath.Join(
+		tools.Pth.DpdBaseDir, tools.Pth.OtherPaliTextsDir,
+	)
 	dir, err := os.ReadDir(filePath)
 	tools.HardCheck(err)
 
@@ -177,7 +187,9 @@ func makeOtherPaliTexts() {
 }
 
 func makeVariants() {
-	filePath := filepath.Join(tools.Pth.DpdBaseDir, tools.Pth.VariantReadings)
+	filePath := filepath.Join(
+		tools.Pth.DpdBaseDir, tools.Pth.VariantReadings,
+	)
 	variantMap := tools.ReadTsv(filePath)
 	for _, data := range variantMap {
 		variant := data["variant"]
@@ -189,7 +201,9 @@ func makeVariants() {
 }
 
 func makeSpellingMistakes() {
-	filePath := filepath.Join(tools.Pth.DpdBaseDir, tools.Pth.SpellingMistakes)
+	filePath := filepath.Join(
+		tools.Pth.DpdBaseDir, tools.Pth.SpellingMistakes,
+	)
 	spellingMap := tools.ReadTsv(filePath)
 	for _, data := range spellingMap {
 		mistake := data["mistake"]
@@ -275,7 +289,9 @@ func makeAllInflectionsNoLast() {
 }
 
 func makeInflectionExceptions() {
-	filePath := filepath.Join(tools.Pth.DpdBaseDir, tools.Pth.DeconExceptions)
+	filePath := filepath.Join(
+		tools.Pth.DpdBaseDir, tools.Pth.DeconExceptions,
+	)
 	exceptions := tools.ReadText(filePath)
 	for _, word := range exceptions {
 		ic.inflectionExceptions[word] = ""

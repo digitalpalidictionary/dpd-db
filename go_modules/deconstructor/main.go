@@ -5,6 +5,7 @@ import (
 	"dpd/go_modules/deconstructor/importer"
 	"dpd/go_modules/deconstructor/splitters"
 	"dpd/go_modules/tools"
+	"maps"
 	"sync"
 )
 
@@ -38,18 +39,19 @@ func main() {
 		return
 	}
 
+	// only for testing
 	tools.PGreenTitle("splitting compounds")
-	testMap := map[string]string{
+	testSet := map[string]string{
 		// "asisattikuntakalāpādiāyudhasippaṃ": "",
 	}
-	if len(testMap) > 0 {
-		data.G.Unmatched = testMap
-		data.M.Unmatched = testMap
+	if len(testSet) > 0 {
+		data.G.Unmatched = maps.Clone(testSet)
+		data.M.Unmatched = maps.Clone(testSet)
 	}
 
 	counter := 1
 	for word := range data.G.Unmatched {
-		if counter%data.L.Counter == 0 {
+		if counter%data.L.CountEvery == 0 {
 			tools.PCounter(counter, len(data.G.Unmatched), word)
 		}
 
@@ -77,7 +79,7 @@ func main() {
 	data.M.SaveTopEntriesJson()
 	data.M.SaveStatsTsv()
 
-	if data.L.UnMatchedLimit == 0 {
+	if data.L.WordLimit == 0 && len(testSet) == 0 {
 		data.M.SaveToDb()
 	}
 

@@ -1,6 +1,7 @@
 package data
 
 import (
+	"dpd/go_modules/tools"
 	"fmt"
 	"slices"
 	"strings"
@@ -33,38 +34,12 @@ type WordData struct {
 	Front        []string
 	Middle       []rune
 	Back         []string
-	RuleFront    []string
-	RuleBack     []string
+	RuleFront    []int
+	RuleBack     []int
 	Weight       int
 	Path         []string
 	StartTime    time.Time
 	TimeDuration time.Duration
-}
-
-// Copy a word's data into new memory, not to mess with for loops
-func (w WordData) MakeCopy() WordData {
-	w2 := WordData{}
-	w2.Word = append(w2.Word, w.Word...)
-	w2.ProcessCount = w.ProcessCount + 0
-	w2.MatchFlag = w.MatchFlag
-	w2.RecurseFlag = w.RecurseFlag
-	w2.LwffLwfbFlag = w.LwffLwfbFlag
-	w2.Front = []string{}
-	w2.Front = append(w2.Front, w.Front...)
-	w2.Middle = []rune{}
-	w2.Middle = append(w2.Middle, w.Middle...)
-	w2.Back = []string{}
-	w2.Back = append(w2.Back, w.Back...)
-	w2.RuleFront = []string{}
-	w2.RuleFront = append(w2.RuleFront, w.RuleFront...)
-	w2.RuleBack = []string{}
-	w2.RuleBack = append(w2.RuleBack, w.RuleBack...)
-	w2.Weight = w.Weight + 0
-	w2.Path = []string{}
-	w2.Path = append(w2.Path, w.Path...)
-	w2.StartTime = w.StartTime
-	w2.TimeDuration = w.TimeDuration
-	return w2
 }
 
 // Initialize a word with some default settings
@@ -77,6 +52,33 @@ func InitWordData(word []rune) WordData {
 	w.Path = []string{"start"}
 	w.StartTime = time.Now()
 	return w
+}
+
+// Copy a word's data into new memory
+func (w WordData) MakeCopy() WordData {
+	w2 := WordData{}
+
+	w2.Word = slices.Clone(w.Word)
+
+	w2.ProcessCount = w.ProcessCount
+	w2.MatchFlag = w.MatchFlag
+	w2.RecurseFlag = w.RecurseFlag
+	w2.LwffLwfbFlag = w.LwffLwfbFlag
+
+	w2.Front = slices.Clone(w.Front)
+	w2.Middle = slices.Clone(w.Middle)
+	w2.Back = slices.Clone(w.Back)
+
+	w2.RuleFront = slices.Clone(w.RuleFront)
+	w2.RuleFront = slices.Clone(w.RuleFront)
+
+	w2.Weight = w.Weight + 0
+	w2.Path = slices.Clone(w.Path)
+
+	w2.StartTime = w.StartTime
+	w2.TimeDuration = w.TimeDuration
+
+	return w2
 }
 
 // Function to run every time a word arrives at a new splitter
@@ -99,10 +101,14 @@ func (w WordData) pathString() string {
 
 // Return the list of rules joined with '|'
 func (w WordData) ruleString() string {
-	var rulesList []string
+	var rulesList []int
 	rulesList = append(rulesList, w.RuleFront...)
 	rulesList = append(rulesList, w.RuleBack...)
-	return strings.Join(rulesList, "|")
+	ruleListString := []string{}
+	for _, rule := range rulesList {
+		ruleListString = append(ruleListString, tools.Int2Str(rule))
+	}
+	return strings.Join(ruleListString, "|")
 }
 
 // Append the word to the end of the w.Front list.
@@ -119,12 +125,12 @@ func (w *WordData) ToBack(middle []rune, back []rune) {
 }
 
 // Append the rule to the w.ruleFront list.
-func (w *WordData) ToRuleFront(rule string) {
+func (w *WordData) ToRuleFront(rule int) {
 	w.RuleFront = append(w.RuleFront, rule)
 }
 
 // Insert the rule to the 0 position in the w.ruleBack list.
-func (w *WordData) ToRuleBack(rule string) {
+func (w *WordData) ToRuleBack(rule int) {
 	w.RuleBack = slices.Insert(w.RuleBack, 0, rule)
 }
 
