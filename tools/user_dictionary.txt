@@ -287,6 +287,7 @@ Barleria
 Barringtonia
 barters
 Bassia
+bather
 batrachus
 Bauhinia
 bayur
@@ -300,6 +301,7 @@ bedstead
 befooled
 befools
 beggings
+begrudges
 Belaṭṭha
 Belaṭṭhaputta
 beleric
@@ -390,6 +392,7 @@ brinjal
 broadcasted
 brū
 Buchanania
+Buddha's
 Buddhadatta
 Buddhaghosa
 Buddhaghosa's
@@ -719,6 +722,7 @@ Entada
 enterer
 entwinings
 enumerates
+enunciated
 equanimously
 equipoise
 eraka
@@ -1772,6 +1776,7 @@ Raṭṭhapāla
 rattinuṭṭhānadassinā
 readmission
 readmits
+realizable
 reasoner
 reassociated
 rebecoming
@@ -1960,6 +1965,7 @@ Siddhartha
 Siddhartha's
 Siddhattha
 Siddhattha's
+sieves
 sīghasotāya
 signless
 Sīha
@@ -2276,6 +2282,7 @@ uncleaned
 uncloven
 uncompassionate
 uncompounded
+unconcealed
 unconceived
 unconfused
 unconsoled
@@ -2544,6 +2551,7 @@ wheresthelibrary
 wieldiness
 wieldy
 wifehood
+winnows
 witnesser
 wooled
 woundless
@@ -2572,7 +2580,3 @@ yojanas
 yoking
 zizanioides
 Ziziphus
-enunciated
-unconcealed
-begrudges
-realizable

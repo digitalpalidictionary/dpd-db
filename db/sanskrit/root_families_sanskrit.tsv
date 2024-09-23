@@ -738,7 +738,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √guh	1	*a	hide, conceal	√guh	1	hide	pati √guh		
 √guh	1	*a	hide, conceal	√guh	1	hide	pari √guh		pari + guhyate, pari + gūhati
 √guḷ	1	a	roll around, protect	√guḍ	6	guard	√guḷ		guḍa, guṇa, gulikā, guṭikā, golikā, gola, golaka
-√gū	1	a	excrete	√gu √gū	6	void	√gū		gūtha, gūtha +
+√gū	1	a	excrete	√gu √gū	6	void	√gū	gū	gūtha, gūtha +
 √ghaṭ 1	8	*aya	strike, kill	√han √ghaṭ	1, 2, 8	smite	√ghaṭ	han	ghaṭ, ghaṭā (head), ghaṭṭita (closed), ghāṭayat, ghāṭayitavya, ghāṭayitum, ghāta, ghātaka, ghātana, ghātayati, ghātita, ghātita +, ghātin, ghātya, ghnī, na + ghāṭayat, hantṛ
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	anu saṃ √ghaṭ		
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	abhi √ghaṭ	abhihan	abhighāta, abhighātin
@@ -804,7 +804,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √car 1	1	a	move, walk	√car	1	move	ava √car	avacar	avacara, avacaraka (footman)
 √car 1	1	a	move, walk	√car	1	move	ud √car	uccar	uccarayitum, uccarayitvā, uccāra, uccāraṇa, uccārayati, ucchrita
 √car 1	1	a	move, walk	√car	1	move	upa √car	upacar	upacarati, upacāra, upacāra (bsk)
-√car 1	1	a	move, walk	√car	1	move	upa vi √car		upavicarati (bsk), upavicāra
+√car 1	1	a	move, walk	√car	1	move	upa vi √car	car	upavicarati (bsk), upavicāra
 √car 1	1	*e	move, walk	√car	1	move	nī √car	niścar	na + niścarayitvā, niścarat, niścarati, niścarayitvā, niścāraka, niścāraka, niścārakam (bsk), niścāraṇa (bsk), niścārayat, niścārayati
 √car 1	1	*aya	move, walk	√car	1	move	pa √car	pracar	pracārayati
 √car 1	1	a	move, walk	√car	1	move	pa vi √car	pravicar	pravicarat, pravicarati
@@ -916,7 +916,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √chid	2	ṃa	cut, steal	√chid	7, 9	cut off	ava √chid	avacchid	avacchedaka (distinguishing), na + avacchedana
 √chid	2	ṃa	cut, steal	√chid	7, 9	cut off	ā √chid	ācchid	acchaitsīt, acchidat, ācchittvā, ācchidya, ācchinatti, ācchindat, ācchinna, ācchedana, steya, stainya
 √chid	2	ṃa	cut, steal	√chid	7, 9	cut off	ud √chid	ucchid	aucchinat, anuccheda, ucchittvā, ucchidya, ucchidyate, ucchinna, ucchinna +, uccheda, ucchediṣyati, ucchedyate, uchinatti, uchindat
-√chid	2	ṃa	cut, steal	√chid	7, 9	cut off	upa √chid		anavacchinna +, avacchinna, upacchinna (bsk), ucchid, ucchinatti, ucchinatti, uccheda, upaccheda (bsk), upa + chid, upacchedana (bsk)
+√chid	2	ṃa	cut, steal	√chid	7, 9	cut off	upa √chid	chid	anavacchinna +, avacchinna, upacchinna (bsk), ucchid, ucchinatti, ucchinatti, uccheda, upaccheda (bsk), upa + chid, upacchedana (bsk)
 √chid	2	*e	cut, steal	√chid	7, 9	cut off	nī √chid	nirchid	
 √chid	2	ya	cut, steal	√chid	7, 9	cut off	pa √chid	pracchid	pracchitta, pracchittvā, pracchinatti, pracchindat
 √chid	2	ṃa	cut, steal	√chid	7, 9	cut off	pari √chid	paricchid	pari + acchidat, paricchittvā, paricchidya, paricchinatti, paricchinna, pariccheda, pariccheditavya
