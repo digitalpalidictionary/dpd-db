@@ -1551,28 +1551,22 @@ def main():
             event == "dps_another_eg_1"
         ):
 
-            if not values["book_to_add"]:
-                book_to_add = sg.popup_get_text(
-                    "Which book?", title=None,
-                    location=(400, 400))
-                if book_to_add:
-                    values["book_to_add"] = book_to_add
-            else:
-                book_to_add = sg.popup_get_text(
-                    "Which book?", default_text=values["book_to_add"], 
-                    title=None,
-                    location=(400, 400))
-                if book_to_add:
-                    values["book_to_add"] = book_to_add
 
-            if values["word_to_add"] == []:
-                word_to_add = sg.popup_get_text(
-                    "What word?", default_text=values["dps_lemma_1"][:-1],
-                    title=None,
-                    location=(400, 400))
-                if word_to_add:
-                    values["word_to_add"] = [word_to_add]
-                    window["word_to_add"].update(values=[word_to_add])
+            book_to_add = sg.popup_get_text(
+                "Which book?", default_text=values["book_to_add"], 
+                title=None,
+                location=(400, 400))
+            if book_to_add:
+                values["book_to_add"] = book_to_add
+
+            default_text = re.sub(r" \d.*$", "", values["dps_lemma_1"])
+            word_to_add = sg.popup_get_text(
+                "What word?", default_text=default_text[:-1],
+                title=None,
+                location=(400, 400))
+            if word_to_add:
+                values["word_to_add"] = [word_to_add]
+                window["word_to_add"].update(values=[word_to_add])
 
             if (
                 test_book_to_add(values, window) and

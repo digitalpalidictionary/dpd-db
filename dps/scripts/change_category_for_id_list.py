@@ -45,6 +45,7 @@ def derive_sutta_identifier(source):
         # if char.isalpha() and i < len(source) - 1 and source[i + 1].isdigit():
         #     # If yes, insert a space before the letter and capitalize it
         #     sutta_identifier += ""
+    # print(f"sutta_identifier = {sutta_identifier}")
 
     return sutta_identifier
 
@@ -138,7 +139,7 @@ def main():
     console.print("[bold blue]Update sbs_category for words from an ID list based on specific conditions")
 
     # input source eg "sn56" or "mn107" or "sn22" or "sn35"
-    source = "sn46"
+    source = "sn43"
 
     # !Update sbs_category based on all examples
     update_sbs_category(source, condition_check_all_examples, "Checking if all examples are present", True)
