@@ -1,7 +1,6 @@
 
-function makeFamilyRootHtml(data, fr, source, lemma_link) {
-
-    var root_link = data.family_root.replace(" ", "%20")
+function makeFamilyRootHtml(data, fr, source, link) {
+ 
     //// header
     
     var html = `
@@ -43,7 +42,7 @@ function makeFamilyRootHtml(data, fr, source, lemma_link) {
         <p class="footer">
         Something out of place? 
         <a class="root_link" 
-        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&amp;entry.438735500=${root_link}&amp;entry.326955045=Root+Family&amp;entry.1433863141=GoldenDict+${data.date}" 
+        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&amp;entry.438735500=${link}&amp;entry.326955045=Root+Family&amp;entry.1433863141=GoldenDict+${data.date}" 
         target="_blank">
         Report it here
         </a>.
@@ -54,7 +53,7 @@ function makeFamilyRootHtml(data, fr, source, lemma_link) {
         <p class="footer">
         Something out of place? 
         <a class="link" 
-        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&amp;entry.438735500=${lemma_link}&amp;entry.326955045=Root+Family&amp;entry.1433863141=GoldenDict+${data.date}" 
+        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&amp;entry.438735500=${link}&amp;entry.326955045=Root+Family&amp;entry.1433863141=GoldenDict+${data.date}" 
         target="_blank">
         Report it here
         </a>.

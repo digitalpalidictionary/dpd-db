@@ -3665,7 +3665,7 @@ var family_root_json = {
   "root_key": "√kapp 2",
   "root_family": "√kapp",
   "root_meaning": "think",
-  "count": 11,
+  "count": 12,
   "data": [
    [
     "akappiya 2.1",
@@ -3676,6 +3676,12 @@ var family_root_json = {
    [
     "kappa 2.1",
     "masc",
+    "thought; speculation; mental fabrication; imagination",
+    "✓"
+   ],
+   [
+    "kappa 2.2",
+    "nt",
     "thought; speculation; mental fabrication; imagination",
     "✓"
    ],
@@ -9357,7 +9363,7 @@ var family_root_json = {
   "root_key": "√gah",
   "root_family": "√gah",
   "root_meaning": "grasp",
-  "count": 145,
+  "count": 146,
   "data": [
    [
     "agaṇhana",
@@ -9400,6 +9406,12 @@ var family_root_json = {
     "pp",
     "not taken; not seized; lit. not grasped",
     "~"
+   ],
+   [
+    "agāhayi",
+    "aor",
+    "seized (on); grabbed hold (of); lit. caused to grasp",
+    "✓"
    ],
    [
     "agāhita",
@@ -14415,7 +14427,7 @@ var family_root_json = {
   "root_key": "√cil",
   "root_family": "√cil",
   "root_meaning": "clothe",
-  "count": 8,
+  "count": 9,
   "data": [
    [
     "acela 1",
@@ -14451,6 +14463,12 @@ var family_root_json = {
     "cela 2",
     "nt",
     "clothes; garment",
+    "✓"
+   ],
+   [
+    "cela 3",
+    "adj",
+    "with clothes; having a garment",
     "✓"
    ],
    [
@@ -15611,7 +15629,7 @@ var family_root_json = {
    ],
    [
     "chatta 3",
-    "nt",
+    "masc",
     "student; lit. covered",
     "✓"
    ],
@@ -23646,13 +23664,13 @@ var family_root_json = {
    [
     "ṭhapeti 4",
     "pr",
-    "sets aside; puts one side",
+    "sets aside; puts one side; lit. causes to stand",
     "✓"
    ],
    [
     "ṭhapeti 5",
     "pr",
-    "places; puts",
+    "places; puts; lit. causes to stand",
     "✓"
    ],
    [
@@ -30259,7 +30277,7 @@ var family_root_json = {
   "root_key": "√thar",
   "root_family": "ā √thar",
   "root_meaning": "spread, expand",
-  "count": 16,
+  "count": 17,
   "data": [
    [
     "atthata 1",
@@ -30332,6 +30350,12 @@ var family_root_json = {
     "aor",
     "spread, laid out",
     "✗"
+   ],
+   [
+    "attharituṃ",
+    "inf",
+    "to spread; to lay out",
+    "✓"
    ],
    [
     "attharitvā",
@@ -36677,7 +36701,7 @@ var family_root_json = {
   "root_key": "√ṭhā",
   "root_family": "adhi √ṭhā",
   "root_meaning": "stand",
-  "count": 41,
+  "count": 42,
   "data": [
    [
     "adhiṭṭhahati 1",
@@ -36749,7 +36773,7 @@ var family_root_json = {
     "adhiṭṭhāna 1",
     "nt",
     "basis; foundation; standpoint; lit. higher standing",
-    "✓"
+    "~"
    ],
    [
     "adhiṭṭhāna 2",
@@ -36780,6 +36804,12 @@ var family_root_json = {
     "nt",
     "in terms of (i.e., sutta expressed in terms of e.g., elements)",
     "✗"
+   ],
+   [
+    "adhiṭṭhāna 7",
+    "adj",
+    "having a basis; with a foundation; having a standpoint; lit. with a higher standing",
+    "✓"
    ],
    [
     "adhiṭṭhāya 1",
@@ -44268,9 +44298,9 @@ var family_root_json = {
   "count": 1,
   "data": [
    [
-    "anamha",
+    "anamhi",
     "adj",
-    "not smiling; not amusement",
+    "not smiling; not amusement; (comm) crying",
     "✓"
    ]
   ]
@@ -44279,7 +44309,7 @@ var family_root_json = {
   "root_key": "√i 1",
   "root_family": "√i",
   "root_meaning": "come, go",
-  "count": 36,
+  "count": 37,
   "data": [
    [
     "anaya 1.1",
@@ -44336,9 +44366,15 @@ var family_root_json = {
     "✗"
    ],
    [
-    "ayana",
+    "ayana 1",
     "nt",
     "going; way",
+    "~"
+   ],
+   [
+    "ayana 2",
+    "adj",
+    "going",
     "✓"
    ],
    [
@@ -50352,8 +50388,8 @@ var family_root_json = {
    [
     "ārohaṇīya",
     "ptp",
-    "fit to be mounted; can be climbed onto",
-    "✗"
+    "suitable for riding; mountable; lit. to be ascended",
+    "✓"
    ],
    [
     "ārohati 1",
@@ -53713,8 +53749,8 @@ var family_root_json = {
    ],
    [
     "icchitabbaka",
-    "nt",
-    "something to be wished for; which is to be desired",
+    "adj",
+    "to be wished for; to be desired",
     "✓"
    ],
    [
@@ -66515,7 +66551,7 @@ var family_root_json = {
     "upapanna 1",
     "pp",
     "arose; appeared; lit. went towards",
-    "✓"
+    "~"
    ],
    [
     "upapanna 2",
@@ -68701,7 +68737,7 @@ var family_root_json = {
   "root_key": "√ās",
   "root_family": "upa √ās",
   "root_meaning": "sit",
-  "count": 11,
+  "count": 12,
   "data": [
    [
     "anupāsita",
@@ -68730,14 +68766,20 @@ var family_root_json = {
    [
     "upāsana 1.1",
     "nt",
-    "training; military training; apprenticeship; lit. sitting near",
-    "✓"
+    "service; attendance; sitting at the feet (of)",
+    "✗"
    ],
    [
     "upāsana 1.2",
     "nt",
-    "service; attendance; sitting at the feet (of)",
-    "✗"
+    "training; military training; apprenticeship; lit. sitting near",
+    "✓"
+   ],
+   [
+    "upāsana 1.3",
+    "adj",
+    "who has trained; with military training; lit. sitting near",
+    "✓"
    ],
    [
     "upāsamāna",
@@ -72507,7 +72549,7 @@ var family_root_json = {
   "root_key": "√dhā",
   "root_family": "upa √dhā",
   "root_meaning": "place, support",
-  "count": 25,
+  "count": 26,
   "data": [
    [
     "anūpadhīka",
@@ -72571,9 +72613,15 @@ var family_root_json = {
    ],
    [
     "upadhāna 3",
+    "adj",
+    "with cushions; having pillows; lit. placing near",
+    "✓"
+   ],
+   [
+    "upadhāna 4",
     "nt",
     "receptacle; container; lit. placing near",
-    "✓"
+    "~"
    ],
    [
     "upadhāya",
@@ -90415,17 +90463,23 @@ var family_root_json = {
   "root_key": "√lih",
   "root_family": "apa √lih",
   "root_meaning": "lick, lap",
-  "count": 2,
+  "count": 3,
   "data": [
    [
     "apalekhati",
     "pr",
     "licks; laps",
-    "✗"
+    "✓"
    ],
    [
-    "apalekhana",
+    "apalekhana 1",
     "nt",
+    "licking; lapping",
+    "~"
+   ],
+   [
+    "apalekhana 2",
+    "adj",
     "licking; lapping",
     "✓"
    ]
@@ -90867,7 +90921,7 @@ var family_root_json = {
    ],
    [
     "apaharaṇa 1",
-    "nt",
+    "adj",
     "robbing; stealing; sapping; draining",
     "✓"
    ],
@@ -92109,13 +92163,19 @@ var family_root_json = {
   "root_key": "√dhā",
   "root_family": "api √dhā",
   "root_meaning": "place, support",
-  "count": 24,
+  "count": 25,
   "data": [
    [
     "apidahana",
     "nt",
     "not closing",
     "✗"
+   ],
+   [
+    "apidhāna",
+    "nt",
+    "lid; cover; lit. covering",
+    "✓"
    ],
    [
     "apihita",
@@ -93060,8 +93120,8 @@ var family_root_json = {
    [
     "apucchasi",
     "aor",
-    "asked",
-    "✗"
+    "asked; questioned",
+    "✓"
    ],
    [
     "apucchā 1",
@@ -106501,12 +106561,18 @@ var family_root_json = {
   "root_key": "√i 1",
   "root_family": "vi √i",
   "root_meaning": "come, go",
-  "count": 18,
+  "count": 19,
   "data": [
    [
     "abyaya",
     "nt",
     "(gram) indeclinable particle; lit. not going away",
+    "✓"
+   ],
+   [
+    "abyayī",
+    "adj",
+    "(gram) indeclinable; lit. not going away",
     "✓"
    ],
    [
@@ -112796,9 +112862,9 @@ var family_root_json = {
   "count": 3,
   "data": [
    [
-    "abhinibbajjayati",
-    "pr",
-    "expels; turns out; dismisses; lit. completely turns out",
+    "abhinibbajjayātha",
+    "imp",
+    "you must expel; you must turn out; you must dismiss; lit. you must completely turn out",
     "✓"
    ],
    [
@@ -119656,7 +119722,7 @@ var family_root_json = {
    [
     "amissa",
     "adj",
-    "unadulterated; uncontaminated; untainted; lit. not mixed",
+    "unadulterated; uncontaminated; untainted (by); lit. not mixed (with)",
     "✓"
    ],
    [
@@ -132301,7 +132367,7 @@ var family_root_json = {
     "avalekhana 1.1",
     "nt",
     "scratching; scraping off",
-    "~"
+    "✓"
    ],
    [
     "olikhati",
@@ -132389,11 +132455,17 @@ var family_root_json = {
   "root_key": "√lih",
   "root_family": "ava √lih",
   "root_meaning": "lick, lap",
-  "count": 2,
+  "count": 3,
   "data": [
    [
     "avalekhana 2.1",
     "nt",
+    "licking; lapping",
+    "~"
+   ],
+   [
+    "avalekhana 2.2",
+    "adj",
     "licking; lapping",
     "✓"
    ],
@@ -147545,7 +147617,7 @@ var family_root_json = {
     "āsa 2.1",
     "nt",
     "shooting; throwing; hurling",
-    "✓"
+    "~"
    ]
   ]
  },
@@ -159165,148 +159237,18 @@ var family_root_json = {
    ]
   ]
  },
- "√hu √hu": {
-  "root_key": "√hu",
-  "root_family": "√hu",
-  "root_meaning": "pour, offer as oblation",
-  "count": 15,
-  "data": [
-   [
-    "ahāpita 2.1",
-    "pp",
-    "not made an oblation; not performed the offering; (comm) not kindled",
-    "✓"
-   ],
-   [
-    "juhati",
-    "pr",
-    "makes an oblation; makes an offering",
-    "✓"
-   ],
-   [
-    "juhana",
-    "nt",
-    "sacrifice, offering",
-    "✗"
-   ],
-   [
-    "juhanta",
-    "prp",
-    "offering; making an oblation",
-    "~"
-   ],
-   [
-    "juhi",
-    "aor",
-    "poured into fire, dedicated",
-    "✗"
-   ],
-   [
-    "juhitvā",
-    "abs",
-    "having made an oblation (to); having made an offering (to)",
-    "~"
-   ],
-   [
-    "juhoti",
-    "pr",
-    "makes an oblation; makes an offering",
-    "~"
-   ],
-   [
-    "jūhanta",
-    "prp",
-    "offering; making an oblation",
-    "✓"
-   ],
-   [
-    "suhuta",
-    "adj",
-    "(of an oblation) properly offered; well sacrificed",
-    "~"
-   ],
-   [
-    "habya",
-    "nt",
-    "oblation; offering",
-    "✓"
-   ],
-   [
-    "huñña",
-    "nt",
-    "oblation; offering",
-    "~"
-   ],
-   [
-    "huta 1",
-    "nt",
-    "oblation; offering; the thing sacrificed",
-    "✓"
-   ],
-   [
-    "huta 2",
-    "pp",
-    "offered; lit. burnt in fire as an offering",
-    "✓"
-   ],
-   [
-    "hutta",
-    "nt",
-    "sacrifice; oblation; burnt offering",
-    "✓"
-   ],
-   [
-    "homa 1.1",
-    "nt",
-    "oblation",
-    "✗"
-   ]
-  ]
- },
- "√har 2 √har": {
-  "root_key": "√har 2",
-  "root_family": "√har",
-  "root_meaning": "take, seize",
-  "count": 5,
-  "data": [
-   [
-    "ahāriya 1",
-    "ptp",
-    "unable to be taken; unstealable; lit. not to be taken",
-    "✓"
-   ],
-   [
-    "ahāriya 2",
-    "ptp",
-    "unremovable; uncleanable; lit. not to be taken away",
-    "✓"
-   ],
-   [
-    "ahāsi 2.1",
-    "aor",
-    "robbed; stole; took",
-    "✓"
-   ],
-   [
-    "hara 2.1",
-    "adj",
-    "taking; stealing",
-    "✓"
-   ],
-   [
-    "hara 2.2",
-    "masc",
-    "God Isvara",
-    "✗"
-   ]
-  ]
- },
  "√har 1 √har": {
   "root_key": "√har 1",
   "root_family": "√har",
   "root_meaning": "carry",
-  "count": 66,
+  "count": 67,
   "data": [
+   [
+    "ahari",
+    "aor",
+    "brought; carried",
+    "✓"
+   ],
    [
     "ahārī",
     "adj",
@@ -159702,6 +159644,142 @@ var family_root_json = {
     "prp",
     "carrying away; removing; lit. causing to carry away",
     "~"
+   ]
+  ]
+ },
+ "√hu √hu": {
+  "root_key": "√hu",
+  "root_family": "√hu",
+  "root_meaning": "pour, offer as oblation",
+  "count": 15,
+  "data": [
+   [
+    "ahāpita 2.1",
+    "pp",
+    "not made an oblation; not performed the offering; (comm) not kindled",
+    "✓"
+   ],
+   [
+    "juhati",
+    "pr",
+    "makes an oblation; makes an offering",
+    "✓"
+   ],
+   [
+    "juhana",
+    "nt",
+    "sacrifice, offering",
+    "✗"
+   ],
+   [
+    "juhanta",
+    "prp",
+    "offering; making an oblation",
+    "~"
+   ],
+   [
+    "juhi",
+    "aor",
+    "poured into fire, dedicated",
+    "✗"
+   ],
+   [
+    "juhitvā",
+    "abs",
+    "having made an oblation (to); having made an offering (to)",
+    "~"
+   ],
+   [
+    "juhoti",
+    "pr",
+    "makes an oblation; makes an offering",
+    "~"
+   ],
+   [
+    "jūhanta",
+    "prp",
+    "offering; making an oblation",
+    "✓"
+   ],
+   [
+    "suhuta",
+    "adj",
+    "(of an oblation) properly offered; well sacrificed",
+    "~"
+   ],
+   [
+    "habya",
+    "nt",
+    "oblation; offering",
+    "✓"
+   ],
+   [
+    "huñña",
+    "nt",
+    "oblation; offering",
+    "~"
+   ],
+   [
+    "huta 1",
+    "nt",
+    "oblation; offering; the thing sacrificed",
+    "✓"
+   ],
+   [
+    "huta 2",
+    "pp",
+    "offered; lit. burnt in fire as an offering",
+    "✓"
+   ],
+   [
+    "hutta",
+    "nt",
+    "sacrifice; oblation; burnt offering",
+    "✓"
+   ],
+   [
+    "homa 1.1",
+    "nt",
+    "oblation",
+    "✗"
+   ]
+  ]
+ },
+ "√har 2 √har": {
+  "root_key": "√har 2",
+  "root_family": "√har",
+  "root_meaning": "take, seize",
+  "count": 5,
+  "data": [
+   [
+    "ahāriya 1",
+    "ptp",
+    "unable to be taken; unstealable; lit. not to be taken",
+    "✓"
+   ],
+   [
+    "ahāriya 2",
+    "ptp",
+    "unremovable; uncleanable; lit. not to be taken away",
+    "✓"
+   ],
+   [
+    "ahāsi 2.1",
+    "aor",
+    "robbed; stole; took",
+    "✓"
+   ],
+   [
+    "hara 2.1",
+    "adj",
+    "taking; stealing",
+    "✓"
+   ],
+   [
+    "hara 2.2",
+    "masc",
+    "God Isvara",
+    "✗"
    ]
   ]
  },
@@ -168835,7 +168913,7 @@ var family_root_json = {
     "nopadaṃsayati",
     "pr",
     "does not show; does not display; does not manifest",
-    "~"
+    "✓"
    ],
    [
     "nopadaṃseti",
@@ -170773,8 +170851,8 @@ var family_root_json = {
    ],
    [
     "upasecana 2",
-    "nt",
-    "sauce; gravy; topping; lit. sprinkling",
+    "adj",
+    "with a sauce; having gravy; with a topping; lit. sprinkling",
     "✓"
    ]
   ]
@@ -174349,19 +174427,13 @@ var family_root_json = {
   "root_key": "√ram 1",
   "root_family": "ava √ram",
   "root_meaning": "delight, please",
-  "count": 3,
+  "count": 2,
   "data": [
    [
     "oramati",
     "pr",
     "abstains (from); desists (from)",
     "✗"
-   ],
-   [
-    "orami",
-    "aor",
-    "stopped; became quiet; settled down",
-    "✓"
    ],
    [
     "oramiya",

@@ -215,6 +215,11 @@ def test8(g: GlobalVars):
                 and g.clean_bold_word[-1] == "m"
             ):
                 return
+            elif (
+                inflection[-1] == "ṃ"
+                and g.clean_bold_word[-1] == "n" # anāgatamaddhānan
+            ):
+                return
 
     printer(g, "test8")
 

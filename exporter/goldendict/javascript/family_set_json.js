@@ -619,8 +619,8 @@ var family_set_json = {
     "✓"
    ],
    [
-    "antaṭṭha",
-    "masc",
+    "antaṭṭhā",
+    "fem",
     "(gram) semi-vowel; lit. standing at the end",
     "✓"
    ],
@@ -742,6 +742,12 @@ var family_set_json = {
     "abyaya",
     "nt",
     "(gram) indeclinable particle; lit. not going away",
+    "✓"
+   ],
+   [
+    "abyayī",
+    "adj",
+    "(gram) indeclinable; lit. not going away",
     "✓"
    ],
    [
@@ -1070,13 +1076,13 @@ var family_set_json = {
    ],
    [
     "iccādi",
-    "sandhi",
+    "masc",
     "(gram) thus etc.",
     "✓"
    ],
    [
     "iccevamādi",
-    "sandhi",
+    "masc",
     "(gram) thus like this etc.",
     "✓"
    ],
@@ -1179,7 +1185,7 @@ var family_set_json = {
    [
     "īvibhatti",
     "ve",
-    "(gram) i ī; inflexion of the aorist; conjugation of the past tense; lit. ī conjugation",
+    "(gram) i ī; inflection of the aorist; conjugation of the past tense; lit. ī conjugation",
     "✓"
    ],
    [
@@ -4891,7 +4897,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 787
+  "count": 788
  },
  "prefixes": {
   "data": [
@@ -8327,7 +8333,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "aṭṭhaka 5",
+    "aṭṭhaka 1.5",
     "masc",
     "name of a Vedic sage",
     "✓"
@@ -14340,7 +14346,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "aṭṭhaka 6",
+    "aṭṭhaka 1.6",
     "masc",
     "name of a privately awakened Buddha; lit. having eight; related to eight",
     "~"
@@ -27935,7 +27941,7 @@ var family_set_json = {
  "villages, towns and cities": {
   "data": [
    [
-    "aṭṭhaka 3",
+    "aṭṭhaka 1.4",
     "masc",
     "name of a town; lit. with eight",
     "✓"
@@ -29146,7 +29152,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "catutthī 1",
+    "catutthiṃ",
     "ordin",
     "fourth (4th)",
     "✓"
@@ -31466,7 +31472,7 @@ var family_set_json = {
    [
     "īvibhatti",
     "ve",
-    "(gram) i ī; inflexion of the aorist; conjugation of the past tense; lit. ī conjugation",
+    "(gram) i ī; inflection of the aorist; conjugation of the past tense; lit. ī conjugation",
     "✓"
    ],
    [
@@ -34624,7 +34630,7 @@ var family_set_json = {
    ],
    [
     "cicciṭa",
-    "ind",
+    "masc",
     "hiss; sizzle; fizzle; crackling sound",
     "✓"
    ],

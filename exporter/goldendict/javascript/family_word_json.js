@@ -303,7 +303,7 @@ var family_word_json = {
     "kāḷaka 3",
     "nt",
     "(of rice) small black grain; lit. little black",
-    "✓"
+    "~"
    ],
    [
     "kāḷaka 4",
@@ -1117,7 +1117,7 @@ var family_word_json = {
     "khara 2",
     "adj",
     "hard; solid",
-    "✓"
+    "~"
    ],
    [
     "khara 3",
@@ -3752,7 +3752,7 @@ var family_word_json = {
     "ettāvant",
     "adj",
     "such; so great; so excellent; lit. having this quality",
-    "✓"
+    "~"
    ],
    [
     "ettha 1",
@@ -4343,31 +4343,37 @@ var family_word_json = {
     "✓"
    ],
    [
-    "aṭṭhaka 1",
+    "aṭṭhaka 1.1",
+    "masc",
+    "octad; group of eight; lit. with eight",
+    "✓"
+   ],
+   [
+    "aṭṭhaka 1.2",
     "nt",
     "octad; group of eight; lit. with eight",
     "✓"
    ],
    [
-    "aṭṭhaka 2",
+    "aṭṭhaka 1.3",
     "nt",
     "poem with eight stanzas; lit. with eight",
     "✓"
    ],
    [
-    "aṭṭhaka 3",
+    "aṭṭhaka 1.4",
     "masc",
     "name of a town; lit. with eight",
     "✓"
    ],
    [
-    "aṭṭhaka 5",
+    "aṭṭhaka 1.5",
     "masc",
     "name of a Vedic sage",
     "✓"
    ],
    [
-    "aṭṭhaka 6",
+    "aṭṭhaka 1.6",
     "masc",
     "name of a privately awakened Buddha; lit. having eight; related to eight",
     "~"
@@ -4427,7 +4433,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 15
+  "count": 16
  },
  "aṭṭhi": {
   "data": [
@@ -20174,9 +20180,15 @@ var family_word_json = {
     "nt",
     "first stage of embryonic development; lit. mud",
     "✓"
+   ],
+   [
+    "kalalī",
+    "nt",
+    "mud; mire; dirt",
+    "✓"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "kalāpa": {
   "data": [
@@ -22732,7 +22744,7 @@ var family_word_json = {
     "~"
    ],
    [
-    "catutthī 1",
+    "catutthiṃ",
     "ordin",
     "fourth (4th)",
     "✓"
@@ -24277,6 +24289,12 @@ var family_word_json = {
  "tambūla": {
   "data": [
    [
+    "tambula",
+    "nt",
+    "betel leaves",
+    "✓"
+   ],
+   [
     "tambūla",
     "nt",
     "betel leaves",
@@ -24289,7 +24307,7 @@ var family_word_json = {
     "✗"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "tvaṃ": {
   "data": [

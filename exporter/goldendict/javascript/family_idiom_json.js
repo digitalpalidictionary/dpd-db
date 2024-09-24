@@ -3790,7 +3790,7 @@ var family_idiom_json = {
   ]
  },
  "evaṃ": {
-  "count": 62,
+  "count": 61,
   "data": [
    [
     "ajānamevaṃ",
@@ -3809,12 +3809,6 @@ var family_idiom_json = {
     "idiom",
     "it would thus follow; it could be concluded; it would be correct to say",
     "~"
-   ],
-   [
-    "iccevamādi",
-    "sandhi",
-    "(gram) thus like this etc.",
-    "✓"
    ],
    [
     "iccevaṃ",
@@ -5854,7 +5848,7 @@ var family_idiom_json = {
   ]
  },
  "iti": {
-  "count": 75,
+  "count": 73,
   "data": [
    [
     "aññathāsmīti",
@@ -5911,12 +5905,6 @@ var family_idiom_json = {
     "~"
    ],
    [
-    "iccādi",
-    "sandhi",
-    "(gram) thus etc.",
-    "✓"
-   ],
-   [
     "iccāyasmā",
     "sandhi",
     "thus (said) venerable",
@@ -5963,12 +5951,6 @@ var family_idiom_json = {
     "sandhi",
     "thus this",
     "~"
-   ],
-   [
-    "iccevamādi",
-    "sandhi",
-    "(gram) thus like this etc.",
-    "✓"
    ],
    [
     "iccevaṃ",
@@ -6546,15 +6528,15 @@ var family_idiom_json = {
     "✓"
    ],
    [
-    "tamattha",
-    "sandhi",
-    "that purpose; that benefit; that advantage",
-    "✓"
-   ],
-   [
     "tamatthaṃ",
     "sandhi",
     "that meaning; that goal; that purpose",
+    "✓"
+   ],
+   [
+    "tamatthaṃ 2",
+    "sandhi",
+    "that purpose; that benefit; that advantage",
     "✓"
    ],
    [
@@ -7886,7 +7868,7 @@ var family_idiom_json = {
     "✓"
    ],
    [
-    "etamādīnava",
+    "etamādīnavaṃ",
     "sandhi",
     "this danger; this disadvantage; this risk; this peril",
     "✓"
@@ -9450,7 +9432,7 @@ var family_idiom_json = {
     "~"
    ],
    [
-    "ayamanudhamma",
+    "ayamanudhammo",
     "sandhi",
     "this is natural (for); it is natural (to)",
     "✓"
@@ -10371,7 +10353,7 @@ var family_idiom_json = {
   ]
  },
  "atha": {
-  "count": 20,
+  "count": 19,
   "data": [
    [
     "atha kho 1",
@@ -10438,12 +10420,6 @@ var family_idiom_json = {
     "sandhi",
     "then there arrived",
     "~"
-   ],
-   [
-    "athāpara",
-    "sandhi",
-    "then more; then in addition; then any other",
-    "✓"
    ],
    [
     "athāparaṃ",
@@ -11816,14 +11792,8 @@ var family_idiom_json = {
   ]
  },
  "apara": {
-  "count": 8,
+  "count": 7,
   "data": [
-   [
-    "athāpara",
-    "sandhi",
-    "then more; then in addition; then any other",
-    "✓"
-   ],
    [
     "athāparaṃ",
     "sandhi",
@@ -14148,7 +14118,7 @@ var family_idiom_json = {
   "count": 2,
   "data": [
    [
-    "ayamanudhamma",
+    "ayamanudhammo",
     "sandhi",
     "this is natural (for); it is natural (to)",
     "✓"
@@ -18614,7 +18584,7 @@ var family_idiom_json = {
   ]
  },
  "ādi": {
-  "count": 8,
+  "count": 6,
   "data": [
    [
     "ādito paṭṭhāya",
@@ -18638,18 +18608,6 @@ var family_idiom_json = {
     "ādiṃ katvā",
     "idiom",
     "beginning with; starting from; lit. having made first",
-    "✓"
-   ],
-   [
-    "iccādi",
-    "sandhi",
-    "(gram) thus etc.",
-    "✓"
-   ],
-   [
-    "iccevamādi",
-    "sandhi",
-    "(gram) thus like this etc.",
     "✓"
    ],
    [
@@ -21608,7 +21566,7 @@ var family_idiom_json = {
   "count": 1,
   "data": [
    [
-    "etamādīnava",
+    "etamādīnavaṃ",
     "sandhi",
     "this danger; this disadvantage; this risk; this peril",
     "✓"
@@ -21992,15 +21950,15 @@ var family_idiom_json = {
     "✓"
    ],
    [
-    "tamattha",
-    "sandhi",
-    "that purpose; that benefit; that advantage",
-    "✓"
-   ],
-   [
     "tamatthaṃ",
     "sandhi",
     "that meaning; that goal; that purpose",
+    "✓"
+   ],
+   [
+    "tamatthaṃ 2",
+    "sandhi",
+    "that purpose; that benefit; that advantage",
     "✓"
    ],
    [

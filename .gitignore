@@ -221,3 +221,4 @@ shared_data/frequency/*.json
 go_modules/deconstructor/output/*.json
 go_modules/deconstructor/output/*.tsv
 resources/tipitaka.lk.tar.gz
+shared_data/changed_templates

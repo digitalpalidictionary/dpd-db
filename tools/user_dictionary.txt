@@ -179,6 +179,7 @@ Anuruddhasaṃyuttaṃ
 anuseti
 anvabhi
 aor
+aorist
 apa
 Apadāna
 api
@@ -949,6 +950,7 @@ inculpable
 inculpableness
 Inda
 Inda's
+indeclinable
 indeclinables
 indefatigability
 indica
@@ -1939,6 +1941,7 @@ scandens
 schismatic
 Scholaris
 scourer
+scrapers
 scrutinizer
 scrutinizingly
 seizers
