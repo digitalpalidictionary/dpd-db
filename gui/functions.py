@@ -1346,15 +1346,6 @@ def make_compound_construction(values):
         return lemma_clean
 
 
-def make_has_values_list(values: dict) -> list[str]:
-    """Return a list of all the fields with values."""
-    has_value_list = []
-    for key, value in values.items():
-        if value:
-            has_value_list.append(key)
-    return has_value_list
-
-
 def example_save(
         pth: ProjectPaths,
         values: dict[str, str],

@@ -12,6 +12,7 @@ import pyperclip
 from copy import deepcopy
 from rich import print
 
+
 from window_layout import window_layout
 from functions_db import update_word_in_db
 from functions_db import get_next_ids
@@ -29,6 +30,11 @@ from functions_db import fetch_id_or_lemma_1
 from functions_db import get_family_compound_values
 from functions_db import get_family_idioms_values
 from functions_db import del_syns_if_pos_meaning_changed
+
+from fuctions_show_fields import show_all_fields
+from fuctions_show_fields import show_compound_fields
+from fuctions_show_fields import show_root_fields
+from fuctions_show_fields import show_word_fields
 
 from functions import sandhi_ok
 from functions import test_book_to_add
@@ -68,7 +74,6 @@ from functions import increment_lemma_1
 from functions import make_compound_construction
 from functions import make_construction
 from functions import make_lemma_clean
-from functions import make_has_values_list
 from functions import example_load
 from functions import example_save
 
@@ -961,6 +966,13 @@ def main():
                 pali_word_original2 = deepcopy(pali_word_original)
                 open_in_goldendict(values["word_to_clone_edit"])
                 window["word_to_clone_edit"].update(value="")
+                flags = show_all_fields(
+                    values, window, 
+                    flags, 
+                    username,
+                    hide_list_all,
+                )
+
             else:
                 window["messages"].update(value="No word to edit!", text_color="red")
         
@@ -1275,94 +1287,31 @@ def main():
         elif event == "open_sandhi_exceptions":
             open_sandhi_exceptions(pth)
 
-        # hide fields logic
+        # show / hide fields
 
         elif event == "show_fields_all":
 
-            for value in values:
-                window[value].update(visible=True)
-                window["get_family_root"].update(visible=True)
-                window["get_root_base"].update(visible=True)
-                window["get_root_sign"].update(visible=True)
-                window["bold_cc_button"].update(visible=True)
-                window["bold_2_button"].update(visible=True)
-                window["another_eg_2"].update(visible=True)
-                window["example_2_lower"].update(visible=True)
-                flags.show_fields = False
-            for value in hide_list_all:
-                window[value].update(visible=username == "deva")
+            flags = show_all_fields(
+                values, window, flags, username, hide_list_all
+            )
 
         elif event == "show_fields_root":
 
-            has_value_list = make_has_values_list(values)
-
-            hide_list = [
-                "meaning_2", "family_word", "family_compound", "compound_type",
-                "compound_construction", "bold_cc", "bold_cc_button",
-                "bold_2", "bold_2_button",
-                "another_eg_2",
-                "source_2", "sutta_2",
-                "example_2"
-            ]
-            for value in values:
-                window[value].update(visible=True)
-            for value in hide_list:
-                if value not in has_value_list:
-                    window[value].update(visible=False)
-            for value in hide_list_all:
-                window[value].update(visible=username == "deva")
-            window["get_family_root"].update(visible=True)
-            window["get_root_base"].update(visible=True)
-            window["get_root_sign"].update(visible=True)
-            flags.show_fields = False
+            flags = show_root_fields(
+                values, window, hide_list_all, username, flags
+            )      
 
         elif event == "show_fields_compound":
 
-            has_value_list = make_has_values_list(values)
-
-            hide_list = [
-                "verb", "trans", "meaning_2", "root_key", "family_root",
-                "get_family_root", "root_sign",  "get_root_sign", "root_base",
-                "get_root_base", "family_word", "derivative",
-                "suffix", "non_root_in_comps", "non_ia", "source_2", "sutta_2",
-                "example_2", "bold_2", "bold_2_button", "example_2_lower",
-                "another_eg_2",
-                ]
-            for value in values:
-                window[value].update(visible=True)
-                window["bold_cc_button"].update(visible=True)
-                window["bold_2_button"].update(visible=True)
-            for value in hide_list:
-                if value not in has_value_list:
-                    window[value].update(visible=False)
-            for value in hide_list_all:
-                window[value].update(visible=username == "deva")
-            flags.show_fields = False
-
+            flags = show_compound_fields(
+                values, window, hide_list_all, username, flags
+            )
+            
         elif event == "show_fields_word":
 
-            has_value_list = make_has_values_list(values)
-
-            hide_list = [
-                "verb", "trans", "meaning_2", "root_key",
-                "family_root", "get_family_root",
-                "root_sign",  "get_root_sign",
-                "root_base", "get_root_base",
-                "family_compound",
-                "compound_type", "compound_construction",
-                "bold_cc", "bold_cc_button",
-                "non_root_in_comps",
-                "source_2", "sutta_2", "example_2",
-                "bold_2", "bold_2_button",  "example_2_lower", "another_eg_2",
-                ]
-            for value in values:
-                window[value].update(visible=True)
-            for value in hide_list:
-                if value not in has_value_list:
-                    window[value].update(visible=False)
-            for value in hide_list_all:
-                window[value].update(visible=username == "deva")
-            flags.show_fields = False
+            flags = show_word_fields(
+                values, window, hide_list_all, username, flags
+            )
 
         # test db tab buttons
 

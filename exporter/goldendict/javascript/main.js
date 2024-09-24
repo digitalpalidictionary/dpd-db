@@ -57,7 +57,9 @@ function loadData() {
 
 function loadButtonContent(data) {
 
-    var lemma_link = data.lemma.replace("_", "%20")
+    if (data.lemma) {
+        var lemma_link = data.lemma.replace("_", "%20")
+    }
     
     //// feedback
 
@@ -91,7 +93,7 @@ function loadButtonContent(data) {
         && typeof family_root_json !== "undefined"
     ) {
         const fr = family_root_json[data.family_root];
-        const familyRootHtml = makeFamilyRootHtml(data, fr, lemma_link);
+        const familyRootHtml = makeFamilyRootHtml(data, fr, "lemma", lemma_link);
         const familyRootElement = document.getElementById(`family_root_${data.lemma}`);
         familyRootElement.innerHTML = familyRootHtml;
     };
@@ -140,9 +142,10 @@ function loadRootButtonContent(data) {
     familyRootArray.forEach(item => {
         const key_id = item.id
         const key_clean = item.id.replace("family_root_", "").replace(/_/g, " ")
+        const link = item.id.replace("family_root_", "").replace(/_/g, "%20")
         const fr = family_root_json[key_clean]
         if (fr !==undefined ){
-            const familyRootHtml = makeFamilyRootHtml(data, fr, "root");
+            const familyRootHtml = makeFamilyRootHtml(data, fr, "root", link);
             const familyRootElement = document.getElementById(key_id)
             familyRootElement.innerHTML = familyRootHtml
         } else {
