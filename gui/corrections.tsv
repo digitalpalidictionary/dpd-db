@@ -2652,11 +2652,88 @@ na + ārādhaka"					missing
 65096	source_1	SN45.2	sutta_1	maggasaṃyuttaṃ, upaḍḍhasuttaṃ	example_1	mamañ'hi, ānanda, kalyāṇamittaṃ āgamma jātidhammā sattā jātiyā parimuccanti, jarādhammā sattā jarāya parimuccanti, maraṇadhammā sattā maraṇena parimuccanti, <b>sokaparidevadukkhadomanassupāyāsadhammā</b> sattā sokaparidevadukkhadomanassupāyāsehi parimuccanti.	missing				
 65096	compound_type	chaṭṭhī tappurisa	compound_construction	sokaparidevadukkhadomanassupāyās<b>ānaṃ</b> + dhamma			missing				
 65096	sanskrit	śoka + parideva + duḥkha + daurmanasya + upāyāsa (bsk) + dharma					missing				
-63395	source_2	SN45.160	sutta_2	maggasaṃyuttaṃ, nadīsuttaṃ	example_2	gaṅgā, bhante, nadī pācīnaninnā pācīnapoṇā pācīnapabbhārā. sā na <b>sukarā</b> pacchāninnaṃ kātuṃ pacchāpoṇaṃ pacchāpabbhāraṃ.	missing		
-39614	source_1	SN45.160	sutta_1	maggasaṃyuttaṃ, nadīsuttaṃ	example_1	gaṅgā, bhante, nadī pācīnaninnā pācīnapoṇā pācīnapabbhārā. sā na sukarā pacchāninnaṃ kātuṃ pacchāpoṇaṃ <b>pacchāpabbhāraṃ</b>.	missing		
-39614	compound_type	kammadhāraya	compound_construction	pacchā + pabbhāra			missing		
-39614	sanskrit	paścāt + prāgbhāra					missing		
-12436	source_2	SN45.24	sutta_2	maggasaṃyuttaṃ, dutiyapaṭipadāsuttaṃ	example_2	gihi vā, bhikkhave, pabbajito vā sammāpaṭipanno sammāpaṭipatt'ādhikaraṇahetu <b>ārādhako</b> hoti ñāyaṃ dhammaṃ kusalan'ti.	missing		
-39618	source_1	SN45.160	sutta_1	maggasaṃyuttaṃ, nadīsuttaṃ	example_1	gaṅgā, bhante, nadī pācīnaninnā pācīnapoṇā pācīnapabbhārā. sā na sukarā pacchāninnaṃ kātuṃ <b>pacchāpoṇaṃ</b> pacchāpabbhāraṃ.	missing		
-39618	compound_type	kammadhāraya	compound_construction	pacchā + poṇa			missing		
-39618	sanskrit	paścāt + pravaṇa					missing		
+63395	source_2	SN45.160	sutta_2	maggasaṃyuttaṃ, nadīsuttaṃ	example_2	gaṅgā, bhante, nadī pācīnaninnā pācīnapoṇā pācīnapabbhārā. sā na <b>sukarā</b> pacchāninnaṃ kātuṃ pacchāpoṇaṃ pacchāpabbhāraṃ.	missing				
+39614	source_1	SN45.160	sutta_1	maggasaṃyuttaṃ, nadīsuttaṃ	example_1	gaṅgā, bhante, nadī pācīnaninnā pācīnapoṇā pācīnapabbhārā. sā na sukarā pacchāninnaṃ kātuṃ pacchāpoṇaṃ <b>pacchāpabbhāraṃ</b>.	missing				
+39614	compound_type	kammadhāraya	compound_construction	pacchā + pabbhāra			missing				
+39614	sanskrit	paścāt + prāgbhāra					missing				
+12436	source_2	SN45.24	sutta_2	maggasaṃyuttaṃ, dutiyapaṭipadāsuttaṃ	example_2	gihi vā, bhikkhave, pabbajito vā sammāpaṭipanno sammāpaṭipatt'ādhikaraṇahetu <b>ārādhako</b> hoti ñāyaṃ dhammaṃ kusalan'ti.	missing				
+39618	source_1	SN45.160	sutta_1	maggasaṃyuttaṃ, nadīsuttaṃ	example_1	gaṅgā, bhante, nadī pācīnaninnā pācīnapoṇā pācīnapabbhārā. sā na sukarā pacchāninnaṃ kātuṃ <b>pacchāpoṇaṃ</b> pacchāpabbhāraṃ.	missing				
+39618	compound_type	kammadhāraya	compound_construction	pacchā + poṇa			missing				
+39618	sanskrit	paścāt + pravaṇa					missing				
+1126	antonym	jajjara					missing				
+1126	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	taṃ suṇātha. katamañ'ca, bhikkhave, <b>ajajjaraṃ</b> … dhuvañ'ca vo, bhikkhave, desessāmi dhuvagāmiñ'ca maggaṃ. taṃ suṇātha.	missing				
+3519	source_1	SN43.13	sutta_1	asaṅkhatasaṃyuttaṃ, anatasuttaṃ	example_1	anatañ'ca vo, bhikkhave, desessāmi, <b>anatagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing				
+3519	sanskrit	anata + gāmin					missing				
+3518	source_2	SN43.13	sutta_2	asaṅkhatasaṃyuttaṃ, anatasuttaṃ	example_2	<b>anatañ</b>'ca vo, bhikkhave, desessāmi, <b>anata</b>gāmiñ'ca maggaṃ. taṃ suṇātha.	missing				
+4296	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	taṃ suṇātha. katamañ'ca, bhikkhave, <b>anītika</b>dhammaṃ … nibbānañ'ca vo, bhikkhave, desessāmi nibbānagāmiñ'ca maggaṃ. taṃ suṇātha.	missing				
+6493	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	taṃ suṇātha. katamañ'ca, bhikkhave, <b>apalokitaṃ</b> … anidassanañ'ca vo, bhikkhave, desessāmi anidassanagāmiñ'ca maggaṃ. taṃ suṇātha.	missing		
+6493	compound_type	kammadhāraya	compound_construction	na + palokita			missing		
+6493	antonym	palokita					missing		
+6493	construction	"na > a + pa + √luj > log > lok + ita
+na + palokita"					missing		
+9322	source_1	SN43.3	sutta_1	asaṅkhatasaṃyuttaṃ, savitakkasavicārasuttaṃ	example_1	katamo ca, bhikkhave, <b>asaṅkhatagāmi</b>maggo? savitakkasavicāro samādhi, avitakkavicāramatto samādhi, avitakkaavicāro samādhi, ayaṃ vuccati, bhikkhave, <b>asaṅkhatagāmi</b>maggo	missing		
+9322	sanskrit	asaṃskṛta + gāmin					missing		
+43138	source_2	SN43.44	sutta_2	asaṅkhatasaṃyuttaṃ, parāyanasuttaṃ	example_2	ayaṃ vuccati, bhikkhave,<b> parāyana</b>gāmimaggo. iti kho, bhikkhave, desitaṃ vo mayā<b> parāyanaṃ</b>, desito<b> parāyana</b>gāmimaggo.	missing		
+43140	source_1	SN43.44	sutta_1	asaṅkhatasaṃyuttaṃ, parāyanasuttaṃ	example_1	ayaṃ vuccati, bhikkhave, <b>parāyanagāmimaggo</b>. iti kho, bhikkhave, desitaṃ vo mayā parāyanaṃ, desito <b>parāyanagāmimaggo</b>.	missing		
+43140	compound_type	kammadhāraya	compound_construction	parāyanagāmī + magga			missing		
+43140	sanskrit	parāyaṇa + gāmin + mārga					missing		
+43141	source_1	SN43.44	sutta_1	asaṅkhatasaṃyuttaṃ, parāyanasuttaṃ	example_1	ayaṃ vuccati, bhikkhave, <b>parāyanagāmi</b>maggo. iti kho, bhikkhave, desitaṃ vo mayā parāyanaṃ, desito <b>parāyanagāmi</b>maggo.	missing		
+43141	sanskrit	parāyaṇa + gāmin					missing		
+55946	source_2	SN43.14-43	sutta_2	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_2	taṃ suṇātha. katamañ'ca, bhikkhave, <b>leṇaṃ</b> … tāṇañ'ca vo, bhikkhave, desessāmi tāṇagāmiñ'ca maggaṃ. taṃ suṇātha.	missing		
+63064	meaning_1	safe place; epitet of Nibbāna					missing		
+63064	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	taṃ suṇātha. katamañ'ca, bhikkhave, <b>sivaṃ</b> … khemañ'ca vo, bhikkhave, desessāmi khemagāmiñ'ca maggaṃ. taṃ suṇātha.	missing		
+63064	family_set	epithets of Nibbāna					missing		
+4055	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	anāsavañ'ca vo, bhikkhave, desessāmi <b>anāsavagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+4055	sanskrit	anāsrava + gāmin					missing		
+6494	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	taṃ suṇātha. katamañ'ca, bhikkhave, dhuvaṃ … apalokitañ'ca vo, bhikkhave, desessāmi <b>apalokitagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+6494	sanskrit	avalokita + gāmin					missing		
+37408	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	taṃ suṇātha. katamañ'ca, bhikkhave, pāraṃ … nipuṇañ'ca vo, bhikkhave, desessāmi <b>nipuṇagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+37408	sanskrit	nipuṇa (bsk) + gāmin					missing		
+61005	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	taṃ suṇātha. katamañ'ca, bhikkhave, tāṇaṃ … saraṇañ'ca vo, bhikkhave, desessāmi <b>saraṇagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+61005	sanskrit	saraṇa + gāmin					missing		
+1049	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	acchariyañ'ca vo, bhikkhave, desessāmi <b>acchariyagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+68873	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	virāgañ'ca vo, bhikkhave, desessāmi <b>virāgagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+68873	sanskrit	virāga + gāmin					missing		
+58162	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	santañ'ca vo, bhikkhave, desessāmi <b>santagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+58162	sanskrit	śānta + gāmin					missing		
+37420	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	nippapañcañ'ca vo, bhikkhave, desessāmi <b>nippapañcagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+37420	sanskrit	niṣprapañca + gāmin					missing		
+4299	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	anītikadhammañ'ca vo, bhikkhave, desessāmi <b>anītikadhammagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+4299	sanskrit	anīti + dharma + gāmin					missing		
+7337	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	abbhutañ'ca vo, bhikkhave, desessāmi <b>abbhutagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+32802	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	taṃ suṇātha. katamo ca, bhikkhave, anālayo … dīpañ'ca vo, bhikkhave, desessāmi <b>dīpagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+32802	sanskrit	dīpa + gāmin					missing		
+29353	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	taṇhākkhayañ'ca vo, bhikkhave, desessāmi <b>taṇhākkhayagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+29353	sanskrit	tṛṣṇākṣaya + gāmin					missing		
+57127	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	taṃ suṇātha. katamañca, bhikkhave, anāsavaṃ … saccañ'ca vo, bhikkhave, desessāmi <b>saccagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+57127	sanskrit	satya + gāmin					missing		
+41569	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	taṃ suṇātha. katamañ'ca, bhikkhave, amataṃ … paṇītañ'ca vo, bhikkhave, desessāmi <b>paṇītagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+41569	sanskrit	praṇīta + gāmin					missing		
+4038	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	anālayañ'ca vo, bhikkhave, desessāmi <b>anālayagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+4038	sanskrit	anālayana + gāmin					missing		
+45735	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	taṃ suṇātha. katamañ'ca, bhikkhave, saccaṃ … pārañ'ca vo, bhikkhave, desessāmi <b>pāragāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+4195	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	anidassanañ'ca vo, bhikkhave, desessāmi <b>anidassanagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+4195	sanskrit	anidarśana + gāmin					missing		
+30250	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	taṃ suṇātha. katamañ'ca, bhikkhave, leṇaṃ … tāṇañ'ca vo, bhikkhave, desessāmi <b>tāṇagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+30250	sanskrit	trāṇa + gāmin					missing		
+35235	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	dhuvañ'ca vo, bhikkhave, desessāmi <b>dhuvagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+35235	sanskrit	dhruva + gāmin					missing		
+55947	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	taṃ suṇātha. katamañ'ca, bhikkhave, dīpaṃ … leṇañ'ca vo, bhikkhave, desessāmi <b>leṇagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+55947	sanskrit	layana + gāmin					missing		
+63895	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	sududdasañ'ca vo, bhikkhave, desessāmi <b>sududdasagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+63895	sanskrit	sudurdarśa + gāmin					missing		
+63068	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	sivañ'ca vo, bhikkhave, desessāmi <b>sivagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+63068	sanskrit	śiva + gāmin					missing		
+52944	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	muttiñ'ca vo, bhikkhave, desessāmi <b>muttigāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+52944	sanskrit	mukti + gāmin					missing		
+4297	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	anītikañ'ca vo, bhikkhave, desessāmi <b>anītikagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+4297	sanskrit	anīti + gāmin					missing		
+8457	source_2	SN43.14-43	sutta_2	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_2	amatañ'ca vo, bhikkhave, desessāmi <b>amatagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+1127	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	ajajjarañ'ca vo, bhikkhave, desessāmi <b>ajajjaragāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+1127	sanskrit	na + jarjara + gāmin					missing		
+7416	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	abyāpajjhañ'ca vo, bhikkhave, desessāmi <b>abyāpajjhagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+7416	sanskrit	avyābadhya + gāmin					missing		
+23928	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	khemañ'ca vo, bhikkhave, desessāmi <b>khemagāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+23928	sanskrit	kṣema + gāmin					missing		
+63965	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	suddhiñ'ca vo, bhikkhave, desessāmi <b>suddhigāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		
+63965	sanskrit	śuddhi + gāmin					missing		

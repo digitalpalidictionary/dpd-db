@@ -58,6 +58,8 @@ def main():
     if carry_on:
         update_from_db(
             db, col, data_dict, deck_dict, model_dict)
+
+    print(f"test {current_date}")
     
     toc()
 
