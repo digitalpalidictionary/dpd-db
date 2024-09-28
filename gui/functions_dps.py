@@ -630,8 +630,28 @@ def handle_openai_response(messages, suggestion_field, error_field, window, mode
         window[error_field].update(error_string)
         return error_string
 
-def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, pth, meaning, lemma_1, grammar, suggestion_field, error_field, window, model_version):
+
+def load_ranslaton_examples(dpspth):
+    """Load the pos-examples mapping from a TSV file into a dictionary."""
+    pos_examples_map = {}
+    if dpspth.translation_example_path:
+        with open(dpspth.translation_example_path, 'r', encoding='utf-8') as csvfile:
+            reader = csv.reader(csvfile, delimiter='\t')
+            next(reader)  # Skip header row
+            for row in reader:
+                pos, examples = row[0], row[1]
+                pos_examples_map[pos] = examples
+    return pos_examples_map
+
+
+def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, pth, meaning, lemma_1, grammar, pos, suggestion_field, error_field, window, model_version, synonyms=False):
     window[error_field].update("")
+
+    pos_example_map = load_ranslaton_examples(dpspth)
+
+    translation_example = pos_example_map.get(pos, "")
+
+    print(translation_example)
 
     # keep original grammar
     grammar_orig = grammar
@@ -639,35 +659,144 @@ def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, p
     # Replace abbreviations in grammar
     grammar = replace_abbreviations(pth, grammar)
 
-    # Choosing example
+    # Choosing sentence
     if number == "0":
-        example = dps_ex_1
+        sentence = dps_ex_1
     if number == "1":
-        example = ex_1
+        sentence = ex_1
     if number == "2":
-        example = ex_2
+        sentence = ex_2
     if number == "3":
-        example = ex_3
+        sentence = ex_3
     if number == "4":
-        example = ex_4
-    
-    # Generate the chat messages based on provided values
-    messages = [
-        {
-            "role": "system",
-            "content": "You are a helpful assistant that translates English text to Russian considering the context."
-        },
-        {
-            "role": "user",
-            "content": f"""
-                **Pali Term**: {lemma_1}
-                **Grammar Details**: {grammar}
-                **Pali sentence**: {example}
-                **English Definition**: {meaning}
-                Please provide a few distinct Russian translations for the English definition, considering the Pali term and its grammatical context and Pali sentence. Separate each synonym with `;`. Avoid repeating the same word. In the answer avoid the capitalization unless it is a proper name.
-            """
-        }
-    ]
+        sentence = ex_4
+
+    if translation_example:
+
+        if synonyms:
+
+            # Generate the chat messages based on provided values with translation examples
+            messages = [
+                {
+                    "role": "system",
+                    "content": "You are a helpful assistant that translates English text to Russian, considering context, grammatical structure, and specific formatting rules."
+                },
+                {
+                    "role": "user",
+                    "content": f"""
+                        **Pali Term**: {lemma_1}
+                        **Grammar Details**: {grammar}
+                        **Pali sentence**: {sentence}
+                        **English Definition**: {meaning}
+                        **Translation Examples**: {translation_example}
+
+                        Please provide at least nine distinct Russian translations for the English definition of Pali term, considering gramatical context. Follow these guidelines:
+
+                        - Separate synonyms with `;`.
+                        - Match the grammatical structure of the Pali term (noun, verb, adj, etc.).
+                        - Use lowercase unless it's a proper noun.
+                        - Format the output similarly to provided translation examples.
+                        - If the English definition contains an idiom, try to use a corresponding Russian idiom.
+                        - Output only the translations, without labels like "Перевод" etc.
+
+                    """
+                }
+            ]
+
+        else:
+
+            # Generate the chat messages based on provided values with translation examples
+            messages = [
+                {
+                    "role": "system",
+                    "content": "You are a helpful assistant that translates English text to Russian, considering context, grammatical structure, and specific formatting rules."
+                },
+                {
+                    "role": "user",
+                    "content": f"""
+                        **Pali Term**: {lemma_1}
+                        **Grammar Details**: {grammar}
+                        **Pali sentence**: {sentence}
+                        **English Definition**: {meaning}
+                        **Translation Examples**: {translation_example}
+
+                        Please provide Russian translation for the English definition of Pali term, considering gramatical context. Follow these guidelines:
+
+
+                        - Separate synonyms with `;`.
+                        - Match the grammatical structure of the Pali term (noun, verb, adj, etc.).
+                        - Use lowercase unless it's a proper noun.
+                        - Format the output similarly to provided translation examples.
+                        - If "lit." is present in definition, include a literal translation marked with досл.
+                        - If "(comm)" is present in definition, keep it as (комм) in Russian.
+                        - Retain any clarifications in brackets (e.g., "(of army)" → "(об армии)").
+                        - If the English definition contains an idiom, try to use a corresponding Russian idiom.
+                        - Output only the translations, without labels like "Перевод" etc.
+
+                    """
+                }
+            ]
+
+    else:
+
+        if synonyms:
+
+            # Generate the chat messages based on provided values
+            messages = [
+                {
+                    "role": "system",
+                    "content": "You are a helpful assistant that translates English text to Russian, considering context, grammatical structure, and specific formatting rules."
+                },
+                {
+                    "role": "user",
+                    "content": f"""
+                        **Pali Term**: {lemma_1}
+                        **Grammar Details**: {grammar}
+                        **Pali sentence**: {sentence}
+                        **English Definition**: {meaning}
+
+                        Please generate at least nine distinct Russian translations for the English definition of Pali term, considering gramatical context, following these guidelines:
+
+                        - Separate synonyms with `;`.
+                        - Match the grammatical structure of the Pali term (noun, verb, adj, etc.).
+                        - Use lowercase unless it's a proper noun.
+                        - If the English definition contains an idiom, try to use a corresponding Russian idiom.
+                        - Output only the translations, without labels like "Перевод" etc.
+
+                    """
+                }
+            ]
+
+        else:
+
+            # Generate the chat messages based on provided values
+            messages = [
+                {
+                    "role": "system",
+                    "content": "You are a helpful assistant that translates English text to Russian, considering context, grammatical structure, and specific formatting rules."
+                },
+                {
+                    "role": "user",
+                    "content": f"""
+                        **Pali Term**: {lemma_1}
+                        **Grammar Details**: {grammar}
+                        **Pali sentence**: {sentence}
+                        **English Definition**: {meaning}
+
+                        Please provide Russian translation for the English definition of Pali term, considering gramatical context. Follow these guidelines:
+
+                        - Separate synonyms with `;`.
+                        - Match the grammatical structure of the Pali term (noun, verb, adj, etc.).
+                        - Use lowercase unless it's a proper noun.
+                        - If "lit." is present in definition, include a literal translation marked with досл.
+                        - If "(comm)" is present in definition, keep it as (комм) in Russian.
+                        - Retain any clarifications in brackets (e.g., "(of army)" → "(об армии)").
+                        - If the English definition contains an idiom, try to use a corresponding Russian idiom.
+                        - Output only the translations, without labels like "Перевод" etc.
+
+                    """
+                }
+            ]
 
     suggestion = handle_openai_response(messages, suggestion_field, error_field, window, model_version).lower()
 
@@ -719,7 +848,7 @@ def ru_notes_translate_with_openai(dpspth, pth, notes, lemma_1, grammar, suggest
     return suggestion
 
 
-def en_translate_with_openai(dpspth, pth, lemma_1, grammar, example, suggestion_field, error_field, window, model_version):
+def en_translate_with_openai(dpspth, pth, lemma_1, grammar, sentence, suggestion_field, error_field, window, model_version):
     window[error_field].update("")
 
     # keep original grammar
@@ -740,7 +869,7 @@ def en_translate_with_openai(dpspth, pth, lemma_1, grammar, example, suggestion_
             "content": f"""
                 **Pali Term**: {lemma_1}
                 **Grammar Details**: {grammar}
-                **Contextual Pali Sentences**: {example}
+                **Contextual Pali Sentences**: {sentence}
                 Given the grammatical and contextual details provided, list distinct English synonyms for the specified Pali term, separated by `;`. Avoid repeating the same word.
             """
         }
@@ -753,7 +882,7 @@ def en_translate_with_openai(dpspth, pth, lemma_1, grammar, example, suggestion_
         with open(dpspth.ai_en_suggestion_history_path, 'a', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter="\t")
             # Write the required columns to the CSV
-            writer.writerow([lemma_1, grammar_orig, grammar, example, suggestion])
+            writer.writerow([lemma_1, grammar_orig, grammar, sentence, suggestion])
 
     return suggestion
 

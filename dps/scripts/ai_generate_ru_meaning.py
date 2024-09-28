@@ -464,6 +464,8 @@ if __name__ == "__main__":
 
     print("Translationg with the help of AI")
 
+    #! change the prompt to latest version from the gui function
+
     # ru_meaning_generating()
 
     # roots_meaning_generating("pali")
