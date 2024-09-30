@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Электронный Словарь Пали</title>
+    <link rel="stylesheet" type="" href="/static/home.css">
+    <link rel="stylesheet" type="" href="/static/switch.css">
+    <link rel="stylesheet" type="" href="/static/dpd.css">
+    <link rel="icon" type="image/png" href="/static/dpd.ico">
+</head>
+
+
+<body>
+    <div class="header-pane">
+        <div class="logo-title">
+            <img src="static/dpd.ico" alt="dpd logo" id="header-image" class="header-image">
+            <h2 class="title" id="title-clear">Электронный Словарь Пали</h2>
+        </div>
+        <form id="search-form">
+            <input 
+                class="search-box" type="text" name="search" id="search-box" value="{{ поиск }}" 
+                autocomplete="off" inputmode="text" autocapitalize="off">
+            <button class="search-button" id="search-button">search</button>
+            <button class="help small-button" id="search-help-button">
+                ?
+                <span class="tooltip velthuis">
+                    <b>
+                        Система транслитерации Velthuis:
+                    </b><br><br>
+                    aa > ā<br>
+                    ii > ī<br>
+                    uu > ū<br>
+                    "n > ṅ<br>
+                    ~n > ñ<br>
+                    .t > ṭ<br>
+                    .d > ḍ<br>
+                    .n > ṇ<br>
+                    .m > ṃ<br>
+                    .l > ḷ
+                </span>
+            </button>
+
+        </form>
+    </div>
+    <div class="main-pane" id="main-pane">
+        <div class="history-pane" id="history-pane"">
+            <h3>История</h3>          
+            <button id="clear-history-button" class="clear-history-button">x</button>  
+            <div class="history-list-pane" id="history-list-pane">
+            </div>
+            
+        </div>
+        <div class=dpd-pane id="dpd-pane">
+            <div class="summary-results" id="summary-results"></div>
+            <div class="dpd-results" id="dpd-results">
+                {{ dpd_results|safe }}
+            </div>    
+        </div>
+        <div class=settings-pane>
+            <h3>Настройки</h3>
+            <p>
+                <button class="small-button" id="font-size-down">-</button>
+                <button class="small-button" id="font-size-up">+</button>
+                размер шрифта 
+                <span id="font-size-display"></span>
+            </p>
+            <p>
+                <label class="switch">
+                    <input type="checkbox" id="theme-toggle"><span class="slider round"></span>
+                </label>
+                день / ночь
+            </p>
+            <p>
+                <label class="switch">
+                    <input type="checkbox" id="sans-serif-toggle"><span class="slider round"></span>
+                </label>
+                sans / serif шрифт
+            </p>
+            <p>
+                <label class="switch">
+                    <input type="checkbox" id="niggahita-toggle"><span class="slider round"></span>
+                </label>
+                ниггахита ṃ / ṁ 
+            </p>
+            <p>
+                <label class="switch">
+                    <input type="checkbox" id="grammar-toggle"><span class="slider round"></span>
+                </label>
+                раздел грамматики скрыт / раскрыт
+            </p>
+            <p>
+                <label class="switch">
+                    <input type="checkbox" id="example-toggle"><span class="slider round"></span>
+                </label>
+                раздел примеров скрыт / раскрыт
+            </p>
+            <p>
+                <label class="switch">
+                    <input type="checkbox" id="one-button-toggle"><span class="slider round"></span>
+                </label>
+                по одному разделу за раз выкл/вкл
+            </p>
+            <p>
+                <label class="switch">
+                    <input type="checkbox" id="summary-toggle" checked><span class="slider round"></span>
+                </label>
+                краткая информация скрыта / раскрыта
+            </p>
+            <p>
+                <label class="switch">
+                    <input type="checkbox" id="sandhi-toggle" checked><span class="slider round"></span>
+                </label>
+                символ сандхи ' выкл / вкл
+            </p>
+        </div>
+    </div>
+    <div class="footer-pane">
+        Для подробной информации смотрите &nbsp;
+        <a href="https://digitalpalidictionary.github.io/rus/" target="_blank">DPD веб-страницу</a>
+    </div>
+    <script src="static/home.js"></script>
+    <script src="static/dpd.js"></script>
+</body>
+
+</html>

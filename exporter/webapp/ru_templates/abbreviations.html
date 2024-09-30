@@ -3,12 +3,27 @@
     <table class="help">
         <tr>
             <th>
-                Abbreviation
+                Сокращение
             </th>
             <td>
                 <b>{{d.headword|safe}}</b>
+                {% if d.ru_abbrev %}
+                    {% if d.ru_abbrev != d.headword %}
+                        - <b>{{d.ru_abbrev|safe}}</b>
+                    {% endif %}
+                {% endif %}
             </td>
         </tr>
+        {% if d.ru_meaning: %}
+        <tr>
+            <th>
+                Значение
+            </th>
+            <td>
+                {{d.ru_meaning|safe}}
+            </td>
+        </tr>
+        {% endif %}
         <tr>
             <th>
                 Meaning
@@ -31,7 +46,7 @@
         {% if d.example: %}
         <tr>
             <th>
-                Example
+                Пример
             </th>
             <td>
                 {{d.example|safe}}
@@ -42,7 +57,7 @@
         {% if d.explanation: %}
         <tr>
             <th>
-                Information
+                Инфо
             </th>
             <td>
                 {{d.explanation|safe}}

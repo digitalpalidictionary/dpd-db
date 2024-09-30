@@ -1,0 +1,13 @@
+<h3>Русский: {{ d.headword }}</h3>
+<div class='epd'>
+    {% for item in d.rpd %}
+    <p class="epd">
+        <b class="epd">{{ item.0 }}</b>
+        {% if item.1 %}
+        {{ item.1 }}.
+        {% endif %}
+        {{ item.2 }}.
+    </p>
+
+    {% endfor %}
+</div>

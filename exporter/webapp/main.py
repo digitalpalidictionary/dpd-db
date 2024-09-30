@@ -11,11 +11,13 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
+from sqlalchemy.orm import joinedload
 
 
 from exporter.webapp.modules import AbbreviationsData
 from exporter.webapp.modules import DeconstructorData
 from exporter.webapp.modules import EpdData
+from exporter.webapp.modules import RpdData
 from exporter.webapp.modules import GrammarData
 from exporter.webapp.modules import HeadwordData
 from exporter.webapp.modules import HelpData
@@ -37,6 +39,16 @@ from tools.exporter_functions import get_family_set
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 from tools.paths import ProjectPaths
 
+from tools.configger import config_test
+
+
+if config_test("exporter", "language", "en"):
+    lang = "en"
+if config_test("exporter", "language", "ru"):
+    lang = "ru"
+else:
+    raise ValueError("Invalid language parameter")
+
 
 def make_headwords_clean_set(db_session: Session) -> set[str]:
     """Make a set of Pāḷi headwords and English meanings."""
@@ -45,12 +57,23 @@ def make_headwords_clean_set(db_session: Session) -> set[str]:
     results = db_session.query(DpdHeadwords).all()
     headwords_clean_set = set([i.lemma_clean for i in results])
 
-    # add all english meanings
-    results = db_session \
-        .query(Lookup) \
-        .filter(Lookup.epd != "") \
-        .all()
-    headwords_clean_set.update([i.lookup_key for i in results])
+    if lang == "en":
+        # add all english meanings
+        results = db_session \
+            .query(Lookup) \
+            .filter(Lookup.epd != "") \
+            .all()
+        headwords_clean_set.update([i.lookup_key for i in results])
+
+    if lang == "ru":
+        # add all english and russian meanings
+        results = db_session \
+            .query(Lookup) \
+            .filter(Lookup.epd != "") \
+            .filter(Lookup.rpd != "") \
+            .all()
+        headwords_clean_set.update([i.lookup_key for i in results])
+    
     return headwords_clean_set
 
 
@@ -89,7 +112,11 @@ roots_count_dict = make_roots_count_dict(db_session)
 headwords_clean_set = make_headwords_clean_set(db_session)
 ascii_to_unicode_dict = make_ascii_to_unicode_dict(db_session)
 db_session.close()
-templates = Jinja2Templates(directory="exporter/webapp/templates")
+if lang == "en":
+    templates = Jinja2Templates(directory="exporter/webapp/templates")
+
+if lang == "ru":
+    templates = Jinja2Templates(directory="exporter/webapp/ru_templates")
 
 with open("exporter/webapp/static/dpd.css") as f:
     dpd_css = f.read()
@@ -173,6 +200,7 @@ def make_dpd_html(q: str) -> tuple[str, str]:
                 headword_results = db_session\
                     .query(DpdHeadwords)\
                     .filter(DpdHeadwords.id.in_(headwords))\
+                    .options(joinedload(DpdHeadwords.ru))\
                     .all()
                 headword_results = sorted(
                     headword_results, key=lambda x: pali_sort_key(x.lemma_1))
@@ -253,6 +281,13 @@ def make_dpd_html(q: str) -> tuple[str, str]:
                     .get_template("epd.html") \
                     .render(d=d)
 
+            # rpd 
+            if lang == "ru" and lookup_result.rpd:
+                d = RpdData(lookup_result)
+                dpd_html += templates \
+                    .get_template("rpd.html") \
+                    .render(d=d)
+
     # the two cases below search directly in the DpdHeadwords table
 
     elif q.isnumeric(): # eg 78654
@@ -260,6 +295,7 @@ def make_dpd_html(q: str) -> tuple[str, str]:
         headword_result = db_session\
             .query(DpdHeadwords)\
             .filter(DpdHeadwords.id == search_term)\
+            .options(joinedload(DpdHeadwords.ru))\
             .first()
         if headword_result:
             fc = get_family_compounds(headword_result)
@@ -278,6 +314,7 @@ def make_dpd_html(q: str) -> tuple[str, str]:
         headword_result = db_session \
             .query(DpdHeadwords) \
             .filter(DpdHeadwords.lemma_1 == q) \
+            .options(joinedload(DpdHeadwords.ru))\
             .first()
         if headword_result:
             fc = get_family_compounds(headword_result)
@@ -351,4 +388,5 @@ if __name__ == "__main__":
 # TODO summary of roots
 # TODO history forward and backwards buttons
 # TODO include mw, cpd, dppn, cone, etc.
+# TODO add set names in lookup table
 

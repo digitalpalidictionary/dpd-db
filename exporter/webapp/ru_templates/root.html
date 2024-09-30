@@ -1,0 +1,75 @@
+<!-- definition -->
+
+<h3>root: {{d.r.root}}</h3>
+<div class='root_content'>
+    <p>
+        root. 
+        <b>{{d.r.root_clean}}</b>
+        <sup>
+            {{d.r.root_has_verb}}
+        </sup>
+        {{d.r.root_group}} 
+        {{d.r.root_sign}} 
+        ({{d.r.root_ru_meaning}}) 
+        {{count}}
+    </p> 
+</div>
+
+<!-- root buttons -->
+
+<div class="root_button_box">
+    <a class="root_button" href="#" data-target="root_info_{{d.r.root_}}">инфо корня</a>
+    <a class="root_button" href="#" data-target="root_matrix_{{d.r.root_}}">матрица корня</a>
+    {% for fr in d.frs: %}
+        <a class="root_button" href="#" data-target="family_root_{{d.r.root_}}_{{fr.root_family_}}">{{fr.root_family}}</a>
+    {% endfor %}
+</div>
+
+<!-- root info -->
+
+<div id="root_info_{{d.r.root_}}" class="root_content hidden">
+    {{d.r.root_info|safe}}
+    <p class="root_footer">
+        Заметили ошибку? <a class="root_link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.r.root_link}}&entry.326955045=Инфо+корня&entry.1433863141={{d.app_name}}+{{d.date}}" target="_blank">Сообщите здесь</a>.
+    </p>
+</div>
+
+<!-- root matrix -->
+
+<div id="root_matrix_{{d.r.root_}}" class="root_content hidden">
+    <p>
+        {% if d.count <= 1: %}
+        <b>{{d.count}}</b> слово образовано от корня
+        {% else: %}
+        <b>{{d.count}}</b> слов(а) произошли от корня
+        {% endif %}
+        <b>
+            {{d.r.root_clean}}
+        </b>
+        <sup>
+            {{d.r.root_has_verb}}
+        </sup>
+        {{d.r.root_group}} 
+        {{d.r.root_sign}} 
+        ({{d.r.root_ru_meaning}})
+    </p>
+    {{d.r.root_matrix|safe}}
+    <p class="root_footer">
+        Заметили ошибку? <a class="root_link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.r.root_link}}&entry.326955045=Матрица+корня&entry.1433863141={{d.app_name}}+{{d.date}}" target="_blank">Сообщите здесь</a>.
+        </a>
+    </p>
+</div>
+
+<!-- root families -->
+
+{% for fr in d.frs: %}
+    <div 
+    id="family_root_{{d.r.root_}}_{{fr.root_family_}}" 
+    class="root_content hidden">
+        {{fr.html.replace("class='family'", "class='root_family'")|safe}}
+        <p class='root_footer'>
+            Заметили ошибку? <a class="root_link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.r.root_link}}&entry.326955045=Семья+корня&entry.1433863141={{d.app_name}}+{{d.date}}" target="_blank">Сообщите здесь
+        </a>.
+        </p>
+    </div>
+{% endfor %}

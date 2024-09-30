@@ -7,19 +7,26 @@ from tools.meaning_construction import make_grammar_line
 from tools.meaning_construction import degree_of_completion
 from tools.date_and_time import year_month_day_dash
 
+from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import make_ru_meaning, ru_replace_abbreviations, ru_make_grammar_line
+
 
 class HeadwordData():
     def __init__(self, i, fc, fi, fs):
         self.meaning = make_meaning_combo_html(i)
+        self.ru_meaning = make_ru_meaning(i)
         self.summary = summarize_construction(i)
         self.complete = degree_of_completion(i)
         self.grammar = make_grammar_line(i)
+        self.ru_grammar = ru_make_grammar_line(i)
+        self.ru_pos = ru_replace_abbreviations(i.pos, "gram")
+        self.ru_plus_case = ru_replace_abbreviations(i.plus_case, "gram")
         self.i = self.convert_newlines(i)
         self.fc = fc
         self.fi = fi
         self.fs = fs
         self.app_name = "dpdict.net"
         self.date = year_month_day_dash()
+        self.inflections_html_ru = ru_replace_abbreviations(i.inflections_html, "inflect")
         if config_test("dictionary", "make_link", "yes"):
             self.make_link = True
         else:
@@ -99,8 +106,16 @@ class AbbreviationsData():
         self.pali = data["pāli"]
         self.example = data["example"]
         self.explanation = data["explanation"]
+        self.ru_meaning = data.get("ru_meaning", "")
+        self.ru_abbrev = data.get("ru_abbrev", "")
 
 class EpdData():
     def __init__(self, result: Lookup):
         self.headword = result.lookup_key
         self.epd = result.epd_unpack
+
+
+class RpdData():
+    def __init__(self, result: Lookup):
+        self.headword = result.lookup_key
+        self.rpd = result.rpd_unpack
