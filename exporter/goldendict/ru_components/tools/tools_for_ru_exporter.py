@@ -20,17 +20,21 @@ pth = ProjectPaths()
 rupth = RuPaths()
 
 
-def make_ru_meaning(i: DpdHeadwords, ru: Russian) -> str:
-    """Compile ru_meaning and literal meaning, or return ru_meaning_raw"""
-    if ru is None:
-        return make_meaning_combo(i)
-    elif ru.ru_meaning:
-        ru_meaning: str = ru.ru_meaning
-        if ru.ru_meaning_lit:
-            ru_meaning += f"; досл. {ru.ru_meaning_lit}"
+def make_ru_meaning(i: DpdHeadwords) -> str:
+    """Uses only DpdHeadwords input. Compile html of ru_meaning and literal meaning, or return ru_meaning_raw.
+    ru_meaning in <b>bold</b>, or return english meaning"""
+
+    if i.ru is None:
+        ru_meaning: str = make_meaning_combo(i)
         return ru_meaning
-    elif ru.ru_meaning_raw:
-        ru_meaning: str = f"[пер ИИ] {ru.ru_meaning_raw}"
+
+    elif i.ru.ru_meaning:
+        ru_meaning: str = f"<b>{i.ru.ru_meaning}</b>"
+        if i.ru.ru_meaning_lit:
+            ru_meaning += f"; досл. {i.ru.ru_meaning_lit}"
+        return ru_meaning
+    elif i.ru.ru_meaning_raw:
+        ru_meaning: str = i.ru.ru_meaning_raw
         return ru_meaning
     else:
         return ""
@@ -156,7 +160,7 @@ def load_abbreviations_dict(tsv_file_path):
 def replace_english(value, kind = "freq"):
     # Perform basic replacements
     if kind == "freq":
-        value = value.replace('in the Chaṭṭha Saṅgāyana corpus', 'в версии текстов Chaṭṭha Saṅgāyana').replace('Exact matches of the word', 'График частоты слова').replace('Exact matches of', 'График частоты').replace('and its', 'и его форм').replace('declensions', 'склонений').replace('conjugations', 'спряжений')
+        value = value.replace('There are no matches of', 'Нет совпадений со словом').replace('in any corpus.', 'ни в одной из версий текста').replace('Frequency of', 'График частоты совпадений слова').replace('and its', 'и его форм').replace('declensions', 'склонений').replace('conjugations', 'спряжений')
     return value
 
 

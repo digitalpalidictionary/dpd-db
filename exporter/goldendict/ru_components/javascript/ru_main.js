@@ -15,6 +15,7 @@ document.addEventListener("click", function(event) {
 function button_click_ru(el) {
     const target_id = el.getAttribute("data-target");
     var target = document.getElementById(target_id);
+
     if (target) {
 
         if (target.textContent.includes("loading...")) {
@@ -62,6 +63,13 @@ function loadButtonContent_ru(data) {
     const feedbackHTML = makeFeedback_ru(data);
     const feedbackElement = document.getElementById(`feedback_ru_${data.lemma}`)
     feedbackElement.innerHTML = feedbackHTML
+
+
+    // frequency
+
+    const frequencyHTML = makeFrequency(data);
+    const frequencyElement = document.getElementById(`frequency_ru_${data.lemma}`)
+    frequencyElement.innerHTML = frequencyElement.innerHTML.replace("frequency loading...", frequencyHTML)
 
     //// family compounds
 
@@ -131,9 +139,14 @@ function loadRootButtonContent_ru(data) {
         const key_id = item.id
         const key_clean = item.id.replace("family_root_ru_", "").replace(/_/g, " ")
         const fr = ru_family_root_json[key_clean]
-        const familyRootHtml = makeFamilyRootHtml_ru(data, fr, "root");
-        const familyRootElement = document.getElementById(key_id)
-        familyRootElement.innerHTML = familyRootHtml
+        if (fr !==undefined ){
+            const familyRootHtml = makeFamilyRootHtml_ru(data, fr, "root");
+            const familyRootElement = document.getElementById(key_id)
+            familyRootElement.innerHTML = familyRootHtml
+        } else {
+            console.log(`${key_clean} not found in family_root_json.js`)
+        }
+
     })
 };
 

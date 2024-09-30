@@ -52,6 +52,8 @@ class RuPaths:
         self.family_set_template_js = base_dir / "exporter/goldendict/ru_components/javascript/ru_family_set_template.js"
         self.family_word_template_js = base_dir / "exporter/goldendict/ru_components/javascript/ru_family_word_template.js"
         self.feedback_template_js = base_dir / "exporter/goldendict/ru_components/javascript/ru_feedback_template.js"
+        self.frequency_template_js = base_dir / "exporter/goldendict/ru_components/javascript/ru_frequency_template.js"
+
 
         # /share/goldendict
         self.share_dir = base_dir / "exporter/share"

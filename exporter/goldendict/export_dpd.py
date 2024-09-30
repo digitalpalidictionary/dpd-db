@@ -914,18 +914,15 @@ def render_frequency_templ(
             header = f"Frequency of <b>{i.lemma_1}</b> and its conjugations."
         elif i.pos in DECLENSIONS:
             header = f"Frequency of <b>{i.lemma_1}</b> and its declensions."
-            
-    freq = ""
 
     if lang == "ru":
-        freq = replace_english(i.freq_html)
+        header = replace_english(header)
 
     return str(
         frequency_templ.render(
             i=i,
             header=header,
-            today=TODAY,
-            freq=freq))
+            today=TODAY))
 
 
 def render_feedback_templ(
