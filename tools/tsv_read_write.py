@@ -87,6 +87,20 @@ def read_tsv_as_dict(file_path: Path) -> dict:
         headers = next(tsv_reader)  # Skip the header row
         for row in tsv_reader:
             key = row[0]
-            sub_dict = {headers[i]: value for i, value in enumerate(row) if i !=  0}
-            dict[key] = sub_dict
+            if key: # Check if the key is not empty
+                sub_dict = {headers[i]: value for i, value in enumerate(row) if i !=  0}
+                dict[key] = sub_dict
     return dict
+
+
+def read_tsv_as_dict_with_different_key(file_path: Path, key_index: int) -> dict:
+    dict_result = {}
+    with open(file_path) as tsv_file:
+        tsv_reader = csv.reader(tsv_file, delimiter='\t')
+        headers = next(tsv_reader)  # Skip the header row
+        for row in tsv_reader:
+            key = row[key_index]
+            if key: # Check if the key is not empty
+                sub_dict = {headers[i]: value for i, value in enumerate(row) if i != key_index}
+                dict_result[key] = sub_dict
+    return dict_result

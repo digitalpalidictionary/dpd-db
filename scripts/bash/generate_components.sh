@@ -43,6 +43,8 @@ db/bold_definitions/update_bold_definitions_db.py
 
 db/epd/epd_to_lookup.py
 
+db/rpd/rpd_to_lookup.py
+
 scripts/dealbreakers.py
 status=$?
 if [[ $status -ne  0 ]]; then

@@ -468,5 +468,8 @@ func shouldDelete(l dpdDb.Lookup) bool {
 	if l.Epd != "" {
 		return false
 	}
+	if l.Rpd != "" {
+		return false
+	}
 	return true
 }

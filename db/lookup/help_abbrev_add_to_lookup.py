@@ -9,12 +9,20 @@ from db.models import Lookup
 from tools.lookup_is_another_value import is_another_value
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
-from tools.tsv_read_write import read_tsv_as_dict
+from tools.tsv_read_write import read_tsv_as_dict, read_tsv_as_dict_with_different_key
+
+from tools.configger import config_test
 
 
 class ProgData():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
+    if config_test("exporter", "language", "en"):
+        lang = "en"
+    elif config_test("exporter", "language", "ru"):
+        lang = "ru"
+    else:
+        raise ValueError("Invalid language parameter")
 
 
 def add_help(g: ProgData):
@@ -48,6 +56,29 @@ def add_help(g: ProgData):
                 lkp.lookup_key = key
                 lkp.help_pack(values["meaning"])
                 g.db_session.add(lkp)
+
+    # add ru help
+
+    if g.lang == "ru":
+
+        help_data = read_tsv_as_dict_with_different_key(g.pth.help_tsv_path, 2)
+
+        # then update with new values
+        for key, values in help_data.items():
+
+            # query the key in Lookup table
+            results = g.db_session.query(Lookup).filter_by(lookup_key=key).first()
+
+            # if it exists, then update help column
+            if results:
+                results.help_pack(values["ru_meaning"])
+            
+            # if not, add it
+            else:
+                lkp = Lookup()
+                lkp.lookup_key = key
+                lkp.help_pack(values["ru_meaning"])
+                g.db_session.add(lkp)
     
     g.db_session.commit()
     
@@ -70,9 +101,10 @@ def add_abbreviations(g: ProgData):
     # then update with new values    
     for key, values in abbrevs.items():
         
-        # delete the russion values
-        del abbrevs[key]["ru_abbrev"]
-        del abbrevs[key]["ru_meaning"]
+        if g.lang == "en":
+            # delete the russion values
+            del abbrevs[key]["ru_abbrev"]
+            del abbrevs[key]["ru_meaning"]
 
         # query the key in Lookup table
         results = g.db_session.query(Lookup).filter_by(lookup_key=key).first()
@@ -87,6 +119,29 @@ def add_abbreviations(g: ProgData):
             lu.lookup_key = key
             lu.abbrev_pack(values)
             g.db_session.add(lu)
+
+    # add ru abbrev
+
+    if g.lang == "ru":
+
+        abbrevs = read_tsv_as_dict_with_different_key(g.pth.abbreviations_tsv_path, 5)
+
+        # then update with new values    
+        for key, values in abbrevs.items():
+        
+            # query the key in Lookup table
+            results = g.db_session.query(Lookup).filter_by(lookup_key=key).first()
+
+            # if it exists, then update abbrev column
+            if results:
+                results.abbrev_pack(values)
+            
+            # if not, add it
+            else:
+                lu = Lookup()
+                lu.lookup_key = key
+                lu.abbrev_pack(values)
+                g.db_session.add(lu)
     
     g.db_session.commit()
 

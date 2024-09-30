@@ -245,6 +245,7 @@ class Lookup(Base):
     help: Mapped[str] = mapped_column(default='')
     abbrev: Mapped[str] = mapped_column(default='')
     epd: Mapped[str] = mapped_column(default='')
+    rpd: Mapped[str] = mapped_column(default='')
     other: Mapped[str] = mapped_column(default='')
     sinhala: Mapped[str] = mapped_column(default='')
     devanagari: Mapped[str] = mapped_column(default='')
@@ -388,6 +389,22 @@ class Lookup(Base):
     def epd_unpack(self) -> list[tuple[str, str, str]]:
         if self.epd:
             return json.loads(self.epd)
+        else:
+            return []
+
+    # rpd pack unpack
+
+    def rpd_pack(self, list: list[tuple[str, str, str]]) -> None:
+        if dict:
+            self.rpd = json.dumps(
+                list, ensure_ascii=False, indent=1)
+        else:
+            raise ValueError("A dict must be provided to pack.")
+
+    @property
+    def rpd_unpack(self) -> list[tuple[str, str, str]]:
+        if self.rpd:
+            return json.loads(self.rpd)
         else:
             return []
     

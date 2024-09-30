@@ -199,6 +199,7 @@ type Lookup struct {
 	Help          string `gorm:"column:help"`
 	Abbrev        string `gorm:"column:abbrev"`
 	Epd           string `gorm:"column:epd"`
+	Rpd           string `gorm:"column:rpd"`
 	Other         string `gorm:"column:other"`
 	Sinhala       string `gorm:"column:sinhala"`
 	Devanagari    string `gorm:"column:devanagari"`
