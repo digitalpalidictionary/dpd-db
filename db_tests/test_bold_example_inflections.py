@@ -26,27 +26,48 @@ def check_username():
 class GlobalVars():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
+    
     show_sbs_data: bool = check_username()
     if show_sbs_data:
         db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs)).all()
     else:
         db = db_session.query(DpdHeadword).all()
+    
     pali_alphabet: list[str] = pali_alphabet
     i: DpdHeadword
+    
     if show_sbs_data:
         fields: list[str] = ["sbs_example_1", "sbs_example_2", "sbs_example_3", "sbs_example_4"]
     else:
         fields: list[str] = ["example_1", "example_2"]
     field: str
+    
     bold_words: list[str]
     bold_word: str
-    inflections_list: list[str]
     clean_bold_word: str
+    
+    inflections_list: list[str]
+    
     counter: int = 1
+    counter_total: int = 1
+    pass_no: str
+
     exit: bool = False
 
     def __init__(self) -> None:
         self.json : dict[str, list[str]] = self.load_json()
+
+
+    def get_headword(self, id: int)-> DpdHeadword:
+        result = self.db_session.query(DpdHeadword).filter_by(id=id).first()
+        if result:
+            return result
+        else:
+            return DpdHeadword()
+
+    @property
+    def count_string(self) -> str:
+        return f"{self.counter} / {self.counter_total}"
     
     def load_json(self) -> dict[str, list[str]]:
         try :
@@ -149,47 +170,62 @@ def test6(g: GlobalVars):
             return
     test7(g)
 
+
 def test7(g: GlobalVars):
     """test 7, double letters"""
+    
     if g.bold_word[3] == g.bold_word[4]:
-        sentence = getattr(g.i, g.field)
-        fixed_bold = re.sub("(<b>)(.)(.)", r"\2\1\3", g.bold_word)
-        fixed_sentence = sentence.replace(g.bold_word, fixed_bold)
-        
-        print()
-        print("-"*50)
-        print()
-        p_summary("id", g.i.id)
-        p_summary("lemma", g.i.lemma_1)
-        p_summary("column", g.field)
-        print()
-        print(
-            sentence.replace(
-                g.bold_word, f"[yellow]{g.bold_word}[/yellow]"))
-        print()
-        print(
-            sentence.replace(
-                g.bold_word, f"[cyan]{fixed_bold}[/cyan]"))
-        print()
-        print(f"replace [yellow]{g.bold_word}[/yellow] with ", end="") 
-        print(f"[cyan]{fixed_bold}[/cyan]? ", end="")
-        print("[yellow]y[/yellow]es ", end="")
-        print("[yellow]n[/yellow]o ", end="")
-        
-        choice = input()
-        if choice == "y":
-            setattr(g.i, g.field, fixed_sentence)   
-            g.db_session.commit()
+        g.counter_total += 1
+        if g.pass_no == "pass2":
+            sentence = getattr(g.i, g.field)
+            fixed_bold = re.sub("(<b>)(.)(.)", r"\2\1\3", g.bold_word)
+            fixed_sentence = sentence.replace(g.bold_word, fixed_bold)
+            
+            print()
+            print("-"*50)
+            print()
+            p_summary("counter", g.count_string)
+            p_summary("id", g.i.id)
+            p_summary("lemma", g.i.lemma_1)
+            p_summary("pos", g.i.pos)
+            p_summary("meaning", g.i.meaning_combo)
+            p_summary("column", g.field)
+            print()
+            print(
+                sentence.replace(
+                    g.bold_word, f"[yellow]{g.bold_word}[/yellow]"))
+            print()
+            print(
+                sentence.replace(
+                    g.bold_word, f"[cyan]{fixed_bold}[/cyan]"))
+            print()
+            print(f"replace [yellow]{g.bold_word}[/yellow] with ", end="") 
+            print(f"[cyan]{fixed_bold}[/cyan]? ", end="")
+            print("[yellow]y[/yellow]es ", end="")
+            print("[yellow]n[/yellow]o ", end="")
+            
+
+            choice = input()
+            if choice == "y":
+                setattr(g.i, g.field, fixed_sentence)   
+                g.db_session.commit()
+
+                print()
+                print("[yellow]test the word while you're here: ", end="")
+                pyperclip.copy(g.i.id)
+                input()
+            else:
+                test8(g)
         else:
             test8(g)
-    
+
     else:
         test8(g)
 
 
 def test8(g: GlobalVars):
     """test 8, last position is sandhi."""
-
+    
     for inflection in g.inflections_list:
         infl_len = len(inflection)
 
@@ -227,59 +263,84 @@ def test8(g: GlobalVars):
 def printer(g: GlobalVars, message):
     """Print out the problem and up the tally."""
 
-    print()
-    print("-"*50)
-    print()
-    p_summary("counter", g.counter)
-    p_summary("id", g.i.id)
-    p_summary("test", message)
-    p_summary("column", g.field)
-    p_summary("lemma", f"[cyan]{g.i.lemma_1}")
-    p_summary("clean bold", f"[chartreuse2]{g.clean_bold_word}")
+    if g.pass_no == "pass2":
 
-    # print(f"[light_sky_blue3]{message:<20}[deep_sky_blue4]{g.field:<20}[chartreuse2]{g.clean_bold_word:<20}")
-    g.counter += 1
-    pyperclip.copy(g.i.id)
-    
-    print("[yellow]p[/yellow]ass ", end="")
-    print("e[yellow]x[/yellow]it ", end="")
-    print("or any key to continue: ", end="")
-    
-    choice = input()
-    if choice == "x":
-        g.exit = True
-    if choice == "p":
-        g.update_json(g.i.id, g.clean_bold_word)
+        print()
+        print("-"*50)
+        print()
+        p_summary("counter", g.count_string)
+        p_summary("id", g.i.id)
+        p_summary("pos", g.i.pos)
+        p_summary("meaning", g.i.meaning_combo)
+        p_summary("test", message)
+        p_summary("column", g.field)
+        p_summary("lemma", f"[cyan]{g.i.lemma_1}")
+        p_summary("clean bold", f"[chartreuse2]{g.clean_bold_word}")
+
+        g.counter += 1
+        pyperclip.copy(g.i.id)
+        
+        print("[yellow]p[/yellow]ass ", end="")
+        print("e[yellow]x[/yellow]it ", end="")
+        print("or any key to continue: ", end="")
+        
+        choice = input()
+        if choice == "x":
+            g.exit = True
+        if choice == "p":
+            g.update_json(g.i.id, g.clean_bold_word)
+        
+        # freshen the session to show updated
+        # g.db_session = get_db_session(g.pth.dpd_db_path)
+        # if updated := g.db_session.query(DpdHeadword).filter_by(id = g.i.id).first():
+        #     g.i = updated
+
+    else:
+        g.counter_total += 1
 
 def main():
     p_title("test bold in examples are real inflections")
+    
     g = GlobalVars()
-    for i in g.db:
-        if g.exit:
-            break
-        g.i = i
-        if i.pos not in ["idiom"]:
-            # search in a list of fields
-            for field in g.fields:
-                if g.exit:
-                    break
-                g.field = field
-                if g.show_sbs_data:
-                    find_all_bold_words_sbs(g)
-                else:
-                    find_all_bold_words(g)
-                get_inflections(g)
-                for bold_word in g.bold_words:
-                    g.bold_word = bold_word
-                    clean_bold_word(g)
-                    try:
-                        pass_list = g.json[str(i.id)]
-                    except KeyError:
-                        pass_list = []
-                    if g.clean_bold_word not in pass_list:
-                        test1(g)
-                        if g.exit:
-                            break
+
+    for pass_no in ["pass1", "pass2"]:
+        g.pass_no = pass_no
+        
+        for g.i in g.db:
+            
+            if g.exit:
+                break
+
+            if g.i.pos not in ["idiom"]:
+                # search in a list of fields
+                for field in g.fields:
+                    
+                    if g.exit:
+                        break
+                    
+                    g.field = field
+                    
+                    if g.show_sbs_data:
+                        find_all_bold_words_sbs(g)
+                    else:
+                        find_all_bold_words(g)
+                    
+                    get_inflections(g)
+                    
+                    for bold_word in g.bold_words:
+                        
+                        g.bold_word = bold_word
+                        clean_bold_word(g)
+                        
+                        try:
+                            pass_list = g.json[str(g.i.id)]
+                        except KeyError:
+                            pass_list = []
+                        
+                        if g.clean_bold_word not in pass_list:
+                            test1(g)
+                            if g.exit:
+                                break
     
 
 if __name__ == "__main__":

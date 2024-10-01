@@ -12,9 +12,7 @@ def property_method():
     bip()
     print("property_method")
     root_count: dict = {}
-    roots_db = db_session.query(
-        DpdRoot
-        ).all()
+    roots_db = db_session.query(DpdRoot).all()
 
     for i in roots_db:
         root_count[i.root] = i.root_count
@@ -25,16 +23,12 @@ def dict_method():
     bip()
     print("dict_method")
     root_count: dict = {}
-    roots_db = db_session.query(
-        DpdRoot
-    ).all()
+    roots_db = db_session.query(DpdRoot).all()
 
     for i in roots_db:
-        root_count[i.root] = db_session.query(
-            DpdHeadword
-        ).filter(
-            DpdHeadword.root_key == i.root
-        ).count()
+        root_count[i.root] = db_session.query(DpdHeadword) \
+            .filter(DpdHeadword.root_key == i.root) \
+            .count()
 
     return bop(), len(root_count)
 
@@ -42,9 +36,7 @@ def dict_method():
 # print(property_method())
 # print(dict_method())
 
-db = db_session.query(
-    DpdHeadword
-).all()
+db = db_session.query(DpdHeadword).all()
 
 
 def root_key():
@@ -58,9 +50,7 @@ def root_key():
 
 
 def test_family_list():
-    roots_db = db_session.query(
-        DpdRoot
-    ).all()
+    roots_db = db_session.query(DpdRoot).all()
     for i in roots_db:
         print(i.root, i.root_family_list)
 

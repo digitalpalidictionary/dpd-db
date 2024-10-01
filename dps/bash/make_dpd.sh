@@ -9,8 +9,6 @@ python -c "from tools.configger import config_update; config_update('exporter', 
 
 scripts/bash/generate_components.sh
 
-db/frequency/ebt_calculation.py
-
 dps/scripts/change_ebt_count.py
 
 exporter/grammar_dict/grammar_dict.py
@@ -32,7 +30,6 @@ if python -c "from tools.configger import config_test; result = config_test('dic
 else
     # Run if the condition is True
     scripts/zip_goldendict_mdict.py
-    db/frequency/ebt_calculation.py
 fi
 
 # Update the show_ebt_count setting to 'no' if it was 'yes'

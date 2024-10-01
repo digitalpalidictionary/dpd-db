@@ -119,20 +119,17 @@ def test_changed_headwords(pth: ProjectPaths):
 def test_html_file_missing(db_session: Session):
     print("[green]test if html file is missing", end=" ")
 
-    idioms_db = db_session.query(
-        DpdHeadword.id, DpdHeadword.pos
-    ).filter(
-        DpdHeadword.pos == "idiom"
-    ).all()
+    idioms_db = db_session.query(DpdHeadword.id, DpdHeadword.pos) \
+        .filter(DpdHeadword.pos == "idiom") \
+        .all()
 
     idioms_list = [i.id for i in idioms_db]
 
-    missing_html_db = db_session.query(
-        DpdHeadword.id, DpdHeadword.freq_html
-    ).filter(
-        DpdHeadword.freq_html == "",
-        DpdHeadword.id.notin_(idioms_list)
-    ).all()
+    missing_html_db = db_session.query(DpdHeadword.id, DpdHeadword.freq_html) \
+        .filter(
+            DpdHeadword.freq_html == "",
+            DpdHeadword.id.notin_(idioms_list)) \
+        .all()
 
     global html_file_missing
     html_file_missing = [i.id for i in missing_html_db]

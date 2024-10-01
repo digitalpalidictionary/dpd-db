@@ -2,6 +2,7 @@
 
 """Export Deconstructor To GoldenDict and MDict formats."""
 
+import re
 from mako.template import Template
 from minify_html import minify
 from rich import print
@@ -53,7 +54,7 @@ class ProgData():
 def make_deconstructor_dict_data(g: ProgData) -> None:
     """Prepare data set for GoldenDict of deconstructions and synonyms."""
 
-    p_green_title("making deconstructor data list")
+    p_green("making deconstructor data list")
 
     db_session = get_db_session(g.pth.dpd_db_path)
     deconstructor_db = db_session \
@@ -72,14 +73,24 @@ def make_deconstructor_dict_data(g: ProgData) -> None:
     elif g.lang == "ru":
         deconstructor_templ = Template(filename=str(g.rupth.deconstructor_templ_path))
 
+    p_yes(len(deconstructor_db))
+
     for counter, i in enumerate(deconstructor_db):
         deconstructions = i.deconstructor_unpack
+
+        # repack the deconstructions into a list of tuples
+        # [0] is the deconstruction, [1] is the rules
+        deconstructions_repack: list[tuple[str, str]] = []
+        for d in deconstructions:
+            rules = re.sub(r".+\[(.+)\]", r"\1", d)     # just whats in-between [...]
+            decon = re.sub(r" \[.+", "", d)             # everything except ' [...]'
+            deconstructions_repack.append((decon, rules))
 
         html_string: str = ""
         html_string += "<body>"
         html_string += str(deconstructor_templ.render(
             i=i,
-            deconstructions=deconstructions,
+            deconstructions=deconstructions_repack,
             today=TODAY))
 
         html_string += "</body></html>"

@@ -290,8 +290,9 @@ def add_dual_meanings(g: ProgData):
         # go through each word_list and
         # add individual words to synonyms or variants
 
-        db = g.db_session.query(
-            DpdHeadword).filter(DpdHeadword.lemma_1.in_(word_list)).all()
+        db = g.db_session.query(DpdHeadword) \
+            .filter(DpdHeadword.lemma_1.in_(word_list)) \
+            .all()
 
         # sorted lists of clean headwords, synonyms and variants
         db = sorted(db, key=lambda x: pali_sort_key(x.lemma_1))

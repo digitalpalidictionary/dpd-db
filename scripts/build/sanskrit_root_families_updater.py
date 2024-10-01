@@ -23,15 +23,19 @@ exceptions = [
     "anupādā",
     "hrī",
     "kṣudh",
+    "niṣṭhā",
     "pariṣad",
     "prajñā",
     "pratijñā",
+    "pratimā",
     "pratipad",
     "saṃjñā",
     "śraddhā",
     "upamā",
     "vidyut",
-    "pratimā",
+    "puṣpa",
+    "prabhā",
+    "medhā",
     ]
 
 

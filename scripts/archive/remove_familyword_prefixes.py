@@ -11,9 +11,7 @@ from tools.paths import ProjectPaths
 def remove_space_in_family_word():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(
-        DpdHeadword
-    ).all()
+    dpd_db = db_session.query(DpdHeadword).all()
 
     add_to_db = []
     for __counter__, i in enumerate(dpd_db):

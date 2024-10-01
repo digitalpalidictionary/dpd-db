@@ -7,5 +7,3 @@ scripts/db_rebuild_from_tsv.py
 db/bold_definitions/update_bold_definitions_db.py
 
 scripts/bash/generate_components.sh
-
-db/frequency/ebt_calculation.py

@@ -103,8 +103,9 @@ def find_in_family_compound(pth: ProjectPaths, db_session: Session, word_family_
         print(f"/^({'|'.join(word_family_dict[word])})$/")
         for x in word_family_dict[word]:
             if x not in processed_words:
-                headword = db_session.query(
-                        DpdHeadword).filter(DpdHeadword.lemma_1 == x).first()
+                headword = db_session.query(DpdHeadword) \
+                    .filter(DpdHeadword.lemma_1 == x) \
+                    .first()
                 if headword is not None and headword.lemma_1 not in exceptions_list:
                     meaning = make_meaning_combo(headword)
                     query = Prompt.ask(f"{x}: [green]{headword.pos}. [light_green]{meaning} ")

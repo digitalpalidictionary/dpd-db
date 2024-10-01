@@ -68,11 +68,9 @@ def get_family_set(i: DpdHeadword) -> List[FamilySet]:
     if db_session is None:
         raise Exception("No db_session")
 
-    fs = db_session.query(
-        FamilySet
-    ).filter(
-        FamilySet.set.in_(i.family_set_list)
-    ).all()
+    fs = db_session.query(FamilySet) \
+        .filter(FamilySet.set.in_(i.family_set_list)) \
+        .all()
 
     # sort by order of the  family set list
     word_order = i.family_set_list

@@ -125,7 +125,7 @@
     {% if d.i.needs_sets_button %}
         <a class="button" 
         href="#" 
-        data-target="family_set_{{d.i.lemma_1_}}">
+        data-target="family_sets_{{d.i.lemma_1_}}">
         sets</a>
     {% endif %}
 
@@ -759,7 +759,7 @@
 <!-- sets -->
 
 {% if d.i.needs_sets_button %}
-<div id="sets_{{d.i.lemma_1_}}" class="content hidden">
+<div id="family_sets_{{d.i.lemma_1_}}" class="content hidden">
     <p id="{{d.i.lemma_1_}}sets_top" class="heading">jump to: 
     {% for set in d.i.family_set_list %}
     <a class="jump" 
@@ -826,17 +826,31 @@
 
 {% if d.i.needs_frequency_button %}
 <div id="frequency_{{d.i.lemma_1_}}" class="content hidden">
-    <p class="heading underlined">
-    {% if d.i.needs_declension_button %}
-        Frequency of <b>{{d.i.lemma_1}}</b> and its declensions
-    {% elif d.i.needs_conjugation_button %}
-        Frequency of <b>{{d.i.lemma_1}}</b> and its conjugations
-    {% else %}
-        Frequency of <b>{{d.i.lemma_1}}</b>
-    {% endif %}
-    </p>
     
-    {{d.i.freq_html|safe}}
+    {% if not d.i.freq_html %}
+        <p class="heading underlined">
+            There are no matches of <b>{{d.i.lemma_1}}</b> in any texts.
+        </p>
+        <p>
+            It probably only occurs in compounds. Or perhaps there is an error.
+        </p>
+    
+    {% else %}
+        <p class="heading underlined">
+
+        {% if d.i.needs_declension_button %}
+            Frequency of <b>{{d.i.lemma_1}}</b> and its declensions
+        {% elif d.i.needs_conjugation_button %}
+            Frequency of <b>{{d.i.lemma_1}}</b> and its conjugations
+        {% else %}
+            Frequency of <b>{{d.i.lemma_1}}</b>
+        {% endif %}
+
+        {{d.i.freq_html|safe}}
+
+    {% endif %}
+  
+   
     <p>
         For a detailed explanation of how this word frequency chart is calculated, it's accuracies and inaccuracies, please refer to 
         <a class="link" 

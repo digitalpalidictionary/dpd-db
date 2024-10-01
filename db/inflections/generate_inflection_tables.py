@@ -154,10 +154,11 @@ def generate_inflection_table(g: GlobalVars):
     i = g.i
 
     if i.it is None or i.it.data is None:
+        p_red(f"ERROR: {i.id} {i.lemma_1} {i.pattern} does not exist")
         return "", []
 
     table_data = json.loads(i.it.data)
-    g.inflections_list: list = [i.lemma_clean]
+    g.inflections_list = [i.lemma_clean]
 
     # heading
     html: str = "<p class='heading'>"
@@ -285,6 +286,8 @@ def main():
 
     if g.regenerate_all is False:
         run_tests(g)
+    else:
+        test_wrong_pattern(g)
     
     p_green("generating html tables and lists")
     for g.i in g.dpd_db:

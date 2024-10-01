@@ -34,6 +34,7 @@ db/lookup/transliterate_lookup_table.py
 db/lookup/help_abbrev_add_to_lookup.py
 
 go run go_modules/frequency/main.go 
+scripts/build/ebt_counter.py
 
 db/epd/epd_to_lookup.py
 

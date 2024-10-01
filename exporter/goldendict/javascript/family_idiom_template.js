@@ -1,31 +1,32 @@
-function makeFamilyIdioms(data, lemma_link) {
+function makeFamilyIdioms(data) {
     const familyIdiomList = data.family_idioms
-    const lemma = data.lemma
+    const lemmaTag = data.lemma.replace(/ /g, "_")
+    const lemmaLink = data.lemma.replace(/ /g, "%20")
     var html = "";
 
     //// header
 
     if (familyIdiomList.length > 1) {
-        html += `<p class="heading" id="${lemma}_idiom_top">jump to: `; 
+        html += `<p class="heading" id="${lemmaTag}_idiom_top">jump to: `; 
         familyIdiomList.forEach(item => {
-            item = item.replace(/ /g, "_")
-            html += `<a class="jump" href="#${lemma}_idiom_${item}">${item}</a> `;
+            itemTag = item.replace(/ /g, "_")
+            html += `<a class="jump" href="#${lemmaTag}_idiom_${itemTag}">${item}</a> `;
         });
         html += `</p>`;
     };
 
     familyIdiomList.forEach(item => {
         fi = family_idiom_json[item]
-        item = item.replace(/ /g, "_")
+        itemTag = item.replace(/ /g, "_")
 
         if (familyIdiomList.length > 1) {
             html += `<p class="heading underlined overlined" `
-            html += `id=${lemma}_idiom_${item}>`;
+            html += `id=${lemmaTag}_idiom_${itemTag}>`;
             html += `<b>${fi.count}</b> idiomatic expressions which contain <b>${superScripter(item)}</b>`;
-            html += `<a class="jump" href="#${lemma}_idiom_top"> ⤴</a></p>`;
+            html += `<a class="jump" href="#${lemmaTag}_idiom_top"> ⤴</a></p>`;
         } else if (familyIdiomList.length == 1) {
             html += `<p class="heading underlined" `
-            html += `id=${lemma}_idiom_top>`;
+            html += `id=${lemmaTag}_idiom_top>`;
             html += `<b>${fi.count}</b> idiomatic expression which contains <b>${superScripter(item)}</b>`;
         };
         
@@ -52,11 +53,11 @@ function makeFamilyIdioms(data, lemma_link) {
         <p class="footer">
         Please add more idioms  
         <a class="link" 
-        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&amp;entry.438735500=${lemma_link}&amp;entry.326955045=Idioms&amp;entry.1433863141=GoldenDict+${data.date}" 
+        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&amp;entry.438735500=${lemmaLink}&amp;entry.326955045=Idioms&amp;entry.1433863141=GoldenDict+${data.date}" 
         target="_blank">
         here</a>.`; 
     
-    html += `<a class="jump" href="#${lemma}_idiom_top"> ⤴</a></p>`
+    html += `<a class="jump" href="#${lemmaTag}_idiom_top"> ⤴</a></p>`
 
     return html
 }

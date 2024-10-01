@@ -2,140 +2,244 @@
 
 """Find numerals in compounds, and change the compound type to digu."""
 
+import json
 import re
+import pyperclip
 from rich import print
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 
-from tools.meaning_construction import clean_construction, make_meaning_combo
 from tools.paths import ProjectPaths
-from tools.tsv_read_write import write_tsv_list, read_tsv_dot_dict, write_tsv_dot_dict
+from tools.printer import p_green, p_green_title, p_summary, p_title, p_yes
 
 
-class ProgData():
+class GlobalVars():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
-    cardinal_set = set()
-    cardinal_in_construction_set = set()
-    all_parts_are_cardinal_set = set()
-    pos_exceptions = ["card", "ind", "ordin"]
-    digu_tsv_data: list[list[str]]
-    pali_id_dict: dict[str, int]
 
-g = ProgData()
+    pass_no: str
+    local_counter: int = 0
+    total_counter: int = 0
 
+    i: DpdHeadword
+    
+    cardinal_pali_set = set()
+    cardinal_english_set = set()
 
-def main():
-    print("[bright_yellow]find all possible digu samāsa")
+    ordinal_pali_set = set()
+    ordinal_english_set = set()
 
-    if g.pth.digu_path.exists:
-        g.digu_tsv_data = read_tsv_dot_dict(g.pth.digu_path)
-        print(g.digu_tsv_data) 
-    else:
-        make_dict_of_cardinals()
-        find_cardinals_in_construction()
-        remove_identical_members()
-        write_to_tsv()
+    meaning_parts: list[str]
+
+    exit: bool = False
+
+    def __init__(self) -> None:
+        self.json : dict[int, str] = self.load_json()
 
 
-def make_dict_of_cardinals():
-    """Make a list of all cardinal numbers in the db."""
-    print(f"[green]{'making list of cardinals':40}", end="")
+    def load_json(self) -> dict[int, str]:
+        try :
+            with open(self.pth.digu_json_path) as f:
+                return json.load(f)
+        except FileNotFoundError as e:
+            print(e)
+            return {}
+        
+    def save_json(self):
+        with open(self.pth.digu_json_path, "w") as f:
+            json.dump(self.json, f, ensure_ascii=False, indent=2)
+    
+    def update_json(self):
+        self.json[self.i.id] = self.i.lemma_1
+        self.save_json()
+
+
+def make_sets_of_cardinals_and_ordinals(g: GlobalVars):
+    """Make a set of all cardinal and ordinal numbers in the db."""
+
+    p_green("making sets of pali and english cardinals and ordinals")
     
     for i in g.db:
         if i.pos == "card":
-            g.cardinal_set.add(i.lemma_clean)
+            g.cardinal_pali_set.add(i.lemma_clean)
+            clean_cardinal = re.sub(r" \(.+", "", i.meaning_combo)
+            g.cardinal_english_set.add(clean_cardinal)
+        if i.pos == "ordin":
+            g.ordinal_pali_set.add(i.lemma_clean )
+            clean_ordinal = re.sub(r" \(.+", "", i.meaning_combo)
+            g.ordinal_english_set.add(clean_ordinal)
+
+    p_yes(f"{len(g.cardinal_pali_set)}, {len(g.ordinal_pali_set)}")
+
+
+def fix_kammadhāraya(g: GlobalVars):
+
+    p_green_title("fix kammadhāraya")
+
+    for g.pass_no in ["pass1", "pass2"]:
+        for g.i in g.db:
+            if g.exit:
+                return
+            if (
+                g.i.pos not in ["card", "ordin"]
+                and g.i.meaning_1
+                and re.findall(r"\bcomp\b", g.i.grammar)
+                and "kammadhāraya" in g.i.compound_type
+                and str(g.i.id) not in g.json
+            ):
+                make_meaning_parts(g)
+                if (
+                    construction_contains_pali_cardinal(g) 
+                    and meaning_contains_english_cardinal(g)
+                    and meaning_contains_no_english_ordinal(g)
+                ):
+                    if g.pass_no == "pass1":
+                        g.total_counter += 1
+                        printer_pass1(g)
+                    else:
+                        g.local_counter += 1
+                        printer_pass2(g)
+
+
+def fix_no_compound(g: GlobalVars):
+
+    p_green_title("fix those with no compound")
+
+    for g.pass_no in ["pass1", "pass2"]:
+        for g.i in g.db:
+            if g.exit:
+                return
+            if (
+                g.i.pos not in ["card", "ordin", "ind"]
+                and g.i.meaning_1
+                and re.findall(r"\bcomp\b", g.i.grammar)
+                and not g.i.compound_type
+                and str(g.i.id) not in g.json
+            ):
+                make_meaning_parts(g)
+                if (
+                    construction_contains_pali_cardinal(g) 
+                    and meaning_contains_english_cardinal(g)
+                    and meaning_contains_no_english_ordinal(g)
+                ):
+                    if g.pass_no == "pass1":
+                        g.total_counter += 1
+                        printer_pass1(g)
+                    else:
+                        g.local_counter += 1
+                        printer_pass2(g)
+
+
+def fix_other_compounds(g: GlobalVars):
+
+    p_green_title("fix other compound types")
+
+    for g.pass_no in ["pass1", "pass2"]:
+        for g.i in g.db:
+            if g.exit:
+                return
+            if (
+                g.i.pos not in ["card", "ordin"]
+                and g.i.meaning_1
+                and re.findall(r"\bcomp\b", g.i.grammar)
+                and g.i.compound_type
+                and not re.findall("kammadhāraya|digu", g.i.compound_type)
+                and str(g.i.id) not in g.json
+            ):
+                make_meaning_parts(g)
+                if (
+                    construction_contains_pali_cardinal(g) 
+                    and meaning_contains_english_cardinal(g)
+                    and meaning_contains_no_english_ordinal(g)
+                ):
+                    if g.pass_no == "pass1":
+                        g.total_counter += 1
+                        printer_pass1(g)
+                    else:
+                        g.local_counter += 1
+                        printer_pass2(g)
+
+
+
+def make_meaning_parts(g: GlobalVars):
+    clean_meaning = re.sub(r"[;.-?()'!,√…]", "", g.i.meaning_1)
+    g.meaning_parts = clean_meaning.split(" ")
+
+
+def construction_contains_pali_cardinal(g: GlobalVars):
+    """Test if the construction parts contain a pali cardinal"""
     
-    print(len(g.cardinal_set))
+    construction_parts = g.i.construction_clean.split(" + ")
+
+    for c in construction_parts:
+        if c in g.cardinal_pali_set:
+            return True
+    return False
 
 
-def find_cardinals_in_construction():
-    """Find all the constructions containing a known cardinal."""
-    print(f"[green]{'finding cardinals in construction':<40}", end="")
+def meaning_contains_english_cardinal(g: GlobalVars):
+    """Test if the meaning contain an english cardinal"""
+
+    for m in g.meaning_parts:
+        if m in g.cardinal_english_set:
+            return True
+    return False
+        
+
+def meaning_contains_no_english_ordinal(g: GlobalVars):
+    """Test if the meaning contains no english ordinal"""
+
+    for m in g.meaning_parts:
+        if m in g.ordinal_english_set:
+            return False
+    return True
+        
+
+def printer_pass1(g: GlobalVars):
+    print(f"{g.total_counter:<5}", end="")
+    print(f"{g.i.id:<6}", end="")
+    print(f"{g.i.lemma_1[:28]:<30}", end="")
+    print(f"{g.i.pos:<10}", end="")
+    print(f"{g.i.meaning_1[:48]:<50}", end="")
+    print(f"{g.i.compound_type:<30}", end="")
+    print(f"{g.i.compound_construction[:35]}")
+
+
+def printer_pass2(g: GlobalVars):
+    print()
+    print("-"*50)
+    print()
+    p_summary("", f"{g.local_counter} / {g.total_counter}")
+    p_summary("id", g.i.id)
+    p_summary("lemma", g.i.lemma_1)
+    p_summary("pos", g.i.pos)
+    p_summary("meaning", g.i.meaning_1)
+    p_summary("cp type", g.i.compound_type)
+    p_summary("cp construction", g.i.compound_construction)
     
-    for i in g.db:
-        if (
-            re.findall("\\bcomp\\b", i.grammar)
-            and "digu" not in i.compound_type 
-        ):
-            construction_clean = clean_construction(i.construction)
-            construction_parts = construction_clean.split(" + ")
-            
-            all_parts_are_card = True
-            for part in construction_parts:
-                if part in g.cardinal_set:
-                    g.cardinal_in_construction_set.add(i.lemma_1)
-                else:
-                    all_parts_are_card = False
-            
-            if all_parts_are_card:
-                g.all_parts_are_cardinal_set.add(i.lemma_1)
+    print()
+    print("[yellow]p[/yellow]ass ", end="")
+    print("e[yellow]x[/yellow]it ", end="")
+    print("or any key to continue: ", end="")
+    pyperclip.copy(g.i.lemma_1)
+    choice = input()
+    if choice == "x":
+        g.exit = True
+    if choice == "p":
+        g.update_json()
+
+
+def main():
+    p_title("find all digu samāsa")
     
-    print(len(g.cardinal_in_construction_set))
-
-
-def remove_identical_members():
-    """Remove compound cardinal numbers from the list."""
-    print(f"[green]{'removing compound cardinals':<40}", end="")
-
-    for i in g.cardinal_in_construction_set.copy():
-        if i in g.all_parts_are_cardinal_set:
-            g.cardinal_in_construction_set.remove(i)
-
-    print(len(g.cardinal_in_construction_set))
-
-
-def write_to_tsv():
-    "Write the data to tsv."
-    print(f"[green]{'writing to tsv':<40}", end="")
-
-    data_list = []
-    header = ["lemma_1", "pos", "meaning", "construction", "compound_type", "compound_construction"]
-    
-    for i in g.db:
-        if i.lemma_1 in g.cardinal_in_construction_set:
-            data_list.append(
-                [i.lemma_1, i.pos, make_meaning_combo(i), i.construction, i.compound_type, i.compound_construction])
-    
-    write_tsv_list(str(g.pth.digu_path), header, data_list)
-
-    print("ok")
-
-
-# -------------------------------------------------------
-# fix id functions 
-# -------------------------------------------------------
-
-
-def fix_missing_id():
-    if g.pth.digu_path.exists:
-        g.digu_tsv_data = read_tsv_dot_dict(g.pth.digu_path)
-        make_id_dict(g)
-        add_id_tsv_data(g)
-        write_back_to_tsv(g)
-
-
-def make_id_dict(g):
-    g.pali_id_dict = {}
-    for i in g.db:
-        g.pali_id_dict[i.lemma_1] = i.id
-
-
-def add_id_tsv_data(g):
-    for i in g.digu_tsv_data:
-        print(i)
-        i["id"] = g.pali_id_dict[i.lemma_1]
-        print(i)
-
-def write_back_to_tsv(g):
-    write_tsv_dot_dict(g.pth.digu_path, g.digu_tsv_data)
-
-# -------------------------------------------------------
+    g = GlobalVars()
+    make_sets_of_cardinals_and_ordinals(g)
+    # fix_kammadhāraya(g)
+    # fix_no_compound(g)
+    fix_other_compounds(g)
 
 
 if __name__ == "__main__":
     main()
-    # fix_missing_id()
-    # print()

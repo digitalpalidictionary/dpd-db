@@ -349,17 +349,11 @@ def generate_dpd_html(
 
     while offset <= pali_words_count:
 
-        dpd_db_query = db_session \
-            .query(
-                DpdHeadword, FamilyRoot, FamilyWord, SBS, Russian) \
-            .outerjoin(
-                FamilyRoot, DpdHeadword.root_family_key == FamilyRoot.root_family_key) \
-            .outerjoin(
-                FamilyWord, DpdHeadword.family_word == FamilyWord.word_family) \
-            .outerjoin(
-                Russian, DpdHeadword.id == Russian.id) \
-            .outerjoin(
-                SBS, DpdHeadword.id == SBS.id) \
+        dpd_db_query = db_session.query(DpdHeadword, FamilyRoot, FamilyWord, SBS, Russian) \
+            .outerjoin(FamilyRoot, DpdHeadword.root_family_key == FamilyRoot.root_family_key) \
+            .outerjoin(FamilyWord, DpdHeadword.family_word == FamilyWord.word_family) \
+            .outerjoin(Russian, DpdHeadword.id == Russian.id) \
+            .outerjoin(SBS, DpdHeadword.id == SBS.id) \
             .order_by(DpdHeadword.lemma_1) \
         
         if lang == "ru":

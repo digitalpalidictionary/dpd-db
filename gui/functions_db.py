@@ -84,11 +84,7 @@ class Word:
 
 
 def print_pos_list(db_session):
-    pos_db = db_session.query(
-        DpdHeadword.pos
-    ).group_by(
-        DpdHeadword.pos
-    ).all()
+    pos_db = db_session.query(DpdHeadword.pos).group_by(DpdHeadword.pos).all()
     pos_list = sorted([i.pos for i in pos_db])
     print(pos_list, end=" ")
 
@@ -214,11 +210,7 @@ def copy_word_from_db(db_session, values, window):
 
 
 def get_verb_values(db_session):
-    results = db_session.query(
-        DpdHeadword.verb
-    ).group_by(
-        DpdHeadword.verb
-    ).all()
+    results = db_session.query(DpdHeadword.verb).group_by(DpdHeadword.verb).all()
     verb_values = sorted([v[0] for v in results])
     return verb_values
 
@@ -226,11 +218,7 @@ def get_verb_values(db_session):
 
 
 def get_case_values(db_session):
-    results = db_session.query(
-        DpdHeadword.plus_case
-    ).group_by(
-        DpdHeadword.plus_case
-    ).all()
+    results = db_session.query(DpdHeadword.plus_case).group_by(DpdHeadword.plus_case).all()
     case_values = sorted([v[0] for v in results])
     return case_values
 
@@ -238,11 +226,7 @@ def get_case_values(db_session):
 # get_case_values()
 
 def get_root_key_values(db_session):
-    results = db_session.query(
-        DpdHeadword.root_key
-    ).group_by(
-        DpdHeadword.root_key
-    ).all()
+    results = db_session.query(DpdHeadword.root_key).group_by(DpdHeadword.root_key).all()
     root_key_values = sorted([v[0] for v in results if v[0] is not None])
     return root_key_values
 
@@ -250,11 +234,7 @@ def get_root_key_values(db_session):
 # get_root_key_values()
 
 def get_family_root_values(db_session, root_key):
-    results = db_session.query(
-        DpdRoot
-    ).filter(
-        DpdRoot.root == root_key
-    ).first()
+    results = db_session.query(DpdRoot).filter(DpdRoot.root == root_key).first()
     if results is not None:
         family_root_values = results.root_family_list
         return family_root_values
@@ -265,13 +245,10 @@ def get_family_root_values(db_session, root_key):
 # get_family_root_values("√kar")
 
 def get_root_sign_values(db_session, root_key):
-    results = db_session.query(
-        DpdHeadword.root_sign
-    ).filter(
-        DpdHeadword.root_key == root_key
-    ).group_by(
-        DpdHeadword.root_sign
-    ).all()
+    results = db_session.query(DpdHeadword.root_sign) \
+        .filter(DpdHeadword.root_key == root_key) \
+        .group_by(DpdHeadword.root_sign) \
+        .all()
     root_sign_values = sorted([v[0] for v in results])
     return root_sign_values
 
@@ -279,13 +256,10 @@ def get_root_sign_values(db_session, root_key):
 # get_root_sign_values("√kar")
 
 def get_root_base_values(db_session, root_key):
-    results = db_session.query(
-        DpdHeadword.root_base
-    ).filter(
-        DpdHeadword.root_key == root_key
-    ).group_by(
-        DpdHeadword.root_base
-    ).all()
+    results = db_session.query(DpdHeadword.root_base) \
+        .filter(DpdHeadword.root_key == root_key) \
+        .group_by(DpdHeadword.root_base) \
+        .all()
     root_base_values = sorted([v[0] for v in results])
     return root_base_values
 
@@ -294,11 +268,9 @@ def get_root_base_values(db_session, root_key):
 
 
 def get_family_word_values(db_session):
-    results = db_session.query(
-        DpdHeadword.family_word
-    ).group_by(
-        DpdHeadword.family_word
-    ).all()
+    results = db_session.query(DpdHeadword.family_word) \
+        .group_by(DpdHeadword.family_word) \
+        .all()
     family_word_values = sorted([v[0] for v in results if v[0] is not None])
     return family_word_values
 
@@ -333,11 +305,9 @@ def get_family_idioms_values(db_session):
 
 
 def get_derivative_values(db_session):
-    results = db_session.query(
-        DpdHeadword.derivative
-    ).group_by(
-        DpdHeadword.derivative
-    ).all()
+    results = db_session.query(DpdHeadword.derivative) \
+        .group_by(DpdHeadword.derivative) \
+        .all()
     derivative_values = sorted([v[0] for v in results])
     return derivative_values
 
@@ -346,11 +316,9 @@ def get_derivative_values(db_session):
 
 
 def get_compound_type_values(db_session):
-    results = db_session.query(
-        DpdHeadword.compound_type
-    ).group_by(
-        DpdHeadword.compound_type
-    ).all()
+    results = db_session.query(DpdHeadword.compound_type) \
+        .group_by(DpdHeadword.compound_type) \
+        .all()
     compound_type_values = sorted([v[0] for v in results])
     return compound_type_values
 
@@ -368,12 +336,10 @@ def get_synonyms(
     lemma_1_clean = re.sub(r" \d.*$", "", lemma_1)
 
     # search for similar meanings
-    results = db_session.query(
-        DpdHeadword
-        ).filter(
+    results = db_session.query(DpdHeadword) \
+        .filter(
             DpdHeadword.pos == pos,
-            or_(*[DpdHeadword.meaning_1.like(
-                f"%{meaning}%") for meaning in list_of_meanings])
+            or_(*[DpdHeadword.meaning_1.like(f"%{meaning}%") for meaning in list_of_meanings])
         ).all()
 
     # make a dictioanary of all meanings
@@ -438,9 +404,7 @@ def get_sanskrit(db_session, construction: str) -> str:
 # print(get_sanskrit("sāvaka + saṅgha + ika"))
 
 def get_patterns(db_session):
-    results = db_session.query(
-        InflectionTemplates.pattern
-    ).all()
+    results = db_session.query(InflectionTemplates.pattern).all()
     inflection_patterns = sorted([v[0] for v in results])
     return inflection_patterns
 
@@ -448,9 +412,7 @@ def get_patterns(db_session):
 
 
 def get_family_set_values(db_session):
-    results = db_session.query(
-        DpdHeadword.family_set
-    ).all()
+    results = db_session.query(DpdHeadword.family_set).all()
 
     family_sets = []
     for r in results:
@@ -529,10 +491,9 @@ def delete_word(pth, db_session, values, window):
 
 
 def get_root_info(db_session, root_key):
-    r = db_session.query(
-        DpdRoot).filter(
-            DpdRoot.root == root_key
-        ).first()
+    r = db_session.query(DpdRoot) \
+        .filter(DpdRoot.root == root_key) \
+        .first()
 
     if r:
         root_info = f"{r.root_clean} {r.root_group} "

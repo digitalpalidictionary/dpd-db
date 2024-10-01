@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
 """
-Find all api ca eva iti in deconstructor and add to inflections and lookup table.
-api ca eva and iti are the most common words appearing in sandhi compounds
-so in those cases, just show the actual inflected word itself first, then the deconstruction
+Find all api ca eva iti iva in deconstructor and add to inflections and lookup table.
+
+'api' 'ca' 'eva' 'iti' and 'iva' are the most common words appearing in sandhi compounds,     
+so in those cases, just show the actual inflected word itself first, then the deconstruction.
 """
 
 import re
@@ -45,7 +46,8 @@ def make_apicaeveiti_dict(g: ProgData):
             for deconstruction in deconstructions:
                 plus_count = deconstruction.count(" + ")
                 if plus_count == 1:
-                    find_me = re.compile(r" \+ (api|ca|eva|iti)$")
+                    deconstruction = re.sub(r" \[.+", "", deconstruction) # remove the rule
+                    find_me = re.compile(r" \+ (api|ca|eva|iti|iva)$")
                     if re.findall(find_me, deconstruction):
                         clean_inflection = re.sub(find_me, "", deconstruction)
                         g.apicaevaiti_dict[clean_inflection].append(i.lookup_key)

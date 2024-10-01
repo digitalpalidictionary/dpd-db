@@ -79,6 +79,12 @@ func UpdateHeadwordSingleColumn(
 	return db.Model(&DpdHeadword{}).Where("id = ?", id).UpdateColumn(columnName, columnValue)
 }
 
+// Update a single column in dpdHeadwords with an int value
+func UpdateHeadwordSingleColumnInt(
+	db *gorm.DB, id int, columnName string, columnValue int) *gorm.DB {
+	return db.Model(&DpdHeadword{}).Where("id = ?", id).UpdateColumn(columnName, columnValue)
+}
+
 func GetLookup() (*gorm.DB, []Lookup) {
 	db := GetDb()
 	var results []Lookup

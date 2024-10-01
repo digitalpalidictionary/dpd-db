@@ -35,9 +35,7 @@ def main():
 
 def make_all_inflections_set():
 
-    inflections_db = db_session.query(
-        DpdHeadword.inflections
-    ).all()
+    inflections_db = db_session.query(DpdHeadword.inflections).all()
     all_inflections_set = set()
     for i in inflections_db:
         all_inflections_set.update(loads(i.inflections))

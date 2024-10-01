@@ -91,6 +91,7 @@ def main():
     g.rendered_sizes.append(sizes)
 
     if g.data_limit == 0:
+
         root_data_list, sizes = generate_root_html(g.db_session, g.pth, g.roots_count_dict, g.rupth, g.lang, g.show_sbs_data)
         g.rendered_sizes.append(sizes)
 
@@ -106,7 +107,7 @@ def main():
         g.db_session.close()
     
     else:
-        root_data_list =[]
+        root_data_list = []
         variant_spelling_data_list = []
         epd_data_list = []
         help_data_list = []

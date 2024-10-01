@@ -57,21 +57,19 @@ function loadData() {
 
 function loadButtonContent(data) {
 
-    if (data.lemma) {
-        var lemma_link = data.lemma.replace("_", "%20")
-    }
+    const lemmaTag = data.lemma.replace(/ /g, "_").replace(".", "_") // a 1.1 > a_1_1
     
     //// feedback
 
-    const feedbackHTML = makeFeedback(data, lemma_link);
-    const feedbackElement = document.getElementById(`feedback_${data.lemma}`)
+    const feedbackHTML = makeFeedback(data);
+    const feedbackElement = document.getElementById(`feedback_${lemmaTag}`)
     feedbackElement.innerHTML = feedbackHTML
 
     // frequency
 
     if (data.CstFreq != undefined) {
-        const frequencyHTML = makeFrequency(data, lemma_link);
-        const frequencyElement = document.getElementById(`frequency_${data.lemma}`)
+        const frequencyHTML = makeFrequency(data);
+        const frequencyElement = document.getElementById(`frequency_${lemmaTag}`)
         frequencyElement.innerHTML = frequencyElement.innerHTML.replace("frequency loading...", frequencyHTML)
     };
 
@@ -82,8 +80,8 @@ function loadButtonContent(data) {
         && data.family_compounds.length > 0
         && typeof family_compound_json !== "undefined"
     ) {
-        const familyCompoundHtml = makeFamilyCompoundHtml(data, lemma_link)
-        const familyCompoundElement = document.getElementById(`family_compound_${data.lemma}`)
+        const familyCompoundHtml = makeFamilyCompoundHtml(data)
+        const familyCompoundElement = document.getElementById(`family_compound_${lemmaTag}`)
         familyCompoundElement.innerHTML = familyCompoundHtml
     };
 
@@ -93,8 +91,8 @@ function loadButtonContent(data) {
         && typeof family_root_json !== "undefined"
     ) {
         const fr = family_root_json[data.family_root];
-        const familyRootHtml = makeFamilyRootHtml(data, fr, "lemma", lemma_link);
-        const familyRootElement = document.getElementById(`family_root_${data.lemma}`);
+        const familyRootHtml = makeFamilyRootHtml(data, fr, "lemma");
+        const familyRootElement = document.getElementById(`family_root_${lemmaTag}`);
         familyRootElement.innerHTML = familyRootHtml;
     };
 
@@ -105,8 +103,8 @@ function loadButtonContent(data) {
         && data.family_idioms.length > 0
         && typeof family_idiom_json !== "undefined"
     ) {
-        const familyIdiomHtml = makeFamilyIdioms(data, lemma_link)
-        const familyIdiomElement = document.getElementById(`family_idiom_${data.lemma}`)
+        const familyIdiomHtml = makeFamilyIdioms(data)
+        const familyIdiomElement = document.getElementById(`family_idiom_${lemmaTag}`)
         familyIdiomElement.innerHTML = familyIdiomHtml
     };
 
@@ -117,8 +115,8 @@ function loadButtonContent(data) {
         && data.family_sets.length > 0
         && typeof family_set_json !== "undefined"
     ) {
-        const familySetHtml = makeFamilySets(data, lemma_link)
-        const familySetElement = document.getElementById(`family_set_${data.lemma}`)
+        const familySetHtml = makeFamilySets(data)
+        const familySetElement = document.getElementById(`family_set_${lemmaTag}`)
         familySetElement.innerHTML = familySetHtml
     };
 
@@ -128,8 +126,8 @@ function loadButtonContent(data) {
         data.family_word
         && typeof family_word_json !== "undefined"
     ) {
-        const familyWordHtml = makeFamilyWordHtml(data, lemma_link);
-        const familyWordElement = document.getElementById(`family_word_${data.lemma}`)
+        const familyWordHtml = makeFamilyWordHtml(data);
+        const familyWordElement = document.getElementById(`family_word_${lemmaTag}`)
         familyWordElement.innerHTML = familyWordHtml
     };
 };
@@ -142,8 +140,8 @@ function loadRootButtonContent(data) {
     familyRootArray.forEach(item => {
         const key_id = item.id
         const key_clean = item.id.replace("family_root_", "").replace(/_/g, " ")
-        const link = item.id.replace("family_root_", "").replace(/_/g, "%20")
         const fr = family_root_json[key_clean]
+        const link = item.id.replace("family_root_", "").replace(/_/g, "%20")
         if (fr !==undefined ){
             const familyRootHtml = makeFamilyRootHtml(data, fr, "root", link);
             const familyRootElement = document.getElementById(key_id)

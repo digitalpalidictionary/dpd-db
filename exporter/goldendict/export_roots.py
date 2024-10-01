@@ -243,11 +243,9 @@ def render_root_families_templ(
         root_families_templ = Template(filename=str(rupth.root_families_templ_path))
     # add here another language elif ...
 
-    frs = db_session.query(
-        FamilyRoot
-        ).filter(
-            FamilyRoot.root_key == r.root,
-        ).all()
+    frs = db_session.query(FamilyRoot) \
+        .filter(FamilyRoot.root_key == r.root,) \
+        .all()
 
     frs = sorted(frs, key=lambda x: pali_sort_key(x.root_family))
 

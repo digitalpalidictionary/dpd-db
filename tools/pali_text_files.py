@@ -8342,8 +8342,6 @@ ebts = [
     "s0505m.mul.txt",
     "s0508m.mul.txt",
     "s0509m.mul.txt",
-    "s0513m.mul.txt",
-    "s0514m.mul.txt"
 ]
 
 mula_books = [

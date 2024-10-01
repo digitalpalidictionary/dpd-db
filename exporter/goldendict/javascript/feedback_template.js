@@ -1,4 +1,7 @@
-function makeFeedback(data, lemma_link) {
+function makeFeedback(data) {
+    
+    const lemmaLink = data.lemma.replace(/ /g, "%20")
+
     const html = `
     ID <b>${data.id}</b>
     <p>Digital Pāḷi Dictionary is a work in progress, made available for testing and feedback purposes.</p>
@@ -19,7 +22,7 @@ function makeFeedback(data, lemma_link) {
     </p>
     <p>
         <a class="link" 
-        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&amp;entry.438735500=${lemma_link}&amp;entry.1433863141=${progName}+${data.date}" 
+        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&amp;entry.438735500=${lemmaLink}&amp;entry.1433863141=${progName}+${data.date}" 
         target="_blank">
         Correct a mistake</a><span>. Did you spot a mistake in the dictionary? Please report it. It generally takes less than a minute and your corrections and suggestions help to improve the quality of this dictionary for everyone who uses it.</span>
     </p>

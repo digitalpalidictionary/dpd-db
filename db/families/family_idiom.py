@@ -50,12 +50,14 @@ def main():
         raise ValueError("Invalid language parameter")
 
     if lang == "en":
-        dpd_db = db_session.query(
-            DpdHeadword).filter(DpdHeadword.family_idioms != "").all()
+        dpd_db = db_session.query(DpdHeadword) \
+            .filter(DpdHeadword.family_idioms != "") \
+            .all()
     elif lang == "ru":
-        dpd_db = db_session.query(
-            DpdHeadword).options(joinedload(DpdHeadword.ru)
-            ).filter(DpdHeadword.family_idioms != "").all()
+        dpd_db = db_session.query(DpdHeadword) \
+            .options(joinedload(DpdHeadword.ru)) \
+            .filter(DpdHeadword.family_idioms != "") \
+            .all()
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     sync_idiom_numbers_with_family_compound(db_session)

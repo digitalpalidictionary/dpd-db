@@ -1,4 +1,5 @@
-function makeFrequency(data, lemma_link) {
+function makeFrequency(data) {
+    const lemmaLink = data.lemma.replace(/ /g, "%20")
     var html = `
 <p class="heading underlined">
         ${data.FreqHeading}
@@ -468,7 +469,7 @@ if (data.CstFreq[0] != undefined) {
 } else {
     html += `
 <p>
-    It probably only occurs in compounds.
+    It probably only occurs in compounds. Or perhaps there is an error.
 </p>
 `
 }
@@ -479,7 +480,7 @@ html += `
 </p>
 <p class='footer'>
     If something looks out of place, <a class="link"
-        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500=${lemma_link}&entry.326955045=Frequency&entry.1433863141=GoldenDict+${data.date}"
+        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500=${lemmaLink}&entry.326955045=Frequency&entry.1433863141=GoldenDict+${data.date}"
         target="_blank">log it here.</a>
 </p>
 `

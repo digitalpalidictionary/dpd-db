@@ -151,23 +151,19 @@ def roots_meaning_generating(lang):
 
     # Define a subquery that counts the related DpdHeadword entries
     subquery = db_session.query(
-            DpdHeadword.root_key,
-            func.count(DpdHeadword.id).label('headword_count')
-        ).group_by(
-            DpdHeadword.root_key
-        ).subquery()
+        DpdHeadword.root_key, func.count(DpdHeadword.id) \
+            .label('headword_count')) \
+            .group_by(DpdHeadword.root_key) \
+            .subquery()
 
     if lang == "pali":
 
-        roots = db_session.query(DpdRoot).join(
-                subquery, DpdRoot.root == subquery.c.root_key
-            ).filter(
-                and_(
-                    DpdRoot.root_ru_meaning == '',
-                )
-            ).order_by(
-                subquery.c.headword_count.desc()
-            ).limit(1000).all()
+        roots = db_session.query(DpdRoot) \
+            .join(subquery, DpdRoot.root == subquery.c.root_key) \
+            .filter(and_(DpdRoot.root_ru_meaning == '', )) \
+            .order_by(subquery.c.headword_count.desc()) \
+            .limit(1000) \
+            .all()
 
     elif lang == "sk":
 

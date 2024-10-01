@@ -1,6 +1,10 @@
 
 function makeFamilyRootHtml(data, fr, source, link) {
- 
+    
+    if (link == undefined) {
+        const link = data.lemma.replace(" ", "%20")
+    }
+
     //// header
     
     var html = `

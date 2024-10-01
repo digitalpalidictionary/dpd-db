@@ -1,7 +1,8 @@
 
-function makeFamilyWordHtml(data, lemma_link) {
+function makeFamilyWordHtml(data) {
 
     fw = family_word_json[data.family_word]
+    const lemmaLink = data.lemma.replace(/ /g, "%20")
 
     //// header
 
@@ -37,7 +38,7 @@ function makeFamilyWordHtml(data, lemma_link) {
         <p class="footer">
         Something out of place? 
         <a class="link" 
-        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&amp;entry.438735500=${lemma_link}&amp;entry.326955045=Word+Family&amp;entry.1433863141=GoldenDict+${data.date}" 
+        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&amp;entry.438735500=${lemmaLink}&amp;entry.326955045=Word+Family&amp;entry.1433863141=GoldenDict+${data.date}" 
         target="_blank">
         Report it here
         </a>.

@@ -98,9 +98,12 @@ class ProjectPaths:
         self.mdict_mdd_path = base_dir / "exporter/share/dpd-mdict.mdd"
         self.mdict_mdx_path = base_dir / "exporter/share/dpd-mdict.mdx"
 
+        # exporter/deconstructor/templates
+        self.deconstructor_header_templ_path = base_dir / "exporter/deconstructor/templates/deconstructor_header.html"
+        self.deconstructor_templ_path = base_dir / "exporter/deconstructor/templates/deconstructor.html"
+
         # exporter/templates
         self.button_box_templ_path = base_dir / "exporter/goldendict/templates/dpd_button_box.html"
-        self.deconstructor_header_templ_path = base_dir / "exporter/goldendict/templates/deconstructor_header.html"
         self.dpd_definition_templ_path = base_dir / "exporter/goldendict/templates/dpd_definition.html"
         self.dpd_header_plain_templ_path = base_dir / "exporter/goldendict/templates/dpd_header_plain.html"
         self.dpd_header_templ_path = base_dir / "exporter/goldendict/templates/dpd_header.html"
@@ -136,7 +139,6 @@ class ProjectPaths:
 
         # exporter/goldendict/templates - other
         self.abbrev_templ_path = base_dir / "exporter/goldendict/templates/help_abbrev.html"
-        self.deconstructor_templ_path = base_dir / "exporter/goldendict/templates/deconstructor.html"
         self.epd_templ_path = base_dir / "exporter/goldendict/templates/epd.html"
         self.help_templ_path = base_dir / "exporter/goldendict/templates/help_help.html"
 
@@ -337,6 +339,12 @@ class ProjectPaths:
         self.lookup_to_translit_path = base_dir / "shared_data/lookup_to_translit.json"
         self.template_changed_path = base_dir / "shared_data/changed_templates"
 
+        # share/frequency
+        self.cst_file_freq = base_dir / "shared_data/frequency/cst_file_freq.json"
+        self.bjt_file_freq = base_dir / "shared_data/frequency/bjt_file_freq.json"
+        self.sya_file_freq = base_dir / "shared_data/frequency/sya_file_freq.json"
+        self.sc_file_freq = base_dir / "shared_data/frequency/sc_file_freq.json"
+
         # temp
         self.temp_dir = base_dir / "temp/"
 
@@ -345,7 +353,7 @@ class ProjectPaths:
         self.bahubbihi_dict_path = base_dir / "db_tests/test_bahubbihis.json"
         self.bold_example_path = base_dir / "db_tests/test_bold.json"
         self.compound_type_path = base_dir / "db_tests/add_compound_type.tsv"
-        self.digu_path = base_dir / "db_tests/test_digu.tsv"
+        self.digu_json_path = base_dir / "db_tests/test_digu.json"
         self.hyphenations_dict_path = base_dir / "db_tests/test_hyphenations.json"
         self.hyphenations_scratchpad_path = base_dir / "db_tests/test_hyphenations.txt"
         self.idioms_exceptions_dict = base_dir / "db_tests/test_idioms.json"
