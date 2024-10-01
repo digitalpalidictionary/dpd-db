@@ -1715,13 +1715,13 @@ var family_word_json = {
    [
     "vagga 4",
     "masc",
-    "(gram) (of consonants) set; group; class; series",
+    "dissociation; separation",
     "✓"
    ],
    [
     "vagga 5",
     "masc",
-    "dissociation; separation",
+    "(gram) (of consonants) set; group; class; series",
     "✓"
    ],
    [
@@ -3341,6 +3341,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "ajjatanām",
+    "adj",
+    "modern; related to today",
+    "✓"
+   ],
+   [
     "ajjatanāya",
     "ind",
     "today; for today; in the next 24 hours",
@@ -3827,7 +3833,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 83
+  "count": 84
  },
  "atta": {
   "data": [
@@ -4811,13 +4817,13 @@ var family_word_json = {
    [
     "tato 5",
     "ind",
-    "(gram) after that; lit. from that",
+    "after that; then; next; lit. from that",
     "✓"
    ],
    [
     "tato 6",
     "ind",
-    "after that; then; next; lit. from that",
+    "(gram) after that; lit. from that",
     "✓"
    ],
    [
@@ -4997,20 +5003,20 @@ var family_word_json = {
    [
     "tasmiṃ 3",
     "pron",
-    "(gram) before that",
-    "~"
+    "in that case; in that situation",
+    "✓"
    ],
    [
     "tasmiṃ 4",
     "pron",
-    "in that case; in that situation",
+    "under that; under him",
     "✓"
    ],
    [
     "tasmiṃ 5",
     "pron",
-    "under that; under him",
-    "✓"
+    "(gram) before that",
+    "~"
    ],
    [
     "tassa 1",
@@ -5532,13 +5538,13 @@ var family_word_json = {
    [
     "dīgha 2",
     "masc",
-    "(gram) long vowel; metrically more than one measure long",
+    "name of a spirit",
     "✓"
    ],
    [
     "dīgha 3",
     "masc",
-    "name of a spirit",
+    "(gram) long vowel; metrically more than one measure long",
     "✓"
    ],
    [
@@ -5894,7 +5900,7 @@ var family_word_json = {
     "āmukha 1",
     "nt",
     "beginning; commencement; outset; entrance",
-    "✓"
+    "~"
    ],
    [
     "āmukha 2",
@@ -5929,7 +5935,7 @@ var family_word_json = {
    [
     "pamukhatā",
     "fem",
-    "fact of being foremost; fact of being headed by",
+    "fact of being foremost; fact of being headed by; lit. infront state",
     "✓"
    ],
    [
@@ -6291,6 +6297,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "visa 2",
+    "adj",
+    "with poison; having toxin",
+    "✓"
+   ],
+   [
     "visatā",
     "fem",
     "fact of having poison; fact of being a toxin; fact of being venomous",
@@ -6303,7 +6315,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 6
+  "count": 7
  },
  "visāla": {
   "data": [
@@ -6513,12 +6525,6 @@ var family_word_json = {
     "✗"
    ],
    [
-    "sussoṇi",
-    "fem",
-    "good female dog; beautiful bitch",
-    "✓"
-   ],
-   [
     "soṇa 1",
     "masc",
     "name of a monk; lit. dog",
@@ -6552,10 +6558,10 @@ var family_word_json = {
     "soṇī 1.1",
     "fem",
     "bitch; female dog",
-    "✓"
+    "~"
    ]
   ],
-  "count": 9
+  "count": 8
  },
  "sundara": {
   "data": [
@@ -6620,30 +6626,36 @@ var family_word_json = {
    ],
    [
     "hattha 2",
-    "adj",
-    "in hand; carrying; holding; with",
-    "✓"
-   ],
-   [
-    "hattha 3",
-    "nt",
-    "handful; bunch",
-    "✓"
-   ],
-   [
-    "hattha 4",
-    "nt",
-    "measure of length; cubit; measure from elbow to extended little-finger tip",
-    "✓"
-   ],
-   [
-    "hattha 5",
     "masc",
     "paw",
     "✓"
    ],
    [
+    "hattha 3",
+    "adj",
+    "in hand; carrying; holding; with",
+    "✓"
+   ],
+   [
+    "hattha 4",
+    "nt",
+    "handful; bunch",
+    "✓"
+   ],
+   [
+    "hattha 5",
+    "nt",
+    "measure of length; cubit; measure from elbow to extended little-finger tip",
+    "~"
+   ],
+   [
     "hattha 6",
+    "adj",
+    "so many cubits in measure",
+    "✓"
+   ],
+   [
+    "hattha 7",
     "nt",
     "handle",
     "✗"
@@ -6715,7 +6727,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 19
+  "count": 20
  },
  "heṭṭhā": {
   "data": [
@@ -8459,9 +8471,9 @@ var family_word_json = {
    ],
    [
     "napuṃsaka 1",
-    "adj",
-    "(gram) neuter; lit. not male",
-    "✓"
+    "masc",
+    "eunuch",
+    "✗"
    ],
    [
     "napuṃsaka 2",
@@ -8471,20 +8483,20 @@ var family_word_json = {
    ],
    [
     "napuṃsaka 3",
-    "masc",
-    "eunuch",
-    "✗"
+    "adj",
+    "(gram) neuter; lit. not male",
+    "✓"
    ],
    [
     "puma 1",
     "masc",
-    "male",
+    "male; masculine gender",
     "✓"
    ],
    [
     "puma 2",
     "masc",
-    "(gram) masculine gender",
+    "male",
     "✓"
    ],
    [
@@ -8492,6 +8504,12 @@ var family_word_json = {
     "adj",
     "male; masculine",
     "~"
+   ],
+   [
+    "puma 4",
+    "masc",
+    "(gram) masculine gender",
+    "✓"
    ],
    [
     "puṃ",
@@ -8512,7 +8530,7 @@ var family_word_json = {
     "✗"
    ]
   ],
-  "count": 11
+  "count": 12
  },
  "amba": {
   "data": [
@@ -8869,32 +8887,32 @@ var family_word_json = {
    [
     "nāma 3",
     "nt",
-    "(gram) noun; substantive; lit. name",
+    "name",
     "✓"
    ],
    [
     "nāma 4",
     "nt",
-    "name",
-    "✓"
-   ],
-   [
-    "nāma 5",
-    "nt",
     "mental objects of consciousness; mentality; mental factors of feeling, perception, intention, contact and attention; lit. name",
     "✓"
    ],
    [
-    "nāma 6",
+    "nāma 5",
     "adj",
     "called; named; lit. name",
     "✓"
    ],
    [
-    "nāma 7",
+    "nāma 6",
     "ind",
     "normally; usually",
     "✗"
+   ],
+   [
+    "nāma 7",
+    "nt",
+    "(gram) noun; substantive; lit. name",
+    "✓"
    ],
    [
     "nāmaka 1",
@@ -8910,15 +8928,15 @@ var family_word_json = {
    ],
    [
     "nāmato 1",
-    "nt",
-    "(gram) after a noun; lit. from noun",
-    "✓"
-   ],
-   [
-    "nāmato 2",
     "ind",
     "by name",
     "✗"
+   ],
+   [
+    "nāmato 2",
+    "nt",
+    "(gram) after a noun; lit. from noun",
+    "✓"
    ],
    [
     "nāmamhā",
@@ -9507,15 +9525,15 @@ var family_word_json = {
   "data": [
    [
     "anunāsika 1",
-    "masc",
-    "(gram) nasal consonant",
-    "✓"
-   ],
-   [
-    "anunāsika 2",
     "adj",
     "nasal",
     "✗"
+   ],
+   [
+    "anunāsika 2",
+    "masc",
+    "(gram) nasal consonant",
+    "✓"
    ],
    [
     "nāsato",
@@ -9883,7 +9901,7 @@ var family_word_json = {
     "saṃvacchara 1",
     "nt",
     "year",
-    "✓"
+    "~"
    ],
    [
     "saṃvacchara 2",
@@ -9917,7 +9935,7 @@ var family_word_json = {
    [
     "seṭṭha 1",
     "adj",
-    "foremost; best (of); primary; most important; supreme",
+    "foremost (among); best (of); primary; most important; supreme (among)",
     "✓"
    ],
    [
@@ -10232,20 +10250,20 @@ var family_word_json = {
    [
     "ekatta 5",
     "nt",
-    "(gram) singular number",
-    "✓"
+    "agreement",
+    "✗"
    ],
    [
     "ekatta 6",
     "nt",
-    "agreement",
+    "identity",
     "✗"
    ],
    [
     "ekatta 7",
     "nt",
-    "identity",
-    "✗"
+    "(gram) singular number",
+    "✓"
    ],
    [
     "ekadā 1",
@@ -11134,13 +11152,13 @@ var family_word_json = {
    [
     "pañcamī 1",
     "fem",
-    "(gram) imperative or benedictive mood",
+    "fifth; fifth in number",
     "✓"
    ],
    [
     "pañcamī 2",
     "fem",
-    "fifth; fifth in number",
+    "(gram) imperative or benedictive mood",
     "✓"
    ],
    [
@@ -11618,31 +11636,31 @@ var family_word_json = {
    [
     "para 3",
     "adj",
-    "(gram) next; following; last; after",
+    "foreign; alien; not oneself",
     "✓"
    ],
    [
     "para 4",
     "adj",
-    "foreign; alien; not oneself",
+    "engrossed in; given to; aiming for",
     "✓"
    ],
    [
     "para 5",
-    "masc",
-    "(gram) next letter; following vowel",
+    "adj",
+    "higher (than); greater (than); more (than)",
     "✓"
    ],
    [
     "para 6",
     "adj",
-    "engrossed in; given to; aiming for",
+    "(gram) next; following; last; after",
     "✓"
    ],
    [
     "para 7",
-    "adj",
-    "higher (than); greater (than); more (than)",
+    "masc",
+    "(gram) next letter; following vowel",
     "✓"
    ],
    [
@@ -12396,21 +12414,21 @@ var family_word_json = {
    ],
    [
     "purisa 3",
-    "masc",
-    "(gram) grammatical person; 3rd 2nd 1st person",
-    "✓"
-   ],
-   [
-    "purisa 4",
     "adj",
     "male; masculine",
     "✓"
    ],
    [
-    "purisa 5",
+    "purisa 4",
     "masc",
     "World Soul (in Sāṃkhya system)",
     "✗"
+   ],
+   [
+    "purisa 5",
+    "masc",
+    "(gram) grammatical person; 3rd 2nd 1st person",
+    "✓"
    ],
    [
     "purisaka 1",
@@ -12846,8 +12864,8 @@ var family_word_json = {
    [
     "yobbañña",
     "nt",
-    "youth",
-    "✗"
+    "youth; lit. youth state",
+    "✓"
    ],
    [
     "yobbana",
@@ -13947,7 +13965,7 @@ var family_word_json = {
     "amhāka",
     "pron",
     "our",
-    "✗"
+    "✓"
    ],
    [
     "amhākaṃ 1",
@@ -16129,8 +16147,8 @@ var family_word_json = {
    ],
    [
     "sārīra",
-    "nt",
-    "corporal existence; lit. belonging to the body",
+    "adj",
+    "having a body; with corporal existence; lit. belonging to the body",
     "✓"
    ],
    [
@@ -16229,8 +16247,8 @@ var family_word_json = {
    [
     "assāmika 3",
     "adj",
-    "being without an owner; having no owner",
-    "~"
+    "without an owner; not belonging to someone",
+    "✓"
    ],
    [
     "sasāmikā",
@@ -16253,8 +16271,8 @@ var family_word_json = {
    [
     "sassāmika 3",
     "adj",
-    "with an owner",
-    "✗"
+    "with an owner; belonging to someone",
+    "✓"
    ],
    [
     "sāmika 1",
@@ -17457,7 +17475,7 @@ var family_word_json = {
  "u": {
   "data": [
    [
-    "u 1",
+    "u 2",
     "letter",
     "(gram) letter u; 5th letter of the alphabet; labial vowel",
     "✓"
@@ -18381,6 +18399,12 @@ var family_word_json = {
    [
     "paṭisenā",
     "fem",
+    "opposition; opposing army; enemy",
+    "✓"
+   ],
+   [
+    "paṭiseni",
+    "fem",
     "opposition; resistance; retaliation",
     "✓"
    ],
@@ -18400,7 +18424,7 @@ var family_word_json = {
     "visenā",
     "fem",
     "disarming; not opposing; (or) disassociating; lit. without army; without association",
-    "✓"
+    "~"
    ],
    [
     "viseni",
@@ -18475,7 +18499,7 @@ var family_word_json = {
     "✗"
    ]
   ],
-  "count": 17
+  "count": 18
  },
  "e": {
   "data": [
@@ -18612,26 +18636,26 @@ var family_word_json = {
    [
     "etāya 1",
     "pron",
-    "(gram) after this",
-    "✓"
-   ],
-   [
-    "etāya 2",
-    "pron",
     "by her; with this",
     "✗"
    ],
    [
-    "etāya 3",
+    "etāya 2",
     "pron",
     "to her; for this",
     "✗"
    ],
    [
-    "etāya 4",
+    "etāya 3",
     "pron",
     "hers; of this",
     "✗"
+   ],
+   [
+    "etāya 4",
+    "pron",
+    "(gram) after this",
+    "✓"
    ],
    [
     "etāvant",
@@ -20183,8 +20207,8 @@ var family_word_json = {
    ],
    [
     "kalalī",
-    "nt",
-    "mud; mire; dirt",
+    "adj",
+    "muddy; dirty",
     "✓"
    ]
   ],
@@ -20404,13 +20428,19 @@ var family_word_json = {
     "✗"
    ],
    [
+    "kasāṭaka",
+    "masc",
+    "dregs; worst part; waste product",
+    "✓"
+   ],
+   [
     "saṭa",
     "masc",
     "dregs; rubbish; worst part; waste product",
     "✓"
    ]
   ],
-  "count": 4
+  "count": 5
  },
  "kasiṇa": {
   "data": [
@@ -22592,14 +22622,14 @@ var family_word_json = {
   "data": [
    [
     "ca 1.1",
-    "letter",
-    "(gram) letter c; 14th letter of the alphabet; palatal consonant",
+    "ind",
+    "6th item in a numerical list; lit. letter c",
     "✓"
    ],
    [
     "ca 1.2",
-    "ind",
-    "6th item in a numerical list; lit. letter c",
+    "letter",
+    "(gram) letter c; 14th letter of the alphabet; palatal consonant",
     "✓"
    ]
   ],
@@ -22646,7 +22676,7 @@ var family_word_json = {
     "cakka 3",
     "adj",
     "having a wheel",
-    "~"
+    "✓"
    ],
    [
     "cakka 4",
@@ -23357,15 +23387,15 @@ var family_word_json = {
   "data": [
    [
     "cha 1.1",
-    "letter",
-    "(gram) letter ch; 15th letter of the alphabet; aspirated palatal consonant",
-    "~"
-   ],
-   [
-    "cha 1.2",
     "ind",
     "7th item in a numerical list; lit. letter ch",
     "✓"
+   ],
+   [
+    "cha 1.2",
+    "letter",
+    "(gram) letter ch; 15th letter of the alphabet; aspirated palatal consonant",
+    "~"
    ]
   ],
   "count": 2
@@ -23840,14 +23870,14 @@ var family_word_json = {
    [
     "jeṭṭhaka 1",
     "adj",
-    "foremost; chief; top-ranking",
-    "~"
+    "foremost; chief; top-ranking (among)",
+    "✓"
    ],
    [
     "jeṭṭhaka 2",
     "masc",
     "elder brother; first born",
-    "~"
+    "✓"
    ],
    [
     "jeṭṭhakatara",
@@ -25926,19 +25956,19 @@ var family_word_json = {
    [
     "vā 2",
     "ind",
-    "(gram) or; in some cases; not always; alternatively; optionally",
+    "exact; very; precise",
     "✓"
    ],
    [
     "vā 3",
     "ind",
-    "exact; very; precise",
+    "and; as well as",
     "✓"
    ],
    [
     "vā 4",
     "ind",
-    "and; as well as",
+    "(gram) or; in some cases; not always; alternatively; optionally",
     "✓"
    ]
   ],
@@ -26449,9 +26479,15 @@ var family_word_json = {
  "pakhuma": {
   "data": [
    [
-    "pakhuma",
+    "pakhuma 1",
     "nt",
     "eyelash; eyelashes; (comm) eyebrow",
+    "✓"
+   ],
+   [
+    "pakhuma 2",
+    "adj",
+    "with eyelashes",
     "✓"
    ],
    [
@@ -26461,7 +26497,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "paṅka": {
   "data": [
@@ -26581,15 +26617,15 @@ var family_word_json = {
     "~"
    ],
    [
-    "paṭalikā",
-    "fem",
-    "(comm) thick woollen cover embroidered with flowers",
+    "paṭali",
+    "adj",
+    "(of a shoe) having several linings; with multiple layers",
     "✓"
    ],
    [
-    "paṭalī",
-    "adj",
-    "(of a shoe) having several linings; with multiple layers",
+    "paṭalikā",
+    "fem",
+    "(comm) thick woollen cover embroidered with flowers",
     "✓"
    ],
    [
@@ -27630,13 +27666,19 @@ var family_word_json = {
     "✓"
    ],
    [
+    "pilotika 2",
+    "adj",
+    "with old cloth; having rags",
+    "✓"
+   ],
+   [
     "pilotikā",
     "fem",
     "old cloth; rag",
     "✓"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "pisāca": {
   "data": [
@@ -27768,6 +27810,12 @@ var family_word_json = {
  "puṇḍarī": {
   "data": [
    [
+    "puṇḍarika",
+    "masc",
+    "(comm) part of the Avīci hell where one must stay an puṇḍarika-count in duration",
+    "✓"
+   ],
+   [
     "puṇḍarī",
     "fem",
     "lotus",
@@ -27810,7 +27858,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 7
+  "count": 8
  },
  "puna": {
   "data": [
@@ -28149,8 +28197,8 @@ var family_word_json = {
    [
     "phagguṇa",
     "masc",
-    "month of the lunar calendar; February - March",
-    "✗"
+    "name of a lunar month; February-March",
+    "✓"
    ],
    [
     "phagguṇī",
@@ -28174,7 +28222,7 @@ var family_word_json = {
     "phagguna 3",
     "masc",
     "name of a lunar month; February-March; lit. red",
-    "~"
+    "✓"
    ]
   ],
   "count": 7
@@ -29082,14 +29130,14 @@ var family_word_json = {
    ],
    [
     "majjhima 7",
-    "adj",
-    "(gram) 2nd (person) (you; you all); lit. middle",
+    "masc",
+    "middle person; man in the middle; lit. middle",
     "✓"
    ],
    [
     "majjhima 8",
-    "masc",
-    "middle person; man in the middle; lit. middle",
+    "adj",
+    "(gram) 2nd (person) (you; you all); lit. middle",
     "✓"
    ],
    [
@@ -29655,13 +29703,19 @@ var family_word_json = {
     "✓"
    ],
    [
+    "middha 2",
+    "adj",
+    "with drowsiness; having sluggishness; with lethargy; lit. stiffness",
+    "✓"
+   ],
+   [
     "middhī",
     "adj",
     "drowsy; sluggish; sleepy; lit. stiff",
     "✓"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "milakkha": {
   "data": [
@@ -31120,9 +31174,15 @@ var family_word_json = {
     "nt",
     "tusk",
     "✗"
+   ],
+   [
+    "visāṇa 3",
+    "adj",
+    "with a horn",
+    "✓"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "visūka": {
   "data": [
@@ -32855,6 +32915,12 @@ var family_word_json = {
  "sipāṭikā": {
   "data": [
    [
+    "sipāṭika",
+    "adj",
+    "with a seed pod; having a pericarp",
+    "✓"
+   ],
+   [
     "sipāṭikā 1",
     "fem",
     "seed pod; pericarp",
@@ -32867,7 +32933,7 @@ var family_word_json = {
     "✗"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "sippa": {
   "data": [
@@ -33458,6 +33524,23 @@ var family_word_json = {
     "suṃsumāra",
     "masc",
     "crocodile; alligator; lit. child killer",
+    "✓"
+   ]
+  ],
+  "count": 2
+ },
+ "soṇī": {
+  "data": [
+   [
+    "sussoṇī",
+    "fem",
+    "woman with a beautiful hips; lit. good hips",
+    "✓"
+   ],
+   [
+    "soṇī 2.1",
+    "fem",
+    "hips; waist; buttocks",
     "✓"
    ]
   ],

@@ -11839,7 +11839,7 @@ var family_idiom_json = {
   ]
  },
  "eka": {
-  "count": 34,
+  "count": 35,
   "data": [
    [
     "athekadivasaṃ",
@@ -12025,6 +12025,12 @@ var family_idiom_json = {
     "paneke",
     "sandhi",
     "but some (of); and some (of)",
+    "✓"
+   ],
+   [
+    "punekaṃ",
+    "sandhi",
+    "and one; also one",
     "✓"
    ],
    [
@@ -28765,7 +28771,7 @@ var family_idiom_json = {
   ]
  },
  "puna": {
-  "count": 4,
+  "count": 5,
   "data": [
    [
     "puna caparaṃ",
@@ -28789,6 +28795,12 @@ var family_idiom_json = {
     "punareva",
     "sandhi",
     "just again",
+    "✓"
+   ],
+   [
+    "punekaṃ",
+    "sandhi",
+    "and one; also one",
     "✓"
    ]
   ]

@@ -20,7 +20,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "u 1",
+    "u 2",
     "letter",
     "(gram) letter u; 5th letter of the alphabet; labial vowel",
     "✓"
@@ -62,19 +62,19 @@ var family_set_json = {
     "✓"
    ],
    [
-    "ca 1.1",
+    "ca 1.2",
     "letter",
     "(gram) letter c; 14th letter of the alphabet; palatal consonant",
     "✓"
    ],
    [
-    "cha 1.1",
+    "cha 1.2",
     "letter",
     "(gram) letter ch; 15th letter of the alphabet; aspirated palatal consonant",
     "~"
    ],
    [
-    "ja 2.1",
+    "ja 2.2",
     "letter",
     "(gram) letter j; 16th letter of the alphabet; palatal consonant",
     "✓"
@@ -98,7 +98,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "dha 1",
+    "dha 2",
     "letter",
     "(gram) letter dh; 27th letter of the alphabet; dental consonant",
     "✓"
@@ -199,7 +199,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "akammaka 1",
+    "akammaka 2",
     "adj",
     "(gram) intransitive; not taking an object; lit. no object",
     "✓"
@@ -229,7 +229,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "akkhara 1",
+    "akkhara 3",
     "nt",
     "(gram) letter of the alphabet; syllable; morpheme; lit. indestructible",
     "✓"
@@ -397,7 +397,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "adhikāra 1",
+    "adhikāra 6",
     "masc",
     "(gram) governing rule which affects those that follow",
     "✓"
@@ -535,7 +535,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "anunāsika 1",
+    "anunāsika 2",
     "masc",
     "(gram) nasal consonant",
     "✓"
@@ -559,7 +559,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "anupapanna 2",
+    "anupapanna 3",
     "pp",
     "(gram) not viable; inappropriate; ungrammatical; unproven; lit. not gone near",
     "~"
@@ -679,7 +679,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "apanayana 1",
+    "apanayana 3",
     "nt",
     "(gram) removing; lit. leading away",
     "~"
@@ -775,16 +775,16 @@ var family_set_json = {
     "~"
    ],
    [
-    "abhidhāna 1",
-    "nt",
-    "(gram) expression; act of naming; context",
-    "✓"
-   ],
-   [
     "abhidhāna 2",
     "nt",
     "(gram) dictionary",
     "~"
+   ],
+   [
+    "abhidhāna 3",
+    "nt",
+    "(gram) expression; act of naming; context",
+    "✓"
    ],
    [
     "amissayati",
@@ -817,7 +817,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "avadhāraṇa 1",
+    "avadhāraṇa 5",
     "nt",
     "(gram) restricting; limiting; excluding; lit. holding down",
     "✓"
@@ -853,7 +853,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "asambhinna 2",
+    "asambhinna 4",
     "pp",
     "(gram) not found elsewhere; unique; lit. not broken together",
     "~"
@@ -931,7 +931,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "āgama 3",
+    "āgama 4",
     "masc",
     "(gram) insertion; inserted consonant; augment; lit. arrival",
     "✓"
@@ -973,7 +973,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "ādesa 1",
+    "ādesa 2",
     "masc",
     "(gram) substitution; replacement; change",
     "✓"
@@ -985,7 +985,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "ānetabba 1",
+    "ānetabba 2",
     "ptp",
     "(gram) should be repositioned; lit. to be carried",
     "~"
@@ -1021,7 +1021,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "āra 1",
+    "āra 2",
     "suffix",
     "(gram) āra; causative suffix added to nouns",
     "✓"
@@ -1190,14 +1190,14 @@ var family_set_json = {
    ],
    [
     "u 1",
-    "letter",
-    "(gram) letter u; 5th letter of the alphabet; labial vowel",
+    "prefix",
+    "up; upwards",
     "✓"
    ],
    [
     "u 2",
-    "prefix",
-    "up; upwards",
+    "letter",
+    "(gram) letter u; 5th letter of the alphabet; labial vowel",
     "✓"
    ],
    [
@@ -1279,7 +1279,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "upayoga 1",
+    "upayoga 2",
     "nt",
     "(gram) accusative case; lit. using",
     "~"
@@ -1339,7 +1339,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "ekatta 5",
+    "ekatta 7",
     "nt",
     "(gram) singular number",
     "✓"
@@ -1375,7 +1375,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "etāya 1",
+    "etāya 4",
     "pron",
     "(gram) after this",
     "✓"
@@ -1507,7 +1507,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "kaṇḍa 2",
+    "kaṇḍa 4",
     "masc",
     "(gram) chapter; section; portion",
     "✓"
@@ -1561,13 +1561,13 @@ var family_set_json = {
     "✓"
    ],
    [
-    "kamma 6",
+    "kamma 7",
     "nt",
     "(gram) object of the verb",
     "✓"
    ],
    [
-    "kamma 7",
+    "kamma 8",
     "nt",
     "(gram) passive voice; lit. action",
     "✓"
@@ -1597,19 +1597,19 @@ var family_set_json = {
     "✓"
    ],
    [
-    "kara 2",
-    "root",
-    "(gram) √kar (do, make)",
-    "✓"
-   ],
-   [
-    "kara 3",
+    "kara 7",
     "masc",
     "(gram) helping; supporting; promoting",
     "~"
    ],
    [
-    "karaṇa 3",
+    "kara 8",
+    "root",
+    "(gram) √kar (do, make)",
+    "✓"
+   ],
+   [
+    "karaṇa 5",
     "nt",
     "(gram) instrumental case; lit. doing",
     "✓"
@@ -1639,7 +1639,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "kāra 4",
+    "kāra 7",
     "masc",
     "(gram) letter; sound; syllable; indeclinable word",
     "✓"
@@ -1651,7 +1651,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "kārita 2",
+    "kārita 4",
     "nt",
     "(gram) causative verb; causative affix; lit. caused to do",
     "✓"
@@ -1675,15 +1675,15 @@ var family_set_json = {
     "✓"
    ],
    [
-    "kāla 1.3",
+    "kāla 1.5",
     "masc",
-    "(gram) tense; mood; lit. time",
+    "(gram) rest; pause; space; lit. time",
     "✓"
    ],
    [
-    "kāla 1.4",
+    "kāla 1.6",
     "masc",
-    "(gram) rest; pause; space; lit. time",
+    "(gram) tense; mood; lit. time",
     "✓"
    ],
    [
@@ -1849,7 +1849,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "gayhati 1",
+    "gayhati 2",
     "pr",
     "(gram) is employed (by); is used (by); lit. is grasped",
     "~"
@@ -1861,7 +1861,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "gahaṇa 3",
+    "gahaṇa 5",
     "nt",
     "(gram) (of a word or particle) employing; taking; using; lit. grasping",
     "✓"
@@ -1879,7 +1879,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "gahetabba 1",
+    "gahetabba 3",
     "ptp",
     "(gram) should be employed; should be used; should be adopted; lit. to be grasped",
     "✓"
@@ -1903,7 +1903,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "ca 1.1",
+    "ca 1.2",
     "letter",
     "(gram) letter c; 14th letter of the alphabet; palatal consonant",
     "✓"
@@ -1975,7 +1975,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "cha 1.1",
+    "cha 1.2",
     "letter",
     "(gram) letter ch; 15th letter of the alphabet; aspirated palatal consonant",
     "~"
@@ -1993,7 +1993,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "ja 2.1",
+    "ja 2.2",
     "letter",
     "(gram) letter j; 16th letter of the alphabet; palatal consonant",
     "✓"
@@ -2011,7 +2011,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "jotaka 1",
+    "jotaka 30",
     "adj",
     "(gram) clear; explicit; expressing; lit. shining",
     "~"
@@ -2059,7 +2059,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "ṭhānantara 1",
+    "ṭhānantara 2",
     "nt",
     "(gram) place within",
     "~"
@@ -2095,15 +2095,15 @@ var family_set_json = {
     "✓"
    ],
    [
-    "ṇayapaccaya 1",
+    "ṇayapaccaya 2",
     "masc",
-    "(gram) *aya suffix; conjugational sign of group 8 curādigaṇa verbs",
+    "(gram) *aya suffix; used to form denominative verbs",
     "✓"
    ],
    [
     "ṇayapaccaya 3",
     "masc",
-    "(gram) *aya suffix; used to form denominative verbs",
+    "(gram) *aya suffix; conjugational sign of group 8 curādigaṇa verbs",
     "✓"
    ],
    [
@@ -2191,7 +2191,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "tato 5",
+    "tato 6",
     "ind",
     "(gram) after that; lit. from that",
     "✓"
@@ -2275,7 +2275,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "tasmiṃ 3",
+    "tasmiṃ 5",
     "pron",
     "(gram) before that",
     "~"
@@ -2431,13 +2431,13 @@ var family_set_json = {
     "✓"
    ],
    [
-    "disa 2.1",
+    "disa 2.2",
     "root",
     "(gram) √dis (see)",
     "✓"
    ],
    [
-    "dīgha 2",
+    "dīgha 3",
     "masc",
     "(gram) long vowel; metrically more than one measure long",
     "✓"
@@ -2503,7 +2503,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "dvanda 1",
+    "dvanda 2",
     "masc",
     "(gram) copulative compound; co-ordinative compound; lit. two and two",
     "✓"
@@ -2511,7 +2511,7 @@ var family_set_json = {
    [
     "dvikammaka",
     "adj",
-    "(gram) ditransitivel taking two objects; lit. has two objects",
+    "(gram) ditransitive; taking two objects; lit. has two objects",
     "✓"
    ],
    [
@@ -2539,7 +2539,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "dha 1",
+    "dha 2",
     "letter",
     "(gram) letter dh; 27th letter of the alphabet; dental consonant",
     "✓"
@@ -2569,14 +2569,14 @@ var family_set_json = {
     "✓"
    ],
    [
-    "dhātu 5",
-    "fem",
+    "dhātu 7",
+    "masc",
     "(gram) verbal root",
     "✓"
    ],
    [
     "dhātu 8",
-    "masc",
+    "fem",
     "(gram) verbal root",
     "✓"
    ],
@@ -2653,15 +2653,15 @@ var family_set_json = {
     "✓"
    ],
    [
-    "napuṃsaka 1",
-    "adj",
-    "(gram) neuter; lit. not male",
-    "✓"
-   ],
-   [
     "napuṃsaka 2",
     "masc",
     "(gram) neuter gender; lit. not male",
+    "✓"
+   ],
+   [
+    "napuṃsaka 3",
+    "adj",
+    "(gram) neuter; lit. not male",
     "✓"
    ],
    [
@@ -2677,7 +2677,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "naya 4",
+    "naya 5",
     "masc",
     "(gram) inferential method; lit. leading",
     "~"
@@ -2713,7 +2713,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "nāma 3",
+    "nāma 7",
     "nt",
     "(gram) noun; substantive; lit. name",
     "✓"
@@ -2725,7 +2725,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "nāmato 1",
+    "nāmato 2",
     "nt",
     "(gram) after a noun; lit. from noun",
     "✓"
@@ -2779,7 +2779,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "niggahīta 1",
+    "niggahīta 2",
     "nt",
     "(gram) letter ṃ; 41st letter of the alphabet; nasal consonant; lit. held down",
     "✓"
@@ -2809,7 +2809,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "nipāta 2",
+    "nipāta 4",
     "masc",
     "(gram) indeclinable particle; lit. falling down; something irregular",
     "✓"
@@ -2827,13 +2827,13 @@ var family_set_json = {
     "~"
    ],
    [
-    "nipphanna 1",
+    "nipphanna 3",
     "nt",
     "(gram) completion; conclusion",
     "✓"
    ],
    [
-    "nipphādana 1",
+    "nipphādana 2",
     "nt",
     "(gram) (word) formation; generation; lit. producing",
     "~"
@@ -2845,7 +2845,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "niyama 3",
+    "niyama 4",
     "masc",
     "(gram) restriction; limitation; lit. controlling down",
     "~"
@@ -2869,6 +2869,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "niruḷha",
+    "pp",
+    "(gram) (of a word's meaning) usual; customary; common; conventional; lit. grown down",
+    "✓"
+   ],
+   [
     "nissakka",
     "nt",
     "(gram) ablative case; lit. going away",
@@ -2881,13 +2887,13 @@ var family_set_json = {
     "✓"
    ],
    [
-    "nīti 1",
+    "nīti 3",
     "fem",
     "(gram) rule; principle; lit. leading",
     "~"
    ],
    [
-    "netabba 1",
+    "netabba 2",
     "ptp",
     "(gram) should be joined (to); should be connected (to); lit. to be lead",
     "✓"
@@ -2905,7 +2911,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "pakati 4",
+    "pakati 5",
     "fem",
     "(gram) original form; natural state; lit. natural",
     "✓"
@@ -2935,7 +2941,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "paccaya 3",
+    "paccaya 5",
     "masc",
     "(gram) affix; suffix; verbal ending; lit. dependent",
     "✓"
@@ -2959,7 +2965,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "pañcamī 1",
+    "pañcamī 2",
     "fem",
     "(gram) imperative or benedictive mood",
     "✓"
@@ -2971,13 +2977,19 @@ var family_set_json = {
     "✓"
    ],
    [
+    "paṭi 2.1",
+    "prefix",
+    "against; back; back towards; before; personally",
+    "✓"
+   ],
+   [
     "paṭibandha 2",
     "adj",
     "(gram) related (to); connected (to)",
     "~"
    ],
    [
-    "paṭisedha 1",
+    "paṭisedha 2",
     "masc",
     "(gram) prohibition; exclusion; negation",
     "~"
@@ -3049,13 +3061,13 @@ var family_set_json = {
     "~"
    ],
    [
-    "pada 06",
+    "pada 10",
     "nt",
     "(gram) word; part of a word; suffix",
     "✓"
    ],
    [
-    "pada 09",
+    "pada 11",
     "nt",
     "(gram) part of speech",
     "✓"
@@ -3133,7 +3145,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "payoga 2",
+    "payoga 4",
     "masc",
     "(gram) usage; application",
     "~"
@@ -3151,13 +3163,13 @@ var family_set_json = {
     "✓"
    ],
    [
-    "para 3",
+    "para 6",
     "adj",
     "(gram) next; following; last; after",
     "✓"
    ],
    [
-    "para 5",
+    "para 7",
     "masc",
     "(gram) next letter; following vowel",
     "✓"
@@ -3223,7 +3235,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "parikappa 2",
+    "parikappa 4",
     "masc",
     "(gram) assumption; presumption; possibility",
     "✓"
@@ -3349,7 +3361,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "puma 2",
+    "puma 4",
     "masc",
     "(gram) masculine gender",
     "✓"
@@ -3367,7 +3379,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "purisa 3",
+    "purisa 5",
     "masc",
     "(gram) grammatical person; 3rd 2nd 1st person",
     "✓"
@@ -3421,9 +3433,15 @@ var family_set_json = {
     "✓"
    ],
    [
-    "byañjana 5",
+    "byañjana 6",
     "nt",
     "(gram) consonant; lit. distinguishing",
+    "~"
+   ],
+   [
+    "byañjana 7",
+    "adj",
+    "(gram) having a consonant; lit. distinguishing",
     "✓"
    ],
    [
@@ -3481,7 +3499,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "bhāva 2",
+    "bhāva 3",
     "masc",
     "(gram) impersonal voice",
     "✓"
@@ -3505,7 +3523,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "bhāsita 3",
+    "bhāsita 4",
     "nt",
     "(gram) ?? word",
     "✓"
@@ -3535,14 +3553,14 @@ var family_set_json = {
     "✓"
    ],
    [
-    "bhū 1.1",
+    "bhū 1.2",
     "root",
     "(gram) √bhū (be)",
     "✓"
    ],
    [
     "bhūvādi",
-    "nt",
+    "masc",
     "(gram) √bhū etc.; group 1 roots which take the conjugational sign a",
     "✓"
    ],
@@ -3589,13 +3607,13 @@ var family_set_json = {
     "✓"
    ],
    [
-    "majjhima 7",
+    "majjhima 8",
     "adj",
     "(gram) 2nd (person) (you; you all); lit. middle",
     "✓"
    ],
    [
-    "majjhimapurisa 1",
+    "majjhimapurisa 2",
     "masc",
     "(gram) 2nd person (you; you all); lit. middle person",
     "✓"
@@ -3637,7 +3655,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "maha 1",
+    "maha 3",
     "root",
     "(gram) √mah (venerate)",
     "✓"
@@ -3673,7 +3691,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "muddhaja 1",
+    "muddhaja 2",
     "adj",
     "(gram) cerebral; retroflex; lingual; lit. born from the top",
     "✓"
@@ -3781,7 +3799,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "yutta 5",
+    "yutta 6",
     "pp",
     "(gram) proper; suitable; right; appropriate; correct; lit. yoked",
     "✓"
@@ -3793,7 +3811,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "yoga 4",
+    "yoga 7",
     "adj",
     "(gram) syntactically dependent on; ruled by; governed by; lit. yoking",
     "✓"
@@ -3889,7 +3907,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "lakkhaṇa 5",
+    "lakkhaṇa 8",
     "nt",
     "(gram) rule; definition; lit. marking",
     "~"
@@ -3925,7 +3943,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "liṅgavipallāsa 1",
+    "liṅgavipallāsa 2",
     "masc",
     "(gram) inversion of gender",
     "~"
@@ -3937,7 +3955,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "lutta 1",
+    "lutta 2",
     "pp",
     "(gram) elided; dropped; cut off",
     "✓"
@@ -3955,7 +3973,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "lopa 1",
+    "lopa 2",
     "masc",
     "(gram) elision (of); dropping (of); cutting (of)",
     "✓"
@@ -3991,19 +4009,19 @@ var family_set_json = {
     "✓"
    ],
    [
-    "vagga 4",
+    "vagga 5",
     "masc",
     "(gram) (of consonants) set; group; class; series",
     "✓"
    ],
    [
-    "vaca 1",
+    "vaca 2",
     "root",
     "(gram) √vac (say, speak)",
     "✓"
    ],
    [
-    "vacana 4",
+    "vacana 5",
     "nt",
     "(gram) grammatical number; singular or plural; lit. speaking",
     "✓"
@@ -4015,7 +4033,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "vaṇṇa 1.07",
+    "vaṇṇa 1.10",
     "masc",
     "(gram) letter; phoneme; syllable; lit. cover",
     "✓"
@@ -4071,7 +4089,7 @@ var family_set_json = {
    [
     "vavatthita 3",
     "pp",
-    "(gram) disconnected; separated",
+    "(gram) disconnected; separated; lit. caused to stand down apart",
     "~"
    ],
    [
@@ -4087,13 +4105,13 @@ var family_set_json = {
     "✓"
    ],
    [
-    "vaha 1",
+    "vaha 2",
     "root",
     "(gram) √vah (carry, bring)",
     "✓"
    ],
    [
-    "vā 2",
+    "vā 4",
     "ind",
     "(gram) or; in some cases; not always; alternatively; optionally",
     "✓"
@@ -4111,15 +4129,15 @@ var family_set_json = {
     "~"
    ],
    [
-    "vācaka 1",
-    "adj",
-    "(gram) explicit; expressly stated; lit. speaking",
-    "~"
-   ],
-   [
     "vācaka 2",
     "nt",
     "(gram) explicit expression; direct statement; lit. speaking",
+    "~"
+   ],
+   [
+    "vācaka 3",
+    "adj",
+    "(gram) explicit; expressly stated; lit. speaking",
     "~"
    ],
    [
@@ -4159,7 +4177,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "vidhāyaka 1",
+    "vidhāyaka 2",
     "adj",
     "(gram) performing operation",
     "~"
@@ -4177,13 +4195,13 @@ var family_set_json = {
     "✓"
    ],
    [
-    "vibhatti 1",
+    "vibhatti 2",
     "fem",
     "(gram) inflexion; declension; conjugation; case-ending of a noun; person-ending of a verb; lit. division",
     "✓"
    ],
    [
-    "vibhattika 1",
+    "vibhattika 2",
     "adj",
     "(gram) with conjugation; with case inflection; lit. with division",
     "✓"
@@ -4195,7 +4213,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "vibhāga 1",
+    "vibhāga 2",
     "masc",
     "(gram) classification; dissection; disjunction; lit. division",
     "✓"
@@ -4219,7 +4237,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "viraha 1",
+    "viraha 4",
     "masc",
     "(gram) absence",
     "~"
@@ -4231,7 +4249,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "visaya 2",
+    "visaya 4",
     "masc",
     "(gram) case; situation; subject",
     "~"
@@ -4291,7 +4309,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "vohāra 5",
+    "vohāra 7",
     "masc",
     "(gram) usage; use of a word",
     "~"
@@ -4333,7 +4351,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "saṅkhyā 1",
+    "saṅkhyā 4",
     "fem",
     "(gram) numeral; number",
     "✓"
@@ -4351,13 +4369,13 @@ var family_set_json = {
     "✓"
    ],
    [
-    "sañcarati 1",
+    "sañcarati 2",
     "pr",
     "(gram) is used; appears",
     "~"
    ],
    [
-    "saññā 4",
+    "saññā 5",
     "fem",
     "(gram) grammatical term; technical term; definition; lit. name",
     "✓"
@@ -4441,7 +4459,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "sandhi 1",
+    "sandhi 6",
     "masc",
     "(gram) sandhi; conjunction; euphonic combination; lit. placing together",
     "✓"
@@ -4537,7 +4555,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "samāhāra 1",
+    "samāhāra 2",
     "masc",
     "(gram) copulative compound with plural meaning and singular ending; lit. bringing here together",
     "~"
@@ -4549,13 +4567,13 @@ var family_set_json = {
     "~"
    ],
    [
-    "samuccaya 1",
+    "samuccaya 2",
     "masc",
     "(gram) conjunction; combination; connection",
     "✓"
    ],
    [
-    "sampadāna 2",
+    "sampadāna 3",
     "nt",
     "(gram) dative case; lit. giving forward together",
     "✓"
@@ -4597,7 +4615,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "savaṇṇa 1",
+    "savaṇṇa 2",
     "adj",
     "(gram) having the same letter; with the same phoneme; lit. same letter",
     "✓"
@@ -4633,13 +4651,13 @@ var family_set_json = {
     "✓"
    ],
    [
-    "sādhaka 1",
+    "sādhaka 3",
     "nt",
     "(gram) factor which make an action possible; element; cause",
     "~"
    ],
    [
-    "sādhana 1",
+    "sādhana 5",
     "nt",
     "(gram) grammatical procedure; lit. accomplishing",
     "✓"
@@ -4789,7 +4807,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "hara 1.1",
+    "hara 1.2",
     "root",
     "(gram) √har (carry away)",
     "✓"
@@ -4826,7 +4844,7 @@ var family_set_json = {
    ],
    [
     "hivibhatti",
-    "fem",
+    "masc",
     "(gram) conjugation of imperative 2nd person singular; lit. hi conjugation",
     "✓"
    ],
@@ -4897,7 +4915,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 788
+  "count": 791
  },
  "prefixes": {
   "data": [
@@ -5100,7 +5118,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "u 2",
+    "u 1",
     "prefix",
     "up; upwards",
     "✓"
@@ -5226,6 +5244,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "paṭi 2.1",
+    "prefix",
+    "against; back; back towards; before; personally",
+    "✓"
+   ],
+   [
     "pati 3.3",
     "prefix",
     "against; back; back towards; before; personally",
@@ -5310,7 +5334,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 68
+  "count": 69
  },
  "conjugational signs": {
   "data": [
@@ -5539,7 +5563,7 @@ var family_set_json = {
     "ṭṭha",
     "abbrev",
     "abbreviation of aṭṭhakathā (commentary)",
-    "~"
+    "✓"
    ],
    [
     "thera 2.1",
@@ -5560,7 +5584,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "dha 2",
+    "dha 1",
     "abbrev",
     "abbreviation of Dhamma (pada)",
     "✓"
@@ -5904,6 +5928,12 @@ var family_set_json = {
     "amhaṃ",
     "pron",
     "our; of us",
+    "✓"
+   ],
+   [
+    "amhāka",
+    "pron",
+    "our",
     "✓"
    ],
    [
@@ -6369,7 +6399,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "etāya 1",
+    "etāya 4",
     "pron",
     "(gram) after this",
     "✓"
@@ -6845,20 +6875,20 @@ var family_set_json = {
    [
     "tasmiṃ 3",
     "pron",
-    "(gram) before that",
-    "~"
+    "in that case; in that situation",
+    "✓"
    ],
    [
     "tasmiṃ 4",
     "pron",
-    "in that case; in that situation",
+    "under that; under him",
     "✓"
    ],
    [
     "tasmiṃ 5",
     "pron",
-    "under that; under him",
-    "✓"
+    "(gram) before that",
+    "~"
    ],
    [
     "tassa 1",
@@ -7335,7 +7365,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "para 4",
+    "para 3",
     "adj",
     "foreign; alien; not oneself",
     "✓"
@@ -7863,7 +7893,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 349
+  "count": 350
  },
  "epithets of devas": {
   "data": [
@@ -8148,6 +8178,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "aggadhamma 2",
+    "masc",
+    "best state; highest condition; epithet of Nibbāna",
+    "✓"
+   ],
+   [
     "aggapada",
     "nt",
     "highest state; epithet of Nibbāna",
@@ -8310,7 +8346,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 29
+  "count": 30
  },
  "names of Brahmans": {
   "data": [
@@ -8462,6 +8498,12 @@ var family_set_json = {
     "kūṭadanta",
     "masc",
     "name of a Brahman; lit. crooked tooth",
+    "✓"
+   ],
+   [
+    "koraṇḍiya",
+    "masc",
+    "name of a Brahman in a Jātaka story",
     "✓"
    ],
    [
@@ -8879,7 +8921,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 94
+  "count": 95
  },
  "bodyparts": {
   "data": [
@@ -9628,7 +9670,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "hattha 5",
+    "hattha 2",
     "masc",
     "paw",
     "✓"
@@ -11065,12 +11107,6 @@ var family_set_json = {
     "~"
    ],
    [
-    "assasata",
-    "nt",
-    "one hundred horses",
-    "~"
-   ],
-   [
     "āṭānāṭā",
     "fem",
     "name of a heavenly city",
@@ -11851,7 +11887,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 138
+  "count": 137
  },
  "holy sites": {
   "data": [
@@ -16175,7 +16211,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "paccaya 5",
+    "paccaya 4",
     "masc",
     "name of an arahant monk; lit. dependent",
     "~"
@@ -16919,7 +16955,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "lakkhaṇa 7",
+    "lakkhaṇa 6",
     "masc",
     "name of a monk; lit. marking",
     "~"
@@ -18862,7 +18898,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "paccaya 5",
+    "paccaya 4",
     "masc",
     "name of an arahant monk; lit. dependent",
     "~"
@@ -20994,13 +21030,19 @@ var family_set_json = {
     "~"
    ],
    [
-    "hattha 4",
+    "hattha 5",
     "nt",
     "measure of length; cubit; measure from elbow to extended little-finger tip",
+    "~"
+   ],
+   [
+    "hattha 6",
+    "adj",
+    "so many cubits in measure",
     "✓"
    ]
   ],
-  "count": 20
+  "count": 21
  },
  "bhikkhupātimokkha rules": {
   "data": [
@@ -23527,7 +23569,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "dīgha 3",
+    "dīgha 2",
     "masc",
     "name of a spirit",
     "✓"
@@ -23710,7 +23752,7 @@ var family_set_json = {
     "puṇṇaka 1",
     "masc",
     "name of a deity; lit. who is full",
-    "~"
+    "✓"
    ],
    [
     "punabbasu 1",
@@ -25437,6 +25479,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kandula",
+    "masc",
+    "name of a tree; Momordica charantia",
+    "✓"
+   ],
+   [
     "kapitthana 1",
     "masc",
     "portia tree; Thespesia populnea",
@@ -26445,7 +26493,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 205
+  "count": 206
  },
  "names of animals": {
   "data": [
@@ -29278,6 +29326,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "dvenavuta",
+    "ordin",
+    "ninety second (92nd)",
+    "✓"
+   ],
+   [
     "navama",
     "ordin",
     "ninth (9th)",
@@ -29371,7 +29425,7 @@ var family_set_json = {
     "sattarasa 2",
     "ordin",
     "seventeenth (17th)",
-    "~"
+    "✓"
    ],
    [
     "sattarasaka",
@@ -29404,7 +29458,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 55
+  "count": 56
  },
  "commentaries": {
   "data": [
@@ -29678,6 +29732,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kattikamāsa",
+    "masc",
+    "name of a lunar month, October-November",
+    "✓"
+   ],
+   [
     "kattikā 1",
     "fem",
     "name of a lunar month; October-November; last month of the rains season; lit. Pleiades",
@@ -29804,6 +29864,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "phagguṇa",
+    "masc",
+    "name of a lunar month; February-March",
+    "✓"
+   ],
+   [
     "phagguna 2",
     "masc",
     "constellation of Leo; lit. red",
@@ -29813,7 +29879,7 @@ var family_set_json = {
     "phagguna 3",
     "masc",
     "name of a lunar month; February-March; lit. red",
-    "~"
+    "✓"
    ],
    [
     "phussa 2.1",
@@ -29828,7 +29894,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "bhumma 5",
+    "bhumma 4",
     "masc",
     "planet Mars",
     "~"
@@ -29936,7 +30002,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 62
+  "count": 64
  },
  "money": {
   "data": [
@@ -30144,13 +30210,19 @@ var family_set_json = {
     "~"
    ],
    [
+    "pāda 9",
+    "masc",
+    "measure of volume; lit. foot",
+    "✓"
+   ],
+   [
     "vāha 4",
     "masc",
     "cart-load; wagon-load",
     "✓"
    ]
   ],
-  "count": 12
+  "count": 13
  },
  "four modes of generation": {
   "data": [
@@ -30892,19 +30964,19 @@ var family_set_json = {
    [
     "vā 2",
     "ind",
-    "(gram) or; in some cases; not always; alternatively; optionally",
+    "exact; very; precise",
     "✓"
    ],
    [
     "vā 3",
     "ind",
-    "exact; very; precise",
+    "and; as well as",
     "✓"
    ],
    [
     "vā 4",
     "ind",
-    "and; as well as",
+    "(gram) or; in some cases; not always; alternatively; optionally",
     "✓"
    ],
    [
@@ -32125,12 +32197,6 @@ var family_set_json = {
     "✓"
    ],
    [
-    "suppatiṭṭhitapada",
-    "adj",
-    "with firmly planted feet; first of the thirty-two marks of a great man; (comm) with flat feet",
-    "✓"
-   ],
-   [
     "suvaṇṇavaṇṇa 1",
     "adj",
     "with golden-coloured complexion; eleventh of the thirty-two marks of a great man",
@@ -32143,7 +32209,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 31
+  "count": 30
  },
  "weapons": {
   "data": [
@@ -32401,6 +32467,12 @@ var family_set_json = {
     "kadali 1",
     "fem",
     "plantain tree; banana tree",
+    "✓"
+   ],
+   [
+    "kandula",
+    "masc",
+    "name of a tree; Momordica charantia",
     "✓"
    ],
    [
@@ -32836,7 +32908,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 81
+  "count": 82
  },
  "names of heavens": {
   "data": [
@@ -33603,7 +33675,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "āra 1",
+    "āra 2",
     "suffix",
     "(gram) āra; causative suffix added to nouns",
     "✓"
@@ -33669,15 +33741,15 @@ var family_set_json = {
     "✓"
    ],
    [
-    "ṇayapaccaya 1",
+    "ṇayapaccaya 2",
     "masc",
-    "(gram) *aya suffix; conjugational sign of group 8 curādigaṇa verbs",
+    "(gram) *aya suffix; used to form denominative verbs",
     "✓"
    ],
    [
     "ṇayapaccaya 3",
     "masc",
-    "(gram) *aya suffix; used to form denominative verbs",
+    "(gram) *aya suffix; conjugational sign of group 8 curādigaṇa verbs",
     "✓"
    ],
    [
@@ -33882,6 +33954,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kattikamāsa",
+    "masc",
+    "name of a lunar month, October-November",
+    "✓"
+   ],
+   [
     "kattikā 1",
     "fem",
     "name of a lunar month; October-November; last month of the rains season; lit. Pleiades",
@@ -33906,10 +33984,16 @@ var family_set_json = {
     "✓"
    ],
    [
+    "phagguṇa",
+    "masc",
+    "name of a lunar month; February-March",
+    "✓"
+   ],
+   [
     "phagguna 3",
     "masc",
     "name of a lunar month; February-March; lit. red",
-    "~"
+    "✓"
    ],
    [
     "phussa 2.1",
@@ -33942,7 +34026,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 13
+  "count": 15
  },
  "previous incarnations of the Buddha": {
   "data": [
@@ -34013,6 +34097,94 @@ var family_set_json = {
    ]
   ],
   "count": 7
+ },
+ "formless attainments": {
+  "data": [
+   [
+    "ākāsānañcāyatana",
+    "nt",
+    "dimension of infinite space; base of infinity of space",
+    "✓"
+   ],
+   [
+    "ākiñcaññāyatana",
+    "nt",
+    "dimension of nothingness; sphere of emptiness; base of nothingness",
+    "✓"
+   ],
+   [
+    "nevasaññānāsaññāyatana",
+    "nt",
+    "dimension of neither perception nor non-perception",
+    "✓"
+   ],
+   [
+    "viññāṇañcāyatana",
+    "nt",
+    "dimension of infinite consciousness",
+    "✓"
+   ]
+  ],
+  "count": 4
+ },
+ "nine attainments": {
+  "data": [
+   [
+    "ākāsānañcāyatana",
+    "nt",
+    "dimension of infinite space; base of infinity of space",
+    "✓"
+   ],
+   [
+    "ākiñcaññāyatana",
+    "nt",
+    "dimension of nothingness; sphere of emptiness; base of nothingness",
+    "✓"
+   ],
+   [
+    "catutthajjhāna",
+    "nt",
+    "fourth stage of meditation",
+    "✓"
+   ],
+   [
+    "tatiyajjhāna",
+    "nt",
+    "third stage of meditation",
+    "✓"
+   ],
+   [
+    "dutiyajjhāna",
+    "nt",
+    "second stage of meditation",
+    "✓"
+   ],
+   [
+    "nevasaññānāsaññāyatana",
+    "nt",
+    "dimension of neither perception nor non-perception",
+    "✓"
+   ],
+   [
+    "paṭhamajjhāna",
+    "nt",
+    "first stage of meditation",
+    "✓"
+   ],
+   [
+    "viññāṇañcāyatana",
+    "nt",
+    "dimension of infinite consciousness",
+    "✓"
+   ],
+   [
+    "saññāvedayitanirodha",
+    "masc",
+    "ending of recognition and feeling; cessation of conception and what is felt",
+    "✓"
+   ]
+  ],
+  "count": 9
  },
  "musical instruments": {
   "data": [
@@ -35168,19 +35340,19 @@ var family_set_json = {
     "✓"
    ],
    [
-    "ca 1.2",
+    "ca 1.1",
     "ind",
     "6th item in a numerical list; lit. letter c",
     "✓"
    ],
    [
-    "cha 1.2",
+    "cha 1.1",
     "ind",
     "7th item in a numerical list; lit. letter ch",
     "✓"
    ],
    [
-    "ja 2.2",
+    "ja 2.1",
     "ind",
     "8th item in a numerical list; lit. letter j",
     "✓"
@@ -35606,7 +35778,7 @@ var family_set_json = {
    ],
    [
     "bhūvādi",
-    "nt",
+    "masc",
     "(gram) √bhū etc.; group 1 roots which take the conjugational sign a",
     "✓"
    ],
@@ -35711,6 +35883,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "devarāja",
+    "masc",
+    "king of the gods; divine ruler; epithet of Sakka",
+    "✓"
+   ],
+   [
     "makhādeva",
     "masc",
     "epithet of Sakka",
@@ -35765,7 +35943,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 11
+  "count": 12
  },
  "books of the Vinayapiṭaka": {
   "data": [
@@ -36137,6 +36315,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "pavāḷa 2",
+    "masc",
+    "coral",
+    "✓"
+   ],
+   [
     "phalika",
     "masc",
     "crystal; quartz crystal",
@@ -36185,7 +36369,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 9
+  "count": 10
  },
  "vinaya offences": {
   "data": [
