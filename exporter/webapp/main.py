@@ -42,12 +42,10 @@ from tools.paths import ProjectPaths
 from tools.configger import config_test
 
 
-if config_test("exporter", "language", "en"):
-    lang = "en"
 if config_test("exporter", "language", "ru"):
     lang = "ru"
 else:
-    raise ValueError("Invalid language parameter")
+    lang = "en"
 
 
 def make_headwords_clean_set(db_session: Session) -> set[str]:
@@ -359,14 +357,26 @@ def find_closest_matches(q) -> str:
         if item not in ascii_matches
     ])
 
-    string = "<h3>No results found. "
-    if combined_list:
-        string += "The closest matches are:</h3><br>"
-        string += "<p>"
-        string += ", ".join(combined_list)
-        string += "</p>"
-    else:
-        string += "</h3>"
+    if lang == "en":
+
+        string = "<h3>No results found. "
+        if combined_list:
+            string += "The closest matches are:</h3><br>"
+            string += "<p>"
+            string += ", ".join(combined_list)
+            string += "</p>"
+        else:
+            string += "</h3>"
+
+    if lang == "ru":
+        string = "<h3>Ничего не найдено. "
+        if combined_list:
+            string += "Ближайшие совпадения:</h3><br>"
+            string += "<p>"
+            string += ", ".join(combined_list)
+            string += "</p>"
+        else:
+            string += "</h3>"
 
     return string
 

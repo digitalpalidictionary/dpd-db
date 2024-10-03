@@ -7,7 +7,7 @@ from tools.meaning_construction import make_grammar_line
 from tools.meaning_construction import degree_of_completion
 from tools.date_and_time import year_month_day_dash
 
-from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import make_ru_meaning, ru_replace_abbreviations, ru_make_grammar_line
+from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import make_ru_meaning, ru_replace_abbreviations, ru_make_grammar_line, ru_replace_abbreviations_list
 
 
 class HeadwordData():
@@ -90,6 +90,7 @@ class GrammarData():
     def __init__(self, result: Lookup):
         self.headword = result.lookup_key
         self.grammar = result.grammar_unpack
+        self.ru_grammar = [ru_replace_abbreviations_list(value) for value in self.grammar]
 
 
 class HelpData():

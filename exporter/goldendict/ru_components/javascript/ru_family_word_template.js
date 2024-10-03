@@ -1,7 +1,8 @@
 
 function makeFamilyWordHtml_ru(data) {
 
-    fw = family_word_json[data.family_word]
+    fw = ru_family_word_json[data.family_word]
+    const lemmaLink = data.lemma.replace(/ /g, "%20")
 
     //// header
 
@@ -36,7 +37,7 @@ function makeFamilyWordHtml_ru(data) {
         <p class="footer_ru">
         Что-то не на месте?
         <a class="link_ru" 
-        href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&amp;entry.438735500=${data.lemma}&amp;entry.326955045=Семья+слова&amp;entry.1433863141=GoldenDict+${data.date}" 
+        href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&amp;entry.438735500=${lemmaLink}&amp;entry.326955045=Семья+слова&amp;entry.1433863141=GoldenDict+${data.date}" 
         target="_blank">
         Пожалуйста сообщите
         </a>.

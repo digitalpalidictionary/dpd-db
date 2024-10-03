@@ -1,29 +1,44 @@
 function makeFrequency(data) {
-    const html = `
+    const lemmaLink = data.lemma.replace(/ /g, "%20")
+    var html = `
+<p class="heading underlined_ru">
+        ${data.FreqHeading
+            .replace('There are no matches of', 'Нет совпадений со словом')
+            .replace('in any corpus.', 'ни в одной из версий текста')
+            .replace('Frequency of', 'График частоты совпадений слова')
+            .replace('and its', 'и его форм')
+            .replace('declensions', 'склонений')
+            .replace('conjugations', 'спряжений')
+        }
+    </p>
+`
+
+if (data.CstFreq[0] != undefined) {
+    html += `
 <table class="freq">
     <thead>
         <tr>
             <th></th>
             <th></th>
-            <th colspan="3">
+            <th colspan="3" title="Chaṭṭha Saṅgāyana Tipiṭaka (Мьянма)">
                 <b>
                     CST
                 </b>
             </th>
             <th></th>
-            <th colspan="2">
+            <th colspan="2" title="Buddha Jayanti Tipiṭaka (Шри Ланка)">
                 <b>
                     BJT
                 </b>
             </th>
             <th></th>
-            <th colspan="2">
+            <th colspan="2" title="Syāmaraṭṭha 1927 Royal Edition (Таиланд)">
                 <b>
                     SYA
                 </b>
             </th>
             <th></th>
-            <th colspan="1">
+            <th colspan="1" title="Mahāsaṅgīti Tipiṭaka (Sutta Central)">
                 <b>
                     MST
                 </b>
@@ -33,20 +48,20 @@ function makeFrequency(data) {
             <th></th>
             <th></th>
             <!-- CST -->
-            <th>M</th>
-            <th>A</th>
-            <th>Ṭ</th>
+            <th title="mūla">M</th>
+            <th title="aṭṭhakathā">A</th>
+            <th title="ṭīkā">Ṭ</th>
             <th></th>
             <!-- BJT -->
-            <th>M</th>
-            <th>A</th>
+            <th title="mūla">M</th>
+            <th title="aṭṭhakathā">A</th>
             <th></th>
             <!-- SYA -->
-            <th>M</th>
-            <th>A</th>
+            <th title="mūla">M</th>
+            <th title="aṭṭhakathā">A</th>
             <th></th>
             <!-- SC -->
-            <th>M</th>
+            <th title="mūla">M</th>
         </tr>
     </thead>
     <tbody>
@@ -66,7 +81,7 @@ function makeFrequency(data) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[0]}" rowspan="2">${data.SyaFreq[0]}</td>
-            <td class="gr${data.SyaGrad[18]}" rowspan="5">${data.SyaFreq[18]}</td>
+            <td class="gr${data.SyaGrad[17]}" rowspan="5">${data.SyaFreq[17]}</td>
             <td class="gap"></td>
             <!-- SC -->
             <td class="gr${data.ScGrad[0]}">${data.ScFreq[0]}</td>
@@ -150,7 +165,7 @@ function makeFrequency(data) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[4]}">${data.SyaFreq[4]}</td>
-            <td class="gr${data.SyaGrad[19]}">${data.SyaFreq[19]}</td>  
+            <td class="gr${data.SyaGrad[18]}">${data.SyaFreq[18]}</td>  
             <td class="gap"></td>          
             <!-- SC -->
             <td class="gr${data.ScGrad[5]}">${data.ScFreq[5]}</td>
@@ -168,7 +183,7 @@ function makeFrequency(data) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[5]}">${data.SyaFreq[5]}</td>
-            <td class="gr${data.SyaGrad[20]}">${data.SyaFreq[20]}</td>   
+            <td class="gr${data.SyaGrad[19]}">${data.SyaFreq[19]}</td>   
             <td class="gap"></td>         
             <!-- SC -->
             <td class="gr${data.ScGrad[6]}">${data.ScFreq[6]}</td>
@@ -186,7 +201,7 @@ function makeFrequency(data) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[6]}">${data.SyaFreq[6]}</td>
-            <td class="gr${data.SyaGrad[21]}">${data.SyaFreq[21]}</td>  
+            <td class="gr${data.SyaGrad[20]}">${data.SyaFreq[20]}</td>  
             <td class="gap"></td>          
             <!-- SC -->
             <td class="gr${data.ScGrad[7]}">${data.ScFreq[7]}</td>
@@ -204,7 +219,7 @@ function makeFrequency(data) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[7]}">${data.SyaFreq[7]}</td>
-            <td class="gr${data.SyaGrad[22]}">${data.SyaFreq[22]}</td>      
+            <td class="gr${data.SyaGrad[21]}">${data.SyaFreq[21]}</td>      
             <td class="gap"></td>      
             <!-- SC -->
             <td class="gr${data.ScGrad[8]}">${data.ScFreq[8]}</td>
@@ -222,7 +237,7 @@ function makeFrequency(data) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[8]}">${data.SyaFreq[8]}</td>
-            <td class="gr${data.SyaGrad[23]}">${data.SyaFreq[23]}</td>  
+            <td class="gr${data.SyaGrad[22]}">${data.SyaFreq[22]}</td>  
             <td class="gap"></td>          
             <!-- SC -->
             <td class="gr${data.ScGrad[9]}">${data.ScFreq[9]}</td>
@@ -240,7 +255,7 @@ function makeFrequency(data) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[9]}">${data.SyaFreq[9]}</td>
-            <td class="gr${data.SyaGrad[24]}">${data.SyaFreq[24]}</td>   
+            <td class="gr${data.SyaGrad[23]}">${data.SyaFreq[23]}</td>   
             <td class="gap"></td>         
             <!-- SC -->
             <td class="gr${data.ScGrad[10]}">${data.ScFreq[10]}</td>
@@ -258,7 +273,7 @@ function makeFrequency(data) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[10]}">${data.SyaFreq[10]}</td>
-            <td class="gr${data.SyaGrad[25]}">${data.SyaFreq[25]}</td>
+            <td class="gr${data.SyaGrad[24]}">${data.SyaFreq[24]}</td>
             <td class="gap"></td>            
             <!-- SC -->
             <td class="gr${data.ScGrad[11]}">${data.ScFreq[11]}</td>
@@ -279,7 +294,7 @@ function makeFrequency(data) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[11]}">${data.SyaFreq[11]}</td>
-            <td class="gr${data.SyaGrad[26]}" rowspan="7">${data.SyaFreq[26]}</td>       
+            <td class="gr${data.SyaGrad[25]}" rowspan="7">${data.SyaFreq[25]}</td>       
             <td class="gap"></td>     
             <!-- SC -->
             <td class="gr${data.ScGrad[12]}">${data.ScFreq[12]}</td>
@@ -309,7 +324,7 @@ function makeFrequency(data) {
             <td class="gr${data.BjtGrad[33]}">${data.BjtFreq[33]}</td>
             <td class="gap"></td>
             <!-- SYA -->
-            <td class="gr${data.SyaGrad[13]}">${data.SyaFreq[13]}</td>  
+            <td class="gr${data.SyaGrad[13]}" rowspan="2">${data.SyaFreq[13]}</td>  
             <td class="gap"></td>        
             <!-- SC -->
             <td class="gr${data.ScGrad[14]}">${data.ScFreq[14]}</td>
@@ -324,7 +339,7 @@ function makeFrequency(data) {
             <td class="gr${data.BjtGrad[34]}">${data.BjtFreq[34]}</td>
             <td class="gap"></td>
             <!-- SYA -->
-            <td class="gr${data.SyaGrad[14]}">${data.SyaFreq[14]}</td> 
+            <!-- included in Dhātukathā --> 
             <td class="gap"></td>        
             <!-- SC -->
             <td class="gr${data.ScGrad[15]}">${data.ScFreq[15]}</td>
@@ -339,7 +354,7 @@ function makeFrequency(data) {
             <td class="gr${data.BjtGrad[35]}">${data.BjtFreq[35]}</td>
             <td class="gap"></td>
             <!-- SYA -->
-            <td class="gr${data.SyaGrad[15]}">${data.SyaFreq[15]}</td>
+            <td class="gr${data.SyaGrad[14]}">${data.SyaFreq[14]}</td>
             <td class="gap"></td>
             <!-- SC -->
             <td class="gr${data.ScGrad[16]}">${data.ScFreq[16]}</td>
@@ -354,7 +369,7 @@ function makeFrequency(data) {
             <td class="gr${data.BjtGrad[36]}">${data.BjtFreq[36]}</td>
             <td class="gap"></td>
             <!-- SYA -->
-            <td class="gr${data.SyaGrad[16]}">${data.SyaFreq[16]}</td>
+            <td class="gr${data.SyaGrad[15]}">${data.SyaFreq[15]}</td>
             <td class="gap"></td>
             <!-- SC -->
             <td class="gr${data.ScGrad[17]}">${data.ScFreq[17]}</td>
@@ -369,7 +384,7 @@ function makeFrequency(data) {
             <td class="gr${data.BjtGrad[37]}">${data.BjtFreq[37]}</td>
             <td class="gap"></td>
             <!-- SYA -->
-            <td class="gr${data.SyaGrad[17]}">${data.SyaFreq[17]}</td>
+            <td class="gr${data.SyaGrad[16]}">${data.SyaFreq[16]}</td>
             <td class="gap"></td>            
             <!-- SC -->
             <td class="gr${data.ScGrad[18]}">${data.ScFreq[18]}</td>
@@ -390,7 +405,7 @@ function makeFrequency(data) {
             <td class="gap"></td>      
             <!-- SYA -->
             <td class="void"></td>
-            <td class="gr${data.SyaGrad[27]}">${data.SyaFreq[27]}</td> 
+            <td class="gr${data.SyaGrad[26]}">${data.SyaFreq[26]}</td> 
             <td class="gap"></td>           
             <!-- SC -->
             <td class="void"></td>  
@@ -446,10 +461,25 @@ function makeFrequency(data) {
     </tbody>
 </table>
 <p>
-    CST = Chaṭṭha Saṅgāyana Tipiṭaka (Мьянма)<br>
-    BJT = Buddha Jayanti Tipiṭaka (Шри Ланка)<br>
-    SYA = Syāmaraṭṭha 1927 Royal Edition (Таиланд)<br>    
-    MST = Mahāsaṅgīti Tipiṭaka (Sutta Central)
+    <b>CST</b>: Chaṭṭha Saṅgāyana Tipiṭaka (Мьянма)<br>
+    <b>BJT</b>: Buddha Jayanti Tipiṭaka (Шри Ланка)<br>
+    <b>SYA</b>: Syāmaraṭṭha 1927 Royal Edition (Таиланд)<br>    
+    <b>MST</b>: Mahāsaṅgīti Tipiṭaka (Sutta Central)
+</p>
+`
+} else {
+    html += `
+<p>
+    Вероятно, слово встречается только в составе сложных слов. Или, возможно, это ошибка.
+</p>
+`
+}
+html += `
+<p>
+    Для подробного объяснения того, как рассчитывается этот график частоты слов, его точности и неточности, обратитесь, пожалуйста, к <a class="link_ru" href="https://digitalpalidictionary.github.io/rus/frequency.html">этой веб-странице</a>.
+</p>
+<p class='footer_ru'>
+    Что-то не на месте? <a class="link_ru" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${lemmaLink}&entry.326955045=Частота&entry.1433863141=GoldenDict+${data.date}" target="_blank">Сообщите здесь.</a>
 </p>
 `
     return html

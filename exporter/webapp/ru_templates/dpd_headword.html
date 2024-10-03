@@ -648,7 +648,7 @@
 <!-- sets -->
 
 {% if d.i.needs_sets_button %}
-<div id="sets_{{d.i.lemma_1_}}" class="content hidden">
+<div id="family_sets_{{d.i.lemma_1_}}" class="content hidden">
     <p id="{{d.i.lemma_1_}}sets_top" class="heading">перейти к: 
     {% for set in d.i.family_set_list %}
     <a class="jump" 
@@ -715,7 +715,31 @@
 
 {% if d.i.needs_frequency_button %}
 <div id="frequency_{{d.i.lemma_1_}}" class="content hidden">
-    {{d.i.freq_html|safe}}
+    
+    {% if not d.i.freq_html %}
+        <p class="heading underlined">
+            Ни в одной из версий текстов нет совпадений со словом <b>{{d.i.lemma_1}}</b>.
+        </p>
+        <p>
+            Вероятно, слово встречается только в составе сложных слов. Или, возможно, это ошибка.
+        </p>
+    
+    {% else %}
+        <p class="heading underlined">
+
+        {% if d.i.needs_declension_button %}
+            График частоты совпадений слова <b>{{d.i.lemma_1}}</b> и его склонения
+        {% elif d.i.needs_conjugation_button %}
+            График частоты совпадений слова <b>{{d.i.lemma_1}}</b> и его спряжений
+        {% else %}
+            График частоты совпадений слова <b>{{d.i.lemma_1}}</b>
+        {% endif %}
+
+        {{d.i.freq_html|safe}}
+
+        {% endif %}
+
+        
     <p>
         Для подробного объяснения того, как рассчитывается этот график частоты слов, его точности и неточности, обратитесь, пожалуйста, к
         <a class="link" 

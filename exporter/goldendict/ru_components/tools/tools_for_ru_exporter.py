@@ -20,8 +20,8 @@ pth = ProjectPaths()
 rupth = RuPaths()
 
 
-def make_ru_meaning(i: DpdHeadwords) -> str:
-    """Uses only DpdHeadwords input. Compile html of ru_meaning and literal meaning, or return ru_meaning_raw.
+def make_ru_meaning(i: DpdHeadword) -> str:
+    """Uses only DpdHeadword input. Compile html of ru_meaning and literal meaning, or return ru_meaning_raw.
     ru_meaning in <b>bold</b>, or return english meaning"""
 
     if i.ru is None:
@@ -139,6 +139,19 @@ def ru_replace_abbreviations(value, kind = "meaning"):
             value = re.sub(pattern, russian, value)
 
     return value
+
+
+def ru_replace_abbreviations_list(grammar):
+    ru_grammar = []
+    print(f"grammar is {ru_grammar}")
+    for value in grammar:
+        print(f"value is {value}")
+        ru_value = ru_replace_abbreviations(value, "no")
+        print(f"ru_value is {ru_value}")
+        ru_grammar.append(ru_value)
+        
+    print(f"ru_grammar is {ru_grammar}")
+    return ru_grammar
 
 
 def load_abbreviations_dict(tsv_file_path):

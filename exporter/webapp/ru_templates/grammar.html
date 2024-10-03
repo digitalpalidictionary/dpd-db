@@ -1,4 +1,4 @@
-<h3>grammar: {{d.headword}}</h3>
+<h3>грамматика: {{d.headword}}</h3>
 <div class='grammar_dict'>
     <table class='grammar_dict'>
         <thead>
@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for item in d.grammar: %}
+            {% for item in d.ru_grammar: %}
             {% if item[2] == "indeclinable" %}
             <tr>
                 <td>
@@ -33,7 +33,7 @@
                     {{item[2]}}
                 </td>
                 <td>
-                    of
+                    от
                 </td>
                 <td>
                     {{item[0]}}

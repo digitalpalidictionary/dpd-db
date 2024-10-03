@@ -17,7 +17,6 @@ function button_click_ru(el) {
     var target = document.getElementById(target_id);
 
     if (target) {
-
         if (target.textContent.includes("loading...")) {
             loadData_ru()
         };
@@ -57,19 +56,22 @@ function loadData_ru() {
 //// load json data into buttons 
 
 function loadButtonContent_ru(data) {
+
+    const lemmaTag = data.lemma.replace(/ /g, "_").replace(".", "_") // a 1.1 > a_1_1
     
     //// feedback
 
     const feedbackHTML = makeFeedback_ru(data);
-    const feedbackElement = document.getElementById(`feedback_ru_${data.lemma}`)
+    const feedbackElement = document.getElementById(`feedback_ru_${lemmaTag}`)
     feedbackElement.innerHTML = feedbackHTML
-
 
     // frequency
 
-    const frequencyHTML = makeFrequency(data);
-    const frequencyElement = document.getElementById(`frequency_ru_${data.lemma}`)
-    frequencyElement.innerHTML = frequencyElement.innerHTML.replace("frequency loading...", frequencyHTML)
+    if (data.CstFreq != undefined) {
+        const frequencyHTML = makeFrequency(data);
+        const frequencyElement = document.getElementById(`frequency_ru_${lemmaTag}`)
+        frequencyElement.innerHTML = frequencyElement.innerHTML.replace("frequency loading...", frequencyHTML)
+    };
 
     //// family compounds
 
@@ -79,7 +81,7 @@ function loadButtonContent_ru(data) {
         && typeof ru_family_compound_json !== "undefined"
     ) {
         const familyCompoundHtml = makeFamilyCompoundHtml_ru(data)
-        const familyCompoundElement = document.getElementById(`family_compound_ru_${data.lemma}`)
+        const familyCompoundElement = document.getElementById(`family_compound_ru_${lemmaTag}`)
         familyCompoundElement.innerHTML = familyCompoundHtml
     };
 
@@ -90,7 +92,7 @@ function loadButtonContent_ru(data) {
     ) {
         const fr = ru_family_root_json[data.family_root];
         const familyRootHtml = makeFamilyRootHtml_ru(data, fr);
-        const familyRootElement = document.getElementById(`family_root_ru_${data.lemma}`);
+        const familyRootElement = document.getElementById(`family_root_ru_${lemmaTag}`);
         familyRootElement.innerHTML = familyRootHtml;
     };
 
@@ -102,7 +104,7 @@ function loadButtonContent_ru(data) {
         && typeof ru_family_idiom_json !== "undefined"
     ) {
         const familyIdiomHtml = makeFamilyIdioms_ru(data)
-        const familyIdiomElement = document.getElementById(`family_idiom_ru_${data.lemma}`)
+        const familyIdiomElement = document.getElementById(`family_idiom_ru_${lemmaTag}`)
         familyIdiomElement.innerHTML = familyIdiomHtml
     };
 
@@ -114,7 +116,7 @@ function loadButtonContent_ru(data) {
         && typeof ru_family_set_json !== "undefined"
     ) {
         const familySetHtml = makeFamilySets_ru(data)
-        const familySetElement = document.getElementById(`family_set_ru_${data.lemma}`)
+        const familySetElement = document.getElementById(`family_set_ru_${lemmaTag}`)
         familySetElement.innerHTML = familySetHtml
     };
 
@@ -125,7 +127,7 @@ function loadButtonContent_ru(data) {
         && typeof ru_family_word_json !== "undefined"
     ) {
         const familyWordHtml = makeFamilyWordHtml_ru(data);
-        const familyWordElement = document.getElementById(`family_word_ru_${data.lemma}`)
+        const familyWordElement = document.getElementById(`family_word_ru_${lemmaTag}`)
         familyWordElement.innerHTML = familyWordHtml
     };
 };
@@ -140,7 +142,7 @@ function loadRootButtonContent_ru(data) {
         const key_clean = item.id.replace("family_root_ru_", "").replace(/_/g, " ")
         const fr = ru_family_root_json[key_clean]
         if (fr !==undefined ){
-            const familyRootHtml = makeFamilyRootHtml_ru(data, fr, "root");
+            const familyRootHtml = makeFamilyRootHtml_ru(data, fr, "root", link);
             const familyRootElement = document.getElementById(key_id)
             familyRootElement.innerHTML = familyRootHtml
         } else {

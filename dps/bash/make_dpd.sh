@@ -23,22 +23,6 @@ scripts/zip_goldendict_mdict.py
 
 dps/scripts/move_mdict.py
 
-# Check if the configuration setting
-if python -c "from tools.configger import config_test; result = config_test('dictionary', 'show_ebt_count', 'no'); print('show_ebt_count is False') if result == 'no' else exit(not result)"; then
-    # Do nothing if the condition is False
-    echo 'scripts/zip_goldendict_mdict.py and db/frequency/ebt_calculation.py are disabled'
-else
-    # Run if the condition is True
-    scripts/zip_goldendict_mdict.py
-fi
-
-# Update the show_ebt_count setting to 'no' if it was 'yes'
-if python -c "from tools.configger import config_test; exit(not config_test('dictionary', 'show_ebt_count', 'yes'))"; then
-
-    python -c "from tools.configger import config_update; config_update('dictionary', 'show_ebt_count', 'no')"
-
-fi
-
 git checkout -- pyproject.toml
 
 git checkout -- db/sanskrit/root_families_sanskrit.tsv

@@ -1,4 +1,7 @@
 function makeFeedback_ru(data) {
+    
+    const lemmaLink = data.lemma.replace(/ /g, "%20")
+
     const html = `
     ID <b>${data.id}</b>
     <p>
@@ -28,7 +31,7 @@ function makeFeedback_ru(data) {
         </span>
     </p>
     <p>
-        Заметили ошибку? <a class="link_ru" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${data.lemma}&entry.326955045=Грамматика&entry.1433863141=${progName}+${data.date}" target="_blank">Исправьте здесь</a>.
+        Заметили ошибку? <a class="link_ru" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${lemmaLink}&entry.326955045=Грамматика&entry.1433863141=${progName}+${data.date}" target="_blank">Исправьте здесь</a>.
         <span>
             Ваши предложения и комментарии будут неоценимой помощью в улучшении качества данной работы и будут полезны всем пользователям словаря. 
         </span>
