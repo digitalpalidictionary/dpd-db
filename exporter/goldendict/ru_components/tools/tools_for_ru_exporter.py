@@ -143,14 +143,10 @@ def ru_replace_abbreviations(value, kind = "meaning"):
 
 def ru_replace_abbreviations_list(grammar):
     ru_grammar = []
-    print(f"grammar is {ru_grammar}")
     for value in grammar:
-        print(f"value is {value}")
         ru_value = ru_replace_abbreviations(value, "no")
-        print(f"ru_value is {ru_value}")
         ru_grammar.append(ru_value)
         
-    print(f"ru_grammar is {ru_grammar}")
     return ru_grammar
 
 

@@ -1569,8 +1569,11 @@ def add_word_from_csv(dpspth, window, flag_next_word, completion):
                         window["lemma_1"].update(row.get("lemma_1", ""))
                         window["meaning_1"].update(row.get("meaning_1", ""))
                         window["pos"].update(row.get("pos", ""))
+                        window["grammar"].update(row.get("grammar", ""))
                         window["construction"].update(row.get("construction", ""))
                         window["notes"].update(row.get("notes", ""))
+                        window["compound_type"].update(row.get("compound_type", ""))
+                        window["compound_construction"].update(row.get("compound_construction", ""))
 
                         original_word = row.get("missing word", "")
                         print(original_word)
@@ -1584,8 +1587,11 @@ def add_word_from_csv(dpspth, window, flag_next_word, completion):
                 window["lemma_1"].update(row.get("lemma_1", ""))
                 window["meaning_1"].update(row.get("meaning_1", ""))
                 window["pos"].update(row.get("pos", ""))
+                window["grammar"].update(row.get("grammar", ""))
                 window["construction"].update(row.get("construction", ""))
                 window["notes"].update(row.get("notes", ""))
+                window["compound_type"].update(row.get("compound_type", ""))
+                window["compound_construction"].update(row.get("compound_construction", ""))
 
                 original_word = row.get("missing word", "")
                 print(original_word)
