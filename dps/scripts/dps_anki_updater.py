@@ -263,10 +263,10 @@ def update_note_values(note, i):
     tags = " ".join(note.tags)  # Convert list of tags to a single string
 
     note["id"] = str(i.id)
-    note["pali_1"] = str(i.lemma_1)
+    note["pali"] = str(i.lemma_1)
     if i.ru:
-        note["native_meaning"] = str(i.ru.ru_meaning)
-        note["native_meaning_lit"] = str(i.ru.ru_meaning_lit)
+        note["ru_meaning"] = str(i.ru.ru_meaning)
+        note["ru_meaning_lit"] = str(i.ru.ru_meaning_lit)
         note["ru_notes"] = str(i.ru.ru_notes).replace("\n", "<br>")
 
     if i.sbs:
@@ -274,6 +274,7 @@ def update_note_values(note, i):
         note["sbs_class_anki"] = str(i.sbs.sbs_class_anki)
         note["sbs_category"] = str(i.sbs.sbs_category)
         note["sbs_class"] = str(i.sbs.sbs_class)
+        note["sbs_patimokkha"] = str(i.sbs.sbs_patimokkha)
         note["sbs_source_1"] = str(i.sbs.sbs_source_1)
         note["sbs_sutta_1"] = str(i.sbs.sbs_sutta_1).replace("\n", "<br>")
         note["sbs_example_1"] = str(i.sbs.sbs_example_1).replace("\n", "<br>")
@@ -315,25 +316,25 @@ def update_note_values(note, i):
         ):
             # Remove everything after " lit." in 'meaning_2'
             meaning_2_without_lit = i.meaning_2.split("; lit.")[0]
-            note['meaning_1'] = meaning_2_without_lit
+            note['meaning'] = meaning_2_without_lit
             # print(f"meaning_2_without_lit {i.lemma_1}") # Debugging line
         elif (
             not i.meaning_1 and 
             i.meaning_lit and 
             i.meaning_2
         ):
-            note['meaning_1'] = i.meaning_2
+            note['meaning'] = i.meaning_2
             # print(f"meaning_2=meaning_1 {i.lemma_1}") # Debugging line
         elif (
             not i.meaning_1 and 
             not i.meaning_lit and 
             i.meaning_2
         ):
-            note['meaning_1'] = i.meaning_2
+            note['meaning'] = i.meaning_2
             # print(f"meaning_2=meaning_1 {i.lemma_1}") # Debugging line
 
         elif i.meaning_1:
-            note['meaning_1'] = i.meaning_1
+            note['meaning'] = i.meaning_1
             # print(f"meaning_1 {i.lemma_1}") # Debugging line
         else:
             print(f"no meaning {i.lemma_1}")
@@ -423,7 +424,7 @@ def update_note_values(note, i):
         print("[bold red]no path to anki media")
         sbs_audio = ''
 
-    note["sbs_audio"] = sbs_audio
+    note["audio"] = sbs_audio
 
     # Logic for feedback
     feedback_url = f'Нашли ошибку? <a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={i.lemma_1}&entry.1433863141=Anki-{current_date}\">Пожалуйста сообщите</a>.'

@@ -39,7 +39,7 @@ from functions_daily_record import daily_record_update
 from tools.fast_api_utils import request_dpd_server
 
 from rich import print
-from sqlalchemy import not_, or_
+from sqlalchemy import not_, or_, and_
 from sqlalchemy.orm import joinedload
 from typing import Optional
 from tools.pali_sort_key import pali_sort_key
@@ -1023,6 +1023,27 @@ def dps_make_words_to_add_list(db_session, pth, __window__, book: str) -> list:
     return text_list
 
 
+def dps_make_words_to_add_list_filtered(db_session, pth, __window__, book: str, source) -> list:
+    cst_text_list = make_cst_text_set(pth, [book])
+    sc_text_list = make_sc_text_set(pth, [book])
+    original_text_list = list(cst_text_list) + list(sc_text_list)
+
+    sp_mistakes_list = make_sp_mistakes_list(pth)
+    variant_list = make_variant_list(pth)
+    sandhi_ok_list = make_sandhi_ok_list(pth)
+    all_inflections_set = dps_make_filtered_inflections_set(db_session, source)
+
+    text_set = set(cst_text_list) | set(sc_text_list)
+    text_set = text_set - set(sandhi_ok_list)
+    text_set = text_set - set(sp_mistakes_list)
+    text_set = text_set - set(variant_list)
+    text_set = text_set - all_inflections_set
+    text_list = sorted(text_set, key=lambda x: original_text_list.index(x))
+    print(f"words_to_add: {len(text_list)}")
+
+    return text_list
+
+
 def dps_make_words_to_add_list_sutta(db_session, pth, sutta_name, book: str) -> list:
     cst_text_list = make_cst_text_set_sutta(pth, sutta_name, [book])
 
@@ -1415,17 +1436,33 @@ def dps_make_filtered_inflections_set(db_session, source):
     
     # Begin the query
     query = db_session.query(DpdHeadword)
+
+    source_a = source + "a"
     
     # Join tables
     query = query.join(SBS, DpdHeadword.id == SBS.id)
     
     # Apply filters if 'source' contains in any of sbs_cource(s)
     query = query.filter(
-        or_(
-            SBS.sbs_source_1.ilike(f"%{source}%"), 
-            SBS.sbs_source_2.ilike(f"%{source}%"), 
-            SBS.sbs_source_3.ilike(f"%{source}%"), 
-            SBS.sbs_source_4.ilike(f"%{source}%")
+        and_(
+            or_(
+                SBS.sbs_source_1.ilike(f"%{source}%"), 
+                SBS.sbs_source_2.ilike(f"%{source}%"), 
+                SBS.sbs_source_3.ilike(f"%{source}%"), 
+                SBS.sbs_source_4.ilike(f"%{source}%"),
+                DpdHeadword.source_1.ilike(f"%{source}%"),
+                DpdHeadword.source_2.ilike(f"%{source}%"),
+            ),
+            not_(
+                    or_(
+                        SBS.sbs_source_1.ilike(f"%{source_a}%"), 
+                        SBS.sbs_source_2.ilike(f"%{source_a}%"), 
+                        SBS.sbs_source_3.ilike(f"%{source_a}%"), 
+                        SBS.sbs_source_4.ilike(f"%{source_a}%"),
+                        DpdHeadword.source_1.ilike(f"%{source_a}%"),
+                        DpdHeadword.source_2.ilike(f"%{source_a}%"),
+                    )
+                ),
         )
     )
 

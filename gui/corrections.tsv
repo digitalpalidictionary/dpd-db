@@ -2739,8 +2739,50 @@ na + palokita"					missing
 63965	sanskrit	śuddhi + gāmin					missing				
 49018	meaning_1	sublime state; heavenly state; divine dwelling					since it is in notes, no need duplication				
 61729	meaning_1	contact (with); connection (with); intimacy (with)					error				
-15480	trans	trans					missing		
-15480	source_1	VIN3.8.203	sutta_1	cīvarakkhandhako, seṭṭhibhariyāvatthu	example_1	mayaṃ kho, ācariya, āgārikā nāma <b>upajānām</b>'etassa saṃyamassa. varametaṃ sappi dāsānaṃ vā kammakarānaṃ vā pādabbhañjanaṃ vā padīpakaraṇe vā āsittaṃ.	missing		
-15480	construction	upa + jānā + ti					missing		
-15480	meaning_1	finds out (for oneself); invents; knows by personal experience					missing		
-15480	root_base	√ñā + nā > jānā					missing		
+15480	trans	trans					missing				
+15480	source_1	VIN3.8.203	sutta_1	cīvarakkhandhako, seṭṭhibhariyāvatthu	example_1	mayaṃ kho, ācariya, āgārikā nāma <b>upajānām</b>'etassa saṃyamassa. varametaṃ sappi dāsānaṃ vā kammakarānaṃ vā pādabbhañjanaṃ vā padīpakaraṇe vā āsittaṃ.	missing				
+15480	construction	upa + jānā + ti					missing				
+15480	meaning_1	finds out (for oneself); invents; knows by personal experience					missing				
+15480	root_base	√ñā + nā > jānā					missing				
+53195	meaning_1	"this is mine; ""mine"""					missing				
+10771	meaning_1	perfectly; absolutely; (comm) having gone deeply with wisdom					missing				
+8800	meaning_lit	not making in mind to the source					more lit				
+17082	meaning_1	who foremost; finest example; leader					noun				
+50392	meaning_1	cooked food; soft food; staple food					since khādanīya is non-staple food 				
+60726	meaning_lit	certain goodness					missing				
+60726	compound_type	kammadhāraya > bahubbīhi	compound_construction	sammatta + niyata			missing				
+3716	source_2	DHP2					removing extra 0 from DHP source				
+27605	source_2	DHP2					removing extra 0 from DHP source				
+46820	source_2	DHP2					removing extra 0 from DHP source				
+44403	source_2	DHP6					removing extra 0 from DHP source				
+20744	source_2	DHP10					removing extra 0 from DHP source				
+29966	source_2	DHP17					removing extra 0 from DHP source				
+28633	source_2	DHP24					removing extra 0 from DHP source				
+5083	source_2	DHP26					removing extra 0 from DHP source				
+53548	source_2	DHP35					removing extra 0 from DHP source				
+26616	source_2	DHP40					removing extra 0 from DHP source				
+6750	source_1	DHP41					removing extra 0 from DHP source				
+41510	source_1	DHP41					removing extra 0 from DHP source				
+10184	source_2	DHP83					removing extra 0 from DHP source				
+30924	source_1	DHP85					removing extra 0 from DHP source				
+5559	source_2	DHP87					removing extra 0 from DHP source				
+5563	source_1	DHP87					removing extra 0 from DHP source				
+19560	source_2	DHP87					removing extra 0 from DHP source				
+63407	source_2	DHP87					removing extra 0 from DHP source				
+29623	source_1	DHP88					removing extra 0 from DHP source				
+19932	source_2	DHP95					removing extra 0 from DHP source				
+58467	source_2	DHP97					removing extra 0 from DHP source				
+54664	source_1	DHP99					removing extra 0 from DHP source				
+12924	meaning_2	succession; repetition					since it is in lit meaning		
+50071	meaning_2	snake; serpent					since it is in lit meaning		
+10730	meaning_lit	without waves; without an interval; uninterrupted					moved from meaning 2		
+10730	meaning_2	one of the great hells					moved to lit		
+13569	meaning_2	dowry					moved to lit		
+22123	meaning_2	nearby; close by; a stone's throw away					moved to lit		
+41539	meaning_lit	causing to bend forward					typo		
+41539	meaning_2	opening; turning; stretching out					moved to lit		
+44029	meaning_2	penetrating; scrutinizing; fully examining					moved to lit		
+55139	meaning_2	refreshing; furthering growth; causing prosperity					moved to lit		
+58192	meaning_2	grieves; sorrows					moved to lit		
+64156	family_set	32 marks of a great man					missing		
+64156	meaning_1	having firmly grounded feet; first of the thirty-two marks of a great man; (comm) with flat feet					missing		

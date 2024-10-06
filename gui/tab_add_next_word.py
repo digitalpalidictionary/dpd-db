@@ -27,6 +27,13 @@ def make_tab_add_next_word(sg, username):
                 visible=username == "deva",
                 pad=((10, 0), (20, 20))
             ),
+            sg.Button(
+                "No source", 
+                key="dps_books_to_add_considering_source_button",
+                tooltip="words from book does not have source in any sources", 
+                visible=username == "deva",
+                pad=((10, 0), (20, 20))
+            ),
             sg.Text(
                 "sutta codes",
                 size=(50, 1),
@@ -135,7 +142,7 @@ def make_tab_add_next_word(sg, username):
             sg.Button(
                 "No source", 
                 key="dps_from_txt_to_add_considering_source_button",
-                tooltip="Display all words from text.txt that don't have a 'source' in sbs_source(s)",
+                tooltip="Display all words from text.txt that don't have a 'source' in any sources",
                 visible=username == "deva",
                 pad=((10, 0), (0, 20)),
             ),

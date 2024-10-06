@@ -88,6 +88,7 @@ from functions_dps import fetch_sbs
 from functions_dps import dps_update_db
 from functions_dps import dps_get_synonyms
 from functions_dps import dps_make_words_to_add_list
+from functions_dps import dps_make_words_to_add_list_filtered
 from functions_dps import dps_make_words_to_add_list_sutta
 from functions_dps import dps_make_words_to_add_list_from_text
 from functions_dps import dps_make_words_to_add_list_from_text_filtered
@@ -2117,6 +2118,26 @@ def main():
             if test_book_to_add(values, window):
                 words_to_add_list = dps_make_words_to_add_list(
                     db_session, pth, window, values["book_to_add"])
+
+                if words_to_add_list != []:
+                    values["word_to_add"] = [words_to_add_list[0]]
+                    window["word_to_add"].update(values=words_to_add_list)
+                    window["words_to_add_length"].update(
+                        value=len(words_to_add_list))
+                    print(values)
+                    open_in_goldendict(words_to_add_list[0])
+                    window["messages"].update(
+                        value=f"added missing words from {values['book_to_add']}",
+                        text_color="white")
+                else:
+                    window["messages"].update(
+                        value="empty list, try again", text_color="red")
+
+        # add book and consider sources
+        elif event == "dps_books_to_add_considering_source_button":
+            if test_book_to_add(values, window):
+                words_to_add_list = dps_make_words_to_add_list_filtered(
+                    db_session, pth, window, values["book_to_add"], values["source_to_add"])
 
                 if words_to_add_list != []:
                     values["word_to_add"] = [words_to_add_list[0]]
