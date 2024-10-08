@@ -18,23 +18,25 @@ cd dpd-db
 git submodule init && git submodule update
 ```
 
-3. Install [nodejs](https://nodejs.org/en/download) for your operating system
+4. Install [nodejs](https://nodejs.org/en/download) for your operating system
 
-4. Install [poetry](https://python-poetry.org/docs/) for your operating system
+5. install [go](https://go.dev/doc/install) for your operating system
 
-5. Install all the dependencies with poetry
+6. Install [poetry](https://python-poetry.org/docs/) for your operating system
+
+7. Install all the dependencies with poetry
 
 ```shell
 poetry install
 ```
 
-6. Run this once to initialize the project
+8. Run this once to initialize the project
 
 ```shell
 poetry run bash scripts/bash/initial_setup_run_once.sh
 ```
 
-7. Build the database, this can take up to an hour the first time.
+9. Build the database, this can take up to an hour the first time.
 
 ```shell
 poetry run bash scripts/bash/build_db.sh
