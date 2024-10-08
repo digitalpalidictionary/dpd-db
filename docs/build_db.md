@@ -17,10 +17,11 @@ cd dpd-db
 ```shell
 git submodule init && git submodule update
 ```
+- download tipitaka.lk from [Google Drive](https://drive.google.com/file/d/14zMdH6sKiAJPVsr8a37DK1XYw8a-qe5q/view?usp=drivesdk) and unpack to resources/
 
 4. Install [nodejs](https://nodejs.org/en/download) for your operating system
 
-5. install [go](https://go.dev/doc/install) for your operating system
+5. Install [go](https://go.dev/doc/install) for your operating system
 
 6. Install [poetry](https://python-poetry.org/docs/) for your operating system
 
