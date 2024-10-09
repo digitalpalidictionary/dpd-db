@@ -2773,16 +2773,36 @@ na + palokita"					missing
 19932	source_2	DHP95					removing extra 0 from DHP source				
 58467	source_2	DHP97					removing extra 0 from DHP source				
 54664	source_1	DHP99					removing extra 0 from DHP source				
-12924	meaning_2	succession; repetition					since it is in lit meaning		
-50071	meaning_2	snake; serpent					since it is in lit meaning		
-10730	meaning_lit	without waves; without an interval; uninterrupted					moved from meaning 2		
-10730	meaning_2	one of the great hells					moved to lit		
-13569	meaning_2	dowry					moved to lit		
-22123	meaning_2	nearby; close by; a stone's throw away					moved to lit		
-41539	meaning_lit	causing to bend forward					typo		
-41539	meaning_2	opening; turning; stretching out					moved to lit		
-44029	meaning_2	penetrating; scrutinizing; fully examining					moved to lit		
-55139	meaning_2	refreshing; furthering growth; causing prosperity					moved to lit		
-58192	meaning_2	grieves; sorrows					moved to lit		
-64156	family_set	32 marks of a great man					missing		
-64156	meaning_1	having firmly grounded feet; first of the thirty-two marks of a great man; (comm) with flat feet					missing		
+12924	meaning_2	succession; repetition					since it is in lit meaning				
+50071	meaning_2	snake; serpent					since it is in lit meaning				
+10730	meaning_lit	without waves; without an interval; uninterrupted					moved from meaning 2				
+10730	meaning_2	one of the great hells					moved to lit				
+13569	meaning_2	dowry					moved to lit				
+22123	meaning_2	nearby; close by; a stone's throw away					moved to lit				
+41539	meaning_lit	causing to bend forward					typo				
+41539	meaning_2	opening; turning; stretching out					moved to lit				
+44029	meaning_2	penetrating; scrutinizing; fully examining					moved to lit				
+55139	meaning_2	refreshing; furthering growth; causing prosperity					moved to lit				
+58192	meaning_2	grieves; sorrows					moved to lit				
+64156	family_set	32 marks of a great man					missing				
+64156	meaning_1	having firmly grounded feet; first of the thirty-two marks of a great man; (comm) with flat feet					missing				
+51872	source_1	VIN4.6.162	sutta_1	pilindavaccha vatthu	example_1	evaṃ, devā'ti kho so <b>mah'āmatto</b> rañño māgadhassa seniyassa bimbisārassa paṭissutvā āyasmato pilindavacchassa pañca ārāmikasatāni pādāsi, pāṭiyekko gāmo nivisi	mahā + amatta				
+51872	commentary	(VINa) <b>mah'āmattā</b>'ti ṭhān'antarappattā mahāamaccā, te'pi tattha tattha gāme vā nigame vā nisīditvā rājakiccaṃ karonti					mahā + amatta				
+51872	source_2	AN4.183	sutta_2	sutasuttaṃ	example_2	ekaṃ samayaṃ bhagavā rājagahe viharati veḷuvane kalandakanivāpe. atha kho vassakāro brāhmaṇo magadha<b>mah'āmatto</b> yena bhagavā ten'upasaṅkami	mahā + amatta				
+54927	source_1	SN47.8	sutta_1	sūdasuttaṃ	example_1	seyyathā'pi, bhikkhave, bālo abyatto akusalo sūdo rājānaṃ vā <b>rājamah'āmattaṃ</b> vā nānaccayehi sūpehi paccupaṭṭhito assa.	mahā + amatta				
+54927	source_2	AN3.51	sutta_2	mahācorasuttaṃ	example_2	kathañ'ca, bhikkhave, mahācoro balavanissito hoti? idha, bhikkhave, mahācoro rājānaṃ vā <b>rājamah'āmattānaṃ</b> vā nissito hoti.	mahā + amatta				
+19583	construction	kaṇha + sukka + sappaṭibhāga					typo				
+60847	construction	sammā + sambuddha					typo				
+60847	compound_type	kammadhāraya	compound_construction	sammā + sambuddha			typo				
+15162	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	yassa nūna, ānanda, evam'assa, ahaṃ bhikkhusaṅghaṃ pariharissāmī'ti vā, mam'<b>uddesiko</b> bhikkhusaṅgho'ti vā, so nūna, ānanda, bhikkhusaṅghaṃ ārabbha kiñ'ci'd'eva udāhareyya.	missing				
+15162	meaning_1	referring to; meant for; intended for					missing				
+76453	source_1	MN107	sutta_1	gaṇakamoggallānasuttaṃ	example_1	seyyathā'pi brāhmaṇa dakkho assa<b>dammako</b> bhaddaṃ ass'ājānīyaṃ labhitvā paṭhamen'eva mukh'ādhāne kāraṇaṃ kāreti atha uttariṃ kāraṇaṃ kāreti	missing		
+63548	construction	sukha + vihārī					typo		
+63548	compound_type	kammadhāraya	compound_construction	sukha + vihārī			typo		
+5774	source_2	SN47.9	sutta_2	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_2	atha kho bhagavato vass'ūpagatassa kharo ābādho uppajji, bāḷhā vedanā vattant māraṇ'<b>antikā</b>.	missing		
+8151	source_1	NIDD1.2	sutta_1	duṭṭhaṭṭhakasuttaniddeso	example_1	sabb'ākusal<b>ābhisaṅkhārānaṃ</b> santattā samitattā vūpasamitattā	typo		
+8151	source_2	VIBH6.1	sutta_2	suttantabhājanīyaṃ	example_2	tattha katame avijjāpaccayā saṅkhārā? puññ'<b>ābhisaṅkhāro</b>, apuññ<b>ābhisaṅkhāro</b>, āneñj'<b>ābhisaṅkhāro</b>, kāyasaṅkhāro, vacīsaṅkhāro, cittasaṅkhāro.	typo		
+4652	construction	anupaṭṭhita + kāyassati					typo		
+4652	compound_type	kammadhāraya	compound_construction	anupaṭṭhita + kāyassati			missing		
+77793	source_1	SN12.41	sutta_1	pañcaverabhayasuttaṃ	example_1	yaṃ, gahapati, pāṇ'ātipātī pāṇ'ātipātapaccayā diṭṭha<b>dhammikam</b>'pi bhayaṃ veraṃ pasavati, samparāyikam'pi bhayaṃ veraṃ pasavati, cetasikam'pi dukkhaṃ domanassaṃ paṭisaṃvedayati, pāṇ'ātipātā paṭiviratassa evaṃ taṃ bhayaṃ veraṃ vūpasantaṃ hoti.	missing		
+77793	meaning_1	of such nature; of such quality; of such character; connecting (to)					missing		

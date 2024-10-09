@@ -16,10 +16,6 @@ pth = ProjectPaths()
 dpspth = DPSPaths()
 db_session = get_db_session(pth.dpd_db_path)
 
-# hight_model="gpt-4o"
-# model="gpt-4o"
-# model="gpt-4o-mini"
-model="gpt-4o-2024-08-06"
 
 def filtering_words():
 
@@ -115,9 +111,64 @@ def filtering_words():
 
 
 
+
+def filter_and_save_txt():
+    # filtering words with sbs_category and comp
+    db = db_session.query(DpdHeadword).outerjoin(
+    SBS, DpdHeadword.id == SBS.id
+        ).filter(
+            SBS.sbs_category != "",
+            DpdHeadword.compound_type != "",
+            DpdHeadword.grammar.like('%, comp%'),
+        ).all()
+
+    # Print the db
+    row_count =  0
+    print("Details of filtered words")
+    for word in db:
+        print(f"{word.id}, {word.lemma_1}, {word.ebt_count}")
+        row_count +=  1
+
+    print(f"Total rows that fit the filter criteria: {row_count}")
+
+    # make a list of all constructions
+    constructions = []
+    for word in db:
+        constructions.append(word.construction)
+
+    original_constructions = constructions
+
+    # remove all symbols "+" from construction
+    constructions = [construction.replace("+", "") for construction in constructions]
+    constructions = [construction.replace("na > a", "") for construction in constructions]
+    constructions = [construction.replace(">", "") for construction in constructions]
+    constructions = [construction.replace("[", "") for construction in constructions]
+    constructions = [construction.replace("]", "") for construction in constructions]
+
+    # join all constructions into one line
+    constructions_str = " ".join(constructions)
+
+    # save constructions to temp.txt
+    with open(f"{pth.temp_dir}/temp.txt", "w") as file:
+        file.write(constructions_str)
+
+    # # save constructions to temp.txt
+    # with open(f"{pth.temp_dir}/temp.txt", "w") as file:
+    #     for construction in constructions:
+    #         file.write(f"{construction}\n")
+
+    # save constructions to temp.tsv
+    with open(f"{pth.temp_dir}/temp.tsv", "w") as file:
+        for original_construction in original_constructions:
+            file.write(f"{original_construction}\n")
+
+    print("filtered constructions saved to temp_dir")
+
+
 if __name__ == "__main__":
 
     print("filtering words for some conditions")
 
-    filtering_words()
+    # filtering_words()
+    filter_and_save_txt()
 
