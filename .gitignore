@@ -197,7 +197,7 @@ gui/stash/
 gui/window_layout.py
 resources/thai_mahachula/
 resources/tipitaka.lk.tar.gz
-resources/tipitaka.lk/
+resources/tipitaka.lk_old/
 sandhi.zip
 scracthpad.ipynb
 shared_data/changed_headwords

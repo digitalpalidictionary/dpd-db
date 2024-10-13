@@ -28,7 +28,6 @@ with a basic structure of
 """
 
 import json
-import os
 import re
 from rich import print
 
@@ -61,7 +60,7 @@ def get_bjt_json(bjt_file_names: list[str]) -> list[dict]:
     """Take the list of file names and 
     return a list of json dicts."""
 
-    roman_dir = pth.bjt_roman_json
+    roman_dir = pth.bjt_roman_json_dir
     json_dicts = []
 
     for file_name in bjt_file_names:

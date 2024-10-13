@@ -2,7 +2,8 @@
 
 """
 Transliterate tipitaka.lk texts from Sinhala to Roman script.
-Save as json and text as well as complete books"""
+Save as json and text as well as complete books.
+"""
 
 import json
 from os import walk
@@ -10,13 +11,13 @@ import os
 from tools.bjt import get_bjt_file_names, get_bjt_json, process_single_bjt_file
 from tools.pali_text_files import bjt_texts
 from tools.paths import ProjectPaths
-from tools.printer import p_counter, p_green, p_green_title, p_title, p_yes
+from tools.printer import p_counter, p_green, p_title, p_yes
 from tools.sinhala_tools import translit_si_to_ro
 from tools.tic_toc import tic, toc
 
 pth = ProjectPaths()
 sinhala_dir = pth.bjt_sinhala_dir
-roman_dir = pth.bjt_roman_json
+roman_dir = pth.bjt_roman_json_dir
 
 def transliterate_json():
     tic()
@@ -116,7 +117,7 @@ def save_books():
     tic()
 
     p_title("saving BJT books")
-    file_dir = pth.bjt_books
+    file_dir = pth.bjt_books_dir
 
     for counter, book in enumerate(bjt_texts):
         p_counter(counter, len(bjt_texts), book)
@@ -146,13 +147,13 @@ def save_text_files() -> None:
     p_title("saving BJT to text files")
 
     counter = 1
-    for root, dirs, files in os.walk(pth.bjt_roman_json):
+    for root, dirs, files in os.walk(pth.bjt_roman_json_dir):
         for file in files:
             bjt_dicts = get_bjt_json([file])
             bjt_text = ""
             for bjt_dict in bjt_dicts:
                 bjt_text += process_single_bjt_file(bjt_dict)
-            file_path = pth.bjt_roman_txt.joinpath(f"{file}.txt")
+            file_path = pth.bjt_roman_txt_dir.joinpath(f"{file}.txt")
             with open(file_path, "w") as f:
                 f.write(bjt_text)
             p_counter(counter, 285, file)

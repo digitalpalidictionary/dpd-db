@@ -14,3 +14,7 @@
 [submodule "resources/sc-data"]
 	path = resources/sc-data
 	url = https://github.com/digitalpalidictionary/sc-data.git
+
+[submodule "resources/bjt"]
+	path = resources/bjt
+	url = https://github.com/pathnirvana/tipitaka.lk.git

@@ -4,9 +4,10 @@ import os
 from typing import Optional
 from pathlib import Path
 
+
 class ProjectPaths:
 
-    def __init__(self, base_dir: Optional[Path] = None, create_dirs = True):
+    def __init__(self, base_dir: Optional[Path] = None, create_dirs=True):
 
         if base_dir is None:
             # The current working directory of the shell.
@@ -125,7 +126,7 @@ class ProjectPaths:
         self.variant_templ_path = base_dir / "exporter/goldendict/templates/dpd_variant_reading.html"
 
         # FIXME delete these and whatever uses them
-        # exporter/jinja templates 
+        # exporter/jinja templates
         self.complete_word_templ_path = base_dir / "exporter/templates_jinja/dpd_complete_word.html"
         self.jinja_templates_dir = base_dir / "exporter/templates_jinja/"
         self.temp_html_file_path = base_dir / "temp/temp_html_file.html"
@@ -248,13 +249,13 @@ class ProjectPaths:
         # resources/sc-data
         self.sc_data_dir = base_dir / "resources/sc-data/sc_bilara_data/root/pli/ms/"
         self.sc_data_dpd_dir = base_dir / "resources/sc-data/dpd/"
-        
+
         self.sc_i2h_js_path = base_dir / "resources/sc-data/dpd/dpd_i2h.js"
         self.sc_i2h_json_path = base_dir / "resources/sc-data/dpd/dpd_i2h.json"
-        
+
         self.sc_dpd_ebts_js_path = base_dir / "resources/sc-data/dpd/dpd_ebts.js"
         self.sc_dpd_ebts_json_path = base_dir / "resources/sc-data/dpd/dpd_ebts.json"
-        
+
         self.sc_deconstructor_js_path = base_dir / "resources/sc-data/dpd/dpd_deconstructor.js"
         self.sc_deconstructor_json_path = base_dir / "resources/sc-data/dpd/dpd_deconstructor.json"
 
@@ -263,13 +264,13 @@ class ProjectPaths:
         self.cst_xml_dir = base_dir / "resources/tipitaka-xml/deva/"
         self.cst_xml_roman_dir = base_dir / "resources/tipitaka-xml/romn/"
 
-        # resources/tipitaka.lk
-        self.bjt_dir = base_dir / "resources/tipitaka.lk/public/static/"
-        self.bjt_sinhala_dir = base_dir / "resources/tipitaka.lk/public/static/text/"
-        self.bjt_roman_json = base_dir / "resources/tipitaka.lk/public/static/roman_json/"
-        self.bjt_roman_txt = base_dir / "resources/tipitaka.lk/public/static/roman_txt/"
-        self.bjt_books = base_dir / "resources/tipitaka.lk/public/static/books/"
-        
+        # resources/bjt
+        self.bjt_dir = base_dir / "resources/bjt/public/static/"
+        self.bjt_sinhala_dir = base_dir / "resources/bjt/public/static/text/"
+        self.bjt_roman_json_dir = base_dir / "resources/bjt/public/static/roman_json/"
+        self.bjt_roman_txt_dir = base_dir / "resources/bjt/public/static/roman_txt/"
+        self.bjt_books_dir = base_dir / "resources/bjt/public/static/books/"
+
         # resources/other_pali_texts
         self.other_pali_texts_dir = base_dir / "resources/other_pali_texts"
 
@@ -282,7 +283,7 @@ class ProjectPaths:
         self.all_inflections_set_path = base_dir / "db/deconstructor/assets/all_inflections_set"
         self.matches_dict_path = base_dir / "db/deconstructor/assets/matches_dict"
         self.neg_inflections_set_path = base_dir / "db/deconstructor/assets/neg_inflections_set"
-        self.sandhi_assests_dir = base_dir / "db/deconstructor/assets"
+        self.sandhi_assets_dir = base_dir / "db/deconstructor/assets"
         self.text_set_path = base_dir / "db/deconstructor/assets/text_set"
         self.unmatched_set_path = base_dir / "db/deconstructor/assets/unmatched_set"
 
@@ -385,17 +386,21 @@ class ProjectPaths:
 
     def create_dirs(self):
         for d in [
+            self.bjt_books_dir,
+            self.bjt_roman_json_dir,
+            self.bjt_roman_txt_dir,
             self.cst_txt_dir,
             self.cst_xml_roman_dir,
             self.epub_text_dir,
             self.freq_html_dir,
             self.frequency_output_dir,
+            self.go_deconstructor_output_dir,
             self.grammar_dict_output_dir,
             self.grammar_dict_output_html_dir,
             self.letters_dir,
             self.raw_text_dir,
             self.rule_counts_dir,
-            self.sandhi_assests_dir,
+            self.sandhi_assets_dir,
             self.sandhi_output_dir,
             self.sandhi_output_do_dir,
             self.share_dir,
@@ -403,6 +408,5 @@ class ProjectPaths:
             self.temp_dir,
             self.tpr_output_dir,
             self.word_count_dir,
-            self.go_deconstructor_output_dir,
         ]:
             d.mkdir(parents=True, exist_ok=True)

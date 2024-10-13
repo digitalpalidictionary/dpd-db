@@ -17,7 +17,6 @@ cd dpd-db
 ```shell
 git submodule init && git submodule update
 ```
-- download tipitaka.lk from [Google Drive](https://drive.google.com/file/d/14zMdH6sKiAJPVsr8a37DK1XYw8a-qe5q/view?usp=drivesdk) and unpack to resources/
 
 4. Install [nodejs](https://nodejs.org/en/download) for your operating system
 
