@@ -20,6 +20,8 @@ It is made available publicly through a  [Creative Commons Attribution-NonCommer
 
 [DPD Headwords table](docs/dpd_headwords_table.md)
 
+[Tipiṭaka Source Files](docs/tipitaka_source_files.md)
+
 ## Useful links
 
 DPD is searchable online [www.dpdict.net](https://www.dpdict.net/)

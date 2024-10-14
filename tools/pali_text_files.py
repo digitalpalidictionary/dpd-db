@@ -8295,7 +8295,7 @@ bjt_texts: dict[str, [list[str]]] = {
     "abht": [],
 
     "vism": [
-        "anya-vm-1.json",
+        "anya-vm.json",
         "anya-vm-12.json",
     ],
     "visma" : [],
