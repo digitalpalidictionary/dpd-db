@@ -95,7 +95,9 @@ jobs:
       run: poetry run python scripts/build/families_to_json.py
 
     - name: Run Deconstructor
-      run: go build -o deconstructor go_modules/deconstructor/ ./deconstructor
+      run: | 
+        go build -o deconstructor go_modules/deconstructor/main.go
+        ./deconstructor
         
     - name: Add api ca eva iti to inflections 
       run: poetry run python scripts/build/api_ca_evi_iti.py
@@ -116,7 +118,9 @@ jobs:
       run: poetry run python db/lookup/help_abbrev_add_to_lookup.py
 
     - name: Add Frequency
-      run: go build -o frequency go_modules/frequency/ ./frequency
+      run: |
+        go build -o frequency go_modules/frequency/main.go
+        ./frequency
 
     - name: Run EBT Counter
       run: poetry run python scripts/build/ebt_counter.py
