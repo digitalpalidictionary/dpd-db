@@ -68,7 +68,7 @@ jobs:
       run: poetry run python tools/version.py
 
     - name: Create Inflections Templates
-      run: poetry run python db/inflections/create_inflections_templates.py
+      run: poetry run python db/inflections/create_inflection_templates.py
 
     - name: Create Inflection Tables
       run: poetry run python db/inflections/generate_inflection_tables.py
