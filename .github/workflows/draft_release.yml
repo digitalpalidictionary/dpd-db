@@ -24,7 +24,6 @@ jobs:
       run: |
         rm -rf ${{ github.workspace }}/resources/bjt/dev/*
         rm -rf ${{ github.workspace }}/resources/sc-data/html_text/*
-        rm -rf ${{ github.workspace }}/resources/tipitaka-xml/{*,!romn}
     
     - name: Install dictzip
       run: sudo apt-get update && sudo apt-get install -y dictzip
