@@ -67,7 +67,7 @@ jobs:
     - name: Create version
       run: poetry run python tools/version.py
 
-    - name: Create Inflections Templates
+    - name: Create Inflection Templates
       run: poetry run python db/inflections/create_inflection_templates.py
 
     - name: Create Inflection Tables
@@ -95,7 +95,7 @@ jobs:
       run: poetry run python scripts/build/families_to_json.py
 
     - name: Run Deconstructor
-      run: go run go_modules/deconstructor/main.go
+      run: go build -o deconstructor go_modules/deconstructor/ ./deconstructor
         
     - name: Add api ca eva iti to inflections 
       run: poetry run python scripts/build/api_ca_evi_iti.py
@@ -116,7 +116,7 @@ jobs:
       run: poetry run python db/lookup/help_abbrev_add_to_lookup.py
 
     - name: Add Frequency
-      run: go run go_modules/frequency/main.go
+      run: go build -o frequency go_modules/frequency/ ./frequency
 
     - name: Run EBT Counter
       run: poetry run python scripts/build/ebt_counter.py
