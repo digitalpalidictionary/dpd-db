@@ -151,7 +151,7 @@ jobs:
       run: poetry run python exporter/deconstructor/deconstructor_exporter.py
 
     - name: Export Kindle & ePub
-      run: poetry run python exporter/ebook/ebook_exporter.py
+      run: poetry run python exporter/kindle/kindle_exporter.py
 
     - name: Export Kobo
       run: poetry run python exporter/kobo/kobo.py
