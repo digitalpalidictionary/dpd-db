@@ -19,7 +19,7 @@ def p_white(message):
 
 def p_yes(message: int|str):
     if isinstance(message, int):
-        print(f"[blue]{message:>10}", end="")
+        print(f"[blue]{message:>10,}", end="")
     else:
         print(f"[blue]{message:>10}", end="")
     p_bop()

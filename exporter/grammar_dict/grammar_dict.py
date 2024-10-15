@@ -2,7 +2,6 @@
 
 """Compile HTML table of all grammatical possibilities of every inflected word-form."""
 
-import csv
 import pickle
 
 # from css_html_js_minify import css_minify, js_minify
@@ -17,6 +16,7 @@ from db.models import Lookup
 from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
 from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import ru_replace_abbreviations
 
+from tools.all_tipitaka_words import make_all_tipitaka_word_set
 from tools.configger import config_test
 from tools.deconstructed_words import make_words_in_deconstructions
 from tools.goldendict_exporter import DictInfo, DictVariables, DictEntry
@@ -128,9 +128,7 @@ def make_sets_of_words(g: ProgData):
 
     # tipitaka word set
     p_green("all tipitaka words")
-    with open(g.pth.tipitaka_word_count_path) as f:
-        reader = csv.reader(f, delimiter="\t")
-        tipitaka_word_set = set([row[0] for row in reader])
+    tipitaka_word_set = make_all_tipitaka_word_set()
     p_yes(len(tipitaka_word_set))
 
     # word in deconstructed compounds
