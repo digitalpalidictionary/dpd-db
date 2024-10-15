@@ -30,7 +30,7 @@ jobs:
         git clone https://github.com/digitalpalidictionary/deconstructor_output.git ${{ github.workspace }}/resources/deconstructor_output
         cd ${{ github.workspace }}/resources/deconstructor_output
         tar -xzvf deconstructor_output.json.tar.gz
-        ls -l resources/deconstructor_output/deconstructor_output.json
+        ls -la
         cd ${{ github.workspace }}/
     
     - name: Install dictzip
