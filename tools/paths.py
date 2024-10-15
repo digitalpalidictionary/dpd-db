@@ -279,6 +279,9 @@ class ProjectPaths:
         self.tpr_download_list_path = base_dir / "resources/tpr_downloads/download_source_files/download_list.json"
         self.tpr_release_path = base_dir / "resources/tpr_downloads/release_zips/dpd.zip"
 
+        # resources/deconstructor_output repo
+        self.deconstructor_output_repo = base_dir / "resources/deconstructor_output/deconstructor_output.json"
+
         # db/deconstructor/assets
         self.all_inflections_set_path = base_dir / "db/deconstructor/assets/all_inflections_set"
         self.matches_dict_path = base_dir / "db/deconstructor/assets/matches_dict"
@@ -318,7 +321,7 @@ class ProjectPaths:
         self.letters9 = base_dir / "db/deconstructor/output/letters/letters9.tsv"
         self.letters10 = base_dir / "db/deconstructor/output/letters/letters10plus.tsv"
 
-        # db/deconstructor/sandhi_related/
+        # shared_data/deconstructor
         self.decon_manual_corrections = base_dir / "shared_data/deconstructor/manual_corrections.tsv"
         self.decon_exceptions = base_dir / "shared_data/deconstructor/exceptions.tsv"
         self.decon_checked = base_dir / "shared_data/deconstructor/checked.csv"

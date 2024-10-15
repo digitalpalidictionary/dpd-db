@@ -318,10 +318,6 @@ func (m MatchData) SaveUnmatchedTsv() {
 	pf("%v rows, %.1fMB\n", len(data), float64(fileInfo.Size())/1000/1000)
 }
 
-func makeTopTenEntry(mi MatchItem) string {
-	return spf("%v [%v]", mi.Split, mi.Rules)
-}
-
 func (m MatchData) SaveTopEntriesJson() {
 	pf("making top %v json:	", L.TopDictLimit)
 
@@ -332,7 +328,7 @@ func (m MatchData) SaveTopEntriesJson() {
 	for _, mi := range m.MatchedItems {
 		// TODO add to learn_go
 		entryList, exists := topDict[mi.Word]
-		entry := makeTopTenEntry(mi)
+		entry := spf("%v", mi.Split)
 
 		if !exists {
 			topDict[mi.Word] = append(entryList, entry)
@@ -360,7 +356,7 @@ func (m MatchData) SaveTopEntriesJson() {
 
 	M.TopFive = topDict
 
-	filePath := tools.Pth.MatchesJson
+	filePath := tools.Pth.DeconstructorOutput
 	tools.SaveJson(filePath, topDict)
 	fileInfo, _ := os.Stat(filePath)
 	pf("%v rows, %.1fMB\n", len(topDict), float64(fileInfo.Size())/1000/1000)

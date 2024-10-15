@@ -26,10 +26,10 @@ var Pth = struct {
 	SyaTextDir        string
 	OtherPaliTextsDir string
 
-	MatchesTsv   string
-	UnMatchedTsv string
-	StatsTsv     string
-	MatchesJson  string
+	MatchesTsv          string
+	UnMatchedTsv        string
+	StatsTsv            string
+	DeconstructorOutput string
 
 	CstFileFreqMap string
 	CstFreqMap     string
@@ -114,8 +114,8 @@ var Pth = struct {
 	FreqTemplateHtml: "go_modules/frequency/templates/frequency_template.html",
 
 	// deconstructor output
-	MatchesTsv:   "go_modules/deconstructor/output/matches.tsv",
-	UnMatchedTsv: "go_modules/deconstructor/output/unmatched.tsv",
-	MatchesJson:  "go_modules/deconstructor/output/matches.json",
-	StatsTsv:     "go_modules/deconstructor/output/stats.tsv",
+	MatchesTsv:          "go_modules/deconstructor/output/matches.tsv",
+	UnMatchedTsv:        "go_modules/deconstructor/output/unmatched.tsv",
+	DeconstructorOutput: "go_modules/deconstructor/output/deconstructor_output.json",
+	StatsTsv:            "go_modules/deconstructor/output/stats.tsv",
 }
