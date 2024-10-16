@@ -2058,7 +2058,7 @@ var family_idiom_json = {
   ]
  },
  "eva": {
-  "count": 247,
+  "count": 249,
   "data": [
    [
     "aṅganteva",
@@ -3141,6 +3141,12 @@ var family_idiom_json = {
     "✓"
    ],
    [
+    "nevimaṃ",
+    "sandhi",
+    "not even this",
+    "✓"
+   ],
+   [
     "notevettha",
     "sandhi",
     "only no in this case; just no here",
@@ -3330,6 +3336,12 @@ var family_idiom_json = {
     "riva 2",
     "sandhi",
     "only; just; so; even",
+    "✓"
+   ],
+   [
+    "vacanīyamevāyasmā",
+    "sandhi",
+    "venerable just one who can be spoken to",
     "✓"
    ],
    [
@@ -3909,7 +3921,7 @@ var family_idiom_json = {
    [
     "evamassu vacanīyā",
     "idiom",
-    "should be spoken to thus; should be replied to in this way",
+    "they should be spoken to thus; they should be replied to in this way",
     "✓"
    ],
    [
@@ -5380,7 +5392,7 @@ var family_idiom_json = {
    [
     "aññamaññassa",
     "sandhi",
-    "each other's; the one of the one",
+    "each other's; one to another",
     "✓"
    ],
    [
@@ -5707,7 +5719,7 @@ var family_idiom_json = {
   ]
  },
  "samaya": {
-  "count": 8,
+  "count": 9,
   "data": [
    [
     "aññatra samayā",
@@ -5719,6 +5731,12 @@ var family_idiom_json = {
     "aparena samayena 1",
     "idiom",
     "at another time; later; lit. with another time",
+    "✓"
+   ],
+   [
+    "ayaṃ tattha samayo",
+    "idiom",
+    "this here is the proper occasion; this is the right time in this case",
     "✓"
    ],
    [
@@ -6201,7 +6219,7 @@ var family_idiom_json = {
    [
     "meti 1",
     "sandhi",
-    "this is mine; mine",
+    "this is mine; \"mine\"",
     "✓"
    ],
    [
@@ -6528,7 +6546,7 @@ var family_idiom_json = {
     "✓"
    ],
    [
-    "tamatthaṃ",
+    "tamatthaṃ 1",
     "sandhi",
     "that meaning; that goal; that purpose",
     "✓"
@@ -8881,7 +8899,7 @@ var family_idiom_json = {
   ]
  },
  "vacanīya": {
-  "count": 2,
+  "count": 3,
   "data": [
    [
     "attānaṃ avacanīyaṃ karoti",
@@ -8892,7 +8910,13 @@ var family_idiom_json = {
    [
     "evamassu vacanīyā",
     "idiom",
-    "should be spoken to thus; should be replied to in this way",
+    "they should be spoken to thus; they should be replied to in this way",
+    "✓"
+   ],
+   [
+    "vacanīyamevāyasmā",
+    "sandhi",
+    "venerable just one who can be spoken to",
     "✓"
    ]
   ]
@@ -9369,7 +9393,7 @@ var family_idiom_json = {
   ]
  },
  "ayaṃ": {
-  "count": 77,
+  "count": 78,
   "data": [
    [
     "atthassāyaṃ",
@@ -9519,6 +9543,12 @@ var family_idiom_json = {
     "ayampi",
     "sandhi",
     "one too; this too",
+    "✓"
+   ],
+   [
+    "ayaṃ tattha samayo",
+    "idiom",
+    "this here is the proper occasion; this is the right time in this case",
     "✓"
    ],
    [
@@ -16257,7 +16287,7 @@ var family_idiom_json = {
   ]
  },
  "āyasmant": {
-  "count": 31,
+  "count": 32,
   "data": [
    [
     "ayamāyasmā",
@@ -16422,6 +16452,12 @@ var family_idiom_json = {
     "✓"
    ],
    [
+    "vacanīyamevāyasmā",
+    "sandhi",
+    "venerable just one who can be spoken to",
+    "✓"
+   ],
+   [
     "viramathāyasmanto",
     "sandhi",
     "venerables, desist (from)!; venerables, stop!",
@@ -16517,8 +16553,14 @@ var family_idiom_json = {
   ]
  },
  "tattha": {
-  "count": 15,
+  "count": 16,
   "data": [
+   [
+    "ayaṃ tattha samayo",
+    "idiom",
+    "this here is the proper occasion; this is the right time in this case",
+    "✓"
+   ],
    [
     "ayaṃ tattha sāmīci",
     "idiom",
@@ -17698,7 +17740,7 @@ var family_idiom_json = {
   ]
  },
  "asi2": {
-  "count": 21,
+  "count": 22,
   "data": [
    [
     "asīti 2.1",
@@ -17824,6 +17866,12 @@ var family_idiom_json = {
     "vippamuttosi",
     "sandhi",
     "you are liberated; you are freed",
+    "✓"
+   ],
+   [
+    "vimanosi",
+    "sandhi",
+    "you are upset; you're displeased; you're unhappy; you're downcast",
     "✓"
    ]
   ]
@@ -20132,7 +20180,7 @@ var family_idiom_json = {
    [
     "meti 1",
     "sandhi",
-    "this is mine; mine",
+    "this is mine; \"mine\"",
     "✓"
    ],
    [
@@ -20362,7 +20410,7 @@ var family_idiom_json = {
   ]
  },
  "imaṃ": {
-  "count": 13,
+  "count": 14,
   "data": [
    [
     "imañca",
@@ -20416,6 +20464,12 @@ var family_idiom_json = {
     "nayimaṃ",
     "sandhi",
     "not this; this is not",
+    "✓"
+   ],
+   [
+    "nevimaṃ",
+    "sandhi",
+    "not even this",
     "✓"
    ],
    [
@@ -21845,7 +21899,7 @@ var family_idiom_json = {
    [
     "daḷhamenaṃ",
     "sandhi",
-    "firmly this, strongly this, vigorously this",
+    "firmly this; strongly this; vigorously this",
     "✓"
    ],
    [
@@ -21956,7 +22010,7 @@ var family_idiom_json = {
     "✓"
    ],
    [
-    "tamatthaṃ",
+    "tamatthaṃ 1",
     "sandhi",
     "that meaning; that goal; that purpose",
     "✓"
@@ -26707,7 +26761,7 @@ var family_idiom_json = {
    [
     "daḷhamenaṃ",
     "sandhi",
-    "firmly this, strongly this, vigorously this",
+    "firmly this; strongly this; vigorously this",
     "✓"
    ]
   ]
@@ -27360,12 +27414,18 @@ var family_idiom_json = {
   ]
  },
  "na": {
-  "count": 1,
+  "count": 2,
   "data": [
    [
     "na bhattaṃ paṭibhāti",
     "idiom",
     "has no desire to eat; loses all interest in food; lit. food does not come to mind",
+    "✓"
+   ],
+   [
+    "nevimaṃ",
+    "sandhi",
+    "not even this",
     "✓"
    ]
   ]
@@ -31665,6 +31725,17 @@ var family_idiom_json = {
     "vippamuttosi",
     "sandhi",
     "you are liberated; you are freed",
+    "✓"
+   ]
+  ]
+ },
+ "vimana": {
+  "count": 1,
+  "data": [
+   [
+    "vimanosi",
+    "sandhi",
+    "you are upset; you're displeased; you're unhappy; you're downcast",
     "✓"
    ]
   ]

@@ -5620,7 +5620,7 @@ var family_set_json = {
     "~"
    ],
    [
-    "paṭi",
+    "paṭi 1.1",
     "abbrev",
     "abbreviation of Paṭisambhidā (Magga)",
     "~"
@@ -8174,7 +8174,7 @@ var family_set_json = {
    [
     "agati 1",
     "fem",
-    "non-destination; epithet of Nibbāna",
+    "non-destination; absence of future destination; epithet of Nibbāna",
     "~"
    ],
    [
@@ -8199,7 +8199,7 @@ var family_set_json = {
     "ajajjara",
     "adj",
     "unaging; timeless; immortal; epithet of Nibbāna",
-    "~"
+    "✓"
    ],
    [
     "anata 1",
@@ -8223,7 +8223,7 @@ var family_set_json = {
     "apalokita 2.1",
     "pp",
     "not fallen apart; not dissolved; not disintegrated; epithet of Nibbāna",
-    "~"
+    "✓"
    ],
    [
     "amata 1.1",
@@ -8241,7 +8241,7 @@ var family_set_json = {
     "amatapariyosānatā",
     "fem",
     "state ending in the deathless; epithet of Nibbāna",
-    "~"
+    "✓"
    ],
    [
     "asaṅkhata",
@@ -8301,7 +8301,7 @@ var family_set_json = {
     "brahmaññattha",
     "masc",
     "goal of being a Brahman; purpose of priesthood; epithet of Nibbāna",
-    "~"
+    "✓"
    ],
    [
     "vivaṭṭa 3",
@@ -8340,13 +8340,19 @@ var family_set_json = {
     "✓"
    ],
    [
+    "siva 3",
+    "nt",
+    "safe place; epitet of Nibbāna",
+    "✓"
+   ],
+   [
     "sītibhāva",
     "masc",
     "coolness; calm; peace; epithet of Nibbāna; lit. cool state",
     "✓"
    ]
   ],
-  "count": 30
+  "count": 31
  },
  "names of Brahmans": {
   "data": [
@@ -10409,7 +10415,7 @@ var family_set_json = {
     "dammaka",
     "masc",
     "trainer; tamer",
-    "~"
+    "✓"
    ],
    [
     "dūtakamma",
@@ -11536,7 +11542,7 @@ var family_set_json = {
     "pippaliguhā",
     "fem",
     "name of a cave; lit. long pepper cave",
-    "~"
+    "✓"
    ],
    [
     "pipphaliguhā",
@@ -20645,7 +20651,7 @@ var family_set_json = {
    [
     "sumbhā",
     "masc",
-    "name of the people of Sumbha' Sumbhans",
+    "name of the people of Sumbha; Sumbhans",
     "✓"
    ],
    [
@@ -22799,7 +22805,7 @@ var family_set_json = {
     "kuṇḍaliya",
     "masc",
     "name of a wandering ascetic; lit. with earring",
-    "~"
+    "✓"
    ],
    [
     "kuddālaka",
@@ -22934,7 +22940,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "pilotika",
+    "pilotika 1",
     "masc",
     "name of a wandering ascetic; lit. old rags",
     "✓"
@@ -22970,7 +22976,7 @@ var family_set_json = {
     "✓"
    ],
    [
-    "brahmadatta",
+    "brahmadatta 5",
     "masc",
     "name of a wandering ascetic; student of Suppiya; lit. given to god; (or) protected by god",
     "✓"
@@ -32197,6 +32203,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "suppatiṭṭhitapāda",
+    "adj",
+    "having firmly grounded feet; first of the thirty-two marks of a great man; (comm) with flat feet",
+    "✓"
+   ],
+   [
     "suvaṇṇavaṇṇa 1",
     "adj",
     "with golden-coloured complexion; eleventh of the thirty-two marks of a great man",
@@ -32209,7 +32221,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 30
+  "count": 31
  },
  "weapons": {
   "data": [
@@ -36571,16 +36583,5 @@ var family_set_json = {
    ]
   ],
   "count": 3
- },
- "previous incarnations of Ānanda": {
-  "data": [
-   [
-    "sūriyakumāra",
-    "masc",
-    "name of a prince; previous incarnation of Ānanda; lit. prince sun",
-    "✓"
-   ]
-  ],
-  "count": 1
  }
 }

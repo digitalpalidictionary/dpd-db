@@ -14,6 +14,7 @@
 17th
 18th
 19th
+1st
 20th
 21st
 22nd
@@ -32,6 +33,7 @@
 6th
 7th
 8th
+92nd
 9th
 ā
 a deit
@@ -376,6 +378,7 @@ Boselaphus
 Boswellia
 botheration
 boundlessness
+bowlfuls
 bowmanship
 Brahma
 Brahmā
@@ -487,14 +490,17 @@ compassionlessness
 conches
 concilated
 concomitance
+conditionality
 conformance
 confutes
 congee
+conglomerated
 conglomeration
 conglomerations
 conjectured
 conjee
 conjugational
+conjunct
 contiguously
 contradistinction
 cooed
@@ -580,6 +586,7 @@ denominativ
 denominative
 dento-labial
 deodar
+dependency
 depopulated
 deprecated
 deprecation
@@ -729,6 +736,7 @@ equipoise
 eraka
 Erythrina
 essenceless
+esteeming
 eternalism
 eternalist
 ettāvatā
@@ -739,14 +747,17 @@ everythingness
 excretions
 exfoliant
 exhorter
+expansions
 expectance
 experienceable
 experientially
+exposit
 exposition
 expounder
 expounds
 extinguishment
 extirpated
+extirpation
 extols
 eyya
 fadedness
@@ -933,10 +944,12 @@ immateriality
 immediate
 immediately
 immerged
+immoveable
 impalpability
 impelling
 impercipient
 imperturbable
+impingement
 iṃsu
 in-front-ness
 inarticulately
@@ -1430,6 +1443,7 @@ Moggallānabyākaraṇa
 Moggallānabyākaraṇaṃ
 Moḷiyaphagguna
 Mollugo
+Momordica
 monastics
 monkhood
 Monosperma
@@ -1437,6 +1451,7 @@ mountable
 movie
 mucalinda
 Mucana
+muddle-mindedness
 muddleheadedness
 muditā
 Muggala
@@ -1562,8 +1577,10 @@ others'
 Oṭṭhaddha
 Ougeinia
 outcaste
+outgrowths
 outlaid
 outshined
+overgarment
 overspread
 ownerless
 pā
@@ -1938,6 +1955,7 @@ Savatth
 Sāvatthi
 Sāvatthī
 scandens
+scatteredness
 schismatic
 Scholaris
 scourer
@@ -2096,6 +2114,7 @@ suppurating
 suppuration
 Surasena
 Sūrasena
+surmounting
 surpassable
 surpassingly
 surusuru
@@ -2114,6 +2133,7 @@ svāgataṃ
 swallowable
 swops
 Syām
+syllogism
 sylvatica
 Symplocos
 syntactician
@@ -2173,6 +2193,7 @@ Thullakoṭṭhika
 Thuna
 Thūṇa
 Thuna 
+Thundercloud
 thunderclouds
 thurifera
 ti
@@ -2346,6 +2367,7 @@ unjudgeable
 unlimted
 unmanifest
 unmendable
+unmindfulness
 unmixes
 unmuddled
 unobtained
@@ -2557,6 +2579,7 @@ wifehood
 winnows
 witnesser
 wooled
+worldliness
 woundless
 Wrightia
 wrinkly-nes
@@ -2583,25 +2606,3 @@ yojanas
 yoking
 zizanioides
 Ziziphus
-92nd
-overgarment
-dependency
-conditionality
-exposit
-esteeming
-1st
-Momordica
-unmindfulness
-muddle-mindedness
-worldliness
-extirpation
-Thundercloud
-bowlfuls
-conglomerated
-outgrowths
-expansions
-scatteredness
-impingement
-surmounting
-immoveable
-conjunct

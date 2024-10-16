@@ -2443,8 +2443,8 @@ var family_word_json = {
    [
     "anantara 3",
     "nt",
-    "no secret teaching",
-    "✗"
+    "no secret teaching; lit. no inner",
+    "✓"
    ],
    [
     "anantara 4",
@@ -2659,7 +2659,7 @@ var family_word_json = {
    [
     "antika 1",
     "adj",
-    "around; near; at the time of",
+    "around; near; borderong on; at the time of",
     "✓"
    ],
    [
@@ -3341,12 +3341,6 @@ var family_word_json = {
     "✓"
    ],
    [
-    "ajjatanām",
-    "adj",
-    "modern; related to today",
-    "✓"
-   ],
-   [
     "ajjatanāya",
     "ind",
     "today; for today; in the next 24 hours",
@@ -3833,7 +3827,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 84
+  "count": 83
  },
  "atta": {
   "data": [
@@ -5397,8 +5391,8 @@ var family_word_json = {
    [
     "atiandha",
     "adj",
-    "thoroughly blind; absolutely sightless",
-    "✗"
+    "thoroughly blind; absolutely sightless; lit. too-dark",
+    "~"
    ],
    [
     "anandha",
@@ -6291,7 +6285,7 @@ var family_word_json = {
     "✗"
    ],
    [
-    "visa",
+    "visa 1",
     "nt",
     "poison; toxin; venom",
     "✓"
@@ -9811,7 +9805,7 @@ var family_word_json = {
    [
     "usabha 2",
     "masc",
-    "foremost; finest example; leader; lit. stud bull",
+    "who is foremost; finest example; leader; lit. stud bull",
     "✓"
    ],
    [
@@ -13927,7 +13921,7 @@ var family_word_json = {
  "ambaṇa": {
   "data": [
    [
-    "ambaṇa",
+    "ambaṇa 1",
     "nt",
     "kind of coin",
     "✗"
@@ -15627,7 +15621,7 @@ var family_word_json = {
    [
     "avīci 2",
     "fem",
-    "one of the great hells; lit. without an interval; uninterrupted",
+    "name of one of the great hells",
     "✗"
    ],
    [
@@ -16337,6 +16331,47 @@ var family_word_json = {
   ],
   "count": 18
  },
+ "sippa": {
+  "data": [
+   [
+    "asippa",
+    "adj",
+    "without a skill; without a craft",
+    "✓"
+   ],
+   [
+    "sippa 1",
+    "nt",
+    "skill; art; craft; branch of knowledge",
+    "✓"
+   ],
+   [
+    "sippa 2",
+    "adj",
+    "related to a craft or skill",
+    "✗"
+   ],
+   [
+    "sippika 1.1",
+    "masc",
+    "craftsman; artisan",
+    "✓"
+   ],
+   [
+    "sippī 2.1",
+    "masc",
+    "craftsman; artisan",
+    "~"
+   ],
+   [
+    "sippī 2.2",
+    "masc",
+    "painter; artist",
+    "~"
+   ]
+  ],
+  "count": 6
+ },
  "sīsa": {
   "data": [
    [
@@ -16671,7 +16706,7 @@ var family_word_json = {
     "✓"
    ],
    [
-    "soṇḍa",
+    "soṇḍa 1",
     "adj",
     "addicted to",
     "✗"
@@ -16993,7 +17028,7 @@ var family_word_json = {
     "✓"
    ],
    [
-    "cīvara",
+    "cīvara 1",
     "nt",
     "robe; cloth; robe-cloth; lit. rags",
     "✓"
@@ -22780,7 +22815,7 @@ var family_word_json = {
     "✓"
    ],
    [
-    "catutthī 2",
+    "catutthī",
     "fem",
     "(gram) dative case",
     "✗"
@@ -23641,7 +23676,7 @@ var family_word_json = {
     "pacchāyā",
     "fem",
     "shaded place; shady area; dense shade",
-    "~"
+    "✓"
    ]
   ],
   "count": 4
@@ -27660,7 +27695,7 @@ var family_word_json = {
  "pilotikā": {
   "data": [
    [
-    "pilotika",
+    "pilotika 1",
     "masc",
     "name of a wandering ascetic; lit. old rags",
     "✓"
@@ -28443,7 +28478,7 @@ var family_word_json = {
  "baḷisa": {
   "data": [
    [
-    "balisa 1",
+    "balisa",
     "nt",
     "hook; meat hook",
     "✓"
@@ -29697,7 +29732,7 @@ var family_word_json = {
  "middha": {
   "data": [
    [
-    "middha",
+    "middha 1",
     "nt",
     "drowsiness; sluggishness; lethargy; lit. stiffness",
     "✓"
@@ -32935,41 +32970,6 @@ var family_word_json = {
   ],
   "count": 3
  },
- "sippa": {
-  "data": [
-   [
-    "sippa 1",
-    "nt",
-    "skill; art; craft; branch of knowledge",
-    "✓"
-   ],
-   [
-    "sippa 2",
-    "adj",
-    "related to a craft or skill",
-    "✗"
-   ],
-   [
-    "sippika 1.1",
-    "masc",
-    "craftsman; artisan",
-    "✓"
-   ],
-   [
-    "sippī 2.1",
-    "masc",
-    "craftsman; artisan",
-    "~"
-   ],
-   [
-    "sippī 2.2",
-    "masc",
-    "painter; artist",
-    "~"
-   ]
-  ],
-  "count": 5
- },
  "sippī": {
   "data": [
    [
@@ -33139,8 +33139,8 @@ var family_word_json = {
    [
     "siva 3",
     "nt",
-    "safe place, Nibbāna",
-    "✗"
+    "safe place; epitet of Nibbāna",
+    "✓"
    ],
    [
     "sivaka 1",
@@ -33431,7 +33431,7 @@ var family_word_json = {
    [
     "sumbhā",
     "masc",
-    "name of the people of Sumbha' Sumbhans",
+    "name of the people of Sumbha; Sumbhans",
     "✓"
    ]
   ],
