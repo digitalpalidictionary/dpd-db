@@ -283,8 +283,11 @@ func (m MatchData) SaveMatchedTsv() {
 }
 
 type unMatchedItem struct {
-	word string
-	freq int
+	word    string
+	CstFreq int
+	BjtFreq int
+	SyaFreq int
+	ScFreq  int
 }
 
 func (m MatchData) SaveUnmatchedTsv() {
@@ -292,25 +295,41 @@ func (m MatchData) SaveUnmatchedTsv() {
 
 	// make a list of unmatchedItems to sort
 	cstFreqMap := tools.LoadCstFreqMap()
+	bjtFreqMap := tools.LoadBjtFreqMap()
+	syaFreqMap := tools.LoadSyaFreqMap()
+	scFreqMap := tools.LoadScFreqMap()
+
 	unmatchedList := []unMatchedItem{}
 	for word := range m.Unmatched {
 		ui := unMatchedItem{}
 		ui.word = word
-		ui.freq = cstFreqMap[word]
+		ui.CstFreq = cstFreqMap[word]
+		ui.BjtFreq = bjtFreqMap[word]
+		ui.SyaFreq = syaFreqMap[word]
+		ui.ScFreq = scFreqMap[word]
 		unmatchedList = append(unmatchedList, ui)
 	}
 	slices.SortFunc(unmatchedList, func(a, b unMatchedItem) int {
-		return cmp.Compare(b.freq, a.freq)
+		return cmp.Compare(b.CstFreq, a.CstFreq)
 	})
 
 	// save to tsv
 	filePath := tools.Pth.UnMatchedTsv
 	separator := "\t"
-	header := []string{"unmatched", "freq"}
+	header := []string{"unmatched", "cst", "bjt", "sya", "sc"}
 
 	data := [][]string{}
 	for _, i := range unmatchedList {
-		data = append(data, []string{i.word, tools.Int2Str(i.freq)})
+		data = append(
+			data,
+			[]string{
+				i.word,
+				tools.Int2Str(i.CstFreq),
+				tools.Int2Str(i.BjtFreq),
+				tools.Int2Str(i.SyaFreq),
+				tools.Int2Str(i.ScFreq),
+			},
+		)
 	}
 
 	tools.SaveTsv(filePath, separator, header, data)
