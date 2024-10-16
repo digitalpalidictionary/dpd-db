@@ -286,7 +286,7 @@ def generate_deconstructor_data(g: ProgData):
     for counter, i in enumerate(deconstructor_db):
 
         if i.lookup_key not in g.all_headwords_clean:
-            deconstruction = ",".join(i.deconstructor_unpack)
+            deconstruction = ",".join(i.deconstructor_unpack).strip() # remove stray \r
 
             deconstructor_data_list += [{
                 "word": i.lookup_key,
@@ -417,7 +417,7 @@ def copy_to_sqlite_db(g: ProgData):
                 "has_root_family" INTEGER DEFAULT 0,
                 "has_compound_family" INTEGER DEFAULT 0,
                 "has_word_family" INTEGER DEFAULT 0,
-                "has_freq" INTEGER);
+                "has_freq" INTEGER DEFAULT 0);
             """)
         
 
@@ -456,19 +456,9 @@ def tpr_updater(g: ProgData):
 
     sql_string = ""
     sql_string += "BEGIN TRANSACTION;\n"
-    sql_string += "DROP TABLE IF EXISTS dpd;\n"
-    # sql_string += """CREATE TABLE dpd ("id" INTEGER, "word" TEXT, "definition" TEXT, "book_id" INTEGER);\n"""
-    sql_string += """CREATE TABLE "dpd" (
-        "id" INTEGER,
-        "word" TEXT,
-        "definition" TEXT, 
-        "book_id" INTEGER,
-        "has_inflections" INTEGER DEFAULT 0,
-        "has_root_family" INTEGER DEFAULT 0,
-        "has_compound_family" INTEGER DEFAULT 0,
-        "has_word_family" INTEGER DEFAULT 0,
-        "has_freq" INTEGER DEFAULT 0
-    );\n"""
+    # sql_string += "DROP TABLE IF EXISTS dpd;\n"
+    # sql_string += """CREATE TABLE dpd ("id" INTEGER, "word" TEXT, "definition" TEXT, "book_id" INTEGER, "has_inflections" INTEGER DEFAULT 0, "has_root_family" INTEGER DEFAULT 0, has_compound_family" INTEGER DEFAULT 0, "has_word_family" INTEGER DEFAULT 0, "has_freq" INTEGER DEFAULT 0);\n"""
+    sql_string += "DELETE FROM dpd;\n"
     sql_string += "DELETE FROM dpd_inflections_to_headwords;\n"
     sql_string += "DELETE FROM dpd_word_split;\n"
     sql_string += "COMMIT;\n"
