@@ -615,7 +615,7 @@ class DpdHeadword(Base):
     inflections_html: Mapped[str] = mapped_column(default='')
     freq_data: Mapped[str] = mapped_column(default='')
     freq_html: Mapped[str] = mapped_column(default='')
-    ebt_count: Mapped[int] = mapped_column(default=0)
+    ebt_count: Mapped[int] = mapped_column(default=0, server_default="0")
 
     # pali_root
     rt: Mapped[DpdRoot] = relationship(uselist=False)
