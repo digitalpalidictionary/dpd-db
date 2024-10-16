@@ -684,13 +684,8 @@ def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, p
                 {
                     "role": "user",
                     "content": f"""
-                        **Pali Term**: {lemma_1}
-                        **Grammar Details**: {grammar}
-                        **Pali sentence**: {sentence}
-                        **English Definition**: {meaning}
-                        **Translation Examples**: {translation_example}
 
-                        Please provide at least nine distinct Russian translations for the English definition of Pali term, considering gramatical context. Follow these guidelines:
+                    Please provide at least nine distinct Russian translations for the English definition of Pali term, considering gramatical context. Follow these guidelines:
 
                         - Separate synonyms with `;`.
                         - Match the grammatical structure of the Pali term (noun, verb, adj, etc.).
@@ -698,6 +693,12 @@ def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, p
                         - Format the output similarly to provided translation examples.
                         - If the English definition contains an idiom, try to use a corresponding Russian idiom.
                         - Output only the translations, without labels like "Перевод" etc.
+
+                    **Pali Term**: {lemma_1}
+                    **Grammar Details**: {grammar}
+                    **Pali sentence**: {sentence}
+                    **English Definition**: {meaning}
+                    **Translation Examples**: {translation_example}
 
                     """
                 }
@@ -714,14 +715,8 @@ def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, p
                 {
                     "role": "user",
                     "content": f"""
-                        **Pali Term**: {lemma_1}
-                        **Grammar Details**: {grammar}
-                        **Pali sentence**: {sentence}
-                        **English Definition**: {meaning}
-                        **Translation Examples**: {translation_example}
 
-                        Please provide Russian translation for the English definition of Pali term, considering gramatical context. Follow these guidelines:
-
+                    Please provide Russian translation for the English definition of Pali term, considering gramatical context. Follow these guidelines:
 
                         - Separate synonyms with `;`.
                         - Match the grammatical structure of the Pali term (noun, verb, adj, etc.).
@@ -729,9 +724,15 @@ def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, p
                         - Format the output similarly to provided translation examples.
                         - If "lit." is present in definition, include a literal translation marked with досл.
                         - If "(comm)" is present in definition, keep it as (комм) in Russian.
-                        - Retain any clarifications in brackets (e.g., "(of army)" → "(об армии)").
+                        - Retain any clarifications in brackets (e.g., "(of trap) laid down" → "установленный (капкан)")
                         - If the English definition contains an idiom, try to use a corresponding Russian idiom.
                         - Output only the translations, without labels like "Перевод" etc.
+
+                    **Pali Term**: {lemma_1}
+                    **Grammar Details**: {grammar}
+                    **Pali sentence**: {sentence}
+                    **English Definition**: {meaning}
+                    **Translation Examples**: {translation_example}
 
                     """
                 }
@@ -750,12 +751,8 @@ def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, p
                 {
                     "role": "user",
                     "content": f"""
-                        **Pali Term**: {lemma_1}
-                        **Grammar Details**: {grammar}
-                        **Pali sentence**: {sentence}
-                        **English Definition**: {meaning}
 
-                        Please generate at least nine distinct Russian translations for the English definition of Pali term, considering gramatical context, following these guidelines:
+                    Please generate at least nine distinct Russian translations for the English definition of Pali term, considering gramatical context, following these guidelines:
 
                         - Separate synonyms with `;`.
                         - Match the grammatical structure of the Pali term (noun, verb, adj, etc.).
@@ -763,6 +760,11 @@ def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, p
                         - If the English definition contains an idiom, try to use a corresponding Russian idiom.
                         - Output only the translations, without labels like "Перевод" etc.
 
+                    **Pali Term**: {lemma_1}
+                    **Grammar Details**: {grammar}
+                    **Pali sentence**: {sentence}
+                    **English Definition**: {meaning}
+                    
                     """
                 }
             ]
@@ -778,21 +780,22 @@ def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, p
                 {
                     "role": "user",
                     "content": f"""
-                        **Pali Term**: {lemma_1}
-                        **Grammar Details**: {grammar}
-                        **Pali sentence**: {sentence}
-                        **English Definition**: {meaning}
 
-                        Please provide Russian translation for the English definition of Pali term, considering gramatical context. Follow these guidelines:
+                    Please provide Russian translation for the English definition of Pali term, considering gramatical context. Follow these guidelines:
 
                         - Separate synonyms with `;`.
                         - Match the grammatical structure of the Pali term (noun, verb, adj, etc.).
                         - Use lowercase unless it's a proper noun.
                         - If "lit." is present in definition, include a literal translation marked with досл.
                         - If "(comm)" is present in definition, keep it as (комм) in Russian.
-                        - Retain any clarifications in brackets (e.g., "(of army)" → "(об армии)").
+                        - Retain any clarifications in brackets (e.g., "(of trap) laid down" → "установленный (капкан)")
                         - If the English definition contains an idiom, try to use a corresponding Russian idiom.
                         - Output only the translations, without labels like "Перевод" etc.
+
+                    **Pali Term**: {lemma_1}
+                    **Grammar Details**: {grammar}
+                    **Pali sentence**: {sentence}
+                    **English Definition**: {meaning}
 
                     """
                 }
