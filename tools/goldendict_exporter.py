@@ -183,7 +183,7 @@ def add_css(glos: Glossary, dict_var: DictVariables) -> Glossary:
             css = f.read()
             glos.addEntry(
                 glos.newDataEntry(
-                    dict_var.css_path.name, css))
+                    dict_var.css_path.name, css)) #type:ignore
             p_yes("ok")
     else:
         p_yes("no")
@@ -200,7 +200,7 @@ def add_js(glos: Glossary, dict_var: DictVariables) -> Glossary:
                 with open(js_path, "rb") as f:
                     js = f.read()
                     glos.addEntry(
-                        glos.newDataEntry(js_path.name, js))
+                        glos.newDataEntry(js_path.name, js)) #type:ignore
         p_yes("ok")
     else:
         p_yes("no")
@@ -217,7 +217,7 @@ def add_data(glos: Glossary, dict_data: list[DictEntry]) -> Glossary:
             glos.newEntry(
                 word=[d.word] + d.synonyms,
                 defi=d.definition_html,
-                defiFormat="h"))
+                defiFormat="h")) #type:ignore
     
     p_yes("ok")
     return glos
@@ -259,12 +259,12 @@ def zip_synfile(dict_var: DictVariables) -> None:
     try:
         with open(dict_var.synfile, "rb") as input_f, open(dict_var.synfile_zip, 'wb') as output_f:
             input_info = os.fstat(input_f.fileno())
-            idzip.compressor.compress(
+            idzip.compressor.compress( #type:ignore
                 input_f,
                 input_info.st_size,
                 output_f,
                 dict_var.synfile.name,
-                int(input_info.st_mtime))
+                int(input_info.st_mtime)) 
             dict_var.synfile.unlink()
             p_yes("ok")
     except FileNotFoundError:

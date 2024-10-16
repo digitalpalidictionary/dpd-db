@@ -187,7 +187,7 @@ def add_to_lookup_table(g: ProgData):
 
     p_green_title("saving to Lookup table")
 
-    p_white("update test or add?")
+    p_white("update test or add")
     lookup_table = g.db_session.query(Lookup).all()
     results = update_test_add(lookup_table, g.rpd_data_dict)
     update_set, test_set, add_set = results

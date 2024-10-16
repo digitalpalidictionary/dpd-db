@@ -6,8 +6,7 @@ import re
 import pyperclip
 from rich import print
 
-from sqlalchemy import not_, or_
-
+from sqlalchemy import or_
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
