@@ -196,15 +196,18 @@ jobs:
         tag_name: ${{ env.RELEASE_TAG }}
         release_name: ${{ env.RELEASE_DATE }}
         body: |
-          Digital Pāḷi Dictionary is a feature-rich Pāḷi dictionary which runs in GoldenDict, MDict, Kindle, ePub and SQLite, or any other application which supports these formats. 
+          Digital Pāḷi Dictionary is a feature-rich Pāḷi dictionary which is available [online](https://www.dpdict.net/) and for StarDict, GoldenDict, MDict, DictTango, Kindle, Kobo, ePub and SQLite, or any application which supports these formats. It is also built into many popular [Pāḷi readers and websites](https://digitalpalidictionary.github.io/tpr.html).
 
           It is a work in progress, made available for testing and feedback purposes.
 
-          More information about installation, setup and features can be found [on the website](https://digitalpalidictionary.github.io/)
+          More information about installation, setup and features can be found [on the docs website](https://digitalpalidictionary.github.io/)
 
           This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>
 
           <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />
+
+          **Change-log**:
+
         draft: true
         prerelease: false
 
