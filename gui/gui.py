@@ -287,6 +287,8 @@ def main():
             if values["word_to_add"] != []:
                 open_in_goldendict(values["word_to_add"][0])
                 pyperclip.copy(values["word_to_add"][0])
+                if username == "deva":
+                    request_dpd_server(values["word_to_add"][0])
                 print(window["word_to_add"].get_list_values()) # type: ignore
 
         # sandhi ok
