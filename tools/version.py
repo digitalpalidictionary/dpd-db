@@ -9,16 +9,17 @@ from db.db_helpers import get_db_session
 from tools.configger import config_update
 from tools.date_and_time import year_month_day
 from tools.paths import ProjectPaths
+from tools.printer import p_title
 from tools.tic_toc import tic, toc
 
 
 major = 0
-minor = 1
+minor = 2
 
 
 def update_version():
     tic()
-    print("[bright_yellow]updating dpd release version")
+    p_title("updating dpd release version")
     pth = ProjectPaths()
     version = make_version()
     
@@ -54,9 +55,10 @@ def update_poetry_version(pth, version):
 
 def update_db_version(pth, version):
     db_session = get_db_session(pth.dpd_db_path)
-    db_info = db_session.query(DbInfo) \
-                        .filter_by(key="dpd_release_version") \
-                        .first()
+    db_info = db_session \
+        .query(DbInfo) \
+        .filter_by(key="dpd_release_version") \
+        .first()
     
     # update the dpd_release_version if it exists
     if db_info:
@@ -77,15 +79,19 @@ def update_db_version(pth, version):
         db_session.add(email_address)
 
         website = DbInfo(
-            key="website", value="https://digitalpalidictionary.github.io/")
+            key="website", value="https://www.dpdict.net/")
         db_session.add(website)
+
+        docs = DbInfo(
+            key="docs", value="https://digitalpalidictionary.github.io/")
+        db_session.add(docs)
 
         github = DbInfo(
             key="github", value="https://github.com/digitalpalidictionary/dpd-db")
         db_session.add(github)
 
         latest_release = DbInfo(
-            key="latest_release", value="https://github.com/digitalpalidictionary/digitalpalidictionary/releases")
+            key="latest_release", value="https://github.com/digitalpalidictionary/dpd-db/releases")
         db_session.add(latest_release)
 
         ___ = DbInfo(
@@ -99,4 +105,3 @@ def update_db_version(pth, version):
 
 if __name__ == "__main__":
     update_version()
-    # version = make_version()
