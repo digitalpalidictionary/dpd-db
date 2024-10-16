@@ -407,7 +407,20 @@ def copy_to_sqlite_db(g: ProgData):
 
         # dpd table
         c.execute("DROP TABLE if exists dpd")
-        c.execute("CREATE TABLE dpd (id, word, definition, book_id)")
+        c.execute(
+            """CREATE TABLE "dpd" (
+                "id" INTEGER,
+                "word" TEXT,
+                "definition" TEXT, 
+                "book_id" INTEGER,
+                "has_inflections" INTEGER DEFAULT 0,
+                "has_root_family" INTEGER DEFAULT 0,
+                "has_compound_family" INTEGER DEFAULT 0,
+                "has_word_family" INTEGER DEFAULT 0,
+                "has_freq" INTEGER);
+            """)
+        
+
         tpr_df.to_sql('dpd', conn, if_exists='append', index=False)
 
         # inflection_to_headwords
@@ -444,7 +457,18 @@ def tpr_updater(g: ProgData):
     sql_string = ""
     sql_string += "BEGIN TRANSACTION;\n"
     sql_string += "DROP TABLE IF EXISTS dpd;\n"
-    sql_string += """CREATE TABLE dpd ("id" INTEGER, "word" TEXT, "definition" TEXT, "book_id" INTEGER);\n"""
+    # sql_string += """CREATE TABLE dpd ("id" INTEGER, "word" TEXT, "definition" TEXT, "book_id" INTEGER);\n"""
+    sql_string += """CREATE TABLE "dpd" (
+        "id" INTEGER,
+        "word" TEXT,
+        "definition" TEXT, 
+        "book_id" INTEGER,
+        "has_inflections" INTEGER DEFAULT 0,
+        "has_root_family" INTEGER DEFAULT 0,
+        "has_compound_family" INTEGER DEFAULT 0,
+        "has_word_family" INTEGER DEFAULT 0,
+        "has_freq" INTEGER DEFAULT 0
+    );\n"""
     sql_string += "DELETE FROM dpd_inflections_to_headwords;\n"
     sql_string += "DELETE FROM dpd_word_split;\n"
     sql_string += "COMMIT;\n"
@@ -522,6 +546,7 @@ def copy_zip_to_tpr_downloads(g: ProgData):
                 "name": f"DPD {month_str} {year} release",
                 "release_date": f"{day}.{month}.{year}",
                 "type": "dictionary",
+                "category": "Dictionaries",
                 "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/release_zips/dpd.zip",
                 "filename": "dpd.sql",
                 "size": f"{filesize} MB"
@@ -539,12 +564,13 @@ def copy_zip_to_tpr_downloads(g: ProgData):
                 "name": "DPD Beta",
                 "release_date": f"{day}.{month}.{year}",
                 "type": "dictionary",
+                "category": "Other Beta",
                 "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/release_zips/dpd_beta.zip",
                 "filename": "dpd.sql",
                 "size": f"{filesize} MB"
             }
 
-            download_list[15] = dpd_beta_info
+            download_list[27] = dpd_beta_info
 
         with open(g.pth.tpr_download_list_path, "w") as f:
             f.write(json.dumps(download_list, indent=4, ensure_ascii=False))
