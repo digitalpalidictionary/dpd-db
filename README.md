@@ -26,7 +26,7 @@ It is made available publicly through a  [Creative Commons Attribution-NonCommer
 
 DPD is searchable online [www.dpdict.net](https://www.dpdict.net/)
 
-You can always get the latest version of DPD for your device directly from the [releases page](https://github.com/digitalpalidictionary/dpd-db/releases)) on GitHub.
+You can always get the latest version of DPD for your device directly from the [releases page](https://github.com/digitalpalidictionary/dpd-db/releases) on GitHub.
 
 Here are detailed instructions on how to install DPD for [Win](https://docs.dpdict.net/install_win.html) /  [Mac](https://docs.dpdict.net/install_mac.html) / [Linux](https://docs.dpdict.net/install_linux.html) / [iOS](https://docs.dpdict.net/install_ios.html) / [Android](https://docs.dpdict.net/install_android_dicttango.html), and [update](https://docs.dpdict.net/update.html) thereafter.
 
