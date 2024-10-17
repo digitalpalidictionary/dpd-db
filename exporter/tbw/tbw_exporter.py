@@ -9,7 +9,6 @@ Export to `TBW2` and `sc-data` repos
 """
 
 import json
-import shutil
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup
