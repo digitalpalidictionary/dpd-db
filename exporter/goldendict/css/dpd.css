@@ -189,7 +189,6 @@ a.button:hover {
     display: none;
 }
 
-
 table.freq th,
 table.freq td {
     vertical-align: middle;
@@ -526,8 +525,15 @@ div.epd {
     text-align: left;
 }
 
-b.epd {
-    color: #8B008B;
+.epd p {
+    line-height: 150%;
+    margin: 0px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.epd b {
+    color:#8B008B;
     font-weight: 700;
 }
 
