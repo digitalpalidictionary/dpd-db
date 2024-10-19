@@ -182,7 +182,11 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
         delete_original=False
     )   
 
-    export_to_goldendict_with_pyglossary(dict_info, dict_var, g.dict_data)
+    export_to_goldendict_with_pyglossary(
+        dict_info, dict_var, g.dict_data,
+        zip_synonyms=True,
+        include_slob=False
+    )
 
     if g.make_mdict and g.data_limit == 0:
         export_to_mdict(dict_info, dict_var, g.dict_data)
