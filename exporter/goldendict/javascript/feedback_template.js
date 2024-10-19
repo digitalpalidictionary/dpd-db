@@ -16,7 +16,7 @@ function makeFeedback(data) {
         to add missing words, especially from Vinaya, commentaries, and other later texts.
         If you prefer to work offline, here is a 
         <a class="link" download="true" 
-        href="https://github.com/digitalpalidictionary/dpd-db/raw/main/docs/DPD%20Add%20Words.xlsx" 
+        href="https://github.com/digitalpalidictionary/dpd-db/raw/main/misc/DPD%20Add%20Words.xlsx" 
         target="_blank">
         spreadsheet to download</a><span>, fill in and submit. </span>
     </p>
