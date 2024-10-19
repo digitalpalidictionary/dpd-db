@@ -1,4 +1,8 @@
 word	pos	position	type	exceptions
+suppaguṇa	any	last	kammadhāraya	x
+paguṇa	any	last	kammadhāraya	x
+nimitta	any	last	chaṭṭhī	abyagganimitta, asubhanimitta, gahitanimitta, pubbanimitta 1, pubbanimitta 2, sabbanimitta, subhanimitta, suggahītanimitta
+nuda	any	last	dutiyā	x
 loha	any	first	chaṭṭhī	lohasīsa
 paṭicca	any	last	dutiyā	x
 ga	any	last	dutiyā	uraga 1, pannaga, vidugga 1, uraga 2

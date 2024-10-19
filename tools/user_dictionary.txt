@@ -749,6 +749,7 @@ exfoliant
 exhorter
 expansions
 expectance
+expected
 experienceable
 experientially
 exposit
@@ -784,6 +785,7 @@ fly's
 fodder-ish
 footless
 footlessness
+foresign
 forestless
 fortnights
 foundationless
@@ -1681,6 +1683,7 @@ perplexity
 pers
 Persians
 perturbance
+pervasion
 Peṭakopadesa
 Petavatthu
 petit
@@ -1739,6 +1742,8 @@ prionitis
 pro-rata
 proclaimer
 procures
+prognostic
+prognostication
 prognosticative
 proliferating
 promulgates
@@ -2088,6 +2093,7 @@ Sudinna
 Sudinna's
 suffering
 suffuses
+suffusion
 sugata-span
 Sujā's
 sullenness
@@ -2405,6 +2411,7 @@ unskilful
 unskilled-ness
 unsmeared
 unsnarled
+unsoiled
 unsplittable
 unspotted
 unstartled

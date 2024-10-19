@@ -46,6 +46,8 @@ weasyprint = "^62.3"
 pandoc = "^2.3"
 gitpython = "^3.1.43"
 numpy = "1.23.2"
+dbfread = "^2.0.7"
+dbf = "^0.99.9"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"
