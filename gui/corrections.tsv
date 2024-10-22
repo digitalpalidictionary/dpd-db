@@ -2340,7 +2340,7 @@ n'<b>āññam'aññassa</b> dukkham'iccheyya."	missing		yes
 3383	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	tatra su'daṃ bhagavā sato sampajāno <b>adhivāsesi</b> avihaññamāno. atha kho bhagavato etadahosi, na kho me taṃ patirūpaṃ, yo'haṃ anāmantetvā upaṭṭhāke anapaloketvā bhikkhusaṅghaṃ parinibbāyeyyaṃ.	missing		yes		
 3678	meaning_1	no secret teaching					missing		yes		
 3678	compound_type	kammadhāraya	compound_construction	na + antara			missing		yes		
-3678	antonym	antara					missing	there is no antonym to this	no		
+3678	antonym	antara					missing	there is no antonym to this	no	yes	
 3678	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	desito, ānanda, mayā dhammo <b>anantaraṃ</b> abāhiraṃ karitvā. natthānanda, tathāgatassa dhammesu ācariyamuṭṭhi.	missing		yes		
 3678	family_compound	antara					missing		yes		
 3914	source_2	SN47.29	sutta_2	satipaṭṭhānasaṃyuttaṃ, sirivaḍḍhasuttaṃ	example_2	lābhā te, gahapati, suladdhaṃ te, gahapati! <b>anāgāmiphalaṃ</b> tayā, gahapati, byākatan'ti.	missing		yes		
@@ -2365,7 +2365,7 @@ n'<b>āññam'aññassa</b> dukkham'iccheyya."	missing		yes
 15034	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	api ca me, bhante, ahosi kācideva assāsamattā, na tāva bhagavā parinibbāyissati, na yāva bhagavā bhikkhusaṅghaṃ ārabbha kiñ'ci'd'eva <b>udāharatī</b>'ti.	missing		yes		
 15034	trans	trans					missing		yes		
 15034	plus_case	+acc					missing		yes		
-15398	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	idh'ev'āhaṃ veḷuvagāmake vassaṃ <b>upagacchāmī</b>'ti. evaṃ, bhante'ti kho te bhikkhū bhagavato paṭissutvā samantā vesāliyā yathāmittaṃ yathāsandiṭṭhaṃ yathāsambhattaṃ vassaṃ <b>upagacchuṃ</b>.	missing	this should be a new meaning; enters	no		
+15398	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	idh'ev'āhaṃ veḷuvagāmake vassaṃ <b>upagacchāmī</b>'ti. evaṃ, bhante'ti kho te bhikkhū bhagavato paṭissutvā samantā vesāliyā yathāmittaṃ yathāsandiṭṭhaṃ yathāsambhattaṃ vassaṃ <b>upagacchuṃ</b>.	missing	this should be a new meaning; enters	no	yes	
 15406	source_2	SN47.9	sutta_2	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_2	atha kho bhagavato vass'<b>ūpagatassa</b> kharo ābādho uppajji, bāḷhā vedanā vattanti māraṇ'antikā. tatra su'daṃ bhagavā sato sampajāno adhivāsesi avihaññamāno.	missing		yes		
 27808	meaning_1	decrepit old cart; very old wagon					missing		yes		
 27808	compound_type	kammadhāraya	compound_construction	jajjara + sakaṭa			missing		yes		
@@ -2374,10 +2374,10 @@ n'<b>āññam'aññassa</b> dukkham'iccheyya."	missing		yes
 27808	family_compound	jajjara sakaṭa					missing		yes		
 27808	construction	jajjara + sakaṭa					missing		yes		
 27864	meaning_lit	accumulation of people					kāya lit. = accumulation		yes		
-20749	compound_type	tatiyā tappurisa	compound_construction	kas<b>āya</b> + hata			missing	i think its āhata	no		
-20749	sanskrit	kaśa + hata					missing	āhata	no		
+20749	compound_type	tatiyā tappurisa	compound_construction	kas<b>āya</b> + hata			missing	i think its āhata	no	yes	
+20749	sanskrit	kaśa + hata					missing	āhata	no	yes	
 20749	source_1	VIN3.1.31	sutta_1	mahākhandhako, kasāhatavatthu	example_1	bhagavato etam'atthaṃ ārocesuṃ. na, bhikkhave, <b>kas'āhato</b> katadaṇḍakammo pabbājetabbo. yo pabbājeyya, āpatti dukkaṭassā'ti.	missing		yes		
-20749	construction	kasā + Ahata					missing	āhata	no		
+20749	construction	kasā + Ahata					missing	āhata	no	yes	
 20749	meaning_1	who has been whipped; who has been flogged; who has been lashed					missing		yes		
 51010	source_1	AN4.34	sutta_1	cakkavaggo, aggappasādasuttaṃ	example_1	yāvatā, bhikkhave, dhammā saṅkhatā vā asaṅkhatā vā, virāgo tesaṃ aggam'akkhāyati, yadidaṃ <b>madanimmadano</b> pipāsavinayo ālayasamugghāto vaṭṭupacchedo taṇhākkhayo virāgo nirodho nibbānaṃ.	missing		yes		
 46154	meaning_1	removal of thirst; dispelling of craving					missing		yes		
@@ -2421,65 +2421,64 @@ n'<b>āññam'aññassa</b> dukkham'iccheyya."	missing		yes
 67861	source_1		sutta_1		example_1		wrong ex		yes		
 78692	meaning_1	(of a sleeping posture, or seat) adopts; takes up; assumes; lies down (in); sits (on)					add flavor from AN 1		yes		
 78692	source_2	VIN PAT AN 1	sutta_2	paṭhamaaniyatasikkhāpadaṃ	example_2	yo pana bhikkhu mātugāmena saddhiṃ eko ekāya raho paṭicchanne āsane alaṃkammaniye nisajjaṃ <b>kappeyya</b>	missing		yes		
-23515	source_1	VIN PAT SE	sutta_1	sekkhiyā	example_1	<b>khambhakatavaggo</b> tatiyo.	missing	not really an example	no		
+23515	source_1	VIN PAT SE	sutta_1	sekkhiyā	example_1	<b>khambhakatavaggo</b> tatiyo.	missing	not really an example	no	yes	
 23515	compound_type	kammadhāraya	compound_construction	khambhakata + vagga			missing		yes		
 23515	sanskrit	skambhākṛta (bsk) + varga					missing		yes		
-23212	source_1	VIN PAT NP	sutta_1	nissaggiyapācittiyā	example_1	<b>kosiyavaggo</b> dutiyo	missing	not really an example	no		
+23212	source_1	VIN PAT NP	sutta_1	nissaggiyapācittiyā	example_1	<b>kosiyavaggo</b> dutiyo	missing	not really an example	no	yes	
 23212	compound_type	kammadhāraya	compound_construction	kosiya + vagga			missing		yes		
-54527	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>ratanavaggo</b> navamo	missing	not really an example	no		
+54527	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>ratanavaggo</b> navamo	missing	not really an example	no	yes	
 54527	compound_type	kammadhāraya	compound_construction	ratana + vagga			missing		yes		
 54527	sanskrit	ratna + varga					missing		yes		
-20166	source_1	VIN PAT SE	sutta_1	sekhiyā	example_1	<b>kabaḷavaggo</b> pañcamo.	missing	not really an example	no		
+20166	source_1	VIN PAT SE	sutta_1	sekhiyā	example_1	<b>kabaḷavaggo</b> pañcamo.	missing	not really an example	no	yes	
 20166	compound_type	kammadhāraya	compound_construction	kabaḷa + vagga			missing		yes		
 20166	sanskrit	kavala + varga					missing		yes		
-50390	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>bhojanavaggo</b> catuttho.	missing	not really an example	no		
+50390	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>bhojanavaggo</b> catuttho.	missing	not really an example	no	yes	
 50390	compound_type	kammadhāraya	compound_construction	bhojana + vagga			missing		yes		
-56392	source_1	VIN PAT SE	sutta_1	sekhiyā	example_1	<b>sakkaccavaggo</b> catuttho.	missing	not really an example	no		
+56392	source_1	VIN PAT SE	sutta_1	sekhiyā	example_1	<b>sakkaccavaggo</b> catuttho.	missing	not really an example	no	yes	
 56392	compound_type	kammadhāraya	compound_construction	sakkacca + vagga			missing		yes		
 56392	sanskrit	satkṛtya + varga					missing		yes		
-64364	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>surāpānavaggo</b> chaṭṭho.	missing	not really an example	no		
+64364	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>surāpānavaggo</b> chaṭṭho.	missing	not really an example	no	yes	
 64364	compound_type	kammadhāraya	compound_construction	surāpāna + vagga			missing		yes		
 182	source_2	VIN PAT SA 12	sutta_2	dubbacasikkhāpadaṃ	example_2	m'āyasmā attānaṃ avacanīyaṃ <b>akāsi</b>, vacanīyam'ev'āyasmā attānaṃ karotu, āyasmā'pi bhikkhū vadatu sahadhammena, bhikkhū'pi āyasmantaṃ vakkhanti sahadhammena	change comm example		yes		
-918	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>acelakavaggo</b> pañcamo.	missing	not really an example	no		
+918	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>acelakavaggo</b> pañcamo.	missing	not really an example	no	yes	
 918	compound_type	kammadhāraya	compound_construction	acelaka + vagga			missing		yes		
 43877	compound_type	kammadhāraya	compound_construction	parimaṇḍala + vagga			missing		yes		
 43877	sanskrit	parimaṇḍala + varga					missing		yes		
-43877	source_1	VIN PAT SE	sutta_1	sekhiyā	example_1	<b>parimaṇḍalavaggo</b> paṭhamo.	missing	not really an example	no		
+43877	source_1	VIN PAT SE	sutta_1	sekhiyā	example_1	<b>parimaṇḍalavaggo</b> paṭhamo.	missing	not really an example	no	yes	
 41912	compound_type	kammadhāraya	compound_construction	patta + vagga			missing		yes		
 41912	sanskrit	pātra + varga					missing		yes		
-41912	source_1	VIN PAT NP	sutta_1	nissaggiyapācittiyā	example_1	<b>pattavaggo</b> tatiyo.	missing	not really an example	no		
+41912	source_1	VIN PAT NP	sutta_1	nissaggiyapācittiyā	example_1	<b>pattavaggo</b> tatiyo.	missing	not really an example	no	yes	
 61396	compound_type	kammadhāraya	compound_construction	sahadhammika + vagga			missing		yes		
 61396	sanskrit	sahadhārmika + varga					missing		yes		
-61396	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>sahadhammikavaggo</b> aṭṭhamo.	missing	not really an example	no		
+61396	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>sahadhammikavaggo</b> aṭṭhamo.	missing	not really an example	no	yes	
 50163	compound_type	kammadhāraya	compound_construction	bhūtagāma + vagga			missing		yes		
-50163	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>bhūtagāmavaggo</b> dutiyo.	missing	not really an example	no		
+50163	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>bhūtagāmavaggo</b> dutiyo.	missing	not really an example	no	yes	
 20643	compound_type	catutthī tappurisa	compound_construction	kalyāṇ<b>assa</b> + kamyatā			missing		yes		
 20643	sanskrit	kalyāṇa + kāmyatva					missing		yes		
 20643	source_1	VIN PAT NP 8	sutta_1	paṭhamaupakkhaṭasikkhāpadaṃ	example_1	sādhu vata maṃ āyasmā iminā cīvaracetāpannena evarūpaṃ vā evarūpaṃ vā cīvaraṃ cetāpetvā acchādehī'ti <b>kalyāṇakamyataṃ</b> upādāya, nissaggiyaṃ pācittiyaṃ.	missing		yes		
-								doesnt exist	no		
 53059	compound_type	kammadhāraya	compound_construction	musāvāda + vagga			missing		yes		
-53059	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>musāvādavaggo</b> paṭhamo.	missing	not really an example	no		
+53059	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>musāvādavaggo</b> paṭhamo.	missing	not really an example	no	yes	
 19885	compound_type	kammadhāraya	compound_construction	kathina + vagga			missing		yes		
 19885	sanskrit	kaṭhina + varga					missing		yes		
-19885	source_1	VIN PAT NP	sutta_1	nissaggiyapācittiyā	example_1	<b>kathinavaggo</b> paṭhamo.	missing	not really an example	no		
+19885	source_1	VIN PAT NP	sutta_1	nissaggiyapācittiyā	example_1	<b>kathinavaggo</b> paṭhamo.	missing	not really an example	no	yes	
 14420	compound_type	kammadhāraya	compound_construction	ujjagghikā + vagga			missing		yes		
 14420	sanskrit	ud + ghagh + varga					missing		yes		
-14420	source_1	VIN PAT SE	sutta_1	sekhiyā	example_1	<b>ujjagghikavaggo</b> dutiyo.	missing	not really an example	no		
+14420	source_1	VIN PAT SE	sutta_1	sekhiyā	example_1	<b>ujjagghikavaggo</b> dutiyo.	missing	not really an example	no	yes	
 45536	compound_type	kammadhāraya	compound_construction	pāduka + vagga			missing		yes		
 45536	sanskrit	pādukā + varga					missing		yes		
-45536	source_1	VIN PAT SE	sutta_1	sekhiyā	example_1	<b>pādukavaggo</b> sattamo.	missing	not really an example	no		
+45536	source_1	VIN PAT SE	sutta_1	sekhiyā	example_1	<b>pādukavaggo</b> sattamo.	missing	not really an example	no	yes	
 64405	compound_type	kammadhāraya	compound_construction	surusuru + vagga			missing		yes		
 64405	sanskrit	śuścu + varga					missing		yes		
-64405	source_1	VIN PAT SK	sutta_1	sekhiyā	example_1	<b>surusuruvaggo</b> chaṭṭho.	missing	not really an example	no		
+64405	source_1	VIN PAT SK	sutta_1	sekhiyā	example_1	<b>surusuruvaggo</b> chaṭṭho.	missing	not really an example	no	yes	
 58702	compound_type	kammadhāraya	compound_construction	sappāṇaka + vagga			missing		yes		
 58702	sanskrit	saprāṇa + varga					missing		yes		
-58702	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>sappāṇakavaggo</b> sattamo.	missing	not really an example	no		
+58702	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>sappāṇakavaggo</b> sattamo.	missing	not really an example	no	yes	
 50161	compound_type	chaṭṭhī tappurisa	compound_construction	bhūtagām<b>assa</b> + pātabyatā			missing		yes		
 50161	sanskrit	bhūtagrāma + pāta + vya +					missing		yes		
 50161	source_1	VIN PAT PC 11	sutta_1	bhūtagāmasikkhāpadaṃ	example_1	<b>bhūtagāmapātabyatāya</b> pācittiyaṃ.	missing		yes		
 19102	compound_type	kammadhāraya	compound_construction	ovāda + vagga			missing		yes		
 19102	sanskrit	avavāda + varga					missing		yes		
-19102	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>ovādavaggo</b> tatiyo.	missing	not really an example	no		
+19102	source_1	VIN PAT PC	sutta_1	suddhapācittiyā	example_1	<b>ovādavaggo</b> tatiyo.	missing	not really an example	no	yes	
 7503	meaning_1	(if) they would have been; (if) those would be					from ex and as abhavissa		yes		
 3512	source_2	AN5.152	sutta_2	dutiyasammattaniyāmasuttaṃ	example_2	katamehi pañcahi? kathaṃ paribhoti, kathikaṃ paribhoti, attānaṃ paribhoti, duppañño hoti jaḷo eḷamūgo, <b>anaññāte</b> aññātamānī hoti.	sutta ex		yes		
 3512	family_compound	aññāta					missing		yes		
@@ -2509,7 +2508,7 @@ n'<b>āññam'aññassa</b> dukkham'iccheyya."	missing		yes
 51414	family_compound	mama uddesa					missing		yes		
 51414	construction	mama + uddesika					missing		yes		
 51414	meaning_1	meant for me; intended for me					missing		yes		
-52380	compound_type	chaṭṭhī tappurisa	compound_construction	māraṇ<b>āya</b> + antika			missing	its kammadhāraya, death = end	no		
+52380	compound_type	chaṭṭhī tappurisa	compound_construction	māraṇ<b>āya</b> + antika			missing	its kammadhāraya, death = end	no	yes	
 52380	sanskrit	māraṇa + antika					missing		yes		
 52380	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	atha kho bhagavato vass'ūpagatassa kharo ābādho uppajji, bāḷhā vedanā vattanti <b>māraṇ'antikā</b>.	missing		yes		
 52380	family_compound	maraṇa anta					missing	maraṇa family compound, the māraṇa comes from *ika	yes		
@@ -2649,7 +2648,7 @@ savattha + *ī"					error		yes
 45263	compound_type	dutiyā tappurisa	compound_construction	pācīn<b>aṃ</b> + poṇa			missing	dutiyā	yes		
 45263	sanskrit	prācīna + pravaṇa					missing		yes		
 65096	source_1	SN45.2	sutta_1	maggasaṃyuttaṃ, upaḍḍhasuttaṃ	example_1	mamañ'hi, ānanda, kalyāṇamittaṃ āgamma jātidhammā sattā jātiyā parimuccanti, jarādhammā sattā jarāya parimuccanti, maraṇadhammā sattā maraṇena parimuccanti, <b>sokaparidevadukkhadomanassupāyāsadhammā</b> sattā sokaparidevadukkhadomanassupāyāsehi parimuccanti.	missing		yes		
-65096	compound_type	chaṭṭhī tappurisa	compound_construction	sokaparidevadukkhadomanassupāyās<b>ānaṃ</b> + dhamma			missing	not sure	no		
+65096	compound_type	chaṭṭhī tappurisa	compound_construction	sokaparidevadukkhadomanassupāyās<b>ānaṃ</b> + dhamma			missing	not sure	no	yes	
 65096	sanskrit	śoka + parideva + duḥkha + daurmanasya + upāyāsa (bsk) + dharma					missing		yes		
 63395	source_2	SN45.160	sutta_2	maggasaṃyuttaṃ, nadīsuttaṃ	example_2	gaṅgā, bhante, nadī pācīnaninnā pācīnapoṇā pācīnapabbhārā. sā na <b>sukarā</b> pacchāninnaṃ kātuṃ pacchāpoṇaṃ pacchāpabbhāraṃ.	missing		yes		
 39614	source_1	SN45.160	sutta_1	maggasaṃyuttaṃ, nadīsuttaṃ	example_1	gaṅgā, bhante, nadī pācīnaninnā pācīnapoṇā pācīnapabbhārā. sā na sukarā pacchāninnaṃ kātuṃ pacchāpoṇaṃ <b>pacchāpabbhāraṃ</b>.	missing		yes		
@@ -2736,7 +2735,7 @@ savattha + *ī"					error		yes
 63965	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	suddhiñ'ca vo, bhikkhave, desessāmi <b>suddhigāmiñ</b>'ca maggaṃ. taṃ suṇātha.	missing		yes		
 63965	sanskrit	śuddhi + gāmin					missing		yes		
 49018	meaning_1	sublime state; heavenly state; divine dwelling					since it is in notes, no need duplication		yes		
-61729	meaning_1	contact (with); connection (with); intimacy (with)					error	this is worth a discuccion. more and more i just put one preposition if they are all the same	no		
+61729	meaning_1	contact (with); connection (with); intimacy (with)					error	this is worth a discuccion. more and more i just put one preposition if they are all the same	no	yes	
 15480	trans	trans					missing		yes		
 15480	source_1	VIN3.8.203	sutta_1	cīvarakkhandhako, seṭṭhibhariyāvatthu	example_1	mayaṃ kho, ācariya, āgārikā nāma <b>upajānām</b>'etassa saṃyamassa. varam'etaṃ sappi dāsānaṃ vā kammakarānaṃ vā pādabbhañjanaṃ vā padīpakaraṇe vā āsittaṃ.	missing		yes		
 15480	construction	upa + jānā + ti					missing		yes		
@@ -2807,3 +2806,17 @@ savattha + *ī"					error		yes
 13088	meaning_1	pulls (towards); tugs (to); incline (towards)					as in antonym		yes		
 7519	meaning_lit	not to cause to be					like antonym		yes		
 64321	meaning_1	name of the people of Sumbha; Sumbhans					typo		yes		
+37091	meaning_1	attained perfection; completed; finished					pp				
+52907	meaning_1	sensed; perceived; (or) thought; (comm) smelled, tasted, touched					"dont think that ""or"" in comm"				
+10718	meaning_1	intention of not harming; thought of non-cruelty					same as avihiṃsāsaṅkappa or kāmasaṅkappa or nekkhammasaṅkappa considering both meanings of saṅkappa				
+7434	meaning_1	kind intention; good thought					same as avihiṃsāsaṅkappa or kāmasaṅkappa or nekkhammasaṅkappa considering both meanings of saṅkappa				
+60835	meaning_1	correct intention; right volition; proper thought					same as avihiṃsāsaṅkappa or kāmasaṅkappa or nekkhammasaṅkappa considering both meanings of saṅkappa				
+60836	meaning_1	with correct intention; having right volition; with proper thought					same as avihiṃsāsaṅkappa or kāmasaṅkappa or nekkhammasaṅkappa considering both meanings of saṅkappa				
+48856	meaning_1	malevolent intention; malicious wish; thought of ill-ill					same as avihiṃsāsaṅkappa or kāmasaṅkappa or nekkhammasaṅkappa considering both meanings of saṅkappa				
+69735	meaning_1	intention to harm; cruel intention; thought of violence					same as avihiṃsāsaṅkappa or kāmasaṅkappa or nekkhammasaṅkappa considering both meanings of saṅkappa				
+56595	notes	see saṅkappa 2					since saṅkappa un comp can have both meanings				
+50619	meaning_lit	to be dead					not caus				
+21496	meaning_1	organic brown colour robe; monk's robe					sg, no?		
+37420	meaning_1	leading to the absence of proliferation; going to not forming various opinions					more fitting context		
+12479	meaning_1	delightfulness of a park; loveliness of a grove					typos		
+60726	meaning_1	with fixed destiny in goodness; with inevitable results from rightness					synonim		
