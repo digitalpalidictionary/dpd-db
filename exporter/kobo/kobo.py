@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 """Export simplified DPD data for Kobo Reader"""
+
 from jinja2 import Environment, FileSystemLoader
 
 from db.db_helpers import get_db_session

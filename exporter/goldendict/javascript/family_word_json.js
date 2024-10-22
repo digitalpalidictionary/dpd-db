@@ -17310,17 +17310,6 @@ var family_word_json = {
   ],
   "count": 2
  },
- "ahundara": {
-  "data": [
-   [
-    "āhundarika",
-    "adj",
-    "crowded; blocked up (with); full (of)",
-    "✓"
-   ]
-  ],
-  "count": 1
- },
  "iti": {
   "data": [
    [
@@ -22101,9 +22090,15 @@ var family_word_json = {
     "masc",
     "(of water) mouthful; cupped handful",
     "✓"
+   ],
+   [
+    "gaṇḍūsa 2",
+    "masc",
+    "medicinal oil",
+    "✗"
    ]
   ],
-  "count": 1
+  "count": 2
  },
  "gandhabba": {
   "data": [
@@ -24101,13 +24096,19 @@ var family_word_json = {
  "taṭṭa": {
   "data": [
    [
+    "taṭṭa",
+    "masc",
+    "platter; tray",
+    "~"
+   ],
+   [
     "taṭṭaka",
     "masc",
     "platter; tray",
     "✓"
    ]
   ],
-  "count": 1
+  "count": 2
  },
  "taṇḍula": {
   "data": [
@@ -29357,13 +29358,19 @@ var family_word_json = {
  "madda": {
   "data": [
    [
+    "maddā",
+    "masc",
+    "name of a people",
+    "✓"
+   ],
+   [
     "maddī",
     "fem",
     "name of a princess; daughter of king Madda",
     "✓"
    ]
   ],
-  "count": 1
+  "count": 2
  },
  "mandāru": {
   "data": [
@@ -31056,8 +31063,8 @@ var family_word_json = {
    [
     "vedeha",
     "adj",
-    "belonging to the Videha country",
-    "✗"
+    "belonging to the Videha country; Videhan",
+    "✓"
    ],
    [
     "vedehikā",

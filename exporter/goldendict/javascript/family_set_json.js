@@ -20579,7 +20579,7 @@ var family_set_json = {
    [
     "maddā",
     "masc",
-    "name of people; lit. crushing",
+    "name of a people",
     "✓"
    ],
    [
@@ -25061,12 +25061,6 @@ var family_set_json = {
     "✓"
    ],
    [
-    "vāmagotta",
-    "masc",
-    "name of a prince in a Jātaka story; previous incarnation of Mahākassapa",
-    "✓"
-   ],
-   [
     "vāsabhā",
     "fem",
     "name of a king Pasenadi's second queen; lit. belonging to the stud bull",
@@ -25151,7 +25145,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 70
+  "count": 69
  },
  "six ascetic teachers": {
   "data": [
@@ -36144,17 +36138,6 @@ var family_set_json = {
   ],
   "count": 5
  },
- "previous incarnations of Sāriputta": {
-  "data": [
-   [
-    "candakumāra",
-    "masc",
-    "name of a prince; previous incarnation of Sāriputta; lit. prince moon",
-    "✓"
-   ]
-  ],
-  "count": 1
- },
  "five liberations": {
   "data": [
    [
@@ -36464,17 +36447,6 @@ var family_set_json = {
   ],
   "count": 1
  },
- "previous incarnations of Moggallāna": {
-  "data": [
-   [
-    "bhaddasena",
-    "masc",
-    "name of a prince in a Jātaka story; son of king Ekarāja; previous incarnation of Moggallāna; lit. having a good army",
-    "✓"
-   ]
-  ],
-  "count": 1
- },
  "books of the Majjhima Nikāya": {
   "data": [
    [
@@ -36532,34 +36504,6 @@ var family_set_json = {
    ]
   ],
   "count": 5
- },
- "previous incarnations of Mahākassapa": {
-  "data": [
-   [
-    "vāmagotta",
-    "masc",
-    "name of a prince in a Jātaka story; previous incarnation of Mahākassapa",
-    "✓"
-   ]
-  ],
-  "count": 1
- },
- "jātaka characters": {
-  "data": [
-   [
-    "vāmagotta",
-    "masc",
-    "name of a prince in a Jātaka story; previous incarnation of Mahākassapa",
-    "✓"
-   ],
-   [
-    "sālaka 1",
-    "masc",
-    "name of a monkey in a Jātaka story",
-    "✓"
-   ]
-  ],
-  "count": 2
  },
  "chief disciples": {
   "data": [

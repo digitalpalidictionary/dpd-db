@@ -26270,9 +26270,9 @@ var family_root_json = {
     "~"
    ],
    [
-    "atikkantikā",
-    "fem",
-    "transgressing; overstepping the bounds; lit. going too far",
+    "atikkantika",
+    "adj",
+    "transgressing; overstepping; going beyond; lit. going too far",
     "✓"
    ],
    [
@@ -51683,12 +51683,18 @@ var family_root_json = {
   "root_key": "√is",
   "root_family": "ā √is",
   "root_meaning": "wish for",
-  "count": 6,
+  "count": 7,
   "data": [
    [
     "anāsa",
     "adj",
     "without longing; desireless",
+    "✓"
+   ],
+   [
+    "anāsā",
+    "fem",
+    "something unexpected",
     "✓"
    ],
    [
@@ -114577,7 +114583,7 @@ var family_root_json = {
   "root_key": "√ruh",
   "root_family": "abhi √ruh",
   "root_meaning": "ascend, grow",
-  "count": 21,
+  "count": 22,
   "data": [
    [
     "abhiruyha",
@@ -114662,6 +114668,12 @@ var family_root_json = {
     "nt",
     "ascension, climbing, embarking",
     "✗"
+   ],
+   [
+    "abhirūhitvā",
+    "abs",
+    "having climbed up; having climbed on top (of); having ascended",
+    "✓"
    ],
    [
     "abhirūhiya",
@@ -117201,7 +117213,7 @@ var family_root_json = {
   "root_key": "√mad",
   "root_family": "√mad",
   "root_meaning": "be mad, be intoxicated",
-  "count": 52,
+  "count": 53,
   "data": [
    [
     "amajja 1.1",
@@ -117262,6 +117274,12 @@ var family_root_json = {
     "prp",
     "being without pride (in); not being intoxicated (with conceit)",
     "~"
+   ],
+   [
+    "nimmadīyati",
+    "pr",
+    "is humbled; is subdued; lit. is de-intoxicated",
+    "✓"
    ],
    [
     "nimmadeti",
@@ -132365,7 +132383,7 @@ var family_root_json = {
   "root_key": "√lamb",
   "root_family": "ava √lamb",
   "root_meaning": "hang",
-  "count": 23,
+  "count": 24,
   "data": [
    [
     "avalambati",
@@ -132486,6 +132504,12 @@ var family_root_json = {
     "pr",
     "makes hang down, lets hang down; suspends",
     "✗"
+   ],
+   [
+    "olambetvā",
+    "abs",
+    "having made hang down; having suspended; lit. having caused to hang down",
+    "✓"
    ],
    [
     "olambenta 1",
@@ -138553,7 +138577,7 @@ var family_root_json = {
   "root_key": "√nī",
   "root_family": "vi √nī",
   "root_meaning": "lead, carry",
-  "count": 41,
+  "count": 42,
   "data": [
    [
     "avinaya",
@@ -138656,6 +138680,12 @@ var family_root_json = {
     "pp",
     "removed; taken away",
     "~"
+   ],
+   [
+    "vinīyati",
+    "pr",
+    "is removed; lit. is lead away",
+    "✓"
    ],
    [
     "vinetabba",
@@ -150399,7 +150429,7 @@ var family_root_json = {
   "root_key": "√ghaṭ 1",
   "root_family": "saṃ ud √ghaṭ",
   "root_meaning": "strike, kill",
-  "count": 12,
+  "count": 13,
   "data": [
    [
     "asamugghātita",
@@ -150454,6 +150484,12 @@ var family_root_json = {
     "pp",
     "abolished, uprooted, removed, destroyed",
     "✗"
+   ],
+   [
+    "samugghātīyati",
+    "pr",
+    "is abolished; is eradicated; is exterminated; lit. causes to be be",
+    "✓"
    ],
    [
     "samugghāteti",
@@ -188033,7 +188069,7 @@ var family_root_json = {
   "root_key": "√nud",
   "root_family": "√nud",
   "root_meaning": "drive out, reject",
-  "count": 7,
+  "count": 8,
   "data": [
    [
     "nuṇṇa",
@@ -188070,6 +188106,12 @@ var family_root_json = {
     "abs",
     "having driven away, having expelled, having rejected",
     "✗"
+   ],
+   [
+    "nudeti",
+    "pr",
+    "drives out; expels; removes; lit. causes to drive out",
+    "✓"
    ],
    [
     "nunna",
@@ -202859,7 +202901,7 @@ var family_root_json = {
   "root_key": "√madd",
   "root_family": "√madd",
   "root_meaning": "crush, grind",
-  "count": 23,
+  "count": 22,
   "data": [
    [
     "mattika 2.1",
@@ -202925,12 +202967,6 @@ var family_root_json = {
     "maddanta 3",
     "prp",
     "(of grain) threshing; lit. crushing",
-    "✓"
-   ],
-   [
-    "maddā",
-    "masc",
-    "name of people; lit. crushing",
     "✓"
    ],
    [

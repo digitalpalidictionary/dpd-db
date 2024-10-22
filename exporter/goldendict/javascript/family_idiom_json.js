@@ -14014,6 +14014,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "āsā": {
+  "count": 1,
+  "data": [
+   [
+    "āsā ca niṭṭhā ca",
+    "idiom",
+    "hopes and aspirations; wishes and expectations",
+    "✓"
+   ]
+  ]
+ },
  "nicca": {
   "count": 2,
   "data": [
@@ -19047,17 +19058,6 @@ var family_idiom_json = {
     "āvi ceva raho ca",
     "idiom",
     "openly and even in private",
-    "✓"
-   ]
-  ]
- },
- "āsā": {
-  "count": 1,
-  "data": [
-   [
-    "āsā ca niṭṭhā ca",
-    "idiom",
-    "hopes and aspirations; wishes and expectations",
     "✓"
    ]
   ]
