@@ -76,6 +76,7 @@ table.grammar_ru b {
     font-weight: 700;
 }
 
+
 p.sutta_ru {
     color: #358109;
     font-style: italic;
@@ -182,7 +183,6 @@ a.button_ru:hover {
 .hidden {
     display: none;
 }
-
 
 table.freq th,
 table.freq td {
@@ -520,7 +520,14 @@ div.rpd {
     text-align: left;
 }
 
-b.rpd {
+.rpd p {
+    line-height: 150%;
+    margin: 0px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.rpd b {
     color:#358109;
     font-weight: 700;
 }

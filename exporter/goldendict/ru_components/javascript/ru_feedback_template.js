@@ -24,7 +24,7 @@ function makeFeedback_ru(data) {
         href="https://docs.google.com/forms/d/e/1FAIpQLSfResxEUiRCyFITWPkzoQ2HhHEvUS5fyg68Rl28hFH6vhHlaA/viewform?usp=pp_url&entry.1433863141=${progName}+${data.date}"
         target="_blank">онлайн-форму</a> для добавления отсутствующих слов, особенно из Винаи, комментариев и других поздних текстов. Если вы предпочитаете работать в автономном режиме, вот 
         <a class="link" download="true" 
-        href="https://github.com/digitalpalidictionary/dpd-db/raw/main/docs/DPD%20Add%20Words.xlsx" 
+        href="https://github.com/digitalpalidictionary/dpd-db/raw/main/misc/DPD%20Add%20Words.xlsx" 
         target="_blank">таблица для загрузки</a>
         <span>
             , заполните и отправьте. 

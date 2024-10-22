@@ -6,6 +6,7 @@ set -e
 python -c "from tools.configger import print_config_settings; print_config_settings(['dictionary', 'goldendict', 'exporter'])"
 
 python -c "from tools.configger import config_update; config_update('exporter', 'language', 'ru')"
+python -c "from tools.configger import config_update; config_update('dictionary', 'link_url', 'https://find.dhamma.gift/bw/')"
 
 scripts/bash/generate_components.sh
 
@@ -30,6 +31,11 @@ exporter/goldendict/ru_components/tools/ru_zip_goldendict_mdict.py
 dps/scripts/move_mdict_ru.py
 
 python -c "from tools.configger import config_update; config_update('exporter', 'language', 'en')"
+python -c "from tools.configger import config_update; config_update('dictionary', 'link_url', 'http://filesrv1:8083/')"
+python -c "from tools.configger import config_update; config_update('exporter', 'make_ebook', 'no')"
+python -c "from tools.configger import config_update; config_update('exporter', 'make_deconstructor', 'no')"
+python -c "from tools.configger import config_update; config_update('exporter', 'make_grammar', 'no')"
+
 
 git checkout -- pyproject.toml
 

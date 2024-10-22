@@ -479,4 +479,4 @@ if __name__ == "__main__":
     if config_test("anki", "update", "yes"):
         main()
     else:
-        print("updating is disabled in the config")
+        print("anki updating is disabled in the config")

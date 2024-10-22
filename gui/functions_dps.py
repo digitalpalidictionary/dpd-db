@@ -644,8 +644,11 @@ def load_ranslaton_examples(dpspth):
     return pos_examples_map
 
 
-def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, pth, meaning, lemma_1, grammar, pos, suggestion_field, error_field, window, model_version, synonyms=False):
+def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, pth, meaning_in, lemma_1, grammar, pos, suggestion_field, error_field, window, values, model_version, synonyms=False):
     window[error_field].update("")
+
+    # Get the content of window "meaning_in"
+    meaning = values[meaning_in]
 
     pos_example_map = load_ranslaton_examples(dpspth)
 
