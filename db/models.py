@@ -227,6 +227,12 @@ class FamilyRoot(Base):
     def root_family_clean_no_space(self) -> str:
         """Remove root sign and space"""
         return self.root_family.replace("√", "").replace(" ", "")
+    
+    @property
+    def root_family_key_typst(self) -> str:
+        return self.root_family_key \
+            .replace(" ", "_") \
+            .replace("√", "")
 
     def __repr__(self) -> str:
         return f"FamilyRoot: {self.root_family_key} {self.count}"
@@ -697,12 +703,12 @@ class DpdHeadword(Base):
     def root_base_clean(self) -> str:
         from tools.meaning_construction import clean_construction
         return clean_construction(self.root_base)
-    
+
     @property
     def construction_summary(self) -> str:
         from tools.meaning_construction import summarize_construction
         return summarize_construction(self)
-    
+
     @property
     def construction_clean(self) -> str:
         from tools.meaning_construction import clean_construction
@@ -929,8 +935,114 @@ class DpdHeadword(Base):
             return json.loads(self.freq_data)
         else:
             return {}
+        
+    # typst
 
+    @property
+    def meaning_1_typst(self) -> str:
+        return self.meaning_1 \
+            .replace("*", r"\*")
 
+    @property
+    def meaning_2_typst(self) -> str:
+        return self.meaning_2 \
+            .replace("*", r"\*")
+
+    @property
+    def sanskrit_typst(self) -> str:
+        return self.sanskrit \
+            .replace("[", r"\[") \
+            .replace("]", r"\]")
+    
+    @property
+    def root_family_key_typst(self) -> str:
+        return self.root_family_key \
+            .replace(" ", "_") \
+            .replace("√", "")
+
+    @property
+    def root_base_typst(self) -> str:
+        return self.root_base.replace("*", "\\*")
+    
+    @property
+    def root_sign_typst(self) -> str:
+        return self.root_sign.replace("*", "\\*")
+
+    @property
+    def construction_typst(self) -> str:
+        return self.construction.replace("\n", r"\ ").replace("*", "\\*")
+
+    @property
+    def construction_summary_typst(self) -> str:
+        from tools.meaning_construction import summarize_construction
+        return summarize_construction(self).replace("*", "\\*")
+
+    @property
+    def suffix_typst(self) -> str:
+        return self.suffix.replace("*", "\\*")
+
+    @property
+    def compound_construction_typst(self) -> str:
+        return self.compound_construction \
+            .replace("*", "\\*") \
+            .replace("<b>", "#strong[") \
+            .replace("</b>", "]")
+
+    @property
+    def phonetic_typst(self) -> str:
+        return self.phonetic.replace("\n", r"\ ")
+    
+    @property
+    def commentary_typst(self) -> str:
+        return self.commentary\
+            .replace("\n", r"\ ") \
+            .replace("<b>", "#strong[") \
+            .replace("</b>", "]")
+
+    @property
+    def notes_typst(self) -> str:
+        return self.notes\
+            .replace("*", r"\*") \
+            .replace("\n", r"\ ") \
+            .replace("<b>", "#strong[") \
+            .replace("</b>", "]") \
+            .replace("<i>", "_") \
+            .replace("</i>", "_")
+
+    @property
+    def cognate_typst(self) -> str:
+        return self.cognate.replace("*", "\\*")
+    
+    @property
+    def link_typst(self) -> str:
+        link_string:str = ""
+        for website in self.link.split(" "):
+            link_string += f"""#link("{website}")\\n"""
+        return link_string
+
+    @property
+    def example_1_typst(self) -> str:
+        return self.example_1 \
+            .replace("\n", r"\ ") \
+            .replace("<b>", "#strong[") \
+            .replace("</b>", "]") \
+
+    @property
+    def example_2_typst(self) -> str:
+        return self.example_2 \
+            .replace("\n", r"\ ") \
+            .replace("<b>", "#strong[") \
+            .replace("</b>", "]")
+
+    @property
+    def sutta_1_typst(self) -> str:
+        return self.sutta_1.replace("\n", ", ")
+    
+    @property
+    def sutta_2_typst(self) -> str:
+        return self.sutta_2.replace("\n", ", ") \
+    
+    
     # needs_button
 
     @property
@@ -986,9 +1098,13 @@ class DpdHeadword(Base):
             and "idiom" not in self.pos
             and "?" not in self.compound_type
             and(
-                any(item in self.cf_set for item in self.family_compound_list) or
-                self.lemma_clean in self.cf_set #type:ignore
-            ))
+                any(item in self.cf_set for item in self.family_compound_list) 
+                or (
+                    self.lemma_clean in self.cf_set #type:ignore
+                    and not self.family_compound
+                )
+            )
+        )
 
         # alternative logic
         # i.meaning_1
@@ -1006,9 +1122,15 @@ class DpdHeadword(Base):
             and " " in self.family_compound
             and "sandhi" not in self.pos
             and "idiom" not in self.pos
+            and len(self.lemma_clean) < 30
             and(
                 any(item in self.cf_set for item in self.family_compound_list)
-                or self.lemma_clean in self.cf_set)) #type:ignore
+                or (
+                    self.lemma_clean in self.cf_set #type:ignore
+                    and not self.family_compound
+                )
+            )
+        )
 
     @property
     def needs_idioms_button(self) -> bool:

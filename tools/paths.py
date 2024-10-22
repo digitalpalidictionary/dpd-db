@@ -150,42 +150,16 @@ class ProjectPaths:
         self.tpr_output_dir = base_dir / "exporter/tpr/output"
         self.tpr_sql_file_path = base_dir / "exporter/tpr/output/dpd.sql"
 
-        # db/frequency/output
-        self.ebt_raw_text_path = base_dir / "db/frequency/output/raw_text/ebts.txt"
-        self.ebt_word_count_path = base_dir / "db/frequency/output/word_count/ebts.csv"
-        self.freq_html_dir = base_dir / "db/frequency/output/html/"
-        self.frequency_output_dir = base_dir / "db/frequency/output/"
-        self.raw_text_dir = base_dir / "db/frequency/output/raw_text/"
-        self.tipitaka_raw_text_path = base_dir / "db/frequency/output/raw_text/tipitaka.txt"
-        self.tipitaka_word_count_path = base_dir / "db/frequency/output/word_count/tipitaka.csv"
-        self.word_count_dir = base_dir / "db/frequency/output/word_count"
-
         # exporter/grammar_dict/output
         self.grammar_dict_output_dir = base_dir / "exporter/grammar_dict/output"
         self.grammar_dict_output_html_dir = base_dir / "exporter/grammar_dict/output/html"
         self.grammar_dict_pickle_path = base_dir / "exporter/grammar_dict/output/grammar_dict_pickle"
         self.grammar_dict_tsv_path = base_dir / "exporter/grammar_dict/output/grammar_dict.tsv"
 
-        # gui
-        self.additions_tsv_path = base_dir / "gui/additions.tsv"
-        self.additions_pickle_path = base_dir / "gui/additions"
-        self.corrections_tsv_path = base_dir / "gui/corrections.tsv"
-        self.delated_words_history_pth = base_dir / "gui/delated_words_history.tsv"
-        self.pass2_checked_path = base_dir / "gui/pass2_checked.json"
-
-        # gui/stash
-        self.daily_record_path = base_dir / "gui/stash/daily_record"
-        self.example_stash_path = base_dir / "gui/stash/example"
-        self.save_state_path = base_dir / "gui/stash/gui_state"
-        self.stash_dir = base_dir / "gui/stash/"
-        self.stash_path = base_dir / "gui/stash/stash"
 
         # exporter/goldendict/icon
         self.icon_path = base_dir / "exporter/goldendict/icon/favicon.ico"
         self.icon_bmp_path = base_dir / "exporter/goldendict/icon/dpd.bmp"
-
-        # db/inflections/
-        self.inflection_templates_path = base_dir / "db/inflections/inflection_templates.xlsx"
 
         # exporter/other_dictionaries/css
         self.cone_css_path = base_dir / "exporter/other_dictionaries/code/cone/cone.css"
@@ -240,6 +214,38 @@ class ProjectPaths:
         self.sin_eng_sin_mdict_path = base_dir / "exporter/other_dictionaries/mdict/"
         self.vri_mdict_path = base_dir / "exporter/other_dictionaries/mdict/vri.mdx"
         self.whitney_mdict_path = base_dir / "exporter/other_dictionaries/mdict/"
+
+        # exporter/pdf
+        self.typst_output_dir = base_dir / "exporter/pdf/output/"
+        self.typst_data_path = base_dir / "exporter/pdf/output/typst_data.typ"
+        self.typst_pdf_path = base_dir / "exporter/share/dpd.pdf"
+
+        # db/frequency/output
+        self.ebt_raw_text_path = base_dir / "db/frequency/output/raw_text/ebts.txt"
+        self.ebt_word_count_path = base_dir / "db/frequency/output/word_count/ebts.csv"
+        self.freq_html_dir = base_dir / "db/frequency/output/html/"
+        self.frequency_output_dir = base_dir / "db/frequency/output/"
+        self.raw_text_dir = base_dir / "db/frequency/output/raw_text/"
+        self.tipitaka_raw_text_path = base_dir / "db/frequency/output/raw_text/tipitaka.txt"
+        self.tipitaka_word_count_path = base_dir / "db/frequency/output/word_count/tipitaka.csv"
+        self.word_count_dir = base_dir / "db/frequency/output/word_count"
+
+        # gui
+        self.additions_tsv_path = base_dir / "gui/additions.tsv"
+        self.additions_pickle_path = base_dir / "gui/additions"
+        self.corrections_tsv_path = base_dir / "gui/corrections.tsv"
+        self.delated_words_history_pth = base_dir / "gui/delated_words_history.tsv"
+        self.pass2_checked_path = base_dir / "gui/pass2_checked.json"
+
+        # gui/stash
+        self.daily_record_path = base_dir / "gui/stash/daily_record"
+        self.example_stash_path = base_dir / "gui/stash/example"
+        self.save_state_path = base_dir / "gui/stash/gui_state"
+        self.stash_dir = base_dir / "gui/stash/"
+        self.stash_path = base_dir / "gui/stash/stash"
+
+        # db/inflections/
+        self.inflection_templates_path = base_dir / "db/inflections/inflection_templates.xlsx"
 
         # resources/bw/js
         self.tbw_i2h_js_path = base_dir / "resources/bw2/js/dpd_i2h.js"
@@ -417,6 +423,7 @@ class ProjectPaths:
             self.stash_dir,
             self.temp_dir,
             self.tpr_output_dir,
+            self.typst_output_dir,
             self.word_count_dir,
         ]:
             d.mkdir(parents=True, exist_ok=True)

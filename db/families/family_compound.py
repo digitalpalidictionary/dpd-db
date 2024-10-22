@@ -80,7 +80,7 @@ def main():
     toc()
 
 
-def create_comp_fam_dict(dpd_db):
+def create_comp_fam_dict(dpd_db: list[DpdHeadword]):
     print("[green]extracting compound families and headwords", end=" ")
 
     # create a dict of all compound families
@@ -99,7 +99,7 @@ def create_comp_fam_dict(dpd_db):
                 print("[bright_red]ERROR: + found please remove!")
 
             test1 = re.findall(r"\bcomp\b", i.grammar) != []
-            test2 = len(re.sub(r" \d.*$", "", i.lemma_1)) < 30
+            test2 = len(i.lemma_clean) < 30
             test3 = i.meaning_1
 
             if test1 and test2 and test3:
