@@ -6,15 +6,18 @@ def make_tab_fix_sandhi(sg):
 
     tab_fix_sandhi = [
         [
-            sg.Text("chA", size=(4, 1), pad=((190, 0), (50, 0))),
+            sg.Text("rule_no", size=(4, 1), pad=((190, 0), (50, 0))),
+            sg.Text("chA", size=(4, 1), pad=((0, 0), (50, 0))),
             sg.Text("chB", size=(4, 1), pad=((0, 0), (50, 0))),
             sg.Text("ch1", size=(4, 1), pad=((0, 0), (50, 0))),
             sg.Text("ch2", size=(4, 1), pad=((0, 0), (50, 0))),
             sg.Text("example", size=(25, 1), pad=((0, 0), (50, 0))),
-            sg.Text("for", size=(7, 1), pad=((0, 0), (50, 0))),
+            sg.Text("weight", size=(7, 1), pad=((0, 0), (50, 0))),
         ],
         [
             sg.Text("add sandhi rule: "),
+            sg.Input(
+                key="rule_no", size=(3, 1), justification="l"),
             sg.Input(
                 key="chA", size=(3, 1), justification="r"),
             sg.Input(
@@ -26,7 +29,7 @@ def make_tab_fix_sandhi(sg):
             sg.Input(
                 key="example", size=(25, 1)),
             sg.Input(
-                "general", key="usage", size=(7, 1)),
+                "weight", key="weight", size=(7, 1)),
             sg.Button("Add", key="add_sandhi_rule"),
             sg.Button("Open", key="open_sandhi_rules")
         ],

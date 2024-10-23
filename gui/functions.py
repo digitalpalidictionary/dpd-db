@@ -123,12 +123,13 @@ def open_sandhi_corrections(pth):
 
 
 def add_sandhi_rule(pth, window, values: dict) -> None:
+    rule_no = values["rule_no"]
     chA = values["chA"]
     chB = values["chB"]
     ch1 = values["ch1"]
     ch2 = values["ch2"]
     example = values["example"]
-    usage = values["usage"]
+    weight = values["weight"]
 
     if (not chA or not chB or (not ch1 and not ch2)):
         window["messages"].update(
@@ -145,23 +146,24 @@ def add_sandhi_rule(pth, window, values: dict) -> None:
 
             for row in reader:
                 print(row)
-                if row[0] == chA and row[1] == chB and row[2] == ch1 and row[3] == ch2:
+                if row[1] == chA and row[2] == chB and row[3] == ch1 and row[4] == ch2:
                     window["messages"].update(
-                        f"{row[0]}-{row[1]} {row[2]}-{row[3]} {row[4]} {row[5]} already exists!", text_color="red")
+                        f"{row[0]}-{row[1]} {row[2]}-{row[3]} {row[4]} {row[5]} {row[6]} already exists!", text_color="red")
                     break
             else:
                 with open(
                         pth.sandhi_rules_path, mode="a", newline="") as file:
                     writer = csv.writer(file, delimiter="\t")
-                    writer.writerow([chA, chB, ch1, ch2, example, usage])
+                    writer.writerow([rule_no, chA, chB, ch1, ch2, example, weight])
                     window["messages"].update(
-                        f"{chA}-{chB} {ch1}-{ch2} {example} {usage} added to rules!", text_color="white")
+                        f"{rule_no}-{chA}-{chB} {ch1}-{ch2} {example} {weight} added to rules!", text_color="white")
+                    window["rule_no"].update("")
                     window["chA"].update("")
                     window["chB"].update("")
                     window["ch1"].update("")
                     window["ch2"].update("")
                     window["example"].update("")
-                    window["usage"].update("")
+                    window["weight"].update("")
 
 
 def open_sandhi_rules(pth):
