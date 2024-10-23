@@ -7,70 +7,69 @@
 {% if i.meaning_1 %}
 #table(
   columns: (2fr, 6fr),
-  // table.cell(colspan: 2)[*Grammar*],
-  [#text(rgb("#00A4CC"))[Pāḷi]], [{{ i.lemma_clean }}],
-  [#text(rgb("#00A4CC"))[IPA]], [/{{ i.lemma_ipa }}/],
-  [#text(rgb("#00A4CC"))[Grammar]], [{{ i.grammar|safe }}],
+  [#blue[Pāḷi]], [{{ i.lemma_clean }}],
+  [#blue[IPA]], [/{{ i.lemma_ipa }}/],
+  [#blue[Grammar]], [{{ i.grammar|safe }}],
 {% if i.family_root %}
-  [#text(rgb("#00A4CC"))[Root Family]], [#link(<{{ i.root_family_key_typst }}>)[{{ i.family_root }}]],
+  [#blue[Root Family]], [#link(<{{ i.root_family_key_typst }}>)[{{ i.family_root }}]],
 {% endif %}
 {% if i.root_key %}
-  [#text(rgb("#00A4CC"))[Root]], [{{ i.root_clean }}#super[{{ i.rt.root_has_verb }}]{{ i.rt.root_group }} {{i.root_sign_typst}} ({{ i.rt.root_meaning }})],
+  [#blue[Root]], [{{ i.root_clean }}#super[{{ i.rt.root_has_verb }}]{{ i.rt.root_group }} {{i.root_sign_typst}} ({{ i.rt.root_meaning }})],
 {% endif %}
 {% if i.rt.root_in_comps %}
-  [#text(rgb("#00A4CC"))[√ In Sandhi]], [{{ i.rt.root_in_comps }}],
+  [#blue[√ In Sandhi]], [{{ i.rt.root_in_comps }}],
 {% endif %}
 {% if i.root_base_typst %}
-  [#text(rgb("#00A4CC"))[Base]], [{{ i.root_base_typst|safe }}],
+  [#blue[Base]], [{{ i.root_base_typst|safe }}],
 {% endif %}
 {% if i.construction %}
-  [#text(rgb("#00A4CC"))[Construction]], [{{ i.construction_typst|safe }}],
+  [#blue[Construction]], [{{ i.construction_typst|safe }}],
 {% endif %}
 {% if i.derivative %}
-  [#text(rgb("#00A4CC"))[Derivative]], [{{ i.derivative }} ({{ i.suffix_typst }})],
+  [#blue[Derivative]], [{{ i.derivative }} ({{ i.suffix_typst }})],
 {% endif %}
 {% if i.phonetic %}
-  [#text(rgb("#00A4CC"))[Phonetic Change]], [{{ i.phonetic_typst|safe }}],
+  [#blue[Phonetic Change]], [{{ i.phonetic_typst|safe }}],
 {% endif %}
 {% if i.compound_type and "?" not in i.compound_type %}
-  [#text(rgb("#00A4CC"))[Compound]], [{{ i.compound_type|safe }} ({{ i.compound_construction_typst|safe }})],
+  [#blue[Compound]], [{{ i.compound_type|safe }} ({{ i.compound_construction_typst|safe }})],
 {% endif %}
 {% if i.family_compound and (i.needs_compound_family_button or i.needs_compound_families_button)%}
-  [#text(rgb("#00A4CC"))[Compound Family]], [
+  [#blue[Compound Family]], [
 {% for fc in i.family_compound.split(" ")%}
   #link(<{{ fc }}>)[{{ fc }}] 
 {% endfor %}
   ],
 {% endif %}
 {% if i.antonym %}
-  [#text(rgb("#00A4CC"))[Antonym]], [{{ i.antonym }}],
+  [#blue[Antonym]], [{{ i.antonym }}],
 {% endif %}
 {% if i.synonym %}
-  [#text(rgb("#00A4CC"))[Synonym]], [{{ i.synonym }}],
+  [#blue[Synonym]], [{{ i.synonym }}],
 {% endif %}
 {% if i.variant %}
-  [#text(rgb("#00A4CC"))[Variant]], [{{ i.variant }}],
+  [#blue[Variant]], [{{ i.variant }}],
 {% endif %}
 {% if i.commentary and i.commentary !="-" %}
-  [#text(rgb("#00A4CC"))[Commentary]], [{{ i.commentary_typst|safe }}],
+  [#blue[Commentary]], [{{ i.commentary_typst|safe }}],
 {% endif %}
 {% if i.notes %}
-  [#text(rgb("#00A4CC"))[Notes]], [{{ i.notes_typst|safe }}],
+  [#blue[Notes]], [{{ i.notes_typst|safe }}],
 {% endif %}
 {% if i.cognate %}
-  [#text(rgb("#00A4CC"))[English Cognate]], [{{ i.cognate_typst|safe }}],
+  [#blue[English Cognate]], [{{ i.cognate_typst|safe }}],
 {% endif %}
 {% if i.link %}
-  [#text(rgb("#00A4CC"))[Web Link]], [{{ i.link_typst|safe }}],
+  [#blue[Web Link]], [{{ i.link_typst|safe }}],
 {% endif %}
 {% if i.non_ia %}
-  [#text(rgb("#00A4CC"))[Non IA]], [{{ i.non_ia|safe }}],
+  [#blue[Non IA]], [{{ i.non_ia|safe }}],
 {% endif %}
 {% if i.sanskrit %}
-  [#text(rgb("#00A4CC"))[Sanskrit]], [{{ i.sanskrit_typst|safe }}],
+  [#blue[Sanskrit]], [{{ i.sanskrit_typst|safe }}],
 {% endif %}
 {% if i.rt.sanskrit_root %}
-  [#text(rgb("#00A4CC"))[Sanskrit Root]], [{{ i.rt.sanskrit_root }} {{ i.rt.sanskrit_root_class }} ({{ i.rt.sanskrit_root_meaning }})],
+  [#blue[Sanskrit Root]], [{{ i.rt.sanskrit_root }} {{ i.rt.sanskrit_root_class }} ({{ i.rt.sanskrit_root_meaning }})],
 {% endif %}
 )
 #feedback-link(
@@ -83,19 +82,14 @@
 {% if i.meaning_1 and i.example_1 %}
 #table(
   columns: (1fr),
-// {% if i.needs_example_button %}
-//   [*Example*],
-// {% elif i.needs_examples_button %}
-//   [*Examples*],
-// {% endif %}
   [
     {{ i.example_1_typst|safe }}\ 
-    #text(rgb("#00A4CC"))[_{{ i.source_1 }} {{ i.sutta_1_typst|safe }}_]
+    #blue[_{{ i.source_1 }} {{ i.sutta_1_typst|safe }}_]
   ],
 {% if i.meaning_1 and i.example_2 %}
   [
     {{ i.example_2_typst|safe }}\
-    #text(rgb("#00A4CC"))[_{{ i.source_2 }} {{ i.sutta_2_typst|safe }}_]
+    #blue[_{{ i.source_2 }} {{ i.sutta_2_typst|safe }}_]
   ],
 {% endif %}
 )

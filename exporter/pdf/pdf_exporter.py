@@ -7,7 +7,6 @@ import re
 import typst
 
 from jinja2 import Environment, FileSystemLoader
-from pathlib import Path
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, FamilyCompound, FamilyRoot
@@ -22,7 +21,7 @@ class GlobalVars():
     # database
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(DpdHeadword).all()
+    dpd_db = db_session.query(DpdHeadword).limit(100).all()
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     root_fam_db = db_session.query(FamilyRoot).all()

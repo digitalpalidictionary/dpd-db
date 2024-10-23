@@ -9,7 +9,7 @@
 #table(
   columns: (3fr, 1fr, 8fr, 0.5fr),
 {% for d in i.data_unpack %}
-  [#text(rgb("#00A4CC"))[*{{ d[0] }}*]], [*{{ d[1] }}*], [{{ d[2] }}], [#text(gray)[{{ d[3].replace("~", "\~") }}]],
+  [#blue-bold[{{ d[0] }}]], [*{{ d[1] }}*], [{{ d[2] }}], [#text(gray)[{{ d[3].replace("~", "\~") }}]],
 {% endfor %}
 )
 #feedback-link(

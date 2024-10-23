@@ -14,6 +14,9 @@
   )
 }
 
+#let blue(content) = text(rgb("#00A4CC"))[#content]
+#let blue-bold(content) = text(rgb("#00A4CC"), weight: "bold")[#content]
+
 // title page 
 
 #align(left, text(18pt)[

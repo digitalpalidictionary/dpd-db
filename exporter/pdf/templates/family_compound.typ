@@ -5,7 +5,7 @@
 #table(
   columns: (auto, auto, 4fr, auto),
 {% for d in i.data_unpack %}
-  [#text(rgb("#00A4CC"))[*{{ d[0] }}*]], [*{{ d[1] }}*], [{{ d[2].replace("*", "\*")|safe }}], [#text(gray)[{{ d[3].replace("~", "\~") }}]],
+  [#blue-bold[{{ d[0] }}]], [*{{ d[1] }}*], [{{ d[2].replace("*", "\*")|safe }}], [#text(gray)[{{ d[3].replace("~", "\~") }}]],
 {% endfor %}
 )
 #feedback-link(
