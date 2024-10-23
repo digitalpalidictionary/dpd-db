@@ -7,6 +7,7 @@
 {% if i.meaning_1 %}
 #table(
   columns: (2fr, 6fr),
+  stroke: (x: none, y: none, top: 0.1pt),
   [#blue[Pāḷi]], [{{ i.lemma_clean }}],
   [#blue[IPA]], [/{{ i.lemma_ipa }}/],
   [#blue[Grammar]], [{{ i.grammar|safe }}],
@@ -71,17 +72,21 @@
 {% if i.rt.sanskrit_root %}
   [#blue[Sanskrit Root]], [{{ i.rt.sanskrit_root }} {{ i.rt.sanskrit_root_class }} ({{ i.rt.sanskrit_root_meaning }})],
 {% endif %}
+  table.cell(colspan: 2)[
+    #feedback-link(
+      "Correct a mistake",
+      "https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{ i.lemma_link }}&entry.326955045=Grammar&entry.1433863141=DPD%20PDF+{{ date }}"
+    )
+  ],
 )
-#feedback-link(
-  "Correct a mistake",
-  "https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{ i.lemma_link }}&entry.326955045=Grammar&entry.1433863141=DPD%20PDF+{{ date }}"
-)
+
 {% endif %}
 
 // example(s)
 {% if i.meaning_1 and i.example_1 %}
 #table(
   columns: (1fr),
+  stroke: (x: none, y: none, top: 0.1pt),
   [
     {{ i.example_1_typst|safe }}\ 
     #blue[_{{ i.source_1 }} {{ i.sutta_1_typst|safe }}_]
@@ -92,9 +97,12 @@
     #blue[_{{ i.source_2 }} {{ i.sutta_2_typst|safe }}_]
   ],
 {% endif %}
+  table.cell(colspan: 1)[
+    #feedback-link(
+      "Add a better example",
+      "https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{ i.lemma_link }}&entry.326955045=Examples&entry.1433863141=DPD%20PDF+{{ date }}"
+    )
+  ]
 )
-#feedback-link(
-  "Add a better example",
-  "https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{ i.lemma_link }}&entry.326955045=Examples&entry.1433863141=DPD%20PDF+{{ date }}"
-)
+
 {% endif %}

@@ -64,9 +64,10 @@ def make_pali_to_english(g: GlobalVars):
         if counter % 10000 == 0:
             p_counter(counter, len(g.dpd_db), i.lemma_1)
 
-        if i.lemma_1[0] not in g.used_letters_single:
-            g.typst_data.append(f"""#pagebreak()\n#heading(level: 2, outlined: true)[{i.lemma_1[0]}]#pagebreak()""")
-            g.used_letters_single.append(i.lemma_1[0])
+        first_letter = i.lemma_1[0]
+        if first_letter not in g.used_letters_single:
+            g.typst_data.append(f"""#pagebreak()#heading(level: 2, outlined: true)[{first_letter}]#line(length: 100%)""")
+            g.used_letters_single.append(first_letter)
         
         g.typst_data.append(g.headword_templ.render(i=i, date=g.date))
 
@@ -76,9 +77,19 @@ def make_root_families(g: GlobalVars):
 
     p_green("compiling root families")
 
-    g.typst_data.append("#pagebreak()#heading(level: 1)[Root Families]#pagebreak()")
+    g.used_letters_single = []
+    g.typst_data.append("#pagebreak()#heading(level: 1)[Root Families]")
 
-    for counter, i in enumerate(g.root_fam_db):      
+    for counter, i in enumerate(g.root_fam_db):
+
+        if i.root_key.startswith("√"):
+
+            first_letter = i.root_key[1]
+            
+            if first_letter not in g.used_letters_single:
+                g.typst_data.append(f"""#pagebreak()#heading(level: 2, outlined: true)[{first_letter}]#line(length: 100%)#text("")""")
+                g.used_letters_single.append(first_letter)
+
         g.typst_data.append(g.root_fam_templ.render(i=i, date=g.date))
     
     p_yes(len(g.root_fam_db))
@@ -89,9 +100,17 @@ def make_compound_families(g: GlobalVars):
 
     p_green("compiling compound families")
 
-    g.typst_data.append("#pagebreak()#heading(level: 1)[Compound Families]#pagebreak()")
+    g.used_letters_single = []
+    g.typst_data.append("#pagebreak()#heading(level: 1)[Compound Families]")
 
-    for counter, i in enumerate(g.compound_fam_db):      
+    for counter, i in enumerate(g.compound_fam_db):
+
+        first_letter = i.compound_family[0]
+ 
+        if first_letter not in g.used_letters_single:
+            g.typst_data.append(f"""#pagebreak()#heading(level: 2, outlined: true)[{first_letter}]#line(length: 100%)#text("")""")
+            g.used_letters_single.append(first_letter)
+        
         g.typst_data.append(g.compound_fam_templ.render(i=i, date=g.date))
     
     p_yes(len(g.compound_fam_db))
@@ -117,16 +136,17 @@ def clean_up_typst_data(g: GlobalVars):
     p_yes("ok")
 
 
-def export_to_pdf(g: GlobalVars):
-    """
-    Save to .typ 
-    Render .pdf using subprocess.
-    """
+def save_typist_file(g: GlobalVars):
+    """Save .typ file."""
    
     p_green("saving typst data")
     with open(g.pth.typst_data_path, "w") as f:
             f.write("".join(g.typst_data))
     p_yes("ok")
+
+
+def export_to_pdf(g: GlobalVars):
+    """Export to pdf."""
 
     p_green("rendering pdf")
     try:
@@ -145,6 +165,7 @@ def main():
     make_root_families(g)
     make_compound_families(g)
     clean_up_typst_data(g)
+    save_typist_file(g)
     export_to_pdf(g)
     toc()
 
