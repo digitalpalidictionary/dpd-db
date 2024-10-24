@@ -38,14 +38,15 @@
 ])
 
 #align(left, text(10pt)[
-  Updated on #text(rgb("#00A4CC"))[#datetime.today().display()]
+  Updated on #text(rgb("#00A4CC"))[*#datetime.today().display()*]
 ])
 
 #pagebreak()
 
 // copyright page
 
-Digital Pāḷi Dictionary is a work in progress, made available for feedback and suggestions.
+Digital Pāḷi Dictionary is a work in progress, made available for testing and feedback.
+
 Copyright information goes here...
 #pagebreak()
 
@@ -56,7 +57,9 @@ Copyright information goes here...
 
 // abbreviations page
 
-#set page(numbering: "1 / 1")
+#set page(
+  numbering: "1 / 1"
+)
 #counter(page).update(1)
 
 = List of Abbreviations
@@ -66,4 +69,4 @@ Abbreviations go here...
 // dpd
 
 = Pāḷi to English Dictionary
-#text("")
+#text(" ")

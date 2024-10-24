@@ -86,15 +86,15 @@ def make_root_families(g: GlobalVars):
     p_green("compiling root families")
 
     g.used_letters_single = []
-    g.typst_data.append("#pagebreak()")
-    g.typst_data.append("#heading(level: 1)[Root Families]")
+    g.typst_data.append("#pagebreak()\n")
+    g.typst_data.append("#set page(columns: 1)\n")
+    g.typst_data.append("#heading(level: 1)[Root Families]\n")
 
     for counter, i in enumerate(g.root_fam_db):
 
         if i.root_key.startswith("√"):
-
             first_letter = i.root_key[1]
-            
+
             if first_letter not in g.used_letters_single:
                 first_letter_render = g.first_letter_templ.render(first_letter=first_letter)
                 g.typst_data.append(first_letter_render)
@@ -111,11 +111,10 @@ def make_compound_families(g: GlobalVars):
     p_green("compiling compound families")
 
     g.used_letters_single = []
-    g.typst_data.append("#pagebreak()")
-    g.typst_data.append("#heading(level: 1)[Compound Families]")
+    g.typst_data.append("#pagebreak()\n")
+    g.typst_data.append("#heading(level: 1)[Compound Families]\n")
 
     for counter, i in enumerate(g.compound_fam_db):
-
         first_letter = i.compound_family[0]
  
         if first_letter not in g.used_letters_single:
@@ -141,6 +140,9 @@ def clean_up_typst_data(g: GlobalVars):
 
         # remove comments
         cleaned_string = re.sub(r"^//.+$\n", "", cleaned_string, flags=re.MULTILINE)
+
+        # remove lines with only spaces
+        cleaned_string = re.sub(r"^ *$\n", "", cleaned_string, flags=re.MULTILINE)
 
         cleaned_data.append(cleaned_string)
 
