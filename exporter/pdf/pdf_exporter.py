@@ -21,7 +21,8 @@ class GlobalVars():
     # database
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(DpdHeadword).limit(100).all()
+    # dpd_db = db_session.query(DpdHeadword).limit(100).all()
+    dpd_db = db_session.query(DpdHeadword).all()
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     root_fam_db = db_session.query(FamilyRoot).all()
@@ -36,8 +37,8 @@ class GlobalVars():
 
     #jinja
     env = Environment(loader=FileSystemLoader("exporter/pdf/templates"), autoescape=True)
-    
     front_matter_templ = env.get_template("front_matter.typ")
+    first_letter_templ = env.get_template("first_letter.typ")
     headword_templ = env.get_template("headword.typ")
     root_fam_templ = env.get_template("family_root.typ")
     compound_fam_templ = env.get_template("family_compound.typ")
@@ -66,7 +67,8 @@ def make_pali_to_english(g: GlobalVars):
 
         first_letter = i.lemma_1[0]
         if first_letter not in g.used_letters_single:
-            g.typst_data.append(f"""#pagebreak()#heading(level: 2, outlined: true)[{first_letter}]#line(length: 100%)""")
+            first_letter_render = g.first_letter_templ.render(first_letter=first_letter)
+            g.typst_data.append(first_letter_render)
             g.used_letters_single.append(first_letter)
         
         g.typst_data.append(g.headword_templ.render(i=i, date=g.date))
@@ -78,7 +80,8 @@ def make_root_families(g: GlobalVars):
     p_green("compiling root families")
 
     g.used_letters_single = []
-    g.typst_data.append("#pagebreak()#heading(level: 1)[Root Families]")
+    g.typst_data.append("#pagebreak()")
+    g.typst_data.append("#heading(level: 1)[Root Families]")
 
     for counter, i in enumerate(g.root_fam_db):
 
@@ -87,7 +90,8 @@ def make_root_families(g: GlobalVars):
             first_letter = i.root_key[1]
             
             if first_letter not in g.used_letters_single:
-                g.typst_data.append(f"""#pagebreak()#heading(level: 2, outlined: true)[{first_letter}]#line(length: 100%)#text("")""")
+                first_letter_render = g.first_letter_templ.render(first_letter=first_letter)
+                g.typst_data.append(first_letter_render)
                 g.used_letters_single.append(first_letter)
 
         g.typst_data.append(g.root_fam_templ.render(i=i, date=g.date))
@@ -101,14 +105,16 @@ def make_compound_families(g: GlobalVars):
     p_green("compiling compound families")
 
     g.used_letters_single = []
-    g.typst_data.append("#pagebreak()#heading(level: 1)[Compound Families]")
+    g.typst_data.append("#pagebreak()")
+    g.typst_data.append("#heading(level: 1)[Compound Families]")
 
     for counter, i in enumerate(g.compound_fam_db):
 
         first_letter = i.compound_family[0]
  
         if first_letter not in g.used_letters_single:
-            g.typst_data.append(f"""#pagebreak()#heading(level: 2, outlined: true)[{first_letter}]#line(length: 100%)#text("")""")
+            first_letter_render = g.first_letter_templ.render(first_letter=first_letter)
+            g.typst_data.append(first_letter_render)
             g.used_letters_single.append(first_letter)
         
         g.typst_data.append(g.compound_fam_templ.render(i=i, date=g.date))
