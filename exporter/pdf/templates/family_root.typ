@@ -5,9 +5,9 @@
 #table(
   columns: (3fr, 1fr, 8fr, 0.5fr),
   stroke: (x: none, y: none, top: 0.1pt),
-{% for d in i.data_unpack %}
+//// for d in i.data_unpack \\\\
   [#blue-bold[{{ d[0] }}]], [*{{ d[1] }}*], [{{ d[2]|safe }}], [#text(gray)[{{ d[3].replace("~", "\~") }}]],
-{% endfor %}
+//// endfor \\\\
   table.cell(colspan: 4)[
     #feedback-link(
       "Correct a mistake",

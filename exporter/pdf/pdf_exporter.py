@@ -36,7 +36,13 @@ class GlobalVars():
     used_letters_single: list[str] = []
 
     #jinja
-    env = Environment(loader=FileSystemLoader("exporter/pdf/templates"), autoescape=True)
+    env = Environment(
+        loader=FileSystemLoader("exporter/pdf/templates"), 
+        autoescape=True,
+        block_start_string="////",
+        block_end_string="\\\\\\\\"
+
+    )
     front_matter_templ = env.get_template("front_matter.typ")
     first_letter_templ = env.get_template("first_letter.typ")
     headword_templ = env.get_template("headword.typ")
