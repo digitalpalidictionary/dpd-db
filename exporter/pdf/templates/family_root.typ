@@ -1,3 +1,4 @@
+
 #heading(outlined: false, depth: 2)[{{ i.root_family }}] <{{ i.root_family_key_typst }}>
 
 {{ i.count }} words belong to the root family *{{ i.root_family }}* ({{ i.root_meaning }})
