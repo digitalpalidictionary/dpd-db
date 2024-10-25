@@ -1160,7 +1160,7 @@ var family_set_json = {
    ],
    [
     "īkāra",
-    "adj",
+    "masc",
     "(gram) letter ī; 4th letter of the alphabet; palatal vowel",
     "✓"
    ],
@@ -8921,13 +8921,19 @@ var family_set_json = {
     "~"
    ],
    [
+    "soṇuttara 2",
+    "masc",
+    "name of a Brahman; lit. top dog",
+    "✓"
+   ],
+   [
     "hemaka",
     "masc",
     "name of a Brahman ascetic; lit. golden",
     "✓"
    ]
   ],
-  "count": 95
+  "count": 96
  },
  "bodyparts": {
   "data": [
@@ -13132,6 +13138,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "paṇḍara 4",
+    "masc",
+    "name of a religious sect; lit. white",
+    "✓"
+   ],
+   [
     "paṇḍaraṅga",
     "masc",
     "name of a Brahmanical sect; lit. white limbs",
@@ -13258,7 +13270,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 54
+  "count": 55
  },
  "suttas of the Majjhima Nikāya": {
   "data": [
@@ -14126,12 +14138,6 @@ var family_set_json = {
     "✓"
    ],
    [
-    "paṇḍara 4",
-    "masc",
-    "name of a family clan; lit. white",
-    "✓"
-   ],
-   [
     "pilinda",
     "masc",
     "name of a family clan",
@@ -14228,7 +14234,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 34
+  "count": 33
  },
  "names of countries": {
   "data": [
@@ -17371,7 +17377,7 @@ var family_set_json = {
    [
     "sāti",
     "masc",
-    "name of a monk; lit. the star Arcturus",
+    "name of a monk; lit. the star Arcturus; (or) charioteer",
     "✓"
    ],
    [
@@ -24177,7 +24183,7 @@ var family_set_json = {
    [
     "subhakiṇha 2",
     "adj",
-    "epithet of a class of devas; lit. beautiful black",
+    "epithet of a class of devas; lit. totally beautiful",
     "✓"
    ],
    [
@@ -25697,13 +25703,13 @@ var family_set_json = {
    [
     "jambu",
     "fem",
-    "rose-apple tree; Syzygium samarangense",
+    "rose-apple tree; Syzygium jambos",
     "✓"
    ],
    [
     "jambū",
     "fem",
-    "rose-apple tree; Syzygium samarangense",
+    "rose-apple tree; Syzygium jambos",
     "✓"
    ],
    [
@@ -30680,6 +30686,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "khalu 3",
+    "ind",
+    "it is said; it is reported",
+    "✓"
+   ],
+   [
     "khu 1",
     "ind",
     "indeed; surely; certainly; truly; verily",
@@ -31172,7 +31184,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 120
+  "count": 121
  },
  "great disciples": {
   "data": [
@@ -32370,6 +32382,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "satthahāraka 2",
+    "nt",
+    "deadly weapon; lit. life taker",
+    "✓"
+   ],
+   [
     "sikhara 1",
     "nt",
     "point of a sword; spike; lit. top",
@@ -32382,7 +32400,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 27
+  "count": 28
  },
  "five Mārā": {
   "data": [
@@ -32556,13 +32574,13 @@ var family_set_json = {
    [
     "jambu",
     "fem",
-    "rose-apple tree; Syzygium samarangense",
+    "rose-apple tree; Syzygium jambos",
     "✓"
    ],
    [
     "jambū",
     "fem",
-    "rose-apple tree; Syzygium samarangense",
+    "rose-apple tree; Syzygium jambos",
     "✓"
    ],
    [
@@ -32945,7 +32963,7 @@ var family_set_json = {
    [
     "subhakiṇha 1",
     "masc",
-    "name of a heavenly realm; name of a class of deities; lit. beautiful black",
+    "name of a heavenly realm; name of a class of deities; lit. total beauty",
     "✓"
    ]
   ],
@@ -34426,6 +34444,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "udaṅgaṇa 2",
+    "masc",
+    "name of a mountain",
+    "✓"
+   ],
+   [
     "kāḷakūṭa",
     "masc",
     "name of one of the five mountains surrounding lake Anotatta in the Himalayas; lit. black peak",
@@ -34576,7 +34600,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 26
+  "count": 27
  },
  "five hindrances": {
   "data": [
@@ -34784,20 +34808,20 @@ var family_set_json = {
    ],
    [
     "gaḷagaḷa",
-    "ind",
-    "thundering sound",
+    "masc",
+    "roar; clamour; loud noise",
     "~"
    ],
    [
     "gaḷagaḷāyati",
     "pr",
-    "thunders; lit. makes a gaḷagaḷa sound",
+    "roars; clamours; thunders; makes a loud noise; lit. makes a gaḷagaḷa sound",
     "✓"
    ],
    [
     "gaḷagaḷāyanta",
     "prp",
-    "thundering; lit. making a gaḷagaḷa sound",
+    "roaring; clamouring; thundering; making a loud noise; lit. making a gaḷagaḷa sound",
     "✓"
    ],
    [

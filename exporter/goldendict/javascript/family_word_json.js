@@ -419,7 +419,7 @@ var family_word_json = {
     "✗"
    ],
    [
-    "kiṇha",
+    "kiṇha 1.1",
     "adj",
     "black; dark; swarthy",
     "✓"
@@ -2072,7 +2072,7 @@ var family_word_json = {
    [
     "aggaḷā",
     "fem",
-    "bolt; crossbar; lock",
+    "door; door panel",
     "✓"
    ],
    [
@@ -7308,9 +7308,15 @@ var family_word_json = {
     "✓"
    ],
    [
-    "dāsa",
+    "dāsa 1",
     "masc",
     "slave; servant",
+    "✓"
+   ],
+   [
+    "dāsa 2",
+    "masc",
+    "savage; barbarian; heathen",
     "✓"
    ],
    [
@@ -7356,7 +7362,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 10
+  "count": 11
  },
  "aditi": {
   "data": [
@@ -10938,7 +10944,7 @@ var family_word_json = {
    [
     "paṇḍara 4",
     "masc",
-    "name of a family clan; lit. white",
+    "name of a religious sect; lit. white",
     "✓"
    ],
    [
@@ -16900,6 +16906,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "haritā",
+    "fem",
+    "gold; lit. yellow",
+    "✓"
+   ],
+   [
     "harītaka",
     "nt",
     "yellow myrobalan",
@@ -16912,7 +16924,7 @@ var family_word_json = {
     "✗"
    ]
   ],
-  "count": 13
+  "count": 14
  },
  "aho": {
   "data": [
@@ -21879,13 +21891,19 @@ var family_word_json = {
     "~"
    ],
    [
+    "khalu 3",
+    "ind",
+    "it is said; it is reported",
+    "✓"
+   ],
+   [
     "kho",
     "ind",
     "indeed; surely; certainly; truly",
     "✓"
    ]
   ],
-  "count": 3
+  "count": 4
  },
  "khaḷuṅka": {
   "data": [
@@ -22245,6 +22263,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "gotra 1",
+    "nt",
+    "family clan; ancestry; lineage; descent; lit. cow pen",
+    "✓"
+   ],
+   [
     "gonaka",
     "masc",
     "shag cover; fleece; (comm) long haired black rug",
@@ -22275,36 +22299,30 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 18
+  "count": 19
  },
  "gaḷagaḷa": {
   "data": [
    [
     "gaḷagaḷa",
-    "ind",
-    "thundering sound",
+    "masc",
+    "roar; clamour; loud noise",
     "~"
    ],
    [
     "gaḷagaḷāyati",
     "pr",
-    "thunders; lit. makes a gaḷagaḷa sound",
+    "roars; clamours; thunders; makes a loud noise; lit. makes a gaḷagaḷa sound",
     "✓"
    ],
    [
     "gaḷagaḷāyanta",
     "prp",
-    "thundering; lit. making a gaḷagaḷa sound",
+    "roaring; clamouring; thundering; making a loud noise; lit. making a gaḷagaḷa sound",
     "✓"
-   ],
-   [
-    "gaḷagaḷāyi",
-    "aor",
-    "rained heavily making the sound gala-gala, roared",
-    "✗"
    ]
   ],
-  "count": 4
+  "count": 3
  },
  "gāvuta": {
   "data": [
@@ -23831,13 +23849,13 @@ var family_word_json = {
    [
     "jambu",
     "fem",
-    "rose-apple tree; Syzygium samarangense",
+    "rose-apple tree; Syzygium jambos",
     "✓"
    ],
    [
     "jambū",
     "fem",
-    "rose-apple tree; Syzygium samarangense",
+    "rose-apple tree; Syzygium jambos",
     "✓"
    ]
   ],
@@ -29930,6 +29948,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "muhutta 2",
+    "masc",
+    "48 minutes; approximately one hour; a while; lit. 1/30 of a day",
+    "✓"
+   ],
+   [
     "muhuttaṃ",
     "ind",
     "for a moment; for a second",
@@ -29984,7 +30008,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 10
+  "count": 11
  },
  "meṇḍaka": {
   "data": [
@@ -30593,6 +30617,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "vaṇija",
+    "masc",
+    "merchant; trader; business man",
+    "~"
+   ],
+   [
     "vaṇijjā",
     "fem",
     "trade (in); trafficking (in); dealing (in)",
@@ -30617,7 +30647,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 5
+  "count": 6
  },
  "vanibbaka": {
   "data": [

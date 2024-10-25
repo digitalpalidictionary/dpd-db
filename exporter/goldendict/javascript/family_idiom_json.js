@@ -27103,7 +27103,7 @@ var family_idiom_json = {
    [
     "devo vassati devo gaḷagaḷāyati",
     "idiom",
-    "sky is raining and pouring; sky is raining and thundering",
+    "sky is raining and clamouring; heavens are pouring and thundering",
     "✓"
    ],
    [
@@ -27206,7 +27206,7 @@ var family_idiom_json = {
    [
     "devo vassati devo gaḷagaḷāyati",
     "idiom",
-    "sky is raining and pouring; sky is raining and thundering",
+    "sky is raining and clamouring; heavens are pouring and thundering",
     "✓"
    ]
   ]
@@ -27217,7 +27217,7 @@ var family_idiom_json = {
    [
     "devo vassati devo gaḷagaḷāyati",
     "idiom",
-    "sky is raining and pouring; sky is raining and thundering",
+    "sky is raining and clamouring; heavens are pouring and thundering",
     "✓"
    ]
   ]
