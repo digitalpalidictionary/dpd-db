@@ -3341,7 +3341,7 @@ var family_idiom_json = {
    [
     "vacanīyamevāyasmā",
     "sandhi",
-    "venerable just one who can be spoken to",
+    "venerable (make yourself) admonishable; lit. able to be spoken to, venerable",
     "✓"
    ],
    [
@@ -5736,7 +5736,7 @@ var family_idiom_json = {
    [
     "ayaṃ tattha samayo",
     "idiom",
-    "this here is the proper occasion; this is the right time in this case",
+    "this here is the proper occasion; this is the right time in this situation",
     "✓"
    ],
    [
@@ -6219,7 +6219,7 @@ var family_idiom_json = {
    [
     "meti 1",
     "sandhi",
-    "this is mine; \"mine\"",
+    "this is mine; 'mine'",
     "✓"
    ],
    [
@@ -8916,7 +8916,7 @@ var family_idiom_json = {
    [
     "vacanīyamevāyasmā",
     "sandhi",
-    "venerable just one who can be spoken to",
+    "venerable (make yourself) admonishable; lit. able to be spoken to, venerable",
     "✓"
    ]
   ]
@@ -9548,7 +9548,7 @@ var family_idiom_json = {
    [
     "ayaṃ tattha samayo",
     "idiom",
-    "this here is the proper occasion; this is the right time in this case",
+    "this here is the proper occasion; this is the right time in this situation",
     "✓"
    ],
    [
@@ -16465,7 +16465,7 @@ var family_idiom_json = {
    [
     "vacanīyamevāyasmā",
     "sandhi",
-    "venerable just one who can be spoken to",
+    "venerable (make yourself) admonishable; lit. able to be spoken to, venerable",
     "✓"
    ],
    [
@@ -16569,7 +16569,7 @@ var family_idiom_json = {
    [
     "ayaṃ tattha samayo",
     "idiom",
-    "this here is the proper occasion; this is the right time in this case",
+    "this here is the proper occasion; this is the right time in this situation",
     "✓"
    ],
    [
@@ -17882,7 +17882,7 @@ var family_idiom_json = {
    [
     "vimanosi",
     "sandhi",
-    "you are upset; you're displeased; you're unhappy; you're downcast",
+    "you are upset; you're displeased; you're unhappy",
     "✓"
    ]
   ]
@@ -20180,7 +20180,7 @@ var family_idiom_json = {
    [
     "meti 1",
     "sandhi",
-    "this is mine; \"mine\"",
+    "this is mine; 'mine'",
     "✓"
    ],
    [
@@ -26417,6 +26417,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "tula": {
+  "count": 1,
+  "data": [
+   [
+    "tulamatulaṃ",
+    "sandhi",
+    "measurable and immeasurable; comparable and incomparable",
+    "✓"
+   ]
+  ]
+ },
  "tuvaṃ": {
   "count": 2,
   "data": [
@@ -31735,7 +31746,7 @@ var family_idiom_json = {
    [
     "vimanosi",
     "sandhi",
-    "you are upset; you're displeased; you're unhappy; you're downcast",
+    "you are upset; you're displeased; you're unhappy",
     "✓"
    ]
   ]

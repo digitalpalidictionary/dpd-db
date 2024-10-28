@@ -1711,6 +1711,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kicca 6",
+    "nt",
+    "(gram) primary derivative; affix added to roots to form potential participles; e.g. -anīya, -tabba, etc.; lit. to be",
+    "~"
+   ],
+   [
     "kita 1.2",
     "masc",
     "(gram) an affix added to roots to form primary derivative participles, nouns and adjectives; primary derivative; lit. made",
@@ -4915,7 +4921,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 791
+  "count": 792
  },
  "prefixes": {
   "data": [
@@ -8342,7 +8348,7 @@ var family_set_json = {
    [
     "siva 3",
     "nt",
-    "safe place; epitet of Nibbāna",
+    "safe place; epithet of Nibbāna",
     "✓"
    ],
    [
@@ -12065,6 +12071,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "illisa",
+    "masc",
+    "name of a rich man in a Jātaka story",
+    "✓"
+   ],
+   [
     "isidatta 2",
     "masc",
     "name of one of king Pasenadi's architects; lit. given to the sage",
@@ -12935,7 +12947,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 155
+  "count": 156
  },
  "types of ascetics": {
   "data": [
@@ -23281,10 +23293,10 @@ var family_set_json = {
     "✓"
    ],
    [
-    "āsavā",
+    "āsavant",
     "masc",
-    "name of a group of deities",
-    "~"
+    "name of a group of deities; lit. having desire quality",
+    "✓"
    ],
    [
     "indaka",
@@ -24390,6 +24402,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "koñcī",
+    "fem",
+    "(female) heron; curlew; aquatic bird",
+    "✓"
+   ],
+   [
     "khagga 3",
     "masc",
     "single-horned rhinoceros; Rhinoceros unicornis; lit. sword",
@@ -24732,7 +24750,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 73
+  "count": 74
  },
  "names of royalty": {
   "data": [
@@ -24788,6 +24806,12 @@ var family_set_json = {
     "aḷaka",
     "masc",
     "name of a kingdom; lit. with a claw",
+    "✓"
+   ],
+   [
+    "ukkāka",
+    "masc",
+    "name of a king",
     "✓"
    ],
    [
@@ -25151,7 +25175,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 69
+  "count": 70
  },
  "six ascetic teachers": {
   "data": [
@@ -26552,6 +26576,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "mahiḷāmukha",
+    "masc",
+    "name of an elephant; lit. with a female elephant's face",
+    "✓"
+   ],
+   [
     "valāhaka 2",
     "masc",
     "name of a king Mahāsudassana's royal steed; lit. Thundercloud",
@@ -26570,7 +26600,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 11
+  "count": 12
  },
  "names of nuns": {
   "data": [
@@ -34239,7 +34269,7 @@ var family_set_json = {
    [
     "dundubhi",
     "nt",
-    "drum; kettledrum",
+    "war drum; kettledrum",
     "✓"
    ],
    [
@@ -34257,7 +34287,7 @@ var family_set_json = {
    [
     "mudiṅga",
     "masc",
-    "kettle drum; timpani",
+    "mridangam; double-headed drum",
     "✓"
    ],
    [
@@ -34887,7 +34917,7 @@ var family_set_json = {
    [
     "dundubhi",
     "nt",
-    "drum; kettledrum",
+    "war drum; kettledrum",
     "✓"
    ],
    [
@@ -36494,6 +36524,17 @@ var family_set_json = {
   ],
   "count": 3
  },
+ "vaggas of the Saṃyutta Nikāya 4": {
+  "data": [
+   [
+    "moggallānavagga",
+    "masc",
+    "Saṃyutta Nikāya 40.1-11 (SN40.1-11)",
+    "~"
+   ]
+  ],
+  "count": 1
+ },
  "five aggregates": {
   "data": [
    [
@@ -36505,13 +36546,13 @@ var family_set_json = {
    [
     "viññāṇa 1",
     "nt",
-    "awareness; consciousness; mind; fifth of the five aggregates; lit. knowing",
+    "awareness; consciousness; cognition; mind; fifth of the five aggregates; lit. knowing",
     "✓"
    ],
    [
     "vedanā 1",
     "fem",
-    "(pleasant, unpleasant or neutral) felt experience; feeling; sensation; second of the five aggregates; lit. causing to know",
+    "(pleasant, unpleasant or neutral) felt experience; feeling; feeling tone; sensation; second of the five aggregates; lit. causing to know",
     "✓"
    ],
    [

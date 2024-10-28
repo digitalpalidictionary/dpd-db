@@ -3037,7 +3037,7 @@ var family_word_json = {
    [
     "samantaṃ",
     "ind",
-    "completely; totally; entirely; lit. including the ends",
+    "completely; totally; entirely; (or) all around; everywhere; lit. including the ends",
     "✓"
    ],
    [
@@ -11434,7 +11434,7 @@ var family_word_json = {
    [
     "apāṭuka",
     "adj",
-    "devious; sly; insidious; (comm) left-handed; with unrestrained lifetyle",
+    "devious; sly; insidious; (comm) left-handed; with unrestrained lifestyle",
     "✓"
    ],
    [
@@ -15904,7 +15904,7 @@ var family_word_json = {
    [
     "visama 1",
     "adj",
-    "rough; uneven; unbalanced",
+    "(of a place) rough; uneven; dangerous; perilous",
     "✓"
    ],
    [
@@ -15935,6 +15935,12 @@ var family_word_json = {
     "visama 6",
     "nt",
     "uneven ground; rough terrain",
+    "✓"
+   ],
+   [
+    "visama 7",
+    "adj",
+    "(of eyes) squint; cross-eyed; lit. uneven",
     "✓"
    ],
    [
@@ -16064,7 +16070,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 31
+  "count": 32
  },
  "sammā": {
   "data": [
@@ -16342,7 +16348,7 @@ var family_word_json = {
    [
     "asippa",
     "adj",
-    "without a skill; without a craft",
+    "who has no skill; without a craft",
     "✓"
    ],
    [
@@ -25230,7 +25236,7 @@ var family_word_json = {
    [
     "dundubhi",
     "nt",
-    "drum; kettledrum",
+    "war drum; kettledrum",
     "✓"
    ]
   ],
@@ -26925,8 +26931,8 @@ var family_word_json = {
    [
     "sattar",
     "masc",
-    "enemy",
-    "✗"
+    "enemy; adversary",
+    "✓"
    ],
    [
     "sattu 2.1",
@@ -27857,9 +27863,15 @@ var family_word_json = {
     "masc",
     "(of hair) tuft; lock; tress; lit. small heap",
     "~"
+   ],
+   [
+    "puñjita",
+    "adj",
+    "heaped up; accumulated",
+    "✓"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "puṇḍarī": {
   "data": [
@@ -29568,6 +29580,23 @@ var family_word_json = {
   ],
   "count": 4
  },
+ "māluta": {
+  "data": [
+   [
+    "māruta",
+    "masc",
+    "wind; gale",
+    "~"
+   ],
+   [
+    "māluta",
+    "masc",
+    "wind; gale",
+    "✓"
+   ]
+  ],
+  "count": 2
+ },
  "mālā": {
   "data": [
    [
@@ -30752,6 +30781,47 @@ var family_word_json = {
   ],
   "count": 2
  },
+ "varuṇa": {
+  "data": [
+   [
+    "varuṇa",
+    "masc",
+    "name of a Vedic god; name of a deva king",
+    "✗"
+   ],
+   [
+    "varuṇā",
+    "masc",
+    "name of a group of deities",
+    "✗"
+   ],
+   [
+    "vāruṇā",
+    "masc",
+    "name of a group of nāgas",
+    "✗"
+   ],
+   [
+    "vāruṇī 1",
+    "fem",
+    "toddy; liquor; lit. possessed by Varuṇa",
+    "✓"
+   ],
+   [
+    "vāruṇī 2",
+    "fem",
+    "woman possessed by a spirit; lit. possessed by Varuṇa",
+    "✓"
+   ],
+   [
+    "vāruṇī 3",
+    "masc",
+    "drunkard; alcoholic; lit. possessed by Varuṇa",
+    "✓"
+   ]
+  ],
+  "count": 6
+ },
  "valāha": {
   "data": [
    [
@@ -30799,6 +30869,29 @@ var family_word_json = {
     "vāsava",
     "masc",
     "epithet of Sakka; lit. of the Vasu's",
+    "✓"
+   ]
+  ],
+  "count": 3
+ },
+ "vaḷavā": {
+  "data": [
+   [
+    "vaḷava",
+    "masc",
+    "male horse resembling a mare",
+    "✓"
+   ],
+   [
+    "vaḷavā",
+    "fem",
+    "mare",
+    "✓"
+   ],
+   [
+    "vāḷava",
+    "masc",
+    "mule; hinnie; gelding; lit. from a mare",
     "✓"
    ]
   ],
@@ -31208,13 +31301,19 @@ var family_word_json = {
     "✓"
    ],
    [
+    "sallalī",
+    "masc",
+    "porcupine quill; arrow; a dart",
+    "✓"
+   ],
+   [
     "sasalla",
     "adj",
     "having a arrow; with a dagger",
     "~"
    ]
   ],
-  "count": 9
+  "count": 10
  },
  "sāci": {
   "data": [
@@ -33176,7 +33275,7 @@ var family_word_json = {
    [
     "siva 3",
     "nt",
-    "safe place; epitet of Nibbāna",
+    "safe place; epithet of Nibbāna",
     "✓"
    ],
    [

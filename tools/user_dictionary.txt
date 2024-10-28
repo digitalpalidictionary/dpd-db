@@ -76,6 +76,7 @@ adverbial
 adversative
 Aegle
 afflictive
+afterlife
 afterwards
 Aggavaṃsa
 aggregates
@@ -197,6 +198,7 @@ arahant
 arahants
 arahantship
 arborea
+Arcturus
 arecanut
 areconut
 Ariṭṭha
@@ -223,6 +225,7 @@ asafoetida
 asammuccā
 Asaṅkhatasaṃyuttaṃ
 āsavas
+ascertains
 asceticism
 Asclepias syriaca
 Asiatica
@@ -265,6 +268,7 @@ Avantins
 Avīci
 aya
 āya
+āyasmant
 ayathābhāva
 ayo
 āyuvaṇṇādiparihānikathā
@@ -390,6 +394,7 @@ Brahmans
 Brahmas
 Brahmasaṃyuttaṃ
 Brahmāyu
+Brahminy
 Brassica
 brayonia
 brinjal
@@ -465,6 +470,7 @@ citi-citi
 Citta
 citta-vīthi
 cittalatā
+clairaudience
 Clarias
 climbable
 clinged
@@ -541,6 +547,7 @@ Cūḷapuṇṇamasutta
 cūḷavagga
 Cunda
 curādigaṇa
+curlew
 Cymbopogon
 Cyperus
 Cyprinus
@@ -568,6 +575,8 @@ decad
 decayless
 Deccan
 declivity
+decocted
+decocted
 decoction
 decrepitude
 defames
@@ -660,6 +669,7 @@ disses
 dissing
 distiller
 distinctness
+disunion
 disunited
 ditransitive
 Diṭṭhisaṃyuttaṃ
@@ -770,6 +780,7 @@ favourite
 feelable
 felloe
 felly
+ferruginea
 fetcher
 fickleness
 fidgetiness
@@ -807,6 +818,7 @@ Gaertnera
 gah
 gahādigaṇa
 gāhāpeti
+gaḷagaḷa
 galbra
 gallipot
 gam
@@ -916,6 +928,7 @@ hillcrest
 Himalayan
 Himalayas
 hindrances
+hinnie
 Hiptage
 hitman
 Holarrhena
@@ -950,8 +963,10 @@ immoveable
 impalpability
 impelling
 impercipient
+impersonality
 imperturbable
 impingement
+imprudently
 iṃsu
 in-front-ness
 inarticulately
@@ -983,6 +998,7 @@ Indus
 inexpertise
 infeminine
 inhered
+injudiciously
 inophyllum
 inscribing
 insignificantly
@@ -1103,6 +1119,7 @@ keḷāyati
 kesā
 Kesakambala
 Kesamutta
+kettledrum
 Ketumatī
 kh
 kha
@@ -1451,6 +1468,7 @@ monkhood
 Monosperma
 mountable
 movie
+mridangam
 mucalinda
 Mucana
 muddle-mindedness
@@ -1984,6 +2002,7 @@ Setabyā
 shakeable
 shaveling
 sheafs
+shelduck
 Shorea
 sicklessness
 Sida
@@ -2028,6 +2047,7 @@ slanderousness
 slayed
 śloka
 sluggishness
+SN
 SN22.22
 SN4
 SN4.25
@@ -2037,6 +2057,7 @@ sobhanaka
 socanan'ti
 sogandhika-count
 soilless
+sojourning
 soko
 soma
 Soṇadaṇḍa
@@ -2051,6 +2072,7 @@ Sotāpattisaṃyuttaṃ
 spellicans
 spillikins
 spinosa
+spirituous
 splooshing
 Spondias
 spontaneum
@@ -2070,6 +2092,7 @@ straightforwardness
 straightness
 strategized
 stratiotes
+strewing
 Strychnos
 studly
 stupa
@@ -2152,6 +2175,7 @@ Tabernaemontana
 taca
 Tacchakas
 taddhita
+Tadorna
 tajjāri
 tajjārī
 tamable
@@ -2355,6 +2379,7 @@ unfrees
 unfriendliness
 unfuelled
 ungenerousness
+ungraspable
 unground
 unharnessed
 unheated
@@ -2488,6 +2513,7 @@ vaṇṭapaṭibandha
 Varanasi
 variegata
 vārita
+Varuṇa
 vas
 Vāseṭṭha
 Vāseṭṭha
@@ -2611,10 +2637,6 @@ yira
 yojana
 yojanas
 yoking
+you're
 zizanioides
 Ziziphus
-Arcturus
-gaḷagaḷa
-strewing
-curlew
-disunion
