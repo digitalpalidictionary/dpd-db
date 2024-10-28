@@ -1,322 +1,418 @@
-missing word	lemma_1	pos	grammar	meaning_1	construction	notes	compound_type	compound_construction	proceed
-mahākhandhako	mahākhandhaka	masc		the great chapter	mahā + khandhaka				y
-bodhikathā	bodhikathā	fem		the account with the Bodhi tree; the discourse about the Bodhi tree	bodhi + kathā				y
-kulupacchedāya	kulupaccheda	masc		breaking up good families	kula + upaccheda				y
-jaṭilasahassaṃ	jaṭilasahassa	masc		a thousand dreadlocked ascetics	jaṭila + sahassa				y
-sañcayāni	sañcaya	nt		name of a ascetic teacher; lit. victory 					y
-sañjeyyāni						another reading of what?			n
-netvāna	netvāna	abs		 having carried; having taken					y
-sañjeyyake						another reading			n
-catutthabhāṇavāro	catutthabhāṇavāra	masc		the fourth section for recitation	catuttha + bhāṇavāra				y
-upajjhāyavattakathā	upajjhāyavattakathā	fem		the discussion of duties toward a preceptor	upajjhāya + vatta + kathā				y
-anovadiyamānā	anovadiyamāna	prp		not being admonished	ano+vadiyamāna	pass			y
-ananusāsiyamānā	ananusāsiyamāna	prp		not being taught	anu + anusāsiyamāna	pass			y
-uparibhojanepi	uparibhojana	nt		over staple food	upari + bhojana				y
-uparikhādanīyepi	uparikhādanīya	nt		over non-staple foods	upari + khādanīya				y
-uparisāyanīyepi	uparisāyanīya	nt		over delicacies	upari + sāyanīya				y
-uparipānīyepi	uparipānīya	nt		over drinks	upari + pānīya				y
-brāhmaṇabhojaneti	brāhmaṇabhojana	nt		a brahman meal	brāhmaṇa + bhojana 				y
-puttacittaṃ	puttacitta	nt		attitude as towards son; lit. son-mind	putta + citta				y
-pitucittaṃ	pitucitta	nt		attitude as towards father; lit. father-mind	pitu + citta				y
-ādayosaddhivihārikena						absent in text			n
-paṭinivāsanaṃ	paṭinivāsana	nt		lower robe/sarong given in return	paṭi + nivāsana				y
-nivāretabbo	nivāretabba	ptp		he should stop					y
-upanikkhipitabbaṃ	upanikkhipitabba	ptp		should deposit near, should place down close (to); lit. should throw down near 					y
-otāpetabbaṃ	otāpetabba	ptp 		should dry, should sun					y
-nidahitabbaṃ	nidahitabba	ptp		should lay down, should lay aside					y
-saṅgharitabbaṃ	saṅgharitabba	ptp 		should bring together, should collect, should accumulate 					y
-saṅgharantena	saṅgharanta	prp		bringing together, collecting, accumulating 					y
-bhuñjitukāmo	bhuñjitukāma	adj		wanting to eat	bhuñjituṃ + kāma 				y
-otāpetabbo	otāpetabba	ptp 		should dry, should sun					y
-nidahitabbo	nidahitabba	ptp		should lay down, should lay aside					y
-heṭṭhāmañcaṃ	heṭṭhāmañca	masc		under the bed 	heṭṭhā + mañca	 			y
-heṭṭhāpīṭhaṃ	heṭṭhāpīṭha	nt		under the bench	heṭṭhā + pīṭha				y
-nahāyitukāmo	nahāyitukāma	adj		wishing to take a bath wishing to bathe	nahāyituṃ + kāma				y
-paṭiyādetabbaṃ	paṭiyādetabba	ptp		should prepare					y
-sannetabbaṃ	sannetabba	ptp		should knead					y
-temetabbā	temetabba	ptp		should moisten					y
-jantāgharapīṭhaṃ	jantāgharapīṭha	nt		sauna bench	jantāghara + pīṭha				y
-pamajjitabbaṃ	pamajjitabba	ptp		should rub					y
-uddisāpetukāmo	uddisāpetukāma	adj		wanting to recite	uddisāpetuṃ + kāma				y
-uddisitabbo	uddisitabba	ptp		should recite					y
-paripucchitukāmo	paripucchitukāma	adj		wanting to question	paripucchituṃ + kāma				y
-asaṅghaṭṭentena	asaṅghaṭṭenta	prp		without knocking against; without knocking together	na + saṅghaṭṭenta				y
-mañcapaṭipādakā	mañcapaṭipādaka	masc		bad support	mañca + paṭipādaka				y
-ohāretabbaṃ	ohāretabba	ptp		should remove					y
-ālokasandhikaṇṇabhāgā	ālokasandhikaṇṇabhāga	masc		?window frame (and) corner	ālokasandhi + kaṇṇa + bhāga				y
-pamajjitabbā	pamajjitabba	ptp		should wipe					y
-gerukaparikammakatā	gerukaparikammakata	adj?		treated with red ocher, decorated with red chalk	geruka + parikamma + kata				y
-paripphositvā	paripphositvā	abs		having sprinkled					y
-uhaññīti	uhaññi	aor		was disturbed, was sturred					y
-otāpetvā	otāpetvā	abs		having dried					y
-yathāṭhāne	yathāṭhāna	nt		proper place	yathā + ṭhāna				y
-thaketabbā	thaketabba	ptp		should close					y
-āsiñcitabbaṃ	āsiñcitabba	ptp		should pour					y
-vūpakāsetabbo	vūpakāsetabba	ptp		should take away, should allay, should send away					y
-vūpakāsāpetabbo	vūpakāsāpetabba	ptp		should cause to take away; should get (someone else) to allay; should have sent away					y
-vinodetabbaṃ	vinodetabba	ptp		should dispel					y
-vinodāpetabbaṃ	vinodāpetabba	ptp		should cause to dispel, should get (someone else) to dispel, should have dispelled					y
-vivecetabbaṃ	vivecetabba	ptp		should dissuade, should pry away, should make give up					y
-vivecāpetabbaṃ	vivecāpetabba	ptp		should cause to dissuade, should get (someone else) to pry away, should have (someone else) to make give up					y
-parivāsāraho	parivāsāraha	adj		deserving a probation	parivāsa + araha				y
-paṭikassanāraho	paṭikassanāraha	adj		deserving to be sat back	paṭikassana + araha				y
-mānattāraho	mānattāraha	adj		deserving a penance	mānatta + araha				y
-abbhānāraho	abbhānāraha	adj		deserving a rehabilitation	abbhāna + araha				y
-niyasaṃ						another reading			n
-dhoviyethāti	dhoviyati	pr		is washed					y
-paciyethāti	paciyati	pr		is boiled					y
-rajetabbaṃ	rajetabba	ptp		should be dyed 					y
-chedetabbā	chedetabba	ptp		should cut					y
-veyyāvacco	veyyāvacca	masc		attendant, steward					y
-kārāpetabbo	kārāpetabba	ptp		should cause to act as, should have (someone) act as					y
-nīharāpetabbo	nīharāpetabba	ptp		sould have (someone) brought back, sould get (someone) brought back					y
-vuṭṭhānamassa	vuṭṭhānamassa	sandhi		his recovery; lit. standing up of him	vuṭṭhānaṃ + assa				y
-āgametabbanti	āgametabbanti	sandhi			āgametabbaṃ + iti				n
-upajjhāyavattaṃ	upajjhāyavatta	nt		the proper conduct toward the preceptor, duty toward a preceptor	upajjhāya + vatta				y
-saddhivihārikavattakathā	saddhivihārikavattakathā	fem		discussion of the proper conduct toward a student	saddhivihārika + vatta + kathā				y
-anuggahetabbo	anuggahetabba	ptp		should be encoraged, should take care,  lit. should be taken	anu + gahetabba				y
-rajiyethāti	rajiyati	pr		is dyed					y
-saddhivihārikavattaṃ	saddhivihārikavatta	nt		the proper conduct toward the student, duty toward a student	saddhivihārika + vatta				y
-paṇāmitakathā	paṇāmitakathā	fem		discussion on dismissal, the discussion of dismissed (Students)	paṇāmita + kathā				y
-asammāvattantaṃ	asammāvattanta	prp?		not behaving properly, not behaving rightly	asammā + vattanta				y
-paṇāmetuṃ	paṇāmetuṃ	inf		to dismiss					y
-paṇāmetabbo	paṇāmetabba	ptp		should dismiss					y
-khamāpetabbo	khamāpetabba	ptp		should apologise, should ask for forgiveness					y
-khamāpiyamānā	khamāpiyamānā	prp		being asked for forgiveness					y
-khamitunti	khamituṃ	inf		to ask forgiveness, to apologise					y
-khamāpiyamānena	khamāpiyamāna	prp		being asked for forgiveness					y
-sammāvattantaṃ	sammāvattanta	prp?		behaving properly, behaving rightly	sammā + vattanta				y
-sammāvattanto	sammāvattanta	prp?		behaving properly, behaving rightly	sammā + vattanta				y
-asammāvattanto	asammāvattanta	prp?		not behaving properly, not behaving rightly	asammā + vattanta				y
-nādhimattaṃ	nādhimatta	adj		not strong	na + adhimatta				y
-nādhimatto	nādhimatta	adj		not strong	na + adhimatta				y
-nādhimattā	nādhimatta	adj		not strong	na + adhimatta				y
-appaṇāmento	appaṇāmenta	prp		not dismissing	na + paṇāmenta				y
-upasampannasamanantarā	upasampannasamanantarā	ind		immediately after full ordination	upasampanna + samanantara				y
-atirekalābho	atirekalābha	masc		additional allowance, extra allowance	atireka + lābha				y
-upajjhāyavattabhāṇavāro	upajjhāyavattabhāṇavāra	masc		the section for recitation on the proper conduct toward the preceptor; the recitation section on duties toward a preceptor	upajjhāya + vatta + bhāṇavāra				y
-pañcamabhāṇavāro	pañcamabhāṇavāra	masc		the fifth section for recitiation 	pañcama + bhāṇavāra				y
-ācariyavattakathā	ācariyavattakathā	fem		the discussion of duties toward a teacher, discussion of the proper conduct toward a teacher	ācariya + vatta + kathā				y
-ūnadasavaggena	ūnadasavagga	masc		group of less than ten, group of fewer than ten	ūna + dasavagga				y
-atirekadasavaggena	atirekadasavagga	masc		group of more than ten	atireka + dasavagga				y
-ovadiyo	ovadiya	adj		admonished, instucted					y
-anusāsiyo	anusāsiya	adj		teaching					y
-atilahuṃ	atilahuṃ	ind		too quickly	ati + lahuṃ				y
-gaṇabandhikaṃ	gaṇabandhika	masc?		forming a group	gaṇa + bandhika				y
-atirekadasavassena	atirekadasavassa	adj		of more than ten's year' standing	atireka + dasavassa				y
-uddisāpetabbo	uddisāpetabba	ptp		should recite, should cause to resite, should make recite					y
-chedāpetabbā	chedāpetabba	ptp		should have (it) cut, should cause to cut, should make (it) cut					y
-kārāpetabbaṃ	kārāpetabba	ptp		should cause to do, should cause to do, sould have (it) performed					y
-ācariyavattaṃ	ācariyavatta	nt		the duty toward a teacher	ācariya + vatta				y
-antevāsikavattakathā	antevāsikavattakathā	fem		the discussion of the duties toward a pupil	antevāsika + vatta + kathā				y
-antevāsikavattaṃ	antevāsikavatta	nt		the duty toward a student	antevāsika + vatta				y
-chaṭṭhabhāṇavāro	chaṭṭhabhāṇavāro	masc		sixth recitation cycle	chaṭṭha + bhāṇavāro				y
-paṇāmanā	paṇāmana	nt		dismissal					y
-bālaabyattavatthu	bālaabyattavatthu	nt		theignorant and incompetent, the discussion of inexperienced, incompetent 	bāla + abyatta + vatthu				y
-nissayapaṭippassaddhikathā	nissayapaṭippassaddhikathā	fem		discussion of the ending of formal support, discussion of the ending of dependence	nissaya + paṭippassaddhi + kathā				y
-nissayapaṭippassaddhiyo	nissayapaṭippassaddhi	fem		ending of formal support, ending of dependence	nissaya + paṭippassaddhi				y
-samodhānagato	samodhānagata	pp		reunited	samodhāna + gata				y
-nissapaṭippassaddhikathā						another reading of nissayapaṭippassaddhikathā			n
-upasampādetabbapañcakaṃ	upasampādetabbapañcaka	nt		the five requirements for giving the full ordination, sets of five on who should give acceptance	upasampādetabba + pañcaka				y
-ācāravipanno	ācāravipanna	pp		failed in conduct	ācāra + vipanna				y
-atidiṭṭhiyā	atidiṭṭhi	fem		highter views	ati + diṭṭhi				y
-diṭṭhivipanno	diṭṭhivipanna	pp		failed in views	diṭṭhi + vipanna				y
-atirekadasavasso	atirekadasavassa	adj		of more than ten's year' standing	atireka + dasavassa				y
-upasampādetabbachakkaṃ	upasampādetabbachakka	nt		the six requirements for giving the full ordination, sets of six on who should give acceptance	upasampādetabba + chakka				y
-chahaṅgehi	chahaṅga	nt		six qualities	chahi + aṅga				y
-aññatitthiyapubbakathā	aññatitthiyapubbakathā	fem		discussion on those who have been monastics of another religion, the discussion of those previously a member of another religion	añña + titthiya + pubba + kathā				y
-pasuraparibbājako	pasuraparibbājaka	masc		many ascetics	pasura + paribbājaka				y
-pasura	pasura	adj		many, abundant					y
-bhikkhunigocaro	bhikkhunigocara	adj		frequently visiting nuns; lit. nun pasture	bhikkhunī + gocara	var of bhikkhunīgocara			y
-sattamabhāṇavāro	sattamabhāṇavāra	masc		seventh recitation cycle	sattama + bhāṇavāra				y
-pañcābādhavatthu	pañcābādhavatthu	nt		the case of the five diseases	pañca + ābādha + vatthu				y
-gilānupaṭṭhākabhattaṃ	gilānupaṭṭhākabhatta	nt		meal for those nursing the sick, meal for the nurse	gilānupaṭṭhāka + bhatta				y
-rājakiccaṃ	rājakicca	nt		duti to the king	rāja + kicca				y
-rājabhaṭavatthu	rājabhaṭavatthu	nt		 the case of one who is in the king’s service	rājabhaṭa + vatthu				y
-senānāyake	senānāyaka	masc		the minister of the army, the general	senā + nāyaka				y
-senānāyakā	senānāyaka	masc		the minister of the army, the general	senā + nāyaka				y
-chetabbaṃ	chetabba	ptp		should be cut off					y
-upaḍḍhaphāsukā	upaḍḍhaphāsukā	fem		half of the ribs	upaḍḍha + phāsukā				y
-bhañjitabbāti	bhañjitabba	ptp		should be broken					y
-aṅgulimālacoravatthu	aṅgulimālacoravatthu	nt		the story of Aṅgulimāla the criminal	aṅgulimāla + cora + vatthu				y
-kārabhedakacoravatthu	kārabhedakacoravatthu	nt		 the case of the escaped criminal, the case of the criminal who had broken out of prison	kārabhedaka + cora + vatthu				y
-abhayūvarā	abhayūvara	masc		untoucheble, unrestrained by fear	?na + bhaya + vara				y
-likhitakacoravatthu	likhitakacoravatthu	nt		 the case of the wanted criminal, the case of the criminal for whom a warrant had been written	likhitaka + cora + vatthu				y
-kasāhatavatthu	kasāhatavatthu	nt		the one who had been whipped, the case of the man who had been whipped	kasāhata + vatthu				y
-kasāhato	kasāhata	pp		?whipped, caned	kasā + hata				y
-katadaṇḍakammo	katadaṇḍakamma	nt		?punished, penalty	kata + daṇḍa + kamma				y
-katadaṇḍakammaṃ	katadaṇḍakamma	nt		?punished, penalty	kata + daṇḍa + kamma				y
-lakkhaṇāhatavatthu	lakkhaṇāhatavatthu	nt		 the case of the one who had been branded, the case of the man who had been branded	lakkhaṇa + āhata + vatthu				y
-lakkhaṇāhato	lakkhaṇāhata	pp		branded	lakkhaṇa + āhata				y
-lakkhaṇāhataṃ	lakkhaṇāhata	pp		branded	lakkhaṇa + āhata				y
-iṇāyikavatthu	iṇāyikavatthu	nt		the case of the one in debt, the case of the debtor	iṇāyika + vatthu				y
-dāsavatthu	dāsavatthu	nt		the case of the slave	dāsa + vatthu				y
-kammārabhaṇḍuvatthu	kammārabhaṇḍuvatthu	nt		the case of the shaven-headed (young) metal smith	kammārabhaṇḍu + vatthu				y
-apaloketuṃ	apaloketuṃ	inf		to obtains permission, to inform					y
-upālidārakavatthu	upālidārakavatthu	nt		the story of the boy Upāli 	upālidāraka + vatthu				y
-ahivātakarogavatthu	ahivātakarogavatthu	nt		the case of the deadly and contagious disease, the case of cholera	ahivātakaroga + vatthu				y
-pitāputtakā	pitāputtaka			father (and) little son	pitā + puttaka				y
-ūnapannarasavasso	ūnapannarasavassa	masc		less than 15 years old	ūna + pannarasa + vassa				y
-apasādiyamānā	apasādiyamāna	prp		being driven away, being dismissed	api + asādiya + māna				y
-ūnapannarasavassā	ūnapannarasavassa	masc		less than 15 years old	ūna + pannarasa + vassa				y
-uḍḍāpetunti	uḍḍāpetuṃ	inf		to scare away, to chase away					y
-ūnapannarasavassaṃ	ūnapannarasavassa	masc		less than 15 years old	ūna + pannarasa + vassa				y
-kaṇṭakavatthu	kaṇṭakavatthu	nt		the case of Kaṇṭaka, Kaṇṭaka	kaṇṭaka + vatthu				y
-āhundarikavatthu	āhundarikavatthu	nt		the case of crowding, the obscure	āhundarika + vatthu				y
-gacchānanda	gacchānanda	masc		go, Ānanda	gaccha + ānanda				y
-paccāgantabbaṃ	paccāgantabba	ptp		would come back	pati + āgantabba				y
-lahucittakata	lahucittakata	pp		appeared frickle	lahucitta + kata				y
-nissayamuccanakakathā	nissayamuccanakakathā	fem		discussion of release from formal support, the case of release from dependence	?nissaya + muccanaka + kathā				y
-ūnapañcavasso	ūnapañcavassa	adj		less than five years of seniority, fewer than five rains	ūna + pañcavassa				y
-pañcavasso	pañcavassa	masc		five years of seniority, five rains	pañca + vassa				y
-pañcakadasavāro	pañcakadasavāra	masc		he section consisting of ten groups of five	pañcaka + dasa + vāra				y
-atirekapañcavasso	atirekapañcavassa	masc		five or more years of seniority, five rains or more	atireka + pañcavassā				y
-abhayūvarabhāṇavāro	abhayūvarabhāṇavāra	masc		 section for recitation on untouchables	abhayūvara + bhāṇavāra				y
-aṭṭhamabhāṇavāro	aṭṭhamabhāṇavāra	masc		eight section for recitation	aṭṭhama + bhāṇavāra				y
-rāhulavatthu	rāhulavatthu	nt		the case of Rāhula	rāhula + vatthu				y
-rāhulamātā	rāhulamātar	fem		Rāhula’s mother	rāhula + mātar				y
-sāmaṇerapabbajjaṃ	sāmaṇerapabbajjā	fem		the going forth as a novice monk, the going-forth for a novice	sāmaṇera + pabbajjā				y
-puttapemaṃ	puttapema	nt		affection for a son	putta + pema				y
-sikkhāpadakathā	sikkhāpadakathā	fem		discussion of training rules	sikkhāpada + kathā				y
-daṇḍakammavatthu	daṇḍakammavatthu	nt		the case of punishment	daṇḍakamma + vatthu				y
-mukhadvārikaṃ	mukhadvārika	masc		mouth	mukha + dvārika				y
-anāpucchāvaraṇavatthu	anāpucchāvaraṇavatthu	nt		the case of the prohibition made without having taken leave, the case of the  prohibiting without asking permission	anāpucchā + āvaraṇa + vatthu				y
-apalāḷanavatthu	apalāḷanavatthu	nt		the case of luring away 	apalāḷana + vatthu				y
-kaṇṭakasāmaṇeravatthu	kaṇṭakasāmaṇeravatthu	nt		the case of Kaṇṭaka the novice	kaṇṭaka + sāmaṇera + vatthu				y
-paṇḍakavatthu	paṇḍakavatthu	nt		the case of the paṇḍakas 	paṇḍaka + vatthu				y
-moḷigalle	moḷigalla	adj		fat, hefty	moḷi + galla				y
-hatthibhaṇḍe	hatthibhaṇḍa	nt		elephant-trainer, elephant keeper	hatthi + bhaṇḍa				y
-assabhaṇḍe	assabhaṇḍa	nt		horse-trainer, horse keeper	assa + bhaṇḍa				y
-theyyasaṃvāsakavatthu	theyyasaṃvāsakavatthu	nt		the case of affiliation through theft,  the one living in the community by theft	theyyasaṃvāsaka + vatthu				y
-yāvadatthacīvaraṃ	yāvadatthacīvara	nt		the amount of robe-cloth one wants; as many robes as one needs; as much cloth as one needs	yāvadattha + cīvara				y
-cīvaruppādo	cīvaruppāda	masc		whatever robe-cloth is given	cīvara + uppāda				y
-attharitabbaṃ	attharitabba	ptp		should be spread; can be laid out		? from atthata			y
-ullikhitamattena	ullikhitamatta	adj		simply by taking the measure; merely by measuring; if only a measure is taken	ullikhita + ? matta	matta or mattena ?			y
-dhovanamattena	dhovanamatta	adj		simply by cleaning; merely by washing; if it is only washed	dhovana + ? matta				y
-cīvaravicāraṇamattena	cīvaravicāraṇamatta	adj		simply by arranging robe-cloth; merely by arranging the robe-cloth; if the clth is only layed out	cīvaravicāraṇa + matta				y
-chedanamattena	chedanamatta	adj		simply by cutting; merely by cutting; only if it is cut	chedana + matta				y
-bandhanamattena	bandhanamatta	adj		simply by attaching; merely by joining; if pieces are only attached	bandhana + matta				y
-ovaṭṭiyakaraṇamattena	ovaṭṭiyakaraṇamatta	adj		simply by folding a seam; merely by making a seam; if only a seam is made	ovaṭṭiya + karaṇa + matta				y
-ovaṭṭeyyakaraṇamattena						varriant of ovaṭṭiyakaraṇamattena			n
-ovadeyyakaraṇamattena						varriant of ovaṭṭiyakaraṇamattena			n
-kaṇḍusakaraṇamattena	kaṇḍusakaraṇamatta	adj		simply by marking; merely by making a mark; if it is only marked	kaṇḍusu + karaṇa + matta				y
-daḷhīkammakaraṇamattena	daḷhīkammakaraṇamatta	adj		simply by strengthening; merely by strengthening; if it is only stiffened	daḷhī + karaṇa + matta				y
-anuvātakaraṇamattena	anuvātakaraṇamatta	adj		merely by adding a side boarder; simply by attaching a vertical boarder; if only a side boarder is added	daḷhī + karaṇa + matta				y
-paribhaṇḍakaraṇamattena	paribhaṇḍakaraṇamatta	adj		simply by attaching a horizontal boarder; merely by adding a top or bottom boarder; if only a horizontal boarder is added	daḷhī + karaṇa + matta				y
-ovaddheyyakaraṇamattena	ovaddheyyakaraṇamatta	adj		simply by patching; merely by adding a patch; if only a patch is added	daḷhī + karaṇa + matta				y
-kambalamaddanamattena	kambalamaddanamatta	adj		simply by dying; merely by washing a cloth in dye; lit: threshing a woolen cloth	kālaṃ + maddana + matta				y
-nimittakatena	nimittakata	adj		an indication (that) has been made; pointed out; 	nimitta + kata				y
-parikathākatena	parikathākata	adj		hinting; making a hint; has been requested	parikathā + kata				y
-atirekapañcakena	atirekapañcaka	adj		five or more; at least five;	atireka + pañcaka				y
-samaṇḍalīkatena	samaṇḍalīkata	adj		with	sa + maṇḍalī + kata				y
-nissīmaṭṭho	nissīmaṭṭha	masc		outside (a boundary)	nissīmā + aṭṭha				y
-ahatakappena	ahatakappa	? adj		brand new; lit: a thing that is clean and suitable	ahata + kappa				y
-animittakatena	animittakata	adj		unmarked; without a marking;	na + nimitta + kata				y
-asannidhikatena	asannidhikata	adj		is not stored; has been received recently; 	na + sannidhi + kata	antonim sannidhikata already in dpd			y
-pakkamanantikā	pakkamanantika	adj		departs; leaves; begins traveling	pakkamanaṃ + antikā				y
-sanniṭṭhānantikā	sanniṭṭhānantika	adj		has concluded; has finished	saniṭṭhāna + antikā 				y
-nāsanantikā	nāsanantika	adj		destroyed; lost	nāsana + antika				y
-savanantikā	savanantika	adj		hears (about the end of the robe season); learns of the end of the season; realizes the season is over	savana+ antika				y
-atikkantikā	atikkantikā	fem		transgressing, overstepping the bounds		clone atikkanta 1			y
-sīmātikkantikā	sīmātikkantika	adj		outside the boundary; beyond the (monastery) zone	sīmā + atikkantikā				y
-sahubbhārāti	sahubbhāra	masc		ending together; communal ending	saha + ubbhāra + iti 				y
-saubbhārāti	saubbhāra	masc		ending alone; finishing by oneself	sa + ubbhāra + iti 				y
-ādāyasattakaṃ	ādāyasattaka	nt		the group with seven	ādāya + sattaka 				y
-katacīvaraṃ	katacīvara	nt		finished robe; completed robe; made robe	kata + cīvara 				y
-pakkamanantiko	pakkamanantika	adj		the time of departing; if one leaves; when going away	pakkamanaṃ + antika				n
-bahisīmagatassa	bahisīmagata	adj		passed beyond the boundary; gone outside the zone; outside the limit (of the monastery)	bahi + sīma + gata				y
-nevimaṃ	nevima			I will not; do not intend to; I won’t					y
-sanniṭṭhānantiko	sanniṭṭhānantika	adj		the time of concluding; if one finishes; when done	sanniṭṭhāna + antika				n
-nāsanantiko	nāsanantika	adj		(? the time of) destroying; if damaged; 	nāsana + antika				n
-bahisīmagato	bahisīmagata	adj		passed beyond the boundary; gone outside the zone; outside the limit (of the monastery)	bahi + sīma + gata				n
-savanantiko	savanantika	adj		hears (about the end of the robe season); learns of the end of the season; realizes the season is over	savana+ antika				n
-samādāyasattakaṃ	samādāyasattaka	nt		group of seven on “with” 	? saṁ + ādāya + sattaka 	a title at the beginning of a section in the Khandakas			y
-ādāyachakkaṃ	ādāyachakka	nt		group of six on “takes” 	? ādāya + chakka	a title at the end of a section in the Khandakas			y
-vippakatacīvaraṃ	vippakatacīvara	nt		unfinished robe-cloth	vippakata + cīvara 				y
-samādāyachakkaṃ	samādāyachakka	nt		group of six on “with” 	samādāya + chakka 	a title at the beginning of a section in the Khandakas			y
-ādāyapannarasakaṃ	ādāyapannarasaka	nt		group of fifteen on “receiving” 	ādāya + pannarasaka 	a title at the end of a section in the Khandakas			y
-samādāyapannarasakādi	samādāyapannarasaka	nt		group of fifteen on “receiving” 	samādāya + pannarasaka 	a title at the beginning of a section in the Khandakas			y
-vippakatasamādāyapannarasakaṃ	vippakatasamādāyapannarasaka			group of fifteen on “with an unfinished”; group of fifteen on “with an incorrect”	vippakata + samādāya + pannarasaka 				y
-ādāyabhāṇavāro	ādāyabhāṇavāra	masc		section for recitation on “takes”	ādāya + bhāṇavāra				y
-anāsādoḷasakaṃ	anāsādoḷasaka	nt		set of twelve on “not as expected”	anāsā + doḷasaka				y
-upacchijjati						varriant of upacchindati			n
-anāsādvādasakaṃ						varriant of anāsādoḷasaka			n
-āsādoḷasakaṃ									n
-karaṇīyadoḷasakaṃ	karaṇīyadoḷasaka	nt		group of twelve on “business” 	karaṇīya + doḷasakaṃ				y
-apavilāyananavakaṃ	apavilāyananavaka			 group of nine on “without taking” 		don’t know how the word breaks down			n
-disaṃgamiko						varriant of disaṅgamika			n
-apavilāyamāno	apavilāyamāna	masc		did not receive; without taking	api + avinaya + māna				n
-apavinayamāno						varriant of apavilāyamāno			n
-apacinayamāno						varriant of apavilāyamāno			n
-disaṃgataṃ						varriant of disaṅgata			n
-phāsuvihārapañcakaṃ	phāsuvihārapañcaka	nt		group of five on “meditation going well” 	phāsuvihāra + pañcaka 				y
-phāsuvihāriko	phāsuvihārika	adj		pleasantly abiding; living in comfort; whose meditation is going well	phāsu + vihārika				y
-palibodhāpalibodhakathā	palibodhāpalibodhakatha	adj		Discussion on obstacles and removal of obstacles	palibodhā + palibodha + kathā 				y
-āvāsapalibodho	āvāsapalibodha	masc		monastery obstacle (for completing the kathīna); (kathīna) obstruction;  based on the monastery; monastery factor for continuation of robe season	āvāsa + palibodha				y
-cīvarapalibodho	cīvarapalibodha	masc		robe cloth obstacle (for completing the kathīna); (kathīna) obstruction based on robe-cloth; robe-cloth factor for continuation of robe season					y
-sāketukkaṇṭhitā	sāketukkaṇṭhita	pp		discontented in Sāketa; stayed unhappily in a Kosalan town; uncomfortable stay in Sāketa	sāketa + ukkaṇṭhita				y
-apavilānā						Don’t know			n
-apavilāyamāneva						variant of apavilānā			n
-apavinā						variant of apavilānā (apavinā nava cettha)			n
-palibodhāpalibodhā	palibodhāpalibodha	masc	masc, comp	Obstacles, (and) removal of obstacles	palibodha + apalibodha		dvanda	palibodha ca apalibodha ca	y
-doḷasakapeyyālamukhāni	doḷasakapeyyālamukha	nt	nt, comp	groups of twelve with repetition; repeated sections of twelve items	doḷasaka + peyyālamukha		kammadhāraya	doḷasaka + peyyālamukha	y
-cīvarakkhandhako	cīvarakkhandhaka	masc	masc, comp	chapter on robes; robe-cloth chapter; (Khandaka) chapter about robes	cīvara + khandhaka		chaṭṭhī tappurisa	cīvarassa + khandhaka	y
-jīvakavatthu	jīvakavatthu	nt	nt, comp	The account of Jīvaka; the story of Jīvaka	jīvaka + vatthu 		chaṭṭhī tappurisa	jīvakassa + vatthu 	y
-phitā						varriant of phītā			n
-pāsādasatāni	pāsādasata	adj	adj, comp	hundred mansions; palaces numbering one hundred	pāsāda + sata		digu	pāsādā + satāni	y
-ārāmasahassāni	ārāmasahassa	adj	adj, comp	thousand monasteries; parks numbering one thousand	ārāma + sahassa		digu	ārāmā + sahassāni	y
-ārāmasatāni	ārāmasata	adj	adj, comp	hundred monasteries; parks numbering one hundred	ārāma + sata		digu	ārāmā + satāni	y
-pokkharaṇīsahassāni	pokkharaṇīsahassa	adj	adj, comp	thousand ponds; pools numbering one thousand; thousand lotus pools	pokkharaṇī + sahassa		digu	pokkharaṇī + sahassāni	y
-pokkharaṇīsatāni	pokkharaṇīsata	adj	adj, comp	hundred ponds; pools numbering one hundred; hundred lotus pools	pokkharaṇī + sata		digu	pokkharaṇī + satāni	y
-padakkhā						varriant of padakkhiṇā			n
-phitañca						varriant of phītā			n
-padakkhaṃ						varriant of padakkhiṇā			n
-upasobhantiṃ	upasobhati					conj. of upasobhati already in DPD			n
-asippena	asippa	nt		without a profession; not having a skill; without a craft	na+ sippa	antonym sippa already in DPD			y
-upajīvituṃ	upajīvati	inf	inf, comp	to make a livelihood; to sustain oneself; to take care of oneself		inf from upajīvati	abyayībhāva 	upa + jīvati	y
-adhīyantassa	adhīyati	prp		studying; learning it by heart; 			?		y
-āhiṇṭanto						varriant of na kiñci			n
-seṭṭhibhariyāvatthu	seṭṭhibhariyāvatthu	sandhi	nt, comp	The account of the wealthy merchant’s wife; the story of the wealthy wife; the instance with the rich wife	seṭṭhibhariyā + vatthu		chaṭṭhī tappurisa	seṭṭhibhariyassa + vatthu 	y
-nippacitvā	nippaci	pr		cooking (medicine); infusing; brewing		absolutive of nippaci			y
-vimanosīti	vimanosi	pr		you are upset; you're displeased; you're unhappy; you're downcast	vimanosi + ti	from vimana			y
-upajānāmetassa	upajānāti	pr		this we know for ourselves; we know this; we understand	upajānāti + eta		kammadhāraya	upajānāma + etassa	n
-padīpakaraṇe	padīpakaraṇa	prp	prp, comp	for using in lamps, for adding to lamps, using as lamp fuel	padīpa + karaṇa		abyayībhāva 	padīpa + karaṇe	y
-paṭhamakammaṃ	paṭhamakamma	nt	nt, comp	first job; first action; first deed	paṭhama + kamma		digu 	paṭhama + kammaṃ	y
-bimbisārarājavatthu	bimbisārarājavatthu	sandhi	nt, comp	The account of King Bimbisāra; the story of Bimbisāra the king; the instance with King Bimbisāra	bimbisāra + rāja + vatthu		chaṭṭhī tappurisa	bimbisārarājassa + vatthu 	y
-makkhiyanti	makkhiyanti	sandhi		has been soiled; made dirty (with); dirtied (by)	makkhi + ayaṃ + īti 		kammadhāraya	makkhiyaṃ + īti	n
-bhagandalābādhaṃ	bhagandalābādha	masc	masc, comp	hemorrhoid; fistula; condition of swelling and bleeding of the inner thighs	bhagandalā + bādha 		tatiyā tappurisa 	bhagandalā + bādhaṃ	y
-sabbālaṅkāraṃ	sabbālaṅkāra	masc	masc, comp	all jewllery; all ornaments			dutiyā tappurisa 	sabbaṃ + alaṅkāraṃ 	y
-vassaṃvuṭṭhokapuṇṇehi	vassaṃvuṭṭhokapuṇṇa	adj		who had spent the rains retreat (in); who had completed the rains (in)	vassaṃvuṭṭha + okapuṇṇa	!!!up to here!!!!			
-jinadassanaṃ	jinadassana	nt		see the Victor; visit the conqueror; lit. a sight of the victor					
-asamācārā	asamācāra	masc		going without taking (the cloth); leaving without receiving; departing without the robe-cloth		? definition for an action, not a noun?			
-kaṇḍusa	kaṇḍusa	nt		cloth strip marker; strip of cloth used to mark the kaṭhina robe 					
-daḷhīkammānuvātikā	daḷhīkammānuvātika			strengthening a side boarder; stiffening a vertical boarder; adding a second layer to the side boarder	daḷhīkammā + nu + vātikā 				
-nissaggi	nissagga	? masc		letting go; giving up; abandoning		nisagga already in DPD, this declension not recognized			
-kappaññatra	kappaññatra	? ind		not marked; unmarked; without a marking	kappa + aññatra 				
-pañcātireke	pañcātireka	adj		five or more; at least five	pañca + atireka	similar to atirekapañcakena			
-samaṇḍalī	samaṇḍalī	adj		with robe panels; having large panel pieces used in robe making	sa + maṇḍalī				
-nissīmaṭṭhonumodati	nissīmaṭṭhonumodati	pp			nissīmā + aṭṭho + anumodati 	Don’t know; consensus definition: He appreciates outside the monastery zone			
-kathinānatthataṃ	kathinānatthata	pp		kathina is not spread; the robe-making ceremony is not completed; lit. robe frame (ceremony) not performed	kathināna + atthata 				
-ahatākappapiloti	ahatākappapiloti	fem		new cloth; lit. new and allowable cloth	ahata + kappa + piloti				
-animittāparikathā	animittāparikathā	fem		Without indication and without hint; without signaling or hinting (for the robe-cloth to be given)	animittā + parikathā 				
-akukku						antonym kukku already in DPD			
-asannidhi						antonym sannidhi already in DPD			
-anissaggi						antonym anissaggi already in DPD			
-vātireke	vātireka	adj		more than; or more; exceeding	eva + atireka				
-samaṇḍalīkate	samaṇḍalīkata	adj		with sections made with panels; with panels attached	sa + maṇḍalī + kata				
-puggalassatthārā	puggalassatthāra			performed by an individual; spread by a person; lit. person (has) spread	puggalassa + atthāra				
-kathinattharaṇaṃ	kathinattharaṇa	nt.		kathina has been spread; the robe-making ceremony has been completed; lit. robe frame (is) spread	kathina + attharaṇa 				
-ubbhārassaṭṭhamātikā	ubbhārassaṭṭhamātika	fem		Eight phrases for ending; eight ways of ending the kathina; 	? ubbhārassa + aṭṭhamā + tikā 				
-āsāvacchedi	āsāvacchedi	adj		disappointed expectation;		? same as āsāvacchedika 			
-sahubbhāraṭṭhamī	sahubbhāraṭṭhamī	fem		ending together as the eighth; the eighth option is ending together	saha + ubbhāra + aṭṭhamī 				
-katacīvaramādāya		adj		having received robe-cloth; accepts a finished robe					
-kayiraṃ	kayira	pp		is done; is made; is performed	kayira	from kayirati			
-sattasattavidhā	sattasattavidha	adj		Seven with sevenfold; seventh					
-chaccā						variant of chakka			
-vippakathā	vippakatha	pp		interrupted; unfinished; not completed					
-nissīmagataṃ	nissīmagata	fem		gone beyond the boundary; left the monastery zone; went outside monastery limits	nissīma + gata 				
-bahisīme	bahisīma	fem		outside monastery zone; beyond monastery boundary; past monastery limits	bahi + sīma				
-nayāvidhi	nayāvidhi	masc		method; approach; formula	nayā + vidhi 				
-savanasīmātikkamā	savanasīmātikkama	masc		hearing and outside the monastery zone; learning and beyond monastery boundary	savana + sīma + atikkama				
-punā	puna			again; once more; further					
-pannarasavidhi	pannarasavidhi	masc		fifteen methods; fifteen approaches; fifteen formulas					
+missing word	lemma_1	pos	grammar	meaning_1	construction	notes	compound_type	compound_construction	proceed	pali_new	marks
+mahākhandhako	mahākhandhaka	masc		the great chapter	mahā + khandhaka				y		
+bodhikathā	bodhikathā	fem		the account with the Bodhi tree; the discourse about the Bodhi tree	bodhi + kathā				y		
+kulupacchedāya	kulupaccheda	masc		breaking up good families	kula + upaccheda				y		
+jaṭilasahassaṃ	jaṭilasahassa	masc		a thousand dreadlocked ascetics	jaṭila + sahassa				y		
+sañcayāni	sañcaya	nt		name of a ascetic teacher; lit. victory 					y		
+sañjeyyāni									n		
+netvāna	netvāna	abs		 having carried; having taken					y		
+sañjeyyake									n		
+catutthabhāṇavāro	catutthabhāṇavāra	masc		the fourth section for recitation	catuttha + bhāṇavāra				y		
+upajjhāyavattakathā	upajjhāyavattakathā	fem		the discussion of duties toward a preceptor	upajjhāya + vatta + kathā				y		
+anovadiyamānā	anovadiyamāna	prp		not being admonished	ano+vadiyamāna				y		
+ananusāsiyamānā	ananusāsiyamāna	prp		not being taught	anu + anusāsiyamāna				y		
+uparibhojanepi	uparibhojana	nt		over staple food	upari + bhojana				y		
+uparikhādanīyepi	uparikhādanīya	nt		over non-staple foods	upari + khādanīya				y		
+uparisāyanīyepi	uparisāyanīya	nt		over delicacies	upari + sāyanīya				y		
+uparipānīyepi	uparipānīya	nt		over drinks	upari + pānīya				y		
+brāhmaṇabhojaneti	brāhmaṇabhojana	nt		a brahman meal	brāhmaṇa + bhojana 				y		
+puttacittaṃ	puttacitta	nt		attitude as towards son; lit. son-mind	putta + citta				y		
+pitucittaṃ	pitucitta	nt		attitude as towards father; lit. father-mind	pitu + citta				y		
+ādayosaddhivihārikena									n		
+paṭinivāsanaṃ	paṭinivāsana	nt		lower robe/sarong given in return	paṭi + nivāsana				y		
+nivāretabbo	nivāretabba	ptp		he should stop					y		
+upanikkhipitabbaṃ	upanikkhipitabba	ptp		should deposit near, should place down close (to); lit. should throw down near 					y		
+otāpetabbaṃ	otāpetabba	ptp 		should dry, should sun					y		
+nidahitabbaṃ	nidahitabba	ptp		should lay down, should lay aside					y		
+saṅgharitabbaṃ	saṅgharitabba	ptp 		should bring together, should collect, should accumulate 					y		
+saṅgharantena	saṅgharanta	prp		bringing together, collecting, accumulating 					y		
+bhuñjitukāmo	bhuñjitukāma	adj		wanting to eat	bhuñjituṃ + kāma 				y		
+otāpetabbo	otāpetabba	ptp 		should dry, should sun					y		
+nidahitabbo	nidahitabba	ptp		should lay down, should lay aside					y		
+heṭṭhāmañcaṃ	heṭṭhāmañca	masc		under the bed 	heṭṭhā + mañca				y		
+heṭṭhāpīṭhaṃ	heṭṭhāpīṭha	nt		under the bench	heṭṭhā + pīṭha				y		
+nahāyitukāmo	nahāyitukāma	adj		wishing to take a bath wishing to bathe	nahāyituṃ + kāma				y		
+paṭiyādetabbaṃ	paṭiyādetabba	ptp		should prepare					y		
+sannetabbaṃ	sannetabba	ptp		should knead					y		
+temetabbā	temetabba	ptp		should moisten					y		
+jantāgharapīṭhaṃ	jantāgharapīṭha	nt		sauna bench	jantāghara + pīṭha				y		
+pamajjitabbaṃ	pamajjitabba	ptp		should rub					y		
+uddisāpetukāmo	uddisāpetukāma	adj		wanting to recite	uddisāpetuṃ + kāma				y		
+uddisitabbo	uddisitabba	ptp		should recite					y		
+paripucchitukāmo	paripucchitukāma	adj		wanting to question	paripucchituṃ + kāma				y		
+asaṅghaṭṭentena	asaṅghaṭṭenta	prp		without knocking against; without knocking together	na + saṅghaṭṭenta				y		
+mañcapaṭipādakā	mañcapaṭipādaka	masc		bad support	mañca + paṭipādaka				y		
+ohāretabbaṃ	ohāretabba	ptp		should remove					y		
+ālokasandhikaṇṇabhāgā	ālokasandhikaṇṇabhāga	masc		?window frame (and) corner	ālokasandhi + kaṇṇa + bhāga				y		
+pamajjitabbā	pamajjitabba	ptp		should wipe					y		
+gerukaparikammakatā	gerukaparikammakata	adj?		treated with red ocher, decorated with red chalk	geruka + parikamma + kata				y		
+paripphositvā	paripphositvā	abs		having sprinkled					y		
+uhaññīti	uhaññi	aor		was disturbed, was sturred					y		
+otāpetvā	otāpetvā	abs		having dried					y		
+yathāṭhāne	yathāṭhāna	nt		proper place	yathā + ṭhāna				y		
+thaketabbā	thaketabba	ptp		should close					y		
+āsiñcitabbaṃ	āsiñcitabba	ptp		should pour					y		
+vūpakāsetabbo	vūpakāsetabba	ptp		should take away, should allay, should send away					y		
+vūpakāsāpetabbo	vūpakāsāpetabba	ptp		should cause to take away; should get (someone else) to allay; should have sent away					y		
+vinodetabbaṃ	vinodetabba	ptp		should dispel					y		
+vinodāpetabbaṃ	vinodāpetabba	ptp		should cause to dispel, should get (someone else) to dispel, should have dispelled					y		
+vivecetabbaṃ	vivecetabba	ptp		should dissuade, should pry away, should make give up					y		
+vivecāpetabbaṃ	vivecāpetabba	ptp		should cause to dissuade, should get (someone else) to pry away, should have (someone else) to make give up					y		
+parivāsāraho	parivāsāraha	adj		deserving a probation	parivāsa + araha				y		
+paṭikassanāraho	paṭikassanāraha	adj		deserving to be sat back	paṭikassana + araha				y		
+mānattāraho	mānattāraha	adj		deserving a penance	mānatta + araha				y		
+abbhānāraho	abbhānāraha	adj		deserving a rehabilitation	abbhāna + araha				y		
+niyasaṃ									n		
+dhoviyethāti	dhoviyati	pr		is washed					y		
+paciyethāti	paciyati	pr		is boiled					y		
+rajetabbaṃ	rajetabba	ptp		should be dyed 					y		
+chedetabbā	chedetabba	ptp		should cut					y		
+veyyāvacco	veyyāvacca	masc		attendant, steward					y		
+kārāpetabbo	kārāpetabba	ptp		should cause to act as, should have (someone) act as					y		
+nīharāpetabbo	nīharāpetabba	ptp		sould have (someone) brought back, sould get (someone) brought back					y		
+vuṭṭhānamassa	vuṭṭhānamassa	sandhi		his recovery; lit. standing up of him	vuṭṭhānaṃ + assa				y		
+āgametabbanti	āgametabbanti	sandhi			āgametabbaṃ + iti				n		
+upajjhāyavattaṃ	upajjhāyavatta	nt		the proper conduct toward the preceptor, duty toward a preceptor	upajjhāya + vatta				y		
+saddhivihārikavattakathā	saddhivihārikavattakathā	fem		discussion of the proper conduct toward a student	saddhivihārika + vatta + kathā				y		
+anuggahetabbo	anuggahetabba	ptp		should be encoraged, should take care,  lit. should be taken	anu + gahetabba				y		
+rajiyethāti	rajiyati	pr		is dyed					y		
+saddhivihārikavattaṃ	saddhivihārikavatta	nt		the proper conduct toward the student, duty toward a student	saddhivihārika + vatta				y		
+paṇāmitakathā	paṇāmitakathā	fem		discussion on dismissal, the discussion of dismissed (Students)	paṇāmita + kathā				y		
+asammāvattantaṃ	asammāvattanta	prp?		not behaving properly, not behaving rightly	asammā + vattanta				y		
+paṇāmetuṃ	paṇāmetuṃ	inf		to dismiss					y		
+paṇāmetabbo	paṇāmetabba	ptp		should dismiss					y		
+khamāpetabbo	khamāpetabba	ptp		should apologise, should ask for forgiveness					y		
+khamāpiyamānā	khamāpiyamānā	prp		being asked for forgiveness					y		
+khamitunti	khamituṃ	inf		to ask forgiveness, to apologise					y		
+khamāpiyamānena	khamāpiyamāna	prp		being asked for forgiveness					y		
+sammāvattantaṃ	sammāvattanta	prp?		behaving properly, behaving rightly	sammā + vattanta				y		
+sammāvattanto	sammāvattanta	prp?		behaving properly, behaving rightly	sammā + vattanta				y		
+asammāvattanto	asammāvattanta	prp?		not behaving properly, not behaving rightly	asammā + vattanta				y		
+nādhimattaṃ	nādhimatta	adj		not strong	na + adhimatta				y		
+nādhimatto	nādhimatta	adj		not strong	na + adhimatta				y		
+nādhimattā	nādhimatta	adj		not strong	na + adhimatta				y		
+appaṇāmento	appaṇāmenta	prp		not dismissing	na + paṇāmenta				y		
+upasampannasamanantarā	upasampannasamanantarā	ind		immediately after full ordination	upasampanna + samanantara				y		
+atirekalābho	atirekalābha	masc		additional allowance, extra allowance	atireka + lābha				y		
+upajjhāyavattabhāṇavāro	upajjhāyavattabhāṇavāra	masc		the section for recitation on the proper conduct toward the preceptor; the recitation section on duties toward a preceptor	upajjhāya + vatta + bhāṇavāra				y		
+pañcamabhāṇavāro	pañcamabhāṇavāra	masc		the fifth section for recitiation 	pañcama + bhāṇavāra				y		
+ācariyavattakathā	ācariyavattakathā	fem		the discussion of duties toward a teacher, discussion of the proper conduct toward a teacher	ācariya + vatta + kathā				y		
+ūnadasavaggena	ūnadasavagga	masc		group of less than ten, group of fewer than ten	ūna + dasavagga				y		
+atirekadasavaggena	atirekadasavagga	masc		group of more than ten	atireka + dasavagga				y		
+ovadiyo	ovadiya	adj		admonished, instucted					y		
+anusāsiyo	anusāsiya	adj		teaching					y		
+atilahuṃ	atilahuṃ	ind		too quickly	ati + lahuṃ				y		
+gaṇabandhikaṃ	gaṇabandhika	masc?		forming a group	gaṇa + bandhika				y		
+atirekadasavassena	atirekadasavassa	adj		of more than ten's year' standing	atireka + dasavassa				y		
+uddisāpetabbo	uddisāpetabba	ptp		should recite, should cause to resite, should make recite					y		
+chedāpetabbā	chedāpetabba	ptp		should have (it) cut, should cause to cut, should make (it) cut					y		
+kārāpetabbaṃ	kārāpetabba	ptp		should cause to do, should cause to do, sould have (it) performed					y		
+ācariyavattaṃ	ācariyavatta	nt		the duty toward a teacher	ācariya + vatta				y		
+antevāsikavattakathā	antevāsikavattakathā	fem		the discussion of the duties toward a pupil	antevāsika + vatta + kathā				y		
+antevāsikavattaṃ	antevāsikavatta	nt		the duty toward a student	antevāsika + vatta				y		
+chaṭṭhabhāṇavāro	chaṭṭhabhāṇavāro	masc		sixth recitation cycle	chaṭṭha + bhāṇavāro				y		
+paṇāmanā	paṇāmana	nt		dismissal					y		
+bālaabyattavatthu	bālaabyattavatthu	nt		theignorant and incompetent, the discussion of inexperienced, incompetent 	bāla + abyatta + vatthu				y		
+nissayapaṭippassaddhikathā	nissayapaṭippassaddhikathā	fem		discussion of the ending of formal support, discussion of the ending of dependence	nissaya + paṭippassaddhi + kathā				y		
+nissayapaṭippassaddhiyo	nissayapaṭippassaddhi	fem		ending of formal support, ending of dependence	nissaya + paṭippassaddhi				y		
+samodhānagato	samodhānagata	pp		reunited	samodhāna + gata				y		
+nissapaṭippassaddhikathā									n		
+upasampādetabbapañcakaṃ	upasampādetabbapañcaka	nt		the five requirements for giving the full ordination, sets of five on who should give acceptance	upasampādetabba + pañcaka				y		
+ācāravipanno	ācāravipanna	pp		failed in conduct	ācāra + vipanna				y		
+atidiṭṭhiyā	atidiṭṭhi	fem		highter views	ati + diṭṭhi				y		
+diṭṭhivipanno	diṭṭhivipanna	pp		failed in views	diṭṭhi + vipanna				y		
+atirekadasavasso	atirekadasavassa	adj		of more than ten's year' standing	atireka + dasavassa				y		
+upasampādetabbachakkaṃ	upasampādetabbachakka	nt		the six requirements for giving the full ordination, sets of six on who should give acceptance	upasampādetabba + chakka				y		
+chahaṅgehi	chahaṅga	nt		six qualities	chahi + aṅga				y		
+aññatitthiyapubbakathā	aññatitthiyapubbakathā	fem		discussion on those who have been monastics of another religion, the discussion of those previously a member of another religion	añña + titthiya + pubba + kathā				y		
+pasuraparibbājako	pasuraparibbājaka	masc		many ascetics	pasura + paribbājaka				y		
+pasura	pasura	adj		many, abundant					y		
+bhikkhunigocaro	bhikkhunigocara	adj		frequently visiting nuns; lit. nun pasture	bhikkhunī + gocara				y		
+sattamabhāṇavāro	sattamabhāṇavāra	masc		seventh recitation cycle	sattama + bhāṇavāra				y		
+pañcābādhavatthu	pañcābādhavatthu	nt		the case of the five diseases	pañca + ābādha + vatthu				y		
+gilānupaṭṭhākabhattaṃ	gilānupaṭṭhākabhatta	nt		meal for those nursing the sick, meal for the nurse	gilānupaṭṭhāka + bhatta				y		
+rājakiccaṃ	rājakicca	nt		duti to the king	rāja + kicca				y		
+rājabhaṭavatthu	rājabhaṭavatthu	nt		 the case of one who is in the king’s service	rājabhaṭa + vatthu				y		
+senānāyake	senānāyaka	masc		the minister of the army, the general	senā + nāyaka				y		
+senānāyakā	senānāyaka	masc		the minister of the army, the general	senā + nāyaka				y		
+chetabbaṃ	chetabba	ptp		should be cut off					y		
+upaḍḍhaphāsukā	upaḍḍhaphāsukā	fem		half of the ribs	upaḍḍha + phāsukā				y		
+bhañjitabbāti	bhañjitabba	ptp		should be broken					y		
+aṅgulimālacoravatthu	aṅgulimālacoravatthu	nt		the story of Aṅgulimāla the criminal	aṅgulimāla + cora + vatthu				y		
+kārabhedakacoravatthu	kārabhedakacoravatthu	nt		 the case of the escaped criminal, the case of the criminal who had broken out of prison	kārabhedaka + cora + vatthu				y		
+abhayūvarā	abhayūvara	masc		untoucheble, unrestrained by fear	?na + bhaya + vara				y		
+likhitakacoravatthu	likhitakacoravatthu	nt		 the case of the wanted criminal, the case of the criminal for whom a warrant had been written	likhitaka + cora + vatthu				y		
+kasāhatavatthu	kasāhatavatthu	nt		the one who had been whipped, the case of the man who had been whipped	kasāhata + vatthu				y		
+kasāhato	kasāhata	pp		?whipped, caned	kasā + hata				y		
+katadaṇḍakammo	katadaṇḍakamma	nt		?punished, penalty	kata + daṇḍa + kamma				y		
+katadaṇḍakammaṃ	katadaṇḍakamma	nt		?punished, penalty	kata + daṇḍa + kamma				y		
+lakkhaṇāhatavatthu	lakkhaṇāhatavatthu	nt		 the case of the one who had been branded, the case of the man who had been branded	lakkhaṇa + āhata + vatthu				y		
+lakkhaṇāhato	lakkhaṇāhata	pp		branded	lakkhaṇa + āhata				y		
+lakkhaṇāhataṃ	lakkhaṇāhata	pp		branded	lakkhaṇa + āhata				y		
+iṇāyikavatthu	iṇāyikavatthu	nt		the case of the one in debt, the case of the debtor	iṇāyika + vatthu				y		
+dāsavatthu	dāsavatthu	nt		the case of the slave	dāsa + vatthu				y		
+kammārabhaṇḍuvatthu	kammārabhaṇḍuvatthu	nt		the case of the shaven-headed (young) metal smith	kammārabhaṇḍu + vatthu				y		
+apaloketuṃ	apaloketuṃ	inf		to obtains permission, to inform					y		
+upālidārakavatthu	upālidārakavatthu	nt		the story of the boy Upāli 	upālidāraka + vatthu				y		
+ahivātakarogavatthu	ahivātakarogavatthu	nt		the case of the deadly and contagious disease, the case of cholera	ahivātakaroga + vatthu				y		
+pitāputtakā	pitāputtaka			father (and) little son	pitā + puttaka				y		
+ūnapannarasavasso	ūnapannarasavassa	masc		less than 15 years old	ūna + pannarasa + vassa				y		
+apasādiyamānā	apasādiyamāna	prp		being driven away, being dismissed	api + asādiya + māna				y		
+ūnapannarasavassā	ūnapannarasavassa	masc		less than 15 years old	ūna + pannarasa + vassa				y		
+uḍḍāpetunti	uḍḍāpetuṃ	inf		to scare away, to chase away					y		
+ūnapannarasavassaṃ	ūnapannarasavassa	masc		less than 15 years old	ūna + pannarasa + vassa				y		
+kaṇṭakavatthu	kaṇṭakavatthu	nt		the case of Kaṇṭaka, Kaṇṭaka	kaṇṭaka + vatthu				y		
+āhundarikavatthu	āhundarikavatthu	nt		the case of crowding, the obscure	āhundarika + vatthu				y		
+gacchānanda	gacchānanda	masc		go, Ānanda	gaccha + ānanda				y		
+paccāgantabbaṃ	paccāgantabba	ptp		would come back	pati + āgantabba				y		
+lahucittakata	lahucittakata	pp		appeared frickle	lahucitta + kata				y		
+nissayamuccanakakathā	nissayamuccanakakathā	fem		discussion of release from formal support, the case of release from dependence	?nissaya + muccanaka + kathā				y		
+ūnapañcavasso	ūnapañcavassa	adj		less than five years of seniority, fewer than five rains	ūna + pañcavassa				y		
+pañcavasso	pañcavassa	masc		five years of seniority, five rains	pañca + vassa				y		
+pañcakadasavāro	pañcakadasavāra	masc		he section consisting of ten groups of five	pañcaka + dasa + vāra				y		
+atirekapañcavasso	atirekapañcavassa	masc		five or more years of seniority, five rains or more	atireka + pañcavassā				y		
+abhayūvarabhāṇavāro	abhayūvarabhāṇavāra	masc		 section for recitation on untouchables	abhayūvara + bhāṇavāra				y		
+aṭṭhamabhāṇavāro	aṭṭhamabhāṇavāra	masc		eight section for recitation	aṭṭhama + bhāṇavāra				y		
+rāhulavatthu	rāhulavatthu	nt		the case of Rāhula	rāhula + vatthu				y		
+rāhulamātā	rāhulamātar	fem		Rāhula’s mother	rāhula + mātar				y		
+sāmaṇerapabbajjaṃ	sāmaṇerapabbajjā	fem		the going forth as a novice monk, the going-forth for a novice	sāmaṇera + pabbajjā				y		
+puttapemaṃ	puttapema	nt		affection for a son	putta + pema				y		
+sikkhāpadakathā	sikkhāpadakathā	fem		discussion of training rules	sikkhāpada + kathā				y		
+daṇḍakammavatthu	daṇḍakammavatthu	nt		the case of punishment	daṇḍakamma + vatthu				y		
+mukhadvārikaṃ	mukhadvārika	masc		mouth	mukha + dvārika				y		
+anāpucchāvaraṇavatthu	anāpucchāvaraṇavatthu	nt		the case of the prohibition made without having taken leave, the case of the  prohibiting without asking permission	anāpucchā + āvaraṇa + vatthu				y		
+apalāḷanavatthu	apalāḷanavatthu	nt		the case of luring away 	apalāḷana + vatthu				y		
+kaṇṭakasāmaṇeravatthu	kaṇṭakasāmaṇeravatthu	nt		the case of Kaṇṭaka the novice	kaṇṭaka + sāmaṇera + vatthu				y		
+paṇḍakavatthu	paṇḍakavatthu	nt		the case of the paṇḍakas 	paṇḍaka + vatthu				y		
+moḷigalle	moḷigalla	adj		fat, hefty	moḷi + galla				y		
+hatthibhaṇḍe	hatthibhaṇḍa	nt		elephant-trainer, elephant keeper	hatthi + bhaṇḍa				y		
+assabhaṇḍe	assabhaṇḍa	nt		horse-trainer, horse keeper	assa + bhaṇḍa				y		
+theyyasaṃvāsakavatthu	theyyasaṃvāsakavatthu	nt		the case of affiliation through theft,  the one living in the community by theft	theyyasaṃvāsaka + vatthu				y		
+yāvadatthacīvaraṃ	yāvadatthacīvara	nt		the amount of robe-cloth one wants; as many robes as one needs; as much cloth as one needs	yāvadattha + cīvara				y		
+cīvaruppādo	cīvaruppāda	masc		whatever robe-cloth is given	cīvara + uppāda				y		
+attharitabbaṃ	attharitabba	ptp		should be spread; can be laid out					y		
+ullikhitamattena	ullikhitamatta	adj		simply by taking the measure; merely by measuring; if only a measure is taken	ullikhita + ? matta				y		
+dhovanamattena	dhovanamatta	adj		simply by cleaning; merely by washing; if it is only washed	dhovana + ? matta				y		
+cīvaravicāraṇamattena	cīvaravicāraṇamatta	adj		simply by arranging robe-cloth; merely by arranging the robe-cloth; if the clth is only layed out	cīvaravicāraṇa + matta				y		
+chedanamattena	chedanamatta	adj		simply by cutting; merely by cutting; only if it is cut	chedana + matta				y		
+bandhanamattena	bandhanamatta	adj		simply by attaching; merely by joining; if pieces are only attached	bandhana + matta				y		
+ovaṭṭiyakaraṇamattena	ovaṭṭiyakaraṇamatta	adj		simply by folding a seam; merely by making a seam; if only a seam is made	ovaṭṭiya + karaṇa + matta				y		
+ovaṭṭeyyakaraṇamattena									n		
+ovadeyyakaraṇamattena									n		
+kaṇḍusakaraṇamattena	kaṇḍusakaraṇamatta	adj		simply by marking; merely by making a mark; if it is only marked	kaṇḍusu + karaṇa + matta				y		
+daḷhīkammakaraṇamattena	daḷhīkammakaraṇamatta	adj		simply by strengthening; merely by strengthening; if it is only stiffened	daḷhī + karaṇa + matta				y		
+anuvātakaraṇamattena	anuvātakaraṇamatta	adj		merely by adding a side boarder; simply by attaching a vertical boarder; if only a side boarder is added	daḷhī + karaṇa + matta				y		
+paribhaṇḍakaraṇamattena	paribhaṇḍakaraṇamatta	adj		simply by attaching a horizontal boarder; merely by adding a top or bottom boarder; if only a horizontal boarder is added	daḷhī + karaṇa + matta				y		
+ovaddheyyakaraṇamattena	ovaddheyyakaraṇamatta	adj		simply by patching; merely by adding a patch; if only a patch is added	daḷhī + karaṇa + matta				y		
+kambalamaddanamattena	kambalamaddanamatta	adj		simply by dying; merely by washing a cloth in dye; lit: threshing a woolen cloth	kālaṃ + maddana + matta				y		
+nimittakatena	nimittakata	adj		an indication (that) has been made; pointed out; 	nimitta + kata				y		
+parikathākatena	parikathākata	adj		hinting; making a hint; has been requested	parikathā + kata				y		
+atirekapañcakena	atirekapañcaka	adj		five or more; at least five;	atireka + pañcaka				y		
+samaṇḍalīkatena	samaṇḍalīkata	adj		with	sa + maṇḍalī + kata				y		
+nissīmaṭṭho	nissīmaṭṭha	masc		outside (a boundary)	nissīmā + aṭṭha				y		
+ahatakappena	ahatakappa	? adj		brand new; lit: a thing that is clean and suitable	ahata + kappa				y		
+animittakatena	animittakata	adj		unmarked; without a marking;	na + nimitta + kata				y		
+asannidhikatena	asannidhikata	adj		is not stored; has been received recently; 	na + sannidhi + kata				y		
+pakkamanantikā	pakkamanantika	adj		departs; leaves; begins traveling	pakkamanaṃ + antikā				y		
+sanniṭṭhānantikā	sanniṭṭhānantika	adj		has concluded; has finished	saniṭṭhāna + antikā 				y		
+nāsanantikā	nāsanantika	adj		destroyed; lost	nāsana + antika				y		
+savanantikā	savanantika	adj		hears (about the end of the robe season); learns of the end of the season; realizes the season is over	savana+ antika				y		
+atikkantikā	atikkantikā	fem		transgressing, overstepping the bounds					y		
+sīmātikkantikā	sīmātikkantika	adj		outside the boundary; beyond the (monastery) zone	sīmā + atikkantikā				y		
+sahubbhārāti	sahubbhāra	masc		ending together; communal ending	saha + ubbhāra + iti 				y		
+saubbhārāti	saubbhāra	masc		ending alone; finishing by oneself	sa + ubbhāra + iti 				y		
+ādāyasattakaṃ	ādāyasattaka	nt		the group with seven	ādāya + sattaka 				y		
+katacīvaraṃ	katacīvara	nt		finished robe; completed robe; made robe	kata + cīvara 				y		
+pakkamanantiko	pakkamanantika	adj		the time of departing; if one leaves; when going away	pakkamanaṃ + antika				n		
+bahisīmagatassa	bahisīmagata	adj		passed beyond the boundary; gone outside the zone; outside the limit (of the monastery)	bahi + sīma + gata				y		
+nevimaṃ	nevima			I will not; do not intend to; I won’t					y		
+sanniṭṭhānantiko	sanniṭṭhānantika	adj		the time of concluding; if one finishes; when done	sanniṭṭhāna + antika				n		
+nāsanantiko	nāsanantika	adj		(? the time of) destroying; if damaged; 	nāsana + antika				n		
+bahisīmagato	bahisīmagata	adj		passed beyond the boundary; gone outside the zone; outside the limit (of the monastery)	bahi + sīma + gata				n		
+savanantiko	savanantika	adj		hears (about the end of the robe season); learns of the end of the season; realizes the season is over	savana+ antika				n		
+samādāyasattakaṃ	samādāyasattaka	nt		group of seven on “with” 	? saṁ + ādāya + sattaka 				y		
+ādāyachakkaṃ	ādāyachakka	nt		group of six on “takes” 	? ādāya + chakka				y		
+vippakatacīvaraṃ	vippakatacīvara	nt		unfinished robe-cloth	vippakata + cīvara 				y		
+samādāyachakkaṃ	samādāyachakka	nt		group of six on “with” 	samādāya + chakka 				y		
+ādāyapannarasakaṃ	ādāyapannarasaka	nt		group of fifteen on “receiving” 	ādāya + pannarasaka 				y		
+samādāyapannarasakādi	samādāyapannarasaka	nt		group of fifteen on “receiving” 	samādāya + pannarasaka 				y		
+vippakatasamādāyapannarasakaṃ	vippakatasamādāyapannarasaka			group of fifteen on “with an unfinished”; group of fifteen on “with an incorrect”	vippakata + samādāya + pannarasaka 				y		
+ādāyabhāṇavāro	ādāyabhāṇavāra	masc		section for recitation on “takes”	ādāya + bhāṇavāra				y		
+anāsādoḷasakaṃ	anāsādoḷasaka	nt		set of twelve on “not as expected”	anāsā + doḷasaka				y		
+upacchijjati									n		
+anāsādvādasakaṃ									n		
+āsādoḷasakaṃ									n		
+karaṇīyadoḷasakaṃ	karaṇīyadoḷasaka	nt		group of twelve on “business” 	karaṇīya + doḷasakaṃ				y		
+apavilāyananavakaṃ	apavilāyananavaka			 group of nine on “without taking” 					n		
+disaṃgamiko									n		
+apavilāyamāno	apavilāyamāna	masc		did not receive; without taking	api + avinaya + māna				n		
+apavinayamāno									n		
+apacinayamāno									n		
+disaṃgataṃ									n		
+phāsuvihārapañcakaṃ	phāsuvihārapañcaka	nt		group of five on “meditation going well” 	phāsuvihāra + pañcaka 				y		
+phāsuvihāriko	phāsuvihārika	adj		pleasantly abiding; living in comfort; whose meditation is going well	phāsu + vihārika				y		
+palibodhāpalibodhakathā	palibodhāpalibodhakatha	adj		Discussion on obstacles and removal of obstacles	palibodhā + palibodha + kathā 				y		
+āvāsapalibodho	āvāsapalibodha	masc		monastery obstacle (for completing the kathīna); (kathīna) obstruction;  based on the monastery; monastery factor for continuation of robe season	āvāsa + palibodha				y		
+cīvarapalibodho	cīvarapalibodha	masc		robe cloth obstacle (for completing the kathīna); (kathīna) obstruction based on robe-cloth; robe-cloth factor for continuation of robe season					y		
+sāketukkaṇṭhitā	sāketukkaṇṭhita	pp		discontented in Sāketa; stayed unhappily in a Kosalan town; uncomfortable stay in Sāketa	sāketa + ukkaṇṭhita				y		
+apavilānā									n		
+apavilāyamāneva									n		
+apavinā									n		
+palibodhāpalibodhā	palibodhāpalibodha	masc	masc, comp	Obstacles, (and) removal of obstacles	palibodha + apalibodha		dvanda	palibodha ca apalibodha ca	y		
+doḷasakapeyyālamukhāni	doḷasakapeyyālamukha	nt	nt, comp	groups of twelve with repetition; repeated sections of twelve items	doḷasaka + peyyālamukha		kammadhāraya	doḷasaka + peyyālamukha	y		
+cīvarakkhandhako	cīvarakkhandhaka	masc	masc, comp	chapter on robes; robe-cloth chapter; (Khandaka) chapter about robes	cīvara + khandhaka		chaṭṭhī tappurisa	cīvarassa + khandhaka	y		
+jīvakavatthu	jīvakavatthu	nt	nt, comp	The account of Jīvaka; the story of Jīvaka	jīvaka + vatthu 		chaṭṭhī tappurisa	jīvakassa + vatthu 	y		
+phitā									n		
+pāsādasatāni	pāsādasata	adj	adj, comp	hundred mansions; palaces numbering one hundred	pāsāda + sata		digu	pāsādā + satāni	y		
+ārāmasahassāni	ārāmasahassa	adj	adj, comp	thousand monasteries; parks numbering one thousand	ārāma + sahassa		digu	ārāmā + sahassāni	y		
+ārāmasatāni	ārāmasata	adj	adj, comp	hundred monasteries; parks numbering one hundred	ārāma + sata		digu	ārāmā + satāni	y		
+pokkharaṇīsahassāni	pokkharaṇīsahassa	adj	adj, comp	thousand ponds; pools numbering one thousand; thousand lotus pools	pokkharaṇī + sahassa		digu	pokkharaṇī + sahassāni	y		
+pokkharaṇīsatāni	pokkharaṇīsata	adj	adj, comp	hundred ponds; pools numbering one hundred; hundred lotus pools	pokkharaṇī + sata		digu	pokkharaṇī + satāni	y		
+padakkhā									n		
+phitañca									n		
+padakkhaṃ									n		
+upasobhantiṃ	upasobhati								n		
+asippena	asippa	nt		without a profession; not having a skill; without a craft	na+ sippa				y		
+upajīvituṃ	upajīvati	inf	inf, comp	to make a livelihood; to sustain oneself; to take care of oneself			abyayībhāva 	upa + jīvati	y		
+adhīyantassa	adhīyati	prp		studying; learning it by heart; 			?		y		
+āhiṇṭanto									n		
+seṭṭhibhariyāvatthu	seṭṭhibhariyāvatthu	sandhi	nt, comp	The account of the wealthy merchant’s wife; the story of the wealthy wife; the instance with the rich wife	seṭṭhibhariyā + vatthu		chaṭṭhī tappurisa	seṭṭhibhariyassa + vatthu 	y		
+nippacitvā	nippaci	pr		cooking (medicine); infusing; brewing					y		
+vimanosīti	vimanosi	pr		you are upset; you're displeased; you're unhappy; you're downcast	vimanosi + ti				y		
+upajānāmetassa	upajānāti	pr		this we know for ourselves; we know this; we understand	upajānāti + eta		kammadhāraya	upajānāma + etassa	n		
+padīpakaraṇe	padīpakaraṇa	prp	prp, comp	for using in lamps, for adding to lamps, using as lamp fuel	padīpa + karaṇa		abyayībhāva 	padīpa + karaṇe	y		
+paṭhamakammaṃ	paṭhamakamma	nt	nt, comp	first job; first action; first deed	paṭhama + kamma		digu 	paṭhama + kammaṃ	y		
+bimbisārarājavatthu	bimbisārarājavatthu	sandhi	nt, comp	The account of King Bimbisāra; the story of Bimbisāra the king; the instance with King Bimbisāra	bimbisāra + rāja + vatthu		chaṭṭhī tappurisa	bimbisārarājassa + vatthu 	y		
+makkhiyanti	makkhiyanti	sandhi		has been soiled; made dirty (with); dirtied (by)	makkhi + ayaṃ + īti 		kammadhāraya	makkhiyaṃ + īti	n		
+bhagandalābādhaṃ	bhagandalābādha	masc	masc, comp	hemorrhoid; fistula; condition of swelling and bleeding of the inner thighs	bhagandalā + bādha 		tatiyā tappurisa 	bhagandalā + bādhaṃ	y		
+sabbālaṅkāraṃ	sabbālaṅkāra	masc	masc, comp	all jewllery; all ornaments			dutiyā tappurisa 	sabbaṃ + alaṅkāraṃ 	y		
+sapaṭṭhitaṃ	sapaṭṭhita	adj		well established; ready for use	"sa + paṭṭhita	"	Sudhira			y		s
+pārivāsikapavāraṇādānena	pārivāsikapavāraṇādāna	nt		passed-on invitation that has expired; passed-on invitation of a probationer; 	? pārivāsika + pavāraṇā + dāna (multiple possibilities)				y		
+appavāraṇāya	appavāraṇā	fem		non-invitation day; no invitation; no offer; lit. no inviting	na + pavāraṇā				y		
+dvevācikādipavāraṇā	dvevācikādipavāraṇā	fem		invitation ceremony by means of two statements	? dvevācika + ādi + pavāraṇā				y		
+bāḷhataraṃ	bāḷhatara	adj		? increased; lit. intense surpassing	bāḷha + taraṁ				y		
+saṅgāyantehi	? two possibilities: 1 saṅgāyati; 2 saṅgāyana	1 pr; 2 nt		1 reciting; chanting; 2 recitation; group recital	? 1 (pl pr 3rd) saṅgāyanti + hi; 2 variant of (nt pl instr) saṅgāyanehi				y	saṅgāyanta	
+vinicchinantehi	? vinicchināti	pr		investigating; exploring	vinicchinanti + hi				y	vinicchinanta	
+sākacchantehi	? sākaccha	? nt		? discussion	?				y	sākacchanta	
+pavāraṇāṭhapanaṃ	pavāraṇāṭhapana	nt		cancellation of the invitation; lit. causing standing of the invitation	pavāraṇā + ṭhapana				y		
+kārāpiyamānā	kārāpiyamāna	prp		being made to do; being made to perform; lit. being caused to do	kārāpiya + māna				y		
+aṭṭhapitā	aṭṭhapita	pp		not suspended; not cancelled; not set aside; not put aside;	na + ṭhapitā				y		
+antaggāhikādiṭṭhi	antaggāhikādiṭṭhi	fem		extreme view;  lit. view clinging to one end	antaggāhikā + diṭṭhi				y		
+thullaccayavatthukādi	thullaccayavatthuka	adj		? grounds for a serious offense	thullaccaya + vatthuka				y		
+vatthuṭhapanādi	vatthuṭhapana	nt		setting aside an offense; lit. setting aside, suspending, causing standing of a matter; affair, case, ground	vatthu + ṭhapana				y		
+bhaṇḍanakārakavatthu	bhaṇḍanakārakavatthu	nt		matter, case of making (or maker), creating (or creator) of quarrels; disputes, arguments	bhaṇḍana + kāraka + vatthu				y		
+yathāyasmantā									n		
+asaṃvihitā	asaṃvihita	pp		without notice; lit. not organized; not ordered; not arranged	na + saṃvihita				y		
+vikkhitvā	vikkhitvā	abs		having distracted; having disturbed; having confused					y		
+vikkhipāpetvā									n		
+ananuyogakkhamo	ananuyogakkhama	adj		unable to stand scrutiny; not fit for examination	na + anuyoga + khama				y		
+pavāraṇāsaṅgaho	pavāraṇāsaṅgaha	masc		agreement or postponement about the invitation ceremony	pavāraṇā + saṅgaha				y		
+pavāraṇāsaṅgahaṃ	^								n		
+pavāraṇāsaṅgahassa	^								n		
+pavāraṇāsaṅgahe	^								n		
+pavārentā	?								y		
+pavārentāsane	? pavārentāsana	nt		? invitation seat	? pavārenti + āsane				n	pavārenta	
+gilānañātakā	gilānañātaka	masc		the sick, relatives	gilāna + ñātaka				n		
+vematī	vematika	adj		doubtful (about); unsure (about); uncertain (about)					n		
+chandadānapavāraṇā	chandadānapavāraṇā	fem		About giving consent, invitation.	chandadāna + pavāraṇā				y		
+savarehi	savara	? masc		an aboriginal tribe; a savage; a member of the Dravidian people living in southern India					y		
+sutasaṅkāya	sutasaṅkāya	fem		the heard, the suspected	suta + saṅkā				n		
+pavārayeti	? pavāraye	imp or pr		should invite					n		
+cammakkhandhako	cammakkhandhaka	masc		chapter on skins	camma + khandhaka				y	cammakkhandhaka	
+soṇakoḷivisavatthu	soṇakoḷivisavatthu	nt		the case of Soṇa Koḷivisa	soṇa + koḷivisa + vatthu				y	soṇakoḷivisavatthu	
+gāmasahassesu	gāmasahassa	card		one thousand villages	gāma + sahassa				y	gāmasahassa	
+koḷivīso	koḷivisa	masc		name of a family clan					n	[already in DPD]	
+gāmikasahassāni	gāmikasahassa	card		one thousand villagers; villages chiefs	gāmika + sahassa				y	gāmikasahassa	
+dakkhitukāmo	dakkhitukāmo	adj		wishing to see; wanting to see	dakkhituṃ + kāmo				y	dakkhitukāma	
+anusāsitā	anusāsita	pp		taught; instructed; ordered; ruled	anu + sāsita						
+gāmikasahassānaṃ	^										
+padhūpāyatipi	padhūpāyati	pr		smoulders, smokes; emits smoke; fumes	pa + dhūpāyati						
+gāmikasahassesu	^										
+acirupasampanno	acirupasampanna	pp		soon after ordaining; not long after ordaining (as a monastic); lit. recently attained	acira + upasampanna						
+vīriyasamataṃ	vīriyasamata	fem		balance of energy; evenness of effort	vīriya + samata						
+parikkhīṇabhavasaññojano	parikkhīṇabhavasaññojana	adj		who has cut the bond to existence; who has worn away the bonds of being; who has exhausted the fetter of existence; epithet of an arahant	parikkhīṇa + bhava + saññojana						
+chaṭṭhānāni	chaṭṭhāna	nt		six things; six positions; lit. six stances	cha + ṭhāna						
+karaṇīyamattānaṃ	karaṇīyamatta	masc		something to be done in oneself	karaṇīya + atta; karaṇīyaṃ + atta						
+pavedhenti	pavedheti	pr		causes to shake, tremble; agitates; stresses	?						
+diguṇādiupāhanapaṭikkhepo	diguṇādiupāhanapaṭikkhepa	masc		prohibition against sandals with double-layered soles, etc; lit. two-layer, etc., sandal rejection	diguṇa + ādi + upāhana + paṭikkhepa						
+asītisakaṭavāhe	asītisakaṭavāha	masc		eighty cardloads	asīti + sakaṭavāha						s
+purāṇakulaputta	purāṇakulaputta	masc	masc, comp	son from a good family; young man from a respectable family; young gentleman	purāṇa + kulaputta		kammadhāraya 	purāṇa + kulaputta			
+tiracchānagatavatthu	tiracchānagatavatthu	nt	nt, comp	account of animals; story of animals; instance of animals	tiracchānagata + vatthu		chaṭṭhī tappurisa	tiracchānagatassa + vatthu			
+aviruḷhidhamma	aviruḷhidhamma	adj	adj. comp	unable to progress; not liable to grow; lit. not of the nature to sprout	na + viruḷhi + dhamma	antonim viruḷhidhamma not in DPD	chaṭṭhī tappurisa	aviruḷhiyā + dhamma			
+sabhāvapātukamma	sabhāvapātukamma	nt	nt, comp	normal appearance; original form; show (their) true nature	sabhāva + pātukamma		dutiyā tappurisa 	sabhāvaṃ + pātukamma			
+mātughātakavatthu	mātughātakavatthu	nt	nt, comp	account of matricide; story of one who has killed their mother; instance of a person who has murdered their mother	mātu + ghātaka + vatthu		dutiyā tappurisa 	mātughātakaṃ + vatthu			
+pitughātakavatthu	pitughātakavatthu	nt	nt, comp	account of patricide; story of one who has killed their father; instance of a person who has murdered their father	pitu + ghātaka + vatthu		dutiyā tappurisa 	pitughātakaṃ + vatthu			
+pitughātaka	pitughātaka	masc	masc, comp	patricide; one who has killed their father; a person who has murdered their father	pitu + ghātaka 		chaṭṭhī tappurisa 	pitussa + ghātaka			
+arahantaghātakavatthu	arahantaghātakavatthu	nt	nt, comp	account of a murderer of an awakened being; story of one who murdered an Arahant; instance of the killer of an Arahant	arahantaghātaka + vatthu		dutiyā tappurisa 	arahantaghātakaṃ + vatthu			
+oniyyamāne	oniyyamāna	prp		being led away; being carried away; seized							
+sacajja 	sacajja 	sandhi		if today; if		also seen as a variant of sacā ca					
+bhikkhunīdūsakavatthu	bhikkhunīdūsakavatthu	nt	nt, comp	account of a bhikkhunī rapist; story of the rapist of bhikkhunī; instance of one who raped a bhikkhunī	bhikkhunī + dūsaka + vatthu		dutiyā tappurisa 	bhikkhunīdūsakaṃ + vatthu			
+ubhatobyañjanakavatthu	ubhatobyañjanakavatthu	nt	nt, comp	account of a hermaphrodite; story of a person with male and female sexual characteristics; instance of a hermaphrodite	ubhatobyañjanaka + vatthu 		dutiyā tappurisa 	ubhatobyañjanakaṃ + vatthu			
+anupajjhāyakādivatthu	anupajjhāyakādivatthu	nt	nt, comp	account of one without a preceptor, etc.; story of a one with no mentor, etc.; instance of a monk ordained without a teacher, and other examples	anupajjhāyaka + ādi + vatthu		dutiyā tappurisa 	anupajjhāyakādi + vatthu			
+paṇḍakupajjhāyena	paṇḍakupajjhāya	masc	masc, comp	paṇḍaka as preceptor; asexual teacher; mentor who is a paṇḍka	paṇḍaka + upajjhāya		kammadhāraya 	paṇḍaka + upajjhāya			
+theyyasaṃvāsakupajjhāya	theyyasaṃvāsakupajjhāya	masc	masc, comp	(one) living in affiliation by theft as the preceptor; false monk as a teacher; mentor who has been pretending to be a monk	theyyasaṃvāsaka + upajjhāya		kammadhāraya 	theyyasaṃvāsaka + upajjhāya			
+titthiyapakkantakupajjhāya	titthiyapakkantakupajjhāya	masc	masc, comp	(one who has) gone over to another religion as the preceptor; teacher who has left for another religion; mentor who is now ordained in another religion	titthiyapakkantaka + upajjhāya		kammadhāraya 	titthiyapakkantaka + upajjhāya			
+tiracchānagatupajjhāya	tiracchānagatupajjhāya	masc	masc, comp	animal as preceptor; animal teacher; mentor who is an animal	tiracchānagata + upajjhāya		kammadhāraya 	tiracchānagata + upajjhāya			
+mātughātakupajjhāya	mātughātakupajjhāya	masc	masc, comp	matricide as preceptor; teacher who has killed their mother; person who has murdered their mother as a mentor	mātughātaka + upajjhāya		kammadhāraya 	mātughātaka + upajjhāya			
+pitughātakupajjhāya	pitughātakupajjhāya	masc	masc, comp	patricide as preceptor; teacher who has killed their father; person who has murdered their father as a mentor	pitughātaka + upajjhāya		kammadhāraya 	arahantaghātaka + upajjhāya			
+arahantaghātakupajjhāya	arahantaghātakupajjhāya	masc	masc, comp	murderer of an awakened being as preceptor; teacher who murdered an Arahant; killer of an Arahant as teacher	arahantaghātaka + upajjhāya		kammadhāraya 	arahantaghātaka + upajjhāya			
+bhikkhunidūsakupajjhāya	bhikkhunidūsakupajjhāya	masc	masc, comp	bhikkhunī rapist as preceptor; teacher who raped a bhikkhunī; molestor of an bhikkhunī as teacher	bhikkhunidūsaka + upajjhāya		kammadhāraya 	bhikkhunidūsaka + upajjhāya			
+saṅghabhedakupajjhāya	saṅghabhedakupajjhāya	masc	masc, comp	schismatic as preceptor; teacher who split the saṇgha; schismatic as teacher	saṅghabhedaka + upajjhāya		kammadhāraya 	saṅghabhedaka + upajjhāya			
+lohituppādakupajjhāya	lohituppādakupajjhāya	masc	masc, comp	one who has shed (a Tathāgata’s) blood as the preceptor; teacher who has made (the Buddha) bleed; wounder (of the Buddha) as teacher	lohituppādaka + upajjhāya		kammadhāraya 	lohituppādaka + upajjhāya			
+ubhatobyañjanakupajjhāya	ubhatobyañjanakupajjhāya	masc	masc, comp	hermaphrodite as preceptor; teacher with male and female characteristics; neuter as teacher	ubhatobyañjanaka + upajjhāya		kammadhāraya 	ubhatobyañjanaka + upajjhāya			
+apattakādivatthu	apattakādivatthu	nt	nt, comp	account of those without an almsbowl, etc; story of one without a bowl and others; instance of monk who has not received a bowl	apattaka + ādi + vatthu		dutiyā tappurisa 	apattakādi + vatthu			
+naupasampādetabbekavīsativāra	naupasampādetabbekavīsativāra	masc	masc, comp	twenty-one cases that should not be given higher ordination; twenty one instances where upasampadā should not be given	na + upasampādetabbe + ekavīsati + vāra		dutiyā tappurisa 	naupasampādetabbaṃ + ekavīsativāra			
+napabbājetabbadvattiṃsavāra	napabbājetabbadvattiṃsavāra	masc	masc, comp	section consisting of twenty-one cases when novice ordination is not to be given; twenty one instances where pabbājja should not be given	na + pabbājetabba + dvattiṃsa + vāra		dutiyā tappurisa 	napabbājetabbaṃ + dvattiṃsavāra			
+aṅgulicchinna	aṅgulicchinna	adj	adj, comp	someone without a finger or toe; a person missing a finger or tow; one with less than forty digits	aṅguli + chinna		kammadhāraya 	aṅguli + chinna			
+aḷacchinna	aḷacchinna	adj	adj, comp	someone with a cut tendon; a person with a removed tendon; lit. severed claw	aḷa + chinna		kammadhāraya 	aḷa + chinna			
+kaṇḍaracchinna	kaṇḍaracchinna	adj	adj, comp	someone with joined fingers; person who’s fingers are joined together	kaṇḍara + chinna		kammadhāraya 	kaṇḍara + chinna			
+phaṇahatthaka	phaṇahatthaka	adj	adj, comp	person with foot elephantiasis; one with a club foot/elephantiasis	phaṇa + hatthaka		kammadhāraya 	phaṇa + hatthaka			
+galagaṇḍī	galagaṇḍī	adj	adj, comp	someone with goiter; one with swelling in the thyroid gland (in the neck); lit. (the) neck having boils 	gala + gaṇḍī		kammadhāraya 	gala + gaṇḍī			
+sīpadī	sīpadī			person with foot elephantiasis; one with a club foot/elephantiasis	sīpadī						
+pāparogī	pāparogī	adj	adj, comp	someone with a serious illness; one gravely ill; lit one suffering from with evil	pāpa + rogī		kammadhāraya 	pāpa + rogī			
+andhamūga	andhamūga	adj	adj, comp	someone who is blind and mute; one who cannot see or speak	andha + mūga		kammadhāraya 	andha + mūga			
+andhabadhira	andhabadhira	masc	masc, comp	someone who is blind and deaf; one who cannot see or hear	andha + badhira		dutiyā tappurisa 	andhaṃ + badhira			
+mūgabadhira	mūgabadhira	masc	masc, comp	someone who is deaf and mute; one who cannot hear or speak	mūga + badhira		dutiyā tappurisa 	mūgaṃ + badhira			
+andhamūgabadhira	andhamūgabadhira	masc	masc, comp	someone who is blind, deaf, and mute; one who cannot see, hear, or speak	andha + mūga + badhira		dutiyā tappurisa 	andhamūgaṃ + badhira			
+dāyajjabhāṇavāra	dāyajjabhāṇavāra	masc	masc, comp	recitation section on inheritance; segment of the scriptures on inheritance	dāyajja + bhāṇavāra		dutiyā tappurisa 	dāyajjaṃ + bhāṇavāra			
+alajjīnissayavatthu	alajjīnissayavatthu	nt	nt, comp	account of dependency on or for shameless monks; story of giving or receiving nissiya; instance of shameless monks giving or receiving formal support	alajjī + nissaya + vatthu		dutiyā tappurisa 	alajjīnissayaṃ + vatthu			
+bhikkhusabhāgata	bhikkhusabhāgata	adj	adj, comp	keeping the same standard as the monks; behaving properly (according to the viniya); lit. becoming like the bhikkhu assembly	bhikkhu + sabhāgata		kammadhāraya 	bhikkhu + sabhāgata			
+gamikādinissayavatthu	gamikādinissayavatthu	nt	nt, comp	account of dependency for traveling monks, etc.; story of receiving nissiya while traveling and other cases; instance of traveling monks monks receiving formal support, etc.	gamika + ādi + nissaya + vatthu		dutiyā tappurisa 	gamikādinissayaṃ + vatthu			
+nissayadāyaka	nissayadāyaka	masc	masc, comp	one who can give dependence; lit. support giver	nissaya + dāyaka		chaṭṭhī tappurisa	nissayassa + dāyaka			
+anussāvanānujānanā	anussāvanānujānanā	fem	fem, comp	allowance for proclamation; permission to cause (a legal motion) to be heard	anussāvana + anujānanā		chaṭṭhī tappurisa 	anussāvanassa + anujānanā			
+anussāvetun 	anussāvetun 	inf	inf of anusāveti	to do the proclamation; to announce; lit. to cause to hear	anu + sāvetuṃ						
+dveupasampadāpekkhādivatthu	dveupasampadāpekkhādivatthu	nt	nt, comp	account of two (simultaneous) ordination candidates, etc.; story two people seeking higher ordination, and others; instance of two aspiring monks, etc.	dve + upasampadāpekkhā + ādi + vatthu		dutiyā tappurisa 	dveupasampadāpekkhādi + vatthu			
+ekānussāva	ekānussāva	nt	nt, comp	single proclamation; one announcement; with one statement	ekā + ussāva		digu	ekāṃ + ussāvaṃ			
+nānupajjhāya	nānupajjhāya	masc	masc, comp	various preceptors; different teachers; diverse mentors	nānā + upajjhāya		abyayībhāva 	nānā + upajjhāyaṃ			
+gabbhavīsūpasampadānujānanā	gabbhavīsūpasampadānujānanā	fem	fem, comp	allowance to be fully ordained twenty years after appearing in the womb; permission for ordaining one twenty years after conception	gabbha + vīsa + upasampada + anujānanā		chaṭṭhī tappurisa 	gabbhavīsūpasampadassa + ānujānanā			
+gabbhavīsa	gabbhavīsa	masc	masc, comp	twenty years after appearing in the womb; twenty years after conception	gabbha + vīsa						
+?sāva	?sāva										
+upasampadāvidhi	upasampadāvidhi	masc	masc, comp	process of higher ordination; upasampadā procedure; method that grants higher ordination	upasampadā + vidhi		chaṭṭhī tappurisa 	? upasampadssa + vidhi			
+ananusiṭṭha	ananusiṭṭha	adj		not advised; not instructed; not taught	anu + anusiṭṭha	antonym of anusiṭṭha already in DPD					
+vitthāyati	vitthāyati	pr		ashamed; embarrassed							
+gāhāpetabba	gāhāpetabba	ptp	ptp of gāhāpeti	should be told to choose, can be taken; lit. should be grabbed							
+duranusiṭṭha	duranusiṭṭha	pp		badly advised; instructed poorly; not well taught 	dur + anusiṭṭha						
+yācāpetabba	yācāpetabba	ptp	ptp of yācāpeti	should ask; can request; to be asked							
+upasampadākamma	upasampadākamma	nt	nt, comp	procedure of higher ordination; upasampada process; act of higher ordination	upasampadā + kamma		chaṭṭhī tappurisa 	upasampadassa + kamma			
+utuppamāṇa	utuppamāṇa	nt	nt, comp	date; lit. measurement of the season	utu + pamāṇa		chaṭṭhī tappurisa 	utuno + pamāṇa			
+kiṃ dāni	kiṃ dāni	ind		have you now(?)							
+paṭisevitabba	paṭisevitabba	ptp	ptp of paṭisevi	should be engaged in; should follow; should be practiced							
+tiṇasalākā	tiṇasalākā	fem	fem, comp	(piece of) straw; blade of grass	tiṇa + salākā		kammadhāraya 	tiṇa + salākā			
+ullapitabba	ullapitabba	ptp	ptp of ullapati	should praise; should speak highly (of); lit. should chat up							
+ukkhittakavatthu	ukkhittakavatthu	nt		account of a ejected monk; story of a monk who has been expelled; instance of monk who has been ejected 	ukkhittaka + vatthu		chaṭṭhī tappurisa 	ukkhittakassa + vatthu			
+mahattha	mahattha	masc	masc, comp	great benefit; enormous profit; extensive welfare	mahanta + attha		kammadhāraya 	mahanta + attha			
+sāsanādhāraṇa	sāsanādhāraṇa	nt	nt, comp	carrying the teaching; bearing the (Buddha’s) instruction; holding the dispensation	sāsana + dhāraṇa		dutiyā tappurisa 	sāsanaṃ + dhāraṇa			
+sabbaññujinagocara	sabbaññujinagocara	masc	masc, comp	range of the all-knowing victor; sphere of the omniscient conqueror; domain of the victor (who has) complete understanding	sabbaññu + jina + gocara		chaṭṭhī tappurisa 	sabbaññujinassa + gocara			
+anaññavisaya	anaññavisaya	masc	masc, comp	not the realm of another; sphere of no other; domain not owned by another	anañña + visaya		chaṭṭhī tappurisa 	anaññassa+ visaya			
+yathātthakārī	yathātthakārī	adj		doing what is in line with the goal; acting (only) according to the good	yathā + attha + kārī		kammadhāraya 	yathāttha + kārī			
+saṅgāhaṇāhetuṃ	saṅgāhaṇāhetuṃ	inf		recited for the purpose of gathering; repeated for the purpose of making a collection	saṅgāha + aṇati + etuṃ 						
+yathāñāya	yathāñāya	inf		according to the method; in line with the way; as per the system	yathā + ñāya		abyayībhāva	yathā + ñāya			
+asesetuṃ	asesetuṃ	inf		to not leave anything out; without remainder							
+āmala	āmala			emblic myrobalan tree; tree of the Phyllanthus Emblica fruit							
+pāripupphañca 	pāripuppha	nt	nt, comp	orchid tree flower	pāri+ puppha		chaṭṭhī tappurisa 	? pārissa+ puppha			
+acchinnajaṭilasākiya	acchinnajaṭilasākiya	adj		uncut, ascetic with dreadlocks, Sakyan; ascetic with uncut (hair), another with dreadlocks, and a Sakayan	acchinna + jaṭila + sākiya		dutiyā tappurisa 	acchinnajaṭilaṃ + sākiya			
+pañcābādhā	pañcābādhā	masc		five diseases	pañca + ābādhā 	pl => ābādhā	digu	pañca + ābādhani			
+anuññāsi	anuññāsi	pr		he declared; he understands; he is aware (of)							
+theyyapakkanta	theyyapakkanta	masc	masc, comp	theft and left; one who who has been a monk by theft, and one who has left the community	theyya + pakkanta		dutiyā tappurisa 	theyyaṃ + pakkanta			
+mātarī	mātari					declension of mātarī not currently recognized					
+arahantabhikkhunībheda	arahantabhikkhunībheda	masc	masc, comp	perfected one, nun, and schismatic; (killer of an) arahant, (rapist of a) bhikkhunī, splitter of the sangha	arahanta + bhikkhunī + bheda		dutiyā tappurisa 	arahantabhikkhunī + bheda			
