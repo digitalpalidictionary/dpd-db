@@ -152,9 +152,6 @@ def get_sbs_info(i):
         i.notes.replace("\n", "<br>") if i.notes else None,
     ]
 
-    # sbs_audio
-    sbs_info.append(SBS_table_tools().generate_sbs_audio(i.lemma_clean))
-
     return sbs_info
 
 
@@ -742,7 +739,6 @@ def suttas(dpspth, dpd_db, unique_sbs_category_values):
         fields.extend(get_root_info(i))
         fields.extend(get_construction(i))
         fields.extend(get_examples(i))
-        fields.append(SBS_table_tools().generate_sbs_audio(i.lemma_clean))
         fields.extend([
             current_date,
             get_feedback(i, "suttas"),
@@ -814,7 +810,6 @@ def root_phonetic_class(dpspth, dpd_db, unique_sbs_class_values):
         fields.extend(get_root_info(i))
         fields.extend(get_construction(i))
         fields.extend(get_examples(i))
-        fields.append(SBS_table_tools().generate_sbs_audio(i.lemma_clean))
         fields.extend([
             current_date,
             get_feedback(i, "root-phonetic"),
@@ -924,6 +919,46 @@ def vibhanga(dpspth, dpd_db):
         console.print("[bold red] sbs_anki_style_dir not found")
 
 
+
+def native(dpspth, dpd_db):
+    console.print("[yellow]making native csvs")
+
+    def _is_needed(i: DpdHeadword):
+        if i.sbs and (
+            i.sbs.sbs_class_anki or
+            i.sbs.sbs_category or
+            i.sbs.sbs_patimokkha or
+            i.sbs.sbs_index
+        ):
+                return True
+        return False
+
+    # Save ru for all sbs decks
+    def ru_row(i: DpdHeadword) -> List[str]:
+        fields = []
+        fields.extend([ 
+            i.id,
+        ])
+
+        if i.ru.ru_meaning_lit:
+            ru_meaning = i.ru.ru_meaning + '; досл. ' + i.ru.ru_meaning_lit
+        else:
+            ru_meaning = i.ru.ru_meaning
+        fields.append(ru_meaning)
+
+        return none_to_empty(fields)
+
+    ru_all_sbs = []
+    rows = (ru_row(i) for i in dpd_db if _is_needed(i) and i.ru)
+    ru_all_sbs += rows
+    ru_all_sbs_list = list(ru_all_sbs)
+    output_path = os.path.join(dpspth.anki_csvs_dps_dir, "sbs_rus.csv")
+    with open(output_path, "w", newline='', encoding='utf-8') as f:
+        writer = csv.writer(f, delimiter='\t')
+        writer.writerows(ru_all_sbs_list)
+    console.print(f"[bold] {len(ru_all_sbs_list)}[/bold] [green]rows has been saved to sbs_rus.csv")
+
+
 def main():
     tic()
     console.print("[bold bright_yellow]exporting csvs for anki")
@@ -955,7 +990,8 @@ def main():
     classes(dpspth, dpd_db, unique_sbs_class_values)
     suttas(dpspth, dpd_db, unique_sbs_category_values)
     root_phonetic_class(dpspth, dpd_db, unique_sbs_class_values)
-    # vibhanga(dpspth, dpd_db)
+    vibhanga(dpspth, dpd_db)
+    native(dpspth, dpd_db)
     toc()
 
 

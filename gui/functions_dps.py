@@ -1585,7 +1585,7 @@ def send_sutta_study_request(word, sutta, source):
         print(f"An error occurred while sending the request: {e}")
 
 
-def add_word_from_csv(dpspth, window, flag_next_word, completion):
+def add_word_from_csv(dpspth, window, flag_next_word, completion, lemma_1_current=""):
     # read csv file and fill lemma_1, meaning_1, pos, construction and notes
 
     word_data = read_tsv_dict(dpspth.vinaya_tsv_path)
@@ -1603,6 +1603,10 @@ def add_word_from_csv(dpspth, window, flag_next_word, completion):
         if flag_next_word:
             if row.get("proceed") == "":
                 row["proceed"] = completion
+                if completion == "y":
+                    row["pali_new"] = lemma_1_current
+                else:
+                    row["pali_new"] = ""
                 write_tsv_dot_dict(dpspth.vinaya_tsv_path, word_data)
                 word_data = read_tsv_dict(dpspth.vinaya_tsv_path)
                 for row in word_data:

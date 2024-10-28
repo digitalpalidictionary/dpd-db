@@ -1154,7 +1154,8 @@ def main():
                         window["words_to_add_length"].update(
                             value=len(words_to_add_list))
                         if dps_flags.next_word:
-                            original_word = add_word_from_csv(dpspth, window, dps_flags.next_word, "y")
+                            lemma_1_current = values["lemma_1"]
+                            original_word = add_word_from_csv(dpspth, window, dps_flags.next_word, "y", lemma_1_current)
                             open_in_goldendict(original_word)
                         else:
                             pyperclip.copy(values["lemma_1"])

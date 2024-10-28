@@ -84,16 +84,16 @@ else:
 # Copy dpd-kindle.mobi to the specified directory
 if os.path.exists(dpd_kindle_mobi_src):
    shutil.copy2(dpd_kindle_mobi_src, dpd_kindle_mobi_dest)
-   print("\033[1;32m dpd_kindle.mobi copied to the server \033[0m")
+   print("\033[1;32m ru_dpd_kindle.mobi copied to the server \033[0m")
 else:
-   print("\033[1;31m dpd_kindle.mobi is missing. Cannot proceed with moving. \033[0m")
+   print("\033[1;31m ru_dpd_kindle.mobi is missing. Cannot proceed with moving. \033[0m")
 
 # Copy dpd-kindle.epub to the specified directory
 if os.path.exists(dpd_kindle_epub_src):
    shutil.copy2(dpd_kindle_epub_src, dpd_kindle_epub_dest)
-   print("\033[1;32m dpd_kindle.epub copied to the server \033[0m")
+   print("\033[1;32m ru_dpd_kindle.epub copied to the server \033[0m")
 else:
-   print("\033[1;31m dpd_kindle.epub is missing. Cannot proceed with moving. \033[0m")
+   print("\033[1;31m ru_dpd_kindle.epub is missing. Cannot proceed with moving. \033[0m")
 
 
 
