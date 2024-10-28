@@ -90,6 +90,7 @@ class DpdHeadwordRenderData(TypedDict):
     show_id: bool
     show_ebt_count: bool
     show_sbs_data: bool
+    show_ru_data: bool
 
 
 def render_pali_word_dpd_html(
@@ -97,7 +98,8 @@ def render_pali_word_dpd_html(
         render_data: DpdHeadwordRenderData,
         lang="en",
         extended_synonyms=False, 
-        show_sbs_data=False
+        show_sbs_data=False,
+        show_ru_data=False,
 ) -> Tuple[DictEntry, RenderedSizes]:
     rd = render_data
     size_dict = default_rendered_sizes()
@@ -172,7 +174,7 @@ def render_pali_word_dpd_html(
     size_dict["dpd_button_box"] += len(button_box)
 
     if i.needs_grammar_button or show_sbs_data:
-        grammar = render_grammar_templ(pth, i, rt, sbs, ru, tt.grammar_templ, lang, rd['show_sbs_data'])
+        grammar = render_grammar_templ(pth, i, rt, sbs, ru, tt.grammar_templ, lang, rd['show_sbs_data'], rd['show_ru_data'])
         html += grammar
         size_dict["dpd_grammar"] += len(grammar)
 
@@ -241,12 +243,11 @@ def render_pali_word_dpd_html(
             for contraction in contractions:
                 if "'" in contraction:
                     synonyms.append(contraction)
-    if lang == "en" and not show_sbs_data:
-        synonyms += i.inflections_sinhala_list
-        synonyms += i.inflections_devanagari_list
-        synonyms += i.inflections_thai_list
+    synonyms += i.inflections_sinhala_list
+    synonyms += i.inflections_devanagari_list
+    synonyms += i.inflections_thai_list
     synonyms += i.family_set_list
-    if lang == "ru":
+    if lang == "ru" or show_ru_data:
         set_ru_dict = read_set_ru_from_tsv()
         ru_set_list = []
         for english_word in i.family_set_list:
@@ -283,6 +284,7 @@ def generate_dpd_html(
         idioms_set: set[str],
         make_link=False,
         show_sbs_data=False,
+        show_ru_data=False,
         lang="en",
         data_limit:int = 0
 ) -> Tuple[List[DictEntry], RenderedSizes]:
@@ -400,7 +402,8 @@ def generate_dpd_html(
             make_link = make_link,
             show_id = show_id,
             show_ebt_count = show_ebt_count,
-            show_sbs_data = show_sbs_data
+            show_sbs_data = show_sbs_data,
+            show_ru_data = show_ru_data,
         )
 
         def _parse_batch(batch: List[DpdHeadwordDbParts]):
@@ -710,7 +713,8 @@ def render_grammar_templ(
         ru: Russian,
         grammar_templ: Template,
         lang="en",
-        show_sbs_data=False
+        show_sbs_data=False,
+        show_ru_data=False,
 ) -> str:
     """html table of grammatical information"""
 
@@ -741,6 +745,7 @@ def render_grammar_templ(
             sbs=sbs,
             ru=ru,
             show_sbs_data=show_sbs_data,
+            show_ru_data=show_ru_data,
             grammar=grammar,
             meaning=meaning,
             ru_base=ru_base,

@@ -9,11 +9,11 @@
             <td>/${i.lemma_ipa}/</td>
         </tr>
         
-        % if show_sbs_data:
+        % if show_ru_data:
             % if ru:
                 % if ru.ru_meaning:
                 <tr>
-                    <th>Русский</th>
+                    <th><a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Перевод&entry.1433863141=GoldenDict+${today}" target="_blank">Русский</a></th>
                     <td>${ru.ru_meaning}
                         % if ru.ru_meaning_lit:
                         ; досл. ${ru.ru_meaning_lit}
@@ -22,12 +22,14 @@
                 </tr>
                 % elif ru.ru_meaning_raw:
                 <tr>
-                    <th>Перевод ИИ<br><a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Перевод&entry.1433863141=GoldenDict+${today}" target="_blank">ваш отзыв</a></th>
+                    <th><a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Перевод&entry.1433863141=GoldenDict+${today}" target="_blank">Перевод ИИ</a></th>
                     <td>${ru.ru_meaning_raw}
                     </td>
                 </tr>
                 % endif
             % endif
+        % endif
+        % if show_sbs_data:
             % if sbs and sbs.sbs_meaning:
             <tr>
                 <th>SBS</th>
@@ -53,7 +55,7 @@
             <th>Root</th>
             <td>${i.root_clean}<sup>${rt.root_has_verb}</sup>${rt.root_group}
                 ${i.root_sign} (${rt.root_meaning})
-                % if show_sbs_data:
+                % if show_ru_data:
                     (${rt.root_ru_meaning})
                 % endif
             </td>
@@ -143,12 +145,11 @@
                 <td>${sbs.sbs_notes}</td>
             </tr>
             % endif
+        % endif
+        % if show_ru_data:
             % if ru and ru.ru_notes:
             <tr>
-                <th>Заметки
-                    % if "[пер. ИИ]" in ru.ru_notes:
-                        <a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform" target="_blank">отзыв</a>
-                    % endif
+                <th><a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Перевод&entry.1433863141=GoldenDict+${today}" target="_blank">Заметки</a>
                 </th>
                 <td>${ru.ru_notes}</td>
             </tr>
@@ -199,7 +200,7 @@
             <td>
                 <i>
                     ${rt.sanskrit_root} ${rt.sanskrit_root_class} (${rt.sanskrit_root_meaning})
-                    % if show_sbs_data:
+                    % if show_ru_data:
                         (${rt.sanskrit_root_ru_meaning})
                     % endif
                 </i>

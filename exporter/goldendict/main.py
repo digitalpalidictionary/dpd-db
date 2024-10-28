@@ -54,6 +54,7 @@ class ProgData():
         if config_test("dictionary", "make_link", "yes"):
             self.make_link: bool = True
         self.show_sbs_data: bool = False
+        self.show_ru_data: bool = False
         
         # language
         if config_test("exporter", "language", "en"):
@@ -67,6 +68,9 @@ class ProgData():
 
         if config_test("dictionary", "show_sbs_data", "yes") and self.lang == "en":
             self.show_sbs_data: bool = True
+
+        if config_test("dictionary", "show_ru_data", "yes"):
+            self.show_ru_data: bool = True
         
         # paths
         if self.lang == "en":
@@ -87,21 +91,21 @@ def main():
     g = ProgData()
     
     dpd_data_list, sizes = generate_dpd_html(
-        g.db_session, g.pth, g.rupth, g.sandhi_contractions, g.cf_set, g.idioms_set, g.make_link, g.show_sbs_data, g.lang, g.data_limit)
+        g.db_session, g.pth, g.rupth, g.sandhi_contractions, g.cf_set, g.idioms_set, g.make_link, g.show_sbs_data, g.show_ru_data, g.lang, g.data_limit)
     g.rendered_sizes.append(sizes)
 
     if g.data_limit == 0:
 
-        root_data_list, sizes = generate_root_html(g.db_session, g.pth, g.roots_count_dict, g.rupth, g.lang, g.show_sbs_data)
+        root_data_list, sizes = generate_root_html(g.db_session, g.pth, g.roots_count_dict, g.rupth, g.lang, g.show_ru_data)
         g.rendered_sizes.append(sizes)
 
         variant_spelling_data_list, sizes = generate_variant_spelling_html(g.pth, g.rupth, g.lang)
         g.rendered_sizes.append(sizes)
 
-        epd_data_list, sizes = generate_epd_html(g.db_session, g.pth, g.rupth, g.make_link, g.show_sbs_data, g.lang)
+        epd_data_list, sizes = generate_epd_html(g.db_session, g.pth, g.rupth, g.make_link, g.show_ru_data, g.lang)
         g.rendered_sizes.append(sizes)
         
-        help_data_list, sizes = generate_help_html(g.db_session, g.pth, g.rupth, g.lang, g.show_sbs_data)
+        help_data_list, sizes = generate_help_html(g.db_session, g.pth, g.rupth, g.lang, g.show_ru_data)
         g.rendered_sizes.append(sizes)
 
         g.db_session.close()

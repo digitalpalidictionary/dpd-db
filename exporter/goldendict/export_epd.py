@@ -25,7 +25,7 @@ def generate_epd_html(
     pth: ProjectPaths,
     rupth: RuPaths,
     make_link=False,
-    show_sbs_data=False,
+    show_ru_data=False,
     lang="en"
 ) -> Tuple[List[DictEntry], RenderedSizes]:
     """generate html for english/{lang} to pali dictionary"""
@@ -34,9 +34,9 @@ def generate_epd_html(
     
     p_green("generating epd html")
 
-    if lang == "en" and not show_sbs_data:
+    if lang == "en" and not show_ru_data:
         dpd_db: list[DpdHeadword] = db_session.query(DpdHeadword).all()
-    if lang == "ru" or show_sbs_data:
+    if lang == "ru" or show_ru_data:
         dpd_db: list[DpdHeadword] = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.ru)).all()
     # another language
 
@@ -102,7 +102,7 @@ def generate_epd_html(
 
         # generate ru-pali
         if (
-            (show_sbs_data or lang == "ru") and
+            (show_ru_data or lang == "ru") and
             i.ru and
             i.ru.ru_meaning and 
             i.pos not in pos_exclude_list
@@ -164,7 +164,7 @@ def generate_epd_html(
                     epd.update(
                         {root_meaning: epd_string})
 
-        if show_sbs_data or lang == "ru":
+        if show_ru_data or lang == "ru":
 
             root_ru_meanings_list: list = i.root_ru_meaning.split(", ")
 

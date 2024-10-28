@@ -23,7 +23,7 @@ def generate_root_info_html(db_session, roots_db, bases_dict, show_ru_data=False
         html_string += f" ({i.root_meaning})</td></tr>"
 
         if show_ru_data:
-            html_string += f"<tr><th>Russian:</th><td>{i.root_ru_meaning}</td></tr>"
+            html_string += f"<tr><th><a class='root_link' href='https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.root_link}&entry.326955045=Инфо+корня&entry.1433863141=GoldenDict' target='_blank'>Русский:</a></th><td>{i.root_ru_meaning}</td></tr>"
 
         if re.findall(",", bases):
             html_string += f"<tr><th>Bases:</th><td>{bases}</td></tr>"

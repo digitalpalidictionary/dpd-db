@@ -68,7 +68,7 @@ def main():
             joinedload(DpdHeadword.ru)).filter(
             DpdHeadword.family_root != "").all()
 
-    if config_test("dictionary", "show_sbs_data", "yes") or lang == "ru":
+    if config_test("dictionary", "show_ru_data", "yes") or lang == "ru":
         show_ru_data = True
     else:
         show_ru_data = False

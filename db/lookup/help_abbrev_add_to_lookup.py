@@ -24,6 +24,11 @@ class ProgData():
     else:
         raise ValueError("Invalid language parameter")
 
+    if config_test("dictionary", "show_ru_data", "yes"):
+        show_ru_data : bool = True
+    else:
+        show_ru_data : bool = False
+
 
 def add_help(g: ProgData):
     print("[green]adding help")
@@ -59,7 +64,7 @@ def add_help(g: ProgData):
 
     # add ru help
 
-    if g.lang == "ru":
+    if g.lang == "ru" or g.show_ru_data:
 
         help_data = read_tsv_as_dict_with_different_key(g.pth.help_tsv_path, 2)
 
@@ -101,7 +106,7 @@ def add_abbreviations(g: ProgData):
     # then update with new values    
     for key, values in abbrevs.items():
         
-        if g.lang == "en":
+        if g.lang == "en" and not g.show_ru_data:
             # delete the russion values
             del abbrevs[key]["ru_abbrev"]
             del abbrevs[key]["ru_meaning"]
@@ -122,7 +127,7 @@ def add_abbreviations(g: ProgData):
 
     # add ru abbrev
 
-    if g.lang == "ru":
+    if g.lang == "ru" or g.show_ru_data:
 
         abbrevs = read_tsv_as_dict_with_different_key(g.pth.abbreviations_tsv_path, 5)
 

@@ -53,6 +53,7 @@ DEFAULT_CONFIG = {
         "show_id": "no",
         "show_ebt_count": "no",
         "show_sbs_data": "no",
+        "show_ru_data": "no",
         "data_limit": "0",
     },
     "exporter" : {
