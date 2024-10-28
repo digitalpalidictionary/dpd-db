@@ -16,7 +16,6 @@ from tools.configger import config_test
 from tools.printer import p_summary, p_title
 
 
-
 def check_username():
     if config_test("user", "username", "deva"):
         return True
@@ -225,7 +224,7 @@ def test7(g: GlobalVars):
 
 def test8(g: GlobalVars):
     """test 8, last position is sandhi."""
-    
+
     for inflection in g.inflections_list:
         infl_len = len(inflection)
 

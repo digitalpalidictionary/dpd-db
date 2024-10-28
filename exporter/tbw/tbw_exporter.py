@@ -267,7 +267,7 @@ def save_json_files_for_sc(g: ProgData):
 
     with open(g.pth.sc_deconstructor_json_path, "w") as f:
         json.dump(g.deconstructor_dict, f, ensure_ascii=False, indent=2)
-    
+
     p_yes("ok")
 
 

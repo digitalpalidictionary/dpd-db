@@ -36,6 +36,7 @@ exceptions = [
     "puṣpa",
     "prabhā",
     "medhā",
+    "puṣpa",
     ]
 
 

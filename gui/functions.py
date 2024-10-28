@@ -429,7 +429,13 @@ def check_spelling(pth, field, error_field, values, window, flags) -> Flags:
     spell = SpellChecker(language='en')
     spell.word_frequency.load_text_file(str(pth.user_dict_path))
 
-    sentence = values[field].replace("-", " ")
+    sentence = values[field] \
+        .replace("-", " ") \
+        .replace('"', "") \
+        .replace("“", "") \
+        .replace("”", "") \
+        .replace("'", "")
+    sentence = re.sub(r"\d", "", sentence) # remove all numbers
     words = split_words(sentence)
 
     misspelled = spell.unknown(words)
