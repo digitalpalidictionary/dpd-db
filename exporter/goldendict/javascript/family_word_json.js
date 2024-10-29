@@ -12110,13 +12110,19 @@ var family_word_json = {
     "✗"
    ],
    [
+    "puttī",
+    "fem",
+    "daughter",
+    "✓"
+   ],
+   [
     "saputta",
     "adj",
     "together with one's sons",
     "✗"
    ]
   ],
-  "count": 19
+  "count": 20
  },
  "pura2": {
   "data": [
@@ -18109,6 +18115,35 @@ var family_word_json = {
     "nt",
     "viciousness; cruelty; brutality",
     "✓"
+   ]
+  ],
+  "count": 4
+ },
+ "vīṇā": {
+  "data": [
+   [
+    "upavīṇayati",
+    "pr",
+    "accompanies the veena in song",
+    "~"
+   ],
+   [
+    "vīṇakā",
+    "fem",
+    "small veena",
+    "~"
+   ],
+   [
+    "vīṇā",
+    "fem",
+    "veena; Indian lute",
+    "✓"
+   ],
+   [
+    "veṇika",
+    "masc",
+    "player on a lute",
+    "✗"
    ]
   ],
   "count": 4
@@ -29388,6 +29423,12 @@ var family_word_json = {
  "madda": {
   "data": [
    [
+    "madda 2.1",
+    "masc",
+    "name of a country",
+    "✓"
+   ],
+   [
     "maddā",
     "masc",
     "name of a people",
@@ -29400,7 +29441,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "mandāru": {
   "data": [
@@ -31459,29 +31500,6 @@ var family_word_json = {
    ]
   ],
   "count": 7
- },
- "vīṇā": {
-  "data": [
-   [
-    "vīṇakā",
-    "fem",
-    "small veena",
-    "~"
-   ],
-   [
-    "vīṇā",
-    "fem",
-    "veena; Indian lute",
-    "✓"
-   ],
-   [
-    "veṇika",
-    "masc",
-    "player on a lute",
-    "✗"
-   ]
-  ],
-  "count": 3
  },
  "veḷu": {
   "data": [

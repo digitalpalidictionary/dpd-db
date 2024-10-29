@@ -38254,8 +38254,8 @@ var family_root_json = {
    [
     "dhoraka",
     "adj",
-    "(of cloth) rough",
-    "✗"
+    "(of cloth) rough; coarse; lit. corrupt",
+    "✓"
    ]
   ]
  },
@@ -45655,30 +45655,30 @@ var family_root_json = {
   "root_key": "√ñā",
   "root_family": "ava √ñā",
   "root_meaning": "know",
-  "count": 15,
+  "count": 16,
   "data": [
    [
     "anavaññatti",
     "fem",
-    "respect; recognition; reputation; social standing; lit. not being disrespected",
+    "respect; recognition; reputation; social standing; lit. not knowing down",
     "✓"
    ],
    [
     "anavaññā",
     "fem",
-    "respect; esteem; recognition; reputation; lit. not disrespect",
+    "respect; esteem; recognition; reputation; lit. not knowing down",
     "✓"
    ],
    [
     "anavaññāta",
     "pp",
-    "despised; disdained; disrespected; looked down upon",
+    "despised; disdained; disrespected; looked down upon; lit. not known down",
     "~"
    ],
    [
     "avajānati",
     "pr",
-    "despises; disdains; looks down (on); is condescending (to)",
+    "despises; disdains; looks down (on); is condescending (to); lit. knows down",
     "✓"
    ],
    [
@@ -45690,13 +45690,13 @@ var family_root_json = {
    [
     "avajānāti 1",
     "pr",
-    "denies; disagrees; does not accept",
+    "denies; disagrees; does not accept; lit. knows down",
     "✓"
    ],
    [
     "avajānāti 2",
     "pr",
-    "despises; disdains; looks down (on); is condescending (to)",
+    "despises; disdains; looks down (on); is condescending (to); lit. knows down",
     "✓"
    ],
    [
@@ -45706,9 +45706,15 @@ var family_root_json = {
     "✗"
    ],
    [
+    "avajānitabba",
+    "ptp",
+    "should be despised; should be disdained; should be looked down; lit. to be known down",
+    "✓"
+   ],
+   [
     "avajānitvā",
     "abs",
-    "having denied; having disagreed; having not accepted",
+    "having denied; having disagreed; having not accepted; lit. having known down",
     "~"
    ],
    [
@@ -45720,7 +45726,7 @@ var family_root_json = {
    [
     "avaññā",
     "fem",
-    "contempt; disrespect",
+    "contempt; disrespect; lit. knowing down",
     "~"
    ],
    [
@@ -45738,13 +45744,13 @@ var family_root_json = {
    [
     "nāvajānāti",
     "pr",
-    "does not disrespect (on); does not despise; does not have a low opinion (of)",
+    "does not disrespect (on); does not despise; does not have a low opinion (of); lit. does not know down",
     "✓"
    ],
    [
     "nāvajāniyā",
     "opt",
-    "should not despise; should not disdain; should not look down (on)",
+    "should not despise; should not disdain; should not look down (on); lit. should not know down",
     "✓"
    ]
   ]
@@ -87885,7 +87891,7 @@ var family_root_json = {
   "root_key": "√bhū",
   "root_family": "pari √bhū",
   "root_meaning": "be, become",
-  "count": 17,
+  "count": 19,
   "data": [
    [
     "aparibhūta",
@@ -87928,6 +87934,18 @@ var family_root_json = {
     "aor",
     "treated with contempt, despised, abused, reviled",
     "✗"
+   ],
+   [
+    "paribhavitabba",
+    "ptp",
+    "should be insulted; should be disrespected; should be disparaged; lit. to be all around",
+    "✓"
+   ],
+   [
+    "paribhavituṃ",
+    "inf",
+    "to insult; to disrespect; to disparage",
+    "~"
    ],
    [
     "paribhavitvā",
@@ -154749,7 +154767,7 @@ var family_root_json = {
   "root_key": "√vas 1",
   "root_family": "saṃ √vas",
   "root_meaning": "live",
-  "count": 13,
+  "count": 14,
   "data": [
    [
     "asaṃvāsa 1",
@@ -154792,6 +154810,12 @@ var family_root_json = {
     "pp",
     "associated, lived together, cohabited",
     "✗"
+   ],
+   [
+    "saṃvasituṃ",
+    "inf",
+    "to live together (with); to cohabit (with); to live (with)",
+    "✓"
    ],
    [
     "saṃvasitvā",
@@ -158607,7 +158631,7 @@ var family_root_json = {
   "root_key": "√sev",
   "root_family": "√sev",
   "root_meaning": "serve, associate",
-  "count": 41,
+  "count": 42,
   "data": [
    [
     "asevanā",
@@ -158830,6 +158854,12 @@ var family_root_json = {
     "ptp",
     "should be served",
     "✗"
+   ],
+   [
+    "sevituṃ",
+    "inf",
+    "to make use (of); to indulge (in); to engage (with); lit. associates",
+    "✓"
    ],
    [
     "sevitvā",
@@ -164765,7 +164795,7 @@ var family_root_json = {
   "root_key": "√saṅk",
   "root_family": "ā √saṅk",
   "root_meaning": "doubt, suspect",
-  "count": 11,
+  "count": 12,
   "data": [
    [
     "āsaṅkati 1",
@@ -164808,6 +164838,12 @@ var family_root_json = {
     "pp",
     "apprehensive, doubtful, suspicious",
     "✗"
+   ],
+   [
+    "āsaṅkitabba",
+    "ptp",
+    "should be suspected; should be doubted; should be distrusted; lit. to be doubted",
+    "✓"
    ],
    [
     "āsaṅkī",
@@ -169394,8 +169430,8 @@ var family_root_json = {
    [
     "upatthara",
     "masc",
-    "carpet, rug, covering",
-    "✗"
+    "rug; covering; carpet",
+    "✓"
    ]
   ]
  },
@@ -196702,8 +196738,8 @@ var family_root_json = {
    [
     "paridahituṃ",
     "inf",
-    "to wear; to dress (in); to cloth oneself (in)",
-    "✗"
+    "to wear; to dress (in); to cloth oneself (in); lit. to put around",
+    "✓"
    ],
    [
     "paridahitvā",

@@ -14646,18 +14646,12 @@ var family_idiom_json = {
   ]
  },
  "patta3": {
-  "count": 3,
+  "count": 2,
   "data": [
    [
     "patta yutta",
     "idiom",
     "(vinaya) suitable; desirable; eligible; lit. arrived at suitability",
-    "✓"
-   ],
-   [
-    "pattakāyena",
-    "sandhi",
-    "when the body had become so; lit. attained by the body",
     "✓"
    ],
    [
@@ -22656,7 +22650,7 @@ var family_idiom_json = {
    ]
   ]
  },
- "su": {
+ "su1": {
   "count": 9,
   "data": [
    [
@@ -23366,7 +23360,7 @@ var family_idiom_json = {
   ]
  },
  "kāya1": {
-  "count": 7,
+  "count": 6,
   "data": [
    [
     "kāyanuttha",
@@ -23396,12 +23390,6 @@ var family_idiom_json = {
     "kāyena phusitvā",
     "idiom",
     "having personally experienced; (comm) having touched with the mental body; lit. touched with the body",
-    "✓"
-   ],
-   [
-    "pattakāyena",
-    "sandhi",
-    "when the body had become so; lit. attained by the body",
     "✓"
    ],
    [

@@ -1,4 +1,6 @@
 word	pos	position	type	exceptions
+lakkhaṇa	any	last	chaṭṭhī	asukalakkhaṇa, varalakkhaṇa, itthambhūtalakkhaṇa, asukalakkhaṇa, kiṃlakkhaṇa, tathalakkhaṇa, tilakkhaṇa 1, tilakkhaṇa 2, nimittalakkhaṇa, varalakkhaṇa
+pavāraṇā	fem	last	tatiyā	catumāsappaccayapavāraṇā, niccapavāraṇā, punapavāraṇā
 suppaguṇa	any	last	kammadhāraya	x
 paguṇa	any	last	kammadhāraya	x
 nimitta	any	last	chaṭṭhī	abyagganimitta, asubhanimitta, gahitanimitta, pubbanimitta 1, pubbanimitta 2, sabbanimitta, subhanimitta, suggahītanimitta
@@ -185,7 +187,6 @@ gambhīra	any	first	kammadhāraya
 sita	adj	last	dutiyā	pathavissita 1, pathavissita 2, paṭhavissita
 sadda	masc	last	chaṭṭhī
 sabyatā	any	last	tatiyā
-lakkhaṇa	any	last	chaṭṭhī	asukalakkhaṇa, varalakkhaṇa, itthambhūtalakkhaṇa, asukalakkhaṇa, kiṃlakkhaṇa, tathalakkhaṇa, tilakkhaṇa 1, tilakkhaṇa 2, nimittalakkhaṇa, varalakkhaṇa
 kūla	any	last	chaṭṭhī
 sata	nt	any	digu
 sahassa	nt	any	digu

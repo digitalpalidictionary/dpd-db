@@ -1,4 +1,6 @@
 COMMOON WORDS IN COMPOUNDS			type
+adhikaraṇa	nt	rūpādhikaraṇa, kāmādhikaraṇaṃ	
+akkhāyikā	fem	lokakkhāyikā, samuddakkhāyikā	
 antara	nt	vipākantara	
 ante	masc	antevāsī	
 anudiṭṭhi	fem	pubbantānudiṭṭhi, attānudiṭṭhi, aparantānudiṭṭhi	
@@ -11,6 +13,7 @@ evaṃ	adj	evaṃpaṭipanna
 gata (meaning type)	nt	mānagata, ākāsagata, āpogata, pubbagata, viññāṇagata, tiracchānagata(?), vāyogata, kheḷagata, gūthagata	
 hetu	ind	micchāpaṭipattādhikaraṇahetu	
 hetu	ind	pāricariyāhetu, brūhanāhetu, pīṇanāhetu, kucchihetu	
+ittha	adj	itthannāma, itthabhāva	
 jātika	adj	chandajātika	
 kaṃ	masc	kamatta	
 kara	adj	puññakara	
@@ -22,12 +25,14 @@ nidāna	adj	jātinidāna
 nidānaṃ	ind	bhoganidānaṃ	
 niyata	adj	micchattaniyata	
 pabhava	adj	upadhipabhava	
-paccayā	ind	kāyasañcetanāpaccayā	
+paccayā	ind	kāyasañcetanāpaccayā, sammāsamādhipaccayā	
 paro	card	parosahassa	
+pavāraṇā	fem	paccayapavāraṇā	
 sa	adj	sapubbadeva, saparivāra, sauttaracchada	
 saha			
 samudaya	adj	upadhisamudaya	
 saññā	fem	aṭṭhikasaññā, adukkhamasukhasukhumasaccasaññā, anattasaññā, ālokasaññā	
+saññatti	fem	saddhammasaññatti, asaddhammasaññatti	
 saññī (as)	adj	appaṭikūlasaññī	
 sāruppagāmī	adj	jātinirodhasāruppagāmī	
 tathā	adj	tathāpaṭipanna, tathāpahīna, tathāsaññī, tathākārī	
@@ -38,18 +43,19 @@ upari	masc	uparikokanadapāsāda, uparibhāga
 upari	ind	upariselasutte	
 upasampanna	adj	vassasatūpasampanna, tadahupasampanna	
 vāsa	adj	ekarattivāsa	
+vasena	ind	pañcadvāravasena	
+vijjā	fem	mūsikavijjā	
 yathā	adj	yathābhirata, yathādhimutta	
 yāva	ind	yāvatatiyakaṃ	
-vasena	ind	pañcadvāravasena	
-akkhāyikā	fem	lokakkhāyikā, samuddakkhāyikā	
-ittha	adj	itthannāma, itthabhāva	
+dhātu	fem	thāmadhātu	
+indriya	nt	manindriya	
 			
 GENERAL CASES	-	-	
 adhi	ind	adhideve, adhibrahmānaṃ	
-adverb in first postion	noun	divākathika, tiroraṭṭhā, tirojanapadā, rattiṃvikālabhojana, kāmaṅgama, antopadesa, bahipadesa	
-adverb in first postion	adj	idhāgata, tatrābhirata, uddhaṃpāda, adhosira	
+adverb in first postion	noun	divākathika, tiroraṭṭhā, tirojanapadā, rattiṃvikālabhojana, kāmaṅgama, antopadesa, bahipadesa, pacchāvacanīya, divāṭṭhāna	
+adverb in first postion	adj	idhāgata, tatrābhirata, uddhaṃpāda, adhosira, adhoṭhita, evaṃdiṭṭhī	
 adverbs in cases	adv	appasaddena	
-gerund + adj	adj	vibhajjavāda	
+gerund + adj	adj	vibhajjavāda, anupādāvimutta	
 gerund + noun	masc	anupādāvimokkha	
 indeclinable in first position	adj	nānājacca, uparikokanadapāsāda	
 infintive	adj	yujjhitukāma, abhiyātukāma, bhuñjitukāma	
@@ -71,6 +77,7 @@ taddjita *ika	adj	subhagavanika
 tiro	ind	tirojanapadā, tiropabbataṃ, tiropākāraṃ, tiroraṭṭhā	
 tiro	noun	tirokaraṇī, tirokuṭṭa	
 two indedeclinables	ind	ahovatā	
+prefix plus noun	adj	apagabbha (apa gabbha)	
 			
 INDIVIDUAL WORDS			
 vaḷabhīratha	masc		
@@ -84,3 +91,10 @@ cittīkāra	masc
 upaḍḍhapiṇḍapātaṃ	ind		
 ekeka	adj		
 asītinavutikāla	masc		
+attarūpena	ind		
+paccūsasamayaṃ	ind		
+kālenakālaṃ	ind		
+cakkavattī	masc		
+pacchāvacanīya	nt		
+sācakka	nt		
+tenaṅgena	ind		

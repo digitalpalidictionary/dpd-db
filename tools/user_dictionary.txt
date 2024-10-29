@@ -1,5 +1,6 @@
-
 …
+*āpaya
+*āpe
 10,000
 10pm
 10th
@@ -1755,6 +1756,7 @@ Precatorius
 preceptor
 preeminent
 preparer
+prepositional
 prideless
 prionitis
 pro-rata
@@ -2182,6 +2184,7 @@ tamable
 tanādigaṇa
 tapojigucchāvādā
 tappurisa
+tasselled
 tastable
 taṭatata
 taṭataṭa

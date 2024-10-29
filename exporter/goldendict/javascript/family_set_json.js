@@ -2119,6 +2119,18 @@ var family_set_json = {
     "✓"
    ],
    [
+    "ṇāpaya",
+    "cs",
+    "(gram) *āpaya; suffix used to form causative verbs",
+    "✓"
+   ],
+   [
+    "ṇāpe",
+    "cs",
+    "(gram) *āpe; suffix used to form causative verbs",
+    "✓"
+   ],
+   [
     "ṇu",
     "cs",
     "(gram) ṇu; conjugational sign of group 4 svādigaṇa verbs",
@@ -4921,7 +4933,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 792
+  "count": 794
  },
  "prefixes": {
   "data": [
@@ -5399,6 +5411,18 @@ var family_set_json = {
     "✓"
    ],
    [
+    "ṇāpaya",
+    "cs",
+    "(gram) *āpaya; suffix used to form causative verbs",
+    "✓"
+   ],
+   [
+    "ṇāpe",
+    "cs",
+    "(gram) *āpe; suffix used to form causative verbs",
+    "✓"
+   ],
+   [
     "ṇu",
     "cs",
     "(gram) ṇu; conjugational sign of group 4 svādigaṇa verbs",
@@ -5489,7 +5513,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 24
+  "count": 26
  },
  "abbreviations": {
   "data": [
@@ -14359,6 +14383,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "madda 2.1",
+    "masc",
+    "name of a country",
+    "✓"
+   ],
+   [
     "vajjī 3",
     "masc",
     "name of a country; capitals Vesali & Mithila",
@@ -14383,7 +14413,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 22
+  "count": 23
  },
  "names of paccekabuddhas": {
   "data": [
