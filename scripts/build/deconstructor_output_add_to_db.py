@@ -18,6 +18,7 @@ from tools.paths import ProjectPaths
 from tools.printer import p_green, p_title, p_yes
 from tools.tic_toc import tic, toc
 from tools.update_test_add import update_test_add
+from tools.configger import config_test
 
 
 def main():
@@ -77,4 +78,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if config_test("deconstructor", "include_cloud", "yes"):
+        main()
+    else:
+        print("include_cloud is disabled")

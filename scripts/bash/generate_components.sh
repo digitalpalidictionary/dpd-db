@@ -23,6 +23,8 @@ scripts/build/families_to_json.py
 
 scripts/build/anki_updater.py
 
+tools/extract_archive.py 'resources/deconstructor_output_archive/deconstructor_output.json.tar.gz' 'resources/deconstructor_output/'
+scripts/build/deconstructor_output_add_to_db.py
 go run go_modules/deconstructor/main.go
 
 scripts/build/api_ca_evi_iti.py

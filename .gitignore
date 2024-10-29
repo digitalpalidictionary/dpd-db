@@ -195,6 +195,7 @@ go_modules/deconstructor/output/*.tsv
 gui/icons/
 gui/stash/
 gui/window_layout.py
+resources/deconstructor_output/
 resources/thai_mahachula/
 resources/tipitaka.lk.tar.gz
 resources/tipitaka.lk_old/
