@@ -42,33 +42,17 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    if config_test("exporter", "language", "en"):
-        lang = "en"
-    elif config_test("exporter", "language", "ru"):
-        lang = "ru"
-    # add another lang here "elif ..." and 
-    # add conditions if lang = "{your_language}" in every instance in the code.
-    else:
-        raise ValueError("Invalid language parameter")
-
-
-    if lang == "en":
-        wf_db: list[DpdHeadword] = db_session\
-            .query(DpdHeadword) \
-            .filter(DpdHeadword.family_word != "") \
-            .all()
-    elif lang == "ru":
-        wf_db = db_session \
-            .query(DpdHeadword) \
-            .options(joinedload(DpdHeadword.ru)) \
-            .filter(DpdHeadword.family_word != "") \
-            .all()
+    wf_db = db_session \
+        .query(DpdHeadword) \
+        .options(joinedload(DpdHeadword.ru)) \
+        .filter(DpdHeadword.family_word != "") \
+        .all()
 
     wf_db = sorted(wf_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     wf_dict = make_word_fam_dict(wf_db)
-    wf_dict = compile_wf_html(wf_db, wf_dict, lang)
-    errors_list = add_wf_to_db(db_session, wf_dict, lang)
+    wf_dict = compile_wf_html(wf_db, wf_dict)
+    errors_list = add_wf_to_db(db_session, wf_dict)
     print_errors_list(errors_list)
 
     if config_test("anki", "update", "yes"):
@@ -110,7 +94,7 @@ def make_word_fam_dict(wf_db: list[DpdHeadword]):
     return wf_dict
 
 
-def compile_wf_html(wf_db, wf_dict, lang="en"):
+def compile_wf_html(wf_db, wf_dict):
     print("[green]compiling html")
 
     for __counter__, i in enumerate(wf_db):
@@ -132,23 +116,22 @@ def compile_wf_html(wf_db, wf_dict, lang="en"):
 
             wf_dict[wf]["html"] = html_string
 
-            if lang == "ru" and i.ru:
+            # rus
+            if not wf_dict[wf]["html_ru"]:
+                ru_html_string = "<table class='family_ru'>"
+            else:
+                ru_html_string = wf_dict[wf]["html_ru"]
 
-                if not wf_dict[wf]["html_ru"]:
-                    html_string = "<table class='family_ru'>"
-                else:
-                    html_string = wf_dict[wf]["html_ru"]
+            ru_meaning = make_short_ru_meaning(i, i.ru)
+            pos = ru_replace_abbreviations(i.pos)
+            ru_html_string += "<tr>"
+            ru_html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
+            ru_html_string += f"<td><b>{pos}</b></td>"
+            ru_html_string += f"<td>{ru_meaning}</td>"
+            ru_html_string += f"<td>{degree_of_completion(i)}</td>"
+            ru_html_string += "</tr>"
 
-                ru_meaning = make_short_ru_meaning(i, i.ru)
-                pos = ru_replace_abbreviations(i.pos)
-                html_string += "<tr>"
-                html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
-                html_string += f"<td><b>{pos}</b></td>"
-                html_string += f"<td>{ru_meaning}</td>"
-                html_string += f"<td>{degree_of_completion(i)}</td>"
-                html_string += "</tr>"
-
-                wf_dict[wf]["html_ru"] = html_string
+            wf_dict[wf]["html_ru"] = ru_html_string
             
             # anki data
             construction = clean_construction(
@@ -164,23 +147,22 @@ def compile_wf_html(wf_db, wf_dict, lang="en"):
                 degree_of_completion(i, html=False)
             ))
 
-            if lang == "ru" and i.ru:
-                wf_dict[wf]["data_ru"].append((
-                    i.lemma_1,
-                    pos,
-                    ru_meaning,
-                    degree_of_completion(i, html=False)
-                ))
+            # rus data
+            wf_dict[wf]["data_ru"].append((
+                i.lemma_1,
+                pos,
+                ru_meaning,
+                degree_of_completion(i, html=False)
+            ))
 
     for i in wf_dict:
         wf_dict[i]["html"] += "</table>"
-        if lang == "ru":
-            wf_dict[i]["html_ru"] += "</table>"
+        wf_dict[i]["html_ru"] += "</table>"
 
     return wf_dict
 
 
-def add_wf_to_db(db_session, wf_dict, lang):
+def add_wf_to_db(db_session, wf_dict):
     print("[green]adding to db", end=" ")
 
     add_to_db = []
@@ -196,8 +178,7 @@ def add_wf_to_db(db_session, wf_dict, lang):
             html_ru=wf_dict[wf]["html_ru"],
             count=len(wf_dict[wf]["headwords"]))
         wf_data.data_pack(wf_dict[wf]["data"])
-        if lang == "ru":
-            wf_data.data_ru_pack(wf_dict[wf]["data_ru"])
+        wf_data.data_ru_pack(wf_dict[wf]["data_ru"])
         add_to_db.append(wf_data)
 
     db_session.execute(FamilyWord.__table__.delete()) # type: ignore

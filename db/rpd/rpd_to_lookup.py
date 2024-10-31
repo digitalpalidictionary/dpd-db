@@ -223,14 +223,10 @@ def add_to_lookup_table(g: ProgData):
 
 
 def main():
-    
-    if not (config_test("exporter", "language", "ru") or config_test("dictionary", "show_ru_data", "yes")):
-        p_green_title("rpd disabled for English db")
-    else:
-        g = ProgData()
-        compile_headwords_data(g)
-        compile_roots_data(g)
-        add_to_lookup_table(g)
+    g = ProgData()
+    compile_headwords_data(g)
+    compile_roots_data(g)
+    add_to_lookup_table(g)
     
     toc()
 

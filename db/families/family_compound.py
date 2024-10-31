@@ -44,30 +44,16 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    if config_test("exporter", "language", "en"):
-        lang = "en"
-    elif config_test("exporter", "language", "ru"):
-        lang = "ru"
-    # add another lang here "elif ..." and 
-    # add conditions if lang = "{your_language}" in every instance in the code.
-    else:
-        raise ValueError("Invalid language parameter")
-
-    if lang == "en":
-        dpd_db = db_session.query(DpdHeadword) \
-            .filter(DpdHeadword.family_compound != "") \
-            .all()
-    elif lang == "ru":
-        dpd_db = db_session.query(DpdHeadword) \
-            .options(joinedload(DpdHeadword.ru)) \
-            .filter(DpdHeadword.family_compound != "") \
-            .all()
+    dpd_db = db_session.query(DpdHeadword) \
+        .options(joinedload(DpdHeadword.ru)) \
+        .filter(DpdHeadword.family_compound != "") \
+        .all()
     
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     cf_dict = create_comp_fam_dict(dpd_db)
-    cf_dict = compile_cf_html(dpd_db, cf_dict, lang)
-    add_cf_to_db(db_session, cf_dict, lang)
+    cf_dict = compile_cf_html(dpd_db, cf_dict)
+    add_cf_to_db(db_session, cf_dict)
     update_db_cache(db_session, cf_dict)
 
     # update anki
@@ -120,7 +106,7 @@ def create_comp_fam_dict(dpd_db: list[DpdHeadword]):
     return cf_dict
 
 
-def compile_cf_html(dpd_db, cf_dict, lang="en"):
+def compile_cf_html(dpd_db, cf_dict):
     print("[green]compiling html")
 
     for __counter__, i in enumerate(dpd_db):
@@ -144,22 +130,22 @@ def compile_cf_html(dpd_db, cf_dict, lang="en"):
 
                     cf_dict[cf]["html"] = html_string
 
-                    if lang == "ru" and i.ru:
-                        if not cf_dict[cf]["html_ru"]:
-                            html_string = "<table class='family_ru'>"
-                        else:
-                            html_string = cf_dict[cf]["html_ru"]
+                    # rus
+                    if not cf_dict[cf]["html_ru"]:
+                        ru_html_string = "<table class='family_ru'>"
+                    else:
+                        ru_html_string = cf_dict[cf]["html_ru"]
 
-                        ru_meaning = make_short_ru_meaning(i, i.ru)
-                        pos = ru_replace_abbreviations(i.pos)
-                        html_string += "<tr>"
-                        html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
-                        html_string += f"<td><b>{pos}</b></td>"
-                        html_string += f"<td>{ru_meaning}</td>"
-                        html_string += f"<td>{degree_of_completion(i)}</td>"
-                        html_string += "</tr>"
+                    ru_meaning = make_short_ru_meaning(i, i.ru)
+                    pos = ru_replace_abbreviations(i.pos)
+                    ru_html_string += "<tr>"
+                    ru_html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
+                    ru_html_string += f"<td><b>{pos}</b></td>"
+                    ru_html_string += f"<td>{ru_meaning}</td>"
+                    ru_html_string += f"<td>{degree_of_completion(i)}</td>"
+                    ru_html_string += "</tr>"
 
-                        cf_dict[cf]["html_ru"] = html_string
+                    cf_dict[cf]["html_ru"] = ru_html_string
 
                     # data
                     if i.meaning_1:
@@ -170,8 +156,8 @@ def compile_cf_html(dpd_db, cf_dict, lang="en"):
                             degree_of_completion(i, html=False)
                         ))
 
-                        if lang == "ru" and i.ru:
-                            cf_dict[cf]["data_ru"].append((
+                        # rus data
+                        cf_dict[cf]["data_ru"].append((
                             i.lemma_1,
                             pos,
                             ru_meaning,
@@ -187,13 +173,12 @@ def compile_cf_html(dpd_db, cf_dict, lang="en"):
 
     for i in cf_dict:
         cf_dict[i]["html"] += "</table>"
-        if lang == "ru":
-            cf_dict[i]["html_ru"] += "</table>"
+        cf_dict[i]["html_ru"] += "</table>"
 
     return cf_dict
 
 
-def add_cf_to_db(db_session, cf_dict, lang):
+def add_cf_to_db(db_session, cf_dict):
     print("[green]adding to db", end=" ")
 
     add_to_db = []
@@ -205,8 +190,7 @@ def add_cf_to_db(db_session, cf_dict, lang):
             html_ru=cf_dict[cf]["html_ru"],
             count=len(cf_dict[cf]["headwords"]))
         cf_data.data_pack(cf_dict[cf]["data"])
-        if lang == "ru":
-            cf_data.data_ru_pack(cf_dict[cf]["data_ru"])
+        cf_data.data_ru_pack(cf_dict[cf]["data_ru"])
         add_to_db.append(cf_data)
 
     db_session.execute(FamilyCompound.__table__.delete()) # type: ignore

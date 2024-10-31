@@ -35,8 +35,8 @@ db/lookup/variants_and_spelling_mistakes.py
 db/lookup/transliterate_lookup_table.py
 db/lookup/help_abbrev_add_to_lookup.py
 
-go run go_modules/frequency/main.go 
 scripts/build/ebt_counter.py
+go run go_modules/frequency/main.go 
 
 db/epd/epd_to_lookup.py
 

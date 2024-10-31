@@ -10,6 +10,8 @@ git checkout origin/main -- db/backup_tsv/dpd_headwords.tsv
 
 git checkout origin/main -- db/backup_tsv/dpd_roots.tsv
 
+bash dps/bash/auto_commit.sh
+
 while true; do
     echo -ne "\033[1;36m Backup Ru and SBS tables and copy them to db/backup_tsv?\033[0m"
     read yn
@@ -39,18 +41,6 @@ while true; do
 done
 
 while true; do
-    echo -ne "\033[1;36m Move new words?\033[0m"
-    read yn
-    case $yn in
-        [Yy]* )
-            dps/scripts/move_new_words.py
-            break;;
-        * )
-            break;;
-    esac
-done
-
-while true; do
     echo -ne "\033[1;36m Rebuild db from db/backup_tsv?\033[0m"
     read yn
     case $yn in
@@ -64,13 +54,14 @@ while true; do
     esac
 done
 
+
 while true; do
-    echo -ne "\033[1;36m Update db from db/backup_tsv?\033[0m"
+    echo -ne "\033[1;36m Add new words?\033[0m"
     read yn
     case $yn in
         [Yy]* )
-            scripts/db_update_from_tsv.py
-            python -c "from gui.corrections_check_feedback import apply_all_suggestions; apply_all_suggestions()"
+            scripts/add/add_additions_to_db.py
+            git checkout origin/main -- gui/additions.tsv
             break;;
         * )
             break;;

@@ -35,28 +35,14 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    if config_test("exporter", "language", "en"):
-        lang = "en"
-    elif config_test("exporter", "language", "ru"):
-        lang = "ru"
-    # add another lang here "elif ..." and 
-    # add conditions if lang = "{your_language}" in every instance in the code.
-    else:
-        raise ValueError("Invalid language parameter")
-
-
-    if lang == "en":
-        sets_db = db_session.query(DpdHeadword).filter(
-            DpdHeadword.family_set != "").all()
-    elif lang == "ru":
-        sets_db = db_session.query(DpdHeadword).options(
-            joinedload(DpdHeadword.ru)).filter(
-            DpdHeadword.family_set != "").all()
+    sets_db = db_session.query(DpdHeadword).options(
+        joinedload(DpdHeadword.ru)).filter(
+        DpdHeadword.family_set != "").all()
     sets_db = sorted(sets_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     sets_dict = make_sets_dict(sets_db)
-    sets_dict = compile_sf_html(sets_db, sets_dict, lang)
-    errors_list = add_sf_to_db(db_session, sets_dict, lang)
+    sets_dict = compile_sf_html(sets_db, sets_dict)
+    errors_list = add_sf_to_db(db_session, sets_dict)
     print_errors_list(errors_list)
     toc()
 
@@ -96,11 +82,10 @@ def make_sets_dict(sets_db):
     return sets_dict
 
 
-def compile_sf_html(sets_db, sets_dict, lang="en"):
+def compile_sf_html(sets_db, sets_dict):
     print("[green]compiling html")
 
-    if lang == "ru":
-        populate_set_ru_and_check_errors(sets_dict)
+    populate_set_ru_and_check_errors(sets_dict)
 
     for __counter__, i in enumerate(sets_db):
 
@@ -123,22 +108,22 @@ def compile_sf_html(sets_db, sets_dict, lang="en"):
 
                     sets_dict[sf]["html"] = html_string
 
-                    if lang == "ru" and i.ru:
-                        if not sets_dict[sf]["html_ru"]:
-                            html_string = "<table class='family_ru'>"
-                        else:
-                            html_string = sets_dict[sf]["html_ru"]
+                    # rus
+                    if not sets_dict[sf]["html_ru"]:
+                        ru_html_string = "<table class='family_ru'>"
+                    else:
+                        ru_html_string = sets_dict[sf]["html_ru"]
 
-                        ru_meaning = make_short_ru_meaning(i, i.ru)
-                        pos = ru_replace_abbreviations(i.pos)
-                        html_string += "<tr>"
-                        html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
-                        html_string += f"<td><b>{pos}</b></td>"
-                        html_string += f"<td>{ru_meaning}</td>"
-                        html_string += f"<td>{degree_of_completion(i)}</td>"
-                        html_string += "</tr>"
+                    ru_meaning = make_short_ru_meaning(i, i.ru)
+                    pos = ru_replace_abbreviations(i.pos)
+                    ru_html_string += "<tr>"
+                    ru_html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
+                    ru_html_string += f"<td><b>{pos}</b></td>"
+                    ru_html_string += f"<td>{ru_meaning}</td>"
+                    ru_html_string += f"<td>{degree_of_completion(i)}</td>"
+                    ru_html_string += "</tr>"
 
-                        sets_dict[sf]["html_ru"] = html_string
+                    sets_dict[sf]["html_ru"] = ru_html_string
 
                     # data
                     sets_dict[sf]["data"].append((
@@ -148,8 +133,8 @@ def compile_sf_html(sets_db, sets_dict, lang="en"):
                         degree_of_completion(i, html=False)
                     ))
 
-                    if lang == "ru" and i.ru:
-                        sets_dict[sf]["data_ru"].append((
+                    # rus data
+                    sets_dict[sf]["data_ru"].append((
                         i.lemma_1,
                         pos,
                         ru_meaning,
@@ -158,13 +143,12 @@ def compile_sf_html(sets_db, sets_dict, lang="en"):
 
     for i in sets_dict:
         sets_dict[i]["html"] += "</table>"
-        if lang == "ru":
-            sets_dict[i]["html_ru"] += "</table>"
+        sets_dict[i]["html_ru"] += "</table>"
 
     return sets_dict
 
 
-def add_sf_to_db(db_session, sets_dict, lang):
+def add_sf_to_db(db_session, sets_dict):
     print("[green]adding to db", end=" ")
 
     add_to_db = []
@@ -180,8 +164,7 @@ def add_sf_to_db(db_session, sets_dict, lang):
             set_ru=sets_dict[sf]["set_ru"],
             count=count)
         sf_data.data_pack(sets_dict[sf]["data"])
-        if lang == "ru":
-            sf_data.data_ru_pack(sets_dict[sf]["data_ru"])
+        sf_data.data_ru_pack(sets_dict[sf]["data_ru"])
 
         add_to_db.append(sf_data)
 

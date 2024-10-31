@@ -40,30 +40,16 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    if config_test("exporter", "language", "en"):
-        lang = "en"
-    elif config_test("exporter", "language", "ru"):
-        lang = "ru"
-    # add another lang here "elif ..." and 
-    # add conditions if lang = "{your_language}" in every instance in the code.
-    else:
-        raise ValueError("Invalid language parameter")
-
-    if lang == "en":
-        dpd_db = db_session.query(DpdHeadword) \
-            .filter(DpdHeadword.family_idioms != "") \
-            .all()
-    elif lang == "ru":
-        dpd_db = db_session.query(DpdHeadword) \
-            .options(joinedload(DpdHeadword.ru)) \
-            .filter(DpdHeadword.family_idioms != "") \
-            .all()
+    dpd_db = db_session.query(DpdHeadword) \
+        .options(joinedload(DpdHeadword.ru)) \
+        .filter(DpdHeadword.family_idioms != "") \
+        .all()
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     sync_idiom_numbers_with_family_compound(db_session)
     idioms_dict = create_idioms_dict(dpd_db)
-    idioms_dict = compile_idioms_html(dpd_db, idioms_dict, lang)
-    add_idioms_to_db(db_session, idioms_dict, lang)
+    idioms_dict = compile_idioms_html(dpd_db, idioms_dict)
+    add_idioms_to_db(db_session, idioms_dict)
     update_db_cache(db_session, idioms_dict)
     
     toc()
@@ -126,7 +112,7 @@ def create_idioms_dict(dpd_db):
     return idioms_dict
 
 
-def compile_idioms_html(dpd_db, idioms_dict, lang="en"):
+def compile_idioms_html(dpd_db, idioms_dict):
     print("[green]compiling html")
 
     for i in dpd_db:
@@ -153,22 +139,22 @@ def compile_idioms_html(dpd_db, idioms_dict, lang="en"):
 
                     idioms_dict[word]["html"] = html_string
 
-                    if lang == "ru" and i.ru:
-                        if not idioms_dict[word]["html_ru"]:
-                            html_string = "<table class='family_ru'>"
-                        else:
-                            html_string = idioms_dict[word]["html_ru"]
+                    # rus
+                    if not idioms_dict[word]["html_ru"]:
+                        ru_html_string = "<table class='family_ru'>"
+                    else:
+                        ru_html_string = idioms_dict[word]["html_ru"]
 
-                        ru_meaning = make_short_ru_meaning(i, i.ru)
-                        pos = ru_replace_abbreviations(i.pos)
-                        html_string += "<tr>"
-                        html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
-                        html_string += f"<td><b>{pos}</b></td>"
-                        html_string += f"<td>{ru_meaning}</td>"
-                        html_string += f"<td>{degree_of_completion(i)}</td>"
-                        html_string += "</tr>"
+                    ru_meaning = make_short_ru_meaning(i, i.ru)
+                    pos = ru_replace_abbreviations(i.pos)
+                    ru_html_string += "<tr>"
+                    ru_html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
+                    ru_html_string += f"<td><b>{pos}</b></td>"
+                    ru_html_string += f"<td>{ru_meaning}</td>"
+                    ru_html_string += f"<td>{degree_of_completion(i)}</td>"
+                    ru_html_string += "</tr>"
 
-                        idioms_dict[word]["html_ru"] = html_string
+                    idioms_dict[word]["html_ru"] = ru_html_string
 
                     # data
                     idioms_dict[word]["data"].append((
@@ -178,8 +164,8 @@ def compile_idioms_html(dpd_db, idioms_dict, lang="en"):
                         degree_of_completion(i, html=False)
                     ))
 
-                    if lang == "ru" and i.ru:
-                        idioms_dict[word]["data_ru"].append((
+                    # rus data
+                    idioms_dict[word]["data_ru"].append((
                         i.lemma_1,
                         pos,
                         ru_meaning,
@@ -192,13 +178,12 @@ def compile_idioms_html(dpd_db, idioms_dict, lang="en"):
 
     for i in idioms_dict:
         idioms_dict[i]["html"] += "</table>"
-        if lang == "ru":
-            idioms_dict[i]["html_ru"] += "</table>" 
+        idioms_dict[i]["html_ru"] += "</table>" 
 
     return idioms_dict
 
 
-def add_idioms_to_db(db_session, idioms_dict, lang):
+def add_idioms_to_db(db_session, idioms_dict):
     print("[green]adding to db", end=" ")
 
     add_to_db = []
@@ -211,8 +196,7 @@ def add_idioms_to_db(db_session, idioms_dict, lang):
                 html_ru=idioms_dict[idiom]["html_ru"],
                 count=idioms_dict[idiom]["count"])
             idiom_data.data_pack(idioms_dict[idiom]["data"])
-            if lang == "ru":
-                idiom_data.data_ru_pack(idioms_dict[idiom]["data_ru"])
+            idiom_data.data_ru_pack(idioms_dict[idiom]["data_ru"])
             add_to_db.append(idiom_data)
 
     db_session.execute(FamilyIdiom.__table__.delete()) # type: ignore

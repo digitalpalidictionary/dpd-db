@@ -16,7 +16,7 @@ abbrev	meaning	pāli	example	explanation	ru_abbrev	ru_meaning
 abbrev	abbreviation				сокращ	сокращённая форма
 ABD	Abhidhāna Dictionary			"The Pāḷi Myanmar Abhidhān is the largest Pāḷi dictionary in the world, currently more than 23 volumes in size and including every word in the Mūla and Commentaries. There is currently a project underway to translate the dictionary into English.<br/><a class=""link"" href=""https://github.com/bksubhuti/Tipitaka-Pali-Projector"">inside TPP</a>"		Словарь Абхидхана
 abl	ablative case	pañcamī, apādanavacana, avadhi, apādāna, nissakka	tato - pron, <b>abl</b> sg of ta	generally showing separation (from, away from)<br/>(e.g. from that)	отд	отделительный падеж
-abs	absolutive verb	avyaya, pubbakicca	upasaṅkamitvā; katvā	A verb, often a combination of having + past participle, expressing completed action (e.g. having approached; having made)	деепр.несов	деепричастие несовершенного вида
+abs	absolutive verb	avyaya, pubbakicca	upasaṅkamitvā; katvā	A verb, often a combination of having + past participle, expressing completed action (e.g. having approached; having made)	деепр.сов	деепричастие совершенного вида, отвечает на вопрос «что сделав?»
 abstr	abstract noun		abyāpāda - masc <b>abstr</b>	A concept or idea not associated with any specific instance or any concrete thing (e.g. friendliness)	абстр	абстрактное существительное
 acc	accusative case	dutiyā, upayogavacana, kammavacana	maṃ - pron, 1st <b>acc</b> sg	the object of the sentence (e.g. me)	вин	винительный падеж
 act	action noun		pahāna - nt <b>act</b>	Noun describing an active process (e.g) abandoning	действие	существительное действие
@@ -86,7 +86,7 @@ fem	feminine noun	itthī; itthiliṅga	āpatti; vedanā; bhikkhunī		жен	же
 fut	future tense	bhavissantī; anāgatakāla	bhavissati; gamissati; assasissati	A verb tense that expresses actions or states in the future	буд	будущее время
 gen	genitive case	chaṭṭhī, sāmivacana, sambandha	me - pron, 1st <b>gen</b> sg of ahaṃ	showing possession (of 's)<br/>(e.g. my, mine)	род	родительный падеж
 gen abs	genitive absolute construction		me sato; tassa jānato passato	When a noun or a pronoun in the genitive case is used with a participle in the same case as itself, the construction is called genitive absolute. It can be translated as when, while, since, or as. Sometimes it also has the meaning of since, although, even if, despite, in spite of, notwithstanding.	род.абс	родительный падеж абсолютная конструкция
-ger	gerund. a verb, often ending in -ing, expressing ongoing action	avyaya; bhāvapada	upasampajja; pahāya; ādāya	A verb (or verbal adjective), often ending in -ing, expressing ongoing action (eg. doing; making; going).	деепр.сов	деепричастие совершенного вида
+ger	gerund. a verb, often ending in -ing, expressing ongoing action	avyaya; bhāvapada	upasampajja; pahāya; ādāya	A verb (or verbal adjective), often ending in -ing, expressing ongoing action (eg. doing; making; going).	деепр.несов	деепричастие несовершенного вида, отвечает на вопрос «что делая?»
 gram	grammatical term, technical term		padasandhi		грам	грамматический термин
 idiom	idiomatic expression	bhāsārītyanugata	app'eva nāma	A manner of speaking that is natural to native speakers of a language or an expression whose meanings cannot be inferred from the meanings of the words that make it up	идиома	идиома; фразеологизм
 imp	imperative mood	pañcamī; idānaṃ	gaccha; atthu; hotu	Mood that expresses an intention to influence the listener's behavior or expresses wish. (e.g. begone! may there be! may it be!)	повелит	повелительное наклонение

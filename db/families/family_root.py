@@ -50,25 +50,11 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    if config_test("exporter", "language", "en"):
-        lang = "en"
-    elif config_test("exporter", "language", "ru"):
-        lang = "ru"
-    # add another lang here "elif ..." and 
-    # add conditions if lang = "{your_language}" in every instance in the code.
-    else:
-        raise ValueError("Invalid language parameter")
+    dpd_db = db_session.query(DpdHeadword).options(
+        joinedload(DpdHeadword.ru)).filter(
+        DpdHeadword.family_root != "").all()
 
-
-    if lang == "en":
-        dpd_db = db_session.query(DpdHeadword).filter(
-            DpdHeadword.family_root != "").all()
-    elif lang == "ru":
-        dpd_db = db_session.query(DpdHeadword).options(
-            joinedload(DpdHeadword.ru)).filter(
-            DpdHeadword.family_root != "").all()
-
-    if config_test("dictionary", "show_ru_data", "yes") or lang == "ru":
+    if config_test("dictionary", "show_ru_data", "yes"):
         show_ru_data = True
     else:
         show_ru_data = False
@@ -81,8 +67,8 @@ def main():
         roots_db, key=lambda x: pali_sort_key(x.root))
 
     rf_dict, bases_dict = make_roots_family_dict_and_bases_dict(dpd_db)
-    rf_dict = compile_rf_html(dpd_db, rf_dict, lang)
-    add_rf_to_db(db_session, rf_dict, lang)
+    rf_dict = compile_rf_html(dpd_db, rf_dict)
+    add_rf_to_db(db_session, rf_dict)
     update_lookup_table(db_session)
     generate_root_info_html(db_session, roots_db, bases_dict, show_ru_data)
     html_dict = generate_root_matrix(db_session)
@@ -144,7 +130,7 @@ def make_roots_family_dict_and_bases_dict(dpd_db):
     return rf_dict, bases_dict
 
 
-def compile_rf_html(dpd_db, rf_dict, lang="en"):
+def compile_rf_html(dpd_db, rf_dict):
     print("[green]compiling html")
 
     for __counter__, i in enumerate(dpd_db):
@@ -167,22 +153,22 @@ def compile_rf_html(dpd_db, rf_dict, lang="en"):
 
             rf_dict[family]["html"] = html_string
 
-            if lang == "ru":
-                if not rf_dict[family]["html_ru"]:
-                    html_string = "<table class='family_ru'>"
-                else:
-                    html_string = rf_dict[family]["html_ru"]
+            # rus
+            if not rf_dict[family]["html_ru"]:
+                ru_html_string = "<table class='family_ru'>"
+            else:
+                ru_html_string = rf_dict[family]["html_ru"]
 
-                ru_meaning = make_short_ru_meaning(i, i.ru)
-                pos = ru_replace_abbreviations(i.pos)
-                html_string += "<tr>"
-                html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
-                html_string += f"<td><b>{pos}</b></td>"
-                html_string += f"<td>{ru_meaning}</td>"
-                html_string += f"<td>{degree_of_completion(i)}</td>"
-                html_string += "</tr>"
+            ru_meaning = make_short_ru_meaning(i, i.ru)
+            pos = ru_replace_abbreviations(i.pos)
+            ru_html_string += "<tr>"
+            ru_html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
+            ru_html_string += f"<td><b>{pos}</b></td>"
+            ru_html_string += f"<td>{ru_meaning}</td>"
+            ru_html_string += f"<td>{degree_of_completion(i)}</td>"
+            ru_html_string += "</tr>"
 
-                rf_dict[family]["html_ru"] = html_string
+            rf_dict[family]["html_ru"] = ru_html_string
 
             # data
             rf_dict[family]["data"].append((
@@ -192,8 +178,8 @@ def compile_rf_html(dpd_db, rf_dict, lang="en"):
                 degree_of_completion(i, html=False)
             ))
 
-            if lang == "ru":
-                rf_dict[family]["data_ru"].append((
+            # rus data
+            rf_dict[family]["data_ru"].append((
                 i.lemma_1,
                 pos,
                 ru_meaning,
@@ -212,9 +198,8 @@ def compile_rf_html(dpd_db, rf_dict, lang="en"):
     for rf in rf_dict:
         header = make_root_header(rf_dict, rf)
         rf_dict[rf]["html"] = header + rf_dict[rf]["html"] + "</table>"
-        if lang == "ru":
-            header_ru = make_root_header_ru(rf_dict, rf)
-            rf_dict[rf]["html_ru"] = header_ru + rf_dict[rf]["html_ru"] + "</table>"
+        header_ru = make_root_header_ru(rf_dict, rf)
+        rf_dict[rf]["html_ru"] = header_ru + rf_dict[rf]["html_ru"] + "</table>"
     return rf_dict
 
 
@@ -238,7 +223,7 @@ def make_root_header_ru(rf_dict, rf):
     return header
 
 
-def add_rf_to_db(db_session, rf_dict, lang):
+def add_rf_to_db(db_session, rf_dict):
     print("[green]adding to db", end=" ")
 
     add_to_db = []
@@ -255,8 +240,7 @@ def add_rf_to_db(db_session, rf_dict, lang):
             html_ru=rf_dict[rf]["html_ru"],
             count=len(rf_dict[rf]["headwords"]))
         root_family.data_pack(rf_dict[rf]["data"])
-        if lang == "ru":
-            root_family.data_ru_pack(rf_dict[rf]["data_ru"])
+        root_family.data_ru_pack(rf_dict[rf]["data_ru"])
 
         add_to_db.append(root_family)
 
