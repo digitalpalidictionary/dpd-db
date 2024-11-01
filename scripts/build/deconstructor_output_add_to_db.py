@@ -5,7 +5,8 @@ Add to the deconstructor output from
 https://github.com/digitalpalidictionary/deconstructor_output.git
 to the lookup database.
 
-Used for the GitHub action which cannot currently handle the deconstructor program.
+Used for the GitHub action which cannot currently handle the deconstructor program,
+or for local use.
 """
 
 
@@ -15,7 +16,7 @@ from db.models import Lookup
 
 from tools.lookup_is_another_value import is_another_value
 from tools.paths import ProjectPaths
-from tools.printer import p_green, p_title, p_yes
+from tools.printer import p_green, p_green_title, p_title, p_yes
 from tools.tic_toc import tic, toc
 from tools.update_test_add import update_test_add
 from tools.configger import config_test
@@ -25,6 +26,10 @@ def main():
     
     tic()
     p_title("adding deconstructor output to lookup db")
+
+    if not config_test("deconstructor", "use_premade", "yes"):
+        p_green_title("disabled in config.ini")
+        return
     
     p_green("setting up data")
     pth = ProjectPaths()
@@ -78,7 +83,4 @@ def main():
 
 
 if __name__ == "__main__":
-    if config_test("deconstructor", "include_cloud", "yes"):
-        main()
-    else:
-        print("include_cloud is disabled")
+    main()

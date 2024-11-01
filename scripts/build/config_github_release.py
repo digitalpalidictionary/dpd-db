@@ -17,9 +17,7 @@ def main():
     config_update("regenerate", "transliterations", "yes")
     config_update("regenerate", "freq_maps", "yes")
 
-    config_update("deconstructor", "all_texts", "no")
-    config_update("deconstructor", "run_on_cloud", "no")
-    config_update("deconstructor", "include_cloud", "yes")
+    config_update("deconstructor", "use_premade", "yes")
 
     config_update("dictionary", "make_mdict", "yes")
     config_update("dictionary", "make_link", "yes")

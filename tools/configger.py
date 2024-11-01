@@ -21,9 +21,7 @@ DEFAULT_CONFIG = {
         "db_rebuild": "no"
     },
     "deconstructor": {
-        "include_cloud": "no",
-        "all_texts": "no",
-        "run_on_cloud": "no"
+        "use_premade": "no",
     },
     "gui": {
         "theme": "DarkGrey10",

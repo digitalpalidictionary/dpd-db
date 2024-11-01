@@ -9,6 +9,8 @@ import sys
 from tools.configger import config_test
 from tools.printer import p_green, p_title, p_red, p_yes
 from tools.tic_toc import tic, toc
+from tools.printer import p_green_title, p_red, p_title
+from tools.tic_toc import tic, toc
 
 def extract_archive(input_archive, output_directory):
     # Ensure the output directory exists or create it
@@ -25,15 +27,23 @@ def extract_archive(input_archive, output_directory):
                     archive.extract(member, path=output_directory)
                     p_green(f"extracted {member.name}")
     except Exception as e:
-        p_red(f"an error occurred: {e}")
+        p_red(f"An error occurred:\n{e}")
 
 
 def main():
+
+    tic()
+    p_title("extracting deconstructor archive")
+    
+    if not config_test("deconstructor", "use_premade", "yes"):
+        p_green_title("disabled in config.ini")
+        return
+
     tic()
     p_title("extracting deconstructor output")
     # Ensure that both input_archive and output_directory are provided
     if len(sys.argv) != 3:
-        p_green("Usage: python extract_archive.py <input_archive> <output_directory>")
+        p_red("Usage: python extract_archive.py <input_archive> <output_directory>")
         sys.exit(1)
     
     input_archive = sys.argv[1]
@@ -46,7 +56,4 @@ def main():
 
     
 if __name__ == "__main__":
-    if config_test("deconstructor", "include_cloud", "yes"):
-        main()
-    else:
-        print("include_cloud is disabled")
+    main()
