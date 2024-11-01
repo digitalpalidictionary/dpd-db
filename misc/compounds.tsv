@@ -9,17 +9,18 @@ atthara	nt	hatthatthara
 atthāya	ind	puññatthāya	
 aṭṭhika	nt	jaṅghaṭṭhika	
 āvi	nt	āvikamma	
+dhātu	fem	thāmadhātu, cakkhudhātu	
 evaṃ	adj	evaṃpaṭipanna	
 gata (meaning type)	nt	mānagata, ākāsagata, āpogata, pubbagata, viññāṇagata, tiracchānagata(?), vāyogata, kheḷagata, gūthagata	
-hetu	ind	micchāpaṭipattādhikaraṇahetu	
-hetu	ind	pāricariyāhetu, brūhanāhetu, pīṇanāhetu, kucchihetu	
+hetu	ind	micchāpaṭipattādhikaraṇahetu, sakkārahetu, pāricariyāhetu, brūhanāhetu, pīṇanāhetu, kucchihetu	
+indriya	nt	manindriya	
 ittha	adj	itthannāma, itthabhāva	
 jātika	adj	chandajātika	
 kaṃ	masc	kamatta	
 kara	adj	puññakara	
 karaṇīya	nt	saṅghakaraṇīya	
 khīṇa	adj	khīṇatiracchānayoni, khīṇaniraya, khīṇapunabbhava	
-maya	adj	jātarūpamaya	
+maya	adj	jātarūpamaya, lohitaṅkamaya	
 nānā	noun	nānādāru	
 nidāna	adj	jātinidāna	
 nidānaṃ	ind	bhoganidānaṃ	
@@ -33,6 +34,7 @@ saha
 samudaya	adj	upadhisamudaya	
 saññā	fem	aṭṭhikasaññā, adukkhamasukhasukhumasaccasaññā, anattasaññā, ālokasaññā	
 saññatti	fem	saddhammasaññatti, asaddhammasaññatti	
+saññī	adj	āposaññī	
 saññī (as)	adj	appaṭikūlasaññī	
 sāruppagāmī	adj	jātinirodhasāruppagāmī	
 tathā	adj	tathāpaṭipanna, tathāpahīna, tathāsaññī, tathākārī	
@@ -42,21 +44,20 @@ upama	adj	attūpama
 upari	masc	uparikokanadapāsāda, uparibhāga	
 upari	ind	upariselasutte	
 upasampanna	adj	vassasatūpasampanna, tadahupasampanna	
+vāda	adj	hetuvāda	
 vāsa	adj	ekarattivāsa	
 vasena	ind	pañcadvāravasena	
 vijjā	fem	mūsikavijjā	
 yathā	adj	yathābhirata, yathādhimutta	
 yāva	ind	yāvatatiyakaṃ	
-dhātu	fem	thāmadhātu	
-indriya	nt	manindriya	
 			
 GENERAL CASES	-	-	
 adhi	ind	adhideve, adhibrahmānaṃ	
 adverb in first postion	noun	divākathika, tiroraṭṭhā, tirojanapadā, rattiṃvikālabhojana, kāmaṅgama, antopadesa, bahipadesa, pacchāvacanīya, divāṭṭhāna	
-adverb in first postion	adj	idhāgata, tatrābhirata, uddhaṃpāda, adhosira, adhoṭhita, evaṃdiṭṭhī	
+adverb in first postion	adj	idhāgata, tatrābhirata, uddhaṃpāda, adhosira, adhoṭhita, evaṃdiṭṭhī, evaṃvihārī	
 adverbs in cases	adv	appasaddena	
 gerund + adj	adj	vibhajjavāda, anupādāvimutta	
-gerund + noun	masc	anupādāvimokkha	
+gerund + noun	masc	anupādāvimokkha, upādāyarūpa	
 indeclinable in first position	adj	nānājacca, uparikokanadapāsāda	
 infintive	adj	yujjhitukāma, abhiyātukāma, bhuñjitukāma	
 kāla	masc	yānakāla	
@@ -64,7 +65,7 @@ kammadhāraya + taddhita	fem, nt	appātaṅkatā, appābādhatta
 khattuṃ	ind	atirekachakkhattuṃ, dvattikkhattuṃ	
 khattuṃ	fem	sattakkhattuparamatā	
 kiṃ	adj	kiṃmṃlaka, kiṃcitta, kiṃpamukha, kiṃkata, kiṃpahotika, kiṃnidṃna, kiṃparama, kiṃjṃtika, kiṃpariyosṃna, kāmālaya	
-maya	masc	mattikāpatta, dārukuḍḍika	
+maya (made of needs to be included)	noun	mattikāpatta, dārukuḍḍika, kaṃsapāti	
 missing word, more words required for the sense	nt	dvārabhatta (ṭhapita), asappurisacintī (cintā), asappurisamantī (manā)	
 numbers (addition)	card	bāvīsati, dvattiṃsati	
 numbers (multiplication)	card	tiṃsati, koṭisatasahassa, satasahassī	
@@ -98,3 +99,7 @@ cakkavattī	masc
 pacchāvacanīya	nt		
 sācakka	nt		
 tenaṅgena	ind		
+sassatisamaṃ	ind		
+govata	nt		
+erāpatha	masc		
+maraṇavadha	masc		

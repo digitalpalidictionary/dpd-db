@@ -1,11 +1,16 @@
 word	pos	position	type	exceptions
-lakkhaṇa	any	last	chaṭṭhī	asukalakkhaṇa, varalakkhaṇa, itthambhūtalakkhaṇa, asukalakkhaṇa, kiṃlakkhaṇa, tathalakkhaṇa, tilakkhaṇa 1, tilakkhaṇa 2, nimittalakkhaṇa, varalakkhaṇa
+vipallāsa	masc	any	chaṭṭhī	nacittavipallāsa, nadiṭṭhivipallāsa, nasaññāvipallāsa
+sālā	fem	last	catutthī	ekasālā, kūṭāgārasālā 1, kūṭāgārasālā 2, jarasālā, dvārasālā, paṇṇasālā, migasālā
+lakkhaṇa	adj	last	kammadhāraya	x
+samphassa	any	last	tatiyā	adhivacanasamphassa, kharasamphassa, dukkhasamphassa, paṭighasamphassa, sukhasamphassa, mudusamphassa, appaḍaṃsamakasavātātapasarīsapasamphassa
+gū	any	last	dutiyā	avedagū
+lakkhaṇa	nt	last	chaṭṭhī	asukalakkhaṇa, varalakkhaṇa, itthambhūtalakkhaṇa, asukalakkhaṇa, kiṃlakkhaṇa, tathalakkhaṇa, tilakkhaṇa 1, tilakkhaṇa 2, nimittalakkhaṇa, varalakkhaṇa
 pavāraṇā	fem	last	tatiyā	catumāsappaccayapavāraṇā, niccapavāraṇā, punapavāraṇā
 suppaguṇa	any	last	kammadhāraya	x
 paguṇa	any	last	kammadhāraya	x
 nimitta	any	last	chaṭṭhī	abyagganimitta, asubhanimitta, gahitanimitta, pubbanimitta 1, pubbanimitta 2, sabbanimitta, subhanimitta, suggahītanimitta
 nuda	any	last	dutiyā	x
-loha	any	first	chaṭṭhī	lohasīsa
+loha	any	first	chaṭṭhī	lohasīsa, lohapattadhara
 paṭicca	any	last	dutiyā	x
 ga	any	last	dutiyā	uraga 1, pannaga, vidugga 1, uraga 2
 chedana	any	last	chaṭṭhī	x
@@ -15,7 +20,6 @@ avasitta	any	last	sattamī	x
 anupaviṭṭha	any	last	dutiyā	x
 samāyuta	adj	last	tatiyā	x
 patti	fem	last	chaṭṭhī	x	
-samphassa	any	last	tatiyā	adhivacanasamphassa, kharasamphassa, dukkhasamphassa, paṭighasamphassa, sukhasamphassa, mudusamphassa, appaḍaṃsamakasavātātapasarīsapasamphassa
 hetu	any	last	chaṭṭhī	kāmarāgābhinivesavinibandhapaligedhapariyuṭṭhānajjhosānahetu, diṭṭhirāgābhinivesavinibandhapaligedhapariyuṭṭhānajjhosānahetu
 dīpanā	any	last	chaṭṭhī	x
 dīpana	any	last	chaṭṭhī	x

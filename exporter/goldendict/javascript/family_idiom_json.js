@@ -1238,7 +1238,7 @@ var family_idiom_json = {
    [
     "kyāhaṃ 1",
     "sandhi",
-    "what I?",
+    "what (can) I?",
     "✓"
    ],
    [
@@ -12452,7 +12452,7 @@ var family_idiom_json = {
    [
     "diṭṭha suta muta",
     "idiom",
-    "seen heard and sensed; seen heard and perceived",
+    "seen, heard and sensed; seen, heard and perceived",
     "✓"
    ],
    [
@@ -13445,13 +13445,13 @@ var family_idiom_json = {
    [
     "dhammiyā kathāya",
     "idiom",
-    "with a Dhamma talk; with a religious talk; with a spiritual talk",
+    "with a Dhamma talk; with a religious discourse; with a spiritual sermon",
     "✓"
    ],
    [
     "dhammī kathā",
     "idiom",
-    "Dhamma talk; religious talk; spiritual discussion",
+    "Dhamma talk; religious discourse; spiritual sermon",
     "✓"
    ],
    [
@@ -14270,13 +14270,13 @@ var family_idiom_json = {
    [
     "dhammiyā kathāya",
     "idiom",
-    "with a Dhamma talk; with a religious talk; with a spiritual talk",
+    "with a Dhamma talk; with a religious discourse; with a spiritual sermon",
     "✓"
    ],
    [
     "dhammī kathā",
     "idiom",
-    "Dhamma talk; religious talk; spiritual discussion",
+    "Dhamma talk; religious discourse; spiritual sermon",
     "✓"
    ],
    [
@@ -16067,7 +16067,7 @@ var family_idiom_json = {
    [
     "diṭṭha suta muta",
     "idiom",
-    "seen heard and sensed; seen heard and perceived",
+    "seen, heard and sensed; seen, heard and perceived",
     "✓"
    ]
   ]
@@ -17915,7 +17915,7 @@ var family_idiom_json = {
    [
     "diṭṭha suta muta",
     "idiom",
-    "seen heard and sensed; seen heard and perceived",
+    "seen, heard and sensed; seen, heard and perceived",
     "✓"
    ]
   ]
@@ -21344,7 +21344,7 @@ var family_idiom_json = {
    [
     "ummādaṃ pāpuṇāti",
     "idiom",
-    "goes mad; goes insane",
+    "goes mad; goes insane; loses one's mind",
     "✓"
    ]
   ]
@@ -21355,7 +21355,7 @@ var family_idiom_json = {
    [
     "ummādaṃ pāpuṇāti",
     "idiom",
-    "goes mad; goes insane",
+    "goes mad; goes insane; loses one's mind",
     "✓"
    ]
   ]
@@ -21443,7 +21443,7 @@ var family_idiom_json = {
    [
     "yogaṃ āpajjati",
     "idiom",
-    "get involved (in); involved oneself (with); lit. arouses attachment",
+    "gets involved (in); engages oneself (in); lit. arouses attachment",
     "✓"
    ],
    [
@@ -22793,7 +22793,7 @@ var family_idiom_json = {
   ]
  },
  "kiṃ": {
-  "count": 43,
+  "count": 40,
   "data": [
    [
     "kataṃ kiṃ",
@@ -22994,24 +22994,6 @@ var family_idiom_json = {
     "✓"
    ],
    [
-    "kiṃninnaṃ",
-    "sandhi",
-    "bent towards what?; inclining towards what?",
-    "✓"
-   ],
-   [
-    "kiṃpabbhāraṃ",
-    "sandhi",
-    "sloping down to what?; inclining towards what?",
-    "✓"
-   ],
-   [
-    "kiṃpoṇaṃ",
-    "sandhi",
-    "sloping down to what?; inclining towards what?",
-    "✓"
-   ],
-   [
     "kiṃme",
     "sandhi",
     "what are these?; what have these?",
@@ -23032,7 +23014,7 @@ var family_idiom_json = {
    [
     "kyāhaṃ 1",
     "sandhi",
-    "what I?",
+    "what (can) I?",
     "✓"
    ],
    [
@@ -23743,39 +23725,6 @@ var family_idiom_json = {
     "taṃ kissa hetu",
     "idiom",
     "what's the reason for that?; why is that?",
-    "✓"
-   ]
-  ]
- },
- "ninna": {
-  "count": 1,
-  "data": [
-   [
-    "kiṃninnaṃ",
-    "sandhi",
-    "bent towards what?; inclining towards what?",
-    "✓"
-   ]
-  ]
- },
- "pabbhāra": {
-  "count": 1,
-  "data": [
-   [
-    "kiṃpabbhāraṃ",
-    "sandhi",
-    "sloping down to what?; inclining towards what?",
-    "✓"
-   ]
-  ]
- },
- "poṇa": {
-  "count": 1,
-  "data": [
-   [
-    "kiṃpoṇaṃ",
-    "sandhi",
-    "sloping down to what?; inclining towards what?",
     "✓"
    ]
   ]
@@ -31166,7 +31115,7 @@ var family_idiom_json = {
    [
     "yogaṃ āpajjati",
     "idiom",
-    "get involved (in); involved oneself (with); lit. arouses attachment",
+    "gets involved (in); engages oneself (in); lit. arouses attachment",
     "✓"
    ],
    [

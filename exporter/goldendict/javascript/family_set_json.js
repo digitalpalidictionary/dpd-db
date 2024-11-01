@@ -225,7 +225,7 @@ var family_set_json = {
    [
     "akārāgama",
     "masc",
-    "(gram) insertion of the letter a; a augment for aorist verbs",
+    "(gram) insertion of the letter a; a- augment for aorist, conditional and imperfect verbs",
     "✓"
    ],
    [
@@ -3963,8 +3963,8 @@ var family_set_json = {
    [
     "liṅgavipallāsa 2",
     "masc",
-    "(gram) inversion of gender",
-    "~"
+    "(gram) change of gender",
+    "✓"
    ],
    [
     "liṅgānukaraṇa",
@@ -4275,7 +4275,7 @@ var family_set_json = {
    [
     "visodhita 3",
     "pp",
-    "(gram) (of a text) corrected; lit. purified",
+    "(gram) (of a text) corrected; lit. caused to be pure",
     "✓"
    ],
    [
@@ -4899,7 +4899,7 @@ var family_set_json = {
    [
     "hetvattha",
     "masc",
-    "(gram) meaning cause; causal meaning",
+    "(gram) causative; causal meaning",
     "✓"
    ],
    [
@@ -5682,7 +5682,7 @@ var family_set_json = {
    [
     "pī",
     "abbrev",
-    "abbreviation of Pāli; variant reading occurring in PTS texts",
+    "abbreviation of Pāli (Text Society); variant reading occurring in PTS texts",
     "✓"
    ],
    [
@@ -8101,6 +8101,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "brāhmaṇa 2",
+    "masc",
+    "arahant; awakened being; saint; paragon",
+    "✓"
+   ],
+   [
     "manussanāga",
     "masc",
     "great man; noble being; epithet of an arahant; lit. human dragon",
@@ -8140,6 +8146,12 @@ var family_set_json = {
     "vūsitabrahmacariya",
     "adj",
     "fulfilled the holy life; completed the spiritual journey; epithet of an arahant",
+    "✓"
+   ],
+   [
+    "vedantagū",
+    "masc",
+    "who has complete knowledge; epithet of an arahant; lit. gone to the end of the Vedas",
     "✓"
    ],
    [
@@ -8191,7 +8203,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 34
+  "count": 36
  },
  "epithets of Nibbāna": {
   "data": [
@@ -10064,6 +10076,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "assaratha 2",
+    "masc",
+    "charioteering; horsemanship; lit. horse carriage",
+    "✓"
+   ],
+   [
     "āpādaka",
     "masc",
     "guardian; protector; child-carer",
@@ -11102,7 +11120,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 186
+  "count": 187
  },
  "place names": {
   "data": [
@@ -12620,7 +12638,7 @@ var family_set_json = {
     "migasālā",
     "fem",
     "name of a female lay disciple; lit. deer hall",
-    "~"
+    "✓"
    ],
    [
     "migāra",
@@ -20625,6 +20643,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "macchasūrasenā",
+    "masc",
+    "people of Maccha and Sūrasena",
+    "✓"
+   ],
+   [
     "maddā",
     "masc",
     "name of a people",
@@ -20715,7 +20739,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 38
+  "count": 39
  },
  "epithets of the Buddha": {
   "data": [
@@ -22647,6 +22671,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "rumā",
+    "fem",
+    "name of a River",
+    "✓"
+   ],
+   [
     "rohinī 1",
     "fem",
     "name of a river; lit. red one",
@@ -22737,7 +22767,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 38
+  "count": 39
  },
  "names of ascetics": {
   "data": [
@@ -23422,7 +23452,7 @@ var family_set_json = {
     "kālakañcā",
     "masc",
     "name of a group of daemons; lit. black armour",
-    "~"
+    "✓"
    ],
    [
     "kālakañcikā",
@@ -23617,6 +23647,12 @@ var family_set_json = {
     "~"
    ],
    [
+    "dānaveghasā",
+    "masc",
+    "name of group of daemons; lit. bow hunters",
+    "✓"
+   ],
+   [
     "dāmali",
     "masc",
     "name of a deity",
@@ -23666,6 +23702,12 @@ var family_set_json = {
    ],
    [
     "namuci",
+    "masc",
+    "name of Māra; lit. does not free",
+    "✓"
+   ],
+   [
+    "namucī",
     "masc",
     "name of Māra; lit. does not free",
     "✓"
@@ -23770,7 +23812,7 @@ var family_set_json = {
     "pahārāda",
     "masc",
     "name of a daemon; lit. giving blows",
-    "~"
+    "✓"
    ],
    [
     "pāpimant 3",
@@ -24091,6 +24133,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "vepacitti",
+    "masc",
+    "name of a daemon lord",
+    "✓"
+   ],
+   [
     "vessavaṇa",
     "masc",
     "name of one of the Four Great Kings; lit. famous",
@@ -24191,6 +24239,12 @@ var family_set_json = {
     "masc",
     "name of a deity",
     "~"
+   ],
+   [
+    "sucitti",
+    "masc",
+    "name of a daemon; lit. very variegated",
+    "✓"
    ],
    [
     "sudassa 2",
@@ -24331,7 +24385,7 @@ var family_set_json = {
     "~"
    ]
   ],
-  "count": 178
+  "count": 182
  },
  "animals": {
   "data": [
@@ -24339,6 +24393,12 @@ var family_set_json = {
     "accha 2.1",
     "masc",
     "bear",
+    "✓"
+   ],
+   [
+    "aṇḍaja 2",
+    "masc",
+    "bird; lit. egg born",
     "✓"
    ],
    [
@@ -24358,6 +24418,12 @@ var family_set_json = {
     "fem",
     "name of a bird; water hen; marsh hen; lit. wandering near water",
     "~"
+   ],
+   [
+    "alagadda",
+    "masc",
+    "water-snake; poisonous snake; lit. crying sting",
+    "✓"
    ],
    [
     "uddhumāyikā",
@@ -24780,7 +24846,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 74
+  "count": 76
  },
  "names of royalty": {
   "data": [
@@ -26085,9 +26151,9 @@ var family_set_json = {
     "~"
    ],
    [
-    "bandhujīvaka",
+    "bandhujīvaka 1",
     "masc",
-    "Pentapetes phoenicea; plant of the noon flower; hibiscus; lit. living in families",
+    "Pentapetes phoenicea; plant of the noon flower; lit. living in families",
     "✓"
    ],
    [
@@ -26280,7 +26346,7 @@ var family_set_json = {
     "labuja",
     "masc",
     "breadfruit tree; Artocarpus Lacucha; Artocarpus altilis",
-    "~"
+    "✓"
    ],
    [
     "lābu 1",
@@ -26406,12 +26472,6 @@ var family_set_json = {
     "sāka 2",
     "nt",
     "teak tree; Tectona grandis",
-    "✓"
-   ],
-   [
-    "sāṇa 1.1",
-    "adj",
-    "made of Madras hemp; from Sunn hemp",
     "✓"
    ],
    [
@@ -26553,7 +26613,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 206
+  "count": 205
  },
  "names of animals": {
   "data": [
@@ -26612,6 +26672,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "romaka 2.1",
+    "masc",
+    "name of a pigeon; lit. from Rumā",
+    "✓"
+   ],
+   [
     "valāhaka 2",
     "masc",
     "name of a king Mahāsudassana's royal steed; lit. Thundercloud",
@@ -26630,7 +26696,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 12
+  "count": 13
  },
  "names of nuns": {
   "data": [
@@ -28202,7 +28268,7 @@ var family_set_json = {
     "ekasālā",
     "fem",
     "name of a village in Kosala; lit. one hall",
-    "~"
+    "✓"
    ],
    [
     "erakaccha",
@@ -28688,7 +28754,7 @@ var family_set_json = {
     "pañcasālā",
     "fem",
     "name of a Magadhan village; lit. five halls",
-    "~"
+    "✓"
    ],
    [
     "pappajitañhita",
@@ -28880,6 +28946,12 @@ var family_set_json = {
     "mahesaya",
     "nt",
     "name of a town",
+    "✓"
+   ],
+   [
+    "mātulā",
+    "fem",
+    "name of Magadhan town; lit. maternal aunt",
     "✓"
    ],
    [
@@ -29183,7 +29255,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 188
+  "count": 189
  },
  "ordinal numbers": {
   "data": [
@@ -32899,7 +32971,7 @@ var family_set_json = {
     "labuja",
     "masc",
     "breadfruit tree; Artocarpus Lacucha; Artocarpus altilis",
-    "~"
+    "✓"
    ],
    [
     "vaṭa 3",
@@ -35735,6 +35807,47 @@ var family_set_json = {
     "nt",
     "Book 6 of the Abhidhamma; Pairs",
     "~"
+   ]
+  ],
+  "count": 6
+ },
+ "six types of robe cloth": {
+  "data": [
+   [
+    "kappāsika",
+    "adj",
+    "made of cotton; cotton goods",
+    "✓"
+   ],
+   [
+    "kambala 2",
+    "adj",
+    "woollen; made of wool",
+    "✓"
+   ],
+   [
+    "koseyya 1",
+    "adj",
+    "silken; made of silk; lit. from a cocoon",
+    "✓"
+   ],
+   [
+    "khoma 1",
+    "adj",
+    "made of linen",
+    "✓"
+   ],
+   [
+    "bhaṅga 3",
+    "adj",
+    "hempen; made of hemp; (comm) mixed cloth",
+    "✓"
+   ],
+   [
+    "sāṇa 1.1",
+    "adj",
+    "made of Madras hemp; from Sunn hemp",
+    "✓"
    ]
   ],
   "count": 6

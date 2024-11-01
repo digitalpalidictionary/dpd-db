@@ -7904,7 +7904,7 @@ var family_word_json = {
     "samādhika",
     "adj",
     "more than; in excess of",
-    "✗"
+    "✓"
    ],
    [
     "sādhika 1.1",
@@ -12118,8 +12118,8 @@ var family_word_json = {
    [
     "saputta",
     "adj",
-    "together with one's sons",
-    "✗"
+    "together with one's sons; accompanied by one's children",
+    "✓"
    ]
   ],
   "count": 20
@@ -12979,13 +12979,19 @@ var family_word_json = {
     "✓"
    ],
    [
-    "sāmacca",
+    "sāmacca 1",
     "adj",
-    "together with the ministers or friends",
+    "together with one's associates; accompanied by one's companions",
+    "✓"
+   ],
+   [
+    "sāmacca 2",
+    "adj",
+    "together with one's ministers",
     "✗"
    ]
   ],
-  "count": 5
+  "count": 6
  },
  "macchara": {
   "data": [
@@ -13290,8 +13296,8 @@ var family_word_json = {
    [
     "mātulā",
     "fem",
-    "name of Magadhan town",
-    "✗"
+    "name of Magadhan town; lit. maternal aunt",
+    "✓"
    ],
    [
     "mātulānī",
@@ -13695,7 +13701,7 @@ var family_word_json = {
    [
     "mamāyita 1",
     "nt",
-    "(something) treasured; cherished; taken as mine; made mine; possession; lit. took as mine",
+    "(something) taken as mine; made mine; possessed; treasured; cherished; lit. took as mine",
     "✓"
    ],
    [
@@ -17217,25 +17223,25 @@ var family_word_json = {
    [
     "āmisa 2",
     "nt",
-    "worldly gain; profit; material benefit",
+    "worldly gain; profit; material benefit; lit. fleshly",
     "✓"
    ],
    [
     "āmisa 3",
     "nt",
-    "worldly thing; physical item; material stuff",
+    "worldly thing; physical item; material stuff; lit. fleshly",
     "✓"
    ],
    [
     "āmisa 4",
     "nt",
-    "meat; bait",
+    "meat; bait; lit. fleshly",
     "✓"
    ],
    [
     "āmisa 5",
     "nt",
-    "food",
+    "food; lit. fleshly",
     "~"
    ],
    [
@@ -17265,13 +17271,13 @@ var family_word_json = {
    [
     "sāmisa 1",
     "adj",
-    "fleshly; carnal; physical; worldly; of the flesh; lit. with raw meat",
+    "fleshly; carnal; physical; worldly; of the flesh; lit. with fleshly\n",
     "✓"
    ],
    [
     "sāmisa 2",
     "adj",
-    "soiled; dirty; lit. with raw meat",
+    "soiled; dirty; lit. with fleshly\n",
     "✓"
    ]
   ],
@@ -19324,10 +19330,16 @@ var family_word_json = {
     "✓"
    ],
    [
-    "kittaka",
+    "kittaka 1",
     "adj",
     "how many?",
     "✓"
+   ],
+   [
+    "kittaka 2",
+    "adj",
+    "how much? to what extent?",
+    "✗"
    ],
    [
     "kimhi 1",
@@ -19516,7 +19528,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 64
+  "count": 65
  },
  "kakudha": {
   "data": [
@@ -30461,6 +30473,23 @@ var family_word_json = {
   ],
   "count": 2
  },
+ "rumā": {
+  "data": [
+   [
+    "rumā",
+    "fem",
+    "name of a River",
+    "✓"
+   ],
+   [
+    "romaka 2.1",
+    "masc",
+    "name of a pigeon; lit. from Rumā",
+    "✓"
+   ]
+  ],
+  "count": 2
+ },
  "lakuṇḍa": {
   "data": [
    [
@@ -32033,15 +32062,9 @@ var family_word_json = {
     "nt",
     "thigh",
     "✓"
-   ],
-   [
-    "satthi 1.2",
-    "nt",
-    "carriage pole; lit. thigh",
-    "✓"
    ]
   ],
-  "count": 2
+  "count": 1
  },
  "hada": {
   "data": [

@@ -240,6 +240,7 @@ assailable
 Assaji
 Assalāyana
 Assapura
+assents
 asura
 asuras
 Asuras
@@ -452,6 +453,7 @@ champaka
 Champaka
 chank
 charantia
+charioteering
 charnel
 charoli
 chebula
@@ -509,6 +511,7 @@ conjee
 conjugational
 conjunct
 contiguously
+contortion
 contradistinction
 cooed
 copulative
@@ -873,6 +876,8 @@ Gosāla
 Gosāla's
 gossipmongering
 Gotama
+Gotama
+Gotama's
 Gotama's
 Gotamaka's
 Gotamī
@@ -921,6 +926,7 @@ Helleborus
 Hemidactylus
 hemorrhage
 hemorrhoids
+hempen
 hennaed
 hetu
 hexad
@@ -937,6 +943,7 @@ Hoplobatrachus
 Hordeum
 Horner
 horripilation
+horsemanship
 hortative
 hospitably
 hoti
@@ -1557,7 +1564,9 @@ non-eternalism
 non-existence
 non-reactivity
 non-remorse
+nonexistence
 nonexistent
+nonoccurrence
 noria
 northeast
 nouchali
@@ -1849,6 +1858,8 @@ renunciants
 renunciate
 renunciates
 reprimandable
+reprimandable
+reproachable
 reproved
 requisites
 rereturn
@@ -1879,6 +1890,7 @@ rudhādigaṇa
 Ruellia
 rufipogon
 rulership
+Rumā
 rūpa
 rūpārammaṇaṃ
 Rūpasiddhi
@@ -2074,6 +2086,7 @@ Sotāpattisaṃyuttaṃ
 spellicans
 spillikins
 spinosa
+spiritism
 spirituous
 splooshing
 Spondias
@@ -2361,6 +2374,7 @@ undersheet
 undiminishable
 undiscoverable
 undispersed
+undistorted
 undistressed
 unelided
 unenduring
