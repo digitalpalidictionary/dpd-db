@@ -173,6 +173,7 @@ Anopamā
 Anotatta
 Anottatta
 antidysenterica
+antithetic
 anu
 aṇu
 Anurādha
@@ -608,6 +609,7 @@ desiderative
 desireless
 desirelessness
 Desmostachya
+determinative
 detesting
 deva
 Deva
@@ -1712,6 +1714,7 @@ pers
 Persians
 perturbance
 pervasion
+perverseness
 Peṭakopadesa
 Petavatthu
 petit
@@ -1861,6 +1864,7 @@ reprimandable
 reprimandable
 reproachable
 reproved
+repulsiveness
 requisites
 rereturn
 resthouse

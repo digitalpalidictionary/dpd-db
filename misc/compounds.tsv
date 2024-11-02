@@ -45,6 +45,7 @@ upari	masc	uparikokanadapāsāda, uparibhāga
 upari	ind	upariselasutte	
 upasampanna	adj	vassasatūpasampanna, tadahupasampanna	
 vāda	adj	hetuvāda	
+vādī	masc	suññatavādī	
 vāsa	adj	ekarattivāsa	
 vasena	ind	pañcadvāravasena	
 vijjā	fem	mūsikavijjā	
@@ -53,11 +54,12 @@ yāva	ind	yāvatatiyakaṃ
 			
 GENERAL CASES	-	-	
 adhi	ind	adhideve, adhibrahmānaṃ	
-adverb in first postion	noun	divākathika, tiroraṭṭhā, tirojanapadā, rattiṃvikālabhojana, kāmaṅgama, antopadesa, bahipadesa, pacchāvacanīya, divāṭṭhāna	
-adverb in first postion	adj	idhāgata, tatrābhirata, uddhaṃpāda, adhosira, adhoṭhita, evaṃdiṭṭhī, evaṃvihārī	
+adverb in first postion	noun	divākathika, tiroraṭṭhā, tirojanapadā, rattiṃvikālabhojana, kāmaṅgama, antopadesa, bahipadesa, pacchāvacanīya, divāṭṭhāna, kathaṃkathā, micchāsati, heṭṭhābhāga	
+adverb in first postion	adj	idhāgata, tatrābhirata, uddhaṃpāda, adhosira, adhoṭhita, evaṃdiṭṭhī, evaṃvihārī, dvedhābhinna, evaṃpañña	
 adverbs in cases	adv	appasaddena	
+agent nouns	masc	paṃsudhovaka	
 gerund + adj	adj	vibhajjavāda, anupādāvimutta	
-gerund + noun	masc	anupādāvimokkha, upādāyarūpa	
+gerund + noun	masc	anupādāvimokkha, upādāyarūpa, aveccappasāda	
 indeclinable in first position	adj	nānājacca, uparikokanadapāsāda	
 infintive	adj	yujjhitukāma, abhiyātukāma, bhuñjitukāma	
 kāla	masc	yānakāla	
@@ -67,10 +69,12 @@ khattuṃ	fem	sattakkhattuparamatā
 kiṃ	adj	kiṃmṃlaka, kiṃcitta, kiṃpamukha, kiṃkata, kiṃpahotika, kiṃnidṃna, kiṃparama, kiṃjṃtika, kiṃpariyosṃna, kāmālaya	
 maya (made of needs to be included)	noun	mattikāpatta, dārukuḍḍika, kaṃsapāti	
 missing word, more words required for the sense	nt	dvārabhatta (ṭhapita), asappurisacintī (cintā), asappurisamantī (manā)	
-numbers (addition)	card	bāvīsati, dvattiṃsati	
+numbers (addition)	card	bāvīsati, dvattiṃsati, catuddasa	
 numbers (multiplication)	card	tiṃsati, koṭisatasahassa, satasahassī	
-numbers (subtraction)	adj	aḍḍhuḍḍha, aḍḍhateḷasa, aḍḍhateyya	
 numbers (of duration in hell)	masc	uppalaniraya	
+numbers (subtraction)	adj	aḍḍhuḍḍha, aḍḍhateḷasa, aḍḍhateyya	
+prefix plus adverb	adv	samantaṃ, saṃmukhā	
+prefix plus noun	adj	apagabbha (apa gabbha)	
 repeated words	adj	saṅghasaṅghī	
 superlatives and comparitives	adj	paṇītasaṅkhātatara	
 taddhita *ī	fem	ghoṭamukhī	
@@ -78,7 +82,6 @@ taddjita *ika	adj	subhagavanika
 tiro	ind	tirojanapadā, tiropabbataṃ, tiropākāraṃ, tiroraṭṭhā	
 tiro	noun	tirokaraṇī, tirokuṭṭa	
 two indedeclinables	ind	ahovatā	
-prefix plus noun	adj	apagabbha (apa gabbha)	
 			
 INDIVIDUAL WORDS			
 vaḷabhīratha	masc		
@@ -103,3 +106,4 @@ sassatisamaṃ	ind
 govata	nt		
 erāpatha	masc		
 maraṇavadha	masc		
+sakyaputtiya	adj		

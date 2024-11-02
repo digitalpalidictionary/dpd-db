@@ -13391,7 +13391,7 @@ var family_idiom_json = {
    [
     "jarādhammomhi",
     "sandhi",
-    "I am liable to grow old; I am subject to old age",
+    "I am liable to grow old; I am subject to old age; aging is part of my intrinsic nature",
     "✓"
    ],
    [
@@ -13481,13 +13481,13 @@ var family_idiom_json = {
    [
     "byādhidhammomhi",
     "sandhi",
-    "I am liable to get sick; I am subject to disease",
+    "I am liable to get sick; I am subject to disease; illness is part of my intrinsic nature",
     "✓"
    ],
    [
     "maraṇadhammomhi",
     "sandhi",
-    "I am liable to die; I am subject to death",
+    "I am liable to die; I am subject to death; death is part of my intrinsic nature",
     "✓"
    ]
   ]
@@ -18763,7 +18763,7 @@ var family_idiom_json = {
    [
     "jarādhammomhi",
     "sandhi",
-    "I am liable to grow old; I am subject to old age",
+    "I am liable to grow old; I am subject to old age; aging is part of my intrinsic nature",
     "✓"
    ],
    [
@@ -18817,13 +18817,13 @@ var family_idiom_json = {
    [
     "byādhidhammomhi",
     "sandhi",
-    "I am liable to get sick; I am subject to disease",
+    "I am liable to get sick; I am subject to disease; illness is part of my intrinsic nature",
     "✓"
    ],
    [
     "maraṇadhammomhi",
     "sandhi",
-    "I am liable to die; I am subject to death",
+    "I am liable to die; I am subject to death; death is part of my intrinsic nature",
     "✓"
    ],
    [
@@ -23475,7 +23475,7 @@ var family_idiom_json = {
    [
     "maraṇadhammomhi",
     "sandhi",
-    "I am liable to die; I am subject to death",
+    "I am liable to die; I am subject to death; death is part of my intrinsic nature",
     "✓"
    ],
    [
@@ -24989,7 +24989,7 @@ var family_idiom_json = {
    [
     "jarādhammomhi",
     "sandhi",
-    "I am liable to grow old; I am subject to old age",
+    "I am liable to grow old; I am subject to old age; aging is part of my intrinsic nature",
     "✓"
    ]
   ]
@@ -29064,7 +29064,7 @@ var family_idiom_json = {
    [
     "byādhidhammomhi",
     "sandhi",
-    "I am liable to get sick; I am subject to disease",
+    "I am liable to get sick; I am subject to disease; illness is part of my intrinsic nature",
     "✓"
    ]
   ]
@@ -29419,7 +29419,7 @@ var family_idiom_json = {
    [
     "manaṃ padosaye",
     "idiom",
-    "get angry (with); thinks badly (of); lit. defile the mind",
+    "get angry (with); thinks badly (of); lit. defiles the mind",
     "✓"
    ],
    [
@@ -29453,7 +29453,7 @@ var family_idiom_json = {
    [
     "manaṃ padosaye",
     "idiom",
-    "get angry (with); thinks badly (of); lit. defile the mind",
+    "get angry (with); thinks badly (of); lit. defiles the mind",
     "✓"
    ]
   ]

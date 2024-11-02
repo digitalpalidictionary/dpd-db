@@ -4893,7 +4893,7 @@ var family_set_json = {
    [
     "hetuattha",
     "masc",
-    "(gram) causal meaning",
+    "(gram) causative meaning; causal sense",
     "✓"
    ],
    [

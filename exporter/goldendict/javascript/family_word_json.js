@@ -24966,6 +24966,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "turiya 3",
+    "nt",
+    "musical instruments",
+    "✓"
+   ],
+   [
     "tūriya 1",
     "nt",
     "musical instrument",
@@ -24984,7 +24990,7 @@ var family_word_json = {
     "✗"
    ]
   ],
-  "count": 5
+  "count": 6
  },
  "thana": {
   "data": [
@@ -28164,7 +28170,7 @@ var family_word_json = {
    [
     "pesi 1",
     "fem",
-    "(of meat) piece; lump; hunk; chunk; slice",
+    "(of meat) piece; slice; lump; hunk; chunk",
     "✓"
    ],
    [
