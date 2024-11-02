@@ -17,6 +17,8 @@ from requests.exceptions import RequestException
 from spellchecker import SpellChecker
 from googletrans import Translator
 
+from difflib import SequenceMatcher
+
 from timeout_decorator import timeout, TimeoutError as TimeoutDecoratorError
 
 from db.db_helpers import get_column_names
@@ -1704,5 +1706,63 @@ def get_next_note_ru(db_session):
         print(total_words_message)
         return 0, total_words_message
 
+
+def paragraphs_are_similar(paragraph1, paragraph2, threshold):
+    """Helper function to check if two paragraphs are similar based on a similarity threshold."""
+    matcher = SequenceMatcher(None, paragraph1, paragraph2)
+    similarity_ratio = matcher.ratio()
+    return similarity_ratio >= threshold
+
+
+def take_example_from_archive(dpspth, window, current_id, ex_1, ex_2, ex_3, ex_4, error_field, archived_example_index, threshold=0.9):
+    # Clean the error field at the beginning
+    window[error_field].set_size((50, 1))
+    window[error_field].update("")
+
+    # Read the TSV file data into a dictionary
+    word_data = read_tsv_dict(dpspth.sbs_archive)
+    input_examples = {ex_1, ex_2, ex_3, ex_4}
+    total_examples = 4  # Total number of examples
+
+    # Find the row with the matching "id"
+    for row in word_data:
+        if row.get("id") == current_id:
+            # Extract examples from the row
+            sbs_examples = [
+                row.get("sbs_example_1"),
+                row.get("sbs_example_2"),
+                row.get("sbs_example_3"),
+                row.get("sbs_example_4"),
+            ]
+
+            # Rotate through examples starting from `archived_example_index`
+            for i in range(total_examples):
+                example_index = (archived_example_index + i) % total_examples
+                sbs_example = sbs_examples[example_index]
+
+                # Check if the example is unique and not similar to input examples
+                if sbs_example and all(
+                    not paragraphs_are_similar(sbs_example, input_example, threshold)
+                    for input_example in input_examples
+                ):
+                    # Update the GUI with the unique example found
+                    window["dps_sbs_source_4"].update(row.get(f"sbs_source_{example_index + 1}", ""))
+                    window["dps_sbs_sutta_4"].update(row.get(f"sbs_sutta_{example_index + 1}", ""))
+                    window["dps_sbs_example_4"].update(sbs_example)
+                    window["dps_sbs_chant_pali_4"].update(row.get(f"sbs_chant_pali_{example_index + 1}", ""))
+                    window["dps_sbs_chant_eng_4"].update(row.get(f"sbs_chant_eng_{example_index + 1}", ""))
+                    window["dps_sbs_chapter_4"].update(row.get(f"sbs_chapter_{example_index + 1}", ""))
+
+                    # Update archived_example_index to start from the next example on the next call
+                    archived_example_index = (example_index + 1) % total_examples
+                    return archived_example_index  # Return updated index for the next call
+
+            # If no unique example was found, update the error field
+            window[error_field].update("No unique examples")
+            return archived_example_index  # Return the same index if no examples found
+
+    # If no row matches `current_id`, update the error field
+    window[error_field].update("ID not found")
+    return archived_example_index
 
 

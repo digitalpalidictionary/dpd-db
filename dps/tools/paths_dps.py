@@ -36,6 +36,8 @@ class DPSPaths:
         self.freqent_words_dir = base_dir.joinpath(Path("dps/csvs/freqent_words/"))
         self.vinaya_tsv_path = base_dir.joinpath(Path("dps/sbs_csvs/vinaya.tsv"))
         self.translation_example_path = base_dir.joinpath(Path("dps/csvs/tranlslation_examples.csv"))
+        self.sbs_archive = base_dir.joinpath(Path("dps/sbs_csvs/sbs_archive.tsv"))
+        self.sbs_example_corrections = base_dir.joinpath(Path("dps/csvs/sbs_example_corrections.tsv"))
 
 
         self.sbs_pd_path = base_dir.joinpath(Path("dps/csvs/sbs_pd.csv"))

@@ -21,7 +21,7 @@ pth = ProjectPaths()
 db_session = get_db_session(pth.dpd_db_path)
 
 
-def main():
+def open_gui_corrections():
     
     window = make_window()
     db = None
@@ -442,7 +442,5 @@ def apply_all_suggestions():
     print(f"Total number of applied corrections: {added_lines_count}")
 
 
-
-if __name__ == "__main__":
-    main()
-    # apply_all_suggestions()
+# open_gui_corrections()
+apply_all_suggestions()

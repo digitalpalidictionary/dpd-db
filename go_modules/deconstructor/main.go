@@ -12,11 +12,11 @@ import (
 var tic = tools.Tic()
 var Wg = sync.WaitGroup{}
 
-var doNotRun = !(tools.IniTest("exporter", "make_deconstructor", "yes") ||
+var doNotRun = !((tools.IniTest("exporter", "make_deconstructor", "yes") ||
 	tools.IniTest("exporter", "make_tpr", "yes") ||
 	tools.IniTest("exporter", "make_ebook", "yes") ||
 	tools.IniTest("regenerate", "db_rebuild", "yes")) &&
-	tools.IniTest("deconstructor", "use_premade", "no")
+	tools.IniTest("deconstructor", "use_premade", "no"))
 
 func init() {
 	tools.PTitle("deconstructing compounds")

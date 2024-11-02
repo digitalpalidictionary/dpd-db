@@ -11,21 +11,33 @@ from tools.tic_toc import tic, toc
 from typing import Optional
 
 from sqlalchemy.orm import joinedload
+from sqlalchemy import or_
 
 console = Console()
 
 
-def main():
+pth = ProjectPaths()
+db_session = get_db_session(pth.dpd_db_path)
+db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs)).outerjoin(SBS).filter(
+        or_(
+            SBS.sbs_class_anki != "",
+            SBS.sbs_patimokkha != "",
+            SBS.sbs_index != "",
+            SBS.sbs_category != "",
+        )
+    ).all()
+
+
+def debug_print_sbs_class():
     tic()
     console.print("[bold bright_yellow]changing sbs_class accordingly")
 
-    pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
+    console.print(f"[green]filtered db {len(db)}")
 
     count = 0
 
     # Iterate over all DpdHeadword instances and update their sbs_class
-    for word in db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs)).all():
+    for word in db:
 
 
             # debug check all sbs_class_anki which has not sbs.sbs_class
@@ -90,6 +102,70 @@ def main():
 
     db_session.close()
     toc()
+
+
+def filling_sbs_class():
+    tic()
+    console.print("[bold bright_yellow]changing sbs_class accordingly")
+
+    console.print(f"[green]filtered db {len(db)}")
+
+    count_same = 0
+    count_added = 0
+    count_changed = 0
+    count_new = 0
+    count_delete = 0
+    count_empty = 0
+
+    # Iterate over all DpdHeadword instances and update their sbs_class
+    for word in db:
+
+            sbs_class: Optional[int]
+            sbs_class = determine_sbs_class(word)
+            if sbs_class is not None:
+
+                if word.sbs.sbs_class == int(sbs_class):
+                    count_same += 1
+
+                elif word.sbs and not word.sbs.sbs_class:
+                    word.sbs.sbs_class = int(sbs_class)
+                    count_added += 1
+                    # print(f"(added) for {word.lemma_1} new sbs_class: {sbs_class}")
+
+                elif word.sbs:
+                    word.sbs.sbs_class = int(sbs_class)
+                    count_changed += 1
+                    # print(f"(added) for {word.lemma_1} new sbs_class: {sbs_class}")
+
+                elif not word.sbs:
+                    word.sbs = SBS(id=word.id)
+                    word.sbs.sbs_class = int(sbs_class)
+                    count_new += 1
+                    # print(f"(added) for {word.lemma_1} new sbs_class: {sbs_class}")
+
+            else:
+                if word.sbs and word.sbs.sbs_class:
+                    word.sbs.sbs_class = ""
+                    count_delete += 1
+                    # print(f"(del) for {word.lemma_1} new sbs_class: {sbs_class}")
+
+                elif not word.sbs.sbs_class:
+                    count_empty += 1
+
+
+    console.print(f"[green]{count_same} rows same")
+    console.print(f"[green]{count_added} rows added")
+    console.print(f"[green]{count_changed} rows changed")
+    console.print(f"[green]{count_new} rows new")
+    console.print(f"[green]{count_delete} rows removed")
+    console.print(f"[green]{count_empty} rows have no sbs_class")
+
+
+    db_session.commit()
+
+    db_session.close()
+    toc()
+
 
 def determine_sbs_class(word) -> Optional[int]:
 
@@ -746,5 +822,6 @@ def determine_sbs_class(word) -> Optional[int]:
     return None
 
 
-if __name__ == "__main__":
-    main()
+
+# debug_print_sbs_class()
+filling_sbs_class()

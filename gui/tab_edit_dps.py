@@ -680,6 +680,7 @@ def make_tab_edit_dps(dpspth, sg):
             sg.Button("remove", key="dps_remove_example_4_button", font=(None, 13)),
             sg.Button("stash", key="dps_stash_ex_4_button", font=(None, 13)),
             sg.Button("unstash", key="dps_unstash_ex_4_button", font=(None, 13)),
+            sg.Button("archive", key="dps_archive_button", font=(None, 13)),
             sg.Text(
                 "", key="dps_buttons_ex_4_error", size=(10, 1), text_color="red"),
         ],
@@ -756,32 +757,38 @@ def make_tab_edit_dps(dpspth, sg):
                 key="dps_id_or_lemma_1",
                 size=(15, 1),
                 enable_events=True,
-                tooltip="enter id or lemma_1"),
+                tooltip="enter id or lemma_1"
+                ),
             sg.Button(
                 "Get word",
                 key="dps_id_or_lemma_1_button",
                 tooltip="click to fetch word from db",
+                font=(None, 11),
                 ),
             sg.Text("", size=(2, 1)),
             sg.Button(
                 "Test", 
                 key="dps_test_internal_button",
-                tooltip="Run internal tests"
+                tooltip="Run internal tests",
+                font=(None, 11),
                 ),
             sg.Button(
                 "Update DB", 
                 key="dps_update_db_button",
-                tooltip="Add a sbs or ru info into the db"
+                tooltip="Add a sbs or ru info into the db",
+                font=(None, 11),
                 ),
             sg.Button(
                 "Next Ru", 
                 key="dps_show_next_word_ru",
-                tooltip="Show next word with meaning_1 and ru_meaning empty"
+                tooltip="Show next word with meaning_1 and ru_meaning empty",
+                font=(None, 11),
                 ),
             sg.Button(
                 "Next Note", 
                 key="dps_show_next_note_ru",
-                tooltip="Show next word with notes and ru_notes empty"
+                tooltip="Show next word with notes and ru_notes empty",
+                font=(None, 11),
                 ),
         ],
         [
@@ -790,33 +797,46 @@ def make_tab_edit_dps(dpspth, sg):
             sg.Button(
                 "Clear", 
                 key="dps_clear_button", 
-                tooltip="Clear all the fields"
+                tooltip="Clear all the fields",
+                font=(None, 11),
                 ),
             sg.Button(
                 "Reset", 
                 key="dps_reset_button",
-                tooltip="Reset all fields as they was before editing"
+                tooltip="Reset all fields as they was before editing",
+                font=(None, 11),
                 ),
             sg.Button(
                 "Stash", key="dps_stash_button",
-                tooltip="Stash the word to edit it again later"),
+                tooltip="Stash the word to edit it again later",
+                font=(None, 11),
+                ),
             sg.Button(
                 "Unstash", key="dps_unstash_button",
-                tooltip="Unstash a word to edit it again"),
+                tooltip="Unstash a word to edit it again",
+                font=(None, 11),
+                ),
             sg.Button(
                 "Open Tests", key="dps_open_tests_button",
-                tooltip="Open TSV file of DPS internal tests"),
+                tooltip="Open TSV file of DPS internal tests",
+                font=(None, 11),
+                ),
             sg.Button(
                 "Log", key="dps_open_log_in_terminal_button",
-                tooltip="Open log of GUI in the terminal"),
+                tooltip="Open log of GUI in the terminal",
+                font=(None, 11),
+                ),
             sg.Button(
                 "Summary", 
                 key="dps_summary_button", 
-                tooltip="See a summary of filled fields"
+                tooltip="See a summary of filled fields",
+                font=(None, 11),
                 ),
             sg.Button(
                 "HTML", key="dps_html_summary_button",
-                tooltip="See a html summary of a DPS data of the word in db"),
+                tooltip="See a html summary of a DPS data of the word in db",
+                font=(None, 11),
+                ),
         ],
     ]
 

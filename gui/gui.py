@@ -128,6 +128,7 @@ from functions_dps import add_word_from_csv
 from functions_dps import send_sutta_study_request
 from functions_dps import get_next_word_ru
 from functions_dps import get_next_note_ru
+from functions_dps import take_example_from_archive
 
 
 from functions_tests_dps import dps_open_internal_tests
@@ -197,6 +198,7 @@ def main():
 
     flags: Flags = Flags()
     dps_flags = Flags_dps()
+    archived_example_index = 0
     if username == "primary_user":
         get_next_ids(db_session, window)
     elif username == "deva":
@@ -1975,6 +1977,13 @@ def main():
             unstash_values_to(dpspth, window, 4, error_field)
             window["messages"].update(
                 value="unstashed to sbs_ex_4", text_color="white")
+
+        elif event == "dps_archive_button":
+            error_field = "dps_buttons_ex_4_error"
+            archived_example_index = take_example_from_archive(dpspth, window, values['dps_dpd_id'], values['dps_sbs_example_1'], values['dps_sbs_example_2'], values['dps_sbs_example_3'], values['dps_sbs_example_4'], error_field, archived_example_index)
+            print(f"archived_example_index = {archived_example_index}")
+            window["messages"].update(
+                value="copied example from archive", text_color="white")
 
         # dps db buttons:
 
