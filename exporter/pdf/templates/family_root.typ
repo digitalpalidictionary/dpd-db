@@ -10,7 +10,7 @@
     columns: (3fr, 1fr, 8fr, 0.5fr),
     stroke: (x: none, y: none),
   //// for d in i.data_unpack \\\\
-    [#blue-bold[{{ d[0] }}]], [*{{ d[1] }}*], [{{ d[2]|safe }}], [#text(gray)[{{ d[3].replace("~", "\~") }}]],
+    [#blue-bold[{{ d[0] }}]], [*{{ d[1] }}*], [{{ d[2]|safe }}], [#gray[{{ d[3].replace("~", "\~") }}]],
   //// endfor \\\\
 
     table.hline(stroke: 0.1pt + rgb("#00A4CC")),
