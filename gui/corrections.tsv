@@ -2816,28 +2816,68 @@ savattha + *ī"					error		yes
 69735	meaning_1	intention to harm; cruel intention; thought of violence					same as avihiṃsāsaṅkappa or kāmasaṅkappa or nekkhammasaṅkappa considering both meanings of saṅkappa				
 56595	notes	see saṅkappa 2					since saṅkappa un comp can have both meanings				
 50619	meaning_lit	to be dead					not caus				
-21496	meaning_1	organic brown colour robe; monk's robe					sg, no?		
-37420	meaning_1	leading to the absence of proliferation; going to not forming various opinions					more fitting context		
-12479	meaning_1	delightfulness of a park; loveliness of a grove					typos		
-60726	meaning_1	with fixed destiny in goodness; with inevitable results from rightness					synonim		
-58284	meaning_1	promoting doctrine of peace; professing peace					more adj		
-58284	compound_type	kammadhāraya > bahubbīhi	compound_construction	santi + vāda			missing		
-20665	compound_type	kammadhāraya > bahubbīhi	compound_construction	kalyāṇa + mitta			missing		
-52579	compound_type	kammadhāraya > bahubbīhi	compound_construction	micchā + ājīva			missing		
-20681	compound_type	kammadhāraya > bahubbīhi	compound_construction	kalyāṇa + sahāya			missing		
-19583	compound_type	dvanda > bahubbīhi	compound_construction	kaṇhasukka <b>ca</b> sappaṭibhāga <b>ca</b>			missing		
-50228	meaning_1	delightfulness of a place; loveliness of an area					typo		
-63068	meaning_1	leading to the safe place; going to the auspicious					fitting siva 3		
-1252	phonetic	ae > e					missing		
-70952	commentary	(ANa) hadayaṃ gacchati appaṭihaññamānā sukhena cittaṃ pavisatī'ti <b>hadayaṅ'gamā</b>.					duplication		
+21496	meaning_1	organic brown colour robe; monk's robe					sg, no?				
+37420	meaning_1	leading to the absence of proliferation; going to not forming various opinions					more fitting context				
+12479	meaning_1	delightfulness of a park; loveliness of a grove					typos				
+60726	meaning_1	with fixed destiny in goodness; with inevitable results from rightness					synonim				
+58284	meaning_1	promoting doctrine of peace; professing peace					more adj				
+58284	compound_type	kammadhāraya > bahubbīhi	compound_construction	santi + vāda			missing				
+20665	compound_type	kammadhāraya > bahubbīhi	compound_construction	kalyāṇa + mitta			missing				
+52579	compound_type	kammadhāraya > bahubbīhi	compound_construction	micchā + ājīva			missing				
+20681	compound_type	kammadhāraya > bahubbīhi	compound_construction	kalyāṇa + sahāya			missing				
+19583	compound_type	dvanda > bahubbīhi	compound_construction	kaṇhasukka <b>ca</b> sappaṭibhāga <b>ca</b>			missing				
+50228	meaning_1	delightfulness of a place; loveliness of an area					typo				
+63068	meaning_1	leading to the safe place; going to the auspicious					fitting siva 3				
+1252	phonetic	ae > e					missing				
+70952	commentary	(ANa) hadayaṃ gacchati appaṭihaññamānā sukhena cittaṃ pavisatī'ti <b>hadayaṅ'gamā</b>.					duplication				
 28084	source_1	SNP47	sutta_1	"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9"	example_1	"yehi vivitto vicareyya loke,
 na tāni uggayha vadeyya nāgo,
 <b>jal'ambujaṃ</b> kaṇḍakaṃ vārijaṃ yathā,
 jalena paṅkena c'anūpalittaṃ,
 evaṃ munī santivādo agiddho,
-kāme ca loke ca anūpalitto."	'		
-9678	source_1	VIN1.1.1	sutta_1	paṭhamapārājikaṃ, santhatabhāṇavāro	example_1	anāpatti ajānantassa, <b>asādiyantassa</b>, ummattakassa, khittacittassa, vedan'āṭṭassa, ādikammikassā'ti.	missing		
-9678	family_compound	sādiyanta					missing		
-41661	family_compound	paṇṇarasa dasa1 pañca					missing		
-49625	grammar	sandhi, fut + ind					since the bhavissaṃ has the same example from SN35.248		
+kāme ca loke ca anūpalitto."	'				
+9678	source_1	VIN1.1.1	sutta_1	paṭhamapārājikaṃ, santhatabhāṇavāro	example_1	anāpatti ajānantassa, <b>asādiyantassa</b>, ummattakassa, khittacittassa, vedan'āṭṭassa, ādikammikassā'ti.	missing				
+9678	family_compound	sādiyanta					missing				
+41661	family_compound	paṇṇarasa dasa1 pañca					missing				
+49625	grammar	sandhi, fut + ind					since the bhavissaṃ has the same example from SN35.248				
+4053	family_set	epithets of Nibbāna					missing				
+4053	meaning_1	free from the effluents; taint-less; undefiled; epithet of Nibbāna					missing				
+57122	family_set	epithets of Nibbāna					missing				
+57122	meaning_1	truth; epithet of Nibbāna					missing				
+37406	family_set	epithets of Nibbāna					missing		
+37406	meaning_1	fine; subtle; epithet of Nibbāna					missing		
+63894	family_set	epithets of Nibbāna					missing		
+63894	meaning_1	extremely difficult to see; very difficult to discern; epithet of Nibbāna					missing		
+35231	family_set	epithets of Nibbāna					missing		
+35231	meaning_1	stable; enduring; permanent; eternal; everlasting; epithet of Nibbāna					missing		
+63062	family_set	epithets of Nibbāna					missing		
+63062	meaning_1	safe; happy; blessed; auspicious; epithet of Nibbāna					missing		
+23921	family_set	epithets of Nibbāna					missing		
+23921	meaning_1	safety; security; sanctuary; peace; rest; epithet of Nibbāna					missing		
+1044	family_set	epithets of Nibbāna					missing		
+1044	meaning_1	wonderful; marvellous; epithet of Nibbāna					missing		
+7334	family_set	epithets of Nibbāna					missing		
+7334	meaning_1	marvellous; extraordinary; unbelievable; astonishing; epithet of Nibbāna					missing		
+4296	family_set	epithets of Nibbāna					missing		
+4296	meaning_1	free from calamity; without adversity; unproblematic; safe; epithet of Nibbāna					missing		
+4298	family_set	epithets of Nibbāna					missing		
+4298	meaning_1	untroubled state; unproblematic state; epithet of Nibbāna					missing		
+7413	family_set	epithets of Nibbāna					missing		
+7413	meaning_1	freedom from oppressive pain; relief from suffering; epithet of Nibbāna					missing		
+63948	family_set	epithets of Nibbāna					missing		
+63948	meaning_1	purity; purification; holiness; epithet of Nibbāna					missing		
+52942	family_set	epithets of Nibbāna					missing		
+52942	meaning_1	liberation; freedom; emancipation; release; epithet of Nibbāna					missing		
+4036	family_set	epithets of Nibbāna					missing		
+4036	meaning_1	non-clinging; non-attachment; non-reliance; unstuck; epithet of Nibbāna					missing		
+32799	family_set	epithets of Nibbāna					missing		
+32799	meaning_1	terra firma; solid ground; support; help; refuge; place of safety; epithet of Nibbāna					missing		
+55946	family_set	epithets of Nibbāna					missing		
+55946	meaning_1	safety; security; epithet of Nibbāna					missing		
+30249	family_set	epithets of Nibbāna					missing		
+30249	meaning_1	refuge; shelter; defence; protection; epithet of Nibbāna					missing		
+61001	family_set	epithets of Nibbāna					missing		
+61001	meaning_1	shelter; refuge; help; epithet of Nibbāna					missing		
+43138	family_set	epithets of Nibbāna					missing		
+43138	meaning_1	final destination; ultimate goal; (comm) result; support; epithet of Nibbāna					missing		
