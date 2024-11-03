@@ -78,6 +78,7 @@ adversative
 Aegle
 afflictive
 afterlife
+afternoon
 afterwards
 Aggavaṃsa
 aggregates
@@ -411,6 +412,7 @@ Buddhaghosa's
 Buddhappiya
 Buddhas
 Budhanania
+bumpiness
 burmanniana
 Butea
 byāyāma
@@ -1072,6 +1074,7 @@ kaccāyanabyākaraṇa
 Kadali
 kahāpaṇa
 Kailash
+Kajaṅgalā
 Kakusandha
 Kāḷaka
 Kālāma
@@ -1364,6 +1367,7 @@ mendicants
 menses
 meritless
 Meru
+metathesized
 mettā
 Mettagū's
 Mettaya
@@ -1555,6 +1559,7 @@ Nikāya
 nikkha
 nilgai
 Nimi
+Nipāta
 Nipāta
 nipphoṭeti
 nirabbuda
@@ -1799,6 +1804,8 @@ puṅgava
 Puṇṇa
 Puṇṇā
 Punnaka
+Puṇṇaka
+Puṇṇaka's
 Purāṇā
 Pūraṇa
 Pūraṇa
@@ -2070,6 +2077,7 @@ SN22.22
 SN4
 SN4.25
 SN4.25
+SNP
 soapberry
 sobhanaka
 socanan'ti
@@ -2170,6 +2178,7 @@ surusuru soun
 Susumāragira
 Sutanu
 sutta
+Sutta
 sutta-nikkhepa
 Suttanipāta
 suttapiṭaka
@@ -2441,6 +2450,7 @@ unreliability
 unremovable
 unrent
 unrepelled
+unrevealed
 unrinsed
 unripened
 unrippled

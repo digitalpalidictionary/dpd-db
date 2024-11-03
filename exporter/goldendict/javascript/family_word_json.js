@@ -15604,14 +15604,14 @@ var family_word_json = {
    [
     "sārada 1",
     "masc",
-    "autumn; fall",
+    "autumn; fall; season after the rains; October to December",
     "✓"
    ],
    [
     "sārada 2",
     "adj",
     "related to the season after the rains; October to December",
-    "✓"
+    "~"
    ],
    [
     "sārada 3",
@@ -15958,7 +15958,7 @@ var family_word_json = {
    [
     "visamatā",
     "fem",
-    "unevenness; bumpiness",
+    "unevenness; bumpiness; lit. uneven state",
     "✓"
    ],
    [
@@ -23752,7 +23752,7 @@ var family_word_json = {
    [
     "cheka 1",
     "adj",
-    "genuine; real",
+    "good; genuine; real",
     "✓"
    ],
    [
@@ -24968,7 +24968,7 @@ var family_word_json = {
    [
     "turiya 3",
     "nt",
-    "musical instruments",
+    "musical instrument",
     "✓"
    ],
    [
@@ -26302,7 +26302,7 @@ var family_word_json = {
    [
     "nāvā",
     "fem",
-    "ship; boat; raft",
+    "ship; boat; sailing vessel",
     "✓"
    ],
    [

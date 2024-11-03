@@ -852,7 +852,7 @@ var family_idiom_json = {
    [
     "etadaggaṃ",
     "sandhi",
-    "this is the greatest (of); this is the best (of); this is the highest (of)",
+    "this is the greatest; this is the best; this is the highest (of)",
     "✓"
    ],
    [
@@ -8732,7 +8732,7 @@ var family_idiom_json = {
    [
     "yadatītampahīnantaṃ",
     "sandhi",
-    "whatever is past has been abandoned; what is past is given up",
+    "whatever is past has been abandoned; what is gone is given up",
     "✓"
    ]
   ]
@@ -21599,7 +21599,7 @@ var family_idiom_json = {
    [
     "etadaggaṃ",
     "sandhi",
-    "this is the greatest (of); this is the best (of); this is the highest (of)",
+    "this is the greatest; this is the best; this is the highest (of)",
     "✓"
    ],
    [
@@ -22156,7 +22156,7 @@ var family_idiom_json = {
    [
     "yadatītampahīnantaṃ",
     "sandhi",
-    "whatever is past has been abandoned; what is past is given up",
+    "whatever is past has been abandoned; what is gone is given up",
     "✓"
    ],
    [
@@ -24254,7 +24254,7 @@ var family_idiom_json = {
    ]
   ]
  },
- "khippa": {
+ "khippa1": {
   "count": 2,
   "data": [
    [
@@ -25228,18 +25228,12 @@ var family_idiom_json = {
   ]
  },
  "tad": {
-  "count": 20,
+  "count": 19,
   "data": [
    [
     "tadajjahaṃ",
     "sandhi",
     "that today I; that now I",
-    "✓"
-   ],
-   [
-    "tadadhimutto",
-    "sandhi",
-    "focused on that; intent on that; devoted to that",
     "✓"
    ],
    [
@@ -25798,17 +25792,6 @@ var family_idiom_json = {
     "tadāpi",
     "sandhi",
     "right then; even at that time",
-    "✓"
-   ]
-  ]
- },
- "adhimutta": {
-  "count": 1,
-  "data": [
-   [
-    "tadadhimutto",
-    "sandhi",
-    "focused on that; intent on that; devoted to that",
     "✓"
    ]
   ]
@@ -30142,7 +30125,7 @@ var family_idiom_json = {
    [
     "yadatītampahīnantaṃ",
     "sandhi",
-    "whatever is past has been abandoned; what is past is given up",
+    "whatever is past has been abandoned; what is gone is given up",
     "✓"
    ],
    [
@@ -30364,7 +30347,7 @@ var family_idiom_json = {
    [
     "yadatītampahīnantaṃ",
     "sandhi",
-    "whatever is past has been abandoned; what is past is given up",
+    "whatever is past has been abandoned; what is gone is given up",
     "✓"
    ]
   ]

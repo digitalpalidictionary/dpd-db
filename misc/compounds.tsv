@@ -13,7 +13,7 @@ dhātu	fem	thāmadhātu, cakkhudhātu
 evaṃ	adj	evaṃpaṭipanna	
 gata (meaning type)	nt	mānagata, ākāsagata, āpogata, pubbagata, viññāṇagata, tiracchānagata(?), vāyogata, kheḷagata, gūthagata	
 hetu	ind	micchāpaṭipattādhikaraṇahetu, sakkārahetu, pāricariyāhetu, brūhanāhetu, pīṇanāhetu, kucchihetu	
-indriya	nt	manindriya	
+indriya	nt	manindriya, jīvitindriya	
 ittha	adj	itthannāma, itthabhāva	
 jātika	adj	chandajātika	
 kaṃ	masc	kamatta	
@@ -40,7 +40,7 @@ sāruppagāmī	adj	jātinirodhasāruppagāmī
 tathā	adj	tathāpaṭipanna, tathāpahīna, tathāsaññī, tathākārī	
 uccā	adj	uccākulīna	
 upa (descendednt of)	masc	upariṭṭha, upananda	
-upama	adj	attūpama	
+upama	adj	attūpama, aḍḍhakumbhūpama	
 upari	masc	uparikokanadapāsāda, uparibhāga	
 upari	ind	upariselasutte	
 upasampanna	adj	vassasatūpasampanna, tadahupasampanna	
@@ -55,7 +55,7 @@ yāva	ind	yāvatatiyakaṃ
 GENERAL CASES	-	-	
 adhi	ind	adhideve, adhibrahmānaṃ	
 adverb in first postion	noun	divākathika, tiroraṭṭhā, tirojanapadā, rattiṃvikālabhojana, kāmaṅgama, antopadesa, bahipadesa, pacchāvacanīya, divāṭṭhāna, kathaṃkathā, micchāsati, heṭṭhābhāga	
-adverb in first postion	adj	idhāgata, tatrābhirata, uddhaṃpāda, adhosira, adhoṭhita, evaṃdiṭṭhī, evaṃvihārī, dvedhābhinna, evaṃpañña	
+adverb in first postion	adj	idhāgata, tatrābhirata, uddhaṃpāda, adhosira, adhoṭhita, evaṃdiṭṭhī, evaṃvihārī, dvedhābhinna, evaṃpañña, adhogama	
 adverbs in cases	adv	appasaddena	
 agent nouns	masc	paṃsudhovaka	
 gerund + adj	adj	vibhajjavāda, anupādāvimutta	
@@ -74,7 +74,7 @@ numbers (multiplication)	card	tiṃsati, koṭisatasahassa, satasahassī
 numbers (of duration in hell)	masc	uppalaniraya	
 numbers (subtraction)	adj	aḍḍhuḍḍha, aḍḍhateḷasa, aḍḍhateyya	
 prefix plus adverb	adv	samantaṃ, saṃmukhā	
-prefix plus noun	adj	apagabbha (apa gabbha)	
+prefix plus noun	x	apagabbha (apa gabbha), pācariya	
 repeated words	adj	saṅghasaṅghī	
 superlatives and comparitives	adj	paṇītasaṅkhātatara	
 taddhita *ī	fem	ghoṭamukhī	
@@ -107,3 +107,6 @@ govata	nt
 erāpatha	masc		
 maraṇavadha	masc		
 sakyaputtiya	adj		
+bhavasaṅkhāra	masc		
+issāvāda	masc		
+mattaṭṭhiyaṃ	ind		

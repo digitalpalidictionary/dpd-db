@@ -1479,7 +1479,7 @@ var family_set_json = {
    [
     "opasilesika",
     "adj",
-    "(gram) connected by close contact",
+    "(gram) connected by close contact; lit. sticking near",
     "✓"
    ],
    [
@@ -4209,7 +4209,7 @@ var family_set_json = {
    [
     "viparīta 3",
     "pp",
-    "(gram) metathesized",
+    "(gram) metathesized; lit. reversed",
     "✓"
    ],
    [
@@ -23194,7 +23194,7 @@ var family_set_json = {
    [
     "sajjha 2",
     "masc",
-    "name of a wandering ascetic; lit. silver",
+    "name of a wandering ascetic; lit. silver; (or) accomplishment",
     "✓"
    ],
    [
@@ -23451,7 +23451,7 @@ var family_set_json = {
    [
     "kālakañcā",
     "masc",
-    "name of a group of daemons; lit. black armour",
+    "name of a group of daemons; lit. with black armour",
     "✓"
    ],
    [
@@ -28292,7 +28292,7 @@ var family_set_json = {
     "kajaṅgalā",
     "fem",
     "name of a town",
-    "~"
+    "✓"
    ],
    [
     "kajjaṅgalā",
@@ -34383,7 +34383,7 @@ var family_set_json = {
    [
     "bheri",
     "fem",
-    "kettle drum",
+    "kettledrum",
     "✓"
    ],
    [
@@ -35851,6 +35851,23 @@ var family_set_json = {
    ]
   ],
   "count": 6
+ },
+ "doctrines": {
+  "data": [
+   [
+    "kammavāda 1",
+    "masc",
+    "(proponent of) doctrine of causality; who hold the view that actions have consequences",
+    "~"
+   ],
+   [
+    "sassatavāda 1",
+    "masc",
+    "eternalism; doctrine of an everlasting soul",
+    "✓"
+   ]
+  ],
+  "count": 2
  },
  "materials": {
   "data": [
