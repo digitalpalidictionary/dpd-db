@@ -10,7 +10,7 @@ import typst
 from jinja2 import Environment, FileSystemLoader
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadword, FamilyCompound, FamilyRoot
+from db.models import DpdHeadword, FamilyCompound, FamilyIdiom, FamilyRoot, FamilyWord
 from tools.date_and_time import year_month_day_dash
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
@@ -29,9 +29,15 @@ class GlobalVars():
     root_fam_db = db_session.query(FamilyRoot).all()
     root_fam_db = sorted(root_fam_db, key=lambda x: (pali_sort_key(x.root_key), pali_sort_key(x.root_family)))
 
+    word_fam_db = db_session.query(FamilyWord).all()
+    word_fam_db = sorted(word_fam_db, key=lambda x: pali_sort_key(x.word_family))
+
     compound_fam_db = db_session.query(FamilyCompound).all()
     compound_fam_db = sorted(compound_fam_db, key=lambda x: pali_sort_key(x.compound_family))
     
+    idioms_fam_db = db_session.query(FamilyIdiom).all()
+    idioms_fam_db = sorted(idioms_fam_db, key=lambda x: pali_sort_key(x.idiom))
+
     # typst
     typst_data: list[str] = []
     used_letters_single: list[str] = []
@@ -47,8 +53,10 @@ class GlobalVars():
     front_matter_templ = env.get_template("front_matter.typ")
     first_letter_templ = env.get_template("first_letter.typ")
     headword_templ = env.get_template("headword_lite.typ")
-    root_fam_templ = env.get_template("family_root.typ")
-    compound_fam_templ = env.get_template("family_compound.typ")
+    root_fam_templ = env.get_template("family_root_lite.typ")
+    word_fam_templ = env.get_template("family_word_lite.typ")
+    compound_fam_templ = env.get_template("family_compound_lite.typ")
+    idiom_fam_templ = env.get_template("family_idiom_lite.typ")
     date = year_month_day_dash()
 
     # colours
@@ -93,6 +101,7 @@ def make_root_families(g: GlobalVars):
     g.typst_data.append("#pagebreak()\n")
     g.typst_data.append("#set page(columns: 1)\n")
     g.typst_data.append("#heading(level: 1)[Root Families]\n")
+    g.typst_data.append("#set par(first-line-indent: 0pt, hanging-indent: 0em, spacing: 0.65em)\n")
 
     for counter, i in enumerate(g.root_fam_db):
 
@@ -107,6 +116,29 @@ def make_root_families(g: GlobalVars):
         g.typst_data.append(g.root_fam_templ.render(i=i, date=g.date))
     
     p_yes(len(g.root_fam_db))
+
+
+
+def make_word_families(g: GlobalVars):
+    """Compile word families."""
+
+    p_green("compiling word families")
+
+    g.used_letters_single = []
+    g.typst_data.append("#pagebreak()\n")
+    g.typst_data.append("#heading(level: 1)[Word Families]\n")
+
+    for counter, i in enumerate(g.word_fam_db):
+        first_letter = i.word_family[0]
+ 
+        if first_letter not in g.used_letters_single:
+            first_letter_render = g.first_letter_templ.render(first_letter=first_letter)
+            g.typst_data.append(first_letter_render)
+            g.used_letters_single.append(first_letter)
+        
+        g.typst_data.append(g.word_fam_templ.render(i=i, date=g.date))
+    
+    p_yes(len(g.word_fam_db))
 
 
 def make_compound_families(g: GlobalVars):
@@ -129,6 +161,28 @@ def make_compound_families(g: GlobalVars):
         g.typst_data.append(g.compound_fam_templ.render(i=i, date=g.date))
     
     p_yes(len(g.compound_fam_db))
+
+
+def make_idiom_families(g: GlobalVars):
+    """Compile idiom families."""
+
+    p_green("compiling idiom families")
+
+    g.used_letters_single = []
+    g.typst_data.append("#pagebreak()\n")
+    g.typst_data.append("#heading(level: 1)[Idiom Families]\n")
+
+    for counter, i in enumerate(g.idioms_fam_db):
+        first_letter = i.idiom[0]
+ 
+        if first_letter not in g.used_letters_single:
+            first_letter_render = g.first_letter_templ.render(first_letter=first_letter)
+            g.typst_data.append(first_letter_render)
+            g.used_letters_single.append(first_letter)
+        
+        g.typst_data.append(g.idiom_fam_templ.render(i=i, date=g.date))
+    
+    p_yes(len(g.idioms_fam_db))
 
 
 def clean_up_typst_data(g: GlobalVars):
@@ -176,6 +230,7 @@ def export_to_pdf(g: GlobalVars):
                 str(g.pth.typst_lite_pdf_path)
             ]
         )
+        # python version currently only support 0.11, so use subprocess
         # typst.compile(str(g.pth.typst_lite_data_path), output=str(g.pth.typst_lite_pdf_path))
         p_yes("ok")
     except Exception as e:
@@ -189,7 +244,9 @@ def main():
     make_front_matter(g)
     make_pali_to_english(g)
     make_root_families(g)
+    make_word_families(g)
     make_compound_families(g)
+    make_idiom_families(g)
     # clean_up_typst_data(g)
     save_typist_file(g)
     export_to_pdf(g)

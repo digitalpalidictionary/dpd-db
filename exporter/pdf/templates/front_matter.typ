@@ -20,13 +20,11 @@
 #let blue-lemma(content) = text(
   rgb("#00A4CC"), 
   weight: "bold", 
-  size: 1.1em
 )[#content]
 
 #let gray(content) = text(
   rgb("#909090"),
   weight: "light",
-  size: 0.8em
 )[#content]
 
 // title page
