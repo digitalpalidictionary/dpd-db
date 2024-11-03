@@ -51,9 +51,9 @@ def main():
     for counter, i in enumerate(db):
         meaning = make_meaning_combo(i)
         if i.meaning_1:
-            test = "✓"
+            test = "🗸"
         else:
-            test = "✗"
+            test = "🗴"
 
         if i.example_1:
             example = i.example_1
