@@ -23,6 +23,8 @@ func SplitRecursive(w data.WordData) {
 			if w.ProcessCount < 1 {
 				if w.StartsWith("ati") {
 					SplitAti(w)
+				} else if w.StartsWith("nāti") {
+					SplitAti(w)
 				} else if w.HasNegPrefix() {
 					SplitNeg(w)
 				} else if w.StartsWith("sa") {

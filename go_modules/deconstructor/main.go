@@ -48,7 +48,7 @@ func main() {
 	// only for testing
 	tools.PGreenTitle("splitting compounds")
 	testSet := map[string]string{
-		// "asisattikuntakalāpādiāyudhasippaṃ": "",
+		// "nātittaruṇassa": "",
 	}
 	if len(testSet) > 0 {
 		data.G.Unmatched = maps.Clone(testSet)
