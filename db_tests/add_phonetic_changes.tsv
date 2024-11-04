@@ -1,5 +1,5 @@
 initial	final	correct	wrong	without	exceptions
-pe + t	tt	pet > tt	pt > tt	x	x
+
 -
 a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant
 a + ṭ	iṭ	a > i	x	a + ṭh	x
@@ -127,6 +127,7 @@ p + th	tth	pth > tth	p > t	x	x
 p + s	cch	ps > cch	x	x	x
 pa + i	pe	ai > e	i > e	x	x
 pā + pā	pi	pā > pi	x	x	x
+pe + t	tt	pet > tt	pt > tt	x	x
 plu	pil	pl > pil (epenthesis)	x	x	x
 
 bh + y	bbh	bhy > bbh	x	x	x
@@ -178,8 +179,9 @@ vi + ā	veyyā	vi > veyy (Kacc 401, 375)	vy > veyy	veyy	x
 s + t	ṭṭh	st > ṭṭh	x	x	x
 s + m	ss	sm > ss	s > m	ss	x
 s + y	ss	sy > ss	y > s	x	x
-sa + y	ss	sy > ss	y > s	ss	x
 s + s	cch	ss > cch	x	x	x
+sa + y	ss	sy > ss	y > s	ss	x
+saṃ + 	sā	saṃ > sā	x	sā	vatassāhaṃ, asāmanta, asāmāyika, tesāhaṃ, sampasāda 1, sampasādana 1, saṃsāda, saṃsāra 1, saṃsāra 2, saṃsāra 3, sāmagga, sāmaggiya, sāmaggī 1, sāmaggī 2, sāmanta 1, sāmantā 1, sāmantā 2, sāmāyika, sāmukkaṃsika, sāmuddika
 snih +	sini	snih > sinih (epenthesis)	x	x	x
 sud	sod	u > o	x	a + u	x
 

@@ -1,26 +1,27 @@
-COMMOON WORDS IN COMPOUNDS			type
+COMMON WORDS IN COMPOUNDS			type
 adhikaraṇa	nt	rūpādhikaraṇa, kāmādhikaraṇaṃ	
 akkhāyikā	fem	lokakkhāyikā, samuddakkhāyikā	
 antara	nt	vipākantara	
 ante	masc	antevāsī	
 anudiṭṭhi	fem	pubbantānudiṭṭhi, attānudiṭṭhi, aparantānudiṭṭhi	
 ati	any	atichatta	
+atthaṃ	ind	nirodhatthaṃ	
 atthara	nt	hatthatthara	
 atthāya	ind	puññatthāya	
 aṭṭhika	nt	jaṅghaṭṭhika	
 āvi	nt	āvikamma	
-dhātu	fem	thāmadhātu, cakkhudhātu	
+dhātu	fem	thāmadhātu, cakkhudhātu, vedanādhātu	
 evaṃ	adj	evaṃpaṭipanna	
 gata (meaning type)	nt	mānagata, ākāsagata, āpogata, pubbagata, viññāṇagata, tiracchānagata(?), vāyogata, kheḷagata, gūthagata	
 hetu	ind	micchāpaṭipattādhikaraṇahetu, sakkārahetu, pāricariyāhetu, brūhanāhetu, pīṇanāhetu, kucchihetu	
-indriya	nt	manindriya, jīvitindriya	
+indriya	nt	manindriya, jīvitindriya, kāyindriya	
 ittha	adj	itthannāma, itthabhāva	
 jātika	adj	chandajātika	
 kaṃ	masc	kamatta	
 kara	adj	puññakara	
 karaṇīya	nt	saṅghakaraṇīya	
 khīṇa	adj	khīṇatiracchānayoni, khīṇaniraya, khīṇapunabbhava	
-maya	adj	jātarūpamaya, lohitaṅkamaya	
+maya	adj	jātarūpamaya, lohitaṅkamaya, rūpiyamaya	
 nānā	noun	nānādāru	
 nidāna	adj	jātinidāna	
 nidānaṃ	ind	bhoganidānaṃ	
@@ -30,7 +31,7 @@ paccayā	ind	kāyasañcetanāpaccayā, sammāsamādhipaccayā
 paro	card	parosahassa	
 pavāraṇā	fem	paccayapavāraṇā	
 sa	adj	sapubbadeva, saparivāra, sauttaracchada	
-saha			
+saha	adj	sahaja, sahamacchara	
 samudaya	adj	upadhisamudaya	
 saññā	fem	aṭṭhikasaññā, adukkhamasukhasukhumasaccasaññā, anattasaññā, ālokasaññā	
 saññatti	fem	saddhammasaññatti, asaddhammasaññatti	
@@ -54,9 +55,10 @@ yāva	ind	yāvatatiyakaṃ
 			
 GENERAL CASES	-	-	
 adhi	ind	adhideve, adhibrahmānaṃ	
-adverb in first postion	noun	divākathika, tiroraṭṭhā, tirojanapadā, rattiṃvikālabhojana, kāmaṅgama, antopadesa, bahipadesa, pacchāvacanīya, divāṭṭhāna, kathaṃkathā, micchāsati, heṭṭhābhāga	
+adverb in first postion	noun	divākathika, tiroraṭṭhā, tirojanapadā, rattiṃvikālabhojana, kāmaṅgama, antopadesa, bahipadesa, pacchāvacanīya, divāṭṭhāna, kathaṃkathā, micchāsati, heṭṭhābhāga, nānābhāva	
 adverb in first postion	adj	idhāgata, tatrābhirata, uddhaṃpāda, adhosira, adhoṭhita, evaṃdiṭṭhī, evaṃvihārī, dvedhābhinna, evaṃpañña, adhogama	
 adverbs in cases	adv	appasaddena	
+adverbs, aṃ / akaṃ	ind	yadicchakaṃ	
 agent nouns	masc	paṃsudhovaka	
 gerund + adj	adj	vibhajjavāda, anupādāvimutta	
 gerund + noun	masc	anupādāvimokkha, upādāyarūpa, aveccappasāda	
@@ -67,14 +69,14 @@ kammadhāraya + taddhita	fem, nt	appātaṅkatā, appābādhatta
 khattuṃ	ind	atirekachakkhattuṃ, dvattikkhattuṃ	
 khattuṃ	fem	sattakkhattuparamatā	
 kiṃ	adj	kiṃmṃlaka, kiṃcitta, kiṃpamukha, kiṃkata, kiṃpahotika, kiṃnidṃna, kiṃparama, kiṃjṃtika, kiṃpariyosṃna, kāmālaya	
-maya (made of needs to be included)	noun	mattikāpatta, dārukuḍḍika, kaṃsapāti	
+maya (made of needs to be included)	noun	mattikāpatta, dārukuḍḍika, kaṃsapāti, paṇṇabhisi	
 missing word, more words required for the sense	nt	dvārabhatta (ṭhapita), asappurisacintī (cintā), asappurisamantī (manā)	
 numbers (addition)	card	bāvīsati, dvattiṃsati, catuddasa	
 numbers (multiplication)	card	tiṃsati, koṭisatasahassa, satasahassī	
 numbers (of duration in hell)	masc	uppalaniraya	
 numbers (subtraction)	adj	aḍḍhuḍḍha, aḍḍhateḷasa, aḍḍhateyya	
 prefix plus adverb	adv	samantaṃ, saṃmukhā	
-prefix plus noun	x	apagabbha (apa gabbha), pācariya	
+prefix plus noun	x	apagabbha (apa gabbha), pācariya, palipatha, ajjhāvasatha	
 repeated words	adj	saṅghasaṅghī	
 superlatives and comparitives	adj	paṇītasaṅkhātatara	
 taddhita *ī	fem	ghoṭamukhī	
@@ -84,29 +86,31 @@ tiro	noun	tirokaraṇī, tirokuṭṭa
 two indedeclinables	ind	ahovatā	
 			
 INDIVIDUAL WORDS			
-vaḷabhīratha	masc		
-saṅkhārārammaṇa	adj		
-surāmerayamajjapamādaṭṭhānapaccayā	ind		
-mihitapubbaṃ	ind		
-jaṅghabala	nt		
-dāvaggi	masc		
-aṭṭhaguṇaṃ	ind		
-cittīkāra	masc		
-upaḍḍhapiṇḍapātaṃ	ind		
-ekeka	adj		
+aññāpaṭivedha	masc		
 asītinavutikāla	masc		
 attarūpena	ind		
-paccūsasamayaṃ	ind		
-kālenakālaṃ	ind		
-cakkavattī	masc		
-pacchāvacanīya	nt		
-sācakka	nt		
-tenaṅgena	ind		
-sassatisamaṃ	ind		
-govata	nt		
-erāpatha	masc		
-maraṇavadha	masc		
-sakyaputtiya	adj		
+aṭṭhaguṇaṃ	ind		
 bhavasaṅkhāra	masc		
+cakkavattī	masc		
+cittīkāra	masc		
+dāvaggi	masc		
+ekeka	adj		
+erāpatha	masc		
+govata	nt		
 issāvāda	masc		
+jaṅghabala	nt		
+kālenakālaṃ	ind		
+maraṇavadha	masc		
 mattaṭṭhiyaṃ	ind		
+mihitapubbaṃ	ind		
+pacchāvacanīya	nt		
+paccūsasamayaṃ	ind		
+sācakka	nt		
+sakyaputtiya	adj		
+saṅkhārārammaṇa	adj		
+sassatisamaṃ	ind		
+surāmerayamajjapamādaṭṭhānapaccayā	ind		
+tenaṅgena	ind		
+upaḍḍhapiṇḍapātaṃ	ind		
+vaḷabhīratha	masc		
+theyyacitta	nt		

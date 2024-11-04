@@ -907,6 +907,7 @@ hairclip
 handsomeness
 Happy's
 har
+harmer
 harmlessness
 hāsupañño
 Haṭaka
@@ -1011,6 +1012,7 @@ inexpertise
 infeminine
 inhered
 injudiciously
+injurer
 inophyllum
 inscribing
 insignificantly
@@ -2200,6 +2202,7 @@ Syzygium
 tā
 tabba
 Tabernaemontana
+tabla
 taca
 Tacchakas
 taddhita
@@ -2250,6 +2253,7 @@ thousand-spoked
 Thūlakoṭṭhika
 Thullakoṭṭhika
 Thuna
+Thūṇa
 Thūṇa
 Thuna 
 Thundercloud
