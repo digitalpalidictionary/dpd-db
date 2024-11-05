@@ -8175,7 +8175,7 @@ var family_set_json = {
    [
     "sabbajī",
     "masc",
-    "all-conquering; universal conqueror; conqueror of existence",
+    "victor over all; universal conqueror; master of existence",
     "🗸"
    ],
    [
@@ -10250,6 +10250,12 @@ var family_set_json = {
     "∘"
    ],
    [
+    "kumbhathūṇika",
+    "masc",
+    "drummer; player of the kumbha drum",
+    "🗸"
+   ],
+   [
     "khatta 2",
     "masc",
     "steward; manager; chamberlain",
@@ -11126,7 +11132,7 @@ var family_set_json = {
     "🗸"
    ]
   ],
-  "count": 187
+  "count": 188
  },
  "place names": {
   "data": [
@@ -11851,6 +11857,12 @@ var family_set_json = {
     "🗸"
    ],
    [
+    "sattapaṇṇiguhā",
+    "fem",
+    "name of a cave on mount Vebhāra outside Rājagaha",
+    "🗸"
+   ],
+   [
     "sattambaka",
     "nt",
     "name of a pagoda",
@@ -11953,7 +11965,7 @@ var family_set_json = {
     "∘"
    ]
   ],
-  "count": 137
+  "count": 138
  },
  "holy sites": {
   "data": [
@@ -26457,6 +26469,12 @@ var family_set_json = {
     "∘"
    ],
    [
+    "sattapaṇṇī",
+    "masc",
+    "name of a tree; Alstonia scholaris; lit. seven leaves",
+    "🗸"
+   ],
+   [
     "salaḷa",
     "nt",
     "Indian frankincense tree; Boswellia serrata",
@@ -26625,7 +26643,7 @@ var family_set_json = {
     "🗸"
    ]
   ],
-  "count": 205
+  "count": 206
  },
  "names of animals": {
   "data": [
@@ -33004,6 +33022,12 @@ var family_set_json = {
     "🗸"
    ],
    [
+    "sattapaṇṇī",
+    "masc",
+    "name of a tree; Alstonia scholaris; lit. seven leaves",
+    "🗸"
+   ],
+   [
     "salaḷa",
     "nt",
     "Indian frankincense tree; Boswellia serrata",
@@ -33076,7 +33100,7 @@ var family_set_json = {
     "🗸"
    ]
   ],
-  "count": 82
+  "count": 83
  },
  "names of heavens": {
   "data": [
@@ -34579,6 +34603,47 @@ var family_set_json = {
   ],
   "count": 16
  },
+ "doctrines": {
+  "data": [
+   [
+    "ucchedavādī",
+    "masc",
+    "annihilationist; proponent of the doctrine of annihilation; lit. speaking annihilation",
+    "🗸"
+   ],
+   [
+    "kammavāda 1",
+    "masc",
+    "(proponent of) doctrine of causality; who hold the view that actions have consequences",
+    "∘"
+   ],
+   [
+    "puggalavādī",
+    "masc",
+    "proponent of the doctrine that the individual exists; lit. speaking person",
+    "🗸"
+   ],
+   [
+    "sassatavāda 1",
+    "masc",
+    "eternalism; doctrine of an everlasting soul",
+    "🗸"
+   ],
+   [
+    "sassatavādī",
+    "masc",
+    "eternalist; proponent of the doctrine of an everlasting soul; lit. speaking eternity",
+    "🗸"
+   ],
+   [
+    "suññatavādī",
+    "masc",
+    "proponent of the doctrine that everything is empty; Buddhist; lit. speaking emptiness",
+    "🗸"
+   ]
+  ],
+  "count": 6
+ },
  "names of mountains": {
   "data": [
    [
@@ -35863,23 +35928,6 @@ var family_set_json = {
    ]
   ],
   "count": 6
- },
- "doctrines": {
-  "data": [
-   [
-    "kammavāda 1",
-    "masc",
-    "(proponent of) doctrine of causality; who hold the view that actions have consequences",
-    "∘"
-   ],
-   [
-    "sassatavāda 1",
-    "masc",
-    "eternalism; doctrine of an everlasting soul",
-    "🗸"
-   ]
-  ],
-  "count": 2
  },
  "materials": {
   "data": [

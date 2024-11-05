@@ -8124,7 +8124,7 @@ var family_root_json = {
    [
     "khaṇḍa 2",
     "adj",
-    "broken; corrupt; deficient; defective",
+    "broken; corrupt; defective",
     "🗸"
    ],
    [
@@ -17880,7 +17880,7 @@ var family_root_json = {
    [
     "jāyamāna",
     "prp",
-    "being born; coming into being; arising",
+    "being born; coming into being; arising (in)",
     "🗸"
    ],
    [
@@ -22142,8 +22142,8 @@ var family_root_json = {
    [
     "ajjhupeti",
     "pr",
-    "comes near, approaches",
-    "🗴"
+    "approaches; goes to",
+    "🗸"
    ],
    [
     "ajjhupesi",
@@ -30090,7 +30090,7 @@ var family_root_json = {
    [
     "natthitā",
     "fem",
-    "nonexistence; idea of nonexistence; absence; lit. there is not state",
+    "nonexistence; absence; fact of not being present; lit. there is not state",
     "🗸"
    ],
    [
@@ -42350,7 +42350,7 @@ var family_root_json = {
    [
     "apāya 2",
     "masc",
-    "loss (of); separation (from); departure (from); lit. going away",
+    "departure (from); separation (from); loss (of); lit. going away",
     "🗸"
    ],
    [
@@ -51198,8 +51198,8 @@ var family_root_json = {
    [
     "anāvaṭa 3",
     "pp",
-    "accessible; available",
-    "🗴"
+    "accessible; available (to); lit. not obstructed",
+    "🗸"
    ],
    [
     "anāvara",
@@ -51339,7 +51339,7 @@ var family_root_json = {
   "root_key": "√vaṭṭ",
   "root_family": "ā √vaṭṭ",
   "root_meaning": "turn",
-  "count": 25,
+  "count": 26,
   "data": [
    [
     "anāvaṭṭī",
@@ -51417,6 +51417,12 @@ var family_root_json = {
     "āvaṭṭanī",
     "adj",
     "converting; transforming; mind-changing; lit. turning around",
+    "🗸"
+   ],
+   [
+    "āvaṭṭanta",
+    "prp",
+    "bending forward and back; rocking back and forth; tossing and turning",
     "🗸"
    ],
    [
@@ -59190,7 +59196,7 @@ var family_root_json = {
    [
     "nissajjitabba",
     "ptp",
-    "should be given up (to); to be handed over (to); should be relinquished (to); lit. to be abandoned",
+    "should be given up (to); to be handed over (to); should be relinquished (to); lit. to be relinquished",
     "🗸"
    ],
    [
@@ -59874,8 +59880,8 @@ var family_root_json = {
    [
     "nīhari 1",
     "aor",
-    "took out, drove away",
-    "🗴"
+    "took out; removed; extracted",
+    "🗸"
    ],
    [
     "nīhari 2",
@@ -75547,7 +75553,7 @@ var family_root_json = {
   "root_key": "√sar 1",
   "root_family": "ava √sar",
   "root_meaning": "go, flow",
-  "count": 35,
+  "count": 33,
   "data": [
    [
     "anosārita",
@@ -75688,21 +75694,9 @@ var family_root_json = {
     "🗸"
    ],
    [
-    "osāritabba",
-    "ptp",
-    "should be included (see otāretabba)",
-    "🗴"
-   ],
-   [
     "osāriyati",
     "pr",
     "is readmitted",
-    "🗴"
-   ],
-   [
-    "osāriyamāna",
-    "prp",
-    "being included (see otāriyamāna)",
     "🗴"
    ],
    [
@@ -76278,7 +76272,7 @@ var family_root_json = {
    [
     "pakka 1",
     "pp",
-    "decaying; festering; ripe; lit. matured",
+    "septic; festering; lit. matured",
     "🗸"
    ],
    [
@@ -79712,7 +79706,7 @@ var family_root_json = {
    [
     "paṭijānāti 4",
     "pr",
-    "makes the claim (of); claims (to be); lit. knows back",
+    "makes the claim (of); claims (to be); supposes ones is; lit. knows back",
     "🗸"
    ],
    [
@@ -81068,7 +81062,7 @@ var family_root_json = {
    [
     "pāyāsa",
     "masc",
-    "milk rice pudding; kheer",
+    "milk rice pudding; kheer; lit. from milk",
     "🗸"
    ],
    [
@@ -94694,7 +94688,7 @@ var family_root_json = {
    [
     "pesesi 1",
     "aor",
-    "sent; sent out",
+    "sent; sent out (someone to somewhere)",
     "🗸"
    ],
    [
@@ -97584,7 +97578,7 @@ var family_root_json = {
    [
     "paṭivātaṃ",
     "ind",
-    "against the wind; against the direction of the wind",
+    "against the wind; into the wind",
     "🗸"
    ],
    [
@@ -102588,13 +102582,13 @@ var family_root_json = {
    [
     "phassa 1",
     "masc",
-    "contact; sense impingement; raw experience; touch",
+    "sense contact; sense impingement; sense impression; sense experience; lit. touch",
     "🗸"
    ],
    [
     "phassa 2",
     "masc",
-    "experience (of); coming into contact (with)",
+    "experience (of); coming into contact (with); lit. touch",
     "🗸"
    ],
    [
@@ -108480,8 +108474,8 @@ var family_root_json = {
    [
     "bhakkhayitvā",
     "abs",
-    "having eaten",
-    "🗴"
+    "having eaten; having fed on; lit. having caused to eat",
+    "🗸"
    ],
    [
     "bhakkhasa",
@@ -118944,8 +118938,8 @@ var family_root_json = {
    [
     "māsiya",
     "adj",
-    "consisting of months; with months",
-    "🗴"
+    "consisting of months; with months; related to months",
+    "🗸"
    ],
    [
     "miṇana",
@@ -141843,7 +141837,7 @@ var family_root_json = {
   "root_key": "√var 1",
   "root_family": "vi √var",
   "root_meaning": "cover, dress, restrain",
-  "count": 34,
+  "count": 35,
   "data": [
    [
     "avivaṭa",
@@ -142044,9 +142038,15 @@ var family_root_json = {
     "🗴"
    ],
    [
-    "vevaṇṇiya",
+    "vevaṇṇiya 1",
     "nt",
-    "change of appearance; change of social order; state of having no caste; lit. discolouration",
+    "change of appearance; change of social order; state of having no caste; lit. change in appearance state",
+    "🗸"
+   ],
+   [
+    "vevaṇṇiya 2",
+    "nt",
+    "discolouration; disfiguration; loss of beauty; lit. change in appearance state",
     "🗸"
    ]
   ]
@@ -148470,7 +148470,7 @@ var family_root_json = {
    [
     "samitatta",
     "nt",
-    "calmness (of); peacefulness (of); lit. calmed state",
+    "calmness; peacefulness; fact of tranquillization (of); lit. calmed state",
     "🗸"
    ],
    [
@@ -154879,12 +154879,18 @@ var family_root_json = {
   "root_key": "√var 1",
   "root_family": "saṃ √var",
   "root_meaning": "cover, dress, restrain",
-  "count": 19,
+  "count": 21,
   "data": [
    [
     "asaṃvara",
     "masc",
     "no control (in); lack of restraint (in)",
+    "🗸"
+   ],
+   [
+    "asaṃvaritvā",
+    "abs",
+    "(of a door) having not closed; having not shut",
     "🗸"
    ],
    [
@@ -154954,9 +154960,15 @@ var family_root_json = {
     "🗴"
    ],
    [
-    "saṃvaritvā",
+    "saṃvaritvā 1",
     "abs",
-    "having restrained, having shut, having covered",
+    "(of a door) having closed; having shut",
+    "🗸"
+   ],
+   [
+    "saṃvaritvā 2",
+    "abs",
+    "having restrained, having covered",
     "🗴"
    ],
    [
@@ -155376,7 +155388,7 @@ var family_root_json = {
    [
     "saṃsagga 3",
     "masc",
-    "contact; connection; intimacy; (with); lit. sticking together",
+    "contact; connection; intimacy (with); lit. sticking together",
     "🗸"
    ],
    [
@@ -178295,7 +178307,7 @@ var family_root_json = {
   "root_key": "√gā",
   "root_family": "√gā",
   "root_meaning": "sing",
-  "count": 30,
+  "count": 31,
   "data": [
    [
     "gāthā 1",
@@ -178386,6 +178398,12 @@ var family_root_json = {
     "abs",
     "having sung, having recited",
     "🗴"
+   ],
+   [
+    "gāyī",
+    "masc",
+    "singer",
+    "🗸"
    ],
    [
     "gita 1",
@@ -184689,7 +184707,7 @@ var family_root_json = {
   "root_key": "√ci 1",
   "root_family": "ni √ci",
   "root_meaning": "gather, accumulate",
-  "count": 7,
+  "count": 8,
   "data": [
    [
     "nikāya 1",
@@ -184701,6 +184719,12 @@ var family_root_json = {
     "nikāya 2",
     "masc",
     "set; collection; volume",
+    "🗸"
+   ],
+   [
+    "nikāyika",
+    "adj",
+    "belonging to a set; related to a group; lit. collection",
     "🗸"
    ],
    [
@@ -186147,7 +186171,7 @@ var family_root_json = {
   "root_key": "√pad",
   "root_family": "ni √pad",
   "root_meaning": "go, step",
-  "count": 16,
+  "count": 17,
   "data": [
    [
     "nipajja",
@@ -186214,6 +186238,12 @@ var family_root_json = {
     "aor",
     "rested, slept",
     "🗴"
+   ],
+   [
+    "nipajjitabba",
+    "ptp",
+    "should lie down; should rest; should sleep; lit. to be gone down",
+    "🗸"
    ],
    [
     "nipajjituṃ",
@@ -193553,7 +193583,7 @@ var family_root_json = {
     "paṭisallīyanta",
     "prp",
     "going into seclusion; withdrawing into solitude; (comm) going to lie down",
-    "∘"
+    "🗸"
    ],
    [
     "paṭisallīyi",
@@ -194666,8 +194696,8 @@ var family_root_json = {
    [
     "suppadhota 1",
     "adj",
-    "well washed; thoroughly rinsed",
-    "🗴"
+    "well washed; thoroughly cleansed",
+    "🗸"
    ],
    [
     "suppadhota 2",
@@ -198560,7 +198590,7 @@ var family_root_json = {
    [
     "parisambāhati",
     "pr",
-    "massages all over; completely caress; rubs every part",
+    "massages all over; completely caresses; fondles; rubs every part",
     "🗸"
    ]
   ]
@@ -201248,7 +201278,7 @@ var family_root_json = {
    [
     "piṭaka 1",
     "nt",
-    "basket",
+    "basket; container",
     "🗸"
    ],
    [
@@ -211549,7 +211579,7 @@ var family_root_json = {
   "root_key": "√vaṭṭ",
   "root_family": "vi √vaṭṭ",
   "root_meaning": "turn",
-  "count": 16,
+  "count": 17,
   "data": [
    [
     "vivaṭṭa 1",
@@ -211598,6 +211628,12 @@ var family_root_json = {
     "nt",
     "moving back, turning away",
     "🗴"
+   ],
+   [
+    "vivaṭṭanta",
+    "prp",
+    "writhing; convulsing; contorting; lit. turning away",
+    "🗸"
    ],
    [
     "vivaṭṭamāna",

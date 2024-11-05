@@ -8662,7 +8662,7 @@ var family_word_json = {
    [
     "ayye",
     "fem",
-    "mistress; lady; madam; polite address to a nun",
+    "polite address to a woman; mistress; lady; madam",
     "🗸"
    ],
    [
@@ -9913,7 +9913,7 @@ var family_word_json = {
     "saṃvacchara 2",
     "masc",
     "year",
-    "∘"
+    "🗸"
    ],
    [
     "saṃvaccharaṃ",
@@ -13625,7 +13625,7 @@ var family_word_json = {
     "mānussaka",
     "adj",
     "human",
-    "∘"
+    "🗸"
    ],
    [
     "mānussika",
@@ -17723,7 +17723,7 @@ var family_word_json = {
     "utuka",
     "adj",
     "seasonal; seasonable; related to the seasons",
-    "🗴"
+    "🗸"
    ],
    [
     "utuni",
@@ -25758,6 +25758,12 @@ var family_word_json = {
     "🗸"
    ],
    [
+    "rattiya",
+    "adj",
+    "consisting of so many nights; having nights",
+    "🗸"
+   ],
+   [
     "rattiṃ",
     "ind",
     "at night; by night; on the night; for a night",
@@ -25776,7 +25782,7 @@ var family_word_json = {
     "🗸"
    ]
   ],
-  "count": 9
+  "count": 10
  },
  "nattar": {
   "data": [

@@ -802,6 +802,7 @@ fletched
 fletching
 fly's
 fodder-ish
+fondles
 footless
 footlessness
 foresign
@@ -1147,6 +1148,7 @@ Khāṇumata
 khāri
 Khattiya
 Khattiyas
+kheer
 Khemā
 Khemiya's
 khiḍḍāparādhikā
@@ -1189,6 +1191,8 @@ Koṭṭhita
 kudācana
 kuḍuba
 Kumāputta
+kumbha
+kumbhathūna
 kumuda-count
 kuṇḍañhi
 Kuru
@@ -1679,6 +1683,8 @@ participles
 parure
 pasata
 Pasenadi
+Pasenadi
+Pasenadi's
 Pasenadi's
 Pasendi
 passati
@@ -1873,6 +1879,8 @@ reprimandable
 reprimandable
 reproachable
 reproved
+reproves
+reprovingly
 repulsiveness
 requisites
 rereturn
@@ -2012,6 +2020,7 @@ scourer
 scrapers
 scrutinizer
 scrutinizingly
+seasonable
 seizers
 Sekhasutta
 Sekhasuttaṃ
@@ -2289,6 +2298,7 @@ townsperson
 tradable
 tragocamelus
 training rule
+tranquillization
 transmigrated
 transmigrates
 trilobata
@@ -2441,6 +2451,7 @@ unoppressed
 unowned
 unpeaceful
 unpenetrated
+unperceived
 unperformed
 unpervaded
 unpierced

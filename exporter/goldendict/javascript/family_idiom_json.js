@@ -9263,7 +9263,7 @@ var family_idiom_json = {
   ]
  },
  "atthi1": {
-  "count": 19,
+  "count": 28,
   "data": [
    [
     "atthaññaṃ",
@@ -9311,6 +9311,60 @@ var family_idiom_json = {
     "catthi",
     "sandhi",
     "and there is",
+    "🗸"
+   ],
+   [
+    "natthaññaṃ",
+    "sandhi",
+    "there is not another; is there not (something) else?",
+    "🗸"
+   ],
+   [
+    "natthañño",
+    "sandhi",
+    "there is nothing else; there is no other person; there is no-one else",
+    "🗸"
+   ],
+   [
+    "natthi ayaṃ loko",
+    "idiom",
+    "this world does not exist; lit. there is no this world",
+    "🗸"
+   ],
+   [
+    "natthi dinnaṃ",
+    "idiom",
+    "there is no (fruit to) giving; lit. there is no offering",
+    "🗸"
+   ],
+   [
+    "natthi paro loko",
+    "idiom",
+    "there is no afterlife; lit. there is no next world",
+    "🗸"
+   ],
+   [
+    "natthi yiṭṭhaṃ",
+    "idiom",
+    "there is no (fruit to) donation; lit. there is no sacrificing",
+    "🗸"
+   ],
+   [
+    "natthi hutaṃ",
+    "idiom",
+    "there is no (fruit to) offering gifts; lit. there is no oblation",
+    "🗸"
+   ],
+   [
+    "natthidāni",
+    "sandhi",
+    "now there is not",
+    "🗸"
+   ],
+   [
+    "netaṃ natthīti vadāmi",
+    "idiom",
+    "I don't deny it; I don't say that's not true; lit. I don't say there isn't this",
     "🗸"
    ],
    [
@@ -27408,65 +27462,6 @@ var family_idiom_json = {
     "sādhukameva",
     "sandhi",
     "very well; exactly; lit. just well",
-    "🗸"
-   ]
-  ]
- },
- "natthi": {
-  "count": 9,
-  "data": [
-   [
-    "natthaññaṃ",
-    "sandhi",
-    "there is not another; is there not (something) else?",
-    "🗸"
-   ],
-   [
-    "natthañño",
-    "sandhi",
-    "there is nothing else; there is no other person; there is no-one else",
-    "🗸"
-   ],
-   [
-    "natthi ayaṃ loko",
-    "idiom",
-    "this world does not exist; lit. there is no this world",
-    "🗸"
-   ],
-   [
-    "natthi dinnaṃ",
-    "idiom",
-    "there is no (fruit to) giving; lit. there is no offering",
-    "🗸"
-   ],
-   [
-    "natthi paro loko",
-    "idiom",
-    "there is no afterlife; lit. there is no next world",
-    "🗸"
-   ],
-   [
-    "natthi yiṭṭhaṃ",
-    "idiom",
-    "there is no (fruit to) donation; lit. there is no sacrificing",
-    "🗸"
-   ],
-   [
-    "natthi hutaṃ",
-    "idiom",
-    "there is no (fruit to) offering gifts; lit. there is no oblation",
-    "🗸"
-   ],
-   [
-    "natthidāni",
-    "sandhi",
-    "now there is not",
-    "🗸"
-   ],
-   [
-    "netaṃ natthīti vadāmi",
-    "idiom",
-    "I don't deny it; I don't say that's not true; lit. I don't say there isn't this",
     "🗸"
    ]
   ]
