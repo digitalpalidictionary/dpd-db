@@ -5,7 +5,7 @@
 
 import re
 import subprocess
-import typst
+# import typst
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -222,6 +222,8 @@ def export_to_pdf(g: GlobalVars):
 
     p_green("rendering pdf")
     try:
+        # python version currently only support typst 0.11, so use subprocess
+        # typst.compile(str(g.pth.typst_lite_data_path), output=str(g.pth.typst_lite_pdf_path))
         subprocess.run(
             [
                 "typst",
@@ -230,8 +232,6 @@ def export_to_pdf(g: GlobalVars):
                 str(g.pth.typst_lite_pdf_path)
             ]
         )
-        # python version currently only support 0.11, so use subprocess
-        # typst.compile(str(g.pth.typst_lite_data_path), output=str(g.pth.typst_lite_pdf_path))
         p_yes("ok")
     except Exception as e:
         p_red(f"\n{e}")
