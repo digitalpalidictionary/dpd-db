@@ -1,5 +1,5 @@
 
-#heading(outlined: false, depth: 2)[{{ i.compound_family }}] <{{ i.compound_family }}>
+#heading(outlined: false, depth: 3)[{{ i.compound_family }}] <{{ i.compound_family }}>
 
 *{{ i.count }}* compounds which contain *{{ i.compound_family }}*
 

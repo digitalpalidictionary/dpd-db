@@ -1,5 +1,5 @@
 // lemma
-#heading(outlined: false, depth: 2)[{{ i.lemma_1 }}]
+#heading(outlined: false, depth: 3)[{{ i.lemma_1 }}]
 // summary
 {{ i.pos }}.//// if i.plus_case \\\\ ({{ i.plus_case|safe }})//// endif \\\\//// if i.meaning_1 \\\\ *{{ i.meaning_1_typst|safe }}*//// if i.meaning_lit \\\\; lit. {{ i.meaning_lit}}.//// endif \\\\//// else \\\\ {{ i.meaning_2_typst|safe }}.//// endif \\\\//// if i.construction_summary_typst \\\\ [{{i.construction_summary_typst}}]//// endif \\\\ #text(gray)[{{i.degree_of_completion}}]
 

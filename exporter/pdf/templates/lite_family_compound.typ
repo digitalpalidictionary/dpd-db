@@ -1,21 +1,24 @@
 
-#heading(outlined: false, depth: 2)[{{ i.compound_family }}]
-// <{{ i.compound_family }}>
+#heading3[{{ i.compound_family }}]
 
 //// if i.count == 1 \\\\
-{{ i.count }} compound which contains *{{ i.compound_family }}*
+{{ i.count }} compound which contains #blue-bold[{{ i.compound_family }}]
 //// else \\\\
-{{ i.count }} compounds which contain *{{ i.compound_family }}*
+{{ i.count }} compounds which contain #blue-bold[{{ i.compound_family }}]
 //// endif \\\\
-
+#v(0.35em, weak: true)
 #table(
   columns: (auto, auto, 4fr, auto),
   stroke: (x: none, y: none),
   inset: (x: 0em, y: 0.35em),
-  column-gutter: 1em, 
+  column-gutter: 1em,
+  
+  table.cell(colspan: 4)[
+    #line(length: 100%, stroke: 0.1pt + rgb("00A4CC"))
+  ],
 
 //// for d in i.data_unpack \\\\
-  [#blue-lemma[{{ d[0] }}]], [{{ d[1] }}], [{{ d[2].replace("*", "\*")|safe }}], [#gray[{{ d[3] }}]],
+  [#blue-bold[{{ d[0] }}]], [{{ d[1] }}], [{{ d[2].replace("*", "\*")|safe }}], [#gray[{{ d[3] }}]],
 //// endfor \\\\
 
   table.cell(colspan: 4)[

@@ -6,18 +6,20 @@
 // formulas
 
 #let feedback-link(comment, url) = {
-  // v(-10pt)
+  v(-3pt)
   text(
     size: 6pt,
     link(url)[#comment]
   )
 }
 
+#let heading3(content) = {
+  heading(level: 2, outlined: false)[#content]
+}
+
 #let blue(content) = text(rgb("#00A4CC"))[#content]
 
-#let blue-bold(content) = text(rgb("#00A4CC"), weight: "bold")[#content]
-
-#let blue-lemma(content) = text(
+#let blue-bold(content) = text(
   rgb("#00A4CC"), 
   weight: "bold", 
 )[#content]
@@ -40,15 +42,15 @@
   date: auto
   )
 
-#align(left, text(18pt)[
+#align(left, text(20pt)[
   *Digital Pāḷi Dictionary*
 ])
 
-#align(left, text(14pt)[
+#align(left, text(12pt)[
   Created by Bodhirasa Bhikkhu
 ])
 
-#align(left, text(10pt)[
+#align(left, text(8pt)[
   Updated on #text(rgb("#00A4CC"))[*#datetime.today().display()*]
 ])
 
@@ -75,9 +77,5 @@ Copyright information goes here...
 
 = List of Abbreviations
 Abbreviations go here...
-#pagebreak()
+// #pagebreak()
 
-// dpd
-
-= Pāḷi to English Dictionary
-#text(" ")

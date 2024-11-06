@@ -1,20 +1,24 @@
 
-#heading(outlined: false, depth: 2)[{{ i.idiom }}]
+#heading3[{{ i.idiom }}]
 
 //// if i.count > 1 \\\\
-*{{ i.count }}* idiomatic expressions which contain *{{ i.idiom }}*
+{{ i.count }} idiomatic expressions which contain #blue-bold[{{ i.idiom }}]
 //// else \\\\
-*{{ i.count }}* idiomatic expression which contains *{{ i.idiom }}*
+{{ i.count }} idiomatic expression which contains #blue-bold[{{ i.idiom }}]
 //// endif \\\\
-
+#v(0.35em, weak: true)
 #table(
   columns: (auto, auto, 4fr, auto),
   stroke: (x: none, y: none),
   inset: (x: 0em, y: 0.35em),
   column-gutter: 1em, 
 
+  table.cell(colspan: 4)[
+    #line(length: 100%, stroke: 0.1pt + rgb("00A4CC"))
+  ],
+
 //// for d in i.data_unpack \\\\
-  [#blue-lemma[{{ d[0] }}]], [{{ d[1] }}], [{{ d[2].replace("*", "\*")|safe }}], [#gray[{{ d[3] }}]],
+  [#blue-bold[{{ d[0] }}]], [{{ d[1] }}], [{{ d[2].replace("*", "\*")|safe }}], [#gray[{{ d[3] }}]],
 //// endfor \\\\
 
   table.cell(colspan: 4)[
