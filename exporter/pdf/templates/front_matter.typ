@@ -71,14 +71,9 @@ Copyright information goes here...
 #outline(depth: 1)
 #pagebreak()
 
-// abbreviations page
-
 #set page(
   numbering: "1 / 1"
 )
-#counter(page).update(1)
 
-= List of Abbreviations
-Abbreviations go here...
-// #pagebreak()
+#counter(page).update(1)
 

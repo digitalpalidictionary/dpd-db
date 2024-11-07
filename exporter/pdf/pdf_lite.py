@@ -15,6 +15,7 @@ from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import p_green, p_red, p_title, p_yes
 from tools.tic_toc import tic, toc
+from tools.tsv_read_write import read_tsv_dot_dict
 
 debug = False
 
@@ -62,6 +63,7 @@ class GlobalVars():
     # templates
     front_matter_templ = env.get_template("front_matter.typ")
     first_letter_templ = env.get_template("first_letter.typ")
+    abbreviations_templ = env.get_template("abbreviations.typ")
     headword_templ = env.get_template("lite_headword.typ")
     epd_templ = env.get_template("lite_epd_table.typ")
     root_fam_templ = env.get_template("lite_family_root.typ")
@@ -69,6 +71,14 @@ class GlobalVars():
     compound_fam_templ = env.get_template("lite_family_compound.typ")
     idiom_fam_templ = env.get_template("lite_family_idiom.typ")
     date = year_month_day_dash()
+
+    # abbreviations
+    abbreviations_tsv = read_tsv_dot_dict(pth.abbreviations_tsv_path)
+    abbreviations = []
+    for i in abbreviations_tsv:
+        # leave out book names which have a double capital JA 
+        if not re.findall(r"[A-Z][A-z]", i.abbrev):
+            abbreviations.append(i)
 
     # colours
     colour1: str = "#00A4CC"
@@ -79,6 +89,15 @@ def make_front_matter(g: GlobalVars):
     p_green("compiling front matter")
     g.typst_data.append(g.front_matter_templ.render())
     p_yes("ok")
+
+
+def make_abbreviations(g: GlobalVars):
+    p_green("compiling abbreviations")
+
+    g.typst_data.append("#heading(level: 1)[Abbreviations]\n")
+    g.typst_data.append("#set par(first-line-indent: 0pt, hanging-indent: 0em, spacing: 0.65em)\n")
+    g.typst_data.append(g.abbreviations_templ.render(data=g.abbreviations))
+    p_yes(len(g.abbreviations))
 
 
 def make_pali_to_english(g: GlobalVars):
@@ -268,6 +287,7 @@ def main():
     p_title("export to pdf with typst")
     g = GlobalVars()
     make_front_matter(g)
+    make_abbreviations(g)
     make_pali_to_english(g)
     make_english_to_pali(g)
     make_root_families(g)
