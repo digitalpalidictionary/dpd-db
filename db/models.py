@@ -7,20 +7,20 @@ from typing import Optional
 
 from sqlalchemy import and_
 from sqlalchemy import case
-from sqlalchemy import null
 from sqlalchemy import Column
 from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
-from sqlalchemy import ForeignKeyConstraint
 from sqlalchemy import Integer
+from sqlalchemy import null
 from sqlalchemy.ext.hybrid import hybrid_property
 
 from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import declared_attr
+from sqlalchemy.orm import foreign
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
-from sqlalchemy.orm import relationship
-from sqlalchemy.orm import declared_attr
 from sqlalchemy.orm import object_session
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
 from tools.link_generator import generate_link
@@ -188,12 +188,6 @@ class FamilyRoot(Base):
     html_ru: Mapped[str] = mapped_column(default='')
     data_ru: Mapped[str] = mapped_column(default='')
 
-    __table_args__ = (
-        ForeignKeyConstraint(
-            ["root_key", "root_family"],
-            ["dpd_headwords.root_key", "dpd_headwords.family_root"]
-        ),
-    )
 
     # root family pack unpack
     def data_pack(self, list: list[str]) -> None:
@@ -626,14 +620,14 @@ class DpdHeadword(Base):
     # pali_root
     rt: Mapped[DpdRoot] = relationship(uselist=False)
 
-    # family_root
     fr = relationship(
-        FamilyRoot,
+        "FamilyRoot",
         primaryjoin=and_(
-            root_key==FamilyRoot.root_key, 
-            family_root==FamilyRoot.root_family
-        ), 
-        uselist=False 
+            root_key == foreign(FamilyRoot.root_key),
+            family_root == foreign(FamilyRoot.root_family)
+        ),
+        uselist=False,
+        sync_backref=False
     )
 
     #  FamilyWord
