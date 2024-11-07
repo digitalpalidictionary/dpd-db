@@ -51,7 +51,7 @@ def main():
                 i.pos_si,
                 i.meaning_combo,
                 "",
-                "🗴"
+                "✕"
             ))
 
         if count % 5000 == 0:
