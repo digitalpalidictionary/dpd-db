@@ -7327,7 +7327,7 @@ var family_idiom_json = {
    [
     "māyasmantānampi",
     "sandhi",
-    "may not for the venerables",
+    "may not (schism be pleasing) for the venerables",
     "🗸"
    ],
    [
@@ -29619,7 +29619,7 @@ var family_idiom_json = {
    [
     "māyasmantānampi",
     "sandhi",
-    "may not for the venerables",
+    "may not (schism be pleasing) for the venerables",
     "🗸"
    ],
    [

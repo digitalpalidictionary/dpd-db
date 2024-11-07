@@ -8467,7 +8467,7 @@ var family_set_json = {
    [
     "uṇṇābha",
     "masc",
-    "name of a Brahmin; lit. woolly brow",
+    "name of a Brahman; lit. woolly brow",
     "∘"
    ],
    [
@@ -8791,7 +8791,7 @@ var family_set_json = {
    [
     "bhāradvāja 1",
     "masc",
-    "name of a Brahmin family; lit. descended from Bharadvāja",
+    "name of a Brahman family; lit. descended from Bharadvāja",
     "🗸"
    ],
    [
@@ -10604,6 +10604,12 @@ var family_set_json = {
     "🗸"
    ],
    [
+    "parapessa 2",
+    "masc",
+    "servant of another; another person's runner",
+    "🗸"
+   ],
+   [
     "paricāraka 2",
     "masc",
     "servant; attendant; lit. who walks around",
@@ -11132,7 +11138,7 @@ var family_set_json = {
     "🗸"
    ]
   ],
-  "count": 188
+  "count": 189
  },
  "place names": {
   "data": [
@@ -19350,7 +19356,7 @@ var family_set_json = {
    [
     "bhāradvāja 1",
     "masc",
-    "name of a Brahmin family; lit. descended from Bharadvāja",
+    "name of a Brahman family; lit. descended from Bharadvāja",
     "🗸"
    ],
    [

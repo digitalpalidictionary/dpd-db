@@ -441,7 +441,7 @@ var family_root_json = {
   "root_key": "√kar",
   "root_family": "√kar",
   "root_meaning": "do, make",
-  "count": 376,
+  "count": 377,
   "data": [
    [
     "akaṭa 1",
@@ -2584,6 +2584,12 @@ var family_root_json = {
     "aor",
     "did not do; did not perform",
     "∘"
+   ],
+   [
+    "nikkamma",
+    "adj",
+    "who does not work; jobless; out of work",
+    "🗸"
    ],
    [
     "nikkaruṇatā",
@@ -45384,7 +45390,7 @@ var family_root_json = {
    [
     "avakkanti 2",
     "fem",
-    "going down; descent; (of)",
+    "going down; descent (of)",
     "∘"
    ],
    [
@@ -46305,6 +46311,92 @@ var family_root_json = {
     "nāvasādayati",
     "pr",
     "does not disparage; does not belittle; does not put down; lit. does not cause to sink down",
+    "∘"
+   ]
+  ]
+ },
+ "√sic ava √sic": {
+  "root_key": "√sic",
+  "root_family": "ava √sic",
+  "root_meaning": "sprinkle, pour",
+  "count": 13,
+  "data": [
+   [
+    "anavaseka",
+    "adj",
+    "not overflowing; lit. not sprinkling down",
+    "🗸"
+   ],
+   [
+    "avasiñcati",
+    "pr",
+    "pours over, sprinkles",
+    "🗴"
+   ],
+   [
+    "avasiñci",
+    "aor",
+    "poured over, sprinkled",
+    "🗴"
+   ],
+   [
+    "avasitta",
+    "pp",
+    "anointed; consecrated; crowned (on); lit. sprinkled over",
+    "🗸"
+   ],
+   [
+    "avaseka",
+    "masc",
+    "overflow; excess; lit. sprinkling down",
+    "∘"
+   ],
+   [
+    "osiñcati",
+    "pr",
+    "pours down (onto); pours (over); douses; lit. sprinkles down",
+    "🗸"
+   ],
+   [
+    "osiñcana",
+    "nt",
+    "pouring over; dousing; lit. sprinkling down",
+    "🗸"
+   ],
+   [
+    "osiñcanta",
+    "prp",
+    "pouring down, besprinkling",
+    "🗴"
+   ],
+   [
+    "osiñci",
+    "aor",
+    "poured down, besprinkled",
+    "🗴"
+   ],
+   [
+    "osiñcitvā",
+    "abs",
+    "having poured down or sprinkled",
+    "🗴"
+   ],
+   [
+    "osiñciya",
+    "ger",
+    "pouring down or sprinkling",
+    "🗴"
+   ],
+   [
+    "ositta",
+    "pp",
+    "poured down, besprinkled",
+    "🗴"
+   ],
+   [
+    "oseka",
+    "masc",
+    "pouring; scooping; showering; lit. pouring down",
     "∘"
    ]
   ]
@@ -62812,8 +62904,8 @@ var family_root_json = {
    [
     "dovacassatā",
     "fem",
-    "unruliness; contumacy; stubbornness; obstinacy; lit. hard to talk to state",
-    "🗴"
+    "unruliness; contumacy; not being amenable to verbal correction; lit. hard to talk to state",
+    "🗸"
    ],
    [
     "nāvacāsi",
@@ -89996,7 +90088,7 @@ var family_root_json = {
    [
     "aparihāniya",
     "adj",
-    "of non-decline; regarding non-deterioration",
+    "not causing loss; not causing decline; non-detrimental",
     "🗸"
    ],
    [
@@ -90050,8 +90142,8 @@ var family_root_json = {
    [
     "parihāniya 1",
     "adj",
-    "causing loss or ruin",
-    "🗴"
+    "causing loss; causing decline; detrimental; ruinous",
+    "🗸"
    ],
    [
     "parihāniya 2",
@@ -103400,7 +103492,7 @@ var family_root_json = {
    [
     "bajjha",
     "ger",
-    "binding; tying; hanging",
+    "binding; tying; hanging (something with something)",
     "🗸"
    ],
    [
@@ -111823,7 +111915,7 @@ var family_root_json = {
   "root_key": "√bhikkh",
   "root_family": "√bhikkh",
   "root_meaning": "beg",
-  "count": 37,
+  "count": 38,
   "data": [
    [
     "abhikkhu",
@@ -111848,6 +111940,12 @@ var family_root_json = {
     "adj",
     "with a scarcity of alms food",
     "🗴"
+   ],
+   [
+    "dubbhikkhatā",
+    "fem",
+    "scarcity of food; famine; not enough food to eat; lit. bad begging state",
+    "∘"
    ],
    [
     "bhikkha",
@@ -121802,8 +121900,8 @@ var family_root_json = {
    [
     "yiṭṭhuṃ",
     "inf",
-    "to make an offering; to offer a sacrifice",
-    "🗴"
+    "makes a sacrifice; sacrifices; offers alms",
+    "🗸"
    ],
    [
     "suyiṭṭha 1",
@@ -133253,86 +133351,6 @@ var family_root_json = {
    ]
   ]
  },
- "√sic ava √sic": {
-  "root_key": "√sic",
-  "root_family": "ava √sic",
-  "root_meaning": "sprinkle, pour",
-  "count": 12,
-  "data": [
-   [
-    "avasiñcati",
-    "pr",
-    "pours over, sprinkles",
-    "🗴"
-   ],
-   [
-    "avasiñci",
-    "aor",
-    "poured over, sprinkled",
-    "🗴"
-   ],
-   [
-    "avasitta",
-    "pp",
-    "anointed; consecrated; crowned (on); lit. sprinkled over",
-    "🗸"
-   ],
-   [
-    "avaseka",
-    "masc",
-    "overflow; excess; lit. sprinkling down",
-    "∘"
-   ],
-   [
-    "osiñcati",
-    "pr",
-    "pours down (onto); pours (over); douses; lit. sprinkles down",
-    "🗸"
-   ],
-   [
-    "osiñcana",
-    "nt",
-    "pouring over; dousing; lit. sprinkling down",
-    "🗸"
-   ],
-   [
-    "osiñcanta",
-    "prp",
-    "pouring down, besprinkling",
-    "🗴"
-   ],
-   [
-    "osiñci",
-    "aor",
-    "poured down, besprinkled",
-    "🗴"
-   ],
-   [
-    "osiñcitvā",
-    "abs",
-    "having poured down or sprinkled",
-    "🗴"
-   ],
-   [
-    "osiñciya",
-    "ger",
-    "pouring down or sprinkling",
-    "🗴"
-   ],
-   [
-    "ositta",
-    "pp",
-    "poured down, besprinkled",
-    "🗴"
-   ],
-   [
-    "oseka",
-    "masc",
-    "pouring; scooping; showering; lit. pouring down",
-    "∘"
-   ]
-  ]
- },
  "√sus ava √sus": {
   "root_key": "√sus",
   "root_family": "ava √sus",
@@ -134299,7 +134317,7 @@ var family_root_json = {
     "byāyāmati",
     "pr",
     "makes effort; strives",
-    "🗴"
+    "🗸"
    ],
    [
     "vāyamati",
@@ -135242,8 +135260,8 @@ var family_root_json = {
    [
     "vikubbanatā",
     "fem",
-    "versatility; flexibility",
-    "🗴"
+    "versatility; flexibility; lit. doing differently state",
+    "🗸"
    ],
    [
     "vikubbanā",
@@ -165663,7 +165681,7 @@ var family_root_json = {
   "root_key": "√hu",
   "root_family": "ā √hu",
   "root_meaning": "pour, offer as oblation",
-  "count": 6,
+  "count": 7,
   "data": [
    [
     "āhuṇa",
@@ -165678,9 +165696,15 @@ var family_root_json = {
     "🗴"
    ],
    [
-    "āhuti",
+    "āhuti 1",
     "fem",
-    "oblation; offering",
+    "oblation; fire offering",
+    "🗸"
+   ],
+   [
+    "āhuti 2",
+    "fem",
+    "donation; gift offering",
     "🗸"
    ],
    [
@@ -190134,8 +190158,8 @@ var family_root_json = {
    [
     "paccaniyyāsi",
     "aor",
-    "returned (from to); went back (from to)",
-    "🗴"
+    "returned; went back (to somewhere from somewhere )",
+    "🗸"
    ]
   ]
  },
@@ -192488,8 +192512,8 @@ var family_root_json = {
    [
     "paṭibhogiya",
     "masc",
-    "(comm) steward; helper",
-    "🗴"
+    "steward; servant; helper; lit. useful",
+    "🗸"
    ],
    [
     "pāṭibhoga 1",
@@ -192584,8 +192608,8 @@ var family_root_json = {
    [
     "paṭimānenta",
     "prp",
-    "waiting for; expecting",
-    "🗴"
+    "waiting for; expecting; lit. causing to think back",
+    "🗸"
    ],
    [
     "paṭimānesi",
@@ -192687,7 +192711,7 @@ var family_root_json = {
   "root_key": "√yat 1",
   "root_family": "pati √yat",
   "root_meaning": "arrange, hand over",
-  "count": 15,
+  "count": 16,
   "data": [
    [
     "paṭiyatta 1",
@@ -192760,6 +192784,12 @@ var family_root_json = {
     "abs",
     "having given over, having supplied",
     "🗴"
+   ],
+   [
+    "paṭiyādetvāna",
+    "abs",
+    "having organised; having arranged; having prepared; lit. having caused to arrange",
+    "🗸"
    ],
    [
     "paṭiyādenta",
@@ -202265,13 +202295,19 @@ var family_root_json = {
   "root_key": "√vīj",
   "root_family": "√vīj",
   "root_meaning": "fan",
-  "count": 15,
+  "count": 16,
   "data": [
    [
     "bījana",
     "nt",
     "fanning",
     "∘"
+   ],
+   [
+    "bījanī",
+    "fem",
+    "fan; whisk",
+    "🗸"
    ],
    [
     "bījayamāna",
@@ -209359,6 +209395,20 @@ var family_root_json = {
    ]
   ]
  },
+ "√kūl vi pati √kūl": {
+  "root_key": "√kūl",
+  "root_family": "vi pati √kūl",
+  "root_meaning": "obstruct, embank",
+  "count": 1,
+  "data": [
+   [
+    "vippaṭikūla",
+    "adj",
+    "opposite; contrary; resistant; recalcitrant; lit. against the slope",
+    "🗸"
+   ]
+  ]
+ },
  "√pad vi pati √pad": {
   "root_key": "√pad",
   "root_family": "vi pati √pad",
@@ -210412,8 +210462,8 @@ var family_root_json = {
    [
     "viyāyāti",
     "pr",
-    "goes",
-    "🗴"
+    "strives; makes effort",
+    "🗸"
    ]
   ]
  },

@@ -7279,6 +7279,12 @@ var family_word_json = {
     "🗸"
    ],
    [
+    "dasa 3.1",
+    "adj",
+    "with a fringe; tasselled; bordered; edged",
+    "🗸"
+   ],
+   [
     "dasā",
     "fem",
     "fringe; border; edge",
@@ -7297,7 +7303,7 @@ var family_word_json = {
     "🗸"
    ]
   ],
-  "count": 4
+  "count": 5
  },
  "dāsa": {
   "data": [

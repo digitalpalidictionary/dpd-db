@@ -127,6 +127,7 @@ Ambapālī
 Ambapālī's
 Ambaṭṭha
 amberalla
+amenable
 amla
 amra
 amūḷhapaññassa
@@ -516,6 +517,7 @@ conjunct
 contiguously
 contortion
 contradistinction
+contumacy
 cooed
 copulative
 coquetry
@@ -1836,6 +1838,7 @@ rainsuits
 Rajagaha
 Rājagaha
 Rāma
+Rāma's
 Rāmagāma
 Rāmaputta
 ramosa
@@ -1906,6 +1909,7 @@ rotundus
 roxburghiana
 Roxburghii
 rū
+Rubia
 rudh
 rudhādigaṇa
 Ruellia
@@ -2470,6 +2474,7 @@ unrinsed
 unripened
 unrippled
 unrooted
+unruliness
 unsatisfactoriness
 unsatisfiable
 unscattered

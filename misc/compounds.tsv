@@ -9,7 +9,7 @@ ati	any	atichatta
 atthaṃ	ind	nirodhatthaṃ	
 atthara	nt	hatthatthara	
 atthāya	ind	puññatthāya	
-aṭṭhika	nt	jaṅghaṭṭhika	
+aṭṭhika	nt	jaṅghaṭṭhika, gīvaṭṭhika	
 aṭṭhika	nt	piṭṭhiṭṭhika	
 āvi	nt	āvikamma	
 dhātu	fem	thāmadhātu, cakkhudhātu, vedanādhātu	
@@ -58,9 +58,9 @@ yāva	ind	yāvatatiyakaṃ
 GENERAL CASES	-	-	
 adhi	ind	adhideve, adhibrahmānaṃ	
 adverb in first postion	noun	divākathika, tiroraṭṭhā, tirojanapadā, rattiṃvikālabhojana, kāmaṅgama, antopadesa, bahipadesa, pacchāvacanīya, divāṭṭhāna, kathaṃkathā, micchāsati, heṭṭhābhāga, nānābhāva	
-adverb in first postion	adj	idhāgata, tatrābhirata, uddhaṃpāda, adhosira, adhoṭhita, evaṃdiṭṭhī, evaṃvihārī, dvedhābhinna, evaṃpañña, adhogama	
+adverb in first postion	adj	idhāgata, tatrābhirata, uddhaṃpāda, adhosira, adhoṭhita, evaṃdiṭṭhī, evaṃvihārī, dvedhābhinna, evaṃpañña, adhogama, uddhaṅgama, ajjuṇho	
 adverbs in cases	adv	appasaddena	
-adverbs, aṃ / akaṃ	ind	yadicchakaṃ	
+adverbs, aṃ / akaṃ	ind	yadicchakaṃ, uttaridirattatirattaṃ	
 agent nouns	masc	paṃsudhovaka	
 gerund + adj	adj	vibhajjavāda, anupādāvimutta, niggayhavādī, nivissavādī	
 gerund + noun	masc	anupādāvimokkha, upādāyarūpa, aveccappasāda	
@@ -77,6 +77,7 @@ numbers (addition)	card	bāvīsati, dvattiṃsati, catuddasa
 numbers (multiplication)	card	tiṃsati, koṭisatasahassa, satasahassī	
 numbers (of duration in hell)	masc	uppalaniraya	
 numbers (subtraction)	adj	aḍḍhuḍḍha, aḍḍhateḷasa, aḍḍhateyya	
+ordinals	ordin	pannarasama	
 prefix plus adverb	adv	samantaṃ, saṃmukhā	
 prefix plus noun	x	apagabbha (apa gabbha), pācariya, palipatha, ajjhāvasatha	
 repeated words	adj	saṅghasaṅghī	
