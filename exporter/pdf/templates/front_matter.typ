@@ -25,9 +25,11 @@
 )[#content]
 
 #let gray(content) = text(
-  rgb("#909090"),
+  rgb("#4c4c4c"),
   weight: "light",
 )[#content]
+
+#let thin-line() = line(length: 100%, stroke: 0.1pt + rgb("00A4CC"))
 
 // title page
 
@@ -52,6 +54,7 @@
 
 #align(left, text(8pt)[
   Updated on #text(rgb("#00A4CC"))[*#datetime.today().display()*]
+  // Updated on *#datetime.today().display()*
 ])
 
 #pagebreak()

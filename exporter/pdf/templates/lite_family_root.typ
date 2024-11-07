@@ -11,7 +11,7 @@
   column-gutter: 1em,
 
   table.cell(colspan: 4)[
-    #line(length: 100%, stroke: 0.1pt + rgb("00A4CC"))
+    #thin-line()
   ],
 
 //// for d in i.data_unpack \\\\
@@ -19,7 +19,7 @@
 //// endfor \\\\
   
   table.cell(colspan: 4)[
-    #line(length: 100%, stroke: 0.1pt + rgb("00A4CC"))
+    #thin-line()
     #feedback-link(
       "Correct a mistake",
       "https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{ i.root_family_key }}&entry.326955045=Root+Family&entry.1433863141=DPD%20PDF+{{ date }}"

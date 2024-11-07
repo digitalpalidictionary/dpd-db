@@ -9,7 +9,7 @@
 //// endfor \\\\
 
 #par[
-  #line(length: 100%, stroke: 0.1pt + rgb("00A4CC"))
+  #thin-line()
   #feedback-link(
     "Correct a mistake",
     "https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{ i.lookup_key }}&entry.326955045=Meaning&entry.1433863141=DPD%20PDF+{{ date }}"
