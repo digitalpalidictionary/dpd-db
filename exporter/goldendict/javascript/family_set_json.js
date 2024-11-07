@@ -10088,6 +10088,12 @@ var family_set_json = {
     "🗸"
    ],
    [
+    "assāroha 2",
+    "masc",
+    "cavalryman; mounted soldier; lit. horse mounted",
+    "🗸"
+   ],
+   [
     "āpādaka",
     "masc",
     "guardian; protector; child-carer",
@@ -10121,6 +10127,12 @@ var family_set_json = {
     "āroha 1",
     "masc",
     "rider; driver",
+    "🗸"
+   ],
+   [
+    "āḷārika",
+    "masc",
+    "cook; chef; baker",
     "🗸"
    ],
    [
@@ -11138,7 +11150,7 @@ var family_set_json = {
     "🗸"
    ]
   ],
-  "count": 189
+  "count": 191
  },
  "place names": {
   "data": [
@@ -11447,6 +11459,12 @@ var family_set_json = {
     "fem",
     "name of a gorge outside Rājagaha; lit. hot spring ravine",
     "∘"
+   ],
+   [
+    "tambapaṇṇi",
+    "nt",
+    "Sri Lanka; lit. with copper leaves; (comm) with copper hands",
+    "🗸"
    ],
    [
     "tikaṇḍa",
@@ -11971,7 +11989,7 @@ var family_set_json = {
     "∘"
    ]
   ],
-  "count": 138
+  "count": 139
  },
  "holy sites": {
   "data": [
@@ -15227,6 +15245,12 @@ var family_set_json = {
     "🗸"
    ],
    [
+    "iṭṭiyatthera",
+    "masc",
+    "name of a missionary monk",
+    "🗸"
+   ],
+   [
     "isidatta 1",
     "masc",
     "name of an arahant monk; lit. given to the sage",
@@ -17855,7 +17879,7 @@ var family_set_json = {
     "∘"
    ]
   ],
-  "count": 467
+  "count": 468
  },
  "names of arahants": {
   "data": [
@@ -24313,6 +24337,12 @@ var family_set_json = {
     "🗸"
    ],
    [
+    "suriyavaccasa",
+    "masc",
+    "name of a demigod; lit. with the might of the sun",
+    "🗸"
+   ],
+   [
     "suvīra",
     "masc",
     "name of a deity; lit. very heroic",
@@ -24415,7 +24445,7 @@ var family_set_json = {
     "∘"
    ]
   ],
-  "count": 183
+  "count": 184
  },
  "animals": {
   "data": [
@@ -29027,6 +29057,12 @@ var family_set_json = {
     "∘"
    ],
    [
+    "rāmagāma",
+    "masc",
+    "name of a town; lit. Rāma's village",
+    "🗸"
+   ],
+   [
     "roruka",
     "nt",
     "name of a town",
@@ -29291,7 +29327,7 @@ var family_set_json = {
     "🗸"
    ]
   ],
-  "count": 189
+  "count": 190
  },
  "ordinal numbers": {
   "data": [
@@ -29709,6 +29745,12 @@ var family_set_json = {
     "∘"
    ],
    [
+    "mahāpaccarī",
+    "fem",
+    "name of a vinaya commentary referenced by Buddhaghosa",
+    "🗸"
+   ],
+   [
     "rūpasiddhiṭīkā",
     "fem",
     "commentary on Rūpasiddhi grammar",
@@ -29787,7 +29829,7 @@ var family_set_json = {
     "∘"
    ]
   ],
-  "count": 25
+  "count": 26
  },
  "astronomical terms": {
   "data": [
@@ -34636,6 +34678,12 @@ var family_set_json = {
     "🗸"
    ],
    [
+    "sassatavāda 2",
+    "adj",
+    "who is a proponent of eternalism; believing in the doctrine of an everlasting soul",
+    "🗸"
+   ],
+   [
     "sassatavādī",
     "masc",
     "eternalist; proponent of the doctrine of an everlasting soul; lit. speaking eternity",
@@ -34648,7 +34696,7 @@ var family_set_json = {
     "🗸"
    ]
   ],
-  "count": 6
+  "count": 7
  },
  "names of mountains": {
   "data": [
@@ -35650,6 +35698,12 @@ var family_set_json = {
     "∘"
    ],
    [
+    "mahāpaccarī",
+    "fem",
+    "name of a vinaya commentary referenced by Buddhaghosa",
+    "🗸"
+   ],
+   [
     "moggallāna 3",
     "nt",
     "name of an eminent grammatical treatise",
@@ -35710,7 +35764,7 @@ var family_set_json = {
     "∘"
    ]
   ],
-  "count": 15
+  "count": 16
  },
  "seven grains": {
   "data": [

@@ -5,7 +5,7 @@ var family_idiom_json = {
    [
     "kaṅkhaṃ vitarati",
     "idiom",
-    "dispels doubt; removes uncertainty",
+    "dispels doubt; removes uncertainty; lit. crosses doubt",
     "🗸"
    ],
    [
@@ -933,7 +933,7 @@ var family_idiom_json = {
   ]
  },
  "ahaṃ": {
-  "count": 145,
+  "count": 146,
   "data": [
    [
     "aggohamasmi",
@@ -1720,6 +1720,12 @@ var family_idiom_json = {
     "sandhi",
     "I am the same",
     "∘"
+   ],
+   [
+    "sādhāhaṃ",
+    "sandhi",
+    "it would be good if I",
+    "🗸"
    ],
    [
     "sāvakohamasmi",
@@ -22647,7 +22653,7 @@ var family_idiom_json = {
    [
     "kaṅkhaṃ vitarati",
     "idiom",
-    "dispels doubt; removes uncertainty",
+    "dispels doubt; removes uncertainty; lit. crosses doubt",
     "🗸"
    ]
   ]
@@ -27438,7 +27444,7 @@ var family_idiom_json = {
   ]
  },
  "sādhu": {
-  "count": 4,
+  "count": 5,
   "data": [
    [
     "na hi sādhu",
@@ -27456,6 +27462,12 @@ var family_idiom_json = {
     "sādhāvuso",
     "sandhi",
     "that's good friend; it is good brothers",
+    "🗸"
+   ],
+   [
+    "sādhāhaṃ",
+    "sandhi",
+    "it would be good if I",
     "🗸"
    ],
    [

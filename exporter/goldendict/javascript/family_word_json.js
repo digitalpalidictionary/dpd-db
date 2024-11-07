@@ -357,7 +357,7 @@ var family_word_json = {
     "nātikāḷika",
     "adj",
     "not too black; not too dark-skinned",
-    "🗴"
+    "🗸"
    ],
    [
     "nātikāḷī",
@@ -3261,8 +3261,8 @@ var family_word_json = {
    [
     "ajiya",
     "adj",
-    "without bow-string",
-    "🗴"
+    "without a bow-string; unstrung",
+    "🗸"
    ],
    [
     "jiyā",
@@ -6810,8 +6810,8 @@ var family_word_json = {
    [
     "atela",
     "adj",
-    "without oil",
-    "🗴"
+    "without oil; lit. from sesame",
+    "🗸"
    ],
    [
     "atelatta",
@@ -13628,6 +13628,12 @@ var family_word_json = {
     "🗴"
    ],
    [
+    "mānusī 2",
+    "adj",
+    "womanly; feminine",
+    "🗸"
+   ],
+   [
     "mānussaka",
     "adj",
     "human",
@@ -13646,7 +13652,7 @@ var family_word_json = {
     "🗸"
    ]
   ],
-  "count": 33
+  "count": 34
  },
  "mama": {
   "data": [
@@ -25766,7 +25772,7 @@ var family_word_json = {
    [
     "rattiya",
     "adj",
-    "consisting of so many nights; having nights",
+    "with days; consisting of so many nights; having nights",
     "🗸"
    ],
    [
@@ -30642,6 +30648,12 @@ var family_word_json = {
  "vaccas": {
   "data": [
    [
+    "vaccas",
+    "masc",
+    "power; might; splendour",
+    "∘"
+   ],
+   [
     "vaccasī",
     "adj",
     "lustrous; glorious; splendid",
@@ -30654,7 +30666,7 @@ var family_word_json = {
     "🗸"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "vajira": {
   "data": [
