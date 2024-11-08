@@ -10,7 +10,6 @@ from tools.printer import p_title
 from tools.tsv_read_write import read_tsv_dot_dict, write_tsv_dot_dict
 
 
-
 def add_to_db():
 
     p_title("add additions to db")

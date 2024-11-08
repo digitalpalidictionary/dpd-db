@@ -220,3 +220,4 @@ time_log.png
 tmp/
 exporter/pdf/output/
 exporter/word_trees/
+exporter/pdf/typst_data_lite.typ
