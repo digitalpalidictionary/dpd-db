@@ -698,6 +698,7 @@ downcastness
 doziness
 DPD
 DPR
+Dravidian
 dreadlocked
 dronas
 druh
@@ -760,9 +761,11 @@ esteeming
 eternalism
 eternalist
 ettāvatā
+etymological
 euphonic
 eva
 evaṃ
+evenness
 everythingness
 excretions
 exfoliant
@@ -1072,6 +1075,7 @@ jujuba
 Jumna
 juncea
 just-so-much-ness
+juvenility
 k
 Kaasi
 Kacc
@@ -1176,6 +1180,7 @@ knotless
 Knowledges
 ko
 Kokanada
+Koḷivisa
 Koliyan
 Koḷiyan
 Koliyans
@@ -2102,6 +2107,7 @@ soilless
 sojourning
 soko
 soma
+Soṇa
 Soṇadaṇḍa
 Soṇadaṇḍa's
 sonant
@@ -2690,5 +2696,6 @@ yojana
 yojanas
 yoking
 you're
+youthfulness
 zizanioides
 Ziziphus
