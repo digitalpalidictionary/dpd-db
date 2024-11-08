@@ -70,15 +70,19 @@ class GlobalVars():
     word_fam_templ = env.get_template("lite_family_word.typ")
     compound_fam_templ = env.get_template("lite_family_compound.typ")
     idiom_fam_templ = env.get_template("lite_family_idiom.typ")
+    bibliography_templ = env.get_template("bibliography.typ")
     date = year_month_day_dash()
 
     # abbreviations
     abbreviations_tsv = read_tsv_dot_dict(pth.abbreviations_tsv_path)
-    abbreviations = []
+    abbreviations_data = []
     for i in abbreviations_tsv:
         # leave out book names which have a double capital JA 
         if not re.findall(r"[A-Z][A-z]", i.abbrev):
-            abbreviations.append(i)
+            abbreviations_data.append(i)
+
+    # bibliography
+    bibliography_data = read_tsv_dot_dict(pth.bibliography_tsv_path)
 
     # colours
     colour1: str = "#00A4CC"
@@ -96,8 +100,8 @@ def make_abbreviations(g: GlobalVars):
 
     g.typst_data.append("#heading(level: 1)[Abbreviations]\n")
     g.typst_data.append("#set par(first-line-indent: 0pt, hanging-indent: 0em, spacing: 0.65em)\n")
-    g.typst_data.append(g.abbreviations_templ.render(data=g.abbreviations))
-    p_yes(len(g.abbreviations))
+    g.typst_data.append(g.abbreviations_templ.render(data=g.abbreviations_data))
+    p_yes(len(g.abbreviations_data))
 
 
 def make_pali_to_english(g: GlobalVars):
@@ -234,6 +238,19 @@ def make_idiom_families(g: GlobalVars):
     p_yes(len(g.idioms_fam_db))
 
 
+def make_bibliography(g: GlobalVars):
+    p_green("making bibliography")
+
+    g.used_letters_single = []
+    g.typst_data.append("#pagebreak()\n")
+    g.typst_data.append("#heading(level: 1)[Bibliography]\n")
+    g.typst_data.append("An incomplete list of references works")
+
+    g.typst_data.append(g.bibliography_templ.render(data=g.bibliography_data))
+    
+    p_yes(len(g.bibliography_data))
+
+
 def clean_up_typst_data(g: GlobalVars):
     p_green("cleaning up")
 
@@ -294,6 +311,7 @@ def main():
     make_word_families(g)
     make_compound_families(g)
     make_idiom_families(g)
+    make_bibliography(g)
     # clean_up_typst_data(g)
     save_typist_file(g)
     export_to_pdf(g)

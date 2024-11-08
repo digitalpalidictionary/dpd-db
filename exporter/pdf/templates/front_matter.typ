@@ -48,22 +48,61 @@
   *Digital Pāḷi Dictionary*
 ])
 
-#align(left, text(12pt)[
-  Created by Bodhirasa Bhikkhu
-])
-
-#align(left, text(8pt)[
-  Updated on #text(rgb("#00A4CC"))[*#datetime.today().display()*]
-  // Updated on *#datetime.today().display()*
+#align(left, text(15pt)[
+  Created by Bodhirasa
 ])
 
 #pagebreak()
 
 // copyright page
 
-Digital Pāḷi Dictionary is a work in progress, made available for testing and feedback.
+#align(center + top)[
+  Digital Pāḷi Dictionary is a work in progress, made available for testing and feedback purposes.
 
-Copyright information goes here...
+  Last updated on *#datetime.today().display()*
+]
+
+#align(center + horizon)[ 
+  DPD Online
+  #link("https://www.dpdict.net")[#blue("https://www.dpdict.net")]
+
+  User Manual
+  #link("https://digitalpalidictionary.github.io/")[#blue("https://digitalpalidictionary.github.io/")]
+
+  Github Repository
+  #link("https://github.com/digitalpalidictionary/dpd-db")[#blue("https://github.com/digitalpalidictionary/dpd-db")]
+]
+
+#align(center + bottom)[
+
+  Digital Pāḷi Dictionary is made available under a
+
+  *Creative Commons \
+  Attribution-NonCommercial-ShareAlike \
+  4.0 International License* \
+
+  #image(
+    "images/by-nc-sa.png",
+    format: "png",
+    width: auto,
+    height: auto,
+    alt: "CC-BY-NC-SA",
+  )
+
+  #link("https://creativecommons.org/licenses/by-nc-sa/4.0/")[license details here]
+]
+
+#pagebreak()
+
+// quote
+
+#align(center + horizon)[
+  tasmātiha, bhikkhave, evaṃ sikkhitabbaṃ – \
+  attharasassa dhammarasassa vimuttirasassa lābhino bhavissāmāti. \
+  evañhi vo, bhikkhave, sikkhitabbanti. \
+  #text(size: 0.8em)[#blue[Aṅguttara Nikaya 1.335]]
+]
+
 #pagebreak()
 
 // outline
