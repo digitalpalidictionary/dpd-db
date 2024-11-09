@@ -20,7 +20,7 @@ def main():
         if i.meaning_1:
             test = "✓"
         else:
-            test = "✕"
+            test = "𐄂"
         
         row = [i.id, i.lemma_1, i.pos, meaning, test, ""]
         data.append(row)

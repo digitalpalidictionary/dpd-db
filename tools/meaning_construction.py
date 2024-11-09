@@ -150,6 +150,6 @@ def degree_of_completion(i: DpdHeadword, html=True):
                 return "∘"
     else:
         if html:
-            return """<span class="gray">✕</span>"""
+            return """<span class="gray">𐄂</span>"""
         else:
-            return "✕"
+            return "𐄂"

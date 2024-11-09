@@ -53,7 +53,7 @@ def main():
         if i.meaning_1:
             test = "✓"
         else:
-            test = "✕"
+            test = "𐄂"
 
         if i.example_1:
             example = i.example_1
