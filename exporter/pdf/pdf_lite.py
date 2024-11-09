@@ -71,6 +71,7 @@ class GlobalVars():
     compound_fam_templ = env.get_template("lite_family_compound.typ")
     idiom_fam_templ = env.get_template("lite_family_idiom.typ")
     bibliography_templ = env.get_template("bibliography.typ")
+    thanks_templ = env.get_template("thanks.typ")
     date = year_month_day_dash()
 
     # abbreviations
@@ -83,6 +84,20 @@ class GlobalVars():
 
     # bibliography
     bibliography_data = read_tsv_dot_dict(pth.bibliography_tsv_path)
+
+    # thanks
+    thanks_tsv = read_tsv_dot_dict(pth.thanks_tsv_path)
+    thanks_data = []
+    for i in thanks_tsv:
+        # underlines <i> > __ 
+        i.what = i.what.replace("<i>", "_").replace("</i>", "_")
+        # links
+        i.what = i.what \
+            .replace('<a href=”', '#link("') \
+            .replace('”>', '")[') \
+            .replace('</a>', ']')
+        thanks_data.append(i)
+    # 'for integrating DPD into <a href=”www.thebuddhaswords.net”>www.thebuddhaswords.net</a> & <a href=”www.suttacentral.net”>www.suttacentral.net</a>'
 
     # colours
     colour1: str = "#00A4CC"
@@ -239,7 +254,7 @@ def make_idiom_families(g: GlobalVars):
 
 
 def make_bibliography(g: GlobalVars):
-    p_green("making bibliography")
+    p_green("compiling bibliography")
 
     g.used_letters_single = []
     g.typst_data.append("#pagebreak()\n")
@@ -249,6 +264,18 @@ def make_bibliography(g: GlobalVars):
     g.typst_data.append(g.bibliography_templ.render(data=g.bibliography_data))
     
     p_yes(len(g.bibliography_data))
+
+
+def make_thanks(g: GlobalVars):
+    p_green("compiling thanks")
+
+    g.used_letters_single = []
+    g.typst_data.append("#pagebreak()\n")
+    g.typst_data.append("#heading(level: 1)[Thanks]\n")
+
+    g.typst_data.append(g.thanks_templ.render(data=g.thanks_data))
+
+    p_yes(len(g.thanks_data))
 
 
 def clean_up_typst_data(g: GlobalVars):
@@ -312,6 +339,7 @@ def main():
     make_compound_families(g)
     make_idiom_families(g)
     make_bibliography(g)
+    make_thanks(g)
     # clean_up_typst_data(g)
     save_typist_file(g)
     export_to_pdf(g)

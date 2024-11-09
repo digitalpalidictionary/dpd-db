@@ -25,9 +25,26 @@
 )[#content]
 
 #let gray(content) = text(
-  rgb("#4c4c4c"),
-  weight: "light",
-)[#content]
+    rgb("#4c4c4c"),
+    weight: "light",
+  )[#content]
+}
+
+#let gray-small(content) = text(
+    rgb("#919191"),
+    weight: "light",
+    size: 0.75em
+  )[#content]
+}
+
+#let google-form(url) = {
+  text(
+    rgb("#919191"),
+    size: 0.75em,
+    link(url)[🖉]
+  )
+}
+
 
 #let thin-line() = line(length: 100%, stroke: 0.1pt + rgb("00A4CC"))
 

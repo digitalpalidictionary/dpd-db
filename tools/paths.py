@@ -216,7 +216,6 @@ class ProjectPaths:
         self.whitney_mdict_path = base_dir / "exporter/other_dictionaries/mdict/"
 
         # exporter/pdf
-        self.typst_output_dir = base_dir / "exporter/pdf/output/"
         self.typst_data_path = base_dir / "exporter/pdf/typst_data.typ"
         self.typst_pdf_path = base_dir / "exporter/share/dpd.pdf"
         self.typst_lite_data_path = base_dir / "exporter/pdf/typst_data_lite.typ"
@@ -425,7 +424,6 @@ class ProjectPaths:
             self.stash_dir,
             self.temp_dir,
             self.tpr_output_dir,
-            self.typst_output_dir,
             self.word_count_dir,
         ]:
             d.mkdir(parents=True, exist_ok=True)
