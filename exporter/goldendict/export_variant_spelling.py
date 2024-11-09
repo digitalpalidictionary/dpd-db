@@ -65,7 +65,7 @@ def test_and_make_variant_dict(pth: ProjectPaths) -> dict:
 
             # test if variant occurs twice
             if variant in variant_dict:
-                p_red("ERROR: dupes! {variant}")
+                p_red(f"ERROR: dupes! {variant}")
 
             # all ok then add
             else:
@@ -198,3 +198,9 @@ def generate_spelling_data_list(
         spelling_data_list.append(res)
 
     return spelling_data_list, size_dict
+
+
+if __name__ == "__main__":
+    pth = ProjectPaths()
+    ru_path = RuPaths()
+    generate_variant_spelling_html(pth, ru_path)
