@@ -81,6 +81,7 @@ def main():
 
     if not config_test("exporter", "make_grammar", "yes"):
         p_green("disabled in config.ini")
+        toc()
         return
     
     g = ProgData()

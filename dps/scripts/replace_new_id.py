@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+"""
+replace new id with old id according to additions.tsv in the backup files sbs and ru
+"""
+
 import csv
 
 from tools.paths import ProjectPaths
@@ -25,7 +30,7 @@ def replace_ids(pth: ProjectPaths, custom_path: str = ""):
         with open(file_path, 'w', newline='', encoding='utf-8') as file:
             for line in lines:
                 # Preserve the original line formatting
-                original_line = line.strip()
+                # original_line = line.strip()
 
                 # Split by tabs but preserve quoted parts properly
                 columns = line.strip().split('\t')
@@ -39,10 +44,13 @@ def replace_ids(pth: ProjectPaths, custom_path: str = ""):
                 # Replace only if ID is found in the additions dictionary
                 if id_to_replace in additions_dict:
                     new_id = additions_dict[id_to_replace]
-                    print(f"Found match: Replacing {repr(id_to_replace)} with {repr(new_id)}")
+                    if new_id:
+                        print(f"Found match: Replacing {repr(id_to_replace)} with {repr(new_id)}")
 
-                    # Replace the first column (ID) and keep the rest of the row intact
-                    columns[0] = f'"{new_id}"'
+                        # Replace the first column (ID) and keep the rest of the row intact
+                        columns[0] = f'"{new_id}"'
+                    else:
+                        print(f"word not added yet: {repr(id_to_replace)}")
 
                 # Join the columns and write back the line, preserving original formatting
                 file.write('\t'.join(columns) + '\n')

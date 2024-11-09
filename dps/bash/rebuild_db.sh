@@ -3,6 +3,7 @@
 # build dpd.db from scratch or update existing one using backup_tsv with additions and corrections and making goldendict 
 
 set -e
+test -e dpd.db || touch dpd.db
 
 git fetch
 
@@ -61,7 +62,14 @@ while true; do
     read yn
     case $yn in
         [Yy]* )
-            scripts/bash/build_db.sh
+            # build dpd.db from scratch using backup_tsv
+            scripts/build/db_rebuild_from_tsv.py
+            db/bold_definitions/update_bold_definitions_db.py
+            scripts/add/add_additions_to_db.py
+            git checkout origin/main -- gui/additions.tsv
+            scripts/bash/generate_components.sh
+            # After setting db_rebuild to "yes" in db_rebuild_from_tsv.py, we change it back after the bash is done.
+            python -c "from tools.configger import config_update; config_update('regenerate', 'db_rebuild', 'no')"
             dps/scripts/add_combined_view.py
             gui/corrections_check_feedback.py
             git checkout -- pyproject.toml
@@ -79,19 +87,6 @@ while true; do
     esac
 done
 
-
-while true; do
-    echo -ne "\033[1;36m Add new words?\033[0m"
-    read yn
-    case $yn in
-        [Yy]* )
-            scripts/add/add_additions_to_db.py
-            git checkout origin/main -- gui/additions.tsv
-            break;;
-        * )
-            break;;
-    esac
-done
 
 while true; do
     echo -ne "\033[1;36m Make dpd?\033[0m"

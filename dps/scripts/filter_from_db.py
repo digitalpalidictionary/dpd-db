@@ -113,11 +113,11 @@ def filtering_words():
 
 
 def filter_and_save_txt():
-    # filtering words with sbs_category and comp
+    # filtering words with sbs_patimokkha and comp
     db = db_session.query(DpdHeadword).outerjoin(
     SBS, DpdHeadword.id == SBS.id
         ).filter(
-            SBS.sbs_category != "",
+            SBS.sbs_patimokkha == "pat",
             DpdHeadword.compound_type != "",
             DpdHeadword.grammar.like('%, comp%'),
         ).all()
@@ -157,10 +157,14 @@ def filter_and_save_txt():
     #     for construction in constructions:
     #         file.write(f"{construction}\n")
 
+    lemma_1s = [word.lemma_1 for word in db]
+
     # save constructions to temp.tsv
     with open(f"{pth.temp_dir}/temp.tsv", "w") as file:
-        for original_construction in original_constructions:
-            file.write(f"{original_construction}\n")
+        file.write("original_construction\tlemma_1\n")  # Add header
+        for original_construction, lemma_1 in zip(original_constructions, lemma_1s):
+            file.write(f"{original_construction}\t{lemma_1}\n")
+
 
     print("filtered constructions saved to temp_dir")
 

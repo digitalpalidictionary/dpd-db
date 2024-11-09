@@ -15,7 +15,7 @@ from tools.configger import config_test
 
 def main():
     tic()
-    print("[bright_yellow] mark all which have sbs_category changing ebt_count")
+    print("[bright_yellow]marking all which have sbs_category changing ebt_count")
     
     if not config_test("dictionary", "show_ebt_count", "yes"):
         print("[green]disabled in config.ini")

@@ -7920,21 +7920,21 @@ bjt_texts: dict[str, [list[str]]] = {
         "dn-3-10.json",
     ],
     "mn1": [
-        "mn-1-1.json",
+        "mn-1.json",
         "mn-1-2.json",
         "mn-1-3.json",
         "mn-1-4.json",
         "mn-1-5.json"
     ],
     "mn2": [
-        "mn-2-1.json",
+        "mn-2.json",
         "mn-2-2.json",
         "mn-2-3.json",
         "mn-2-4.json",
         "mn-2-5.json"
     ],
     "mn3": [
-        "mn-3-1.json",
+        "mn-3.json",
         "mn-3-2.json",
         "mn-3-3.json",
         "mn-3-4.json",

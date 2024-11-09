@@ -40,7 +40,6 @@ def main():
         return
 
     tic()
-    p_title("extracting deconstructor output")
     # Ensure that both input_archive and output_directory are provided
     if len(sys.argv) != 3:
         p_red("Usage: python extract_archive.py <input_archive> <output_directory>")

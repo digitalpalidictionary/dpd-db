@@ -462,6 +462,8 @@ if __name__ == "__main__":
 
     #! change the prompt to latest version from the gui function
 
+    #! also add removing all words which has ru_meaning_raw and does not have meaning_1 and ru_meaning
+
     # ru_meaning_generating()
 
     # roots_meaning_generating("pali")

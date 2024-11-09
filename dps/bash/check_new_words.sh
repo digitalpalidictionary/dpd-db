@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
-# cheking changed words, replacing id from additions
+# replacing id from additions, cheking changed words
 
 exec > >(tee "/home/deva/logs/check_new_words.log") 2>&1
+
+dps/scripts/backup_all_dps.py
 
 # Define color and style codes
 bold=$(tput bold)
@@ -12,6 +14,8 @@ red=$(tput setaf 1)
 reset=$(tput sgr0)
 
 echo "${bold}${yellow}Filter the list of words${reset}"
+
+libreoffice gui/delated_words_history.tsv
 
 dps/scripts/compare_changed_id.py
 
@@ -31,3 +35,6 @@ else
     echo "${bold}${red}No changes applied. Exiting.${reset}"
 fi
 
+scripts/backup/backup_ru_sbs.py
+
+dps/scripts/replace_new_id.py
