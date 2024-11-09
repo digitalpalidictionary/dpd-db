@@ -173,6 +173,7 @@ Anogeissus
 Anomasutta
 Anopamā
 Anotatta
+another's
 Anottatta
 antidysenterica
 antithetic
@@ -328,6 +329,7 @@ benjamin
 besprinkled
 besprinkles
 besprinkling
+bestowal
 bestower
 bewails
 bh
@@ -688,6 +690,7 @@ divādigaṇa
 divaricata
 divisively
 DN
+doesn't
 Dolichos
 doṇa
 doṇas
@@ -1727,6 +1730,7 @@ Pentapatera
 Pentapetes
 pentaphylla
 Pentaptera
+perceiver
 percipient
 pericarp
 perpetration
@@ -1969,6 +1973,7 @@ sāmaṇera
 Samantapāsādikā
 samāpatti
 samarangense
+Sāmāvatī
 Sambac
 Sambari
 Sambhava
@@ -2093,6 +2098,7 @@ slanderousness
 slayed
 śloka
 sluggishness
+smoulders
 SN
 SN22.22
 SN4

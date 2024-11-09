@@ -1107,7 +1107,7 @@ var family_set_json = {
    [
     "itvā",
     "suffix",
-    "absolutive suffix denoting an ongoing, concurrent or completed action",
+    "absolutive suffix denoting a concurrent or completed action",
     "✓"
    ],
    [
@@ -2373,13 +2373,13 @@ var family_set_json = {
    [
     "tvā",
     "suffix",
-    "absolutive suffix denoting an ongoing, concurrent or completed action",
+    "absolutive suffix denoting a concurrent or completed action",
     "✓"
    ],
    [
     "tvāna",
     "suffix",
-    "absolutive suffix denoting an ongoing, concurrent or completed action",
+    "absolutive suffix denoting a concurrent or completed action",
     "✓"
    ],
    [
@@ -8097,7 +8097,7 @@ var family_set_json = {
    [
     "parikkhīṇabhavasaññojana",
     "adj",
-    "who has cut the bond to existence; who has worn away the bonds of being; who has exhausted the fetter of existence; epithet of an arahant",
+    "who has worn away the bonds of being; who has exhausted the fetter of existence; epithet of an arahant",
     "✓"
    ],
    [
@@ -14216,6 +14216,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "koḷivisa 1",
+    "masc",
+    "name of a family clan",
+    "✓"
+   ],
+   [
     "gagga",
     "masc",
     "name of the family clan of Aṅgulimāla",
@@ -14348,7 +14354,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 33
+  "count": 34
  },
  "names of countries": {
   "data": [
@@ -15764,12 +15770,6 @@ var family_set_json = {
     "kosiya 3",
     "masc",
     "name of an arahant monk; lit. from a cocoon",
-    "∘"
-   ],
-   [
-    "koḷivisa 1",
-    "masc",
-    "name of a family clan",
     "∘"
    ],
    [
@@ -17335,7 +17335,7 @@ var family_set_json = {
    [
     "saṅgāmaji 2",
     "masc",
-    "name of a monk; lit. winner in war",
+    "name of a monk; lit. winner in war; victor in battle",
     "✓"
    ],
    [
@@ -17897,7 +17897,7 @@ var family_set_json = {
     "∘"
    ]
   ],
-  "count": 468
+  "count": 467
  },
  "names of arahants": {
   "data": [
@@ -31513,12 +31513,6 @@ var family_set_json = {
     "✓"
    ],
    [
-    "koḷivisa 1",
-    "masc",
-    "name of a family clan",
-    "∘"
-   ],
-   [
     "citta 2.4",
     "masc",
     "name of a householder lay-disciple; foremost lay disciple in giving Dhamma talks",
@@ -31759,7 +31753,7 @@ var family_set_json = {
     "∘"
    ]
   ],
-  "count": 56
+  "count": 55
  },
  "verbal endings": {
   "data": [
@@ -32109,6 +32103,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "dassanasampadā",
+    "fem",
+    "attainment of vision; success in seeing; epithets of stream entry",
+    "✓"
+   ],
+   [
     "dassanasampanna",
     "adj",
     "endowed with insight; who has vision; wise; epithet of a stream enterer",
@@ -32211,7 +32211,7 @@ var family_set_json = {
     "∘"
    ]
   ],
-  "count": 27
+  "count": 28
  },
  "nine types of suttas": {
   "data": [
@@ -33959,7 +33959,7 @@ var family_set_json = {
    [
     "itvā",
     "suffix",
-    "absolutive suffix denoting an ongoing, concurrent or completed action",
+    "absolutive suffix denoting a concurrent or completed action",
     "✓"
    ],
    [
@@ -34073,13 +34073,13 @@ var family_set_json = {
    [
     "tvā",
     "suffix",
-    "absolutive suffix denoting an ongoing, concurrent or completed action",
+    "absolutive suffix denoting a concurrent or completed action",
     "✓"
    ],
    [
     "tvāna",
     "suffix",
-    "absolutive suffix denoting an ongoing, concurrent or completed action",
+    "absolutive suffix denoting a concurrent or completed action",
     "✓"
    ],
    [
@@ -35184,6 +35184,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "nihuṃhuṅka",
+    "adj",
+    "not humphy; not huffy; not disgruntled; not disapproving; lit. not humph humph",
+    "✓"
+   ],
+   [
     "paṭapaṭa",
     "ind",
     "crackling sound",
@@ -35248,9 +35254,15 @@ var family_set_json = {
     "ind",
     "oink; squeal; sound of a pig",
     "✓"
+   ],
+   [
+    "huṃhuṅka",
+    "adj",
+    "making a 'humph' sound; lit. humph humph",
+    "✓"
    ]
   ],
-  "count": 32
+  "count": 34
  },
  "books of the Aṅguttara Nikāya": {
   "data": [

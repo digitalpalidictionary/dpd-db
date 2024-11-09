@@ -360,7 +360,7 @@ var family_idiom_json = {
    [
     "karaṇīyamattānaṃ",
     "sandhi",
-    "something to be done in oneself; anything should be done in himself",
+    "something more to be done within oneself",
     "✓"
    ],
    [
@@ -636,6 +636,23 @@ var family_idiom_json = {
     "yatthākicchena",
     "sandhi",
     "where without difficulty; where easily; where without hardship",
+    "✓"
+   ]
+  ]
+ },
+ "kusala": {
+  "count": 2,
+  "data": [
+   [
+    "iccetaṃ kusalaṃ",
+    "idiom",
+    "then this is good; then it is OK",
+    "✓"
+   ],
+   [
+    "kusalaṃ pucchi",
+    "idiom",
+    "asked how one is; enquired about one's health",
     "✓"
    ]
   ]
@@ -2225,7 +2242,7 @@ var family_idiom_json = {
    [
     "alameva",
     "sandhi",
-    "it is enough (to); it is quite enough (to)",
+    "it is enough (to); it is quite enough (to); that's quite sufficient (to)",
     "✓"
    ],
    [
@@ -5369,7 +5386,7 @@ var family_idiom_json = {
   ]
  },
  "añña": {
-  "count": 32,
+  "count": 33,
   "data": [
    [
     "añña ... añña",
@@ -5402,9 +5419,15 @@ var family_idiom_json = {
     "✓"
    ],
    [
-    "aññamaññassa",
+    "aññamaññassa 1",
     "sandhi",
-    "each other's; one to another",
+    "each other's; one of the other",
+    "✓"
+   ],
+   [
+    "aññamaññassa 2",
+    "sandhi",
+    "one for another; one to another",
     "✓"
    ],
    [
@@ -13927,7 +13950,7 @@ var family_idiom_json = {
    [
     "alameva",
     "sandhi",
-    "it is enough (to); it is quite enough (to)",
+    "it is enough (to); it is quite enough (to); that's quite sufficient (to)",
     "✓"
    ],
    [
@@ -19653,23 +19676,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "kusala": {
-  "count": 2,
-  "data": [
-   [
-    "iccetaṃ kusalaṃ",
-    "idiom",
-    "then this is good; then it is OK",
-    "✓"
-   ],
-   [
-    "kusalaṃ pucchi",
-    "idiom",
-    "asked how one is; enquired about one's health",
-    "✓"
-   ]
-  ]
- },
  "ete": {
   "count": 11,
   "data": [
@@ -23340,7 +23346,7 @@ var family_idiom_json = {
    [
     "karaṇīyamattānaṃ",
     "sandhi",
-    "something to be done in oneself; anything should be done in himself",
+    "something more to be done within oneself",
     "✓"
    ]
   ]

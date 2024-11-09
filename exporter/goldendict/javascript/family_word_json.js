@@ -856,7 +856,7 @@ var family_word_json = {
    [
     "akusala 1",
     "adj",
-    "unskilful; incompetent; inexperienced",
+    "(of a person or animal) unskilful; incompetent; inexperienced",
     "✓"
    ],
    [
@@ -886,7 +886,7 @@ var family_word_json = {
    [
     "kusala 1",
     "adj",
-    "healthy; beneficial; useful; good; wholesome",
+    "healthy; beneficial; useful; good; wholesome; karmically profitable",
     "✓"
    ],
    [
@@ -1785,6 +1785,12 @@ var family_word_json = {
     "✕"
    ],
    [
+    "sāgāra 2",
+    "nt",
+    "householder; layperson; lit. with a house",
+    "✓"
+   ],
+   [
     "sāmagga",
     "masc",
     "(vinaya) reconciliation; reaching peace; reunification",
@@ -1809,7 +1815,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 45
+  "count": 46
  },
  "guṇa": {
   "data": [
@@ -6697,6 +6703,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "hatthika",
+    "adj",
+    "having elephants; consisting of so many elephants",
+    "✓"
+   ],
+   [
     "hatthinikā",
     "fem",
     "female elephant",
@@ -6727,7 +6739,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 21
+  "count": 22
  },
  "heṭṭhā": {
   "data": [
@@ -27352,6 +27364,23 @@ var family_word_json = {
   ],
   "count": 6
  },
+ "pālāsa": {
+  "data": [
+   [
+    "palāsa 1.3",
+    "masc",
+    "(of footwear) sole",
+    "∘"
+   ],
+   [
+    "palāsika",
+    "adj",
+    "(of footwear) with a sole",
+    "✓"
+   ]
+  ],
+  "count": 2
+ },
  "palita": {
   "data": [
    [
@@ -31852,9 +31881,15 @@ var family_word_json = {
     "fem",
     "pastry; cake",
     "✓"
+   ],
+   [
+    "sakkhalikā 3",
+    "fem",
+    "fish scale",
+    "✕"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "sakha": {
   "data": [
@@ -32628,7 +32663,7 @@ var family_word_json = {
    [
     "savara",
     "masc",
-    "an aboriginal tribe; a savage; a member of the Dravidian people living in southern India",
+    "savage; barbarian",
     "✓"
    ]
   ],
