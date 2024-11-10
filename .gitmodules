@@ -18,6 +18,7 @@
 [submodule "resources/bjt"]
 	path = resources/bjt
 	url = https://github.com/pathnirvana/tipitaka.lk.git
-[submodule "resources/deconstructor_output_archive"]
-	path = resources/deconstructor_output_archive
+
+[submodule "resources/deconstructor_output"]
+	path = resources/deconstructor_output
 	url = https://github.com/digitalpalidictionary/deconstructor_output.git

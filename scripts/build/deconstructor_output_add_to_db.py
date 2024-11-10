@@ -29,6 +29,7 @@ def main():
 
     if not config_test("deconstructor", "use_premade", "yes"):
         p_green_title("disabled in config.ini")
+        toc()
         return
     
     p_green("setting up data")
@@ -38,7 +39,7 @@ def main():
     
     # top_five_dict contains the top five most likely splits
     # from the deconstruction process 
-    with open(pth.deconstructor_output_repo) as f:
+    with open(pth.deconstructor_output_json) as f:
         top_five_dict = json.load(f)
     
     p_yes("ok")

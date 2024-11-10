@@ -287,7 +287,9 @@ class ProjectPaths:
         self.tpr_release_path = base_dir / "resources/tpr_downloads/release_zips/dpd.zip"
 
         # resources/deconstructor_output repo
-        self.deconstructor_output_repo = base_dir / "resources/deconstructor_output/deconstructor_output.json"
+        self.deconstructor_output_json = base_dir / "resources/deconstructor_output/deconstructor_output.json"
+        self.deconstructor_output_tar_path = base_dir / "resources/deconstructor_output/deconstructor_output.json.tar.gz"
+        self.deconstructor_output_dir = base_dir / "resources/deconstructor_output/"
 
         # db/deconstructor/assets
         self.all_inflections_set_path = base_dir / "db/deconstructor/assets/all_inflections_set"
