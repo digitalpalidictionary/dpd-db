@@ -4100,7 +4100,7 @@ var family_idiom_json = {
    [
     "evaṃ santāyaṃ",
     "idiom",
-    "in this case; this being the case",
+    "in this situation; this being the case",
     "✓"
    ],
    [
@@ -9673,7 +9673,7 @@ var family_idiom_json = {
    [
     "evaṃ santāyaṃ",
     "idiom",
-    "in this case; this being the case",
+    "in this situation; this being the case",
     "✓"
    ],
    [
@@ -11630,7 +11630,7 @@ var family_idiom_json = {
    [
     "tāvatakvassa",
     "sandhi",
-    "as that long his; as that much his",
+    "that long (is) his; that much (is) his",
     "✓"
    ],
    [
@@ -12345,7 +12345,7 @@ var family_idiom_json = {
    [
     "kutettha",
     "sandhi",
-    "how in this matter?; what in this regard?; lit. from where here",
+    "how in this matter?; what in this regard?; lit. from what here",
     "✓"
    ],
    [
@@ -15761,7 +15761,7 @@ var family_idiom_json = {
    [
     "nandimukhiyā rattiyā",
     "idiom",
-    "when smiling face of dawn; lit. when happy face of the night",
+    "when the smiling face of dawn; lit. when the happy face of the night",
     "✓"
    ],
    [
@@ -15946,6 +15946,17 @@ var family_idiom_json = {
     "bhuttāvinā kataṃ",
     "idiom",
     "(vinaya) done by one who has eaten",
+    "✓"
+   ]
+  ]
+ },
+ "makasa": {
+  "count": 1,
+  "data": [
+   [
+    "kacchevāmakase",
+    "sandhi",
+    "like in a mosquito-free marsh",
     "✓"
    ]
   ]
@@ -17160,7 +17171,7 @@ var family_idiom_json = {
    [
     "tāvatakvassa",
     "sandhi",
-    "as that long his; as that much his",
+    "that long (is) his; that much (is) his",
     "✓"
    ],
    [
@@ -17691,7 +17702,7 @@ var family_idiom_json = {
    [
     "evaṃ santāyaṃ",
     "idiom",
-    "in this case; this being the case",
+    "in this situation; this being the case",
     "✓"
    ],
    [
@@ -21132,7 +21143,7 @@ var family_idiom_json = {
    [
     "nandimukhiyā rattiyā",
     "idiom",
-    "when smiling face of dawn; lit. when happy face of the night",
+    "when the smiling face of dawn; lit. when the happy face of the night",
     "✓"
    ]
   ]
@@ -21149,7 +21160,7 @@ var family_idiom_json = {
    [
     "nandimukhiyā rattiyā",
     "idiom",
-    "when smiling face of dawn; lit. when happy face of the night",
+    "when the smiling face of dawn; lit. when the happy face of the night",
     "✓"
    ],
    [
@@ -22798,17 +22809,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "makasa": {
-  "count": 1,
-  "data": [
-   [
-    "kacchevāmakase",
-    "sandhi",
-    "like in a mosquito-free marsh",
-    "✓"
-   ]
-  ]
- },
  "seda": {
   "count": 1,
   "data": [
@@ -23851,7 +23851,7 @@ var family_idiom_json = {
    [
     "kutettha",
     "sandhi",
-    "how in this matter?; what in this regard?; lit. from where here",
+    "how in this matter?; what in this regard?; lit. from what here",
     "✓"
    ],
    [

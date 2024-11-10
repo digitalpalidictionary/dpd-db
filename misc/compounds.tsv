@@ -12,10 +12,10 @@ atthāya	ind	puññatthāya
 aṭṭhika	nt	jaṅghaṭṭhika, gīvaṭṭhika	
 aṭṭhika	nt	piṭṭhiṭṭhika	
 āvi	nt	āvikamma	
-dhātu	fem	thāmadhātu, cakkhudhātu, vedanādhātu	
+dhātu	fem	thāmadhātu, cakkhudhātu, vedanādhātu, rajodhātu	
 evaṃ	adj	evaṃpaṭipanna	
 gata (meaning type)	nt	mānagata, ākāsagata, āpogata, pubbagata, viññāṇagata, tiracchānagata(?), vāyogata, kheḷagata, gūthagata	
-hetu	ind	micchāpaṭipattādhikaraṇahetu, sakkārahetu, pāricariyāhetu, brūhanāhetu, pīṇanāhetu, kucchihetu	
+hetu	ind	micchāpaṭipattādhikaraṇahetu, sakkārahetu, pāricariyāhetu, brūhanāhetu, pīṇanāhetu, kucchihetu, parasañcetanāhetu	
 indriya	nt	manindriya, jīvitindriya, kāyindriya	
 ittha	adj	itthannāma, itthabhāva	
 jātika	adj	chandajātika	
@@ -29,11 +29,11 @@ nidāna	adj	jātinidāna
 nidānaṃ	ind	bhoganidānaṃ	
 niyata	adj	micchattaniyata	
 pabhava	adj	upadhipabhava	
-paccayā	ind	kāyasañcetanāpaccayā, sammāsamādhipaccayā	
+paccayā	ind	kāyasañcetanāpaccayā, sammāsamādhipaccayā, viññāṇapaccayā	
 paro	card	parosahassa	
 pavāraṇā	fem	paccayapavāraṇā	
 sa	adj	sapubbadeva, saparivāra, sauttaracchada	
-saha	adj	sahaja, sahamacchara	
+saha	adj	sahaja, sahamacchara, sahaseyyā	
 samudaya	adj	upadhisamudaya	
 saññā	fem	aṭṭhikasaññā, adukkhamasukhasukhumasaccasaññā, anattasaññā, ālokasaññā	
 saññatti	fem	saddhammasaññatti, asaddhammasaññatti	
@@ -52,15 +52,15 @@ vādī	masc	suññatavādī
 vāsa	adj	ekarattivāsa	
 vasena	ind	pañcadvāravasena	
 vijjā	fem	mūsikavijjā	
-yathā	adj	yathābhirata, yathādhimutta	
+yathā	adj	yathābhirata, yathādhimutta, yathājacca, yathāpaṇihita	
 yāva	ind	yāvatatiyakaṃ	
 			
 GENERAL CASES	-	-	
 adhi	ind	adhideve, adhibrahmānaṃ	
 adverb in first postion	noun	divākathika, tiroraṭṭhā, tirojanapadā, rattiṃvikālabhojana, kāmaṅgama, antopadesa, bahipadesa, pacchāvacanīya, divāṭṭhāna, kathaṃkathā, micchāsati, heṭṭhābhāga, nānābhāva	
 adverb in first postion	adj	idhāgata, tatrābhirata, uddhaṃpāda, adhosira, adhoṭhita, evaṃdiṭṭhī, evaṃvihārī, dvedhābhinna, evaṃpañña, adhogama, uddhaṅgama, ajjuṇho, musāvādī	
-adverbs in cases	adv	appasaddena, cuddasavidhena, upadhipaccayā	
-adverbs, aṃ / akaṃ	ind	yadicchakaṃ, uttaridirattatirattaṃ	
+adverbs in cases	adv	appasaddena, cuddasavidhena, upadhipaccayā, antalikkhe	
+adverbs, aṃ / akaṃ	ind	yadicchakaṃ, uttaridirattatirattaṃ, dasāhaparamaṃ	
 agent nouns	masc	paṃsudhovaka	
 gerund + adj	adj	vibhajjavāda, anupādāvimutta, niggayhavādī, nivissavādī	
 gerund + noun	masc	anupādāvimokkha, upādāyarūpa, aveccappasāda	
@@ -79,7 +79,7 @@ numbers (of duration in hell)	masc	uppalaniraya
 numbers (subtraction)	adj	aḍḍhuḍḍha, aḍḍhateḷasa, aḍḍhateyya	
 ordinals	ordin	pannarasama	
 prefix plus adverb	adv	samantaṃ, saṃmukhā	
-prefix plus noun	x	apagabbha (apa gabbha), pācariya, palipatha, ajjhāvasatha	
+prefix plus noun	x	apagabbha (apa gabbha), pācariya, palipatha, ajjhāvasatha, avachidda	
 repeated words	adj	saṅghasaṅghī	
 superlatives and comparitives	adj	paṇītasaṅkhātatara	
 taddhita *ī	fem	ghoṭamukhī	
@@ -119,3 +119,5 @@ vaḷabhīratha	masc
 theyyacitta	nt		
 naehibhaddantika	adj		
 natiṭṭhabhaddantikā	adj		
+brahmadatta	masc		
+paddhagū	masc		

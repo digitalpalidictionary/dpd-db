@@ -25139,7 +25139,7 @@ var family_set_json = {
     "∘"
    ],
    [
-    "disampati",
+    "disampati 1",
     "masc",
     "name of a king; lit. lord of the directions",
     "✓"
@@ -30277,6 +30277,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "kākaṇikā",
+    "fem",
+    "cent; coin of very low value",
+    "✓"
+   ],
+   [
     "jatumāsaka",
     "masc",
     "lac coin; resin coin",
@@ -30379,7 +30385,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 22
+  "count": 23
  },
  "measures of volume": {
   "data": [
@@ -32193,6 +32199,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "saddhānusārī 1",
+    "masc",
+    "who has attained stream enterer through faith; lit. faith follower",
+    "✓"
+   ],
+   [
     "saddhānusārī 2",
     "adj",
     "who has attained stream entry though faith",
@@ -32211,7 +32223,7 @@ var family_set_json = {
     "∘"
    ]
   ],
-  "count": 28
+  "count": 29
  },
  "nine types of suttas": {
   "data": [
