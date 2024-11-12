@@ -219,7 +219,8 @@ class ProjectPaths:
         self.typst_data_path = base_dir / "exporter/pdf/typst_data.typ"
         self.typst_pdf_path = base_dir / "exporter/share/dpd.pdf"
         self.typst_lite_data_path = base_dir / "exporter/pdf/typst_data_lite.typ"
-        self.typst_lite_pdf_path = base_dir / "exporter/share/dpd-lite.pdf"
+        self.typst_lite_pdf_path = base_dir / "exporter/share/dpd.pdf"
+        self.typst_lite_zip_path = base_dir / "exporter/share/dpd-pdf.zip"
 
         # db/frequency/output
         self.ebt_raw_text_path = base_dir / "db/frequency/output/raw_text/ebts.txt"

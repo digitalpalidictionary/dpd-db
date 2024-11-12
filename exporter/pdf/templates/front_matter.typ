@@ -28,14 +28,12 @@
     rgb("#4c4c4c"),
     weight: "light",
   )[#content]
-}
 
 #let gray-small(content) = text(
     rgb("#919191"),
     weight: "light",
     size: 0.75em
   )[#content]
-}
 
 #let google-form(url) = {
   text(
@@ -88,6 +86,10 @@
 
   Github Repository
   #link("https://github.com/digitalpalidictionary/dpd-db")[#blue("https://github.com/digitalpalidictionary/dpd-db")]
+
+  Latest Release
+  #link("https://github.com/digitalpalidictionary/dpd-db/releases/latest")[#blue("https://github.com/digitalpalidictionary/dpd-db/releases/latest")]
+
 ]
 
 #align(center + bottom)[
@@ -95,18 +97,19 @@
   Digital Pāḷi Dictionary is made available under a
 
   *Creative Commons \
-  Attribution-NonCommercial-ShareAlike \
-  4.0 International License* \
+  Attribution-NonCommercial-ShareAlike 4.0 \
+  International License* \
 
   #image(
     "images/by-nc-sa.png",
     format: "png",
     width: auto,
     height: auto,
-    alt: "CC-BY-NC-SA",
+    alt: "CC BY-NC-SA",
   )
 
-  #link("https://creativecommons.org/licenses/by-nc-sa/4.0/")[license details here]
+  #link("https://creativecommons.org/licenses/by-nc-sa/4.0/")[CC BY-NC-SA 4.0 \
+  license details]
 ]
 
 #pagebreak()
