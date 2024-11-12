@@ -58,6 +58,10 @@
   author: "Bodhirasa Bhikkhu",
   date: auto
   )
+#hide[
+  #heading(level: 1)[Title Page]
+]
+
 
 #align(left, text(20pt)[
   *Digital Pāḷi Dictionary*
@@ -70,6 +74,10 @@
 #pagebreak()
 
 // copyright page
+
+#hide[
+  #heading(level: 1)[Copyright]
+]
 
 #align(center + top)[
   Digital Pāḷi Dictionary is a work in progress, made available for testing and feedback purposes.
@@ -116,6 +124,10 @@
 
 // quote
 
+#hide[
+  #heading(level: 1)[Epigraph]
+]
+
 #align(center + horizon)[
   tasmātiha, bhikkhave, evaṃ sikkhitabbaṃ – \
   attharasassa dhammarasassa vimuttirasassa lābhino bhavissāmāti. \
@@ -127,6 +139,10 @@
 
 // outline
 
+#hide[
+  #heading(level: 1)[Contents]
+]
+
 #outline(depth: 1)
 #pagebreak()
 
@@ -134,5 +150,5 @@
   numbering: "1 / 1"
 )
 
-#counter(page).update(1)
+// #counter(page).update(1)
 

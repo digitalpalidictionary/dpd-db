@@ -165,7 +165,10 @@ jobs:
       run: poetry run python exporter/kobo/kobo.py
 
     - name: Export PDF
-      run: poetry run python exporter/pdf/pdf_exporter.py
+      run: |
+        free -h  # Check available memory
+        df -h    # Check disk space
+        poetry run python exporter/pdf/pdf_exporter.py
            
     - name: Zip GoldenDict & Mdict
       run: poetry run python scripts/build/zip_goldendict_mdict.py
