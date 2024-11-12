@@ -404,6 +404,7 @@ Brahmāyu
 Brahminy
 Brassica
 brayonia
+brazenness
 brinjal
 broadcasted
 brū
@@ -516,6 +517,8 @@ conjectured
 conjee
 conjugational
 conjunct
+considerately
+contexts
 contiguously
 contortion
 contradistinction
@@ -616,6 +619,7 @@ desireless
 desirelessness
 Desmostachya
 determinative
+detestation
 detesting
 deva
 Deva
@@ -900,6 +904,7 @@ Govinda's
 grabhold
 grammarian
 grandis
+graspable
 grassless
 gratissimum
 gray
@@ -1097,6 +1102,7 @@ Kaḷāramaṭṭaka
 Kāliṅga
 Kāḷudāyi
 Kamboja
+Kambojans
 kamma
 kamma-originated
 kamma-process
@@ -1620,6 +1626,8 @@ one's
 oojeinensis
 Opāsāda
 optative
+optionality
+optionally
 ordaining
 Orissa
 Oroflylum
@@ -1905,6 +1913,7 @@ Revata
 reverable
 revilement
 reviles
+reviver
 Ṛg
 Ricinus
 rightness
@@ -1939,6 +1948,7 @@ Saccharum
 sāci
 Saddha
 sādhikā
+sagacity
 sagehood
 saha
 sahasakkha
@@ -2148,6 +2158,7 @@ straightness
 strategized
 stratiotes
 strewing
+strews
 Strychnos
 studly
 stupa
@@ -2385,6 +2396,7 @@ unbeguiled
 unbeneficial
 unbewildered
 unblameable
+uncalmly
 uncelibacy
 uncharitableness
 unchastity
@@ -2476,6 +2488,7 @@ unpresumed
 unproduced
 unproficient
 unproliferated
+unprompted
 unquantifiable
 unrehabilitatable
 unreliability
@@ -2617,6 +2630,7 @@ Vessavaṇa
 Vessavaṇa's
 Vetaric
 veṭhamissakena
+vetiver
 Veṭṭhadīpa
 Vibhaṅga
 vicāra
@@ -2656,6 +2670,7 @@ vocative
 voidness
 vokāra
 volitional
+volitionally
 vuddhi
 vulgare
 vulgaris
@@ -2705,11 +2720,3 @@ you're
 youthfulness
 zizanioides
 Ziziphus
-graspable
-sagacity
-detestation
-strews
-brazenness
-reviver
-considerately
-uncalmly

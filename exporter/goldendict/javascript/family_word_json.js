@@ -2195,8 +2195,8 @@ var family_word_json = {
    [
     "gharaṇī",
     "fem",
-    "house-wife, mistress of a house",
-    "𐄂"
+    "house-wife; mistress of a house",
+    "✓"
    ]
   ],
   "count": 5
@@ -6522,7 +6522,7 @@ var family_word_json = {
     "suṇa",
     "masc",
     "dog",
-    "𐄂"
+    "✓"
    ],
    [
     "soṇa 1",
@@ -8038,6 +8038,83 @@ var family_word_json = {
    ]
   ],
   "count": 10
+ },
+ "nagara": {
+  "data": [
+   [
+    "anagara",
+    "nt",
+    "depopulated town; town which has disappeared; city no more; lit. not a town",
+    "✓"
+   ],
+   [
+    "upanagara",
+    "nt",
+    "suburb",
+    "𐄂"
+   ],
+   [
+    "upanagaraṃ",
+    "ind",
+    "near the city",
+    "✓"
+   ],
+   [
+    "nagara 1",
+    "nt",
+    "town; city",
+    "✓"
+   ],
+   [
+    "nagara 2",
+    "nt",
+    "fortress; citadel; stronghold; fortification",
+    "∘"
+   ],
+   [
+    "nagaraka",
+    "nt",
+    "name of town; lit. small town",
+    "✓"
+   ],
+   [
+    "nāgara 1",
+    "adj",
+    "belonging to a town; from a city",
+    "✓"
+   ],
+   [
+    "nāgara 2",
+    "adj",
+    "urbane, polite",
+    "𐄂"
+   ],
+   [
+    "nāgara 3",
+    "masc",
+    "citizen",
+    "𐄂"
+   ],
+   [
+    "nāgarika 1",
+    "adj",
+    "urban; belonging to the city",
+    "∘"
+   ],
+   [
+    "nāgarika 2",
+    "adj",
+    "urbane, polite",
+    "𐄂"
+   ],
+   [
+    "nāgarika 3",
+    "masc",
+    "citizen",
+    "𐄂"
+   ]
+  ],
+  "count": 12
  },
  "naṅgula": {
   "data": [
@@ -9841,7 +9918,7 @@ var family_word_json = {
    [
     "usabha 3",
     "nt",
-    "measure of length; 140 cubits; approximately 640 metres",
+    "measure of length; 140 cubits; approximately 64 metres",
     "✓"
    ],
    [
@@ -13562,6 +13639,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "māṇava 2",
+    "masc",
+    "name of an arahant monk",
+    "∘"
+   ],
+   [
     "māṇava 3",
     "masc",
     "thief; robber; lit. young gentleman",
@@ -13664,7 +13747,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 34
+  "count": 35
  },
  "mama": {
   "data": [
@@ -13811,6 +13894,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "māya",
+    "adj",
+    "deceitful; dishonest",
+    "𐄂"
+   ],
+   [
     "māyā 1",
     "fem",
     "fraud; deceit; hypocrisy; lit. illusion",
@@ -13859,7 +13948,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 12
+  "count": 13
  },
  "miñja": {
   "data": [
@@ -15654,9 +15743,15 @@ var family_word_json = {
     "adj",
     "autumnal; mature",
     "✓"
+   ],
+   [
+    "susārada",
+    "masc",
+    "name of an arahant monk",
+    "∘"
    ]
   ],
-  "count": 12
+  "count": 13
  },
  "vīci": {
   "data": [
@@ -17301,13 +17396,13 @@ var family_word_json = {
    [
     "sāmisa 1",
     "adj",
-    "fleshly; carnal; physical; worldly; of the flesh; lit. with fleshly\n",
+    "fleshly; carnal; physical; worldly; of the flesh; lit. with fleshly",
     "✓"
    ],
    [
     "sāmisa 2",
     "adj",
-    "soiled; dirty; lit. with fleshly\n",
+    "soiled; dirty; lit. with fleshly",
     "✓"
    ]
   ],
@@ -17951,77 +18046,6 @@ var family_word_json = {
   ],
   "count": 12
  },
- "nagara": {
-  "data": [
-   [
-    "upanagara",
-    "nt",
-    "suburb",
-    "𐄂"
-   ],
-   [
-    "upanagaraṃ",
-    "ind",
-    "near the city",
-    "✓"
-   ],
-   [
-    "nagara 1",
-    "nt",
-    "town; city",
-    "✓"
-   ],
-   [
-    "nagara 2",
-    "nt",
-    "fortress; citadel; stronghold; fortification",
-    "∘"
-   ],
-   [
-    "nagaraka",
-    "nt",
-    "name of town; lit. small town",
-    "✓"
-   ],
-   [
-    "nāgara 1",
-    "adj",
-    "belonging to a town; from a city",
-    "✓"
-   ],
-   [
-    "nāgara 2",
-    "adj",
-    "urbane, polite",
-    "𐄂"
-   ],
-   [
-    "nāgara 3",
-    "masc",
-    "citizen",
-    "𐄂"
-   ],
-   [
-    "nāgarika 1",
-    "adj",
-    "urban; belonging to the city",
-    "∘"
-   ],
-   [
-    "nāgarika 2",
-    "adj",
-    "urbane, polite",
-    "𐄂"
-   ],
-   [
-    "nāgarika 3",
-    "masc",
-    "citizen",
-    "𐄂"
-   ]
-  ],
-  "count": 11
- },
  "upamañña": {
   "data": [
    [
@@ -18496,6 +18520,23 @@ var family_word_json = {
     "paccūsa",
     "masc",
     "before dawn; early morning",
+    "✓"
+   ]
+  ],
+  "count": 2
+ },
+ "usīra": {
+  "data": [
+   [
+    "usira",
+    "nt",
+    "fragrant root of vetiver grass",
+    "✓"
+   ],
+   [
+    "usīra",
+    "nt",
+    "fragrant root of vetiver grass",
     "✓"
    ]
   ],
@@ -18997,6 +19038,23 @@ var family_word_json = {
    ]
   ],
   "count": 9
+ },
+ "esikā": {
+  "data": [
+   [
+    "esika",
+    "adj",
+    "who has (pulled out) the gate pillar; who has (removed) the column",
+    "✓"
+   ],
+   [
+    "esikā 1.1",
+    "fem",
+    "gate pillar; column",
+    "✓"
+   ]
+  ],
+  "count": 2
  },
  "eḷa": {
   "data": [
@@ -19747,6 +19805,17 @@ var family_word_json = {
   ],
   "count": 3
  },
+ "kajaṅgalā": {
+  "data": [
+   [
+    "kajaṅgalaka",
+    "adj",
+    "from Kajaṅgalā; living in Kajaṅgalā",
+    "✓"
+   ]
+  ],
+  "count": 1
+ },
  "kañji": {
   "data": [
    [
@@ -20258,13 +20327,13 @@ var family_word_json = {
    [
     "kamboja",
     "masc",
-    "name of a country; Persia; capital Gandhāra",
-    "∘"
+    "name of a country; part of modern day eastern Afghanistan",
+    "✓"
    ],
    [
     "kambojā",
     "masc",
-    "people of Kamboja; Kambojans; Persians; Iranians",
+    "people of an Iranian speaking people; Kambojans",
     "✓"
    ]
   ],
@@ -22551,6 +22620,17 @@ var family_word_json = {
    ]
   ],
   "count": 5
+ },
+ "gedha2": {
+  "data": [
+   [
+    "gedha 2.1",
+    "masc",
+    "thicket; dense bush; tangle; (comm) (or) bondage",
+    "✓"
+   ]
+  ],
+  "count": 1
  },
  "gotama": {
   "data": [
@@ -26218,9 +26298,15 @@ var family_word_json = {
     "masc",
     "who has noble qualities; with dragon-like character; lit. having nāga quality",
     "✓"
+   ],
+   [
+    "sunāga",
+    "masc",
+    "name of an arahant monk",
+    "∘"
    ]
   ],
-  "count": 9
+  "count": 10
  },
  "nātika": {
   "data": [
@@ -27121,9 +27207,15 @@ var family_word_json = {
     "ind",
     "concerning, about",
     "𐄂"
+   ],
+   [
+    "sampati",
+    "ind",
+    "right now; at present",
+    "✓"
    ]
   ],
-  "count": 3
+  "count": 4
  },
  "paduma": {
   "data": [
@@ -30151,6 +30243,17 @@ var family_word_json = {
   ],
   "count": 11
  },
+ "meṇḍa": {
+  "data": [
+   [
+    "meṇḍa",
+    "masc",
+    "ram; sheep",
+    "✓"
+   ]
+  ],
+  "count": 1
+ },
  "meṇḍaka": {
   "data": [
    [
@@ -30549,6 +30652,23 @@ var family_word_json = {
   ],
   "count": 2
  },
+ "reṇu": {
+  "data": [
+   [
+    "reṇu 1",
+    "masc",
+    "dust",
+    "✓"
+   ],
+   [
+    "reṇu 2",
+    "masc",
+    "pollen; spores",
+    "✓"
+   ]
+  ],
+  "count": 2
+ },
  "lakuṇḍa": {
   "data": [
    [
@@ -30891,13 +31011,19 @@ var family_word_json = {
     "✓"
    ],
    [
+    "vammī 1.1",
+    "masc",
+    "wearing armour",
+    "𐄂"
+   ],
+   [
     "vammī 2.1",
     "fem",
     "ant",
     "∘"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "varāha": {
   "data": [
@@ -31117,13 +31243,19 @@ var family_word_json = {
     "✓"
    ],
    [
+    "vāmaka 2",
+    "masc",
+    "left collarbone",
+    "✓"
+   ],
+   [
     "vāmato",
     "ind",
     "wrongly; in the opposite way; lit. from the left",
     "∘"
    ]
   ],
-  "count": 4
+  "count": 5
  },
  "vāmana": {
   "data": [
@@ -31871,6 +32003,18 @@ var family_word_json = {
  "sakkhali": {
   "data": [
    [
+    "sakkhali 1",
+    "fem",
+    "pudding made of coarse rice flour boiled in palm sugar and lime water",
+    "∘"
+   ],
+   [
+    "sakkhali 2",
+    "fem",
+    "orifice (of the ear), slice, scale of fish",
+    "𐄂"
+   ],
+   [
     "sakkhalikā 1",
     "fem",
     "ear's orifice; auditory canal",
@@ -31889,7 +32033,7 @@ var family_word_json = {
     "𐄂"
    ]
   ],
-  "count": 3
+  "count": 5
  },
  "sakha": {
   "data": [
@@ -31924,13 +32068,19 @@ var family_word_json = {
     "✓"
    ],
    [
+    "sakhya",
+    "nt",
+    "friendship; companionship; lit. friend state",
+    "✓"
+   ],
+   [
     "sākhalya",
     "nt",
     "friendliness; kindness; gentleness",
     "✓"
    ]
   ],
-  "count": 6
+  "count": 7
  },
  "saṅkha": {
   "data": [
@@ -32627,6 +32777,12 @@ var family_word_json = {
     "✓"
    ],
    [
+    "sallakika",
+    "adj",
+    "with the tree Boswellia thurifera (incense tree)",
+    "𐄂"
+   ],
+   [
     "sallakī",
     "fem",
     "Indian frankincense tree; Boswellia serrata",
@@ -32639,7 +32795,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 3
+  "count": 4
  },
  "salāṭu": {
   "data": [
@@ -33156,6 +33312,12 @@ var family_word_json = {
     "𐄂"
    ],
    [
+    "siṅgika",
+    "adj",
+    "with a horn; having horns",
+    "✓"
+   ],
+   [
     "siṅgiya",
     "masc",
     "name of an arahant; lit. horned; golden",
@@ -33186,7 +33348,7 @@ var family_word_json = {
     "∘"
    ]
   ],
-  "count": 10
+  "count": 11
  },
  "sindhu": {
   "data": [
@@ -33490,14 +33652,20 @@ var family_word_json = {
    ],
    [
     "sīhaḷa 1",
-    "adj",
-    "belonging to Sri Lanka",
-    "𐄂"
+    "masc",
+    "(island of) Sri Lanka",
+    "✓"
    ],
    [
     "sīhaḷa 2",
     "masc",
     "Sinhalese",
+    "𐄂"
+   ],
+   [
+    "sīhaḷa 3",
+    "adj",
+    "belonging to Sri Lanka",
     "𐄂"
    ],
    [
@@ -33507,7 +33675,7 @@ var family_word_json = {
     "✓"
    ]
   ],
-  "count": 7
+  "count": 8
  },
  "sukhuma": {
   "data": [

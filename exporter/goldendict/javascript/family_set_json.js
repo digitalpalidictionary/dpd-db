@@ -4261,6 +4261,12 @@ var family_set_json = {
     "∘"
    ],
    [
+    "vibhāsā",
+    "fem",
+    "(gram) alternative; option; optionality",
+    "∘"
+   ],
+   [
     "viyojayati",
     "pr",
     "(gram) disjoins (from); detaches (from); disconnects (from); separates (from)",
@@ -4945,7 +4951,7 @@ var family_set_json = {
     "∘"
    ]
   ],
-  "count": 796
+  "count": 797
  },
  "prefixes": {
   "data": [
@@ -9010,6 +9016,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "akkha 2.2",
+    "nt",
+    "collarbone",
+    "✓"
+   ],
+   [
     "akkhi",
     "nt",
     "eye",
@@ -9442,6 +9454,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "dakkhiṇakkha",
+    "nt",
+    "right collarbone",
+    "✓"
+   ],
+   [
     "dakkhiṇajāṇumaṇḍala",
     "nt",
     "right knee cap; lit. right knee circle",
@@ -9688,6 +9706,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "vāmaka 2",
+    "masc",
+    "left collarbone",
+    "✓"
+   ],
+   [
     "vāmahattha",
     "masc",
     "left hand",
@@ -9784,7 +9808,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 130
+  "count": 133
  },
  "types of monastics": {
   "data": [
@@ -10616,6 +10640,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "nhāpita",
+    "masc",
+    "barber; hair-dresser; bathing attendant; lit. caused to bath",
+    "✓"
+   ],
+   [
     "pakkhandī 2",
     "masc",
     "bold soldier; mercenary; lit. jumping forward",
@@ -11168,7 +11198,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 191
+  "count": 192
  },
  "place names": {
   "data": [
@@ -14391,8 +14421,8 @@ var family_set_json = {
    [
     "kamboja",
     "masc",
-    "name of a country; Persia; capital Gandhāra",
-    "∘"
+    "name of a country; part of modern day eastern Afghanistan",
+    "✓"
    ],
    [
     "kaliṅga",
@@ -20609,7 +20639,7 @@ var family_set_json = {
    [
     "kambojā",
     "masc",
-    "people of Kamboja; Kambojans; Persians; Iranians",
+    "people of an Iranian speaking people; Kambojans",
     "✓"
    ],
    [
@@ -20735,7 +20765,7 @@ var family_set_json = {
    [
     "yonakambojā",
     "masc",
-    "Bactrians and Persians",
+    "Bactrians and Kambojans",
     "✓"
    ],
    [
@@ -21080,7 +21110,7 @@ var family_set_json = {
    [
     "usabha 3",
     "nt",
-    "measure of length; 140 cubits; approximately 640 metres",
+    "measure of length; 140 cubits; approximately 64 metres",
     "✓"
    ],
    [
@@ -24852,6 +24882,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "meṇḍa",
+    "masc",
+    "ram; sheep",
+    "✓"
+   ],
+   [
     "vacchatara",
     "masc",
     "young bull; bullock; lit. more than a calf",
@@ -24894,6 +24930,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "suṇa",
+    "masc",
+    "dog",
+    "✓"
+   ],
+   [
     "suvāna",
     "masc",
     "dog",
@@ -24924,7 +24966,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 76
+  "count": 78
  },
  "names of royalty": {
   "data": [
@@ -27894,6 +27936,12 @@ var family_set_json = {
     "✓"
    ],
    [
+    "doḷasa",
+    "card",
+    "twelve (12)",
+    "∘"
+   ],
+   [
     "dvaṭṭhi",
     "card",
     "sixty two (62)",
@@ -28206,7 +28254,7 @@ var family_set_json = {
     "✓"
    ]
   ],
-  "count": 135
+  "count": 136
  },
  "villages, towns and cities": {
   "data": [

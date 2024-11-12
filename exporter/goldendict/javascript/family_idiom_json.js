@@ -17610,6 +17610,41 @@ var family_idiom_json = {
    ]
   ]
  },
+ "saṅkhāra": {
+  "count": 5,
+  "data": [
+   [
+    "saṅkhāranirodhagāminī paṭipadā",
+    "idiom",
+    "path of practice leading to the end of intention",
+    "✓"
+   ],
+   [
+    "saṅkhāraṃ padahati",
+    "idiom",
+    "makes an intentional effort; strives with determination; lit. puts forward intention",
+    "✓"
+   ],
+   [
+    "saṅkhāraṃ padahanta",
+    "idiom",
+    "making an intentional effort; striving with determination; lit. putting forward intention",
+    "✓"
+   ],
+   [
+    "saṅkhāresūpasantesu",
+    "sandhi",
+    "when the intentional activities are cooled; when the mental activity are calmed",
+    "✓"
+   ],
+   [
+    "sabbasaṅkhāresu aniccānupassī",
+    "idiom",
+    "observing the impermanence of all formations; watching the instability of all conditions",
+    "✓"
+   ]
+  ]
+ },
  "sajjhāya": {
   "count": 2,
   "data": [
@@ -31736,41 +31771,6 @@ var family_idiom_json = {
     "vivicceva",
     "sandhi",
     "just secluding oneself (from)",
-    "✓"
-   ]
-  ]
- },
- "saṅkhāra": {
-  "count": 5,
-  "data": [
-   [
-    "saṅkhāranirodhagāminī paṭipadā",
-    "idiom",
-    "path of practice leading to the end of intention",
-    "✓"
-   ],
-   [
-    "saṅkhāraṃ padahati",
-    "idiom",
-    "makes an intentional effort; strives with determination; lit. puts forward intention",
-    "✓"
-   ],
-   [
-    "saṅkhāraṃ padahanta",
-    "idiom",
-    "making an intentional effort; striving with determination; lit. putting forward intention",
-    "✓"
-   ],
-   [
-    "saṅkhāresūpasantesu",
-    "sandhi",
-    "when the intentional activities are cooled; when the mental activity are calmed",
-    "✓"
-   ],
-   [
-    "sabbasaṅkhāresu aniccānupassī",
-    "idiom",
-    "observing the impermanence of all formations; watching the instability of all conditions",
     "✓"
    ]
   ]

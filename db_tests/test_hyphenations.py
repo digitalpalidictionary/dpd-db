@@ -19,7 +19,7 @@ from tools.db_search_string import db_search_string
 
 class ProgData():
     def __init__(self) -> None:
-        self.max_length: int = 32
+        self.max_length: int = 30
         
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
@@ -58,33 +58,13 @@ class ProgData():
             print(f"[light_green]{clean_word}: {dirty_word}")
         self.hyphenations_dict[clean_word] = dirty_word
         self.save_hyphenations_dict()
-
-    
-
-def main():
-    tic()
-    print("[bright_yellow]testing and correcting hyphenation of long words")
-    print()
-    pd = ProgData()
-
-    # subprocess.Popen(
-    #     ["code", pd.pth.hyphenations_dict_path])
-
-    # subprocess.Popen(
-    #     ["code", pd.pth.hyphenations_scratchpad_path]) 
-
-    extract_clean_words(pd)
-    find_long_words(pd)
-    find_variations(pd)
-    process_long_words(pd)
-    toc()
-    
+ 
     
 def extract_clean_words(pd):
     """extract all clean words from the db in examples and commentary."""
     print("[green]exatrcting words from db")
 
-    # compile regex of pali_alphabet space apostrope dash 
+    # compile regex of pali_alphabet space apostrophe dash 
     regex_compile = re.compile(f"[^{'|'.join(pali_alphabet)}| |'|-]")
     
     clean_words_dict: dict = {}
@@ -119,10 +99,10 @@ def find_long_words(pd):
 
 
 def find_variations(pd):
-    """Find apostophe and hyphenation variations in long words."""
-    print("[green]finding apostophe and hyphenation variations")
+    """Find apostrophe and hyphenation variations in long words."""
+    print("[green]finding apostrophe and hyphenation variations")
     
-    # compile regex of only pali_alphebet
+    # compile regex of only pali_alphabet
     regex_compile = re.compile(f"[^{'|'.join(pali_alphabet)}]")
     
     variations_dict: dict = {}
@@ -283,10 +263,29 @@ def replace_word_in_db(pd):
         
         ids_str = db_search_string(pd.ids)
         pyperclip.copy(ids_str)
-        print("[green]try replacing maually, the db id's are copied to the clipboard")
+        print("[green]try replacing manually, the db id's are copied to the clipboard")
         print("[green]press any key to continue ", end="")
         input()
-                
+
+
+def main():
+    tic()
+    print("[bright_yellow]testing and correcting hyphenation of long words")
+    print()
+    pd = ProgData()
+
+    # subprocess.Popen(
+    #     ["code", pd.pth.hyphenations_dict_path])
+
+    # subprocess.Popen(
+    #     ["code", pd.pth.hyphenations_scratchpad_path]) 
+
+    extract_clean_words(pd)
+    find_long_words(pd)
+    find_variations(pd)
+    process_long_words(pd)
+    toc()
+
 
 if __name__ == "__main__":
     main()
