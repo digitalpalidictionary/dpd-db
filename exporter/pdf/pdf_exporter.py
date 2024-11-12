@@ -193,7 +193,6 @@ def make_root_families(g: GlobalVars):
     p_yes(len(g.root_fam_db))
 
 
-
 def make_word_families(g: GlobalVars):
     p_green("compiling word families")
 

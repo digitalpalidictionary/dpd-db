@@ -25,9 +25,8 @@ jobs:
         rm -rf ${{ github.workspace }}/resources/bjt/dev/*
         rm -rf ${{ github.workspace }}/resources/sc-data/html_text/*
 
-    - name: Fetch and unzip deconstructor_output
+    - name: Unzip deconstructor_output
       run: |
-        git clone https://github.com/digitalpalidictionary/deconstructor_output.git ${{ github.workspace }}/resources/deconstructor_output
         cd ${{ github.workspace }}/resources/deconstructor_output
         tar -xzvf deconstructor_output.json.tar.gz
         ls -la
