@@ -37,6 +37,7 @@ jobs:
         url="https://github.com/typst/typst/releases/latest/download/typst-x86_64-unknown-linux-musl.tar.xz"
         wget $url
         tar -xf typst-x86_64-unknown-linux-musl.tar.xz
+        cd typst-x86_64-unknown-linux-musl
         chmod +x typst
         echo "$PWD" >> $GITHUB_PATH
     
