@@ -32,14 +32,14 @@ jobs:
         ls -la
         cd ${{ github.workspace }}/
 
-    - name: Install Typst
-      run: |
-        url="https://github.com/typst/typst/releases/latest/download/typst-x86_64-unknown-linux-musl.tar.xz"
-        wget $url
-        tar -xf typst-x86_64-unknown-linux-musl.tar.xz
-        cd typst-x86_64-unknown-linux-musl
-        chmod +x typst
-        echo "$PWD" >> $GITHUB_PATH
+    # - name: Install Typst
+    #   run: |
+    #     url="https://github.com/typst/typst/releases/latest/download/typst-x86_64-unknown-linux-musl.tar.xz"
+    #     wget $url
+    #     tar -xf typst-x86_64-unknown-linux-musl.tar.xz
+    #     cd typst-x86_64-unknown-linux-musl
+    #     chmod +x typst
+    #     echo "$PWD" >> $GITHUB_PATH
     
     - name: Install dictzip
       run: sudo apt-get update && sudo apt-get install -y dictzip
@@ -163,12 +163,14 @@ jobs:
 
     - name: Export Kobo
       run: poetry run python exporter/kobo/kobo.py
-
-    - name: Export PDF
+    
+    - name: Check disk space and memory
       run: |
         free -h  # Check available memory
         df -h    # Check disk space
-        poetry run python exporter/pdf/pdf_exporter.py
+
+    - name: Export PDF
+      run: poetry run python exporter/pdf/pdf_exporter.py
            
     - name: Zip GoldenDict & Mdict
       run: poetry run python scripts/build/zip_goldendict_mdict.py
