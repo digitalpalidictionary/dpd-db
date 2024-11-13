@@ -1,5 +1,6 @@
 // layout
 
+#set text(font: "Libertinus Serif")
 #show link: underline
 #set table(stroke: 0.1pt + silver)
 
@@ -76,7 +77,7 @@
 // copyright page
 
 #hide[
-  #heading(level: 1)[Copyright]
+  #heading(level: 1)[Front Matter]
 ]
 
 #align(center + top)[

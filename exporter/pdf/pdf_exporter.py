@@ -319,7 +319,7 @@ def export_to_pdf(g: GlobalVars):
     p_green("rendering pdf")
 
     try:
-        
+
         typst.compile(str(g.pth.typst_lite_data_path), output=str(g.pth.typst_lite_pdf_path))
         
         # subprocess.run(
