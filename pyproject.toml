@@ -48,7 +48,7 @@ gitpython = "^3.1.43"
 numpy = "1.23.2"
 dbfread = "^2.0.7"
 dbf = "^0.99.9"
-typst = "^0.11.1"
+typst = "0.12.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"
