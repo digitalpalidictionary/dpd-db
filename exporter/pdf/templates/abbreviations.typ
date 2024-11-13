@@ -5,7 +5,7 @@
   inset: (x: 0em, y: 0.35em),
   column-gutter: 1em,
 //// for d in data \\\\
-  [#blue-bold[{{ d.abbrev.replace("*", "\*")|safe }}]],
+  [#blue[{{ d.abbrev.replace("*", "\*")|safe }}]],
   [{{ d.meaning|safe }}],
 //// endfor \\\\
 )
