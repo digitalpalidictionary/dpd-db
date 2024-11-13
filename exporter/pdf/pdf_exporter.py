@@ -3,8 +3,8 @@
 """Export DPD to PDF using Typst and Jinja templates."""
 
 import re
-import subprocess
-# import typst
+# import subprocess
+import typst
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -106,7 +106,7 @@ def make_pali_to_english(g: GlobalVars):
 
 
 def make_english_to_pali(g: GlobalVars):
-    p_green("compiling epd families")
+    p_green("compiling english to pali")
 
     if debug is True:
         epd_db = g.db_session.query(Lookup).filter(Lookup.epd != "").limit(100).all()
@@ -258,7 +258,6 @@ def make_bibliography(g: GlobalVars):
     g.typst_data.append("#pagebreak()\n")
     g.typst_data.append("#heading(level: 1)[Bibliography]\n")
     g.typst_data.append("An incomplete list of references works")
-
     g.typst_data.append(g.bibliography_templ.render(data=bibliography_data))
     
     p_yes(len(bibliography_data))
@@ -282,7 +281,6 @@ def make_thanks(g: GlobalVars):
     g.used_letters_single = []
     g.typst_data.append("#pagebreak()\n")
     g.typst_data.append("#heading(level: 1)[Thanks]\n")
-
     g.typst_data.append(g.thanks_templ.render(data=thanks_data))
 
     p_yes(len(thanks_data))
@@ -321,16 +319,18 @@ def export_to_pdf(g: GlobalVars):
     p_green("rendering pdf")
 
     try:
-        # python version currently only support typst 0.11, so use subprocess
-        # typst.compile(str(g.pth.typst_lite_data_path), output=str(g.pth.typst_lite_pdf_path))
-        subprocess.run(
-            [
-                "typst",
-                "compile",
-                str(g.pth.typst_lite_data_path),
-                str(g.pth.typst_lite_pdf_path)
-            ]
-        )
+        
+        typst.compile(str(g.pth.typst_lite_data_path), output=str(g.pth.typst_lite_pdf_path))
+        
+        # subprocess.run(
+        #     [
+        #         "typst",
+        #         "compile",
+        #         str(g.pth.typst_lite_data_path),
+        #         str(g.pth.typst_lite_pdf_path)
+        #     ]
+        # )
+
         p_yes("ok")
     except Exception as e:
         p_red(f"\n{e}")
