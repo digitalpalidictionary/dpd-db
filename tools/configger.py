@@ -62,6 +62,7 @@ DEFAULT_CONFIG = {
         "make_tpr": "no",
         "make_ebook": "no",
         "make_tbw": "no",
+        "make_pdf": "no",
         "tarball_db": "no",
         "summary": "no",
         "update_simsapa_db": "no"

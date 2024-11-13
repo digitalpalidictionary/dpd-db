@@ -17,6 +17,7 @@ exporter/deconstructor/deconstructor_exporter.py
 exporter/tpr/tpr_exporter.py
 exporter/kindle/kindle_exporter.py
 exporter/tbw/tbw_exporter.py
+exporter/pdf/pdf_exporter.py
 
 scripts/build/zip_goldendict_mdict.py
 scripts/build/tarball_db.py

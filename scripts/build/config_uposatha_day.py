@@ -33,6 +33,7 @@ def uposatha_day_configger():
         config_update("exporter", "make_ebook", "yes")
         config_update("exporter", "make_tpr", "yes")
         config_update("exporter", "make_tbw", "yes")
+        config_update("exporter", "make_pdf", "yes")
         config_update("exporter", "tarball_db", "yes")
         config_update("exporter", "summary", "yes")
 

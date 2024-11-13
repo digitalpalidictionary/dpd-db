@@ -10,10 +10,11 @@ from jinja2 import Environment, FileSystemLoader
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, FamilyCompound, FamilyIdiom, FamilyRoot, FamilyWord, Lookup
+from tools.configger import config_test
 from tools.date_and_time import year_month_day_dash
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from tools.printer import p_green, p_red, p_title, p_yes
+from tools.printer import p_green, p_green_title, p_red, p_title, p_yes
 from tools.tic_toc import tic, toc
 from tools.tsv_read_write import read_tsv_dot_dict
 from tools.zip_up import zip_up_file
@@ -346,6 +347,12 @@ def zip_up_pdf(g: GlobalVars):
 def main():
     tic()
     p_title("export to pdf with typst")
+
+    if not config_test("exporter", "make_pdf", "yes"):
+        p_green_title("disabled in config.ini")
+        toc()
+        return
+    
     g = GlobalVars()
     make_front_matter(g)
     make_abbreviations(g)
