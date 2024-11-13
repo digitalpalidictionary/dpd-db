@@ -15,18 +15,6 @@ from tools.meaning_construction import clean_construction
 from tools.paths import ProjectPaths
 
 
-def main():
-    tic()
-    print("[bright_yellow]finding missing family_compounds")
-    pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadword).all()
-    d: dict = make_dict_of_sets(db)
-    failures = test_family_compound(d)
-    add_to_db(failures)
-    toc()
-
-
 def make_dict_of_sets(db):
     print("[green]making sets")
 
@@ -62,12 +50,13 @@ def make_dict_of_sets(db):
         # all_clean_headwords
         if (i.meaning_1):
             d["all_clean_headwords"].update([i.lemma_clean])
+            
 
         # all_empty_family_compounds
         if (
-            i.meaning_1 and
-            not i.family_compound and
-            not i.meaning_1.startswith("name of")
+            i.meaning_1 
+            and not i.family_compound
+            and not i.meaning_1.startswith("name of")
         ):
             d["all_empty_family_compounds"].update([i.lemma_clean])
 
@@ -100,10 +89,10 @@ def test_family_compound(d):
     failures = set()
     for word in d["all_empty_family_compounds"]:
         if (
-            word in d["all_words_in_construction"] and
-            word not in d["all_words_in_family_compound"] and
-            word in d["all_clean_headwords"] and
-            word not in d["all_compound_headwords"]
+            word in d["all_words_in_construction"]
+            and word not in d["all_words_in_family_compound"]
+            and word in d["all_clean_headwords"]
+            and word not in d["all_compound_headwords"]
         ):
             failures.update([word])
 
@@ -128,6 +117,18 @@ def add_to_db(failures):
             pyperclip.copy(regex_search_term)
             input()
             print()
+
+
+def main():
+    tic()
+    print("[bright_yellow]finding missing family_compounds")
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
+    db = db_session.query(DpdHeadword).all()
+    d: dict = make_dict_of_sets(db)
+    failures = test_family_compound(d)
+    add_to_db(failures)
+    toc()
 
 
 if __name__ == "__main__":

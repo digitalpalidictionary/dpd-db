@@ -1,6 +1,8 @@
 // layout
 
 #set text(font: "Libertinus Serif")
+// #set text(font: "Crimson Pro")
+
 #show link: underline
 #set table(stroke: 0.1pt + silver)
 
@@ -62,7 +64,6 @@
 #hide[
   #heading(level: 1)[Title Page]
 ]
-
 
 #align(left, text(20pt)[
   *Digital Pāḷi Dictionary*
