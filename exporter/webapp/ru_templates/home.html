@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Электронный Словарь Пали</title>
-    <link rel="stylesheet" type="" href="/static/home.css">
-    <link rel="stylesheet" type="" href="/static/switch.css">
-    <link rel="stylesheet" type="" href="/static/dpd.css">
+    <link rel="stylesheet" href="/static/home.css">
+    <link rel="stylesheet" href="/static/switch.css">
+    <link rel="stylesheet" href="/static/dpd.css">
     <link rel="icon" type="image/png" href="/static/dpd.ico">
 </head>
 
@@ -16,8 +16,20 @@
 <body>
     <div class="header-pane">
         <div class="logo-title">
-            <img src="static/dpd.ico" alt="dpd logo" id="header-image" class="header-image">
+            <img src="/static/dpd.ico" alt="dpd logo" id="header-image" class="header-image">
             <h2 class="title" id="title-clear">Электронный Словарь Пали</h2>
+            <!-- Language selection dropdown -->
+            <div class="language-switcher">
+                <span class="language-icon" title="Язык">🌐
+                    <span class="tooltip">
+                        <b>Сменить Язык</b>
+                    </span>
+                </span>
+                <div class="dropdown" style="display: none;">
+                    <a href="https://dpdict.net/" class="dropdown-item">English</a>
+                    <a href="https://dpdict.net/ru/" class="dropdown-item">Русский</a>
+                </div>
+            </div>
         </div>
         <form id="search-form">
             <input 
@@ -46,20 +58,20 @@
         </form>
     </div>
     <div class="main-pane" id="main-pane">
-        <div class="history-pane" id="history-pane"">
+        <div class="history-pane" id="history-pane">
             <h3>История</h3>          
             <button id="clear-history-button" class="clear-history-button">x</button>  
             <div class="history-list-pane" id="history-list-pane">
             </div>
             
         </div>
-        <div class=dpd-pane id="dpd-pane">
+        <div class="dpd-pane" id="dpd-pane">
             <div class="summary-results" id="summary-results"></div>
             <div class="dpd-results" id="dpd-results">
                 {{ dpd_results|safe }}
             </div>    
         </div>
-        <div class=settings-pane>
+        <div class="settings-pane">
             <h3>Настройки</h3>
             <p>
                 <button class="small-button" id="font-size-down">-</button>
@@ -121,8 +133,8 @@
         Для подробной информации смотрите &nbsp;
         <a href="https://digitalpalidictionary.github.io/rus/" target="_blank">DPD веб-страницу</a>
     </div>
-    <script src="static/home.js"></script>
-    <script src="static/dpd.js"></script>
+    <script src="/static/home.js"></script>
+    <script src="/static/dpd.js"></script>
 </body>
 
 </html>

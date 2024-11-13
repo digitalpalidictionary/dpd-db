@@ -32,6 +32,7 @@ const fontSizeDown = document.getElementById("font-size-down");
 var fontSizeDisplay = document.getElementById("font-size-display");
 
 let dpdResultsContent = "";
+let language;
 
 //// uri utils
 
@@ -58,48 +59,83 @@ function loadToggleState(id) {
 }
 
 //// Page load
-
-const startMessage = `
-<p class="message">Search for Pāḷi or English words above using <b>Unicode</b> or <b>Velthuis</b> characters.</p>
-<p class="message"><b>Double click</b> on any word to search for it.</p>
-<p class="message">Adjust the <b>settings</b> to suit your preferences.</p>
-<p class="message"><b>Refresh</b> the page if you experience any problems.</p>
-<p class="message">
-    <a href="https://docs.dpdict.net/dpdict.html" 
-    target="_blank">
-    Click here</a> 
-    for more details about this website or 
-    <a href="https://docs.dpdict.net/titlepage.html" 
-    target="_blank">
-    more information</a> 
-    about DPD in general.
-</p>
-<p class="message">Start by <b>double clicking</b> on any word in the list below:</p>
-<p class="message">
-    atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root ✓
-</p>
-
-`
-
 document.addEventListener("DOMContentLoaded", function() {
-    applySavedTheme()
-    populateHistoryBody()
+    const htmlElement = document.documentElement;
+    language = htmlElement.lang || 'en';
+    let startMessage;
+
+    if (language === 'en') {
+        startMessage = `
+        <p class="message">Search for Pāḷi or English words above using <b>Unicode</b> or <b>Velthuis</b> characters.</p>
+        <p class="message"><b>Double click</b> on any word to search for it.</p>
+        <p class="message">Adjust the <b>settings</b> to suit your preferences.</p>
+        <p class="message"><b>Refresh</b> the page if you experience any problems.</p>
+        <p class="message">
+            <a href="https://docs.dpdict.net/dpdict.html" target="_blank">Click here</a>
+            for more details about this website or 
+            <a href="https://docs.dpdict.net/titlepage.html" target="_blank">more information</a>
+            about DPD in general.
+        </p>
+        <p class="message">Start by <b>double clicking</b> on any word in the list below:</p>
+        <p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root ✓</p>
+        `;
+    } else if (language === 'ru') {
+        startMessage = `
+        <p class="message">Ищите слова на пали или русском языке выше, используя символы <b>Unicode</b> или <b>Velthuis</b>.</p>
+        <p class="message"><b>Дважды щелкните</b> на любое слово, чтобы найти его.</p>
+        <p class="message">Настройте <b>параметры</b> в соответствии с вашими предпочтениями.</p>
+        <p class="message"><b>Обновите</b> страницу, если у вас возникли какие-либо проблемы.</p>
+        <p class="message">
+            <a href="https://digitalpalidictionary.github.io/rus/" target="_blank">Нажмите здесь</a>,
+            чтобы узнать больше о данном веб-сайте, или 
+            <a href="https://digitalpalidictionary.github.io/rus/" target="_blank">больше информации</a>
+            о DPD в целом.
+        </p>
+        <p class="message">Начните с <b>двойного щелчка</b> по любому слову в списке ниже:</p>
+        <p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root ✓</p>
+        `;
+    }
+
+    if (dpdResults.innerHTML.trim() === "") {
+        dpdResults.innerHTML = startMessage;
+    }
+
+    applySavedTheme();
+    populateHistoryBody();
     loadToggleState("theme-toggle");
     loadToggleState("sans-serif-toggle");
     loadToggleState("niggahita-toggle");
     loadToggleState("grammar-toggle");
     loadToggleState("example-toggle");
-    loadToggleState("one-button-toggle")
+    loadToggleState("one-button-toggle");
     // loadToggleState("sbs-example-toggle");
     loadToggleState("summary-toggle");
     loadToggleState("sandhi-toggle");
-    loadFontSize()
-    toggleClearHistoryButton()
-    swopSansSerif()
-    if (dpdResults.innerHTML.trim() == "") {
-        dpdResults.innerHTML = startMessage;
-    }
+    loadFontSize();
+    toggleClearHistoryButton();
+    swopSansSerif();
     applyUrlQuery();
+
+    // Language switcher dropdown control
+    const languageIcon = document.querySelector(".language-icon");
+    const dropdown = document.querySelector(".dropdown");
+
+    // Ensure both elements exist before adding event listeners
+    if (languageIcon && dropdown) {
+        // Show or hide dropdown on icon click
+        languageIcon.addEventListener("click", function () {
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        });
+
+        // Hide dropdown if clicked outside
+        document.addEventListener("click", function (e) {
+            if (!languageIcon.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.style.display = "none";
+            }
+        });
+    } else {
+        console.error("Error: .language-icon or .dropdown element not found in the DOM.");
+    }
 });
 
 //// listeners
@@ -181,22 +217,30 @@ async function handleFormSubmit(event) {
         event.preventDefault();
     }
     const searchQuery = searchBox.value;
-
     if (searchQuery.trim() !== "") {
         try {
-            addToHistory(searchQuery)
-            const response = await fetch(`/search_json?q=${encodeURIComponent(searchQuery)}`);
+            addToHistory(searchQuery);
+            // Adjust the search URL based on the current language
+            let searchUrl = '/search_json';
+            if (language === 'ru') {
+                searchUrl = '/ru/search_json';
+            }
+            const response = await fetch(`${searchUrl}?q=${encodeURIComponent(searchQuery)}`);
             const data = await response.json(); 
 
             //// add the summary_html
             if (data.summary_html.trim() != "") {
-                summaryResults.innerHTML = "<h3>Summary</h3>"
+                if (language === 'en') {
+                    summaryResults.innerHTML = "<h3>Summary</h3>";
+                } else {
+                    summaryResults.innerHTML = "<h3>Сводка</h3>";
+                }
                 summaryResults.innerHTML += data.summary_html; 
-                summaryResults.innerHTML += "<hr>"
+                summaryResults.innerHTML += "<hr>";
             } else {
-                summaryResults.innerHTML = ""
+                summaryResults.innerHTML = "";
             }
-            showHideSummary()
+            showHideSummary();
 
             //// add dpd_html
             const dpdDiv = document.createElement("div");
@@ -204,7 +248,7 @@ async function handleFormSubmit(event) {
             
             //// niggahita toggle
             if (niggahitaToggle.checked) {
-                niggahitaUp(dpdDiv)
+                niggahitaUp(dpdDiv);
             }
     
             //// grammar button toggle
@@ -244,10 +288,10 @@ async function handleFormSubmit(event) {
             // };
 
             dpdResults.innerHTML = dpdDiv.innerHTML;
-            dpdResultsContent = dpdDiv.innerHTML
+            dpdResultsContent = dpdDiv.innerHTML;
 
             //// sandhi button toggle
-            showHideSandhi()
+            showHideSandhi();
             
             populateHistoryBody();
             dpdPane.focus();

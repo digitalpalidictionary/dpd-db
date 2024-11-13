@@ -312,7 +312,83 @@ p.message {
     color: var(--colour0);
 }
 
+/* Language Switcher Container */
+.language-switcher {
+    position: relative;
+    display: inline-block;
+    margin: 5px; /* Adds some spacing around the icon */
+}
+
+/* Language Icon (Clickable) */
+.language-icon {
+    cursor: pointer;
+    font-size: 1.2em; /* Adjust size as needed */
+    color: var(--foreground-light); /* Consistent color */
+    transition: color 0.3s;
+}
+
+.language-icon:hover {
+    color: var(--colour1); /* Change color on hover */
+}
+
+/* Dropdown Menu */
+.dropdown {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 100%; /* Position right below the icon */
+    left: 0;
+    background-color: var(--colour2); /* Matches primary color */
+    border-radius: 7px; /* Consistent rounded corners */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Adds subtle shadow */
+    min-width: 120px; /* Minimum width for better readability */
+    z-index: 1000; /* Ensure dropdown appears above other content */
+}
+
+/* Dropdown Links */
+.dropdown a {
+    display: block;
+    padding: 8px 12px; /* Padding for comfortable clicking */
+    color: black; /* Text color */
+    text-decoration: none;
+    font-family: sans-serif; /* Matches other text */
+    font-size: 0.9em; /* Slightly smaller font size */
+    transition: background-color 0.3s; /* Smooth background transition */
+}
+
+/* Hover Effect for Links */
+.dropdown a:hover {
+    background-color: var(--colour1); /* Background color change on hover */
+    color: var(--foreground-dark); /* Ensure text is readable on hover */
+}
+
+/* Dark Mode Adjustments */
+.dark-mode .language-icon {
+    color: var(--foreground-dark);
+}
+
+.dark-mode .dropdown {
+    background-color: var(--background-dark);
+}
+
+.dark-mode .dropdown a {
+    color: var(--foreground-dark);
+}
+
+.dark-mode .dropdown a:hover {
+    background-color: var(--colour1);
+    color: var(--background-dark);
+}
+
 @media (max-width: 750px) {
+
+    .dropdown {
+        min-width: 100px; /* Adjust width on smaller screens */
+    }
+
+    .dropdown a {
+        padding: 6px 10px; /* Smaller padding on mobile */
+        font-size: 0.85em; /* Slightly smaller font for compact view */
+    }
 
     .header-pane {
         flex-direction: column;
