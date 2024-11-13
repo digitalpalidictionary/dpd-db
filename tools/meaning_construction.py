@@ -139,17 +139,17 @@ def degree_of_completion(i: DpdHeadword, html=True):
     if i.meaning_1:
         if i.source_1:
             if html:
-                return """<span class="gray">✓</span>"""
+                return """<span class="gray">✔</span>"""
             else:
-                return "✓"
+                return "✔"
                  
         else:
             if html:
-                return """<span class="gray">▪</span>"""
+                return """<span class="gray">◑</span>"""
             else:
-                return "▪"
+                return "◑"
     else:
         if html:
-            return """<span class="gray">𐄂</span>"""
+            return """<span class="gray">✘</span>"""
         else:
-            return "𐄂"
+            return "✘"
