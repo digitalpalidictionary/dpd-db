@@ -155,7 +155,7 @@ def compile_rf_html(dpd_db, rf_dict):
 
             # rus
             if not rf_dict[family]["html_ru"]:
-                ru_html_string = "<table class='family_ru'>"
+                ru_html_string = "<table class='family'>"
             else:
                 ru_html_string = rf_dict[family]["html_ru"]
 

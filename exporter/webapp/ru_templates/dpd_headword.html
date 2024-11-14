@@ -100,7 +100,7 @@
     {% if d.i.needs_sets_button %}
         <a class="button" 
         href="#" 
-        data-target="family_set_{{d.i.lemma_1_}}">
+        data-target="family_sets_{{d.i.lemma_1_}}">
         группы</a>
     {% endif %}
 
@@ -650,18 +650,24 @@
 {% if d.i.needs_sets_button %}
 <div id="family_sets_{{d.i.lemma_1_}}" class="content hidden">
     <p id="{{d.i.lemma_1_}}sets_top" class="heading">перейти к: 
-    {% for set in d.i.family_set_list %}
-    <a class="jump" 
-        href="#{{d.i.lemma_1_}}sets_{{set}}">
-    {% if not loop.last %}
-        {{set|safe}},
-    {% else%}
-        {{set|safe}}
-    {% endif %}
-         
-    </a>
-    {% endfor %}
-    </p>
+    
+        {# Step 1: Build a set to set_ru mapping using a dictionary #}
+        {% set set_ru_mapping = {} %}
+        {% for f in d.fs %}
+            {% set set_ru_mapping = set_ru_mapping.update({f.set: f.set_ru}) %}
+        {% endfor %}
+        
+        {# Step 2: Loop over d.i.family_set_list and use set_ru_mapping to fetch set_ru #}
+        {% for set in d.i.family_set_list %}
+            <a class="jump" href="#{{d.i.lemma_1_}}sets_{{set}}">
+            {% if not loop.last %}
+                {{ set_ru_mapping[set]|safe }},
+            {% else %}
+                {{ set_ru_mapping[set]|safe }}
+            {% endif %}
+            </a>
+        {% endfor %}
+        </p>
     
     {% for f in d.fs %}
         {% if loop.index0 == 0 %}

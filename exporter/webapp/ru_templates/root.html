@@ -1,9 +1,9 @@
 <!-- definition -->
 
-<h3 id="{{ d.r.root_ }}">root: {{d.r.root}}</h3>
+<h3 id="{{ d.r.root_ }}">корень: {{d.r.root}}</h3>
 <div class='root_content summary'>
     <p>
-        root. 
+        корень. 
         <b>{{d.r.root_clean}}</b>
         <sup>
             {{d.r.root_has_verb}}
@@ -28,7 +28,7 @@
 <!-- root info -->
 
 <div id="root_info_{{d.r.root_}}" class="root_content hidden">
-    {{d.r.root_info|safe}}
+    {{d.root_info_ru|safe}}
     <p class="root_footer">
         Заметили ошибку? <a class="root_link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.r.root_link}}&entry.326955045=Инфо+корня&entry.1433863141={{d.app_name}}+{{d.date}}" target="_blank">Сообщите здесь</a>.
     </p>
@@ -53,7 +53,7 @@
         {{d.r.root_sign}} 
         ({{d.r.root_ru_meaning}})
     </p>
-    {{d.r.root_matrix|safe}}
+    {{d.root_matrix_ru|safe}}
     <p class="root_footer">
         Заметили ошибку? <a class="root_link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.r.root_link}}&entry.326955045=Матрица+корня&entry.1433863141={{d.app_name}}+{{d.date}}" target="_blank">Сообщите здесь</a>.
         </a>
@@ -66,7 +66,7 @@
     <div 
     id="family_root_{{d.r.root_}}_{{fr.root_family_}}" 
     class="root_content hidden">
-        {{fr.html.replace("class='family'", "class='root_family'")|safe}}
+        {{fr.html_ru.replace("class='family'", "class='root_family'")|safe}}
         <p class='root_footer'>
             Заметили ошибку? <a class="root_link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.r.root_link}}&entry.326955045=Семья+корня&entry.1433863141={{d.app_name}}+{{d.date}}" target="_blank">Сообщите здесь
         </a>.

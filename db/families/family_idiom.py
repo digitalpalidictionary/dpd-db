@@ -141,7 +141,7 @@ def compile_idioms_html(dpd_db, idioms_dict):
 
                     # rus
                     if not idioms_dict[word]["html_ru"]:
-                        ru_html_string = "<table class='family_ru'>"
+                        ru_html_string = "<table class='family'>"
                     else:
                         ru_html_string = idioms_dict[word]["html_ru"]
 

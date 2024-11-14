@@ -15,9 +15,11 @@ from db.models import DpdHeadword, Russian
 from tools.paths import ProjectPaths
 from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
 from tools.meaning_construction import make_meaning_combo
+from tools.date_and_time import year_month_day_dash
 
 pth = ProjectPaths()
 rupth = RuPaths()
+date = year_month_day_dash()
 
 
 def make_ru_meaning(i: DpdHeadword) -> str:
@@ -25,7 +27,7 @@ def make_ru_meaning(i: DpdHeadword) -> str:
     ru_meaning in <b>bold</b>, or return english meaning"""
 
     if i.ru is None:
-        ru_meaning: str = make_meaning_combo(i)
+        ru_meaning: str = f"<a class='link' href='https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={i.lemma_link}&entry.326955045=Перевод&entry.1433863141=dpdict.net+{date}' target='_blank'>[перевести]</a> {make_meaning_combo(i)}"
         return ru_meaning
 
     elif i.ru.ru_meaning:
@@ -34,7 +36,7 @@ def make_ru_meaning(i: DpdHeadword) -> str:
             ru_meaning += f"; досл. {i.ru.ru_meaning_lit}"
         return ru_meaning
     elif i.ru.ru_meaning_raw:
-        ru_meaning: str = i.ru.ru_meaning_raw
+        ru_meaning: str = f"<a class='link' href='https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={i.lemma_link}&entry.326955045=Перевод&entry.1433863141=dpdict.net+{date}' target='_blank'>[пер. ИИ]</a> {i.ru.ru_meaning_raw}"
         return ru_meaning
     else:
         return ""
@@ -112,7 +114,7 @@ def ru_replace_abbreviations(value, kind = "meaning"):
     elif kind == "inflect":
         value = value.replace(' is ', ' это ').replace('conjugation', 'класс спряжения').replace('declension', 'класс склонения').replace('like ', 'как ').replace('reflexive', 'возвратный').replace('irregular', 'неправильный')
     elif kind == "root":
-        value = value.replace('Pāḷi Root', 'Корень Пали').replace('Sanskrit Root', 'Корень Санскр.').replace('Bases', 'Основы').replace('Base', 'Основа').replace('in Compounds', 'в Составе').replace('Notes', 'Заметки').replace('adverbs', 'наречия').replace('verbs', 'глаголы').replace('participles', 'причастия').replace('nouns', 'существительные').replace('adjectives', 'прилагательные').replace('root_info', 'root_info_ru').replace('root_matrix', 'root_matrix_ru')
+        value = value.replace('Pāḷi Root', 'Корень Пали').replace('Sanskrit Root', 'Корень Санскр.').replace('Bases', 'Основы').replace('Base', 'Основа').replace('in Compounds', 'в Составе').replace('Notes', 'Заметки').replace('adverbs', 'наречия').replace('verbs', 'глаголы').replace('participles', 'причастия').replace('nouns', 'существительные').replace('adjectives', 'прилагательные')
     elif kind == "gram":
         value = value.replace('word', 'слово').replace('letter', 'буква').replace('indeclinable', 'несклоняемое').replace('of', 'от')
     elif kind == "base":

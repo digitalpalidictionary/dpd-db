@@ -60,6 +60,8 @@ class RootsData():
         self.app_name = "dpdict.net"
         self.date = year_month_day_dash()
         self.count = roots_count_dict[self.r.root]
+        self.root_info_ru = ru_replace_abbreviations(r.root_info, "root")
+        self.root_matrix_ru = ru_replace_abbreviations(r.root_matrix, "root")
     
 
 class DeconstructorData():

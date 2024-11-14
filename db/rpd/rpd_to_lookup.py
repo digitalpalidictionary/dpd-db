@@ -59,7 +59,7 @@ def compile_headwords_data(g: ProgData):
                 meaning_plus_case = make_meaning_plus_case(i)
                 ru_pos = ru_replace_abbreviations(i.pos, "gram")
                 rpd_data = (i.lemma_clean, ru_pos, meaning_plus_case)
-                   
+                
                 if meaning and meaning in g.rpd_data_dict.keys():    
                     g.rpd_data_dict[meaning].append(rpd_data)
                 else:
@@ -123,6 +123,9 @@ def make_clean_meaning_list(i: DpdHeadword) -> list[str]:
     ru_meanings_clean = re.sub(r"!", "", ru_meanings_clean)
     # remove ?
     ru_meanings_clean = re.sub(r"\\?", "", ru_meanings_clean)
+    # make lowercase
+    ru_meanings_clean = ru_meanings_clean.casefold()
+    
     return ru_meanings_clean.split(";")
 
 

@@ -110,7 +110,7 @@ def compile_sf_html(sets_db, sets_dict):
 
                     # rus
                     if not sets_dict[sf]["html_ru"]:
-                        ru_html_string = "<table class='family_ru'>"
+                        ru_html_string = "<table class='family'>"
                     else:
                         ru_html_string = sets_dict[sf]["html_ru"]
 

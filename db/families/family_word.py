@@ -118,7 +118,7 @@ def compile_wf_html(wf_db, wf_dict):
 
             # rus
             if not wf_dict[wf]["html_ru"]:
-                ru_html_string = "<table class='family_ru'>"
+                ru_html_string = "<table class='family'>"
             else:
                 ru_html_string = wf_dict[wf]["html_ru"]
 

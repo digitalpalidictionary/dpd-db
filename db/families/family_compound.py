@@ -132,7 +132,7 @@ def compile_cf_html(dpd_db, cf_dict):
 
                     # rus
                     if not cf_dict[cf]["html_ru"]:
-                        ru_html_string = "<table class='family_ru'>"
+                        ru_html_string = "<table class='family'>"
                     else:
                         ru_html_string = cf_dict[cf]["html_ru"]
 

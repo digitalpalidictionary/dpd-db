@@ -85,6 +85,9 @@ def make_dpd_html(q: str, pth: ProjectPaths, templates, roots_count_dict, headwo
     summary_html = ""
     q = q.replace("'", "").replace("ṁ", "ṃ").strip()
 
+    if lang == "ru":
+        q = q.casefold()
+
     lookup_results = db_session.query(Lookup) \
         .filter(Lookup.lookup_key.ilike(q)) \
         .all()
