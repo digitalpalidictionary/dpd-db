@@ -142,6 +142,9 @@ jobs:
     - name: Add EPD to Lookup Table
       run: poetry run python db/epd/epd_to_lookup.py
 
+    - name: Add RPD to Lookup Table
+      run: poetry run python db/rpd/rpd_to_lookup.py
+      
     - name: Test Dealbreakers
       run: poetry run python scripts/build/dealbreakers.py
 
