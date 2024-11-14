@@ -340,7 +340,10 @@ def export_to_pdf(g: GlobalVars):
 def zip_up_pdf(g: GlobalVars):
     p_green("zipping up pdf")
 
-    zip_up_file(g.pth.typst_lite_pdf_path, g.pth.typst_lite_zip_path, compression_level=5)
+    zip_up_file(
+        g.pth.typst_lite_pdf_path, g.pth.typst_lite_zip_path, compression_level=5
+    )
+
     p_yes("ok")
 
 

@@ -46,7 +46,6 @@
   )
 }
 
-
 #let thin-line() = line(length: 100%, stroke: 0.1pt + rgb("00A4CC"))
 
 // title page
@@ -97,7 +96,7 @@
   Github Repository
   #link("https://github.com/digitalpalidictionary/dpd-db")[#blue("https://github.com/digitalpalidictionary/dpd-db")]
 
-  Latest Release
+  Get the latest version
   #link("https://github.com/digitalpalidictionary/dpd-db/releases/latest")[#blue("https://github.com/digitalpalidictionary/dpd-db/releases/latest")]
 
 ]
@@ -148,9 +147,5 @@
 #outline(depth: 1)
 #pagebreak()
 
-#set page(
-  numbering: "1 / 1"
-)
-
-// #counter(page).update(1)
+#set page(numbering: "1 / 1")
 
