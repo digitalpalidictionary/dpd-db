@@ -2886,28 +2886,30 @@ kāme ca loke ca anūpalitto."	'
 8799	meaning_lit	non making in mind according to the source					missing				
 8799	antonym	yoniso manasikāra					missing				
 54319	meaning_lit	making in mind according to the source					missing				
-5285	meaning_lit	being caused to be heard along					caus pass		
-78332	source_2	VIN PAT PC 46	sutta_2	cārittasikkhāpadaṃ	example_2	tatth'āyaṃ samayo, cīvaradānasamayo, cīvara<b>kāra</b>samayo, ayaṃ tattha samayo.	missing		
-28842	meaning_lit	with the motion as the fourth					better I think		
-41857	construction	patta + kāla > kalla					since this version is from kāla		
-20702	root_sign	*e					typo		
-20700	root_sign	*e					typo		
-20703	root_sign	*e					typo		
-20715	root_sign	*e					typo		
-8125	source_1	VIN PAT PC 32	sutta_1	gaṇabhojanasikkhāpadaṃ	example_1	tatth'āyaṃ samayo, gilānasamayo, cīvaradānasamayo, cīvarakārasamayo, addhānagamanasamayo, nāv'<b>ābhirūhana</b>samayo, mahāsamayo, samaṇabhattasamayo, ayaṃ tattha samayo.	missing		
-8125	variant	abhiruhana					missing		
-8125	meaning_1	ascending; boarding; embarking; mounting					missing		
-8125	grammar	nt, act, from abhirūhaadhirohaṇa ti					missing		
-8125	derived_from	abhirūhati					missing		
-8125	sanskrit	adhirohaṇa [abhiruh]					missing		
-27082	construction	cetāpe + ana					missing		
-27082	source_1	VIN PAT NP 9	sutta_1	dutiyaupakkhaṭasikkhāpadaṃ	example_1	bhikkhuṃ pan'eva uddissa ubhinnaṃ aññātakānaṃ gahapatīnaṃ vā gahapatānīnaṃ vā paccekacīvara<b>cetāpanāni</b> upakkhaṭāni honti	missing		
-27082	meaning_1	fund; account					missing		
-27082	derivative	kita	suffix	ana			missing		
-27082	grammar	nt, from cetāpeti					missing		
-27082	meaning_lit	exchanging; bartering					missing		
-27082	phonetic	i > e					missing		
-27082	sanskrit	cetanaka (bsk) [cit]					missing		
-27082	verb	caus					missing		
-27082	variant	cetāpanna					missing		
-30576	meaning_1	endurance; patience					move to second meaning same as tītikkhā		
+5285	meaning_lit	being caused to be heard along					caus pass				
+78332	source_2	VIN PAT PC 46	sutta_2	cārittasikkhāpadaṃ	example_2	tatth'āyaṃ samayo, cīvaradānasamayo, cīvara<b>kāra</b>samayo, ayaṃ tattha samayo.	missing				
+28842	meaning_lit	with the motion as the fourth					better I think				
+41857	construction	patta + kāla > kalla					since this version is from kāla				
+20702	root_sign	*e					typo				
+20700	root_sign	*e					typo				
+20703	root_sign	*e					typo				
+20715	root_sign	*e					typo				
+8125	source_1	VIN PAT PC 32	sutta_1	gaṇabhojanasikkhāpadaṃ	example_1	tatth'āyaṃ samayo, gilānasamayo, cīvaradānasamayo, cīvarakārasamayo, addhānagamanasamayo, nāv'<b>ābhirūhana</b>samayo, mahāsamayo, samaṇabhattasamayo, ayaṃ tattha samayo.	missing				
+8125	variant	abhiruhana					missing				
+8125	meaning_1	ascending; boarding; embarking; mounting					missing				
+8125	grammar	nt, act, from abhirūhaadhirohaṇa ti					missing				
+8125	derived_from	abhirūhati					missing				
+8125	sanskrit	adhirohaṇa [abhiruh]					missing				
+27082	construction	cetāpe + ana					missing				
+27082	source_1	VIN PAT NP 9	sutta_1	dutiyaupakkhaṭasikkhāpadaṃ	example_1	bhikkhuṃ pan'eva uddissa ubhinnaṃ aññātakānaṃ gahapatīnaṃ vā gahapatānīnaṃ vā paccekacīvara<b>cetāpanāni</b> upakkhaṭāni honti	missing				
+27082	meaning_1	fund; account					missing				
+27082	derivative	kita	suffix	ana			missing				
+27082	grammar	nt, from cetāpeti					missing				
+27082	meaning_lit	exchanging; bartering					missing				
+27082	phonetic	i > e					missing				
+27082	sanskrit	cetanaka (bsk) [cit]					missing				
+27082	verb	caus					missing				
+27082	variant	cetāpanna					missing				
+30576	meaning_1	endurance; patience					move to second meaning same as tītikkhā				
+12199	source_2	SN35.241	sutta_2	paṭhamadārukkhandhopamasuttaṃ	example_2	orimaṃ tīran'ti kho, bhikkhu, chann'etaṃ ajjhattikānaṃ āyatanānaṃ adhivacanaṃ. pārimaṃ tīran'ti kho, bhikkhu, chann'etaṃ bāhirānaṃ <b>āyatanānaṃ</b> adhivacanaṃ.	nice example which will have different highlight in the āyatana 1				
+12198	source_2	SN35.241	sutta_2	paṭhamadārukkhandhopamasuttaṃ	example_2	orimaṃ tīran'ti kho, bhikkhu, chann'etaṃ ajjhattikānaṃ <b>āyatanānaṃ</b> adhivacanaṃ. pārimaṃ tīran'ti kho, bhikkhu, chann'etaṃ bāhirānaṃ āyatanānaṃ adhivacanaṃ.	nice example which will have different highlight in the āyatana 2				
