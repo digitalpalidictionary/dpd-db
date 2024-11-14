@@ -25,10 +25,55 @@ pth = ProjectPaths()
 dpspth = DPSPaths()
 db_session = get_db_session(pth.dpd_db_path)
 
-# hight_model="gpt-4o"
 # model="gpt-4o"
 # model="gpt-4o-mini"
 model="gpt-4o-2024-08-06"
+hight_model="gpt-4o-2024-08-06"
+
+
+def load_ranslaton_examples():
+    """Load the pos-examples mapping from a TSV file into a dictionary."""
+    pos_examples_map = {}
+    if dpspth.translation_example_path:
+        with open(dpspth.translation_example_path, 'r', encoding='utf-8') as csvfile:
+            reader = csv.reader(csvfile, delimiter='\t')
+            next(reader)  # Skip header row
+            for row in reader:
+                pos, examples = row[0], row[1]
+                pos_examples_map[pos] = examples
+    return pos_examples_map
+
+
+def remove_irrelevant():
+
+    # Query the database to fetch words that meet the conditions
+    db = db_session.query(DpdHeadword).join(Russian).filter(
+        and_(
+            Russian.ru_meaning_raw != '',
+            Russian.ru_meaning == '',
+            DpdHeadword.meaning_1 == ''
+        )
+    ).limit(1000).all()
+
+    row_count = 0
+
+    # Print the details of filtered words
+    print("Details of filtered words")
+    for word in db:
+        print(f"{word.id}, {word.lemma_1}, {word.ebt_count}")
+        row_count += 1
+
+    print(f"Total rows that fit the filter criteria: {row_count}")
+
+    # Remove the filtered rows from the Russian table
+    for word in db:
+        db_session.delete(word.ru)
+
+    # Commit the changes
+    db_session.commit()
+
+    # ...
+
 
 def ru_meaning_generating():
 
@@ -66,7 +111,7 @@ def ru_meaning_generating():
                 )
 
             )
-        ).order_by(DpdHeadword.ebt_count.desc()).limit(5000).all()
+        ).order_by(DpdHeadword.ebt_count.desc()).limit(1000).all()
 
     #! for filling empty rows in Russian table
 
@@ -89,6 +134,7 @@ def ru_meaning_generating():
     #     ).filter(
     #         and_(
     #             DpdHeadword.meaning_1 != '',
+    #             DpdHeadword.example_1 != '',
     #             Russian.ru_meaning_raw != '',
     #             # func.length(Russian.ru_meaning_raw) > 20,
     #             Russian.ru_meaning == '',
@@ -113,7 +159,7 @@ def ru_meaning_generating():
         else:
             example = ""
 
-        ru_meaning_raw = translate_meaning(pth, i.lemma_1, i.grammar, meaning, example)
+        ru_meaning_raw = translate_meaning(i.lemma_1, i.grammar, i.pos, meaning, example)
 
         if ru_meaning_raw:
 
@@ -258,7 +304,7 @@ def ru_notes_generating():
 
     for counter, i in enumerate(db):
 
-        ru_meaning_raw = translate_notes(pth, i.lemma_1, i.grammar, i.notes)
+        ru_meaning_raw = translate_notes(i.lemma_1, i.grammar, i.notes)
 
         if ru_meaning_raw:
             # Update the ru_notes attribute of the existing Russian instance
@@ -313,7 +359,7 @@ def handle_openai_response(messages):
         print(error_string)
 
 
-def replace_abbreviations(pth, grammar_string):
+def replace_abbreviations(grammar_string):
     # Clean the grammar string: Take portion before the first ','
     # cleaned_grammar_string = grammar_string.split(',')[0].strip()
 
@@ -344,38 +390,93 @@ def replace_abbreviations(pth, grammar_string):
     return replaced_string
 
 
-def translate_meaning(pth, lemma_1, grammar, meaning, example):
+def translate_meaning(lemma_1, grammar, pos, meaning, sentence):
+
+    pos_example_map = load_ranslaton_examples()
+
+    translation_example = pos_example_map.get(pos, "")
+
+    # print(translation_example)
 
     # Replace abbreviations in grammar
-    grammar = replace_abbreviations(pth, grammar)
-    
-    # Generate the chat messages based on provided values
-    messages = [
-        {
-            "role": "system",
-            "content": "You are a helpful assistant that translates English text to Russian considering the context."
-        },
-        {
-            "role": "user",
-            "content": f"""
+    grammar = replace_abbreviations(grammar)
+
+
+    if translation_example:
+
+        # Generate the chat messages based on provided values with translation examples
+        messages = [
+            {
+                "role": "system",
+                "content": "You are a helpful assistant that translates English text to Russian, considering context, grammatical structure, and specific formatting rules."
+            },
+            {
+                "role": "user",
+                "content": f"""
+
+                Please provide Russian translation for the English definition of Pali term, considering gramatical context. Follow these guidelines:
+
+                    - Separate synonyms with `;`.
+                    - Match the grammatical structure of the Pali term (noun, verb, adj, etc.).
+                    - Use lowercase unless it's a proper noun.
+                    - Format the output similarly to provided translation examples.
+                    - If "lit." is present in definition, include a literal translation marked with досл.
+                    - If "(comm)" is present in definition, keep it as (комм) in Russian.
+                    - Retain any clarifications in brackets (e.g., "(of trap) laid down" → "установленный (капкан)")
+                    - If the English definition contains an idiom, try to use a corresponding Russian idiom.
+                    - Output only the translations, without labels like "Перевод" etc.
+
                 **Pali Term**: {lemma_1}
                 **Grammar Details**: {grammar}
-                **Pali sentence**: {example}
+                **Pali sentence**: {sentence}
                 **English Definition**: {meaning}
-                Please provide distinct Russian translation for the English definition, considering the Pali term and its grammatical context and Pali sentence. In the answer give only Russian translation in Cyrillic script in one line and nothing else. Do not start with capitalization, unless it is a proper name. 
-            """
-        }
-    ]
+                **Translation Examples**: {translation_example}
+
+                """
+            }
+        ]
+
+    else:
+
+        # Generate the chat messages based on provided values
+        messages = [
+            {
+                "role": "system",
+                "content": "You are a helpful assistant that translates English text to Russian, considering context, grammatical structure, and specific formatting rules."
+            },
+            {
+                "role": "user",
+                "content": f"""
+
+                Please provide Russian translation for the English definition of Pali term, considering gramatical context. Follow these guidelines:
+
+                    - Separate synonyms with `;`.
+                    - Match the grammatical structure of the Pali term (noun, verb, adj, etc.).
+                    - Use lowercase unless it's a proper noun.
+                    - If "lit." is present in definition, include a literal translation marked with досл.
+                    - If "(comm)" is present in definition, keep it as (комм) in Russian.
+                    - Retain any clarifications in brackets (e.g., "(of trap) laid down" → "установленный (капкан)")
+                    - If the English definition contains an idiom, try to use a corresponding Russian idiom.
+                    - Output only the translations, without labels like "Перевод" etc.
+
+                **Pali Term**: {lemma_1}
+                **Grammar Details**: {grammar}
+                **Pali sentence**: {sentence}
+                **English Definition**: {meaning}
+
+                """
+            }
+        ]
 
     suggestion = handle_openai_response(messages)
 
     return suggestion
 
 
-def translate_notes(pth, lemma_1, grammar, notes):
+def translate_notes(lemma_1, grammar, notes):
 
     # Replace abbreviations in grammar
-    grammar = replace_abbreviations(pth, grammar)
+    grammar = replace_abbreviations(grammar)
     
     # Generate the chat messages based on provided values
     messages = [
@@ -386,10 +487,13 @@ def translate_notes(pth, lemma_1, grammar, notes):
         {
             "role": "user",
             "content": f"""
+
+            Please provide Russian translation for the English notes, considering the Pali term and its grammatical context. In the answer give only Russian translation in one line and nothing else. But keep Pali or Sanskrit terms in roman script.
+
                 **Pali Term**: {lemma_1}
                 **Grammar Details**: {grammar}
                 **English Notes**: {notes}
-                Please provide Russian translation for the English notes, considering the Pali term and its grammatical context. In the answer give only Russian translation in one line and nothing else. But keep Pali or Sanskrit terms in roman script.
+
             """
         }
     ]
@@ -460,13 +564,11 @@ if __name__ == "__main__":
 
     print("Translationg with the help of AI")
 
-    #! change the prompt to latest version from the gui function
+    # remove_irrelevant()
 
-    #! also add removing all words which has ru_meaning_raw and does not have meaning_1 and ru_meaning
-
-    # ru_meaning_generating()
+    ru_meaning_generating()
 
     # roots_meaning_generating("pali")
 
-    ru_notes_generating()
+    # ru_notes_generating()
 

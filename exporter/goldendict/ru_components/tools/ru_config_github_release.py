@@ -29,7 +29,6 @@ def main():
     config_update("dictionary", "show_ebt_count", "no")
     config_update("dictionary", "show_sbs_data", "no")
     config_update("dictionary", "show_ru_data", "no")
-    config_update("dictionary", "show_ru_data", "no")
     config_update("dictionary", "data_limit", "0")
     
     config_update("exporter", "make_grammar", "yes")

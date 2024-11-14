@@ -836,10 +836,13 @@ def ru_notes_translate_with_openai(dpspth, pth, notes, lemma_1, grammar, suggest
         {
             "role": "user",
             "content": f"""
+
+            Please provide Russian translation for the English notes, considering the Pali term and its grammatical context. In the answer give only Russian translation in one line and nothing else. But keep Pali or Sanskrit terms in roman script.
+
                 **Pali Term**: {lemma_1}
                 **Grammar Details**: {grammar}
                 **English Notes**: {notes}
-                Please provide Russian translation for the English notes, considering the Pali term and its grammatical context. 
+                
             """
         }
     ]

@@ -1,3 +1,4 @@
+
 name: Russian Release
 
 on: 
@@ -25,9 +26,8 @@ jobs:
         rm -rf ${{ github.workspace }}/resources/bjt/dev/*
         rm -rf ${{ github.workspace }}/resources/sc-data/html_text/*
 
-    - name: Fetch and unzip deconstructor_output
+    - name: Unzip deconstructor_output
       run: |
-        git clone https://github.com/digitalpalidictionary/deconstructor_output.git ${{ github.workspace }}/resources/deconstructor_output
         cd ${{ github.workspace }}/resources/deconstructor_output
         tar -xzvf deconstructor_output.json.tar.gz
         ls -la
@@ -156,8 +156,35 @@ jobs:
     - name: Export Kindle & ePub
       run: poetry run python exporter/kindle/kindle_exporter.py
 
+    - name: Check disk space and memory
+      run: |
+        free -h  # Check available memory
+        df -h    # Check disk space
+
     - name: Zip GoldenDict & Mdict
       run: poetry run python exporter/goldendict/ru_components/tools/ru_zip_goldendict_mdict.py
+
+    # ----------------------------------------
+    # Export DPD + RUS and DPD + SBS
+    # ----------------------------------------
+
+    - name: Config for DPD + RUS
+      run: poetry run python exporter/goldendict/ru_components/tools/config_github_release_dpd_rus.py
+
+    - name: Export GoldenDict & MDict for DPD + RUS
+      run: poetry run python exporter/goldendict/main.py
+
+    - name: Zip GoldenDict & Mdict for DPD + RUS
+      run: poetry run python exporter/goldendict/ru_components/tools/zip_dpd_rus.py
+
+    - name: Config for DPD + SBS
+      run: poetry run python exporter/goldendict/ru_components/tools/config_github_release_dpd_sbs.py
+
+    - name: Export GoldenDict & MDict for DPD + SBS
+      run: poetry run python exporter/goldendict/main.py
+
+    - name: Zip GoldenDict & Mdict for DPD + SBS
+      run: poetry run python exporter/goldendict/ru_components/tools/zip_dpd_sbs.py
     
     # ----------------------------------------
     # Upload Artifacts
@@ -186,9 +213,13 @@ jobs:
         body: |
           ### [Цифровой Словарь Пали](https://digitalpalidictionary.github.io/rus/)
 
-          DPD - это богатый возможностями словарь палийского языка на русском, который работает в GoldenDict, MDict и Kindle, или в любом другом приложении, поддерживающем эти форматы.
+          DPD - это богатый возможностями словарь палийского языка на русском, который работает [онлайн](dpdict.net/ru/) и в GoldenDict, MDict, DictTango и Kindle, или в любом другом приложении, поддерживающем форматы stardict, mdict, epub, modi.
 
           На этой странице доступа свежая русской версия словаря в разных форматах. Последнюю версию оригинального английского DPD можно найти на [этой GitHub странице](https://github.com/digitalpalidictionary/digitalpalidictionary/releases). Там же можно почитать историю изменений и дополнений.
+
+          Также достуна версия DPD вместе с русским переводим, эта версия включает в себя оригинальный DPD + русский перевод, подробнее на этой странице.
+
+          Также доступна совмещенная версия английского DPD с русским переводом. Более подробную информацию можно найти на [этой странице.](https://digitalpalidictionary.github.io/rus/dpd_rus.html)
 
           ---
 
@@ -232,12 +263,53 @@ jobs:
         asset_name: ru-dpd-kindle.epub
         asset_content_type: application/zip
 
-    - name: Upload Asset ru-dpd-kindle.mobi
+    # - name: Upload Asset ru-dpd-kindle.mobi
+    #   uses: actions/upload-release-asset@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+    #   with:
+    #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+    #     asset_path: exporter/share/ru-dpd-kindle.mobi
+    #     asset_name: ru-dpd-kindle.mobi
+    #     asset_content_type: application/zip
+
+    - name: Upload Asset dpd+sbs-goldendict.zip
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GH_PAT }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: exporter/share/ru-dpd-kindle.mobi
-        asset_name: ru-dpd-kindle.mobi
+        asset_path: exporter/share/dpd+sbs-goldendict.zip
+        asset_name: dpd+sbs-goldendict.zip
         asset_content_type: application/zip
+
+    - name: Upload Asset dpd+sbs-mdict.zip
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: exporter/share/dpd+sbs-mdict.zip
+        asset_name: dpd+sbs-mdict.zip
+        asset_content_type: application/zip
+
+    - name: Upload Asset dpd+rus-goldendict.zip
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: exporter/share/dpd+rus-goldendict.zip
+        asset_name: dpd+rus-goldendict.zip
+        asset_content_type: application/zip
+
+    - name: Upload Asset dpd+rus-mdict.zip
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: exporter/share/dpd+rus-mdict.zip
+        asset_name: dpd+rus-mdict.zip
+        asset_content_type: application/zip
+
