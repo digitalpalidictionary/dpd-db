@@ -680,7 +680,7 @@ var family_word_json = {
    [
     "kāsāva 2",
     "nt",
-    "organic brown colour robes; monks' robes",
+    "organic brown colour robe; monk's robe",
     "✔"
    ],
    [
@@ -1619,7 +1619,7 @@ var family_word_json = {
    [
     "anagāriya 1",
     "nt",
-    "homelessness; homeless state",
+    "homelessness; homeless state; lit. no home state",
     "✔"
    ],
    [
@@ -1649,13 +1649,13 @@ var family_word_json = {
    [
     "anāgāriya",
     "nt",
-    "homelessness; homeless state",
+    "homelessness; homeless state; lit. no home state",
     "✔"
    ],
    [
     "anāgāriyatā",
     "fem",
-    "homelessness; homeless state",
+    "homelessness; homeless state; lit. no home state",
     "◑"
    ],
    [
@@ -3120,7 +3120,7 @@ var family_word_json = {
    [
     "acchariya 1",
     "adj",
-    "wonderful; marvellous",
+    "wonderful; marvellous; epithet of Nibbāna",
     "✔"
    ],
    [
@@ -4679,13 +4679,13 @@ var family_word_json = {
     "✔"
    ],
    [
-    "aha 1",
+    "aha 1.1",
     "nt",
     "day",
     "✔"
    ],
    [
-    "aha 2",
+    "aha 1.2",
     "masc",
     "day",
     "✔"
@@ -6393,8 +6393,8 @@ var family_word_json = {
    [
     "velā 3",
     "fem",
-    "limit, boundary",
-    "✘"
+    "limit; boundary",
+    "✔"
    ]
   ],
   "count": 7
@@ -8399,6 +8399,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "loma 6",
+    "nt",
+    "(of a fish) scales",
+    "✔"
+   ],
+   [
     "lomatā",
     "fem",
     "fact of having hair",
@@ -8477,7 +8483,7 @@ var family_word_json = {
     "◑"
    ]
   ],
-  "count": 37
+  "count": 38
  },
  "apa": {
   "data": [
@@ -9758,7 +9764,7 @@ var family_word_json = {
    [
     "pubba 1.1",
     "adj",
-    "before; previous; earlier; former",
+    "previous; earlier; former",
     "✔"
    ],
    [
@@ -12876,7 +12882,7 @@ var family_word_json = {
    [
     "abbhuta 1",
     "adj",
-    "marvellous; extraordinary; unbelievable; astonishing",
+    "marvellous; extraordinary; unbelievable; astonishing; epithet of Nibbāna",
     "✔"
    ],
    [
@@ -15779,6 +15785,12 @@ var family_word_json = {
  "sa": {
   "data": [
    [
+    "asa 4.1",
+    "pron",
+    "not one's own; not one's possession",
+    "✔"
+   ],
+   [
     "asaka",
     "nt",
     "not one's own (property, possessions, etc.)",
@@ -15893,7 +15905,7 @@ var family_word_json = {
     "✘"
    ]
   ],
-  "count": 19
+  "count": 20
  },
  "saki": {
   "data": [
@@ -18449,6 +18461,17 @@ var family_word_json = {
    ]
   ],
   "count": 5
+ },
+ "uraṇa": {
+  "data": [
+   [
+    "uraṇī",
+    "fem",
+    "ewe; nanny goat",
+    "✔"
+   ]
+  ],
+  "count": 1
  },
  "urabbha": {
   "data": [
@@ -21521,6 +21544,23 @@ var family_word_json = {
   ],
   "count": 4
  },
+ "kedāra": {
+  "data": [
+   [
+    "kedāra",
+    "nt",
+    "paddy field",
+    "✔"
+   ],
+   [
+    "kedāraka",
+    "nt",
+    "small paddy field",
+    "✔"
+   ]
+  ],
+  "count": 2
+ },
  "kesa": {
   "data": [
    [
@@ -22614,17 +22654,6 @@ var family_word_json = {
    ]
   ],
   "count": 5
- },
- "gedha2": {
-  "data": [
-   [
-    "gedha 2.1",
-    "masc",
-    "thicket; dense bush; tangle; (comm) (or) bondage",
-    "✔"
-   ]
-  ],
-  "count": 1
  },
  "gotama": {
   "data": [
@@ -30939,7 +30968,7 @@ var family_word_json = {
    [
     "vāṇija",
     "masc",
-    "trader; dealer",
+    "trader; dealer; merchant",
     "✔"
    ],
    [
@@ -31642,9 +31671,15 @@ var family_word_json = {
     "adj",
     "with a horn; having horns",
     "✔"
+   ],
+   [
+    "visāṇaka",
+    "nt",
+    "horn; horns",
+    "✔"
    ]
   ],
-  "count": 3
+  "count": 4
  },
  "visūka": {
   "data": [
@@ -31698,7 +31733,7 @@ var family_word_json = {
    [
     "vissavant",
     "adj",
-    "musty; bad smelling; carnal; lit. with raw meat quality",
+    "musty; bad smelling; carnal; lit. having raw meat quality",
     "✔"
    ]
   ],
@@ -31786,7 +31821,7 @@ var family_word_json = {
    [
     "veḷuvant",
     "adj",
-    "full of bamboo; with plentiful bamboo",
+    "full of bamboo; with plentiful bamboo; lit. having bamboo quality",
     "✔"
    ]
   ],
@@ -32317,17 +32352,6 @@ var family_word_json = {
   ],
   "count": 9
  },
- "satthi": {
-  "data": [
-   [
-    "satthi 1.1",
-    "nt",
-    "thigh",
-    "✔"
-   ]
-  ],
-  "count": 1
- },
  "hada": {
   "data": [
    [
@@ -32837,17 +32861,6 @@ var family_word_json = {
    ]
   ],
   "count": 2
- },
- "savara": {
-  "data": [
-   [
-    "savara",
-    "masc",
-    "savage; barbarian",
-    "✔"
-   ]
-  ],
-  "count": 1
  },
  "sittha": {
   "data": [
@@ -33589,7 +33602,7 @@ var family_word_json = {
    [
     "siva 1",
     "adj",
-    "safe; happy; blessed; auspicious",
+    "safe; happy; blessed; auspicious; epithet of Nibbāna",
     "✔"
    ],
    [
@@ -34471,7 +34484,7 @@ var family_word_json = {
    [
     "hemavant",
     "adj",
-    "golden; adorned with gold",
+    "golden; adorned with gold; lit. having gold quality",
     "◑"
    ]
   ],

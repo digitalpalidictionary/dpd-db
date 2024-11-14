@@ -377,6 +377,94 @@ var family_idiom_json = {
    ]
   ]
  },
+ "karitvā": {
+  "count": 11,
+  "data": [
+   [
+    "agaruṃ karitvā",
+    "idiom",
+    "without making a problem; without making it difficult; without making a fuss; lit. having not made heavy",
+    "✔"
+   ],
+   [
+    "anodhiṃ karitvā",
+    "idiom",
+    "completely; without exception; without qualification; without limit; lit. having made no limit",
+    "✔"
+   ],
+   [
+    "antaraṃ karitvā",
+    "idiom",
+    "having given priority (to); having focussed (on); consumed (with); lit. having made within",
+    "✔"
+   ],
+   [
+    "ekaṃsaṃ uttarāsaṅgaṃ karitvā",
+    "idiom",
+    "having arranged one's robe over one shoulder",
+    "✔"
+   ],
+   [
+    "kālaṃ karitvā",
+    "idiom",
+    "having died; lit. having done time",
+    "✔"
+   ],
+   [
+    "paccayaṃ karitvā",
+    "idiom",
+    "for this reason; lit. having made cause",
+    "✔"
+   ],
+   [
+    "manasi karitvā",
+    "idiom",
+    "having paid attention; having applied the mind; lit. having made in mind",
+    "✔"
+   ],
+   [
+    "maṃ pādato karitvā",
+    "idiom",
+    "having pointed their feet towards me; having positioned their feet in my direction; lit. having made me from the feet",
+    "✔"
+   ],
+   [
+    "yoggaṃ karitvā",
+    "idiom",
+    "having trained; having practised; having drilled",
+    "✔"
+   ],
+   [
+    "raṇaṃ karitvā",
+    "idiom",
+    "having waged war (against); having engaged in battle (with); having fought",
+    "✔"
+   ],
+   [
+    "hatthe karitvā",
+    "idiom",
+    "having taken (something) in hand; lit. having made in hand",
+    "✔"
+   ]
+  ]
+ },
+ "karonta": {
+  "count": 2,
+  "data": [
+   [
+    "manasi karonta",
+    "idiom",
+    "paying attention; bearing in mind; lit. making in mind",
+    "✔"
+   ],
+   [
+    "sajjhāyaṃ karonta",
+    "idiom",
+    "reciting; chanting; rehearsing; repeating; lit. making recitation together",
+    "✔"
+   ]
+  ]
+ },
  "kalyāṇa": {
   "count": 1,
   "data": [
@@ -401,6 +489,58 @@ var family_idiom_json = {
     "kallosi",
     "sandhi",
     "you are clever; you are smart",
+    "✔"
+   ]
+  ]
+ },
+ "kasira": {
+  "count": 2,
+  "data": [
+   [
+    "appakasirena samudāgacchanti",
+    "idiom",
+    "are obtained without difficulty; are easy to come by; lit. arises together with little difficulty",
+    "✔"
+   ],
+   [
+    "kasirena samudāgacchanti",
+    "idiom",
+    "are obtained with difficulty; are hard to come by; lit. arises together with difficulty",
+    "✔"
+   ]
+  ]
+ },
+ "kāma": {
+  "count": 5,
+  "data": [
+   [
+    "kāmesu gedhaṃ",
+    "idiom",
+    "greed for sensual pleasures",
+    "✔"
+   ],
+   [
+    "paramattakāmo",
+    "sandhi",
+    "another wanting one's own good",
+    "✔"
+   ],
+   [
+    "yena kāmaṃ",
+    "idiom",
+    "wherever one wishes; where one wants",
+    "✔"
+   ],
+   [
+    "yena kāmaṃ gamo",
+    "idiom",
+    "able to go where one likes; able to go where one wants at will",
+    "✔"
+   ],
+   [
+    "yena kāmaṃ pakkamati",
+    "idiom",
+    "goes on one's way; goes wherever one wishes to",
     "✔"
    ]
   ]
@@ -657,6 +797,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "kevala": {
+  "count": 1,
+  "data": [
+   [
+    "kevala paripūra",
+    "idiom",
+    "completely and utterly; complete and utter; 100%",
+    "✔"
+   ]
+  ]
+ },
  "kuddha": {
   "count": 1,
   "data": [
@@ -735,6 +886,23 @@ var family_idiom_json = {
    ]
   ]
  },
+ "gabbha": {
+  "count": 2,
+  "data": [
+   [
+    "gabbhaṃ gaṇhati",
+    "idiom",
+    "becomes pregnant; lit. seize a womb",
+    "✔"
+   ],
+   [
+    "gabbhaṃ pātesi",
+    "idiom",
+    "had an abortion; lit. caused the embryo to fall",
+    "◑"
+   ]
+  ]
+ },
  "garu": {
   "count": 3,
   "data": [
@@ -754,77 +922,6 @@ var family_idiom_json = {
     "sace te agaru",
     "idiom",
     "if it is not troublesome for you; if it's convenient for you; if you don't mind; lit. if not heavy for you",
-    "✔"
-   ]
-  ]
- },
- "karitvā": {
-  "count": 11,
-  "data": [
-   [
-    "agaruṃ karitvā",
-    "idiom",
-    "without making a problem; without making it difficult; without making a fuss; lit. having not made heavy",
-    "✔"
-   ],
-   [
-    "anodhiṃ karitvā",
-    "idiom",
-    "completely; without exception; without qualification; without limit; lit. having made no limit",
-    "✔"
-   ],
-   [
-    "antaraṃ karitvā",
-    "idiom",
-    "having given priority (to); having focussed (on); consumed (with); lit. having made within",
-    "✔"
-   ],
-   [
-    "ekaṃsaṃ uttarāsaṅgaṃ karitvā",
-    "idiom",
-    "having arranged one's robe over one shoulder",
-    "✔"
-   ],
-   [
-    "kālaṃ karitvā",
-    "idiom",
-    "having died; lit. having done time",
-    "✔"
-   ],
-   [
-    "paccayaṃ karitvā",
-    "idiom",
-    "for this reason; lit. having made cause",
-    "✔"
-   ],
-   [
-    "manasi karitvā",
-    "idiom",
-    "having paid attention; having applied the mind; lit. having made in mind",
-    "✔"
-   ],
-   [
-    "maṃ pādato karitvā",
-    "idiom",
-    "having pointed their feet towards me; having positioned their feet in my direction; lit. having made me from the feet",
-    "✔"
-   ],
-   [
-    "yoggaṃ karitvā",
-    "idiom",
-    "having trained; having practised; having drilled",
-    "✔"
-   ],
-   [
-    "raṇaṃ karitvā",
-    "idiom",
-    "having waged war (against); having engaged in battle (with); having fought",
-    "✔"
-   ],
-   [
-    "hatthe karitvā",
-    "idiom",
-    "having taken (something) in hand; lit. having made in hand",
     "✔"
    ]
   ]
@@ -15295,23 +15392,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "kasira": {
-  "count": 2,
-  "data": [
-   [
-    "appakasirena samudāgacchanti",
-    "idiom",
-    "are obtained without difficulty; are easy to come by; lit. arises together with little difficulty",
-    "✔"
-   ],
-   [
-    "kasirena samudāgacchanti",
-    "idiom",
-    "are obtained with difficulty; are hard to come by; lit. arises together with difficulty",
-    "✔"
-   ]
-  ]
- },
  "samudāgacchati": {
   "count": 2,
   "data": [
@@ -16848,13 +16928,13 @@ var family_idiom_json = {
    [
     "ayoniso manasikāra",
     "idiom",
-    "radical inattention; not paying proper attention; imprudently applying the mind; unwise reflection; unfocused attention; lit. non-attention to the source",
+    "radical inattention; not paying proper attention; imprudently applying the mind; unwise reflection; unfocused attention; lit. not making the source in mind",
     "✔"
    ],
    [
     "yoniso manasikāra",
     "idiom",
-    "radical attention; probing attention; paying proper attention; prudently applying the mind; wise reflection; lit. attention to the source",
+    "radical attention; probing attention; paying proper attention; prudently applying the mind; wise reflection; lit. making the source in mind",
     "✔"
    ]
   ]
@@ -16865,13 +16945,13 @@ var family_idiom_json = {
    [
     "ayoniso manasikāra",
     "idiom",
-    "radical inattention; not paying proper attention; imprudently applying the mind; unwise reflection; unfocused attention; lit. non-attention to the source",
+    "radical inattention; not paying proper attention; imprudently applying the mind; unwise reflection; unfocused attention; lit. not making the source in mind",
     "✔"
    ],
    [
     "yoniso manasikāra",
     "idiom",
-    "radical attention; probing attention; paying proper attention; prudently applying the mind; wise reflection; lit. attention to the source",
+    "radical attention; probing attention; paying proper attention; prudently applying the mind; wise reflection; lit. making the source in mind",
     "✔"
    ]
   ]
@@ -17631,6 +17711,23 @@ var family_idiom_json = {
    ]
   ]
  },
+ "sa3": {
+  "count": 2,
+  "data": [
+   [
+    "samphalaṃ",
+    "sandhi",
+    "its own fruit; one's own fruit",
+    "✔"
+   ],
+   [
+    "sāmampi",
+    "sandhi",
+    "even oneself; just by oneself; even for oneself",
+    "✔"
+   ]
+  ]
+ },
  "saka": {
   "count": 3,
   "data": [
@@ -18267,23 +18364,6 @@ var family_idiom_json = {
     "lokamimaṃ",
     "sandhi",
     "this world",
-    "✔"
-   ]
-  ]
- },
- "sa3": {
-  "count": 2,
-  "data": [
-   [
-    "samphalaṃ",
-    "sandhi",
-    "its own fruit; one's own fruit",
-    "✔"
-   ],
-   [
-    "sāmampi",
-    "sandhi",
-    "even oneself; just by oneself; even for oneself",
     "✔"
    ]
   ]
@@ -23503,35 +23583,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "kāma": {
-  "count": 4,
-  "data": [
-   [
-    "kāmesu gedhaṃ",
-    "idiom",
-    "greed for sensual pleasures",
-    "✔"
-   ],
-   [
-    "paramattakāmo",
-    "sandhi",
-    "another wanting one's own good",
-    "✔"
-   ],
-   [
-    "yena kāmaṃ gamo",
-    "idiom",
-    "able to go where one likes; able to go where one wants at will",
-    "✔"
-   ],
-   [
-    "yena kāmaṃ pakkamati",
-    "idiom",
-    "goes on one's way; goes wherever one wishes to",
-    "✔"
-   ]
-  ]
- },
  "gedha": {
   "count": 1,
   "data": [
@@ -24209,17 +24260,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "kevala": {
-  "count": 1,
-  "data": [
-   [
-    "kevala paripūra",
-    "idiom",
-    "completely and utterly; complete and utter; 100%",
-    "✔"
-   ]
-  ]
- },
  "kesa": {
   "count": 1,
   "data": [
@@ -24509,23 +24549,6 @@ var family_idiom_json = {
     "sandhi",
     "you want to go",
     "✔"
-   ]
-  ]
- },
- "gabbha": {
-  "count": 2,
-  "data": [
-   [
-    "gabbhaṃ gaṇhati",
-    "idiom",
-    "becomes pregnant; lit. seize a womb",
-    "✔"
-   ],
-   [
-    "gabbhaṃ pātesi",
-    "idiom",
-    "had an abortion; lit. caused the embryo to fall",
-    "◑"
    ]
   ]
  },
@@ -29489,23 +29512,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "karonta": {
-  "count": 2,
-  "data": [
-   [
-    "manasi karonta",
-    "idiom",
-    "paying attention; bearing in mind; lit. making in mind",
-    "✔"
-   ],
-   [
-    "sajjhāyaṃ karonta",
-    "idiom",
-    "reciting; chanting; rehearsing; repeating; lit. making recitation together",
-    "✔"
-   ]
-  ]
- },
  "padosayati": {
   "count": 1,
   "data": [
@@ -31013,8 +31019,14 @@ var family_idiom_json = {
   ]
  },
  "yena": {
-  "count": 13,
+  "count": 14,
   "data": [
+   [
+    "yena kāmaṃ",
+    "idiom",
+    "wherever one wishes; where one wants",
+    "✔"
+   ],
    [
     "yena kāmaṃ gamo",
     "idiom",

@@ -73,6 +73,7 @@ adj
 adjectival
 admonishable
 admonishable;
+adroitness
 adverbial
 adversative
 Aegle
@@ -503,6 +504,7 @@ colourist's
 commentarial
 communis
 compassionlessness
+conceptualising
 conches
 concilated
 concomitance
@@ -585,6 +587,7 @@ Dārucīriya
 Dārupattika
 Dasakanipāta
 davatte
+dawnrise
 de-illusionment
 decad
 decayless
@@ -783,6 +786,7 @@ expectance
 expected
 experienceable
 experientially
+expertness
 exposit
 exposition
 expounder
@@ -1644,6 +1648,7 @@ outgrowths
 outlaid
 outshined
 overgarment
+overindulging
 overspread
 ownerless
 pā
@@ -2104,6 +2109,7 @@ siyanti
 sk
 sk 
 skilled-ness
+skillfulness
 slackness
 slanderousness
 slayed
@@ -2286,6 +2292,7 @@ Therīgāthā
 Therīgāthā
 Thespesia
 third-ish
+thirty-eighth
 ṭhiti
 thousand-spoked
 Thūlakoṭṭhika

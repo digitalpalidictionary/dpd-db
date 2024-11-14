@@ -417,7 +417,7 @@ var family_set_json = {
    [
     "adhoṭhita",
     "adj",
-    "(gram) following; succeeding; lit. stood below",
+    "(gram) preceding; previous; coming before; lit. stood below",
     "✔"
    ],
    [
@@ -857,6 +857,12 @@ var family_set_json = {
     "pp",
     "(gram) not found elsewhere; unique; lit. not broken together",
     "◑"
+   ],
+   [
+    "asambhinnapada",
+    "nt",
+    "(gram) unique word; phrase occurring once",
+    "✔"
    ],
    [
     "asarūpa",
@@ -4951,7 +4957,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 797
+  "count": 798
  },
  "prefixes": {
   "data": [
@@ -6072,6 +6078,12 @@ var family_set_json = {
     "ayaṃ",
     "pron",
     "this; this person; this thing",
+    "✔"
+   ],
+   [
+    "asa 4.1",
+    "pron",
+    "not one's own; not one's possession",
     "✔"
    ],
    [
@@ -7941,7 +7953,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 350
+  "count": 351
  },
  "epithets of devas": {
   "data": [
@@ -8268,6 +8280,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "acchariya 1",
+    "adj",
+    "wonderful; marvellous; epithet of Nibbāna",
+    "✔"
+   ],
+   [
     "ajajjara",
     "adj",
     "unaging; timeless; immortal; epithet of Nibbāna",
@@ -8286,15 +8304,51 @@ var family_set_json = {
     "✔"
    ],
    [
+    "anālaya 1",
+    "masc",
+    "non-clinging; non-attachment; non-reliance; unstuck; epithet of Nibbāna",
+    "✔"
+   ],
+   [
+    "anāsava 1",
+    "adj",
+    "free from the effluents; taint-less; undefiled; epithet of Nibbāna",
+    "✔"
+   ],
+   [
     "anidassana",
     "adj",
     "attribute-less; non-manifesting; sign-less; featureless; invisible; epithet of Nibbāna",
     "✔"
    ],
    [
+    "anītika",
+    "adj",
+    "free from calamity; without adversity; unproblematic; safe; epithet of Nibbāna",
+    "✔"
+   ],
+   [
+    "anītikadhamma",
+    "masc",
+    "untroubled state; unproblematic state; epithet of Nibbāna",
+    "✔"
+   ],
+   [
     "apalokita 2.1",
     "pp",
     "not fallen apart; not dissolved; not disintegrated; epithet of Nibbāna",
+    "✔"
+   ],
+   [
+    "abbhuta 1",
+    "adj",
+    "marvellous; extraordinary; unbelievable; astonishing; epithet of Nibbāna",
+    "✔"
+   ],
+   [
+    "abyāpajjha 1.1",
+    "nt",
+    "freedom from oppressive pain; relief from suffering; epithet of Nibbāna; lit. not to be oppressed",
     "✔"
    ],
    [
@@ -8346,9 +8400,21 @@ var family_set_json = {
     "◑"
    ],
    [
+    "khema 2",
+    "masc",
+    "safety; security; sanctuary; peace; rest; epithet of Nibbāna",
+    "✔"
+   ],
+   [
     "khemaṭṭhāna",
     "nt",
     "place of safety; secure place; sheltered location; epithet of Nibbāna",
+    "✔"
+   ],
+   [
+    "tāṇa 1",
+    "nt",
+    "refuge; shelter; defence; protection; epithet of Nibbāna; lit. protecting",
     "✔"
    ],
    [
@@ -8358,9 +8424,33 @@ var family_set_json = {
     "✔"
    ],
    [
+    "dīpa 2.2",
+    "masc",
+    "terra firma; solid ground; support; help; refuge; place of safety; epithet of Nibbāna; lit. island",
+    "✔"
+   ],
+   [
+    "dhuva 1",
+    "adj",
+    "stable; enduring; permanent; eternal; everlasting; epithet of Nibbāna",
+    "✔"
+   ],
+   [
+    "nipuṇa 1",
+    "adj",
+    "fine; subtle; epithet of Nibbāna",
+    "✔"
+   ],
+   [
     "nippapañca 1",
     "adj",
     "not forming various opinions; without proliferating; epithet of Nibbāna",
+    "✔"
+   ],
+   [
+    "parāyana 2",
+    "nt",
+    "final destination; ultimate goal; epithet of Nibbāna; (comm) result; support; lit. going beyond",
     "✔"
    ],
    [
@@ -8376,6 +8466,18 @@ var family_set_json = {
     "✔"
    ],
    [
+    "mutti 1",
+    "fem",
+    "liberation; freedom; emancipation; release; epithet of Nibbāna",
+    "✔"
+   ],
+   [
+    "leṇa 2",
+    "nt",
+    "safety; security; epithet of Nibbāna; lit. hiding",
+    "✔"
+   ],
+   [
     "vivaṭṭa 3",
     "nt",
     "cessation of the round of cyclical existence; epithet of Nibbāna",
@@ -8385,6 +8487,12 @@ var family_set_json = {
     "saṅkhārūpasama",
     "masc",
     "stilling of mental activities; quieting of conditions; epithet of Nibbāna",
+    "✔"
+   ],
+   [
+    "sacca 2",
+    "nt",
+    "truth; epithet of Nibbāna",
     "✔"
    ],
    [
@@ -8406,9 +8514,21 @@ var family_set_json = {
     "✔"
    ],
    [
+    "saraṇa 1.1",
+    "nt",
+    "shelter; refuge; help; epithet of Nibbāna; lit. going to",
+    "✔"
+   ],
+   [
     "sāmaññattha",
     "masc",
     "goal of monkhood; purpose of renunciation; epithet of Nibbāna",
+    "✔"
+   ],
+   [
+    "siva 1",
+    "adj",
+    "safe; happy; blessed; auspicious; epithet of Nibbāna",
     "✔"
    ],
    [
@@ -8422,9 +8542,21 @@ var family_set_json = {
     "masc",
     "coolness; calm; peace; epithet of Nibbāna; lit. cool state",
     "✔"
+   ],
+   [
+    "sududdasa",
+    "adj",
+    "extremely difficult to see; very difficult to discern; epithet of Nibbāna",
+    "✔"
+   ],
+   [
+    "suddhi",
+    "fem",
+    "purity; purification; holiness; epithet of Nibbāna",
+    "✔"
    ]
   ],
-  "count": 31
+  "count": 51
  },
  "names of Brahmans": {
   "data": [
@@ -11078,6 +11210,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "vāṇija",
+    "masc",
+    "trader; dealer; merchant",
+    "✔"
+   ],
+   [
     "veṇa",
     "masc",
     "basket weaver; bamboo worker",
@@ -11094,12 +11232,6 @@ var family_set_json = {
     "fem",
     "female basket weaver; bamboo worker woman",
     "◑"
-   ],
-   [
-    "saṅkhāna",
-    "nt",
-    "calculation; counting; arithmetic",
-    "✔"
    ],
    [
     "saṭha 2",
@@ -13019,6 +13151,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "serivant",
+    "masc",
+    "name of a merchant; lit. having independent quality",
+    "✔"
+   ],
+   [
     "soṇa 2",
     "masc",
     "name of a layman; lit. dog",
@@ -13073,7 +13211,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 156
+  "count": 157
  },
  "types of ascetics": {
   "data": [
@@ -24534,6 +24672,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "uraṇī",
+    "fem",
+    "ewe; nanny goat",
+    "✔"
+   ],
+   [
     "usabha 1",
     "masc",
     "head bull; stud bull",
@@ -24960,7 +25104,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 78
+  "count": 79
  },
  "names of royalty": {
   "data": [
@@ -25145,6 +25289,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "candakumāra",
+    "masc",
+    "name of a prince; previous incarnation of Sāriputta; lit. prince moon",
+    "✔"
+   ],
+   [
     "cundī",
     "fem",
     "name of a princess",
@@ -25241,6 +25391,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "bhaddasena",
+    "masc",
+    "name of a prince in a Jātaka story; son of king Ekarāja; previous incarnation of Moggallāna; lit. having a good army",
+    "✔"
+   ],
+   [
     "bharata 1",
     "masc",
     "name of one the seven Bharata kings",
@@ -25304,6 +25460,12 @@ var family_set_json = {
     "vajirī",
     "fem",
     "name of a princess; daughter of king Pasenadi; lit. diamond",
+    "✔"
+   ],
+   [
+    "vāmagotta",
+    "masc",
+    "name of a prince in a Jātaka story; previous incarnation of Mahākassapa",
     "✔"
    ],
    [
@@ -25385,13 +25547,19 @@ var family_set_json = {
     "◑"
    ],
    [
+    "sūriyakumāra",
+    "masc",
+    "name of a prince; previous incarnation of Ānanda; lit. prince sun",
+    "✔"
+   ],
+   [
     "hatthinika",
     "masc",
     "name of one of the sons of king Okkāka",
     "✔"
    ]
   ],
-  "count": 71
+  "count": 75
  },
  "six ascetic teachers": {
   "data": [
@@ -26193,6 +26361,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "pārichattaka 2",
+    "masc",
+    "name of a tree in Tāvatiṃsa heaven; lit. umbrella all around",
+    "✔"
+   ],
+   [
     "pilakkha",
     "masc",
     "white fig; Ficus virens",
@@ -26739,7 +26913,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 206
+  "count": 207
  },
  "names of animals": {
   "data": [
@@ -29398,6 +29572,12 @@ var family_set_json = {
  "ordinal numbers": {
   "data": [
    [
+    "aṭṭhattiṃsa",
+    "ordin",
+    "thirty-eighth (38th)",
+    "✔"
+   ],
+   [
     "aṭṭhama 1",
     "ordin",
     "eighth (8th)",
@@ -29734,7 +29914,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 56
+  "count": 57
  },
  "commentaries": {
   "data": [
@@ -33010,6 +33190,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "pārichattaka 2",
+    "masc",
+    "name of a tree in Tāvatiṃsa heaven; lit. umbrella all around",
+    "✔"
+   ],
+   [
     "pilakkha",
     "masc",
     "white fig; Ficus virens",
@@ -33226,7 +33412,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 83
+  "count": 84
  },
  "names of heavens": {
   "data": [
@@ -33913,6 +34099,251 @@ var family_set_json = {
    ]
   ],
   "count": 42
+ },
+ "onomatopoeia": {
+  "data": [
+   [
+    "amhā 2.1",
+    "fem",
+    "mooing; bellowing of a cow",
+    "✔"
+   ],
+   [
+    "ulūka",
+    "masc",
+    "owl",
+    "✔"
+   ],
+   [
+    "kakaca",
+    "masc",
+    "saw",
+    "✔"
+   ],
+   [
+    "kāka",
+    "masc",
+    "crow",
+    "✔"
+   ],
+   [
+    "kiṅkaṇikā",
+    "fem",
+    "small bell",
+    "◑"
+   ],
+   [
+    "kiṅkaṇī 1",
+    "fem",
+    "small bell; lit. tinkler",
+    "✔"
+   ],
+   [
+    "kiṅkiṇikā",
+    "fem",
+    "small bell",
+    "◑"
+   ],
+   [
+    "kiri 2.1",
+    "ind",
+    "tweet; chirp; squawk; sound of bird",
+    "✔"
+   ],
+   [
+    "kulala",
+    "masc",
+    "bird of prey; eagle; hawk; osprey",
+    "✔"
+   ],
+   [
+    "khulukhulu",
+    "ind",
+    "splooshing noise",
+    "✔"
+   ],
+   [
+    "gaggarā",
+    "fem",
+    "name of a lotus pond near Campā; lit. gurgling",
+    "✔"
+   ],
+   [
+    "gaggalaka",
+    "masc",
+    "eddy; whirlpool; maelstrom",
+    "◑"
+   ],
+   [
+    "gaḷagaḷa",
+    "masc",
+    "roar; clamour; loud noise",
+    "◑"
+   ],
+   [
+    "gaḷagaḷāyati",
+    "pr",
+    "roars; clamours; thunders; makes a loud noise; lit. makes a gaḷagaḷa sound",
+    "✔"
+   ],
+   [
+    "gaḷagaḷāyanta",
+    "prp",
+    "roaring; clamouring; thundering; making a loud noise; lit. making a gaḷagaḷa sound",
+    "✔"
+   ],
+   [
+    "capucapu",
+    "ind",
+    "chomping sound; munching sound; lip-smacking sound",
+    "✔"
+   ],
+   [
+    "cicciṭa",
+    "masc",
+    "hiss; sizzle; fizzle; crackling sound",
+    "✔"
+   ],
+   [
+    "cicciṭāyati",
+    "pr",
+    "hisses; sizzles; fizzles; crackles; lit. makes a cicciṭa sound",
+    "✔"
+   ],
+   [
+    "cicciṭi",
+    "ind",
+    "hissing sound; sizzling sound",
+    "✔"
+   ],
+   [
+    "ciṭiciṭāyati",
+    "pr",
+    "hisses; sizzles; fizzles; crackles; splutters; lit. makes a ciṭiciṭa sound",
+    "✔"
+   ],
+   [
+    "ciṭiciṭi",
+    "ind",
+    "hiss; sizzle; fizzle; crackling sound",
+    "✔"
+   ],
+   [
+    "taṭataṭa",
+    "ind",
+    "rat-a-tat-tat sound; thumping sound",
+    "✔"
+   ],
+   [
+    "taṭataṭāyati",
+    "pr",
+    "makes a racket; makes a rat-a-tat-tat sound; lit. makes a taṭataṭa sound",
+    "✔"
+   ],
+   [
+    "taṭataṭāyi",
+    "aor",
+    "made a racket; made a rat-a-tat-tat sound",
+    "✔"
+   ],
+   [
+    "daddabhāyati",
+    "pr",
+    "makes a heavy thud noise; lit. makes a daddabha sound",
+    "✔"
+   ],
+   [
+    "dundubhi",
+    "nt",
+    "war drum; kettledrum",
+    "✔"
+   ],
+   [
+    "nihuṃhuṅka",
+    "adj",
+    "not humphy; not huffy; not disgruntled; not disapproving; lit. not humph humph",
+    "✔"
+   ],
+   [
+    "paṭapaṭa",
+    "ind",
+    "crackling sound",
+    "◑"
+   ],
+   [
+    "biḷibiḷikā",
+    "fem",
+    "chitter-chatter; blah-blah; blibber-blabber; yak-yak; jaw-jabber",
+    "◑"
+   ],
+   [
+    "bhabbhara",
+    "masc",
+    "crinkling sound; crackling sound",
+    "✔"
+   ],
+   [
+    "bharabhara",
+    "masc",
+    "crinkling sound; crackling sound",
+    "✔"
+   ],
+   [
+    "mayūra",
+    "masc",
+    "peacock",
+    "✔"
+   ],
+   [
+    "murumuru",
+    "ind",
+    "munching sound; nom-nom (made when eating)",
+    "✔"
+   ],
+   [
+    "mora",
+    "masc",
+    "peacock; (comm) any bird",
+    "✔"
+   ],
+   [
+    "rū 1",
+    "masc",
+    "the sound rū; the syllable rū",
+    "◑"
+   ],
+   [
+    "sarasara",
+    "masc",
+    "rustling sound",
+    "✔"
+   ],
+   [
+    "sassara",
+    "masc",
+    "rustling sound",
+    "✔"
+   ],
+   [
+    "surusuru",
+    "ind",
+    "slurping sound",
+    "✔"
+   ],
+   [
+    "sū",
+    "ind",
+    "oink; squeal; sound of a pig",
+    "✔"
+   ],
+   [
+    "huṃhuṅka",
+    "adj",
+    "making a 'humph' sound; lit. humph humph",
+    "✔"
+   ]
+  ],
+  "count": 40
  },
  "three daughters of Mara": {
   "data": [
@@ -35108,215 +35539,6 @@ var family_set_json = {
    ]
   ],
   "count": 20
- },
- "onomatopoeia": {
-  "data": [
-   [
-    "ulūka",
-    "masc",
-    "owl",
-    "✔"
-   ],
-   [
-    "kakaca",
-    "masc",
-    "saw",
-    "✔"
-   ],
-   [
-    "kāka",
-    "masc",
-    "crow",
-    "✔"
-   ],
-   [
-    "kiri 2.1",
-    "ind",
-    "tweet; chirp; squawk; sound of bird",
-    "✔"
-   ],
-   [
-    "kulala",
-    "masc",
-    "bird of prey; eagle; hawk; osprey",
-    "✔"
-   ],
-   [
-    "khulukhulu",
-    "ind",
-    "splooshing noise",
-    "✔"
-   ],
-   [
-    "gaggarā",
-    "fem",
-    "name of a lotus pond near Campā; lit. gurgling",
-    "✔"
-   ],
-   [
-    "gaḷagaḷa",
-    "masc",
-    "roar; clamour; loud noise",
-    "◑"
-   ],
-   [
-    "gaḷagaḷāyati",
-    "pr",
-    "roars; clamours; thunders; makes a loud noise; lit. makes a gaḷagaḷa sound",
-    "✔"
-   ],
-   [
-    "gaḷagaḷāyanta",
-    "prp",
-    "roaring; clamouring; thundering; making a loud noise; lit. making a gaḷagaḷa sound",
-    "✔"
-   ],
-   [
-    "capucapu",
-    "ind",
-    "chomping sound; munching sound; lip-smacking sound",
-    "✔"
-   ],
-   [
-    "cicciṭa",
-    "masc",
-    "hiss; sizzle; fizzle; crackling sound",
-    "✔"
-   ],
-   [
-    "cicciṭāyati",
-    "pr",
-    "hisses; sizzles; fizzles; crackles; lit. makes a cicciṭa sound",
-    "✔"
-   ],
-   [
-    "cicciṭi",
-    "ind",
-    "hissing sound; sizzling sound",
-    "✔"
-   ],
-   [
-    "ciṭiciṭāyati",
-    "pr",
-    "hisses; sizzles; fizzles; crackles; splutters; lit. makes a ciṭiciṭa sound",
-    "✔"
-   ],
-   [
-    "ciṭiciṭi",
-    "ind",
-    "hiss; sizzle; fizzle; crackling sound",
-    "✔"
-   ],
-   [
-    "taṭataṭa",
-    "ind",
-    "rat-a-tat-tat sound; thumping sound",
-    "✔"
-   ],
-   [
-    "taṭataṭāyati",
-    "pr",
-    "makes a racket; makes a rat-a-tat-tat sound; lit. makes a taṭataṭa sound",
-    "✔"
-   ],
-   [
-    "taṭataṭāyi",
-    "aor",
-    "made a racket; made a rat-a-tat-tat sound",
-    "✔"
-   ],
-   [
-    "daddabhāyati",
-    "pr",
-    "makes a heavy thud noise; lit. makes a daddabha sound",
-    "✔"
-   ],
-   [
-    "dundubhi",
-    "nt",
-    "war drum; kettledrum",
-    "✔"
-   ],
-   [
-    "nihuṃhuṅka",
-    "adj",
-    "not humphy; not huffy; not disgruntled; not disapproving; lit. not humph humph",
-    "✔"
-   ],
-   [
-    "paṭapaṭa",
-    "ind",
-    "crackling sound",
-    "◑"
-   ],
-   [
-    "biḷibiḷikā",
-    "fem",
-    "chitter-chatter; blah-blah; blibber-blabber; yak-yak; jaw-jabber",
-    "◑"
-   ],
-   [
-    "bhabbhara",
-    "masc",
-    "crinkling sound; crackling sound",
-    "✔"
-   ],
-   [
-    "bharabhara",
-    "masc",
-    "crinkling sound; crackling sound",
-    "✔"
-   ],
-   [
-    "mayūra",
-    "masc",
-    "peacock",
-    "✔"
-   ],
-   [
-    "murumuru",
-    "ind",
-    "munching sound; nom-nom (made when eating)",
-    "✔"
-   ],
-   [
-    "mora",
-    "masc",
-    "peacock; (comm) any bird",
-    "✔"
-   ],
-   [
-    "sarasara",
-    "masc",
-    "rustling sound",
-    "✔"
-   ],
-   [
-    "sassara",
-    "masc",
-    "rustling sound",
-    "✔"
-   ],
-   [
-    "surusuru",
-    "ind",
-    "slurping sound",
-    "✔"
-   ],
-   [
-    "sū",
-    "ind",
-    "oink; squeal; sound of a pig",
-    "✔"
-   ],
-   [
-    "huṃhuṅka",
-    "adj",
-    "making a 'humph' sound; lit. humph humph",
-    "✔"
-   ]
-  ],
-  "count": 34
  },
  "books of the Aṅguttara Nikāya": {
   "data": [
