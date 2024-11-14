@@ -31,15 +31,6 @@ jobs:
         tar -xzvf deconstructor_output.json.tar.gz
         ls -la
         cd ${{ github.workspace }}/
-
-    # - name: Install Typst
-    #   run: |
-    #     url="https://github.com/typst/typst/releases/latest/download/typst-x86_64-unknown-linux-musl.tar.xz"
-    #     wget $url
-    #     tar -xf typst-x86_64-unknown-linux-musl.tar.xz
-    #     cd typst-x86_64-unknown-linux-musl
-    #     chmod +x typst
-    #     echo "$PWD" >> $GITHUB_PATH
     
     - name: Install dictzip
       run: sudo apt-get update && sudo apt-get install -y dictzip
@@ -171,9 +162,6 @@ jobs:
       run: |
         free -h  # Check available memory
         df -h    # Check disk space
-
-    - name: Export PDF
-      run: poetry run python exporter/pdf/pdf_exporter.py
            
     - name: Zip GoldenDict & Mdict
       run: poetry run python scripts/build/zip_goldendict_mdict.py
@@ -294,12 +282,3 @@ jobs:
         asset_name: dpd-kobo.zip
         asset_content_type: application/zip
 
-    - name: Upload Asset dpd-pdf.zip
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: exporter/share/dpd-pdf.zip
-        asset_name: dpd-pdf.zip
-        asset_content_type: application/zip
