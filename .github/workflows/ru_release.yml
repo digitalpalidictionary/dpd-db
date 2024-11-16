@@ -1,5 +1,4 @@
-
-name: Russian Release
+name: Draft Russian Release
 
 on: 
   workflow_dispatch:
@@ -213,11 +212,9 @@ jobs:
         body: |
           ### [Цифровой Словарь Пали](https://digitalpalidictionary.github.io/rus/)
 
-          DPD - это богатый возможностями словарь палийского языка на русском, который работает [онлайн](dpdict.net/ru/) и в GoldenDict, MDict, DictTango и Kindle, или в любом другом приложении, поддерживающем форматы stardict, mdict, epub, modi.
+          DPD - это богатый возможностями словарь палийского языка на русском, который работает [онлайн](https://dpdict.net/ru/) и в GoldenDict, MDict, DictTango и Kindle, или в любом другом приложении, поддерживающем форматы stardict, mdict, epub, mobi.
 
           На этой странице доступа свежая русской версия словаря в разных форматах. Последнюю версию оригинального английского DPD можно найти на [этой GitHub странице](https://github.com/digitalpalidictionary/digitalpalidictionary/releases). Там же можно почитать историю изменений и дополнений.
-
-          Также достуна версия DPD вместе с русским переводим, эта версия включает в себя оригинальный DPD + русский перевод, подробнее на этой странице.
 
           Также доступна совмещенная версия английского DPD с русским переводом. Более подробную информацию можно найти на [этой странице.](https://digitalpalidictionary.github.io/rus/dpd_rus.html)
 
@@ -263,15 +260,15 @@ jobs:
         asset_name: ru-dpd-kindle.epub
         asset_content_type: application/zip
 
-    # - name: Upload Asset ru-dpd-kindle.mobi
-    #   uses: actions/upload-release-asset@v1
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-    #   with:
-    #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-    #     asset_path: exporter/share/ru-dpd-kindle.mobi
-    #     asset_name: ru-dpd-kindle.mobi
-    #     asset_content_type: application/zip
+    - name: Upload Asset ru-dpd-kindle.mobi
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: exporter/share/ru-dpd-kindle.mobi
+        asset_name: ru-dpd-kindle.mobi
+        asset_content_type: application/zip
 
     - name: Upload Asset dpd+sbs-goldendict.zip
       uses: actions/upload-release-asset@v1

@@ -1,0 +1,21 @@
+<idx:entry name="Pali" scriptable="yes" spell="yes" id="${counter}">
+    <idx:short>
+        <idx:orth value="${lemma_clean}"><h4>${lemma_1}</h4>
+            % if inflections:
+            <idx:infl>
+                % for inflection in inflections:
+                <idx:iform value="${inflection}" exact="yes"></idx:iform>
+                % endfor
+            </idx:infl>
+            % endif
+        </idx:orth>
+        <p class="body-space">${summary}</p>
+        % if grammar_table:
+            ${grammar_table}
+        % endif
+        % if examples:
+            ${examples}
+        % endif
+    </idx:short>
+</idx:entry>
+<hr/>
