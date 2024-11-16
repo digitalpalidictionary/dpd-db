@@ -19,7 +19,7 @@ from exporter.goldendict.export_dpd import render_dpd_definition_templ
 from tools.configger import config_test
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from tools.printer import p_green, p_green_title, p_red, p_title, p_white, p_yes
+from tools.printer import p_green, p_green_title, p_red, p_title, p_yes
 from tools.tic_toc import tic, toc
 from tools.headwords_clean_set import make_clean_headwords_set
 from tools.tsv_read_write import read_tsv

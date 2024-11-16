@@ -4,6 +4,7 @@ import (
 	"dpd/go_modules/deconstructor/data"
 	"dpd/go_modules/tools"
 	"path/filepath"
+	"strings"
 )
 
 // Add manual deconstructions to a list of MatchItems.
@@ -22,7 +23,7 @@ func makeMatchItems() []data.MatchItem {
 	for _, d := range dat {
 		mi := data.MatchItem{}
 		mi.Word = d["compound"]
-		mi.Split = d["split"]
+		mi.Split = strings.TrimSpace(d["split"])
 		mi.SplitCount = 0
 		mi.SplitRatio = 0
 		mi.Route = ""
