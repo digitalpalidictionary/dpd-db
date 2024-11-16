@@ -489,7 +489,7 @@ verb number comma	grammar	contains	(pr|aor|perf|imper|fut|cond|opt|imp), \d					
 verb values	verb	is not empty	-	verb	does not contain word	^(caus|caus, pass|deno|deno, caus|desid|desid, caus|desid, pass|impers|impers, pass|intens|inten|pass)$														lemma_1	verb	meaning_1	[]	10
 word family and comp in grammar	family_word	is not empty	-	grammar	contains	\bcomp\b														lemma_1	grammar	meaning_1	[1259, 1279, 2119, 73930]	10
 word family and family	family_word	is not empty	-	family_root	is not empty	-														lemma_1	grammar	meaning_1	[]	10
-hyphenate double vowel in commentary	commentary	contains	[aāiīuūeo][aāiīuūeo]																	lemma_1	grammar	commentary	[4022, 22667]	10
+hyphenate double vowel in commentary	commentary	contains	[aāiīuūeo][aāiīuūeo]																	lemma_1	grammar	commentary	[4022, 22667, 4820]	10
 hyphenate double vowel in example_1	example_1	contains	[aāiīuūeo][aāiīuūeo]																	lemma_1	grammar	example_1	[22667]	10
 hyphenate double vowel in example_2	example_2	contains	[aāiīuūeo][aāiīuūeo]																	lemma_1	grammar	example_2	[]	10
 construction line2 delete	derivative	equals	kita	construction	contains	\n														lemma_1	grammar	meaning_1	[1397, 3234, 3234, 3809, 3869, 31674]	10

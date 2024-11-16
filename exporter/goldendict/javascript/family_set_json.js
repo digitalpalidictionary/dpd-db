@@ -6083,7 +6083,7 @@ var family_set_json = {
    [
     "asa 4.1",
     "pron",
-    "not one's own; not one's possession",
+    "not one's own; not one's possession; (comm) false; (or) unpleasant",
     "✔"
    ],
    [
@@ -24672,6 +24672,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "uraṇa",
+    "masc",
+    "ram; billy goat",
+    "◑"
+   ],
+   [
     "uraṇī",
     "fem",
     "ewe; nanny goat",
@@ -25104,7 +25110,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 79
+  "count": 80
  },
  "names of royalty": {
   "data": [

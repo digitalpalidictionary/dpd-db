@@ -1,4 +1,6 @@
 initial	final	correct	wrong	without	exceptions
+-
+a + u	o	au > o	u > o	o	okkhita
 a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant
 a + ṭ	iṭ	a > i	x	a + ṭh	x
 a + ṭh	iṭṭh	a > i	x	x	x
@@ -11,6 +13,7 @@ am + ta	ata	mt > t	x	nt	abhikkantatara, santatara
 ar + t	āt	ar > ā	har > hā	x	sāttha, sātthaka 1, sātthaka 2, kātabba 1, kātabba 2, kātuna, kātuṃ 1, kātuṃ 2
 ava	o	ava > o	x	o	ponobbhavika, ponobhavika, anavabodha, bhavamūlopagāmī
 
+ā + k	akk	āk > akk	x	ā + kh	akkosabhaṇḍanavihesakārī, chattiṃsakkhattuṃ, sakkapañhaka, sakkharakaṭhala, sakkharakaṭhala, sakkharakathala
 ā + ñ	aññ	āñ > aññ	x	x	vadaññutā, sāmaññatā 2.1
 xā + t	att	āt > att	x	tta, ā + th	atthacariyatā, nakkhattavijjātiracchānavijjā, vatthuvijjātiracchānavijjā, hatthaoṭṭhajivhātālu, atta 2.1, atta 2.2
 ā + th	atth	āth > atth	x	x	x
@@ -32,8 +35,12 @@ i + s	īs	is > iṃs > īs	x	x	catuvīsatisatasahassa, diṭṭhisīsa, belaṭ�
 u + ā	vā	uā > vā	u > v	x	divādigaṇa, opilāpetvā, suvānaya 1, suvānaya 2, samannāharitvā, lavāpeti, lavāpetvā
 u + i	vay	ua > va	x	x	x
 u + i + y	by	vy > by	x	x	x
+u + u	ū	uu > ū	u > ū	ū	x
+
+uj	og	uj > oj > og	u > o\nj > g uj	og	upabhoggā, bhogga 1.1, bhogga 1.2, yogga 1, yogga 2, yogga 3, yogga 4, yoggā, bhogga 1.3
 uṭ	oṭ	u > o	x	x	x
 ud + h	ūh	ud > ū before h	ud > ū	x	x
+uh + t	dh	ht > dh	x	x	duddha 1, muddha 1.1
 
 ūy	ubb	ūy > ūv > uvv > ubb	x	x	x
 
@@ -57,9 +64,11 @@ j + t	bb	jt > bb	x	x	ubbigga 1, ubbigga 2, anubbigga
 j + t	ṭṭh	jt > ṭṭh	x	j + th	x
 j + th	tth	jth > tth	j > t	x	x
 j + y	jj	jy > jj	y > j	jj + y	verajjaka
+j + y	gg	jy > jj > gg	j > g	gg	x
 j + s	kkh	js > kkh	x	x	x
 
 ja + y	jj	jy > jj	x	x	x
+je + y	gg	jy > gg	j > g	gg	x
 jj + t	ṭṭh	jjt > ṭṭh	jt > ṭṭh	jj + th	x
 jj + y	jj	jjy > jj	y > j	x	x
 j + ṃ	ñj	jṃ > ñj (metathesis)	jṃ > ñj	x	x
@@ -75,7 +84,7 @@ t + ṃ	nt	tṃ > nt (metathesis)	x	x	x
 t + y	cc	ty > cc	x	x	x
 t + y	tt	ty > tt	x	x	x
 t + s	cch	ts > cch	x	x	x
-ta + y	cc	ty > cc	x	cc	veyyāvacca
+ta + y	cc	tay > ty > cc	ty > cc	cc	veyyāvacca
 tij	titi	tij > ti	ij > i	x	atitikhiṇa, nātitikhiṇa
 
 n + y	nn	ny > nn	y > n	x	x
@@ -101,7 +110,7 @@ d + t	tt	dt > tt	d > t	d + th	x
 d + p	pp	dp > pp	d > p	d + ph	x
 d + ph	pph	dph > pph	d > p	x	x
 xd + b	bb	db > bb	d > b	x	x	need to exlude roots starting with v
-xd + bh	bbh	dbh > bbh	d > b	x	x	need to exlude roots starting with v
+d + bh	bbh	dbh > bbh	d > b	x	x
 d + m	mm	dm > mm	d > m	x	x
 xd + y	bb	dy > bb	x	abhi	x	exclude tings
 d + y	yy	dy > yy	d > y	yy	x
@@ -126,7 +135,10 @@ p + s	cch	ps > cch	x	x	x
 pa + i	pe	ai > e	i > e	x	x
 pā + pā	pi	pā > pi	x	x	x
 pe + t	tt	pet > tt	pt > tt	x	vavatthāpetuṃ
+p + y	pp	py > pp	y > p	x	x
 plu	pil	pl > pil (epenthesis)	x	x	x
+
+bh + a	mbh	bh > mbh	x	x	x	needs to exclude thambh khambh vambh jambh sambh chambh
 
 bh + y	bbh	bhy > bbh	x	x	x
 bha + y	bbh	bhy > bbh	x	x	x
@@ -160,6 +172,7 @@ r + ph	pph	rph > pph	r > p	x	x
 r + b	bb	rb > bb	r > b	r + bh	x
 r + bh	bbh	rbh > bbh	r > b	x	x
 r + m	mm	rm > mm	r > m	x	x
+r + l	ll	rl > ll	r > l	ll	x
 r + v	bb	rv > vv > bb	v > b	x	x
 r + v	bb	rv > vv > bb	rv > bb	x	x
 r + s	ss	rs > ss	r > s	x	x
@@ -172,7 +185,7 @@ v + t	t	vt > t	v > t	v + th	x
 v + t	tt	vt > tt	v > t	v + th	x
 v + th	th	vth > th	x	x	x
 vi +	by	vi > vy > by	vi > by	x	vedhabyā
-vi + ā	veyyā	vi > veyy (Kacc 401, 375)	vy > veyy	veyy	x
+vi + 	veyy	vi > veyy (Kacc 401, 375)	vy > veyy	veyy	x
 
 s + t	ṭṭh	st > ṭṭh	x	x	x
 s + m	ss	sm > ss	s > m	ss	x
@@ -233,6 +246,8 @@ h + y	yh	hy > yh (metathesis)	hy > yh	x	x
 ṃs + t	ṭṭh	ṃst > ṭṭh	st > ṭṭh	x	x
 
 -
+ + pa +	pp	pa > ppa	x	pp	x
+
 
 a + a	a	aa > a	x	x	x
 a + a	ā	aa > ā	x	x	x

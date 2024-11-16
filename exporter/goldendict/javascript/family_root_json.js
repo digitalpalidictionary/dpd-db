@@ -8381,7 +8381,7 @@ var family_root_json = {
   "root_key": "√gam",
   "root_family": "√gam",
   "root_meaning": "go",
-  "count": 140,
+  "count": 141,
   "data": [
    [
     "aga 1",
@@ -8930,10 +8930,16 @@ var family_root_json = {
     "✔"
    ],
    [
-    "gamayati",
+    "gamayati 1",
     "pr",
-    "makes go (to); causes to go (to); causes to get; makes become",
+    "makes go (to); causes to go (to)",
     "✔"
+   ],
+   [
+    "gamayati 2",
+    "pr",
+    "causes to get; makes become",
+    "✘"
    ],
    [
     "gami",
@@ -55247,7 +55253,7 @@ var family_root_json = {
   "root_key": "√dhā",
   "root_family": "ni √dhā",
   "root_meaning": "place, support",
-  "count": 29,
+  "count": 30,
   "data": [
    [
     "anidhānavant",
@@ -55301,6 +55307,12 @@ var family_root_json = {
     "nidahitvā 2",
     "abs",
     "having buried some treasure",
+    "✘"
+   ],
+   [
+    "nidahitvā 3",
+    "abs",
+    "having deposited",
     "✘"
    ],
    [
@@ -135572,7 +135584,7 @@ var family_root_json = {
    [
     "vikubbana 1",
     "nt",
-    "transforming; changing; transmuting (by psychic power)",
+    "psychic transformation; change of form; lit. making different",
     "✔"
    ],
    [
@@ -145494,7 +145506,7 @@ var family_root_json = {
    [
     "asaṃkita",
     "pp",
-    "unsuspecting; none-the-wiser; lit. not doubted",
+    "without doubt; confident; (or) unsuspected; lit. not doubted",
     "✔"
    ],
    [
@@ -159172,7 +159184,7 @@ var family_root_json = {
    [
     "sūriya 3",
     "nt",
-    "heroism; valour; courage; lit. hero state",
+    "heroism; valour; courage; (comm) fearlessness; lit. hero state",
     "✔"
    ],
    [
@@ -165476,7 +165488,7 @@ var family_root_json = {
    [
     "āvellita",
     "pp",
-    "curved; crooked; bent",
+    "curved; crooked; curly",
     "✔"
    ]
   ]
@@ -171158,7 +171170,7 @@ var family_root_json = {
    [
     "upayācita",
     "pp",
-    "offered expecting something in return; pledged; promised; lit. begged near",
+    "offered expecting something in return; pledged; promised (by); lit. begged near",
     "✔"
    ]
   ]
@@ -214294,7 +214306,7 @@ var family_root_json = {
    [
     "saṃkappanā",
     "fem",
-    "thinking; imagining; conceptualising; fantasizing",
+    "thinking; imagining; conceptualising; fantasizing (about)",
     "✔"
    ],
    [

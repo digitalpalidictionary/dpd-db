@@ -27004,12 +27004,29 @@ var family_idiom_json = {
   ]
  },
  "disā": {
-  "count": 1,
+  "count": 2,
   "data": [
+   [
+    "disā bhajavho",
+    "idiom",
+    "go away!; begone!; lit. associate with the directions",
+    "✔"
+   ],
    [
     "disā vidisā",
     "idiom",
     "all directions; lit. main and intermediate directions",
+    "✔"
+   ]
+  ]
+ },
+ "bhajati": {
+  "count": 1,
+  "data": [
+   [
+    "disā bhajavho",
+    "idiom",
+    "go away!; begone!; lit. associate with the directions",
     "✔"
    ]
   ]

@@ -15787,7 +15787,7 @@ var family_word_json = {
    [
     "asa 4.1",
     "pron",
-    "not one's own; not one's possession",
+    "not one's own; not one's possession; (comm) false; (or) unpleasant",
     "✔"
    ],
    [
@@ -18465,13 +18465,19 @@ var family_word_json = {
  "uraṇa": {
   "data": [
    [
+    "uraṇa",
+    "masc",
+    "ram; billy goat",
+    "◑"
+   ],
+   [
     "uraṇī",
     "fem",
     "ewe; nanny goat",
     "✔"
    ]
   ],
-  "count": 1
+  "count": 2
  },
  "urabbha": {
   "data": [
@@ -31675,7 +31681,7 @@ var family_word_json = {
    [
     "visāṇaka",
     "nt",
-    "horn; horns",
+    "little horn",
     "✔"
    ]
   ],
