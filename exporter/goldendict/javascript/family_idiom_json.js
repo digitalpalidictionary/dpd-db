@@ -9082,7 +9082,7 @@ var family_idiom_json = {
   ]
  },
  "karoti": {
-  "count": 43,
+  "count": 44,
   "data": [
    [
     "attānaṃ avacanīyaṃ karoti",
@@ -9340,6 +9340,12 @@ var family_idiom_json = {
     "saññaṃ karoti 2",
     "idiom",
     "makes a sign; gives a signal",
+    "✔"
+   ],
+   [
+    "samaṃ karoti",
+    "idiom",
+    "equates; likens (somebody with somebody)",
     "✔"
    ]
   ]
@@ -10685,7 +10691,7 @@ var family_idiom_json = {
    [
     "athāguṃ",
     "sandhi",
-    "then there arrived; lit. then they arrived",
+    "then they arrived; then there arrived",
     "✔"
    ],
    [
@@ -12047,7 +12053,7 @@ var family_idiom_json = {
    [
     "athāguṃ",
     "sandhi",
-    "then there arrived; lit. then they arrived",
+    "then they arrived; then there arrived",
     "✔"
    ],
    [
@@ -16713,7 +16719,7 @@ var family_idiom_json = {
    [
     "viharatāyasmā",
     "sandhi",
-    "stay, friend!; live, friend!",
+    "stay, venerable!; live, venerable!",
     "✔"
    ],
    [
@@ -23763,7 +23769,7 @@ var family_idiom_json = {
    [
     "viharatāyasmā",
     "sandhi",
-    "stay, friend!; live, friend!",
+    "stay, venerable!; live, venerable!",
     "✔"
    ],
    [
@@ -25183,6 +25189,17 @@ var family_idiom_json = {
     "idiom",
     "like a shadow that never leaves",
     "✔"
+   ]
+  ]
+ },
+ "jagatī": {
+  "count": 1,
+  "data": [
+   [
+    "yāvatājagatogati",
+    "sandhi",
+    "as far as the earth extends",
+    "◑"
    ]
   ]
  },
@@ -30922,17 +30939,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "jagant": {
-  "count": 1,
-  "data": [
-   [
-    "yāvatājagatogati",
-    "sandhi",
-    "as far as the earth extends",
-    "◑"
-   ]
-  ]
- },
  "subhāsita": {
   "count": 1,
   "data": [
@@ -32575,12 +32581,18 @@ var family_idiom_json = {
   ]
  },
  "sama": {
-  "count": 2,
+  "count": 3,
   "data": [
    [
     "samatthi",
     "sandhi",
     "there is equal (to); there is comparable (to); lit. is same",
+    "✔"
+   ],
+   [
+    "samaṃ karoti",
+    "idiom",
+    "equates; likens (somebody with somebody)",
     "✔"
    ],
    [

@@ -5433,7 +5433,7 @@ var family_word_json = {
    [
     "andhaka 1.1",
     "masc",
-    "gadfly; horsefly; lit. blind",
+    "gadfly; horsefly; (comm) black or brown flies; lit. blind",
     "✔"
    ]
   ],
@@ -11187,7 +11187,7 @@ var family_word_json = {
    [
     "apaṇṇakaṃ",
     "ind",
-    "surely; certainly; without a doubt; unquestionably; lit. wihtout a fifth",
+    "surely; certainly; without a doubt; unquestionably; lit. without a fifth",
     "✔"
    ],
    [
@@ -13563,8 +13563,8 @@ var family_word_json = {
    [
     "amānusa 2",
     "masc",
-    "non-human being",
-    "✘"
+    "non-human being; deity; animal",
+    "✔"
    ],
    [
     "amānusika",
@@ -18064,7 +18064,7 @@ var family_word_json = {
     "opamañña 2",
     "masc",
     "name of a deity",
-    "◑"
+    "✔"
    ]
   ],
   "count": 3
@@ -18121,7 +18121,7 @@ var family_word_json = {
    [
     "uparima",
     "adj",
-    "upper; higher",
+    "upper; higher; on top",
     "✔"
    ]
   ],
@@ -25426,13 +25426,25 @@ var family_word_json = {
     "✘"
    ],
    [
-    "dundubhi",
+    "dundubhi 1",
     "nt",
     "war drum; kettledrum",
     "✔"
+   ],
+   [
+    "dundubhi 2",
+    "fem",
+    "war drum; kettledrum",
+    "✔"
+   ],
+   [
+    "dunduṃ",
+    "ind",
+    "booming sound; thudding sound",
+    "✔"
    ]
   ],
-  "count": 2
+  "count": 4
  },
  "pasu": {
   "data": [
@@ -26047,6 +26059,12 @@ var family_word_json = {
     "✘"
    ],
    [
+    "naḷa 3",
+    "masc",
+    "name of a deity; lit. reed",
+    "✔"
+   ],
+   [
     "naḷinī",
     "fem",
     "reed pond; lit. having reeds",
@@ -26131,7 +26149,7 @@ var family_word_json = {
     "◑"
    ]
   ],
-  "count": 17
+  "count": 18
  },
  "nava1": {
   "data": [

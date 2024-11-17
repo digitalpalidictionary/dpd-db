@@ -520,7 +520,7 @@ var family_set_json = {
     "anukaraṇasadda",
     "masc",
     "(gram) onomatopoeia; onomatopoeic word; lit. imitating sound",
-    "◑"
+    "✔"
    ],
    [
     "anutta",
@@ -8510,7 +8510,7 @@ var family_set_json = {
    [
     "sabbanissagga",
     "masc",
-    "letting go of everything; giving up everything; (comm) Nibbāna",
+    "letting go of everything; giving up everything; epithet of Nibbāna",
     "✔"
    ],
    [
@@ -23620,7 +23620,7 @@ var family_set_json = {
     "opamañña 2",
     "masc",
     "name of a deity",
-    "◑"
+    "✔"
    ],
    [
     "kakudha 1",
@@ -23707,6 +23707,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "kuvera",
+    "masc",
+    "name of a daemon; guardian deity of the north; god of wealth; lit. bad enemy? anti hero?",
+    "✔"
+   ],
+   [
     "kokanadā",
     "fem",
     "name of a goddess; lit. red lotus",
@@ -23775,8 +23781,8 @@ var family_set_json = {
    [
     "cittasena",
     "masc",
-    "name of a demigod",
-    "◑"
+    "name of a demigods; (comm) name of two demigods; lit. manifold army",
+    "✔"
    ],
    [
     "cullakokanadā",
@@ -23794,7 +23800,7 @@ var family_set_json = {
     "janesabha",
     "masc",
     "name of a demigod; lit. stud bull of a man",
-    "◑"
+    "✔"
    ],
    [
     "janosabha",
@@ -23941,6 +23947,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "naḷa 3",
+    "masc",
+    "name of a deity; lit. reed",
+    "✔"
+   ],
+   [
     "naḷeru",
     "masc",
     "(comm) name of a spirit; (or) growing in the hollow of a tree; (or) growing in a thicket of reeds",
@@ -23999,6 +24011,12 @@ var family_set_json = {
     "masc",
     "name of a nāga; lit. carrying the earth",
     "◑"
+   ],
+   [
+    "panāda",
+    "masc",
+    "name of a deity",
+    "✔"
    ],
    [
     "payāgā 2",
@@ -24625,7 +24643,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 184
+  "count": 187
  },
  "animals": {
   "data": [
@@ -24870,6 +24888,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "dhaṅka",
+    "masc",
+    "crow",
+    "✔"
+   ],
+   [
     "dhenu 1",
     "fem",
     "cow; lit. giving milk",
@@ -25110,7 +25134,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 80
+  "count": 81
  },
  "names of royalty": {
   "data": [
@@ -30160,7 +30184,7 @@ var family_set_json = {
    [
     "ekādasamāsa",
     "masc",
-    "eleventh month robe-season after kathina",
+    "eleventh month",
     "✔"
    ],
    [
@@ -34259,9 +34283,27 @@ var family_set_json = {
     "✔"
    ],
    [
-    "dundubhi",
+    "dundubhi 1",
     "nt",
     "war drum; kettledrum",
+    "✔"
+   ],
+   [
+    "dundubhi 2",
+    "fem",
+    "war drum; kettledrum",
+    "✔"
+   ],
+   [
+    "dunduṃ",
+    "ind",
+    "booming sound; thudding sound",
+    "✔"
+   ],
+   [
+    "dhamadhamā",
+    "ind",
+    "throbbing sound; pulsating roar",
     "✔"
    ],
    [
@@ -34349,7 +34391,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 40
+  "count": 43
  },
  "three daughters of Mara": {
   "data": [
@@ -34974,8 +35016,14 @@ var family_set_json = {
     "✔"
    ],
    [
-    "dundubhi",
+    "dundubhi 1",
     "nt",
+    "war drum; kettledrum",
+    "✔"
+   ],
+   [
+    "dundubhi 2",
+    "fem",
     "war drum; kettledrum",
     "✔"
    ],
@@ -35016,7 +35064,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 11
+  "count": 12
  },
  "medicines": {
   "data": [

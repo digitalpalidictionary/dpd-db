@@ -1,4 +1,7 @@
 word	pos	position	type	exceptions
+sīla	adj	last	kammadhāraya > bahubbīhi	x
+sabba	masc	first	kammadhāraya	sabbakammakkhaya, sabbajī, sabbaññū 2, sabbadukkhakkhaya, sabbanavaka, sabbanissagga, sabbasaṅkhārasamatha, sabbasaṃyojanakkhaya, sabbupādānakkhaya, sabbūpadhipaṭinissagga, sabbūpadhiparikkhaya, sabbūpadhippaṭinissagga, sabbaratticāra
+viparīta	any	last	pañcamī	x
 paricāga	any	last	chaṭṭhī	x
 vādī	any	last	dutiyā	akālavādī, aggavādī, kālavādī, evaṃvādī, ucchedavādī, kiriyavādī 1, kiṃvādī, tathāvādī 1, tathāvādī 2, paravādī, puggalavādī, musāvādī, yathāvādī, sassatavādī, suññatavādī, suyuttavādī, aññavādī
 aggi	masc	last	pañcamī	āhuneyyaggi, kāyaggi, gahapataggi
@@ -106,7 +109,6 @@ uju	any	first	kammadhāraya	ujugata, ujumaggānusārī
 paṭipanna	adj	last	dutiyā	ujupaṭipanna, ujuppaṭipanna, micchāpaṭipanna, yathāpaṭipanna, sammāpaṭipanna, sāmīcipaṭipanna
 rāga	any	last	sattamī	adhammarāga, avigatarāga, avītarāga, chandarāga, tibbarāga, nandirāga, nandīrāga, saṅkapparāga, vigatarāga, vītarāga 1, vītarāga 2
 gaṇanā	any	last	chaṭṭhī	x
-sabba	masc	first	kammadhāraya	sabbakammakkhaya
 puñña	any	first	kammadhāraya	puññattha, puññakata, puññakara, puññakiriyā, puññakkhaya, puññakkhetta, puññadhārā, antarāyakara, puññapāpa, puññapāpaphalūpaga, puññapekkha, puññapekkhāna, puññaphala, puññaphalūpajīvī
 apuñña	any	first	kammadhāraya	apuññalābha, apuññūpaga, apuññakara
 mutta	any	any	pañcamī	gomutta, pūtimutta, pūtimuttabhesajja, muttakarīsa, muttagata, muttacāga, muttappaṭibhāna, muttabhāva, muttavatthi, muttacāgī, muttaharītaka, muttasaddha, sādhumutta
