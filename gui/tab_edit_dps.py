@@ -232,7 +232,6 @@ def make_tab_edit_dps(dpspth, sg):
         ],
         [
             sg.Text("", size=(15, 1)),
-            sg.Button("Google Translate", key="dps_notes_google_translate_button", font=(None, 13)),
             sg.Button("OpenAI", key="dps_notes_openai_translate_button", font=(None, 13)),
             sg.Button("Copy", key="dps_notes_copy_meaning_button", font=(None, 13)),
             sg.Text(

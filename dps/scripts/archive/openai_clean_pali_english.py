@@ -6,7 +6,7 @@ from tools.configger import config_read
 import openai
 
 # Setup OpenAI API key
-openai.api_key = config_read("openia", "key")
+openai.api_key = config_read("openai", "key")
 
 
 

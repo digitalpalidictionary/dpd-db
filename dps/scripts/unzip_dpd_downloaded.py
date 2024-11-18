@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# unzip dpd from local folder Download to the fileserver. And copy kindle and kobo version as well. 
+# unzip dpd golden dict, mdict and pdf from local folder Download to the fileserver. And copy kindle and kobo versions as well. 
 
 from datetime import date
 from zipfile import ZipFile
@@ -53,6 +53,7 @@ dpd_kindle_epub_dest = os.path.join(kd_dir, 'dpd-kindle.epub')
 dpd_kobo_src = os.path.join(downloads_dir, 'dpd-kobo.zip')
 dpd_kobo_dest = os.path.join(kd_dir, 'dpd-kobo.zip')
 
+dpd_pdf_src = os.path.join(downloads_dir, 'dpd-pdf.zip')
 dpd_goldendict_src = os.path.join(downloads_dir, 'dpd-goldendict.zip')
 dpd_mdict_src = os.path.join(downloads_dir, 'dpd-mdict.zip')
 
@@ -97,6 +98,14 @@ if os.path.exists(dpd_kobo_src):
 else:
    print("\033[1;31m dpd-kobo.zip is missing. Cannot proceed with moving. \033[0m")
 
-
+if os.path.exists(dpd_pdf_src):
+   # Unzip dpd_mdict to the specified directory
+   with ZipFile(dpd_pdf_src, 'r') as zipObj:
+      # Extract all the contents of zip file in current directory
+      zipObj.extractall(kd_dir)
+   # Print completion message in green color
+   print("\033[1;32m dpd_pdf.zip has been unpacked to the server folder \033[0m")
+else:
+   print("\033[1;31m dpd_pdf.zip is missing. Cannot proceed with moving. \033[0m")
 
 

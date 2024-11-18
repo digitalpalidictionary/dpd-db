@@ -5,6 +5,10 @@ from datetime import datetime
 now = datetime.now()
 
 
+def year_month_day_hour_minute_dash():
+    return now.strftime("%Y-%m-%d-%H-%M")
+
+
 def year_month_day_dash():
     return now.strftime("%Y-%m-%d")
 

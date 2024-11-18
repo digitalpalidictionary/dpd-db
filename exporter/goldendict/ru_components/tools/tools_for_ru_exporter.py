@@ -104,6 +104,9 @@ def ru_replace_abbreviations(value, kind = "meaning"):
 
     global abbreviations_dict
 
+    # debug
+    # print(f"original value {value}")
+
     if abbreviations_dict is None:
         # load_abbreviations_dict(pth.abbreviations_tsv_path)
         abbreviations_dict = load_abbreviations_dict(pth.abbreviations_tsv_path)
@@ -139,7 +142,8 @@ def ru_replace_abbreviations(value, kind = "meaning"):
             pattern = r'\b\+' + escaped_abbr + r'\b|\b' + escaped_abbr + r'\b'
             # Replace the abbreviation with its Russian equivalent
             value = re.sub(pattern, russian, value)
-
+    # debug
+    # print(f"replaced value {value}")
     return value
 
 

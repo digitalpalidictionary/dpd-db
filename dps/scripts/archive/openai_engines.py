@@ -3,27 +3,25 @@
 import configparser
 import openai
 
-from googletrans import Translator
-
 
 import json
 from timeout_decorator import timeout, TimeoutError as TimeoutDecoratorError
 
 
 
-def load_openia_config(filename="config.ini"):
+def load_openai_config(filename="config.ini"):
     config = configparser.ConfigParser()
     config.read(filename)
     
-    openia_config = {
-        "openia": config["openia"]["key"],
+    openai_config = {
+        "openai": config["openai"]["key"],
     }
-    return openia_config
+    return openai_config
 
 
 # Setup OpenAI API key
-openia_config = load_openia_config()
-openai.api_key = openia_config["openia"]
+openai_config = load_openai_config()
+openai.api_key = openai_config["openai"]
 
 
 def check_availible_engines():
@@ -72,38 +70,10 @@ def test_request():
 # Please provide a few distinct Russian translations for the English definition, taking into account the Pali term and its grammatical context and Pali sentence. Separate each synonym with `;`. Avoid repeating the same word, even between main words and literal meanings. Provide a lot of Russian synonyms in the answer and nothing else.
 
 
-@timeout(10, timeout_exception=TimeoutDecoratorError)  # Setting a  10-second timeout
-def translate_to_russian_googletrans():
-    meaning = "factor; component; element; quality; aspect; lit. part"
-
-    try:
-        translator = Translator()
-        translation = translator.translate(meaning, dest='ru')
-        dps_ru_online_suggestion = translation.text.lower()
-
-        # Add spaces after semicolons and lit. for better readability
-        dps_ru_online_suggestion = dps_ru_online_suggestion.replace(";", "; ")
-        dps_ru_online_suggestion = dps_ru_online_suggestion.replace("|", "| ")
-
-        print(dps_ru_online_suggestion)
-
-    except TimeoutDecoratorError:
-        # Handle any exceptions that occur
-        error_string = "Timed out"
-        print(error_string)
-
-    except Exception as e:
-        # Handle any other exceptions that occur
-        error_string = f"Error: {e} "
-        print(error_string)
-
-
 # check_remaining_quota()
 
 # check_availible_engines()
 
 # test_request()
-
-# translate_to_russian_googletrans()
 
 

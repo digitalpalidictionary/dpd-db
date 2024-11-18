@@ -5,26 +5,26 @@ import subprocess
 import textwrap
 import requests
 import re
-import openai
 import os
 import json
-from rich.prompt import Prompt
 import pickle
 import shutil
 
+from rich import print
+
 from requests.exceptions import RequestException
-
 from spellchecker import SpellChecker
-from googletrans import Translator
-
+from openai import OpenAI
 from difflib import SequenceMatcher
-
 from timeout_decorator import timeout, TimeoutError as TimeoutDecoratorError
+from typing import Optional
+
+from sqlalchemy import not_, or_, and_
+from sqlalchemy.orm import Synonym, joinedload
 
 from db.db_helpers import get_column_names
 from db.models import Russian, SBS, DpdHeadword
 
-from tools.configger import config_test_option, config_read, config_update
 from tools.cst_sc_text_sets import make_cst_text_set
 from tools.cst_sc_text_sets import make_cst_text_set_from_file
 from tools.cst_sc_text_sets import make_cst_text_set_sutta
@@ -32,22 +32,22 @@ from tools.cst_sc_text_sets import make_sc_text_set
 from tools.meaning_construction import make_meaning_combo
 from tools.tokenizer import split_words
 from tools.tsv_read_write import read_tsv_dot_dict, read_tsv_dict, write_tsv_dot_dict
+from tools.fast_api_utils import request_dpd_server
+from tools.pali_sort_key import pali_sort_key
+
+from dps.tools.ai_related import load_openai_config
+from dps.tools.ai_related import load_translaton_examples
+from dps.tools.ai_related import replace_abbreviations
+from dps.tools.ai_related import handle_openai_response
 
 from functions import make_sp_mistakes_list
 from functions import make_sandhi_ok_list
 from functions import make_variant_list
 
 from functions_daily_record import daily_record_update
-from tools.fast_api_utils import request_dpd_server
 
-from rich import print
-from sqlalchemy import not_, or_, and_
-from sqlalchemy.orm import joinedload
-from typing import Optional
-from tools.pali_sort_key import pali_sort_key
 
 # flags
-
 class Flags_dps:
     def __init__(self):
         self.synonyms = True
@@ -505,168 +505,136 @@ def unstash_values_to(dpspth, window, num, error_field):
 
 # russian related
 
-@timeout(10, timeout_exception=TimeoutDecoratorError)  # Setting a 10-second timeout
-def translate_to_russian_googletrans(meaning, suggestion, error_field, window):
-
-    window[error_field].update("")
-
-    error_string = ""
-
-    # repace lit. with nothing
-    meaning = meaning.replace("lit.", "|")
-
-    # Check if meaning is None or empty
-    if not meaning:
-        error_string = "No input provided for translation."
-        window[error_field].update(error_string, text_color="red")
-        return
-
-    try:
-        translator = Translator()
-        translation = translator.translate(meaning, dest='ru')
-        dps_ru_online_suggestion = translation.text.lower() # type: ignore
-
-        # Add spaces after semicolons and lit. for better readability
-        dps_ru_online_suggestion = dps_ru_online_suggestion.replace(";", "; ")
-        dps_ru_online_suggestion = dps_ru_online_suggestion.replace("|", "| ")
-
-        window[suggestion].update(dps_ru_online_suggestion, text_color="Aqua")
-        return dps_ru_online_suggestion
-
-    except TimeoutDecoratorError:
-        # Handle any exceptions that occur
-        error_string = "Timed out"
-        window[error_field].update(error_string)
-        return error_string
-
-    except Exception as e:
-        # Handle any exceptions that occur
-        error_string = f"Error: {e} "
-        window[error_field].update(error_string)
-        return error_string
+api_key = load_openai_config()
+client = OpenAI(api_key=api_key)
 
 
-def replace_abbreviations(pth, grammar_string):
-    # Clean the grammar string: Take portion before the first ','
-    # cleaned_grammar_string = grammar_string.split(',')[0].strip()
+def generate_messages_for_meaning(lemma_1, grammar, meaning, sentence, translation_example="", synonyms=False):
+    """Generate messages for translation."""
 
-    replacements = {}
+    system_content = (
+        "You are a skilled assistant that translates English text to Russian with grammatical accuracy, contextual relevance, and strict adherence to rules."
+    )
+    
+    user_content = f"""
+        Translate the English definition of the Pali term into Russian, following these rules:
 
-    # Read abbreviations and their full forms into a dictionary
-    with open(pth.abbreviations_tsv_path, 'r', encoding='utf-8') as file:
-        reader = csv.reader(file, delimiter='\t')
-        next(reader)  # skip header
-        for row in reader:
-            abbrev, full_form = row[0], row[1]  # select only the first two columns
-            replacements[abbrev] = full_form
+        - Translate all bracketed text (e.g., "(gram)" → "(грам)", "(comm)" → "(комм)", "(vinaya)" → "(виная)", "(of weather)" → "(о погоде)").
+        - Separate synonyms with `;`.
+        - Match the grammatical structure of the Pali term (noun, verb, etc.).
+        - Use lowercase unless it's a proper noun.
+        - Translate "lit." as "досл.".
+        - Retain clarifications if any (e.g., "(of trap) laid down" → "(о капкане) установленный").
+        - Translate idioms to Russian equivalents.
+        - Ensure no English remains untranslated, including within brackets.
+        - Output only the translation of the Definition, without labels like "Перевод" etc, without any comments, without translation of the Grammar and in one line.
 
-    # Remove content within brackets
-    grammar_string = re.sub(r'\(.*?\)', '', grammar_string)
+        **Pali Term**: {lemma_1}
+        **Grammar**: {grammar}
+        **Definition**: {meaning}
+    """
 
-    # Use regex to split the string in a way that separates punctuations
-    abbreviations = re.findall(r"[\w']+|[.,!?;]", grammar_string)
+    if sentence:
+        user_content += f"\n- Consider Pali context: {sentence}"
+    
+    if translation_example:
+        user_content += f"\n- Match this example format: {translation_example}"
 
-    # Replace abbreviations in the list
-    for idx, abbrev in enumerate(abbreviations):
-        if abbrev in replacements:
-            abbreviations[idx] = replacements[abbrev]
-
-    # Join the list back into a string
-    replaced_string = ' '.join(abbreviations)
-
-    return replaced_string
-
-
-def load_openia_config():
-    """Add a OpenAI key if one doesn't exist, or return the key if it does."""
-
-    if not config_test_option("openia", "key"):
-        openia_config = Prompt.ask("[yellow]Enter your openai key (or ENTER for None)")
-        config_update("openia", "key", openia_config)
-    else:
-        openia_config = config_read("openia", "key")
-    return openia_config
-
-
-# Setup OpenAI API key
-openai.api_key = load_openia_config()
+    if synonyms:
+        user_content = user_content.replace("Translate the English definition of the Pali term into Russian", "Provide at least nine distinct Russian translations for the English definition of Pali term")
+        
+    # debug print
+    print(user_content)
+    return [
+        {"role": "system", "content": system_content},
+        {"role": "user", "content": user_content}
+    ]
 
 
-@timeout(15, timeout_exception=TimeoutDecoratorError)  # Setting a 15-second timeout
-def call_openai(model_version, messages):
-    if model_version == "4":
-        return openai.ChatCompletion.create(
-            model="gpt-4o-2024-08-06",
-            messages=messages
-        )
-    elif model_version == "3":
-        return openai.ChatCompletion.create(
-            model="gpt-4o-mini",
-            # model="gpt-3.5-turbo-0125",
-            messages=messages
-        )
-    else:
-        print("Invalid model version")
+def generate_messages_for_notes(lemma_1, grammar, notes):
+    """Generate messages for translation."""
 
-def handle_openai_response(messages, suggestion_field, error_field, window, model_version="3"):
-    error_string = ""
+    system_content = "You are a helpful assistant that translates English text to Russian considering the context."
+    
+    user_content = f"""
+    Please provide Russian translation for the English notes, considering the Pali term and its grammatical context. In the answer give only Russian translation in one line and nothing else. But keep Pali or Sanskrit terms in roman script.
 
-    try:
-        # Request translation from OpenAI's GPT chat model
-        response = call_openai(model_version, messages)
-        suggestion = response.choices[0].message['content'].strip() # type: ignore
-        window[suggestion_field].update(suggestion, text_color="Aqua")
+                **Pali Term**: {lemma_1}
+                **Grammar**: {grammar}
+                **Notes**: {notes}
+    """
 
-        return suggestion
+    # debug print
+    print(user_content)
 
-    # Handle any exceptions that occur
-    except TimeoutDecoratorError:
-        error_string = "Timed out"
-        print(error_string)
-        window[error_field].update(error_string)
-        return error_string
-
-    except Exception as e:
-        error_string = f"Error: {e} "
-        print(error_string)
-        window[error_field].update(error_string)
-        return error_string
+    return [
+        {"role": "system", "content": system_content},
+        {"role": "user", "content": user_content}
+    ]
 
 
-def load_ranslaton_examples(dpspth):
-    """Load the pos-examples mapping from a TSV file into a dictionary."""
-    pos_examples_map = {}
-    if dpspth.translation_example_path:
-        with open(dpspth.translation_example_path, 'r', encoding='utf-8') as csvfile:
-            reader = csv.reader(csvfile, delimiter='\t')
-            next(reader)  # Skip header row
-            for row in reader:
-                pos, examples = row[0], row[1]
-                pos_examples_map[pos] = examples
-    return pos_examples_map
+def generate_messages_for_english_meaning(lemma_1, grammar, sentence):
+    """Generate messages for translation."""
+    
+    system_content = "You are a helpful assistant that translates Pali to English considering the context."
+    
+    user_content = f"""
+
+    Given the grammatical and contextual details provided, list at least 8 distinct English synonyms for the specified Pali term. Avoid repeating the same word. In the answer provide only a list of synonyms separated by ';' without any introduction or comments.
+
+                **Pali Term**: {lemma_1}
+                **Grammar**: {grammar}
+                **Context**: {sentence}
+    """
+
+    # debug print
+    print(user_content)
+
+    return [
+        {"role": "system", "content": system_content},
+        {"role": "user", "content": user_content}
+    ]
 
 
-def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, pth, meaning_in, lemma_1, grammar, pos, suggestion_field, error_field, window, values, model_version, synonyms=False):
+def translate_with_openai(dpspth, meaning_in, lemma_1, grammar, pos, notes, suggestion_field, error_field, window, values, mode, main_sentence, model="3", ex_1="", ex_2="", ex_3="", ex_4="", number="0", synonyms=False):
     window[error_field].update("")
 
     # Get the content of window "meaning_in"
+    print(f"meaning_in: {meaning_in}")
     meaning = values[meaning_in]
+    print(f"meaning: {meaning}")
 
-    pos_example_map = load_ranslaton_examples(dpspth)
+
+    pos_example_map = load_translaton_examples(dpspth)
 
     translation_example = pos_example_map.get(pos, "")
 
-    print(translation_example)
+    # debug
+    # print(translation_example)
 
-    # keep original grammar
+    if model == "4":
+        model="gpt-4o-2024-08-06"
+    else:
+        model="gpt-4o-mini"
+
+    # debug print
+    print(model)
+    
+    # Replace abbreviations in grammar keeping original ones
     grammar_orig = grammar
+    print(f"grammar_orig: {grammar_orig}")
+    grammar = replace_abbreviations(grammar)
 
-    # Replace abbreviations in grammar
-    grammar = replace_abbreviations(pth, grammar)
+    print(f"number: {number}")
+    print(f"main_sentence: {main_sentence}")
+    print(f"ex_1: {ex_1}")
+    print(f"ex_2: {ex_2}")
+    print(f"ex_3: {ex_3}")
+    print(f"ex_4: {ex_4}")
 
     # Choosing sentence
     if number == "0":
-        sentence = dps_ex_1
+        sentence = main_sentence
     if number == "1":
         sentence = ex_1
     if number == "2":
@@ -676,226 +644,49 @@ def ru_translate_with_openai(number, dps_ex_1, ex_1, ex_2, ex_3, ex_4, dpspth, p
     if number == "4":
         sentence = ex_4
 
-    if translation_example:
+    print(f"sentence: {sentence}")
 
-        if synonyms:
+    print(f"mode: {mode}")
 
-            # Generate the chat messages based on provided values with translation examples
-            messages = [
-                {
-                    "role": "system",
-                    "content": "You are a helpful assistant that translates English text to Russian, considering context, grammatical structure, and specific formatting rules."
-                },
-                {
-                    "role": "user",
-                    "content": f"""
+    if mode == "meaning":
+        messages = generate_messages_for_meaning(lemma_1, grammar, meaning, sentence, translation_example, synonyms)
 
-                    Please provide at least nine distinct Russian translations for the English definition of Pali term, considering gramatical context. Follow these guidelines:
-
-                        - Separate synonyms with `;`.
-                        - Match the grammatical structure of the Pali term (noun, verb, adj, etc.).
-                        - Use lowercase unless it's a proper noun.
-                        - Format the output similarly to provided translation examples.
-                        - If the English definition contains an idiom, try to use a corresponding Russian idiom.
-                        - Output only the translations, without labels like "Перевод" etc.
-
-                    **Pali Term**: {lemma_1}
-                    **Grammar Details**: {grammar}
-                    **Pali sentence**: {sentence}
-                    **English Definition**: {meaning}
-                    **Translation Examples**: {translation_example}
-
-                    """
-                }
-            ]
-
-        else:
-
-            # Generate the chat messages based on provided values with translation examples
-            messages = [
-                {
-                    "role": "system",
-                    "content": "You are a helpful assistant that translates English text to Russian, considering context, grammatical structure, and specific formatting rules."
-                },
-                {
-                    "role": "user",
-                    "content": f"""
-
-                    Please provide Russian translation for the English definition of Pali term, considering gramatical context. Follow these guidelines:
-
-                        - Separate synonyms with `;`.
-                        - Match the grammatical structure of the Pali term (noun, verb, adj, etc.).
-                        - Use lowercase unless it's a proper noun.
-                        - Format the output similarly to provided translation examples.
-                        - If "lit." is present in definition, include a literal translation marked with досл.
-                        - If "(comm)" is present in definition, keep it as (комм) in Russian.
-                        - Retain any clarifications in brackets (e.g., "(of trap) laid down" → "установленный (капкан)")
-                        - If the English definition contains an idiom, try to use a corresponding Russian idiom.
-                        - Output only the translations, without labels like "Перевод" etc.
-
-                    **Pali Term**: {lemma_1}
-                    **Grammar Details**: {grammar}
-                    **Pali sentence**: {sentence}
-                    **English Definition**: {meaning}
-                    **Translation Examples**: {translation_example}
-
-                    """
-                }
-            ]
-
+    elif mode == "note":
+        messages = generate_messages_for_notes(lemma_1, grammar, notes)
+    elif mode == "english":
+        messages = generate_messages_for_english_meaning(lemma_1, grammar, sentence)    
     else:
+        raise ValueError(f"Invalid mode: {mode}")
 
-        if synonyms:
+    try:
+        suggestion = handle_openai_response(client, messages, model)
+    except Exception as e:
+        error_string = str(e)
+        window[error_field].update(error_string)   
 
-            # Generate the chat messages based on provided values
-            messages = [
-                {
-                    "role": "system",
-                    "content": "You are a helpful assistant that translates English text to Russian, considering context, grammatical structure, and specific formatting rules."
-                },
-                {
-                    "role": "user",
-                    "content": f"""
+    if suggestion:    
+        # Ensure suggestion is treated as a string
+        suggestion_str = suggestion.content if suggestion is not None else ""
+        window[suggestion_field].update(suggestion_str, text_color="Aqua")
 
-                    Please generate at least nine distinct Russian translations for the English definition of Pali term, considering gramatical context, following these guidelines:
+        if mode == "meaning":
+            write_suggestions_to_csv(dpspth.ai_ru_suggestion_history_path, lemma_1, grammar_orig, grammar, meaning, suggestion_str)
 
-                        - Separate synonyms with `;`.
-                        - Match the grammatical structure of the Pali term (noun, verb, adj, etc.).
-                        - Use lowercase unless it's a proper noun.
-                        - If the English definition contains an idiom, try to use a corresponding Russian idiom.
-                        - Output only the translations, without labels like "Перевод" etc.
-
-                    **Pali Term**: {lemma_1}
-                    **Grammar Details**: {grammar}
-                    **Pali sentence**: {sentence}
-                    **English Definition**: {meaning}
-                    
-                    """
-                }
-            ]
+        elif mode == "note":
+            write_suggestions_to_csv(dpspth.ai_ru_notes_suggestion_history_path, lemma_1, grammar_orig, grammar, notes, suggestion_str)
+        elif mode == "english":
+            write_suggestions_to_csv(dpspth.ai_en_suggestion_history_path, lemma_1, grammar_orig, grammar, sentence, suggestion_str)
 
         else:
+            raise ValueError(f"Invalid mode: {mode}")
+    else:
+        window[error_field].update(error_string)  
 
-            # Generate the chat messages based on provided values
-            messages = [
-                {
-                    "role": "system",
-                    "content": "You are a helpful assistant that translates English text to Russian, considering context, grammatical structure, and specific formatting rules."
-                },
-                {
-                    "role": "user",
-                    "content": f"""
 
-                    Please provide Russian translation for the English definition of Pali term, considering gramatical context. Follow these guidelines:
-
-                        - Separate synonyms with `;`.
-                        - Match the grammatical structure of the Pali term (noun, verb, adj, etc.).
-                        - Use lowercase unless it's a proper noun.
-                        - If "lit." is present in definition, include a literal translation marked with досл.
-                        - If "(comm)" is present in definition, keep it as (комм) in Russian.
-                        - Retain any clarifications in brackets (e.g., "(of trap) laid down" → "установленный (капкан)")
-                        - If the English definition contains an idiom, try to use a corresponding Russian idiom.
-                        - Output only the translations, without labels like "Перевод" etc.
-
-                    **Pali Term**: {lemma_1}
-                    **Grammar Details**: {grammar}
-                    **Pali sentence**: {sentence}
-                    **English Definition**: {meaning}
-
-                    """
-                }
-            ]
-
-    suggestion = handle_openai_response(messages, suggestion_field, error_field, window, model_version).lower()
-
-    # Save to CSV
-    if suggestion != "Timed out":
-        with open(dpspth.ai_ru_suggestion_history_path, 'a', newline='', encoding='utf-8') as file:
+def write_suggestions_to_csv(file_name, lemma_1, grammar_orig, grammar, original, suggestion):
+    with open(file_name, 'a', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter="\t")
-            # Write the required columns to the CSV
-            writer.writerow([lemma_1, grammar_orig, grammar, meaning, suggestion])
-
-    return suggestion
-
-
-def ru_notes_translate_with_openai(dpspth, pth, notes, lemma_1, grammar, suggestion_field, error_field, window):
-    window[error_field].update("")
-
-    # keep original grammar
-    grammar_orig = grammar
-
-    # Replace abbreviations in grammar
-    grammar = replace_abbreviations(pth, grammar)
-    
-    # Generate the chat messages based on provided values
-    messages = [
-        {
-            "role": "system",
-            "content": "You are a helpful assistant that translates English text to Russian considering the context."        
-        },
-        {
-            "role": "user",
-            "content": f"""
-
-            Please provide Russian translation for the English notes, considering the Pali term and its grammatical context. In the answer give only Russian translation in one line and nothing else. But keep Pali or Sanskrit terms in roman script.
-
-                **Pali Term**: {lemma_1}
-                **Grammar Details**: {grammar}
-                **English Notes**: {notes}
-                
-            """
-        }
-    ]
-
-    suggestion = handle_openai_response(messages, suggestion_field, error_field, window)
-
-    # Save to CSV
-    if suggestion != "Timed out":
-        with open(dpspth.ai_ru_notes_suggestion_history_path, 'a', newline='', encoding='utf-8') as file:
-            writer = csv.writer(file, delimiter="\t")
-            # Write the required columns to the CSV
-            writer.writerow([lemma_1, grammar_orig, grammar, notes, suggestion])
-
-    return suggestion
-
-
-def en_translate_with_openai(dpspth, pth, lemma_1, grammar, sentence, suggestion_field, error_field, window, model_version):
-    window[error_field].update("")
-
-    # keep original grammar
-    grammar_orig = grammar
-
-    # Replace abbreviations in grammar
-    grammar = replace_abbreviations(pth, grammar)
-    
-    # Generate the chat messages based on provided values
-
-    messages = [
-        {
-            "role": "system",
-            "content": "You are a helpful assistant that translates Pali to English considering the context."
-        },
-        {
-            "role": "user",
-            "content": f"""
-                **Pali Term**: {lemma_1}
-                **Grammar Details**: {grammar}
-                **Contextual Pali Sentences**: {sentence}
-                Given the grammatical and contextual details provided, list distinct English synonyms for the specified Pali term, separated by `;`. Avoid repeating the same word.
-            """
-        }
-    ]
-  
-    suggestion = handle_openai_response(messages, suggestion_field, error_field, window, model_version)
-
-    # Save to CSV
-    if suggestion != "Timed out":
-        with open(dpspth.ai_en_suggestion_history_path, 'a', newline='', encoding='utf-8') as file:
-            writer = csv.writer(file, delimiter="\t")
-            # Write the required columns to the CSV
-            writer.writerow([lemma_1, grammar_orig, grammar, sentence, suggestion])
-
-    return suggestion
+            writer.writerow([lemma_1, grammar_orig, grammar, original, suggestion])
 
 
 def copy_and_split_content(sugestion_key, meaning_key, lit_meaning_key, error_field, window, values):
