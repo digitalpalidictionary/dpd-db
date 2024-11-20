@@ -9345,7 +9345,7 @@ var family_idiom_json = {
    [
     "samaṃ karoti",
     "idiom",
-    "equates; likens (somebody with somebody)",
+    "equates; likens (somebody with somebody else)",
     "✔"
    ]
   ]
@@ -32592,7 +32592,7 @@ var family_idiom_json = {
    [
     "samaṃ karoti",
     "idiom",
-    "equates; likens (somebody with somebody)",
+    "equates; likens (somebody with somebody else)",
     "✔"
    ],
    [

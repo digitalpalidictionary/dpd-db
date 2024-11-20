@@ -1164,7 +1164,7 @@ var family_word_json = {
    [
     "khārika 1.1",
     "adj",
-    "hot; alkaline; caustic",
+    "alkaline; caustic",
     "✔"
    ],
    [
@@ -2449,7 +2449,7 @@ var family_word_json = {
    [
     "anantara 3",
     "nt",
-    "no secret teaching; lit. no inner",
+    "no secret teaching; no inner doctrine; lit. no inner",
     "✔"
    ],
    [
@@ -18063,7 +18063,7 @@ var family_word_json = {
    [
     "opamañña 2",
     "masc",
-    "name of a deity",
+    "name of a deity; lit. of the upamañña clan",
     "✔"
    ]
   ],
@@ -24117,6 +24117,12 @@ var family_word_json = {
     "jeṭṭhaka 2",
     "masc",
     "elder brother; first born",
+    "◑"
+   ],
+   [
+    "jeṭṭhaka 3",
+    "adj",
+    "eldest; first born",
     "✔"
    ],
    [
@@ -24144,7 +24150,7 @@ var family_word_json = {
     "◑"
    ]
   ],
-  "count": 9
+  "count": 10
  },
  "sāka": {
   "data": [
@@ -25424,7 +25430,12 @@ var family_word_json = {
     "fem",
     "drum",
     "✘"
-   ],
+   ]
+  ],
+  "count": 1
+ },
+ "dunduṃ": {
+  "data": [
    [
     "dundubhi 1",
     "nt",
@@ -25444,7 +25455,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 4
+  "count": 3
  },
  "pasu": {
   "data": [
@@ -27258,7 +27269,7 @@ var family_word_json = {
    [
     "sampati",
     "ind",
-    "right now; at present",
+    "right now; at present; recently; soon after",
     "✔"
    ]
   ],
@@ -28164,8 +28175,8 @@ var family_word_json = {
    [
     "puṇḍarī",
     "fem",
-    "lotus",
-    "✘"
+    "in reference to tevijjavacchasuttaṃ MN71",
+    "✔"
    ],
    [
     "puṇḍarīka 1",
@@ -28368,6 +28379,23 @@ var family_word_json = {
    ]
   ],
   "count": 3
+ },
+ "pūva": {
+  "data": [
+   [
+    "pūva",
+    "masc",
+    "cake; (comm) made as a gift",
+    "✔"
+   ],
+   [
+    "pūvika",
+    "masc",
+    "baker; cake maker",
+    "✔"
+   ]
+  ],
+  "count": 2
  },
  "pekhuṇa": {
   "data": [
@@ -30571,33 +30599,33 @@ var family_word_json = {
  "ratana": {
   "data": [
    [
-    "ratana 1",
+    "ratana 1.1",
     "nt",
     "jewel; gem; gemstone",
     "✔"
    ],
    [
-    "ratana 2",
+    "ratana 1.2",
     "nt",
     "treasure; precious thing",
     "✔"
    ],
    [
-    "ratana 3",
+    "ratana 1.3",
+    "adj",
+    "with jewels; having gems; possessing gemstones",
+    "✔"
+   ],
+   [
+    "ratana 1.4",
     "nt",
     "queen; woman; lit. jewel; treasure",
     "✔"
    ],
    [
-    "ratana 4",
+    "ratana 2.1",
     "nt",
     "measure of length; cubit",
-    "✔"
-   ],
-   [
-    "ratana 5",
-    "adj",
-    "with jewels; having gems; possessing gemstones",
     "✔"
    ],
    [

@@ -8462,7 +8462,7 @@ var family_set_json = {
    [
     "brahmaññattha",
     "masc",
-    "goal of being a Brahman; purpose of priesthood; epithet of Nibbāna",
+    "goal of being a Brahman; purpose of Brahmanhood; epithet of Nibbāna",
     "✔"
    ],
    [
@@ -10910,6 +10910,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "pūvika",
+    "masc",
+    "baker; cake maker",
+    "✔"
+   ],
+   [
     "pesaka 2",
     "masc",
     "supervisor; organizer; arranger; lit. who sends",
@@ -11324,7 +11330,84 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 192
+  "count": 193
+ },
+ "tastes": {
+  "data": [
+   [
+    "akhārika",
+    "adj",
+    "mild; not alkaline",
+    "✔"
+   ],
+   [
+    "anambila",
+    "adj",
+    "not sour",
+    "◑"
+   ],
+   [
+    "ambila 1",
+    "adj",
+    "sour",
+    "✔"
+   ],
+   [
+    "ambila 2",
+    "masc",
+    "sour taste; acidic taste",
+    "✔"
+   ],
+   [
+    "aloṇika",
+    "adj",
+    "bland; not salty",
+    "✔"
+   ],
+   [
+    "kaṭuka 2",
+    "adj",
+    "bitter; acerbic",
+    "✔"
+   ],
+   [
+    "kaṭuka 4",
+    "nt",
+    "bitter taste; pungent taste; acerbic taste",
+    "✔"
+   ],
+   [
+    "khārika 1.1",
+    "adj",
+    "alkaline; caustic",
+    "✔"
+   ],
+   [
+    "tittaka 1",
+    "adj",
+    "bitter; sharp",
+    "✔"
+   ],
+   [
+    "tittaka 2",
+    "nt",
+    "sharp taste; bitter taste",
+    "✔"
+   ],
+   [
+    "madhura 1.2",
+    "nt",
+    "sweet taste",
+    "✔"
+   ],
+   [
+    "loṇika",
+    "adj",
+    "salty",
+    "✔"
+   ]
+  ],
+  "count": 12
  },
  "place names": {
   "data": [
@@ -13528,6 +13611,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "samaṇī 2",
+    "fem",
+    "female ascetic; female renunciant",
+    "✔"
+   ],
+   [
     "sassatavādī",
     "masc",
     "eternalist; proponent of the doctrine of an everlasting soul; lit. speaking eternity",
@@ -13546,7 +13635,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 55
+  "count": 56
  },
  "suttas of the Majjhima Nikāya": {
   "data": [
@@ -21318,7 +21407,7 @@ var family_set_json = {
     "✔"
    ],
    [
-    "ratana 4",
+    "ratana 2.1",
     "nt",
     "measure of length; cubit",
     "✔"
@@ -23619,7 +23708,7 @@ var family_set_json = {
    [
     "opamañña 2",
     "masc",
-    "name of a deity",
+    "name of a deity; lit. of the upamañña clan",
     "✔"
    ],
    [
@@ -23781,7 +23870,7 @@ var family_set_json = {
    [
     "cittasena",
     "masc",
-    "name of a demigods; (comm) name of two demigods; lit. manifold army",
+    "name of a demigod; (comm) name of two demigods; lit. manifold army",
     "✔"
    ],
    [
@@ -24015,7 +24104,7 @@ var family_set_json = {
    [
     "panāda",
     "masc",
-    "name of a deity",
+    "name of a deity; lit. roar",
     "✔"
    ],
    [
@@ -25697,6 +25786,107 @@ var family_set_json = {
    ]
   ],
   "count": 17
+ },
+ "doctrines": {
+  "data": [
+   [
+    "ajitakesakambalavāda",
+    "masc",
+    "doctrine of Ajita Kesakambala",
+    "◑"
+   ],
+   [
+    "attavāda",
+    "masc",
+    "theory of self; doctrine of self",
+    "✔"
+   ],
+   [
+    "atthikavāda 1",
+    "masc",
+    "(proponent of) moral effectiveness; doctrine of ethical efficacy; view that merit and the afterlife exist; lit. there is doctrine",
+    "✔"
+   ],
+   [
+    "adhiccasamuppannavāda",
+    "masc",
+    "doctrine of chance occurrence",
+    "✔"
+   ],
+   [
+    "ahetuvāda",
+    "masc",
+    "(proponent of) doctrine of non-causality; theory that nothing has a reason",
+    "✔"
+   ],
+   [
+    "ucchedavāda",
+    "masc",
+    "(proponent of the) doctrine of annihilation; annihilationist view",
+    "✔"
+   ],
+   [
+    "ucchedavādī",
+    "masc",
+    "annihilationist; proponent of the doctrine of annihilation; lit. speaking annihilation",
+    "✔"
+   ],
+   [
+    "kammavāda 1",
+    "masc",
+    "(proponent of) doctrine of causality; who hold the view that actions have consequences",
+    "◑"
+   ],
+   [
+    "kriyavāda",
+    "masc",
+    "(proponent of) doctrine of action; doctrine of efficacy of action",
+    "✔"
+   ],
+   [
+    "puggalavādī",
+    "masc",
+    "proponent of the doctrine that the individual exists; lit. speaking person",
+    "✔"
+   ],
+   [
+    "makkhalivāda",
+    "masc",
+    "doctrine of Makkhali (Gosāla)",
+    "✔"
+   ],
+   [
+    "sañcayabelaṭṭhaputtavāda",
+    "masc",
+    "doctrine of Sañjaya Belaṭṭhaputta",
+    "◑"
+   ],
+   [
+    "sassatavāda 1",
+    "masc",
+    "eternalism; doctrine of an everlasting soul",
+    "✔"
+   ],
+   [
+    "sassatavāda 2",
+    "adj",
+    "who is a proponent of eternalism; believing in the doctrine of an everlasting soul",
+    "✔"
+   ],
+   [
+    "sassatavādī",
+    "masc",
+    "eternalist; proponent of the doctrine of an everlasting soul; lit. speaking eternity",
+    "✔"
+   ],
+   [
+    "suññatavādī",
+    "masc",
+    "proponent of the doctrine that everything is empty; Buddhist; lit. speaking emptiness",
+    "✔"
+   ]
+  ],
+  "count": 16
  },
  "plants": {
   "data": [
@@ -35219,53 +35409,6 @@ var family_set_json = {
    ]
   ],
   "count": 16
- },
- "doctrines": {
-  "data": [
-   [
-    "ucchedavādī",
-    "masc",
-    "annihilationist; proponent of the doctrine of annihilation; lit. speaking annihilation",
-    "✔"
-   ],
-   [
-    "kammavāda 1",
-    "masc",
-    "(proponent of) doctrine of causality; who hold the view that actions have consequences",
-    "◑"
-   ],
-   [
-    "puggalavādī",
-    "masc",
-    "proponent of the doctrine that the individual exists; lit. speaking person",
-    "✔"
-   ],
-   [
-    "sassatavāda 1",
-    "masc",
-    "eternalism; doctrine of an everlasting soul",
-    "✔"
-   ],
-   [
-    "sassatavāda 2",
-    "adj",
-    "who is a proponent of eternalism; believing in the doctrine of an everlasting soul",
-    "✔"
-   ],
-   [
-    "sassatavādī",
-    "masc",
-    "eternalist; proponent of the doctrine of an everlasting soul; lit. speaking eternity",
-    "✔"
-   ],
-   [
-    "suññatavādī",
-    "masc",
-    "proponent of the doctrine that everything is empty; Buddhist; lit. speaking emptiness",
-    "✔"
-   ]
-  ],
-  "count": 7
  },
  "names of mountains": {
   "data": [
