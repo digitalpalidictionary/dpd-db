@@ -6,7 +6,6 @@ import os
 import json
 import glob
 
-from openai import OpenAI
 from typing import List, Dict
 
 from db.db_helpers import get_db_session
@@ -16,10 +15,11 @@ from tools.paths import ProjectPaths
 from tools.meaning_construction import make_meaning_combo
 from tools.date_and_time import year_month_day_hour_minute_dash
 
-from dps.tools.ai_related import load_openai_config
 from dps.tools.ai_related import load_translaton_examples
 from dps.tools.ai_related import handle_openai_response
 from dps.tools.ai_related import replace_abbreviations
+from dps.tools.ai_related import get_openai_client
+
 from dps.tools.paths_dps import DPSPaths    
 
 from sqlalchemy import and_, or_, null
@@ -36,9 +36,6 @@ date = year_month_day_hour_minute_dash()
 # model="gpt-4o-mini"
 model="gpt-4o-2024-08-06"
 hight_model="gpt-4o-2024-08-06"
-
-api_key = load_openai_config()
-client = OpenAI(api_key=api_key)
 
 
 def remove_irrelevant(limit: int):
@@ -89,25 +86,21 @@ def filter_words_for_translation(mode, limit: int) -> List[DpdHeadword]:
     if mode == "meaning":
         #! for filling those which does not have Russian table and fill the conditions
 
-        # db = db_session.query(DpdHeadword).outerjoin(
-        # Russian, DpdHeadword.id == Russian.id
-        #     ).filter(
-        #         and_(
-        #             DpdHeadword.meaning_1 != '',
-        #             # DpdHeadword.example_1 != '',
-        #             # ~combined_condition,
-        #             or_(
-        #                 Russian.ru_meaning.is_(None),
-        #                 Russian.ru_meaning_raw.is_(None),
-        #                 Russian.id.is_(null())
-        #             )
+        db = db_session.query(DpdHeadword).outerjoin(
+        Russian, DpdHeadword.id == Russian.id
+            ).filter(
+                and_(
+                    DpdHeadword.meaning_1 != '',
+                    # DpdHeadword.example_1 != '',
+                    # ~combined_condition,
+                    or_(
+                        Russian.ru_meaning.is_(None),
+                        Russian.ru_meaning_raw.is_(None),
+                        Russian.id.is_(null())
+                    )
 
-        #         )
-        #     ).order_by(DpdHeadword.ebt_count.desc()).all()
-
-        # total_row_count = len(db)
-
-        # db = db[:limit]
+                )
+            ).order_by(DpdHeadword.ebt_count.desc()).all()
 
         #! for filling empty rows in Russian table
 
@@ -119,35 +112,30 @@ def filter_words_for_translation(mode, limit: int) -> List[DpdHeadword]:
         #                 Russian.ru_meaning_raw == '',
         #                 ).order_by(DpdHeadword.ebt_count.desc()).all()
 
-        # total_row_count = len(db)
-
-        # db = db[:limit]
-
         #! for filling those which have lower model of gpt:
 
-        # Call the functions to read IDs from the TSV and json files to exclude
-        exclude_ids_tsv: set[str] = read_exclude_ids_from_tsv(f"{dpspth.ai_translated_dir}/{hight_model}.tsv")
-        exclude_ids_json: set[str] = read_exclude_ids_from_json(dpspth.ai_from_batch_api_dir)
-        exclude_ids = exclude_ids_tsv | exclude_ids_json
-        print(f"excluded words {len(exclude_ids)}")
+        # # Call the functions to read IDs from the TSV and json files to exclude
+        # exclude_ids_tsv: set[str] = read_exclude_ids_from_tsv(f"{dpspth.ai_translated_dir}/{hight_model}.tsv")
+        # exclude_ids_json: set[str] = read_exclude_ids_from_json(dpspth.ai_from_batch_api_dir)
+        # exclude_ids = exclude_ids_tsv | exclude_ids_json
+        # print(f"excluded words {len(exclude_ids)}")
 
 
-        # Add the conditions to the query
-        db = db_session.query(DpdHeadword).outerjoin(
-            Russian, DpdHeadword.id == Russian.id
-            ).filter(
-                and_(
-                    DpdHeadword.meaning_1 != '',
-                    # DpdHeadword.example_1 != '',
-                    Russian.ru_meaning_raw != '',
-                    # func.length(Russian.ru_meaning_raw) > 20,
-                    Russian.ru_meaning == '',
-                    ~DpdHeadword.id.in_(exclude_ids)
-                )
-            ).order_by(DpdHeadword.ebt_count.desc()).all()
+        # # Add the conditions to the query
+        # db = db_session.query(DpdHeadword).outerjoin(
+        #     Russian, DpdHeadword.id == Russian.id
+        #     ).filter(
+        #         and_(
+        #             DpdHeadword.meaning_1 != '',
+        #             # DpdHeadword.example_1 != '',
+        #             Russian.ru_meaning_raw != '',
+        #             # func.length(Russian.ru_meaning_raw) > 20,
+        #             Russian.ru_meaning == '',
+        #             ~DpdHeadword.id.in_(exclude_ids)
+        #         )
+        #     ).order_by(DpdHeadword.ebt_count.desc()).all()
 
         total_row_count = len(db)
-
         db = db[:limit]
 
     if mode == "note":
@@ -171,7 +159,6 @@ def filter_words_for_translation(mode, limit: int) -> List[DpdHeadword]:
             ).order_by(DpdHeadword.ebt_count.desc()).all()
 
         total_row_count = len(db)
-
         db = db[:limit]
 
 
@@ -273,18 +260,22 @@ def translate(lemma_1, grammar, pos, meaning, sentence, notes, mode):
     else:
         raise ValueError(f"Invalid mode: {mode}")
 
+    # Lazy initialization of OpenAI client
+    client = get_openai_client()
+    suggestion, error_string = handle_openai_response(client, messages, model)
+    if error_string:
+        print(error_string)
+    elif suggestion:
+        # Ensure suggestion is treated as a string
+        suggestion_str = suggestion.content if suggestion is not None else ""
 
-    suggestion = handle_openai_response(client, messages, model)
-    # Ensure suggestion is treated as a string
-    suggestion_str = suggestion.content if suggestion is not None else ""
+        if mode == "meaning":
+            return suggestion_str
 
-    if mode == "meaning":
-        return suggestion_str
-
-    elif mode == "note":
-        return f"[пер. ИИ] {suggestion_str}"
-    else:
-        raise ValueError(f"Invalid mode: {mode}")
+        elif mode == "note":
+            return f"[пер. ИИ] {suggestion_str}"
+        else:
+            raise ValueError(f"Invalid mode: {mode}")
 
 
 def save_prompts_to_json(prompts: List[Dict], filename):
@@ -371,21 +362,19 @@ def read_exclude_ids_from_json(dir_path, mode: str = "meaning") -> set[str]:
     return exclude_ids
 
 
-
-
 if __name__ == "__main__":
 
     print("Translationg with the help of AI")
 
-    limit: int = 5000
+    limit: int = 1
 
     # remove_irrelevant(limit)
 
-    # translation_generate("meaning", limit)
+    translation_generate("meaning", limit)
 
     # translation_generate("note", limit)
 
-    make_json("meaning", limit)
+    # make_json("meaning", limit)
 
     # make_json("note", limit)
 

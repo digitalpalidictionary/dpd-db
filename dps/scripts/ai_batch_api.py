@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 
-from openai import OpenAI
 import openai
 
 import os
 import json
 
-from dps.tools.ai_related import load_openai_config
+from dps.tools.ai_related import get_openai_client
 
 from db.db_helpers import get_db_session
 from db.models import Russian
@@ -17,12 +16,13 @@ dpspth = DPSPaths()
 pth = ProjectPaths()
 db_session = get_db_session(pth.dpd_db_path)
 
-# Initialize OpenAI client
-api_key = load_openai_config()
-client = OpenAI(api_key=api_key)
-
 
 def upload_and_create_batch(file_name):
+    """Uploads a file and creates a batch for processing."""
+    client = get_openai_client()
+    if client is None:
+        print("OpenAI client is not initialized. Cannot proceed with batch creation.")
+        return
     
     # Define file parameters
     file_path = os.path.join(dpspth.ai_for_batch_api_dir, f"{file_name}.jsonl")
@@ -63,6 +63,10 @@ def upload_and_create_batch(file_name):
 
 
 def check_batch_list():
+    client = get_openai_client()
+    if client is None:
+        print("OpenAI client is not initialized. Cannot retrieve batch list.")
+        return
     try:
         # Retrieve the list of all batches
         batches = client.batches.list()
@@ -74,6 +78,10 @@ def check_batch_list():
 
 
 def check_batch_status(batch_id):
+    client = get_openai_client()
+    if client is None:
+        print("OpenAI client is not initialized. Cannot retrieve batch status.")
+        return
     try:
         # Retrieve detailed information about a specific batch
         batch_info = client.batches.retrieve(batch_id=batch_id)
@@ -97,6 +105,10 @@ def serialize_request_counts(request_counts):
 
 
 def print_batch_info(batch_id):
+    client = get_openai_client()
+    if client is None:
+        print("OpenAI client is not initialized. Cannot retrieve batch info.")
+        return
     try:
         # Retrieve batch information
         batch_info = client.batches.retrieve(batch_id=batch_id)
@@ -133,6 +145,10 @@ def print_batch_info(batch_id):
 
 
 def cancel_batch(batch_id):
+    client = get_openai_client()
+    if client is None:
+        print("OpenAI client is not initialized. Cannot cancel batch.")
+        return
     try:
         # Retrieve batch information to check if the batch exists
         batch_info = client.batches.retrieve(batch_id=batch_id)
@@ -150,6 +166,10 @@ def cancel_batch(batch_id):
 
 
 def save_batch_results(batch_id, file_name):
+    client = get_openai_client()
+    if client is None:
+        print("OpenAI client is not initialized. Cannot retrieve batch data.")
+        return
     try:
         # Retrieve batch information to get the output file ID
         batch_info = client.batches.retrieve(batch_id=batch_id)
@@ -239,18 +259,18 @@ def update_ru_meaning_raw(ids_and_contents):
 if __name__ == "__main__":
 
     #! Sent request from json to batch API
-    file_name_in = "meaning-2024-11-18-12-18"
+    file_name_in = "meaning-2024-11-18-19-11"
 
     # upload_and_create_batch(file_name_in)
 
     # check_batch_list()
 
-    specific_batch_id = "batch_673ac08217dc819090637f06467e2f98"
+    specific_batch_id = "batch_673b216df0d081909fcb8296ede256fa"
 
-    print_batch_info(specific_batch_id)
+    # print_batch_info(specific_batch_id)
 
-    # ids_and_contents = save_batch_results(specific_batch_id, file_name_in)
-    # update_ru_meaning_raw(ids_and_contents)
+    ids_and_contents = save_batch_results(specific_batch_id, file_name_in)
+    update_ru_meaning_raw(ids_and_contents)
 
     # cancel_batch(specific_batch_id)
 

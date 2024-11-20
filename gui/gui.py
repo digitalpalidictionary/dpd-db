@@ -1460,6 +1460,7 @@ def main():
                 if dpd_word:
                     ru_word = fetch_ru(db_session, dpd_word.id)
                     sbs_word = fetch_sbs(db_session, dpd_word.id)
+                    pyperclip.copy(dpd_word.lemma_1)
                     open_in_goldendict(dpd_word.lemma_1)
                     populate_dps_tab(
                         dpspth, values, window, dpd_word, ru_word, sbs_word)

@@ -14,7 +14,6 @@ from rich import print
 
 from requests.exceptions import RequestException
 from spellchecker import SpellChecker
-from openai import OpenAI
 from difflib import SequenceMatcher
 from timeout_decorator import timeout, TimeoutError as TimeoutDecoratorError
 from typing import Optional
@@ -35,10 +34,10 @@ from tools.tsv_read_write import read_tsv_dot_dict, read_tsv_dict, write_tsv_dot
 from tools.fast_api_utils import request_dpd_server
 from tools.pali_sort_key import pali_sort_key
 
-from dps.tools.ai_related import load_openai_config
 from dps.tools.ai_related import load_translaton_examples
 from dps.tools.ai_related import replace_abbreviations
 from dps.tools.ai_related import handle_openai_response
+from dps.tools.ai_related import get_openai_client
 
 from functions import make_sp_mistakes_list
 from functions import make_sandhi_ok_list
@@ -505,10 +504,6 @@ def unstash_values_to(dpspth, window, num, error_field):
 
 # russian related
 
-api_key = load_openai_config()
-client = OpenAI(api_key=api_key)
-
-
 def generate_messages_for_meaning(lemma_1, grammar, meaning, sentence, translation_example="", synonyms=False):
     """Generate messages for translation."""
 
@@ -543,8 +538,7 @@ def generate_messages_for_meaning(lemma_1, grammar, meaning, sentence, translati
     if synonyms:
         user_content = user_content.replace("Translate the English definition of the Pali term into Russian", "Provide at least nine distinct Russian translations for the English definition of Pali term")
         
-    # debug print
-    print(user_content)
+    # print(user_content)
     return [
         {"role": "system", "content": system_content},
         {"role": "user", "content": user_content}
@@ -564,8 +558,7 @@ def generate_messages_for_notes(lemma_1, grammar, notes):
                 **Notes**: {notes}
     """
 
-    # debug print
-    print(user_content)
+    # print(user_content)
 
     return [
         {"role": "system", "content": system_content},
@@ -587,8 +580,7 @@ def generate_messages_for_english_meaning(lemma_1, grammar, sentence):
                 **Context**: {sentence}
     """
 
-    # debug print
-    print(user_content)
+    # print(user_content)
 
     return [
         {"role": "system", "content": system_content},
@@ -598,89 +590,47 @@ def generate_messages_for_english_meaning(lemma_1, grammar, sentence):
 
 def translate_with_openai(dpspth, meaning_in, lemma_1, grammar, pos, notes, suggestion_field, error_field, window, values, mode, main_sentence, model="3", ex_1="", ex_2="", ex_3="", ex_4="", number="0", synonyms=False):
     window[error_field].update("")
-
     # Get the content of window "meaning_in"
-    print(f"meaning_in: {meaning_in}")
     meaning = values[meaning_in]
-    print(f"meaning: {meaning}")
-
 
     pos_example_map = load_translaton_examples(dpspth)
-
     translation_example = pos_example_map.get(pos, "")
 
-    # debug
-    # print(translation_example)
-
-    if model == "4":
-        model="gpt-4o-2024-08-06"
-    else:
-        model="gpt-4o-mini"
-
-    # debug print
-    print(model)
-    
-    # Replace abbreviations in grammar keeping original ones
+    model = "gpt-4o-2024-08-06" if model == "4" else "gpt-4o-mini"
     grammar_orig = grammar
-    print(f"grammar_orig: {grammar_orig}")
     grammar = replace_abbreviations(grammar)
 
-    print(f"number: {number}")
-    print(f"main_sentence: {main_sentence}")
-    print(f"ex_1: {ex_1}")
-    print(f"ex_2: {ex_2}")
-    print(f"ex_3: {ex_3}")
-    print(f"ex_4: {ex_4}")
-
     # Choosing sentence
-    if number == "0":
-        sentence = main_sentence
-    if number == "1":
-        sentence = ex_1
-    if number == "2":
-        sentence = ex_2
-    if number == "3":
-        sentence = ex_3
-    if number == "4":
-        sentence = ex_4
-
-    print(f"sentence: {sentence}")
-
-    print(f"mode: {mode}")
+    sentence = main_sentence if number == "0" else [ex_1, ex_2, ex_3, ex_4][int(number) - 1]
+    print(f"Sentence {sentence}")
 
     if mode == "meaning":
         messages = generate_messages_for_meaning(lemma_1, grammar, meaning, sentence, translation_example, synonyms)
-
     elif mode == "note":
         messages = generate_messages_for_notes(lemma_1, grammar, notes)
     elif mode == "english":
-        messages = generate_messages_for_english_meaning(lemma_1, grammar, sentence)    
+        messages = generate_messages_for_english_meaning(lemma_1, grammar, sentence)
     else:
         raise ValueError(f"Invalid mode: {mode}")
 
-    try:
-        suggestion = handle_openai_response(client, messages, model)
-    except Exception as e:
-        error_string = str(e)
-        window[error_field].update(error_string)   
+    # Lazy initialization of OpenAI client
+    client = get_openai_client()
+    suggestion, error_string = handle_openai_response(client, messages, model)
 
-    if suggestion:    
-        # Ensure suggestion is treated as a string
+    if error_string:
+        window[error_field].update(error_string)
+    elif suggestion:
         suggestion_str = suggestion.content if suggestion is not None else ""
         window[suggestion_field].update(suggestion_str, text_color="Aqua")
-
         if mode == "meaning":
             write_suggestions_to_csv(dpspth.ai_ru_suggestion_history_path, lemma_1, grammar_orig, grammar, meaning, suggestion_str)
-
         elif mode == "note":
             write_suggestions_to_csv(dpspth.ai_ru_notes_suggestion_history_path, lemma_1, grammar_orig, grammar, notes, suggestion_str)
         elif mode == "english":
             write_suggestions_to_csv(dpspth.ai_en_suggestion_history_path, lemma_1, grammar_orig, grammar, sentence, suggestion_str)
-
         else:
             raise ValueError(f"Invalid mode: {mode}")
-    else:
-        window[error_field].update(error_string)  
+
 
 
 def write_suggestions_to_csv(file_name, lemma_1, grammar_orig, grammar, original, suggestion):

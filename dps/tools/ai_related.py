@@ -4,6 +4,8 @@
 import csv
 import re
 
+from openai import OpenAI
+
 from rich.prompt import Prompt
 from timeout_decorator import timeout, TimeoutError as TimeoutDecoratorError
 
@@ -14,6 +16,18 @@ from tools.paths import ProjectPaths
 
 dpspth = DPSPaths()
 pth = ProjectPaths()
+
+
+def get_openai_client():
+    """Initialize and return an OpenAI client if the API key is configured."""
+    try:
+        api_key = load_openai_config()
+        return OpenAI(api_key=api_key)
+    except ValueError as e:
+        # Handle cases where OpenAI is not required but key is missing
+        print(f"OpenAI client initialization skipped: {e}")
+        return None
+
 
 def load_openai_config():
     """Add a OpenAI key if one doesn't exist, or return the key if it does."""
@@ -45,24 +59,23 @@ def load_translaton_examples(dpspth):
 
 @timeout(5, timeout_exception=TimeoutDecoratorError)  # Setting a 5-second timeout
 def handle_openai_response(client, messages, model):
+    if client is None:
+        return None, "OpenAI client is not initialized."
+        
     error_string = ""
-
     try:
         completion = client.chat.completions.create(
-        model=model,
-        messages=messages
+            model=model,
+            messages=messages
         )
-
-        return completion.choices[0].message
-
-    # Handle any exceptions that occur
+        return completion.choices[0].message, error_string
     except TimeoutDecoratorError:
         error_string = "Timed out"
         print(error_string)
-
     except Exception as e:
-        error_string = f"Error: {e} "
+        error_string = f"Error: {e}"
         print(error_string)
+    return None, error_string
 
 
 def replace_abbreviations(grammar_string):

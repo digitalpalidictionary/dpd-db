@@ -113,7 +113,7 @@ def make_tab_edit_dps(dpspth, sg):
                 enable_events=True,
                 text_color=sbs_text,
                 background_color=sbs_background,
-                tooltip="Choose sbs_example to consider when sending a request to AI."),
+                tooltip="Choose sbs_example to consider when sending a request to AI. Default '0' is dpd_example_1"),
             sg.Text(
                 "", key="dps_ru_meaning_suggestion_error", size=(50, 1), text_color="red"),
         ],
