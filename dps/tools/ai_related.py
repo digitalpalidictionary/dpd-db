@@ -116,3 +116,85 @@ def replace_abbreviations(grammar_string):
     # print(f"{grammar_string} || replaced with || {replaced_string}")
 
     return replaced_string
+
+
+def generate_messages_for_meaning(lemma_1, grammar, meaning, sentence, translation_example="", synonyms=False):
+    """Generate messages for translation."""
+
+    system_content = (
+        "You are a skilled assistant that translates English text to Russian with grammatical accuracy, contextual relevance, and strict adherence to rules."
+    )
+    
+    user_content = f"""
+        Translate the English definition of the Pali term into Russian, following these rules:
+
+        - Translate all bracketed text (e.g., "(gram)" → "(грам)", "(comm)" → "(комм)", "(vinaya)" → "(виная)", "(of weather)" → "(о погоде)").
+        - Separate synonyms with `;`.
+        - Match the grammatical structure of the Pali term (noun, verb, etc.).
+        - Use lowercase unless it's a proper noun.
+        - Translate "lit." as "досл.".
+        - Retain clarifications if any (e.g., "(of trap) laid down" → "(о капкане) установленный").
+        - Translate idioms to Russian equivalents.
+        - Ensure no English remains untranslated, including within brackets.
+        - Output only the translation of the Definition, without labels like "Перевод" etc, without any comments, without translation of the Grammar and in one line.
+
+        **Pali Term**: {lemma_1}
+        **Grammar**: {grammar}
+        **Definition**: {meaning}
+    """
+
+    if sentence:
+        user_content += f"\n- Consider Pali context: {sentence}"
+    
+    if translation_example:
+        user_content += f"\n- Match this example format: {translation_example}"
+
+    if synonyms:
+        user_content = user_content.replace("Translate the English definition of the Pali term into Russian", "Provide at least nine distinct Russian translations for the English definition of Pali term")
+        
+    # print(user_content)
+    return [
+        {"role": "system", "content": system_content},
+        {"role": "user", "content": user_content}
+    ]
+
+
+def generate_messages_for_notes(lemma_1, grammar, notes):
+    """Generate messages for translation."""
+
+    system_content = "You are a helpful assistant that translates English text to Russian considering the context."
+    
+    user_content = f"""
+    Please provide Russian translation for the English notes, considering the Pali term and its grammatical context. In the answer give only Russian translation in one line and nothing else. But keep Pali or Sanskrit terms in roman script.
+
+                **Pali Term**: {lemma_1}
+                **Grammar**: {grammar}
+                **Notes**: {notes}
+    """
+
+    # print(user_content)
+    return [
+        {"role": "system", "content": system_content},
+        {"role": "user", "content": user_content}
+    ]
+
+
+def generate_messages_for_english_meaning(lemma_1, grammar, sentence):
+    """Generate messages for translation."""
+    
+    system_content = "You are a helpful assistant that translates Pali to English considering the context."
+    
+    user_content = f"""
+
+    Given the grammatical and contextual details provided, list at least 8 distinct English synonyms for the specified Pali term. Avoid repeating the same word. In the answer provide only a list of synonyms separated by ';' without any introduction or comments.
+
+                **Pali Term**: {lemma_1}
+                **Grammar**: {grammar}
+                **Context**: {sentence}
+    """
+
+    # print(user_content)
+    return [
+        {"role": "system", "content": system_content},
+        {"role": "user", "content": user_content}
+    ]

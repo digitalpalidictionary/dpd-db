@@ -1,14 +1,14 @@
 """Render tab to edit DpdHeadword table in the database."""
 
-from completion_combo import CompletionCombo
-from functions_db import get_verb_values
-from functions_db import get_case_values
-from functions_db import get_root_key_values
-from functions_db import get_family_word_values
-from functions_db import get_family_set_values
-from functions_db import get_compound_type_values
-from functions_db import get_patterns
-from tooltips import sutta_codes, types_of_comp
+from gui.completion_combo import CompletionCombo
+from gui.functions_db import get_verb_values
+from gui.functions_db import get_case_values
+from gui.functions_db import get_root_key_values
+from gui.functions_db import get_family_word_values
+from gui.functions_db import get_family_set_values
+from gui.functions_db import get_compound_type_values
+from gui.functions_db import get_patterns
+from gui.tooltips import sutta_codes, types_of_comp
 from tools.pos import POS
 
 

@@ -1,7 +1,7 @@
 """Render tab to edit a Russian and SBS tables in the database."""
 
-from functions_dps import load_sbs_index
-from completion_combo import CompletionCombo
+from gui.functions_db_dps import load_sbs_index
+from gui.completion_combo import CompletionCombo
 
 def make_tab_edit_dps(dpspth, sg):
 

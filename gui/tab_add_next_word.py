@@ -1,5 +1,5 @@
 """Render tab to add the next missing word from a text."""
-from tooltips import sutta_codes
+from gui.tooltips import sutta_codes
 
 def make_tab_add_next_word(sg, username):
 

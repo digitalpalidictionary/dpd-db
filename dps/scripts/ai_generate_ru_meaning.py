@@ -19,6 +19,8 @@ from dps.tools.ai_related import load_translaton_examples
 from dps.tools.ai_related import handle_openai_response
 from dps.tools.ai_related import replace_abbreviations
 from dps.tools.ai_related import get_openai_client
+from dps.tools.ai_related import generate_messages_for_meaning
+from dps.tools.ai_related import generate_messages_for_notes
 
 from dps.tools.paths_dps import DPSPaths    
 
@@ -167,75 +169,18 @@ def filter_words_for_translation(mode, limit: int) -> List[DpdHeadword]:
     return db
 
 
-def generate_messages_for_meaning(lemma_1, grammar, meaning, sentence, translation_example=""):
-    """Generate messages for translation."""
-    grammar = replace_abbreviations(grammar)
-
-    system_content = (
-        "You are a skilled assistant that translates English text to Russian with grammatical accuracy, contextual relevance, and strict adherence to rules."
-    )
-    
-
-    user_content = f"""
-        Translate the English definition of the Pali term into Russian, following these rules:
-
-        - Translate all bracketed text (e.g., "(gram)" → "(грам)", "(comm)" → "(комм)", "(vinaya)" → "(виная)", "(of weather)" → "(о погоде)").
-        - Separate synonyms with `;`.
-        - Match the grammatical structure of the Pali term (noun, verb, etc.).
-        - Use lowercase unless it's a proper noun.
-        - Translate "lit." as "досл.".
-        - Retain clarifications if any (e.g., "(of trap) laid down" → "(о капкане) установленный").
-        - Translate idioms to Russian equivalents.
-        - Ensure no English remains untranslated, including within brackets.
-        - Output only the translation of the Definition, without labels like "Перевод" etc, without any comments, without translation of the Grammar and in one line.
-
-        **Pali Term**: {lemma_1}
-        **Grammar**: {grammar}
-        **Definition**: {meaning}
-    """
-
-    if sentence:
-        user_content += f"\n- Consider Pali context: {sentence}"
-    
-    if translation_example:
-        user_content += f"\n- Match this example format: {translation_example}"
-
-    return [
-        {"role": "system", "content": system_content},
-        {"role": "user", "content": user_content}
-    ]
-
-
-def generate_messages_for_notes(lemma_1, grammar, notes):
-    """Generate messages for translation."""
-    grammar = replace_abbreviations(grammar)
-    system_content = "You are a helpful assistant that translates English text to Russian considering the context."
-    
-    user_content = f"""
-    Please provide Russian translation for the English notes, considering the Pali term and its grammatical context. In the answer give only Russian translation in one line and nothing else. But keep Pali or Sanskrit terms in roman script.
-
-                **Pali Term**: {lemma_1}
-                **Grammar Details**: {grammar}
-                **English Notes**: {notes}
-    """
-
-    return [
-        {"role": "system", "content": system_content},
-        {"role": "user", "content": user_content}
-    ]
-
-
 def create_translation_prompt(word: DpdHeadword, mode) -> Dict:
     """Create a translation prompt for a given word."""
     pos_example_map = load_translaton_examples(dpspth)
     meaning = make_meaning_combo(word)
     example = word.example_1 if word.example_1 else ""
     translation_example = pos_example_map.get(word.pos, "")
+    grammar = replace_abbreviations(word.grammar)
 
     if mode == "meaning":
-        messages = generate_messages_for_meaning(word.lemma_1, word.grammar, meaning, example, translation_example)
+        messages = generate_messages_for_meaning(word.lemma_1, grammar, meaning, example, translation_example)
     if mode == "note":
-        messages = generate_messages_for_notes(word.lemma_1, word.grammar, word.notes)
+        messages = generate_messages_for_notes(word.lemma_1, grammar, word.notes)
 
     return {
         "custom_id": f"request-{word.id}",
@@ -251,6 +196,7 @@ def create_translation_prompt(word: DpdHeadword, mode) -> Dict:
 def translate(lemma_1, grammar, pos, meaning, sentence, notes, mode):
     pos_example_map = load_translaton_examples(dpspth)
     translation_example = pos_example_map.get(pos, "")
+    grammar = replace_abbreviations(grammar)
 
     if mode == "meaning":
         messages = generate_messages_for_meaning(lemma_1, grammar, meaning, sentence, translation_example)

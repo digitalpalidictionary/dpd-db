@@ -21,4 +21,4 @@ else
 fi
 
 # Run the GUI script
-gui/gui.py
+gui/gui_main.py

@@ -4,7 +4,6 @@ import csv
 import subprocess
 import textwrap
 import requests
-import re
 import os
 import json
 import pickle
@@ -13,37 +12,19 @@ import shutil
 from rich import print
 
 from requests.exceptions import RequestException
-from spellchecker import SpellChecker
 from difflib import SequenceMatcher
-from timeout_decorator import timeout, TimeoutError as TimeoutDecoratorError
-from typing import Optional
 
-from sqlalchemy import not_, or_, and_
-from sqlalchemy.orm import Synonym, joinedload
-
-from db.db_helpers import get_column_names
-from db.models import Russian, SBS, DpdHeadword
-
-from tools.cst_sc_text_sets import make_cst_text_set
-from tools.cst_sc_text_sets import make_cst_text_set_from_file
-from tools.cst_sc_text_sets import make_cst_text_set_sutta
-from tools.cst_sc_text_sets import make_sc_text_set
-from tools.meaning_construction import make_meaning_combo
-from tools.tokenizer import split_words
-from tools.tsv_read_write import read_tsv_dot_dict, read_tsv_dict, write_tsv_dot_dict
-from tools.fast_api_utils import request_dpd_server
-from tools.pali_sort_key import pali_sort_key
+from tools.tsv_read_write import read_tsv_dict, write_tsv_dot_dict
 
 from dps.tools.ai_related import load_translaton_examples
 from dps.tools.ai_related import replace_abbreviations
 from dps.tools.ai_related import handle_openai_response
 from dps.tools.ai_related import get_openai_client
+from dps.tools.ai_related import generate_messages_for_meaning
+from dps.tools.ai_related import generate_messages_for_notes
+from dps.tools.ai_related import generate_messages_for_english_meaning
 
-from functions import make_sp_mistakes_list
-from functions import make_sandhi_ok_list
-from functions import make_variant_list
-
-from functions_daily_record import daily_record_update
+from dps.tools.spell_check import SpellCheck
 
 
 # flags
@@ -73,189 +54,6 @@ def dps_reset_flags(flags_dps):
 
 
 # tab maintenance
-
-def populate_dps_tab(dpspth, values, window, dpd_word, ru_word, sbs_word):
-    """Populate DPS tab with DPD info."""
-    window["dps_dpd_id"].update(dpd_word.id)
-    window["dps_lemma_1"].update(dpd_word.lemma_1)
-    window["dps_id_or_lemma_1"].update(dpd_word.lemma_1)
-    if ru_word and ru_word.ru_meaning_raw:
-        window["dps_ru_online_suggestion"].update(ru_word.ru_meaning_raw)
-
-    # copy dpd values for tests
-
-    dps_pos = dpd_word.pos
-    window["dps_pos"].update(dps_pos)
-    dps_family_set = dpd_word.family_set
-    window["dps_family_set"].update(dps_family_set)
-    dps_suffix = dpd_word.suffix
-    window["dps_suffix"].update(dps_suffix)
-    dps_verb = dpd_word.verb
-    window["dps_verb"].update(dps_verb)
-    dps_meaning_lit = dpd_word.meaning_lit
-    window["dps_meaning_lit"].update(dps_meaning_lit)
-    dps_meaning_1 = dpd_word.meaning_1
-    window["dps_meaning_1"].update(dps_meaning_1)
-
-
-    # grammar
-    dps_grammar = dpd_word.grammar
-    if dpd_word.neg:
-        dps_grammar += f", {dpd_word.neg}"
-    if dpd_word.verb:
-        dps_grammar += f", {dpd_word.verb}"
-    if dpd_word.trans:
-        dps_grammar += f", {dpd_word.trans}"
-    if dpd_word.plus_case:
-        dps_grammar += f" ({dpd_word.plus_case})"
-    window["dps_grammar"].update(dps_grammar)
-
-    # meaning
-    meaning = make_meaning_combo(dpd_word)
-    if dpd_word.meaning_1:
-        window["dps_meaning"].update(meaning)
-    else:
-        meaning = f"(meaing_2) {meaning}"
-        window["dps_meaning"].update(meaning)
-
-    # russian
-    ru_columns = get_column_names(Russian)
-    for value in values:
-        if value.startswith("dps_"):
-            value_clean = value.replace("dps_", "")
-            if value_clean in ru_columns:
-                window[value].update(getattr(ru_word, value_clean, ""))
-
-    # sbs
-    sbs_columns = get_column_names(SBS)
-    for value in values:
-        if value.startswith("dps_"):
-            value_clean = value.replace("dps_", "")
-            if value_clean in sbs_columns:
-                window[value].update(getattr(sbs_word, value_clean, ""))
-
-    # root
-    root = ""
-    if dpd_word.root_key:
-        root = f"{dpd_word.root_key} "
-        root += f"{dpd_word.rt.root_has_verb} "
-        root += f"{dpd_word.rt.root_group} "
-        root += f"{dpd_word.root_sign} "
-        root += f"({dpd_word.rt.root_meaning} "
-        root += f"{dpd_word.rt.root_ru_meaning})"
-        if dpd_word.rt.sanskrit_root_ru_meaning:
-            root += f"sk {dpd_word.rt.sanskrit_root_ru_meaning}"
-
-    window["dps_root"].update(root)
-
-    # base_or_comp
-    base_or_comp = ""
-    if dpd_word.root_base:
-        base_or_comp += dpd_word.root_base
-    elif dpd_word.compound_type:
-        base_or_comp += dpd_word.compound_type
-    window["dps_base_or_comp"].update(base_or_comp)
-
-    # dps_constr_or_comp_constr
-    constr_or_comp_constr = ""
-    if dpd_word.compound_construction:
-        constr_or_comp_constr += dpd_word.compound_construction
-    elif dpd_word.construction:
-        constr_or_comp_constr += dpd_word.construction
-    window["dps_constr_or_comp_constr"].update(constr_or_comp_constr)
-
-    # synonym_antonym
-    dps_syn_ant = ""
-    if dpd_word.synonym:
-        dps_syn_ant = f"(syn) {dpd_word.synonym}"
-    if dpd_word.antonym:
-        dps_syn_ant += f"(ant): {dpd_word.antonym}" 
-    window["dps_synonym_antonym"].update(dps_syn_ant)
-
-    # notes
-    dps_notes = ""
-    if dpd_word.notes:
-        dps_notes = dpd_word.notes
-    window["dps_notes"].update(dps_notes)
-
-    # source_1
-    dps_source_1 = ""
-    if dpd_word.source_1:
-        dps_source_1 = dpd_word.source_1
-    window["dps_source_1"].update(dps_source_1)
-
-    # sutta_1
-    dps_sutta_1 = ""
-    if dpd_word.sutta_1:
-        dps_sutta_1 = dpd_word.sutta_1
-    window["dps_sutta_1"].update(dps_sutta_1)
-
-    # example_1
-    dps_example_1 = ""
-    if dpd_word.example_1:
-        dps_example_1 = dpd_word.example_1
-    window["dps_example_1"].update(dps_example_1)
-
-
-    # source_2
-    dps_source_2 = ""
-    if dpd_word.source_2:
-        dps_source_2 = dpd_word.source_2
-    window["dps_source_2"].update(dps_source_2)
-
-    # sutta_2
-    dps_sutta_2 = ""
-    if dpd_word.sutta_2:
-        dps_sutta_2 = dpd_word.sutta_2
-    window["dps_sutta_2"].update(dps_sutta_2)
-
-    # example_2
-    dps_example_2 = ""
-    if dpd_word.example_2:
-        dps_example_2 = dpd_word.example_2
-    window["dps_example_2"].update(dps_example_2)
-
-    # dps_sbs_chant_pali
-    if values["dps_sbs_chant_pali_1"]:
-        chant = values["dps_sbs_chant_pali_1"]
-        update_sbs_chant(dpspth, 1, chant, "", window)
-
-    if values["dps_sbs_chant_pali_2"]:
-        chant = values["dps_sbs_chant_pali_2"]
-        update_sbs_chant(dpspth, 2, chant, "", window)
-
-    if values["dps_sbs_chant_pali_3"]:
-        chant = values["dps_sbs_chant_pali_3"]
-        update_sbs_chant(dpspth, 3, chant, "", window)
-
-    if values["dps_sbs_chant_pali_4"]:
-        chant = values["dps_sbs_chant_pali_4"]
-        update_sbs_chant(dpspth, 4, chant, "", window)
-
-
-def dps_get_original_values(values, dpd_word, ru_word, sbs_word):
-
-    original_values = {}
-
-    original_values["lemma_1"] = dpd_word.lemma_1
-
-    # For Russian columns
-    ru_columns = get_column_names(Russian)
-    for value in values:
-        if value.startswith("dps_"):
-            value_clean = value.replace("dps_", "")
-            if value_clean in ru_columns:
-                original_values[value_clean] = getattr(ru_word, value_clean, "")
-
-    # For SBS columns
-    sbs_columns = get_column_names(SBS)
-    for value in values:
-        if value.startswith("dps_"):
-            value_clean = value.replace("dps_", "")
-            if value_clean in sbs_columns:
-                original_values[value_clean] = getattr(sbs_word, value_clean, "")
-    
-    return original_values
 
 
 def clear_dps(values, window):
@@ -339,39 +137,7 @@ def display_dps_summary(values, window, sg, original_values):
     return event
 
 
-
-# examples related
-
-
-def load_sbs_index(dpspth) -> list:
-    file_path = dpspth.sbs_index_path
-    sbs_index = read_tsv_dot_dict(file_path)
-    return sbs_index
-
-
-def fetch_sbs_index(dpspth, pali_chant):
-    sbs_index = load_sbs_index(dpspth)
-    for i in sbs_index:
-        if i.pali_chant == pali_chant:
-            return i.english_chant, i.chapter
-    return None  # explicitly returning None when no match is found
-
-
-def update_sbs_chant(dpspth, number, chant, error_field, window):
-    result = fetch_sbs_index(dpspth, chant)
-    if result is not None:
-        english, chapter = result
-        window[f"dps_sbs_chant_eng_{number}"].update(english)
-        window[f"dps_sbs_chapter_{number}"].update(chapter)
-    else:
-        # handle the case when the chant is not found
-        error_message = "chant is not found"
-        window[error_field].update(error_message)
-        window[f"dps_sbs_chant_eng_{number}"].update("")
-        window[f"dps_sbs_chapter_{number}"].update("")
-
-
-
+# Buttons ex_1, 2, 3 and 4 in DPS
 def swap_sbs_examples(num1, num2, window, values):
     # Common parts of the keys
     key_parts = ['source', 'sutta', 'example', 'chant_pali', 'chant_eng', 'chapter']
@@ -394,6 +160,7 @@ def swap_sbs_examples(num1, num2, window, values):
     return [values[key] for key in keys_num1], [values[key] for key in keys_num2]
 
 
+# remove buttons on 4 sbs_examples
 def remove_sbs_example(example_num, window):
 
     fields = ['source', 'sutta', 'example', 'chant_pali', 'chant_eng', 'chapter']
@@ -404,6 +171,7 @@ def remove_sbs_example(example_num, window):
         window[key].update('')  # Remove the content of the field in the GUI.
 
 
+# Buttons sbs_ex_1, 2, 3 and 4 in DPS
 def copy_dpd_examples(num_dpd, num_sbs, window, values):
     # Common parts of the keys
     key_parts = ['source', 'sutta', 'example']
@@ -436,6 +204,8 @@ KEYS_TEMPLATE = [
     "dps_sbs_chapter_{}"
 ]
 
+
+# "stash" button DPS
 def stash_values_from(dpspth, values, num, window, error_field):
     print("Starting stash_values_from...")
 
@@ -466,6 +236,7 @@ def stash_values_from(dpspth, values, num, window, error_field):
         window[error_field].update(f"Error while stashing: {e}")
 
 
+# "unstash" button DPS
 def unstash_values_to(dpspth, window, num, error_field):
     print("Starting unstash_values_to...")
 
@@ -502,92 +273,7 @@ def unstash_values_to(dpspth, window, num, error_field):
             return
 
 
-# russian related
-
-def generate_messages_for_meaning(lemma_1, grammar, meaning, sentence, translation_example="", synonyms=False):
-    """Generate messages for translation."""
-
-    system_content = (
-        "You are a skilled assistant that translates English text to Russian with grammatical accuracy, contextual relevance, and strict adherence to rules."
-    )
-    
-    user_content = f"""
-        Translate the English definition of the Pali term into Russian, following these rules:
-
-        - Translate all bracketed text (e.g., "(gram)" → "(грам)", "(comm)" → "(комм)", "(vinaya)" → "(виная)", "(of weather)" → "(о погоде)").
-        - Separate synonyms with `;`.
-        - Match the grammatical structure of the Pali term (noun, verb, etc.).
-        - Use lowercase unless it's a proper noun.
-        - Translate "lit." as "досл.".
-        - Retain clarifications if any (e.g., "(of trap) laid down" → "(о капкане) установленный").
-        - Translate idioms to Russian equivalents.
-        - Ensure no English remains untranslated, including within brackets.
-        - Output only the translation of the Definition, without labels like "Перевод" etc, without any comments, without translation of the Grammar and in one line.
-
-        **Pali Term**: {lemma_1}
-        **Grammar**: {grammar}
-        **Definition**: {meaning}
-    """
-
-    if sentence:
-        user_content += f"\n- Consider Pali context: {sentence}"
-    
-    if translation_example:
-        user_content += f"\n- Match this example format: {translation_example}"
-
-    if synonyms:
-        user_content = user_content.replace("Translate the English definition of the Pali term into Russian", "Provide at least nine distinct Russian translations for the English definition of Pali term")
-        
-    # print(user_content)
-    return [
-        {"role": "system", "content": system_content},
-        {"role": "user", "content": user_content}
-    ]
-
-
-def generate_messages_for_notes(lemma_1, grammar, notes):
-    """Generate messages for translation."""
-
-    system_content = "You are a helpful assistant that translates English text to Russian considering the context."
-    
-    user_content = f"""
-    Please provide Russian translation for the English notes, considering the Pali term and its grammatical context. In the answer give only Russian translation in one line and nothing else. But keep Pali or Sanskrit terms in roman script.
-
-                **Pali Term**: {lemma_1}
-                **Grammar**: {grammar}
-                **Notes**: {notes}
-    """
-
-    # print(user_content)
-
-    return [
-        {"role": "system", "content": system_content},
-        {"role": "user", "content": user_content}
-    ]
-
-
-def generate_messages_for_english_meaning(lemma_1, grammar, sentence):
-    """Generate messages for translation."""
-    
-    system_content = "You are a helpful assistant that translates Pali to English considering the context."
-    
-    user_content = f"""
-
-    Given the grammatical and contextual details provided, list at least 8 distinct English synonyms for the specified Pali term. Avoid repeating the same word. In the answer provide only a list of synonyms separated by ';' without any introduction or comments.
-
-                **Pali Term**: {lemma_1}
-                **Grammar**: {grammar}
-                **Context**: {sentence}
-    """
-
-    # print(user_content)
-
-    return [
-        {"role": "system", "content": system_content},
-        {"role": "user", "content": user_content}
-    ]
-
-
+# openai gpt related
 def translate_with_openai(dpspth, meaning_in, lemma_1, grammar, pos, notes, suggestion_field, error_field, window, values, mode, main_sentence, model="3", ex_1="", ex_2="", ex_3="", ex_4="", number="0", synonyms=False):
     window[error_field].update("")
     # Get the content of window "meaning_in"
@@ -632,7 +318,6 @@ def translate_with_openai(dpspth, meaning_in, lemma_1, grammar, pos, notes, sugg
             raise ValueError(f"Invalid mode: {mode}")
 
 
-
 def write_suggestions_to_csv(file_name, lemma_1, grammar_orig, grammar, original, suggestion):
     with open(file_name, 'a', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter="\t")
@@ -641,6 +326,15 @@ def write_suggestions_to_csv(file_name, lemma_1, grammar_orig, grammar, original
 
 def copy_and_split_content(sugestion_key, meaning_key, lit_meaning_key, error_field, window, values):
 
+    """
+    Copies and splits the content of a field based on delimiters.
+
+    Checks if the content of a field is empty, and if so, updates the error field.
+    If not empty, splits the content based on the delimiters 'досл.', 'букв.', '|', 'буквально', 'дословно', 'лит.'.
+    If a delimiter is found, updates two fields with the content before and after the delimiter.
+    If none of the delimiters are found, just updates one field with the original content.
+    """
+    
     window[error_field].update("")
 
     # Get the content to be split and copied
@@ -672,58 +366,7 @@ def copy_and_split_content(sugestion_key, meaning_key, lit_meaning_key, error_fi
     window[meaning_key].update(content)
 
 
-class SpellCheck:
-    def __init__(self, serialized_dict_path):
-        self.ru_spell = SpellChecker(language='ru')
-        self.load_custom_dictionary(serialized_dict_path)
-
-    # def load_custom_dictionary(self, path):
-    #     with open(path, 'rb') as f:
-    #         custom_words = pickle.load(f)
-    #     self.custom_words = custom_words
-    #     self.ru_spell.word_frequency.load_words(custom_words)
-
-    def load_custom_dictionary(self, path):
-        with open(path, 'r', encoding='utf-8') as f:
-            custom_words = set(f.read().splitlines())
-        self.custom_words = custom_words
-        self.ru_spell.word_frequency.load_words(custom_words)
-
-    def check_spelling(self, field_value):
-        ru_sentence = field_value
-        ru_words = split_words(ru_sentence)
-        ru_misspelled = self.ru_spell.unknown(ru_words)
-
-        if ru_misspelled:
-            print(f"offline ru_misspelled {ru_misspelled}")
-
-        # Check custom dictionary only for misspelled words
-        truly_misspelled = [word for word in ru_misspelled if word not in self.custom_words]
-
-        if truly_misspelled:
-            # For the truly misspelled words, obtain suggestions from the local spellchecker
-            suggestions = []
-            for word in truly_misspelled:
-                candidates = self.ru_spell.candidates(word)
-                if candidates:  # Ensure candidates is not None
-                    suggestions.extend(candidates)
-
-            # If no suggestions were found, display a custom message
-            if not suggestions:
-                return "?"
-
-            # Else process and display the suggestions
-            # Joining the flattened list
-            correction_text = ", ".join(suggestions)
-
-            # Wrap the correction_text and join it into a multiline string
-            wrapped_correction = "\n".join(textwrap.wrap(correction_text, width=30))  # Assuming width of 30 characters
-            return wrapped_correction
-
-        else:
-            return ""
-
-
+# russian spellcheck "spelling_button"
 def ru_check_spelling(dpspth, field, error_field, values, window):
     spell_checker = SpellCheck(dpspth.ru_user_dict_path)
     correction = spell_checker.check_spelling(values[field])
@@ -753,130 +396,7 @@ def tail_log():
     subprocess.Popen(["gnome-terminal", "--", "tail", "-n", "+0", "-f", "/home/deva/logs/gui.log"])
     
 
-
-def dps_make_words_to_add_list(db_session, pth, __window__, book: str) -> list:
-    cst_text_list = make_cst_text_set(pth, [book])
-    sc_text_list = make_sc_text_set(pth, [book])
-    original_text_list = list(cst_text_list) + list(sc_text_list)
-
-    sp_mistakes_list = make_sp_mistakes_list(pth)
-    variant_list = make_variant_list(pth)
-    sandhi_ok_list = make_sandhi_ok_list(pth)
-    all_inflections_set = dps_make_all_inflections_set(db_session)
-
-    text_set = set(cst_text_list) | set(sc_text_list)
-    text_set = text_set - set(sandhi_ok_list)
-    text_set = text_set - set(sp_mistakes_list)
-    text_set = text_set - set(variant_list)
-    text_set = text_set - all_inflections_set
-    text_list = sorted(text_set, key=lambda x: original_text_list.index(x))
-    print(f"words_to_add: {len(text_list)}")
-
-    return text_list
-
-
-def dps_make_words_to_add_list_filtered(db_session, pth, __window__, book: str, source) -> list:
-    cst_text_list = make_cst_text_set(pth, [book])
-    sc_text_list = make_sc_text_set(pth, [book])
-    original_text_list = list(cst_text_list) + list(sc_text_list)
-
-    sp_mistakes_list = make_sp_mistakes_list(pth)
-    variant_list = make_variant_list(pth)
-    sandhi_ok_list = make_sandhi_ok_list(pth)
-    all_inflections_set = dps_make_filtered_inflections_set(db_session, source)
-
-    text_set = set(cst_text_list) | set(sc_text_list)
-    text_set = text_set - set(sandhi_ok_list)
-    text_set = text_set - set(sp_mistakes_list)
-    text_set = text_set - set(variant_list)
-    text_set = text_set - all_inflections_set
-    text_list = sorted(text_set, key=lambda x: original_text_list.index(x))
-    print(f"words_to_add: {len(text_list)}")
-
-    return text_list
-
-
-def dps_make_words_to_add_list_sutta(db_session, pth, sutta_name, book: str) -> list:
-    cst_text_list = make_cst_text_set_sutta(pth, sutta_name, [book])
-
-    sp_mistakes_list = make_sp_mistakes_list(pth)
-    variant_list = make_variant_list(pth)
-    sandhi_ok_list = make_sandhi_ok_list(pth)
-    all_inflections_set = dps_make_all_inflections_set(db_session)
-
-    text_set = set(cst_text_list)
-    text_set = text_set - set(sandhi_ok_list)
-    text_set = text_set - set(sp_mistakes_list)
-    text_set = text_set - set(variant_list)
-    text_set = text_set - all_inflections_set
-    cst_text_index = {text: index for index, text in enumerate(cst_text_list)}
-    text_list = sorted(text_set, key=lambda x: cst_text_index.get(x, float('inf')))
-
-    print(f"words_to_add: {len(text_list)}")
-
-    return text_list
-
-
-def dps_make_words_to_add_list_from_text(dpspth, db_session, pth) -> list:
-    cst_text_list = make_cst_text_set_from_file(dpspth)
-
-    sp_mistakes_list = make_sp_mistakes_list(pth)
-    variant_list = make_variant_list(pth)
-    sandhi_ok_list = make_sandhi_ok_list(pth)
-    all_inflections_set = dps_make_all_inflections_set(db_session)
-
-    text_set = set(cst_text_list)
-    text_set = text_set - set(sandhi_ok_list)
-    text_set = text_set - set(sp_mistakes_list)
-    text_set = text_set - set(variant_list)
-    text_set = text_set - all_inflections_set
-    cst_text_index = {text: index for index, text in enumerate(cst_text_list)}
-    text_list = sorted(text_set, key=lambda x: cst_text_index.get(x, float('inf')))
-    print(f"words_to_add: {len(text_list)}")
-
-    return text_list
-
-
-def dps_make_words_to_add_list_from_text_filtered(dpspth, db_session, pth, source) -> list:
-    cst_text_list = make_cst_text_set_from_file(dpspth)
-
-    sp_mistakes_list = make_sp_mistakes_list(pth)
-    variant_list = make_variant_list(pth)
-    sandhi_ok_list = make_sandhi_ok_list(pth)
-    all_inflections_set = dps_make_filtered_inflections_set(db_session, source)
-
-    text_set = set(cst_text_list)
-    text_set = text_set - set(sandhi_ok_list)
-    text_set = text_set - set(sp_mistakes_list)
-    text_set = text_set - set(variant_list)
-    text_set = text_set - all_inflections_set
-    cst_text_index = {text: index for index, text in enumerate(cst_text_list)}
-    text_list = sorted(text_set, key=lambda x: cst_text_index.get(x, float('inf')))
-    print(f"words_to_add: {len(text_list)}")
-
-    return text_list
-
-
-def dps_make_words_to_add_list_from_text_no_field(dpspth, db_session, pth, field) -> list:
-    cst_text_list = make_cst_text_set_from_file(dpspth)
-
-    sp_mistakes_list = make_sp_mistakes_list(pth)
-    variant_list = make_variant_list(pth)
-    sandhi_ok_list = make_sandhi_ok_list(pth)
-    all_inflections_set = dps_make_no_field_inflections_set(db_session, field)
-
-    text_set = set(cst_text_list)
-    text_set = text_set - set(sandhi_ok_list)
-    text_set = text_set - set(sp_mistakes_list)
-    text_set = text_set - set(variant_list)
-    text_set = text_set - all_inflections_set
-    cst_text_index = {text: index for index, text in enumerate(cst_text_list)}
-    text_list = sorted(text_set, key=lambda x: cst_text_index.get(x, float('inf')))
-    print(f"words_to_add: {len(text_list)}")
-
-    return text_list
-
-
+# from_test_to_add_button
 def read_tsv_words(file_path):
     with open(file_path, "r") as file:
         reader = csv.reader(file, delimiter='\t')
@@ -885,393 +405,7 @@ def read_tsv_words(file_path):
         return words
 
 
-# functions which make a list of words from id list
-def read_ids_from_tsv(file_path):
-    with open(file_path, mode='r', encoding='utf-8-sig') as tsv_file:
-        tsv_reader = csv.reader(tsv_file, delimiter='\t')
-        next(tsv_reader)  # Skip header row
-        return [int(row[0]) for row in tsv_reader]  # Extracting IDs only from the first column
-
-
-def remove_duplicates(ordered_ids):
-    seen = set()
-    ordered_ids_no_duplicates = [x for x in ordered_ids if not (x in seen or seen.add(x))]
-    return ordered_ids_no_duplicates
-
-
-def fetch_matching_words_from_db(path, db_session) -> list:
-
-    ordered_ids = read_ids_from_tsv(path)
-    ordered_ids = remove_duplicates(ordered_ids)
-
-    matching_words = []
-    for word_id in ordered_ids:
-        word = db_session.query(DpdHeadword).filter(DpdHeadword.id == word_id).first()
-        if word:
-            matching_words.append(word.lemma_1)
-
-    print(f"words_to_add: {len(matching_words)}")
-    return matching_words
-
-
-def fetch_matching_words_from_db_with_conditions(dpspth, db_session, attribute_name, source) -> list:
-
-    ordered_ids = read_ids_from_tsv(dpspth.id_to_add_path)
-    ordered_ids = remove_duplicates(ordered_ids)
-
-    matching_words = []
-    for word_id in ordered_ids:
-        word = db_session.query(DpdHeadword).filter(DpdHeadword.id == word_id).first()
-        if word and word.sbs:
-            attr_value = getattr(word.sbs, attribute_name, None)
-            if attr_value == source or (attr_value is None and source in ["", None]):
-                matching_words.append(word.lemma_1)
-        if word and not word.sbs:
-            matching_words.append(word.lemma_1)
-
-    print(f"words_to_add: {len(matching_words)}")
-    return matching_words
-
-
-def update_words_value(dpspth, db_session, WHAT_TO_UPDATE, SOURCE):
-    # Fetch the matching words
-    ordered_ids = read_ids_from_tsv(dpspth.id_to_add_path)
-    ordered_ids = remove_duplicates(ordered_ids)
-
-    print(WHAT_TO_UPDATE)
-    print(SOURCE)
-
-    updated_count = 0
-
-    for word_id in ordered_ids:
-        word = db_session.query(DpdHeadword).filter(DpdHeadword.id == word_id).first()
-        if not word or not word.sbs:
-            continue
-
-        attr_value = getattr(word.sbs, WHAT_TO_UPDATE, None)
-
-        all_examples_present = all([
-            getattr(word.sbs, 'sbs_example_1', None),
-            getattr(word.sbs, 'sbs_example_2', None),
-            getattr(word.sbs, 'sbs_example_3', None),
-            getattr(word.sbs, 'sbs_example_4', None)
-        ])
-
-        print(f"Checking word ID: {word_id}")
-        print(f"all_examples_present: {all_examples_present}")
-        print(f"attr_value: {attr_value}")
-
-        if all_examples_present and not attr_value:
-            setattr(word.sbs, WHAT_TO_UPDATE, SOURCE)
-            updated_count += 1
-            print(f"{word.id} - {WHAT_TO_UPDATE} with {SOURCE}", flush=True)
-
-    db_session.close()
-    print(f"{updated_count} rows have been updated with {SOURCE}.")
-
-
-def print_words_value(dpspth, db_session, WHAT_TO_UPDATE, SOURCE):
-    # Fetch the matching words
-    ordered_ids = read_ids_from_tsv(dpspth.id_to_add_path)
-    ordered_ids = remove_duplicates(ordered_ids)
-
-    print(WHAT_TO_UPDATE)
-    print(SOURCE)
-
-    for word_id in ordered_ids:
-        word = db_session.query(DpdHeadword).filter(DpdHeadword.id == word_id).first()
-        if not word or not word.sbs:
-            continue
-
-        attr_value = getattr(word.sbs, WHAT_TO_UPDATE, None)
-
-        all_examples_present = all([
-            getattr(word.sbs, 'sbs_example_1', None),
-            getattr(word.sbs, 'sbs_example_2', None),
-            getattr(word.sbs, 'sbs_example_3', None),
-            getattr(word.sbs, 'sbs_example_4', None)
-        ])
-        if all_examples_present and not attr_value:
-            setattr(word.sbs, WHAT_TO_UPDATE, SOURCE)
-            print(f"{word.id} - {WHAT_TO_UPDATE} with {SOURCE}", flush=True)
-
-
-def update_field(db_session, WHAT_TO_UPDATE, lemma_1, source):
-
-    word = db_session.query(DpdHeadword).filter(DpdHeadword.lemma_1 == lemma_1).first()
-
-    if word:
-        if not word.sbs:
-            word.sbs = SBS(id=word.id)
-        setattr(word.sbs, WHAT_TO_UPDATE, source)
-        db_session.commit()
-    
-    db_session.close()
-
-
-def update_field_with_change(db_session, WHAT_TO_UPDATE, lemma_1, source):
-
-    word = db_session.query(DpdHeadword).filter(DpdHeadword.lemma_1 == lemma_1).first()
-
-    source = source + "_"
-
-    if word:
-        if not word.sbs:
-            word.sbs = SBS(id=word.id)
-        setattr(word.sbs, WHAT_TO_UPDATE, source)
-        db_session.commit()
-    
-    db_session.close()
-
-
-def words_in_db_from_source(db_session, source):
-    dpd_db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs)).all()
-
-    matching_words = []
-
-    for i in dpd_db:
-        if i.sbs is None or not (
-            i.sbs.sbs_source_1 == source or
-            i.sbs.sbs_source_2 == source or
-            i.sbs.sbs_source_3 == source or
-            i.sbs.sbs_source_4 == source
-        ):
-            if i.source_1 == source or i.source_2 == source:
-                matching_words.append(i.lemma_1)
-
-    print(f"from {source} words_to_add: {len(matching_words)}")
-
-    return matching_words
-
-
-#! TODO - it is a very fast fetch, redo all other slow in the same way
-def words_in_db_with_value_in_field_sbs(db_session, field, source):
-    # Ensure the SBS model has the specified field to avoid runtime errors
-    if hasattr(SBS, field):
-        # Modify the query to include a condition that checks if the field is not empty
-        dpd_db = db_session.query(DpdHeadword).join(SBS, DpdHeadword.id == SBS.id).filter(
-            # Check if the field is not empty
-            not_(getattr(SBS, field).is_(None)),
-            not_(getattr(SBS, field) == ''),
-            # Check if the field matches the source
-            getattr(SBS, field) == source
-        ).all()
-
-        matching_words = [i.lemma_1 for i in dpd_db]
-
-        print(f"words with {source} in {field}: {len(matching_words)}")
-
-        return matching_words
-    else:
-        print(f"The field '{field}' does not exist in the SBS model.")
-        return []
-
-
-
-# db functions
-
-
-def fetch_ru(db_session, id: int) -> Optional[Russian]:
-    """Fetch Russian word from db."""
-    return db_session.query(Russian).filter(
-        Russian.id == id).first()
-
-
-def fetch_sbs(db_session, id: int) -> Optional[SBS]:
-    """Fetch SBS word from db."""
-    return db_session.query(SBS).filter(
-        SBS.id == id).first()
-
-
-def dps_update_db(
-    pth, db_session, values, window, dpd_word, ru_word, sbs_word) -> None:
-    """Update Russian and SBS tables with DPS edits."""
-    merge = None
-    word_id = values["dps_dpd_id"]
-    if not ru_word:
-        merge = True
-        ru_word = Russian(id=dpd_word.id)
-    if not sbs_word:
-        sbs_word = SBS(id=dpd_word.id)
-
-    for value in values:
-        if value.startswith("dps_ru"):
-            attribute = value.replace("dps_", "")
-            new_value = values[value]
-            setattr(ru_word, attribute, new_value)
-        if value.startswith("dps_sbs"):
-            attribute = value.replace("dps_", "")
-            new_value = values[value]
-            setattr(sbs_word, attribute, new_value)
-
-    if merge:
-        db_session.merge(ru_word)
-        db_session.merge(sbs_word)
-    else:
-        db_session.add(ru_word)
-        db_session.add(sbs_word)
-
-    # Calculate the sbs_index and update the sbs_word object
-    sbs_index_value = sbs_word.calculate_index()
-    sbs_word.sbs_index = sbs_index_value  # Manually set the sbs_index
-
-    db_session.commit()
-
-    window["messages"].update(
-    f"'{values['dps_id_or_lemma_1']}' updated in dps db",
-    text_color="Lime")
-    daily_record_update(window, pth, "edit", word_id)
-    request_dpd_server(values["dps_dpd_id"])
-
-
-def dps_get_synonyms(db_session, pos: str, string_of_meanings: str, window, error_field) -> Optional[str]:
-
-    string_of_meanings = re.sub(r" \(.*?\)|\(.*?\) ", "", string_of_meanings)
-    list_of_meanings = string_of_meanings.split("; ")
-
-    results = db_session.query(DpdHeadword).join(Russian).filter(
-            DpdHeadword.pos == pos,
-            or_(*[DpdHeadword.meaning_1.like(f"%{meaning}%") for meaning in list_of_meanings]),
-            Russian.ru_meaning.isnot(None),  # Ensure ru_meaning is not null
-            Russian.ru_meaning != ""         # Ensure ru_meaning is not an empty string
-        ).options(joinedload(DpdHeadword.ru)).all()
-
-    meaning_dict = {}
-    for i in results:
-        if i.meaning_1:  # check if it's not None and not an empty string
-            for meaning in i.meaning_1.split("; "):
-                meaning_clean = re.sub(r" \(.*?\)|\(.*?\) ", "", meaning)
-                if meaning_clean in list_of_meanings:
-                    if meaning_clean not in meaning_dict:
-                        meaning_dict[meaning_clean] = set([i.lemma_clean])
-                    else:
-                        meaning_dict[meaning_clean].add(i.lemma_clean)
-
-    synonyms = set()
-    for key_1 in meaning_dict:
-        for key_2 in meaning_dict:
-            if key_1 != key_2:
-                intersection = meaning_dict[key_1].intersection(
-                    meaning_dict[key_2])
-                synonyms.update(intersection)
-
-    if not synonyms:
-        # Update error_field in window with appropriate message
-        window[error_field].update("No synonyms found that fit the filter.")
-        return None  # or some other value indicating failure
-
-
-    synonyms = ", ".join(sorted(synonyms, key=pali_sort_key))
-    print(synonyms)
-    return synonyms
-
-
-def dps_make_all_inflections_set(db_session):
-    
-    # Joining tables and filtering where Russian.ru_meaning is not empty
-    inflections_db = db_session.query(DpdHeadword) \
-                            .join(Russian, DpdHeadword.id == Russian.id) \
-                            .filter((Russian.ru_meaning.isnot(None)) & 
-                                    (Russian.ru_meaning != '')) \
-                            .all()
-
-    dps_all_inflections_set = set()
-    for i in inflections_db:
-        dps_all_inflections_set.update(i.inflections_list)
-
-    print(f"dps_all_inflections_set: {len(dps_all_inflections_set)}")
-
-    return dps_all_inflections_set
-
-
-def dps_make_filtered_inflections_set(db_session, source):
-    
-    # Begin the query
-    query = db_session.query(DpdHeadword)
-
-    source_a = source + "a"
-    
-    # Join tables
-    query = query.join(SBS, DpdHeadword.id == SBS.id)
-    
-    # Apply filters if 'source' contains in any of sbs_cource(s)
-    query = query.filter(
-        and_(
-            or_(
-                SBS.sbs_source_1.ilike(f"%{source}%"), 
-                SBS.sbs_source_2.ilike(f"%{source}%"), 
-                SBS.sbs_source_3.ilike(f"%{source}%"), 
-                SBS.sbs_source_4.ilike(f"%{source}%"),
-                DpdHeadword.source_1.ilike(f"%{source}%"),
-                DpdHeadword.source_2.ilike(f"%{source}%"),
-            ),
-            not_(
-                    or_(
-                        SBS.sbs_source_1.ilike(f"%{source_a}%"), 
-                        SBS.sbs_source_2.ilike(f"%{source_a}%"), 
-                        SBS.sbs_source_3.ilike(f"%{source_a}%"), 
-                        SBS.sbs_source_4.ilike(f"%{source_a}%"),
-                        DpdHeadword.source_1.ilike(f"%{source_a}%"),
-                        DpdHeadword.source_2.ilike(f"%{source_a}%"),
-                    )
-                ),
-        )
-    )
-
-    # Execute the query
-    inflections_db = query.all()
-
-    dps_filtered_inflections_set = set()
-    for i in inflections_db:
-        dps_filtered_inflections_set.update(i.inflections_list)
-
-    print(f"dps_filtered_inflections_set: {len(dps_filtered_inflections_set)}")
-
-    return dps_filtered_inflections_set
-
-
-def dps_make_no_field_inflections_set(db_session, field):
-    
-    # Begin the query
-    query = db_session.query(DpdHeadword)
-    
-    # Join tables
-
-    query = query.join(SBS, DpdHeadword.id == SBS.id)
-    
-    # Apply filters dynamically using the 'field' variable
-    query = query.filter(
-        getattr(SBS, field).isnot(None),  # Ensure field is not null
-        getattr(SBS, field) != ""         # Ensure field is not an empty string
-    )
-
-    # Execute the query
-    inflections_db = query.all()
-
-    dps_filtered_inflections_set = set()
-    for i in inflections_db:
-        dps_filtered_inflections_set.update(i.inflections_list)
-
-    print(f"dps_filtered_inflections_set: {len(dps_filtered_inflections_set)}")
-
-    return dps_filtered_inflections_set
-
-
-def get_next_ids_dps(db_session, window):
-    used_ids = db_session.query(DpdHeadword.id).order_by(DpdHeadword.id).all()
-
-    def find_largest_id():
-        return max(used_id.id for used_id in used_ids) if used_ids else 0
-
-    largest_id = find_largest_id()
-
-    next_id = largest_id + 10000
-
-    print(next_id)
-
-    window["id"].update(next_id)
-
-
+# "Save GUI" button Words To Add 
 def save_gui_state_dps(dpspth, values, words_to_add_list):
     save_state: tuple = (values, words_to_add_list)
     print(f"[green]saving gui state (2), values:{len(values)}, words_to_add_list: {len(words_to_add_list)}")
@@ -1287,6 +421,7 @@ def save_gui_state_dps(dpspth, values, words_to_add_list):
         pickle.dump(save_state, f)
 
 
+# "Load GUI" button Words To Add 
 def load_gui_state_dps(dpspth):
     with open(dpspth.dps_save_state_path, "rb") as f:
         save_state = pickle.load(f)
@@ -1296,6 +431,7 @@ def load_gui_state_dps(dpspth):
     return values, words_to_add_list
 
 
+# "to simsapa" button Words To Add
 def send_sutta_study_request(word, sutta, source):
 
     try:
@@ -1331,6 +467,8 @@ def send_sutta_study_request(word, sutta, source):
         print(f"An error occurred while sending the request: {e}")
 
 
+
+# "Next Word" button DPD
 def add_word_from_csv(dpspth, window, flag_next_word, completion, lemma_1_current=""):
     # read csv file and fill lemma_1, meaning_1, pos, construction and notes
 
@@ -1391,64 +529,6 @@ def add_word_from_csv(dpspth, window, flag_next_word, completion, lemma_1_curren
                 break
 
     return original_word
-
-
-def get_next_word_ru(db_session):
-    def filter_words():
-        return db_session.query(DpdHeadword).join(Russian).join(SBS).filter(
-            DpdHeadword.meaning_1 != "",
-            DpdHeadword.example_1 != "",
-            # SBS.sbs_patimokkha == "pat",
-            Russian.ru_meaning == "",
-        )
-
-    # Query the database using the helper function
-    word = filter_words().first()
-
-    # Query the database to count the total number of words fitting the criteria
-    total_words = filter_words().count()
-
-    # Return the id of the word if found, otherwise return None
-    if word:
-        print(f"id = {word.id}")
-        total_words_message = f"words left: {total_words}"
-        print(total_words_message)
-        return str(word.id), total_words_message
-    else:
-        total_words_message = "no words left, change filter in functions_dps"
-        print(total_words_message)
-        return 0, total_words_message
-
-
-def get_next_note_ru(db_session):
-    # Query the database for the first word that meets the conditions
-    def filter_words():
-        return db_session.query(DpdHeadword).join(Russian).join(SBS).filter(
-            Russian.ru_notes.like("%ИИ%"),
-            or_(
-                    SBS.sbs_class_anki != '',
-                    SBS.sbs_category != '',
-                    SBS.sbs_index != '',
-                    SBS.sbs_patimokkha != '',
-                )
-            )
-
-    # Query the database using the helper function
-    word = filter_words().first()
-
-    # Query the database to count the total number of words fitting the criteria
-    total_words = filter_words().count()
-
-    # Return the id of the word if found, otherwise return None
-    if word:
-        print(f"id = {word.id}")
-        total_words_message = f"words left: {total_words}"
-        print(total_words_message)
-        return str(word.id), total_words_message
-    else:
-        total_words_message = "no words left, change filter in functions_dps"
-        print(total_words_message)
-        return 0, total_words_message
 
 
 def paragraphs_are_similar(paragraph1, paragraph2, threshold):

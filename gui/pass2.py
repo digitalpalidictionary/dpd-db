@@ -3,7 +3,7 @@
 import json
 import re
 
-import PySimpleGUI as sg
+import PySimpleGUI as sg # type: ignore
 
 from rich import print
 from typing import List, Optional
@@ -11,7 +11,7 @@ from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup
-from functions import load_gui_config
+from gui.functions import load_gui_config
 from tools.pali_sort_key import pali_list_sorter
 
 

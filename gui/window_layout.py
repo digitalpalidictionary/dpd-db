@@ -3,14 +3,14 @@
 """Render all tabs into main window."""
 
 
-import PySimpleGUI as sg
-from tab_add_next_word import make_tab_add_next_word
-from tab_edit_dpd import make_tab_edit_dpd
-from tab_edit_dps import make_tab_edit_dps
-from tab_fix_sandhi import make_tab_fix_sandhi
-from tab_db_tests import make_tab_db_tests
-from tab_dps_tests import make_tab_dps_tests
-from functions import load_gui_config
+import PySimpleGUI as sg # type: ignore
+from gui.tab_add_next_word import make_tab_add_next_word
+from gui.tab_edit_dpd import make_tab_edit_dpd
+from gui.tab_edit_dps import make_tab_edit_dps
+from gui.tab_fix_sandhi import make_tab_fix_sandhi
+from gui.tab_db_tests import make_tab_db_tests
+from gui.tab_dps_tests import make_tab_dps_tests
+from gui.functions import load_gui_config
 
 config = load_gui_config()
 

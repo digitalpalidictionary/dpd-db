@@ -17,7 +17,7 @@ from tools.clean_machine import clean_machine
 from tools.pali_text_files import sc_texts, cst_texts, bjt_texts
 from tools.pali_text_files import mula_books, all_books
 from tools.paths import ProjectPaths
-from tools.printer import p_green, p_yes
+from tools.printer import p_green, p_yes, p_red
 
 
 def make_cst_text_set(
@@ -189,6 +189,7 @@ def extract_sutta_from_file(sutta_name: str, text_string: str, books: List[str])
     sutta = text_string[start_index:end_index + len(end_pattern)]
 
     print(f"sutta : {sutta}")
+    print("sutta_end")
 
     return sutta
 
@@ -223,6 +224,70 @@ def make_cst_text_set_sutta(
     return set(words_list)
 
 
+def make_cst_text_list_sutta(
+        pth: ProjectPaths,
+        sutta_name: str,
+        books: List[str],
+        niggahita="ṃ",
+        dedupe=True,
+        add_hyphenated_parts=True,
+) -> List[str]:
+    
+    """Make a list of words in CST texts from a list of books.
+    - Use when keeping the order *is* important.
+    - Optionally change the niggahita character (niggahita="ṁ").
+    - Optionally dedupe the list (dedupe=True).
+    Return a list or a set."""
+
+    cst_texts_list = []
+
+    for i in books:
+        if cst_texts[i]:
+            cst_texts_list += cst_texts[i]
+
+    words_list: list = []
+
+    for book in cst_texts_list:
+        with open(pth.cst_txt_dir.joinpath(book), "r") as f:
+            text_string = f.read()
+            sutta_string = extract_sutta_from_file(sutta_name, text_string, books)
+            if sutta_string is not None:
+                # remove all brackets
+                sutta_string = re.sub(r"\(.+?\)", "", sutta_string)
+                if add_hyphenated_parts:
+                    # dont remove the hyphen, deal with it later
+                    sutta_string = clean_machine(
+                        sutta_string, niggahita=niggahita, remove_hyphen=False)
+                else:
+                    # remove the hyphen immediately
+                    sutta_string = clean_machine(
+                        sutta_string, niggahita=niggahita, remove_hyphen=True)                
+                words_list.extend(sutta_string.split())
+
+    if add_hyphenated_parts:
+        for index, word in enumerate(words_list):
+            if "-" in word:
+                # remove the dash and add the clean word back into the list
+                words_list[index] = word.replace("-", "")
+
+                # split on dashes and add each split back into the list
+                # in the correct order
+                hyphenated_words = word.split("-")
+                for h_word in hyphenated_words.__reversed__():
+                    words_list.insert(index + 1, h_word)
+
+    if dedupe == True:
+        exists = []
+        reduced_list = []
+        for word in words_list:
+            if word not in exists:
+                exists += [word]
+                reduced_list += [word]
+        return reduced_list
+    else:
+        return words_list
+
+
 def make_cst_text_set_from_file(
         dpspth,
         niggahita="ṃ"
@@ -245,6 +310,65 @@ def make_cst_text_set_from_file(
             return set()
 
     return set(words_list)
+
+
+def make_cst_text_list_from_file(
+        dpspth,
+        niggahita="ṃ",
+        dedupe=True,
+        add_hyphenated_parts=True,
+) -> List[str]:
+
+    """Make a list of words in CST texts from a list of books.
+    - Use when keeping the order *is* important.
+    - Optionally change the niggahita character (niggahita="ṁ").
+    - Optionally dedupe the list (dedupe=True).
+    Return a list or a set."""
+
+    words_list: List[str] = []
+
+    if dpspth.text_to_add_path:
+        try:
+            with open(dpspth.text_to_add_path, "r") as f:
+                text_string = f.read()
+                # remove all brackets
+                text_string = re.sub(r"\(.+?\)", "", text_string)
+                if add_hyphenated_parts:
+                    # dont remove the hyphen, deal with it later
+                    text_string = clean_machine(
+                        text_string, niggahita=niggahita, remove_hyphen=False)
+                else:
+                    # remove the hyphen immediately
+                    text_string = clean_machine(
+                        text_string, niggahita=niggahita, remove_hyphen=True)
+                
+                words_list.extend(text_string.split())
+        except FileNotFoundError:
+            print(f"[red]file {dpspth.text_to_add_path } does not exist")
+            return words_list
+
+    if add_hyphenated_parts:
+        for index, word in enumerate(words_list):
+            if "-" in word:
+                # remove the dash and add the clean word back into the list
+                words_list[index] = word.replace("-", "")
+
+                # split on dashes and add each split back into the list
+                # in the correct order
+                hyphenated_words = word.split("-")
+                for h_word in hyphenated_words.__reversed__():
+                    words_list.insert(index + 1, h_word)
+
+    if dedupe == True:
+        exists = []
+        reduced_list = []
+        for word in words_list:
+            if word not in exists:
+                exists += [word]
+                reduced_list += [word]
+        return reduced_list
+    else:
+        return words_list
 
 
 def make_sc_text_set(

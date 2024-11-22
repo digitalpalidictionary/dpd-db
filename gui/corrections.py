@@ -3,8 +3,7 @@
 """GUI to add corrections.tsv to the database and give feedback."""
 
 import csv
-import PySimpleGUI as sg
-
+import PySimpleGUI as sg # type: ignore
 
 from rich import print
 

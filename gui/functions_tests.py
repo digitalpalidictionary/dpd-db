@@ -15,7 +15,6 @@ from rich import print
 
 from db.models import DpdHeadword
 from db_tests.helpers import InternalTestRow
-from tools.pali_sort_key import pali_sort_key
 
 # 1. individual internal tests
 

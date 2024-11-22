@@ -1,13 +1,14 @@
 """Database functions related to the GUI."""
 
 import re
+import csv
 
 from rich import print
 from sqlalchemy import or_
 from typing import Optional, Tuple
 
 from db.models import SBS, DpdHeadword, DpdRoot, InflectionTemplates, Russian
-from functions_daily_record import daily_record_update
+from gui.functions_daily_record import daily_record_update
 
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
@@ -565,3 +566,117 @@ def del_syns_if_pos_meaning_changed(
 
                 db_session.commit()
                 print("[green]db_session committed ")
+
+
+def make_words_to_add_list_generic(
+    db_session,
+    pth,
+    make_cst_func,
+    make_sc_func=None,
+    inflection_func=make_all_inflections_set,
+    book=None,
+    sutta_name=None,
+    dpspth=None,
+    source=None,
+    field=None,
+    output_filename_template="temp/{prefix}{identifier}.tsv",
+) -> list:
+    """
+    Generalized function to create words to add lists with various configurations.
+
+    Parameters:
+    - db_session: The database session for retrieving inflections.
+    - pth: Path for resources.
+    - make_cst_func: Function to create the CST text list.
+    - make_sc_func: Optional function to create the SC text list.
+    - inflection_func: Function to generate the inflection set.
+    - book: The book name (optional).
+    - sutta_name: The sutta name (optional).
+    - dpspth: Path for DPS files (optional).
+    - source: Source identifier (optional).
+    - field: Field name for inflections (optional).
+    - output_filename_template: Template for the output file name.
+
+    Returns:
+    - A sorted list of words to add.
+    """
+    # Generate CST and SC text lists
+    if dpspth:
+        cst_text_list = make_cst_func(dpspth)
+    elif sutta_name:
+        cst_text_list = make_cst_func(pth, sutta_name, [book])
+    else:
+        cst_text_list = make_cst_func(pth, [book])
+
+    sc_text_list = make_sc_func(pth, [book]) if make_sc_func else []
+    original_text_list = list(cst_text_list) + list(sc_text_list)
+
+    # Generate additional lists
+    sp_mistakes_list = make_sp_mistakes_list(pth)
+    variant_list = make_variant_list(pth)
+    sandhi_ok_list = make_sandhi_ok_list(pth)
+
+    # Conditionally pass arguments to the inflection function
+    if "filtered" in inflection_func.__name__:
+        all_inflections_set = inflection_func(db_session, source=source)
+    elif "field" in inflection_func.__name__:
+        all_inflections_set = inflection_func(db_session, field=field)
+    else:
+        all_inflections_set = inflection_func(db_session)
+
+    # Filter the text set
+    text_set = set(cst_text_list) | set(sc_text_list)
+    text_set -= set(sandhi_ok_list)
+    text_set -= set(sp_mistakes_list)
+    text_set -= set(variant_list)
+    text_set -= all_inflections_set
+
+    # Sort based on original order
+    text_list = sorted(text_set, key=lambda x: original_text_list.index(x))
+
+    print(f"words_to_add: {len(text_list)}")
+
+    # Determine filename
+    prefix = "dps_" if "dps" in inflection_func.__name__ else ""
+    identifier = (
+        f"{source}_{book}" if source else 
+        f"{sutta_name}_{book}" if sutta_name else 
+        f"text_{field}" if field else 
+        book or "text"
+    )
+    output_filename = output_filename_template.format(prefix=prefix, identifier=identifier)
+
+    # Save to a file
+    with open(output_filename, "w") as f:
+        for word in text_list:
+            f.write(f"{word}\n")
+
+    return text_list
+
+
+def make_sp_mistakes_list(pth):
+
+    with open(pth.spelling_mistakes_path) as f:
+        reader = csv.reader(f, delimiter="\t")
+        sp_mistakes_list = [row[0] for row in reader]
+
+    print(f"sp_mistakes_list: {len(sp_mistakes_list)}")
+    return sp_mistakes_list
+
+
+def make_variant_list(pth):
+    with open(pth.variant_readings_path) as f:
+        reader = csv.reader(f, delimiter="\t")
+        variant_list = [row[0] for row in reader]
+
+    print(f"variant_list: {len(variant_list)}")
+    return variant_list
+
+
+def make_sandhi_ok_list(pth):
+    with open(pth.decon_checked) as f:
+        reader = csv.reader(f, delimiter="\t")
+        sandhi_ok_list = [row[0] for row in reader]
+
+    print(f"sandhi_ok_list: {len(sandhi_ok_list)}")
+    return sandhi_ok_list

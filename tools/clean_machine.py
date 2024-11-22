@@ -89,6 +89,7 @@ def clean_machine(text: str, niggahita="ṃ", remove_hyphen=True) -> str:
         .replace("\u035f", "")\
         .replace("\u0324", "")\
         .replace("--", " ")\
+        .replace("♦", " ")
 
     
     if remove_hyphen:

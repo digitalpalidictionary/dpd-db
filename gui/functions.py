@@ -9,15 +9,17 @@ import subprocess
 import textwrap
 import pickle
 import configparser
-from typing import Optional, Tuple, List
+
+from typing import Optional, Tuple
 
 from spellchecker import SpellChecker
 from aksharamukha import transliterate
 from rich import print
 
 from db.models import DpdHeadword
-from functions_db import make_all_inflections_set
-from functions_db import values_to_pali_word
+from gui.functions_db import make_all_inflections_set
+from gui.functions_db import values_to_pali_word
+from gui.functions_db import make_words_to_add_list_generic
 
 from tools.addition_class import Additions
 from tools.bold_definitions_search import search_bold_definitions
@@ -477,7 +479,7 @@ def clear_errors(window):
 
 
 def clear_values(values, window, username):
-    from functions_db import dpd_values_list
+    from gui.functions_db import dpd_values_list
     if username == "primary_user":
         origin = "pass2"
     elif username == "deva":
@@ -763,56 +765,14 @@ def test_book_to_add(values, window):
 
 
 def make_words_to_add_list(db_session, pth, __window__, book: str) -> list:
-    cst_text_list = make_cst_text_list(pth, [book])
-    sc_text_list = make_sc_text_list(pth, [book])
-    original_text_list = cst_text_list + sc_text_list
-
-    sp_mistakes_list = make_sp_mistakes_list(pth)
-    variant_list = make_variant_list(pth)
-    sandhi_ok_list = make_sandhi_ok_list(pth)
-    all_inflections_set = make_all_inflections_set(db_session)
-
-    text_set = set(cst_text_list) | set(sc_text_list)
-    text_set = text_set - set(sandhi_ok_list)
-    text_set = text_set - set(sp_mistakes_list)
-    text_set = text_set - set(variant_list)
-    text_set = text_set - all_inflections_set
-    text_list = sorted(text_set, key=lambda x: original_text_list.index(x))
-    print(f"words_to_add: {len(text_list)}")
-
-    with open(f"temp/{book}.tsv", "w") as f:
-        for i in text_list:
-            f.write(f"{i}\n")
-
-    return text_list
-
-
-def make_sp_mistakes_list(pth):
-
-    with open(pth.spelling_mistakes_path) as f:
-        reader = csv.reader(f, delimiter="\t")
-        sp_mistakes_list = [row[0] for row in reader]
-
-    print(f"sp_mistakes_list: {len(sp_mistakes_list)}")
-    return sp_mistakes_list
-
-
-def make_variant_list(pth):
-    with open(pth.variant_readings_path) as f:
-        reader = csv.reader(f, delimiter="\t")
-        variant_list = [row[0] for row in reader]
-
-    print(f"variant_list: {len(variant_list)}")
-    return variant_list
-
-
-def make_sandhi_ok_list(pth):
-    with open(pth.decon_checked) as f:
-        reader = csv.reader(f, delimiter="\t")
-        sandhi_ok_list = [row[0] for row in reader]
-
-    print(f"sandhi_ok_list: {len(sandhi_ok_list)}")
-    return sandhi_ok_list
+    return make_words_to_add_list_generic(
+        db_session=db_session,
+        pth=pth,
+        make_cst_func=make_cst_text_list,
+        make_sc_func=make_sc_text_list,
+        inflection_func=make_all_inflections_set,
+        book=book
+    )
 
 
 def open_inflection_tables(pth):
@@ -828,7 +788,7 @@ def sandhi_ok(pth, window, word,):
 
 
 def display_summary(values, window, sg, pali_word_original2):
-    from functions_db import dpd_values_list
+    from gui.functions_db import dpd_values_list
 
     # Assuming pali_word_original2 is a dictionary with the original values
     if pali_word_original2:

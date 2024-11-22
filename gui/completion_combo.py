@@ -64,7 +64,7 @@ import logging
 
 from typing import List, Tuple
 
-import PySimpleGUI
+import PySimpleGUI # type: ignore
 
 LOGGER = logging.getLogger(__name__)
 

@@ -259,18 +259,18 @@ def update_ru_meaning_raw(ids_and_contents):
 if __name__ == "__main__":
 
     #! Sent request from json to batch API
-    file_name_in = "meaning-2024-11-18-19-11"
+    file_name_in = ""
 
     # upload_and_create_batch(file_name_in)
 
     # check_batch_list()
 
-    specific_batch_id = "batch_673b216df0d081909fcb8296ede256fa"
+    specific_batch_id = ""
 
     # print_batch_info(specific_batch_id)
 
-    ids_and_contents = save_batch_results(specific_batch_id, file_name_in)
-    update_ru_meaning_raw(ids_and_contents)
+    # ids_and_contents = save_batch_results(specific_batch_id, file_name_in)
+    # update_ru_meaning_raw(ids_and_contents)
 
     # cancel_batch(specific_batch_id)
 

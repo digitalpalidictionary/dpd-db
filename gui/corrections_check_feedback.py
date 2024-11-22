@@ -3,7 +3,7 @@
 """GUI check feedback from corrections.tsv."""
 
 import csv
-import PySimpleGUI as sg
+import PySimpleGUI as sg # type: ignore
 import subprocess
 
 from rich import print

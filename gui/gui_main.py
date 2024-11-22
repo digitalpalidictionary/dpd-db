@@ -4,7 +4,7 @@
 
 import json
 import subprocess
-import PySimpleGUI as sg
+import PySimpleGUI as sg # type: ignore
 import re
 import pickle
 import pyperclip
@@ -13,129 +13,132 @@ from copy import deepcopy
 from rich import print
 
 
-from window_layout import window_layout
-from functions_db import update_word_in_db
-from functions_db import get_next_ids
-from functions_db import get_family_root_values
-from functions_db import get_root_sign_values
-from functions_db import get_root_base_values
-from functions_db import get_synonyms
-from functions_db import get_sanskrit
-from functions_db import copy_word_from_db
-from functions_db import edit_word_in_db
-from functions_db import get_lemma_clean_list
-from functions_db import delete_word
-from functions_db import get_root_info
-from functions_db import fetch_id_or_lemma_1
-from functions_db import get_family_compound_values
-from functions_db import get_family_idioms_values
-from functions_db import del_syns_if_pos_meaning_changed
+from gui.window_layout import window_layout
 
-from fuctions_show_fields import show_all_fields
-from fuctions_show_fields import show_compound_fields
-from fuctions_show_fields import show_root_fields
-from fuctions_show_fields import show_word_fields
+from gui.functions_db import update_word_in_db
+from gui.functions_db import get_next_ids
+from gui.functions_db import get_family_root_values
+from gui.functions_db import get_root_sign_values
+from gui.functions_db import get_root_base_values
+from gui.functions_db import get_synonyms
+from gui.functions_db import get_sanskrit
+from gui.functions_db import copy_word_from_db
+from gui.functions_db import edit_word_in_db
+from gui.functions_db import get_lemma_clean_list
+from gui.functions_db import delete_word
+from gui.functions_db import get_root_info
+from gui.functions_db import fetch_id_or_lemma_1
+from gui.functions_db import get_family_compound_values
+from gui.functions_db import get_family_idioms_values
+from gui.functions_db import del_syns_if_pos_meaning_changed
 
-from functions import sandhi_ok
-from functions import test_book_to_add
-from functions import make_words_to_add_list
-from functions import add_sandhi_rule, open_sandhi_rules
-from functions import add_sandhi_correction
-from functions import open_sandhi_corrections
-from functions import add_spelling_mistake
-from functions import open_spelling_mistakes
-from functions import add_variant_reading
-from functions import open_variant_readings
-from functions import open_sandhi_exceptions
-from functions import open_sandhi_ok
-from functions import open_inflection_tables
-from functions import find_sutta_example
-from functions import find_commentary_definitions
-from functions import check_spelling
-from functions import add_spelling
-from functions import edit_spelling
-from functions import clear_errors
-from functions import clear_values
-from functions import add_stem_pattern
-from functions import Flags, reset_flags
-from functions import display_summary
-from functions import test_family_compound
-from functions import test_family_idioms
-from functions import remove_word_to_add
-from functions import add_to_word_to_add
-from functions import save_gui_state
-from functions import load_gui_state
-from functions import test_construction
-from functions import replace_sandhi
-from functions import test_username
-from functions import compare_differences
-from functions import stasher, unstasher
-from functions import increment_lemma_1
-from functions import make_compound_construction
-from functions import make_construction
-from functions import make_lemma_clean
-from functions import example_load
-from functions import example_save
+from gui.functions_show_fields import show_all_fields
+from gui.functions_show_fields import show_compound_fields
+from gui.functions_show_fields import show_root_fields
+from gui.functions_show_fields import show_word_fields
 
-from functions_tests import individual_internal_tests
-from functions_tests import open_internal_tests
-from functions_tests import db_internal_tests
+from gui.functions import sandhi_ok
+from gui.functions import test_book_to_add
+from gui.functions import make_words_to_add_list
+from gui.functions import add_sandhi_rule, open_sandhi_rules
+from gui.functions import add_sandhi_correction
+from gui.functions import open_sandhi_corrections
+from gui.functions import add_spelling_mistake
+from gui.functions import open_spelling_mistakes
+from gui.functions import add_variant_reading
+from gui.functions import open_variant_readings
+from gui.functions import open_sandhi_exceptions
+from gui.functions import open_sandhi_ok
+from gui.functions import open_inflection_tables
+from gui.functions import find_sutta_example
+from gui.functions import find_commentary_definitions
+from gui.functions import check_spelling
+from gui.functions import add_spelling
+from gui.functions import edit_spelling
+from gui.functions import clear_errors
+from gui.functions import clear_values
+from gui.functions import add_stem_pattern
+from gui.functions import Flags, reset_flags
+from gui.functions import display_summary
+from gui.functions import test_family_compound
+from gui.functions import test_family_idioms
+from gui.functions import remove_word_to_add
+from gui.functions import add_to_word_to_add
+from gui.functions import save_gui_state
+from gui.functions import load_gui_state
+from gui.functions import test_construction
+from gui.functions import replace_sandhi
+from gui.functions import test_username
+from gui.functions import compare_differences
+from gui.functions import stasher, unstasher
+from gui.functions import increment_lemma_1
+from gui.functions import make_compound_construction
+from gui.functions import make_construction
+from gui.functions import make_lemma_clean
+from gui.functions import example_load
+from gui.functions import example_save
 
-from functions_daily_record import daily_record_update
+from gui.functions_tests import individual_internal_tests
+from gui.functions_tests import open_internal_tests
+from gui.functions_tests import db_internal_tests
 
-from functions_dps import fetch_ru
-from functions_dps import fetch_sbs
-from functions_dps import dps_update_db
-from functions_dps import dps_get_synonyms
-from functions_dps import dps_make_words_to_add_list
-from functions_dps import dps_make_words_to_add_list_filtered
-from functions_dps import dps_make_words_to_add_list_sutta
-from functions_dps import dps_make_words_to_add_list_from_text
-from functions_dps import dps_make_words_to_add_list_from_text_filtered
-from functions_dps import dps_make_words_to_add_list_from_text_no_field
-from functions_dps import fetch_matching_words_from_db_with_conditions
-from functions_dps import fetch_matching_words_from_db
-from functions_dps import words_in_db_with_value_in_field_sbs
-from functions_dps import populate_dps_tab
-from functions_dps import update_sbs_chant
-from functions_dps import clear_dps
-from functions_dps import translate_with_openai
-from functions_dps import swap_sbs_examples
-from functions_dps import remove_sbs_example
-from functions_dps import copy_dpd_examples
-from functions_dps import display_dps_summary
-from functions_dps import copy_and_split_content
-from functions_dps import ru_check_spelling
-from functions_dps import ru_add_spelling
-from functions_dps import ru_edit_spelling
-from functions_dps import Flags_dps, dps_reset_flags
-from functions_dps import edit_corrections
-from functions_dps import tail_log
-from functions_dps import stash_values_from
-from functions_dps import unstash_values_to
-from functions_dps import dps_get_original_values
-from functions_dps import update_field
-from functions_dps import update_field_with_change
-from functions_dps import words_in_db_from_source
-from functions_dps import get_next_ids_dps
-from functions_dps import read_tsv_words
-from functions_dps import save_gui_state_dps
-from functions_dps import load_gui_state_dps
-from functions_dps import add_word_from_csv
-from functions_dps import send_sutta_study_request
-from functions_dps import get_next_word_ru
-from functions_dps import get_next_note_ru
-from functions_dps import take_example_from_archive
+from gui.functions_daily_record import daily_record_update
 
+from gui.functions_dps import clear_dps
+from gui.functions_dps import translate_with_openai
+from gui.functions_dps import swap_sbs_examples
+from gui.functions_dps import remove_sbs_example
+from gui.functions_dps import copy_dpd_examples
+from gui.functions_dps import display_dps_summary
+from gui.functions_dps import copy_and_split_content
+from gui.functions_dps import ru_check_spelling
+from gui.functions_dps import ru_add_spelling
+from gui.functions_dps import ru_edit_spelling
+from gui.functions_dps import Flags_dps, dps_reset_flags
+from gui.functions_dps import edit_corrections
+from gui.functions_dps import tail_log
+from gui.functions_dps import stash_values_from
+from gui.functions_dps import unstash_values_to
+from gui.functions_dps import read_tsv_words
+from gui.functions_dps import save_gui_state_dps
+from gui.functions_dps import load_gui_state_dps
+from gui.functions_dps import add_word_from_csv
+from gui.functions_dps import send_sutta_study_request
+from gui.functions_dps import take_example_from_archive
 
-from functions_tests_dps import dps_open_internal_tests
-from functions_tests_dps import dps_individual_internal_tests
-from functions_tests_dps import dps_db_internal_tests
-from functions_tests_dps import check_repetition
-from functions_tests_dps import dps_dpd_db_internal_tests
+from gui.functions_db_dps import fetch_matching_words_from_db_with_conditions
+from gui.functions_db_dps import fetch_matching_words_from_db
+from gui.functions_db_dps import update_field
+from gui.functions_db_dps import update_field_with_change
+from gui.functions_db_dps import fetch_ru
+from gui.functions_db_dps import fetch_sbs
+from gui.functions_db_dps import dps_update_db
+from gui.functions_db_dps import dps_get_synonyms
+from gui.functions_db_dps import dps_make_words_to_add_list
+from gui.functions_db_dps import dps_make_words_to_add_list_filtered
+from gui.functions_db_dps import dps_make_words_to_add_list_sutta
+from gui.functions_db_dps import make_words_to_add_list_sutta
+from gui.functions_db_dps import make_words_to_add_list_from_text
+from gui.functions_db_dps import dps_make_words_to_add_list_from_text
+from gui.functions_db_dps import dps_make_words_to_add_list_from_text_filtered
+from gui.functions_db_dps import dps_make_words_to_add_list_from_text_no_field
+from gui.functions_db_dps import get_next_ids_dps
+from gui.functions_db_dps import get_next_word_ru
+from gui.functions_db_dps import get_next_note_ru
+from gui.functions_db_dps import populate_dps_tab
+from gui.functions_db_dps import update_sbs_chant
+from gui.functions_db_dps import dps_get_original_values
+from gui.functions_db_dps import words_in_db_from_source
+from gui.functions_db_dps import words_in_db_with_value_in_field_sbs
 
-from pass2 import pass2_gui, Pass2Data
-from pass2 import start_from_where_gui
+from gui.functions_tests_dps import dps_open_internal_tests
+from gui.functions_tests_dps import dps_individual_internal_tests
+from gui.functions_tests_dps import dps_db_internal_tests
+from gui.functions_tests_dps import check_repetition
+from gui.functions_tests_dps import dps_dpd_db_internal_tests
+
+from gui.pass2 import pass2_gui, Pass2Data
+from gui.pass2 import start_from_where_gui
 
 from db.db_helpers import get_db_session
 from scripts.backup.backup_dpd_headwords_and_roots import backup_dpd_headwords_and_roots
@@ -2161,7 +2164,7 @@ def main():
         # add sutta (dpd)
         elif event == "sutta_to_add_button":
             if test_book_to_add(values, window):
-                words_to_add_list = dps_make_words_to_add_list_sutta(
+                words_to_add_list = make_words_to_add_list_sutta(
                     db_session, pth, values["sutta_to_add"], values["book_to_add"])
 
                 if words_to_add_list != []:
@@ -2217,6 +2220,23 @@ def main():
                 window["messages"].update(
                     value="empty list, try again", text_color="red")
 
+        # add words from text.txt (dpd)
+        elif event == "from_txt_to_add_button":
+            words_to_add_list = make_words_to_add_list_from_text(dpspth, db_session, pth)
+
+            if words_to_add_list != []:
+                values["word_to_add"] = [words_to_add_list[0]]
+                window["word_to_add"].update(values=words_to_add_list)
+                window["words_to_add_length"].update(
+                    value=len(words_to_add_list))
+                print(values)
+                open_in_goldendict(words_to_add_list[0])
+                window["messages"].update(
+                    value="added missing words from text.txt",
+                    text_color="white")
+            else:
+                window["messages"].update(
+                    value="empty list, try again", text_color="red")
 
         # add words from text.txt (dps)
         elif event == "dps_from_txt_to_add_button":

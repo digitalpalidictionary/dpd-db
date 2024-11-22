@@ -15,14 +15,14 @@ from rich import print
 
 from db.models import DpdHeadword
 from db_tests.helpers import InternalTestRow
-# from tools.pali_sort_key import pali_sort_key
+
 from sqlalchemy.orm import joinedload
 
-from functions_tests import get_search_criteria
-from functions_tests import regex_fail_list
-from functions_tests import make_new_test
-from functions_tests import clean_exceptions
-from functions_tests import open_internal_tests
+from gui.functions_tests import get_search_criteria
+from gui.functions_tests import regex_fail_list
+from gui.functions_tests import make_new_test
+from gui.functions_tests import clean_exceptions
+from gui.functions_tests import open_internal_tests
 
 # 1. individual internal tests run in dps edit tab
 
