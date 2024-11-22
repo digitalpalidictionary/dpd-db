@@ -59,8 +59,8 @@ GENERAL CASES	-	-
 adhi	ind	adhideve, adhibrahmānaṃ	
 adverb in first postion	noun	divākathika, tiroraṭṭhā, tirojanapadā, rattiṃvikālabhojana, kāmaṅgama, antopadesa, bahipadesa, pacchāvacanīya, divāṭṭhāna, kathaṃkathā, micchāsati, heṭṭhābhāga, nānābhāva	
 adverb in first postion	adj	idhāgata, tatrābhirata, uddhaṃpāda, adhosira, adhoṭhita, evaṃdiṭṭhī, evaṃvihārī, dvedhābhinna, evaṃpañña, adhogama, uddhaṅgama, ajjuṇho, musāvādī	
-adverbs in cases	adv	appasaddena, cuddasavidhena, upadhipaccayā, antalikkhe	
-adverbs, aṃ / akaṃ	ind	yadicchakaṃ, uttaridirattatirattaṃ, dasāhaparamaṃ	
+adverbs in cases	adv	appasaddena, cuddasavidhena, upadhipaccayā, antalikkhe, heṭṭhāpīṭhe, 	
+adverbs, aṃ / akaṃ	ind	yadicchakaṃ, uttaridirattatirattaṃ, dasāhaparamaṃ, uparijāṇumaṇḍalaṃ	
 agent nouns	masc	paṃsudhovaka	
 gerund + adj	adj	vibhajjavāda, anupādāvimutta, niggayhavādī, nivissavādī	
 gerund + noun	masc	anupādāvimokkha, upādāyarūpa, aveccappasāda	
@@ -76,7 +76,7 @@ missing word, more words required for the sense	nt	dvārabhatta (ṭhapita), asa
 numbers (addition)	card	bāvīsati, dvattiṃsati, catuddasa	
 numbers (multiplication)	card	tiṃsati, koṭisatasahassa, satasahassī	
 numbers (of duration in hell)	masc	uppalaniraya	
-numbers (subtraction)	adj	aḍḍhuḍḍha, aḍḍhateḷasa, aḍḍhateyya	
+numbers (subtraction)	adj	aḍḍhuḍḍha, aḍḍhateḷasa, aḍḍhateyya, aḍḍhaṭṭha	
 ordinals	ordin	pannarasama	
 prefix plus adverb	adv	samantaṃ, saṃmukhā	
 prefix plus noun	x	apagabbha (apa gabbha), pācariya, palipatha, ajjhāvasatha, avachidda	
@@ -121,3 +121,4 @@ naehibhaddantika	adj
 natiṭṭhabhaddantikā	adj		
 brahmadatta	masc		
 paddhagū	masc		
+bāhāparamparāya	ind		

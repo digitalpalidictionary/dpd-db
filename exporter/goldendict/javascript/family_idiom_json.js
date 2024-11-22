@@ -8615,7 +8615,7 @@ var family_idiom_json = {
   ]
  },
  "eta": {
-  "count": 5,
+  "count": 6,
   "data": [
    [
     "aṭṭhete",
@@ -8645,6 +8645,12 @@ var family_idiom_json = {
     "cetā 1.1",
     "sandhi",
     "and these",
+    "✔"
+   ],
+   [
+    "cetā 1.2",
+    "sandhi",
+    "and these woman",
     "✔"
    ]
   ]
@@ -11970,7 +11976,7 @@ var family_idiom_json = {
    [
     "santamassa",
     "sandhi",
-    "possessions from him; lit. existing for one",
+    "(does not hide) possessions from him; (or) his possessions; lit. existing for one",
     "✔"
    ],
    [
@@ -12811,7 +12817,7 @@ var family_idiom_json = {
    [
     "dukkhamanveti",
     "sandhi",
-    "suffering follows; discomfort comes after",
+    "suffering follows; discomfort comes after; trouble trails",
     "✔"
    ],
    [
@@ -17885,7 +17891,7 @@ var family_idiom_json = {
    [
     "santamassa",
     "sandhi",
-    "possessions from him; lit. existing for one",
+    "(does not hide) possessions from him; (or) his possessions; lit. existing for one",
     "✔"
    ],
    [
@@ -22081,7 +22087,7 @@ var family_idiom_json = {
   ]
  },
  "esā": {
-  "count": 12,
+  "count": 11,
   "data": [
    [
     "etthesā",
@@ -22105,12 +22111,6 @@ var family_idiom_json = {
     "esūpamā",
     "sandhi",
     "this (is a) simile (for); this (is an) example (of)",
-    "✔"
-   ],
-   [
-    "cetā 1.2",
-    "sandhi",
-    "and these woman",
     "✔"
    ],
    [
@@ -27139,7 +27139,7 @@ var family_idiom_json = {
    [
     "dukkhamanveti",
     "sandhi",
-    "suffering follows; discomfort comes after",
+    "suffering follows; discomfort comes after; trouble trails",
     "✔"
    ],
    [

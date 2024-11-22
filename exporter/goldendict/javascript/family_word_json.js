@@ -3154,6 +3154,12 @@ var family_word_json = {
     "✘"
    ],
    [
+    "accheraka 1",
+    "nt",
+    "wonder; marvel",
+    "✔"
+   ],
+   [
     "anacchariya 1",
     "adj",
     "natural; spontaneous; (comm) more wonderful; lit. not a miracle",
@@ -3172,7 +3178,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 13
+  "count": 14
  },
  "jaḷa": {
   "data": [
@@ -8400,8 +8406,8 @@ var family_word_json = {
    ],
    [
     "loma 6",
-    "nt",
-    "(of a fish) scales",
+    "adj",
+    "(of a fish) with scales",
     "✔"
    ],
    [
@@ -8530,6 +8536,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "apara 4",
+    "adj",
+    "later; subsequent; final",
+    "✔"
+   ],
+   [
     "aparaṃ 1",
     "ind",
     "also; secondly; furthermore; on the other hand",
@@ -8560,7 +8572,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 12
+  "count": 13
  },
  "puṃ": {
   "data": [
@@ -13023,7 +13035,7 @@ var family_word_json = {
    [
     "dummaṅkuya",
     "nt",
-    "unhappiness; despondency; disappointment; sullenness",
+    "unhappiness; despondency; disappointment; sullenness; lit. bad dejected state",
     "✔"
    ],
    [
@@ -15441,7 +15453,7 @@ var family_word_json = {
    [
     "upakaṇṇake",
     "ind",
-    "close to the ear; secretly; in secret",
+    "whispering in the ear; secretly; in secret; lit. near the ear",
     "✔"
    ],
    [
@@ -15717,7 +15729,7 @@ var family_word_json = {
    [
     "sārada 1",
     "masc",
-    "autumn; fall; season after the rains; October to December",
+    "season after the rains; October to December",
     "✔"
    ],
    [
@@ -19617,7 +19629,7 @@ var family_word_json = {
    [
     "kesu",
     "pron",
-    "in what?; towards whom?",
+    "in what?; towards whom?; lit. in who?",
     "✔"
    ],
    [
@@ -21708,7 +21720,7 @@ var family_word_json = {
     "kokila",
     "masc",
     "cuckoo",
-    "✘"
+    "✔"
    ],
    [
     "kokilā",
@@ -26910,6 +26922,12 @@ var family_word_json = {
     "◑"
    ],
    [
+    "paṭala 2",
+    "adj",
+    "with a membrane; with a film; having a thin layer; lit. cloth",
+    "✔"
+   ],
+   [
     "paṭali",
     "adj",
     "(of a shoe) having several linings; with multiple layers",
@@ -26952,7 +26970,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 10
+  "count": 11
  },
  "paṭapaṭa": {
   "data": [
@@ -28003,6 +28021,23 @@ var family_word_json = {
     "pāsāṇaka",
     "nt",
     "name of a pagoda; lit. made of stone",
+    "✔"
+   ]
+  ],
+  "count": 2
+ },
+ "piṭhara": {
+  "data": [
+   [
+    "piṭhara",
+    "masc",
+    "container; receptacle",
+    "✔"
+   ],
+   [
+    "pīṭhara",
+    "masc",
+    "container; receptacle",
     "✔"
    ]
   ],

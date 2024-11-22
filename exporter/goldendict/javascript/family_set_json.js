@@ -6791,7 +6791,7 @@ var family_set_json = {
    [
     "kesu",
     "pron",
-    "in what?; towards whom?",
+    "in what?; towards whom?; lit. in who?",
     "✔"
    ],
    [
@@ -8125,6 +8125,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "paripuṇṇasikkha",
+    "adj",
+    "who has completed the training; who has perfected the practice; epithet of an arahant",
+    "✔"
+   ],
+   [
     "pāragata",
     "adj",
     "gone beyond; reached the far shore; crossed over; epithet of an arahant",
@@ -8245,7 +8251,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 38
+  "count": 39
  },
  "epithets of Nibbāna": {
   "data": [
@@ -9959,7 +9965,7 @@ var family_set_json = {
    [
     "ārāmikapesaka",
     "masc",
-    "monastery supervisor",
+    "monastery supervisor; supervisor of monastery workers",
     "✔"
    ],
    [
@@ -11719,7 +11725,7 @@ var family_set_json = {
    ],
    [
     "tambapaṇṇi",
-    "nt",
+    "fem",
     "Sri Lanka; lit. with copper leaves; (comm) with copper hands",
     "✔"
    ],
@@ -23269,6 +23275,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "devila",
+    "masc",
+    "name of an ascetic; lit. divine",
+    "✔"
+   ],
+   [
     "nanda 2",
     "masc",
     "name of an ascetic; Nanda Vaccha; lit. happy",
@@ -23523,7 +23535,7 @@ var family_set_json = {
    [
     "sañjaya 1",
     "masc",
-    "name of a ascetic teacher; lit. victory",
+    "name of a ascetic teacher; Sañjaya Belaṭṭhaputta; lit. victory",
     "✔"
    ],
    [
@@ -23605,7 +23617,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 86
+  "count": 87
  },
  "names of deities": {
   "data": [
@@ -24845,6 +24857,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "kokila",
+    "masc",
+    "cuckoo",
+    "✔"
+   ],
+   [
     "kokilā",
     "fem",
     "female cuckoo",
@@ -25223,7 +25241,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 81
+  "count": 82
  },
  "names of royalty": {
   "data": [
@@ -25781,7 +25799,7 @@ var family_set_json = {
    [
     "sañjaya 1",
     "masc",
-    "name of a ascetic teacher; lit. victory",
+    "name of a ascetic teacher; Sañjaya Belaṭṭhaputta; lit. victory",
     "✔"
    ]
   ],
@@ -29783,7 +29801,7 @@ var family_set_json = {
    [
     "haliddavasana",
     "nt",
-    "name of a Koliyan town; lit. yellow clothes",
+    "name of a Koliyan town; lit. wearing yellow",
     "✔"
    ]
   ],
@@ -30249,8 +30267,8 @@ var family_set_json = {
    [
     "samantapāsādikā",
     "fem",
-    "Buddhaghosa's commentary on the Vinaya Piṭaka; lit. Making Everything Clear; All-inspiring",
-    "◑"
+    "Buddhaghosa's commentary on the Vinaya Piṭaka; lit. all-inspiring",
+    "✔"
    ],
    [
     "sammohavinodanī",
@@ -34098,7 +34116,7 @@ var family_set_json = {
    [
     "cūḷapitar",
     "masc",
-    "father's younger brother; uncle; lit. smaller father",
+    "father's younger brother; uncle; lit. small father",
     "✔"
    ],
    [
@@ -36251,8 +36269,8 @@ var family_set_json = {
    [
     "samantapāsādikā",
     "fem",
-    "Buddhaghosa's commentary on the Vinaya Piṭaka; lit. Making Everything Clear; All-inspiring",
-    "◑"
+    "Buddhaghosa's commentary on the Vinaya Piṭaka; lit. all-inspiring",
+    "✔"
    ],
    [
     "sammohavinodanī",
@@ -37387,5 +37405,16 @@ var family_set_json = {
    ]
   ],
   "count": 3
+ },
+ "seasons": {
+  "data": [
+   [
+    "sārada 1",
+    "masc",
+    "season after the rains; October to December",
+    "✔"
+   ]
+  ],
+  "count": 1
  }
 }
