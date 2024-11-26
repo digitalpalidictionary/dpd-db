@@ -5264,7 +5264,7 @@ var family_idiom_json = {
   ]
  },
  "atta1": {
-  "count": 26,
+  "count": 28,
   "data": [
    [
     "attanāva attano",
@@ -5330,6 +5330,18 @@ var family_idiom_json = {
     "atthamattano",
     "sandhi",
     "one's own good; benefit for oneself; one's own best interest",
+    "✔"
+   ],
+   [
+    "kathamattānaṃ",
+    "sandhi",
+    "how (will they affect) oneself?",
+    "✔"
+   ],
+   [
+    "kamattānaṃ",
+    "sandhi",
+    "which self? which individual?",
     "✔"
    ],
    [
@@ -22788,8 +22800,14 @@ var family_idiom_json = {
   ]
  },
  "ka1": {
-  "count": 12,
+  "count": 13,
   "data": [
+   [
+    "kamattānaṃ",
+    "sandhi",
+    "which self? which individual?",
+    "✔"
+   ],
    [
     "kamatthamanubhoti",
     "sandhi",
@@ -23360,7 +23378,7 @@ var family_idiom_json = {
   ]
  },
  "kathaṃ": {
-  "count": 15,
+  "count": 16,
   "data": [
    [
     "kathañca",
@@ -23390,6 +23408,12 @@ var family_idiom_json = {
     "kathañhi",
     "sandhi",
     "how indeed!?; why indeed!?",
+    "✔"
+   ],
+   [
+    "kathamattānaṃ",
+    "sandhi",
+    "how (will they affect) oneself?",
     "✔"
    ],
    [

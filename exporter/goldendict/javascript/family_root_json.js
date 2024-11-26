@@ -11094,7 +11094,7 @@ var family_root_json = {
    [
     "gāravatā",
     "fem",
-    "respect",
+    "respect; fact of giving weight",
     "✘"
    ],
    [
@@ -13952,19 +13952,19 @@ var family_root_json = {
    [
     "cavana 1",
     "nt",
-    "passing away; falling away",
+    "passing away; falling away; lit. causing to fall",
     "✔"
    ],
    [
     "cavana 2",
     "nt",
-    "dying; lit. falling",
+    "dying; lit. causing to fall",
     "◑"
    ],
    [
     "cavanatā",
     "fem",
-    "falling away; passing away; lit. falling state",
+    "falling away; passing away; lit. causing to fall state",
     "✔"
    ],
    [
@@ -14000,8 +14000,8 @@ var family_root_json = {
    [
     "cavitvā",
     "abs",
-    "having fallen away, having shifted",
-    "✘"
+    "having fallen; having passed away (from)",
+    "✔"
    ],
    [
     "cavitvāna",
@@ -14036,7 +14036,7 @@ var family_root_json = {
    [
     "cāvayamāna",
     "prp",
-    "causing to move down (from); taking down (from)",
+    "causing to move; making shift; taking (something) down (from something)",
     "✔"
    ],
    [
@@ -26730,7 +26730,7 @@ var family_root_json = {
    [
     "nātikkamati 2",
     "pr",
-    "(of a rule) does not transgress; lit. does not go too far",
+    "(of a rule or precept) does not transgress; lit. does not go too far",
     "✔"
    ],
    [
@@ -47211,8 +47211,8 @@ var family_root_json = {
    ],
    [
     "nhātaka 1",
-    "adj",
-    "perfected; purified; lit. who has bathed",
+    "masc",
+    "who is perfected; who is purified; lit. who has bathed",
     "✔"
    ],
    [
@@ -53533,7 +53533,7 @@ var family_root_json = {
   "root_key": "√khip 1",
   "root_family": "ni √khip",
   "root_meaning": "throw",
-  "count": 34,
+  "count": 35,
   "data": [
    [
     "anikkhitta 1",
@@ -53662,10 +53662,16 @@ var family_root_json = {
     "✘"
    ],
    [
-    "nikkhipituṃ",
+    "nikkhipituṃ 1",
     "inf",
     "to set aside; to keep; to stored; to save; lit. to throw down",
-    "◑"
+    "✔"
+   ],
+   [
+    "nikkhipituṃ 2",
+    "inf",
+    "(of a living place) to put down; to make; lit. to throw down",
+    "✔"
    ],
    [
     "nikkhipitvā 1",
@@ -55686,7 +55692,7 @@ var family_root_json = {
    [
     "anipajjitvā",
     "abs",
-    "having not laid down (under); having not rested (on)",
+    "having not laid down; having not rested (in)",
     "✔"
    ],
    [
@@ -65907,7 +65913,7 @@ var family_root_json = {
   "root_key": "√pad",
   "root_family": "anu √pad",
   "root_meaning": "go, step",
-  "count": 6,
+  "count": 7,
   "data": [
    [
     "anupajjati",
@@ -65920,6 +65926,12 @@ var family_root_json = {
     "adj",
     "sequential; consecutive",
     "✔"
+   ],
+   [
+    "anupada 2",
+    "nt",
+    "sequence; succession; series",
+    "◑"
    ],
    [
     "anupadaṃ 1",
@@ -70106,13 +70118,13 @@ var family_root_json = {
    [
     "uppanna 1",
     "pp",
-    "arisen; appeared; come into being (for); lit. gone up",
+    "arisen; appeared; come into being (in); lit. gone up",
     "✔"
    ],
    [
     "uppanna 2",
     "pp",
-    "born (in); lit. gone up",
+    "born (in); lit. gone up (from)",
     "✔"
    ],
    [
@@ -76924,8 +76936,8 @@ var family_root_json = {
    [
     "pacci",
     "aor",
-    "was cooked, suffered",
-    "✘"
+    "was cooked; suffered (in)",
+    "✔"
    ],
    [
     "paccitvā 1",
@@ -81636,7 +81648,7 @@ var family_root_json = {
    [
     "pipāsa 1",
     "adj",
-    "thirsty; with thirst",
+    "thirsty; with thirst; lit. related to thirst",
     "✔"
    ],
    [
@@ -87030,7 +87042,7 @@ var family_root_json = {
    [
     "aparinibbuta 1",
     "pp",
-    "(of mental defilement) not completely quenched; not entirely emancipated; not completely cooled",
+    "(of mental defilement) not completely quenched; not entirely emancipated; not completely cooled; lit. not completely blown away",
     "✔"
    ],
    [
@@ -87048,43 +87060,43 @@ var family_root_json = {
    [
     "parinibbayati",
     "pr",
-    "(of fire) extinguishes; puts out; lit. causes to cool down",
+    "(of fire) extinguishes; puts out; lit. completely blows away",
     "✔"
    ],
    [
     "parinibbāti 1",
     "pr",
-    "(of an arahant) dies one's last death; attains final emancipation",
+    "(of an arahant) dies one's last death; attains final emancipation; lit. completely blows away",
     "✔"
    ],
    [
     "parinibbāti 2",
     "pr",
-    "(of mental defilement) is completely quenched; is entirely emancipated; is completely cooled",
+    "(of mental defilement) is completely quenched; is entirely emancipated; is completely cooled; lit. completely blows away",
     "◑"
    ],
    [
     "parinibbāna 1",
     "nt",
-    "(of mental defilement) complete quenching; total emancipation; complete cooling; lit. blowing away all around",
+    "(of mental defilement) complete quenching; total emancipation; complete cooling; lit. completely blowing away",
     "✔"
    ],
    [
     "parinibbāna 2",
     "nt",
-    "(of fire) complete extinguishing; total dousing; absolute quenching; lit. blowing away all around",
+    "(of fire) complete extinguishing; total dousing; absolute quenching; lit. completely blowing away",
     "◑"
    ],
    [
     "parinibbāna 3",
     "nt",
-    "(of an arahant) last death; final emancipation; lit. blowing away all around",
+    "(of an arahant) last death; final emancipation; lit. completely blowing away",
     "◑"
    ],
    [
     "parinibbānika",
     "adj",
-    "leading to complete quenching; conducive to liberation; lit. related to going out",
+    "leading to complete quenching; conducive to liberation; lit. related to completely blowing away",
     "✔"
    ],
    [
@@ -87102,43 +87114,43 @@ var family_root_json = {
    [
     "parinibbāpetar",
     "masc",
-    "(of mental defilement) extinguisher; who causes complete quenching (of)",
+    "(of mental defilement) extinguisher; who causes complete quenching (of); lit. who causes to completely blow away",
     "✔"
    ],
    [
     "parinibbāpeti 1",
     "pr",
-    "(of mental defilement) causes to be completely quenched; causes to be entirely emancipated; causes to be completely cooled",
+    "(of mental defilement) causes to be completely quenched; causes to be entirely emancipated; causes to be completely cooled; lit. causes to completely blow away",
     "✔"
    ],
    [
     "parinibbāpeti 2",
     "pr",
-    "(of fire) causes to be extinguished; makes (something) go out completely; causes (something) to cool down",
+    "(of fire) causes to be extinguished; makes (something) go out completely; causes (something) to cool down; lit. causes to completely blow away",
     "◑"
    ],
    [
     "parinibbāyati 1",
     "pr",
-    "(of mental defilement) is completely quenched; is entirely emancipated; is completely cooled",
+    "(of mental defilement) is completely quenched; is entirely emancipated; is completely cooled; lit. causes to completely blow away",
     "✔"
    ],
    [
     "parinibbāyati 2",
     "pr",
-    "(of an arahant) dies one's last death; attains final emancipation",
+    "(of an arahant) dies one's last death; attains final emancipation; lit. causes to completely blow away",
     "✔"
    ],
    [
     "parinibbāyati 3",
     "pr",
-    "(of bad behaviour) settles down; cool down; subsides",
+    "(of bad behaviour) settles down; cool down; subsides; lit. completely blows away",
     "✔"
    ],
    [
     "parinibbāyi",
     "aor",
-    "(of an arahant) died one's last death; attained final emancipation",
+    "(of an arahant) died one's last death; attained final emancipation; lit. completely blew away",
     "✔"
    ],
    [
@@ -87150,61 +87162,61 @@ var family_root_json = {
    [
     "parinibbāyī",
     "adj",
-    "who has one's last death; who attains final release; who attains final Nibbāna",
+    "who has one's last death; who attains final release; who attains final Nibbāna; lit. completely blowing away",
     "✔"
    ],
    [
     "parinibbāhiti 1",
     "fut",
-    "(of mental defilement) will be completely quenched; will be entirely emancipated; will be completely cooled",
+    "(of mental defilement) will be completely quenched; will be entirely emancipated; will be completely cooled; lit. will completely blow away",
     "✔"
    ],
    [
     "parinibbāhiti 2",
     "fut",
-    "(of fire) will be completely extinguished; will be totally doused; will be absolutely quenched",
+    "(of fire) will be completely extinguished; will be totally doused; will be absolutely quenched; lit. will completely blow away",
     "✔"
    ],
    [
     "parinibbi",
     "aor",
-    "(of an arahant) died one's last death; attained final emancipation",
+    "(of an arahant) died one's last death; attained final emancipation; lit. completely blew away",
     "✔"
    ],
    [
     "parinibbissati 1",
     "fut",
-    "(of mental defilement) will be completely quenched; will be entirely emancipated; will be completely cooled",
+    "(of mental defilement) will be completely quenched; will be entirely emancipated; will be completely cooled; lit. will completely blow away",
     "✔"
    ],
    [
     "parinibbissati 2",
     "fut",
-    "(of fire) will be extinguished; will go out completely",
+    "(of fire) will be extinguished; will go out completely; lit. will completely blow away",
     "◑"
    ],
    [
     "parinibbuta 1",
     "pp",
-    "(of mental defilement) completely quenched; entirely emancipated; completely cooled",
+    "(of mental defilement) completely quenched; entirely emancipated; completely cooled; lit. completely blown away",
     "✔"
    ],
    [
     "parinibbuta 2",
     "pp",
-    "(of fire) extinguished; put out; quenched",
+    "(of fire) extinguished; put out; quenched; lit. completely blown away",
     "◑"
    ],
    [
     "parinibbuta 3",
     "pp",
-    "(of an arahant) died one's final death; attained final Nibbāna",
+    "(of an arahant) died one's final death; attained final Nibbāna; lit. completely blown away",
     "✔"
    ],
    [
     "parinibbuta 4",
     "pp",
-    "(of bad behaviour) settled down; cooled down; subsided (wrt)",
+    "(of bad behaviour) settled down; cooled down; subsided (wrt); lit. completely blown away",
     "✔"
    ]
   ]
@@ -92946,7 +92958,7 @@ var family_root_json = {
    [
     "pasīdati 4",
     "pr",
-    "settles down; subsides; calms down; lit. settles foward",
+    "settles down; subsides; calms down (on); lit. settles forward",
     "✔"
    ],
    [
@@ -97690,7 +97702,7 @@ var family_root_json = {
    [
     "paṭibhānavant 2",
     "adj",
-    "expressing oneself spontaneously in verse; lit. having talking back quality",
+    "expressing oneself spontaneously in verse; having inspiration; lit. having talking back quality",
     "✔"
    ],
    [
@@ -111186,7 +111198,7 @@ var family_root_json = {
    [
     "subhūmi 1",
     "fem",
-    "level place; lit. having good ground",
+    "level place; good ground",
     "✔"
    ],
    [
@@ -111460,8 +111472,8 @@ var family_root_json = {
    [
     "bhāgaso",
     "ind",
-    "in parts, by portions",
-    "✘"
+    "part by part; piece by piece; section by section",
+    "✔"
    ],
    [
     "bhāgineyya",
@@ -113542,7 +113554,7 @@ var family_root_json = {
    [
     "abhinikūjita",
     "pp",
-    "resounded with (the song of birds)",
+    "resounded (with)",
     "✔"
    ]
   ]
@@ -115779,7 +115791,7 @@ var family_root_json = {
   "root_key": "√vaḍḍh",
   "root_family": "abhi √vaḍḍh",
   "root_meaning": "grow, increase",
-  "count": 6,
+  "count": 8,
   "data": [
    [
     "abhivaḍḍhati",
@@ -115816,6 +115828,18 @@ var family_root_json = {
     "pp",
     "grown, increased, outgrown",
     "✘"
+   ],
+   [
+    "abhivaḍḍhitabba",
+    "ptp",
+    "should be developed; should be advanced (to); lit. to be increased",
+    "✔"
+   ],
+   [
+    "abhivaḍḍhituṃ",
+    "inf",
+    "to increase more and more; to develop",
+    "✔"
    ]
   ]
  },
@@ -120408,7 +120432,7 @@ var family_root_json = {
    [
     "mahattatā",
     "fem",
-    "greatness; illustriousness; importance (among); lit. great state",
+    "greatness; illustriousness; importance; eminence (among); lit. great state",
     "✔"
    ],
    [
@@ -122418,7 +122442,7 @@ var family_root_json = {
    [
     "suyiṭṭha 1",
     "adj",
-    "well given; properly offered; lit. well sacrificed",
+    "well given; properly offered (to); lit. well sacrificed",
     "✔"
    ],
    [
@@ -127655,7 +127679,7 @@ var family_root_json = {
   "root_key": "√lamb",
   "root_family": "√lamb",
   "root_meaning": "hang",
-  "count": 21,
+  "count": 17,
   "data": [
    [
     "alamba 1",
@@ -127680,18 +127704,6 @@ var family_root_json = {
     "abs",
     "having not hesitated; having not held back; having not paused; lit. having not hung",
     "✔"
-   ],
-   [
-    "alābu 1",
-    "nt",
-    "bottle gourd; calabash; lit. hanging",
-    "✔"
-   ],
-   [
-    "alābu 2",
-    "masc",
-    "gourd; lit. hanging",
-    "◑"
    ],
    [
     "lamba",
@@ -127769,18 +127781,6 @@ var family_root_json = {
     "lambesi",
     "aor",
     "caused to hang or suspend",
-    "✘"
-   ],
-   [
-    "lābu 1",
-    "fem",
-    "bottle gourd; calabash",
-    "◑"
-   ],
-   [
-    "lābu 2",
-    "masc",
-    "bottle gourd; pumpkin; butternut",
     "✘"
    ]
   ]
@@ -131443,7 +131443,7 @@ var family_root_json = {
     "vattave",
     "inf",
     "to speak; to talk",
-    "◑"
+    "✔"
    ],
    [
     "vattuṃ",
@@ -146006,8 +146006,8 @@ var family_root_json = {
    [
     "saṅkilissati",
     "pr",
-    "is dirtied; is soiled; becomes impure",
-    "◑"
+    "is dirtied; is soiled; becomes impure (from)",
+    "✔"
    ],
    [
     "saṅkilissamāna",
@@ -147484,7 +147484,7 @@ var family_root_json = {
    [
     "sañña",
     "adj",
-    "perceiving; regarding (as); with perception",
+    "perceiving; having perception; regarding (as)",
     "✔"
    ],
    [
@@ -151944,7 +151944,7 @@ var family_root_json = {
    [
     "susamūhata",
     "adj",
-    "completely removed; totally eradicated; lit. well killed up together",
+    "completely removed; totally eradicated; thoroughly annihilated; lit. well killed up together",
     "✔"
    ],
    [
@@ -155903,7 +155903,7 @@ var family_root_json = {
     "saṃvidhāna",
     "nt",
     "arranging; organising; planning",
-    "◑"
+    "✔"
    ],
    [
     "saṃvidhāya",
@@ -158714,7 +158714,7 @@ var family_root_json = {
    [
     "sukhatara",
     "adj",
-    "more comfortable; more pleasant",
+    "more comfortable; more pleasant (than)",
     "✔"
    ],
    [
@@ -159577,7 +159577,7 @@ var family_root_json = {
   "root_key": "√sev",
   "root_family": "√sev",
   "root_meaning": "serve, associate",
-  "count": 42,
+  "count": 43,
   "data": [
    [
     "asevanā",
@@ -159662,6 +159662,12 @@ var family_root_json = {
     "nt",
     "use of",
     "✘"
+   ],
+   [
+    "sevana 4",
+    "adj",
+    "associating (with); connecting (with); interacting (with)",
+    "✔"
    ],
    [
     "sevanā 1",
@@ -172706,7 +172712,7 @@ var family_root_json = {
    [
     "upāgami 2",
     "aor",
-    "experienced; lit. approached",
+    "experienced; arrived at (a state or condition); lit. approached",
     "✔"
    ]
   ]
@@ -174732,8 +174738,8 @@ var family_root_json = {
    [
     "ūhadati",
     "pr",
-    "defecated (on)",
-    "◑"
+    "defecates (on)",
+    "✔"
    ],
    [
     "ūhadi",
@@ -177875,6 +177881,50 @@ var family_root_json = {
    ]
   ]
  },
+ "√guṇṭh √guṇṭh": {
+  "root_key": "√guṇṭh",
+  "root_family": "√guṇṭh",
+  "root_meaning": "enclose, envelope",
+  "count": 6,
+  "data": [
+   [
+    "kuṇṭhita 2.1",
+    "pp",
+    "enveloped (with); covered (in)",
+    "✔"
+   ],
+   [
+    "guṇṭhika",
+    "adj",
+    "wrapped; enveloped",
+    "✔"
+   ],
+   [
+    "guṇṭhikā",
+    "fem",
+    "ball of strings",
+    "✘"
+   ],
+   [
+    "guṇṭhita",
+    "pp",
+    "covered; encased; enveloped",
+    "◑"
+   ],
+   [
+    "guṇṭheti",
+    "pr",
+    "wraps, covers, hides",
+    "✘"
+   ],
+   [
+    "guṇṭhesi",
+    "aor",
+    "wrapped, covered, hid",
+    "✘"
+   ]
+  ]
+ },
  "√kuṇḍ √kuṇḍ": {
   "root_key": "√kuṇḍ",
   "root_family": "√kuṇḍ",
@@ -179371,44 +179421,6 @@ var family_root_json = {
    ]
   ]
  },
- "√guṇṭh √guṇṭh": {
-  "root_key": "√guṇṭh",
-  "root_family": "√guṇṭh",
-  "root_meaning": "enclose, envelope",
-  "count": 5,
-  "data": [
-   [
-    "guṇṭhika",
-    "adj",
-    "wrapped; enveloped",
-    "✔"
-   ],
-   [
-    "guṇṭhikā",
-    "fem",
-    "ball of strings",
-    "✘"
-   ],
-   [
-    "guṇṭhita",
-    "pp",
-    "covered; encased; enveloped",
-    "◑"
-   ],
-   [
-    "guṇṭheti",
-    "pr",
-    "wraps, covers, hides",
-    "✘"
-   ],
-   [
-    "guṇṭhesi",
-    "aor",
-    "wrapped, covered, hid",
-    "✘"
-   ]
-  ]
- },
  "√guḷ √guḷ": {
   "root_key": "√guḷ",
   "root_family": "√guḷ",
@@ -179719,7 +179731,7 @@ var family_root_json = {
   "root_key": "√ghas",
   "root_family": "√ghas",
   "root_meaning": "eat",
-  "count": 13,
+  "count": 14,
   "data": [
    [
     "ghasa",
@@ -179767,6 +179779,12 @@ var family_root_json = {
     "ghāsa",
     "masc",
     "food; fodder",
+    "✔"
+   ],
+   [
+    "ghāsitabba",
+    "ptp",
+    "edible; able to be eaten; lit. to be eaten",
     "✔"
    ],
    [
@@ -191479,7 +191497,7 @@ var family_root_json = {
     "paccupaṭṭhātabba",
     "ptp",
     "attended (to); taken care (of); looked after; taken responsibility (for); lit. to cause to be stood near",
-    "◑"
+    "✔"
    ],
    [
     "paccupaṭṭhāti 1",
@@ -200835,7 +200853,7 @@ var family_root_json = {
     "pavibhajanta",
     "prp",
     "analysing; dissecting",
-    "◑"
+    "✔"
    ],
    [
     "pavibhajja",
@@ -210177,12 +210195,18 @@ var family_root_json = {
   "root_key": "√pad",
   "root_family": "vi pati √pad",
   "root_meaning": "go, step",
-  "count": 8,
+  "count": 9,
   "data": [
    [
     "vippaṭipajjati",
     "pr",
     "does wrong (to); sins (against); mistreats; lit. goes wrong",
+    "✔"
+   ],
+   [
+    "vippaṭipajjana",
+    "nt",
+    "doing wrong (to); sinning (against); mistreating; lit. goes wrong",
     "✔"
    ],
    [
@@ -214469,7 +214493,7 @@ var family_root_json = {
     "samakkami",
     "aor",
     "passed on (to); moved (to); lit. went together",
-    "◑"
+    "✔"
    ]
   ]
  },

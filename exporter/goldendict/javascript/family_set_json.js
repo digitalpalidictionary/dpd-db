@@ -3883,6 +3883,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "rakāra",
+    "masc",
+    "(gram) letter r; 35th letter of the alphabet; retroflex semi-vowel",
+    "✔"
+   ],
+   [
     "rassa 2",
     "adj",
     "(gram) short; brief",
@@ -4957,7 +4963,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 798
+  "count": 799
  },
  "prefixes": {
   "data": [
@@ -24983,6 +24989,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "tittirī",
+    "fem",
+    "partridge",
+    "✔"
+   ],
+   [
     "dīpi",
     "masc",
     "leopard; panther",
@@ -25241,7 +25253,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 82
+  "count": 83
  },
  "names of royalty": {
   "data": [
@@ -26884,7 +26896,7 @@ var family_set_json = {
     "lābu 1",
     "fem",
     "bottle gourd; calabash",
-    "◑"
+    "✔"
    ],
    [
     "vacatta",
@@ -35779,7 +35791,7 @@ var family_set_json = {
     "tikanipāta 1",
     "masc",
     "Book 3 of the Aṅguttara Nikāya; Book of Threes",
-    "◑"
+    "✔"
    ],
    [
     "sattakanipāta 4",
@@ -37336,6 +37348,17 @@ var family_set_json = {
    ]
   ],
   "count": 3
+ },
+ "vaggas of the Aṅguttara Nikāya 3": {
+  "data": [
+   [
+    "mahāvagga 05",
+    "masc",
+    "Chapter 7 of Tikanipāta, Aṅguttara Nikāya 3.62-71",
+    "✔"
+   ]
+  ],
+  "count": 1
  },
  "vaggas of the Saṃyutta Nikāya 4": {
   "data": [

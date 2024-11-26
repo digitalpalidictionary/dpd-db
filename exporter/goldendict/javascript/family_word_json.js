@@ -8770,7 +8770,7 @@ var family_word_json = {
     "ayyiraka",
     "masc",
     "young gentleman; young master",
-    "◑"
+    "✔"
    ],
    [
     "ayye",
@@ -10309,7 +10309,7 @@ var family_word_json = {
    [
     "ekacca 3",
     "adj",
-    "part of; partial",
+    "part of; partial; in part",
     "✔"
    ],
    [
@@ -15117,6 +15117,35 @@ var family_word_json = {
    ]
   ],
   "count": 3
+ },
+ "alābu": {
+  "data": [
+   [
+    "alābu 1",
+    "nt",
+    "bottle gourd; calabash; lit. hanging",
+    "✔"
+   ],
+   [
+    "alābu 2",
+    "masc",
+    "gourd; lit. hanging",
+    "◑"
+   ],
+   [
+    "lābu 1",
+    "fem",
+    "bottle gourd; calabash",
+    "✔"
+   ],
+   [
+    "lābu 2",
+    "masc",
+    "bottle gourd; calabash",
+    "✔"
+   ]
+  ],
+  "count": 4
  },
  "lāmaka": {
   "data": [
