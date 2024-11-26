@@ -149,7 +149,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ikkh	1	a	see, mark	√īkṣ	1	see	upa pari √ikkh	upaparīkṣ	upaparīkṣaṇa, upaparīkṣat, upaparīkṣate, upaparīkṣā, upaparīkṣitavya, upaparīkṣitvā, upaparīkṣin, na + upaparīkṣat
 √ikkh	1	a	see, mark	√īkṣ	1	see	pa √ikkh	prekṣ	prekṣaṇa, prekṣat, prekṣate, prekṣamāṇa, prekṣayati, prekṣayitvā, prekṣā, prekṣita, prekṣitavya, prekṣitum, prekṣitvā
 √ikkh	1	a	see, mark	√īkṣ	1	see	pati √ikkh	pratīkṣ	pratīkṣat
-√ikkh	1	a	see, mark	√īkṣ	1	see	pati ava √ikkh	pratyavekṣ	apratyavekṣaṇā, apratyavekṣita, apratyavekṣitvā, prati, pratyavekṣaṇa, pratyavekṣaṇā, pratyavekṣat, pratyavekṣate, pratyavekṣamāṇa, pratyavekṣita, pratyavekṣitavya, pratyavekṣitum
+√ikkh	1	a	see, mark	√īkṣ	1	see	pati ava √ikkh	pratyavekṣ	apratyavekṣaṇā, apratyavekṣita, apratyavekṣitvā, prati, pratyavekṣaṇa, pratyavekṣaṇā, pratyavekṣat, pratyavekṣate, pratyavekṣamāṇa, pratyavekṣita, pratyavekṣitavya, pratyavekṣitum, pratyavekṣitvā
 √ikkh	1	a	see, mark	√īkṣ	1	see	pati upa √ikkh	-	na + prati + upekṣaṇa
 √ikkh	1	a	see, mark	√īkṣ	1	see	pari √ikkh	parīkṣ	parīkṣaka, parīkṣā, parīkṣita
 √ikkh	1	a	see, mark	√īkṣ	1	see	vi pa √ikkh	viprekṣ	viprekṣamāṇa
@@ -1501,11 +1501,11 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √nam	1	a	bend	√nam	1	bend, bow	ni √nam	avanam	avanāma, na + nirṇāma, nimna
 √nam	1	a	bend	√nam	1	bend, bow	nī √nam	nirṇam	+ nāmita, nirṇamayati, nirṇāmayitvā
 √nam	1	a	bend	√nam	1	bend, bow	pa √nam	praṇam	na + pranāmayat, praṇamati, praṇamana, praṇamayitavya, praṇamayitum, praṇamita, praṇamya, praṇāma, praṇāmayat, praṇāmayitvā, pranāmayat, pranāmayati
-√nam	1	a	bend	√nam	1	bend, bow	pa ava √nam		poṇia, pravaṇa
-√nam	1	*e	bend	√nam	1	bend, bow	pati pa √nam		prati + praṇamana, prati + praṇāmayitvā, prati + pranamayitvā, prati + pranāmayati
+√nam	1	a	bend	√nam	1	bend, bow	pa ava √nam	avanam	poṇia, pravaṇa
+√nam	1	*e	bend	√nam	1	bend, bow	pati pa √nam	praṇam	prati + praṇamana, prati + praṇāmayitvā, prati + pranamayitvā, prati + pranāmayati
 √nam	1	a	bend	√nam	1	bend, bow	pari √nam	pariṇam	+ nāmita, na + pariṇata, pari + anaṃsīt, pariṇata, pariṇamayitum, pariṇāma, pariṇāmayati, pariṇāmayitvā, pariṇāmin
 √nam	1	a	bend	√nam	1	bend, bow	vi √nam	vinam	vainateya < vinatā, vinatā, vinamyate, vināma, vināmayati, vināmita, vināmya
-√nam	1	*aya	bend	√nam	1	bend, bow	vi ati √nam		+ nāmita, atināmayati, vyatinamati (bsk), vyatinayati, atināmayitvā, vyatinam (bsk), vyatinamati (bsk), vyatināmayamāna (bsk)
+√nam	1	*aya	bend	√nam	1	bend, bow	vi ati √nam	atinam	+ nāmita, atināmayati, vyatinamati (bsk), vyatinayati, atināmayitvā, vyatinam (bsk), vyatinamati (bsk), vyatināmayamāna (bsk)
 √nam	1	a	bend	√nam	1	bend, bow	vi pari √nam	vipariṇam	avipariṇāma, vipariṇata, vipariṇāma, vipariṇāmin, viparināmita
 √nam	1	*e	bend	√nam	1	bend, bow	saṃ √nam	saṃnam	saṃnamayitvā, saṃnāmayati
 √nam	1	*aya	bend	√nam	1	bend, bow	saṃ ud √nam	samunnam	samunnāmayat
@@ -1652,7 +1652,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √pā 1	1	a	drink	√pā	1	drink	pa √pā	prapā	pra, prapīti
 √pā 2	1	a	protect, guard	√pā	2	protect	√pā	pā	pa, pāti, pāli
 √pāy	1	a	increase	√pyai √pyāy √pyā	1, 4	fill up	ā √pāy		āpyāyati, āpyāyitum
-√pāl	8	*e	protect	√pāl	10	watch	√pāl	pāl	pāl, pāla, pālaka, pālayat, pālayati, pālikā
+√pāl	8	*e	protect	√pāl	10	watch	√pāl	pāl	pāla, pālaka, pālayat, pālayati, pālikā
 √pāl	8	*e	protect	√pāl	10	watch	anu √pāl	anupāl	
 √pāl	8	*e	protect	√pāl	10	watch	abhi √pāl	pāl	
 √pāl	8	*e	protect	√pāl	10	watch	pari √pāl	pāl	paripālana

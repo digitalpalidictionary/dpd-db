@@ -34589,7 +34589,7 @@ var family_set_json = {
    [
     "sassara",
     "masc",
-    "rustling sound",
+    "rustling sound; crinkling",
     "✔"
    ],
    [

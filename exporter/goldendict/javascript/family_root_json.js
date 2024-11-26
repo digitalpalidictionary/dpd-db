@@ -50480,7 +50480,7 @@ var family_root_json = {
    [
     "ārādhikā",
     "adj",
-    "successful; accomplished",
+    "successful; accomplished; lit. causing to succeed",
     "✔"
    ],
    [
@@ -142465,7 +142465,7 @@ var family_root_json = {
   "root_key": "√var 1",
   "root_family": "vi √var",
   "root_meaning": "cover, dress, restrain",
-  "count": 35,
+  "count": 36,
   "data": [
    [
     "avivaṭa",
@@ -142550,6 +142550,12 @@ var family_root_json = {
     "nt",
     "divorce; separation",
     "✘"
+   ],
+   [
+    "vivaraṇa 3",
+    "nt",
+    "explaining; clarifying; making clear",
+    "◑"
    ],
    [
     "vivarati 1",
@@ -149792,7 +149798,7 @@ var family_root_json = {
    [
     "asannipāta",
     "masc",
-    "non-assembly; non-congregation; not meeting; lit. not falling together",
+    "non-assembly; non-congregation; not meeting; lit. not falling down together",
     "◑"
    ],
    [
@@ -149804,7 +149810,7 @@ var family_root_json = {
    [
     "sannipatati",
     "pr",
-    "gathers together; assembles; throngs; lit. falls together",
+    "gathers together; assembles; throngs; lit. falls down together",
     "✔"
    ],
    [
@@ -149816,67 +149822,67 @@ var family_root_json = {
    [
     "sannipatanta",
     "prp",
-    "gathering together; assembling; lit. falling together",
+    "gathering together; assembling; lit. falling down together",
     "✔"
    ],
    [
     "sannipati",
     "aor",
-    "gathered together; assembled; lit. fell together",
+    "gathered together; assembled; lit. fell down together",
     "✔"
    ],
    [
     "sannipatita 1",
     "pp",
-    "gathered together; assembled; lit. fallen together",
+    "gathered together; assembled; lit. fallen down together",
     "✔"
    ],
    [
     "sannipatita 2",
     "pp",
-    "come together (sexually); lit. fallen together",
+    "come together (sexually); lit. fallen down together",
     "✔"
    ],
    [
     "sannipatitabba",
     "ptp",
-    "should be gathered together; should be assembled; lit. to be fallen together",
+    "should be gathered together; should be assembled; lit. to be fallen down together",
     "✔"
    ],
    [
     "sannipatitvā",
     "abs",
-    "having gathered together; having assembled; having met; lit. having fallen together",
+    "having gathered together; having assembled; having met; lit. having fallen down together",
     "✔"
    ],
    [
     "sannipāta 1",
     "masc",
-    "assembly; congregation; gathering; lit. falling together",
+    "assembly; congregation; gathering; lit. falling down together",
     "✔"
    ],
    [
     "sannipāta 2",
     "masc",
-    "arrangement; organisation; lit. falling together",
+    "arrangement; organisation; lit. falling down together",
     "✔"
    ],
    [
     "sannipāta 3",
     "masc",
-    "connection; combination; gathering; lit. falling together",
+    "connection; combination; gathering; lit. falling down together",
     "✔"
    ],
    [
     "sannipāta 4",
     "masc",
-    "illness produced by combination of the three humours; lit. falling together",
+    "illness produced by combination of the three humours; lit. falling down together",
     "✔"
    ],
    [
     "sannipāta 5",
     "masc",
-    "concurrence; union; lit. falling together",
+    "concurrence; union; lit. falling down together",
     "✔"
    ],
    [
@@ -149888,31 +149894,31 @@ var family_root_json = {
    [
     "sannipātāpetvā",
     "abs",
-    "having gathered together; having assembled; having convoked; lit. having caused to fall together",
+    "having gathered together; having assembled; having convoked; lit. having caused to fall down together",
     "◑"
    ],
    [
     "sannipātika",
     "adj",
-    "resulting from combination of the three humours; lit. related to falling together",
+    "resulting from combination of the three humours; lit. related to falling down together",
     "✔"
    ],
    [
     "sannipātita",
     "pp",
-    "assembled; gathered together; lit. caused to fall together",
+    "assembled; gathered together; lit. caused to fall down together",
     "✔"
    ],
    [
     "sannipāteti",
     "pr",
-    "unites; assembles; convokes; makes gather together; lit. causes to fall together",
+    "unites; assembles; convokes; makes gather together; lit. causes to fall down together",
     "✔"
    ],
    [
     "sannipātetvā",
     "abs",
-    "having gathered together; having assembled; having convoked; lit. having caused to fall together",
+    "having gathered together; having assembled; having convoked; lit. having caused to fall down together",
     "✔"
    ],
    [
@@ -196974,7 +196980,7 @@ var family_root_json = {
    [
     "parikkhāra 4",
     "masc",
-    "equipment",
+    "equipment; utensil; everyday item",
     "✘"
    ],
    [
@@ -200070,7 +200076,7 @@ var family_root_json = {
    [
     "palobheti",
     "pr",
-    "seduces; entices; lures",
+    "seduces; entices; lures; lit. causes to fool",
     "✔"
    ],
    [
@@ -213522,13 +213528,13 @@ var family_root_json = {
    [
     "vītināmayamāna",
     "prp",
-    "passing; exceeding; going all the way around",
+    "passing; exceeding; going all the way around; lit. causing to bend past",
     "✔"
    ],
    [
     "vītināmayi",
     "aor",
-    "(of time) spent; waited",
+    "(of time) spent; waited; lit. caused to bend past",
     "◑"
    ],
    [
@@ -213546,13 +213552,13 @@ var family_root_json = {
    [
     "vītināmeti 1",
     "pr",
-    "(of time) spends; passes",
+    "(of time) spends; passes; lit. causes to bend past",
     "✔"
    ],
    [
     "vītināmeti 2",
     "pr",
-    "passes; exceeds",
+    "passes; exceeds; lit. causes to bend past",
     "✔"
    ],
    [
@@ -213564,7 +213570,7 @@ var family_root_json = {
    [
     "vītināmetvā 1",
     "abs",
-    "(of time) having spent",
+    "(of time) having spent; lit. having caused to bend past",
     "✔"
    ],
    [
@@ -213582,7 +213588,7 @@ var family_root_json = {
    [
     "vītināmesi 1",
     "aor",
-    "(of time) spent",
+    "(of time) spent; passed; lit. caused to bend past",
     "✔"
    ],
    [
