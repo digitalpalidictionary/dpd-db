@@ -136,50 +136,72 @@ def update_notes():
         # db_session.commit()
 
 
-def update_column_for_some_criteria():
+def update_column_for_some_criteria(source_value):
     # Query the database to find the rows that match the conditions
-    rows_to_update = db_session.query(DpdHeadword, SBS).join(
-        SBS, DpdHeadword.id == SBS.id
-    ).filter(
-        and_(
+    rows_to_update_sbs = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs)).outerjoin(SBS).filter(
             or_(
-                DpdHeadword.source_1.contains("PAT"),
-                DpdHeadword.source_2.contains("PAT"),
-                SBS.sbs_source_1.contains("PAT"),
-                SBS.sbs_source_2.contains("PAT"),
-                SBS.sbs_source_3.contains("PAT"),
-                SBS.sbs_source_4.contains("PAT"),
+                SBS.sbs_source_1 == source_value,
+                SBS.sbs_source_2 == source_value,
+                SBS.sbs_source_3 == source_value,
+                SBS.sbs_source_4 == source_value,
             ),
-            not_(
-                or_(
-                    DpdHeadword.source_1.contains("PK"),
-                    DpdHeadword.source_2.contains("PK"),
-                    SBS.sbs_source_1.contains("PK"),
-                    SBS.sbs_source_2.contains("PK"),
-                    SBS.sbs_source_3.contains("PK"),
-                    SBS.sbs_source_4.contains("PK"),
-                )
-            )
-        )
     ).all()
 
-    count = 0
+    # Get the IDs of rows_to_update_sbs
+    ids_to_exclude = [row.id for row in rows_to_update_sbs]
 
-    for __word__, sbs in rows_to_update:
-        old_value = sbs.sbs_patimokkha
-        if old_value != "pat":
-            sbs.sbs_patimokkha = "pat"
 
-            console.print(f"[bold bright_yellow]{__word__.id} {__word__.lemma_1} SBS.sbs_patimokkha:")
-            print()
-            print(f"{old_value}")
-            print()
-            print(f"{sbs.sbs_patimokkha}")
-            print()
+    rows_to_update = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs)).outerjoin(SBS).filter(
+            and_(
+                not_(DpdHeadword.id.in_(ids_to_exclude)),
+                or_(
+                    DpdHeadword.source_1 == source_value,
+                    DpdHeadword.source_2 == source_value,
+                ),
+            ),
+    ).all()
 
-            count += 1
+    count_changed = 0
+    count_changed_sbs = 0
+    count_added = 0
+    count_sbs_patimokkha = 0
 
-    console.print(f"[bold bright_green]Total count of occurrences: {count}")
+    for __word__ in rows_to_update_sbs:
+        old_value = __word__.sbs.sbs_patimokkha
+        if not old_value:
+            __word__.sbs.sbs_patimokkha = "vib"
+
+            console.print(f"[bold bright_yellow]{__word__.id} {__word__.lemma_1} {__word__.sbs.sbs_patimokkha}")
+
+            count_changed_sbs += 1
+        else:
+            count_sbs_patimokkha += 1
+
+    for __word__ in rows_to_update:
+        if not __word__.sbs:
+            # If SBS row does not exist, create a new one
+            __word__.sbs = SBS(id=__word__.id, sbs_patimokkha="vib_")
+            console.print(f"[bold bright_yellow]Added {__word__.id} {__word__.lemma_1} {__word__.sbs.sbs_patimokkha}")
+            count_added += 1
+        else:
+            old_value = __word__.sbs.sbs_patimokkha
+            if not old_value:
+                __word__.sbs.sbs_patimokkha = "vib_"
+
+                console.print(f"[bold bright_yellow]{__word__.id} {__word__.lemma_1} {__word__.sbs.sbs_patimokkha}")
+
+                count_changed += 1
+            else:
+                count_sbs_patimokkha += 1
+
+
+
+    console.print(f"[bold bright_green]Total rows fit criteria sbs: {len(rows_to_update_sbs)}")
+    console.print(f"[bold bright_green]Total rows fit criteria: {len(rows_to_update)}")
+    console.print(f"[bold bright_green]Total count of already has: {count_sbs_patimokkha}")
+    console.print(f"[bold bright_green]Total count of changed: {count_changed}")
+    console.print(f"[bold bright_green]Total count of changed sbs: {count_changed_sbs}")
+    console.print(f"[bold bright_green]Total count of added: {count_added}")
 
     # db_session.commit()
 
@@ -198,4 +220,4 @@ value_to_update = "(грам) "
 
 # update_notes()
 
-update_column_for_some_criteria()
+update_column_for_some_criteria("VIN1.1.4")

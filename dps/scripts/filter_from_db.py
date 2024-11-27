@@ -117,7 +117,7 @@ def filter_and_save_txt():
     db = db_session.query(DpdHeadword).outerjoin(
     SBS, DpdHeadword.id == SBS.id
         ).filter(
-            SBS.sbs_patimokkha == "pat",
+            SBS.sbs_patimokkha == "vib",
             DpdHeadword.compound_type != "",
             DpdHeadword.grammar.like('%, comp%'),
         ).all()

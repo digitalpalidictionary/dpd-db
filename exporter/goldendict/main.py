@@ -8,13 +8,13 @@ import pickle
 from sqlalchemy.orm import Session
 from typing import List
 
-from export_dpd import generate_dpd_html
-from export_roots import generate_root_html
-from export_epd import generate_epd_html
-from export_variant_spelling import generate_variant_spelling_html
-from export_help import generate_help_html
+from exporter.goldendict.export_dpd import generate_dpd_html
+from exporter.goldendict.export_roots import generate_root_html
+from exporter.goldendict.export_epd import generate_epd_html
+from exporter.goldendict.export_variant_spelling import generate_variant_spelling_html
+from exporter.goldendict.export_help import generate_help_html
 
-from helpers import make_roots_count_dict
+from exporter.goldendict.helpers import make_roots_count_dict
 
 from db.db_helpers import get_db_session
 from exporter.goldendict.ru_components.tools.paths_ru import RuPaths

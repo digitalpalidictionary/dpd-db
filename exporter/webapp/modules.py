@@ -21,6 +21,8 @@ class HeadwordData():
         self.ru_pos = ru_replace_abbreviations(i.pos, "gram")
         self.ru_plus_case = ru_replace_abbreviations(i.plus_case, "gram")
         self.i = self.convert_newlines(i)
+        self.i.sbs = self.convert_newlines(i.sbs)
+        self.i.ru = self.convert_newlines(i.ru)
         self.fc = fc
         self.fi = fi
         self.fs = fs

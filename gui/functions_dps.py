@@ -288,7 +288,7 @@ def translate_with_openai(dpspth, meaning_in, lemma_1, grammar, pos, notes, sugg
 
     # Choosing sentence
     sentence = main_sentence if number == "0" else [ex_1, ex_2, ex_3, ex_4][int(number) - 1]
-    print(f"Sentence {sentence}")
+    # print(f"Sentence {sentence}")
 
     if mode == "meaning":
         messages = generate_messages_for_meaning(lemma_1, grammar, meaning, sentence, translation_example, synonyms)
@@ -298,6 +298,8 @@ def translate_with_openai(dpspth, meaning_in, lemma_1, grammar, pos, notes, sugg
         messages = generate_messages_for_english_meaning(lemma_1, grammar, sentence)
     else:
         raise ValueError(f"Invalid mode: {mode}")
+    # print(f"messages {messages}")
+
 
     # Lazy initialization of OpenAI client
     client = get_openai_client()

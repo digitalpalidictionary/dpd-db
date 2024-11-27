@@ -268,31 +268,36 @@ def run_individual_internal_tests(
 
         test_results = {}
 
-        for x, criterion in enumerate(search_criteria, start=1):
-            if not criterion[1]:
-                test_results[f"test{x}"] = True
-            elif criterion[1] == "equals":
-                test_results[f"test{x}"] = values[criterion[0]] == criterion[2]
-            elif criterion[1] == "does not equal":
-                test_results[f"test{x}"] = values[criterion[0]] != criterion[2]
-            elif criterion[1] == "contains":
-                test_results[f"test{x}"] = re.findall(
-                    criterion[2], values[criterion[0]]) != []
-            elif criterion[1] == "does not contain":
-                test_results[f"test{x}"] = re.findall(
-                    criterion[2], values[criterion[0]]) == []
-            elif criterion[1] == "contains word":
-                test_results[f"test{x}"] = re.findall(
-                    fr"\b{criterion[2]}\b", values[criterion[0]]) != []
-            elif criterion[1] == "does not contain word":
-                test_results[f"test{x}"] = re.findall(
-                    fr"\b{criterion[2]}\b", values[criterion[0]]) == []
-            elif criterion[1] == "is empty":
-                test_results[f"test{x}"] = values[criterion[0]] == ""
-            elif criterion[1] == "is not empty":
-                test_results[f"test{x}"] = values[criterion[0]] != ""
-            else:
-                print(f"[red]search_{x} error")
+        try:
+            for x, criterion in enumerate(search_criteria, start=1):
+                if not criterion[1]:
+                    test_results[f"test{x}"] = True
+                elif criterion[1] == "equals":
+                    test_results[f"test{x}"] = values[criterion[0]] == criterion[2]
+                elif criterion[1] == "does not equal":
+                    test_results[f"test{x}"] = values[criterion[0]] != criterion[2]
+                elif criterion[1] == "contains":
+                    test_results[f"test{x}"] = re.findall(
+                        criterion[2], values[criterion[0]]) != []
+                elif criterion[1] == "does not contain":
+                    test_results[f"test{x}"] = re.findall(
+                        criterion[2], values[criterion[0]]) == []
+                elif criterion[1] == "contains word":
+                    test_results[f"test{x}"] = re.findall(
+                        fr"\b{criterion[2]}\b", values[criterion[0]]) != []
+                elif criterion[1] == "does not contain word":
+                    test_results[f"test{x}"] = re.findall(
+                        fr"\b{criterion[2]}\b", values[criterion[0]]) == []
+                elif criterion[1] == "is empty":
+                    test_results[f"test{x}"] = values[criterion[0]] == ""
+                elif criterion[1] == "is not empty":
+                    test_results[f"test{x}"] = values[criterion[0]] != ""
+                else:
+                    print(f"[red]search_{x} error")
+        except Exception as e:
+            window["messages"].update(
+                f"{e}", text_color="red")
+            return flags_dps
 
         message = f"{counter+2}. {t.test_name}"
 

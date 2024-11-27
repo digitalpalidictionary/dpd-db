@@ -65,7 +65,7 @@ while true; do
             # build dpd.db from scratch using backup_tsv
             scripts/build/db_rebuild_from_tsv.py
             db/bold_definitions/update_bold_definitions_db.py
-            scripts/add/add_additions_to_db.py
+            dps/scripts/dps_add_additions_to_db.py
             git checkout origin/main -- gui/additions.tsv
             scripts/bash/generate_components.sh
             # After setting db_rebuild to "yes" in db_rebuild_from_tsv.py, we change it back after the bash is done.

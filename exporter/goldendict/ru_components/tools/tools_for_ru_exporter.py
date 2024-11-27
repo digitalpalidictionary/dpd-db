@@ -241,6 +241,8 @@ def populate_set_ru_and_check_errors(sets_dict):
         else:
             errors_list.append(sf)
             print(f"[bright_red]ERROR: No corresponding set_ru found for set: {sf}")
+    if errors_list == []:
+        print("[green]All sets have russian equivalents")
     return errors_list
 
 

@@ -150,7 +150,7 @@ def generate_messages_for_meaning(lemma_1, grammar, meaning, sentence, translati
         user_content += f"\n- Match this example format: {translation_example}"
 
     if synonyms:
-        user_content = user_content.replace("Translate the English definition of the Pali term into Russian", "Provide at least nine distinct Russian translations for the English definition of Pali term")
+        user_content = user_content.replace("Translate the English definition of the Pali term into Russian", "Provide at least nine (9) distinct Russian synonyms for the English definition of Pali term")
         
     # print(user_content)
     return [
