@@ -7020,13 +7020,19 @@ var family_word_json = {
     "✔"
    ],
    [
+    "āthabbaṇika 1",
+    "masc",
+    "reciter of the Atharva Veda; who knows the Atharva Veda",
+    "✔"
+   ],
+   [
     "āthabbana",
     "masc",
     "(what belongs to) the Atharva-veda; spell or a charm from the Atharva-veda",
     "✘"
    ]
   ],
-  "count": 5
+  "count": 6
  },
  "thusa": {
   "data": [
@@ -8911,7 +8917,7 @@ var family_word_json = {
    [
     "ādi 3",
     "nt",
-    "etc.; and so on; lit. beginning with",
+    "etc.; and so on; and so forth; lit. beginning with",
     "✔"
    ],
    [
@@ -15123,13 +15129,13 @@ var family_word_json = {
    [
     "alābu 1",
     "nt",
-    "bottle gourd; calabash; lit. hanging",
+    "bottle gourd; calabash",
     "✔"
    ],
    [
     "alābu 2",
     "masc",
-    "gourd; lit. hanging",
+    "bottle gourd; calabash",
     "◑"
    ],
    [
@@ -28941,7 +28947,7 @@ var family_word_json = {
    [
     "bindu 2",
     "adj",
-    "(of voice) dense; rich; rounded; compact; lit. drop",
+    "(of the voice) dense; rich; rounded; compact; lit. drop",
     "✔"
    ],
    [
@@ -34424,7 +34430,7 @@ var family_word_json = {
    [
     "haliddi 1",
     "fem",
-    "turmeric",
+    "turmeric; Curcuma longa",
     "✔"
    ],
    [

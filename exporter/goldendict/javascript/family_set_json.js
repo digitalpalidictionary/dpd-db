@@ -2947,6 +2947,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "pa 5.1",
+    "letter",
+    "(gram) letter p; 29th letter of the alphabet; labial consonant",
+    "◑"
+   ],
+   [
     "pakati 5",
     "fem",
     "(gram) original form; natural state; lit. natural",
@@ -4623,7 +4629,7 @@ var family_set_json = {
    [
     "sampadāna 3",
     "nt",
-    "(gram) dative case; lit. giving forward together",
+    "(gram) dative case; lit. giving on together",
     "✔"
    ],
    [
@@ -4963,7 +4969,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 799
+  "count": 800
  },
  "prefixes": {
   "data": [
@@ -8053,6 +8059,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "appamāṇavihārī",
+    "adj",
+    "living a life beyond measure; epithet of an arahant; (comm) living unlimited (by lust etc.)",
+    "✔"
+   ],
+   [
     "āsavakhīṇa",
     "adj",
     "who has destroyed the effluents; awakened; epithet of an arahant",
@@ -8074,6 +8086,12 @@ var family_set_json = {
     "katakaraṇīya",
     "adj",
     "who has done the job; who has done what needs to be done; who has fulfilled the obligation; epithet of an arahant",
+    "✔"
+   ],
+   [
+    "katakicca",
+    "adj",
+    "finished the job; done what needs to be done; epithet of an arahant",
     "✔"
    ],
    [
@@ -8257,7 +8275,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 39
+  "count": 41
  },
  "epithets of Nibbāna": {
   "data": [
@@ -13365,6 +13383,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "āthabbaṇika 1",
+    "masc",
+    "reciter of the Atharva Veda; who knows the Atharva Veda",
+    "✔"
+   ],
+   [
     "āraññika 1",
     "masc",
     "forest monk; forest dwelling ascetic",
@@ -13647,7 +13671,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 56
+  "count": 57
  },
  "suttas of the Majjhima Nikāya": {
   "data": [
@@ -25971,8 +25995,14 @@ var family_set_json = {
    [
     "alābu 1",
     "nt",
-    "bottle gourd; calabash; lit. hanging",
+    "bottle gourd; calabash",
     "✔"
+   ],
+   [
+    "alābu 2",
+    "masc",
+    "bottle gourd; calabash",
+    "◑"
    ],
    [
     "assattha 1",
@@ -26899,6 +26929,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "lābu 2",
+    "masc",
+    "bottle gourd; calabash",
+    "✔"
+   ],
+   [
     "vacatta",
     "nt",
     "white orris root or calamus",
@@ -27147,7 +27183,7 @@ var family_set_json = {
    [
     "haliddi 1",
     "fem",
-    "turmeric",
+    "turmeric; Curcuma longa",
     "✔"
    ],
    [
@@ -27163,7 +27199,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 207
+  "count": 209
  },
  "names of animals": {
   "data": [
@@ -30530,7 +30566,7 @@ var family_set_json = {
    [
     "cātumāsinī",
     "fem",
-    "full moon of the fourth month; full moon marking the transition of one season to another",
+    "full moon of the fourth month (of a season); full moon marking the transition of one season to another",
     "✔"
    ],
    [
@@ -37081,7 +37117,7 @@ var family_set_json = {
    [
     "lākhā 1",
     "fem",
-    "lac; red dye",
+    "lac; shellac; red dye obtained from insect resin",
     "✔"
    ],
    [

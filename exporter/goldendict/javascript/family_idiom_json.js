@@ -302,7 +302,7 @@ var family_idiom_json = {
    [
     "manasi katvā",
     "idiom",
-    "having paid attention; having applied the mind; lit. having made in mind",
+    "having paid attention; having applied the mind; having focused; lit. having made in mind",
     "✔"
    ],
    [
@@ -29523,7 +29523,7 @@ var family_idiom_json = {
    [
     "manasi katvā",
     "idiom",
-    "having paid attention; having applied the mind; lit. having made in mind",
+    "having paid attention; having applied the mind; having focused; lit. having made in mind",
     "✔"
    ],
    [
