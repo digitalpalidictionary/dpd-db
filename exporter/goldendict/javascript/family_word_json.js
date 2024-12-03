@@ -946,7 +946,7 @@ var family_word_json = {
    [
     "kusalī 2",
     "masc",
-    "auspicious words; favourable words; lit. good",
+    "auspicious speech; favourable words; lit. good",
     "✔"
    ],
    [
@@ -27992,7 +27992,7 @@ var family_word_json = {
    [
     "pāvaḷa",
     "masc",
-    "buttocks; rear end",
+    "buttocks; backside; posterior",
     "✔"
    ],
    [
@@ -28333,7 +28333,7 @@ var family_word_json = {
    [
     "pubbuḷaka 1",
     "nt",
-    "bubble",
+    "little bubble",
     "✔"
    ],
    [
@@ -29180,7 +29180,7 @@ var family_word_json = {
     "bhārata",
     "adj",
     "regarding the Bharata (war); of the Bharatas",
-    "✘"
+    "✔"
    ],
    [
     "bhāradha",

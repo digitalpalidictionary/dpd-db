@@ -17604,7 +17604,7 @@ var family_root_json = {
    [
     "janatā",
     "fem",
-    "people; population; generation",
+    "people; populace; population; lit. people state",
     "✔"
    ],
    [
@@ -19202,7 +19202,7 @@ var family_root_json = {
    [
     "jāniyāma",
     "opt",
-    "we may know; we could understand",
+    "we may know; we wish to understand",
     "✔"
    ],
    [
@@ -38566,7 +38566,7 @@ var family_root_json = {
  "√dhov √dhov": {
   "root_key": "√dhov",
   "root_family": "√dhov",
-  "root_meaning": "wash, rinse",
+  "root_meaning": "wash, sharpen",
   "count": 30,
   "data": [
    [
@@ -58716,7 +58716,7 @@ var family_root_json = {
    [
     "sunivattha 1",
     "adj",
-    "properly dressed; appropriately dressed",
+    "properly dressed; appropriately attired",
     "✔"
    ],
    [
@@ -109022,7 +109022,7 @@ var family_root_json = {
    [
     "sabrahmaka",
     "adj",
-    "including gods; with Brahmas",
+    "including god; with Brahma",
     "✔"
    ],
    [
@@ -117157,7 +117157,7 @@ var family_root_json = {
   "root_key": "√bhuj 1",
   "root_family": "√bhuj",
   "root_meaning": "use, eat, enjoy",
-  "count": 112,
+  "count": 113,
   "data": [
    [
     "abhuñjanta",
@@ -117448,10 +117448,16 @@ var family_root_json = {
     "✔"
    ],
    [
-    "bhuñjitvā",
+    "bhuñjitvā 1",
     "abs",
     "having eaten",
     "✔"
+   ],
+   [
+    "bhuñjitvā 2",
+    "abs",
+    "having enjoyed",
+    "✘"
    ],
    [
     "bhuñjiya",
@@ -122287,7 +122293,7 @@ var family_root_json = {
   "root_key": "√yaj",
   "root_family": "√yaj",
   "root_meaning": "honour, sacrifice",
-  "count": 35,
+  "count": 37,
   "data": [
    [
     "ayaji 1",
@@ -122320,9 +122326,15 @@ var family_root_json = {
     "✔"
    ],
    [
-    "yajati",
+    "yajati 1",
     "pr",
-    "makes a sacrifice; sacrifices; offers alms",
+    "(of animals) sacrifices; makes an offering",
+    "✔"
+   ],
+   [
+    "yajati 2",
+    "pr",
+    "makes a donation; offers alms; lit. sacrifices",
     "✔"
    ],
    [
@@ -122338,9 +122350,15 @@ var family_root_json = {
     "✔"
    ],
    [
-    "yajamāna",
+    "yajamāna 1",
     "prp",
-    "making sacrifice; sacrificing",
+    "(of animals) sacrificing; making an offering",
+    "✔"
+   ],
+   [
+    "yajamāna 2",
+    "prp",
+    "offering alms; making a donation",
     "✔"
    ],
    [
@@ -146916,7 +146934,7 @@ var family_root_json = {
    [
     "saṅgaṇhituṃ",
     "inf",
-    "to treat kindly; to support; lit. to hold together",
+    "to include; to treat kindly; to support; lit. to hold together",
     "✔"
    ],
    [
@@ -171688,7 +171706,7 @@ var family_root_json = {
    [
     "uparundhati",
     "pr",
-    "stops; ends; finishes",
+    "stops; checks; blocks",
     "✔"
    ],
    [
@@ -185879,7 +185897,7 @@ var family_root_json = {
     "nikhātuṃ",
     "inf",
     "to bury; to dig",
-    "◑"
+    "✔"
    ],
    [
     "sanikhāta",
@@ -186754,7 +186772,7 @@ var family_root_json = {
  "√dhov nī √dhov": {
   "root_key": "√dhov",
   "root_family": "nī √dhov",
-  "root_meaning": "wash, rinse",
+  "root_meaning": "wash, sharpen",
   "count": 3,
   "data": [
    [
@@ -186794,7 +186812,7 @@ var family_root_json = {
  "√dhov ni √dhov": {
   "root_key": "√dhov",
   "root_family": "ni √dhov",
-  "root_meaning": "wash, rinse",
+  "root_meaning": "wash, sharpen",
   "count": 1,
   "data": [
    [
@@ -195532,7 +195550,7 @@ var family_root_json = {
  "√dhov pa √dhov": {
   "root_key": "√dhov",
   "root_family": "pa √dhov",
-  "root_meaning": "wash, rinse",
+  "root_meaning": "wash, sharpen",
   "count": 4,
   "data": [
    [
@@ -198114,7 +198132,7 @@ var family_root_json = {
  "√dhov pari √dhov": {
   "root_key": "√dhov",
   "root_family": "pari √dhov",
-  "root_meaning": "wash, rinse",
+  "root_meaning": "wash, sharpen",
   "count": 3,
   "data": [
    [
@@ -217644,7 +217662,7 @@ var family_root_json = {
  "√dhov saṃ √dhov": {
   "root_key": "√dhov",
   "root_family": "saṃ √dhov",
-  "root_meaning": "wash, rinse",
+  "root_meaning": "wash, sharpen",
   "count": 3,
   "data": [
    [
