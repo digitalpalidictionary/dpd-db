@@ -3102,15 +3102,17 @@ a > ā"					missing
 46533	source_1	VIN1.2.1	sutta_1	sukkavissaṭṭhisikkhāpadaṃ	example_1	ārogy'atthāya moceti, sukh'atthāya moceti, bhesajj'atthāya moceti, dān'atthāya moceti, <b>puññ'atthāya</b> moceti, yaññ'atthāya moceti, sagg'atthāya moceti	missing				
 56563	sanskrit	svarga + arthāya					missing				
 56563	source_1	VIN1.2.1	sutta_1	sukkavissaṭṭhisikkhāpadaṃ	example_1	ārogy'atthāya moceti, sukh'atthāya moceti, bhesajj'atthāya moceti, dān'atthāya moceti, puññ'atthāya moceti, yaññ'atthāya moceti, <b>sagg'atthāya</b> moceti	missing				
-48476	sanskrit	bīja + arthāya					missing		
-48476	source_1	VIN1.2.1	sutta_1	sukkavissaṭṭhisikkhāpadaṃ	example_1	yaññ'atthāya moceti, sagg'atthāya moceti, <b>bīj'atthāya</b> moceti, vīmaṃs'atthāya moceti, dav'atthāya moceti, nīlaṃ moceti, pītakaṃ moceti, lohitakaṃ moceti, odātaṃ moceti	missing		
-69883	sanskrit	mīmāṃsā + arthāya					missing		
-69883	source_1	VIN1.2.1	sutta_1	sukkavissaṭṭhisikkhāpadaṃ	example_1	yaññ'atthāya moceti, sagg'atthāya moceti, bīj'atthāya moceti, <b>vīmaṃs'atthāya</b> moceti, dav'atthāya moceti, nīlaṃ moceti, pītakaṃ moceti, lohitakaṃ moceti, odātaṃ moceti	missing		
-32173	sanskrit	drava + arthāya					missing		
-32173	source_1	VIN1.2.1	sutta_1	sukkavissaṭṭhisikkhāpadaṃ	example_1	yaññ'atthāya moceti, sagg'atthāya moceti, bīj'atthāya moceti, vīmaṃs'atthāya moceti, <b>dav'atthāya</b> moceti, nīlaṃ moceti, pītakaṃ moceti, lohitakaṃ moceti, odātaṃ moceti	missing		
-32173	commentary	(VIN) <b>davatthāyā</b>'ti khiḍḍādhippāyo.					missing		
-36685	source_2	VIN1.2.1	sutta_2	sukkavissaṭṭhisikkhāpadaṃ	example_2	tena vuccati, saṅghādiseso'ti. tass'eva āpatti<b>nikāyassa</b> nāmakammaṃ adhivacanaṃ. tena'pi vuccati, saṅghādiseso'ti.	missing		
-31744	source_1	VIN1.2.1	sutta_1	sukkavissaṭṭhisikkhāpadaṃ	example_1	uccāliṅga-pāṇaka-<b>daṭṭh</b>'ūpatthambhe'ti uccāliṅgapāṇaka<b>daṭṭhena</b> aṅgajātaṃ kammaniyaṃ hoti.	missing		
-9428	source_1	VIN1.1.4	sutta_1	catutthapārājikaṃ	example_1	anabhijānan'ti <b>asantaṃ</b> abhūtaṃ asaṃvijjamānaṃ ajānanto apassanto attani kusalaṃ dhammaṃ, atthi me kusalo dhammo'ti.	it seems in AN9.11 it is ind adv asatā 1		
-9428	source_2		sutta_2		example_2		move to 1st position		
-13377	meaning_1	who afflicted with desire; who led astray by longing					noun		
+48476	sanskrit	bīja + arthāya					missing				
+48476	source_1	VIN1.2.1	sutta_1	sukkavissaṭṭhisikkhāpadaṃ	example_1	yaññ'atthāya moceti, sagg'atthāya moceti, <b>bīj'atthāya</b> moceti, vīmaṃs'atthāya moceti, dav'atthāya moceti, nīlaṃ moceti, pītakaṃ moceti, lohitakaṃ moceti, odātaṃ moceti	missing				
+69883	sanskrit	mīmāṃsā + arthāya					missing				
+69883	source_1	VIN1.2.1	sutta_1	sukkavissaṭṭhisikkhāpadaṃ	example_1	yaññ'atthāya moceti, sagg'atthāya moceti, bīj'atthāya moceti, <b>vīmaṃs'atthāya</b> moceti, dav'atthāya moceti, nīlaṃ moceti, pītakaṃ moceti, lohitakaṃ moceti, odātaṃ moceti	missing				
+32173	sanskrit	drava + arthāya					missing				
+32173	source_1	VIN1.2.1	sutta_1	sukkavissaṭṭhisikkhāpadaṃ	example_1	yaññ'atthāya moceti, sagg'atthāya moceti, bīj'atthāya moceti, vīmaṃs'atthāya moceti, <b>dav'atthāya</b> moceti, nīlaṃ moceti, pītakaṃ moceti, lohitakaṃ moceti, odātaṃ moceti	missing				
+32173	commentary	(VIN) <b>davatthāyā</b>'ti khiḍḍādhippāyo.					missing				
+36685	source_2	VIN1.2.1	sutta_2	sukkavissaṭṭhisikkhāpadaṃ	example_2	tena vuccati, saṅghādiseso'ti. tass'eva āpatti<b>nikāyassa</b> nāmakammaṃ adhivacanaṃ. tena'pi vuccati, saṅghādiseso'ti.	missing				
+31744	source_1	VIN1.2.1	sutta_1	sukkavissaṭṭhisikkhāpadaṃ	example_1	uccāliṅga-pāṇaka-<b>daṭṭh</b>'ūpatthambhe'ti uccāliṅgapāṇaka<b>daṭṭhena</b> aṅgajātaṃ kammaniyaṃ hoti.	missing				
+9428	source_1	VIN1.1.4	sutta_1	catutthapārājikaṃ	example_1	anabhijānan'ti <b>asantaṃ</b> abhūtaṃ asaṃvijjamānaṃ ajānanto apassanto attani kusalaṃ dhammaṃ, atthi me kusalo dhammo'ti.	it seems in AN9.11 it is ind adv asatā 1				
+9428	source_2		sutta_2		example_2		move to 1st position				
+13377	meaning_1	who afflicted with desire; who led astray by longing					noun				
+2442	compound_type	sattamī tappurisa	compound_construction	attakām<b>e</b> + pāricariyā			since it is attakāma 2 and due to patimokkha analisys				
+20960	meaning_1	object of pleasure; sensual pleasure; sexual pleasure					since it is a noun				
