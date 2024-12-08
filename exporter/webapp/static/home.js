@@ -205,6 +205,37 @@ function decreaseFontSize() {
 }
 
 
+function changeLanguage(lang) {
+    // Get the current URL
+    const currentUrl = window.location.href;
+    
+    // Split the URL into parts
+    const urlParts = currentUrl.split('/');
+
+    // Get the base URL (domain + protocol)
+    const baseUrl = urlParts.slice(0, 3).join('/');
+
+    // Get the path after the domain
+    let path = urlParts.slice(3).join('/');
+
+    // If the language is "en", remove "/ru" if it exists
+    if (lang === 'en') {
+      // Remove "ru" at the beginning of the path
+        path = path.replace(/^[a-z][a-z]\//, '');
+    }
+
+    // If the language is "ru", add "ru" at the beginning of the path if it's not there
+    if (lang === 'ru' && !path.startsWith('ru/')) {
+        path = `ru/${path}`;
+    }
+
+    // Construct the new URL
+    const newUrl = `${baseUrl}/${path}`;
+
+    // Redirect the user to the new URL
+    window.location.href = newUrl;
+}
+
 //// enter or click button to search 
 
 searchForm.addEventListener("submit", handleFormSubmit);
