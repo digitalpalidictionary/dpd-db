@@ -112,24 +112,33 @@ def filtering_words():
 
 
 
-def filter_and_save_txt():
+def filter_and_save_txt(source_value):
     # filtering words with sbs_patimokkha and comp
     db = db_session.query(DpdHeadword).outerjoin(
     SBS, DpdHeadword.id == SBS.id
         ).filter(
-            SBS.sbs_patimokkha == "vib",
-            DpdHeadword.compound_type != "",
-            DpdHeadword.grammar.like('%, comp%'),
+            and_(
+                SBS.sbs_patimokkha == "vib",
+                DpdHeadword.compound_type != "",
+                DpdHeadword.grammar.like('%, comp%'),
+                or_(
+                    SBS.sbs_source_1 == source_value,
+                    SBS.sbs_source_2 == source_value,
+                    SBS.sbs_source_3 == source_value,
+                    SBS.sbs_source_4 == source_value,
+                ),
+            ),
+            
         ).all()
 
     # Print the db
-    row_count =  0
-    print("Details of filtered words")
-    for word in db:
-        print(f"{word.id}, {word.lemma_1}, {word.ebt_count}")
-        row_count +=  1
+    # row_count =  0
+    # print("Details of filtered words")
+    # for word in db:
+    #     print(f"{word.id}, {word.lemma_1}, {word.ebt_count}")
+    #     row_count +=  1
 
-    print(f"Total rows that fit the filter criteria: {row_count}")
+    print(f"Total rows that fit the filter criteria: {len(db)}")
 
     # make a list of all constructions
     constructions = []
@@ -174,5 +183,5 @@ if __name__ == "__main__":
     print("filtering words for some conditions")
 
     # filtering_words()
-    filter_and_save_txt()
+    filter_and_save_txt("VIN1.2.1")
 

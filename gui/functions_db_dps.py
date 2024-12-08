@@ -24,6 +24,7 @@ from tools.pali_sort_key import pali_sort_key
 
 from gui.functions_db import make_words_to_add_list_generic
 from gui.functions_db import make_all_inflections_set
+from gui.functions import stasher
 
 from gui.functions_daily_record import daily_record_update
 
@@ -184,7 +185,6 @@ def populate_dps_tab(dpspth, values, window, dpd_word, ru_word, sbs_word):
     if values["dps_sbs_chant_pali_4"]:
         chant = values["dps_sbs_chant_pali_4"]
         update_sbs_chant(dpspth, 4, chant, "", window)
-
 
 
 # examples related in DPS TABLE
@@ -384,42 +384,47 @@ def fetch_sbs(db_session, id: int) -> Optional[SBS]:
 def dps_update_db(
     pth, db_session, values, window, dpd_word, ru_word, sbs_word) -> None:
     """Update Russian and SBS tables with DPS edits."""
-    merge = None
-    word_id = values["dps_dpd_id"]
-    if not ru_word:
-        merge = True
-        ru_word = Russian(id=dpd_word.id)
-    if not sbs_word:
-        sbs_word = SBS(id=dpd_word.id)
+    try:
+        merge = None
+        word_id = values["dps_dpd_id"]
+        if not ru_word:
+            merge = True
+            ru_word = Russian(id=dpd_word.id)
+        if not sbs_word:
+            sbs_word = SBS(id=dpd_word.id)
 
-    for value in values:
-        if value.startswith("dps_ru"):
-            attribute = value.replace("dps_", "")
-            new_value = values[value]
-            setattr(ru_word, attribute, new_value)
-        if value.startswith("dps_sbs"):
-            attribute = value.replace("dps_", "")
-            new_value = values[value]
-            setattr(sbs_word, attribute, new_value)
+        for value in values:
+            if value.startswith("dps_ru"):
+                attribute = value.replace("dps_", "")
+                new_value = values[value]
+                setattr(ru_word, attribute, new_value)
+            if value.startswith("dps_sbs"):
+                attribute = value.replace("dps_", "")
+                new_value = values[value]
+                setattr(sbs_word, attribute, new_value)
 
-    if merge:
-        db_session.merge(ru_word)
-        db_session.merge(sbs_word)
-    else:
-        db_session.add(ru_word)
-        db_session.add(sbs_word)
+        if merge:
+            db_session.merge(ru_word)
+            db_session.merge(sbs_word)
+        else:
+            db_session.add(ru_word)
+            db_session.add(sbs_word)
 
-    # Calculate the sbs_index and update the sbs_word object
-    sbs_index_value = sbs_word.calculate_index()
-    sbs_word.sbs_index = sbs_index_value  # Manually set the sbs_index
+        # Calculate the sbs_index and update the sbs_word object
+        sbs_index_value = sbs_word.calculate_index()
+        sbs_word.sbs_index = sbs_index_value  # Manually set the sbs_index
 
-    db_session.commit()
+        db_session.commit()
 
-    window["messages"].update(
-    f"'{values['dps_id_or_lemma_1']}' updated in dps db",
-    text_color="Lime")
-    daily_record_update(window, pth, "edit", word_id)
-    request_dpd_server(values["dps_dpd_id"])
+        window["messages"].update(
+            f"'{values['dps_id_or_lemma_1']}' updated in dps db",
+            text_color="Lime")
+        daily_record_update(window, pth, "edit", word_id)
+        request_dpd_server(values["dps_dpd_id"])
+
+    except Exception as e:
+        stasher(pth, values, window)
+        window["messages"].update(f"{str(e)}", text_color="red")
 
 
 # dps_books_to_add_button Word To Add

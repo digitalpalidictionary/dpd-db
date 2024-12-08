@@ -81,21 +81,22 @@ while true; do
             git checkout -- exporter/goldendict/javascript/family_set_json.js
             git checkout -- exporter/goldendict/javascript/family_word_json.js
             git checkout -- shared_data/changed_templates
-            break;;
-        * )
-            break;;
-    esac
-done
-
-
-while true; do
-    echo -ne "\033[1;36m Make dpd?\033[0m"
-    read yn
-    case $yn in
-        [Yy]* )
             exporter/goldendict/main.py
             break;;
         * )
             break;;
     esac
 done
+
+
+# while true; do
+#     echo -ne "\033[1;36m Make dpd?\033[0m"
+#     read yn
+#     case $yn in
+#         [Yy]* )
+#             exporter/goldendict/main.py
+#             break;;
+#         * )
+#             break;;
+#     esac
+# done

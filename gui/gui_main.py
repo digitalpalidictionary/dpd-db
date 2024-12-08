@@ -6,7 +6,6 @@ import json
 import subprocess
 import PySimpleGUI as sg # type: ignore
 import re
-import pickle
 import pyperclip
 
 from copy import deepcopy
@@ -2070,18 +2069,11 @@ def main():
                         value="not a valid id or lemma_1", text_color="red")
 
         elif event == "dps_stash_button":
-            with open(pth.stash_path, "wb") as f:
-                pickle.dump(values, f)
-            window["messages"].update(
-                value=f"{values['dps_lemma_1']} stashed", text_color="white")
+            stasher(pth, values, window)
 
         elif event == "dps_unstash_button":
-            with open(pth.stash_path, "rb") as f:
-                unstash = pickle.load(f)
-                for key, value in unstash.items():
-                    window[key].update(value)
-            window["messages"].update(
-                value=f"{values['dps_lemma_1']} unstashed", text_color="white")
+            if sg.popup_yes_no('unshash?') == 'Yes':
+                unstasher(pth, window)
 
         elif event == "dps_open_tests_button":
             dps_open_internal_tests(dpspth)

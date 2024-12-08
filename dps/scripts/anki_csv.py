@@ -43,10 +43,12 @@ dps_link = 'Нашли ошибку? <a class="link" href="https://docs.google.c
 
 
 def join(*args):
+    """Join elements of a list with a specified separator."""
     return ' '.join(filter(None, [arg.replace(" ", "-") if arg else None for arg in args]))
 
 
 def none_to_empty(values: List):
+    """Replace None with empty string."""
     def _to_empty(x):
         if x is None:
             return ""
@@ -56,43 +58,34 @@ def none_to_empty(values: List):
     return list(map(_to_empty, values))
 
 
-def get_feedback(i, deck_name):
+def get_feedback(i: DpdHeadword, deck_name):
+    """Get the feedback link for a given deck."""
     if deck_name == "dps":
         return f"""{dps_link}={i.lemma_1}&entry.1433863141={deck_name.upper()}-{current_date}">Пожалуйста сообщите.</a>"""
     else:
         return f"""{sbs_ped_link}={i.lemma_1}&entry.1433863141={deck_name.upper()}-{current_date}">Fix it here.</a>"""
 
 
-def get_root_info(i):
+def get_root_info(i: DpdHeadword):
+    """Get all root data with keys from a DpdHeadword object."""
     if i.rt is not None:
         root_key = re.sub(r" \d*$", "", str(i.root_key))
 
-        return [
-            i.rt.sanskrit_root,
-            i.rt.sanskrit_root_meaning,
-            i.rt.sanskrit_root_class,
-            root_key,
-            i.rt.root_has_verb,
-            i.rt.root_group,
-            i.root_sign,
-            i.rt.root_meaning,
-            i.root_base,
-        ]
-    else:
-        return [
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-        ]
+    return [
+        i.rt.sanskrit_root if i.rt else None,
+        i.rt.sanskrit_root_meaning if i.rt else None,
+        i.rt.sanskrit_root_class if i.rt else None,
+        root_key if i.rt else None,
+        i.rt.root_has_verb if i.rt else None,
+        i.rt.root_group if i.rt else None,
+        i.root_sign if i.rt else None,
+        i.rt.root_meaning if i.rt else None,
+        i.root_base if i.rt else None,
+    ]
 
 
-def get_grammar_and_meaning(i):
+def get_grammar_and_meaning(i: DpdHeadword):
+    """Get all grammar data with meanings from a DpdHeadword object."""
     grammar_and_meaning = [
         i.grammar,
         i.neg,
@@ -107,6 +100,7 @@ def get_grammar_and_meaning(i):
 
 
 def get_construction(i):
+    """Get all construction data from a DpdHeadword object."""
     construction = [
         i.construction.replace("\n", "<br>") if i.construction else None,
         i.derivative,
@@ -119,7 +113,8 @@ def get_construction(i):
     return construction
 
 
-def get_sbs_info(i):
+def get_sbs_info(i: DpdHeadword):
+    """Get all SBS related data from a DpdHeadword object."""
     sbs_info = [
         i.sbs.sbs_source_1.replace("\n", "<br>") if i.sbs else None,
         i.sbs.sbs_sutta_1.replace("\n", "<br>") if i.sbs else None,
@@ -155,7 +150,8 @@ def get_sbs_info(i):
     return sbs_info
 
 
-def get_examples(i):
+def get_examples(i: DpdHeadword):
+    """Get all examples info from a DpdHeadword object."""
     examples_info = [
         i.sbs.sbs_source_1.replace("\n", "<br>") if i.sbs else None,
         i.sbs.sbs_sutta_1.replace("\n", "<br>") if i.sbs else None,
@@ -185,6 +181,8 @@ def get_examples(i):
 
 
 def get_dhp_source(i: DpdHeadword):
+    """Get DHP source info from SBS info in a DpdHeadword object."""
+
     dhp_sources = []
     dhp_suttas = []
     dhp_examples = []
@@ -220,64 +218,59 @@ def get_dhp_source(i: DpdHeadword):
     return dhp_example_info
 
 
-def get_paritta_source(i, chant_names):
-    sources = [i.sbs.sbs_source_1, i.sbs.sbs_source_2, i.sbs.sbs_source_3, i.sbs.sbs_source_4]
-    suttas = [i.sbs.sbs_sutta_1, i.sbs.sbs_sutta_2, i.sbs.sbs_sutta_3, i.sbs.sbs_sutta_4]
-    examples = [i.sbs.sbs_example_1, i.sbs.sbs_example_2, i.sbs.sbs_example_3, i.sbs.sbs_example_4]
-    palichants = [i.sbs.sbs_chant_pali_1, i.sbs.sbs_chant_pali_2, i.sbs.sbs_chant_pali_3, i.sbs.sbs_chant_pali_4]
+def get_paritta_source(i: DpdHeadword, chant_names: List[str]) -> List[str]:
+    """Get Paritta source info from SBS info in a DpdHeadword object."""
+    sbs_sources = [i.sbs.sbs_source_1, i.sbs.sbs_source_2, i.sbs.sbs_source_3, i.sbs.sbs_source_4]
+    sbs_suttas = [i.sbs.sbs_sutta_1, i.sbs.sbs_sutta_2, i.sbs.sbs_sutta_3, i.sbs.sbs_sutta_4]
+    sbs_examples = [i.sbs.sbs_example_1, i.sbs.sbs_example_2, i.sbs.sbs_example_3, i.sbs.sbs_example_4]
+    sbs_palichants = [i.sbs.sbs_chant_pali_1, i.sbs.sbs_chant_pali_2, i.sbs.sbs_chant_pali_3, i.sbs.sbs_chant_pali_4]
 
-    for source, sutta, example, palichant in zip(sources, suttas, examples, palichants):
+    for source, sutta, example, palichant in zip(sbs_sources, sbs_suttas, sbs_examples, sbs_palichants):
         if any(chant_name in palichant for chant_name in chant_names):
-            source_info = [
+            return [
                 source,
                 sutta,
                 example,
             ]
-            return source_info
 
-    source_info = [
+    return [
         "",
         "",
         "",
-    ] 
-    return source_info
+    ]
 
 
-def get_vibhanga_source(i, sources_names):
-    sources = [i.sbs.sbs_source_1, i.sbs.sbs_source_2, i.sbs.sbs_source_3, i.sbs.sbs_source_4]
-    suttas = [i.sbs.sbs_sutta_1, i.sbs.sbs_sutta_2, i.sbs.sbs_sutta_3, i.sbs.sbs_sutta_4]
-    examples = [i.sbs.sbs_example_1, i.sbs.sbs_example_2, i.sbs.sbs_example_3, i.sbs.sbs_example_4]
+def get_vibhanga_source(i: DpdHeadword, vibhanga_sources: List[str]) -> List[str]:
+    """Get Vibhanga source info from SBS info in a DpdHeadword object."""
+    sbs_sources = [i.sbs.sbs_source_1, i.sbs.sbs_source_2, i.sbs.sbs_source_3, i.sbs.sbs_source_4]
+    sbs_suttas = [i.sbs.sbs_sutta_1, i.sbs.sbs_sutta_2, i.sbs.sbs_sutta_3, i.sbs.sbs_sutta_4]
+    sbs_examples = [i.sbs.sbs_example_1, i.sbs.sbs_example_2, i.sbs.sbs_example_3, i.sbs.sbs_example_4]
 
-    for source, sutta, example in zip(sources, suttas, examples):
-        if any(sources_name in source for sources_name in sources_names):
-            source_info = [
+    for source, sutta, example in zip(sbs_sources, sbs_suttas, sbs_examples):
+        if any(vibhanga_source in source for vibhanga_source in vibhanga_sources):
+            return [
                 source,
                 sutta,
                 example,
             ]
-            return source_info
 
-    source_info = [
+    return [
         "",
         "",
         "",
-    ] 
-    return source_info
+    ]
 
 
 def dhp(dpspth, dpd_db):
+    """ Returns a list of rows for dhp csv. """
     console.print("[yellow]making dhp csv")
 
-    def _is_needed(i: DpdHeadword):
+    def _is_needed(i: DpdHeadword) -> bool:
+        sources = [i.source_1, i.source_2]
         if i.sbs:
-            sources = [i.source_1, i.source_2, i.sbs.sbs_source_1, i.sbs.sbs_source_2, i.sbs.sbs_source_3, i.sbs.sbs_source_4]
-            if any(re.search(r'DHP\d', source) for source in sources):
-                return True
-        else:
-            sources = [i.source_1, i.source_2]
-            if any(re.search(r'DHP\d', source) for source in sources):
-                return True
-        return False
+            sources.extend([i.sbs.sbs_source_1, i.sbs.sbs_source_2, i.sbs.sbs_source_3, i.sbs.sbs_source_4])
+
+        return bool(any(re.search(r'DHP\d', source) for source in sources))
 
     columns_names = ['id', 'pali', 'grammar', 'neg', 'verb', 'trans', 
         'plus_case', 'meaning', 'meaning_lit', 'native', 'sanskrit', 
@@ -288,25 +281,20 @@ def dhp(dpspth, dpd_db):
         'link', 'audio', 'test', 'feedback', 'marks']
 
     def dhp_row(i: DpdHeadword) -> List[str]:
-        fields = []
-        fields.extend([ 
+        fields = [
             i.id,
             i.lemma_1,
-        ])
-        fields.extend(get_grammar_and_meaning(i))
-        fields.extend([
+            *get_grammar_and_meaning(i),
             "",
             i.sanskrit,
-        ])
-        fields.extend(get_root_info(i))
-        fields.extend(get_construction(i))
-        fields.extend(get_dhp_source(i))
-        fields.append(i.link.replace("\n", "<br>") if i.link else None)
-        fields.append(SBS_table_tools().generate_sbs_audio(i.lemma_clean))
-        fields.extend([
+            *get_root_info(i),
+            *get_construction(i),
+            *get_dhp_source(i),
+            i.link.replace("\n", "<br>") if i.link else None,
+            SBS_table_tools().generate_sbs_audio(i.lemma_clean),
             current_date,
             get_feedback(i, "dhp"),
-        ])
+        ]
 
         return none_to_empty(fields)
 
@@ -332,12 +320,11 @@ def dhp(dpspth, dpd_db):
 
 
 def sbs_per(dpspth, dpd_db):
+    """ Returns a list of rows for sbs_per csv. """
     console.print("[yellow]making sbs per csv")
 
     def _is_needed(i: DpdHeadword):
-        if i.sbs and i.sbs.sbs_index:
-            return True
-        return False
+        return bool(i.sbs and i.sbs.sbs_index)
 
     columns_names = ['id', 'pali', 'grammar', 'neg', 'verb', 'trans', 'plus_case',
         'meaning', 'meaning_lit', 'native', 'sbs_meaning', 'sanskrit', 
@@ -354,32 +341,32 @@ def sbs_per(dpspth, dpd_db):
         'sbs_notes', 'link', 'sbs_index', 'audio', 'test', 'feedback', 'marks']
 
     def sbs_row(i: DpdHeadword) -> List[str]:
-        fields = []
-        fields.extend([ 
+
+        tags = join(
+            i.sbs.sbs_chant_pali_1, 
+            i.sbs.sbs_chant_pali_2, 
+            i.sbs.sbs_chant_pali_3, 
+            i.sbs.sbs_chant_pali_4
+            )
+
+        fields = [
             i.id,
             i.lemma_1,
-        ])
-        fields.extend(get_grammar_and_meaning(i))
-        fields.extend([
+            *get_grammar_and_meaning(i),
             "",
             i.sbs.sbs_meaning if i.sbs else None,
             i.sanskrit,
-        ])
-        fields.extend(get_root_info(i))
-        fields.extend(get_construction(i))
-        fields.extend(get_sbs_info(i))
-        fields.extend([
+            *get_root_info(i),
+            *get_construction(i),
+            *get_sbs_info(i),
             i.sbs.sbs_notes.replace("\n", "<br>") if i.sbs else None,
             i.link.replace("\n", "<br>") if i.link else None,
             i.sbs.sbs_index if i.sbs else None,
-        ])
-        fields.append(SBS_table_tools().generate_sbs_audio(i.lemma_clean))
-        tags = join(i.sbs.sbs_chant_pali_1, i.sbs.sbs_chant_pali_2, i.sbs.sbs_chant_pali_3, i.sbs.sbs_chant_pali_4)
-        fields.extend([
+            SBS_table_tools().generate_sbs_audio(i.lemma_clean),
             current_date,
             get_feedback(i, "sbs"),
             tags,
-        ])
+        ]
 
         return none_to_empty(fields)
 
@@ -403,6 +390,7 @@ def sbs_per(dpspth, dpd_db):
 
 
 def parittas(dpspth, dpd_db):
+    """ Returns a list of rows for parittas csv. """
     console.print("[yellow]making parittas csv")
 
     chant_names = ["Karaṇīya-metta-sutta", "Ratana-sutta", "Maṅgala-sutta"]
@@ -410,49 +398,33 @@ def parittas(dpspth, dpd_db):
     def _is_needed(i: DpdHeadword):
         if i.sbs:
             sources = [i.sbs.sbs_chant_pali_1, i.sbs.sbs_chant_pali_2, i.sbs.sbs_chant_pali_3, i.sbs.sbs_chant_pali_4]
-            for source in sources:
-                if any(chant_name in source for chant_name in chant_names):
-                    return True
-        return False
+            return bool(any(chant_name in source for source in sources for chant_name in chant_names))
 
     columns_names = ['id', 'pali', 'grammar', 'meaning', 'meaning_lit', 'root', 
         'root_group', 'root_sign', 'root_meaning', 'root_base', 'construction', 
         'source', 'sutta', 'example', 'audio', 'test', 'feedback', 'marks']
 
     def parittas_row(i: DpdHeadword, chant_names) -> List[str]:
-        fields = []
-        fields.extend([ 
+        
+        if i.rt is not None:
+            root_key = re.sub(r" \d*$", "", str(i.root_key))
+        fields = [
             i.id,
             i.lemma_1,
             i.grammar,
             i.meaning_1 if i.meaning_1 else i.meaning_2,
             i.meaning_lit,
-        ])
-        if i.rt is not None:
-            root_key = re.sub(r" \d*$", "", str(i.root_key))
-
-            fields.extend([
-                root_key,
-                i.rt.root_group,
-                i.root_sign,
-                i.rt.root_meaning,
-                i.root_base,
-            ])
-        else:
-            fields.extend([
-                "",
-                "",
-                "",
-                "",
-                "",
-            ])
-        fields.append(i.construction.replace("\n", "<br>") if i.construction else None)
-        fields.extend(get_paritta_source(i, chant_names))
-        fields.append(SBS_table_tools().generate_sbs_audio(i.lemma_clean))
-        fields.extend([
+            root_key if i.rt else None,
+            i.rt.root_group if i.rt else None,
+            i.root_sign if i.rt else None,
+            i.rt.root_meaning if i.rt else None,
+            i.root_base if i.rt else None,
+            i.construction.replace("\n", "<br>") if i.construction else None,
+            *get_paritta_source(i, chant_names),
+            SBS_table_tools().generate_sbs_audio(i.lemma_clean),
             current_date,
             get_feedback(i, "paritta"),
-        ])
+        ]
 
         return none_to_empty(fields)
 
@@ -478,14 +450,13 @@ def parittas(dpspth, dpd_db):
 
 
 def dps(dpspth, dpd_db):
+    """ Returns a list of rows for dps csv. """
     console.print("[yellow]making dps csv")
 
     def _is_needed(i: DpdHeadword):
-        if i.ru and i.sbs:
+        if i.sbs:
             sources = [i.sbs.sbs_source_1, i.sbs.sbs_source_2, i.sbs.sbs_source_3, i.sbs.sbs_source_4]
-            if any(source for source in sources if source):
-                return True
-        return False
+            return bool(i.ru and any(source for source in sources if source))
 
     columns_names = ['id', 'pali', 'sbs_class_anki', 'sbs_category', 'sbs_class', 
     'sbs_patimokkha', 'grammar', 'neg', 'verb', 'trans', 'plus_case', 'meaning', 
@@ -503,66 +474,43 @@ def dps(dpspth, dpd_db):
     'ru_notes', 'link', 'sbs_index', 'audio', 'test', 'feedback', 'marks']
 
     def dps_row(i: DpdHeadword) -> List[str]:
-        fields = []
-        fields.extend([ 
+
+        if i.rt is not None:
+            root_key = re.sub(r" \d*$", "", str(i.root_key))
+
+        fields = [
             i.id,
             i.lemma_1,
             i.sbs.sbs_class_anki if i.sbs else None, 
             i.sbs.sbs_category if i.sbs else None,
             i.sbs.sbs_class if i.sbs else None,
             i.sbs.sbs_patimokkha if i.sbs else None,
-        ])
-        fields.extend(get_grammar_and_meaning(i))
-        fields.extend([
+            *get_grammar_and_meaning(i),
             i.ru.ru_meaning if i.ru else None,
             i.ru.ru_meaning_lit if i.ru else None,
             i.sbs.sbs_meaning if i.sbs else None,
             i.sanskrit,
-        ])
-        if i.rt is not None:
-            root_key = re.sub(r" \d*$", "", str(i.root_key))
-
-            fields.extend([
-                i.rt.sanskrit_root,
-                i.rt.sanskrit_root_meaning,
-                i.rt.sanskrit_root_ru_meaning,
-                i.rt.sanskrit_root_class,
-                root_key,
-                i.rt.root_has_verb,
-                i.rt.root_group,
-                i.root_sign,
-                i.rt.root_meaning,
-                i.rt.root_ru_meaning,
-                i.root_base,
-            ])
-
-        else:
-            fields.extend([
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-            ])
-        fields.extend(get_construction(i))
-        fields.extend(get_sbs_info(i))
-        fields.extend([
+            i.rt.sanskrit_root if i.rt else None,
+            i.rt.sanskrit_root_meaning if i.rt else None,
+            i.rt.sanskrit_root_ru_meaning if i.rt else None,
+            i.rt.sanskrit_root_class if i.rt else None,
+            root_key if i.rt else None,
+            i.rt.root_has_verb if i.rt else None,
+            i.rt.root_group if i.rt else None,
+            i.root_sign if i.rt else None,
+            i.rt.root_meaning if i.rt else None,
+            i.rt.root_ru_meaning if i.rt else None,
+            i.root_base if i.rt else None,
+            *get_construction(i),
+            *get_sbs_info(i),
             i.sbs.sbs_notes.replace("\n", "<br>") if i.sbs else None,
             i.ru.ru_notes.replace("\n", "<br>") if i.ru else None,
             i.link.replace("\n", "<br>") if i.link else None,
             i.sbs.sbs_index if i.sbs else None,
-        ])
-        fields.append(SBS_table_tools().generate_sbs_audio(i.lemma_clean))
-        fields.extend([
+            SBS_table_tools().generate_sbs_audio(i.lemma_clean),
             current_date,
             get_feedback(i, "dps"),
-        ])
+        ]
 
         return none_to_empty(fields)
 
@@ -586,12 +534,11 @@ def dps(dpspth, dpd_db):
 
 
 def classes(dpspth, dpd_db, unique_sbs_class_values):
+    """ Returns a list of rows for classes csvs. """
     console.print("[yellow]making classes csv")
 
     def _is_needed(i: DpdHeadword):
-        if i.sbs and i.sbs.sbs_class_anki:
-            return True
-        return False
+        return bool(i.sbs and i.sbs.sbs_class_anki)
 
     columns_names = ['id', 'pali', 'sbs_class_anki', 
         'grammar', 'neg', 'verb', 'trans', 'plus_case', 'meaning', 'meaning_lit', 
@@ -609,29 +556,22 @@ def classes(dpspth, dpd_db, unique_sbs_class_values):
         'audio', 'test', 'feedback', 'marks']
 
     def classes_row(i: DpdHeadword) -> List[str]:
-        fields = []
-        fields.extend([ 
+        fields = [
             i.id,
             i.lemma_1,
             i.sbs.sbs_class_anki if i.sbs else None, 
-        ])
-        fields.extend(get_grammar_and_meaning(i))
-        fields.extend([
+            *get_grammar_and_meaning(i),
             "",
             i.sanskrit,
-        ])
-        fields.extend(get_root_info(i))
-        fields.extend(get_construction(i))
-        fields.extend(get_sbs_info(i))
-        fields.extend([
+            *get_root_info(i),
+            *get_construction(i),
+            *get_sbs_info(i),
             i.sbs.sbs_notes.replace("\n", "<br>") if i.sbs else None,
             i.link.replace("\n", "<br>") if i.link else None,
-        ])
-        fields.append(SBS_table_tools().generate_sbs_audio(i.lemma_clean))
-        fields.extend([
+            SBS_table_tools().generate_sbs_audio(i.lemma_clean),
             current_date,
             get_feedback(i, "class"),
-        ])
+        ]
 
         return none_to_empty(fields)
 
@@ -657,10 +597,9 @@ def classes(dpspth, dpd_db, unique_sbs_class_values):
 
     # Save ru for all basic classes to csv
     def ru_classes_row(i: DpdHeadword) -> List[str]:
-        fields = []
-        fields.extend([ 
+        fields = [
             i.id,
-        ])
+        ]
 
         if i.ru.ru_meaning_lit:
             ru_meaning = i.ru.ru_meaning + '; досл. ' + i.ru.ru_meaning_lit
@@ -706,12 +645,11 @@ def classes(dpspth, dpd_db, unique_sbs_class_values):
 
 
 def suttas(dpspth, dpd_db, unique_sbs_category_values):
+    """ Returns a list of rows for suttas csv. """
     console.print("[yellow]making suttas csv")
 
     def _is_needed(i: DpdHeadword):
-        if i.sbs and i.sbs.sbs_category:
-            return True
-        return False
+        return bool(i.sbs and i.sbs.sbs_category)
 
     columns_names = ['id', 'pali', 'sbs_category', 
         'grammar', 'neg', 'verb', 'trans', 'plus_case', 'meaning', 'meaning_lit', 
@@ -725,24 +663,19 @@ def suttas(dpspth, dpd_db, unique_sbs_category_values):
         'notes', 'sbs_notes', 'link', 'audio', 'test', 'feedback', 'marks']
 
     def suttas_row(i: DpdHeadword) -> List[str]:
-        fields = []
-        fields.extend([ 
+        fields = [
             i.id,
             i.lemma_1,
             i.sbs.sbs_category if i.sbs else None, 
-        ])
-        fields.extend(get_grammar_and_meaning(i))
-        fields.extend([
+            *get_grammar_and_meaning(i),
             "",
             i.sanskrit,
-        ])
-        fields.extend(get_root_info(i))
-        fields.extend(get_construction(i))
-        fields.extend(get_examples(i))
-        fields.extend([
+            *get_root_info(i),
+            *get_construction(i),
+            *get_examples(i),
             current_date,
             get_feedback(i, "suttas"),
-        ])
+        ]
 
         return none_to_empty(fields)
 
@@ -772,17 +705,14 @@ def suttas(dpspth, dpd_db, unique_sbs_category_values):
 
 
 def root_phonetic_class(dpspth, dpd_db, unique_sbs_class_values):
+    """ Returns a list of rows for root and phonetic csvs. """
     console.print("[yellow]making root and phonetic  csvs")
 
     def root_is_needed(i: DpdHeadword):
-        if i.sbs and i.sbs.sbs_class_anki and i.rt:
-            return True
-        return False
+        return bool(i.sbs and i.sbs.sbs_class_anki and i.rt)
 
     def phonetic_is_needed(i: DpdHeadword):
-        if i.sbs and i.sbs.sbs_class_anki and i.phonetic:
-            return True
-        return False
+        return bool(i.sbs and i.sbs.sbs_class_anki and i.phonetic)
 
     columns_names = ['id', 'pali', 'sbs_class_anki',
         'grammar', 'neg', 'verb', 'trans', 'plus_case', 'meaning', 'meaning_lit', 
@@ -796,24 +726,19 @@ def root_phonetic_class(dpspth, dpd_db, unique_sbs_class_values):
         'notes', 'sbs_notes', 'link', 'audio', 'test', 'feedback', 'marks']
 
     def root_phonetic_row(i: DpdHeadword) -> List[str]:
-        fields = []
-        fields.extend([ 
+        fields = [
             i.id,
             i.lemma_1,
             i.sbs.sbs_class_anki if i.sbs else None, 
-        ])
-        fields.extend(get_grammar_and_meaning(i))
-        fields.extend([
+            *get_grammar_and_meaning(i),
             "",
             i.sanskrit,
-        ])
-        fields.extend(get_root_info(i))
-        fields.extend(get_construction(i))
-        fields.extend(get_examples(i))
-        fields.extend([
+            *get_root_info(i),
+            *get_construction(i),
+            *get_examples(i),
             current_date,
             get_feedback(i, "root-phonetic"),
-        ])
+        ]
 
         return none_to_empty(fields)
 
@@ -854,14 +779,13 @@ def root_phonetic_class(dpspth, dpd_db, unique_sbs_class_values):
 
 
 def vibhanga(dpspth, dpd_db):
+    """ Returns a list of rows for vibhanga csv. """
     console.print("[yellow]making vibhanga csv")
 
     sources_names = ["VIN1", "VIN2"]
 
     def _is_needed(i: DpdHeadword):
-        if i.sbs and i.sbs.sbs_patimokkha == "vib":
-            return True
-        return False
+        return bool(i.sbs and i.sbs.sbs_patimokkha == "vib")
 
     columns_names = ['id', 'pali', 'grammar', 'neg', 'verb', 'trans', 'plus_case',
         'meaning', 'meaning_lit', 'native', 'sanskrit', 'sanskrit_root', 
@@ -872,79 +796,93 @@ def vibhanga(dpspth, dpd_db):
         'notes', 'link', 'audio', 'test', 'feedback', 'marks']
 
     def vibhanga_row(i: DpdHeadword) -> List[str]:
-        fields = []
-        fields.extend([ 
+        fields = [
             i.id,
             i.lemma_1,
-        ])
-        fields.extend(get_grammar_and_meaning(i))
-        fields.extend([
+            *get_grammar_and_meaning(i),
             "",
             i.sanskrit,
-        ])
-        fields.extend(get_root_info(i))
-        fields.extend(get_construction(i))
-        fields.extend(get_vibhanga_source(i, sources_names))
-        fields.extend([
+            *get_root_info(i),
+            *get_construction(i),
+            *get_vibhanga_source(i, sources_names),
             i.antonym,
             i.synonym,
             i.variant,
             i.commentary.replace("\n", "<br>") if i.commentary else None,
             i.notes.replace("\n", "<br>") if i.notes else None,
             i.link.replace("\n", "<br>") if i.link else None,
-        ])
-        fields.append(SBS_table_tools().generate_sbs_audio(i.lemma_clean))
-        fields.extend([
+            SBS_table_tools().generate_sbs_audio(i.lemma_clean),
             current_date,
             get_feedback(i, "vibhanga"),
-        ])
-
+        ]
         return none_to_empty(fields)
 
-    # Save all vibhanga
-    rows_total = (vibhanga_row(i) for i in dpd_db if _is_needed(i))
-    rows_total_list = list(rows_total)
-    output_path = os.path.join(dpspth.anki_csvs_dps_dir, "anki_vibhanga.csv")
-    with open(output_path, "w", newline='', encoding='utf-8') as f:
+    rows_total = [vibhanga_row(i) for i in dpd_db if _is_needed(i)]
+    
+    # Verify the column index for "source" and "example"
+    source_column_index = columns_names.index('source')
+    example_column_index = columns_names.index('example')
+
+    # Sort rows based on the hierarchical VIN value in the source column
+    def parse_vin(value):
+        # Extract the numerical parts from "VIN1.1.1" and return as a tuple of integers
+        return tuple(map(int, re.findall(r'\d+', value)))
+
+    def clean_html_tags(text):
+        if text:
+            return re.sub(r'<\/?b>', '', text)
+        return text
+    
+    sorted_rows_total_list = sorted(
+        rows_total,
+        key=lambda x: (
+            parse_vin(x[source_column_index]), 
+            clean_html_tags(x[example_column_index])
+            )
+    )
+
+    # Write sorted rows to CSV
+    file_path = os.path.join(dpspth.anki_csvs_dps_dir, "anki_vibhanga.csv")
+    with open(file_path, "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter='\t')
-        writer.writerows(rows_total_list)
-    console.print(f"[bold] {len(rows_total_list)}[/bold] [green]rows has been saved to csv")
+        writer.writerows(sorted_rows_total_list)
+    console.print(f"[bold] {len(sorted_rows_total_list)}[/bold] [green]rows have been saved to csv")
 
     # Save the list of field names to a text file
     if dpspth.sbs_anki_style_dir:
-        with open(f'{dpspth.sbs_anki_style_dir}/field-list-vibhanga.txt', 'w') as file:
+        field_file_path = os.path.join(dpspth.sbs_anki_style_dir, 'field-list-vibhanga.txt')
+        with open(field_file_path, 'w') as file:
             file.write('\n'.join(columns_names))
-        console.print(f"[green] names of the Vibhanga columns [/green]([bold]{len(columns_names)}[/bold]) [green]are saved to the txt")
+        console.print(f"[green] Column names ([bold]{len(columns_names)}[/bold]) saved to the txt")
     else:
         console.print("[bold red] sbs_anki_style_dir not found")
 
 
 
 def native(dpspth, dpd_db):
+    """ Returns a list of rows for sbs_rus csv. """
     console.print("[yellow]making native csvs")
 
     def _is_needed(i: DpdHeadword):
-        if i.sbs and (
+        return bool(i.sbs and (
             i.sbs.sbs_class_anki or
             i.sbs.sbs_category or
             i.sbs.sbs_patimokkha or
             i.sbs.sbs_index
-        ):
-                return True
-        return False
+        ))
 
     # Save ru for all sbs decks
     def ru_row(i: DpdHeadword) -> List[str]:
-        fields = []
-        fields.extend([ 
-            i.id,
-        ])
 
         if i.ru.ru_meaning_lit:
             ru_meaning = i.ru.ru_meaning + '; досл. ' + i.ru.ru_meaning_lit
         else:
             ru_meaning = i.ru.ru_meaning
-        fields.append(ru_meaning)
+        
+        fields = [
+            i.id,
+            ru_meaning,
+        ]
 
         return none_to_empty(fields)
 
@@ -960,6 +898,7 @@ def native(dpspth, dpd_db):
 
 
 def main():
+    """ Makes anki csvs. """
     tic()
     console.print("[bold bright_yellow]exporting csvs for anki")
 

@@ -3,7 +3,6 @@
 """Update DPS Anki deck with latest data directly from the DB."""
 
 import copy
-import csv
 import os
 import datetime
 import sys
@@ -45,6 +44,8 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs), joinedload(DpdHeadword.ru)).all()
     print(f"{len(db):>10} {bop()}")
+
+    calculate_index(db, db_session)
 
     decks = ["Пали Словарь"]
     (
@@ -300,6 +301,7 @@ def update_note_values(note, i):
         note["sbs_chant_eng_4"] = str(i.sbs.sbs_chant_eng_4)
         note["sbs_chapter_4"] = str(i.sbs.sbs_chapter_4)
         note["sbs_notes"] = str(i.sbs.sbs_notes).replace("\n", "<br>")
+        note["sbs_index"] = str(i.sbs.sbs_index)
 
     note["grammar"] = str(i.grammar)
     note["neg"] = str(i.neg)
@@ -373,28 +375,14 @@ def update_note_values(note, i):
     else:
         note['link'] = ''
 
-    # sbs_index
-    if i.sbs:
-        chant_index_map = load_chant_index_map()
-        chants = [
-            i.sbs.sbs_chant_pali_1,
-            i.sbs.sbs_chant_pali_2,
-            i.sbs.sbs_chant_pali_3,
-            i.sbs.sbs_chant_pali_4
-        ] if i.sbs else []
-
-        indexes = [chant_index_map.get(chant) for chant in chants if chant in chant_index_map]
-        sbs_index = min(indexes) if indexes else ""   # type: ignore 
-
-        note["sbs_index"] = str(sbs_index)
-
-        # adding _SBS tag if pubbakicca index is 75
-        if sbs_index and sbs_index != 75:
-            if not any(tag.startswith("_SBS") or tag.startswith("*parit") for tag in tags.split()):
-                if tags:
-                    tags += " "
-                tags += "_SBS"
-                note.tags = tags.split()
+    #! UPDATING TAGS NOT WORKING!
+    # adding _SBS tag if pubbakicca index is 75
+    if i.sbs and i.sbs.sbs_index and i.sbs.sbs_index != 75:
+        if not any(tag.startswith("_SBS") or tag.startswith("*parit") for tag in tags.split()):
+            if tags:
+                tags += " "
+            tags += "_SBS"
+            note.tags = tags.split()
             
     # adding _pātimokkha tag if PAT is in the source
     if i.sbs:
@@ -449,15 +437,26 @@ def unicode_combo_characters(old_fields, note):
             print(f"> New value: {new_value}")
 
 
-def load_chant_index_map():
-    chant_index_map = {}
-    with open(dpspth.sbs_index_path, 'r', encoding='utf-8') as csvfile:
-        reader = csv.reader(csvfile, delimiter='\t')
-        next(reader)  # Skip header row
-        for row in reader:
-            index, chant = row[0], row[1]
-            chant_index_map[chant] = int(index)
-    return chant_index_map
+def calculate_index(db, db_session):
+    """
+    Recalculates the sbs_index for all entries in the db and commits the changes.
+    
+    """
+
+    print("[green]Calculating sbs_index")
+    try:
+        for i in db:
+            if i.sbs:
+                sbs_index_old = i.sbs.sbs_index
+                sbs_index_value = i.sbs.calculate_index()
+                if sbs_index_old != sbs_index_value:
+                    i.sbs.sbs_index = sbs_index_value  # Manually set the sbs_index
+                    print(f"{i.lemma_1} old index {sbs_index_old} changed to {sbs_index_value}")
+    
+        db_session.commit()
+        
+    except Exception as e:
+        print(f"[bold red]{str(e)}")
 
 
 def deck_selector(i):

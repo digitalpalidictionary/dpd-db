@@ -489,10 +489,6 @@ def add_word_from_csv(dpspth, window, flag_next_word, completion, lemma_1_curren
         if flag_next_word:
             if row.get("proceed") == "":
                 row["proceed"] = completion
-                if completion == "y":
-                    row["pali_new"] = lemma_1_current
-                else:
-                    row["pali_new"] = ""
                 write_tsv_dot_dict(dpspth.vinaya_tsv_path, word_data)
                 word_data = read_tsv_dict(dpspth.vinaya_tsv_path)
                 for row in word_data:
