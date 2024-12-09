@@ -16,7 +16,7 @@ from zipfile import ZipFile, ZIP_DEFLATED
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, DpdRoot, Lookup
 from exporter.goldendict.export_dpd import render_dpd_definition_templ
-from tools.configger import config_test
+from tools.configger import config_test, config_read
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import p_green, p_green_title, p_red, p_title, p_yes
@@ -399,52 +399,53 @@ def copy_to_sqlite_db(g: ProgData):
     tpr_df = pd.DataFrame(g.tpr_data_list)
     i2h_df = pd.DataFrame(g.i2h_data_list)
     deconstructor_df = pd.DataFrame(g.deconstructor_data_list)
+    tpr_db_path = config_read("tpr", "db_path")
 
-    try:
-        conn = sqlite3.connect(
-            '../../.local/share/tipitaka_pali_reader/tipitaka_pali.db')
-        c = conn.cursor()
+    if tpr_db_path:
+        try:
+            conn = sqlite3.connect(tpr_db_path)
+            c = conn.cursor()
 
-        # dpd table
-        c.execute("DROP TABLE if exists dpd")
-        c.execute(
-            """CREATE TABLE "dpd" (
-                "id" INTEGER,
-                "word" TEXT,
-                "definition" TEXT, 
-                "book_id" INTEGER,
-                "has_inflections" INTEGER DEFAULT 0,
-                "has_root_family" INTEGER DEFAULT 0,
-                "has_compound_family" INTEGER DEFAULT 0,
-                "has_word_family" INTEGER DEFAULT 0,
-                "has_freq" INTEGER DEFAULT 0);
-            """)
-        
+            # dpd table
+            c.execute("DROP TABLE if exists dpd")
+            c.execute(
+                """CREATE TABLE "dpd" (
+                    "id" INTEGER,
+                    "word" TEXT,
+                    "definition" TEXT, 
+                    "book_id" INTEGER,
+                    "has_inflections" INTEGER DEFAULT 0,
+                    "has_root_family" INTEGER DEFAULT 0,
+                    "has_compound_family" INTEGER DEFAULT 0,
+                    "has_word_family" INTEGER DEFAULT 0,
+                    "has_freq" INTEGER DEFAULT 0);
+                """)
+            
 
-        tpr_df.to_sql('dpd', conn, if_exists='append', index=False)
+            tpr_df.to_sql('dpd', conn, if_exists='append', index=False)
 
-        # inflection_to_headwords
-        c.execute("DROP TABLE if exists dpd_inflections_to_headwords")
-        c.execute(
-            "CREATE TABLE dpd_inflections_to_headwords (inflection, headwords)")
-        i2h_df.to_sql(
-            'dpd_inflections_to_headwords',
-            conn, if_exists='append', index=False)
+            # inflection_to_headwords
+            c.execute("DROP TABLE if exists dpd_inflections_to_headwords")
+            c.execute(
+                "CREATE TABLE dpd_inflections_to_headwords (inflection, headwords)")
+            i2h_df.to_sql(
+                'dpd_inflections_to_headwords',
+                conn, if_exists='append', index=False)
 
-        # dpd_word_split
-        c.execute("DROP TABLE if exists dpd_word_split")
-        c.execute(
-            "CREATE TABLE dpd_word_split (word, breakup)")
-        deconstructor_df.to_sql(
-            'dpd_word_split',
-            conn, if_exists='append', index=False)
-        p_yes("OK")
+            # dpd_word_split
+            c.execute("DROP TABLE if exists dpd_word_split")
+            c.execute(
+                "CREATE TABLE dpd_word_split (word, breakup)")
+            deconstructor_df.to_sql(
+                'dpd_word_split',
+                conn, if_exists='append', index=False)
+            p_yes("OK")
 
-        conn.close()
+            conn.close()
 
-    except Exception as e:
-        p_red("an error occurred copying to db")
-        p_red(e)
+        except Exception as e:
+            p_red("an error occurred copying to db")
+            p_red(e)
 
     g.tpr_df = tpr_df
     g.i2h_df = i2h_df
