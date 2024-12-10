@@ -133,7 +133,7 @@ def db_search_gd(request: Request, search: str):
 @app.get("/ru/gd", response_class=HTMLResponse)
 def db_search_gd_ru(request: Request, search: str):
 
-    dpd_html, summary_html = make_dpd_html(search, pth, templates, roots_count_dict, headwords_clean_set, ascii_to_unicode_dict, "ru")
+    dpd_html, summary_html = make_dpd_html(search, pth, templates_ru, roots_count_dict, headwords_clean_set_ru, ascii_to_unicode_dict, "ru")
     global dpd_css, dpd_js, home_simple_css
 
     return templates.TemplateResponse(
