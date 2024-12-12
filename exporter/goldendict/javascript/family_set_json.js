@@ -1641,7 +1641,7 @@ var family_set_json = {
    [
     "kavagga",
     "masc",
-    "(gram) k-series; group of guttural consonants beginning with the letter k; k kh g gh ṅ",
+    "(gram) k-series; group of guttural consonants beginning with the letter k (k, kh, g, gh, ṅ)",
     "✔"
    ],
    [
@@ -1959,7 +1959,7 @@ var family_set_json = {
    [
     "cavagga",
     "masc",
-    "(gram) c-series; group of palatal consonants beginning with the letter c; c ch j jh ñ",
+    "(gram) c-series; group of palatal consonants beginning with the letter c (c, ch, j, jh, ñ)",
     "✔"
    ],
    [
@@ -2055,7 +2055,7 @@ var family_set_json = {
    [
     "ṭavagga",
     "masc",
-    "(gram) ṭ-series; group of retroflex consonants beginning with the letter ṭ; ṭ ṭh ḍ ḍh ṇ",
+    "(gram) ṭ-series; group of retroflex consonants beginning with the letter ṭ (ṭ, ṭh, ḍ, ḍh, ṇ)",
     "✔"
    ],
    [
@@ -2295,7 +2295,7 @@ var family_set_json = {
    [
     "tavagga",
     "masc",
-    "(gram) t-series; group of dental consonants beginning with the letter t; t th d dh n",
+    "(gram) t-series; group of dental consonants beginning with the letter t (t, th, d, dh, n)",
     "✔"
    ],
    [
@@ -2399,6 +2399,12 @@ var family_set_json = {
     "adj",
     "(gram) ending with the tvā suffix; absolutive",
     "✔"
+   ],
+   [
+    "tvāsadda",
+    "masc",
+    "(gram) absolutive suffix; lit. tvā sound",
+    "◑"
    ],
    [
     "tha",
@@ -3309,7 +3315,7 @@ var family_set_json = {
    [
     "pavagga",
     "masc",
-    "(gram) p-series; group of labial consonants beginning with the letter p; p ph b bh m",
+    "(gram) p-series; group of labial consonants beginning with the letter p (p, ph, b, bh, m)",
     "✔"
    ],
    [
@@ -4243,9 +4249,15 @@ var family_set_json = {
     "✔"
    ],
    [
+    "vipubba 2.1",
+    "adj",
+    "(gram) preceded by the vi- prefix",
+    "◑"
+   ],
+   [
     "vibhatti 2",
     "fem",
-    "(gram) inflexion; declension; conjugation; case-ending of a noun; person-ending of a verb; lit. division",
+    "(gram) inflection; declension; conjugation; case-ending of a noun; person-ending of a verb; lit. division",
     "✔"
    ],
    [
@@ -4969,7 +4981,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 800
+  "count": 802
  },
  "prefixes": {
   "data": [
@@ -8394,6 +8406,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "amatapada",
+    "nt",
+    "immortality; deathless state; epithet of Nibbāna",
+    "✔"
+   ],
+   [
     "amatapariyosānatā",
     "fem",
     "state ending in the deathless; epithet of Nibbāna",
@@ -8586,7 +8604,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 51
+  "count": 52
  },
  "names of Brahmans": {
   "data": [
@@ -10318,13 +10336,13 @@ var family_set_json = {
    [
     "āruha 1",
     "masc",
-    "rider; driver; lit. mounter; ascender",
+    "rider; driver; lit. ascender",
     "✔"
    ],
    [
     "āroha 1",
     "masc",
-    "rider; driver",
+    "rider; driver; lit. ascending",
     "✔"
    ],
    [
@@ -10396,7 +10414,7 @@ var family_set_json = {
    [
     "ocaraka 2",
     "masc",
-    "undercover agent; informant; spy; infiltrator; lit. going down",
+    "undercover agent; informant; spy; infiltrator; lit. going low",
     "✔"
    ],
    [
@@ -13302,7 +13320,7 @@ var family_set_json = {
    [
     "hārika 2",
     "masc",
-    "name of an executioner; lit. carrying away",
+    "name of an executioner; lit. carrying",
     "✔"
    ],
    [
@@ -14941,7 +14959,7 @@ var family_set_json = {
    [
     "uposatha 5",
     "masc",
-    "name of a privately awakened Buddha",
+    "name of a privately awakened Buddha; lit. living near",
     "◑"
    ],
    [
@@ -15546,7 +15564,7 @@ var family_set_json = {
    [
     "ārohanta",
     "masc",
-    "name of a former minister who became a monk; lit. riding",
+    "name of a former minister who became a monk; lit. ascending",
     "◑"
    ],
    [
@@ -18162,13 +18180,13 @@ var family_set_json = {
    [
     "hārita 2",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. caused to carry",
     "✔"
    ],
    [
     "hārita 3",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. caused to carry",
     "◑"
    ],
    [
@@ -20831,13 +20849,13 @@ var family_set_json = {
    [
     "hārita 2",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. caused to carry",
     "✔"
    ],
    [
     "hārita 3",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. caused to carry",
     "◑"
    ],
    [
@@ -21177,7 +21195,7 @@ var family_set_json = {
    [
     "naruttama",
     "masc",
-    "best of men; greatest of men; epithet of the Buddha; epithet of awakened beings",
+    "best of men; greatest of being; epithet of the Buddha; epithet of awakened beings",
     "✔"
    ],
    [
@@ -24752,7 +24770,7 @@ var family_set_json = {
    [
     "hārita 1",
     "masc",
-    "name of a god",
+    "name of a god; lit. carried",
     "◑"
    ],
    [
@@ -25546,6 +25564,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "ballika",
+    "masc",
+    "name of a king; lit. powerful",
+    "✔"
+   ],
+   [
     "bimbisāra",
     "masc",
     "name of a Magadhan king",
@@ -25732,7 +25756,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 75
+  "count": 76
  },
  "six ascetic teachers": {
   "data": [
@@ -27212,7 +27236,7 @@ var family_set_json = {
    [
     "uposatha 3",
     "masc",
-    "name of a king Mahāsudassana's royal elephant; lit. observance",
+    "name of a king Mahāsudassana's royal elephant; lit. living near",
     "✔"
    ],
    [
@@ -32899,7 +32923,7 @@ var family_set_json = {
    [
     "brahmassara",
     "adj",
-    "with deep voice; with a voice like god; twenty-eighth of the thirty-two marks of a great man; lit. with voice of god",
+    "with a deep voice; with a voice like god; twenty-eighth of the thirty-two marks of a great man; lit. with voice of god",
     "✔"
    ],
    [
@@ -35683,7 +35707,7 @@ var family_set_json = {
    [
     "uposatha 4",
     "nt",
-    "name of a types of elephant; lit. observance",
+    "name of a types of elephant; lit. living near",
     "◑"
    ],
    [
@@ -36735,6 +36759,17 @@ var family_set_json = {
    ]
   ],
   "count": 16
+ },
+ "diseases": {
+  "data": [
+   [
+    "kilāsa",
+    "masc",
+    "vitiligo",
+    "✔"
+   ]
+  ],
+  "count": 1
  },
  "names of hells": {
   "data": [

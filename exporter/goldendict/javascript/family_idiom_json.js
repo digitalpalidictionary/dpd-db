@@ -488,7 +488,7 @@ var family_idiom_json = {
    [
     "kallosi",
     "sandhi",
-    "you are clever; you are smart",
+    "you are clever; you are smart; you are skilful",
     "✔"
    ]
   ]
@@ -2752,7 +2752,7 @@ var family_idiom_json = {
    [
     "khippameva",
     "sandhi",
-    "very quickly; extremely rapidly",
+    "very quickly; extremely rapidly; very swiftly",
     "✔"
    ],
    [
@@ -3770,6 +3770,17 @@ var family_idiom_json = {
     "sucirasseva",
     "sandhi",
     "at very long last; after a very long time",
+    "✔"
+   ]
+  ]
+ },
+ "cetanā": {
+  "count": 1,
+  "data": [
+   [
+    "cetanāhaṃ",
+    "sandhi",
+    "I (say) intention; I (say) volition; lit. I thought",
     "✔"
    ]
   ]
@@ -8115,7 +8126,7 @@ var family_idiom_json = {
    [
     "channetaṃ",
     "sandhi",
-    "for the six this",
+    "for the six, this; of the six, this",
     "✔"
    ],
    [
@@ -14689,6 +14700,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "ussuka": {
+  "count": 1,
+  "data": [
+   [
+    "appossukko tuṇhībhūto",
+    "idiom",
+    "calm and quiet",
+    "✔"
+   ]
+  ]
+ },
  "upamā": {
   "count": 3,
   "data": [
@@ -15674,17 +15696,6 @@ var family_idiom_json = {
     "panimassa",
     "sandhi",
     "and of this; and about this",
-    "✔"
-   ]
-  ]
- },
- "ussuka": {
-  "count": 1,
-  "data": [
-   [
-    "appossukko tuṇhībhūto",
-    "idiom",
-    "calm and quiet",
     "✔"
    ]
   ]
@@ -18097,7 +18108,7 @@ var family_idiom_json = {
    [
     "kallosi",
     "sandhi",
-    "you are clever; you are smart",
+    "you are clever; you are smart; you are skilful",
     "✔"
    ],
    [
@@ -24532,7 +24543,7 @@ var family_idiom_json = {
    [
     "khippameva",
     "sandhi",
-    "very quickly; extremely rapidly",
+    "very quickly; extremely rapidly; very swiftly",
     "✔"
    ],
    [
@@ -25086,17 +25097,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "cetanā": {
-  "count": 1,
-  "data": [
-   [
-    "cetanāhaṃ",
-    "sandhi",
-    "I (say) intention; I (say) volition; lit. I thought",
-    "✔"
-   ]
-  ]
- },
  "etarahi": {
   "count": 1,
   "data": [
@@ -25171,7 +25171,7 @@ var family_idiom_json = {
    [
     "channetaṃ",
     "sandhi",
-    "for the six this",
+    "for the six, this; of the six, this",
     "✔"
    ],
    [
@@ -28546,7 +28546,7 @@ var family_idiom_json = {
    [
     "pallaṅkaṃ ābhujitvā",
     "idiom",
-    "having folded the legs into a sitting meditation position",
+    "having crossed the legs into a sitting meditation position",
     "✔"
    ]
   ]
@@ -28557,7 +28557,7 @@ var family_idiom_json = {
    [
     "pallaṅkaṃ ābhujitvā",
     "idiom",
-    "having folded the legs into a sitting meditation position",
+    "having crossed the legs into a sitting meditation position",
     "✔"
    ]
   ]

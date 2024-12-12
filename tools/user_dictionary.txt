@@ -2768,3 +2768,6 @@ seraglio
 overrating
 overvaluation
 bandoleer
+incapability
+feebleness
+legume

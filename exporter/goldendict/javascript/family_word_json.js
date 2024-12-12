@@ -5604,59 +5604,6 @@ var family_word_json = {
   ],
   "count": 12
  },
- "nīca": {
-  "data": [
-   [
-    "atinīca",
-    "adj",
-    "too low; too short",
-    "✘"
-   ],
-   [
-    "nātinīca",
-    "adj",
-    "not too short; not too low",
-    "◑"
-   ],
-   [
-    "nīca 1",
-    "adj",
-    "low; short",
-    "✔"
-   ],
-   [
-    "nīca 2",
-    "adj",
-    "poor; inferior; humble; lit. low",
-    "✔"
-   ],
-   [
-    "nīcaka",
-    "adj",
-    "who is low in status; who is poor",
-    "◑"
-   ],
-   [
-    "nīceyya",
-    "adj",
-    "lower (than); more inferior (than); worse (than)",
-    "✔"
-   ],
-   [
-    "nīcceyya 1",
-    "adj",
-    "lower, inferior",
-    "✘"
-   ],
-   [
-    "nīcceyya 2",
-    "nt",
-    "lowness; inferiority",
-    "✘"
-   ]
-  ],
-  "count": 8
- },
  "pāto": {
   "data": [
    [
@@ -7138,6 +7085,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "daṇḍaka 3",
+    "masc",
+    "stick; staff; rod",
+    "✔"
+   ],
+   [
     "daṇḍakī 2",
     "masc",
     "name of a forest",
@@ -7198,7 +7151,7 @@ var family_word_json = {
     "✘"
    ]
   ],
-  "count": 23
+  "count": 24
  },
  "danta": {
   "data": [
@@ -8905,8 +8858,8 @@ var family_word_json = {
    [
     "ādi 1",
     "adj",
-    "first; starting with",
-    "◑"
+    "first; initial; starting with",
+    "✔"
    ],
    [
     "ādi 2",
@@ -9734,7 +9687,7 @@ var family_word_json = {
    [
     "anupubbī",
     "adj",
-    "progressive; developing; ordered; sequential",
+    "progressive; developing; ordered; sequential; lit. following (what came) before",
     "✔"
    ],
    [
@@ -14006,13 +13959,19 @@ var family_word_json = {
     "✔"
    ],
    [
-    "mūga",
+    "mūga 1",
     "adj",
-    "dumb; mute",
+    "mute; non-verbal",
     "✔"
+   ],
+   [
+    "mūga 2",
+    "masc",
+    "mute; non-verbal person",
+    "✘"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "amma": {
   "data": [
@@ -15988,7 +15947,7 @@ var family_word_json = {
    [
     "asabala",
     "adj",
-    "not spotted; not mottled; not patchy",
+    "unspotted; not mottled; not patchy",
     "✔"
    ],
    [
@@ -17789,6 +17748,29 @@ var family_word_json = {
    ]
   ],
   "count": 4
+ },
+ "jaṅgala": {
+  "data": [
+   [
+    "ujjaṅgala",
+    "adj",
+    "arid; barren; sandy",
+    "✔"
+   ],
+   [
+    "jaṅgala 1.1",
+    "nt",
+    "jungle",
+    "✔"
+   ],
+   [
+    "jaṅgala 1.2",
+    "nt",
+    "sandy and waterless place",
+    "✘"
+   ]
+  ],
+  "count": 3
  },
  "ujjenī": {
   "data": [
@@ -20530,7 +20512,7 @@ var family_word_json = {
    [
     "kali 2",
     "masc",
-    "fault; evil; badness; wrongness",
+    "fault; evil; badness; wrongness (for)",
     "✔"
    ],
    [
@@ -23956,23 +23938,6 @@ var family_word_json = {
   ],
   "count": 3
  },
- "jaṅgala": {
-  "data": [
-   [
-    "jaṅgala 1.1",
-    "nt",
-    "jungle",
-    "✔"
-   ],
-   [
-    "jaṅgala 1.2",
-    "nt",
-    "sandy and waterless place",
-    "✘"
-   ]
-  ],
-  "count": 2
- },
  "jaṅghā": {
   "data": [
    [
@@ -24078,7 +24043,7 @@ var family_word_json = {
     "jatukā",
     "fem",
     "bat",
-    "◑"
+    "✔"
    ]
   ],
   "count": 2
@@ -24425,7 +24390,7 @@ var family_word_json = {
    [
     "tatiyaṃ",
     "ind",
-    "third time",
+    "for the third time",
     "✔"
    ],
    [
@@ -26429,6 +26394,53 @@ var family_word_json = {
    ]
   ],
   "count": 2
+ },
+ "nīca": {
+  "data": [
+   [
+    "nātinīca",
+    "adj",
+    "not too short; not too low",
+    "◑"
+   ],
+   [
+    "nīca 1",
+    "adj",
+    "low; short",
+    "✔"
+   ],
+   [
+    "nīca 2",
+    "adj",
+    "poor; inferior; humble; lit. low",
+    "✔"
+   ],
+   [
+    "nīcaka",
+    "adj",
+    "who is low in status; who is poor",
+    "◑"
+   ],
+   [
+    "nīceyya",
+    "adj",
+    "lower (than); more inferior (than); worse (than)",
+    "✔"
+   ],
+   [
+    "nīcceyya 1",
+    "adj",
+    "lower, inferior",
+    "✘"
+   ],
+   [
+    "nīcceyya 2",
+    "nt",
+    "lowness; inferiority",
+    "✘"
+   ]
+  ],
+  "count": 7
  },
  "rassa": {
   "data": [
