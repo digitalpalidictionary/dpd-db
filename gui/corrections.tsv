@@ -3102,25 +3102,28 @@ a > ā"					missing		yes
 46533	source_1	VIN1.2.1	sutta_1	sukkavissaṭṭhisikkhāpadaṃ	example_1	ārogy'atthāya moceti, sukh'atthāya moceti, bhesajj'atthāya moceti, dān'atthāya moceti, <b>puññ'atthāya</b> moceti, yaññ'atthāya moceti, sagg'atthāya moceti	missing		yes		
 56563	sanskrit	svarga + arthāya					missing		yes		
 56563	source_1	VIN1.2.1	sutta_1	sukkavissaṭṭhisikkhāpadaṃ	example_1	ārogy'atthāya moceti, sukh'atthāya moceti, bhesajj'atthāya moceti, dān'atthāya moceti, puññ'atthāya moceti, yaññ'atthāya moceti, <b>sagg'atthāya</b> moceti	missing		yes		
-48476	sanskrit	bīja + arthāya					missing		yes				
-48476	source_1	VIN1.2.1	sutta_1	sukkavissaṭṭhisikkhāpadaṃ	example_1	yaññ'atthāya moceti, sagg'atthāya moceti, <b>bīj'atthāya</b> moceti, vīmaṃs'atthāya moceti, dav'atthāya moceti, nīlaṃ moceti, pītakaṃ moceti, lohitakaṃ moceti, odātaṃ moceti	missing		yes				
-69883	sanskrit	mīmāṃsā + arthāya					missing		yes				
-69883	source_1	VIN1.2.1	sutta_1	sukkavissaṭṭhisikkhāpadaṃ	example_1	yaññ'atthāya moceti, sagg'atthāya moceti, bīj'atthāya moceti, <b>vīmaṃs'atthāya</b> moceti, dav'atthāya moceti, nīlaṃ moceti, pītakaṃ moceti, lohitakaṃ moceti, odātaṃ moceti	missing		yes				
-32173	sanskrit	drava + arthāya					missing		yes				
-32173	source_1	VIN1.2.1	sutta_1	sukkavissaṭṭhisikkhāpadaṃ	example_1	yaññ'atthāya moceti, sagg'atthāya moceti, bīj'atthāya moceti, vīmaṃs'atthāya moceti, <b>dav'atthāya</b> moceti, nīlaṃ moceti, pītakaṃ moceti, lohitakaṃ moceti, odātaṃ moceti	missing		yes				
-32173	commentary	(VIN) <b>dav'atthāyā</b>'ti khiḍḍ'ādhippāyo.					missing		yes				
-36685	source_2	VIN1.2.1	sutta_2	sukkavissaṭṭhisikkhāpadaṃ	example_2	tena vuccati, saṅghādiseso'ti. tass'eva āpatti<b>nikāyassa</b> nāmakammaṃ adhivacanaṃ. tena'pi vuccati, saṅghādiseso'ti.	missing	example is nikāya 1	no				
-31744	source_1	VIN1.2.1	sutta_1	sukkavissaṭṭhisikkhāpadaṃ	example_1	uccāliṅga-pāṇaka-<b>daṭṭh</b>'ūpatthambhe'ti uccāliṅga-pāṇaka-<b>daṭṭhena</b> aṅgajātaṃ kammaniyaṃ hoti.	missing		yes				
-9428	source_1	VIN1.1.4	sutta_1	catutthapārājikaṃ	example_1	anabhijānan'ti <b>asantaṃ</b> abhūtaṃ asaṃvijjamānaṃ ajānanto apassanto attani kusalaṃ dhammaṃ, atthi me kusalo dhammo'ti.	it seems in AN9.11 it is ind adv asatā 1		yes				
-9428	source_2		sutta_2		example_2		move to 1st position		yes				
-13377	meaning_1	who is afflicted with desire; who is led astray by longing					noun		yes				
+48476	sanskrit	bīja + arthāya					missing		yes		
+48476	source_1	VIN1.2.1	sutta_1	sukkavissaṭṭhisikkhāpadaṃ	example_1	yaññ'atthāya moceti, sagg'atthāya moceti, <b>bīj'atthāya</b> moceti, vīmaṃs'atthāya moceti, dav'atthāya moceti, nīlaṃ moceti, pītakaṃ moceti, lohitakaṃ moceti, odātaṃ moceti	missing		yes		
+69883	sanskrit	mīmāṃsā + arthāya					missing		yes		
+69883	source_1	VIN1.2.1	sutta_1	sukkavissaṭṭhisikkhāpadaṃ	example_1	yaññ'atthāya moceti, sagg'atthāya moceti, bīj'atthāya moceti, <b>vīmaṃs'atthāya</b> moceti, dav'atthāya moceti, nīlaṃ moceti, pītakaṃ moceti, lohitakaṃ moceti, odātaṃ moceti	missing		yes		
+32173	sanskrit	drava + arthāya					missing		yes		
+32173	source_1	VIN1.2.1	sutta_1	sukkavissaṭṭhisikkhāpadaṃ	example_1	yaññ'atthāya moceti, sagg'atthāya moceti, bīj'atthāya moceti, vīmaṃs'atthāya moceti, <b>dav'atthāya</b> moceti, nīlaṃ moceti, pītakaṃ moceti, lohitakaṃ moceti, odātaṃ moceti	missing		yes		
+32173	commentary	(VIN) <b>dav'atthāyā</b>'ti khiḍḍ'ādhippāyo.					missing		yes		
+36685	source_2	VIN1.2.1	sutta_2	sukkavissaṭṭhisikkhāpadaṃ	example_2	tena vuccati, saṅghādiseso'ti. tass'eva āpatti<b>nikāyassa</b> nāmakammaṃ adhivacanaṃ. tena'pi vuccati, saṅghādiseso'ti.	missing	example is nikāya 1	no		
+31744	source_1	VIN1.2.1	sutta_1	sukkavissaṭṭhisikkhāpadaṃ	example_1	uccāliṅga-pāṇaka-<b>daṭṭh</b>'ūpatthambhe'ti uccāliṅga-pāṇaka-<b>daṭṭhena</b> aṅgajātaṃ kammaniyaṃ hoti.	missing		yes		
+9428	source_1	VIN1.1.4	sutta_1	catutthapārājikaṃ	example_1	anabhijānan'ti <b>asantaṃ</b> abhūtaṃ asaṃvijjamānaṃ ajānanto apassanto attani kusalaṃ dhammaṃ, atthi me kusalo dhammo'ti.	it seems in AN9.11 it is ind adv asatā 1		yes		
+9428	source_2		sutta_2		example_2		move to 1st position		yes		
+13377	meaning_1	who is afflicted with desire; who is led astray by longing					noun		yes		
 2442	compound_type	sattamī tappurisa	compound_construction	attakām<b>e</b> + pāricariyā			since it is attakāma 2 and due to patimokkha analisys				
 20960	meaning_1	object of pleasure; sensual pleasure; sexual pleasure					since it is a noun				
-45445	meaning_lit	making in front					lit		
-8929	compound_type	dutiyā tappurisa	compound_construction	arahant<b>aṃ</b> + ghātaka			missing		
-8929	source_1	VIN3.1.52	sutta_1	mahākhandhako, arahantaghātakavatthu	example_1	arahanto ete, bhikkhave, bhikkhū. <b>arahantaghātako</b>, bhikkhave, anupasampanno na upasampādetabbo, upasampanno nāsetabbo'ti.	missing		
-8929	construction	arahanta + ghātaka					missing		
-8929	meaning_1	killer of an Arahant; murderer of an awakened being					missing		
-8929	grammar	masc, comp					missing		
-8929	family_compound	arahant ghātaka					missing		
-8929	derived_from						no need		
+45445	meaning_lit	making in front					lit				
+8929	compound_type	dutiyā tappurisa	compound_construction	arahant<b>aṃ</b> + ghātaka			missing				
+8929	source_1	VIN3.1.52	sutta_1	mahākhandhako, arahantaghātakavatthu	example_1	arahanto ete, bhikkhave, bhikkhū. <b>arahantaghātako</b>, bhikkhave, anupasampanno na upasampādetabbo, upasampanno nāsetabbo'ti.	missing				
+8929	construction	arahanta + ghātaka					missing				
+8929	meaning_1	killer of an Arahant; murderer of an awakened being					missing				
+8929	grammar	masc, comp					missing				
+8929	family_compound	arahant ghātaka					missing				
+8929	derived_from						no need				
+17461	meaning_lit	from one					missing				
+12101	source_1	VIN1.2.2	sutta_1	kāyasaṃsaggasikkhāpadaṃ	example_1	<b>āmasanā</b>, parāmasanā, omasanā, ummasanā, olaṅghanā, ullaṅghanā, ākaḍḍhanā, patikaḍḍhanā, abhiniggaṇhanā, abhinippīḷanā, gahaṇaṃ, chupanaṃ.	missing				
+12101	meaning_1	rubbing; touching					missing				
