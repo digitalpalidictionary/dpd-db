@@ -269,3 +269,19 @@ gdict_ru_info = {
 
 
 
+def sbs_related_sign(i: DpdHeadword):
+    """Return html styled letter of which category of examples related to SBS."""
+    html = """<span color: #ab7b38>"""
+    if i.sbs:
+        if i.sbs.sbs_category:
+            html += "A "
+        if i.sbs.sbs_class_anki:
+            html += "C "
+        if i.sbs.sbs_patimokkha == "pat":
+            html += "P "
+        if i.sbs.sbs_patimokkha == "vib":
+            html += "V "
+        if i.sbs.sbs_index:
+            html += "S"
+    html += """</span>"""
+    return html

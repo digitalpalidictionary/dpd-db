@@ -31,7 +31,7 @@ exporter/kindle/kindle_exporter.py
 
 exporter/goldendict/ru_components/tools/ru_zip_goldendict_mdict.py
 
-dps/scripts/move_mdict_ru.py
+# dps/scripts/move_mdict_ru.py
 
 python -c "from tools.configger import config_update; config_update('exporter', 'language', 'en')"
 python -c "from tools.configger import config_update; config_update('dictionary', 'link_url', 'http://filesrv1:8083/')"
