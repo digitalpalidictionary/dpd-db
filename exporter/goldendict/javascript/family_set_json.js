@@ -10484,6 +10484,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "kosārakkha",
+    "masc",
+    "treasurer; treasury guard",
+    "✔"
+   ],
+   [
     "khatta 2",
     "masc",
     "steward; manager; chamberlain",
@@ -11378,7 +11384,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 193
+  "count": 194
  },
  "tastes": {
   "data": [
@@ -13401,7 +13407,7 @@ var family_set_json = {
     "✔"
    ],
    [
-    "āthabbaṇika 1",
+    "āthabbaṇika",
     "masc",
     "reciter of the Atharva Veda; who knows the Atharva Veda",
     "✔"
@@ -29596,7 +29602,7 @@ var family_set_json = {
    ],
    [
     "rājagaha",
-    "masc",
+    "nt",
     "name of a city; capital of Magadha; lit. king's house",
     "✔"
    ],

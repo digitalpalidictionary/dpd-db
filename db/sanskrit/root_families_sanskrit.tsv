@@ -1152,7 +1152,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √tas 1	1	a	tremble, fear	√tras	1	be terrified	√tas	tras	trasati, trasitvā, trasta, trāsa, trāsana, trāsayitvā, trāsita, na + trasitavya, trāsya, nis + trasta
 √tas 1	1	a	tremble, fear	√tras	1	be terrified	ud √tas	uttras	uttrasati, uttrastvā, uttrāsa
 √tas 1	1	a	tremble, fear	√tras	1	be terrified	pari √tas	-	paritrasati, paritrasyati
-√tas 1	1	a	tremble, fear	√tras	1	be terrified	saṃ √tas	saṃtras	asaṃtrāsin, na + santrasat, na + saṃtrāsana, saṃtrasati, saṃtrāsa, saṃtrāsana
+√tas 1	1	a	tremble, fear	√tras	1	be terrified	saṃ √tas	saṃtras	asaṃtrāsin, na + santrasat, na + saṃtrāsana, saṃtrasati, saṃtrāsa, saṃtrāsana, saṃtrāsayitvā
 √tas 2	6	ṇhā	thirst	√tṛṣ	4	be thirsty	√tas	tṛṣ	tṛṣita, tṛṣṇā, tṛṣyati, nis + tṛṣṇā, satṛṣṇa
 √tas 3	3	ya	be agitated	√tṛṣ	4	be thirsty	pari √tas	tṛṣ	aparitṛṣyat, na + pari + tṛṣā, na + paritrasta, pari + tṛṣā, paritṛṣita, paritṛṣyati
 √tas 4	8	*e	decorate, impale	√taṃs	1	decorate	√tas	taṃs	taṃsana, taṃsayati, taṃsita
@@ -1522,6 +1522,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √nah	3	ya	bind, arm	√nah	4	tie	pari ava √nah	avanah	
 √nah	3	ya	bind, arm	√nah	4	tie	saṃ √nah	saṃnah	saṃnaddha, saṃnaddhvā, sannāḍhvā, saṃnahyati, saṃnāha
 √nāth	1	a	have power, protect	√nāth	1	seek aid	√nāth	nāth	anātha, na + nāthat, nātha, sanātha
+√nādh	1	a	beg	√nādh	1	beg	√nādh		nādhate
 √nind	1	a	blame, abuse	√nind	1	revile	√nind	nind	anindita, na + nindā, nindat, nindati, nindana, nindā, nindita, nindya, nindanīya
 √nī	1		lead, carry	√nī	1, 2	lead	√nī	nī	na + neya +, naya, nayati, nayana, nayamāna, nāyaka, niyat, nīta, nīti, nītvā, nayitvā, nīyati, nīyamāna, nīyeta, netavai, netavya, netra, netrī, netṛ + ika, neya, neṣyati, saha + netrī +, sunaya (well-conducted), sunīta, sunetra
 √nī	1	a	lead, carry	√nī	1, 2	lead	ati √nī	atinī	
@@ -1787,7 +1788,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √bandh	1	a	bind, tie	√bandh	9	bind	anu √bandh	anubandh	anubadhnat, anubadhnāti, anubadhnāna, anubandhana, anubandhitavya, anubandhitum, anubandhitvā, anubandhnāna, na + anubadhnāti
 √bandh	1	a	bind, tie	√bandh	9	bind	anu pa √bandh		anuprabandha (bsk)
 √bandh	1	a	bind, tie	√bandh	9	bind	ava √bandh	avabandh	
-√bandh	1	a	bind, tie	√bandh	9	bind	ā √bandh	ābandh	abhāntsīt, ābadhnāti, ābandhana, na + bandhaka
+√bandh	1	a	bind, tie	√bandh	9	bind	ā √bandh	ābandh	abhāntsīt, ābaddhvā, ābadhnāti, ābandhana, na + bandhaka
 √bandh	1	a	bind, tie	√bandh	9	bind	ud √bandh	udbandh	udbaddhvā, udbadhya, udbandha
 √bandh	1	a	bind, tie	√bandh	9	bind	upa ni √bandh	upanibandh	upanibandhana (description), upabadhnāti, saṃnibandha
 √bandh	1	a	bind, tie	√bandh	9	bind	ni √bandh	nibandh	nibadhnāti, nibandha, nibandhana, nibandhita, nibandhiṣyāmi, nibandhiṣye
@@ -1991,7 +1992,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √math	1	a	churn, stir	√math √manth	1, 9	shake	√math	math	na + mathita, mathita, mantha, manthayati, māthayati
 √math	1	a	churn, stir	√math √manth	1, 9	shake	nī √math	nirmath	nimath, nirmathana, nirmanthana (rubbing), nirmathayitvā, nirmathita, nirmathyamāna, nirmanthati
 √math	1	a	churn, stir	√math √manth	1, 9	shake	pa √math	pramath	
-√mad	3	ya	be mad, be intoxicated	√mad	1, 2, 3, 4	be exhilarated	√mad	mad	na + matta, na + madya, nimmadyate, nirmada, nis + mādayat, matta, mattaka, mada, madana, madana, māra, kāmadeva, madanīya, madāya, madeta, madya, manda, manda +, mandatā, mandra, mādana, mādayitvā, mādyat, mādyati, māndya, mārttika, mṛṣṭa, su + matta
+√mad	3	ya	be mad, be intoxicated	√mad	1, 2, 3, 4	be exhilarated	√mad	mad	na + matta, na + madya, nimmadyate, nirmada, nis + mādayat, matta, mattaka, mada, madana, madana, māra, kāmadeva, madanīya, madāya, madeta, madya, manda, manda +, mandatā, mandra, mādana, mādayati, mādayitvā, mādyat, mādyati, māndya, mārttika, mṛṣṭa, su + matta
 √mad	3	ya	be mad, be intoxicated	√mad	1, 2, 3, 4	be exhilarated	ati √mad	mad	ati + matta
 √mad	3	ya	be mad, be intoxicated	√mad	1, 2, 3, 4	be exhilarated	ud √mad	unmad	unmatta, unmattaka, unmāda, unmāditā, unmādinī, ummadayati, ummādayati, ummādana, na + unmattaka
 √mad	3	ya	be mad, be intoxicated	√mad	1, 2, 3, 4	be exhilarated	pa √mad	pramad	apramāda, na + apramāda, na + pramadati, na + pramaditum, na + pramadyat, pra + amādīt, pramada, pramadati, pramaditum, pramāda, pramāda +, pramādayitvā
@@ -2296,7 +2297,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √rah	1	a	leave, desert	√rah	1	desert	√rah	rah	a + rahas, rahas, rahasya, rahasya +, rahaḥ, rahāyate, rahita
 √rah	1	a	leave, desert	√rah	1	desert	anu √rah	-	anurahasam
 √rah	1	a	leave, desert	√rah	1	desert	vi √rah	virah	viraha, virahita, virahita +
-√rāj	1	a	rule, shine	√rāj	1	be kingly	√rāj	rāj	arāṣṭra, rāja, rājan, rājanya, rājabhiḥ < rājan, rājānam, rājānaḥ, rājikā, rājñaḥ < rājan, rājñā < rājan, rājñe, rājñe < rājan, rājya, rājyatva, rāṣṭra, rāṣṭra + vat, rāṣṭrika, sarājan
+√rāj	1	a	rule, shine	√rāj	1	be kingly	√rāj	rāj	arājaka, arāṣṭra, rāja, rājan, rājanya, rājabhiḥ < rājan, rājānam, rājānaḥ, rājikā, rājñaḥ < rājan, rājñā < rājan, rājñe, rājñe < rājan, rājya, rājyatva, rāṣṭra, rāṣṭra + vat, rāṣṭrika, sarājan
 √rāj	1	a	rule, shine	√rāj	1	be kingly	adhi √rāj	adrirāj	adhirāja
 √rāj	1	a	rule, shine	√rāj	1	be kingly	abhi √rāj	abhirāj	abhirāja
 √rāj	1	a	rule, shine	√rāj	1	be kingly	upa √rāj	rāj	auparājika, uparāja, uparāja +
@@ -2626,7 +2627,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √vap	1	a	sow, shave	√vap	1	strew	ud √vap	udvap	udvāpa, udvāpa +
 √vap	1	a	sow, shave	√vap	1	strew	ni √vap	nivap	nivapati, nivāpa, nivāpaka, nyupta
 √vap	1	a	sow, shave	√vap	1	strew	pa √vap	pravap	pravapat, pravapta
-√vam	1	a	eject, vomit	√vam	1, 2	vomit	√vam	vam	vamati, vamathu, vamita, vānta, vamitam, vāntam, vamitvā, vamitvā, vāntvā, vāntavān
+√vam	1	a	eject, vomit	√vam	1, 2	vomit	√vam	vam	vamati, vamathu, vamita +, vamita, vānta, vamitam, vāntam, vamitvā, vamitvā, vāntvā, vāntavān
 √vam	1	a	eject, vomit	√vam	1, 2	vomit	ava √vam		vamitvā
 √vam	1	a	eject, vomit	√vam	1, 2	vomit	ā √vam		ā + vamati, āvamitum
 √vam	1	a	eject, vomit	√vam	1, 2	vomit	pati ā √vam		prati + ā + vamati
@@ -2915,7 +2916,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √sapp	1	a	crawl	√sṛp	1	creep	pari √sapp	parisṛp	parisarpaṇa, parisarpati
 √sapp	1	a	crawl	√sṛp	1	creep	vi √sapp	visṛp	
 √sapp	1	a	crawl	√sṛp	1	creep	saṃ √sapp	saṃsṛp	saṃsarpa, saṃsarpaṇīya, saṃsarpati
-√sam 1	3	ya	be calm, be tired	√śam	4	be quiet	√sam	śam	aśānta, samena, śama, śamatha, śamayitvā, śamayitṛ, śamita, śamita +, śamyat, śamyate, śānta, śāntatara, śāntatā, śāntatva, śānti, śāma, śāmitavān, śāmyat, śāmyati
+√sam 1	3	ya	be calm, be tired	√śam	4	be quiet	√sam	śam	aśānta, samena, śama, śamatha, śamayitvā, śamayitṛ, śamita, śamita +, śamyat, śamyate, śamyate, śrāmyati, śānta, śāntatara, śāntatā, śāntatva, śānti, śāma, śāmitavān, śāmyat, śāmyati
 √sam 1	3	ya	be calm, be tired	√śam	4	be quiet	abhi √sam	abhiśam	
 √sam 1	3	ya	be calm, be tired	√śam	4	be quiet	upa √sam	upaśam	upaśama, upaśamana, upaśamayati, upaśamika (bsk), upaśamyati, upaśamyamāna, upaśānta, upaśāmyate, na + upaśama, na + upaśānta
 √sam 1	3	ya	be calm, be tired	√śam	4	be quiet	ni √sam	niśam	na + na + niśāmya, na + niśamayitvā, na + niśamayya, niśāmayati, niśāmya
@@ -3053,7 +3054,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √sidh 1	1	a	prevent, prohibit	√sidh	1	repel	ni √sidh	niṣidh	niṣedha, niṣedhayati
 √sidh 1	1	*e	prevent, prohibit	√sidh	1	repel	pati √sidh	pratiṣidh	apratiṣiddha, na + prati + asedhīt, prati + asedhīt, prati + sidhayitvā, prati + sidhayya, prati + sidhita, prati + sedhayati, pratisedhayitum, pratiṣedha
 √sidh 2	3	ya	succeed, be accomplished	√sidh	4	succeed	√sidh	sidh	asaitsīt, asiddha, siddha, siddhi, sidhyati, sidhyamāna
-√sidh 2	3		succeed, be accomplished	√sidh	4	succeed	pa √sidh	prasidh	a + prasiddha
+√sidh 2	3		succeed, be accomplished	√sidh	4	succeed	pa √sidh	prasidh	a + prasiddha, prasiddhi
 √sidh 2	3	ya	succeed, be accomplished	√sidh	4	succeed	pati √sidh		
 √sidh 2	3	ya	succeed, be accomplished	√sidh	4	succeed	saṃ √sidh	saṃsidh	
 √sinā	1	a	bathe	√snā	2, 4	bathe	√sinā	snā	snāta, snāti, snāyati, snātum, snāna, snānin

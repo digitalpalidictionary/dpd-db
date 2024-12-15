@@ -2195,7 +2195,7 @@ var family_idiom_json = {
   ]
  },
  "eva": {
-  "count": 249,
+  "count": 250,
   "data": [
    [
     "aṅganteva",
@@ -3134,6 +3134,12 @@ var family_idiom_json = {
     "✔"
    ],
    [
+    "diṭṭheva",
+    "sandhi",
+    "in this very; lit. just in seen",
+    "✔"
+   ],
+   [
     "diṭṭheva dhamme",
     "idiom",
     "in this life; right here right now; in the present; lit. even in seen things",
@@ -3496,7 +3502,7 @@ var family_idiom_json = {
    [
     "vivicceva",
     "sandhi",
-    "just secluding oneself (from)",
+    "secluding oneself entirely (from)",
     "✔"
    ],
    [
@@ -12719,7 +12725,7 @@ var family_idiom_json = {
   ]
  },
  "diṭṭha": {
-  "count": 5,
+  "count": 6,
   "data": [
    [
     "diṭṭha suta muta",
@@ -12731,6 +12737,12 @@ var family_idiom_json = {
     "diṭṭhe dhamme",
     "idiom",
     "in this life; in this world; lit. in seen things",
+    "✔"
+   ],
+   [
+    "diṭṭheva",
+    "sandhi",
+    "in this very; lit. just in seen",
     "✔"
    ],
    [
@@ -17065,6 +17077,59 @@ var family_idiom_json = {
     "vuttamarahatāti",
     "sandhi",
     "this was indeed said by the awakened one",
+    "✔"
+   ]
+  ]
+ },
+ "rāja": {
+  "count": 8,
+  "data": [
+   [
+    "devarajjamakārayiṃ",
+    "sandhi",
+    "I ruled over the gods",
+    "✔"
+   ],
+   [
+    "rajjaṃ kāreti",
+    "idiom",
+    "rules; reigns; is in charge; lit. causes to make a kingdom",
+    "✔"
+   ],
+   [
+    "rajjaṃ kāretvā",
+    "idiom",
+    "having ruled; having reigned; lit. having caused to make a kingdom",
+    "✔"
+   ],
+   [
+    "rajjaṃ kārente",
+    "idiom",
+    "ruling; reigning; lit. causing to make a kingdom",
+    "✔"
+   ],
+   [
+    "rajjaṃ paṭipajjati",
+    "idiom",
+    "reigns; rules; governs; lit. follows rulership",
+    "✔"
+   ],
+   [
+    "rajjaṃ patvā",
+    "idiom",
+    "having taken power; having assumed rulership",
+    "✔"
+   ],
+   [
+    "rajjaṃ laddhāna",
+    "idiom",
+    "having taken the throne; having come into power; lit. having got the kingdom",
+    "✔"
+   ],
+   [
+    "rājāhaṃ",
+    "sandhi",
+    "I am the king",
     "✔"
    ]
   ]
@@ -27306,59 +27371,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "rāja": {
-  "count": 8,
-  "data": [
-   [
-    "devarajjamakārayiṃ",
-    "sandhi",
-    "I ruled over the gods",
-    "✔"
-   ],
-   [
-    "rajjaṃ kāreti",
-    "idiom",
-    "rules; reigns; is in charge; lit. causes to make a kingdom",
-    "✔"
-   ],
-   [
-    "rajjaṃ kāretvā",
-    "idiom",
-    "having ruled; having reigned; lit. having caused to make a kingdom",
-    "✔"
-   ],
-   [
-    "rajjaṃ kārente",
-    "idiom",
-    "ruling; reigning; lit. causing to make a kingdom",
-    "✔"
-   ],
-   [
-    "rajjaṃ paṭipajjati",
-    "idiom",
-    "reigns; rules; governs; lit. follows rulership",
-    "✔"
-   ],
-   [
-    "rajjaṃ patvā",
-    "idiom",
-    "having taken power; having assumed rulership",
-    "✔"
-   ],
-   [
-    "rajjaṃ laddhāna",
-    "idiom",
-    "having taken the throne; having come into power; lit. having got the kingdom",
-    "✔"
-   ],
-   [
-    "rājāhaṃ",
-    "sandhi",
-    "I am the king",
-    "✔"
-   ]
-  ]
- },
  "akārayi": {
   "count": 1,
   "data": [
@@ -31829,7 +31841,7 @@ var family_idiom_json = {
    [
     "vivicceva",
     "sandhi",
-    "just secluding oneself (from)",
+    "secluding oneself entirely (from)",
     "✔"
    ]
   ]

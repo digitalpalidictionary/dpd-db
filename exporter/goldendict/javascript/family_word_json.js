@@ -868,7 +868,7 @@ var family_word_json = {
    [
     "akusala 3",
     "adj",
-    "unhealthy; unwholesome; unskillful; unbeneficial; kammically unprofitable",
+    "unhealthy; unwholesome; unskilful; unbeneficial; kammically unprofitable",
     "✔"
    ],
    [
@@ -1326,6 +1326,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "gabbha 5",
+    "adj",
+    "containing; filled with; lit. womb",
+    "◑"
+   ],
+   [
     "gabbhara 1",
     "nt",
     "cave; cavern",
@@ -1368,7 +1374,7 @@ var family_word_json = {
     "✘"
    ]
   ],
-  "count": 14
+  "count": 15
  },
  "gambhīra": {
   "data": [
@@ -3154,7 +3160,7 @@ var family_word_json = {
     "✘"
    ],
    [
-    "accheraka 1",
+    "accheraka",
     "nt",
     "wonder; marvel",
     "✔"
@@ -6967,7 +6973,7 @@ var family_word_json = {
     "✔"
    ],
    [
-    "āthabbaṇika 1",
+    "āthabbaṇika",
     "masc",
     "reciter of the Atharva Veda; who knows the Atharva Veda",
     "✔"
@@ -26963,7 +26969,7 @@ var family_word_json = {
     "✔"
    ],
    [
-    "paṭala",
+    "paṭala 1",
     "nt",
     "membrane; film; thin layer; lit. cloth",
     "◑"
@@ -28467,7 +28473,7 @@ var family_word_json = {
    [
     "pūva",
     "masc",
-    "cake; (comm) made as a gift",
+    "cake; (comm) various sweets and pastries made as a gift",
     "✔"
    ],
    [
