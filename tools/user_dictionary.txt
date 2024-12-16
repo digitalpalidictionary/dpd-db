@@ -26,6 +26,7 @@
 29th
 2am
 2nd
+4
 40th
 4th
 5th
@@ -74,6 +75,7 @@ adjectival
 admonishable
 admonishable;
 adroitness
+adulating
 adverbial
 adversative
 Aegle
@@ -175,6 +177,7 @@ Anomasutta
 Anopamā
 Anotatta
 another's
+another's 
 Anottatta
 antidysenterica
 antithetic
@@ -292,6 +295,7 @@ balcooa
 bald-headedness
 Bambusa
 Bandhumatī
+bandoleer
 Bārāṇasī
 barbery
 barihisa
@@ -314,6 +318,7 @@ become-one-ness
 bedstead
 befooled
 befools
+befuddles
 beggings
 begrudges
 Belaṭṭha
@@ -406,6 +411,7 @@ Brahminy
 Brassica
 brayonia
 brazenness
+breadths
 brinjal
 broadcasted
 brū
@@ -490,6 +496,7 @@ cluelessness
 clyster
 co-nascence
 Coccolus
+cochineal
 coessential
 cognised
 cognising
@@ -519,6 +526,7 @@ conjectured
 conjee
 conjugational
 conjunct
+conscientiousness
 considerately
 contentiousness
 contexts
@@ -542,6 +550,7 @@ cossetted
 cottonwool
 courageless
 courteousness
+coverlet
 covetousness
 cowdung
 cowpat
@@ -564,6 +573,7 @@ Cūḷapuṇṇamasutta
 cūḷavagga
 Cunda
 curādigaṇa
+Curcuma
 curlew
 Cymbopogon
 Cyperus
@@ -664,6 +674,7 @@ Dīgha
 Dīghanikāya
 diguṇa
 dilemmatic
+diligence
 Diospyros
 Disampati
 discoloured
@@ -802,6 +813,7 @@ father's
 fathomable
 fault-finding
 favourite
+feebleness
 feelable
 felloe
 felly
@@ -814,6 +826,7 @@ firma
 firstness
 flambeau
 flaviviridis
+fleshless
 fleshlessness
 fletched
 fletching
@@ -840,6 +853,7 @@ frumentaceum
 fuelless
 g
 gadflies
+gadfly
 Gaertnera
 gah
 gahādigaṇa
@@ -882,6 +896,7 @@ glabra
 Glabrā
 gladdening
 Gmelina
+gnawings
 gnosis
 Godavar
 Godavari
@@ -1002,6 +1017,7 @@ imprudently
 iṃsu
 in-front-ness
 inarticulately
+incapability
 incises
 incompliant
 inconstance
@@ -1011,6 +1027,8 @@ increaser
 inculpable
 inculpableness
 Inda
+Inda's
+Inda's
 Inda's
 indeclinable
 indeclinables
@@ -1038,6 +1056,7 @@ insentient
 insignificantly
 instructable
 instructible
+insulter
 interdependence
 interestedness
 intractability
@@ -1241,6 +1260,7 @@ Lacucha
 Lagopodioides
 Lakkhaṇasaṃyuttaṃ
 lambaste
+lambastes
 Lanka
 latfolia
 latifolia
@@ -1253,6 +1273,7 @@ laywoman
 leatherwork
 leatherworker
 lebbeck
+legume
 leprotic
 liberating
 liberations
@@ -1277,6 +1298,7 @@ logician
 Lohicca's
 lomā
 long-tasseled
+longa
 longfolia
 longifolia
 longum
@@ -1440,6 +1462,7 @@ MN31
 MN34
 MN39
 MN4
+MN4
 MN40
 MN41
 MN42
@@ -1470,6 +1493,7 @@ MN65
 MN66
 MN67
 MN70
+MN71
 MN71
 MN72
 MN73
@@ -1613,6 +1637,7 @@ Nymphaea
 ŋ
 o
 obdurance
+obdurate
 objectless
 observances
 obstinance
@@ -1628,6 +1653,7 @@ one-placed-ness
 one's
 one's
 one's
+onomatopoeic
 oojeinensis
 Opāsāda
 optative
@@ -1647,10 +1673,14 @@ outcaste
 outgrowths
 outlaid
 outshined
+overestimation
 overgarment
 overindulging
+overrating
 overspread
+overvaluation
 ownerless
+p
 pā
 Pabbatūpamasutta
 paccāsīsamānarūpo
@@ -1684,6 +1714,7 @@ paṇḍuka
 paṇḍupuṭaka
 paṇḍupuṭakassa
 panegyrist
+panga
 Panicum
 paññatti
 papāgato
@@ -1790,6 +1821,7 @@ poecilonym
 point-ness
 poisonless
 Pokkharasāti
+polity
 Pongamia
 Pongamiya
 populnea
@@ -1849,6 +1881,7 @@ putridness
 PV
 q.v
 qualia
+r
 racemosa
 Rādha
 Rādhasaṃyuttaṃ
@@ -1899,6 +1932,7 @@ remediable
 rememberer
 remusters
 Reṇu
+renunciant
 renunciants
 renunciate
 renunciates
@@ -1918,6 +1952,7 @@ retroflex
 Revata
 reverable
 revilement
+reviler
 reviles
 reviver
 Ṛg
@@ -1961,6 +1996,7 @@ sahasakkha
 Sāketa
 sakhilabhāve
 Sakka
+Sakka's
 Sakka's
 Sakka's
 Sakka's
@@ -2052,6 +2088,7 @@ scrapers
 scrutinizer
 scrutinizingly
 seasonable
+secluding
 seizers
 Sekhasutta
 Sekhasuttaṃ
@@ -2063,6 +2100,7 @@ semi-vowel
 Senagiri
 seniormost
 sensorial
+seraglio
 serrata
 sesemum
 Setabyā
@@ -2154,6 +2192,7 @@ Sri Lankan
 ssa
 stabilises
 stableman
+statecraft
 steamrolls
 step-by-step
 stick-less
@@ -2169,6 +2208,7 @@ strews
 Strychnos
 studly
 stupa
+stupefies
 su
 sū
 suavity
@@ -2183,6 +2223,7 @@ Subhasutta
 Subhūti
 subsists
 substanceless
+substratum
 suchness
 Sudatta
 Sudinna
@@ -2236,6 +2277,7 @@ svāgataṃ
 swallowable
 swops
 Syām
+sycophantic
 syllogism
 sylvatica
 Symplocos
@@ -2274,6 +2316,8 @@ Tepiṭakacūḷanāgatthera
 Terminalia
 ternatea
 terra
+tevijjavacchasuttaṃ
+tevijjavacchasuttaṃ
 th
 ṭh
 tha
@@ -2335,6 +2379,7 @@ tradable
 tragocamelus
 training rule
 tranquillization
+transgresses
 transmigrated
 transmigrates
 transmuting
@@ -2463,9 +2508,11 @@ unfuelled
 ungenerousness
 ungraspable
 unground
+ungrounded
 unharnessed
 unheated
 unhesitant
+unholiness
 unicolour
 unicornis
 unimpelled
@@ -2476,6 +2523,7 @@ uninspected
 uninstructable
 uninstructed
 uninstructible
+unitary
 unjudgeable
 unlimted
 unmanifest
@@ -2494,6 +2542,7 @@ unperformed
 unpervaded
 unpierced
 unpresumed
+unproblematic
 unproduced
 unproficient
 unproliferated
@@ -2505,6 +2554,7 @@ unremovable
 unrent
 unrepelled
 unrevealed
+unrighteously
 unrinsed
 unripened
 unrippled
@@ -2542,6 +2592,8 @@ unvirtuous
 unwieldliness
 unwished
 unwrought
+unyoked
+unyoking
 upādā-rūpa
 Upāli
 Upamañña
@@ -2672,6 +2724,7 @@ vissajjanā
 Visuddhimagga
 visukammante
 Vitex
+vitiligo
 Vitis
 viyavajjena
 viyāyāma
@@ -2729,50 +2782,3 @@ you're
 youthfulness
 zizanioides
 Ziziphus
-substratum
-gadfly
-another's 
-Inda's
-onomatopoeic
-Sakka's
-Inda's
-breadths
-unrighteously
-unproblematic
-renunciant
-panga
-tevijjavacchasuttaṃ
-MN71
-tevijjavacchasuttaṃ
-overestimation
-lambastes
-unyoked
-unitary
-r
-MN4
-4
-unyoking
-obdurate
-reviler
-insulter
-fleshless
-diligence
-conscientiousness
-longa
-Curcuma
-p
-unholiness
-vitiligo
-transgresses
-seraglio
-overrating
-overvaluation
-bandoleer
-incapability
-feebleness
-legume
-cochineal
-secluding
-stupefies
-befuddles
-ungrounded

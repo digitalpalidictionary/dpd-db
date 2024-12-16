@@ -2415,7 +2415,7 @@ var family_root_json = {
     "kuttaka 2",
     "nt",
     "(comm) woollen carpet large enough for sixteen women to dance on",
-    "◑"
+    "✔"
    ],
    [
     "kutti",
@@ -12499,7 +12499,7 @@ var family_root_json = {
   "root_key": "√añj 1",
   "root_family": "√añj",
   "root_meaning": "distinguish",
-  "count": 16,
+  "count": 17,
   "data": [
    [
     "aṅga 1",
@@ -12535,6 +12535,12 @@ var family_root_json = {
     "aṅga 6",
     "nt",
     "vow; practice; ascetic practice",
+    "✔"
+   ],
+   [
+    "aṅga 7",
+    "nt",
+    "prognostication by parts of the body",
     "✔"
    ],
    [
@@ -30621,7 +30627,7 @@ var family_root_json = {
   "root_key": "√thar",
   "root_family": "ā √thar",
   "root_meaning": "spread, expand",
-  "count": 18,
+  "count": 19,
   "data": [
    [
     "atthata 1",
@@ -30676,6 +30682,12 @@ var family_root_json = {
     "nt",
     "carpet; rug; lit. spreading",
     "◑"
+   ],
+   [
+    "attharaṇa 4",
+    "adj",
+    "with a spread; with a cover; having a sheet; lit. spreading",
+    "✔"
    ],
    [
     "attharati",
@@ -57347,7 +57359,7 @@ var family_root_json = {
     "nemittika 3",
     "adj",
     "hinting; suggesting; lit. related to signs",
-    "◑"
+    "✔"
    ],
    [
     "nemittikatā",
@@ -76787,7 +76799,7 @@ var family_root_json = {
   "root_key": "√pac",
   "root_family": "√pac",
   "root_meaning": "cook, mature, ripen",
-  "count": 51,
+  "count": 52,
   "data": [
    [
     "apakka 1",
@@ -76865,6 +76877,12 @@ var family_root_json = {
     "pakka 3",
     "nt",
     "ripe fruit; lit. ripened",
+    "✔"
+   ],
+   [
+    "pakka 4",
+    "pp",
+    "ripened; matured",
     "✔"
    ],
    [
@@ -110305,7 +110323,7 @@ var family_root_json = {
   "root_key": "√bhū",
   "root_family": "√bhū",
   "root_meaning": "be, become",
-  "count": 167,
+  "count": 168,
   "data": [
    [
     "abhabba 1",
@@ -111217,6 +111235,12 @@ var family_root_json = {
     "bhūri 2",
     "fem",
     "wisdom; discernment",
+    "✔"
+   ],
+   [
+    "bhūri 3",
+    "fem",
+    "earth; ground",
     "✔"
    ],
    [
@@ -127670,8 +127694,8 @@ var family_root_json = {
    [
     "lapaka 1",
     "adj",
-    "flattering; adulating; sycophantic",
-    "✘"
+    "flattering; chatting up; coaxing; cajoling; buttering up",
+    "✔"
    ],
    [
     "lapaka 2",
@@ -135847,7 +135871,7 @@ var family_root_json = {
   "root_key": "√kar",
   "root_family": "vi √kar",
   "root_meaning": "do, make",
-  "count": 29,
+  "count": 30,
   "data": [
    [
     "avikatvā",
@@ -135925,6 +135949,12 @@ var family_root_json = {
     "vikatika",
     "adj",
     "assorted; various; many different kinds of; lit. making different",
+    "✔"
+   ],
+   [
+    "vikatikā",
+    "fem",
+    "(comm) woolen spread with various designs; lit. making different",
     "✔"
    ],
    [
@@ -177733,7 +177763,7 @@ var family_root_json = {
   "root_key": "√kus 2",
   "root_family": "√kus",
   "root_meaning": "fill, enfold",
-  "count": 29,
+  "count": 30,
   "data": [
    [
     "kucchi 1",
@@ -177907,6 +177937,12 @@ var family_root_json = {
     "koseyya 2",
     "nt",
     "silk; lit. from a cocoon",
+    "✔"
+   ],
+   [
+    "koseyya 3",
+    "nt",
+    "silk sheet; lit. from a cocoon",
     "✔"
    ]
   ]
@@ -180433,7 +180469,7 @@ var family_root_json = {
     "cittaka 1",
     "masc",
     "(comm) woollen coverlet with stitched designs; lit. decorated; designed",
-    "◑"
+    "✔"
    ],
    [
     "cittaka 2",
@@ -186465,13 +186501,13 @@ var family_root_json = {
     "nijigīsitar",
     "masc",
     "who desires; who seeks; who wishes to get",
-    "✘"
+    "✔"
    ],
    [
     "nijigīṃsitar",
     "masc",
     "who desires; who seeks; who wishes to get",
-    "✘"
+    "✔"
    ]
   ]
  },
@@ -187575,23 +187611,23 @@ var family_root_json = {
    ]
   ]
  },
- "√pis 3 ni √pis": {
-  "root_key": "√pis 3",
+ "√pis 2 ni √pis": {
+  "root_key": "√pis 2",
   "root_family": "ni √pis",
-  "root_meaning": "speak ill",
+  "root_meaning": "grind, hurt",
   "count": 2,
   "data": [
    [
-    "nippesika",
-    "adj",
-    "insulting or threatening (for gain)",
-    "✘"
+    "nippesa",
+    "masc",
+    "threat; insult",
+    "✔"
    ],
    [
-    "nippesikā",
-    "fem",
-    "insulting or threatening (for gain)",
-    "✘"
+    "nippesika",
+    "adj",
+    "threatening; insulting",
+    "✔"
    ]
   ]
  },
@@ -199009,7 +199045,7 @@ var family_root_json = {
   "root_key": "√madd",
   "root_family": "pari √madd",
   "root_meaning": "crush, grind",
-  "count": 12,
+  "count": 11,
   "data": [
    [
     "parimaddati 1",
@@ -199034,12 +199070,6 @@ var family_root_json = {
     "nt",
     "rubbing down; kneading; lit. crushing all around",
     "✔"
-   ],
-   [
-    "parimaddana 3",
-    "nt",
-    "massaging",
-    "✘"
    ],
    [
     "parimaddanta",
@@ -219933,7 +219963,7 @@ var family_root_json = {
     "samārabbha",
     "masc",
     "injuring; killing; destruction (of); violence (towards)",
-    "✘"
+    "✔"
    ],
    [
     "samārabhati 2.1",

@@ -10716,6 +10716,12 @@ var family_word_json = {
     "✘"
    ],
    [
+    "apakkhaka",
+    "adj",
+    "without wings",
+    "✔"
+   ],
+   [
     "apakkhatā",
     "fem",
     "fact of having no supporters; lit. no side state",
@@ -10864,9 +10870,15 @@ var family_word_json = {
     "adj",
     "with wings destroyed; de-winged",
     "✔"
+   ],
+   [
+    "sapakkhaka",
+    "adj",
+    "with wings",
+    "✔"
    ]
   ],
-  "count": 27
+  "count": 29
  },
  "pacchā": {
   "data": [
@@ -17466,7 +17478,7 @@ var family_word_json = {
     "āsandi 1",
     "fem",
     "reclining chair; lounge chair; deck chair; (comm) over-length chair",
-    "◑"
+    "✔"
    ],
    [
     "āsandi 2",
@@ -23374,7 +23386,7 @@ var family_word_json = {
     "ciṅgulika",
     "nt",
     "(comm) toy windmill; small spinning wheel",
-    "✘"
+    "✔"
    ],
    [
     "ciṅgūlaka",
@@ -26145,7 +26157,7 @@ var family_word_json = {
     "nāḷikā 2",
     "fem",
     "tube; bottle; lit. hollow bamboo tube",
-    "◑"
+    "✔"
    ],
    [
     "nāḷikā 3",

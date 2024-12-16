@@ -977,7 +977,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ji 1	1	*āpaya	conquer	√ji	1, 2	conquer	√ji	ji	ajaiṣīt, ajeya, cikīrṣā, jaya, jayat, jayati, jayanta, jayet, jāpayati, jigīṣat, jigīṣati, jigīṣamāṇa, jigīṣamāna, jigīṣita, jigīṣu, jitvā, jīyate, jetṛ, jeṣyati, na + jāpayat
 √ji 1	1	a	conquer	√ji	1, 2	conquer	abhi √ji	abhiji	abhijita
 √ji 1	1	a	conquer	√ji	1, 2	conquer	ud √ji	ujji	ujjayana
-√ji 1	1	sa	conquer	√ji	1, 2	conquer	ni √ji	niji	ni + jigīṣati, ni + jigīṣamāṇa, ni + jigīṣamāṇa +
+√ji 1	1	sa	conquer	√ji	1, 2	conquer	ni √ji	ji	jigīṣā, ni + jigīṣati, ni + jigīṣamāṇa, ni + jigīṣamāṇa +, ni + jigīṣā
 √ji 1	1	a	conquer	√ji	1, 2	conquer	parā √ji	parāji	aparājita, parājaiṣṭa, parājaya, parājayat, parājayate, parājita, pārājika (bsk),  pārājayaka < parājaya
 √ji 1	1	a	conquer	√ji	1, 2	conquer	vi √ji	viji	vijaya, vijayati, vijayā, vijītya, vijītvā
 √ji 1	1	a	conquer	√ji	1, 2	conquer	saṃ √ji	saṃji	saṃjaya, sṛñjaya, saṃjaya
@@ -1665,10 +1665,10 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √pis 1	8	*e	send	√pis √preṣ	1	go	anu √pis	anupreṣ	
 √pis 1	8	*e	send	√pis √preṣ	1	go	pati √pis		paripreṣ
 √pis 2	2	ṃa	grind, hurt	√piṣ	7, 10	hurt	√pis	piṣ	pinaṣṭi, piṃṣat, piṣṭa, piṣṭvā
+√pis 2	2	*e	grind, hurt	√piṣ	7, 10	hurt	ni √pis		naiṣpeṣikatā, niṣpeṣa
 √pis 2	2	ṃa	grind, hurt	√piṣ	7, 10	hurt	nī √pis	niṣpiṣ	
 √pis 2	2	ṃa	grind, hurt	√piṣ	7, 10	hurt	pati √pis	pratipiṣ	pratipinaṣṭi
 √pis 3	8	*e	speak ill	√pis	7, 10	hurt	√pis	piṣ	kau + śal(y, na + piśuṇa, paiśuna, paiśunya, paiśunyaka, piśuṇa
-√pis 3	8	*e	speak ill	√pis	7, 10	hurt	ni √pis		naiṣpeṣikatā
 √pis 3	8	*e	speak ill	√pis	7, 10	hurt	nī √pis	niṣpiṣ	naiṣpeṣikatā
 √pih	8	*aya	desire, envy	√spṛh	6, 10	be eager	√pih	spṛh	a, aspṛhālu, spṛhayālu, spṛhayat, spṛhayati, spṛhayamāṇa, spṛhā
 √pī	5	nā	love, please	√prī	9	please	√pī	prī	a + prīti, apriya, niṣprītika, praiya, priya, priyaka, priyatara, priyatā, priyatva, priyā, priyāya, priyāyat, priyāyate, prīti, prītimat, prema, premaṇīya, preman, sa + prītika, supriya
