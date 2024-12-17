@@ -76,6 +76,7 @@ admonishable
 admonishable;
 adroitness
 adulating
+adulator
 adverbial
 adversative
 Aegle
@@ -332,6 +333,7 @@ benefactor
 Bengalis
 benghalensis
 benjamin
+beryl
 besprinkled
 besprinkles
 besprinkling
@@ -431,6 +433,7 @@ c.
 Cadamba
 caerulea
 Caesalpina
+cajoler
 Cāla
 calamus
 Calophyllum
@@ -495,6 +498,7 @@ Clitoria
 cluelessness
 clyster
 co-nascence
+coaxer
 Coccolus
 cochineal
 coessential
@@ -825,6 +829,7 @@ fineness
 firma
 firstness
 flambeau
+flatterer
 flaviviridis
 fleshless
 fleshlessness
@@ -975,6 +980,7 @@ Himalayan
 Himalayas
 hindrances
 hinnie
+hinter
 Hiptage
 hitman
 Holarrhena
@@ -1262,6 +1268,7 @@ Lakkhaṇasaṃyuttaṃ
 lambaste
 lambastes
 Lanka
+lapis lazuli
 latfolia
 latifolia
 layerings
@@ -1642,6 +1649,7 @@ objectless
 observances
 obstinance
 obstinancy
+occultation
 Ocimum
 octad
 Octandra
@@ -2232,6 +2240,7 @@ suffering
 suffuses
 suffusion
 sugata-span
+suggester
 Sujā's
 sullenness
 Sumana 
@@ -2339,6 +2348,7 @@ third-ish
 thirty-eighth
 ṭhiti
 thousand-spoked
+threatener
 Thūlakoṭṭhika
 Thullakoṭṭhika
 Thuna

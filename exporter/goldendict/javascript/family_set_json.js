@@ -10486,7 +10486,7 @@ var family_set_json = {
    [
     "kosārakkha",
     "masc",
-    "treasurer; treasury guard",
+    "treasurer; guardian of the treasury",
     "✔"
    ],
    [

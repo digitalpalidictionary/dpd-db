@@ -12540,7 +12540,7 @@ var family_root_json = {
    [
     "aṅga 7",
     "nt",
-    "prognostication by parts of the body",
+    "prognostication by physical features; lit. parts",
     "✔"
    ],
    [
@@ -19576,8 +19576,8 @@ var family_root_json = {
    [
     "jaya 2",
     "masc",
-    "victory, conquest",
-    "✘"
+    "victory; conquest; winning",
+    "✔"
    ],
    [
     "jayati",
@@ -21861,7 +21861,7 @@ var family_root_json = {
   "root_key": "√jhā",
   "root_family": "√jhā",
   "root_meaning": "think, meditate",
-  "count": 23,
+  "count": 24,
   "data": [
    [
     "ajjhāyaka 2.1",
@@ -21904,6 +21904,12 @@ var family_root_json = {
     "adj",
     "having meditation; related to meditation",
     "◑"
+   ],
+   [
+    "jhāna 4",
+    "nt",
+    "thinking about; contemplating; lit. meditating",
+    "✔"
    ],
    [
     "jhānika 1",
@@ -35284,7 +35290,7 @@ var family_root_json = {
    [
     "āgamma 3",
     "ind",
-    "dependent on; based on; lit. coming",
+    "dependent (on); based (on); lit. coming",
     "✔"
    ],
    [
@@ -57357,8 +57363,8 @@ var family_root_json = {
    ],
    [
     "nemittika 3",
-    "adj",
-    "hinting; suggesting; lit. related to signs",
+    "masc",
+    "hinter; suggester; lit. related to signs",
     "✔"
    ],
    [
@@ -57980,8 +57986,8 @@ var family_root_json = {
    [
     "aniyyāna",
     "nt",
-    "not marching out; not going to war",
-    "✘"
+    "not marching out; not going to war; (comm) returning",
+    "✔"
    ],
    [
     "aniyyānika",
@@ -58058,25 +58064,25 @@ var family_root_json = {
    [
     "niyyāna 2",
     "nt",
-    "leaving; exiting; going out",
-    "✘"
+    "marching out; going to war; lit. going out",
+    "✔"
    ],
    [
     "niyyāna 3",
     "nt",
-    "departure",
+    "leaving; exiting; going out",
     "✘"
    ],
    [
     "niyyāna 4",
     "nt",
-    "release, deliverance",
+    "departure",
     "✘"
    ],
    [
     "niyyāna 5",
     "nt",
-    "marching out; going to war",
+    "release, deliverance",
     "✘"
    ],
    [
@@ -74259,7 +74265,7 @@ var family_root_json = {
   "root_key": "√gam",
   "root_family": "ava √gam",
   "root_meaning": "go",
-  "count": 14,
+  "count": 13,
   "data": [
    [
     "anoggata",
@@ -74318,14 +74324,8 @@ var family_root_json = {
    [
     "ogamana 1",
     "nt",
-    "going down",
-    "✘"
-   ],
-   [
-    "ogamana 2",
-    "nt",
-    "(of the sun, a star or a planet) setting",
-    "✘"
+    "(of the sun, a star or a planet) setting; descending; lit. going down",
+    "✔"
    ],
    [
     "oggacchati",
@@ -84453,11 +84453,17 @@ var family_root_json = {
   "root_key": "√yā",
   "root_family": "apa √yā",
   "root_meaning": "go",
-  "count": 5,
+  "count": 6,
   "data": [
    [
     "apayanta",
     "prp",
+    "going away; retreating",
+    "✔"
+   ],
+   [
+    "apayāna",
+    "nt",
     "going away; retreating",
     "✔"
    ],
@@ -127693,8 +127699,8 @@ var family_root_json = {
    ],
    [
     "lapaka 1",
-    "adj",
-    "flattering; chatting up; coaxing; cajoling; buttering up",
+    "masc",
+    "flatterer; coaxer; cajoler; adulator",
     "✔"
    ],
    [
@@ -132067,7 +132073,7 @@ var family_root_json = {
   "root_key": "√thar",
   "root_family": "ava √thar",
   "root_meaning": "spread, expand",
-  "count": 22,
+  "count": 23,
   "data": [
    [
     "avatthaṭa",
@@ -132106,9 +132112,15 @@ var family_root_json = {
     "✘"
    ],
    [
-    "avattharitvā",
+    "avattharitvā 1",
     "abs",
-    "having covered over; having submerged",
+    "having covered; having spread across; lit. having spread down",
+    "✔"
+   ],
+   [
+    "avattharitvā 2",
+    "abs",
+    "having submerged",
     "✘"
    ],
    [
@@ -145114,14 +145126,14 @@ var family_root_json = {
    [
     "vodāna 2",
     "nt",
-    "(abhidhamma) consciousness that precedes appanā or magga; lit. cleansing",
-    "◑"
+    "(of the sun, a star or a planet) brightening; clearing; lit. cleaning",
+    "✔"
    ],
    [
     "vodāna 3",
-    "masc",
-    "(of the sun, a star or a planet) brightening; clearing",
-    "✘"
+    "nt",
+    "(abhidhamma) consciousness that precedes appanā or magga; lit. cleansing",
+    "◑"
    ],
    [
     "vodāniya",
@@ -146282,8 +146294,8 @@ var family_root_json = {
    [
     "saṃkilesa 2",
     "masc",
-    "(of the sun, a star or a planet) darkening",
-    "✘"
+    "(of the sun, a star or a planet) darkening; lit. defilement",
+    "✔"
    ],
    [
     "saṃkilesanaka",
@@ -171628,8 +171640,8 @@ var family_root_json = {
    [
     "upayāna",
     "nt",
-    "approach, arrival",
-    "✘"
+    "approaching; arriving; lit. going near",
+    "✔"
    ],
    [
     "upayāpetabba",
@@ -174222,7 +174234,7 @@ var family_root_json = {
    [
     "uyyāti",
     "pr",
-    "goes off; drives off; lit. goes up",
+    "goes off; drives (something) off (from); lit. goes up",
     "✔"
    ],
    [
@@ -180468,7 +180480,7 @@ var family_root_json = {
    [
     "cittaka 1",
     "masc",
-    "(comm) woollen coverlet with stitched designs; lit. decorated; designed",
+    "(comm) woollen spread with stitched designs; lit. decorated; designed",
     "✔"
    ],
    [
@@ -187625,8 +187637,8 @@ var family_root_json = {
    ],
    [
     "nippesika",
-    "adj",
-    "threatening; insulting",
+    "masc",
+    "threatener; insulter",
     "✔"
    ]
   ]
@@ -199728,6 +199740,20 @@ var family_root_json = {
     "adj",
     "sprinkling; soaking; lit. sprinkling all around",
     "◑"
+   ]
+  ]
+ },
+ "√siv 1 pari √siv": {
+  "root_key": "√siv 1",
+  "root_family": "pari √siv",
+  "root_meaning": "sew",
+  "count": 1,
+  "data": [
+   [
+    "parisibbita",
+    "pp",
+    "stitched all around; sewn around (with)",
+    "✔"
    ]
   ]
  },

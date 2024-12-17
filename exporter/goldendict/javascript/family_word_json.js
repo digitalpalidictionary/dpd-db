@@ -4893,19 +4893,19 @@ var family_word_json = {
     "✔"
    ],
    [
-    "tathatta 1",
+    "tathatta 1.1",
     "nt",
     "such a state; such a condition",
     "✔"
    ],
    [
-    "tathatta 2",
+    "tathatta 1.2",
     "nt",
     "doing likewise; lit. such state",
     "✔"
    ],
    [
-    "tathatta 3",
+    "tathatta 1.3",
     "nt",
     "truth",
     "✘"
@@ -22037,8 +22037,8 @@ var family_word_json = {
    [
     "khatta 1",
     "nt",
-    "political science, that which belonging to Khattiyas",
-    "✘"
+    "politics; statecraft; governance",
+    "✔"
    ],
    [
     "khatta 2",
@@ -25458,8 +25458,8 @@ var family_word_json = {
    [
     "dudrabhi",
     "fem",
-    "drum",
-    "✘"
+    "war drum; kettledrum",
+    "✔"
    ]
   ],
   "count": 1
@@ -26156,7 +26156,7 @@ var family_word_json = {
    [
     "nāḷikā 2",
     "fem",
-    "tube; bottle; lit. hollow bamboo tube",
+    "ornamental tube; decorated bottle; lit. hollow bamboo tube",
     "✔"
    ],
    [
@@ -27001,7 +27001,7 @@ var family_word_json = {
    [
     "paṭalikā",
     "fem",
-    "(comm) thick woollen cover embroidered with flowers",
+    "(comm) thick woollen spread embroidered with flowers",
     "✔"
    ],
    [
@@ -32105,6 +32105,23 @@ var family_word_json = {
    ]
   ],
   "count": 5
+ },
+ "veḷuriya": {
+  "data": [
+   [
+    "veḷuriya",
+    "masc",
+    "cat's eye; lapis lazuli; beryl; semi-precious stone",
+    "✔"
+   ],
+   [
+    "veḷūriya",
+    "masc",
+    "cat's eye; lapis lazuli; beryl; semi-precious stone",
+    "✔"
+   ]
+  ],
+  "count": 2
  },
  "sakaṭa": {
   "data": [
