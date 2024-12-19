@@ -15,34 +15,33 @@ from tools.printer import p_title, p_green, p_green_title, p_yes
 
 
 class GlobalVars():
-    tic()
-    p_title("making summary")
-    p_green("preparing data")
+    def __init__(self) -> None:
+        p_green("preparing data")
 
-    pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(DpdHeadword).all()
-    roots_db = db_session.query(DpdRoot).all()
-    deconstructor_db = db_session.query(Lookup) \
-        .filter(Lookup.deconstructor != "") \
-        .all()
-    
-    last_id = read_uposatha_count()
-    new_words_db = db_session.query(DpdHeadword) \
-        .filter(DpdHeadword.id > last_id) \
-        .all()
+        self.pth = ProjectPaths()
+        self.db_session = get_db_session(self.pth.dpd_db_path)
+        self.dpd_db = self.db_session.query(DpdHeadword).all()
+        self.roots_db = self.db_session.query(DpdRoot).all()
+        self.deconstructor_db = self.db_session.query(Lookup) \
+            .filter(Lookup.deconstructor != "") \
+            .all()
+        
+        self.last_id = read_uposatha_count()
+        self.new_words_db = self.db_session.query(DpdHeadword) \
+            .filter(DpdHeadword.id > self.last_id) \
+            .all()
 
-    root_families: dict[str, int]
-    line_1: str
-    line_2: str
-    line_3: str
-    line_4: str
-    line_5: str
-    line_6: str
-    line_7: str
-    summary: str
-    
-    p_yes("ok")
+        self.root_families: dict[str, int]
+        self.line_1: str
+        self.line_2: str
+        self.line_3: str
+        self.line_4: str
+        self.line_5: str
+        self.line_6: str
+        self.line_7: str
+        self.summary: str
+        
+        p_yes("ok")
 
 
 def dpd_size(g: GlobalVars):
@@ -198,13 +197,14 @@ def make_summary_string(g: GlobalVars):
 
 
 def main():
+    tic()
 
     if not config_test("exporter", "summary", "yes"):
         p_green_title("disabled in config.ini")
         toc()
 
     else:
-        p_green("summarizing data")
+        p_title("making summary")
 
         g = GlobalVars()
         dpd_size(g)
