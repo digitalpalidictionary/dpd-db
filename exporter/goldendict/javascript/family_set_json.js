@@ -679,7 +679,7 @@ var family_set_json = {
     "◑"
    ],
    [
-    "apanayana 3",
+    "apanayana 4",
     "nt",
     "(gram) removing; lit. leading away",
     "◑"
@@ -963,7 +963,7 @@ var family_set_json = {
    [
     "ādibhūta",
     "adj",
-    "(gram) initial; occurring at the beginning; lit. beginning state",
+    "(gram) initial; occurring at the beginning; lit. become beginning",
     "✔"
    ],
    [

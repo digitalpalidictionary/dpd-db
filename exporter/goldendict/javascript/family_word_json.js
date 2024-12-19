@@ -7517,6 +7517,12 @@ var family_word_json = {
     "◑"
    ],
    [
+    "dutiye",
+    "ind",
+    "in the second case; in the second way",
+    "✔"
+   ],
+   [
     "dutīya",
     "ordin",
     "second (2nd)",
@@ -7661,7 +7667,7 @@ var family_word_json = {
     "◑"
    ]
   ],
-  "count": 47
+  "count": 48
  },
  "amu": {
   "data": [
@@ -16338,8 +16344,8 @@ var family_word_json = {
    [
     "asassatika",
     "adj",
-    "believing in non-eternality",
-    "✘"
+    "believing in non-eternity",
+    "✔"
    ],
    [
     "nāsassata",
@@ -16362,8 +16368,8 @@ var family_word_json = {
    [
     "sassatika",
     "adj",
-    "eternalist",
-    "✘"
+    "believing in eternity",
+    "✔"
    ]
   ],
   "count": 6
@@ -19270,7 +19276,7 @@ var family_word_json = {
     "osadhi 2",
     "nt",
     "medicine; drug",
-    "◑"
+    "✔"
    ],
    [
     "osadhī 1",
@@ -20605,6 +20611,47 @@ var family_word_json = {
    ]
   ],
   "count": 3
+ },
+ "kalusa": {
+  "data": [
+   [
+    "kalusa 1",
+    "nt",
+    "sin",
+    "✘"
+   ],
+   [
+    "kalusa 2",
+    "nt",
+    "impurity",
+    "✘"
+   ],
+   [
+    "kalusa 3",
+    "adj",
+    "impure",
+    "✘"
+   ],
+   [
+    "kalusa 4",
+    "adj",
+    "dirty",
+    "✘"
+   ],
+   [
+    "kālusiya",
+    "nt",
+    "obscurity; disturbance; lit. dirty state",
+    "✔"
+   ],
+   [
+    "kālussiya",
+    "nt",
+    "defilement; impurity",
+    "✘"
+   ]
+  ],
+  "count": 6
  },
  "kaḷevara": {
   "data": [
@@ -23069,8 +23116,8 @@ var family_word_json = {
    [
     "catutthe",
     "ind",
-    "in a fourth case; in the fourth place (?)",
-    "✘"
+    "in the fourth case; in the fourth way",
+    "✔"
    ],
    [
     "catudhā",
@@ -24418,6 +24465,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "tatiye",
+    "ind",
+    "in the third case; in the third way",
+    "✔"
+   ],
+   [
     "tatīya",
     "ordin",
     "third (3rd)",
@@ -24508,7 +24561,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 21
+  "count": 22
  },
  "tāva": {
   "data": [
@@ -25453,19 +25506,14 @@ var family_word_json = {
   ],
   "count": 3
  },
- "dundubhi": {
+ "dunduṃ": {
   "data": [
    [
     "dudrabhi",
     "fem",
     "war drum; kettledrum",
     "✔"
-   ]
-  ],
-  "count": 1
- },
- "dunduṃ": {
-  "data": [
+   ],
    [
     "dundubhi 1",
     "nt",
@@ -25485,7 +25533,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 3
+  "count": 4
  },
  "pasu": {
   "data": [
@@ -33013,6 +33061,59 @@ var family_word_json = {
    ]
   ],
   "count": 4
+ },
+ "salākā": {
+  "data": [
+   [
+    "salāka",
+    "adj",
+    "(of weapons) projectile; lit. rod; stick",
+    "✔"
+   ],
+   [
+    "salākā 1",
+    "fem",
+    "(of a sunshade) rib; lit. rod; stick",
+    "✔"
+   ],
+   [
+    "salākā 2",
+    "fem",
+    "wooden slip; ticket; lot; lit. rod; stick",
+    "◑"
+   ],
+   [
+    "salākā 3",
+    "fem",
+    "stick; twig; straw; blade of grass",
+    "✔"
+   ],
+   [
+    "salākā 4",
+    "fem",
+    "surgical instrument",
+    "✘"
+   ],
+   [
+    "salākā 5",
+    "fem",
+    "small stick; peg; thin bar",
+    "✔"
+   ],
+   [
+    "salākiya",
+    "masc",
+    "lancet, lancet-user, remover of cataracts",
+    "✘"
+   ],
+   [
+    "sālākiya",
+    "nt",
+    "surgery; lit. related to sticks",
+    "✔"
+   ]
+  ],
+  "count": 8
  },
  "salāṭu": {
   "data": [
