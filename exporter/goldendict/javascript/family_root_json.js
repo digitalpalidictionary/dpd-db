@@ -47529,7 +47529,7 @@ var family_root_json = {
     "āghātanika",
     "adj",
     "related to death; -mortem",
-    "◑"
+    "✔"
    ],
    [
     "āghāteti",
@@ -84468,8 +84468,8 @@ var family_root_json = {
    [
     "pamussati",
     "pr",
-    "forgets",
-    "✘"
+    "is forgotten; is not remembered",
+    "✔"
    ],
    [
     "pamussi",
@@ -86850,8 +86850,8 @@ var family_root_json = {
    [
     "paritassita 2",
     "nt",
-    "anxiety; agitation",
-    "✘"
+    "anxiety; agitation; lit. agitated all around",
+    "✔"
    ],
    [
     "paritāsa",
@@ -89102,8 +89102,8 @@ var family_root_json = {
    [
     "pariyāpanna 3",
     "pp",
-    "got into",
-    "✘"
+    "surrounded; enclosed; lit. gone alla round",
+    "✔"
    ],
    [
     "pariyāpādeti",
@@ -100786,8 +100786,8 @@ var family_root_json = {
    [
     "nappadūseti",
     "pr",
-    "does not spoil; does not pollute; does not corrupt",
-    "✘"
+    "does not spoil; does not pollute; does not corrupt; lit. causes to be corrupt",
+    "✔"
    ],
    [
     "paduṭṭha 1",
@@ -100876,8 +100876,8 @@ var family_root_json = {
    [
     "padūsesi",
     "aor",
-    "defiled, polluted, spoiled, corrupted",
-    "✘"
+    "spoiled; polluted; corrupted; defiled; lit. caused to be corrupt",
+    "✔"
    ],
    [
     "padosa 2.1",
@@ -100900,8 +100900,8 @@ var family_root_json = {
    [
     "padosika",
     "adj",
-    "spoilt; corrupted; debauched",
-    "◑"
+    "spoilt; corrupted; debauched (by)",
+    "✔"
    ],
    [
     "padosī",
@@ -118618,7 +118618,7 @@ var family_root_json = {
    [
     "manda 5",
     "adj",
-    "slow, lazy",
+    "lazy; idle",
     "✘"
    ],
    [
@@ -138828,8 +138828,8 @@ var family_root_json = {
    [
     "vitakkita",
     "pp",
-    "reflected, considered",
-    "✘"
+    "thought about; reflected on; considered",
+    "✔"
    ],
    [
     "vitakkitabba",
@@ -154158,7 +154158,7 @@ var family_root_json = {
    [
     "sammosa 1",
     "masc",
-    "forgetting; lapse; confusion",
+    "forgetting; lapse; confusion (of)",
     "✔"
    ],
    [
@@ -171176,8 +171176,8 @@ var family_root_json = {
    [
     "upanijjhāyati 2",
     "pr",
-    "regards with envy",
-    "✘"
+    "regards with envy; is is jealous of",
+    "✔"
    ],
    [
     "upanijjhāyati 3",
@@ -171194,14 +171194,14 @@ var family_root_json = {
    [
     "upanijjhāyanta",
     "prp",
-    "regarding with envy",
+    "regarding with envy; being jealous of",
     "✔"
    ],
    [
     "upanijjhāyi",
     "aor",
-    "regarded with envy",
-    "✘"
+    "regarded with envy; was jealous of",
+    "✔"
    ],
    [
     "upanijjhāyita",
@@ -199437,7 +199437,7 @@ var family_root_json = {
     "parivaṭuma 1",
     "adj",
     "circumscribed; limited; restricted; lit. going around",
-    "◑"
+    "✔"
    ],
    [
     "parivaṭuma 2",
@@ -210892,8 +210892,8 @@ var family_root_json = {
    [
     "vipphandita 2",
     "nt",
-    "evasiveness; prevarication",
-    "✘"
+    "evasiveness; prevarication; vacillation; lit. writhed",
+    "✔"
    ],
    [
     "vipphanditvā",

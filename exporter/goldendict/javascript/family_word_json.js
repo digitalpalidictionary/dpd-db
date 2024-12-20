@@ -2714,7 +2714,7 @@ var family_word_json = {
     "apariyanta",
     "adj",
     "unlimited; infinite",
-    "◑"
+    "✔"
    ],
    [
     "apariyantavant",

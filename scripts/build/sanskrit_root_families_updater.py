@@ -38,6 +38,7 @@ exceptions = [
     "medhā",
     "puṣpa",
     "samavasthā",
+    "hrī",
     
     ]
 

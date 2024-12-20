@@ -198,14 +198,13 @@ def make_summary_string(g: GlobalVars):
 
 def main():
     tic()
+    p_title("making summary")
 
     if not config_test("exporter", "summary", "yes"):
         p_green_title("disabled in config.ini")
         toc()
 
     else:
-        p_title("making summary")
-
         g = GlobalVars()
         dpd_size(g)
         root_size(g)

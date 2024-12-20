@@ -50,6 +50,7 @@ Abhibhū
 abhidhamma
 Abhidhammapiṭaka
 abhittharayamāna
+abhorring
 Abrus
 absol
 absolutive
@@ -452,6 +453,7 @@ catechu
 Catukkanipāta
 Cātumā
 caul
+causeless
 cauterizing
 ceiba
 censurable
@@ -526,11 +528,13 @@ congee
 conglomerated
 conglomeration
 conglomerations
+congruous
 conjectured
 conjee
 conjugational
 conjunct
 conscientiousness
+consecrating
 considerately
 contentiousness
 contexts
@@ -680,6 +684,7 @@ diguṇa
 dilemmatic
 diligence
 Diospyros
+dirtiness
 Disampati
 discoloured
 discriminatively
@@ -688,8 +693,10 @@ disentangled
 disfiguration
 dishevelling
 disinterestedly
+disinvesting
 disjoined
 dismounts
+disorderliness
 disownment
 disparagement
 dispassion
@@ -711,6 +718,7 @@ Diṭṭhisaṃyuttaṃ
 div
 divādigaṇa
 divaricata
+divesting
 divisively
 DN
 doesn't
@@ -766,6 +774,7 @@ Emblica
 embroidered
 embroiderer
 embryopteris
+emetic
 emmeshed
 enclitic
 encourager
@@ -780,17 +789,21 @@ enumerates
 enunciated
 equanimously
 equipoise
+equivocates
 eraka
 Erythrina
 essenceless
 esteeming
 eternalism
+eternalism
 eternalist
+eternality
 ettāvatā
 etymological
 euphonic
 eva
 evaṃ
+evasiveness
 evenness
 everythingness
 excretions
@@ -799,6 +812,7 @@ exhorter
 expansions
 expectance
 expected
+expectorant
 experienceable
 experientially
 expertness
@@ -826,8 +840,10 @@ fetcher
 fickleness
 fidgetiness
 fineness
+finiteness
 firma
 firstness
+fisherman's
 flambeau
 flatterer
 flaviviridis
@@ -1053,6 +1069,7 @@ Indriyasaṃyuttaṃ
 Indus
 inexpertise
 infeminine
+infiniteness
 inhered
 injudiciously
 injurer
@@ -1646,6 +1663,7 @@ o
 obdurance
 obdurate
 objectless
+oblations
 observances
 obstinance
 obstinancy
@@ -1848,6 +1866,7 @@ preceptor
 preeminent
 preparer
 prepositional
+prevarication
 prideless
 prionitis
 pro-rata
@@ -1884,6 +1903,7 @@ Purāṇā
 Pūraṇa
 Pūraṇa
 Purāṇas
+purgative
 putoḷi
 putridness
 PV
@@ -1898,6 +1918,7 @@ Rāhu's
 Rāhula
 Rāhula's
 Rāhulasaṃyuttaṃ
+rainless
 rainsuit
 rainsuits
 Rajagaha
@@ -2204,6 +2225,7 @@ statecraft
 steamrolls
 step-by-step
 stick-less
+stillbirth
 stiller
 stinginess
 stinkiness
@@ -2635,6 +2657,7 @@ vā
 vac
 Vaccha
 Vacchagotta
+vacillation
 vad
 Vaḍḍhamātar
 vagga
@@ -2792,14 +2815,3 @@ you're
 youthfulness
 zizanioides
 Ziziphus
-rainless
-divesting
-disinvesting
-stillbirth
-consecrating
-oblations
-expectorant
-dirtiness
-disorderliness
-eternalism
-eternality

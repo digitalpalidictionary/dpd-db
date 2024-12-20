@@ -2195,7 +2195,7 @@ var family_idiom_json = {
   ]
  },
  "eva": {
-  "count": 250,
+  "count": 252,
   "data": [
    [
     "aṅganteva",
@@ -3242,6 +3242,12 @@ var family_idiom_json = {
     "✔"
    ],
    [
+    "nevatthi",
+    "sandhi",
+    "neither is (nor)",
+    "✔"
+   ],
+   [
     "nevatthi 1",
     "sandhi",
     "there is neither (nor); neither exists (nor)",
@@ -3269,6 +3275,12 @@ var family_idiom_json = {
     "nevassu",
     "sandhi",
     "certainly not; definitely not",
+    "✔"
+   ],
+   [
+    "nevāyaṃ",
+    "sandhi",
+    "this is neither (nor)",
     "✔"
    ],
    [
@@ -8968,12 +8980,18 @@ var family_idiom_json = {
   ]
  },
  "na": {
-  "count": 2,
+  "count": 3,
   "data": [
    [
     "na bhattaṃ paṭibhāti",
     "idiom",
     "has no desire to eat; loses all interest in food; lit. food does not come to mind",
+    "✔"
+   ],
+   [
+    "nevāyaṃ",
+    "sandhi",
+    "this is neither (nor)",
     "✔"
    ],
    [
@@ -9464,7 +9482,7 @@ var family_idiom_json = {
   ]
  },
  "atthi1": {
-  "count": 28,
+  "count": 30,
   "data": [
    [
     "atthaññaṃ",
@@ -9569,6 +9587,12 @@ var family_idiom_json = {
     "✔"
    ],
    [
+    "nevatthi",
+    "sandhi",
+    "neither is (nor)",
+    "✔"
+   ],
+   [
     "nevatthi 1",
     "sandhi",
     "there is neither (nor); neither exists (nor)",
@@ -9578,6 +9602,12 @@ var family_idiom_json = {
     "nevatthi 2",
     "sandhi",
     "there would not be",
+    "✔"
+   ],
+   [
+    "neso natthīti",
+    "idiom",
+    "(I say) there's no denying it exists; it certainly is; lit. this does not not exist",
     "✔"
    ],
    [
@@ -9648,7 +9678,7 @@ var family_idiom_json = {
   ]
  },
  "ayaṃ": {
-  "count": 78,
+  "count": 79,
   "data": [
    [
     "atthassāyaṃ",
@@ -9948,6 +9978,12 @@ var family_idiom_json = {
     "nāyaṃ 2",
     "sandhi",
     "is this person?; is this?",
+    "✔"
+   ],
+   [
+    "nevāyaṃ",
+    "sandhi",
+    "this is neither (nor)",
     "✔"
    ],
    [
@@ -11598,7 +11634,7 @@ var family_idiom_json = {
   ]
  },
  "assa4": {
-  "count": 80,
+  "count": 81,
   "data": [
    [
     "athassa 2",
@@ -11946,6 +11982,12 @@ var family_idiom_json = {
     "yāvatakvassa",
     "sandhi",
     "as long as his; as much as his",
+    "✔"
+   ],
+   [
+    "yāvassa",
+    "sandhi",
+    "as long as his",
     "✔"
    ],
    [
@@ -16504,7 +16546,7 @@ var family_idiom_json = {
   ]
  },
  "eso": {
-  "count": 12,
+  "count": 13,
   "data": [
    [
     "amhākañceso",
@@ -16553,6 +16595,12 @@ var family_idiom_json = {
     "sandhi",
     "this called; this named",
     "◑"
+   ],
+   [
+    "neso natthīti",
+    "idiom",
+    "(I say) there's no denying it exists; it certainly is; lit. this does not not exist",
+    "✔"
    ],
    [
     "nesohamasmi",
@@ -27662,6 +27710,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "padūseti": {
+  "count": 1,
+  "data": [
+   [
+    "mano padūseyya",
+    "idiom",
+    "has ill-will; gets angry; lit. causes to spoil the mind",
+    "✔"
+   ]
+  ]
+ },
  "namas": {
   "count": 2,
   "data": [
@@ -29593,17 +29652,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "padūseti": {
-  "count": 1,
-  "data": [
-   [
-    "mano padūseyya",
-    "idiom",
-    "has ill-will; gets angry; lit. causes to spoil the mind",
-    "✔"
-   ]
-  ]
- },
  "mamaṃ": {
   "count": 3,
   "data": [
@@ -30888,7 +30936,7 @@ var family_idiom_json = {
   ]
  },
  "yāva": {
-  "count": 12,
+  "count": 13,
   "data": [
    [
     "yāva tāva",
@@ -30948,6 +30996,12 @@ var family_idiom_json = {
     "yāvasubhāsitamidaṃ",
     "sandhi",
     "how well this was stated (by); how eloquent these words (of) are",
+    "✔"
+   ],
+   [
+    "yāvassa",
+    "sandhi",
+    "as long as his",
     "✔"
    ],
    [

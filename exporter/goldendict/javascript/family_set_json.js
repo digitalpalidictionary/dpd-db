@@ -8034,9 +8034,15 @@ var family_set_json = {
     "adj",
     "radiant; shining; belonging to the radiant heaven; epithet of a class of devas",
     "✔"
+   ],
+   [
+    "manopadosika",
+    "adj",
+    "mentally corrupted; epithet of a class of envious devas",
+    "✔"
    ]
   ],
-  "count": 9
+  "count": 10
  },
  "epithets of arahants": {
   "data": [
@@ -12598,6 +12604,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "kevaṭṭa 2",
+    "masc",
+    "name of a layman; lit. fisherman",
+    "✔"
+   ],
+   [
     "kesi",
     "masc",
     "name of a horse trainer; lit. with long hair",
@@ -13348,7 +13360,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 157
+  "count": 158
  },
  "types of ascetics": {
   "data": [
@@ -23883,7 +23895,7 @@ var family_set_json = {
     "khiḍḍāpadosikā",
     "masc",
     "name of a group of deities; lit. corrupted by fun",
-    "◑"
+    "✔"
    ],
    [
     "khema 3",
@@ -24309,7 +24321,7 @@ var family_set_json = {
     "manopadosikā",
     "masc",
     "name of a group of deities; lit. mentally corrupted",
-    "◑"
+    "✔"
    ],
    [
     "manosatta",
@@ -25946,6 +25958,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "saññīvāda 1",
+    "masc",
+    "doctrine of percipient (post-mortem existence)",
+    "◑"
+   ],
+   [
     "sassatavāda 1",
     "masc",
     "eternalism; doctrine of an everlasting soul",
@@ -25970,7 +25988,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 16
+  "count": 17
  },
  "plants": {
   "data": [
@@ -28090,6 +28108,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "catucattālīsā",
+    "card",
+    "forty four (44)",
+    "✔"
+   ],
+   [
     "catuttālīsā",
     "card",
     "forty (40)",
@@ -28738,7 +28762,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 136
+  "count": 137
  },
  "villages, towns and cities": {
   "data": [
