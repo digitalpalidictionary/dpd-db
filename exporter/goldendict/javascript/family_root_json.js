@@ -441,7 +441,7 @@ var family_root_json = {
   "root_key": "√kar",
   "root_family": "√kar",
   "root_meaning": "do, make",
-  "count": 380,
+  "count": 382,
   "data": [
    [
     "akaṭa 1",
@@ -886,6 +886,18 @@ var family_root_json = {
     "adj",
     "inactive",
     "✘"
+   ],
+   [
+    "akiriyā 1",
+    "fem",
+    "non-activity; non-performance; abstention (from); failure to act",
+    "✘"
+   ],
+   [
+    "akiriyā 2",
+    "fem",
+    "ethical ineffectiveness of action; absence of moral significance in activity",
+    "✔"
    ],
    [
     "akukkuca",
@@ -1491,7 +1503,7 @@ var family_root_json = {
     "karissati 2",
     "fut",
     "will do",
-    "✘"
+    "✔"
    ],
    [
     "karissaṃ",
@@ -27901,7 +27913,7 @@ var family_root_json = {
     "atipātāpayanta",
     "prp",
     "making kill; causing to slay",
-    "◑"
+    "✔"
    ],
    [
     "atipātī 1",
@@ -47194,8 +47206,8 @@ var family_root_json = {
    [
     "nahāpika",
     "masc",
-    "bath attendant",
-    "✘"
+    "bath attendant; lit. who causes to bathe",
+    "✔"
    ],
    [
     "nahāpita 1",
@@ -47332,7 +47344,7 @@ var family_root_json = {
    [
     "nhāpaka",
     "masc",
-    "bath attendant; lit. who causes to bath",
+    "bath attendant; lit. who causes to bathe",
     "✔"
    ],
    [
@@ -47344,8 +47356,8 @@ var family_root_json = {
    [
     "nhāpika",
     "masc",
-    "bath attendant",
-    "✘"
+    "bath attendant; lit. who causes to bathe",
+    "✔"
    ],
    [
     "nhāpita",
@@ -53325,13 +53337,13 @@ var family_root_json = {
     "anikkujjanta",
     "prp",
     "not rejecting; lit. not turning upside down",
-    "◑"
+    "✔"
    ],
    [
     "anikkujjenta",
     "prp",
     "not rejecting; lit. not causing to turn upside down",
-    "◑"
+    "✔"
    ],
    [
     "nikkujja",
@@ -54581,7 +54593,7 @@ var family_root_json = {
     "anicchāretvā",
     "abs",
     "having not spoken; having not uttered; having not expressed; lit. not having caused to move out",
-    "◑"
+    "✔"
    ],
    [
     "niccharaṇa",
@@ -61435,7 +61447,7 @@ var family_root_json = {
     "anuggaṇhanta",
     "prp",
     "not accepting; lit. not taking up",
-    "◑"
+    "✔"
    ],
    [
     "anuggaha 1.1",
@@ -77134,8 +77146,8 @@ var family_root_json = {
    [
     "pācāpenta",
     "prp",
-    "causing another to torture",
-    "✘"
+    "causing another to torture; lit. causing to cook",
+    "✔"
    ],
    [
     "pācāpesi",
@@ -77818,8 +77830,8 @@ var family_root_json = {
    [
     "apaccaya 2.1",
     "adj",
-    "causeless; without support",
-    "◑"
+    "without cause; without support; for no reason",
+    "✔"
    ],
    [
     "apaṭicca",
@@ -108023,7 +108035,7 @@ var family_root_json = {
     "byākari 2",
     "aor",
     "answered; replied",
-    "✘"
+    "✔"
    ],
    [
     "byākaritvā 1",
@@ -120185,7 +120197,7 @@ var family_root_json = {
     "muddika",
     "masc",
     "mathematician; lit. finger counter",
-    "◑"
+    "✔"
    ],
    [
     "muddikā 1",
@@ -130739,7 +130751,7 @@ var family_root_json = {
   "root_key": "√vaḍḍh",
   "root_family": "√vaḍḍh",
   "root_meaning": "grow, increase",
-  "count": 57,
+  "count": 58,
   "data": [
    [
     "avaḍḍhana",
@@ -130823,6 +130835,12 @@ var family_root_json = {
     "vaḍḍhaka 3",
     "adj",
     "(of a contracted text) expanding; reciting in full; lit. increasing",
+    "✔"
+   ],
+   [
+    "vaḍḍhaka 4",
+    "masc",
+    "increaser; augmenter; who grows",
     "✔"
    ],
    [
@@ -159122,8 +159140,8 @@ var family_root_json = {
    [
     "sukheti",
     "pr",
-    "makes happy",
-    "✘"
+    "makes happy; pleases; lit. causes to please",
+    "✔"
    ],
    [
     "sukhena 1",
@@ -162316,7 +162334,7 @@ var family_root_json = {
    [
     "ahetu 1",
     "adj",
-    "causeless; without basis",
+    "without causeless; with no basis; for no reason",
     "✔"
    ],
    [
@@ -202649,7 +202667,7 @@ var family_root_json = {
   "root_key": "√pīṇ",
   "root_family": "√pīṇ",
   "root_meaning": "please, swell",
-  "count": 17,
+  "count": 18,
   "data": [
    [
     "pitta 2.1",
@@ -202706,9 +202724,15 @@ var family_root_json = {
     "✘"
    ],
    [
-    "pīṇeti",
+    "pīṇeti 1",
     "pr",
-    "gladdens, pleases, satisfies, invigorates",
+    "delights; pleases; satisfies",
+    "✔"
+   ],
+   [
+    "pīṇeti 2",
+    "pr",
+    "invigorates",
     "✘"
    ],
    [
@@ -202750,7 +202774,7 @@ var family_root_json = {
    [
     "pīneti",
     "pr",
-    "refreshes",
+    "causes increase; refreshes",
     "✘"
    ]
   ]
@@ -214757,7 +214781,7 @@ var family_root_json = {
     "sovaggika",
     "adj",
     "leading to heaven; connected with heaven",
-    "✘"
+    "✔"
    ]
   ]
  },

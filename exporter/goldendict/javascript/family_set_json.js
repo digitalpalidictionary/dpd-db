@@ -10790,6 +10790,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "nahāpika",
+    "masc",
+    "bath attendant; lit. who causes to bathe",
+    "✔"
+   ],
+   [
     "naḷakāra",
     "masc",
     "basket-maker; who works with reeds; lit. reed maker",
@@ -10816,13 +10822,19 @@ var family_set_json = {
    [
     "nhāpaka",
     "masc",
-    "bath attendant; lit. who causes to bath",
+    "bath attendant; lit. who causes to bathe",
     "✔"
    ],
    [
     "nhāpakantevāsī",
     "masc",
     "bath attendant's assistant",
+    "✔"
+   ],
+   [
+    "nhāpika",
+    "masc",
+    "bath attendant; lit. who causes to bathe",
     "✔"
    ],
    [
@@ -11171,7 +11183,7 @@ var family_set_json = {
     "muddika",
     "masc",
     "mathematician; lit. finger counter",
-    "◑"
+    "✔"
    ],
    [
     "yācaka",
@@ -11390,7 +11402,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 194
+  "count": 196
  },
  "tastes": {
   "data": [

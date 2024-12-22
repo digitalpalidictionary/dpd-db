@@ -2820,3 +2820,5 @@ assented
 Ajātasattu
 Ajātasattu
 ineffectiveness
+increaser
+augmenter

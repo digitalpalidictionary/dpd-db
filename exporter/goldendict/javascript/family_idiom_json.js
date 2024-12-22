@@ -1802,7 +1802,7 @@ var family_idiom_json = {
     "vatassāhaṃ",
     "sandhi",
     "indeed I could",
-    "◑"
+    "✔"
    ],
    [
     "vatāhaṃ",
@@ -11623,7 +11623,7 @@ var family_idiom_json = {
     "vatassāhaṃ",
     "sandhi",
     "indeed I could",
-    "◑"
+    "✔"
    ],
    [
     "sīlesvevassa",
@@ -14930,6 +14930,23 @@ var family_idiom_json = {
    ]
   ]
  },
+ "paccaya": {
+  "count": 2,
+  "data": [
+   [
+    "paccayaṃ karitvā",
+    "idiom",
+    "for this reason; lit. having made cause",
+    "✔"
+   ],
+   [
+    "yaṃpaccayāssa",
+    "sandhi",
+    "on account of which for him; because of which for him; due to which for him",
+    "✔"
+   ]
+  ]
+ },
  "pañca": {
   "count": 9,
   "data": [
@@ -15523,23 +15540,6 @@ var family_idiom_json = {
     "kasirena samudāgacchanti",
     "idiom",
     "are obtained with difficulty; are hard to come by; lit. arises together with difficulty",
-    "✔"
-   ]
-  ]
- },
- "paccaya": {
-  "count": 2,
-  "data": [
-   [
-    "paccayaṃ karitvā",
-    "idiom",
-    "for this reason; lit. having made cause",
-    "✔"
-   ],
-   [
-    "yaṃpaccayāssa",
-    "sandhi",
-    "on account of which for him; because of which for him; due to which for him",
     "✔"
    ]
   ]
@@ -18925,7 +18925,7 @@ var family_idiom_json = {
     "vatassāhaṃ",
     "sandhi",
     "indeed I could",
-    "◑"
+    "✔"
    ],
    [
     "vatāyasmantaṃyeva",
