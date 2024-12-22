@@ -2495,6 +2495,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "anantika",
+    "adj",
+    "believing in infinity",
+    "✔"
+   ],
+   [
     "anta 1",
     "masc",
     "end (of); limit (of); finish (of); conclusion (of)",
@@ -3095,7 +3101,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 116
+  "count": 117
  },
  "acchara": {
   "data": [
@@ -18968,7 +18974,7 @@ var family_word_json = {
    [
     "esā",
     "pron",
-    "she; this",
+    "she; this; this woman",
     "✔"
    ],
    [

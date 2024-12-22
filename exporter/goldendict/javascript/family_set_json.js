@@ -6551,7 +6551,7 @@ var family_set_json = {
    [
     "esā",
     "pron",
-    "she; this",
+    "she; this; this woman",
     "✔"
    ],
    [
@@ -11044,7 +11044,7 @@ var family_set_json = {
    [
     "bhaṇḍāgārika",
     "masc",
-    "warehouse keeper; storekeeper quartermaster; treasurer",
+    "warehouse keeper; storekeeper quartermaster",
     "✔"
    ],
    [
@@ -14593,6 +14593,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "bellaṭṭhiputta",
+    "masc",
+    "family name of an ascetic teacher; lit. son of Belaṭṭhi",
+    "✔"
+   ],
+   [
     "bhaggava 1",
     "masc",
     "family name; lit. from Bhaggu",
@@ -14677,7 +14683,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 34
+  "count": 35
  },
  "names of countries": {
   "data": [
@@ -25390,6 +25396,18 @@ var family_set_json = {
     "✔"
    ],
    [
+    "udayabhadda",
+    "masc",
+    "name of a prince; Ajātasattu's son",
+    "✔"
+   ],
+   [
+    "udāyibhadda",
+    "masc",
+    "name of a prince; Ajātasattu's son",
+    "✔"
+   ],
+   [
     "udumbarikā",
     "fem",
     "name of a queen who built a park for wandering ascetics",
@@ -25774,7 +25792,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 76
+  "count": 78
  },
  "six ascetic teachers": {
   "data": [
@@ -25845,6 +25863,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "bellaṭṭhiputta",
+    "masc",
+    "family name of an ascetic teacher; lit. son of Belaṭṭhi",
+    "✔"
+   ],
+   [
     "makkhali",
     "masc",
     "name of a ascetic teacher; Makkhali Gosāla; lit. who carries a bamboo cane",
@@ -25881,7 +25905,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 17
+  "count": 18
  },
  "doctrines": {
   "data": [
@@ -31706,7 +31730,7 @@ var family_set_json = {
    [
     "bahi",
     "ind",
-    "externally; outside; outwardly",
+    "externally; outwardly; outside (of)",
     "✔"
    ],
    [
@@ -35529,6 +35553,17 @@ var family_set_json = {
    ]
   ],
   "count": 16
+ },
+ "ā for emphasis": {
+  "data": [
+   [
+    "itibhavābhava",
+    "masc",
+    "this or that state of existence",
+    "✔"
+   ]
+  ],
+  "count": 1
  },
  "names of mountains": {
   "data": [

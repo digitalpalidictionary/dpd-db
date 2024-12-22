@@ -4478,7 +4478,7 @@ var family_idiom_json = {
   ]
  },
  "ca": {
-  "count": 135,
+  "count": 136,
   "data": [
    [
     "ajjhattañca",
@@ -4667,9 +4667,15 @@ var family_idiom_json = {
     "✔"
    ],
    [
-    "imasmiñca",
+    "imasmiñca 1",
     "sandhi",
     "and in this; and in regard to this; and when this",
+    "✔"
+   ],
+   [
+    "imasmiñca 2",
+    "sandhi",
+    "and when this",
     "✔"
    ],
    [
@@ -6050,7 +6056,7 @@ var family_idiom_json = {
   ]
  },
  "iti": {
-  "count": 73,
+  "count": 74,
   "data": [
    [
     "aññathāsmīti",
@@ -6209,9 +6215,15 @@ var family_idiom_json = {
     "✔"
    ],
    [
-    "itissa",
+    "itissa 1",
     "sandhi",
-    "thus for him; thus to him; thus his",
+    "thus for him; thus to him",
+    "✔"
+   ],
+   [
+    "itissa 2",
+    "sandhi",
+    "thus of that; thus his",
     "✔"
    ],
    [
@@ -11634,7 +11646,7 @@ var family_idiom_json = {
   ]
  },
  "assa4": {
-  "count": 81,
+  "count": 82,
   "data": [
    [
     "athassa 2",
@@ -11673,9 +11685,15 @@ var family_idiom_json = {
     "◑"
    ],
    [
-    "itissa",
+    "itissa 1",
     "sandhi",
-    "thus for him; thus to him; thus his",
+    "thus for him; thus to him",
+    "✔"
+   ],
+   [
+    "itissa 2",
+    "sandhi",
+    "thus of that; thus his",
     "✔"
    ],
    [
@@ -20912,12 +20930,18 @@ var family_idiom_json = {
   ]
  },
  "imasmiṃ": {
-  "count": 4,
+  "count": 5,
   "data": [
    [
-    "imasmiñca",
+    "imasmiñca 1",
     "sandhi",
     "and in this; and in regard to this; and when this",
+    "✔"
+   ],
+   [
+    "imasmiñca 2",
+    "sandhi",
+    "and when this",
     "✔"
    ],
    [

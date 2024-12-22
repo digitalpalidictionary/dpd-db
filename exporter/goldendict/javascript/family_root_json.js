@@ -3417,7 +3417,7 @@ var family_root_json = {
   "root_key": "√kapp 1",
   "root_family": "√kapp",
   "root_meaning": "be fit, be suitable",
-  "count": 47,
+  "count": 49,
   "data": [
    [
     "akappayi",
@@ -3582,16 +3582,22 @@ var family_root_json = {
     "✔"
    ],
    [
-    "kappāpeti",
+    "kappāpeti 1",
     "pr",
-    "causes to be harnessed or prepared; has dressed or trimmed",
-    "✘"
+    "(of a vehicle) causes to be harnessed; has prepared; lit. causes to be suitable",
+    "✔"
+   ],
+   [
+    "kappāpeti 2",
+    "pr",
+    "(of hair) has trimmed; has dressed; lit. causes to be suitable",
+    "✔"
    ],
    [
     "kappāpetvā",
     "abs",
-    "having caused to be readied; having had prepared",
-    "✘"
+    "having caused to be harnessed; having had prepared; lit. having caused to be suitable",
+    "✔"
    ],
    [
     "kappika 1.1",
@@ -3608,7 +3614,13 @@ var family_root_json = {
    [
     "kappita 1.2",
     "pp",
-    "harnessed, considered, made, led (one's life)",
+    "(of an elephant) harnessed; prepared for riding; lit. caused to be suitable",
+    "✔"
+   ],
+   [
+    "kappita 1.3",
+    "pp",
+    "considered, made, led (one's life)",
     "✘"
    ],
    [
@@ -4076,7 +4088,7 @@ var family_root_json = {
    [
     "kālika 1",
     "nt",
-    "which takes time; which involving time; which is time-consuming; lit. related to time",
+    "which takes time; involving time; which is time-consuming; lit. related to time",
     "✔"
    ],
    [
@@ -21840,7 +21852,7 @@ var family_root_json = {
    [
     "jhāyati 2.1",
     "pr",
-    "burns; blazes",
+    "burns; blazes (in)",
     "✔"
    ],
    [
@@ -27672,7 +27684,7 @@ var family_root_json = {
    [
     "nātidhāvati",
     "pr",
-    "does not override; does not overturn; does not overstep; lit. does not run past",
+    "does not override; does not overturn; does not overstep; does not overshoot; lit. does not run past",
     "✔"
    ]
   ]
@@ -27994,7 +28006,7 @@ var family_root_json = {
    [
     "bahi",
     "ind",
-    "externally; outside; outwardly",
+    "externally; outwardly; outside (of)",
     "✔"
    ],
    [
@@ -59526,7 +59538,7 @@ var family_root_json = {
    [
     "nisīdāpetvā",
     "abs",
-    "having made sit down; having caused to lower down",
+    "having made sit; having caused to lower down",
     "✔"
    ],
    [
@@ -63919,7 +63931,7 @@ var family_root_json = {
   "root_key": "√tar 1",
   "root_family": "ud √tar",
   "root_meaning": "cross",
-  "count": 20,
+  "count": 21,
   "data": [
    [
     "anuttiṇṇa",
@@ -63991,6 +64003,12 @@ var family_root_json = {
     "uttaritara",
     "adj",
     "more excellent (than); even better (than); even higher (than); lit. more crossed up",
+    "✔"
+   ],
+   [
+    "uttarituṃ",
+    "inf",
+    "to get out (of); to escape; lit. to cross up",
     "✔"
    ],
    [
@@ -82564,8 +82582,8 @@ var family_root_json = {
    [
     "padika 3",
     "adj",
-    "on foot",
-    "✘"
+    "on foot; walking",
+    "✔"
    ],
    [
     "padī",
@@ -84468,7 +84486,7 @@ var family_root_json = {
    [
     "pamussati",
     "pr",
-    "is forgotten; is not remembered",
+    "is forgotten; is lost",
     "✔"
    ],
    [
@@ -84874,7 +84892,7 @@ var family_root_json = {
    [
     "parājita",
     "pp",
-    "conquered; defeated",
+    "conquered; defeated; who lost",
     "✔"
    ],
    [
@@ -89102,7 +89120,7 @@ var family_root_json = {
    [
     "pariyāpanna 3",
     "pp",
-    "surrounded; enclosed; lit. gone alla round",
+    "surrounded; enclosed; encircled; lit. gone all round",
     "✔"
    ],
    [
@@ -98872,7 +98890,7 @@ var family_root_json = {
    [
     "saṅkhāta 1",
     "pp",
-    "reckoned; so called; what is called",
+    "reckoned; so called; what is called; so named",
     "✔"
    ],
    [
@@ -99475,7 +99493,7 @@ var family_root_json = {
   "root_key": "√su 1",
   "root_family": "pati √su",
   "root_meaning": "hear",
-  "count": 17,
+  "count": 18,
   "data": [
    [
     "appaṭissaya",
@@ -99550,9 +99568,15 @@ var family_root_json = {
     "✘"
    ],
    [
-    "paṭissuṇitvā",
+    "paṭissuṇitvā 1",
     "abs",
-    "having assented, having promised, having agreed",
+    "having assented; having said yes (to); lit. having listened back",
+    "✔"
+   ],
+   [
+    "paṭissuṇitvā 2",
+    "abs",
+    "having promised, having agreed",
     "✘"
    ],
    [
@@ -108698,7 +108722,7 @@ var family_root_json = {
    [
     "veyyāvacca 1",
     "nt",
-    "service; assistance",
+    "service; assistance; lit. served state",
     "✔"
    ],
    [
@@ -123530,7 +123554,7 @@ var family_root_json = {
    [
     "yoga 1",
     "masc",
-    "yoke; bond; attachment; (comm) which bind one to the round of cyclical existence",
+    "yoke; bond; attachment (to); (comm) which bind one to the round of cyclical existence",
     "✔"
    ],
    [
@@ -136641,7 +136665,7 @@ var family_root_json = {
   "root_key": "√khip 1",
   "root_family": "vi √khip",
   "root_meaning": "throw",
-  "count": 19,
+  "count": 20,
   "data": [
    [
     "avikkhitta",
@@ -136756,6 +136780,12 @@ var family_root_json = {
     "adj",
     "who disturbs",
     "✘"
+   ],
+   [
+    "vikkhepika",
+    "adj",
+    "moving to and fro; wriggling; wavering; lit. throwing apart",
+    "✔"
    ]
   ]
  },
@@ -138884,7 +138914,7 @@ var family_root_json = {
    [
     "avitthārena",
     "ind",
-    "not in detail; not in full; not thoroughly",
+    "not in detail; not in full; not thoroughly; lit. not by spread out",
     "✔"
    ],
    [
@@ -138896,25 +138926,25 @@ var family_root_json = {
    [
     "vitthāra 1",
     "adj",
-    "extensive; detailed; broad; full",
+    "extensive; detailed; broad; full; lit. spread out",
     "✔"
    ],
    [
     "vitthāra 2",
     "masc",
-    "breadth",
+    "breadth; lit. spread out",
     "✔"
    ],
    [
     "vitthāra 3",
     "masc",
-    "detailed description; extended explanation",
+    "detailed description; extended explanation; lit. spread out",
     "✔"
    ],
    [
     "vitthārato 1",
     "ind",
-    "in width; breadthwise",
+    "in width; breadthwise; lit. from spread out",
     "✔"
    ],
    [
@@ -138932,7 +138962,7 @@ var family_root_json = {
    [
     "vitthārika",
     "adj",
-    "wide-spread; broadly circulated; known everywhere",
+    "wide-spread; broadly circulated; known everywhere; lit. spread out",
     "✔"
    ],
    [
@@ -138968,7 +138998,7 @@ var family_root_json = {
    [
     "vitthāretabba",
     "ptp",
-    "should be expanded in detail; should be filled out; lit. to cause to be expanded",
+    "should be expanded in detail; should be filled out; lit. to cause to be spread out",
     "✔"
    ],
    [
@@ -138980,7 +139010,7 @@ var family_root_json = {
    [
     "vitthāretvā 1",
     "abs",
-    "having expanded in detail; having explained thoroughly",
+    "having expanded in detail; having explained thoroughly; lit. having caused to spread out",
     "✔"
    ],
    [
@@ -138992,19 +139022,19 @@ var family_root_json = {
    [
     "vitthārena 1",
     "ind",
-    "in detail; in full; thoroughly",
+    "in detail; in full; thoroughly; lit. by spread out",
     "✔"
    ],
    [
     "vitthārena 2",
     "ind",
-    "in length; in height",
+    "in length; in height; lit. by spread out",
     "✔"
    ],
    [
     "vitthārena 3",
     "ind",
-    "from north to south",
+    "from north to south; lit. by spread out",
     "◑"
    ],
    [
@@ -139028,7 +139058,7 @@ var family_root_json = {
    [
     "vitthiṇṇa",
     "pp",
-    "wide-spread; extended",
+    "wide-spread; extended; lit. spread out",
     "◑"
    ],
    [
@@ -140158,7 +140188,7 @@ var family_root_json = {
    [
     "vinicchita 1",
     "pp",
-    "judged; decided; determined; settled",
+    "judged; decided; determined; settled (by)",
     "✔"
    ],
    [
@@ -161650,7 +161680,7 @@ var family_root_json = {
    [
     "hiri",
     "fem",
-    "sense of shame; modesty; conscience; sense of right and wrong; scruples; (comm) originating from inside",
+    "conscience; sense of right and wrong; scruples; (comm) originating from inside; lit. shame",
     "✔"
    ],
    [
@@ -161692,7 +161722,7 @@ var family_root_json = {
    [
     "hirī",
     "fem",
-    "sense of shame; modesty; conscience; sense of right and wrong; scruples; (comm) originating from inside",
+    "conscience; sense of right and wrong; scruples; (comm) originating from inside; lit. shame",
     "✔"
    ],
    [
@@ -171176,7 +171206,7 @@ var family_root_json = {
    [
     "upanijjhāyati 2",
     "pr",
-    "regards with envy; is is jealous of",
+    "regards with envy; is jealous of",
     "✔"
    ],
    [
@@ -200146,14 +200176,14 @@ var family_root_json = {
    [
     "palambhati",
     "pr",
-    "deceives; betrays; tricks",
-    "✘"
+    "deceives; betrays",
+    "✔"
    ],
    [
-    "palambhesi",
-    "aor",
-    "deceived; betrayed; tricked",
-    "✘"
+    "palambheti",
+    "pr",
+    "deceives; betrays; lit. causes to get",
+    "✔"
    ]
   ]
  },
@@ -208440,7 +208470,7 @@ var family_root_json = {
    [
     "vijaya 1",
     "masc",
-    "victory; triumph; success",
+    "victory; triumph; success (in)",
     "✔"
    ],
    [
@@ -214964,13 +214994,13 @@ var family_root_json = {
    [
     "saṅkappa 1",
     "masc",
-    "intention; volition; purpose",
+    "intention; volition; purpose (of)",
     "✔"
    ],
    [
     "saṅkappa 2",
     "masc",
-    "thought; notion; conception",
+    "thought; notion; conception (of)",
     "✔"
    ],
    [
@@ -219576,13 +219606,13 @@ var family_root_json = {
    [
     "samavaya",
     "adj",
-    "(comm) complete",
+    "(comm) complete; lit. coming down together",
     "◑"
    ],
    [
     "samavāya 1",
     "masc",
-    "coming together; combination; meeting",
+    "coming together; combination; meeting; lit. coming down together",
     "✔"
    ],
    [
@@ -226513,7 +226543,7 @@ var family_root_json = {
   "root_key": "√haṃs",
   "root_family": "√haṃs",
   "root_meaning": "rise, elate",
-  "count": 9,
+  "count": 10,
   "data": [
    [
     "haṭṭha 1",
@@ -226549,6 +226579,12 @@ var family_root_json = {
     "haṃsana",
     "nt",
     "(of hair) bristling; standing up; standing erect",
+    "✔"
+   ],
+   [
+    "haṃsāpana",
+    "nt",
+    "causing to rise; making stand up",
     "✔"
    ],
    [
