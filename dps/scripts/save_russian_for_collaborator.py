@@ -11,6 +11,7 @@ import csv
 from rich.console import Console
 
 from tools.tic_toc import tic, toc
+from tools.meaning_construction import make_meaning_combo
 
 
 from sqlalchemy.orm import joinedload
@@ -27,7 +28,10 @@ def save_total_ru():
     db_session = get_db_session(pth.dpd_db_path)
 
     # Query to filter words based on the presence in the Russian table
-    dpd_db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.rt), joinedload(DpdHeadword.ru)).filter(DpdHeadword.ru != None).limit(500).all()
+    dpd_db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.rt), joinedload(DpdHeadword.ru)).filter(
+        DpdHeadword.ru != None,
+        DpdHeadword.meaning_1 != ""
+        ).all()
     print(f"Total rows that fit the filter criteria: {len(dpd_db)}")
 
         # Filter words and sort them in reverse order
@@ -40,7 +44,7 @@ def save_total_ru():
     # Write to CSV using tab as delimiter
     with open(dpspth.ru_total_path, 'w', newline='') as csvfile:
         fieldnames = [
-            'id', 'lemma', 'root_key', 'family_root', 'meaning_1',
+            'id', 'lemma', 'root_key', 'family_root', 'meaning',
             'ru_meaning', 'ru_meaning_lit', 'ru_meaning_raw'
         ]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter='\t')
@@ -53,7 +57,7 @@ def save_total_ru():
                 'lemma': word.lemma_1,
                 'root_key': word.root_key,
                 'family_root': word.family_root,
-                'meaning_1': word.meaning_1,
+                'meaning': make_meaning_combo(word),
                 'ru_meaning': word.ru.ru_meaning,
                 'ru_meaning_lit': word.ru.ru_meaning_lit,
                 'ru_meaning_raw': word.ru.ru_meaning_raw if not word.ru.ru_meaning else "",
