@@ -3127,3 +3127,29 @@ a > ā"					missing		yes
 17461	meaning_lit	from one					missing				
 12101	source_1	VIN1.2.2	sutta_1	kāyasaṃsaggasikkhāpadaṃ	example_1	<b>āmasanā</b>, parāmasanā, omasanā, ummasanā, olaṅghanā, ullaṅghanā, ākaḍḍhanā, patikaḍḍhanā, abhiniggaṇhanā, abhinippīḷanā, gahaṇaṃ, chupanaṃ.	missing				
 12101	meaning_1	rubbing; touching					missing				
+16903	source_1	VIN1.2.2	sutta_1	kāyasaṃsaggasikkhāpadaṃ	example_1	āmasanā, parāmasanā, omasanā, <b>ummasanā</b>, olaṅghanā, ullaṅghanā, ākaḍḍhanā, patikaḍḍhanā, abhiniggaṇhanā, abhinippīḷanā, gahaṇaṃ, chupanaṃ.	missing				
+16903	construction	ud + √mas + anā					missing				
+16903	meaning_1	stroking upwards; lifting up					missing				
+16903	derivative	kita	suffix	anā			missing				
+16903	grammar	fem, abstr, act, from ummasati					missing				
+16903	commentary	(VIN) <b>ummasanā</b> nāma uddhaṃ uccāraṇā.					missing				
+16903	derived_from	ummasati					missing				
+12101	pos	fem					actually all from that sentences are fem				
+12101	lemma_1	āmasanā					fem				
+12101	construction	ā + √mas + anā					fem				
+12101	stem	āmasan	pattern	ā fem			fem				
+12101	lemma_2	āmasanā					fem				
+12101	grammar	fem, abstr, act, from āmasati					fem				
+12101	derivative	kita	suffix	anā			fem				
+12101	commentary	(VIN) <b>āmasanā</b> nāma āmaṭṭhamattā.					fem				
+18904	verb	caus					missing				
+18904	source_1	VIN1.2.2	sutta_1	kāyasaṃsaggasikkhāpadaṃ	example_1	āmasanā, parāmasanā, omasanā, ummasanā, <b>olaṅghanā</b>, ullaṅghanā, ākaḍḍhanā, patikaḍḍhanā, abhiniggaṇhanā, abhinippīḷanā, gahaṇaṃ, chupanaṃ.	missing				
+18904	root_sign	ṃa + *e					missing				
+18904	root_base	√lagh + ṃa + e > laṅghe (caus)					missing				
+18904	construction	ava + laṅghe + anā					missing				
+18904	meaning_1	bending down; pulling down					missing				
+18904	derivative	kita	suffix	anā			missing				
+18904	grammar	fem, abstr, act, from olaṅgheti					missing				
+18904	meaning_lit	causing to jump down					missing				
+18904	commentary	(VIN) <b>olaṅghanā</b> nāma heṭṭhā onamanā.					missing				
+18904	derived_from	olaṅgheti					missing				
