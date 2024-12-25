@@ -34,7 +34,7 @@ def main():
 
                 # If there is any empty space before the filled ones, move them
                 if len(non_empty_examples) < len(sbs_example_fields):
-                    print(f"Reordering fields for Word ID: {i.id}")
+                    # print(f"Reordering fields for Word ID: {i.id}")
                     target_position = 1
 
                     # Move non-empty examples to the start
@@ -52,7 +52,7 @@ def main():
                         for field_prefix in ['sbs_source', 'sbs_sutta', 'sbs_example', 'sbs_chant_pali', 'sbs_chant_eng', 'sbs_chapter']:
                             field_name = f"{field_prefix}_{pos}"
                             setattr(i.sbs, field_name, "")  # Clear field
-                    print(f"Reordering applied for Word ID: {i.id}")
+                    # print(f"Reordering applied for Word ID: {i.id}")
 
         # Commit after processing all records
         db_session.commit()

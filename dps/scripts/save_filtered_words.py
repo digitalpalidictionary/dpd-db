@@ -2,7 +2,7 @@
 
 """ Filter words based on some codition and save into csv (with backing up existing temp csv)"""
 
-from db.models import DpdHeadword
+from db.models import DpdHeadword, Russian, SBS
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
 from db.db_helpers import get_db_session
@@ -15,6 +15,7 @@ from tools.tic_toc import tic, toc
 from datetime import datetime
 
 from sqlalchemy.orm import joinedload
+from sqlalchemy import and_, or_, null, not_
 
 console = Console()
 
@@ -26,13 +27,27 @@ def save_filtered_words():
     pth = ProjectPaths()
     dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs), joinedload(DpdHeadword.ru)).all()
+    attribute = "mn107"
+    variable = attribute.upper()
+
+    dpd_db = db_session.query(DpdHeadword).outerjoin(
+        SBS, DpdHeadword.id == SBS.id
+    ).filter(
+        and_(
+            SBS.sbs_category.like(f"%{attribute}%"),
+            not_(
+                or_(
+                    SBS.sbs_source_1.like(f"%{variable}%"),
+                    SBS.sbs_source_2.like(f"%{variable}%"),
+                    SBS.sbs_source_3.like(f"%{variable}%"),
+                    SBS.sbs_source_4.like(f"%{variable}%")
+                )
+            ),
+        )
+    ).all()
 
     # Filter words
-    filtered_words = [word for word in dpd_db if word.sbs and word.sbs.sbs_index and word.sbs.sbs_chapter_1]
-
-    # Sort the filtered words
-    filtered_words = sorted(filtered_words, key=lambda word: word.sbs.sbs_index)
+    filtered_words = [word for word in dpd_db]
 
     # Check if the CSV exists, and create a backup with a timestamp if it does
     if os.path.exists(dpspth.temp_csv_path):
@@ -50,10 +65,13 @@ def save_filtered_words():
 
     # Write to CSV using tab as delimiter
     with open(dpspth.temp_csv_path, 'w', newline='') as csvfile:
-        fieldnames = ['id', 'lemma_1', 'meaning_1', 'sbs_index', 'sbs_source_1', 'sbs_sutta_1', 
-        'sbs_example_1', 'sbs_chant_pali_1', 'sbs_chant_eng_1', 'sbs_chapter_1', 'sbs_source_2', 'sbs_sutta_2', 
-        'sbs_example_2', 'sbs_chant_pali_2', 'sbs_chant_eng_2', 'sbs_chapter_2', 'sbs_source_3', 'sbs_sutta_3', 
-        'sbs_example_3', 'sbs_chant_pali_3', 'sbs_chant_eng_3', 'sbs_chapter_3', 'corrected']
+        fieldnames = [
+        'id', 'lemma_1', 'meaning_1', 'sbs_category', 
+        'sbs_source_1', 'sbs_sutta_1', 'sbs_example_1', 'sbs_chant_pali_1', 'sbs_chant_eng_1', 'sbs_chapter_1', 'correct_1', 
+        'sbs_source_2', 'sbs_sutta_2', 'sbs_example_2', 'sbs_chant_pali_2', 'sbs_chant_eng_2', 'sbs_chapter_2', 'correct_2', 
+        'sbs_source_3', 'sbs_sutta_3', 'sbs_example_3', 'sbs_chant_pali_3', 'sbs_chant_eng_3', 'sbs_chapter_3', 'correct_3',
+        'sbs_source_4', 'sbs_sutta_4', 'sbs_example_4', 'sbs_chant_pali_4', 'sbs_chant_eng_4', 'sbs_chapter_4', 'correct_4',
+        ]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter='\t')
 
         writer.writeheader()  # Write the header
@@ -63,26 +81,35 @@ def save_filtered_words():
                 'id': word.id,
                 'lemma_1': word.lemma_1,
                 'meaning_1': word.meaning_1,
-                'sbs_index': word.sbs.sbs_index,
-                'sbs_source_1': word.sbs.sbs_source_1 if word.sbs.sbs_chapter_1 else None, 
-                'sbs_sutta_1': word.sbs.sbs_sutta_1 if word.sbs.sbs_chapter_1 else None,
-                'sbs_example_1': word.sbs.sbs_example_1 if word.sbs.sbs_chapter_1 else None,
-                'sbs_chant_pali_1': word.sbs.sbs_chant_pali_1 if word.sbs.sbs_chapter_1 else None,
-                'sbs_chant_eng_1': word.sbs.sbs_chant_eng_1 if word.sbs.sbs_chapter_1 else None,
-                'sbs_chapter_1': word.sbs.sbs_chapter_1 if word.sbs.sbs_chapter_1 else None,
-                'sbs_source_2': word.sbs.sbs_source_2 if word.sbs.sbs_chapter_2 else None, 
-                'sbs_sutta_2': word.sbs.sbs_sutta_2 if word.sbs.sbs_chapter_2 else None,
-                'sbs_example_2': word.sbs.sbs_example_2 if word.sbs.sbs_chapter_2 else None,
-                'sbs_chant_pali_2': word.sbs.sbs_chant_pali_2 if word.sbs.sbs_chapter_2 else None,
-                'sbs_chant_eng_2': word.sbs.sbs_chant_eng_2 if word.sbs.sbs_chapter_2 else None,
-                'sbs_chapter_2': word.sbs.sbs_chapter_2 if word.sbs.sbs_chapter_2 else None,
-                'sbs_source_3': word.sbs.sbs_source_3 if word.sbs.sbs_chapter_3 else None, 
-                'sbs_sutta_3': word.sbs.sbs_sutta_3 if word.sbs.sbs_chapter_3 else None,
-                'sbs_example_3': word.sbs.sbs_example_3 if word.sbs.sbs_chapter_3 else None,
-                'sbs_chant_pali_3': word.sbs.sbs_chant_pali_3 if word.sbs.sbs_chapter_3 else None,
-                'sbs_chant_eng_3': word.sbs.sbs_chant_eng_3 if word.sbs.sbs_chapter_3 else None,
-                'sbs_chapter_3': word.sbs.sbs_chapter_3 if word.sbs.sbs_chapter_3 else None,
-                'corrected': "",
+                'sbs_category': word.sbs.sbs_category,
+                'sbs_source_1': word.sbs.sbs_source_1, 
+                'sbs_sutta_1': word.sbs.sbs_sutta_1,
+                'sbs_example_1': word.sbs.sbs_example_1,
+                'sbs_chant_pali_1': word.sbs.sbs_chant_pali_1,
+                'sbs_chant_eng_1': word.sbs.sbs_chant_eng_1,
+                'sbs_chapter_1': word.sbs.sbs_chapter_1,
+                'correct_1': "",
+                'sbs_source_2': word.sbs.sbs_source_2, 
+                'sbs_sutta_2': word.sbs.sbs_sutta_2,
+                'sbs_example_2': word.sbs.sbs_example_2,
+                'sbs_chant_pali_2': word.sbs.sbs_chant_pali_2,
+                'sbs_chant_eng_2': word.sbs.sbs_chant_eng_2,
+                'sbs_chapter_2': word.sbs.sbs_chapter_2,
+                'correct_2': "",
+                'sbs_source_3': word.sbs.sbs_source_3, 
+                'sbs_sutta_3': word.sbs.sbs_sutta_3,
+                'sbs_example_3': word.sbs.sbs_example_3,
+                'sbs_chant_pali_3': word.sbs.sbs_chant_pali_3,
+                'sbs_chant_eng_3': word.sbs.sbs_chant_eng_3,
+                'sbs_chapter_3': word.sbs.sbs_chapter_3,
+                'correct_3': "",
+                'sbs_source_4': word.sbs.sbs_source_4, 
+                'sbs_sutta_4': word.sbs.sbs_sutta_4,
+                'sbs_example_4': word.sbs.sbs_example_4,
+                'sbs_chant_pali_4': word.sbs.sbs_chant_pali_4,
+                'sbs_chant_eng_4': word.sbs.sbs_chant_eng_4,
+                'sbs_chapter_4': word.sbs.sbs_chapter_4,
+                'correct_4': "",
             })
 
     db_session.close()

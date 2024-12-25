@@ -43,6 +43,7 @@ class DPSPaths:
         self.ai_from_batch_api_dir = base_dir.joinpath(Path("dps/csvs/ai_from_batch_api/"))
 
         self.sbs_pd_path = base_dir.joinpath(Path("dps/csvs/sbs_pd.csv"))
+        self.ru_total_path = base_dir.joinpath(Path("dps/sbs_csvs/ru_total.tsv"))
 
 
         # /tests

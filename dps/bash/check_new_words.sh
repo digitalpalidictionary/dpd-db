@@ -4,7 +4,19 @@
 
 exec > >(tee "/home/deva/logs/check_new_words.log") 2>&1
 
-dps/scripts/backup_all_dps.py
+while true; do
+    echo -ne "\033[1;36m backup all dps?\033[0m"
+    read yn
+    case $yn in
+        [Yy]* )
+            dps/scripts/backup_all_dps.py
+            break;;
+        * )
+            break;;
+    esac
+done
+
+
 
 # Define color and style codes
 bold=$(tput bold)

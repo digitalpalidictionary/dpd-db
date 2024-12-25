@@ -58,30 +58,30 @@ def filtering_words():
 
     #! for filling DHP in db but not in SBS and not comm words
 
-    db = db_session.query(DpdHeadword).outerjoin(
-    SBS, DpdHeadword.id == SBS.id
-        ).filter(
-            and_(
-                or_(
-                    DpdHeadword.source_1.like('%DHP%'),
-                    DpdHeadword.source_2.like('%DHP%')
-                ),
-                not_(
-                    or_(
-                        SBS.sbs_source_1.like('%DHP%'),
-                        SBS.sbs_source_2.like('%DHP%'),
-                        SBS.sbs_source_3.like('%DHP%'),
-                        SBS.sbs_source_4.like('%DHP%')
-                    )
-                ),
-                not_(
-                    or_(
-                        DpdHeadword.source_1.like('%DHPa%'),
-                        DpdHeadword.source_2.like('%DHPa%'),
-                    )
-                ),
-            )
-        ).all()
+    # db = db_session.query(DpdHeadword).outerjoin(
+    # SBS, DpdHeadword.id == SBS.id
+    #     ).filter(
+    #         and_(
+    #             or_(
+    #                 DpdHeadword.source_1.like('%DHP%'),
+    #                 DpdHeadword.source_2.like('%DHP%')
+    #             ),
+    #             not_(
+    #                 or_(
+    #                     SBS.sbs_source_1.like('%DHP%'),
+    #                     SBS.sbs_source_2.like('%DHP%'),
+    #                     SBS.sbs_source_3.like('%DHP%'),
+    #                     SBS.sbs_source_4.like('%DHP%')
+    #                 )
+    #             ),
+    #             not_(
+    #                 or_(
+    #                     DpdHeadword.source_1.like('%DHPa%'),
+    #                     DpdHeadword.source_2.like('%DHPa%'),
+    #                 )
+    #             ),
+    #         )
+    #     ).all()
 
     #! for filling those which have lower model of gpt:
 
@@ -100,6 +100,27 @@ def filtering_words():
     #             ~DpdHeadword.id.in_(exclude_ids)
     #         )
     #     ).order_by(DpdHeadword.ebt_count.desc()).limit(10000).all()
+
+
+    #! for filling those which from sbs_category but does not have corresponding source
+    attribute = "mn107"
+    variable = attribute.upper()
+
+    db = db_session.query(DpdHeadword).outerjoin(
+        SBS, DpdHeadword.id == SBS.id
+    ).filter(
+        and_(
+            SBS.sbs_category.like(f"%{attribute}%"),
+            not_(
+                or_(
+                    SBS.sbs_source_1.like(f"%{variable}%"),
+                    SBS.sbs_source_2.like(f"%{variable}%"),
+                    SBS.sbs_source_3.like(f"%{variable}%"),
+                    SBS.sbs_source_4.like(f"%{variable}%")
+                )
+            ),
+        )
+    ).all()
 
     # Print the db
     print("Details of filtered words")
@@ -182,6 +203,6 @@ if __name__ == "__main__":
 
     print("filtering words for some conditions")
 
-    # filtering_words()
-    filter_and_save_txt("VIN1.2.1")
+    filtering_words()
+    # filter_and_save_txt("VIN1.2.1")
 
