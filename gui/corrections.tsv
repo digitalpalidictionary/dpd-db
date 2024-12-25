@@ -3153,3 +3153,53 @@ a > ā"					missing		yes
 18904	meaning_lit	causing to jump down					missing				
 18904	commentary	(VIN) <b>olaṅghanā</b> nāma heṭṭhā onamanā.					missing				
 18904	derived_from	olaṅgheti					missing				
+17034	verb	caus					missing				
+17034	source_1	VIN1.2.2	sutta_1	kāyasaṃsaggasikkhāpadaṃ	example_1	āmasanā, parāmasanā, omasanā, ummasanā, olaṅghanā, <b>ullaṅghanā</b>, ākaḍḍhanā, patikaḍḍhanā, abhiniggaṇhanā, abhinippīḷanā, gahaṇaṃ, chupanaṃ.	missing				
+17034	root_sign	ṃa + *e					missing				
+17034	root_base	√lagh + ṃa + e > laṅghe (caus)					missing				
+17034	construction	ud + laṅghe + anā					missing				
+17034	meaning_1	lifting up; raising					missing				
+17034	derivative	kita	suffix	anā			missing				
+17034	grammar	fem, abstr, act, from ullaṅgheti					missing				
+17034	meaning_lit	causing jump up					missing				
+17034	commentary	(VIN) <b>ullaṅghanā</b> nāma uddhaṃ uccāraṇā.					missing				
+17034	derived_from	ullaṅgheti					missing				
+11002	pos	fem					fem				
+11002	source_1	VIN1.2.2	sutta_1	kāyasaṃsaggasikkhāpadaṃ	example_1	āmasanā, parāmasanā, omasanā, ummasanā, olaṅghanā, ullaṅghanā, <b>ākaḍḍhanā</b>, patikaḍḍhanā, abhiniggaṇhanā, abhinippīḷanā, gahaṇaṃ, chupanaṃ.	fem				
+11002	lemma_1	ākaḍḍhanā					fem				
+11002	construction	ā + √kaḍḍh + anā					fem				
+11002	stem	ākaḍḍhan	pattern	ā fem			fem				
+11002	lemma_2	ākaḍḍhanā					fem				
+11002	meaning_1	pulling away; dragging out					fem				
+11002	derivative	kita	suffix	anā			fem				
+11002	grammar	fem, abstr, act, from ākaḍḍhati					fem				
+11002	commentary	(VIN) <b>ākaḍḍhanā</b> nāma āviñchanā.					fem				
+11002	derived_from	ākaḍḍhati					fem				
+41726	source_1	VIN1.2.2	sutta_1	kāyasaṃsaggasikkhāpadaṃ	example_1	āmasanā, parāmasanā, omasanā, ummasanā, olaṅghanā, ullaṅghanā, ākaḍḍhanā, <b>patikaḍḍhanā</b>, abhiniggaṇhanā, abhinippīḷanā, gahaṇaṃ, chupanaṃ.	missing				
+7814	source_1	VIN1.2.2	sutta_1	kāyasaṃsaggasikkhāpadaṃ	example_1	āmasanā, parāmasanā, omasanā, ummasanā, olaṅghanā, ullaṅghanā, ākaḍḍhanā, patikaḍḍhanā, <b>abhiniggaṇhanā</b>, abhinippīḷanā, gahaṇaṃ, chupanaṃ.	missing				
+7814	construction	abhi + ni + gaṇhā + anā					missing				
+7814	meaning_1	taking a hold; firmly grabbing					missing				
+7814	derivative	kita	suffix	anā			missing				
+7814	grammar	fem, abstr, act, from abhiniggaṇhāti					missing				
+7814	commentary	(VIN) <b>abhiniggaṇhanā</b> nāma aṅgaṃ gahetvā nippīḷanā.					missing				
+7814	derived_from	abhiniggaṇhāti					missing				
+7838	pos	fem					fem				
+7838	source_1	VIN1.2.2	sutta_1	kāyasaṃsaggasikkhāpadaṃ	example_1	āmasanā, parāmasanā, omasanā, ummasanā, olaṅghanā, ullaṅghanā, ākaḍḍhanā, patikaḍḍhanā, abhiniggaṇhanā, <b>abhinippīḷanā</b>, gahaṇaṃ, chupanaṃ.	missing				
+7838	lemma_1	abhinippīḷanā					fem				
+7838	construction	abhi + nī + √pīḷ + anā					fem				
+7838	stem	abhinippīḷan	pattern	ā fem			fem				
+7838	lemma_2	abhinippīḷanā					fem				
+7838	meaning_1	completely crushing down; squeezing down hard					fem				
+7838	derivative	kita	suffix	anā			fem				
+7838	grammar	fem, abstr, act, from abhinippīḷeti					fem				
+7838	commentary	(VIN) <b>abhinippīḷanā</b> nāma kenaci saha nippīḷanā.					fem				
+7838	derived_from	abhinippīḷeti					fem				
+27709	sanskrit	[chup]					missing		
+27709	source_1	VIN1.2.2	sutta_1	kāyasaṃsaggasikkhāpadaṃ	example_1	āmasanā, parāmasanā, omasanā, ummasanā, olaṅghanā, ullaṅghanā, ākaḍḍhanā, patikaḍḍhanā, abhiniggaṇhanā, abhinippīḷanā, gahaṇaṃ, <b>chupanaṃ</b>.	missing		
+27709	construction	√chup + ana					missing		
+27709	meaning_1	touching					missing		
+27709	derivative	kita	suffix	ana			missing		
+27709	grammar	nt, act, from chupati					missing		
+27709	commentary	(VIN) <b>chupanaṃ</b> nāma phuṭṭhamattaṃ.					missing		
+27709	derived_from	chupati					missing		
+24628	commentary	(VIN) <b>gahaṇaṃ</b> nāma gahitamattaṃ.					missing		
