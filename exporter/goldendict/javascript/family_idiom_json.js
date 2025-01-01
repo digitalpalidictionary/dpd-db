@@ -574,7 +574,7 @@ var family_idiom_json = {
    [
     "etassa bhagavā kālo",
     "idiom",
-    "it's the right time for this, Blessed One!; now is the time, Blessed One!",
+    "it's the right time for this, Blessed One!; now is the occasion, Blessed One!",
     "✔"
    ],
    [
@@ -2148,12 +2148,18 @@ var family_idiom_json = {
   ]
  },
  "aṅga": {
-  "count": 7,
+  "count": 12,
   "data": [
    [
     "aṅganteva",
     "sandhi",
     "even a limb",
+    "✔"
+   ],
+   [
+    "aṭṭhahaṅgehi",
+    "sandhi",
+    "with eight factors",
     "✔"
    ],
    [
@@ -2169,15 +2175,39 @@ var family_idiom_json = {
     "✔"
    ],
    [
+    "catuhaṅgehi",
+    "sandhi",
+    "with four factors; in four ways",
+    "✔"
+   ],
+   [
+    "catūhaṅgehi",
+    "sandhi",
+    "with four factors; in four ways",
+    "✔"
+   ],
+   [
     "tīṇaṅgāni",
     "sandhi",
     "three factors; three qualities",
     "◑"
    ],
    [
+    "tīhaṅgehi",
+    "sandhi",
+    "with three factors; in three ways",
+    "✔"
+   ],
+   [
     "dasahaṅgehi",
     "sandhi",
     "with ten factors; with ten attributes",
+    "✔"
+   ],
+   [
+    "dvīhaṅgehi",
+    "sandhi",
+    "with two factors; in two ways",
     "✔"
    ],
    [
@@ -2236,7 +2266,7 @@ var family_idiom_json = {
    [
     "atippageva",
     "sandhi",
-    "too early in the morning; so early in the morning",
+    "too early in the morning; so early in the day",
     "✔"
    ],
    [
@@ -3154,8 +3184,8 @@ var family_idiom_json = {
    [
     "disvāva",
     "sandhi",
-    "as soon as having seen",
-    "◑"
+    "as soon as having seen; only having seen",
+    "✔"
    ],
    [
     "dūratova",
@@ -3178,7 +3208,7 @@ var family_idiom_json = {
    [
     "dhammameva",
     "sandhi",
-    "only the Dhamma; just the Dhamma",
+    "only the Dhamma; just the teaching",
     "✔"
    ],
    [
@@ -3867,8 +3897,8 @@ var family_idiom_json = {
    [
     "disvāva",
     "sandhi",
-    "as soon as having seen",
-    "◑"
+    "as soon as having seen; only having seen",
+    "✔"
    ]
   ]
  },
@@ -3968,7 +3998,7 @@ var family_idiom_json = {
   ]
  },
  "evaṃ": {
-  "count": 61,
+  "count": 62,
   "data": [
    [
     "ajānamevaṃ",
@@ -4077,6 +4107,12 @@ var family_idiom_json = {
     "sandhi",
     "thus his",
     "✔"
+   ],
+   [
+    "evamassa 5",
+    "sandhi",
+    "thus it should be; it should be in this way",
+    "◑"
    ],
    [
     "evamassu",
@@ -6516,7 +6552,7 @@ var family_idiom_json = {
   ]
  },
  "iva": {
-  "count": 6,
+  "count": 7,
   "data": [
    [
     "aññasseva",
@@ -6534,6 +6570,12 @@ var family_idiom_json = {
     "chāyāva anapāyinī",
     "idiom",
     "like a shadow that never leaves",
+    "✔"
+   ],
+   [
+    "yathariva",
+    "sandhi",
+    "just as; exactly like",
     "✔"
    ],
    [
@@ -6828,7 +6870,7 @@ var family_idiom_json = {
   ]
  },
  "api": {
-  "count": 151,
+  "count": 152,
   "data": [
    [
     "aññāṇatthampi",
@@ -6931,6 +6973,12 @@ var family_idiom_json = {
     "sandhi",
     "but also here",
     "◑"
+   ],
+   [
+    "apinussa",
+    "sandhi",
+    "and would there be for him?",
+    "✔"
    ],
    [
     "apissu",
@@ -7849,12 +7897,18 @@ var family_idiom_json = {
   ]
  },
  "aṭṭha1": {
-  "count": 6,
+  "count": 7,
   "data": [
    [
     "aṭṭha vimokkhā",
     "idiom",
     "eight emancipations; eight liberations",
+    "✔"
+   ],
+   [
+    "aṭṭhahaṅgehi",
+    "sandhi",
+    "with eight factors",
     "✔"
    ],
    [
@@ -8679,7 +8733,7 @@ var family_idiom_json = {
    [
     "etassa bhagavā kālo",
     "idiom",
-    "it's the right time for this, Blessed One!; now is the time, Blessed One!",
+    "it's the right time for this, Blessed One!; now is the occasion, Blessed One!",
     "✔"
    ],
    [
@@ -8871,7 +8925,7 @@ var family_idiom_json = {
    [
     "atippageva",
     "sandhi",
-    "too early in the morning; so early in the morning",
+    "too early in the morning; so early in the day",
     "✔"
    ],
    [
@@ -8888,7 +8942,7 @@ var family_idiom_json = {
    [
     "atippageva",
     "sandhi",
-    "too early in the morning; so early in the morning",
+    "too early in the morning; so early in the day",
     "✔"
    ],
    [
@@ -11377,7 +11431,7 @@ var family_idiom_json = {
   ]
  },
  "assa3": {
-  "count": 44,
+  "count": 45,
   "data": [
    [
     "athassa 1",
@@ -11426,6 +11480,12 @@ var family_idiom_json = {
     "sandhi",
     "he would (think) thus; this would occur to him",
     "✔"
+   ],
+   [
+    "evamassa 5",
+    "sandhi",
+    "thus it should be; it should be in this way",
+    "◑"
    ],
    [
     "evamassu",
@@ -11646,7 +11706,7 @@ var family_idiom_json = {
   ]
  },
  "assa4": {
-  "count": 82,
+  "count": 83,
   "data": [
    [
     "athassa 2",
@@ -11664,6 +11724,12 @@ var family_idiom_json = {
     "antogadhāvāssa",
     "sandhi",
     "included within one; contained within one",
+    "✔"
+   ],
+   [
+    "apinussa",
+    "sandhi",
+    "and would there be for him?",
     "✔"
    ],
    [
@@ -13677,12 +13743,18 @@ var family_idiom_json = {
   ]
  },
  "dvi": {
-  "count": 6,
+  "count": 7,
   "data": [
    [
     "dvāhaṃ",
     "sandhi",
     "twice I",
+    "✔"
+   ],
+   [
+    "dvīhaṅgehi",
+    "sandhi",
+    "with two factors; in two ways",
     "✔"
    ],
    [
@@ -13765,7 +13837,7 @@ var family_idiom_json = {
    [
     "dhammameva",
     "sandhi",
-    "only the Dhamma; just the Dhamma",
+    "only the Dhamma; just the teaching",
     "✔"
    ],
    [
@@ -14556,6 +14628,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "upasanta": {
+  "count": 1,
+  "data": [
+   [
+    "saṅkhāresūpasantesu",
+    "sandhi",
+    "when the intentional activities are cooled; when the mental activity are calmed",
+    "✔"
+   ]
+  ]
+ },
  "anupassanā": {
   "count": 2,
   "data": [
@@ -15210,12 +15293,18 @@ var family_idiom_json = {
   ]
  },
  "nu": {
-  "count": 22,
+  "count": 23,
   "data": [
    [
     "api nu",
     "idiom",
     "is?; did?; are?; who?; what?; how?; would?",
+    "✔"
+   ],
+   [
+    "apinussa",
+    "sandhi",
+    "and would there be for him?",
     "✔"
    ],
    [
@@ -19607,7 +19696,7 @@ var family_idiom_json = {
     "✔"
    ],
    [
-    "saṃvāsaṃ kappeti 2",
+    "saṃvāsaṃ kappeti",
     "idiom",
     "cohabits (with); sleeps (with); has intercourse (with)",
     "✔"
@@ -22099,7 +22188,7 @@ var family_idiom_json = {
    [
     "etassa bhagavā kālo",
     "idiom",
-    "it's the right time for this, Blessed One!; now is the time, Blessed One!",
+    "it's the right time for this, Blessed One!; now is the occasion, Blessed One!",
     "✔"
    ],
    [
@@ -22628,7 +22717,7 @@ var family_idiom_json = {
   ]
  },
  "ti": {
-  "count": 4,
+  "count": 5,
   "data": [
    [
     "evantiparivaṭṭaṃ",
@@ -22652,6 +22741,12 @@ var family_idiom_json = {
     "tīṇimāni",
     "sandhi",
     "these three",
+    "✔"
+   ],
+   [
+    "tīhaṅgehi",
+    "sandhi",
+    "with three factors; in three ways",
     "✔"
    ]
   ]
@@ -23751,12 +23846,18 @@ var family_idiom_json = {
   ]
  },
  "soḷasa": {
-  "count": 1,
+  "count": 2,
   "data": [
    [
     "kalaṃ nāgghati soḷasiṃ",
     "idiom",
     "is not worth a fraction (of); does not amount to a sixteenth part (of); lit. is not worth one sixteenth part of",
+    "✔"
+   ],
+   [
+    "soḷasahākārehi",
+    "sandhi",
+    "in sixteen ways; lit. with sixteen methods",
     "✔"
    ]
   ]
@@ -24956,8 +25057,20 @@ var family_idiom_json = {
   ]
  },
  "catu": {
-  "count": 2,
+  "count": 4,
   "data": [
+   [
+    "catuhaṅgehi",
+    "sandhi",
+    "with four factors; in four ways",
+    "✔"
+   ],
+   [
+    "catūhaṅgehi",
+    "sandhi",
+    "with four factors; in four ways",
+    "✔"
+   ],
    [
     "cattārimāni",
     "sandhi",
@@ -26013,7 +26126,7 @@ var family_idiom_json = {
   ]
  },
  "yathā": {
-  "count": 21,
+  "count": 22,
   "data": [
    [
     "tathā yathā",
@@ -26031,6 +26144,12 @@ var family_idiom_json = {
     "yathayidaṃ",
     "sandhi",
     "such as this",
+    "✔"
+   ],
+   [
+    "yathariva",
+    "sandhi",
+    "just as; exactly like",
     "✔"
    ],
    [
@@ -27045,7 +27164,7 @@ var family_idiom_json = {
   ]
  },
  "dasa1": {
-  "count": 3,
+  "count": 4,
   "data": [
    [
     "dasayimāni",
@@ -27063,6 +27182,29 @@ var family_idiom_json = {
     "dasahaṅgehi",
     "sandhi",
     "with ten factors; with ten attributes",
+    "✔"
+   ],
+   [
+    "dasahākārehi",
+    "sandhi",
+    "in ten ways; lit. with ten methods",
+    "✔"
+   ]
+  ]
+ },
+ "ākāra": {
+  "count": 2,
+  "data": [
+   [
+    "dasahākārehi",
+    "sandhi",
+    "in ten ways; lit. with ten methods",
+    "✔"
+   ],
+   [
+    "soḷasahākārehi",
+    "sandhi",
+    "in sixteen ways; lit. with sixteen methods",
     "✔"
    ]
   ]
@@ -27344,7 +27486,7 @@ var family_idiom_json = {
     "✔"
    ],
    [
-    "saṃvāsaṃ kappeti 2",
+    "saṃvāsaṃ kappeti",
     "idiom",
     "cohabits (with); sleeps (with); has intercourse (with)",
     "✔"
@@ -27931,6 +28073,23 @@ var family_idiom_json = {
    ]
   ]
  },
+ "pāpa": {
+  "count": 2,
+  "data": [
+   [
+    "pāpañce",
+    "sandhi",
+    "if evil action; if crime",
+    "✔"
+   ],
+   [
+    "pāpamāgamā",
+    "sandhi",
+    "(may) evil (not) come (to); (may no) harm come (to); lit. bad came",
+    "✔"
+   ]
+  ]
+ },
  "nibbāna": {
   "count": 2,
   "data": [
@@ -28479,7 +28638,7 @@ var family_idiom_json = {
    [
     "payātumicchasi",
     "sandhi",
-    "you want to set out (by); you want to head off (on)",
+    "you want to set out (by); you want to head out (on); you wish to go off (on)",
     "✔"
    ]
   ]
@@ -28490,7 +28649,7 @@ var family_idiom_json = {
    [
     "payātumicchasi",
     "sandhi",
-    "you want to set out (by); you want to head off (on)",
+    "you want to set out (by); you want to head out (on); you wish to go off (on)",
     "✔"
    ],
    [
@@ -28859,23 +29018,6 @@ var family_idiom_json = {
     "pādesu sirasā nipatitvā",
     "idiom",
     "having fallen at the feet with the head",
-    "✔"
-   ]
-  ]
- },
- "pāpa": {
-  "count": 2,
-  "data": [
-   [
-    "pāpañce",
-    "sandhi",
-    "if evil action; if crime",
-    "✔"
-   ],
-   [
-    "pāpamāgamā",
-    "sandhi",
-    "(may) evil (not) come (to); (may no) harm come (to); lit. bad came",
     "✔"
    ]
   ]
@@ -32298,17 +32440,6 @@ var family_idiom_json = {
     "saṅkhāraṃ padahanta",
     "idiom",
     "making an intentional effort; striving with determination; lit. putting forward intention",
-    "✔"
-   ]
-  ]
- },
- "upasanta": {
-  "count": 1,
-  "data": [
-   [
-    "saṅkhāresūpasantesu",
-    "sandhi",
-    "when the intentional activities are cooled; when the mental activity are calmed",
     "✔"
    ]
   ]

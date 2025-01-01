@@ -2827,7 +2827,7 @@ var family_set_json = {
     "✔"
    ],
    [
-    "nicca 2",
+    "nicca 3",
     "adj",
     "(gram) (of a rule) not optional; mandatory; necessary",
     "◑"
@@ -5616,7 +5616,7 @@ var family_set_json = {
    [
     "cūḷani",
     "abbrev",
-    "abbreviation of Cūḷaniddesa; canonical commentary on the Pārāyana of the Sutta Nipāta",
+    "abbreviation of Cūḷaniddesa; canonical commentary on the Pārāyanavagga of the Sutta Nipāta",
     "✔"
    ],
    [
@@ -5808,7 +5808,7 @@ var family_set_json = {
    [
     "vi 2.1",
     "abbrev",
-    "abbreviation of vissajjanā; response",
+    "abbreviation of <i>vissajjanā</i>; response",
     "✔"
    ],
    [
@@ -6300,6 +6300,12 @@ var family_set_json = {
     "imāhi 1",
     "pron",
     "by these; with these",
+    "✔"
+   ],
+   [
+    "imāhi 2",
+    "pron",
+    "from these",
     "✔"
    ],
    [
@@ -7977,7 +7983,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 351
+  "count": 352
  },
  "epithets of devas": {
   "data": [
@@ -8621,6 +8627,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "aṅgaka",
+    "masc",
+    "name of young Brahman; lit. from Bengal; (or) having limbs",
+    "✔"
+   ],
+   [
     "aṅgīrasa 2",
     "masc",
     "name of a Vedic sage",
@@ -9035,6 +9047,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "yamadaggi",
+    "masc",
+    "name of a Vedic sage",
+    "✔"
+   ],
+   [
     "rammaka 1",
     "masc",
     "name of a Brahman",
@@ -9179,6 +9197,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "soṇadaṇḍa",
+    "masc",
+    "name of a Brahman; lit. dog stick",
+    "✔"
+   ],
+   [
     "soṇuttara 2",
     "masc",
     "name of a Brahman; lit. top dog",
@@ -9191,7 +9215,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 96
+  "count": 99
  },
  "bodyparts": {
   "data": [
@@ -10298,6 +10322,18 @@ var family_set_json = {
     "✔"
    ],
    [
+    "amacca 2",
+    "masc",
+    "colleague; co-worker; associate",
+    "✔"
+   ],
+   [
+    "amacca 3",
+    "masc",
+    "minister; royal official",
+    "✔"
+   ],
+   [
     "assadammaka",
     "masc",
     "horse trainer; horse tamer",
@@ -10696,7 +10732,7 @@ var family_set_json = {
    [
     "tiṇahāraka",
     "masc",
-    "grass gatherer",
+    "grass gatherer; straw collector",
     "✔"
    ],
    [
@@ -10708,7 +10744,7 @@ var family_set_json = {
    [
     "thenaka",
     "masc",
-    "thief; robber",
+    "thief; robber; burglar",
     "✔"
    ],
    [
@@ -10856,7 +10892,7 @@ var family_set_json = {
     "✔"
    ],
    [
-    "pattika 1",
+    "pattika 1.1",
     "masc",
     "foot soldier; infantryman",
     "✔"
@@ -10871,7 +10907,7 @@ var family_set_json = {
     "paricāraka 2",
     "masc",
     "servant; attendant; lit. who walks around",
-    "◑"
+    "✔"
    ],
    [
     "paricārika",
@@ -10912,7 +10948,7 @@ var family_set_json = {
    [
     "pasupālaka",
     "masc",
-    "young shepherd; young herdsman; lit. young livestock protector",
+    "shepherd; herdsman; lit. livestock protector",
     "✔"
    ],
    [
@@ -11039,6 +11075,12 @@ var family_set_json = {
     "bādhī",
     "masc",
     "catcher",
+    "✔"
+   ],
+   [
+    "brāhmaṇadūta",
+    "masc",
+    "Brahman emissary; Brahman envoy",
     "✔"
    ],
    [
@@ -11182,7 +11224,7 @@ var family_set_json = {
    [
     "muddika",
     "masc",
-    "mathematician; lit. finger counter",
+    "teller; counter; reckoner; lit. finger counter",
     "✔"
    ],
    [
@@ -11402,7 +11444,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 196
+  "count": 199
  },
  "tastes": {
   "data": [
@@ -12544,6 +12586,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "oṭṭhaddha",
+    "masc",
+    "name of a Licchavi; lit. half lip; harelip",
+    "✔"
+   ],
+   [
     "kaṭāhakā",
     "fem",
     "name of a female slave; lit. having a small pot",
@@ -13372,7 +13420,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 158
+  "count": 159
  },
  "types of ascetics": {
   "data": [
@@ -14515,6 +14563,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "kaṇhāyana",
+    "masc",
+    "name of a clan; lit. related to black",
+    "✔"
+   ],
+   [
     "kassapa 3",
     "masc",
     "family name; lit. descendant of Kassapa",
@@ -14695,7 +14749,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 35
+  "count": 36
  },
  "names of countries": {
   "data": [
@@ -17992,6 +18046,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "sīha 4",
+    "masc",
+    "name of a novice monk; lit. lion",
+    "✔"
+   ],
+   [
     "sugandha 3",
     "masc",
     "name of an arahant monk; lit. good smell",
@@ -18238,7 +18298,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 467
+  "count": 468
  },
  "names of arahants": {
   "data": [
@@ -21195,7 +21255,7 @@ var family_set_json = {
    [
     "devīsi",
     "masc",
-    "divine sage; heavenly seer; epithet of the Buddha",
+    "divine sage; heavenly seer; epithet of the Buddha; (or) royal seer",
     "✔"
    ],
    [
@@ -22982,6 +23042,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "kosikī",
+    "fem",
+    "name of a river",
+    "✔"
+   ],
+   [
     "gaṅgā 1",
     "fem",
     "name of a river; one of the five great rivers of ancient India",
@@ -23174,7 +23240,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 39
+  "count": 40
  },
  "names of ascetics": {
   "data": [
@@ -23323,6 +23389,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "jāliya",
+    "masc",
+    "name of an ascetic's student; lit. having a net",
+    "✔"
+   ],
+   [
     "tuvaṭaka",
     "masc",
     "name of an ascetic",
@@ -23338,6 +23410,12 @@ var family_set_json = {
     "dārucīriya",
     "adj",
     "family names of an ascetic; great disciple of the Buddha; foremost disciple in quick realization; Bāhiya Dārucīriya; lit. wearing wood fibre cloth; dressed in bark strips",
+    "✔"
+   ],
+   [
+    "dārupattika",
+    "masc",
+    "name of an ascetic; lit. using a wooden bowl",
     "✔"
    ],
    [
@@ -23701,7 +23779,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 87
+  "count": 89
  },
  "names of deities": {
   "data": [
@@ -25402,6 +25480,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "ukkāmukha 2",
+    "masc",
+    "name of one of the sons of king Okkāka; lit. furnace",
+    "✔"
+   ],
+   [
     "utena",
     "masc",
     "name of a king",
@@ -25463,6 +25547,12 @@ var family_set_json = {
    ],
    [
     "karakaṇḍa",
+    "masc",
+    "name of one of the sons of king Okkāka",
+    "✔"
+   ],
+   [
+    "karakaṇḍu",
     "masc",
     "name of one of the sons of king Okkāka",
     "✔"
@@ -25660,6 +25750,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "maddarūpī",
+    "fem",
+    "name of king Okkāka's daughter",
+    "✔"
+   ],
+   [
     "maddī",
     "fem",
     "name of a princess; daughter of king Madda",
@@ -25682,6 +25778,12 @@ var family_set_json = {
     "masc",
     "name of a king of Mithilā",
     "◑"
+   ],
+   [
+    "mahāvijita",
+    "masc",
+    "name of a legendary king; lit. with great conquered land",
+    "✔"
    ],
    [
     "mahāsammata",
@@ -25762,6 +25864,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "sinipura",
+    "masc",
+    "name of one of the sons of king Okkāka",
+    "✔"
+   ],
+   [
     "sinisūra",
     "masc",
     "name of one of the sons of king Okkāka",
@@ -25804,7 +25912,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 78
+  "count": 83
  },
  "six ascetic teachers": {
   "data": [
@@ -34330,6 +34438,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "piti",
+    "masc",
+    "father; paternal lineage",
+    "✔"
+   ],
+   [
     "pitucchā",
     "fem",
     "father's sister",
@@ -34414,6 +34528,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "māti",
+    "fem",
+    "mother; maternal lineage",
+    "✔"
+   ],
+   [
     "mātucchā",
     "fem",
     "maternal aunt; mother's sister",
@@ -34474,7 +34594,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 42
+  "count": 44
  },
  "onomatopoeia": {
   "data": [
@@ -34629,6 +34749,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "daddari",
+    "fem",
+    "type of drum",
+    "✔"
+   ],
+   [
     "dundubhi 1",
     "nt",
     "war drum; kettledrum",
@@ -34737,7 +34863,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 43
+  "count": 44
  },
  "three daughters of Mara": {
   "data": [
@@ -35386,6 +35512,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "mutiṅga",
+    "masc",
+    "mridangam; double-headed drum",
+    "✔"
+   ],
+   [
     "mudiṅga",
     "masc",
     "mridangam; double-headed drum",
@@ -35410,7 +35542,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 12
+  "count": 13
  },
  "medicines": {
   "data": [

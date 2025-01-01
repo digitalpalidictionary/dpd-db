@@ -67,6 +67,7 @@ accusative
 acerifolium
 Aciravatī
 Acorus
+actualizing
 acuminata
 acutangula
 adhi
@@ -91,6 +92,8 @@ ahaha
 ahaha-count
 ahanati
 āhanati
+Ajātasattu
+Ajātasattu
 Ajātasattu
 Ajātasattu's
 Ajita
@@ -250,6 +253,7 @@ assailable
 Assaji
 Assalāyana
 Assapura
+assented
 assents
 asura
 asuras
@@ -271,6 +275,7 @@ aṭṭhakathā
 Aṭṭhakavagga
 atthi
 aubertii
+augmenter
 auricle
 austerities
 autonomously
@@ -290,6 +295,7 @@ bādha
 bael
 Bael
 Bāhiya
+baiter
 Bālaka
 balamattena
 Balasaṃyuttaṃ
@@ -325,6 +331,7 @@ beggings
 begrudges
 Belaṭṭha
 Belaṭṭhaputta
+Belaṭṭhi
 beleric
 belovedness
 Beḷuva
@@ -381,6 +388,7 @@ biltong
 Bimbisāra
 Bimbisāra's
 bipinnata
+birdcatcher
 blamableness
 blameworthiness
 blameworthy
@@ -415,6 +423,7 @@ Brassica
 brayonia
 brazenness
 breadths
+brigandage
 brinjal
 broadcasted
 brū
@@ -442,6 +451,7 @@ Calotropis
 Campā
 caṇḍāla
 Caṅkī
+captious
 capucapu
 capucapu soun
 Carandas
@@ -508,6 +518,7 @@ cognised
 cognising
 cognize
 cohabiting
+cohabits
 cohering
 cojoined
 Coḷa
@@ -686,6 +697,7 @@ diligence
 Diospyros
 dirtiness
 Disampati
+discolouration
 discoloured
 discriminatively
 disembarks
@@ -888,11 +900,15 @@ Gandāra
 Gandhara
 Gandhāra
 Gandharan
+gangeticus
 gapless
+garial
 Garuda
 gatekeeper
 gaub
 Gavesī
+gavial
+Gavialis
 gāvuta
 gāvutas
 Gayā
@@ -935,6 +951,7 @@ Gosāla's
 gossipmongering
 Gotama
 Gotama
+Gotama's
 Gotama's
 Gotama's
 Gotamaka's
@@ -1038,13 +1055,17 @@ impingement
 imprudently
 iṃsu
 in-front-ness
+inarticulate
 inarticulately
+inaugurate
+inaugurates
 incapability
 incises
 incompliant
 inconstance
 incontrovertibility
 incontrovertibility
+increaser
 increaser
 inculpable
 inculpableness
@@ -1067,10 +1088,13 @@ Indra's
 Indra’s
 Indriyasaṃyuttaṃ
 Indus
+ineffectiveness
+ineloquent
 inexpertise
 infeminine
 infiniteness
 inhered
+inheres
 injudiciously
 injurer
 inophyllum
@@ -1288,6 +1312,7 @@ Lanka
 lapis lazuli
 latfolia
 latifolia
+layed
 layerings
 laylife
 laypeople
@@ -1313,6 +1338,7 @@ limitlessness
 linch-pin
 Lindica
 Linum
+listlessness
 litigated
 līyati
 LKR
@@ -1432,6 +1458,7 @@ Mātali's
 materiality
 math
 Mātikā
+matricide
 Mātugāmasaṃyuttaṃ
 MDict
 measurer
@@ -1675,6 +1702,7 @@ officinarum
 oilstone
 Okkāka
 Okkāka's
+Okkāka's
 one-placed-ness
 one's
 one's
@@ -1705,6 +1733,7 @@ overindulging
 overrating
 overspread
 overvaluation
+oviparous
 ownerless
 p
 pā
@@ -1787,6 +1816,7 @@ Paṭisambhidāmagga
 paṭisantharati
 paṭisanthāre
 paṭivāpeti
+patricide
 patta
 pattha
 Paṭṭhāna
@@ -1944,6 +1974,7 @@ rebirths
 rebukes
 recalcitrance
 reciter
+reckoner
 recompensated
 redescription
 reduplicated
@@ -1951,6 +1982,7 @@ refutable
 regardful
 rehabilitatable
 relative's
+religionist
 religiosa
 religiosia
 Religiosia
@@ -2421,6 +2453,7 @@ triply
 trisulphide
 Triticum
 tta
+tuber
 turbanned
 Turdus
 Turukkha
@@ -2529,6 +2562,7 @@ unexperienceable
 unexperienced
 unfabricated
 unfashioned
+unfastens
 unfeelable
 unfightable
 unfragmented
@@ -2563,6 +2597,7 @@ unmendable
 unmindfulness
 unmixes
 unmuddled
+unobjectionable
 unobtained
 unoffered
 unoppressed
@@ -2759,6 +2794,7 @@ visukammante
 Vitex
 vitiligo
 Vitis
+viviparous
 viyavajjena
 viyāyāma
 vocative
@@ -2815,10 +2851,3 @@ you're
 youthfulness
 zizanioides
 Ziziphus
-Belaṭṭhi
-assented
-Ajātasattu
-Ajātasattu
-ineffectiveness
-increaser
-augmenter

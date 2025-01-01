@@ -3114,19 +3114,19 @@ a > ā"					missing		yes
 9428	source_1	VIN1.1.4	sutta_1	catutthapārājikaṃ	example_1	anabhijānan'ti <b>asantaṃ</b> abhūtaṃ asaṃvijjamānaṃ ajānanto apassanto attani kusalaṃ dhammaṃ, atthi me kusalo dhammo'ti.	it seems in AN9.11 it is ind adv asatā 1		yes		
 9428	source_2		sutta_2		example_2		move to 1st position		yes		
 13377	meaning_1	who is afflicted with desire; who is led astray by longing					noun		yes		
-2442	compound_type	sattamī tappurisa	compound_construction	attakām<b>e</b> + pāricariyā			since it is attakāma 2 and due to patimokkha analisys				
-20960	meaning_1	object of pleasure; sensual pleasure; sexual pleasure					since it is a noun				
-45445	meaning_lit	making in front					lit				
-8929	compound_type	dutiyā tappurisa	compound_construction	arahant<b>aṃ</b> + ghātaka			missing				
-8929	source_1	VIN3.1.52	sutta_1	mahākhandhako, arahantaghātakavatthu	example_1	arahanto ete, bhikkhave, bhikkhū. <b>arahantaghātako</b>, bhikkhave, anupasampanno na upasampādetabbo, upasampanno nāsetabbo'ti.	missing				
-8929	construction	arahanta + ghātaka					missing				
-8929	meaning_1	killer of an Arahant; murderer of an awakened being					missing				
-8929	grammar	masc, comp					missing				
-8929	family_compound	arahant ghātaka					missing				
-8929	derived_from						no need				
-17461	meaning_lit	from one					missing				
-12101	source_1	VIN1.2.2	sutta_1	kāyasaṃsaggasikkhāpadaṃ	example_1	<b>āmasanā</b>, parāmasanā, omasanā, ummasanā, olaṅghanā, ullaṅghanā, ākaḍḍhanā, patikaḍḍhanā, abhiniggaṇhanā, abhinippīḷanā, gahaṇaṃ, chupanaṃ.	missing				
-12101	meaning_1	rubbing; touching					missing				
+2442	compound_type	sattamī tappurisa	compound_construction	attakām<b>e</b> + pāricariyā			since it is attakāma 2 and due to patimokkha analisys		yes		
+20960	meaning_1	object of pleasure; sensual pleasure; sexual pleasure					since it is a noun	it means to show that it can be the object of pleasure or the pleasure itself	no		
+45445	meaning_lit	making in front					lit		yes		
+8929	compound_type	dutiyā tappurisa	compound_construction	arahant<b>aṃ</b> + ghātaka			missing		yes		
+8929	source_1	VIN3.1.52	sutta_1	mahākhandhako, arahantaghātakavatthu	example_1	arahanto ete, bhikkhave, bhikkhū. <b>arahantaghātako</b>, bhikkhave, anupasampanno na upasampādetabbo, upasampanno nāsetabbo'ti.	missing		yes		
+8929	construction	arahanta + ghātaka					missing		yes		
+8929	meaning_1	killer of an Arahant; murderer of an awakened being					missing		yes		
+8929	grammar	masc, comp					missing		yes		
+8929	family_compound	arahant ghātaka					missing		yes		
+8929	derived_from						no need		yes		
+17461	meaning_lit	from one					missing		yes		
+12101	source_1	VIN1.2.2	sutta_1	kāyasaṃsaggasikkhāpadaṃ	example_1	<b>āmasanā</b>, parāmasanā, omasanā, ummasanā, olaṅghanā, ullaṅghanā, ākaḍḍhanā, patikaḍḍhanā, abhiniggaṇhanā, abhinippīḷanā, gahaṇaṃ, chupanaṃ.	missing		yes		
+12101	meaning_1	rubbing; touching					missing		yes		
 16903	source_1	VIN1.2.2	sutta_1	kāyasaṃsaggasikkhāpadaṃ	example_1	āmasanā, parāmasanā, omasanā, <b>ummasanā</b>, olaṅghanā, ullaṅghanā, ākaḍḍhanā, patikaḍḍhanā, abhiniggaṇhanā, abhinippīḷanā, gahaṇaṃ, chupanaṃ.	missing				
 16903	construction	ud + √mas + anā					missing				
 16903	meaning_1	stroking upwards; lifting up					missing				

@@ -415,8 +415,8 @@ var family_word_json = {
    [
     "kaṇhāyana",
     "masc",
-    "name of a clan",
-    "✘"
+    "name of a clan; lit. related to black",
+    "✔"
    ],
    [
     "kiṇha 1.1",
@@ -1601,7 +1601,7 @@ var family_word_json = {
    [
     "ajjhāgāra",
     "nt",
-    "home; house",
+    "within a home; inside the house",
     "✔"
    ],
    [
@@ -3680,7 +3680,7 @@ var family_word_json = {
     "imāhi 2",
     "pron",
     "from these",
-    "✘"
+    "✔"
    ],
    [
     "iminā",
@@ -6206,7 +6206,7 @@ var family_word_json = {
     "lahusa 2",
     "adj",
     "touchy; over-reactive; lit. light",
-    "◑"
+    "✔"
    ],
    [
     "lahuso",
@@ -6817,7 +6817,7 @@ var family_word_json = {
    [
     "tilaka 3",
     "nt",
-    "freckle; spot; blotch; skin-discolouring",
+    "freckle; spot; blotch; skin-discolouration; lit. small sesame seed",
     "✔"
    ],
    [
@@ -7063,7 +7063,7 @@ var family_word_json = {
    [
     "daṇḍa 4",
     "masc",
-    "punishment; fine",
+    "punishment; fine; penalty",
     "✔"
    ],
    [
@@ -9230,11 +9230,17 @@ var family_word_json = {
    [
     "nicca 1",
     "adj",
-    "permanent; lasting; continuous; ordered; stable; reliable; regular; immutable",
+    "permanent; lasting; ordered; stable; reliable; immutable",
     "✔"
    ],
    [
     "nicca 2",
+    "adj",
+    "regular; consistent; continuous; ongoing",
+    "✔"
+   ],
+   [
+    "nicca 3",
     "adj",
     "(gram) (of a rule) not optional; mandatory; necessary",
     "◑"
@@ -9264,7 +9270,7 @@ var family_word_json = {
     "◑"
    ]
   ],
-  "count": 13
+  "count": 14
  },
  "niṭṭhura": {
   "data": [
@@ -10316,7 +10322,7 @@ var family_word_json = {
    [
     "ekato 2",
     "ind",
-    "together",
+    "together; lit. from one",
     "✔"
    ],
    [
@@ -10812,6 +10818,12 @@ var family_word_json = {
     "✘"
    ],
    [
+    "pakkhika 4",
+    "adj",
+    "wearing a garment made of wings; lit. related to wings",
+    "✔"
+   ],
+   [
     "pakkhitta 2.1",
     "nt",
     "fact of being a bird",
@@ -10890,7 +10902,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 29
+  "count": 30
  },
  "pacchā": {
   "data": [
@@ -10995,9 +11007,15 @@ var family_word_json = {
     "adj",
     "very last; final",
     "✔"
+   ],
+   [
+    "pacchimena",
+    "ind",
+    "to the west (of); lit. with the west",
+    "✔"
    ]
   ],
-  "count": 17
+  "count": 18
  },
  "paṇḍu": {
   "data": [
@@ -12012,8 +12030,8 @@ var family_word_json = {
    [
     "piti",
     "masc",
-    "father",
-    "◑"
+    "father; paternal lineage",
+    "✔"
    ],
    [
     "pitika",
@@ -12283,6 +12301,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "puratthimena",
+    "ind",
+    "to the east (of); lit. with the east",
+    "✔"
+   ],
+   [
     "purā 1",
     "ind",
     "before",
@@ -12457,7 +12481,7 @@ var family_word_json = {
     "◑"
    ]
   ],
-  "count": 39
+  "count": 40
  },
  "pesala": {
   "data": [
@@ -13066,7 +13090,7 @@ var family_word_json = {
     "amacca 3",
     "masc",
     "minister; royal official",
-    "◑"
+    "✔"
    ],
    [
     "amatta 2.1",
@@ -13296,8 +13320,8 @@ var family_word_json = {
    [
     "māti",
     "fem",
-    "mother",
-    "◑"
+    "mother; maternal lineage",
+    "✔"
    ],
    [
     "mātika",
@@ -13827,7 +13851,7 @@ var family_word_json = {
    [
     "māmaka",
     "masc",
-    "follower; devotee; lit. one of mine",
+    "follower; devotee; disciple; lit. one of mine",
     "✔"
    ],
    [
@@ -14890,8 +14914,8 @@ var family_word_json = {
    [
     "rathi",
     "fem",
-    "carriage road",
-    "✘"
+    "carriage road; main road",
+    "✔"
    ],
    [
     "rathika",
@@ -15513,8 +15537,8 @@ var family_word_json = {
    [
     "kaṇṇikā 1",
     "fem",
-    "pericarp, sheaf, house-top, ornament for the ear",
-    "✘"
+    "ear ornament",
+    "✔"
    ],
    [
     "kaṇṇikā 2",
@@ -15523,13 +15547,19 @@ var family_word_json = {
     "✘"
    ],
    [
+    "kaṇṇikā 3",
+    "fem",
+    "type of deer; lit. with ears",
+    "✔"
+   ],
+   [
     "vekaṇḍa",
     "masc",
     "barbed arrow; serrated arrow",
     "✔"
    ]
   ],
-  "count": 15
+  "count": 16
  },
  "gaṇḍa": {
   "data": [
@@ -17658,8 +17688,8 @@ var family_word_json = {
    [
     "isittha",
     "nt",
-    "sagehood",
-    "◑"
+    "sagehood; lit. sage state",
+    "✔"
    ],
    [
     "ise",
@@ -22081,9 +22111,15 @@ var family_word_json = {
     "nt",
     "name of a Brahman village in Magadha; lit. with many tree stumps",
     "✔"
+   ],
+   [
+    "khāṇumataka",
+    "adj",
+    "of Khāṇumata; from Khāṇumata; living in Khāṇumata",
+    "✔"
    ]
   ],
-  "count": 4
+  "count": 5
  },
  "khatta": {
   "data": [
@@ -22264,13 +22300,19 @@ var family_word_json = {
     "✔"
    ],
    [
+    "khīla 2.1",
+    "masc",
+    "plague; crime wave",
+    "✔"
+   ],
+   [
     "khīlaka",
     "masc",
     "peg; stick; handle",
     "✔"
    ]
   ],
-  "count": 5
+  "count": 6
  },
  "khīra": {
   "data": [
@@ -22533,7 +22575,7 @@ var family_word_json = {
    [
     "goṇaka",
     "masc",
-    "shag cover; fleece; (comm) long haired black rug",
+    "shag cover; fleece; (comm) long haired black rug; lit. from an ox",
     "✔"
    ],
    [
@@ -23323,6 +23365,23 @@ var family_word_json = {
   ],
   "count": 4
  },
+ "campā": {
+  "data": [
+   [
+    "campā",
+    "fem",
+    "name of a town in Aṅga",
+    "✔"
+   ],
+   [
+    "campeyyaka",
+    "adj",
+    "living in Campā; from Campā",
+    "✔"
+   ]
+  ],
+  "count": 2
+ },
  "camma": {
   "data": [
    [
@@ -23583,7 +23642,7 @@ var family_word_json = {
    [
     "cūḷani",
     "abbrev",
-    "abbreviation of Cūḷaniddesa; canonical commentary on the Pārāyana of the Sutta Nipāta",
+    "abbreviation of Cūḷaniddesa; canonical commentary on the Pārāyanavagga of the Sutta Nipāta",
     "✔"
    ],
    [
@@ -24252,7 +24311,7 @@ var family_word_json = {
   ],
   "count": 2
  },
- "dendima": {
+ "dindima": {
   "data": [
    [
     "ḍiṇḍima",
@@ -24264,7 +24323,7 @@ var family_word_json = {
     "dindima",
     "nt",
     "drum; tom-tom",
-    "✘"
+    "✔"
    ],
    [
     "deṇḍima",
@@ -24276,7 +24335,7 @@ var family_word_json = {
     "dendima",
     "nt",
     "drum; tom-tom",
-    "✘"
+    "✔"
    ]
   ],
   "count": 4
@@ -26773,7 +26832,7 @@ var family_word_json = {
     "maṃsa 2",
     "adj",
     "with meat; having flesh",
-    "◑"
+    "✔"
    ],
    [
     "maṃsika",
@@ -30372,6 +30431,23 @@ var family_word_json = {
   ],
   "count": 4
  },
+ "mudiṅga": {
+  "data": [
+   [
+    "mutiṅga",
+    "masc",
+    "mridangam; double-headed drum",
+    "✔"
+   ],
+   [
+    "mudiṅga",
+    "masc",
+    "mridangam; double-headed drum",
+    "✔"
+   ]
+  ],
+  "count": 2
+ },
  "muddha": {
   "data": [
    [
@@ -30848,8 +30924,8 @@ var family_word_json = {
    [
     "rāsika",
     "masc",
-    "revenues; income",
-    "✘"
+    "collection of revenue; amassing of income; lit. heap",
+    "✔"
    ],
    [
     "rāsiya",
@@ -32875,10 +32951,16 @@ var family_word_json = {
     "✔"
    ],
    [
-    "sahabya",
+    "sahabya 1",
     "nt",
-    "companionship (of); company (of); fellowship (of)",
+    "companionship (of); company (of); fellowship (of); lit. with state",
     "◑"
+   ],
+   [
+    "sahabya 2",
+    "masc",
+    "companionship (of); company (of); fellowship (of); lit. with state",
+    "✔"
    ],
    [
     "sahabyatā",
@@ -32905,7 +32987,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 10
+  "count": 11
  },
  "samīpa": {
   "data": [
@@ -33958,6 +34040,12 @@ var family_word_json = {
     "◑"
    ],
    [
+    "sīha 4",
+    "masc",
+    "name of a novice monk; lit. lion",
+    "✔"
+   ],
+   [
     "sīhavant",
     "masc",
     "who has lion-like qualities; with leonine character; lit. having lion quality",
@@ -33988,7 +34076,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 8
+  "count": 9
  },
  "sukhuma": {
   "data": [
