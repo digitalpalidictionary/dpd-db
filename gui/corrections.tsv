@@ -3261,3 +3261,18 @@ a > ā"					missing		yes
 28329	source_1	VIN1.2.6	sutta_1	kuṭikārasikkhāpadaṃ	example_1	sace sabbo saṅgho ussahati kuṭivatthuṃ oloketuṃ, sabbena saṅghena oloketabbaṃ. no ce sabbo saṅgho ussahati kuṭivatthuṃ oloketuṃ, ye tattha honti bhikkhū byattā paṭibalā sārambhaṃ anārambhaṃ saparikkamanaṃ aparikkamanaṃ <b>jānituṃ</b> te yācitvā sammannitabbā.	missing		
 28329	meaning_1	to know; to find out					missing		
 60758	source_1	VIN1.2.6	sutta_1	kuṭikārasikkhāpadaṃ	example_1	sace sabbo saṅgho ussahati kuṭivatthuṃ oloketuṃ, sabbena saṅghena oloketabbaṃ. no ce sabbo saṅgho ussahati kuṭivatthuṃ oloketuṃ, ye tattha honti bhikkhū byattā paṭibalā sārambhaṃ anārambhaṃ saparikkamanaṃ aparikkamanaṃ jānituṃ te yācitvā <b>sammannitabbā</b>.	missing		
+59398	meaning_lit	from ends together					same as 1		
+59397	meaning_lit	from ends together					same as 1		
+32851	source_2	VIN1.2.6	sutta_2	kuṭikārasikkhāpadaṃ	example_2	ñattidutiyena kammena kuṭivatthuṃ na desāpetvā, āyāmato vā vitthārato vā antamaso kes'aggamattam'pi atikkāmetvā karoti vā kārāpeti vā, payoge payoge <b>dukkaṭaṃ</b>.	missing		
+55945	source_2	VIN1.2.6	sutta_2	kuṭikārasikkhāpadaṃ	example_2	anāpatti <b>leṇe</b> guhāya tiṇakuṭikāya aññass'atthāya vās'āgāraṃ ṭhapetvā sabbattha, anāpatti ummattakassa ādikammikassā'ti.	missing		
+67000	sanskrit	vāsa + agāra					missing		
+67000	compound_type	kammadhāraya	compound_construction	vāsa + agāra			missing		
+67000	source_1	VIN1.2.6	sutta_1	kuṭikārasikkhāpadaṃ	example_1	anāpatti leṇe guhāya tiṇakuṭikāya aññass'atthāya <b>vās'āgāraṃ</b> ṭhapetvā sabbattha, anāpatti ummattakassa ādikammikassā'ti.	missing		
+16947	source_2	VIN1.2.6	sutta_2	kuṭikārasikkhāpadaṃ	example_2	sārambhaṃ nāma ... āghātananissitaṃ vā hoti, susānanissitaṃ vā hoti, <b>uyyāna</b>nissitaṃ vā hoti, rājavatthunissitaṃ vā hoti, hatthisālānissitaṃ vā hoti	missing		
+70966	source_1	VIN PAT PA 2	sutta_1	adinnādānasikkhāpadaṃ	example_1	yo pana bhikkhu gāmā vā araññā vā adinnaṃ theyyasaṅkhātaṃ ādiyeyya, yathārūpe adinn'ādāne rājāno coraṃ gahetvā <b>haneyyuṃ</b> vā bandheyyuṃ vā pabbājeyyuṃ vā	missing		
+70966	commentary	(VIN) <b>haneyyuṃ vā</b>'ti hatthena vā pādena vā kasāya vā vettena vā aḍḍhadaṇḍakena vā chejjāya vā haneyyuṃ.					missing		
+30374	construction	"tāva + kāla + ika
+tāvakāla + ika"					from kāla not from kālika		
+8525	source_1		sutta_1		example_1		since not fitting		
+8525	source_2		sutta_2		example_2		since not fitting		
+51497	source_1		sutta_1		example_1		not fitting		
