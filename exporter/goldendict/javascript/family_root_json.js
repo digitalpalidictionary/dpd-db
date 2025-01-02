@@ -19611,7 +19611,7 @@ var family_root_json = {
     "sudujjāna",
     "adj",
     "very hard to know; extremely difficult to understand",
-    "✘"
+    "✔"
    ]
   ]
  },
@@ -35056,7 +35056,7 @@ var family_root_json = {
    [
     "anāgata 2",
     "pp",
-    "future",
+    "future; lit. not come",
     "✔"
    ],
    [
@@ -37231,26 +37231,6 @@ var family_root_json = {
    ]
   ]
  },
- "√gup 1 adhi √gup": {
-  "root_key": "√gup 1",
-  "root_family": "adhi √gup",
-  "root_meaning": "dislike",
-  "count": 2,
-  "data": [
-   [
-    "adhijegucchaṃ",
-    "ind",
-    "as regards what is detestable, as regards scrupulousness",
-    "✘"
-   ],
-   [
-    "adhijegucche",
-    "ind",
-    "as regards what is detestable, as regards scrupulousness",
-    "✘"
-   ]
-  ]
- },
  "√ṭhā adhi √ṭhā": {
   "root_key": "√ṭhā",
   "root_family": "adhi √ṭhā",
@@ -37597,19 +37577,13 @@ var family_root_json = {
   "root_key": "√ñā",
   "root_family": "adhi pa √ñā",
   "root_meaning": "know",
-  "count": 5,
+  "count": 4,
   "data": [
    [
     "adhipaññatti",
     "ind",
     "regarding formulation; as regards exposition",
     "◑"
-   ],
-   [
-    "adhipaññaṃ",
-    "ind",
-    "as regards wisdom",
-    "✘"
    ],
    [
     "adhipaññā",
@@ -44303,7 +44277,7 @@ var family_root_json = {
   "root_key": "√kar",
   "root_family": "abhi saṃ √kar",
   "root_meaning": "do, make",
-  "count": 23,
+  "count": 24,
   "data": [
    [
     "anabhisaṅkhacca",
@@ -44374,8 +44348,14 @@ var family_root_json = {
    [
     "abhisaṅkhareti",
     "pr",
-    "causes to be prepared, created; forms",
-    "✘"
+    "(of a miracle) makes; performs; works; lit. causes to construct",
+    "✔"
+   ],
+   [
+    "abhisaṅkharesi",
+    "aor",
+    "(of a miracle) made; performed; worked; lit. caused to construct",
+    "✔"
    ],
    [
     "abhisaṅkharoti 1",
@@ -79249,7 +79229,7 @@ var family_root_json = {
   "root_key": "√ñā",
   "root_family": "pa √ñā",
   "root_meaning": "know",
-  "count": 121,
+  "count": 122,
   "data": [
    [
     "apañña 1",
@@ -79615,6 +79595,12 @@ var family_root_json = {
     "paññapenta 2",
     "prp",
     "(of a seat, water, etc.) preparing; setting out; lit. causing to know",
+    "✔"
+   ],
+   [
+    "paññapenta 3",
+    "prp",
+    "teaching; preaching; proclaiming; lit. causing to know",
     "✔"
    ],
    [
@@ -131404,7 +131390,7 @@ var family_root_json = {
    [
     "vaṇṇa 2.1",
     "masc",
-    "praise; approval; value",
+    "praise; approval; value (of)",
     "✔"
    ],
    [
@@ -145808,8 +145794,8 @@ var family_root_json = {
    [
     "aveti",
     "pr",
-    "understands; knows",
-    "✘"
+    "understands; knows; is aware (of)",
+    "✔"
    ]
   ]
  },
@@ -148135,7 +148121,7 @@ var family_root_json = {
     "saññā 4",
     "fem",
     "consciousness; awareness",
-    "✘"
+    "✔"
    ],
    [
     "saññā 5",
@@ -155495,7 +155481,7 @@ var family_root_json = {
   "root_key": "√hā 2",
   "root_family": "√hā",
   "root_meaning": "decrease",
-  "count": 47,
+  "count": 48,
   "data": [
    [
     "asahāna",
@@ -155540,9 +155526,15 @@ var family_root_json = {
     "✔"
    ],
    [
-    "ahīna",
+    "ahīna 1",
     "pp",
-    "not low; not inferior; not deficient",
+    "not deficient; not lacking (in)",
+    "✔"
+   ],
+   [
+    "ahīna 2",
+    "pp",
+    "not low; not inferior",
     "◑"
    ],
    [
@@ -180941,7 +180933,7 @@ var family_root_json = {
     "citta 2.5",
     "masc",
     "name of a monk; Citta Hatthisāriputta",
-    "✘"
+    "✔"
    ],
    [
     "citta 2.6",
@@ -190910,8 +190902,8 @@ var family_root_json = {
    [
     "pakkhalita 2",
     "pp",
-    "stumbled, staggered",
-    "✘"
+    "tripped; stumbled; staggered (in or on)",
+    "✔"
    ],
    [
     "pakkhalitvā",
@@ -194241,7 +194233,7 @@ var family_root_json = {
     "patimokkha",
     "masc",
     "counter-remedy",
-    "✘"
+    "✔"
    ]
   ]
  },
@@ -202613,7 +202605,7 @@ var family_root_json = {
     "pahīyati 3.1",
     "pr",
     "decreases; disappears",
-    "◑"
+    "✔"
    ]
   ]
  },

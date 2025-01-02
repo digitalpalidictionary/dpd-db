@@ -1064,7 +1064,7 @@ var family_idiom_json = {
   ]
  },
  "ahaṃ": {
-  "count": 146,
+  "count": 147,
   "data": [
    [
     "aggohamasmi",
@@ -1497,6 +1497,12 @@ var family_idiom_json = {
     "sandhi",
     "of him I; his I",
     "✔"
+   ],
+   [
+    "tassāhaṃ 2",
+    "sandhi",
+    "to him I",
+    "◑"
    ],
    [
     "tāvāhaṃ",
@@ -2422,7 +2428,7 @@ var family_idiom_json = {
    [
     "āditova",
     "sandhi",
-    "from the very beginning",
+    "from the very beginning; right from the start",
     "✔"
    ],
    [
@@ -8791,7 +8797,7 @@ var family_idiom_json = {
   ]
  },
  "mattā": {
-  "count": 4,
+  "count": 5,
   "data": [
    [
     "aṇumattampi",
@@ -8815,6 +8821,12 @@ var family_idiom_json = {
     "pañcamattehi bhikkhusatehi",
     "idiom",
     "with five hundred monks; lit. with five measures of one hundred monks",
+    "✔"
+   ],
+   [
+    "bhiyyoso mattāya",
+    "idiom",
+    "exceedingly; even more; lit. more measure",
     "✔"
    ]
   ]
@@ -18831,6 +18843,23 @@ var family_idiom_json = {
    ]
   ]
  },
+ "hīna": {
+  "count": 2,
+  "data": [
+   [
+    "hīnohamasmi",
+    "sandhi",
+    "I am worse (because of)",
+    "✔"
+   ],
+   [
+    "hīnohamasmīti",
+    "sandhi",
+    "I am worse",
+    "◑"
+   ]
+  ]
+ },
  "ahosi": {
   "count": 10,
   "data": [
@@ -19197,7 +19226,7 @@ var family_idiom_json = {
    [
     "āditova",
     "sandhi",
-    "from the very beginning",
+    "from the very beginning; right from the start",
     "✔"
    ],
    [
@@ -20556,12 +20585,18 @@ var family_idiom_json = {
   ]
  },
  "bhiyyo": {
-  "count": 1,
+  "count": 2,
   "data": [
    [
     "ito bhiyyo",
     "idiom",
     "more than this; better than this; greater than this; superior to this",
+    "✔"
+   ],
+   [
+    "bhiyyoso mattāya",
+    "idiom",
+    "exceedingly; even more; lit. more measure",
     "✔"
    ]
   ]
@@ -26471,7 +26506,7 @@ var family_idiom_json = {
   ]
  },
  "tassa": {
-  "count": 23,
+  "count": 24,
   "data": [
    [
     "tassa evamassa",
@@ -26520,6 +26555,12 @@ var family_idiom_json = {
     "sandhi",
     "of him I; his I",
     "✔"
+   ],
+   [
+    "tassāhaṃ 2",
+    "sandhi",
+    "to him I",
+    "◑"
    ],
    [
     "tassimāni",
@@ -33531,23 +33572,6 @@ var family_idiom_json = {
     "sandhi",
     "like the Himalayas (outshines) other",
     "✔"
-   ]
-  ]
- },
- "hīna": {
-  "count": 2,
-  "data": [
-   [
-    "hīnohamasmi",
-    "sandhi",
-    "I am worse (because of)",
-    "✔"
-   ],
-   [
-    "hīnohamasmīti",
-    "sandhi",
-    "I am worse",
-    "◑"
    ]
   ]
  },

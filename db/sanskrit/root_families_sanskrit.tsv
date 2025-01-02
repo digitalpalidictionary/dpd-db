@@ -107,7 +107,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √i 1	1	a	come, go	√i	1, 2	go	abhi ud √i	abhyude	abhyudayati, abhyudeti
 √i 1	1	a	come, go	√i	1, 2	go	abhi saṃ √i	abhisami	abhisamaya, abhisamayat, abhisamita, abhisamitāvin (bsk), abhisamītvā, abhisameta (assembled), abhisameti, abhisametya, na + abhisamaya, na + abhisameta (not assembled), na + abhisametya
 √i 1	1	a	come, go	√i	1, 2	go	abhi saṃ parā √i	-	abhi + sāmparāya, abhisamparāya
-√i 1	1	a	come, go	√i	1, 2	go	ava √i	ave	avetya (bsk)
+√i 1	1	a	come, go	√i	1, 2	go	ava √i	ave	aveti, avetya (bsk)
 √i 1	1	a	come, go	√i	1, 2	go	ā √i	e	āya, āyus, āyuṣā, āyuṣmat, āyuṣmat, āyuṣka, āyuṣman (vocative of āyuṣmat), āyuṣmān
 √i 1	1	a	come, go	√i	1, 2	go	ud √i	udi	udaya, udayat, udayana, udāyin (bsk), udita, udīcī, udīcya, udeti, sa + udaya
 √i 1	1	a	come, go	√i	1, 2	go	upa √i	upe	anupayat, anupeta, upāya, upāya (approach), upāya +, upeta, upeti, upetya, upeṣyati, upeṣyasi, dur + upeta, na + upeti, sopāna
@@ -315,7 +315,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	adhi √kar	adhikṛ	adhi + karaṇīya, adhikaraṇa, adhikaraṇī, adhikaroti, adhikāra, adhikāratva, adhikṛta, adhikṛtatva, adhikṛtya
 √kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	anu √kar	anukṛ	anukaraṇa, anukaroti, anukurvat, anukṛṇute, na + anukaroti, na + anukṛṇute
 √kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	apa √kar	apakṛ	apakāra, apakṛta
-√kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	abhi saṃ √kar	abhisaṃskṛ	abhisaṃskaraṇa, abhisaṃskaroti, abhisaṃskartya, abhisaṃskāra, abhisaṃskurvat, abhisaṃskṛta, na +, na + abhisaṃskaroti
+√kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	abhi saṃ √kar	abhisaṃskṛ	abhisaṃskaraṇa, abhisaṃskarayati, abhisaṃskaroti, abhisaṃskartya, abhisaṃskāra, abhisaṃskurvat, abhisaṃskṛta, na +, na + abhisaṃskaroti
 √kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	ava √kar	avakṛ	avakāra (bsk), avaskara
 √kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	ā √kar	ākṛ	ākāra, ākāraṇa, ākāravat, ākṛṇoti, dus + ākāra, sākāra, svākāra
 √kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	ud √kar	utkṛ	utkara
@@ -536,7 +536,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √khal 1	1	a	stumble, make mistake	√skhal	1	stumble	√khal	skhal	na + skhalita, skhalita
 √khal 1	1	a	stumble, make mistake	√skhal	1	stumble	ava √khal	skhal	+ skhalita
 √khal 1	1	a	stumble, make mistake	√skhal	1	stumble	upa √khal	skhal	upa + skhalitvā
-√khal 1	1	a	stumble, make mistake	√skhal	1	stumble	pa √khal	praskhal	praskhaltvā
+√khal 1	1	a	stumble, make mistake	√skhal	1	stumble	pa √khal	praskhal	praskhalita, praskhaltvā
 √khal 1	1	a	stumble, make mistake	√skhal	1	stumble	vi √khal	viskhal	viskhalita
 √khal 2	8	a	clean, rinse	√kṣal √kṣar	10	wash	√khal	kṣal	khala, kṣālayati
 √khal 2	8	*e	clean, rinse	√kṣal √kṣar	10	wash	pa √khal	prakṣal	prakṣalayitvā, prakṣālana, prakṣālayati
@@ -728,7 +728,6 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √guṇṭh	8	*e	enclose, envelope	√guṇṭh	10	cover up	ava √guṇṭh	avaguṇṭh	avaguṇṭhita
 √guṇṭh	8	*e	enclose, envelope	√guṇṭh	10	cover up	pari √guṇṭh	-	pari + guṇṭhita, pariguṇṭhayitvā
 √gup 1	1	sa	dislike	√gup	1	protect	√gup	gup	ju, jugupsat, jugupsana, jugupsanīya, jugupsamāna, jugupsā, jugupsā +, jugupsita, jugupsitavya, jugupsiṣate, jugupsu, na + jugupsā, na + jugupsā +, na + jugupsitavya, na + jugupsu
-√gup 1	1	sa	dislike	√gup	1	protect	adhi √gup	gup	
 √gup 1	1	sa	dislike	√gup	1	protect	pari √gup	parigup	pari + jugupsā
 √gup 1	1	sa	dislike	√gup	1	protect	vi √gup	vigup	vijugupsamāna
 √gup 2	1	a	guard	√gup	1	protect	√gup	gup	agupta, gupta, guptā, gupti, guptika, gopa, gopaka, gopana, gopanā, gopayat, gopayati, gopayitum, gopikā, gopita, gopitṛ, gopī, na + gupti, na + gopana, sugupta
@@ -1046,6 +1045,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ñā	5	nā	know	√jñā	9	know	vi √ñā	vijñā	avijānat, avijña, avijñāta, avijñāna, avijñāna (na + vijñāna), jñā, durvijñāna, durvijñeya, durvijñeya +, dus + vijñāpanīya, vijñāpya, na + vijñeya, vijānat, vijānatā, vijānāti, vijña, vijñatā, vijñapayat, vijñapayati, vijñapta, vijñāpita, vijñapti, vijñāta, vijñātavya, vijñātva, vijñātṛ, vijñāna, vijñāna +, vijñānatā, vijñānavat, vijñāpaka, vijñāpana, vijñāpana +, vijñāpanīya, vijñāpanīya, vijñāpya, vijñāpayati, vijñāpayitum, vijñāyamāna, vijñāyāt, vijñāyitavya, vijñāyeta, vijñāsyati, vijñetum, vijñeya, savijñāna, savijñānaka (bsk), su + vijñāpanīya, vijñāpya, suvijñāna, suvijñeya
 √ñā	5	nā	know	√jñā	9	know	vi saṃ √ñā	"saṃjñā
 "	"visaṃjña [saṃjñā
+] [saṃjñā
 ] [saṃjñā
 ] [saṃjñā
 ] [saṃjñā

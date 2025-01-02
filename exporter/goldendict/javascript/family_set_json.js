@@ -19077,6 +19077,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "citta 2.5",
+    "masc",
+    "name of a monk; Citta Hatthisāriputta",
+    "✔"
+   ],
+   [
     "cittaka 3",
     "masc",
     "name of an arahant monk; lit. decorated",
@@ -20967,7 +20973,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 444
+  "count": 445
  },
  "people": {
   "data": [
