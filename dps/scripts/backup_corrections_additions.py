@@ -27,7 +27,7 @@ def git_commit():
     try:
         repo = Repo("./")
         
-        files_to_check = ["gui/corrections.tsv", "gui/additions.tsv", "shared_data/deconstructor/manual_corrections.tsv", "shared_data/deconstructor/checked.csv", "shared_data/deconstructor/variant_readings.tsv", "dps/sbs_csvs/vinaya.tsv"]
+        files_to_check = ["gui/corrections.tsv", "gui/additions.tsv", "shared_data/deconstructor/manual_corrections.tsv", "shared_data/deconstructor/checked.csv", "shared_data/deconstructor/variant_readings.tsv", "dps/sbs_csvs/vinaya.tsv", "dps/russian_words/russian_words.txt", "gui/delated_words_history.tsv"]
 
         # Check for changes in specific files
         if not are_files_modified(repo, files_to_check):
@@ -35,7 +35,7 @@ def git_commit():
             return False
 
         index = repo.index
-        index.add(["gui/corrections.tsv", "gui/additions.tsv", "shared_data/deconstructor/manual_corrections.tsv", "shared_data/deconstructor/checked.csv", "shared_data/deconstructor/variant_readings.tsv", "dps/sbs_csvs/vinaya.tsv"])
+        index.add(["gui/corrections.tsv", "gui/additions.tsv", "shared_data/deconstructor/manual_corrections.tsv", "shared_data/deconstructor/checked.csv", "shared_data/deconstructor/variant_readings.tsv", "dps/sbs_csvs/vinaya.tsv", "dps/russian_words/russian_words.txt", "gui/delated_words_history.tsv"])
         commit = index.commit("corrections & additions")
 
         print("[blue]Commit Details:")

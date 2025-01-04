@@ -310,7 +310,8 @@ def make_tab_add_next_word(sg, username):
                 key="pass2_button",
                 size=(50, 1),
                 enable_events=True,
-                pad=((100, 0), (0, 0))
+                pad=((100, 0), (0, 0)),
+                disabled=username == "deva",
             ),
         ],
         [

@@ -614,8 +614,7 @@ class AllowableCharacters():
 
     sbs_category_allowed = (
         english_alphabet +
-        digits +
-        low_line
+        digits
     )
 
     sbs_source_allowed = (
@@ -709,7 +708,11 @@ class AllowableCharacters():
 
     show_sbs_data = [
         ("sbs_meaning", meaning_1_allowed),
+
         ("sbs_category", sbs_category_allowed),
+        ("sbs_patimokkha", sbs_category_allowed),
+        ("sbs_class_anki", digits),
+        ("sbs_class", digits),
         
         ("sbs_source_1", sbs_source_allowed),
         ("sbs_sutta_1", sutta_allowed),

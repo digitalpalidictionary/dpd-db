@@ -27,24 +27,13 @@ def save_filtered_words():
     pth = ProjectPaths()
     dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    attribute = "mn107"
-    variable = attribute.upper()
+    attribute = "3"
 
     dpd_db = db_session.query(DpdHeadword).outerjoin(
-        SBS, DpdHeadword.id == SBS.id
-    ).filter(
-        and_(
-            SBS.sbs_category.like(f"%{attribute}%"),
-            not_(
-                or_(
-                    SBS.sbs_source_1.like(f"%{variable}%"),
-                    SBS.sbs_source_2.like(f"%{variable}%"),
-                    SBS.sbs_source_3.like(f"%{variable}%"),
-                    SBS.sbs_source_4.like(f"%{variable}%")
-                )
-            ),
-        )
-    ).all()
+            SBS, DpdHeadword.id == SBS.id
+        ).filter(
+            SBS.sbs_class_anki == attribute
+        ).all()
 
     # Filter words
     filtered_words = [word for word in dpd_db]
@@ -66,11 +55,12 @@ def save_filtered_words():
     # Write to CSV using tab as delimiter
     with open(dpspth.temp_csv_path, 'w', newline='') as csvfile:
         fieldnames = [
-        'id', 'lemma_1', 'meaning_1', 'sbs_category', 
-        'sbs_source_1', 'sbs_sutta_1', 'sbs_example_1', 'sbs_chant_pali_1', 'sbs_chant_eng_1', 'sbs_chapter_1', 'correct_1', 
-        'sbs_source_2', 'sbs_sutta_2', 'sbs_example_2', 'sbs_chant_pali_2', 'sbs_chant_eng_2', 'sbs_chapter_2', 'correct_2', 
-        'sbs_source_3', 'sbs_sutta_3', 'sbs_example_3', 'sbs_chant_pali_3', 'sbs_chant_eng_3', 'sbs_chapter_3', 'correct_3',
-        'sbs_source_4', 'sbs_sutta_4', 'sbs_example_4', 'sbs_chant_pali_4', 'sbs_chant_eng_4', 'sbs_chapter_4', 'correct_4',
+        'id', 'lemma_1', 'meaning_1', 'sbs_class_anki', 
+        'class_source', 'class_sutta', 'class_example',
+        'sbs_source_1', 'sbs_sutta_1', 'sbs_example_1',
+        'sbs_source_2', 'sbs_sutta_2', 'sbs_example_2',
+        'sbs_source_3', 'sbs_sutta_3', 'sbs_example_3',
+        'sbs_source_4', 'sbs_sutta_4', 'sbs_example_4',
         ]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter='\t')
 
@@ -81,35 +71,22 @@ def save_filtered_words():
                 'id': word.id,
                 'lemma_1': word.lemma_1,
                 'meaning_1': word.meaning_1,
-                'sbs_category': word.sbs.sbs_category,
+                'sbs_class_anki': word.sbs.sbs_class_anki,
+                'class_source': word.sbs.class_source, 
+                'class_sutta': word.sbs.class_sutta,
+                'class_example': word.sbs.class_example,
                 'sbs_source_1': word.sbs.sbs_source_1, 
                 'sbs_sutta_1': word.sbs.sbs_sutta_1,
                 'sbs_example_1': word.sbs.sbs_example_1,
-                'sbs_chant_pali_1': word.sbs.sbs_chant_pali_1,
-                'sbs_chant_eng_1': word.sbs.sbs_chant_eng_1,
-                'sbs_chapter_1': word.sbs.sbs_chapter_1,
-                'correct_1': "",
                 'sbs_source_2': word.sbs.sbs_source_2, 
                 'sbs_sutta_2': word.sbs.sbs_sutta_2,
                 'sbs_example_2': word.sbs.sbs_example_2,
-                'sbs_chant_pali_2': word.sbs.sbs_chant_pali_2,
-                'sbs_chant_eng_2': word.sbs.sbs_chant_eng_2,
-                'sbs_chapter_2': word.sbs.sbs_chapter_2,
-                'correct_2': "",
                 'sbs_source_3': word.sbs.sbs_source_3, 
                 'sbs_sutta_3': word.sbs.sbs_sutta_3,
                 'sbs_example_3': word.sbs.sbs_example_3,
-                'sbs_chant_pali_3': word.sbs.sbs_chant_pali_3,
-                'sbs_chant_eng_3': word.sbs.sbs_chant_eng_3,
-                'sbs_chapter_3': word.sbs.sbs_chapter_3,
-                'correct_3': "",
                 'sbs_source_4': word.sbs.sbs_source_4, 
                 'sbs_sutta_4': word.sbs.sbs_sutta_4,
                 'sbs_example_4': word.sbs.sbs_example_4,
-                'sbs_chant_pali_4': word.sbs.sbs_chant_pali_4,
-                'sbs_chant_eng_4': word.sbs.sbs_chant_eng_4,
-                'sbs_chapter_4': word.sbs.sbs_chapter_4,
-                'correct_4': "",
             })
 
     db_session.close()

@@ -178,8 +178,8 @@ def filter_and_save_txt(source_value):
     # join all constructions into one line
     constructions_str = " ".join(constructions)
 
-    # save constructions to temp.txt
-    with open(f"{pth.temp_dir}/temp.txt", "w") as file:
+    # save constructions to text.txt
+    with open(f"{pth.temp_dir}/text.txt", "w") as file:
         file.write(constructions_str)
 
     # # save constructions to temp.txt
@@ -203,6 +203,6 @@ if __name__ == "__main__":
 
     print("filtering words for some conditions")
 
-    filtering_words()
-    # filter_and_save_txt("VIN1.2.1")
+    # filtering_words()
+    filter_and_save_txt("VIN1.2.6")
 

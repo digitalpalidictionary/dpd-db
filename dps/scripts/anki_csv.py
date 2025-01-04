@@ -267,7 +267,7 @@ def dhp(dpspth, dpd_db):
 
     def _is_needed(i: DpdHeadword) -> bool:
         sources = [i.source_1, i.source_2]
-        if i.sbs:
+        if i.sbs and i.meaning_1:
             sources.extend([i.sbs.sbs_source_1, i.sbs.sbs_source_2, i.sbs.sbs_source_3, i.sbs.sbs_source_4])
 
         return bool(any(re.search(r'DHP\d', source) for source in sources))

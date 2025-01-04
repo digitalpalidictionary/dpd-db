@@ -45,6 +45,9 @@ class DPSPaths:
         self.sbs_pd_path = base_dir.joinpath(Path("dps/csvs/sbs_pd.csv"))
         self.ru_total_path = base_dir.joinpath(Path("dps/sbs_csvs/ru_total.tsv"))
 
+        self.pali_class_vocab_dir = base_dir.joinpath(Path("dps/pali_class/vocab/"))
+
+
 
         # /tests
         self.dps_internal_tests_path = base_dir.joinpath(Path("dps/csvs/dps_internal_tests.tsv"))

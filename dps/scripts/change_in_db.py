@@ -175,6 +175,7 @@ def update_column_for_some_criteria(source_value):
 
             count_changed_sbs += 1
         else:
+            console.print(f"[bold bright_yellow]{__word__.id} {__word__.lemma_1} {__word__.sbs.sbs_patimokkha}")
             count_sbs_patimokkha += 1
 
     for __word__ in rows_to_update:
@@ -192,6 +193,7 @@ def update_column_for_some_criteria(source_value):
 
                 count_changed += 1
             else:
+                console.print(f"[bold bright_yellow]{__word__.id} {__word__.lemma_1} {__word__.sbs.sbs_patimokkha}")
                 count_sbs_patimokkha += 1
 
 
@@ -220,4 +222,4 @@ value_to_update = "(грам) "
 
 # update_notes()
 
-update_column_for_some_criteria("VIN1.2.2")
+update_column_for_some_criteria("VIN1.2.6")

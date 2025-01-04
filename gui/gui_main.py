@@ -2013,12 +2013,17 @@ def main():
                 error_dict = test_allowable_characters_gui_dps(values)
                 for column, test_value in error_dict.items():
                     if column != "origin":
-                        if test_value:
-                            window[f"dps_{column}_error"].update(value=test_value, text_color="red")
-                            window["messages"].update(value="fix bad characters", text_color="red")
-                            flags.tested = False
+                        error_key = f"dps_{column}_error"
+                        if error_key in window.AllKeysDict: # check if this error window exists
+                            if test_value:
+                                window[f"dps_{column}_error"].update(value=test_value, text_color="red")
+                                window["messages"].update(value="fix bad characters", text_color="red")
+                                flags.tested = False
+                            else:
+                                window[f"dps_{column}_error"].update(value="", text_color="darkgray")
                         else:
-                            window[f"dps_{column}_error"].update(value="", text_color="darkgray")
+                            if test_value:
+                                window["messages"].update(value=f"fix bad characters in {column}", text_color="red")
 
             else:
                 window["messages"].update(
