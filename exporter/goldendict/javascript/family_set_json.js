@@ -6084,7 +6084,7 @@ var family_set_json = {
     "amhehi 3",
     "pron",
     "than us",
-    "◑"
+    "✔"
    ],
    [
     "amhehi 4",
@@ -8825,6 +8825,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "jāṇusoṇi",
+    "masc",
+    "name of a rich Brahman",
+    "✔"
+   ],
+   [
     "jāṇusoṇī",
     "masc",
     "name of a rich Brahman",
@@ -8871,6 +8877,12 @@ var family_set_json = {
     "masc",
     "name of a Brahman; lit. three ears",
     "◑"
+   ],
+   [
+    "tittiri",
+    "masc",
+    "name of a Brahman sage",
+    "✔"
    ],
    [
     "tissametteyya",
@@ -9065,6 +9077,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "lohicca",
+    "masc",
+    "name of a Brahman",
+    "✔"
+   ],
+   [
     "vaṅganta",
     "masc",
     "name of a Brahman; Sāriputta's father",
@@ -9215,7 +9233,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 99
+  "count": 102
  },
  "bodyparts": {
   "data": [
@@ -13018,6 +13036,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "bhesika",
+    "masc",
+    "name of a washroom attendant",
+    "✔"
+   ],
+   [
     "majjha 4",
     "masc",
     "name of a wealthy layman; father of Anopamā; lit. middle",
@@ -13112,6 +13136,12 @@ var family_set_json = {
     "masc",
     "name of a chieftain; lit. heaps",
     "◑"
+   ],
+   [
+    "rosika",
+    "masc",
+    "name of a washroom attendant; lit. angry",
+    "✔"
    ],
    [
     "rohaṇa",
@@ -13420,7 +13450,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 159
+  "count": 161
  },
  "types of ascetics": {
   "data": [
@@ -16414,6 +16444,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "cetaka",
+    "masc",
+    "name of a monk; lit. from Ceta",
+    "✔"
+   ],
+   [
     "channa 2.3",
     "masc",
     "name of an arahant monk who committed suicide",
@@ -18298,7 +18334,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 468
+  "count": 469
  },
  "names of arahants": {
   "data": [
@@ -23862,6 +23898,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "īsāna",
+    "masc",
+    "name of a Vedic god; lit. ruling",
+    "✔"
+   ],
+   [
     "uttara 2.06",
     "masc",
     "name of a deity; lit. higher",
@@ -24456,6 +24498,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "mahiddhi",
+    "masc",
+    "name of a god; lit. great supernatural power",
+    "✔"
+   ],
+   [
     "mahinda",
     "masc",
     "great Inda; lord of the gods",
@@ -24555,6 +24603,12 @@ var family_set_json = {
     "vatrabhū",
     "masc",
     "(comm) name of Sakka; (or) epithet of Sakka",
+    "✔"
+   ],
+   [
+    "varuṇa",
+    "masc",
+    "name of a Vedic god; name of a deva king",
     "✔"
    ],
    [
@@ -24696,6 +24750,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "santussita",
+    "masc",
+    "name of a deity; lit. contented",
+    "✔"
+   ],
+   [
     "samānā",
     "masc",
     "name of a group of deities; lit. identical",
@@ -24780,6 +24840,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "sunimmita 2",
+    "masc",
+    "name of a deity; lord of the gods who delight in creation; lit. well measured out",
+    "✔"
+   ],
+   [
     "suppagedha",
     "masc",
     "name of a spirit",
@@ -24801,6 +24867,12 @@ var family_set_json = {
     "subhakiṇha 2",
     "adj",
     "epithet of a class of devas; lit. totally beautiful",
+    "✔"
+   ],
+   [
+    "suyāma",
+    "masc",
+    "name of a deity; lord of the Yāma deities",
     "✔"
    ],
    [
@@ -24912,7 +24984,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 187
+  "count": 193
  },
  "animals": {
   "data": [
@@ -27444,6 +27516,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "nāḷāgiri",
+    "masc",
+    "name of the elephant that tried to kill the Buddha; lit. tube mountain",
+    "✔"
+   ],
+   [
     "buddharakkhita 2",
     "masc",
     "name of a young parrot who practiced Satipaṭṭhāna meditation; lit. protected by the Buddha",
@@ -27480,7 +27558,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 13
+  "count": 14
  },
  "names of nuns": {
   "data": [
@@ -29727,6 +29805,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "manasākaṭa",
+    "nt",
+    "name of a Brahman village in Kosala; lit. made by mind",
+    "✔"
+   ],
+   [
     "mantāvatī",
     "fem",
     "name of a city; lit. having mantra quality",
@@ -30003,6 +30087,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "sālavatikā",
+    "fem",
+    "name of a village in Kosala; lit. with a fence of sal trees",
+    "✔"
+   ],
+   [
     "sālā 3",
     "fem",
     "name of a Brahman village in Kosala; lit. hall",
@@ -30057,7 +30147,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 190
+  "count": 192
  },
  "ordinal numbers": {
   "data": [

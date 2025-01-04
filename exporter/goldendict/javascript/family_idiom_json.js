@@ -2308,7 +2308,7 @@ var family_idiom_json = {
    [
     "attheva",
     "sandhi",
-    "there is even; there is really",
+    "there is even; there is really; just this is",
     "✔"
    ],
    [
@@ -8531,7 +8531,7 @@ var family_idiom_json = {
   ]
  },
  "ime": {
-  "count": 32,
+  "count": 33,
   "data": [
    [
     "aṭṭhime",
@@ -8681,6 +8681,12 @@ var family_idiom_json = {
     "pañcime",
     "sandhi",
     "these five",
+    "✔"
+   ],
+   [
+    "yatthime",
+    "sandhi",
+    "where these",
     "✔"
    ],
    [
@@ -9595,7 +9601,7 @@ var family_idiom_json = {
    [
     "attheva",
     "sandhi",
-    "there is even; there is really",
+    "there is even; there is really; just this is",
     "✔"
    ],
    [
@@ -15210,7 +15216,7 @@ var family_idiom_json = {
   ]
  },
  "para": {
-  "count": 15,
+  "count": 16,
   "data": [
    [
     "asmiṃ loke paramhi ca",
@@ -15294,6 +15300,12 @@ var family_idiom_json = {
     "paro paraṃ",
     "idiom",
     "one to another",
+    "✔"
+   ],
+   [
+    "pārāpāraṃ",
+    "sandhi",
+    "far shore (come to) the near shore!",
     "✔"
    ],
    [
@@ -29075,12 +29087,18 @@ var family_idiom_json = {
   ]
  },
  "pāra1": {
-  "count": 1,
+  "count": 2,
   "data": [
    [
     "pāraṃ gacchati",
     "idiom",
     "(of a river or saṃsāra) goes across; goes to the other side; makes it across; lit. goes to the far shore",
+    "✔"
+   ],
+   [
+    "pārāpāraṃ",
+    "sandhi",
+    "far shore (come to) the near shore!",
     "✔"
    ]
   ]
@@ -30621,7 +30639,7 @@ var family_idiom_json = {
   ]
  },
  "yattha": {
-  "count": 12,
+  "count": 13,
   "data": [
    [
     "yattha katthaci",
@@ -30682,6 +30700,12 @@ var family_idiom_json = {
     "sandhi",
     "where these",
     "◑"
+   ],
+   [
+    "yatthime",
+    "sandhi",
+    "where these",
+    "✔"
    ],
    [
     "yatthetaṃ",

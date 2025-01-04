@@ -2473,8 +2473,8 @@ var family_word_json = {
    [
     "anantaraṃ",
     "ind",
-    "immediately after that; with no interval",
-    "✘"
+    "immediately after; following straight away; lit. with no interval",
+    "✔"
    ],
    [
     "anantarā",
@@ -7793,6 +7793,23 @@ var family_word_json = {
   ],
   "count": 9
  },
+ "addhara": {
+  "data": [
+   [
+    "addhara",
+    "masc",
+    "soma sacrifice",
+    "✔"
+   ],
+   [
+    "addhariya",
+    "masc",
+    "sacrificing priest; name of a class of Brahmans",
+    "✔"
+   ]
+  ],
+  "count": 2
+ },
  "addhā": {
   "data": [
    [
@@ -10697,7 +10714,7 @@ var family_word_json = {
     "andū",
     "fem",
     "chain; manacle",
-    "✘"
+    "✔"
    ]
   ],
   "count": 2
@@ -13241,13 +13258,19 @@ var family_word_json = {
     "✘"
    ],
    [
+    "maṇikā",
+    "fem",
+    "name of a spell",
+    "✔"
+   ],
+   [
     "māṇi",
     "adj",
     "having a jewel",
     "◑"
    ]
   ],
-  "count": 6
+  "count": 7
  },
  "mātar": {
   "data": [
@@ -14193,7 +14216,7 @@ var family_word_json = {
     "amhehi 3",
     "pron",
     "than us",
-    "◑"
+    "✔"
    ],
    [
     "amhehi 4",
@@ -15407,7 +15430,7 @@ var family_word_json = {
     "lohicca",
     "masc",
     "name of a Brahman",
-    "✘"
+    "✔"
    ],
    [
     "lohita 1",
@@ -19404,6 +19427,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "kattha 1.2",
+    "ind",
+    "in what? with what?; lit. what place",
+    "✔"
+   ],
+   [
     "katthaci 1",
     "ind",
     "somewhere; anywhere",
@@ -19722,7 +19751,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 65
+  "count": 66
  },
  "kakudha": {
   "data": [
@@ -21459,6 +21488,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "kumbha 2",
+    "masc",
+    "frontal boss; temporal boss; protuberance on an elephant's head that become enlarged during musth; lit. clay pot",
+    "✔"
+   ],
+   [
     "kumbhi",
     "fem",
     "clay cooking vessel; earthenware pot",
@@ -21483,7 +21518,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 5
+  "count": 6
  },
  "kumbhaṇḍa": {
   "data": [
@@ -22504,8 +22539,8 @@ var family_word_json = {
    [
     "gandhārī",
     "fem",
-    "a spell from Gandhara",
-    "✘"
+    "name of a spell",
+    "✔"
    ]
   ],
   "count": 3
@@ -23715,6 +23750,12 @@ var family_word_json = {
     "◑"
    ],
    [
+    "cetaka",
+    "masc",
+    "name of a monk; lit. from Ceta",
+    "✔"
+   ],
+   [
     "cetā 2.1",
     "masc",
     "name of a people",
@@ -23733,7 +23774,7 @@ var family_word_json = {
     "✘"
    ]
   ],
-  "count": 4
+  "count": 5
  },
  "coḷa": {
   "data": [
@@ -23940,6 +23981,17 @@ var family_word_json = {
    ]
   ],
   "count": 6
+ },
+ "chandas": {
+  "data": [
+   [
+    "chandoka",
+    "masc",
+    "chief priest; name of a class of Brahmans",
+    "✔"
+   ]
+  ],
+  "count": 1
  },
  "chapaka": {
   "data": [
@@ -24667,6 +24719,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "tāvatakena",
+    "ind",
+    "with just so much; merely with that",
+    "✔"
+   ],
+   [
     "tāvatā 1",
     "ind",
     "so long; that far; to such an extent",
@@ -24691,7 +24749,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 10
+  "count": 11
  },
  "tamas": {
   "data": [
@@ -25086,6 +25144,23 @@ var family_word_json = {
    ]
   ],
   "count": 3
+ },
+ "tittiri": {
+  "data": [
+   [
+    "tittiri",
+    "masc",
+    "name of a Brahman sage",
+    "✔"
+   ],
+   [
+    "tittiriya",
+    "masc",
+    "name of a class of brahmans; lit. from Tittiri",
+    "✔"
+   ]
+  ],
+  "count": 2
  },
  "timira": {
   "data": [
@@ -31383,7 +31458,7 @@ var family_word_json = {
     "varuṇa",
     "masc",
     "name of a Vedic god; name of a deva king",
-    "✘"
+    "✔"
    ],
    [
     "varuṇā",
@@ -32923,8 +32998,8 @@ var family_word_json = {
    [
     "sabyatā",
     "fem",
-    "companionship (of); company (of); fellowship (of)",
-    "◑"
+    "companionship; company; fellowship (of); lit. with state",
+    "✔"
    ],
    [
     "saha 1.1",
@@ -34591,8 +34666,8 @@ var family_word_json = {
    [
     "soma 1",
     "masc",
-    "moon",
-    "✘"
+    "moon; moon deity",
+    "✔"
    ],
    [
     "soma 2",
