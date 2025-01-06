@@ -87,7 +87,7 @@ fem	feminine noun	itthī; itthiliṅga	āpatti; vedanā; bhikkhunī		жен	же
 fut	future tense	bhavissantī; anāgatakāla	bhavissati; gamissati; assasissati	A verb tense that expresses actions or states in the future	буд	будущее время
 gen	genitive case	chaṭṭhī, sāmivacana, sambandha	me - pron, 1st <b>gen</b> sg of ahaṃ	showing possession (of 's)<br/>(e.g. my, mine)	род	родительный падеж
 gen abs	genitive absolute construction		me sato; tassa jānato passato	When a noun or a pronoun in the genitive case is used with a participle in the same case as itself, the construction is called genitive absolute. It can be translated as when, while, since, or as. Sometimes it also has the meaning of since, although, even if, despite, in spite of, notwithstanding.	род.абс	родительный падеж абсолютная конструкция
-ger	gerund	avyaya; bhāvapada	upasampajja; pahāya; ādāya	A verb (or verbal adjective), often ending in -ing, expressing ongoing action (eg. doing; making; going).	деепр.несов	деепричастие несовершенного вида, отвечает на вопрос «что делая?»
+ger	gerund	avyaya; bhāvapada	upasampajja; pahāya; ādāya	A verb (or verbal adjective), often ending in -ing, expressing ongoing action (eg. doing; making; going). Also some time can be translated with a combination of having + past participle, expressing completed action (e.g. having approached; having made).	деепр.несов	деепричастие несовершенного вида, отвечает на вопрос «что делая?». Так же иногда можно перевести как деепричастие совершенного вида, отвечает на вопрос «что сделав?»
 gram	grammatical term, technical term		padasandhi		грам	грамматический термин
 idiom	idiomatic expression	bhāsārītyanugata	app'eva nāma	A manner of speaking that is natural to native speakers of a language or an expression whose meanings cannot be inferred from the meanings of the words that make it up	идиома	идиома; фразеологизм
 imp	imperative mood	pañcamī; idānaṃ	gaccha; atthu; hotu	Mood that expresses an intention to influence the listener's behavior or expresses wish. (e.g. begone! may there be! may it be!)	повелит	повелительное наклонение
@@ -165,7 +165,7 @@ prp	present participle	missakiriya	passanta; viharanta; jānanta	Verbal adjectiv
 PRS	Padarūpasiddhi					Падарупасиддхи
 PTH	Paṭṭhānapāḷi					
 PTP	Peṭakopadesapāḷi					
-ptp	potential participle, future passive participle	kicca	karaṇīya; veditabba; sikkhitabba	Verbal adjectives, they give more information about the noun they are describing. (e.g. ought to be done; can be known; should be practised)	прич.буд	причастие будущего времени
+ptp	potential participle, future passive participle	kicca	karaṇīya; veditabba; sikkhitabba	Verbal adjectives, they give more information about the noun they are describing. (e.g. ought to be done; can be known; should be practised)	прич.долж	причастие долженствования; причастие будущего времени
 PV	Petavatthu			Book 7 of the Khuddaka Nikāya; lit. story about ghosts		Пета Ваттху
 PVa	Petavatthu Aṭṭhakathā, Paramatthadīpanī					Пета Ваттху Комментарий
 PYt	Pācityādiyojanāpāḷi, Vinaya sub-commentary					
