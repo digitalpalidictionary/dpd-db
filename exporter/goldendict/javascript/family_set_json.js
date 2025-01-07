@@ -1015,6 +1015,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "āpubba",
+    "adj",
+    "(gram) with the letter ā in front; preceded by the letter ā",
+    "◑"
+   ],
+   [
     "āya 2.1",
     "suffix",
     "(gram) āya suffix; used to form denominative verbs",
@@ -1725,7 +1731,7 @@ var family_set_json = {
    [
     "kicca 6",
     "nt",
-    "(gram) primary derivative; affix added to roots to form potential participles; e.g. -anīya, -tabba, etc.; lit. to be",
+    "(gram) primary derivative; affix added to roots to form potential participles; e.g. -anīya, -tabba, etc.; lit. to be done",
     "◑"
    ],
    [
@@ -4647,7 +4653,7 @@ var family_set_json = {
    [
     "sampadānavacana",
     "nt",
-    "(gram) dative case; lit. term for handing over",
+    "(gram) term in the dative case; lit. term for handing over",
     "✔"
    ],
    [
@@ -4933,6 +4939,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "heṭṭhato 2",
+    "ind",
+    "(gram) previously in the text; lit. from below",
+    "✔"
+   ],
+   [
     "heṭṭhā 2",
     "ind",
     "(gram) before; above; previously mentioned; lit. under",
@@ -4981,7 +4993,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 802
+  "count": 804
  },
  "prefixes": {
   "data": [
@@ -5808,7 +5820,7 @@ var family_set_json = {
    [
     "vi 2.1",
     "abbrev",
-    "abbreviation of <i>vissajjanā</i>; response",
+    "abbreviation of vissajjanā; response",
     "✔"
    ],
    [
@@ -5895,6 +5907,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "añña 1.3",
+    "pron",
+    "other (than); apart (from)",
+    "✔"
+   ],
+   [
     "aññatara 1",
     "pron",
     "a certain; a",
@@ -5970,6 +5988,12 @@ var family_set_json = {
     "anena",
     "pron",
     "with this; by this",
+    "✔"
+   ],
+   [
+    "apare",
+    "pron",
+    "(commentary) other learned monks; other commentators",
     "✔"
    ],
    [
@@ -6780,6 +6804,12 @@ var family_set_json = {
     "keci",
     "pron",
     "whoever; whatever; whichever; some; any",
+    "✔"
+   ],
+   [
+    "keci 2",
+    "pron",
+    "(commentary) some learned monks; some commentators (say)",
     "✔"
    ],
    [
@@ -7983,7 +8013,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 352
+  "count": 355
  },
  "epithets of devas": {
   "data": [
@@ -10874,6 +10904,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "nevāpika",
+    "masc",
+    "baiter; catcher; trapper; lit. who throws down",
+    "✔"
+   ],
+   [
     "nhāpaka",
     "masc",
     "bath attendant; lit. who causes to bathe",
@@ -11092,7 +11128,7 @@ var family_set_json = {
    [
     "bādhī",
     "masc",
-    "catcher",
+    "catcher; trapper",
     "✔"
    ],
    [
@@ -11308,7 +11344,7 @@ var family_set_json = {
    [
     "lāyaka",
     "masc",
-    "reaper; mower; cutter",
+    "reaper; mower; cutter; lit. who causes to cut",
     "✔"
    ],
    [
@@ -11462,7 +11498,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 199
+  "count": 200
  },
  "tastes": {
   "data": [
@@ -12526,6 +12562,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "abhipāraka",
+    "masc",
+    "name of the general of king Sivi",
+    "✔"
+   ],
+   [
     "ambapālī",
     "fem",
     "name of a courtesan; lit. row of mangoes",
@@ -13450,7 +13492,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 161
+  "count": 162
  },
  "types of ascetics": {
   "data": [
@@ -26325,7 +26367,7 @@ var family_set_json = {
    [
     "uppala 1",
     "nt",
-    "lotus; water lilly",
+    "lotus; water lily",
     "✔"
    ],
    [
@@ -26823,7 +26865,7 @@ var family_set_json = {
    [
     "nīluppala",
     "nt",
-    "blue lotus; blue water-lilly",
+    "blue lotus; blue water-lily",
     "✔"
    ],
    [
@@ -26931,7 +26973,7 @@ var family_set_json = {
    [
     "puṇḍarīka 1",
     "nt",
-    "lotus",
+    "lotus; (comm) lotus with less than one hundred petals; (or) red lotus",
     "✔"
    ],
    [
@@ -27379,12 +27421,6 @@ var family_set_json = {
     "◑"
    ],
    [
-    "simbalivana",
-    "nt",
-    "forest of silk-cotton trees",
-    "✔"
-   ],
-   [
     "simbalī",
     "masc",
     "silk-cotton tree; Bombax ceiba",
@@ -27469,7 +27505,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 209
+  "count": 208
  },
  "names of animals": {
   "data": [
@@ -29682,7 +29718,7 @@ var family_set_json = {
     "pālileyyaka",
     "nt",
     "name of a town near Kosambī",
-    "◑"
+    "✔"
    ],
    [
     "pāvā",
@@ -30299,7 +30335,7 @@ var family_set_json = {
     "terasa 2",
     "ordin",
     "thirteenth (13th)",
-    "◑"
+    "✔"
    ],
    [
     "terasama",
@@ -35801,9 +35837,15 @@ var family_set_json = {
     "masc",
     "this or that state of existence",
     "✔"
+   ],
+   [
+    "itibhavābhavakathā",
+    "fem",
+    "such talk about existence or nonexistence; discussion about this or that state of existence",
+    "✔"
    ]
   ],
-  "count": 1
+  "count": 2
  },
  "names of mountains": {
   "data": [
@@ -37680,7 +37722,7 @@ var family_set_json = {
     "sīlakkhandhavagga",
     "masc",
     "Book 1 of the Dīgha Nikāya; Book of Virtuous Conduct",
-    "◑"
+    "✔"
    ],
    [
     "sīlakkhandhavaggapāḷi",

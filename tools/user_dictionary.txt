@@ -390,6 +390,7 @@ Bimbisāra's
 bipinnata
 birdcatcher
 blamableness
+blamelessness
 blameworthiness
 blameworthy
 blibber-blabber
@@ -448,6 +449,8 @@ Cāla
 calamus
 Calophyllum
 Calotropis
+Cambodia
+Cambodian
 Campā
 caṇḍāla
 Caṅkī
@@ -472,6 +475,7 @@ centered
 centeredness
 ceramicist
 cerasoides
+Ceta
 Ceta
 Cetan
 ch
@@ -615,6 +619,7 @@ dar
 Dārucīriya
 Dārupattika
 Dasakanipāta
+dative
 davatte
 dawnrise
 de-illusionment
@@ -697,6 +702,7 @@ diligence
 Diospyros
 dirtiness
 Disampati
+disapproves
 discolouration
 discoloured
 discriminatively
@@ -711,8 +717,10 @@ dismounts
 disorderliness
 disownment
 disparagement
+disparages
 dispassion
 dispeller
+dispraises
 disproof
 disputable
 disrobed
@@ -868,6 +876,7 @@ fodder-ish
 fondles
 footless
 footlessness
+foreleg
 foresign
 forestless
 fortnights
@@ -969,6 +978,7 @@ gray
 Grewia
 grunniens
 guh
+guiltlessness
 guḷavālakāni
 gustatory
 gutturo-labial
@@ -1052,11 +1062,13 @@ impercipient
 impersonality
 imperturbable
 impingement
+importunate
 imprudently
 iṃsu
 in-front-ness
 inarticulate
 inarticulately
+inattentively
 inaugurate
 inaugurates
 incapability
@@ -1069,6 +1081,7 @@ increaser
 increaser
 inculpable
 inculpableness
+inculpableness
 Inda
 Inda's
 Inda's
@@ -1076,6 +1089,7 @@ Inda's
 indeclinable
 indeclinables
 indefatigability
+indeterminate
 indica
 Indica
 indicatory
@@ -1456,6 +1470,7 @@ martinii
 māsaka
 Mātali's
 materiality
+materialty
 math
 Mātikā
 matricide
@@ -1690,6 +1705,7 @@ o
 obdurance
 obdurate
 objectless
+oblated
 oblations
 observances
 obstinance
@@ -1703,7 +1719,9 @@ oilstone
 Okkāka
 Okkāka's
 Okkāka's
+once-returner
 one-placed-ness
+one-sidedly
 one's
 one's
 one's
@@ -1911,6 +1929,7 @@ propagator
 properness
 propitiate
 propitiated
+prosody
 Prunus
 Prutitus
 Pterospermum
@@ -2428,6 +2447,7 @@ Tissa
 Tissā
 tissametteyya-māṇava-pucchā
 Tissametteyyamāṇava
+Tittiri
 Todeyya
 Todeyya's
 tolerator
@@ -2552,6 +2572,7 @@ undiscoverable
 undispersed
 undistorted
 undistressed
+undrinkable
 unelided
 unenduring
 unenquired
@@ -2607,6 +2628,7 @@ unpeaceful
 unpenetrated
 unperceived
 unperformed
+unpersuaded
 unpervaded
 unpierced
 unpresumed
@@ -2648,6 +2670,7 @@ unstated
 unsteadiness
 unstealable
 unstitch
+unsubmissive
 unsuffused
 unsurpassable
 unswept
@@ -2657,6 +2680,8 @@ untwisted
 untwisting
 unusability
 unvirtuous
+unwholesomeness
+unwholesomeness
 unwieldliness
 unwished
 unwrought
@@ -2817,6 +2842,7 @@ waylayer
 well-practiced
 wellbeing
 wheresthelibrary
+wholesomeness
 wieldiness
 wieldy
 wifehood
@@ -2852,9 +2878,3 @@ you're
 youthfulness
 zizanioides
 Ziziphus
-Ceta
-unpersuaded
-importunate
-once-returner
-Tittiri
-unsubmissive

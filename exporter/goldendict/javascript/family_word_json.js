@@ -123,7 +123,7 @@ var family_word_json = {
    [
     "kiñcana 3",
     "nt",
-    "owning; having something; worldly attachment",
+    "owning; having something; possession; worldly attachment",
     "✔"
    ],
    [
@@ -193,6 +193,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "keci 2",
+    "pron",
+    "(commentary) some learned monks; some commentators (say)",
+    "✔"
+   ],
+   [
     "kenaci",
     "pron",
     "by anyone; with anyone; by something; with something; with anything; by anything",
@@ -229,7 +235,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 32
+  "count": 33
  },
  "kāḷa": {
   "data": [
@@ -4130,6 +4136,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "añña 1.3",
+    "pron",
+    "other (than); apart (from)",
+    "✔"
+   ],
+   [
     "aññatara 1",
     "pron",
     "a certain; a",
@@ -4304,7 +4316,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 31
+  "count": 32
  },
  "aṭavī": {
   "data": [
@@ -6721,6 +6733,12 @@ var family_word_json = {
     "✘"
    ],
    [
+    "heṭṭhato 2",
+    "ind",
+    "(gram) previously in the text; lit. from below",
+    "✔"
+   ],
+   [
     "heṭṭhā 1",
     "ind",
     "below; under; underneath",
@@ -6739,7 +6757,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 5
+  "count": 6
  },
  "tuccha": {
   "data": [
@@ -7804,7 +7822,7 @@ var family_word_json = {
    [
     "addhariya",
     "masc",
-    "sacrificing priest; name of a class of Brahmans",
+    "sacrificing priest; name of a group of Brahmans",
     "✔"
    ]
   ],
@@ -8548,6 +8566,12 @@ var family_word_json = {
     "◑"
    ],
    [
+    "apare",
+    "pron",
+    "(commentary) other learned monks; other commentators",
+    "✔"
+   ],
+   [
     "aparena 1",
     "ind",
     "later on; afterwards; lit. with another",
@@ -8566,7 +8590,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 13
+  "count": 14
  },
  "puṃ": {
   "data": [
@@ -10711,7 +10735,7 @@ var family_word_json = {
     "✔"
    ],
    [
-    "andū",
+    "andu 2",
     "fem",
     "chain; manacle",
     "✔"
@@ -13635,8 +13659,8 @@ var family_word_json = {
    [
     "nimmanussa 2",
     "adj",
-    "without human beings; devoid of humans",
-    "✘"
+    "without humans; unpopulated; uninhabited",
+    "✔"
    ],
    [
     "manu",
@@ -18432,7 +18456,7 @@ var family_word_json = {
    [
     "uppala 1",
     "nt",
-    "lotus; water lilly",
+    "lotus; water lily",
     "✔"
    ],
    [
@@ -18456,7 +18480,7 @@ var family_word_json = {
    [
     "uppalinī",
     "fem",
-    "water lilly pond",
+    "water lily pond",
     "✔"
    ]
   ],
@@ -21443,7 +21467,7 @@ var family_word_json = {
    [
     "kumuda 1",
     "nt",
-    "white water lilly",
+    "white water lily",
     "✔"
    ],
    [
@@ -22539,7 +22563,7 @@ var family_word_json = {
    [
     "gandhārī",
     "fem",
-    "name of a spell",
+    "name of a spell; lit. from Gandhāra",
     "✔"
    ]
   ],
@@ -23985,13 +24009,19 @@ var family_word_json = {
  "chandas": {
   "data": [
    [
+    "chandas 1.1",
+    "masc",
+    "metre; prosody",
+    "✔"
+   ],
+   [
     "chandoka",
     "masc",
-    "chief priest; name of a class of Brahmans",
+    "chief priest; name of a group of Brahmans",
     "✔"
    ]
   ],
-  "count": 1
+  "count": 2
  },
  "chapaka": {
   "data": [
@@ -25156,7 +25186,7 @@ var family_word_json = {
    [
     "tittiriya",
     "masc",
-    "name of a class of brahmans; lit. from Tittiri",
+    "name of a group of Brahmans; lit. from Tittiri",
     "✔"
    ]
   ],
@@ -25645,6 +25675,23 @@ var family_word_json = {
    ]
   ],
   "count": 3
+ },
+ "duṭṭhu": {
+  "data": [
+   [
+    "duṭṭhu",
+    "ind",
+    "bad; wrong; difficult; horrible",
+    "✔"
+   ],
+   [
+    "duṭṭhuṃ",
+    "ind",
+    "badly; wrongly; with difficulty; horribly",
+    "✔"
+   ]
+  ],
+  "count": 2
  },
  "dunduṃ": {
   "data": [
@@ -26618,7 +26665,7 @@ var family_word_json = {
    [
     "nīca 2",
     "adj",
-    "poor; inferior; humble; lit. low",
+    "poor; inferior; humble; low class; lit. low",
     "✔"
    ],
    [
@@ -26873,9 +26920,15 @@ var family_word_json = {
     "adj",
     "wood-; forest-; wild-",
     "✔"
+   ],
+   [
+    "vivana",
+    "nt",
+    "barren land; wasteland; lit. without forest",
+    "✔"
    ]
   ],
-  "count": 10
+  "count": 11
  },
  "maṃsa": {
   "data": [
@@ -27551,7 +27604,7 @@ var family_word_json = {
    [
     "paduma 1",
     "nt",
-    "lotus",
+    "lotus; (comm) lotus with more than one hundred petals; (or) white lotus",
     "✔"
    ],
    [
@@ -28469,7 +28522,7 @@ var family_word_json = {
    [
     "puṇḍarīka 1",
     "nt",
-    "lotus",
+    "lotus; (comm) lotus with less than one hundred petals; (or) red lotus",
     "✔"
    ],
    [
@@ -29500,6 +29553,17 @@ var family_word_json = {
    ]
   ],
   "count": 2
+ },
+ "bhoja": {
+  "data": [
+   [
+    "bhojja 2.1",
+    "adj",
+    "from Bhoja; lit. enjoying",
+    "✔"
+   ]
+  ],
+  "count": 1
  },
  "makula": {
   "data": [

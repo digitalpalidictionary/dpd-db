@@ -1915,7 +1915,7 @@ var family_idiom_json = {
    [
     "sohaṃ",
     "sandhi",
-    "that, I; so, I",
+    "that, I; so, I; I definitely",
     "✔"
    ],
    [
@@ -8832,7 +8832,7 @@ var family_idiom_json = {
    [
     "bhiyyoso mattāya",
     "idiom",
-    "exceedingly; even more; lit. more measure",
+    "exceedingly; even more; lit. with more measure",
     "✔"
    ]
   ]
@@ -9272,7 +9272,7 @@ var family_idiom_json = {
    [
     "upamaṃ te karissāmi",
     "idiom",
-    "I will give a simile to you; I will make an analogy for you; I will give an example to you",
+    "I will give a simile to you; I will make an analogy for you; I will give you an example",
     "✔"
    ],
    [
@@ -11324,7 +11324,7 @@ var family_idiom_json = {
    [
     "yo pana bhikkhu",
     "idiom",
-    "a monk who; but whichever monastic",
+    "and a monk who; but whichever monastic",
     "✔"
    ]
   ]
@@ -12816,7 +12816,7 @@ var family_idiom_json = {
    [
     "yadettha",
     "sandhi",
-    "that here",
+    "that here; lit. which here",
     "✔"
    ],
    [
@@ -14595,6 +14595,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "uttiṇṇa": {
+  "count": 1,
+  "data": [
+   [
+    "ogāhamuttiṇṇaṃ",
+    "sandhi",
+    "emerged from bathing; coming out of the river",
+    "✔"
+   ]
+  ]
+ },
  "anudhamma": {
   "count": 2,
   "data": [
@@ -14890,7 +14901,7 @@ var family_idiom_json = {
    [
     "upamaṃ te karissāmi",
     "idiom",
-    "I will give a simile to you; I will make an analogy for you; I will give an example to you",
+    "I will give a simile to you; I will make an analogy for you; I will give you an example",
     "✔"
    ],
    [
@@ -16180,7 +16191,7 @@ var family_idiom_json = {
    [
     "yo pana bhikkhu",
     "idiom",
-    "a monk who; but whichever monastic",
+    "and a monk who; but whichever monastic",
     "✔"
    ]
   ]
@@ -20608,7 +20619,7 @@ var family_idiom_json = {
    [
     "bhiyyoso mattāya",
     "idiom",
-    "exceedingly; even more; lit. more measure",
+    "exceedingly; even more; lit. with more measure",
     "✔"
    ]
   ]
@@ -21718,7 +21729,7 @@ var family_idiom_json = {
    [
     "upamaṃ te karissāmi",
     "idiom",
-    "I will give a simile to you; I will make an analogy for you; I will give an example to you",
+    "I will give a simile to you; I will make an analogy for you; I will give you an example",
     "✔"
    ],
    [
@@ -23011,17 +23022,6 @@ var family_idiom_json = {
   ]
  },
  "ogāha": {
-  "count": 1,
-  "data": [
-   [
-    "ogāhamuttiṇṇaṃ",
-    "sandhi",
-    "emerged from bathing; coming out of the river",
-    "✔"
-   ]
-  ]
- },
- "uttiṇṇa": {
   "count": 1,
   "data": [
    [
@@ -27759,6 +27759,40 @@ var family_idiom_json = {
    ]
   ]
  },
+ "dhārā1": {
+  "count": 2,
+  "data": [
+   [
+    "dhāraṃ anupavecchati",
+    "idiom",
+    "rains; lit. gives a rain shower; offers a downpour",
+    "✔"
+   ],
+   [
+    "sammādhāraṃ anuppavecchati",
+    "idiom",
+    "rains; lit. gives a rain shower; offers a downpour",
+    "✔"
+   ]
+  ]
+ },
+ "anuppavecchati": {
+  "count": 2,
+  "data": [
+   [
+    "dhāraṃ anupavecchati",
+    "idiom",
+    "rains; lit. gives a rain shower; offers a downpour",
+    "✔"
+   ],
+   [
+    "sammādhāraṃ anuppavecchati",
+    "idiom",
+    "rains; lit. gives a rain shower; offers a downpour",
+    "✔"
+   ]
+  ]
+ },
  "dhi1": {
   "count": 1,
   "data": [
@@ -30580,7 +30614,7 @@ var family_idiom_json = {
    [
     "yadettha",
     "sandhi",
-    "that here",
+    "that here; lit. which here",
     "✔"
    ],
    [
@@ -30902,7 +30936,7 @@ var family_idiom_json = {
    [
     "sohaṃ",
     "sandhi",
-    "that, I; so, I",
+    "that, I; so, I; I definitely",
     "✔"
    ],
    [
@@ -31084,7 +31118,7 @@ var family_idiom_json = {
    [
     "yo pana bhikkhu",
     "idiom",
-    "a monk who; but whichever monastic",
+    "and a monk who; but whichever monastic",
     "✔"
    ],
    [
@@ -33014,17 +33048,6 @@ var family_idiom_json = {
     "sambādhapaṭipannosmi",
     "sandhi",
     "I have fallen into captivity; I have got into trouble",
-    "✔"
-   ]
-  ]
- },
- "anuppavecchati": {
-  "count": 1,
-  "data": [
-   [
-    "sammādhāraṃ anuppavecchati",
-    "idiom",
-    "rains; lit. gives a rain shower; offers a downpour",
     "✔"
    ]
   ]
