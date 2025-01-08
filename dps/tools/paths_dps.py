@@ -43,7 +43,8 @@ class DPSPaths:
         self.ai_from_batch_api_dir = base_dir.joinpath(Path("dps/csvs/ai_from_batch_api/"))
 
         self.sbs_pd_path = base_dir.joinpath(Path("dps/csvs/sbs_pd.csv"))
-        self.ru_total_path = base_dir.joinpath(Path("dps/sbs_csvs/ru_total.tsv"))
+        self.ru_total_root_path = base_dir.joinpath(Path("dps/russian_words/ru_total_roots.tsv"))
+        self.ru_total_comp_path = base_dir.joinpath(Path("dps/russian_words/ru_total_comps.tsv"))
 
         self.pali_class_vocab_dir = base_dir.joinpath(Path("dps/pali_class/vocab/"))
 
