@@ -38,6 +38,7 @@ class DPSPaths:
         self.translation_example_path = base_dir.joinpath(Path("dps/csvs/tranlslation_examples.csv"))
         self.sbs_archive = base_dir.joinpath(Path("dps/sbs_csvs/sbs_archive.tsv"))
         self.sbs_example_corrections = base_dir.joinpath(Path("dps/csvs/sbs_example_corrections.tsv"))
+        self.ru_apply_path = base_dir.joinpath(Path("temp/ru_apply.csv"))
 
         self.ai_for_batch_api_dir = base_dir.joinpath(Path("dps/csvs/ai_for_batch_api/"))
         self.ai_from_batch_api_dir = base_dir.joinpath(Path("dps/csvs/ai_from_batch_api/"))

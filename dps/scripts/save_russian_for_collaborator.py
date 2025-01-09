@@ -2,7 +2,7 @@
 
 """ Filter all russian words and save into csv"""
 
-from db.models import DpdHeadword
+from db.models import DpdHeadword, FamilyCompound
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
 from db.db_helpers import get_db_session
@@ -13,8 +13,10 @@ from rich.console import Console
 from tools.tic_toc import tic, toc
 from tools.meaning_construction import make_meaning_combo
 
+from typing import Optional, Dict, Union
 
 from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import object_session
 
 from concurrent.futures import ThreadPoolExecutor
 
@@ -26,7 +28,7 @@ dpspth = DPSPaths()
 db_session = get_db_session(pth.dpd_db_path)
 
 
-def process_word(word):
+def process_word_root(word):
     return {
         'id': word.id,
         'lemma': word.lemma_1,
@@ -41,6 +43,7 @@ def process_word(word):
         'corrections_ru_meaning_lit': "",
         'notes': ""
     }
+
 
 def save_total_ru_roots():
     tic()
@@ -70,7 +73,7 @@ def save_total_ru_roots():
         writer.writeheader()
 
         with ThreadPoolExecutor() as executor:
-            results = executor.map(process_word, filtered_words)
+            results = executor.map(process_word_root, filtered_words)
             for result in results:
                 writer.writerow(result)
 
@@ -79,59 +82,102 @@ def save_total_ru_roots():
     toc()
 
 
-def save_total_ru_comp():
-    tic()
-    console.print("[bold bright_yellow]filtering words with comp")
+def get_family_compounds(i: DpdHeadword) -> Optional[Dict[str, Union[str, int]]]:
+    db_session = object_session(i)
+    if db_session is None:
+        raise Exception("No db_session")
 
-    # Query to filter words based on the presence in the Russian table
+    if i.family_compound:
+        fc = db_session \
+            .query(FamilyCompound) \
+            .filter(FamilyCompound.compound_family.in_(i.family_compound_list)) \
+            .all()
+
+        # Sort by order of the family compound list
+        word_order = i.family_compound_list
+        fc = sorted(fc, key=lambda x: word_order.index(x.compound_family))
+
+    else:
+        fc = db_session.query(FamilyCompound) \
+            .filter(FamilyCompound.compound_family == i.lemma_clean) \
+            .all()
+
+    # Get the FamilyCompound with the highest count
+    fc_max = max(fc, key=lambda x: x.count, default=None)
+
+    if fc_max:
+        return {'name': fc_max.compound_family, 'count': fc_max.count}
+    else:
+        return None
+
+
+
+
+def process_word_comp(word):
+    family_compound = get_family_compounds(word)
+    return {
+        'id': word.id,
+        'lemma': word.lemma_1,
+        'pos': word.pos,
+        'family_compound_word': family_compound['name'] if family_compound else "",
+        'count': family_compound['count'] if family_compound else 0,
+        'meaning': make_meaning_combo(word),
+        'ru_meaning': word.ru.ru_meaning,
+        'ru_meaning_lit': word.ru.ru_meaning_lit,
+        'ru_meaning_raw': word.ru.ru_meaning_raw if not word.ru.ru_meaning else "",
+        'corrections_ru_meaning': "",
+        'corrections_ru_meaning_lit': "",
+        'notes': ""
+    }
+
+
+def save_total_ru_comps():
+    tic()
+    console.print("[bold bright_yellow]filtering words with roots")
+
     dpd_db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.ru)).filter(
         DpdHeadword.ru != None,
         DpdHeadword.meaning_1 != "",
-        DpdHeadword.root_key == "",
-        DpdHeadword.family_compound != ""
-        ).all()
+        DpdHeadword.family_compound != "",
+        DpdHeadword.root_key == ""
+    ).all()
+
     print(f"Total rows that fit the filter criteria: {len(dpd_db)}")
 
-        # Filter words and sort them in reverse order
-    filtered_words = sorted(
-        dpd_db,
-        key=lambda word: (word.family_compound, word.family_compound, word.ebt_count),
-        reverse=True
-    )
+    # filtered_words = sorted(
+    #     dpd_db,
+    #     key=lambda word: (word.rt.root_count if word.rt else 0, word.root_key, word.family_root),
+    #     reverse=True
+    # )
 
-    # Write to CSV using tab as delimiter
-    with open(dpspth.ru_total_root_path, 'w', newline='') as csvfile:
+    filtered_words = dpd_db
+
+    # word.family_compound_list
+
+    with open(dpspth.ru_total_comp_path, 'w', newline='') as csvfile:
         fieldnames = [
-            'id', 'pos', 'lemma', 'family_comp_word', 'meaning',
-            'ru_meaning', 'ru_meaning_lit', 'ru_meaning_raw', 'corrections_ru_meaning',	
-            'corrections_ru_meaning_lit', 'notes'
+            'id', 'lemma', 'pos', 'family_compound_word', 'count',
+            'meaning', 'ru_meaning', 'ru_meaning_lit', 'ru_meaning_raw',
+            'corrections_ru_meaning', 'corrections_ru_meaning_lit', 'notes'
         ]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter='\t')
+        writer.writeheader()
 
-        writer.writeheader()  # Write the header
-
-        for word in filtered_words:
-            writer.writerow({
-                'id': word.id,
-                'pos': word.pos,
-                'lemma': word.lemma_1,
-                'family_comp_word': word.family_compound,
-                'meaning': make_meaning_combo(word),
-                'ru_meaning': word.ru.ru_meaning,
-                'ru_meaning_lit': word.ru.ru_meaning_lit,
-                'ru_meaning_raw': word.ru.ru_meaning_raw if not word.ru.ru_meaning else "",
-                'corrections_ru_meaning': "",
-                'corrections_ru_meaning_lit': "",
-                'notes': ""
-            })
+        with ThreadPoolExecutor() as executor:
+            results = executor.map(process_word_comp, filtered_words)
+            # Sort results by family_compound_count (descending) and family_compound_word (alphabetical)
+            sorted_results = sorted(
+                results,
+                key=lambda x: (-x['count'], x['family_compound_word'])
+            )
+            for result in sorted_results:
+                writer.writerow(result)
 
     db_session.close()
-
-    print(f"[green]saved into {dpspth.ru_total_root_path}")
-
+    print(f"[green]saved into {dpspth.ru_total_comp_path}")
     toc()
 
 
 # Call the function
-save_total_ru_roots()
-# save_total_ru_comp()
+# save_total_ru_roots()
+save_total_ru_comps()
