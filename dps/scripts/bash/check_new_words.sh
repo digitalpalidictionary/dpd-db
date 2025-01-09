@@ -9,7 +9,7 @@ while true; do
     read yn
     case $yn in
         [Yy]* )
-            dps/scripts/backup_all_dps.py
+            dps/scripts/export_from_db/backup_all_dps.py
             break;;
         * )
             break;;
@@ -29,7 +29,7 @@ echo "${bold}${yellow}Filter the list of words${reset}"
 
 libreoffice gui/delated_words_history.tsv
 
-dps/scripts/compare_changed_id.py
+dps/scripts/work_with_csv/compare_changed_id.py
 
 libreoffice dps/backup/for_compare/added_another_meaning.tsv
 
@@ -47,6 +47,8 @@ else
     echo "${bold}${red}No changes applied. Exiting.${reset}"
 fi
 
+echo "${bold}${red}Please check out latest newly added words vib/sutta ${reset}"
+
 scripts/backup/backup_ru_sbs.py
 
-dps/scripts/replace_new_id.py
+dps/scripts/work_with_csv/replace_new_id.py

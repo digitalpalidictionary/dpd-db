@@ -12,9 +12,9 @@ today = date.today()
 # Print completion message in green color
 print("\033[1;33m from dpd-db/exporter/share/ \033[0m")
 
-# Assuming the script is in the 'Documents/dpd-db/dps/scripts' directory
+# Assuming the script is in the 'Documents/dpd-db/dps/scripts/moving' directory
 script_dir = os.path.dirname(os.path.realpath(__file__))
-deva_dir = os.path.abspath(os.path.join(script_dir, '..', '..', '..', '..'))
+deva_dir = os.path.abspath(os.path.join(script_dir, '..', '..', '..', '..', '..'))
 
 downloads_dir = os.path.join(deva_dir, 'Downloads')
 

@@ -83,4 +83,4 @@ def process_tsv():
     toc()
 
 
-process_tsv()
+# ! add exceptions for vib words # process_tsv()

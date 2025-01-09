@@ -9,7 +9,7 @@ python -c "from tools.configger import print_config_settings; print_config_setti
 
 scripts/bash/generate_components.sh
 
-dps/scripts/change_ebt_count.py
+dps/scripts/change_in_db/change_ebt_count.py
 
 exporter/grammar_dict/grammar_dict.py
 
@@ -21,7 +21,7 @@ exporter/kindle/kindle_exporter.py
 
 scripts/build/zip_goldendict_mdict.py
 
-dps/scripts/move_mdict.py
+dps/scripts/moving/move_mdict.py
 
 git checkout -- pyproject.toml
 

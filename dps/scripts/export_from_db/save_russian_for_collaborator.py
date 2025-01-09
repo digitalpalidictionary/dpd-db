@@ -179,5 +179,5 @@ def save_total_ru_comps():
 
 
 # Call the function
-# save_total_ru_roots()
+save_total_ru_roots()
 save_total_ru_comps()
