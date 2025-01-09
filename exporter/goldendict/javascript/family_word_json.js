@@ -713,6 +713,12 @@ var family_word_json = {
  "karuṇā": {
   "data": [
    [
+    "akāruṇa",
+    "adj",
+    "uncompassionate; unsympathetic; merciless",
+    "✔"
+   ],
+   [
     "akāruṇika",
     "adj",
     "uncompassionate; unsympathetic; unkind",
@@ -791,7 +797,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 13
+  "count": 14
  },
  "kiccha": {
   "data": [
@@ -28878,7 +28884,7 @@ var family_word_json = {
     "potthaka 3",
     "masc",
     "bark cloth; rough cloth",
-    "◑"
+    "✔"
    ],
    [
     "potthaka 4",
@@ -29557,13 +29563,19 @@ var family_word_json = {
  "bhoja": {
   "data": [
    [
+    "bhoja 1.1",
+    "masc",
+    "name of a country",
+    "✔"
+   ],
+   [
     "bhojja 2.1",
     "adj",
-    "from Bhoja; lit. enjoying",
+    "from Bhoja",
     "✔"
    ]
   ],
-  "count": 1
+  "count": 2
  },
  "makula": {
   "data": [
@@ -33213,8 +33225,8 @@ var family_word_json = {
    [
     "sarāvaka",
     "nt",
-    "small bowl; small plate",
-    "◑"
+    "small bowl; small dish",
+    "✔"
    ]
   ],
   "count": 2

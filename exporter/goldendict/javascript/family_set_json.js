@@ -10388,6 +10388,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "assabandha",
+    "masc",
+    "groom; horse keeper",
+    "✔"
+   ],
+   [
     "assaratha 2",
     "masc",
     "charioteering; horsemanship; lit. horse carriage",
@@ -10670,6 +10676,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "gopurisa",
+    "masc",
+    "cowherd; cowboy; lit. cow man",
+    "✔"
+   ],
+   [
     "gorakkha",
     "masc",
     "cow herding; cattle farming; lit. cow protecting",
@@ -10754,9 +10766,27 @@ var family_set_json = {
     "✔"
    ],
    [
+    "chaḍḍaka",
+    "masc",
+    "thrower; remover; cleaner; discarder",
+    "✔"
+   ],
+   [
+    "chavaḍāhaka",
+    "masc",
+    "cremator; lit. corpse burner",
+    "✔"
+   ],
+   [
     "jūtakara",
     "masc",
     "gambler; lit. making gambling",
+    "✔"
+   ],
+   [
+    "ḍāhaka",
+    "masc",
+    "burner; cremator; who sets on fire",
     "✔"
    ],
    [
@@ -11064,6 +11094,12 @@ var family_set_json = {
     "fem",
     "female refuse remover; dustbin woman; scavenger",
     "◑"
+   ],
+   [
+    "pupphachaḍḍaka",
+    "masc",
+    "janitor; toilet cleaner; lit. flower remover",
+    "✔"
    ],
    [
     "purohita",
@@ -11496,9 +11532,15 @@ var family_set_json = {
     "masc",
     "elephant cavalryman; elephant warrior",
     "✔"
+   ],
+   [
+    "hatthibandha",
+    "masc",
+    "elephant keeper",
+    "✔"
    ]
   ],
-  "count": 200
+  "count": 207
  },
  "tastes": {
   "data": [
@@ -14922,9 +14964,9 @@ var family_set_json = {
     "◑"
    ],
    [
-    "bhoja 1",
+    "bhoja 1.1",
     "masc",
-    "name of a country; lit. enjoying",
+    "name of a country",
     "✔"
    ],
    [

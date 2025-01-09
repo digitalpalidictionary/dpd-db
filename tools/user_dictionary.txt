@@ -487,6 +487,8 @@ Champaka
 chank
 charantia
 charioteering
+charioteering
+chariotry
 charnel
 charoli
 chebula
@@ -582,6 +584,7 @@ cpds
 craftman's
 creatress
 cremates
+cremator
 cristatus
 criticises
 criticizable
@@ -806,6 +809,7 @@ Entada
 enterer
 entwinings
 enumerates
+enumeration
 enunciated
 equanimously
 equipoise
@@ -857,6 +861,7 @@ felloe
 felly
 ferruginea
 fetcher
+fettering
 fickleness
 fidgetiness
 fineness
@@ -1105,6 +1110,7 @@ Indus
 ineffectiveness
 ineloquent
 inexpertise
+infatuating
 infeminine
 infiniteness
 inhered
@@ -1357,6 +1363,7 @@ litigated
 līyati
 LKR
 loc
+locative
 lodhra
 logician
 Lohicca's
@@ -1845,6 +1852,7 @@ pavuṭa
 Payāgā
 Pāyāsi
 PED
+Pekhuṇiya's
 Pentapatera
 Pentapetes
 pentaphylla
@@ -2156,6 +2164,7 @@ sativa
 sativum
 Sattakanipāta
 sattva
+saturates
 Savatth
 Sāvatthi
 Sāvatthī
@@ -2275,6 +2284,7 @@ stabilises
 stableman
 statecraft
 steamrolls
+steeps
 step-by-step
 stick-less
 stillbirth
