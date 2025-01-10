@@ -204,5 +204,5 @@ if __name__ == "__main__":
     print("filtering words for some conditions")
 
     # filtering_words()
-    filter_and_save_txt("VIN1.2.6")
+    filter_and_save_txt("VIN1.2.9")
 
