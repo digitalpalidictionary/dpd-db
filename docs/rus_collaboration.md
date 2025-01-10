@@ -17,10 +17,10 @@
 ### Скачивание и использование файлов
 Для удобства работы регулярно обновляются два файла:
 
-- **[ru_total_roots.tsv](https://github.com/digitalpalidictionary/dpd-db/blob/main/dps/russian_words/ru_total_roots.tsv)**  
+- **[ru_total_roots.tsv](https://github.com/digitalpalidictionary/dpd-db/blob/main/dps/rus/ru_total_roots.tsv)**  
   Все слова отсортированы по корню и семье корня, начиная с наиболее частых.  
 
-- **[ru_total_comps.tsv](https://github.com/digitalpalidictionary/dpd-db/blob/main/dps/russian_words/ru_total_comps.tsv)**  
+- **[ru_total_comps.tsv](https://github.com/digitalpalidictionary/dpd-db/blob/main/dps/rus/ru_total_comps.tsv)**  
   Все составные слова отсортированы по элементам, начиная с наиболее частых.  
 
 ### Редактирование

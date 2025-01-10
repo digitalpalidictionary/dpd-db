@@ -6,7 +6,7 @@ from rich import print
 
 from spellchecker import SpellChecker
 
-from tools.tokenizer import split_words
+from tools.tokenizer import split_words_keep_dash
 
 
 class SpellCheck:
@@ -22,7 +22,7 @@ class SpellCheck:
 
     def check_spelling(self, field_value):
         ru_sentence = field_value
-        ru_words = split_words(ru_sentence)
+        ru_words = split_words_keep_dash(ru_sentence)
         ru_misspelled = self.ru_spell.unknown(ru_words)
 
         if ru_misspelled:
