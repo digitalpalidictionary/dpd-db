@@ -1958,7 +1958,7 @@ var family_root_json = {
    [
     "kārāpetabba",
     "ptp",
-    "should make (something) be done (by); should make (someone) perform (something); lit. to cause to be done",
+    "should make (something) be done (by); should be dealt with (by); should make (someone) perform (some action); lit. to cause to be done",
     "✔"
    ],
    [
@@ -5256,8 +5256,8 @@ var family_root_json = {
    [
     "akopa",
     "adj",
-    "without agitation or anger",
-    "✘"
+    "without agitation; with no anger; lit. no shaking",
+    "✔"
    ],
    [
     "akopenta",
@@ -8031,13 +8031,13 @@ var family_root_json = {
     "khema 4",
     "masc",
     "name of a park in Bandhumatī; lit. safety",
-    "◑"
+    "✔"
    ],
    [
     "khema 5",
     "masc",
-    "name of the reigning king at the time of Kakusandha Buddha",
-    "✘"
+    "name of the reigning king at the time of Kakusandha Buddha; lit. safety",
+    "✔"
    ],
    [
     "khemaka 1",
@@ -8079,7 +8079,7 @@ var family_root_json = {
     "khemavatī",
     "fem",
     "name of the royal capital of king Khema",
-    "✘"
+    "✔"
    ],
    [
     "khemā",
@@ -26599,7 +26599,7 @@ var family_root_json = {
   "root_key": "√kam 1",
   "root_family": "ati √kam",
   "root_meaning": "go",
-  "count": 47,
+  "count": 48,
   "data": [
    [
     "atikkanta 1",
@@ -26824,10 +26824,16 @@ var family_root_json = {
     "✘"
    ],
    [
-    "anatikkamanīya",
+    "anatikkamanīya 1",
     "ptp",
-    "not to be passed; not to be transgressed (against)",
-    "✘"
+    "not to be transgressed; not to be breached; lit. not to be gone too far",
+    "✔"
+   ],
+   [
+    "anatikkamanīya 2",
+    "ptp",
+    "inviolable (by); unable to have sexual intercourse (with); lit. not to be gone too far",
+    "✔"
    ],
    [
     "anatikkamanta 1",
@@ -35708,8 +35714,8 @@ var family_root_json = {
    [
     "dhanavatī",
     "fem",
-    "name of Kassapa Buddha's mother",
-    "✘"
+    "name of Kassapa Buddha's mother; lit. having wealth quality",
+    "✔"
    ],
    [
     "dhanavant",
@@ -41280,7 +41286,7 @@ var family_root_json = {
    [
     "ananuvijja",
     "ptp",
-    "undiscoverable; untraceable; not able to be ascertained; lit. not to be found",
+    "undiscoverable; untraceable; not able to be ascertained; lit. not to be known",
     "✔"
    ],
    [
@@ -44609,7 +44615,7 @@ var family_root_json = {
   "root_key": "√budh",
   "root_family": "abhi saṃ √budh",
   "root_meaning": "know, wake up",
-  "count": 16,
+  "count": 17,
   "data": [
    [
     "anabhisambuddha 1",
@@ -44664,6 +44670,12 @@ var family_root_json = {
     "masc",
     "full awakening; perfect enlightenment; lit. woken up to",
     "◑"
+   ],
+   [
+    "abhisambuddha 3",
+    "pp",
+    "attained full awakening; got enlightened (at); lit. woken up to",
+    "✔"
    ],
    [
     "abhisambuddhatta",
@@ -47288,7 +47300,7 @@ var family_root_json = {
    [
     "nahāpaka",
     "masc",
-    "bath attendant; lit. who causes to bath",
+    "bath attendant; lit. who causes to bathe",
     "✔"
    ],
    [
@@ -50435,7 +50447,7 @@ var family_root_json = {
   "root_key": "√lamb",
   "root_family": "ā √lamb",
   "root_meaning": "hang",
-  "count": 21,
+  "count": 22,
   "data": [
    [
     "anārammaṇa",
@@ -50490,6 +50502,12 @@ var family_root_json = {
     "adj",
     "based on; founded on; supported by; sustained by; taking as an object; lit. supporting",
     "✔"
+   ],
+   [
+    "ārammaṇa 7",
+    "adj",
+    "starting point",
+    "✘"
    ],
    [
     "ālamba 1",
@@ -54910,8 +54928,8 @@ var family_root_json = {
    [
     "iñjanā",
     "fem",
-    "motion, movement",
-    "✘"
+    "motion; movement; lit. moving",
+    "✔"
    ],
    [
     "iñjayati",
@@ -63726,8 +63744,8 @@ var family_root_json = {
    [
     "vācaka 1",
     "masc",
-    "who teaches or recites",
-    "✘"
+    "speaker; reader; reciter; lit. who speaks",
+    "✔"
    ],
    [
     "vācaka 2",
@@ -65777,7 +65795,7 @@ var family_root_json = {
     "upagacchati 3",
     "pr",
     "approaches; goes towards",
-    "◑"
+    "✔"
    ],
    [
     "upagacchati 4",
@@ -69123,7 +69141,7 @@ var family_root_json = {
     "upasanta 2",
     "masc",
     "name of Vessabhū Buddha's attendant; lit. calmed",
-    "✘"
+    "✔"
    ],
    [
     "upasama 1",
@@ -77993,7 +78011,7 @@ var family_root_json = {
   "root_key": "√i 1",
   "root_family": "pati √i",
   "root_meaning": "come, go",
-  "count": 34,
+  "count": 35,
   "data": [
    [
     "apaccaya 2.1",
@@ -78197,6 +78215,12 @@ var family_root_json = {
     "sappaccaya",
     "adj",
     "conditional; with cause",
+    "✔"
+   ],
+   [
+    "suppatīta 1",
+    "masc",
+    "name of Vessabhū Buddha's father; lit. well pleased",
     "✔"
    ]
   ]
@@ -81510,8 +81534,8 @@ var family_root_json = {
    [
     "suppatita",
     "masc",
-    "name of Vessabhū Buddha's father",
-    "✘"
+    "name of Vessabhū Buddha's father; lit. well fallen; well landed",
+    "✔"
    ]
   ]
  },
@@ -87155,7 +87179,7 @@ var family_root_json = {
   "root_key": "√ric",
   "root_family": "pa √ric",
   "root_meaning": "empty",
-  "count": 8,
+  "count": 10,
   "data": [
    [
     "aparitta 1",
@@ -87185,6 +87209,18 @@ var family_root_json = {
     "paritta 1.3",
     "pp",
     "limited; restricted; circumscribed; lit. emptied",
+    "✔"
+   ],
+   [
+    "paritta 1.4",
+    "pp",
+    "(of time) short; brief; lit. emptied",
+    "✔"
+   ],
+   [
+    "paritta 1.5",
+    "pp",
+    "(of water) shallow; lit. emptied",
     "✔"
    ],
    [
@@ -88044,7 +88080,7 @@ var family_root_json = {
    [
     "paripūreti 1",
     "pr",
-    "fills up; fills out; lit. causes to fill",
+    "fills up; fills out; saturates; lit. causes to fill",
     "✔"
    ],
    [
@@ -88180,7 +88216,7 @@ var family_root_json = {
    [
     "parippharati",
     "pr",
-    "saturates; permeates; impregnates; completely infuses; spreads everywhere",
+    "saturates; permeates; pervades; completely infuses; spreads everywhere",
     "✔"
    ],
    [
@@ -89203,7 +89239,7 @@ var family_root_json = {
   "root_key": "√ādā",
   "root_family": "pari √ādā",
   "root_meaning": "take, seize",
-  "count": 20,
+  "count": 21,
   "data": [
    [
     "apariyādāna",
@@ -89305,6 +89341,12 @@ var family_root_json = {
     "pariyādiyati 3",
     "pr",
     "(of liquid) evaporates; dries up; lit. takes all around",
+    "✔"
+   ],
+   [
+    "pariyādiyamāna",
+    "prp",
+    "being used up; being exhausted; lit. being taken all around",
     "✔"
    ],
    [
@@ -96947,7 +96989,7 @@ var family_root_json = {
   "root_key": "√chad",
   "root_family": "pati √chad",
   "root_meaning": "cover, conceal",
-  "count": 27,
+  "count": 28,
   "data": [
    [
     "appaṭicchanna",
@@ -97052,9 +97094,15 @@ var family_root_json = {
     "✘"
    ],
    [
-    "paṭicchādī",
+    "paṭicchādī 1",
     "adj",
-    "hiding, covering, concealing, obscuring",
+    "covering; guarding; protecting",
+    "✔"
+   ],
+   [
+    "paṭicchādī 2",
+    "adj",
+    "hiding, concealing, obscuring",
     "✘"
    ],
    [
@@ -101649,7 +101697,7 @@ var family_root_json = {
     "pabhāvatī",
     "fem",
     "name of Sikhī Buddha's mother",
-    "✘"
+    "✔"
    ],
    [
     "pabhāvanā",
@@ -104898,22 +104946,16 @@ var family_root_json = {
     "✔"
    ],
    [
-    "bandhuma",
-    "masc",
-    "name of Vipassī Buddha's father; lit. having bonds",
-    "◑"
-   ],
-   [
     "bandhumatī 1",
     "fem",
     "name of Vipassī Buddha's mother",
-    "✘"
+    "✔"
    ],
    [
     "bandhumatī 2",
     "fem",
-    "name of the royal capital of king Bandhuma",
-    "✘"
+    "name of the royal capital of king Bandhumā",
+    "✔"
    ],
    [
     "bandhumant 1",
@@ -104926,6 +104968,12 @@ var family_root_json = {
     "masc",
     "name of a privately awakened Buddha; lit. having bonds quality",
     "◑"
+   ],
+   [
+    "bandhumant 3",
+    "masc",
+    "name of Vipassī Buddha's father; lit. having bonds quality",
+    "✔"
    ],
    [
     "bandhura",
@@ -117034,7 +117082,7 @@ var family_root_json = {
    [
     "abhisandeti",
     "pr",
-    "fills up; fills to the brim; overflows; lit. causes to overflow",
+    "fills up; fills to the brim; overflows; drenches; lit. causes to overflow",
     "✔"
    ],
    [
@@ -119484,8 +119532,8 @@ var family_root_json = {
    [
     "mānasa 3",
     "nt",
-    "notion, thought",
-    "✘"
+    "idea; thought; notion",
+    "✔"
    ],
    [
     "mānasa 4",
@@ -134804,8 +134852,8 @@ var family_root_json = {
    [
     "vassavatī",
     "fem",
-    "name of Vessabhū Buddha's mother",
-    "✘"
+    "name of Vessabhū Buddha's mother; lit. rainy",
+    "✔"
    ],
    [
     "vassāna",
@@ -137700,8 +137748,8 @@ var family_root_json = {
    [
     "vicāra 3",
     "masc",
-    "(abhidhamma) sustained application",
-    "✘"
+    "(abhidhamma) sustained application of attention; lit. causing to wander",
+    "◑"
    ],
    [
     "vicāraka 1",
@@ -137820,7 +137868,7 @@ var family_root_json = {
    [
     "savicāra",
     "adj",
-    "with management; with planning",
+    "with management; with planning; with consideration; lit. causing to move",
     "✔"
    ]
   ]
@@ -139242,7 +139290,7 @@ var family_root_json = {
    [
     "vitakka 2",
     "masc",
-    "(abhidhamma) application of mind; (comm) mounting",
+    "(abhidhamma) application of mind; initial application of attention; (comm) mounting",
     "◑"
    ],
    [
@@ -143542,8 +143590,8 @@ var family_root_json = {
    [
     "viviccati",
     "pr",
-    "is separate (from); is detached (from); is disengaged (from)",
-    "◑"
+    "is separate; is detached; is disengaged; is secluded (from)",
+    "✔"
    ],
    [
     "vivitta 1",
@@ -145220,8 +145268,8 @@ var family_root_json = {
    [
     "viheṭhesi",
     "aor",
-    "vexed, brought into difficulties",
-    "✘"
+    "vexed; troubled; disturbed; caused difficulty",
+    "✔"
    ]
   ]
  },
@@ -160097,7 +160145,7 @@ var family_root_json = {
     "sobha 2",
     "masc",
     "name of the reigning king at the time of Koṇāgamana Buddha",
-    "✘"
+    "✔"
    ],
    [
     "sobhaṇā",
@@ -160168,8 +160216,8 @@ var family_root_json = {
    [
     "sobhavatī",
     "fem",
-    "name of the royal capital of king Sobha",
-    "✘"
+    "name of the royal capital of king Sobha; lit. having shining quality",
+    "✔"
    ],
    [
     "sobhasī",
@@ -160880,8 +160928,8 @@ var family_root_json = {
    [
     "asoka 3",
     "masc",
-    "name of Vipassī Buddha's attendant",
-    "✘"
+    "name of Vipassī Buddha's attendant; lit. without sorrow",
+    "✔"
    ],
    [
     "asokatā",
@@ -173704,8 +173752,8 @@ var family_root_json = {
    [
     "upātipanna",
     "pp",
-    "fallen into the power of, prey to (plus locative.)",
-    "✘"
+    "fallen into the power (of); prey (to); addicted (to)",
+    "✔"
    ]
   ]
  },
@@ -195745,7 +195793,7 @@ var family_root_json = {
   "root_key": "√paṭh",
   "root_family": "√paṭh",
   "root_meaning": "read, recite",
-  "count": 10,
+  "count": 11,
   "data": [
    [
     "paṭhati 1",
@@ -195806,6 +195854,12 @@ var family_root_json = {
     "masc",
     "reciter",
     "✘"
+   ],
+   [
+    "pāṭhī",
+    "adj",
+    "who knows the texts; who recites the scriptures",
+    "✔"
    ]
   ]
  },
@@ -200452,7 +200506,7 @@ var family_root_json = {
    [
     "parisandeti",
     "pr",
-    "soaks; drenches; lit. makes flow around",
+    "soaks; steeps; drenches; lit. causes to flow around",
     "✔"
    ],
    [
@@ -206301,8 +206355,14 @@ var family_root_json = {
   "root_key": "√yas",
   "root_family": "√yas",
   "root_meaning": "strive, struggle",
-  "count": 1,
+  "count": 2,
   "data": [
+   [
+    "yasavatī",
+    "fem",
+    "name of Vessabhū Buddha's mother; lit. famous",
+    "✔"
+   ],
    [
     "yasu",
     "root",
@@ -213137,7 +213197,7 @@ var family_root_json = {
   "root_key": "√las",
   "root_family": "vi √las",
   "root_meaning": "shine, be active",
-  "count": 10,
+  "count": 11,
   "data": [
    [
     "vilasati",
@@ -213174,6 +213234,12 @@ var family_root_json = {
     "prp",
     "playing; sporting; having fun",
     "◑"
+   ],
+   [
+    "vilāsita",
+    "pp",
+    "elegant; graceful",
+    "✔"
    ],
    [
     "vilāsitā",

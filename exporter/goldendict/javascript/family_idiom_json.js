@@ -8775,8 +8775,14 @@ var family_idiom_json = {
   ]
  },
  "iṇa": {
-  "count": 1,
+  "count": 2,
   "data": [
+   [
+    "ānaṇyamuttamaṃ",
+    "sandhi",
+    "best freedom from debt",
+    "✔"
+   ],
    [
     "iṇaṃ ādāya",
     "idiom",
@@ -9894,7 +9900,7 @@ var family_idiom_json = {
     "ayamettha",
     "sandhi",
     "in this case this",
-    "◑"
+    "✔"
    ],
    [
     "ayameva",
@@ -12559,7 +12565,7 @@ var family_idiom_json = {
     "ayamettha",
     "sandhi",
     "in this case this",
-    "◑"
+    "✔"
    ],
    [
     "ayamevettha",
@@ -19322,6 +19328,47 @@ var family_idiom_json = {
    ]
   ]
  },
+ "uttama": {
+  "count": 6,
+  "data": [
+   [
+    "ānaṇyamuttamaṃ",
+    "sandhi",
+    "best freedom from debt",
+    "✔"
+   ],
+   [
+    "uttamatthassa pattiyā",
+    "idiom",
+    "to reach the supreme goal; to attain the highest benefit; lit. for the attainment of the highest benefit",
+    "✔"
+   ],
+   [
+    "jīvitamuttamaṃ",
+    "sandhi",
+    "best life; ultimate existence",
+    "✔"
+   ],
+   [
+    "dhammamuttamaṃ",
+    "sandhi",
+    "supreme teaching; highest Dhamma; ultimate reality; ultimate nature of things",
+    "✔"
+   ],
+   [
+    "santimuttamaṃ",
+    "sandhi",
+    "highest peace; supreme tranquillity; total calm",
+    "✔"
+   ],
+   [
+    "saraṇamuttamaṃ",
+    "sandhi",
+    "highest refuge; supreme shelter",
+    "✔"
+   ]
+  ]
+ },
  "amhi": {
   "count": 23,
   "data": [
@@ -21440,41 +21487,6 @@ var family_idiom_json = {
     "utūnīdha",
     "sandhi",
     "(there are) seasons here; now (there are) times of year",
-    "✔"
-   ]
-  ]
- },
- "uttama": {
-  "count": 5,
-  "data": [
-   [
-    "uttamatthassa pattiyā",
-    "idiom",
-    "to reach the supreme goal; to attain the highest benefit; lit. for the attainment of the highest benefit",
-    "✔"
-   ],
-   [
-    "jīvitamuttamaṃ",
-    "sandhi",
-    "best life; ultimate existence",
-    "✔"
-   ],
-   [
-    "dhammamuttamaṃ",
-    "sandhi",
-    "supreme teaching; highest Dhamma; ultimate reality; ultimate nature of things",
-    "✔"
-   ],
-   [
-    "santimuttamaṃ",
-    "sandhi",
-    "highest peace; supreme tranquillity; total calm",
-    "✔"
-   ],
-   [
-    "saraṇamuttamaṃ",
-    "sandhi",
-    "highest refuge; supreme shelter",
     "✔"
    ]
   ]

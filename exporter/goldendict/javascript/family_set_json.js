@@ -8657,6 +8657,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "aggidatta",
+    "masc",
+    "name of Kakusandha Buddha's father",
+    "✔"
+   ],
+   [
     "aṅgaka",
     "masc",
     "name of young Brahman; lit. from Bengal; (or) having limbs",
@@ -8732,6 +8738,12 @@ var family_set_json = {
     "uttara 2.12",
     "masc",
     "name of a young Brahman, disciple of Brahmāyu; lit. higher",
+    "✔"
+   ],
+   [
+    "uttarā 2",
+    "fem",
+    "name of Koṇāgamana Buddha's mother",
     "✔"
    ],
    [
@@ -8951,6 +8963,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "dhanavatī",
+    "fem",
+    "name of Kassapa Buddha's mother; lit. having wealth quality",
+    "✔"
+   ],
+   [
     "dhotaka",
     "masc",
     "name of a Brahman ascetic; lit. cleanser",
@@ -9011,12 +9029,6 @@ var family_set_json = {
     "✔"
    ],
    [
-    "bandhuma",
-    "masc",
-    "name of Vipassī Buddha's father; lit. having bonds",
-    "◑"
-   ],
-   [
     "bāvarī",
     "masc",
     "name of a Brahman ascetic",
@@ -9033,6 +9045,12 @@ var family_set_json = {
     "masc",
     "name of a Brahman; one of three brothers; lit. vinegar Bhāradvāja",
     "◑"
+   ],
+   [
+    "brahmadatta 2",
+    "masc",
+    "name of Kassapa Buddha's father",
+    "✔"
    ],
    [
     "brahmāyu",
@@ -9080,6 +9098,12 @@ var family_set_json = {
     "mettagū",
     "masc",
     "name of a Brahman ascetic",
+    "✔"
+   ],
+   [
+    "yaññadatta",
+    "masc",
+    "name of Koṇāgamana Buddha's father; lit. who offers the sacrifice",
     "✔"
    ],
    [
@@ -9164,6 +9188,12 @@ var family_set_json = {
     "vāseṭṭhabhāradvājā",
     "masc",
     "Vāseṭṭha and Bhāradvāja",
+    "✔"
+   ],
+   [
+    "visākhā 3",
+    "fem",
+    "name of Kakusandha Buddha's mother; lit. Libra",
     "✔"
    ],
    [
@@ -9263,7 +9293,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 102
+  "count": 107
  },
  "bodyparts": {
   "data": [
@@ -10894,7 +10924,7 @@ var family_set_json = {
    [
     "nahāpaka",
     "masc",
-    "bath attendant; lit. who causes to bath",
+    "bath attendant; lit. who causes to bathe",
     "✔"
    ],
    [
@@ -11390,6 +11420,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "lekhavācaka",
+    "masc",
+    "who reads royal orders; lit. letter speaker",
+    "✔"
+   ],
+   [
     "vaḍḍhakī",
     "masc",
     "carpenter; lit. increaser",
@@ -11540,7 +11576,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 207
+  "count": 208
  },
  "tastes": {
   "data": [
@@ -11661,7 +11697,7 @@ var family_set_json = {
     "aruṇavatī",
     "fem",
     "name of the royal capital of king Aruṇavā",
-    "◑"
+    "✔"
    ],
    [
     "āṭānāṭā",
@@ -11799,7 +11835,7 @@ var family_set_json = {
     "khema 4",
     "masc",
     "name of a park in Bandhumatī; lit. safety",
-    "◑"
+    "✔"
    ],
    [
     "gaggarā",
@@ -12558,983 +12594,6 @@ var family_set_json = {
    ]
   ],
   "count": 16
- },
- "names of laypeople": {
-  "data": [
-   [
-    "aggidatta",
-    "masc",
-    "name of Kakusandha Buddha's father",
-    "◑"
-   ],
-   [
-    "aggivessa",
-    "masc",
-    "name of a minister",
-    "◑"
-   ],
-   [
-    "ajita 2",
-    "masc",
-    "name of a Licchavi military general; lit. undefeated",
-    "◑"
-   ],
-   [
-    "atula 1",
-    "masc",
-    "name of a man; lit. immeasurable; uncountable",
-    "✔"
-   ],
-   [
-    "anaggapāka",
-    "masc",
-    "name of a layman; previous incarnation of Raṭṭhapāla; lit. cooking without limit",
-    "◑"
-   ],
-   [
-    "anāthapiṇḍika",
-    "masc",
-    "name of the Buddha's chief lay disciple; lit. feeder of the destitute",
-    "✔"
-   ],
-   [
-    "abhaya 3",
-    "masc",
-    "name of a Licchavi layman; lit. fearless",
-    "✔"
-   ],
-   [
-    "abhipāraka",
-    "masc",
-    "name of the general of king Sivi",
-    "✔"
-   ],
-   [
-    "ambapālī",
-    "fem",
-    "name of a courtesan; lit. row of mangoes",
-    "✔"
-   ],
-   [
-    "asibandhakaputta",
-    "masc",
-    "name of a layman; lit. son of sword strap",
-    "◑"
-   ],
-   [
-    "āgatapāka",
-    "masc",
-    "name of a layman; lit. cooking (for whoever) comes",
-    "◑"
-   ],
-   [
-    "illisa",
-    "masc",
-    "name of a rich man in a Jātaka story",
-    "✔"
-   ],
-   [
-    "isidatta 2",
-    "masc",
-    "name of one of king Pasenadi's architects; lit. given to the sage",
-    "✔"
-   ],
-   [
-    "isidattapurāṇā",
-    "masc",
-    "names of two architects; Isidatta and Purāṇa",
-    "✔"
-   ],
-   [
-    "ugga 3",
-    "masc",
-    "name of a householder; lit. going up",
-    "◑"
-   ],
-   [
-    "ugga 4",
-    "masc",
-    "name of a minister; lit. going up",
-    "◑"
-   ],
-   [
-    "uggasena",
-    "masc",
-    "name of a layman; son of a banker in Rājagaha; lit. with a mighty army",
-    "◑"
-   ],
-   [
-    "uttarānandamātar",
-    "fem",
-    "name of a female lay disciple; foremost among meditators; lit. northern Ānanda's mother",
-    "◑"
-   ],
-   [
-    "upananda 1",
-    "masc",
-    "name of the military general of Magadha; lit. descendent of Nanda",
-    "✔"
-   ],
-   [
-    "upāli 1",
-    "masc",
-    "name of a layman",
-    "✔"
-   ],
-   [
-    "ummadantī",
-    "fem",
-    "name of the daughter of a wealthy banker; lit. becoming crazy",
-    "◑"
-   ],
-   [
-    "oṭṭhaddha",
-    "masc",
-    "name of a Licchavi; lit. half lip; harelip",
-    "✔"
-   ],
-   [
-    "kaṭāhakā",
-    "fem",
-    "name of a female slave; lit. having a small pot",
-    "✔"
-   ],
-   [
-    "kaḷibha",
-    "masc",
-    "name of a lay disciple",
-    "◑"
-   ],
-   [
-    "kāṇamātar",
-    "fem",
-    "name of a lay disciple; lit. mother of blind in one eye",
-    "◑"
-   ],
-   [
-    "kātiyānī",
-    "fem",
-    "name of a female lay disciple; foremost among those with absolute faith; lit. descendent of Kati",
-    "◑"
-   ],
-   [
-    "kārāyana",
-    "masc",
-    "name of king Pasenadi's charioteer",
-    "✔"
-   ],
-   [
-    "kāḷakhemaka",
-    "masc",
-    "name of a Sakyan layman",
-    "◑"
-   ],
-   [
-    "kāḷigodhā",
-    "fem",
-    "name of a Sakyan laywoman; lit. black iguana",
-    "◑"
-   ],
-   [
-    "kāḷī 2",
-    "fem",
-    "name of female slave in Sāvatthī",
-    "✔"
-   ],
-   [
-    "kirapatika",
-    "masc",
-    "name of a layman",
-    "◑"
-   ],
-   [
-    "kukkuṭa 2",
-    "masc",
-    "name of a lay disciple; lit. chicken",
-    "✔"
-   ],
-   [
-    "kukkuṭamitta",
-    "masc",
-    "name of a hunter; lit. chicken's friend ??",
-    "✔"
-   ],
-   [
-    "kuṭumbika",
-    "masc",
-    "name of a layman; lit. head of a family",
-    "✔"
-   ],
-   [
-    "kevaṭṭa 2",
-    "masc",
-    "name of a layman; lit. fisherman",
-    "✔"
-   ],
-   [
-    "kesi",
-    "masc",
-    "name of a horse trainer; lit. with long hair",
-    "✔"
-   ],
-   [
-    "khaṇḍadevi",
-    "fem",
-    "name of a monk's mother",
-    "◑"
-   ],
-   [
-    "khujjuttarā",
-    "fem",
-    "name of a lay disciple; lit. humped northern",
-    "◑"
-   ],
-   [
-    "gandhabba 3",
-    "masc",
-    "name of a minister",
-    "◑"
-   ],
-   [
-    "giridāsa",
-    "masc",
-    "name of a man; lit. moutain savage",
-    "✔"
-   ],
-   [
-    "guttila",
-    "masc",
-    "name of a musician; previous incarnation of the Buddha",
-    "◑"
-   ],
-   [
-    "ghaṭikāra",
-    "masc",
-    "name of a potter; lit. water jar maker",
-    "✔"
-   ],
-   [
-    "cakkana",
-    "masc",
-    "name of a Sri Lankan lay disciple",
-    "✔"
-   ],
-   [
-    "caṇḍa 2",
-    "masc",
-    "name of a chieftain; lit. fierce",
-    "◑"
-   ],
-   [
-    "candanaṅgalika",
-    "masc",
-    "name of a layman",
-    "✔"
-   ],
-   [
-    "citta 2.4",
-    "masc",
-    "name of a householder lay-disciple; foremost lay disciple in giving Dhamma talks",
-    "✔"
-   ],
-   [
-    "ciravāsimātar",
-    "fem",
-    "name of a lay woman; lit. Ciravāsī's mother",
-    "◑"
-   ],
-   [
-    "ciravāsī",
-    "masc",
-    "name of Bhadraka's son; lit. long living",
-    "◑"
-   ],
-   [
-    "jīvaka",
-    "masc",
-    "name of a doctor; lit. who lives",
-    "✔"
-   ],
-   [
-    "jīvā",
-    "fem",
-    "name of a dead child; lit. living",
-    "✔"
-   ],
-   [
-    "jotika 2",
-    "masc",
-    "name of a householder; lit. having shine",
-    "◑"
-   ],
-   [
-    "tapassa",
-    "masc",
-    "name of a lay disciple",
-    "◑"
-   ],
-   [
-    "tapassubhallikā",
-    "masc",
-    "name of two laymen; great disciples of the Buddha; foremost in first taking refuge in the Buddha",
-    "◑"
-   ],
-   [
-    "tapussa",
-    "masc",
-    "name of a lay disciple",
-    "◑"
-   ],
-   [
-    "tapussabhallikā",
-    "masc",
-    "name of two laymen; great disciples of the Buddha; foremost in first taking refuge in the Buddha",
-    "◑"
-   ],
-   [
-    "tambadāṭhika",
-    "masc",
-    "name of an executioner; lit. with copper-coloured teeth",
-    "◑"
-   ],
-   [
-    "tavakaṇṇika",
-    "masc",
-    "name of a lay disciple",
-    "◑"
-   ],
-   [
-    "tālapuṭa 2",
-    "masc",
-    "name of an actor; lit. palm leaf wrap",
-    "✔"
-   ],
-   [
-    "tissamātar",
-    "fem",
-    "name of a laywoman; lit. Tissa's mother",
-    "◑"
-   ],
-   [
-    "tuṭṭha 2",
-    "masc",
-    "name of a lay disciple; lit. content; satisfied",
-    "◑"
-   ],
-   [
-    "daṇḍapāṇī 2",
-    "masc",
-    "name of a Sakyan layman; lit. with staff in hand",
-    "✔"
-   ],
-   [
-    "dasama 2",
-    "masc",
-    "name of a householder; lit. tenth",
-    "✔"
-   ],
-   [
-    "dārukammika",
-    "masc",
-    "name of a layperson; lit. wood worker; (comm) wood merchant",
-    "◑"
-   ],
-   [
-    "dīghakārāyana",
-    "masc",
-    "name of a general; nephew of Bandhula; commander-in-chief of Pasenadi",
-    "◑"
-   ],
-   [
-    "dīghajāṇu",
-    "masc",
-    "name of a Koliyan man; lit. long knees",
-    "✔"
-   ],
-   [
-    "dīghāvu",
-    "masc",
-    "name of a lay disciple; lit. long life",
-    "◑"
-   ],
-   [
-    "dummukha 2",
-    "masc",
-    "name of a Licchavi; lit. ugly face",
-    "✔"
-   ],
-   [
-    "dhammadinna",
-    "masc",
-    "name of a lay disciple; lit. given to religion",
-    "◑"
-   ],
-   [
-    "nakula 2",
-    "masc",
-    "name of a person whose parents were great disciples; lit. mongoose",
-    "◑"
-   ],
-   [
-    "nakulapitar",
-    "masc",
-    "name of a householder; lit. Nakula's father",
-    "◑"
-   ],
-   [
-    "nakulamātar",
-    "fem",
-    "name of a female lay disciple; foremost among those who are trustworthy; lit. mongoose's mother",
-    "◑"
-   ],
-   [
-    "nandamātar",
-    "fem",
-    "name of an eminent lay disciple; lit. Happy's mother",
-    "✔"
-   ],
-   [
-    "nāvindakī",
-    "masc",
-    "name of a minister",
-    "◑"
-   ],
-   [
-    "pañcakaṅga",
-    "masc",
-    "name of a layperson; lit. set of five tools",
-    "✔"
-   ],
-   [
-    "paṇḍitakumāraka",
-    "masc",
-    "name of a Licchavi; lit. wise prince",
-    "✔"
-   ],
-   [
-    "pāṭaliya",
-    "masc",
-    "name of chieftain",
-    "◑"
-   ],
-   [
-    "pāvārika 2",
-    "masc",
-    "name of a layman who offered a monastery to the Buddha",
-    "✔"
-   ],
-   [
-    "piyaka",
-    "masc",
-    "name of King Muṇḍa's treasurer; lit. dear",
-    "◑"
-   ],
-   [
-    "pukkusāti 2",
-    "masc",
-    "name of a layman",
-    "✔"
-   ],
-   [
-    "puṇṇavaḍḍhana",
-    "masc",
-    "name of Migāra's son; lit. increasing merit",
-    "◑"
-   ],
-   [
-    "puṇṇikā",
-    "fem",
-    "name of a water-carrying servant girl; lay name of Puṇṇā therī; lit. complete",
-    "✔"
-   ],
-   [
-    "purāṇa 7",
-    "masc",
-    "name of one of king Pasenadi's architects",
-    "✔"
-   ],
-   [
-    "peya",
-    "masc",
-    "name of a layman; lit. to be drunk",
-    "✔"
-   ],
-   [
-    "pessa 2",
-    "masc",
-    "name of a layman; lit. to be sent",
-    "✔"
-   ],
-   [
-    "potaliya",
-    "masc",
-    "name of a householder",
-    "✔"
-   ],
-   [
-    "bandhula",
-    "masc",
-    "name of a general; lit. having bonds",
-    "◑"
-   ],
-   [
-    "biḷālapādaka 2",
-    "masc",
-    "name of a wealthy layman; lit. cat's foot (weight)",
-    "◑"
-   ],
-   [
-    "bījaka 3",
-    "masc",
-    "name of Sudinna's son; lit. seedling",
-    "◑"
-   ],
-   [
-    "bījakamātar",
-    "fem",
-    "epithet of Sudinna's ex-wife; lit. Bījaka's mother",
-    "◑"
-   ],
-   [
-    "bhaddavatiya 1",
-    "masc",
-    "name of a wealthy man; lit. from Bhaddavatī",
-    "◑"
-   ],
-   [
-    "bhaddiya 2",
-    "masc",
-    "name of a Licchavi; lit. lucky; fortunate",
-    "✔"
-   ],
-   [
-    "bhadraka 2",
-    "masc",
-    "name of a chieftain; lit. lucky",
-    "◑"
-   ],
-   [
-    "bhallika",
-    "masc",
-    "name of a lay disciple",
-    "◑"
-   ],
-   [
-    "bhesika",
-    "masc",
-    "name of a washroom attendant",
-    "✔"
-   ],
-   [
-    "majjha 4",
-    "masc",
-    "name of a wealthy layman; father of Anopamā; lit. middle",
-    "✔"
-   ],
-   [
-    "maṇicūḷaka",
-    "masc",
-    "name of a chieftain; lit. jewelled crest",
-    "◑"
-   ],
-   [
-    "mahānāma 1",
-    "masc",
-    "name of a Sakyan layman; lit. great name",
-    "✔"
-   ],
-   [
-    "mahāli",
-    "masc",
-    "name of a Licchavi man",
-    "✔"
-   ],
-   [
-    "mānadinna",
-    "masc",
-    "name of a lay disciple; lit. give to conceit",
-    "◑"
-   ],
-   [
-    "migava 3",
-    "masc",
-    "name of a park-keeper; lit. deer hunter",
-    "✔"
-   ],
-   [
-    "migasāṇā",
-    "fem",
-    "name of a female lay disciple; lit. deer hemp",
-    "◑"
-   ],
-   [
-    "migasālā",
-    "fem",
-    "name of a female lay disciple; lit. deer hall",
-    "✔"
-   ],
-   [
-    "migāra",
-    "masc",
-    "name of a wealthy layman",
-    "✔"
-   ],
-   [
-    "meṇḍaka 2",
-    "masc",
-    "name of a lay disciple; lit. sheep",
-    "◑"
-   ],
-   [
-    "meṇḍakanattar",
-    "masc",
-    "name of a man; Meṇḍaka's grandson; lit. sheep's grandson",
-    "◑"
-   ],
-   [
-    "medakathālikā 2",
-    "fem",
-    "name of a acrobat; (comm) name of a male acrobat with a female name; lit. pot of lard",
-    "✔"
-   ],
-   [
-    "moggalla",
-    "masc",
-    "name of a minister",
-    "◑"
-   ],
-   [
-    "yamaka 4",
-    "masc",
-    "name of a minister; lit. twin",
-    "◑"
-   ],
-   [
-    "rattapāṇi",
-    "masc",
-    "name of a dyer; lit. red-handed",
-    "✔"
-   ],
-   [
-    "rāsiya",
-    "masc",
-    "name of a chieftain; lit. heaps",
-    "◑"
-   ],
-   [
-    "rosika",
-    "masc",
-    "name of a washroom attendant; lit. angry",
-    "✔"
-   ],
-   [
-    "rohaṇa",
-    "masc",
-    "name of a young layman; lit. ascending",
-    "◑"
-   ],
-   [
-    "vajjiyamahita",
-    "masc",
-    "name of a lay disciple",
-    "◑"
-   ],
-   [
-    "vajjiyamāhita",
-    "masc",
-    "name of a lay disciple; lit. honoured among the Vajjians",
-    "✔"
-   ],
-   [
-    "vappa 2",
-    "masc",
-    "name of a Sakyan; lit. planting",
-    "✔"
-   ],
-   [
-    "vijayamāhika",
-    "masc",
-    "name of a lay disciple",
-    "◑"
-   ],
-   [
-    "viṭaṭūbha",
-    "masc",
-    "name of king Pasenadi's general",
-    "✔"
-   ],
-   [
-    "viḍūḍabha",
-    "masc",
-    "name of king Pasenadi's general",
-    "✔"
-   ],
-   [
-    "visākha 2",
-    "masc",
-    "name of a lay disciple; lit. Libra",
-    "✔"
-   ],
-   [
-    "visākhā 1",
-    "fem",
-    "name of the Buddha's chief female disciple, foremost female donor to the Saṅgha; lit. Libra",
-    "✔"
-   ],
-   [
-    "vedehikā",
-    "fem",
-    "name of a laywoman in Sāvatthī; lit. from Videha; wise",
-    "✔"
-   ],
-   [
-    "velāma",
-    "masc",
-    "name of the Buddha in a previous incarnation",
-    "◑"
-   ],
-   [
-    "veḷukaṇḍakiyā",
-    "fem",
-    "name of a lay disciple; lit. bamboo thorn",
-    "◑"
-   ],
-   [
-    "veḷukaṇḍakī",
-    "fem",
-    "name of a lay disciple; lit. bamboo thorn",
-    "◑"
-   ],
-   [
-    "sakulā 2",
-    "fem",
-    "name of a laywomen, sister of king Pasenadi's queen; lit. one's own family",
-    "✔"
-   ],
-   [
-    "satulakāyī",
-    "fem",
-    "name of Jotika's wife; lit. with a body like cotton wool ??",
-    "✔"
-   ],
-   [
-    "sandhāna 1",
-    "masc",
-    "name of a lay disciple; lit. uniting",
-    "✔"
-   ],
-   [
-    "samīti",
-    "masc",
-    "name of a wainwright in Sāvatthī",
-    "✔"
-   ],
-   [
-    "sarakāni",
-    "masc",
-    "name of a Sakyan lay disciple",
-    "◑"
-   ],
-   [
-    "saraṇāni",
-    "masc",
-    "name of a Sakyan lay disciple; lit. refuges",
-    "◑"
-   ],
-   [
-    "sāṇa 1.3",
-    "masc",
-    "name of a layman",
-    "✔"
-   ],
-   [
-    "sādatta",
-    "masc",
-    "name of a lay disciple",
-    "◑"
-   ],
-   [
-    "sāmā 5",
-    "fem",
-    "name of a courtesan in a Jātaka story; lit. brown",
-    "✔"
-   ],
-   [
-    "sāmāvatī 1",
-    "fem",
-    "name of a female lay disciple; foremost among those living in a state of friendliness; lit. of dark complexion",
-    "◑"
-   ],
-   [
-    "sāragga",
-    "masc",
-    "name of a lay disciple",
-    "◑"
-   ],
-   [
-    "sālavatī 2",
-    "fem",
-    "name of a royal courtesan; lit. with many halls",
-    "◑"
-   ],
-   [
-    "sāḷha 1",
-    "masc",
-    "name of a layman; Visākha's grandson",
-    "✔"
-   ],
-   [
-    "sāḷha 2",
-    "masc",
-    "name of a Licchavi layman",
-    "✔"
-   ],
-   [
-    "sigālaka 2",
-    "masc",
-    "name of a lay disciple; lit. little jackal",
-    "◑"
-   ],
-   [
-    "siṅgālaka 2",
-    "masc",
-    "name of a lay disciple; lit. little jackal",
-    "◑"
-   ],
-   [
-    "sirivaḍḍha 1",
-    "masc",
-    "name of a Kosalan minister; lit. glory increase",
-    "✔"
-   ],
-   [
-    "sirivaḍḍha 2",
-    "masc",
-    "name of a lay disciple; lit. glory increase",
-    "◑"
-   ],
-   [
-    "sirīvaḍḍha",
-    "masc",
-    "name of a lay disciple; lit. glory increase",
-    "◑"
-   ],
-   [
-    "sīha 2",
-    "masc",
-    "name of a military general in Vesālī; lit. lion",
-    "◑"
-   ],
-   [
-    "sutanā",
-    "fem",
-    "name of a laywoman",
-    "◑"
-   ],
-   [
-    "sudatta",
-    "masc",
-    "name of Anāthapiṇḍika; father of Saddha; lit. well given",
-    "✔"
-   ],
-   [
-    "sudhanā",
-    "fem",
-    "name of a laywoman; lit. very wealthy",
-    "◑"
-   ],
-   [
-    "supabbā",
-    "fem",
-    "name of a lay disciple; lit. good joints",
-    "◑"
-   ],
-   [
-    "suppabuddha",
-    "masc",
-    "name of a leper; lit. well awakened",
-    "✔"
-   ],
-   [
-    "suppavāsā",
-    "fem",
-    "name of a female lay disciple; foremost among those who offer excellent items; lit. happily living abroad",
-    "◑"
-   ],
-   [
-    "subhaṭa",
-    "masc",
-    "name of a lay disciple; lit. well supported",
-    "◑"
-   ],
-   [
-    "sūrambaṭṭha",
-    "masc",
-    "name of a lay disciple; foremost among those with absolute faith",
-    "◑"
-   ],
-   [
-    "serivant",
-    "masc",
-    "name of a merchant; lit. having independent quality",
-    "✔"
-   ],
-   [
-    "soṇa 2",
-    "masc",
-    "name of a layman; lit. dog",
-    "✔"
-   ],
-   [
-    "soṇamātar",
-    "fem",
-    "name of a laywoman; lit. Soṇa's mother",
-    "◑"
-   ],
-   [
-    "somā 2",
-    "fem",
-    "name of a laywoman, sister of Pasenadi's queen; lit. soma",
-    "✔"
-   ],
-   [
-    "hatthaka 1",
-    "masc",
-    "name of a layman in Āḷavī; lit. handy",
-    "✔"
-   ],
-   [
-    "haliddikāni",
-    "masc",
-    "name of a householder",
-    "◑"
-   ],
-   [
-    "hārika 2",
-    "masc",
-    "name of an executioner; lit. carrying",
-    "✔"
-   ],
-   [
-    "hāliddakāni",
-    "masc",
-    "name of a householder",
-    "◑"
-   ],
-   [
-    "hāliddika",
-    "masc",
-    "name of a householder",
-    "◑"
-   ],
-   [
-    "hāliddikāni",
-    "masc",
-    "name of a householder",
-    "◑"
-   ]
-  ],
-  "count": 162
  },
  "types of ascetics": {
   "data": [
@@ -14644,6 +13703,977 @@ var family_set_json = {
   ],
   "count": 126
  },
+ "names of laypeople": {
+  "data": [
+   [
+    "aggivessa",
+    "masc",
+    "name of a minister",
+    "◑"
+   ],
+   [
+    "ajita 2",
+    "masc",
+    "name of a Licchavi military general; lit. undefeated",
+    "◑"
+   ],
+   [
+    "atula 1",
+    "masc",
+    "name of a man; lit. immeasurable; uncountable",
+    "✔"
+   ],
+   [
+    "anaggapāka",
+    "masc",
+    "name of a layman; previous incarnation of Raṭṭhapāla; lit. cooking without limit",
+    "◑"
+   ],
+   [
+    "anāthapiṇḍika",
+    "masc",
+    "name of the Buddha's chief lay disciple; lit. feeder of the destitute",
+    "✔"
+   ],
+   [
+    "abhaya 3",
+    "masc",
+    "name of a Licchavi layman; lit. fearless",
+    "✔"
+   ],
+   [
+    "abhipāraka",
+    "masc",
+    "name of the general of king Sivi",
+    "✔"
+   ],
+   [
+    "ambapālī",
+    "fem",
+    "name of a courtesan; lit. row of mangoes",
+    "✔"
+   ],
+   [
+    "asibandhakaputta",
+    "masc",
+    "name of a layman; lit. son of sword strap",
+    "◑"
+   ],
+   [
+    "āgatapāka",
+    "masc",
+    "name of a layman; lit. cooking (for whoever) comes",
+    "◑"
+   ],
+   [
+    "illisa",
+    "masc",
+    "name of a rich man in a Jātaka story",
+    "✔"
+   ],
+   [
+    "isidatta 2",
+    "masc",
+    "name of one of king Pasenadi's architects; lit. given to the sage",
+    "✔"
+   ],
+   [
+    "isidattapurāṇā",
+    "masc",
+    "names of two architects; Isidatta and Purāṇa",
+    "✔"
+   ],
+   [
+    "ugga 3",
+    "masc",
+    "name of a householder; lit. going up",
+    "◑"
+   ],
+   [
+    "ugga 4",
+    "masc",
+    "name of a minister; lit. going up",
+    "◑"
+   ],
+   [
+    "uggasena",
+    "masc",
+    "name of a layman; son of a banker in Rājagaha; lit. with a mighty army",
+    "◑"
+   ],
+   [
+    "uttarānandamātar",
+    "fem",
+    "name of a female lay disciple; foremost among meditators; lit. northern Ānanda's mother",
+    "◑"
+   ],
+   [
+    "upananda 1",
+    "masc",
+    "name of the military general of Magadha; lit. descendent of Nanda",
+    "✔"
+   ],
+   [
+    "upāli 1",
+    "masc",
+    "name of a layman",
+    "✔"
+   ],
+   [
+    "ummadantī",
+    "fem",
+    "name of the daughter of a wealthy banker; lit. becoming crazy",
+    "◑"
+   ],
+   [
+    "oṭṭhaddha",
+    "masc",
+    "name of a Licchavi; lit. half lip; harelip",
+    "✔"
+   ],
+   [
+    "kaṭāhakā",
+    "fem",
+    "name of a female slave; lit. having a small pot",
+    "✔"
+   ],
+   [
+    "kaḷibha",
+    "masc",
+    "name of a lay disciple",
+    "◑"
+   ],
+   [
+    "kāṇamātar",
+    "fem",
+    "name of a lay disciple; lit. mother of blind in one eye",
+    "◑"
+   ],
+   [
+    "kātiyānī",
+    "fem",
+    "name of a female lay disciple; foremost among those with absolute faith; lit. descendent of Kati",
+    "◑"
+   ],
+   [
+    "kārāyana",
+    "masc",
+    "name of king Pasenadi's charioteer",
+    "✔"
+   ],
+   [
+    "kāḷakhemaka",
+    "masc",
+    "name of a Sakyan layman",
+    "◑"
+   ],
+   [
+    "kāḷigodhā",
+    "fem",
+    "name of a Sakyan laywoman; lit. black iguana",
+    "◑"
+   ],
+   [
+    "kāḷī 2",
+    "fem",
+    "name of female slave in Sāvatthī",
+    "✔"
+   ],
+   [
+    "kirapatika",
+    "masc",
+    "name of a layman",
+    "◑"
+   ],
+   [
+    "kukkuṭa 2",
+    "masc",
+    "name of a lay disciple; lit. chicken",
+    "✔"
+   ],
+   [
+    "kukkuṭamitta",
+    "masc",
+    "name of a hunter; lit. chicken's friend ??",
+    "✔"
+   ],
+   [
+    "kuṭumbika",
+    "masc",
+    "name of a layman; lit. head of a family",
+    "✔"
+   ],
+   [
+    "kevaṭṭa 2",
+    "masc",
+    "name of a layman; lit. fisherman",
+    "✔"
+   ],
+   [
+    "kesi",
+    "masc",
+    "name of a horse trainer; lit. with long hair",
+    "✔"
+   ],
+   [
+    "khaṇḍadevi",
+    "fem",
+    "name of a monk's mother",
+    "◑"
+   ],
+   [
+    "khujjuttarā",
+    "fem",
+    "name of a lay disciple; lit. humped northern",
+    "◑"
+   ],
+   [
+    "gandhabba 3",
+    "masc",
+    "name of a minister",
+    "◑"
+   ],
+   [
+    "giridāsa",
+    "masc",
+    "name of a man; lit. moutain savage",
+    "✔"
+   ],
+   [
+    "guttila",
+    "masc",
+    "name of a musician; previous incarnation of the Buddha",
+    "◑"
+   ],
+   [
+    "ghaṭikāra",
+    "masc",
+    "name of a potter; lit. water jar maker",
+    "✔"
+   ],
+   [
+    "cakkana",
+    "masc",
+    "name of a Sri Lankan lay disciple",
+    "✔"
+   ],
+   [
+    "caṇḍa 2",
+    "masc",
+    "name of a chieftain; lit. fierce",
+    "◑"
+   ],
+   [
+    "candanaṅgalika",
+    "masc",
+    "name of a layman",
+    "✔"
+   ],
+   [
+    "citta 2.4",
+    "masc",
+    "name of a householder lay-disciple; foremost lay disciple in giving Dhamma talks",
+    "✔"
+   ],
+   [
+    "ciravāsimātar",
+    "fem",
+    "name of a lay woman; lit. Ciravāsī's mother",
+    "◑"
+   ],
+   [
+    "ciravāsī",
+    "masc",
+    "name of Bhadraka's son; lit. long living",
+    "◑"
+   ],
+   [
+    "jīvaka",
+    "masc",
+    "name of a doctor; lit. who lives",
+    "✔"
+   ],
+   [
+    "jīvā",
+    "fem",
+    "name of a dead child; lit. living",
+    "✔"
+   ],
+   [
+    "jotika 2",
+    "masc",
+    "name of a householder; lit. having shine",
+    "◑"
+   ],
+   [
+    "tapassa",
+    "masc",
+    "name of a lay disciple",
+    "◑"
+   ],
+   [
+    "tapassubhallikā",
+    "masc",
+    "name of two laymen; great disciples of the Buddha; foremost in first taking refuge in the Buddha",
+    "◑"
+   ],
+   [
+    "tapussa",
+    "masc",
+    "name of a lay disciple",
+    "◑"
+   ],
+   [
+    "tapussabhallikā",
+    "masc",
+    "name of two laymen; great disciples of the Buddha; foremost in first taking refuge in the Buddha",
+    "◑"
+   ],
+   [
+    "tambadāṭhika",
+    "masc",
+    "name of an executioner; lit. with copper-coloured teeth",
+    "◑"
+   ],
+   [
+    "tavakaṇṇika",
+    "masc",
+    "name of a lay disciple",
+    "◑"
+   ],
+   [
+    "tālapuṭa 2",
+    "masc",
+    "name of an actor; lit. palm leaf wrap",
+    "✔"
+   ],
+   [
+    "tissamātar",
+    "fem",
+    "name of a laywoman; lit. Tissa's mother",
+    "◑"
+   ],
+   [
+    "tuṭṭha 2",
+    "masc",
+    "name of a lay disciple; lit. content; satisfied",
+    "◑"
+   ],
+   [
+    "daṇḍapāṇī 2",
+    "masc",
+    "name of a Sakyan layman; lit. with staff in hand",
+    "✔"
+   ],
+   [
+    "dasama 2",
+    "masc",
+    "name of a householder; lit. tenth",
+    "✔"
+   ],
+   [
+    "dārukammika",
+    "masc",
+    "name of a layperson; lit. wood worker; (comm) wood merchant",
+    "◑"
+   ],
+   [
+    "dīghakārāyana",
+    "masc",
+    "name of a general; nephew of Bandhula; commander-in-chief of Pasenadi",
+    "◑"
+   ],
+   [
+    "dīghajāṇu",
+    "masc",
+    "name of a Koliyan man; lit. long knees",
+    "✔"
+   ],
+   [
+    "dīghāvu",
+    "masc",
+    "name of a lay disciple; lit. long life",
+    "◑"
+   ],
+   [
+    "dummukha 2",
+    "masc",
+    "name of a Licchavi; lit. ugly face",
+    "✔"
+   ],
+   [
+    "dhammadinna",
+    "masc",
+    "name of a lay disciple; lit. given to religion",
+    "◑"
+   ],
+   [
+    "nakula 2",
+    "masc",
+    "name of a person whose parents were great disciples; lit. mongoose",
+    "◑"
+   ],
+   [
+    "nakulapitar",
+    "masc",
+    "name of a householder; lit. Nakula's father",
+    "◑"
+   ],
+   [
+    "nakulamātar",
+    "fem",
+    "name of a female lay disciple; foremost among those who are trustworthy; lit. mongoose's mother",
+    "◑"
+   ],
+   [
+    "nandamātar",
+    "fem",
+    "name of an eminent lay disciple; lit. Happy's mother",
+    "✔"
+   ],
+   [
+    "nāvindakī",
+    "masc",
+    "name of a minister",
+    "◑"
+   ],
+   [
+    "pañcakaṅga",
+    "masc",
+    "name of a layperson; lit. set of five tools",
+    "✔"
+   ],
+   [
+    "paṇḍitakumāraka",
+    "masc",
+    "name of a Licchavi; lit. wise prince",
+    "✔"
+   ],
+   [
+    "pāṭaliya",
+    "masc",
+    "name of chieftain",
+    "◑"
+   ],
+   [
+    "pāvārika 2",
+    "masc",
+    "name of a layman who offered a monastery to the Buddha",
+    "✔"
+   ],
+   [
+    "piyaka",
+    "masc",
+    "name of King Muṇḍa's treasurer; lit. dear",
+    "◑"
+   ],
+   [
+    "pukkusāti 2",
+    "masc",
+    "name of a layman",
+    "✔"
+   ],
+   [
+    "puṇṇavaḍḍhana",
+    "masc",
+    "name of Migāra's son; lit. increasing merit",
+    "◑"
+   ],
+   [
+    "puṇṇikā",
+    "fem",
+    "name of a water-carrying servant girl; lay name of Puṇṇā therī; lit. complete",
+    "✔"
+   ],
+   [
+    "purāṇa 7",
+    "masc",
+    "name of one of king Pasenadi's architects",
+    "✔"
+   ],
+   [
+    "peya",
+    "masc",
+    "name of a layman; lit. to be drunk",
+    "✔"
+   ],
+   [
+    "pessa 2",
+    "masc",
+    "name of a layman; lit. to be sent",
+    "✔"
+   ],
+   [
+    "potaliya",
+    "masc",
+    "name of a householder",
+    "✔"
+   ],
+   [
+    "bandhula",
+    "masc",
+    "name of a general; lit. having bonds",
+    "◑"
+   ],
+   [
+    "biḷālapādaka 2",
+    "masc",
+    "name of a wealthy layman; lit. cat's foot (weight)",
+    "◑"
+   ],
+   [
+    "bījaka 3",
+    "masc",
+    "name of Sudinna's son; lit. seedling",
+    "◑"
+   ],
+   [
+    "bījakamātar",
+    "fem",
+    "epithet of Sudinna's ex-wife; lit. Bījaka's mother",
+    "◑"
+   ],
+   [
+    "bhaddavatiya 1",
+    "masc",
+    "name of a wealthy man; lit. from Bhaddavatī",
+    "◑"
+   ],
+   [
+    "bhaddiya 2",
+    "masc",
+    "name of a Licchavi; lit. lucky; fortunate",
+    "✔"
+   ],
+   [
+    "bhadraka 2",
+    "masc",
+    "name of a chieftain; lit. lucky",
+    "◑"
+   ],
+   [
+    "bhallika",
+    "masc",
+    "name of a lay disciple",
+    "◑"
+   ],
+   [
+    "bhesika",
+    "masc",
+    "name of a washroom attendant",
+    "✔"
+   ],
+   [
+    "majjha 4",
+    "masc",
+    "name of a wealthy layman; father of Anopamā; lit. middle",
+    "✔"
+   ],
+   [
+    "maṇicūḷaka",
+    "masc",
+    "name of a chieftain; lit. jewelled crest",
+    "◑"
+   ],
+   [
+    "mahānāma 1",
+    "masc",
+    "name of a Sakyan layman; lit. great name",
+    "✔"
+   ],
+   [
+    "mahāli",
+    "masc",
+    "name of a Licchavi man",
+    "✔"
+   ],
+   [
+    "mānadinna",
+    "masc",
+    "name of a lay disciple; lit. give to conceit",
+    "◑"
+   ],
+   [
+    "migava 3",
+    "masc",
+    "name of a park-keeper; lit. deer hunter",
+    "✔"
+   ],
+   [
+    "migasāṇā",
+    "fem",
+    "name of a female lay disciple; lit. deer hemp",
+    "◑"
+   ],
+   [
+    "migasālā",
+    "fem",
+    "name of a female lay disciple; lit. deer hall",
+    "✔"
+   ],
+   [
+    "migāra",
+    "masc",
+    "name of a wealthy layman",
+    "✔"
+   ],
+   [
+    "meṇḍaka 2",
+    "masc",
+    "name of a lay disciple; lit. sheep",
+    "◑"
+   ],
+   [
+    "meṇḍakanattar",
+    "masc",
+    "name of a man; Meṇḍaka's grandson; lit. sheep's grandson",
+    "◑"
+   ],
+   [
+    "medakathālikā 2",
+    "fem",
+    "name of a acrobat; (comm) name of a male acrobat with a female name; lit. pot of lard",
+    "✔"
+   ],
+   [
+    "moggalla",
+    "masc",
+    "name of a minister",
+    "◑"
+   ],
+   [
+    "yamaka 4",
+    "masc",
+    "name of a minister; lit. twin",
+    "◑"
+   ],
+   [
+    "rattapāṇi",
+    "masc",
+    "name of a dyer; lit. red-handed",
+    "✔"
+   ],
+   [
+    "rāsiya",
+    "masc",
+    "name of a chieftain; lit. heaps",
+    "◑"
+   ],
+   [
+    "rosika",
+    "masc",
+    "name of a washroom attendant; lit. angry",
+    "✔"
+   ],
+   [
+    "rohaṇa",
+    "masc",
+    "name of a young layman; lit. ascending",
+    "◑"
+   ],
+   [
+    "vajjiyamahita",
+    "masc",
+    "name of a lay disciple",
+    "◑"
+   ],
+   [
+    "vajjiyamāhita",
+    "masc",
+    "name of a lay disciple; lit. honoured among the Vajjians",
+    "✔"
+   ],
+   [
+    "vappa 2",
+    "masc",
+    "name of a Sakyan; lit. planting",
+    "✔"
+   ],
+   [
+    "vijayamāhika",
+    "masc",
+    "name of a lay disciple",
+    "◑"
+   ],
+   [
+    "viṭaṭūbha",
+    "masc",
+    "name of king Pasenadi's general",
+    "✔"
+   ],
+   [
+    "viḍūḍabha",
+    "masc",
+    "name of king Pasenadi's general",
+    "✔"
+   ],
+   [
+    "visākha 2",
+    "masc",
+    "name of a lay disciple; lit. Libra",
+    "✔"
+   ],
+   [
+    "visākhā 1",
+    "fem",
+    "name of the Buddha's chief female disciple, foremost female donor to the Saṅgha; lit. Libra",
+    "✔"
+   ],
+   [
+    "vedehikā",
+    "fem",
+    "name of a laywoman in Sāvatthī; lit. from Videha; wise",
+    "✔"
+   ],
+   [
+    "velāma",
+    "masc",
+    "name of the Buddha in a previous incarnation",
+    "◑"
+   ],
+   [
+    "veḷukaṇḍakiyā",
+    "fem",
+    "name of a lay disciple; lit. bamboo thorn",
+    "◑"
+   ],
+   [
+    "veḷukaṇḍakī",
+    "fem",
+    "name of a lay disciple; lit. bamboo thorn",
+    "◑"
+   ],
+   [
+    "sakulā 2",
+    "fem",
+    "name of a laywomen, sister of king Pasenadi's queen; lit. one's own family",
+    "✔"
+   ],
+   [
+    "satulakāyī",
+    "fem",
+    "name of Jotika's wife; lit. with a body like cotton wool ??",
+    "✔"
+   ],
+   [
+    "sandhāna 1",
+    "masc",
+    "name of a lay disciple; lit. uniting",
+    "✔"
+   ],
+   [
+    "samīti",
+    "masc",
+    "name of a wainwright in Sāvatthī",
+    "✔"
+   ],
+   [
+    "sarakāni",
+    "masc",
+    "name of a Sakyan lay disciple",
+    "◑"
+   ],
+   [
+    "saraṇāni",
+    "masc",
+    "name of a Sakyan lay disciple; lit. refuges",
+    "◑"
+   ],
+   [
+    "sāṇa 1.3",
+    "masc",
+    "name of a layman",
+    "✔"
+   ],
+   [
+    "sādatta",
+    "masc",
+    "name of a lay disciple",
+    "◑"
+   ],
+   [
+    "sāmā 5",
+    "fem",
+    "name of a courtesan in a Jātaka story; lit. brown",
+    "✔"
+   ],
+   [
+    "sāmāvatī 1",
+    "fem",
+    "name of a female lay disciple; foremost among those living in a state of friendliness; lit. of dark complexion",
+    "◑"
+   ],
+   [
+    "sāragga",
+    "masc",
+    "name of a lay disciple",
+    "◑"
+   ],
+   [
+    "sālavatī 2",
+    "fem",
+    "name of a royal courtesan; lit. with many halls",
+    "◑"
+   ],
+   [
+    "sāḷha 1",
+    "masc",
+    "name of a layman; Visākha's grandson",
+    "✔"
+   ],
+   [
+    "sāḷha 2",
+    "masc",
+    "name of a Licchavi layman",
+    "✔"
+   ],
+   [
+    "sigālaka 2",
+    "masc",
+    "name of a lay disciple; lit. little jackal",
+    "◑"
+   ],
+   [
+    "siṅgālaka 2",
+    "masc",
+    "name of a lay disciple; lit. little jackal",
+    "✔"
+   ],
+   [
+    "sirivaḍḍha 1",
+    "masc",
+    "name of a Kosalan minister; lit. glory increase",
+    "✔"
+   ],
+   [
+    "sirivaḍḍha 2",
+    "masc",
+    "name of a lay disciple; lit. glory increase",
+    "◑"
+   ],
+   [
+    "sirīvaḍḍha",
+    "masc",
+    "name of a lay disciple; lit. glory increase",
+    "◑"
+   ],
+   [
+    "sīha 2",
+    "masc",
+    "name of a military general in Vesālī; lit. lion",
+    "◑"
+   ],
+   [
+    "sutanā",
+    "fem",
+    "name of a laywoman",
+    "◑"
+   ],
+   [
+    "sudatta",
+    "masc",
+    "name of Anāthapiṇḍika; father of Saddha; lit. well given",
+    "✔"
+   ],
+   [
+    "sudhanā",
+    "fem",
+    "name of a laywoman; lit. very wealthy",
+    "◑"
+   ],
+   [
+    "supabbā",
+    "fem",
+    "name of a lay disciple; lit. good joints",
+    "◑"
+   ],
+   [
+    "suppabuddha",
+    "masc",
+    "name of a leper; lit. well awakened",
+    "✔"
+   ],
+   [
+    "suppavāsā",
+    "fem",
+    "name of a female lay disciple; foremost among those who offer excellent items; lit. happily living abroad",
+    "◑"
+   ],
+   [
+    "subhaṭa",
+    "masc",
+    "name of a lay disciple; lit. well supported",
+    "◑"
+   ],
+   [
+    "sūrambaṭṭha",
+    "masc",
+    "name of a lay disciple; foremost among those with absolute faith",
+    "◑"
+   ],
+   [
+    "serivant",
+    "masc",
+    "name of a merchant; lit. having independent quality",
+    "✔"
+   ],
+   [
+    "soṇa 2",
+    "masc",
+    "name of a layman; lit. dog",
+    "✔"
+   ],
+   [
+    "soṇamātar",
+    "fem",
+    "name of a laywoman; lit. Soṇa's mother",
+    "◑"
+   ],
+   [
+    "somā 2",
+    "fem",
+    "name of a laywoman, sister of Pasenadi's queen; lit. soma",
+    "✔"
+   ],
+   [
+    "hatthaka 1",
+    "masc",
+    "name of a layman in Āḷavī; lit. handy",
+    "✔"
+   ],
+   [
+    "haliddikāni",
+    "masc",
+    "name of a householder",
+    "◑"
+   ],
+   [
+    "hārika 2",
+    "masc",
+    "name of an executioner; lit. carrying",
+    "✔"
+   ],
+   [
+    "hāliddakāni",
+    "masc",
+    "name of a householder",
+    "◑"
+   ],
+   [
+    "hāliddika",
+    "masc",
+    "name of a householder",
+    "◑"
+   ],
+   [
+    "hāliddikāni",
+    "masc",
+    "name of a householder",
+    "◑"
+   ]
+  ],
+  "count": 161
+ },
  "family names": {
   "data": [
    [
@@ -14709,8 +14739,8 @@ var family_set_json = {
    [
     "koṇḍañña 2",
     "masc",
-    "name of a clan",
-    "◑"
+    "name of a family clan",
+    "✔"
    ],
    [
     "kosiya 2",
@@ -15730,9 +15760,21 @@ var family_set_json = {
     "◑"
    ],
    [
+    "abhibhūsambhava",
+    "nt",
+    "names of Sikhī Buddha's pair of chief disciples; Abhibhū and Sambhava",
+    "✔"
+   ],
+   [
     "ariṭṭha 1.1",
     "masc",
     "name of a monk; lit. unhurt",
+    "✔"
+   ],
+   [
+    "asoka 3",
+    "masc",
+    "name of Vipassī Buddha's attendant; lit. without sorrow",
     "✔"
    ],
    [
@@ -15895,6 +15937,12 @@ var family_set_json = {
     "upavāḷa",
     "masc",
     "name of a monk; lit. descendent of wild animal",
+    "✔"
+   ],
+   [
+    "upasanta 2",
+    "masc",
+    "name of Vessabhū Buddha's attendant; lit. calmed",
     "✔"
    ],
    [
@@ -16294,6 +16342,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "khaṇḍatissa",
+    "nt",
+    "names of Vipassī Buddha's pair of chief disciples; Khaṇḍa and Tissa",
+    "✔"
+   ],
+   [
     "khaṇḍasumana",
     "masc",
     "name of an arahant monk",
@@ -16327,6 +16381,12 @@ var family_set_json = {
     "khujjasobhita",
     "masc",
     "name of an arahant monk; lit. humpbacked shone",
+    "✔"
+   ],
+   [
+    "khemaṅkara 2",
+    "masc",
+    "name of Sikhī Buddha's attendant; lit. who makes safety",
     "✔"
    ],
    [
@@ -16615,6 +16675,12 @@ var family_set_json = {
     "tissatthera 2",
     "masc",
     "generic monk's name used in examples; Venerable Tissa",
+    "✔"
+   ],
+   [
+    "tissabhāradvāja",
+    "nt",
+    "names of Kassapa Buddha's pair of chief disciples; Tissa and Bhāradvāja",
     "✔"
    ],
    [
@@ -17110,6 +17176,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "buddhija",
+    "masc",
+    "name of Kakusandha Buddha's attendant; lit. born from intelligence",
+    "✔"
+   ],
+   [
     "buddhupaṭṭhāka",
     "masc",
     "name of a monk",
@@ -17228,6 +17300,12 @@ var family_set_json = {
     "masc",
     "name of an arahant monk",
     "◑"
+   ],
+   [
+    "bhiyyosuttara",
+    "nt",
+    "names of Koṇāgamana Buddha's pair of chief disciples; Bhiyyosa and Uttara",
+    "✔"
    ],
    [
     "bhūta 9",
@@ -17920,6 +17998,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "sabbamitta 1",
+    "masc",
+    "name of Kassapa Buddha's attendant; lit. friend of all",
+    "✔"
+   ],
+   [
     "sabbamitta 2",
     "masc",
     "name of an arahant monk",
@@ -18055,6 +18139,12 @@ var family_set_json = {
     "sāriputta",
     "masc",
     "name of an arahant monk; chief disciple; great disciple of the Buddha; foremost disciple in great wisdom; lit. son of Sāri",
+    "✔"
+   ],
+   [
+    "sāriputtamoggallāna",
+    "nt",
+    "names of Buddha's pair of chief disciples; Sāriputta and Moggallāna",
     "✔"
    ],
    [
@@ -18364,6 +18454,18 @@ var family_set_json = {
     "◑"
    ],
    [
+    "soṇuttara 1",
+    "nt",
+    "names of Vessabhū Buddha's pair of chief disciples; Soṇa and Uttara",
+    "✔"
+   ],
+   [
+    "sotthija",
+    "masc",
+    "name of Koṇāgamana Buddha's attendant",
+    "✔"
+   ],
+   [
     "sopāka 2",
     "masc",
     "name of an arahant monk; lit. dog-cooker",
@@ -18418,7 +18520,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 469
+  "count": 481
  },
  "names of arahants": {
   "data": [
@@ -19317,6 +19419,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "tissabhāradvāja",
+    "nt",
+    "names of Kassapa Buddha's pair of chief disciples; Tissa and Bhāradvāja",
+    "✔"
+   ],
+   [
     "tissā 1",
     "fem",
     "name of an arahant nun",
@@ -19933,6 +20041,12 @@ var family_set_json = {
     "masc",
     "name of an arahant monk",
     "◑"
+   ],
+   [
+    "bhiyyosuttara",
+    "nt",
+    "names of Koṇāgamana Buddha's pair of chief disciples; Bhiyyosa and Uttara",
+    "✔"
    ],
    [
     "bhūta 9",
@@ -20685,6 +20799,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "sāriputtamoggallāna",
+    "nt",
+    "names of Buddha's pair of chief disciples; Sāriputta and Moggallāna",
+    "✔"
+   ],
+   [
     "siṅgālapitar",
     "masc",
     "name of an arahant monk; lit. jackal's father",
@@ -21033,6 +21153,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "soṇuttara 1",
+    "nt",
+    "names of Vessabhū Buddha's pair of chief disciples; Soṇa and Uttara",
+    "✔"
+   ],
+   [
     "sopāka 2",
     "masc",
     "name of an arahant monk; lit. dog-cooker",
@@ -21093,7 +21219,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 445
+  "count": 449
  },
  "people": {
   "data": [
@@ -21421,7 +21547,7 @@ var family_set_json = {
     "✔"
    ],
    [
-    "nāga 12",
+    "nāga 4",
     "masc",
     "noble person; great man; epithet of an arahant; epithet of the Buddha",
     "✔"
@@ -25606,6 +25732,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "aruṇa 3",
+    "masc",
+    "name of Sikhī Buddha's father; lit. dawn",
+    "✔"
+   ],
+   [
     "aruṇavant",
     "masc",
     "name of a king; lit. having dawn quality",
@@ -25756,6 +25888,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "khema 5",
+    "masc",
+    "name of the reigning king at the time of Kakusandha Buddha; lit. safety",
+    "✔"
+   ],
+   [
     "khemaka 3",
     "masc",
     "name of a Sakyan king; lit. safety",
@@ -25858,9 +25996,27 @@ var family_set_json = {
     "◑"
    ],
    [
+    "pabhāvatī",
+    "fem",
+    "name of Sikhī Buddha's mother",
+    "✔"
+   ],
+   [
     "pasenadi",
     "masc",
     "name of the king of Kosala",
+    "✔"
+   ],
+   [
+    "bandhumatī 1",
+    "fem",
+    "name of Vipassī Buddha's mother",
+    "✔"
+   ],
+   [
+    "bandhumant 3",
+    "masc",
+    "name of Vipassī Buddha's father; lit. having bonds quality",
     "✔"
    ],
    [
@@ -25885,7 +26041,7 @@ var family_set_json = {
     "brahmadatta 3",
     "masc",
     "name of one the seven Bharata kings",
-    "◑"
+    "✔"
    ],
    [
     "bhaddasena",
@@ -25960,6 +26116,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "yasavatī",
+    "fem",
+    "name of Vessabhū Buddha's mother; lit. famous",
+    "✔"
+   ],
+   [
     "reṇu 3",
     "masc",
     "name of a king; son of king Disampati; lit. dust",
@@ -25969,6 +26131,12 @@ var family_set_json = {
     "vajirī",
     "fem",
     "name of a princess; daughter of king Pasenadi; lit. diamond",
+    "✔"
+   ],
+   [
+    "vassavatī",
+    "fem",
+    "name of Vessabhū Buddha's mother; lit. rainy",
     "✔"
    ],
    [
@@ -26005,7 +26173,7 @@ var family_set_json = {
     "vessabhū 2",
     "masc",
     "name of one the seven Bharata kings",
-    "◑"
+    "✔"
    ],
    [
     "sacetana 2",
@@ -26050,6 +26218,24 @@ var family_set_json = {
     "◑"
    ],
    [
+    "suddhodana",
+    "masc",
+    "name of the Buddha's father; king of the Sakyans; lit. white rice",
+    "✔"
+   ],
+   [
+    "suppatita",
+    "masc",
+    "name of Vessabhū Buddha's father; lit. well fallen; well landed",
+    "✔"
+   ],
+   [
+    "suppatīta 1",
+    "masc",
+    "name of Vessabhū Buddha's father; lit. well pleased",
+    "✔"
+   ],
+   [
     "subhaddā 1",
     "fem",
     "name of a queen; wife of king Mahāsudassana; lit. very fortunate",
@@ -26068,13 +26254,19 @@ var family_set_json = {
     "✔"
    ],
    [
+    "sobha 2",
+    "masc",
+    "name of the reigning king at the time of Koṇāgamana Buddha",
+    "✔"
+   ],
+   [
     "hatthinika",
     "masc",
     "name of one of the sons of king Okkāka",
     "✔"
    ]
   ],
-  "count": 83
+  "count": 94
  },
  "six ascetic teachers": {
   "data": [
@@ -27021,8 +27213,8 @@ var family_set_json = {
    [
     "puṇḍarīka 2",
     "nt",
-    "fragrant mango tree; Mangifera indica",
-    "◑"
+    "fragrant mango tree; white mango; Mangifera indica",
+    "✔"
    ],
    [
     "punnāga",
@@ -29079,6 +29271,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "anoma 2",
+    "nt",
+    "name of the royal capital of king Suppatita; lit. not inferior",
+    "✔"
+   ],
+   [
     "andhakavinda 1",
     "nt",
     "name of a town",
@@ -29445,6 +29643,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "khemavatī",
+    "fem",
+    "name of the royal capital of king Khema",
+    "✔"
+   ],
+   [
     "khomadussa 2",
     "nt",
     "name of a Sakyan village; lit. flax cloth",
@@ -29797,6 +30001,12 @@ var family_set_json = {
     "nt",
     "name of a Vajjian village",
     "◑"
+   ],
+   [
+    "bandhumatī 2",
+    "fem",
+    "name of the royal capital of king Bandhumā",
+    "✔"
    ],
    [
     "bārāṇasī",
@@ -30213,6 +30423,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "sobhavatī",
+    "fem",
+    "name of the royal capital of king Sobha; lit. having shining quality",
+    "✔"
+   ],
+   [
     "soreyya",
     "nt",
     "name of a town",
@@ -30225,7 +30441,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 192
+  "count": 196
  },
  "ordinal numbers": {
   "data": [
@@ -30262,8 +30478,8 @@ var family_set_json = {
    [
     "ekatiṃsa",
     "ordin",
-    "thirty first (31st)",
-    "◑"
+    "thirty-first (31st)",
+    "✔"
    ],
    [
     "ekattiṃsatima",
@@ -33031,6 +33247,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "dhammacakkhu",
+    "nt",
+    "insight into the nature of reality; spiritual insight; understanding of the way things are; lit. Dhamma eye",
+    "✔"
+   ],
+   [
     "dhammānusārī 2",
     "adj",
     "who has attained stream entry through understanding the teaching; lit. following the Dhamma",
@@ -33103,7 +33325,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 29
+  "count": 30
  },
  "nine types of suttas": {
   "data": [
@@ -33868,8 +34090,8 @@ var family_set_json = {
    [
     "puṇḍarīka 2",
     "nt",
-    "fragrant mango tree; Mangifera indica",
-    "◑"
+    "fragrant mango tree; white mango; Mangifera indica",
+    "✔"
    ],
    [
     "punnāga",

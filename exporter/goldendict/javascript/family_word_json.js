@@ -2689,7 +2689,7 @@ var family_word_json = {
    [
     "antika 1",
     "adj",
-    "around; near; borderong on; at the time of",
+    "around; near; bordering on",
     "✔"
    ],
    [
@@ -2703,6 +2703,12 @@ var family_word_json = {
     "nt",
     "neighbourhood",
     "✘"
+   ],
+   [
+    "antika 4",
+    "adj",
+    "at the time of; lit. near",
+    "✔"
    ],
    [
     "antima",
@@ -3113,7 +3119,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 117
+  "count": 118
  },
  "acchara": {
   "data": [
@@ -6157,8 +6163,8 @@ var family_word_json = {
    [
     "lahuka 1",
     "adj",
-    "quick; fast; swift; lit. light",
-    "◑"
+    "(of time or life) brief; short-lived; lit. light",
+    "✔"
    ],
    [
     "lahuka 2",
@@ -6169,11 +6175,17 @@ var family_word_json = {
    [
     "lahuka 3",
     "adj",
-    "trifling; unimportant; negligible",
+    "trifling; unimportant; negligible; lit. light",
     "◑"
    ],
    [
     "lahuka 4",
+    "adj",
+    "quick; fast; swift; lit. light",
+    "◑"
+   ],
+   [
+    "lahuka 5",
     "adj",
     "buoyant",
     "✘"
@@ -6251,7 +6263,7 @@ var family_word_json = {
     "◑"
    ]
   ],
-  "count": 20
+  "count": 21
  },
  "visa": {
   "data": [
@@ -8093,7 +8105,7 @@ var family_word_json = {
     "nagara 2",
     "nt",
     "fortress; citadel; stronghold; fortification",
-    "◑"
+    "✔"
    ],
    [
     "nagaraka",
@@ -9545,7 +9557,7 @@ var family_word_json = {
     "uttarā 2",
     "fem",
     "name of Koṇāgamana Buddha's mother",
-    "✘"
+    "✔"
    ],
    [
     "uttarā 3",
@@ -10595,8 +10607,8 @@ var family_word_json = {
    [
     "anoma 2",
     "nt",
-    "name of the royal capital of king Suppatita",
-    "✘"
+    "name of the royal capital of king Suppatita; lit. not inferior",
+    "✔"
    ],
    [
     "anomiya",
@@ -13969,7 +13981,7 @@ var family_word_json = {
     "māya",
     "adj",
     "deceitful; dishonest",
-    "✘"
+    "✔"
    ],
    [
     "māyā 1",
@@ -15137,8 +15149,8 @@ var family_word_json = {
    [
     "aruṇa 3",
     "masc",
-    "name of Sikhī Buddha's father",
-    "✘"
+    "name of Sikhī Buddha's father; lit. dawn",
+    "✔"
    ],
    [
     "aruṇaka",
@@ -15150,7 +15162,7 @@ var family_word_json = {
     "aruṇavatī",
     "fem",
     "name of the royal capital of king Aruṇavā",
-    "◑"
+    "✔"
    ],
    [
     "aruṇavant",
@@ -26581,12 +26593,6 @@ var family_word_json = {
     "✔"
    ],
    [
-    "nāga 12",
-    "masc",
-    "noble person; great man; epithet of an arahant; epithet of the Buddha",
-    "✔"
-   ],
-   [
     "nāga 2",
     "masc",
     "dragon; drake; supernatural shape-shifting serpent",
@@ -26596,6 +26602,12 @@ var family_word_json = {
     "nāga 3",
     "masc",
     "tusker; bull elephant",
+    "✔"
+   ],
+   [
+    "nāga 4",
+    "masc",
+    "noble person; great man; epithet of an arahant; epithet of the Buddha",
     "✔"
    ],
    [
@@ -27995,8 +28007,8 @@ var family_word_json = {
    [
     "visākhā 3",
     "fem",
-    "name of Kakusandha Buddha's mother",
-    "✘"
+    "name of Kakusandha Buddha's mother; lit. Libra",
+    "✔"
    ],
    [
     "visākhā 4",
@@ -28534,8 +28546,8 @@ var family_word_json = {
    [
     "puṇḍarīka 2",
     "nt",
-    "fragrant mango tree; Mangifera indica",
-    "◑"
+    "fragrant mango tree; white mango; Mangifera indica",
+    "✔"
    ],
    [
     "puṇḍarīka 3",
@@ -33814,7 +33826,7 @@ var family_word_json = {
     "siṅgālaka 2",
     "masc",
     "name of a lay disciple; lit. little jackal",
-    "◑"
+    "✔"
    ],
    [
     "segālaka",
