@@ -30,12 +30,12 @@ AN	Aṅguttara Nikāya			Book 4 of the Sutta Piṭaka; Numbered Discourses; lit.
 ANa	Aṅguttara Nikāya Aṭṭhakathā	Manorathapūraṇī		Commentary on the Aṅguttara Nikāya compiled by Ven. Buddhaghosa; the “Fulfiller of Wishes”; lit. which fills with mental delight		Ангуттара Никая Комментарий
 ANt	Aṅguttara Nikāya Tīkā	Sāratthamañjūsā				Ангуттара Никая Подкомментарий
 aor	aorist verb	ajjatanī; atītakāla	ahosi; nisīdi; udapādi	A form of a verb that, in the indicative mood, expresses past action. (e.g. was; sat down; arose)	аор	аорист, прошедшее время
-APA	Therāpadāna			Book 10 of the Khuddaka Nikāya; Legends of the Elder Monks		Тхерападана Комментарий
-APAa	Therāpadāna Aṭṭhakathā			Book 11 of the Khuddaka Nikāya; Legends of the Elder Nuns		Тхериападана
-API	Therīapadāna					Тхериападана Комментарий
-APIa	Therīapadāna Aṭṭhakathā					Абхидха̄наппадӣпика̄па̄т̣ха
-APP	Abhidhānappadīpikāpāṭha, by Ven. Moggallāna			A fourteenth century Pāḷi thesaurus.	прич.прош.действ	причастие прошедшего времени действительного залога
-app	active past participle		bhuttāvī; dassāvī	e.g. who has eaten; who has seen		Абхидха̄наппадӣпика̄т̣ӣка̄
+APA	Therāpadāna			Book 10 of the Khuddaka Nikāya; Legends of the Elder Monks		Тхерападана
+APAa	Therāpadāna Aṭṭhakathā			Book 11 of the Khuddaka Nikāya; Legends of the Elder Nuns		Тхерападана Комментарий
+API	Therīapadāna					Тхериападана
+APIa	Therīapadāna Aṭṭhakathā					Тхериападана Комментарий
+APP	Abhidhānappadīpikāpāṭha, by Ven. Moggallāna			A fourteenth century Pāḷi thesaurus.		Абхидха̄наппадӣпика̄па̄т̣ха
+app	active past participle		bhuttāvī; dassāvī	e.g. who has eaten; who has seen	прич.прош.действ	причастие прошедшего времени действительного залога, оканчивающемуся на -вший
 APt	Abhidhānappadīpikā Ṭīkā			Commentary on the fourteenth century Pāḷi thesaurus.		Абхидха̄наппадӣпика̄т̣ӣка̄
 base	pronominal base	liṅga	ta; ima; ya; kaci	e.g. that, this, which, someone	основа	основа местоимения
 BD	Concise Pali English Dictionary by Ven. Buddhadatta			"<a class=""link"" href=""http://www.ahandfulofleaves.org/documents/concise%20pali%20english%20dictionary_buddhadatta.pdf"">web-link</a>"		Краткий Словарь Пали-Англ. Досл. Буддхадатта
@@ -141,7 +141,7 @@ NPa	Nettippakaraṇa Aṭṭhakathā
 NPt	Nettippakaraṇa Ṭīkā					
 nt	neuter noun	napuṃsaka; napuṁsakaliṅga	citta, rūpa, viññāṇa		ср	средний род
 onom	onomatopoeia		capucapu, sū, surusuru	Using words that imitate the sound they denote	оном	ономатопея, звукоподражание
-opt	optative mood	sattamī	siyā; gaccheyya; uddiseyya	A mood that expresses a wish, probability, advice or capability; expressed in English by modal verbs (should / could / may / might)	желат	оптативное, желательное наклонение
+opt	optative mood	sattamī	siyā; gaccheyya; uddiseyya	A mood that expresses a wish, probability, advice or capability; expressed in English by modal verbs (should / could / may / might)	желат	"оптативное, желательное наклонение; с помощью модальных вспомогательных глаголов таких как ""следует, ""должен"", ""может"", ""мог бы"""
 ordin	ordinal number	saṅkhyāpūraṇa	paṭhama; dutiya; tatiya	The number designating place in an ordered sequence (e.g. first; second; third)	поряд.ч	порядковое числительное
 pass	passive verb	kamma; kammakāraka	pahīyati; vuccati; paññāyati	The voice used to indicate that the grammatical subject of the verb is the recipient (not the source) of the action denoted by the verb (e.g. is abandoned; is said; is clearly known)	страд	страдательный залог
 patr	patronymic		kassapa; bhāradvāja; kaccāna	A name derived from a paternal ancestor (e.g. descendant of Kassapa; descended from Bharadvāja; descendant of Kati)	патр	указывающий на происхождение, о префиксе, суффиксе, патроним
@@ -161,7 +161,7 @@ prefix	prefix	upasagga	ā-; abhi-; nī-	An affix that is added in front of the w
 prep	preposition	nipāta; avyaya	saddhiṃ; purato; anto	A function word that combines with a noun or pronoun or noun phrase to form a prepositional phrase that can have an adverbial or adjectival relation to some other word (e.g. with; in front (of); within)	предл	предлог; препозиция
 prk	Prakrit			Any of the vernacular indic languages of north and central india (as distinguished from sanskrit) recorded from the 3rd century BC to the 4th century AD		Пракрит
 pron	pronoun, pronominal adjective	sabbanāma	so; etaṃ; añña; sabba	A function word that is used in place of a noun or noun phrase (he; this; another; all)	местоим	местоимение
-prp	present participle	missakiriya	passanta; viharanta; jānanta	Verbal adjective, which describes the action that a noun is doing. (seeing; dwelling; knowing)	прич.наст	причастие настоящего времени. Так же иногда можно перевести как деепричастие несовершенного вида, отвечает на вопрос «что делая?»
+prp	present participle	missakiriya	passanta; viharanta; jānanta	Verbal adjective, which describes the action that a noun is doing. (seeing; dwelling; knowing)	прич.наст	"в прямых падежах (именительный) переводится как деепричастие несовершенного вида, отвечая на вопрос ""что делая?""; в косвенных падежах (винительный и далее) переводится как причастие настоящего времени, отвечая на вопрос ""что делающий?""."
 PRS	Padarūpasiddhi					Падарупасиддхи
 PTH	Paṭṭhānapāḷi					
 PTP	Peṭakopadesapāḷi					
