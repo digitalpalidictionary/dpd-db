@@ -99,8 +99,6 @@ def make_searches(db_session) -> Dict[str, list]:
     compound_families = db_session.query(FamilyCompound).all()
     searches["compound_families"] = compound_families
 
-
-
     return searches
 
 
@@ -861,7 +859,7 @@ def duplicate_words_meaning_lit(searches: dict) -> tuple:
         "suve suve", "yena yeneva", "samasamagati", "aggamagga 2.1",
         "antarantarā 1", "huṃhuṅkajātika", "huṃhuṅka", "huṃhuṅka",
         "nihuṃhuṅka", "nihuṃhuṅka", "sabhāvatta", "appappa", 
-        "nānantavant", "nissāya nissāya", 
+        "nānantavant", "nissāya nissāya", "neso natthīti",
     ]
 
     results = []

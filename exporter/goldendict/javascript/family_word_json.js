@@ -3085,13 +3085,13 @@ var family_word_json = {
    [
     "samantā 2",
     "ind",
-    "nearby; bordering; neighbouring; lit. with ends together",
+    "nearby; bordering; neighbouring; lit. from ends together",
     "✔"
    ],
    [
     "samantā 3",
     "ind",
-    "encircling; all around; lit. with ends together",
+    "encircling; all around; lit. from ends together",
     "✔"
    ],
    [
@@ -6280,6 +6280,12 @@ var family_word_json = {
     "✘"
    ],
    [
+    "avisa",
+    "adj",
+    "not poisonous; non-venomous",
+    "✔"
+   ],
+   [
     "nibbisa 2.1",
     "adj",
     "poisonless",
@@ -6310,7 +6316,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 7
+  "count": 8
  },
  "visāla": {
   "data": [
@@ -10601,13 +10607,13 @@ var family_word_json = {
    [
     "anoma 1",
     "adj",
-    "superior; supreme; exalted; lit. not inferior",
+    "superior; supreme; exalted; lit. not lower",
     "✔"
    ],
    [
     "anoma 2",
     "nt",
-    "name of the royal capital of king Suppatita; lit. not inferior",
+    "name of the royal capital of king Suppatita; lit. not lower",
     "✔"
    ],
    [
@@ -18602,6 +18608,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "ūmikā",
+    "fem",
+    "wave",
+    "✔"
+   ],
+   [
     "ūmī",
     "fem",
     "wave, billow; ripple",
@@ -18614,7 +18626,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 5
+  "count": 6
  },
  "uraṇa": {
   "data": [
@@ -22263,7 +22275,7 @@ var family_word_json = {
    [
     "khattiyī",
     "fem",
-    "women of the ruling caste; noblewoman",
+    "woman of the ruling caste; noblewoman",
     "✔"
    ],
    [
@@ -24325,9 +24337,15 @@ var family_word_json = {
     "nt",
     "lover; mistress; lit. lover state",
     "✔"
+   ],
+   [
+    "jārī",
+    "fem",
+    "adulteress; mistress",
+    "✔"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "jeṭṭha": {
   "data": [
@@ -27682,7 +27700,7 @@ var family_word_json = {
    [
     "padumī 2",
     "adj",
-    "(of an elephant) spotted; mottled; lit. with lotuses",
+    "(of an elephant) spotted; mottled; lit. with lotus markings",
     "✔"
    ]
   ],
@@ -28742,6 +28760,12 @@ var family_word_json = {
  "pūva": {
   "data": [
    [
+    "pūpika",
+    "masc",
+    "baker; cake maker",
+    "✔"
+   ],
+   [
     "pūva",
     "masc",
     "cake; (comm) various sweets and pastries made as a gift",
@@ -28754,7 +28778,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "pekhuṇa": {
   "data": [

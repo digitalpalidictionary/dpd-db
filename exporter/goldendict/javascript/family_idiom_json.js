@@ -9899,7 +9899,7 @@ var family_idiom_json = {
    [
     "ayamettha",
     "sandhi",
-    "in this case this",
+    "this here si; in this case this",
     "✔"
    ],
    [
@@ -12564,7 +12564,7 @@ var family_idiom_json = {
    [
     "ayamettha",
     "sandhi",
-    "in this case this",
+    "this here si; in this case this",
     "✔"
    ],
    [

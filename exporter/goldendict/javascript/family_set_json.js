@@ -9049,7 +9049,7 @@ var family_set_json = {
    [
     "brahmadatta 2",
     "masc",
-    "name of Kassapa Buddha's father",
+    "name of Kassapa Buddha's father; lit. given to god; (or) protected by god",
     "✔"
    ],
    [
@@ -11138,6 +11138,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "pūpika",
+    "masc",
+    "baker; cake maker",
+    "✔"
+   ],
+   [
     "pūvika",
     "masc",
     "baker; cake maker",
@@ -11572,11 +11578,11 @@ var family_set_json = {
    [
     "hatthibandha",
     "masc",
-    "elephant keeper",
+    "elephant keeper; elephant groom",
     "✔"
    ]
   ],
-  "count": 208
+  "count": 209
  },
  "tastes": {
   "data": [
@@ -11691,12 +11697,6 @@ var family_set_json = {
     "andhavana",
     "nt",
     "name of a wood outside Sāvatthī; lit. dark wood; blind wood",
-    "✔"
-   ],
-   [
-    "aruṇavatī",
-    "fem",
-    "name of the royal capital of king Aruṇavā",
     "✔"
    ],
    [
@@ -12492,7 +12492,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 139
+  "count": 138
  },
  "holy sites": {
   "data": [
@@ -17213,14 +17213,14 @@ var family_set_json = {
    ],
    [
     "brahmadatta 1",
-    "adj",
+    "masc",
     "name of an ancient king; lit. given to god; (or) protected by god",
     "✔"
    ],
    [
     "brahmadatta 4",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. given to god; (or) protected by god",
     "◑"
    ],
    [
@@ -19937,7 +19937,7 @@ var family_set_json = {
    [
     "brahmadatta 4",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. given to god; (or) protected by god",
     "◑"
    ],
    [
@@ -25998,7 +25998,7 @@ var family_set_json = {
    [
     "pabhāvatī",
     "fem",
-    "name of Sikhī Buddha's mother",
+    "name of Sikhī Buddha's mother; lit. radiant",
     "✔"
    ],
    [
@@ -26040,7 +26040,7 @@ var family_set_json = {
    [
     "brahmadatta 3",
     "masc",
-    "name of one the seven Bharata kings",
+    "name of one the seven Bharata kings; lit. given to god; (or) protected by god",
     "✔"
    ],
    [
@@ -28480,6 +28480,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "aṭṭhasaṭṭhi",
+    "card",
+    "sixty eight (68)",
+    "✔"
+   ],
+   [
     "aṭṭhasata",
     "card",
     "one hundred and eight (108)",
@@ -29260,7 +29266,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 137
+  "count": 138
  },
  "villages, towns and cities": {
   "data": [
@@ -29273,7 +29279,7 @@ var family_set_json = {
    [
     "anoma 2",
     "nt",
-    "name of the royal capital of king Suppatita; lit. not inferior",
+    "name of the royal capital of king Suppatita; lit. not lower",
     "✔"
    ],
    [
@@ -29311,6 +29317,12 @@ var family_set_json = {
     "fem",
     "name of a town; lit. unfightable",
     "◑"
+   ],
+   [
+    "aruṇavatī",
+    "fem",
+    "name of the royal capital of king Aruṇavā",
+    "✔"
    ],
    [
     "avanti 1",
@@ -30441,7 +30453,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 196
+  "count": 197
  },
  "ordinal numbers": {
   "data": [
