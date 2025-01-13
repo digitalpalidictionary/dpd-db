@@ -188,8 +188,11 @@ def make_summary_string(g: GlobalVars):
 {g.line_4}
 {g.line_5}
 {g.line_6}
-- 100% dictionary recognition in the early texts
-- xyz
+- Pass1 complete: VIN1-2, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
+- Pass1 in progress: VIN3
+- Pass2 complete: DN1, MN1
+- Pass2 in progress: DN2 
+- ...
 - numerous additions and corrections based on user feedback
 
 {g.line_7}
