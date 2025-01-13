@@ -562,6 +562,29 @@ var family_idiom_json = {
    ]
   ]
  },
+ "kāretvā": {
+  "count": 3,
+  "data": [
+   [
+    "okāsaṃ kāretvā",
+    "idiom",
+    "having gained permission (to); having been given consent (to); lit. having caused to make space",
+    "◑"
+   ],
+   [
+    "paṭiññaṃ kāretvā",
+    "idiom",
+    "having made a promise; having vowed",
+    "◑"
+   ],
+   [
+    "rajjaṃ kāretvā",
+    "idiom",
+    "having ruled; having reigned; lit. having caused to make a kingdom",
+    "✔"
+   ]
+  ]
+ },
  "kāla": {
   "count": 16,
   "data": [
@@ -780,6 +803,28 @@ var family_idiom_json = {
    ]
   ]
  },
+ "kukkucca": {
+  "count": 1,
+  "data": [
+   [
+    "kukkuccaṃ upadahati",
+    "idiom",
+    "provokes anxiety; causes unease",
+    "✔"
+   ]
+  ]
+ },
+ "kuddha": {
+  "count": 1,
+  "data": [
+   [
+    "kuddhabhāvamassa",
+    "sandhi",
+    "his angry state; his enraged condition",
+    "◑"
+   ]
+  ]
+ },
  "kusala": {
   "count": 2,
   "data": [
@@ -805,17 +850,6 @@ var family_idiom_json = {
     "idiom",
     "completely and utterly; complete and utter; 100%",
     "✔"
-   ]
-  ]
- },
- "kuddha": {
-  "count": 1,
-  "data": [
-   [
-    "kuddhabhāvamassa",
-    "sandhi",
-    "his angry state; his enraged condition",
-    "◑"
    ]
   ]
  },
@@ -3278,12 +3312,6 @@ var family_idiom_json = {
     "✔"
    ],
    [
-    "nevatthi",
-    "sandhi",
-    "neither is (nor)",
-    "✔"
-   ],
-   [
     "nevatthi 1",
     "sandhi",
     "there is neither (nor); neither exists (nor)",
@@ -3293,6 +3321,12 @@ var family_idiom_json = {
     "nevatthi 2",
     "sandhi",
     "there would not be",
+    "✔"
+   ],
+   [
+    "nevatthi 3",
+    "sandhi",
+    "neither is (nor)",
     "✔"
    ],
    [
@@ -9677,12 +9711,6 @@ var family_idiom_json = {
     "✔"
    ],
    [
-    "nevatthi",
-    "sandhi",
-    "neither is (nor)",
-    "✔"
-   ],
-   [
     "nevatthi 1",
     "sandhi",
     "there is neither (nor); neither exists (nor)",
@@ -9692,6 +9720,12 @@ var family_idiom_json = {
     "nevatthi 2",
     "sandhi",
     "there would not be",
+    "✔"
+   ],
+   [
+    "nevatthi 3",
+    "sandhi",
+    "neither is (nor)",
     "✔"
    ],
    [
@@ -22999,29 +23033,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "kāretvā": {
-  "count": 3,
-  "data": [
-   [
-    "okāsaṃ kāretvā",
-    "idiom",
-    "having gained permission (to); having been given consent (to); lit. having caused to make space",
-    "◑"
-   ],
-   [
-    "paṭiññaṃ kāretvā",
-    "idiom",
-    "having made a promise; having vowed",
-    "◑"
-   ],
-   [
-    "rajjaṃ kāretvā",
-    "idiom",
-    "having ruled; having reigned; lit. having caused to make a kingdom",
-    "✔"
-   ]
-  ]
- },
  "yācati": {
   "count": 1,
   "data": [
@@ -24327,17 +24338,6 @@ var family_idiom_json = {
     "kīva cirena",
     "idiom",
     "how long? how much time?",
-    "✔"
-   ]
-  ]
- },
- "kukkucca": {
-  "count": 1,
-  "data": [
-   [
-    "kukkuccaṃ upadahati",
-    "idiom",
-    "provokes anxiety; causes unease",
     "✔"
    ]
   ]

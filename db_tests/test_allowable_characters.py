@@ -117,7 +117,8 @@ class AllowableCharacters():
         "Old Tamil", 
         "Proto-Dravidian", 
         "Santali",
-        "Tamil", "Telugu", 
+        "Tamil", "Telugu",
+        "Prakrit",
         ]
     
     derivatives = ["kita", "kicca", "taddhita"]

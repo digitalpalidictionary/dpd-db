@@ -187,7 +187,7 @@ var family_word_json = {
     "✔"
    ],
    [
-    "keci",
+    "keci 1",
     "pron",
     "whoever; whatever; whichever; some; any",
     "✔"
@@ -6751,7 +6751,7 @@ var family_word_json = {
     "◑"
    ],
    [
-    "heṭṭhato",
+    "heṭṭhato 1",
     "ind",
     "from below",
     "✘"
@@ -8561,7 +8561,7 @@ var family_word_json = {
    ],
    [
     "apara 2",
-    "adj",
+    "pron",
     "other; another (person); some other",
     "✔"
    ],
@@ -10753,7 +10753,7 @@ var family_word_json = {
  "andu": {
   "data": [
    [
-    "andu",
+    "andu 1",
     "masc",
     "chain; manacle",
     "✔"
@@ -10897,7 +10897,7 @@ var family_word_json = {
    [
     "pakkhimant",
     "masc",
-    "fowler; bird-catcher; lit. having birds",
+    "fowler; bird-catcher; lit. having birds quality",
     "✔"
    ],
    [
@@ -17250,13 +17250,19 @@ var family_word_json = {
     "✘"
    ],
    [
+    "aḷa 3",
+    "masc",
+    "thumb; big toe; lit. claw",
+    "✔"
+   ],
+   [
     "aḷaka",
     "masc",
     "name of a kingdom; lit. with a claw",
     "✔"
    ]
   ],
-  "count": 3
+  "count": 4
  },
  "aṃsa2": {
   "data": [
@@ -21536,7 +21542,7 @@ var family_word_json = {
  "kumbha": {
   "data": [
    [
-    "kumbha",
+    "kumbha 1",
     "masc",
     "clay pot; water jar; pitcher",
     "✔"
@@ -28760,6 +28766,12 @@ var family_word_json = {
  "pūva": {
   "data": [
    [
+    "pūpa",
+    "masc",
+    "cake; bread",
+    "✔"
+   ],
+   [
     "pūpika",
     "masc",
     "baker; cake maker",
@@ -28778,7 +28790,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 3
+  "count": 4
  },
  "pekhuṇa": {
   "data": [
@@ -28990,7 +29002,7 @@ var family_word_json = {
     "phaṇa",
     "masc",
     "hood of a snake",
-    "✘"
+    "✔"
    ],
    [
     "phaṇaka",
@@ -29653,7 +29665,7 @@ var family_word_json = {
   ],
   "count": 3
  },
- "maga": {
+ "miga": {
   "data": [
    [
     "maga 1",
@@ -29668,19 +29680,49 @@ var family_word_json = {
     "✔"
    ],
    [
-    "māgavi",
+    "miga 1",
     "masc",
-    "hunter; deer hunter; game hunter",
-    "◑"
+    "deer",
+    "✔"
    ],
    [
-    "māgavika",
+    "miga 2",
     "masc",
-    "hunter; deer hunter; game hunter",
+    "animal; beast",
     "✔"
+   ],
+   [
+    "migava 1",
+    "masc",
+    "hunter; huntsman",
+    "✔"
+   ],
+   [
+    "migava 2",
+    "nt",
+    "hunting",
+    "✘"
+   ],
+   [
+    "migava 3",
+    "masc",
+    "name of a park-keeper; lit. deer hunter",
+    "✔"
+   ],
+   [
+    "migā",
+    "fem",
+    "doe",
+    "✔"
+   ],
+   [
+    "migī",
+    "fem",
+    "doe, hind",
+    "✘"
    ]
   ],
-  "count": 4
+  "count": 9
  },
  "magadha": {
   "data": [
@@ -30294,6 +30336,23 @@ var family_word_json = {
   ],
   "count": 4
  },
+ "maga": {
+  "data": [
+   [
+    "māgavi",
+    "masc",
+    "hunter; deer hunter; game hunter",
+    "◑"
+   ],
+   [
+    "māgavika",
+    "masc",
+    "hunter; deer hunter; game hunter",
+    "✔"
+   ]
+  ],
+  "count": 2
+ },
  "māluta": {
   "data": [
    [
@@ -30397,53 +30456,6 @@ var family_word_json = {
    ]
   ],
   "count": 2
- },
- "miga": {
-  "data": [
-   [
-    "miga 1",
-    "masc",
-    "deer",
-    "✔"
-   ],
-   [
-    "miga 2",
-    "masc",
-    "animal; beast",
-    "✔"
-   ],
-   [
-    "migava 1",
-    "masc",
-    "hunter; huntsman",
-    "✔"
-   ],
-   [
-    "migava 2",
-    "nt",
-    "hunting",
-    "✘"
-   ],
-   [
-    "migava 3",
-    "masc",
-    "name of a park-keeper; lit. deer hunter",
-    "✔"
-   ],
-   [
-    "migā",
-    "fem",
-    "doe",
-    "✔"
-   ],
-   [
-    "migī",
-    "fem",
-    "doe, hind",
-    "✘"
-   ]
-  ],
-  "count": 7
  },
  "micchā": {
   "data": [

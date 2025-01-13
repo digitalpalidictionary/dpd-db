@@ -26,6 +26,8 @@
 29th
 2am
 2nd
+2nd
+31st
 4
 40th
 4th
@@ -35,6 +37,7 @@
 6th
 7th
 8th
+91st
 92nd
 9th
 ā
@@ -82,6 +85,7 @@ adulator
 adverbial
 adversative
 Aegle
+aeon
 afflictive
 afterlife
 afternoon
@@ -126,6 +130,8 @@ alleviator
 alli
 allness
 allusory
+almsbowl
+almsfood
 almsman
 Alstonia
 altilis
@@ -227,6 +233,7 @@ Arthavan
 articulately
 artificer
 Artocarpus
+Aruṇavā
 Arundo
 arūpins
 āruppa
@@ -283,6 +290,7 @@ Avanti
 Avantins
 āveṭhita
 Avīci
+avows
 aya
 āya
 āyasmant
@@ -302,6 +310,7 @@ Balasaṃyuttaṃ
 balcooa
 bald-headedness
 Bambusa
+Bandhumā
 Bandhumatī
 bandoleer
 Bārāṇasī
@@ -373,6 +382,7 @@ Bhikkhunī
 Bhikkhunī
 Bhikkhupātimokkha
 Bhikkhus
+Bhiyyosa
 bho
 Bhoja
 bhū
@@ -454,6 +464,7 @@ Cambodian
 Campā
 caṇḍāla
 Caṅkī
+Capparis
 captious
 capucapu
 capucapu soun
@@ -629,6 +640,7 @@ de-illusionment
 decad
 decayless
 Deccan
+decidua
 declivity
 decocted
 decocted
@@ -706,6 +718,7 @@ Diospyros
 dirtiness
 Disampati
 disapproves
+discipleship
 discolouration
 discoloured
 discriminatively
@@ -787,6 +800,7 @@ Ekarāja
 elate
 elates
 Elengi
+elephantiasis
 Eleusine
 elucidation
 emancipating
@@ -837,6 +851,7 @@ expansions
 expectance
 expected
 expectorant
+expellable
 experienceable
 experientially
 expertness
@@ -881,6 +896,7 @@ fodder-ish
 fondles
 footless
 footlessness
+forebody
 foreleg
 foresign
 forestless
@@ -889,6 +905,7 @@ foundationless
 four-way
 fowlers
 fraudulence
+friendlily
 from-ness
 frondos
 frondosa
@@ -898,6 +915,7 @@ fruitions
 frumentacea
 frumentaceum
 fuelless
+fulfilment
 g
 gadflies
 gadfly
@@ -982,6 +1000,7 @@ gratissimum
 gray
 Grewia
 grunniens
+guarder
 guh
 guiltlessness
 guḷavālakāni
@@ -1246,6 +1265,7 @@ kettledrum
 Ketumatī
 kh
 kha
+Khaṇḍa
 Khandasaṃyuttaṃ
 khandha
 Khandhaka
@@ -1256,6 +1276,7 @@ khāri
 Khattiya
 Khattiyas
 kheer
+Khema
 Khemā
 Khemiya's
 khiḍḍāparādhikā
@@ -1284,6 +1305,7 @@ Koḷivisa
 Koliyan
 Koḷiyan
 Koliyans
+Koṇāgamana
 koṇḍañña
 Korakkhattiya
 kosa
@@ -1659,6 +1681,7 @@ Nātika
 Nauclea
 Navakanipāta
 ṇaya
+nd
 ṇe
 neem
 Neem
@@ -1919,6 +1942,7 @@ praṇāśa
 pranking
 Precatorius
 preceptor
+preconditions
 preeminent
 preparer
 prepositional
@@ -2251,6 +2275,7 @@ SN4.25
 SN4.25
 SNP
 soapberry
+Sobha
 sobhanaka
 socanan'ti
 sogandhika-count
@@ -2258,6 +2283,7 @@ soilless
 sojourning
 soko
 soma
+Soṇa
 Soṇa
 Soṇadaṇḍa
 Soṇadaṇḍa's
@@ -2268,6 +2294,7 @@ sorrowless
 sorrowlessness
 sotāpanna
 Sotāpattisaṃyuttaṃ
+sourness
 spellicans
 spillikins
 spinosa
@@ -2280,6 +2307,7 @@ spritzed
 Sri
 Sri Lankan
 ssa
+st
 stabilises
 stableman
 statecraft
@@ -2343,7 +2371,9 @@ Sunīdha
 Sunn
 sunned
 sunshade
+sūpasampanna
 supernormal
+Suppatita
 Suppiya
 supportless
 suppurating
@@ -2721,6 +2751,7 @@ usitatissimum
 utilissimus
 uttamappamukhatāya
 Uttara
+Uttara
 Uttarakuru
 Uvaria
 Uyana
@@ -2790,6 +2821,7 @@ Verañjā
 Veroca
 Vesali
 Vesālī
+Vessabhū
 Vessantara
 Vessavaṇa
 Vessavaṇa's
@@ -2814,6 +2846,7 @@ Vinatā
 vinaya
 viññatti
 vinyapiṭaka
+Vipassī
 Vipassī
 virens
 visāci
@@ -2888,33 +2921,3 @@ you're
 youthfulness
 zizanioides
 Ziziphus
-decidua
-Capparis
-aeon
-91st
-31st
-st
-Vipassī
-Khaṇḍa
-Soṇa
-Uttara
-Vessabhū
-Bhiyyosa
-Koṇāgamana
-Bandhumā
-Aruṇavā
-Suppatita
-Khema
-Sobha
-elephantiasis
-avows
-expellable
-fulfilment
-discipleship
-almsfood
-preconditions
-almsbowl
-sourness
-friendlily
-guarder
-forebody

@@ -17,10 +17,10 @@ from tools.pali_alphabet import pali_alphabet
 from tools.tic_toc import tic, toc
 from tools.db_search_string import db_search_string
 
-max_length = 18
-only_do_hyphenated_words = True
+max_length = 29
+only_do_hyphenated_words = False
 # True max_length =  18
-# False max_length = 30
+# False max_length = 29
 
 
 class GlobalVars():

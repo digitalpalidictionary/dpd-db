@@ -3865,7 +3865,7 @@ var family_set_json = {
     "✔"
    ],
    [
-    "yoga 7",
+    "yoga 8",
     "adj",
     "(gram) syntactically dependent on; ruled by; governed by; lit. yoking",
     "✔"
@@ -5991,6 +5991,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "apara 2",
+    "pron",
+    "other; another (person); some other",
+    "✔"
+   ],
+   [
     "apare",
     "pron",
     "(commentary) other learned monks; other commentators",
@@ -6801,7 +6807,7 @@ var family_set_json = {
     "✔"
    ],
    [
-    "keci",
+    "keci 1",
     "pron",
     "whoever; whatever; whichever; some; any",
     "✔"
@@ -8013,7 +8019,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 355
+  "count": 356
  },
  "epithets of devas": {
   "data": [
@@ -10804,7 +10810,7 @@ var family_set_json = {
    [
     "chavaḍāhaka",
     "masc",
-    "cremator; lit. corpse burner",
+    "cremator; who burns the dead; lit. corpse burner",
     "✔"
    ],
    [
@@ -17308,7 +17314,7 @@ var family_set_json = {
     "✔"
    ],
    [
-    "bhūta 9",
+    "bhūta 09",
     "masc",
     "name of an arahant monk; lit. become",
     "◑"
@@ -20049,7 +20055,7 @@ var family_set_json = {
     "✔"
    ],
    [
-    "bhūta 9",
+    "bhūta 09",
     "masc",
     "name of an arahant monk; lit. become",
     "◑"
@@ -24960,7 +24966,7 @@ var family_set_json = {
     "◑"
    ],
    [
-    "santussita",
+    "santussita 1",
     "masc",
     "name of a deity; lit. contented",
     "✔"
@@ -28446,7 +28452,7 @@ var family_set_json = {
    [
     "aṭṭhacattālīsā",
     "card",
-    "forty eight (48)",
+    "forty-eight (48)",
     "✔"
    ],
    [
@@ -28458,7 +28464,7 @@ var family_set_json = {
    [
     "aṭṭhatiṃsā",
     "card",
-    "thirty eight (38)",
+    "thirty-eight (38)",
     "◑"
    ],
    [
@@ -28476,13 +28482,13 @@ var family_set_json = {
    [
     "aṭṭhavīsati",
     "card",
-    "twenty eight (28)",
+    "twenty-eight (28)",
     "✔"
    ],
    [
     "aṭṭhasaṭṭhi",
     "card",
-    "sixty eight (68)",
+    "sixty-eight (68)",
     "✔"
    ],
    [
@@ -28524,7 +28530,7 @@ var family_set_json = {
    [
     "ekacattālīsā",
     "card",
-    "forty one (41)",
+    "forty-one (41)",
     "✔"
    ],
    [
@@ -28536,7 +28542,7 @@ var family_set_json = {
    [
     "ekanavuti",
     "card",
-    "ninety one (91)",
+    "ninety-one (91)",
     "✔"
    ],
    [
@@ -28572,7 +28578,7 @@ var family_set_json = {
    [
     "ekūnapaññāsā",
     "card",
-    "forty nine (49)",
+    "forty-nine (49)",
     "✔"
    ],
    [
@@ -28614,7 +28620,7 @@ var family_set_json = {
    [
     "catucattālīsā",
     "card",
-    "forty four (44)",
+    "forty-four (44)",
     "✔"
    ],
    [
@@ -28632,7 +28638,7 @@ var family_set_json = {
    [
     "catupaṇṇāsā",
     "card",
-    "fifty four (54)",
+    "fifty-four (54)",
     "✔"
    ],
    [
@@ -28740,19 +28746,19 @@ var family_set_json = {
    [
     "chacattālīsā",
     "card",
-    "forty six (46)",
+    "forty-six (46)",
     "◑"
    ],
    [
     "chattiṃsati",
     "card",
-    "thirty six (36)",
+    "thirty-six (36)",
     "✔"
    ],
    [
     "chattiṃsā",
     "card",
-    "thirty six (36)",
+    "thirty-six (36)",
     "✔"
    ],
    [
@@ -28962,13 +28968,13 @@ var family_set_json = {
    [
     "dvattiṃsati",
     "card",
-    "thirty two (32)",
+    "thirty-two (32)",
     "✔"
    ],
    [
     "dvattiṃsā",
     "card",
-    "thirty two (32)",
+    "thirty-two (32)",
     "✔"
    ],
    [
@@ -28980,7 +28986,7 @@ var family_set_json = {
    [
     "dvāsaṭṭhi",
     "card",
-    "sixty two (62)",
+    "sixty-two (62)",
     "◑"
    ],
    [
@@ -28992,7 +28998,7 @@ var family_set_json = {
    [
     "dvittiṃsā",
     "card",
-    "thirty two (32)",
+    "thirty-two (32)",
     "✔"
    ],
    [
@@ -29034,7 +29040,7 @@ var family_set_json = {
    [
     "dvenavuti",
     "card",
-    "ninety two (92)",
+    "ninety-two (92)",
     "✔"
    ],
    [
@@ -29136,7 +29142,7 @@ var family_set_json = {
    [
     "bāttiṃsā",
     "card",
-    "thirty two (32)",
+    "thirty-two (32)",
     "✔"
    ],
    [
@@ -29238,7 +29244,7 @@ var family_set_json = {
    [
     "sattapaññāsā",
     "card",
-    "fifty seven (57)",
+    "fifty-seven (57)",
     "◑"
    ],
    [
@@ -30496,7 +30502,7 @@ var family_set_json = {
    [
     "ekattiṃsatima",
     "ordin",
-    "thirty first (31st)",
+    "thirty-first (31st)",
     "◑"
    ],
    [
@@ -30640,7 +30646,7 @@ var family_set_json = {
    [
     "dvācattālīsatima",
     "ordin",
-    "forty second (42nd)",
+    "forty-second (42nd)",
     "◑"
    ],
    [
