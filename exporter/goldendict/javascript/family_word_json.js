@@ -977,7 +977,7 @@ var family_word_json = {
     "kosalla 3",
     "masc",
     "name of a privately awakened Buddha; lit. from Kosala; (or) skilled",
-    "◑"
+    "✔"
    ],
    [
     "nākusala",
@@ -4424,7 +4424,7 @@ var family_word_json = {
     "aṭṭhaka 1.6",
     "masc",
     "name of a privately awakened Buddha; lit. having eight; related to eight",
-    "◑"
+    "✔"
    ],
    [
     "aṭṭhakā",
@@ -4508,9 +4508,15 @@ var family_word_json = {
     "nt",
     "bone (or small pebble) used for massage",
     "✘"
+   ],
+   [
+    "aṭṭhilla",
+    "nt",
+    "small bone used for massage",
+    "✔"
    ]
   ],
-  "count": 4
+  "count": 5
  },
  "aḍḍha": {
   "data": [
@@ -18470,7 +18476,7 @@ var family_word_json = {
     "sikhī 4",
     "masc",
     "name of a privately awakened Buddha; lit. with a crest",
-    "◑"
+    "✔"
    ],
    [
     "susikha",
@@ -20267,7 +20273,7 @@ var family_word_json = {
     "kapallaka 2",
     "nt",
     "small crystal; tiny grain",
-    "◑"
+    "✔"
    ],
    [
     "kapallaka 3",
@@ -22559,7 +22565,7 @@ var family_word_json = {
     "gandhabba 3",
     "masc",
     "name of a minister",
-    "◑"
+    "✔"
    ],
    [
     "gandhabba 4",
@@ -23749,11 +23755,17 @@ var family_word_json = {
    [
     "cūḷanī",
     "adj",
-    "lessor; minor; smaller",
-    "◑"
+    "lesser; minor; smaller",
+    "✔"
+   ],
+   [
+    "cūḷanī 2",
+    "adj",
+    "in reference to Aṅguttara Nikāya 3.81 (AN3.81); lit. lesser; minor; smaller",
+    "✔"
    ]
   ],
-  "count": 6
+  "count": 7
  },
  "cūḷā": {
   "data": [
@@ -29603,7 +29615,7 @@ var family_word_json = {
     "bhusikā",
     "fem",
     "chaff; husk; straw; debris",
-    "◑"
+    "✔"
    ]
   ],
   "count": 2
@@ -30817,7 +30829,7 @@ var family_word_json = {
     "moggalla",
     "masc",
     "name of a minister",
-    "◑"
+    "✔"
    ],
    [
     "moggallāna 1",
@@ -34355,7 +34367,7 @@ var family_word_json = {
     "sokhumma",
     "nt",
     "fineness; subtlety; delicacy; lit. fine state",
-    "◑"
+    "✔"
    ]
   ],
   "count": 13

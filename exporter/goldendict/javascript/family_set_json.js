@@ -13715,7 +13715,7 @@ var family_set_json = {
     "aggivessa",
     "masc",
     "name of a minister",
-    "◑"
+    "✔"
    ],
    [
     "ajita 2",
@@ -13799,7 +13799,7 @@ var family_set_json = {
     "ugga 4",
     "masc",
     "name of a minister; lit. going up",
-    "◑"
+    "✔"
    ],
    [
     "uggasena",
@@ -13937,7 +13937,7 @@ var family_set_json = {
     "gandhabba 3",
     "masc",
     "name of a minister",
-    "◑"
+    "✔"
    ],
    [
     "giridāsa",
@@ -14141,7 +14141,7 @@ var family_set_json = {
     "nāvindakī",
     "masc",
     "name of a minister",
-    "◑"
+    "✔"
    ],
    [
     "pañcakaṅga",
@@ -14345,13 +14345,13 @@ var family_set_json = {
     "moggalla",
     "masc",
     "name of a minister",
-    "◑"
+    "✔"
    ],
    [
     "yamaka 4",
     "masc",
     "name of a minister; lit. twin",
-    "◑"
+    "✔"
    ],
    [
     "rattapāṇi",
@@ -15068,7 +15068,7 @@ var family_set_json = {
     "aṭṭhaka 1.6",
     "masc",
     "name of a privately awakened Buddha; lit. having eight; related to eight",
-    "◑"
+    "✔"
    ],
    [
     "aṭṭhama 2",
@@ -15170,7 +15170,7 @@ var family_set_json = {
     "upanemisa",
     "masc",
     "name of a privately awakened Buddha",
-    "◑"
+    "✔"
    ],
    [
     "upariṭṭha 2.1",
@@ -15248,7 +15248,7 @@ var family_set_json = {
     "kosalla 3",
     "masc",
     "name of a privately awakened Buddha; lit. from Kosala; (or) skilled",
-    "◑"
+    "✔"
    ],
    [
     "khemābhirata",
@@ -15278,7 +15278,7 @@ var family_set_json = {
     "jālī 2.2",
     "masc",
     "name of a privately awakened Buddha; lit. blazing",
-    "◑"
+    "✔"
    ],
    [
     "jita 3",
@@ -15356,7 +15356,7 @@ var family_set_json = {
     "nemisa",
     "masc",
     "name of a privately awakened Buddha",
-    "◑"
+    "✔"
    ],
    [
     "paṅga",
@@ -15524,7 +15524,7 @@ var family_set_json = {
     "santacitta 2",
     "masc",
     "name of a privately awakened Buddha; lit. calm mind",
-    "◑"
+    "✔"
    ],
    [
     "sayha 2",
@@ -15548,7 +15548,7 @@ var family_set_json = {
     "sikhī 4",
     "masc",
     "name of a privately awakened Buddha; lit. with a crest",
-    "◑"
+    "✔"
    ],
    [
     "sīdarī",
@@ -15590,7 +15590,7 @@ var family_set_json = {
     "subāhu 1",
     "masc",
     "name of a privately awakened Buddha; lit. good arms",
-    "◑"
+    "✔"
    ],
    [
     "subha 4",
@@ -17694,8 +17694,8 @@ var family_set_json = {
    [
     "lakkhaṇa 6",
     "masc",
-    "name of a monk; lit. marking",
-    "◑"
+    "name of an arahant monk; lit. marking",
+    "✔"
    ],
    [
     "lomasakakaṅgiya",
@@ -20391,6 +20391,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "lakkhaṇa 6",
+    "masc",
+    "name of an arahant monk; lit. marking",
+    "✔"
+   ],
+   [
     "lomasakaṅgiya",
     "masc",
     "name of an arahant monk; lit. having hairy limbs; (or) hairy Bengali",
@@ -21225,7 +21231,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 449
+  "count": 450
  },
  "people": {
   "data": [
@@ -23818,7 +23824,7 @@ var family_set_json = {
     "bharaṇḍu",
     "masc",
     "name of an ascetic; the Buddha's former companion under Āḷāra Kālāma",
-    "◑"
+    "✔"
    ],
    [
     "makkhali",
@@ -25819,7 +25825,7 @@ var family_set_json = {
     "eḷeyya",
     "masc",
     "name of a king",
-    "◑"
+    "✔"
    ],
    [
     "okkāka",
@@ -33238,7 +33244,7 @@ var family_set_json = {
     "dassanuppāda",
     "masc",
     "arising of insight; epithet of stream entry; lit. coming up of vision",
-    "◑"
+    "✔"
    ],
    [
     "diṭṭhadhamma 2",

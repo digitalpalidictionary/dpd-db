@@ -284,8 +284,8 @@ var family_idiom_json = {
    [
     "pādakaṃ katvā",
     "idiom",
-    "having made a basis; having created a supporting condition",
-    "◑"
+    "having made a basis; having used as a supporting condition",
+    "✔"
    ],
    [
     "piṭṭhito katvā",
@@ -5370,7 +5370,7 @@ var family_idiom_json = {
     "sukhañcetaṃdhivattatīti",
     "sandhi",
     "and happiness overwhelms this (person)",
-    "◑"
+    "✔"
    ]
   ]
  },
@@ -6546,7 +6546,7 @@ var family_idiom_json = {
     "sukhañcetaṃdhivattatīti",
     "sandhi",
     "and happiness overwhelms this (person)",
-    "◑"
+    "✔"
    ],
    [
     "sukhantipi",
@@ -8449,7 +8449,7 @@ var family_idiom_json = {
     "sukhañcetaṃdhivattatīti",
     "sandhi",
     "and happiness overwhelms this (person)",
-    "◑"
+    "✔"
    ],
    [
     "hetaṃ",
@@ -10563,7 +10563,7 @@ var family_idiom_json = {
     "sukhañcetaṃdhivattatīti",
     "sandhi",
     "and happiness overwhelms this (person)",
-    "◑"
+    "✔"
    ],
    [
     "sukhantipi",
@@ -12160,7 +12160,7 @@ var family_idiom_json = {
     "yyāssa",
     "sandhi",
     "whoever his",
-    "◑"
+    "✔"
    ],
    [
     "vayañcassānupassati",
@@ -15237,8 +15237,8 @@ var family_idiom_json = {
    [
     "pādakaṃ katvā",
     "idiom",
-    "having made a basis; having created a supporting condition",
-    "◑"
+    "having made a basis; having used as a supporting condition",
+    "✔"
    ],
    [
     "pādaṃ karoti",
@@ -15303,7 +15303,7 @@ var family_idiom_json = {
     "tato paraṃ 2",
     "idiom",
     "more than that",
-    "◑"
+    "✔"
    ],
    [
     "tepare",
@@ -26004,7 +26004,7 @@ var family_idiom_json = {
     "tato paraṃ 2",
     "idiom",
     "more than that",
-    "◑"
+    "✔"
    ],
    [
     "tato sīsaṃ katvā",
@@ -28060,6 +28060,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "akāsi": {
+  "count": 1,
+  "data": [
+   [
+    "patthanaṃ akāsi",
+    "idiom",
+    "made an aspiration; set the intention; prayed",
+    "✔"
+   ]
+  ]
+ },
  "ajjhagā": {
   "count": 2,
   "data": [
@@ -28649,17 +28660,6 @@ var family_idiom_json = {
   ]
  },
  "patthanā": {
-  "count": 1,
-  "data": [
-   [
-    "patthanaṃ akāsi",
-    "idiom",
-    "made an aspiration; set the intention; prayed",
-    "✔"
-   ]
-  ]
- },
- "akāsi": {
   "count": 1,
   "data": [
    [
@@ -31404,7 +31404,7 @@ var family_idiom_json = {
     "yyāssa",
     "sandhi",
     "whoever his",
-    "◑"
+    "✔"
    ]
   ]
  },
@@ -33296,7 +33296,7 @@ var family_idiom_json = {
     "sukhañcetaṃdhivattatīti",
     "sandhi",
     "and happiness overwhelms this (person)",
-    "◑"
+    "✔"
    ]
   ]
  },
