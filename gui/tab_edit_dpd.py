@@ -142,6 +142,13 @@ Leave blank for other parts of speech.")),
             sg.Button("Add", key="add_spelling_button", font=(None, 13)),
             sg.Button("Edit", key="edit_spelling_button", font=(None, 13)),
             sg.Button("Check", key="check_spelling_button", font=(None, 13)),
+            sg.Checkbox(
+                "", 
+                key="meaning_1_majore_change_checkbox", 
+                default=False, 
+                size=(2, 2),
+                enable_events=True,
+                tooltip="Please check this box if the change in meaning_1 is considered significant"),
             sg.Text(
                 "", key="add_spelling_error", size=(50, 1), text_color="red")
         ],
@@ -454,6 +461,13 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 tooltip="Bold the word"),
             sg.Button("Italic", key="notes_italic_button", font=(None, 13)),
             sg.Button("Bold", key="notes_bold_button", font=(None, 13)),
+            sg.Checkbox(
+                "", 
+                key="notes_majore_change_checkbox", 
+                default=False, 
+                size=(2, 2),
+                enable_events=True,
+                tooltip="Please check this box if the change in notes is considered significant"),
             sg.Text(
                 "", key="notes_italic_error", size=(50, 1), text_color="red")
         ],

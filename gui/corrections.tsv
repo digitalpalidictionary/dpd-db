@@ -3292,3 +3292,27 @@ tāvakāla + ika"					from kāla not from kālika		yes
 2898	compound_type	kammadhāraya	compound_construction	adinnādāna + pārājikāpatti			missing		yes		
 2898	source_1	VIN1.2.9	sutta_1	dutiyaduṭṭhadosasikkhāpadaṃ	example_1	manussaviggahapārājik'āpatti uttarimanussadhammapārājik'āpattiyā methunadhammapārājik'āpattiyā <b>adinn'ādānapārājik'āpattiyā</b> aññabhāgiyā.	missing		yes		
 2898	meaning_1	expellable offence of taking what is not given; offense entailing expulsion in regard to theft					missing		yes		
+51228	compound_type	kammadhāraya	compound_construction	manussaviggaha + pārājikāpatti			missing				
+51228	source_1	VIN1.2.9	sutta_1	dutiyaduṭṭhadosasikkhāpadaṃ	example_1	<b>manussaviggahapārājik'āpatti</b> uttarimanussadhammapārājik'āpattiyā methunadhammapārājik'āpattiyā adinn'ādānapārājik'āpattiyā aññabhāgiyā.	missing				
+51228	meaning_1	expellable offence of (killing a) human being; offense entailing expulsion in regard to (killing a) human being					missing				
+14729	compound_type	kammadhāraya	compound_construction	uttarimanussadhamma + pārājikāpatti			missing				
+14729	meaning_1	expellable offence of (falsely stating) super-human states; offense entailing expulsion in regard to (lying about) super-power					missing				
+28210	source_2	VIN1.2.9	sutta_2	dutiyaduṭṭhadosasikkhāpadaṃ	example_2	kiñ'ci desaṃ lesamattaṃ upādāyā'ti leso nāma dasa lesā, <b>jāti</b>leso, nāmaleso, gottaleso, liṅgaleso, āpattileso, pattaleso, cīvaraleso, upajjhāyaleso, ācariyaleso, sen'āsanaleso.	missing		
+9809	sanskrit	aśuddha + dṛṣṭi					missing		
+9809	compound_type	kammadhāraya	compound_construction	asuddha + diṭṭhi			missing		
+9809	source_1	VIN1.2.8	sutta_1	duṭṭhadosasikkhāpadaṃ	example_1	anāpatti suddhe <b>asuddhadiṭṭhissa</b>, asuddhe <b>asuddhadiṭṭhissa</b>, ummattakassa, ādikammikassā'ti.	missing		
+29713	sanskrit	tathā + saṃjñin					missing		
+29713	compound_type	kammadhāraya	compound_construction	tathā + saññī			missing		
+29713	source_1	VIN1.2.9	sutta_1	dutiyaduṭṭhadosasikkhāpadaṃ	example_1	anāpatti <b>tathāsaññī</b> codeti vā codāpeti vā, ummattakassa, ādikammikassā'ti.	missing		
+1330	source_1	VIN1.2.10	sutta_1	saṅghabhedasikkhāpadaṃ	example_1	ñattiyā dukkaṭaṃ, dvīhi kammavācāhi thullaccayā, kammavācāpariyosāne āpatti saṅghādisesassa. saṅghādisesaṃ <b>ajjhāpajjantassa</b> ñattiyā dukkaṭaṃ, dvīhi kammavācāhi thullaccayā paṭippassambhanti.	missing		
+1330	root_base	√pad + ya > pajja					missing		
+1330	construction	adhi > adhy > ajjh + ā + pajja + nta					missing		
+1330	grammar	prp of ajjhāpajjati					missing		
+1330	derived_from	ajjhāpajjati					missing		
+1330	trans	trans					missing		
+1330	plus_case	+acc					missing		
+1330	meaning_1	committing an offence; transgressing					missing		
+9514	antonym	samanubhāsanta					missing		
+9514	source_1	VIN1.2.10	sutta_1	saṅghabhedasikkhāpadaṃ	example_1	anāpatti <b>asamanubhāsantassa</b>, paṭinissajjantassa, ummattakassa, khittacittassa, vedan'āṭṭassa, ādikammikassā'ti.	missing		
+9514	meaning_lit	not speaking together after					typo		
+40501	source_1	VIN1.2.10	sutta_1	saṅghabhedasikkhāpadaṃ	example_1	anāpatti asamanubhāsantassa, <b>paṭinissajjantassa</b>, ummattakassa, khittacittassa, vedan'āṭṭassa, ādikammikassā'ti.	missing		

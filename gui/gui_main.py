@@ -30,6 +30,7 @@ from gui.functions_db import fetch_id_or_lemma_1
 from gui.functions_db import get_family_compound_values
 from gui.functions_db import get_family_idioms_values
 from gui.functions_db import del_syns_if_pos_meaning_changed
+from gui.functions_db import major_change_record
 
 from gui.functions_show_fields import show_all_fields
 from gui.functions_show_fields import show_compound_fields
@@ -1094,6 +1095,11 @@ def main():
                 )
                 
                 if success:
+                    # major_change_record
+                    if flags.change_meaning:
+                        major_change_record(pth, db_session, values, mode="meaning")
+                    if flags.change_notes:
+                        major_change_record(pth, db_session, values, mode="notes")
                     last_word_id = values["id"]
                     del_syns_if_pos_meaning_changed(db_session, values, pali_word_original2)
                     clear_errors(window)
@@ -1342,6 +1348,14 @@ def main():
         elif event.endswith("-focus_out"):
             combo = window[event.replace("-focus_out", "")]
             combo.hide_tooltip()  # type: ignore
+
+        # flags for majore changes
+
+        elif event == "meaning_1_majore_change_checkbox":
+            flags.change_meaning = values["meaning_1_majore_change_checkbox"]
+
+        elif event == "notes_majore_change_checkbox":
+            flags.change_notes = values["notes_majore_change_checkbox"]
 
         # DPS tab
 

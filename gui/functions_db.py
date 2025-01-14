@@ -25,7 +25,8 @@ dpd_values_list = [
     "compound_construction", "non_root_in_comps", "source_1", "sutta_1",
     "example_1", "source_2", "sutta_2", "example_2", "antonym", "synonym",
     "variant", "commentary", "notes", "cognate", "link", "origin", "stem",
-    "pattern", "created_at", "updated_at", "online_suggestion"]
+    "pattern", "created_at", "updated_at", "online_suggestion", 
+    "notes_majore_change_checkbox", "meaning_1_majore_change_checkbox"]
 
 
 class Word:
@@ -680,3 +681,29 @@ def make_sandhi_ok_list(pth):
 
     print(f"sandhi_ok_list: {len(sandhi_ok_list)}")
     return sandhi_ok_list
+
+
+def major_change_record(pth, db_session, values, mode="meaning"):
+    word_id = values["id"]
+    word_lemma = values["lemma_1"]
+    
+    # record if the word in Russian table
+    try:
+        if mode == "meaning":
+            ru_record = db_session.query(Russian).filter(word_id == Russian.id).first()
+            if ru_record:
+                # Save all ru to TSV
+                ru_header = ["word_id", "word_lemma"]
+                ru_data = [[ru_record.id, word_lemma]]
+                append_tsv_list(pth.major_change_meaning_history_pth, ru_header, ru_data)
+                
+        else:
+            ru_record_notes = db_session.query(Russian).filter(word_id == Russian.id, Russian.ru_notes != "").first()
+            if ru_record_notes:
+                # Save all ru to TSV
+                ru_header = ["word_id", "word_lemma"]
+                ru_data = [[ru_record_notes.id, word_lemma]]
+                append_tsv_list(pth.major_change_notes_history_pth, ru_header, ru_data)
+
+    except Exception as e:
+        print(f"[red]{e}")
