@@ -42,6 +42,11 @@ class ProgData():
         self.tpr_df: pd.DataFrame
         self.i2h_df: pd.DataFrame
         self.deconstructor_df: pd.DataFrame
+
+        if config_test("user", "username", "deva"):
+            self.user_deva = True
+        else:
+            self.user_deva = False
     
     def make_dpd_db(self):
         dpd_db = self.db_session.query(DpdHeadword).all()
@@ -510,7 +515,9 @@ def copy_zip_to_tpr_downloads(g: ProgData):
         month_str = TODAY.strftime("%B")
         year = TODAY.year
 
-        if uposatha_today():
+        if g.user_deva:
+            version = "deva"
+        elif uposatha_today():
             version = "release"
         else:
             version = "beta"
@@ -562,6 +569,24 @@ def copy_zip_to_tpr_downloads(g: ProgData):
             }
 
             download_list[27] = dpd_beta_info
+
+        if version == "deva":
+
+            output_file = g.pth.tpr_devamitta_path
+            _zip_it_up(file_path, file_name, output_file)
+            filesize = _file_size(output_file)
+
+            devamitta_info = {
+                "name": "Devamitta",
+                "release_date": f"{day}.{month}.{year}",
+                "type": "dictionary",
+                "category": "Other Beta",
+                "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/release_zips/devamitta.zip",
+                "filename": "dpd.sql",
+                "size": f"{filesize} MB"
+            }
+
+            download_list[28] = devamitta_info
 
         with open(g.pth.tpr_download_list_path, "w") as f:
             f.write(json.dumps(download_list, indent=4, ensure_ascii=False))
