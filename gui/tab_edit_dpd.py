@@ -143,10 +143,9 @@ Leave blank for other parts of speech.")),
             sg.Button("Edit", key="edit_spelling_button", font=(None, 13)),
             sg.Button("Check", key="check_spelling_button", font=(None, 13)),
             sg.Checkbox(
-                "", 
+                "changed?", 
                 key="meaning_1_majore_change_checkbox", 
                 default=False, 
-                size=(2, 2),
                 enable_events=True,
                 tooltip="Please check this box if the change in meaning_1 is considered significant"),
             sg.Text(
@@ -462,10 +461,9 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
             sg.Button("Italic", key="notes_italic_button", font=(None, 13)),
             sg.Button("Bold", key="notes_bold_button", font=(None, 13)),
             sg.Checkbox(
-                "", 
+                "changed?", 
                 key="notes_majore_change_checkbox", 
                 default=False, 
-                size=(2, 2),
                 enable_events=True,
                 tooltip="Please check this box if the change in notes is considered significant"),
             sg.Text(

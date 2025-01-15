@@ -238,6 +238,8 @@ class ProjectPaths:
         self.corrections_tsv_path = base_dir / "gui/corrections.tsv"
         self.delated_words_history_pth = base_dir / "gui/delated_words_history.tsv"
         self.pass2_checked_path = base_dir / "gui/pass2_checked.json"
+        self.major_change_meaning_history_pth = base_dir / "gui/major_change_meaning_history.tsv"
+        self.major_change_notes_history_pth = base_dir / "gui/major_change_notes_history.tsv"
 
         # gui/stash
         self.daily_record_path = base_dir / "gui/stash/daily_record"
