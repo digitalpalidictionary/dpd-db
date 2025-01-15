@@ -63,7 +63,6 @@ class Flags:
         self.spelling_ok = False
         self.pass2_start = True
         self.change_meaning = False
-        self.change_notes = False
 
 
 def reset_flags(flags):
@@ -88,7 +87,6 @@ def reset_flags(flags):
     flags.tested = False
     flags.test_next = False
     flags.change_meaning = False
-    flags.change_notes = False
     # flags.pass2_start must remain for the session
 
 
@@ -805,8 +803,7 @@ def display_summary(values, window, sg, pali_word_original2):
     for value in values:
         if (
             value in dpd_values_list and 
-            value != "meaning_1_majore_change_checkbox" and 
-            value != "notes_majore_change_checkbox"
+            value != "meaning_1_majore_change_checkbox"
             ):
             if values[value]:
                 # Check if the value is changed

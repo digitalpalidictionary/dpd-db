@@ -239,7 +239,6 @@ class ProjectPaths:
         self.delated_words_history_pth = base_dir / "gui/delated_words_history.tsv"
         self.pass2_checked_path = base_dir / "gui/pass2_checked.json"
         self.major_change_meaning_history_pth = base_dir / "gui/major_change_meaning_history.tsv"
-        self.major_change_notes_history_pth = base_dir / "gui/major_change_notes_history.tsv"
 
         # gui/stash
         self.daily_record_path = base_dir / "gui/stash/daily_record"
@@ -286,6 +285,7 @@ class ProjectPaths:
 
         # resources/tpr
         self.tpr_beta_path = base_dir / "resources/tpr_downloads/release_zips/dpd_beta.zip"
+        self.tpr_devamitta_path = base_dir / "resources/tpr_downloads/release_zips/devamitta.zip"
         self.tpr_download_list_path = base_dir / "resources/tpr_downloads/download_source_files/download_list.json"
         self.tpr_release_path = base_dir / "resources/tpr_downloads/release_zips/dpd.zip"
 

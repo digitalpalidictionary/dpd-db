@@ -460,12 +460,6 @@ kar + *āpe  > kārāpe > karāpe (caus, irreg).")),
                 tooltip="Bold the word"),
             sg.Button("Italic", key="notes_italic_button", font=(None, 13)),
             sg.Button("Bold", key="notes_bold_button", font=(None, 13)),
-            sg.Checkbox(
-                "changed?", 
-                key="notes_majore_change_checkbox", 
-                default=False, 
-                enable_events=True,
-                tooltip="Please check this box if the change in notes is considered significant"),
             sg.Text(
                 "", key="notes_italic_error", size=(50, 1), text_color="red")
         ],
