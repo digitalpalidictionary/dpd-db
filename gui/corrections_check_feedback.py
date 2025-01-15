@@ -3,7 +3,7 @@
 """GUI check feedback from corrections.tsv."""
 
 import csv
-import PySimpleGUI as sg # type: ignore
+from gui import PySimpleGUI as sg
 import subprocess
 
 from rich import print
@@ -442,5 +442,5 @@ def apply_all_suggestions():
     print(f"Total number of applied corrections: {added_lines_count}")
 
 
-# open_gui_corrections()
-apply_all_suggestions()
+open_gui_corrections()
+# apply_all_suggestions()

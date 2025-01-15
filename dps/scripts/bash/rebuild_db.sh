@@ -71,7 +71,7 @@ while true; do
             # After setting db_rebuild to "yes" in db_rebuild_from_tsv.py, we change it back after the bash is done.
             python -c "from tools.configger import config_update; config_update('regenerate', 'db_rebuild', 'no')"
             dps/scripts/other/add_combined_view.py
-            gui/corrections_check_feedback.py
+            dps/scripts/change_in_db/apply_all_corrections.py
             git checkout -- pyproject.toml
             git checkout -- db/backup_tsv/dpd_headwords.tsv
             git checkout -- db/sanskrit/root_families_sanskrit.tsv
