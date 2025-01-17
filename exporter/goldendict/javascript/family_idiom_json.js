@@ -3243,7 +3243,7 @@ var family_idiom_json = {
     "dveva",
     "sandhi",
     "only two; just two",
-    "◑"
+    "✔"
    ],
    [
     "dhammameva",
@@ -5737,7 +5737,7 @@ var family_idiom_json = {
     "athañño",
     "sandhi",
     "and then another",
-    "◑"
+    "✔"
    ],
    [
     "kocañño",
@@ -10857,7 +10857,7 @@ var family_idiom_json = {
     "athañño",
     "sandhi",
     "and then another",
-    "◑"
+    "✔"
    ],
    [
     "athavāpi",
@@ -13843,7 +13843,7 @@ var family_idiom_json = {
     "dveva",
     "sandhi",
     "only two; just two",
-    "◑"
+    "✔"
    ]
   ]
  },
@@ -16057,6 +16057,17 @@ var family_idiom_json = {
     "cha bāhirāni āyatanāni",
     "idiom",
     "six external sense fields; sights, sounds, smells, tastes, sensations and mental activities",
+    "✔"
+   ]
+  ]
+ },
+ "vohāra": {
+  "count": 1,
+  "data": [
+   [
+    "vohāraṃ gacchati",
+    "idiom",
+    "is called; goes by the name",
     "✔"
    ]
   ]
@@ -32452,17 +32463,6 @@ var family_idiom_json = {
     "vosānaṃ āpādi",
     "idiom",
     "stopped short; finished halfway; lit. experienced finishing",
-    "✔"
-   ]
-  ]
- },
- "vohāra": {
-  "count": 1,
-  "data": [
-   [
-    "vohāraṃ gacchati",
-    "idiom",
-    "is called; goes by the name",
     "✔"
    ]
   ]

@@ -20,6 +20,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "kakkasa 3",
+    "nt",
+    "(of a jem) flaw; crack; defect",
+    "✔"
+   ],
+   [
     "kakkassa",
     "nt",
     "roughness; harshness; crudeness; lit. rough state",
@@ -32,7 +38,7 @@ var family_word_json = {
     "◑"
    ]
   ],
-  "count": 5
+  "count": 6
  },
  "kaci": {
   "data": [
@@ -3055,8 +3061,8 @@ var family_word_json = {
    [
     "samanta 2",
     "adj",
-    "surrounding",
-    "✘"
+    "surrounding; lit. together with ends",
+    "✔"
    ],
    [
     "samantato",
@@ -4259,7 +4265,7 @@ var family_word_json = {
     "aññesaṃ 2",
     "pron",
     "of others; belonging to other people",
-    "✘"
+    "✔"
    ],
    [
     "anañña",
@@ -8058,7 +8064,7 @@ var family_word_json = {
     "itthikā",
     "fem",
     "woman; female",
-    "✘"
+    "✔"
    ],
    [
     "itthitta",
@@ -9192,9 +9198,15 @@ var family_word_json = {
     "masc",
     "name of a Sri Lankan monastery",
     "✔"
+   ],
+   [
+    "sālinda",
+    "adj",
+    "with a terrace; with a verandah",
+    "✔"
    ]
   ],
-  "count": 4
+  "count": 5
  },
  "āḷhaka": {
   "data": [
@@ -10472,7 +10484,7 @@ var family_word_json = {
     "ekā 2",
     "adj",
     "some",
-    "✘"
+    "✔"
    ],
    [
     "ekākinī",
@@ -12107,8 +12119,8 @@ var family_word_json = {
    [
     "pitika",
     "adj",
-    "(in cpds), having a father, belonging or come from a farther",
-    "✘"
+    "related to a father; connected with a father",
+    "✔"
    ],
    [
     "pitito",
@@ -13457,8 +13469,8 @@ var family_word_json = {
    [
     "mātu 1",
     "fem",
-    "for mother; to mother",
-    "✘"
+    "for the mother; to the mother",
+    "✔"
    ],
    [
     "mātu 2",
@@ -14377,8 +14389,8 @@ var family_word_json = {
    [
     "mayā 2",
     "pron",
-    "from me; than me",
-    "✘"
+    "than me; lit. from me",
+    "✔"
    ],
    [
     "mayi 1",
@@ -15442,7 +15454,7 @@ var family_word_json = {
     "ruhira",
     "nt",
     "blood",
-    "✘"
+    "✔"
    ],
    [
     "rohiṇī",
@@ -16688,7 +16700,7 @@ var family_word_json = {
     "sasīsakaṃ",
     "ind",
     "head high; over one's head",
-    "◑"
+    "✔"
    ],
    [
     "sasīsaṃ",
@@ -17823,7 +17835,7 @@ var family_word_json = {
     "ukkala",
     "adj",
     "from Ukkala; living in Ukkala",
-    "◑"
+    "✔"
    ],
    [
     "ukkalā",
@@ -18158,8 +18170,8 @@ var family_word_json = {
    [
     "tissa 2.2",
     "masc",
-    "name of one of Vipassī Buddha's chief disciples",
-    "✘"
+    "name of one of Vipassī Buddha's chief disciples; lit. constellation of Cancer",
+    "✔"
    ],
    [
     "tissa 2.3",
@@ -19441,8 +19453,8 @@ var family_word_json = {
    [
     "kacci 2",
     "ind",
-    "I doubt; I suspect",
-    "◑"
+    "I suspect; have you?",
+    "✔"
    ],
    [
     "katama",
@@ -19466,7 +19478,7 @@ var family_word_json = {
     "katara",
     "adj",
     "which of the two?; which of the many?",
-    "◑"
+    "✔"
    ],
    [
     "kati",
@@ -23495,7 +23507,7 @@ var family_word_json = {
     "camma 2",
     "nt",
     "hide; animal skin; leather",
-    "◑"
+    "✔"
    ],
    [
     "camma 3",
@@ -24946,8 +24958,8 @@ var family_word_json = {
    [
     "tumhākaṃ 1",
     "pron",
-    "you all (object)",
-    "✘"
+    "you all; both of you (object)",
+    "✔"
    ],
    [
     "tumhākaṃ 2",

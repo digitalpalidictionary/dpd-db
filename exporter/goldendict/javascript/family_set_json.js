@@ -5973,6 +5973,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "aññesaṃ 2",
+    "pron",
+    "of others; belonging to other people",
+    "✔"
+   ],
+   [
     "aduṃ",
     "pron",
     "that; such; so and so",
@@ -7167,6 +7173,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "tumhākaṃ 1",
+    "pron",
+    "you all; both of you (object)",
+    "✔"
+   ],
+   [
     "tumhākaṃ 2",
     "pron",
     "for you all; to you all",
@@ -7590,6 +7602,12 @@ var family_set_json = {
     "mayā 1",
     "pron",
     "by me; with me",
+    "✔"
+   ],
+   [
+    "mayā 2",
+    "pron",
+    "than me; lit. from me",
     "✔"
    ],
    [
@@ -8019,7 +8037,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 356
+  "count": 359
  },
  "epithets of devas": {
   "data": [
@@ -9278,7 +9296,7 @@ var family_set_json = {
     "soṇakāyana",
     "masc",
     "name of a young Brahman",
-    "◑"
+    "✔"
    ],
    [
     "soṇadaṇḍa",
@@ -9763,7 +9781,7 @@ var family_set_json = {
     "dakkhiṇahattha",
     "masc",
     "right hand",
-    "◑"
+    "✔"
    ],
    [
     "danta 1.1",
@@ -10003,7 +10021,7 @@ var family_set_json = {
     "vāmahattha",
     "masc",
     "left hand",
-    "◑"
+    "✔"
    ],
    [
     "sabbagattāni",
@@ -10970,6 +10988,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "nemitta",
+    "masc",
+    "fortune teller; diviner; who can read signs; lit. measured down",
+    "✔"
+   ],
+   [
     "nevāpika",
     "masc",
     "baiter; catcher; trapper; lit. who throws down",
@@ -11588,7 +11612,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 209
+  "count": 210
  },
  "tastes": {
   "data": [
@@ -13452,7 +13476,7 @@ var family_set_json = {
     "mahāpuṇṇama",
     "masc",
     "Majjhima Nikāya 109; Discourse on the Great Full Moon Night (MN109)",
-    "◑"
+    "✔"
    ],
    [
     "mahāpuṇṇamasutta",
@@ -13482,7 +13506,7 @@ var family_set_json = {
     "mahāvedalla",
     "nt",
     "Majjhima Nikāya 43; Great Catechism Discourse (MN43)",
-    "◑"
+    "✔"
    ],
    [
     "mahāvedallasutta",
@@ -16345,7 +16369,7 @@ var family_set_json = {
     "khaṇḍa 5",
     "masc",
     "name of one of Vipassī Buddha's chief disciples",
-    "◑"
+    "✔"
    ],
    [
     "khaṇḍatissa",
@@ -16646,6 +16670,12 @@ var family_set_json = {
     "masc",
     "name of a Tipiṭaka teacher quoted by Buddhaghosa",
     "◑"
+   ],
+   [
+    "tissa 2.2",
+    "masc",
+    "name of one of Vipassī Buddha's chief disciples; lit. constellation of Cancer",
+    "✔"
    ],
    [
     "tissa 2.5",
@@ -18526,7 +18556,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 481
+  "count": 482
  },
  "names of arahants": {
   "data": [
@@ -28801,7 +28831,7 @@ var family_set_json = {
     "chasattati",
     "card",
     "seventy-six (76)",
-    "◑"
+    "✔"
    ],
    [
     "chasu",
@@ -35926,6 +35956,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "beluvapaṇḍuvīṇā",
+    "fem",
+    "veena made of pale wood-apple wood",
+    "✔"
+   ],
+   [
     "bheri",
     "fem",
     "kettledrum",
@@ -35962,7 +35998,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 13
+  "count": 14
  },
  "medicines": {
   "data": [
@@ -36131,9 +36167,15 @@ var family_set_json = {
     "fem",
     "such talk about existence or nonexistence; discussion about this or that state of existence",
     "✔"
+   ],
+   [
+    "khaṇḍākhaṇḍikaṃ",
+    "ind",
+    "into bits and pieces; into small fragments",
+    "✔"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "names of mountains": {
   "data": [
@@ -37159,7 +37201,7 @@ var family_set_json = {
     "dhammasaṅgaṇī",
     "fem",
     "Book 1 of the Abhidhamma; Enumeration of Phenomena",
-    "◑"
+    "✔"
    ],
    [
     "dhātukathā",
@@ -37728,32 +37770,32 @@ var family_set_json = {
    [
     "tadaṅgavimutti",
     "fem",
-    "liberation by (elmination of the opposite of) that factor; lit. that factor liberation",
-    "◑"
+    "liberation by (elimination of the opposite of) that factor; lit. that factor liberation",
+    "✔"
    ],
    [
     "nissaraṇavimutti",
     "fem",
     "liberation by escape",
-    "◑"
+    "✔"
    ],
    [
     "paṭippassaddhivimutti",
     "fem",
     "liberation by complete calming; freedom by stilling",
-    "◑"
+    "✔"
    ],
    [
     "vikkhambhanavimutti",
     "fem",
     "liberation by immobilizing; freedom by suppressing",
-    "◑"
+    "✔"
    ],
    [
     "samucchedavimutti",
     "fem",
     "liberation by extermination; freedom by eradication",
-    "◑"
+    "✔"
    ]
   ],
   "count": 5
