@@ -25,7 +25,7 @@ from tools.first_letter import find_first_letter
 from tools.meaning_construction import make_meaning_combo_html
 from tools.meaning_construction import make_grammar_line
 from tools.meaning_construction import summarize_construction
-from tools.meaning_construction import degree_of_completion
+from tools.meaning_construction import degree_of_completion, rus_degree_of_completion
 from tools.niggahitas import add_niggahitas
 from tools.pali_alphabet import pali_alphabet
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
@@ -194,7 +194,10 @@ def render_ebook_entry(
     if construction:
         summary += f" [{construction}]"
 
-    summary += f" {degree_of_completion(i)}"
+    if lang == "ru":
+        summary += f" {rus_degree_of_completion(i)}"
+    else:
+        summary += f" {degree_of_completion(i)}"
 
     if "&" in summary:
         if lang == "ru":

@@ -4,7 +4,7 @@ from tools.configger import config_test
 from tools.meaning_construction import summarize_construction
 from tools.meaning_construction import make_meaning_combo_html
 from tools.meaning_construction import make_grammar_line
-from tools.meaning_construction import degree_of_completion
+from tools.meaning_construction import degree_of_completion, rus_degree_of_completion
 from tools.date_and_time import year_month_day_dash
 
 from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import make_ru_meaning, ru_replace_abbreviations, ru_make_grammar_line, ru_replace_abbreviations_list
@@ -16,6 +16,7 @@ class HeadwordData():
         self.ru_meaning = make_ru_meaning(i)
         self.summary = summarize_construction(i)
         self.complete = degree_of_completion(i)
+        self.rus_complete = rus_degree_of_completion(i)
         self.grammar = make_grammar_line(i)
         self.ru_grammar = ru_make_grammar_line(i)
         self.ru_pos = ru_replace_abbreviations(i.pos, "gram")

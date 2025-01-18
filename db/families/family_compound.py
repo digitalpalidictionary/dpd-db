@@ -15,7 +15,7 @@ from scripts.build.anki_updater import family_updater
 
 from tools.configger import config_test
 from tools.meaning_construction import clean_construction
-from tools.meaning_construction import degree_of_completion
+from tools.meaning_construction import degree_of_completion, rus_degree_of_completion
 from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
@@ -142,7 +142,7 @@ def compile_cf_html(dpd_db, cf_dict):
                     ru_html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
                     ru_html_string += f"<td><b>{pos}</b></td>"
                     ru_html_string += f"<td>{ru_meaning}</td>"
-                    ru_html_string += f"<td>{degree_of_completion(i)}</td>"
+                    ru_html_string += f"<td>{rus_degree_of_completion(i)}</td>"
                     ru_html_string += "</tr>"
 
                     cf_dict[cf]["html_ru"] = ru_html_string
@@ -161,7 +161,7 @@ def compile_cf_html(dpd_db, cf_dict):
                             i.lemma_1,
                             pos,
                             ru_meaning,
-                            degree_of_completion(i, html=False)
+                            rus_degree_of_completion(i, html=False)
                         ))
 
                     # anki data

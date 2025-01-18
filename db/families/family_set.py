@@ -8,7 +8,7 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword, FamilySet
 from tools.tic_toc import tic, toc
 from tools.superscripter import superscripter_uni
-from tools.meaning_construction import degree_of_completion, make_meaning_combo
+from tools.meaning_construction import degree_of_completion, make_meaning_combo, rus_degree_of_completion
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.configger import config_test
@@ -120,7 +120,7 @@ def compile_sf_html(sets_db, sets_dict):
                     ru_html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
                     ru_html_string += f"<td><b>{pos}</b></td>"
                     ru_html_string += f"<td>{ru_meaning}</td>"
-                    ru_html_string += f"<td>{degree_of_completion(i)}</td>"
+                    ru_html_string += f"<td>{rus_degree_of_completion(i)}</td>"
                     ru_html_string += "</tr>"
 
                     sets_dict[sf]["html_ru"] = ru_html_string
@@ -138,7 +138,7 @@ def compile_sf_html(sets_db, sets_dict):
                         i.lemma_1,
                         pos,
                         ru_meaning,
-                        degree_of_completion(i, html=False)
+                        rus_degree_of_completion(i, html=False)
                     ))
 
     for i in sets_dict:

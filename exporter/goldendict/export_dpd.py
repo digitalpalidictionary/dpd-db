@@ -31,7 +31,7 @@ from tools.date_and_time import year_month_day_dash
 from tools.exporter_functions import get_family_compounds, get_family_idioms, get_family_set
 from tools.goldendict_exporter import DictEntry
 from tools.meaning_construction import make_meaning_combo_html, make_grammar_line
-from tools.meaning_construction import summarize_construction, degree_of_completion
+from tools.meaning_construction import summarize_construction, degree_of_completion, rus_degree_of_completion
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.pos import CONJUGATIONS, DECLENSIONS, INDECLINABLES
@@ -164,7 +164,7 @@ def render_pali_word_dpd_html(
     html += "<body>"
 
     summary = render_dpd_definition_templ(
-        pth, i, tt.dpd_definition_templ, sbs, ru, rd['make_link'], rd['show_id'], rd['show_ebt_count'], rd['show_sbs_data'], lang)
+        pth, i, tt.dpd_definition_templ, sbs, ru, rd['make_link'], rd['show_id'], rd['show_ebt_count'], rd['show_sbs_data'], rd['show_ru_data'], lang)
     html += summary
     size_dict["dpd_summary"] += len(summary)
 
@@ -445,6 +445,7 @@ def render_dpd_definition_templ(
         show_id = False,
         show_ebt_count = False,
         show_sbs_data = False,
+        show_ru_data = False,
         lang="en"
 ) -> str:
     """render the definition of a word's most relevant information:
@@ -482,7 +483,11 @@ def render_dpd_definition_templ(
             meaning = make_meaning_combo_html(i)
     
     summary = summarize_construction(i)
-    complete = degree_of_completion(i)
+    
+    if (lang == "ru" or show_ru_data) and ru:
+        complete = rus_degree_of_completion(i)
+    else:
+        complete = degree_of_completion(i)
 
     # id
     id: int = i.id

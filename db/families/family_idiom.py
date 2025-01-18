@@ -11,7 +11,7 @@ from db.db_helpers import get_db_session
 from db.models import DbInfo, DpdHeadword, FamilyIdiom
 
 from tools.configger import config_test
-from tools.meaning_construction import degree_of_completion
+from tools.meaning_construction import degree_of_completion, rus_degree_of_completion
 from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
@@ -151,7 +151,7 @@ def compile_idioms_html(dpd_db, idioms_dict):
                     ru_html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
                     ru_html_string += f"<td><b>{pos}</b></td>"
                     ru_html_string += f"<td>{ru_meaning}</td>"
-                    ru_html_string += f"<td>{degree_of_completion(i)}</td>"
+                    ru_html_string += f"<td>{rus_degree_of_completion(i)}</td>"
                     ru_html_string += "</tr>"
 
                     idioms_dict[word]["html_ru"] = ru_html_string
@@ -169,7 +169,7 @@ def compile_idioms_html(dpd_db, idioms_dict):
                         i.lemma_1,
                         pos,
                         ru_meaning,
-                        degree_of_completion(i, html=False)
+                        rus_degree_of_completion(i, html=False)
                     ))
 
 

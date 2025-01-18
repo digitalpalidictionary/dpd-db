@@ -19,7 +19,7 @@ from scripts.build.anki_updater import family_updater
 
 from tools.configger import config_test
 from tools.lookup_is_another_value import is_another_value
-from tools.meaning_construction import degree_of_completion
+from tools.meaning_construction import degree_of_completion, rus_degree_of_completion
 from tools.meaning_construction import clean_construction
 from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
@@ -165,7 +165,7 @@ def compile_rf_html(dpd_db, rf_dict):
             ru_html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
             ru_html_string += f"<td><b>{pos}</b></td>"
             ru_html_string += f"<td>{ru_meaning}</td>"
-            ru_html_string += f"<td>{degree_of_completion(i)}</td>"
+            ru_html_string += f"<td>{rus_degree_of_completion(i)}</td>"
             ru_html_string += "</tr>"
 
             rf_dict[family]["html_ru"] = ru_html_string
@@ -183,7 +183,7 @@ def compile_rf_html(dpd_db, rf_dict):
                 i.lemma_1,
                 pos,
                 ru_meaning,
-                degree_of_completion(i, html=False)
+                rus_degree_of_completion(i, html=False)
             ))
 
             # anki data

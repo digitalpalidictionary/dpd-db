@@ -27,7 +27,11 @@
         {% if d.summary %}
             [{{d.summary}}]
         {% endif %}
-        {{d.complete|safe}}
+        {% if d.show_sbs_data %}
+            {{d.rus_complete|safe}}
+        {% else %}
+            {{d.complete|safe}}
+        {% endif %}
     </p>
 </div>
 
@@ -168,13 +172,19 @@
 
         {% if d.show_sbs_data %}
 
-            {% if d.i.ru and d.i.ru.ru_meaning %}
+            {% if d.i.ru %}
             <tr>
                 <th>
                     Русский
                 </th>
                 <td>
-                    {{d.i.ru.ru_meaning}}{% if d.i.ru.ru_meaning_lit %}; досл. {{d.i.ru.ru_meaning_lit}}
+                    {% if d.i.ru.ru_meaning %}
+                        {{d.i.ru.ru_meaning}}
+                        {% if d.i.ru.ru_meaning_lit %}
+                        ; досл. {{d.i.ru.ru_meaning_lit}}
+                        {% endif %}
+                    {% else %}
+                    <i>[пер. ИИ]</i> {{d.i.ru.ru_meaning_raw}}
                     {% endif %}
                 </td>
             </tr>
