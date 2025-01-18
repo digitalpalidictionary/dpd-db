@@ -5975,7 +5975,7 @@ var family_set_json = {
    [
     "aññesaṃ 2",
     "pron",
-    "of others; belonging to other people",
+    "of others; belonging to other people; as others",
     "✔"
    ],
    [
@@ -10990,7 +10990,7 @@ var family_set_json = {
    [
     "nemitta",
     "masc",
-    "fortune teller; diviner; who can read signs; lit. measured down",
+    "fortune teller; diviner; prognosticator; who can read signs; lit. measured down",
     "✔"
    ],
    [
@@ -14246,6 +14246,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "bimbī 2",
+    "fem",
+    "name of a lay disciple; lit. doll",
+    "✔"
+   ],
+   [
     "biḷālapādaka 2",
     "masc",
     "name of a wealthy layman; lit. cat's foot (weight)",
@@ -14702,7 +14708,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 161
+  "count": 162
  },
  "family names": {
   "data": [
@@ -21541,6 +21547,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "dasabala 2",
+    "masc",
+    "who is endowed with ten supernormal powers; epithet of the Buddha",
+    "✔"
+   ],
+   [
     "dīghadassī",
     "adj",
     "far-seeing; visionary; epithet of the Buddha; (comm) seeing the future",
@@ -21715,7 +21727,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 35
+  "count": 36
  },
  "books of the Suttapiṭaka": {
   "data": [

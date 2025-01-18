@@ -14568,6 +14568,23 @@ var family_idiom_json = {
    ]
   ]
  },
+ "iñjita": {
+  "count": 2,
+  "data": [
+   [
+    "iñjitametaṃ",
+    "sandhi",
+    "this is an agitation; this is a disturbance; this is a perturbation",
+    "✔"
+   ],
+   [
+    "yassiñjitaṃ",
+    "sandhi",
+    "for whom (there is no) agitation",
+    "✔"
+   ]
+  ]
+ },
  "nimitta": {
   "count": 2,
   "data": [
@@ -20358,23 +20375,6 @@ var family_idiom_json = {
     "gantumicchasi",
     "sandhi",
     "you want to go",
-    "✔"
-   ]
-  ]
- },
- "iñjita": {
-  "count": 2,
-  "data": [
-   [
-    "iñjitametaṃ",
-    "sandhi",
-    "this is an agitation; this is a disturbance; this is a perturbation",
-    "✔"
-   ],
-   [
-    "yassiñjitaṃ",
-    "sandhi",
-    "for whom (there is no) agitation",
     "✔"
    ]
   ]

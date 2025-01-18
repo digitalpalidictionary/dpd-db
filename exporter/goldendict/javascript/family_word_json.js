@@ -22,7 +22,7 @@ var family_word_json = {
    [
     "kakkasa 3",
     "nt",
-    "(of a jem) flaw; crack; defect",
+    "(of a jewel) flaw; crack; defect",
     "✔"
    ],
    [
@@ -1116,8 +1116,8 @@ var family_word_json = {
    [
     "akhara",
     "adj",
-    "not hard; soft; smooth",
-    "✘"
+    "soft; smooth; sweet; lit. not rough",
+    "✔"
    ],
    [
     "akhārika",
@@ -1966,14 +1966,8 @@ var family_word_json = {
    [
     "paguṇa 2",
     "adj",
-    "well-practised; well rehearsed",
-    "◑"
-   ],
-   [
-    "paguṇa 3",
-    "adj",
-    "learned by heart",
-    "◑"
+    "well-practised; well rehearsed; learned by heart",
+    "✔"
    ],
    [
     "paguṇatā",
@@ -2012,7 +2006,7 @@ var family_word_json = {
     "◑"
    ]
   ],
-  "count": 28
+  "count": 27
  },
  "agga": {
   "data": [
@@ -3061,7 +3055,7 @@ var family_word_json = {
    [
     "samanta 2",
     "adj",
-    "surrounding; lit. together with ends",
+    "surrounding; neighbouring; lit. together with ends",
     "✔"
    ],
    [
@@ -4264,7 +4258,7 @@ var family_word_json = {
    [
     "aññesaṃ 2",
     "pron",
-    "of others; belonging to other people",
+    "of others; belonging to other people; as others",
     "✔"
    ],
    [
@@ -4518,7 +4512,7 @@ var family_word_json = {
    [
     "aṭṭhilla",
     "nt",
-    "small bone used for massage",
+    "massage ball; (comm) small bone used for massage",
     "✔"
    ]
   ],
@@ -15260,8 +15254,8 @@ var family_word_json = {
    [
     "alāmaka",
     "adj",
-    "not terrible; not bad",
-    "✘"
+    "not inferior; not bad; not terrible",
+    "✔"
    ],
    [
     "lāmaka",
@@ -17800,8 +17794,8 @@ var family_word_json = {
    [
     "īsaka",
     "adj",
-    "slight",
-    "◑"
+    "slight; somewhat",
+    "✔"
    ],
    [
     "īsakaṃ",
@@ -29351,9 +29345,15 @@ var family_word_json = {
     "fem",
     "creeper brayonia grandis, which produces red oval fruits",
     "✘"
+   ],
+   [
+    "bimbī 2",
+    "fem",
+    "name of a lay disciple; lit. doll",
+    "✔"
    ]
   ],
-  "count": 4
+  "count": 5
  },
  "biḷaṅga": {
   "data": [
@@ -31439,7 +31439,7 @@ var family_word_json = {
     "vaṭaṃsa",
     "masc",
     "wreath; garland; flower ornament",
-    "◑"
+    "✔"
    ],
    [
     "vaṭaṃsaka",
@@ -31548,8 +31548,8 @@ var family_word_json = {
    [
     "vatthi 5",
     "fem",
-    "clyster",
-    "✘"
+    "clyster; enema",
+    "◑"
    ],
    [
     "vatthī",
@@ -32956,8 +32956,8 @@ var family_word_json = {
    [
     "saddala",
     "masc",
-    "place covered with new grass",
-    "✘"
+    "new grass; lawn",
+    "✔"
    ],
    [
     "susaddala",

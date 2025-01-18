@@ -11974,8 +11974,8 @@ var family_root_json = {
    [
     "aghaṭṭita",
     "pp",
-    "undisturbed",
-    "✘"
+    "undisturbed; unagitated; lit. not struck",
+    "✔"
    ],
    [
     "ghaṭṭa",
@@ -13079,7 +13079,7 @@ var family_root_json = {
     "acalita",
     "pp",
     "unshaken; unagitated; undisturbed",
-    "◑"
+    "✔"
    ],
    [
     "aniccala",
@@ -15770,8 +15770,8 @@ var family_root_json = {
    [
     "accuṇha 1",
     "adj",
-    "too hot",
-    "◑"
+    "too hot; extremely hot; overheated",
+    "✔"
    ],
    [
     "accuṇha 2",
@@ -16259,7 +16259,7 @@ var family_root_json = {
   "root_key": "√chand",
   "root_family": "√chand",
   "root_meaning": "desire, please",
-  "count": 16,
+  "count": 17,
   "data": [
    [
     "acchandaka",
@@ -16325,6 +16325,12 @@ var family_root_json = {
     "channa 2.3",
     "masc",
     "name of an arahant monk who committed suicide",
+    "✔"
+   ],
+   [
+    "chādayamāna 2.1",
+    "prp",
+    "wanting; desiring",
     "✔"
    ],
    [
@@ -20550,7 +20556,7 @@ var family_root_json = {
    [
     "jīna 1",
     "pp",
-    "lost; been deprived (of); become poorer",
+    "lost; deprived (of); become poorer",
     "✔"
    ],
    [
@@ -54916,8 +54922,8 @@ var family_root_json = {
    [
     "aniñjita 2",
     "pp",
-    "unshaken, undisturbed",
-    "✘"
+    "unmoved; unshaken; undisturbed",
+    "✔"
    ],
    [
     "aniñjiyamāna",
@@ -57578,7 +57584,7 @@ var family_root_json = {
    [
     "nemitta",
     "masc",
-    "fortune teller; diviner; who can read signs; lit. measured down",
+    "fortune teller; diviner; prognosticator; who can read signs; lit. measured down",
     "✔"
    ],
    [
@@ -74167,6 +74173,188 @@ var family_root_json = {
    ]
   ]
  },
+ "√īr 1 √īr": {
+  "root_key": "√īr 1",
+  "root_family": "√īr",
+  "root_meaning": "move, shake",
+  "count": 29,
+  "data": [
+   [
+    "anerita",
+    "pp",
+    "unmoved; not stirred; unshaken; not agitated; not whipped up; lit. not caused to move",
+    "✔"
+   ],
+   [
+    "iriyati 1",
+    "pr",
+    "behaves; acts; conducts oneself; lit. moves about",
+    "✔"
+   ],
+   [
+    "iriyati 2",
+    "pr",
+    "lives; goes about; lit. moves about",
+    "✔"
+   ],
+   [
+    "iriyati 3",
+    "pr",
+    "moves, stirs",
+    "✘"
+   ],
+   [
+    "iriyanā",
+    "fem",
+    "movement of the body, posture",
+    "✘"
+   ],
+   [
+    "iriyanta",
+    "prp",
+    "living; going about; lit. moving about",
+    "◑"
+   ],
+   [
+    "iriyamāna",
+    "prp",
+    "moving about (on); going around (in); (comm) living (in)",
+    "✔"
+   ],
+   [
+    "iriyā 1",
+    "fem",
+    "posture; deportment; lit. movement",
+    "✔"
+   ],
+   [
+    "iriyā 2",
+    "fem",
+    "conduct; behaviour; way of living; lit. movement",
+    "✔"
+   ],
+   [
+    "iriyā 3",
+    "fem",
+    "movement; motion",
+    "✔"
+   ],
+   [
+    "iriyāna",
+    "prp",
+    "moving about (in); going around (on)",
+    "✔"
+   ],
+   [
+    "iriyi",
+    "aor",
+    "moved, stirred, behaved",
+    "✘"
+   ],
+   [
+    "irīyati",
+    "pr",
+    "moves; travels; goes about; wanders",
+    "✔"
+   ],
+   [
+    "irīyanta",
+    "prp",
+    "moving about; going around",
+    "◑"
+   ],
+   [
+    "īrati",
+    "pr",
+    "moves, shakes, stirs",
+    "✘"
+   ],
+   [
+    "īrayamāna",
+    "prp",
+    "going around (with); moving about (with)",
+    "◑"
+   ],
+   [
+    "īri",
+    "aor",
+    "moved, shook, stirred",
+    "✘"
+   ],
+   [
+    "īrita 1.1",
+    "pp",
+    "moved, shaken, stirred",
+    "✘"
+   ],
+   [
+    "eraṇa",
+    "nt",
+    "act of moving",
+    "✘"
+   ],
+   [
+    "erayati",
+    "pr",
+    "makes move, stirs; makes sound; raises one's voice",
+    "✘"
+   ],
+   [
+    "erayanta",
+    "prp",
+    "moving; stirring; arousing",
+    "✘"
+   ],
+   [
+    "erayita",
+    "pp",
+    "spoken, uttered",
+    "✘"
+   ],
+   [
+    "erita",
+    "pp",
+    "moved; stirred; shaken; swayed; agitated; whipped up; lit. caused to move",
+    "✔"
+   ],
+   [
+    "ereti 1",
+    "pr",
+    "agitates; arouses; lit. causes to move",
+    "✔"
+   ],
+   [
+    "ereti 2",
+    "pr",
+    "moves; shakes; rustles; lit. causes to move",
+    "✔"
+   ],
+   [
+    "eresi",
+    "aor",
+    "shook, set into motion",
+    "✘"
+   ],
+   [
+    "nereti",
+    "pr",
+    "does not agitate; does not arouse; lit. does not causes to move",
+    "✔"
+   ],
+   [
+    "serivant",
+    "masc",
+    "name of a merchant; lit. having independent quality",
+    "✔"
+   ],
+   [
+    "serī 1.1",
+    "adj",
+    "independent; free; autonomous; going according to pleasure",
+    "✔"
+   ]
+  ]
+ },
  "√nīl √nīl": {
   "root_key": "√nīl",
   "root_family": "√nīl",
@@ -78772,7 +78960,7 @@ var family_root_json = {
    [
     "paccuddharati",
     "pr",
-    "formally renounces ownership of a robe; relinquishes possession",
+    "formally renounces ownership; relinquishes possession",
     "✔"
    ],
    [
@@ -80104,7 +80292,7 @@ var family_root_json = {
    [
     "paññāyamāna",
     "prp",
-    "appearing (in); occurring (in)",
+    "appearing (in); occurring (in); lit. being known",
     "✔"
    ],
    [
@@ -83412,7 +83600,7 @@ var family_root_json = {
    [
     "paṭhavī",
     "fem",
-    "earth; world",
+    "earth; ground",
     "✔"
    ],
    [
@@ -84590,8 +84778,8 @@ var family_root_json = {
    [
     "appamaññā",
     "fem",
-    "infinitude, measureless state; technical term including four qualities of mind, viz. love, pity, sympathy, and disinterestedness",
-    "✘"
+    "immeasurable state of mind; epithet of the four sublime abodes; lit. immeasurable state",
+    "✔"
    ],
    [
     "appamāṇa 1",
@@ -85434,8 +85622,8 @@ var family_root_json = {
    [
     "parāmasi",
     "aor",
-    "touched, held on to, was attached, caressed",
-    "✘"
+    "seized; clutched; held on to; clung tightly",
+    "✔"
    ],
    [
     "parāmasita",
@@ -91460,7 +91648,7 @@ var family_root_json = {
    [
     "parihāraka",
     "masc",
-    "attendant; carer; who looks after",
+    "attendant; who looks after; lit. who carries around",
     "✔"
    ],
    [
@@ -98744,7 +98932,7 @@ var family_root_json = {
    [
     "pativattati",
     "pr",
-    "bends back; goes back; fold backwards",
+    "bends back; fold backwards; turns back; recoils",
     "✔"
    ],
    [
@@ -100804,7 +100992,7 @@ var family_root_json = {
    [
     "patiṭṭhahitvā 2",
     "abs",
-    "having stood down (with); having touched ground (with); lit. having stood back",
+    "having stood firmly (with); having touched ground (with); lit. having stood back",
     "✔"
    ],
    [
@@ -110861,13 +111049,13 @@ var family_root_json = {
   "root_key": "√bham",
   "root_family": "√bham",
   "root_meaning": "turn, revolve, buzz",
-  "count": 14,
+  "count": 16,
   "data": [
    [
     "abhanta",
     "pp",
-    "stable; calm; lit. not spinning",
-    "✘"
+    "stable; calm; lit. not spun",
+    "✔"
    ],
    [
     "bhanta 1",
@@ -110908,8 +111096,8 @@ var family_root_json = {
    [
     "bhamanta",
     "prp",
-    "revolving, whirling about, roaming",
-    "✘"
+    "revolving; whirling about; spinning around (in)",
+    "✔"
    ],
    [
     "bhamayati",
@@ -110938,14 +111126,26 @@ var family_root_json = {
    [
     "bhami",
     "aor",
-    "revolved, whirled about, roamed",
-    "✘"
+    "spun; revolved; rotated",
+    "✔"
+   ],
+   [
+    "bhamitabba",
+    "ptp",
+    "should be spun; should be revolved; should be rotated; lit. to be turned",
+    "✔"
    ],
    [
     "bhamitvā",
     "abs",
-    "having revolved, having whirled about, having roamed",
-    "✘"
+    "having spun; having rotated (somebody in something)",
+    "✔"
+   ],
+   [
+    "bhamitvāna",
+    "abs",
+    "having rotated; having spun",
+    "✔"
    ]
   ]
  },
@@ -127897,7 +128097,7 @@ var family_root_json = {
     "aladdha",
     "pp",
     "not obtained; not gained; not won; not received",
-    "◑"
+    "✔"
    ],
    [
     "aladdhabba",
@@ -129864,8 +130064,8 @@ var family_root_json = {
    [
     "aluḷita",
     "pp",
-    "unmoved; not stirred; undisturbed",
-    "✘"
+    "unmoved; not stirred; undisturbed; (comm) not muddy",
+    "✔"
    ],
    [
     "alola 1",
@@ -130621,7 +130821,7 @@ var family_root_json = {
   "root_key": "√car 1",
   "root_family": "ava √car",
   "root_meaning": "move, walk",
-  "count": 6,
+  "count": 7,
   "data": [
    [
     "avacara 1",
@@ -130633,6 +130833,12 @@ var family_root_json = {
     "avacara 2",
     "nt",
     "sphere; realm; domain; extent; scope of activity; lit. moving down",
+    "✔"
+   ],
+   [
+    "avacara 3",
+    "adj",
+    "with the sphere of; in the domain of; within the field of; lit. moving down",
     "✔"
    ],
    [
@@ -137831,7 +138037,7 @@ var family_root_json = {
   "root_key": "√cakkh",
   "root_family": "vi √cakkh",
   "root_meaning": "see",
-  "count": 5,
+  "count": 6,
   "data": [
    [
     "avicakkhaṇa",
@@ -137862,6 +138068,12 @@ var family_root_json = {
     "adj",
     "eyeless; sightless; blind",
     "◑"
+   ],
+   [
+    "vicakkhuka",
+    "adj",
+    "eyeless; sightless; blind",
+    "✔"
    ]
   ]
  },
@@ -142834,9 +143046,9 @@ var family_root_json = {
     "◑"
    ],
    [
-    "avirādhetvā",
+    "avirādhetvā 1",
     "abs",
-    "having not lost; having not fallen back from",
+    "having not lost; having not fallen back from; lit. having not caused to fail",
     "◑"
    ],
    [
@@ -150852,8 +151064,8 @@ var family_root_json = {
    [
     "sandeha 3",
     "masc",
-    "doubt; objection; lit. accumulation",
-    "◑"
+    "doubt; uncertainty; objection; lit. accumulation",
+    "✔"
    ]
   ]
  },
@@ -153284,7 +153496,7 @@ var family_root_json = {
    [
     "asampakampiya",
     "ptp",
-    "unshakeable (by); unmoveable (by); lit. not to be shaken forward together",
+    "unshakeable (by); unmovable (by); lit. not to be shaken forward together",
     "✔"
    ],
    [
@@ -157518,7 +157730,7 @@ var family_root_json = {
    [
     "asaṃhāriya",
     "ptp",
-    "unmoveable; unshakeable (by); unassailable (by); lit. not to be carried away",
+    "unmovable; unshakeable (by); unassailable (by); lit. not to be carried away",
     "✔"
    ],
    [
@@ -157530,7 +157742,7 @@ var family_root_json = {
    [
     "asaṃhīra",
     "ptp",
-    "unmoveable; unshakeable; unassailable; lit. not to be carried away",
+    "unmovable; unshakeable; unassailable; lit. not to be carried away",
     "✔"
    ],
    [
@@ -163516,7 +163728,7 @@ var family_root_json = {
    [
     "ākaḍḍhitvā 3",
     "abs",
-    "(of a arrow) having drawn; having pulled",
+    "(of a bow) having drawn; having pulled",
     "✔"
    ],
    [
@@ -167915,182 +168127,6 @@ var family_root_json = {
    ]
   ]
  },
- "√īr 1 √īr": {
-  "root_key": "√īr 1",
-  "root_family": "√īr",
-  "root_meaning": "move, shake",
-  "count": 28,
-  "data": [
-   [
-    "iriyati 1",
-    "pr",
-    "behaves; acts; conducts oneself; lit. moves about",
-    "✔"
-   ],
-   [
-    "iriyati 2",
-    "pr",
-    "lives; goes about; lit. moves about",
-    "✔"
-   ],
-   [
-    "iriyati 3",
-    "pr",
-    "moves, stirs",
-    "✘"
-   ],
-   [
-    "iriyanā",
-    "fem",
-    "movement of the body, posture",
-    "✘"
-   ],
-   [
-    "iriyanta",
-    "prp",
-    "living; going about; lit. moving about",
-    "◑"
-   ],
-   [
-    "iriyamāna",
-    "prp",
-    "moving about (on); going around (in); (comm) living (in)",
-    "✔"
-   ],
-   [
-    "iriyā 1",
-    "fem",
-    "posture; deportment; lit. movement",
-    "✔"
-   ],
-   [
-    "iriyā 2",
-    "fem",
-    "conduct; behaviour; way of living; lit. movement",
-    "✔"
-   ],
-   [
-    "iriyā 3",
-    "fem",
-    "movement; motion",
-    "✔"
-   ],
-   [
-    "iriyāna",
-    "prp",
-    "moving about (in); going around (on)",
-    "✔"
-   ],
-   [
-    "iriyi",
-    "aor",
-    "moved, stirred, behaved",
-    "✘"
-   ],
-   [
-    "irīyati",
-    "pr",
-    "moves; travels; goes about; wanders",
-    "✔"
-   ],
-   [
-    "irīyanta",
-    "prp",
-    "moving about; going around",
-    "◑"
-   ],
-   [
-    "īrati",
-    "pr",
-    "moves, shakes, stirs",
-    "✘"
-   ],
-   [
-    "īrayamāna",
-    "prp",
-    "going around (with); moving about (with)",
-    "◑"
-   ],
-   [
-    "īri",
-    "aor",
-    "moved, shook, stirred",
-    "✘"
-   ],
-   [
-    "īrita 1.1",
-    "pp",
-    "moved, shaken, stirred",
-    "✘"
-   ],
-   [
-    "eraṇa",
-    "nt",
-    "act of moving",
-    "✘"
-   ],
-   [
-    "erayati",
-    "pr",
-    "makes move, stirs; makes sound; raises one's voice",
-    "✘"
-   ],
-   [
-    "erayanta",
-    "prp",
-    "moving; stirring; arousing",
-    "✘"
-   ],
-   [
-    "erayita",
-    "pp",
-    "spoken, uttered",
-    "✘"
-   ],
-   [
-    "erita",
-    "pp",
-    "moved; stirred; shaken; swayed; agitated; whipped up; lit. caused to move",
-    "✔"
-   ],
-   [
-    "ereti 1",
-    "pr",
-    "agitates; arouses; lit. causes to move",
-    "✔"
-   ],
-   [
-    "ereti 2",
-    "pr",
-    "moves; shakes; rustles; lit. causes to move",
-    "✔"
-   ],
-   [
-    "eresi",
-    "aor",
-    "shook, set into motion",
-    "✘"
-   ],
-   [
-    "nereti",
-    "pr",
-    "does not agitate; does not arouse; lit. does not causes to move",
-    "✔"
-   ],
-   [
-    "serivant",
-    "masc",
-    "name of a merchant; lit. having independent quality",
-    "✔"
-   ],
-   [
-    "serī 1.1",
-    "adj",
-    "independent; free; autonomous; going according to pleasure",
-    "✔"
-   ]
-  ]
- },
  "√īr 2 √īr": {
   "root_key": "√īr 2",
   "root_family": "√īr",
@@ -168980,7 +169016,7 @@ var family_root_json = {
    [
     "ugghāṭayi",
     "aor",
-    "removed; destroyed; abolished; annihilated; lit. caused to strike up",
+    "abolished; destroyed; annihilated; lit. caused to strike up",
     "✔"
    ],
    [
@@ -182041,20 +182077,6 @@ var family_root_json = {
    ]
   ]
  },
- "√chand √chad": {
-  "root_key": "√chand",
-  "root_family": "√chad",
-  "root_meaning": "desire, please",
-  "count": 1,
-  "data": [
-   [
-    "chādayamāna 2.1",
-    "prp",
-    "wanting; desiring",
-    "✔"
-   ]
-  ]
- },
  "√jaggh √jaggh": {
   "root_key": "√jaggh",
   "root_family": "√jaggh",
@@ -182257,7 +182279,7 @@ var family_root_json = {
   "root_key": "√ju",
   "root_family": "√ju",
   "root_meaning": "be fast",
-  "count": 10,
+  "count": 11,
   "data": [
    [
     "java 1",
@@ -182270,6 +182292,12 @@ var family_root_json = {
     "masc",
     "strength",
     "✘"
+   ],
+   [
+    "java 3",
+    "adj",
+    "speedy; swift; quick; fast",
+    "✔"
    ],
    [
     "javati",
@@ -184996,7 +185024,7 @@ var family_root_json = {
    [
     "pavedesi 2",
     "aor",
-    "taught; lit. caused to know",
+    "taught; explained; lit. caused to know",
     "✔"
    ],
    [
@@ -185210,8 +185238,8 @@ var family_root_json = {
    [
     "samuṭṭhāpesi 2",
     "aor",
-    "raised, produced, originated",
-    "✘"
+    "originated; was produced; lit. caused to stand up together",
+    "✔"
    ],
    [
     "samuṭṭhāya",
@@ -189078,8 +189106,8 @@ var family_root_json = {
    [
     "nibbāhana 1",
     "nt",
-    "removal, clearance",
-    "✘"
+    "removal; clearance (of); lit. causing to carry away",
+    "✔"
    ],
    [
     "nibbāhana 2",
@@ -192655,7 +192683,7 @@ var family_root_json = {
     "paccānusiṭṭha",
     "pp",
     "determined; decided; settled judicially",
-    "✘"
+    "✔"
    ]
   ]
  },
@@ -199362,7 +199390,7 @@ var family_root_json = {
    [
     "parittāyanta",
     "prp",
-    "protecting; safe-guarding",
+    "protecting; preserving; safe-guarding",
     "✔"
    ],
    [
@@ -205018,7 +205046,7 @@ var family_root_json = {
    [
     "byākkhāta",
     "pp",
-    "spoken about; told of; mentioned",
+    "spoken about; told of; mentioned; explained",
     "✔"
    ]
   ]
@@ -208664,7 +208692,7 @@ var family_root_json = {
    [
     "vikkāyika",
     "adj",
-    "to be sold; sellable",
+    "to be sold; sellable; vendible",
     "✔"
    ],
    [
@@ -212893,7 +212921,7 @@ var family_root_json = {
     "vimhita",
     "pp",
     "astonished; surprised; startled",
-    "◑"
+    "✔"
    ],
    [
     "suvimhita",
@@ -225420,8 +225448,8 @@ var family_root_json = {
    [
     "sammasita",
     "pp",
-    "grasped, touched, known thoroughly, meditated on",
-    "✘"
+    "grasped; understood; lit. touched together",
+    "✔"
    ],
    [
     "sammasitabba",
