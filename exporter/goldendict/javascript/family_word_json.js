@@ -5563,8 +5563,8 @@ var family_word_json = {
    [
     "ātitheyya",
     "nt",
-    "hospitality; gift to a guest",
-    "◑"
+    "hospitality; gift to a guest; lit. guest state",
+    "✔"
    ]
   ],
   "count": 3
@@ -17792,10 +17792,16 @@ var family_word_json = {
  "īsaka": {
   "data": [
    [
-    "īsaka",
+    "īsaka 1",
     "adj",
     "slight; somewhat",
     "✔"
+   ],
+   [
+    "īsaka 2",
+    "adj",
+    "little, few",
+    "✘"
    ],
    [
     "īsakaṃ",
@@ -17804,7 +17810,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "u": {
   "data": [
@@ -25159,6 +25165,17 @@ var family_word_json = {
    ]
   ],
   "count": 3
+ },
+ "taḷa": {
+  "data": [
+   [
+    "taḷāka",
+    "nt",
+    "lake; pond; pool; dam",
+    "✔"
+   ]
+  ],
+  "count": 1
  },
  "tāta": {
   "data": [

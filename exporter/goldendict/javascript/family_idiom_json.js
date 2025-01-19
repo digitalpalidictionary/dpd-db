@@ -865,12 +865,18 @@ var family_idiom_json = {
   ]
  },
  "khaṇa": {
-  "count": 3,
+  "count": 4,
   "data": [
    [
     "khaṇe khaṇe",
     "idiom",
     "moment by moment; second by second",
+    "✔"
+   ],
+   [
+    "taṅkhaṇaññeva",
+    "sandhi",
+    "at exactly that moment in time; suddenly",
     "✔"
    ],
    [
@@ -2265,7 +2271,7 @@ var family_idiom_json = {
   ]
  },
  "eva": {
-  "count": 252,
+  "count": 253,
   "data": [
    [
     "aṅganteva",
@@ -2889,6 +2895,12 @@ var family_idiom_json = {
     "jātameva",
     "sandhi",
     "born that very day; born the same day",
+    "✔"
+   ],
+   [
+    "taṅkhaṇaññeva",
+    "sandhi",
+    "at exactly that moment in time; suddenly",
     "✔"
    ],
    [
@@ -22557,7 +22569,7 @@ var family_idiom_json = {
   ]
  },
  "taṃ": {
-  "count": 45,
+  "count": 46,
   "data": [
    [
     "evantaṃ",
@@ -22570,6 +22582,12 @@ var family_idiom_json = {
     "idiom",
     "(gram) what does that mean?",
     "◑"
+   ],
+   [
+    "taṅkhaṇaññeva",
+    "sandhi",
+    "at exactly that moment in time; suddenly",
+    "✔"
    ],
    [
     "tañca 1",

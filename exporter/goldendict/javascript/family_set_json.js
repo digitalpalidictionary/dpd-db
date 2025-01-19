@@ -9014,7 +9014,7 @@ var family_set_json = {
     "paccanīkasāta",
     "masc",
     "name of a Brahman; lit. pleased by contradiction",
-    "◑"
+    "✔"
    ],
    [
     "pārāsiviya",
@@ -9556,6 +9556,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "kucchi 5",
+    "fem",
+    "womb",
+    "✔"
+   ],
+   [
     "kesa 1",
     "masc",
     "(head) hair",
@@ -9745,7 +9751,7 @@ var family_set_json = {
     "jivhāgga",
     "nt",
     "tip of the tongue",
-    "◑"
+    "✔"
    ],
    [
     "taca 1",
@@ -10114,7 +10120,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 132
+  "count": 133
  },
  "types of monastics": {
   "data": [

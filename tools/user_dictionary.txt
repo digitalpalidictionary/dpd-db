@@ -54,6 +54,7 @@ abhidhamma
 Abhidhammapiṭaka
 abhittharayamāna
 abhorring
+abodes
 Abrus
 absol
 absolutive
@@ -77,6 +78,7 @@ adhi
 adho
 adj
 adjectival
+adjudicates
 admonishable
 admonishable;
 adroitness
@@ -605,6 +607,7 @@ Crotalaria
 crus-galli
 Cuculus
 Cucumis
+Cūḷanī
 Cūḷaniddesa
 Cūḷapuṇṇamasutta
 cūḷavagga
@@ -654,6 +657,7 @@ dehorned
 dehusked
 dejection
 delicateness
+delimited
 deludedly
 demeritorious
 denigrates
@@ -670,6 +674,7 @@ derides
 desiderative
 desireless
 desirelessness
+desisted
 Desmostachya
 determinative
 detestation
@@ -721,6 +726,7 @@ disapproves
 discipleship
 discolouration
 discoloured
+discomforted
 discriminatively
 disembarks
 disentangled
@@ -739,6 +745,7 @@ dispeller
 dispraises
 disproof
 disputable
+disputation
 disrobed
 disrobes
 dissed
@@ -887,6 +894,7 @@ fisherman's
 flambeau
 flatterer
 flaviviridis
+flavourless
 fleshless
 fleshlessness
 fletched
@@ -1189,6 +1197,7 @@ jīvita
 joe
 Jonesia
 Jotipāla
+judicially
 jujuba
 Jumna
 juncea
@@ -1339,6 +1348,7 @@ Kūṭadanta
 kuṭi
 kuṭis
 Kuvera
+Kuvera
 Kuvera's
 ḷ
 ḷ
@@ -1366,6 +1376,7 @@ leatherworker
 lebbeck
 legume
 leprotic
+leveller
 liberating
 liberations
 liberative
@@ -1384,6 +1395,7 @@ listlessness
 litigated
 līyati
 LKR
+loathsomeness
 loc
 locative
 lodhra
@@ -1497,6 +1509,7 @@ marmelos
 Marmelos
 martinii
 māsaka
+masticated
 Mātali's
 materiality
 materialty
@@ -1535,6 +1548,7 @@ mis-meditates
 Mithil
 Mithila
 Mithilā
+MN
 MN100
 MN101
 MN102
@@ -1921,6 +1935,7 @@ pitbull
 piyajātikasuttaṃ
 pl
 plantlife
+pleasantness
 Podiceps
 poecilonym
 point-ness
@@ -2055,6 +2070,7 @@ reproved
 reproves
 reprovingly
 repulsiveness
+repulsiveness
 requisites
 rereturn
 resthouse
@@ -2181,6 +2197,7 @@ Sārnath
 sārūpamo
 sassata
 sati
+satiates
 satiety
 satipaṭṭhāna
 Satipaṭṭḥānasaṃyuttaṃ
@@ -2230,6 +2247,7 @@ Siddhartha's
 Siddhattha
 Siddhattha's
 sieves
+sieving
 sīghasotāya
 signless
 Sīha
@@ -2304,6 +2322,7 @@ splooshing
 Spondias
 spontaneum
 spritzed
+squanderer
 Sri
 Sri Lankan
 ssa
@@ -2311,6 +2330,7 @@ st
 stabilises
 stableman
 statecraft
+steadfastness
 steamrolls
 steeps
 step-by-step
@@ -2350,6 +2370,7 @@ Sudinna
 Sudinna's
 suffering
 suffuses
+suffusing
 suffusion
 sugata-span
 suggester
@@ -2372,6 +2393,7 @@ Sunn
 sunned
 sunshade
 sūpasampanna
+supercluster
 supernormal
 Suppatita
 Suppiya
@@ -2435,6 +2457,7 @@ Tayana
 Tāyana
 Tectona
 tegument
+tending
 Tepiṭakacūḷanāgatthera
 Terminalia
 ternatea
@@ -2671,6 +2694,8 @@ unperformed
 unpersuaded
 unpervaded
 unpierced
+unpleasantness
+unpleasantness
 unpresumed
 unproblematic
 unproduced
@@ -2811,6 +2836,7 @@ Vekhanasa
 velāsikāpi
 Velthuis
 Veḷuva
+vendible
 venerable’s
 venerables
 venerates
@@ -2866,6 +2892,7 @@ Vitis
 viviparous
 viyavajjena
 viyāyāma
+viz
 vocative
 voidness
 vokāra
@@ -2880,6 +2907,7 @@ wainwright's
 wainwrights
 warbled
 washroom
+watchfulness
 waveless
 waylayer
 well-practiced
@@ -2898,6 +2926,7 @@ Wrightia
 wrinkly-nes
 wrinklyness
 wrt
+x
 Xantrochymus
 yaj
 Yajur
@@ -2921,25 +2950,3 @@ you're
 youthfulness
 zizanioides
 Ziziphus
-steadfastness
-disputation
-satiates
-x
-desisted
-discomforted
-adjudicates
-delimited
-MN
-Kuvera
-sieving
-tending
-watchfulness
-abodes
-viz
-judicially
-vendible
-masticated
-repulsiveness
-unpleasantness
-unpleasantness
-loathsomeness
