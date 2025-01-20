@@ -6144,7 +6144,7 @@ var family_idiom_json = {
   ]
  },
  "iti": {
-  "count": 74,
+  "count": 75,
   "data": [
    [
     "aññathāsmīti",
@@ -6192,6 +6192,12 @@ var family_idiom_json = {
     "iccanena",
     "sandhi",
     "(gram) thus by this",
+    "✔"
+   ],
+   [
+    "iccassa",
+    "sandhi",
+    "thus to him",
     "✔"
    ],
    [
@@ -11776,7 +11782,7 @@ var family_idiom_json = {
   ]
  },
  "assa4": {
-  "count": 83,
+  "count": 84,
   "data": [
    [
     "athassa 2",
@@ -11819,6 +11825,12 @@ var family_idiom_json = {
     "sandhi",
     "lazy person … for him",
     "◑"
+   ],
+   [
+    "iccassa",
+    "sandhi",
+    "thus to him",
+    "✔"
    ],
    [
     "itissa 1",
@@ -15331,7 +15343,7 @@ var family_idiom_json = {
    [
     "tato paraṃ 2",
     "idiom",
-    "more than that",
+    "more than that; beyond that",
     "✔"
    ],
    [
@@ -26032,7 +26044,7 @@ var family_idiom_json = {
    [
     "tato paraṃ 2",
     "idiom",
-    "more than that",
+    "more than that; beyond that",
     "✔"
    ],
    [

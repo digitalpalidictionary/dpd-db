@@ -4991,8 +4991,8 @@ var family_word_json = {
    [
     "tadatta",
     "nt",
-    "fact of being like that",
-    "✘"
+    "fact of being like that; lit. that state",
+    "✔"
    ],
    [
     "tadā",
@@ -6532,6 +6532,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "sunī",
+    "fem",
+    "bitch; female dog",
+    "◑"
+   ],
+   [
     "soṇa 1",
     "masc",
     "name of a monk; lit. dog",
@@ -6556,6 +6562,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "soṇakāyana",
+    "masc",
+    "name of a young Brahman",
+    "✔"
+   ],
+   [
     "soṇā",
     "fem",
     "name of an arahant nun; lit. female dog",
@@ -6568,7 +6580,7 @@ var family_word_json = {
     "◑"
    ]
   ],
-  "count": 8
+  "count": 10
  },
  "sundara": {
   "data": [
@@ -10903,8 +10915,8 @@ var family_word_json = {
    [
     "pakkhitta 2.1",
     "nt",
-    "fact of being a bird",
-    "✘"
+    "fact of being a bird; lit. bird state",
+    "✔"
    ],
    [
     "pakkhimant",
@@ -13725,8 +13737,8 @@ var family_word_json = {
    [
     "manussatta 2",
     "nt",
-    "fact of being a human",
-    "✘"
+    "fact of being a human; lit. human state",
+    "✔"
    ],
    [
     "manussesu",
@@ -16693,7 +16705,7 @@ var family_word_json = {
    [
     "sasīsakaṃ",
     "ind",
-    "head high; over one's head",
+    "head high; over one's head; head and all; lit. with the head",
     "✔"
    ],
    [
@@ -19453,7 +19465,7 @@ var family_word_json = {
    [
     "kacci 2",
     "ind",
-    "I suspect; have you?",
+    "I suspect; have you?; are you?",
     "✔"
    ],
    [
@@ -22588,8 +22600,8 @@ var family_word_json = {
    [
     "gandhabbatta",
     "nt",
-    "fact of being demigod; heavenly musician state",
-    "✘"
+    "fact of being demigod; fact of being a heavenly musician; lit. demigod state",
+    "✔"
    ],
    [
     "gandhabbi",
@@ -24100,6 +24112,23 @@ var family_word_json = {
   ],
   "count": 2
  },
+ "challi": {
+  "data": [
+   [
+    "challi 1",
+    "fem",
+    "cloak; shroud; lit. bark",
+    "✔"
+   ],
+   [
+    "challi 2",
+    "fem",
+    "bark",
+    "✘"
+   ]
+  ],
+  "count": 2
+ },
  "chava": {
   "data": [
    [
@@ -25169,13 +25198,19 @@ var family_word_json = {
  "taḷa": {
   "data": [
    [
+    "taḷa",
+    "masc",
+    "lake; reservoir",
+    "✘"
+   ],
+   [
     "taḷāka",
     "nt",
     "lake; pond; pool; dam",
     "✔"
    ]
   ],
-  "count": 1
+  "count": 2
  },
  "tāta": {
   "data": [
@@ -31455,7 +31490,7 @@ var family_word_json = {
    [
     "vaṭaṃsa",
     "masc",
-    "wreath; garland; flower ornament",
+    "name of a palace; lit. wreath; garland; flower ornament",
     "✔"
    ],
    [
@@ -33329,6 +33364,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "sarīsapatta",
+    "nt",
+    "fact of being a snake; fact of being a creepy crawly; lit. snake state",
+    "✔"
+   ],
+   [
     "sarīṃsapa",
     "masc",
     "snake; reptile; creepy crawly",
@@ -33355,11 +33396,11 @@ var family_word_json = {
    [
     "siriṃsapatta",
     "nt",
-    "fact of being a snake; fact of being a creepy crawly",
-    "✘"
+    "fact of being a snake; fact of being a creepy crawly; lit. snake state",
+    "✔"
    ]
   ],
-  "count": 6
+  "count": 7
  },
  "saḷala": {
   "data": [
@@ -33745,6 +33786,17 @@ var family_word_json = {
    ]
   ],
   "count": 3
+ },
+ "saramā": {
+  "data": [
+   [
+    "sārameyya",
+    "masc",
+    "dog",
+    "✔"
+   ]
+  ],
+  "count": 1
  },
  "sālā": {
   "data": [

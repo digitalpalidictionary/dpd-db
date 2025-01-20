@@ -1021,6 +1021,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "āmeḍita",
+    "nt",
+    "(gram) reduplicated word",
+    "✔"
+   ],
+   [
     "āya 2.1",
     "suffix",
     "(gram) āya suffix; used to form denominative verbs",
@@ -4993,7 +4999,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 804
+  "count": 805
  },
  "prefixes": {
   "data": [
@@ -9612,7 +9618,7 @@ var family_set_json = {
    [
     "khandhaṭṭhika",
     "nt",
-    "upper back bone",
+    "upper backbone",
     "✔"
    ],
    [
@@ -9942,7 +9948,7 @@ var family_set_json = {
    [
     "piṭṭhiṭṭhika",
     "nt",
-    "back bone; spine",
+    "backbone; spine; spinal column",
     "✔"
    ],
    [
@@ -12390,6 +12396,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "vaṭaṃsa",
+    "masc",
+    "name of a palace; lit. wreath; garland; flower ornament",
+    "✔"
+   ],
+   [
     "vipula 2",
     "masc",
     "name of a mountain near to Rājagaha; lit. massive",
@@ -12528,7 +12540,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 138
+  "count": 139
  },
  "holy sites": {
   "data": [
@@ -15313,7 +15325,7 @@ var family_set_json = {
    [
     "jālī 2.2",
     "masc",
-    "name of a privately awakened Buddha; lit. blazing",
+    "name of two privately awakened Buddhas; lit. blazing",
     "✔"
    ],
    [
@@ -25727,6 +25739,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "sunī",
+    "fem",
+    "bitch; female dog",
+    "◑"
+   ],
+   [
     "suvāna",
     "masc",
     "dog",
@@ -25757,7 +25775,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 83
+  "count": 84
  },
  "names of royalty": {
   "data": [
@@ -25988,6 +26006,12 @@ var family_set_json = {
     "fem",
     "name of a princess",
     "◑"
+   ],
+   [
+    "cūḷanīputta",
+    "masc",
+    "name of a prince; lit. son of Cūḷanī",
+    "✔"
    ],
    [
     "jayasena",
@@ -26326,7 +26350,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 94
+  "count": 95
  },
  "six ascetic teachers": {
   "data": [
@@ -29553,6 +29577,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "kammāsadamma",
+    "nt",
+    "name of a town in the Kuru country",
+    "✔"
+   ],
+   [
     "kammāsadhamma",
     "nt",
     "name of a town in the Kuru country",
@@ -30513,7 +30543,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 197
+  "count": 198
  },
  "ordinal numbers": {
   "data": [
@@ -36974,6 +37004,24 @@ var family_set_json = {
     "◑"
    ],
    [
+    "guḷhaummagga",
+    "nt",
+    "name of an apocryphal discourse; lit. secret wrong road",
+    "✔"
+   ],
+   [
+    "guḷhavinaya",
+    "nt",
+    "name of an apocryphal discourse; lit. secret discipline",
+    "✔"
+   ],
+   [
+    "guḷhavessantara",
+    "nt",
+    "name of an apocryphal discourse",
+    "✔"
+   ],
+   [
     "padarūpasiddhi",
     "fem",
     "name of grammatical treatise by Buddhappiya in the Kaccāyana tradition; lit. completion of the final form of the word",
@@ -37028,6 +37076,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "vedallapiṭaka",
+    "nt",
+    "name of an apocryphal discourse; lit. basket of questions and answer",
+    "✔"
+   ],
+   [
     "saddanīti",
     "fem",
     "comprehensive grammatical treatise written by Aggavaṃsa in the twelfth century; lit. principles of grammar",
@@ -37064,7 +37118,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 16
+  "count": 20
  },
  "seven grains": {
   "data": [
