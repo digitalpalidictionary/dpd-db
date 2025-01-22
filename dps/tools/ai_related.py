@@ -83,7 +83,7 @@ def replace_abbreviations(grammar_string):
     # Clean the grammar string
     cleaned_grammar_string = re.sub(r' of [\w\s]+|, pp of [\w\s]+|, prp of [\w\s]+|, ptp of [\w\s]+|, from [\w\s]+|, loc abs|, gen abs|\(.*?\)', '', grammar_string)
 
-    #! consider noun, pp of ... remove pp or make it from pp
+    # TODO consider noun, pp of ... remove pp or make it from pp
 
     replacements = {}
     multi_word_replacements = {}

@@ -46,6 +46,9 @@ class DPSPaths:
         self.sbs_pd_path = base_dir.joinpath(Path("dps/csvs/sbs_pd.csv"))
         self.ru_total_root_path = base_dir.joinpath(Path("dps/rus/ru_total_roots.tsv"))
         self.ru_total_comp_path = base_dir.joinpath(Path("dps/rus/ru_total_comps.tsv"))
+        self.total_words_path = base_dir.joinpath(Path("dps/csvs/total_words.tsv"))
+        self.total_roots_path = base_dir.joinpath(Path("dps/csvs/total_roots.tsv"))
+
 
         self.pali_class_vocab_dir = base_dir.joinpath(Path("dps/pali_class/vocab/"))
 

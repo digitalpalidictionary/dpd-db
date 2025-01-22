@@ -29,8 +29,9 @@ from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.pos import EXCLUDE_FROM_FREQ
 from tools.sinhala_tools import si_grammar, pos_si, pos_si_full, translit_ro_to_si
+from tools.clean_machine import clean_machine
 
-from dps.tools.sbs_table_functions import SBS_table_tools
+from dps.tools.sbs_table_functions import SBS_table_tools, paragraphs_are_similar
 
 
 class Base(DeclarativeBase):
@@ -1288,22 +1289,51 @@ class SBS(Base):
         ForeignKey('dpd_headwords.id'), primary_key=True)
     sbs_class_anki: Mapped[int] = mapped_column(default='')
     sbs_class: Mapped[int] = mapped_column(default='')
+
+    #TODO  remove after populating discourses_example
     sbs_category: Mapped[str] = mapped_column(default='')
+    #TODO  remove after populating pat_example and vib_example
     sbs_patimokkha: Mapped[str] = mapped_column(default='')
+
     sbs_meaning: Mapped[str] = mapped_column(default='')
     sbs_notes: Mapped[str] = mapped_column(default='')
+
     sbs_source_1: Mapped[str] = mapped_column(default='')
     sbs_sutta_1: Mapped[str] = mapped_column(default='')
     sbs_example_1: Mapped[str] = mapped_column(default='')
     sbs_chant_pali_1: Mapped[str] = mapped_column(default='')
     sbs_chant_eng_1: Mapped[str] = mapped_column(default='')
     sbs_chapter_1: Mapped[str] = mapped_column(default='')
+
     sbs_source_2: Mapped[str] = mapped_column(default='')
     sbs_sutta_2: Mapped[str] = mapped_column(default='')
     sbs_example_2: Mapped[str] = mapped_column(default='')
     sbs_chant_pali_2: Mapped[str] = mapped_column(default='')
     sbs_chant_eng_2: Mapped[str] = mapped_column(default='')
     sbs_chapter_2: Mapped[str] = mapped_column(default='')
+
+    dhp_source: Mapped[str] = mapped_column(default='')
+    dhp_sutta: Mapped[str] = mapped_column(default='')
+    dhp_example: Mapped[str] = mapped_column(default='')
+
+    pat_source: Mapped[str] = mapped_column(default='')
+    pat_sutta: Mapped[str] = mapped_column(default='')
+    pat_example: Mapped[str] = mapped_column(default='')
+
+    vib_source: Mapped[str] = mapped_column(default='')
+    vib_sutta: Mapped[str] = mapped_column(default='')
+    vib_example: Mapped[str] = mapped_column(default='')
+
+    class_source: Mapped[str] = mapped_column(default='')
+    class_sutta: Mapped[str] = mapped_column(default='')
+    class_example: Mapped[str] = mapped_column(default='')
+    class_example_translation: Mapped[str] = mapped_column(default='')
+
+    discourses_source: Mapped[str] = mapped_column(default='')
+    discourses_sutta: Mapped[str] = mapped_column(default='')
+    discourses_example: Mapped[str] = mapped_column(default='')
+
+    #TODO  remove after filling class dpd discourses and pat_example and vib_example
     sbs_source_3: Mapped[str] = mapped_column(default='')
     sbs_sutta_3: Mapped[str] = mapped_column(default='')
     sbs_example_3: Mapped[str] = mapped_column(default='')
@@ -1316,6 +1346,7 @@ class SBS(Base):
     sbs_chant_pali_4: Mapped[str] = mapped_column(default='')
     sbs_chant_eng_4: Mapped[str] = mapped_column(default='')
     sbs_chapter_4: Mapped[str] = mapped_column(default='')
+
 
 
     @declared_attr
@@ -1337,13 +1368,46 @@ class SBS(Base):
 
     @property
     def needs_sbs_example_button(self) -> bool:
-        count = sum(1 for i in range(1, 5) if getattr(self, f'sbs_example_{i}', '') and getattr(self, f'sbs_example_{i}').strip())
+        sbs_examples = [
+            self.sbs_example_1, self.sbs_example_2, self.sbs_example_3, self.sbs_example_4,
+            self.dhp_example, self.pat_example, self.vib_example, self.class_example, self.discourses_example
+        ]
+        count = sum(1 for example in sbs_examples if example and example.strip())
         return count == 1
 
     @property
     def needs_sbs_examples_button(self) -> bool:
-        count = sum(1 for i in range(1, 5) if getattr(self, f'sbs_example_{i}', '') and getattr(self, f'sbs_example_{i}').strip())
+        sbs_examples = [
+            self.sbs_example_1, self.sbs_example_2, self.sbs_example_3, self.sbs_example_4,
+            self.dhp_example, self.pat_example, self.vib_example, self.class_example, self.discourses_example
+        ]
+        count = sum(1 for example in sbs_examples if example and example.strip())
         return count >= 2
+
+    @property
+    def needs_sbs_example(self) -> bool:
+        return any(example and example.strip() for example in (self.sbs_example_1, self.sbs_example_2, self.sbs_example_3, self.sbs_example_4))
+
+    #Determine uniqueness of examples
+    @property
+    def needs_dhp_example(self) -> bool:
+        if self.dhp_example:
+            examples = [self.sbs_example_1, self.sbs_example_2, self.sbs_example_3, self.sbs_example_4]
+            for example in examples:
+                if example and paragraphs_are_similar(clean_machine(example), clean_machine(self.dhp_example), 0.9):
+                    return False
+            return True
+        return False
+
+    @property
+    def needs_discourses_example(self) -> bool:
+        if self.discourses_example:
+            examples = [self.sbs_example_1, self.sbs_example_2, self.sbs_example_3, self.sbs_example_4]
+            for example in examples:
+                if example and paragraphs_are_similar(clean_machine(example), clean_machine(self.discourses_example), 0.9):
+                    return False
+            return True
+        return False
 
     # Properties for sbs_chant_link_X
     @property
@@ -1397,6 +1461,26 @@ class SBS(Base):
     def sbs_source_link_4(self) -> str:
         return generate_link(self.sbs_source_4) if self.sbs_source_4 else ""
 
+    @property
+    def dhp_source_link(self) -> str:
+        return generate_link(self.dhp_source) if self.dhp_source else ""
+
+    @property
+    def pat_source_link(self) -> str:
+        return generate_link(self.pat_source) if self.pat_source else ""
+
+    @property
+    def vib_source_link(self) -> str:
+        return generate_link(self.vib_source) if self.vib_source else ""
+
+    @property
+    def class_source_link(self) -> str:
+        return generate_link(self.class_source) if self.class_source else ""
+
+    @property
+    def discourses_source_link(self) -> str:
+        return generate_link(self.discourses_source) if self.discourses_source else ""
+
 
     def __repr__(self) -> str:
         return f"SBS: {self.id} {self.sbs_chant_pali_1} {self.sbs_class}"
@@ -1416,6 +1500,7 @@ class Russian(Base):
     ru_meaning_raw: Mapped[str] = mapped_column(default="")
     ru_meaning_lit: Mapped[str] = mapped_column(default="")
     ru_notes: Mapped[str] = mapped_column(default='')
+    ru_cognate: Mapped[str] = mapped_column(default='')
 
     def __repr__(self) -> str:
         return f"Russian: {self.id} {self.ru_meaning}"

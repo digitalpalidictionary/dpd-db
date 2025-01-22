@@ -16,6 +16,8 @@ from difflib import SequenceMatcher
 
 from tools.tsv_read_write import read_tsv_dict, write_tsv_dot_dict
 
+from tools.paths import ProjectPaths
+
 from dps.tools.ai_related import load_translaton_examples
 from dps.tools.ai_related import replace_abbreviations
 from dps.tools.ai_related import handle_openai_response
@@ -33,8 +35,11 @@ class Flags_dps:
         self.synonyms = True
         self.sbs_example_1 = True
         self.sbs_example_2 = False
-        self.sbs_example_3 = False
-        self.sbs_example_4 = False
+        self.dhp_example = False
+        self.pat_example = False
+        self.vib_example = False
+        self.class_example = False
+        self.discourses_example = False
         self.tested = False
         self.test_next = False
         self.show_fields = True
@@ -45,8 +50,11 @@ def dps_reset_flags(flags_dps):
     flags_dps.synonyms = True
     flags_dps.sbs_example_1 = True
     flags_dps.sbs_example_2 = False
-    flags_dps.sbs_example_3 = False
-    flags_dps.sbs_example_4 = False
+    flags_dps.dhp_example = False
+    flags_dps.pat_example = False
+    flags_dps.vib_example = False
+    flags_dps.class_example = False
+    flags_dps.discourses_example = False
     flags_dps.tested = False
     flags_dps.test_next = False
     flags_dps.show_fields = True
@@ -71,7 +79,19 @@ def edit_corrections(pth):
 def display_dps_summary(values, window, sg, original_values):
 
     dps_values_list = [
-    "dps_lemma_1", "dps_grammar", "dps_meaning", "dps_ru_meaning", "dps_ru_meaning_lit", "dps_sbs_meaning", "dps_root", "dps_base_or_comp", "dps_constr_or_comp_constr", "dps_synonym_antonym", "dps_notes", "dps_ru_notes", "dps_sbs_notes", "dps_sbs_source_1", "dps_sbs_sutta_1", "dps_sbs_example_1", "dps_sbs_chant_pali_1", "dps_sbs_chant_eng_1", "dps_sbs_chapter_1", "dps_sbs_source_2", "dps_sbs_sutta_2", "dps_sbs_example_2", "dps_sbs_chant_pali_2", "dps_sbs_chant_eng_2", "dps_sbs_chapter_2", "dps_sbs_source_3", "dps_sbs_sutta_3", "dps_sbs_example_3", "dps_sbs_chant_pali_3", "dps_sbs_chant_eng_3", "dps_sbs_chapter_3", "dps_sbs_source_4", "dps_sbs_sutta_4", "dps_sbs_example_4", "dps_sbs_chant_pali_4", "dps_sbs_chant_eng_4", "dps_sbs_chapter_4", "dps_sbs_class_anki", "dps_sbs_class", "dps_sbs_category", "dps_sbs_patimokkha"]
+    "dps_lemma_1", "dps_grammar", "dps_meaning", "dps_ru_meaning", "dps_ru_meaning_lit", "dps_ru_cognate",
+    "dps_sbs_meaning", "dps_root", "dps_base_or_comp", "dps_constr_or_comp_constr", "dps_synonym_antonym",
+    "dps_notes", "dps_ru_notes", "dps_sbs_notes", 
+    "dps_sbs_source_1", "dps_sbs_sutta_1", "dps_sbs_example_1", "dps_sbs_chant_pali_1", "dps_sbs_chant_eng_1", "dps_sbs_chapter_1", 
+    "dps_sbs_source_2", "dps_sbs_sutta_2", "dps_sbs_example_2", "dps_sbs_chant_pali_2", "dps_sbs_chant_eng_2", "dps_sbs_chapter_2", 
+    "dps_dhp_source", "dps_dhp_sutta", "dps_dhp_example",
+    "dps_pat_source", "dps_pat_sutta", "dps_pat_example",
+    "dps_vib_source", "dps_vib_sutta", "dps_vib_example",
+    "dps_class_source", "dps_class_sutta", "dps_class_example",
+    "dps_discourses_source", "dps_discourses_sutta", "dps_discourses_example",
+    "dps_sbs_source_3", "dps_sbs_sutta_3", "dps_sbs_example_3", 
+    "dps_sbs_source_4", "dps_sbs_sutta_4", "dps_sbs_example_4", 
+    "dps_sbs_class_anki", "dps_sbs_class", "dps_sbs_category", "dps_sbs_patimokkha"]
 
     summary = []
     excluded_fields = ["dps_grammar", "dps_meaning", "dps_root", "dps_base_or_comp", "dps_constr_or_comp_constr", "dps_synonym_antonym", "dps_notes"]
@@ -137,7 +157,7 @@ def display_dps_summary(values, window, sg, original_values):
     return event
 
 
-# Buttons ex_1, 2, 3 and 4 in DPS
+# Buttons ex_1, 2 in DPS
 def swap_sbs_examples(num1, num2, window, values):
     # Common parts of the keys
     key_parts = ['source', 'sutta', 'example', 'chant_pali', 'chant_eng', 'chapter']
@@ -160,25 +180,38 @@ def swap_sbs_examples(num1, num2, window, values):
     return [values[key] for key in keys_num1], [values[key] for key in keys_num2]
 
 
-# remove buttons on 4 sbs_examples
+# remove buttons on sbs_examples
 def remove_sbs_example(example_num, window):
 
-    fields = ['source', 'sutta', 'example', 'chant_pali', 'chant_eng', 'chapter']
+    fields_sbs = ['source', 'sutta', 'example', 'chant_pali', 'chant_eng', 'chapter']
 
-    # Update the fields in the GUI to be empty.
-    for field in fields:
-        key = f'dps_sbs_{field}_{example_num}'
-        window[key].update('')  # Remove the content of the field in the GUI.
+    fields = ['source', 'sutta', 'example']
+
+    if example_num == 1 or example_num == 2:
+        for field in fields_sbs:
+            key = f'dps_sbs_{field}_{example_num}'
+            window[key].update('')  # Remove the content of the field in the GUI.
+
+    else:
+        for field in fields:
+            key = f'dps_{example_num}_{field}'
+            window[key].update('')  # Remove the content of the field in the GUI.
 
 
-# Buttons sbs_ex_1, 2, 3 and 4 in DPS
+# Buttons copy to sbs examples in DPS
 def copy_dpd_examples(num_dpd, num_sbs, window, values):
     # Common parts of the keys
     key_parts = ['source', 'sutta', 'example']
 
     # Generate the full keys for both numbers
-    keys_dpd = [f"dps_{part}_{num_dpd}" for part in key_parts]
-    keys_sbs = [f"dps_sbs_{part}_{num_sbs}" for part in key_parts]
+    if num_dpd == 1 or num_dpd == 2:
+        keys_dpd = [f"dps_{part}_{num_dpd}" for part in key_parts]
+    else:
+        keys_dpd = [f"dps_sbs_{part}{num_dpd}" for part in key_parts]
+    if num_sbs == 1 or num_sbs == 2:
+        keys_sbs = [f"dps_sbs_{part}_{num_sbs}" for part in key_parts]
+    else:
+        keys_sbs = [f"dps_{num_sbs}_{part}" for part in key_parts]
 
     # Copy values from keys_dpd to keys_sbs
     for key_dpd, key_sbs in zip(keys_dpd, keys_sbs):
@@ -271,6 +304,34 @@ def unstash_values_to(dpspth, window, num, error_field):
             window[error_field].update(error_string)
             print(f"Error: Example {num} was not stashed.")
             return
+
+
+
+def dps_example_save(
+        pth: ProjectPaths,
+        values: dict[str, str],
+        window,
+        example_attr: str) -> None:
+    """Save dps source sutta examples as a pickle file."""
+    source_sutta_example = (
+        values[f"dps_{example_attr}_source"],
+        values[f"dps_{example_attr}_sutta"],
+        values[f"dps_{example_attr}_example"].replace("<b>", "").replace("</b>", ""),)
+    with open(pth.example_stash_path, "wb") as f:
+        pickle.dump(source_sutta_example, f)
+
+
+def dps_example_load(pth: ProjectPaths, window, example_attr: str) -> None:
+    """Load dps the example back into the window"""
+    try:
+        with open(pth.example_stash_path, "rb") as f:
+            source, sutta, example = pickle.load(f)
+        window[f"dps_{example_attr}_source"].update(value=source)
+        window[f"dps_{example_attr}_sutta"].update(value=sutta)
+        window[f"dps_{example_attr}_example"].update(value=example)
+    except Exception:
+        window["messages"].update(
+            value="no sutta examples saved", text_color="red")
 
 
 # openai gpt related

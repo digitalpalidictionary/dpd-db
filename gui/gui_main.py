@@ -105,6 +105,8 @@ from gui.functions_dps import load_gui_state_dps
 from gui.functions_dps import add_word_from_csv
 from gui.functions_dps import send_sutta_study_request
 from gui.functions_dps import take_example_from_archive
+from gui.functions_dps import dps_example_save
+from gui.functions_dps import dps_example_load
 
 from gui.functions_db_dps import fetch_matching_words_from_db_with_conditions
 from gui.functions_db_dps import fetch_matching_words_from_db
@@ -1370,14 +1372,6 @@ def main():
                 window["dps_sbs_chant_pali_2_error"].update(visible=True)
                 window["dps_sbs_chant_eng_2"].update(visible=True)
                 window["dps_sbs_chapter_2"].update(visible=True)
-                window["dps_sbs_chant_pali_3"].update(visible=True)
-                window["dps_sbs_chant_pali_3_error"].update(visible=True)
-                window["dps_sbs_chant_eng_3"].update(visible=True)
-                window["dps_sbs_chapter_3"].update(visible=True)
-                window["dps_sbs_chant_pali_4"].update(visible=True)
-                window["dps_sbs_chant_pali_4_error"].update(visible=True)
-                window["dps_sbs_chant_eng_4"].update(visible=True)
-                window["dps_sbs_chapter_4"].update(visible=True)
 
                 dps_flags.show_fields = True
 
@@ -1388,10 +1382,6 @@ def main():
                 "dps_sbs_chant_pali_1_error",
                 "dps_sbs_chant_pali_2", "dps_sbs_chant_eng_2", "dps_sbs_chapter_2",
                 "dps_sbs_chant_pali_2_error",
-                "dps_sbs_chant_pali_3", "dps_sbs_chant_eng_3", "dps_sbs_chapter_3",
-                "dps_sbs_chant_pali_3_error",
-                "dps_sbs_chant_pali_4", "dps_sbs_chant_eng_4", "dps_sbs_chapter_4",
-                "dps_sbs_chant_pali_4_error",
             ]
             for value in values:
                 window[value].update(visible=True)
@@ -1639,19 +1629,19 @@ def main():
             values["dps_sbs_example_2"] = values["dps_sbs_example_2"].lower()
             window["dps_sbs_example_2"].update(values["dps_sbs_example_2"])
 
-        # buttons for sbs_ex_3
+        # buttons for dhp
 
-        # dps clean3
-        elif event == "dps_example_3_clean":
+        # dps clean dhp
+        elif event == "dps_example_dhp_clean":
             replace_sandhi(
-                values["dps_sbs_example_3"], "dps_sbs_example_3", 
+                values["dps_dhp_example"], "dps_dhp_example", 
                 sandhi_dict, hyphenations_dict, window)
             replace_sandhi(
-                values["dps_bold_3"], "dps_bold_3", 
+                values["dps_bold_dhp"], "dps_bold_dhp", 
                 sandhi_dict, hyphenations_dict, window)
 
-        # search sbs_ex3
-        elif event == "dps_another_eg_3":
+        # search dhp    
+        elif event == "dps_another_eg_dhp":
             if not values["book_to_add"]:
                 book_to_add = sg.popup_get_text(
                     "Which book?", title=None,
@@ -1678,44 +1668,44 @@ def main():
 
             if source_sutta_example is not None:
                 try:
-                    window["dps_sbs_source_3"].update(value=source_sutta_example[0])
-                    window["dps_sbs_sutta_3"].update(value=source_sutta_example[1])
-                    window["dps_sbs_example_3"].update(value=source_sutta_example[2])
+                    window["dps_dhp_source"].update(value=source_sutta_example[0])
+                    window["dps_dhp_sutta"].update(value=source_sutta_example[1])
+                    window["dps_dhp_example"].update(value=source_sutta_example[2])
                 except KeyError as e:
                     window["messages"].update(value=str(e), text_color="red")
 
-            dps_flags.sbs_example_3 = False
+            dps_flags.dhp_example = False
 
-        # dps bold3
-        elif event == "dps_bold_3_button" or event == "dps_bold_3_enter":
-            if values["dps_bold_3"]:
-                example_3_bold = re.sub(
-                    values["dps_bold_3"],
-                    f"<b>{values['dps_bold_3']}</b>",
-                    values["dps_sbs_example_3"])
-                window["dps_sbs_example_3"].update(value=example_3_bold)
-                window["dps_bold_3"].update(value="")
+        # dps bold dhp
+        elif event == "dps_bold_dhp_button" or event == "dps_bold_dhp_enter":
+            if values["dps_bold_dhp"]:
+                example_dhp_bold = re.sub(
+                    values["dps_bold_dhp"],
+                    f"<b>{values['dps_bold_dhp']}</b>",
+                    values["dps_dhp_example"])
+                window["dps_dhp_example"].update(value=example_dhp_bold)
+                window["dps_bold_dhp"].update(value="")
 
-        # dps lower3
-        elif event == "dps_example_3_lower":
-            values["dps_sbs_sutta_3"] = values["dps_sbs_sutta_3"].lower()
-            window["dps_sbs_sutta_3"].update(values["dps_sbs_sutta_3"])
-            values["dps_sbs_example_3"] = values["dps_sbs_example_3"].lower()
-            window["dps_sbs_example_3"].update(values["dps_sbs_example_3"])
+        # dps lower dhp
+        elif event == "dps_example_dhp_lower":
+            values["dps_dhp_sutta"] = values["dps_dhp_sutta"].lower()
+            window["dps_dhp_sutta"].update(values["dps_dhp_sutta"])
+            values["dps_dhp_example"] = values["dps_dhp_example"].lower()
+            window["dps_dhp_example"].update(values["dps_dhp_example"])
             
-        # buttons for sbs_ex_4
+        # buttons for pat
 
-        # clean4
-        elif event == "dps_example_4_clean":
+        # dps clean pat
+        elif event == "dps_example_pat_clean":
             replace_sandhi(
-                values["dps_sbs_example_4"], "dps_sbs_example_4", 
+                values["dps_pat_example"], "dps_pat_example", 
                 sandhi_dict, hyphenations_dict, window)
             replace_sandhi(
-                values["dps_bold_4"], "dps_bold_4", 
+                values["dps_bold_pat"], "dps_bold_pat", 
                 sandhi_dict, hyphenations_dict, window)
 
-        # search sbs_ex4
-        elif event == "dps_another_eg_4":
+        # search pat    
+        elif event == "dps_another_eg_pat":
             if not values["book_to_add"]:
                 book_to_add = sg.popup_get_text(
                     "Which book?", title=None,
@@ -1742,30 +1732,222 @@ def main():
 
             if source_sutta_example is not None:
                 try:
-                    window["dps_sbs_source_4"].update(value=source_sutta_example[0])
-                    window["dps_sbs_sutta_4"].update(value=source_sutta_example[1])
-                    window["dps_sbs_example_4"].update(value=source_sutta_example[2])
+                    window["dps_pat_source"].update(value=source_sutta_example[0])
+                    window["dps_pat_sutta"].update(value=source_sutta_example[1])
+                    window["dps_pat_example"].update(value=source_sutta_example[2])
                 except KeyError as e:
                     window["messages"].update(value=str(e), text_color="red")
 
-            dps_flags.sbs_example_4 = False
+            dps_flags.pat_example = False
 
-        # dps bold4
-        elif event == "dps_bold_4_button" or event == "dps_bold_4_enter":
-            if values["dps_bold_4"]:
-                example_4_bold = re.sub(
-                    values["dps_bold_4"],
-                    f"<b>{values['dps_bold_4']}</b>",
-                    values["dps_sbs_example_4"])
-                window["dps_sbs_example_4"].update(value=example_4_bold)
-                window["dps_bold_4"].update(value="")
+        # dps bold pat
+        elif event == "dps_bold_pat_button" or event == "dps_bold_pat_enter":
+            if values["dps_bold_pat"]:
+                example_pat_bold = re.sub(
+                    values["dps_bold_pat"],
+                    f"<b>{values['dps_bold_pat']}</b>",
+                    values["dps_pat_example"])
+                window["dps_pat_example"].update(value=example_pat_bold)
+                window["dps_bold_pat"].update(value="")
 
-        # dps lower4
-        elif event == "dps_example_4_lower":
-            values["dps_sbs_sutta_4"] = values["dps_sbs_sutta_4"].lower()
-            window["dps_sbs_sutta_4"].update(values["dps_sbs_sutta_4"])
-            values["dps_sbs_example_4"] = values["dps_sbs_example_4"].lower()
-            window["dps_sbs_example_4"].update(values["dps_sbs_example_4"])
+        # dps lower pat
+        elif event == "dps_example_pat_lower":
+            values["dps_pat_sutta"] = values["dps_pat_sutta"].lower()
+            window["dps_pat_sutta"].update(values["dps_pat_sutta"])
+            values["dps_pat_example"] = values["dps_pat_example"].lower()
+            window["dps_pat_example"].update(values["dps_pat_example"])
+
+        # buttons for vib
+
+        # dps clean vib
+        elif event == "dps_example_vib_clean":
+            replace_sandhi(
+                values["dps_vib_example"], "dps_vib_example", 
+                sandhi_dict, hyphenations_dict, window)
+            replace_sandhi(
+                values["dps_bold_vib"], "dps_bold_vib", 
+                sandhi_dict, hyphenations_dict, window)
+
+        # search vib    
+        elif event == "dps_another_eg_vib":
+            if not values["book_to_add"]:
+                book_to_add = sg.popup_get_text(
+                    "Which book?", title=None,
+                    location=(400, 400))
+                values["book_to_add"] = book_to_add
+
+            else:
+                book_to_add = sg.popup_get_text(
+                    "Which book?", default_text=values["book_to_add"], 
+                    title=None,
+                    location=(400, 400))
+                if book_to_add:
+                    values["book_to_add"] = book_to_add
+
+            if values["word_to_add"] == []:
+                word_to_add = sg.popup_get_text(
+                    "What word?", default_text=values["dps_lemma_1"],
+                    title=None,
+                    location=(400, 400))
+                values["word_to_add"] = [word_to_add]
+                window["word_to_add"].update(values=[word_to_add])
+
+            source_sutta_example = find_sutta_example(pth, sg, window, values)
+
+            if source_sutta_example is not None:
+                try:
+                    window["dps_vib_source"].update(value=source_sutta_example[0])
+                    window["dps_vib_sutta"].update(value=source_sutta_example[1])
+                    window["dps_vib_example"].update(value=source_sutta_example[2])
+                except KeyError as e:
+                    window["messages"].update(value=str(e), text_color="red")
+
+            dps_flags.vib_example = False
+
+        # dps bold vib
+        elif event == "dps_bold_vib_button" or event == "dps_bold_vib_enter":
+            if values["dps_bold_vib"]:
+                example_vib_bold = re.sub(
+                    values["dps_bold_vib"],
+                    f"<b>{values['dps_bold_vib']}</b>",
+                    values["dps_vib_example"])
+                window["dps_vib_example"].update(value=example_vib_bold)
+                window["dps_bold_vib"].update(value="")
+
+        # dps lower vib
+        elif event == "dps_example_vib_lower":
+            values["dps_vib_sutta"] = values["dps_vib_sutta"].lower()
+            window["dps_vib_sutta"].update(values["dps_vib_sutta"])
+            values["dps_vib_example"] = values["dps_vib_example"].lower()
+            window["dps_vib_example"].update(values["dps_vib_example"])
+            
+        # buttons for class
+
+        # dps clean class
+        elif event == "dps_example_class_clean":
+            replace_sandhi(
+                values["dps_class_example"], "dps_class_example", 
+                sandhi_dict, hyphenations_dict, window)
+            replace_sandhi(
+                values["dps_bold_class"], "dps_bold_class", 
+                sandhi_dict, hyphenations_dict, window)
+
+        # search class    
+        elif event == "dps_another_eg_class":
+            if not values["book_to_add"]:
+                book_to_add = sg.popup_get_text(
+                    "Which book?", title=None,
+                    location=(400, 400))
+                values["book_to_add"] = book_to_add
+
+            else:
+                book_to_add = sg.popup_get_text(
+                    "Which book?", default_text=values["book_to_add"], 
+                    title=None,
+                    location=(400, 400))
+                if book_to_add:
+                    values["book_to_add"] = book_to_add
+
+            if values["word_to_add"] == []:
+                word_to_add = sg.popup_get_text(
+                    "What word?", default_text=values["dps_lemma_1"],
+                    title=None,
+                    location=(400, 400))
+                values["word_to_add"] = [word_to_add]
+                window["word_to_add"].update(values=[word_to_add])
+
+            source_sutta_example = find_sutta_example(pth, sg, window, values)
+
+            if source_sutta_example is not None:
+                try:
+                    window["dps_class_source"].update(value=source_sutta_example[0])
+                    window["dps_class_sutta"].update(value=source_sutta_example[1])
+                    window["dps_class_example"].update(value=source_sutta_example[2])
+                except KeyError as e:
+                    window["messages"].update(value=str(e), text_color="red")
+
+            dps_flags.class_example = False
+
+        # dps bold class
+        elif event == "dps_bold_class_button" or event == "dps_bold_class_enter":
+            if values["dps_bold_class"]:
+                example_class_bold = re.sub(
+                    values["dps_bold_class"],
+                    f"<b>{values['dps_bold_class']}</b>",
+                    values["dps_class_example"])
+                window["dps_class_example"].update(value=example_class_bold)
+                window["dps_bold_class"].update(value="")
+
+        # dps lower class
+        elif event == "dps_example_class_lower":
+            values["dps_class_sutta"] = values["dps_class_sutta"].lower()
+            window["dps_class_sutta"].update(values["dps_class_sutta"])
+            values["dps_class_example"] = values["dps_class_example"].lower()
+            window["dps_class_example"].update(values["dps_class_example"])
+
+        # buttons for discourses
+
+        # dps clean discourses
+        elif event == "dps_example_discourses_clean":
+            replace_sandhi(
+                values["dps_discourses_example"], "dps_discourses_example", 
+                sandhi_dict, hyphenations_dict, window)
+            replace_sandhi(
+                values["dps_bold_discourses"], "dps_bold_discourses", 
+                sandhi_dict, hyphenations_dict, window)
+
+        # search discourses    
+        elif event == "dps_another_eg_discourses":
+            if not values["book_to_add"]:
+                book_to_add = sg.popup_get_text(
+                    "Which book?", title=None,
+                    location=(400, 400))
+                values["book_to_add"] = book_to_add
+
+            else:
+                book_to_add = sg.popup_get_text(
+                    "Which book?", default_text=values["book_to_add"], 
+                    title=None,
+                    location=(400, 400))
+                if book_to_add:
+                    values["book_to_add"] = book_to_add
+
+            if values["word_to_add"] == []:
+                word_to_add = sg.popup_get_text(
+                    "What word?", default_text=values["dps_lemma_1"],
+                    title=None,
+                    location=(400, 400))
+                values["word_to_add"] = [word_to_add]
+                window["word_to_add"].update(values=[word_to_add])
+
+            source_sutta_example = find_sutta_example(pth, sg, window, values)
+
+            if source_sutta_example is not None:
+                try:
+                    window["dps_discourses_source"].update(value=source_sutta_example[0])
+                    window["dps_discourses_sutta"].update(value=source_sutta_example[1])
+                    window["dps_discourses_example"].update(value=source_sutta_example[2])
+                except KeyError as e:
+                    window["messages"].update(value=str(e), text_color="red")
+
+            dps_flags.discourses_example = False
+
+        # dps bold discourses
+        elif event == "dps_bold_discourses_button" or event == "dps_bold_discourses_enter":
+            if values["dps_bold_discourses"]:
+                example_discourses_bold = re.sub(
+                    values["dps_bold_discourses"],
+                    f"<b>{values['dps_bold_discourses']}</b>",
+                    values["dps_discourses_example"])
+                window["dps_discourses_example"].update(value=example_discourses_bold)
+                window["dps_bold_discourses"].update(value="")
+
+        # dps lower discourses
+        elif event == "dps_example_discourses_lower":
+            values["dps_discourses_sutta"] = values["dps_discourses_sutta"].lower()
+            window["dps_discourses_sutta"].update(values["dps_discourses_sutta"])
+            values["dps_discourses_example"] = values["dps_discourses_example"].lower()
+            window["dps_discourses_example"].update(values["dps_discourses_example"])
 
         # synonym translate buttons
         elif event == "dps_synonym_translate_button":
@@ -1858,16 +2040,6 @@ def main():
             update_sbs_chant(
                 dpspth, 2, values["dps_sbs_chant_pali_2"], error_field, window)
 
-        elif event == "dps_sbs_chant_pali_3":
-            error_field = "dps_sbs_chant_pali_3_error"
-            update_sbs_chant(
-                dpspth, 3, values["dps_sbs_chant_pali_3"], error_field, window)
-
-        elif event == "dps_sbs_chant_pali_4":
-            error_field = "dps_sbs_chant_pali_4_error"
-            update_sbs_chant(
-                dpspth, 4, values["dps_sbs_chant_pali_4"], error_field, window)
-
         # dps_examples buttons
 
         elif event == "dps_copy_ex_1_to_1_button":
@@ -1876,11 +2048,20 @@ def main():
         elif event == "dps_copy_ex_1_to_2_button":
             copy_dpd_examples(1, 2, window, values)
 
-        elif event == "dps_copy_ex_1_to_3_button":
-            copy_dpd_examples(1, 3, window, values)
+        elif event == "dps_copy_ex_1_to_dhp_button":
+            copy_dpd_examples(1, "dhp", window, values)
 
-        elif event == "dps_copy_ex_1_to_4_button":
-            copy_dpd_examples(1, 4, window, values)
+        elif event == "dps_copy_ex_1_to_pat_button":
+            copy_dpd_examples(1, "pat", window, values)
+
+        elif event == "dps_copy_ex_1_to_vib_button":
+            copy_dpd_examples(1, "vib", window, values)
+
+        elif event == "dps_copy_ex_1_to_class_button":
+            copy_dpd_examples(1, "class", window, values)
+
+        elif event == "dps_copy_ex_1_to_discourses_button":
+            copy_dpd_examples(1, "discourses", window, values)
 
         elif event == "dps_copy_ex_2_to_1_button":
             copy_dpd_examples(2, 1, window, values)
@@ -1888,11 +2069,114 @@ def main():
         elif event == "dps_copy_ex_2_to_2_button":
             copy_dpd_examples(2, 2, window, values)
 
-        elif event == "dps_copy_ex_2_to_3_button":
-            copy_dpd_examples(2, 3, window, values)
+        elif event == "dps_copy_ex_2_to_dhp_button":
+            copy_dpd_examples(2, "dhp", window, values)
 
-        elif event == "dps_copy_ex_2_to_4_button":
-            copy_dpd_examples(2, 4, window, values)
+        elif event == "dps_copy_ex_2_to_pat_button":
+            copy_dpd_examples(2, "pat", window, values)
+
+        elif event == "dps_copy_ex_2_to_vib_button":
+            copy_dpd_examples(2, "vib", window, values)
+
+        elif event == "dps_copy_ex_2_to_class_button":
+            copy_dpd_examples(2, "class", window, values)
+
+        elif event == "dps_copy_ex_2_to_discourses_button":
+            copy_dpd_examples(2, "discourses", window, values)
+
+        elif event == "dps_copy_sbs_1_to_dhp_button":
+            copy_dpd_examples("_1", "dhp", window, values)
+
+        elif event == "dps_copy_sbs_1_to_pat_button":
+            copy_dpd_examples("_1", "pat", window, values)
+
+        elif event == "dps_copy_sbs_1_to_vib_button":
+            copy_dpd_examples("_1", "vib", window, values)
+
+        elif event == "dps_copy_sbs_1_to_class_button":
+            copy_dpd_examples("_1", "class", window, values)
+
+        elif event == "dps_copy_sbs_1_to_discourses_button":
+            copy_dpd_examples("_1", "discourses", window, values)
+
+        elif event == "dps_copy_sbs_2_to_dhp_button":
+            copy_dpd_examples("_2", "dhp", window, values)
+
+        elif event == "dps_copy_sbs_2_to_pat_button":
+            copy_dpd_examples("_2", "pat", window, values)
+
+        elif event == "dps_copy_sbs_2_to_vib_button":
+            copy_dpd_examples("_2", "vib", window, values)
+
+        elif event == "dps_copy_sbs_2_to_class_button":
+            copy_dpd_examples("_2", "class", window, values)
+
+        elif event == "dps_copy_sbs_2_to_discourses_button":
+            copy_dpd_examples("_2", "discourses", window, values)
+        
+        elif event == "dps_copy_sbs_3_to_dhp_button":
+            copy_dpd_examples("_3", "dhp", window, values)
+        
+        elif event == "dps_copy_sbs_3_to_pat_button":
+            copy_dpd_examples("_3", "pat", window, values)
+        
+        elif event == "dps_copy_sbs_3_to_vib_button":
+            copy_dpd_examples("_3", "vib", window, values)
+        
+        elif event == "dps_copy_sbs_3_to_class_button":
+            copy_dpd_examples("_3", "class", window, values)
+
+        elif event == "dps_copy_sbs_3_to_discourses_button":
+            copy_dpd_examples("_3", "discourses", window, values)
+
+        elif event == "dps_copy_sbs_4_to_dhp_button":
+            copy_dpd_examples("_4", "dhp", window, values)
+
+        elif event == "dps_copy_sbs_4_to_pat_button":
+            copy_dpd_examples("_4", "pat", window, values)
+
+        elif event == "dps_copy_sbs_4_to_vib_button":
+            copy_dpd_examples("_4", "vib", window, values)
+        
+        elif event == "dps_copy_sbs_4_to_class_button":
+            copy_dpd_examples("_4", "class", window, values)
+
+        elif event == "dps_copy_sbs_4_to_discourses_button":
+            copy_dpd_examples("_4", "discourses", window, values)
+
+
+        # sbs_examples save and load
+
+        elif event == "dps_stash_ex_dhp_button":
+            dps_example_save(pth, values, window, "dhp")
+        
+        elif event == "dps_unstash_ex_dhp_button":
+            dps_example_load(pth, window, "dhp")
+
+        elif event == "dps_stash_ex_pat_button":
+            dps_example_save(pth, values, window, "pat")
+        
+        elif event == "dps_unstash_ex_pat_button":
+            dps_example_load(pth, window, "pat")
+
+        elif event == "dps_stash_ex_vib_button":
+            dps_example_save(pth, values, window, "vib")
+        
+        elif event == "dps_unstash_ex_vib_button":
+            dps_example_load(pth, window, "vib")
+
+        elif event == "dps_stash_ex_class_button":
+            dps_example_save(pth, values, window, "class")
+        
+        elif event == "dps_unstash_ex_class_button":
+            dps_example_load(pth, window, "class")
+
+        elif event == "dps_stash_ex_discourses_button":
+            dps_example_save(pth, values, window, "discourses")
+        
+        elif event == "dps_unstash_ex_discourses_button":
+            dps_example_load(pth, window, "discourses")
+
 
         # sbs_examples buttons
 
@@ -1924,15 +2208,30 @@ def main():
             window["messages"].update(
                     value="sbs_ex_2 removed", text_color="white")
 
-        elif event == "dps_remove_example_3_button":
-            remove_sbs_example(3, window)
+        elif event == "dps_remove_example_dhp_button":
+            remove_sbs_example("dhp", window)
             window["messages"].update(
-                    value="sbs_ex_3 removed", text_color="white")
+                    value="sbs_ex_dhp removed", text_color="white")
 
-        elif event == "dps_remove_example_4_button":
-            remove_sbs_example(4, window)
+        elif event == "dps_remove_example_pat_button":
+            remove_sbs_example("pat", window)
             window["messages"].update(
-                    value="sbs_ex_4 removed", text_color="white")
+                    value="sbs_ex_pat removed", text_color="white")
+
+        elif event == "dps_remove_example_vib_button":
+            remove_sbs_example("vib", window)
+            window["messages"].update(
+                    value="sbs_ex_vib removed", text_color="white")
+
+        elif event == "dps_remove_example_class_button":
+            remove_sbs_example("class", window)
+            window["messages"].update(
+                    value="sbs_ex_class removed", text_color="white")
+
+        elif event == "dps_remove_example_discourses_button":
+            remove_sbs_example("discourses", window)
+            window["messages"].update(
+                    value="sbs_ex_discourses removed", text_color="white")
 
         elif event == "dps_stash_ex_1_button":
             error_field = "dps_buttons_ex_1_error"

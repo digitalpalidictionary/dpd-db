@@ -88,6 +88,22 @@ def replace_values_in_rows(rows):
         'sbs.sbs_sutta_2' : 'dps_sbs_sutta_2',
         'sbs.sbs_sutta_3' : 'dps_sbs_sutta_3',
         'sbs.sbs_sutta_4' : 'dps_sbs_sutta_4',
+        'sbs.dhp_source' : 'dps_dhp_source',
+        'sbs.dhp_sutta' : 'dps_dhp_sutta',
+        'sbs.dhp_example' : 'dps_dhp_example',
+        'sbs.pat_source' : 'dps_pat_source',
+        'sbs.pat_sutta' : 'dps_pat_sutta',
+        'sbs.pat_example' : 'dps_pat_example',
+        'sbs.vib_source' : 'dps_vib_source',
+        'sbs.vib_sutta' : 'dps_vib_sutta',
+        'sbs.vib_example' : 'dps_vib_example',
+        'sbs.class_source' : 'dps_class_source',
+        'sbs.class_sutta' : 'dps_class_sutta',
+        'sbs.class_example' : 'dps_class_example',
+        'sbs.discourses_source' : 'dps_discourses_source',
+        'sbs.discourses_sutta' : 'dps_discourses_sutta',
+        'sbs.discourses_example' : 'dps_discourses_example',
+        
     }
     
     modified_rows = []

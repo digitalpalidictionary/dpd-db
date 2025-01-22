@@ -114,9 +114,6 @@ def open_gui_corrections():
                 total_commented_rows = calculate_total_commented_rows(corrections_list)
                 window["remaining_words_count"].update(total_commented_rows)
 
-        elif event == 'apply_all_suggestions_btn':
-            apply_all_suggestions()
-
     window.close()
 
 
@@ -135,9 +132,6 @@ def make_window():
     empty_tab = [
         [
             sg.Text("", size=(15, 1)),
-            sg.Button(
-                'Apply All Suggestions', key='apply_all_suggestions_btn', tooltip='Apply all unapproved suggestions to the database'
-                )
         ]
     ]
 
@@ -402,45 +396,4 @@ def update_corrections_tsv(values, corrections_list, index):
     file_path = pth.corrections_tsv_path
     write_tsv_dot_dict(file_path, corrections_list)
 
-
-def apply_all_suggestions():
-
-    corrections_list = load_corrections_tsv()
-
-    added_lines_count = 0
-
-    for correction in corrections_list:
-        if not correction.approved:
-            db = db_session.query(DpdHeadword).filter(
-                correction.id == DpdHeadword.id).first()
-            if db:
-                id = correction.id
-                field1 = correction.field1
-                field2 = correction.field2
-                field3 = correction.field3
-                value1 = correction.value1
-                value2 = correction.value2
-                value3 = correction.value3
-
-                if field1 and value1 is not None:
-                    setattr(db, field1, value1)
-                    added_lines_count += 1
-                    print(f"{added_lines_count} {id}: {field1} with {value1}")
-                if field2 and value2 is not None:
-                    setattr(db, field2, value2)
-                    added_lines_count += 1
-                    print(f"{added_lines_count} {id}: {field2} with {value2}")
-                if field3 and value3 is not None:
-                    setattr(db, field3, value3)
-                    added_lines_count += 1
-                    print(f"{added_lines_count} {id}: {field3} with {value3}")
-                
-                db_session.commit()
-            else:
-                print(f"Entry with ID {correction.id} not found.")
-
-    print(f"Total number of applied corrections: {added_lines_count}")
-
-
 open_gui_corrections()
-# apply_all_suggestions()

@@ -12,18 +12,6 @@ git checkout origin/main -- db/backup_tsv/dpd_headwords.tsv
 git checkout origin/main -- db/backup_tsv/dpd_roots.tsv
 
 
-while true; do
-    echo -ne "\033[1;36m Commit corrections?\033[0m"
-    read yn
-    case $yn in
-        [Yy]* )
-            bash dps/scripts/bash/auto_commit.sh
-            break;;
-        * )
-            break;;
-    esac
-done
-
 
 
 while true; do
@@ -66,7 +54,6 @@ while true; do
             scripts/build/db_rebuild_from_tsv.py
             db/bold_definitions/update_bold_definitions_db.py
             dps/scripts/change_in_db/dps_add_additions_to_db.py
-            git checkout origin/main -- gui/additions.tsv
             scripts/bash/generate_components.sh
             # After setting db_rebuild to "yes" in db_rebuild_from_tsv.py, we change it back after the bash is done.
             python -c "from tools.configger import config_update; config_update('regenerate', 'db_rebuild', 'no')"

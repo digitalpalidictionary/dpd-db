@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-""" Filter all russian words and save into csv"""
+""" Filter all russian words with roots and comp and save into csv"""
 
 from db.models import DpdHeadword, FamilyCompound
 from tools.paths import ProjectPaths
@@ -39,6 +39,7 @@ def process_word_root(word):
         'ru_meaning': word.ru.ru_meaning,
         'ru_meaning_lit': word.ru.ru_meaning_lit,
         'ru_meaning_raw': word.ru.ru_meaning_raw if not word.ru.ru_meaning else "",
+        'ru_cognate': word.ru.ru_cognate,
         'corrections_ru_meaning': "",
         'corrections_ru_meaning_lit': "",
         'notes': ""
@@ -66,8 +67,8 @@ def save_total_ru_roots():
     with open(dpspth.ru_total_root_path, 'w', newline='') as csvfile:
         fieldnames = [
             'id', 'lemma', 'pos', 'root_key', 'family_root', 'meaning',
-            'ru_meaning', 'ru_meaning_lit', 'ru_meaning_raw', 'corrections_ru_meaning',	
-            'corrections_ru_meaning_lit', 'notes'
+            'ru_meaning', 'ru_meaning_lit', 'ru_meaning_raw', 'ru_cognate', 
+            'corrections_ru_meaning', 'corrections_ru_meaning_lit', 'notes'
         ]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter='\t')
         writer.writeheader()
@@ -111,8 +112,6 @@ def get_family_compounds(i: DpdHeadword) -> Optional[Dict[str, Union[str, int]]]
         return None
 
 
-
-
 def process_word_comp(word):
     family_compound = get_family_compounds(word)
     return {
@@ -125,6 +124,7 @@ def process_word_comp(word):
         'ru_meaning': word.ru.ru_meaning,
         'ru_meaning_lit': word.ru.ru_meaning_lit,
         'ru_meaning_raw': word.ru.ru_meaning_raw if not word.ru.ru_meaning else "",
+        'ru_cognate': word.ru.ru_cognate,
         'corrections_ru_meaning': "",
         'corrections_ru_meaning_lit': "",
         'notes': ""
@@ -144,20 +144,12 @@ def save_total_ru_comps():
 
     print(f"Total rows that fit the filter criteria: {len(dpd_db)}")
 
-    # filtered_words = sorted(
-    #     dpd_db,
-    #     key=lambda word: (word.rt.root_count if word.rt else 0, word.root_key, word.family_root),
-    #     reverse=True
-    # )
-
     filtered_words = dpd_db
-
-    # word.family_compound_list
 
     with open(dpspth.ru_total_comp_path, 'w', newline='') as csvfile:
         fieldnames = [
             'id', 'lemma', 'pos', 'family_compound_word', 'count',
-            'meaning', 'ru_meaning', 'ru_meaning_lit', 'ru_meaning_raw',
+            'meaning', 'ru_meaning', 'ru_meaning_lit', 'ru_meaning_raw', 'ru_cognate',
             'corrections_ru_meaning', 'corrections_ru_meaning_lit', 'notes'
         ]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter='\t')
@@ -181,3 +173,6 @@ def save_total_ru_comps():
 # Call the function
 save_total_ru_roots()
 save_total_ru_comps()
+# TODO save_total_ru_word_families()
+# TODO save_total_ru_sets()
+# TODO save_total_ru_rest()

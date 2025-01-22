@@ -50,8 +50,6 @@ def add_to_db_keeping_id():
     if added_count > 0:
         db_session.add_all(add_to_db)
         db_session.commit()
-        # write_tsv_dot_dict(pth.additions_tsv_path, additions_list)
-
 
 if __name__ == "__main__":
     add_to_db_keeping_id()

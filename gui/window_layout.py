@@ -95,8 +95,11 @@ def window_layout(dpspth, db_session, username):
     # bind enter key dps
     window['dps_bold_1'].bind("<Return>", "_enter")
     window['dps_bold_2'].bind("<Return>", "_enter")
-    window['dps_bold_3'].bind("<Return>", "_enter")
-    window['dps_bold_4'].bind("<Return>", "_enter")
+    window['dps_bold_dhp'].bind("<Return>", "_enter")
+    window['dps_bold_pat'].bind("<Return>", "_enter")
+    window['dps_bold_vib'].bind("<Return>", "_enter")
+    window['dps_bold_class'].bind("<Return>", "_enter")
+    window['dps_bold_discourses'].bind("<Return>", "_enter")
 
     # bind tab keys to jump to next field in multiline elements
     window['lemma_1'].bind('<Tab>', '_tab', propagate=False)
@@ -196,14 +199,6 @@ def window_layout(dpspth, db_session, username):
     window["dps_sbs_chant_pali_2"].bind("<Return>", "-enter")
     window["dps_sbs_chant_pali_2"].bind("<Key>", "-key")
     window["dps_sbs_chant_pali_2"].bind("<FocusOut>", "-focus_out")
-
-    window["dps_sbs_chant_pali_3"].bind("<Return>", "-enter")
-    window["dps_sbs_chant_pali_3"].bind("<Key>", "-key")
-    window["dps_sbs_chant_pali_3"].bind("<FocusOut>", "-focus_out")
-
-    window["dps_sbs_chant_pali_4"].bind("<Return>", "-enter")
-    window["dps_sbs_chant_pali_4"].bind("<Key>", "-key")
-    window["dps_sbs_chant_pali_4"].bind("<FocusOut>", "-focus_out")
 
     window["dps_sbs_class_anki"].bind("<Return>", "-enter")
     window["dps_sbs_class_anki"].bind("<Key>", "-key")

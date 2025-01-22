@@ -151,6 +151,18 @@ def make_tab_edit_dps(dpspth, sg):
                 "", key="dps_ru_meaning_lit_error", size=(50, 1), text_color="red")
         ],
         [
+            sg.Text("russian cognate", size=(15, 1)),
+            sg.Input(
+                key="dps_ru_cognate",
+                size=(50, 1),
+                enable_events=True,
+                tooltip="Russian word which close sounding",
+                text_color=ru_text,
+                background_color=ru_background),
+            sg.Text(
+                "", key="dps_ru_cognate_error", size=(50, 1), text_color="red")
+        ],
+        [
             sg.Text("sbs meaning", size=(15, 1)),
             sg.Multiline(
                 key="dps_sbs_meaning",
@@ -286,8 +298,11 @@ def make_tab_edit_dps(dpspth, sg):
             sg.Text("ex_1 copy to", size=(15, 1)),
             sg.Button("sbs_ex_1", key="dps_copy_ex_1_to_1_button", font=(None, 13)),
             sg.Button("sbs_ex_2", key="dps_copy_ex_1_to_2_button", font=(None, 13)),
-            sg.Button("sbs_ex_3", key="dps_copy_ex_1_to_3_button", font=(None, 13)),
-            sg.Button("sbs_ex_4", key="dps_copy_ex_1_to_4_button", font=(None, 13)),
+            sg.Button("dhp", key="dps_copy_ex_1_to_dhp_button", font=(None, 13)),
+            sg.Button("pat", key="dps_copy_ex_1_to_pat_button", font=(None, 13)),
+            sg.Button("vib", key="dps_copy_ex_1_to_vib_button", font=(None, 13)),
+            sg.Button("class", key="dps_copy_ex_1_to_class_button", font=(None, 13)),
+            sg.Button("disc", key="dps_copy_ex_1_to_discourses_button", font=(None, 13)),
         ],
         [
             sg.Text("dpd_source_2", size=(15, 1)),
@@ -314,8 +329,11 @@ def make_tab_edit_dps(dpspth, sg):
             sg.Text("ex_2 copy to", size=(15, 1)),
             sg.Button("sbs_ex_1", key="dps_copy_ex_2_to_1_button", font=(None, 13)),
             sg.Button("sbs_ex_2", key="dps_copy_ex_2_to_2_button", font=(None, 13)),
-            sg.Button("sbs_ex_3", key="dps_copy_ex_2_to_3_button", font=(None, 13)),
-            sg.Button("sbs_ex_4", key="dps_copy_ex_2_to_4_button", font=(None, 13)),
+            sg.Button("dhp", key="dps_copy_ex_2_to_dhp_button", font=(None, 13)),
+            sg.Button("pat", key="dps_copy_ex_2_to_pat_button", font=(None, 13)),
+            sg.Button("vib", key="dps_copy_ex_2_to_vib_button", font=(None, 13)),
+            sg.Button("class", key="dps_copy_ex_2_to_class_button", font=(None, 13)),
+            sg.Button("disc", key="dps_copy_ex_2_to_discourses_button", font=(None, 13)),
         ],
         [
             sg.Text("sbs_source_1", size=(15, 1)),
@@ -359,12 +377,16 @@ def make_tab_edit_dps(dpspth, sg):
                 tooltip="Bold the word"),
             sg.Button("Bold", key="dps_bold_1_button", font=(None, 13)),
             sg.Button(
-                "Another Eg",
+                "Find",
                 key="dps_another_eg_1",
                 tooltip="Find another sutta example",
                 font=(None, 13)),
-            sg.Button("Lower", key="dps_example_1_lower", font=(None, 13)),
+            sg.Button("Lwr", key="dps_example_1_lower", font=(None, 13)),
             sg.Button("Clean", key="dps_example_1_clean", font=(None, 13)),
+            sg.Button("S", key="dps_stash_ex_1_button", font=(None, 13)),
+            sg.Button("L", key="dps_unstash_ex_1_button", font=(None, 13)),
+            sg.Button("Cl", key="dps_remove_example_1_button", font=(None, 13)),
+            sg.Button("Sw", key="dps_swap_ex_1_with_2_button", font=(None, 13)),
             sg.Text("", key="dps_bold_1_error", size=(50, 1), text_color="red")
         ],
         [
@@ -399,13 +421,12 @@ def make_tab_edit_dps(dpspth, sg):
                 tooltip=""),
         ],
         [
-            sg.Text("ex_1 swap with", size=(15, 1)),
-            sg.Button("ex_2", key="dps_swap_ex_1_with_2_button", font=(None, 13)),
-            sg.Button("ex_3", key="dps_swap_ex_1_with_3_button", font=(None, 13)),
-            sg.Button("ex_4", key="dps_swap_ex_1_with_4_button", font=(None, 13)),
-            sg.Button("remove", key="dps_remove_example_1_button", font=(None, 13)),
-            sg.Button("stash", key="dps_stash_ex_1_button", font=(None, 13)),
-            sg.Button("unstash", key="dps_unstash_ex_1_button", font=(None, 13)),
+            sg.Text("ex_1 copy to", size=(15, 1)),
+            sg.Button("dhp", key="dps_copy_sbs_1_to_dhp_button", font=(None, 13)),
+            sg.Button("pat", key="dps_copy_sbs_1_to_pat_button", font=(None, 13)),
+            sg.Button("vib", key="dps_copy_sbs_1_to_vib_button", font=(None, 13)),
+            sg.Button("class", key="dps_copy_sbs_1_to_class_button", font=(None, 13)),
+            sg.Button("disc", key="dps_copy_sbs_1_to_discourses_button", font=(None, 13)),
             sg.Text(
                 "", key="dps_buttons_ex_1_error", size=(50, 1), text_color="red"),
         ],
@@ -451,12 +472,15 @@ def make_tab_edit_dps(dpspth, sg):
                 tooltip="Bold the word"),
             sg.Button("Bold", key="dps_bold_2_button", font=(None, 13)),
             sg.Button(
-                "Another Eg",
+                "Find",
                 key="dps_another_eg_2",
                 tooltip="Find another sutta example",
                 font=(None, 13)),
-            sg.Button("Lower", key="dps_example_2_lower", font=(None, 13)),
+            sg.Button("Lwr", key="dps_example_2_lower", font=(None, 13)),
             sg.Button("Clean", key="dps_example_2_clean", font=(None, 13)),
+            sg.Button("S", key="dps_stash_ex_2_button", font=(None, 13)),
+            sg.Button("L", key="dps_unstash_ex_2_button", font=(None, 13)),
+            sg.Button("Cl", key="dps_remove_example_2_button", font=(None, 13)),
         ],
         [
             sg.Text("sbs_chant_pali_2", size=(15, 1)),
@@ -490,15 +514,275 @@ def make_tab_edit_dps(dpspth, sg):
                 background_color=sbs_background),
         ],
         [
-            sg.Text("ex_2 swap with", size=(15, 1)),
-            sg.Button("ex_1", key="dps_swap_ex_2_with_1_button", font=(None, 13)),
-            sg.Button("ex_3", key="dps_swap_ex_2_with_3_button", font=(None, 13)),
-            sg.Button("ex_4", key="dps_swap_ex_2_with_4_button", font=(None, 13)),
-            sg.Button("remove", key="dps_remove_example_2_button", font=(None, 13)),
-            sg.Button("stash", key="dps_stash_ex_2_button", font=(None, 13)),
-            sg.Button("unstash", key="dps_unstash_ex_2_button", font=(None, 13)),
+            sg.Text("ex_2 copy to", size=(15, 1)),
+            sg.Button("dhp", key="dps_copy_sbs_2_to_dhp_button", font=(None, 13)),
+            sg.Button("pat", key="dps_copy_sbs_2_to_pat_button", font=(None, 13)),
+            sg.Button("vib", key="dps_copy_sbs_2_to_vib_button", font=(None, 13)),
+            sg.Button("class", key="dps_copy_sbs_2_to_class_button", font=(None, 13)),
+            sg.Button("disc", key="dps_copy_sbs_2_to_discourses_button", font=(None, 13)),
             sg.Text(
                 "", key="dps_buttons_ex_2_error", size=(50, 1), text_color="red"),
+        ],
+        [
+            sg.Text("dhp_source", size=(15, 1)),
+            sg.Input(
+                key="dps_dhp_source",
+                size=(50, 1),
+                enable_events=True,
+                tooltip="",
+                text_color=sbs_text,
+                background_color=sbs_background),
+            sg.Text(
+                "", key="dps_dhp_source_error", size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("dhp_sutta", size=(15, 1)),
+            sg.Input(
+                key="dps_dhp_sutta",
+                size=(50, 1),
+                enable_events=True,
+                tooltip="",
+                text_color=sbs_text,
+                background_color=sbs_background),
+            sg.Text(
+                "", key="dps_dhp_sutta_error", size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("dhp_example", size=(15, 1)),
+            sg.Multiline(
+                key="dps_dhp_example",
+                size=(50, 4),
+                enable_events=True,
+                text_color=sbs_text,
+                background_color=sbs_background),
+            sg.Text(
+                "", key="dps_dhp_example_error", size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("", size=(15, 1)),
+            sg.Input(
+                key="dps_bold_dhp", size=(20, 1),
+                tooltip="Bold the word"),
+            sg.Button("Bold", key="dps_bold_dhp_button", font=(None, 13)),
+            sg.Button(
+                "Find",
+                key="dps_another_eg_dhp",
+                tooltip="Find another sutta example",
+                font=(None, 13)),
+            sg.Button("Lwr", key="dps_example_dhp_lower", font=(None, 13)),
+            sg.Button("Clean", key="dps_example_dhp_clean", font=(None, 13)),
+            sg.Button("S", key="dps_stash_ex_dhp_button", font=(None, 13)),
+            sg.Button("L", key="dps_unstash_ex_dhp_button", font=(None, 13)),
+            sg.Button("Cl", key="dps_remove_example_dhp_button", font=(None, 13)),
+        ],
+        [
+            sg.Text("pat_source", size=(15, 1)),
+            sg.Input(
+                key="dps_pat_source",
+                size=(50, 1),
+                enable_events=True,
+                tooltip="",
+                text_color=sbs_text,
+                background_color=sbs_background),
+            sg.Text(
+                "", key="dps_pat_source_error", size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("pat_sutta", size=(15, 1)),
+            sg.Input(
+                key="dps_pat_sutta",
+                size=(50, 1),
+                enable_events=True,
+                tooltip="",
+                text_color=sbs_text,
+                background_color=sbs_background),
+            sg.Text(
+                "", key="dps_pat_sutta_error", size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("pat_example", size=(15, 1)),
+            sg.Multiline(
+                key="dps_pat_example",
+                size=(50, 4),
+                enable_events=True,
+                text_color=sbs_text,
+                background_color=sbs_background),
+            sg.Text(
+                "", key="dps_pat_example_error", size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("", size=(15, 1)),
+            sg.Input(
+                key="dps_bold_pat", size=(20, 1),
+                tooltip="Bold the word"),
+            sg.Button("Bold", key="dps_bold_pat_button", font=(None, 13)),
+            sg.Button(
+                "Find",
+                key="dps_another_eg_pat",
+                tooltip="Find another sutta example",
+                font=(None, 13)),
+            sg.Button("Lwr", key="dps_example_pat_lower", font=(None, 13)),
+            sg.Button("Clean", key="dps_example_pat_clean", font=(None, 13)),
+            sg.Button("S", key="dps_stash_ex_pat_button", font=(None, 13)),
+            sg.Button("L", key="dps_unstash_ex_pat_button", font=(None, 13)),
+            sg.Button("Cl", key="dps_remove_example_pat_button", font=(None, 13)),
+        ],
+        [
+            sg.Text("vib_source", size=(15, 1)),
+            sg.Input(
+                key="dps_vib_source",
+                size=(50, 1),
+                enable_events=True,
+                tooltip="",
+                text_color=sbs_text,
+                background_color=sbs_background),
+            sg.Text(
+                "", key="dps_vib_source_error", size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("vib_sutta", size=(15, 1)),
+            sg.Input(
+                key="dps_vib_sutta",
+                size=(50, 1),
+                enable_events=True,
+                tooltip="",
+                text_color=sbs_text,
+                background_color=sbs_background),
+            sg.Text(
+                "", key="dps_vib_sutta_error", size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("vib_example", size=(15, 1)),
+            sg.Multiline(
+                key="dps_vib_example",
+                size=(50, 4),
+                enable_events=True,
+                text_color=sbs_text,
+                background_color=sbs_background),
+            sg.Text(
+                "", key="dps_vib_example_error", size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("", size=(15, 1)),
+            sg.Input(
+                key="dps_bold_vib", size=(20, 1),
+                tooltip="Bold the word"),
+            sg.Button("Bold", key="dps_bold_vib_button", font=(None, 13)),
+            sg.Button(
+                "Find",
+                key="dps_another_eg_vib",
+                tooltip="Find another sutta example",
+                font=(None, 13)),
+            sg.Button("Lwr", key="dps_example_vib_lower", font=(None, 13)),
+            sg.Button("Clean", key="dps_example_vib_clean", font=(None, 13)),
+            sg.Button("S", key="dps_stash_ex_vib_button", font=(None, 13)),
+            sg.Button("L", key="dps_unstash_ex_vib_button", font=(None, 13)),
+            sg.Button("Cl", key="dps_remove_example_vib_button", font=(None, 13)),
+        ],
+        [
+            sg.Text("class_source", size=(15, 1)),
+            sg.Input(
+                key="dps_class_source",
+                size=(50, 1),
+                enable_events=True,
+                tooltip="",
+                text_color=sbs_text,
+                background_color=sbs_background),
+            sg.Text(
+                "", key="dps_class_source_error", size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("class_sutta", size=(15, 1)),
+            sg.Input(
+                key="dps_class_sutta",
+                size=(50, 1),
+                enable_events=True,
+                tooltip="",
+                text_color=sbs_text,
+                background_color=sbs_background),
+            sg.Text(
+                "", key="dps_class_sutta_error", size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("class_example", size=(15, 1)),
+            sg.Multiline(
+                key="dps_class_example",
+                size=(50, 4),
+                enable_events=True,
+                text_color=sbs_text,
+                background_color=sbs_background),
+            sg.Text(
+                "", key="dps_class_example_error", size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("", size=(15, 1)),
+            sg.Input(
+                key="dps_bold_class", size=(20, 1),
+                tooltip="Bold the word"),
+            sg.Button("Bold", key="dps_bold_class_button", font=(None, 13)),
+            sg.Button(
+                "Find",
+                key="dps_another_eg_class",
+                tooltip="Find another sutta example",
+                font=(None, 13)),
+            sg.Button("Lwr", key="dps_example_class_lower", font=(None, 13)),
+            sg.Button("Clean", key="dps_example_class_clean", font=(None, 13)),
+            sg.Button("S", key="dps_stash_ex_class_button", font=(None, 13)),
+            sg.Button("L", key="dps_unstash_ex_class_button", font=(None, 13)),
+            sg.Button("Cl", key="dps_remove_example_class_button", font=(None, 13)),
+        ],
+        [
+            sg.Text("discourses_source", size=(15, 1)),
+            sg.Input(
+                key="dps_discourses_source",
+                size=(50, 1),
+                enable_events=True,
+                tooltip="",
+                text_color=sbs_text,
+                background_color=sbs_background),
+            sg.Text(
+                "", key="dps_discourses_source_error", size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("discourses_sutta", size=(15, 1)),
+            sg.Input(
+                key="dps_discourses_sutta",
+                size=(50, 1),
+                enable_events=True,
+                tooltip="",
+                text_color=sbs_text,
+                background_color=sbs_background),
+            sg.Text(
+                "", key="dps_discourses_sutta_error", size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("discourses_example", size=(15, 1)),
+            sg.Multiline(
+                key="dps_discourses_example",
+                size=(50, 4),
+                enable_events=True,
+                text_color=sbs_text,
+                background_color=sbs_background),
+            sg.Text(
+                "", key="dps_discourses_example_error", size=(50, 1), text_color="red")
+        ],
+        [
+            sg.Text("", size=(15, 1)),
+            sg.Input(
+                key="dps_bold_discourses", size=(20, 1),
+                tooltip="Bold the word"),
+            sg.Button("Bold", key="dps_bold_discourses_button", font=(None, 13)),
+            sg.Button(
+                "Find",
+                key="dps_another_eg_discourses",
+                tooltip="Find another sutta example",
+                font=(None, 13)),
+            sg.Button("Lwr", key="dps_example_discourses_lower", font=(None, 13)),
+            sg.Button("Clean", key="dps_example_discourses_clean", font=(None, 13)),
+            sg.Button("S", key="dps_stash_ex_discourses_button", font=(None, 13)),
+            sg.Button("L", key="dps_unstash_ex_discourses_button", font=(None, 13)),
+            sg.Button("Cl", key="dps_remove_example_discourses_button", font=(None, 13)),
+            sg.Button("Arch", key="dps_archive_button", font=(None, 13)),
         ],
         [
             sg.Text("sbs_source_3", size=(15, 1)),
@@ -536,58 +820,12 @@ def make_tab_edit_dps(dpspth, sg):
                 "", key="dps_sbs_example_3_error", size=(50, 1), text_color="red")
         ],
         [
-            sg.Text("", size=(15, 1)),
-            sg.Input(
-                key="dps_bold_3", size=(20, 1),
-                tooltip="Bold the word"),
-            sg.Button("Bold", key="dps_bold_3_button", font=(None, 13)),
-            sg.Button(
-                "Another Eg",
-                key="dps_another_eg_3",
-                tooltip="Find another sutta example",
-                font=(None, 13)),
-            sg.Button("Lower", key="dps_example_3_lower", font=(None, 13)),
-            sg.Button("Clean", key="dps_example_3_clean", font=(None, 13)),
-        ],
-        [
-            sg.Text("sbs_chant_pali_3", size=(15, 1)),
-            CompletionCombo(
-                pali_chant_list,
-                key="dps_sbs_chant_pali_3",
-                size=(50, 1),
-                enable_events=True,
-                text_color=sbs_text,
-                background_color=sbs_background),
-            sg.Text(
-                "", key="dps_sbs_chant_pali_3_error", size=(50, 1), text_color="red")
-        ],
-        [
-            sg.Text("sbs_chant_eng_3", size=(15, 1)),
-            sg.Input(
-                key="dps_sbs_chant_eng_3",
-                size=(50, 1),
-                tooltip="",
-                text_color=sbs_text,
-                background_color=sbs_background),
-        ],
-        [
-            sg.Text("sbs_chapter_3", size=(15, 1)),
-            sg.Input(
-                key="dps_sbs_chapter_3",
-                size=(50, 1),
-                enable_events=True,
-                tooltip="",
-                text_color=sbs_text,
-                background_color=sbs_background),
-        ],
-        [
-            sg.Text("ex_3 swap with", size=(15, 1)),
-            sg.Button("ex_1", key="dps_swap_ex_3_with_1_button", font=(None, 13)),
-            sg.Button("ex_2", key="dps_swap_ex_3_with_2_button", font=(None, 13)),
-            sg.Button("ex_4", key="dps_swap_ex_3_with_4_button", font=(None, 13)),
-            sg.Button("remove", key="dps_remove_example_3_button", font=(None, 13)),
-            sg.Button("stash", key="dps_stash_ex_3_button", font=(None, 13)),
-            sg.Button("unstash", key="dps_unstash_ex_3_button", font=(None, 13)),
+            sg.Text("ex_3 copy to", size=(15, 1)),
+            sg.Button("dhp", key="dps_copy_sbs_3_to_dhp_button", font=(None, 13)),
+            sg.Button("pat", key="dps_copy_sbs_3_to_pat_button", font=(None, 13)),
+            sg.Button("vib", key="dps_copy_sbs_3_to_vib_button", font=(None, 13)),
+            sg.Button("class", key="dps_copy_sbs_3_to_class_button", font=(None, 13)),
+            sg.Button("disc", key="dps_copy_sbs_3_to_discourses_button", font=(None, 13)),
             sg.Text(
                 "", key="dps_buttons_ex_3_error", size=(10, 1), text_color="red"),
         ],
@@ -627,59 +865,12 @@ def make_tab_edit_dps(dpspth, sg):
                 "", key="dps_sbs_example_4_error", size=(50, 1), text_color="red")
         ],
         [
-            sg.Text("", size=(15, 1)),
-            sg.Input(
-                key="dps_bold_4", size=(20, 1),
-                tooltip="Bold the word"),
-            sg.Button("Bold", key="dps_bold_4_button", font=(None, 13)),
-            sg.Button(
-                "Another Eg",
-                key="dps_another_eg_4",
-                tooltip="Find another sutta example",
-                font=(None, 13)),
-            sg.Button("Lower", key="dps_example_4_lower", font=(None, 13)),
-            sg.Button("Clean", key="dps_example_4_clean", font=(None, 13)),
-        ],
-        [
-            sg.Text("sbs_chant_pali_4", size=(15, 1)),
-            CompletionCombo(
-                pali_chant_list,
-                key="dps_sbs_chant_pali_4",
-                size=(50, 1),
-                enable_events=True,
-                text_color=sbs_text,
-                background_color=sbs_background),
-            sg.Text(
-                "", key="dps_sbs_chant_pali_4_error", size=(50, 1), text_color="red")
-        ],
-        [
-            sg.Text("sbs_chant_eng_4", size=(15, 1)),
-            sg.Input(
-                key="dps_sbs_chant_eng_4",
-                size=(50, 1),
-                tooltip="",
-                text_color=sbs_text,
-                background_color=sbs_background),
-        ],
-        [
-            sg.Text("sbs_chapter_4", size=(15, 1)),
-            sg.Input(
-                key="dps_sbs_chapter_4",
-                size=(50, 1),
-                enable_events=True,
-                text_color=sbs_text,
-                background_color=sbs_background,
-                tooltip=""),
-        ],
-        [
-            sg.Text("ex_4 swap with", size=(15, 1)),
-            sg.Button("ex_1", key="dps_swap_ex_4_with_1_button", font=(None, 13)),
-            sg.Button("ex_2", key="dps_swap_ex_4_with_2_button", font=(None, 13)),
-            sg.Button("ex_3", key="dps_swap_ex_4_with_3_button", font=(None, 13)),
-            sg.Button("remove", key="dps_remove_example_4_button", font=(None, 13)),
-            sg.Button("stash", key="dps_stash_ex_4_button", font=(None, 13)),
-            sg.Button("unstash", key="dps_unstash_ex_4_button", font=(None, 13)),
-            sg.Button("archive", key="dps_archive_button", font=(None, 13)),
+            sg.Text("ex_4 copy to", size=(15, 1)),
+            sg.Button("dhp", key="dps_copy_sbs_4_to_dhp_button", font=(None, 13)),
+            sg.Button("pat", key="dps_copy_sbs_4_to_pat_button", font=(None, 13)),
+            sg.Button("vib", key="dps_copy_sbs_4_to_vib_button", font=(None, 13)),
+            sg.Button("class", key="dps_copy_sbs_4_to_class_button", font=(None, 13)),
+            sg.Button("disc", key="dps_copy_sbs_4_to_discourses_button", font=(None, 13)),
             sg.Text(
                 "", key="dps_buttons_ex_4_error", size=(10, 1), text_color="red"),
         ],

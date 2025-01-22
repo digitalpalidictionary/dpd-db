@@ -729,19 +729,33 @@ class AllowableCharacters():
         ("sbs_chant_eng_2", sbs_chant_english_allowed),
         ("sbs_chapter_2", sbs_chapter_allowed),
 
+        ("dhp_source", sbs_source_allowed),
+        ("dhp_sutta", sutta_allowed),
+        ("dhp_example", example_allowed),
+
+        ("pat_source", sbs_source_allowed),
+        ("pat_sutta", sutta_allowed),
+        ("pat_example", example_allowed),
+
+        ("vib_source", sbs_source_allowed),
+        ("vib_sutta", sutta_allowed),
+        ("vib_example", example_allowed),
+
+        ("class_source", sbs_source_allowed),
+        ("class_sutta", sutta_allowed),
+        ("class_example", example_allowed),
+
+        ("discourses_source", sbs_source_allowed),
+        ("discourses_sutta", sutta_allowed),
+        ("discourses_example", example_allowed),
+
         ("sbs_source_3", sbs_source_allowed),
         ("sbs_sutta_3", sutta_allowed),
         ("sbs_example_3", example_allowed),
-        ("sbs_chant_pali_3", sbs_chant_pali_allowed),
-        ("sbs_chant_eng_3", sbs_chant_english_allowed),
-        ("sbs_chapter_3", sbs_chapter_allowed),
 
         ("sbs_source_4", sbs_source_allowed),
         ("sbs_sutta_4", sutta_allowed),
         ("sbs_example_4", example_allowed),
-        ("sbs_chant_pali_4", sbs_chant_pali_allowed),
-        ("sbs_chant_eng_4", sbs_chant_english_allowed),
-        ("sbs_chapter_4", sbs_chapter_allowed),
 
         ("sbs_notes", notes_allowed),
     ]
@@ -749,7 +763,7 @@ class AllowableCharacters():
     ru_data = [
         ("ru_meaning", ru_meaning_allowed),
         ("ru_meaning_lit", ru_meaning_allowed),
-        ("ru_meaning_raw", ru_meaning_allowed),
+        ("ru_cognate", ru_meaning_allowed),
         ("ru_notes", ru_notes_allowed),
     ]
 

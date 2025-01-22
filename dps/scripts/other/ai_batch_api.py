@@ -258,7 +258,6 @@ def update_ru_meaning_raw(ids_and_contents):
 
 if __name__ == "__main__":
 
-    #! Sent request from json to batch API
     file_name_in = ""
 
     # upload_and_create_batch(file_name_in)

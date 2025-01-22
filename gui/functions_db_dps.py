@@ -178,14 +178,6 @@ def populate_dps_tab(dpspth, values, window, dpd_word, ru_word, sbs_word):
         chant = values["dps_sbs_chant_pali_2"]
         update_sbs_chant(dpspth, 2, chant, "", window)
 
-    if values["dps_sbs_chant_pali_3"]:
-        chant = values["dps_sbs_chant_pali_3"]
-        update_sbs_chant(dpspth, 3, chant, "", window)
-
-    if values["dps_sbs_chant_pali_4"]:
-        chant = values["dps_sbs_chant_pali_4"]
-        update_sbs_chant(dpspth, 4, chant, "", window)
-
 
 # examples related in DPS TABLE
 def load_sbs_index(dpspth) -> list:
@@ -343,7 +335,7 @@ def words_in_db_from_source(db_session, source):
 
 
 # "source in field" button Word To Add
-#! TODO - it is a very fast fetch, redo all other slow in the same way
+# TODO - it is a very fast fetch, redo all other slow in the same way
 def words_in_db_with_value_in_field_sbs(db_session, field, source):
     # Ensure the SBS model has the specified field to avoid runtime errors
     if hasattr(SBS, field):
@@ -398,7 +390,7 @@ def dps_update_db(
                 attribute = value.replace("dps_", "")
                 new_value = values[value]
                 setattr(ru_word, attribute, new_value)
-            if value.startswith("dps_sbs"):
+            elif value.startswith("dps_"):
                 attribute = value.replace("dps_", "")
                 new_value = values[value]
                 setattr(sbs_word, attribute, new_value)
