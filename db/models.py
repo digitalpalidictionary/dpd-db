@@ -1290,9 +1290,9 @@ class SBS(Base):
     sbs_class_anki: Mapped[int] = mapped_column(default='')
     sbs_class: Mapped[int] = mapped_column(default='')
 
-    #TODO  remove after populating discourses_example
+    #TODO  remove after populating discourses
     sbs_category: Mapped[str] = mapped_column(default='')
-    #TODO  remove after populating pat_example and vib_example
+    #TODO  remove after populating pat
     sbs_patimokkha: Mapped[str] = mapped_column(default='')
 
     sbs_meaning: Mapped[str] = mapped_column(default='')
@@ -1333,7 +1333,7 @@ class SBS(Base):
     discourses_sutta: Mapped[str] = mapped_column(default='')
     discourses_example: Mapped[str] = mapped_column(default='')
 
-    #TODO  remove after filling class dpd discourses and pat_example and vib_example
+    #TODO  remove after filling class and discourses
     sbs_source_3: Mapped[str] = mapped_column(default='')
     sbs_sutta_3: Mapped[str] = mapped_column(default='')
     sbs_example_3: Mapped[str] = mapped_column(default='')
@@ -1346,7 +1346,6 @@ class SBS(Base):
     sbs_chant_pali_4: Mapped[str] = mapped_column(default='')
     sbs_chant_eng_4: Mapped[str] = mapped_column(default='')
     sbs_chapter_4: Mapped[str] = mapped_column(default='')
-
 
 
     @declared_attr
