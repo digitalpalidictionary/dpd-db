@@ -16185,6 +16185,29 @@ var family_idiom_json = {
    ]
   ]
  },
+ "bhāva": {
+  "count": 3,
+  "data": [
+   [
+    "ariya tuṇhībhāva",
+    "idiom",
+    "noble silence; true silence",
+    "✔"
+   ],
+   [
+    "kuddhabhāvamassa",
+    "sandhi",
+    "his angry state; his enraged condition",
+    "◑"
+   ],
+   [
+    "sammukhībhāvaṃ adāsi",
+    "idiom",
+    "showed face; presented oneself (to)",
+    "✔"
+   ]
+  ]
+ },
  "abhikkanta": {
   "count": 1,
   "data": [
@@ -17412,29 +17435,6 @@ var family_idiom_json = {
     "rājāhaṃ",
     "sandhi",
     "I am the king",
-    "✔"
-   ]
-  ]
- },
- "bhāva": {
-  "count": 3,
-  "data": [
-   [
-    "ariya tuṇhībhāva",
-    "idiom",
-    "noble silence; true silence",
-    "✔"
-   ],
-   [
-    "kuddhabhāvamassa",
-    "sandhi",
-    "his angry state; his enraged condition",
-    "◑"
-   ],
-   [
-    "sammukhībhāvaṃ adāsi",
-    "idiom",
-    "showed face; presented oneself (to)",
     "✔"
    ]
   ]

@@ -1763,7 +1763,7 @@ var family_word_json = {
    [
     "samagga 1",
     "adj",
-    "(vinaya) unified; united; in concord; harmonious; in agreement; lit. together (in one) place",
+    "unified; united; in concord; harmonious; in agreement; lit. together (in one) place",
     "✔"
    ],
    [
@@ -1930,7 +1930,7 @@ var family_word_json = {
    [
     "guṇavant 1",
     "masc",
-    "who is virtuous; having good qualities; lit. having virtue quality",
+    "virtuous; having good qualities; lit. having virtue quality",
     "✔"
    ],
    [
@@ -2449,8 +2449,8 @@ var family_word_json = {
    [
     "anantatta",
     "nt",
-    "fact of being infinite; limitlessness; boundless state",
-    "✘"
+    "fact of being infinite; limitlessness; boundless state; lit. no end state",
+    "✔"
    ],
    [
     "anantara 1",
@@ -8359,8 +8359,8 @@ var family_word_json = {
    [
     "anulomaṃ",
     "ind",
-    "in a natural order; in forward order; forwards",
-    "✘"
+    "in forward order; in a natural order; forwards; lit. following the hair",
+    "✔"
    ],
    [
     "anulomika",
@@ -8419,8 +8419,8 @@ var family_word_json = {
    [
     "paṭilomaṃ",
     "ind",
-    "in reverse order; backwards",
-    "✘"
+    "in reverse order; backwards; lit. against the hair",
+    "✔"
    ],
    [
     "roma",
@@ -15830,8 +15830,8 @@ var family_word_json = {
    [
     "avisārada",
     "adj",
-    "unsure; not confident; diffident",
-    "✘"
+    "unsure; not confident; diffident; lit. not not green",
+    "✔"
    ],
    [
     "asārada",
@@ -26510,7 +26510,7 @@ var family_word_json = {
     "nāḷikā 3",
     "fem",
     "blowing pipe (used in purifying gold); lit. hollow bamboo tube",
-    "◑"
+    "✔"
    ],
    [
     "nāḷiya",
@@ -33338,6 +33338,23 @@ var family_word_json = {
   ],
   "count": 2
  },
+ "saramā": {
+  "data": [
+   [
+    "saramā",
+    "fem",
+    "bitch; female dog",
+    "◑"
+   ],
+   [
+    "sārameyya",
+    "masc",
+    "dog",
+    "✔"
+   ]
+  ],
+  "count": 2
+ },
  "sarāva": {
   "data": [
    [
@@ -33787,17 +33804,6 @@ var family_word_json = {
   ],
   "count": 3
  },
- "saramā": {
-  "data": [
-   [
-    "sārameyya",
-    "masc",
-    "dog",
-    "✔"
-   ]
-  ],
-  "count": 1
- },
  "sālā": {
   "data": [
    [
@@ -34107,7 +34113,7 @@ var family_word_json = {
     "sippinikā",
     "fem",
     "name of a river; lit. full of oysters",
-    "◑"
+    "✔"
    ],
    [
     "sippiniyā",

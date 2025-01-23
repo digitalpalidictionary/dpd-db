@@ -93,7 +93,7 @@
 - The conjugational sign determining to which root group this root belongs.
 
 <br/>Root Groups:
-<br/>1  √bhū etc. (+ a) bhūvāddigaṇa
+<br/>1  √bhū etc. (+ a) bhūvādigaṇa
 <br/>2  √rudh etc. (+ ṃ-a) rudhādigaṇa 
 <br/>3  √div etc. (+ ya) divādigaṇa 
 <br/>4  √su etc. (+ ṇo + ṇā + uṇā) svādigaṇa 

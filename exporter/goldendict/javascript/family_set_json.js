@@ -933,13 +933,13 @@ var family_set_json = {
    [
     "āgatatta",
     "nt",
-    "(gram) (of text) fact of having been handed down",
+    "(gram) (of text) fact of having been handed down; lit. come here state",
     "◑"
    ],
    [
     "āgama 4",
     "masc",
-    "(gram) insertion; inserted consonant; augment; lit. arrival",
+    "(gram) insertion; inserted consonant; augment; lit. come here",
     "✔"
    ],
    [
@@ -2177,6 +2177,12 @@ var family_set_json = {
     "cs",
     "(gram) *e suffix used to form causative verbs",
     "✔"
+   ],
+   [
+    "ṇeyya",
+    "suffix",
+    "(gram) suffix used to form nouns denoting descendancy",
+    "◑"
    ],
    [
     "ṇvādi",
@@ -4999,7 +5005,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 805
+  "count": 806
  },
  "prefixes": {
   "data": [
@@ -12635,13 +12641,19 @@ var family_set_json = {
     "◑"
    ],
    [
+    "sārandada",
+    "nt",
+    "name of a pagoda; lit. giving the essence",
+    "✔"
+   ],
+   [
     "sundarikā",
     "fem",
     "name of a holy river; lit. charming",
     "✔"
    ]
   ],
-  "count": 16
+  "count": 17
  },
  "types of ascetics": {
   "data": [
@@ -14204,6 +14216,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "pāyāsi 2",
+    "masc",
+    "name of a young nobleman; lit. went forward",
+    "✔"
+   ],
+   [
     "pāvārika 2",
     "masc",
     "name of a layman who offered a monastery to the Buddha",
@@ -14726,7 +14744,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 162
+  "count": 163
  },
  "family names": {
   "data": [
@@ -14982,6 +15000,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "uttarāpa",
+    "masc",
+    "name of a country; lit. northern water",
+    "✔"
+   ],
+   [
     "kamboja",
     "masc",
     "name of a country; part of modern day eastern Afghanistan",
@@ -15090,7 +15114,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 23
+  "count": 24
  },
  "names of paccekabuddhas": {
   "data": [
@@ -16183,7 +16207,7 @@ var family_set_json = {
     "kassapagotta",
     "masc",
     "name of a monk; lit. of the Kassapa family clan",
-    "◑"
+    "✔"
    ],
    [
     "kaḷārakhattiya",
@@ -16459,7 +16483,7 @@ var family_set_json = {
     "gavampati 2",
     "masc",
     "name of an arahant monk; lit. lord of the cows",
-    "◑"
+    "✔"
    ],
    [
     "gavampatitthera",
@@ -17004,8 +17028,8 @@ var family_set_json = {
    [
     "pañcāliputta",
     "masc",
-    "name of a monk; lit. Pañcāli's son",
-    "◑"
+    "name of a monk; lit. Pañcālī's son",
+    "✔"
    ],
    [
     "panthaka",
@@ -18150,7 +18174,7 @@ var family_set_json = {
    [
     "sāgata 2",
     "masc",
-    "name of a monk; foremost in the fire element; lit. welcome",
+    "name of a monk; foremost in the fire element; lit. well come here",
     "✔"
    ],
    [
@@ -19254,7 +19278,7 @@ var family_set_json = {
     "gavampati 2",
     "masc",
     "name of an arahant monk; lit. lord of the cows",
-    "◑"
+    "✔"
    ],
    [
     "gavampatitthera",
@@ -23537,7 +23561,7 @@ var family_set_json = {
     "sippinikā",
     "fem",
     "name of a river; lit. full of oysters",
-    "◑"
+    "✔"
    ],
    [
     "sippiniyā",
@@ -24045,8 +24069,8 @@ var family_set_json = {
    [
     "sarabha 2",
     "masc",
-    "name of a wandering ascetic",
-    "◑"
+    "name of a wandering ascetic; lit. deer",
+    "✔"
    ],
    [
     "sāmaṇḍaka",
@@ -25215,7 +25239,7 @@ var family_set_json = {
     "setaketu",
     "masc",
     "name of the Bodhisatta in Tusita heaven; lit. white banner",
-    "◑"
+    "✔"
    ],
    [
     "serī 2.1",
@@ -26758,7 +26782,7 @@ var family_set_json = {
     "kaṅgu",
     "fem",
     "millet; Panicum indicum",
-    "◑"
+    "✔"
    ],
    [
     "kacchaka",
@@ -28202,7 +28226,7 @@ var family_set_json = {
     "nāgattherī",
     "fem",
     "name of a Sri Lankan nun",
-    "◑"
+    "✔"
    ],
    [
     "pañcasatamattā",
@@ -30039,6 +30063,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "pāṭaligāma",
+    "masc",
+    "name of a village; lit. trumpet flower village",
+    "✔"
+   ],
+   [
     "pāṭaliputta",
     "nt",
     "name of a town; capital of Magadha; modern Patna",
@@ -30330,7 +30360,7 @@ var family_set_json = {
     "venāgapura",
     "nt",
     "name of a town",
-    "◑"
+    "✔"
    ],
    [
     "vebhaḷiṅga",
@@ -30543,7 +30573,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 198
+  "count": 199
  },
  "ordinal numbers": {
   "data": [
@@ -34670,7 +34700,7 @@ var family_set_json = {
     "kaṅgu",
     "fem",
     "millet; Panicum indicum",
-    "◑"
+    "✔"
    ],
    [
     "kaḷāyayūsa",
@@ -35526,6 +35556,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "ṇeyya",
+    "suffix",
+    "(gram) suffix used to form nouns denoting descendancy",
+    "◑"
+   ],
+   [
     "ta 3.1",
     "suffix",
     "(gram) primary suffix used to form past participles and nouns",
@@ -35646,7 +35682,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 38
+  "count": 39
  },
  "four bonds": {
   "data": [
@@ -36392,6 +36428,17 @@ var family_set_json = {
   ],
   "count": 27
  },
+ "names of people": {
+  "data": [
+   [
+    "uttarāpā",
+    "masc",
+    "name of a people; lit. northern water",
+    "✔"
+   ]
+  ],
+  "count": 1
+ },
  "five hindrances": {
   "data": [
    [
@@ -37126,7 +37173,7 @@ var family_set_json = {
     "kaṅgu",
     "fem",
     "millet; Panicum indicum",
-    "◑"
+    "✔"
    ],
    [
     "kudrusaka",
