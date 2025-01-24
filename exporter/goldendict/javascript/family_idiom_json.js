@@ -592,7 +592,7 @@ var family_idiom_json = {
     "akālodāni",
     "sandhi",
     "now is not the time",
-    "◑"
+    "✔"
    ],
    [
     "etassa bhagavā kālo",
@@ -693,7 +693,7 @@ var family_idiom_json = {
     "akālodāni",
     "sandhi",
     "now is not the time",
-    "◑"
+    "✔"
    ],
    [
     "idañhi",
@@ -3411,7 +3411,7 @@ var family_idiom_json = {
     "paṭikacceva 2",
     "sandhi",
     "previously; beforehand",
-    "◑"
+    "✔"
    ],
    [
     "paṭhamaññeva",
@@ -4437,8 +4437,25 @@ var family_idiom_json = {
    ]
   ]
  },
+ "jita": {
+  "count": 2,
+  "data": [
+   [
+    "jitamha",
+    "sandhi",
+    "we've been defeated (by); we've lost (to); lit. we are defeated",
+    "✔"
+   ],
+   [
+    "jitamhā",
+    "sandhi",
+    "we've been defeated (by); we've lost (to); lit. we are defeated",
+    "✔"
+   ]
+  ]
+ },
  "ajja": {
-  "count": 10,
+  "count": 11,
   "data": [
    [
     "ajjuposatho",
@@ -4474,6 +4491,12 @@ var family_idiom_json = {
     "yathājja",
     "sandhi",
     "because today; since today; lit. like today",
+    "✔"
+   ],
+   [
+    "yenajja",
+    "sandhi",
+    "by which (door) today",
     "✔"
    ],
    [
@@ -16733,7 +16756,7 @@ var family_idiom_json = {
   ]
  },
  "amhā": {
-  "count": 6,
+  "count": 8,
   "data": [
    [
     "arahantamhā",
@@ -16745,6 +16768,18 @@ var family_idiom_json = {
     "āgatamha",
     "sandhi",
     "we have come; we have arrived; lit. we are come",
+    "✔"
+   ],
+   [
+    "jitamha",
+    "sandhi",
+    "we've been defeated (by); we've lost (to); lit. we are defeated",
+    "✔"
+   ],
+   [
+    "jitamhā",
+    "sandhi",
+    "we've been defeated (by); we've lost (to); lit. we are defeated",
     "✔"
    ],
    [
@@ -28584,7 +28619,7 @@ var family_idiom_json = {
     "paṭikacceva 2",
     "sandhi",
     "previously; beforehand",
-    "◑"
+    "✔"
    ]
   ]
  },
@@ -31450,7 +31485,7 @@ var family_idiom_json = {
   ]
  },
  "yena": {
-  "count": 14,
+  "count": 15,
   "data": [
    [
     "yena kāmaṃ",
@@ -31492,6 +31527,12 @@ var family_idiom_json = {
     "yena yeneva",
     "idiom",
     "anywhere; anywhere whatsoever; lit. wherever wherever",
+    "✔"
+   ],
+   [
+    "yenajja",
+    "sandhi",
+    "by which (door) today",
     "✔"
    ],
    [

@@ -7131,6 +7131,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "tāsaṃ 1",
+    "pron",
+    "to those, for those; for them",
+    "✔"
+   ],
+   [
     "tāsaṃ 2",
     "pron",
     "of those; of them; their",
@@ -8049,7 +8055,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 359
+  "count": 360
  },
  "epithets of devas": {
   "data": [
@@ -11796,6 +11802,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "udena 2",
+    "nt",
+    "name of a pagoda; lit. going up",
+    "✔"
+   ],
+   [
     "ubbhataka",
     "nt",
     "name of a Mallan council hall; lit. raised up",
@@ -11928,10 +11940,28 @@ var family_set_json = {
     "✔"
    ],
    [
+    "gotamaka 1",
+    "nt",
+    "name of a pagoda",
+    "✔"
+   ],
+   [
     "gotamakakandarā",
     "fem",
     "name of a gorge outside Rājagaha; lit. Gotamaka's ravine",
     "◑"
+   ],
+   [
+    "gotamatittha",
+    "nt",
+    "Gotama's ford",
+    "✔"
+   ],
+   [
+    "gotamanigrodha",
+    "masc",
+    "Gotama's banyan tree",
+    "✔"
    ],
    [
     "ghoṭamukhī",
@@ -11944,6 +11974,12 @@ var family_set_json = {
     "masc",
     "name of a mountain; lit. part of the moon",
     "◑"
+   ],
+   [
+    "cāpāla",
+    "nt",
+    "name of a pagoda",
+    "✔"
    ],
    [
     "cāpālacetiya",
@@ -11986,6 +12022,12 @@ var family_set_json = {
     "masc",
     "name of an area in Sri Lanka; Mihintale; lit. shrine mountain",
     "◑"
+   ],
+   [
+    "corapapāta",
+    "masc",
+    "thieves' cliff",
+    "✔"
    ],
    [
     "chaddanta 3",
@@ -12174,10 +12216,22 @@ var family_set_json = {
     "◑"
    ],
    [
+    "pāvāla",
+    "nt",
+    "name of a pagoda",
+    "✔"
+   ],
+   [
     "pāvālacetiya",
     "nt",
     "name of a pagoda",
     "◑"
+   ],
+   [
+    "pāsāṇaka",
+    "nt",
+    "name of a pagoda; lit. made of stone",
+    "✔"
    ],
    [
     "pippaliguhā",
@@ -12219,7 +12273,7 @@ var family_set_json = {
     "bahuputta 1",
     "nt",
     "name of a pagoda; lit. many sons",
-    "◑"
+    "✔"
    ],
    [
     "bahuputtaka",
@@ -12274,6 +12328,12 @@ var family_set_json = {
     "nt",
     "name of a forest",
     "✔"
+   ],
+   [
+    "maṇimālika",
+    "nt",
+    "name of a shrine in Magadha; lit. garland of jewels",
+    "◑"
    ],
    [
     "maddakucchi",
@@ -12426,6 +12486,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "vebhārapassa",
+    "nt",
+    "slope of mount Vebhāra",
+    "✔"
+   ],
+   [
     "veḷuvana",
     "nt",
     "name of a park outside Rājagaha; lit. bamboo forest",
@@ -12444,10 +12510,22 @@ var family_set_json = {
     "✔"
    ],
    [
+    "sattamba",
+    "nt",
+    "name of a pagoda; lit. seven mangoes",
+    "✔"
+   ],
+   [
     "sattambaka",
     "nt",
-    "name of a pagoda",
-    "◑"
+    "name of a pagoda; lit. seven small mangoes",
+    "✔"
+   ],
+   [
+    "sappasoṇḍikapabbhāra",
+    "masc",
+    "name of a rock overhang outside Rājagaha; lit. snake pool slope; (comm) snake's hood slope",
+    "✔"
    ],
    [
     "salaḷāgāraka",
@@ -12460,6 +12538,12 @@ var family_set_json = {
     "nt",
     "name of a pagoda; lit. giving the essence",
     "◑"
+   ],
+   [
+    "sārandada",
+    "nt",
+    "name of a pagoda; lit. giving the essence",
+    "✔"
    ],
    [
     "sālavatī 1",
@@ -12546,7 +12630,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 139
+  "count": 152
  },
  "holy sites": {
   "data": [
@@ -12575,9 +12659,27 @@ var family_set_json = {
     "◑"
    ],
    [
+    "udena 2",
+    "nt",
+    "name of a pagoda; lit. going up",
+    "✔"
+   ],
+   [
     "gayā 2",
     "fem",
     "name of a sacred river; (comm) circular pond",
+    "✔"
+   ],
+   [
+    "gotamaka 1",
+    "nt",
+    "name of a pagoda",
+    "✔"
+   ],
+   [
+    "cāpāla",
+    "nt",
+    "name of a pagoda",
     "✔"
    ],
    [
@@ -12599,6 +12701,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "pāvāla",
+    "nt",
+    "name of a pagoda",
+    "✔"
+   ],
+   [
     "pāvālacetiya",
     "nt",
     "name of a pagoda",
@@ -12609,6 +12717,18 @@ var family_set_json = {
     "nt",
     "name of a pagoda; lit. made of stone",
     "✔"
+   ],
+   [
+    "bahuputta 1",
+    "nt",
+    "name of a pagoda; lit. many sons",
+    "✔"
+   ],
+   [
+    "bahuputtaka",
+    "nt",
+    "name of a pagoda; lit. having many sons",
+    "◑"
    ],
    [
     "bahuputtakacetiya",
@@ -12635,6 +12755,18 @@ var family_set_json = {
     "◑"
    ],
    [
+    "sattamba",
+    "nt",
+    "name of a pagoda; lit. seven mangoes",
+    "✔"
+   ],
+   [
+    "sattambaka",
+    "nt",
+    "name of a pagoda; lit. seven small mangoes",
+    "✔"
+   ],
+   [
     "sāranda",
     "nt",
     "name of a pagoda; lit. giving the essence",
@@ -12653,7 +12785,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 17
+  "count": 25
  },
  "types of ascetics": {
   "data": [
@@ -13892,9 +14024,27 @@ var family_set_json = {
     "✔"
    ],
    [
+    "kakudha 5",
+    "masc",
+    "name of a lay disciple",
+    "✔"
+   ],
+   [
     "kaṭāhakā",
     "fem",
     "name of a female slave; lit. having a small pot",
+    "✔"
+   ],
+   [
+    "kaṭissabha",
+    "masc",
+    "name of a lay disciple",
+    "✔"
+   ],
+   [
+    "kaṭissaha",
+    "masc",
+    "name of a lay disciple",
     "✔"
    ],
    [
@@ -13916,9 +14066,21 @@ var family_set_json = {
     "◑"
    ],
    [
+    "kāraḷimba",
+    "masc",
+    "name of a lay disciple",
+    "✔"
+   ],
+   [
     "kārāyana",
     "masc",
     "name of king Pasenadi's charioteer",
+    "✔"
+   ],
+   [
+    "kāliṅga 2",
+    "masc",
+    "name of a lay disciple",
     "✔"
    ],
    [
@@ -13932,6 +14094,12 @@ var family_set_json = {
     "fem",
     "name of a Sakyan laywoman; lit. black iguana",
     "◑"
+   ],
+   [
+    "kāḷimba",
+    "masc",
+    "name of a lay disciple",
+    "✔"
    ],
    [
     "kāḷī 2",
@@ -14117,7 +14285,7 @@ var family_set_json = {
     "tuṭṭha 2",
     "masc",
     "name of a lay disciple; lit. content; satisfied",
-    "◑"
+    "✔"
    ],
    [
     "daṇḍapāṇī 2",
@@ -14195,6 +14363,12 @@ var family_set_json = {
     "nāvindakī",
     "masc",
     "name of a minister",
+    "✔"
+   ],
+   [
+    "nikaṭa 3",
+    "masc",
+    "name of a lay disciple",
     "✔"
    ],
    [
@@ -14304,6 +14478,18 @@ var family_set_json = {
     "fem",
     "epithet of Sudinna's ex-wife; lit. Bījaka's mother",
     "◑"
+   ],
+   [
+    "bhaṭa 3",
+    "masc",
+    "name of a lay disciple; lit. supported",
+    "✔"
+   ],
+   [
+    "bhadda 4",
+    "masc",
+    "name of a lay disciple; lit. lucky",
+    "✔"
    ],
    [
     "bhaddavatiya 1",
@@ -14528,6 +14714,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "santuṭṭha 2",
+    "masc",
+    "name of a lay disciple; lit. satisfied",
+    "✔"
+   ],
+   [
     "sandhāna 1",
     "masc",
     "name of a lay disciple; lit. uniting",
@@ -14636,6 +14828,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "sujātā 1",
+    "fem",
+    "name of a lay disciple; lit. well born",
+    "✔"
+   ],
+   [
     "sutanā",
     "fem",
     "name of a laywoman",
@@ -14675,7 +14873,13 @@ var family_set_json = {
     "subhaṭa",
     "masc",
     "name of a lay disciple; lit. well supported",
-    "◑"
+    "✔"
+   ],
+   [
+    "subhadda 3",
+    "masc",
+    "name of a lay disciple; lit. very lucky",
+    "✔"
    ],
    [
     "sūrambaṭṭha",
@@ -14744,7 +14948,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 163
+  "count": 175
  },
  "family names": {
   "data": [
@@ -18400,6 +18604,18 @@ var family_set_json = {
     "◑"
    ],
    [
+    "subhadda 1",
+    "masc",
+    "name of an arahant monk; last person to get ordained under the Buddha",
+    "✔"
+   ],
+   [
+    "subhadda 2",
+    "masc",
+    "name of a monk who rejoiced news of the Buddha's death",
+    "✔"
+   ],
+   [
     "subhūta",
     "masc",
     "name of an arahant monk; lit. wellbeing",
@@ -18604,7 +18820,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 482
+  "count": 484
  },
  "names of arahants": {
   "data": [
@@ -21081,6 +21297,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "subhadda 1",
+    "masc",
+    "name of an arahant monk; last person to get ordained under the Buddha",
+    "✔"
+   ],
+   [
     "subhākammāradhītar",
     "fem",
     "name of an arahant nun; lit. beautiful blacksmith's daughter",
@@ -21309,7 +21531,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 450
+  "count": 451
  },
  "people": {
   "data": [
@@ -28732,6 +28954,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "catunnaṃ 1",
+    "card",
+    "for four; to four",
+    "✔"
+   ],
+   [
     "catunnaṃ 2",
     "card",
     "of four",
@@ -29374,7 +29602,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 138
+  "count": 139
  },
  "villages, towns and cities": {
   "data": [
@@ -30165,10 +30393,22 @@ var family_set_json = {
     "✔"
    ],
    [
+    "beḷuvagāmaka",
+    "masc",
+    "small village of Beḷuva; lit. wood apple small village",
+    "✔"
+   ],
+   [
     "byagghapajja 2",
     "masc",
     "name of a Koliyan city; lit. related to the tiger's path",
     "◑"
+   ],
+   [
+    "bhaṇḍagāma",
+    "masc",
+    "name of a village",
+    "✔"
    ],
    [
     "bhaddavatikā",
@@ -30573,7 +30813,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 199
+  "count": 201
  },
  "ordinal numbers": {
   "data": [
@@ -36402,6 +36642,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "vebhāra",
+    "masc",
+    "name of a mountain outside Rājagaha",
+    "✔"
+   ],
+   [
     "saṅkheyyaka",
     "nt",
     "name of a mountain; lit. calculable",
@@ -36426,7 +36672,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 27
+  "count": 28
  },
  "names of people": {
   "data": [

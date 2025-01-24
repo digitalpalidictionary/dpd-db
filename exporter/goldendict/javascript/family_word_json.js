@@ -2371,6 +2371,12 @@ var family_word_json = {
     "◑"
    ],
    [
+    "naciraṃ",
+    "ind",
+    "not long; soon; in a short time",
+    "✔"
+   ],
+   [
     "sucira",
     "adj",
     "(of time) very long; extended",
@@ -2389,7 +2395,7 @@ var family_word_json = {
     "◑"
    ]
   ],
-  "count": 23
+  "count": 24
  },
  "ati": {
   "data": [
@@ -2454,21 +2460,21 @@ var family_word_json = {
    ],
    [
     "anantara 1",
-    "adj",
-    "immediately following; lit. no space in-between",
+    "nt",
+    "no secret teaching; no inner doctrine; lit. no inner",
     "✔"
    ],
    [
     "anantara 2",
     "adj",
-    "next",
-    "✘"
+    "immediately following; lit. no space in-between",
+    "✔"
    ],
    [
     "anantara 3",
-    "nt",
-    "no secret teaching; no inner doctrine; lit. no inner",
-    "✔"
+    "adj",
+    "next",
+    "✘"
    ],
    [
     "anantara 4",
@@ -3198,8 +3204,8 @@ var family_word_json = {
    [
     "anacchariya 2",
     "adj",
-    "not wonderful, simple",
-    "✘"
+    "normal; common; usual; lit. not wonderful",
+    "✔"
    ],
    [
     "nacchera",
@@ -4463,6 +4469,12 @@ var family_word_json = {
     "◑"
    ],
    [
+    "aṭṭhamaṃ",
+    "ind",
+    "for the eighth time",
+    "✔"
+   ],
+   [
     "aṭṭhamī 1",
     "fem",
     "eighth (8th)",
@@ -4481,7 +4493,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 16
+  "count": 17
  },
  "aṭṭhi": {
   "data": [
@@ -5189,8 +5201,8 @@ var family_word_json = {
    [
     "tāsaṃ 1",
     "pron",
-    "for those; for them",
-    "✘"
+    "to those, for those; for them",
+    "✔"
    ],
    [
     "tāsaṃ 2",
@@ -14134,7 +14146,7 @@ var family_word_json = {
     "ambakā",
     "fem",
     "woman; female; matron",
-    "◑"
+    "✔"
    ],
    [
     "amma 1",
@@ -19873,7 +19885,7 @@ var family_word_json = {
     "kakudha 5",
     "masc",
     "name of a lay disciple",
-    "✘"
+    "✔"
    ],
    [
     "kakudhā",
@@ -20733,7 +20745,7 @@ var family_word_json = {
     "kāliṅga 2",
     "masc",
     "name of a lay disciple",
-    "✘"
+    "✔"
    ],
    [
     "kāliṅga 3",
@@ -22958,7 +22970,7 @@ var family_word_json = {
     "gotamaka 1",
     "nt",
     "name of a pagoda",
-    "✘"
+    "✔"
    ],
    [
     "gotamaka 2",
@@ -23301,8 +23313,8 @@ var family_word_json = {
    [
     "catunnaṃ 1",
     "card",
-    "for four",
-    "✘"
+    "for four; to four",
+    "✔"
    ],
    [
     "catunnaṃ 2",
@@ -28383,15 +28395,9 @@ var family_word_json = {
     "fem",
     "buttocks",
     "✘"
-   ],
-   [
-    "pāvāla",
-    "nt",
-    "name of a pagoda",
-    "✘"
    ]
   ],
-  "count": 3
+  "count": 2
  },
  "pāvā": {
   "data": [
