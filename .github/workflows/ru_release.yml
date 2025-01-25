@@ -220,9 +220,9 @@ jobs:
 
           ---
 
-          Цифровой Словарь Пали распространяется под лицензией [Атрибуция-Некоммерчески 4.0 Всемирная.](http://creativecommons.org/licenses/by-nc/4.0/)
+          Цифровой Словарь Пали распространяется под лицензией [Атрибуция-Некоммерчески 4.0 Всемирная.](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 
-          <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />
+          <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />
         draft: true
         prerelease: false
 

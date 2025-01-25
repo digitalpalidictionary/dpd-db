@@ -94,6 +94,10 @@ def update_db_version(pth, version):
             key="latest_release", value="https://github.com/digitalpalidictionary/dpd-db/releases")
         db_session.add(latest_release)
 
+        license = DbInfo(
+            key="license", value="CC BY-NC-SA 4.0")
+        db_session.add(license)
+
         ___ = DbInfo(
             key="___", value="___")
         db_session.add(___)
