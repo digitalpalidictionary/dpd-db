@@ -803,6 +803,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "kilanta": {
+  "count": 1,
+  "data": [
+   [
+    "kilantosmi",
+    "sandhi",
+    "I am tired; I am worn out; I am exhausted",
+    "✔"
+   ]
+  ]
+ },
  "kukkucca": {
   "count": 1,
   "data": [
@@ -1991,7 +2002,7 @@ var family_idiom_json = {
   ]
  },
  "asmi": {
-  "count": 33,
+  "count": 34,
   "data": [
    [
     "aggohamasmi",
@@ -2069,6 +2080,12 @@ var family_idiom_json = {
     "esohamasmi",
     "sandhi",
     "I am this; this is me",
+    "✔"
+   ],
+   [
+    "kilantosmi",
+    "sandhi",
+    "I am tired; I am worn out; I am exhausted",
     "✔"
    ],
    [

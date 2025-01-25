@@ -1291,6 +1291,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "upacāravacana",
+    "nt",
+    "(gram) figure of speech; metaphorical expression; lit. walking near speaking",
+    "✔"
+   ],
+   [
     "upapanna 4",
     "pp",
     "(gram) achieved; accomplished; lit. went towards",
@@ -5005,7 +5011,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 806
+  "count": 807
  },
  "prefixes": {
   "data": [
@@ -11808,6 +11814,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "upavattana 1",
+    "nt",
+    "names of a place outside Kusinārā; lit. being near",
+    "✔"
+   ],
+   [
     "ubbhataka",
     "nt",
     "name of a Mallan council hall; lit. raised up",
@@ -12630,7 +12642,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 152
+  "count": 153
  },
  "holy sites": {
   "data": [
@@ -14216,6 +14228,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "cunda 2",
+    "masc",
+    "name of the lay disciple who gave Buddha his last meal; lit. smith",
+    "✔"
+   ],
+   [
     "jīvaka",
     "masc",
     "name of a doctor; lit. who lives",
@@ -14406,6 +14424,12 @@ var family_set_json = {
     "masc",
     "name of King Muṇḍa's treasurer; lit. dear",
     "◑"
+   ],
+   [
+    "pukkusa 2",
+    "masc",
+    "name of a young Malla",
+    "✔"
    ],
    [
     "pukkusāti 2",
@@ -14948,7 +14972,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 175
+  "count": 177
  },
  "family names": {
   "data": [
@@ -23594,6 +23618,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "kakudhā",
+    "fem",
+    "name of a river",
+    "✔"
+   ],
+   [
     "kalamba",
     "masc",
     "name of a river",
@@ -23810,7 +23840,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 40
+  "count": 41
  },
  "names of ascetics": {
   "data": [
@@ -29625,6 +29655,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "ambagāma",
+    "masc",
+    "name of a village; lit. mango village",
+    "✔"
+   ],
+   [
     "ambatittha",
     "nt",
     "name of a village in Ceta; lit. mango beach",
@@ -29670,6 +29706,12 @@ var family_set_json = {
     "assapura",
     "nt",
     "name of a town in Aṅga; lit. horse town",
+    "✔"
+   ],
+   [
+    "ātumā",
+    "fem",
+    "name of a town between Kusinārā and Sāvatthī",
     "✔"
    ],
    [
@@ -30093,6 +30135,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "jambugāma",
+    "masc",
+    "name of a village; lit. rose-apple village",
+    "✔"
+   ],
+   [
     "takkasilā",
     "fem",
     "name of city in Gandāra with a well known university; Greek name Taxila",
@@ -30438,6 +30486,12 @@ var family_set_json = {
     "bhārukaccha",
     "masc",
     "name of a town; modern Broach",
+    "✔"
+   ],
+   [
+    "bhoganagara",
+    "nt",
+    "name of a town; lit. wealth town",
     "✔"
    ],
    [
@@ -30807,13 +30861,19 @@ var family_set_json = {
     "◑"
    ],
    [
+    "hatthigāma",
+    "masc",
+    "name of a village; lit. elephant village",
+    "✔"
+   ],
+   [
     "haliddavasana",
     "nt",
     "name of a Koliyan town; lit. wearing yellow",
     "✔"
    ]
   ],
-  "count": 201
+  "count": 206
  },
  "ordinal numbers": {
   "data": [

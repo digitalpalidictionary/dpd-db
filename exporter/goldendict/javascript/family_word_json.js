@@ -4060,6 +4060,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "ātumā",
+    "fem",
+    "name of a town between Kusinārā and Sāvatthī",
+    "✔"
+   ],
+   [
     "tuma",
     "masc",
     "himself; herself; oneself; itself",
@@ -4114,7 +4120,7 @@ var family_word_json = {
     "◑"
    ]
   ],
-  "count": 39
+  "count": 40
  },
  "añjasa": {
   "data": [
@@ -19891,7 +19897,7 @@ var family_word_json = {
     "kakudhā",
     "fem",
     "name of a river",
-    "✘"
+    "✔"
    ]
   ],
   "count": 6
@@ -23732,8 +23738,8 @@ var family_word_json = {
    [
     "cunda 2",
     "masc",
-    "name of the lay disciple who gave Buddha his last meal",
-    "✘"
+    "name of the lay disciple who gave Buddha his last meal; lit. smith",
+    "✔"
    ],
    [
     "cunda 3",
@@ -28176,13 +28182,19 @@ var family_word_json = {
     "◑"
    ],
    [
+    "passena",
+    "ind",
+    "on the side",
+    "✔"
+   ],
+   [
     "supassa",
     "masc",
     "previous name of Vepulla mountain; lit. good slope",
     "◑"
    ]
   ],
-  "count": 5
+  "count": 6
  },
  "pāḷi": {
   "data": [
@@ -28589,7 +28601,7 @@ var family_word_json = {
     "pukkusa 2",
     "masc",
     "name of a young Malla",
-    "✘"
+    "✔"
    ],
    [
     "pukkusī",
@@ -28815,6 +28827,17 @@ var family_word_json = {
    ]
   ],
   "count": 6
+ },
+ "pulina": {
+  "data": [
+   [
+    "puḷina",
+    "nt",
+    "sandbar; sandbank; stretch of sand; beach",
+    "✔"
+   ]
+  ],
+  "count": 1
  },
  "pūga": {
   "data": [
