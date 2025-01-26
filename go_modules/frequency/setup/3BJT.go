@@ -55,7 +55,7 @@ func makeBjtFreq() {
 
 // another way to read BJT
 func anotherWay() {
-	filePath := "../dpd-db/resources/tipitaka.lk/public/static/roman_json/an-1.json"
+	filePath := "../dpd-db/resources/dpd_submodules/bjt/public/static/roman_json/an-1.json"
 	type bjtObject map[string][]map[string]map[string][]map[string]string
 	bjt := bjtObject{}
 	bjt = tools.ReadJsonBjt(filePath, bjt)

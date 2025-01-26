@@ -268,16 +268,16 @@ class ProjectPaths:
         self.sc_deconstructor_js_path = base_dir / "resources/sc-data/dpd/dpd_deconstructor.js"
         self.sc_deconstructor_json_path = base_dir / "resources/sc-data/dpd/dpd_deconstructor.json"
 
-        # resources/tipitaka-xml
-        self.cst_txt_dir = base_dir / "resources/dpd_submodules/resources/tipitaka-xml/romn_txt/"
-        self.cst_xml_dir = base_dir / "resources/dpd_submodules/resources/tipitaka-xml/romn/"
+        # resources/dpd_submodules/cst
+        self.cst_txt_dir = base_dir / "resources/dpd_submodules/cst/romn_txt/"
+        self.cst_xml_dir = base_dir / "resources/dpd_submodules/cst/romn/"
 
-        # resources/bjt
-        self.bjt_dir = base_dir / "resources/dpd_submodules/resources/tipitaka.lk/public/static/"
-        self.bjt_sinhala_dir = base_dir / "resources/dpd_submodules/resources/tipitaka.lk/public/static/text/"
-        self.bjt_roman_json_dir = base_dir / "resources/dpd_submodules/resources/tipitaka.lk/public/static/roman_json/"
-        self.bjt_roman_txt_dir = base_dir / "resources/dpd_submodules/resources/tipitaka.lk/public/static/roman_txt/"
-        self.bjt_books_dir = base_dir / "resources/dpd_submodules/resources/tipitaka.lk/public/static/books/"
+        # resources/dpd_submodules/bjt
+        self.bjt_dir = base_dir / "resources/dpd_submodules/bjt/public/static/"
+        self.bjt_sinhala_dir = base_dir / "resources/dpd_submodules/bjt/public/static/text/"
+        self.bjt_roman_json_dir = base_dir / "resources/dpd_submodules/bjt/public/static/roman_json/"
+        self.bjt_roman_txt_dir = base_dir / "resources/dpd_submodules/bjt/public/static/roman_txt/"
+        self.bjt_books_dir = base_dir / "resources/dpd_submodules/bjt/public/static/books/"
 
         # resources/other_pali_texts
         self.other_pali_texts_dir = base_dir / "resources/other_pali_texts"
