@@ -257,6 +257,7 @@ class ProjectPaths:
 
         # resources/sc-data
         self.sc_data_dir = base_dir / "resources/sc-data/sc_bilara_data/root/pli/ms/"
+        self.sc_variants_dir = base_dir / "resources/sc-data/sc_bilara_data/variant/pli/ms/"
         self.sc_data_dpd_dir = base_dir / "resources/sc-data/dpd/"
 
         self.sc_i2h_js_path = base_dir / "resources/sc-data/dpd/dpd_i2h.js"
