@@ -22,6 +22,7 @@
 [submodule "resources/deconstructor_output"]
 	path = resources/deconstructor_output
 	url = https://github.com/digitalpalidictionary/deconstructor_output.git
+
 [submodule "resources/dpd_submodules"]
 	path = resources/dpd_submodules
 	url = https://github.com/digitalpalidictionary/dpd_submodules
