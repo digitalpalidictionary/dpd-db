@@ -95,11 +95,11 @@ var Pth = struct {
 	UnmatchedJson:      "db/deconstructor/assets/unmatched_set.json",
 
 	// Pali text files
-	CstTxtTextDir:     "resources/tipitaka-xml/romn_txt",
-	CStXmlDir:         "resources/tipitaka-xml/romn",
+	CstTxtTextDir:     "resources/dpd_submodules/resources/tipitaka-xml/romn_txt",
+	CStXmlDir:         "resources/dpd_submodules/resources/tipitaka-xml/romn",
 	ScJsonTextDir:     "resources/sc-data/sc_bilara_data/root/pli/ms",
-	BjtRomanJsonDir:   "resources/bjt/public/static/roman_json/",
-	BjtRomanTxtDir:    "resources/bjt/public/static/roman_txt/",
+	BjtRomanJsonDir:   "resources/dpd_submodules/resources/tipitaka.lk/public/static/roman_json/",
+	BjtRomanTxtDir:    "resources/dpd_submodules/resources/tipitaka.lk/public/static/roman_txt/",
 	SyaTextDir:        "resources/syāmaraṭṭha_1927",
 	OtherPaliTextsDir: "resources/other_pali_texts",
 

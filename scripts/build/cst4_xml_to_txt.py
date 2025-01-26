@@ -34,18 +34,16 @@ def main():
                     soup = BeautifulSoup(contents, 'xml')
                     text_tags = soup.find_all('text')
 
-                    text_extract = ""
+                    text_extract = []
 
                     for text_tag in text_tags:
-                        text_extract += text_tag.get_text() + "\n"
+                        text_extract.append(f"{text_tag.get_text()}\n")
+                    
+                    text = "".join(text_extract).lower()
 
-                    text_translit = transliterate.process(
-                        "autodetect", "IASTPali", text_extract)
-
-                    with open(
-                            pth.cst_txt_dir.joinpath(filename).with_suffix(
-                                ".txt"), "w") as f:
-                        f.write(text_translit)
+                    with open(pth.cst_txt_dir.joinpath(filename) \
+                            .with_suffix(".txt"), "w") as f:
+                        f.write(text)
 
             except Exception:
                 print(f"[bright_red]ERROR: {filename} failed!")
