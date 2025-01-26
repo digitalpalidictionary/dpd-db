@@ -22447,7 +22447,7 @@ var family_idiom_json = {
     "etenupāyena",
     "sandhi",
     "by this means; through this method",
-    "◑"
+    "✔"
    ],
    [
     "eteneva",
@@ -22464,7 +22464,7 @@ var family_idiom_json = {
     "etenupāyena",
     "sandhi",
     "by this means; through this method",
-    "◑"
+    "✔"
    ]
   ]
  },

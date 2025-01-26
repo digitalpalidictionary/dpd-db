@@ -8377,7 +8377,7 @@ var family_word_json = {
    [
     "anulomaṃ",
     "ind",
-    "in forward order; in a natural order; forwards; lit. following the hair",
+    "in forward order; in a natural order; forwards; with the grain; lit. following the hair",
     "✔"
    ],
    [
@@ -8437,7 +8437,7 @@ var family_word_json = {
    [
     "paṭilomaṃ",
     "ind",
-    "in reverse order; backwards; lit. against the hair",
+    "in reverse order; backwards; against the grain; lit. against the hair",
     "✔"
    ],
    [
@@ -16447,7 +16447,7 @@ var family_word_json = {
     "sarīra 3",
     "masc",
     "physical remains; mortal remains; relics",
-    "✘"
+    "✔"
    ],
    [
     "sarīraka",
@@ -25503,7 +25503,7 @@ var family_word_json = {
     "tūriya 1",
     "nt",
     "musical instrument",
-    "◑"
+    "✔"
    ],
    [
     "tūriya 2",
@@ -33657,8 +33657,8 @@ var family_word_json = {
    [
     "hiraññavatī",
     "fem",
-    "name of a river",
-    "✘"
+    "name of a river; lit. golden",
+    "✔"
    ],
    [
     "heraññika",

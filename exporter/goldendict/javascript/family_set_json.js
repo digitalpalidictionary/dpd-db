@@ -4659,7 +4659,7 @@ var family_set_json = {
    [
     "samuccaya 2",
     "masc",
-    "(gram) conjunction; combination; connection",
+    "(gram) conjunction; combination; connection; lit. collecting up together",
     "✔"
    ],
    [
@@ -23838,9 +23838,15 @@ var family_set_json = {
     "fem",
     "name of a holy river; lit. charming",
     "✔"
+   ],
+   [
+    "hiraññavatī",
+    "fem",
+    "name of a river; lit. golden",
+    "✔"
    ]
   ],
-  "count": 41
+  "count": 42
  },
  "names of ascetics": {
   "data": [
@@ -28477,7 +28483,7 @@ var family_set_json = {
    [
     "nāgattherī",
     "fem",
-    "name of a Sri Lankan nun",
+    "name of a Sri Lankan nun; lit. cobra elder",
     "✔"
    ],
    [
@@ -35643,6 +35649,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "murumurāpetvā",
+    "abs",
+    "having made a munching sound while eating",
+    "✔"
+   ],
+   [
     "murumuru",
     "ind",
     "munching sound; nom-nom (made when eating)",
@@ -35691,7 +35703,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 44
+  "count": 45
  },
  "three daughters of Mara": {
   "data": [
