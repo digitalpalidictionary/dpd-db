@@ -20,8 +20,8 @@ pth: ProjectPaths = ProjectPaths()
 def get_cst_file_list() -> list[Path]:
     """Get a list of CST files."""
 
-    cst_xml_roman_dir: Path = pth.cst_xml_roman_dir
-    files: list[Path] = [f for f in cst_xml_roman_dir.iterdir() if f.is_file()]
+    cst_xml_dir: Path = pth.cst_xml_dir
+    files: list[Path] = [f for f in cst_xml_dir.iterdir() if f.is_file()]
     return files
 
 

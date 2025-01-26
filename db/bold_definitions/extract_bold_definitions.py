@@ -50,7 +50,7 @@ def extract_bold_definitions(pth):
         nikaya, book, title, subhead = ["", "", "", ""]
         
         # open xml file
-        with open(pth.cst_xml_roman_dir.joinpath(file_name), "r", 
+        with open(pth.cst_xml_dir.joinpath(file_name), "r", 
             encoding="UTF-16") as file:
             xml = file.read()
         

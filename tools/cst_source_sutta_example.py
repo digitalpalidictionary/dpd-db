@@ -214,7 +214,7 @@ class GlobalData():
             filename = filename.replace(".txt", ".xml")
 
             with open(
-                self.pth.cst_xml_roman_dir.joinpath(filename), "r", encoding="UTF-16"
+                self.pth.cst_xml_dir.joinpath(filename), "r", encoding="UTF-16"
             ) as f:
                 xml = f.read()
 
