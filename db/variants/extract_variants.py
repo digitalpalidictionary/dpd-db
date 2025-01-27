@@ -1,9 +1,10 @@
 """Extract variants readings from all Pāḷi texts."""
 
-from db.variants.extract_variants_from_sc import extract_variants_from_sc
+from db.variants.extract_variants_from_bjt import process_bjt
+from db.variants.extract_variants_from_sc import process_sc
 from db.variants.variant_types import VariantsDict
 
-from db.variants.extract_variants_from_cst import extract_variants_from_cst
+from db.variants.extract_variants_from_cst import process_cst
 from db.variants.variants_exporter import save_json, export_to_goldendict_mdict
 
 from tools.paths import ProjectPaths
@@ -20,8 +21,9 @@ def main():
     
     variants_dict: VariantsDict = {}  
 
-    variants_dict = extract_variants_from_cst(variants_dict, pth)
-    variants_dict = extract_variants_from_sc(variants_dict, pth)
+    variants_dict = process_cst(variants_dict, pth)
+    variants_dict = process_sc(variants_dict, pth)
+    variants_dict = process_bjt(variants_dict, pth)
 
     save_json(variants_dict)
     export_to_goldendict_mdict(variants_dict)
@@ -32,7 +34,7 @@ if __name__ == "__main__":
     main()
 
 
-# TODO get correct book names
+# TODO get correct book names for CST
 # TODO sort entries by book order
 # TODO add synonyms
 # TODO makes a p_green_line with two variables

@@ -1,4 +1,4 @@
-"""Extract variants readings from CST texts."""
+"""Extract variants readings from Sutta Central texts."""
 
 import json
 from pathlib import Path
@@ -27,7 +27,7 @@ def get_json_data(file_path: Path) -> dict[str, str]:
         return json.load(f)
 
 
-def extract_variants(
+def extract_sc_variants(
         json_data: dict[str, str],
         variants_dict: VariantsDict
 ) -> VariantsDict:
@@ -74,9 +74,8 @@ def extract_variants(
     return variants_dict
 
 
-def extract_variants_from_sc(
+def process_sc(
         variants_dict: VariantsDict, pth: ProjectPaths) -> VariantsDict:
-    """This is the main function."""
     
     p_green_title("extracting variants from SC texts")
     
@@ -89,6 +88,6 @@ def extract_variants_from_sc(
             p_counter(counter, len(file_list), file_name.name)
         
         json_data = get_json_data(file_name)
-        variants_dict = extract_variants(json_data, variants_dict)
+        variants_dict = extract_sc_variants(json_data, variants_dict)
 
     return variants_dict

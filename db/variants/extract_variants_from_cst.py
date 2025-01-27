@@ -73,15 +73,15 @@ def extract_variants(
                     key_clean: str = key_cleaner(key)
                     value: str = note.get_text(strip=True).lower()                 
 
-                    # Ensure outer dictionary entry exists
+                    # ensure outer dictionary entry exists
                     if key_clean not in variants_dict:
                         variants_dict[key_clean] = {}
                     
-                    # Ensure cst entry exists
+                    # ensure cst entry exists
                     if "cst" not in variants_dict[key_clean]:
                         variants_dict[key_clean]['cst'] = {}
 
-                    # Ensure inner dictionary entry exists
+                    # ensure inner dictionary entry exists
                     if book_name not in variants_dict[key_clean]["cst"]:
                         variants_dict[key_clean]["cst"][book_name] = []
 
@@ -102,11 +102,10 @@ def get_book_name(xml_filename: Path) -> str:
     raise ValueError(f"No matching key found for XML file: {xml_filename}")
 
 
-def extract_variants_from_cst(
+def process_cst(
         variants_dict: VariantsDict,
         pth: ProjectPaths
 ) -> VariantsDict:
-    """This is the main function."""
     
     p_green_title("extracting variants from CST texts")
     files: list[Path] = get_cst_file_list(pth)
@@ -126,6 +125,5 @@ def extract_variants_from_cst(
         book_name: str = get_book_name(file_name)
         variants_dict = extract_variants(soup, variants_dict, book_name)
 
-    
     return variants_dict
     
