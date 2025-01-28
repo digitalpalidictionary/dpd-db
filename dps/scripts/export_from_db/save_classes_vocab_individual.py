@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
 """
-    saving words for vocab pali class into separate csv and untute them to one xlsx
+    saving words for vocab pali class into separate csv and untute them to one xlsx and converting them into separate XLSX/HTML outputs.
 """
 
-import csv
-import os
 import pandas as pd
+import os
+from string import Template
+import csv
 from db.models import DpdHeadword, SBS
 from db.db_helpers import get_db_session
 from tools.paths import ProjectPaths
@@ -22,18 +23,23 @@ console = Console()
 
 
 def main():
-    print("saving vocab")
+    print("saving vocab for classes one by one...")
 
-    outputxlsx = os.path.join(dpspth.sbs_class_vocab_dir, 'vocab-for-classes.xlsx') 
+    outputxlsx = os.path.join(dpspth.pali_class_vocab_html_dir, 'vocab-for-classes.xlsx') 
 
     # save vocab for HTML
-    print("saving words for vocab pali class")
     with pd.ExcelWriter(outputxlsx) as writer: # type: ignore
+        total_words_saved = 0
         # Save words for each class to a separate CSV file
         for sbs_class in range(2, 30):
             filename = os.path.join(dpspth.sbs_class_vocab_dir, f'vocab-class{sbs_class}.csv')
-            save_words_to_csv(sbs_class, filename)
-            save_csv_files_to_xlsx(filename, writer)
+            words_saved = save_words_to_csv(sbs_class, filename)
+
+            if words_saved:
+                total_words_saved += words_saved
+                save_csv_files_to_xlsx(filename, writer)
+
+        print(f"Total words saved to all CSVs: {total_words_saved}")
 
     print("saving words with examples for vocab pali class")
     # save vocab with examples
@@ -44,14 +50,24 @@ def main():
     # Close the session
     db_session.close()
 
-def save_words_to_csv(sbs_class: int, filename: str):
-    # Get all words that meet the conditions
+    convert_csv_to_html()
+
+
+def save_words_to_csv(sbs_class: int, filename: str) -> int:
+    """
+    Save words for a specific class to a CSV file.
+    :param sbs_class: Class number.
+    :param filename: Output CSV file path.
+    :return: Number of words saved.
+    """
     
 
     words = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs)).join(SBS).filter(
         SBS.sbs_class <= sbs_class,
         SBS.sbs_class_anki <= sbs_class
     ).all()
+
+    words_saved = 0
 
     # Open the CSV file and write the headers
     with open(filename, 'w', newline='') as csvfile:
@@ -62,7 +78,7 @@ def save_words_to_csv(sbs_class: int, filename: str):
         # Write each word to the CSV file
         for word in words:
             if word.rt:
-                root_value = word.root_clean + " " + str(word.rt.root_group) + " " + word.root_sign + " (" + word.rt.root_meaning + ")"
+                root_value = f"{word.root_clean} {word.rt.root_group} {word.root_sign} ({word.rt.root_meaning})"
             else:
                 root_value = word.root_key
 
@@ -71,10 +87,13 @@ def save_words_to_csv(sbs_class: int, filename: str):
                 'pos': word.pos,
                 'meaning': word.meaning_1,
                 'root': root_value,
-                'construction': word.construction,
+                'construction': word.construction_line1,
                 'pattern': word.pattern,
                 'cl.': word.sbs.sbs_class
             })
+            words_saved += 1
+
+    return words_saved
 
 
 def save_words_with_examples_to_csv(sbs_class: int, filename: str):
@@ -119,23 +138,90 @@ def save_words_with_examples_to_csv(sbs_class: int, filename: str):
 
 
 def save_csv_files_to_xlsx(filename: str, writer):
-
-    # Check if the file exists
+    """
+    Append a CSV file to an Excel file as a new sheet.
+    :param filename: Path to the CSV file.
+    :param writer: Pandas ExcelWriter object.
+    """
     if not os.path.isfile(filename):
         print(f"File {filename} does not exist.")
         return
 
-    # Read the CSV file into a DataFrame
-    df = pd.read_csv(filename)
-
-    # Sort the DataFrame by the "cl." column
-    df = df.sort_values('cl.')
+    df = pd.read_csv(filename).sort_values('cl.')
 
     # Get the base name of the CSV file without the extension
     sheet_name = os.path.basename(filename).split('.')[0]
 
     # Write the DataFrame to the Excel file
     df.to_excel(writer, sheet_name=sheet_name, index=False)
+
+
+def convert_csv_to_html():
+    """
+    Convert CSV files to HTML files.
+    """
+
+    print("Converting CSV files to HTML...")
+
+    # Get all CSV files in the current directory
+    csv_files = [file for file in os.listdir(dpspth.sbs_class_vocab_dir) if file.endswith('.csv')]
+
+    for csv_file in csv_files:
+        csv_path = os.path.join(dpspth.sbs_class_vocab_dir, csv_file)
+
+        df = pd.read_csv(csv_path).fillna("").sort_values(by='cl.')
+
+        # Convert DataFrame to HTML table
+        html_table = df.to_html(index=False, classes='sortable')
+
+        # Extract class number from filename
+        class_number = os.path.splitext(csv_file)[0].split('-')[-1]
+
+        # HTML template for the table
+        html_template = Template('''
+            <!DOCTYPE html>
+            <html>
+            <head>
+            <title>Vocabulary List for $class_number</title>
+            <style>
+            table {
+                width: 100%;
+                word-wrap: break-word;
+            }
+            th {
+                text-align: center;
+            }
+            </style>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.min.js"></script>
+            <script>
+            $(document).ready(function() {
+                $('table.sortable').tablesorter();
+            });
+            </script>
+            </head>
+            <body>
+            <h1>Vocabulary List for $class_number</h1>
+            <a href="https://sasanarakkha.github.io/study-tools/pali-class/vocab/index-vocab.html">go to index of vocabulary related to each class</a>
+            <br>
+            <br>
+            $table
+            </body>
+            </html>
+        ''')
+
+        # Substitute the class number placeholder with the actual class number
+        html_content = html_template.safe_substitute(table=html_table, class_number=class_number)
+
+        # Generate output HTML file name
+        html_output_file = os.path.splitext(csv_file)[0] + '.html'
+
+        # Write the HTML content to the file in the same directory
+        html_output_path = os.path.join(dpspth.pali_class_vocab_html_dir, html_output_file)
+        with open(html_output_path, 'w') as file:
+            file.write(html_content)
+
+        print(f"HTML file '{html_output_file}' created successfully.")
 
 
 if __name__ == "__main__":

@@ -137,7 +137,7 @@ kiñci 2,pron,some; something; anything,SNP13,"ratanasuttaṃ
 cūḷavaggo 1","yaṅ'<b>kiñci</b> vittaṃ idha vā huraṃ vā,
 saggesu vā yaṃ ratanaṃ paṇītaṃ.
 na no samaṃ atthi tathāgatena",AN4.173,mahākoṭṭhikasuttaṃ,"channaṃ, āvuso, phass'āyatanānaṃ asesavirāganirodhā atthi ca n'atthi ca aññaṃ <b>kiñcī</b>'ti? mā h'evaṃ, āvuso.",VIN PAT SA 12,dubbaca sikkhāpada,"mā maṃ āyasmanto <b>kiñci</b> avacuttha kalyāṇaṃ vā pāpakaṃ vā, ahaṃ'p'āyasmante na kiñci vakkhāmi kalyāṇaṃ vā pāpakaṃ vā",SN12.63,puttamaṃsūpamasuttaṃ,manosañcetanāya āhāre pariññāte tisso taṇhā pariññātā honti. tīsu taṇhāsu pariññātāsu ariyasāvakassa n'atthi <b>kiñci</b> uttarikaraṇīyanti vadāmi.
-keci,pron,whoever; whatever; whichever; some; any,SNP8,mettasuttaṃ,"ye <b>keci</b> pāṇabhūt'atthi,
+keci 1,pron,whoever; whatever; whichever; some; any,SNP8,mettasuttaṃ,"ye <b>keci</b> pāṇabhūt'atthi,
 tasā vā thāvarā vā anavasesā,
 dīghā vā ye mahantā vā,
 majjhimā rassak'āṇukathūlā.",MN107,gaṇakamoggallānasuttaṃ,"seyyathā'pi, bho gotama, ye <b>keci</b> mūlagandhā, kālānusāri tesaṃ aggam'akkhāyati, ... evam'eva bhoto gotamassa ovādo param'ajjadhammesu.",AN10.15,appamādasuttaṃ,"evam'evaṃ kho, bhikkhave, ye <b>keci</b> kusalā dhammā, sabbe te appamādamūlakā appamādasamosaraṇā, appamādo tesaṃ aggam'akkhāyati.",SN22.79,khajjanīyasuttaṃ,ye hi <b>keci</b> samaṇā vā brāhmaṇā vā anekavihitaṃ pubbenivāsaṃ anussaramānā anussaranti sabb'ete pañc'upādānakkhandhe anussaranti etesaṃ vā aññataraṃ.
@@ -477,7 +477,7 @@ manas'ānāvilo siyā,
 kusalo sabbadhammānaṃ,
 sato <b>bhikkhu</b> paribbaje'ti.",DN22.5,mahāsatipaṭṭhānasuttaṃ,"puna caparaṃ <b>bhikkhu</b> imam'eva kāyaṃ uddhaṃ pādatalā, adho kesamatthakā, tacapariyantaṃ pūraṃ nānappakārassa asucino paccavekkhati"
 bhikkhuno 1,masc,for a monk; to the monastic,AN8.79,parihānasuttaṃ,ime bhikkhave dhammā sekhassa <b>bhikkhuno</b> aparihānāya saṃvattanti.,MN40,cūḷāssapurasuttaṃ,"yassa kassaci, bhikkhave, <b>bhikkhuno</b> abhijjhālussa abhijjhā appahīnā hoti, byāpannacittassa byāpādo appahīno hoti, kodhanassa kodho appahīno hoti",AN10.51,sacittasuttaṃ,"evam'evaṃ kho, bhikkhave, <b>bhikkhuno</b> paccavekkhaṇā bahukārā hoti kusalesu dhammesu",,,
-bhūta 3,nt,being; living being; entity,SNP8,mettasuttaṃ,"ye keci pāṇa<b>bhūt</b>'atthi, tasā vā thāvarā vā anavasesā,
+bhūta 03,nt,being; living being; entity,SNP8,mettasuttaṃ,"ye keci pāṇa<b>bhūt</b>'atthi, tasā vā thāvarā vā anavasesā,
 dīghā vā ye mahantā vā, majjhimā rassak'āṇukathūlā.",MN107,gaṇakamoggallānasuttaṃ,"byāpādapadosaṃ pahāya abyāpannacitto viharati, sabbapāṇa<b>bhūta</b>hit'ānukampī byāpādapadosā cittaṃ parisodheti",DHP131,daṇḍavaggo,"sukhakāmāni <b>bhūtāni</b>,
 yo daṇḍena vihiṃsati,
 attano sukham'esāno,
@@ -651,7 +651,7 @@ sīlavant,adj,virtuous; ethical; moral,SNP8,mettasuttaṃ,"diṭṭhiñ'ca anupa
 <b>sīlavā</b> dassanena sampanno,
 kāmesu vineyya gedhaṃ,
 na hi jātu gabbhaseyya punar'etī'ti.",MN107,gaṇakamoggallānasuttaṃ,"tathāgato purisadammaṃ labhitvā paṭhamaṃ evaṃ vineti, ehi tvaṃ bhikkhu <b>sīlavā</b> hohi",VIN PAT SA 4,attakāmapāricariya sikkhāpada,"etadaggaṃ, bhagini, pāricariyānaṃ yā mādisaṃ, <b>sīlavantaṃ</b> kalyāṇadhammaṃ brahmacāriṃ, etena dhammena paricareyyā'ti, methun'ūpasaṃhitena, saṅghādiseso.",,,
-sukhavihārī,adj,who lives at ease; who lives comfortably; experiencing bodily pleasure,SN45.8,vibhaṅgasuttaṃ,yaṃ taṃ ariyā ācikkhanti upekkhako satimā <b>sukhavihārī</b>'ti tatiyaṃ jhānaṃ upasampajja viharissasi,,,,,,,,,
+sukhavihārī,adj,who lives at ease; who lives comfortably; experiencing bodily pleasure; abiding in sublime pleasure,SN45.8,vibhaṅgasuttaṃ,yaṃ taṃ ariyā ācikkhanti upekkhako satimā <b>sukhavihārī</b>'ti tatiyaṃ jhānaṃ upasampajja viharissasi,,,,,,,,,
 sukhitatta,adj,happy; easy going; (comm) with pleased mind,SNP8,mettasuttaṃ,"diṭṭhā vā ye ca addiṭṭhā,
 ye ca dūre vasanti avidūre,
 bhūtā vā sambhavesī vā,
