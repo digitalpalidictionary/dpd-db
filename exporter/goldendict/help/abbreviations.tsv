@@ -7,8 +7,8 @@ abbrev	meaning	pāli	example	explanation	ru_abbrev	ru_meaning
 ×	root has no verbs which are derived from it					корень не имеет глаголов, происходящих от него
 >	indicates morphological change occurs	āpajjate	√ñā + nā <b>&gt;</b> jānā			указывает на морфологические изменения
 √	root symbol	dhātu	<b>√</b>bhū 1 a (to be)	A root is the irreducible core meaning of a word, stripped of all affixes		обозначение корня
-✔	word data is complete with contextual meaning, grammar, sutta example and other relevant information. 					как полна информация о слове?<br/><span class='gray'>✔</span> данные о слове полностью завершены с контекстуальным значением, грамматикой, примерами из сутт и другой актуальной информацией<br/><span class='gray'>◑</span> данные о слове частично завершены со значением в контексте, но минимальным количеством другой информации<br/><span class='gray'>✘</span> данные о слове все еще находятся в стадии разработки
 ◑	word data is partially complete with a meaning in context but minimal other information.					как полна информация о слове?<br/><span class='gray'>✔</span> данные о слове полностью завершены с контекстуальным значением, грамматикой, примерами из сутт и другой актуальной информацией<br/><span class='gray'>◑</span> данные о слове частично завершены со значением в контексте, но минимальным количеством другой информации<br/><span class='gray'>✘</span> данные о слове все еще находятся в стадии разработки
+✔	word data is complete with contextual meaning, grammar, sutta example and other relevant information. 					как полна информация о слове?<br/><span class='gray'>✔</span> данные о слове полностью завершены с контекстуальным значением, грамматикой, примерами из сутт и другой актуальной информацией<br/><span class='gray'>◑</span> данные о слове частично завершены со значением в контексте, но минимальным количеством другой информации<br/><span class='gray'>✘</span> данные о слове все еще находятся в стадии разработки
 ✘	word data is still under construction.  					как полна информация о слове?<br/><span class='gray'>✔</span> данные о слове полностью завершены с контекстуальным значением, грамматикой, примерами из сутт и другой актуальной информацией<br/><span class='gray'>◑</span> данные о слове частично завершены со значением в контексте, но минимальным количеством другой информации<br/><span class='gray'>✘</span> данные о слове все еще находятся в стадии разработки
 1st	first person	uttama; uttamapurisa	mayaṃ - pron <b>1st</b> nom sg of ahaṃ	I; we	1	первое лицо
 2nd	second person	majjhima; majjhimapurisa	ehi - verb imp <b>2nd</b> sg from eti	you; you all	2	второе лицо
@@ -40,6 +40,7 @@ APt	Abhidhānappadīpikā Ṭīkā			Commentary on the fourteenth century Pāḷ
 base	pronominal base	liṅga	ta; ima; ya; kaci	e.g. that, this, which, someone	основа	основа местоимения
 BD	Concise Pali English Dictionary by Ven. Buddhadatta			"<a class=""link"" href=""http://www.ahandfulofleaves.org/documents/concise%20pali%20english%20dictionary_buddhadatta.pdf"">web-link</a>"		Краткий Словарь Пали-Англ. Досл. Буддхадатта
 BDN	Buddhist Dictionary by Ven. Ñāṇatiloka Mahathera			"<a class=""link"" href=""https://www.palikanon.com/english/wtb/dic_idx.html"">web-link</a>"		Буддийский Cловарь дост. Ньа̄н̣атилока Махатхера
+BJT	Buddha Jayanti Tipiṭaka (Sri Lanka)					
 BMC	Buddhist Monastic Code by Ajahn Ṭhānissaro			"<a class=""link"" href=""https://www.dhammatalks.org/vinaya/bmc/Section0000.html"">web-link</a>"		Буддийский монашеский кодекс
 BSK	Edgerton's Buddhist Hybrid Sanskrit Dictionary			"<a class=""link"" href=""https://www.sanskrit-lexicon.uni-koeln.de/scans/BHSScan/2020/web/index.php"">web-link</a>"		Буддийский Санскрит, Смешанный Словарь Буддийского Санскрита Эджертона
 bsk	Buddhist Hybrid Sanskrit					
@@ -57,6 +58,7 @@ compar	comparative adjective		anuttara; purima; paṇītatara	The comparative fo
 comps	in compounds, word is only found as an element within compounds					в составе сложных слов
 cond	conditional mood	kālātipatti; sattamī	abhavissa; agamissa	Imposing or depending on or containing a condition (e.g. if would be; if could have been; would have gone)	усл	условное наклонение
 Cone	Pali Dictionary by Margaret Cone			"<a class=""link"" href=""https://gandhari.org/dictionary?section=dop"">search in the dictionary online</a>"		Палийский Cловарь Маргарет Коун
+conj	conjunction			Particle that joins or connects	союз	союз
 CP	Cariyā Piṭaka			Book 13 of the Khuddaka Nikāya; the Basket of Conduct		Чарийа Питака
 CPa	Cariyāpiṭaka Aṭṭhakathā, Paramatthadīpanī					Чарийа Питака Комментарий
 CPD	Critical Pāli Dictionary			"<a class=""link"" href=""https://cpd.uni-koeln.de"">web-link</a>"		Критический Словарь Пали
@@ -125,6 +127,7 @@ MN	Majjhimā Nikāya			Book 2 of the Sutta Piṭaka; Collection of Middle-length
 MNa	Majjhimā Nikāya Aṭṭhakathā, Papañcasūdanī			Commentary on the Majjhima Nikāya compiled by Ven. Buddhaghosa; “Destruction of Obstacles [to Progress]”; lit. setting mental proliferation in order		Мадджхима Никая Комментарий
 MNt	Majjhima Nikāya Ṭīkā					Мадджхима Никая Подкомментарий
 MOGG	Moggallāna Byākaraṇaṃ					Моггалланабйакаранан
+MST	Mahāsaṅgīti Tipiṭaka (Sutta Central)					
 MW	Monier-Williams Sanskrit-English Dictionary			"<a class=""link"" href=""https://www.sanskrit-lexicon.uni-koeln.de/scans/MW72Scan/2020/web/index.php"">web-link</a>"		Санскр-Анг Словарь Монье Вильямс
 NDB	The Numerical Discourses of the Buddha: A Complete Translation of the Anguttara Nikaya by Bhikkhu Bodhi					
 neg	negative	avya sadda	na	express negation or opposite meaning	отриц	отрицательная частица
@@ -186,6 +189,7 @@ SPM	Saddanītippakaraṇaṃ Padamālā					Садданитиппакарана
 SPV	Saṃgāyanassa pucchā vissajjanā					Сам̣га̄йанасса пуччха̄ виссаджджана̄
 suffix	suffix	paccaya	-ima; -tama; -dhā	an affix that is added at the end of the word	суфф	суффикс
 superl	superlative adjective		pacchima; pāpiṭṭha; antima	increasing meaning of something; expresses a sense of the ‘most’ of something. (examples: lowest; highest)	превосх	превосходная степень
+SYA	Syāmaraṭṭha 1927 Royal Edition (Thailand)					
 TH	Theragāthā			Book 8 of the Khuddaka Nikāya; Verses of the Elder Monks		Тхерагатха
 THa	Theragāthā Aṭṭhakathā					Тхерагатха Комментарий
 THI	Therīgāthā			Book 9 of the Khuddaka Nikāya; Verses of the Elder Nuns		Тхеригатха
@@ -194,9 +198,9 @@ trans	transitive verb	sakammaka	karoti; vadati; gacchati	A verb (or verb constru
 UD	Udāna			Book 3 of the Khuddaka Nikāya; Inspired Sayings; lit. breath up; sigh		Удана
 UDa	Udāna Aṭṭhakathā, Paramatthadīpanī					Удана Комментарий
 VAt	Vinayālaṅkāra Ṭīkā					
+vb	verb	kriyapada, ākhyāta	pajānāti; upasaṅkami; carati	The word class that serves as the predicate of a sentence	гл	глагол
 VBt	Vajirabuddhi Ṭīkā, Vinaya sub-commentary					
 ve	verbal ending				оконч	окончание глагола
-vb	verb	kriyapada, ākhyāta	pajānāti; upasaṅkami; carati	The word class that serves as the predicate of a sentence	гл	глагол
 VIBH	Vibhaṅgapāḷi			Book 2 of the Abhidhamma Piṭaka; lit. analysis		Вибхан̇га
 VIBHa	Vibhaṅga aṭṭhakathā			Commentary on the Vibhaṅga, Abhidhammapiṭaka		Комментарий к Вибхан̇га
 VIBHt	Vibhaṅga mūlaṭīkā			Sub commentary on the Vibhaṅga, Abhidhammapiṭaka		Подкомментарий к Вибхан̇га
@@ -215,4 +219,3 @@ VVUt	Vinayavinicchaya Uttaravinicchayo, Vinaya sub-commentary
 wrt	with regard to					по отношению к
 x	no gender		pañca - card, <b>x</b> pl	Word does not have any specific gender		не имеет рода
 YAM	Yamakapāḷi					
-conj	conjunction			Particle that joins or connects	союз	союз

@@ -3204,7 +3204,7 @@ var family_word_json = {
    [
     "anacchariya 2",
     "adj",
-    "normal; common; usual; lit. not wonderful",
+    "normal; common; usual; nothing special; lit. not wonderful",
     "✔"
    ],
    [
@@ -7487,6 +7487,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "advaya 2",
+    "adj",
+    "unchanging; steadfast; lit. not twofold",
+    "✔"
+   ],
+   [
     "advitta",
     "nt",
     "(gram) lack of reduplication",
@@ -7751,7 +7757,7 @@ var family_word_json = {
     "◑"
    ]
   ],
-  "count": 48
+  "count": 49
  },
  "amu": {
   "data": [
@@ -10553,6 +10559,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "eke 2",
+    "adj",
+    "some commentators",
+    "✔"
+   ],
+   [
     "ekena",
     "card",
     "by one; with one",
@@ -10613,7 +10625,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 50
+  "count": 51
  },
  "eḷā": {
   "data": [
@@ -21325,6 +21337,18 @@ var family_word_json = {
     "✔"
    ],
    [
+    "kukkuṭakā 1",
+    "fem",
+    "name of a type of lightning; lit. cock's crow",
+    "✔"
+   ],
+   [
+    "kukkuṭakā 2",
+    "fem",
+    "crow of a cockerel",
+    "✘"
+   ],
+   [
     "kukkuṭavatī",
     "fem",
     "name of a town; lit. with many chicken",
@@ -21337,7 +21361,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 4
+  "count": 6
  },
  "kukkula": {
   "data": [
@@ -22535,6 +22559,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "gaggarā 2",
+    "fem",
+    "name of a type of lightning; lit. gurgling",
+    "✔"
+   ],
+   [
     "gaggarāyati",
     "pr",
     "bellows, roars",
@@ -22553,7 +22583,7 @@ var family_word_json = {
     "◑"
    ]
   ],
-  "count": 5
+  "count": 6
  },
  "gaccha": {
   "data": [
@@ -23220,9 +23250,15 @@ var family_word_json = {
     "nt",
     "(circular) pad",
     "✘"
+   ],
+   [
+    "vicakkā",
+    "fem",
+    "name of a type of lightning",
+    "✔"
    ]
   ],
-  "count": 7
+  "count": 8
  },
  "catu": {
   "data": [
@@ -25973,7 +26009,7 @@ var family_word_json = {
    [
     "doṇi 1",
     "fem",
-    "wooden bucket; wooden tub; wooden trough",
+    "wooden tub; wooden trough",
     "✔"
    ],
    [
@@ -28600,7 +28636,7 @@ var family_word_json = {
    [
     "pukkusa 2",
     "masc",
-    "name of a young Malla",
+    "name of a young Mallan man",
     "✔"
    ],
    [
@@ -28831,13 +28867,19 @@ var family_word_json = {
  "pulina": {
   "data": [
    [
+    "pulina",
+    "nt",
+    "sandbar; sandbank; stretch of sand; beach",
+    "✔"
+   ],
+   [
     "puḷina",
     "nt",
     "sandbar; sandbank; stretch of sand; beach",
     "✔"
    ]
   ],
-  "count": 1
+  "count": 2
  },
  "pūga": {
   "data": [
@@ -30492,6 +30534,12 @@ var family_word_json = {
    [
     "mālā 2",
     "fem",
+    "flower; flowering plant",
+    "✔"
+   ],
+   [
+    "mālā 3",
+    "fem",
     "(gram) inflection paradigm; lit. garland",
     "◑"
    ],
@@ -30520,7 +30568,7 @@ var family_word_json = {
     "◑"
    ]
   ],
-  "count": 7
+  "count": 8
  },
  "māsa2": {
   "data": [

@@ -3745,7 +3745,7 @@ var family_set_json = {
     "✔"
    ],
    [
-    "mālā 2",
+    "mālā 3",
     "fem",
     "(gram) inflection paradigm; lit. garland",
     "◑"
@@ -9412,6 +9412,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "aṅgulika",
+    "masc",
+    "finger; lit. little finger",
+    "✔"
+   ],
+   [
     "aṅgulī 1",
     "fem",
     "finger",
@@ -10144,7 +10150,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 133
+  "count": 134
  },
  "types of monastics": {
   "data": [
@@ -12530,7 +12536,7 @@ var family_set_json = {
    [
     "sattambaka",
     "nt",
-    "name of a pagoda; lit. seven small mangoes",
+    "name of a pagoda; lit. seven small mangoes trees",
     "✔"
    ],
    [
@@ -12775,7 +12781,7 @@ var family_set_json = {
    [
     "sattambaka",
     "nt",
-    "name of a pagoda; lit. seven small mangoes",
+    "name of a pagoda; lit. seven small mangoes trees",
     "✔"
    ],
    [
@@ -14428,7 +14434,7 @@ var family_set_json = {
    [
     "pukkusa 2",
     "masc",
-    "name of a young Malla",
+    "name of a young Mallan man",
     "✔"
    ],
    [
@@ -35499,6 +35505,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "gaggarā 2",
+    "fem",
+    "name of a type of lightning; lit. gurgling",
+    "✔"
+   ],
+   [
     "gaggalaka",
     "masc",
     "eddy; whirlpool; maelstrom",
@@ -35703,7 +35715,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 45
+  "count": 46
  },
  "three daughters of Mara": {
   "data": [
@@ -36053,6 +36065,71 @@ var family_set_json = {
    ]
   ],
   "count": 4
+ },
+ "types of lightning": {
+  "data": [
+   [
+    "asaññā 2",
+    "fem",
+    "name of a type of lightning; lit. not knowing together",
+    "✔"
+   ],
+   [
+    "kapisīsā",
+    "fem",
+    "name of a type of lightning; lit. monkey's head",
+    "✔"
+   ],
+   [
+    "kukkuṭakā 1",
+    "fem",
+    "name of a type of lightning; lit. cock's crow",
+    "✔"
+   ],
+   [
+    "gaggarā 2",
+    "fem",
+    "name of a type of lightning; lit. gurgling",
+    "✔"
+   ],
+   [
+    "daṇḍamaṇikā",
+    "fem",
+    "name of a type of lightning",
+    "✔"
+   ],
+   [
+    "macchavilolikā",
+    "fem",
+    "name of a type of lightning",
+    "✔"
+   ],
+   [
+    "vicakkā",
+    "fem",
+    "name of a type of lightning",
+    "✔"
+   ],
+   [
+    "vilola",
+    "adj",
+    "stirring; being agitated; moving about; lit. causing to be agitated",
+    "◑"
+   ],
+   [
+    "saterā",
+    "fem",
+    "name of a type of lightning",
+    "✔"
+   ],
+   [
+    "sukkhāsani",
+    "fem",
+    "name of a type of lightning; lightning without rain; lit. dry lightning",
+    "✔"
+   ]
+  ],
+  "count": 10
  },
  "months of the lunar year": {
   "data": [

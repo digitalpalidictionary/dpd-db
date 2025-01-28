@@ -135,6 +135,7 @@ allness
 allusory
 almsbowl
 almsfood
+almsgiving
 almsman
 Alstonia
 altilis
@@ -186,6 +187,7 @@ annaṭṭhikassa
 annihilationism
 annihilationist
 annointed
+annuls
 Anogeissus
 Anomasutta
 Anopamā
@@ -408,6 +410,7 @@ blamelessness
 blameworthiness
 blameworthy
 blibber-blabber
+blowpipe
 blurtingly
 Blyxa
 Bodhi
@@ -474,6 +477,7 @@ capucapu
 capucapu soun
 Carandas
 carasīti
+carefulness
 Carissa
 Cariyāpiṭaka
 Cartaeva
@@ -574,6 +578,7 @@ contiguously
 contortion
 contradistinction
 contumacy
+convulses
 cooed
 copulative
 coquetry
@@ -673,6 +678,7 @@ depopulated
 deprecated
 deprecation
 derides
+descendancy
 desiderative
 desireless
 desirelessness
@@ -772,7 +778,9 @@ doṇa
 doṇas
 donax
 doṇi
+doorjamb
 doorkeeper
+doorpost
 downcastness
 doziness
 DPD
@@ -808,6 +816,7 @@ Ekakanipāta
 Ekarāja
 elate
 elates
+elating
 Elengi
 elephantiasis
 Eleusine
@@ -927,6 +936,7 @@ frumentacea
 frumentaceum
 fuelless
 fulfilment
+fulled
 g
 gadflies
 gadfly
@@ -978,6 +988,7 @@ gladdening
 Gmelina
 gnawings
 gnosis
+goatherd's
 Godavar
 Godavari
 Godāvarī
@@ -994,6 +1005,7 @@ Gosāla's
 gossipmongering
 Gotama
 Gotama
+Gotama's
 Gotama's
 Gotama's
 Gotama's
@@ -1038,9 +1050,11 @@ healthiness
 hearer
 hearer
 heartedness
+heartens
 heartwood
 Hedyotis
 heedfully
+heedfulness
 heedfulness
 heedlessness
 heirless
@@ -1086,6 +1100,7 @@ illuminator
 illustriousness
 im
 iṃ
+imbibes
 immateriality
 immediate
 immediately
@@ -1121,6 +1136,7 @@ Inda
 Inda's
 Inda's
 Inda's
+Inda's 
 indeclinable
 indeclinables
 indefatigability
@@ -1158,6 +1174,7 @@ interdependence
 interestedness
 intractability
 invertedness
+irascibility
 irrefusable
 irrefutability
 irremediable
@@ -1827,6 +1844,7 @@ pāṇamatipātayato
 Pañcakanipāta
 Pañcala
 Pañcālī's
+Pañcālī's
 Pañcasālā
 Pañcasikha's
 pandal
@@ -2067,6 +2085,7 @@ renunciant
 renunciants
 renunciate
 renunciates
+repeals
 reprimandable
 reprimandable
 reproachable
@@ -2094,6 +2113,7 @@ rigidity
 rinsings
 rippled-nes
 rippled-ness
+rivulet
 robusta
 Rohaṇa
 rohitaka
@@ -2272,6 +2292,7 @@ Sinh
 Sinhala
 Sinhalese
 sippable
+Sippinikā
 sira
 sirā
 siras
@@ -2954,24 +2975,5 @@ you're
 youthfulness
 zizanioides
 Ziziphus
-descendancy
-blowpipe
-Sippinikā
-irascibility
-annuls
-repeals
-heedfulness
-carefulness
-Gotama's
-imbibes
-rivulet
-Inda's 
-Pañcālī's
-convulses
-elating
-almsgiving
-goatherd's
-goatherd's
-heartens
-doorpost
-doorjamb
+idiomatic
+shoos

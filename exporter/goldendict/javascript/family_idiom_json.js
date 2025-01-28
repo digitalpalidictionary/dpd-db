@@ -13864,6 +13864,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "dvaya": {
+  "count": 1,
+  "data": [
+   [
+    "sesapadadvayepi",
+    "sandhi",
+    "in the remaining two words",
+    "◑"
+   ]
+  ]
+ },
  "dvi": {
   "count": 7,
   "data": [
@@ -27816,17 +27827,6 @@ var family_idiom_json = {
     "desitādiccabandhunā",
     "sandhi",
     "preached by the Buddha; lit. preached by the relative of the sun",
-    "◑"
-   ]
-  ]
- },
- "dvaya": {
-  "count": 1,
-  "data": [
-   [
-    "sesapadadvayepi",
-    "sandhi",
-    "in the remaining two words",
     "◑"
    ]
   ]
