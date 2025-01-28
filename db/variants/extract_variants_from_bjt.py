@@ -3,10 +3,10 @@
 import json
 import re
 
-from icecream import ic
 from pathlib import Path
 
-from db.variants.variant_types import VariantsDict
+from db.variants.variants_modules import key_cleaner
+from db.variants.variants_modules import VariantsDict
 
 from tools.paths import ProjectPaths
 from tools.printer import p_counter, p_green_title
@@ -57,10 +57,10 @@ def extract_bjt_variants(
             var_capture = re.findall(
                 r"""        
                 (^|\n| )    # starts with para, newline or space
-                (.[^ ]*     # 1 or more characters without space capture group1 
+                ([^\n ]*    # 0 or more characters without space or \n = capture group1 
                 \s*)        # optional space
                 \{          # open curly brackets
-                ([0-9*]+)   # 1 or more digits or * in capture group2 
+                ([0-9*]+?)  # 1 or more digits or * = capture group2 
                 \}          # close curly braces
                 """,
                 text,       # find in text
@@ -81,42 +81,45 @@ def extract_bjt_variants(
                 (.+)        # everything til the end in cgroup2
                 """,
                 text,       # find in text
-                re.VERBOSE  # otherwise it doesn't work
+                re.VERBOSE | # otherwise it doesn't work 
+                re.DOTALL
             )
             for fnc in fn_capture:
                 number, definition = fnc
                 page_footnotes_dict[number] = definition
 
         # compile page variants into variants_dict
-        for key, variant in page_variants_dict.items():
+        for key, word in page_variants_dict.items():
+            word_clean = key_cleaner(word)
+
             try:
                 definition = page_footnotes_dict[key]
 
                 # ensure outer dictionary entry exists
-                if variant not in variants_dict:
-                    variants_dict[variant] = {}
+                if word_clean not in variants_dict:
+                    variants_dict[word_clean] = {}
                 
                 # ensure cst entry exists
-                if "BJT" not in variants_dict[variant]:
-                    variants_dict[variant]['BJT'] = {}
+                if "BJT" not in variants_dict[word_clean]:
+                    variants_dict[word_clean]["BJT"] = {}
 
                 # ensure inner dictionary entry exists
-                if book not in variants_dict[variant]["BJT"]:
-                    variants_dict[variant]["BJT"][book] = []
+                if book not in variants_dict[word_clean]["BJT"]:
+                    variants_dict[word_clean]["BJT"][book] = []
 
-                if definition not in variants_dict[variant]["BJT"][book]:
-                    variants_dict[variant]["BJT"][book].append(definition)
+                if definition not in variants_dict[word_clean]["BJT"][book]:
+                    variants_dict[word_clean]["BJT"][book].append(definition)
 
             except KeyError:
                 pass
-                # errors_list.append((file_name.stem, page_num, key))
+                errors_list.append((file_name.stem, page_num, key))
 
         # also find the opposite kind of error
-        for key, variant in page_footnotes_dict.items():
+        for key, word_clean in page_footnotes_dict.items():
             try:
                 definition = page_variants_dict[key]
             except KeyError:
-                if "__"  not in variant:
+                if "__"  not in word_clean:
                     errors_list.append((file_name.stem, page_num, key))
 
     return variants_dict, errors_list

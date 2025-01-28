@@ -2,10 +2,9 @@
 
 import json
 from pathlib import Path
-from icecream import ic
 
-from db.variants.variant_types import VariantsDict
-from db.variants.extract_variants_from_cst import key_cleaner
+from db.variants.variants_modules import key_cleaner
+from db.variants.variants_modules import VariantsDict
 
 from tools.paths import ProjectPaths
 from tools.printer import p_green_title, p_counter
@@ -47,7 +46,8 @@ def extract_sc_variants(
             
             # normal case
             if len(variants_list) == 2:
-                root_word, variants = variants_list
+                word, variants = variants_list
+                word_clean = key_cleaner(word)
 
             # fallback case where there is no '→'
             else:
@@ -57,19 +57,18 @@ def extract_sc_variants(
             for variant in variants.split(";"):
 
                 # ensure outer dictionary entry exists
-                if root_word not in variants_dict:
-                    variants_dict[root_word] = {}
+                if word_clean not in variants_dict:
+                    variants_dict[word_clean] = {}
 
-                # ensure sc entry exists
-                if "sc" not in variants_dict[root_word]:
-                    variants_dict[root_word]["sc"] = {}
+                # ensure MST entry exists
+                if "MST" not in variants_dict[word_clean]:
+                    variants_dict[word_clean]["MST"] = {}
 
                 # ensure inner dictionary entry exists
-                if reference_code not in variants_dict[root_word]["sc"]:
-                    variants_dict[root_word]["sc"][reference_code] = []
+                if reference_code not in variants_dict[word_clean]["MST"]:
+                    variants_dict[word_clean]["MST"][reference_code] = []
     
-                variants_dict[root_word]["sc"][reference_code].append(variant)
-                # ic(reference_code, root_word, variant)
+                variants_dict[word_clean]["MST"][reference_code].append(variant.strip())
 
     return variants_dict
 
