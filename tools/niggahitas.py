@@ -11,4 +11,4 @@ def add_niggahitas(words: List[str], all=True) -> List[str]:
             if all == True:
                 words += [word.replace("ṃ", "ŋ")]
 
-    return words
+    return list(set(words))

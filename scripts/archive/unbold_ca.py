@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Un-bold all ca in compound construction"""
+"""Un-bold all <b>ca</b> in compound construction"""
 
 from rich import print
 
