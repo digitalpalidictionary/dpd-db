@@ -7,7 +7,7 @@ from tools.paths import ProjectPaths
 from tools.printer import p_green_title, p_title
 from rich import print
 
-find_me = "abhikkamā"
+find_me = "kaṭṭhattharaṇapaṇṇattharaṇaāsanādīni"
 
 
 def write_temp_file(found: list[str]):
