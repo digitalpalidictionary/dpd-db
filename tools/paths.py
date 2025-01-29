@@ -333,6 +333,10 @@ class ProjectPaths:
         self.letters9 = base_dir / "db/deconstructor/output/letters/letters9.tsv"
         self.letters10 = base_dir / "db/deconstructor/output/letters/letters10plus.tsv"
 
+        # db/variants/html_css_js
+        self.variants_header_path = base_dir / "db/variants/html_css_js/variants_header.html"
+        self.variants_css_path = base_dir / "db/variants/html_css_js/variants.css"
+
         # shared_data/deconstructor
         self.decon_manual_corrections = base_dir / "shared_data/deconstructor/manual_corrections.tsv"
         self.decon_exceptions = base_dir / "shared_data/deconstructor/exceptions.tsv"

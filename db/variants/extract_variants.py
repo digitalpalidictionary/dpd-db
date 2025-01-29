@@ -16,7 +16,6 @@ def main():
     tic()
     p_title("variants dict")
     
-    
     variants_dict: VariantsDict = {}  
     pth: ProjectPaths = ProjectPaths()
 

@@ -51,9 +51,18 @@ def export_to_goldendict_mdict(
 
     dict_data: list[DictEntry] = []
     
+    with open(pth.variants_header_path) as f:
+        header = f.read() 
+    
     for word, data in variants_dict.items():
         
-        html_list: list[str] = ["<table>"]
+        html_list: list[str] = []
+        html_list.append(header)
+        html_list.append("<body>")
+        html_list.append("<div class='variants'>")
+        html_list.append("<table class='variants'>")
+        html_list.append("<tr><th>source</th><th>book</th><th>variant (corpus)</th></tr>")
+
         synonyms_list: list[str] = []
 
         # add various niggahita to synonyms 
@@ -71,9 +80,13 @@ def export_to_goldendict_mdict(
                     # add various niggahitas to synonyms
                     synonyms_list = add_niggahitas(synonyms_list)
                     
-                    html_list.append(f"<tr><th>{corpus}</th><td>{book}</td><td>{variant}</td></tr>")
+                    html_list.append(f"<tr><td>{corpus}</td><td>{book}</td><td>{variant}</td></tr>")
+            html_list.append("")
         
         html_list.append("</table>")
+        html_list.append("</div>")
+        html_list.append("</body>")
+        html_list.append("</html>")
         html: str = "\n".join(html_list)
 
         dict_entry = DictEntry(
@@ -94,7 +107,7 @@ def export_to_goldendict_mdict(
     )
 
     dict_vars = DictVariables(
-        css_path=None,
+        css_path=pth.variants_css_path,
         js_paths=None,
         gd_path=pth.share_dir,
         md_path=pth.share_dir,
