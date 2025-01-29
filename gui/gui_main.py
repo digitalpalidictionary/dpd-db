@@ -67,7 +67,7 @@ from gui.functions import add_to_word_to_add
 from gui.functions import save_gui_state
 from gui.functions import load_gui_state
 from gui.functions import test_construction
-from gui.functions import replace_sandhi
+from gui.functions import replace_sandhi_gui
 from gui.functions import test_username
 from gui.functions import compare_differences
 from gui.functions import stasher, unstasher
@@ -779,10 +779,10 @@ def main():
             window["example_1"].update(values["example_1"])
 
         elif event == "example_1_clean":
-            replace_sandhi(
+            replace_sandhi_gui(
                 values["example_1"], "example_1", 
                 sandhi_dict, hyphenations_dict, window)
-            replace_sandhi(
+            replace_sandhi_gui(
                 values["bold_1"], "bold_1", 
                 sandhi_dict, hyphenations_dict, window)
         
@@ -809,10 +809,10 @@ def main():
             window["example_1"].update(value=new_example_1)
 
         elif event == "example_2_clean":
-            replace_sandhi(
+            replace_sandhi_gui(
                 values["example_2"], "example_2", 
                 sandhi_dict, hyphenations_dict, window)
-            replace_sandhi(
+            replace_sandhi_gui(
                 values["bold_2"], "bold_2", 
                 sandhi_dict, hyphenations_dict, window)
 
@@ -828,7 +828,7 @@ def main():
             window["example_2"].update(value="")
 
         elif event == "commentary_clean":
-            replace_sandhi(
+            replace_sandhi_gui(
                 values["commentary"], "commentary", 
                 sandhi_dict, hyphenations_dict, window)
 
@@ -1558,10 +1558,10 @@ def main():
 
         # dps clean1
         elif event == "dps_example_1_clean":
-            replace_sandhi(
+            replace_sandhi_gui(
                 values["dps_sbs_example_1"], "dps_sbs_example_1", 
                 sandhi_dict, hyphenations_dict, window)
-            replace_sandhi(
+            replace_sandhi_gui(
                 values["dps_bold_1"], "dps_bold_1", 
                 sandhi_dict, hyphenations_dict, window)
 
@@ -1569,10 +1569,10 @@ def main():
 
         # dps clean2
         elif event == "dps_example_2_clean":
-            replace_sandhi(
+            replace_sandhi_gui(
                 values["dps_sbs_example_2"], "dps_sbs_example_2", 
                 sandhi_dict, hyphenations_dict, window)
-            replace_sandhi(
+            replace_sandhi_gui(
                 values["dps_bold_2"], "dps_bold_2", 
                 sandhi_dict, hyphenations_dict, window)
 
@@ -1633,10 +1633,10 @@ def main():
 
         # dps clean dhp
         elif event == "dps_example_dhp_clean":
-            replace_sandhi(
+            replace_sandhi_gui(
                 values["dps_dhp_example"], "dps_dhp_example", 
                 sandhi_dict, hyphenations_dict, window)
-            replace_sandhi(
+            replace_sandhi_gui(
                 values["dps_bold_dhp"], "dps_bold_dhp", 
                 sandhi_dict, hyphenations_dict, window)
 
@@ -1697,10 +1697,10 @@ def main():
 
         # dps clean pat
         elif event == "dps_example_pat_clean":
-            replace_sandhi(
+            replace_sandhi_gui(
                 values["dps_pat_example"], "dps_pat_example", 
                 sandhi_dict, hyphenations_dict, window)
-            replace_sandhi(
+            replace_sandhi_gui(
                 values["dps_bold_pat"], "dps_bold_pat", 
                 sandhi_dict, hyphenations_dict, window)
 
@@ -1761,10 +1761,10 @@ def main():
 
         # dps clean vib
         elif event == "dps_example_vib_clean":
-            replace_sandhi(
+            replace_sandhi_gui(
                 values["dps_vib_example"], "dps_vib_example", 
                 sandhi_dict, hyphenations_dict, window)
-            replace_sandhi(
+            replace_sandhi_gui(
                 values["dps_bold_vib"], "dps_bold_vib", 
                 sandhi_dict, hyphenations_dict, window)
 
@@ -1825,10 +1825,10 @@ def main():
 
         # dps clean class
         elif event == "dps_example_class_clean":
-            replace_sandhi(
+            replace_sandhi_gui(
                 values["dps_class_example"], "dps_class_example", 
                 sandhi_dict, hyphenations_dict, window)
-            replace_sandhi(
+            replace_sandhi_gui(
                 values["dps_bold_class"], "dps_bold_class", 
                 sandhi_dict, hyphenations_dict, window)
 
@@ -1889,10 +1889,10 @@ def main():
 
         # dps clean discourses
         elif event == "dps_example_discourses_clean":
-            replace_sandhi(
+            replace_sandhi_gui(
                 values["dps_discourses_example"], "dps_discourses_example", 
                 sandhi_dict, hyphenations_dict, window)
-            replace_sandhi(
+            replace_sandhi_gui(
                 values["dps_bold_discourses"], "dps_bold_discourses", 
                 sandhi_dict, hyphenations_dict, window)
 

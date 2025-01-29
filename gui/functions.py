@@ -30,11 +30,11 @@ from tools.configger import config_update
 from tools.cst_sc_text_sets import make_cst_text_list
 from tools.cst_sc_text_sets import make_sc_text_list
 from tools.cst_source_sutta_example import find_source_sutta_example
-from tools.pali_alphabet import pali_alphabet
 from tools.pali_text_files import cst_texts
 from tools.paths import ProjectPaths
 from tools.pos import INDECLINABLES
 from tools.tokenizer import split_words
+from tools.sandhi_replacement import replace_sandhi
 
 
 class Flags:
@@ -966,51 +966,13 @@ def test_construction(values, window, lemma_clean_list):
     window["construction_error"].update(error_string, text_color="red")
 
 
-def replace_sandhi(
+def replace_sandhi_gui(
         text: str, field: str, 
         sandhi_dict: dict, hyphenations_dict: dict, window
     ) -> None:
-    """Replace Sandhi and hypenated words."""
-    
-    pali_alphabet_string = "".join(pali_alphabet)
-    splits = re.split(f"([^{pali_alphabet_string}])", text)
+    """Replace Sandhi and hypenated words and update window of the field."""
 
-    for i in range(len(splits)):
-        word = splits[i]
-        if word in sandhi_dict:
-            splits[i] = "//".join(sandhi_dict[word]["contractions"])
-
-        if word in hyphenations_dict:
-            splits[i] = hyphenations_dict[word]
-    
-    text = "".join(splits)
-
-    # replace ṁ with ṃ
-    text = text.replace("ṁ", "ṃ")
-    # fix bold 'ti
-    text = text.replace("</b>ti", "</b>'ti")
-    # fix bold 'ti
-    text = text.replace("</b>nti", "n</b>'ti")
-    # fix bold comma
-    text = text.replace(",</b>", "</b>,")
-    # fix bold stop
-    text = text.replace(".</b>", "</b>.")
-    # fix bold quote
-    text = text.replace("'</b>'", "</b>'")
-    # fix 'tipi
-    text = text.replace("'tipi", "'ti'pi")
-    # remove [...]
-    text = re.sub(r"\[[^]]*\]", "", text)
-    # remove double spaces
-    text = re.sub(" +", " ", text)
-    # remove digits in front
-    text = re.sub(r"^\d*\. ", "", text)
-    # remove space comma
-    text = text.replace(" ,", ",")
-    # remove space fullstop
-    text = text.replace(" .", ".")
-    # remove spaces front n back
-    text = text.strip()
+    text = replace_sandhi(text, sandhi_dict, hyphenations_dict)
 
     window[field].update(text)
 
