@@ -39,6 +39,7 @@ class GlobalVars():
     )
 
     # templates
+    layout_templ = env.get_template("layout.typ")
     front_matter_templ = env.get_template("front_matter.typ")
     first_letter_templ = env.get_template("first_letter.typ")
     abbreviations_templ = env.get_template("abbreviations.typ")
@@ -55,6 +56,12 @@ class GlobalVars():
     # colours
     colour1: str = "#00A4CC"
     colour2: str = "#65DBFF"
+
+
+def make_layout(g: GlobalVars):
+    p_green("compiling layout")
+    g.typst_data.append(g.layout_templ.render())
+    p_yes("ok")
 
 
 def make_front_matter(g: GlobalVars):
@@ -357,6 +364,7 @@ def main():
         return
     
     g = GlobalVars()
+    make_layout(g)
     make_front_matter(g)
     make_abbreviations(g)
     make_pali_to_english(g)
