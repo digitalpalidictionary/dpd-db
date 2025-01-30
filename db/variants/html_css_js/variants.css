@@ -18,14 +18,12 @@ div.variants {
     text-align: left;
 }
 
-
 table.variants {
     border-collapse: collapse;
     border: none;
-    line-height: 150%;
+    line-height: 1.5;
     margin: 0;
     overflow: auto;
-    padding: 2px 5px;
     text-align: left;
     vertical-align: top;
     width: auto; 
@@ -35,4 +33,17 @@ table.variants {
 .variants th, 
 .variants td {
     padding: 2px 5px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.variants td:first-child,  
+.variants td:nth-child(2) {
+    white-space: nowrap;
+}
+
+hr.variants {
+    border: none;
+    height: 1px;
+    background-color: #00A4CC;
 }

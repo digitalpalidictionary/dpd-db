@@ -61,15 +61,19 @@ def export_to_goldendict_mdict(
         html_list.append("<body>")
         html_list.append("<div class='variants'>")
         html_list.append("<table class='variants'>")
-        html_list.append("<tr><th>source</th><th>book</th><th>variant (corpus)</th></tr>")
+        html_list.append("<tr><th>source</th><th>book</th><th>variant & corpus</th></tr>")
 
         synonyms_list: list[str] = []
 
         # add various niggahita to synonyms 
         if "ṃ" in word or "ṁ" in word:
             synonyms_list = add_niggahitas([word])
+        old_corpus = ""
 
         for corpus, data2 in data.items():
+            if old_corpus and old_corpus != corpus:
+                html_list.append("<td colspan='100%'><hr class='variants'></td>")
+            
             for book, variants in data2.items():
                 for variant in variants:
                     if corpus == "MST" or corpus == "CST":
@@ -82,6 +86,7 @@ def export_to_goldendict_mdict(
                     
                     html_list.append(f"<tr><td>{corpus}</td><td>{book}</td><td>{variant}</td></tr>")
             html_list.append("")
+            old_corpus = corpus
         
         html_list.append("</table>")
         html_list.append("</div>")

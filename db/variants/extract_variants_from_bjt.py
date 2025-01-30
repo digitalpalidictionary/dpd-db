@@ -148,7 +148,7 @@ def process_bjt(
     
     p_green_title("bjt footnote errors")
     print("|File Name|Page|Footnote|")
-    print("|:---|:---|:---:|")
+    print("|:---|:---|:---|")
     for e in errors_list:
         file_name, page_num, key = e
         print(f"|{file_name}|{page_num}|{key}|")

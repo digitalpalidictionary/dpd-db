@@ -270,6 +270,9 @@ class ProjectPaths:
         self.sc_deconstructor_js_path = base_dir / "resources/sc-data/dpd/dpd_deconstructor.js"
         self.sc_deconstructor_json_path = base_dir / "resources/sc-data/dpd/dpd_deconstructor.json"
 
+        # resources/syāmaraṭṭha_1927
+        self.sya_dir = base_dir / "resources/syāmaraṭṭha_1927/"
+
         # resources/dpd_submodules/cst
         self.cst_txt_dir = base_dir / "resources/dpd_submodules/cst/romn_txt/"
         self.cst_xml_dir = base_dir / "resources/dpd_submodules/cst/romn/"
