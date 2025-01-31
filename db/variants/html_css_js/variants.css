@@ -43,7 +43,9 @@ table.variants {
 }
 
 hr.variants {
+    background-color: gray;
     border: none;
     height: 1px;
-    background-color: #00A4CC;
+    margin: 0;
+    padding: 0;
 }

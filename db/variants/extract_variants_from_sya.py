@@ -1,11 +1,10 @@
 """Extract variants readings from Syāmaraṭṭḥa (Thai) texts."""
 
-import json
-from pathlib import Path
+
 import re
-from typing import Optional
 
 from icecream import ic
+from pathlib import Path
 
 from db.variants.variants_modules import key_cleaner
 from db.variants.variants_modules import VariantsDict
@@ -38,8 +37,8 @@ def process_sya(
         variants_dict = extract_sya_variants(book, text, variants_dict)
     
     error_rate = (errors/successes)*100
-    p_red(f"{errors} / {successes}")
-    p_red(f"error rate: {error_rate:.4}%")
+    p_red(f"extracted:  {successes-errors} / {successes}")
+    p_red(f"error rate: {error_rate:.2}%")
 
     return variants_dict
 
@@ -89,7 +88,6 @@ def extract_sya_variants(
     # split on [page xyz]
     pages = re.split(r"(?=\[page \d+\])", text)
 
-
     for i, page in enumerate(pages):
 
         page_num: int = get_page_number(i, page)
@@ -120,7 +118,6 @@ def extract_sya_variants(
                     print()
                 continue
 
-            
             # ensure outer dictionary entry exists
             if word_clean not in variants_dict:
                 variants_dict[word_clean] = {}
@@ -183,7 +180,7 @@ def get_variants_in_footnotes(page: str) -> dict[str, str]:
         footnotes = re.split(r"(?<=\.)* +(?=\d)", footnote_str)
         for footnote in footnotes:
 
-            # footnote contains a triple range 
+            # footnote contains a triple range e.g.
             # 3-4-5 yamidha sañjotibhūtā sañjotibhūto sañjotibhūtanti likhiyati
             if re.findall(r"\d+-\d+-\d+", footnote):
                 pattern = r"(\d+)-\d+-(\d+)"
@@ -199,7 +196,7 @@ def get_variants_in_footnotes(page: str) -> dict[str, str]:
                                 ic(str(i), variant)
                                 print()
 
-            # footnote contains a number range 
+            # footnote contains a number range e.g.
             # 1-3 Yu. Ma. arahattaṁ. 
             if re.findall(r"\d+-\d+", footnote):
                 pattern = r"(\d+)-(\d+)"

@@ -62,6 +62,7 @@ def export_to_goldendict_mdict(
         html_list.append("<div class='variants'>")
         html_list.append("<table class='variants'>")
         html_list.append("<tr><th>source</th><th>book</th><th>variant & corpus</th></tr>")
+        html_list.append("<td colspan='100%'><hr class='variants'></td>")
 
         synonyms_list: list[str] = []
 
