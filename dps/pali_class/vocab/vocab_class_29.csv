@@ -1,5 +1,5 @@
-pali,pos,meaning,source_1,sutta_1,example_1,source_2,sutta_2,example_2,source_3,sutta_3,example_3,source_4,sutta_4,example_4
-akubbanta,prp,not doing; not making,DHP124,pāpavaggo,"pāṇimhi ce vaṇo n'āssa,
+id,pali,pos,meaning,source_1,sutta_1,example_1,source_2,sutta_2,example_2,source_3,sutta_3,example_3,source_4,sutta_4,example_4
+239,akubbanta,prp,not doing; not making,DHP124,pāpavaggo,"pāṇimhi ce vaṇo n'āssa,
 hareyya pāṇinā visaṃ,
 n'ābbaṇaṃ visam'anveti,
 n'atthi pāpaṃ <b>akubbato</b>.",SNP51,"mahābyūhasuttaṃ
@@ -9,7 +9,7 @@ sa vippamutto diṭṭhigatehi dhīro,
 na lippati loke anattagarahī.",SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","okaṃ pahāya aniketasārī, gāme <b>akubbaṃ</b> muni santhavāni,
 kāmehi ritto apurekkharāno, kathaṃ na viggayha janena kayirā.",,,
-agiddha,pp,without greed; without desire,TH257,pārāpariyattheragāthā,"paṇītaṃ yadi vā lūkhaṃ, appaṃ vā yadi vā bahuṃ.
+546,agiddha,pp,without greed; without desire,TH257,pārāpariyattheragāthā,"paṇītaṃ yadi vā lūkhaṃ, appaṃ vā yadi vā bahuṃ.
 yāpan'atthaṃ abhuñjiṃsu, <b>agiddhā</b> n'ādhimucchitā.",SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","yehi vivitto vicareyya loke,
 na tāni uggayha vadeyya nāgo,
@@ -17,24 +17,24 @@ jalambujaṃ kaṇḍakaṃ vārijaṃ yathā,
 jalena paṅkena c'anūpalittaṃ,
 evaṃ munī santivādo <b>agiddho</b>,
 kāme ca loke ca anūpalitto.",,,,,,
-aggahesi 2,aor,seized; caught; grabbed hold (of),SN47.6,sakuṇagghisuttaṃ,"bhūtapubbaṃ, bhikkhave, sakuṇagghi lāpaṃ sakuṇaṃ sahasā ajjhappattā <b>aggahesi</b>.",SNP47,"māgaṇḍiyasuttaṃ
+634,aggahesi 2,aor,seized; caught; grabbed hold (of),SN47.6,sakuṇagghisuttaṃ,"bhūtapubbaṃ, bhikkhave, sakuṇagghi lāpaṃ sakuṇaṃ sahasā ajjhappattā <b>aggahesi</b>.",SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","saññāvirattassa na santi ganthā,
 paññāvimuttassa na santi mohā,
 saññañ'ca diṭṭhiñ'ca ye <b>aggahesuṃ</b>,
 te ghaṭṭayantā vicaranti loke'ti.",,,,,,
-ajjhatta,adj,inner; internal; personal; in oneself,SNP47,"māgaṇḍiyasuttaṃ
+1259,ajjhatta,adj,inner; internal; personal; in oneself,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","idaṃ vadāmī'ti na tassa hoti,
 dhammesu niccheyya samuggahītaṃ,
 passañ'ca diṭṭhīsu anuggahāya,
 <b>ajjhatta</b>santiṃ pacinaṃ adassaṃ.",VIN1.2.1,sukkavissaṭṭhisikkhāpadaṃ,"<b>ajjhatta</b>rūpe moceti, bahiddhārūpe moceti, <b>ajjhatta</b>bahiddhārūpe moceti, ākāse kaṭiṃ kampento moceti, rāg'ūpatthambhe moceti, vacc'ūpatthambhe moceti, passāv'ūpatthambhe moceti, vāt'ūpatthambhe moceti, uccāliṅgapāṇakadaṭṭh'ūpatthambhe moceti",,,,,,
-añāṇa,nt,without knowing; without understanding; without insight,SNP47,"māgaṇḍiyasuttaṃ
+1458,añāṇa,nt,without knowing; without understanding; without insight,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","na diṭṭhiyā na sutiyā na ñāṇena,
 sīlabbaten'āpi na suddhim'āha,
 adiṭṭhiyā assutiyā <b>añāṇā</b>,
 asīlatā abbatā no'pi tena,
 ete ca nissajja anuggahāya,
 santo anissāya bhavaṃ na jappe.",,,,,,,,,
-attha 1.4,masc,matter; affair; legal case; lawsuit,DHP256,dhammaṭṭhavaggo,"na tena hoti dhammaṭṭho,
+2600,attha 1.4,masc,matter; affair; legal case; lawsuit,DHP256,dhammaṭṭhavaggo,"na tena hoti dhammaṭṭho,
 yena-<b>atthaṃ</b> sāhasā naye,
 yo ca atthaṃ anatthañ'ca,
 ubho niccheyya paṇḍito.",AN3.51,mahācorasuttaṃ,"tassa evaṃ hoti, sace maṃ koci kiñci vakkhati, ime me rājāno vā rājamahāmattā vā pariyodhāya <b>atthaṃ</b> bhaṇissantī'ti.",MN60,apaṇṇakasuttaṃ,evaṃ imassa bhoto purisapuggalassa ubhaya-<b>attha</b> kaliggaho,SNP47,"māgaṇḍiyasuttaṃ
@@ -42,26 +42,26 @@ aṭṭhakavaggo 9","vinicchayā yāni pakappitāni,
 te ve munī brūsi anuggahāya,
 ajjhattasantī'ti yam'etam'<b>atthaṃ</b>,
 kathaṃ nu dhīrehi paveditaṃ taṃ."
-adassi,aor,saw; has seen,SNP47,"māgaṇḍiyasuttaṃ
+2865,adassi,aor,saw; has seen,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","idaṃ vadāmī'ti na tassa hoti,
 dhammesu niccheyya samuggahītaṃ,
 passañ'ca diṭṭhīsu anuggahāya,
 ajjhattasantiṃ pacinaṃ <b>adassaṃ</b>.",,,,,,,,,
-adiṭṭhi,fem,without view; no belief,SNP47,"māgaṇḍiyasuttaṃ
+2887,adiṭṭhi,fem,without view; no belief,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","na diṭṭhiyā na sutiyā na ñāṇena,
 sīlabbaten'āpi na suddhim'āha,
 <b>adiṭṭhiyā</b> assutiyā añāṇā,
 asīlatā abbatā no'pi tena,
 ete ca nissajja anuggahāya,
 santo anissāya bhavaṃ na jappe.",,,,,,,,,
-anissāya,ger,not leaning (on); not depending (on); being independent (of),SNP47,"māgaṇḍiyasuttaṃ
+4269,anissāya,ger,not leaning (on); not depending (on); being independent (of),SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","na diṭṭhiyā na sutiyā na ñāṇena,
 sīlabbaten'āpi na suddhim'āha,
 adiṭṭhiyā assutiyā añāṇā,
 asīlatā abbatā no'pi tena,
 ete ca nissajja anuggahāya,
 santo <b>anissāya</b> bhavaṃ na jappe.",,,,,,,,,
-anuggahāya,ger,not grasping; not embracing; not taking up,SNP51,"mahābyūhasuttaṃ
+4413,anuggahāya,ger,not grasping; not embracing; not taking up,SNP51,"mahābyūhasuttaṃ
 aṭṭhakavaggo 13","sīlabbataṃ vā'pi pahāya sabbaṃ,
 kammañ'ca sāvajj'anavajjam'etaṃ,
 suddhiṃ asuddhin'ti apatthayāno,
@@ -70,17 +70,17 @@ aṭṭhakavaggo 9","idaṃ vadāmī'ti na tassa hoti,
 dhammesu niccheyya samuggahītaṃ,
 passañ'ca diṭṭhīsu <b>anuggahāya</b>,
 ajjhattasantiṃ pacinaṃ adassaṃ.",,,,,,
-anupucchamāna,prp,asking; enquiring; questioning (somebody about something),SNP47,"māgaṇḍiyasuttaṃ
+4848,anupucchamāna,prp,asking; enquiring; questioning (somebody about something),SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","diṭṭhiñ'ca nissāya <b>anupucchamāno</b>,
 samuggahītesu pamoham'āgā,
 ito ca n'āddakkhi aṇum'pi saññaṃ,
 tasmā tuvaṃ momuhato dahāsi.",,,,,,,,,
-anūpanīta,pp,not led (into); not brought (into),SNP47,"māgaṇḍiyasuttaṃ
+5483,anūpanīta,pp,not led (into); not brought (into),SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","na vedagū diṭṭhiyā na mutiyā,
 sa mānam'eti na hi tammayo so,
 na kammunā no'pi sutena neyyo,
 <b>anūpanīto</b> sa nivesanesu.",,,,,,,,,
-anūpalitta,pp,not smeared (by); not sullied (by); untainted (by); unstained (by),SN21.10,theranāmakasuttaṃ,"sabb'ābhibhuṃ sabbaviduṃ sumedhaṃ,
+5488,anūpalitta,pp,not smeared (by); not sullied (by); untainted (by); unstained (by),SN21.10,theranāmakasuttaṃ,"sabb'ābhibhuṃ sabbaviduṃ sumedhaṃ,
 sabbesu dhammesu <b>anūpalittaṃ</b>,
 sabbañ'jahaṃ taṇhākkhaye vimuttaṃ,
 tam'ahaṃ naraṃ ekavihārī'ti brūmī'ti.",SNP42,"suddhaṭṭhakasuttaṃ
@@ -94,12 +94,12 @@ jalambujaṃ kaṇḍakaṃ vārijaṃ yathā,
 jalena paṅkena c'<b>anūpalittaṃ</b>,
 evaṃ munī santivādo agiddho,
 kāme ca loke ca <b>anūpalitto</b>.",,,
-apurekkharāna,prp,not preferring; not choosing,SNP47,"māgaṇḍiyasuttaṃ
+6714,apurekkharāna,prp,not preferring; not choosing,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","okaṃ pahāya aniketasārī,
 gāme akubbaṃ muni santhavāni,
 kāmehi ritto <b>apurekkharāno</b>,
 kathaṃ na viggayha janena kayirā.",,,,,,,,,
-abbata,adj,without religious practice; without ritual observances; not keeping vows,DHP264,dhammaṭṭha vaggo,"na muṇḍakena samaṇo, <b>abbato</b> alikaṃ bhaṇaṃ.
+7207,abbata,adj,without religious practice; without ritual observances; not keeping vows,DHP264,dhammaṭṭha vaggo,"na muṇḍakena samaṇo, <b>abbato</b> alikaṃ bhaṇaṃ.
 icchālobhasamāpanno, samaṇo kiṃ bhavissati.",SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","na diṭṭhiyā na sutiyā na ñāṇena,
 sīlabbaten'āpi na suddhim'āha,
@@ -107,50 +107,50 @@ adiṭṭhiyā assutiyā añāṇā,
 asīlatā <b>abbatā</b> no'pi tena,
 ete ca nissajja anuggahāya,
 santo anissāya bhavaṃ na jappe.",,,,,,
-ambu,nt,water,Trad,,"nāḷāgiriṃ gajavaraṃ atimattabhūtaṃ, dāv'aggicakkam'asanī'va, sudāruṇan'taṃ, metta-<b>ambu</b>sekavidhinā jitavā mun'indo.",SNP47,"māgaṇḍiyasuttaṃ
+8668,ambu,nt,water,Trad,,"nāḷāgiriṃ gajavaraṃ atimattabhūtaṃ, dāv'aggicakkam'asanī'va, sudāruṇan'taṃ, metta-<b>ambu</b>sekavidhinā jitavā mun'indo.",SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","yehi vivitto vicareyya loke,
 na tāni uggayha vadeyya nāgo,
 jal<b>ambu</b>jaṃ kaṇḍakaṃ vārijaṃ yathā,
 jalena paṅkena c'anūpalittaṃ,
 evaṃ munī santivādo agiddho,
 kāme ca loke ca anūpalitto.",,,,,,
-ambuja 1,adj,born in water; living in water; aquatic,SNP47,"māgaṇḍiyasuttaṃ
+8672,ambuja 1,adj,born in water; living in water; aquatic,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","yehi vivitto vicareyya loke,
 na tāni uggayha vadeyya nāgo,
 jal'<b>ambujaṃ</b> kaṇḍakaṃ vārijaṃ yathā,
 jalena paṅkena c'anūpalittaṃ,
 evaṃ munī santivādo agiddho,
 kāme ca loke ca anūpalitto.",,,,,,,,,
-arati 2,fem,name of one of the three daughters of Death,SN4.25,māradhītusuttaṃ,atha kho taṇhā ca <b>arati</b> ca ragā ca māradhītaro yena māro pāpimā ten'upasaṅkamiṃsu.,SNP47,"māgaṇḍiyasuttaṃ
+8882,arati 2,fem,name of one of the three daughters of Death,SN4.25,māradhītusuttaṃ,atha kho taṇhā ca <b>arati</b> ca ragā ca māradhītaro yena māro pāpimā ten'upasaṅkamiṃsu.,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","disvāna taṇhaṃ <b>aratiṃ</b> ragañ'ca,
 n'āhosi chando api methunasmiṃ,
 kim'ev'idaṃ muttakarīsapuṇṇaṃ,
 pādā'pi naṃ samphusituṃ na icche.",,,,,,
-asīlatā,fem,free from moral conduct,SNP47,"māgaṇḍiyasuttaṃ
+9772,asīlatā,fem,free from moral conduct,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","na diṭṭhiyā na sutiyā na ñāṇena,
 sīlabbaten'āpi na suddhim'āha,
 adiṭṭhiyā assutiyā añāṇā,
 <b>asīlatā</b> abbatā no'pi tena,
 ete ca nissajja anuggahāya,
 santo anissāya bhavaṃ na jappe.",,,,,,,,,
-assuti,fem,without learning,SNP47,"māgaṇḍiyasuttaṃ
+10110,assuti,fem,without learning,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","na diṭṭhiyā na sutiyā na ñāṇena,
 sīlabbaten'āpi na suddhim'āha,
 adiṭṭhiyā <b>assutiyā</b> añāṇā,
 asīlatā abbatā no'pi tena,
 ete ca nissajja anuggahāya,
 santo anissāya bhavaṃ na jappe.",,,,,,,,,
-avikampamāna 1,prp,unshaken (by); unstirred (by); unaffected (by); unruffled (by),SNP47,"māgaṇḍiyasuttaṃ
+10465,avikampamāna 1,prp,unshaken (by); unstirred (by); unaffected (by); unruffled (by),SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","samo visesī uda vā nihīno,
 yo maññatī so vivadetha tena,
 tīsu vidhāsu <b>avikampamāno</b>,
 samo visesī'ti na tassa hoti.",,,,,,,,,
-āgā 1,imperf,came (to); arrived (at),SNP47,"māgaṇḍiyasuttaṃ
+11228,āgā 1,imperf,came (to); arrived (at),SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","diṭṭhiñ'ca nissāya anupucchamāno,
 samuggahītesu pamoham'<b>āgā</b>,
 ito ca n'āddakkhi aṇum'pi saññaṃ,
 tasmā tuvaṃ momuhato dahāsi.",,,,,,,,,
-icche,opt,would wish (to); would desire (to); would want (to),SNP47,"māgaṇḍiyasuttaṃ
+13395,icche,opt,would wish (to); would desire (to); would want (to),SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","disvāna taṇhaṃ aratiṃ ragañ'ca,
 n'āhosi chando api methunasmiṃ,
 kim'ev'idaṃ muttakarīsapuṇṇaṃ,
@@ -158,17 +158,17 @@ pādā'pi naṃ samphusituṃ na <b>icche</b>.",DHP84,paṇḍitavaggo,"na attah
 na puttam'<b>icche</b> na dhanaṃ na raṭṭhaṃ,
 na iccheyya adhammena samiddhim'attano,
 sa sīlavā paññavā dhammiko siyā.",,,,,,
-ito 4,ind,because of this,SNP47,"māgaṇḍiyasuttaṃ
+13517,ito 4,ind,because of this,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","diṭṭhiñ'ca nissāya anupucchamāno,
 samuggahītesu pamoham'āgā,
 <b>ito</b> ca n'āddakkhi aṇum'pi saññaṃ,
 tasmā tuvaṃ momuhato dahāsi.",,,,,,,,,
-inda 1,masc,lord; king; ruler,Trad,,"bāhuṃ sahassam'abhinimmita sāvudhan'taṃ, grīmekhalaṃ uditaghorasasenamāraṃ, dān'ādidhammavidhinā jitavā muna-<b>indo</b>, tan'tejasā bhavatu te jayamaṅgalāni",SN11.23,sambarimāyāsuttaṃ,"addasā kho, bhikkhave, vepacitti asur'<b>indo</b> sakkaṃ devānam'indaṃ dūrato'va āgacchantaṃ. disvāna sakkaṃ devānam'indaṃ etadavoca, tikiccha maṃ devānam'indā'ti",SNP47,"māgaṇḍiyasuttaṃ
+13718,inda 1,masc,lord; king; ruler,Trad,,"bāhuṃ sahassam'abhinimmita sāvudhan'taṃ, grīmekhalaṃ uditaghorasasenamāraṃ, dān'ādidhammavidhinā jitavā muna-<b>indo</b>, tan'tejasā bhavatu te jayamaṅgalāni",SN11.23,sambarimāyāsuttaṃ,"addasā kho, bhikkhave, vepacitti asur'<b>indo</b> sakkaṃ devānam'indaṃ dūrato'va āgacchantaṃ. disvāna sakkaṃ devānam'indaṃ etadavoca, tikiccha maṃ devānam'indā'ti",SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","etādisaṃ ce ratanaṃ na icchasi,
 nāriṃ nar'<b>indehi</b> bahūhi patthitaṃ,
 diṭṭhigataṃ sīlavataṃ nu jīvitaṃ,
 bhav'ūpapattiñ'ca vadesi kīdisaṃ.",SN35.118,sakkapañhasuttaṃ,"atha kho sakko devānam'<b>indo</b> yena bhagavā ten'upasaṅkami, upasaṅkamitvā bhagavantaṃ abhivādetvā ekam'antaṃ aṭṭhāsi."
-uggayha 1,ger,taking up; grasping; embracing; holding (onto); taking a stand (on),SNP47,"māgaṇḍiyasuttaṃ
+14178,uggayha 1,ger,taking up; grasping; embracing; holding (onto); taking a stand (on),SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","yehi vivitto vicareyya loke,
 na tāni <b>uggayha</b> vadeyya nāgo,
 jalambujaṃ kaṇḍakaṃ vārijaṃ yathā,
@@ -179,7 +179,7 @@ aṭṭhakavaggo 8","ye diṭṭhim'<b>uggayha</b> vivādayanti,
 idam'eva saccan'ti ca vādayanti,
 te tvaṃ vadassū na hi te'dha atthi,
 vādamhi jāte paṭisenikattā.",,,,,,
-upapatti 1,fem,rebirth; re-arising; reappearance,AN5.57,abhiṇhapaccavekkhitabbaṭhānasuttaṃ,"sa kho so, bhikkhave, ariyasāvako iti paṭisañcikkhati, na kho ahaññ'ev'eko jarādhammo jaraṃ anatīto, atha kho yāvatā sattānaṃ āgati gati cuti <b>upapatti</b> sabbe sattā jarādhammā jaraṃ anatītā'ti.",TH259,sāriputtattheragāthā,"n'eva pubbenivāsāya,
+15865,upapatti 1,fem,rebirth; re-arising; reappearance,AN5.57,abhiṇhapaccavekkhitabbaṭhānasuttaṃ,"sa kho so, bhikkhave, ariyasāvako iti paṭisañcikkhati, na kho ahaññ'ev'eko jarādhammo jaraṃ anatīto, atha kho yāvatā sattānaṃ āgati gati cuti <b>upapatti</b> sabbe sattā jarādhammā jaraṃ anatītā'ti.",TH259,sāriputtattheragāthā,"n'eva pubbenivāsāya,
 na'pi dibbassa cakkhuno,
 cetopariyāya iddhiyā,
 cutiyā <b>upapattiyā</b>,
@@ -189,7 +189,7 @@ aṭṭhakavaggo 9","etādisaṃ ce ratanaṃ na icchasi,
 nāriṃ nar'indehi bahūhi patthitaṃ,
 diṭṭhigataṃ sīlavataṃ nu jīvitaṃ,
 bhav'<b>ūpapattiñ</b>'ca vadesi kīdisaṃ.",,,
-eti 2,pr,goes (to),DHP54,pupphavaggo,"na pupphagandho paṭivātam'<b>eti</b>,
+17915,eti 2,pr,goes (to),DHP54,pupphavaggo,"na pupphagandho paṭivātam'<b>eti</b>,
 na candanaṃ tagaramallikā,
 satañ'ca gandho paṭivātam'<b>eti</b>,
 sabbā disā sappuriso pavāyati.",SNP49,"kalahavivādasuttaṃ
@@ -201,36 +201,36 @@ aṭṭhakavaggo 9","na vedagū diṭṭhiyā na mutiyā,
 sa mānam<b>'eti</b> na hi tammayo so,
 na kammunā no'pi sutena neyyo,
 anūpanīto sa nivesanesu.",,,
-kaṇḍaka 1,adj,thorny-stemmed; prickly-stemmed,SNP47,"māgaṇḍiyasuttaṃ
+19474,kaṇḍaka 1,adj,thorny-stemmed; prickly-stemmed,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","yehi vivitto vicareyya loke,
 na tāni uggayha vadeyya nāgo,
 jalambujaṃ <b>kaṇḍakaṃ</b> vārijaṃ yathā,
 jalena paṅkena c'anūpalittaṃ,
 evaṃ munī santivādo agiddho,
 kāme ca loke ca anūpalitto.",,,,,,,,,
-kathā 2,fem,argument; debate,SNP47,"māgaṇḍiyasuttaṃ
+19851,kathā 2,fem,argument; debate,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","okaṃ pahāya aniketasārī, gāme akubbaṃ muni santhavāni,
 kāmehi ritto apurekkharāno, <b>kathaṃ</b> na viggayha janena kayirā.",SNP46,"pasūrasuttaṃ
 aṭṭhakavaggo 8","yutto <b>kathāyaṃ</b> parisāya majjhe,
 pasaṃsam'icchaṃ vinighāti hoti,
 apāhatasmiṃ pana maṅku hoti,
 nindāya so kuppati randhamesī.",,,,,,
-karīsa 1,nt,faeces; excrement,DN22.5,mahāsatipaṭṭhānasuttaṃ,atthi imasmiṃ kāye… antaṃ antaguṇaṃ udariyaṃ <b>karīsaṃ</b> pittaṃ semhaṃ pubbo lohitaṃ sedo medo assu vasā kheḷo siṅghāṇikā lasikā muttaṃ matthaluṅgan'ti,SNP47,"māgaṇḍiyasuttaṃ
+20521,karīsa 1,nt,faeces; excrement,DN22.5,mahāsatipaṭṭhānasuttaṃ,atthi imasmiṃ kāye… antaṃ antaguṇaṃ udariyaṃ <b>karīsaṃ</b> pittaṃ semhaṃ pubbo lohitaṃ sedo medo assu vasā kheḷo siṅghāṇikā lasikā muttaṃ matthaluṅgan'ti,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","disvāna taṇhaṃ aratiṃ ragañ'ca,
 n'āhosi chando api methunasmiṃ,
 kim'ev'idaṃ mutta<b>karīsa</b>puṇṇaṃ,
 pādā'pi naṃ samphusituṃ na icche.",,,,,,
-kāma 4,masc,(objects of) pleasure; sensual pleasure; sexual pleasure,SNP40,"guhaṭṭhakasuttaṃ
+20960,kāma 4,masc,(objects of) pleasure; sensual pleasure; sexual pleasure,SNP40,"guhaṭṭhakasuttaṃ
 aṭṭhakavaggo 2","satto guhāyaṃ bahun'ābhichanno,
 tiṭṭhaṃ naro mohanasmiṃ pagāḷho,
 dūre vivekā hi tathāvidho so,
 <b>kāmā</b> hi loke na hi suppahāyā.",,,,,,,,,
-kimevidaṃ 2,sandhi,not to mention this,SNP47,"māgaṇḍiyasuttaṃ
+21791,kimevidaṃ 2,sandhi,not to mention this,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","disvāna taṇhaṃ aratiṃ ragañ'ca,
 n'āhosi chando api methunasmiṃ,
 <b>kim'ev'idaṃ</b> muttakarīsapuṇṇaṃ,
 pādā'pi naṃ samphusituṃ na icche.",,,,,,,,,
-kīdisa,adj,of what kind?; how is it?; what is it like?,SNP64,"todeyya māṇava pucchā
+22032,kīdisa,adj,of what kind?; how is it?; what is it like?,SNP64,"todeyya māṇava pucchā
 pārāyanavaggo 9","yasmiṃ kāmā na vasanti,
 taṇhā yassa na vijjati,
 kathaṃkathā ca yo tiṇṇo,
@@ -239,12 +239,12 @@ aṭṭhakavaggo 9","etādisaṃ ce ratanaṃ na icchasi,
 nāriṃ nar'indehi bahūhi patthitaṃ,
 diṭṭhigataṃ sīlavataṃ nu jīvitaṃ,
 bhav'ūpapattiñ'ca vadesi <b>kīdisaṃ</b>.",,,
-kharāna,prp,doing; making,SNP47,"māgaṇḍiyasuttaṃ
+23559,kharāna,prp,doing; making,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","okaṃ pahāya aniketasārī,
 gāme akubbaṃ muni santhavāni,
 kāmehi ritto apura<b>kkharāno</b>,
 kathaṃ na viggayha janena kayirā'ti.",,,,,,,,,
-gantha 1,masc,(mental) tie; knot; bond,SNP43,"paramaṭṭhakasuttaṃ
+24269,gantha 1,masc,(mental) tie; knot; bond,SNP43,"paramaṭṭhakasuttaṃ
 aṭṭhakavaggo 5","taṃ vā'pi <b>ganthaṃ</b> kusalā vadanti,
 yaṃ nissito passati hīnam'aññaṃ,
 tasmā hi diṭṭhaṃ va sutaṃ mutaṃ vā,
@@ -255,24 +255,24 @@ saññañ'ca diṭṭhiñ'ca ye aggahesuṃ,
 te ghaṭṭayantā vicaranti loke'ti.",DHP90,arahantavaggo,"gat'addhino visokassa, vippamuttassa sabbadhi,
 sabba<b>gantha</b>ppahīnassa, pariḷāho na vijjati.",DHP211,piyavaggo,"tasmā piyaṃ na kayirātha, piy'āpāyo hi pāpako,
 <b>ganthā</b> tesaṃ na vijjanti, yesaṃ n'atthi piy'āppiya."
-gū 2,masc,who is skilled in; who is fulfilled in; who is complete in,SNP47,"māgaṇḍiyasuttaṃ
+25157,gū 2,masc,who is skilled in; who is fulfilled in; who is complete in,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","na veda<b>gū</b> diṭṭhiyā na mutiyā,
 sa mānam'eti na hi tammayo so,
 na kammunā no'pi sutena neyyo,
 anūpanīto sa nivesanesu.",,,,,,,,,
-ghaṭṭayanta,prp,colliding; conflicting; clashing; offending,SNP47,"māgaṇḍiyasuttaṃ
+25482,ghaṭṭayanta,prp,colliding; conflicting; clashing; offending,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","saññāvirattassa na santi ganthā,
 paññāvimuttassa na santi mohā,
 saññañ'ca diṭṭhiñ'ca ye aggahesuṃ,
 te <b>ghaṭṭayantā</b> vicaranti loke'ti.",,,,,,,,,
-jappati,pr,desires; longs (for); yearns (for); hungers (for),SNP47,"māgaṇḍiyasuttaṃ
+27948,jappati,pr,desires; longs (for); yearns (for); hungers (for),SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","na diṭṭhiyā na sutiyā na ñāṇena,
 sīlabbaten'āpi na suddhim'āha,
 adiṭṭhiyā assutiyā añāṇā,
 asīlatā abbatā no'pi tena,
 ete ca nissajja anuggahāya,
 santo anissāya bhavaṃ na <b>jappe</b>.",,,,,,,,,
-jappe,opt,could desire; would long (for); could yearn (for),SNP51,"mahābyūhasuttaṃ
+27959,jappe,opt,could desire; would long (for); could yearn (for),SNP51,"mahābyūhasuttaṃ
 aṭṭhakavaggo 13","patthayamānassa hi jappitāni,
 pavedhitaṃ vā'pi pakappitesu,
 cut'ūpapāto idha yassa n'atthi,
@@ -283,41 +283,41 @@ adiṭṭhiyā assutiyā añāṇā,
 asīlatā abbatā no'pi tena,
 ete ca nissajja anuggahāya,
 santo anissāya bhavaṃ na <b>jappe</b>.",,,,,,
-jala,nt,water,Thai,,"bhummā c'āyantu devā <b>jala</b>thalavisame yakkhagandhabbanāgā tiṭṭhantā santike, yaṃ munivaravacanaṃ sādhavo me suṇantu",SNP47,"māgaṇḍiyasuttaṃ
+28065,jala,nt,water,Thai,,"bhummā c'āyantu devā <b>jala</b>thalavisame yakkhagandhabbanāgā tiṭṭhantā santike, yaṃ munivaravacanaṃ sādhavo me suṇantu",SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","yehi vivitto vicareyya loke,
 na tāni uggayha vadeyya nāgo,
 <b>jala</b>-ambujaṃ kaṇḍakaṃ vārijaṃ yathā,
 <b>jalena</b> paṅkena c'anūpalittaṃ,
 evaṃ munī santivādo agiddho,
 kāme ca loke ca anūpalitto.",,,,,,
-jalambuja,nt,aquatic lotus; white lotus,SNP47,"māgaṇḍiyasuttaṃ
+28084,jalambuja,nt,aquatic lotus; white lotus,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","yehi vivitto vicareyya loke,
 na tāni uggayha vadeyya nāgo,
 <b>jal'ambujaṃ</b> kaṇḍakaṃ vārijaṃ yathā,
 jalena paṅkena c'anūpalittaṃ,
 evaṃ munī santivādo agiddho,
 kāme ca loke ca anūpalitto.",,,,,,,,,
-taṇhā arati ragā,idiom,names of the three daughters of Death,SN4.25,māradhītusuttaṃ,atha kho <b>taṇhā</b> ca <b>arati</b> ca <b>ragā</b> ca māradhītaro yena māro pāpimā ten'upasaṅkamiṃsu.,SNP47,"māgaṇḍiyasuttaṃ
+29345,taṇhā arati ragā,idiom,names of the three daughters of Death,SN4.25,māradhītusuttaṃ,atha kho <b>taṇhā</b> ca <b>arati</b> ca <b>ragā</b> ca māradhītaro yena māro pāpimā ten'upasaṅkamiṃsu.,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","disvāna <b>taṇhaṃ aratiṃ ragañ</b>'ca,
 n'āhosi chando api methunasmiṃ,
 kim'ev'idaṃ muttakarīsapuṇṇaṃ,
 pādā'pi naṃ samphusituṃ na icche.",,,,,,
-taṇhā 3,fem,name of one of the three daughters of Death,SN4.25,māradhītusuttaṃ,atha kho <b>taṇhā</b> ca arati ca ragā ca māradhītaro yena māro pāpimā ten'upasaṅkamiṃsu.,SNP47,"māgaṇḍiyasuttaṃ
+29348,taṇhā 3,fem,name of one of the three daughters of Death,SN4.25,māradhītusuttaṃ,atha kho <b>taṇhā</b> ca arati ca ragā ca māradhītaro yena māro pāpimā ten'upasaṅkamiṃsu.,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","disvāna <b>taṇhaṃ</b> aratiṃ ragañ'ca,
 n'āhosi chando api methunasmiṃ,
 kim'ev'idaṃ muttakarīsapuṇṇaṃ,
 pādā'pi naṃ samphusituṃ na icche.",,,,,,
-tammaya,adj,identified (with),SNP47,"māgaṇḍiyasuttaṃ
+30058,tammaya,adj,identified (with),SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","na vedagū diṭṭhiyā na mutiyā,
 sa mānam'eti na hi <b>tammayo</b> so,
 na kammunā no'pi sutena neyyo,
 anūpanīto sa nivesanesu.",MN47,vīmaṃsakasuttaṃ,"byākaramāno, bhikkhave, tathāgato evaṃ byākareyya, ye vodātā cakkhusotaviññeyyā dhammā, saṃvijjanti te tathāgatassa, etaṃpatho'ham'asmi, etaṃgocaro, no ca tena <b>tammayo</b>'ti.",,,,,,
-tīsu,card,in three; among three,SNP47,"māgaṇḍiyasuttaṃ
+30937,tīsu,card,in three; among three,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","samo visesī uda vā nihīno,
 yo maññatī so vivadetha tena,
 <b>tīsu</b> vidhāsu avikampamāno,
 samo visesī'ti na tassa hoti.",VISM1.9.2,karuṇābhāvanākathā,"ayaṃ varāko kiñ'cā'pi idāni sukhito susajjito bhoge paribhuñjati, atha kho <b>tīsu</b> dvāresu ekenā'pi katassa kalyāṇakammassa abhāvā idāni apāyesu anappakaṃ dukkhaṃ domanassaṃ paṭisaṃvedissatī'ti.",SN12.63,puttamaṃsūpamasuttaṃ,phasse āhāre pariññāte tisso vedanā pariññātā honti. <b>tīsu</b> vedanāsu pariññātāsu ariyasāvakassa n'atthi kiñci uttarikaraṇīyan'ti vadāmi.,,,
-to 2,suffix,as,SNP70,"mogharāja māṇava pucchā
+31341,to 2,suffix,as,SNP70,"mogharāja māṇava pucchā
 pārāyanavaggo 15","suñña<b>to</b> lokaṃ avekkhassu,
 mogharāja sadā sato,
 att'ānudiṭṭhiṃ ūhacca,
@@ -330,7 +330,7 @@ ito ca n'āddakkhi aṇum'pi saññaṃ,
 tasmā tuvaṃ momuha<b>to</b> dahāsi.",AN4.49,vipallāsasuttaṃ,"aniccaṃ anicca<b>to</b> dakkhuṃ, dukkham'addakkhu dukkha<b>to</b>.
 anattani anattā'ti, asubhaṃ asubhat'addasuṃ.
 sammādiṭṭhisamādānā, sabbaṃ dukkhaṃ upaccagun'ti",MN1,mūlapariyāyasuttaṃ,"āpaṃ āpa<b>to</b> sañjānāti, āpaṃ āpa<b>to</b> saññatvā āpaṃ maññati, āpasmiṃ maññati, āpa<b>to</b> maññati, āpaṃ me'ti maññati, āpaṃ abhinandati."
-dahāti,pr,considers as; takes as; regards as,SNP50,"cūḷabyūhasuttaṃ
+32196,dahāti,pr,considers as; takes as; regards as,SNP50,"cūḷabyūhasuttaṃ
 aṭṭhakavaggo 12","yen'eva bālo'ti paraṃ <b>dahāti</b>,
 ten'ātumānaṃ kusalo'ti c'āha,
 sayam'attanā so kusalo vadāno,
@@ -339,7 +339,7 @@ aṭṭhakavaggo 9","diṭṭhiñ'ca nissāya anupucchamāno,
 samuggahītesu pamoham'āgā,
 ito ca n'āddakkhi aṇum'pi saññaṃ,
 tasmā tuvaṃ momuhato <b>dahāsi</b>.",,,,,,
-dhammesu niccheyya samuggahītaṃ,idiom,among doctrines grasped after evaluation; in ideas adopted after consideration,SNP43,"paramaṭṭhakasuttaṃ
+35000,dhammesu niccheyya samuggahītaṃ,idiom,among doctrines grasped after evaluation; in ideas adopted after consideration,SNP43,"paramaṭṭhakasuttaṃ
 aṭṭhakavaggo 5","yass'ūbhay'ante paṇidh'īdha n'atthi,
 bhavābhavāya idha vā huraṃ vā,
 nivesanā tassa na santi keci,
@@ -352,12 +352,12 @@ aṭṭhakavaggo 9","idaṃ vadāmī'ti na tassa hoti,
 <b>dhammesu niccheyya samuggahītaṃ</b>,
 passañ'ca diṭṭhīsu anuggahāya,
 ajjhattasantiṃ pacinaṃ adassaṃ.",,,
-narinda,masc,ruler of men; lord of men; king; chief,SNP47,"māgaṇḍiyasuttaṃ
+35860,narinda,masc,ruler of men; lord of men; king; chief,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","etādisaṃ ce ratanaṃ na icchasi,
 nāriṃ <b>nar'indehi</b> bahūhi patthitaṃ,
 diṭṭhigataṃ sīlavataṃ nu jīvitaṃ,
 bhav'ūpapattiñ'ca vadesi kīdisaṃ.",,,,,,,,,
-nāga 4,masc,noble person; great man; epithet of an arahant; epithet of the Buddha,AN6.43,nāgasuttaṃ,"api ca, udāyi, yo sadevake loke samārake sabrahmake sassamaṇabrāhmaṇiyā pajāya sadevamanussāya āguṃ na karoti kāyena vācāya manasā, tam'ahaṃ <b>nāgo</b>'ti brūmī'ti.",SNP67,"bhadrāvudha māṇava pucchā
+36028,nāga 4,masc,noble person; great man; epithet of an arahant; epithet of the Buddha,AN6.43,nāgasuttaṃ,"api ca, udāyi, yo sadevake loke samārake sabrahmake sassamaṇabrāhmaṇiyā pajāya sadevamanussāya āguṃ na karoti kāyena vācāya manasā, tam'ahaṃ <b>nāgo</b>'ti brūmī'ti.",SNP67,"bhadrāvudha māṇava pucchā
 pārāyanavaggo 12","okañ'jahaṃ taṇhacchidaṃ anejaṃ,
 nandiñ'jahaṃ oghatiṇṇaṃ vimuttaṃ,
 kappañ'jahaṃ abhiyāce sumedhaṃ,
@@ -368,7 +368,7 @@ jalambujaṃ kaṇḍakaṃ vārijaṃ yathā,
 jalena paṅkena c'anūpalittaṃ,
 evaṃ munī santivādo agiddho,
 kāme ca loke ca anūpalitto.",,,
-nāddakkhi,aor,has not seen; did not see,SN1.34,nasantisuttaṃ,"taṃ ce hi <b>n'āddakkhuṃ</b> tathāvimuttaṃ, (icc'āyasmā mogharājā)
+36208,nāddakkhi,aor,has not seen; did not see,SN1.34,nasantisuttaṃ,"taṃ ce hi <b>n'āddakkhuṃ</b> tathāvimuttaṃ, (icc'āyasmā mogharājā)
 devā manussā idha vā huraṃ vā,
 nar'uttamaṃ atthacaraṃ narānaṃ,
 ye taṃ namassanti pasaṃsiyā te'ti.",SNP47,"māgaṇḍiyasuttaṃ
@@ -376,12 +376,12 @@ aṭṭhakavaggo 9","diṭṭhiñ'ca nissāya anupucchamāno,
 samuggahītesu pamoham'āgā,
 ito ca <b>n'āddakkhi</b> aṇum'pi saññaṃ,
 tasmā tuvaṃ momuhato dahāsi.",,,,,,
-nāhosi,aor,was not; did not exist; did not become,AN10.61,avijjāsuttaṃ,"purimā, bhikkhave, koṭi na paññāyati avijjāya, ito pubbe avijjā <b>n'āhosi</b>, atha pacchā samabhavī'ti. evañ'c'etaṃ, bhikkhave, vuccati, atha ca pana paññāyati, idappaccayā avijjā'ti",SNP47,"māgaṇḍiyasuttaṃ
+36620,nāhosi,aor,was not; did not exist; did not become,AN10.61,avijjāsuttaṃ,"purimā, bhikkhave, koṭi na paññāyati avijjāya, ito pubbe avijjā <b>n'āhosi</b>, atha pacchā samabhavī'ti. evañ'c'etaṃ, bhikkhave, vuccati, atha ca pana paññāyati, idappaccayā avijjā'ti",SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","disvāna taṇhaṃ aratiṃ ragañ'ca,
 <b>n'āhosi</b> chando api methunasmiṃ,
 kim'ev'idaṃ muttakarīsapuṇṇaṃ,
 pādā'pi naṃ samphusituṃ na icche.",,,,,,
-niccheyya,ger,evaluating; ascertaining; discriminating; distinguishing the difference (between),SNP47,"māgaṇḍiyasuttaṃ
+37045,niccheyya,ger,evaluating; ascertaining; discriminating; distinguishing the difference (between),SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","idaṃ vadāmī'ti na tassa hoti,
 dhammesu <b>niccheyya</b> samuggahītaṃ,
 passañ'ca diṭṭhīsu anuggahāya,
@@ -389,19 +389,19 @@ ajjhattasantiṃ pacinaṃ adassaṃ.",DHP256,dhammaṭṭhavaggo,"na tena hoti 
 yen'atthaṃ sāhasā naye,
 yo ca atthaṃ anatthañ'ca,
 ubho <b>niccheyya</b> paṇḍito.",,,,,,
-nissajja,ger,giving up; relinquishing; leaving behind,SNP47,"māgaṇḍiyasuttaṃ
+38262,nissajja,ger,giving up; relinquishing; leaving behind,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","na diṭṭhiyā na sutiyā na ñāṇena,
 sīlabbaten'āpi na suddhim'āha,
 adiṭṭhiyā assutiyā añāṇā,
 asīlatā abbatā no'pi tena,
 ete ca <b>nissajja</b> anuggahāya,
 santo anissāya bhavaṃ na jappe.",,,,,,,,,
-nivesana 1,nt,house; home,MN82,raṭṭhapālasuttaṃ,"atha kho āyasmā raṭṭhapālo sakapitu <b>nivesane</b> n'eva dānaṃ alattha na paccakkhānaṃ, añña'd'atthu akkosam'eva alattha",VIN4.8.203,seṭṭhibhariyā vatthu,"alaṃ, bhaṇe jīvaka, tuyham'eva hotu. amhākaññ'eva antepure <b>nivesanaṃ</b> māpehī'ti.",SNP47,"māgaṇḍiyasuttaṃ
+38485,nivesana 1,nt,house; home,MN82,raṭṭhapālasuttaṃ,"atha kho āyasmā raṭṭhapālo sakapitu <b>nivesane</b> n'eva dānaṃ alattha na paccakkhānaṃ, añña'd'atthu akkosam'eva alattha",VIN4.8.203,seṭṭhibhariyā vatthu,"alaṃ, bhaṇe jīvaka, tuyham'eva hotu. amhākaññ'eva antepure <b>nivesanaṃ</b> māpehī'ti.",SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","na vedagū diṭṭhiyā na mutiyā,
 sa mānam'eti na hi tammayo so,
 na kammunā no'pi sutena neyyo,
 anūpanīto sa <b>nivesanesu</b>.",SN47.29,"satipaṭṭhānasaṃyuttaṃ, sirivaḍḍhasuttaṃ","evañ'ca vadeti, sādhu kira, bhante, āyasmā ānando yena sirivaḍḍhassa gahapatissa <b>nivesanaṃ</b> ten'upasaṅkamatu anukampaṃ upādāyā'ti."
-nihīna 1,pp,low; inferior; worse; deficient; worthless,SNP43,"paramaṭṭhakasuttaṃ
+38522,nihīna 1,pp,low; inferior; worse; deficient; worthless,SNP43,"paramaṭṭhakasuttaṃ
 aṭṭhakavaggo 5","yadattanī passati ānisaṃsaṃ,
 diṭṭhe sute sīlavate mute vā,
 tadeva so tattha samuggahāya,
@@ -411,7 +411,7 @@ yo maññatī so vivadetha tena,
 tīsu vidhāsu avikampamāno,
 samo visesī'ti na tassa hoti.",DHP306,nirayavaggo,"abhūtavādī nirayaṃ upeti, yo vā'pi katvā na karomi c'āha,
 ubho'pi te pecca samā bhavanti, <b>nihīna</b>kammā manujā parattha.",,,
-neyya 1.1,ptp,could be led astray (by); could be misguided (by),SNP47,"māgaṇḍiyasuttaṃ
+38787,neyya 1.1,ptp,could be led astray (by); could be misguided (by),SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","na vedagū diṭṭhiyā na mutiyā,
 sa mānam'eti na hi tammayo so,
 na kammunā no'pi sutena <b>neyyo</b>,
@@ -420,14 +420,14 @@ aṭṭhakavaggo 5","na kappayanti na purekkharonti,
 dhammā'pi tesaṃ na paṭicchitāse,
 na brāhmaṇo sīlavatena <b>neyyo</b>,
 pāraṅ'gato na pacceti tādī'ti.",,,,,,
-no ce,idiom,if not,SNP47,"māgaṇḍiyasuttaṃ
+38878,no ce,idiom,if not,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","<b>no ce</b> kira diṭṭhiyā na sutiyā na ñāṇena,
 sīlabbaten'āpi na suddhim'āha,
 adiṭṭhiyā assutiyā añāṇā,
 asīlatā abbatā no'pi tena,
 maññām'ahaṃ momuham'eva dhammaṃ,
 diṭṭhiyā eke paccenti suddhiṃ.",AN10.44,kusinārasuttaṃ,"<b>no ce</b>, bhikkhave, bhikkhu parisuddhakāyasamācāro hoti parisuddhena kāyasamācārena samannāgato acchiddena appaṭimaṃsena, tassa bhavanti vattāro, iṅgha tāva āyasmā kāyikaṃ sikkhassū'ti, iti'ssa bhavanti vattāro",,,,,,
-nopi,sandhi,nor; nor even,SNP44,"jarāsuttaṃ
+38908,nopi,sandhi,nor; nor even,SNP44,"jarāsuttaṃ
 aṭṭhakavaggo 6","sabbattha munī anissito,
 na piyaṃ kubbati <b>no'pi</b> appiyaṃ,
 tasmiṃ paridevamaccharaṃ,
@@ -439,7 +439,7 @@ asīlatā abbatā <b>no'pi</b> tena,
 ete ca nissajja anuggahāya,
 santo anissāya bhavaṃ na jappe.",SNP49,"kalahavivādasuttaṃ
 aṭṭhakavaggo 11","na saññasaññī na visaññasaññī, <b>no'pi</b> asaññī na vibhūtasaññī. evaṃ sametassa vibhoti rūpaṃ, saññānidānā hi papañcasaṅkhā.",,,
-pakappita,pp,(of an idea or opinion) imagined; fabricated; fashioned; designed; devised; concocted,SNP43,"paramaṭṭhakasuttaṃ
+38990,pakappita,pp,(of an idea or opinion) imagined; fabricated; fashioned; designed; devised; concocted,SNP43,"paramaṭṭhakasuttaṃ
 aṭṭhakavaggo 5","tass'īdha diṭṭhe va sute mute vā,
 <b>pakappitā</b> n'atthi aṇū'pi saññā,
 taṃ brāhmaṇaṃ diṭṭhim'anādiyānaṃ,
@@ -454,7 +454,7 @@ aṭṭhakavaggo 9","vinicchayā yāni <b>pakappitāni</b>,
 te ve munī brūsi anuggahāya,
 ajjhattasantī'ti yam'etam'atthaṃ,
 kathaṃ nu dhīrehi paveditaṃ taṃ."
-paṅka 1,masc,dirt; mud; mire; swamp,DHP327,nāgavaggo,"appamādaratā hotha,
+39234,paṅka 1,masc,dirt; mud; mire; swamp,DHP327,nāgavaggo,"appamādaratā hotha,
 sacittam'anurakkhatha,
 duggā uddharath'attānaṃ,
 <b>paṅke</b> sanno'va kuñjaro.",SNP47,"māgaṇḍiyasuttaṃ
@@ -465,12 +465,12 @@ jalena <b>paṅkena</b> c'anūpalittaṃ,
 evaṃ munī santivādo agiddho,
 kāme ca loke ca anūpalitto.",TH263,mahāmoggallānatheragāthā,"evam'etaṃ mahāvīra, yathā samaṇa bhāsasi.
 ettha c'eke visīdanti, <b>paṅkamhi</b>'va jaraggavo.",MN65,bhaddālisuttaṃ,"ehi me tvaṃ, bhikkhu, <b>paṅke</b> saṅkamo hohī'ti"
-pacinanta 2,prp,discerning; distinguishing; recognizing,SNP47,"māgaṇḍiyasuttaṃ
+39280,pacinanta 2,prp,discerning; distinguishing; recognizing,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","idaṃ vadāmī'ti na tassa hoti,
 dhammesu niccheyya samuggahītaṃ,
 passañ'ca diṭṭhīsu anuggahāya,
 ajjhattasantiṃ <b>pacinaṃ</b> adassaṃ.",,,,,,,,,
-pacceti 2,pr,believes (to be); assumes (to be); takes as,SNP51,"mahābyūhasuttaṃ
+39576,pacceti 2,pr,believes (to be); assumes (to be); takes as,SNP51,"mahābyūhasuttaṃ
 aṭṭhakavaggo 13","jānāmi passāmi tath'eva etaṃ,
 diṭṭhiyā eke <b>paccenti</b> suddhiṃ,
 addakkhi ce kiñ'hi tumassa tena,
@@ -478,27 +478,27 @@ atisitvā aññena vadanti suddhiṃ.",SN5.10,vajirāsuttaṃ,"kiṃ nu satto'ti
 māra diṭṭhigataṃ nu te,
 suddhasaṅkhārapuñjo'yaṃ,
 na'y'idha satt'upalabbhati.",,,,,,
-paññāvimutta,adj,liberated by understanding; emancipated by insight,SN22.58,sammāsambuddhasuttaṃ,"bhikkhu'pi, bhikkhave, <b>paññāvimutto</b> rūpassa nibbidā virāgā nirodhā anupādā vimutto <b>paññāvimutto</b>'ti vuccati.",MN70,kīṭāgirisuttaṃ,"<b>paññāvimutto</b>, idha ekacco puggalo ye te santā vimokkhā atikkamma rūpe āruppā te na kāyena phusitvā viharati, paññāya c'assa disvā āsavā parikkhīṇā honti.",SNP47,"māgaṇḍiyasuttaṃ
+40107,paññāvimutta,adj,liberated by understanding; emancipated by insight,SN22.58,sammāsambuddhasuttaṃ,"bhikkhu'pi, bhikkhave, <b>paññāvimutto</b> rūpassa nibbidā virāgā nirodhā anupādā vimutto <b>paññāvimutto</b>'ti vuccati.",MN70,kīṭāgirisuttaṃ,"<b>paññāvimutto</b>, idha ekacco puggalo ye te santā vimokkhā atikkamma rūpe āruppā te na kāyena phusitvā viharati, paññāya c'assa disvā āsavā parikkhīṇā honti.",SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","saññāvirattassa na santi ganthā,
 <b>paññāvimuttassa</b> na santi mohā,
 saññañ'ca diṭṭhiñ'ca ye aggahesuṃ,
 te ghaṭṭayantā vicaranti loke'ti.",,,
-paṭisaṃyujeyya,opt,(of an argument) would start; would begin; would engage (in),SNP47,"māgaṇḍiyasuttaṃ
+40885,paṭisaṃyujeyya,opt,(of an argument) would start; would begin; would engage (in),SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","saccan'ti so brāhmaṇo kiṃ vadeyya,
 musā'ti vā so vivadetha kena,
 yasmiṃ samaṃ visamaṃ vā'pi n'atthi,
 sa kena vādaṃ <b>paṭisaṃyujeyya</b>.",,,,,,,,,
-patthita 1,pp,wished for (by); sought after (by); desired (by),DHPa1.2.1,sāmāvatīvatthu,"icchitaṃ <b>patthitaṃ</b> ... khippam'eva samijjhatu, sabbe pūrentu saṅkappā, cando paṇṇaraso yathā, maṇi jotiraso yathā",SNP47,"māgaṇḍiyasuttaṃ
+41973,patthita 1,pp,wished for (by); sought after (by); desired (by),DHPa1.2.1,sāmāvatīvatthu,"icchitaṃ <b>patthitaṃ</b> ... khippam'eva samijjhatu, sabbe pūrentu saṅkappā, cando paṇṇaraso yathā, maṇi jotiraso yathā",SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","etādisaṃ ce ratanaṃ na icchasi,
 nāriṃ nar'indehi bahūhi <b>patthitaṃ</b>,
 diṭṭhigataṃ sīlavataṃ nu jīvitaṃ,
 bhav'ūpapattiñ'ca vadesi kīdisaṃ.",,,,,,
-pamoha,masc,bewilderment; bafflement; confusion,NIDD2.2.1,ajita māṇava pucchā niddesa,avijjā'ti ... asaṃgāhanā apariyogāhanā asamapekkhanā apaccavekkhaṇā apaccavekkhaṇakammaṃ dummejjhaṃ bālyaṃ asampajaññaṃ moho <b>pamoho</b> sammoho,SNP47,"māgaṇḍiyasuttaṃ
+42771,pamoha,masc,bewilderment; bafflement; confusion,NIDD2.2.1,ajita māṇava pucchā niddesa,avijjā'ti ... asaṃgāhanā apariyogāhanā asamapekkhanā apaccavekkhaṇā apaccavekkhaṇakammaṃ dummejjhaṃ bālyaṃ asampajaññaṃ moho <b>pamoho</b> sammoho,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","diṭṭhiñ'ca nissāya anupucchamāno,
 samuggahītesu <b>pamoham</b>'āgā,
 ito ca n'āddakkhi aṇum'pi saññaṃ,
 tasmā tuvaṃ momuhato dahāsi.",,,,,,
-puṇṇa 1,pp,filled (with); full (of),SNP47,"māgaṇḍiyasuttaṃ
+46591,puṇṇa 1,pp,filled (with); full (of),SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","disvāna taṇhaṃ aratiṃ ragañ'ca,
 n'āhosi chando api methunasmiṃ,
 kim'ev'idaṃ muttakarīsa<b>puṇṇaṃ</b>,
@@ -506,7 +506,7 @@ pādā'pi naṃ samphusituṃ na icche.",SN1.29,catucakkasuttaṃ,"catucakkaṃ 
 <b>puṇṇaṃ</b> lobhena saṃyutaṃ,
 paṅkajātaṃ mahāvīra,
 kathaṃ yātrā bhavissatī'ti.",SN12.63,puttamaṃsūpamasuttaṃ,"seyyathā'pi, bhikkhave, aṅgārakāsu sādhikaporisā <b>puṇṇā</b> aṅgārānaṃ vīt'accikānaṃ vītadhūmānaṃ.",VIN4.1.49,tiracchānagata vatthu,"atha kho so bhikkhu vihāraṃ pavisissāmī'ti kavāṭaṃ paṇāmento addasa sabbaṃ vihāraṃ ahinā <b>puṇṇaṃ</b>, vātapānehi bhoge nikkhante, disvāna bhīto vissaram'akāsi."
-brūsi,pr,you say; you tell; you call,SNP47,"māgaṇḍiyasuttaṃ
+49093,brūsi,pr,you say; you tell; you call,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","vinicchayā yāni pakappitāni,
 te ve munī <b>brūsi</b> anuggahāya,
 ajjhattasantī'ti yam'etam'atthaṃ,
@@ -514,22 +514,22 @@ kathaṃ nu dhīrehi paveditaṃ taṃ.",SN1.19,kuṭikāsuttaṃ,"mātaraṃ ku
 bhariyaṃ <b>brūsi</b> kulāvakaṃ,
 putte santānake <b>brūsi</b>,
 taṇhaṃ me <b>brūsi</b> bandhanan'ti.",,,,,,
-bhavūpapatti,fem,state of being and rebirth,SNP47,"māgaṇḍiyasuttaṃ
+49631,bhavūpapatti,fem,state of being and rebirth,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","etādisaṃ ce ratanaṃ na icchasi,
 nāriṃ nar'indehi bahūhi patthitaṃ,
 diṭṭhigataṃ sīlavataṃ nu jīvitaṃ,
 <b>bhav'ūpapattiñ</b>'ca vadesi kīdisaṃ.",,,,,,,,,
-muti,fem,opinion; thought; belief,SNP47,"māgaṇḍiyasuttaṃ
+52913,muti,fem,opinion; thought; belief,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","na vedagū diṭṭhiyā na <b>mutiyā</b>,
 sa mānam'eti na hi tammayo so,
 na kammunā no'pi sutena neyyo,
 anūpanīto sa nivesanesu.",,,,,,,,,
-mutta 1.1,nt,urine,DN22.5,mahāsatipaṭṭhānasuttaṃ,"atthi imasmiṃ kāye … antaṃ antaguṇaṃ udariyaṃ karīsaṃ, pittaṃ semhaṃ pubbo lohitaṃ sedo medo, assu vasā kheḷo siṅghāṇikā lasikā <b>muttaṃ</b>",SNP47,"māgaṇḍiyasuttaṃ
+52918,mutta 1.1,nt,urine,DN22.5,mahāsatipaṭṭhānasuttaṃ,"atthi imasmiṃ kāye … antaṃ antaguṇaṃ udariyaṃ karīsaṃ, pittaṃ semhaṃ pubbo lohitaṃ sedo medo, assu vasā kheḷo siṅghāṇikā lasikā <b>muttaṃ</b>",SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","disvāna taṇhaṃ aratiṃ ragañ'ca,
 n'āhosi chando api methunasmiṃ,
 kim'ev'idaṃ <b>mutta</b>karīsapuṇṇaṃ,
 pādā'pi naṃ samphusituṃ na icche.",AN3.36,devadūtasuttaṃ,"ambho purisa, na tvaṃ addasa manussesu itthiṃ vā purisaṃ vā ābādhikaṃ dukkhitaṃ bāḷhagilānaṃ, sake <b>mutta</b>karīse palipannaṃ semānaṃ, aññehi vuṭṭhāpiyamānaṃ, aññehi saṃvesiyamānan'ti?",MN62,mahārāhulovādasuttaṃ,"yaṃ ajjhattaṃ paccattaṃ āpo āpogataṃ upādinnaṃ, seyyath'idaṃ, pittaṃ semhaṃ pubbo lohitaṃ sedo medo, assu vasā kheḷo siṅghāṇikā lasikā <b>muttaṃ</b> … ayaṃ vuccati, rāhula, ajjhattikā āpodhātu."
-munī,masc,monk; sage; seer; hermit; silent sage,DHP269,dhammaṭṭhavaggo,"pāpāni parivajjeti,
+53029,munī,masc,monk; sage; seer; hermit; silent sage,DHP269,dhammaṭṭhavaggo,"pāpāni parivajjeti,
 sa <b>munī</b> tena so muni,
 yo munāti ubho loke,
 muni tena pavuccati.",SNP61,"upasīva māṇava pucchā
@@ -543,12 +543,12 @@ jalambujaṃ kaṇḍakaṃ vārijaṃ yathā,
 jalena paṅkena c'anūpalittaṃ,
 evaṃ <b>munī</b> santivādo agiddho,
 kāme ca loke ca anūpalitto.",,,
-musā 3,ind,false; untrue; untruthful,SNP47,"māgaṇḍiyasuttaṃ
+53050,musā 3,ind,false; untrue; untruthful,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","saccan'ti so brāhmaṇo kiṃ vadeyya,
 <b>musā</b>'ti vā so vivadetha kena,
 yasmiṃ samaṃ visamaṃ vā'pi n'atthi,
 sa kena vādaṃ paṭisaṃyujeyya.",,,,,,,,,
-methuna 2,nt,sexual intercourse; sexual activity,MN51,kandarakasuttaṃ,abrahmacariyaṃ pahāya brahmacārī hoti ārācārī virato <b>methunā</b> gāmadhammā.,SNP47,"māgaṇḍiyasuttaṃ
+53256,methuna 2,nt,sexual intercourse; sexual activity,MN51,kandarakasuttaṃ,abrahmacariyaṃ pahāya brahmacārī hoti ārācārī virato <b>methunā</b> gāmadhammā.,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","disvāna taṇhaṃ aratiṃ ragañ'ca,
 n'āhosi chando api <b>methunasmiṃ</b>,
 kim'ev'idaṃ muttakarīsapuṇṇaṃ,
@@ -558,7 +558,7 @@ abrahmacariyā virameyya <b>methunā</b>,
 rattiṃ na bhuñjeyya vikālabhojanaṃ.",SNP45,"tissametteyyasuttaṃ
 aṭṭhakavaggo 7","eko pubbe caritvāna, <b>methunaṃ</b> yo nisevati,
 yānaṃ bhantaṃ va taṃ loke, hīnam'āhu puthujjanaṃ."
-momuha,adj,very foolish; completely confused; totally deluded; entirely stupid,SNP47,"māgaṇḍiyasuttaṃ
+53363,momuha,adj,very foolish; completely confused; totally deluded; entirely stupid,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","no ce kira diṭṭhiyā na sutiyā na ñāṇena,
 sīlabbaten'āpi na suddhim'āha,
 adiṭṭhiyā assutiyā añāṇā,
@@ -570,12 +570,12 @@ nettā na suddhā savanaṃ na phāsu,
 m'āhaṃ nassaṃ <b>momuho</b> antarāva,
 ācikkha dhammaṃ yam'ahaṃ vijaññaṃ,
 jātijarāya idha vippahānaṃ.",,,,,,
-momuhato,ind,as very foolish; as completely confused; as totally deluded; as entirely stupid,SNP47,"māgaṇḍiyasuttaṃ
+53364,momuhato,ind,as very foolish; as completely confused; as totally deluded; as entirely stupid,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","diṭṭhiñ'ca nissāya anupucchamāno,
 samuggahītesu pamoham'āgā,
 ito ca n'āddakkhi aṇum'pi saññaṃ,
 tasmā tuvaṃ <b>momuhato</b> dahāsi.",,,,,,,,,
-yametamatthaṃ,sandhi,whatever this means; concerning this matter,SNP47,"māgaṇḍiyasuttaṃ
+53798,yametamatthaṃ,sandhi,whatever this means; concerning this matter,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","vinicchayā yāni pakappitāni,
 te ve munī brūsi anuggahāya,
 ajjhattasantī'ti <b>yam'etam'atthaṃ</b>,
@@ -584,24 +584,24 @@ aṭṭhakavaggo 11","sātaṃ asātañ'ca kutonidānā,
 kismiṃ asante na bhavanti h'ete,
 vibhavaṃ bhavañ'c'āpi <b>yam'etam'atthaṃ</b>,
 etaṃ me pabrūhi yatonidānaṃ.",,,,,,
-yehi 2,pron,from which; from whichever,SNP47,"māgaṇḍiyasuttaṃ
+54207,yehi 2,pron,from which; from whichever,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","<b>yehi</b> vivitto vicareyya loke,
 na tāni uggayha vadeyya nāgo,
 jalambujaṃ kaṇḍakaṃ vārijaṃ yathā,
 jalena paṅkena c'anūpalittaṃ,
 evaṃ munī santivādo agiddho,
 kāme ca loke ca anūpalitto.",,,,,,,,,
-ragā,fem,name of one of the three daughters of Death,SNP47,"māgaṇḍiyasuttaṃ
+54383,ragā,fem,name of one of the three daughters of Death,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","disvāna taṇhaṃ aratiṃ <b>ragañ</b>'ca,
 n'āhosi chando api methunasmiṃ,
 kim'ev'idaṃ muttakarīsapuṇṇaṃ,
 pādā'pi naṃ samphusituṃ na icche.",SN4.25,māradhītusuttaṃ,atha kho taṇhā ca arati ca <b>ragā</b> ca māradhītaro yena māro pāpimā ten'upasaṅkamiṃsu.,,,,,,
-ratana 1.4,nt,queen; woman,SNP47,"māgaṇḍiyasuttaṃ
+54515,ratana 1.4,nt,queen; woman,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","etādisaṃ ce <b>ratanaṃ</b> na icchasi,
 nāriṃ nar'indehi bahūhi patthitaṃ,
 diṭṭhigataṃ sīlavataṃ nu jīvitaṃ,
 bhav'ūpapattiñ'ca vadesi kīdisaṃ.",VIN PAT PC 83,antepurasikkhāpadaṃ,"yo pana bhikkhu rañño khattiyassa muddh'ābhisittassa anikkhantarājake aniggata<b>ratana</b>ke pubbe appaṭisaṃvidito indakhīlaṃ atikkāmeyya, pācittiyaṃ.",,,,,,
-saññā 2,fem,name; label; concept; idea; notion; impression; representation; symbol,SNP8,mettasuttaṃ,"na paro paraṃ nikubbetha, n'ātimaññetha katthaci naṃ kiñci
+57394,saññā 2,fem,name; label; concept; idea; notion; impression; representation; symbol,SNP8,mettasuttaṃ,"na paro paraṃ nikubbetha, n'ātimaññetha katthaci naṃ kiñci
 byārosanā, paṭigha<b>saññā</b>, n'āññam'aññassa dukkham'iccheyya.",MN107,gaṇakamoggallānasuttaṃ,rattiyā majjhimaṃ yāmaṃ dakkhiṇena passena sīhaseyyaṃ kappeyyāsi pāde pādaṃ accādhāya sato sampajāno uṭṭhāna<b>saññaṃ</b> manasikaritvā,SNP43,"paramaṭṭhakasuttaṃ
 aṭṭhakavaggo 5","tass'īdha diṭṭhe va sute mute vā,
 pakappitā n'atthi aṇū'pi <b>saññā</b>,
@@ -611,12 +611,12 @@ aṭṭhakavaggo 9","diṭṭhiñ'ca nissāya anupucchamāno,
 samuggahītesu pamoham'āgā,
 ito ca n'āddakkhi aṇum'pi <b>saññaṃ</b>,
 tasmā tuvaṃ momuhato dahāsi."
-saññāviratta,adj,detached from perception; indifferent to concepts,SNP47,"māgaṇḍiyasuttaṃ
+57456,saññāviratta,adj,detached from perception; indifferent to concepts,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","<b>saññāvirattassa</b> na santi ganthā,
 paññāvimuttassa na santi mohā,
 saññañ'ca diṭṭhiñ'ca ye aggahesuṃ,
 te ghaṭṭayantā vicaranti loke'ti.",,,,,,,,,
-santi 1.1,fem,peace; calm; tranquillity,SNP22,"uṭṭhānasuttaṃ
+58258,santi 1.1,fem,peace; calm; tranquillity,SNP22,"uṭṭhānasuttaṃ
 cūḷavaggo 10","uṭṭhahatha nisīdatha,
 daḷhaṃ sikkhatha <b>santiyā</b>,
 mā vo pamatte viññāya,
@@ -635,24 +635,24 @@ jalambujaṃ kaṇḍakaṃ vārijaṃ yathā,
 jalena paṅkena c'anūpalittaṃ,
 evaṃ munī <b>santi</b>vādo agiddho,
 kāme ca loke ca anūpalitto."
-santivāda,adj,promoting a doctrine of peace; professing peace,SNP47,"māgaṇḍiyasuttaṃ
+58284,santivāda,adj,promoting a doctrine of peace; professing peace,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","yehi vivitto vicareyya loke,
 na tāni uggayha vadeyya nāgo,
 jalambujaṃ kaṇḍakaṃ vārijaṃ yathā,
 jalena paṅkena c'anūpalittaṃ,
 evaṃ munī <b>santivādo</b> agiddho,
 kāme ca loke ca anūpalitto.",,,,,,,,,
-samuggahīta 1,pp,embraced; accepted; chosen; taken up,SNP47,"māgaṇḍiyasuttaṃ
+59908,samuggahīta 1,pp,embraced; accepted; chosen; taken up,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","diṭṭhiñ'ca nissāya anupucchamāno,
 <b>samuggahītesu</b> pamoham'āgā,
 ito ca n'āddakkhi aṇum'pi saññaṃ,
 tasmā tuvaṃ momuhato dahāsi.",,,,,,,,,
-samphusituṃ,inf,to touch; to bring into contact (with),SNP47,"māgaṇḍiyasuttaṃ
+60540,samphusituṃ,inf,to touch; to bring into contact (with),SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","disvāna taṇhaṃ aratiṃ ragañ'ca,
 n'āhosi chando api methunasmiṃ,
 kim'ev'idaṃ muttakarīsapuṇṇaṃ,
 pādā'pi naṃ <b>samphusituṃ</b> na icche.",,,,,,,,,
-sīlabbata,nt,precepts and practices; ethics and observances; rites and rituals,SNP13,"ratanasuttaṃ
+63180,sīlabbata,nt,precepts and practices; ethics and observances; rites and rituals,SNP13,"ratanasuttaṃ
 cūḷavaggo 1","sahā'v'assa dassanasampadāya, taya'ssu dhammā jahitā bhavanti.
 sakkāyadiṭṭhi vicikicchitañ'ca, <b>sīlabbataṃ</b> vā pi yadatthi kiñci.",SNP62,"nanda māṇava pucchā
 pārāyanavaggo 7","ye kec'ime samaṇabrāhmaṇāse,
@@ -672,14 +672,14 @@ adiṭṭhiyā assutiyā añāṇā,
 asīlatā abbatā no'pi tena,
 ete ca nissajja anuggahāya,
 santo anissāya bhavaṃ na jappe."
-suti 1,fem,learning; sacred knowledge,SNP47,"māgaṇḍiyasuttaṃ
+63810,suti 1,fem,learning; sacred knowledge,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","na diṭṭhiyā na <b>sutiyā</b> na ñāṇena,
 sīlabbaten'āpi na suddhim'āha,
 adiṭṭhiyā assutiyā añāṇā,
 asīlatā abbatā no'pi tena,
 ete ca nissajja anuggahāya,
 santo anissāya bhavaṃ na jappe.",,,,,,,,,
-vadati 2,pr,disputes; argues; debates,SNP47,"māgaṇḍiyasuttaṃ
+66123,vadati 2,pr,disputes; argues; debates,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","saccan'ti so brāhmaṇo kiṃ <b>vadeyya</b>,
 musā'ti vā so vivadetha kena,
 yasmiṃ samaṃ visamaṃ vā'pi n'atthi,
@@ -688,7 +688,7 @@ aṭṭhakavaggo 3","<b>vadanti</b> ve duṭṭhamanā'pi eke,
 atho'pi ve saccamanā vadanti,
 vādañ'ca jātaṃ muni no upeti,
 tasmā munī n'atthi khilo kuhiñci.",,,,,,
-vadeti 1,pr,say; speaks; calls; describes (as),SN22.79,khajjanīyasuttaṃ,"kiñ'ca, bhikkhave, rūpaṃ <b>vadetha</b>? ruppatī'ti kho, bhikkhave, tasmā rūpan'ti vuccati",SNP52,"tuvaṭakasuttaṃ
+66145,vadeti 1,pr,say; speaks; calls; describes (as),SN22.79,khajjanīyasuttaṃ,"kiñ'ca, bhikkhave, rūpaṃ <b>vadetha</b>? ruppatī'ti kho, bhikkhave, tasmā rūpan'ti vuccati",SNP52,"tuvaṭakasuttaṃ
 aṭṭhakavaggo 14","akittayī vivaṭacakkhu,
 sakkhidhammaṃ parissayavinayaṃ,
 paṭipadaṃ <b>vadehi</b> bhaddante,
@@ -697,7 +697,7 @@ aṭṭhakavaggo 9","etādisaṃ ce ratanaṃ na icchasi,
 nāriṃ nar'indehi bahūhi patthitaṃ,
 diṭṭhigataṃ sīlavataṃ nu jīvitaṃ,
 bhav'ūpapattiñ'ca <b>vadesi</b> kīdisaṃ."
-vāda 3,masc,debate; argument; disputation,Trad,,"saccaṃ vihāya matisaccakavādaketuṃ, <b>vād</b>'ābhiropitamanaṃ atiandhabhūtaṃ, paññāpadīpajalito jitavā mun'indo",SNP41,"duṭṭhaṭṭhakasuttaṃ
+66778,vāda 3,masc,debate; argument; disputation,Trad,,"saccaṃ vihāya matisaccakavādaketuṃ, <b>vād</b>'ābhiropitamanaṃ atiandhabhūtaṃ, paññāpadīpajalito jitavā mun'indo",SNP41,"duṭṭhaṭṭhakasuttaṃ
 aṭṭhakavaggo 3","vadanti ve duṭṭhamanā'pi eke,
 atho'pi ve saccamanā vadanti,
 <b>vādañ</b>'ca jātaṃ muni no upeti,
@@ -706,14 +706,14 @@ aṭṭhakavaggo 9","saccan'ti so brāhmaṇo kiṃ vadeyya,
 musā'ti vā so vivadetha kena,
 yasmiṃ samaṃ visamaṃ vā'pi n'atthi,
 sa kena <b>vādaṃ</b> paṭisaṃyujeyya."
-vāda 6,masc,doctrine; religious belief; belief system,VIBH6.1,paṭiccasamuppādavibhaṅgo,"kām'upādānaṃ, diṭṭh'upādānaṃ, sīlabbat'upādānaṃ, atta<b>vād</b>'upādānaṃ. idaṃ vuccati taṇhāpaccayā upādānaṃ.",MN27,cūḷahatthipadopamasuttaṃ,"te pañhaṃ abhisaṅkharonti, imaṃ mayaṃ pañhaṃ samaṇaṃ gotamaṃ upasaṅkamitvā pucchissāma. evaṃ ce no puṭṭho evaṃ byākarissati, evam'assa mayaṃ <b>vādaṃ</b> āropessāma.",AN3.66,kesamuttisuttaṃ,"santi, bhante, eke samaṇabrāhmaṇā kesamuttaṃ āgacchanti. te sakaṃ'y'eva <b>vādaṃ</b> dīpenti jotenti, parappavādaṃ pana khuṃsenti vambhenti paribhavanti omakkhiṃ karonti.",SNP47,"māgaṇḍiyasuttaṃ
+66781,vāda 6,masc,doctrine; religious belief; belief system,VIBH6.1,paṭiccasamuppādavibhaṅgo,"kām'upādānaṃ, diṭṭh'upādānaṃ, sīlabbat'upādānaṃ, atta<b>vād</b>'upādānaṃ. idaṃ vuccati taṇhāpaccayā upādānaṃ.",MN27,cūḷahatthipadopamasuttaṃ,"te pañhaṃ abhisaṅkharonti, imaṃ mayaṃ pañhaṃ samaṇaṃ gotamaṃ upasaṅkamitvā pucchissāma. evaṃ ce no puṭṭho evaṃ byākarissati, evam'assa mayaṃ <b>vādaṃ</b> āropessāma.",AN3.66,kesamuttisuttaṃ,"santi, bhante, eke samaṇabrāhmaṇā kesamuttaṃ āgacchanti. te sakaṃ'y'eva <b>vādaṃ</b> dīpenti jotenti, parappavādaṃ pana khuṃsenti vambhenti paribhavanti omakkhiṃ karonti.",SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","yehi vivitto vicareyya loke,
 na tāni uggayha vadeyya nāgo,
 jalambujaṃ kaṇḍakaṃ vārijaṃ yathā,
 jalena paṅkena c'anūpalittaṃ,
 evaṃ munī santi<b>vādo</b> agiddho,
 kāme ca loke ca anūpalitto."
-vārija 2,nt,lotus,SNP47,"māgaṇḍiyasuttaṃ
+66925,vārija 2,nt,lotus,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","yehi vivitto vicareyya loke,
 na tāni uggayha vadeyya nāgo,
 jalambujaṃ kaṇḍakaṃ <b>vārijaṃ</b> yathā,
@@ -723,7 +723,7 @@ kāme ca loke ca anūpalitto.",SN9.14,gandhatthenasuttaṃ,"na harāmi na bhañj
 ārā siṅghāmi <b>vārijaṃ</b>,
 atha kena nu vaṇṇena,
 gandhattheno'ti vuccati.",,,,,,
-vicarati,pr,moves about (in); wanders about (in); roams (in),SNP47,"māgaṇḍiyasuttaṃ
+67418,vicarati,pr,moves about (in); wanders about (in); roams (in),SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","saññāvirattassa na santi ganthā,
 paññāvimuttassa na santi mohā,
 saññañ'ca diṭṭhiñ'ca ye aggahesuṃ,
@@ -734,30 +734,30 @@ jalambujaṃ kaṇḍakaṃ vārijaṃ yathā,
 jalena paṅkena c'anūpalittaṃ,
 evaṃ munī santivādo agiddho,
 kāme ca loke ca anūpalitto.",,,,,,
-vidhā 1,fem,distinction; discrimination; categorization; conceit,AN7.49,dutiyasaññāsuttaṃ,"dukkhe anattasaññāparicitena, bhikkhave, bhikkhuno cetasā bahulaṃ viharato imasmiñ'ca saviññāṇake kāye bahiddhā ca sabbanimittesu ahaṅ'kāramamaṅ'kāramān'āpagataṃ mānasaṃ hoti <b>vidhā</b>samatikkantaṃ santaṃ suvimuttaṃ.",SNP47,"māgaṇḍiyasuttaṃ
+68030,vidhā 1,fem,distinction; discrimination; categorization; conceit,AN7.49,dutiyasaññāsuttaṃ,"dukkhe anattasaññāparicitena, bhikkhave, bhikkhuno cetasā bahulaṃ viharato imasmiñ'ca saviññāṇake kāye bahiddhā ca sabbanimittesu ahaṅ'kāramamaṅ'kāramān'āpagataṃ mānasaṃ hoti <b>vidhā</b>samatikkantaṃ santaṃ suvimuttaṃ.",SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","samo visesī uda vā nihīno,
 yo maññatī so vivadetha tena,
 tīsu <b>vidhāsu</b> avikampamāno,
 samo visesī'ti na tassa hoti.",,,,,,
-vinicchaya 1,masc,discrimination; distinction; evaluation; assessment,SNP47,"māgaṇḍiyasuttaṃ
+68161,vinicchaya 1,masc,discrimination; distinction; evaluation; assessment,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","<b>vinicchayā</b> yāni pakappitāni,
 te ve munī brūsi anuggahāya,
 ajjhattasantī'ti yam'etam'atthaṃ,
 kathaṃ nu dhīrehi paveditaṃ taṃ.",MN139,araṇavibhaṅgasuttaṃ,"sukha<b>vinicchayaṃ</b> jaññā, sukha<b>vinicchayaṃ</b> ñatvā ajjhattaṃ sukham'anuyuñjeyya.",DHP144,daṇḍavaggo,"asso yathā bhadro kasāniviṭṭho, ātāpino saṃvegino bhavātha,
 saddhāya sīlena ca vīriyena ca, samādhinā dhamma<b>vinicchayena</b> ca",,,
-viratta,pp,detached (from); without desire (for); become indifferent (to); lost interest (in),SNP13,"ratanasuttaṃ
+68836,viratta,pp,detached (from); without desire (for); become indifferent (to); lost interest (in),SNP13,"ratanasuttaṃ
 cūḷavaggo 1","khīṇaṃ purāṇaṃ navaṃ n'atthi sambhavaṃ, <b>viratta</b>citt'āyatike bhavasmiṃ.
 te khīṇabījā avirūḷhichandā, nibbanti dhīrā yath'āyaṃ padīpo.",SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","saññā<b>virattassa</b> na santi ganthā,
 paññāvimuttassa na santi mohā,
 saññañ'ca diṭṭhiñ'ca ye aggahesuṃ,
 te ghaṭṭayantā vicaranti loke'ti.",,,,,,
-visama 2,adj,unequal; different,SNP47,"māgaṇḍiyasuttaṃ
+69150,visama 2,adj,unequal; different,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","saccan'ti so brāhmaṇo kiṃ vadeyya,
 musā'ti vā so vivadetha kena,
 yasmiṃ samaṃ <b>visamaṃ</b> vā'pi n'atthi,
 sa kena vādaṃ paṭisaṃyujeyya.",,,,,,,,,
-visesī,adj,better; distinguished; attained; superior,SNP47,"māgaṇḍiyasuttaṃ
+69350,visesī,adj,better; distinguished; attained; superior,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","samo <b>visesī</b> uda vā nihīno,
 yo maññatī so vivadetha tena,
 tīsu vidhāsu avikampamāno,
@@ -766,14 +766,14 @@ aṭṭhakavaggo 5","diṭṭhim'pi lokasmiṃ na kappayeyya,
 ñāṇena vā sīlavatena vā'pi,
 samo'ti attānam'anūpaneyya,
 hīno na maññetha <b>visesi</b> vā'pi.",,,,,,
-vivadati,pr,disagrees (with); disputes (with); argues (with); quarrels (with); conflicts (with),SN22.94,pupphasuttaṃ,"n'āhaṃ, bhikkhave, lokena <b>vivadāmi</b>, loko'va mayā <b>vivadati</b>. na, bhikkhave, dhammavādī kenaci lokasmiṃ <b>vivadati</b>.",MN74,dīghanakhasuttaṃ,"evaṃ vimuttacitto kho, aggivessana, bhikkhu na kenaci saṃvadati, na kenaci <b>vivadati</b>, yañ'ca loke vuttaṃ tena voharati, aparāmasan'ti.",SNP47,"māgaṇḍiyasuttaṃ
+69536,vivadati,pr,disagrees (with); disputes (with); argues (with); quarrels (with); conflicts (with),SN22.94,pupphasuttaṃ,"n'āhaṃ, bhikkhave, lokena <b>vivadāmi</b>, loko'va mayā <b>vivadati</b>. na, bhikkhave, dhammavādī kenaci lokasmiṃ <b>vivadati</b>.",MN74,dīghanakhasuttaṃ,"evaṃ vimuttacitto kho, aggivessana, bhikkhu na kenaci saṃvadati, na kenaci <b>vivadati</b>, yañ'ca loke vuttaṃ tena voharati, aparāmasan'ti.",SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","samo visesī uda vā nihīno,
 yo maññatī so <b>vivadetha</b> tena,
 tīsu vidhāsu avikampamāno,
 samo visesī'ti na tassa hoti.",SNP50,"cūḷabyūhasuttaṃ
 aṭṭhakavaggo 12","ekañ'hi saccaṃ na dutīyam'atthi, yasmiṃ pajā no <b>vivade</b> pajānaṃ,
 nānā te saccāni sayaṃ thunanti, tasmā na ekaṃ samaṇā vadanti."
-vivitta 1,pp,separated; detached; secluded; solitary; aloof,MN107,gaṇakamoggallānasuttaṃ,bhikkhu <b>vivittaṃ</b> sen'āsanaṃ bhajati,SNP44,"jarāsuttaṃ
+69595,vivitta 1,pp,separated; detached; secluded; solitary; aloof,MN107,gaṇakamoggallānasuttaṃ,bhikkhu <b>vivittaṃ</b> sen'āsanaṃ bhajati,SNP44,"jarāsuttaṃ
 aṭṭhakavaggo 6","patilīnacarassa bhikkhuno,
 bhajamānassa <b>vivittam</b>'āsanaṃ,
 sāmaggiyam'āhu tassa taṃ,
@@ -785,7 +785,7 @@ jalambujaṃ kaṇḍakaṃ vārijaṃ yathā,
 jalena paṅkena c'anūpalittaṃ,
 evaṃ munī santivādo agiddho,
 kāme ca loke ca anūpalitto."
-veda 3,nt,knowledge; understanding; realization; insight,SNP47,"māgaṇḍiyasuttaṃ
+70229,veda 3,nt,knowledge; understanding; realization; insight,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","na <b>veda</b>gū diṭṭhiyā na mutiyā,
 sa mānam'eti na hi tammayo so,
 na kammunā no'pi sutena neyyo,
@@ -793,7 +793,7 @@ anūpanīto sa nivesanesu.",SNP32,sabhiyasuttaṃ,"<b>vedāni</b> viceyya keval�
 samaṇānaṃ yān'idh'atthi brāhmaṇānaṃ,
 sabbavedanāsu vītarāgo,
 sabbaṃ vedam'aticca vedagū so.",,,,,,
-vedagū,masc,who has perfect knowledge; who has complete understanding,UD16,gabbhinīsuttaṃ,"sukhino vata ye akiñcanā,
+70233,vedagū,masc,who has perfect knowledge; who has complete understanding,UD16,gabbhinīsuttaṃ,"sukhino vata ye akiñcanā,
 <b>vedaguno</b> hi janā akiñcanā,
 sakiñcanaṃ passa vihaññamānaṃ,
 jano janasmiṃ paṭibandhacitto.",SNP59,"mettagū māṇava pucchā
@@ -805,7 +805,7 @@ aṭṭhakavaggo 9","na <b>vedagū</b> diṭṭhiyā na mutiyā,
 sa mānam'eti na hi tammayo so,
 na kammunā no'pi sutena neyyo,
 anūpanīto sa nivesanesu."
-hoti 2,pr,exists (for),SNP47,"māgaṇḍiyasuttaṃ
+71484,hoti 2,pr,exists (for),SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","idaṃ vadāmī'ti na tassa <b>hoti</b>,
 dhammesu niccheyya samuggahītaṃ,
 passañ'ca diṭṭhīsu anuggahāya,
@@ -813,7 +813,7 @@ ajjhattasantiṃ pacinaṃ adassaṃ.",SN1.20,samiddhisuttaṃ,"akkheyyañ'ca pa
 akkhātāraṃ na maññati,
 tañ'hi tassa na <b>hotī</b>'ti,
 yena naṃ vajjā na tassa atthi.",,,,,,
-maññatī,pr,thinks; imagines; conceives; presumes; supposes,SNP47,"māgaṇḍiyasuttaṃ
+77091,maññatī,pr,thinks; imagines; conceives; presumes; supposes,SNP47,"māgaṇḍiyasuttaṃ
 aṭṭhakavaggo 9","samo visesī uda vā nihīno,
 yo <b>maññatī</b> so vivadetha tena,
 tīsu vidhāsu avikampamāno,
