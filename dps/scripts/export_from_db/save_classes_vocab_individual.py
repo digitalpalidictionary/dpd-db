@@ -14,6 +14,8 @@ from tools.paths import ProjectPaths
 from rich.console import Console
 from dps.tools.paths_dps import DPSPaths
 from sqlalchemy.orm import joinedload
+from dps.tools.sbs_table_functions import sbs_category_list
+
 
 pth = ProjectPaths()
 dpspth = DPSPaths()
@@ -46,6 +48,13 @@ def main():
     for sbs_class in range(2, 30):
         filename = os.path.join(dpspth.pali_class_vocab_dir, f'vocab_class_{sbs_class}.csv')
         save_words_with_examples_to_csv(sbs_class, filename)
+
+    print("saving words with examples for discources")
+    # Iterate through all values in sbs_category_list
+    for sutta in sbs_category_list:
+        filename = os.path.join(dpspth.discourses_vocab_dir, f'vocab_{sutta}.csv')
+        save_words_for_discources(sutta, filename)
+
 
     # Close the session
     db_session.close()
@@ -104,10 +113,13 @@ def save_words_with_examples_to_csv(sbs_class: int, filename: str):
         SBS.sbs_class_anki == sbs_class
     ).all()
 
+    print(f"total words for class {sbs_class}: {len(words)}")
+
+
     # Open the CSV file and write the headers
     with open(filename, 'w', newline='') as csvfile:
         fieldnames = [
-            'pali', 'pos', 'meaning', 'source_1', 'sutta_1', 'example_1', 
+            'id', 'pali', 'pos', 'meaning', 'source_1', 'sutta_1', 'example_1', 
             'source_2', 'sutta_2', 'example_2',
             'source_3', 'sutta_3', 'example_3',
             'source_4', 'sutta_4', 'example_4',
@@ -119,6 +131,54 @@ def save_words_with_examples_to_csv(sbs_class: int, filename: str):
         for word in words:
 
             writer.writerow({
+                'id': word.id,
+                'pali': word.lemma_1,
+                'pos': word.pos,
+                'meaning': word.meaning_1,
+                'source_1': word.sbs.sbs_source_1,
+                'sutta_1': word.sbs.sbs_sutta_1,
+                'example_1': word.sbs.sbs_example_1,
+                'source_2': word.sbs.sbs_source_2,
+                'sutta_2': word.sbs.sbs_sutta_2,
+                'example_2': word.sbs.sbs_example_2,
+                'source_3': word.sbs.sbs_source_3,
+                'sutta_3': word.sbs.sbs_sutta_3,
+                'example_3': word.sbs.sbs_example_3,
+                'source_4': word.sbs.sbs_source_4,
+                'sutta_4': word.sbs.sbs_sutta_4,
+                'example_4': word.sbs.sbs_example_4,
+            })
+
+
+
+
+def save_words_for_discources(sutta, filename: str):
+    # Get all words that meet the conditions
+    
+
+    words = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs)).join(SBS).filter(
+        SBS.sbs_category == sutta,
+        SBS.discourses_source == ""
+    ).all()
+
+    print(f"total words for {sutta}: {len(words)}")
+
+    # Open the CSV file and write the headers
+    with open(filename, 'w', newline='') as csvfile:
+        fieldnames = [
+            'id', 'pali', 'pos', 'meaning', 'source_1', 'sutta_1', 'example_1', 
+            'source_2', 'sutta_2', 'example_2',
+            'source_3', 'sutta_3', 'example_3',
+            'source_4', 'sutta_4', 'example_4',
+            ]
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+
+        # Write each word to the CSV file
+        for word in words:
+
+            writer.writerow({
+                'id': word.id,
                 'pali': word.lemma_1,
                 'pos': word.pos,
                 'meaning': word.meaning_1,

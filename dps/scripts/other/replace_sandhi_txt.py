@@ -6,7 +6,6 @@ from db.db_helpers import get_db_session
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 
 from tools.paths import ProjectPaths
-from tools.clean_machine import clean_machine
 from dps.tools.paths_dps import DPSPaths
 from tools.sandhi_replacement import replace_sandhi
 
@@ -34,13 +33,25 @@ def main():
     if imput_txt_file:
         try:
             with open(imput_txt_file, "r") as f:
-                text_string = f.read()
-                text_string = clean_machine(text_string)
+                text = f.read()
+                text = text.strip()
+                text = text.lower()
+                text = text.replace("‘", "")
+                text = text.replace(" – ", ", ")
+                text = text.replace("’", "")
+                text = text.replace("…pe॰…", " … ")
+                text = text.replace("…pe…", " … ")
+                text = text.replace("...", "…")
+                text = text.replace(";", ",")
+                text = text.replace("  ", " ")
+                text = text.replace("..", ".")
+                text = text.replace(" ,", ",")
+
         except FileNotFoundError:
             print(f"[red]file {imput_txt_file } does not exist")
             return set()
 
-    replaced_text = replace_sandhi(text_string, sandhi_dict, hyphenations_dict)
+    replaced_text = replace_sandhi(text, sandhi_dict, hyphenations_dict)
 
     output_txt_file = imput_txt_file
     with open(output_txt_file, 'w') as f:

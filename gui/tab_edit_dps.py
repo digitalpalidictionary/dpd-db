@@ -2,6 +2,7 @@
 
 from gui.functions_db_dps import load_sbs_index
 from gui.completion_combo import CompletionCombo
+from dps.tools.sbs_table_functions import sbs_category_list
 
 def make_tab_edit_dps(dpspth, sg):
 
@@ -10,7 +11,6 @@ def make_tab_edit_dps(dpspth, sg):
     anki_class_list = [str(i) for i in range(1, 60)]
     class_list = [str(i) for i in range(2, 30)]
     sbs_example_number = [str(i) for i in range(1, 5)]
-    dps_category_list = ["sn12", "sn22", "sn35", "sn43", "sn45", "sn46", "sn47", "sn56", "mn107"]
     dps_patimokkha_list = ["pat", "vib"]
 
     dpd_background = "#1c1e23"
@@ -900,7 +900,7 @@ def make_tab_edit_dps(dpspth, sg):
         [
             sg.Text("sbs_category", size=(15, 1)),
             CompletionCombo(
-                dps_category_list,
+                sbs_category_list,
                 key="dps_sbs_category",
                 default_value="",
                 size=(6, 1),
