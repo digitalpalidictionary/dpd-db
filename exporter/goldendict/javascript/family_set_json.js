@@ -1291,9 +1291,15 @@ var family_set_json = {
     "✔"
    ],
    [
+    "upacāra 5",
+    "masc",
+    "(gram) figure of speech; metaphor; lit. walking near",
+    "✔"
+   ],
+   [
     "upacāravacana",
     "nt",
-    "(gram) figure of speech; metaphorical expression; lit. walking near speaking",
+    "(gram) figure of speech; idiomatic expression; lit. walking near speaking",
     "✔"
    ],
    [
@@ -3028,6 +3034,12 @@ var family_set_json = {
     "paccud",
     "prefix",
     "-",
+    "✔"
+   ],
+   [
+    "paccuppannavacana",
+    "nt",
+    "(gram) expression in the present tense",
     "✔"
    ],
    [
@@ -5011,7 +5023,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 807
+  "count": 809
  },
  "prefixes": {
   "data": [
@@ -9230,7 +9242,7 @@ var family_set_json = {
     "vāseṭṭha 4",
     "masc",
     "name of a Brahman family",
-    "◑"
+    "✔"
    ],
    [
     "vāseṭṭhabhāradvājā",
@@ -11784,12 +11796,6 @@ var family_set_json = {
     "✔"
    ],
    [
-    "āḷakamandā",
-    "fem",
-    "name of a heavenly capital city",
-    "◑"
-   ],
-   [
     "icchānaṅgalavanasaṇḍa",
     "masc",
     "forest thicket of Icchānaṅgala",
@@ -12648,7 +12654,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 153
+  "count": 152
  },
  "holy sites": {
   "data": [
@@ -15160,7 +15166,7 @@ var family_set_json = {
     "vāseṭṭha 4",
     "masc",
     "name of a Brahman family",
-    "◑"
+    "✔"
    ],
    [
     "vedehiputta",
@@ -21985,6 +21991,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "sataraṃsī 2",
+    "adj",
+    "with one hundred rays; epithet of the Buddha",
+    "✔"
+   ],
+   [
     "sabbaññū 2",
     "masc",
     "omniscient one; who is all knowing; who understands everything; epithet of the Buddha; lit. knowing everything",
@@ -22021,7 +22033,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 36
+  "count": 37
  },
  "books of the Suttapiṭaka": {
   "data": [
@@ -22070,7 +22082,7 @@ var family_set_json = {
     "aḍḍhayojana",
     "nt",
     "approximately ten kilometres; lit. half a yojana",
-    "◑"
+    "✔"
    ],
    [
     "addhayojana",
@@ -29739,6 +29751,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "āḷakamandā",
+    "fem",
+    "name of a heavenly capital city",
+    "✔"
+   ],
+   [
     "icchānaṅgala",
     "masc",
     "name of a Brahman village in Kosala",
@@ -30885,7 +30903,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 206
+  "count": 207
  },
  "ordinal numbers": {
   "data": [
@@ -36441,6 +36459,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "maṇivaṃsa",
+    "masc",
+    "jewelled flute",
+    "✔"
+   ],
+   [
     "mutiṅga",
     "masc",
     "mridangam; double-headed drum",
@@ -36471,7 +36495,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 14
+  "count": 15
  },
  "medicines": {
   "data": [

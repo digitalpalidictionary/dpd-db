@@ -6531,7 +6531,7 @@ var family_idiom_json = {
    [
     "bhavissanti",
     "sandhi",
-    "'I could be'; 'I will be'; 'may I be'",
+    "'I could be'; 'I will be'; 'may I be'; lit. I will be",
     "✔"
    ],
    [
@@ -14971,7 +14971,7 @@ var family_idiom_json = {
    [
     "bhavissanti",
     "sandhi",
-    "'I could be'; 'I will be'; 'may I be'",
+    "'I could be'; 'I will be'; 'may I be'; lit. I will be",
     "✔"
    ],
    [

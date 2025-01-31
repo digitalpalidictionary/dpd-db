@@ -7489,7 +7489,7 @@ var family_word_json = {
    [
     "advaya 2",
     "adj",
-    "unchanging; steadfast; lit. not twofold",
+    "unchanging; steadfast; constant; lit. not twofold",
     "✔"
    ],
    [
@@ -13226,8 +13226,8 @@ var family_word_json = {
    [
     "sāmacca 2",
     "adj",
-    "together with one's ministers",
-    "✘"
+    "together with one's ministers; with one's counsellors",
+    "✔"
    ]
   ],
   "count": 6
@@ -13833,7 +13833,7 @@ var family_word_json = {
    [
     "mānusa 2",
     "masc",
-    "human being; man",
+    "human being; man; person",
     "✔"
    ],
    [
@@ -19585,7 +19585,7 @@ var family_word_json = {
    [
     "kathaṃ 2",
     "ind",
-    "what's the reason?",
+    "why?",
     "✔"
    ],
    [
@@ -19597,7 +19597,7 @@ var family_word_json = {
    [
     "kathaṃ 4",
     "ind",
-    "why?",
+    "what's the reason?",
     "✔"
    ],
    [
@@ -24259,7 +24259,7 @@ var family_word_json = {
     "chāyā 2",
     "fem",
     "reflection; reflected image",
-    "◑"
+    "✔"
    ],
    [
     "pacchāyā",
@@ -28220,7 +28220,7 @@ var family_word_json = {
    [
     "passena",
     "ind",
-    "on the side",
+    "on the side; lit. with the side",
     "✔"
    ],
    [
@@ -28459,7 +28459,7 @@ var family_word_json = {
     "pāveyyaka",
     "adj",
     "from Pāvā; living in Pāvā",
-    "✘"
+    "✔"
    ]
   ],
   "count": 2
@@ -31698,6 +31698,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "vammika 2",
+    "nt",
+    "ant-hill",
+    "✔"
+   ],
+   [
     "vammī 1.1",
     "masc",
     "wearing armour",
@@ -31710,7 +31716,7 @@ var family_word_json = {
     "◑"
    ]
   ],
-  "count": 3
+  "count": 4
  },
  "varāha": {
   "data": [
@@ -32089,7 +32095,7 @@ var family_word_json = {
     "vāseṭṭha 4",
     "masc",
     "name of a Brahman family",
-    "◑"
+    "✔"
    ],
    [
     "vāseṭṭhī",
