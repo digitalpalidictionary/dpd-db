@@ -36,27 +36,34 @@ for idx, i in enumerate(csv, start=1):
     db_entry = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.ru)).filter(DpdHeadword.id == csv_id).first()
 
     if db_entry and db_entry.ru:
-        console.print(f"[green]Processing Row number: {idx} {i.id}")
 
         # Update ru_meaning
         if i.corrections_ru_meaning:
             db_entry.ru.ru_meaning = i.corrections_ru_meaning
-            console.print(f"Updated ru_meaning with corrections: {i.corrections_ru_meaning}")
             count_meanings += 1
+            console.print(f"[green]Processing Row number: {idx} {i.id}")
+            console.print(f"Updated ru_meaning with corrections: {i.corrections_ru_meaning}")
+        
         elif i.ru_meaning and not db_entry.ru.ru_meaning:
             db_entry.ru.ru_meaning = i.ru_meaning
-            console.print(f"Updated empty ru_meaning with: {i.ru_meaning}")
             count_meanings += 1
+            console.print(f"[green]Processing Row number: {idx} {i.id}")
+            console.print(f"Updated empty ru_meaning with: {i.ru_meaning}")
+            
 
         # Update ru_meaning_lit
         if i.corrections_ru_meaning_lit:
             db_entry.ru.ru_meaning_lit = i.corrections_ru_meaning_lit
-            console.print(f"Updated ru_meaning_lit with corrections: {i.corrections_ru_meaning_lit}")
             count_lit += 1
+            console.print(f"[green]Processing Row number: {idx} {i.id}")
+            console.print(f"Updated ru_meaning_lit with corrections: {i.corrections_ru_meaning_lit}")
+            
         elif i.ru_meaning_lit and not db_entry.ru.ru_meaning_lit:
             db_entry.ru.ru_meaning_lit = i.ru_meaning_lit
-            console.print(f"Updated empty ru_meaning_lit with: {i.ru_meaning_lit}")
             count_lit += 1
+            console.print(f"[green]Processing Row number: {idx} {i.id}")
+            console.print(f"Updated empty ru_meaning_lit with: {i.ru_meaning_lit}")
+            
 
         console.print()
 

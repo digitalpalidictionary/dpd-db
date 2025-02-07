@@ -42,12 +42,19 @@ hight_model="gpt-4o-2024-08-06"
 
 def remove_irrelevant(limit: int):
 
-    # Query the database to fetch words that meet the conditions
+    # Query the database to fetch all with removed meaning_1 or empty rows in Russian table
     db = db_session.query(DpdHeadword).join(Russian).filter(
-        and_(
-            Russian.ru_meaning_raw != '',
-            Russian.ru_meaning == '',
-            DpdHeadword.meaning_1 == ''
+        or_(
+            and_(
+                Russian.id != '',
+                Russian.ru_meaning_raw == '',
+                Russian.ru_meaning == '',
+            ),
+            and_(
+                Russian.id != '',
+                Russian.ru_meaning == '',
+                Russian.ru_meaning_raw == '',
+            )
         )
     ).all()
 
@@ -312,7 +319,7 @@ if __name__ == "__main__":
 
     print("Translationg with the help of AI")
 
-    limit: int = 1
+    limit: int = 1000
 
     # remove_irrelevant(limit)
 

@@ -142,12 +142,7 @@ def filter_and_save_txt(source_value):
                 SBS.sbs_patimokkha == "vib",
                 DpdHeadword.compound_type != "",
                 DpdHeadword.grammar.like('%, comp%'),
-                or_(
-                    SBS.sbs_source_1 == source_value,
-                    SBS.sbs_source_2 == source_value,
-                    SBS.sbs_source_3 == source_value,
-                    SBS.sbs_source_4 == source_value,
-                ),
+                SBS.vib_source == source_value
             ),
             
         ).all()
@@ -204,5 +199,5 @@ if __name__ == "__main__":
     print("filtering words for some conditions")
 
     # filtering_words()
-    filter_and_save_txt("VIN1.2.10")
+    filter_and_save_txt("VIN1.2.13")
 

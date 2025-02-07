@@ -240,6 +240,9 @@ def update_ru_meaning_raw(ids_and_contents):
     updated_count = 0
     added_count = 0
     for id, content in ids_and_contents.items():
+        # Clean content
+        content = content.replace("\n", "")
+
         existing_russian = db_session.query(Russian).filter(Russian.id == id).first()
         if existing_russian:
             existing_russian.ru_meaning_raw = content
@@ -251,6 +254,7 @@ def update_ru_meaning_raw(ids_and_contents):
             added_count += 1
             # print(f"Added {Russian.id} for {content}")
             db_session.add(new_russian)
+    db_session.commit()
 
     print(f"Total updated records: {updated_count}")
     print(f"Total added records: {added_count}")

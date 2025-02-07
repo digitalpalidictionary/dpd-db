@@ -16,20 +16,23 @@ from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 
+from tools.configger import config_read
+
 
 def extract_peu_from_tpr_database():
     """Query TPR db for PEU data"""
     print("[green]querying tpr db")
 
-    tpr_db_path = "../../.local/share/tipitaka_pali_reader/tipitaka_pali.db"
-    
-    # PEU is in the dictionary table with book_id = 8
-    conn = sqlite3.connect(tpr_db_path)
-    c = conn.cursor()
-    c.execute("""SELECT * FROM dictionary WHERE book_id = 8""")
-    peu_data = c.fetchall()
+    tpr_db_path = config_read("tpr", "db_path")
 
-    return peu_data
+    if tpr_db_path:
+        # PEU is in the dictionary table with book_id = 8
+        conn = sqlite3.connect(tpr_db_path)
+        c = conn.cursor()
+        c.execute("""SELECT * FROM dictionary WHERE book_id = 8""")
+        peu_data = c.fetchall()
+
+        return peu_data
 
 
 def extract_peu_from_data_dump():
