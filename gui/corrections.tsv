@@ -3317,17 +3317,38 @@ tāvakāla + ika"					from kāla not from kālika		yes
 9514	meaning_lit	not speaking together after					typo				
 40501	source_1	VIN1.2.10	sutta_1	saṅghabhedasikkhāpadaṃ	example_1	anāpatti asamanubhāsantassa, <b>paṭinissajjantassa</b>, ummattakassa, khittacittassa, vedan'āṭṭassa, ādikammikassā'ti.	missing				
 17426	notes	<i>ekacāri</i> is neuter nominative singular describing <i>cittaṃ</i>.					typo				
-13541	derived_from						missing		
-13541	compound_type	kammadhāraya > bahubbīhi	compound_construction	itthaṃ + nāma			missing		
-13541	sanskrit	ittham + nāma					missing		
-13541	source_1	VIN1.2.11	sutta_1	bhedānuvattakasikkhāpadaṃ	example_1	suṇātu me, bhante, saṅgho. itthan'nāmo ca <b>ittha'nāmo</b> ca bhikkhū itthan'nāmassa bhikkhuno saṅghabhedāya parakkamantassa anuvattakā vaggavādakā. te taṃ vatthuṃ na paṭinissajjanti.	missing		
-13541	construction	itthaṃ + nāma					missing		
-13541	meaning_1	called so-and-so; with such-and-such a name					missing		
-13541	grammar	adj, comp					missing		
-13541	family_compound	ittha nāma					missing		
-13541	phonetic	ṃn > n					missing		
-33989	source_1	VIN1.2.6	sutta_1	kuṭikārasikkhāpadaṃ	example_1	<b>desitaṃ</b> saṅghena itthan'nāmassa bhikkhuno kuṭivatthu. khamati saṅghassa, tasmā tuṇhī, evam'etaṃ dhārayāmī'ti.	missing		
-33989	meaning_lit	pointed out					missing		
-70186	source_1	DN16	sutta_1	mahāparinibbānasuttaṃ, veḷuvagāmavassūpagamanaṃ	example_1	āsītiko me vayo vattati. seyyathā'pi, ānanda, jajjarasakaṭaṃ <b>veṭhamissakena</b> yāpeti, evam'eva kho, ānanda, <b>veṭhamissakena</b> maññe tathāgatassa kāyo yāpeti.	sandhi		
-29828	sanskrit	tad + uttarin					missing		
-29828	source_1	VIN1.2.11	sutta_1	bhedānuvattakasikkhāpadaṃ	example_1	saṅghādisesaṃ ajjhāpajjantānaṃ ñattiyā dukkaṭaṃ, dvīhi kammavācāhi thullaccayā paṭippassambhanti. dve tayo ekato samanubhāsitabbā, <b>taduttari</b> na samanubhāsitabbā.	missing		
+13541	derived_from						missing				
+13541	compound_type	kammadhāraya > bahubbīhi	compound_construction	itthaṃ + nāma			missing				
+13541	sanskrit	ittham + nāma					missing				
+13541	source_1	VIN1.2.11	sutta_1	bhedānuvattakasikkhāpadaṃ	example_1	suṇātu me, bhante, saṅgho. itthan'nāmo ca <b>ittha'nāmo</b> ca bhikkhū itthan'nāmassa bhikkhuno saṅghabhedāya parakkamantassa anuvattakā vaggavādakā. te taṃ vatthuṃ na paṭinissajjanti.	missing				
+13541	construction	itthaṃ + nāma					missing				
+13541	meaning_1	called so-and-so; with such-and-such a name					missing				
+13541	grammar	adj, comp					missing				
+13541	family_compound	ittha nāma					missing				
+13541	phonetic	ṃn > n					missing				
+33989	source_1	VIN1.2.6	sutta_1	kuṭikārasikkhāpadaṃ	example_1	<b>desitaṃ</b> saṅghena itthan'nāmassa bhikkhuno kuṭivatthu. khamati saṅghassa, tasmā tuṇhī, evam'etaṃ dhārayāmī'ti.	missing				
+33989	meaning_lit	pointed out					missing				
+70186	source_1	DN16	sutta_1	mahāparinibbānasuttaṃ, veḷuvagāmavassūpagamanaṃ	example_1	āsītiko me vayo vattati. seyyathā'pi, ānanda, jajjarasakaṭaṃ <b>veṭhamissakena</b> yāpeti, evam'eva kho, ānanda, <b>veṭhamissakena</b> maññe tathāgatassa kāyo yāpeti.	sandhi				
+29828	sanskrit	tad + uttarin					missing				
+29828	source_1	VIN1.2.11	sutta_1	bhedānuvattakasikkhāpadaṃ	example_1	saṅghādisesaṃ ajjhāpajjantānaṃ ñattiyā dukkaṭaṃ, dvīhi kammavācāhi thullaccayā paṭippassambhanti. dve tayo ekato samanubhāsitabbā, <b>taduttari</b> na samanubhāsitabbā.	missing				
+61635	meaning_lit	from face					since it is abl				
+42537	compound_type	dutiyā tappurisa	compound_construction	pabbājanīyakamm<b>aṃ</b> + kata			missing				
+42537	sanskrit	pravrajanīya + karman + kṛta					missing				
+42537	source_1	VIN1.2.13	sutta_1	kuladūsakasikkhāpadaṃ	example_1	suṇātu me, bhante, saṅgho. ayaṃ itthan'nāmo bhikkhu saṅghena <b>pabbājanīyakammakato</b> bhikkhū chandagāmitā dosagāmitā mohagāmitā bhayagāmitā pāpeti.	missing				
+42536	compound_type	kammadhāraya	compound_construction	pabbājanīya + kamma			missing				
+42536	sanskrit	pravrajanīya + karman					missing				
+42536	source_1	VIN1.2.13	sutta_1	kuladūsakasikkhāpadaṃ	example_1	suṇātu me, bhante, saṅgho. ayaṃ itthan'nāmo bhikkhu saṅghena <b>pabbājanīyakammakato</b> bhikkhū chandagāmitā dosagāmitā mohagāmitā bhayagāmitā pāpeti.	missing				
+42535	source_1	VIN1.2.13	sutta_1	kuladūsakasikkhāpadaṃ	example_1	suṇātu me, bhante, saṅgho. ayaṃ itthan'nāmo bhikkhu saṅghena <b>pabbājanīya</b>kammakato bhikkhū chandagāmitā dosagāmitā mohagāmitā bhayagāmitā pāpeti.	missing				
+27396	source_1	VIN1.2.13	sutta_1	kuladūsakasikkhāpadaṃ	example_1	suṇātu me, bhante, saṅgho. ayaṃ itthan'nāmo bhikkhu saṅghena pabbājanīyakammakato bhikkhū <b>chandagāmitā</b> dosagāmitā mohagāmitā bhayagāmitā pāpeti.	missing				
+34225	source_1	VIN1.2.13	sutta_1	kuladūsakasikkhāpadaṃ	example_1	suṇātu me, bhante, saṅgho. ayaṃ itthan'nāmo bhikkhu saṅghena pabbājanīyakammakato bhikkhū chandagāmitā <b>dosagāmitā</b> mohagāmitā bhayagāmitā pāpeti.	missing				
+53387	source_1	VIN1.2.13	sutta_1	kuladūsakasikkhāpadaṃ	example_1	suṇātu me, bhante, saṅgho. ayaṃ itthan'nāmo bhikkhu saṅghena pabbājanīyakammakato bhikkhū chandagāmitā dosagāmitā <b>mohagāmitā</b> bhayagāmitā pāpeti.	missing				
+49436	source_1	VIN1.2.13	sutta_1	kuladūsakasikkhāpadaṃ	example_1	suṇātu me, bhante, saṅgho. ayaṃ itthan'nāmo bhikkhu saṅghena pabbājanīyakammakato bhikkhū chandagāmitā dosagāmitā mohagāmitā <b>bhayagāmitā</b> pāpeti.	missing				
+24872	source_2	VIN1.2.12	sutta_2	dubbacasikkhāpadaṃ	example_2	bhikkhū pan'eva dubbacajātiko hotī'ti dubbaco hoti dovacassakaraṇehi dhammehi samannāgato akkhamo appadakkhiṇa<b>ggāhī</b> anusāsaniṃ.	missing				
+14729	source_1	VIN1.2.9	sutta_1	dutiyaduṭṭhadosasikkhāpadaṃ	example_1	manussaviggahapārājik'āpatti <b>uttarimanussadhamma-pārājik'āpattiyā</b> methunadhammapārājik'āpattiyā adinn'ādānapārājik'āpattiyā aññabhāgiyā.	missing				
+50280	meaning_1	ground for sowing dissension; basis for causing disunion					sg - or change the grammar				
+47115	compound_type	kammadhāraya	compound_construction	pure + kāra			missing				
+47115	meaning_lit						it is already in meaning_1				
+29998	meaning_1	(vinaya) belonging to that class; connected with that category (of offences or issues)					since it is used with adhikaraṇaṃ as well				
+1571	meaning_1	(vinaya) belonging to another class; connected with another category (of offences or issues)					since it is used with adhikaraṇaṃ as well				
+80531	source_1	VIN PAT SA 10	sutta_1	saṅghabhedasikkhāpadaṃ	example_1	so bhikkhu bhikkhūhi <b>evam'assa</b> vacanīyo, m'āyasmā samaggassa saṅghassa bhedāya parakkami, bhedanasaṃvattanikaṃ vā adhikaraṇaṃ samādāya paggayha aṭṭhāsi	missing		
+65604	meaning_lit	able to be spoken to, just venerable					eva		
