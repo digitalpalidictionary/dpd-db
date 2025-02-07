@@ -116,30 +116,30 @@ def get_construction(i):
 def get_sbs_info(i: DpdHeadword):
     """Get all SBS related data from a DpdHeadword object."""
     sbs_info = [
-        i.sbs.sbs_source_1.replace("\n", "<br>") if i.sbs else None,
-        i.sbs.sbs_sutta_1.replace("\n", "<br>") if i.sbs else None,
-        i.sbs.sbs_example_1.replace("\n", "<br>") if i.sbs else None,
+        i.sbs.sbs_source_1.replace("\n", "<br>") if i.sbs.sbs_chapter_1 else None,
+        i.sbs.sbs_sutta_1.replace("\n", "<br>") if i.sbs.sbs_chapter_1 else None,
+        i.sbs.sbs_example_1.replace("\n", "<br>") if i.sbs.sbs_chapter_1 else None,
         i.sbs.sbs_chant_pali_1 if i.sbs else None,
         i.sbs.sbs_chant_eng_1 if i.sbs else None,
         i.sbs.sbs_chapter_1 if i.sbs else None,
-        i.sbs.sbs_source_2.replace("\n", "<br>") if i.sbs else None,
-        i.sbs.sbs_sutta_2.replace("\n", "<br>") if i.sbs else None,
-        i.sbs.sbs_example_2.replace("\n", "<br>") if i.sbs else None,
+        i.sbs.sbs_source_2.replace("\n", "<br>") if i.sbs.sbs_chapter_2 else None,
+        i.sbs.sbs_sutta_2.replace("\n", "<br>") if i.sbs.sbs_chapter_2 else None,
+        i.sbs.sbs_example_2.replace("\n", "<br>") if i.sbs.sbs_chapter_2 else None,
         i.sbs.sbs_chant_pali_2 if i.sbs else None,
         i.sbs.sbs_chant_eng_2 if i.sbs else None,
         i.sbs.sbs_chapter_2 if i.sbs else None,
-        i.sbs.sbs_source_3.replace("\n", "<br>") if i.sbs else None,
-        i.sbs.sbs_sutta_3.replace("\n", "<br>") if i.sbs else None,
-        i.sbs.sbs_example_3.replace("\n", "<br>") if i.sbs else None,
-        i.sbs.sbs_chant_pali_3 if i.sbs else None,
-        i.sbs.sbs_chant_eng_3 if i.sbs else None,
-        i.sbs.sbs_chapter_3 if i.sbs else None,
-        i.sbs.sbs_source_4.replace("\n", "<br>") if i.sbs else None,
-        i.sbs.sbs_sutta_4.replace("\n", "<br>") if i.sbs else None,
-        i.sbs.sbs_example_4.replace("\n", "<br>") if i.sbs else None,
-        i.sbs.sbs_chant_pali_4 if i.sbs else None,
-        i.sbs.sbs_chant_eng_4 if i.sbs else None,
-        i.sbs.sbs_chapter_4 if i.sbs else None,
+        # i.sbs.sbs_source_3.replace("\n", "<br>") if i.sbs else None,
+        # i.sbs.sbs_sutta_3.replace("\n", "<br>") if i.sbs else None,
+        # i.sbs.sbs_example_3.replace("\n", "<br>") if i.sbs else None,
+        # i.sbs.sbs_chant_pali_3 if i.sbs else None,
+        # i.sbs.sbs_chant_eng_3 if i.sbs else None,
+        # i.sbs.sbs_chapter_3 if i.sbs else None,
+        # i.sbs.sbs_source_4.replace("\n", "<br>") if i.sbs else None,
+        # i.sbs.sbs_sutta_4.replace("\n", "<br>") if i.sbs else None,
+        # i.sbs.sbs_example_4.replace("\n", "<br>") if i.sbs else None,
+        # i.sbs.sbs_chant_pali_4 if i.sbs else None,
+        # i.sbs.sbs_chant_eng_4 if i.sbs else None,
+        # i.sbs.sbs_chapter_4 if i.sbs else None,
         i.antonym,
         i.synonym,
         i.variant,
@@ -220,10 +220,10 @@ def get_dhp_source(i: DpdHeadword):
 
 def get_paritta_source(i: DpdHeadword, chant_names: List[str]) -> List[str]:
     """Get Paritta source info from SBS info in a DpdHeadword object."""
-    sbs_sources = [i.sbs.sbs_source_1, i.sbs.sbs_source_2, i.sbs.sbs_source_3, i.sbs.sbs_source_4]
-    sbs_suttas = [i.sbs.sbs_sutta_1, i.sbs.sbs_sutta_2, i.sbs.sbs_sutta_3, i.sbs.sbs_sutta_4]
-    sbs_examples = [i.sbs.sbs_example_1, i.sbs.sbs_example_2, i.sbs.sbs_example_3, i.sbs.sbs_example_4]
-    sbs_palichants = [i.sbs.sbs_chant_pali_1, i.sbs.sbs_chant_pali_2, i.sbs.sbs_chant_pali_3, i.sbs.sbs_chant_pali_4]
+    sbs_sources = [i.sbs.sbs_source_1, i.sbs.sbs_source_2]
+    sbs_suttas = [i.sbs.sbs_sutta_1, i.sbs.sbs_sutta_2]
+    sbs_examples = [i.sbs.sbs_example_1, i.sbs.sbs_example_2]
+    sbs_palichants = [i.sbs.sbs_chant_pali_1, i.sbs.sbs_chant_pali_2]
 
     for source, sutta, example, palichant in zip(sbs_sources, sbs_suttas, sbs_examples, sbs_palichants):
         if any(chant_name in palichant for chant_name in chant_names):
@@ -240,25 +240,25 @@ def get_paritta_source(i: DpdHeadword, chant_names: List[str]) -> List[str]:
     ]
 
 
-def get_vibhanga_source(i: DpdHeadword, vibhanga_sources: List[str]) -> List[str]:
-    """Get Vibhanga source info from SBS info in a DpdHeadword object."""
-    sbs_sources = [i.sbs.sbs_source_1, i.sbs.sbs_source_2, i.sbs.sbs_source_3, i.sbs.sbs_source_4]
-    sbs_suttas = [i.sbs.sbs_sutta_1, i.sbs.sbs_sutta_2, i.sbs.sbs_sutta_3, i.sbs.sbs_sutta_4]
-    sbs_examples = [i.sbs.sbs_example_1, i.sbs.sbs_example_2, i.sbs.sbs_example_3, i.sbs.sbs_example_4]
+# def get_vibhanga_source(i: DpdHeadword, vibhanga_sources: List[str]) -> List[str]:
+#     """Get Vibhanga source info from SBS info in a DpdHeadword object."""
+#     sbs_sources = [i.sbs.sbs_source_1, i.sbs.sbs_source_2, i.sbs.sbs_source_3, i.sbs.sbs_source_4]
+#     sbs_suttas = [i.sbs.sbs_sutta_1, i.sbs.sbs_sutta_2, i.sbs.sbs_sutta_3, i.sbs.sbs_sutta_4]
+#     sbs_examples = [i.sbs.sbs_example_1, i.sbs.sbs_example_2, i.sbs.sbs_example_3, i.sbs.sbs_example_4]
 
-    for source, sutta, example in zip(sbs_sources, sbs_suttas, sbs_examples):
-        if any(vibhanga_source in source for vibhanga_source in vibhanga_sources):
-            return [
-                source,
-                sutta,
-                example,
-            ]
+#     for source, sutta, example in zip(sbs_sources, sbs_suttas, sbs_examples):
+#         if any(vibhanga_source in source for vibhanga_source in vibhanga_sources):
+#             return [
+#                 source,
+#                 sutta,
+#                 example,
+#             ]
 
-    return [
-        "",
-        "",
-        "",
-    ]
+#     return [
+#         "",
+#         "",
+#         "",
+#     ]
 
 
 def dhp(dpspth, dpd_db):
@@ -334,10 +334,7 @@ def sbs_per(dpspth, dpd_db):
         'compound_construction', 'sbs_source_1', 'sbs_sutta_1', 'sbs_example_1', 
         'sbs_chant_pali_1', 'sbs_chant_eng_1', 'sbs_chapter_1', 'sbs_source_2',
         'sbs_sutta_2', 'sbs_example_2', 'sbs_chant_pali_2', 'sbs_chant_eng_2', 
-        'sbs_chapter_2', 'sbs_source_3', 'sbs_sutta_3', 'sbs_example_3', 
-        'sbs_chant_pali_3', 'sbs_chant_eng_3', 'sbs_chapter_3', 'sbs_source_4', 
-        'sbs_sutta_4', 'sbs_example_4', 'sbs_chant_pali_4', 'sbs_chant_eng_4', 
-        'sbs_chapter_4', 'antonym', 'synonym', 'variant', 'commentary', 'notes', 
+        'sbs_chapter_2', 'antonym', 'synonym', 'variant', 'commentary', 'notes', 
         'sbs_notes', 'link', 'sbs_index', 'audio', 'test', 'feedback', 'marks']
 
     def sbs_row(i: DpdHeadword) -> List[str]:
@@ -345,8 +342,6 @@ def sbs_per(dpspth, dpd_db):
         tags = join(
             i.sbs.sbs_chant_pali_1, 
             i.sbs.sbs_chant_pali_2, 
-            i.sbs.sbs_chant_pali_3, 
-            i.sbs.sbs_chant_pali_4
             )
 
         fields = [
@@ -782,10 +777,10 @@ def vibhanga(dpspth, dpd_db):
     """ Returns a list of rows for vibhanga csv. """
     console.print("[yellow]making vibhanga csv")
 
-    sources_names = ["VIN1", "VIN2"]
+    # sources_names = ["VIN1", "VIN2"]
 
     def _is_needed(i: DpdHeadword):
-        return bool(i.sbs and i.sbs.sbs_patimokkha == "vib")
+        return bool(i.sbs and i.sbs.vib_source)
 
     columns_names = ['id', 'pali', 'grammar', 'neg', 'verb', 'trans', 'plus_case',
         'meaning', 'meaning_lit', 'native', 'sanskrit', 'sanskrit_root', 
@@ -804,7 +799,9 @@ def vibhanga(dpspth, dpd_db):
             i.sanskrit,
             *get_root_info(i),
             *get_construction(i),
-            *get_vibhanga_source(i, sources_names),
+            i.sbs.vib_source.replace("\n", "<br>"),
+            i.sbs.vib_sutta.replace("\n", "<br>"),
+            i.sbs.vib_example.replace("\n", "<br>"),
             i.antonym,
             i.synonym,
             i.variant,
@@ -922,13 +919,13 @@ def main():
         dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
     console.print("[green] db has been set up and sorted successfully")
 
-    dhp(dpspth, dpd_db)
+    # dhp(dpspth, dpd_db)
     sbs_per(dpspth, dpd_db)
-    parittas(dpspth, dpd_db)
-    dps(dpspth, dpd_db)
-    classes(dpspth, dpd_db, unique_sbs_class_values)
-    suttas(dpspth, dpd_db, unique_sbs_category_values)
-    root_phonetic_class(dpspth, dpd_db, unique_sbs_class_values)
+    # parittas(dpspth, dpd_db)
+    # dps(dpspth, dpd_db)
+    # classes(dpspth, dpd_db, unique_sbs_class_values)
+    # suttas(dpspth, dpd_db, unique_sbs_category_values)
+    # root_phonetic_class(dpspth, dpd_db, unique_sbs_class_values)
     vibhanga(dpspth, dpd_db)
     native(dpspth, dpd_db)
     toc()

@@ -260,8 +260,8 @@ def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:
 
 def update_note_values(note, i):
     old_fields = copy.copy(note.fields)
-    tags = ""
-    tags = " ".join(note.tags)  # Convert list of tags to a single string
+    # tags = ""
+    # tags = " ".join(note.tags)  # Convert list of tags to a single string
 
     note["id"] = str(i.id)
     note["pali"] = str(i.lemma_1)
@@ -269,6 +269,7 @@ def update_note_values(note, i):
         note["ru_meaning"] = str(i.ru.ru_meaning)
         note["ru_meaning_lit"] = str(i.ru.ru_meaning_lit)
         note["ru_notes"] = str(i.ru.ru_notes).replace("\n", "<br>")
+        note["ru_cognate"] = str(i.ru.ru_cognate)
 
     if i.sbs:
         note["sbs_meaning"] = str(i.sbs.sbs_meaning)
@@ -288,18 +289,21 @@ def update_note_values(note, i):
         note["sbs_chant_pali_2"] = str(i.sbs.sbs_chant_pali_2)
         note["sbs_chant_eng_2"] = str(i.sbs.sbs_chant_eng_2)
         note["sbs_chapter_2"] = str(i.sbs.sbs_chapter_2)
-        note["sbs_source_3"] = str(i.sbs.sbs_source_3)
-        note["sbs_sutta_3"] = str(i.sbs.sbs_sutta_3).replace("\n", "<br>")
-        note["sbs_example_3"] = str(i.sbs.sbs_example_3).replace("\n", "<br>")
-        note["sbs_chant_pali_3"] = str(i.sbs.sbs_chant_pali_3)
-        note["sbs_chant_eng_3"] = str(i.sbs.sbs_chant_eng_3)
-        note["sbs_chapter_3"] = str(i.sbs.sbs_chapter_3)
-        note["sbs_source_4"] = str(i.sbs.sbs_source_4)
-        note["sbs_sutta_4"] = str(i.sbs.sbs_sutta_4).replace("\n", "<br>")
-        note["sbs_example_4"] = str(i.sbs.sbs_example_4).replace("\n", "<br>")
-        note["sbs_chant_pali_4"] = str(i.sbs.sbs_chant_pali_4)
-        note["sbs_chant_eng_4"] = str(i.sbs.sbs_chant_eng_4)
-        note["sbs_chapter_4"] = str(i.sbs.sbs_chapter_4)
+        note["dhp_source"] = str(i.sbs.dhp_source)
+        note["dhp_sutta"] = str(i.sbs.dhp_sutta).replace("\n", "<br>")
+        note["dhp_example"] = str(i.sbs.dhp_example).replace("\n", "<br>")
+        note["pat_source"] = str(i.sbs.pat_source)
+        note["pat_sutta"] = str(i.sbs.pat_sutta).replace("\n", "<br>")
+        note["pat_example"] = str(i.sbs.pat_example).replace("\n", "<br>")
+        note["vib_source"] = str(i.sbs.vib_source)
+        note["vib_sutta"] = str(i.sbs.vib_sutta).replace("\n", "<br>")
+        note["vib_example"] = str(i.sbs.vib_example).replace("\n", "<br>")
+        note["class_source"] = str(i.sbs.class_source)
+        note["class_sutta"] = str(i.sbs.class_sutta).replace("\n", "<br>")
+        note["class_example"] = str(i.sbs.class_example).replace("\n", "<br>")
+        note["discourses_source"] = str(i.sbs.discourses_source)
+        note["discourses_sutta"] = str(i.sbs.discourses_sutta).replace("\n", "<br>")
+        note["discourses_example"] = str(i.sbs.discourses_example).replace("\n", "<br>")
         note["sbs_notes"] = str(i.sbs.sbs_notes).replace("\n", "<br>")
         note["sbs_index"] = str(i.sbs.sbs_index)
 
@@ -376,29 +380,29 @@ def update_note_values(note, i):
         note['link'] = ''
 
     #! UPDATING TAGS NOT WORKING!
-    # adding _SBS tag if pubbakicca index is 75
-    if i.sbs and i.sbs.sbs_index and i.sbs.sbs_index != 75:
-        if not any(tag.startswith("_SBS") or tag.startswith("*parit") for tag in tags.split()):
-            if tags:
-                tags += " "
-            tags += "_SBS"
-            note.tags = tags.split()
+    # # adding _SBS tag if pubbakicca index is 75
+    # if i.sbs and i.sbs.sbs_index and i.sbs.sbs_index != 75:
+    #     if not any(tag.startswith("_SBS") or tag.startswith("*parit") for tag in tags.split()):
+    #         if tags:
+    #             tags += " "
+    #         tags += "_SBS"
+    #         note.tags = tags.split()
             
-    # adding _pātimokkha tag if PAT is in the source
-    if i.sbs:
-        sources = [i.sbs.sbs_source_1, i.sbs.sbs_source_2, i.sbs.sbs_source_3, i.sbs.sbs_source_4]
-        if any("PAT" in source for source in sources):
-            if not any(tag.startswith("_pātimokkha") for tag in tags.split()):
-                if tags:
-                    tags += " "
-                tags += "_pātimokkha"
-                note.tags = tags.split()
+    # # adding _pātimokkha tag if PAT is in the source
+    # if i.sbs:
+    #     sources = [i.sbs.sbs_source_1, i.sbs.sbs_source_2, i.sbs.sbs_source_3, i.sbs.sbs_source_4]
+    #     if any("PAT" in source for source in sources):
+    #         if not any(tag.startswith("_pātimokkha") for tag in tags.split()):
+    #             if tags:
+    #                 tags += " "
+    #             tags += "_pātimokkha"
+    #             note.tags = tags.split()
 
-        # removing _pātimokkha tag if PAT is not in the source
-        else:
-            if "_pātimokkha" in tags.split():
-                tags = " ".join(tag for tag in tags.split() if not tag.startswith("_pātimokkha"))
-                note.tags = tags.split()
+    #     # removing _pātimokkha tag if PAT is not in the source
+    #     else:
+    #         if "_pātimokkha" in tags.split():
+    #             tags = " ".join(tag for tag in tags.split() if not tag.startswith("_pātimokkha"))
+    #             note.tags = tags.split()
 
 
     # sbs_audio

@@ -28,6 +28,8 @@ from gui.functions import stasher
 
 from gui.functions_daily_record import daily_record_update
 
+from dps.tools.sbs_table_functions import sbs_category_list
+
 
 def populate_dps_tab(dpspth, values, window, dpd_word, ru_word, sbs_word):
     """Populate DPS tab with DPD info."""
@@ -292,6 +294,33 @@ def update_field(db_session, WHAT_TO_UPDATE, lemma_1, source):
         if not word.sbs:
             word.sbs = SBS(id=word.id)
         setattr(word.sbs, WHAT_TO_UPDATE, source)
+        db_session.commit()
+    
+    db_session.close()
+
+def update_field_sbs(db_session, id):
+    # update different sbs fileds accordinly
+
+    sbs_word = db_session.query(SBS).filter(SBS.id == id).first()
+
+    if sbs_word:
+        if sbs_word.pat_source and not sbs_word.sbs_patimokkha:
+            setattr(sbs_word, "sbs_patimokkha", "pat")
+        elif sbs_word.vib_source and not sbs_word.sbs_patimokkha:
+            setattr(sbs_word, "sbs_patimokkha", "vib")
+
+        if sbs_word.discourses_source and not sbs_word.sbs_category:
+            source = getattr(sbs_word, "discourses_source")
+            match = re.match(r"([A-Za-z]+\d+)", source)
+            if match:
+                discourse = match.group(1).lower()
+                if discourse in sbs_category_list:
+                    setattr(sbs_word, "sbs_category", discourse)
+                else:
+                    print("discourse not in sbs_category_list")
+            else:
+                print("error in def update_field_sbs - functions_db_dps")
+        
         db_session.commit()
     
     db_session.close()

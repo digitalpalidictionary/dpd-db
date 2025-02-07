@@ -112,6 +112,7 @@ from gui.functions_db_dps import fetch_matching_words_from_db_with_conditions
 from gui.functions_db_dps import fetch_matching_words_from_db
 from gui.functions_db_dps import update_field
 from gui.functions_db_dps import update_field_with_change
+from gui.functions_db_dps import update_field_sbs
 from gui.functions_db_dps import fetch_ru
 from gui.functions_db_dps import fetch_sbs
 from gui.functions_db_dps import dps_update_db
@@ -2351,6 +2352,7 @@ def main():
                         pyperclip.copy(values["dps_id_or_lemma_1"])
                         open_in_goldendict(values["dps_id_or_lemma_1"])
                         dps_update_db(pth, db_session, values, window, dpd_word, ru_word, sbs_word)
+                        update_field_sbs(db_session, dpd_word.id)
                         clear_dps(values, window)
                         clear_errors(window)
                         dps_reset_flags(dps_flags)

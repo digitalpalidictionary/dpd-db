@@ -1354,7 +1354,7 @@ class SBS(Base):
 
     def calculate_index(self):
         chant_index_map = SBS_table_tools().load_chant_index_map()
-        chants = [self.sbs_chant_pali_1, self.sbs_chant_pali_2, self.sbs_chant_pali_3, self.sbs_chant_pali_4]
+        chants = [self.sbs_chant_pali_1, self.sbs_chant_pali_2]
 
         indexes = [chant_index_map.get(chant) for chant in chants if chant in chant_index_map]
         indexes = [index for index in indexes if index is not None]  # Filter out None values
