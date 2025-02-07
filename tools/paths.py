@@ -289,7 +289,7 @@ class ProjectPaths:
 
         # resources/tpr
         self.tpr_beta_path = base_dir / "resources/tpr_downloads/release_zips/dpd_beta.zip"
-        self.tpr_devamitta_path = base_dir / "resources/tpr_downloads/release_zips/devamitta.zip"
+        self.tpr_with_rus_path = base_dir / "resources/tpr_downloads/release_zips/dpd_with_rus.zip"
         self.tpr_download_list_path = base_dir / "resources/tpr_downloads/download_source_files/download_list.json"
         self.tpr_release_path = base_dir / "resources/tpr_downloads/release_zips/dpd.zip"
 

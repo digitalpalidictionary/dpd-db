@@ -24,7 +24,8 @@ date = year_month_day_dash()
 
 def make_ru_meaning(i: DpdHeadword) -> str:
     """Uses only DpdHeadword input. Compile html of ru_meaning and literal meaning, or return ru_meaning_raw.
-    ru_meaning in <b>bold</b>, or return english meaning"""
+    ru_meaning in <b>bold</b>, or return english meaning
+    with links for feedback"""
 
     if i.ru is None:
         ru_meaning: str = f"<a class='link' href='https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={i.lemma_link}&entry.326955045=Перевод&entry.1433863141=dpdict.net+{date}' target='_blank'>[перевести]</a> {make_meaning_combo(i)}"
@@ -40,6 +41,24 @@ def make_ru_meaning(i: DpdHeadword) -> str:
         return ru_meaning
     else:
         return ""
+
+
+def make_ru_meaning_simpl(i: DpdHeadword):
+    """Uses only DpdHeadword input. Compile html of ru_meaning and literal meaning, or return ru_meaning_raw.
+    ru_meaning in <b>bold</b>, or return english meaning"""
+
+    if i.ru:
+
+        if i.ru.ru_meaning:
+            ru_meaning: str = f"{i.ru.ru_meaning}"
+            if i.ru.ru_meaning_lit:
+                ru_meaning += f"; досл. {i.ru.ru_meaning_lit}"
+            return ru_meaning
+        elif i.ru.ru_meaning_raw:
+            ru_meaning: str = f"<i>[пер. ИИ]</i> {i.ru.ru_meaning_raw}"
+            return ru_meaning
+        else:
+            return ""
 
 
 def make_short_ru_meaning(i: DpdHeadword, ru: Russian) -> str:

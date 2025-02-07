@@ -26,6 +26,8 @@ from tools.tsv_read_write import read_tsv
 from tools.uposatha_day import uposatha_today
 from exporter.goldendict.helpers import TODAY
 
+from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import make_ru_meaning_simpl
+
 
 class ProgData():
     def __init__(self) -> None:
@@ -43,10 +45,9 @@ class ProgData():
         self.i2h_df: pd.DataFrame
         self.deconstructor_df: pd.DataFrame
 
-        if config_test("user", "username", "deva"):
-            self.user_deva = True
-        else:
-            self.user_deva = False
+        self.show_ru_data: bool = False
+        if config_test("exporter", "language", "en") and config_test("dictionary", "show_ru_data", "yes"):
+            self.show_ru_data: bool = True
     
     def make_dpd_db(self):
         dpd_db = self.db_session.query(DpdHeadword).all()
@@ -116,11 +117,19 @@ def generate_tpr_data(g: ProgData):
                 r'</summary>',
                 html_string)
 
-            # grammar
+            # table
             html_string += """<table><tr><th valign="top">Pāḷi</th>"""
             html_string += f"""<td>{i.lemma_2}</td></tr>"""
             html_string += """<tr><th valign="top">IPA</th>"""
             html_string += f"""<td>/{i.lemma_ipa}/</td></tr>"""
+
+            if g.show_ru_data and i.ru:
+                ru_meaning = make_ru_meaning_simpl(i)
+                if ru_meaning:
+                    html_string += """<tr><th valign="top">Русский</th>"""
+                    html_string += f"""<td>{ru_meaning}</td></tr>"""
+
+            # grammar
             html_string += """<tr><th valign="top">Grammar</th>"""
             html_string += f"""<td>{i.grammar}"""
 
@@ -141,8 +150,10 @@ def generate_tpr_data(g: ProgData):
             if i.root_key:
                 html_string += """<tr><th valign="top">Root</th>"""
                 html_string += f"""<td>{i.rt.root_clean} {i.rt.root_group} """
-                html_string += f"""{i.root_sign} ({i.rt.root_meaning})</td>"""
-                html_string += """</tr>"""
+                html_string += f"""{i.root_sign} ({i.rt.root_meaning}"""
+                if g.show_ru_data and i.rt.root_ru_meaning:
+                    html_string += f""" - {i.rt.root_ru_meaning}"""
+                html_string += """)</td></tr>"""
 
                 if i.rt.root_in_comps:
                     html_string += """<tr><th valign="top">√ In Sandhi</th>"""
@@ -198,9 +209,18 @@ def generate_tpr_data(g: ProgData):
                 html_string += """<tr><th valign="top">Notes</th>"""
                 html_string += f"""<td>{notes_no_formatting}</td></tr>"""
 
+            if g.show_ru_data and i.ru and i.ru.ru_notes:
+                ru_notes_no_formatting = i.ru.ru_notes.replace("\n", "<br>")
+                html_string += """<tr><th valign="top">Заметки</th>"""
+                html_string += f"""<td>{ru_notes_no_formatting}</td></tr>"""
+
             if i.cognate:
                 html_string += """<tr><th valign="top">Cognate</th>"""
                 html_string += f"""<td>{i.cognate}</td></tr>"""
+
+            if g.show_ru_data and i.ru and i.ru.ru_cognate:
+                html_string += """<tr><th valign="top">Родствен.</th>"""
+                html_string += f"""<td>{i.ru.ru_cognate}</td></tr>"""
 
             if i.link:
                 link_br = i.link.replace("\n", "<br>")
@@ -218,11 +238,15 @@ def generate_tpr_data(g: ProgData):
                 html_string += f"""<td>{sanskrit}</td></tr>"""
 
             if i.root_key:
-                if i.rt.sanskrit_root:
+                if i.rt.sanskrit_root and i.rt.sanskrit_root != "-":
                     sk_root_meaning = re.sub(
                         "'", "", i.rt.sanskrit_root_meaning)
                     html_string += """<tr><th valign="top">Sanskrit Root</th>"""
-                    html_string += f"""<td>{i.rt.sanskrit_root} {i.rt.sanskrit_root_class} ({sk_root_meaning})</td></tr>"""
+                    html_string += f"""<td>{i.rt.sanskrit_root} {i.rt.sanskrit_root_class} ({sk_root_meaning}"""
+                    if g.show_ru_data and i.rt.sanskrit_root_ru_meaning:
+                        html_string += f""" - {i.rt.sanskrit_root_ru_meaning}"""
+                    html_string += """)</td></tr>"""
+
 
             html_string += f"""<tr><td colspan="2"><a href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={i.lemma_link}&entry.1433863141=TPR%20{TODAY}" target="_blank">Submit a correction</a></td></tr>"""
             html_string += """</table>"""
@@ -251,7 +275,12 @@ def generate_tpr_data(g: ProgData):
             html_string += "<div><p>"
 
         html_string += f"""<b>{r.root_clean}</b> """
-        html_string += f"""{r.root_group} {r.root_sign} ({r.root_meaning})"""
+        html_string += f"""{r.root_group} {r.root_sign} ({r.root_meaning}"""
+        
+        if g.show_ru_data and r.root_ru_meaning:
+            html_string += f""" - {r.root_ru_meaning}"""
+        
+        html_string += """)"""
 
         try:
             next_root_clean = roots_db[counter + 1].root_clean
@@ -515,8 +544,8 @@ def copy_zip_to_tpr_downloads(g: ProgData):
         month_str = TODAY.strftime("%B")
         year = TODAY.year
 
-        if g.user_deva:
-            version = "deva"
+        if g.show_ru_data:
+            version = "dpd_with_rus"
         elif uposatha_today():
             version = "release"
         else:
@@ -570,23 +599,23 @@ def copy_zip_to_tpr_downloads(g: ProgData):
 
             download_list[27] = dpd_beta_info
 
-        if version == "deva":
+        if version == "dpd_with_rus":
 
-            output_file = g.pth.tpr_devamitta_path
+            output_file = g.pth.tpr_with_rus_path
             _zip_it_up(file_path, file_name, output_file)
             filesize = _file_size(output_file)
 
-            devamitta_info = {
-                "name": "Devamitta",
+            dpd_with_rus_info = {
+                "name": "DPD with Russian",
                 "release_date": f"{day}.{month}.{year}",
                 "type": "dictionary",
                 "category": "Other Beta",
-                "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/release_zips/devamitta.zip",
+                "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/release_zips/dpd_with_rus.zip",
                 "filename": "dpd.sql",
                 "size": f"{filesize} MB"
             }
 
-            download_list[28] = devamitta_info
+            download_list[28] = dpd_with_rus_info
 
         with open(g.pth.tpr_download_list_path, "w") as f:
             f.write(json.dumps(download_list, indent=4, ensure_ascii=False))
