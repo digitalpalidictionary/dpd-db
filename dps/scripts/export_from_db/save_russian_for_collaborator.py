@@ -133,7 +133,7 @@ def process_word_comp(word):
 
 def save_total_ru_comps():
     tic()
-    console.print("[bold bright_yellow]filtering words with roots")
+    console.print("[bold bright_yellow]filtering comp words")
 
     dpd_db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.ru)).filter(
         DpdHeadword.ru != None,
