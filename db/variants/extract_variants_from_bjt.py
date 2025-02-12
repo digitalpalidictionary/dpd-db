@@ -12,6 +12,8 @@ from tools.paths import ProjectPaths
 from tools.printer import p_counter, p_green_title
 from tools.tic_toc import bip
 
+debug = False
+
 
 def get_bjt_file_list(pth: ProjectPaths) -> list[Path]:
     """Get a list of BJT json files."""
@@ -125,6 +127,15 @@ def extract_bjt_variants(
     return variants_dict, errors_list
 
 
+def bjṭ_footnote_errors(errors_list):
+    p_green_title("bjt footnote errors")
+    print("|File Name|Page|Footnote|")
+    print("|:---|:---|:---|")
+    for e in errors_list:
+        file_name, page_num, key = e
+        print(f"|{file_name}|{page_num}|{key}|")
+
+
 def process_bjt(
         variants_dict: VariantsDict,
         pth: ProjectPaths
@@ -146,12 +157,8 @@ def process_bjt(
         variants_dict, errors_list = extract_bjt_variants(
             file_name, variants_dict, errors_list)
     
-    p_green_title("bjt footnote errors")
-    print("|File Name|Page|Footnote|")
-    print("|:---|:---|:---|")
-    for e in errors_list:
-        file_name, page_num, key = e
-        print(f"|{file_name}|{page_num}|{key}|")
-    
+    if debug:
+        bjṭ_footnote_errors(errors_list)
+
     return variants_dict
     

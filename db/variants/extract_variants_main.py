@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """Extract variants readings from all Pāḷi texts."""
 
 from db.variants.extract_variants_from_bjt import process_bjt
