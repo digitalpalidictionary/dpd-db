@@ -61,7 +61,7 @@ def export_to_goldendict_mdict(
         html_list.append("<body>")
         html_list.append("<div class='variants'>")
         html_list.append("<table class='variants'>")
-        html_list.append("<tr><th>source</th><th>book</th><th>variant & corpus</th></tr>")
+        html_list.append("<tr><th>source</th><th>filename</th><th>variant</th></tr>")
         html_list.append("<td colspan='100%'><hr class='variants'></td>")
 
         synonyms_list: list[str] = []
@@ -104,9 +104,9 @@ def export_to_goldendict_mdict(
         dict_data.append(dict_entry)
 
     dict_info = DictInfo(
-        bookname="DPD Variant Readings",
+        bookname="DPD Variants",
         author="Bodhirasa",
-        description="Variant readings as found in CST texts.",
+        description="Variant readings found in Myanmar, Sri Lankan, Thai and Sutta Central texts.",
         website="wwww.dpdict.net",
         source_lang="pi",
         target_lang="pi"
@@ -118,7 +118,7 @@ def export_to_goldendict_mdict(
         gd_path=pth.share_dir,
         md_path=pth.share_dir,
         dict_name="dpd-variants",
-        icon_path=None,
+        icon_path=pth.icon_path,
     )
 
     export_to_goldendict_with_pyglossary(

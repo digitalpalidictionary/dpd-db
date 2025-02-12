@@ -81,23 +81,26 @@ class ProjectPaths:
         self.sorter_js_path = base_dir / "exporter/goldendict/javascript/sorter.js"
 
         # exporter/share
-        self.deconstructor_goldendict_dir = base_dir / "exporter/share/dpd-deconstructor/"
+        self.dpd_deconstructor_goldendict_dir = base_dir / "exporter/share/dpd-deconstructor/"
         self.dpd_epub_path = base_dir / "exporter/share/dpd-kindle.epub"
         self.dpd_goldendict_dir = base_dir / "exporter/share/dpd/"
         self.dpd_goldendict_zip_path = base_dir / "exporter/share/dpd-goldendict.zip"
+        self.dpd_grammar_goldendict_dir = base_dir / "exporter/share/dpd-grammar/"
         self.dpd_mdict_zip_path = base_dir / "exporter/share/dpd-mdict.zip"
         self.dpd_mobi_path = base_dir / "exporter/share/dpd-kindle.mobi"
-        self.grammar_dict_goldendict_dir = base_dir / "exporter/share/dpd-grammar/"
+        self.dpd_variants_goldendict_dir = base_dir / "exporter/share/dpd-variants/"
         self.share_dir = base_dir / "exporter/share"
         self.summary_md_path = base_dir / "exporter/share/summary.md"
 
         # exporter/share/mdict
-        self.deconstructor_mdd_path = base_dir / "exporter/share/dpd-deconstructor-mdict.mdd"
-        self.deconstructor_mdx_path = base_dir / "exporter/share/dpd-deconstructor-mdict.mdx"
-        self.grammar_dict_mdd_path = base_dir / "exporter/share/dpd-grammar-mdict.mdd"
-        self.grammar_dict_mdx_path = base_dir / "exporter/share/dpd-grammar-mdict.mdx"
-        self.mdict_mdd_path = base_dir / "exporter/share/dpd-mdict.mdd"
-        self.mdict_mdx_path = base_dir / "exporter/share/dpd-mdict.mdx"
+        self.dpd_deconstructor_mdd_path = base_dir / "exporter/share/dpd-deconstructor-mdict.mdd"
+        self.dpd_deconstructor_mdx_path = base_dir / "exporter/share/dpd-deconstructor-mdict.mdx"
+        self.dpd_grammar_mdd_path = base_dir / "exporter/share/dpd-grammar-mdict.mdd"
+        self.dpd_grammar_mdx_path = base_dir / "exporter/share/dpd-grammar-mdict.mdx"
+        self.dpd_mdd_path = base_dir / "exporter/share/dpd-mdict.mdd"
+        self.dpd_mdx_path = base_dir / "exporter/share/dpd-mdict.mdx"
+        self.dpd_variants_mdd_path = base_dir / "exporter/share/dpd-variants-mdict.mdd"
+        self.dpd_variants_mdx_path = base_dir / "exporter/share/dpd-variants-mdict.mdx"
 
         # exporter/deconstructor/templates
         self.deconstructor_header_templ_path = base_dir / "exporter/deconstructor/templates/deconstructor_header.html"

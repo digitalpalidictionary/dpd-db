@@ -152,6 +152,9 @@ jobs:
     - name: Export Deconstructor
       run: poetry run python exporter/deconstructor/deconstructor_exporter.py
 
+    - name: Export Variants
+      run: poetry run python db/variants/extract_variants_main.py
+
     - name: Export Kindle & ePub
       run: poetry run python exporter/kindle/kindle_exporter.py
 

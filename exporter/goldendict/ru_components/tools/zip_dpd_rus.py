@@ -42,8 +42,8 @@ def zip_mdict(pth: ProjectPaths):
     bip()
 
     mdict_files = [
-        pth.mdict_mdx_path,
-        pth.mdict_mdd_path,
+        pth.dpd_mdx_path,
+        pth.dpd_mdd_path,
     ]
 
     for file in mdict_files:

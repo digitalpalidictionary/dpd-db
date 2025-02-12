@@ -14,6 +14,9 @@ exporter/grammar_dict/grammar_dict.py
 exporter/goldendict/main.py
 exporter/deconstructor/deconstructor_exporter.py
 
+# experimental variants dict
+db/variants/extract_variants_main.py 
+
 exporter/tpr/tpr_exporter.py
 exporter/kindle/kindle_exporter.py
 exporter/tbw/tbw_exporter.py

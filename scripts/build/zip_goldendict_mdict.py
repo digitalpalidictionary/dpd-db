@@ -18,13 +18,15 @@ def zip_goldendict(pth: ProjectPaths):
     
     if (
         pth.dpd_goldendict_dir.exists()
-        and pth.grammar_dict_goldendict_dir.exists()
-        and pth.deconstructor_goldendict_dir.exists()
+        and pth.dpd_grammar_goldendict_dir.exists()
+        and pth.dpd_deconstructor_goldendict_dir.exists()
     ):
         input_dirs = [
             (pth.dpd_goldendict_dir, "dpd"),
-            (pth.grammar_dict_goldendict_dir, "dpd-grammar"),
-            (pth.deconstructor_goldendict_dir, "dpd-deconstructor")]
+            (pth.dpd_grammar_goldendict_dir, "dpd-grammar"),
+            (pth.dpd_deconstructor_goldendict_dir, "dpd-deconstructor"),
+            (pth.dpd_variants_goldendict_dir, "dpd-variants"),
+        ]
 
         output_zip_file = pth.dpd_goldendict_zip_path
 
@@ -52,12 +54,14 @@ def zip_mdict(pth: ProjectPaths):
     bip()
 
     mdict_files = [
-        pth.mdict_mdx_path,
-        pth.mdict_mdd_path,
-        pth.deconstructor_mdx_path,
-        pth.deconstructor_mdd_path,
-        pth.grammar_dict_mdx_path,
-        pth.grammar_dict_mdd_path
+        pth.dpd_mdx_path,
+        pth.dpd_mdd_path,
+        pth.dpd_deconstructor_mdx_path,
+        pth.dpd_deconstructor_mdd_path,
+        pth.dpd_grammar_mdx_path,
+        pth.dpd_grammar_mdd_path,
+        pth.dpd_variants_mdd_path,
+        pth.dpd_variants_mdx_path,
     ]
 
     for file in mdict_files:
