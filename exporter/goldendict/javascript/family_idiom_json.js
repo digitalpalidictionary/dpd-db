@@ -3856,6 +3856,53 @@ var family_idiom_json = {
    ]
   ]
  },
+ "citta1": {
+  "count": 7,
+  "data": [
+   [
+    "cittamassa",
+    "sandhi",
+    "his mind",
+    "✔"
+   ],
+   [
+    "cittamidaṃ",
+    "sandhi",
+    "this mind",
+    "✔"
+   ],
+   [
+    "cittaṃ ārādheti",
+    "idiom",
+    "is pleasing (to); is acceptable (to); appeals (to); lit. satisfies the mind",
+    "✔"
+   ],
+   [
+    "cittaṃ uppādetabbaṃ",
+    "idiom",
+    "the thought should be aroused; the mind should be inclined; lit. mind should be caused to arise",
+    "✔"
+   ],
+   [
+    "cittaṃ uppādeti",
+    "idiom",
+    "sets the intention; determines; lit. generates the mind",
+    "✔"
+   ],
+   [
+    "cittaṃ nārādheti",
+    "idiom",
+    "is not pleasing (to); is not acceptable (to); does not appeal (to); lit. does not satisfy the mind",
+    "✔"
+   ],
+   [
+    "citte cittānupassī viharati",
+    "idiom",
+    "one remains within the mind, closely observing the mind",
+    "◑"
+   ]
+  ]
+ },
  "cira": {
   "count": 5,
   "data": [
@@ -25404,53 +25451,6 @@ var family_idiom_json = {
     "sandhi",
     "he who was; lit. whoever was",
     "✔"
-   ]
-  ]
- },
- "citta1": {
-  "count": 7,
-  "data": [
-   [
-    "cittamassa",
-    "sandhi",
-    "his mind",
-    "✔"
-   ],
-   [
-    "cittamidaṃ",
-    "sandhi",
-    "this mind",
-    "✔"
-   ],
-   [
-    "cittaṃ ārādheti",
-    "idiom",
-    "is pleasing (to); is acceptable (to); appeals (to); lit. satisfies the mind",
-    "✔"
-   ],
-   [
-    "cittaṃ uppādetabbaṃ",
-    "idiom",
-    "the thought should be aroused; the mind should be inclined; lit. mind should be caused to arise",
-    "✔"
-   ],
-   [
-    "cittaṃ uppādeti",
-    "idiom",
-    "sets the intention; determines; lit. generates the mind",
-    "✔"
-   ],
-   [
-    "cittaṃ nārādheti",
-    "idiom",
-    "is not pleasing (to); is not acceptable (to); does not appeal (to); lit. does not satisfy the mind",
-    "✔"
-   ],
-   [
-    "citte cittānupassī viharati",
-    "idiom",
-    "one remains within the mind, closely observing the mind",
-    "◑"
    ]
   ]
  },

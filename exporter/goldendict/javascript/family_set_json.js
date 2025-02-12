@@ -987,7 +987,7 @@ var family_set_json = {
    [
     "ādesabhūta",
     "masc",
-    "(gram) replacement; substitution",
+    "(gram) replacement; substitution; lit. become a substitute",
     "◑"
    ],
    [
@@ -1903,7 +1903,7 @@ var family_set_json = {
     "✔"
    ],
    [
-    "gahaṇa 5",
+    "gahaṇa 6",
     "nt",
     "(gram) (of a word or particle) employing; taking; using; lit. grasping",
     "✔"
@@ -11922,7 +11922,7 @@ var family_set_json = {
     "✔"
    ],
    [
-    "gaggarā",
+    "gaggarā 1",
     "fem",
     "name of a lotus pond near Campā; lit. gurgling",
     "✔"
@@ -18618,7 +18618,7 @@ var family_set_json = {
    [
     "sundarasamudda",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. beautiful ocean",
     "◑"
    ],
    [
@@ -19175,7 +19175,7 @@ var family_set_json = {
    [
     "uppalavaṇṇā",
     "fem",
-    "name of an arahant nun; lit. complexion of a lotus",
+    "name of an arahant nun; lit. complexion of a water lily",
     "✔"
    ],
    [
@@ -21299,7 +21299,7 @@ var family_set_json = {
    [
     "sundarasamudda",
     "masc",
-    "name of an arahant monk",
+    "name of an arahant monk; lit. beautiful ocean",
     "◑"
    ],
    [
@@ -26985,7 +26985,7 @@ var family_set_json = {
    [
     "uppala 1",
     "nt",
-    "lotus; water lily",
+    "blue water lily; (comm) (or) aquatic flower in general",
     "✔"
    ],
    [
@@ -27483,7 +27483,7 @@ var family_set_json = {
    [
     "nīluppala",
     "nt",
-    "blue lotus; blue water-lily",
+    "blue water-lily",
     "✔"
    ],
    [
@@ -27591,7 +27591,7 @@ var family_set_json = {
    [
     "puṇḍarīka 1",
     "nt",
-    "lotus; (comm) lotus with less than one hundred petals; (or) red lotus",
+    "lotus; (specifically) white lotus; (comm) lotus with less than one hundred petals; (or) pink lotus",
     "✔"
    ],
    [
@@ -27609,7 +27609,7 @@ var family_set_json = {
    [
     "pokkhara 1",
     "nt",
-    "blue lotus flower; blue lotus petal; Nymphaea nouchali caerulea",
+    "blue water lily; Nymphaea nouchali",
     "✔"
    ],
    [
@@ -28315,7 +28315,7 @@ var family_set_json = {
    [
     "uppalavaṇṇā",
     "fem",
-    "name of an arahant nun; lit. complexion of a lotus",
+    "name of an arahant nun; lit. complexion of a water lily",
     "✔"
    ],
    [
@@ -35517,7 +35517,7 @@ var family_set_json = {
     "✔"
    ],
    [
-    "gaggarā",
+    "gaggarā 1",
     "fem",
     "name of a lotus pond near Campā; lit. gurgling",
     "✔"
@@ -36119,7 +36119,7 @@ var family_set_json = {
    [
     "macchavilolikā",
     "fem",
-    "name of a type of lightning",
+    "name of a type of lightning; lit. like agitated fish",
     "✔"
    ],
    [
@@ -38668,7 +38668,7 @@ var family_set_json = {
    [
     "viññāṇa 1",
     "nt",
-    "awareness; consciousness; cognition; mind; fifth of the five aggregates; lit. knowing",
+    "awareness; consciousness; cognition; mind; fifth of the five aggregates; lit. knowing distinctly",
     "✔"
    ],
    [

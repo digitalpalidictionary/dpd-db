@@ -7481,7 +7481,7 @@ var family_word_json = {
     "✔"
    ],
    [
-    "advaya",
+    "advaya 1",
     "adj",
     "non-dual; unified; single",
     "✔"
@@ -9325,13 +9325,13 @@ var family_word_json = {
    [
     "aniccatā 1",
     "fem",
-    "fact of impermanence (of); state of instability (of); unreliability (of)",
+    "fact of impermanence (of); state of instability (of); unreliability (of); lit. not permanent state",
     "✔"
    ],
    [
     "aniccatā 2",
     "fem",
-    "(abhidhamma) momentariness",
+    "(abhidhamma) momentariness; lit. not permanent state",
     "◑"
    ],
    [
@@ -10553,7 +10553,7 @@ var family_word_json = {
     "✔"
    ],
    [
-    "eke",
+    "eke 1",
     "adj",
     "some; some people",
     "✔"
@@ -12177,9 +12177,15 @@ var family_word_json = {
     "◑"
    ],
    [
-    "petti",
+    "petti 1",
     "masc",
     "father",
+    "✔"
+   ],
+   [
+    "petti 2",
+    "masc",
+    "forefather; ancestor; deceased relative",
     "✔"
    ],
    [
@@ -12213,7 +12219,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 19
+  "count": 20
  },
  "pitta": {
   "data": [
@@ -18546,7 +18552,7 @@ var family_word_json = {
    [
     "uppala 1",
     "nt",
-    "lotus; water lily",
+    "blue water lily; (comm) (or) aquatic flower in general",
     "✔"
    ],
    [
@@ -18570,7 +18576,7 @@ var family_word_json = {
    [
     "uppalinī",
     "fem",
-    "water lily pond",
+    "blue water lily pond",
     "✔"
    ]
   ],
@@ -22553,7 +22559,7 @@ var family_word_json = {
     "✔"
    ],
    [
-    "gaggarā",
+    "gaggarā 1",
     "fem",
     "name of a lotus pond near Campā; lit. gurgling",
     "✔"
@@ -23831,7 +23837,7 @@ var family_word_json = {
     "✘"
    ],
    [
-    "cūḷanī",
+    "cūḷanī 1",
     "adj",
     "lesser; minor; smaller",
     "✔"
@@ -27770,7 +27776,7 @@ var family_word_json = {
    [
     "paduma 1",
     "nt",
-    "lotus; (comm) lotus with more than one hundred petals; (or) white lotus",
+    "lotus; (specifically) pink lotus; (comm) lotus with more than one hundred petals; (or) white lotus",
     "✔"
    ],
    [
@@ -27818,7 +27824,7 @@ var family_word_json = {
    [
     "paduminī",
     "fem",
-    "lotus pond",
+    "lotus pond; pink lotus pond",
     "✔"
    ],
    [
@@ -28688,7 +28694,7 @@ var family_word_json = {
    [
     "puṇḍarīka 1",
     "nt",
-    "lotus; (comm) lotus with less than one hundred petals; (or) red lotus",
+    "lotus; (specifically) white lotus; (comm) lotus with less than one hundred petals; (or) pink lotus",
     "✔"
    ],
    [
@@ -28718,7 +28724,7 @@ var family_word_json = {
    [
     "puṇḍarīkinī",
     "fem",
-    "lotus pond",
+    "lotus pond; white lotus pond",
     "✔"
    ]
   ],
@@ -29001,13 +29007,13 @@ var family_word_json = {
    [
     "pokkhara 1",
     "nt",
-    "blue lotus flower; blue lotus petal; Nymphaea nouchali caerulea",
+    "blue water lily; Nymphaea nouchali",
     "✔"
    ],
    [
     "pokkhara 2",
     "nt",
-    "drum-skin; lit. (resembling a) lotus",
+    "drum-skin; lit. (resembling a) water lily",
     "✔"
    ],
    [
@@ -29037,7 +29043,7 @@ var family_word_json = {
    [
     "pokkharaṇī",
     "fem",
-    "pond; pool; lotus pond",
+    "pond; pool; water lily pond",
     "✔"
    ],
    [
@@ -29464,7 +29470,7 @@ var family_word_json = {
     "✘"
    ],
    [
-    "bimbī",
+    "bimbī 1",
     "fem",
     "creeper brayonia grandis, which produces red oval fruits",
     "✘"
@@ -31692,7 +31698,7 @@ var family_word_json = {
  "vammī": {
   "data": [
    [
-    "vammika",
+    "vammika 1",
     "masc",
     "ant-hill",
     "✔"

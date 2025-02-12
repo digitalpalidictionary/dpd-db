@@ -6552,7 +6552,7 @@ var family_root_json = {
     "✔"
    ],
    [
-    "akkhantī 2",
+    "akkhantī",
     "adj",
     "impatient; intolerant",
     "✘"
@@ -9334,7 +9334,7 @@ var family_root_json = {
    [
     "sugata 3",
     "adj",
-    "standard; commonly accepted; lit. well-gone",
+    "standard; commonly accepted; (comm) indication that a given measure is to be multiplied by three; lit. well-gone",
     "✔"
    ],
    [
@@ -9960,12 +9960,6 @@ var family_root_json = {
     "✔"
    ],
    [
-    "gahaṇa",
-    "adj",
-    "taking; grabbing; seizing; clutching; lit. grasping",
-    "✔"
-   ],
-   [
     "gahaṇa 1",
     "nt",
     "grabbing; seizing; clutching; lit. grasping",
@@ -9979,18 +9973,24 @@ var family_root_json = {
    ],
    [
     "gahaṇa 3",
+    "adj",
+    "taking; grabbing; seizing; clutching; lit. grasping",
+    "✔"
+   ],
+   [
+    "gahaṇa 4",
     "nt",
     "apprehending, assuming",
     "✘"
    ],
    [
-    "gahaṇa 4",
+    "gahaṇa 5",
     "nt",
     "acquisition, grasp",
     "✘"
    ],
    [
-    "gahaṇa 5",
+    "gahaṇa 6",
     "nt",
     "(gram) (of a word or particle) employing; taking; using; lit. grasping",
     "✔"
@@ -16312,7 +16312,7 @@ var family_root_json = {
    [
     "chanda 1",
     "masc",
-    "interest (in); desire (for); wish (for); intention (to); impulse (for)",
+    "interest (in); self-interest (in); desire (for); wish (for); intention (to); impulse (for)",
     "✔"
    ],
    [
@@ -20724,7 +20724,7 @@ var family_root_json = {
     "✔"
    ],
    [
-    "jotana",
+    "jotana 1",
     "nt",
     "shining, explanation",
     "✘"
@@ -23800,7 +23800,7 @@ var family_root_json = {
     "✔"
    ],
    [
-    "aṭṭhapesi",
+    "aṭṭhapesi 1",
     "aor",
     "set up; arranged; lit. caused to stand",
     "◑"
@@ -35246,7 +35246,7 @@ var family_root_json = {
     "✔"
    ],
    [
-    "anāgantvā",
+    "anāgantvā 1",
     "abs",
     "having not returned; having not come back; lit. having not come here",
     "◑"
@@ -36194,7 +36194,7 @@ var family_root_json = {
     "✔"
    ],
    [
-    "dhamamāna",
+    "dhamamāna 1",
     "prp",
     "blowing; blasting; pumping air",
     "✔"
@@ -38929,7 +38929,7 @@ var family_root_json = {
    ],
    [
     "dhona 3",
-    "adj",
+    "pp",
     "wise",
     "✘"
    ],
@@ -45616,7 +45616,7 @@ var family_root_json = {
    [
     "anālasya",
     "nt",
-    "not being lazy; activity; effort",
+    "not being lazy; activity; effort; lit. not lazy state",
     "✔"
    ],
    [
@@ -46448,7 +46448,7 @@ var family_root_json = {
    [
     "avaṭṭhitatā",
     "fem",
-    "stability; steadiness; reliability; dependability; lit. stood down\nstate",
+    "stability; steadiness; reliability; dependability; lit. stood down state",
     "◑"
    ],
    [
@@ -48282,7 +48282,7 @@ var family_root_json = {
    [
     "anādariya",
     "nt",
-    "disrespect (for); rudeness (towards); contemptuous (towards)",
+    "disrespect (for); rudeness (towards); contemptuous (towards); lit. no respect state",
     "✔"
    ],
    [
@@ -53726,7 +53726,7 @@ var family_root_json = {
    [
     "anikkhantatā",
     "fem",
-    "fact of not having departed (from); fact of not having left",
+    "fact of not having departed (from); fact of not having left; lit. not departed state",
     "◑"
    ],
    [
@@ -58498,7 +58498,7 @@ var family_root_json = {
     "◑"
    ],
    [
-    "niyyāsi",
+    "niyyāsi 1",
     "aor",
     "left; went out (of); exited",
     "✔"
@@ -58820,7 +58820,7 @@ var family_root_json = {
    [
     "anivattanatā",
     "fem",
-    "fact of not turning around; fact of not giving up",
+    "fact of not turning around; fact of not giving up; lit. not turned down state",
     "◑"
    ],
    [
@@ -59948,7 +59948,7 @@ var family_root_json = {
     "✘"
    ],
    [
-    "nisīdi",
+    "nisīdi 1",
     "aor",
     "sat (on); sat down (in)",
     "✔"
@@ -63118,7 +63118,7 @@ var family_root_json = {
     "✔"
    ],
    [
-    "vuṭṭhahitvāna",
+    "vuṭṭhahitvāna 1",
     "abs",
     "having risen (from)",
     "✔"
@@ -65314,7 +65314,7 @@ var family_root_json = {
    [
     "anuddhacca",
     "nt",
-    "non-agitation; calmness; non-distraction; centredness",
+    "non-agitation; calmness; non-distraction; centredness; lit. not carried up state",
     "✔"
    ],
    [
@@ -73194,7 +73194,7 @@ var family_root_json = {
    [
     "anusayitatta",
     "nt",
-    "fact of being inherent; fact of lying dormant",
+    "fact of being inherent; fact of lying dormant; lit. not slept beside state",
     "◑"
    ],
    [
@@ -86202,7 +86202,7 @@ var family_root_json = {
    [
     "parikkhipāpesi",
     "aor",
-    "encircled; surrounded (somebody with something); lit. caused to thrown around",
+    "placed around; encircled; surrounded (somebody with something); lit. caused to thrown around",
     "✔"
    ],
    [
@@ -91738,7 +91738,7 @@ var family_root_json = {
    [
     "pariharati 1",
     "pr",
-    "carries around; lit. carries around",
+    "carries around",
     "✔"
    ],
    [
@@ -91774,13 +91774,13 @@ var family_root_json = {
    [
     "pariharanta 2",
     "prp",
-    "carrying around; transporting; lit. carrying around",
+    "carrying around; transporting",
     "✔"
    ],
    [
     "pariharamāna",
     "prp",
-    "carrying (someone) around (with); lit. carrying around",
+    "carrying (someone) around (with)",
     "✔"
    ],
    [
@@ -91894,7 +91894,7 @@ var family_root_json = {
    [
     "parihīrati",
     "pr",
-    "is carried around; is taken care of; is looked after; lit. is carried around",
+    "is carried around; is taken care of; is looked after",
     "✔"
    ]
   ]
@@ -100210,7 +100210,7 @@ var family_root_json = {
    [
     "appaṭisaṃveditvā",
     "abs",
-    "having not personally experienced; having not undergone; having not felt; lit. having not caused to know back\n",
+    "having not personally experienced; having not undergone; having not felt; lit. having not caused to know back",
     "◑"
    ],
    [
@@ -101300,8 +101300,8 @@ var family_root_json = {
    [
     "patiṭṭhāti 2",
     "pr",
-    "is established, stands firmly, finds a support",
-    "✘"
+    "stands firm; persists; stays (in); lit. stands back",
+    "✔"
    ],
    [
     "patiṭṭhātuṃ 1",
@@ -103889,7 +103889,7 @@ var family_root_json = {
     "appahonta",
     "prp",
     "not being able (to); being incapable (of)",
-    "✘"
+    "✔"
    ],
    [
     "nappahoti 1",
@@ -105424,12 +105424,6 @@ var family_root_json = {
     "✘"
    ],
    [
-    "bandhanta",
-    "prp",
-    "bandaging",
-    "✘"
-   ],
-   [
     "bandhanta 1",
     "prp",
     "tying; binding",
@@ -105443,6 +105437,12 @@ var family_root_json = {
    ],
    [
     "bandhanta 3",
+    "prp",
+    "bandaging",
+    "✘"
+   ],
+   [
+    "bandhanta 4",
     "prp",
     "combining",
     "✘"
@@ -111443,7 +111443,7 @@ var family_root_json = {
   "root_key": "√bhū",
   "root_family": "√bhū",
   "root_meaning": "be, become",
-  "count": 170,
+  "count": 171,
   "data": [
    [
     "abhabba 1",
@@ -111605,6 +111605,12 @@ var family_root_json = {
     "abhūta 3",
     "nt",
     "lie; untruth; falsehood; lit. not become",
+    "◑"
+   ],
+   [
+    "abhūtaṃ",
+    "ind",
+    "falsely; untruthfully; lit. not become",
     "✔"
    ],
    [
@@ -114854,7 +114860,7 @@ var family_root_json = {
     "✔"
    ],
    [
-    "abhinikkhami",
+    "abhinikkhami 1",
     "aor",
     "retired from the world; left the household life; ordained; lit. went out completely",
     "✔"
@@ -119208,7 +119214,7 @@ var family_root_json = {
     "✘"
    ],
    [
-    "makkhetvā",
+    "makkhetvā 1",
     "abs",
     "having scented; having annointed (something with something); lit. having smeared",
     "✔"
@@ -119216,7 +119222,7 @@ var family_root_json = {
    [
     "makkhetvā 2",
     "abs",
-    "having rubbed on; having smeared (something with something); lit. having smeared",
+    "having rubbed on; having smeared (something with something)",
     "✔"
    ],
    [
@@ -119445,7 +119451,7 @@ var family_root_json = {
   "root_key": "√mad",
   "root_family": "√mad",
   "root_meaning": "be mad, be intoxicated",
-  "count": 55,
+  "count": 56,
   "data": [
    [
     "amajja 1.1",
@@ -119496,9 +119502,15 @@ var family_root_json = {
     "✘"
    ],
    [
-    "nimmadana",
+    "nimmadana 1",
     "adj",
     "removing pride; crushing conceit; lit. de-intoxicating",
+    "✔"
+   ],
+   [
+    "nimmadana 2",
+    "adj",
+    "removing the intoxication (of); lit. de-intoxicating",
     "✔"
    ],
    [
@@ -138096,7 +138108,7 @@ var family_root_json = {
     "✔"
    ],
    [
-    "vikkhipati",
+    "vikkhipati 1",
     "pr",
     "scatters; disperses; is disturbed; is distracted; (comm) because of restlessness and worry; lit. throws apart",
     "✔"
@@ -139720,19 +139732,19 @@ var family_root_json = {
    [
     "viññāṇa 1",
     "nt",
-    "awareness; consciousness; cognition; mind; fifth of the five aggregates; lit. knowing",
+    "awareness; consciousness; cognition; mind; fifth of the five aggregates; lit. knowing distinctly",
     "✔"
    ],
    [
     "viññāṇa 2",
     "nt",
-    "knowing; understanding; lit. divided knowing",
+    "knowing; understanding; lit. knowing distinctly",
     "✔"
    ],
    [
     "viññāṇa 3",
     "adj",
-    "with awareness; having consciousness; lit. knowing",
+    "with awareness; having consciousness; lit. knowing distinctly",
     "✔"
    ],
    [
@@ -149206,7 +149218,7 @@ var family_root_json = {
     "✔"
    ],
    [
-    "asaññā",
+    "asaññā 1",
     "fem",
     "non-perception; non-conception; non-recognition; lit. not knowing together",
     "✔"
@@ -152456,8 +152468,8 @@ var family_root_json = {
    [
     "asamanubhāsanta",
     "prp",
-    "not admonishing; not sternly advising; lit. speaking together after",
-    "◑"
+    "unadmonished; not sternly advised; lit. not speaking together after",
+    "✔"
    ],
    [
     "samanubhaṭṭha",
@@ -154882,7 +154894,7 @@ var family_root_json = {
     "✔"
    ],
    [
-    "samphusi",
+    "samphusi 1",
     "aor",
     "touched, came in contact with",
     "✘"
@@ -173820,16 +173832,16 @@ var family_root_json = {
     "◑"
    ],
    [
-    "upavattana",
-    "adj",
-    "existing near",
-    "✘"
-   ],
-   [
     "upavattana 1",
     "nt",
     "names of a place outside Kusinārā; lit. being near",
     "✔"
+   ],
+   [
+    "upavattana 2",
+    "adj",
+    "existing near",
+    "✘"
    ]
   ]
  },
@@ -213660,7 +213672,7 @@ var family_root_json = {
     "✘"
    ],
    [
-    "viravi",
+    "viravi 1",
     "aor",
     "cried aloud, shouted, uttered a cry",
     "✘"
@@ -216711,7 +216723,7 @@ var family_root_json = {
     "saṅkappati",
     "pr",
     "thinks; intends; plans",
-    "◑"
+    "✔"
    ],
    [
     "saṅkappayanta",
