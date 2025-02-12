@@ -1095,6 +1095,7 @@ husband's
 I.B
 Iddhipādasaṃyuttaṃ
 ideational
+idiomatic
 ill-omened
 illuminator
 illustriousness
@@ -2263,6 +2264,7 @@ shakeable
 shaveling
 sheafs
 shelduck
+shoos
 Shorea
 sicklessness
 Sida
@@ -2603,6 +2605,7 @@ uṇa
 uṇā
 unaccomplished
 unadmonishable
+unadmonished
 unaffectedness
 unafflicted
 unaging
@@ -2668,6 +2671,7 @@ unentangled
 unenveloped
 unestablished
 unethically
+unexpansive
 unexperienceable
 unexperienced
 unfabricated
@@ -2975,6 +2979,3 @@ you're
 youthfulness
 zizanioides
 Ziziphus
-idiomatic
-shoos
-unexpansive
