@@ -8,8 +8,10 @@ import os
 import re
 
 def clean_text(text):
-    """Removes curly quotes and unwanted characters from text."""
-    return re.sub(r'[“”]', '', text)  # Remove curly quotes
+    """Removes curly quotes, unwanted characters, and replaces ṁ with ṃ."""
+    text = re.sub(r'[“”]', '', text)  # Remove curly quotes
+    text = re.sub(r'ṁ', 'ṃ', text)
+    return text
 
 def search_word_in_folder(word, folder):
     """Searches for a word in a given folder and returns the first match found."""
