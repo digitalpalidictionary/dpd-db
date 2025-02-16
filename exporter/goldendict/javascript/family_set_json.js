@@ -9754,6 +9754,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "jaṇṇu",
+    "nt",
+    "knee",
+    "✔"
+   ],
+   [
     "jaṇṇuka",
     "nt",
     "knee",
@@ -10162,7 +10168,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 134
+  "count": 135
  },
  "types of monastics": {
   "data": [
@@ -11748,12 +11754,6 @@ var family_set_json = {
     "◑"
    ],
    [
-    "ajakalāpaka 2",
-    "masc",
-    "name of a spirit; lit. small herd of goats",
-    "✔"
-   ],
-   [
     "añjanavana",
     "nt",
     "black wood; dark forest; place name",
@@ -12336,6 +12336,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "makuṭabandhana",
+    "nt",
+    "name of a Mallan pagoda; lit. crown binding",
+    "✔"
+   ],
+   [
     "macchikāsaṇḍa",
     "masc",
     "name of a forest in Kāsi; lit. Macchikā's grove",
@@ -12665,12 +12671,6 @@ var family_set_json = {
     "◑"
    ],
    [
-    "ajakalāpaka 2",
-    "masc",
-    "name of a spirit; lit. small herd of goats",
-    "✔"
-   ],
-   [
     "adhikakka",
     "nt",
     "name of a sacred bathing place",
@@ -12770,6 +12770,12 @@ var family_set_json = {
     "bāhumatī",
     "fem",
     "name of a holy river; lit. having strong arms",
+    "✔"
+   ],
+   [
+    "makuṭabandhana",
+    "nt",
+    "name of a Mallan pagoda; lit. crown binding",
     "✔"
    ],
    [
@@ -15109,6 +15115,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "buli",
+    "masc",
+    "name of clan who received a portion of the Buddha's relics",
+    "✔"
+   ],
+   [
     "belaṭṭhaputta",
     "masc",
     "name of an ascetic teacher; Sañcaya Belaṭṭhaputta; lit. son of Belaṭṭha",
@@ -15205,7 +15217,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 36
+  "count": 37
  },
  "names of countries": {
   "data": [
@@ -24420,6 +24432,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "ajakalāpaka 2",
+    "masc",
+    "name of a spirit; lit. small herd of goats",
+    "✔"
+   ],
+   [
     "anejakā",
     "masc",
     "name of a group of deities; lit. unshakeable",
@@ -25014,6 +25032,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "brahmāsahampati",
+    "masc",
+    "name of the Brahma who implored the Buddha to teach",
+    "✔"
+   ],
+   [
     "bhagalavatī",
     "fem",
     "name of a deity",
@@ -25566,7 +25590,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 193
+  "count": 195
  },
  "animals": {
   "data": [
@@ -36935,7 +36959,7 @@ var family_set_json = {
     "gandha 3",
     "nt",
     "name of a type of elephant; lit. fragrant",
-    "◑"
+    "✔"
    ],
    [
     "gandhamaṅgalahema",
@@ -36959,7 +36983,7 @@ var family_set_json = {
     "tamba 1",
     "nt",
     "name of a type of elephant; lit. copper coloured",
-    "◑"
+    "✔"
    ],
    [
     "tambapiṅgala",
@@ -36983,7 +37007,7 @@ var family_set_json = {
     "piṅgala 2",
     "nt",
     "name of a type of elephant; lit. tawny brown",
-    "◑"
+    "✔"
    ],
    [
     "bhiṅkacchāpa",
@@ -36995,7 +37019,7 @@ var family_set_json = {
     "maṅgala 6",
     "nt",
     "name of a type of elephant; lit. auspicious",
-    "◑"
+    "✔"
    ],
    [
     "maṅgalahatthī",

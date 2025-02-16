@@ -1635,7 +1635,7 @@ var family_root_json = {
     "karonta 2",
     "prp",
     "making",
-    "◑"
+    "✔"
    ],
    [
     "karonta 3",
@@ -9579,7 +9579,7 @@ var family_root_json = {
   "root_key": "√gah",
   "root_family": "√gah",
   "root_meaning": "grasp",
-  "count": 149,
+  "count": 150,
   "data": [
    [
     "agaṇhana",
@@ -10076,17 +10076,23 @@ var family_root_json = {
    [
     "gahita 2",
     "pp",
+    "taken (from); lit. grasped",
+    "✔"
+   ],
+   [
+    "gahita 3",
+    "pp",
     "(as an example) given; taken; included; lit. grasped",
     "◑"
    ],
    [
-    "gahita 3",
+    "gahita 4",
     "pp",
     "(of a town) established; lit. grasped",
     "◑"
    ],
    [
-    "gahita 4",
+    "gahita 5",
     "nt",
     "grip",
     "✘"
@@ -10281,7 +10287,7 @@ var family_root_json = {
     "gāhāpetuṃ",
     "inf",
     "to cause to take; to make grasp; lit. to cause to grasp",
-    "◑"
+    "✔"
    ],
    [
     "gāhāpetvā",
@@ -10755,7 +10761,7 @@ var family_root_json = {
     "gandha 3",
     "nt",
     "name of a type of elephant; lit. fragrant",
-    "◑"
+    "✔"
    ],
    [
     "gandhaka",
@@ -18611,7 +18617,7 @@ var family_root_json = {
   "root_key": "√jal 1",
   "root_family": "√jal",
   "root_meaning": "shine, blaze",
-  "count": 33,
+  "count": 34,
   "data": [
    [
     "ajali",
@@ -18702,6 +18708,12 @@ var family_root_json = {
     "masc",
     "blaze; burn; glow",
     "✘"
+   ],
+   [
+    "jālana",
+    "nt",
+    "setting fire to; igniting; lit. causing to burn",
+    "✔"
    ],
    [
     "jālayamāna",
@@ -21709,7 +21721,7 @@ var family_root_json = {
     "ajjhavāsayi",
     "aor",
     "endured; tolerated; weathered",
-    "◑"
+    "✔"
    ],
    [
     "ajjhāvasatar",
@@ -21960,14 +21972,14 @@ var family_root_json = {
    [
     "jhāpeti",
     "pr",
-    "sets fire (to); cremates; lit. causes to burn",
+    "burns; cremates; sets fire (to); lit. causes to burn",
     "✔"
    ],
    [
     "jhāpetuṃ",
     "inf",
-    "to burn; to cremate; to set fire to",
-    "✘"
+    "to burn; to cremate; to set fire to; lit. to cause to burn",
+    "✔"
    ],
    [
     "jhāpetvā",
@@ -23779,7 +23791,7 @@ var family_root_json = {
   "root_key": "√ṭhā",
   "root_family": "√ṭhā",
   "root_meaning": "stand",
-  "count": 171,
+  "count": 172,
   "data": [
    [
     "aṭṭhatvā",
@@ -24784,6 +24796,12 @@ var family_root_json = {
     "✔"
    ],
    [
+    "theratara",
+    "adj",
+    "more senior",
+    "✔"
+   ],
+   [
     "therikā",
     "fem",
     "female elder; senior nun; old nun; lit. lasting",
@@ -24978,8 +24996,8 @@ var family_root_json = {
    [
     "ḍayhi",
     "aor",
-    "was burned; was scorched; was on fire",
-    "◑"
+    "was burned; was scorched; was set on fire",
+    "✔"
    ],
    [
     "ḍayhituṃ",
@@ -25917,7 +25935,7 @@ var family_root_json = {
   "root_key": "√tapp 2",
   "root_family": "√tapp",
   "root_meaning": "satisfy",
-  "count": 20,
+  "count": 21,
   "data": [
    [
     "atappaka 2.1",
@@ -25972,6 +25990,12 @@ var family_root_json = {
     "pr",
     "satiates; satisfies; pleases",
     "◑"
+   ],
+   [
+    "tappayi",
+    "aor",
+    "satiated; satisfied; pleased",
+    "✔"
    ],
    [
     "tappita 1",
@@ -28388,7 +28412,7 @@ var family_root_json = {
    [
     "atibyādippati",
     "pr",
-    "becomes exceedingly prominent; becomes highly prevalent",
+    "becomes exceedingly prominent; becomes highly prevalent; lit. is shone here\ntoo much",
     "◑"
    ]
   ]
@@ -32487,7 +32511,7 @@ var family_root_json = {
   "root_key": "√dakkh",
   "root_family": "√dakkh",
   "root_meaning": "be able, please",
-  "count": 12,
+  "count": 14,
   "data": [
    [
     "adakkhiṇeyya",
@@ -32524,6 +32548,18 @@ var family_root_json = {
     "adj",
     "south; southern",
     "✔"
+   ],
+   [
+    "dakkhiṇato 1",
+    "ind",
+    "to the south (of)",
+    "✔"
+   ],
+   [
+    "dakkhiṇato 2",
+    "ind",
+    "to the right (of)",
+    "✘"
    ],
    [
     "dakkhiṇā 1",
@@ -32567,7 +32603,7 @@ var family_root_json = {
   "root_key": "√dā 1",
   "root_family": "√dā",
   "root_meaning": "give",
-  "count": 103,
+  "count": 104,
   "data": [
    [
     "adatta",
@@ -32903,6 +32939,12 @@ var family_root_json = {
     "dātabba 4",
     "ptp",
     "is applicable; is suitable in this case; lit. to be given",
+    "✔"
+   ],
+   [
+    "dātabba 5",
+    "ptp",
+    "should be punished (with); should be given; lit. to be given",
     "✔"
    ],
    [
@@ -45501,7 +45543,7 @@ var family_root_json = {
   "root_key": "√arah",
   "root_family": "√arah",
   "root_meaning": "deserve, be worthy",
-  "count": 16,
+  "count": 17,
   "data": [
    [
     "anarahant",
@@ -45565,6 +45607,12 @@ var family_root_json = {
    ],
    [
     "arahati 4",
+    "pr",
+    "is entitled (to)",
+    "✔"
+   ],
+   [
+    "arahati 5",
     "pr",
     "is likely",
     "✘"
@@ -51320,8 +51368,8 @@ var family_root_json = {
    [
     "āropesi 1",
     "aor",
-    "put on, impeached, got ready",
-    "✘"
+    "put; placed on top of; mounted (something onto something); lit. caused to ascend",
+    "✔"
    ],
    [
     "āropesi 2",
@@ -54058,8 +54106,8 @@ var family_root_json = {
    [
     "nikkhipi",
     "aor",
-    "laid down or aside, put down, gave up",
-    "✘"
+    "laid down; set down; put down; lit. threw down",
+    "✔"
    ],
    [
     "nikkhipita",
@@ -57362,8 +57410,8 @@ var family_root_json = {
    [
     "nibbāpesi",
     "aor",
-    "put out, cooled, extinguished",
-    "✘"
+    "put out; extinguished; lit. caused to blow away",
+    "✔"
    ],
    [
     "nibbāyati",
@@ -75798,8 +75846,8 @@ var family_root_json = {
    [
     "odhinā",
     "ind",
-    "as far as; to the limit of; up to; lit. by placed down",
-    "◑"
+    "as far (as); up to; lit. by placed down",
+    "✔"
    ],
    [
     "odhiso",
@@ -80496,8 +80544,8 @@ var family_root_json = {
    [
     "paññāyi 1",
     "aor",
-    "appeared, was clear or evident",
-    "✘"
+    "was evident; was apparent",
+    "✔"
    ],
    [
     "paññāyi 2",
@@ -95502,7 +95550,7 @@ var family_root_json = {
    [
     "pūjayi 2",
     "aor",
-    "made devotional offerings (to)",
+    "made devotional offerings (to somebody with something)",
     "✔"
    ],
    [
@@ -95610,8 +95658,8 @@ var family_root_json = {
    [
     "pūjetvā 2",
     "abs",
-    "having offered something with devotion",
-    "✘"
+    "having offered (something) with devotion (to)",
+    "✔"
    ],
    [
     "pūjenta 1",
@@ -102419,7 +102467,7 @@ var family_root_json = {
   "root_key": "√mad",
   "root_family": "pa √mad",
   "root_meaning": "be mad, be intoxicated",
-  "count": 31,
+  "count": 32,
   "data": [
    [
     "appamajjana",
@@ -102455,6 +102503,12 @@ var family_root_json = {
     "appamāda",
     "masc",
     "alertness; care; carefulness; caution; vigilance; diligence; conscientiousness; heedfulness; lit. not heedless",
+    "✔"
+   ],
+   [
+    "appamādena",
+    "ind",
+    "carefully; cautiously; vigilantly; diligently; conscientiously; heedfully; lit. without intoxication",
     "✔"
    ],
    [
@@ -103440,8 +103494,8 @@ var family_root_json = {
    [
     "pavesetvā 1",
     "abs",
-    "having caused to enter; having been put in",
-    "◑"
+    "having made enter; lit. having caused to enter",
+    "✔"
    ],
    [
     "pavesetvā 2",
@@ -108593,7 +108647,7 @@ var family_root_json = {
     "abbhunnamitvā",
     "abs",
     "having sprung forth (from); having burst up (from); lit. having completely bent up",
-    "◑"
+    "✔"
    ],
    [
     "abbhunnameti",
@@ -119407,7 +119461,7 @@ var family_root_json = {
     "maṅgala 6",
     "nt",
     "name of a type of elephant; lit. auspicious",
-    "◑"
+    "✔"
    ],
    [
     "maṅgala 7",
@@ -120340,8 +120394,8 @@ var family_root_json = {
    [
     "mānesi",
     "aor",
-    "honoured, revered, thought highly",
-    "✘"
+    "honoured; revered; held in high esteem; lit. caused to think",
+    "✔"
    ],
    [
     "vimaṃsaka",
@@ -132662,7 +132716,7 @@ var family_root_json = {
    [
     "vattī 1.1",
     "adj",
-    "living; continuing; going on",
+    "living; continuing; going on; existing",
     "✔"
    ],
    [
@@ -147933,7 +147987,7 @@ var family_root_json = {
   "root_key": "√kar",
   "root_family": "saṃ √kar",
   "root_meaning": "do, make",
-  "count": 34,
+  "count": 35,
   "data": [
    [
     "asaṅkhata",
@@ -148114,6 +148168,12 @@ var family_root_json = {
     "ind",
     "intentionally; purposefully",
     "◑"
+   ],
+   [
+    "saṃka",
+    "masc",
+    "rubbish; refuse",
+    "✔"
    ],
    [
     "saṃkicca 1",
@@ -153777,7 +153837,7 @@ var family_root_json = {
     "samūhanati 2",
     "pr",
     "(of a rule) repeals; abolishes; lit. kills up together",
-    "◑"
+    "✔"
    ],
    [
     "samūhani",
@@ -165228,19 +165288,19 @@ var family_root_json = {
    [
     "āditta",
     "pp",
-    "blazing; burning; on fire",
+    "blazing; burning; on fire; lit. shone here",
     "✔"
    ],
    [
     "ādittaka",
     "adj",
-    "blazing; burning; on fire",
+    "blazing; burning; on fire; lit. shining here",
     "✔"
    ],
    [
     "ādittato",
     "ind",
-    "as blazing; as burning; as on fire",
+    "as blazing; as burning; as on fire; lit. from shone here",
     "✔"
    ],
    [
@@ -165252,7 +165312,7 @@ var family_root_json = {
    [
     "ādīpita",
     "pp",
-    "on fire; in flames; ablaze; lit. caused to burn",
+    "on fire; in flames; ablaze; lit. caused to shine here",
     "✔"
    ],
    [
@@ -165276,19 +165336,19 @@ var family_root_json = {
    [
     "ālimpeti 1.1",
     "pr",
-    "sets fire to; ignites",
+    "sets fire to; ignites; lit. causes to shine here",
     "✔"
    ],
    [
     "ālimpetvā",
     "abs",
-    "having set fire to; having ignited",
+    "having set fire to; having ignited; lit. having caused to shine here",
     "✔"
    ],
    [
     "ālimpesi",
     "aor",
-    "set fire to; ignited; lit. causes to shine",
+    "set fire to; ignited; lit. caused to shine here",
     "✔"
    ],
    [
@@ -165300,19 +165360,19 @@ var family_root_json = {
    [
     "āḷimpeti",
     "pr",
-    "sets fire to; ignites",
-    "◑"
+    "sets fire to; ignites; lit. causes to shine here",
+    "✔"
    ],
    [
     "āḷimpetuṃ",
     "inf",
-    "to set fire to; to ignite",
-    "◑"
+    "to set fire to; to ignite; lit. to cause to shine here",
+    "✔"
    ],
    [
     "āḷimpesi",
     "aor",
-    "set fire to; ignited",
+    "set fire to; ignited; lit. caused to shine here",
     "◑"
    ]
   ]
@@ -169709,7 +169769,7 @@ var family_root_json = {
     "uccāretuṃ",
     "inf",
     "to raise; to lift up; lit. to cause to move up",
-    "◑"
+    "✔"
    ],
    [
     "uccāretvā",
@@ -205325,7 +205385,7 @@ var family_root_json = {
   "root_key": "√vīj",
   "root_family": "√vīj",
   "root_meaning": "fan",
-  "count": 16,
+  "count": 17,
   "data": [
    [
     "bījana",
@@ -205337,6 +205397,12 @@ var family_root_json = {
     "bījanī",
     "fem",
     "fan; whisk",
+    "✔"
+   ],
+   [
+    "bījanta",
+    "prp",
+    "fanning (something with something)",
     "✔"
    ],
    [
@@ -216040,8 +216106,8 @@ var family_root_json = {
    [
     "veṭhesi",
     "aor",
-    "wrapped, twisted round, enveloped",
-    "✘"
+    "wrapped up; bundled up (something with something)",
+    "✔"
    ]
   ]
  },

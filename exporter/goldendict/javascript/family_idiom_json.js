@@ -7068,8 +7068,8 @@ var family_idiom_json = {
    [
     "apāvuso",
     "sandhi",
-    "perhaps friend",
-    "◑"
+    "perhaps sir; maybe venerable",
+    "✔"
    ],
    [
     "api ca 1",
@@ -8670,7 +8670,7 @@ var family_idiom_json = {
   ]
  },
  "ime": {
-  "count": 33,
+  "count": 34,
   "data": [
    [
     "aṭṭhime",
@@ -8838,6 +8838,12 @@ var family_idiom_json = {
     "ye kecime",
     "idiom",
     "whichever of these; all of these",
+    "✔"
+   ],
+   [
+    "yenime",
+    "sandhi",
+    "because of which these; lit. by which these",
     "✔"
    ],
    [
@@ -9209,12 +9215,18 @@ var family_idiom_json = {
   ]
  },
  "na": {
-  "count": 3,
+  "count": 4,
   "data": [
    [
     "na bhattaṃ paṭibhāti",
     "idiom",
     "has no desire to eat; loses all interest in food; lit. food does not come to mind",
+    "✔"
+   ],
+   [
+    "nāvuso",
+    "sandhi",
+    "no sir; no venerable",
     "✔"
    ],
    [
@@ -10697,7 +10709,7 @@ var family_idiom_json = {
   ]
  },
  "āvuso": {
-  "count": 22,
+  "count": 24,
   "data": [
    [
     "atthāvuso",
@@ -10714,8 +10726,14 @@ var family_idiom_json = {
    [
     "apāvuso",
     "sandhi",
-    "perhaps friend",
-    "◑"
+    "perhaps sir; maybe venerable",
+    "✔"
+   ],
+   [
+    "āmāvuso",
+    "sandhi",
+    "yes sir; certainly venerable",
+    "✔"
    ],
    [
     "āyāmāvuso",
@@ -10787,6 +10805,12 @@ var family_idiom_json = {
     "tenahāvuso",
     "sandhi",
     "therefore friend; in that case brother; well then friend",
+    "✔"
+   ],
+   [
+    "nāvuso",
+    "sandhi",
+    "no sir; no venerable",
     "✔"
    ],
    [
@@ -19715,6 +19739,17 @@ var family_idiom_json = {
     "āpāthaṃ āgacchati",
     "idiom",
     "comes within range; comes within eyeshot; comes within earshot",
+    "✔"
+   ]
+  ]
+ },
+ "āma": {
+  "count": 1,
+  "data": [
+   [
+    "āmāvuso",
+    "sandhi",
+    "yes sir; certainly venerable",
     "✔"
    ]
   ]
@@ -31502,7 +31537,7 @@ var family_idiom_json = {
   ]
  },
  "yena": {
-  "count": 15,
+  "count": 16,
   "data": [
    [
     "yena kāmaṃ",
@@ -31586,6 +31621,12 @@ var family_idiom_json = {
     "yenāhaṃ 2",
     "sandhi",
     "where I",
+    "✔"
+   ],
+   [
+    "yenime",
+    "sandhi",
+    "because of which these; lit. by which these",
     "✔"
    ],
    [

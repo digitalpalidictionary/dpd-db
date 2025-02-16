@@ -1188,8 +1188,8 @@ var family_word_json = {
    [
     "chārikā",
     "fem",
-    "ash",
-    "◑"
+    "ash; ashes",
+    "✔"
    ]
   ],
   "count": 13
@@ -11128,13 +11128,19 @@ var family_word_json = {
     "✔"
    ],
    [
+    "pacchimaka 2",
+    "adj",
+    "least; worst",
+    "✔"
+   ],
+   [
     "pacchimena",
     "ind",
     "to the west (of); lit. with the west",
     "✔"
    ]
   ],
-  "count": 18
+  "count": 19
  },
  "paṇḍu": {
   "data": [
@@ -16463,7 +16469,7 @@ var family_word_json = {
    ],
    [
     "sarīra 3",
-    "masc",
+    "nt",
     "physical remains; mortal remains; relics",
     "✔"
    ],
@@ -23813,6 +23819,12 @@ var family_word_json = {
     "✘"
    ],
    [
+    "cullaka",
+    "adj",
+    "(of time) short; brief",
+    "✔"
+   ],
+   [
     "cūla",
     "adj",
     "small, minor",
@@ -23849,7 +23861,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 7
+  "count": 8
  },
  "cūḷā": {
   "data": [
@@ -24351,7 +24363,7 @@ var family_word_json = {
     "jaṇṇu",
     "nt",
     "knee",
-    "✘"
+    "✔"
    ],
    [
     "jaṇṇuka",
@@ -26618,9 +26630,15 @@ var family_word_json = {
     "masc",
     "novice; newcomer; new monk; monastic of less than five years standing",
     "✔"
+   ],
+   [
+    "navakatara",
+    "adj",
+    "more junior",
+    "✔"
    ]
   ],
-  "count": 3
+  "count": 4
  },
  "nava2": {
   "data": [
@@ -27579,7 +27597,7 @@ var family_word_json = {
     "bhastā 2",
     "fem",
     "bellows",
-    "◑"
+    "✔"
    ]
   ],
   "count": 3
@@ -28503,6 +28521,17 @@ var family_word_json = {
    ]
   ],
   "count": 2
+ },
+ "piṅgala": {
+  "data": [
+   [
+    "piṅgala 2",
+    "nt",
+    "name of a type of elephant; lit. tawny brown",
+    "✔"
+   ]
+  ],
+  "count": 1
  },
  "piṭhara": {
   "data": [
