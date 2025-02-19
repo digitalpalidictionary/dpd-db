@@ -27,6 +27,7 @@ scripts/build/anki_updater.py
 scripts/build/deconstructor_extract_archive.py
 scripts/build/deconstructor_output_add_to_db.py
 go run go_modules/deconstructor/main.go
+scripts/build/tarball_deconstructor_output.py
 
 scripts/build/api_ca_evi_iti.py
 db/inflections/transliterate_inflections.py
