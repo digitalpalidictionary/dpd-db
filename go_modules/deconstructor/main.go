@@ -46,7 +46,7 @@ func main() {
 	}
 
 	// only for testing
-	tools.PGreenTitle("splitting compounds")
+	tools.PGreenTitle("loading go routines")
 	testSet := map[string]string{
 		// "lūnāvasiṭṭhavisukkhatiladaṇḍakā": "",
 	}
@@ -77,6 +77,9 @@ func main() {
 		}
 		counter++
 	}
+
+	tools.PGreenTitle("This process will take 20-40 min to complete, depending on the speed of your machine.")
+	tools.PGreenTitle("Go make yourself a nice cup of tea ; )")
 
 	Wg.Wait()
 	data.M.Summary()
