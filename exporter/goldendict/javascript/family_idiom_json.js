@@ -11636,7 +11636,7 @@ var family_idiom_json = {
   ]
  },
  "assa3": {
-  "count": 45,
+  "count": 46,
   "data": [
    [
     "athassa 1",
@@ -11816,6 +11816,12 @@ var family_idiom_json = {
     "tissu",
     "sandhi",
     "there could be",
+    "✔"
+   ],
+   [
+    "tenassu",
+    "sandhi",
+    "because of that they would be",
     "✔"
    ],
    [
@@ -27088,7 +27094,7 @@ var family_idiom_json = {
   ]
  },
  "tena": {
-  "count": 21,
+  "count": 22,
   "data": [
    [
     "tena khaṇena",
@@ -27136,6 +27142,12 @@ var family_idiom_json = {
     "tenapi",
     "sandhi",
     "just with that; with that alone",
+    "✔"
+   ],
+   [
+    "tenassu",
+    "sandhi",
+    "because of that they would be",
     "✔"
    ],
    [

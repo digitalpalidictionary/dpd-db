@@ -458,6 +458,7 @@ burmanniana
 Butea
 byāyāma
 c.
+cā
 Cadamba
 caerulea
 Caesalpina
@@ -900,6 +901,7 @@ fettering
 fickleness
 fidgetiness
 fineness
+finial
 finiteness
 firma
 firstness
@@ -1035,6 +1037,7 @@ gutturo-palatal
 hā
 hagiography
 hairclip
+halters
 handsomeness
 Happy's
 har
@@ -1438,6 +1441,8 @@ Luffa
 mā
 ṃa
 Maccha
+Maccha
+Macchas
 Macchikā's
 mad
 Madda
@@ -1730,6 +1735,7 @@ Nerañjara
 Neru
 nescience
 nestless
+newel
 ṇhā
 nibbāna
 Nidānasaṃyuttaṃ
@@ -1847,6 +1853,7 @@ paluddho
 pāṇamatipātayato
 Pañcakanipāta
 Pañcala
+Pañcālas
 Pañcālī's
 Pañcālī's
 Pañcasālā
@@ -2432,6 +2439,8 @@ suppurating
 suppuration
 Surasena
 Sūrasena
+Surasenas
+Sūrasenas
 surmounting
 surpassable
 surpassingly
@@ -2837,6 +2846,7 @@ Vallisnaria
 Vallisneria
 valuator
 vaṃsa
+Vaṃsas
 vaṇṇiya
 vanquishable
 vaṇṭapaṭibandha
@@ -2942,6 +2952,7 @@ washroom
 watchfulness
 waveless
 waylayer
+weeped
 well-practiced
 wellbeing
 wheresthelibrary
@@ -2982,8 +2993,3 @@ you're
 youthfulness
 zizanioides
 Ziziphus
-newel
-finial
-cā
-halters
-weeped

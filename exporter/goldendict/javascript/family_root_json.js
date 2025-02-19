@@ -34168,8 +34168,8 @@ var family_root_json = {
    [
     "dīna",
     "pp",
-    "poor; wretched; miserable",
-    "✘"
+    "poor; wretched; miserable; lit. afflicted",
+    "✔"
    ],
    [
     "dīnatā",
@@ -68043,7 +68043,7 @@ var family_root_json = {
     "upapanna 1",
     "pp",
     "arose; appeared; lit. went towards",
-    "◑"
+    "✔"
    ],
    [
     "upapanna 2",
@@ -72771,7 +72771,7 @@ var family_root_json = {
     "anuvicintetvā",
     "abs",
     "having thought over; having pondered over; having meditated upon",
-    "◑"
+    "✔"
    ]
   ]
  },
@@ -104289,7 +104289,7 @@ var family_root_json = {
   "root_key": "√phus 1",
   "root_family": "√phus",
   "root_meaning": "touch",
-  "count": 86,
+  "count": 87,
   "data": [
    [
     "apphuṭṭha",
@@ -104506,6 +104506,12 @@ var family_root_json = {
     "adj",
     "pleasant; convenient; comfortable",
     "✘"
+   ],
+   [
+    "phāsukaṃ",
+    "ind",
+    "easily; comfortably; happily",
+    "✔"
    ],
    [
     "phāsukā 1",
@@ -141786,8 +141792,8 @@ var family_root_json = {
    [
     "avinipāta",
     "masc",
-    "who is not liable to experience the underworld",
-    "✘"
+    "not liable to experience any state of suffering; free from purgatory; lit. no bad fall",
+    "✔"
    ],
    [
     "vinipatitatta",
@@ -150027,7 +150033,7 @@ var family_root_json = {
   "root_key": "√ṭhā",
   "root_family": "saṃ √ṭhā",
   "root_meaning": "stand",
-  "count": 55,
+  "count": 56,
   "data": [
    [
     "asaṇṭhahanika",
@@ -150304,6 +150310,12 @@ var family_root_json = {
     "pr",
     "re-establishes itself",
     "✘"
+   ],
+   [
+    "santiṭṭhati 5",
+    "pr",
+    "remains; is established (for); lit. stands together",
+    "✔"
    ],
    [
     "santiṭṭhanta",
@@ -160850,8 +160862,8 @@ var family_root_json = {
    [
     "sukhāpetvā",
     "abs",
-    "having given joy; having made happy",
-    "✘"
+    "having given joy; having made happy; lit. having caused ease",
+    "✔"
    ],
    [
     "sukhāya",
@@ -183419,7 +183431,7 @@ var family_root_json = {
     "divi",
     "adj",
     "divine; celestial; heavenly",
-    "✘"
+    "✔"
    ],
    [
     "diviya",
@@ -188989,50 +189001,6 @@ var family_root_json = {
    ]
   ]
  },
- "√nam nī √nam": {
-  "root_key": "√nam",
-  "root_family": "nī √nam",
-  "root_meaning": "bend",
-  "count": 6,
-  "data": [
-   [
-    "ninnamana",
-    "adj",
-    "dejected; in low spirits",
-    "✘"
-   ],
-   [
-    "ninnāmayati",
-    "pr",
-    "(of the tongue) sticks out; pulls; lit. bends out",
-    "✔"
-   ],
-   [
-    "ninnāmita",
-    "pp",
-    "bent down, put out",
-    "✘"
-   ],
-   [
-    "ninnāmeti",
-    "pr",
-    "bends down, puts out",
-    "✘"
-   ],
-   [
-    "ninnāmetvā",
-    "abs",
-    "(of the tongue) having stuck out; having put out; lit. having bent out",
-    "✔"
-   ],
-   [
-    "ninnāmesi",
-    "aor",
-    "bent down, put out",
-    "✘"
-   ]
-  ]
- },
  "√nad nī √nad": {
   "root_key": "√nad",
   "root_family": "nī √nad",
@@ -189068,6 +189036,44 @@ var family_root_json = {
     "adj",
     "sonorous; resonant; reverberating; lit. sounding out",
     "✔"
+   ]
+  ]
+ },
+ "√nam nī √nam": {
+  "root_key": "√nam",
+  "root_family": "nī √nam",
+  "root_meaning": "bend",
+  "count": 5,
+  "data": [
+   [
+    "ninnāmayati",
+    "pr",
+    "(of the tongue) sticks out; pulls; lit. bends out",
+    "✔"
+   ],
+   [
+    "ninnāmita",
+    "pp",
+    "bent down, put out",
+    "✘"
+   ],
+   [
+    "ninnāmeti",
+    "pr",
+    "bends down, puts out",
+    "✘"
+   ],
+   [
+    "ninnāmetvā",
+    "abs",
+    "(of the tongue) having stuck out; having put out; lit. having bent out",
+    "✔"
+   ],
+   [
+    "ninnāmesi",
+    "aor",
+    "bent down, put out",
+    "✘"
    ]
   ]
  },
@@ -197603,7 +197609,7 @@ var family_root_json = {
   "root_key": "√dis 1",
   "root_family": "pa √dis",
   "root_meaning": "see",
-  "count": 5,
+  "count": 6,
   "data": [
    [
     "padasseti",
@@ -197616,6 +197622,12 @@ var family_root_json = {
     "pp",
     "seen, appeared",
     "✘"
+   ],
+   [
+    "padissa",
+    "adj",
+    "appearing; looking like",
+    "✔"
    ],
    [
     "padissati",
@@ -199090,14 +199102,14 @@ var family_root_json = {
    [
     "parikathā 1",
     "fem",
-    "exposition, introduction",
-    "✘"
+    "suggestion; intimation; hint; lit. round-about talk",
+    "✔"
    ],
    [
     "parikathā 2",
     "fem",
-    "hint; suggestion; intimation; lit. round-about talk",
-    "✔"
+    "exposition, introduction",
+    "✘"
    ]
   ]
  },
@@ -212654,8 +212666,8 @@ var family_root_json = {
    [
     "vippasannatta",
     "nt",
-    "clearness; calmness; fact of being clear; lit. clear state",
-    "◑"
+    "clarity; clearness; fact of being bright; lit. clear state",
+    "✔"
    ],
    [
     "vippasādeti",
@@ -215647,7 +215659,7 @@ var family_root_json = {
   "root_key": "√har 3",
   "root_family": "vi √har",
   "root_meaning": "live",
-  "count": 30,
+  "count": 31,
   "data": [
    [
     "viharati 1",
@@ -215806,9 +215818,15 @@ var family_root_json = {
     "✔"
    ],
    [
-    "vihāsi",
+    "vihāsi 1",
     "aor",
     "lived; remained; stayed in",
+    "✔"
+   ],
+   [
+    "vihāsi 2",
+    "aor",
+    "(of a meditation) remained; dwelled (in)",
     "✔"
    ],
    [
@@ -218962,19 +218980,19 @@ var family_root_json = {
    [
     "sāsana 1",
     "nt",
-    "message; letter; lit. instructing",
+    "teaching; instruction; lit. instructing",
     "✔"
    ],
    [
     "sāsana 2",
     "nt",
-    "teaching; instruction; lit. instructing",
+    "religion; monastic order; lit. instructing",
     "✔"
    ],
    [
     "sāsana 3",
     "nt",
-    "religion; monastic order; lit. instructing",
+    "message; letter; lit. instructing",
     "✔"
    ],
    [

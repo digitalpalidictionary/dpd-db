@@ -3161,6 +3161,12 @@ var family_word_json = {
    ],
    [
     "acchariya 2",
+    "adj",
+    "epithet of Nibbāna",
+    "✘"
+   ],
+   [
+    "acchariya 3",
     "nt",
     "marvel, wonder",
     "✘"
@@ -3214,7 +3220,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 14
+  "count": 15
  },
  "jaḷa": {
   "data": [
@@ -26857,7 +26863,7 @@ var family_word_json = {
     "nātikiya",
     "adj",
     "from Nātika; living in Nātika",
-    "✘"
+    "✔"
    ]
   ],
   "count": 2
@@ -27402,13 +27408,19 @@ var family_word_json = {
     "✔"
    ],
    [
+    "pañcālā",
+    "masc",
+    "name of a people; Pañcālas",
+    "✔"
+   ],
+   [
     "pañcālī",
     "fem",
     "name of a queen; (comm) the king of Pañcala's daughter",
     "◑"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "pañjara": {
   "data": [
@@ -30123,8 +30135,8 @@ var family_word_json = {
    [
     "majjhā",
     "masc",
-    "name of a people",
-    "✘"
+    "name of a people; Majjhas",
+    "✔"
    ],
    [
     "majjhima 1",
@@ -31951,8 +31963,8 @@ var family_word_json = {
    [
     "vaṃsā",
     "masc",
-    "name of a people",
-    "✘"
+    "name of a people; Vaṃsas",
+    "✔"
    ],
    [
     "vaṃsika",

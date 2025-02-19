@@ -8442,12 +8442,6 @@ var family_set_json = {
     "✔"
    ],
    [
-    "acchariya 1",
-    "adj",
-    "wonderful; marvellous; epithet of Nibbāna",
-    "✔"
-   ],
-   [
     "ajajjara",
     "adj",
     "unaging; timeless; immortal; epithet of Nibbāna",
@@ -8724,7 +8718,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 52
+  "count": 51
  },
  "names of Brahmans": {
   "data": [
@@ -21668,6 +21662,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "uttarāpā",
+    "masc",
+    "name of a people; lit. northern water",
+    "✔"
+   ],
+   [
     "kambojā",
     "masc",
     "people of an Iranian speaking people; Kambojans",
@@ -21689,6 +21689,12 @@ var family_set_json = {
     "kāsī",
     "masc",
     "name of the people of Kāsi; Kāsians",
+    "✔"
+   ],
+   [
+    "kurupañcālā",
+    "masc",
+    "people of Kuru and Pañcala; Kurus and Pañcālas",
     "✔"
    ],
    [
@@ -21728,6 +21734,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "cetivaṃsā",
+    "masc",
+    "people of Ceta and Vaṃsa",
+    "✔"
+   ],
+   [
     "tivarā",
     "masc",
     "name of the people previously living on Vepulla mountain",
@@ -21744,6 +21756,12 @@ var family_set_json = {
     "masc",
     "name of a people",
     "◑"
+   ],
+   [
+    "pañcālā",
+    "masc",
+    "name of a people; Pañcālas",
+    "✔"
    ],
    [
     "pubbavidehā",
@@ -21770,9 +21788,33 @@ var family_set_json = {
     "✔"
    ],
    [
+    "macchasurasenā",
+    "masc",
+    "people of Maccha and Surasena; Maccas and Surasenas",
+    "✔"
+   ],
+   [
     "macchasūrasenā",
     "masc",
     "people of Maccha and Sūrasena",
+    "✔"
+   ],
+   [
+    "macchā",
+    "masc",
+    "names of a people; Macchas",
+    "✔"
+   ],
+   [
+    "majjhasūrasenā",
+    "masc",
+    "people of Majjha and Sūrasena; Majjhas and Sūrasenas",
+    "✔"
+   ],
+   [
+    "majjhā",
+    "masc",
+    "name of a people; Majjhas",
     "✔"
    ],
    [
@@ -21818,9 +21860,21 @@ var family_set_json = {
     "✔"
    ],
    [
+    "vajjimallā",
+    "masc",
+    "people of Vajjī and Malla; Vajjians and Mallans",
+    "✔"
+   ],
+   [
     "vajjī 1",
     "masc",
     "name of the people of Vajji; Vajjians",
+    "✔"
+   ],
+   [
+    "vaṃsā",
+    "masc",
+    "name of a people; Vaṃsas",
     "✔"
    ],
    [
@@ -21854,9 +21908,21 @@ var family_set_json = {
     "✔"
    ],
    [
+    "surasenā",
+    "masc",
+    "name of a people; Surasenas; lit. god's army",
+    "✔"
+   ],
+   [
     "suvidehā",
     "masc",
     "good people of Videha",
+    "✔"
+   ],
+   [
+    "sūrasenā",
+    "masc",
+    "name of a people; Sūrasenas; lit. brave army",
     "✔"
    ],
    [
@@ -21866,7 +21932,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 39
+  "count": 51
  },
  "epithets of the Buddha": {
   "data": [
@@ -24768,6 +24834,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "janavasabha",
+    "masc",
+    "name of a supernatural being; lit. stud bull of the people",
+    "✔"
+   ],
+   [
     "janesabha",
     "masc",
     "name of a demigod; lit. stud bull of a man",
@@ -25662,7 +25734,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 197
+  "count": 198
  },
  "animals": {
   "data": [
@@ -36954,17 +37026,6 @@ var family_set_json = {
    ]
   ],
   "count": 28
- },
- "names of people": {
-  "data": [
-   [
-    "uttarāpā",
-    "masc",
-    "name of a people; lit. northern water",
-    "✔"
-   ]
-  ],
-  "count": 1
  },
  "five hindrances": {
   "data": [
