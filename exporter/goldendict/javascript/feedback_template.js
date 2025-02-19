@@ -34,7 +34,7 @@ function makeFeedback(data) {
     <p>
         <a class="link" 
         href="https://digitalpalidictionary.github.io/">
-        Visit the website</a><span>. Get more detailed information about installation and upgrades, advanced settings and features.</span>
+        Visit the Docs website</a><span>. Get more detailed information about installation and upgrades, advanced settings and features.</span>
     </p>
     <p>
         <a class="link" 
