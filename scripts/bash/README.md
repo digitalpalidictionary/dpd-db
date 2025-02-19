@@ -7,9 +7,9 @@ Bash scripts to perform various procedures:
 
 ## First build
 
-`build_db.sh`: Build the database for the first time.
+`initial_build_db.sh`: Build the database for the first time.
 
-`build_db_and_export_all.sh`: Build the database for the first time and export all dictionaries.
+`initial_build_db_and_export_all.sh`: Build the database for the first time and export all dictionaries.
 
 ## Daily builds
 

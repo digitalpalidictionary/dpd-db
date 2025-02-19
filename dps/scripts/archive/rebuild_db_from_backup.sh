@@ -40,7 +40,7 @@ for file in "${FILENAMES[@]}"; do
     cp -rf ./dps/backup/$file ./db/backup_tsv/$file
 done
 
-scripts/bash/build_db.sh
+scripts/bash/initial_build_db.sh
 
 dps/scripts/add_combined_view.py
 

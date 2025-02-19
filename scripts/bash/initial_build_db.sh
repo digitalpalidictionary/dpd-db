@@ -1,4 +1,7 @@
-# build dpd.db from scratch using backup_tsv
+# This script builds dpd.db from scratch
+# It will take an hour to run for the first time.
+# WARNING! This will destroy your existing db.
+
 set -e
 test -e dpd.db || touch dpd.db
 

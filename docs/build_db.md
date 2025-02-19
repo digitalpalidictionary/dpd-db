@@ -39,7 +39,7 @@ poetry run bash scripts/bash/initial_setup_run_once.sh
 9. Build the database, this can take up to an hour the first time.
 
 ```shell
-poetry run bash scripts/bash/build_db.sh
+poetry run bash scripts/bash/initial_build_db.sh
 ```
 
 That should create an SQLite database `dpd.db` in the root folder which can be accessed with [DB Browser](https://sqlitebrowser.org/), [DBeaver](https://dbeaver.io/), through [SQLAlechmy](https://www.sqlalchemy.org/) or your preferred method.

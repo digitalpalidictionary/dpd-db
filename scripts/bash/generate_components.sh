@@ -1,4 +1,5 @@
-# building components for db
+# This script updates all tables with the latest derived data
+# in preparation for exporting.
 
 if [ ! -e "dpd.db" ]; then
     echo "Error: dpd.db file not found."
