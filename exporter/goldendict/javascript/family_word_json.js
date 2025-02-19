@@ -2295,8 +2295,8 @@ var family_word_json = {
    [
     "cirataraṃ",
     "ind",
-    "for an even longer time",
-    "◑"
+    "for even more time; even longer",
+    "✔"
    ],
    [
     "cirattāya",
@@ -4445,6 +4445,12 @@ var family_word_json = {
     "✘"
    ],
    [
+    "aṭṭhadhā",
+    "ind",
+    "in eight parts; into eight portions",
+    "✔"
+   ],
+   [
     "aṭṭhannaṃ 1",
     "card",
     "of eight",
@@ -4499,7 +4505,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 17
+  "count": 18
  },
  "aṭṭhi": {
   "data": [
@@ -9497,7 +9503,7 @@ var family_word_json = {
     "uccatara",
     "adj",
     "higher; loftier",
-    "◑"
+    "✔"
    ],
    [
     "uccā",
@@ -12191,7 +12197,7 @@ var family_word_json = {
    [
     "petti 2",
     "masc",
-    "forefather; ancestor; deceased relative",
+    "forefather; ancestor; deceased relative; lit. related to father",
     "✔"
    ],
    [
@@ -16338,6 +16344,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "samaka",
+    "adj",
+    "of the same height",
+    "✔"
+   ],
+   [
     "samatā",
     "fem",
     "evenness (of); balance (of); equilibrium (of); lit. even state",
@@ -16410,7 +16422,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 32
+  "count": 33
  },
  "sammā": {
   "data": [
@@ -16912,8 +16924,8 @@ var family_word_json = {
    [
     "sūci 3",
     "fem",
-    "cross bar; railing",
-    "◑"
+    "(of a ladder) cross bar; rungs; lit. pin",
+    "✔"
    ],
    [
     "sūci 4",
@@ -17900,7 +17912,7 @@ var family_word_json = {
    [
     "okkala",
     "adj",
-    "living in Ukkala; from Ukkala",
+    "from Ukkala; living in Ukkala",
     "✔"
    ]
   ],
@@ -18026,8 +18038,8 @@ var family_word_json = {
    [
     "uṇhīsa 2",
     "nt",
-    "protuberance; coping",
-    "◑"
+    "finial; decorative knob; newel cap; lit. turban",
+    "✔"
    ],
    [
     "unhīsa",
@@ -21179,8 +21191,8 @@ var family_word_json = {
    [
     "kiṅkiṇikā",
     "fem",
-    "small bell",
-    "◑"
+    "small bell; lit. tinkler",
+    "✔"
    ]
   ],
   "count": 4
@@ -21891,6 +21903,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "kesa 3",
+    "adj",
+    "with a mane",
+    "✔"
+   ],
+   [
     "kesatā",
     "fem",
     "fact of having hair",
@@ -21963,7 +21981,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 14
+  "count": 15
  },
  "kesamutta": {
   "data": [
@@ -22138,7 +22156,7 @@ var family_word_json = {
     "koḷiya",
     "masc",
     "name of a clan neighbouring the Sakyans",
-    "✘"
+    "✔"
    ],
    [
     "koḷīya",
@@ -22154,7 +22172,7 @@ var family_word_json = {
    [
     "kosambika",
     "adj",
-    "living in Kosambī; from Kosambī",
+    "from Kosambī; living in Kosambī",
     "◑"
    ],
    [
@@ -22294,7 +22312,7 @@ var family_word_json = {
    [
     "khāṇumataka",
     "adj",
-    "of Khāṇumata; from Khāṇumata; living in Khāṇumata",
+    "from Khāṇumata; living in Khāṇumata",
     "✔"
    ]
   ],
@@ -23457,7 +23475,7 @@ var family_word_json = {
    [
     "cātumeyyaka",
     "adj",
-    "living in Cātumā",
+    "from Cātumā; living in Cātumā",
     "✔"
    ]
   ],
@@ -23567,7 +23585,7 @@ var family_word_json = {
    [
     "campeyyaka",
     "adj",
-    "living in Campā; from Campā",
+    "from Campā; living in Campā",
     "✔"
    ]
   ],
@@ -25522,7 +25540,7 @@ var family_word_json = {
     "tumba 4",
     "masc",
     "relic urn; cremation urn",
-    "✘"
+    "✔"
    ],
    [
     "tumbī",
@@ -25570,9 +25588,15 @@ var family_word_json = {
     "nt",
     "instrumental music; sound of musical instruments",
     "✘"
+   ],
+   [
+    "tūriya 4",
+    "nt",
+    "band of musicians",
+    "✔"
    ]
   ],
-  "count": 6
+  "count": 7
  },
  "thana": {
   "data": [
@@ -26021,8 +26045,8 @@ var family_word_json = {
    [
     "doṇa 2",
     "masc",
-    "name of a Brahman",
-    "✘"
+    "name of a Brahman; lit. bucket",
+    "✔"
    ],
    [
     "doṇi 1",
@@ -26634,7 +26658,7 @@ var family_word_json = {
    [
     "navakatara",
     "adj",
-    "more junior",
+    "younger; more junior",
     "✔"
    ]
   ],
@@ -26832,7 +26856,7 @@ var family_word_json = {
    [
     "nātikiya",
     "adj",
-    "living in Nātika; from Nātika",
+    "from Nātika; living in Nātika",
     "✘"
    ]
   ],
@@ -26865,6 +26889,12 @@ var family_word_json = {
     "◑"
    ],
    [
+    "nīcatara",
+    "adj",
+    "lower in height; shorter; lit. low",
+    "✔"
+   ],
+   [
     "nīceyya",
     "adj",
     "lower (than); more inferior (than); worse (than)",
@@ -26883,7 +26913,7 @@ var family_word_json = {
     "✘"
    ]
   ],
-  "count": 7
+  "count": 8
  },
  "rassa": {
   "data": [
@@ -27596,7 +27626,7 @@ var family_word_json = {
    [
     "bhastā 2",
     "fem",
-    "bellows",
+    "bellows; lit. leather bag",
     "✔"
    ]
   ],
@@ -28525,13 +28555,19 @@ var family_word_json = {
  "piṅgala": {
   "data": [
    [
+    "piṅgala 1",
+    "adj",
+    "tawny brown",
+    "◑"
+   ],
+   [
     "piṅgala 2",
     "nt",
     "name of a type of elephant; lit. tawny brown",
     "✔"
    ]
   ],
-  "count": 1
+  "count": 2
  },
  "piṭhara": {
   "data": [
@@ -29732,8 +29768,8 @@ var family_word_json = {
    [
     "bhiṅkāra",
     "masc",
-    "water jar; a vase; ceremonial vessel (in donations)",
-    "✘"
+    "water pitcher; a vase; ceremonial vessel (in donations)",
+    "✔"
    ],
    [
     "bhiṅgāra",
@@ -30370,15 +30406,9 @@ var family_word_json = {
     "masc",
     "peacock; (comm) any bird",
     "✔"
-   ],
-   [
-    "moriya",
-    "masc",
-    "name of a high caste clan",
-    "✘"
    ]
   ],
-  "count": 3
+  "count": 2
  },
  "mariyādā": {
   "data": [
@@ -30685,13 +30715,13 @@ var family_word_json = {
    [
     "mithileyyaka",
     "adj",
-    "living in Mithilā; of Mithilā",
+    "from Mithilā; living in Mithilā",
     "✔"
    ],
    [
     "methileyyaka",
     "adj",
-    "living in Mithilā; of Mithilā",
+    "from Mithilā; living in Mithilā",
     "✔"
    ]
   ],
@@ -32524,7 +32554,7 @@ var family_word_json = {
    [
     "verañja",
     "adj",
-    "living in Verañjā; from Verañjā",
+    "from Verañjā; living in Verañjā",
     "◑"
    ],
    [
@@ -32555,15 +32585,9 @@ var family_word_json = {
     "fem",
     "(comm) woman born of mixed noble and Brahman parentage",
     "✔"
-   ],
-   [
-    "velāmikānī",
-    "adj",
-    "born of mixed Khattiya and Brahman parentage",
-    "✘"
    ]
   ],
-  "count": 3
+  "count": 2
  },
  "vesālī": {
   "data": [
@@ -32576,7 +32600,7 @@ var family_word_json = {
    [
     "vesālika",
     "adj",
-    "related to Vesālī; living in Vesālī",
+    "from Vesālī; living in Vesālī",
     "✔"
    ],
    [
@@ -32609,10 +32633,10 @@ var family_word_json = {
     "✔"
    ],
    [
-    "vessāyī",
-    "adj",
-    "belonging to the merchant class",
-    "✘"
+    "vessinī",
+    "fem",
+    "woman of the merchant and agricultural caste",
+    "✔"
    ],
    [
     "vessī 1",

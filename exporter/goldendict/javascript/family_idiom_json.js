@@ -213,7 +213,7 @@ var family_idiom_json = {
   ]
  },
  "katvā": {
-  "count": 16,
+  "count": 17,
   "data": [
    [
     "añjaliṃ katvā",
@@ -273,6 +273,12 @@ var family_idiom_json = {
     "tato sīsaṃ katvā",
     "idiom",
     "having pointed the head in that direction; lit. from that having made the head",
+    "✔"
+   ],
+   [
+    "dīghaṃ katvā",
+    "idiom",
+    "(gram) having lengthened; having elongated",
     "✔"
    ],
    [
@@ -2002,7 +2008,7 @@ var family_idiom_json = {
   ]
  },
  "asmi": {
-  "count": 34,
+  "count": 35,
   "data": [
    [
     "aggohamasmi",
@@ -2128,6 +2134,12 @@ var family_idiom_json = {
     "nesohamasmi",
     "sandhi",
     "this is not me; I am not this",
+    "✔"
+   ],
+   [
+    "pismi",
+    "sandhi",
+    "I am also; I too",
     "✔"
    ],
    [
@@ -7015,7 +7027,7 @@ var family_idiom_json = {
   ]
  },
  "api": {
-  "count": 152,
+  "count": 153,
   "data": [
    [
     "aññāṇatthampi",
@@ -7663,6 +7675,12 @@ var family_idiom_json = {
     "pire",
     "sandhi",
     "(comm) alien; another; not one of us",
+    "✔"
+   ],
+   [
+    "pismi",
+    "sandhi",
+    "I am also; I too",
     "✔"
    ],
    [
@@ -27356,6 +27374,64 @@ var family_idiom_json = {
    ]
   ]
  },
+ "dama": {
+  "count": 1,
+  "data": [
+   [
+    "damathaṃ upeti",
+    "idiom",
+    "gets tamed; lit. approaches taming",
+    "✔"
+   ]
+  ]
+ },
+ "upeti": {
+  "count": 7,
+  "data": [
+   [
+    "damathaṃ upeti",
+    "idiom",
+    "gets tamed; lit. approaches taming",
+    "✔"
+   ],
+   [
+    "na upeti 1",
+    "idiom",
+    "is not fit (for); is not ready (for); is not suitable (for)",
+    "✔"
+   ],
+   [
+    "na upeti 2",
+    "idiom",
+    "does not engage (in); does not get involved (with); lit. does not approach",
+    "✔"
+   ],
+   [
+    "na upeti saṅkhaṃ",
+    "idiom",
+    "cannot be defined; is unquantifiable; lit. does not approach definition",
+    "✔"
+   ],
+   [
+    "nijjhattiṃ upeti",
+    "idiom",
+    "is open to persuasion; can be convinced",
+    "✔"
+   ],
+   [
+    "saṅkhyaṃ nopeti",
+    "idiom",
+    "cannot be categorized; is not definable; lit. does not approach calculation",
+    "✔"
+   ],
+   [
+    "saññattiṃ upeti",
+    "idiom",
+    "is open to persuasion; can be convinced; lit. approaches persuasion",
+    "✔"
+   ]
+  ]
+ },
  "dava": {
   "count": 1,
   "data": [
@@ -27567,7 +27643,7 @@ var family_idiom_json = {
   ]
  },
  "dīgha": {
-  "count": 6,
+  "count": 7,
   "data": [
    [
     "dīghamāpajjate",
@@ -27591,6 +27667,12 @@ var family_idiom_json = {
     "dīghassa addhuno accayena",
     "idiom",
     "after the passing of a long time; lit. with the passing of a long time",
+    "✔"
+   ],
+   [
+    "dīghaṃ katvā",
+    "idiom",
+    "(gram) having lengthened; having elongated",
     "✔"
    ],
    [
@@ -27962,47 +28044,6 @@ var family_idiom_json = {
     "dhuraṃ nikkhittamatte",
     "idiom",
     "in the fact of abandoning one's duty; in merely shirking responsibility",
-    "✔"
-   ]
-  ]
- },
- "upeti": {
-  "count": 6,
-  "data": [
-   [
-    "na upeti 1",
-    "idiom",
-    "is not fit (for); is not ready (for); is not suitable (for)",
-    "✔"
-   ],
-   [
-    "na upeti 2",
-    "idiom",
-    "does not engage (in); does not get involved (with); lit. does not approach",
-    "✔"
-   ],
-   [
-    "na upeti saṅkhaṃ",
-    "idiom",
-    "cannot be defined; is unquantifiable; lit. does not approach definition",
-    "✔"
-   ],
-   [
-    "nijjhattiṃ upeti",
-    "idiom",
-    "is open to persuasion; can be convinced",
-    "✔"
-   ],
-   [
-    "saṅkhyaṃ nopeti",
-    "idiom",
-    "cannot be categorized; is not definable; lit. does not approach calculation",
-    "✔"
-   ],
-   [
-    "saññattiṃ upeti",
-    "idiom",
-    "is open to persuasion; can be convinced; lit. approaches persuasion",
     "✔"
    ]
   ]

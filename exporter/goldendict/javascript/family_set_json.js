@@ -1990,7 +1990,7 @@ var family_set_json = {
     "cākāra",
     "masc",
     "(gram) the syllable cā",
-    "◑"
+    "✔"
    ],
    [
     "cuṇṇa 3",
@@ -2026,6 +2026,12 @@ var family_set_json = {
     "chaṭṭhīvibhatti",
     "fem",
     "(gram) declension of the genitive case; lit. sixth declension",
+    "✔"
+   ],
+   [
+    "chandānurakkhaṇa",
+    "nt",
+    "(gram) preserving the meter",
     "✔"
    ],
    [
@@ -2515,6 +2521,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "dīghaṃ katvā",
+    "idiom",
+    "(gram) having lengthened; having elongated",
+    "✔"
+   ],
+   [
     "dīghaṃ yāti",
     "idiom",
     "(gram) gets lengthened; becomes long; lit. goes long",
@@ -2854,6 +2866,12 @@ var family_set_json = {
     "niggahītanta",
     "adj",
     "(gram) ending with letter ṃ",
+    "✔"
+   ],
+   [
+    "niggahītalopa",
+    "masc",
+    "(gram) elision of the letter ṃ",
     "✔"
    ],
    [
@@ -5023,7 +5041,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 809
+  "count": 812
  },
  "prefixes": {
   "data": [
@@ -9011,6 +9029,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "doṇa 2",
+    "masc",
+    "name of a Brahman; lit. bucket",
+    "✔"
+   ],
+   [
     "dhanañjāni",
     "masc",
     "name of a Brahman; lit. depriving wealth",
@@ -9353,7 +9377,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 107
+  "count": 108
  },
  "bodyparts": {
   "data": [
@@ -12402,6 +12426,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "mahāviyūha",
+    "masc",
+    "name of king Mahāsudassana's peaked roof house",
+    "✔"
+   ],
+   [
     "mahisavatthu",
     "nt",
     "name of a place; lit. buffalo field",
@@ -12660,7 +12690,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 152
+  "count": 153
  },
  "holy sites": {
   "data": [
@@ -15067,6 +15097,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "koḷiya",
+    "masc",
+    "name of a clan neighbouring the Sakyans",
+    "✔"
+   ],
+   [
     "koḷivisa 1",
     "masc",
     "name of a family clan",
@@ -15088,6 +15124,12 @@ var family_set_json = {
     "gosāla 1",
     "masc",
     "family name of a ascetic teacher; Makkhali Gosāla; lit. from a cow shed",
+    "✔"
+   ],
+   [
+    "thūli",
+    "masc",
+    "name of clan who received a portion of the Buddha's relics",
     "✔"
    ],
    [
@@ -15157,6 +15199,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "moriya",
+    "masc",
+    "name of a high caste clan",
+    "✔"
+   ],
+   [
     "rāmaputta",
     "masc",
     "family names of the Buddha's second teacher; Udaka Rāmaputta; lit. son of Rāma",
@@ -15217,7 +15265,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 37
+  "count": 40
  },
  "names of countries": {
   "data": [
@@ -21841,6 +21889,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "uttamapuggala",
+    "masc",
+    "ultimate man; greatest person; supreme individual; epithet of the Buddha",
+    "✔"
+   ],
+   [
     "jina 1",
     "masc",
     "conqueror; victor; champion; epithet of the Buddha",
@@ -22045,7 +22099,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 37
+  "count": 38
  },
  "books of the Suttapiṭaka": {
   "data": [
@@ -23577,6 +23631,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "dvādasaporisa",
+    "adj",
+    "measuring the height of twelve men",
+    "✔"
+   ],
+   [
     "dviporisa",
     "adj",
     "measuring two men's height; two fathoms in depth",
@@ -23619,7 +23679,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 17
+  "count": 18
  },
  "names of rivers": {
   "data": [
@@ -25260,6 +25320,18 @@ var family_set_json = {
     "◑"
    ],
    [
+    "visukamma",
+    "masc",
+    "name of the Sakka's architect",
+    "✔"
+   ],
+   [
+    "vissakamma",
+    "masc",
+    "name of the Sakka's architect",
+    "✔"
+   ],
+   [
     "vegabbhari",
     "masc",
     "name of a deity",
@@ -25590,7 +25662,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 195
+  "count": 197
  },
  "animals": {
   "data": [
@@ -29745,6 +29817,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "allakappa",
+    "nt",
+    "name of a town",
+    "✔"
+   ],
+   [
     "avanti 1",
     "fem",
     "name of a city",
@@ -30438,7 +30516,7 @@ var family_set_json = {
     "pippalivana",
     "nt",
     "name of a town; lit. long pepper wood",
-    "◑"
+    "✔"
    ],
    [
     "pubbajira",
@@ -30693,6 +30771,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "veṭṭhadīpa",
+    "nt",
+    "name of a town",
+    "✔"
+   ],
+   [
     "vedisā",
     "fem",
     "name of a town",
@@ -30927,7 +31011,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 207
+  "count": 209
  },
  "ordinal numbers": {
   "data": [
@@ -35519,8 +35603,8 @@ var family_set_json = {
    [
     "kiṅkiṇikā",
     "fem",
-    "small bell",
-    "◑"
+    "small bell; lit. tinkler",
+    "✔"
    ],
    [
     "kiri 2.1",
