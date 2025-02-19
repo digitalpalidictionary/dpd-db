@@ -4,7 +4,7 @@ exec > >(tee "/home/deva/logs/auto_commit.log") 2>&1
 
 cd /home/deva/Documents/dpd-db/
 
-poetry run python dps/scripts/export_from_db/backup_corrections_additions.py
+uv run python dps/scripts/export_from_db/backup_corrections_additions.py
 
 while true; do
     echo -ne "\033[1;34m need to push on GitHub? \033[0m"

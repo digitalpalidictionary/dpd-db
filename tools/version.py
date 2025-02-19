@@ -26,7 +26,7 @@ def update_version():
     config_update("version", "version", version, silent=True)
     printer("config.ini", "ok")
 
-    update_poetry_version(pth, version)
+    update_project_version(pth, version)
     update_db_version(pth, version)
 
 
@@ -41,11 +41,11 @@ def make_version():
     return version
 
 
-def update_poetry_version(pth, version):
+def update_project_version(pth, version):
     with open(pth.pyproject_path) as file:
         doc = file.read()
         t = tomlkit.parse(doc)
-        t["tool"]["poetry"]["version"] = version    # type: ignore
+        t["project"]["version"] = version    # type: ignore
 
     with open(pth.pyproject_path, "w") as file:
         file.write(t.as_string())

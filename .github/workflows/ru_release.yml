@@ -40,14 +40,11 @@ jobs:
       with:
         python-version: 3.11
 
-    - name: Install Poetry
-      run: |
-        curl -sSL https://install.python-poetry.org | python -
-
+    - name: Install uv
+      run: curl -LsSf https://astral.sh/uv/install.sh | sh
+      
     - name: Install dependencies
-      run: |
-        poetry config virtualenvs.in-project true
-        poetry install
+      run: uv sync
 
     - name: Set up Go
       uses: actions/setup-go@v2
@@ -60,67 +57,67 @@ jobs:
     # ----------------------------------------
 
     - name: Config for GitHub release
-      run: poetry run python exporter/goldendict/ru_components/tools/ru_config_github_release.py
+      run: uv run python exporter/goldendict/ru_components/tools/ru_config_github_release.py
 
     - name: Create dpd.db
       run: touch dpd.db
 
     - name: Build the database
-      run: poetry run python scripts/build/db_rebuild_from_tsv.py
+      run: uv run python scripts/build/db_rebuild_from_tsv.py
 
     - name: Run initial setup script
-      run: poetry run bash scripts/bash/initial_setup_run_once.sh
+      run: uv run bash scripts/bash/initial_setup_run_once.sh
     
     - name: Create version
-      run: poetry run python tools/version.py
+      run: uv run python tools/version.py
 
     - name: Create Inflection Templates
-      run: poetry run python db/inflections/create_inflection_templates.py
+      run: uv run python db/inflections/create_inflection_templates.py
 
     - name: Create Inflection Tables
-      run: poetry run python db/inflections/generate_inflection_tables.py
+      run: uv run python db/inflections/generate_inflection_tables.py
 
     - name: Update Sanskrit Family Roots
-      run: poetry run python scripts/build/sanskrit_root_families_updater.py
+      run: uv run python scripts/build/sanskrit_root_families_updater.py
 
     - name: Add Root Families
-      run: poetry run python db/families/family_root.py
+      run: uv run python db/families/family_root.py
 
     - name: Add Word Families
-      run: poetry run db/families/family_word.py
+      run: uv run db/families/family_word.py
     
     - name: Add Compound Families
-      run: poetry run python db/families/family_compound.py
+      run: uv run python db/families/family_compound.py
 
     - name: Add Sets
-      run: poetry run python db/families/family_set.py
+      run: uv run python db/families/family_set.py
 
     - name: Add Idioms
-      run: poetry run python db/families/family_idiom.py
+      run: uv run python db/families/family_idiom.py
 
     - name: Families to JSON
-      run: poetry run python scripts/build/families_to_json.py
+      run: uv run python scripts/build/families_to_json.py
 
     - name: Run Deconstructor
-      run: poetry run python scripts/build/deconstructor_output_add_to_db.py
+      run: uv run python scripts/build/deconstructor_output_add_to_db.py
         
     - name: Add api ca eva iti to inflections 
-      run: poetry run python scripts/build/api_ca_evi_iti.py
+      run: uv run python scripts/build/api_ca_evi_iti.py
 
     - name: Transliterate Inflections
-      run: poetry run python db/inflections/transliterate_inflections.py
+      run: uv run python db/inflections/transliterate_inflections.py
 
     - name: Inflections to Headwords
-      run: poetry run python db/inflections/inflections_to_headwords.py
+      run: uv run python db/inflections/inflections_to_headwords.py
 
     - name: Lookup Variants and Spelling Mistakes 
-      run: poetry run python db/lookup/variants_and_spelling_mistakes.py
+      run: uv run python db/lookup/variants_and_spelling_mistakes.py
 
     - name: Lookup Transliterate
-      run: poetry run python db/lookup/transliterate_lookup_table.py
+      run: uv run python db/lookup/transliterate_lookup_table.py
 
     - name: Lookup Help and Abbreviations
-      run: poetry run python db/lookup/help_abbrev_add_to_lookup.py
+      run: uv run python db/lookup/help_abbrev_add_to_lookup.py
 
     - name: Add Frequency
       run: |
@@ -128,32 +125,32 @@ jobs:
         ./frequency
 
     - name: Run EBT Counter
-      run: poetry run python scripts/build/ebt_counter.py
+      run: uv run python scripts/build/ebt_counter.py
 
     - name: Add EPD to Lookup Table
-      run: poetry run python db/epd/epd_to_lookup.py
+      run: uv run python db/epd/epd_to_lookup.py
 
     - name: Add RPD to Lookup Table
-      run: poetry run python db/rpd/rpd_to_lookup.py
+      run: uv run python db/rpd/rpd_to_lookup.py
 
     - name: Test Dealbreakers
-      run: poetry run python scripts/build/dealbreakers.py
+      run: uv run python scripts/build/dealbreakers.py
 
     # ----------------------------------------
     # Exporter
     # ----------------------------------------
 
     - name: Export Grammar Dictionary
-      run: poetry run python exporter/grammar_dict/grammar_dict.py
+      run: uv run python exporter/grammar_dict/grammar_dict.py
     
     - name: Export GoldenDict & MDict
-      run: poetry run python exporter/goldendict/main.py
+      run: uv run python exporter/goldendict/main.py
 
     - name: Export Deconstructor
-      run: poetry run python exporter/deconstructor/deconstructor_exporter.py
+      run: uv run python exporter/deconstructor/deconstructor_exporter.py
 
     - name: Export Kindle & ePub
-      run: poetry run python exporter/kindle/kindle_exporter.py
+      run: uv run python exporter/kindle/kindle_exporter.py
 
     - name: Check disk space and memory
       run: |
@@ -161,29 +158,29 @@ jobs:
         df -h    # Check disk space
 
     - name: Zip GoldenDict & Mdict
-      run: poetry run python exporter/goldendict/ru_components/tools/ru_zip_goldendict_mdict.py
+      run: uv run python exporter/goldendict/ru_components/tools/ru_zip_goldendict_mdict.py
 
     # ----------------------------------------
     # Export DPD + RUS and DPD + SBS
     # ----------------------------------------
 
     - name: Config for DPD + RUS
-      run: poetry run python exporter/goldendict/ru_components/tools/config_github_release_dpd_rus.py
+      run: uv run python exporter/goldendict/ru_components/tools/config_github_release_dpd_rus.py
 
     - name: Export GoldenDict & MDict for DPD + RUS
-      run: poetry run python exporter/goldendict/main.py
+      run: uv run python exporter/goldendict/main.py
 
     - name: Zip GoldenDict & Mdict for DPD + RUS
-      run: poetry run python exporter/goldendict/ru_components/tools/zip_dpd_rus.py
+      run: uv run python exporter/goldendict/ru_components/tools/zip_dpd_rus.py
 
     - name: Config for DPD + SBS
-      run: poetry run python exporter/goldendict/ru_components/tools/config_github_release_dpd_sbs.py
+      run: uv run python exporter/goldendict/ru_components/tools/config_github_release_dpd_sbs.py
 
     - name: Export GoldenDict & MDict for DPD + SBS
-      run: poetry run python exporter/goldendict/main.py
+      run: uv run python exporter/goldendict/main.py
 
     - name: Zip GoldenDict & Mdict for DPD + SBS
-      run: poetry run python exporter/goldendict/ru_components/tools/zip_dpd_sbs.py
+      run: uv run python exporter/goldendict/ru_components/tools/zip_dpd_sbs.py
     
     # ----------------------------------------
     # Upload Artifacts
@@ -199,7 +196,7 @@ jobs:
 
     - name: Set Release Tag
       id: set_release_tag
-      run: echo "RELEASE_TAG=$(poetry run python scripts/build/version_print.py)" >> $GITHUB_ENV
+      run: echo "RELEASE_TAG=$(uv run python scripts/build/version_print.py)" >> $GITHUB_ENV
 
     - name: Create Draft Release
       id: create_release

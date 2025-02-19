@@ -18,28 +18,31 @@ cd dpd-db
 git submodule init && git submodule update
 ```
 
+```markdown
 4. Install [nodejs](https://nodejs.org/en/download) for your operating system
 
 5. Install [go](https://go.dev/doc/install) for your operating system
 
-6. Install [poetry](https://python-poetry.org/docs/) for your operating system
+6. Install [uv](https://astral.sh/uv/install) for your operating system
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
 
-7. Install all the dependencies with poetry
-
-```shell
-poetry install
+7. Install all the dependencies with uv
+```bash
+uv sync
 ```
 
 8. Run this once to initialize the project
 
 ```shell
-poetry run bash scripts/bash/initial_setup_run_once.sh
+uv run bash scripts/bash/initial_setup_run_once.sh
 ```
 
 9. Build the database, this can take up to an hour the first time.
 
 ```shell
-poetry run bash scripts/bash/initial_build_db.sh
+uv run bash scripts/bash/initial_build_db.sh
 ```
 
 That should create an SQLite database `dpd.db` in the root folder which can be accessed with [DB Browser](https://sqlitebrowser.org/), [DBeaver](https://dbeaver.io/), through [SQLAlechmy](https://www.sqlalchemy.org/) or your preferred method.
