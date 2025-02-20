@@ -7,7 +7,7 @@ import os
 
 from tools.configger import config_test
 from tools.paths import ProjectPaths
-from tools.printer import p_green_title, p_green, p_red, p_title
+from tools.printer import p_green_title, p_red, p_title
 from tools.tic_toc import tic, toc
 
 def main():
