@@ -78,7 +78,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √as 2	3	ya	throw, hurl	√as	4	throw	pari √as	paryas	paryasta, paryastikā, pallatthikā (bsk)
 √as 2	3	ya	throw, hurl	√as	4	throw	vi pari √as	viparyas	na + viparyasta, viparyasta, viparyastatā, viparyāsa
 √as 2	3	ya	throw, hurl	√as	4	throw	saṃ √as	samas	samasyate
-√as 3	1	a	eat	√aś	1, 9	eat	√as	aś	anaśana, anāśaka, asana, aśana, aśita, aśiṣyate, āśa, āśaka, na + anāśaka, na + aśnāti, na + āśa + -ka + -tva)
+√as 3	1	a	eat	√aś	1, 9	eat	√as	aś	anaśana, anāśaka, asana, aśana, aśita, aśiṣyate, āśa, āśaka, na + anāśaka, na + aśitvā, aṣṭvā, na + aśnāti, na + āśa + -ka + -tva)
 √as 4	5	nā	eat	√aś	1, 9	eat	√as	aś	aśnāti, aśnāna, aśyamāna
 √ah	1	a	speak	√ah	-	say	√ah	ah	āha, āhuḥ, na + āha
 √aṃs	8	*e	divide, distribute	√aṃś	10	divide	√aṃs	aṃś	aṃśa, aṃśu, aṃśuka
@@ -93,7 +93,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ās	1	a	sit	√ās	2	sit	√ās	ās	āsana, āsanika, āsiṣṭa, āsīna, āste, āsyati, na + āsana
 √ās	1	a	sit	√ās	2	sit	upa √ās	upās	anupāsita, upāsaka, upāsana, upāsāna, upāsikā, upāsita, upāsitṛ, upāste
 √ās	1	a	sit	√ās	2	sit	pari upa √ās	paryupās	paryupāsat, paryupāsana, paryupāsanā, paryupāsita, paryupāsitavya, paryupāsitvā, paryupāsitṛ, paryupāste, paryupāstvā
-√ās	1	a	sit	√ās	2	sit	saṃ √ās	samās	samāsa, samāsatas, samāste
+√ās	1	a	sit	√ās	2	sit	saṃ √ās	samās	samāsa, samāsatas, samāste, samāsyati
 √i 1	1	a	come, go	√i	1, 2	go	√i	i	anaya, anīt, anīti +, aya, ayat, ayana, ita, īt, et, eta, etavya, etu, etum, etave, eyāt, eh, eṣyat, eṣyant, eṣyas, na + et, nairayika, niraya, sa + īti +
 √i 1	1	a	come, go	√i	1, 2	go	ati √i	atī	atīta, atīta +, atītam, atīte, atīyate, atyaya, atyāsam, atyeti, ātyayika, duratyaya (inaccessible), na + atīta
 √i 1	1	a	come, go	√i	1, 2	go	ati saṃ pa √i	-	ati + sāṃpreya (bsk)
@@ -675,7 +675,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √gah	6	ṇhā	grasp	√grah √grabh	1, 9	seize	upa saṃ √gah	upasaṃgrah	upasaṃgrāhya
 √gah	6	ṇhā	grasp	√grah √grabh	1, 9	seize	ni √gah	nigrah	anigṛhīta, durnigraha, nigraha, nigrahaṇa, nigrahāya, nigrahitavya, nigrahitum, nigrahītum, nigrahīṣyati, nigrahyamāṇa, nigrāhaka, nigṛhīta, nigṛhīta, anusvāra, nigṛhītvā, nigṛhṇat, nigṛhṇāti, su + nigṛhīta
 √gah	6	ṇhā	grasp	√grah √grabh	1, 9	seize	pa √gah	pragrah	pragraha, pragrahaṇa, pragrahayitvā, pragrāḍhvā, pragrāha +, pragṛhīta, pragṛhṇat, pragṛhṇāti, pragṛhya
-√gah	6	ṇhā	grasp	√grah √grabh	1, 9	seize	pati √gah	pratigrah	na + pratigṛhīta, na + pratigṛhīta +, na + pratigṛhṇāti, pratigraha, pratigrahaṇa, pratigrahayitvā, pratigrahitum, pratigrahītavya, pratigrahītṛ, pratigrahītṛ, pratigrahin, pratigrāha, pratigrāhaka, pratigrāhayati, pratigṛhīta, pratigṛhīta +, pratigṛhītvā, pratigṛbhītvā, pratigṛhṇat, pratigṛhṇāti
+√gah	6	ṇhā	grasp	√grah √grabh	1, 9	seize	pati √gah	pratigrah	na + pratigṛhīta, na + pratigṛhīta +, na + pratigṛhṇāti, pratigraha, pratigrahaṇa, pratigrahayitvā, pratigrahitum, pratigrahītavya, pratigrahītṛ, pratigrahītṛ, pratigrahin, pratigrāha, pratigrāhaka, pratigrāhayati, pratigṛhīta, pratigṛhīta +, pratigṛhītvā, pratigṛbhītvā, pratigṛhṇat, pratigṛhṇāti, pratigṛhya, pratigṛbhya
 √gah	6	ṇhā	grasp	√grah √grabh	1, 9	seize	pari √gah	parigrah	aparigraha, pari + grahaṇa, pari + gṛhṇat, parigraha, parigrahaṇa, parigrahatva (marriage), parigrāhaka, parigrāhaka (favouring), parigṛbhītvā, parigṛhīta, parigṛhṇat, parigṛhṇāti, parigṛhya, sa + parigraha
 √gah	6	ṇhā	grasp	√grah √grabh	1, 9	seize	vi √gah	vigrah	vigarhya, vigraha, vigraha +, vigṛhīta
 √gah	6	ṇhā	grasp	√grah √grabh	1, 9	seize	saṃ √gah	saṃgrah	dur + saṃgraha, na + saṃgraha +, na + saṃgṛhīta, na + saṃgṛhīta +, saṅgrah, saṅgrahitavya, saṅgrahitum, saṅgrahṇāti, saṅgrāḍhvā, sam + gṛhya, saṃgraha, saṃgraha +, saṃgrahaṇa, saṃgrahītum, saṃgrāhaka, saṃgrahaka (bsk), saṃgrḥnat, saṃgṛhīta, susaṃgṛhīta, susaṃgṛhīta +

@@ -6800,7 +6800,7 @@ var family_idiom_json = {
   ]
  },
  "attha1": {
-  "count": 37,
+  "count": 38,
   "data": [
    [
     "aññāṇatthampi",
@@ -6986,6 +6986,12 @@ var family_idiom_json = {
     "yametamatthaṃ",
     "sandhi",
     "whatever this means; concerning this matter; lit. which this meaning",
+    "✔"
+   ],
+   [
+    "yenatthena",
+    "sandhi",
+    "for which reason; for whatever purpose; lit. by which matter",
     "✔"
    ],
    [
@@ -10887,12 +10893,18 @@ var family_idiom_json = {
   ]
  },
  "atthu": {
-  "count": 3,
+  "count": 4,
   "data": [
    [
     "dhiratthu",
     "sandhi",
     "shame on you!; damn you!; curse you!; to hell with!",
+    "✔"
+   ],
+   [
+    "namatthu",
+    "sandhi",
+    "may there be homage (to)",
     "✔"
    ],
    [
@@ -28168,8 +28180,14 @@ var family_idiom_json = {
   ]
  },
  "namas": {
-  "count": 2,
+  "count": 3,
   "data": [
+   [
+    "namatthu",
+    "sandhi",
+    "may there be homage (to)",
+    "✔"
+   ],
    [
     "namo karoti",
     "idiom",
@@ -31590,7 +31608,7 @@ var family_idiom_json = {
   ]
  },
  "yena": {
-  "count": 16,
+  "count": 17,
   "data": [
    [
     "yena kāmaṃ",
@@ -31644,6 +31662,12 @@ var family_idiom_json = {
     "yenaññataro",
     "sandhi",
     "where a certain; to another",
+    "✔"
+   ],
+   [
+    "yenatthena",
+    "sandhi",
+    "for which reason; for whatever purpose; lit. by which matter",
     "✔"
    ],
    [

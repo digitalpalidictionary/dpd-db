@@ -4204,7 +4204,7 @@ var family_word_json = {
    [
     "aññattha",
     "ind",
-    "elsewhere; in other places; somewhere else",
+    "elsewhere; in other places; somewhere else (than)",
     "✔"
    ],
    [
@@ -17803,14 +17803,14 @@ var family_word_json = {
    [
     "saindaka",
     "adj",
-    "together with the ruler; along with the lord",
-    "✘"
+    "together with the lord; along with Inda",
+    "✔"
    ],
    [
     "sahindaka",
     "adj",
     "together with the lord; along with Inda",
-    "◑"
+    "✔"
    ],
    [
     "sinda",

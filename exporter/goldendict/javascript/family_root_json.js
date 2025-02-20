@@ -14682,8 +14682,8 @@ var family_root_json = {
    [
     "cintayitvā",
     "abs",
-    "having thought about; having reflected on",
-    "✘"
+    "having thought (about); having reflected (on)",
+    "✔"
    ],
    [
     "cintayitvāna",
@@ -19053,7 +19053,7 @@ var family_root_json = {
   "root_key": "√ñā",
   "root_family": "√ñā",
   "root_meaning": "know",
-  "count": 111,
+  "count": 112,
   "data": [
    [
     "ajānaka 1",
@@ -19488,9 +19488,15 @@ var family_root_json = {
     "✘"
    ],
    [
-    "ñassati",
+    "ñassati 1",
     "fut",
     "will know; could know",
+    "✔"
+   ],
+   [
+    "ñassati 2",
+    "fut",
+    "will learn; will find out (about)",
     "✔"
    ],
    [
@@ -32621,7 +32627,7 @@ var family_root_json = {
   "root_key": "√dā 1",
   "root_family": "√dā",
   "root_meaning": "give",
-  "count": 104,
+  "count": 105,
   "data": [
    [
     "adatta",
@@ -32712,6 +32718,12 @@ var family_root_json = {
     "adj",
     "not giving; not offering",
     "◑"
+   ],
+   [
+    "adāsayi",
+    "aor",
+    "gave; offered (something to someone)",
+    "✔"
    ],
    [
     "adāsi",
@@ -36786,7 +36798,7 @@ var family_root_json = {
    [
     "sudhammatā",
     "fem",
-    "excellent nature; excellence",
+    "excellent nature; excellence; lit. good nature state",
     "✔"
    ],
    [
@@ -45421,7 +45433,7 @@ var family_root_json = {
   "root_key": "√as 3",
   "root_family": "√as",
   "root_meaning": "eat",
-  "count": 22,
+  "count": 23,
   "data": [
    [
     "anaya 2.1",
@@ -45440,6 +45452,12 @@ var family_root_json = {
     "nt",
     "fasting; lit. not eating",
     "◑"
+   ],
+   [
+    "anasitvāna",
+    "abs",
+    "having not eaten",
+    "✔"
    ],
    [
     "anāsaka 1.1",
@@ -80797,7 +80815,7 @@ var family_root_json = {
   "root_key": "√gah",
   "root_family": "pati √gah",
   "root_meaning": "grasp",
-  "count": 44,
+  "count": 45,
   "data": [
    [
     "apaṭiggahita",
@@ -80920,10 +80938,16 @@ var family_root_json = {
     "✘"
    ],
    [
-    "paṭiggayha",
+    "paṭiggayha 1",
     "ger",
-    "taking, receiving, accepting",
-    "✘"
+    "accepting; taking on; adopting",
+    "✔"
+   ],
+   [
+    "paṭiggayha 2",
+    "ger",
+    "taking; receiving; accepting",
+    "✔"
    ],
    [
     "paṭiggaha 1",
@@ -121528,8 +121552,8 @@ var family_root_json = {
    [
     "mantayitvā",
     "abs",
-    "having consulted (on); having discussed; having deliberated",
-    "✘"
+    "having consulted (about); having discussed; having deliberated (on)",
+    "✔"
    ],
    [
     "mantā 1",
@@ -144183,7 +144207,7 @@ var family_root_json = {
     "virūḷhaka",
     "masc",
     "name of one of the Four Great Kings; lit. increased",
-    "◑"
+    "✔"
    ],
    [
     "virūḷhi",
@@ -149284,8 +149308,8 @@ var family_root_json = {
    [
     "sañjāyi",
     "aor",
-    "was born or produced",
-    "✘"
+    "appeared; arose; lit. gave birth",
+    "✔"
    ],
    [
     "sañjāyitvā",
@@ -154644,8 +154668,8 @@ var family_root_json = {
    [
     "sampasāda 2",
     "masc",
-    "pleasure, serenity",
-    "✘"
+    "pleasure; happiness; joy",
+    "✔"
    ],
    [
     "sampasādana 1",
@@ -220613,6 +220637,62 @@ var family_root_json = {
    ]
   ]
  },
+ "√ās saṃ √ās": {
+  "root_key": "√ās",
+  "root_family": "saṃ √ās",
+  "root_meaning": "sit",
+  "count": 8,
+  "data": [
+   [
+    "samacchati",
+    "pr",
+    "sits together (in); holds council (in); lit. sits",
+    "✔"
+   ],
+   [
+    "samāsa",
+    "masc",
+    "(gram) compound",
+    "✔"
+   ],
+   [
+    "samāsati",
+    "pr",
+    "associates (with); keeps close company (with); lit. sits together",
+    "✔"
+   ],
+   [
+    "samāsato",
+    "ind",
+    "concisely; succinctly; in brief",
+    "✔"
+   ],
+   [
+    "samāsita",
+    "pp",
+    "associated, combined, abridged",
+    "✘"
+   ],
+   [
+    "samāseti",
+    "pr",
+    "associates (with); keeps close company (with); lit. causes to sit together",
+    "✔"
+   ],
+   [
+    "samāsetvā",
+    "abs",
+    "having associated, having combined, having abridged",
+    "✘"
+   ],
+   [
+    "samāsesi",
+    "aor",
+    "associated, combined, abridged",
+    "✘"
+   ]
+  ]
+ },
  "√aj saṃ √aj": {
   "root_key": "√aj",
   "root_family": "saṃ √aj",
@@ -222180,56 +222260,6 @@ var family_root_json = {
     "adj",
     "living; residing",
     "✔"
-   ]
-  ]
- },
- "√ās saṃ √ās": {
-  "root_key": "√ās",
-  "root_family": "saṃ √ās",
-  "root_meaning": "sit",
-  "count": 7,
-  "data": [
-   [
-    "samāsa",
-    "masc",
-    "(gram) compound",
-    "✔"
-   ],
-   [
-    "samāsati",
-    "pr",
-    "associates (with); keeps close company (with); lit. sits together",
-    "✔"
-   ],
-   [
-    "samāsato",
-    "ind",
-    "concisely; succinctly; in brief",
-    "✔"
-   ],
-   [
-    "samāsita",
-    "pp",
-    "associated, combined, abridged",
-    "✘"
-   ],
-   [
-    "samāseti",
-    "pr",
-    "associates (with); keeps close company (with); lit. causes to sit together",
-    "✔"
-   ],
-   [
-    "samāsetvā",
-    "abs",
-    "having associated, having combined, having abridged",
-    "✘"
-   ],
-   [
-    "samāsesi",
-    "aor",
-    "associated, combined, abridged",
-    "✘"
    ]
   ]
  },

@@ -25380,6 +25380,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "virūpakkha 2",
+    "masc",
+    "name of one of the Four Great Kings; lit. deformed eye",
+    "✔"
+   ],
+   [
     "virūḷha 2",
     "masc",
     "name of one of the Four Great Kings; lit. grown; developed; increased",
@@ -25389,7 +25395,7 @@ var family_set_json = {
     "virūḷhaka",
     "masc",
     "name of one of the Four Great Kings; lit. increased",
-    "◑"
+    "✔"
    ],
    [
     "visukamma",
@@ -25734,7 +25740,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 198
+  "count": 199
  },
  "animals": {
   "data": [
