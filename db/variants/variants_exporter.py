@@ -54,14 +54,14 @@ def export_to_goldendict_mdict(
     with open(pth.variants_header_path) as f:
         header = f.read() 
     
-    for word, data in variants_dict.items():
+    for word, data_tuple in variants_dict.items():
         
         html_list: list[str] = []
         html_list.append(header)
         html_list.append("<body>")
         html_list.append("<div class='variants'>")
         html_list.append("<table class='variants'>")
-        html_list.append("<tr><th>source</th><th>filename</th><th>variant</th></tr>")
+        html_list.append("<tr><th>source</th><th>filename</th><th>context</th><th>variant</th></tr>")
         html_list.append("<td colspan='100%'><hr class='variants'></td>")
 
         synonyms_list: list[str] = []
@@ -71,12 +71,13 @@ def export_to_goldendict_mdict(
             synonyms_list = add_niggahitas([word])
         old_corpus = ""
 
-        for corpus, data2 in data.items():
+        for corpus, data2 in data_tuple.items():
             if old_corpus and old_corpus != corpus:
                 html_list.append("<td colspan='100%'><hr class='variants'></td>")
             
-            for book, variants in data2.items():
-                for variant in variants:
+            for book, data3 in data2.items():
+                for data_tuple in data3:
+                    context, variant = data_tuple 
                     if corpus == "MST" or corpus == "CST":
                         synonyms_list = make_synonyms(synonyms_list, variant)
                     if corpus == "BJT":
@@ -84,8 +85,8 @@ def export_to_goldendict_mdict(
                     
                     # add various niggahitas to synonyms
                     synonyms_list = add_niggahitas(synonyms_list)
-                    
-                    html_list.append(f"<tr><td>{corpus}</td><td>{book}</td><td>{variant}</td></tr>")
+                        
+                    html_list.append(f"<tr><td>{corpus}</td><td>{book}</td><td>{context}</td><td>{variant}</td></tr>")
             html_list.append("")
             old_corpus = corpus
         

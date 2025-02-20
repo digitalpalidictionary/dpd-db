@@ -59,6 +59,7 @@ DEFAULT_CONFIG = {
         "make_dpd": "yes",
         "make_deconstructor": "no",
         "make_grammar": "no",
+        "make_variants": "no",
         "make_tpr": "no",
         "make_ebook": "no",
         "make_tbw": "no",

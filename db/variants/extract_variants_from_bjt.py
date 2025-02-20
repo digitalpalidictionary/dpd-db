@@ -5,7 +5,7 @@ import re
 
 from pathlib import Path
 
-from db.variants.variants_modules import key_cleaner
+from db.variants.variants_modules import context_cleaner, key_cleaner
 from db.variants.variants_modules import VariantsDict
 
 from tools.paths import ProjectPaths
@@ -23,7 +23,9 @@ def get_bjt_file_list(pth: ProjectPaths) -> list[Path]:
     return files
 
 
-def get_bjt_json_data(file_path: Path) -> dict: # the dict has an overcomplicated structure, impossible to type
+def get_bjt_json_data(
+    file_path: Path,
+) -> dict:  # the dict has an overcomplicated structure, impossible to type
     """Get the JSON data from the file_path"""
 
     with open(file_path, "r", encoding="UTF-8") as f:
@@ -31,27 +33,24 @@ def get_bjt_json_data(file_path: Path) -> dict: # the dict has an overcomplicate
 
 
 def extract_bjt_variants(
-    file_name: Path,
-    variants_dict: VariantsDict,
-    errors_list: list
+    file_name: Path, variants_dict: VariantsDict, errors_list: list
 ) -> tuple[VariantsDict, list[tuple]]:
     """Extract variants from a BJT json file."""
 
     json_data = get_bjt_json_data(file_name)
     book = re.sub(r"-\d+.*", "", file_name.stem)
-    pages = json_data['pages']
+    pages = json_data["pages"]
 
     # compile vars for each page
     for page in pages:
-
-        page_num = page["pageNum"] 
+        page_num = page["pageNum"]
         pali = page["pali"]
         entries = pali["entries"]
         footnotes = pali["footnotes"]
 
         page_variants_dict = {}
         page_footnotes_dict = {}
-        
+
         # find all the {1} or {*} in text
         # and compile into a local dict
         for entry in entries:
@@ -60,17 +59,19 @@ def extract_bjt_variants(
                 r"""        
                 (^|\n| )    # starts with para, newline or space
                 ([^\n ]*    # 0 or more characters without space or \n = capture group1 
+                \s*        # optional space
+                [^\n ]*    # 0 or more characters without space or \n = 
                 \s*)        # optional space
                 \{          # open curly brackets
-                ([0-9*]+?)  # 1 or more digits or * = capture group2 
+                ([0-9*]+?)  # 1 or more digits or * = capture group3 
                 \}          # close curly braces
                 """,
-                text,       # find in text
-                re.VERBOSE  # otherwise it doesn't work
+                text,  # find in text
+                re.VERBOSE,  # otherwise it doesn't work
             )
             for var_c in var_capture:
-                start, word, number = var_c
-                page_variants_dict[number] = word
+                start, context, number = var_c
+                page_variants_dict[number] = context
 
         # find all the {1} or {*} in footnotes
         # and compile into a local dict
@@ -82,17 +83,19 @@ def extract_bjt_variants(
                 \.\s        # literal full-stop space
                 (.+)        # everything til the end in cgroup2
                 """,
-                text,       # find in text
-                re.VERBOSE | # otherwise it doesn't work 
-                re.DOTALL
+                text,  # find in text
+                re.VERBOSE  # otherwise it doesn't work
+                | re.DOTALL,
             )
             for fnc in fn_capture:
                 number, definition = fnc
                 page_footnotes_dict[number] = definition
 
         # compile page variants into variants_dict
-        for key, word in page_variants_dict.items():
+        for key, context in page_variants_dict.items():
+            word = context.split(" ")[-1]
             word_clean = key_cleaner(word)
+            context_clean = context_cleaner(context)
 
             try:
                 definition = page_footnotes_dict[key]
@@ -100,7 +103,7 @@ def extract_bjt_variants(
                 # ensure outer dictionary entry exists
                 if word_clean not in variants_dict:
                     variants_dict[word_clean] = {}
-                
+
                 # ensure cst entry exists
                 if "BJT" not in variants_dict[word_clean]:
                     variants_dict[word_clean]["BJT"] = {}
@@ -110,7 +113,7 @@ def extract_bjt_variants(
                     variants_dict[word_clean]["BJT"][book] = []
 
                 if definition not in variants_dict[word_clean]["BJT"][book]:
-                    variants_dict[word_clean]["BJT"][book].append(definition)
+                    variants_dict[word_clean]["BJT"][book].append((context_clean, definition))
 
             except KeyError:
                 pass
@@ -121,7 +124,7 @@ def extract_bjt_variants(
             try:
                 definition = page_variants_dict[key]
             except KeyError:
-                if "__"  not in word_clean:
+                if "__" not in word_clean:
                     errors_list.append((file_name.stem, page_num, key))
 
     return variants_dict, errors_list
@@ -136,11 +139,7 @@ def bjṭ_footnote_errors(errors_list):
         print(f"|{file_name}|{page_num}|{key}|")
 
 
-def process_bjt(
-        variants_dict: VariantsDict,
-        pth: ProjectPaths
-) -> VariantsDict:
-    
+def process_bjt(variants_dict: VariantsDict, pth: ProjectPaths) -> VariantsDict:
     p_green_title("extracting variants from BJT texts")
 
     errors_list = []
@@ -149,16 +148,15 @@ def process_bjt(
 
     bip()
     for counter, file_name in enumerate(file_list):
-
         if counter % 30 == 0:
             p_counter(counter, len(file_list), file_name.name)
             bip()
-        
+
         variants_dict, errors_list = extract_bjt_variants(
-            file_name, variants_dict, errors_list)
-    
+            file_name, variants_dict, errors_list
+        )
+
     if debug:
         bjṭ_footnote_errors(errors_list)
 
     return variants_dict
-    
