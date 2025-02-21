@@ -1,6 +1,7 @@
 __pycache__/
 .coverage
 .pytest_cache
+.uv/
 .venv
 .vscode/
 *.db
@@ -143,17 +144,21 @@ exporter/other_dictionaries/code/peu/source/peu_dump_2024_02_16.js
 exporter/other_dictionaries/goldendict/
 exporter/other_dictionaries/json/
 exporter/other_dictionaries/mdict/
+exporter/pdf/output/
+exporter/pdf/typst_data_lite.typ
 exporter/share/
 exporter/sinhala/dpd sinhala test 1.1.xlsx
 exporter/tpr/output/
+exporter/word_trees/
 go_modules/deconstructor/output/*.json
 go_modules/deconstructor/output/*.tsv
 gui/icons/
 gui/stash/
 gui/window_layout.py
+logs/
 resources/thai_mahachula/
-resources/tipitaka.lk.tar.gz
 resources/tipitaka.lk_old/
+resources/tipitaka.lk.tar.gz
 sandhi.zip
 scracthpad.ipynb
 shared_data/changed_headwords
@@ -173,7 +178,3 @@ tests/test_theragatha_filler
 time_log.dat
 time_log.png
 tmp/
-exporter/pdf/output/
-exporter/word_trees/
-exporter/pdf/typst_data_lite.typ
-.uv/
