@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # This script updates the database and generates DPD in all formats
 # You can finely control which parts get run in ./config.ini 
 

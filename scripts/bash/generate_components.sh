@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # This script updates all tables with the latest derived data in preparation for exporting.
 # You can finely control which parts get run in ./config.ini 
 
