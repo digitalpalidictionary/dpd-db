@@ -16105,7 +16105,7 @@ var family_word_json = {
     "sāmaṃ 2",
     "ind",
     "individually; personally",
-    "✘"
+    "✔"
    ],
    [
     "sehi 1",
@@ -32351,6 +32351,17 @@ var family_word_json = {
    ]
   ],
   "count": 10
+ },
+ "visu": {
+  "data": [
+   [
+    "visavitā",
+    "fem",
+    "variety; difference; lit. different state",
+    "✔"
+   ]
+  ],
+  "count": 1
  },
  "sāci": {
   "data": [

@@ -44983,7 +44983,7 @@ var family_root_json = {
     "anabhisambhavanīya",
     "ptp",
     "incomprehensible; imperceivable; not experienceable; lit. not to be attained",
-    "◑"
+    "✔"
    ],
    [
     "anabhisambhavanta",
@@ -53382,8 +53382,8 @@ var family_root_json = {
    [
     "āharayamāna",
     "prp",
-    "eating; taking food; consuming",
-    "◑"
+    "eating; taking food; consuming; lit. causing to take",
+    "✔"
    ],
    [
     "āhareti 1",
@@ -57919,7 +57919,7 @@ var family_root_json = {
   "root_key": "√mā",
   "root_family": "nī √mā",
   "root_meaning": "measure",
-  "count": 22,
+  "count": 23,
   "data": [
    [
     "animmāta",
@@ -58009,6 +58009,12 @@ var family_root_json = {
     "nimmita",
     "pp",
     "designed (by); created (by); fashioned (from); lit. measured out",
+    "✔"
+   ],
+   [
+    "nimmita 2",
+    "masc",
+    "form (of a god) created by psychic power; manifestation; lit. measured out",
     "✔"
    ],
    [
@@ -79903,7 +79909,7 @@ var family_root_json = {
   "root_key": "√ñā",
   "root_family": "pa √ñā",
   "root_meaning": "know",
-  "count": 123,
+  "count": 124,
   "data": [
    [
     "apañña 1",
@@ -80220,8 +80226,8 @@ var family_root_json = {
    [
     "paññapetar",
     "masc",
-    "teacher; preacher; proclaimer",
-    "✘"
+    "teacher; preacher; proclaimer; lit. who causes to know",
+    "✔"
    ],
    [
     "paññapeti 1",
@@ -80586,7 +80592,13 @@ var family_root_json = {
    [
     "paññāyi 2",
     "aor",
-    "was known as; was called",
+    "was known; was evident; occurred",
+    "✔"
+   ],
+   [
+    "paññāyi 3",
+    "aor",
+    "was known as; was called; lit. was called",
     "✔"
    ],
    [
@@ -84310,8 +84322,8 @@ var family_root_json = {
    [
     "apanujja",
     "ger",
-    "driving away; removing",
-    "✘"
+    "driving away; dispelling; getting rid of",
+    "✔"
    ],
    [
     "apanudati",
@@ -89640,8 +89652,8 @@ var family_root_json = {
    [
     "paribhāvanā",
     "fem",
-    "nurturing; fostering; fully developing",
-    "✘"
+    "nurturing; fostering; fully developing; lit. causing to be",
+    "✔"
    ],
    [
     "paribhāvita 1",
@@ -98510,8 +98522,8 @@ var family_root_json = {
    [
     "paṭippassambhati 2",
     "pr",
-    "calms down; relaxes; becomes settled; lit. calms back",
-    "◑"
+    "settles; calms down; dies down; lit. calms back",
+    "✔"
    ],
    [
     "paṭippassambhati 3",
@@ -103985,7 +103997,7 @@ var family_root_json = {
   "root_key": "√hū",
   "root_family": "pa √hū",
   "root_meaning": "be",
-  "count": 17,
+  "count": 18,
   "data": [
    [
     "appahonaka",
@@ -104028,6 +104040,12 @@ var family_root_json = {
     "adj",
     "much; considerable; abundant",
     "✘"
+   ],
+   [
+    "pahutā",
+    "fem",
+    "ability; capability; lit. able state",
+    "✔"
    ],
    [
     "pahū",
@@ -115215,18 +115233,56 @@ var family_root_json = {
    ]
   ]
  },
+ "√pīḷ abhi nī √pīḷ": {
+  "root_key": "√pīḷ",
+  "root_family": "abhi nī √pīḷ",
+  "root_meaning": "press, crush",
+  "count": 6,
+  "data": [
+   [
+    "abhinippīḷanā",
+    "fem",
+    "completely crushing down; squeezing down hard",
+    "✔"
+   ],
+   [
+    "abhinippīḷayati",
+    "pr",
+    "presses; crushes; oppresses, troubles",
+    "✘"
+   ],
+   [
+    "abhinippīḷayanta",
+    "prp",
+    "completely crushing down; squeezing down hard",
+    "✔"
+   ],
+   [
+    "abhinippīḷetabba",
+    "ptp",
+    "should be completely crushed down (by); lit. to be completely crushed",
+    "✔"
+   ],
+   [
+    "abhinippīḷeti 1",
+    "pr",
+    "completely crushes down; squeezes down hard",
+    "✔"
+   ],
+   [
+    "abhinippīḷeti 2",
+    "pr",
+    "pressures; puts pressure (on); harasses",
+    "✔"
+   ]
+  ]
+ },
  "√pad abhi nī √pad": {
   "root_key": "√pad",
   "root_family": "abhi nī √pad",
   "root_meaning": "go, step",
-  "count": 9,
+  "count": 8,
   "data": [
-   [
-    "abhinippanna",
-    "pp",
-    "accomplished (by); attained (by); accrued (to)",
-    "◑"
-   ],
    [
     "abhinipphajjati",
     "pr",
@@ -115273,50 +115329,6 @@ var family_root_json = {
     "nābhinipphajjati",
     "pr",
     "is not accomplished; is not successfully attained; does not materialize; is not produced",
-    "✔"
-   ]
-  ]
- },
- "√pīḷ abhi nī √pīḷ": {
-  "root_key": "√pīḷ",
-  "root_family": "abhi nī √pīḷ",
-  "root_meaning": "press, crush",
-  "count": 6,
-  "data": [
-   [
-    "abhinippīḷanā",
-    "fem",
-    "completely crushing down; squeezing down hard",
-    "✔"
-   ],
-   [
-    "abhinippīḷayati",
-    "pr",
-    "presses; crushes; oppresses, troubles",
-    "✘"
-   ],
-   [
-    "abhinippīḷayanta",
-    "prp",
-    "completely crushing down; squeezing down hard",
-    "✔"
-   ],
-   [
-    "abhinippīḷetabba",
-    "ptp",
-    "should be completely crushed down (by); lit. to be completely crushed",
-    "✔"
-   ],
-   [
-    "abhinippīḷeti 1",
-    "pr",
-    "completely crushes down; squeezes down hard",
-    "✔"
-   ],
-   [
-    "abhinippīḷeti 2",
-    "pr",
-    "pressures; puts pressure (on); harasses",
     "✔"
    ]
   ]
@@ -138439,7 +138451,7 @@ var family_root_json = {
   "root_key": "√gah",
   "root_family": "vi √gah",
   "root_meaning": "grasp",
-  "count": 14,
+  "count": 15,
   "data": [
    [
     "aviggaha 1",
@@ -138504,11 +138516,17 @@ var family_root_json = {
    [
     "viggaha 2",
     "masc",
-    "body; form; individual; lit. taken form",
+    "body; form; individual; lit. grasping differently",
     "✔"
    ],
    [
     "viggaha 3",
+    "masc",
+    "form; figure; statue; image; lit. grasping differently",
+    "✔"
+   ],
+   [
+    "viggaha 4",
     "masc",
     "(gram) resolution of words into their elements",
     "✘"
@@ -145181,7 +145199,7 @@ var family_root_json = {
   "root_key": "√sar 1",
   "root_family": "vi √sar",
   "root_meaning": "go, flow",
-  "count": 8,
+  "count": 7,
   "data": [
    [
     "avisaṭa",
@@ -145190,16 +145208,10 @@ var family_root_json = {
     "✔"
    ],
    [
-    "avisārī 1",
+    "avisārī",
     "adj",
-    "not diffused; not rambling",
+    "not diffused; not scattered",
     "✔"
-   ],
-   [
-    "avisārī 2",
-    "adj",
-    "decisive, musical, not discordant (of voice)",
-    "✘"
    ],
    [
     "visaṭa 1",
@@ -153505,7 +153517,7 @@ var family_root_json = {
   "root_key": "√pad",
   "root_family": "saṃ ā √pad",
   "root_meaning": "go, step",
-  "count": 19,
+  "count": 20,
   "data": [
    [
     "asamāpatti",
@@ -153563,6 +153575,12 @@ var family_root_json = {
    ],
    [
     "samāpajji 2",
+    "aor",
+    "reached; entered; arrived at",
+    "✔"
+   ],
+   [
+    "samāpajji 3",
     "aor",
     "engaged in",
     "✘"
@@ -174404,8 +174422,8 @@ var family_root_json = {
    [
     "upasaṃharitvā",
     "abs",
-    "having brought together; having assembled",
-    "✘"
+    "having brought together; having re-assembled; lit. having brought near together",
+    "✔"
    ],
    [
     "upasaṃhāra",
@@ -193113,8 +193131,14 @@ var family_root_json = {
   "root_key": "√thar",
   "root_family": "pati ā √thar",
   "root_meaning": "spread, expand",
-  "count": 4,
+  "count": 5,
   "data": [
+   [
+    "paccatthata",
+    "pp",
+    "covered; spread out; layered",
+    "✔"
+   ],
    [
     "paccattharaṇa 1",
     "nt",
@@ -193136,8 +193160,8 @@ var family_root_json = {
    [
     "supaccatthata",
     "adj",
-    "well covered; well appointed",
-    "✘"
+    "well covered; well spread",
+    "✔"
    ]
   ]
  },
@@ -193244,14 +193268,14 @@ var family_root_json = {
    [
     "paccanubhosi",
     "aor",
-    "experienced",
-    "✘"
+    "displayed; manifested; lit. experienced",
+    "✔"
    ],
    [
     "paccanubhossati",
     "fut",
-    "will experience",
-    "✘"
+    "will display; will manifest; lit. will experience",
+    "✔"
    ],
    [
     "paccānubhoti",
@@ -198586,10 +198610,10 @@ var family_root_json = {
   "count": 12,
   "data": [
    [
-    "pamudā",
-    "fem",
-    "pleasure; gladness; happiness",
-    "✘"
+    "pamuda",
+    "masc",
+    "pleasure; gladness; happiness (about)",
+    "✔"
    ],
    [
     "pamudita",
@@ -198938,8 +198962,8 @@ var family_root_json = {
    [
     "payirudāhari",
     "aor",
-    "spoke; uttered; proclaimed",
-    "✘"
+    "spoke; uttered; proclaimed; lit. brought up",
+    "✔"
    ]
   ]
  },
@@ -225285,7 +225309,7 @@ var family_root_json = {
     "sampiyāyamāna",
     "prp",
     "being friendly; being kind; being dear",
-    "◑"
+    "✔"
    ],
    [
     "sampiyāyi",
@@ -227190,8 +227214,8 @@ var family_root_json = {
    [
     "saṃsandati 4",
     "pr",
-    "(of music) harmonizes; fits together (with)",
-    "◑"
+    "(of music) harmonizes; fits together (with); lit. flows together",
+    "✔"
    ],
    [
     "saṃsandana",

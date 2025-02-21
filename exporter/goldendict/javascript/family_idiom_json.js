@@ -2295,7 +2295,7 @@ var family_idiom_json = {
     "sattahaṅgehi",
     "sandhi",
     "with seven factors",
-    "◑"
+    "✔"
    ]
   ]
  },
@@ -32926,7 +32926,7 @@ var family_idiom_json = {
     "sattahaṅgehi",
     "sandhi",
     "with seven factors",
-    "◑"
+    "✔"
    ],
    [
     "sattimā",

@@ -25041,7 +25041,7 @@ var family_set_json = {
     "pañcasikha 1",
     "masc",
     "name of a demigod; lit. five crests",
-    "◑"
+    "✔"
    ],
    [
     "pañcālacaṇḍa",
@@ -29458,6 +29458,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "tettiṃsā",
+    "card",
+    "thirty-three (33)",
+    "✔"
+   ],
+   [
     "terasa 1",
     "card",
     "thirteen (13)",
@@ -29830,7 +29836,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 139
+  "count": 140
  },
  "villages, towns and cities": {
   "data": [
