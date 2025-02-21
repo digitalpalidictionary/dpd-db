@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd ~/Code/dpd-db
+uv run python3 gui/gui_main.py &

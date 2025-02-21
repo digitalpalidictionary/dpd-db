@@ -1,0 +1,13 @@
+#!/bin/bash
+
+cd /home/bodhirasa/Code/dpd-db/
+
+# Ensure the logs directory exists
+mkdir -p logs
+
+# Generate a timestamp
+timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
+
+# Run the command and save output with timestamped filename
+script -q -c "uv run bash scripts/bash/makedict.sh" | tee >(ansi2html > "logs/makedict_$timestamp.html")
+
