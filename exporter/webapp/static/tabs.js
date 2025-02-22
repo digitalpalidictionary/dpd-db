@@ -18,6 +18,22 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "flex"; // Ensure flex display for scrollable content
     document.getElementById(tabName).classList.add("active");
     evt.currentTarget.className += " active";
+
+    // Update URL based on tab
+    if (tabName === 'dpd-tab') {
+        const searchBox = document.getElementById("search-box");
+        const searchQuery = searchBox.value;
+        const url = `/?q=${encodeURIComponent(searchQuery)}`;
+        history.pushState({ q: searchQuery }, "", url);
+    } else if (tabName === 'bold-def-tab') {
+        const searchBox1 = document.getElementById("bd-search-box-1");
+        const searchBox2 = document.getElementById("bd-search-box-2");
+        const searchOption = document.querySelector('input[name="option"]:checked').value;
+        const searchQuery1 = searchBox1.value;
+        const searchQuery2 = searchBox2.value;
+        const url = `/bd?search_1=${encodeURIComponent(searchQuery1)}&search_2=${encodeURIComponent(searchQuery2)}&option=${searchOption}`;
+        history.pushState({ search_1: searchQuery1, search_2: searchQuery2, option: searchOption }, "", url);
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function() {

@@ -6,15 +6,24 @@ const bdSearchBox2 = document.getElementById("bd-search-box-2");
 const bdSearchForm = document.getElementById('bd-search-form');
 const bdSearchButton = document.getElementById("bd-search-button");
 const bdResults = document.getElementById("bd-results");
-const bdFooterText = document.getElementById("bd-footer");
+const bdFooterText = document.querySelector("#bold-def-tab .footer-pane");
 const bdSearchOptions = document.getElementsByName("option");
+const bdStartsWithButton = document.getElementById("option1");
+const bdRegexButton = document.getElementById("option2");
+const bdFuzzyButton = document.getElementById("option3");
 
 /////////// listeners
 
-// trigger title clear - go home
-bdTitleClear.addEventListener('click', function() {
-	window.location.href = '/';
-});
+const bdClearButton = document.querySelector(".bd-search-option-clear");
+
+function clearBdResults() {
+    bdResults.innerHTML = '';
+    bdSearchBox1.value = '';
+    bdSearchBox2.value = '';
+    history.pushState({}, "", "/");
+}
+
+bdClearButton.addEventListener('click', clearBdResults);
 
 // trigger search
 
@@ -45,45 +54,102 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // text to unicode
 
+bdSearchBox1.addEventListener("input", function() {
+    let textInput = bdSearchBox1.value;
+    let convertedText = uniCoder(textInput);
+    bdSearchBox1.value = convertedText;
+});
+
+bdSearchBox2.addEventListener("input", function() {
+    let textInput = bdSearchBox2.value;
+    let convertedText = uniCoder(textInput);
+    bdSearchBox2.value = convertedText;
+});
+
 function uniCoder(textInput) {
-	if (!textInput || textInput == '') return textInput
-	
-	textInput = textInput.replace(/aa/g, 'ā').replace(/ii/g, 'ī').replace(/uu/g, 'ū').replace(/\.t/g, 'ṭ').replace(/\.d/g, 'ḍ').replace(/\"n/g, 'ṅ').replace(/\'n/g, 'ṅ').replace(/\.n/g, 'ṇ').replace(/\.m/g, 'ṃ').replace(/\~n/g, 'ñ').replace(/\.l/g, 'ḷ').replace(/\.h/g, 'ḥ').toLowerCase()
-	c(textInput)
+	if (!textInput || textInput == "") return textInput
 	return textInput
-}
+        .replace(/aa/g, "ā")
+        .replace(/ii/g, "ī")
+        .replace(/uu/g, "ū")
+        .replace(/\"n/g, "ṅ")
+        .replace(/\~n/g, "ñ")
+        .replace(/\.t/g, "ṭ")
+        .replace(/\.d/g, "ḍ")
+        .replace(/\.n/g, "ṇ")
+        .replace(/\.m/g, "ṃ")
+        .replace(/\.l/g, "ḷ")
+        .replace(/\.h/g, "ḥ")
+};
 
 // contextual help listeners
 
-// bdSearchBox1.addEventListener("mouseenter", function() {
-// 	hoverHelp("searchBox1")
-// })
-// bdSearchBox1.addEventListener("mouseleave", function () {
-// 	hoverHelp("default")
-// })
-// bdSearchBox2.addEventListener("mouseenter", function () {
-// 	hoverHelp("searchBox2")
-// })
-// bdSearchBox2.addEventListener("mouseleave", function () {
-// 	hoverHelp("default")
-// })
+bdSearchBox1.addEventListener("mouseenter", function() {
+	hoverHelp("searchBox1")
+})
+bdSearchBox1.addEventListener("mouseleave", function () {
+	hoverHelp("default")
+})
+bdSearchBox2.addEventListener("mouseenter", function () {
+	hoverHelp("searchBox2")
+})
+bdSearchBox2.addEventListener("mouseleave", function () {
+	hoverHelp("default")
+})
+
+document.querySelector('label[for="option1"]').addEventListener("mouseenter", function () {
+    hoverHelp("startsWithButton")
+})
+document.querySelector('label[for="option1"]').addEventListener("mouseleave", function () {
+    hoverHelp("default")
+})
+
+document.querySelector('label[for="option2"]').addEventListener("mouseenter", function () {
+    hoverHelp("regexButton")
+})
+document.querySelector('label[for="option2"]').addEventListener("mouseleave", function () {
+    hoverHelp("default")
+})
+
+document.querySelector('label[for="option3"]').addEventListener("mouseenter", function () {
+    hoverHelp("fuzzyButton")
+})
+document.querySelector('label[for="option3"]').addEventListener("mouseleave", function () {
+    hoverHelp("default")
+})
+
+bdClearButton.addEventListener("mouseenter", function () {
+    hoverHelp("clearButton")
+})
+bdClearButton.addEventListener("mouseleave", function () {
+    hoverHelp("default")
+})
 
 // contextual help
 
-// function hoverHelp(event) {
-// 	if (event == "searchBox1") {
-// 		footerText.innerHTML = "What is the defined Pāḷi term you are looking for?"
-// 	}
-// 	else if (event == "searchBox2") {
-// 		footerText.innerHTML = "Use this box to search within results."
-// 	}
-// 	else if (event == "startsWithButton") {
-// 		footerText.innerHTML = "Search for definitions starting with the term."
-// 	}
-// 	else {
-// 		footerText.innerHTML = '<a href="https://digitalpalidictionary.github.io/" target="_blank">Built for DPD'
-// 	}
-// }
+function hoverHelp(event) {
+	if (event == "searchBox1") {
+		bdFooterText.innerHTML = "What is the defined Pāḷi term you are looking for?"
+	}
+	else if (event == "searchBox2") {
+		bdFooterText.innerHTML = "Use this box to search within results."
+	}
+	else if (event == "startsWithButton") {
+		bdFooterText.innerHTML = "Search for definitions&nbsp;<b>starting</b>&nbsp;with the term."
+	}
+    else if (event == "regexButton") {
+        bdFooterText.innerHTML = "Use&nbsp;<b>regular expressions</b>&nbsp;for very precise searches."
+	}
+    else if (event == "fuzzyButton") {
+        bdFooterText.innerHTML = "<b>Fuzzy</b>&nbsp;search ignores all diacritics. It's useful if you don't know the exact spelling."
+    }
+    else if (event == "clearButton") {
+        bdFooterText.innerHTML = "Start again with a&nbsp;<b>clear</b>&nbsp;and calm interface."
+    }
+	else {
+		bdFooterText.innerHTML = 'For more information, please visit the&nbsp;<a href="https://digitalpalidictionary.github.io/" target="_blank">DPD Docs website.'
+	}
+}
 
 async function handleBdFormSubmit(event) {
     if (event) {
@@ -98,9 +164,10 @@ async function handleBdFormSubmit(event) {
             break;
         }
     }
+    const url = `/bd?search_1=${encodeURIComponent(searchQuery1)}&search_2=${encodeURIComponent(searchQuery2)}&option=${selectedOption}`;
     if (searchQuery1.trim() !== "" || searchQuery2.trim() !== "") {
         try {
-            const response = await fetch(`/bd_html?search_1=${encodeURIComponent(searchQuery1)}&search_2=${encodeURIComponent(searchQuery2)}&option=${encodeURIComponent(selectedOption)}`);
+            const response = await fetch(url);
             const data = await response.text();
             // Process the response data and update the DOM as needed
             bdResults.innerHTML = data;
@@ -108,5 +175,5 @@ async function handleBdFormSubmit(event) {
             console.error("Error fetching data:", error);
         }
     }
+    history.pushState({ search_1: searchQuery1, search_2: searchQuery2, option: selectedOption }, "", url);
 }
-

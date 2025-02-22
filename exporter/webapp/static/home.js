@@ -334,11 +334,22 @@ async function handleFormSubmit(event) {
                 top: 0,
                 behavior: "smooth"
             });
-            
+
+            dpdPane.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+            // Update the URL with the search query
+            let url = `/?q=${encodeURIComponent(searchQuery)}`;
+            history.pushState({ q: searchQuery }, "", url);
             
         } catch (error) {
             console.error("Error fetching data:", error);
         }
+    } else {
+        // Clear the URL if the search query is empty
+        history.pushState({ q: '' }, "", "/");
     }
 }
 
@@ -585,19 +596,3 @@ searchBox.addEventListener("input", function() {
     let convertedText = uniCoder(textInput);
     searchBox.value = convertedText;
 });
-
-function uniCoder(textInput) {
-	if (!textInput || textInput == "") return textInput
-	return textInput
-        .replace(/aa/g, "ā")
-        .replace(/ii/g, "ī")
-        .replace(/uu/g, "ū")
-        .replace(/\"n/g, "ṅ")
-        .replace(/\~n/g, "ñ")
-        .replace(/\.t/g, "ṭ")
-        .replace(/\.d/g, "ḍ")
-        .replace(/\.n/g, "ṇ")
-        .replace(/\.m/g, "ṃ")
-        .replace(/\.l/g, "ḷ")
-        .replace(/\.h/g, "ḥ")
-};
