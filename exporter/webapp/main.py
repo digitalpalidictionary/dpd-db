@@ -153,7 +153,7 @@ def db_search_gd_ru(request: Request, search: str):
     )
 
 
-@app.get("/bd_html", response_class=HTMLResponse)
+@app.get("/bd", response_class=HTMLResponse)
 def db_search(
     request: Request, 
     search_1: str, 
