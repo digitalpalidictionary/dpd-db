@@ -15,7 +15,16 @@ function openTab(evt, tabName) {
     }
 
     // Show the current tab and add an "active" class to the button that opened the tab
-    document.getElementById(tabName).style.display = "block";
+    document.getElementById(tabName).style.display = "flex"; // Ensure flex display for scrollable content
     document.getElementById(tabName).classList.add("active");
     evt.currentTarget.className += " active";
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    var tabcontent = document.getElementsByClassName("tab-content");
+    for (var i = 0; i < tabcontent.length; i++) {
+        if (!tabcontent[i].classList.contains("active")) {
+            tabcontent[i].style.display = "none";
+        }
+    }
+});
