@@ -1,29 +1,18 @@
 <div class="main">
 
-    <!-- history -->
-    <!-- <div id="sidebar" style="display: none;">
-            <div id="history">
-                <h4 class="history">History</h4>
-                {% for item in history %}
-                {{ loop.index }}. {{ item.0 }} {{ item.1 }}
-                <br>
-                {% endfor %}
-            </div>
-        </div> -->
-
-    <div class="message">
+    <div class="bd-message">
         {{ message|safe }}
     </div>
-    <table id="search-results">
+    <table id="bd-search-results">
         {% for r in results %}
         <tr>
-            <th>
+            <th class="bd-th">
                 {{ loop.index }}. <b>{{ r.bold|safe }}</b>{{ r.bold_end|safe }}
             </th>
-            <td>
+            <td class="bd-td">
                 ({{ r.ref_code }}) {{ r.commentary|safe }}
                 <br>
-                <span class='info'>{{ r.nikaya}} {{ r.book }} {{ r.title }} {{ r.subhead }}
+                <span class='bd-info'>{{ r.nikaya}} {{ r.book }} {{ r.title }} {{ r.subhead }}
             </td>
         </tr>
         {% endfor %}

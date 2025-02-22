@@ -15,12 +15,12 @@
 
 <body>
     <div class="tab-buttons">
-        <button class="tab-link" onclick="openTab(event, 'dpd-tab')">DPD English</button>
-        <button class="tab-link active" onclick="openTab(event, 'bold-def-tab')">CST Bold Definitions</button>
+        <button class="tab-link active" onclick="openTab(event, 'dpd-tab')">DPD</button>
+        <button class="tab-link" onclick="openTab(event, 'bold-def-tab')">CST Bold Definitions</button>
     </div>
 
 
-    <div id="dpd-tab" class="tab-content">
+    <div id="dpd-tab" class="tab-content active">
         <div class="header-pane">
             <div class="logo-title">
                 <img src="static/dpd.ico" alt="dpd logo" id="header-image" class="header-image">
@@ -63,20 +63,18 @@
             </form>
         </div>
         <div class="main-pane" id="main-pane">
-            <div class="history-pane" id="history-pane"">
-            <h3>History</h3>          
-            <button id="clear-history-button" class="clear-history-button">x</button>
-                <div class="history-list-pane" id="history-list-pane">
-                </div>
-
+            <div class="history-pane" id="history-pane">
+                <h3>History</h3>          
+                <button id="clear-history-button" class="clear-history-button">x</button>
+                <div class="history-list-pane" id="history-list-pane"></div>
             </div>
-            <div class=dpd-pane id="dpd-pane">
+            <div class="dpd-pane" id="dpd-pane">
                 <div class="summary-results" id="summary-results"></div>
                 <div class="dpd-results" id="dpd-results">
                     {{ dpd_results|safe }}
                 </div>
             </div>
-            <div class=settings-pane>
+            <div class="settings-pane">
                 <h3>Settings</h3>
                 <p>
                     <button class="small-button" id="font-size-down">-</button>
@@ -146,7 +144,7 @@
         </div>
     </div>
 
-    <div id="bold-def-tab" class="tab-content active">
+    <div id="bold-def-tab" class="tab-content">
         <div class="header-pane bd-header-pane">
             <div class="logo-title">
                 <h2 class="title" id="bd-title-clear">CST Bold Definitions Search</h2>
@@ -162,8 +160,8 @@
                 </form>
                 <h4>which contain</h4>
                 <form id="bd-search-form">
-                    <input class="search-box bd-search-box" type="text" name="bd-search-2" id="bd-search-box-2" value="{{ search }}"
-                        autocomplete="off" inputmode="text" autocapitalize="off">
+                    <input class="search-box bd-search-box" type="text" name="bd-search-2" id="bd-search-box-2"
+                        value="{{ search }}" autocomplete="off" inputmode="text" autocapitalize="off">
                 </form>
                 <h4>within them.</h4>
                 <button class="search-button" id="bd-search-button">search</button>
@@ -195,10 +193,12 @@
                 <label for="option3">fuzzy</label><br>
             </div>
         </div>
-        <div class="bd-main-pain" id="bd-main-pane">
-            <div class="bd-results" id="bd-results">
-                {{ bd_results|safe }}
-            </div>
+        <div class="scrolling-pane" id="bd-results">
+            {{ bd_results|safe }}
+        </div>
+        <div class="footer-pane">
+            For more information, please read the &nbsp;
+            <a href="https://digitalpalidictionary.github.io/dpdict.html" target="_blank">DPD help website</a>
         </div>
     </div>
 

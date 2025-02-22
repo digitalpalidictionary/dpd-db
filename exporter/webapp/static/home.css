@@ -9,7 +9,8 @@
     --colour1: #00A4CC;
     --colour2: #65DBFF;
     --root-colour1: #AB3C00;
-    --root-colour2: #F95700;;
+    --root-colour2: #F95700;
+    ;
 }
 
 .dark-mode {
@@ -24,6 +25,10 @@ body {
     font-size: 1em;
     transition: 1s;
     scroll-behavior: smooth;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .tabs {
@@ -45,7 +50,7 @@ body {
     outline: none;
     cursor: pointer;
     transition: 0.3s;
-    font-size: 10px;
+    font-size: .8em;
     border-radius: 1px 7px 0 0;
 }
 
@@ -70,15 +75,20 @@ body {
     border: 2px solid var(--transparent);
 }
 
-
 .tab-content {
     display: none;
     padding: 0px;
     border-radius: 7px;
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .tab-content.active {
-    display: block;
+    display: flex;
+    flex-direction: column;
 }
 
 .header-pane {
@@ -117,8 +127,6 @@ h3 {
     margin-top: 5px;
 }
 
-
-
 a {
     color: var(--colour1);
 }
@@ -128,7 +136,7 @@ a {
 }
 
 .search-box {
-    background-color:var(--background-light) ;
+    background-color: var(--background-light);
     border-color: var (--gray);
     border-radius: 7px;
     color: var(--foreground-light);
@@ -172,7 +180,7 @@ a {
     position: absolute;
     background-color: var(--colour2);
     border-radius: 7px;
-    border: 2px solid var(--gray);
+    border: 2px solid var (--gray);
     color: black;
     padding: 10px;
     text-align: left;
@@ -181,17 +189,17 @@ a {
     opacity: 90%;
 }
 
-.help:hover .tooltip{
+.help:hover .tooltip {
     visibility: visible;
 }
 
-
 .main-pane {
     display: flex;
-    flex-direction: row;
-    height: 85vb;
-    overflow-y: clip;
-    justify-content: center;
+    flex: 1;
+    overflow: hidden;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
 }
 
 .history-pane {
@@ -201,7 +209,6 @@ a {
     flex-direction: column;
     flex: 1;
     list-style-type: none;
-    margin: 5px;
     overflow-x: auto;
     overflow-y: auto;
     padding: 5px 20px;
@@ -235,10 +242,10 @@ a {
 
 .clear-history-button {
     position: absolute;
-    top: 5px; 
-    right: 5px; 
-    padding: 5px 10px; 
-    font-size: 0.8em; 
+    top: 5px;
+    right: 5px;
+    padding: 5px 10px;
+    font-size: 0.8em;
     background-color: var(--colour2);
     color: var(--foreground-light);
     border: none;
@@ -257,7 +264,7 @@ p.message {
     text-align: center;
     line-height: 150%;
     padding: 1%;
-    
+
 }
 
 .summary-results b {
@@ -289,10 +296,15 @@ p.message {
 .dpd-pane {
     border-radius: 7px;
     border: 2px solid var(--transparent);
+    display: flex;
+    flex-direction: column;
     flex: 3;
-    padding: 5px;
+    overflow-x: auto;
     overflow-y: auto;
-    margin: 5px;
+    padding: 5px 20px;
+    position: relative;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .dpd-pane::-webkit-scrollbar {
@@ -320,7 +332,6 @@ p.message {
     border: 2px solid var(--transparent);
     flex-direction: column;
     flex: 1;
-    margin: 5px;
     padding: 5px 20px;
 }
 
@@ -351,11 +362,11 @@ p.message {
     color: var(--foreground-light);
     display: flex;
     justify-content: center;
-    margin: 5px;
     padding: 10px;
     text-align: center;
     transition: 1s;
-    width: 98%;
+    position: relative;
+    margin-bottom: 20px;
 }
 
 .footer-pane a {
@@ -380,49 +391,67 @@ p.message {
 .language-switcher {
     position: relative;
     display: inline-block;
-    margin: 5px; /* Adds some spacing around the icon */
+    margin: 5px;
+    /* Adds some spacing around the icon */
 }
 
 /* Language Icon (Clickable) */
 .language-icon {
     cursor: pointer;
-    font-size: 1.2em; /* Adjust size as needed */
-    color: var(--foreground-light); /* Consistent color */
+    font-size: 1.2em;
+    /* Adjust size as needed */
+    color: var(--foreground-light);
+    /* Consistent color */
     transition: color 0.3s;
 }
 
 .language-icon:hover {
-    color: var(--colour1); /* Change color on hover */
+    color: var(--colour1);
+    /* Change color on hover */
 }
 
 /* Dropdown Menu */
 .dropdown {
-    display: none; /* Hidden by default */
+    display: none;
+    /* Hidden by default */
     position: absolute;
-    top: 100%; /* Position right below the icon */
+    top: 100%;
+    /* Position right below the icon */
     left: 0;
-    background-color: var(--colour2); /* Matches primary color */
-    border-radius: 7px; /* Consistent rounded corners */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Adds subtle shadow */
-    min-width: 120px; /* Minimum width for better readability */
-    z-index: 1000; /* Ensure dropdown appears above other content */
+    background-color: var(--colour2);
+    /* Matches primary color */
+    border-radius: 7px;
+    /* Consistent rounded corners */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    /* Adds subtle shadow */
+    min-width: 120px;
+    /* Minimum width for better readability */
+    z-index: 1000;
+    /* Ensure dropdown appears above other content */
 }
 
 /* Dropdown Links */
 .dropdown a {
     display: block;
-    padding: 8px 12px; /* Padding for comfortable clicking */
-    color: black; /* Text color */
+    padding: 8px 12px;
+    /* Padding for comfortable clicking */
+    color: black;
+    /* Text color */
     text-decoration: none;
-    font-family: sans-serif; /* Matches other text */
-    font-size: 0.9em; /* Slightly smaller font size */
-    transition: background-color 0.3s; /* Smooth background transition */
+    font-family: sans-serif;
+    /* Matches other text */
+    font-size: 0.9em;
+    /* Slightly smaller font size */
+    transition: background-color 0.3s;
+    /* Smooth background transition */
 }
 
 /* Hover Effect for Links */
 .dropdown a:hover {
-    background-color: var(--colour1); /* Background color change on hover */
-    color: var(--foreground-dark); /* Ensure text is readable on hover */
+    background-color: var(--colour1);
+    /* Background color change on hover */
+    color: var(--foreground-dark);
+    /* Ensure text is readable on hover */
 }
 
 /* Dark Mode Adjustments */
@@ -446,12 +475,15 @@ p.message {
 @media (max-width: 750px) {
 
     .dropdown {
-        min-width: 100px; /* Adjust width on smaller screens */
+        min-width: 100px;
+        /* Adjust width on smaller screens */
     }
 
     .dropdown a {
-        padding: 6px 10px; /* Smaller padding on mobile */
-        font-size: 0.85em; /* Slightly smaller font for compact view */
+        padding: 6px 10px;
+        /* Smaller padding on mobile */
+        font-size: 0.85em;
+        /* Slightly smaller font for compact view */
     }
 
     .header-pane {
@@ -478,22 +510,19 @@ p.message {
     .main-pane {
         flex-direction: column;
         height: auto;
-        margin: 0;
-        padding: 0;
     }
-    
+
     .dpd-pane {
         order: 1;
         height: auto;
-        margin: 5px;
         padding: 5px;
-        overflow-y: auto; 
+        overflow-y: auto;
         width: 100%;
         box-sizing: border-box;
     }
 
     .history-pane {
-        order: 2; 
+        order: 2;
         padding: 5px;
         width: 100%;
         box-sizing: border-box;
@@ -509,13 +538,13 @@ p.message {
         white-space: nowrap;
         overflow-x: auto;
     }
-    
+
     .history-list-pane ul {
         padding-left: 0;
         list-style-type: none;
         display: flex;
         flex-direction: row;
-        flex-wrap: wrap; 
+        flex-wrap: wrap;
         gap: 0.3em;
     }
 
@@ -526,7 +555,6 @@ p.message {
     .settings-pane {
         order: 3;
         display: flex;
-        margin: 5px;
         padding: 5px;
         box-sizing: border-box;
         width: 100%;
@@ -552,9 +580,8 @@ p.message {
     width: 200px;
 }
 
-
 .bd-search-options {
-    font-size: 10px;
+    font-size: .8em;
     margin: 0px;
     padding: 5px;
     vertical-align: middle;
@@ -572,12 +599,125 @@ p.message {
     cursor: pointer;
     margin-right: 10px;
     padding: 5px 10px;
+    user-select: none;
 }
 
-.bd-search-options input[type="radio"]:checked + label {
-    border: 2px solid var(--colour0);
+.bd-search-options input[type="radio"]:checked+label {
+    border: 2px solid var(--colour2);
 }
 
-.bd-search-options input[type="radio"] + label  {
+.bd-search-options input[type="radio"]+label {
     border: 2px solid var(--transparent);
+}
+
+#bd-results {
+    margin-left: 0;
+    margin-right: 0;
+    height: calc(100vh - 250px);
+    overflow-y: auto;
+}
+
+
+.scrolling-pane {
+    border-radius: 7px;
+    border: 2px solid var(--transparent);
+    padding: 5px;
+    overflow-y: auto;
+    margin: 5px;
+    flex: 1;
+    /* Allow the scrolling pane to grow and shrink */
+}
+
+.scrolling-pane::-webkit-scrollbar {
+    width: 10px;
+}
+
+.scrolling-pane::-webkit-scrollbar-track {
+    background-color: var(--background-light);
+    transition: background-color 1s;
+}
+
+.dark-mode .scrolling-pane::-webkit-scrollbar-track {
+    background-color: var(--background-dark);
+    transition: background-color 1s;
+}
+
+.scrolling-pane::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: var(--gray);
+    transition: background-color 1s;
+}
+
+.bd-message {
+    text-align: center;
+    padding: 5px;
+    margin: 0px;
+    border-radius: 7px;
+    background-color: var(--colour2);
+}
+
+.dark-mode .bd-message {
+    background-color: var(--colour0);
+    color: var(--foreground-dark);
+}
+
+.bd-th {
+    color: var(--foreground-light);
+    font-size: 1.1em;
+    font-weight: normal;
+    line-height: 1.5;
+    padding: 5px;
+    text-align: left;
+    text-wrap: normal;
+    vertical-align: top;
+    width: 33%;
+    /* Occupy roughly one-third of the horizontal space */
+    flex: 1;
+    /* Allow flexibility */
+}
+
+.dark-mode .bd-th {
+    color: var(--foreground-dark);
+}
+
+.bd-td {
+    color: var(--foreground-light);
+    font-size: 1.1em;
+    font-weight: normal;
+    line-height: 1.5;
+    padding: 5px;
+    text-align: left;
+    text-wrap: normal;
+    vertical-align: top;
+    width: 67%;
+    /* Occupy roughly two-thirds of the horizontal space */
+    flex: 2;
+    /* Allow flexibility */
+}
+
+.dark-mode .bd-td {
+    color: var(--foreground-dark);
+}
+
+.bd-info {
+    color: var(--colour1);
+    font-size: 0.8em;
+    font-weight: normal;
+    text-align: left;
+    text-transform: lowercase;
+    text-wrap: normal;
+    vertical-align: top;
+}
+
+.dark-mode .bd-info {
+    color: var(--colour0);
+}
+
+.hi {
+    color: var(--colour1);
+    text-transform: underline;
+}
+
+.dark-mode .hi {
+    color: var(--colour2);
 }
