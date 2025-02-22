@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ~/Code/dpd-db/
+cd ~/Code/dpd-db
 
 # Ensure the logs directory exists
 mkdir -p logs
@@ -9,5 +9,4 @@ mkdir -p logs
 timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
 
 # Run the command and save output with timestamped filename
-script -q -c "uv run bash scripts/bash/makedict.sh" | tee >(ansi2html > "logs/makedict_$timestamp.html")
-
+script -q -c "bash scripts/bash/initial_build_db.sh" | tee >(ansi2html > "logs/build_$timestamp.html")
