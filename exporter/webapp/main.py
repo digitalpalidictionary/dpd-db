@@ -157,8 +157,8 @@ def db_search_gd_ru(request: Request, search: str):
 def db_search(
     request: Request, 
     search_1: str, 
-    search_2: str = "", 
-    option: str = "starts_with",
+    search_2: str, 
+    option: str,
     ):
     
     db_session = get_db_session(pth.dpd_db_path)
