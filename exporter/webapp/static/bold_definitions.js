@@ -206,7 +206,7 @@ async function handleBdFormSubmit(event) {
             break;
         }
     }
-    const url = `/bd?search_1=${encodeURIComponent(searchQuery1)}&search_2=${encodeURIComponent(searchQuery2)}&option=${selectedOption}`;
+    const url = `/bd_search/?q1=${encodeURIComponent(searchQuery1)}&q2=${encodeURIComponent(searchQuery2)}&option=${selectedOption}`;
     if (searchQuery1.trim() !== "" || searchQuery2.trim() !== "") {
         try {
             const response = await fetch(url);
