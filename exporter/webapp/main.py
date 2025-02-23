@@ -30,8 +30,9 @@ db_session = get_db_session(pth.dpd_db_path)
 # Preload data that is shared across languages
 roots_count_dict = make_roots_count_dict(db_session)
 headwords_clean_set = make_headwords_clean_set(db_session)
-headwords_clean_set_ru = make_headwords_clean_set(db_session, 'ru')
+headwords_clean_set_ru = make_headwords_clean_set(db_session, "ru")
 ascii_to_unicode_dict = make_ascii_to_unicode_dict(db_session)
+bd_count = db_session.query(BoldDefinition).count()
 db_session.close()
 
 # Set up templates
@@ -47,82 +48,108 @@ with open("exporter/webapp/static/dpd.js") as f:
 with open("exporter/webapp/static/home_simple.css") as f:
     home_simple_css = f.read()
 
-# FIXME    
+# FIXME
 history_list: list[tuple[str, str, str]] = []
+
 
 @app.get("/")
 def home_page(request: Request, response_class=HTMLResponse):
     return templates.TemplateResponse(
-        "home.html", {
-            "request": request,
-            "dpd_results": ""
-        }
+        "home.html", {"request": request, "dpd_results": "", "bd_count": bd_count}
     )
 
-@app.get("/ru/")
+
+@app.get("/bd")
+def bold_definitions_page(request: Request, response_class=HTMLResponse):
+    return templates.TemplateResponse(
+        "home.html", {"request": request, "dpd_results": "", "bd_count": bd_count}
+    )
+
+
+@app.get("/ru")
 def home_page_ru(request: Request, response_class=HTMLResponse):
     return templates_ru.TemplateResponse(
-        "home.html", {
-            "request": request,
-            "dpd_results": ""
-        }
+        "home.html", {"request": request, "dpd_results": ""}
     )
 
 
 @app.get("/search_html", response_class=HTMLResponse)
 def db_search_html(request: Request, q: str):
-    dpd_html, summary_html = make_dpd_html(q, pth, templates, roots_count_dict, headwords_clean_set, ascii_to_unicode_dict)
+    dpd_html, summary_html = make_dpd_html(
+        q, pth, templates, roots_count_dict, headwords_clean_set, ascii_to_unicode_dict
+    )
     return templates.TemplateResponse(
-        "home.html", {
+        "home.html",
+        {
             "request": request,
             "q": q,
             "dpd_results": dpd_html,
-        }
+        },
     )
 
 
 @app.get("/ru/search_html", response_class=HTMLResponse)
 def db_search_html_ru(request: Request, q: str):
-    dpd_html, summary_html = make_dpd_html(q, pth, templates_ru, roots_count_dict, headwords_clean_set_ru, ascii_to_unicode_dict, 'ru')
+    dpd_html, summary_html = make_dpd_html(
+        q,
+        pth,
+        templates_ru,
+        roots_count_dict,
+        headwords_clean_set_ru,
+        ascii_to_unicode_dict,
+        "ru",
+    )
     return templates_ru.TemplateResponse(
-        "home.html", {
+        "home.html",
+        {
             "request": request,
             "q": q,
             "dpd_results": dpd_html,
-        }
+        },
     )
 
 
 @app.get("/search_json", response_class=JSONResponse)
 def db_search_json(request: Request, q: str):
-    dpd_html, summary_html = make_dpd_html(q, pth, templates, roots_count_dict, headwords_clean_set, ascii_to_unicode_dict)
-    response_data = {
-        "summary_html": summary_html,
-        "dpd_html": dpd_html
-    }
+    dpd_html, summary_html = make_dpd_html(
+        q, pth, templates, roots_count_dict, headwords_clean_set, ascii_to_unicode_dict
+    )
+    response_data = {"summary_html": summary_html, "dpd_html": dpd_html}
     headers = {"Accept-Encoding": "gzip"}
     return JSONResponse(content=response_data, headers=headers)
 
 
 @app.get("/ru/search_json", response_class=JSONResponse)
 def db_search_json_ru(request: Request, q: str):
-    dpd_html, summary_html = make_dpd_html(q, pth, templates_ru, roots_count_dict, headwords_clean_set_ru, ascii_to_unicode_dict, 'ru')
-    response_data = {
-        "summary_html": summary_html,
-        "dpd_html": dpd_html
-    }
+    dpd_html, summary_html = make_dpd_html(
+        q,
+        pth,
+        templates_ru,
+        roots_count_dict,
+        headwords_clean_set_ru,
+        ascii_to_unicode_dict,
+        "ru",
+    )
+    response_data = {"summary_html": summary_html, "dpd_html": dpd_html}
     headers = {"Accept-Encoding": "gzip"}
     return JSONResponse(content=response_data, headers=headers)
 
 
 @app.get("/gd", response_class=HTMLResponse)
 def db_search_gd(request: Request, search: str):
-
-    dpd_html, summary_html = make_dpd_html(search, pth, templates, roots_count_dict, headwords_clean_set, ascii_to_unicode_dict)
+    dpd_html, summary_html = make_dpd_html(
+        search,
+        pth,
+        templates,
+        roots_count_dict,
+        headwords_clean_set,
+        ascii_to_unicode_dict,
+    )
     global dpd_css, dpd_js, home_simple_css
 
     return templates.TemplateResponse(
-        "home_simple.html", {
+        "home_simple.html",
+        {
             "request": request,
             "search": search,
             "dpd_results": dpd_html,
@@ -130,18 +157,26 @@ def db_search_gd(request: Request, search: str):
             "dpd_css": dpd_css,
             "dpd_js": dpd_js,
             "home_simple_css": home_simple_css,
-        }
+        },
     )
 
 
 @app.get("/ru/gd", response_class=HTMLResponse)
 def db_search_gd_ru(request: Request, search: str):
-
-    dpd_html, summary_html = make_dpd_html(search, pth, templates_ru, roots_count_dict, headwords_clean_set_ru, ascii_to_unicode_dict, "ru")
+    dpd_html, summary_html = make_dpd_html(
+        search,
+        pth,
+        templates_ru,
+        roots_count_dict,
+        headwords_clean_set_ru,
+        ascii_to_unicode_dict,
+        "ru",
+    )
     global dpd_css, dpd_js, home_simple_css
 
     return templates.TemplateResponse(
-        "home_simple.html", {
+        "home_simple.html",
+        {
             "request": request,
             "search": search,
             "dpd_results": dpd_html,
@@ -149,31 +184,30 @@ def db_search_gd_ru(request: Request, search: str):
             "dpd_css": dpd_css,
             "dpd_js": dpd_js,
             "home_simple_css": home_simple_css,
-        }
+        },
     )
 
 
-@app.get("/bd", response_class=HTMLResponse)
+@app.get("/bd_search", response_class=HTMLResponse)
 def db_search(
-    request: Request, 
-    search_1: str, 
-    search_2: str, 
+    request: Request,
+    q1: str,
+    q2: str,
     option: str,
-    ):
-    
+):
     db_session = get_db_session(pth.dpd_db_path)
 
     # no search
-    if not search_1 and not search_2:
+    if not q1 and not q2:
         results = []
 
     # starts_with search
     elif option == "starts_with":
-        search_1_start = f"^{search_1}"
+        search_1_start = f"^{q1}"
         results = (
             db_session.query(BoldDefinition)
             .filter(BoldDefinition.bold.regexp_match(search_1_start))
-            .filter(BoldDefinition.commentary.regexp_match(search_2))
+            .filter(BoldDefinition.commentary.regexp_match(q2))
             .all()
         )
 
@@ -181,16 +215,16 @@ def db_search(
     elif option == "regex":
         results = (
             db_session.query(BoldDefinition)
-            .filter(BoldDefinition.bold.regexp_match(search_1))
-            .filter(BoldDefinition.commentary.regexp_match(search_2))
+            .filter(BoldDefinition.bold.regexp_match(q1))
+            .filter(BoldDefinition.commentary.regexp_match(q2))
             .all()
         )
         message = f"{len(results)} results found"
 
     # fuzzy search
     elif option == "fuzzy":
-        search_1_fuzzy = fuzzy_replace(search_1)
-        search_2_fuzzy = fuzzy_replace(search_2)
+        search_1_fuzzy = fuzzy_replace(q1)
+        search_2_fuzzy = fuzzy_replace(q2)
         results = (
             db_session.query(BoldDefinition)
             .filter(BoldDefinition.bold.regexp_match(search_1_fuzzy))
@@ -207,21 +241,21 @@ def db_search(
         message = "<b>0</b> results found - refine your search or try the fuzzy option"
 
     # highlight search_2
-    if search_2:
+    if q2:
         for result in results:
             result.commentary = result.commentary.replace(
-                search_2, f"<span class='hi'>{search_2}</span>"
+                q2, f"<span class='hi'>{q2}</span>"
             )
 
-    history_list = update_history(search_1, search_2, option)
+    history_list = update_history(q1, q2, option)
 
     return templates.TemplateResponse(
         "bold_definitions.html",
         {
             "request": request,
             "results": results,
-            "search_1": search_1,
-            "search_2": search_2,
+            "search_1": q1,
+            "search_2": q2,
             "search_option": option,
             "message": message,
             "history": history_list,
@@ -269,11 +303,10 @@ if __name__ == "__main__":
         # host="127.1.1.1",
         port=8080,
         reload=True,
-        reload_dirs="exporter/webapp/"
-    
+        reload_dirs="exporter/webapp/",
     )
 
-# run in terminal: 
+# run in terminal:
 # uvicorn exporter.webapp.main:app --host 127.1.1.1 --port 8080 --reload --reload-dir exporter/webapp
 # uvicorn exporter.webapp.main:app --host 0.0.0.0 --port 8080 --reload --reload-dir exporter/webapp
 
@@ -284,4 +317,3 @@ if __name__ == "__main__":
 # TODO history forward and backwards buttons
 # TODO include mw, cpd, dppn, cone, etc.
 # TODO add set names in lookup table
-
