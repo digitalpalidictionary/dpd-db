@@ -1,6 +1,6 @@
 # Digital Pāḷi Dictionary
 
-DPD is an open-source non-commercial project, proving hi-quality Pāḷi dictionary lookup in multiple formats.
+DPD is a freely-available non-commercial project, proving hi-quality Pāḷi dictionary lookup in multiple formats.
 
 It is made available publicly through a  [Creative Commons Attribution-NonCommercial-Share Alike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 
