@@ -1,6 +1,7 @@
 """Go thru each word and its components in a text to find missing examples."""
 
 import json
+import pickle
 import re
 
 import PySimpleGUI as sg # type: ignore
@@ -11,7 +12,7 @@ from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup
-from gui.functions import load_gui_config
+from gui.functions import example_save, load_gui_config
 from tools.pali_sort_key import pali_list_sorter
 
 
@@ -297,6 +298,7 @@ def window_options(p2d: Pass2Data):
         [
             sg.Text("", size = (15,1)),
             sg.Button("New", key="pass2_new"),
+            sg.Button("Copy", key="pass2_copy"),
             sg.Button("Yes", key="pass2_yes"),
             sg.Button("No", key="pass2_no"),
             sg.Button("No All", key="pass2_no_all"),
@@ -372,6 +374,9 @@ def pass2_gui(p2d: Pass2Data) -> tuple[Pass2Data, WordData]:
                     if p2d.continue_flag == "new":
                         update_main_window(p2d, wd)
                         return p2d, wd
+                    elif p2d.continue_flag == "copy":
+                        update_main_window(p2d, wd)
+                        return p2d, wd
                     elif p2d.continue_flag == "yes":
                         update_main_window(p2d, wd)
                         return p2d, wd
@@ -385,6 +390,9 @@ def pass2_gui(p2d: Pass2Data) -> tuple[Pass2Data, WordData]:
                 if headwords_list:
                     check_example_headword(p2d, wd, headwords_list)
                     if p2d.continue_flag == "new":
+                        update_main_window(p2d, wd)
+                        return p2d, wd
+                    elif p2d.continue_flag == "copy":
                         update_main_window(p2d, wd)
                         return p2d, wd
                     elif p2d.continue_flag == "yes":
@@ -462,6 +470,8 @@ def check_example_headword(
         for id in id_list:
             if p2d.continue_flag == "new":
                 return
+            if p2d.continue_flag == "copy":
+                return
             elif p2d.continue_flag == "yes":
                 return
             elif p2d.continue_flag == "exit":
@@ -506,7 +516,7 @@ def check_example_headword(
                     else:
                         choose_route(p2d, wd, dpd_headword)
 
-                    if p2d.continue_flag in ["exit", "yes", "new"]:
+                    if p2d.continue_flag in ["exit", "yes", "new", "copy"]:
                         return
 
                     if id and dpd_headword:
@@ -606,6 +616,10 @@ def choose_route(
             p2d.continue_flag = "new"
             p2d.pass2_window.close()
             break
+        elif event == "pass2_copy":
+            p2d.continue_flag = "copy"
+            p2d.pass2_window.close()
+            break
         elif event == "pass2_yes":
             p2d.continue_flag = "yes"
             p2d.pass2_window.close()
@@ -653,6 +667,9 @@ def test_words_in_construction(
                 if p2d.continue_flag == "new":
                     update_main_window(p2d, wd)
                     return
+                elif p2d.continue_flag == "copy":
+                    update_main_window(p2d, wd)
+                    return
                 elif p2d.continue_flag == "yes":
                     update_main_window(p2d, wd)
                     return
@@ -683,6 +700,11 @@ def update_main_window(p2d: Pass2Data, wd: WordData):
         p2d.main_window["source_1"].update(value=wd.source)
         p2d.main_window["sutta_1"].update(value=wd.sutta)
         p2d.main_window["example_1"].update(value=wd.example)
+    
+    elif p2d.continue_flag == "copy":
+        source_sutta_example = (wd.source, wd.sutta, wd.example)
+        with open(p2d.pth.example_stash_path, "wb") as f:
+            pickle.dump(source_sutta_example, f)
 
     elif p2d.continue_flag == "yes":
         headword = p2d.db_session \
