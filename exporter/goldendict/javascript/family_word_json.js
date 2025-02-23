@@ -9855,7 +9855,7 @@ var family_word_json = {
     "apubba 2",
     "adj",
     "not previously (explained); not (commented on) before",
-    "✘"
+    "✔"
    ],
    [
     "apubba 3",
@@ -16024,12 +16024,6 @@ var family_word_json = {
     "✔"
    ],
    [
-    "assakā",
-    "masc",
-    "name of a people; lit. who have nothing",
-    "◑"
-   ],
-   [
     "sa 3.1",
     "pron",
     "own; one's own; one's own possession",
@@ -16120,7 +16114,7 @@ var family_word_json = {
     "✘"
    ]
   ],
-  "count": 20
+  "count": 19
  },
  "saki": {
   "data": [
@@ -20784,6 +20778,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "kaliṅgā",
+    "masc",
+    "name of a people; Kaliṅgas",
+    "✔"
+   ],
+   [
     "kāliṅga 1",
     "masc",
     "name of a country in East India",
@@ -20800,9 +20800,15 @@ var family_word_json = {
     "masc",
     "name of a forest",
     "✔"
+   ],
+   [
+    "kāliṅgā",
+    "masc",
+    "name of a people; Kāliṅgas",
+    "✔"
    ]
   ],
-  "count": 4
+  "count": 6
  },
  "kaliṅgara": {
   "data": [
@@ -29717,7 +29723,7 @@ var family_word_json = {
     "bharata 1",
     "masc",
     "name of one the seven Bharata kings",
-    "◑"
+    "✔"
    ],
    [
     "bharata 2",
@@ -29741,7 +29747,7 @@ var family_word_json = {
     "bhāradha",
     "masc",
     "name of a royal family",
-    "◑"
+    "✔"
    ]
   ],
   "count": 5

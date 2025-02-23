@@ -3031,6 +3031,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "paccattavacana",
+    "nt",
+    "(gram) expression in the nominative case",
+    "✔"
+   ],
+   [
     "paccanu",
     "prefix",
     "-",
@@ -4007,6 +4013,12 @@ var family_set_json = {
     "nt",
     "(gram) employing the words 'form and formless state'",
     "◑"
+   ],
+   [
+    "rūḷhīsadda",
+    "masc",
+    "(gram) augmentation of a word",
+    "✔"
    ],
    [
     "la",
@@ -5041,7 +5053,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 812
+  "count": 814
  },
  "prefixes": {
   "data": [
@@ -8912,7 +8924,7 @@ var family_set_json = {
     "govinda",
     "masc",
     "name of a Brahman; lit. cow finder; (or) lord of the cows",
-    "◑"
+    "✔"
    ],
    [
     "ghoṭamukha",
@@ -21658,8 +21670,8 @@ var family_set_json = {
    [
     "assakā",
     "masc",
-    "name of a people; lit. who have nothing",
-    "◑"
+    "name of a people",
+    "✔"
    ],
    [
     "uttarāpā",
@@ -21674,9 +21686,21 @@ var family_set_json = {
     "✔"
    ],
    [
+    "kaliṅgā",
+    "masc",
+    "name of a people; Kaliṅgas",
+    "✔"
+   ],
+   [
     "kālāmā",
     "masc",
     "family name of a people in Kosala",
+    "✔"
+   ],
+   [
+    "kāliṅgā",
+    "masc",
+    "name of a people; Kāliṅgas",
     "✔"
    ],
    [
@@ -21932,7 +21956,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 51
+  "count": 53
  },
  "epithets of the Buddha": {
   "data": [
@@ -26524,6 +26548,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "dhataraṭṭha 2",
+    "masc",
+    "name of two of the seven Bharata kings",
+    "✔"
+   ],
+   [
     "dhanañcaya",
     "masc",
     "name of a Kuru king; lit. heap of wealth",
@@ -26611,13 +26641,13 @@ var family_set_json = {
     "bharata 1",
     "masc",
     "name of one the seven Bharata kings",
-    "◑"
+    "✔"
    ],
    [
     "bhāradha",
     "masc",
     "name of a royal family",
-    "◑"
+    "✔"
    ],
    [
     "maghadeva 1",
@@ -26686,6 +26716,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "reṇu 4",
+    "masc",
+    "name of one the seven Bharata kings; lit. dust",
+    "✔"
+   ],
+   [
     "vajirī",
     "fem",
     "name of a princess; daughter of king Pasenadi; lit. diamond",
@@ -26742,8 +26778,8 @@ var family_set_json = {
    [
     "sattabhū",
     "masc",
-    "name of one the seven Bharata kings",
-    "◑"
+    "name of one the seven Bharata kings; lit. lord of beings",
+    "✔"
    ],
    [
     "sāmāvatī 2",
@@ -26824,7 +26860,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 95
+  "count": 97
  },
  "six ascetic teachers": {
   "data": [
@@ -30627,6 +30663,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "potana",
+    "nt",
+    "name of a town",
+    "✔"
+   ],
+   [
     "bandhumatī 2",
     "fem",
     "name of the royal capital of king Bandhumā",
@@ -30762,6 +30804,12 @@ var family_set_json = {
     "mātulā",
     "fem",
     "name of Magadhan town; lit. maternal aunt",
+    "✔"
+   ],
+   [
+    "māhissati",
+    "fem",
+    "name of a town",
     "✔"
    ],
    [
@@ -31095,7 +31143,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 209
+  "count": 211
  },
  "ordinal numbers": {
   "data": [

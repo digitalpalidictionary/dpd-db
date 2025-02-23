@@ -215,6 +215,7 @@ api
 appanā
 apparition
 apperceived
+appointer
 apportions
 appositional
 apprehendable
@@ -1018,6 +1019,7 @@ Gotamī
 govela
 Govinda
 Govinda's
+Govinda's
 grabhold
 grammarian
 grandis
@@ -1248,6 +1250,8 @@ Kālāmas
 Kalanda's
 Kaḷāramaṭṭaka
 Kāliṅga
+Kaliṅgas
+Kāliṅgas
 Kāḷudāyi
 Kamboja
 Kambojans
@@ -1762,6 +1766,8 @@ nirabbuda-count
 nirodha-samāpatti
 Nissaggiya
 nom-nom
+nominative
+nominator
 non-eternalism
 non-existence
 non-reactivity
@@ -2996,4 +3002,3 @@ you're
 youthfulness
 zizanioides
 Ziziphus
-nominative

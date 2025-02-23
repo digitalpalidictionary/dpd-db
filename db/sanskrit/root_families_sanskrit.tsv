@@ -2863,7 +2863,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √sajj 1	1	a	relinquish, let loose	√sṛj	6	send forth	√sajj	sṛj	sarga
 √sajj 1	1	a	relinquish, let loose	√sṛj	6	send forth	abhi √sajj	abhisṛj	abhisarjitum, abhisartṛ, abhisṛjati
 √sajj 1	1	*e	relinquish, let loose	√sṛj	6	send forth	abhi nī √sajj	abhiniḥsṛj	abhiniḥsṛjayitvā
-√sajj 1	1	*e	relinquish, let loose	√sṛj	6	send forth	ava √sajj	avasṛj	avasarjati, avasṛṣṭa
+√sajj 1	1	*e	relinquish, let loose	√sṛj	6	send forth	ava √sajj	avasṛj	avasarjati, avasṛjati, avasṛṣṭa
 √sajj 1	1	a	relinquish, let loose	√sṛj	6	send forth	ud √sajj	utsṛj	utsarga, utsṛjati, utsṛṣṭvā
 √sajj 1	1	a	relinquish, let loose	√sṛj	6	send forth	upa √sajj	upasṛj	upasarga, upasṛkta, sopasarga
 √sajj 1	1	a	relinquish, let loose	√sṛj	6	send forth	nī √sajj	niḥsṛj	abhiniḥsṛjita, na + nisṛṣṭa, na + niḥsṛkta, na + niḥsṛktvā, nisarga, nisṛṣṭa, nisṛṣṭa +, niḥsargika (bsk), naiḥsargika (bsk), niḥsarjayati, niḥsarjayitavya, niḥsṛkta, niḥsṛktvā, niḥsṛjati, niḥsṛjayitvā
@@ -3018,7 +3018,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √sās	1	a	order, instruct	√śās	1, 2	order	saṃ anu √sās	samanuśās	samanuśāstvā
 √si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	√si	śri	śrita
 √si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	adhi √si	adhiśri	
-√si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	adhi ā √si		adhyāśaya
+√si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	adhi ā √si	āśri	adhyāśaya, adhyāśaya (bsk)
 √si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	apa √si	apaśri	apaśayitṛ?, apaśraya, apāśritya
 √si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	ava √si		ava + śri, avasa, āśraya
 √si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	ā √si	āśri	
@@ -3044,7 +3044,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √siṅgh	1	a	sniff, smell	√śiṅgh	1	snuff	√siṅgh	śiṅgh	siṅghāṇaka, śiṅghati
 √siṅgh	1	a	sniff, smell	√śiṅgh	1	snuff	upa √siṅgh	upaśiṅgh	upaśiṅghat, upaśiṅghati, upaśiṅghana
 √sic	2	ṃa	sprinkle, pour	√sic	6	pour out	√sic	sic	asicat, asecanaka, asecanaka +, sikta, siktvā, siñcati, siñcamāna, secana, secayati, ṣeka
-√sic	2	ṃa	sprinkle, pour	√sic	6	pour out	abhi √sic	abhiṣic	abhisiñcati, abhiṣikta, abhiṣiktvā, abhiṣeka, abhiṣecana, abhiṣeka, abhyasicat
+√sic	2	ṃa	sprinkle, pour	√sic	6	pour out	abhi √sic	abhiṣic	abhisiñcati, abhiṣikta, abhiṣiktvā, abhiṣeka, abhiṣecana, abhiṣeka
 √sic	2	ṃa	sprinkle, pour	√sic	6	pour out	ava √sic	avasic	avasikta, avasiktvā, avasiñcat, avasiñcati, avasiñcana, avaseka, avaseka (irrigating), na + avaseka
 √sic	2	ṃa	sprinkle, pour	√sic	6	pour out	ā √sic	āsic	āsikta, āsiñcati, āsektum, āsecitavya, na + āsikta
 √sic	2	ṃa	sprinkle, pour	√sic	6	pour out	ud √sic	utsic	utsiktvā, utsiñcati, utseka
@@ -3221,8 +3221,8 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √har 1	1	a	carry	√hṛ	1	take	pa vi ā √har	pravyāhṛ	pravyāharati
 √har 1	1	a	carry	√hṛ	1	take	pati √har	pratihṛ	apratihārya, na + prātihārya, pratiharati, pratihartavya, pratihāra, pratīhartṛ, pratihāraka (juggler), prātihārya, sa + prātihārya
 √har 1	1	a	carry	√hṛ	1	take	pati ā √har	pratyāhṛ	pratyāharati, pratyāharayati, pratyāhāra
-√har 1	1	a	carry	√hṛ	1	take	pati pa √har	-	pratiprahāra
-√har 1	1	a	carry	√hṛ	1	take	pati vi ā √har	-	
+√har 1	1	a	carry	√hṛ	1	take	pati pa √har	prahṛ	pratiprahāra
+√har 1	1	a	carry	√hṛ	1	take	pati vi ā √har	pratisaṃhṛ	
 √har 1	1	a	carry	√hṛ	1	take	pati saṃ √har	pratisaṃhṛ	prati, pratisaṃharati, pratisaṃhartum, pratisaṃhartvā, pratisaṃhāra
 √har 1	1	a	carry	√hṛ	1	take	pari √har	parihṛ	na + parihārin, pariharaṇa (moving around), pariharat, pariharati, pariharamāna, pariharta, parihartavya, parihartum, parihartvā, pariharyate, parihā, parihāra, parihāra (leading round), parihāraka, parihārin, parihriyate
 √har 1	1	a	carry	√hṛ	1	take	pari ud ā √har	udāhṛ	
@@ -3230,7 +3230,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √har 1	1	a	carry	√hṛ	1	take	vi ati √har	vyatihṛ	vyatihāra (exchange)
 √har 1	1	a	carry	√hṛ	1	take	vi ava √har	vyavahṛ	na + vyāvahārika, vyavaharat, vyavaharati, vyavaharta, vyavahartavya, vyavahartum, vyavahartvā, vyavaharyate, vyavaharyamāṇa, vyavahāra, vyavahārika, vyāvahārika, saṃvyavahāra
 √har 1	1	a	carry	√hṛ	1	take	vi ā √har	vyāhṛ	vyāharati, vyāhartavya, vyāhṛtya
-√har 1	1	a	carry	√hṛ	1	take	vi saṃ √har	-	na + vi + saṃhṛta
+√har 1	1	a	carry	√hṛ	1	take	vi saṃ √har	saṃhṛ	na + vi + saṃhṛta
 √har 1	1	a	carry	√hṛ	1	take	saṃ √har	saṃhṛ	asaṃhārya, saṃhara, saṃharaṇa, saṃharat, saṃharati, saṃharamāṇa, saṃharayati, saṃhartavya, saṃhartum, saṃhāra, saṃhāraka, saṃhārayati, saṃhrayitvā, saṃhriyate, saṃhṛta, saṃhṛtvā
 √har 1	1	a	carry	√hṛ	1	take	saṃ anu ā √har	anvāhṛ	anvāhartavya, sam + anvāharaṇa, sam + anvāhṛta, samanvāharaṇa (bsk), samanvāharati (bsk)
 √har 1	1	a	carry	√hṛ	1	take	saṃ ā √har	samāhṛ	samāhāra

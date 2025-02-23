@@ -22324,8 +22324,8 @@ var family_root_json = {
    [
     "ajjhāsayaṃ",
     "ind",
-    "as to the intention, state of mind",
-    "✘"
+    "regarding the purpose",
+    "✔"
    ]
   ]
  },
@@ -23833,7 +23833,7 @@ var family_root_json = {
     "aṭṭhapesi 1",
     "aor",
     "set up; arranged; lit. caused to stand",
-    "◑"
+    "✔"
    ],
    [
     "aṭṭhapesi 2",
@@ -24162,7 +24162,7 @@ var family_root_json = {
    [
     "ṭhapeti 3",
     "pr",
-    "appoints; establishes; sets up; places in a position; lit. causes to stand",
+    "appoints; establishes; sets up; places (someone in a position); lit. causes to stand",
     "✔"
    ],
    [
@@ -36343,7 +36343,7 @@ var family_root_json = {
   "root_key": "√dhar 1",
   "root_family": "√dhar",
   "root_meaning": "hold, carry, endure",
-  "count": 77,
+  "count": 78,
   "data": [
    [
     "adhamma 1",
@@ -36445,6 +36445,12 @@ var family_root_json = {
     "dhata",
     "pp",
     "remembered; retained in mind; known off by heart; lit. borne",
+    "✔"
+   ],
+   [
+    "dhata 2",
+    "pp",
+    "borne; maintained; supported",
     "✔"
    ],
    [
@@ -37987,7 +37993,7 @@ var family_root_json = {
   "root_key": "√i 1",
   "root_family": "adhi pa √i",
   "root_meaning": "come, go",
-  "count": 7,
+  "count": 8,
   "data": [
    [
     "adhippāya 1",
@@ -38017,6 +38023,12 @@ var family_root_json = {
     "adhippeta",
     "pp",
     "meant; intended",
+    "✔"
+   ],
+   [
+    "adhippeta 2",
+    "pp",
+    "aimed for; intended; desired",
     "✔"
    ],
    [
@@ -41638,8 +41650,8 @@ var family_root_json = {
    [
     "anusāsati 3",
     "pr",
-    "rules; governs",
-    "◑"
+    "manages; rules; governs",
+    "✔"
    ],
    [
     "anusāsati 4",
@@ -41669,7 +41681,7 @@ var family_root_json = {
     "anusāsaniya",
     "ptp",
     "should be administered; should be managed (by); lit. to be ordered",
-    "◑"
+    "✔"
    ],
    [
     "anusāsanī",
@@ -41777,7 +41789,7 @@ var family_root_json = {
     "nānusāsi",
     "aor",
     "did not administer; did not manage",
-    "✘"
+    "✔"
    ]
   ]
  },
@@ -44977,7 +44989,7 @@ var family_root_json = {
   "root_key": "√bhū",
   "root_family": "abhi saṃ √bhū",
   "root_meaning": "be, become",
-  "count": 18,
+  "count": 19,
   "data": [
    [
     "anabhisambhavanīya",
@@ -45034,7 +45046,13 @@ var family_root_json = {
     "◑"
    ],
    [
-    "abhisambhoti",
+    "abhisambhoti 1",
+    "pr",
+    "successfully undertakes; does the job; accomplishes",
+    "✔"
+   ],
+   [
+    "abhisambhoti 2",
     "pr",
     "reaches, attains; is able, capable (of); is adequate; masters; endures, bears",
     "✘"
@@ -45054,8 +45072,8 @@ var family_root_json = {
    [
     "abhisambhosi",
     "aor",
-    "made happen; organized; arranged",
-    "◑"
+    "successfully undertook; did the job; accomplished",
+    "✔"
    ],
    [
     "durabhisambhava 1",
@@ -45084,8 +45102,8 @@ var family_root_json = {
    [
     "nābhisambhosi",
     "aor",
-    "did not make happen; did not organize; did not arrange",
-    "✘"
+    "did not successfully undertake; did not do the job; did not accomplish",
+    "✔"
    ]
   ]
  },
@@ -64260,8 +64278,8 @@ var family_root_json = {
    [
     "vācesi",
     "aor",
-    "read, taught, recited",
-    "✘"
+    "made speak; made recite; taught; instructed; lit. caused to speak",
+    "✔"
    ],
    [
     "vuccati",
@@ -70692,7 +70710,7 @@ var family_root_json = {
    [
     "uppajjati 1",
     "pr",
-    "appears; arises; occurs; takes place (for); lit. goes up",
+    "appears; arises; occurs; takes place (for or in); lit. goes up",
     "✔"
    ],
    [
@@ -80460,8 +80478,8 @@ var family_root_json = {
    [
     "paññāpetar",
     "masc",
-    "regulator, who declares",
-    "✘"
+    "teacher; preacher; proclaimer (of); lit. who causes to know",
+    "✔"
    ],
    [
     "paññāpeti 1",
@@ -118133,7 +118151,7 @@ var family_root_json = {
   "root_key": "√sic",
   "root_family": "abhi √sic",
   "root_meaning": "sprinkle, pour",
-  "count": 17,
+  "count": 18,
   "data": [
    [
     "abhisiñcati 1",
@@ -118144,8 +118162,8 @@ var family_root_json = {
    [
     "abhisiñcati 2",
     "pr",
-    "officially appoints",
-    "◑"
+    "officially appoints (somebody to a position)",
+    "✔"
    ],
    [
     "abhisiñcana",
@@ -118168,11 +118186,17 @@ var family_root_json = {
    [
     "abhisiñci 1",
     "aor",
-    "ritually anointed as king; coronated",
-    "◑"
+    "formally appointed (somebody to a position); lit. sprinkled on top",
+    "✔"
    ],
    [
     "abhisiñci 2",
+    "aor",
+    "ritually anointed as king; coronated (somebody as); lit. sprinkled on top",
+    "✔"
+   ],
+   [
+    "abhisiñci 3",
     "aor",
     "sprinkled over, consecrated",
     "✘"
@@ -121430,7 +121454,7 @@ var family_root_json = {
    [
     "modati",
     "pr",
-    "is happy; is glad; is pleased; enjoys oneself",
+    "is happy; is glad; is pleased; rejoices",
     "✔"
    ],
    [
@@ -128752,7 +128776,7 @@ var family_root_json = {
    [
     "laddha 1",
     "pp",
-    "obtained; gained; won; received",
+    "obtained; gained; won; acquired",
     "✔"
    ],
    [
@@ -135643,7 +135667,7 @@ var family_root_json = {
   "root_key": "√sajj 1",
   "root_family": "ava √sajj",
   "root_meaning": "relinquish, let loose",
-  "count": 9,
+  "count": 10,
   "data": [
    [
     "avasajjetvā",
@@ -135697,6 +135721,12 @@ var family_root_json = {
     "ossaṭṭha",
     "pp",
     "given up; released; relinquished; abandoned",
+    "✔"
+   ],
+   [
+    "vossajjati",
+    "pr",
+    "relinquishes; gives up; abandons",
     "✔"
    ]
   ]
@@ -193329,7 +193359,7 @@ var family_root_json = {
     "paccabyāhari",
     "aor",
     "rejected; refused; turned down",
-    "✘"
+    "✔"
    ]
   ]
  },
@@ -208870,8 +208900,8 @@ var family_root_json = {
    [
     "vossajjitvā",
     "abs",
-    "having given up; having let go of",
-    "✘"
+    "having relinquished (to)",
+    "✔"
    ]
   ]
  },

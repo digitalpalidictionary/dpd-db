@@ -9,6 +9,45 @@ const bdResults = document.getElementById("bd-results");
 const bdFooterText = document.querySelector("#bold-def-tab .footer-pane");
 const bdSearchOptions = document.getElementsByName("option");
 const bdStartsWithButton = document.getElementById("option1");
+
+/*
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split('&');
+
+    for (var i = 0; i < vars.length; i++) {
+      var pair = vars[i].split('=');
+
+      if (pair[0] === variable) {
+        return decodeURIComponent(pair[1].replace(/\+/g, '%20'));
+      }
+    }
+}
+*/
+
+/*
+function applyUrlQuery() {
+    const search1 = getQueryVariable('search_1');
+    const search2 = getQueryVariable('search_2');
+    const option = getQueryVariable('option');
+
+    if (search1) {
+        bdSearchBox1.value = search1;
+    }
+    if (search2) {
+        bdSearchBox2.value = search2;
+    }
+    if (option) {
+        for (const bdSearchOption of bdSearchOptions) {
+            if (bdSearchOption.value === option) {
+                bdSearchOption.checked = true;
+                break;
+            }
+        }
+    }
+}
+*/
+
 const bdRegexButton = document.getElementById("option2");
 const bdFuzzyButton = document.getElementById("option3");
 
@@ -20,7 +59,7 @@ function clearBdResults() {
     bdResults.innerHTML = '';
     bdSearchBox1.value = '';
     bdSearchBox2.value = '';
-    history.pushState({}, "", "/");
+    // history.pushState({}, "", "/");
 }
 
 bdClearButton.addEventListener('click', clearBdResults);
@@ -43,14 +82,17 @@ bdSearchButton.addEventListener('click', handleBdFormSubmit);
 
 // trigger search by click
 
-document.addEventListener('DOMContentLoaded', function() {
-	document.body.addEventListener('dblclick', function() {
-	var selection = window.getSelection().toString().toLowerCase();
-	bdSearchBox1.value = selection.slice(0, -1);
-	bdSearchBox2.value = "";
-	handleBdFormSubmit();
-	});
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//     /*applyUrlQuery();
+//     handleBdFormSubmit();*/
+
+// 	document.body.addEventListener('dblclick', function() {
+// 	var selection = window.getSelection().toString().toLowerCase();
+// 	bdSearchBox1.value = selection.slice(0, -1);
+// 	bdSearchBox2.value = "";
+// 	handleBdFormSubmit();
+// 	});
+// });
 
 // text to unicode
 
@@ -138,13 +180,13 @@ function hoverHelp(event) {
 		bdFooterText.innerHTML = "Search for definitions&nbsp;<b>starting</b>&nbsp;with the term."
 	}
     else if (event == "regexButton") {
-        bdFooterText.innerHTML = "Use&nbsp;<b>regular expressions</b>&nbsp;for very precise searches."
+        bdFooterText.innerHTML = "This is the normal mode. You can also use&nbsp;<b>regular expressions</b>&nbsp;for very precise searches."
 	}
     else if (event == "fuzzyButton") {
-        bdFooterText.innerHTML = "<b>Fuzzy</b>&nbsp;search ignores all diacritics. It's useful if you don't know the exact spelling."
+        bdFooterText.innerHTML = "<b>Fuzzy</b>&nbsp;search ignores all diacritics and double consonants . It's useful if you don't know the exact spelling."
     }
     else if (event == "clearButton") {
-        bdFooterText.innerHTML = "Start again with a&nbsp;<b>clear</b>&nbsp;and calm interface."
+        bdFooterText.innerHTML = "Start again with a calm and &nbsp;<b>clear</b> interface."
     }
 	else {
 		bdFooterText.innerHTML = 'For more information, please visit the&nbsp;<a href="https://digitalpalidictionary.github.io/" target="_blank">DPD Docs website.'
@@ -175,5 +217,5 @@ async function handleBdFormSubmit(event) {
             console.error("Error fetching data:", error);
         }
     }
-    history.pushState({ search_1: searchQuery1, search_2: searchQuery2, option: selectedOption }, "", url);
+    // history.pushState({ search_1: searchQuery1, search_2: searchQuery2, option: selectedOption }, "", url);
 }
