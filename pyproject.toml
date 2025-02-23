@@ -46,6 +46,7 @@ dependencies = [
     "dbf>=0.99.9,<0.100",
     "typst==0.12.0",
     "httpcore>=1.0.7,<2",
+    "hatchling>=1.27.0",
 ]
 
 [dependency-groups]
