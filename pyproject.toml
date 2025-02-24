@@ -1,6 +1,6 @@
 [project]
 name = "dpd-db"
-version = "v0.2.20250223"
+version = "v0.2.20250224"
 description = ""
 authors = [{ name = "Bodhirasa", email = "digitalpalidictionary@gmail.com" }]
 requires-python = ">=3.11,<3.12"
@@ -47,6 +47,7 @@ dependencies = [
     "typst==0.12.0",
     "httpcore>=1.0.7,<2",
     "hatchling>=1.27.0",
+    "ruff>=0.9.7",
 ]
 
 [dependency-groups]
@@ -75,5 +76,7 @@ pythonVersion = "3.11"
 typeCheckingMode = "basic"
 
 [tool.ruff]
-ignore = ["E401", "E501", "E712"]
+ignore = ["E501"]
 target-version = "py311"
+exclude = ["gui/PySimpleGUI.py", "tools/writemdict/*"]
+

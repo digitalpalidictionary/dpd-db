@@ -1,4 +1,3 @@
-import sys
 from pyglossary import Glossary
 from tools.paths import ProjectPaths
 

@@ -2,15 +2,11 @@
 
 
 
-from rich import print
-import re
 from sqlalchemy.orm.session import Session
 
-from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.clean_machine import clean_machine
-from tools.goldendict_tools import open_in_goldendict_os
-from tools.printer import p_green, p_green_title, p_counter, p_yes
+from tools.printer import p_green, p_yes
 
 
 class GlobalVars():

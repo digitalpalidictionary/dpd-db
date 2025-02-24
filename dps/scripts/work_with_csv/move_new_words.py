@@ -4,7 +4,6 @@
 
 import csv
 import os
-import pandas as pd
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
 

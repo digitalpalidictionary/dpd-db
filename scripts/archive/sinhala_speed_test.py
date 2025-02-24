@@ -3,12 +3,11 @@
 """Quick starter template for getting a database session and iterating thru."""
 
 from rich import print
-from sqlalchemy import outerjoin
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Sinhala
 from tools.paths import ProjectPaths
-from tools.printer import p_counter, p_green, p_green_title, p_title
+from tools.printer import p_counter, p_green_title
 from tools.tic_toc import tic, toc
 from sqlalchemy.orm import joinedload
 

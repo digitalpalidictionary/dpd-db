@@ -7,8 +7,7 @@ import re
 
 from sqlalchemy.orm.attributes import InstrumentedAttribute
 from sqlalchemy.orm import aliased
-from sqlalchemy import and_, or_, null, not_
-from sqlalchemy import update
+from sqlalchemy import and_, or_, not_
 from sqlalchemy.orm import joinedload
 
 from db.models import DpdHeadword, SBS, Russian

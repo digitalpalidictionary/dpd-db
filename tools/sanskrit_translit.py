@@ -1,5 +1,4 @@
 
-from rich import print
 
 def hk_translit(text: str):
     hk_translit_dict: dict[str, str] = {

@@ -5,7 +5,6 @@
 import os
 
 from bs4 import BeautifulSoup
-from aksharamukha import transliterate
 from rich import print
 
 from tools.paths import ProjectPaths

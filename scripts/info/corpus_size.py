@@ -7,8 +7,6 @@ Whats the size difference?
 
 from rich import print
 
-from db.db_helpers import get_db_session
-from db.models import DpdHeadword
 from tools.cst_sc_text_sets import make_cst_text_set, make_sc_text_set
 from tools.paths import ProjectPaths
 

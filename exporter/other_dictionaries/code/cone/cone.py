@@ -1,5 +1,4 @@
 import json
-from pathlib import Path
 import re
 
 from tools.goldendict_exporter import export_to_goldendict_with_pyglossary

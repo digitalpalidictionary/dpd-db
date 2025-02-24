@@ -1,7 +1,6 @@
 from pathlib import Path
 import json
 import re
-from icecream import ic
 
 from tools.printer import p_green, p_title
 from tools.zip_up import zip_up_directory

@@ -15,7 +15,6 @@ from books_to_include import limited_texts, all_texts
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.all_words_in_dpd import make_all_words_in_dpd_set
-from tools.bjt import make_bjt_text_list
 from tools.configger import config_test
 from tools.cst_sc_text_sets import make_cst_text_set
 from tools.cst_sc_text_sets import make_other_pali_texts_set

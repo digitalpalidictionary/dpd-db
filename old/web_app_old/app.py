@@ -1,6 +1,5 @@
 """Flask app for browser-based DPD lookup."""
 
-from curses.ascii import isalpha
 from flask import Flask, render_template
 from markupsafe import Markup
 from flask import request

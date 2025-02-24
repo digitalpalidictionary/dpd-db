@@ -5,11 +5,11 @@
 
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadword, Russian, SBS
+from db.models import DpdHeadword, SBS
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths    
 
-from sqlalchemy import and_, or_, null, not_
+from sqlalchemy import and_, or_, not_
 
 
 pth = ProjectPaths()

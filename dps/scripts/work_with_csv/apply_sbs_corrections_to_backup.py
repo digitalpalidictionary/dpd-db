@@ -5,7 +5,6 @@
 from rich.console import Console
 
 import csv
-import os
 
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths

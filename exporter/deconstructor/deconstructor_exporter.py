@@ -15,7 +15,7 @@ from db.models import Lookup
 from tools.configger import config_test
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
-from tools.printer import p_green, p_green_title, p_title, p_yes
+from tools.printer import p_green, p_title, p_yes
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.tic_toc import tic, toc, bip, bop
 from tools.goldendict_exporter import DictEntry

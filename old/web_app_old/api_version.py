@@ -6,8 +6,6 @@ from modules import HeadwordData
 from db.db_helpers import get_db_session
 from db.models import (
     DpdHeadword,
-    Lookup,
-    DpdRoot,
     SBS,
     Russian)
 from tools.exporter_functions import (

@@ -1,5 +1,4 @@
 from pathlib import Path
-import sys
 from weasyprint import HTML
 
 def makepdf(html):

@@ -25,7 +25,6 @@ from dps.tools.ai_related import generate_messages_for_notes
 from dps.tools.paths_dps import DPSPaths    
 
 from sqlalchemy import and_, or_, null
-from sqlalchemy import func
 from sqlalchemy.orm import joinedload
 
 

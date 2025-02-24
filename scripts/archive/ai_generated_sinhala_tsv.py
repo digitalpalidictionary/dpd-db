@@ -2,7 +2,6 @@
 
 """making ai generated translation into Sinhala and saving to csv and xlsx"""
 
-import pandas as pd
 import csv
 import re
 from openai import OpenAI

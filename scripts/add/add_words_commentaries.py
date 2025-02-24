@@ -9,8 +9,7 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.cst_sc_text_sets import make_cst_text_list
-from tools.goldendict_tools import open_in_goldendict_os
-from tools.pali_text_files import atthakatha_books, mula_books
+from tools.pali_text_files import atthakatha_books
 
 def make_list_of_words_without_meaning(pth):
         

@@ -17,7 +17,6 @@ from tools.db_search_string import db_search_string
 from tools.paths import ProjectPaths
 from tools.printer import p_title
 from tools.tsv_read_write import read_tsv_dot_dict
-from tools.pali_sort_key import pali_list_sorter
 
 
 def compile_previous_next(c, construction_clean, base_clean):

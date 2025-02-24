@@ -14,7 +14,7 @@ from rich import print
 from typing import Optional, Set, List
 
 from tools.clean_machine import clean_machine
-from tools.pali_text_files import sc_texts, cst_texts, bjt_texts
+from tools.pali_text_files import sc_texts, cst_texts
 from tools.pali_text_files import mula_books, all_books
 from tools.paths import ProjectPaths
 from tools.printer import p_green, p_yes, p_red

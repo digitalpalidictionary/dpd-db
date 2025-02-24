@@ -2,7 +2,7 @@
 
 """ Filter words based on some codition and save into csv (with backing up existing temp csv)"""
 
-from db.models import DpdHeadword, Russian, SBS
+from db.models import DpdHeadword, SBS
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
 from db.db_helpers import get_db_session
@@ -14,8 +14,6 @@ from rich.console import Console
 from tools.tic_toc import tic, toc
 from datetime import datetime
 
-from sqlalchemy.orm import joinedload
-from sqlalchemy import and_, or_, null, not_
 
 console = Console()
 

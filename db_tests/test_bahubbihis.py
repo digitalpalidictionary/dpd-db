@@ -13,7 +13,6 @@
 import json
 import re
 import pyperclip
-import csv
 
 
 from rich import print
