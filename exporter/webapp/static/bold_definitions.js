@@ -59,7 +59,7 @@ function clearBdResults() {
     bdResults.innerHTML = '';
     bdSearchBox1.value = '';
     bdSearchBox2.value = '';
-    // history.pushState({}, "", "/");
+    history.pushState({}, "", "/");
 }
 
 bdClearButton.addEventListener('click', clearBdResults);
@@ -82,17 +82,17 @@ bdSearchButton.addEventListener('click', handleBdFormSubmit);
 
 // trigger search by click
 
-// document.addEventListener('DOMContentLoaded', function() {
-//     /*applyUrlQuery();
-//     handleBdFormSubmit();*/
+document.addEventListener('DOMContentLoaded', function() {
+    // applyUrlQuery();
+    // handleBdFormSubmit()
 
-// 	document.body.addEventListener('dblclick', function() {
-// 	var selection = window.getSelection().toString().toLowerCase();
-// 	bdSearchBox1.value = selection.slice(0, -1);
-// 	bdSearchBox2.value = "";
-// 	handleBdFormSubmit();
-// 	});
-// });
+	document.body.addEventListener('dblclick', function() {
+	var selection = window.getSelection().toString().toLowerCase();
+	bdSearchBox1.value = selection.slice(0, -1);
+	bdSearchBox2.value = "";
+	handleBdFormSubmit();
+	});
+});
 
 // text to unicode
 

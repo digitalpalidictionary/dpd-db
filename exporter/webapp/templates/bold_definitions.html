@@ -3,18 +3,20 @@
     <div class="bd-message">
         {{ message|safe }}
     </div>
-    <table id="bd-search-results">
-        {% for r in results %}
-        <tr>
-            <th class="bd-th">
-                {{ loop.index }}. <b>{{ r.bold|safe }}</b>{{ r.bold_end|safe }}
-            </th>
-            <td class="bd-td">
-                ({{ r.ref_code }}) {{ r.commentary|safe }}
-                <br>
-                <span class='bd-info'>{{ r.nikaya}}, {{ r.book }}, {{ r.title }}, {{ r.subhead }}
-            </td>
-        </tr>
-        {% endfor %}
+    <table class="bd-table" id="bd-search-results">
+        <tbody class="bd-tbody">
+            {% for r in results %}
+            <tr class="bd-row">
+                <th class="bd-th">
+                    {{ loop.index }}. <b>{{ r.bold|safe }}</b>{{ r.bold_end|safe }}
+                </th>
+                <td class="bd-td">
+                    ({{ r.ref_code }}) {{ r.commentary|safe }}
+                    <br>
+                    <span class='bd-info'>{{ r.nikaya}}, {{ r.book }}, {{ r.title }}, {{ r.subhead }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
 </div>
