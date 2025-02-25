@@ -179,3 +179,5 @@ time_log.dat
 time_log.png
 tmp/
 typescript
+scripts/suttas/cst/*.tsv
+scripts/suttas/sc/*.tsv
