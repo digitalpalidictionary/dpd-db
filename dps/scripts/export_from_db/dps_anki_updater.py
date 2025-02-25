@@ -470,7 +470,12 @@ def deck_selector(i):
             i.sbs.sbs_example_1 or 
             i.sbs.sbs_example_2 or 
             i.sbs.sbs_example_3 or 
-            i.sbs.sbs_example_4
+            i.sbs.sbs_example_4 or
+            i.sbs.dhp_example or
+            i.sbs.pat_example or
+            i.sbs.vib_example or
+            i.sbs.class_example or
+            i.sbs.discourses_example
         )
     ):
         return "Пали Словарь"

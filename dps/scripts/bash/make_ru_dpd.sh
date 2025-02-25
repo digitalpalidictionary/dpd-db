@@ -45,4 +45,6 @@ git checkout -- pyproject.toml
 
 git checkout -- db/sanskrit/root_families_sanskrit.tsv
 
+git checkout -- shared_data/changed_templates
+
 

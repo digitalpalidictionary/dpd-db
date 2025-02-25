@@ -59,6 +59,7 @@ while true; do
             python -c "from tools.configger import config_update; config_update('regenerate', 'db_rebuild', 'no')"
             dps/scripts/other/add_combined_view.py
             dps/scripts/change_in_db/apply_all_corrections.py
+            exporter/goldendict/main.py
             git checkout -- pyproject.toml
             git checkout -- db/backup_tsv/dpd_headwords.tsv
             git checkout -- db/sanskrit/root_families_sanskrit.tsv
@@ -68,7 +69,6 @@ while true; do
             git checkout -- exporter/goldendict/javascript/family_set_json.js
             git checkout -- exporter/goldendict/javascript/family_word_json.js
             git checkout -- shared_data/changed_templates
-            exporter/goldendict/main.py
             break;;
         * )
             break;;

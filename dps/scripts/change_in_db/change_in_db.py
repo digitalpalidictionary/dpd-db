@@ -172,6 +172,16 @@ def update_column_for_some_criteria(source_value):
 
             console.print(f"[bold bright_yellow]{__word__.id} {__word__.lemma_1} {__word__.sbs.sbs_patimokkha}")
 
+            # Check for "VIN1." in sbs_source fields
+            for idx in range(1, 5):  # Assuming there are 4 positions
+                sbs_source_value = getattr(__word__.sbs, f"sbs_source_{idx}")
+                if sbs_source_value and re.search(r"VIN1", sbs_source_value):
+                    # Copy values to pat fields
+                    for field_prefix in ['source', 'sutta', 'example']:
+                        sbs_value = getattr(__word__.sbs, f"sbs_{field_prefix}_{idx}")
+                        setattr(__word__.sbs, f"vib_{field_prefix}", sbs_value)
+                        print(f"{__word__.id} {sbs_value}")
+
             count_changed_sbs += 1
         else:
             console.print(f"[bold bright_yellow]{__word__.id} {__word__.lemma_1} {__word__.sbs.sbs_patimokkha}")

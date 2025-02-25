@@ -3353,3 +3353,28 @@ tāvakāla + ika"					from kāla not from kālika		yes
 80531	source_1	VIN PAT SA 10	sutta_1	saṅghabhedasikkhāpadaṃ	example_1	so bhikkhu bhikkhūhi <b>evam'assa</b> vacanīyo, m'āyasmā samaggassa saṅghassa bhedāya parakkami, bhedanasaṃvattanikaṃ vā adhikaraṇaṃ samādāya paggayha aṭṭhāsi	missing				
 80531	meaning_1	thus should be; should be in this way					more in this context				
 65604	meaning_lit	able to be spoken to, just venerable					eva				
+37370	sanskrit	[nipad]					missing		
+37370	root_key	√pad					missing		
+37370	source_1	VIN1.3.1	sutta_1	paṭhamaaniyatasikkhāpadaṃ	example_1	sā ce evaṃ vadeyya, ayyo mayā diṭṭho nisinno mātugāmassa methunaṃ dhammaṃ paṭisevantoti, so ce evaṃ vadeyya, n'āhaṃ nisinno, apica kho nipanno'ti, <b>nipajjāya</b> kāretabbo.	missing		
+37370	construction	ni + pajja + ā					missing		
+37370	root_sign	ya					missing		
+37370	root_base	√pad + ya > pajja					missing		
+37370	derivative	kita	suffix	ā			missing		
+37370	meaning_1	lying down					missing		
+37370	family_root	ni √pad					missing		
+37370	grammar	fem, abstr, from nipajjati					missing		
+78444	source_2	VIN1.3.1	sutta_2	paṭhamaaniyatasikkhāpadaṃ	example_2	sā ce evaṃ vadeyya, ayyo mayā diṭṭho nisinno mātugāmassa methunaṃ dhammaṃ paṭisevanto'ti, so ca taṃ <b>paṭijānāti</b>, āpattiyā kāretabbo.	missing		
+6818	source_1	VIN1.3.2	sutta_1	dutiyaaniyatasikkhāpadaṃ	example_1	na h'eva kho pana paṭicchannaṃ āsanaṃ hotī'ti <b>appaṭicchannaṃ</b> hoti kuṭṭena vā kavāṭena vā kilañjena vā sāṇipākārena vā rukkhena vā thambhena vā kotthaḷiyā vā yena kenaci <b>appaṭicchannaṃ</b> hoti.	missing		
+6818	compound_type	kammadhāraya	compound_construction	na + paṭicchanna			missing		
+6818	antonym	paṭicchanna					missing		
+6818	meaning_1	unconcealed; not hidden					missing		
+6818	family_compound	paṭicchanna					missing		
+21214	family_set	epithets of stream entry					same as diṭṭhippatta		
+21214	meaning_1	liberated through the experience of jhāna and the formless attainments; epithet of a steam-enterer or higher					same as diṭṭhippatta		
+16833	family_set	epithets of arahants					missing		
+16833	meaning_1	liberated in both ways; emancipated in two regards; epithet of an arahant					missing		
+40107	family_set	epithets of arahants					missing		
+40107	meaning_1	liberated by understanding; emancipated by insight; epithet of an arahant					missing		
+21215	family_set	epithets of stream entry					missing		
+21215	meaning_1	liberated through the experience of jhāna and the formless attainments; epithet of a steam-enterer or higher					missing		
+34958	family_set	epithets of stream entry					missing		
