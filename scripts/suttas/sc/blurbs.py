@@ -23,13 +23,5 @@ def process_blurbs(sc_data):
         if file_path.is_file():
             blurb_data = open_sc_json(file_path)
             add_blurbs_to_sc_data(blurb_data, sc_data)
-    
+
     return sc_data
-
-
-
-if __name__ == "__main__":
-    pass
-    # json_file = 'resources/sc-data/additional-info/blurbs.json'
-    # tsv_file = 'scripts/suttas/sc/sc_blurb.tsv'
-    # blurbs = extract_blurbs(json_file)

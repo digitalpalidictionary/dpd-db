@@ -11,8 +11,8 @@ def open_sc_json(file_path):
         return json.load(f)
 
 
-def update_data_dict(code, book, vagga, sutta, data_dict):
-    """Update the data dictionary with the code, book, vagga, and sutta"""
+def update_data_dict(code, book, vagga, sutta, eng_sutta, data_dict):
+    """Update the data dictionary."""
     if vagga is None:
         vagga = "-"
     if sutta is None:
@@ -24,6 +24,7 @@ def update_data_dict(code, book, vagga, sutta, data_dict):
             "book": book,
             "vagga": vagga,
             "sutta": sutta,
+            "eng_sutta": eng_sutta,
         }
     
         return data_dict
