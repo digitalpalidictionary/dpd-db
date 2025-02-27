@@ -1,18 +1,15 @@
-import re
-
 from scripts.suttas.cst.modules import get_sutta_num
 
 
-def extract_an_data(soup, relative_path):
+def extract_kn3_data(soup, relative_path):
     data_list = []
 
     soup_chunks = soup.find_all(["div", "head", "p"])
     id = None
     nikaya = None
     book = None
-    section = None
+    # section = None
     vagga = None
-    code = None
     paranum = None
     # page numbers
     m_page = None
@@ -32,15 +29,11 @@ def extract_an_data(soup, relative_path):
         if x.get("id", ""):
             id = x["id"].replace("_", ".")
 
-        if x.get("n", ""):
-            n = x["n"].replace("_", ".")
-
-        if x.get("rend", "") == "title":
-            section = x.text.strip()
-
         if x.get("rend", "") == "chapter":
-            # remove brackets (5)
-            vagga = re.sub(r"\(\d*\)\s", "", x.text.strip())
+            note = x.find("note")
+            if note:
+                note.extract()
+            vagga = x.text.strip()
 
         if x.name == "p":
             pbs = x.find_all("pb")
@@ -94,7 +87,7 @@ def extract_an_data(soup, relative_path):
             data["cst_code"] = code
             data["cst_nikaya"] = nikaya
             data["cst_book"] = book
-            data["cst_section"] = section
+            data["cst_section"] = ""
             data["cst_vagga"] = vagga
             data["cst_sutta"] = sutta
             data["cst_paranum"] = paranum

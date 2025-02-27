@@ -1,18 +1,16 @@
 import re
-
 from scripts.suttas.cst.modules import get_sutta_num
 
 
-def extract_an_data(soup, relative_path):
+def extract_kn14_data(soup, relative_path):
     data_list = []
 
     soup_chunks = soup.find_all(["div", "head", "p"])
-    id = None
+    # id = None
     nikaya = None
     book = None
     section = None
     vagga = None
-    code = None
     paranum = None
     # page numbers
     m_page = None
@@ -29,18 +27,14 @@ def extract_an_data(soup, relative_path):
         if x.get("rend", "") == "book":
             book = x.text.strip()
 
-        if x.get("id", ""):
-            id = x["id"].replace("_", ".")
+        # if x.get("id", ""):
+        #     id = x["id"].replace("_", ".")
 
-        if x.get("n", ""):
-            n = x["n"].replace("_", ".")
+        if x.get("rend") == "chapter":
+            section = x.text.strip().replace("(", "").replace(")", "")
 
-        if x.get("rend", "") == "title":
-            section = x.text.strip()
-
-        if x.get("rend", "") == "chapter":
-            # remove brackets (5)
-            vagga = re.sub(r"\(\d*\)\s", "", x.text.strip())
+        if x.get("rend") == "title" and "(" not in x.text:
+            vagga = x.text.strip()
 
         if x.name == "p":
             pbs = x.find_all("pb")
@@ -56,13 +50,13 @@ def extract_an_data(soup, relative_path):
                 elif ed == "T":
                     t_page = n
 
-        if x.get("rend") == "subhead":
-            sutta = x.text.strip()
+        if x.get("rend") == "subhead" and re.findall(r"\d", x.text):
+            sutta = re.sub(r" \(.+\)", "", x.text.strip())  # remove (10)
             sutta_num = get_sutta_num(x)
-            code = f"{id}.{sutta_num}"
+            code = f"kn14.{sutta_num}"
 
             # Find the next paragraph containing paranum
-            next_para = x.find_next("p", {"rend": "bodytext"})
+            next_para = x.find_next("p")
             if next_para:
                 paranum = next_para.find("hi", {"rend": "paranum"})
                 if paranum:

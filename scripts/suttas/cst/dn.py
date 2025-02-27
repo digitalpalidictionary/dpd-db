@@ -1,15 +1,11 @@
-import re
-from scripts.suttas.cst.modules import extract_sutta_data
-
-
-def extract_dn_data(soup):
+def extract_dn_data(soup, relative_path):
     soup_chunks = soup.find_all(["div", "head", "p"])
     data_list = []
     id = None
     nikaya = None
     book = None
-    vagga = None
-    code = None
+    # vagga = None
+    # code = None
     paranum = None
     # page numbers
     m_page = None
@@ -29,9 +25,7 @@ def extract_dn_data(soup):
         if x.get("n", ""):
             n = x["n"].replace("_", ".")
         if x.get("rend", "") == "chapter":
-            sutta = re.sub(r"\d*\. ", "", x.text.strip())
-            # sutta_num = re.sub(r"\. .+", "", x.text.strip())
-            # code = f"{id}.{sutta_num}"
+            sutta = x.text.strip()
 
             # Find the next paragraph containing paranum
             next_para = x.find_next("p", {"rend": "bodytext"})
@@ -54,23 +48,19 @@ def extract_dn_data(soup):
                     elif ed == "T":
                         t_page = n
 
-            data["code"] = id
-            data["nikaya"] = nikaya
-            data["book"] = book
-            data["vagga"] = "-"
-            data["sutta"] = sutta
-            data["paranum"] = paranum
-            data["m_page"] = m_page
-            data["v_page"] = v_page
-            data["p_page"] = p_page
-            data["t_page"] = t_page
+            data["cst_code"] = id
+            data["cst_nikaya"] = nikaya
+            data["cst_book"] = book
+            data["cst_section"] = ""
+            data["cst_vagga"] = ""
+            data["cst_sutta"] = sutta
+            data["cst_paranum"] = paranum
+            data["cst_m_page"] = m_page
+            data["cst_v_page"] = v_page
+            data["cst_p_page"] = p_page
+            data["cst_t_page"] = t_page
+            data["cst_file"] = relative_path
 
             data_list.append(data)
 
     return data_list
-
-
-if __name__ == "__main__":
-    file_list = ["dn1", "dn2", "dn3"]
-    output_tsv = "scripts/suttas/cst/dn.tsv"
-    extract_sutta_data(file_list, output_tsv, extract_dn_data)

@@ -1,9 +1,7 @@
-import re
-
 from scripts.suttas.cst.modules import get_sutta_num
 
 
-def extract_an_data(soup, relative_path):
+def extract_kn9_data(soup, relative_path):
     data_list = []
 
     soup_chunks = soup.find_all(["div", "head", "p"])
@@ -12,7 +10,6 @@ def extract_an_data(soup, relative_path):
     book = None
     section = None
     vagga = None
-    code = None
     paranum = None
     # page numbers
     m_page = None
@@ -32,15 +29,8 @@ def extract_an_data(soup, relative_path):
         if x.get("id", ""):
             id = x["id"].replace("_", ".")
 
-        if x.get("n", ""):
-            n = x["n"].replace("_", ".")
-
-        if x.get("rend", "") == "title":
-            section = x.text.strip()
-
-        if x.get("rend", "") == "chapter":
-            # remove brackets (5)
-            vagga = re.sub(r"\(\d*\)\s", "", x.text.strip())
+        if x.get("rend") == "chapter":
+            vagga = x.text.strip()
 
         if x.name == "p":
             pbs = x.find_all("pb")
@@ -57,12 +47,15 @@ def extract_an_data(soup, relative_path):
                     t_page = n
 
         if x.get("rend") == "subhead":
+            note = x.find("note")
+            if note:
+                note.extract()
             sutta = x.text.strip()
             sutta_num = get_sutta_num(x)
             code = f"{id}.{sutta_num}"
 
             # Find the next paragraph containing paranum
-            next_para = x.find_next("p", {"rend": "bodytext"})
+            next_para = x.find_next("p")
             if next_para:
                 paranum = next_para.find("hi", {"rend": "paranum"})
                 if paranum:

@@ -1,11 +1,8 @@
 import re
 
-from icecream import ic
+from scripts.suttas.cst.modules import get_sutta_num
 
-from scripts.suttas.cst.modules import extract_sutta_data
-
-
-def extract_mn_data(soup):
+def extract_mn_data(soup, relative_path):
     data_list = []
 
     soup_chunks = soup.find_all(["div", "head", "p"])
@@ -37,7 +34,7 @@ def extract_mn_data(soup):
             n = x["n"].replace("_", ".")
 
         if x.get("rend", "") == "chapter":
-            vagga = re.sub(r"\d*\. ", "", x.text.strip())
+            vagga = x.text.strip()
 
         if x.name == "p":
             pbs = x.find_all("pb")
@@ -58,8 +55,8 @@ def extract_mn_data(soup):
             # suttas always start with a number, subsections don't
             and re.match(r"\d*\. ", x.text.strip())
         ):
-            sutta = re.sub(r"\d*\. ", "", x.text.strip())
-            sutta_num = re.sub(r"\. .+", "", x.text.strip())
+            sutta = x.text.strip()
+            sutta_num = get_sutta_num(x)
             code = f"{id}.{sutta_num}"
 
             # Find the next paragraph containing paranum
@@ -96,24 +93,20 @@ def extract_mn_data(soup):
                         elif ed == "T":
                             t_page = n
 
-            data["code"] = code
-            data["nikaya"] = nikaya
-            data["book"] = book
-            data["samyutta"] = "-"
-            data["fifty"] = "-"
-            data["vagga"] = vagga
-            data["sutta"] = sutta
-            data["paranum"] = paranum
-            data["m_page"] = m_page
-            data["v_page"] = v_page
-            data["p_page"] = p_page
-            data["t_page"] = t_page
+            data["cst_code"] = code
+            data["cst_nikaya"] = nikaya
+            data["cst_book"] = book
+            data["cst_section"] = ""
+            data["cst_vagga"] = vagga
+            data["cst_sutta"] = sutta
+            data["cst_paranum"] = paranum
+            data["cst_m_page"] = m_page
+            data["cst_v_page"] = v_page
+            data["cst_p_page"] = p_page
+            data["cst_t_page"] = t_page
+            data["cst_file"] = relative_path
+            
             data_list.append(data)
 
     return data_list
 
-
-if __name__ == "__main__":
-    file_list = ["mn1", "mn2", "mn3"]
-    output_tsv = "scripts/suttas/cst/mn.tsv"
-    extract_sutta_data(file_list, output_tsv, extract_mn_data)
