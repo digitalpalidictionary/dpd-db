@@ -33,13 +33,15 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 uv sync
 ```
 
-8. Run this once to initialize the project
+8. Having at least 20 GB of RAM can be helpful. If you have less, consider [increasing the swap memory.](https://www.reddit.com/r/linuxmint/comments/uhjyir/how_to_increase_swap_size/?rdt=34113).
+
+9. Run this once to initialize the project
 
 ```shell
 uv run bash scripts/bash/initial_setup_run_once.sh
 ```
 
-9. Build the database, this can take up to an hour the first time.
+10. Build the database, this can take up to an hour the first time.
 
 ```shell
 uv run bash scripts/bash/initial_build_db.sh
