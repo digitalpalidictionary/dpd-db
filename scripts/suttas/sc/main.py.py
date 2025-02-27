@@ -1,12 +1,14 @@
 """
 Extract sutta data from SC texts and translations.
 """
+
 from pathlib import Path
 
 from scripts.suttas.sc.blurbs import process_blurbs
 from scripts.suttas.sc.links import process_links
 from scripts.suttas.sc.modules import open_sc_json, write_sc_data_to_tsv
 from scripts.suttas.sc.suttas import extract_pali
+
 
 def main():
     sc_data = {}
@@ -22,8 +24,9 @@ def main():
         pali_data = open_sc_json(pali_path)
 
         english_path = english_base_dir / relative_path
-        english_path = Path(str(english_path).replace(
-            "root-pli-ms", "translation-en-sujato"))
+        english_path = Path(
+            str(english_path).replace("root-pli-ms", "translation-en-sujato")
+        )
         if english_path.exists():
             english_data = open_sc_json(english_path)
         else:

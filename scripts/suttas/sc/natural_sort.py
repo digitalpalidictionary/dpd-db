@@ -26,7 +26,7 @@ PREFIX_ORDER = {
     "mil": 21,
     "ne": 22,
     "pe": 23,
-}  
+}
 
 
 def extract_prefix(s, possible_prefixes):

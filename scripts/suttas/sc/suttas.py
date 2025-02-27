@@ -1,4 +1,4 @@
-
+from pathlib import Path
 import re
 
 from scripts.suttas.sc.modules import update_data_dict
@@ -15,6 +15,9 @@ def extract_pali(file_path, pali_data, eng_data):
     folder_name_clean = re.sub(r"\d", "", folder_name)
     folder_parent = file_path.parent.parent.name
 
+    file_source = Path("resources/sc-data")
+    file_path_relative = str(file_path.relative_to(file_source))
+
     code = None
     book = None
     vagga = None
@@ -23,7 +26,7 @@ def extract_pali(file_path, pali_data, eng_data):
 
     for line_code, pali_text in pali_data.items():
         eng_text = eng_data.get(line_code, "")
-        
+
         if folder_name_clean in ["dn", "mn", "kp"]:
             if ":0.1" in line_code:
                 code = line_code.replace(":0.1", "")
@@ -32,7 +35,9 @@ def extract_pali(file_path, pali_data, eng_data):
                 sutta = pali_text.strip()
                 eng_sutta = eng_text.strip()
 
-            update_data_dict(code, book, vagga, sutta, eng_sutta, data_dict)
+            update_data_dict(
+                code, book, vagga, sutta, eng_sutta, file_path_relative, data_dict
+            )
 
         if folder_name_clean in ["sn"]:
             if ":0.1" in line_code:
@@ -44,7 +49,9 @@ def extract_pali(file_path, pali_data, eng_data):
                 sutta = pali_text.strip()
                 eng_sutta = eng_text.strip()
 
-            update_data_dict(code, book, vagga, sutta, eng_sutta, data_dict)
+            update_data_dict(
+                code, book, vagga, sutta, eng_sutta, file_path_relative, data_dict
+            )
 
         if folder_name_clean in ["an"] and folder_name not in ["an1", "an2"]:
             if ":0.1" in line_code:
@@ -56,7 +63,9 @@ def extract_pali(file_path, pali_data, eng_data):
                 sutta = pali_text.strip()
                 eng_sutta = eng_text.strip()
 
-            update_data_dict(code, book, vagga, sutta, eng_sutta, data_dict)
+            update_data_dict(
+                code, book, vagga, sutta, eng_sutta, file_path_relative, data_dict
+            )
 
         if folder_name_clean in ["an"] and folder_name in ["an2"]:
             if ":0.1" in line_code:
@@ -70,7 +79,15 @@ def extract_pali(file_path, pali_data, eng_data):
 
                 # check if sutta only contains numbers and -
                 if not bool(re.match("[0-9-]", sutta)):
-                    update_data_dict(code, book, vagga, sutta, eng_sutta, data_dict)
+                    update_data_dict(
+                        code,
+                        book,
+                        vagga,
+                        sutta,
+                        eng_sutta,
+                        file_path_relative,
+                        data_dict,
+                    )
 
         if folder_name_clean in ["vagga"] and folder_parent in ["ud"]:
             if ":0.1" in line_code:
@@ -80,7 +97,9 @@ def extract_pali(file_path, pali_data, eng_data):
                 sutta = pali_text.strip()
                 eng_sutta = eng_text.strip()
 
-            update_data_dict(code, book, vagga, sutta, eng_sutta, data_dict)
+            update_data_dict(
+                code, book, vagga, sutta, eng_sutta, file_path_relative, data_dict
+            )
 
         if folder_name_clean in ["vagga"] and folder_parent in ["iti"]:
             if ":0.1" in line_code:
@@ -96,7 +115,9 @@ def extract_pali(file_path, pali_data, eng_data):
 
                 vagga = f"{nipata} {vagga}"
 
-                update_data_dict(code, book, vagga, sutta, eng_sutta, data_dict)
+                update_data_dict(
+                    code, book, vagga, sutta, eng_sutta, file_path_relative, data_dict
+                )
 
         if folder_name_clean in ["vagga"] and folder_parent in ["snp"]:
             if ":0.1" in line_code:
@@ -106,7 +127,9 @@ def extract_pali(file_path, pali_data, eng_data):
                 sutta = pali_text.strip()
                 eng_sutta = eng_text.strip()
 
-                update_data_dict(code, book, vagga, sutta, eng_sutta, data_dict)
+                update_data_dict(
+                    code, book, vagga, sutta, eng_sutta, file_path_relative, data_dict
+                )
 
         if folder_name_clean in ["vv", "thag", "cp", "ja"]:
             if ":0.1" in line_code:
@@ -122,7 +145,9 @@ def extract_pali(file_path, pali_data, eng_data):
 
                 vagga = f"{nipata}, {vagga}"
 
-                update_data_dict(code, book, vagga, sutta, eng_sutta, data_dict)
+                update_data_dict(
+                    code, book, vagga, sutta, eng_sutta, file_path_relative, data_dict
+                )
 
         if folder_name in ["pv", "thig", "mnd"]:
             if ":0.1" in line_code:
@@ -134,7 +159,9 @@ def extract_pali(file_path, pali_data, eng_data):
                 sutta = pali_text.strip()
                 eng_sutta = eng_text.strip()
 
-            update_data_dict(code, book, vagga, sutta, eng_sutta, data_dict)
+            update_data_dict(
+                code, book, vagga, sutta, eng_sutta, file_path_relative, data_dict
+            )
 
         if folder_name in ["tha-ap", "thi-ap"]:
             if ":0.1" in line_code:
@@ -146,7 +173,9 @@ def extract_pali(file_path, pali_data, eng_data):
                 sutta = pali_text.strip()
                 eng_sutta = eng_text.strip()
 
-            update_data_dict(code, book, vagga, sutta, eng_sutta, data_dict)
+            update_data_dict(
+                code, book, vagga, sutta, eng_sutta, file_path_relative, data_dict
+            )
 
         if folder_name in ["bv"]:
             if ":0.1" in line_code:
@@ -156,7 +185,9 @@ def extract_pali(file_path, pali_data, eng_data):
                 sutta = pali_text.strip()
                 eng_sutta = eng_text.strip()
 
-                update_data_dict(code, book, vagga, sutta, eng_sutta, data_dict)
+                update_data_dict(
+                    code, book, vagga, sutta, eng_sutta, file_path_relative, data_dict
+                )
 
         if folder_name in ["cnd"]:
             if ":0.1" in line_code:
@@ -175,7 +206,9 @@ def extract_pali(file_path, pali_data, eng_data):
                 sutta = pali_text.strip()
                 eng_sutta = eng_text.strip()
 
-            update_data_dict(code, book, vagga, sutta, eng_sutta, data_dict)
+            update_data_dict(
+                code, book, vagga, sutta, eng_sutta, file_path_relative, data_dict
+            )
 
         if folder_name in ["ps"]:
             if ":0.1" in line_code:
@@ -187,7 +220,9 @@ def extract_pali(file_path, pali_data, eng_data):
                 sutta = pali_text.strip()
                 eng_sutta = eng_text.strip()
 
-                update_data_dict(code, book, vagga, sutta, eng_sutta, data_dict)
+                update_data_dict(
+                    code, book, vagga, sutta, eng_sutta, file_path_relative, data_dict
+                )
 
         if folder_name in ["mil"]:
             if ":0.1" in line_code:
@@ -206,7 +241,8 @@ def extract_pali(file_path, pali_data, eng_data):
                 sutta = pali_text.strip()
                 eng_sutta = eng_text.strip()
 
-            update_data_dict(code, book, vagga, sutta, eng_sutta, data_dict)
+            update_data_dict(
+                code, book, vagga, sutta, eng_sutta, file_path_relative, data_dict
+            )
 
     return data_dict
-

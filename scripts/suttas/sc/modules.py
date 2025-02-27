@@ -11,12 +11,14 @@ def open_sc_json(file_path):
         return json.load(f)
 
 
-def update_data_dict(code, book, vagga, sutta, eng_sutta, data_dict):
+def update_data_dict(
+    code, book, vagga, sutta, eng_sutta, file_path_relative, data_dict
+):
     """Update the data dictionary."""
     if vagga is None:
-        vagga = "-"
+        vagga = ""
     if sutta is None:
-        sutta = "-"
+        sutta = ""
 
     if code and sutta:
         data_dict[code] = {
@@ -25,9 +27,13 @@ def update_data_dict(code, book, vagga, sutta, eng_sutta, data_dict):
             "vagga": vagga,
             "sutta": sutta,
             "eng_sutta": eng_sutta,
-            "blurb": "-"
+            "blurb": "",
+            "sc_card_link": "",
+            "sc_pali_link": "",
+            "sc_eng_link": "",
+            "file_path": file_path_relative,
         }
-    
+
         return data_dict
 
 
