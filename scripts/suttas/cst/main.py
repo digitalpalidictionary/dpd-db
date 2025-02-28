@@ -1,4 +1,4 @@
-from anyio import Path
+from pathlib import Path
 from scripts.suttas.cst.an import extract_an_data
 from scripts.suttas.cst.dn import extract_dn_data
 from scripts.suttas.cst.kn10 import extract_kn10_data
@@ -22,11 +22,37 @@ from tools.paths import ProjectPaths
 
 pth = ProjectPaths()
 
+PROCESSING_STEPS = [
+    (["dn1", "dn2", "dn3"], extract_dn_data),
+    (["mn1", "mn2", "mn3"], extract_mn_data),
+    (["sn1", "sn2", "sn3", "sn4", "sn5"], extract_sn_data),
+    (
+        ["an2", "an3", "an4", "an5", "an6", "an7", "an8", "an9", "an10", "an11"],
+        extract_an_data,
+    ),
+    (["kn1"], extract_kn1_data),
+    (["kn3"], extract_kn3_data),
+    (["kn4"], extract_kn4_data),
+    (["kn5"], extract_kn5_data),
+    (["kn6"], extract_kn6_data),
+    (["kn7"], extract_kn5_data),
+    (["kn8"], extract_kn6_data),
+    (["kn9"], extract_kn9_data),
+    (["kn10", "kn11"], extract_kn10_data),
+    (["kn12"], extract_kn12_data),
+    (["kn13"], extract_kn13_data),
+    (["kn14"], extract_kn14_data),
+    (["kn15"], extract_kn15_data),
+    (["kn16"], extract_kn16_data),
+    (["kn17"], extract_kn17_data),
+]
+
 
 def extract_sutta_data(cst_data, book_list, extract_x_data):
+    source_path = Path("/home/bodhirasa/Code/dpd-db/resources/dpd_submodules/cst")
+
     for file_string in book_list:
         file_list = cst_texts[file_string]
-        source_path = Path("/home/bodhirasa/Code/dpd-db/resources/dpd_submodules/cst")
 
         for file_path in file_list:
             file_path = Path(file_path)
@@ -35,7 +61,6 @@ def extract_sutta_data(cst_data, book_list, extract_x_data):
             relative_path = file_path.relative_to(source_path)
 
             soup = make_soup(file_path)
-
             extracted_data = extract_x_data(soup, relative_path)
             if extracted_data:
                 cst_data.extend(extracted_data)
@@ -46,62 +71,8 @@ def extract_sutta_data(cst_data, book_list, extract_x_data):
 def main():
     cst_data = []
 
-    book_list = ["dn1", "dn2", "dn3"]
-    cst_data = extract_sutta_data(cst_data, book_list, extract_dn_data)
-
-    book_list = ["mn1", "mn2", "mn3"]
-    cst_data = extract_sutta_data(cst_data, book_list, extract_mn_data)
-
-    book_list = ["sn1", "sn2", "sn3", "sn4", "sn5"]
-    cst_data = extract_sutta_data(cst_data, book_list, extract_sn_data)
-
-    file_list = ["an2", "an3", "an4", "an5", "an6", "an7", "an8", "an9", "an10", "an11"]
-    cst_data = extract_sutta_data(cst_data, file_list, extract_an_data)
-
-    file_list = ["kn1"]
-    cst_data = extract_sutta_data(cst_data, file_list, extract_kn1_data)
-
-    file_list = ["kn3"]
-    cst_data = extract_sutta_data(cst_data, file_list, extract_kn3_data)
-
-    file_list = ["kn4"]
-    cst_data = extract_sutta_data(cst_data, file_list, extract_kn4_data)
-
-    file_list = ["kn5"]
-    cst_data = extract_sutta_data(cst_data, file_list, extract_kn5_data)
-
-    file_list = ["kn6"]
-    cst_data = extract_sutta_data(cst_data, file_list, extract_kn6_data)
-
-    file_list = ["kn7"]
-    cst_data = extract_sutta_data(cst_data, file_list, extract_kn5_data)
-
-    file_list = ["kn8"]
-    cst_data = extract_sutta_data(cst_data, file_list, extract_kn6_data)
-
-    file_list = ["kn9"]
-    cst_data = extract_sutta_data(cst_data, file_list, extract_kn9_data)
-
-    file_list = ["kn10", "kn11"]
-    cst_data = extract_sutta_data(cst_data, file_list, extract_kn10_data)
-
-    file_list = ["kn12"]
-    cst_data = extract_sutta_data(cst_data, file_list, extract_kn12_data)
-
-    file_list = ["kn13"]
-    cst_data = extract_sutta_data(cst_data, file_list, extract_kn13_data)
-
-    file_list = ["kn14"]
-    cst_data = extract_sutta_data(cst_data, file_list, extract_kn14_data)
-
-    file_list = ["kn15"]
-    cst_data = extract_sutta_data(cst_data, file_list, extract_kn15_data)
-
-    file_list = ["kn16"]
-    cst_data = extract_sutta_data(cst_data, file_list, extract_kn16_data)
-
-    file_list = ["kn17"]
-    cst_data = extract_sutta_data(cst_data, file_list, extract_kn17_data)
+    for book_list, extract_function in PROCESSING_STEPS:
+        cst_data = extract_sutta_data(cst_data, book_list, extract_function)
 
     output_tsv = "scripts/suttas/cst/cst.tsv"
     write_cst_tsv(output_tsv, cst_data)

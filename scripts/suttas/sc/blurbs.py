@@ -10,7 +10,7 @@ def add_blurbs_to_sc_data(blurb_data, sc_data):
     for blurb_code, blurb in blurb_data.items():
         clean_code = re.sub(r".+:", "", blurb_code)
         if clean_code in sc_data:
-            sc_data[clean_code]["blurb"] = blurb
+            sc_data[clean_code]["sc_blurb"] = blurb
 
     return sc_data
 

@@ -68,7 +68,7 @@ def sorted_naturally(data):
     """
     Sort the data list based on the 'code' field using natural sorting with custom prefix order.
     """
-    return sorted(data, key=lambda x: natural_sort_key(x["code"]))
+    return sorted(data, key=lambda x: natural_sort_key(x["sc_code"]))
 
 
 if __name__ == "__main__":

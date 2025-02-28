@@ -22,16 +22,16 @@ def update_data_dict(
 
     if code and sutta:
         data_dict[code] = {
-            "code": code,
-            "book": book,
-            "vagga": vagga,
-            "sutta": sutta,
-            "eng_sutta": eng_sutta,
-            "blurb": "",
+            "sc_code": code,
+            "sc_book": book,
+            "sc_vagga": vagga,
+            "sc_sutta": sutta,
+            "sc_eng_sutta": eng_sutta,
+            "sc_blurb": "",
             "sc_card_link": "",
             "sc_pali_link": "",
             "sc_eng_link": "",
-            "file_path": file_path_relative,
+            "sc_file_path": file_path_relative,
         }
 
         return data_dict
