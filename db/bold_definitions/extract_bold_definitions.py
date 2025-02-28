@@ -208,9 +208,13 @@ def main():
     p_title("building database of bolded definitions")
     
     pth = ProjectPaths()
+
     bold_definitions = extract_bold_definitions(pth)
-    update_db(pth, bold_definitions)
     export_json(pth, bold_definitions)
+    
+    if pth.dpd_db_path.exists():
+        update_db(pth, bold_definitions)
+
     toc()
 
 
