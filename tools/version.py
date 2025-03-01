@@ -21,12 +21,12 @@ def update_version():
     tic()
     p_title("updating dpd release version")
     pth = ProjectPaths()
-    version = make_version()
+    version, version_light = make_version()
     
     config_update("version", "version", version, silent=True)
     printer("config.ini", "ok")
 
-    update_project_version(pth, version)
+    update_project_version(pth, version_light)
     update_db_version(pth, version)
 
 
@@ -37,15 +37,16 @@ def printer(key, value):
 def make_version():
     patch = year_month_day()
     version = f"v{major}.{minor}.{patch}"
+    version_light = f"v{major}.{minor}"
     printer("version", version)
-    return version
+    return version, version_light
 
 
-def update_project_version(pth, version):
+def update_project_version(pth, version_light):
     with open(pth.pyproject_path) as file:
         doc = file.read()
         t = tomlkit.parse(doc)
-        t["project"]["version"] = version    # type: ignore
+        t["project"]["version"] = version_light    # type: ignore
 
     with open(pth.pyproject_path, "w") as file:
         file.write(t.as_string())

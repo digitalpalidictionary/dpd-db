@@ -355,7 +355,7 @@ wheels = [
 
 [[package]]
 name = "dpd-db"
-version = "0.2.20250224"
+version = "0.2"
 source = { editable = "." }
 dependencies = [
     { name = "aksharamukha" },

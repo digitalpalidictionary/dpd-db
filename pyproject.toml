@@ -1,6 +1,6 @@
 [project]
 name = "dpd-db"
-version = "v0.2.20250224"
+version = "v0.2"
 description = ""
 authors = [{ name = "Bodhirasa", email = "digitalpalidictionary@gmail.com" }]
 requires-python = ">=3.12,<3.13"
