@@ -3,11 +3,11 @@ name = "dpd-db"
 version = "v0.2"
 description = ""
 authors = [{ name = "Bodhirasa", email = "digitalpalidictionary@gmail.com" }]
-requires-python = ">=3.12,<3.13"
+requires-python = ">=3.12"
 readme = "README.md"
 dependencies = [
-    "SQLAlchemy~=2.0.22",
-    "SQLAlchemy-Utils~=0.41.1",
+    "SQLAlchemy>=2.0.22",
+    "SQLAlchemy-Utils>=0.41.1",
     "tqdm>=4.64.1,<5",
     "rich>=13.3.1,<14",
     "pandas>=2.2.3",
@@ -37,8 +37,8 @@ dependencies = [
     "fastapi>=0.110.2,<0.111",
     "uvicorn>=0.30.1,<0.31",
     "unidecode>=1.3.8,<2",
-    "weasyprint~=62.3",
-    "pandoc~=2.3",
+    "weasyprint>=62.3",
+    "pandoc>=2.3",
     "gitpython>=3.1.43,<4",
     "numpy>=2.2.3",
     "dbfread>=2.0.7,<3",
@@ -78,4 +78,3 @@ typeCheckingMode = "basic"
 ignore = ["E501"]
 target-version = "py312"
 exclude = ["gui/PySimpleGUI.py", "tools/writemdict/*"]
-
