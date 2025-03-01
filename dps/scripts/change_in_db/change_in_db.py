@@ -231,4 +231,4 @@ value_to_update = "(грам) "
 
 # update_notes()
 
-update_column_for_some_criteria("VIN1.2.13")
+update_column_for_some_criteria("VIN1.4.1.1")

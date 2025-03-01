@@ -35,7 +35,7 @@ class DPSPaths:
         self.ai_translated_dir = base_dir.joinpath(Path("dps/csvs/ai_translated"))
         self.freqent_words_dir = base_dir.joinpath(Path("dps/csvs/freqent_words/"))
         self.vinaya_tsv_path = base_dir.joinpath(Path("dps/sbs_csvs/vinaya.tsv"))
-        self.translation_example_path = base_dir.joinpath(Path("dps/csvs/tranlslation_examples.csv"))
+        self.translation_example_path = base_dir.joinpath(Path("dps/sbs_csvs/tranlslation_examples.csv"))
         self.sbs_archive = base_dir.joinpath(Path("dps/sbs_csvs/sbs_archive.tsv"))
         self.sbs_example_corrections = base_dir.joinpath(Path("dps/csvs/sbs_example_corrections.tsv"))
         self.ru_apply_path = base_dir.joinpath(Path("temp/ru_apply.csv"))
@@ -55,7 +55,7 @@ class DPSPaths:
         self.discourses_vocab_dir = base_dir.joinpath(Path("dps/discourses/vocab/"))
 
         # /tests
-        self.dps_internal_tests_path = base_dir.joinpath(Path("dps/csvs/dps_internal_tests.tsv"))
+        self.dps_internal_tests_path = base_dir.joinpath(Path("dps/sbs_csvs/dps_internal_tests.tsv"))
         self.dps_internal_tests_replaced_path = base_dir.joinpath(Path("dps/csvs/dps_internal_tests_replaced.tsv"))
         self.dps_test_1_path = base_dir.joinpath(Path("dps/csvs/dps_test_1.tsv"))
         self.dps_test_2_path = base_dir.joinpath(Path("dps/csvs/dps_test_2.tsv"))
@@ -100,6 +100,10 @@ class DPSPaths:
                 self.for_compare_dir,
                 self.temp_csv_backup_dir,
                 self.csvs_for_audio_dir,
+                self.ai_for_batch_api_dir,
+                self.ai_from_batch_api_dir,
+                self.sbs_class_vocab_dir,
+                self.ai_translated_dir
             ]:
                 d.mkdir(parents=True, exist_ok=True)
 
