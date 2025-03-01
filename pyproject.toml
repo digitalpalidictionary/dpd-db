@@ -3,20 +3,20 @@ name = "dpd-db"
 version = "v0.2.20250224"
 description = ""
 authors = [{ name = "Bodhirasa", email = "digitalpalidictionary@gmail.com" }]
-requires-python = ">=3.11,<3.12"
+requires-python = ">=3.12,<3.13"
 readme = "README.md"
 dependencies = [
     "SQLAlchemy~=2.0.22",
     "SQLAlchemy-Utils~=0.41.1",
     "tqdm>=4.64.1,<5",
     "rich>=13.3.1,<14",
-    "pandas>=1.5.3,<2",
+    "pandas>=2.2.3",
     "openpyxl>=3.1.0,<4",
     "aksharamukha>=2.1.2,<3",
     "python-idzip>=0.3.9,<0.4",
     "mako>=1.2.4,<2",
     "markdown>=3.4.1,<4",
-    "minify-html>=0.10.8,<0.11",
+    "minify-html>=0.15.0",
     "pip>=23.0.1,<24",
     "pyspellchecker>=0.7.1,<0.8",
     "beautifulsoup4>=4.11.2,<5",
@@ -25,7 +25,6 @@ dependencies = [
     "css-html-js-minify>=2.5.5,<3",
     "html2text>=2020.1.16,<2021",
     "openai>=1.54.4,<2",
-    "google-cloud-translate>=3.11.3,<4",
     "python-docx>=0.8.11,<0.9",
     "timeout-decorator>=0.5.0,<0.6",
     "psutil>=5.9.6,<6",
@@ -41,7 +40,7 @@ dependencies = [
     "weasyprint~=62.3",
     "pandoc~=2.3",
     "gitpython>=3.1.43,<4",
-    "numpy==1.23.2",
+    "numpy>=2.2.3",
     "dbfread>=2.0.7,<3",
     "dbf>=0.99.9,<0.100",
     "typst==0.12.0",
@@ -72,11 +71,11 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.pyright]
-pythonVersion = "3.11"
+pythonVersion = "3.12"
 typeCheckingMode = "basic"
 
 [tool.ruff]
 ignore = ["E501"]
-target-version = "py311"
+target-version = "py312"
 exclude = ["gui/PySimpleGUI.py", "tools/writemdict/*"]
 
