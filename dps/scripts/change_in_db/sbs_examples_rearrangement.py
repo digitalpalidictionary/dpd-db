@@ -282,6 +282,31 @@ def discor():
         print("All changes committed.")
 
 
+def moving_sbs_ex():
+    with db_session.no_autoflush:
+        for i in db:
+            if i.sbs:
+                if i.sbs.sbs_example_1 and not i.sbs.sbs_chapter_1 and not i.sbs.sbs_example_3:
+                    # move from example_1 to example_3
+                    i.sbs.sbs_example_3 = i.sbs.sbs_example_1
+                    i.sbs.sbs_source_3 = i.sbs.sbs_source_1
+                    i.sbs.sbs_sutta_3 = i.sbs.sbs_sutta_1
+
+                    # clean example_1
+                    i.sbs.sbs_example_1 = ""
+                    i.sbs.sbs_source_1 = ""
+                    i.sbs.sbs_sutta_1 = ""
+
+                    print(f"{i.id} moved example_1 to example_3")
+
+                    print(f"{i.id} {i.sbs.sbs_source_3}")
+
+
+        # Commit after processing all records
+        # db_session.commit()
+        print("All changes committed.")
+
+
 if __name__ == "__main__":
     # dhp()
     # pali_class()
