@@ -38,15 +38,17 @@ def make_version():
     patch = year_month_day()
     version = f"v{major}.{minor}.{patch}"
     version_light = f"v{major}.{minor}"
+    version_light = f"v{major}.{minor}"
     printer("version", version)
-    return version, version_light
+    printer("version light", version_light)
+    return version, version_light, version_light
 
 
-def update_project_version(pth, version_light):
+def update_project_version(pth, version_light_light):
     with open(pth.pyproject_path) as file:
         doc = file.read()
         t = tomlkit.parse(doc)
-        t["project"]["version"] = version_light    # type: ignore
+        t["project"]["version"] = version_light_light    # type: ignore
 
     with open(pth.pyproject_path, "w") as file:
         file.write(t.as_string())
