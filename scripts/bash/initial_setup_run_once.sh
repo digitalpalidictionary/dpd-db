@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # This script creates some data sets necessary for all the other process in the pipeline.
 
 set -e

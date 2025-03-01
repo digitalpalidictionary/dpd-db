@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # This script builds dpd.db from scratch
 # It will take an hour to run for the first time.
 # WARNING! This will destroy your existing db.

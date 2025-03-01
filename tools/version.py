@@ -41,7 +41,7 @@ def make_version():
     version_light = f"v{major}.{minor}"
     printer("version", version)
     printer("version light", version_light)
-    return version, version_light, version_light
+    return version, version_light
 
 
 def update_project_version(pth, version_light_light):

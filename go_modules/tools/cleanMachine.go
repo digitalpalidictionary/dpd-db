@@ -270,6 +270,6 @@ func characterTest(text string, textSet string) {
 		for _, e := range errors {
 			pf("error: %v string: %v char: %c unicode: %U \n", e, string(e), e, e)
 		}
-		Pause()
+		// Pause()
 	}
 }
