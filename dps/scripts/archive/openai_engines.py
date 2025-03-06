@@ -13,7 +13,7 @@ def load_openai_config(filename="config.ini"):
     config.read(filename)
     
     openai_config = {
-        "openai": config["openai"]["key"],
+        "openai": config["apis"]["openai"],
     }
     return openai_config
 

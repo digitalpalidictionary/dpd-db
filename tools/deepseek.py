@@ -3,7 +3,7 @@ import requests
 
 from tools.configger import config_read
 
-API_KEY = config_read("openai", "deepseek")
+API_KEY = config_read("apis", "deepseek")
 
 DEFAULT_TEMP = 1.0
 TEMPERATURE = {
@@ -158,9 +158,11 @@ class Deepseek:
 
 if __name__ == "__main__":
     ds = Deepseek()
+    balance = ds.balance()
+    print(balance)
     
-    response = ds.chat(
-        prompt="Hi.",
-        prompt_sys="You are a helpful assistant."
-    )
-    print(response)
+    # response = ds.chat(
+    #     prompt="Hi.",
+    #     prompt_sys="You are a helpful assistant."
+    # )
+    # print(response)

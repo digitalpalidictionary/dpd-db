@@ -68,8 +68,9 @@ DEFAULT_CONFIG = {
         "summary": "no",
         "update_simsapa_db": "no"
     },
-    "openai": {
-        "key": ""
+    "apis": {
+        "openai": "",
+        "deepseek": ""
     },
     "anki": {
         "update": "no",
