@@ -8929,19 +8929,13 @@ var family_word_json = {
     "◑"
    ],
    [
-    "kadariyatā",
-    "fem",
-    "niggardliness",
-    "✘"
-   ],
-   [
     "sukadariyatā",
     "fem",
     "severe stinginess; extreme miserliness",
     "◑"
    ]
   ],
-  "count": 25
+  "count": 24
  },
  "alaṃ": {
   "data": [
@@ -10286,7 +10280,7 @@ var family_word_json = {
    [
     "ūna 2",
     "nt",
-    "shortage; deficiency; lack; want; need",
+    "shortage (of); deficiency (of); lack (of); want (of); need (for)",
     "✔"
    ],
    [
@@ -16989,8 +16983,8 @@ var family_word_json = {
    [
     "sirimant 1",
     "adj",
-    "glorious",
-    "✘"
+    "glorious; majestic; lit. having fortune quality",
+    "✔"
    ],
    [
     "sirimant 2",
@@ -20326,6 +20320,17 @@ var family_word_json = {
    ]
   ],
   "count": 2
+ },
+ "ku ariya kadariya": {
+  "data": [
+   [
+    "kadariyatā",
+    "fem",
+    "miserliness; stinginess; meanness; lit. mean noble state",
+    "✔"
+   ]
+  ],
+  "count": 1
  },
  "kapāla": {
   "data": [

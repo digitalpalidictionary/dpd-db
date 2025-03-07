@@ -9747,7 +9747,7 @@ var family_idiom_json = {
   ]
  },
  "atthi1": {
-  "count": 30,
+  "count": 31,
   "data": [
    [
     "atthaññaṃ",
@@ -9843,6 +9843,12 @@ var family_idiom_json = {
     "natthidāni",
     "sandhi",
     "now there is not",
+    "✔"
+   ],
+   [
+    "namatthi",
+    "sandhi",
+    "for me there is no",
     "✔"
    ],
    [
@@ -20996,7 +21002,7 @@ var family_idiom_json = {
   ]
  },
  "me": {
-  "count": 22,
+  "count": 23,
   "data": [
    [
     "idaṃ kira me",
@@ -21014,6 +21020,12 @@ var family_idiom_json = {
     "evaṃ me sutaṃ",
     "idiom",
     "I heard it like this; lit. thus heard by me",
+    "✔"
+   ],
+   [
+    "namatthi",
+    "sandhi",
+    "for me there is no",
     "✔"
    ],
    [

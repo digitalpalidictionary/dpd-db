@@ -2516,8 +2516,8 @@ var family_root_json = {
    [
     "kurutu 1.1",
     "imp",
-    "please accept!",
-    "✘"
+    "please accept!; lit. make",
+    "✔"
    ],
    [
     "kurute",
@@ -9591,7 +9591,7 @@ var family_root_json = {
   "root_key": "√gah",
   "root_family": "√gah",
   "root_meaning": "grasp",
-  "count": 150,
+  "count": 151,
   "data": [
    [
     "agaṇhana",
@@ -9949,18 +9949,24 @@ var family_root_json = {
    ],
    [
     "gaha 3",
+    "nt",
+    "household life; laylife; lit. what is grasped",
+    "✔"
+   ],
+   [
+    "gaha 4",
     "masc",
     "planet; lit. what is grasped",
     "◑"
    ],
    [
-    "gaha 4",
+    "gaha 5",
     "masc",
     "view",
     "✘"
    ],
    [
-    "gaha 5",
+    "gaha 6",
     "root",
     "(gram) √gah (grasp)",
     "✔"
@@ -11796,8 +11802,8 @@ var family_root_json = {
    [
     "aggha 2",
     "nt",
-    "obligation made to a guest",
-    "✘"
+    "offering made to a guest; lit. value",
+    "✔"
    ],
    [
     "agghaka",
@@ -22178,8 +22184,8 @@ var family_root_json = {
    [
     "jhāyi 1.2",
     "aor",
-    "meditated or contemplated",
-    "✘"
+    "meditated (on); contemplated",
+    "✔"
    ],
    [
     "jhāyita",
@@ -35163,7 +35169,7 @@ var family_root_json = {
   "root_key": "√dubbh",
   "root_family": "√dubbh",
   "root_meaning": "deceive, be treacherous",
-  "count": 18,
+  "count": 19,
   "data": [
    [
     "adubbha",
@@ -35208,7 +35214,13 @@ var family_root_json = {
     "✘"
    ],
    [
-    "dubbha",
+    "dubbha 1",
+    "masc",
+    "deceit; betrayal; treachery",
+    "✔"
+   ],
+   [
+    "dubbha 2",
     "adj",
     "injuring, hurting, deceiving",
     "✘"
@@ -49757,7 +49769,7 @@ var family_root_json = {
   "root_key": "√nī",
   "root_family": "√nī",
   "root_meaning": "lead, carry",
-  "count": 70,
+  "count": 71,
   "data": [
    [
     "anāyaka",
@@ -50033,6 +50045,12 @@ var family_root_json = {
     "neti 1.3",
     "pr",
     "takes; leads; guides",
+    "✔"
+   ],
+   [
+    "netuṃ",
+    "inf",
+    "to lead (to)",
     "✔"
    ],
    [
@@ -79787,7 +79805,7 @@ var family_root_json = {
     "pājahi",
     "aor",
     "gave up; left behind; abandoned; deserted",
-    "✘"
+    "✔"
    ],
    [
     "suppajaha",
@@ -83286,19 +83304,19 @@ var family_root_json = {
    [
     "pajja 2",
     "adj",
-    "-footed; related to feet",
-    "◑"
+    "for the feet; related to feet",
+    "✔"
    ],
    [
     "pajja 3",
     "nt",
-    "verse, poem",
-    "✘"
+    "foot salve; foot oil; lit. related to the feet",
+    "✔"
    ],
    [
     "pajja 4",
     "nt",
-    "something good for feet",
+    "verse, poem",
     "✘"
    ],
    [
@@ -127872,8 +127890,8 @@ var family_root_json = {
    [
     "ruṭṭha",
     "pp",
-    "vexed, enraged",
-    "✘"
+    "angry; enraged",
+    "◑"
    ],
    [
     "rusita",
@@ -163723,7 +163741,7 @@ var family_root_json = {
     "hiṃsitā",
     "fem",
     "harm; trouble",
-    "◑"
+    "✔"
    ],
    [
     "hiṃsitvā",
@@ -169037,7 +169055,7 @@ var family_root_json = {
   "root_key": "√kaṭh 1",
   "root_family": "ud √kaṭh",
   "root_meaning": "live in distress",
-  "count": 6,
+  "count": 7,
   "data": [
    [
     "ukkaṇṭhati",
@@ -169046,9 +169064,15 @@ var family_root_json = {
     "✔"
    ],
    [
-    "ukkaṇṭhanā",
+    "ukkaṇṭhanā 1",
     "fem",
-    "dissatisfaction, commotion",
+    "dissatisfaction; disappointment",
+    "✔"
+   ],
+   [
+    "ukkaṇṭhanā 2",
+    "fem",
+    "commotion",
     "✘"
    ],
    [
@@ -190419,7 +190443,7 @@ var family_root_json = {
     "sunimmadaya",
     "adj",
     "easily suppressed; easy to be conquered",
-    "✘"
+    "✔"
    ]
   ]
  },
@@ -196748,8 +196772,8 @@ var family_root_json = {
    [
     "paṭisallīyati",
     "pr",
-    "is in seclusion",
-    "✘"
+    "is in seclusion; goes on retreat (for)",
+    "✔"
    ],
    [
     "paṭisallīyanta",
@@ -196760,13 +196784,13 @@ var family_root_json = {
    [
     "paṭisallīyi",
     "aor",
-    "was in seclusion",
-    "✘"
+    "went into solitude; withdrew into seclusion; retreated (for)",
+    "✔"
    ],
    [
     "paṭisallīyituṃ",
     "inf",
-    "to go into solitude (for); to withdraw into seclusion (for)",
+    "to go into solitude; to withdraw into seclusion; to go on retreat (for)",
     "✔"
    ],
    [
@@ -215036,8 +215060,8 @@ var family_root_json = {
    [
     "vivicchā",
     "fem",
-    "stinginess; miserliness; meanness; tight-fistedness",
-    "✘"
+    "strong desire; want; (comm) stinginess",
+    "✔"
    ]
   ]
  },
@@ -227794,8 +227818,8 @@ var family_root_json = {
    [
     "sākaccheti",
     "pr",
-    "converses (with); talks together (with); discusses (with)",
-    "✘"
+    "converses; talks together; discusses (with)",
+    "✔"
    ]
   ]
  },

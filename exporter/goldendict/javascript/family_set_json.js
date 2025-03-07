@@ -1897,7 +1897,7 @@ var family_set_json = {
     "◑"
    ],
    [
-    "gaha 5",
+    "gaha 6",
     "root",
     "(gram) √gah (grasp)",
     "✔"
