@@ -35548,6 +35548,18 @@ var family_set_json = {
     "✔"
    ],
    [
+    "putta 1",
+    "masc",
+    "son; child",
+    "✔"
+   ],
+   [
+    "puttabhātar",
+    "masc",
+    "sons and brothers",
+    "✔"
+   ],
+   [
     "pettiya",
     "masc",
     "uncle; lit. related to father",
@@ -35692,7 +35704,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 44
+  "count": 46
  },
  "onomatopoeia": {
   "data": [

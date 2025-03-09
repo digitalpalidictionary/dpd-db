@@ -536,7 +536,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √khar	1	a	perish, break apart	√kṣar	1, 2	flow	√khar	kṣar	akṣara, akṣara +, akṣaravat, akṣarā
 √khal 1	1	a	stumble, make mistake	√skhal	1	stumble	√khal	skhal	na + skhalita, skhalita
 √khal 1	1	a	stumble, make mistake	√skhal	1	stumble	ava √khal	skhal	+ skhalita
-√khal 1	1	a	stumble, make mistake	√skhal	1	stumble	upa √khal	skhal	upa + skhalitvā
+√khal 1	1	a	stumble, make mistake	√skhal	1	stumble	upa √khal	skhal	upa + skhalati, upa + skhalitvā
 √khal 1	1	a	stumble, make mistake	√skhal	1	stumble	pa √khal	praskhal	praskhalita, praskhaltvā
 √khal 1	1	a	stumble, make mistake	√skhal	1	stumble	vi √khal	viskhal	viskhalita
 √khal 2	8	a	clean, rinse	√kṣal √kṣar	10	wash	√khal	kṣal	khala, kṣālayati
@@ -1825,7 +1825,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √bādh	1	a	press, oppress	√bādh	1	oppress	saṃ √bādh	sambādh	na + sambādha, sambādha, sambādha +
 √bil	1	a	break, chop	√bil	6, 10	split	√bil	bil	avirala, bila, bilati, bilma, bilmāt, virala
 √bil	1	a	break, chop	√bil	6, 10	split	ā √bil		anāvila, anāvilatva, āvila, āvila +, bilati
-√budh	3	ya	know, wake up	√budh	4, 1	know, wake	√budh	budh	abodhīt, na  + buddhimat, na + buddhi, na + budhyamāna, buddha, buddhatā, buddhatva, buddhāṇaṃ, buddhi, buddhimat, buddhvā, budha, budhyate, budhyamāna, bodha, bodhayitvā, bodhi, bodhi, pippala, aśvattha, bodhitum, bodhin, bodhya, vibudha, sambuddha, su + buddha, su + buddha +
+√budh	3	ya	know, wake up	√budh	4, 1	know, wake	√budh	budh	abodhīt, na  + buddhimat, na + buddhi, na + budhyamāna, buddha, buddhatā, buddhatva, buddhāṇaṃ, buddhi, buddhimat, buddhvā, budha, budhyate, budhyamāna, boddhavya, bodhitavya, bodha, bodhayitvā, bodhi, bodhi, pippala, aśvattha, bodhitum, bodhin, bodhya, vibudha, sambuddha, su + buddha, su + buddha +
 √budh	3	ya	know, wake up	√budh	4, 1	know, wake	anu √budh	anubudh	anu + buddha, anubuddha, anubudhyate, anubudhyana (bsk), anubodha, duranubodha, na + anubodha
 √budh	3	*e	know, wake up	√budh	4, 1	know, wake	apa √budh		avabodhayate (is aware of)
 √budh	3	ya	know, wake up	√budh	4, 1	know, wake	abhi saṃ √budh	abhisambudh	abhi + sambodhi, abhisambuddha, abhisambuddhatva, abhisambuddhvā, abhisambudhyati, abhisambudhyate, abhisambodhana, abhisambodhamāna, na + abhisambuddha
@@ -2673,7 +2673,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √vas 1	1	a	live	√vas	1	dwell	anu √vas	anuvas	anuvastvā
 √vas 1	1	a	live	√vas	1	dwell	abhi ni √vas		abhi + nivasita
 √vas 1	1	a	live	√vas	1	dwell	ā √vas	āvas	avasita, āvasat, āvasati, āvasatha, āvasitum, āvāsa, āvāsika, āvustaṃ (bsk), dur + āvāsa, na + āvāsa, na + āvustaṃ (bsk), avustaṃ (bsk)
-√vas 1	1	a	live	√vas	1	dwell	upa √vas	upavas	an + upavasatha, upa + uṣita, upavasati, upavasatha, upavasathika, upavasathīya, upavasiṣyate, upavastvā, upavasya, upavāsa
+√vas 1	1	a	live	√vas	1	dwell	upa √vas	upavas	an + upavasatha, upavasati, upavasatha, upavasathika, upavasathīya, upavasiṣyate, upavastvā, upavasya, upavāsa, upoṣita
 √vas 1	1	a	live	√vas	1	dwell	ni √vas	nivas	naivāsika, nivasat, nivasayitvā, nivasita, nivasita +, nivāsa, nivāsaka, nivāsin, nivāsin
 √vas 1	1	a	live	√vas	1	dwell	pa √vas	pravas	pravasat, pravasta, pravāsa, pravāsin, su + pravāsa
 √vas 1	1	a	live	√vas	1	dwell	pati √vas	prativas	prativasat, prativasati

@@ -10910,7 +10910,7 @@ var family_idiom_json = {
    [
     "namatthu",
     "sandhi",
-    "may there be homage (to)",
+    "homage (to); salutation (to); lit. may there be homage",
     "✔"
    ],
    [
@@ -28197,7 +28197,7 @@ var family_idiom_json = {
    [
     "namatthu",
     "sandhi",
-    "may there be homage (to)",
+    "homage (to); salutation (to); lit. may there be homage",
     "✔"
    ],
    [

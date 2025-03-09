@@ -9591,7 +9591,7 @@ var family_root_json = {
   "root_key": "√gah",
   "root_family": "√gah",
   "root_meaning": "grasp",
-  "count": 151,
+  "count": 152,
   "data": [
    [
     "agaṇhana",
@@ -9879,6 +9879,12 @@ var family_root_json = {
     "gaṇhiya",
     "ger",
     "grasping; grabbing hold (of)",
+    "✔"
+   ],
+   [
+    "gaṇhiyati",
+    "pr",
+    "is taken; lit. is grasped",
     "✔"
    ],
    [
@@ -23138,7 +23144,7 @@ var family_root_json = {
    [
     "ājānāti 1",
     "pr",
-    "knows; understands",
+    "knows; understands; comprehends",
     "✔"
    ],
    [
@@ -23156,8 +23162,8 @@ var family_root_json = {
    [
     "ājāni",
     "aor",
-    "knew, understood",
-    "✘"
+    "knew; understood; comprehended",
+    "✔"
    ],
    [
     "ājānituṃ",
@@ -41615,7 +41621,7 @@ var family_root_json = {
   "root_key": "√sās",
   "root_family": "anu √sās",
   "root_meaning": "order, instruct",
-  "count": 31,
+  "count": 32,
   "data": [
    [
     "ananusāsita",
@@ -41688,6 +41694,12 @@ var family_root_json = {
     "nt",
     "administration; management; organization",
     "◑"
+   ],
+   [
+    "anusāsana 4",
+    "nt",
+    "religion; monastic order",
+    "✔"
    ],
    [
     "anusāsaniya",
@@ -48501,7 +48513,7 @@ var family_root_json = {
     "ānīyati 2",
     "pr",
     "(of a woman) is brought home; is brought into the house as a wife",
-    "◑"
+    "✔"
    ],
    [
     "ānīyamāna",
@@ -53271,7 +53283,7 @@ var family_root_json = {
     "āharīyati",
     "pr",
     "is brought; is fetched",
-    "◑"
+    "✔"
    ],
    [
     "āharīyi",
@@ -70497,7 +70509,7 @@ var family_root_json = {
   "root_key": "√vas 1",
   "root_family": "upa √vas",
   "root_meaning": "live",
-  "count": 19,
+  "count": 20,
   "data": [
    [
     "anuposathika",
@@ -70556,11 +70568,17 @@ var family_root_json = {
    [
     "upavuttha 1",
     "pp",
-    "observed; celebrated; kept; lit. lived near",
+    "(of an uposatha day) observed; celebrated; kept; lit. lived near",
     "✔"
    ],
    [
     "upavuttha 2",
+    "pp",
+    "(of a retreat) entered; undertaken; lit. lived near",
+    "✔"
+   ],
+   [
+    "upavuttha 3",
     "pp",
     "dwelt in or at, observed",
     "✘"
@@ -72385,7 +72403,7 @@ var family_root_json = {
   "root_key": "√vatt",
   "root_family": "anu √vatt",
   "root_meaning": "be, proceed",
-  "count": 21,
+  "count": 22,
   "data": [
    [
     "anuvaṭṭita",
@@ -72434,6 +72452,12 @@ var family_root_json = {
     "pr",
     "sides (with); agrees (with); lit. proceeds after",
     "◑"
+   ],
+   [
+    "anuvattati 3",
+    "pr",
+    "follows one's example; lit. proceeds after",
+    "✔"
    ],
    [
     "anuvattana 1",
@@ -79910,8 +79934,8 @@ var family_root_json = {
    [
     "pajjalita 2",
     "pp",
-    "blazed up, burnt forth",
-    "✘"
+    "kindled; set on fire; lit. blazed forth",
+    "✔"
    ],
    [
     "pajjalitvā",
@@ -88569,7 +88593,7 @@ var family_root_json = {
   "root_key": "√pūr",
   "root_family": "pari √pūr",
   "root_meaning": "fill, fulfil",
-  "count": 44,
+  "count": 45,
   "data": [
    [
     "aparipuṇṇa 1",
@@ -88806,9 +88830,15 @@ var family_root_json = {
     "◑"
    ],
    [
-    "paripūresi",
+    "paripūresi 1",
     "aor",
-    "caused to fill, caused to fulfil, caused to accomplish",
+    "filled up; swelled; lit. caused to fill",
+    "✔"
+   ],
+   [
+    "paripūresi 2",
+    "aor",
+    "caused to fulfil, caused to accomplish",
     "✘"
    ],
    [
@@ -106738,8 +106768,8 @@ var family_root_json = {
    [
     "boddhabba",
     "ptp",
-    "should be known; should be understood",
-    "✘"
+    "should be known (by); should be understood (with); lit. to be woken up to",
+    "✔"
    ],
    [
     "boddhuṃ",
@@ -110268,7 +110298,7 @@ var family_root_json = {
    [
     "brahmañña 2",
     "nt",
-    "Brahmanhood; being a true Brahman; being a holy person",
+    "Brahmanhood; being a true Brahman; being a holy person; lit. Brahman state",
     "✔"
    ],
    [
@@ -113297,7 +113327,7 @@ var family_root_json = {
     "bhāsati 1.3",
     "pr",
     "(of verse) recites; utters",
-    "✘"
+    "✔"
    ],
    [
     "bhāsana",
@@ -160092,8 +160122,8 @@ var family_root_json = {
    [
     "sikkhati 3",
     "pr",
-    "tempts; entices; lures",
-    "✘"
+    "tempts; entices; lures (somebody with something); lit. trains",
+    "✔"
    ],
    [
     "sikkhana",
@@ -164867,7 +164897,7 @@ var family_root_json = {
     "āgametuṃ",
     "inf",
     "to wait (for)",
-    "◑"
+    "✔"
    ],
    [
     "āgametvā",
@@ -171923,7 +171953,7 @@ var family_root_json = {
     "upakkhalati",
     "pr",
     "trips; stumbles",
-    "✘"
+    "✔"
    ],
    [
     "upakkhalana",
@@ -180799,7 +180829,7 @@ var family_root_json = {
     "khipati 2.1",
     "pr",
     "sneezes",
-    "✘"
+    "✔"
    ],
    [
     "khipanta 1.1",
@@ -200244,8 +200274,8 @@ var family_root_json = {
    [
     "paritthata",
     "pp",
-    "spread all around; scattered all over",
-    "◑"
+    "spread all around; scattered all over; strewn (with)",
+    "✔"
    ]
   ]
  },
