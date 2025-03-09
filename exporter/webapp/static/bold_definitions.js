@@ -206,10 +206,10 @@ async function handleBdFormSubmit(event) {
             break;
         }
     }
-    const url = `/bd_search/?q1=${encodeURIComponent(searchQuery1)}&q2=${encodeURIComponent(searchQuery2)}&option=${selectedOption}`;
+    const searchUrl = '/bd_search';
     if (searchQuery1.trim() !== "" || searchQuery2.trim() !== "") {
         try {
-            const response = await fetch(url);
+            const response = await fetch(`${searchUrl}/?q1=${encodeURIComponent(searchQuery1)}&q2=${encodeURIComponent(searchQuery2)}&option=${selectedOption}`);
             const data = await response.text();
             // Process the response data and update the DOM as needed
             bdResults.innerHTML = data;
