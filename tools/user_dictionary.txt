@@ -216,6 +216,7 @@ appanā
 apparition
 apperceived
 appointer
+apportioning
 apportions
 appositional
 apprehendable
@@ -234,6 +235,7 @@ ariyati
 Ariyavaṃsasutta
 arjuna
 Arjuna
+armspans
 Artha
 Arthavan
 articulately
@@ -1495,7 +1497,9 @@ Mahī
 Mahinda
 Mahua
 Majjha
+Majjha
 Majjhanhikasutta
+Majjhas
 Majjhima
 Majjhima
 makaci
