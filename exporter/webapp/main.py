@@ -1,39 +1,52 @@
-import uvicorn
-import re
+from contextlib import contextmanager
 
-from fastapi import FastAPI
+import uvicorn
+from fastapi import FastAPI, Request
 from fastapi.middleware.gzip import GZipMiddleware
-from fastapi import Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-
-
-from exporter.webapp.tools import make_headwords_clean_set
-from exporter.webapp.tools import make_ascii_to_unicode_dict
-from exporter.webapp.tools import make_dpd_html
-
-from exporter.goldendict.helpers import make_roots_count_dict
+from sqlalchemy.orm import sessionmaker
 
 from db.db_helpers import get_db_session
 from db.models import BoldDefinition
+from exporter.webapp.preloads import (
+    make_ascii_to_unicode_dict,
+    make_headwords_clean_set,
+    make_roots_count_dict,
+)
+from exporter.webapp.tools import fuzzy_replace, make_dpd_html
 from tools.paths import ProjectPaths
-
 
 app = FastAPI()
 app.add_middleware(GZipMiddleware, minimum_size=500)
 app.mount("/static", StaticFiles(directory="exporter/webapp/static"), name="static")
 
 pth: ProjectPaths = ProjectPaths()
-db_session = get_db_session(pth.dpd_db_path)
+
+# Create session factory for database connections
+SessionLocal = sessionmaker(
+    autocommit=False, autoflush=False, bind=get_db_session(pth.dpd_db_path).bind
+)
+
+
+@contextmanager
+def get_db():
+    """Provide a transactional scope around a series of operations."""
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
 
 # Preload data that is shared across languages
-roots_count_dict = make_roots_count_dict(db_session)
-headwords_clean_set = make_headwords_clean_set(db_session)
-headwords_clean_set_ru = make_headwords_clean_set(db_session, "ru")
-ascii_to_unicode_dict = make_ascii_to_unicode_dict(db_session)
-bd_count = db_session.query(BoldDefinition).count()
-db_session.close()
+with get_db() as db_session:
+    roots_count_dict = make_roots_count_dict(db_session)
+    headwords_clean_set = make_headwords_clean_set(db_session)
+    headwords_clean_set_ru = make_headwords_clean_set(db_session, "ru")
+    ascii_to_unicode_dict = make_ascii_to_unicode_dict(db_session)
+    bd_count = db_session.query(BoldDefinition).count()
 
 # Set up templates
 templates = Jinja2Templates(directory="exporter/webapp/templates")
@@ -54,6 +67,8 @@ history_list: list[tuple[str, str, str]] = []
 
 @app.get("/")
 def home_page(request: Request, response_class=HTMLResponse):
+    """Home page."""
+
     return templates.TemplateResponse(
         "home.html", {"request": request, "dpd_results": "", "bd_count": bd_count}
     )
@@ -61,6 +76,8 @@ def home_page(request: Request, response_class=HTMLResponse):
 
 @app.get("/bd")
 def bold_definitions_page(request: Request, response_class=HTMLResponse):
+    """Bold definitions landing page"""
+
     return templates.TemplateResponse(
         "home.html", {"request": request, "dpd_results": "", "bd_count": bd_count}
     )
@@ -68,6 +85,8 @@ def bold_definitions_page(request: Request, response_class=HTMLResponse):
 
 @app.get("/ru")
 def home_page_ru(request: Request, response_class=HTMLResponse):
+    """Russian home page"""
+
     return templates_ru.TemplateResponse(
         "home.html", {"request": request, "dpd_results": ""}
     )
@@ -75,6 +94,8 @@ def home_page_ru(request: Request, response_class=HTMLResponse):
 
 @app.get("/search_html", response_class=HTMLResponse)
 def db_search_html(request: Request, q: str):
+    """Returns a JSON with HTML."""
+
     dpd_html, summary_html = make_dpd_html(
         q, pth, templates, roots_count_dict, headwords_clean_set, ascii_to_unicode_dict
     )
@@ -90,6 +111,8 @@ def db_search_html(request: Request, q: str):
 
 @app.get("/ru/search_html", response_class=HTMLResponse)
 def db_search_html_ru(request: Request, q: str):
+    """Returns a JSON with Russian HTML."""
+
     dpd_html, summary_html = make_dpd_html(
         q,
         pth,
@@ -111,6 +134,8 @@ def db_search_html_ru(request: Request, q: str):
 
 @app.get("/search_json", response_class=JSONResponse)
 def db_search_json(request: Request, q: str):
+    """Main search route for website."""
+
     dpd_html, summary_html = make_dpd_html(
         q, pth, templates, roots_count_dict, headwords_clean_set, ascii_to_unicode_dict
     )
@@ -121,6 +146,8 @@ def db_search_json(request: Request, q: str):
 
 @app.get("/ru/search_json", response_class=JSONResponse)
 def db_search_json_ru(request: Request, q: str):
+    """Main Russian search route for website."""
+
     dpd_html, summary_html = make_dpd_html(
         q,
         pth,
@@ -137,6 +164,8 @@ def db_search_json_ru(request: Request, q: str):
 
 @app.get("/gd", response_class=HTMLResponse)
 def db_search_gd(request: Request, search: str):
+    """Returns pure HTML for GoldenDict and MDict."""
+
     dpd_html, summary_html = make_dpd_html(
         search,
         pth,
@@ -163,6 +192,8 @@ def db_search_gd(request: Request, search: str):
 
 @app.get("/ru/gd", response_class=HTMLResponse)
 def db_search_gd_ru(request: Request, search: str):
+    """Returns pure HTML in Russian for GoldenDict and MDict."""
+
     dpd_html, summary_html = make_dpd_html(
         search,
         pth,
@@ -195,45 +226,44 @@ def db_search(
     q2: str,
     option: str,
 ):
-    db_session = get_db_session(pth.dpd_db_path)
+    """Search route for bold defintions."""
 
-    # no search
-    if not q1 and not q2:
-        results = []
+    with get_db() as db_session:
+        # no search
+        if not q1 and not q2:
+            results = []
 
-    # starts_with search
-    elif option == "starts_with":
-        search_1_start = f"^{q1}"
-        results = (
-            db_session.query(BoldDefinition)
-            .filter(BoldDefinition.bold.regexp_match(search_1_start))
-            .filter(BoldDefinition.commentary.regexp_match(q2))
-            .all()
-        )
+        # starts_with search
+        elif option == "starts_with":
+            search_1_start = f"^{q1}"
+            results = (
+                db_session.query(BoldDefinition)
+                .filter(BoldDefinition.bold.regexp_match(search_1_start))
+                .filter(BoldDefinition.commentary.regexp_match(q2))
+                .all()
+            )
 
-    # regex search
-    elif option == "regex":
-        results = (
-            db_session.query(BoldDefinition)
-            .filter(BoldDefinition.bold.regexp_match(q1))
-            .filter(BoldDefinition.commentary.regexp_match(q2))
-            .all()
-        )
-        message = f"{len(results)} results found"
+        # regex search
+        elif option == "regex":
+            results = (
+                db_session.query(BoldDefinition)
+                .filter(BoldDefinition.bold.regexp_match(q1))
+                .filter(BoldDefinition.commentary.regexp_match(q2))
+                .all()
+            )
+            message = f"{len(results)} results found"
 
-    # fuzzy search
-    elif option == "fuzzy":
-        search_1_fuzzy = fuzzy_replace(q1)
-        search_2_fuzzy = fuzzy_replace(q2)
-        results = (
-            db_session.query(BoldDefinition)
-            .filter(BoldDefinition.bold.regexp_match(search_1_fuzzy))
-            .filter(BoldDefinition.commentary.regexp_match(search_2_fuzzy))
-            .all()
-        )
-        message = f"{len(results)} results found"
-
-    db_session.close()
+        # fuzzy search
+        elif option == "fuzzy":
+            search_1_fuzzy = fuzzy_replace(q1)
+            search_2_fuzzy = fuzzy_replace(q2)
+            results = (
+                db_session.query(BoldDefinition)
+                .filter(BoldDefinition.bold.regexp_match(search_1_fuzzy))
+                .filter(BoldDefinition.commentary.regexp_match(search_2_fuzzy))
+                .all()
+            )
+            message = f"{len(results)} results found"
 
     if results:
         message = f"<b>{len(results)}</b> results found"
@@ -261,28 +291,6 @@ def db_search(
             "history": history_list,
         },
     )
-
-
-def fuzzy_replace(string: str) -> str:
-    string = re.sub("aa|aā|āa|a|ā", "(a|ā|aa|aā|āa)", string)
-    string = re.sub("ii|iī|īi|i|ī", "(i|ī|ii|iī|īi)", string)
-    string = re.sub("uu|uū|ūu|u|ū", "(u|ū|uu|uū|ūu)", string)
-    string = re.sub("kkh|kk|kh|k", "(k|kk|kh|kkh)", string)
-    string = re.sub("ggh|gg|gh|g", "(g|gh|gg|ggh)", string)
-    string = re.sub("ṅṅ|ññ|ṇṇ|nn|ṅ|ñ|ṇ|n|ṃ", "(ṅ|ñ|ṇ|n|ṅṅ|ññ|ṇṇ|nn|ṃ)", string)
-    string = re.sub("cch|cc|ch|c", "(c|ch|cc|cch)", string)
-    string = re.sub("jjh|jj|jh|j", "(j|jh|jj|jjh)", string)
-    string = re.sub("ṭṭh|tth|ṭṭ|tt|ṭh|th|ṭ|t", "(ṭ|ṭh|ṭṭ|ṭṭh|t|tt|th|tth)", string)
-    string = re.sub("ḍḍh|ddh|ḍḍ|dd|ḍh|dh|ḍ|d", "(ḍ|ḍh|ḍḍ|ḍḍh|d|dh|dd|ddh)", string)
-    string = re.sub("pph|pp|ph|p", "(p|ph|pp|pph)", string)
-    string = re.sub("bbh|bb|bh|b", "(b|bh|bb|bbh)", string)
-    string = re.sub("mm|m|ṃ", "(m|mm|ṃ)", string)
-    string = re.sub("yy|y", "(y|yy)", string)
-    string = re.sub("rr|r", "(r|rr)", string)
-    string = re.sub("ll|l|ḷ", "(l|ll|ḷ)", string)
-    string = re.sub("vv|v", "(v|vv)", string)
-    string = re.sub("ss|s", "(s|ss)", string)
-    return string
 
 
 def update_history(
