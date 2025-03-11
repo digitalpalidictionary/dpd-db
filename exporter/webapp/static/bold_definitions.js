@@ -189,7 +189,7 @@ function hoverHelp(event) {
         bdFooterText.innerHTML = "Start again with a calm and <b>clear</b> interface."
     }
 	else {
-		bdFooterText.innerHTML = 'For more information, please visit the <a href="https://digitalpalidictionary.github.io/" target="_blank">DPD Docs website.'
+		bdFooterText.innerHTML = 'For more information, please visit the <a href="https://digitalpalidictionary.github.io/" target="_blank">DPD docs website.'
 	}
 }
 

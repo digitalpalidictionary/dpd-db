@@ -32,7 +32,7 @@ Here are detailed instructions on how to install DPD for [Win](https://docs.dpdi
 
 Tired of downloading updates? Integrate DPD online data into [GoldenDict](https://digitalpalidictionary.github.io/dpdict_api_gd.html) or [DictTango](https://digitalpalidictionary.github.io/dpdict_api_dt.html).  
 
-Do you have a __Kindle__? Here's how to [add DPD as a Kindle dictionary](https://digitalpalidictionary.github.io/kindle.html) or[ download the epub](https://github.com/digitalpalidictionary/digitalpalidictionary/releases) for Send-to-Kindle
+Do you have a __Kindle__? Here's how to [add DPD as a Kindle dictionary](https://digitalpalidictionary.github.io/kindle.html) or[ download the epub](https://github.com/digitalpalidictionary/dpd-db/releases) for Send-to-Kindle
 
 DPD is easy to install on a [Kobo eReader](https://digitalpalidictionary.github.io/kobo.html)
 

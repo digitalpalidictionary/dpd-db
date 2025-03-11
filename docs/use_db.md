@@ -1,7 +1,7 @@
 ## Using the DB
 
 1. Clone this repo
-2. Download **dpd.db.tar.bz2** from [this page](https://github.com/digitalpalidictionary/digitalpalidictionary/releases), 
+2. Download **dpd.db.tar.bz2** from [this page](https://github.com/digitalpalidictionary/dpd-db/releases), 
 3. Unzip and place the db in the root of the project folder
 4. Install [uv](https://astral.sh/uv/install) for your operating system
 ```bash

@@ -28,13 +28,13 @@ function makeFeedback(data) {
     </p>
     <p>
         <a class="link" 
-        href="https://github.com/digitalpalidictionary/digitalpalidictionary/releases">
+        href="https://github.com/digitalpalidictionary/dpd-db/releases">
         Get updated</a><span>. You are using <b>DPD ${progName}</b> updated on <b>${data.date}</b>. Check for an update every full moon uposatha day.</span>
     </p>
     <p>
         <a class="link" 
         href="https://digitalpalidictionary.github.io/">
-        Visit the Docs website</a><span>. Get more detailed information about installation and upgrades, advanced settings and features.</span>
+        Visit the DPD docs website</a><span>. Get more detailed information about installation and upgrades, advanced settings and features.</span>
     </p>
     <p>
         <a class="link" 
