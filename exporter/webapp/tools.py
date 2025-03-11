@@ -5,7 +5,7 @@ from sqlalchemy.orm import joinedload
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, DpdRoot, FamilyRoot, Lookup
-from exporter.webapp.dataclasses import (
+from exporter.webapp.data_classes import (
     AbbreviationsData,
     DeconstructorData,
     EpdData,

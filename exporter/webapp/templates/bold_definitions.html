@@ -19,4 +19,14 @@
             {% endfor %}
         </tbody>
     </table>
+    {% if too_many_results: %}
+    <div class="bd-message">
+        Only displaying the first <b>100</b> results. <br><br>
+        Please refine your search criteria by:<br>
+        1. Using a more specific search term in the first search box.<br>
+        2. Searching withing results in the second search box.<br>
+        3. Using `starts with` to narrow the search.<br>
+        4. Using regular expressions to search more precisely.<br>
+    </div>
+    {% endif %}
 </div>

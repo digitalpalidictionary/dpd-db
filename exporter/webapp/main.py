@@ -268,7 +268,7 @@ def db_search(
     if results:
         message = f"<b>{len(results)}</b> results found"
     else:
-        message = "<b>0</b> results found - refine your search or try the fuzzy option"
+        message = "<b>0</b> results found - broaden your search or try the fuzzy option"
 
     # highlight search_2
     if q2:
@@ -279,6 +279,13 @@ def db_search(
 
     history_list = update_history(q1, q2, option)
 
+    # trim to 100 results
+    too_many_results = False
+    if len(results) > 100:
+        results = results[:100]
+        too_many_results = True
+
+
     return templates.TemplateResponse(
         "bold_definitions.html",
         {
@@ -288,6 +295,7 @@ def db_search(
             "search_2": q2,
             "search_option": option,
             "message": message,
+            "too_many_results": too_many_results,
             "history": history_list,
         },
     )
@@ -307,8 +315,8 @@ def update_history(
 if __name__ == "__main__":
     uvicorn.run(
         "main:app",
-        host="0.0.0.0",
-        # host="127.1.1.1",
+        # host="0.0.0.0",
+        host="127.1.1.1",
         port=8080,
         reload=True,
         reload_dirs="exporter/webapp/",

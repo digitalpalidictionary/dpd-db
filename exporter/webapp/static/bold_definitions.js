@@ -177,19 +177,19 @@ function hoverHelp(event) {
 		bdFooterText.innerHTML = "Use this box to search within results."
 	}
 	else if (event == "startsWithButton") {
-		bdFooterText.innerHTML = "Search for definitions&nbsp;<b>starting</b>&nbsp;with the term."
+		bdFooterText.innerHTML = "Search for definitions <b>starting</b> with the term."
 	}
     else if (event == "regexButton") {
-        bdFooterText.innerHTML = "This is the normal mode. You can also use&nbsp;<b>regular expressions</b>&nbsp;for very precise searches."
+        bdFooterText.innerHTML = "This is the <b>normal</b> mode. You can also use <b>regular expressions</b> for very precise searches."
 	}
     else if (event == "fuzzyButton") {
-        bdFooterText.innerHTML = "<b>Fuzzy</b>&nbsp;search ignores all diacritics and double consonants . It's useful if you don't know the exact spelling."
+        bdFooterText.innerHTML = "<b>Fuzzy</b> search ignores all diacritics and double consonants. It's useful if you don't know the exact spelling."
     }
     else if (event == "clearButton") {
-        bdFooterText.innerHTML = "Start again with a calm and &nbsp;<b>clear</b> interface."
+        bdFooterText.innerHTML = "Start again with a calm and <b>clear</b> interface."
     }
 	else {
-		bdFooterText.innerHTML = 'For more information, please visit the&nbsp;<a href="https://digitalpalidictionary.github.io/" target="_blank">DPD Docs website.'
+		bdFooterText.innerHTML = 'For more information, please visit the <a href="https://digitalpalidictionary.github.io/" target="_blank">DPD Docs website.'
 	}
 }
 

@@ -362,13 +362,15 @@ p.message {
     border-radius: 7px;
     border: var(--transparent) 2px solid;
     color: var(--foreground-light);
-    display: flex;
     justify-content: center;
+    margin-bottom: 20px;
+    overflow-wrap: break-word;
     padding: 10px;
+    position: relative;
     text-align: center;
     transition: 1s;
-    position: relative;
-    margin-bottom: 20px;
+    white-space: normal;
+    word-break: break-word;
 }
 
 .footer-pane a {
@@ -762,7 +764,9 @@ label {
     .footer-pane {
         box-sizing: border-box;
         width: 100%;
-        flex-direction: column;
+        white-space: normal;
+        word-break: break-word;
+        overflow-wrap: break-word;
     }
 
     .bd-search-pane {
