@@ -2031,7 +2031,7 @@ var family_set_json = {
    [
     "chandānurakkhaṇa",
     "nt",
-    "(gram) preserving the meter",
+    "(gram) preserving the meter; lit. protecting prosody",
     "✔"
    ],
    [
@@ -2523,7 +2523,7 @@ var family_set_json = {
    [
     "dīghaṃ katvā",
     "idiom",
-    "(gram) having lengthened; having elongated",
+    "(gram) (of a vowel) having lengthened; having elongated",
     "✔"
    ],
    [
@@ -4387,6 +4387,24 @@ var family_set_json = {
     "◑"
    ],
    [
+    "visesana 3",
+    "nt",
+    "(gram) adjective; attribute; lit. distinguishing",
+    "◑"
+   ],
+   [
+    "visesanavisesya",
+    "nt",
+    "(gram) adjectives and substantives",
+    "◑"
+   ],
+   [
+    "visesya",
+    "nt",
+    "(gram) substantive noun; lit. to be distinguished",
+    "◑"
+   ],
+   [
     "visodhita 3",
     "pp",
     "(gram) (of a text) corrected; lit. caused to be pure",
@@ -5053,7 +5071,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 814
+  "count": 817
  },
  "prefixes": {
   "data": [
@@ -7973,29 +7991,35 @@ var family_set_json = {
    [
     "vo 1.1",
     "pron",
-    "you all",
+    "you all (subject)",
     "✔"
    ],
    [
     "vo 1.2",
     "pron",
-    "by you all; with you all",
+    "you all (object)",
     "✔"
    ],
    [
     "vo 1.3",
     "pron",
-    "to you all; for you all",
+    "by you all; with you all",
     "✔"
    ],
    [
     "vo 1.4",
     "pron",
-    "of you all; your",
+    "to you all; for you all",
     "✔"
    ],
    [
     "vo 1.5",
+    "pron",
+    "of you all; your",
+    "✔"
+   ],
+   [
+    "vo 1.6",
     "pron",
     "when you all; while you all",
     "✔"
@@ -8103,7 +8127,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 360
+  "count": 361
  },
  "epithets of devas": {
   "data": [
@@ -20310,7 +20334,7 @@ var family_set_json = {
     "bāhudantī",
     "masc",
     "name of an arahant; lit. having many teeth",
-    "◑"
+    "✔"
    ],
    [
     "bāhuraggi",
@@ -21814,7 +21838,7 @@ var family_set_json = {
    [
     "macchasurasenā",
     "masc",
-    "people of Maccha and Surasena; Maccas and Surasenas",
+    "people of Maccha and Surasena; Macchas and Surasenas",
     "✔"
    ],
    [
@@ -21934,7 +21958,7 @@ var family_set_json = {
    [
     "surasenā",
     "masc",
-    "name of a people; Surasenas; lit. god's army",
+    "name of a people; Surasenas; lit. army of heroes; (or) god's army",
     "✔"
    ],
    [
@@ -21946,7 +21970,7 @@ var family_set_json = {
    [
     "sūrasenā",
     "masc",
-    "name of a people; Sūrasenas; lit. brave army",
+    "name of a people; Sūrasenas; lit. army of heroes",
     "✔"
    ],
    [
@@ -22043,6 +22067,12 @@ var family_set_json = {
     "masc",
     "master of the Dhamma; lord of the teaching; epithet of the Buddha",
     "◑"
+   ],
+   [
+    "dhammasenāpati 2",
+    "masc",
+    "Dhamma general; epithet of the Buddha",
+    "✔"
    ],
    [
     "narasārathi",
@@ -22189,7 +22219,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 38
+  "count": 39
  },
  "books of the Suttapiṭaka": {
   "data": [
@@ -22289,6 +22319,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "dhanusata",
+    "nt",
+    "one hundred bow-lengths long",
+    "✔"
+   ],
+   [
     "pañcadhanusatika",
     "adj",
     "measuring five hundred bow-lengths",
@@ -22355,7 +22391,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 21
+  "count": 22
  },
  "bhikkhupātimokkha rules": {
   "data": [
@@ -23723,7 +23759,7 @@ var family_set_json = {
    [
     "dvādasaporisa",
     "adj",
-    "measuring the height of twelve men",
+    "measuring the height of twelve men; twelve fathoms in measure",
     "✔"
    ],
    [
@@ -24746,8 +24782,8 @@ var family_set_json = {
    [
     "kālakañcikā",
     "masc",
-    "name of a group of daemons; lit. black gruel",
-    "◑"
+    "name of a group of daemons; lit. (feeding on) black gruel",
+    "✔"
    ],
    [
     "kālakañjā",
@@ -25424,7 +25460,7 @@ var family_set_json = {
    [
     "visukamma",
     "masc",
-    "name of the Sakka's architect",
+    "name of the Sakka's architect; lit. accomplishing everything",
     "✔"
    ],
    [
@@ -26778,7 +26814,7 @@ var family_set_json = {
    [
     "sattabhū",
     "masc",
-    "name of one the seven Bharata kings; lit. lord of beings",
+    "name of one the seven Bharata kings",
     "✔"
    ],
    [

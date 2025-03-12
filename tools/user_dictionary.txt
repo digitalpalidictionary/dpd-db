@@ -943,6 +943,7 @@ frumentaceum
 fuelless
 fulfilment
 fulled
+fuller's
 g
 gadflies
 gadfly
@@ -964,6 +965,7 @@ gapless
 garial
 Garuda
 gatekeeper
+gatepost
 gaub
 Gavesī
 gavial
@@ -2416,6 +2418,7 @@ Subhasutta
 Subhūti
 subsists
 substanceless
+substantives
 substratum
 suchness
 Sudatta

@@ -278,7 +278,7 @@ var family_idiom_json = {
    [
     "dīghaṃ katvā",
     "idiom",
-    "(gram) having lengthened; having elongated",
+    "(gram) (of a vowel) having lengthened; having elongated",
     "✔"
    ],
    [
@@ -3961,6 +3961,23 @@ var family_idiom_json = {
    ]
   ]
  },
+ "cetas": {
+  "count": 2,
+  "data": [
+   [
+    "cetasā ceto paricca",
+    "idiom",
+    "having encompassed (another's) mind with (one's) mind",
+    "✔"
+   ],
+   [
+    "cetaso parivitakko",
+    "idiom",
+    "train of thought; state of mind; mental process",
+    "✔"
+   ]
+  ]
+ },
  "cora": {
   "count": 1,
   "data": [
@@ -7033,7 +7050,7 @@ var family_idiom_json = {
   ]
  },
  "api": {
-  "count": 153,
+  "count": 154,
   "data": [
    [
     "aññāṇatthampi",
@@ -7105,6 +7122,12 @@ var family_idiom_json = {
     "api ce",
     "idiom",
     "even if",
+    "✔"
+   ],
+   [
+    "api tu",
+    "idiom",
+    "but; but yet",
     "✔"
    ],
    [
@@ -9091,6 +9114,41 @@ var family_idiom_json = {
     "yathā pure tathā pacchā",
     "idiom",
     "as before, so afterwards; as in front, so behind",
+    "✔"
+   ]
+  ]
+ },
+ "appa": {
+  "count": 5,
+  "data": [
+   [
+    "appakasirena samudāgacchanti",
+    "idiom",
+    "are obtained without difficulty; are easy to come by; lit. arises together with little difficulty",
+    "✔"
+   ],
+   [
+    "appañhi",
+    "sandhi",
+    "short indeed; small indeed; truly insignificant",
+    "✔"
+   ],
+   [
+    "appampi",
+    "sandhi",
+    "even a little",
+    "✔"
+   ],
+   [
+    "appasmeke",
+    "sandhi",
+    "having little some people; lit. in little some; from little some",
+    "✔"
+   ],
+   [
+    "appossukko tuṇhībhūto",
+    "idiom",
+    "calm and quiet",
     "✔"
    ]
   ]
@@ -15572,6 +15630,59 @@ var family_idiom_json = {
    ]
   ]
  },
+ "tu": {
+  "count": 8,
+  "data": [
+   [
+    "api tu",
+    "idiom",
+    "but; but yet",
+    "✔"
+   ],
+   [
+    "avañjhānitvevāhaṃ",
+    "sandhi",
+    "I (say they are) certainly not barren",
+    "✔"
+   ],
+   [
+    "tveva 1",
+    "sandhi",
+    "however; but; rather; rather than",
+    "✔"
+   ],
+   [
+    "tveva 2",
+    "sandhi",
+    "just as",
+    "✔"
+   ],
+   [
+    "tveva 3",
+    "sandhi",
+    "but even then",
+    "✔"
+   ],
+   [
+    "tvevāhaṃ",
+    "sandhi",
+    "but even then I; certainly I just",
+    "✔"
+   ],
+   [
+    "mayaṃ tu",
+    "idiom",
+    "we however; I however",
+    "◑"
+   ],
+   [
+    "subhantveva",
+    "sandhi",
+    "but only on the beautiful; but only on the attractive",
+    "✔"
+   ]
+  ]
+ },
  "nu": {
   "count": 23,
   "data": [
@@ -15857,41 +15968,6 @@ var family_idiom_json = {
     "pubbeva",
     "sandhi",
     "just before; previous to; as before",
-    "✔"
-   ]
-  ]
- },
- "appa": {
-  "count": 5,
-  "data": [
-   [
-    "appakasirena samudāgacchanti",
-    "idiom",
-    "are obtained without difficulty; are easy to come by; lit. arises together with little difficulty",
-    "✔"
-   ],
-   [
-    "appañhi",
-    "sandhi",
-    "short indeed; small indeed; truly insignificant",
-    "✔"
-   ],
-   [
-    "appampi",
-    "sandhi",
-    "even a little",
-    "✔"
-   ],
-   [
-    "appasmeke",
-    "sandhi",
-    "having little some people; lit. in little some; from little some",
-    "✔"
-   ],
-   [
-    "appossukko tuṇhībhūto",
-    "idiom",
-    "calm and quiet",
     "✔"
    ]
   ]
@@ -18029,53 +18105,6 @@ var family_idiom_json = {
     "avañjhānitvevāhaṃ",
     "sandhi",
     "I (say they are) certainly not barren",
-    "✔"
-   ]
-  ]
- },
- "tu": {
-  "count": 7,
-  "data": [
-   [
-    "avañjhānitvevāhaṃ",
-    "sandhi",
-    "I (say they are) certainly not barren",
-    "✔"
-   ],
-   [
-    "tveva 1",
-    "sandhi",
-    "however; but; rather; rather than",
-    "✔"
-   ],
-   [
-    "tveva 2",
-    "sandhi",
-    "just as",
-    "✔"
-   ],
-   [
-    "tveva 3",
-    "sandhi",
-    "but even then",
-    "✔"
-   ],
-   [
-    "tvevāhaṃ",
-    "sandhi",
-    "but even then I; certainly I just",
-    "✔"
-   ],
-   [
-    "mayaṃ tu",
-    "idiom",
-    "we however; I however",
-    "◑"
-   ],
-   [
-    "subhantveva",
-    "sandhi",
-    "but only on the beautiful; but only on the attractive",
     "✔"
    ]
   ]
@@ -25604,23 +25633,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "cetas": {
-  "count": 2,
-  "data": [
-   [
-    "cetasā ceto paricca",
-    "idiom",
-    "having encompassed (another's) mind with (one's) mind",
-    "✔"
-   ],
-   [
-    "cetaso parivitakko",
-    "idiom",
-    "train of thought; state of mind; mental process",
-    "✔"
-   ]
-  ]
- },
  "paricca": {
   "count": 1,
   "data": [
@@ -27708,7 +27720,7 @@ var family_idiom_json = {
    [
     "dīghaṃ katvā",
     "idiom",
-    "(gram) having lengthened; having elongated",
+    "(gram) (of a vowel) having lengthened; having elongated",
     "✔"
    ],
    [

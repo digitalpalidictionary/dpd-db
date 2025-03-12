@@ -1510,9 +1510,15 @@ var family_word_json = {
     "✔"
    ],
    [
-    "gāmaka",
+    "gāmaka 1",
     "masc",
     "small village; hamlet",
+    "✔"
+   ],
+   [
+    "gāmaka 2",
+    "adj",
+    "from the village of; living in the village of; lit. related to the village",
     "✔"
    ],
    [
@@ -1558,7 +1564,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 14
+  "count": 15
  },
  "agāra": {
   "data": [
@@ -2295,7 +2301,7 @@ var family_word_json = {
    [
     "cirataraṃ",
     "ind",
-    "for even more time; even longer",
+    "even longer; for even more time",
     "✔"
    ],
    [
@@ -3156,7 +3162,7 @@ var family_word_json = {
    [
     "acchariya 1",
     "adj",
-    "wonderful; marvellous; epithet of Nibbāna",
+    "wonderful; marvellous",
     "✔"
    ],
    [
@@ -9502,7 +9508,7 @@ var family_word_json = {
    [
     "uccatara",
     "adj",
-    "higher; loftier",
+    "taller; higher; loftier",
     "✔"
    ],
    [
@@ -11100,7 +11106,7 @@ var family_word_json = {
    [
     "pacchima 4",
     "adj",
-    "smallest; minimum; lit. last",
+    "least; smallest; minimum; lit. last",
     "✔"
    ],
    [
@@ -16340,7 +16346,7 @@ var family_word_json = {
    [
     "samaka",
     "adj",
-    "of the same height",
+    "of the same height; lit. level",
     "✔"
    ],
    [
@@ -16918,7 +16924,7 @@ var family_word_json = {
    [
     "sūci 3",
     "fem",
-    "(of a ladder) cross bar; rungs; lit. pin",
+    "cross bar; rung; lit. pin",
     "✔"
    ],
    [
@@ -20321,17 +20327,6 @@ var family_word_json = {
   ],
   "count": 2
  },
- "ku ariya kadariya": {
-  "data": [
-   [
-    "kadariyatā",
-    "fem",
-    "miserliness; stinginess; meanness; lit. mean noble state",
-    "✔"
-   ]
-  ],
-  "count": 1
- },
  "kapāla": {
   "data": [
    [
@@ -21922,7 +21917,7 @@ var family_word_json = {
    [
     "kesa 3",
     "adj",
-    "with a mane",
+    "(of a horse) with a mane",
     "✔"
    ],
    [
@@ -24015,7 +24010,7 @@ var family_word_json = {
     "duccoḷa",
     "adj",
     "badly dressed; poorly attired; lit. bad rag",
-    "◑"
+    "✔"
    ],
    [
     "niccola",
@@ -25232,35 +25227,41 @@ var family_word_json = {
    [
     "vo 1.1",
     "pron",
-    "you all",
+    "you all (subject)",
     "✔"
    ],
    [
     "vo 1.2",
     "pron",
-    "by you all; with you all",
+    "you all (object)",
     "✔"
    ],
    [
     "vo 1.3",
     "pron",
-    "to you all; for you all",
+    "by you all; with you all",
     "✔"
    ],
    [
     "vo 1.4",
     "pron",
-    "of you all; your",
+    "to you all; for you all",
     "✔"
    ],
    [
     "vo 1.5",
     "pron",
+    "of you all; your",
+    "✔"
+   ],
+   [
+    "vo 1.6",
+    "pron",
     "when you all; while you all",
     "✔"
    ]
   ],
-  "count": 38
+  "count": 39
  },
  "taraccha": {
   "data": [
@@ -26535,9 +26536,15 @@ var family_word_json = {
     "fem",
     "frown; funny facial expression; furrow on the forehead; lit. relating to the forehead",
     "✔"
+   ],
+   [
+    "nalāṭikā 2",
+    "fem",
+    "gesture of approval; expression of assent; lit. relating to the forehead",
+    "✔"
    ]
   ],
-  "count": 3
+  "count": 4
  },
  "naḷa": {
   "data": [
@@ -29143,7 +29150,7 @@ var family_word_json = {
    [
     "pokkhariṇī",
     "fem",
-    "pond; pool; lotus pond",
+    "pond; pool; water lily pond",
     "◑"
    ]
   ],
@@ -29791,7 +29798,7 @@ var family_word_json = {
    [
     "bhiṅkāra",
     "masc",
-    "water pitcher; a vase; ceremonial vessel (in donations)",
+    "spouted jug; water pitcher; ceremonial vessel (in donations)",
     "✔"
    ],
    [
@@ -30144,12 +30151,6 @@ var family_word_json = {
     "✘"
    ],
    [
-    "majjhā",
-    "masc",
-    "name of a people; Majjhas",
-    "✔"
-   ],
-   [
     "majjhima 1",
     "adj",
     "middle; middling; medium; medium-sized; moderate",
@@ -30228,7 +30229,18 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 24
+  "count": 23
+ },
+ "macchā": {
+  "data": [
+   [
+    "majjhā",
+    "masc",
+    "name of a people; Majjhas",
+    "✔"
+   ]
+  ],
+  "count": 1
  },
  "mañjarī": {
   "data": [
@@ -32974,7 +32986,7 @@ var family_word_json = {
     "sāṇī",
     "fem",
     "screen; curtain; lit. made of hemp",
-    "✔"
+    "◑"
    ]
   ],
   "count": 9
