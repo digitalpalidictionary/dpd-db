@@ -11630,7 +11630,7 @@ var family_set_json = {
     "✔"
    ],
    [
-    "satthahāraka 1",
+    "satthahāraka 1.1",
     "masc",
     "assassin; hit man; lit. weapon carrier",
     "✔"
@@ -26225,6 +26225,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "luvaka",
+    "masc",
+    "flying squirrel; Petaurista petaurista",
+    "✔"
+   ],
+   [
     "vacchatara",
     "masc",
     "young bull; bullock; lit. more than a calf",
@@ -26309,7 +26315,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 84
+  "count": 85
  },
  "names of royalty": {
   "data": [
@@ -34468,7 +34474,7 @@ var family_set_json = {
     "✔"
    ],
    [
-    "satthahāraka 2",
+    "satthahāraka 2.1",
     "nt",
     "deadly weapon; lit. life taker",
     "✔"
@@ -37135,6 +37141,167 @@ var family_set_json = {
   ],
   "count": 28
  },
+ "seasons": {
+  "data": [
+   [
+    "uṇhakāla",
+    "masc",
+    "warm weather; hot season; lit. hot time",
+    "✔"
+   ],
+   [
+    "uṇhasamaya",
+    "masc",
+    "time of heat; hot season",
+    "✔"
+   ],
+   [
+    "gimhakāla",
+    "masc",
+    "hot season; summer; lit. hot time",
+    "✔"
+   ],
+   [
+    "gimhā",
+    "masc",
+    "hot season; summer; lit. hot months",
+    "✔"
+   ],
+   [
+    "gimhāna",
+    "nt",
+    "hot season; summer; lit. of the hot",
+    "✔"
+   ],
+   [
+    "gimhi",
+    "masc",
+    "hot season; summer",
+    "✔"
+   ],
+   [
+    "gimhotu",
+    "masc",
+    "summer; hot season",
+    "✔"
+   ],
+   [
+    "ghamma",
+    "nt",
+    "heat; hot season",
+    "✔"
+   ],
+   [
+    "ghammani",
+    "nt",
+    "in the heat; in the hot season",
+    "✔"
+   ],
+   [
+    "pāvusa 1",
+    "masc",
+    "rainy season; monsoon",
+    "✔"
+   ],
+   [
+    "vaddali",
+    "fem",
+    "rainy season",
+    "✔"
+   ],
+   [
+    "vaddalisamaya",
+    "masc",
+    "rainy season",
+    "✔"
+   ],
+   [
+    "vappakāla",
+    "masc",
+    "planting season; October-November; lit. sowing time",
+    "✔"
+   ],
+   [
+    "vappanakāla",
+    "masc",
+    "sowing season",
+    "✔"
+   ],
+   [
+    "vassa 2",
+    "masc",
+    "rainy season; monsoon",
+    "✔"
+   ],
+   [
+    "vassakāla",
+    "masc",
+    "rainy season",
+    "✔"
+   ],
+   [
+    "vassāna",
+    "masc",
+    "monsoon; rainy season; lit. raining",
+    "✔"
+   ],
+   [
+    "vassānotu",
+    "masc",
+    "monsoon; rainy season",
+    "✔"
+   ],
+   [
+    "vassāratta",
+    "nt",
+    "rainy season; rains retreat",
+    "✔"
+   ],
+   [
+    "sārada 1",
+    "masc",
+    "season after the rains; October to December",
+    "✔"
+   ],
+   [
+    "sītakāla",
+    "masc",
+    "cool weather; cold season; lit. cold time",
+    "✔"
+   ],
+   [
+    "himapātasamaya",
+    "masc",
+    "time of snow-fall; snow season",
+    "✔"
+   ],
+   [
+    "hemanta",
+    "masc",
+    "winter; cold season; lit. cold end",
+    "✔"
+   ],
+   [
+    "hemantagimhavassāna",
+    "masc",
+    "winter, summer and rainy season; cold, hot and wet season",
+    "✔"
+   ],
+   [
+    "hemantagimhi",
+    "masc",
+    "winter and summer; cold and hot season",
+    "✔"
+   ],
+   [
+    "hemantotu",
+    "masc",
+    "winter; cold season",
+    "✔"
+   ]
+  ],
+  "count": 26
+ },
  "five hindrances": {
   "data": [
    [
@@ -38991,16 +39158,5 @@ var family_set_json = {
    ]
   ],
   "count": 3
- },
- "seasons": {
-  "data": [
-   [
-    "sārada 1",
-    "masc",
-    "season after the rains; October to December",
-    "✔"
-   ]
-  ],
-  "count": 1
  }
 }

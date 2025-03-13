@@ -921,6 +921,34 @@ var family_idiom_json = {
    ]
   ]
  },
+ "gaṇhanta": {
+  "count": 1,
+  "data": [
+   [
+    "kūṭaṃ gaṇhanto",
+    "idiom",
+    "reaching the peak; reaching a crescendo",
+    "◑"
+   ]
+  ]
+ },
+ "gata": {
+  "count": 2,
+  "data": [
+   [
+    "vasaṃ gata",
+    "idiom",
+    "under the control (of); under the power (of); lit. gone by the wish",
+    "✔"
+   ],
+   [
+    "saraṇaṃ gata",
+    "idiom",
+    "gone for refuge (to); taken shelter under",
+    "✔"
+   ]
+  ]
+ },
  "gati": {
   "count": 1,
   "data": [
@@ -1053,6 +1081,35 @@ var family_idiom_json = {
     "kesaggamattampi",
     "sandhi",
     "even as much as the tip of hair",
+    "✔"
+   ]
+  ]
+ },
+ "gahetvā": {
+  "count": 4,
+  "data": [
+   [
+    "paṭisandhiṃ gahetvā",
+    "idiom",
+    "having been conceived (in); having been reborn (in)",
+    "✔"
+   ],
+   [
+    "balaṃ gahetvā",
+    "idiom",
+    "having regained one's strength",
+    "✔"
+   ],
+   [
+    "bāhāyaṃ gahetvā",
+    "idiom",
+    "having seized by the arm",
+    "✔"
+   ],
+   [
+    "rasmiyo gahetvā",
+    "idiom",
+    "having seized the reins",
     "✔"
    ]
   ]
@@ -2219,6 +2276,17 @@ var family_idiom_json = {
     "sandhi",
     "I am worse",
     "◑"
+   ]
+  ]
+ },
+ "ghosa": {
+  "count": 1,
+  "data": [
+   [
+    "parato ca ghoso",
+    "idiom",
+    "hearing from another person; word of another; lit. and noise from another",
+    "✔"
    ]
   ]
  },
@@ -3851,6 +3919,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "caritvā": {
+  "count": 1,
+  "data": [
+   [
+    "piṇḍāya caritvā",
+    "idiom",
+    "having walked for alms food",
+    "✔"
+   ]
+  ]
+ },
  "carima": {
   "count": 2,
   "data": [
@@ -4108,6 +4187,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "chetvā": {
+  "count": 1,
+  "data": [
+   [
+    "sotaṃ chetvā",
+    "idiom",
+    "having breasted the stream; having swum across; lit. having cut the current",
+    "✔"
+   ]
+  ]
+ },
  "jāta": {
   "count": 2,
   "data": [
@@ -4122,6 +4212,17 @@ var family_idiom_json = {
     "sandhi",
     "I am the kind of person; lit. kind I am",
     "◑"
+   ]
+  ]
+ },
+ "jānanta": {
+  "count": 1,
+  "data": [
+   [
+    "jānato passato",
+    "idiom",
+    "when knowing and seeing; for one who knows and sees",
+    "✔"
    ]
   ]
  },
@@ -5721,6 +5822,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "ñāṇa": {
+  "count": 1,
+  "data": [
+   [
+    "āsavānaṃ khayañāṇa",
+    "idiom",
+    "knowledge of the extinction of the effluents; understanding how the impurities are slowly worn away",
+    "✔"
+   ]
+  ]
+ },
  "añjali": {
   "count": 3,
   "data": [
@@ -6790,17 +6902,6 @@ var family_idiom_json = {
     "aññaṃ byākaroti",
     "idiom",
     "declares awakening; announces arahantship",
-    "✔"
-   ]
-  ]
- },
- "ñāṇa": {
-  "count": 1,
-  "data": [
-   [
-    "āsavānaṃ khayañāṇa",
-    "idiom",
-    "knowledge of the extinction of the effluents; understanding how the impurities are slowly worn away",
     "✔"
    ]
   ]
@@ -9223,6 +9324,17 @@ var family_idiom_json = {
     "visaṃ khādati",
     "idiom",
     "takes poison; swallows poison",
+    "✔"
+   ]
+  ]
+ },
+ "sambādha": {
+  "count": 1,
+  "data": [
+   [
+    "sambādhapaṭipannosmi",
+    "sandhi",
+    "I have fallen into captivity; I have got into trouble",
     "✔"
    ]
   ]
@@ -13120,6 +13232,34 @@ var family_idiom_json = {
    ]
   ]
  },
+ "thena": {
+  "count": 1,
+  "data": [
+   [
+    "thenosi",
+    "sandhi",
+    "you are a thief!; you are a robber!",
+    "✔"
+   ]
+  ]
+ },
+ "daṇḍa": {
+  "count": 2,
+  "data": [
+   [
+    "daṇḍaṃ paṇeti",
+    "idiom",
+    "inflicts punishment; imposes a fine",
+    "✔"
+   ],
+   [
+    "nihitadaṇḍo nihitasattho",
+    "idiom",
+    "giving up violence; lit. put down the stick and sword",
+    "✔"
+   ]
+  ]
+ },
  "dassana": {
   "count": 3,
   "data": [
@@ -13674,6 +13814,40 @@ var family_idiom_json = {
    ]
   ]
  },
+ "āgata": {
+  "count": 3,
+  "data": [
+   [
+    "āgatamha",
+    "sandhi",
+    "we have come; we have arrived; lit. we are come",
+    "✔"
+   ],
+   [
+    "āgatosi",
+    "sandhi",
+    "you have come",
+    "✔"
+   ],
+   [
+    "iccassa evamāgataṃ hoti",
+    "idiom",
+    "it would thus follow; it could be concluded; it would be correct to say",
+    "◑"
+   ]
+  ]
+ },
+ "desa": {
+  "count": 1,
+  "data": [
+   [
+    "kocideso",
+    "sandhi",
+    "some matter; some point; some detail",
+    "✔"
+   ]
+  ]
+ },
  "desita": {
   "count": 1,
   "data": [
@@ -14093,6 +14267,29 @@ var family_idiom_json = {
    ]
   ]
  },
+ "adho": {
+  "count": 3,
+  "data": [
+   [
+    "uddhaṃ adho tiriyañca",
+    "idiom",
+    "above below and across; in every direction",
+    "✔"
+   ],
+   [
+    "uddhaṃ adho tiriyaṃ",
+    "idiom",
+    "above below and across; in every direction",
+    "✔"
+   ],
+   [
+    "uddhaṃpādaṃ adhosiraṃ",
+    "idiom",
+    "feet up, head down; upside down; head over heels",
+    "✔"
+   ]
+  ]
+ },
  "dhamma": {
   "count": 19,
   "data": [
@@ -14212,25 +14409,13 @@ var family_idiom_json = {
    ]
   ]
  },
- "adho": {
-  "count": 3,
+ "adhigata": {
+  "count": 1,
   "data": [
    [
-    "uddhaṃ adho tiriyañca",
-    "idiom",
-    "above below and across; in every direction",
-    "✔"
-   ],
-   [
-    "uddhaṃ adho tiriyaṃ",
-    "idiom",
-    "above below and across; in every direction",
-    "✔"
-   ],
-   [
-    "uddhaṃpādaṃ adhosiraṃ",
-    "idiom",
-    "feet up, head down; upside down; head over heels",
+    "amatamadhigataṃ",
+    "sandhi",
+    "the deathless state is attained; immortality has been achieved",
     "✔"
    ]
   ]
@@ -14308,6 +14493,34 @@ var family_idiom_json = {
    ]
   ]
  },
+ "cārī": {
+  "count": 2,
+  "data": [
+   [
+    "kulesu cārittaṃ āpajjati",
+    "idiom",
+    "visits families; calls on houses; lit. engages in behaviour in families",
+    "✔"
+   ],
+   [
+    "cārittaṃ āpajjati",
+    "idiom",
+    "engages closely (with); visits; engages in intercourse (with); lit. engages in wandering state",
+    "✔"
+   ]
+  ]
+ },
+ "anuyutta": {
+  "count": 1,
+  "data": [
+   [
+    "seyyasukhaṃ passasukhaṃ middhasukhaṃ anuyutto viharati",
+    "idiom",
+    "indulges in the pleasure of sleeping, resting and dozing",
+    "✔"
+   ]
+  ]
+ },
  "anta": {
   "count": 1,
   "data": [
@@ -14374,6 +14587,23 @@ var family_idiom_json = {
     "samādhimānantarikaññamāhu",
     "sandhi",
     "they say that stability of mind with immediate results",
+    "✔"
+   ]
+  ]
+ },
+ "nandi": {
+  "count": 2,
+  "data": [
+   [
+    "uddhaste aruṇe nandimukhiyā rattiyā",
+    "idiom",
+    "when the rosy smile of dawn was rising; when dawn had risen and the night had a cheerful face; lit. when risen red happy face night",
+    "✔"
+   ],
+   [
+    "nandimukhiyā rattiyā",
+    "idiom",
+    "when the smiling face of dawn; lit. when the happy face of the night",
     "✔"
    ]
   ]
@@ -14604,26 +14834,32 @@ var family_idiom_json = {
    ]
   ]
  },
- "āgata": {
-  "count": 3,
+ "okāsa": {
+  "count": 4,
   "data": [
    [
-    "āgatamha",
-    "sandhi",
-    "we have come; we have arrived; lit. we are come",
-    "✔"
-   ],
-   [
-    "āgatosi",
-    "sandhi",
-    "you have come",
-    "✔"
-   ],
-   [
-    "iccassa evamāgataṃ hoti",
+    "okāsakammaṃ kataṃ",
     "idiom",
-    "it would thus follow; it could be concluded; it would be correct to say",
+    "granted permission (by); allowed (by); lit. made making space",
+    "✔"
+   ],
+   [
+    "okāsaṃ karoti",
+    "idiom",
+    "grants permission (to); gives an opportunity (to); gives consent (to); lit. makes space",
+    "✔"
+   ],
+   [
+    "okāsaṃ kāretvā",
+    "idiom",
+    "having gained permission (to); having been given consent (to); lit. having caused to make space",
     "◑"
+   ],
+   [
+    "okāsaṃ yācati",
+    "idiom",
+    "asks for the opportunity (to); requests permission (to)",
+    "✔"
    ]
   ]
  },
@@ -14663,6 +14899,47 @@ var family_idiom_json = {
     "idiom",
     "having behaved badly; having engaged in misconduct; having indulged in unsuitable behaviour",
     "✔"
+   ]
+  ]
+ },
+ "ādi": {
+  "count": 6,
+  "data": [
+   [
+    "ādito paṭṭhāya",
+    "idiom",
+    "from the beginning onwards; from the start of the story onwards",
+    "✔"
+   ],
+   [
+    "āditova",
+    "sandhi",
+    "from the very beginning; right from the start",
+    "✔"
+   ],
+   [
+    "ādimeva",
+    "sandhi",
+    "very beginning; (of) the very starting point (of)",
+    "✔"
+   ],
+   [
+    "ādiṃ katvā",
+    "idiom",
+    "beginning with; starting from; lit. having made first",
+    "✔"
+   ],
+   [
+    "tiādi",
+    "sandhi",
+    "like this etc.",
+    "◑"
+   ],
+   [
+    "tiādimāha",
+    "sandhi",
+    "beginning, he said this, etc.",
+    "◑"
    ]
   ]
  },
@@ -14741,6 +15018,17 @@ var family_idiom_json = {
     "āsavānaṃ khayañāṇa",
     "idiom",
     "knowledge of the extinction of the effluents; understanding how the impurities are slowly worn away",
+    "✔"
+   ]
+  ]
+ },
+ "nikkhanta": {
+  "count": 1,
+  "data": [
+   [
+    "nikkhante paṭhame yāme",
+    "idiom",
+    "when the first part of the night was over",
     "✔"
    ]
   ]
@@ -14844,6 +15132,17 @@ var family_idiom_json = {
     "nimittaṃ uggaṇhāti",
     "idiom",
     "picks up the subtle signals; catches the hint; lit. takes up the sign",
+    "✔"
+   ]
+  ]
+ },
+ "issā": {
+  "count": 1,
+  "data": [
+   [
+    "issaṃ bandhati",
+    "idiom",
+    "resents; envies; nurses envy",
     "✔"
    ]
   ]
@@ -15260,35 +15559,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "okāsa": {
-  "count": 4,
-  "data": [
-   [
-    "okāsakammaṃ kataṃ",
-    "idiom",
-    "granted permission (by); allowed (by); lit. made making space",
-    "✔"
-   ],
-   [
-    "okāsaṃ karoti",
-    "idiom",
-    "grants permission (to); gives an opportunity (to); gives consent (to); lit. makes space",
-    "✔"
-   ],
-   [
-    "okāsaṃ kāretvā",
-    "idiom",
-    "having gained permission (to); having been given consent (to); lit. having caused to make space",
-    "◑"
-   ],
-   [
-    "okāsaṃ yācati",
-    "idiom",
-    "asks for the opportunity (to); requests permission (to)",
-    "✔"
-   ]
-  ]
- },
  "odhi": {
   "count": 1,
   "data": [
@@ -15525,6 +15795,23 @@ var family_idiom_json = {
     "maṃ pādato karitvā",
     "idiom",
     "having pointed their feet towards me; having positioned their feet in my direction; lit. having made me from the feet",
+    "✔"
+   ]
+  ]
+ },
+ "pāpa": {
+  "count": 2,
+  "data": [
+   [
+    "pāpañce",
+    "sandhi",
+    "if evil action; if crime",
+    "✔"
+   ],
+   [
+    "pāpamāgamā",
+    "sandhi",
+    "(may) evil (not) come (to); (may no) harm come (to); lit. bad came",
     "✔"
    ]
   ]
@@ -15989,6 +16276,23 @@ var family_idiom_json = {
    ]
   ]
  },
+ "paṭikūla": {
+  "count": 2,
+  "data": [
+   [
+    "āhāre paṭikūlasaññā",
+    "idiom",
+    "recognition of the unpleasantness of food; perception of the repulsiveness of food",
+    "✔"
+   ],
+   [
+    "āhāre paṭikūlasaññī",
+    "idiom",
+    "recognizing the unpleasantness of food; perceiving the repulsiveness of food",
+    "✔"
+   ]
+  ]
+ },
  "pamāda": {
   "count": 4,
   "data": [
@@ -16025,6 +16329,17 @@ var family_idiom_json = {
     "appahitepi",
     "sandhi",
     "even when not sent for",
+    "✔"
+   ]
+  ]
+ },
+ "pahīna": {
+  "count": 1,
+  "data": [
+   [
+    "yadatītampahīnantaṃ",
+    "sandhi",
+    "whatever is past has been abandoned; what is gone is given up",
     "✔"
    ]
   ]
@@ -16748,17 +17063,6 @@ var family_idiom_json = {
     "amataṃ padaṃ",
     "idiom",
     "immortality; deathless state; way to the deathless; path to immortality",
-    "✔"
-   ]
-  ]
- },
- "adhigata": {
-  "count": 1,
-  "data": [
-   [
-    "amatamadhigataṃ",
-    "sandhi",
-    "the deathless state is attained; immortality has been achieved",
     "✔"
    ]
   ]
@@ -19534,47 +19838,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "ādi": {
-  "count": 6,
-  "data": [
-   [
-    "ādito paṭṭhāya",
-    "idiom",
-    "from the beginning onwards; from the start of the story onwards",
-    "✔"
-   ],
-   [
-    "āditova",
-    "sandhi",
-    "from the very beginning; right from the start",
-    "✔"
-   ],
-   [
-    "ādimeva",
-    "sandhi",
-    "very beginning; (of) the very starting point (of)",
-    "✔"
-   ],
-   [
-    "ādiṃ katvā",
-    "idiom",
-    "beginning with; starting from; lit. having made first",
-    "✔"
-   ],
-   [
-    "tiādi",
-    "sandhi",
-    "like this etc.",
-    "◑"
-   ],
-   [
-    "tiādimāha",
-    "sandhi",
-    "beginning, he said this, etc.",
-    "◑"
-   ]
-  ]
- },
  "paṭṭhāya": {
   "count": 1,
   "data": [
@@ -20421,23 +20684,6 @@ var family_idiom_json = {
     "āhāraṃ āhāreti",
     "idiom",
     "eats food; consumes fuel",
-    "✔"
-   ]
-  ]
- },
- "paṭikūla": {
-  "count": 2,
-  "data": [
-   [
-    "āhāre paṭikūlasaññā",
-    "idiom",
-    "recognition of the unpleasantness of food; perception of the repulsiveness of food",
-    "✔"
-   ],
-   [
-    "āhāre paṭikūlasaññī",
-    "idiom",
-    "recognizing the unpleasantness of food; perceiving the repulsiveness of food",
     "✔"
    ]
   ]
@@ -21632,17 +21878,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "issā": {
-  "count": 1,
-  "data": [
-   [
-    "issaṃ bandhati",
-    "idiom",
-    "resents; envies; nurses envy",
-    "✔"
-   ]
-  ]
- },
  "bandhati": {
   "count": 1,
   "data": [
@@ -21937,23 +22172,6 @@ var family_idiom_json = {
     "uddhaste aruṇe nandimukhiyā rattiyā",
     "idiom",
     "when the rosy smile of dawn was rising; when dawn had risen and the night had a cheerful face; lit. when risen red happy face night",
-    "✔"
-   ]
-  ]
- },
- "nandi": {
-  "count": 2,
-  "data": [
-   [
-    "uddhaste aruṇe nandimukhiyā rattiyā",
-    "idiom",
-    "when the rosy smile of dawn was rising; when dawn had risen and the night had a cheerful face; lit. when risen red happy face night",
-    "✔"
-   ],
-   [
-    "nandimukhiyā rattiyā",
-    "idiom",
-    "when the smiling face of dawn; lit. when the happy face of the night",
     "✔"
    ]
   ]
@@ -24684,23 +24902,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "cārī": {
-  "count": 2,
-  "data": [
-   [
-    "kulesu cārittaṃ āpajjati",
-    "idiom",
-    "visits families; calls on houses; lit. engages in behaviour in families",
-    "✔"
-   ],
-   [
-    "cārittaṃ āpajjati",
-    "idiom",
-    "engages closely (with); visits; engages in intercourse (with); lit. engages in wandering state",
-    "✔"
-   ]
-  ]
- },
  "pucchi": {
   "count": 1,
   "data": [
@@ -24725,17 +24926,6 @@ var family_idiom_json = {
     "kūṭaṃ gaṇhi",
     "idiom",
     "reached the peak; reached a crescendo",
-    "◑"
-   ]
-  ]
- },
- "gaṇhanta": {
-  "count": 1,
-  "data": [
-   [
-    "kūṭaṃ gaṇhanto",
-    "idiom",
-    "reaching the peak; reaching a crescendo",
     "◑"
    ]
   ]
@@ -24925,17 +25115,6 @@ var family_idiom_json = {
     "vādena vādaṃ",
     "idiom",
     "in debate; in dispute; in verbal confrontation; lit. word with word",
-    "✔"
-   ]
-  ]
- },
- "desa": {
-  "count": 1,
-  "data": [
-   [
-    "kocideso",
-    "sandhi",
-    "some matter; some point; some detail",
     "✔"
    ]
   ]
@@ -25742,17 +25921,6 @@ var family_idiom_json = {
     "jarādhammomhi",
     "sandhi",
     "I am liable to grow old; I am subject to old age; aging is part of my intrinsic nature",
-    "✔"
-   ]
-  ]
- },
- "jānanta": {
-  "count": 1,
-  "data": [
-   [
-    "jānato passato",
-    "idiom",
-    "when knowing and seeing; for one who knows and sees",
     "✔"
    ]
   ]
@@ -27316,17 +27484,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "thena": {
-  "count": 1,
-  "data": [
-   [
-    "thenosi",
-    "sandhi",
-    "you are a thief!; you are a robber!",
-    "✔"
-   ]
-  ]
- },
  "thoka": {
   "count": 1,
   "data": [
@@ -27356,23 +27513,6 @@ var family_idiom_json = {
     "dakkhiṇaṃ ādisati",
     "idiom",
     "designates a donation (to); assigns a gift (to)",
-    "✔"
-   ]
-  ]
- },
- "daṇḍa": {
-  "count": 2,
-  "data": [
-   [
-    "daṇḍaṃ paṇeti",
-    "idiom",
-    "inflicts punishment; imposes a fine",
-    "✔"
-   ],
-   [
-    "nihitadaṇḍo nihitasattho",
-    "idiom",
-    "giving up violence; lit. put down the stick and sword",
     "✔"
    ]
   ]
@@ -28322,17 +28462,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "nikkhanta": {
-  "count": 1,
-  "data": [
-   [
-    "nikkhante paṭhame yāme",
-    "idiom",
-    "when the first part of the night was over",
-    "✔"
-   ]
-  ]
- },
  "paṭhama": {
   "count": 3,
   "data": [
@@ -28402,23 +28531,6 @@ var family_idiom_json = {
     "niṭṭhamettha gantabbaṃ",
     "idiom",
     "in this case a conclusion should be drawn; here the understanding could be reached; lit. conclusion here to be gone",
-    "✔"
-   ]
-  ]
- },
- "pāpa": {
-  "count": 2,
-  "data": [
-   [
-    "pāpañce",
-    "sandhi",
-    "if evil action; if crime",
-    "✔"
-   ],
-   [
-    "pāpamāgamā",
-    "sandhi",
-    "(may) evil (not) come (to); (may no) harm come (to); lit. bad came",
     "✔"
    ]
   ]
@@ -28831,35 +28943,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "gahetvā": {
-  "count": 4,
-  "data": [
-   [
-    "paṭisandhiṃ gahetvā",
-    "idiom",
-    "having been conceived (in); having been reborn (in)",
-    "✔"
-   ],
-   [
-    "balaṃ gahetvā",
-    "idiom",
-    "having regained one's strength",
-    "✔"
-   ],
-   [
-    "bāhāyaṃ gahetvā",
-    "idiom",
-    "having seized by the arm",
-    "✔"
-   ],
-   [
-    "rasmiyo gahetvā",
-    "idiom",
-    "having seized the reins",
-    "✔"
-   ]
-  ]
- },
  "vayas": {
   "count": 1,
   "data": [
@@ -28978,17 +29061,6 @@ var family_idiom_json = {
     "laṅghetumicchasi",
     "sandhi",
     "you want to jump over; you wish to leap over",
-    "✔"
-   ]
-  ]
- },
- "ghosa": {
-  "count": 1,
-  "data": [
-   [
-    "parato ca ghoso",
-    "idiom",
-    "hearing from another person; word of another; lit. and noise from another",
     "✔"
    ]
   ]
@@ -29435,17 +29507,6 @@ var family_idiom_json = {
     "piṇḍāya carituṃ",
     "idiom",
     "to walk for alms (in); to beg for food (in)",
-    "✔"
-   ]
-  ]
- },
- "caritvā": {
-  "count": 1,
-  "data": [
-   [
-    "piṇḍāya caritvā",
-    "idiom",
-    "having walked for alms food",
     "✔"
    ]
   ]
@@ -31041,17 +31102,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "pahīna": {
-  "count": 1,
-  "data": [
-   [
-    "yadatītampahīnantaṃ",
-    "sandhi",
-    "whatever is past has been abandoned; what is gone is given up",
-    "✔"
-   ]
-  ]
- },
  "yadi": {
   "count": 3,
   "data": [
@@ -32195,23 +32245,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "gata": {
-  "count": 2,
-  "data": [
-   [
-    "vasaṃ gata",
-    "idiom",
-    "under the control (of); under the power (of); lit. gone by the wish",
-    "✔"
-   ],
-   [
-    "saraṇaṃ gata",
-    "idiom",
-    "gone for refuge (to); taken shelter under",
-    "✔"
-   ]
-  ]
- },
  "upagantabba": {
   "count": 1,
   "data": [
@@ -32697,17 +32730,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "sauddesa": {
-  "count": 1,
-  "data": [
-   [
-    "sākāraṃ sauddesaṃ",
-    "idiom",
-    "in general and in detail",
-    "✔"
-   ]
-  ]
- },
  "sakkā": {
   "count": 1,
   "data": [
@@ -32876,6 +32898,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "sat": {
+  "count": 1,
+  "data": [
+   [
+    "satasmīti 1",
+    "sandhi",
+    "I exist",
+    "✔"
+   ]
+  ]
+ },
  "sata1": {
   "count": 1,
   "data": [
@@ -32916,17 +32949,6 @@ var family_idiom_json = {
     "satataṃ samitaṃ",
     "idiom",
     "continuously and constantly; always; incessantly",
-    "✔"
-   ]
-  ]
- },
- "sat": {
-  "count": 1,
-  "data": [
-   [
-    "satasmīti 1",
-    "sandhi",
-    "I exist",
     "✔"
    ]
   ]
@@ -33283,17 +33305,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "sambādha": {
-  "count": 1,
-  "data": [
-   [
-    "sambādhapaṭipannosmi",
-    "sandhi",
-    "I have fallen into captivity; I have got into trouble",
-    "✔"
-   ]
-  ]
- },
  "sammukha": {
   "count": 1,
   "data": [
@@ -33429,6 +33440,17 @@ var family_idiom_json = {
   ]
  },
  "sākāra": {
+  "count": 1,
+  "data": [
+   [
+    "sākāraṃ sauddesaṃ",
+    "idiom",
+    "in general and in detail",
+    "✔"
+   ]
+  ]
+ },
+ "sauddesa": {
   "count": 1,
   "data": [
    [
@@ -33636,17 +33658,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "anuyutta": {
-  "count": 1,
-  "data": [
-   [
-    "seyyasukhaṃ passasukhaṃ middhasukhaṃ anuyutto viharati",
-    "idiom",
-    "indulges in the pleasure of sleeping, resting and dozing",
-    "✔"
-   ]
-  ]
- },
  "santharati": {
   "count": 1,
   "data": [
@@ -33732,17 +33743,6 @@ var family_idiom_json = {
     "sotaṃ odahati",
     "idiom",
     "listens attentively; lends an ear; lit. applies the ear",
-    "✔"
-   ]
-  ]
- },
- "chetvā": {
-  "count": 1,
-  "data": [
-   [
-    "sotaṃ chetvā",
-    "idiom",
-    "having breasted the stream; having swum across; lit. having cut the current",
     "✔"
    ]
   ]

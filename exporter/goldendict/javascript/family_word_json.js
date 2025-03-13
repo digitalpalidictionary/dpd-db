@@ -1070,6 +1070,23 @@ var family_word_json = {
   ],
   "count": 7
  },
+ "akkha2": {
+  "data": [
+   [
+    "akkha 2.1",
+    "masc",
+    "axle; shaft",
+    "✔"
+   ],
+   [
+    "upakkhara",
+    "nt",
+    "?? axle fitting; lit. near the axle",
+    "✔"
+   ]
+  ],
+  "count": 2
+ },
  "khaṇa": {
   "data": [
    [
@@ -2224,6 +2241,23 @@ var family_word_json = {
    ]
   ],
   "count": 5
+ },
+ "aṅgāra": {
+  "data": [
+   [
+    "aṅgāra 1",
+    "nt",
+    "burning ember; charcoal",
+    "✔"
+   ],
+   [
+    "aṅgāra 2",
+    "masc",
+    "burning ember; charcoal",
+    "✔"
+   ]
+  ],
+  "count": 2
  },
  "aṅgiras": {
   "data": [
@@ -17195,6 +17229,17 @@ var family_word_json = {
   ],
   "count": 4
  },
+ "sudaṃ": {
+  "data": [
+   [
+    "assudaṃ",
+    "ind",
+    "indeed; truly; surely",
+    "✔"
+   ]
+  ],
+  "count": 1
+ },
  "hari": {
   "data": [
    [
@@ -21205,9 +21250,15 @@ var family_word_json = {
     "fem",
     "small bell; lit. tinkler",
     "✔"
+   ],
+   [
+    "kiṃkiṇī",
+    "fem",
+    "jingling bell",
+    "✘"
    ]
   ],
-  "count": 4
+  "count": 5
  },
  "kipillika": {
   "data": [
@@ -21743,13 +21794,19 @@ var family_word_json = {
     "✔"
    ],
    [
+    "kurūra",
+    "adj",
+    "bloody; cruel; vicious",
+    "✔"
+   ],
+   [
     "korabya 1",
     "masc",
     "name of a King; lit. of the Kurus",
     "✔"
    ]
   ],
-  "count": 3
+  "count": 4
  },
  "kulla": {
   "data": [
@@ -24619,6 +24676,23 @@ var family_word_json = {
   ],
   "count": 4
  },
+ "ṇaya": {
+  "data": [
+   [
+    "ṇaya 1",
+    "cs",
+    "(gram) *aya; conjugational sign of group 8 curādigaṇa verbs",
+    "✔"
+   ],
+   [
+    "ṇaya 2",
+    "cs",
+    "(gram) *aya; suffix used to form causative verbs",
+    "✔"
+   ]
+  ],
+  "count": 2
+ },
  "t": {
   "data": [
    [
@@ -26532,7 +26606,7 @@ var family_word_json = {
     "✘"
    ],
    [
-    "nalāṭikā",
+    "nalāṭikā 1",
     "fem",
     "frown; funny facial expression; furrow on the forehead; lit. relating to the forehead",
     "✔"
@@ -30088,6 +30162,23 @@ var family_word_json = {
   ],
   "count": 4
  },
+ "macchā": {
+  "data": [
+   [
+    "macchā",
+    "masc",
+    "names of a people; Macchas",
+    "✔"
+   ],
+   [
+    "majjhā",
+    "masc",
+    "name of a people; Majjhas",
+    "✔"
+   ]
+  ],
+  "count": 2
+ },
  "majjha": {
   "data": [
    [
@@ -30230,17 +30321,6 @@ var family_word_json = {
    ]
   ],
   "count": 23
- },
- "macchā": {
-  "data": [
-   [
-    "majjhā",
-    "masc",
-    "name of a people; Majjhas",
-    "✔"
-   ]
-  ],
-  "count": 1
  },
  "mañjarī": {
   "data": [
@@ -30721,7 +30801,7 @@ var family_word_json = {
    [
     "micchatta 2",
     "nt",
-    "wrongness; badness; imperfection",
+    "wrongness; badness; imperfection; lit. false state",
     "✔"
    ],
    [
@@ -31452,9 +31532,21 @@ var family_word_json = {
     "masc",
     "pollen; spores",
     "✔"
+   ],
+   [
+    "reṇu 3",
+    "masc",
+    "name of a king; son of king Disampati; lit. dust",
+    "✔"
+   ],
+   [
+    "reṇu 4",
+    "masc",
+    "name of one the seven Bharata kings; lit. dust",
+    "✔"
    ]
   ],
-  "count": 2
+  "count": 4
  },
  "lakuṇḍa": {
   "data": [
@@ -31603,6 +31695,17 @@ var family_word_json = {
    ]
   ],
   "count": 3
+ },
+ "vaccha1": {
+  "data": [
+   [
+    "vacchatara",
+    "masc",
+    "young bull; bullock; lit. more than a calf",
+    "✔"
+   ]
+  ],
+  "count": 1
  },
  "vajira": {
   "data": [
@@ -32382,9 +32485,15 @@ var family_word_json = {
     "fem",
     "variety; difference; lit. different state",
     "✔"
+   ],
+   [
+    "visu",
+    "ind",
+    "various; different",
+    "◑"
    ]
   ],
-  "count": 1
+  "count": 2
  },
  "sāci": {
   "data": [
