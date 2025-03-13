@@ -1,5 +1,4 @@
 initial	final	correct	wrong	without	exceptions
--
 a + u	o	au > o	u > o	o	okkhita
 a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant
 a + ṭ	iṭ	a > i	x	a + ṭh	x
@@ -33,7 +32,7 @@ i + s	īs	is > iṃs > īs	x	x	catuvīsatisatasahassa, diṭṭhisīsa, belaṭ�
 ī + v	ibb	īv > ivv > ibb	īv > ibb	ī + bh	x
 
 u + ā	vā	uā > vā	u > v	x	divādigaṇa, opilāpetvā, suvānaya 1, suvānaya 2, samannāharitvā, lavāpeti, lavāpetvā
-u + i	vay	ua > va	x	x	x
+u + i	vay	ua > va	x	x	anvaya 1, anvaya 3, duranvaya, anvayatā
 u + i + y	by	vy > by	x	x	x
 u + u	ū	uu > ū	u > ū	ū	x
 
@@ -87,10 +86,10 @@ t + s	cch	ts > cch	x	x	x
 ta + y	cc	tay > ty > cc	ty > cc	cc	veyyāvacca
 tij	titi	tij > ti	ij > i	x	atitikhiṇa, nātitikhiṇa
 
-n + y	nn	ny > nn	y > n	x	x
+n + y	nn	ny > ññ > nn	y > n	x	x
 n + y	ññ	ny > ññ	n > y	x	x
 n + s	ṃs	ns > ṃs	x	x	x
-nī	nāy	ī > āy	x	x	x
+nī	nāy	ī > āy	x	x	panāyati
 nhā	nahā	nhā > nahā (epenthesis)	x	x	x
 
 d + ī	jj	dy > jj	x	x	x
@@ -138,7 +137,7 @@ pe + t	tt	pet > tt	pt > tt	x	vavatthāpetuṃ
 p + y	pp	py > pp	y > p	x	x
 plu	pil	pl > pil (epenthesis)	x	x	x
 
-bh + a	mbh	bh > mbh	x	x	x	needs to exclude thambh khambh vambh jambh sambh chambh
+xbh + a	mbh	bh > mbh	x	x	x	needs to exclude thambh khambh vambh jambh sambh chambh
 
 bh + y	bbh	bhy > bbh	x	x	x
 bha + y	bbh	bhy > bbh	x	x	x
@@ -192,7 +191,7 @@ s + m	ss	sm > ss	s > m	ss	x
 s + y	ss	sy > ss	y > s	x	x
 s + s	cch	ss > cch	x	x	x
 sa + y	ss	sy > ss	y > s	ss	x
-saṃ + 	sā	saṃ > sā	x	sā	vatassāhaṃ, asāmanta, asāmāyika, tesāhaṃ, sampasāda 1, sampasādana 1, saṃsāda, saṃsāra 1, saṃsāra 2, saṃsāra 3, sāmagga, sāmaggiya, sāmaggī 1, sāmaggī 2, sāmanta 1, sāmantā 1, sāmantā 2, sāmāyika, sāmukkaṃsika, sāmuddika
+saṃ + 	sā	saṃ > sā	x	sā	vatassāhaṃ, asāmanta, asāmāyika, tesāhaṃ, sampasāda 1, sampasādana 1, saṃsāda, saṃsāra 1, saṃsāra 2, saṃsāra 3, sāmagga, sāmaggiya, sāmaggī 1, sāmaggī 2, sāmanta 1, sāmantā 1, sāmantā 2, sāmāyika, sāmukkaṃsika, sāmuddika, sampasāda 2
 snih +	sini	snih > sinih (epenthesis)	x	x	x
 sud	sod	u > o	x	a + u	x
 

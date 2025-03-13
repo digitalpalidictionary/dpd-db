@@ -136,7 +136,7 @@ class AllowableCharacters():
     
     source = [
         "kaccāyana", "padarūpasiddhi", "saddanīti", "padamālā", "bālāvatāra",
-        "buddhavandana", "a", "t"]
+        "buddhavandana", "a", "t", "trad"]
     
     origins = [
         "pass1", "pass2", "dps", "sandhi", "cpd", "dps", "ncped"
@@ -487,10 +487,12 @@ class AllowableCharacters():
         english_capitals +
         space +
         comma +
-        star +                   # for imaginary derivations *n-mrt-os (PIE)
+        star +                  # for imaginary derivations *n-mrt-os (PIE)
         brackets +
-        greater_than +           # in derivations na > an
-        dash
+        greater_than +          # in derivations na > an
+        dash +
+        question +               
+        apostrophe              # in the sense of 'weighty'
     )
 
     link_allowed = (
