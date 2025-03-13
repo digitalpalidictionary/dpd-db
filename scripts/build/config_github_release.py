@@ -29,8 +29,11 @@ def main():
     config_update("dictionary", "show_ru_data", "no")
     config_update("dictionary", "data_limit", "0")
     
+    config_update("exporter", "language", "en")
+    config_update("exporter", "make_dpd", "yes")
     config_update("exporter", "make_grammar", "yes")
     config_update("exporter", "make_deconstructor", "yes")
+    config_update("exporter", "make_variants", "yes")
     config_update("exporter", "make_ebook", "yes")
     config_update("exporter", "tarball_db", "yes")
     config_update("exporter", "summary", "yes")

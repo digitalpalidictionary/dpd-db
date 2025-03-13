@@ -67,8 +67,7 @@ def zip_mdict(pth: ProjectPaths):
     for file in mdict_files:
         if not file.exists():
             p_no("error")
-            p_red("mdict file found")
-            return
+            p_red(f"mdict file found: {file}")
     
     output_mdict_zip = pth.dpd_mdict_zip_path
 
