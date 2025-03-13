@@ -220,7 +220,7 @@ def db_search_gd_ru(request: Request, search: str):
 
 
 @app.get("/bd_search", response_class=HTMLResponse)
-def db_search(
+def db_search_bd(
     request: Request,
     q1: str,
     q2: str,
@@ -322,9 +322,11 @@ if __name__ == "__main__":
         reload_dirs="exporter/webapp/",
     )
 
-# run in terminal:
-# uvicorn exporter.webapp.main:app --host 127.1.1.1 --port 8080 --reload --reload-dir exporter/webapp
-# uvicorn exporter.webapp.main:app --host 0.0.0.0 --port 8080 --reload --reload-dir exporter/webapp
+# Run on local machine with reload on changes
+# uv run uvicorn exporter.webapp.main:app --host 127.1.1.1 --port 8080 --reload --reload-dir exporter/webapp
+
+# Run on local network with reload on changes
+# uv run uvicorn exporter.webapp.main:app --host 0.0.0.0 --port 8080 --reload --reload-dir exporter/webapp
 
 
 # TODO make help popup tooltips and a toggle to turn them off
