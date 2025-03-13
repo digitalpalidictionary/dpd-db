@@ -1,7 +1,7 @@
 name: Draft Russian Release
 
 on: 
-  workflow_dispatch:
+ workflow_dispatch:
 
 jobs:
   build:
@@ -31,7 +31,7 @@ jobs:
         tar -xzvf deconstructor_output.json.tar.gz
         ls -la
         cd ${{ github.workspace }}/
-
+    
     - name: Install dictzip
       run: sudo apt-get update && sudo apt-get install -y dictzip
 
@@ -42,7 +42,7 @@ jobs:
 
     - name: Install uv
       run: curl -LsSf https://astral.sh/uv/install.sh | sh
-      
+    
     - name: Install dependencies
       run: uv sync
 
@@ -132,14 +132,14 @@ jobs:
 
     - name: Add RPD to Lookup Table
       run: uv run python db/rpd/rpd_to_lookup.py
-
+      
     - name: Test Dealbreakers
       run: uv run python scripts/build/dealbreakers.py
 
     # ----------------------------------------
     # Exporter
     # ----------------------------------------
-
+           
     - name: Export Grammar Dictionary
       run: uv run python exporter/grammar_dict/grammar_dict.py
     
@@ -156,7 +156,7 @@ jobs:
       run: |
         free -h  # Check available memory
         df -h    # Check disk space
-
+           
     - name: Zip GoldenDict & Mdict
       run: uv run python exporter/goldendict/ru_components/tools/ru_zip_goldendict_mdict.py
 
@@ -217,7 +217,7 @@ jobs:
 
           ---
 
-          Цифровой Словарь Пали распространяется под лицензией [Атрибуция-Некоммерчески 4.0 Всемирная.](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+          Цифровой Словарь Пали распространяется под лицензией [С указанием авторства-Некоммерческая-С сохранением условий версии 4.0 Международная](http://creativecommons.org/licenses/by-nc-sa/4.0/deed.ru)
 
           <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />
         draft: true
