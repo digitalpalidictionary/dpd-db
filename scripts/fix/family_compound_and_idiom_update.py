@@ -19,21 +19,19 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
 
-    find: str = "anusāsanī"
-    replace: str ="anusāsana"
+    find: str = "sāma"
+    replace: str = "sāma1"
 
     for i in db:
-        if re.findall(fr"\b{find}\b", str(i.family_compound)):
+        if re.findall(rf"\b{find}\b", str(i.family_compound)):
             print(f"[green]{i.family_compound}")
-            i.family_compound = re.sub(
-                fr"\b{find}\b", replace, str(i.family_compound))
+            i.family_compound = re.sub(rf"\b{find}\b", replace, str(i.family_compound))
             print(f"[blue]{i.family_compound}")
             print()
 
-        if re.findall(fr"\b{find}\b", str(i.family_idioms)):
+        if re.findall(rf"\b{find}\b", str(i.family_idioms)):
             print(f"[green]{i.family_idioms}")
-            i.family_idioms = re.sub(
-                fr"\b{find}\b", replace, str(i.family_idioms))
+            i.family_idioms = re.sub(rf"\b{find}\b", replace, str(i.family_idioms))
             print(f"[blue]{i.family_idioms}")
             print()
 

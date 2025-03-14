@@ -597,6 +597,7 @@ correctness
 cortege
 cossetted
 cottonwool
+countable
 courageless
 courteousness
 coverlet
@@ -1560,6 +1561,7 @@ matricide
 Mātugāmasaṃyuttaṃ
 MDict
 meanness
+measurable
 measurer
 meditator
 mendaciously
@@ -2093,6 +2095,7 @@ rebirths
 rebukes
 recalcitrance
 reciter
+reckonable
 reckoner
 recompensated
 redescription
@@ -2654,6 +2657,7 @@ unassimilated
 unattained
 unattractiveness
 unattractiveness
+unawakened
 unbanished
 unbarred
 unbeguiled
