@@ -66,51 +66,51 @@ bdClearButton.addEventListener('click', clearBdResults);
 
 // trigger search
 
-bdSearchBox1.addEventListener('keydown', function(event) {
-	if (event.key === 'Enter') {
-		handleBdFormSubmit(event);
-	}
+bdSearchBox1.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+        handleBdFormSubmit(event);
+    }
 });
 
-bdSearchBox2.addEventListener('keydown', function(event) {
-	if (event.key === 'Enter') {
-		handleBdFormSubmit(event);
-	}
+bdSearchBox2.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+        handleBdFormSubmit(event);
+    }
 });
 
 bdSearchButton.addEventListener('click', handleBdFormSubmit);
 
 // trigger search by click
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // applyUrlQuery();
     // handleBdFormSubmit()
 
-	document.body.addEventListener('dblclick', function() {
-	var selection = window.getSelection().toString().toLowerCase();
-	bdSearchBox1.value = selection.slice(0, -1);
-	bdSearchBox2.value = "";
-	handleBdFormSubmit();
-	});
+    document.body.addEventListener('dblclick', function () {
+        var selection = window.getSelection().toString().toLowerCase();
+        bdSearchBox1.value = selection.slice(0, -1);
+        bdSearchBox2.value = "";
+        handleBdFormSubmit();
+    });
 });
 
 // text to unicode
 
-bdSearchBox1.addEventListener("input", function() {
+bdSearchBox1.addEventListener("input", function () {
     let textInput = bdSearchBox1.value;
     let convertedText = uniCoder(textInput);
     bdSearchBox1.value = convertedText;
 });
 
-bdSearchBox2.addEventListener("input", function() {
+bdSearchBox2.addEventListener("input", function () {
     let textInput = bdSearchBox2.value;
     let convertedText = uniCoder(textInput);
     bdSearchBox2.value = convertedText;
 });
 
 function uniCoder(textInput) {
-	if (!textInput || textInput == "") return textInput
-	return textInput
+    if (!textInput || textInput == "") return textInput
+    return textInput
         .replace(/aa/g, "ā")
         .replace(/ii/g, "ī")
         .replace(/uu/g, "ū")
@@ -126,17 +126,17 @@ function uniCoder(textInput) {
 
 // contextual help listeners
 
-bdSearchBox1.addEventListener("mouseenter", function() {
-	hoverHelp("searchBox1")
+bdSearchBox1.addEventListener("mouseenter", function () {
+    hoverHelp("searchBox1")
 })
 bdSearchBox1.addEventListener("mouseleave", function () {
-	hoverHelp("default")
+    hoverHelp("default")
 })
 bdSearchBox2.addEventListener("mouseenter", function () {
-	hoverHelp("searchBox2")
+    hoverHelp("searchBox2")
 })
 bdSearchBox2.addEventListener("mouseleave", function () {
-	hoverHelp("default")
+    hoverHelp("default")
 })
 
 document.querySelector('label[for="option1"]').addEventListener("mouseenter", function () {
@@ -170,27 +170,27 @@ bdClearButton.addEventListener("mouseleave", function () {
 // contextual help
 
 function hoverHelp(event) {
-	if (event == "searchBox1") {
-		bdFooterText.innerHTML = "What is the defined Pāḷi term you are looking for?"
-	}
-	else if (event == "searchBox2") {
-		bdFooterText.innerHTML = "Use this box to search within results."
-	}
-	else if (event == "startsWithButton") {
-		bdFooterText.innerHTML = "Search for definitions <b>starting</b> with the term."
-	}
+    if (event == "searchBox1") {
+        bdFooterText.innerHTML = "What is the defined Pāḷi term you are looking for?"
+    }
+    else if (event == "searchBox2") {
+        bdFooterText.innerHTML = "Use this box to search within results."
+    }
+    else if (event == "startsWithButton") {
+        bdFooterText.innerHTML = "Search for definitions <b>starting</b> with the term."
+    }
     else if (event == "regexButton") {
         bdFooterText.innerHTML = "This is the <b>normal</b> mode. You can also use <b>regular expressions</b> for very precise searches."
-	}
+    }
     else if (event == "fuzzyButton") {
         bdFooterText.innerHTML = "<b>Fuzzy</b> search ignores all diacritics and double consonants. It's useful if you don't know the exact spelling."
     }
     else if (event == "clearButton") {
         bdFooterText.innerHTML = "Start again with a calm and <b>clear</b> interface."
     }
-	else {
-		bdFooterText.innerHTML = 'For more information, please visit the <a href="https://digitalpalidictionary.github.io/" target="_blank">DPD docs website.'
-	}
+    else {
+        bdFooterText.innerHTML = 'For detailed information on this feature, please visit the <a href="https://digitalpalidictionary.github.io/dpdict_bd.html" target="_blank">DPD docs website.'
+    }
 }
 
 async function handleBdFormSubmit(event) {

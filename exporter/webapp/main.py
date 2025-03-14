@@ -251,7 +251,6 @@ def db_search_bd(
                 .filter(BoldDefinition.commentary.regexp_match(q2))
                 .all()
             )
-            message = f"{len(results)} results found"
 
         # fuzzy search
         elif option == "fuzzy":
@@ -263,7 +262,6 @@ def db_search_bd(
                 .filter(BoldDefinition.commentary.regexp_match(search_2_fuzzy))
                 .all()
             )
-            message = f"{len(results)} results found"
 
     if results:
         message = f"<b>{len(results)}</b> results found"
@@ -284,7 +282,6 @@ def db_search_bd(
     if len(results) > 100:
         results = results[:100]
         too_many_results = True
-
 
     return templates.TemplateResponse(
         "bold_definitions.html",
