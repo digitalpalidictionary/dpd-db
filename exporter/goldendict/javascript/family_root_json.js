@@ -39706,8 +39706,8 @@ var family_root_json = {
    [
     "anāmetvā",
     "abs",
-    "having not bent",
-    "◑"
+    "having not bent; lit. having not caused to bend",
+    "✔"
    ],
    [
     "nata 1",
@@ -50414,19 +50414,19 @@ var family_root_json = {
   "count": 20,
   "data": [
    [
-    "anāyūha",
-    "adj",
-    "not striving; not pushing forward; not making an effort",
-    "✔"
-   ],
-   [
     "anāyūhana",
     "nt",
     "non-exertion",
     "✘"
    ],
    [
-    "anāyūhanta",
+    "anāyūhanta 1",
+    "prp",
+    "not swimming",
+    "✔"
+   ],
+   [
+    "anāyūhanta 2",
     "prp",
     "not striving; not pushing forward; not making an effort",
     "✔"
@@ -67513,7 +67513,7 @@ var family_root_json = {
   "root_key": "√nah",
   "root_family": "upa √nah",
   "root_meaning": "bind, arm",
-  "count": 15,
+  "count": 16,
   "data": [
    [
     "anupanāha",
@@ -67579,6 +67579,12 @@ var family_root_json = {
     "upanāha",
     "masc",
     "resentment; bearing a grudge; harbouring enmity; rancour; lit. binding onto",
+    "✔"
+   ],
+   [
+    "upanāhana",
+    "nt",
+    "resenting; bearing a grudge; harbouring enmity; lit. binding onto",
     "✔"
    ],
    [
@@ -89811,7 +89817,7 @@ var family_root_json = {
   "root_key": "√mā",
   "root_family": "pari √mā",
   "root_meaning": "measure",
-  "count": 7,
+  "count": 8,
   "data": [
    [
     "aparimāṇa",
@@ -89854,6 +89860,12 @@ var family_root_json = {
     "pp",
     "measured; limited; restricted; regulated; moderated",
     "◑"
+   ],
+   [
+    "parimeyya",
+    "ptp",
+    "measurable; countable; reckonable; lit. to be measured",
+    "✔"
    ]
   ]
  },

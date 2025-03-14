@@ -6508,15 +6508,33 @@ var family_word_json = {
     "✔"
    ],
    [
+    "asāthalika",
+    "adj",
+    "not loose; not lax; not lethargic; not slack",
+    "✔"
+   ],
+   [
     "asithila",
     "adj",
     "stiff, not loose",
     "✘"
    ],
    [
+    "nasāthalika",
+    "adj",
+    "not loose; not lax; not lethargic",
+    "✔"
+   ],
+   [
     "nātisithila",
     "adj",
     "not too loose; not too slack; not too flat",
+    "✔"
+   ],
+   [
+    "sāthalika",
+    "adj",
+    "loose; lax; lethargic; slack",
     "✔"
    ],
    [
@@ -6538,7 +6556,7 @@ var family_word_json = {
     "✘"
    ]
   ],
-  "count": 6
+  "count": 9
  },
  "sīgha": {
   "data": [
@@ -16592,29 +16610,6 @@ var family_word_json = {
    ]
   ],
   "count": 6
- },
- "saṭhila": {
-  "data": [
-   [
-    "asāthalika",
-    "adj",
-    "not loose; not lax; not lethargic; not slack",
-    "✔"
-   ],
-   [
-    "nasāthalika",
-    "adj",
-    "not loose; not lax; not lethargic",
-    "✔"
-   ],
-   [
-    "sāthalika",
-    "adj",
-    "loose; lax; lethargic; slack",
-    "✔"
-   ]
-  ],
-  "count": 3
  },
  "sāmī": {
   "data": [

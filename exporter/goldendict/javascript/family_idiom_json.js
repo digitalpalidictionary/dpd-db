@@ -842,23 +842,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "kusala": {
-  "count": 2,
-  "data": [
-   [
-    "iccetaṃ kusalaṃ",
-    "idiom",
-    "then this is good; then it is OK",
-    "✔"
-   ],
-   [
-    "kusalaṃ pucchi",
-    "idiom",
-    "asked how one is; enquired about one's health",
-    "✔"
-   ]
-  ]
- },
  "kevala": {
   "count": 1,
   "data": [
@@ -14493,6 +14476,23 @@ var family_idiom_json = {
    ]
   ]
  },
+ "ajjhagā": {
+  "count": 2,
+  "data": [
+   [
+    "nevajjhagā",
+    "sandhi",
+    "one never found; one cannot find; (comm) one does not get",
+    "✔"
+   ],
+   [
+    "yadajjhagā",
+    "sandhi",
+    "which he attained; which he experienced",
+    "✔"
+   ]
+  ]
+ },
  "cārī": {
   "count": 2,
   "data": [
@@ -14641,6 +14641,34 @@ var family_idiom_json = {
    ]
   ]
  },
+ "abhinata": {
+  "count": 2,
+  "data": [
+   [
+    "cābhinataṃ",
+    "sandhi",
+    "and inclined towards; and wanting; (comm) accompanied with lust; lit. and bent forward",
+    "✔"
+   ],
+   [
+    "cābhinato",
+    "sandhi",
+    "and inclined towards; and wanting; (comm) accompanied with lust; lit. and bent forward",
+    "✔"
+   ]
+  ]
+ },
+ "abhinandi": {
+  "count": 1,
+  "data": [
+   [
+    "mābhinandi",
+    "sandhi",
+    "do not delight (in); do not be pleased (with)",
+    "✔"
+   ]
+  ]
+ },
  "abhirata": {
   "count": 1,
   "data": [
@@ -14694,6 +14722,23 @@ var family_idiom_json = {
     "anamataggoyaṃ",
     "sandhi",
     "this (has) an inconceivable beginning",
+    "✔"
+   ]
+  ]
+ },
+ "arahant": {
+  "count": 2,
+  "data": [
+   [
+    "arahantamhā",
+    "sandhi",
+    "we are arahants; we are awakened beings",
+    "✔"
+   ],
+   [
+    "vuttamarahatāti",
+    "sandhi",
+    "this was indeed said by the awakened one",
     "✔"
    ]
   ]
@@ -14766,6 +14811,17 @@ var family_idiom_json = {
     "idiom",
     "noble truth of suffering",
     "✔"
+   ]
+  ]
+ },
+ "alasa": {
+  "count": 1,
+  "data": [
+   [
+    "alasvassa",
+    "sandhi",
+    "lazy person … for him",
+    "◑"
    ]
   ]
  },
@@ -14902,6 +14958,35 @@ var family_idiom_json = {
    ]
   ]
  },
+ "ādāya": {
+  "count": 4,
+  "data": [
+   [
+    "ādāya gacchati",
+    "idiom",
+    "carries away; lit. taking goes",
+    "✔"
+   ],
+   [
+    "iṇaṃ ādāya",
+    "idiom",
+    "taking a loan; taking on a debt; borrowing capital",
+    "✔"
+   ],
+   [
+    "khārivividhamādāya",
+    "sandhi",
+    "carrying an assortment of bundles on a pole; carrying bundles of personal belongings on a pole",
+    "✔"
+   ],
+   [
+    "pattacīvaramādāya",
+    "sandhi",
+    "taking one's bowl and robe",
+    "✔"
+   ]
+  ]
+ },
  "ādi": {
   "count": 6,
   "data": [
@@ -14983,14 +15068,36 @@ var family_idiom_json = {
    ]
   ]
  },
- "alasa": {
+ "ārabbha": {
   "count": 1,
   "data": [
    [
-    "alasvassa",
+    "mamevārabbha",
     "sandhi",
-    "lazy person … for him",
-    "◑"
+    "especially for me; for me alone; on my account",
+    "✔"
+   ]
+  ]
+ },
+ "ārambha1": {
+  "count": 1,
+  "data": [
+   [
+    "ārambhadhātu nikkamadhātu parakkamadhātu",
+    "idiom",
+    "getting up; going out and making an effort",
+    "✔"
+   ]
+  ]
+ },
+ "ārammaṇa": {
+  "count": 1,
+  "data": [
+   [
+    "vocchijjatārammaṇaṃ",
+    "sandhi",
+    "the basis is completely severed; the support is completely cut off",
+    "✔"
    ]
   ]
  },
@@ -15001,6 +15108,23 @@ var family_idiom_json = {
     "āsā ca niṭṭhā ca",
     "idiom",
     "hopes and aspirations; wishes and expectations",
+    "✔"
+   ]
+  ]
+ },
+ "āsana": {
+  "count": 2,
+  "data": [
+   [
+    "āsanaṃ deti",
+    "idiom",
+    "offers a seat (to)",
+    "✔"
+   ],
+   [
+    "tasmiṃyeva āsane",
+    "idiom",
+    "in that very seat",
     "✔"
    ]
   ]
@@ -15018,6 +15142,47 @@ var family_idiom_json = {
     "āsavānaṃ khayañāṇa",
     "idiom",
     "knowledge of the extinction of the effluents; understanding how the impurities are slowly worn away",
+    "✔"
+   ]
+  ]
+ },
+ "āhāra": {
+  "count": 6,
+  "data": [
+   [
+    "ayamāhāro",
+    "sandhi",
+    "this is fuel (for); this is the sustenance (for); this is the condition (for)",
+    "✔"
+   ],
+   [
+    "āhāraṃ āharati",
+    "idiom",
+    "eats food; takes food",
+    "✔"
+   ],
+   [
+    "āhāraṃ āhāreti",
+    "idiom",
+    "eats food; consumes fuel",
+    "✔"
+   ],
+   [
+    "āhāre paṭikūlasaññā",
+    "idiom",
+    "recognition of the unpleasantness of food; perception of the repulsiveness of food",
+    "✔"
+   ],
+   [
+    "āhāre paṭikūlasaññī",
+    "idiom",
+    "recognizing the unpleasantness of food; perceiving the repulsiveness of food",
+    "✔"
+   ],
+   [
+    "tāyevappāhāratāya",
+    "sandhi",
+    "on account of that very same lack of food",
     "✔"
    ]
   ]
@@ -15119,6 +15284,28 @@ var family_idiom_json = {
    ]
   ]
  },
+ "nidāna": {
+  "count": 1,
+  "data": [
+   [
+    "itonidānā",
+    "sandhi",
+    "from this source; because of this",
+    "✔"
+   ]
+  ]
+ },
+ "phala1": {
+  "count": 1,
+  "data": [
+   [
+    "samphalaṃ",
+    "sandhi",
+    "its own fruit; one's own fruit",
+    "✔"
+   ]
+  ]
+ },
  "nimitta": {
   "count": 2,
   "data": [
@@ -15136,6 +15323,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "nissāya": {
+  "count": 1,
+  "data": [
+   [
+    "nissāya nissāya",
+    "idiom",
+    "depending on successive supports; relying on one thing after the next; lit. leaning leaning",
+    "✔"
+   ]
+  ]
+ },
  "issā": {
   "count": 1,
   "data": [
@@ -15143,6 +15341,17 @@ var family_idiom_json = {
     "issaṃ bandhati",
     "idiom",
     "resents; envies; nurses envy",
+    "✔"
+   ]
+  ]
+ },
+ "nihita": {
+  "count": 1,
+  "data": [
+   [
+    "nihitadaṇḍo nihitasattho",
+    "idiom",
+    "giving up violence; lit. put down the stick and sword",
     "✔"
    ]
   ]
@@ -15169,6 +15378,34 @@ var family_idiom_json = {
    ]
   ]
  },
+ "kula": {
+  "count": 2,
+  "data": [
+   [
+    "kulā kulaṃ",
+    "idiom",
+    "from house to house; from door to door",
+    "✔"
+   ],
+   [
+    "kulesu cārittaṃ āpajjati",
+    "idiom",
+    "visits families; calls on houses; lit. engages in behaviour in families",
+    "✔"
+   ]
+  ]
+ },
+ "uṭṭhahati": {
+  "count": 1,
+  "data": [
+   [
+    "uṭṭhahati ghaṭati vāyamati",
+    "idiom",
+    "gets up, makes and effort and strives for",
+    "✔"
+   ]
+  ]
+ },
  "tīra": {
   "count": 1,
   "data": [
@@ -15176,6 +15413,77 @@ var family_idiom_json = {
     "tīramevānudhāvati",
     "sandhi",
     "just runs along this shore; only runs up and down along this bank",
+    "✔"
+   ]
+  ]
+ },
+ "vutta2": {
+  "count": 11,
+  "data": [
+   [
+    "iti kho panetaṃ vuttaṃ",
+    "idiom",
+    "so it was said; thus it is said",
+    "◑"
+   ],
+   [
+    "evaṃ vutte",
+    "idiom",
+    "when this was said",
+    "✔"
+   ],
+   [
+    "kiñcetaṃ paṭicca vuttaṃ",
+    "idiom",
+    "and in reference to what was this said?",
+    "◑"
+   ],
+   [
+    "vuttañhetaṃ",
+    "sandhi",
+    "this was indeed said; this was surely spoken",
+    "✔"
+   ],
+   [
+    "vuttatthāneva",
+    "sandhi",
+    "the meanings have already been stated",
+    "◑"
+   ],
+   [
+    "vuttanayāneva",
+    "sandhi",
+    "in just the ways prescribed",
+    "◑"
+   ],
+   [
+    "vuttanayeneva",
+    "sandhi",
+    "in exactly the same way; by exactly the same method",
+    "◑"
+   ],
+   [
+    "vuttamarahatāti",
+    "sandhi",
+    "this was indeed said by the awakened one",
+    "✔"
+   ],
+   [
+    "vuttamidaṃ",
+    "sandhi",
+    "this was said; this was spoken",
+    "✔"
+   ],
+   [
+    "vuttānusāreneva",
+    "sandhi",
+    "in accordance with what has just been stated",
+    "◑"
+   ],
+   [
+    "vuttāhaṃ",
+    "sandhi",
+    "when said I",
     "✔"
    ]
   ]
@@ -15242,6 +15550,28 @@ var family_idiom_json = {
    ]
   ]
  },
+ "upanisā": {
+  "count": 1,
+  "data": [
+   [
+    "sotāvadhānūpanisūpapanne",
+    "sandhi",
+    "when the conditions for paying attention have appeared; when the prerequisites for listening carefully have arisen",
+    "✔"
+   ]
+  ]
+ },
+ "upapatti": {
+  "count": 1,
+  "data": [
+   [
+    "katthūpapattiṃ",
+    "sandhi",
+    "rebirth where?; will be reborn where?",
+    "✔"
+   ]
+  ]
+ },
  "upapanna": {
   "count": 2,
   "data": [
@@ -15284,6 +15614,39 @@ var family_idiom_json = {
     "idiom",
     "insight in seven ways",
     "◑"
+   ]
+  ]
+ },
+ "upahata": {
+  "count": 1,
+  "data": [
+   [
+    "khata upahata",
+    "idiom",
+    "hurt and injured; broken and damaged; maimed and wounded",
+    "✔"
+   ]
+  ]
+ },
+ "upādāna": {
+  "count": 1,
+  "data": [
+   [
+    "pañcasupādānakkhandhesu",
+    "sandhi",
+    "in the five heaps that are clung to; in the five appropriated groups",
+    "✔"
+   ]
+  ]
+ },
+ "upāya": {
+  "count": 1,
+  "data": [
+   [
+    "etenupāyena",
+    "sandhi",
+    "by this means; through this method",
+    "✔"
    ]
   ]
  },
@@ -15615,6 +15978,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "pakka": {
+  "count": 1,
+  "data": [
+   [
+    "arugatto pakkagatto",
+    "idiom",
+    "with open sores on the body; lit. with wounded and festering limbs",
+    "✔"
+   ]
+  ]
+ },
  "paccaya": {
   "count": 2,
   "data": [
@@ -15629,6 +16003,34 @@ var family_idiom_json = {
     "sandhi",
     "on account of which for him; because of which for him; due to which for him",
     "✔"
+   ]
+  ]
+ },
+ "paṭikūla": {
+  "count": 2,
+  "data": [
+   [
+    "āhāre paṭikūlasaññā",
+    "idiom",
+    "recognition of the unpleasantness of food; perception of the repulsiveness of food",
+    "✔"
+   ],
+   [
+    "āhāre paṭikūlasaññī",
+    "idiom",
+    "recognizing the unpleasantness of food; perceiving the repulsiveness of food",
+    "✔"
+   ]
+  ]
+ },
+ "paṭicca": {
+  "count": 1,
+  "data": [
+   [
+    "kiñcetaṃ paṭicca vuttaṃ",
+    "idiom",
+    "and in reference to what was this said?",
+    "◑"
    ]
   ]
  },
@@ -15719,6 +16121,40 @@ var family_idiom_json = {
    ]
   ]
  },
+ "patha": {
+  "count": 1,
+  "data": [
+   [
+    "iriyāpathaṃ vikopeti",
+    "idiom",
+    "disturbs the motion; interrupts the movement",
+    "✔"
+   ]
+  ]
+ },
+ "pada": {
+  "count": 3,
+  "data": [
+   [
+    "amataṃ padaṃ",
+    "idiom",
+    "immortality; deathless state; way to the deathless; path to immortality",
+    "✔"
+   ],
+   [
+    "sesapadadvayepi",
+    "sandhi",
+    "in the remaining two words",
+    "◑"
+   ],
+   [
+    "sesapadesupi",
+    "sandhi",
+    "in all the remaining words",
+    "◑"
+   ]
+  ]
+ },
  "paripūra": {
   "count": 1,
   "data": [
@@ -15726,6 +16162,17 @@ var family_idiom_json = {
     "kevala paripūra",
     "idiom",
     "completely and utterly; complete and utter; 100%",
+    "✔"
+   ]
+  ]
+ },
+ "pariyādāna": {
+  "count": 1,
+  "data": [
+   [
+    "kāyassa bhedā uddhaṃ jīvitapariyādānā",
+    "idiom",
+    "after the breakup of the body; after the end of one's lifespan",
     "✔"
    ]
   ]
@@ -15754,6 +16201,17 @@ var family_idiom_json = {
     "pariyāyaṃ karoti",
     "idiom",
     "makes a detour; goes out of one's way; lit. makes a turn",
+    "✔"
+   ]
+  ]
+ },
+ "passanta": {
+  "count": 1,
+  "data": [
+   [
+    "jānato passato",
+    "idiom",
+    "when knowing and seeing; for one who knows and sees",
     "✔"
    ]
   ]
@@ -16113,6 +16571,58 @@ var family_idiom_json = {
    ]
   ]
  },
+ "piya": {
+  "count": 6,
+  "data": [
+   [
+    "kurute piyaṃ",
+    "idiom",
+    "holds dear; loves; lit. makes dear",
+    "✔"
+   ],
+   [
+    "dukkhamappiyaṃ",
+    "sandhi",
+    "suffering is disliked (by); lit. pain is not dear",
+    "✔"
+   ],
+   [
+    "piya manāpa",
+    "idiom",
+    "dearly loved; liked and loved",
+    "✔"
+   ],
+   [
+    "piyataramattanā",
+    "sandhi",
+    "more dear than oneself; more beloved than oneself",
+    "✔"
+   ],
+   [
+    "piyaṃ karoti",
+    "idiom",
+    "wins the affection (of); is loved (by); lit. makes dear",
+    "◑"
+   ],
+   [
+    "piyāmesi",
+    "sandhi",
+    "you are dear to me",
+    "◑"
+   ]
+  ]
+ },
+ "pisuṇa": {
+  "count": 1,
+  "data": [
+   [
+    "pesuññaṃ upasaṃharati",
+    "idiom",
+    "slanders; defames; lit. brings slander",
+    "✔"
+   ]
+  ]
+ },
  "ssu": {
   "count": 14,
   "data": [
@@ -16236,6 +16746,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "puṭṭha1": {
+  "count": 1,
+  "data": [
+   [
+    "puṭṭhohaṃ",
+    "sandhi",
+    "asked I; question I",
+    "✔"
+   ]
+  ]
+ },
  "pubba1": {
   "count": 3,
   "data": [
@@ -16259,6 +16780,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "pūjita": {
+  "count": 1,
+  "data": [
+   [
+    "pūjitamettāvatā",
+    "sandhi",
+    "what has been offered is enough; the offering is sufficient",
+    "✔"
+   ]
+  ]
+ },
  "samudāgacchati": {
   "count": 2,
   "data": [
@@ -16276,19 +16808,24 @@ var family_idiom_json = {
    ]
   ]
  },
- "paṭikūla": {
-  "count": 2,
+ "paṭiññā": {
+  "count": 1,
   "data": [
    [
-    "āhāre paṭikūlasaññā",
+    "paṭiññaṃ kāretvā",
     "idiom",
-    "recognition of the unpleasantness of food; perception of the repulsiveness of food",
-    "✔"
-   ],
+    "having made a promise; having vowed",
+    "◑"
+   ]
+  ]
+ },
+ "patvā": {
+  "count": 1,
+  "data": [
    [
-    "āhāre paṭikūlasaññī",
+    "rajjaṃ patvā",
     "idiom",
-    "recognizing the unpleasantness of food; perceiving the repulsiveness of food",
+    "having taken power; having assumed rulership",
     "✔"
    ]
   ]
@@ -16322,6 +16859,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "pahāna": {
+  "count": 1,
+  "data": [
+   [
+    "pahānaṃ gacchati",
+    "idiom",
+    "is abandoned (by); is removed (by); lit. goes to removal",
+    "✔"
+   ]
+  ]
+ },
  "pahita2": {
   "count": 1,
   "data": [
@@ -16341,47 +16889,6 @@ var family_idiom_json = {
     "sandhi",
     "whatever is past has been abandoned; what is gone is given up",
     "✔"
-   ]
-  ]
- },
- "piya": {
-  "count": 6,
-  "data": [
-   [
-    "kurute piyaṃ",
-    "idiom",
-    "holds dear; loves; lit. makes dear",
-    "✔"
-   ],
-   [
-    "dukkhamappiyaṃ",
-    "sandhi",
-    "suffering is disliked (by); lit. pain is not dear",
-    "✔"
-   ],
-   [
-    "piya manāpa",
-    "idiom",
-    "dearly loved; liked and loved",
-    "✔"
-   ],
-   [
-    "piyataramattanā",
-    "sandhi",
-    "more dear than oneself; more beloved than oneself",
-    "✔"
-   ],
-   [
-    "piyaṃ karoti",
-    "idiom",
-    "wins the affection (of); is loved (by); lit. makes dear",
-    "◑"
-   ],
-   [
-    "piyāmesi",
-    "sandhi",
-    "you are dear to me",
-    "◑"
    ]
   ]
  },
@@ -16584,17 +17091,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "phala1": {
-  "count": 1,
-  "data": [
-   [
-    "samphalaṃ",
-    "sandhi",
-    "its own fruit; one's own fruit",
-    "✔"
-   ]
-  ]
- },
  "phāsu": {
   "count": 1,
   "data": [
@@ -16707,6 +17203,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "byādhi": {
+  "count": 1,
+  "data": [
+   [
+    "byādhidhammomhi",
+    "sandhi",
+    "I am liable to get sick; I am subject to disease; illness is part of my intrinsic nature",
+    "✔"
+   ]
+  ]
+ },
  "brāhmaṇa": {
   "count": 1,
   "data": [
@@ -16759,6 +17266,23 @@ var family_idiom_json = {
     "sammukhībhāvaṃ adāsi",
     "idiom",
     "showed face; presented oneself (to)",
+    "✔"
+   ]
+  ]
+ },
+ "bhāsita": {
+  "count": 2,
+  "data": [
+   [
+    "etassa bhāsitassa atthaṃ",
+    "idiom",
+    "the meaning of this statement",
+    "✔"
+   ],
+   [
+    "bhāsitampetaṃ",
+    "sandhi",
+    "this too was said (by)",
     "✔"
    ]
   ]
@@ -17044,6 +17568,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "maññita": {
+  "count": 1,
+  "data": [
+   [
+    "maññitametaṃ",
+    "sandhi",
+    "this is imagination; this is an illusion",
+    "✔"
+   ]
+  ]
+ },
  "mata1": {
   "count": 3,
   "data": [
@@ -17075,29 +17610,6 @@ var family_idiom_json = {
     "idiom",
     "door to the deathless state; entrance to Nibbāna",
     "✔"
-   ]
-  ]
- },
- "pada": {
-  "count": 3,
-  "data": [
-   [
-    "amataṃ padaṃ",
-    "idiom",
-    "immortality; deathless state; way to the deathless; path to immortality",
-    "✔"
-   ],
-   [
-    "sesapadadvayepi",
-    "sandhi",
-    "in the remaining two words",
-    "◑"
-   ],
-   [
-    "sesapadesupi",
-    "sandhi",
-    "in all the remaining words",
-    "◑"
    ]
   ]
  },
@@ -17165,6 +17677,57 @@ var family_idiom_json = {
    ]
   ]
  },
+ "maraṇa": {
+  "count": 4,
+  "data": [
+   [
+    "kāyassa bhedā paraṃ maraṇā",
+    "idiom",
+    "after the breakup of the body, after death",
+    "✔"
+   ],
+   [
+    "paraṃ maraṇā",
+    "idiom",
+    "after death; lit. after from death",
+    "✔"
+   ],
+   [
+    "maraṇadhammomhi",
+    "sandhi",
+    "I am liable to die; I am subject to death; death is part of my intrinsic nature",
+    "✔"
+   ],
+   [
+    "maraṇaṃ nigacchati",
+    "idiom",
+    "dies; suffers death",
+    "✔"
+   ]
+  ]
+ },
+ "mahā": {
+  "count": 1,
+  "data": [
+   [
+    "mahatā atthena saṃyutto abhavissa",
+    "idiom",
+    "would have greaty benefited; would have profited enormously; (comm) would have attained the fruit of stream entry; lit. would have been joined with great benefit",
+    "✔"
+   ]
+  ]
+ },
+ "māyā": {
+  "count": 1,
+  "data": [
+   [
+    "māyaṃ vidaṃseti",
+    "idiom",
+    "performs an magic trick; displays an illusion; lit. causes to see magic",
+    "✔"
+   ]
+  ]
+ },
  "mitta": {
   "count": 2,
   "data": [
@@ -17193,6 +17756,29 @@ var family_idiom_json = {
    ]
   ]
  },
+ "mukha": {
+  "count": 3,
+  "data": [
+   [
+    "uddhaste aruṇe nandimukhiyā rattiyā",
+    "idiom",
+    "when the rosy smile of dawn was rising; when dawn had risen and the night had a cheerful face; lit. when risen red happy face night",
+    "✔"
+   ],
+   [
+    "nandimukhiyā rattiyā",
+    "idiom",
+    "when the smiling face of dawn; lit. when the happy face of the night",
+    "✔"
+   ],
+   [
+    "mukhavātaṃ dadāti",
+    "idiom",
+    "blows on it; lit. gives mouth wind",
+    "✔"
+   ]
+  ]
+ },
  "muta": {
   "count": 1,
   "data": [
@@ -17215,6 +17801,23 @@ var family_idiom_json = {
    ]
   ]
  },
+ "musā": {
+  "count": 2,
+  "data": [
+   [
+    "musā bhaṇati",
+    "idiom",
+    "lies; tells lies",
+    "✔"
+   ],
+   [
+    "musā bhaṇanta",
+    "idiom",
+    "lying; telling lies",
+    "✔"
+   ]
+  ]
+ },
  "mūla": {
   "count": 1,
   "data": [
@@ -17233,6 +17836,23 @@ var family_idiom_json = {
     "mūḷhosi",
     "sandhi",
     "you are insane!; you are deluded!; you are confused!",
+    "✔"
+   ]
+  ]
+ },
+ "mogha": {
+  "count": 2,
+  "data": [
+   [
+    "moghamaññanti",
+    "sandhi",
+    "'anything else is wrong'; 'everything else is stupid'",
+    "✔"
+   ],
+   [
+    "moghamaññaṃ",
+    "sandhi",
+    "anything else is wrong; everything else is useless",
     "✔"
    ]
   ]
@@ -17638,47 +18258,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "āhāra": {
-  "count": 6,
-  "data": [
-   [
-    "ayamāhāro",
-    "sandhi",
-    "this is fuel (for); this is the sustenance (for); this is the condition (for)",
-    "✔"
-   ],
-   [
-    "āhāraṃ āharati",
-    "idiom",
-    "eats food; takes food",
-    "✔"
-   ],
-   [
-    "āhāraṃ āhāreti",
-    "idiom",
-    "eats food; consumes fuel",
-    "✔"
-   ],
-   [
-    "āhāre paṭikūlasaññā",
-    "idiom",
-    "recognition of the unpleasantness of food; perception of the repulsiveness of food",
-    "✔"
-   ],
-   [
-    "āhāre paṭikūlasaññī",
-    "idiom",
-    "recognizing the unpleasantness of food; perceiving the repulsiveness of food",
-    "✔"
-   ],
-   [
-    "tāyevappāhāratāya",
-    "sandhi",
-    "on account of that very same lack of food",
-    "✔"
-   ]
-  ]
- },
  "uddesa": {
   "count": 2,
   "data": [
@@ -17830,6 +18409,23 @@ var family_idiom_json = {
    ]
   ]
  },
+ "yoga": {
+  "count": 2,
+  "data": [
+   [
+    "yogaṃ āpajjati",
+    "idiom",
+    "gets involved (in); engages oneself (in); lit. arouses attachment",
+    "✔"
+   ],
+   [
+    "yogo karaṇīyo",
+    "idiom",
+    "meditation should be practised (to understand); effort should be made (to understand); lit. yoking to be done",
+    "✔"
+   ]
+  ]
+ },
  "yoniso": {
   "count": 2,
   "data": [
@@ -17925,19 +18521,13 @@ var family_idiom_json = {
    ]
   ]
  },
- "arahant": {
-  "count": 2,
+ "rāga": {
+  "count": 1,
   "data": [
    [
-    "arahantamhā",
-    "sandhi",
-    "we are arahants; we are awakened beings",
-    "✔"
-   ],
-   [
-    "vuttamarahatāti",
-    "sandhi",
-    "this was indeed said by the awakened one",
+    "rāga dosa moha",
+    "idiom",
+    "craving, aversion and delusion; lust, hatred and illusion",
     "✔"
    ]
   ]
@@ -18059,17 +18649,6 @@ var family_idiom_json = {
   ]
  },
  "gatta": {
-  "count": 1,
-  "data": [
-   [
-    "arugatto pakkagatto",
-    "idiom",
-    "with open sores on the body; lit. with wounded and festering limbs",
-    "✔"
-   ]
-  ]
- },
- "pakka": {
   "count": 1,
   "data": [
    [
@@ -18362,6 +18941,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "lābhā": {
+  "count": 1,
+  "data": [
+   [
+    "lābhā vata me suladdhaṃ vata me",
+    "idiom",
+    "it's certainly a gain for me, a great benefit for me; it's my good luck, my good fortune; it's a blessing for me, a great blessing",
+    "✔"
+   ]
+  ]
+ },
  "lohita": {
   "count": 2,
   "data": [
@@ -18453,6 +19043,47 @@ var family_idiom_json = {
    ]
   ]
  },
+ "vasa1": {
+  "count": 6,
+  "data": [
+   [
+    "maccuvasaṃ vaje",
+    "idiom",
+    "would come under the control of death; (or) would be subject to death",
+    "✔"
+   ],
+   [
+    "vasaṃ karoti",
+    "idiom",
+    "brings under control; takes control of",
+    "✔"
+   ],
+   [
+    "vasaṃ gacchati",
+    "idiom",
+    "follows the lead (of); submits to the control (of); falls under the power (of); lit. goes by the wish",
+    "✔"
+   ],
+   [
+    "vasaṃ gata",
+    "idiom",
+    "under the control (of); under the power (of); lit. gone by the wish",
+    "✔"
+   ],
+   [
+    "vasaṃ vattati",
+    "idiom",
+    "wields power; has control; exercises mastery; has the ability (to)",
+    "✔"
+   ],
+   [
+    "vasaṃ vatteti",
+    "idiom",
+    "wields power (over); has control (of); exercises mastery (over)",
+    "✔"
+   ]
+  ]
+ },
  "vassanta": {
   "count": 1,
   "data": [
@@ -18492,6 +19123,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "vighāta": {
+  "count": 1,
+  "data": [
+   [
+    "kilamathassa vighātassa bhāgī",
+    "idiom",
+    "tired and fed up; weary and annoyed; lit. shareholder of tiredness and annoyance",
+    "✔"
+   ]
+  ]
+ },
  "vijjā": {
   "count": 1,
   "data": [
@@ -18514,73 +19156,74 @@ var family_idiom_json = {
    ]
   ]
  },
- "vutta2": {
-  "count": 11,
+ "viññū": {
+  "count": 1,
   "data": [
    [
-    "iti kho panetaṃ vuttaṃ",
+    "viññutaṃ patto",
     "idiom",
-    "so it was said; thus it is said",
-    "◑"
-   ],
+    "reached puberty; grown up; lit. reached discerning state",
+    "✔"
+   ]
+  ]
+ },
+ "vippaṭisārī": {
+  "count": 1,
+  "data": [
    [
-    "evaṃ vutte",
+    "mā pacchā vippaṭisārino ahuvattha",
     "idiom",
-    "when this was said",
+    "don't have remorse later!; don't regret it later",
+    "✔"
+   ]
+  ]
+ },
+ "vippamutta": {
+  "count": 1,
+  "data": [
+   [
+    "vippamuttosi",
+    "sandhi",
+    "you are liberated; you are freed",
+    "✔"
+   ]
+  ]
+ },
+ "vimutta": {
+  "count": 2,
+  "data": [
+   [
+    "vimuttamattānaṃ",
+    "sandhi",
+    "one's freedom from; oneself as free from",
     "✔"
    ],
    [
-    "kiñcetaṃ paṭicca vuttaṃ",
+    "vimuttomhi",
+    "sandhi",
+    "I am freed; I am liberated; I am emancipated",
+    "✔"
+   ]
+  ]
+ },
+ "visuddha": {
+  "count": 1,
+  "data": [
+   [
+    "visuddhamattānaṃ",
+    "sandhi",
+    "one's own purification; oneself as purified",
+    "✔"
+   ]
+  ]
+ },
+ "velā": {
+  "count": 1,
+  "data": [
+   [
+    "tāyaṃ velāyaṃ",
     "idiom",
-    "and in reference to what was this said?",
-    "◑"
-   ],
-   [
-    "vuttañhetaṃ",
-    "sandhi",
-    "this was indeed said; this was surely spoken",
-    "✔"
-   ],
-   [
-    "vuttatthāneva",
-    "sandhi",
-    "the meanings have already been stated",
-    "◑"
-   ],
-   [
-    "vuttanayāneva",
-    "sandhi",
-    "in just the ways prescribed",
-    "◑"
-   ],
-   [
-    "vuttanayeneva",
-    "sandhi",
-    "in exactly the same way; by exactly the same method",
-    "◑"
-   ],
-   [
-    "vuttamarahatāti",
-    "sandhi",
-    "this was indeed said by the awakened one",
-    "✔"
-   ],
-   [
-    "vuttamidaṃ",
-    "sandhi",
-    "this was said; this was spoken",
-    "✔"
-   ],
-   [
-    "vuttānusāreneva",
-    "sandhi",
-    "in accordance with what has just been stated",
-    "◑"
-   ],
-   [
-    "vuttāhaṃ",
-    "sandhi",
-    "when said I",
+    "at that point in time; at that moment",
     "✔"
    ]
   ]
@@ -18723,6 +19366,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "sañcetanā": {
+  "count": 1,
+  "data": [
+   [
+    "nevattasañcetanā",
+    "sandhi",
+    "neither one's own intention; neither one's own volition",
+    "✔"
+   ]
+  ]
+ },
  "saññī": {
   "count": 2,
   "data": [
@@ -18736,6 +19390,17 @@ var family_idiom_json = {
     "saññīmeva",
     "sandhi",
     "even conscious; even aware",
+    "✔"
+   ]
+  ]
+ },
+ "saṭha": {
+  "count": 1,
+  "data": [
+   [
+    "saṭhāssunāmime",
+    "sandhi",
+    "truly they are devious!; they are certainly crafty!",
     "✔"
    ]
   ]
@@ -18804,6 +19469,29 @@ var family_idiom_json = {
    ]
   ]
  },
+ "sattha2": {
+  "count": 3,
+  "data": [
+   [
+    "nihitadaṇḍo nihitasattho",
+    "idiom",
+    "giving up violence; lit. put down the stick and sword",
+    "✔"
+   ],
+   [
+    "satthaṃ āharati",
+    "idiom",
+    "commits suicide; lit. takes the knife",
+    "✔"
+   ],
+   [
+    "satthaṃ āharesi",
+    "idiom",
+    "committed suicide; lit. took the knife",
+    "✔"
+   ]
+  ]
+ },
  "sadisa": {
   "count": 3,
   "data": [
@@ -18824,6 +19512,23 @@ var family_idiom_json = {
     "sandhi",
     "I am the same",
     "◑"
+   ]
+  ]
+ },
+ "saddhā": {
+  "count": 2,
+  "data": [
+   [
+    "saddhaṃ paṭilabhati",
+    "idiom",
+    "gains faith (in); acquires confidence (in)",
+    "✔"
+   ],
+   [
+    "saddhīdha",
+    "sandhi",
+    "faith here; confidence here",
+    "✔"
    ]
   ]
  },
@@ -18861,6 +19566,46 @@ var family_idiom_json = {
    ]
   ]
  },
+ "sama1": {
+  "count": 3,
+  "data": [
+   [
+    "samatthi",
+    "sandhi",
+    "there is equal (to); there is comparable (to); lit. is same",
+    "✔"
+   ],
+   [
+    "samaṃ karoti",
+    "idiom",
+    "equates; likens (somebody with somebody else)",
+    "✔"
+   ],
+   [
+    "samā bhavanti",
+    "idiom",
+    "they are the same; they are equal",
+    "✔"
+   ]
+  ]
+ },
+ "samaṇa": {
+  "count": 2,
+  "data": [
+   [
+    "samaṇamhā",
+    "sandhi",
+    "we are ascetics; we are monks",
+    "✔"
+   ],
+   [
+    "samaṇīdha",
+    "sandhi",
+    "ascetic here; renunciant here",
+    "✔"
+   ]
+  ]
+ },
  "samādhi": {
   "count": 1,
   "data": [
@@ -18868,6 +19613,17 @@ var family_idiom_json = {
     "samādhimānantarikaññamāhu",
     "sandhi",
     "they say that stability of mind with immediate results",
+    "✔"
+   ]
+  ]
+ },
+ "samodhāna": {
+  "count": 1,
+  "data": [
+   [
+    "samodhānaṃ gacchati",
+    "idiom",
+    "is contained in; fits inside; is comprised within",
     "✔"
    ]
   ]
@@ -18912,6 +19668,58 @@ var family_idiom_json = {
    ]
   ]
  },
+ "rūpa": {
+  "count": 6,
+  "data": [
+   [
+    "evarūpāpi",
+    "sandhi",
+    "even such; even such kind of",
+    "✔"
+   ],
+   [
+    "evarūpepi 1",
+    "sandhi",
+    "in just such quality (person)",
+    "✔"
+   ],
+   [
+    "evarūpepi 2",
+    "sandhi",
+    "even when such",
+    "✔"
+   ],
+   [
+    "kathaṃ rūpaṃ",
+    "idiom",
+    "what kind of?; lit. what form?",
+    "✔"
+   ],
+   [
+    "tathārūpāssa",
+    "sandhi",
+    "of such kind, for him",
+    "✔"
+   ],
+   [
+    "rūpanirodhagāminī paṭipadā",
+    "idiom",
+    "path of practice leading to the end of material form",
+    "✔"
+   ]
+  ]
+ },
+ "saṃyutta": {
+  "count": 1,
+  "data": [
+   [
+    "mahatā atthena saṃyutto abhavissa",
+    "idiom",
+    "would have greaty benefited; would have profited enormously; (comm) would have attained the fruit of stream entry; lit. would have been joined with great benefit",
+    "✔"
+   ]
+  ]
+ },
  "saṃvara": {
   "count": 2,
   "data": [
@@ -18925,6 +19733,70 @@ var family_idiom_json = {
     "saṃvaraṃ āpajjati",
     "idiom",
     "restrain oneself; holds oneself back; exercises restraint; lit. arouses restraint",
+    "✔"
+   ]
+  ]
+ },
+ "saṃvāsa": {
+  "count": 4,
+  "data": [
+   [
+    "dukkhosamānasaṃvāso",
+    "sandhi",
+    "living together with others is painful; (comm) living together with people from different backgrounds and with different abilities is suffering",
+    "✔"
+   ],
+   [
+    "saṃvāsamanvāya 1",
+    "sandhi",
+    "due to living together",
+    "✔"
+   ],
+   [
+    "saṃvāsamanvāya 2",
+    "sandhi",
+    "due to the sexual intercourse (of)",
+    "✔"
+   ],
+   [
+    "saṃvāsaṃ kappeti",
+    "idiom",
+    "cohabits (with); sleeps (with); has intercourse (with)",
+    "✔"
+   ]
+  ]
+ },
+ "sādhu": {
+  "count": 5,
+  "data": [
+   [
+    "na hi sādhu",
+    "idiom",
+    "it is certainly not good",
+    "✔"
+   ],
+   [
+    "sādhayye",
+    "sandhi",
+    "well said, lady; well spoken madam",
+    "✔"
+   ],
+   [
+    "sādhāvuso",
+    "sandhi",
+    "that's good friend; it is good brothers",
+    "✔"
+   ],
+   [
+    "sādhāhaṃ",
+    "sandhi",
+    "it would be good if I",
+    "✔"
+   ],
+   [
+    "sādhukameva",
+    "sandhi",
+    "very well; exactly; lit. just well",
     "✔"
    ]
   ]
@@ -19077,6 +19949,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "sīla": {
+  "count": 1,
+  "data": [
+   [
+    "sīlesvevassa",
+    "sandhi",
+    "in virtuous conduct one should be",
+    "✔"
+   ]
+  ]
+ },
  "suci": {
   "count": 1,
   "data": [
@@ -19112,6 +19995,28 @@ var family_idiom_json = {
     "diṭṭha suta muta",
     "idiom",
     "seen, heard and sensed; seen, heard and perceived",
+    "✔"
+   ]
+  ]
+ },
+ "subha": {
+  "count": 1,
+  "data": [
+   [
+    "subhantveva",
+    "sandhi",
+    "but only on the beautiful; but only on the attractive",
+    "✔"
+   ]
+  ]
+ },
+ "sūci": {
+  "count": 1,
+  "data": [
+   [
+    "sūcighaṭikaṃ datvā",
+    "idiom",
+    "having closed the bolt; having locked the door; lit. having given the bolt",
     "✔"
    ]
   ]
@@ -19255,40 +20160,6 @@ var family_idiom_json = {
     "lokamimaṃ",
     "sandhi",
     "this world",
-    "✔"
-   ]
-  ]
- },
- "saddhā": {
-  "count": 2,
-  "data": [
-   [
-    "saddhaṃ paṭilabhati",
-    "idiom",
-    "gains faith (in); acquires confidence (in)",
-    "✔"
-   ],
-   [
-    "saddhīdha",
-    "sandhi",
-    "faith here; confidence here",
-    "✔"
-   ]
-  ]
- },
- "samaṇa": {
-  "count": 2,
-  "data": [
-   [
-    "samaṇamhā",
-    "sandhi",
-    "we are ascetics; we are monks",
-    "✔"
-   ],
-   [
-    "samaṇīdha",
-    "sandhi",
-    "ascetic here; renunciant here",
     "✔"
    ]
   ]
@@ -19809,35 +20680,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "ādāya": {
-  "count": 4,
-  "data": [
-   [
-    "ādāya gacchati",
-    "idiom",
-    "carries away; lit. taking goes",
-    "✔"
-   ],
-   [
-    "iṇaṃ ādāya",
-    "idiom",
-    "taking a loan; taking on a debt; borrowing capital",
-    "✔"
-   ],
-   [
-    "khārivividhamādāya",
-    "sandhi",
-    "carrying an assortment of bundles on a pole; carrying bundles of personal belongings on a pole",
-    "✔"
-   ],
-   [
-    "pattacīvaramādāya",
-    "sandhi",
-    "taking one's bowl and robe",
-    "✔"
-   ]
-  ]
- },
  "paṭṭhāya": {
   "count": 1,
   "data": [
@@ -20191,17 +21033,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "ārambha1": {
-  "count": 1,
-  "data": [
-   [
-    "ārambhadhātu nikkamadhātu parakkamadhātu",
-    "idiom",
-    "getting up; going out and making an effort",
-    "✔"
-   ]
-  ]
- },
  "dhātu": {
   "count": 2,
   "data": [
@@ -20259,23 +21090,6 @@ var family_idiom_json = {
     "āvi ceva raho ca",
     "idiom",
     "openly and even in private",
-    "✔"
-   ]
-  ]
- },
- "āsana": {
-  "count": 2,
-  "data": [
-   [
-    "āsanaṃ deti",
-    "idiom",
-    "offers a seat (to)",
-    "✔"
-   ],
-   [
-    "tasmiṃyeva āsane",
-    "idiom",
-    "in that very seat",
     "✔"
    ]
   ]
@@ -20777,6 +21591,23 @@ var family_idiom_json = {
    ]
   ]
  },
+ "kusala": {
+  "count": 2,
+  "data": [
+   [
+    "iccetaṃ kusalaṃ",
+    "idiom",
+    "then this is good; then it is OK",
+    "✔"
+   ],
+   [
+    "kusalaṃ pucchi",
+    "idiom",
+    "asked how one is; enquired about one's health",
+    "✔"
+   ]
+  ]
+ },
  "ete": {
   "count": 11,
   "data": [
@@ -21198,17 +22029,6 @@ var family_idiom_json = {
     "bhiyyoso mattāya",
     "idiom",
     "exceedingly; even more; lit. with more measure",
-    "✔"
-   ]
-  ]
- },
- "nidāna": {
-  "count": 1,
-  "data": [
-   [
-    "itonidānā",
-    "sandhi",
-    "from this source; because of this",
     "✔"
    ]
   ]
@@ -21839,17 +22659,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "patha": {
-  "count": 1,
-  "data": [
-   [
-    "iriyāpathaṃ vikopeti",
-    "idiom",
-    "disturbs the motion; interrupts the movement",
-    "✔"
-   ]
-  ]
- },
  "vikopeti": {
   "count": 1,
   "data": [
@@ -21969,17 +22778,6 @@ var family_idiom_json = {
     "manasi kātuṃ",
     "idiom",
     "to pay attention; to keep in mind; lit. to make in mind",
-    "✔"
-   ]
-  ]
- },
- "uṭṭhahati": {
-  "count": 1,
-  "data": [
-   [
-    "uṭṭhahati ghaṭati vāyamati",
-    "idiom",
-    "gets up, makes and effort and strives for",
     "✔"
    ]
   ]
@@ -22176,29 +22974,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "mukha": {
-  "count": 3,
-  "data": [
-   [
-    "uddhaste aruṇe nandimukhiyā rattiyā",
-    "idiom",
-    "when the rosy smile of dawn was rising; when dawn had risen and the night had a cheerful face; lit. when risen red happy face night",
-    "✔"
-   ],
-   [
-    "nandimukhiyā rattiyā",
-    "idiom",
-    "when the smiling face of dawn; lit. when the happy face of the night",
-    "✔"
-   ],
-   [
-    "mukhavātaṃ dadāti",
-    "idiom",
-    "blows on it; lit. gives mouth wind",
-    "✔"
-   ]
-  ]
- },
  "tiriyaṃ": {
   "count": 3,
   "data": [
@@ -22229,17 +23004,6 @@ var family_idiom_json = {
     "uddhaṃ adho tiriyaṃ",
     "idiom",
     "above below and across; in every direction",
-    "✔"
-   ]
-  ]
- },
- "upapatti": {
-  "count": 1,
-  "data": [
-   [
-    "katthūpapattiṃ",
-    "sandhi",
-    "rebirth where?; will be reborn where?",
     "✔"
    ]
   ]
@@ -22778,23 +23542,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "bhāsita": {
-  "count": 2,
-  "data": [
-   [
-    "etassa bhāsitassa atthaṃ",
-    "idiom",
-    "the meaning of this statement",
-    "✔"
-   ],
-   [
-    "bhāsitampetaṃ",
-    "sandhi",
-    "this too was said (by)",
-    "✔"
-   ]
-  ]
- },
  "parama": {
   "count": 1,
   "data": [
@@ -22841,17 +23588,6 @@ var family_idiom_json = {
     "eteneva",
     "sandhi",
     "with exactly this; by just this; with this alone",
-    "✔"
-   ]
-  ]
- },
- "upāya": {
-  "count": 1,
-  "data": [
-   [
-    "etenupāyena",
-    "sandhi",
-    "by this means; through this method",
     "✔"
    ]
   ]
@@ -23394,47 +24130,6 @@ var family_idiom_json = {
     "evametāsaṃ",
     "sandhi",
     "thus of these",
-    "✔"
-   ]
-  ]
- },
- "rūpa": {
-  "count": 6,
-  "data": [
-   [
-    "evarūpāpi",
-    "sandhi",
-    "even such; even such kind of",
-    "✔"
-   ],
-   [
-    "evarūpepi 1",
-    "sandhi",
-    "in just such quality (person)",
-    "✔"
-   ],
-   [
-    "evarūpepi 2",
-    "sandhi",
-    "even when such",
-    "✔"
-   ],
-   [
-    "kathaṃ rūpaṃ",
-    "idiom",
-    "what kind of?; lit. what form?",
-    "✔"
-   ],
-   [
-    "tathārūpāssa",
-    "sandhi",
-    "of such kind, for him",
-    "✔"
-   ],
-   [
-    "rūpanirodhagāminī paṭipadā",
-    "idiom",
-    "path of practice leading to the end of material form",
     "✔"
    ]
   ]
@@ -24529,46 +25224,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "pariyādāna": {
-  "count": 1,
-  "data": [
-   [
-    "kāyassa bhedā uddhaṃ jīvitapariyādānā",
-    "idiom",
-    "after the breakup of the body; after the end of one's lifespan",
-    "✔"
-   ]
-  ]
- },
- "maraṇa": {
-  "count": 4,
-  "data": [
-   [
-    "kāyassa bhedā paraṃ maraṇā",
-    "idiom",
-    "after the breakup of the body, after death",
-    "✔"
-   ],
-   [
-    "paraṃ maraṇā",
-    "idiom",
-    "after death; lit. after from death",
-    "✔"
-   ],
-   [
-    "maraṇadhammomhi",
-    "sandhi",
-    "I am liable to die; I am subject to death; death is part of my intrinsic nature",
-    "✔"
-   ],
-   [
-    "maraṇaṃ nigacchati",
-    "idiom",
-    "dies; suffers death",
-    "✔"
-   ]
-  ]
- },
  "viharati": {
   "count": 6,
   "data": [
@@ -24722,17 +25377,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "paṭicca": {
-  "count": 1,
-  "data": [
-   [
-    "kiñcetaṃ paṭicca vuttaṃ",
-    "idiom",
-    "and in reference to what was this said?",
-    "◑"
-   ]
-  ]
- },
  "siyā": {
   "count": 3,
   "data": [
@@ -24757,17 +25401,6 @@ var family_idiom_json = {
   ]
  },
  "kilamatha": {
-  "count": 1,
-  "data": [
-   [
-    "kilamathassa vighātassa bhāgī",
-    "idiom",
-    "tired and fed up; weary and annoyed; lit. shareholder of tiredness and annoyance",
-    "✔"
-   ]
-  ]
- },
- "vighāta": {
   "count": 1,
   "data": [
    [
@@ -24881,23 +25514,6 @@ var family_idiom_json = {
     "kubbati santhavaṃ",
     "idiom",
     "forms a close relationship (with); makes an intimate connection (with)",
-    "✔"
-   ]
-  ]
- },
- "kula": {
-  "count": 2,
-  "data": [
-   [
-    "kulā kulaṃ",
-    "idiom",
-    "from house to house; from door to door",
-    "✔"
-   ],
-   [
-    "kulesu cārittaṃ āpajjati",
-    "idiom",
-    "visits families; calls on houses; lit. engages in behaviour in families",
     "✔"
    ]
   ]
@@ -25148,17 +25764,6 @@ var family_idiom_json = {
   ]
  },
  "khata": {
-  "count": 1,
-  "data": [
-   [
-    "khata upahata",
-    "idiom",
-    "hurt and injured; broken and damaged; maimed and wounded",
-    "✔"
-   ]
-  ]
- },
- "upahata": {
   "count": 1,
   "data": [
    [
@@ -25648,23 +26253,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "abhinata": {
-  "count": 2,
-  "data": [
-   [
-    "cābhinataṃ",
-    "sandhi",
-    "and inclined towards; and wanting; (comm) accompanied with lust; lit. and bent forward",
-    "✔"
-   ],
-   [
-    "cābhinato",
-    "sandhi",
-    "and inclined towards; and wanting; (comm) accompanied with lust; lit. and bent forward",
-    "✔"
-   ]
-  ]
- },
  "cārikā": {
   "count": 3,
   "data": [
@@ -25921,17 +26509,6 @@ var family_idiom_json = {
     "jarādhammomhi",
     "sandhi",
     "I am liable to grow old; I am subject to old age; aging is part of my intrinsic nature",
-    "✔"
-   ]
-  ]
- },
- "passanta": {
-  "count": 1,
-  "data": [
-   [
-    "jānato passato",
-    "idiom",
-    "when knowing and seeing; for one who knows and sees",
     "✔"
    ]
   ]
@@ -27162,17 +27739,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "velā": {
-  "count": 1,
-  "data": [
-   [
-    "tāyaṃ velāyaṃ",
-    "idiom",
-    "at that point in time; at that moment",
-    "✔"
-   ]
-  ]
- },
  "tāsaṃ": {
   "count": 2,
   "data": [
@@ -27938,35 +28504,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "saṃvāsa": {
-  "count": 4,
-  "data": [
-   [
-    "dukkhosamānasaṃvāso",
-    "sandhi",
-    "living together with others is painful; (comm) living together with people from different backgrounds and with different abilities is suffering",
-    "✔"
-   ],
-   [
-    "saṃvāsamanvāya 1",
-    "sandhi",
-    "due to living together",
-    "✔"
-   ],
-   [
-    "saṃvāsamanvāya 2",
-    "sandhi",
-    "due to the sexual intercourse (of)",
-    "✔"
-   ],
-   [
-    "saṃvāsaṃ kappeti",
-    "idiom",
-    "cohabits (with); sleeps (with); has intercourse (with)",
-    "✔"
-   ]
-  ]
- },
  "vacas": {
   "count": 1,
   "data": [
@@ -27997,17 +28534,6 @@ var family_idiom_json = {
     "maṅkuṃ karoti",
     "idiom",
     "shames; humiliates; embarrasses; lit. makes humiliation",
-    "✔"
-   ]
-  ]
- },
- "sīla": {
-  "count": 1,
-  "data": [
-   [
-    "sīlesvevassa",
-    "sandhi",
-    "in virtuous conduct one should be",
     "✔"
    ]
   ]
@@ -28286,41 +28812,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "sādhu": {
-  "count": 5,
-  "data": [
-   [
-    "na hi sādhu",
-    "idiom",
-    "it is certainly not good",
-    "✔"
-   ],
-   [
-    "sādhayye",
-    "sandhi",
-    "well said, lady; well spoken madam",
-    "✔"
-   ],
-   [
-    "sādhāvuso",
-    "sandhi",
-    "that's good friend; it is good brothers",
-    "✔"
-   ],
-   [
-    "sādhāhaṃ",
-    "sandhi",
-    "it would be good if I",
-    "✔"
-   ],
-   [
-    "sādhukameva",
-    "sandhi",
-    "very well; exactly; lit. just well",
-    "✔"
-   ]
-  ]
- },
  "huta": {
   "count": 1,
   "data": [
@@ -28328,6 +28819,17 @@ var family_idiom_json = {
     "natthi hutaṃ",
     "idiom",
     "there is no (fruit to) offering gifts; lit. there is no oblation",
+    "✔"
+   ]
+  ]
+ },
+ "paṭilabhati": {
+  "count": 1,
+  "data": [
+   [
+    "saddhaṃ paṭilabhati",
+    "idiom",
+    "gains faith (in); acquires confidence (in)",
     "✔"
    ]
   ]
@@ -28434,19 +28936,30 @@ var family_idiom_json = {
    ]
   ]
  },
- "ajjhagā": {
+ "adāsi": {
   "count": 2,
   "data": [
    [
-    "nevajjhagā",
-    "sandhi",
-    "one never found; one cannot find; (comm) one does not get",
+    "pahāraṃ adāsi",
+    "idiom",
+    "punched; struck; beat; hit; lit. gave a blow",
     "✔"
    ],
    [
-    "yadajjhagā",
+    "sammukhībhāvaṃ adāsi",
+    "idiom",
+    "showed face; presented oneself (to)",
+    "✔"
+   ]
+  ]
+ },
+ "anupassati": {
+  "count": 1,
+  "data": [
+   [
+    "vayañcassānupassati",
     "sandhi",
-    "which he attained; which he experienced",
+    "and one sees the disappearance of it",
     "✔"
    ]
   ]
@@ -28619,51 +29132,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "nissāya": {
-  "count": 1,
-  "data": [
-   [
-    "nissāya nissāya",
-    "idiom",
-    "depending on successive supports; relying on one thing after the next; lit. leaning leaning",
-    "✔"
-   ]
-  ]
- },
- "nihita": {
-  "count": 1,
-  "data": [
-   [
-    "nihitadaṇḍo nihitasattho",
-    "idiom",
-    "giving up violence; lit. put down the stick and sword",
-    "✔"
-   ]
-  ]
- },
- "sattha2": {
-  "count": 3,
-  "data": [
-   [
-    "nihitadaṇḍo nihitasattho",
-    "idiom",
-    "giving up violence; lit. put down the stick and sword",
-    "✔"
-   ],
-   [
-    "satthaṃ āharati",
-    "idiom",
-    "commits suicide; lit. takes the knife",
-    "✔"
-   ],
-   [
-    "satthaṃ āharesi",
-    "idiom",
-    "committed suicide; lit. took the knife",
-    "✔"
-   ]
-  ]
- },
  "upapajjati": {
   "count": 1,
   "data": [
@@ -28721,17 +29189,6 @@ var family_idiom_json = {
     "nevattantapo",
     "sandhi",
     "neither harming oneself; neither self-torturing; neither self-mortifying",
-    "✔"
-   ]
-  ]
- },
- "sañcetanā": {
-  "count": 1,
-  "data": [
-   [
-    "nevattasañcetanā",
-    "sandhi",
-    "neither one's own intention; neither one's own volition",
     "✔"
    ]
   ]
@@ -28826,17 +29283,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "upādāna": {
-  "count": 1,
-  "data": [
-   [
-    "pañcasupādānakkhandhesu",
-    "sandhi",
-    "in the five heaps that are clung to; in the five appropriated groups",
-    "✔"
-   ]
-  ]
- },
  "khandha": {
   "count": 1,
   "data": [
@@ -28890,17 +29336,6 @@ var family_idiom_json = {
     "sandhi",
     "their recession; their improvement",
     "✔"
-   ]
-  ]
- },
- "paṭiññā": {
-  "count": 1,
-  "data": [
-   [
-    "paṭiññaṃ kāretvā",
-    "idiom",
-    "having made a promise; having vowed",
-    "◑"
    ]
   ]
  },
@@ -29276,17 +29711,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "pahāna": {
-  "count": 1,
-  "data": [
-   [
-    "pahānaṃ gacchati",
-    "idiom",
-    "is abandoned (by); is removed (by); lit. goes to removal",
-    "✔"
-   ]
-  ]
- },
  "pahāra": {
   "count": 3,
   "data": [
@@ -29306,23 +29730,6 @@ var family_idiom_json = {
     "pahāraṃ deti",
     "idiom",
     "punches; strikes; beats; hits; lit. gives a blow",
-    "✔"
-   ]
-  ]
- },
- "adāsi": {
-  "count": 2,
-  "data": [
-   [
-    "pahāraṃ adāsi",
-    "idiom",
-    "punched; struck; beat; hit; lit. gave a blow",
-    "✔"
-   ],
-   [
-    "sammukhībhāvaṃ adāsi",
-    "idiom",
-    "showed face; presented oneself (to)",
     "✔"
    ]
   ]
@@ -29522,17 +29929,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "puṭṭha1": {
-  "count": 1,
-  "data": [
-   [
-    "puṭṭhohaṃ",
-    "sandhi",
-    "asked I; question I",
-    "✔"
-   ]
-  ]
- },
  "puthu": {
   "count": 1,
   "data": [
@@ -29608,28 +30004,6 @@ var family_idiom_json = {
     "yathā pure tathā pacchā",
     "idiom",
     "as before, so afterwards; as in front, so behind",
-    "✔"
-   ]
-  ]
- },
- "pūjita": {
-  "count": 1,
-  "data": [
-   [
-    "pūjitamettāvatā",
-    "sandhi",
-    "what has been offered is enough; the offering is sufficient",
-    "✔"
-   ]
-  ]
- },
- "pisuṇa": {
-  "count": 1,
-  "data": [
-   [
-    "pesuññaṃ upasaṃharati",
-    "idiom",
-    "slanders; defames; lit. brings slander",
     "✔"
    ]
   ]
@@ -29824,17 +30198,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "byādhi": {
-  "count": 1,
-  "data": [
-   [
-    "byādhidhammomhi",
-    "sandhi",
-    "I am liable to get sick; I am subject to disease; illness is part of my intrinsic nature",
-    "✔"
-   ]
-  ]
- },
  "brahmacariya": {
   "count": 1,
   "data": [
@@ -30023,47 +30386,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "vasa1": {
-  "count": 6,
-  "data": [
-   [
-    "maccuvasaṃ vaje",
-    "idiom",
-    "would come under the control of death; (or) would be subject to death",
-    "✔"
-   ],
-   [
-    "vasaṃ karoti",
-    "idiom",
-    "brings under control; takes control of",
-    "✔"
-   ],
-   [
-    "vasaṃ gacchati",
-    "idiom",
-    "follows the lead (of); submits to the control (of); falls under the power (of); lit. goes by the wish",
-    "✔"
-   ],
-   [
-    "vasaṃ gata",
-    "idiom",
-    "under the control (of); under the power (of); lit. gone by the wish",
-    "✔"
-   ],
-   [
-    "vasaṃ vattati",
-    "idiom",
-    "wields power; has control; exercises mastery; has the ability (to)",
-    "✔"
-   ],
-   [
-    "vasaṃ vatteti",
-    "idiom",
-    "wields power (over); has control (of); exercises mastery (over)",
-    "✔"
-   ]
-  ]
- },
  "vajati": {
   "count": 1,
   "data": [
@@ -30082,17 +30404,6 @@ var family_idiom_json = {
     "majjhimā paṭipadā",
     "idiom",
     "the Middle Way; (comm) not approaching the two sides of greed and hatred",
-    "✔"
-   ]
-  ]
- },
- "maññita": {
-  "count": 1,
-  "data": [
-   [
-    "maññitametaṃ",
-    "sandhi",
-    "this is imagination; this is an illusion",
     "✔"
    ]
   ]
@@ -30230,17 +30541,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "ārabbha": {
-  "count": 1,
-  "data": [
-   [
-    "mamevārabbha",
-    "sandhi",
-    "especially for me; for me alone; on my account",
-    "✔"
-   ]
-  ]
- },
  "mayā": {
   "count": 1,
   "data": [
@@ -30276,28 +30576,6 @@ var family_idiom_json = {
     "maraṇaṃ nigacchati",
     "idiom",
     "dies; suffers death",
-    "✔"
-   ]
-  ]
- },
- "mahā": {
-  "count": 1,
-  "data": [
-   [
-    "mahatā atthena saṃyutto abhavissa",
-    "idiom",
-    "would have greaty benefited; would have profited enormously; (comm) would have attained the fruit of stream entry; lit. would have been joined with great benefit",
-    "✔"
-   ]
-  ]
- },
- "saṃyutta": {
-  "count": 1,
-  "data": [
-   [
-    "mahatā atthena saṃyutto abhavissa",
-    "idiom",
-    "would have greaty benefited; would have profited enormously; (comm) would have attained the fruit of stream entry; lit. would have been joined with great benefit",
     "✔"
    ]
   ]
@@ -30449,39 +30727,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "vippaṭisārī": {
-  "count": 1,
-  "data": [
-   [
-    "mā pacchā vippaṭisārino ahuvattha",
-    "idiom",
-    "don't have remorse later!; don't regret it later",
-    "✔"
-   ]
-  ]
- },
- "abhinandi": {
-  "count": 1,
-  "data": [
-   [
-    "mābhinandi",
-    "sandhi",
-    "do not delight (in); do not be pleased (with)",
-    "✔"
-   ]
-  ]
- },
- "māyā": {
-  "count": 1,
-  "data": [
-   [
-    "māyaṃ vidaṃseti",
-    "idiom",
-    "performs an magic trick; displays an illusion; lit. causes to see magic",
-    "✔"
-   ]
-  ]
- },
  "vidaṃseti": {
   "count": 1,
   "data": [
@@ -30587,23 +30832,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "musā": {
-  "count": 2,
-  "data": [
-   [
-    "musā bhaṇati",
-    "idiom",
-    "lies; tells lies",
-    "✔"
-   ],
-   [
-    "musā bhaṇanta",
-    "idiom",
-    "lying; telling lies",
-    "✔"
-   ]
-  ]
- },
  "bhaṇanta": {
   "count": 1,
   "data": [
@@ -30611,23 +30839,6 @@ var family_idiom_json = {
     "musā bhaṇanta",
     "idiom",
     "lying; telling lies",
-    "✔"
-   ]
-  ]
- },
- "mogha": {
-  "count": 2,
-  "data": [
-   [
-    "moghamaññanti",
-    "sandhi",
-    "'anything else is wrong'; 'everything else is stupid'",
-    "✔"
-   ],
-   [
-    "moghamaññaṃ",
-    "sandhi",
-    "anything else is wrong; everything else is useless",
     "✔"
    ]
   ]
@@ -31861,23 +32072,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "yoga": {
-  "count": 2,
-  "data": [
-   [
-    "yogaṃ āpajjati",
-    "idiom",
-    "gets involved (in); engages oneself (in); lit. arouses attachment",
-    "✔"
-   ],
-   [
-    "yogo karaṇīyo",
-    "idiom",
-    "meditation should be practised (to understand); effort should be made (to understand); lit. yoking to be done",
-    "✔"
-   ]
-  ]
- },
  "yoggā": {
   "count": 1,
   "data": [
@@ -31951,17 +32145,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "patvā": {
-  "count": 1,
-  "data": [
-   [
-    "rajjaṃ patvā",
-    "idiom",
-    "having taken power; having assumed rulership",
-    "✔"
-   ]
-  ]
- },
  "laddhāna": {
   "count": 1,
   "data": [
@@ -32006,17 +32189,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "rāga": {
-  "count": 1,
-  "data": [
-   [
-    "rāga dosa moha",
-    "idiom",
-    "craving, aversion and delusion; lust, hatred and illusion",
-    "✔"
-   ]
-  ]
- },
  "laṅghetuṃ": {
   "count": 1,
   "data": [
@@ -32024,17 +32196,6 @@ var family_idiom_json = {
     "laṅghetumicchasi",
     "sandhi",
     "you want to jump over; you wish to leap over",
-    "✔"
-   ]
-  ]
- },
- "lābhā": {
-  "count": 1,
-  "data": [
-   [
-    "lābhā vata me suladdhaṃ vata me",
-    "idiom",
-    "it's certainly a gain for me, a great benefit for me; it's my good luck, my good fortune; it's a blessing for me, a great blessing",
     "✔"
    ]
   ]
@@ -32168,17 +32329,6 @@ var family_idiom_json = {
   ]
  },
  "vaya": {
-  "count": 1,
-  "data": [
-   [
-    "vayañcassānupassati",
-    "sandhi",
-    "and one sees the disappearance of it",
-    "✔"
-   ]
-  ]
- },
- "anupassati": {
   "count": 1,
   "data": [
    [
@@ -32346,17 +32496,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "viññū": {
-  "count": 1,
-  "data": [
-   [
-    "viññutaṃ patto",
-    "idiom",
-    "reached puberty; grown up; lit. reached discerning state",
-    "✔"
-   ]
-  ]
- },
  "vitti": {
   "count": 1,
   "data": [
@@ -32368,7 +32507,7 @@ var family_idiom_json = {
    ]
   ]
  },
- "viddha": {
+ "viddha1": {
   "count": 1,
   "data": [
    [
@@ -32390,17 +32529,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "vippamutta": {
-  "count": 1,
-  "data": [
-   [
-    "vippamuttosi",
-    "sandhi",
-    "you are liberated; you are freed",
-    "✔"
-   ]
-  ]
- },
  "vimana": {
   "count": 1,
   "data": [
@@ -32408,23 +32536,6 @@ var family_idiom_json = {
     "vimanosi",
     "sandhi",
     "you are upset; you're displeased; you're unhappy",
-    "✔"
-   ]
-  ]
- },
- "vimutta": {
-  "count": 2,
-  "data": [
-   [
-    "vimuttamattānaṃ",
-    "sandhi",
-    "one's freedom from; oneself as free from",
-    "✔"
-   ],
-   [
-    "vimuttomhi",
-    "sandhi",
-    "I am freed; I am liberated; I am emancipated",
     "✔"
    ]
   ]
@@ -32469,17 +32580,6 @@ var family_idiom_json = {
     "visaṃ khādati",
     "idiom",
     "takes poison; swallows poison",
-    "✔"
-   ]
-  ]
- },
- "visuddha": {
-  "count": 1,
-  "data": [
-   [
-    "visuddhamattānaṃ",
-    "sandhi",
-    "one's own purification; oneself as purified",
     "✔"
    ]
   ]
@@ -32686,17 +32786,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "ārammaṇa": {
-  "count": 1,
-  "data": [
-   [
-    "vocchijjatārammaṇaṃ",
-    "sandhi",
-    "the basis is completely severed; the support is completely cut off",
-    "✔"
-   ]
-  ]
- },
  "vodāsa": {
   "count": 1,
   "data": [
@@ -32887,17 +32976,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "saṭha": {
-  "count": 1,
-  "data": [
-   [
-    "saṭhāssunāmime",
-    "sandhi",
-    "truly they are devious!; they are certainly crafty!",
-    "✔"
-   ]
-  ]
- },
  "sat": {
   "count": 1,
   "data": [
@@ -33017,17 +33095,6 @@ var family_idiom_json = {
     "sadā sata",
     "idiom",
     "ever mindful; always attentive",
-    "✔"
-   ]
-  ]
- },
- "paṭilabhati": {
-  "count": 1,
-  "data": [
-   [
-    "saddhaṃ paṭilabhati",
-    "idiom",
-    "gains faith (in); acquires confidence (in)",
     "✔"
    ]
   ]
@@ -33188,29 +33255,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "sama": {
-  "count": 3,
-  "data": [
-   [
-    "samatthi",
-    "sandhi",
-    "there is equal (to); there is comparable (to); lit. is same",
-    "✔"
-   ],
-   [
-    "samaṃ karoti",
-    "idiom",
-    "equates; likens (somebody with somebody else)",
-    "✔"
-   ],
-   [
-    "samā bhavanti",
-    "idiom",
-    "they are the same; they are equal",
-    "✔"
-   ]
-  ]
- },
  "samaññā": {
   "count": 1,
   "data": [
@@ -33268,17 +33312,6 @@ var family_idiom_json = {
     "sametāyasmā",
     "sandhi",
     "may the venerable agree (with); venerable be at peace (with)",
-    "✔"
-   ]
-  ]
- },
- "samodhāna": {
-  "count": 1,
-  "data": [
-   [
-    "samodhānaṃ gacchati",
-    "idiom",
-    "is contained in; fits inside; is comprised within",
     "✔"
    ]
   ]
@@ -33563,17 +33596,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "subha": {
-  "count": 1,
-  "data": [
-   [
-    "subhantveva",
-    "sandhi",
-    "but only on the beautiful; but only on the attractive",
-    "✔"
-   ]
-  ]
- },
  "sve": {
   "count": 1,
   "data": [
@@ -33581,17 +33603,6 @@ var family_idiom_json = {
     "suve suve",
     "idiom",
     "day after day; lit. tomorrow tomorrow",
-    "✔"
-   ]
-  ]
- },
- "sūci": {
-  "count": 1,
-  "data": [
-   [
-    "sūcighaṭikaṃ datvā",
-    "idiom",
-    "having closed the bolt; having locked the door; lit. having given the bolt",
     "✔"
    ]
   ]
@@ -33748,17 +33759,6 @@ var family_idiom_json = {
   ]
  },
  "avadhāna": {
-  "count": 1,
-  "data": [
-   [
-    "sotāvadhānūpanisūpapanne",
-    "sandhi",
-    "when the conditions for paying attention have appeared; when the prerequisites for listening carefully have arisen",
-    "✔"
-   ]
-  ]
- },
- "upanisā": {
   "count": 1,
   "data": [
    [
