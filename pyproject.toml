@@ -58,6 +58,7 @@ dev = [
     "pylama>=8.4.1",
     "icecream>=2.1.3",
     "pytest>=7.4.3",
+    "flet[all]>=0.27.6",
 ]
 
 [tool.hatch.build.targets.sdist]
