@@ -196,7 +196,7 @@ class DataAndLogic:
             self.db_session.commit()
 
 
-def add_fc_taddhita(page: ft.Page, right_panel: ft.Container):
+def add_fc_taddhita(e: ft.ControlEvent, page: ft.Page, right_panel: ft.Container):
     """add missing family compounds from taddhita"""
 
     ui = UiManager(page, right_panel)
