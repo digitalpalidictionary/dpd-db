@@ -46458,7 +46458,7 @@ var family_root_json = {
    [
     "anavaññāta",
     "pp",
-    "despised; disdained; disrespected; looked down upon; lit. not known down",
+    "not despised; not disdained; not disrespected; not looked down upon; lit. not known down",
     "◑"
    ],
    [
@@ -46518,8 +46518,8 @@ var family_root_json = {
    [
     "avaññāta",
     "pp",
-    "despised",
-    "✘"
+    "despised; disdained; disrespected; looked down upon; lit. known down",
+    "◑"
    ],
    [
     "uññātabba",
@@ -159515,7 +159515,7 @@ var family_root_json = {
   "root_key": "√su 1",
   "root_family": "√su",
   "root_meaning": "hear",
-  "count": 104,
+  "count": 105,
   "data": [
    [
     "asāvetuṃ",
@@ -159707,6 +159707,12 @@ var family_root_json = {
     "savanīya 2",
     "adj",
     "related to hearing; concerning listening",
+    "◑"
+   ],
+   [
+    "savanta 2.1",
+    "prp",
+    "hearing; listening",
     "◑"
    ],
    [
@@ -226670,7 +226676,7 @@ var family_root_json = {
     "✘"
    ],
    [
-    "savanta",
+    "savanta 1.1",
     "prp",
     "(of river) flowing",
     "✔"

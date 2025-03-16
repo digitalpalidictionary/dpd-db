@@ -181,3 +181,4 @@ tmp/
 typescript
 scripts/suttas/cst/*.tsv
 scripts/suttas/sc/*.tsv
+resources/flet-docs/

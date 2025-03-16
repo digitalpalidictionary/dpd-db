@@ -15917,6 +15917,24 @@ var family_word_json = {
     "✔"
    ],
    [
+    "vakkala",
+    "nt",
+    "garment made of bark, strips taken for that purpose",
+    "✘"
+   ],
+   [
+    "vakkali",
+    "adj",
+    "name of an arahant monk; a former ascetic; lit. dressed in bark cloth",
+    "✔"
+   ],
+   [
+    "vakkalī",
+    "adj",
+    "wearing a bark garment",
+    "✘"
+   ],
+   [
     "vāka 1",
     "nt",
     "bark",
@@ -15929,7 +15947,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 3
+  "count": 6
  },
  "sarada": {
   "data": [
