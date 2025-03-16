@@ -179,6 +179,8 @@ class DataAndLogic:
 
         if self.current_item.lemma_clean in self.fc_set:
             return self.current_item.lemma_clean
+        elif self.current_item.meaning_1.startswith("name of"):
+            return self.current_item.lemma_clean
         else:
             pattern = r"(?:of|from)\s+([^,]+)"
             match = re.search(pattern, self.current_item.grammar)

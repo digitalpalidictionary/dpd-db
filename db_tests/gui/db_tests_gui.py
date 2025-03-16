@@ -1,6 +1,7 @@
 import flet as ft
-from db_tests.add_family_compound_neg import add_fc_neg
-from db_tests.add_family_compound_taddhita import add_fc_taddhita
+from db_tests.gui.add_family_compound_neg import add_fc_neg
+from db_tests.gui.add_family_compound_taddhita import add_fc_taddhita
+from db_tests.gui.add_family_compound_su_dur import add_fc_su_dur
 
 
 class TestRunner:
@@ -28,6 +29,8 @@ def main(page: ft.Page):
             add_fc_neg(page, right_panel)
         elif test_name == "add_fc_taddhita":
             add_fc_taddhita(page, right_panel)
+        elif test_name == "add_fc_su_dur":
+            add_fc_su_dur(page, right_panel)
         runner.reset_panel()
 
     # Left panel with test buttons
@@ -42,6 +45,11 @@ def main(page: ft.Page):
                 text="Add family compounds to taddhita",
                 width=500,
                 on_click=lambda e: run_test(e, "add_fc_taddhita"),
+            ),
+            ft.TextButton(
+                text="Add family compounds to su dur sa",
+                width=500,
+                on_click=lambda e: run_test(e, "add_fc_su_dur"),
             ),
         ],
         alignment=ft.MainAxisAlignment.START,
