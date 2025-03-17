@@ -226,6 +226,7 @@ function changeLanguage(lang) {
 
     // Если язык "ru", добавляем "/ru" в начало пути, если его нет
     if (lang === 'ru') {
+        // Проверяем, не начинается ли путь уже с "ru/"
         if (!path.startsWith('ru/')) {
             path = 'ru/' + path;
         }
@@ -236,8 +237,7 @@ function changeLanguage(lang) {
 
     // Перенаправляем пользователя на новый URL
     window.location.href = newUrl;
-}//// enter or click button to search 
-
+}
 searchForm.addEventListener("submit", handleFormSubmit);
 searchButton.addEventListener("submit", handleFormSubmit);
 
