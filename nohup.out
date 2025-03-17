@@ -1,0 +1,128 @@
+   Building dpd-db @ file:///var/www/dpd-db
+      Built dpd-db @ file:///var/www/dpd-db
+Uninstalled 1 package in 1ms
+Installed 1 package in 1ms
+INFO:     Will watch for changes in these directories: ['/var/www/dpd-db/exporter/webapp']
+INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)
+INFO:     Started reloader process [271748] using WatchFiles
+INFO:     Started server process [271775]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.1.18:0 - "GET / HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/home.css HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/dpd.css HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/jquery-ui.min.css HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/home.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/jquery-ui.min.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/switch.css HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/extrastyles.css HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/jquery-3.7.0.min.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/dpd.ico HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/tabs.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/dpd.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/bold_definitions.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/autopali.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/extra.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/sutta_words.txt HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /ru/ HTTP/1.1" 307 Temporary Redirect
+INFO:     192.168.1.18:0 - "GET /ru HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /ru HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/gear.svg HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /ru HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET / HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /ru/ HTTP/1.1" 307 Temporary Redirect
+INFO:     192.168.1.18:0 - "GET /ru HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /ru/search_json?q=dukkha HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /ru/search_html?q=dhammacakkappavattanasutta HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/home.css HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/switch.css HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/dpd.css HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/jquery-ui.min.css HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/extrastyles.css HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/jquery-3.7.0.min.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/jquery-ui.min.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/dpd.ico HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/home.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/dpd.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/autopali.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/extra.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/gear.svg HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/sutta_words.txt HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /ru/search_json?q=dhammacakkappavattanasutta HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /ru/search_html?q=dhammacakkappavattanasutta HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /ru/search_json?q=dhammacakkappavattanasutta HTTP/1.1" 200 OK
+INFO:     65.49.20.111:6231 - "GET / HTTP/1.1" 200 OK
+INFO:     65.49.20.91:41703 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     65.49.20.75:20527 - "GET /?format=json HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+INFO:     65.49.20.67:29459 - "GET /geoserver/web/ HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     34.34.173.16:38230 - "GET / HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /ru HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/home.css HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/dpd.css HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/switch.css HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/jquery-ui.min.css HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/jquery-3.7.0.min.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/extrastyles.css HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/jquery-ui.min.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/dpd.ico HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/home.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/dpd.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/autopali.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/extra.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/sutta_words.txt HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     192.168.1.18:0 - "GET /search_html?q=%E0%A4%A8%E0%A4%BF%E0%A4%AC%E0%A5%8D%E0%A4%AC%E0%A4%BF%E0%A4%A8%E0%A5%8D%E0%A4%A6%E0%A4%82 HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/switch.css HTTP/1.1" 304 Not Modified
+INFO:     192.168.1.18:0 - "GET /static/home.css HTTP/1.1" 304 Not Modified
+INFO:     192.168.1.18:0 - "GET /static/dpd.css HTTP/1.1" 304 Not Modified
+INFO:     192.168.1.18:0 - "GET /static/jquery-ui.min.css HTTP/1.1" 304 Not Modified
+INFO:     192.168.1.18:0 - "GET /static/dpd.ico HTTP/1.1" 304 Not Modified
+INFO:     192.168.1.18:0 - "GET /static/jquery-3.7.0.min.js HTTP/1.1" 304 Not Modified
+INFO:     192.168.1.18:0 - "GET /static/jquery-ui.min.js HTTP/1.1" 304 Not Modified
+INFO:     192.168.1.18:0 - "GET /static/extrastyles.css HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/home.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/tabs.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/bold_definitions.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/dpd.js HTTP/1.1" 304 Not Modified
+INFO:     192.168.1.18:0 - "GET /static/autopali.js HTTP/1.1" 304 Not Modified
+INFO:     192.168.1.18:0 - "GET /static/extra.js HTTP/1.1" 304 Not Modified
+INFO:     192.168.1.18:0 - "GET /static/gear.svg HTTP/1.1" 304 Not Modified
+INFO:     192.168.1.18:0 - "GET /static/sutta_words.txt HTTP/1.1" 304 Not Modified
+INFO:     192.168.1.18:0 - "GET /search_json?q=%E0%A4%A8%E0%A4%BF%E0%A4%AC%E0%A5%8D%E0%A4%AC%E0%A4%BF%E0%A4%A8%E0%A5%8D%E0%A4%A6%E0%A4%82 HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET / HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/home.css HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/dpd.css HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/switch.css HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/jquery-ui.min.css HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/jquery-3.7.0.min.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/extrastyles.css HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/jquery-ui.min.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/dpd.ico HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/home.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/tabs.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/bold_definitions.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/dpd.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/extra.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/autopali.js HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/sutta_words.txt HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /static/gear.svg HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /search_json?q=dukkha HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /search_json?q=adhivacanasamphasso HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /?q=adhivacanasamphasso HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /search_json?q=adhivacanasamphasso HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /ru/?q=adhivacanasamphasso HTTP/1.1" 307 Temporary Redirect
+INFO:     192.168.1.18:0 - "GET /ru?q=adhivacanasamphasso HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /ru/search_json?q=adhivacanasamphasso HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /?q=adhivacanasamphasso HTTP/1.1" 200 OK
+INFO:     192.168.1.18:0 - "GET /search_json?q=adhivacanasamphasso HTTP/1.1" 200 OK
