@@ -153,7 +153,37 @@ Settings <div class="settings-icon"></div>
                     </label>
                     sandhi ' hide / show
                 </p>
+                <p>
+    <label class="switch">
+        <input type="checkbox" id="tabs-toggle">
+        <span class="slider round"></span>
+    </label>
+    Tabs show / hide
+</p>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const tabsToggle = document.getElementById("tabs-toggle");
+        const tabContainer = document.getElementById("tab-container");
+
+        // Восстанавливаем состояние из localStorage
+        if (localStorage.getItem("tabsHidden") === "true") {
+            tabContainer.classList.add("hidden");
+            tabsToggle.checked = true;
+        }
+
+        // Обработчик переключения
+        tabsToggle.addEventListener("change", function () {
+            if (this.checked) {
+                tabContainer.classList.add("hidden");
+                localStorage.setItem("tabsHidden", "true");
+            } else {
+                tabContainer.classList.remove("hidden");
+                localStorage.setItem("tabsHidden", "false");
+            }
+        });
+    });
+</script>
             </div>
         </div>
         </div>

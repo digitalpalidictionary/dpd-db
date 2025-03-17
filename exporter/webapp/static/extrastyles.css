@@ -745,7 +745,12 @@ video-container { position: relative; padding-bottom: 56.25%; padding-top: 30px;
    
 }
 
+/* DPD extra*/
 
+    .hidden {
+        display: none;
+    }
+    
 
 .search-box {
     padding-right: 25px; /* Чтобы место для крестика появилось */
