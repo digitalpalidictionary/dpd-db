@@ -16,15 +16,16 @@ function toggleSettings() {
 window.addEventListener('resize', function() {
   const settingsContent = document.getElementById('settings-content');
   
-  // Проверяем, если окно стало мобильным или не мобильным
+  // Если окно больше 769px (десктоп), автоматически раскроем панель
   if (window.innerWidth >= 769) {
-    // Если окно больше 769px, скрываем панель настроек
-    settingsContent.style.display = 'none';
-  } else {
-    // Если окно меньше 769px, показываем панель настроек
     settingsContent.style.display = 'block';
+  } else {
+    // Если окно меньше 769px (мобильное), скрываем панель
+    settingsContent.style.display = 'none';
   }
 });
+
+
 /*
 // Обнуляем существующую функцию changeLanguage
 if (typeof changeLanguage === 'function') {
