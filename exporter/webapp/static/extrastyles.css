@@ -816,3 +816,33 @@ video-container { position: relative; padding-bottom: 56.25%; padding-top: 30px;
 .dark-mode .collapse-btn {
     color: var(--foreground-dark);
 }
+
+#search-form {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.search-box {
+  flex: 1;
+  min-width: 120px;
+  max-width: 200px;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.search-button {
+  padding: 5px 10px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .search-box {
+    max-width: 150px;
+  }
+  .search-button {
+    padding: 5px;
+    font-size: 12px;
+  }
+}
