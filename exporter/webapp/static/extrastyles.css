@@ -817,70 +817,21 @@ video-container { position: relative; padding-bottom: 56.25%; padding-top: 30px;
     color: var(--foreground-dark);
 }
 
-/* Общие стили для формы (десктоп и мобильные) */
-#search-form {
-    width: 100%;
-    max-width: 600px; /* Ограничиваем максимальную ширину формы */
-    margin: 0 auto; /* Центрируем форму */
-}
-
-.input-group {
-    display: flex;
-    align-items: center;
-}
-
-/* Стили для десктопа (по умолчанию) */
-.search-box {
-    background-color: var(--background-light);
-    border-color: var(--gray);
-    border-radius: 7px;
-    color: var(--foreground-light);
-    font-family: "Dejavu Sans";
-    font-size: 130%;
-    height: 30px;
-    margin: 5px;
-    padding: 2px 10px;
-    width: 300px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.search-box:active {
-    border-color: var(--colour1);
-}
-
-.dark-mode .search-box {
-    background-color: var(--background-dark);
-    border-color: var(--colour2);
-    color: var(--foreground-dark);
-}
-
-.search-button {
-    background-color: var(--colour2);
-    border-radius: 7px;
-    border: 2px solid var(--gray);
-    color: black;
-    height: 30px;
-    margin: 5px;
-    padding: 5px 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Стили для мобильных устройств (только для экранов меньше 768px) */
+/* Стили только для мобильных устройств (ширина экрана меньше 768px) */
 @media (max-width: 768px) {
     .input-group {
-        flex-direction: row; /* Элементы в одну строку */
+        display: flex; /* Делаем контейнер flex */
+        align-items: center; /* Выравниваем элементы по центру */
     }
 
     .search-box {
         flex: 3; /* Занимает 3/4 ширины */
-        border-radius: 20px 0 0 20px; /* Закругляем левые углы */
-        width: auto; /* Отменяем фиксированную ширину для мобильных */
         margin: 0; /* Убираем отступы */
+        width: auto; /* Отменяем фиксированную ширину */
     }
 
     .search-button {
         flex: 1; /* Занимает 1/4 ширины */
-        border-radius: 0 20px 20px 0; /* Закругляем правые углы */
         margin: 0; /* Убираем отступы */
     }
 }
