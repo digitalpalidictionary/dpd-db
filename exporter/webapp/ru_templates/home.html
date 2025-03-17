@@ -45,18 +45,6 @@
                     .l - ḷ
                 </span>
             </button>
-            <!-- Language selection dropdown -->
-            <div class="language-switcher">
-                <span class="language-icon" title="Язык">🌐
-                    <span class="tooltip">
-                        <b>Сменить Язык</b>
-                    </span>
-                </span>
-                <div class="dropdown" style="display: none;">
-                    <a href="#" class="dropdown-item" onclick="changeLanguage('en')">English</a>
-                    <a href="#" class="dropdown-item" onclick="changeLanguage('ru')">Русский</a>           
-                </div>
-            </div>
             </div>
         </form>
     </div>
@@ -76,6 +64,19 @@
         </div>
         <div class="settings-pane">
             <h3>Настройки</h3>
+                        <!-- Language selection dropdown -->
+            <div class="language-switcher">
+                <span class="language-icon" title="Язык">🌐
+                    <span class="tooltip">
+                        <b>Сменить Язык</b>
+                    </span>
+                </span>
+                <div class="dropdown" style="display: none;">
+                    <a href="#" class="dropdown-item" onclick="changeLanguage('en')">English</a>
+                    <a href="#" class="dropdown-item" onclick="changeLanguage('ru')">Русский</a>           
+                </div>
+            </div>
+
             <p>
                 <button class="small-button" id="font-size-down">-</button>
                 <button class="small-button" id="font-size-up">+</button>
