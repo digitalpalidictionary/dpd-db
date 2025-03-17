@@ -31,45 +31,44 @@
     <div id="dpd-tab" class="tab-content active">
         <div class="header-pane">
 		<div class="logo-title">
-			<a href=/ >
-	<img src="static/dpd.ico" alt="dpd logo" id="header-image" class="header-image"></a>
-			<a href=/ class="alogo"><h2 class="title" id="title-clear">DPD</h2>
-		</a></div>
+            <img src="/static/dpd.ico" alt="dpd logo" id="header-image" class="header-image">
+            <h2 class="title" id="title-clear"><a href=/ class="alogo">DPD</a></h2>
+        </div>
 <form id="search-form">
   <div class="mb-3 form-group input-group ui-widget dropup rounded-pill">
   <label class="sr-only dropup" for="search-box"></label>
     <input class="search-box" type="search" name="search" id="search-box" placeholder="Search..." value="{{ search }}" autocomplete="off" inputmode="text" autocapitalize="off" autofocus>
     <button class="search-button" id="search-button">search</button>
-    </div>
-    <button class="help small-button" id="search-help-button">
-        ?
-        <span class="tooltip velthuis">
-            <b>
-                Velthuis typing:
-            </b><br><br>
-                aa > ā<br>
-                ii > ī<br>
-                uu > ū<br>
-                "n > ṅ<br>
-                ~n > ñ<br>
-                .t > ṭ<br>
-                .d > ḍ<br>
-                .n > ṇ<br>
-                .m > ṃ<br>
-                .l > ḷ
-        </span>
-    </button>
-    <!-- Language selection dropdown -->
-    <div class="language-switcher">
-        <span class="language-icon" title="Language">🌐
-            <span class="tooltip">
-                <b>Select Language</b>
-            </span>
-        </span>
-        <div class="dropdown" style="display: none;">
-            <a href="#" class="dropdown-item" onclick="changeLanguage('en')">English</a>
-            <a href="#" class="dropdown-item" onclick="changeLanguage('ru')">Русский</a>
-        </div>
+                <button class="help small-button" id="search-help-button">
+                ?
+                <span class="tooltip velthuis">
+                    <b>
+                        Velthuis Typing:
+                    </b><br><br>
+                    aa - ā<br>
+                    ii - ī<br>
+                    uu - ū<br>
+                    "n - ṅ<br>
+                    ~n - ñ<br>
+                    .t - ṭ<br>
+                    .d - ḍ<br>
+                    .n - ṇ<br>
+                    .m - ṃ<br>
+                    .l - ḷ
+                </span>
+            </button>
+            <!-- Language selection dropdown -->
+            <div class="language-switcher">
+                <span class="language-icon" title="Язык">🌐
+                    <span class="tooltip">
+                        <b>Language</b>
+                    </span>
+                </span>
+                <div class="dropdown" style="display: none;">
+                    <a href="#" class="dropdown-item" onclick="changeLanguage('en')">English</a>
+                    <a href="#" class="dropdown-item" onclick="changeLanguage('ru')">Русский</a>
+                </div>
+            </div>
     </div>
 </form>
         </div>
@@ -147,7 +146,9 @@
                     </label>
                     sandhi ' hide / show
                 </p>
+
             </div>
+
         </div>
         <div class="footer-pane">
             For more information, please read the &nbsp;

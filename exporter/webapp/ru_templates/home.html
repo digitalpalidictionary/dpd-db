@@ -5,20 +5,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Электронный Словарь Пали</title>
+    <title>FDG Электронный Словарь Пали</title>
     <link rel="stylesheet" type="text/css" href="/static/home.css">
     <link rel="stylesheet" type="text/css" href="/static/switch.css">
     <link rel="stylesheet" type="text/css" href="/static/dpd.css">
     <link rel="icon" type="image/png" href="/static/dpd.ico">
+    <link href="/static/jquery-ui.min.css" rel="stylesheet"/>
+<link href="/static/extrastyles.css" rel="stylesheet" />
+<script src="/static/jquery-3.7.0.min.js"></script>                                                                            <script src="/static/jquery-ui.min.js"></script>
 </head>
 
 
 <body>
     <div class="header-pane">
-        <div class="logo-title">
+      <div class="logo-title">
             <img src="/static/dpd.ico" alt="dpd logo" id="header-image" class="header-image">
-            <h2 class="title" id="title-clear">Электронный Словарь Пали</h2>
-        </div>
+	    <h2 class="title" id="title-clear"><a href=/ru class="alogo">DPD</a></h2>
+        </div> 
         <form id="search-form">
             <input 
                 class="search-box" type="text" name="search" id="search-box" value="{{ search }}" 
@@ -30,16 +33,16 @@
                     <b>
                         Система транслитерации Velthuis:
                     </b><br><br>
-                    aa > ā<br>
-                    ii > ī<br>
-                    uu > ū<br>
-                    "n > ṅ<br>
-                    ~n > ñ<br>
-                    .t > ṭ<br>
-                    .d > ḍ<br>
-                    .n > ṇ<br>
-                    .m > ṃ<br>
-                    .l > ḷ
+                    aa - ā<br>
+                    ii - ī<br>
+                    uu - ū<br>
+                    "n - ṅ<br>
+                    ~n - ñ<br>
+                    .t - ṭ<br>
+                    .d - ḍ<br>
+                    .n - ṇ<br>
+                    .m - ṃ<br>
+                    .l - ḷ
                 </span>
             </button>
             <!-- Language selection dropdown -->
@@ -116,7 +119,7 @@
             </p>
             <p>
                 <label class="switch">
-                    <input type="checkbox" id="summary-toggle" checked><span class="slider round"></span>
+                    <input type="checkbox" id="summary-toggle"><span class="slider round"></span>
                 </label>
                 краткая информация скрыта / раскрыта
             </p>
@@ -134,6 +137,7 @@
     </div>
     <script src="/static/home.js"></script>
     <script src="/static/dpd.js"></script>
+    <script src="/static/autopali.js"></script>
 </body>
 
 </html>

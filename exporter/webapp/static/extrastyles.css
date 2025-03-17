@@ -816,4 +816,10 @@ video-container { position: relative; padding-bottom: 56.25%; padding-top: 30px;
     color: inherit; /* Наследует цвет текста от родительского элемента */
 }
 
+@media (max-width: 768px) {
+  .logo-title {
+    display: none;
+  }
+}
+
 
