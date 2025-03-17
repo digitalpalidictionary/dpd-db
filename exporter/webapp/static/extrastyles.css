@@ -855,7 +855,7 @@ video-container { position: relative; padding-bottom: 56.25%; padding-top: 30px;
     }
 
 .search-box {
-    min-width: 200px; /* Минимальная ширина поля ввода */
+    min-width: 220px; /* Минимальная ширина поля ввода */
     max-width: 250px; /* Максимальная ширина поля ввода */
     flex: 3; /* Занимает 3/4 ширины */
     margin: 0; /* Убираем отступы */
