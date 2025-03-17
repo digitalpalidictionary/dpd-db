@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (language === 'en') {
         startMessage = `
-      <p class="message">Search in Pāḷi or English using <b>Autocomplete</b>, <b>Unicode</b>, or <b>Velthuis</b>.</p>
+      <p class="message">Search in Pāḷi or English using <b>Autocomplete</b>, <b>Unicode</b> or <b>Velthuis</b>.</p>
 <p class="message"><b>Double-click</b> any word to search.</p>
 <p class="message">Adjust <b>Settings</b> as needed.</p>
 <p class="message"><b>Refresh</b> if issues occur.</p>
