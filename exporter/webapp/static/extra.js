@@ -27,29 +27,29 @@ window.addEventListener('resize', function() {
 
 
 function toggleHistory() {
-  const settingsContent = document.getElementById('history-content');
+  const historyContent = document.getElementById('history-content');
   
   // Проверяем, является ли устройство мобильным (ширина экрана меньше 769px)
   if (window.innerWidth < 769) {
     // Переключаем видимость панели
-    if (settingsContent.style.display === 'none' || !settingsContent.style.display) {
-      settingsContent.style.display = 'block';
+    if (historyContent.style.display === 'none' || !historyContent.style.display) {
+      historyContent.style.display = 'block';
     } else {
-      settingsContent.style.display = 'none';
+      historyContent.style.display = 'none';
     }
   }
 }
 
 // Обработчик события для изменения размера окна
 window.addEventListener('resize', function() {
-  const settingsContent = document.getElementById('history-content');
+  const historyContent = document.getElementById('history-content');
   
   // Если окно больше 769px (десктоп), автоматически раскроем панель
   if (window.innerWidth >= 769) {
-    settingsContent.style.display = 'block';
+    historyContent.style.display = 'block';
   } else {
     // Если окно меньше 769px (мобильное), скрываем панель
-    settingsContent.style.display = 'none';
+    historyContent.style.display = 'none';
   }
 });
 
