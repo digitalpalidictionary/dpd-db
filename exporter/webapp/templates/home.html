@@ -74,7 +74,13 @@
                 </div>
             </div>
             <div class="settings-pane">
-                <h3>Settings</h3>
+                  <button class="collapse-btn" onclick="toggleSettings()">            
+    <h3>
+Settings <div class="settings-icon"></div>   
+  </h3> 
+  </button>
+  <div id="settings-content">
+
                             <!-- Language selection dropdown -->
             <div class="language-switcher">
                 <span class="language-icon" title="Язык">🌐 Change Language
@@ -149,7 +155,6 @@
                 </p>
 
             </div>
-
         </div>
         <div class="footer-pane">
             For more information, please read the &nbsp;
