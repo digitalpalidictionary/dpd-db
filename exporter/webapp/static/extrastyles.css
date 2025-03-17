@@ -1,0 +1,819 @@
+
+/* From Freelancer bootstrap*/
+
+:root,
+[data-bs-theme=light] {
+--bs-teal: #1abc9c;
+  --bs-primary: #1abc9c;	
+  --bs-secondary: #2c3e50;
+   --bs-primary-rgb: 26, 188, 156;	
+  --bs-secondary-rgb: 44, 62, 80;
+    --bs-body-color-rgb: 33, 37, 41;	
+  --bs-body-bg-rgb: 255, 255, 255;	
+  --bs-font-sans-serif: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.right-text {
+    direction: rtl;
+}
+
+.reverse-order {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.reverse-order > div {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.reverse-order > div > div {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.reverse-order > div > div > div {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.reverse-order > div > div > div > div {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+[data-theme="dark"] {
+  background-color: #111 !important;
+  color: #eee;
+}
+
+[data-theme="dark"] .bg-black {
+  background-color: #fff !important;
+}
+
+[data-theme="dark"] .bg-dark {
+  background-color: #eee !important;
+}
+
+[data-theme="dark"] .bg-light {
+  background-color: #222 !important;
+}
+
+[data-theme="dark"] .bg-white {
+  background-color: #000 !important;
+}
+
+[data-theme="dark"] .bg-primary {
+    background-color: #136857  !important;
+	}
+
+[data-theme="dark"] .btn-primary {
+    background-color: #025242;
+    border-color: #5a6a67;
+}
+
+[data-theme="dark"] .modal-content {
+    background-color: #000;
+}
+
+[data-theme="dark"] container a {
+    color: #09967a;
+}
+
+[data-theme="dark"] .searchinputdiv input {
+    background: #e4e4e4;
+    border-color: #6e6969;
+}
+
+.menu-icon {
+  font-size: 2em; 
+}
+
+[data-theme="light"] .menu-icon {
+  color: var(--bs-primary); 
+}
+
+[data-theme="dark"] .menu-icon  {
+  color: #136857 ;
+}
+
+.regular-star {
+  /* bunch of pretty styles, oh wow */
+  &::after {
+    content: url('/assets/svg/regular-star.svg');
+  }
+}
+
+.solid-star {
+  /* bunch of pretty styles, oh wow */
+  &::after {
+    content: url('/assets/svg/solid-star.svg');
+
+  }
+}
+
+.tooltip-inner {
+    text-align: left;
+}
+
+
+.ref {
+display: none;  
+}
+.common-size-icon {
+  margin-top: 3px; 
+  height: 24px;
+  width: 30px;
+}
+
+#countdown, #pause, #resume, #refreshLink {
+    display: inline-block;
+    margin-right: 2px;
+}
+
+.countdown-icon {
+  height: 22px; 
+  width: 22px;
+}
+.common-size-icon3 {
+  margin-top: 3px; 
+  height: 22px; 
+  width: 22px;
+}
+
+.gray-icon {
+  color: #989898;
+  fill: #989898;
+}
+
+
+#scrollToTopBtn {
+    border-radius: 15px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  opacity: 0.6;
+}
+
+.svgarrow {
+  color: #D5D5D5;
+}
+
+#arrowImg {
+margin-top: -10px; 
+  margin-left: -3px; 
+  margin-right: -3px; 
+  margin-bottom: -3px;
+  width: 15px;
+  color: #D5D6D5;
+}
+
+.table-home-icon {
+  margin-top: -3px; 
+  margin-left: -3px; 
+  margin-right: -3px; 
+  height: 16px;
+  width: 21px;
+}
+
+.table-theme-icon {
+  margin-top: -3px; 
+  height: 15px;
+  width: 15px;
+}
+
+
+
+.home-svg-icon::before {
+  content: url('/assets/svg/home-icon.svg');
+}
+
+#darkSwitch {
+  transform-origin: center;
+transform: rotate(180deg);
+}
+
+	hr {	
+  background-color: currentColor;	
+}
+hr:not([size]) {	
+  height: 0.125rem;	
+}	
+
+h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {	
+ 
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";	
+  font-weight: 700;	
+}
+
+	abbr[title],	
+abbr[data-bs-original-title] {	
+  -webkit-text-decoration: underline dotted;	
+          text-decoration: underline dotted;	
+  cursor: help;	
+  -webkit-text-decoration-skip-ink: none;	
+          text-decoration-skip-ink: none;	
+}
+
+	mark, .mark {	
+  padding: 0.2em;	
+  background-color: #fcf8e3;	
+}
+
+a.onmanin {
+  color: #1abc9c;
+  text-decoration: underline;
+}
+
+a.onmanin:hover {
+  color: #15967d;
+}
+	pre,	
+code,	
+kbd,	
+samp {	
+  
+  direction: ltr /* rtl:ignore */;	
+  unicode-bidi: bidi-override;	
+}
+
+code {	
+  color: #d63384;	
+}
+
+	kbd {	
+  padding: 0.2rem 0.4rem;	
+  color: #fff;	
+  background-color: #212529;	
+}	
+kbd kbd {	
+  font-weight: 700;	
+}
+
+caption {		
+  color: #6c757d;	
+}
+
+	[list]::-webkit-calendar-picker-indicator {	
+  display: none;	
+}
+
+
+/* star intead of checkbox for history*/
+label {
+            display: inline-block;
+            position: relative;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        label input[type="checkbox"] {
+            display: none;
+        }
+
+        .custom-checkbox .glyphicon {
+            color: gray;
+            font-size: 1em;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .custom-checkbox input[type="checkbox"]:checked + .glyphicon {
+            color: gold;
+        }
+
+/* star intead of checkbox for history end */
+
+
+.img-thumbnail {	
+  background-color: #fff;	
+  border: 0.125rem solid #dee2e6;	
+  border-radius: 0.5rem;	
+}
+	
+.figure-caption {	
+  color: #6c757d;	
+}
+
+	.container,	
+.container-fluid,	
+.container-xxl,	
+.container-xl,	
+.container-lg,	
+.container-md,	
+.container-sm {	
+  padding-right: var(--bs-gutter-x, 0.75rem);	
+  padding-left: var(--bs-gutter-x, 0.75rem);	
+}
+
+	.form-text {	
+
+  color: #6c757d;	
+}
+
+.form-control {	
+ /* color: #212529;	
+  background-color: #fff;	*/
+  border: 0.125rem solid #ced4da;	
+  -webkit-appearance: none;	
+     -moz-appearance: none;	
+          appearance: none;	
+  border-radius: 0.5rem;	
+}
+
+/*.toggle-switch {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+} */
+#mainNav .navbar-brand {
+  color: #fff;
+}
+
+#mainNav {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: 700;
+}
+#mainNav .navbar-brand {
+  color: #fff;
+}
+#mainNav .navbar-nav {
+  margin-top: 1rem;
+}
+#mainNav .navbar-nav li.nav-item a.nav-link {
+  color: #fff;
+}
+#mainNav .navbar-nav li.nav-item a.nav-link:hover {
+  color: #1abc9c;
+}
+#mainNav .navbar-nav li.nav-item a.nav-link:active, #mainNav .navbar-nav li.nav-item a.nav-link:focus {
+  color: #fff;
+}
+#mainNav .navbar-nav li.nav-item a.nav-link.active {
+  color: #1abc9c;
+}
+#mainNav .navbar-toggler {
+  font-size: 80%;
+  padding: 0.8rem;
+}
+
+@media only screen and (min-width: 1024px) {
+    .hideOnMobile {
+        display: block;
+    }
+    .hideOnMobile .divider-custom {
+        display: block;
+    }
+}
+
+
+
+@media (min-width: 992px) {
+  
+    .hideOnMobile {
+        display: none;
+    }
+    .hideOnMobile .divider-custom {
+        display: none;
+    }  
+  
+  
+  #mainNav {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    transition: padding-top 0.3s, padding-bottom 0.3s;
+  }
+  #mainNav .navbar-brand {
+    font-size: 1.75em;
+    transition: font-size 0.3s;
+  }
+}
+/*end of freelancer css */
+ 
+.visually-hidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+#clearbtn {
+  position: absolute;
+  top: 53%;
+  right: 3px;
+  transform: translateY(-50%);
+  font-size: 12px;
+  transition: background-color 0.3s;
+   /*   background-color: Transparent;
+   color: blue;
+  color: Transparent;
+Добавляем плавный переход для изменения цвета фона */
+}
+
+#clearbtn .fas.fa-times {
+  background: #254678;
+background: linear-gradient(to top, #254678 0%, #3F74B8 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+
+#clearbtn:hover .fas.fa-times {
+  color: blue; /* Устанавливаем желаемый цвет иконки при наведении мыши */
+}
+
+.mainbutton {
+  /*position: absolute; 
+  right :35px; */
+  z-index:9999;
+}
+
+.searchinput {
+  z-index: 9; 
+  width: 100%;
+}
+
+.searchinputdiv {
+	position: relative; 
+	flex-grow: 1;
+}
+
+.searchbar {
+  z-index:1;
+}
+
+/* .horiz-menu-item {
+ color: #383838;
+} */
+
+
+
+
+    .level1 {
+      margin-left: 0px;
+      color: #3F424B;
+    }
+
+    .level2 {
+      margin-left: 8px;
+   /*  color: #3F424B; */
+    }
+
+    .level3 {
+      margin-left: 13px;
+      color: #3F424B;
+    }
+
+    .level4 {
+      margin-left: 18px;
+     /*  color: #3F424B;*/
+    }
+
+    .level5 {
+      margin-left: 20px;
+    }
+	
+	.btn-fixed-width {
+  width: 30px; /* Замените на желаемую фиксированную ширину */
+}
+
+  .btn-rotate {
+    transition: transform 0.3s ease;
+  }
+
+  .btn-rotate.rotate {
+    transform: rotate(180deg);
+  }
+
+::-webkit-scrollbar {
+width: 16px;
+height: 16px; }
+
+::-webkit-scrollbar-thumb {
+background-color: rgba(0, 0, 0, 0.2);
+-webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,0.10),inset 0 -1px 0 rgba(0,0,0,0.07); }
+
+.ui-autocomplete { 
+max-height: 220px; 
+min-height: 38px;
+overflow-y: auto; 
+overflow-x: hidden;
+scrollbar-color: #10806A #10806A;
+border-radius: 1rem;
+max-width: 274px;
+align-items: center;
+}
+
+.ui-autocomplete2 { 
+max-height: 220px; 
+min-height: 38px;
+overflow-y: auto; 
+overflow-x: hidden;
+scrollbar-color: #10806A #10806A;
+border-radius: 1rem;
+max-width: 474px;
+align-items: center;
+}
+
+.droponmain {
+  height: 32px;
+  padding: 3px 3px 3px 3px;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 0.125rem solid #ced4da;
+}
+
+
+[data-theme="dark"] .droponmain {
+    background: #e4e4e4;
+    border-color: #6e6969; 
+	border: 0.125rem solid #6e6969;
+}
+
+[data-theme="dark"] .border-primary {
+    border-color: #6e6969 !important;
+}
+
+
+.roundedborder{
+  position: absolute; 
+  right :35px; 
+  z-index:999999;
+}
+/*
+.outlink {
+  color:#0d6efd;
+}
+*/
+/* Container holding the image and the text */
+.imgcontainer {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+/* Centered text */
+.centered {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  
+}
+
+
+
+
+.btn-primary {
+  color: #fff;
+  background-color: #16a085;
+  border-color: #1abc9c;
+}
+
+	.form-check-input:active {
+  filter: brightness(40%);
+}
+
+.form-check-input:focus {
+  border-color: #8ddece;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(26, 188, 156, 0.25);
+}
+
+.form-check-input:checked {
+  background-color: #16a085;
+  border-color: #1abc9c; 
+}
+
+
+#mainNav .navbar-nav {
+    margin-top: 0;
+    text-align: center;
+}
+ 
+.page-section {
+    padding: 2rem 0 !important;
+}
+
+.masthead { 
+	padding-bottom: 2rem;
+	}
+
+ @keyframes wheelHueColor {
+    from, to { color: rgb(255,255,255); } 
+    10%      { color: rgb(0,0,255); }
+    35%      { color: rgb(255,255,0); }
+    70%      { color: rgb(255,0,0); }
+    90%      { color: rgb(255,255,255); }
+}
+
+.example:hover {
+    color: rgb(255,255,255);
+    animation: wheelHueColor 40s infinite;
+    cursor: pointer;
+    
+}
+.example {
+  transition: 4s;
+  transition: background-color 4s ease-out;
+}
+  
+.lock:hover .icon-unlock,
+.lock .icon-lock {
+    display: none;
+}
+.lock:hover .icon-lock {
+    display: inline;
+}
+
+.lock:hover .icon-lock .bigger {
+   font-size: 200px;
+}
+
+.storeimg {
+  width: 200px;
+}
+
+
+.imgonmain {
+  width: 350px;  
+/*    max-width: 95%; */
+}
+
+@media only screen and (max-width: 900px) {
+
+#mainNav .navbar-toggler {
+    margin-right: 2rem;  
+}
+
+#mainNav .navbar-nav {
+	margin-top: 1.5rem;
+	text-align: left;	
+	}
+
+.h5mobile {
+	font-size: 0.8rem;	
+}
+
+    .masthead { 
+    padding-top: calc(1rem + 20px);
+	}
+	
+.masthead .masthead-heading
+ {
+	 font-size: 2rem ; 
+}
+
+.divider-custom {
+    margin: 0.5rem 0 1.2rem ;
+}
+
+
+
+.divider-custom {
+    margin: 0.5rem 0 1.2rem ;
+}
+
+  
+  .mobile-none {
+	  display:none;	  
+  }
+
+.mobile-center {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  
+}
+
+video-container { position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden; }
+
+.video-container iframe, .video-container object, .video-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+
+.sidebar-social {
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-social ul {
+    margin: 0;
+    padding: 5px;
+}
+
+.sidebar-social li {
+	  text-align: center;
+    width: 31.9%;
+    margin-bottom: 3px!important;
+    background-color: #fff;
+    border: 1px solid #eee;
+    display: inline-block;
+    font-size: 10px;
+    padding:0;
+}
+
+.sidebar-social i {
+  display: block;
+  margin: 0 auto 10px auto;
+	width: 32px;
+    height: 32px;
+    margin: 10px auto 0;
+    line-height: 32px;
+    text-align: center;
+    font-size: 20px;
+    color: #444444;
+  margin-top:0;
+  padding-top:5px;
+}
+.sidebar-social a{
+  text-decoration:none;
+  width:100%;
+  height:100%;
+  display:block;
+  margin:0;
+  padding:0;
+}
+
+.sidebar-social a span{
+  color:black;
+  font-size:10px;
+  padding:5px 0 10px 0;
+  display:block;
+  text-transform:uppercase;
+  font-family:'Josefin Sans';
+  letter-spacing:1px;
+}
+
+}
+
+@media (max-width: 768px) {
+ 
+     .hideOnMobile {
+        display: none;
+    }
+    .hideOnMobile .divider-custom {
+        display: none;
+    }
+ 
+ 
+.imgonmain {
+    max-width: 95%;
+  }
+   
+   
+       .level2 {
+      margin-left: 0px;
+
+    }
+     .level3 {
+      margin-left: 4px;
+
+    }
+
+    .level4 {
+      margin-left: 8px;
+     /* color: #3F424B;*/
+    }
+
+    .level5 {
+      margin-left: 0px;
+    }
+	  
+   
+   
+}
+
+
+
+.search-box {
+    padding-right: 25px; /* Чтобы место для крестика появилось */
+    position: relative;
+}
+
+.search-box::-webkit-input-placeholder {
+    /* Стиль для текстов-подсказок в поле */
+    color: transparent;
+}
+
+.search-box:focus::-webkit-search-cancel-button {
+    display: block;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+}
+
+.alogo {
+    text-decoration: none; /* Убирает подчеркивание */
+    color: inherit; /* Наследует цвет текста от родительского элемента */
+}
+
+

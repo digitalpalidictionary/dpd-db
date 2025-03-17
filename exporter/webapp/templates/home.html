@@ -5,62 +5,72 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Pāḷi Dictionary</title>
+    <title>FDG  Digital Pāḷi Dictionary</title>
     <link rel="stylesheet" type="text/css" href="/static/home.css">
     <link rel="stylesheet" type="text/css" href="/static/switch.css">
     <link rel="stylesheet" type="text/css" href="/static/dpd.css">
     <link rel="icon" type="image/png" href="/static/dpd.ico">
+    <link href="/static/jquery-ui.min.css" rel="stylesheet"/>
+<link href="/static/extrastyles.css" rel="stylesheet" />
+<script src="/static/jquery-3.7.0.min.js"></script>
+<script src="/static/jquery-ui.min.js"></script>
+
+    <style>
+    </style>
+    
 </head>
 
 
 <body>
-    <div class="tab-buttons">
+<!--    <div class="tab-buttons">
         <button class="tab-link active" onclick="openTab(event, 'dpd-tab')">DPD</button>
         <button class="tab-link" onclick="openTab(event, 'bold-def-tab')">CST Bold Definitions</button>
-    </div>
+    </div> -->
 
 
     <div id="dpd-tab" class="tab-content active">
         <div class="header-pane">
-            <div class="logo-title">
+		<a href=/ class="alogo"><div class="logo-title">
                 <img src="static/dpd.ico" alt="dpd logo" id="header-image" class="header-image">
-                <h2 class="title" id="title-clear">Digital Pāḷi Dictionary</h2>
-            </div>
-            <form id="search-form">
-                <input class="search-box" type="text" name="search" id="search-box" value="{{ search }}"
-                    autocomplete="off" inputmode="text" autocapitalize="off">
-                <button class="search-button" id="search-button">search</button>
-                <button class="help small-button" id="search-help-button">
-                    ?
-                    <span class="tooltip velthuis">
-                        <b>
-                            Velthuis typing:
-                        </b><br><br>
-                        aa > ā<br>
-                        ii > ī<br>
-                        uu > ū<br>
-                        "n > ṅ<br>
-                        ~n > ñ<br>
-                        .t > ṭ<br>
-                        .d > ḍ<br>
-                        .n > ṇ<br>
-                        .m > ṃ<br>
-                        .l > ḷ
-                    </span>
-                </button>
-                <!-- Language selection dropdown -->
-                <div class="language-switcher">
-                    <span class="language-icon" title="Language">🌐
-                        <span class="tooltip">
-                            <b>Select Language</b>
-                        </span>
-                    </span>
-                    <div class="dropdown" style="display: none;">
-                        <a href="#" class="dropdown-item" onclick="changeLanguage('en')">English</a>
-                        <a href="#" class="dropdown-item" onclick="changeLanguage('ru')">Русский</a>
-                    </div>
-                </div>
-            </form>
+                <h2 class="title" id="title-clear">DPD</h2>
+			</div></a>
+<form id="search-form">
+  <div class="mb-3 form-group input-group ui-widget dropup rounded-pill">
+  <label class="sr-only dropup" for="search-box"></label>
+    <input class="search-box" type="search" name="search" id="search-box" placeholder="Search..." value="{{ search }}" autocomplete="off" inputmode="text" autocapitalize="off" autofocus>
+    <button class="search-button" id="search-button">search</button>
+    </div>
+    <button class="help small-button" id="search-help-button">
+        ?
+        <span class="tooltip velthuis">
+            <b>
+                Velthuis typing:
+            </b><br><br>
+                aa > ā<br>
+                ii > ī<br>
+                uu > ū<br>
+                "n > ṅ<br>
+                ~n > ñ<br>
+                .t > ṭ<br>
+                .d > ḍ<br>
+                .n > ṇ<br>
+                .m > ṃ<br>
+                .l > ḷ
+        </span>
+    </button>
+    <!-- Language selection dropdown -->
+    <div class="language-switcher">
+        <span class="language-icon" title="Language">🌐
+            <span class="tooltip">
+                <b>Select Language</b>
+            </span>
+        </span>
+        <div class="dropdown" style="display: none;">
+            <a href="#" class="dropdown-item" onclick="changeLanguage('en')">English</a>
+            <a href="#" class="dropdown-item" onclick="changeLanguage('ru')">Русский</a>
+        </div>
+    </div>
+</form>
         </div>
         <div class="main-pane" id="main-pane">
             <div class="history-pane" id="history-pane">
@@ -126,7 +136,7 @@
             </p> -->
                 <p>
                     <label class="switch">
-                        <input type="checkbox" id="summary-toggle" checked><span class="slider round"></span>
+                        <input type="checkbox" id="summary-toggle" ><span class="slider round"></span>
                     </label>
                     summary hide / show
                 </p>
@@ -139,8 +149,8 @@
             </div>
         </div>
         <div class="footer-pane">
-            For more information, please read the&nbsp;
-            <a href="https://digitalpalidictionary.github.io/dpdict.html" target="_blank">DPD docs website</a>
+            For more information, please read the &nbsp;
+            <a href="https://digitalpalidictionary.github.io/dpdict.html" target="_blank">DPD help website</a>
         </div>
     </div>
 
@@ -150,7 +160,7 @@
                 <h2 class="title" id="bd-title-clear">CST Bold Definitions</h2>
             </div>
             <p class="centered-text">
-                Find <b>{{ bd_count| safe }}</b>
+                Search for <b>{{ bd_count| safe }}</b> 
                 bold defined terms in the Chaṭṭha Saṅgāyana Tipiṭaka
             </p>
             <div class="bd-search-pane">
@@ -199,10 +209,8 @@
             {{ bd_results|safe }}
         </div>
         <div class="footer-pane">
-            For detailed information on this feature, please visit the <a
-                href="https://digitalpalidictionary.github.io/dpdict_bd.html" target="_blank">DPD docs website</a>. This
-            uses <a href="https://github.com/VipassanaTech/tipitaka-xml" target="_blank">Vipassana Research
-                Institute</a> texts
+            For more information, please read the &nbsp;
+            <a href="https://digitalpalidictionary.github.io/dpdict.html" target="_blank">DPD help website</a>
         </div>
     </div>
 
@@ -210,6 +218,10 @@
     <script src="static/tabs.js"></script>
     <script src="static/bold_definitions.js"></script>
     <script src="static/dpd.js"></script>
+    <script src="static/autopali.js"></script>
+    
+    <script>
+    </script>
 </body>
 
 </html>
