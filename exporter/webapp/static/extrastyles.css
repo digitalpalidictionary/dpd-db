@@ -830,7 +830,7 @@ video-container { position: relative; padding-bottom: 56.25%; padding-top: 30px;
     }
 
     .search-box {
-        min-width: 100px;
+        min-width: 150px;
         flex: 3; /* Занимает 3/4 ширины */
         margin: 0; /* Убираем отступы */
         width: auto; /* Отменяем фиксированную ширину */
