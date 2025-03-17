@@ -796,6 +796,16 @@ video-container { position: relative; padding-bottom: 56.25%; padding-top: 30px;
     #settings-content {
     display: none; /* Скрыть контент по умолчанию */
   }
+
+    .history-icon {
+    display: inline-block; /* Показываем иконку на мобильных */
+    width: 20px;
+    height: 20px;
+    margin-right: 8px; /* Расстояние между иконкой и текстом */
+    background-image: url('/static/clock-rotate-left.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
   
   
     .settings-icon {
