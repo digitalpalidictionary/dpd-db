@@ -184,7 +184,6 @@ margin-top: -10px;
 }
 
 
-
 .home-svg-icon::before {
   content: url('/assets/svg/home-icon.svg');
 }
@@ -200,21 +199,6 @@ transform: rotate(180deg);
 hr:not([size]) {	
   height: 0.125rem;	
 }	
-
-h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {	
- 
-  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";	
-  font-weight: 700;	
-}
-
-	abbr[title],	
-abbr[data-bs-original-title] {	
-  -webkit-text-decoration: underline dotted;	
-          text-decoration: underline dotted;	
-  cursor: help;	
-  -webkit-text-decoration-skip-ink: none;	
-          text-decoration-skip-ink: none;	
-}
 
 	mark, .mark {	
   padding: 0.2em;	
