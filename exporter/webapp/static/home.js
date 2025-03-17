@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (language === 'en') {
         startMessage = `
-        <p class="message">Search for Pāḷi or English words above using <b>Unicode</b> or <b>Velthuis</b> characters.</p>
+        <p class="message">Search for Pāḷi or English words above using <b>Autocomplete</b>, <b>Unicode</b> or <b>Velthuis</b> characters.</p>
         <p class="message"><b>Double click</b> on any word to search for it.</p>
         <p class="message">Adjust the <b>settings</b> to suit your preferences.</p>
         <p class="message"><b>Refresh</b> the page if you experience any problems.</p>
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
         `;
     } else if (language === 'ru') {
         startMessage = `
-        <p class="message">Ищите слова на пали или русском языке выше, используя символы <b>Unicode</b> или <b>Velthuis</b>.</p>
+        <p class="message">Ищите слова на пали или русском языке выше, используя символы <b>Автоподсказки</b>, <b>Unicode</b> или <b>Velthuis</b>.</p>
         <p class="message"><b>Дважды щелкните</b> на любое слово, чтобы найти его.</p>
         <p class="message">Настройте <b>параметры</b> в соответствии с вашими предпочтениями.</p>
         <p class="message"><b>Обновите</b> страницу, если у вас возникли какие-либо проблемы.</p>
