@@ -761,7 +761,7 @@ video-container { position: relative; padding-bottom: 56.25%; padding-top: 30px;
     display: block;
     position: absolute;
     right: 5px;
-    top: 50%;
+    top: 75%;
     transform: translateY(-50%);
     cursor: pointer;
     color: #888;
