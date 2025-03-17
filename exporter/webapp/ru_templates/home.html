@@ -23,10 +23,10 @@
 	    <h2 class="title" id="title-clear"><a href=/ru class="alogo">DPD</a></h2>
         </div> 
         <form id="search-form">
-            <input 
-                class="search-box" type="text" name="search" id="search-box" value="{{ search }}" 
-                autocomplete="off" inputmode="text" autocapitalize="off">
-            <button class="search-button" id="search-button">поиск</button>
+  <div class="mb-3 form-group input-group ui-widget dropup rounded-pill">
+  <label class="sr-only dropup" for="search-box"></label>
+    <input class="search-box" type="search" name="search" id="search-box" placeholder="Search..." value="{{ search }}" autocomplete="off" inputmode="text" autocapitalize="off" autofocus>
+    <button class="search-button" id="search-button">поиск</button>
             <button class="help small-button" id="search-help-button">
                 ?
                 <span class="tooltip velthuis">
@@ -56,6 +56,7 @@
                     <a href="#" class="dropdown-item" onclick="changeLanguage('en')">English</a>
                     <a href="#" class="dropdown-item" onclick="changeLanguage('ru')">Русский</a>           
                 </div>
+            </div>
             </div>
         </form>
     </div>
