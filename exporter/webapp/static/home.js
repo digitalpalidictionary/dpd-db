@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <a href="https://docs.dpdict.net/titlepage.html" target="_blank">DPD in general</a>.
 </p>
 <p class="message">Try: <b>Double-click</b> words below:</p>
-<p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root ✓</p>
+<p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
 `;
     } else if (language === 'ru') {
         startMessage = `
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <a href="https://digitalpalidictionary.github.io/rus/" target="_blank">DPD в целом</a>.
 </p>
 <p class="message">Попробуйте: <b>двойной клик</b> по словам ниже:</p>
-<p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root ✓</p>
+<p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
         `;
     }
 

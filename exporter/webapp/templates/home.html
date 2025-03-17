@@ -63,9 +63,17 @@
         </div>
         <div class="main-pane" id="main-pane">
             <div class="history-pane" id="history-pane">
-                <h3>History</h3>
+                             <button class="collapse-btn" onclick="toggleHistory()">           
+    <h3>
+History <div class="history-icon"></div>   
+  </h3> 
+  </button>
+  <div id="history-content">
+            
+                      
                 <button id="clear-history-button" class="clear-history-button">x</button>
                 <div class="history-list-pane" id="history-list-pane"></div>
+            </div>
             </div>
             <div class="dpd-pane" id="dpd-pane">
                 <div class="summary-results" id="summary-results"></div>
