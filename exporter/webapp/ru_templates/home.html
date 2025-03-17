@@ -63,7 +63,13 @@
             </div>    
         </div>
         <div class="settings-pane">
-            <h3>Настройки</h3>
+          
+            <h3>
+    <button class="collapse-btn" onclick="toggleSettings()">Настройки</button>
+  </h3>
+  <div id="settings-content">
+
+          
                         <!-- Language selection dropdown -->
             <div class="language-switcher">
                 <span class="language-icon" title="Язык">🌐 Сменить Язык
@@ -132,14 +138,17 @@
                 символ сандхи ' выкл / вкл
             </p>
         </div>
+        </div>
     </div>
     <div class="footer-pane">
-        Для подробной информации смотрите &nbsp;
-        <a href="https://digitalpalidictionary.github.io/rus/" target="_blank">DPD веб-страницу</a>
+        Подробнее о &nbsp;
+        <a href="https://digitalpalidictionary.github.io/rus/" target="_blank">DPD</a>
     </div>
     <script src="/static/home.js"></script>
     <script src="/static/dpd.js"></script>
     <script src="/static/autopali.js"></script>
+        <script src="/static/extra.js"></script>
+
 </body>
 
 </html>

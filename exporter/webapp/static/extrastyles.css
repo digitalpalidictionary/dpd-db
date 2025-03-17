@@ -820,6 +820,17 @@ video-container { position: relative; padding-bottom: 56.25%; padding-top: 30px;
   .logo-title {
     display: none;
   }
+    #settings-content {
+    display: none; /* Скрыть контент по умолчанию */
+  }
 }
 
-
+/* Стиль для кнопки сворачивания */
+.collapse-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0;
+  color: #333;
+}
