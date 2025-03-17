@@ -845,7 +845,7 @@ video-container { position: relative; padding-bottom: 56.25%; padding-top: 30px;
 }
 
 
-@media (max-width: 468px) {
+@media (max-width: 368px) {
  
      .input-group {
         display: flex; /* Делаем контейнер flex */
