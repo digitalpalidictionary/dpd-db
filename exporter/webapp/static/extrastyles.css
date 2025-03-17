@@ -788,6 +788,10 @@ video-container { position: relative; padding-bottom: 56.25%; padding-top: 30px;
     display: none;
   }
 
+    #history-content {
+    display: none; /* Скрыть контент по умолчанию */
+  }
+
 
     #settings-content {
     display: none; /* Скрыть контент по умолчанию */

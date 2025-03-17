@@ -10,59 +10,58 @@
     <link rel="stylesheet" type="text/css" href="/static/switch.css">
     <link rel="stylesheet" type="text/css" href="/static/dpd.css">
     <link rel="icon" type="image/png" href="/static/dpd.ico">
+    <link href="/static/jquery-ui.min.css" rel="stylesheet"/>
+<link href="/static/extrastyles.css" rel="stylesheet" />
+<script src="/static/jquery-3.7.0.min.js"></script>                                                                            <script src="/static/jquery-ui.min.js"></script>
 </head>
-
-
 <body>
     <div class="header-pane">
-        <div class="logo-title">
-            <img src="/static/dpd.ico" alt="dpd logo" id="header-image" class="header-image">
-            <h2 class="title" id="title-clear">DPD</h2>
-        </div>
+      <div class="logo-title">
+            <a href=/ru class="alogo"><img src="/static/dpd.ico" alt="dpd logo" id="header-image" class="header-image"></a>
+	    <h2 class="title" id="title-clear"><a href=/ru class="alogo">DPD</a></h2>
+        </div> 
         <form id="search-form">
-            <input 
-                class="search-box" type="text" name="search" id="search-box" value="{{ search }}" 
-                autocomplete="off" inputmode="text" autocapitalize="off">
-            <button class="search-button" id="search-button">поиск</button>
+  <div class="mb-3 form-group input-group ui-widget dropup rounded-pill">
+  <label class="sr-only dropup" for="search-box"></label>
+    <input class="search-box" type="search" name="search" id="search-box" placeholder="Search..." value="{{ search }}" autocomplete="off" inputmode="text" autocapitalize="off" autofocus>
+    <button class="search-button" id="search-button">поиск</button>
             <button class="help small-button" id="search-help-button">
                 ?
                 <span class="tooltip velthuis">
                     <b>
                         Система транслитерации Velthuis:
                     </b><br><br>
-                    aa > ā<br>
-                    ii > ī<br>
-                    uu > ū<br>
-                    "n > ṅ<br>
-                    ~n > ñ<br>
-                    .t > ṭ<br>
-                    .d > ḍ<br>
-                    .n > ṇ<br>
-                    .m > ṃ<br>
-                    .l > ḷ
+                    aa - ā<br>
+                    ii - ī<br>
+                    uu - ū<br>
+                    "n - ṅ<br>
+                    ~n - ñ<br>
+                    .t - ṭ<br>
+                    .d - ḍ<br>
+                    .n - ṇ<br>
+                    .m - ṃ<br>
+                    .l - ḷ
                 </span>
             </button>
-            <!-- Language selection dropdown -->
-            <div class="language-switcher">
-                <span class="language-icon" title="Язык">🌐
-                    <span class="tooltip">
-                        <b>Сменить Язык</b>
-                    </span>
-                </span>
-                <div class="dropdown" style="display: none;">
-                    <a href="#" class="dropdown-item" onclick="changeLanguage('en')">English</a>
-                    <a href="#" class="dropdown-item" onclick="changeLanguage('ru')">Русский</a>           
-                </div>
             </div>
         </form>
     </div>
     <div class="main-pane" id="main-pane">
         <div class="history-pane" id="history-pane">
-            <h3>История</h3>          
+             
+                <button class="collapse-btn" onclick="toggleHistory()">           
+    <h3>
+История 
+  </h3> 
+  </button>
+  <div id="history-content">
+            
+            
+            
             <button id="clear-history-button" class="clear-history-button">x</button>  
             <div class="history-list-pane" id="history-list-pane">
             </div>
-            
+         </div>   
         </div>
         <div class="dpd-pane" id="dpd-pane">
             <div class="summary-results" id="summary-results"></div>
@@ -71,7 +70,28 @@
             </div>    
         </div>
         <div class="settings-pane">
-            <h3>Настройки</h3>
+          
+    <button class="collapse-btn" onclick="toggleSettings()">           
+    <h3>
+Настройки <div class="settings-icon"></div>   
+  </h3> 
+  </button>
+  <div id="settings-content">
+
+          
+                        <!-- Language selection dropdown -->
+            <div class="language-switcher">
+                <span class="language-icon" title="Язык">🌐 Сменить Язык
+                    <span class="tooltip">
+                        <b>Сменить Язык</b>
+                    </span>
+                </span>
+<div class="dropdown" style="display: none;">
+  <a href="javascript:void(0)" class="dropdown-item" onclick="changeLanguage('en')">English</a>
+  <a href="javascript:void(0)" class="dropdown-item" onclick="changeLanguage('ru')">Русский</a>
+</div>
+            </div>
+
             <p>
                 <button class="small-button" id="font-size-down">-</button>
                 <button class="small-button" id="font-size-up">+</button>
@@ -116,7 +136,7 @@
             </p>
             <p>
                 <label class="switch">
-                    <input type="checkbox" id="summary-toggle" checked><span class="slider round"></span>
+                    <input type="checkbox" id="summary-toggle"><span class="slider round"></span>
                 </label>
                 краткая информация скрыта / раскрыта
             </p>
@@ -127,13 +147,16 @@
                 символ сандхи ' выкл / вкл
             </p>
         </div>
+        </div>
     </div>
     <div class="footer-pane">
-        Для подробной информации смотрите &nbsp;
-        <a href="https://digitalpalidictionary.github.io/rus/" target="_blank">DPD веб-страницу</a>
+        ©  
+        <a href="https://digitalpalidictionary.github.io/rus/" target="_blank">DPD</a>
     </div>
     <script src="/static/home.js"></script>
     <script src="/static/dpd.js"></script>
-</body>
+    <script src="/static/autopali.js"></script>
+        <script src="/static/extra.js"></script>
 
+</body>
 </html>
