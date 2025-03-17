@@ -203,40 +203,31 @@ function decreaseFontSize() {
     setFontSize()
     saveFontSize()
 }
-
-
+//fix???
 function changeLanguage(lang) {
-    // Получаем текущий URL
-    const currentUrl = window.location.href;
-    
-    // Разделяем URL на части
-    const urlParts = currentUrl.split('/');
+  // Получаем текущий URL и разбиваем его на части
+  const url = new URL(window.location.href);
+  const path = url.pathname; // Путь (например, "/ru")
+  const searchParams = url.search; // Параметры запроса (например, "?q=dukkha")
+  const hash = url.hash; // Хэш (например, "#section")
 
-    // Получаем базовый URL (протокол + домен)
-    const baseUrl = urlParts.slice(0, 3).join('/');
-
-    // Получаем путь после домена
-    let path = urlParts.slice(3).join('/');
-
-    // Если язык "en", удаляем "/ru" из пути, если он есть
-    if (lang === 'en') {
-        // Удаляем "/ru" в начале пути, если оно есть
-        path = path.replace(/^ru\//, '');
+  // Проверяем, передан ли язык 'ru'
+  if (lang === 'ru') {
+    // Если путь не начинается с '/ru', добавляем '/ru'
+    if (!path.startsWith('/ru')) {
+      url.pathname = '/ru' + path;
     }
-
-    // Если язык "ru", добавляем "/ru" в начало пути, если его нет
-    if (lang === 'ru') {
-        // Проверяем, не начинается ли путь уже с "ru/"
-        if (!path.startsWith('ru/')) {
-            path = 'ru/' + path;
-        }
+  }
+  // Проверяем, передан ли язык 'en'
+  else if (lang === 'en') {
+    // Если путь начинается с '/ru', удаляем '/ru'
+    if (path.startsWith('/ru')) {
+      url.pathname = path.slice(3); // Удаляем '/ru'
     }
+  }
 
-    // Строим новый URL
-    const newUrl = `${baseUrl}/${path}`;
-
-    // Перенаправляем пользователя на новый URL
-    window.location.href = newUrl;
+  // Обновляем URL в браузере, сохраняя параметры и хэш
+  window.history.pushState({}, '', url.toString());
 }
 searchForm.addEventListener("submit", handleFormSubmit);
 searchButton.addEventListener("submit", handleFormSubmit);
