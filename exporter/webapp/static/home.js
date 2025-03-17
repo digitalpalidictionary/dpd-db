@@ -206,36 +206,35 @@ function decreaseFontSize() {
 
 
 function changeLanguage(lang) {
-    // Get the current URL
+    // Получаем текущий URL
     const currentUrl = window.location.href;
     
-    // Split the URL into parts
+    // Разделяем URL на части
     const urlParts = currentUrl.split('/');
 
-    // Get the base URL (domain + protocol)
+    // Получаем базовый URL (протокол + домен)
     const baseUrl = urlParts.slice(0, 3).join('/');
 
-    // Get the path after the domain
+    // Получаем путь после домена
     let path = urlParts.slice(3).join('/');
 
-    // If the language is "en", remove "/ru" if it exists
+    // Если язык "en", удаляем "/ru" из пути, если он есть
     if (lang === 'en') {
-      // Remove "ru" at the beginning of the path
-        path = path.replace(/^[a-z][a-z]\//, '');
+        // Удаляем "/ru", если оно есть в начале пути
+        path = path.replace(/^ru\//, '');
     }
 
-    // If the language is "ru", add "ru" at the beginning of the path if it's not there
+    // Если язык "ru", добавляем "/ru" в начало пути, если его нет
     if (lang === 'ru' && !path.startsWith('ru/')) {
         path = `ru/${path}`;
     }
 
-    // Construct the new URL
+    // Строим новый URL
     const newUrl = `${baseUrl}/${path}`;
 
-    // Redirect the user to the new URL
+    // Перенаправляем пользователя на новый URL
     window.location.href = newUrl;
 }
-
 //// enter or click button to search 
 
 searchForm.addEventListener("submit", handleFormSubmit);
