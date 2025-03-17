@@ -820,29 +820,35 @@ video-container { position: relative; padding-bottom: 56.25%; padding-top: 30px;
 #search-form {
   display: flex;
   justify-content: center;
+  align-items: center;
   max-width: 100%;
 }
 
 .search-box {
-  flex: 1;
-  min-width: 120px;
-  max-width: 200px;
+  width: 100%;
+  max-width: 300px; /* Ограничиваем максимальную ширину на десктопе */
   padding: 5px;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .search-button {
-  padding: 5px 10px;
-  font-size: 14px;
+  padding: 6px 12px;
+  font-size: 16px;
   white-space: nowrap;
 }
 
 @media (max-width: 480px) {
+  #search-form {
+    flex-wrap: nowrap;
+  }
   .search-box {
-    max-width: 150px;
+    flex: 1;
+    min-width: 120px;
+    max-width: 60%;
+    font-size: 14px;
   }
   .search-button {
-    padding: 5px;
-    font-size: 12px;
+    font-size: 14px;
+    padding: 5px 8px;
   }
 }
