@@ -808,6 +808,11 @@ video-container { position: relative; padding-bottom: 56.25%; padding-top: 30px;
   font-size: 18px;
   cursor: pointer;
   padding: 0;
+     color: var(--foreground-light);
+ 
 /*  color: #333; */
 }
 
+.dark-mode .collapse-btn {
+    color: var(--foreground-dark);
+}
