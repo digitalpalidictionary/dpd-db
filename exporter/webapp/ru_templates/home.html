@@ -24,39 +24,26 @@
             <h2 class="title" id="title-clear">Электронный Словарь Пали</h2>
         </div>
         <form id="search-form">
-            <input 
-                class="search-box" type="text" name="search" id="search-box" value="{{ search }}" 
-                autocomplete="off" inputmode="text" autocapitalize="off">
-            <button class="search-button" id="search-button">поиск</button>
-            <button class="help small-button" id="search-help-button">
-                ?
-                <span class="tooltip velthuis">
-                    <b>
-                        Система транслитерации Velthuis:
-                    </b><br><br>
-                    aa > ā<br>
-                    ii > ī<br>
-                    uu > ū<br>
-                    "n > ṅ<br>
-                    ~n > ñ<br>
-                    .t > ṭ<br>
-                    .d > ḍ<br>
-                    .n > ṇ<br>
-                    .m > ṃ<br>
-                    .l > ḷ
-                </span>
-            </button>
-            <!-- Language selection dropdown -->
-            <div class="language-switcher">
-                <span class="language-icon" title="Язык">🌐
-                    <span class="tooltip">
-                        <b>Сменить Язык</b>
+            <div class="mb-3 form-group input-group ui-widget dropup rounded-pill">
+                <label class="sr-only dropup" for="search-box"></label>
+                <input class="search-box" type="search" name="search" id="search-box" placeholder="Search..." value="{{ search }}" autocomplete="off" inputmode="text" autocapitalize="off" autofocus>
+                <button class="search-button" id="search-button">поиск</button>
+                <button class="help small-button" id="search-help-button">
+                    ?
+                    <span class="tooltip velthuis">
+                        <b>Система транслитерации Velthuis:</b><br><br>
+                        aa - ā<br>
+                        ii - ī<br>
+                        uu - ū<br>
+                        "n - ṅ<br>
+                        ~n - ñ<br>
+                        .t - ṭ<br>
+                        .d - ḍ<br>
+                        .n - �<br>
+                        .m - ṃ<br>
+                        .l - ḷ
                     </span>
-                </span>
-                <div class="dropdown" style="display: none;">
-                    <a href="#" class="dropdown-item" onclick="changeLanguage('en')">English</a>
-                    <a href="#" class="dropdown-item" onclick="changeLanguage('ru')">Русский</a>           
-                </div>
+                </button>
             </div>
         </form>
     </div>
