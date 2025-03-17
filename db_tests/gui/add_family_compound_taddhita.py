@@ -3,16 +3,17 @@ Add missing family compounds and idioms from taddhita.
 """
 
 import json
+import queue
 import re
 import time
-from rich import print
+
 import flet as ft
-import queue
+from rich import print
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, FamilyCompound, FamilyIdiom
-from tools.paths import ProjectPaths
 from tools.goldendict_tools import open_in_goldendict_os
+from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_dot_dict
 
 

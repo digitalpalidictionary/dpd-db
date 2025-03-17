@@ -1,25 +1,25 @@
 """
-Add missing family compounds and idioms to su sur.
+Add missing family compounds and idioms
 """
 
-from json import load
 import queue
 import time
+from json import load
 
 import flet as ft
 from rich import print
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
-from tools.goldendict_tools import open_in_goldendict_os
-from tools.pali_sort_key import pali_sort_key
-from tools.paths import ProjectPaths
-from tools.negative_to_positive import make_positive
 from db_tests.helpers import (
+    InternalTestRow,
     make_internal_tests_list,
     write_internal_tests_list,
-    InternalTestRow,
 )
+from tools.goldendict_tools import open_in_goldendict_os
+from tools.negative_to_positive import make_positive
+from tools.pali_sort_key import pali_sort_key
+from tools.paths import ProjectPaths
 
 
 class UiManager:

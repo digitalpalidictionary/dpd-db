@@ -3,17 +3,17 @@ Add missing family compounds and idioms from
 negative Pāḷi words.
 """
 
-import time
-from rich import print
-import flet as ft
 import queue
+import time
+
+import flet as ft
+from rich import print
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, FamilyCompound, FamilyIdiom
-from tools.paths import ProjectPaths
 from tools.goldendict_tools import open_in_goldendict_os
 from tools.negative_to_positive import make_positive
-
+from tools.paths import ProjectPaths
 
 neg_exceptions = [4, 385, 386, 387, 2017, 3444, 3445, 3446, 3447]
 
