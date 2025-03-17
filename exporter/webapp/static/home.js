@@ -220,13 +220,15 @@ function changeLanguage(lang) {
 
     // Если язык "en", удаляем "/ru" из пути, если он есть
     if (lang === 'en') {
-        // Удаляем "/ru", если оно есть в начале пути
+        // Удаляем "/ru" в начале пути, если оно есть
         path = path.replace(/^ru\//, '');
     }
 
     // Если язык "ru", добавляем "/ru" в начало пути, если его нет
-    if (lang === 'ru' && !path.startsWith('ru/')) {
-        path = `ru/${path}`;
+    if (lang === 'ru') {
+        if (!path.startsWith('ru/')) {
+            path = 'ru/' + path;
+        }
     }
 
     // Строим новый URL
@@ -234,8 +236,7 @@ function changeLanguage(lang) {
 
     // Перенаправляем пользователя на новый URL
     window.location.href = newUrl;
-}
-//// enter or click button to search 
+}//// enter or click button to search 
 
 searchForm.addEventListener("submit", handleFormSubmit);
 searchButton.addEventListener("submit", handleFormSubmit);
