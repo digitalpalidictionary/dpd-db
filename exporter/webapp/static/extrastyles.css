@@ -862,11 +862,3 @@ video-container { position: relative; padding-bottom: 56.25%; padding-top: 30px;
     width: 100%; /* Заполняет доступное пространство */
 }
 }
-
-.footer-pane {
-    position: relative;
-    z-index: 1000;
-    min-height: 50px; /* или другое значение */
-    background-color: white; /* или другой цвет фона */
-}
-
