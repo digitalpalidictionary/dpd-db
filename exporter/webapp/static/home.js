@@ -205,37 +205,28 @@ function decreaseFontSize() {
 }
 
 
+// Модифицированная функция changeLanguage
 function changeLanguage(lang) {
-    // Get the current URL
-    const currentUrl = window.location.href;
-    
-    // Split the URL into parts
-    const urlParts = currentUrl.split('/');
+  // Получаем текущий URL и разбиваем его на части
+  const url = new URL(window.location.href);
+  let path = url.pathname; // Путь (например, "/ru")
+  const searchParams = url.search; // Параметры запроса (например, "?q=dukkha")
+  const hash = url.hash; // Хэш (например, "#section")
 
-    // Get the base URL (domain + protocol)
-    const baseUrl = urlParts.slice(0, 3).join('/');
+  // Удаляем все существующие вхождения '/ru' из пути
+  path = path.replace(/^\/ru/, '');
 
-    // Get the path after the domain
-    let path = urlParts.slice(3).join('/');
+  // Если выбран язык 'ru', добавляем '/ru' в начало пути
+  if (lang === 'ru') {
+    path = '/ru' + path;
+  }
 
-    // If the language is "en", remove "/ru" if it exists
-    if (lang === 'en') {
-      // Remove "ru" at the beginning of the path
-        path = path.replace(/^[a-z][a-z]\//, '');
-    }
+  // Обновляем путь в URL
+  url.pathname = path;
 
-    // If the language is "ru", add "ru" at the beginning of the path if it's not there
-    if (lang === 'ru' && !path.startsWith('ru/')) {
-        path = `ru/${path}`;
-    }
-
-    // Construct the new URL
-    const newUrl = `${baseUrl}/${path}`;
-
-    // Redirect the user to the new URL
-    window.location.href = newUrl;
+  // Принудительно обновляем страницу с новым URL
+  window.location.href = url.toString();
 }
-
 //// enter or click button to search 
 
 searchForm.addEventListener("submit", handleFormSubmit);
