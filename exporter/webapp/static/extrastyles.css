@@ -847,6 +847,13 @@ video-container { position: relative; padding-bottom: 56.25%; padding-top: 30px;
 
 @media (max-width: 468px) {
  
+     .input-group {
+        display: flex; /* Делаем контейнер flex */
+        align-items: center; /* Выравниваем элементы по центру вертикально */
+        justify-content: center; /* Выравниваем элементы по центру горизонтально */
+        width: 100%; /* Занимаем всю доступную ширину */
+    }
+
 .search-box {
     min-width: 150px; /* Минимальная ширина поля ввода */
     max-width: 250px; /* Максимальная ширина поля ввода */
