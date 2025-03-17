@@ -259,34 +259,6 @@ caption {
   display: none;	
 }
 
-
-/* star intead of checkbox for history*/
-label {
-            display: inline-block;
-            position: relative;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        label input[type="checkbox"] {
-            display: none;
-        }
-
-        .custom-checkbox .glyphicon {
-            color: gray;
-            font-size: 1em;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .custom-checkbox input[type="checkbox"]:checked + .glyphicon {
-            color: gold;
-        }
-
-/* star intead of checkbox for history end */
-
-
 .img-thumbnail {	
   background-color: #fff;	
   border: 0.125rem solid #dee2e6;	
