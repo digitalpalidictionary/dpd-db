@@ -61,6 +61,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const tabsToggle = document.getElementById("tabs-toggle");
     const tabContainer = document.getElementById("tab-container");
 
+    // Проверяем, существуют ли элементы перед выполнением кода
+    if (!tabsToggle || !tabContainer) {
+        return;
+    }
+
     // Проверяем состояние в localStorage или скрываем по умолчанию
     if (localStorage.getItem("tabsHidden") === null || localStorage.getItem("tabsHidden") === "true") {
         tabContainer.classList.add("hidden");
