@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
         `;
     } else if (language === 'ru') {
         startMessage = `
-        <p class="message">Ищите слова на пали или русском языке выше, используя символы <b>Автоподсказки</b>, <b>Unicode</b> или <b>Velthuis</b>.</p>
+        <p class="message">Ищите слова на пали или русском языке выше, используя <b>Автоподсказки</b>, символы <b>Unicode</b> или <b>Velthuis</b>.</p>
         <p class="message"><b>Дважды щелкните</b> на любое слово, чтобы найти его.</p>
         <p class="message">Настройте <b>параметры</b> в соответствии с вашими предпочтениями.</p>
         <p class="message"><b>Обновите</b> страницу, если у вас возникли какие-либо проблемы.</p>
