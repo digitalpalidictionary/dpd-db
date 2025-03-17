@@ -788,13 +788,33 @@ video-container { position: relative; padding-bottom: 56.25%; padding-top: 30px;
     color: inherit; /* Наследует цвет текста от родительского элемента */
 }
 
+/* Для мобильных устройств */
+.settings-icon {
+  display: none; /* Скрыть иконку по умолчанию */
+}
+
+
 @media (max-width: 768px) {
   .logo-title {
     display: none;
   }
+
+
     #settings-content {
     display: none; /* Скрыть контент по умолчанию */
   }
+  
+  
+    .settings-icon {
+    display: inline-block; /* Показываем иконку на мобильных */
+    width: 20px;
+    height: 20px;
+    margin-right: 8px; /* Расстояние между иконкой и текстом */
+    background-image: url('/static/gear.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
 }
 
 /* Стиль для кнопки сворачивания */
@@ -806,3 +826,4 @@ video-container { position: relative; padding-bottom: 56.25%; padding-top: 30px;
   padding: 0;
   color: #333;
 }
+
