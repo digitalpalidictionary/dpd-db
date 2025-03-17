@@ -826,11 +826,13 @@ video-container { position: relative; padding-bottom: 56.25%; padding-top: 30px;
 @media (max-width: 768px) {
     .input-group {
         display: flex; /* Делаем контейнер flex */
-        align-items: center; /* Выравниваем элементы по центру */
+        align-items: center; /* Выравниваем элементы по центру вертикально */
+        justify-content: center; /* Выравниваем элементы по центру горизонтально */
+        width: 100%; /* Занимаем всю доступную ширину */
     }
 
     .search-box {
-        min-width: 150px;
+        min-width: 150px; /* Минимальная ширина поля ввода */
         flex: 3; /* Занимает 3/4 ширины */
         margin: 0; /* Убираем отступы */
         width: auto; /* Отменяем фиксированную ширину */
