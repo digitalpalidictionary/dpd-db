@@ -13,7 +13,7 @@ function toggleSettings() {
 }
 
 
-
+/*
 // Обнуляем существующую функцию changeLanguage
 if (typeof changeLanguage === 'function') {
   changeLanguage = function() {}; // Заменяем на пустую функцию
@@ -41,3 +41,5 @@ function changeLanguage(lang) {
   // Принудительно обновляем страницу с новым URL
   window.location.href = url.toString();
 }
+
+*/
