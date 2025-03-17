@@ -22,12 +22,11 @@
 
 
 <body>
-  <div id="tab-container">
- <div class="tab-buttons">
+ <div id="tab-container"class="tab-buttons">
         <button class="tab-link active" onclick="openTab(event, 'dpd-tab')">DPD</button>
         <button class="tab-link" onclick="openTab(event, 'bold-def-tab')">CST Bold Definitions</button>
     </div> 
-</div>
+
 
     <div id="dpd-tab" class="tab-content active">
         <div class="header-pane">
@@ -162,29 +161,6 @@ Settings <div class="settings-icon"></div>
     Tabs show / hide
 </p>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const tabsToggle = document.getElementById("tabs-toggle");
-        const tabContainer = document.getElementById("tab-container");
-
-        // Восстанавливаем состояние из localStorage
-        if (localStorage.getItem("tabsHidden") === "true") {
-            tabContainer.classList.add("hidden");
-            tabsToggle.checked = true;
-        }
-
-        // Обработчик переключения
-        tabsToggle.addEventListener("change", function () {
-            if (this.checked) {
-                tabContainer.classList.add("hidden");
-                localStorage.setItem("tabsHidden", "true");
-            } else {
-                tabContainer.classList.remove("hidden");
-                localStorage.setItem("tabsHidden", "false");
-            }
-        });
-    });
-</script>
             </div>
         </div>
         </div>

@@ -56,3 +56,22 @@ function changeLanguage(lang) {
 }
 
 */
+
+document.addEventListener("DOMContentLoaded", function () {
+    const tabsToggle = document.getElementById("tabs-toggle");
+    const tabContainer = document.getElementById("tab-container");
+
+    // Проверяем состояние в localStorage или скрываем по умолчанию
+    if (localStorage.getItem("tabsHidden") === null || localStorage.getItem("tabsHidden") === "true") {
+        tabContainer.classList.add("hidden");
+        tabsToggle.checked = true;
+        localStorage.setItem("tabsHidden", "true"); // Запоминаем состояние
+    }
+
+    // Обработчик переключения
+    tabsToggle.addEventListener("change", function () {
+        const isHidden = this.checked;
+        tabContainer.classList.toggle("hidden", isHidden);
+        localStorage.setItem("tabsHidden", isHidden ? "true" : "false");
+    });
+});
