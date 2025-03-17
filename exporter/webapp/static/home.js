@@ -66,28 +66,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (language === 'en') {
         startMessage = `
-        <p class="message">Search in Pāḷi or English. <b>Autocomplete</b>, <b>Unicode</b> or <b>Velthuis</b> characters.</p>
-        <p class="message"><b>Double click</b> on any word to search for it.</p>
-        <p class="message"><b>Settings</b> to adjust preferences.</p>
-        <p class="message"><b>Refresh</b> the page in case of any problems.</p>
-        <p class="message">
-            More details about <a href="https://docs.dpdict.net/dpdict.html" target="_blank">this site</a> or <a href="https://docs.dpdict.net/titlepage.html" target="_blank">more information</a> DPD in general.
-        </p>
-        <p class="message">Try it by <b>double clicking</b> on words below:</p>
-        <p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root ✓</p>
-        `;
+      <p class="message">Search in Pāḷi or English using <b>Autocomplete</b>, <b>Unicode</b>, or <b>Velthuis</b>.</p>
+<p class="message"><b>Double-click</b> any word to search.</p>
+<p class="message">Adjust <b>Settings</b> as needed.</p>
+<p class="message"><b>Refresh</b> if issues occur.</p>
+<p class="message">
+    More info about: <a href="https://docs.dpdict.net/dpdict.html" target="_blank">Site</a> or 
+    <a href="https://docs.dpdict.net/titlepage.html" target="_blank">DPD in general</a>.
+</p>
+<p class="message">Try: <b>Double-click</b> words below:</p>
+<p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root ✓</p>
+`;
     } else if (language === 'ru') {
         startMessage = `
-        <p class="message">Ищите слова на пали или русском. <b>Автоподсказки</b>, <b>Unicode</b> или <b>Velthuis</b>.</p>
-        <p class="message"><b>Двойной клик</b> по слову, чтобы найти его.</p>
-        <p class="message"><b>Настройки</b> содержат доп. функции.</p>
-        <p class="message"><b>Обновите</b> страницу, если возникли проблемы.</p>
-        <p class="message">
-            Узнать больше <a href="https://digitalpalidictionary.github.io/rus/dpdict.html" target="_blank">о сайте</a> или 
-            <a href="https://digitalpalidictionary.github.io/rus/" target="_blank">DPD в общем</a>.
-        </p>
-        <p class="message">Чтобы попробовать: <b>двойной клик</b> по словам ниже:</p>
-        <p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root ✓</p>
+        <p class="message">Ищите на пали или русском с <b>Автоподсказками</b>, <b>Unicode</b> или <b>Velthuis</b>.</p>
+<p class="message"><b>Двойной клик</b> по слову для поиска.</p>
+<p class="message"><b>Настройки</b> — доп. функции.</p>
+<p class="message"><b>Обновите</b> страницу при проблемах.</p>
+<p class="message">
+    Подробнее о: <a href="https://digitalpalidictionary.github.io/rus/dpdict.html" target="_blank">Сайте</a> или
+    <a href="https://digitalpalidictionary.github.io/rus/" target="_blank">DPD в целом</a>.
+</p>
+<p class="message">Попробуйте: <b>двойной клик</b> по словам ниже:</p>
+<p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root ✓</p>
         `;
     }
 
