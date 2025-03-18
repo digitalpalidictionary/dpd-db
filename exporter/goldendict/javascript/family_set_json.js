@@ -2059,7 +2059,7 @@ var family_set_json = {
     "✔"
    ],
    [
-    "jotaka 30",
+    "jotaka 3",
     "adj",
     "(gram) clear; explicit; expressing; lit. shining",
     "◑"
@@ -24759,7 +24759,7 @@ var family_set_json = {
     "kāpilavatthavā",
     "masc",
     "name of a group of daemons; lit. from Kapilavatthu",
-    "◑"
+    "✔"
    ],
    [
     "kāmada 1",
@@ -24770,8 +24770,8 @@ var family_set_json = {
    [
     "kāmaseṭṭha",
     "masc",
-    "name of a deity",
-    "◑"
+    "name of a deity; lit. foremost in sensual pleasure",
+    "✔"
    ],
    [
     "kālakañcā",
@@ -24801,6 +24801,30 @@ var family_set_json = {
     "kāḷī 3",
     "fem",
     "name of Mahāmoggallāna's sister in a previous incarnation",
+    "✔"
+   ],
+   [
+    "kinnighaṇḍu",
+    "masc",
+    "name of a deity",
+    "✔"
+   ],
+   [
+    "kinnughaṇḍu",
+    "masc",
+    "name of a deity",
+    "✔"
+   ],
+   [
+    "kuṭeṇḍu",
+    "masc",
+    "name of a deity",
+    "✔"
+   ],
+   [
+    "kumbhīra",
+    "masc",
+    "name of a daemon king; lit. garial; with a pot",
     "✔"
    ],
    [
@@ -25434,6 +25458,30 @@ var family_set_json = {
     "✔"
    ],
    [
+    "viṭucca",
+    "masc",
+    "name of a deity",
+    "✔"
+   ],
+   [
+    "viṭuṭa",
+    "masc",
+    "name of a deity",
+    "✔"
+   ],
+   [
+    "viṭū",
+    "masc",
+    "name of a deity",
+    "✔"
+   ],
+   [
+    "viṭeṇḍu",
+    "masc",
+    "name of a deity",
+    "✔"
+   ],
+   [
     "vinatā 1",
     "fem",
     "mother of the Garuda race; lit. bent; bowed",
@@ -25448,8 +25496,8 @@ var family_set_json = {
    [
     "virūḷha 2",
     "masc",
-    "name of one of the Four Great Kings; lit. grown; developed; increased",
-    "◑"
+    "name of one of the Four Great Kings; lit. ascended",
+    "✔"
    ],
    [
     "virūḷhaka",
@@ -25486,6 +25534,12 @@ var family_set_json = {
     "masc",
     "name of a deity",
     "◑"
+   ],
+   [
+    "veṭeṇḍu",
+    "masc",
+    "name of a deity",
+    "✔"
    ],
    [
     "veṇḍu",
@@ -25533,7 +25587,7 @@ var family_set_json = {
     "vessāmittā",
     "masc",
     "name of a group of daemons; lit. from Vessāmitta mountain",
-    "◑"
+    "✔"
    ],
    [
     "vehapphala 2",
@@ -25616,8 +25670,8 @@ var family_set_json = {
    [
     "sātāgirā",
     "masc",
-    "name of a group of daemons; lit. from Sātāgira mountain; (or) of pleasant speech",
-    "◑"
+    "name of a group of daemons; lit. from nice mountain; (or) of pleasant speech",
+    "✔"
    ],
    [
     "sānu 2",
@@ -25790,8 +25844,8 @@ var family_set_json = {
    [
     "hemavatā",
     "masc",
-    "name of a group of daemons",
-    "◑"
+    "name of a group of daemons; lit. from the Himalayas",
+    "✔"
    ],
    [
     "hevamata",
@@ -25800,7 +25854,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 199
+  "count": 208
  },
  "animals": {
   "data": [

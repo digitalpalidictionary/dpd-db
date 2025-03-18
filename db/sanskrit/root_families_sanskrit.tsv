@@ -365,7 +365,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kas 2	1	a	hurt, trouble	√kaṣ	1	scratch	√kas	kaṣ	akṛcchra (na + kṛcchra), kṛcchra, kṛcchreṇa
 √kas 2	1	a	hurt, trouble	√kaṣ	1	scratch	pa √kas	-	
 √kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	√kass	kṛṣ	karṣaṇa, kṛṣaka
-√kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	anu √kass	anukṛṣ	
+√kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	anu √kass	anukṛṣ	anukarṣati
 √kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	apa √kass	apakṛṣ	apakṛṣṭvā, apakṛṣya, apākarṣati
 √kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	ava √kass	avakṛṣ	avakarṣayati
 √kass	1	a	drag, draw along	√kṛṣ	1, 6	drag, plough	ava pa √kass	prakṛṣ	
@@ -1836,7 +1836,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √budh	3	ya	know, wake up	√budh	4, 1	know, wake	saṃ √budh	sambudh	asambodha, sambuddha, sambuddhimat, sambodha, sambodhayati, sambodhi, sambodhitum, su + sambuddha
 √buh	1	a	pluck out, uproot	√bṛh √vṛh	6	tear, pluck	apa √buh		
 √buh	1	a	pluck out, uproot	√bṛh √vṛh	6	tear, pluck	ā √buh	āvṛh	ābarhayati, āvarhayati, ābṛḍha, ābṛh, ābarhayitvā, ābṛhati, āvarhaṇa, āvarhaṇa (bsk), āvarhayati, āvarhīt, āvṛhati, āvṛhet, āvṛhya
-√brah	1	a	increase	√bṛh √bṛṃh	1, 6	make big or strong	√brah	bṛh	abrāhmaṇa, abrāhmaṇya, abrāhmaṇyatā, na + brāhma, na + brāhmaṇī, brahma, brahmaṇā, brahmatva, brahmasya, brahmāya, brāhmaṇa, brāhmaṇī, brāhmaṇya, brāhmaṇyatā (bsk), bṛhat, bṛhanta, sabrahmaka, su + brahma
+√brah	1	a	increase	√bṛh √bṛṃh	1, 6	make big or strong	√brah	bṛh	abrāhmaṇa, abrāhmaṇya, abrāhmaṇyatā, na + abrāhmaṇa, na + brāhma, na + brāhmaṇī, brahma, brahmaṇā, brahmatva, brahmasya, brahmāya, brāhmaṇa, brāhmaṇī, brāhmaṇya, brāhmaṇyatā (bsk), bṛhat, bṛhanta, sabrahmaka, su + brahma
 √brū	1	a	say	√brū	2, 6	say	√brū	brū	abravam, abravīt (imperf), abruvan (imperf), uktvā, bravīti, bravīṣi, bruvanti, brūhi
 √brū	1	a	say	√brū	2, 6	say	pa √brū	prabrū	prabravīti
 √brūh	1	a	increase	√bṛh √bṛṃh √vṛṃh	1, 6	make big or strong	√brūh	bṛṃh	bṛṃhaṇa, bṛṃhayat, bṛṃhayati, bṛṃhayitavya, bṛṃhayitum, bṛṃhayitṛ, vṛmhayamāṇa
@@ -3020,7 +3020,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	adhi ā √si	āśri	adhyāśaya, adhyāśaya (bsk)
 √si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	apa √si	apaśri	apaśayitṛ?, apaśraya, apāśritya
 √si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	ava √si		ava + śri, avasa, āśraya
-√si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	ā √si	āśri	
+√si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	ā √si	āśri	āśrita
 √si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	ud √si	ucchri	ucchrayati, ucchrāyayati (bsk), ucchrāpayat (bsk), ucchrāpayati, ucchrāpayatum, ucchrita, utsṛta (bsk), udśri, na + ucchrita
 √si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	upa √si	upaśri	upāśraya
 √si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	upa ni √si	upaniśri	upaniśraya (bsk), upaniśrāya, upaniśrita, na + saṃniśraya, sa + upaniśraya (bsk), saṃniśraya

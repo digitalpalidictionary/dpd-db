@@ -18862,7 +18862,7 @@ var family_root_json = {
    [
     "daddaḷhamāna",
     "prp",
-    "shining; blazing",
+    "shining brightly; blazing intensely",
     "✔"
    ]
   ]
@@ -20756,8 +20756,8 @@ var family_root_json = {
    [
     "jutīmant",
     "adj",
-    "luminous; radiant; brilliant; magnificent",
-    "✘"
+    "luminous; radiant; brilliant; magnificent; lit. having shining quality",
+    "✔"
    ],
    [
     "jotaka 1",
@@ -20772,7 +20772,7 @@ var family_root_json = {
     "✘"
    ],
    [
-    "jotaka 30",
+    "jotaka 3",
     "adj",
     "(gram) clear; explicit; expressing; lit. shining",
     "◑"
@@ -37812,7 +37812,7 @@ var family_root_json = {
    [
     "adhipati 1",
     "masc",
-    "master; ruler; person in charge",
+    "lord; master; ruler (of)",
     "✔"
    ],
    [
@@ -61505,9 +61505,9 @@ var family_root_json = {
   "data": [
    [
     "anukassati",
-    "fut",
-    "will recite, will quote",
-    "✘"
+    "pr",
+    "recites; quotes; utters; lit. drags up",
+    "✔"
    ]
   ]
  },
@@ -110257,7 +110257,7 @@ var family_root_json = {
   "root_key": "√brah",
   "root_family": "√brah",
   "root_meaning": "increase",
-  "count": 33,
+  "count": 34,
   "data": [
    [
     "abrahma",
@@ -110300,6 +110300,12 @@ var family_root_json = {
     "fem",
     "non-Brahman woman",
     "✔"
+   ],
+   [
+    "nābrāhmaṇa",
+    "masc",
+    "no Brahman is not",
+    "◑"
    ],
    [
     "brahanta",
@@ -112385,7 +112391,7 @@ var family_root_json = {
     "bhumma 2",
     "masc",
     "terrestrial deity; earth god",
-    "✘"
+    "✔"
    ],
    [
     "bhumma 3",
@@ -113846,8 +113852,8 @@ var family_root_json = {
    [
     "abhikkāmi",
     "aor",
-    "came out; came forward",
-    "◑"
+    "came out; came forward; presented oneself",
+    "✔"
    ]
   ]
  },
@@ -131361,7 +131367,7 @@ var family_root_json = {
     "vañcanika",
     "adj",
     "fraudulent; deceptive; cheating",
-    "✘"
+    "✔"
    ],
    [
     "vañcaniya",
@@ -135614,8 +135620,8 @@ var family_root_json = {
    [
     "vavatthitvāna",
     "abs",
-    "having analysed; having distinguished; having defined",
-    "✘"
+    "having analysed; having distinguished; having defined; lit. having caused to stand down apart",
+    "✔"
    ],
    [
     "vavattheti",
@@ -139828,7 +139834,7 @@ var family_root_json = {
    [
     "aviññū",
     "masc",
-    "intelligent person; who doesn't understand",
+    "unintelligent person; who doesn't understand",
     "◑"
    ],
    [
@@ -144368,8 +144374,8 @@ var family_root_json = {
    [
     "virūḷha 2",
     "masc",
-    "name of one of the Four Great Kings; lit. grown; developed; increased",
-    "◑"
+    "name of one of the Four Great Kings; lit. ascended",
+    "✔"
    ],
    [
     "virūḷhaka",
@@ -147294,8 +147300,8 @@ var family_root_json = {
    [
     "avekkhitvāna",
     "abs",
-    "having seen; having considered",
-    "✘"
+    "having considered; having reviewed; lit. having looked down",
+    "✔"
    ]
   ]
  },
@@ -160646,8 +160652,8 @@ var family_root_json = {
    [
     "siloka 2",
     "masc",
-    "verse",
-    "✘"
+    "verse; stanza",
+    "✔"
    ],
    [
     "siloka 3",
@@ -162798,8 +162804,8 @@ var family_root_json = {
    [
     "assita 2",
     "pp",
-    "resorted (to); living (in)",
-    "◑"
+    "living (in); relying (on); lit. dependent on",
+    "✔"
    ]
   ]
  },
@@ -164326,7 +164332,7 @@ var family_root_json = {
    [
     "ahetu 1",
     "adj",
-    "without causeless; with no basis; for no reason",
+    "causeless; with no basis; for no reason",
     "✔"
    ],
    [
@@ -203932,8 +203938,8 @@ var family_root_json = {
    [
     "pasāsati 2",
     "pr",
-    "rules, governs",
-    "✘"
+    "rules; governs; controls",
+    "✔"
    ],
    [
     "pasāsanta",

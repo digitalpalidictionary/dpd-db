@@ -9876,8 +9876,8 @@ var family_word_json = {
    [
     "anupubbaso",
     "ind",
-    "in regular order",
-    "✘"
+    "in sequential order; one after the next; lit. from following before",
+    "✔"
    ],
    [
     "anupubbaṃ",
@@ -21740,8 +21740,8 @@ var family_word_json = {
    [
     "kumbhīra",
     "masc",
-    "name of a demon king",
-    "✘"
+    "name of a daemon king; lit. garial; with a pot",
+    "✔"
    ],
    [
     "kumbhīla",
@@ -21763,8 +21763,8 @@ var family_word_json = {
    [
     "kumbhaṇḍa 2",
     "masc",
-    "type of supernatural being; daemon; lit. pumpkin",
-    "◑"
+    "type of supernatural being; daemon; lit. (with testicles lika a) pumpkin",
+    "✔"
    ],
    [
     "kumbhaṇḍī",
@@ -32485,7 +32485,7 @@ var family_word_json = {
    [
     "sasalla",
     "adj",
-    "having a arrow; with a dagger",
+    "having an arrow; with a barb",
     "◑"
    ]
   ],
@@ -33232,9 +33232,15 @@ var family_word_json = {
     "fem",
     "(gram) locative case",
     "✘"
+   ],
+   [
+    "sattari",
+    "card",
+    "seventy (70)",
+    "✔"
    ]
   ],
-  "count": 9
+  "count": 10
  },
  "hada": {
   "data": [
@@ -35361,13 +35367,25 @@ var family_word_json = {
     "◑"
    ],
    [
+    "hemavata 3",
+    "adj",
+    "from the Himalayas",
+    "✔"
+   ],
+   [
     "hemavataka",
     "adj",
     "living in the Himalayas",
     "✘"
+   ],
+   [
+    "hemavatā",
+    "masc",
+    "name of a group of daemons; lit. from the Himalayas",
+    "✔"
    ]
   ],
-  "count": 6
+  "count": 8
  },
  "hiyyo": {
   "data": [
@@ -35448,18 +35466,12 @@ var family_word_json = {
     "✔"
    ],
    [
-    "hemavatā",
-    "masc",
-    "name of a group of daemons",
-    "◑"
-   ],
-   [
     "hemavant",
     "adj",
     "golden; adorned with gold; lit. having gold quality",
     "◑"
    ]
   ],
-  "count": 5
+  "count": 4
  }
 }

@@ -7308,7 +7308,7 @@ var family_idiom_json = {
     "appeke",
     "sandhi",
     "and some",
-    "◑"
+    "✔"
    ],
    [
     "appeva",
@@ -8052,7 +8052,7 @@ var family_idiom_json = {
     "sopāgā",
     "sandhi",
     "he also came (to)",
-    "◑"
+    "✔"
    ],
    [
     "sopi",
@@ -12615,7 +12615,7 @@ var family_idiom_json = {
     "sopāgā",
     "sandhi",
     "he also came (to)",
-    "◑"
+    "✔"
    ]
   ]
  },
@@ -12685,7 +12685,7 @@ var family_idiom_json = {
     "appeke",
     "sandhi",
     "and some",
-    "◑"
+    "✔"
    ],
    [
     "ayamekānupassanā",
@@ -18294,7 +18294,7 @@ var family_idiom_json = {
     "yasassiso",
     "sandhi",
     "he is famous; he is renowned",
-    "◑"
+    "✔"
    ]
   ]
  },
@@ -31560,7 +31560,7 @@ var family_idiom_json = {
     "yasassiso",
     "sandhi",
     "he is famous; he is renowned",
-    "◑"
+    "✔"
    ],
    [
     "yo so",
@@ -31596,7 +31596,7 @@ var family_idiom_json = {
     "sopāgā",
     "sandhi",
     "he also came (to)",
-    "◑"
+    "✔"
    ],
    [
     "sopi",
