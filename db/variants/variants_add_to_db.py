@@ -59,45 +59,61 @@ class AddVariantsToDb:
         for i in range(0, len(update_keys), chunk_size):
             chunk_keys = update_keys[i : i + chunk_size]
 
-            # Get and update records
-            records = (
-                self.db_session.query(Lookup)
-                .filter(Lookup.lookup_key.in_(chunk_keys))
-                .all()
-            )
+            try:
+                # Get all records in this chunk in one query
+                records = (
+                    self.db_session.query(Lookup)
+                    .filter(Lookup.lookup_key.in_(chunk_keys))
+                    .all()
+                )
 
-            for record in records:
-                try:
+                # Update each record
+                for record in records:
                     record.variants_pack(self.variants_dict[record.lookup_key])
                     update_count += 1
-                except Exception as e:
-                    self.db_session.rollback()
-                    p_red(f"Error updating {record.lookup_key}: {str(e)}")
-                    continue
 
-            try:
+                # Commit the chunk
                 self.db_session.commit()
+                # Free memory
+                self.db_session.expunge_all()
+
             except Exception as e:
                 self.db_session.rollback()
-                p_red(f"Error committing chunk: {str(e)}")
+                p_red(f"Error updating chunk: {str(e)}")
 
         p_yes(update_count)
 
     def add_variants_to_db(self):
-        """Add new variants to the table."""
+        """Add new variants to the lookup table."""
         p_green("adding to db")
 
-        add_to_db = []
-        for count, (variant, data) in enumerate(self.variants_dict.items()):
-            if variant not in self.lookup_keys:
-                add_me = Lookup()
-                add_me.lookup_key = variant
-                add_me.variants_pack(data)
-                add_to_db.append(add_me)
-        p_yes(len(add_to_db))
+        # Find keys that don't exist in the database
+        new_keys = [k for k in self.variants_dict.keys() if k not in self.lookup_keys]
 
-        p_green("committing db")
-        self.db_session.add_all(add_to_db)
-        self.db_session.add_all(add_to_db)
-        self.db_session.commit()
-        p_yes("")
+        # Process in chunks
+        chunk_size = 1000
+        add_count = 0
+
+        for i in range(0, len(new_keys), chunk_size):
+            chunk_keys = new_keys[i : i + chunk_size]
+            add_to_db = []
+
+            # Create new objects for each key in this chunk
+            for key in chunk_keys:
+                add_me = Lookup()
+                add_me.lookup_key = key
+                add_me.variants_pack(self.variants_dict[key])
+                add_to_db.append(add_me)
+
+            try:
+                # Add all records in this chunk
+                self.db_session.add_all(add_to_db)
+                self.db_session.commit()
+                add_count += len(add_to_db)
+                # Free memory
+                self.db_session.expunge_all()
+            except Exception as e:
+                self.db_session.rollback()
+                p_red(f"Error adding chunk: {str(e)}")
+
+        p_yes(add_count)

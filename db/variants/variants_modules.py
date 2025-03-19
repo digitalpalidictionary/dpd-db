@@ -1,3 +1,4 @@
+import json
 import re
 from typing import TypeAlias
 
@@ -8,7 +9,7 @@ VariantsDict: TypeAlias = dict[str, dict[str, dict[str, list[tuple[str, str]]]]]
 
 def key_cleaner(key: str) -> str:
     """Remove non-Pāḷi characters from the key"""
-    
+
     char_set: list[str] = [" "]
     char_set.extend(pali_alphabet)
 
@@ -33,3 +34,10 @@ def context_cleaner(context: str) -> str:
     context = context.strip()
 
     return context
+
+
+def save_json(variants_dict: VariantsDict) -> None:
+    """Save variants to json"""
+
+    with open("temp/variants.json", "w") as f:
+        json.dump(variants_dict, f, ensure_ascii=False, indent=2)

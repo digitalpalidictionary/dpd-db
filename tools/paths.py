@@ -382,6 +382,12 @@ class ProjectPaths:
             base_dir / "exporter/share/abbreviations.pdf"
         )
 
+        # exporter/variants
+        self.variants_header_path = (
+            base_dir / "exporter/variants/html_css_js/variants_header.html"
+        )
+        self.variants_css_path = base_dir / "exporter/variants/html_css_js/variants.css"
+
         # db/frequency/output
         self.ebt_raw_text_path = base_dir / "db/frequency/output/raw_text/ebts.txt"
         self.ebt_word_count_path = base_dir / "db/frequency/output/word_count/ebts.csv"
@@ -540,12 +546,6 @@ class ProjectPaths:
         self.letters8 = base_dir / "db/deconstructor/output/letters/letters8.tsv"
         self.letters9 = base_dir / "db/deconstructor/output/letters/letters9.tsv"
         self.letters10 = base_dir / "db/deconstructor/output/letters/letters10plus.tsv"
-
-        # db/variants/html_css_js
-        self.variants_header_path = (
-            base_dir / "db/variants/html_css_js/variants_header.html"
-        )
-        self.variants_css_path = base_dir / "db/variants/html_css_js/variants.css"
 
         # shared_data/deconstructor
         self.decon_manual_corrections = (

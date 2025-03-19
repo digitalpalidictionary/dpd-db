@@ -1,22 +1,18 @@
-""""Saving and Exporting modules."""
+#!/usr/bin/env python3
 
-import json
+"""Export Variants Dict to GoldenDict and MDict."""
+
 import re
-
-from db.variants.variants_modules import VariantsDict
+from db.db_helpers import get_db_session
 
 from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables
 from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
 from tools.mdict_exporter import export_to_mdict
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
-
-
-def save_json(variants_dict: VariantsDict) -> None:
-    """Save variants to json"""
-
-    with open("temp/variants.json", "w") as f:
-        json.dump(variants_dict, f, ensure_ascii=False, indent=2)
+from tools.printer import p_title, p_green, p_yes
+from db.models import Lookup
+from tools.tic_toc import tic, toc
 
 
 def make_synonyms(synonyms_list: list[str], variant: str) -> list[str]:
@@ -28,7 +24,7 @@ def make_synonyms(synonyms_list: list[str], variant: str) -> list[str]:
     if len(words) == 1:
         if variant_clean not in synonyms_list:
             synonyms_list.append(variant_clean)
-    
+
     return synonyms_list
 
 
@@ -41,32 +37,45 @@ def make_synonyms_bjt(synonyms_list: list[str], variant: str) -> list[str]:
     if len(words) == 1:
         if variant_clean not in synonyms_list:
             synonyms_list.append(variant_clean)
-    
+
     return synonyms_list
 
 
-def export_to_goldendict_mdict(
-        variants_dict: VariantsDict, pth: ProjectPaths) -> None:
-    """Convert dict to HTML and export to GoldenDict, MDict"""
+def main():
+    tic()
+    p_title("exporting variants to mdict and goldendict")
+
+    p_green("setting up data")
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
+    variants_db: list[Lookup] = (
+        db_session.query(Lookup).filter(Lookup.variant != "").all()
+    )
+    variants_dict = {i.lookup_key: i.variants_unpack for i in variants_db}
 
     dict_data: list[DictEntry] = []
-    
+
     with open(pth.variants_header_path) as f:
-        header = f.read() 
-    
+        header = f.read()
+
+    p_yes("")
+
+    p_green("writing html")
+
     for word, data_tuple in variants_dict.items():
-        
         html_list: list[str] = []
         html_list.append(header)
         html_list.append("<body>")
         html_list.append("<div class='variants'>")
         html_list.append("<table class='variants'>")
-        html_list.append("<tr><th>source</th><th>filename</th><th>context</th><th>variant</th></tr>")
+        html_list.append(
+            "<tr><th>source</th><th>filename</th><th>context</th><th>variant</th></tr>"
+        )
         html_list.append("<td colspan='100%'><hr class='variants'></td>")
 
         synonyms_list: list[str] = []
 
-        # add various niggahita to synonyms 
+        # add various niggahita to synonyms
         if "ṃ" in word or "ṁ" in word:
             synonyms_list = add_niggahitas([word])
         old_corpus = ""
@@ -74,22 +83,24 @@ def export_to_goldendict_mdict(
         for corpus, data2 in data_tuple.items():
             if old_corpus and old_corpus != corpus:
                 html_list.append("<td colspan='100%'><hr class='variants'></td>")
-            
+
             for book, data3 in data2.items():
                 for data_tuple in data3:
-                    context, variant = data_tuple 
+                    context, variant = data_tuple
                     if corpus == "MST" or corpus == "CST":
                         synonyms_list = make_synonyms(synonyms_list, variant)
                     if corpus == "BJT":
                         synonyms_list = make_synonyms_bjt(synonyms_list, variant)
-                    
+
                     # add various niggahitas to synonyms
                     synonyms_list = add_niggahitas(synonyms_list)
-                        
-                    html_list.append(f"<tr><td>{corpus}</td><td>{book}</td><td>{context}</td><td>{variant}</td></tr>")
+
+                    html_list.append(
+                        f"<tr><td>{corpus}</td><td>{book}</td><td>{context}</td><td>{variant}</td></tr>"
+                    )
             html_list.append("")
             old_corpus = corpus
-        
+
         html_list.append("</table>")
         html_list.append("</div>")
         html_list.append("</body>")
@@ -100,9 +111,11 @@ def export_to_goldendict_mdict(
             word=word,
             definition_html=html,
             definition_plain="",
-            synonyms=synonyms_list
+            synonyms=synonyms_list,
         )
         dict_data.append(dict_entry)
+
+    p_yes(len(dict_data))
 
     dict_info = DictInfo(
         bookname="DPD Variants",
@@ -110,7 +123,7 @@ def export_to_goldendict_mdict(
         description="Variant readings found in Myanmar, Sri Lankan, Thai and Sutta Central texts.",
         website="wwww.dpdict.net",
         source_lang="pi",
-        target_lang="pi"
+        target_lang="pi",
     )
 
     dict_vars = DictVariables(
@@ -123,14 +136,14 @@ def export_to_goldendict_mdict(
     )
 
     export_to_goldendict_with_pyglossary(
-        dict_info, 
-        dict_vars,
-        dict_data, 
-    )
-
-    export_to_mdict(
         dict_info,
         dict_vars,
-        dict_data
+        dict_data,
     )
 
+    export_to_mdict(dict_info, dict_vars, dict_data)
+    toc()
+
+
+if __name__ == "__main__":
+    main()
