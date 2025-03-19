@@ -30,6 +30,7 @@ from tools.paths import ProjectPaths
 from sqlalchemy.exc import OperationalError
 import time
 
+
 def make_dpd_html(
     q: str,
     pth: ProjectPaths,
@@ -51,9 +52,11 @@ def make_dpd_html(
                     if lang == "ru":
                         q = q.casefold()
 
-                    lookup_results = db_session.query(Lookup)\
-                        .filter(Lookup.lookup_key.ilike(q))\
+                    lookup_results = (
+                        db_session.query(Lookup)
+                        .filter(Lookup.lookup_key.ilike(q))
                         .all()
+                    )
 
                     # first try the lookup table, if no results, then try other options
                     if lookup_results:
@@ -61,115 +64,158 @@ def make_dpd_html(
                             # headwords
                             if lookup_result.headwords:
                                 headwords = lookup_result.headwords_unpack
-                                headword_results = db_session.query(DpdHeadword)\
-                                    .filter(DpdHeadword.id.in_(headwords))\
-                                    .options(joinedload(DpdHeadword.ru))\
+                                headword_results = (
+                                    db_session.query(DpdHeadword)
+                                    .filter(DpdHeadword.id.in_(headwords))
+                                    .options(joinedload(DpdHeadword.ru))
                                     .all()
+                                )
                                 headword_results = sorted(
-                                    headword_results, key=lambda x: pali_sort_key(x.lemma_1))
+                                    headword_results,
+                                    key=lambda x: pali_sort_key(x.lemma_1),
+                                )
                                 for i in headword_results:
                                     fc = get_family_compounds(i)
                                     fi = get_family_idioms(i)
                                     fs = get_family_set(i)
                                     d = HeadwordData(i, fc, fi, fs)
                                     summary_html += templates.get_template(
-                                        "dpd_summary.html").render(d=d)
-                                    dpd_html += templates.get_template("dpd_headword.html").render(d=d)
+                                        "dpd_summary.html"
+                                    ).render(d=d)
+                                    dpd_html += templates.get_template(
+                                        "dpd_headword.html"
+                                    ).render(d=d)
 
                             # roots
                             if lookup_result.roots:
                                 roots_list = lookup_result.roots_unpack
-                                root_results = db_session.query(DpdRoot)\
-                                    .filter(DpdRoot.root.in_(roots_list))\
+                                root_results = (
+                                    db_session.query(DpdRoot)
+                                    .filter(DpdRoot.root.in_(roots_list))
                                     .all()
+                                )
                                 for r in root_results:
-                                    frs = db_session.query(FamilyRoot)\
-                                        .filter(FamilyRoot.root_key == r.root)
-                                    frs = sorted(frs, key=lambda x: pali_sort_key(x.root_family))
+                                    frs = db_session.query(FamilyRoot).filter(
+                                        FamilyRoot.root_key == r.root
+                                    )
+                                    frs = sorted(
+                                        frs, key=lambda x: pali_sort_key(x.root_family)
+                                    )
                                     d = RootsData(r, frs, roots_count_dict)
                                     summary_html += templates.get_template(
-                                        "root_summary.html").render(d=d)
-                                    dpd_html += templates.get_template("root.html").render(d=d)
+                                        "root_summary.html"
+                                    ).render(d=d)
+                                    dpd_html += templates.get_template(
+                                        "root.html"
+                                    ).render(d=d)
 
                             # deconstructor
                             if lookup_result.deconstructor:
                                 d = DeconstructorData(lookup_result)
-                                dpd_html += templates.get_template("deconstructor.html").render(d=d)
+                                dpd_html += templates.get_template(
+                                    "deconstructor.html"
+                                ).render(d=d)
 
                             # variant
                             if lookup_result.variant:
                                 d = VariantData(lookup_result)
-                                dpd_html += templates.get_template("variant.html").render(d=d)
+                                dpd_html += templates.get_template(
+                                    "variant.html"
+                                ).render(d=d)
 
                             # spelling mistake
                             if lookup_result.spelling:
                                 d = SpellingData(lookup_result)
-                                dpd_html += templates.get_template("spelling.html").render(d=d)
+                                dpd_html += templates.get_template(
+                                    "spelling.html"
+                                ).render(d=d)
 
+                            # grammar
                             if lookup_result.grammar:
                                 d = GrammarData(lookup_result)
-                                dpd_html += templates.get_template("grammar.html").render(d=d)
+                                dpd_html += templates.get_template(
+                                    "grammar.html"
+                                ).render(d=d)
 
                             # help
                             if lookup_result.help:
                                 d = HelpData(lookup_result)
-                                dpd_html += templates.get_template("help.html").render(d=d)
+                                dpd_html += templates.get_template("help.html").render(
+                                    d=d
+                                )
 
                             # abbreviations
                             if lookup_result.abbrev:
                                 d = AbbreviationsData(lookup_result)
-                                dpd_html += templates.get_template("abbreviations.html").render(d=d)
+                                dpd_html += templates.get_template(
+                                    "abbreviations.html"
+                                ).render(d=d)
 
                             # epd
                             if lookup_result.epd:
                                 d = EpdData(lookup_result)
-                                dpd_html += templates.get_template("epd.html").render(d=d)
+                                dpd_html += templates.get_template("epd.html").render(
+                                    d=d
+                                )
 
                             # rpd
                             if lang == "ru" and lookup_result.rpd:
                                 d = RpdData(lookup_result)
-                                dpd_html += templates.get_template("rpd.html").render(d=d)
+                                dpd_html += templates.get_template("rpd.html").render(
+                                    d=d
+                                )
 
                     # the two cases below search directly in the DpdHeadwords table
                     elif q.isnumeric():  # eg 78654
                         search_term = int(q)
-                        headword_result = db_session.query(DpdHeadword)\
-                            .filter(DpdHeadword.id == search_term)\
-                            .options(joinedload(DpdHeadword.ru))\
+                        headword_result = (
+                            db_session.query(DpdHeadword)
+                            .filter(DpdHeadword.id == search_term)
+                            .options(joinedload(DpdHeadword.ru))
                             .first()
+                        )
                         if headword_result:
                             fc = get_family_compounds(headword_result)
                             fi = get_family_idioms(headword_result)
                             fs = get_family_set(headword_result)
                             d = HeadwordData(headword_result, fc, fi, fs)
-                            dpd_html += templates.get_template("dpd_headword.html").render(d=d)
+                            dpd_html += templates.get_template(
+                                "dpd_headword.html"
+                            ).render(d=d)
 
                         # return closest matches
                         else:
                             dpd_html = find_closest_matches(
-                                q, headwords_clean_set, ascii_to_unicode_dict, lang)
+                                q, headwords_clean_set, ascii_to_unicode_dict, lang
+                            )
 
                     elif re.search(r"\s\d", q):  # eg "kata 5"
-                        headword_result = db_session.query(DpdHeadword)\
-                            .filter(DpdHeadword.lemma_1 == q)\
-                            .options(joinedload(DpdHeadword.ru))\
+                        headword_result = (
+                            db_session.query(DpdHeadword)
+                            .filter(DpdHeadword.lemma_1 == q)
+                            .options(joinedload(DpdHeadword.ru))
                             .first()
+                        )
                         if headword_result:
                             fc = get_family_compounds(headword_result)
                             fi = get_family_idioms(headword_result)
                             fs = get_family_set(headword_result)
                             d = HeadwordData(headword_result, fc, fi, fs)
-                            dpd_html += templates.get_template("dpd_headword.html").render(d=d)
+                            dpd_html += templates.get_template(
+                                "dpd_headword.html"
+                            ).render(d=d)
 
                         # return closest matches
                         else:
                             dpd_html = find_closest_matches(
-                                q, headwords_clean_set, ascii_to_unicode_dict, lang)
+                                q, headwords_clean_set, ascii_to_unicode_dict, lang
+                            )
 
                     # or finally return closest matches
                     else:
                         dpd_html = find_closest_matches(
-                            q, headwords_clean_set, ascii_to_unicode_dict, lang)
+                            q, headwords_clean_set, ascii_to_unicode_dict, lang
+                        )
 
                     return dpd_html, summary_html
 

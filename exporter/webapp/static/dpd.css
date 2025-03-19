@@ -331,14 +331,15 @@ p.deconstructor_footer {
     font-size: 80%;
     margin: 5px 0 0 0;
     padding: 5px 0px;
-    
+
 }
 
 
 /* variant */
 
-div.variant {
-    border: 2px solid #ff0055;
+
+div.variants {
+    border: 2px solid #00A4CC;
     border-radius: 7px;
     line-height: 150%;
     margin: 0px 0px;
@@ -347,12 +348,41 @@ div.variant {
     text-align: left;
 }
 
-p.variant {
-    line-height: 150%;
-    margin: 2px 0px;
-    vertical-align: middle;
+table.variants {
+    border-collapse: collapse;
+    border: none;
+    line-height: 1.5;
+    margin: 0;
+    overflow: auto;
     text-align: left;
+    vertical-align: top;
+    width: auto;
+    max-width: 100%;
 }
+
+.variants th,
+.variants td {
+    padding: 2px 5px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.variants td:first-child,
+.variants td:nth-child(2) {
+    white-space: nowrap;
+}
+
+
+hr.variants {
+    background-color: gray;
+    width: 100%;
+    border: none;
+    height: 1px;
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
 
 /* grammar dict */
 
@@ -383,7 +413,7 @@ table.grammar_dict td {
     padding: 2px 5px;
     border: 1px solid #468b7c;
     border-collapse: collapse;
-    
+
 }
 
 /* help */
@@ -478,7 +508,7 @@ table.root_info th {
     color: #AB3C00;
     font-weight: 700;
     white-space: normal;
-    padding: 0px 5px 2px 0px 
+    padding: 0px 5px 2px 0px
 }
 
 table.root_info b {
@@ -599,10 +629,9 @@ div.epd {
     margin: 0px;
     vertical-align: middle;
     text-align: left;
-}   
-
-.epd b {
-    color:#8B008B;
-    font-weight: 700;
 }
 
+.epd b {
+    color: #8B008B;
+    font-weight: 700;
+}

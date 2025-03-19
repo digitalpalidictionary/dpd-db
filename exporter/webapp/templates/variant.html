@@ -1,11 +1,36 @@
-<h3>variant: {{d.headword|safe}}</h3>
-<div class='variant'>
-    <p class='variant'>
-        {% for variant in d.variants: %}
-        variant reading of <b><i>{{variant}}</i></b>
-        {% if not loop.last: %}
-            <br>
+<h3>variants: {{ d.headword|safe }}</h3>
+<div class='variants'>
+    <table class='variants'>
+        <tr>
+            <th>source</th>
+            <th>filename</th>
+            <th>context</th>
+            <th>variant</th>
+        </tr>
+
+        {% set old_corpus = None %}
+        {% for corpus, data2 in d.variants.items() %}
+
+        {% if old_corpus != corpus %}
+        <tr>
+            <td colspan="4">
+                <hr class='variants'>
+            </td>
+        </tr>
         {% endif %}
+
+        {% for book, data3 in data2.items() %}
+        {% for data4 in data3 %}
+        <tr>
+            <td>{{ corpus }}</td>
+            <td>{{ book }}</td>
+            <td>{{ data4[0] }}</td>
+            <td>{{ data4[1] }}</td>
+        </tr>
         {% endfor %}
-    </p>
+        {% endfor %}
+
+        {% set old_corpus = corpus %}
+        {% endfor %}
+    </table>
 </div>
