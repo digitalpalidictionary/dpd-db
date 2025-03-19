@@ -3,13 +3,12 @@
 """Extract variants readings from all Pāḷi texts."""
 
 from db.variants.extract_variants_from_bjt import process_bjt
+from db.variants.extract_variants_from_cst import process_cst
 from db.variants.extract_variants_from_sc import process_sc
 from db.variants.extract_variants_from_sya import process_sya
+from db.variants.variants_add_to_db import AddVariantsToDb
+from db.variants.variants_exporter import save_json
 from db.variants.variants_modules import VariantsDict
-
-from db.variants.extract_variants_from_cst import process_cst
-from db.variants.variants_exporter import save_json, export_to_goldendict_mdict
-
 from tools.configger import config_test
 from tools.paths import ProjectPaths
 from tools.printer import p_green_title, p_title
@@ -34,7 +33,8 @@ def main():
     variants_dict = process_sya(variants_dict, pth)
 
     save_json(variants_dict)
-    export_to_goldendict_mdict(variants_dict, pth)
+
+    AddVariantsToDb(variants_dict)
 
     toc()
 
