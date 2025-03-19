@@ -1725,6 +1725,7 @@ nā
 Nadubbhiyasuttaṃ
 nāga
 nāgas
+Nāgasa
 nakhā
 Naḷa
 Nālaka
@@ -2888,6 +2889,7 @@ Vassa
 Vassakāra
 Vasu's
 Vasudatta
+Vasus
 Vatsas
 vāyo
 Vebhāra
@@ -2915,6 +2917,7 @@ Veroca
 Vesali
 Vesālī
 Vessabhū
+Vessāmitta
 Vessantara
 Vessavaṇa
 Vessavaṇa's
@@ -3018,4 +3021,3 @@ you're
 youthfulness
 zizanioides
 Ziziphus
-Vessāmitta

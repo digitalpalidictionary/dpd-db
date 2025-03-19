@@ -5326,7 +5326,7 @@ var family_word_json = {
     "tesa",
     "pron",
     "their",
-    "◑"
+    "✔"
    ],
    [
     "tesaṃ 1",
@@ -25552,6 +25552,17 @@ var family_word_json = {
   ],
   "count": 8
  },
+ "timbaru": {
+  "data": [
+   [
+    "timbarū",
+    "masc",
+    "name of a demigod king; lit. strychnine",
+    "✔"
+   ]
+  ],
+  "count": 1
+ },
  "tiracchāna": {
   "data": [
    [
@@ -26948,13 +26959,19 @@ var family_word_json = {
     "✔"
    ],
    [
+    "nāgasa 2",
+    "adj",
+    "epithet of a group of Nāgas; lit. from Nāgasa lake",
+    "✔"
+   ],
+   [
     "sunāga",
     "masc",
     "name of an arahant monk",
     "◑"
    ]
   ],
-  "count": 10
+  "count": 11
  },
  "nātika": {
   "data": [
@@ -27698,7 +27715,7 @@ var family_word_json = {
     "supaṇṇa",
     "masc",
     "supernatural bird; arch-enemy of the nāgas; lit. beautiful wings",
-    "◑"
+    "✔"
    ]
   ],
   "count": 8
@@ -31962,14 +31979,20 @@ var family_word_json = {
    [
     "varuṇā",
     "masc",
-    "name of a group of deities",
-    "✘"
+    "name of a group of deities; lit. belonging to Varuṇa",
+    "✔"
+   ],
+   [
+    "vāraṇā",
+    "masc",
+    "name of a group of nāgas",
+    "✔"
    ],
    [
     "vāruṇā",
     "masc",
     "name of a group of nāgas",
-    "✘"
+    "✔"
    ],
    [
     "vāruṇī 1",
@@ -31990,7 +32013,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 6
+  "count": 7
  },
  "valāha": {
   "data": [
@@ -32038,7 +32061,7 @@ var family_word_json = {
    [
     "vāsava",
     "masc",
-    "epithet of Sakka; lit. of the Vasu's",
+    "epithet of Sakka; lit. of the Vasus",
     "✔"
    ]
   ],
@@ -32630,7 +32653,7 @@ var family_word_json = {
     "vehāyasa",
     "masc",
     "air; sky; heaven",
-    "◑"
+    "✔"
    ],
    [
     "vehāyasaṃ",
@@ -32648,7 +32671,7 @@ var family_word_json = {
     "vehāsaya",
     "masc",
     "air; sky; heaven",
-    "◑"
+    "✔"
    ],
    [
     "vehāsaṃ",
@@ -32763,7 +32786,7 @@ var family_word_json = {
     "vesāla",
     "adj",
     "from Vesālī",
-    "◑"
+    "✔"
    ],
    [
     "vesālika",

@@ -7398,7 +7398,7 @@ var family_set_json = {
     "tesa",
     "pron",
     "their",
-    "◑"
+    "✔"
    ],
    [
     "tesaṃ 1",
@@ -8186,13 +8186,19 @@ var family_set_json = {
     "✔"
    ],
    [
+    "nāgasa 2",
+    "adj",
+    "epithet of a group of Nāgas; lit. from Nāgasa lake",
+    "✔"
+   ],
+   [
     "manopadosika",
     "adj",
     "mentally corrupted; epithet of a class of envious devas",
     "✔"
    ]
   ],
-  "count": 10
+  "count": 11
  },
  "epithets of arahants": {
   "data": [
@@ -24735,7 +24741,7 @@ var family_set_json = {
     "kambalassatarā",
     "masc",
     "name of two groups of nāgas",
-    "◑"
+    "✔"
    ],
    [
     "karatiya 1",
@@ -24789,7 +24795,7 @@ var family_set_json = {
     "kālakañjā",
     "masc",
     "name of a group of daemons; lit. black armour",
-    "◑"
+    "✔"
    ],
    [
     "kālakañjikā",
@@ -24933,7 +24939,7 @@ var family_set_json = {
     "janosabha",
     "masc",
     "name of a demigod; lit. stud bull of a man",
-    "◑"
+    "✔"
    ],
    [
     "jantu 2",
@@ -24975,6 +24981,12 @@ var family_set_json = {
     "tāyana 1",
     "masc",
     "name of a deity; lit. protecting; preserving",
+    "✔"
+   ],
+   [
+    "timbarū",
+    "masc",
+    "name of a demigod king; lit. strychnine",
     "✔"
    ],
    [
@@ -25089,7 +25101,7 @@ var family_set_json = {
     "naḷorāja",
     "masc",
     "name of a demigod; lit. king Naḷa",
-    "◑"
+    "✔"
    ],
    [
     "nika",
@@ -25196,8 +25208,8 @@ var family_set_json = {
    [
     "pāyāgā",
     "masc",
-    "name of a group of nāgas",
-    "◑"
+    "name of a group of nāgas; lit. from modern day Allahabad",
+    "✔"
    ],
    [
     "pāragā",
@@ -25392,6 +25404,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "rāhubhadda",
+    "masc",
+    "auspicious Rāhu",
+    "✔"
+   ],
+   [
     "rojā",
     "masc",
     "name of a group of deities; lit. harmer; injurer",
@@ -25434,6 +25452,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "varuṇā",
+    "masc",
+    "name of a group of deities; lit. belonging to Varuṇa",
+    "✔"
+   ],
+   [
     "vasavattino",
     "masc",
     "name of a group of deities; gods who wield power over the creations of others; lit. following control",
@@ -25444,6 +25468,18 @@ var family_set_json = {
     "masc",
     "name of a group of deities",
     "◑"
+   ],
+   [
+    "vāraṇā",
+    "masc",
+    "name of a group of nāgas",
+    "✔"
+   ],
+   [
+    "vāruṇā",
+    "masc",
+    "name of a group of nāgas",
+    "✔"
    ],
    [
     "vāsudatta",
@@ -25575,6 +25611,12 @@ var family_set_json = {
     "vepacitti",
     "masc",
     "name of a daemon lord",
+    "✔"
+   ],
+   [
+    "veroca",
+    "masc",
+    "name of an asura lord",
     "✔"
    ],
    [
@@ -25788,10 +25830,16 @@ var family_set_json = {
     "✔"
    ],
    [
+    "sūriyavaccasa",
+    "masc",
+    "name of a demigod; lit. power of the sun",
+    "✔"
+   ],
+   [
     "sūriyavacchasā",
     "fem",
     "name of a female demigod",
-    "◑"
+    "✔"
    ],
    [
     "sūleyyarucirā",
@@ -25854,7 +25902,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 208
+  "count": 215
  },
  "animals": {
   "data": [
@@ -25994,12 +26042,6 @@ var family_set_json = {
     "khagga 3",
     "masc",
     "single-horned rhinoceros; Rhinoceros unicornis; lit. sword",
-    "✔"
-   ],
-   [
-    "garuḷa",
-    "masc",
-    "name of a mythical bird",
     "✔"
    ],
    [
@@ -26369,7 +26411,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 85
+  "count": 84
  },
  "names of royalty": {
   "data": [
@@ -36615,6 +36657,107 @@ var family_set_json = {
   ],
   "count": 3
  },
+ "types of supernatural beings": {
+  "data": [
+   [
+    "asura",
+    "masc",
+    "titan; anti-god; enemy of the devas; lit. anti-hero",
+    "✔"
+   ],
+   [
+    "kinnara",
+    "masc",
+    "mythical creature with the head of a horse and the body of a man; lit. what kind of man?",
+    "◑"
+   ],
+   [
+    "kinnarī",
+    "fem",
+    "mythical creature with the head of a horse and the body of a woman; lit. what kind of woman?",
+    "✔"
+   ],
+   [
+    "kumbhaṇḍa 2",
+    "masc",
+    "type of supernatural being; daemon; lit. (with testicles lika a) pumpkin",
+    "✔"
+   ],
+   [
+    "gandhabba 1",
+    "masc",
+    "demigod; heavenly musician; class of mythological beings",
+    "✔"
+   ],
+   [
+    "garuḷa",
+    "masc",
+    "name of a mythical bird",
+    "✔"
+   ],
+   [
+    "deva 1",
+    "masc",
+    "deity; god",
+    "✔"
+   ],
+   [
+    "devatā",
+    "fem",
+    "deity; god",
+    "✔"
+   ],
+   [
+    "nāga 2",
+    "masc",
+    "dragon; drake; supernatural shape-shifting serpent",
+    "✔"
+   ],
+   [
+    "pisāca",
+    "masc",
+    "goblin; evil spirit; daemon; devil",
+    "✔"
+   ],
+   [
+    "pisācaka",
+    "masc",
+    "goblin; evil spirit; daemon; devil",
+    "✔"
+   ],
+   [
+    "pisācinī",
+    "fem",
+    "female goblin; she-devil; daemoness; succubus",
+    "✔"
+   ],
+   [
+    "brahma 1",
+    "masc",
+    "God; creator god",
+    "✔"
+   ],
+   [
+    "yakkha 1",
+    "masc",
+    "(either protective or malevolent) spirit; supernatural being; daemon",
+    "✔"
+   ],
+   [
+    "rakkhasa",
+    "masc",
+    "daemon; goblin; ogre; spirit guardian; lit. protective",
+    "✔"
+   ],
+   [
+    "supaṇṇa",
+    "masc",
+    "supernatural bird; arch-enemy of the nāgas; lit. beautiful wings",
+    "✔"
+   ]
+  ],
+  "count": 16
+ },
  "seven treasures": {
   "data": [
    [
@@ -38600,9 +38743,15 @@ var family_set_json = {
     "✔"
    ],
    [
+    "vajirahattha",
+    "masc",
+    "epithet of Sakka; lit. with thunder-bolt in hand",
+    "✔"
+   ],
+   [
     "vāsava",
     "masc",
-    "epithet of Sakka; lit. of the Vasu's",
+    "epithet of Sakka; lit. of the Vasus",
     "✔"
    ],
    [
@@ -38612,7 +38761,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 12
+  "count": 13
  },
  "books of the Vinayapiṭaka": {
   "data": [

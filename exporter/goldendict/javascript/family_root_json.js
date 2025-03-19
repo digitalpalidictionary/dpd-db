@@ -182720,8 +182720,8 @@ var family_root_json = {
    [
     "citra 1.3",
     "adj",
-    "decorated; beautiful; adorned",
-    "◑"
+    "variegated in colour; rainbow",
+    "✔"
    ],
    [
     "citra 1.4",
@@ -199164,8 +199164,8 @@ var family_root_json = {
    [
     "pāyāgā",
     "masc",
-    "name of a group of nāgas",
-    "◑"
+    "name of a group of nāgas; lit. from modern day Allahabad",
+    "✔"
    ]
   ]
  },
@@ -207789,7 +207789,7 @@ var family_root_json = {
     "yāmuna",
     "adj",
     "living in the Yamunā river; from the Yamunā river",
-    "◑"
+    "✔"
    ]
   ]
  },
@@ -214295,7 +214295,7 @@ var family_root_json = {
   "root_key": "√ruc",
   "root_family": "vi √ruc",
   "root_meaning": "shine, like",
-  "count": 12,
+  "count": 13,
   "data": [
    [
     "virocati",
@@ -214356,6 +214356,12 @@ var family_root_json = {
     "aor",
     "caused to illumine",
     "✘"
+   ],
+   [
+    "veroca",
+    "masc",
+    "name of an asura lord",
+    "✔"
    ],
    [
     "verocana 1",
