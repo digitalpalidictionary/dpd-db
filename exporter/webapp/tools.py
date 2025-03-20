@@ -116,20 +116,6 @@ def make_dpd_html(
                                     "deconstructor.html"
                                 ).render(d=d)
 
-                            # variant
-                            if lookup_result.variant:
-                                d = VariantData(lookup_result)
-                                dpd_html += templates.get_template(
-                                    "variant.html"
-                                ).render(d=d)
-
-                            # spelling mistake
-                            if lookup_result.spelling:
-                                d = SpellingData(lookup_result)
-                                dpd_html += templates.get_template(
-                                    "spelling.html"
-                                ).render(d=d)
-
                             # grammar
                             if lookup_result.grammar:
                                 d = GrammarData(lookup_result)
@@ -164,6 +150,20 @@ def make_dpd_html(
                                 dpd_html += templates.get_template("rpd.html").render(
                                     d=d
                                 )
+
+                            # variant
+                            if lookup_result.variant:
+                                d = VariantData(lookup_result)
+                                dpd_html += templates.get_template(
+                                    "variant.html"
+                                ).render(d=d)
+
+                            # spelling mistake
+                            if lookup_result.spelling:
+                                d = SpellingData(lookup_result)
+                                dpd_html += templates.get_template(
+                                    "spelling.html"
+                                ).render(d=d)
 
                     # the two cases below search directly in the DpdHeadwords table
                     elif q.isnumeric():  # eg 78654
