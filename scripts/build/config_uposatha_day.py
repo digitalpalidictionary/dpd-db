@@ -8,10 +8,10 @@ from tools.configger import config_update
 from tools.tic_toc import tic, toc
 from tools.uposatha_day import uposatha_today
 from tools.printer import p_title, p_green_title, p_green, p_yes
+from tools.configger import config_test
 
 def uposatha_day_configger():
     tic()
-    p_title("uposatha day config")
     
     if uposatha_today():
         p_green("updating config.ini")
@@ -45,4 +45,8 @@ def uposatha_day_configger():
 
 
 if __name__ == "__main__":
-    uposatha_day_configger()
+    p_title("uposatha day config")
+    if config_test("dictionary", "show_sbs_data", "no") and config_test("exporter", "language", "en"):
+        uposatha_day_configger()
+    else:
+        p_green_title("disabled in config")

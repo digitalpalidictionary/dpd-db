@@ -17,8 +17,6 @@ def main():
     config_update("regenerate", "transliterations", "no")
     config_update("regenerate", "freq_maps", "no")
 
-    config_update("exporter", "language", "en")
-
     config_update("dictionary", "make_mdict", "yes")
     config_update("dictionary", "make_link", "yes")
     config_update("dictionary", "link_url", "https://find.dhamma.gift/bw/")
@@ -29,8 +27,11 @@ def main():
     config_update("dictionary", "show_ru_data", "yes")
     config_update("dictionary", "data_limit", "0")
     
+    config_update("exporter", "language", "en")
+    config_update("exporter", "make_dpd", "yes")
     config_update("exporter", "make_grammar", "no")
     config_update("exporter", "make_deconstructor", "no")
+    config_update("exporter", "make_variants", "no")
     config_update("exporter", "make_ebook", "no")
 
     config_update("anki", "update", "no")

@@ -13,6 +13,7 @@ from tools.paths import ProjectPaths
 from tools.printer import p_title, p_green, p_yes
 from db.models import Lookup
 from tools.tic_toc import tic, toc
+from tools.configger import config_test
 
 
 def make_synonyms(synonyms_list: list[str], variant: str) -> list[str]:
@@ -146,4 +147,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    tic()
+    p_title("exporting variants to mdict and goldendict")
+    if config_test("exporter", "make_variants", "no"):
+        p_green("disabled in config.ini")
+        toc()
+    else:
+        main()
