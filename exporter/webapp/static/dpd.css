@@ -303,7 +303,7 @@ td.gr10 {
 /* deconstructor */
 
 div.deconstructor {
-    border: 2px solid #ffd700;
+    border: 2px solid var(--colour1);
     border-radius: 7px;
     line-height: 150%;
     margin: 0px 0px;
@@ -327,7 +327,7 @@ a.deconstructor_feedback {
 }
 
 p.deconstructor_footer {
-    border-top: 1px solid #ffd700;
+    border-top: 1px solid var(--colour2);
     font-size: 80%;
     margin: 5px 0 0 0;
     padding: 5px 0px;
@@ -615,7 +615,7 @@ span.colour {
 /* epd */
 
 div.epd {
-    border: 2px solid #8B008B;
+    border: 2px solid var(--colour1);
     border-radius: 7px;
     line-height: 150%;
     margin: 0px 0px;
@@ -632,6 +632,6 @@ div.epd {
 }
 
 .epd b {
-    color: #8B008B;
+    color: var(--colour1);
     font-weight: 700;
 }
