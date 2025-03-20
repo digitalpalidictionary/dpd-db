@@ -38,7 +38,7 @@ uv run python scripts/build/api_ca_evi_iti.py
 uv run python db/inflections/transliterate_inflections.py
 uv run python db/inflections/inflections_to_headwords.py
 
-uv run python db/lookup/variants_and_spelling_mistakes.py
+uv run python db/lookup/spelling_mistakes.py
 
 uv run python db/lookup/transliterate_lookup_table.py
 uv run python db/lookup/help_abbrev_add_to_lookup.py

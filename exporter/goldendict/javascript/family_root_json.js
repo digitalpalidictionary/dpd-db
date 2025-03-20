@@ -8126,8 +8126,8 @@ var family_root_json = {
    [
     "khemiyā 1",
     "masc",
-    "name of a group of deities",
-    "✘"
+    "name of a group of deities; lit. safe",
+    "✔"
    ],
    [
     "khemiyā 2",
@@ -14121,7 +14121,7 @@ var family_root_json = {
     "accutā",
     "masc",
     "name of a group of deities; lit. not fallen",
-    "◑"
+    "✔"
    ],
    [
     "accuti",
@@ -35459,7 +35459,7 @@ var family_root_json = {
     "āgañchi",
     "aor",
     "came; approached; arrived; lit. came here",
-    "◑"
+    "✔"
    ],
    [
     "āgata 1",
@@ -53345,7 +53345,7 @@ var family_root_json = {
   "root_key": "√han",
   "root_family": "ā √han",
   "root_meaning": "strike, kill",
-  "count": 12,
+  "count": 13,
   "data": [
    [
     "anāhata",
@@ -53357,6 +53357,12 @@ var family_root_json = {
     "āhacca 1.1",
     "ger",
     "pressing against; forcing against; lit. striking here",
+    "✔"
+   ],
+   [
+    "āhacca 1.2",
+    "ger",
+    "hitting; striking; beating (something with something); lit. striking here",
     "✔"
    ],
    [
@@ -55288,8 +55294,8 @@ var family_root_json = {
    [
     "iñjayi",
     "aor",
-    "stirred; moved",
-    "✘"
+    "stirred; moved; lit. caused to move",
+    "✔"
    ],
    [
     "iñji",
@@ -60741,7 +60747,7 @@ var family_root_json = {
     "issarā 2",
     "masc",
     "name of a group of gods",
-    "✘"
+    "✔"
    ],
    [
     "issariya 1",
@@ -66490,8 +66496,8 @@ var family_root_json = {
    [
     "upāgā",
     "imperf",
-    "approached; arrived at; (also upāgā)",
-    "✘"
+    "approached; came; arrived",
+    "✔"
    ],
    [
     "upāgāmi",
@@ -67678,8 +67684,8 @@ var family_root_json = {
    [
     "upanisa 1",
     "adj",
-    "based on, living near",
-    "✘"
+    "based (on); living (on); lit. sitting down near",
+    "✔"
    ],
    [
     "upanisa 2",
@@ -74511,7 +74517,7 @@ var family_root_json = {
     "anejakā",
     "masc",
     "name of a group of deities; lit. unshakeable",
-    "◑"
+    "✔"
    ],
    [
     "eja",
@@ -91256,8 +91262,8 @@ var family_root_json = {
    [
     "parivāreti",
     "pr",
-    "surrounds, follows",
-    "✘"
+    "surrounds; encircles; lit. causes to cover around",
+    "✔"
    ],
    [
     "parivāretvā 1",
@@ -96358,8 +96364,8 @@ var family_root_json = {
    [
     "apesayi",
     "aor",
-    "sent out; sent forth",
-    "◑"
+    "sent out; sent forth; lit. caused to send",
+    "✔"
    ],
    [
     "apesita",
@@ -113757,7 +113763,7 @@ var family_root_json = {
   "root_key": "√kam 1",
   "root_family": "abhi √kam",
   "root_meaning": "go",
-  "count": 16,
+  "count": 17,
   "data": [
    [
     "abhikkanta 1",
@@ -113775,6 +113781,12 @@ var family_root_json = {
     "abhikkanta 3",
     "pp",
     "advanced; progressed; moved on; (comm) ending; depletion; lit. gone forward",
+    "✔"
+   ],
+   [
+    "abhikkanta 4",
+    "pp",
+    "(of an army) advanced; attacked; lit. gone forward",
     "✔"
    ],
    [
@@ -114604,8 +114616,8 @@ var family_root_json = {
    [
     "abhitiṭṭhati",
     "pr",
-    "stands supreme over; overpowers; surpasses",
-    "✘"
+    "stands supreme; stands above",
+    "✔"
    ]
   ]
  },
@@ -117299,7 +117311,7 @@ var family_root_json = {
     "abhivassati",
     "pr",
     "rains (on); pours (onto)",
-    "◑"
+    "✔"
    ],
    [
     "abhivassanta",
@@ -120038,7 +120050,7 @@ var family_root_json = {
    [
     "mandiya 1",
     "nt",
-    "doziness; dullness; stupidity; lit. stupid state",
+    "doziness; dullness; stupidity (of); lit. stupid state",
     "✔"
    ],
    [
@@ -121245,7 +121257,7 @@ var family_root_json = {
     "samānā",
     "masc",
     "name of a group of deities; lit. identical",
-    "◑"
+    "✔"
    ],
    [
     "samita 2.1",
@@ -122500,8 +122512,8 @@ var family_root_json = {
    [
     "missakā",
     "masc",
-    "name of a group of deities",
-    "✘"
+    "name of a group of deities; lit. assorted",
+    "✔"
    ],
    [
     "missayati",
@@ -122748,8 +122760,8 @@ var family_root_json = {
    [
     "muñci",
     "aor",
-    "released, loosened, delivered, sent off, emitted, gave up",
-    "✘"
+    "released; let escape; set free",
+    "✔"
    ],
    [
     "muñcita",
@@ -126949,7 +126961,7 @@ var family_root_json = {
   "root_key": "√ris",
   "root_family": "√ris",
   "root_meaning": "hurt",
-  "count": 4,
+  "count": 3,
   "data": [
    [
     "ariṭṭha 1.1",
@@ -126962,12 +126974,6 @@ var family_root_json = {
     "masc",
     "name of a privately awakened Buddha",
     "◑"
-   ],
-   [
-    "ariṭṭhakā",
-    "masc",
-    "name of a group of deities; lit. unhurt",
-    "✔"
    ],
    [
     "rissamāna",
@@ -134071,7 +134077,7 @@ var family_root_json = {
     "vasū",
     "masc",
     "name of a group of deities",
-    "◑"
+    "✔"
    ],
    [
     "vase",
@@ -138832,8 +138838,8 @@ var family_root_json = {
    [
     "vicakkhaṇā",
     "masc",
-    "name of a group of deities",
-    "✘"
+    "name of a group of deities; lit. clear sighted",
+    "✔"
    ],
    [
     "vicakkhu",
@@ -160908,8 +160914,8 @@ var family_root_json = {
    [
     "sukkā 1",
     "masc",
-    "name of a group of deities",
-    "✘"
+    "name of a group of deities; lit. pure; bright",
+    "✔"
    ],
    [
     "sukkā 2",
@@ -163097,7 +163103,7 @@ var family_root_json = {
   "root_key": "√har 1",
   "root_family": "√har",
   "root_meaning": "carry",
-  "count": 67,
+  "count": 68,
   "data": [
    [
     "ahari",
@@ -163236,6 +163242,12 @@ var family_root_json = {
     "prp",
     "carrying, taking away",
     "✘"
+   ],
+   [
+    "harayo",
+    "masc",
+    "name of a group of deities; lit. belonging to Vishnu",
+    "✔"
    ],
    [
     "harāpita",
@@ -163426,8 +163438,8 @@ var family_root_json = {
    [
     "hārita 1",
     "masc",
-    "name of a god; lit. carried",
-    "◑"
+    "name of a god; Vishnu; lit. caused to be carried",
+    "✔"
    ],
    [
     "hārita 2",
@@ -184279,7 +184291,7 @@ var family_root_json = {
   "root_key": "√tal",
   "root_family": "√tal",
   "root_meaning": "support, rest on",
-  "count": 8,
+  "count": 9,
   "data": [
    [
     "tala 1",
@@ -184296,23 +184308,29 @@ var family_root_json = {
    [
     "tala 3",
     "nt",
-    "flat surface, level ground, base",
-    "✘"
+    "ground; earth",
+    "✔"
    ],
    [
     "tala 4",
     "nt",
-    "flat roof",
+    "flat surface, base",
     "✘"
    ],
    [
     "tala 5",
     "nt",
-    "stage",
+    "flat roof",
     "✘"
    ],
    [
     "tala 6",
+    "nt",
+    "stage",
+    "✘"
+   ],
+   [
+    "tala 7",
     "nt",
     "blade of a weapon",
     "✘"
@@ -184916,8 +184934,8 @@ var family_root_json = {
    [
     "thanayanta",
     "prp",
-    "roaring, thundering",
-    "✘"
+    "roaring; thundering; resounding; lit. causing to thunder",
+    "✔"
    ],
    [
     "thanayi",
@@ -186677,7 +186695,7 @@ var family_root_json = {
   "root_key": "√dhāv 1",
   "root_family": "√dhāv",
   "root_meaning": "run, flow",
-  "count": 10,
+  "count": 11,
   "data": [
    [
     "dhāva 1",
@@ -186708,6 +186726,12 @@ var family_root_json = {
     "nt",
     "running; racing; sprinting",
     "◑"
+   ],
+   [
+    "dhāvanaka",
+    "adj",
+    "running; racing; sprinting",
+    "✔"
    ],
    [
     "dhāvanta",
@@ -193998,8 +194022,8 @@ var family_root_json = {
    [
     "paccudāvatti",
     "aor",
-    "retreated; turned back",
-    "✘"
+    "retreated; turned back; lit. comes back up",
+    "✔"
    ],
    [
     "paccudāvattesi",
@@ -203175,7 +203199,7 @@ var family_root_json = {
   "root_key": "√vas 1",
   "root_family": "pa √vas",
   "root_meaning": "live",
-  "count": 9,
+  "count": 11,
   "data": [
    [
     "pavasati",
@@ -203220,10 +203244,22 @@ var family_root_json = {
     "✔"
    ],
    [
+    "pavuṭṭha 1.2",
+    "pp",
+    "left behind; living away from",
+    "✔"
+   ],
+   [
     "pavuttha",
     "pp",
     "travelled away from home; lived abroad",
     "◑"
+   ],
+   [
+    "pavuttha 2",
+    "pp",
+    "left behind; living away from",
+    "✔"
    ],
    [
     "suppavāsā",
@@ -210718,8 +210754,8 @@ var family_root_json = {
    [
     "savijjuka",
     "adj",
-    "together with lightning",
-    "✘"
+    "accompanied by lightning",
+    "✔"
    ]
   ]
  },
@@ -213431,12 +213467,18 @@ var family_root_json = {
   "root_key": "√bhis",
   "root_family": "vi √bhis",
   "root_meaning": "fear",
-  "count": 1,
+  "count": 2,
   "data": [
    [
     "vibhiṃsana",
     "adj",
     "terrifying; dreadful; fearful",
+    "✔"
+   ],
+   [
+    "vibhiṃsanaka",
+    "nt",
+    "terrifying thing; dreadful spectacle; fearful sight",
     "✔"
    ]
   ]
@@ -217485,9 +217527,9 @@ var family_root_json = {
   "data": [
    [
     "saṅkuddha",
-    "adj",
-    "furious; enraged",
-    "✘"
+    "pp",
+    "furious; angered; enraged",
+    "✔"
    ]
   ]
  },

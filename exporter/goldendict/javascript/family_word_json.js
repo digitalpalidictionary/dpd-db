@@ -5373,13 +5373,13 @@ var family_word_json = {
    [
     "ne 1",
     "pron",
-    "they; those",
+    "they; those (subject)",
     "✘"
    ],
    [
     "ne 2",
     "pron",
-    "them; those",
+    "them; those (object)",
     "✔"
    ],
    [
@@ -6040,6 +6040,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "pāmokkhā",
+    "masc",
+    "names of a group of deities; lit. facing forward",
+    "✔"
+   ],
+   [
     "mukha 1",
     "adj",
     "front; foremost; facing",
@@ -6208,7 +6214,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 49
+  "count": 50
  },
  "lahu": {
   "data": [
@@ -13928,7 +13934,7 @@ var family_word_json = {
     "mānusā",
     "masc",
     "name of a group of deities",
-    "◑"
+    "✔"
    ],
    [
     "mānusikā",
@@ -15212,9 +15218,15 @@ var family_word_json = {
     "masc",
     "kind of creeper",
     "✘"
+   ],
+   [
+    "ariṭṭhakā",
+    "masc",
+    "name of a group of deities; lit. crows",
+    "✔"
    ]
   ],
-  "count": 8
+  "count": 9
  },
  "aru": {
   "data": [
@@ -15310,7 +15322,7 @@ var family_word_json = {
     "aruṇā",
     "masc",
     "name of a group of deities; lit. dawn",
-    "◑"
+    "✔"
    ]
   ],
   "count": 7
@@ -16318,6 +16330,12 @@ var family_word_json = {
     "◑"
    ],
    [
+    "asamā",
+    "masc",
+    "name of a group of deities; lit. not equal; incomparable",
+    "✔"
+   ],
+   [
     "visama 1",
     "adj",
     "(of a place) rough; uneven; dangerous; perilous",
@@ -16492,7 +16510,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 33
+  "count": 34
  },
  "sammā": {
   "data": [
@@ -17868,7 +17886,7 @@ var family_word_json = {
     "sinda",
     "adj",
     "including the god Inda",
-    "◑"
+    "✔"
    ]
   ],
   "count": 11
@@ -20240,8 +20258,8 @@ var family_word_json = {
    [
     "kaṭṭhakā",
     "masc",
-    "name of a group of deities",
-    "◑"
+    "name of a group of deities; lit. bamboo",
+    "✔"
    ]
   ],
   "count": 3
@@ -30248,6 +30266,12 @@ var family_word_json = {
     "✘"
    ],
    [
+    "majjhato",
+    "ind",
+    "amidst; in the middle (of)",
+    "✔"
+   ],
+   [
     "majjhatta 1",
     "adj",
     "who one is indifferent to; which is neutral; which one is impartial to",
@@ -30350,7 +30374,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 23
+  "count": 24
  },
  "mañjarī": {
   "data": [
@@ -32729,16 +32753,10 @@ var family_word_json = {
     "veṇhu",
     "masc",
     "name of a deity; Vishnu",
-    "◑"
-   ],
-   [
-    "veṇhū",
-    "masc",
-    "name of a group of deities",
-    "◑"
+    "✔"
    ]
   ],
-  "count": 2
+  "count": 1
  },
  "verañjā": {
   "data": [

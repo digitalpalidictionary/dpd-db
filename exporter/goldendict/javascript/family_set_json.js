@@ -7493,7 +7493,7 @@ var family_set_json = {
    [
     "ne 2",
     "pron",
-    "them; those",
+    "them; those (object)",
     "✔"
    ],
    [
@@ -24615,7 +24615,7 @@ var family_set_json = {
     "accutā",
     "masc",
     "name of a group of deities; lit. not fallen",
-    "◑"
+    "✔"
    ],
    [
     "ajakalāpaka 1",
@@ -24633,7 +24633,7 @@ var family_set_json = {
     "anejakā",
     "masc",
     "name of a group of deities; lit. unshakeable",
-    "◑"
+    "✔"
    ],
    [
     "antaka",
@@ -24650,19 +24650,25 @@ var family_set_json = {
    [
     "ariṭṭhakā",
     "masc",
-    "name of a group of deities; lit. unhurt",
+    "name of a group of deities; lit. crows",
     "✔"
    ],
    [
     "aruṇā",
     "masc",
     "name of a group of deities; lit. dawn",
-    "◑"
+    "✔"
    ],
    [
     "asama 1",
     "masc",
     "name of a deity; lit. not equal; incomparable",
+    "✔"
+   ],
+   [
+    "asamā",
+    "masc",
+    "name of a group of deities; lit. not equal; incomparable",
     "✔"
    ],
    [
@@ -24688,6 +24694,12 @@ var family_set_json = {
     "masc",
     "name of a spirit",
     "◑"
+   ],
+   [
+    "issarā 2",
+    "masc",
+    "name of a group of gods",
+    "✔"
    ],
    [
     "īsāna",
@@ -24717,7 +24729,7 @@ var family_set_json = {
     "odātagayhā",
     "masc",
     "name of a group of deities",
-    "◑"
+    "✔"
    ],
    [
     "opamañña 2",
@@ -24734,8 +24746,8 @@ var family_set_json = {
    [
     "kaṭṭhakā",
     "masc",
-    "name of a group of deities",
-    "◑"
+    "name of a group of deities; lit. bamboo",
+    "✔"
    ],
    [
     "kambalassatarā",
@@ -24750,10 +24762,16 @@ var family_set_json = {
     "◑"
    ],
    [
-    "karambhā 2",
+    "karambhā",
+    "fem",
+    "name of a goddess; name of a group of deities",
+    "✔"
+   ],
+   [
+    "karumhā",
     "masc",
     "name of a group of deities",
-    "◑"
+    "✔"
    ],
    [
     "kassapa 2",
@@ -24864,6 +24882,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "khemiyā 1",
+    "masc",
+    "name of a group of deities; lit. safe",
+    "✔"
+   ],
+   [
     "gopāla 2",
     "masc",
     "name of a spirit; lit. cow guard",
@@ -24951,7 +24975,7 @@ var family_set_json = {
     "jotināmā",
     "masc",
     "name of a group of deities; lit. called light",
-    "◑"
+    "✔"
    ],
    [
     "tatojasī",
@@ -25172,14 +25196,14 @@ var family_set_json = {
    [
     "paranimmitā",
     "masc",
-    "name of a group of deities",
-    "◑"
+    "name of a group of deities; lit. created by others",
+    "✔"
    ],
    [
     "paramatta",
     "masc",
     "name of a god",
-    "◑"
+    "✔"
    ],
    [
     "parittasubha",
@@ -25206,6 +25230,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "pāmokkhā",
+    "masc",
+    "names of a group of deities; lit. facing forward",
+    "✔"
+   ],
+   [
     "pāyāgā",
     "masc",
     "name of a group of nāgas; lit. from modern day Allahabad",
@@ -25214,8 +25244,8 @@ var family_set_json = {
    [
     "pāragā",
     "masc",
-    "name of a group of deities",
-    "◑"
+    "name of a group of deities; lit. gone beyond",
+    "✔"
    ],
    [
     "piyaṅkara",
@@ -25310,8 +25340,8 @@ var family_set_json = {
    [
     "mandavalāhakā",
     "masc",
-    "name of a group of deities",
-    "◑"
+    "name of a group of deities; lit. rumbling clouds",
+    "✔"
    ],
    [
     "mandiya 2",
@@ -25322,14 +25352,14 @@ var family_set_json = {
    [
     "mahāpāragā",
     "masc",
-    "name of a group of deities",
-    "◑"
+    "name of a group of deities; lit. great gone beyond",
+    "✔"
    ],
    [
     "mahāsamanā",
     "masc",
-    "name of a group of deities",
-    "◑"
+    "name of a group of deities; lit. great ascetic",
+    "✔"
    ],
    [
     "mahiddhi",
@@ -25377,18 +25407,24 @@ var family_set_json = {
     "mānusā",
     "masc",
     "name of a group of deities",
-    "◑"
+    "✔"
    ],
    [
     "mānusuttamā",
     "masc",
-    "name of a group of deities",
-    "◑"
+    "name of a group of deities; lit. ultimate men",
+    "✔"
    ],
    [
     "māra",
     "masc",
     "death; Death; death personified",
+    "✔"
+   ],
+   [
+    "missakā",
+    "masc",
+    "name of a group of deities; lit. assorted",
     "✔"
    ],
    [
@@ -25425,19 +25461,19 @@ var family_set_json = {
     "lambītakā",
     "masc",
     "name of a group of deities",
-    "◑"
+    "✔"
    ],
    [
     "lāmaseṭṭhā",
     "masc",
     "name of a group of deities",
-    "◑"
+    "✔"
    ],
    [
     "lohitavāsī",
     "masc",
     "name of a group of deities; lit. wearing red",
-    "◑"
+    "✔"
    ],
    [
     "vatrabhū",
@@ -25467,7 +25503,7 @@ var family_set_json = {
     "vasū",
     "masc",
     "name of a group of deities",
-    "◑"
+    "✔"
    ],
    [
     "vāraṇā",
@@ -25482,9 +25518,21 @@ var family_set_json = {
     "✔"
    ],
    [
+    "vāsavanesī",
+    "masc",
+    "name of a group of deities",
+    "✔"
+   ],
+   [
     "vāsudatta",
     "masc",
     "name of a deity; lit. descendent of Vasudatta",
+    "✔"
+   ],
+   [
+    "vicakkhaṇā",
+    "masc",
+    "name of a group of deities; lit. clear sighted",
     "✔"
    ],
    [
@@ -25586,20 +25634,14 @@ var family_set_json = {
    [
     "veṇḍudevā",
     "masc",
-    "name of a group of deities",
-    "◑"
+    "name of a group of deities; lit. Vishnu",
+    "✔"
    ],
    [
     "veṇhu",
     "masc",
     "name of a deity; Vishnu",
-    "◑"
-   ],
-   [
-    "veṇhū",
-    "masc",
-    "name of a group of deities",
-    "◑"
+    "✔"
    ],
    [
     "venateyya",
@@ -25647,7 +25689,7 @@ var family_set_json = {
     "sadāmattā",
     "masc",
     "name of a group of deities; lit. always intoxicated",
-    "◑"
+    "✔"
    ],
    [
     "sanaṅkumāra",
@@ -25671,7 +25713,7 @@ var family_set_json = {
     "samānā",
     "masc",
     "name of a group of deities; lit. identical",
-    "◑"
+    "✔"
    ],
    [
     "sambara",
@@ -25683,7 +25725,7 @@ var family_set_json = {
     "sahadhammā",
     "masc",
     "name of a group of deities",
-    "◑"
+    "✔"
    ],
    [
     "sahabhū 2",
@@ -25701,6 +25743,12 @@ var family_set_json = {
     "sahali",
     "masc",
     "name of a deity; lit. with plough",
+    "✔"
+   ],
+   [
+    "sahalī",
+    "masc",
+    "name of a group of deities",
     "✔"
    ],
    [
@@ -25732,6 +25780,12 @@ var family_set_json = {
     "masc",
     "name of a deity",
     "◑"
+   ],
+   [
+    "sukkā 1",
+    "masc",
+    "name of a group of deities; lit. pure; bright",
+    "✔"
    ],
    [
     "sucitti",
@@ -25845,7 +25899,7 @@ var family_set_json = {
     "sūleyyarucirā",
     "masc",
     "name of two groups of deities",
-    "◑"
+    "✔"
    ],
    [
     "setaketu",
@@ -25866,6 +25920,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "harayo",
+    "masc",
+    "name of a group of deities; lit. belonging to Vishnu",
+    "✔"
+   ],
+   [
     "harī",
     "masc",
     "name of a group of deities; lit. carrying",
@@ -25875,13 +25935,13 @@ var family_set_json = {
     "hāragajā",
     "masc",
     "name of a group of deities",
-    "◑"
+    "✔"
    ],
    [
     "hārita 1",
     "masc",
-    "name of a god; lit. carried",
-    "◑"
+    "name of a god; Vishnu; lit. caused to be carried",
+    "✔"
    ],
    [
     "hemavata 1",
@@ -25902,7 +25962,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 215
+  "count": 225
  },
  "animals": {
   "data": [
@@ -38701,6 +38761,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "purindada 1",
+    "masc",
+    "primary giver; first donor; epithet of Sakka",
+    "✔"
+   ],
+   [
     "makhādeva",
     "masc",
     "epithet of Sakka",
@@ -38761,7 +38827,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 13
+  "count": 14
  },
  "books of the Vinayapiṭaka": {
   "data": [

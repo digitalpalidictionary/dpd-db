@@ -21688,7 +21688,7 @@ var family_idiom_json = {
   ]
  },
  "ete": {
-  "count": 11,
+  "count": 12,
   "data": [
    [
     "iccete",
@@ -21736,6 +21736,12 @@ var family_idiom_json = {
     "panete",
     "sandhi",
     "and these",
+    "✔"
+   ],
+   [
+    "saṭṭhete",
+    "sandhi",
+    "these sixty",
     "✔"
    ],
    [
@@ -32984,6 +32990,17 @@ var family_idiom_json = {
     "saññattiṃ upeti",
     "idiom",
     "is open to persuasion; can be convinced; lit. approaches persuasion",
+    "✔"
+   ]
+  ]
+ },
+ "saṭṭhi": {
+  "count": 1,
+  "data": [
+   [
+    "saṭṭhete",
+    "sandhi",
+    "these sixty",
     "✔"
    ]
   ]

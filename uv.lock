@@ -501,7 +501,6 @@ dev = [
     { name = "pylint" },
     { name = "pytest" },
 ]
-
 [package.metadata]
 requires-dist = [
     { name = "aksharamukha", specifier = ">=2.1.2" },
@@ -558,6 +557,7 @@ dev = [
     { name = "pylint", specifier = ">=2.17.0" },
     { name = "pytest", specifier = ">=7.4.3" },
 ]
+test = [{ name = "pyper", specifier = ">=1.1.2" }]
 
 [[package]]
 name = "et-xmlfile"
@@ -1719,6 +1719,12 @@ sdist = { url = "https://files.pythonhosted.org/packages/a3/e9/21f9ce3e4b81eef01
 wheels = [
     { url = "https://files.pythonhosted.org/packages/b4/49/cea450a83079445a84f16050e571a7c383d3f474b13c5caedfebd4e35def/pylint-2.17.7-py3-none-any.whl", hash = "sha256:27a8d4c7ddc8c2f8c18aa0050148f89ffc09838142193fdbe98f172781a3ff87", size = 537178 },
 ]
+
+[[package]]
+name = "pyper"
+version = "1.1.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/e6/3e/4ed8b7c23333f7a1d3b18ecb37b09b4867fee95151a3a59c43c20376678e/PypeR-1.1.2.tar.gz", hash = "sha256:645821a8d48bb9e4bf0f693ae7e5c152ea223eb9dc6213c083a1dded6e05e00c", size = 15369 }
 
 [[package]]
 name = "pyperclip"
