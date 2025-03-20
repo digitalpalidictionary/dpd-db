@@ -46,6 +46,11 @@ def main():
     tic()
     p_title("exporting variants to mdict and goldendict")
 
+    if config_test("exporter", "make_variants", "no"):
+        p_green("disabled in config.ini")
+        toc()
+        return
+
     p_green("setting up data")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -147,10 +152,4 @@ def main():
 
 
 if __name__ == "__main__":
-    tic()
-    p_title("exporting variants to mdict and goldendict")
-    if config_test("exporter", "make_variants", "no"):
-        p_green("disabled in config.ini")
-        toc()
-    else:
-        main()
+    main()
