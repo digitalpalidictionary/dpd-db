@@ -607,6 +607,7 @@ class ProjectPaths:
         self.add_antonyms_sync_dict = (
             base_dir / "db_tests/gui/add_antonyms_sync_dict.json"
         )
+        self.add_hyphenations_dict = base_dir / "db_tests/gui/add_hyphenations.json"
 
         # db_tests/
         self.antonym_dict_path = base_dir / "db_tests/test_antonyms.json"

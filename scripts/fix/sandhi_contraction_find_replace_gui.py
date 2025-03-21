@@ -238,18 +238,22 @@ class Data:
     def this_field_text(self) -> str:
         return getattr(self.this_headword, self.this_field_name)
 
-    def search_db(self, find_me) -> str:
-        # refresh the session
+    def refresh_db_session(self):
         self.db_session.close()
         self.db_session = get_db_session(self.pth.dpd_db_path)
+
+    def search_db(self, find_me) -> str:
+        # refresh the session
+        self.refresh_db_session()
+        find_me_escaped = re.escape(find_me)
 
         self.db_results = (
             self.db_session.query(DpdHeadword)
             .filter(
                 or_(
-                    DpdHeadword.example_1.regexp_match(find_me),
-                    DpdHeadword.example_2.regexp_match(find_me),
-                    DpdHeadword.commentary.regexp_match(find_me),
+                    DpdHeadword.example_1.regexp_match(find_me_escaped),
+                    DpdHeadword.example_2.regexp_match(find_me_escaped),
+                    DpdHeadword.commentary.regexp_match(find_me_escaped),
                 )
             )
             .all()
@@ -258,28 +262,28 @@ class Data:
         if len(self.db_results) > 0:
             return f"{len(self.db_results)} results found"
 
-        # search within bold tags
-        self.db_results = (
-            self.db_session.query(DpdHeadword)
-            .filter(
-                or_(
-                    func.replace(
-                        func.replace(DpdHeadword.example_1, "<b>", ""), "</b>", ""
-                    ).contains(find_me),
-                    func.replace(
-                        func.replace(DpdHeadword.example_2, "<b>", ""), "</b>", ""
-                    ).contains(find_me),
-                    func.replace(
-                        func.replace(DpdHeadword.commentary, "<b>", ""), "</b>", ""
-                    ).contains(find_me),
-                )
-            )
-            .all()
-        )
-        if len(self.db_results) > 0:
-            return "results found in <b> tags</"
-        else:
-            return "nothing found whatsoever"
+        # # search within bold tags
+        # self.db_results = (
+        #     self.db_session.query(DpdHeadword)
+        #     .filter(
+        #         or_(
+        #             func.replace(
+        #                 func.replace(DpdHeadword.example_1, "<b>", ""), "</b>", ""
+        #             ).contains(find_me),
+        #             func.replace(
+        #                 func.replace(DpdHeadword.example_2, "<b>", ""), "</b>", ""
+        #             ).contains(find_me),
+        #             func.replace(
+        #                 func.replace(DpdHeadword.commentary, "<b>", ""), "</b>", ""
+        #             ).contains(find_me),
+        #         )
+        #     )
+        #     .all()
+        # )
+        # if len(self.db_results) > 0:
+        #     return "results found in <b> tags</"
+        # else:
+        #     return "nothing found whatsoever"
 
     def commit(self):
         """Commit to db."""

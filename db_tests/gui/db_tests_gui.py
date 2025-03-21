@@ -1,5 +1,6 @@
 import flet as ft
 
+from db_tests.gui.add_hyphenations import add_hyphenations
 from db_tests.gui.add_antonyms import add_antonyms
 from db_tests.gui.add_antonyms_sync import add_antonyms_sync
 from db_tests.gui.add_family_compound_neg import add_fc_neg
@@ -71,6 +72,10 @@ def main(page: ft.Page):
                 title=ft.Text("Add antonyms sync"),
                 on_click=lambda e: run_test(e, "add_antonyms sync"),
             ),
+            ft.ListTile(
+                title=ft.Text("Add hyphenations"),
+                on_click=lambda e: run_test(e, "add_hyphenations"),
+            ),
         ],
         spacing=10,
     )
@@ -121,6 +126,9 @@ def main(page: ft.Page):
             add_antonyms(e, page, right_panel)
         elif test_name == "add_antonyms sync":
             add_antonyms_sync(e, page, right_panel)
+        elif test_name == "add_hyphenations":
+            add_hyphenations(e, page, right_panel)
+
         runner.reset_panel()
         runner.running_test = False
         page.update()
