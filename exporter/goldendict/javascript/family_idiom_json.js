@@ -2357,7 +2357,7 @@ var family_idiom_json = {
   ]
  },
  "eva": {
-  "count": 253,
+  "count": 254,
   "data": [
    [
     "aṅganteva",
@@ -2435,6 +2435,12 @@ var family_idiom_json = {
     "attheva",
     "sandhi",
     "there is even; there is really; just this is",
+    "✔"
+   ],
+   [
+    "antarāyeva",
+    "sandhi",
+    "yet along the way; but meanwhile",
     "✔"
    ],
    [
@@ -4638,7 +4644,7 @@ var family_idiom_json = {
   ]
  },
  "ajja": {
-  "count": 11,
+  "count": 12,
   "data": [
    [
     "ajjuposatho",
@@ -4662,6 +4668,12 @@ var family_idiom_json = {
     "najja",
     "sandhi",
     "today?; now ?",
+    "✔"
+   ],
+   [
+    "nāmajja",
+    "sandhi",
+    "certainly today",
     "✔"
    ],
    [
@@ -14539,7 +14551,7 @@ var family_idiom_json = {
   ]
  },
  "antara": {
-  "count": 9,
+  "count": 10,
   "data": [
    [
     "antaraṃ katvā",
@@ -14551,6 +14563,12 @@ var family_idiom_json = {
     "antaraṃ karitvā",
     "idiom",
     "having given priority (to); having focussed (on); consumed (with); lit. having made within",
+    "✔"
+   ],
+   [
+    "antarāyeva",
+    "sandhi",
+    "yet along the way; but meanwhile",
     "✔"
    ],
    [
@@ -16629,13 +16647,19 @@ var family_idiom_json = {
    ]
   ]
  },
- "ssu": {
-  "count": 14,
+ "su1": {
+  "count": 24,
   "data": [
    [
     "apissu",
     "sandhi",
     "and then; and furthermore",
+    "✔"
+   ],
+   [
+    "ādittassu",
+    "sandhi",
+    "it must be on fire!",
     "✔"
    ],
    [
@@ -16657,9 +16681,33 @@ var family_idiom_json = {
     "✔"
    ],
    [
+    "kaccissu",
+    "sandhi",
+    "I hope; I trust; I doubt; I suspect; I wonder",
+    "✔"
+   ],
+   [
+    "kathaṃsu",
+    "sandhi",
+    "how?",
+    "✔"
+   ],
+   [
     "kissassu",
     "sandhi",
     "of whom?; of what?; of which?",
+    "✔"
+   ],
+   [
+    "kiṃ su",
+    "idiom",
+    "who?; what?; which?; why?",
+    "✔"
+   ],
+   [
+    "kiṃsūdha",
+    "sandhi",
+    "what here?; lit. what indeed here",
     "✔"
    ],
    [
@@ -16675,6 +16723,18 @@ var family_idiom_json = {
     "✔"
    ],
    [
+    "kosu",
+    "sandhi",
+    "who definitely?; what certainly?",
+    "✔"
+   ],
+   [
+    "kosu nāma",
+    "idiom",
+    "who definitely?; who certainly?",
+    "✔"
+   ],
+   [
     "tatrāssu",
     "sandhi",
     "there indeed",
@@ -16684,6 +16744,12 @@ var family_idiom_json = {
     "tayassu",
     "sandhi",
     "exactly three",
+    "✔"
+   ],
+   [
+    "nāmassu",
+    "sandhi",
+    "surely?; definitely?",
     "✔"
    ],
    [
@@ -16708,6 +16774,18 @@ var family_idiom_json = {
     "saṭhāssunāmime",
     "sandhi",
     "truly they are devious!; they are certainly crafty!",
+    "✔"
+   ],
+   [
+    "sīdha",
+    "sandhi",
+    "here; now; in this world",
+    "✔"
+   ],
+   [
+    "sudaṃ 2",
+    "sandhi",
+    "indeed this; truly this; surely this",
     "✔"
    ],
    [
@@ -16916,7 +16994,7 @@ var family_idiom_json = {
   ]
  },
  "nāma": {
-  "count": 16,
+  "count": 17,
   "data": [
    [
     "appeva nāma",
@@ -16964,6 +17042,12 @@ var family_idiom_json = {
     "kosu nāma",
     "idiom",
     "who definitely?; who certainly?",
+    "✔"
+   ],
+   [
+    "nāmajja",
+    "sandhi",
+    "certainly today",
     "✔"
    ],
    [
@@ -20748,6 +20832,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "āditta": {
+  "count": 1,
+  "data": [
+   [
+    "ādittassu",
+    "sandhi",
+    "it must be on fire!",
+    "✔"
+   ]
+  ]
+ },
  "ādīnava": {
   "count": 1,
   "data": [
@@ -22924,7 +23019,7 @@ var family_idiom_json = {
     "tassuttarato",
     "sandhi",
     "north of which",
-    "◑"
+    "✔"
    ]
   ]
  },
@@ -24515,65 +24610,6 @@ var family_idiom_json = {
     "kaccissu",
     "sandhi",
     "I hope; I trust; I doubt; I suspect; I wonder",
-    "✔"
-   ]
-  ]
- },
- "su1": {
-  "count": 9,
-  "data": [
-   [
-    "kaccissu",
-    "sandhi",
-    "I hope; I trust; I doubt; I suspect; I wonder",
-    "✔"
-   ],
-   [
-    "kathaṃsu",
-    "sandhi",
-    "how?",
-    "✔"
-   ],
-   [
-    "kiṃ su",
-    "idiom",
-    "who?; what?; which?; why?",
-    "✔"
-   ],
-   [
-    "kiṃsūdha",
-    "sandhi",
-    "what here?; lit. what indeed here",
-    "✔"
-   ],
-   [
-    "kosu",
-    "sandhi",
-    "who definitely?; what certainly?",
-    "✔"
-   ],
-   [
-    "kosu nāma",
-    "idiom",
-    "who definitely?; who certainly?",
-    "✔"
-   ],
-   [
-    "nāmassu",
-    "sandhi",
-    "surely?; definitely?",
-    "✔"
-   ],
-   [
-    "sīdha",
-    "sandhi",
-    "here; now; in this world",
-    "✔"
-   ],
-   [
-    "sudaṃ 2",
-    "sandhi",
-    "indeed this; truly this; surely this",
     "✔"
    ]
   ]
@@ -27643,7 +27679,7 @@ var family_idiom_json = {
     "tassuttarato",
     "sandhi",
     "north of which",
-    "◑"
+    "✔"
    ],
    [
     "tassuddānaṃ",

@@ -27877,7 +27877,7 @@ var family_root_json = {
   "root_key": "√dū",
   "root_family": "ati √dū",
   "root_meaning": "go, run",
-  "count": 4,
+  "count": 5,
   "data": [
    [
     "atidūra 1",
@@ -27890,6 +27890,12 @@ var family_root_json = {
     "nt",
     "great distance",
     "✘"
+   ],
+   [
+    "atidūre",
+    "ind",
+    "very far away; a great distance off",
+    "✔"
    ],
    [
     "nātidūra",
@@ -37818,8 +37824,8 @@ var family_root_json = {
    [
     "adhipati 2",
     "masc",
-    "dominance, predominance",
-    "✘"
+    "(abhidhamma) dominance; predominance",
+    "✔"
    ],
    [
     "adhipatiya",
@@ -45865,7 +45871,7 @@ var family_root_json = {
   "root_key": "√lī 1",
   "root_family": "ā √lī",
   "root_meaning": "stick, hide",
-  "count": 18,
+  "count": 19,
   "data": [
    [
     "anallīyamāna",
@@ -45889,7 +45895,7 @@ var family_root_json = {
     "aleṇa",
     "adj",
     "not safe; without refuge; lit. not a cave",
-    "✘"
+    "✔"
    ],
    [
     "alliyati",
@@ -45937,6 +45943,12 @@ var family_root_json = {
     "allīyitabba",
     "ptp",
     "should be clung to; should be adhered to; should be attached to; lit. to be stuck to",
+    "✔"
+   ],
+   [
+    "allīyituṃ",
+    "inf",
+    "to stick (to); to cling (to); to adhere (to); to attach (to)",
     "✔"
    ],
    [
@@ -46347,7 +46359,7 @@ var family_root_json = {
     "avacchidda",
     "pp",
     "perforated; fissured; lit. cut down",
-    "✘"
+    "✔"
    ],
    [
     "avacchindana",
@@ -46622,8 +46634,8 @@ var family_root_json = {
    [
     "avatthāsi",
     "aor",
-    "landed; placed; fell down on",
-    "✘"
+    "fell down; landed (on); lit. stood down",
+    "✔"
    ],
    [
     "avatthita",
@@ -47289,7 +47301,7 @@ var family_root_json = {
     "assāvesi",
     "aor",
     "(of a musical instrument) played; made sound; lit. caused to hear",
-    "◑"
+    "✔"
    ]
   ]
  },
@@ -47339,7 +47351,7 @@ var family_root_json = {
     "assasitvā",
     "abs",
     "having breathed in",
-    "✘"
+    "✔"
    ],
    [
     "assasissati",
@@ -62483,7 +62495,7 @@ var family_root_json = {
   "root_key": "√car 1",
   "root_family": "anu √car",
   "root_meaning": "move, walk",
-  "count": 5,
+  "count": 6,
   "data": [
    [
     "anucara 1",
@@ -62502,6 +62514,12 @@ var family_root_json = {
     "pr",
     "walking around; roaming; going around",
     "◑"
+   ],
+   [
+    "anucariyaṃ",
+    "ind",
+    "as an attendant (of); waiting (on)",
+    "✔"
    ],
    [
     "sānucara",
@@ -69487,7 +69505,7 @@ var family_root_json = {
   "root_key": "√kam 1",
   "root_family": "upa saṃ √kam",
   "root_meaning": "go",
-  "count": 19,
+  "count": 20,
   "data": [
    [
     "anupasaṅkanta",
@@ -69517,6 +69535,12 @@ var family_root_json = {
     "upasaṅkanta",
     "pp",
     "approached; drawn near; come here",
+    "✔"
+   ],
+   [
+    "upasaṅkama",
+    "adj",
+    "approaching; visiting; going near",
     "✔"
    ],
    [
@@ -69600,8 +69624,8 @@ var family_root_json = {
    [
     "durupasaṅkama",
     "adj",
-    "hard to approach",
-    "✘"
+    "hard to approach; difficult to visit",
+    "✔"
    ]
   ]
  },
@@ -79529,7 +79553,7 @@ var family_root_json = {
     "apajaha",
     "adj",
     "greedy; (or) proud; lit. not giving up",
-    "✘"
+    "✔"
    ],
    [
     "apajahitatta",
@@ -93939,7 +93963,7 @@ var family_root_json = {
   "root_key": "√sad",
   "root_family": "pa √sad",
   "root_meaning": "sink, sit, settle",
-  "count": 58,
+  "count": 59,
   "data": [
    [
     "apāsādika",
@@ -94112,7 +94136,13 @@ var family_root_json = {
    [
     "pasādita 2",
     "pp",
-    "gladdened, purified, made faithful, converted",
+    "gladdened; cheered; heartened; inspired; lit. caused to settle forward",
+    "✔"
+   ],
+   [
+    "pasādita 3",
+    "pp",
+    "made faithful, converted",
     "✘"
    ],
    [
@@ -97714,8 +97744,8 @@ var family_root_json = {
    [
     "appaṭigha 2",
     "adj",
-    "not resisting, not reacting, not producing reaction",
-    "✘"
+    "(abhidhamma) not impinging; not producing a sensory reaction",
+    "✔"
    ],
    [
     "appaṭigha 3",
@@ -107065,7 +107095,7 @@ var family_root_json = {
   "root_key": "√buh",
   "root_family": "ā √buh",
   "root_meaning": "pluck out, uproot",
-  "count": 22,
+  "count": 21,
   "data": [
    [
     "abbahati",
@@ -107090,12 +107120,6 @@ var family_root_json = {
     "abs",
     "having pulled out; having plucked out; having extracted; having uprooted",
     "✔"
-   ],
-   [
-    "abbahe",
-    "opt",
-    "should pull out; could pluck out; should extract",
-    "✘"
    ],
    [
     "abbaheti",
@@ -139139,7 +139163,7 @@ var family_root_json = {
     "avicikicchā",
     "fem",
     "absence of doubt; certainty",
-    "✘"
+    "◑"
    ],
    [
     "avicikicchī",
@@ -140777,7 +140801,7 @@ var family_root_json = {
   "root_key": "√vid 1",
   "root_family": "√vid",
   "root_meaning": "know, sense, feel",
-  "count": 43,
+  "count": 44,
   "data": [
    [
     "avidita",
@@ -140952,6 +140976,12 @@ var family_root_json = {
     "ptp",
     "able to be felt; experienceable; lit. to be felt",
     "◑"
+   ],
+   [
+    "vediyaka",
+    "masc",
+    "name of a mountain; lit. to be felt",
+    "✔"
    ],
    [
     "vediyati",
@@ -152916,8 +152946,8 @@ var family_root_json = {
    [
     "asamapekkhita",
     "pp",
-    "uninvestigated; not considered; to which didn't pay attention",
-    "✘"
+    "uninvestigated; not considered; unattended to",
+    "✔"
    ],
    [
     "samapekkhati",
@@ -160181,9 +160211,9 @@ var family_root_json = {
    ],
    [
     "asekkha",
-    "masc",
-    "one who does not require any further training; an Arahant; one beyond training",
-    "✘"
+    "adj",
+    "who does not require any further training; beyond training",
+    "✔"
    ],
    [
     "asekha 1",
@@ -162211,9 +162241,9 @@ var family_root_json = {
    ],
    [
     "asesita",
-    "adj",
-    "having nothing left; without remainder; entire; whole all",
-    "✘"
+    "pp",
+    "with nothing left; without remainder; entire; whole; all",
+    "✔"
    ],
    [
     "asesetvā",
@@ -194583,7 +194613,7 @@ var family_root_json = {
     "pajjhāyita",
     "pp",
     "aflame; on fire; burning; blazing",
-    "◑"
+    "✔"
    ]
   ]
  },

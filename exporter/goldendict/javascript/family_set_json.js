@@ -649,6 +649,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "annā",
+    "prefix",
+    "-",
+    "✔"
+   ],
+   [
     "anva",
     "prefix",
     "-",
@@ -5071,7 +5077,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 817
+  "count": 818
  },
  "prefixes": {
   "data": [
@@ -5199,6 +5205,12 @@ var family_set_json = {
     "ante",
     "prefix",
     "inside; inner; within",
+    "✔"
+   ],
+   [
+    "annā",
+    "prefix",
+    "-",
     "✔"
    ],
    [
@@ -5490,7 +5502,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 69
+  "count": 70
  },
  "conjugational signs": {
   "data": [
@@ -11871,7 +11883,7 @@ var family_set_json = {
     "indasālaguhā",
     "fem",
     "name of a cave; lit. Inda's sal tree cave",
-    "◑"
+    "✔"
    ],
    [
     "isipatana",
@@ -30114,7 +30126,7 @@ var family_set_json = {
     "ambasaṇḍā",
     "fem",
     "name of a village; lit. mango grove",
-    "◑"
+    "✔"
    ],
    [
     "ayujjhā",
@@ -36534,6 +36546,65 @@ var family_set_json = {
   ],
   "count": 4
  },
+ "names of hells": {
+  "data": [
+   [
+    "avīci 2",
+    "fem",
+    "name of one of the great hells; lit. without waves; without an interval; uninterrupted",
+    "✔"
+   ],
+   [
+    "kukkulaniraya",
+    "masc",
+    "name of a hell; lit. hot coal hell",
+    "◑"
+   ],
+   [
+    "kukkuḷa 2",
+    "masc",
+    "name of hell; lit. hot ashes",
+    "◑"
+   ],
+   [
+    "chaphassāyatanika 1",
+    "masc",
+    "hell of the six sense fields; epithet of the great hell; lit. connected with the six sense fields",
+    "✔"
+   ],
+   [
+    "paccattavedaniya",
+    "masc",
+    "hell to be personally experienced; epithet of the great hell",
+    "✔"
+   ],
+   [
+    "mahāroruva",
+    "masc",
+    "name of a hell; lit. great intense howling",
+    "◑"
+   ],
+   [
+    "roruva",
+    "masc",
+    "name of a hell; lit. intense howling",
+    "✔"
+   ],
+   [
+    "saṅkusamāhata",
+    "masc",
+    "hell of the iron stakes being struck together; epithet of the great hell",
+    "✔"
+   ],
+   [
+    "sañjīva 1",
+    "masc",
+    "name of a hell where one cannot die; lit. revival",
+    "◑"
+   ]
+  ],
+  "count": 9
+ },
  "types of lightning": {
   "data": [
    [
@@ -37360,6 +37431,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "vediyaka",
+    "masc",
+    "name of a mountain; lit. to be felt",
+    "✔"
+   ],
+   [
     "vepulla 2",
     "masc",
     "name of a mountain near to Rājagaha; lit. massive",
@@ -37396,7 +37473,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 28
+  "count": 29
  },
  "seasons": {
   "data": [
@@ -38686,59 +38763,6 @@ var family_set_json = {
    ]
   ],
   "count": 1
- },
- "names of hells": {
-  "data": [
-   [
-    "kukkulaniraya",
-    "masc",
-    "name of a hell; lit. hot coal hell",
-    "◑"
-   ],
-   [
-    "kukkuḷa 2",
-    "masc",
-    "name of hell; lit. hot ashes",
-    "◑"
-   ],
-   [
-    "chaphassāyatanika 1",
-    "masc",
-    "hell of the six sense fields; epithet of the great hell; lit. connected with the six sense fields",
-    "✔"
-   ],
-   [
-    "paccattavedaniya",
-    "masc",
-    "hell to be personally experienced; epithet of the great hell",
-    "✔"
-   ],
-   [
-    "mahāroruva",
-    "masc",
-    "name of a hell; lit. great intense howling",
-    "◑"
-   ],
-   [
-    "roruva",
-    "masc",
-    "name of a hell; lit. intense howling",
-    "✔"
-   ],
-   [
-    "saṅkusamāhata",
-    "masc",
-    "hell of the iron stakes being struck together; epithet of the great hell",
-    "✔"
-   ],
-   [
-    "sañjīva 1",
-    "masc",
-    "name of a hell where one cannot die; lit. revival",
-    "◑"
-   ]
-  ],
-  "count": 8
  },
  "epithets of Sakka": {
   "data": [

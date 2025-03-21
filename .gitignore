@@ -12,14 +12,14 @@ anki_csvs/
 config.ini
 db/bold_definitions/bold_definitions.json
 db/bold_definitions/bold_definitions.tsv
-archive/deconstructor/assets/
-archive/deconstructor/do_output.zip
-archive/deconstructor/output_do_old.zip
-archive/deconstructor/output_do_old/
-archive/deconstructor/output_do.zip
-archive/deconstructor/output_do/
-archive/deconstructor/output/
-db/frequency/output/
+archive/db/deconstructor/assets/
+archive/db/deconstructor/do_output.zip
+archive/db/deconstructor/output_do_old.zip
+archive/db/deconstructor/output_do_old/
+archive/db/deconstructor/output_do.zip
+archive/db/deconstructor/output_do/
+archive/db/deconstructor/output/
+archive/db/frequency/output/
 db/sinhala/dpd sinhala 1.1.xlsx
 db/sinhala/dpd sinhala 1.2.xlsx
 definitions/

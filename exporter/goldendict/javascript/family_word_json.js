@@ -16055,8 +16055,8 @@ var family_word_json = {
    [
     "avīci 2",
     "fem",
-    "name of one of the great hells",
-    "✘"
+    "name of one of the great hells; lit. without waves; without an interval; uninterrupted",
+    "✔"
    ],
    [
     "vīci 1",
@@ -28520,7 +28520,7 @@ var family_word_json = {
     "pācīnato",
     "ind",
     "to the east (of); lit. from the east",
-    "◑"
+    "✔"
    ],
    [
     "pācīnā",
