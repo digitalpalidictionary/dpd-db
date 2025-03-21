@@ -1,4 +1,5 @@
 from contextlib import contextmanager
+import re
 
 import uvicorn
 from fastapi import FastAPI, Request
@@ -271,8 +272,10 @@ def db_search_bd(
     # highlight search_2
     if q2:
         for result in results:
-            result.commentary = result.commentary.replace(
-                q2, f"<span class='hi'>{q2}</span>"
+            result.commentary = re.sub(
+                f"({q2}?)",  # Add ? to make quantifiers non-greedy
+                r"<span class='hi'>\g<1></span>",
+                result.commentary,
             )
 
     history_list = update_history(q1, q2, option)
