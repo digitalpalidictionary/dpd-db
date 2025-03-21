@@ -3,10 +3,12 @@ import re
 import time
 
 import flet as ft
+import pyperclip
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools import goldendict_tools
+from tools.db_search_string import db_search_string
 from tools.pali_alphabet import pali_alphabet
 from tools.paths import ProjectPaths
 from tools.printer import p_red
@@ -19,7 +21,7 @@ class State:
 
 class Data:
     def __init__(self) -> None:
-        self.hyphenated_only: bool = False
+        self.hyphenated_only: bool = True
 
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
@@ -40,9 +42,7 @@ class Data:
         self.dirty_words: list[str] | None = None
         self.ids: set | None = None
 
-        self.spelling_chosen = None
-        self.spelling_other = None
-        self.spelling_clean = None
+        self.spelling_choice: str | None = None
 
     @property
     def exceptions(self) -> dict[str, str]:
@@ -77,8 +77,9 @@ class Data:
         with open(self.pth.add_hyphenations_dict, "w") as file:
             json.dump(self.hyphenations_dict, file, ensure_ascii=False, indent=2)
 
-    def update_hyphenations_dict(self, clean_word, dirty_word):
-        self.hyphenations_dict["exceptions"][clean_word] = dirty_word
+    def update_hyphenations_dict(self, choice):
+        self.spelling_choice = choice
+        self.hyphenations_dict["exceptions"][self.clean_word] = choice
         self.save_hyphenations_dict()
 
     def extract_clean_words(self):
@@ -138,6 +139,7 @@ class Data:
             if (
                 clean_word not in self.exceptions
                 and self.exceptions.get(clean_word, None) != dirty_word
+                and "-" in dirty_word
             ):
                 # add to or update variations_dict
                 if clean_word not in variations_dict:
@@ -165,6 +167,74 @@ class Data:
         else:
             return False
 
+    @property
+    def spelling_other(self):
+        spelling_other = [self.clean_word]
+        if self.dirty_words:
+            spelling_other.extend(self.dirty_words)
+        if self.spelling_choice in spelling_other:
+            spelling_other.remove(self.spelling_choice)
+        spelling_other = list(set(spelling_other))
+        return spelling_other
+
+    def replace_word_in_db(self) -> str:
+        """Replace all variations with the preferred hyphenation."""
+
+        if (
+            self.dirty_words
+            and len(self.dirty_words) == 1
+            and self.dirty_words[0] == self.spelling_choice
+        ):
+            return "nothing to replace"
+
+        replacement_count = 0
+        db_list = []
+        for replace_me in self.spelling_other:
+            db = (
+                self.db_session.query(DpdHeadword)
+                .filter(DpdHeadword.example_1.contains(replace_me))
+                .all()
+            )
+            db_list.extend(db)
+
+            db = (
+                self.db_session.query(DpdHeadword)
+                .filter(DpdHeadword.example_2.contains(replace_me))
+                .all()
+            )
+            db_list.extend(db)
+
+            db = (
+                self.db_session.query(DpdHeadword)
+                .filter(DpdHeadword.commentary.contains(replace_me))
+                .all()
+            )
+            db_list.extend(db)
+
+            for i in db_list:
+                for field, field_name in [
+                    (i.example_1, "example_1"),
+                    (i.example_2, "example_2"),
+                    (i.commentary, "commentary"),
+                ]:
+                    if replace_me in field:
+                        field_new = field.replace(replace_me, self.spelling_choice)
+
+                        setattr(i, field_name, field_new)
+                        replacement_count += 1
+
+        if replacement_count > 0:
+            self.db_session.commit()
+            return f"{replacement_count} replacement(s) made"
+
+        else:
+            if self.ids:
+                ids_str = db_search_string(self.ids)
+                pyperclip.copy(ids_str)
+            return (
+                "0 replacements made. ids copied to clipboard. try replacing manually"
+            )
+
 
 class Controller:
     def __init__(
@@ -185,10 +255,16 @@ class Controller:
 
     def handle_commit(self, choice):
         if self.data.clean_word in self.data.exceptions:
-            self.ui.update_message(f"updating {self.data.clean_word} : {choice}")
+            self.ui.update_message(f"updating {self.data.clean_word}")
         else:
-            self.ui.update_message(f"added {self.data.clean_word} : {choice}")
-        self.data.update_hyphenations_dict(self.data.clean_word, choice)
+            self.ui.update_message(f"added {self.data.clean_word}")
+        self.data.update_hyphenations_dict(choice)
+
+        message = self.data.replace_word_in_db()
+        self.ui.update_message(message)
+
+        time.sleep(2)
+
         self.handle_next_item()
 
     def handle_pass(self):
@@ -205,9 +281,11 @@ class Controller:
                 goldendict_tools.open_in_goldendict_os(self.data.clean_word)
         else:
             self.ui.update_message("no more data")
-            time.sleep(1)
+            time.sleep(2)
             self.ui.update_message("loading next set")
+            self.ui.clear_fields()
             self.data.decrease_max_length()
+            self.data.index = -1
             self.data.load_data()
             self.handle_next_item()
 
@@ -245,6 +323,7 @@ class Gui:
 
         self.commit_button = ft.TextButton("commit", on_click=self.clicked_commit)
         self.pass_button = ft.TextButton("pass", on_click=self.clicked_pass)
+        self.exit_button = ft.TextButton("exit", on_click=self.clicked_exit)
 
         self.layout = self.create_layout()
         self.right_panel.content = self.layout
@@ -257,9 +336,41 @@ class Gui:
                 ft.Row([self.label("clean word"), self.clean_word]),
                 ft.Row([self.label("dirty words"), self.dirty_words]),
                 ft.Row([self.label("choice"), self.choice_field]),
-                ft.Row([self.label(""), self.commit_button, self.pass_button]),
+                ft.Row(
+                    [
+                        self.label(""),
+                        self.commit_button,
+                        self.pass_button,
+                        self.exit_button,
+                    ]
+                ),
+                ft.Divider(),
+                ft.Row(
+                    [
+                        self.label(""),
+                        ft.Text("1. Process bold tags."),
+                    ]
+                ),
+                ft.Row(
+                    [
+                        self.label(""),
+                        ft.Text("2. What happens when db doesn't match exceptions?"),
+                    ]
+                ),
+                ft.Row(
+                    [
+                        self.label(""),
+                        ft.Text("3. Make dirty container self-adjustable."),
+                    ]
+                ),
             ]
         )
+
+    def clear_fields(self):
+        self.clean_word.value = ""
+        self.dirty_words.controls = []
+        self.choice_field.value = ""
+        self.page.update()
 
     # Handle keyboard
     def on_keyboard(self, e: ft.KeyboardEvent):
@@ -310,6 +421,9 @@ class Gui:
     def clicked_pass(self, e: ft.ControlEvent):
         print("pass clicked")
         self.control.handle_pass()
+
+    def clicked_exit(self, e: ft.ControlEvent):
+        self.control.state.is_complete = True
 
 
 def add_hyphenations(e: ft.ControlEvent, page: ft.Page, right_panel: ft.Container):
