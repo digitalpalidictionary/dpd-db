@@ -846,8 +846,8 @@ def display_summary(values, window, sg, pali_word_original2):
     window = sg.Window(
         "Summary",
         summary_layout,
-        location=(300, 0),
-        size=(850, 1000),
+        location=(100, 0),
+        size=(1100, 1000),
         finalize=True  # finalize the window
         )
 

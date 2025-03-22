@@ -135,8 +135,8 @@ def display_dps_summary(values, window, sg, original_values):
     window = sg.Window(
         "Summary",
         summary_layout,
-        location=(250, 0),
-        size=(900, 1000)
+        location=(100, 0),
+        size=(1100, 1000)
         )
 
     event, values = window.read(timeout=100)  # read the window for a short time

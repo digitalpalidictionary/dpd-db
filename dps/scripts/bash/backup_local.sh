@@ -33,7 +33,5 @@ echo "------ Local Backup Script Ended at $(date) ------"
 rm "$EXCLUDE_FILE"
 ```
 
-Now, the script will create a temporary file, write the exclude patterns to it, and pass the file path to the `--exclude-from` option. After the backup is completed, the temporary file will be removed.
-
 # export VISUAL=nano 
 # crontab -e 

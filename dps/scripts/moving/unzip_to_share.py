@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# unzip dpd-deconstructor and dpd-grammar from download folder to the share dir
+# unzip dpd-deconstructor and dpd-grammar and variants from download folder to the share dir
 from datetime import date
 from zipfile import ZipFile
 import os
@@ -37,13 +37,13 @@ if os.path.exists(dpd_goldendict_src):
         members = zipObj.namelist()
 
         # Filter the members to only include the folders we want
-        members_to_extract = [m for m in members if m.startswith('dpd-deconstructor/') or m.startswith('dpd-grammar/')]
+        members_to_extract = [m for m in members if m.startswith('dpd-deconstructor/') or m.startswith('dpd-grammar/') or m.startswith('dpd-variants/')]
 
         # Extract the filtered members
         zipObj.extractall(share_dir, members=members_to_extract)
 
     # Print completion message in green color
-    print("\033[1;32m gdict deconstructor and grammar has been unpacked to share folder \033[0m")
+    print("\033[1;32m gdict deconstructor and grammar and variants has been unpacked to share folder \033[0m")
 
 
 if os.path.exists(dpd_mdict_src):
@@ -58,7 +58,9 @@ if os.path.exists(dpd_mdict_src):
             'dpd-grammar-mdict.mdx',
             'dpd-grammar-mdict.mdd',
             'dpd-deconstructor-mdict.mdd',
-            'dpd-deconstructor-mdict.mdx'
+            'dpd-deconstructor-mdict.mdx',
+            'dpd-variants-mdict.mdx',
+            'dpd-variants-mdict.mdd',
         ]
         members_to_extract = [m for m in members if m in files_to_extract]
 
@@ -66,6 +68,6 @@ if os.path.exists(dpd_mdict_src):
         zipObj.extractall(share_dir, members=members_to_extract)
 
     # Print completion message in green color
-    print("\033[1;32m mdict deconstructor and grammar has been unpacked to share \033[0m")  
+    print("\033[1;32m mdict deconstructor and grammar and variants has been unpacked to share \033[0m")  
 
 

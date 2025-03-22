@@ -32,7 +32,7 @@ def get_openai_client():
 def load_openai_config():
     """Add a OpenAI key if one doesn't exist, or return the key if it does."""
 
-    if not config_test_option("apis", "key"):
+    if not config_test_option("apis", "openai"):
         openai_config = Prompt.ask("[yellow]Enter your openai key (or ENTER for None)")
         if openai_config:
             config_update("apis", "openai", openai_config)
