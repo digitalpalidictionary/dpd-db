@@ -18,6 +18,7 @@ from exporter.webapp.preloads import (
 )
 from exporter.webapp.tools import fuzzy_replace, make_dpd_html
 from tools.paths import ProjectPaths
+from tools.translit import auto_translit_to_roman
 
 app = FastAPI()
 app.add_middleware(GZipMiddleware, minimum_size=500)
@@ -97,8 +98,15 @@ def home_page_ru(request: Request, response_class=HTMLResponse):
 def db_search_html(request: Request, q: str):
     """Returns a JSON with HTML."""
 
+    q_roman = auto_translit_to_roman(q)
+
     dpd_html, summary_html = make_dpd_html(
-        q, pth, templates, roots_count_dict, headwords_clean_set, ascii_to_unicode_dict
+        q_roman,
+        pth,
+        templates,
+        roots_count_dict,
+        headwords_clean_set,
+        ascii_to_unicode_dict,
     )
     return templates.TemplateResponse(
         "home.html",
@@ -137,8 +145,15 @@ def db_search_html_ru(request: Request, q: str):
 def db_search_json(request: Request, q: str):
     """Main search route for website."""
 
+    q_roman = auto_translit_to_roman(q)
+
     dpd_html, summary_html = make_dpd_html(
-        q, pth, templates, roots_count_dict, headwords_clean_set, ascii_to_unicode_dict
+        q_roman,
+        pth,
+        templates,
+        roots_count_dict,
+        headwords_clean_set,
+        ascii_to_unicode_dict,
     )
     response_data = {"summary_html": summary_html, "dpd_html": dpd_html}
     headers = {"Accept-Encoding": "gzip"}
@@ -167,8 +182,10 @@ def db_search_json_ru(request: Request, q: str):
 def db_search_gd(request: Request, search: str):
     """Returns pure HTML for GoldenDict and MDict."""
 
+    search_roman = auto_translit_to_roman(search)
+
     dpd_html, summary_html = make_dpd_html(
-        search,
+        search_roman,
         pth,
         templates,
         roots_count_dict,
