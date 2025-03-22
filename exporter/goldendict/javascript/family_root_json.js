@@ -4247,7 +4247,7 @@ var family_root_json = {
     "kalya 1",
     "adj",
     "healthy; sound; fit; in good spirits",
-    "✘"
+    "✔"
    ],
    [
     "kalya 2",
@@ -15175,20 +15175,6 @@ var family_root_json = {
    ]
   ]
  },
- "√añc ati √añc": {
-  "root_key": "√añc",
-  "root_family": "ati √añc",
-  "root_meaning": "bend",
-  "count": 1,
-  "data": [
-   [
-    "accaṅkusa",
-    "adj",
-    "beyond the control of the goad",
-    "✘"
-   ]
-  ]
- },
  "√tar 1 ati √tar": {
   "root_key": "√tar 1",
   "root_family": "ati √tar",
@@ -19876,8 +19862,8 @@ var family_root_json = {
    [
     "jigiṃsāna",
     "prp",
-    "desiring; wanting",
-    "✘"
+    "desiring; wanting; craving",
+    "✔"
    ],
    [
     "jigiṃsi",
@@ -19918,8 +19904,8 @@ var family_root_json = {
    [
     "jigīsāna",
     "prp",
-    "desiring; wanting",
-    "✘"
+    "desiring; wanting; craving; lit. desiring to conquer",
+    "✔"
    ],
    [
     "jiyati 1.1",
@@ -46944,8 +46930,8 @@ var family_root_json = {
    [
     "osādeti 1",
     "pr",
-    "causes to sink; immerses; dumps",
-    "✘"
+    "dumps in water; immerses; lit. causes to sink down",
+    "✔"
    ],
    [
     "osādeti 2",
@@ -51905,7 +51891,7 @@ var family_root_json = {
   "root_key": "√vajj",
   "root_family": "ā √vajj",
   "root_meaning": "turn, avoid",
-  "count": 25,
+  "count": 24,
   "data": [
    [
     "anāvajjana",
@@ -51938,22 +51924,16 @@ var family_root_json = {
     "✘"
    ],
    [
-    "āvajjana 1",
+    "āvajjana",
     "nt",
-    "adverting consciousness; mind turning towards its object; lit. turning towards",
-    "◑"
-   ],
-   [
-    "āvajjana 2",
-    "nt",
-    "?? (Abhidhamma) paying attention; apprehending; adverting the mind (to); lit. turning to",
-    "✘"
+    "adverting; turning the mind towards an object; lit. turning towards",
+    "✔"
    ],
    [
     "āvajjanta",
     "prp",
     "reflecting upon; giving attention to; pondering over; thinking about; lit. turning to",
-    "✘"
+    "✔"
    ],
    [
     "āvajjayati 1",
@@ -53028,8 +53008,8 @@ var family_root_json = {
    [
     "āsevana",
     "nt",
-    "succession; repetition",
-    "✘"
+    "practising; applying oneself; lit. close association",
+    "✔"
    ],
    [
     "āsevanā",
@@ -66943,7 +66923,7 @@ var family_root_json = {
     "upaṭṭhapenta",
     "prp",
     "establishing; setting up; causing to attend; to be present",
-    "✘"
+    "✔"
    ],
    [
     "upaṭṭhapesi",
@@ -69260,8 +69240,8 @@ var family_root_json = {
    [
     "upavajja 2.1",
     "ptp",
-    "blameworthy; to be criticized",
-    "✘"
+    "blameworthy; to be criticized; lit. to be spoken near",
+    "✔"
    ],
    [
     "upavadati 1",
@@ -69302,8 +69282,8 @@ var family_root_json = {
    [
     "upavadiyamāna",
     "prp",
-    "being blamed; being admonished; being criticized",
-    "✘"
+    "being blamed; being admonished; being criticized; lit. being spoken near",
+    "✔"
    ],
    [
     "upavāda",
@@ -71010,8 +70990,8 @@ var family_root_json = {
    [
     "uppādī",
     "adj",
-    "having nature to arise; bound to arise",
-    "✘"
+    "having the nature to arise; bound to arise; lit. going up",
+    "✔"
    ],
    [
     "uppādetabba",
@@ -75140,8 +75120,8 @@ var family_root_json = {
    [
     "ogāhati",
     "pr",
-    "plunges or enters into, absorbs in",
-    "✘"
+    "plunges down (into); lit. plunges down",
+    "✔"
    ],
    [
     "ogāhana",
@@ -77178,8 +77158,8 @@ var family_root_json = {
    [
     "osaramāna",
     "prp",
-    "flowing down; entering",
-    "✘"
+    "flowing down; entering; lit. flowing down",
+    "✔"
    ],
    [
     "osari",
@@ -88310,8 +88290,8 @@ var family_root_json = {
    [
     "parinibbāpayati",
     "pr",
-    "(of fire) causes to be extinguished; makes (something) go out completely; causes (something) to cool down",
-    "✘"
+    "(of fire) extinguishes; puts out; lit. causes to completely blow away",
+    "✔"
    ],
    [
     "parinibbāpetar",
@@ -111462,14 +111442,14 @@ var family_root_json = {
    [
     "bhaddā 1",
     "fem",
-    "well-behaved woman",
-    "✘"
+    "lady; madam",
+    "✔"
    ],
    [
     "bhaddā 2",
     "fem",
-    "name of a female demigod",
-    "✘"
+    "name of a female demigod; lit. auspicious",
+    "✔"
    ],
    [
     "bhaddā 3",
@@ -124944,8 +124924,8 @@ var family_root_json = {
    [
     "yutta 5",
     "pp",
-    "having; possessed of; lit. yoked",
-    "◑"
+    "having; possessed of; endowed with; lit. yoked",
+    "✔"
    ],
    [
     "yutta 6",
@@ -132237,7 +132217,7 @@ var family_root_json = {
   "root_key": "√vaḍḍh",
   "root_family": "√vaḍḍh",
   "root_meaning": "grow, increase",
-  "count": 58,
+  "count": 59,
   "data": [
    [
     "avaḍḍhana",
@@ -132357,6 +132337,12 @@ var family_root_json = {
     "vaḍḍhana 3",
     "adj",
     "increasing; growing; proliferating",
+    "✔"
+   ],
+   [
+    "vaḍḍhana 4",
+    "adj",
+    "making grow; causing to increase; generating",
     "✔"
    ],
    [
@@ -141153,7 +141139,7 @@ var family_root_json = {
     "vijjhana",
     "nt",
     "piercing; penetrating; perforating",
-    "◑"
+    "✔"
    ],
    [
     "vijjhanta 1",
@@ -146617,7 +146603,7 @@ var family_root_json = {
     "avītikkama",
     "masc",
     "non transgression; non violation; non crime; lit. not going too far",
-    "✘"
+    "✔"
    ],
    [
     "avītikkamanta",
@@ -154092,8 +154078,8 @@ var family_root_json = {
    [
     "samuppādi",
     "aor",
-    "arose; grew up",
-    "✘"
+    "arose; appeared; occurred; lit. went up together",
+    "✔"
    ]
   ]
  },
@@ -163727,7 +163713,7 @@ var family_root_json = {
     "ahirīka",
     "adj",
     "shameless",
-    "✘"
+    "✔"
    ],
    [
     "hiri",
@@ -168005,13 +167991,13 @@ var family_root_json = {
     "āvisati 1",
     "pr",
     "enters; approaches; takes possession of",
-    "✘"
+    "✔"
    ],
    [
     "āvisati 2",
     "pr",
-    "is possessed by a spirit",
-    "✘"
+    "(of a spirit) possesses; takes possession",
+    "✔"
    ],
    [
     "āvisi 1",
@@ -170134,8 +170120,8 @@ var family_root_json = {
    [
     "uccāresi 1",
     "aor",
-    "lifted up; raised",
-    "✘"
+    "lifted up; raised; lit. caused to move up",
+    "✔"
    ],
    [
     "uccāresi 2",
@@ -170427,7 +170413,7 @@ var family_root_json = {
     "ujjavi",
     "aor",
     "went upstream",
-    "✘"
+    "✔"
    ]
   ]
  },
@@ -173060,8 +173046,8 @@ var family_root_json = {
    [
     "upanandhi",
     "aor",
-    "borne enmity towards; kept grudge",
-    "✘"
+    "bore a grudge; harboured enmity (towards); lit. wrapped near",
+    "✔"
    ]
   ]
  },
@@ -173394,8 +173380,8 @@ var family_root_json = {
    [
     "upanibandhitvā",
     "abs",
-    "having tied onto; having fastened (to)",
-    "✘"
+    "having tied; having fastened (someone onto something)",
+    "✔"
    ],
    [
     "upanibhandha 1",
@@ -176210,8 +176196,8 @@ var family_root_json = {
    [
     "ummihati",
     "pr",
-    "urinates",
-    "✘"
+    "urinates (onto)",
+    "✔"
    ],
    [
     "ummihi",
@@ -177084,8 +177070,8 @@ var family_root_json = {
    [
     "uhadati",
     "pr",
-    "defecates",
-    "✘"
+    "defecates (onto)",
+    "✔"
    ],
    [
     "ūhadati",
@@ -177620,14 +177606,14 @@ var family_root_json = {
    [
     "oṇojeti",
     "pr",
-    "gives as a present; dedicates",
-    "✘"
+    "gives as a present; dedicates; lit. causes to drive down",
+    "✔"
    ],
    [
     "oṇojesi",
     "aor",
-    "gave as a present; dedicated",
-    "✘"
+    "gave as a present; dedicated (something to someone); lit. caused to drive down",
+    "✔"
    ],
    [
     "onojana",
@@ -182232,8 +182218,8 @@ var family_root_json = {
    [
     "jighacchanta",
     "prp",
-    "being hungry",
-    "✘"
+    "hungry; wishing to eat; lit. wanting to eat",
+    "✔"
    ],
    [
     "jighacchā",
@@ -202311,7 +202297,7 @@ var family_root_json = {
     "palissajati",
     "pr",
     "embraces; hugs; holds",
-    "✘"
+    "✔"
    ]
   ]
  },
@@ -218896,10 +218882,10 @@ var family_root_json = {
     "✔"
    ],
    [
-    "saṃyūḷha",
+    "saṃyūḷha 1",
     "pp",
-    "formed into a mass",
-    "✘"
+    "(of a song) composed; lit. carried together",
+    "✔"
    ]
   ]
  },
@@ -228691,7 +228677,7 @@ var family_root_json = {
     "sedanta",
     "prp",
     "sweating; perspiring",
-    "✘"
+    "✔"
    ],
    [
     "sedita",

@@ -2280,13 +2280,19 @@ var family_word_json = {
     "✔"
    ],
    [
+    "aṅgīrasi",
+    "fem",
+    "shining woman; radiant being; lit. descendent of Aṅgiras",
+    "✔"
+   ],
+   [
     "aṅgīrasī",
     "adj",
     "shining; radiant",
     "✘"
    ]
   ],
-  "count": 4
+  "count": 5
  },
  "cira": {
   "data": [
@@ -2405,6 +2411,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "na ciraṃ",
+    "idiom",
+    "recently; soon; not after a long time",
+    "✔"
+   ],
+   [
     "nacira",
     "adj",
     "(of time) not long; soon; recent",
@@ -2435,7 +2447,7 @@ var family_word_json = {
     "◑"
    ]
   ],
-  "count": 24
+  "count": 25
  },
  "ati": {
   "data": [
@@ -22017,8 +22029,8 @@ var family_word_json = {
    [
     "kesara 1",
     "nt",
-    "hairy structures of flowers",
-    "✘"
+    "(of a flower) pistil; filament; lit. hairy",
+    "✔"
    ],
    [
     "kesara 2",
@@ -25749,8 +25761,8 @@ var family_word_json = {
    [
     "thana 2",
     "nt",
-    "breast of a woman",
-    "✘"
+    "(of a woman) breasts",
+    "✔"
    ],
    [
     "thanī",
@@ -33210,13 +33222,19 @@ var family_word_json = {
     "✔"
    ],
    [
+    "saṇhikaṃ",
+    "ind",
+    "softly; gently; carefully",
+    "✔"
+   ],
+   [
     "saṇhena",
     "ind",
     "smoothly; softly; gently; mildly",
     "✔"
    ]
   ],
-  "count": 6
+  "count": 7
  },
  "satta": {
   "data": [

@@ -9892,6 +9892,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "thana 2",
+    "nt",
+    "(of a woman) breasts",
+    "✔"
+   ],
+   [
     "dakkhiṇakkha",
     "nt",
     "right collarbone",
@@ -10240,7 +10246,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 135
+  "count": 136
  },
  "types of monastics": {
   "data": [
@@ -25314,6 +25320,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "bhaddā 2",
+    "fem",
+    "name of a female demigod; lit. auspicious",
+    "✔"
+   ],
+   [
     "bhujagī",
     "fem",
     "name of a female deity; attendant of king Vessavaṇa; lit. going by coils; female snake",
@@ -25974,7 +25986,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 225
+  "count": 226
  },
  "animals": {
   "data": [

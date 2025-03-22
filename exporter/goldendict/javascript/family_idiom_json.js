@@ -3990,7 +3990,7 @@ var family_idiom_json = {
   ]
  },
  "cira": {
-  "count": 5,
+  "count": 6,
   "data": [
    [
     "kīva cirena",
@@ -4002,6 +4002,12 @@ var family_idiom_json = {
     "cirasseva",
     "sandhi",
     "after a very long time",
+    "✔"
+   ],
+   [
+    "na ciraṃ",
+    "idiom",
+    "recently; soon; not after a long time",
     "✔"
    ],
    [
@@ -6373,7 +6379,7 @@ var family_idiom_json = {
   ]
  },
  "iti": {
-  "count": 75,
+  "count": 76,
   "data": [
    [
     "aññathāsmīti",
@@ -6487,6 +6493,12 @@ var family_idiom_json = {
     "iccevaṃ",
     "sandhi",
     "thus like this",
+    "✔"
+   ],
+   [
+    "iti attho",
+    "idiom",
+    "meaning thus; this is the meaning of this",
     "✔"
    ],
    [
@@ -6919,7 +6931,7 @@ var family_idiom_json = {
   ]
  },
  "attha1": {
-  "count": 38,
+  "count": 39,
   "data": [
    [
     "aññāṇatthampi",
@@ -6992,6 +7004,12 @@ var family_idiom_json = {
     "sandhi",
     "this is the meaning",
     "◑"
+   ],
+   [
+    "iti attho",
+    "idiom",
+    "meaning thus; this is the meaning of this",
+    "✔"
    ],
    [
     "uttamatthassa pattiyā",
@@ -9410,8 +9428,14 @@ var family_idiom_json = {
   ]
  },
  "na": {
-  "count": 4,
+  "count": 5,
   "data": [
+   [
+    "na ciraṃ",
+    "idiom",
+    "recently; soon; not after a long time",
+    "✔"
+   ],
    [
     "na bhattaṃ paṭibhāti",
     "idiom",
@@ -16632,7 +16656,7 @@ var family_idiom_json = {
     "piyāmesi",
     "sandhi",
     "you are dear to me",
-    "◑"
+    "✔"
    ]
   ]
  },
@@ -20021,7 +20045,7 @@ var family_idiom_json = {
     "piyāmesi",
     "sandhi",
     "you are dear to me",
-    "◑"
+    "✔"
    ],
    [
     "bālosi",
@@ -22307,7 +22331,7 @@ var family_idiom_json = {
     "piyāmesi",
     "sandhi",
     "you are dear to me",
-    "◑"
+    "✔"
    ],
    [
     "matthi 1",
@@ -23734,8 +23758,14 @@ var family_idiom_json = {
   ]
  },
  "eti": {
-  "count": 1,
+  "count": 2,
   "data": [
+   [
+    "etha tumhe",
+    "idiom",
+    "come you all!; come now!",
+    "✔"
+   ],
    [
     "ehi tvaṃ",
     "idiom",
@@ -23897,6 +23927,29 @@ var family_idiom_json = {
     "hesā 1",
     "sandhi",
     "truly this",
+    "✔"
+   ]
+  ]
+ },
+ "tumhe": {
+  "count": 3,
+  "data": [
+   [
+    "etha tumhe",
+    "idiom",
+    "come you all!; come now!",
+    "✔"
+   ],
+   [
+    "tumhepi",
+    "sandhi",
+    "even you all",
+    "✔"
+   ],
+   [
+    "mā kho tumhe eso ajesi",
+    "idiom",
+    "don't let this person defeat you",
     "✔"
    ]
   ]
@@ -27906,23 +27959,6 @@ var family_idiom_json = {
     "tumhākampi",
     "sandhi",
     "for you all too",
-    "✔"
-   ]
-  ]
- },
- "tumhe": {
-  "count": 2,
-  "data": [
-   [
-    "tumhepi",
-    "sandhi",
-    "even you all",
-    "✔"
-   ],
-   [
-    "mā kho tumhe eso ajesi",
-    "idiom",
-    "don't let this person defeat you",
     "✔"
    ]
   ]
