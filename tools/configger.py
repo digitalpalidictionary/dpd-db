@@ -18,7 +18,7 @@ DEFAULT_CONFIG = {
         "inflections": "yes",
         "transliterations": "yes",
         "freq_maps": "yes",
-        "db_rebuild": "no"
+        "db_rebuild": "no",
     },
     "deconstructor": {
         "use_premade": "no",
@@ -37,12 +37,9 @@ DEFAULT_CONFIG = {
         "element_padding_y": "0",
         "margin_x": "0",
         "margin_y": "0",
-        "include_sbs_examples": "no"
+        "include_sbs_examples": "no",
     },
-    "goldendict": {
-        "copy_unzip": "no",
-        "path": ""
-    },
+    "goldendict": {"copy_unzip": "no", "path": ""},
     "dictionary": {
         "make_mdict": "yes",
         "link_url": "https://www.thebuddhaswords.net/",
@@ -54,7 +51,7 @@ DEFAULT_CONFIG = {
         "show_ru_data": "no",
         "data_limit": "0",
     },
-    "exporter" : {
+    "exporter": {
         "language": "en",
         "make_dpd": "yes",
         "make_deconstructor": "no",
@@ -64,26 +61,15 @@ DEFAULT_CONFIG = {
         "make_ebook": "no",
         "make_tbw": "no",
         "make_pdf": "no",
+        "make_abbrev": "no",
         "tarball_db": "no",
         "summary": "no",
-        "update_simsapa_db": "no"
+        "update_simsapa_db": "no",
     },
-    "apis": {
-        "openai": "",
-        "deepseek": ""
-    },
-    "anki": {
-        "update": "no",
-        "db_path": "",
-        "backup_path": ""
-    },
-    "simsapa": {
-        "app_path": "",
-        "db_path": ""
-    },
-    "tpr": {
-        "db_path": ""
-    }
+    "apis": {"openai": "", "deepseek": ""},
+    "anki": {"update": "no", "db_path": "", "backup_path": ""},
+    "simsapa": {"app_path": "", "db_path": ""},
+    "tpr": {"db_path": ""},
 }
 
 
@@ -98,7 +84,9 @@ def config_initialize() -> None:
     config_write()
 
 
-def config_read(section: str, option: str, default_value: Optional[str]=None) -> str|None:
+def config_read(
+    section: str, option: str, default_value: Optional[str] = None
+) -> str | None:
     """Read config.ini. If error, return a specified default value"""
     try:
         return config.get(section, option)
@@ -131,7 +119,7 @@ def config_test(section: str, option: str, value) -> bool:
     else:
         print(f"[yellow]unknown config setting: [brightyellow]'{section}, {option}'")
         config_update_default_value(section, option)
-        return config.get(section, option, fallback='') == str(value)
+        return config.get(section, option, fallback="") == str(value)
 
 
 def config_update_default_value(section: str, option: str) -> None:
@@ -140,7 +128,9 @@ def config_update_default_value(section: str, option: str) -> None:
         default_value = DEFAULT_CONFIG[section].get(option)
         config_update(section, option, default_value)
     else:
-        print(f"[red]missing default value for option: [brightyellow]{section}, {option}")
+        print(
+            f"[red]missing default value for option: [brightyellow]{section}, {option}"
+        )
 
 
 def config_test_section(section):
@@ -149,6 +139,7 @@ def config_test_section(section):
         return True
     else:
         return False
+
 
 def config_test_option(section, option):
     """Test config.ini to see if a section, option exists."""

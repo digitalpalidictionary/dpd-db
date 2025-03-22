@@ -640,10 +640,15 @@ class ProjectPaths:
         self.user_dict_path = base_dir / "tools/user_dictionary.txt"
         self.uposatha_day_ini = base_dir / "tools/uposatha_day.ini"
 
-        # .. external
+        # .. website source
         self.bibliography_md_path = (
             base_dir / "../digitalpalidictionary-website-source/src/bibliography.md"
         )
+        self.abbreviations_md_path = (
+            base_dir / "../digitalpalidictionary-website-source/src/abbreviations.md"
+        )
+
+        # .. external
         self.old_dpd_full_path = base_dir / "../csvs/dpd-full.csv"
         self.old_roots_csv_path = base_dir / "../csvs/roots.csv"
         self.thanks_md_path = (

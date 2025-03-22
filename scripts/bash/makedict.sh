@@ -22,6 +22,8 @@ uv run exporter/tbw/tbw_exporter.py
 uv run exporter/pdf/pdf_exporter.py
 uv run exporter/variants/variants_exporter.py
 
+uv run scripts/build/docs_website_update_abbreviations.py
+
 uv run scripts/build/zip_goldendict_mdict.py
 uv run scripts/build/tarball_db.py
 uv run scripts/build/summary.py
