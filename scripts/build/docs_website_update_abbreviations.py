@@ -28,8 +28,8 @@ def make_abbreviations_md(pth: ProjectPaths):
     data.append("")
     data.append("There are two types of abbreviations: Grammatical and Textual.")
     data.append("## Grammatical Abbreviations")
-    data.append("|Abbreviation|Meaning|")
-    data.append("|:---|:---|")
+    data.append("|Abbreviation|Meaning|Explanation|")
+    data.append("|:---|:---|:---|")
 
     data_upper = []
     data_upper.append("## Textual Abbreviations")
@@ -40,7 +40,7 @@ def make_abbreviations_md(pth: ProjectPaths):
         if i.abbrev:
             # test for upper case letters, which are book titles
             if not re.findall(r"^[A-Z]", i.abbrev):
-                data.append(f"|{i['abbrev']}|{i['meaning']}|")
+                data.append(f"|{i.abbrev}|{i.meaning}|{i.explanation}|")
             else:
                 data_upper.append(f"|{i['abbrev']}|{i['meaning']}|{i['explanation']}|")
         else:
