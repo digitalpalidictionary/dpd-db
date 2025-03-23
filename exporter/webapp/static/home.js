@@ -41,11 +41,11 @@ function getQueryVariable(variable) {
     var vars = query.split('&');
 
     for (var i = 0; i < vars.length; i++) {
-      var pair = vars[i].split('=');
+        var pair = vars[i].split('=');
 
-      if (pair[0] === variable) {
-        return decodeURIComponent(pair[1].replace(/\+/g, '%20'));
-      }
+        if (pair[0] === variable) {
+            return decodeURIComponent(pair[1].replace(/\+/g, '%20'));
+        }
     }
 }
 
@@ -59,7 +59,7 @@ function loadToggleState(id) {
 }
 
 //// Page load
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const htmlElement = document.documentElement;
     language = htmlElement.lang || 'en';
     let startMessage;
@@ -142,8 +142,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 //// back button
 
-window.onpopstate = function(e) {
-    if (e.state !=null) {
+window.onpopstate = function (e) {
+    if (e.state != null) {
         searchBox.value = e.state.q;
         handleFormSubmit().then();
     }
@@ -151,22 +151,48 @@ window.onpopstate = function(e) {
 
 //// trigger title clear - go home
 
-titleClear.addEventListener("dblclick", function() {
-	dpdPane.innerHTML = ""; 
+titleClear.addEventListener("dblclick", function () {
+    dpdPane.innerHTML = "";
 });
 
-//// double click to search 
-
+// Original double-click functionality
 dpdPane.addEventListener("dblclick", processSelection);
 historyPane.addEventListener("dblclick", processSelection);
 
+// Add touch double-tap functionality
+let lastTap = 0;
+const doubleTapDelay = 300; // milliseconds between taps to count as double-tap
+
+dpdPane.addEventListener("touchend", handleTouchEnd);
+historyPane.addEventListener("touchend", handleTouchEnd);
+
+function handleTouchEnd(event) {
+    const currentTime = new Date().getTime();
+    const tapLength = currentTime - lastTap;
+
+    // Detect double-tap
+    if (tapLength < doubleTapDelay && tapLength > 0) {
+        // Prevent default behavior (like zooming)
+        event.preventDefault();
+
+        // Get the selection and process it
+        const selection = window.getSelection().toString();
+        if (selection.trim() !== "") {
+            searchBox.value = selection;
+            handleFormSubmit();
+        }
+    }
+
+    lastTap = currentTime;
+}
+
 function processSelection() {
-    var selection = window.getSelection().toString();
-    searchBox.value = selection;
+    const selection = window.getSelection().toString();
     if (selection.trim() !== "") {
+        searchBox.value = selection;
         handleFormSubmit();
     }
-};
+}
 
 //// font size ////
 
@@ -186,7 +212,7 @@ function saveFontSize() {
 
 function setFontSize() {
     document.body.style.fontSize = fontSize + "px"
-    fontSizeDisplay.innerHTML =`${fontSize}px`
+    fontSizeDisplay.innerHTML = `${fontSize}px`
 }
 
 fontSizeUp.addEventListener("click", increaseFontSize)
@@ -208,7 +234,7 @@ function decreaseFontSize() {
 function changeLanguage(lang) {
     // Get the current URL
     const currentUrl = window.location.href;
-    
+
     // Split the URL into parts
     const urlParts = currentUrl.split('/');
 
@@ -220,7 +246,7 @@ function changeLanguage(lang) {
 
     // If the language is "en", remove "/ru" if it exists
     if (lang === 'en') {
-      // Remove "ru" at the beginning of the path
+        // Remove "ru" at the beginning of the path
         path = path.replace(/^[a-z][a-z]\//, '');
     }
 
@@ -257,7 +283,7 @@ async function handleFormSubmit(event) {
                 searchUrl = '/ru/search_json';
             }
             const response = await fetch(`${searchUrl}?q=${encodeURIComponent(searchQuery)}`);
-            const data = await response.json(); 
+            const data = await response.json();
 
             //// add the summary_html
             if (data.summary_html.trim() != "") {
@@ -266,7 +292,7 @@ async function handleFormSubmit(event) {
                 } else {
                     summaryResults.innerHTML = "<h3>Сводка</h3>";
                 }
-                summaryResults.innerHTML += data.summary_html; 
+                summaryResults.innerHTML += data.summary_html;
                 summaryResults.innerHTML += "<hr>";
             } else {
                 summaryResults.innerHTML = "";
@@ -276,12 +302,12 @@ async function handleFormSubmit(event) {
             //// add dpd_html
             const dpdDiv = document.createElement("div");
             dpdDiv.innerHTML += data.dpd_html;
-            
+
             //// niggahita toggle
             if (niggahitaToggle.checked) {
                 niggahitaUp(dpdDiv);
             }
-    
+
             //// grammar button toggle
             if (grammarToggle.checked) {
                 const grammarButtons = dpdDiv.querySelectorAll('[name="grammar-button"]');
@@ -293,7 +319,7 @@ async function handleFormSubmit(event) {
                     div.classList.remove("hidden");
                 });
             };
-    
+
             //// example button toggle
             if (exampleToggle.checked) {
                 const exampleButtons = dpdDiv.querySelectorAll('[name="example-button"]');
@@ -323,7 +349,7 @@ async function handleFormSubmit(event) {
 
             //// sandhi button toggle
             showHideSandhi();
-            
+
             populateHistoryBody();
             dpdPane.focus();
             window.scrollTo({
@@ -343,7 +369,7 @@ async function handleFormSubmit(event) {
             // Update the URL with the search query
             let url = `/?q=${encodeURIComponent(searchQuery)}`;
             history.pushState({ q: searchQuery }, "", url);
-            
+
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -357,9 +383,9 @@ async function handleFormSubmit(event) {
 
 function applyUrlQuery() {
     const query = getQueryVariable('q');
-    if(!query) return;
+    if (!query) return;
     searchBox.value = query;
-    window.history.replaceState({'q': query}, '', '?q='+encodeURIComponent(query));
+    window.history.replaceState({ 'q': query }, '', '?q=' + encodeURIComponent(query));
     handleFormSubmit().then();
 }
 
@@ -377,7 +403,7 @@ function addToHistory(word) {
     }
     localStorage.setItem("history-list", JSON.stringify(historyList));
     if (getQueryVariable('q') !== word) {
-        window.history.pushState({'q': word}, '', '?q='+encodeURIComponent(word));
+        window.history.pushState({ 'q': word }, '', '?q=' + encodeURIComponent(word));
     }
     toggleClearHistoryButton()
 }
@@ -393,11 +419,11 @@ function populateHistoryBody() {
         listElement.appendChild(listItem);
     });
 
-    historyListPane.innerHTML = ""; 
+    historyListPane.innerHTML = "";
     historyListPane.appendChild(listElement);
 }
 
-document.getElementById("clear-history-button").addEventListener("click", function() {
+document.getElementById("clear-history-button").addEventListener("click", function () {
     localStorage.removeItem("history-list");
     document.getElementById("history-list").innerHTML = "";
     toggleClearHistoryButton()
@@ -453,7 +479,7 @@ function applySavedTheme() {
 
 //// toggle sans / serif
 
-sansSerifToggle.addEventListener("change", function() {
+sansSerifToggle.addEventListener("change", function () {
     swopSansSerif()
 });
 
@@ -470,7 +496,7 @@ function swopSansSerif() {
         searchButton.style.fontFamily = sansFonts
     }
 
-} 
+}
 
 
 //// niggahita
@@ -483,7 +509,7 @@ function niggahitaDown(element) {
     element.innerHTML = element.innerHTML.replace(/ṁ/g, "ṃ");
 }
 
-niggahitaToggle.addEventListener("change", function() {
+niggahitaToggle.addEventListener("change", function () {
     if (this.checked) {
         niggahitaUp(dpdPane);
         niggahitaUp(historyPane);
@@ -496,7 +522,7 @@ niggahitaToggle.addEventListener("change", function() {
 
 //// grammar button closed / open
 
-grammarToggle.addEventListener("change", function() {
+grammarToggle.addEventListener("change", function () {
     const grammarButtons = document.getElementsByName("grammar-button");
     const grammarDivs = document.getElementsByName("grammar-div");
     if (this.checked) {
@@ -518,7 +544,7 @@ grammarToggle.addEventListener("change", function() {
 
 //// examples button toggle
 
-exampleToggle.addEventListener("change", function() {
+exampleToggle.addEventListener("change", function () {
     const exampleButtons = document.getElementsByName("example-button");
     const exampleDivs = document.getElementsByName("example-div");
     if (this.checked) {
@@ -562,7 +588,7 @@ exampleToggle.addEventListener("change", function() {
 
 //// summary 
 
-summaryToggle.addEventListener("change", function() {
+summaryToggle.addEventListener("change", function () {
     showHideSummary()
 });
 
@@ -576,7 +602,7 @@ function showHideSummary() {
 
 //// sandhi ' toggle
 
-sandhiToggle.addEventListener("change", function() {
+sandhiToggle.addEventListener("change", function () {
     showHideSandhi()
 });
 
@@ -585,13 +611,13 @@ function showHideSandhi() {
         dpdResults.innerHTML = dpdResultsContent;
     } else {
         dpdResults.innerHTML = dpdResultsContent.replace(/'/g, "");
-        
+
     }
 }
 
 //// text to unicode
 
-searchBox.addEventListener("input", function() {
+searchBox.addEventListener("input", function () {
     let textInput = searchBox.value;
     let convertedText = uniCoder(textInput);
     searchBox.value = convertedText;
