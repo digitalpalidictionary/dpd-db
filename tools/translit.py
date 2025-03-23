@@ -1,32 +1,38 @@
 from aksharamukha import transliterate
 
 from tools.printer import p_counter, p_green_title
+from tools.pali_alphabet import pali_alphabet
 
 
 def auto_translit_to_roman(text: str) -> str:
-    try:
-        transliterated_text = transliterate.process(
-            "autodetect", "IASTPali", text, post_options=["AnusvaratoNasalASTISO"]
-        )
-        if transliterated_text:
-            transliterated_text = (
-                transliterated_text.replace("ï", "i")
-                .replace("ü", "u")
-                .replace("ĕ", "e")
-                .replace("ŏ", "o")
-            )
-            return transliterated_text
-        else:
-            return text
-    except Exception as e:
-        print(f"Error during Aksharamukha transliteration: {e}")
+    if text[0] in pali_alphabet:
         return text
+    else:
+        try:
+            transliterated_text = transliterate.process(
+                "autodetect", "IASTPali", text, post_options=["AnusvaratoNasalASTISO"]
+            )
+            if transliterated_text:
+                transliterated_text = (
+                    transliterated_text.replace("ï", "i")
+                    .replace("ü", "u")
+                    .replace("ĕ", "e")
+                    .replace("ŏ", "o")
+                    .replace("l̤", "ḷ")
+                )
+                return transliterated_text
+            else:
+                return text
+        except Exception as e:
+            print(f"Error during Aksharamukha transliteration: {e}")
+            return text
 
 
 def main():
     p_green_title("transliterating timer")
 
     test_list = [
+        ["māḷā"],
         ["dhamma", "धम्म", "ဓမ္မ", "ธมฺม", "ධම්ම"],
         ["buddha", "बुद्ध", "ဗုဒ္ဓ", "พุทฺธ", "බුද්ධ"],
         ["saṅgha", "सङ्घ", "သံဃ", "สงฺฆ", "සංඝ"],
