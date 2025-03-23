@@ -16,25 +16,22 @@ def make_abbreviations_md(pth: ProjectPaths):
     p_green("compiling to markdown table")
 
     abbreviations_tsv = read_tsv_dot_dict(pth.abbreviations_tsv_path)
-    data = []
+    data = [
+        "# Abbreviations",
+        "The easiest way to find any abbreviation in DPD is simply to __double-click__ on it!",
+        "But if you prefer the old fashioned method of looking things up in a table, here you go...",
+        "",
+        "There are two types of abbreviations: Grammatical and Textual.",
+        "## Grammatical Abbreviations",
+        "|Abbreviation|Meaning|Explanation|",
+        "|:---|:---|:---|",
+    ]
 
-    data.append("# Abbreviations")
-    data.append(
-        "The easiest way to find any abbreviation in DPD is simply to __double-click__ on it!"
-    )
-    data.append(
-        "But if you prefer the old fashioned method of looking things up in a table, here you go..."
-    )
-    data.append("")
-    data.append("There are two types of abbreviations: Grammatical and Textual.")
-    data.append("## Grammatical Abbreviations")
-    data.append("|Abbreviation|Meaning|Explanation|")
-    data.append("|:---|:---|:---|")
-
-    data_upper = []
-    data_upper.append("## Textual Abbreviations")
-    data_upper.append("|Abbreviation|Meaning|Info|")
-    data_upper.append("|:---|:---|:---|")
+    data_upper = [
+        "## Textual Abbreviations",
+        "|Abbreviation|Meaning|Info|",
+        "|:---|:---|:---|",
+    ]
 
     for i in abbreviations_tsv:
         if i.abbrev:
@@ -42,7 +39,7 @@ def make_abbreviations_md(pth: ProjectPaths):
             if not re.findall(r"^[A-Z]", i.abbrev):
                 data.append(f"|{i.abbrev}|{i.meaning}|{i.explanation}|")
             else:
-                data_upper.append(f"|{i['abbrev']}|{i['meaning']}|{i['explanation']}|")
+                data_upper.append(f"|{i.abbrev}|{i.meaning}|{i.explanation}|")
         else:
             print("huh", i)
 
