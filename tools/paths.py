@@ -603,11 +603,11 @@ class ProjectPaths:
         # temp
         self.temp_dir = base_dir / "temp/"
 
-        # db_tests/gui
+        # db_tests_gui
         self.add_antonyms_sync_dict = (
-            base_dir / "db_tests/gui/add_antonyms_sync_dict.json"
+            base_dir / "db_tests_gui/add_antonyms_sync_dict.json"
         )
-        self.add_hyphenations_dict = base_dir / "db_tests/gui/add_hyphenations.json"
+        self.add_hyphenations_dict = base_dir / "db_tests_gui/add_hyphenations.json"
 
         # db_tests/
         self.antonym_dict_path = base_dir / "db_tests/test_antonyms.json"
