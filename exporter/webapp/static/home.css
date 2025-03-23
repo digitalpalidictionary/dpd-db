@@ -179,6 +179,8 @@ a {
 }
 
 .tooltip {
+    right: .3rem;
+    top: 1.8rem;
     position: absolute;
     background-color: var(--colour2);
     border-radius: 7px;
@@ -188,7 +190,6 @@ a {
     text-align: left;
     visibility: hidden;
     z-index: 1;
-    opacity: 90%;
 }
 
 .help:hover .tooltip {
@@ -700,10 +701,6 @@ label {
         margin-right: auto;
     }
 
-    .help {
-        visibility: hidden;
-    }
-
     .main-pane {
         flex-direction: column;
         height: auto;
@@ -810,7 +807,8 @@ label {
     }
 
     /* Ensure text wraps in mobile mode */
-    .bd-tbody .bd-th, .bd-tbody .bd-td {
+    .bd-tbody .bd-th,
+    .bd-tbody .bd-td {
         white-space: normal;
         word-wrap: break-word;
         word-break: break-word;
