@@ -165,6 +165,8 @@ def update_column_for_some_criteria(source_value):
     count_added = 0
     count_sbs_patimokkha = 0
 
+    console.print(f"[bold bright_green]Total rows fit criteria sbs: {len(rows_to_update_sbs)} : ")
+
     for __word__ in rows_to_update_sbs:
         old_value = __word__.sbs.sbs_patimokkha
         if not old_value:
@@ -175,17 +177,20 @@ def update_column_for_some_criteria(source_value):
             # Check for "VIN1." in sbs_source fields
             for idx in range(1, 5):  # Assuming there are 4 positions
                 sbs_source_value = getattr(__word__.sbs, f"sbs_source_{idx}")
-                if sbs_source_value and re.search(r"VIN1", sbs_source_value):
+                if sbs_source_value and re.search(source_value, sbs_source_value):
                     # Copy values to pat fields
                     for field_prefix in ['source', 'sutta', 'example']:
                         sbs_value = getattr(__word__.sbs, f"sbs_{field_prefix}_{idx}")
                         setattr(__word__.sbs, f"vib_{field_prefix}", sbs_value)
                         print(f"{__word__.id} {sbs_value}")
+                    break
 
             count_changed_sbs += 1
         else:
-            console.print(f"[bold bright_yellow]{__word__.id} {__word__.lemma_1} {__word__.sbs.sbs_patimokkha}")
+            console.print(f"[bright_yellow] already {__word__.sbs.sbs_patimokkha} for {__word__.id} {__word__.lemma_1} ")
             count_sbs_patimokkha += 1
+
+    console.print(f"[bold bright_green]Total rows fit criteria: {len(rows_to_update)} : ")
 
     for __word__ in rows_to_update:
         if not __word__.sbs:
@@ -202,13 +207,13 @@ def update_column_for_some_criteria(source_value):
 
                 count_changed += 1
             else:
-                console.print(f"[bold bright_yellow]{__word__.id} {__word__.lemma_1} {__word__.sbs.sbs_patimokkha}")
+                console.print(f"[bright_yellow]already {__word__.sbs.sbs_patimokkha} for {__word__.id} {__word__.lemma_1} ")
                 count_sbs_patimokkha += 1
 
 
 
-    console.print(f"[bold bright_green]Total rows fit criteria sbs: {len(rows_to_update_sbs)}")
-    console.print(f"[bold bright_green]Total rows fit criteria: {len(rows_to_update)}")
+    
+    
     console.print(f"[bold bright_green]Total count of already has: {count_sbs_patimokkha}")
     console.print(f"[bold bright_green]Total count of changed: {count_changed}")
     console.print(f"[bold bright_green]Total count of changed sbs: {count_changed_sbs}")
@@ -231,4 +236,4 @@ value_to_update = "(грам) "
 
 # update_notes()
 
-update_column_for_some_criteria("VIN1.4.1.1")
+update_column_for_some_criteria("VIN1.4.1.2")
