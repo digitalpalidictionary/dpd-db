@@ -11,7 +11,7 @@ import re
 import flet as ft
 from icecream import ic
 from rich import print
-from sqlalchemy import func, or_
+from sqlalchemy import or_
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
@@ -44,6 +44,7 @@ class Controller:
         if self.data.index >= len(self.data.db_results):
             self.ui.update_message("end of results")
             self.ui.clear_fields()
+            self.data.index = 0
             return
 
         self.ui.update_message(
@@ -320,6 +321,7 @@ Data x UI
 
 Don' t use for loops, use index logic to increment through the data.
 Double check your increment logix!
+Don't forget to reset the index when starting the again. 
 
 Use split to make Flet TextSpans to highlight text.
 
