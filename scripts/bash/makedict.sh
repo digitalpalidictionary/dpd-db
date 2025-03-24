@@ -10,9 +10,9 @@ if [ ! -e "dpd.db" ]; then
     exit 1
 fi
 
-uv run scripts/bash/generate_components.sh
+# uv run scripts/bash/generate_components.sh
 
-uv run exporter/grammar_dict/grammar_dict.py
+# uv run exporter/grammar_dict/grammar_dict.py
 uv run exporter/goldendict/main.py
 uv run exporter/deconstructor/deconstructor_exporter.py
 

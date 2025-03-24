@@ -8187,8 +8187,8 @@ var family_word_json = {
    [
     "itthitta",
     "nt",
-    "female state; femininity; fact of being female",
-    "◑"
+    "female state; femininity; fact of being female; lit. woman state",
+    "✔"
    ],
    [
     "itthī 1",
@@ -12403,8 +12403,8 @@ var family_word_json = {
    [
     "puttatta",
     "nt",
-    "fact of being a child; state of being a son",
-    "◑"
+    "state of being a son; fact of being a son; lit. son state",
+    "✔"
    ],
    [
     "puttavant",
@@ -12784,8 +12784,8 @@ var family_word_json = {
    [
     "purisatta",
     "nt",
-    "male state; masculinity",
-    "◑"
+    "male state; fact of being male; lit. man state",
+    "✔"
    ],
    [
     "porisa 1",
@@ -14424,7 +14424,7 @@ var family_word_json = {
     "amhehi 5",
     "pron",
     "(royal plural) from me; lit. from us",
-    "◑"
+    "✔"
    ],
    [
     "asmā 2.1",
@@ -15754,6 +15754,12 @@ var family_word_json = {
     "◑"
    ],
    [
+    "kaṇṇavant",
+    "adj",
+    "with ears; lit. having ear quality",
+    "✔"
+   ],
+   [
     "kaṇṇika",
     "masc",
     "rabbit; hare; lit. having ears",
@@ -15784,7 +15790,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 16
+  "count": 17
  },
  "gaṇḍa": {
   "data": [

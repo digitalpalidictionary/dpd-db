@@ -6222,7 +6222,7 @@ var family_set_json = {
     "amhehi 5",
     "pron",
     "(royal plural) from me; lit. from us",
-    "◑"
+    "✔"
    ],
    [
     "ayaṃ",
@@ -12644,8 +12644,8 @@ var family_set_json = {
    [
     "salaḷāgāraka",
     "nt",
-    "name of Buddha's hut in Jetavana",
-    "◑"
+    "name of Buddha's hut in Jetavana; lit. frankincense hut",
+    "✔"
    ],
    [
     "sāranda",
@@ -14288,6 +14288,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "gopikā",
+    "fem",
+    "name of Sakyan lay disciple; lit. cowherd's wife",
+    "✔"
+   ],
+   [
     "ghaṭikāra",
     "masc",
     "name of a potter; lit. water jar maker",
@@ -15074,7 +15080,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 177
+  "count": 178
  },
  "family names": {
   "data": [
@@ -15147,7 +15153,7 @@ var family_set_json = {
    [
     "kosiya 2",
     "masc",
-    "family name of Sakka; lit. from a cocoon",
+    "family name of Sakka; epithet of Sakka; lit. from a cocoon",
     "✔"
    ],
    [
@@ -24906,6 +24912,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "gopaka 4",
+    "masc",
+    "names of a deity; lit. cowherd",
+    "✔"
+   ],
+   [
     "gopāla 2",
     "masc",
     "name of a spirit; lit. cow guard",
@@ -25329,6 +25341,18 @@ var family_set_json = {
     "bhujagī",
     "fem",
     "name of a female deity; attendant of king Vessavaṇa; lit. going by coils; female snake",
+    "✔"
+   ],
+   [
+    "bhuñjatī",
+    "fem",
+    "name of a female deity; attendant of king Vessavaṇa",
+    "✔"
+   ],
+   [
+    "bhūjati",
+    "fem",
+    "name of a female deity; attendant of king Vessavaṇa",
     "✔"
    ],
    [
@@ -25794,6 +25818,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "sikhaṇḍī 3",
+    "masc",
+    "name of Mātali's son",
+    "✔"
+   ],
+   [
     "siva 2",
     "masc",
     "name of a deity; Shiva; lit. auspicious",
@@ -25986,7 +26016,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 226
+  "count": 230
  },
  "animals": {
   "data": [
@@ -36851,6 +36881,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "devaputta",
+    "masc",
+    "young deity; minor god; lit. child of god",
+    "✔"
+   ],
+   [
     "nāga 2",
     "masc",
     "dragon; drake; supernatural shape-shifting serpent",
@@ -36881,6 +36917,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "brahmapurohita",
+    "adj",
+    "high priest of Brahma",
+    "✔"
+   ],
+   [
     "yakkha 1",
     "masc",
     "(either protective or malevolent) spirit; supernatural being; daemon",
@@ -36899,7 +36941,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 16
+  "count": 18
  },
  "seven treasures": {
   "data": [
@@ -38781,7 +38823,7 @@ var family_set_json = {
    [
     "kosiya 2",
     "masc",
-    "family name of Sakka; lit. from a cocoon",
+    "family name of Sakka; epithet of Sakka; lit. from a cocoon",
     "✔"
    ],
    [

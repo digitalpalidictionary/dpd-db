@@ -4359,7 +4359,7 @@ var family_root_json = {
   "root_key": "√kitt",
   "root_family": "√kitt",
   "root_meaning": "make known",
-  "count": 17,
+  "count": 19,
   "data": [
    [
     "akittayi",
@@ -4434,9 +4434,15 @@ var family_root_json = {
     "✔"
    ],
    [
-    "kitteti",
+    "kitteti 1",
     "pr",
-    "praises, extols, relates, announces",
+    "praises; speaks highly (of); sings the praises (of)",
+    "✔"
+   ],
+   [
+    "kitteti 2",
+    "pr",
+    "relates, announces",
     "✘"
    ],
    [
@@ -4452,9 +4458,15 @@ var family_root_json = {
     "✘"
    ],
    [
-    "kittesi",
+    "kittesi 1",
     "aor",
-    "praised, extolled, related, announced",
+    "praised; spoke highly (of); sang the praises (of)",
+    "✘"
+   ],
+   [
+    "kittesi 2",
+    "aor",
+    "related, announced",
     "✘"
    ],
    [
@@ -11571,7 +11583,7 @@ var family_root_json = {
   "root_key": "√gup 2",
   "root_family": "√gup",
   "root_meaning": "guard",
-  "count": 32,
+  "count": 33,
   "data": [
    [
     "agutta",
@@ -11658,6 +11670,12 @@ var family_root_json = {
     "✔"
    ],
    [
+    "gopaka 4",
+    "masc",
+    "names of a deity; lit. cowherd",
+    "✔"
+   ],
+   [
     "gopana",
     "nt",
     "guarding; protecting; preserving",
@@ -11684,8 +11702,8 @@ var family_root_json = {
    [
     "gopikā",
     "fem",
-    "name of Sakyan lay disciple",
-    "✘"
+    "name of Sakyan lay disciple; lit. cowherd's wife",
+    "✔"
    ],
    [
     "gopita",
@@ -21821,7 +21839,7 @@ var family_root_json = {
     "ajjhāvasi 3",
     "aor",
     "remained (in); continued (in)",
-    "◑"
+    "✔"
    ],
    [
     "ajjhāvasituṃ",
@@ -39359,7 +39377,7 @@ var family_root_json = {
   "root_key": "√nat",
   "root_family": "√nat",
   "root_meaning": "dance, act",
-  "count": 18,
+  "count": 19,
   "data": [
    [
     "anacci",
@@ -39414,6 +39432,12 @@ var family_root_json = {
     "prp",
     "performing as a dramatist",
     "✘"
+   ],
+   [
+    "naccamāna",
+    "prp",
+    "dancing",
+    "✔"
    ],
    [
     "naccayati",
@@ -44482,8 +44506,8 @@ var family_root_json = {
    [
     "abhivadita",
     "pp",
-    "saluted",
-    "✘"
+    "welcomed; greeted; saluted",
+    "✔"
    ],
    [
     "abhivaditabba",
@@ -44572,8 +44596,8 @@ var family_root_json = {
    [
     "abhivādesi",
     "aor",
-    "bowed down, saluted",
-    "✘"
+    "bowed down (to); paid high respect (to)",
+    "✔"
    ],
    [
     "nabhivadati",
@@ -46344,7 +46368,7 @@ var family_root_json = {
    [
     "avacchidda",
     "pp",
-    "perforated; fissured; lit. cut down",
+    "with holes below; with cracks underneath; lit. cut down",
     "✔"
    ],
    [
@@ -50439,7 +50463,7 @@ var family_root_json = {
     "āyuhi",
     "aor",
     "accumulated; learned",
-    "◑"
+    "✔"
    ],
    [
     "āyūhaka",
@@ -81780,7 +81804,7 @@ var family_root_json = {
    [
     "paṭhamataraṃ",
     "ind",
-    "very first of all; firstly",
+    "very first of all; firstly; before",
     "✔"
    ],
    [
@@ -91079,7 +91103,7 @@ var family_root_json = {
   "root_key": "√vas 1",
   "root_family": "pari √vas",
   "root_meaning": "live",
-  "count": 15,
+  "count": 17,
   "data": [
    [
     "aparivasitvā",
@@ -91118,10 +91142,16 @@ var family_root_json = {
     "◑"
    ],
    [
-    "parivasi",
+    "parivasi 1",
     "aor",
     "lived under probation",
     "✘"
+   ],
+   [
+    "parivasi 2",
+    "aor",
+    "lived",
+    "✔"
    ],
    [
     "parivasitabba",
@@ -91157,6 +91187,12 @@ var family_root_json = {
     "parivuttha",
     "pp",
     "(of probation) lived under; served",
+    "✔"
+   ],
+   [
+    "parivuttha 2",
+    "pp",
+    "lived (through)",
     "✔"
    ],
    [
@@ -109978,8 +110014,8 @@ var family_root_json = {
    [
     "byāvaṭa 1",
     "pp",
-    "engaged (with); occupied (with); employed (with); busy (with); lit. actively involved",
-    "◑"
+    "engaged; occupied; employed; busy (with); lit. actively involved",
+    "✔"
    ],
    [
     "byāvaṭa 2",
@@ -110267,7 +110303,7 @@ var family_root_json = {
   "root_key": "√brah",
   "root_family": "√brah",
   "root_meaning": "increase",
-  "count": 34,
+  "count": 35,
   "data": [
    [
     "abrahma",
@@ -110316,6 +110352,12 @@ var family_root_json = {
     "masc",
     "no Brahman is not",
     "◑"
+   ],
+   [
+    "braha",
+    "adj",
+    "big; huge; large; enormous",
+    "✔"
    ],
    [
     "brahanta",
@@ -118671,7 +118713,7 @@ var family_root_json = {
   "root_key": "√bhuj 1",
   "root_family": "√bhuj",
   "root_meaning": "use, eat, enjoy",
-  "count": 112,
+  "count": 111,
   "data": [
    [
     "abhuñjanta",
@@ -118864,12 +118906,6 @@ var family_root_json = {
     "pr",
     "(of sensual pleasures) uses; enjoys; partakes (of); indulges (in)",
     "✔"
-   ],
-   [
-    "bhuñjatī",
-    "fem",
-    "name of a female deity; attendant of king Vessavaṇa",
-    "✘"
    ],
    [
     "bhuñjana",
@@ -141109,7 +141145,7 @@ var family_root_json = {
   "root_key": "√vidh",
   "root_family": "√vidh",
   "root_meaning": "throw, pierce",
-  "count": 23,
+  "count": 24,
   "data": [
    [
     "aviddha",
@@ -141163,6 +141199,12 @@ var family_root_json = {
     "vijjhi",
     "aor",
     "pierced; shot",
+    "✔"
+   ],
+   [
+    "vijjhitabba",
+    "ptp",
+    "should be pierced; should be penetrated; lit. to be pierced",
     "✔"
    ],
    [
@@ -154578,8 +154620,8 @@ var family_root_json = {
    [
     "samapādi",
     "aor",
-    "became",
-    "✘"
+    "became; lit. caused to go together",
+    "✔"
    ],
    [
     "sampajjati 1",
@@ -159053,7 +159095,7 @@ var family_root_json = {
   "root_key": "√dhar 1",
   "root_family": "ā √dhar",
   "root_meaning": "hold, carry, endure",
-  "count": 3,
+  "count": 4,
   "data": [
    [
     "asādhāraṇa 1",
@@ -159071,6 +159113,12 @@ var family_root_json = {
     "sādhāraṇa",
     "adj",
     "in common; communal; mutual; same; shared (by); lit. with supporting",
+    "✔"
+   ],
+   [
+    "sādhāraṇa 2",
+    "nt",
+    "something in common; something shared; lit. with supporting",
     "✔"
    ]
   ]
@@ -172940,8 +172988,8 @@ var family_root_json = {
    [
     "upanaccanta",
     "prp",
-    "dancing; dancing before",
-    "✘"
+    "dancing; partying",
+    "✔"
    ]
   ]
  },
@@ -180076,7 +180124,7 @@ var family_root_json = {
    [
     "kosiya 2",
     "masc",
-    "family name of Sakka; lit. from a cocoon",
+    "family name of Sakka; epithet of Sakka; lit. from a cocoon",
     "✔"
    ],
    [
@@ -188703,7 +188751,7 @@ var family_root_json = {
   "root_key": "√ji 1",
   "root_family": "ni √ji",
   "root_meaning": "conquer",
-  "count": 11,
+  "count": 12,
   "data": [
    [
     "nijigiṃsati",
@@ -188740,6 +188788,12 @@ var family_root_json = {
     "fem",
     "desire; wish",
     "✘"
+   ],
+   [
+    "nijigīsati",
+    "pr",
+    "desires; seeks; wants to get",
+    "✔"
    ],
    [
     "nijigīsanaka",
@@ -195042,8 +195096,8 @@ var family_root_json = {
    [
     "paṭicodita",
     "pp",
-    "blamed in return, reproved",
-    "✘"
+    "blamed; accused; reprehended",
+    "✔"
    ],
    [
     "paṭicodeti 1",
@@ -195066,8 +195120,8 @@ var family_root_json = {
    [
     "paṭicodesi",
     "aor",
-    "blamed in return, reproved",
-    "✘"
+    "blamed; accused",
+    "✔"
    ]
   ]
  },
@@ -196882,8 +196936,8 @@ var family_root_json = {
    [
     "paṭisammodati",
     "pr",
-    "talks to in a friendly manner; exchanges greetings",
-    "✘"
+    "responds in return (to); communicates back (with)",
+    "✔"
    ],
    [
     "paṭisammodamāna",
@@ -200075,12 +200129,18 @@ var family_root_json = {
   "root_key": "√jan",
   "root_family": "pari √jan",
   "root_meaning": "be born, produce",
-  "count": 1,
+  "count": 2,
   "data": [
    [
     "parijana",
     "masc",
     "followers; retinue; entourage; surrounding company; (comm) extended family; kin; lit. people around",
+    "✔"
+   ],
+   [
+    "saparijana",
+    "adj",
+    "together with one's followers; along with one's retinue; lit. with people around",
     "✔"
    ]
   ]
