@@ -63,7 +63,7 @@ DEFAULT_CONFIG = {
         "make_pdf": "no",
         "make_abbrev": "no",
         "tarball_db": "no",
-        "summary": "no",
+        "make_changelog": "no",
         "update_simsapa_db": "no",
     },
     "apis": {"openai": "", "deepseek": ""},

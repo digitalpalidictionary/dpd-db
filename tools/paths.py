@@ -144,7 +144,6 @@ class ProjectPaths:
         self.dpd_mobi_path = base_dir / "exporter/share/dpd-kindle.mobi"
         self.dpd_variants_goldendict_dir = base_dir / "exporter/share/dpd-variants/"
         self.share_dir = base_dir / "exporter/share"
-        self.summary_md_path = base_dir / "exporter/share/summary.md"
 
         # exporter/share/mdict
         self.dpd_deconstructor_mdd_path = (
@@ -646,6 +645,9 @@ class ProjectPaths:
         )
         self.abbreviations_md_path = (
             base_dir / "../digitalpalidictionary-website-source/src/abbreviations.md"
+        )
+        self.changelog_md_path = (
+            base_dir / "../digitalpalidictionary-website-source/src/changelog.md"
         )
 
         # .. external

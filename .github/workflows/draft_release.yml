@@ -168,19 +168,6 @@ jobs:
 
     - name: Tarball DB
       run: uv run python scripts/build/tarball_db.py
-           
-    - name: Summary
-      run: uv run python scripts/build/summary.py
-    
-    # ----------------------------------------
-    # Upload Artifacts
-    # ----------------------------------------
-
-    - name: Upload Summary as Artifact
-      uses: actions/upload-artifact@v4
-      with:
-         name: summary.md
-         path: exporter/share/summary.md
 
     # ----------------------------------------
     # Create Draft Release
@@ -193,6 +180,11 @@ jobs:
     - name: Set Release Tag
       id: set_release_tag
       run: echo "RELEASE_TAG=$(uv run python scripts/build/version_print.py)" >> $GITHUB_ENV
+    
+    - name: Make Release Notes
+      run: |
+        echo "RELEASE_NOTES=$(uv run python tools/release_notes_and_changelog.py)" >> $GITHUB_ENV
+    
 
     - name: Create Draft Release
       id: create_release
@@ -203,17 +195,7 @@ jobs:
         tag_name: ${{ env.RELEASE_TAG }}
         release_name: ${{ env.RELEASE_DATE }}
         body: |
-          Digital Pāḷi Dictionary is a feature-rich Pāḷi dictionary which is available [online](https://www.dpdict.net/) and for StarDict, GoldenDict, MDict, DictTango, Kindle, Kobo, ePub and SQLite, or any application which supports these formats. It is also built into many popular [Pāḷi readers and websites](https://digitalpalidictionary.github.io/tpr.html).
-
-          It is a work in progress, made available for testing and feedback purposes.
-
-          More information about installation, setup and features can be found [on the DPD docs website](https://digitalpalidictionary.github.io/)
-
-          This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>
-
-          <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" src="https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png" width="117" height="41" ></a><br />
-
-          **Change-log**:
+          ${{ env.RELEASE_NOTES }}
 
         draft: true
         prerelease: false
@@ -281,4 +263,3 @@ jobs:
         asset_path: exporter/share/dicthtml-pi-en.zip
         asset_name: dpd-kobo.zip
         asset_content_type: application/zip
-

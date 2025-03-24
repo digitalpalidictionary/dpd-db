@@ -4,6 +4,7 @@ from datetime import date
 from rich import print
 
 from tools.paths import ProjectPaths
+from tools.printer import p_green, p_yes
 
 """Dictionary releases are on full moon uposatha days.
 Modules for testing whether today is an uposatha day and
@@ -28,7 +29,6 @@ def uposatha_today():
         date(2023, 10, 29),
         date(2023, 11, 27),
         date(2023, 12, 27),
-        
         date(2024, 1, 26),
         date(2024, 2, 24),
         date(2024, 3, 24),
@@ -41,7 +41,6 @@ def uposatha_today():
         date(2024, 10, 17),
         date(2024, 11, 15),
         date(2024, 12, 15),
-        
         date(2025, 1, 13),
         date(2025, 2, 12),
         date(2025, 3, 14),
@@ -60,7 +59,7 @@ def uposatha_today():
         for i in range(len(uposathas) - 1):
             diff = uposathas[i + 1] - uposathas[i]
             print(
-                f"The difference between {uposathas[i]} and {uposathas[i+1]} is {diff.days} days."
+                f"The difference between {uposathas[i]} and {uposathas[i + 1]} is {diff.days} days."
             )
 
     # print_diff()
@@ -74,12 +73,14 @@ def uposatha_today():
 def write_uposatha_count(new_value: int):
     """Save the DpdHeadword count on uposatha day."""
 
+    p_green("updating uposatha count")
     pth = ProjectPaths()
     config = configparser.ConfigParser()
     config.read(pth.uposatha_day_ini)
     config.set("uposatha", "count", str(new_value))
     with open(pth.uposatha_day_ini, "w") as f:
         config.write(f)
+    p_yes(new_value)
 
 
 def read_uposatha_count():
