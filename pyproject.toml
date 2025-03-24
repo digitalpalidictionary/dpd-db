@@ -47,6 +47,7 @@ dependencies = [
     "httpcore>=1.0.7",
     "hatchling>=1.27.0",
     "ruff>=0.9.7",
+    "pygithub>=2.6.1",
 ]
 
 [dependency-groups]

@@ -11672,7 +11672,7 @@ var family_root_json = {
    [
     "gopaka 4",
     "masc",
-    "names of a deity; lit. cowherd",
+    "name of a deity; lit. cowherd",
     "✔"
    ],
    [
@@ -19087,7 +19087,7 @@ var family_root_json = {
   "root_key": "√ñā",
   "root_family": "√ñā",
   "root_meaning": "know",
-  "count": 112,
+  "count": 113,
   "data": [
    [
     "ajānaka 1",
@@ -19697,6 +19697,12 @@ var family_root_json = {
    ],
    [
     "ñāyati 2",
+    "pr",
+    "is known (as); is called; is referred to (as)",
+    "✔"
+   ],
+   [
+    "ñāyati 3",
     "pr",
     "(gram) is inferred; is understood",
     "◑"
@@ -20754,8 +20760,8 @@ var family_root_json = {
    [
     "jutīka",
     "adj",
-    "radiant; glorious; splendid",
-    "✘"
+    "radiant; glorious; splendid; lit. having shine",
+    "✔"
    ],
    [
     "jutīmant",
@@ -21231,7 +21237,7 @@ var family_root_json = {
     "ajjhagaṃsu",
     "aor",
     "they obtained; they achieved; they experienced; they realised",
-    "◑"
+    "✔"
    ],
    [
     "ajjhagā",
@@ -21759,7 +21765,7 @@ var family_root_json = {
     "ajjhalattha",
     "aor",
     "regained; got back",
-    "◑"
+    "✔"
    ]
   ]
  },
@@ -49021,7 +49027,7 @@ var family_root_json = {
     "āpādu",
     "aor",
     "they experienced",
-    "◑"
+    "✔"
    ],
    [
     "āpādetar 1",
@@ -52591,7 +52597,7 @@ var family_root_json = {
   "root_key": "√vas 1",
   "root_family": "ā √vas",
   "root_meaning": "live",
-  "count": 19,
+  "count": 20,
   "data": [
    [
     "anāvāsa",
@@ -52652,6 +52658,12 @@ var family_root_json = {
     "aor",
     "lived, resided, inhabited",
     "✘"
+   ],
+   [
+    "āvasi 2",
+    "aor",
+    "stayed; remained",
+    "✔"
    ],
    [
     "āvasita",
@@ -64084,7 +64096,7 @@ var family_root_json = {
    [
     "vaca 1",
     "adj",
-    "speech",
+    "speaking; of speech",
     "✘"
    ],
    [
@@ -67018,7 +67030,7 @@ var family_root_json = {
    [
     "upaṭṭhahi 2",
     "aor",
-    "provided (soembody with something); lit. stood near",
+    "provided (somebody with something); lit. stood near",
     "✔"
    ],
    [
@@ -67277,7 +67289,7 @@ var family_root_json = {
     "upaṭṭhāsi 2",
     "aor",
     "attended; served; waited on",
-    "✘"
+    "✔"
    ],
    [
     "upaṭṭhāsi 3",
@@ -70469,7 +70481,7 @@ var family_root_json = {
     "upāsamāna",
     "prp",
     "attending; serving; following; sitting at the feet (of); lit. sitting near",
-    "◑"
+    "✔"
    ],
    [
     "upāsikā",
@@ -113809,7 +113821,7 @@ var family_root_json = {
   "root_key": "√kam 1",
   "root_family": "abhi √kam",
   "root_meaning": "go",
-  "count": 17,
+  "count": 18,
   "data": [
    [
     "abhikkanta 1",
@@ -113890,7 +113902,13 @@ var family_root_json = {
     "✔"
    ],
    [
-    "abhikkami",
+    "abhikkami 1",
+    "aor",
+    "surpassed; exceeded",
+    "✔"
+   ],
+   [
+    "abhikkami 2",
     "aor",
     "proceeded",
     "✘"
@@ -134099,7 +134117,7 @@ var family_root_json = {
     "vasī 2.1",
     "adj",
     "living (in); staying (in); remaining (in)",
-    "◑"
+    "✔"
    ],
    [
     "vasīne",
@@ -139690,8 +139708,8 @@ var family_root_json = {
    [
     "vihīna",
     "pp",
-    "left, lost, decreased",
-    "✘"
+    "devoid (of); lacking (in)",
+    "✔"
    ]
   ]
  },
@@ -144182,8 +144200,8 @@ var family_root_json = {
    [
     "virājayitvā",
     "abs",
-    "having detached; having lost interest (in); having lost desire; having made indifferent (to); having become dispassionate",
-    "◑"
+    "having detached (from); having lost interest (in); having lost desire (for); having become indifferent (to); having become dispassionate (towards); lit. having caused to lose desire",
+    "✔"
    ],
    [
     "virājeti 1",
@@ -145802,8 +145820,8 @@ var family_root_json = {
    [
     "visesatā",
     "fem",
-    "distinction; particular state",
-    "◑"
+    "distinction; particular state; lit. distinction state",
+    "✔"
    ],
    [
     "visesato",
@@ -174282,7 +174300,7 @@ var family_root_json = {
    [
     "upavattana 1",
     "nt",
-    "names of a place outside Kusinārā; lit. being near",
+    "name of a place outside Kusinārā; lit. being near",
     "✔"
    ],
    [
@@ -174408,8 +174426,8 @@ var family_root_json = {
    [
     "upaviṭṭha",
     "pp",
-    "come near, sat down",
-    "✘"
+    "entered; sat down (in); lit. entered near",
+    "✔"
    ],
    [
     "upavisati",
@@ -174595,7 +174613,7 @@ var family_root_json = {
     "upasaṅgayha",
     "ger",
     "clasping; grabbing hold of; embracing; lit. holding near together",
-    "◑"
+    "✔"
    ]
   ]
  },

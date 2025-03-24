@@ -6054,7 +6054,7 @@ var family_word_json = {
    [
     "pāmokkhā",
     "masc",
-    "names of a group of deities; lit. facing forward",
+    "name of a group of deities; lit. facing forward",
     "✔"
    ],
    [
@@ -8441,8 +8441,8 @@ var family_word_json = {
    [
     "anānuloma",
     "adj",
-    "unsuitable",
-    "✘"
+    "unsuitable; inappropriate",
+    "✔"
    ],
    [
     "anuloma 1",
@@ -8794,7 +8794,7 @@ var family_word_json = {
     "puma 3",
     "adj",
     "male; masculine",
-    "◑"
+    "✔"
    ],
    [
     "puma 4",
@@ -30233,7 +30233,7 @@ var family_word_json = {
    [
     "macchā",
     "masc",
-    "names of a people; Macchas",
+    "name of a people; Macchas",
     "✔"
    ],
    [

@@ -1005,7 +1005,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ju	1	a	be fast	√jū	1, 9	be swift	ava √ju	jū	ava + javana, ava + javanikā
 √ju	1	a	be fast	√jū	1, 9	be swift	ā √ju	jū	ā + java
 √ju	1	a	be fast	√jū	1, 9	be swift	ud √ju	jū	ud + java, ud + javana, ud + javanikā
-√jut	1	*a	shine	√dyut	1	shine	√jut	dyut	adyotaka, jotika, jyotis, jyotiṣa, jyotsnā, dyuti, dyutimat, dyutimat +, dyotaka, dyotat, dyotate, dyotana, dyotayat, dyotayati, dyotayamāna, dyotayitvā, na + dyotakatva
+√jut	1	*a	shine	√dyut	1	shine	√jut	dyut	adyotaka, jotika, jyotis, jyotiṣa, jyotsnā, dyuti, dyuti +, dyutimat, dyutimat +, dyotaka, dyotat, dyotate, dyotana, dyotayat, dyotayati, dyotayamāna, dyotayitvā, na + dyotakatva
 √jut	1	a	shine	√dyut	1	shine	ud √jut	uddyut	uddyota
 √jut	1	*a	shine	√dyut	1	shine	pa √jut	pradyut	pradyota, pradyota, pradīpa, pradyotaka
 √jut	1	*a	shine	√dyut	1	shine	vi √jut	vidyut	vidyut, vidyutā, vidyotana, vidyotamāna, vidyotayat, vidyotayati, sa + vidyut
@@ -2778,7 +2778,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √vis 1	1	a	enter	√viś	6	enter	abhi ni √vis	abhiniviś	abvhinirviśya, abhiniviṣṭa, abhiniviṣṭvā, abhiniveśa, abhiniveśayati, na + abhiniveśa, na + abhiniveśayati
 √vis 1	1	a	enter	√viś	6	enter	abhi saṃ √vis	abhisaṃviś	
 √vis 1	1	a	enter	√viś	6	enter	ā √vis	āviś	āvikṣat, āviśati, āviṣṭvā, āveśana
-√vis 1	1	a	enter	√viś	6	enter	upa √vis	upaviś	upaviśya
+√vis 1	1	a	enter	√viś	6	enter	upa √vis	upaviś	upaviśya, upaviṣṭa
 √vis 1	1	a	enter	√viś	6	enter	ni √vis	niviś	aniviṣṭa, aniveśana, dus + niviṣṭa, niviśate, niviśamāna, niviśya, niviṣṭa, niviṣṭa +, niveśa, niveśana, niveśayati, niveśayitavya, suniviṣṭa
 √vis 1	1	a	enter	√viś	6	enter	nī √vis	nirviś	anirvista, na + niviśat, nirveśa, nirveśamāna, niviśat
 √vis 1	1	*e	enter	√viś	6	enter	pa √vis	praviś	na + praveśayati, pra, praviśat, praviśati, praviśana, praviśamāna, praviśayitvā, praviśya, praviṣṭa, praviṣṭvā, pravekṣyati, praveśa, praveśana, praveśayat, praveśayati, praveśayitavya, praveśita, praveṣṭum, praveṣṭum (non-caus), praveśayitum (caus), praveṣṭṛ
@@ -3259,7 +3259,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √hā 1	1	a	abandon	√hā	3	leave	ava √hā	avahā	avahāya, avahītvā, avahīyate, avahīyamāṇa
 √hā 1	1	a	abandon	√hā	3	leave	ud √hā	uddhā	ud + ahāt, ahāsīt, ahāsi, ud + jahāti
 √hā 1	1	a	abandon	√hā	3	leave	pa √hā	prahā	+ prajahita, aprahāṇa, aprahāya, na +, na + prajahat, na + prajahana (bsk), na + prajahāti, na + prajahita, na + prajahita +, na + prahāya, na + prahīyamāṇa, pra, pra + hāpita, pra + hāyin, prajahat, prajahana (bsk), prajahāti, prajahita, prajahita +, prahāṇa, prahātavai, prahātum, prahāya, prahāyi, prahāsyati, prahītvā, prahīyate, prahīyamāṇa, prāhā, prāhāsi, su + prajahita, su + prahāya, hāsyati jahiṣyati
-√hā 1	1	a	abandon	√hā	3	leave	vi √hā	vihā	avijahana (bsk), na + vi + jahita +, na + vijahat, na + vijahita, na + hitvā, vi + ahāsīt, vi + hāyin, vijahat, vijahana (bsk), vijahāti, vijahita, vijahitavya, vijahitvā, vihāpayitvā, vihāya
+√hā 1	1	a	abandon	√hā	3	leave	vi √hā	vihā	avijahana (bsk), na + vi + jahita +, na + vijahat, na + vijahita, na + hitvā, vi + ahāsīt, vi + hāyin, vijahat, vijahana (bsk), vijahāti, vijahita, vijahitavya, vijahitvā, vihāpayitvā, vihāya, vihīna
 √hā 1	1	a	abandon	√hā	3	leave	vi pa √hā	viprahā	viprajahāti, viprahāṇa, viprahātum, viprahāya, viprahīṇa
 √hā 2	3	ya	decrease	√hā	1, 3	leave	√hā	hā	ahāpayitvā, ahrasīt, ahrāsīt, jahat, na + sa + hāna, na + hāna, na + hānīya, na + hāpayat, na + hīna, sa + hāna, hāna, hāni, hāpayati, hāpayitavya, hāpayitum, hāpayituṃ, hāpayitvā, hāpita, hāyate, hāyana, hāyana, hāyanī, hīna, hīnatara, hīyate, hīyamāṇa, hīyamāna
 √hā 2	3	ya	decrease	√hā	1, 3	leave	ati √hā	atihā	na + ati + hīna

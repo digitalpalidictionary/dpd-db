@@ -4716,7 +4716,7 @@ var family_idiom_json = {
     "svajja",
     "sandhi",
     "today he; now he",
-    "◑"
+    "✔"
    ],
    [
     "svājja",
@@ -9595,12 +9595,18 @@ var family_idiom_json = {
   ]
  },
  "karoti": {
-  "count": 44,
+  "count": 45,
   "data": [
    [
     "attānaṃ avacanīyaṃ karoti",
     "idiom",
     "makes oneself unadmonishable; lit. makes oneself not to be spoken to",
+    "✔"
+   ],
+   [
+    "antaṃ karoti",
+    "idiom",
+    "makes an end (of); finishes (with); puts (something) to rest; lit. makes end",
     "✔"
    ],
    [
@@ -14564,8 +14570,14 @@ var family_idiom_json = {
   ]
  },
  "anta": {
-  "count": 1,
+  "count": 2,
   "data": [
+   [
+    "antaṃ karoti",
+    "idiom",
+    "makes an end (of); finishes (with); puts (something) to rest; lit. makes end",
+    "✔"
+   ],
    [
     "esevanto",
     "sandhi",
@@ -31734,7 +31746,7 @@ var family_idiom_json = {
     "svajja",
     "sandhi",
     "today he; now he",
-    "◑"
+    "✔"
    ],
    [
     "svahaṃ",

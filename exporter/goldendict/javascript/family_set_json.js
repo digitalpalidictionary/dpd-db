@@ -2083,7 +2083,7 @@ var family_set_json = {
     "◑"
    ],
    [
-    "ñāyati 2",
+    "ñāyati 3",
     "pr",
     "(gram) is inferred; is understood",
     "◑"
@@ -11906,7 +11906,7 @@ var family_set_json = {
    [
     "upavattana 1",
     "nt",
-    "names of a place outside Kusinārā; lit. being near",
+    "name of a place outside Kusinārā; lit. being near",
     "✔"
    ],
    [
@@ -15141,7 +15141,7 @@ var family_set_json = {
    [
     "kesakambala 1",
     "masc",
-    "family names of an ascetic teacher; lit. (wearing a) hair blanket",
+    "family name of an ascetic teacher; lit. (wearing a) hair blanket",
     "✔"
    ],
    [
@@ -18786,7 +18786,7 @@ var family_set_json = {
    [
     "subhūtitthera",
     "masc",
-    "names of an arahant monk; lit. elder Wellbeing",
+    "name of an arahant monk; lit. elder Wellbeing",
     "✔"
    ],
    [
@@ -21485,7 +21485,7 @@ var family_set_json = {
    [
     "subhūtitthera",
     "masc",
-    "names of an arahant monk; lit. elder Wellbeing",
+    "name of an arahant monk; lit. elder Wellbeing",
     "✔"
    ],
    [
@@ -21880,7 +21880,7 @@ var family_set_json = {
    [
     "macchā",
     "masc",
-    "names of a people; Macchas",
+    "name of a people; Macchas",
     "✔"
    ],
    [
@@ -23884,7 +23884,7 @@ var family_set_json = {
    [
     "kukuṭṭhā",
     "fem",
-    "names of a river",
+    "name of a river",
     "✔"
    ],
    [
@@ -24261,7 +24261,7 @@ var family_set_json = {
    [
     "dārucīriya",
     "adj",
-    "family names of an ascetic; great disciple of the Buddha; foremost disciple in quick realization; Bāhiya Dārucīriya; lit. wearing wood fibre cloth; dressed in bark strips",
+    "family name of an ascetic; great disciple of the Buddha; foremost disciple in quick realization; Bāhiya Dārucīriya; lit. wearing wood fibre cloth; dressed in bark strips",
     "✔"
    ],
    [
@@ -24914,7 +24914,7 @@ var family_set_json = {
    [
     "gopaka 4",
     "masc",
-    "names of a deity; lit. cowherd",
+    "name of a deity; lit. cowherd",
     "✔"
    ],
    [
@@ -25262,7 +25262,7 @@ var family_set_json = {
    [
     "pāmokkhā",
     "masc",
-    "names of a group of deities; lit. facing forward",
+    "name of a group of deities; lit. facing forward",
     "✔"
    ],
    [
@@ -27131,7 +27131,7 @@ var family_set_json = {
    [
     "kesakambala 1",
     "masc",
-    "family names of an ascetic teacher; lit. (wearing a) hair blanket",
+    "family name of an ascetic teacher; lit. (wearing a) hair blanket",
     "✔"
    ],
    [
@@ -33601,7 +33601,7 @@ var family_set_json = {
    [
     "dārucīriya",
     "adj",
-    "family names of an ascetic; great disciple of the Buddha; foremost disciple in quick realization; Bāhiya Dārucīriya; lit. wearing wood fibre cloth; dressed in bark strips",
+    "family name of an ascetic; great disciple of the Buddha; foremost disciple in quick realization; Bāhiya Dārucīriya; lit. wearing wood fibre cloth; dressed in bark strips",
     "✔"
    ],
    [
