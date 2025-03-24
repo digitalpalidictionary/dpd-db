@@ -111,7 +111,7 @@ jobs:
       run: uv run python db/inflections/inflections_to_headwords.py
 
     - name: Lookup Variants and Spelling Mistakes 
-      run: uv run python db/lookup/variants_and_spelling_mistakes.py
+      run: uv run python db/lookup/spelling_mistakes.py
 
     - name: Lookup Transliterate
       run: uv run python db/lookup/transliterate_lookup_table.py
