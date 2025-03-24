@@ -3494,40 +3494,51 @@ tāvakāla + ika"					from kāla not from kālika		yes
 7280	notes	4 yaṭṭhi = 1 abbhantara; 28 hattha = 1 abbhantara; 4 abbhantara = 1 usabha					missing				
 7280	derived_from	antara					missing				
 7280	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	ekakulassa sattho hoti. satthe cīvaraṃ nikkhipitvā purato vā pacchato vā satt'<b>abbhantarā</b> na vijahitabbā, passato <b>abbhantaraṃ</b> na vijahitabbaṃ.	missing				
-44733	source_2	VIN1.4.1.2	sutta_2	udositasikkhāpadaṃ	example_2	ekakulassa sattho hoti. satthe cīvaraṃ nikkhipitvā purato vā pacchato vā sattabbhantarā na vijahitabbā, <b>passato</b> abbhantaraṃ na vijahitabbaṃ.	missing		
-5820	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	nānākulassa khettaṃ hoti parikkhittañ'ca. <b>antokhette</b> cīvaraṃ nikkhipitvā dvāramūle vā vatthabbaṃ, hatthapāsā vā na vijahitabbaṃ.	missing		
-5820	compound_type	kammadhāraya	compound_construction	anto + khetta			missing		
-5820	sanskrit	antar + kṣetra					missing		
-5809	family_compound	anta ārāma2					missing		
-5809	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	nānākulassa ārāmo hoti parikkhitto ca. <b>antoārāme</b> cīvaraṃ nikkhipitvā dvāramūle vā vatthabbaṃ, hatthapāsā vā na vijahitabbaṃ.	missing		
-5809	meaning_1	inner part of a monastery; within a monastery					missing		
-5809	grammar	masc, comp					missing		
-5809	compound_type	kammadhāraya	compound_construction	anto + ārāma			missing		
-5809	derived_from						missing		
-5809	construction	anto + ārāma					missing		
-5874	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	ekakulassa vihāro hoti parikkhitto ca. <b>antovihāre</b> cīvaraṃ nikkhipitvā <b>antovihāre</b> vatthabbaṃ.	missing		
-5874	compound_type	kammadhāraya	compound_construction	anto + vihāra			missing		
-5829	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	ekakulassa rukkhamūlaṃ hoti, yaṃ majjh'anhike kāle samantā chāyā pharati, <b>antochāyāya</b> cīvaraṃ nikkhipitvā <b>antochāyāya</b> vatthabbaṃ.	missing		
-5829	compound_type	kammadhāraya	compound_construction	anto + chāyā			missing		
-5829	sanskrit	antar + chāyā					missing		
-525	source_2	VIN1.4.1.2	sutta_2	udositasikkhāpadaṃ	example_2	ajjhokāso ek'ūpacāro nāma <b>agāmake</b> araññe samantā satt'abbhantarā ek'ūpacāro, tato paraṃ nān'ūpacāro.	missing		
-68510	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	vippavutthe <b>vippavutthasaññī</b> aññatra bhikkhusammutiyā, nissaggiyaṃ pācittiyaṃ.	missing		
-68510	compound_type	dutiyā tappurisa	compound_construction	vippavutth<b>aṃ</b> + saññī			missing		
-68510	sanskrit	vipravasita + saṃjñin					missing		
-10641	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	vippavutthe <b>avippavutthasaññī</b>, aññatra bhikkhusammutiyā, nissaggiyaṃ pācittiyaṃ.	missing		
-10641	compound_type	dutiyā tappurisa	compound_construction	avippavutth<b>aṃ</b> + saññī			missing		
-10641	antonym	vippavutthasaññī					missing		
-10641	neg	neg					missing		
-10641	sanskrit	na + vipravasita + saṃjñin					missing		
+44733	source_2	VIN1.4.1.2	sutta_2	udositasikkhāpadaṃ	example_2	ekakulassa sattho hoti. satthe cīvaraṃ nikkhipitvā purato vā pacchato vā sattabbhantarā na vijahitabbā, <b>passato</b> abbhantaraṃ na vijahitabbaṃ.	missing				
+5820	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	nānākulassa khettaṃ hoti parikkhittañ'ca. <b>antokhette</b> cīvaraṃ nikkhipitvā dvāramūle vā vatthabbaṃ, hatthapāsā vā na vijahitabbaṃ.	missing				
+5820	compound_type	kammadhāraya	compound_construction	anto + khetta			missing				
+5820	sanskrit	antar + kṣetra					missing				
+5809	family_compound	anta ārāma2					missing				
+5809	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	nānākulassa ārāmo hoti parikkhitto ca. <b>antoārāme</b> cīvaraṃ nikkhipitvā dvāramūle vā vatthabbaṃ, hatthapāsā vā na vijahitabbaṃ.	missing				
+5809	meaning_1	inner part of a monastery; within a monastery					missing				
+5809	grammar	masc, comp					missing				
+5809	compound_type	kammadhāraya	compound_construction	anto + ārāma			missing				
+5809	derived_from						missing				
+5809	construction	anto + ārāma					missing				
+5874	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	ekakulassa vihāro hoti parikkhitto ca. <b>antovihāre</b> cīvaraṃ nikkhipitvā <b>antovihāre</b> vatthabbaṃ.	missing				
+5874	compound_type	kammadhāraya	compound_construction	anto + vihāra			missing				
+5829	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	ekakulassa rukkhamūlaṃ hoti, yaṃ majjh'anhike kāle samantā chāyā pharati, <b>antochāyāya</b> cīvaraṃ nikkhipitvā <b>antochāyāya</b> vatthabbaṃ.	missing				
+5829	compound_type	kammadhāraya	compound_construction	anto + chāyā			missing				
+5829	sanskrit	antar + chāyā					missing				
+525	source_2	VIN1.4.1.2	sutta_2	udositasikkhāpadaṃ	example_2	ajjhokāso ek'ūpacāro nāma <b>agāmake</b> araññe samantā satt'abbhantarā ek'ūpacāro, tato paraṃ nān'ūpacāro.	missing				
+68510	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	vippavutthe <b>vippavutthasaññī</b> aññatra bhikkhusammutiyā, nissaggiyaṃ pācittiyaṃ.	missing				
+68510	compound_type	dutiyā tappurisa	compound_construction	vippavutth<b>aṃ</b> + saññī			missing				
+68510	sanskrit	vipravasita + saṃjñin					missing				
+10641	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	vippavutthe <b>avippavutthasaññī</b>, aññatra bhikkhusammutiyā, nissaggiyaṃ pācittiyaṃ.	missing				
+10641	compound_type	dutiyā tappurisa	compound_construction	avippavutth<b>aṃ</b> + saññī			missing				
+10641	antonym	vippavutthasaññī					missing				
+10641	neg	neg					missing				
+10641	sanskrit	na + vipravasita + saṃjñin					missing				
 10641	construction	"avippavuttha + saññī
-na + vippavutthasaññī"					missing		
-6783	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	<b>appaccuddhaṭe</b> paccuddhaṭasaññī, aññatra bhikkhusammutiyā, nissaggiyaṃ pācittiyaṃ.	missing		
-39512	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	appaccuddhaṭe <b>paccuddhaṭasaññī</b>, aññatra bhikkhusammutiyā, nissaggiyaṃ pācittiyaṃ.	missing		
-39512	compound_type	dutiyā tappurisa	compound_construction	paccuddhaṭ<b>aṃ</b> + saññī			missing		
-39512	sanskrit	pratyuddhṛta + saṃjñin					missing		
-10640	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	<b>avippavutthe</b> vematiko, āpatti dukkaṭassa. <b>avippavutthe</b> avippavutthasaññī, anāpatti.	missing		
-5807	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	anāpatti <b>antoaruṇe</b> paccuddharati, vissajjeti, nassati, vinassati, ḍayhati, acchinditvā gaṇhanti, vissāsaṃ gaṇhanti, bhikkhusammutiyā, ummattakassa, ādikammikassā'ti.	missing		
-5807	compound_type	kammadhāraya	compound_construction	anto + aruṇa			missing		
-5807	sanskrit	antar + aruṇa					missing		
-39513	source_2	VIN1.4.1.2	sutta_2	udositasikkhāpadaṃ	example_2	anāpatti antoaruṇe <b>paccuddharati</b>, vissajjeti, nassati, vinassati, ḍayhati, acchinditvā gaṇhanti, vissāsaṃ gaṇhanti, bhikkhusammutiyā, ummattakassa, ādikammikassā'ti.	missing		
-39511	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	appaccuddhaṭe <b>paccuddhaṭa</b>saññī, aññatra bhikkhusammutiyā, nissaggiyaṃ pācittiyaṃ.	missing		
+na + vippavutthasaññī"					missing				
+6783	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	<b>appaccuddhaṭe</b> paccuddhaṭasaññī, aññatra bhikkhusammutiyā, nissaggiyaṃ pācittiyaṃ.	missing				
+39512	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	appaccuddhaṭe <b>paccuddhaṭasaññī</b>, aññatra bhikkhusammutiyā, nissaggiyaṃ pācittiyaṃ.	missing				
+39512	compound_type	dutiyā tappurisa	compound_construction	paccuddhaṭ<b>aṃ</b> + saññī			missing				
+39512	sanskrit	pratyuddhṛta + saṃjñin					missing				
+10640	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	<b>avippavutthe</b> vematiko, āpatti dukkaṭassa. <b>avippavutthe</b> avippavutthasaññī, anāpatti.	missing				
+5807	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	anāpatti <b>antoaruṇe</b> paccuddharati, vissajjeti, nassati, vinassati, ḍayhati, acchinditvā gaṇhanti, vissāsaṃ gaṇhanti, bhikkhusammutiyā, ummattakassa, ādikammikassā'ti.	missing				
+5807	compound_type	kammadhāraya	compound_construction	anto + aruṇa			missing				
+5807	sanskrit	antar + aruṇa					missing				
+39513	source_2	VIN1.4.1.2	sutta_2	udositasikkhāpadaṃ	example_2	anāpatti antoaruṇe <b>paccuddharati</b>, vissajjeti, nassati, vinassati, ḍayhati, acchinditvā gaṇhanti, vissāsaṃ gaṇhanti, bhikkhusammutiyā, ummattakassa, ādikammikassā'ti.	missing				
+39511	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	appaccuddhaṭe <b>paccuddhaṭa</b>saññī, aññatra bhikkhusammutiyā, nissaggiyaṃ pācittiyaṃ.	missing				
+38258	lemma_2	nissaggiya pācittiya					change to idiom				
+38258	family_compound						change to idiom				
+38258	source_1	VIN PAT NP 1	sutta_1	kathinasikkhāpadaṃ	example_1	niṭṭhitacīvarasmiṃ bhikkhunā ubbhatasmiṃ kathine das'āhaparamaṃ atirekacīvaraṃ dhāretabbaṃ, taṃ atikkāmayato <b>nissaggiyaṃ pācittiyaṃ</b>.	change to idiom				
+38258	stem	-	pattern				change to idiom				
+38258	meaning_1	transgression requiring relinquishment and confession; offence of expiation involving forfeiture					change to idiom				
+38258	pos	idiom					change to idiom				
+38258	grammar	idiom, ptp + nt					change to idiom				
+38258	compound_type		compound_construction				change to idiom				
+38258	family_idioms	nissaggiya pācittiya					change to idiom				
+38258	lemma_1	nissaggiya pācittiya					change to idiom				
+38258	commentary	(VINa) <b>taṃ atikkāmayato nissaggiyaṃ pācittiya</b> nti ... tañ'ca cīvaraṃ nissaggiyaṃ hoti, pācittiy'āpatti c'assa hotī'ti attho ... nissajjitvā āpatti desetabbaṃ.					missing		
