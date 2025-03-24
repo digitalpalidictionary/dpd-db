@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 """
-zip DPD+RUS into one: 
-1. dpd foldter to dpd+rus-mdict.zip, 
+zip DPD+RUS into one:
+1. dpd foldter to dpd+rus-mdict.zip,
 2. dpd.mdx .mdd, into  dpd+rus-goldendict.zip
 """
 
@@ -17,11 +17,13 @@ def zip_goldendict(pth: ProjectPaths):
     """Zip up dpd folder"""
     p_green_title("zipping ru goldendict")
     bip()
-    
+
     if pth.dpd_goldendict_dir.exists():
         output_zip_file = os.path.join(pth.share_dir, "dpd+rus-goldendict.zip")
 
-        with ZipFile(output_zip_file, "w", compression=ZIP_DEFLATED, compresslevel=5) as output_zip:
+        with ZipFile(
+            output_zip_file, "w", compression=ZIP_DEFLATED, compresslevel=5
+        ) as output_zip:
             for root, dirs, files in os.walk(pth.dpd_goldendict_dir):
                 for file in files:
                     file_path = os.path.join(root, file)
@@ -49,15 +51,13 @@ def zip_mdict(pth: ProjectPaths):
     for file in mdict_files:
         if not file.exists():
             p_no("error")
-            p_red("mdict file found")
+            p_red("mdict file not found")
             return
-    
+
     output_mdict_zip = os.path.join(pth.share_dir, "dpd+rus-mdict.zip")
 
     with ZipFile(
-        output_mdict_zip, "w",
-        compression=ZIP_DEFLATED,
-        compresslevel=5
+        output_mdict_zip, "w", compression=ZIP_DEFLATED, compresslevel=5
     ) as mdict_zip:
         for mdict_file in mdict_files:
             file_content = mdict_file.read_bytes()

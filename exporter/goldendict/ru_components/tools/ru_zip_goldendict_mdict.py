@@ -15,7 +15,7 @@ def zip_goldendict(rupth: RuPaths):
     """Zip up the three dirs for goldendict"""
     p_green_title("zipping ru goldendict")
     bip()
-    
+
     if (
         rupth.dpd_goldendict_dir.exists()
         and rupth.grammar_dict_goldendict_dir.exists()
@@ -24,11 +24,14 @@ def zip_goldendict(rupth: RuPaths):
         input_dirs = [
             (rupth.dpd_goldendict_dir, "ru-dpd"),
             (rupth.grammar_dict_goldendict_dir, "ru-dpd-grammar"),
-            (rupth.deconstructor_goldendict_dir, "ru-dpd-deconstructor")]
+            (rupth.deconstructor_goldendict_dir, "ru-dpd-deconstructor"),
+        ]
 
         output_zip_file = rupth.dpd_goldendict_zip_path
 
-        with ZipFile(output_zip_file, "w", compression=ZIP_DEFLATED, compresslevel=5) as output_zip:
+        with ZipFile(
+            output_zip_file, "w", compression=ZIP_DEFLATED, compresslevel=5
+        ) as output_zip:
             for input_dir, dir_name in input_dirs:
                 for root, dirs, files in os.walk(input_dir):
                     for file in files:
@@ -57,21 +60,19 @@ def zip_mdict(rupth: RuPaths):
         rupth.deconstructor_mdx_path,
         rupth.deconstructor_mdd_path,
         rupth.grammar_dict_mdx_path,
-        rupth.grammar_dict_mdd_path
+        rupth.grammar_dict_mdd_path,
     ]
 
     for file in mdict_files:
         if not file.exists():
             p_no("error")
-            p_red("mdict file found")
+            p_red("mdict file not found")
             return
-    
+
     output_mdict_zip = rupth.dpd_mdict_zip_path
 
     with ZipFile(
-        output_mdict_zip, "w",
-        compression=ZIP_DEFLATED,
-        compresslevel=5
+        output_mdict_zip, "w", compression=ZIP_DEFLATED, compresslevel=5
     ) as mdict_zip:
         for mdict_file in mdict_files:
             file_content = mdict_file.read_bytes()

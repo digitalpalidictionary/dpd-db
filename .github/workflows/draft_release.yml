@@ -98,6 +98,9 @@ jobs:
     - name: Families to JSON
       run: uv run python scripts/build/families_to_json.py
 
+    - name: Extract Variants
+      run: uv run python db/variants/extract_variants_main.py
+
     - name: Run Deconstructor
       run: uv run python scripts/build/deconstructor_output_add_to_db.py
         
@@ -149,14 +152,14 @@ jobs:
     - name: Export Deconstructor
       run: uv run python exporter/deconstructor/deconstructor_exporter.py
 
-    - name: Export Variants
-      run: uv run python db/variants/extract_variants_main.py
-
     - name: Export Kindle & ePub
       run: uv run python exporter/kindle/kindle_exporter.py
 
     - name: Export Kobo
       run: uv run python exporter/kobo/kobo.py
+
+    - name: Export Variants
+      run: uv run exporter/variants/variants_exporter.py
     
     - name: Check disk space and memory
       run: |
