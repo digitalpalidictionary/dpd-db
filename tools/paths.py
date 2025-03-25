@@ -144,6 +144,8 @@ class ProjectPaths:
         self.dpd_mobi_path = base_dir / "exporter/share/dpd-kindle.mobi"
         self.dpd_variants_goldendict_dir = base_dir / "exporter/share/dpd-variants/"
         self.share_dir = base_dir / "exporter/share"
+        self.release_notes_md_path = base_dir / "exporter/share/release_notes.md"
+        self.change_log_md_path = base_dir / "exporter/share/change_log.md"
 
         # exporter/share/mdict
         self.dpd_deconstructor_mdd_path = (
@@ -640,13 +642,13 @@ class ProjectPaths:
         self.uposatha_day_ini = base_dir / "tools/uposatha_day.ini"
 
         # .. website source
-        self.bibliography_md_path = (
+        self.docs_bibliography_md_path = (
             base_dir / "../digitalpalidictionary-website-source/src/bibliography.md"
         )
-        self.abbreviations_md_path = (
+        self.docs_abbreviations_md_path = (
             base_dir / "../digitalpalidictionary-website-source/src/abbreviations.md"
         )
-        self.changelog_md_path = (
+        self.docs_changelog_md_path = (
             base_dir / "../digitalpalidictionary-website-source/src/changelog.md"
         )
 

@@ -55,7 +55,9 @@ class GlobalVars:
         self.line_5_cell_of_pali_data: str
         self.line_6_cells_of_root_data: str
         self.new_words: str
-        self.summary: str
+
+        self.release_notes: str
+        self.changelog: str
 
         p_yes("ok")
 
@@ -277,19 +279,27 @@ def make_website_changelog(g: GlobalVars) -> str:
 def update_website_changelog(g: GlobalVars) -> None:
     p_green("updating website changelog")
     try:
-        with open(g.pth.changelog_md_path, "r") as f:
+        with open(g.pth.docs_changelog_md_path, "r") as f:
             changelog_md: str = f.read()
 
         find_me: str = "# Changelog"
-        replace_me: str = f"# Changelog\n\n{make_website_changelog(g)}"
+        replace_me: str = f"# Changelog\n{g.changelog}\n"
         changelog_updated: str = changelog_md.replace(find_me, replace_me)
 
-        with open(g.pth.changelog_md_path, "w") as f:
+        with open(g.pth.docs_changelog_md_path, "w") as f:
             f.write(changelog_updated)
         p_yes("ok")
 
     except Exception as e:
         print(e)
+
+
+def write_to_file(g: GlobalVars) -> None:
+    with open(g.pth.release_notes_md_path, "w") as f:
+        f.write(g.release_notes)
+
+    with open(g.pth.change_log_md_path, "w") as f:
+        f.write(g.changelog)
 
 
 def main() -> str | None:
@@ -310,18 +320,20 @@ def main() -> str | None:
     get_new_words(g)
     get_github_issues_list(g)
 
-    changelog: str = make_website_changelog(g)
-    release_notes: str = make_release_notes(g)
+    g.changelog = make_website_changelog(g)
+    g.release_notes = make_release_notes(g)
 
     if uposatha_today():
         last_id: int = g.dpd_db[-1].id
         write_uposatha_count(last_id)
         update_website_changelog(g)
 
-    print(changelog)
+    write_to_file(g)
+
+    print(g.changelog)
     toc()
 
-    return release_notes
+    return g.release_notes
 
 
 if __name__ == "__main__":

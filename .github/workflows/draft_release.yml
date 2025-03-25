@@ -176,6 +176,9 @@ jobs:
     # Create Draft Release
     # ----------------------------------------
 
+    - name: Make Release Notes
+      run: uv run python tools/release_notes_and_changelog.py
+
     - name: Set Release Date
       id: set_release_date
       run: echo "RELEASE_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
@@ -184,11 +187,6 @@ jobs:
       id: set_release_tag
       run: echo "RELEASE_TAG=$(uv run python scripts/build/version_print.py)" >> $GITHUB_ENV
     
-    - name: Make Release Notes
-      run: |
-        echo "RELEASE_NOTES=$(uv run python tools/release_notes_and_changelog.py)" >> $GITHUB_ENV
-    
-
     - name: Create Draft Release
       id: create_release
       uses: actions/create-release@v1
@@ -197,8 +195,7 @@ jobs:
       with:
         tag_name: ${{ env.RELEASE_TAG }}
         release_name: ${{ env.RELEASE_DATE }}
-        body: |
-          ${{ env.RELEASE_NOTES }}
+        body_path: exporter/share/release_notes.md
 
         draft: true
         prerelease: false
