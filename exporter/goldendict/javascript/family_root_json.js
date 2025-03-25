@@ -38604,8 +38604,8 @@ var family_root_json = {
    [
     "adhivāsetuṃ",
     "inf",
-    "to endure; to tolerate; to bear",
-    "◑"
+    "to endure; to tolerate; to bear; lit. to cause to live through",
+    "✔"
    ],
    [
     "adhivāsetvā 1",
@@ -43998,8 +43998,8 @@ var family_root_json = {
    [
     "abhinivisati 1",
     "pr",
-    "clings to, adheres to insist upon (either rightly or wrongly)",
-    "✘"
+    "enters into deeply; adheres; attaches (to); insists (on); lit. completely enters down",
+    "✔"
    ],
    [
     "abhinivisati 2",
@@ -73439,7 +73439,7 @@ var family_root_json = {
     "anusayī",
     "adj",
     "latent; underlying; inherent; lit. lying alongside",
-    "◑"
+    "✔"
    ],
    [
     "anusāyika",
@@ -82388,8 +82388,8 @@ var family_root_json = {
    [
     "sasapatta",
     "adj",
-    "hostile; antagonistic",
-    "◑"
+    "hostile; antagonistic; with enmity",
+    "✔"
    ]
   ]
  },
@@ -146997,7 +146997,7 @@ var family_root_json = {
     "saverī",
     "adj",
     "with unfriendliness; with hostility; in opposition",
-    "◑"
+    "✔"
    ],
    [
     "suvīra",
@@ -156295,7 +156295,7 @@ var family_root_json = {
   "root_key": "√sī",
   "root_family": "√sī",
   "root_meaning": "lie, sleep",
-  "count": 40,
+  "count": 41,
   "data": [
    [
     "asayi",
@@ -156404,6 +156404,12 @@ var family_root_json = {
     "nt",
     "fact of being laid down; lit. laid down state",
     "◑"
+   ],
+   [
+    "sayituṃ",
+    "inf",
+    "to lie down",
+    "✔"
    ],
    [
     "sayitvā",
@@ -161779,12 +161785,18 @@ var family_root_json = {
   "root_key": "√sur",
   "root_family": "√sur",
   "root_meaning": "shine, be supreme",
-  "count": 17,
+  "count": 18,
   "data": [
    [
     "asura",
     "masc",
     "titan; anti-god; enemy of the devas; lit. anti-hero",
+    "✔"
+   ],
+   [
+    "asura 2",
+    "adj",
+    "of the titans; of the asuras; lit. anti-hero",
     "✔"
    ],
    [
@@ -179805,7 +179817,7 @@ var family_root_json = {
   "root_key": "√kīḷ",
   "root_family": "√kīḷ",
   "root_meaning": "play",
-  "count": 28,
+  "count": 29,
   "data": [
    [
     "kīḷaka 1",
@@ -179962,6 +179974,12 @@ var family_root_json = {
     "pr",
     "cares for, cherishes; treasures; is possessive of",
     "✘"
+   ],
+   [
+    "keḷāyita",
+    "pp",
+    "cared for; cherished; treasured",
+    "✔"
    ],
    [
     "keḷi",
@@ -223981,7 +223999,7 @@ var family_root_json = {
   "root_key": "√yūh",
   "root_family": "saṃ upa vi √yūh",
   "root_meaning": "carry, bring",
-  "count": 4,
+  "count": 3,
   "data": [
    [
     "samupabyūḷha 1",
@@ -223994,12 +224012,6 @@ var family_root_json = {
     "pp",
     "gathered together; amassed",
     "◑"
-   ],
-   [
-    "samūpabbuḷha",
-    "pp",
-    "engaged in battle; engaged in war",
-    "✘"
    ],
    [
     "samūpabyuḷha",

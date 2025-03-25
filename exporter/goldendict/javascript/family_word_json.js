@@ -19511,9 +19511,15 @@ var family_word_json = {
     "masc",
     "name of a deity",
     "◑"
+   ],
+   [
+    "ojā",
+    "fem",
+    "divine food",
+    "✔"
    ]
   ],
-  "count": 4
+  "count": 5
  },
  "oṭṭha": {
   "data": [

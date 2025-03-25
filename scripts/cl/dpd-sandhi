@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd ~/Code/dpd-db
-uv run python3 scripts/fix/sandhi_contraction_find_replace_gui.py
+uv run python3 gui2/sandhi_contraction_find_replace_gui.py
